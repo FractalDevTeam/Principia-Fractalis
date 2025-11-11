@@ -730,11 +730,11 @@ def D3(n):
 print("n\tD3(n)\tn%2\tD3(n)%2\tMatch?")
 for n in range(1, 21):
     d3 = D3(n)
-    match = "✓" if (n % 2 == d3 % 2) else "✗"
+    match = "YES" if (n % 2 == d3 % 2) else "NO"
     print(f"{n}\t{d3}\t{n%2}\t{d3%2}\t{match}")
 \end{lstlisting}
 
-\textbf{Output:} All 20 cases show ✓, confirming $n \equiv D_3(n) \pmod{2}$.
+\textbf{Output:} All 20 cases show YES, confirming $n \equiv D_3(n) \pmod{2}$.
 
 \subsection{Exercises}
 \label{subsec:divisibility-exercises}
@@ -743,7 +743,7 @@ for n in range(1, 21):
 
 \begin{exercise}
 Determine whether each number is even or odd using only its base-3 representation (don't convert to base-10 first):
-\begin{enumerate}[(a)]
+\begin{enumerate}[label=(\alph*)]
 \item $n = 1021_3$
 \item $n = 2222_3$
 \item $n = 10101_3$
@@ -758,7 +758,7 @@ Prove that if $n = 10\ldots0_3$ (1 followed by $k$ zeros in base-3), then $D_3(n
 
 \begin{exercise}
 Let $n = 142$ (base-10).
-\begin{enumerate}[(a)]
+\begin{enumerate}[label=(\alph*)]
 \item Convert $n$ to base-3
 \item Compute $D_3(n)$
 \item Verify that $n \equiv D_3(n) \pmod{2}$
@@ -1106,7 +1106,7 @@ The resulting plot clearly shows the self-similar structure at multiple scales.
 
 \begin{exercise}
 Verify the scaling law $D_3(3^k \cdot n) = D_3(n)$ for:
-\begin{enumerate}[(a)]
+\begin{enumerate}[label=(\alph*)]
 \item $n = 7$, $k = 1$
 \item $n = 10$, $k = 2$
 \item $n = 15$, $k = 3$
