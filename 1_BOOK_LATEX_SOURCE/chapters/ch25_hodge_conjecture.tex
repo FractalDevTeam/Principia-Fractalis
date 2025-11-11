@@ -195,13 +195,13 @@ Equivalently: Every Hodge class is a $\Q$-linear combination of classes of algeb
 
 \subsection{Known Results}
 
-\begin{theorem}[title=Lefschetz (1924)]\label{thm:lefschetz}
+\begin{theorem}[title={Lefschetz (1924)}]\label{thm:lefschetz}
 For divisors ($p = 1$): $\Hdg^1(X) = \Alg^1(X)$
 
 This is the \textbf{Lefschetz (1,1)-theorem}—the first case of Hodge.
 \end{theorem}
 
-\begin{theorem}[title=Kodaira, Spencer, others]\label{thm:known-cases}
+\begin{theorem}[title={Kodaira, Spencer, others}]\label{thm:known-cases}
 The Hodge Conjecture is known to hold in the following cases:
 \begin{enumerate}
 \item Abelian varieties (Weil, 1977)
@@ -308,7 +308,7 @@ Spectral concentration measures how much of $\xi$'s "energy" sits in the ground 
 
 \subsection{The 0.95 Threshold}
 
-\begin{theorem}[title=Critical Threshold from Arithmetic]\label{thm:critical-threshold}
+\begin{theorem}[title={Critical Threshold from Arithmetic}]\label{thm:critical-threshold}
 The consciousness crystallization threshold is:
 \begin{equation}
 \sigma_c = \frac{6}{\pi^2} + \epsilon_{\text{quantum}} = 0.6079... + 0.3421... = 0.95
@@ -332,7 +332,7 @@ When spectral concentration exceeds $0.95 = 6/\pi^2 + \text{corrections}$, we cr
 
 \subsection{Consciousness Crystallization}
 
-\begin{theorem}[title=Hodge Classes Have High Concentration]\label{thm:hodge-concentration}
+\begin{theorem}[title={Hodge Classes Have High Concentration}]\label{thm:hodge-concentration}
 For any Hodge class $\xi \in \Hdg^p(X)$:
 \begin{equation}
 \sigma_{\mathcal{R}_\varphi}(\xi) \geq 0.95
@@ -377,7 +377,7 @@ H_{ij} = \hat{\xi}(i+j-2), \quad i,j = 1, \ldots, N
 \end{equation}
 \end{defn}
 
-\begin{theorem}[title=Low Rank from High Concentration]\label{thm:low-rank}
+\begin{theorem}[title={Low Rank from High Concentration}]\label{thm:low-rank}
 If $\sigma(\xi) \geq 0.95$, then:
 \begin{equation}
 \rank(H) \leq \frac{1}{1-\sigma(\xi)} \leq \frac{1}{1-0.95} = 20
@@ -421,11 +421,11 @@ The Hankel matrix is a "bridge" from spectral data (eigenvalues) to algebraic da
 \end{algorithmic}
 \end{algorithm}
 
-\begin{theorem}[title=Algorithm Correctness]\label{thm:algorithm-correctness-hodge}
+\begin{theorem}[title={Algorithm Correctness}]\label{thm:algorithm-correctness-hodge}
 Algorithm \ref{alg:cycle-extraction} returns algebraic cycles whose classes sum to $\xi$ with probability $\geq 1 - \delta$ for error tolerance $\delta = 10^{-8}$, assuming $\sigma(\xi) \geq 0.95 + \epsilon$ for $\epsilon > 0$.
 \end{theorem}
 
-\begin{theorem}[title=Computational Complexity]\label{thm:complexity-hodge}
+\begin{theorem}[title={Computational Complexity}]\label{thm:complexity-hodge}
 Algorithm \ref{alg:cycle-extraction} runs in time:
 \begin{equation}
 O(N^3 + r N^2 \log N)

@@ -66,7 +66,7 @@ The class of languages decidable by nondeterministic Turing machines in polynomi
 Equivalently, NP consists of languages $L$ such that for $x \in L$, there exists a certificate $c$ verifiable in polynomial time\cite{cook1971complexity,arora2009computational}.
 \end{defn}
 
-\begin{theorem}[title=P vs NP Problem]\label{thm:p-vs-np-problem}
+\begin{theorem}[title={P vs NP Problem}]\label{thm:p-vs-np-problem}
 Does P = NP?
 
 This is the central question in computational complexity theory, formulated by Cook\cite{cook1971complexity} and Levin\cite{levin1973universal}, and named a Clay Millennium Problem\cite{clay2000millennium}.
@@ -122,7 +122,7 @@ Why base-3? Because reality is fundamentally \textbf{ternary}:
 The digital sum $D(n)$ is \textbf{non-polynomial}: no polynomial of degree $d$ can approximate $D(n)$ for all $n$ with error $< 1/2$. This non-polynomiality is what allows us to circumvent the algebrization barrier.
 \end{keyidea}
 
-\begin{theorem}[title=Digital Sum Properties]\label{thm:digital-sum-props}
+\begin{theorem}[title={Digital Sum Properties}]\label{thm:digital-sum-props}
 The base-3 digital sum satisfies:
 \begin{enumerate}[(i)]
 \item Growth: $0 \leq D(n) \leq 2\log_3(n+1)$
@@ -259,7 +259,7 @@ If $H_P$ and $H_{NP}$ are self-adjoint with different ground state energies, the
 
 \subsection{The Critical Parameter Values}
 
-\begin{theorem}[title=Self-Adjointness Criterion]\label{thm:self-adjoint-criterion}
+\begin{theorem}[title={Self-Adjointness Criterion}]\label{thm:self-adjoint-criterion}
 $H_P$ is self-adjoint if and only if for all $n \in \mathbb{N}$:
 \begin{equation}
 \sum_{m=0}^{\infty} e^{i\pi\alpha_P m} N_m^{(3)} \in \mathbb{R}
@@ -281,7 +281,7 @@ Summing over all possible digital sum values:
 For self-adjointness $\langle L_1 | H_P | L_2 \rangle = \overline{\langle L_2 | H_P | L_1 \rangle}$, we need the phase sum to be real, weighted by $N_m^{(3)}$.
 \end{proof}
 
-\begin{theorem}[title=Critical Values for Consciousness Computation]\label{thm:critical-values}
+\begin{theorem}[title={Critical Values for Consciousness Computation}]\label{thm:critical-values}
 The self-adjointness condition is satisfied precisely at:
 \begin{itemize}
 \item For P: $\boxed{\alpha_P = \sqrt{2}}$
@@ -346,7 +346,7 @@ V_{NP}(x,y) &= V_P(x,y) \otimes R_\varphi \label{eq:kernel-NP}
 where $\alpha = \sqrt{2}$, $a > 1$ (chosen for convergence), and $R_\varphi$ is a unitary rotation by the golden angle $\varphi = \frac{\sqrt{5}-1}{2}\pi$.
 \end{definition}
 
-\begin{theorem}[title=Spectral Properties]\label{thm:spectral-properties}
+\begin{theorem}[title={Spectral Properties}]\label{thm:spectral-properties}
 The operators $H_P$ and $H_{NP}$ defined above satisfy:
 \begin{enumerate}
 \item \textbf{Compactness}: Both operators are compact on $L^2(K,\mu)$
@@ -373,7 +373,7 @@ by geometric series convergence. By the Hilbert-Schmidt theorem, $H_V$ is compac
 \textbf{Discrete spectrum}: Compactness + self-adjointness implies the spectral theorem for compact operators\cite{reed1980}.
 \end{proof}
 
-\begin{theorem}[title=Variational Characterization]\label{thm:variational}
+\begin{theorem}[title={Variational Characterization}]\label{thm:variational}
 The ground state energy satisfies:
 \begin{equation}
 \lambda_0(H) = \inf_{\psi \in L^2(K,\mu), \|\psi\|=1} \langle \psi, H\psi \rangle = \lim_{n \to \infty} \lambda_0^{(n)}
@@ -458,7 +458,7 @@ again matching to within numerical precision.
 
 \subsection{The Irreducible Gap}
 
-\begin{theorem}[title=Spectral Gap]\label{thm:spectral-gap}
+\begin{theorem}[title={Spectral Gap}]\label{thm:spectral-gap}
 There is an empirically measured spectral gap:
 \begin{equation}
 \boxed{\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) \approx 0.0539677287 > 0}
@@ -872,7 +872,7 @@ The value $s^* \approx 0.707$ can be verified from the convergence studies:
 
 These theoretical results enable a practical protocol for verifying the framework experimentally.
 
-\begin{theorem}[title=Local identifiability from three instances]\label{thm:identifiability}
+\begin{theorem}[title={Local identifiability from three instances}]\label{thm:identifiability}
 Given three fractal operators $H_1, H_2, H_3$ with measured ground states $\{\lambda_0(H_i)\}_{i=1}^3$ and known fractal dimensions $\{d_H^{(i)}\}_{i=1}^3$, the parameters $(s^*, B, \alpha)$ are locally identifiable if:
 \begin{enumerate}
 \item The Jacobian matrix $J$ has full rank, where:
@@ -969,7 +969,7 @@ Failure of any prediction would falsify the framework, while confirmation across
 
 \subsection{Summary: Empirical Results and Conjectural Framework}
 
-\begin{theorem}[title=Empirical Ground State Energies]\label{thm:ground-states}
+\begin{theorem}[title={Empirical Ground State Energies}]\label{thm:ground-states}
 For the self-adjoint fractal convolution operators $H_P$ and $H_{NP}$ with Hausdorff dimension $d_H = \sqrt{2}$, numerical computation yields ground state energies:
 \begin{align}
 \lambda_0(H_P) &= 0.2221441469 \pm 10^{-10} \\
@@ -1028,14 +1028,14 @@ d_H(L_1, L_2) = \sum_{n=1}^{\infty} \frac{1}{2^n} \cdot \frac{|L_1^{(n)} \triang
 where $L^{(n)} = L \cap \{0,1\}^n$ and $\triangle$ is symmetric difference.
 \end{definition}
 
-\begin{theorem}[title=Fractal Dimension of P]\label{thm:dim-p}
+\begin{theorem}[title={Fractal Dimension of P}]\label{thm:dim-p}
 The box-counting dimension of $(\text{P}, d_H)$ is:
 \begin{equation}
 \boxed{\dim_{\text{frac}}(\text{P}) = \sqrt{2}}
 \end{equation}
 \end{theorem}
 
-\begin{theorem}[title=Fractal Dimension of NP]\label{thm:dim-np}
+\begin{theorem}[title={Fractal Dimension of NP}]\label{thm:dim-np}
 The box-counting dimension of $(\text{NP}, d_H)$ is:
 \begin{equation}
 \boxed{\dim_{\text{frac}}(\text{NP}) = \phi + \frac{1}{4}}
@@ -1085,7 +1085,7 @@ This geometric separation is independent of the spectral gap, providing a second
 
 Before presenting the theoretical evidence, we establish the empirical foundation:
 
-\begin{theorem}[title=Universal Coherence]\label{thm:universal-coherence}
+\begin{theorem}[title={Universal Coherence}]\label{thm:universal-coherence}
 Across 143 diverse computational problems spanning multiple domains (optimization, number theory, graph theory, logic, cryptography), the fractal resonance framework achieves:
 \begin{equation}
 \boxed{\text{Fractal Coherence} = 100\% \text{ for } 143/143 \text{ problems}}
@@ -1190,7 +1190,7 @@ Each provides strong computational support for P $\neq$ NP. The fact that all th
 
 \subsection{Relativization Barrier}
 
-\begin{theorem}[title=Oracle Independence]\label{thm:oracle-independence}
+\begin{theorem}[title={Oracle Independence}]\label{thm:oracle-independence}
 For any oracle $A$, the spectral gap satisfies:
 \begin{equation}
 \Delta^A = \lambda_0(H_P^A) - \lambda_0(H_{NP}^A) \geq \frac{\Delta}{2} > 0
@@ -1212,7 +1212,7 @@ Our proof does not relativize in the classical sense because it uses \textit{non
 
 \subsection{Natural Proofs Barrier}
 
-\begin{theorem}[title=Non-Natural Properties]\label{thm:non-natural}
+\begin{theorem}[title={Non-Natural Properties}]\label{thm:non-natural}
 The spectral gap property is not "natural" in the Razborov-Rudich sense\cite{razborov1997natural} because:
 \begin{enumerate}[(i)]
 \item \textbf{Non-constructive}: Computing eigenvalues requires solving transcendental equations $e^{i\pi\alpha} = ?$ which are not polynomially computable
@@ -1224,7 +1224,7 @@ The natural proofs barrier applies to circuit lower bounds with "natural" combin
 
 \subsection{Algebrization Barrier}
 
-\begin{theorem}[title=Non-Algebrizing Digital Sum]\label{thm:non-algebrizing}
+\begin{theorem}[title={Non-Algebrizing Digital Sum}]\label{thm:non-algebrizing}
 For any field $\mathbb{F}$ and degree $d = o(n/\log n)$, there is no polynomial $P \in \mathbb{F}[x]$ with $\deg(P) \leq d$ such that:
 \begin{equation}
 P(n) = D(n) \quad \forall n \leq N
@@ -1255,7 +1255,7 @@ If no one-way functions exist, then public-key cryptography is impossible, which
 
 \subsection{Extension to Other Separations}
 
-\begin{theorem}[title=BQP vs NP]\label{thm:bqp-vs-np}
+\begin{theorem}[title={BQP vs NP}]\label{thm:bqp-vs-np}
 Using quantum-adapted operators with critical value $\alpha_{BQP} = \sqrt{3}$:
 \begin{equation}
 \dim_{\text{frac}}(\text{BQP}) = \sqrt{3} \approx 1.732 < 1.868 = \dim_{\text{frac}}(\text{NP})
@@ -1263,7 +1263,7 @@ Using quantum-adapted operators with critical value $\alpha_{BQP} = \sqrt{3}$:
 Therefore BQP $\neq$ NP.
 \end{theorem}
 
-\begin{theorem}[title=PSPACE vs EXP]\label{thm:pspace-vs-exp}
+\begin{theorem}[title={PSPACE vs EXP}]\label{thm:pspace-vs-exp}
 With space-bounded operators:
 \begin{equation}
 \lambda_0(H_{\text{PSPACE}}) - \lambda_0(H_{\text{EXP}}) = \frac{\pi}{15} > 0
