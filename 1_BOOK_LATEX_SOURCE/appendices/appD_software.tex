@@ -1,0 +1,193 @@
+\chapter{Software API Quick Reference}
+\label{app:software}
+
+This appendix provides a quick reference for the Principia Fractalis software API. For full details, see Chapter 32.
+
+\section{Installation}
+
+\begin{verbatim}
+pip install principia-fractalis
+\end{verbatim}
+
+\section{Core Modules}
+
+\subsection{Riemann Hypothesis (principia\_fractalis.riemann)}
+
+\textbf{find\_zero(n)}
+\begin{itemize}
+\item Find $n$-th Riemann zero
+\item Returns: complex number $\rho_n = 0.5 + it_n$
+\item Example: \texttt{rho = find\_zero(1)} $\rightarrow$ 0.5 + 14.1347...j
+\end{itemize}
+
+\textbf{verify\_zero(rho, tolerance=1e-145)}
+\begin{itemize}
+\item Verify zero on critical line
+\item Returns: bool
+\end{itemize}
+
+\textbf{compute\_resonance(alpha, s)}
+\begin{itemize}
+\item Compute fractal resonance coefficient
+\item Parameters: $\alpha$ (geometry value), $s$ (complex parameter)
+\item Returns: float $R_f(\alpha, s)$
+\end{itemize}
+
+\subsection{P vs NP (principia\_fractalis.pvsnp)}
+
+\textbf{FractalOperator(fractal, alpha)}
+\begin{itemize}
+\item Construct operator on fractal
+\item Parameters: fractal geometry, coupling $\alpha$
+\item Methods: \texttt{discretize(N)}, \texttt{eigenvalues(k)}
+\end{itemize}
+
+\textbf{sierpinski\_gasket(level)}
+\begin{itemize}
+\item Generate Sierpiński gasket
+\item Parameter: recursion level (8-16 recommended)
+\item Returns: point array
+\end{itemize}
+
+\subsection{Consciousness (principia\_fractalis.consciousness)}
+
+\textbf{compute\_ch2(W)}
+\begin{itemize}
+\item Compute second Chern character
+\item Parameter: connectivity matrix $W$
+\item Returns: float in [0, 1]
+\end{itemize}
+
+\textbf{process\_eeg(data, fs=500)}
+\begin{itemize}
+\item Process EEG to ch$_2$
+\item Parameters: raw data, sampling frequency
+\item Returns: ch$_2$ value
+\end{itemize}
+
+\section{Example Workflows}
+
+\subsection{Verify Riemann Hypothesis}
+
+\begin{verbatim}
+from principia_fractalis.riemann import find_zero, verify_zero
+
+for n in range(1, 101):
+    rho = find_zero(n)
+    assert verify_zero(rho), f"Zero {n} not on critical line!"
+print("First 100 zeros verified!")
+\end{verbatim}
+
+\subsection{Compute P vs NP Gap}
+
+\begin{verbatim}
+from principia_fractalis.pvsnp import FractalOperator, sierpinski_gasket
+import numpy as np
+
+K = sierpinski_gasket(level=12)
+H_P = FractalOperator(K, alpha=np.sqrt(2))
+H_NP = FractalOperator(K, alpha=np.pi/3)
+
+H_P.discretize(len(K))
+H_NP.discretize(len(K))
+
+lambda_P = H_P.eigenvalues(k=1)[0][0]
+lambda_NP = H_NP.eigenvalues(k=1)[0][0]
+
+gap = lambda_P - lambda_NP
+print(f"Spectral gap: {gap:.6f}")
+\end{verbatim}
+
+\subsection{Measure Consciousness}
+
+\begin{verbatim}
+from principia_fractalis.consciousness import process_eeg
+import numpy as np
+
+# Load EEG data (19 channels, 500 Hz)
+eeg_data = np.load('patient_eeg.npy')
+
+ch2 = process_eeg(eeg_data, fs=500)
+
+if ch2 >= 0.95:
+    print("Patient is conscious")
+elif ch2 >= 0.75:
+    print("Minimally conscious state")
+else:
+    print("Unconscious")
+\end{verbatim}
+
+\section{Command-Line Tools}
+
+\subsection{pf-verify}
+
+Verify computational results:
+
+\begin{verbatim}
+pf-verify --riemann 1000       # Verify first 1000 zeros
+pf-verify --pvsnp --level 12   # Verify P vs NP at level 12
+pf-verify --all                # Full verification suite
+\end{verbatim}
+
+\subsection{pf-compute}
+
+Run computations:
+
+\begin{verbatim}
+pf-compute riemann --zeros 1-10000 --output zeros.csv
+pf-compute pvsnp --level 14 --output gap.txt
+pf-compute consciousness --eeg data.edf --output ch2.json
+\end{verbatim}
+
+\section{Configuration}
+
+\subsection{Precision Settings}
+
+\begin{verbatim}
+from principia_fractalis import config
+
+config.set_precision(150)  # 150 decimal digits
+config.set_threads(16)     # Parallel threads
+config.use_gpu(True)       # Enable GPU acceleration
+\end{verbatim}
+
+\subsection{Performance Tuning}
+
+\begin{verbatim}
+# For large-scale computations
+config.set_sparse_threshold(1e-10)  # Sparsity cutoff
+config.set_cache_size('10GB')       # Memory cache
+config.enable_checkpointing(True)   # Save progress
+\end{verbatim}
+
+\section{Testing}
+
+Run test suite:
+
+\begin{verbatim}
+pytest tests/                    # All tests
+pytest tests/test_riemann.py     # Riemann tests only
+pytest tests/ -v --slow          # Include slow tests
+pytest tests/ --cov              # With coverage report
+\end{verbatim}
+
+\section{Documentation}
+
+\begin{itemize}
+\item Online docs: \texttt{https://principia-fractalis.readthedocs.io}
+\item API reference: \texttt{https://principia-fractalis.org/api}
+\item GitHub: \texttt{https://github.com/fractal-resonance/principia-fractalis}
+\item Issues: \texttt{https://github.com/fractal-resonance/principia-fractalis/issues}
+\end{itemize}
+
+\section{Citation}
+
+\begin{verbatim}
+@software{principia_fractalis,
+  author = {Cohen, Pablo},
+  title = {Principia Fractalis Software Suite},
+  year = {2025},
+  url = {https://github.com/fractal-resonance/principia-fractalis},
+  version = {1.0.0}
+}
+\end{verbatim}

@@ -1,0 +1,11 @@
+8621f349d297a950d3401f93b4b34ddb  main.pdf
+cb85aca4f1ee06b3714d151ecf3f1ccc  bibliography.bib
+558498301fdc48f43a0fce3394696138  preamble.tex
+fd54700721dcae21abbd0735ba180e2f  appendices/appK_measure_theory.tex
+0989e2eb2cb0cc34ea674179637254b3  appendices/appK_continuum_limit_COMPLETE.tex
+90412609e480d577db7ad47a2e2cc317  appendices/appJ_riemann_convergence.tex
+33ed596c1957408685a1d660eb772aea  appendices/appQ_bsd_rank2_COMPLETE.tex
+a7385c0bd79988166e67751a48de2a81  chapters/ch21_turing_connection_proof.tex
+ede80d8d288d311ab7f7a194e84f7db6  chapters/ch25_hodge_conjecture.tex
+8cf7cae980d412ba9630aa27b6a080aa  chapters/ch21_p_vs_np.tex
+351ba088a37f6150ece651d62c65a480  appendices/appH_numerical_validation.tex

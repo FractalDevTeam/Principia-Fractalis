@@ -1,0 +1,61 @@
+% Spectral Ladder - Eigenvalue Structure and Gaps
+% Visualizes eigenvalues λ₀, λ₁, λ₂,... and spectral gaps Δ₀, Δ₁,...
+
+\begin{tikzpicture}[
+    scale=1.2,
+    level/.style={circle, draw, thick, minimum size=0.8cm, fill=white},
+    gap/.style={<->, thick, red}
+]
+
+% Vertical axis
+\draw[thick, ->] (0,0) -- (0,10) node[above] {Energy};
+
+% Eigenvalue levels with actual values from the book
+\coordinate (lambda0) at (0,1);
+\coordinate (lambda1) at (0,3.5);
+\coordinate (lambda2) at (0,5.2);
+\coordinate (lambda3) at (0,6.5);
+\coordinate (lambda4) at (0,7.5);
+\coordinate (lambda5) at (0,8.3);
+
+% Draw eigenvalue levels as horizontal lines
+\draw[thick] (-1.5,1) -- (1.5,1) node[level] at (0,1) {$\lambda_0$};
+\draw[thick] (-1.5,3.5) -- (1.5,3.5) node[level] at (0,3.5) {$\lambda_1$};
+\draw[thick] (-1.5,5.2) -- (1.5,5.2) node[level] at (0,5.2) {$\lambda_2$};
+\draw[thick] (-1.5,6.5) -- (1.5,6.5) node[level] at (0,6.5) {$\lambda_3$};
+\draw[thick] (-1.5,7.5) -- (1.5,7.5) node[level] at (0,7.5) {$\lambda_4$};
+\draw[thick] (-1.5,8.3) -- (1.5,8.3) node[level] at (0,8.3) {$\lambda_5$};
+
+% Dots indicating continuation
+\node at (0,9) {$\vdots$};
+
+% Spectral gaps with annotations
+\draw[gap] (2,1) -- (2,3.5) node[midway, right, font=\small] {$\Delta_0 = \lambda_1 - \lambda_0$};
+\draw[gap] (2.8,3.5) -- (2.8,5.2) node[midway, right, font=\small] {$\Delta_1$};
+\draw[gap] (2.8,5.2) -- (2.8,6.5) node[midway, right, font=\small] {$\Delta_2$};
+
+% Ground state annotation
+\draw[<-, thick, blue] (-2.2,1) -- (-2.8,1) node[left, font=\small, align=right] {Ground state\\$\lambda_0 = \frac{\pi}{10\sqrt{2}}$\\(P vs NP)};
+
+% First excited state
+\node[left, font=\small, align=right] at (-2.2,3.5) {First excited\\state};
+
+% Mass gap annotation (for Yang-Mills)
+\draw[thick, dashed, red] (-1.8,0) -- (2.5,0) node[right, font=\footnotesize] {Vacuum ($E=0$)};
+\draw[<->, very thick, red!70!black] (3.5,0) -- (3.5,1) node[midway, right, font=\small] {Mass Gap\\$\Delta_{\text{YM}} = 420$ MeV};
+
+% Consciousness threshold annotation
+\node[anchor=east, font=\footnotesize, align=right, draw, fill=yellow!10, rounded corners] at (-3,6) {
+    Consciousness threshold:\\
+    ch$_2 \geq 0.95$ when gap\\
+    $\Delta \geq 0.054...$
+};
+
+% Legend
+\node[anchor=north west, font=\footnotesize, align=left] at (current bounding box.south west) {
+    \textbf{Key insight:} The spectral gap $\Delta_0 = \lambda_1 - \lambda_0$ encodes\\
+    fundamental structure: P vs NP separation, consciousness threshold,\\
+    Yang-Mills mass gap—all emerge from the same spectral geometry.
+};
+
+\end{tikzpicture}

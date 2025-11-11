@@ -1,0 +1,434 @@
+\chapter{Complex Analysis Fundamentals}
+\label{ch:complex}
+
+\begin{chapterobjectives}
+\textbf{Prerequisites:} Chapter 1 (Numbers and Base-3 Arithmetic), multivariable calculus
+
+\textbf{What you'll learn:}
+\begin{itemize}
+\item 🟢 Analytic continuation and monodromy along paths
+\item 🟡 Branch structure, multivalued functions, and winding
+\item 🔴 Polylogarithms and singular expansions near $z=1$
+\end{itemize}
+
+\textbf{Why this matters:} This chapter establishes the exact analytic framework used in all downstream proofs, particularly the P vs NP monodromy arguments (Chapter~\ref{ch:p-vs-np}) and Riemann Hypothesis (Chapter~\ref{ch:riemann-hypothesis}). Every definition, theorem, and label here is referenced later. The key insight: nonlinearity under winding ($w \mapsto w + 2\pi i m$ for $s \notin \Z$) is what distinguishes P from NP.
+\end{chapterobjectives}
+
+\section{Preliminaries and Notation}
+\label{sec:preliminaries}
+
+We establish conventions used throughout this volume.
+
+\subsection{Domains and Simple Connectivity}
+
+\begin{definition}[title=Domain]\index{domain}
+A \textbf{domain} $U \subset \C$ is a connected open subset of the complex plane.
+\end{definition}
+
+\begin{definition}[title=Simply Connected]\index{simply connected}
+A domain $U$ is \textbf{simply connected} if every closed curve in $U$ can be continuously contracted to a point within $U$. Equivalently, $U$ has no "holes."
+\end{definition}
+
+\begin{example}[title=Simply Connected Domains]
+\begin{itemize}
+\item $\C$ (the entire complex plane): simply connected
+\item $\C \setminus \{0\}$ (plane with origin removed): NOT simply connected (has a hole)
+\item $\C \setminus (-\infty, 0]$ (plane with negative real axis removed): simply connected
+\end{itemize}
+\end{example}
+
+\subsection{Disk Notation}
+
+For $z_0 \in \C$ and $r > 0$:
+\begin{align}
+B(z_0, r) &:= \{z \in \C : |z - z_0| < r\} \quad \text{(open disk)} \\
+\overline{B}(z_0, r) &:= \{z \in \C : |z - z_0| \leq r\} \quad \text{(closed disk)}
+\end{align}
+
+\subsection{Principal Branch of Logarithm and Argument}
+
+\begin{definition}[title=Principal Logarithm]\index{principal logarithm}\label{def:principal-log}
+Define the \textbf{principal branch} of the complex logarithm $\Log: \C \setminus (-\infty, 0] \to \C$ by:
+\begin{equation}
+\Log(r e^{i\theta}) = \log r + i\theta
+\end{equation}
+where $r > 0$ and $\theta \in (-\pi, \pi]$. Here $\log r$ denotes the real natural logarithm.
+\end{definition}
+
+\begin{definition}[title=Principal Argument]\index{principal argument}
+The \textbf{principal argument} $\Arg: \C \setminus \{0\} \to (-\pi, \pi]$ is the unique angle $\theta \in (-\pi, \pi]$ such that $z = |z| e^{i\theta}$.
+\end{definition}
+
+\begin{remark}[Branch Cut Convention]
+The principal branch $\Log$ has a \textbf{branch cut}\index{branch cut} along the negative real axis $(-\infty, 0]$. Crossing this cut jumps $\Log z$ by $\pm 2\pi i$.
+\end{remark}
+
+\subsection{Holomorphic and Meromorphic Functions}
+
+\begin{definition}[title=Holomorphic Function]\index{holomorphic function}
+A function $f: U \to \C$ (where $U \subseteq \C$ is open) is \textbf{holomorphic} if it is complex differentiable at every point in $U$. That is, for each $z_0 \in U$, the limit
+\begin{equation}
+f'(z_0) = \lim_{h \to 0} \frac{f(z_0 + h) - f(z_0)}{h}
+\end{equation}
+exists, where $h \in \C$ can approach $0$ from any direction.
+\end{definition}
+
+\begin{definition}[title=Meromorphic Function]\index{meromorphic function}
+A function $f: U \to \C$ is \textbf{meromorphic} if it is holomorphic except at a set of isolated poles.
+\end{definition}
+
+\begin{definition}[title=Isolated Singularity]\index{isolated singularity}
+A point $z_0$ is an \textbf{isolated singularity} of $f$ if $f$ is holomorphic in some punctured disk $0 < |z - z_0| < \epsilon$ but not at $z_0$ itself.
+\end{definition}
+
+\section{Integral Foundations}
+\label{sec:integral-foundations}
+
+\subsection{Cauchy–Goursat Theorem}
+
+\begin{theorem}[title=Cauchy–Goursat]\index{Cauchy-Goursat theorem}\label{thm:cauchy-goursat}
+Let $f$ be holomorphic in a simply connected domain $U$, and let $\gamma$ be a closed contour in $U$. Then:
+\begin{equation}
+\int_{\gamma} f(z) \, dz = 0
+\end{equation}
+\end{theorem}
+
+\begin{intuitive}[title=Why Holomorphic Integrals Vanish]
+Holomorphic functions behave like "smooth flows" with no circulation. Integrating around a closed loop in a simply connected region yields zero—you return to where you started with no net accumulation.
+\end{intuitive}
+
+\subsection{Cauchy Integral Formula and Higher Derivatives}
+
+\begin{theorem}[title=Cauchy Integral Formula (CIF)]\index{Cauchy integral formula}\label{thm:CIF}
+If $f$ is holomorphic on an open set containing $\overline{B(z_0, R)}$ and $\gamma$ is the positively oriented boundary circle $|z - z_0| = R$, then for $z$ in the interior:
+\begin{equation}
+f(z) = \frac{1}{2\pi i} \int_{\gamma} \frac{f(\zeta)}{\zeta - z} \, d\zeta
+\end{equation}
+\end{theorem}
+
+\begin{corollary}[Higher Derivatives]\label{cor:CIF-derivatives}
+Under the same hypotheses:
+\begin{equation}
+f^{(n)}(z) = \frac{n!}{2\pi i} \int_{\gamma} \frac{f(\zeta)}{(\zeta - z)^{n+1}} \, d\zeta
+\end{equation}
+\end{corollary}
+
+\begin{keyidea}[title=Rigidity of Holomorphic Functions]
+The CIF implies: knowing $f$ on any circle determines $f$ and \textit{all its derivatives} at the center. This rigidity is essential—holomorphic functions are essentially unique once specified on any open set.
+\end{keyidea}
+
+\subsection{Morera's Theorem}
+
+\begin{theorem}[title=Morera]\index{Morera's theorem}\label{thm:morera}
+If $f$ is continuous on a domain $U$ and $\int_{\gamma} f(\zeta) \, d\zeta = 0$ for all triangles $\gamma \subset U$, then $f$ is holomorphic on $U$.
+\end{theorem}
+
+\subsection{Liouville's Theorem}
+
+\begin{theorem}[title=Liouville]\index{Liouville's theorem}\label{thm:liouville}
+If $f$ is holomorphic on all of $\C$ (entire) and bounded, then $f$ is constant.
+\end{theorem}
+
+\subsection{Maximum Modulus Principle}
+
+\begin{theorem}[title=Maximum Modulus]\index{maximum modulus principle}\label{thm:maximum-modulus}
+If $f$ is holomorphic and non-constant on a domain $U$, then $|f|$ cannot attain a local maximum in the interior of $U$.
+\end{theorem}
+
+\subsection{Schwarz Lemma}
+
+\begin{lemma}[Schwarz]\index{Schwarz lemma}\label{lem:schwarz}
+If $f: B(0,1) \to B(0,1)$ is holomorphic with $f(0) = 0$, then:
+\begin{enumerate}
+\item $|f(z)| \leq |z|$ for all $z \in B(0,1)$
+\item $|f'(0)| \leq 1$
+\item If $|f(z)| = |z|$ for some $z \neq 0$, or if $|f'(0)| = 1$, then $f(z) = e^{i\theta} z$ for some $\theta \in \R$.
+\end{enumerate}
+\end{lemma}
+
+\subsection{Identity Theorem}
+
+\begin{theorem}[title=Identity Theorem]\index{identity theorem}\label{thm:identity}
+If $f, g$ are holomorphic on a connected domain $U$ and agree on a set with an accumulation point in $U$, then $f \equiv g$ on $U$.
+\end{theorem}
+
+\section{Analytic Continuation and Monodromy}
+\label{sec:analytic-continuation}
+
+This section establishes the framework for handling multivalued functions—essential for understanding the nonlinearity that separates P from NP.
+
+\subsection{Germs and Analytic Continuation Along Paths}
+
+\begin{definition}[title=Germ]\index{germ}\label{def:germ}
+Let $f$ be holomorphic on a domain $U \subset \C$ and $z_0 \in U$. A \textbf{germ} at $z_0$ is an equivalence class of pairs $(V, g)$ where $z_0 \in V \subset U$ is open, $g$ is holomorphic on $V$, and two pairs $(V_1, g_1)$, $(V_2, g_2)$ are equivalent if $g_1 = g_2$ on some neighborhood of $z_0$.
+\end{definition}
+
+\begin{definition}[title=Analytic Continuation Along a Path]\index{analytic continuation}\label{def:analytic-continuation}
+Given a continuous path $\gamma: [0,1] \to \C$ and a germ of $f$ at $\gamma(0)$, an \textbf{analytic continuation of $f$ along $\gamma$} is a family of germs $\{(V_t, f_t)\}_{t \in [0,1]}$ such that:
+\begin{enumerate}
+\item $f_0$ agrees with the germ of $f$ at $\gamma(0)$
+\item For each $t \in [0,1]$, $(V_t, f_t)$ is a germ at $\gamma(t)$
+\item For $s, t$ sufficiently close, $f_s$ and $f_t$ agree on a neighborhood of $\gamma([s, t])$
+\end{enumerate}
+\end{definition}
+
+\subsection{Monodromy Theorem}
+
+\begin{theorem}[title=Monodromy Theorem]\index{monodromy theorem}\label{thm:monodromy}
+Let $U \subset \C$ be simply connected. Suppose $f$ admits analytic continuation along any path in $U$ starting from $z_0 \in U$. Then the continuation is single-valued on $U$; i.e., the value of $f$ at each $z \in U$ is independent of the path from $z_0$ to $z$.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+In a simply connected domain, any two paths with the same endpoints are homotopic. Analytic continuation is invariant under homotopy, so the final germ depends only on the endpoint, not the path.
+\end{proof}
+
+\subsection{Multivalued Functions and Riemann Surfaces}
+
+\begin{remark}[Multivalued Functions]\index{multivalued function}
+When $U$ is \textit{not} simply connected (e.g., $\C \setminus \{0\}$), analytic continuation along different paths can yield different values. We call such a function \textbf{multivalued}.
+
+Formally, multivalued functions are single-valued on their \textbf{Riemann surface}\index{Riemann surface}—a covering space where each "sheet" corresponds to a branch.
+\end{remark}
+
+\subsection{Branch Cuts and Branches}
+
+\begin{definition}[title=Branch]\index{branch}
+A \textbf{branch} of a multivalued function is a single-valued holomorphic function defined on a domain obtained by removing a branch cut.
+\end{definition}
+
+\begin{example}[title=Principal Branch of $\Log$]
+The principal logarithm $\Log$ is a branch of the multivalued logarithm, defined on $\C \setminus (-\infty, 0]$ with branch cut along the negative real axis.
+\end{example}
+
+\subsection{Small Loops Around Branch Points}
+
+\begin{remark}[Precise Language for Winding]\index{winding}
+When we say "a small loop around a branch point," we mean a continuous closed path $\gamma: [0,1] \to \C$ with $\gamma(0) = \gamma(1)$, encircling the branch point once positively (counterclockwise). Analytically continuing a function along such a loop reveals the monodromy action.
+\end{remark}
+
+\section{Principal Logarithm, Fractional Powers, and Winding}
+\label{sec:logarithm-fractional-powers}
+
+This section provides the \textit{exact} nonlinearity used in the P vs NP proof.
+
+\subsection{Principal Branch of Logarithm}
+
+\begin{definition}[title={Principal Branch of $\Log$ (reprise)}]\label{def:Log}
+Recall from Definition~\ref{def:principal-log}: $\Log: \C \setminus (-\infty, 0] \to \C$ is defined by:
+\begin{equation}
+\Log(r e^{i\theta}) = \log r + i\theta, \quad r > 0, \; \theta \in (-\pi, \pi]
+\end{equation}
+\end{definition}
+
+\subsection{Fractional Powers on the Principal Sheet}
+
+\begin{definition}[title=Fractional Power]\index{fractional power}\label{def:fractional-power}
+For $\beta \in \C$ and $z \in \C \setminus (-\infty, 0]$, define:
+\begin{equation}
+z^{\beta} := \exp\big(\beta \Log z\big)
+\end{equation}
+This is the \textbf{principal branch} of $z^{\beta}$.
+\end{definition}
+
+\subsection{Winding Action on $\Log$}
+
+\begin{lemma}[Winding Action on $\Log$]\index{winding!on logarithm}\label{lem:winding-log}
+Let $\gamma$ be a closed loop winding $m \in \Z$ times positively around $0$. Then analytic continuation of $\Log$ along $\gamma$ yields:
+\begin{equation}
+\Log z \mapsto \Log z + 2\pi i m
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Each positive winding increases the argument by $2\pi$, so $\Arg z \mapsto \Arg z + 2\pi m$. Since $\Log z = \log |z| + i \Arg z$, we have $\Log z \mapsto \Log z + 2\pi i m$.
+\end{proof}
+
+\subsection{Nonlinearity of Fractional Powers Under Winding}
+
+This is the key lemma referenced in Chapter~\ref{ch:p-vs-np}.
+
+\begin{lemma}[Nonlinearity of Fractional Powers Under Winding]\index{fractional power!nonlinearity}\label{lem:frac-nonlinear}
+Let $s \in \C \setminus \Z$ and $w \in \C \setminus (-\infty, 0]$. Under analytic continuation corresponding to $w \mapsto w + 2\pi i m$ (where $m \in \Z$), the fractional power transforms as:
+\begin{equation}
+w^{s-1} \mapsto (w + 2\pi i m)^{s-1} = \sum_{k=0}^{\infty} \binom{s-1}{k} (2\pi i m)^k w^{s-1-k}
+\end{equation}
+where $\binom{s-1}{k} = \frac{(s-1)(s-2) \cdots (s-k)}{k!}$ is the generalized binomial coefficient.
+
+This is a genuinely \textbf{nonlinear} dependence on $m$: all powers $m^k$ appear for $k \geq 0$.
+\end{lemma}
+
+\begin{proof}
+By the binomial theorem (extended to complex exponents):
+\begin{equation}
+(w + 2\pi i m)^{s-1} = w^{s-1} (1 + 2\pi i m / w)^{s-1} = w^{s-1} \sum_{k=0}^{\infty} \binom{s-1}{k} (2\pi i m / w)^k
+\end{equation}
+Expanding:
+\begin{equation}
+= \sum_{k=0}^{\infty} \binom{s-1}{k} (2\pi i m)^k w^{s-1-k}
+\end{equation}
+This series involves all powers $m^0, m^1, m^2, \ldots$, giving nonlinearity in $m$.
+\end{proof}
+
+\begin{remark}[Special Case: $s \in \Z$]\label{rem:integer-s}
+If $s \in \Z$, then $\binom{s-1}{k} = 0$ for $k \geq s$, so the binomial series truncates. The dependence on $m$ becomes a polynomial of degree $s-1$, not an infinite series. This is why $s \notin \Z$ is crucial for the P vs NP argument.
+\end{remark}
+
+\section{Polylogarithms and Jonquières Expansion}
+\label{sec:polylogarithms}
+
+The polylogarithm $\Li_s(z)$ is essential for understanding the singularity structure of Dirichlet series near $z = 1$.
+
+\subsection{Definition and Integral Representation}
+
+\begin{definition}[title=Polylogarithm]\index{polylogarithm}\label{def:polylog}
+For $|z| < 1$ and $s \in \C$, define:
+\begin{equation}
+\Li_s(z) := \sum_{n=1}^{\infty} \frac{z^n}{n^s}
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Integral Representation]\index{polylogarithm!integral representation}\label{prop:polylog-integral}
+If $\Re s > 0$ and $z \in \C \setminus [1, \infty)$, then:
+\begin{equation}
+\Li_s(z) = \frac{z}{\Gamma(s)} \int_0^{\infty} \frac{t^{s-1}}{e^t - z} \, dt
+\end{equation}
+\end{proposition}
+
+\begin{proof}[Proof Sketch]
+Expand $(e^t - z)^{-1} = e^{-t} (1 - z e^{-t})^{-1} = e^{-t} \sum_{n=0}^{\infty} z^n e^{-nt}$ for $|z e^{-t}| < 1$. Substitute into the integral and interchange summation and integration (justified for $\Re s > 0$):
+\begin{align}
+\frac{z}{\Gamma(s)} \int_0^{\infty} \frac{t^{s-1}}{e^t - z} \, dt &= \frac{z}{\Gamma(s)} \sum_{n=1}^{\infty} z^{n-1} \int_0^{\infty} t^{s-1} e^{-nt} \, dt \\
+&= \frac{z}{\Gamma(s)} \sum_{n=1}^{\infty} z^{n-1} \frac{\Gamma(s)}{n^s} = \sum_{n=1}^{\infty} \frac{z^n}{n^s}
+\end{align}
+\end{proof}
+
+\subsection{Singular Expansion Near $z = 1$}
+
+This expansion is referenced in the P vs NP monodromy analysis.
+
+\begin{theorem}[title=Singular Expansion Near $z = 1$]\index{polylogarithm!singular expansion}\label{thm:Li-expansion}
+Let $w = -\Log z$ on the principal branch, so that $z = e^{-w}$ with $|\arg w| < \pi$. If $s \notin \{1, 2, 3, \ldots\}$, then as $w \to 0$:
+\begin{equation}
+\Li_s(e^{-w}) = \Gamma(1-s) w^{s-1} + \sum_{k=0}^{\infty} \zeta(s-k) \frac{(-w)^k}{k!}
+\end{equation}
+where $\zeta$ is the Riemann zeta function and the series converges for $|w| < 2\pi$.
+\end{theorem}
+
+\begin{proof}[Proof Sketch (See Zagier, 2007)]
+Use the functional equation for $\Li_s$ and expand near the singularity at $z = 1$. The leading singular term comes from the Mellin transform of $\Li_s$, yielding $\Gamma(1-s) w^{s-1}$. The regular part is expressed via zeta values $\zeta(s-k)$.
+\end{proof}
+
+\begin{corollary}[Monodromy of $\Li_s$ Around $z = 1$]\index{polylogarithm!monodromy}\label{cor:Li-monodromy}
+Continuing once positively around $z = 1$ corresponds to $w \mapsto w + 2\pi i$. By Lemma~\ref{lem:frac-nonlinear}, the jump of $\Li_s$ across the cut involves the full binomial series in $(2\pi i)$ when $s \notin \Z$:
+\begin{equation}
+\Delta \Li_s(e^{-w}) = \Gamma(1-s) \left[ (w + 2\pi i)^{s-1} - w^{s-1} \right]
+\end{equation}
+This is nonlinear in the winding number, which is the basis for distinguishing P from NP complexity classes.
+\end{corollary}
+
+\subsection{Logarithmic Case: $s \in \mathbb{N}$}
+
+\begin{remark}[Special Case: $s \in \mathbb{N}$]\label{rem:Li-integer}
+When $s \in \mathbb{N}$, the term $\Gamma(1-s)$ has a pole, and the expansion includes logarithmic terms:
+\begin{equation}
+\Li_s(e^{-w}) = \frac{(-1)^{s-1}}{(s-1)!} (\log w)^{s-1} + \text{(regular terms)}
+\end{equation}
+This is why the nonlinearity argument requires $s \notin \Z$.
+\end{remark}
+
+\subsection{Jonquières-Type Expansion (Statement)}
+
+\begin{theorem}[title=Jonquières Expansion, Statement]\index{Jonquières expansion}\label{thm:jonquieres}
+For $|z-1| < 1$ and $z \neq 1$, the polylogarithm $\Li_s(z)$ admits an expansion of the form:
+\begin{equation}
+\Li_s(z) = \sum_{k=0}^{\infty} a_k(s) (z-1)^k + \text{(singular terms)}
+\end{equation}
+where the coefficients $a_k(s)$ involve zeta values and the singular terms depend on the chosen branch.
+\end{theorem}
+
+\begin{remark}[Deferred Proof]
+The full proof of the Jonquières expansion is deferred to Chapter~\ref{ch:p-vs-np}, where it is used "at scale" to analyze the monodromy of $R_f(\alpha, s)$ near critical points.
+\end{remark}
+
+\section{Convergence, Uniformity, and Interchange of Limits}
+\label{sec:dirichlet-convergence}
+
+\subsection{Uniform Convergence and Termwise Operations}
+
+\begin{lemma}[Uniform Convergence Window]\index{uniform convergence}\label{lem:uniform-window}
+Let $\sum_{n=1}^{\infty} f_n$ be a series of holomorphic functions on a domain $U$, and suppose the series converges uniformly on every compact subset $K \Subset U$ (i.e., $K$ is a compact subset of $U$). Then:
+\begin{enumerate}
+\item $\sum_{n=1}^{\infty} f_n$ is holomorphic on $U$
+\item Termwise differentiation holds: $\displaystyle \left( \sum_{n=1}^{\infty} f_n \right)' = \sum_{n=1}^{\infty} f_n'$ on $U$
+\item Termwise integration holds: $\displaystyle \int_{\gamma} \sum_{n=1}^{\infty} f_n = \sum_{n=1}^{\infty} \int_{\gamma} f_n$ for any contour $\gamma \subset U$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Uniform convergence on compact sets implies uniform convergence on contours, which justifies interchange of summation and integration by the Weierstrass M-test. Holomorphicity follows from Morera's theorem (Theorem~\ref{thm:morera}). Termwise differentiation follows from Cauchy's formula for derivatives (Corollary~\ref{cor:CIF-derivatives}).
+\end{proof}
+
+\subsection{Abel's Theorem}
+
+\begin{theorem}[title=Abel's Theorem]\index{Abel's theorem}\label{thm:abel}
+Let $\sum_{n=0}^{\infty} a_n z^n$ be a power series with radius of convergence $R = 1$, and suppose $\sum_{n=0}^{\infty} a_n$ converges. Then:
+\begin{equation}
+\lim_{r \uparrow 1} \sum_{n=0}^{\infty} a_n r^n = \sum_{n=0}^{\infty} a_n
+\end{equation}
+That is, the power series converges to the sum of its coefficients as $r \to 1^-$ along the real axis.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Use summation by parts to control the tail of the series, combined with the fact that $r^n \to 1$ as $r \uparrow 1$.
+\end{proof}
+
+\begin{remark}[Application to Dirichlet Series]
+Abel's theorem is used extensively in analytic number theory to relate Dirichlet series $\sum a_n / n^s$ to their limits as $\Re s \to \sigma_c$ from above, where $\sigma_c$ is the abscissa of convergence.
+\end{remark}
+
+\section{Cross-Chapter Dependencies}
+\label{sec:dependencies}
+
+This chapter provides the foundation for:
+
+\begin{itemize}
+\item \textbf{Chapter~\ref{ch:resonance}:} Analytic continuation of $R_f(\alpha, s)$
+\item \textbf{Chapter~\ref{ch:riemann-hypothesis}:} Zeros of $\zeta(s)$ and functional equation
+\item \textbf{Chapter~\ref{ch:p-vs-np}:} Monodromy nonlinearity (Lemma~\ref{lem:frac-nonlinear}), polylogarithm expansions (Theorem~\ref{thm:Li-expansion})
+\item \textbf{Chapter~\ref{ch:navier-stokes}:} Contour deformation in integral representations
+\item \textbf{Chapter~\ref{ch:yang-mills}:} Branch structure of partition functions
+\end{itemize}
+
+\textbf{Key Labels for Downstream Reference:}
+\begin{itemize}
+\item \verb|\label{lem:frac-nonlinear}| — Nonlinearity of $(w + 2\pi i m)^{s-1}$ for $s \notin \Z$
+\item \verb|\label{thm:Li-expansion}| — Singular expansion $\Li_s(e^{-w})$ near $w = 0$
+\item \verb|\label{cor:Li-monodromy}| — Monodromy jump of $\Li_s$ around $z = 1$
+\item \verb|\label{thm:abel}| — Abel's theorem for boundary behavior
+\item \verb|\label{lem:uniform-window}| — Uniform convergence and termwise operations
+\end{itemize}
+
+\section{Summary and Looking Ahead}
+
+In this chapter, we established the analytic framework for all downstream proofs:
+
+\begin{enumerate}
+\item \textbf{Preliminaries:} Domains, simple connectivity, $\Log$ and $\Arg$ conventions
+\item \textbf{Integral Foundations:} CIF, Morera, Liouville, Schwarz lemma, identity theorem
+\item \textbf{Analytic Continuation:} Germs, path-dependence, monodromy theorem
+\item \textbf{Logarithm \& Fractional Powers:} Winding action $w \mapsto w + 2\pi i m$ induces \textbf{nonlinear} monodromy for $s \notin \Z$ (Lemma~\ref{lem:frac-nonlinear})
+\item \textbf{Polylogarithms:} Singular expansion near $z = 1$ (Theorem~\ref{thm:Li-expansion}), monodromy jump (Corollary~\ref{cor:Li-monodromy})
+\item \textbf{Convergence:} Uniform convergence, Abel's theorem
+\end{enumerate}
+
+\textbf{In Chapter 3}, we will:
+\begin{itemize}
+\item Define $R_f(\alpha, s)$ rigorously using the tools developed here
+\item Prove analytic continuation and functional equations
+\item Show how different resonance frequencies $\alpha$ address different scientific problems
+\item Connect the nonlinearity of winding to the separation of P and NP
+\end{itemize}
+
+The key insight: \textit{nonlinearity under winding} (Lemma~\ref{lem:frac-nonlinear}) is not a technical detail—it is the mathematical reason why nondeterministic computation cannot be efficiently simulated by deterministic algorithms.
+
+% End of Chapter 2

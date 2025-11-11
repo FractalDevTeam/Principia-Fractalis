@@ -1,0 +1,2482 @@
+[
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_1",
+    "sigma": 0.014900965180621036,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 0.001600027084350586,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.12206950962718348,
+        -0.0278729540438458,
+        0.1402069440409659,
+        -0.018629170076141233,
+        -0.022475970040062323
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_2",
+    "sigma": 0.00397078411322793,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 0.00011777877807617188,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.06301415803791979,
+        -0.032835218962361606,
+        -0.11267962810549216,
+        -0.06997585156124919,
+        -0.08307177900082052
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_3",
+    "sigma": 0.003385231623836833,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 7.748603820800781e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.05818274335090116,
+        0.1336442083450448,
+        0.0011129851592796948,
+        -0.0013794606444031794,
+        0.02541266147916753
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_4",
+    "sigma": 0.00013758668470614227,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 5.5789947509765625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.011729735065471099,
+        -0.0867865764130271,
+        -0.14816740668182163,
+        0.03094255235435565,
+        0.19796318427287568
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_5",
+    "sigma": 0.009015342449109977,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 5.4836273193359375e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.09494915717956623,
+        0.15972886415922094,
+        0.011101608873137561,
+        -0.02019633490952546,
+        0.02013149591191799
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_6",
+    "sigma": 0.0014651828540984066,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 5.269050598144531e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.03827770701202472,
+        -0.2036303355783379,
+        0.055944037040710264,
+        -0.02187382644494475,
+        0.054425248670369
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_7",
+    "sigma": 0.00022387267558346692,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 5.030632019042969e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.014962375332261482,
+        0.04398705643841964,
+        -0.025099203273899147,
+        0.06475745703632521,
+        -0.04816601193395497
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_8",
+    "sigma": 0.027937983932836134,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 5.14984130859375e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.16714659414070074,
+        -0.11479886339412805,
+        -0.11472408488674997,
+        -0.08617068297623581,
+        -0.02094855720636097
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_9",
+    "sigma": 0.002046661517488963,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.863739013671875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.045240043296718484,
+        0.020724536591673053,
+        -0.06182194626730997,
+        0.06281829482603948,
+        -0.027446586103928857
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_10",
+    "sigma": 0.0436985738172064,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.982948303222656e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.2090420383970803,
+        -0.13217226099276141,
+        -0.02889044166290632,
+        0.16029477616801618,
+        0.05755417621052567
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_11",
+    "sigma": 0.010500464474765537,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.8160552978515625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.1024717740393204,
+        0.21167081788298928,
+        0.5534622150840308,
+        0.16802405721981328,
+        0.04904766615517683
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_12",
+    "sigma": 0.09686288219265918,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 5.078315734863281e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.3112280228267679,
+        -0.32875361131291725,
+        -0.006355917544970027,
+        -0.33212557760714023,
+        -0.15485416313589176
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_13",
+    "sigma": 0.0402886070369809,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 5.0067901611328125e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.20072022079745952,
+        -0.03252789083493493,
+        -0.02337591019169413,
+        0.2111246845209195,
+        -0.11015630196982468
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_14",
+    "sigma": 0.09495469469056937,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.982948303222656e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.30814719646715816,
+        -0.07696782028695748,
+        0.332556599077312,
+        0.15927470692777604,
+        -0.08773864566786467
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_15",
+    "sigma": 0.04024916273244995,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.863739013671875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.20062193980831194,
+        0.5198375936090949,
+        0.28039735700705126,
+        -0.03651102657401255,
+        -0.16883534523902474
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_16",
+    "sigma": 0.02232009348439949,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.696846008300781e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.14939910804418977,
+        0.07090368548109667,
+        -0.464661192064423,
+        0.14600765986826447,
+        -0.004714307196333142
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_17",
+    "sigma": 0.0032025382306219794,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.8160552978515625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.056590973048905764,
+        -0.16205926623571756,
+        0.009169358888734887,
+        -0.14965573143008065,
+        -0.12497983077070846
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_18",
+    "sigma": 0.005396792217173676,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 5.0067901611328125e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.0734628628435734,
+        0.3659592375447309,
+        0.1282581864644359,
+        -0.21926149174313062,
+        -0.14396016525632546
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_19",
+    "sigma": 0.021834222116357563,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.696846008300781e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.14776407586540635,
+        0.40397852240518023,
+        0.19193752936160563,
+        0.2806677048391681,
+        -0.4007827809733321
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Cubic fourfold",
+    "class": "\u03be_20",
+    "sigma": 0.031126625333279773,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.76837158203125e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.1764273939423234,
+        0.3913304620467932,
+        0.18097730283851704,
+        -0.22097302432419905,
+        -0.1635394986122392
+      ],
+      "codimension": 2,
+      "betti_number": 21
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_1",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 0.00018405914306640625,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_2",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 9.417533874511719e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_3",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 7.557868957519531e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_4",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.985664367675781e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_5",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.580352783203125e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_6",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 8.416175842285156e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_7",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 9.799003601074219e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_8",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.961822509765625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_9",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.508827209472656e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_10",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.246566772460938e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_11",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.151199340820312e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_12",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.341934204101562e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_13",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.246566772460938e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_14",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.222724914550781e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_15",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 5.984306335449219e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_16",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 5.984306335449219e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_17",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.031990051269531e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_18",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.079673767089844e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_19",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.222724914550781e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Fermat quintic",
+    "class": "\u03be_20",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.461143493652344e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_1",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 7.62939453125e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_2",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.508827209472656e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_3",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.365776062011719e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_4",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.246566772460938e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_5",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.556510925292969e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_6",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.079673767089844e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_7",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.365776062011719e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_8",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.175041198730469e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_9",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 7.700920104980469e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_10",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.079673767089844e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_11",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 5.984306335449219e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_12",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.031990051269531e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_13",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.151199340820312e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_14",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.723403930664062e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_15",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.246566772460938e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_16",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.0558319091796875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_17",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 5.9604644775390625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        -1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_18",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 6.365776062011719e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_19",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 5.984306335449219e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "Complete intersection (2,3)",
+    "class": "\u03be_20",
+    "sigma": 1.0,
+    "passes": true,
+    "rank": 1,
+    "lambda": 0.050000000000000044,
+    "algebraic": true,
+    "time": 5.936622619628906e-05,
+    "details": {
+      "eigenvalues": [
+        1.0557280900008412
+      ],
+      "coefficients": [
+        1.0
+      ],
+      "codimension": 1,
+      "betti_number": 1
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_1",
+    "sigma": 1.1727613293062448e-08,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 7.224082946777344e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.00010829410553239936,
+        -0.037870964894321096,
+        -0.22375033272410233,
+        -0.12522134747811467,
+        -0.08436473998788119
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_2",
+    "sigma": 0.001907302133941593,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 4.744529724121094e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.04367267033216075,
+        0.12136171179206952,
+        0.05122261359680635,
+        -0.033525067723226845,
+        -0.018024622945736733
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_3",
+    "sigma": 6.011791763051349e-05,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.790855407714844e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.00775357450667197,
+        -0.14170157395436075,
+        0.07561656460797211,
+        0.13228886823704053,
+        -0.12923313502447473
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_4",
+    "sigma": 0.0006382604807022517,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.528594970703125e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.025263817619319767,
+        -0.15424770943329408,
+        -0.04985884717939544,
+        0.07331328060713603,
+        0.13247742724595452
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_5",
+    "sigma": 0.0049972145248635535,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.457069396972656e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.07069097909113688,
+        -0.11038806162188969,
+        0.07986239075036586,
+        0.049208710925024046,
+        -0.047506169654282615
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_6",
+    "sigma": 0.001988018014365006,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.457069396972656e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.04458719563243472,
+        -0.016928552261593503,
+        0.10712508913613414,
+        -0.13253697175073317,
+        -0.09428467070215717
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_7",
+    "sigma": 0.00011106347762820755,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.552436828613281e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.010538665837201954,
+        -0.11499325309792184,
+        -0.04711593742196529,
+        -0.22974632492799046,
+        -0.17144384945223962
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_8",
+    "sigma": 6.6522460150909995e-06,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.3855438232421875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.002579194838528295,
+        -0.23503357265595054,
+        -0.07149878331999245,
+        0.13587280656431144,
+        0.01630832671510174
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_9",
+    "sigma": 0.0019007795019420216,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.3855438232421875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.04359793001900459,
+        0.0739675543676126,
+        -0.12727269823697923,
+        -0.08627904072279473,
+        0.033417701026921785
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_10",
+    "sigma": 0.017717099172854564,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 8.916854858398438e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.13310559407047687,
+        -0.03857758218069374,
+        -0.007916176241664172,
+        0.07828893018816624,
+        0.07365208345459562
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_11",
+    "sigma": 0.04508972400250033,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.409385681152344e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.21234341054645495,
+        0.008330376934346219,
+        0.08919413531810567,
+        0.2587791717479121,
+        -0.11571866563276068
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_12",
+    "sigma": 0.00918899572738065,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.2901763916015625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.09585924956612508,
+        -0.09182518669097472,
+        -0.019899572391209493,
+        -0.15384397288030563,
+        -0.1699153965539231
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_13",
+    "sigma": 0.01486070723216033,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.504753112792969e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.12190450045900818,
+        -0.13918301754032517,
+        0.11387942869879822,
+        0.14986830216280428,
+        0.3071650760144936
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_14",
+    "sigma": 0.02982372421236926,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.790855407714844e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.17269546668158162,
+        0.26690818086199913,
+        0.12056929867312816,
+        -0.07961765030420512,
+        0.2777499457187895
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_15",
+    "sigma": 0.02158281036083041,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.3855438232421875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.14691089258741302,
+        -0.10760013943090503,
+        0.04386437910566378,
+        0.03885889214325392,
+        0.011571389048768461
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_16",
+    "sigma": 0.09391069070421183,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.314018249511719e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.3064485123217468,
+        0.19453560676846682,
+        -0.3323100943383339,
+        -0.007302284302629503,
+        0.19115899711465892
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_17",
+    "sigma": 0.12219178101277195,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.2901763916015625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.34955940984727035,
+        0.14437859110008167,
+        -0.1753835398956463,
+        -0.25580082333365267,
+        -0.2685755810594567
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_18",
+    "sigma": 0.016720203202868943,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.2901763916015625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.1293066247447088,
+        -0.20269186524619695,
+        0.1032753596121572,
+        0.02268744116013092,
+        -0.10534444153418512
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_19",
+    "sigma": 0.0012485367559662646,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.24249267578125e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.03533463960430706,
+        0.08519051274938379,
+        0.05776619333894358,
+        -0.06715834971132645,
+        0.056924018809302694
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "K3 surface",
+    "class": "\u03be_20",
+    "sigma": 0.024696533034521122,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.2901763916015625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.15715130618140316,
+        0.08062743129421622,
+        0.3269164626410167,
+        -0.07406494299775473,
+        0.07014710044483591
+      ],
+      "codimension": 1,
+      "betti_number": 22
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_1",
+    "sigma": 0.002252300291791959,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 6.389617919921875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.04745840591288291,
+        0.02266771325310349,
+        0.01836825832606262,
+        -0.03381009846895169,
+        0.05453662607561653
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_2",
+    "sigma": 0.0002349929134203766,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.62396240234375e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.015329478576271819,
+        -0.007551905684922998,
+        -0.1958195652241752,
+        0.2381933181066815,
+        0.011240529204848856
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_3",
+    "sigma": 0.000889868136821798,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.123283386230469e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.029830657666598603,
+        0.04493876932372362,
+        0.008989538014733957,
+        -0.06901992818763449,
+        -0.033255461951739
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_4",
+    "sigma": 0.022037035375178305,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.075599670410156e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.14844876346800032,
+        -0.055570889136734795,
+        -0.07845527518765257,
+        0.07209266820249746,
+        -0.011465008352392054
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_5",
+    "sigma": 1.3751940466009783e-05,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.9087066650390625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.0037083608867004548,
+        -0.0005310055842829154,
+        0.002483462293193853,
+        0.05457176408827342,
+        0.015307814877476601
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_6",
+    "sigma": 0.042749797875515,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.86102294921875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.20676024249239744,
+        0.0025970040395407274,
+        -0.15860621488881624,
+        0.033683516811182285,
+        0.01321631291776005
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_7",
+    "sigma": 0.0017524413431998542,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.8133392333984375e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.04186217078938757,
+        -0.13173867233192782,
+        0.041883607937608106,
+        -0.14117454509971025,
+        -0.04431723530757191
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_8",
+    "sigma": 2.245514499591474e-05,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.9325485229492188e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.004738685998872972,
+        -0.0013029546353198126,
+        -0.07916887611193558,
+        -0.04363709923235307,
+        -0.027264021989831397
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_9",
+    "sigma": 0.000515158201382374,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.9325485229492188e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.022697096761092023,
+        0.03607681626094662,
+        0.0050639001994450695,
+        0.005220287886944994,
+        0.12756438363021685
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_10",
+    "sigma": 0.008381273833907629,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 6.747245788574219e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.09154929728789636,
+        -0.18831371754004492,
+        -0.009687611949322177,
+        -0.20229713708743655,
+        -0.03773696579186917
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_11",
+    "sigma": 0.4895202567797138,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.9802322387695312e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.6996572423549361,
+        0.4658554332578725,
+        -0.45655320303240643,
+        -0.15862041390543455,
+        0.1038266598184763
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_12",
+    "sigma": 0.0827739328536427,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.7894973754882812e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.287704593035361,
+        0.0808755796482897,
+        0.6586516269254101,
+        0.39734026026117686,
+        0.5424588493684877
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_13",
+    "sigma": 0.10270563120791124,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.8371810913085938e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.3204771929606087,
+        0.5324947864315084,
+        0.21175745078257574,
+        0.14580579171819477,
+        -0.36803167620530236
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_14",
+    "sigma": 0.31127799885963725,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.86102294921875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.5579229327242583,
+        -0.23905376059765765,
+        -0.7433032230715729,
+        -0.2727994596461759,
+        -0.04623663457629963
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_15",
+    "sigma": 0.09526300163832149,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.7894973754882812e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.30864705026667844,
+        0.022743650997362842,
+        0.06506784137258675,
+        -0.0038091018555011288,
+        0.04900996455826591
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_16",
+    "sigma": 0.12708741205792096,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.075599670410156e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.3564932146029163,
+        0.10415970571335344,
+        0.08895051053408215,
+        0.059138732763773405,
+        0.25193697705120605
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_17",
+    "sigma": 0.06870693132908368,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.9087066650390625e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.262120070443077,
+        0.3429234939023577,
+        0.00788273713756221,
+        -0.7610566905310208,
+        0.4593995066411012
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_18",
+    "sigma": 0.19878747165315375,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 3.0040740966796875e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.4458558866418091,
+        0.4593150588182408,
+        -0.6302367663342523,
+        -0.4191575378708256,
+        0.11673266252841559
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_19",
+    "sigma": 0.021875580710761025,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.9325485229492188e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        -0.14790395772514345,
+        0.29728877588368563,
+        -0.08516851799101695,
+        0.11690561910532558,
+        0.5427535241542076
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  },
+  {
+    "variety": "Abelian surface",
+    "class": "\u03be_20",
+    "sigma": 0.49109943482146884,
+    "passes": false,
+    "rank": 0,
+    "lambda": 0.0,
+    "algebraic": false,
+    "time": 2.7894973754882812e-05,
+    "details": {
+      "eigenvalues": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "coefficients": [
+        0.7007848705711823,
+        -0.2916650777761517,
+        0.3010553579849168,
+        0.2693245100853161,
+        0.30126965071927475
+      ],
+      "codimension": 1,
+      "betti_number": 6
+    }
+  }
+]

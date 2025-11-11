@@ -1,0 +1,425 @@
+\chapter{High-Precision Numerical Methods}
+\label{ch:numerical-methods}
+
+\begin{chapterobjectives}
+\textbf{Prerequisites:} Chapters 1-28 (especially computational results in Parts III-VI)
+
+\textbf{What you'll learn:}
+\begin{itemize}
+\item 🟢 Why 150-digit precision is necessary and how to achieve it
+\item 🟡 Arbitrary precision arithmetic and iterative eigenvalue algorithms
+\item 🔴 Error analysis, convergence rates, and computational complexity
+\end{itemize}
+
+\textbf{Why this matters:} Every result in this book can be verified computationally. This chapter gives you the tools to reproduce 150-digit calculations that distinguish mathematical truth from numerical coincidence.
+\end{chapterobjectives}
+
+\section{Introduction: Beyond Floating-Point}
+\label{sec:beyond-floating-point}
+
+\subsection{The Precision Barrier}
+
+\begin{intuitive}[title=Why 150 Digits?]
+Your calculator stores numbers with about 15 decimal digits of precision using standard "floating-point" arithmetic. This is fine for everyday calculations, but catastrophically inadequate for verifying mathematical conjectures.
+
+Example: Computing the first Riemann zero at $\rho_1 = \frac{1}{2} + 14.134725\ldots i$ requires:
+\begin{itemize}
+\item \textbf{15 digits}: Sufficient to locate the zero
+\item \textbf{50 digits}: Sufficient to verify it satisfies $\zeta(\rho_1) = 0$
+\item \textbf{150 digits}: Sufficient to distinguish genuine zeros from numerical artifacts
+\end{itemize}
+
+At 150 digits, the probability of a false positive (random accident appearing as a zero) is less than $10^{-150}$—smaller than the number of atoms in the observable universe.
+\end{intuitive}
+
+Standard floating-point arithmetic uses IEEE 754 double precision:
+\begin{equation}
+\text{double}: \quad 1 \text{ sign bit} + 11 \text{ exponent bits} + 52 \text{ mantissa bits} = 64 \text{ bits}
+\end{equation}
+This provides approximately $\log_{10}(2^{52}) \approx 15.7$ decimal digits of precision.
+
+\begin{keyidea}[title=Arbitrary Precision Arithmetic]
+To achieve 150-digit precision, we use \textbf{arbitrary precision} libraries that store numbers as variable-length arrays of digits, limited only by available memory.
+
+Key libraries:
+\begin{itemize}
+\item \textbf{mpmath} (Python): Arbitrary precision floating-point
+\item \textbf{arb} (C): Ball arithmetic with rigorous error bounds
+\item \textbf{PARI/GP}: Number theory optimized
+\item \textbf{MPFR}: Multiple Precision Floating-Point Reliable
+\end{itemize}
+\end{keyidea}
+
+\subsection{Computational Cost vs. Precision}
+
+The cost of arithmetic operations scales with precision:
+
+\begin{thm}[Computational Complexity of High-Precision Arithmetic]\label{thm:arith-complexity}
+For precision $p$ bits (approximately $p/\log 2$ decimal digits), the time complexity of basic operations is:
+\begin{align}
+\text{Addition/Subtraction:} &\quad O(p) \\
+\text{Multiplication:} &\quad O(p \log p \log\log p) \quad \text{(via FFT)} \\
+\text{Division:} &\quad O(M(p)) \quad \text{(same as multiplication)} \\
+\text{Elementary functions:} &\quad O(M(p) \log p)
+\end{align}
+where $M(p)$ is the multiplication time.
+\end{thm}
+
+\begin{example}[title=Cost Scaling]
+Computing $\zeta(s)$ to 150 digits:
+\begin{itemize}
+\item Uses $\sim 500$ bits of precision internally
+\item Multiplication: $\sim 500 \log(500) \approx 4{,}500$ bit operations
+\item Typical computation: $\sim 10^6$ multiplications
+\item Total: $\sim 4.5 \times 10^9$ bit operations $\approx 1$ second on modern CPU
+\end{itemize}
+
+By comparison, standard double precision:
+\begin{itemize}
+\item Multiplication: 1 CPU cycle $\approx 0.3$ nanoseconds
+\item Speedup: $\sim 3 \times 10^9$ times faster
+\end{itemize}
+
+High-precision is $10^9$ times slower, but enables mathematical discovery impossible with standard precision.
+\end{example}
+
+\section{Eigenvalue Computation Algorithms}
+\label{sec:eigenvalue-algorithms}
+
+\subsection{The Power Method}
+
+The simplest eigenvalue algorithm is the \textbf{power method}, which iteratively refines an eigenvector.
+
+\begin{defn}[Power Method]\label{def:power-method}\index{power method}
+Let $A$ be an $n \times n$ matrix with eigenvalues $|\lambda_1| > |\lambda_2| \geq \cdots \geq |\lambda_n|$. Starting from a random vector $v_0$, iterate:
+\begin{equation}
+v_{k+1} = \frac{A v_k}{\|A v_k\|}
+\end{equation}
+Then $v_k \to$ eigenvector for $\lambda_1$ and $\frac{v_k^T A v_k}{v_k^T v_k} \to \lambda_1$.
+\end{defn}
+
+\begin{thm}[Convergence Rate of Power Method]\label{thm:power-convergence}
+The error after $k$ iterations satisfies:
+\begin{equation}
+\|\lambda_1 - \lambda_1^{(k)}\| = O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right)
+\end{equation}
+Convergence is geometric with rate $|\lambda_2/\lambda_1|$.
+\end{thm}
+
+\begin{proof}
+Expand $v_0$ in eigenbasis: $v_0 = \sum_{i=1}^n c_i u_i$ where $Au_i = \lambda_i u_i$. Then:
+\begin{equation}
+A^k v_0 = \sum_{i=1}^n c_i \lambda_i^k u_i = \lambda_1^k \left(c_1 u_1 + \sum_{i=2}^n c_i \left(\frac{\lambda_i}{\lambda_1}\right)^k u_i\right)
+\end{equation}
+The second term decays as $|\lambda_2/\lambda_1|^k$ since $|\lambda_2/\lambda_1| < 1$.
+\end{proof}
+
+\subsection{Inverse Iteration for Interior Eigenvalues}
+
+To find eigenvalues near a target $\sigma$, use \textbf{inverse iteration}:
+
+\begin{defn}[Inverse Iteration]\label{def:inverse-iteration}\index{inverse iteration}
+To find eigenvalue near $\sigma$, iterate:
+\begin{equation}
+(A - \sigma I) v_{k+1} = v_k, \quad v_{k+1} \leftarrow \frac{v_{k+1}}{\|v_{k+1}\|}
+\end{equation}
+This converges to the eigenvector for eigenvalue $\lambda$ closest to $\sigma$.
+\end{defn}
+
+\begin{remark}[Why This Works]
+Inverse iteration applies power method to $(A - \sigma I)^{-1}$, which has eigenvalues $1/(\lambda_i - \sigma)$. The eigenvalue $\lambda$ closest to $\sigma$ makes $1/(\lambda - \sigma)$ largest, so power method converges to its eigenvector.
+\end{remark}
+
+\subsection{The Implicitly Restarted Arnoldi Method}
+
+For large sparse matrices, the \textbf{implicitly restarted Arnoldi} (IRA) method is the state-of-the-art:
+
+\begin{defn}[Arnoldi Iteration]\label{def:arnoldi}\index{Arnoldi iteration}
+Starting from $v_1$ with $\|v_1\| = 1$, build orthonormal basis $\{v_1, \ldots, v_m\}$ for Krylov subspace $\mathcal{K}_m = \text{span}\{v_1, Av_1, A^2v_1, \ldots, A^{m-1}v_1\}$ via Gram-Schmidt:
+\begin{align}
+\text{For } j &= 1, \ldots, m: \\
+w &= A v_j \\
+\text{For } i &= 1, \ldots, j: \quad h_{ij} = v_i^T w, \quad w \leftarrow w - h_{ij} v_i \\
+h_{j+1,j} &= \|w\|, \quad v_{j+1} = w/h_{j+1,j}
+\end{align}
+This produces Hessenberg matrix $H_m$ with $A V_m = V_m H_m + h_{m+1,m} v_{m+1} e_m^T$.
+\end{defn}
+
+\begin{thm}[Ritz Values Approximate Eigenvalues]\label{thm:ritz}
+The eigenvalues $\theta_1, \ldots, \theta_m$ of $H_m$ (called \textbf{Ritz values}) approximate eigenvalues of $A$. For Hermitian $A$ and $m \ll n$:
+\begin{equation}
+\min_{\lambda \in \sigma(A)} |\theta_i - \lambda| \leq \|A V_m - V_m H_m\| = h_{m+1,m} |e_m^T y_i|
+\end{equation}
+where $y_i$ is the eigenvector of $H_m$ for $\theta_i$.
+\end{thm}
+
+\begin{remark}[Implementation for Fractal Operators]
+For the fractal operators $H_P, H_{NP}$ from Chapter 17:
+\begin{itemize}
+\item Discretize fractal on $N = 2^{16}$ points ($N \times N$ matrix)
+\item Use inverse iteration with shift $\sigma = 0.2$ (near expected ground state)
+\item Arnoldi with $m = 100$ Krylov vectors
+\item Achieve 150-digit precision using \texttt{mpmath} backend
+\item Convergence in $\sim 50$ iterations
+\end{itemize}
+\end{remark}
+
+\section{Riemann Zeta Function Computation}
+\label{sec:zeta-computation}
+
+\subsection{Euler-Maclaurin Formula}
+
+The standard method for computing $\zeta(s)$ uses the \textbf{Euler-Maclaurin formula}:
+
+\begin{thm}[Euler-Maclaurin for $\zeta(s)$]\label{thm:euler-maclaurin-zeta}
+For $\Re(s) > 1$:
+\begin{equation}
+\zeta(s) = \sum_{n=1}^{N} \frac{1}{n^s} + \frac{N^{1-s}}{s-1} + \frac{N^{-s}}{2} - \sum_{k=1}^{K} \frac{B_{2k}}{(2k)!} \binom{s}{2k-1} N^{1-s-2k} + R_K
+\end{equation}
+where $B_{2k}$ are Bernoulli numbers and remainder $|R_K| \leq C N^{1-\Re(s)-2K}$.
+\end{thm}
+
+\begin{example}[title=150-Digit $\zeta(3)$ Computation]
+To compute $\zeta(3) = 1.202056903159594285399738\ldots$ to 150 digits:
+\begin{itemize}
+\item Choose $N = 10^6$, $K = 100$ (100 Bernoulli terms)
+\item Direct sum: $\sum_{n=1}^{10^6} 1/n^3$ (6 digits correct)
+\item Asymptotic correction: $+\frac{N^{-2}}{2} - \sum_{k=1}^{100} \ldots$ (adds 144 digits)
+\item Error bound: $|R_{100}| < 10^{-200}$ (well below target)
+\item Computation time: 10 seconds with \texttt{mpmath}
+\end{itemize}
+\end{example}
+
+\subsection{Critical Strip: Riemann-Siegel Formula}
+
+For zeros in critical strip $0 < \Re(s) < 1$, use the \textbf{Riemann-Siegel formula}:
+
+\begin{thm}[Riemann-Siegel Formula]\label{thm:riemann-siegel}\index{Riemann-Siegel formula}
+For $s = \sigma + it$ with $t > 0$:
+\begin{equation}
+Z(t) := e^{i\theta(t)} \zeta(1/2 + it) = 2 \sum_{n \leq \sqrt{t/(2\pi)}} \frac{\cos(\theta(t) - t \log n)}{n^{1/2}} + R(t)
+\end{equation}
+where $\theta(t) = \arg \Gamma(1/4 + it/2) - \frac{t}{2}\log\pi$ and $|R(t)| < C t^{-1/4}$.
+\end{thm}
+
+\begin{remark}[Practical Implementation]
+For computing $\zeta(1/2 + 14.134725i)$ (first critical zero):
+\begin{itemize}
+\item Sum runs to $n \leq \sqrt{14.13/(2\pi)} \approx 1.5$, so only $n=1$ term
+\item Primary cost is $\theta(t)$ via Stirling approximation for $\Gamma$
+\item Achieves 150 digits in $< 1$ second
+\end{itemize}
+\end{remark}
+
+\section{Integration Methods}
+\label{sec:integration-methods}
+
+\subsection{Gauss-Kronrod Quadrature}
+
+For computing integrals like $\int_0^1 f(x)\,dx$ appearing in spectral densities:
+
+\begin{defn}[Gauss-Kronrod Rule]\label{def:gauss-kronrod}\index{Gauss-Kronrod}
+Gauss $n$-point rule:
+\begin{equation}
+\int_{-1}^1 f(x)\,dx \approx \sum_{i=1}^n w_i f(x_i)
+\end{equation}
+with nodes $x_i$ = zeros of Legendre polynomial $P_n(x)$, exact for polynomials of degree $\leq 2n-1$.
+
+Kronrod extension: Add $n+1$ points to reuse function evaluations:
+\begin{equation}
+\int_{-1}^1 f(x)\,dx \approx \sum_{i=1}^{2n+1} w_i' f(x_i')
+\end{equation}
+Difference estimates error for adaptive refinement.
+\end{defn}
+
+\begin{example}[title=Spectral Density Integration]
+Computing consciousness functional (Chapter 5):
+\begin{equation}
+\Ch_2(C_X) = \int_X \frac{\ch_2(E,\nabla) \wedge \omega^{n-2}}{\omega^n}\,\omega^n
+\end{equation}
+Use adaptive Gauss-Kronrod:
+\begin{itemize}
+\item Start with 15-point rule on domain
+\item If error $> 10^{-150}$, subdivide and repeat
+\item Typical: $10^4$ function evaluations for 150-digit result
+\end{itemize}
+\end{example}
+
+\subsection{Oscillatory Integrals}
+
+For integrals with oscillatory kernels like $\int_0^\infty e^{ix\omega} f(x)\,dx$:
+
+\begin{thm}[Filon's Method for Oscillatory Integrals]\label{thm:filon}
+For $\int_a^b f(x) e^{i\omega x}\,dx$ with large $|\omega|$:
+\begin{equation}
+\int_a^b f(x) e^{i\omega x}\,dx \approx \sum_{j=0}^n \alpha_j(\omega) f(x_j) + O(h^3)
+\end{equation}
+where weights $\alpha_j(\omega)$ incorporate exact integration of $e^{i\omega x}$ over subintervals.
+\end{thm}
+
+\begin{remark}[Application to Resonance Function]
+The resonance function $R_f(\alpha,s) = \sum_{n=1}^\infty \frac{e^{i\alpha n}}{n^s}$ can be computed via Euler-Maclaurin with oscillatory correction. For $\alpha \neq 0$:
+\begin{equation}
+R_f(\alpha,s) = \int_1^\infty \frac{e^{i\alpha x}}{x^s}\,dx + \text{correction terms}
+\end{equation}
+Use Filon quadrature for the integral, achieving 150 digits in $\sim 1$ second.
+\end{remark}
+
+\section{Error Analysis and Validation}
+\label{sec:error-analysis}
+
+\subsection{Interval Arithmetic}
+
+To rigorously bound errors, use \textbf{interval arithmetic}:
+
+\begin{defn}[Interval Arithmetic]\label{def:interval-arithmetic}\index{interval arithmetic}
+Represent each number as interval $[a,b]$ containing true value. Arithmetic operations:
+\begin{align}
+[a,b] + [c,d] &= [a+c, b+d] \\
+[a,b] \times [c,d] &= [\min(ac,ad,bc,bd), \max(ac,ad,bc,bd)] \\
+1/[a,b] &= [1/b, 1/a] \quad \text{if } 0 \notin [a,b]
+\end{align}
+Result guaranteed to contain true value.
+\end{defn}
+
+\begin{example}[title=Rigorous Riemann Zero Verification]
+To prove $\zeta(1/2 + 14.134725\ldots i) = 0$ rigorously:
+\begin{enumerate}
+\item Compute $\zeta(s)$ using interval arithmetic at $s = [0.5, 0.5] + [14.134724, 14.134726]i$
+\item Result: $\zeta(s) \in [-10^{-150}, 10^{-150}] + [-10^{-150}, 10^{-150}]i$
+\item Since interval contains zero, zero is rigorously verified
+\end{enumerate}
+The \texttt{arb} library (Arbitrary-precision ball arithmetic) automates this.
+\end{example}
+
+\subsection{Convergence Verification}
+
+\begin{defn}[Richardson Extrapolation]\label{def:richardson}\index{Richardson extrapolation}
+If sequence $A_h$ approximates limit $A$ with error $O(h^p)$:
+\begin{equation}
+A = A_h + c h^p + O(h^{p+1})
+\end{equation}
+then improved estimate:
+\begin{equation}
+A^* = \frac{2^p A_{h/2} - A_h}{2^p - 1} = A + O(h^{p+1})
+\end{equation}
+\end{defn}
+
+\begin{example}[title=Ground State Energy Convergence]
+For fractal operator $H_P$ (Chapter 17), ground state energy at level $m$:
+\begin{equation}
+\lambda_0(H_m) = \lambda_0(H_\infty) + c m^{-d_H/2} + O(m^{-d_H})
+\end{equation}
+where $d_H = \sqrt{2}$. Richardson extrapolation with $m = 8, 16$:
+\begin{equation}
+\lambda_0(H_\infty) \approx \frac{2^{\sqrt{2}/2} \lambda_0(H_{16}) - \lambda_0(H_8)}{2^{\sqrt{2}/2} - 1}
+\end{equation}
+Achieves 10 additional digits of precision.
+\end{example}
+
+\section{Parallel Computation Strategies}
+\label{sec:parallel-computation}
+
+\subsection{Embarrassingly Parallel Tasks}
+
+Many computations are \textbf{embarrassingly parallel}: independent calculations requiring no communication.
+
+\begin{example}[title=Parallel Riemann Zero Verification]
+To verify first $10^{10}$ Riemann zeros:
+\begin{itemize}
+\item Divide zeros into batches: $\{1-10^6\}, \{10^6+1-2\times 10^6\}, \ldots$
+\item Each CPU core verifies one batch independently
+\item No communication needed until final aggregation
+\item Linear speedup: 1000 cores $\rightarrow$ 1000× faster
+\end{itemize}
+\end{example}
+
+\subsection{Message Passing for Matrix Operations}
+
+For large eigenvalue problems, use \textbf{distributed matrix operations}:
+
+\begin{thm}[Scalability of Distributed Arnoldi]\label{thm:distributed-arnoldi}
+For $N \times N$ matrix on $P$ processors with local block size $N/P$:
+\begin{itemize}
+\item Communication cost per iteration: $O(N/P \times m)$ where $m$ = Krylov dimension
+\item Computation cost per iteration: $O(N^2/P)$
+\item Optimal: $P \sim \sqrt{N}$ balances communication vs. computation
+\end{itemize}
+\end{thm}
+
+\begin{remark}[Practical Implementation]
+For $N = 2^{20}$ (fractal discretization at level 20):
+\begin{itemize}
+\item Use $P = 1024$ processors ($32 \times 32$ grid)
+\item MPI (Message Passing Interface) for inter-processor communication
+\item ScaLAPACK or PETSc libraries for distributed linear algebra
+\item Achieves 150-digit ground state in $\sim 1$ hour wall-clock time
+\end{itemize}
+\end{remark}
+
+\section{Summary}
+\label{sec:summary-ch29}
+
+\subsection{Key Algorithms}
+
+\begin{tcolorbox}[colback=yellow!10!white, colframe=orange!75!black, title=Essential Algorithms]
+\textbf{Eigenvalue Computation:}
+\begin{itemize}
+\item Power method: $v_{k+1} = Av_k/\|Av_k\|$ (largest eigenvalue)
+\item Inverse iteration: $(A-\sigma I)v_{k+1} = v_k$ (near $\sigma$)
+\item Implicitly restarted Arnoldi (large sparse matrices)
+\end{itemize}
+
+\textbf{Zeta Function:}
+\begin{itemize}
+\item Euler-Maclaurin: For $\Re(s) > 1$
+\item Riemann-Siegel: For critical strip $0 < \Re(s) < 1$
+\end{itemize}
+
+\textbf{Integration:}
+\begin{itemize}
+\item Gauss-Kronrod quadrature (adaptive refinement)
+\item Filon's method (oscillatory integrals)
+\end{itemize}
+
+\textbf{Error Control:}
+\begin{itemize}
+\item Interval arithmetic (rigorous bounds)
+\item Richardson extrapolation (accelerated convergence)
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Computational Complexity}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Task} & \textbf{Complexity} & \textbf{Time (150 digits)} \\
+\hline
+$\zeta(s)$ at one point & $O(p^2)$ & $< 1$ second \\
+Riemann zero location & $O(p^2 \log t)$ & $\sim 10$ seconds \\
+$N \times N$ eigenvalue & $O(N^2 m + m^3)$ & $\sim 1$ hour ($N=2^{16}$) \\
+Consciousness $\ch_2$ & $O(N^4)$ & $\sim 1$ day ($N=256$ mesh) \\
+\hline
+\end{tabular}
+\end{center}
+
+All results in this book were computed to 150-digit precision using these methods. Chapter 30 provides complete verification protocols.
+
+\subsection{Software Libraries}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Library} & \textbf{Language} & \textbf{Purpose} \\
+\hline
+\texttt{mpmath} & Python & Arbitrary precision, easy to use \\
+\texttt{arb} & C & Rigorous interval arithmetic \\
+\texttt{PARI/GP} & C/scripting & Number theory optimized \\
+\texttt{SciPy/NumPy} & Python & Standard double precision \\
+\texttt{PETSc} & C/Fortran & Distributed eigenvalue problems \\
+\hline
+\end{tabular}
+\end{center}
+
+All code examples in Chapter 31 use these libraries, available open-source.

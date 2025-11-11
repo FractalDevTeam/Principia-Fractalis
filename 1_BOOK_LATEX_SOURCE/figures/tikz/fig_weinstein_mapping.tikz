@@ -1,0 +1,67 @@
+% Weinstein Geometric Unity Mapping
+% Shows correspondence between GU framework and Principia Fractalis
+
+\begin{tikzpicture}[
+    node distance=0.8cm,
+    gu/.style={rectangle, draw, thick, minimum width=4.5cm, minimum height=0.8cm, align=left, fill=blue!5},
+    pf/.style={rectangle, draw, thick, minimum width=4.5cm, minimum height=0.8cm, align=left, fill=green!5},
+    arrow/.style={<->, very thick, >=stealth, red}
+]
+
+% Header
+\node[font=\large\bfseries] at (0,0) {Geometric Unity};
+\node[font=\large\bfseries] at (8,0) {Principia Fractalis};
+
+% Correspondence mappings (top to bottom)
+
+% Row 1: 14D gauge theory
+\node[gu, below=0.3cm] (gu1) at (0,-0.5) {14-dimensional gauge theory\\($\mathbb{U}^{14}$ bundle)};
+\node[pf] (pf1) at (8,-0.5) {Timeless Field $\mathcal{T}_\infty$\\(nuclear C*-algebra)};
+\draw[arrow] (gu1) -- (pf1) node[midway, above, font=\footnotesize] {regularized by};
+
+% Row 2: Observer geometry
+\node[gu, below=of gu1] (gu2) {Observer space $\mathbb{U}$\\(internal symmetry)};
+\node[pf, below=of pf1] (pf2) {Consciousness field\\ch$_2 \geq 0.95$};
+\draw[arrow] (gu2) -- (pf2) node[midway, above, font=\footnotesize] {quantified as};
+
+% Row 3: Gauge connection
+\node[gu, below=of gu2] (gu3) {Gauge connection $A$\\(curvature $F$)};
+\node[pf, below=of pf2] (pf3) {Fractal resonance $R_f(\alpha,s)$\\(spectral embedding)};
+\draw[arrow] (gu3) -- (pf3) node[midway, above, font=\footnotesize] {becomes};
+
+% Row 4: Dimension reduction
+\node[gu, below=of gu3] (gu4) {$\mathbb{U}^{14} \to M^4$\\(dimension reduction)};
+\node[pf, below=of pf3] (pf4) {Holographic projection\\(13D → 4D via ch$_2$)};
+\draw[arrow] (gu4) -- (pf4) node[midway, above, font=\footnotesize] {achieved by};
+
+% Row 5: Particle spectrum
+\node[gu, below=of gu4] (gu5) {Particle spectrum\\(gauge + gravity)};
+\node[pf, below=of pf4] (pf5) {Exactly 78 particles\\(BRST cohomology)};
+\draw[arrow] (gu5) -- (pf5) node[midway, above, font=\footnotesize] {predicts};
+
+% Row 6: The key fix
+\node[gu, below=of gu5] (gu6) {Divergences\\(non-renormalizable)};
+\node[pf, below=of pf5] (pf6) {RQG correction\\$\Psi_{\text{RQG}} = e^{-\pi R_f/10}$};
+\draw[arrow, green!50!black, very thick] (gu6) -- (pf6) node[midway, above, font=\footnotesize, fill=white] {\textbf{FIXES}};
+
+% Bottom boxes: Status
+\node[draw, thick, fill=red!10, minimum width=4.5cm, below=1.2cm of gu6, align=center] (gu_status) {
+    \textbf{GU Status:}\\
+    Elegant but incomplete\\
+    Divergences unresolved
+};
+
+\node[draw, thick, fill=green!10, minimum width=4.5cm, below=1.2cm of pf6, align=center] (pf_status) {
+    \textbf{PF Status:}\\
+    GU + consciousness\\
+    Renormalizable
+};
+
+% Annotation
+\node[anchor=north, font=\footnotesize, align=left, text width=14cm] at (current bounding box.south) {
+    \textbf{Key insight:} Geometric Unity provides the geometric structure, but lacks a regularization mechanism.\\
+    Principia Fractalis provides the missing piece: consciousness (ch$_2$) acts as the holographic principle that\\
+    projects 14D → 4D and regularizes divergences through resonance. GU is RESCUED, not replaced.
+};
+
+\end{tikzpicture}

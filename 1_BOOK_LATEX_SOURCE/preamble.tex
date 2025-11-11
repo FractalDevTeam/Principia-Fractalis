@@ -1,0 +1,551 @@
+% PREAMBLE FOR FRACTAL RESONANCE MATHEMATICS TEXTBOOK
+% Author: Pablo Cohen
+% ORCID: 0009-0002-0734-5565
+
+% ============================================
+% PACKAGES
+% ============================================
+
+% Page layout and formatting
+\usepackage[letterpaper,margin=1in,includefoot]{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+
+% Mathematics
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{tensor}
+
+% Graphics and color
+\usepackage{graphicx}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,positioning,patterns,calc,backgrounds}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
+
+% Better float placement
+\usepackage{float}
+\usepackage{placeins}  % Provides \FloatBarrier
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.7}
+
+% Principia Fractalis color palette
+\definecolor{pfblack}{HTML}{000000}
+\definecolor{pfgold}{HTML}{F0C419}
+\definecolor{pfblue}{HTML}{4AA3FF}
+\definecolor{pfwhite}{HTML}{FFFFFF}
+
+% Tables and lists
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+
+% Code listings
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% References and citations
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{cite}
+
+% Boxes and frames
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+% Index
+\usepackage{makeidx}
+\makeindex
+
+% Fonts and Unicode support
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% Define emoji replacements for pdflatex
+\DeclareUnicodeCharacter{1F7E2}{[L1]} % Green circle
+\DeclareUnicodeCharacter{1F7E1}{[L2]} % Yellow circle
+\DeclareUnicodeCharacter{1F534}{[L3]} % Red circle
+\DeclareUnicodeCharacter{1F4BB}{[CODE]} % Computer
+\DeclareUnicodeCharacter{1F4CA}{[GRAPH]} % Bar chart
+\DeclareUnicodeCharacter{1F3AF}{[TARGET]} % Target
+\DeclareUnicodeCharacter{26A0}{[!]} % Warning sign
+\DeclareUnicodeCharacter{039B}{$\Lambda$} % Lambda
+\DeclareUnicodeCharacter{03A9}{$\Omega$} % Omega
+\DeclareUnicodeCharacter{2713}{[OK]} % Checkmark
+\DeclareUnicodeCharacter{221E}{$\infty$} % Infinity
+\DeclareUnicodeCharacter{2500}{-} % Box drawing horizontal
+\DeclareUnicodeCharacter{2502}{|} % Box drawing vertical
+\DeclareUnicodeCharacter{251C}{+} % Box drawing vertical and right
+\DeclareUnicodeCharacter{2514}{+} % Box drawing up and right
+
+% ============================================
+% COLOR DEFINITIONS
+% ============================================
+
+\definecolor{defblue}{RGB}{0,102,204}
+\definecolor{thmgreen}{RGB}{34,139,34}
+\definecolor{exampleyellow}{RGB}{255,215,0}
+\definecolor{warnred}{RGB}{220,20,60}
+\definecolor{histpurple}{RGB}{147,112,219}
+\definecolor{level1green}{RGB}{144,238,144}
+\definecolor{level2yellow}{RGB}{255,255,153}
+\definecolor{level3red}{RGB}{255,182,193}
+
+% ============================================
+% CUSTOM ENVIRONMENTS - COLOR CODED BOXES
+% ============================================
+
+% Blue Box - Definitions
+\newtcolorbox{definition}[1][]{
+  colback=defblue!5,
+  colframe=defblue,
+  fonttitle=\bfseries,
+  title=Definition,
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+  #1
+}
+
+% Green Box - Theorems
+\newtcolorbox{theorem}[1][]{
+  colback=thmgreen!5,
+  colframe=thmgreen,
+  fonttitle=\bfseries,
+  title=Theorem,
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+  #1
+}
+
+% Yellow Box - Examples
+\newtcolorbox{example}[1][]{
+  colback=exampleyellow!10,
+  colframe=exampleyellow!80!black,
+  fonttitle=\bfseries,
+  title=Example,
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+  #1
+}
+
+% Red Box - Warnings
+\newtcolorbox{warning}[1][]{
+  colback=warnred!5,
+  colframe=warnred,
+  fonttitle=\bfseries,
+  title=Warning,
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+  #1
+}
+
+% Purple Box - Historical Context
+\newtcolorbox{historical}[1][]{
+  colback=histpurple!5,
+  colframe=histpurple,
+  fonttitle=\bfseries,
+  title=Historical Context,
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+  #1
+}
+
+\newtcolorbox{historicalnote}[1][]{
+  colback=histpurple!5,
+  colframe=histpurple,
+  fonttitle=\bfseries,
+  title=Historical Note,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Red Box - Warning
+\newtcolorbox{warningbox}[1][]{
+  colback=warnred!5,
+  colframe=warnred,
+  fonttitle=\bfseries,
+  title=Warning,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Light Green Box - Intuitive Understanding
+\newtcolorbox{intuitive}[1][]{
+  colback=level1green!15,
+  colframe=level1green!80!black,
+  fonttitle=\bfseries,
+  title=Understanding Intuitively,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Cyan Box - Key Ideas
+\newtcolorbox{keyidea}[1][]{
+  colback=cyan!5,
+  colframe=cyan!60!black,
+  fonttitle=\bfseries,
+  title=Key Idea,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Orange Box - Try It Yourself
+\newtcolorbox{tryit}[1][]{
+  colback=orange!10,
+  colframe=orange!80!black,
+  fonttitle=\bfseries,
+  title=Try It Yourself,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Gray Box - Chapter Objectives
+\newtcolorbox{chapterobjectives}[1][]{
+  colback=gray!10,
+  colframe=gray!70!black,
+  fonttitle=\bfseries\Large,
+  title=Chapter Objectives,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Level Boxes
+\newtcolorbox{level1}[1][]{
+  colback=level1green!10,
+  colframe=level1green!80!black,
+  fonttitle=\bfseries,
+  title={[L1] Level 1: Intuitive Understanding},
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+  #1
+}
+
+\newtcolorbox{level2}[1][]{
+  colback=level2yellow!10,
+  colframe=level2yellow!80!black,
+  fonttitle=\bfseries,
+  title={[L2] Level 2: Technical Details},
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+  #1
+}
+
+\newtcolorbox{level3}[1][]{
+  colback=level3red!10,
+  colframe=level3red!80!black,
+  fonttitle=\bfseries,
+  title={[L3] Level 3: Research \& Verification},
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+  #1
+}
+
+% Advanced box (alias for level3 for backward compatibility)
+\newtcolorbox{advanced}[1][]{
+  colback=level3red!10,
+  colframe=level3red!80!black,
+  fonttitle=\bfseries,
+  title={[L3] Advanced Topic},
+  breakable,
+  enhanced,
+  #1
+}
+
+% Observation box
+\newtcolorbox{observation}[1][]{
+  colback=cyan!5,
+  colframe=cyan!60!black,
+  fonttitle=\bfseries,
+  title=Observation,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Conjecture box
+\newtcolorbox{conjecture}[1][]{
+  colback=thmgreen!5,
+  colframe=thmgreen,
+  fonttitle=\bfseries,
+  title=Conjecture,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Problem box
+\newtcolorbox{problem}[1][]{
+  colback=exampleyellow!10,
+  colframe=exampleyellow!80!black,
+  fonttitle=\bfseries,
+  title=Problem,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Axiom box
+\newtcolorbox{axiom}[1][]{
+  colback=defblue!5,
+  colframe=defblue,
+  fonttitle=\bfseries,
+  title=Axiom,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Green box (generic green colored box)
+\newtcolorbox{greenbox}[1][]{
+  colback=thmgreen!5,
+  colframe=thmgreen,
+  fonttitle=\bfseries,
+  title=Note,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Task box (for exercises/tasks)
+\newtcolorbox{task}[1][]{
+  colback=orange!10,
+  colframe=orange!80!black,
+  fonttitle=\bfseries,
+  title=Task,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Intuition box (for intuitive explanations)
+\newtcolorbox{intuition}[1][]{
+  colback=blue!10,
+  colframe=blue!70!black,
+  fonttitle=\bfseries,
+  title=Intuition,
+  breakable,
+  enhanced,
+  #1
+}
+
+% Speculation box (for speculative ideas)
+\newtcolorbox{speculation}[1][]{
+  colback=purple!10,
+  colframe=purple!70!black,
+  fonttitle=\bfseries,
+  title=Speculation,
+  breakable,
+  enhanced,
+  #1
+}
+
+% ============================================
+% CUSTOM COMMANDS
+% ============================================
+
+% Margin icons
+\newcommand{\iconlevel}[1]{\marginpar{\Large #1}}
+\newcommand{\iconintuitive}{\iconlevel{🟢}}
+\newcommand{\icontechnical}{\iconlevel{🟡}}
+\newcommand{\iconresearch}{\iconlevel{🔴}}
+\newcommand{\iconcode}{\iconlevel{💻}}
+\newcommand{\icongraph}{\iconlevel{📊}}
+\newcommand{\iconimportant}{\iconlevel{🎯}}
+\newcommand{\iconwarning}{\iconlevel{⚠️}}
+
+% Mathematical operators and symbols
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+
+% Complex analysis operators
+\DeclareMathOperator{\Log}{Log}  % Principal branch of logarithm
+\DeclareMathOperator{\Arg}{Arg}  % Principal argument
+\DeclareMathOperator{\Li}{Li}    % Polylogarithm
+\DeclareMathOperator{\Real}{Re}  % Real part (alternative to \Re)
+\DeclareMathOperator{\im}{Im}    % Imaginary part (alternative to \Im)
+
+% Algebraic geometry and topology operators
+\DeclareMathOperator{\Hdg}{Hdg}      % Hodge classes
+\DeclareMathOperator{\Alg}{Alg}      % Algebraic classes
+\DeclareMathOperator{\CH}{CH}        % Chow group
+\DeclareMathOperator{\cl}{cl}        % Cycle class map
+\DeclareMathOperator{\ch}{ch}        % Chern character
+\DeclareMathOperator{\Ch}{Ch}        % Total Chern character
+\DeclareMathOperator{\Hol}{Hol}      % Holomorphic
+\DeclareMathOperator{\Spec}{Spec}    % Spectrum
+\DeclareMathOperator{\Reg}{Reg}      % Regular part
+
+% Algebra and group theory
+\DeclareMathOperator{\SU}{SU}        % Special unitary group
+\DeclareMathOperator{\ord}{ord}      % Order
+
+% Computer science complexity classes
+\DeclareMathOperator{\TIME}{TIME}    % Time complexity
+\DeclareMathOperator{\NTIME}{NTIME}  % Nondeterministic time
+
+% Number theory
+\DeclareMathOperator{\Sha}{Sha}      % Shafarevich-Tate group
+
+% General operators
+\DeclareMathOperator{\encode}{encode}  % Encoding function
+\newcommand{\F}{\mathbb{F}}            % Finite field
+
+% Digital sum function
+\newcommand{\dthree}[1]{D_3(#1)}
+
+% Fractal Resonance Function
+\newcommand{\Rf}[2]{R_f(#1,#2)}
+
+% Consciousness field
+\newcommand{\Cfield}{C^{\mu\nu}}
+
+% Resonance coefficient
+\newcommand{\rescoeff}[1]{\xi(#1)}
+
+% Omega-space (already defined in LaTeX)
+% \Omega is a built-in command
+
+% ============================================
+% THEOREM STYLES
+% ============================================
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[chapter]
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem{corollary}[thm]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{exmp}[thm]{Example}
+\newtheorem{exercise}{Exercise}[chapter]
+
+\theoremstyle{remark}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{note}[thm]{Note}
+
+% ============================================
+% CODE LISTING SETTINGS
+% ============================================
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{red},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  backgroundcolor=\color{gray!10}
+}
+
+% Python settings
+\lstdefinestyle{python}{
+  language=Python,
+  morekeywords={numpy,scipy,mpmath}
+}
+
+% ============================================
+% HYPERREF SETTINGS
+% ============================================
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=thmgreen,
+  urlcolor=defblue,
+  pdftitle={Principia Fractalis: A New Mathematical Framework for Physics, Computation, and Consciousness},
+  pdfauthor={Pablo Cohen},
+  pdfsubject={Mathematics, Physics, Consciousness},
+  pdfkeywords={Fractal Resonance, Riemann Hypothesis, Consciousness, Quantum Field Theory}
+}
+
+% ============================================
+% HEADER AND FOOTER
+% ============================================
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ============================================
+% TITLE INFORMATION
+% ============================================
+
+\title{Fractal Resonance Mathematics\\The Definitive Textbook}
+\author{Pablo Cohen\\ORCID: 0009-0002-0734-5565}
+\date{\today}
+
+% ============================================
+% MISCELLANEOUS
+% ============================================
+
+% Line spacing
+\onehalfspacing
+
+% Chapter opening customization - Enhanced for v2.0
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\Huge\bfseries\color{pfblue}}
+  {\filleft\Huge\color{pfgold}\chaptertitlename\ \thechapter}
+  {4ex}
+  {\titlerule\vspace{2ex}\filleft}
+  [\vspace{2ex}\titlerule]
+
+% Part formatting - Enhanced for v2.0
+\titleformat{\part}[display]
+  {\normalfont\Huge\bfseries\centering\color{pfblack}}
+  {\thepart}
+  {20pt}
+  {\Huge\color{pfgold}}
+
+% Better page breaking for boxes
+\usepackage{needspace}
+\newcommand{\boxneedspace}{\needspace{10\baselineskip}}
+
+% Better table spacing
+\renewcommand{\arraystretch}{1.3}
+
+% End of preamble

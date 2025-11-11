@@ -1,0 +1,70 @@
+% Radix Economy Plot - Q(b) = (log b)/b
+% Shows that base-3 minimizes the cost function
+
+\begin{tikzpicture}[scale=1.5]
+\begin{axis}[
+    xlabel={Base $b$},
+    ylabel={Economy $Q(b) = \frac{\log b}{b}$},
+    domain=2:16,
+    samples=200,
+    grid=major,
+    width=12cm,
+    height=8cm,
+    ymin=0.3,
+    ymax=0.5,
+    xmin=2,
+    xmax=16,
+    xtick={2,3,4,5,6,7,8,9,10,11,12,13,14,15,16},
+    ytick={0.30,0.35,0.40,0.45,0.50},
+    legend pos=north east,
+    axis lines=left,
+    thick
+]
+
+% Plot the continuous function
+\addplot[blue, very thick, smooth] {ln(x)/x};
+\addlegendentry{$Q(b) = \frac{\ln b}{b}$}
+
+% Mark integer bases
+\addplot[only marks, mark=*, mark size=2pt, red] coordinates {
+    (2, 0.346574)
+    (3, 0.366204)  % Minimum for integers
+    (4, 0.346574)
+    (5, 0.321888)
+    (6, 0.298842)
+    (7, 0.278032)
+    (8, 0.259258)
+    (9, 0.24264)
+    (10, 0.230259)
+    (12, 0.207014)
+    (16, 0.173287)
+};
+
+% Highlight base-3 minimum
+\node[circle, draw=red, very thick, minimum size=0.5cm] at (axis cs:3,0.366204) {};
+\node[above right, font=\small, align=left] at (axis cs:3,0.366204) {
+    \textbf{Minimum at $b=3$}\\
+    $Q(3) = \frac{\ln 3}{3} \approx 0.366$
+};
+
+% Mark base-2 and base-e for comparison
+\draw[dashed, gray] (axis cs:2,0) -- (axis cs:2,0.346574);
+\node[below, font=\footnotesize] at (axis cs:2,0.30) {Binary};
+
+\draw[dashed, gray] (axis cs:2.718,0) -- (axis cs:2.718,0.368);
+\node[below, font=\footnotesize] at (axis cs:2.718,0.30) {$e$};
+
+% Mark base-10 for comparison
+\draw[dashed, gray] (axis cs:10,0) -- (axis cs:10,0.230259);
+\node[below, font=\footnotesize] at (axis cs:10,0.30) {Decimal};
+
+\end{axis}
+
+% Annotation box
+\node[anchor=north west, font=\footnotesize, align=left, draw, fill=yellow!10, rounded corners, text width=11cm] at (current bounding box.south west) {
+    \textbf{Radix Economy Theorem:} Among integer bases, $b=3$ minimizes $Q(b) = (\log b)/b$, the cost of\\
+    representing numbers. This is NOT arbitrary—nature uses base-3 because it is mathematically optimal.\\
+    The continuous minimum occurs at $b = e \approx 2.718$, but among integers, base-3 wins.
+};
+
+\end{tikzpicture}

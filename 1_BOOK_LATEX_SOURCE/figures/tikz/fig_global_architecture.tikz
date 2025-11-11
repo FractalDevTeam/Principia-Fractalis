@@ -1,0 +1,64 @@
+% Global Architecture Map - Principia Fractalis
+% Shows relationships between core mathematical structures and application domains
+
+\begin{tikzpicture}[
+    node distance=2cm and 3cm,
+    box/.style={rectangle, draw, thick, minimum width=2.5cm, minimum height=1cm, align=center, fill=white},
+    core/.style={box, fill=gray!10, line width=1.2pt},
+    domain/.style={box, fill=blue!5},
+    arrow/.style={->, thick, >=stealth}
+]
+
+% Core mathematical substrate (center)
+\node[core] (timeless) {Timeless Field\\$\mathcal{T}_\infty$};
+
+% Second tier - fundamental structures
+\node[core, above left=1.5cm and 2cm of timeless] (resonance) {Fractal Resonance\\$R_f(\alpha, s)$};
+\node[core, above right=1.5cm and 2cm of timeless] (consciousness) {Consciousness\\$\text{ch}_2 \geq 0.95$};
+\node[core, below=1.5cm of timeless] (spectral) {Spectral Gaps\\$\Delta = 0.0540...$};
+
+% Universal constants
+\node[core, left=3cm of resonance] (constants) {Universal\\Constants\\$\pi/10$, ch$_2$};
+
+% Application domains (outer ring)
+\node[domain, above=3cm of resonance] (rh) {Riemann\\Hypothesis};
+\node[domain, above=3cm of consciousness] (pvnp) {P vs NP};
+\node[domain, right=3.5cm of consciousness] (ym) {Yang-Mills\\Mass Gap};
+\node[domain, below right=1cm and 2cm of spectral] (ns) {Navier-Stokes\\Regularity};
+\node[domain, below=2.5cm of spectral] (cosmo) {Cosmology\\Dark Energy};
+\node[domain, below left=1cm and 2cm of spectral] (clinical) {Clinical\\Neuroscience};
+\node[domain, left=3.5cm of consciousness] (hodge) {Hodge\\Conjecture};
+
+% Connections from Timeless Field
+\draw[arrow] (timeless) -- (resonance) node[midway, above, sloped, font=\small] {generates};
+\draw[arrow] (timeless) -- (consciousness) node[midway, above, sloped, font=\small] {crystallizes};
+\draw[arrow] (timeless) -- (spectral) node[midway, right, font=\small] {eigenvalues};
+
+% Connections from constants
+\draw[arrow] (constants) -- (resonance);
+\draw[arrow] (constants) -- (consciousness);
+
+% Connections to application domains from R_f
+\draw[arrow, gray] (resonance) -- (rh);
+\draw[arrow, gray] (resonance) to[bend left=10] (pvnp);
+\draw[arrow, gray] (resonance) to[bend right=20] (hodge);
+
+% Connections to application domains from consciousness
+\draw[arrow, gray] (consciousness) -- (pvnp);
+\draw[arrow, gray] (consciousness) -- (ym);
+\draw[arrow, gray] (consciousness) to[bend left=10] (clinical);
+
+% Connections to application domains from spectral gaps
+\draw[arrow, gray] (spectral) -- (ns);
+\draw[arrow, gray] (spectral) -- (cosmo);
+\draw[arrow, gray] (spectral) to[bend right=10] (pvnp);
+\draw[arrow, gray] (spectral) to[bend left=10] (clinical);
+
+% Legend
+\node[anchor=north west, font=\footnotesize, align=left] at (current bounding box.south west) {
+    \textbf{Legend:} Heavy boxes = core structures, Light boxes = applications\\
+    All six Millennium Problems + Cosmology + Consciousness emerge from\\
+    the same ontological substrate: the Timeless Field $\mathcal{T}_\infty$
+};
+
+\end{tikzpicture}

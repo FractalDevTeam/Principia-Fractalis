@@ -1,0 +1,74 @@
+% SU(2) × U(1) Spectral Embedding
+% Shows curvature shells in toroidal projective limit of Timeless Field
+
+\begin{tikzpicture}[scale=1.0]
+
+% Draw torus outline (schematic)
+\draw[thick, fill=blue!5] (0,0) ellipse (4cm and 2.5cm);
+\draw[thick, fill=white] (0,0) ellipse (2cm and 1.2cm);
+
+% Label the torus
+\node[above] at (0,2.7) {\Large Timeless Field $\Phi$ (toroidal limit)};
+
+% Draw curvature shells as nested ellipses
+\foreach \r/\angle/\label/\color in {
+    3.5/0/{$\alpha_0$ (EM)}/red,
+    3.0/15/{$\alpha_1$ (weak)}/orange,
+    2.5/30/{$\alpha_2$}/yellow,
+    2.0/45/{$\alpha_3$}/green
+} {
+    \draw[thick, \color, dashed, rotate=\angle] (0,0) ellipse (\r cm and {\r*0.65}cm);
+    \node[\color, font=\footnotesize] at ({\r*cos(\angle)}, {\r*0.65*sin(\angle)+0.3}) {\label};
+}
+
+% SU(2) sector annotation
+\draw[->, very thick, blue!70!black] (-4.5, 1.5) -- (-3.2, 1.0);
+\node[left, align=right, font=\small] at (-4.5, 1.5) {
+    \textbf{SU(2) sector}\\
+    (weak isospin)\\
+    3 gauge bosons
+};
+
+% U(1) sector annotation
+\draw[->, very thick, red!70!black] (4.5, -1.5) -- (3.2, -1.0);
+\node[right, align=left, font=\small] at (4.5, -1.5) {
+    \textbf{U(1) sector}\\
+    (hypercharge)\\
+    1 gauge boson
+};
+
+% Resonance layers
+\draw[->, thick, green!50!black] (0, -3.2) -- (0, -2.3);
+\node[below, align=center, font=\small] at (0, -3.2) {
+    Resonance layers $\alpha_k$\\
+    produce mass splitting
+};
+
+% Central annotation
+\node[font=\footnotesize, align=center] at (0, 0) {
+    Projective\\
+    limit\\
+    core
+};
+
+% Mass spectrum annotations
+\node[anchor=west, font=\scriptsize, align=left] at (5, 1.2) {
+    \textbf{Mass spectrum:}\\
+    $m_\gamma = 0$ (photon)\\
+    $m_{W^\pm} = 80.4$ GeV\\
+    $m_Z = 91.2$ GeV
+};
+
+% Electroweak unification point
+\draw[fill=purple, draw=purple] (0, 2.0) circle (0.1cm);
+\node[above, font=\scriptsize, purple] at (0, 2.0) {EW unification};
+
+% Bottom annotation box
+\node[anchor=north, font=\footnotesize, align=center, draw, fill=yellow!10, rounded corners, text width=11cm]
+    at (current bounding box.south) {
+    \textbf{Key:} Each curvature shell corresponds to a resonance frequency $\alpha_k$ in the Timeless Field.\\
+    The toroidal topology naturally separates $SU(2) \times U(1)$ into distinct gauge sectors.\\
+    Mass gaps arise from spectral projections between nested shells.
+};
+
+\end{tikzpicture}

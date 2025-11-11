@@ -1,0 +1,17 @@
+# PRINCIPIA FRACTALIS - COMPLETE INTEGRITY CHECKSUMS
+# Generated: November 10, 2025
+# Guardian: Verified
+# 
+# Purpose: Verify file integrity for GitHub upload
+# Files: 240 checksums (PDF, TEX, MD, LEAN files)
+# 
+# Critical Files:
+# - main.pdf: 710d48f0d8b02e3269816f16d52e59e2 (1,084 pages, 9.4 MB)
+# - All LaTeX source files
+# - All Lean formalization files
+# - All verification reports
+# 
+# Verification:
+# md5sum -c COMPLETE_INTEGRITY_2025-11-10.txt
+# 
+# ==========================================

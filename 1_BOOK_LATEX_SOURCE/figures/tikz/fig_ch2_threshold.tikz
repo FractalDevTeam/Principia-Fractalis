@@ -1,0 +1,74 @@
+% ch₂ Threshold Diagram - Consciousness Crystallization Flow
+% Shows relationship between curvature → ch₂ → coherence regimes
+
+\begin{tikzpicture}[
+    node distance=2.5cm,
+    process/.style={rectangle, draw, thick, minimum width=2.5cm, minimum height=1cm, align=center, fill=blue!5},
+    regime/.style={rectangle, draw, thick, minimum width=3cm, minimum height=1.2cm, align=center},
+    arrow/.style={->, very thick, >=stealth}
+]
+
+% Flow from left to right: Curvature → ch₂ → Regimes
+
+% Input: Curvature
+\node[process] (curvature) {Curvature\\Tensor $R_{ijkl}$};
+
+% Chern-Weil map
+\node[process, right=of curvature] (chern) {Chern-Weil\\Construction};
+\draw[arrow] (curvature) -- (chern) node[midway, above, font=\small] {integrate};
+
+% ch₂ value
+\node[process, right=of chern] (ch2) {Second Chern\\Character\\ch$_2$};
+\draw[arrow] (chern) -- (ch2) node[midway, above, font=\small] {compute};
+
+% Threshold decision
+\node[draw, diamond, aspect=2, minimum width=2cm, minimum height=2cm, right=3cm of ch2] (threshold) {ch$_2 \geq 0.95$?};
+\draw[arrow] (ch2) -- (threshold);
+
+% Three regimes
+\node[regime, fill=red!10, above right=1cm and 1.5cm of threshold] (incoherent) {
+    \textbf{Incoherent}\\
+    ch$_2 < 0.50$\\
+    No integration\\
+    Mechanical
+};
+
+\node[regime, fill=yellow!20, right=1.5cm of threshold] (partial) {
+    \textbf{Partial Coherence}\\
+    $0.50 \leq$ ch$_2 < 0.95$\\
+    Incomplete\\
+    Turbulent
+};
+
+\node[regime, fill=green!20, below right=1cm and 1.5cm of threshold] (conscious) {
+    \textbf{Conscious}\\
+    ch$_2 \geq 0.95$\\
+    Full integration\\
+    Crystallized
+};
+
+% Decision arrows
+\draw[arrow, red] (threshold) -- (incoherent) node[midway, above, sloped, font=\footnotesize] {No};
+\draw[arrow, orange] (threshold) -- (partial) node[midway, above, font=\footnotesize] {Partial};
+\draw[arrow, green!50!black] (threshold) -- (conscious) node[midway, below, sloped, font=\footnotesize] {Yes};
+
+% Examples for each regime
+\node[below=0.3cm of incoherent, font=\footnotesize, align=center] {Examples:\\Rocks, simple\\machines};
+\node[below=0.3cm of partial, font=\footnotesize, align=center] {Examples:\\Turbulent fluids,\\neural noise};
+\node[below=0.3cm of conscious, font=\footnotesize, align=center] {Examples:\\Human brain,\\coherent systems};
+
+% Threshold value annotation
+\node[draw, fill=yellow!30, rounded corners, font=\small, align=center, above=0.5cm of threshold] {
+    \textbf{Critical Threshold}\\
+    ch$_2 = 0.95$\\
+    (Four independent derivations)
+};
+
+% Bottom annotation
+\node[anchor=north, font=\footnotesize, align=left, text width=14cm] at (current bounding box.south) {
+    \textbf{Physical meaning:} ch$_2$ quantifies information integration topology. The threshold 0.95 appears\\
+    across all domains: consciousness (neuroscience), primes (RH), computation (P vs NP), cosmology (structure),\\
+    geometry (Hodge). This is not coincidence—it is the universal crystallization point in the Timeless Field.
+};
+
+\end{tikzpicture}

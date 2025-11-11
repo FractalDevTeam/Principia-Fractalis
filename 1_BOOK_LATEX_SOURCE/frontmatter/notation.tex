@@ -1,0 +1,316 @@
+\chapter*{Notation and Conventions}
+\addcontentsline{toc}{chapter}{Notation and Conventions}
+
+This chapter establishes the mathematical notation used throughout the book. Symbols are organized by category for easy reference.
+
+\section*{Number Systems}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\mathbb{N}$ & Natural numbers $\{1, 2, 3, ...\}$ \\
+$\mathbb{N}_0$ & Natural numbers including zero $\{0, 1, 2, 3, ...\}$ \\
+$\mathbb{Z}$ & Integers $\{..., -2, -1, 0, 1, 2, ...\}$ \\
+$\mathbb{Q}$ & Rational numbers (fractions $p/q$ where $p, q \in \mathbb{Z}$, $q \neq 0$) \\
+$\mathbb{R}$ & Real numbers (all points on the number line) \\
+$\mathbb{C}$ & Complex numbers $\{a + bi : a, b \in \mathbb{R}\}$ \\
+$\mathbb{R}^+$ & Positive real numbers $\{x \in \mathbb{R} : x > 0\}$ \\
+$\mathbb{R}^+_0$ & Non-negative real numbers $\{x \in \mathbb{R} : x \geq 0\}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Base-3 and Digital Sums}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$D_3(n)$ & Digital sum of $n$ in base-3 (sum of ternary digits) \\
+$n_3$ & Number $n$ written in base-3 notation \\
+$d_k$ & The $k$-th digit in base-3 representation \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Example:} $27 = 1000_3$ has $D_3(27) = 1 + 0 + 0 + 0 = 1$
+
+\section*{Functions and Operators}
+
+\subsection*{The Fractal Resonance Function}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$R_f(\alpha, s)$ & Fractal resonance function: $\sum_{n=1}^{\infty} \frac{e^{i\pi\alpha D_3(n)}}{n^s}$ \\
+$\alpha$ & Fractal dimension parameter (real or complex) \\
+$s$ & Complex frequency parameter \\
+$\xi(\alpha)$ & Resonance coefficient: $\lim_{N \to \infty} \frac{1}{N}\sum_{n=1}^{N} |R_f(\alpha, n)|$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Classical Functions}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\zeta(s)$ & Riemann zeta function: $\sum_{n=1}^{\infty} \frac{1}{n^s}$ \\
+$\Gamma(s)$ & Gamma function (generalization of factorial) \\
+$\log(z)$ & Natural logarithm (base $e$, multi-valued in $\mathbb{C}$) \\
+$\Log(z)$ & Principal branch of logarithm with cut $\mathbb{C} \setminus (-\infty, 0]$ \\
+$\arg(z)$ & Argument of $z$ (multi-valued, any angle) \\
+$\Arg(z)$ & Principal argument: $\Arg(z) \in (-\pi, \pi]$ \\
+$\Li_s(z)$ & Polylogarithm: $\sum_{n=1}^{\infty} \frac{z^n}{n^s}$ (Chapter 2) \\
+$\ln(z)$ & Alternative notation for natural logarithm \\
+$\exp(z)$ & Exponential function $e^z$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Linear Algebra and Operators}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\mathcal{H}$ & Hilbert space (complete inner product space) \\
+$L^2(X, \mu)$ & Square-integrable functions on $X$ with measure $\mu$ \\
+$\langle \cdot, \cdot \rangle$ & Inner product \\
+$\|\cdot\|$ & Norm (length of vector) \\
+$\hat{O}$ & Operator (hat indicates operator vs. function) \\
+$\hat{O}^\dagger$ & Adjoint of operator $\hat{O}$ \\
+$\sigma(\hat{O})$ & Spectrum (set of eigenvalues) of operator $\hat{O}$ \\
+$\lambda_n$ & $n$-th eigenvalue \\
+$|\psi\rangle$ & Dirac ket notation for state vector \\
+$\langle\psi|$ & Dirac bra notation for dual vector \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Consciousness and Field Theory}
+
+\subsection*{Consciousness Field}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$C^{\mu\nu}$ & Consciousness field tensor (rank-2) \\
+$\text{ch}_2$ & Second Chern character \\
+$\text{ch}^2$ & Normalized consciousness measure: $\int_X \text{ch}_2(C_X) \wedge \omega^{\dim X - 2} / \int_X \omega^{\dim X}$ \\
+$I(\psi)$ & Information integration measure \\
+$\Theta(x)$ & Heaviside step function: $\Theta(x) = 1$ if $x > 0$, else $0$ \\
+$\delta(x)$ & Dirac delta function \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Modified General Relativity}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$G^{\mu\nu}$ & Einstein tensor \\
+$T^{\mu\nu}$ & Energy-momentum (stress-energy) tensor \\
+$g^{\mu\nu}$ & Metric tensor \\
+$R^{\mu\nu}$ & Ricci curvature tensor \\
+$R$ & Ricci scalar (trace of Ricci tensor) \\
+$\Lambda$ & Cosmological constant \\
+$\Lambda_{\text{eff}}(C)$ & Effective cosmological constant (consciousness-dependent) \\
+$J^{\mu}_C$ & Consciousness current (energy source/sink) \\
+$\nabla_\mu$ & Covariant derivative \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{The Timeless Field}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\Phi$ or $\mathcal{T}_\infty$ & The Timeless Field (projective limit of C*-algebras) \\
+$\Omega$ & Ω-space (Ocean of Timeless Existence, substrate beyond $\Phi$) \\
+$H_k$ & $k$-th level Hilbert space: $\mathbb{C}^{3^k}$ \\
+$\mathcal{N}(H_k)$ & Nuclear operators on $H_k$ \\
+$F_\alpha$ & Fractal resonance algebra: $C^*(\{R_f(\alpha, n) : n \in \mathbb{N}\})$ \\
+$\otimes_{\min}$ & Minimal tensor product \\
+$\mathcal{C}$ & Crystallization operator: $\Omega \to \Phi$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Constants}
+
+\subsection*{Universal Physical Constants}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Value/Meaning} \\
+\midrule
+$c$ & Speed of light: $299{,}792{,}458$ m/s (exact) \\
+$\hbar$ & Reduced Planck constant: $1.054571817 \times 10^{-34}$ J$\cdot$s \\
+$G$ & Gravitational constant: $6.67430 \times 10^{-11}$ N$\cdot$m$^2$/kg$^2$ \\
+$k_B$ & Boltzmann constant: $1.380649 \times 10^{-23}$ J/K \\
+$e$ & Elementary charge: $1.602176634 \times 10^{-19}$ C (exact) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Mathematical Constants}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Value/Meaning} \\
+\midrule
+$\pi$ & Pi: $3.14159265358979...$ \\
+$e$ & Euler's number: $2.71828182845904...$ \\
+$\phi$ & Golden ratio: $(1 + \sqrt{5})/2 = 1.61803398874989...$ \\
+$\gamma$ & Euler-Mascheroni constant: $0.57721566490153...$ \\
+$i$ & Imaginary unit: $i^2 = -1$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Framework-Specific Constants}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Value/Meaning} \\
+\midrule
+$\omega_c$ & First resonance zero: $2.13198462...$ \\
+$\text{ch}^2_{\text{crit}}$ & Consciousness crystallization threshold: $0.95$ \\
+$\kappa$ & Riemann operator scaling factor: $5 \times 10^{-6}$ \\
+$\Delta_{\text{YM}}$ & Yang-Mills mass gap: $420.43$ MeV \\
+$\Delta_{\text{P vs NP}}$ & Spectral gap: $0.0539677287$ \\
+$\pi/10$ & Universal coupling factor: $0.314159265...$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Notation Conventions}
+
+\subsection*{Indices and Summation}
+
+\begin{itemize}
+\item \textbf{Einstein summation:} Repeated indices are summed: $x^\mu x_\mu = \sum_{\mu=0}^{3} x^\mu x_\mu$
+\item \textbf{Greek indices} ($\mu, \nu, \rho, \sigma$): Run from 0 to 3 (spacetime indices)
+\item \textbf{Latin indices} ($i, j, k, l$): Run from 1 to 3 (spatial indices only)
+\item \textbf{Explicit sums:} When not using Einstein convention, we write $\sum$ explicitly
+\end{itemize}
+
+\subsection*{Vector and Matrix Notation}
+
+\begin{itemize}
+\item \textbf{Vectors:} Boldface lowercase: $\mathbf{v}$, $\mathbf{x}$
+\item \textbf{Matrices:} Boldface uppercase: $\mathbf{A}$, $\mathbf{M}$
+\item \textbf{Operators:} Hatted uppercase: $\hat{H}$, $\hat{O}$
+\item \textbf{Transpose:} Superscript T: $\mathbf{A}^T$
+\item \textbf{Complex conjugate:} Overbar: $\bar{z}$
+\item \textbf{Hermitian adjoint:} Dagger: $\mathbf{A}^\dagger$
+\end{itemize}
+
+\subsection*{Derivatives and Integrals}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\frac{df}{dx}$ & Ordinary derivative \\
+$\frac{\partial f}{\partial x}$ & Partial derivative \\
+$\nabla f$ & Gradient of scalar field $f$ \\
+$\nabla \cdot \mathbf{v}$ & Divergence of vector field $\mathbf{v}$ \\
+$\nabla \times \mathbf{v}$ & Curl of vector field $\mathbf{v}$ \\
+$\nabla^2 f$ & Laplacian: $\sum_i \frac{\partial^2 f}{\partial x_i^2}$ \\
+$\int_a^b f(x)\,dx$ & Definite integral from $a$ to $b$ \\
+$\int_X f\,d\mu$ & Integral with respect to measure $\mu$ \\
+$\oint_C$ & Contour integral around closed curve $C$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Asymptotics and Order Notation}
+
+\begin{itemize}
+\item $f(x) = O(g(x))$ as $x \to \infty$: "$f$ grows no faster than $g$"
+\item $f(x) = o(g(x))$ as $x \to \infty$: "$f$ grows slower than $g$"
+\item $f(x) \sim g(x)$ as $x \to \infty$: "$f/g \to 1$"
+\item $f(x) \approx g(x)$: "$f$ is approximately $g$"
+\end{itemize}
+
+\subsection*{Set Theory and Logic}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Symbol} & \textbf{Meaning} \\
+\midrule
+$\in$ & Element of: $x \in S$ means "$x$ is in set $S$" \\
+$\notin$ & Not element of \\
+$\subset$ & Subset: $A \subset B$ means all elements of $A$ are in $B$ \\
+$\cup$ & Union: $A \cup B$ \\
+$\cap$ & Intersection: $A \cap B$ \\
+$\emptyset$ & Empty set \\
+$\forall$ & For all (universal quantifier) \\
+$\exists$ & There exists (existential quantifier) \\
+$\implies$ & Implies (logical implication) \\
+$\iff$ & If and only if (logical equivalence) \\
+$\therefore$ & Therefore \\
+$:=$ & Defined as \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Typographical Conventions}
+
+\begin{itemize}
+\item \textbf{New terms} are in \textit{italics} when first defined
+\item \textbf{Emphasis} uses italics: \textit{this is important}
+\item \textbf{Strong emphasis} uses bold: \textbf{this is very important}
+\item \texttt{Code} and \texttt{filenames} use monospace font
+\item Theorems, definitions, etc. are numbered by chapter: Theorem 3.5 is the 5th theorem in Chapter 3
+\item Equations are numbered by chapter: Equation (7.12) is the 12th numbered equation in Chapter 7
+\end{itemize}
+
+\section*{Common Abbreviations}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Abbreviation} & \textbf{Meaning} \\
+\midrule
+FRO & Fractal Resonance Ontology (this framework) \\
+RH & Riemann Hypothesis \\
+YM & Yang-Mills (theory or problem) \\
+NS & Navier-Stokes (equations or problem) \\
+BSD & Birch and Swinnerton-Dyer (conjecture) \\
+GR & General Relativity \\
+QM & Quantum Mechanics \\
+QFT & Quantum Field Theory \\
+SM & Standard Model (of particle physics) \\
+ΛCDM & Lambda Cold Dark Matter (standard cosmology) \\
+CMB & Cosmic Microwave Background \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Chapter-Specific Notation}
+
+Additional notation specific to certain chapters is introduced as needed and summarized at the chapter beginning. See also the complete Symbol Index at the end of this book.
