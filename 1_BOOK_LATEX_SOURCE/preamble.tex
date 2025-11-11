@@ -55,7 +55,8 @@
 
 % References and citations
 \usepackage{url}
-\usepackage{cite}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{doi}
 \usepackage{hyperref}
 \usepackage{cleveref}
 
@@ -331,14 +332,22 @@
 }
 
 % Green box (generic green colored box)
-\newtcolorbox{greenbox}[1][]{
+\newtcolorbox{greenbox}[2][]{
   colback=thmgreen!5,
   colframe=thmgreen,
   fonttitle=\bfseries,
-  title=Note,
+  title={#2},
   breakable,
   enhanced,
   #1
+}
+
+% Chapter abstract environment
+\newenvironment{chapterabstract}{%
+  \begin{quote}
+  \itshape
+}{%
+  \end{quote}
 }
 
 % Task box (for exercises/tasks)
