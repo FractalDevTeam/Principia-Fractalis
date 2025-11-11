@@ -1,0 +1,4 @@
+import PF.P_NP_Equivalence
+
+#check PrincipiaTractalis.P_neq_NP_via_spectral_gap
+#print axioms PrincipiaTractalis.P_neq_NP_via_spectral_gap
