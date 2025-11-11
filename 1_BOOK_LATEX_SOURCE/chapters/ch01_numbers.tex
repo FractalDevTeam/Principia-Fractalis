@@ -366,7 +366,7 @@ For $n \in \mathbb{N}$, let $n = \sum_{k=0}^{m} d_k \cdot 3^k$ be the base-3 rep
 $$D_3(n) := \sum_{k=0}^{m} d_k$$
 \end{definition}
 
-\begin{theorem}[title=Self-Similarity Property]
+\begin{theorem}[title={Self-Similarity Property}]
 \label{thm:d3-self-similarity}
 For any $n, k \in \mathbb{N}$:
 $$D_3(3^k \cdot n) = D_3(n)$$
@@ -392,7 +392,7 @@ $$D_3(3^k \cdot n) = d_m + \cdots + d_1 + d_0 + \underbrace{0 + \cdots + 0}_{k \
 Therefore $D_3(3^k \cdot n) = D_3(n)$. \qed
 \end{proof}
 
-\begin{theorem}[title=Addition Property]
+\begin{theorem}[title={Addition Property}]
 \label{thm:d3-addition}
 For any $n, m \in \mathbb{N}$:
 $$D_3(n \cdot 3^k + m) = D_3(n) + D_3(m) \quad \text{if } 0 \leq m < 3^k$$
@@ -418,7 +418,7 @@ $$D_3(n) = D_3(q) + r$$
 
 This corollary reveals the recursive nature: to find $D_3(n)$, divide by 3, find $D_3$ of the quotient, and add the remainder. This creates the fractal structure.
 
-\begin{theorem}[title=Modular Property]
+\begin{theorem}[title={Modular Property}]
 \label{thm:d3-modular}
 For any $n \in \mathbb{N}$:
 $$D_3(n) \equiv n \pmod{3}$$
@@ -604,7 +604,7 @@ In mathematical language: $n \equiv D_3(n) \pmod{2}$.
 % LEVEL 2: TECHNICAL (🟡) - Proof
 % ============================================================
 
-\begin{theorem}[title=Digital Sum Modulo $(b-1)$]
+\begin{theorem}[title={Digital Sum Modulo $(b-1)$}]
 \label{thm:digital-sum-modular}
 For any base $b \geq 2$ and positive integer $n$, if $D_b(n)$ denotes the sum of digits of $n$ in base-$b$, then:
 \begin{equation}
@@ -639,7 +639,7 @@ n &= d_k \cdot b^k + d_{k-1} \cdot b^{k-1} + \cdots + d_1 \cdot b + d_0 \\
 \end{align}
 \end{proof}
 
-\begin{theorem}[title=Base-3 Parity Rule]
+\begin{theorem}[title={Base-3 Parity Rule}]
 \label{thm:parity-rule}
 \label{cor:base3-parity}
 For base-3, we have $b-1 = 2$, so:
@@ -878,7 +878,7 @@ This is what we mean by \textbf{self-similarity}: the structure looks the same a
 
 The visual pattern we observed can be stated precisely:
 
-\begin{theorem}[title=Scaling Law for $D_3$]
+\begin{theorem}[title={Scaling Law for $D_3$}]
 \label{thm:d3-scaling}\index{scaling law}
 For any positive integers $n$ and $k$:
 \begin{equation}
@@ -987,7 +987,7 @@ This is much slower than linear growth—it means $D_3(n)$ stays relatively smal
 
 The fractal nature of $D_3$ is intimately connected to the recursive definition we proved in Section 1.2:
 
-\begin{theorem}[title=Recursive Formula]
+\begin{theorem}[title={Recursive Formula}]
 \label{thm:d3-recursive-fractal}
 For any $n \geq 0$, writing $n = 3q + r$ where $r \in \{0, 1, 2\}$:
 \begin{equation}
@@ -1242,7 +1242,7 @@ Divisibility rules let you test if a large number is divisible by 2, 3, 9, etc.,
 
 Recall from Section 1.3:
 
-\begin{theorem}[title=Divisibility by 2 via $D_3$]
+\begin{theorem}[title={Divisibility by 2 via $D_3$}]
 \label{thm:div-by-2-app}\index{divisibility!via $D_3$}
 An integer $n$ is divisible by 2 if and only if $D_3(n)$ is divisible by 2.
 \end{theorem}

@@ -53,7 +53,7 @@ and $a_p = p + 1 - \#E(\F_p)$ is the trace of Frobenius.
 
 Our first main result establishes that the fractal modification preserves the essential analytic properties of the L-function.
 
-\begin{theorem}[title=Fractal L-Function Equivalence]\label{thm:l-function-equivalence}
+\begin{theorem}[title={Fractal L-Function Equivalence}]\label{thm:l-function-equivalence}
 Define the fractal L-function:
 \begin{equation}
 L_f(E,s) = \prod_{\substack{p \\ p \nmid N_E}} \left(1 - \frac{a_p \theta_p}{p^s} + \frac{\theta_p^2}{p^{2s-1}}\right)^{-1} \prod_{p \mid N_E} \left(1 - \frac{a_p}{p^s}\right)^{-1}
@@ -168,7 +168,7 @@ r_{\text{an}}(L_f) = \ord_{s=1} L_f(E,s) = \ord_{s=1} L(E,s) = r_{\text{an}}(L)
 
 The key to connecting the spectral operator to the L-function is establishing a trace formula.
 
-\begin{theorem}[title=Fractal Trace Formula]\label{thm:trace-formula}
+\begin{theorem}[title={Fractal Trace Formula}]\label{thm:trace-formula}
 For $n \in \N$, the trace of $\mathcal{T}_E^n$ satisfies:
 \begin{equation}
 \tr(\mathcal{T}_E^n) = \sum_{\substack{p_1, \ldots, p_n \\ p_i \nmid N_E}} \frac{a_{p_1} \cdots a_{p_n}}{(p_1 \cdots p_n)^{1/2}} \cdot \delta_{p_1 \cdots p_n \in \mathcal{P}_n}
@@ -204,7 +204,7 @@ The coefficient is then:
 \end{equation}
 \end{proof}
 
-\begin{theorem}[title=Trace-L-Function Connection]\label{thm:trace-l-connection}
+\begin{theorem}[title={Trace-L-Function Connection}]\label{thm:trace-l-connection}
 The trace of $\mathcal{T}_E$ connects to the logarithmic derivative of $L_f(E,s)$ via:
 \begin{equation}
 \sum_{n=1}^{\infty} \frac{\tr(\mathcal{T}_E^n)}{n} = -\left.\frac{d}{ds} \log L_f(E,s)\right|_{s=1}
@@ -238,7 +238,7 @@ Let $\mu_E$ be the spectral measure of $\mathcal{T}_E$, defined by:
 where $\lambda_1, \lambda_2, \ldots$ are the eigenvalues of $\mathcal{T}_E$ (counted with multiplicity).
 \end{defn}
 
-\begin{theorem}[title=Golden Threshold Emergence]\label{thm:golden-threshold}
+\begin{theorem}[title={Golden Threshold Emergence}]\label{thm:golden-threshold}
 The spectral measure $\mu_E$ has an atomic component at:
 \begin{equation}
 \lambda_* = \frac{\varphi}{e} = \frac{1 + \sqrt{5}}{2e} \approx 0.596347362...
@@ -303,7 +303,7 @@ Without GRH, we can still prove:
 
 \subsection{Rank 0: Unconditional}
 
-\begin{theorem}[title=Rank 0 Correspondence]\label{thm:rank-0}
+\begin{theorem}[title={Rank 0 Correspondence}]\label{thm:rank-0}
 If $L(E,1) \neq 0$, then:
 \begin{enumerate}[label=(\alph*)]
 \item $\rank E(\Q) = 0$ (by Gross-Zagier-Kolyvagin\cite{gross1986heegner,kolyvagin1988finiteness})
@@ -343,7 +343,7 @@ Part (c) follows immediately.
 
 \subsection{Rank 1: Unconditional}
 
-\begin{theorem}[title=Rank 1 Correspondence]\label{thm:rank-1}
+\begin{theorem}[title={Rank 1 Correspondence}]\label{thm:rank-1}
 If $L(E,1) = 0$ and $L'(E,1) \neq 0$, then:
 \begin{enumerate}[label=(\alph*)]
 \item $\rank E(\Q) = 1$ (by Gross-Zagier-Kolyvagin)
@@ -407,7 +407,7 @@ where $P_1, \ldots, P_r$ are generators of $E(\Q)/E(\Q)_{\text{tors}}$ and $\hat
 \end{enumerate}
 \end{conjecture}
 
-\begin{theorem}[title=Partial Result for Rank 2]\label{thm:rank-2-partial}
+\begin{theorem}[title={Partial Result for Rank 2}]\label{thm:rank-2-partial}
 Assume:
 \begin{enumerate}[label=(\roman*)]
 \item BSD conjecture holds for $E$ (analytic rank = algebraic rank)
@@ -474,7 +474,7 @@ However, the fractal spectral method provides a \textit{computational algorithm}
 
 The deepest result connects the spectral inner product to the Néron-Tate height pairing.
 
-\begin{theorem}[title=Spectral Height Pairing]\label{thm:spectral-height}
+\begin{theorem}[title={Spectral Height Pairing}]\label{thm:spectral-height}
 Let $\psi_i, \psi_j$ be eigenfunctions of $\mathcal{T}_E$ at eigenvalue $\lambda_*$, corresponding to points $P_i, P_j \in E(\Q)$. Then:
 \begin{equation}
 \langle \psi_i, \psi_j \rangle_{L^2} = \frac{1}{\Omega_E} \cdot \langle P_i, P_j \rangle_{\hat{h}}
@@ -554,7 +554,7 @@ This is the subject of Appendix \ref{app:spectral-heights}.
 
 Beyond the rank, the full BSD formula involves additional arithmetic invariants.
 
-\begin{theorem}[title=Spectral Regulator Formula]\label{thm:spectral-regulator}
+\begin{theorem}[title={Spectral Regulator Formula}]\label{thm:spectral-regulator}
 Assume $\rank E(\Q) = r$ and let $\psi_1, \ldots, \psi_r$ be an orthonormal basis of eigenfunctions at $\lambda_*$. Then the regulator is:
 \begin{equation}
 \Reg_E = \det\left(\langle \psi_i, \psi_j \rangle_{L^2}\right)_{1 \leq i,j \leq r}
@@ -577,7 +577,7 @@ Therefore:
 Multiplying by $\Omega_E^r$ gives $\Reg_E$.
 \end{proof}
 
-\begin{theorem}[title=Spectral BSD Formula]\label{thm:spectral-bsd}
+\begin{theorem}[title={Spectral BSD Formula}]\label{thm:spectral-bsd}
 The leading coefficient of $L(E,s)$ at $s=1$ satisfies:
 \begin{equation}
 \lim_{s \to 1} \frac{L(E,s)}{(s-1)^r} = \frac{\det(\langle \psi_i, \psi_j \rangle_{L^2}) \cdot \prod_p c_p}{|E(\Q)_{\text{tors}}|^2 / |\Sha(E)|}
@@ -598,7 +598,7 @@ The key insight is that the spectral approach \textit{computes} the left-hand si
 
 \section{Tate-Shafarevich Finiteness}
 
-\begin{theorem}[title=Spectral Bound on $\Sha$]\label{thm:spectral-sha-bound}
+\begin{theorem}[title={Spectral Bound on $\Sha$}]\label{thm:spectral-sha-bound}
 The order of the Tate-Shafarevich group satisfies:
 \begin{equation}
 |\Sha(E)| \leq \exp\left(2\pi \sum_{p \nmid N_E} \frac{|a_p|}{p^{3/2}}\right)^2 \cdot N_E

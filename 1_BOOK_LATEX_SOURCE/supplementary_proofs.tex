@@ -54,7 +54,7 @@ for $|x - y| < 3^{-N}$.
 
 \subsection{Improved Convergence Rate}
 
-\begin{theorem}[title=Refined Operator Norm Bound]
+\begin{theorem}[title={Refined Operator Norm Bound}]
 \[
 \|\tilde{T}_3|_N - \tilde{T}_3\|_{op} = \frac{C}{N} + O(N^{-2})
 \]
@@ -83,7 +83,7 @@ using the Sobolev embedding and eigenfunction regularity.
 
 \section{Spectral Gap and Multiplicity}
 
-\begin{theorem}[title=Spectral Gap]
+\begin{theorem}[title={Spectral Gap}]
 The eigenvalues $\{\lambda_k\}$ of $\tilde{T}_3$ satisfy
 \[
 \inf_{k \neq j} |\lambda_k - \lambda_j| \geq \delta > 0
@@ -116,7 +116,7 @@ N(\Lambda) = \#\{k: |\lambda_k| \leq \Lambda\} \sim C \Lambda \quad \text{as } \
 where $s = 1/2 + it$.
 \end{definition}
 
-\begin{theorem}[title=Zeta Connection]
+\begin{theorem}[title={Zeta Connection}]
 There exists a non-vanishing entire function $H(t)$ such that
 \[
 \Delta(1/2 + it) = \frac{\zeta(1/2 + it)}{H(t)}
@@ -158,7 +158,7 @@ This is consistent with the Montgomery-Odlyzko law for Riemann zeros, providing 
 
 \subsection{Floating Point Considerations}
 
-\begin{theorem}[title=Numerical Stability]
+\begin{theorem}[title={Numerical Stability}]
 The finite-precision computation of eigenvalues $\lambda_k^{(N)}$ with $p$ bits of precision satisfies
 \[
 |\lambda_k^{(N), \text{computed}} - \lambda_k^{(N), \text{exact}}| \leq \kappa(\tilde{T}_3|_N) \cdot 2^{-p}
@@ -192,7 +192,7 @@ assuming $\kappa \approx 10$ and $|g'| \approx 1$.
 
 \subsection{Variational Formulation}
 
-\begin{theorem}[title=Min-Max Characterization]
+\begin{theorem}[title={Min-Max Characterization}]
 The $k$-th eigenvalue satisfies
 \[
 \lambda_k = \min_{V_k} \max_{\psi \in V_k, \|\psi\|=1} \langle \psi, \tilde{T}_3 \psi \rangle
@@ -216,7 +216,7 @@ if $V_N$ is nested.
 
 An alternative proof of convergence uses the resolvent:
 
-\begin{theorem}[title=Resolvent Convergence]
+\begin{theorem}[title={Resolvent Convergence}]
 For $z \in \mathbb{C} \setminus \sigma(\tilde{T}_3)$,
 \[
 \|(\tilde{T}_3|_N - z)^{-1} - (\tilde{T}_3 - z)^{-1}\|_{op} \to 0 \quad \text{as } N \to \infty
@@ -272,7 +272,7 @@ For peer review, the following has been established:
 
 \section{Summary of Main Results}
 
-\begin{theorem}[title=Master Theorem]
+\begin{theorem}[title={Master Theorem}]
 Let $\tilde{T}_3$ be the base-3 transfer operator on $L^2([0,1])$ with digital sum phases. Then:
 
 \begin{enumerate}

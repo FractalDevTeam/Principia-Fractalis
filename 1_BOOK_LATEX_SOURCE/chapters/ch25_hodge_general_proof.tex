@@ -91,7 +91,7 @@ For Hodge classes, we normalize by the largest eigenvalue contribution:
 where $\lambda_{\max}$ is the largest eigenvalue in the support of $\xi$.
 \end{defn}
 
-\begin{theorem}[title=Universal Spectral Bound]\label{thm:universal-bound}
+\begin{theorem}[title={Universal Spectral Bound}]\label{thm:universal-bound}
 For any smooth projective variety $X$ over $\C$ and any Hodge class $\xi \in \Hdg^p(X)$:
 \begin{equation}
 \boxed{\sigma_{\text{Hodge}}(\xi) \geq 0.95}
@@ -259,7 +259,7 @@ Introduce a "consciousness time" parameter $\tau \in [0, \infty)$ and consider t
 where $E(\xi) = -\sigma(\xi)$ is the "energy functional" (negative of spectral concentration).
 \end{defn}
 
-\begin{theorem}[title=Crystallization Convergence]\label{thm:crystallization-convergence}
+\begin{theorem}[title={Crystallization Convergence}]\label{thm:crystallization-convergence}
 Let $\xi_0 \in \Hdg^p(X)$ with $\sigma(\xi_0) \geq 0.95$. Then the gradient flow:
 \begin{equation}
 \frac{\partial \xi}{\partial \tau} = -\nabla E(\xi), \quad \xi(0) = \xi_0
@@ -367,7 +367,7 @@ We verify that the spectral crystallization framework recovers all known instanc
 
 \subsection{Divisors: Lefschetz (1,1)-Theorem}
 
-\begin{theorem}[title=Lefschetz 1924]\label{thm:lefschetz-recovery}
+\begin{theorem}[title={Lefschetz 1924}]\label{thm:lefschetz-recovery}
 For $p=1$ (divisors), every Hodge class is algebraic:
 \begin{equation}
 \Hdg^1(X) = \Alg^1(X)
@@ -392,7 +392,7 @@ By Theorem \ref{thm:crystallization-convergence}, $\xi$ is already at a critical
 
 \subsection{Abelian Varieties: Weil's Theorem}
 
-\begin{theorem}[title=Weil 1977]\label{thm:weil-recovery}
+\begin{theorem}[title={Weil 1977}]\label{thm:weil-recovery}
 For abelian varieties $A$, the Hodge Conjecture holds:
 \begin{equation}
 \Hdg^p(A) = \Alg^p(A)
@@ -432,7 +432,7 @@ Thus $\xi$ undergoes crystallization to algebraic cycles, recovering Weil's theo
 
 \subsection{K3 Surfaces and Lattice Theory}
 
-\begin{theorem}[title=K3 Hodge Conjecture]\label{thm:k3-recovery}
+\begin{theorem}[title={K3 Hodge Conjecture}]\label{thm:k3-recovery}
 For K3 surfaces $S$, the Hodge Conjecture holds for $p=1$ (divisors) and $p=2$ (zero-cycles).
 \end{theorem}
 
@@ -479,7 +479,7 @@ We now tackle the main challenge: extending the proof to arbitrary smooth projec
 A class $\xi \in H^{2p}(X, \Q)$ is \textbf{absolute Hodge} if for every embedding $\sigma: \Q \hookrightarrow \C$, the image $\sigma(\xi) \in H^{2p}(X_\sigma, \C)$ is a Hodge class.
 \end{defn}
 
-\begin{theorem}[title=Deligne]\label{thm:deligne-absolute}
+\begin{theorem}[title={Deligne}]\label{thm:deligne-absolute}
 Let $X$ be a smooth projective variety over $\overline{\Q}$. Then:
 \begin{equation}
 \text{(Absolute Hodge classes)} = \text{(Galois-invariant Hodge classes)}
@@ -546,7 +546,7 @@ H^{p,q}_{\mathcal{M}}(X, \Q) = \text{(Chow groups with transfers)}
 defined via Voevodsky's triangulated category of motives $\mathbf{DM}_{\text{gm}}(k, \Q)$.
 \end{defn}
 
-\begin{theorem}[title=Voevodsky]\label{thm:voevodsky-conjecture}
+\begin{theorem}[title={Voevodsky}]\label{thm:voevodsky-conjecture}
 For varieties over fields of characteristic zero:
 \begin{equation}
 H^{2p,p}_{\mathcal{M}}(X, \Q) \xrightarrow{\sim} \CH^p(X)_\Q
@@ -562,7 +562,7 @@ The spectral concentration extends to motivic cohomology:
 defined via the motivic fractal resonance operator.
 \end{proposition}
 
-\begin{theorem}[title=Motivic Hodge Conjecture]\label{thm:motivic-hodge}
+\begin{theorem}[title={Motivic Hodge Conjecture}]\label{thm:motivic-hodge}
 For any smooth projective variety $X$ over $\C$:
 \begin{equation}
 \xi \in \Hdg^p(X) \implies \sigma_{\mathcal{M}}(\xi) \geq 0.95
@@ -606,7 +606,7 @@ i.e., $\xi$ is algebraic.
 
 \subsection{Approach 3: Arithmetic via Tate Conjecture}
 
-\begin{theorem}[title=Deligne-Tate]\label{thm:tate-finite-field}
+\begin{theorem}[title={Deligne-Tate}]\label{thm:tate-finite-field}
 Let $X$ be a smooth projective variety over $\mathbb{F}_q$. Then:
 \begin{equation}
 \Hdg^p(X_{\overline{\mathbb{F}}_q}) = \Alg^p(X_{\overline{\mathbb{F}}_q})
@@ -709,7 +709,7 @@ By Theorem \ref{thm:crystallization-convergence}, $\xi \in \Alg^p(X_\C)$.
 \end{algorithmic}
 \end{algorithm}
 
-\begin{theorem}[title=Algorithm Correctness]\label{thm:algorithm-correctness-general}
+\begin{theorem}[title={Algorithm Correctness}]\label{thm:algorithm-correctness-general}
 Algorithm \ref{alg:explicit-cycle} terminates in time $O(N^3 \log(1/\epsilon))$ and returns algebraic cycles satisfying:
 \begin{equation}
 \left\| \xi - \sum_i c_i \cl(Z_i) \right\| < 10 \epsilon
@@ -768,7 +768,7 @@ Shioda-Katsura proved partial results for Fermat varieties. Our framework confir
 
 We have established:
 
-\begin{theorem}[title=Main Theorem: Hodge Conjecture via Spectral Crystallization]\label{thm:main-hodge}
+\begin{theorem}[title={Main Theorem: Hodge Conjecture via Spectral Crystallization}]\label{thm:main-hodge}
 For any smooth projective variety $X$ over $\C$ and any Hodge class $\xi \in \Hdg^p(X)$:
 
 \begin{enumerate}

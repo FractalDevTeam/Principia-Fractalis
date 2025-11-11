@@ -30,7 +30,7 @@ a_{N-1} & a_N & a_{N+1} & \cdots & a_{2N-2}
 \end{equation}
 \end{defn}
 
-\begin{theorem}[title=Kronecker's Theorem]\label{thm:kronecker}
+\begin{theorem}[title={Kronecker's Theorem}]\label{thm:kronecker}
 A Hankel matrix $H_N$ has rank $r$ if and only if the sequence $\{a_n\}$ satisfies a linear recurrence of order $r$:
 \begin{equation}
 a_{n+r} = c_1 a_{n+r-1} + c_2 a_{n+r-2} + \cdots + c_r a_n
@@ -170,7 +170,7 @@ Therefore $\text{rank}(H_N) \leq r$ for the truncated sequence. Perturbation the
 
 \subsection{Complexity Analysis}
 
-\begin{theorem}[title=Hankel Method Complexity]\label{thm:hankel-complexity}
+\begin{theorem}[title={Hankel Method Complexity}]\label{thm:hankel-complexity}
 Algorithm \ref{alg:hankel-cycle} has complexity:
 \begin{equation}
 O\left(N^3 + r \cdot \text{poly}(N, h, \deg X)\right)
@@ -225,7 +225,7 @@ A^p(X) \otimes A^q(X) \xrightarrow{\cdot} A^{p+q}(X)
 is induced by intersection of cycles.
 \end{defn}
 
-\begin{theorem}[title=Intersection Theory (Fulton)]\label{thm:fulton-intersection}
+\begin{theorem}[title={Intersection Theory (Fulton)}]\label{thm:fulton-intersection}
 For a smooth projective variety $X$ and proper subschemes $Y, Z$:
 \begin{equation}
 Y \cdot Z = \sum_i m_i [W_i]
@@ -335,7 +335,7 @@ To solve $f(x) = 0$ for $f: \C^n \to \C^n$ polynomial:
 \end{enumerate}
 \end{defn}
 
-\begin{theorem}[title=Bertini]\label{thm:bertini-numerical}
+\begin{theorem}[title={Bertini}]\label{thm:bertini-numerical}
 For a generic choice of $g(x)$, the homotopy path from $g$ to $f$ is non-singular. All solutions can be tracked numerically with precision $\epsilon$ in time:
 \begin{equation}
 O\left(\text{(number of paths)} \cdot \text{poly}(n, \deg f, \log(1/\epsilon))\right)
@@ -530,7 +530,7 @@ Total runtime for all 6 surfaces: $\approx 5$ minutes.
 
 \subsection{Numerical Stability}
 
-\begin{theorem}[title=Stability of Hankel Method]\label{thm:hankel-stability}
+\begin{theorem}[title={Stability of Hankel Method}]\label{thm:hankel-stability}
 Let $H$ be the exact Hankel matrix and $\tilde{H} = H + E$ be the numerically computed matrix with error $\|E\| \leq \epsilon$.
 
 If $\sigma_r(H) \geq 100 \epsilon$ (the $r$-th singular value is well-separated from noise), then:

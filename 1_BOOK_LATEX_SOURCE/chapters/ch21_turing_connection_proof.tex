@@ -27,7 +27,7 @@ The \textbf{configuration space} is:
 \end{equation}
 \end{definition}
 
-\begin{theorem}[title=Injective Configuration Encoding]\label{thm:injective-encoding}
+\begin{theorem}[title={Injective Configuration Encoding}]\label{thm:injective-encoding}
 The prime-power encoding $\encode: \mathcal{C}_M \to \mathbb{N}$ defined by:
 \begin{equation}
 \encode(q,w,i) = 2^{\sigma(q)} \cdot 3^{i} \cdot \prod_{j=1}^{|w|} p_{j+1}^{\sigma(w_j)}
@@ -88,7 +88,7 @@ Since $i \leq |w|$ and $|Q|, |\Gamma|$ are constants for fixed $M$:
 
 The digital sum $D(n)$ in base 3 serves as a non-polynomial measure of computational complexity.
 
-\begin{theorem}[title=Digital Sum Non-Polynomiality]\label{thm:digital-sum-nonpoly}
+\begin{theorem}[title={Digital Sum Non-Polynomiality}]\label{thm:digital-sum-nonpoly}
 For any polynomial $P(x)$ of degree $d$, there exist arbitrarily large $N$ such that:
 \begin{equation}
 |\{n \leq N : |D(n) - P(n)| < 1/2\}| = o(N/\log^d N)
@@ -178,7 +178,7 @@ The norm is bounded by:
 For $\epsilon > 1/2$, this series converges (by integral test), proving normalizability.
 \end{proof}
 
-\begin{theorem}[title=Orthogonality of Distinct TM States]\label{thm:tm-orthogonality}
+\begin{theorem}[title={Orthogonality of Distinct TM States}]\label{thm:tm-orthogonality}
 For two Turing machines $M_1, M_2$ deciding distinct languages $L_1 \neq L_2$, there exists a constant $c > 0$ such that for inputs $x$ where $\chi_{L_1}(x) \neq \chi_{L_2}(x)$:
 \begin{equation}
 |\langle \psi_{M_1,x}, \psi_{M_2,x} \rangle| \leq e^{-c|x|}
@@ -227,7 +227,7 @@ Choosing $\epsilon = \log 2$ gives exponential decay $e^{-c|x|}$ with $c = \log 
 
 \subsection{Encoding P and NP via Operator Eigenspaces}
 
-\begin{theorem}[title=P-Class Operator Spectrum]\label{thm:p-spectrum}
+\begin{theorem}[title={P-Class Operator Spectrum}]\label{thm:p-spectrum}
 Define the operator $\tilde{H}_P$ acting on $L^2(\mathbb{N}, \nu)$ where $\nu$ is a weighted counting measure:
 \begin{equation}
 (\tilde{H}_P \psi)(n) = \sum_{m \in \mathbb{N}} K_P(n,m) \psi(m)
@@ -272,7 +272,7 @@ showing that $\psi_{M,x}$ is approximately an eigenstate with eigenvalue $\lambd
 \textbf{(3) Bijective correspondence}: By Theorem \ref{thm:tm-orthogonality}, distinct languages yield orthogonal states. By completeness of the eigenspace, every eigenstate corresponds to a language in P.
 \end{proof}
 
-\begin{theorem}[title=NP-Class Operator Spectrum]\label{thm:np-spectrum}
+\begin{theorem}[title={NP-Class Operator Spectrum}]\label{thm:np-spectrum}
 Define the operator $\tilde{H}_{NP}$ with kernel:
 \begin{equation}
 K_{NP}(n,m) = \sup_{c \in \text{Cert}(n,m)} \frac{e^{i\pi(\phi + 1/4)[D(n) + W(c) - D(m)]}}{(1 + |n-m| + |c|)^{2}}
@@ -326,7 +326,7 @@ which is verified by:
 
 We now prove the main result connecting the spectral gap to computational complexity.
 
-\begin{theorem}[title=Spectral Gap iff P $\neq$ NP]\label{thm:spectral-gap-complexity}
+\begin{theorem}[title={Spectral Gap iff P $\neq$ NP}]\label{thm:spectral-gap-complexity}
 The following are equivalent:
 \begin{enumerate}
 \item P $\neq$ NP
@@ -417,7 +417,7 @@ combined with 100\% fractal coherence across 143 problems, provides strong compu
 
 \subsection{Circumventing Complexity-Theoretic Barriers}
 
-\begin{theorem}[title=Relativization Barrier Circumvention]\label{thm:relativization-circumvent}
+\begin{theorem}[title={Relativization Barrier Circumvention}]\label{thm:relativization-circumvent}
 The spectral gap approach circumvents the relativization barrier of Baker-Gill-Solovay\cite{baker1975relativizations}.
 \end{theorem}
 
@@ -464,7 +464,7 @@ This means our proof gives the same conclusion (P $\neq$ NP) regardless of oracl
 \textbf{Relation to Baker-Gill-Solovay}: The oracles $A$ and $B$ constructed in \cite{baker1975relativizations} create complexity separation by encoding specific hard problems into the oracle. But these encodings affect the *computational paths* (which strings are in the language) without affecting the *arithmetic structure* (base-3 digital sums of configuration encodings). Our proof operates at the arithmetic level, hence is immune to oracle relativization.
 \end{proof}
 
-\begin{theorem}[title=Natural Proofs Barrier Circumvention]\label{thm:natural-proofs-circumvent}
+\begin{theorem}[title={Natural Proofs Barrier Circumvention}]\label{thm:natural-proofs-circumvent}
 The spectral gap approach circumvents the natural proofs barrier of Razborov-Rudich\cite{razborov1997natural}.
 \end{theorem}
 
@@ -503,7 +503,7 @@ These are **transcendental conditions** satisfied by a measure-zero set of opera
 Therefore, the constructivity criterion also fails, providing a second route around the natural proofs barrier.
 \end{proof}
 
-\begin{theorem}[title=Algebrization Barrier Circumvention]\label{thm:algebrization-circumvent}
+\begin{theorem}[title={Algebrization Barrier Circumvention}]\label{thm:algebrization-circumvent}
 The spectral gap approach circumvents the algebrization barrier of Aaronson-Wigderson\cite{aaronson2008algebrization}.
 \end{theorem}
 

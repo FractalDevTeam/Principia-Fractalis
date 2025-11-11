@@ -1,0 +1,161 @@
+=== FILE COUNTS ===
+
+Root files: 2
+Lean source files (PF/): 21
+Documentation files: 17
+Build logs: 101
+
+=== DIRECTORY STRUCTURE ===
+[4.0K]  .
+├── [4.0K]  BUILD_LOGS
+│   ├── [2.0K]  all_pf_build.log
+│   ├── [ 236]  axiom_check.log
+│   ├── [781K]  book_compile_check.log
+│   ├── [781K]  book_compile_test.log
+│   ├── [1.7K]  boss_files_build.log
+│   ├── [ 13K]  build_v2.log
+│   ├── [  43]  build_v3.log
+│   ├── [2.9K]  chernweil_build2.log
+│   ├── [2.9K]  chernweil_build3.log
+│   ├── [2.9K]  chernweil_build4.log
+│   ├── [2.9K]  chernweil_build5.log
+│   ├── [2.9K]  chernweil_build6.log
+│   ├── [2.4K]  chernweil_build7.log
+│   ├── [ 200]  chernweil_build_final.log
+│   ├── [3.1K]  chernweil_build.log
+│   ├── [701K]  clean_compile_pass1.log
+│   ├── [ 882]  clean_scaffolding_build.log
+│   ├── [658K]  compile_alllabels_pass1.log
+│   ├── [658K]  compile_alllabels_pass2.log
+│   ├── [793K]  compile_book_updated.log
+│   ├── [658K]  compile_fixed_pass1.log
+│   ├── [738K]  compile_fixes_pass1.log
+│   ├── [ 28K]  compile_force.log
+│   ├── [658K]  compile_labels_pass1.log
+│   ├── [658K]  compile_labels_pass2.log
+│   ├── [658K]  compile_labels_pass3.log
+│   ├── [659K]  compile_pass1_final.log
+│   ├── [660K]  compile_pass2_final.log
+│   ├── [658K]  compile_pass2.log
+│   ├── [660K]  compile_pass3_final.log
+│   ├── [730K]  compile_v3.1_test.log
+│   ├── [730K]  compile_v3.2_audit_1.log
+│   ├── [730K]  compile_v3.2_audit_2.log
+│   ├── [780K]  compile_v331_pass1.log
+│   ├── [780K]  compile_v331_pass2.log
+│   ├── [833K]  compile_v33_final_pass1.log
+│   ├── [787K]  compile_v33_pass1_final.log
+│   ├── [795K]  compile_v33_pass1_fix.log
+│   ├── [797K]  compile_v33_pass1.log
+│   ├── [782K]  compile_v33_pass1_success.log
+│   ├── [787K]  compile_v33_real_attempt.log
+│   ├── [659K]  compile_v34_final2.log
+│   ├── [658K]  compile_v34_final3.log
+│   ├── [736K]  compile_v34_final.log
+│   ├── [888K]  compile_v34_pass1.log
+│   ├── [658K]  compile_v34_pass2.log
+│   ├── [657K]  compile_v34_pass3.log
+│   ├── [798K]  compile_v34_pass4.log
+│   ├── [738K]  compile_v34_pass5.log
+│   ├── [2.0K]  complete_build_final.log
+│   ├── [1.7K]  current_build_errors.log
+│   ├── [2.9K]  final_build_attempt.log
+│   ├── [   0]  final_build_progress_check.log
+│   ├── [4.1K]  final_build_test.log
+│   ├── [659K]  final_compile_all_fixes_pass1.log
+│   ├── [659K]  final_compile_all_fixes_pass2.log
+│   ├── [659K]  final_compile_all_fixes_pass3.log
+│   ├── [658K]  final_compile_test.log
+│   ├── [1.8K]  final_complete_build.log
+│   ├── [5.8K]  final_new_folder_build.log
+│   ├── [ 270]  final_proof_build.log
+│   ├── [ 612]  final_radix_build.log
+│   ├── [2.2K]  final_verification_build.log
+│   ├── [3.5K]  fresh_build.log
+│   ├── [7.0K]  full_build_20_24.log
+│   ├── [2.2K]  full_build_after_radix.log
+│   ├── [2.4K]  full_build_check.log
+│   ├── [2.2K]  full_build_fixed.log
+│   ├── [2.3K]  full_build_post_spectral.log
+│   ├── [2.2K]  full_build_pvsnp.log
+│   ├── [4.9K]  interval_arithmetic_build1.log
+│   ├── [2.8K]  interval_arithmetic_build2.log
+│   ├── [3.0K]  interval_arithmetic_build3.log
+│   ├── [4.9K]  interval_arithmetic_build4.log
+│   ├── [ 296]  interval_arithmetic_build5.log
+│   ├── [ 432]  interval_arithmetic_build6.log
+│   ├── [ 10K]  lake_build2.log
+│   ├── [152K]  lake_build3.log
+│   ├── [6.8M]  lake_build_clean.log
+│   ├── [8.6K]  lake_build.log
+│   ├── [8.3K]  new_folder_build.log
+│   ├── [   0]  pf_build_check.log
+│   ├── [2.0K]  pf_final_build.log
+│   ├── [3.0K]  phase2_build_check.log
+│   ├── [ 611]  proof1_build.log
+│   ├── [ 611]  proof2_build.log
+│   ├── [ 612]  radix_build_test3.log
+│   ├── [ 871]  radix_build_test.log
+│   ├── [ 153]  recompile_bibtex.log
+│   ├── [757K]  recompile_master_with_bib.log
+│   ├── [659K]  recompile_pass1.log
+│   ├── [658K]  recompile_pass2.log
+│   ├── [658K]  recompile_pass3.log
+│   ├── [ 878]  spectral_build_check.log
+│   ├── [ 892]  spectral_embedding_build.log
+│   ├── [3.1K]  spectral_gap_build2.log
+│   ├── [3.0K]  spectral_gap_build3.log
+│   ├── [ 508]  spectral_gap_build4.log
+│   ├── [3.4K]  spectral_gap_build.log
+│   ├── [3.0K]  stage_c_build_verify.log
+│   └── [1.0K]  turing_pnp_build.log
+├── [4.0K]  DOCUMENTATION
+│   ├── [9.9K]  BUILD_SUMMARY.txt
+│   ├── [ 12K]  CHAPTER_21_DELIVERABLES_INDEX.md
+│   ├── [ 12K]  CHAPTER_21_FORMALIZATION_COMPLETE.md
+│   ├── [ 12K]  COMPLETE_PROOF_SYNTHESIS.md
+│   ├── [ 12K]  EXECUTIVE_SUMMARY.md
+│   ├── [9.0K]  INDEX_COMPLETE_SYNTHESIS.md
+│   ├── [ 17K]  LINE_BY_LINE_CORRESPONDENCE.md
+│   ├── [3.7K]  PROGRESS_REPORT_SORRIES.md
+│   ├── [10.0K]  PROOF_CHAIN_DIAGRAM.txt
+│   ├── [ 10K]  PROOF_ROADMAP.md
+│   ├── [8.2K]  SORRY_TRIAGE_COMPLETE.md
+│   ├── [ 18K]  STAGE_C_FORMALIZATION_REPORT.md
+│   ├── [ 10K]  STAGE_C_QUICK_REFERENCE.md
+│   ├── [5.4K]  STATUS_86_TO_60_SORRIES.md
+│   ├── [ 11K]  SYNTHESIS_COMPLETE_README.md
+│   ├── [ 14K]  TURING_TO_OPERATOR_COMPLETE.md
+│   └── [ 13K]  VERIFICATION_CHECKLIST.md
+├── [2.5K]  FILE_INVENTORY.txt
+├── [5.3K]  FINAL_VERIFICATION_REPORT.md
+├── [ 303]  lakefile.toml
+├── [  29]  lean-toolchain
+├── [  66]  Main.lean
+├── [ 132]  PACKAGE_SUMMARY.txt
+├── [4.0K]  PF
+│   ├── [  21]  Basic.lean
+│   ├── [ 19K]  BSD_Equivalence.lean
+│   ├── [ 12K]  CertificateTrivialityProof.lean
+│   ├── [9.9K]  Chapter21_Operator_Proof.lean
+│   ├── [  73]  check_axioms.lean
+│   ├── [5.5K]  ChernWeil.lean
+│   ├── [7.3K]  IntervalArithmetic.lean
+│   ├── [6.1K]  P_NP_Certificate_Elimination_FINAL.lean
+│   ├── [ 14K]  P_NP_COMPLETE_FINAL.lean
+│   ├── [ 19K]  P_NP_Equivalence.lean
+│   ├── [ 16K]  P_NP_EquivalenceLemmas.lean
+│   ├── [ 12K]  p_np_implies_alpha_equivalence.lean
+│   ├── [8.1K]  P_NP_Proof_COMPLETE.lean
+│   ├── [4.4K]  RadixEconomy.lean
+│   ├── [ 19K]  RH_Equivalence.lean
+│   ├── [7.6K]  SpectralEmbedding.lean
+│   ├── [4.4K]  SpectralGap.lean
+│   ├── [ 17K]  TuringEncoding.lean
+│   ├── [ 17K]  TuringToOperator_PROOFS.lean
+│   ├── [ 25K]  UniversalFramework.lean
+│   └── [ 22K]  YM_Equivalence.lean
+├── [2.5K]  PF.lean
+└── [9.4K]  README_START_HERE.md
+
+4 directories, 147 files
