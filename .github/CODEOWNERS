@@ -1,0 +1,8 @@
+# Require FractalDevTeam approval for all changes to ensure evidence integrity
+* @FractalDevTeam
+
+# Critical files require explicit review
+/proofs/** @FractalDevTeam
+/evidence/** @FractalDevTeam
+/mathematics/** @FractalDevTeam
+SECURITY.md @FractalDevTeam
