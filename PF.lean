@@ -24,7 +24,12 @@ import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
 -- Collatz Conjecture via Fractal Resonance (NEW - Nov 19, 2025)
-import PF.CollatzFractal     -- Collatz map with fractal-spectral norm α = φ
+import PF.CollatzFractal
+import PF.DigitalSumBase3
+import PF.FractalResonance
+import PF.GeometricUnityExtensions
+import PF.ComplexityBarriers
+import PF.ComputationalEquations     -- Collatz map with fractal-spectral norm α = φ
 
 /-!
 ## Principia Fractalis Formal Verification
