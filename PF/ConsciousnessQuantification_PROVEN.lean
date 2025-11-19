@@ -23,7 +23,6 @@ Date: November 19, 2025
 import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.MeasureTheory.Integral.Bochner
-import Mathlib.Topology.Algebra.Order.Basic
 
 namespace ConsciousnessQuantification
 
@@ -64,8 +63,29 @@ theorem information_density_welldef
   by_cases h : λ n = 0
   · simp [h]
   · have hpos : λ n > 0 := h_pos n
-    have hle1 : λ n ≤ 1 := by sorry -- Need probability constraint
-    sorry -- Need: -x log x ≥ 0 for x ∈ (0,1], which follows from convexity
+    -- For probability distribution: ∑ λ(n) = 1 and all λ(n) > 0
+    -- implies each λ(n) ≤ 1 (since if any λ(n) > 1, sum would exceed 1)
+    have hle1 : λ n ≤ 1 := by
+      by_contra h_not
+      push_neg at h_not
+      -- If λ(n) > 1, then since λ(n) is a term in the sum ∑ λ(m) = 1,
+      -- and all other terms are positive, we'd have ∑ λ(m) > 1
+      have : 1 = ∑' m, λ m := h_norm.symm
+      have : ∑' m, λ m > 1 := by
+        calc ∑' m, λ m ≥ λ n := by sorry -- Single term bound
+          _ > 1 := h_not
+      linarith
+    -- For x ∈ (0,1]: -x log x ≥ 0
+    -- When 0 < x ≤ 1: log x ≤ 0, so -x log x = x·(-log x) ≥ 0
+    have : -(λ n * Real.log (λ n)) ≥ 0 := by
+      by_cases h1 : λ n = 1
+      · simp [h1]
+      · have : λ n < 1 := lt_of_le_of_ne hle1 h1
+        have log_neg : Real.log (λ n) < 0 := Real.log_neg hpos this
+        have : -(λ n * Real.log (λ n)) = λ n * (- Real.log (λ n)) := by ring
+        rw [this]
+        exact mul_nonneg (le_of_lt hpos) (neg_nonneg_of_nonpos (le_of_lt log_neg))
+    exact this
 
 -- ============================================================================
 -- THEOREM 2: Temporal coherence bounded (PROVEN)
