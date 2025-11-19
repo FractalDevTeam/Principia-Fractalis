@@ -130,7 +130,11 @@ theorem spectral_gap_controls_transition
   -- Need: -Δ/(k*T₁) < -Δ/(k*T₂)
   have : T₁ < T₂ := lt_trans h_T1.2 h_T2
   -- -Δ/(k*T₁) < -Δ/(k*T₂) ↔ Δ/(k*T₂) < Δ/(k*T₁) ↔ T₁ < T₂ (when Δ,k > 0)
-  sorry -- Algebra with division (provable in 2 lines)
+  have kT1_pos : k * T₁ > 0 := mul_pos h_pos.2.2.1 (lt_trans h_T1.1 h_T1.2)
+  have kT2_pos : k * T₂ > 0 := mul_pos h_pos.2.2.1 (lt_trans h_T1.1 h_T2)
+  calc -(Δ / (k * T₁)) < -(Δ / (k * T₂)) := by
+    rw [neg_lt_neg_iff]
+    exact div_lt_div_of_pos_left h_pos.2.2.2 kT2_pos (mul_lt_mul_of_pos_left this h_pos.2.2.1)
 
 -- ============================================================================
 -- BONUS THEOREM: Phase transition at critical temperature
@@ -152,8 +156,14 @@ theorem phase_transition_at_critical
   · intro ε hε
     unfold T_critical ch₂
     constructor
-    · sorry -- Monotonicity of exp (2 lines)
-    · sorry -- Monotonicity of exp (2 lines)
+    · -- ch₂(T_c - ε) < ch₂(T_c): follows from monotonicity since T_c - ε < T_c
+      have h1 : Δ / k - ε < Δ / k := by linarith
+      have h2 : Δ / k > Δ / k - ε + ε / 2 := by linarith
+      exact ch₂_monotone I τ Δ k (Δ / k - ε) (Δ / k) h_pos (by linarith) h2 h1
+    · -- ch₂(T_c) < ch₂(T_c + ε): follows from monotonicity since T_c < T_c + ε
+      have h1 : Δ / k < Δ / k + ε := by linarith
+      have h2 : Δ / k > Δ / k - ε / 2 := by linarith
+      exact ch₂_monotone I τ Δ k (Δ / k) (Δ / k + ε) h_pos h2 (by linarith) h1
 
 -- ============================================================================
 -- CONSCIOUSNESS THRESHOLD: 0.95

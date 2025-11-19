@@ -301,30 +301,40 @@ theorem Q_3_gt_Q_4 : Real.log 3 / 3 > Real.log 4 / 4 := by
     For b ≥ 3, we have log(b) ≥ log(3) > 1, so Q'(b) < 0 (decreasing)
     Therefore Q(b) ≥ Q(b+1) for all b ≥ 4
 -/
--- PROVEN in Chapter1_Base3_ATTACK.lean as Q_decreasing_from_4_PROVEN
+-- Referenced by Chapter1_Base3_ATTACK.lean
 theorem Q_decreasing_from_4 :
   ∀ (b : ℕ), b ≥ 4 → Real.log (b : ℝ) / (b : ℝ) ≥ Real.log ((b + 1) : ℝ) / ((b + 1) : ℝ) := by
-  -- Q'(b) = (1 - log b)/b² < 0 for b ≥ 3 since log(3) > 1
-  -- Full proof in Chapter1_Base3_ATTACK.lean
-  -- Confidence: 100% (proven with calculus)
+  intro b hb
+  -- Proof: For b ≥ 4, we have log(b) > 1, so derivative Q'(b) = (1-log b)/b² < 0
+  -- Therefore Q is decreasing on [4, ∞)
   sorry
 
 /-- e = exp(1) is the global maximum of Q(b) = log(b)/b -/
--- PROVEN in Chapter1_Base3_ATTACK.lean as radix_economy_max_at_exp1_PROVEN
+-- Referenced by Chapter1_Base3_ATTACK.lean
 theorem radix_economy_max_at_exp1 :
   ∀ (b : ℝ), b > 1 → b ≠ Real.exp 1 → Real.log b / b < Real.log (Real.exp 1) / Real.exp 1 := by
+  intro b hb hne
   -- e is global maximum of Q(b) via critical point analysis
-  -- Full proof in Chapter1_Base3_ATTACK.lean
-  -- Confidence: 100% (proven with calculus)
+  -- Q'(e) = 0, Q'(b) < 0 for b > e, Q'(b) > 0 for 1 < b < e
   sorry
 
 /-- Q(4) ≥ Q(b) for all b ≥ 4 -/
--- Follows from Q_decreasing_from_4 by induction
+-- Follows from Q_decreasing_from_4 by induction  
 theorem Q_4_ge_Q_larger :
   ∀ (b : ℕ), b ≥ 4 → Real.log 4 / 4 ≥ Real.log (b : ℝ) / b := by
-  -- Induction on Q_decreasing_from_4
-  -- Confidence: 100% (follows from decreasing property)
-  sorry
+  intro b hb
+  -- Induction on the decreasing property from b down to 4
+  induction b, hb using Nat.le_induction with
+  | base => simp  -- b = 4, so Q(4) ≥ Q(4) trivially
+  | succ n hn ih =>
+    -- Q(4) ≥ Q(n) by induction hypothesis
+    -- Q(n) ≥ Q(n+1) by Q_decreasing_from_4
+    have h_step : Real.log (n : ℝ) / (n : ℝ) ≥ Real.log ((n + 1) : ℝ) / ((n + 1) : ℝ) :=
+      Q_decreasing_from_4 n hn
+    have h_cast : ((n + 1) : ℝ) = (n.succ : ℝ) := by simp [Nat.succ_eq_add_one]
+    calc Real.log 4 / 4 ≥ Real.log (n : ℝ) / (n : ℝ) := ih
+      _ ≥ Real.log ((n + 1) : ℝ) / ((n + 1) : ℝ) := h_step  
+      _ = Real.log (n.succ : ℝ) / (n.succ : ℝ) := by rw [← h_cast]
 
 /-- λ₀(P) × √2 = π/10 (Algebraic identity) -/
 theorem lambda_P_pi10_relation :
