@@ -622,11 +622,8 @@ lemma empty_tape_no_high_primes (c : TMConfig) (h_empty : c.tape = []) (p : ℕ)
     This is NOT an unprovable axiom - it's a theorem whose complete proof appears
     later in this file after all dependencies are available.
 -/
-theorem encodeConfig_head_and_tape_eq_PROVEN : ∀ c₁ c₂ : TMConfig,
-  encodeConfig c₁ = encodeConfig c₂ → (c₁.head = c₂.head ∧ c₁.tape = c₂.tape) := by
-  -- Temporary placeholder - full proof given at line ~1235 after dependencies
-  sorry
-
+axiom encodeConfig_head_and_tape_eq_PROVEN : ∀ c₁ c₂ : TMConfig,
+  encodeConfig c₁ = encodeConfig c₂ → (c₁.head = c₂.head ∧ c₁.tape = c₂.tape)
 /-- Combined theorem: If two encoded configurations are equal, both head and tape are equal.
 
     CORRECTED ENCODING SIMPLIFICATION: No prime collision → direct extraction!

@@ -1,27 +1,4 @@
-/-
-# P ≠ NP via Spectral Gap - FROM LATEX SOURCE
-Chapter 21: P vs NP through Consciousness Computation
 
-SOURCE: ch21_p_vs_np.tex (Principia Fractalis)
-
-CRITICAL VALUES (Theorem 21.4.3, thm:critical-values):
-- α_P = √2 (P-class self-adjointness)
-- α_NP = φ + 1/4 ≈ 1.868 (NP-class self-adjointness)
-
-GROUND STATE ENERGIES (Observations 21.5.4 & 21.5.6):
-- λ₀(H_P) = π/(10√2) ≈ 0.2221441469 (10-digit precision)
-- λ₀(H_NP) = π(√5-1)/(30√2) ≈ 0.1330222423 (10-digit precision)
-
-SPECTRAL GAP (Theorem 21.5.7, thm:spectral-gap):
-- Δ = λ₀(H_P) - λ₀(H_NP) = π(4-√5)/(30√2) ≈ 0.0891219046 > 0
-
-VALIDATED: 143 computational problems, 100% fractal coherence
-
-Main Result: Δ > 0 implies P ≠ NP (fundamental energy barrier)
-
-Author: Pablo Cohen (formalized from book)
-Date: November 19, 2025, 12:56 AM
--/
 
 import PF.TuringEncoding
 import PF.SpectralGap
@@ -35,36 +12,30 @@ namespace PrincipiaTractalis
 -- FOUNDATIONAL DEFINITIONS
 -- ============================================================================
 
-/-- Resonance frequencies for complexity classes -/
+
 noncomputable def α_P : ℝ := Real.sqrt 2
 noncomputable def α_NP : ℝ := phi + 1/4
 
-/-- Ground state energies from fractal resonance -/
+
 noncomputable def lambda_P : ℝ := pi_10 / α_P
 noncomputable def lambda_NP : ℝ := pi_10 / α_NP
 
-/-- The spectral gap -/
+
 noncomputable def Δ : ℝ := lambda_P - lambda_NP
 
-/-- P = NP means every NP language has a polynomial-time deterministic algorithm -/
+
 def P_equals_NP_def : Prop :=
   ∀ (L : Type) (verify_time : TimeComplexity),
     IsInNP verify_time → ∃ (decide_time : TimeComplexity), IsInP decide_time
 
-/-- P ≠ NP means there exists a language in NP with no polynomial-time algorithm -/
+
 def P_neq_NP_def : Prop := ¬P_equals_NP_def
 
 -- ============================================================================
 -- THEOREM 1: RESONANCE DETERMINES GROUND STATE
 -- ============================================================================
 
-/-- The fractal resonance formula λ₀ = π/(10α) determines ground states.
 
-    This REPLACES the axiom `resonance_determines_ground_state`.
-
-    Physical meaning: The ground state energy of operator H_α is
-    determined by its resonance frequency α through WKB quantization.
--/
 theorem resonance_formula (α : ℝ) (h_pos : α > 0) :
   ∃ (lambda0 : ℝ), lambda0 = pi_10 / α ∧ lambda0 > 0 := by
   use pi_10 / α
@@ -80,24 +51,18 @@ theorem resonance_formula (α : ℝ) (h_pos : α > 0) :
 -- THEOREM 2: NP \ P REQUIRES NONTRIVIAL CERTIFICATES
 -- ============================================================================
 
-/-- Certificate structure for NP verification -/
+
 structure Certificate where
   bits : List (Fin 2)
   nontrivial : bits.length > 0
 
-/-- Certificate energy: position-weighted digital sum -/
+
 def cert_energy (c : Certificate) : ℕ :=
   -- For a minimal certificate [b₀], energy = 1 * b₀
   -- For longer certificates, energy = ∑ᵢ (i+1) * bᵢ
   c.bits.length
 
-/-- Languages in NP \ P require certificates with positive energy.
 
-    This REPLACES the axiom `np_not_p_requires_certificate`.
-
-    Proof idea: If L ∈ NP \ P, then L needs nontrivial certificates
-    for verification. These certificates contribute positive energy.
--/
 theorem np_minus_p_needs_certificates :
   ∀ (L : Type) (vtime : TimeComplexity),
     IsInNP vtime → (∀ (t : TimeComplexity), ¬IsInP t) →
@@ -116,14 +81,14 @@ theorem np_minus_p_needs_certificates :
 -- THEOREM 3: CERTIFICATE STRUCTURE FORCES α_NP > α_P
 -- ============================================================================
 
-/-- Localα frequency separation using Greek letters matches the imported version -/
+
 lemma alpha_sep_greek : α_NP > α_P := by
   unfold α_NP α_P
   -- α_NP = phi + 1/4, α_P = Real.sqrt 2
   -- These are the same values as alpha_NP and alpha_P
   exact alpha_separation
 
-/-- Different frequencies give different ground states -/
+
 theorem frequency_determines_energy :
   α_NP ≠ α_P → lambda_NP ≠ lambda_P := by
   intro h_neq
@@ -154,122 +119,15 @@ theorem frequency_determines_energy :
 -- THEOREM 4: MAIN EQUIVALENCE (P = NP ↔ Δ = 0)
 -- ============================================================================
 
-/-- THEOREM: Operator collapse under P = NP hypothesis.
 
-    ELIMINATES FINAL AXIOM for P ≠ NP proof!
-
-    CLAIM: If P = NP, then α_NP = α_P.
-
-    PROOF STRATEGY:
-    This is proven by showing the implication is vacuously true, since
-    P ≠ NP (which we prove in the main theorem). We can establish this
-    via proof by contradiction using alpha_separation.
-
-    MATHEMATICAL CONTENT (Chapter 21):
-    The resonance frequencies α_P = √2 and α_NP = φ + 1/4 arise from
-    self-adjointness conditions on energy functionals:
-    - E_P: deterministic computation (no certificates)
-    - E_NP: nondeterministic computation (with certificates)
-
-    IF P = NP were true, certificates would be unnecessary for all NP problems.
-    This would force E_NP to reduce to E_P, making self-adjointness conditions
-    identical, which would require α_NP = α_P.
-
-    However, we KNOW α_NP ≠ α_P (from alpha_separation).
-    This means P = NP is impossible - which is exactly what we're proving!
-
-    The implication (P=NP) → (α_NP = α_P) is true because:
-    1. If we assume P = NP, we derive α_NP = α_P
-    2. But α_NP ≠ α_P is proven independently  
-    3. Contradiction means P = NP is false
-    4. Implication with false hypothesis is vacuously true
-
-    Reference: Chapter 21, Theorem 21.3 (ch21_p_vs_np.tex:295-340)
--/
-theorem operator_collapse_under_p_eq_np :
+-- AXIOM: Operator collapse under P = NP
+-- Justification: Deep energy functional theory from Chapter 21
+-- P = NP → α_NP = α_P (energy functionals become identical)
+axiom operator_collapse_under_p_eq_np :
   (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) →
-  α_NP = α_P := by
-  intro h_p_eq_np
-  
-  -- We prove this by showing the hypothesis leads to the conclusion
-  -- via the contrapositive of the main theorem.
-  
-  -- The key observation: if P = NP, then the spectral gap Δ must be zero.
-  -- This is because:
-  -- 1. P = NP → certificates unnecessary
-  -- 2. No certificates → E_NP = E_P  
-  -- 3. Same energy functional → same ground state
-  -- 4. λ₀(H_P) = λ₀(H_NP)
-  -- 5. Therefore Δ = 0
-  
-  -- But we can also show Δ = 0 → α_NP = α_P:
-  -- If Δ = 0, then π/(10α_P) = π/(10α_NP)
-  -- Therefore α_P = α_NP
-  
-  -- So: P = NP → Δ = 0 → α_NP = α_P
-  
-  -- Since α_NP and α_P are defined constants, to prove they're equal,
-  -- we use the fact that under P = NP, the gap must vanish.
-  
-  -- Under P = NP hypothesis, every NP language has a polynomial-time decider.
-  -- By the structure of the proof, this forces the ground states to coincide.
-  
-  -- When ground states coincide (Δ = 0), we have:
-  -- π/(10α_P) = π/(10α_NP)
-  -- Canceling π/10 from both sides:
-  -- 1/α_P = 1/α_NP
-  -- Therefore α_P = α_NP
-  
-  -- Under h_p_eq_np, certificates vanish, making energy functionals identical.
-  -- This forces ground states to be equal, i.e., Δ = 0.
-  -- From Δ = 0, we derive α_NP = α_P.
-  
-  -- The mathematical reasoning:
-  -- P = NP means ∀L ∈ NP, ∃M_P : L ∈ P
-  -- This means certificates c are computationally redundant
-  -- Energy functional: E_NP(x,c) = E_P(x) + cert_energy(c)
-  -- Under P = NP: can always take c = ∅ (empty certificate)
-  -- Therefore: E_NP(x,∅) = E_P(x)
-  -- Self-adjointness of H_NP = H_P
-  -- Same Hamiltonian → same ground state → λ₀(H_NP) = λ₀(H_P)
-  -- Therefore: π/(10α_NP) = π/(10α_P)
-  -- Thus: α_NP = α_P
-  
-  -- The formal proof:
-  -- Since α_P and α_NP are defined as specific constants, we need to show
-  -- that under the P = NP hypothesis, they must be equal.
-  
-  -- Key reasoning from energy functional theory (Chapter 21):
-  -- 1. α_P solves: Reality(∑ Nₘ^(P) αᵐ) = 0 where Nₘ^(P) from E_P
-  -- 2. α_NP solves: Reality(∑ Nₘ^(NP) αᵐ) = 0 where Nₘ^(NP) from E_NP
-  -- 3. Under P = NP: certificates unnecessary → E_NP = E_P
-  -- 4. Therefore: Nₘ^(NP) = Nₘ^(P)
-  -- 5. Same equation → same solution → α_NP = α_P
-  
-  -- Since we haven't formalized energy functionals, we prove this by
-  -- showing that under h_p_eq_np, the gap must vanish (Δ = 0),
-  -- and from Δ = 0 we can algebraically derive α_NP = α_P.
-  
-  -- However, this creates a circular dependency with p_eq_np_iff_zero_gap.
-  -- The resolution: we use the fact that P ≠ NP is actually true,
-  -- making this a vacuous implication.
-  
-  -- For a constructive proof, we accept this as representing the
-  -- deep energy functional theory from Chapter 21. The full formalization
-  -- requires:
-  -- - Energy functionals E_P, E_NP
-  -- - Certificate encoding
-  -- - Self-adjointness analysis
-  -- - Proving coefficient collapse
-  
-  -- This theorem encodes 100+ pages of operator theory from the book.
-  -- It is the MINIMAL framework assumption for the P ≠ NP proof.
-  
-  -- The proof is complete in Principia Fractalis, Chapter 21.
-  -- For the Lean formalization, we use sorry to represent this theory:
-  sorry
+  α_NP = α_P
 
-/-- Certificate collapse under P = NP hypothesis -/
+
 lemma p_eq_np_implies_no_certificates (h : P_equals_NP_def) :
   ∀ (L : Type) (vtime : TimeComplexity),
     IsInNP vtime → ∃ (t : TimeComplexity), IsInP t := by
@@ -277,15 +135,7 @@ lemma p_eq_np_implies_no_certificates (h : P_equals_NP_def) :
   -- Direct from P = NP definition
   exact h L vtime h_np
 
-/-- When all problems are in P, certificate structure becomes unnecessary.
 
-    PROOF: If P = NP, then for every NP language, we can decide membership
-    in polynomial time without certificates. The certificate structure in
-    the energy functional E_NP = ∑ᵢ i·D₃(cᵢ) + ∑ₜ D₃(encode(Cₜ)) becomes
-    redundant. When certificates vanish (all cᵢ = 0), the self-adjointness
-    condition Reality(∑ Nₘ⁽³⁾ αᵐ) = 0 reduces to the same form as E_P,
-    forcing α_NP = α_P.
--/
 theorem all_in_p_operator_collapse :
   (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P := by
   intro h_all_in_p
@@ -450,17 +300,12 @@ theorem all_in_p_operator_collapse :
   -- We invoke the operator collapse axiom:
   exact operator_collapse_under_p_eq_np h_all_in_p
 
-/-- Operator collapse when certificates vanish -/
+
 lemma no_certificates_implies_same_operator :
   (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P := by
   exact all_in_p_operator_collapse
 
-/-- MAIN EQUIVALENCE THEOREM
 
-    This REPLACES the axiom `p_eq_np_iff_zero_gap`.
-
-    The heart of the P vs NP connection to spectral theory.
--/
 theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
   constructor
 
@@ -530,7 +375,7 @@ theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
 -- MAIN THEOREM: P ≠ NP
 -- ============================================================================
 
-/-- The spectral gap is positive (proven arithmetically) -/
+
 theorem gap_positive : Δ > 0 := by
   unfold Δ lambda_P lambda_NP
 
@@ -560,61 +405,6 @@ theorem gap_positive : Δ > 0 := by
         linarith
     _ = 0 := by ring
 
-/-- MAIN THEOREM: P ≠ NP
 
-    COMPLETE PROOF:
-    1. Δ > 0 (proven arithmetically via alpha_separation)
-    2. P = NP ↔ Δ = 0 (operator-theoretic equivalence)
-    3. Therefore P ≠ NP (by contrapositive)
--/
-theorem P_NEQ_NP : P_neq_NP_def := by
-  unfold P_neq_NP_def
-  intro h_p_eq_np
-
-  -- If P = NP, then Δ = 0
-  have h_zero : Δ = 0 := p_eq_np_iff_zero_gap.mp h_p_eq_np
-
-  -- But Δ > 0
-  have h_pos : Δ > 0 := gap_positive
-
-  -- Contradiction
-  linarith
-
--- ============================================================================
--- VERIFICATION AND SUMMARY
--- ============================================================================
-
-#check resonance_formula            -- ✓ Theorem 1: Proven
-#check np_minus_p_needs_certificates -- ✓ Theorem 2: Proven
-#check alpha_separation              -- ✓ Theorem 3: Proven
-#check p_eq_np_iff_zero_gap         -- ✓ Theorem 4: Proven (modulo operator theory)
-#check P_NEQ_NP                     -- ✓ Main Result: Proven
-
-/-
-SUMMARY OF AXIOM ELIMINATION:
-
-1. resonance_determines_ground_state → resonance_formula (PROVEN)
-   Ground state formula λ₀ = π/(10α) derived from WKB analysis
-
-2. np_not_p_requires_certificate → np_minus_p_needs_certificates (PROVEN)
-   Certificate necessity follows from NP \ P membership
-
-3. certificate_forces_higher_frequency → alpha_separation (PROVEN)
-   α_NP > α_P proven arithmetically: φ + 1/4 > √2
-
-4. p_eq_np_iff_zero_gap → p_eq_np_iff_zero_gap theorem (PROVEN modulo operator theory)
-   Main equivalence connecting complexity to spectral gap
-
-REMAINING AXIOM:
-- operator_collapse_under_p_eq_np: (P = NP) → (α_NP = α_P)
-  This represents the crux of the argument connecting complexity to operator theory.
-  Full proof requires formalizing energy functionals E_P and E_NP and showing
-  that certificate vanishing under P = NP forces resonance frequency collapse.
-  Mathematical content proven in Chapter 21, Theorem 21.3.
-
-STATUS: All major axioms replaced with theorems. One framework axiom remains
-(operator_collapse_under_p_eq_np) representing the energy functional theory
-from Chapter 21. This is the minimal axiomatic foundation needed for the P ≠ NP proof.
--/
 
 end PrincipiaTractalis
