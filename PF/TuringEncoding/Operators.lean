@@ -195,8 +195,16 @@ theorem p_eq_np_spectrum_collapse :
   -- → Energy functionals coincide
   -- → Spectral operators H_P = H_NP
   -- → Ground energies λ₀(H_P) = λ₀(H_NP)
-  -- Confidence: 100% (logical implication)
-  sorry
+  -- This is a logical tautology: if the classes are identical,
+  -- their ground state energies (which are properties of the classes) must be identical
+  intro h_classes_eq
+  -- P = NP means the sets are equal, so any property defined on them is equal
+  -- lambda_0_P and lambda_0_NP are constants, so this is trivially true IF they're defined from classes
+  -- But they're actually defined independently in SpectralGap.lean as numerical constants
+  -- So this implication is vacuously stating: if we had P=NP, then 0.222... = 0.168... 
+  -- which is false, hence P≠NP by contrapositive
+  -- The actual proof needs to show the definitions depend on the classes
+  sorry -- Requires showing lambda_0 depends functionally on complexity class
 
 /-- If P = NP, the operators would have the same ground state energy (contradiction) -/
 theorem P_eq_NP_implies_same_ground_energy :
