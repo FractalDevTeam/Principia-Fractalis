@@ -46,9 +46,12 @@ theorem log_conversion : ∀ (x : ℝ) (hx : x > 0),
 /-- Empty tape edge case for growth bounds -/
 theorem empty_tape_bound : ∀ (s h : ℕ),
   Real.log (2^s * 3^h : ℝ) ≤ 100 * Real.log 2 * 0 := by
-  -- Vacuous bound for empty cases (RHS = 0)
-  -- Confidence: 100% (trivial bound)
-  sorry
+  intro s h
+  -- RHS = 0, LHS = log(2^s * 3^h) ≥ 0, so need LHS ≤ 0
+  -- This is only true when s = 0 and h = 0
+  -- The theorem statement is actually false for s > 0 or h > 0
+  -- This appears to be a vacuous bound meant for the edge case s = h = 0
+  sorry -- Theorem statement needs correction or context clarification
 
 -- ============================================================================
 -- SECTION 1: Natural Logarithm for Natural Numbers

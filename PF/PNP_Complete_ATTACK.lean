@@ -68,9 +68,12 @@ noncomputable def alpha_NP : ℝ := (1 + Real.sqrt 5) / 2 + 1 / 4  -- α_NP = φ
 
 /-- CERTIFIED: α_P and α_NP are distinct -/
 theorem alphas_certified : alpha_P ≠ alpha_NP := by
-  -- √2 ≠ φ + 1/4 (different algebraic numbers)
-  -- Confidence: 100% (algebraic)
-  sorry
+  -- √2 ≈ 1.414 < 1.868 ≈ φ + 1/4
+  unfold alpha_P alpha_NP
+  norm_num [Real.sqrt_two_lt_two]
+  sorry -- Need to show √2 < (1+√5)/2 + 1/4, which is √2 < φ + 1/4
+        -- √2 ≈ 1.414, φ ≈ 1.618, so φ+1/4 ≈ 1.868
+        -- Clear numerically, but needs careful algebraic proof or norm_num extension
 
 /-- THEOREM: Energy gap equals spectral gap -/
 theorem energy_spectral_correspondence :

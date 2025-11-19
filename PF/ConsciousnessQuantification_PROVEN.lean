@@ -57,7 +57,15 @@ theorem information_density_welldef
   unfold SpectralInformationDensity
   -- Shannon entropy H = -∑ p log p is non-negative for probability distributions
   -- This is Gibbs' inequality: H(p) ≥ 0 with equality iff p is delta function
-  sorry -- Standard information theory (provable from convexity of -x log x)
+  -- Proof: Each term -λ(n) log λ(n) with λ(n) ∈ (0,1] contributes non-negatively
+  -- since -x log x ≥ 0 for x ∈ (0,1] by convexity
+  apply Finset.sum_nonneg
+  intro n _
+  by_cases h : λ n = 0
+  · simp [h]
+  · have hpos : λ n > 0 := h_pos n
+    have hle1 : λ n ≤ 1 := by sorry -- Need probability constraint
+    sorry -- Need: -x log x ≥ 0 for x ∈ (0,1], which follows from convexity
 
 -- ============================================================================
 -- THEOREM 2: Temporal coherence bounded (PROVEN)
