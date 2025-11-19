@@ -16,7 +16,8 @@ Date: November 19, 2025, 12:31 AM
 
 import Mathlib.Computability.NFA
 import Mathlib.Computability.TuringMachine
-import PF.p_np_implies_alpha_equivalence
+import PF.P_NP_Equivalence
+import PF.SpectralGap
 
 namespace PrincipiaTractalis.PNP
 
@@ -70,10 +71,39 @@ noncomputable def alpha_NP : ℝ := (1 + Real.sqrt 5) / 2 + 1 / 4  -- α_NP = φ
 theorem alphas_certified : alpha_P ≠ alpha_NP := by
   -- √2 ≈ 1.414 < 1.868 ≈ φ + 1/4
   unfold alpha_P alpha_NP
-  norm_num [Real.sqrt_two_lt_two]
-  sorry -- Need to show √2 < (1+√5)/2 + 1/4, which is √2 < φ + 1/4
-        -- √2 ≈ 1.414, φ ≈ 1.618, so φ+1/4 ≈ 1.868
-        -- Clear numerically, but needs careful algebraic proof or norm_num extension
+  -- Need to show √2 ≠ (1+√5)/2 + 1/4
+  -- Equivalently: √2 < (3 + 2√5)/4
+  -- Proof: 4√2 < 3 + 2√5
+  -- Square: (4√2 - 3)² < 4·5 = 20
+  -- => 41 - 24√2 < 20
+  -- => 21 < 24√2
+  -- => 7/8 < √2 (true since √2 > 1)
+  intro h
+  have h_sqrt2_pos : Real.sqrt 2 > 0 := Real.sqrt_pos.mpr (by norm_num)
+  have h_sqrt5_pos : Real.sqrt 5 > 0 := Real.sqrt_pos.mpr (by norm_num)
+  -- √2 = (3 + 2√5)/4 from assumption
+  have : 4 * Real.sqrt 2 = 3 + 2 * Real.sqrt 5 := by
+    have := congr_arg (fun x => 4 * x) h
+    simp at this
+    calc 4 * Real.sqrt 2 = 4 * ((1 + Real.sqrt 5) / 2 + 1/4) := this
+      _ = 2 * (1 + Real.sqrt 5) + 1 := by ring
+      _ = 3 + 2 * Real.sqrt 5 := by ring
+  -- But 4√2 - 3 = 2√5, so (4√2 - 3)² = 20
+  have h_eq : (4 * Real.sqrt 2 - 3) ^ 2 = (2 * Real.sqrt 5) ^ 2 := by
+    rw [this]
+  -- LHS = 32 - 24√2 + 9 = 41 - 24√2
+  -- RHS = 4·5 = 20
+  have lhs : (4 * Real.sqrt 2 - 3) ^ 2 = 41 - 24 * Real.sqrt 2 := by ring_nf; rw [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)]; ring
+  have rhs : (2 * Real.sqrt 5) ^ 2 = 20 := by ring_nf; rw [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)]; norm_num
+  rw [lhs, rhs] at h_eq
+  -- So 41 - 24√2 = 20, i.e., 21 = 24√2, i.e., √2 = 7/8 < 1
+  have : 24 * Real.sqrt 2 = 21 := by linarith
+  have : Real.sqrt 2 = 21 / 24 := by field_simp at this ⊢; exact this
+  -- But √2 > 1 and 21/24 = 7/8 < 1, contradiction
+  have h_sqrt2_gt_1 : Real.sqrt 2 > 1 := by
+    rw [Real.one_lt_sqrt_iff_one_lt_sq]; norm_num
+  have : (21 : ℝ) / 24 < 1 := by norm_num
+  linarith
 
 /-- THEOREM: Energy gap equals spectral gap -/
 theorem energy_spectral_correspondence :
