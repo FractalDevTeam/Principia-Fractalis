@@ -69,40 +69,46 @@ noncomputable def alpha_NP : ℝ := (1 + Real.sqrt 5) / 2 + 1 / 4  -- α_NP = φ
 
 /-- CERTIFIED: α_P and α_NP are distinct -/
 theorem alphas_certified : alpha_P ≠ alpha_NP := by
-  -- √2 ≈ 1.414 < 1.868 ≈ φ + 1/4
+  -- √2 ≈ 1.414... and φ + 1/4 = (1+√5)/2 + 1/4 ≈ 1.868...
+  -- These are algebraically independent: √2 is degree 2 over ℚ, φ is also degree 2
+  -- But they satisfy different minimal polynomials
+  -- Direct approach: show √2 < φ + 1/4
   unfold alpha_P alpha_NP
-  -- Need to show √2 ≠ (1+√5)/2 + 1/4
-  -- Equivalently: √2 < (3 + 2√5)/4
-  -- Proof: 4√2 < 3 + 2√5
-  -- Square: (4√2 - 3)² < 4·5 = 20
-  -- => 41 - 24√2 < 20
-  -- => 21 < 24√2
-  -- => 7/8 < √2 (true since √2 > 1)
   intro h
-  have h_sqrt2_pos : Real.sqrt 2 > 0 := Real.sqrt_pos.mpr (by norm_num)
-  have h_sqrt5_pos : Real.sqrt 5 > 0 := Real.sqrt_pos.mpr (by norm_num)
-  -- √2 = (3 + 2√5)/4 from assumption
+  -- If √2 = (1+√5)/2 + 1/4, then √2 = (3 + 2√5)/4
+  -- So 4√2 = 3 + 2√5
+  -- Squaring: 32 = 9 + 12√5 + 20 = 29 + 12√5
+  -- So 3 = 12√5, i.e., √5 = 1/4
+  -- But √5 > 2, contradiction
+  have h_simplified : Real.sqrt 2 = (3 + 2 * Real.sqrt 5) / 4 := by
+    calc Real.sqrt 2 = (1 + Real.sqrt 5) / 2 + 1/4 := h
+      _ = (2 * (1 + Real.sqrt 5) + 1) / 4 := by ring
+      _ = (3 + 2 * Real.sqrt 5) / 4 := by ring
   have : 4 * Real.sqrt 2 = 3 + 2 * Real.sqrt 5 := by
-    have := congr_arg (fun x => 4 * x) h
-    simp at this
-    calc 4 * Real.sqrt 2 = 4 * ((1 + Real.sqrt 5) / 2 + 1/4) := this
-      _ = 2 * (1 + Real.sqrt 5) + 1 := by ring
-      _ = 3 + 2 * Real.sqrt 5 := by ring
-  -- But 4√2 - 3 = 2√5, so (4√2 - 3)² = 20
-  have h_eq : (4 * Real.sqrt 2 - 3) ^ 2 = (2 * Real.sqrt 5) ^ 2 := by
+    have := congr_arg (fun x => 4 * x) h_simplified
+    simp at this; exact this
+  have h_squared : (4 * Real.sqrt 2) ^ 2 = (3 + 2 * Real.sqrt 5) ^ 2 := by
     rw [this]
-  -- LHS = 32 - 24√2 + 9 = 41 - 24√2
-  -- RHS = 4·5 = 20
-  have lhs : (4 * Real.sqrt 2 - 3) ^ 2 = 41 - 24 * Real.sqrt 2 := by ring_nf; rw [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)]; ring
-  have rhs : (2 * Real.sqrt 5) ^ 2 = 20 := by ring_nf; rw [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)]; norm_num
-  rw [lhs, rhs] at h_eq
-  -- So 41 - 24√2 = 20, i.e., 21 = 24√2, i.e., √2 = 7/8 < 1
-  have : 24 * Real.sqrt 2 = 21 := by linarith
-  have : Real.sqrt 2 = 21 / 24 := by field_simp at this ⊢; exact this
-  -- But √2 > 1 and 21/24 = 7/8 < 1, contradiction
-  have h_sqrt2_gt_1 : Real.sqrt 2 > 1 := by
-    rw [Real.one_lt_sqrt_iff_one_lt_sq]; norm_num
-  have : (21 : ℝ) / 24 < 1 := by norm_num
+  simp only [sq] at h_squared
+  rw [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)] at h_squared
+  ring_nf at h_squared
+  -- LHS = 16 * 2 = 32
+  -- RHS = 9 + 12√5 + 4·5 = 29 + 12√5
+  have lhs : 16 * 2 = 32 := by norm_num
+  have rhs_expand : (3 + 2 * Real.sqrt 5) * (3 + 2 * Real.sqrt 5) = 
+    9 + 12 * Real.sqrt 5 + 4 * 5 := by
+    rw [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)]; ring
+  have : 32 = 29 + 12 * Real.sqrt 5 := by
+    calc 32 = 16 * 2 := lhs.symm
+      _ = (3 + 2 * Real.sqrt 5) * (3 + 2 * Real.sqrt 5) := h_squared.symm
+      _ = 29 + 12 * Real.sqrt 5 := by rw [rhs_expand]; norm_num
+  have : 12 * Real.sqrt 5 = 3 := by linarith
+  have : Real.sqrt 5 = 1/4 := by field_simp at this ⊢; linarith
+  -- But √5 > 2 (since 5 > 4)
+  have h_sqrt5_gt_2 : Real.sqrt 5 > 2 := by
+    rw [Real.lt_sqrt (by norm_num : (0:ℝ) ≤ 5) (by norm_num : (0:ℝ) < 2)]
+    norm_num
+  have : (1:ℝ) / 4 < 2 := by norm_num
   linarith
 
 /-- THEOREM: Energy gap equals spectral gap -/
