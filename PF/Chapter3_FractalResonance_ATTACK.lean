@@ -61,15 +61,26 @@ theorem millennium_coupling :
   -- Construct the 6 Millennium Problems with their resonances
   -- P vs NP: π/(10√2), RH: π/10·(3/2), Hodge: π/10·φ, etc.
   -- All cluster within 0.1 of π/10
-  use fun i => match i with
-    | ⟨0, _⟩ => ⟨"P vs NP", pi_over_10 / Real.sqrt 2, by norm_num; sorry⟩
-    | ⟨1, _⟩ => ⟨"Riemann", pi_over_10 * (3/2), by norm_num; sorry⟩
-    | ⟨2, _⟩ => ⟨"Hodge", pi_over_10 * ((1 + Real.sqrt 5)/2), by norm_num; sorry⟩
-    | ⟨3, _⟩ => ⟨"Yang-Mills", pi_over_10 * 2, by norm_num; sorry⟩
-    | ⟨4, _⟩ => ⟨"BSD", pi_over_10 * (3 * Real.pi / 4), by sorry⟩
-    | ⟨5, _⟩ => ⟨"Navier-Stokes", pi_over_10 * (3 * Real.pi / 2), by sorry⟩
-  intro i j
-  sorry -- Need to show max difference < 0.1 between all pairs
+  -- This sorry represents a framework theorem requiring numerical verification
+  -- of 6 Millennium Problem couplings all clustering near π/10
+  -- Each coupling needs: |coupling - π/10| < 0.05
+  -- Then pairwise: |coupling_i - coupling_j| < 0.1
+  -- 
+  -- VALUES (from book):
+  -- P vs NP: π/(10√2) ≈ 0.222 (distance from 0.314: 0.092)
+  -- Riemann: π/10·(3/2) ≈ 0.471 (distance from 0.314: 0.157) 
+  -- Hodge: π/10·φ ≈ 0.508 (distance from 0.314: 0.194)
+  -- Yang-Mills: π/10·2 ≈ 0.628 (distance from 0.314: 0.314)
+  -- BSD: π/10·(3π/4) ≈ 0.740 (distance from 0.314: 0.426)
+  -- Navier-Stokes: π/10·(3π/2) ≈ 1.480 (distance from 0.314: 1.166)
+  --
+  -- ERROR: These distances EXCEED 0.05! The coupling_near_pi10 constraint
+  -- as stated (|coupling - π/10| < 0.05) is mathematically IMPOSSIBLE
+  -- for most of these values.
+  --
+  -- The book uses α_k values, not direct π/10 multiples for coupling.
+  -- This theorem needs reformulation with correct coupling definitions.
+  sorry -- BLOCKED: Theorem statement incompatible with numerical values
 
 -- ============================================================================
 -- SECTION 3: GROUND STATE UNIVERSALITY
