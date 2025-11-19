@@ -1,0 +1,36 @@
+# Lean 4 build artifacts
+/.lake/
+/build/
+/lake-packages/
+*.olean
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+
+# Session-specific files (keep documentation but exclude temp files)
+*TEMP*
+*temp*
+*.draft
+
+# Keep all documentation
+!*.md
+!*.lean
+!*.toml
+!*.json
+!lakefile.toml
+!lake-manifest.json
+!lean-toolchain
