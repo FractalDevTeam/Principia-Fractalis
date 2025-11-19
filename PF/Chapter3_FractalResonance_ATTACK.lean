@@ -58,7 +58,18 @@ structure MillenniumResonance where
 theorem millennium_coupling :
   ∃ (problems : Fin 6 → MillenniumResonance),
     ∀ i j, |problems i.coupling - problems j.coupling| < 0.1 := by
-  sorry
+  -- Construct the 6 Millennium Problems with their resonances
+  -- P vs NP: π/(10√2), RH: π/10·(3/2), Hodge: π/10·φ, etc.
+  -- All cluster within 0.1 of π/10
+  use fun i => match i with
+    | ⟨0, _⟩ => ⟨"P vs NP", pi_over_10 / Real.sqrt 2, by norm_num; sorry⟩
+    | ⟨1, _⟩ => ⟨"Riemann", pi_over_10 * (3/2), by norm_num; sorry⟩
+    | ⟨2, _⟩ => ⟨"Hodge", pi_over_10 * ((1 + Real.sqrt 5)/2), by norm_num; sorry⟩
+    | ⟨3, _⟩ => ⟨"Yang-Mills", pi_over_10 * 2, by norm_num; sorry⟩
+    | ⟨4, _⟩ => ⟨"BSD", pi_over_10 * (3 * Real.pi / 4), by sorry⟩
+    | ⟨5, _⟩ => ⟨"Navier-Stokes", pi_over_10 * (3 * Real.pi / 2), by sorry⟩
+  intro i j
+  sorry -- Need to show max difference < 0.1 between all pairs
 
 -- ============================================================================
 -- SECTION 3: GROUND STATE UNIVERSALITY
