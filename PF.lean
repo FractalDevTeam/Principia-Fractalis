@@ -30,13 +30,13 @@ import PF.FractalResonance
 import PF.GeometricUnityExtensions  -- ✅ FIXED: type corrected
 import PF.ComplexityBarriers
 import PF.ComputationalEquations  -- ✅ FIXED: syntax error corrected
--- import PF.YangMills_ATTACK  -- Excluded: Complex errors, needs significant rework
--- import PF.BSD_ATTACK  -- Excluded: Type synthesis issues
--- import PF.RH_Complete_ATTACK  -- Excluded: Complex number issues
+import PF.YangMills_ATTACK  -- FIXING NOW
+import PF.BSD_ATTACK  -- FIXING NOW
+import PF.RH_Complete_ATTACK  -- FIXING NOW
 import PF.ConsciousnessQuantification_PROVEN  -- ✅ FIXED: axiomatized integrals
 
 -- 143 Problems Validation (Nov 20, 2025)
--- import PF.Problems143_COMPLETE  -- Excluded: Duplicate definitions, BEq synthesis
+import PF.Problems143_COMPLETE  -- FIXING NOW
 
 /-!
 ## Principia Fractalis Formal Verification
