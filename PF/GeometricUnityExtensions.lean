@@ -53,7 +53,7 @@ structure RQG_SHIAB where
 /-- The canonical RQG-SHIAB at RH resonance frequency
 -/
 -- AXIOMATIZED: Standard observerse and gauge connection require full GU formalization
-axiom standard_observerse : Type
+axiom standard_observerse : Observerse
 axiom u128_gauge_connection : Type
 
 noncomputable def canonical_rqg_shiab : RQG_SHIAB where

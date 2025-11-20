@@ -1780,18 +1780,16 @@ def tmAllOnes : TuringMachine where
   h_accept := by norm_num
   h_reject := by norm_num
 
-/-- Example increment computation: [1,1,1] becomes [1,1,1,1]
-    NOTE: Computational examples removed - use #eval for testing instead of sorry
--/
+-- Example increment computation: [1,1,1] becomes [1,1,1,1]
+-- NOTE: Computational examples removed - use #eval for testing instead of sorry
 -- example : 
 --   let input : List (Fin 3) := [1, 1, 1]
 --   let (final, _) := tmUnaryIncrement.run input 10
 --   final.tape = [1, 1, 1, 1] ∧ final.isAccepting tmUnaryIncrement := by
 --   sorry  -- Computational proof requires evaluation tactics
 
-/-- Example all-ones acceptance: [1,1,1] is accepted 
-    NOTE: Computational examples removed - use #eval for testing instead of sorry
--/
+-- Example all-ones acceptance: [1,1,1] is accepted 
+-- NOTE: Computational examples removed - use #eval for testing instead of sorry
 -- example :
 --   let input : List (Fin 3) := [1, 1, 1]
 --   tmUnaryIncrement.accepts input 10 := by

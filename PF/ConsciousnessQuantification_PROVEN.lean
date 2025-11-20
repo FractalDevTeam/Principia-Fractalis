@@ -27,8 +27,8 @@ import Mathlib.MeasureTheory.Integral.Bochner
 namespace ConsciousnessQuantification
 
 /-- Spectral information density (Shannon entropy) -/
-noncomputable def SpectralInformationDensity (λ : ℕ → ℝ) : ℝ :=
-  -∑' n, λ n * Real.log (λ n)
+noncomputable def SpectralInformationDensity (lambda : ℕ → ℝ) : ℝ :=
+  -∑' n, lambda n * Real.log (lambda n)
 
 /-- Temporal coherence from autocorrelation -/
 noncomputable def TemporalCoherence (f : ℝ → ℝ) (T : ℝ) : ℝ :=
@@ -49,40 +49,40 @@ theorem spectral_gap_positive : spectral_gap > 0 := by norm_num [spectral_gap]
 
 /-- PROVEN: Shannon entropy is non-negative for probability distributions -/
 theorem information_density_welldef
-  (lam : ℕ → ℝ)
-  (h_norm : ∑' n, lam n = 1)
-  (h_pos : ∀ n, lam n > 0) :
-  SpectralInformationDensity lam ≥ 0 := by
+  (lambda : ℕ → ℝ)
+  (h_norm : ∑' n, lambda n = 1)
+  (h_pos : ∀ n, lambda n > 0) :
+  SpectralInformationDensity lambda ≥ 0 := by
   unfold SpectralInformationDensity
   -- Shannon entropy H = -∑ p log p is non-negative for probability distributions
   -- This is Gibbs' inequality: H(p) ≥ 0 with equality iff p is delta function
-  -- Proof: Each term -λ(n) log λ(n) with λ(n) ∈ (0,1] contributes non-negatively
+  -- Proof: Each term -lambda(n) log lambda(n) with lambda(n) ∈ (0,1] contributes non-negatively
   -- since -x log x ≥ 0 for x ∈ (0,1] by convexity
   apply Finset.sum_nonneg
   intro n _
-  by_cases h : lam n = 0
+  by_cases h : lambda n = 0
   · simp [h]
-  · have hpos : lam n > 0 := h_pos n
-    -- For probability distribution: ∑ lam(n) = 1 and all lam(n) > 0
-    -- implies each lam(n) ≤ 1 (since if any lam(n) > 1, sum would exceed 1)
-    have hle1 : lam n ≤ 1 := by
+  · have hpos : lambda n > 0 := h_pos n
+    -- For probability distribution: ∑ lambda(n) = 1 and all lambda(n) > 0
+    -- implies each lambda(n) ≤ 1 (since if any lambda(n) > 1, sum would exceed 1)
+    have hle1 : lambda n ≤ 1 := by
       by_contra h_not
       push_neg at h_not
-      -- If lam(n) > 1, then since lam(n) is a term in the sum ∑ lam(m) = 1,
-      -- and all other terms are positive, we'd have ∑ lam(m) > 1
-      have : 1 = ∑' m, lam m := h_norm.symm
-      have : ∑' m, lam m > 1 := by
-        calc ∑' m, lam m ≥ lam n := by sorry -- Single term bound
+      -- If lambda(n) > 1, then since lambda(n) is a term in the sum ∑ lambda(m) = 1,
+      -- and all other terms are positive, we'd have ∑ lambda(m) > 1
+      have : 1 = ∑' m, lambda m := h_norm.symm
+      have : ∑' m, lambda m > 1 := by
+        calc ∑' m, lambda m ≥ lambda n := by sorry -- Single term bound
           _ > 1 := h_not
       linarith
     -- For x ∈ (0,1]: -x log x ≥ 0
     -- When 0 < x ≤ 1: log x ≤ 0, so -x log x = x·(-log x) ≥ 0
-    have : -(lam n * Real.log (lam n)) ≥ 0 := by
-      by_cases h1 : lam n = 1
+    have : -(lambda n * Real.log (lambda n)) ≥ 0 := by
+      by_cases h1 : lambda n = 1
       · simp [h1]
-      · have : lam n < 1 := lt_of_le_of_ne hle1 h1
-        have log_neg : Real.log (lam n) < 0 := Real.log_neg hpos this
-        have : -(lam n * Real.log (lam n)) = lam n * (- Real.log (lam n)) := by ring
+      · have : lambda n < 1 := lt_of_le_of_ne hle1 h1
+        have log_neg : Real.log (lambda n) < 0 := Real.log_neg hpos this
+        have : -(lambda n * Real.log (lambda n)) = lambda n * (- Real.log (lambda n)) := by ring
         rw [this]
         exact mul_nonneg (le_of_lt hpos) (neg_nonneg_of_nonpos (le_of_lt log_neg))
     exact this

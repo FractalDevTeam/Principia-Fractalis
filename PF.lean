@@ -19,24 +19,24 @@ import PF.ChernWeil          -- Theorem 3: Consciousness quantification
 import PF.SpectralEmbedding  -- Theorem 4: SU(2)×U(1) emergence
 
 -- Stage B: P vs NP Equivalence (NEW)
-import PF.TuringEncoding     -- Turing machine encoding into operators
+import PF.TuringEncoding     -- ✅ FIXED: syntax errors resolved
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
--- Millennium Problems and Framework Extensions
+-- Millennium Problems and Framework Extensions  
 import PF.CollatzFractal
 import PF.DigitalSumBase3
 import PF.FractalResonance
--- import PF.GeometricUnityExtensions  -- Excluded: type errors
+-- import PF.GeometricUnityExtensions  -- Excluded: type mismatch line 61
 import PF.ComplexityBarriers
--- import PF.ComputationalEquations  -- Excluded: depends on GU
--- import PF.YangMills_ATTACK  -- Excluded: dependencies
--- import PF.BSD_ATTACK  -- Excluded: dependencies
--- import PF.RH_Complete_ATTACK  -- Excluded: dependencies
--- import PF.ConsciousnessQuantification_PROVEN  -- Excluded: lambda syntax error
+-- import PF.ComputationalEquations  -- Excluded: syntax error line 101
+-- import PF.YangMills_ATTACK  -- Excluded: Mathlib dependency issues
+-- import PF.BSD_ATTACK  -- Excluded: Mathlib dependency issues
+-- import PF.RH_Complete_ATTACK  -- Excluded: Mathlib dependency issues
+-- import PF.ConsciousnessQuantification_PROVEN  -- Excluded: measure space synthesis error
 
 -- 143 Problems Validation (Nov 20, 2025)
--- import PF.Problems143_COMPLETE  -- Excluded: depends on problematic imports
+-- import PF.Problems143_COMPLETE  -- Excluded: depends on broken imports
 
 /-!
 ## Principia Fractalis Formal Verification
