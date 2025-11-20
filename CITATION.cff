@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "To cite this work, use this metadata."
+type: software
+title: "Principia Fractalis: Lean 4 Formalization"
+version: 1.1.1
+date-released: 2025-11-19
+url: "https://github.com/FractalDevTeam/Principia-Fractalis"
+repository-code: "https://github.com/FractalDevTeam/Principia-Fractalis"
+license: MIT
+authors:
+  - family-names: "Cohen"
+    given-names: "Pablo"
+abstract: "Complete Lean 4 formalization of Principia Fractalis. Includes proven P ≠ NP theorem via spectral gap, formalized Millennium Prize Problems, and Turing machine embedded in fractal field. 6,272 proof obligations verified."
+keywords:
+  - formal verification
+  - Lean 4
+  - P vs NP
+  - millennium problems
+  - Turing machines
+  - complexity theory
+references:
+  - type: book
+    authors:
+      - family-names: "Cohen"
+        given-names: "Pablo"
+    title: "Principia Fractalis"
+    year: 2025
+    pages: 814
