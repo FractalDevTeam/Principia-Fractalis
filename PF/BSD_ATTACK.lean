@@ -15,8 +15,8 @@ Date: November 19, 2025, 12:32 AM
 -/
 
 import Mathlib.NumberTheory.LSeries.Basic
-import Mathlib.AlgebraicGeometry.EllipticCurve.Basic
-import PF.BSD_Equivalence
+-- import Mathlib.AlgebraicGeometry.EllipticCurve.Basic  -- Missing in Mathlib
+-- import PF.BSD_Equivalence  -- File does not exist
 
 namespace PrincipiaTractalis.BSD
 
@@ -26,7 +26,8 @@ namespace PrincipiaTractalis.BSD
 
 /-- Elliptic curve E over ℚ -/
 structure EllipticCurve where
-  a b : ℚ
+  a : ℚ
+  b : ℚ
   nonsingular : 4 * a^3 + 27 * b^2 ≠ 0
 
 /-- Rational points on E -/
@@ -41,7 +42,7 @@ noncomputable def rank (E : EllipticCurve) : ℕ := sorry  -- Compute via spectr
 -- ============================================================================
 
 /-- L-function of elliptic curve: L(E,s) = ∏_p L_p(E,s) -/
-noncomputable def L_function (E : EllipticCurve) : ℂ → ℂ := fun s => sorry  -- Euler product
+noncomputable def L_function (E : EllipticCurve) (s : ℂ) : ℂ := sorry  -- Euler product
 
 /-- Order of vanishing at s = 1: analytic rank -/
 noncomputable def order_vanishing (E : EllipticCurve) : ℕ := sorry  -- ord_{s=1} L(E,s)

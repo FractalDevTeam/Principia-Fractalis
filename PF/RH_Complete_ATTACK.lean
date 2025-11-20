@@ -21,8 +21,8 @@ Date: November 19, 2025, 12:19 AM
 
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
-import Mathlib.NumberTheory.ZetaFunction
-import PF.RH_Equivalence
+-- import Mathlib.NumberTheory.ZetaFunction  -- Missing in Mathlib
+-- import PF.RH_Equivalence  -- File does not exist
 
 namespace PrincipiaTractalis.RiemannHypothesis
 

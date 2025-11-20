@@ -54,7 +54,7 @@ structure RQG_SHIAB where
 -/
 -- AXIOMATIZED: Standard observerse and gauge connection require full GU formalization
 axiom standard_observerse : Observerse
-axiom u128_gauge_connection : Type
+axiom u128_gauge_connection : ShipInBottle standard_observerse
 
 noncomputable def canonical_rqg_shiab : RQG_SHIAB where
   base := standard_observerse

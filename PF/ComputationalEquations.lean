@@ -88,7 +88,10 @@ def modified_friedmann_2 (a : ℝ → ℝ) (ρ p Λ G C_cosmic : ℝ) : Prop :=
       Λ / 3 +
       (Real.pi / 10) * C_cosmic
 
-/-- Consciousness contribution to cosmic acceleration
+/-- Observed cosmological constant -/
+def Λ_observed : ℝ := 1.1056e-52  -- m⁻² (observed cosmological constant)
+
+/-- Consciousness modifies dark energy (Equation 13.5)
 -/
 axiom consciousness_dark_energy :
   ∀ (C_cosmic : ℝ),
@@ -98,8 +101,6 @@ axiom consciousness_dark_energy :
       effective_Λ > 0
   -- AXIOMATIZED: Consciousness provides ~30% of dark energy
   -- π/10 · 0.95 ≈ 0.298, matches ΛCDM observations
-  where
-    Λ_observed : ℝ := 1.1056e-52  -- m⁻² (observed cosmological constant)
 
 /-- Modified Friedmann predicts accelerated expansion
 -/
