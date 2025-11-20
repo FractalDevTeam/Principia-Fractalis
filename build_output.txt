@@ -1,0 +1,92 @@
+﻿ΓÜá [1913/1950] Replayed PF.RadixEconomy
+warning: PF/RadixEconomy.lean:19:41: unused variable `hb`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/RadixEconomy.lean:23:47: unused variable `hb`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+ΓÜá [2076/2230] Replayed PF.SpectralGap
+warning: PF/SpectralGap.lean:108:7: unused variable `problem_P`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/SpectralGap.lean:108:17: unused variable `problem_NP`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+ΓÜá [2286/2491] Replayed PF.ChernWeil
+warning: PF/ChernWeil.lean:52:5: unused variable `h`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/ChernWeil.lean:54:10: unused variable `h'`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+ΓÜá [2287/2491] Replayed PF.SpectralEmbedding
+warning: PF/SpectralEmbedding.lean:54:35: unused variable `T`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/SpectralEmbedding.lean:91:31: unused variable `T`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/SpectralEmbedding.lean:92:7: unused variable `su2_algebra`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/SpectralEmbedding.lean:92:19: unused variable `u1_algebra`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/SpectralEmbedding.lean:257:7: unused variable `T`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+ΓÜá [2303/2491] Replayed PF.CollatzFractal
+warning: PF/CollatzFractal.lean:29:5: unused variable `h`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Γ£û [6218/6232] Building PF.TuringEncoding (8.0s)
+trace: .> LEAN_PATH=C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\Cli\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\batteries\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\Qq\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\aesop\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\proofwidgets\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\importGraph\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\LeanSearchClient\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\plausible\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\packages\mathlib\.lake\build\lib\lean;C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\build\lib\lean c:\Users\psolo\.elan\toolchains\leanprover--lean4---v4.24.0-rc1\bin\lean.exe C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\PF\TuringEncoding.lean -o C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\build\lib\lean\PF\TuringEncoding.olean -i C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\build\lib\lean\PF\TuringEncoding.ilean -c C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\build\ir\PF\TuringEncoding.c --setup C:\Users\psolo\Downloads\Principia_Fractalis_FINAL_SUBMISSION_2025-11-18\.lake\build\ir\PF\TuringEncoding.setup.json --json
+warning: PF/TuringEncoding.lean:132:7: unused variable `h`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:736:5: unused variable `h_prime`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:841:49: unused variable `hp`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:841:68: unused variable `hp_ge`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:905:71: unused variable `hp_prime`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:906:18: unused variable `hp_large`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:996:75: unused variable `hp`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:997:18: unused variable `h_bound`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:1228:34: `List.length_pos` has been deprecated: Use `List.length_pos_iff` instead
+warning: PF/TuringEncoding.lean:1232:34: `List.length_pos` has been deprecated: Use `List.length_pos_iff` instead
+warning: PF/TuringEncoding.lean:1688:5: unused variable `╬▒`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+error: PF/TuringEncoding.lean:1785:2: unexpected token '/--'; expected 'lemma'
+error: PF/TuringEncoding.lean:1794:2: unexpected token '/--'; expected 'lemma'
+warning: PF/TuringEncoding.lean:1920:6: unused variable `tm`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: PF/TuringEncoding.lean:1921:6: unused variable `c`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+error: Lean exited with code 1
+lake : error: build failed
+At line:1 char:1
++ lake build 2>&1 | Out-File -FilePath "build_output.txt" -Encoding 
+utf ...
++ ~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (error: build failed:Str 
+   ing) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Some required targets logged failures:
+- PF.TuringEncoding

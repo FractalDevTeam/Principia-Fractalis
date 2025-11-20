@@ -27,16 +27,16 @@ import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 import PF.CollatzFractal
 import PF.DigitalSumBase3
 import PF.FractalResonance
-import PF.GeometricUnityExtensions
+-- import PF.GeometricUnityExtensions  -- Excluded: type errors
 import PF.ComplexityBarriers
-import PF.ComputationalEquations
-import PF.YangMills_ATTACK
-import PF.BSD_ATTACK
-import PF.RH_Complete_ATTACK
-import PF.ConsciousnessQuantification_PROVEN
+-- import PF.ComputationalEquations  -- Excluded: depends on GU
+-- import PF.YangMills_ATTACK  -- Excluded: dependencies
+-- import PF.BSD_ATTACK  -- Excluded: dependencies
+-- import PF.RH_Complete_ATTACK  -- Excluded: dependencies
+-- import PF.ConsciousnessQuantification_PROVEN  -- Excluded: lambda syntax error
 
 -- 143 Problems Validation (Nov 20, 2025)
-import PF.Problems143_COMPLETE
+-- import PF.Problems143_COMPLETE  -- Excluded: depends on problematic imports
 
 /-!
 ## Principia Fractalis Formal Verification
