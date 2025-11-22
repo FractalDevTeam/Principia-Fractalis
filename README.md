@@ -50,6 +50,23 @@ Principia_Fractalis_CLEAN_DELIVERABLE/
     └── BUILD_LOGS/            # Compilation history
 ```
 
+## Formalization Reports and Indices (Global Skeleton)
+
+At the root of this repository, the following Markdown files describe how the
+LaTeX book and the Lean code fit together:
+
+- `CHAPTER_XX_LEAN_STATUS.md`  — per-chapter tables mapping LaTeX statements
+  to Lean theorems / axioms, with status (PROVEN, AXIOMATIC, PARTIAL, MISSING).
+- `CHAPTER_XX_REPORT.md`       — narrative reports explaining how each chapter
+  is represented in the Lean library and what remains to be formalized.
+- `AXIOMS_OVERVIEW.md`         — overview of named axioms that encode
+  framework-level results currently taken as assumptions in Lean.
+- `CROSSMAP.md`, `LATEX_INDEX.md`, `LEAN_INDEX.md` — cross-reference indices
+  linking chapters, LaTeX labels, and Lean files.
+- `MASTER_REPORT.md`, `SORRY_REPORT.md` — global summaries of proof/axiom
+  status across all chapters and Lean files (with a zero-sorry policy in the
+  canonical PF_canonical/2_LEAN_SOURCE_CODE project).
+
 ## Quick Start
 
 ### Read the Book
