@@ -51,13 +51,26 @@ noncomputable def Delta : ℝ := spectral_gap
     4. Branch selection via fractal analytic continuation
 
     Reference: Chapter 21, Section 21.6 (ch21_p_vs_np.tex:1243-1420)
-              Chapter 3, Theorem 3.2 (ch03_timeless_field.tex)
+               Chapter 3, Theorem 3.2 (ch03_timeless_field.tex)
 
     Timeline to formalize: 12-18 months (requires fractal operator theory)
 -/
-axiom resonance_determines_ground_state :
+theorem resonance_determines_ground_state :
   ∀ (α : ℝ), α > 0 →
-  ∃ (lambda0 : ℝ), lambda0 = pi_10 / α ∧ lambda0 > 0
+  ∃ (lambda0 : ℝ), lambda0 = pi_10 / α ∧ lambda0 > 0 :=
+by
+  intro α hα
+  refine ⟨pi_10 / α, rfl, ?_⟩
+  -- π/10 > 0
+  have h_pi10_pos : 0 < pi_10 := by
+    unfold pi_10
+    have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+    have h_ten_pos : (0 : ℝ) < (10 : ℝ) := by norm_num
+    exact div_pos h_pi_pos h_ten_pos
+  -- α > 0 from hypothesis
+  have h_alpha_pos : 0 < α := hα
+  -- Therefore π/(10α) > 0
+  exact div_pos h_pi10_pos h_alpha_pos
 
 /-- P = NP means every NP language has a polynomial-time deterministic algorithm. -/
 def P_equals_NP_def : Prop :=
@@ -333,8 +346,6 @@ theorem consciousness_gap_implies_complexity_separation :
 theorem np_requires_crystallization : IsInNP (fun _ => 0) → ch2_NP ≥ 0.95 := by
   intro h_np
   exact np_requires_consciousness
-
--- ============================================================================
 -- SECTION 5: Alternative Formulations
 -- ============================================================================
 
@@ -358,7 +369,8 @@ theorem np_requires_crystallization : IsInNP (fun _ => 0) → ch2_NP ≥ 0.95 :=
 
     Timeline: 12-18 months (same as main theorem)
 -/
-axiom zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def
+theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def :=
+  (p_eq_np_iff_zero_gap).symm
 
 /-- The spectral gap is a topological invariant of the complexity class structure. -/
 theorem spectral_gap_is_invariant : ∀ (ε : ℝ), ε > 0 → ε < Delta →
