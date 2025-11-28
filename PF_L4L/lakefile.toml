@@ -1,0 +1,15 @@
+name = "PF_L4L"
+version = "0.1.0"
+defaultTargets = ["PF_L4L"]
+
+[[lean_lib]]
+name = "PF_L4L"
+
+[[require]]
+name = "PF"
+path = "../PF_canonical/2_LEAN_SOURCE_CODE"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.24.0-rc1"

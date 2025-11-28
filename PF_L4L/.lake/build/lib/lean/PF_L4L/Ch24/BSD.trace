@@ -1,0 +1,29 @@
+{"synthetic": false,
+ "outputs":
+ {"o": ["16198864637205446982"],
+  "i": "14133889771182311300",
+  "c": "9017842661602264551"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_canonical\\2_LEAN_SOURCE_CODE\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\packages\\mathlib\\.lake\\build\\lib\\lean;C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\build\\lib\\lean c:\\Users\\psolo\\.elan\\toolchains\\leanprover--lean4---v4.24.0-rc1\\bin\\lean.exe C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\PF_L4L\\Ch24\\BSD.lean -o C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\build\\lib\\lean\\PF_L4L\\Ch24\\BSD.olean -i C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\build\\lib\\lean\\PF_L4L\\Ch24\\BSD.ilean -c C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\build\\ir\\PF_L4L\\Ch24\\BSD.c --setup C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\.lake\\build\\ir\\PF_L4L\\Ch24\\BSD.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["PF_L4L.Ch24.BSD:deps",
+   [["deps",
+     [["PF_L4L/PF_L4L:extraDep", [["@PF_L4L:extraDep", "1723"]]],
+      ["imports",
+       [["PF.BSD_Equivalence transitive imports (legacy)",
+         "14473855509880907762"],
+        ["PF.BSD_Equivalence:importAllArts", "7408941342696535117"]]]]],
+    ["libs",
+     [["import dynlibs", "1723"],
+      ["package external libraries", "1723"],
+      ["module dynlibs", "1723"],
+      ["module plugins", "1723"]]]]],
+  ["Lean 4.24.0, commit 919e297292280cdb27598edd4e03437be5850221",
+   "16820442660988836695"],
+  ["C:\\Users\\psolo\\CascadeProjects\\windsurf-project\\Principia Fractalis\\PF_L4L\\PF_L4L\\Ch24\\BSD.lean",
+   "17224139998782361753"],
+  ["options", "1723"],
+  ["Module.leanArgs: #[]", "1723"]],
+ "depHash": "10389244902382573815"}
