@@ -1,0 +1,9 @@
+{
+  "timestamp": "2025-06-09T02:25:12.183874",
+  "N_basis": 50,
+  "theoretical_framework": "Modified Transfer Operator on L\u00b2([0,1], dx/x)",
+  "alpha": 1.5,
+  "self_adjoint_verification": {
+    "norm_difference": 17293603542.168056,
+    "relative_error": 1.4608009148165433,
+    "is_self_adjoint": 

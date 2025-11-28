@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-06-11T13:21:36.947099",
+  "N_basis": 75,
+  "theoretical_framework": "Modified Transfer Operator \u1e7c\u2083^{3/2} on L\u00b2([0,1], dx/x)",
+  "pi_over_10": 0.3141592653589793,
+  "self_adjoint": {
+    "is_self_adjoint": true,
+    "error": 0.0
+  },
+  "spectrum": {
+    "num_eigenvalues": 75,
+    "all_real": true,
+    "largest_magnitude": 13028309606.295637,
+    "smallest_nonzero": 63919.713795108284
+  },
+  "riemann_correspondences": [],
+  "determinant_analysis": [
+    {
+      "s": {
+        "real": 0.5,
+        "imag": 14.134725
+      },
+      "det_magnitude": NaN,
+      "zeta_magnitude": 1.1241835020461372e-07,
+      "G_magnitude": NaN,
+      "is_zero": false
+    },
+    {
+      "s": {
+        "real": 0.5,
+        "imag": 21.02204
+      },
+      "det_magnitude": NaN,
+      "zeta_magnitude": 4.106586155257058e-07,
+      "G_magnitude": NaN,
+      "is_zero": false
+    },
+    {
+      "s": {
+        "real": 2.0,
+        "imag": 0.0
+      },
+      "det_magnitude": NaN,
+      "zeta_magnitude": 1.6449340668482264,
+      "G_magnitude": NaN,
+      "is_zero": false
+    },
+    {
+      "s": {
+        "real": 0.5,
+        "imag": 30.424876
+      },
+      "det_magnitude": NaN,
+      "zeta_magnitude": 1.6411337648366581e-07,
+      "G_magnitude": NaN,
+      "is_zero": false
+    }
+  ],
+  "functional_equation_pairs": 0
+}

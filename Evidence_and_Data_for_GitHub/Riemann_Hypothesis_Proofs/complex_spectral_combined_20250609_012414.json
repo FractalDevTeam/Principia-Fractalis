@@ -1,0 +1,10 @@
+{
+  "N_50": {
+    "timestamp": "2025-06-09T01:24:07.366500",
+    "N_basis": 50,
+    "approaches": {
+      "pt_symmetric": {
+        "complex_count": 0,
+        "matches": [],
+        "eigenvalues": [
+          

@@ -1,0 +1,111 @@
+{
+  "scaling_factor": 1e-06,
+  "correspondences": [
+    {
+      "eigenvalue": 0.03840022121210956,
+      "eigenvalue_index": 17,
+      "s_value": 82.89272200427098,
+      "riemann_zero_number": 22,
+      "riemann_zero_im": 82.91038085408603,
+      "distance": 0.017658849815049393
+    },
+    {
+      "eigenvalue": 0.2240988744147221,
+      "eigenvalue_index": 4,
+      "s_value": 14.20399308185367,
+      "riemann_zero_number": 1,
+      "riemann_zero_im": 14.134725141734695,
+      "distance": 0.06926794011897464
+    },
+    {
+      "eigenvalue": 0.2237407168322287,
+      "eigenvalue_index": 5,
+      "s_value": 14.226730417712679,
+      "riemann_zero_number": 1,
+      "riemann_zero_im": 14.134725141734695,
+      "distance": 0.09200527597798391
+    },
+    {
+      "eigenvalue": 0.15011524184548183,
+      "eigenvalue_index": 9,
+      "s_value": 21.204368208755024,
+      "riemann_zero_number": 2,
+      "riemann_zero_im": 21.022039638771556,
+      "distance": 0.18232856998346847
+    },
+    {
+      "eigenvalue": 0.23080827299684206,
+      "eigenvalue_index": 3,
+      "s_value": 13.791095182630036,
+      "riemann_zero_number": 1,
+      "riemann_zero_im": 14.134725141734695,
+      "distance": 0.34362995910465877
+    },
+    {
+      "eigenvalue": 0.15512604496314547,
+      "eigenvalue_index": 8,
+      "s_value": 20.519435421654315,
+      "riemann_zero_number": 2,
+      "riemann_zero_im": 21.022039638771556,
+      "distance": 0.5026042171172413
+    },
+    {
+      "eigenvalue": 0.040467653852308584,
+      "eigenvalue_index": 16,
+      "s_value": 78.6578553195843,
+      "riemann_zero_number": 21,
+      "riemann_zero_im": 79.33737502024937,
+      "distance": 0.6795197006650682
+    },
+    {
+      "eigenvalue": 0.23849881921659766,
+      "eigenvalue_index": 2,
+      "s_value": 13.346392541034385,
+      "riemann_zero_number": 1,
+      "riemann_zero_im": 14.134725141734695,
+      "distance": 0.7883326007003095
+    },
+    {
+      "eigenvalue": 0.1458934398060925,
+      "eigenvalue_index": 10,
+      "s_value": 21.817971158049154,
+      "riemann_zero_number": 2,
+      "riemann_zero_im": 21.022039638771556,
+      "distance": 0.7959315192775982
+    },
+    {
+      "eigenvalue": 0.2103516892673426,
+      "eigenvalue_index": 6,
+      "s_value": 15.132271449422047,
+      "riemann_zero_number": 1,
+      "riemann_zero_im": 14.134725141734695,
+      "distance": 0.9975463076873528
+    }
+  ],
+  "eigenvalues": [
+    -107.30450973898672,
+    97.98803157384422,
+    -0.23849881921659766,
+    0.23080827299684206,
+    -0.2240988744147221,
+    0.2237407168322287,
+    -0.2103516892673426,
+    0.18915138861963968,
+    0.15512604496314547,
+    -0.15011524184548183,
+    0.1458934398060925,
+    -0.14333395727506262,
+    0.1363699563089875,
+    0.11540801953041342,
+    -0.10856287198687803,
+    -0.06954957086540696,
+    0.040467653852308584,
+    -0.03840022121210956,
+    -0.012801467953473738,
+    0.01004067296648236
+  ],
+  "eigenvalue_range": [
+    0.01004067296648236,
+    107.30450973898672
+  ]
+}

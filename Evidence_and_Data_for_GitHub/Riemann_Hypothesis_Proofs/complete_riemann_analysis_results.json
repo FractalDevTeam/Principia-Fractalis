@@ -1,0 +1,46 @@
+{
+  "timestamp": "2025-06-12T08:52:01.340803",
+  "analyses": {
+    "scaling_factor": {
+      "measure_contribution": {
+        "cutoff": 1e-12,
+        "missing_measure": 55.262064353821906,
+        "scaling": 1.0000221222095016e+24
+      },
+      "basis_contribution": {
+        "normalization": 1.423525086834354,
+        "scaling": 2.0264236728467555
+      },
+      "theoretical_scaling": 0.03113646247990143,
+      "empirical_scaling": 1e-06,
+      "ratio": 31136.46247990143
+    },
+    "self_adjointness": {
+      "theoretical": {
+        "boundary_conditions": "verified",
+        "phase_factors": [
+          1,
+          "(-0-1j)",
+          -1
+        ]
+      },
+      "numerical": {
+        "error": 0.0,
+        "max_imaginary_eigenvalue": 0.0,
+        "is_self_adjoint": "True"
+      }
+    },
+    "high_precision_verification": {
+      "precision": 100,
+      "correspondences": [],
+      "best_scaling": 1e-06
+    },
+    "spectral_rigidity": {
+      "theoretical_proof": {
+        "critical_line_forced": true,
+        "reason": "Only at \u03c3=0.5 can both eigenvalues be real"
+      },
+      "numerical_validation": {}
+    }
+  }
+}

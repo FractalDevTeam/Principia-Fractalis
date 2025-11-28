@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-06-11T13:10:49.198747",
+  "N_basis": 30,
+  "theoretical_framework": "Modified Transfer Operator \u1e7c\u2083^{3/2} on L\u00b2([0,1], dx/x)",
+  "pi_over_10": 0.3141592653589793,
+  "self_adjoint": {
+    "is_self_adjoint": true,
+    "error": 0.0
+  },
+  "spectrum": {
+    "num_eigenvalues": 30,
+    "all_real": true,
+    "largest_magnitude": 13028275761.544046,
+    "smallest_nonzero": 169125.71150573858
+  },
+  "riemann_correspondences": [],
+  "determinant_analysis": [
+    {
+      "s": {
+        "real": 0.5,
+        "imag": 14.134725
+      },
+      "det_magnitude": 1.3183343970900184e+179,
+      "zeta_magnitude": 1.1241835020461372e-07,
+      "G_magnitude": 1.172703917723846e+186,
+      "is_zero": false
+    },
+    {
+      "s": {
+        "real": 0.5,
+        "imag": 21.02204
+      },
+      "det_magnitude": 8.971458169443807e+173,
+      "zeta_magnitude": 4.106586155257058e-07,
+      "G_magnitude": 2.184651150678763e+180,
+      "is_zero": false
+    },
+    {
+      "s": {
+        "real": 2.0,
+        "imag": 0.0
+      },
+      "det_magnitude": 4.035602590726004e+204,
+      "zeta_magnitude": 1.6449340668482264,
+      "G_magnitude": 2.4533521872146612e+204,
+      "is_zero": false
+    },
+    {
+      "s": {
+        "real": 0.5,
+        "imag": 30.424876
+      },
+      "det_magnitude": 1.3745779959618318e+169,
+      "zeta_magnitude": 1.6411337648366581e-07,
+      "G_magnitude": 8.375782799756383e+175,
+      "is_zero": false
+    }
+  ],
+  "functional_equation_pairs": 0
+}

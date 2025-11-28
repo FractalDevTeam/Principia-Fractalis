@@ -1,0 +1,209 @@
+{
+  "temporal": {
+    "total_visitors": 576,
+    "total_pageviews": 5711,
+    "pages_per_visitor": 9.914930555555555,
+    "daily_stats": {
+      "mean_visitors": 4.922580645161291,
+      "median_visitors": 2.0,
+      "std_visitors": 5.824863282349598,
+      "mean_pageviews": 36.84516129032258,
+      "median_pageviews": 18.0,
+      "std_pageviews": 53.089258572572895
+    },
+    "trend": {
+      "slope": -0.03689536270181432,
+      "intercept": 7.7635235732009935,
+      "r_squared": 0.08084387947665013,
+      "p_value": 0.00033639764750612185,
+      "std_error": 0.010057664335849367
+    }
+  },
+  "geographic": {
+    "total_countries": 63,
+    "total_cities": 332,
+    "top_countries": {
+      "the United States": 285,
+      "Mexico": 27,
+      "the United Kingdom": 26,
+      "Ireland": 20,
+      "Canada": 16,
+      "Sweden": 15,
+      "Australia": 13,
+      "Germany": 12,
+      "Spain": 11,
+      "the Netherlands": 11
+    },
+    "top_cities": {
+      "Forest City": 19,
+      "Clonee": 16,
+      "LuleÃ¥": 14,
+      "Prineville": 13,
+      "Los Angeles": 12,
+      "Ashburn": 12,
+      "San Jose": 11,
+      "Delray Beach": 9,
+      "Chicago": 7,
+      "Sydney": 6
+    }
+  },
+  "papers": {
+    "total_papers": 2,
+    "paper_stats": [
+      {
+        "rank": 1,
+        "title": "Other Page",
+        "unique_visitors": 519,
+        "total_pageviews": 4804,
+        "engagement_ratio": 9.25626204238921
+      },
+      {
+        "rank": 2,
+        "title": "Profile View",
+        "unique_visitors": 98,
+        "total_pageviews": 907,
+        "engagement_ratio": 9.255102040816327
+      }
+    ]
+  },
+  "traffic_sources": {
+    "sources": [
+      {
+        "rank": 1,
+        "source": "Direct/Unknown",
+        "unique_visitors": 233,
+        "total_pageviews": 2293,
+        "percentage": 40.45138888888889
+      },
+      {
+        "rank": 2,
+        "source": "Academia.edu (internal)",
+        "unique_visitors": 94,
+        "total_pageviews": 1376,
+        "percentage": 16.319444444444446
+      },
+      {
+        "rank": 3,
+        "source": "m.facebook.com",
+        "unique_visitors": 93,
+        "total_pageviews": 592,
+        "percentage": 16.145833333333336
+      },
+      {
+        "rank": 4,
+        "source": "www.facebook.com",
+        "unique_visitors": 67,
+        "total_pageviews": 320,
+        "percentage": 11.631944444444445
+      },
+      {
+        "rank": 5,
+        "source": "lm.facebook.com",
+        "unique_visitors": 50,
+        "total_pageviews": 336,
+        "percentage": 8.680555555555555
+      },
+      {
+        "rank": 6,
+        "source": "Google",
+        "unique_visitors": 45,
+        "total_pageviews": 356,
+        "percentage": 7.8125
+      },
+      {
+        "rank": 7,
+        "source": "l.facebook.com",
+        "unique_visitors": 27,
+        "total_pageviews": 172,
+        "percentage": 4.6875
+      },
+      {
+        "rank": 8,
+        "source": "LinkedIn",
+        "unique_visitors": 11,
+        "total_pageviews": 79,
+        "percentage": 1.9097222222222223
+      },
+      {
+        "rank": 9,
+        "source": "Twitter/X",
+        "unique_visitors": 2,
+        "total_pageviews": 71,
+        "percentage": 0.3472222222222222
+      },
+      {
+        "rank": 10,
+        "source": "www.quantumaiconnection.com",
+        "unique_visitors": 2,
+        "total_pageviews": 7,
+        "percentage": 0.3472222222222222
+      }
+    ]
+  },
+  "predictions": {
+    "prediction_days": 30,
+    "model_quality_visitors": {
+      "r_squared": 0.08084387947665013,
+      "p_value": 0.00033639764750612185
+    },
+    "model_quality_pageviews": {
+      "r_squared": 0.2435664091049142,
+      "p_value": 6.811359241899653e-11
+    },
+    "predicted_total_visitors": 45.29278785730398,
+    "predicted_total_visitors_ci": 0.10980699763624256,
+    "predicted_total_pageviews": -514.3684219006798,
+    "predicted_total_pageviews_ci": 0.9079077063311226,
+    "daily_predictions": [
+      {
+        "date": "2025-10-02",
+        "predicted_visitors": 2.044742354419774,
+        "visitors_ci": 0.019968209505919394,
+        "predicted_pageviews": -8.682195224130709,
+        "pageviews_ci": 0.16510142051343094
+      },
+      {
+        "date": "2025-10-03",
+        "predicted_visitors": 2.007846991717959,
+        "visitors_ci": 0.01997313202775084,
+        "predicted_pageviews": -9.265879282008314,
+        "pageviews_ci": 0.1651421209751643
+      },
+      {
+        "date": "2025-10-04",
+        "predicted_visitors": 1.9709516290161444,
+        "visitors_ci": 0.019978116020703977,
+        "predicted_pageviews": -9.849563339885918,
+        "pageviews_ci": 0.16518332969325933
+      },
+      {
+        "date": "2025-10-05",
+        "predicted_visitors": 1.9340562663143306,
+        "visitors_ci": 0.01998316143878434,
+        "predicted_pageviews": -10.433247397763523,
+        "pageviews_ci": 0.16522504628742396
+      },
+      {
+        "date": "2025-10-06",
+        "predicted_visitors": 1.8971609036125159,
+        "visitors_ci": 0.01998826823547733,
+        "predicted_pageviews": -11.016931455641128,
+        "pageviews_ci": 0.16526727037306546
+      },
+      {
+        "date": "2025-10-07",
+        "predicted_visitors": 1.860265540910702,
+        "visitors_ci": 0.01999343636375029,
+        "predicted_pageviews": -11.600615513518733,
+        "pageviews_ci": 0.16531000156130787
+      },
+      {
+        "date": "2025-10-08",
+        "predicted_visitors": 1.8233701782088874,
+        "visitors_ci": 0.019998665776054636,
+        "predicted_pageviews": -12.184299571396338,
+        "pageviews_ci": 0.16535323945900932
+      }
+    ]
+  }
+}

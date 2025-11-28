@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-06-12T21:21:54.691471",
+  "tests": [
+    {
+      "variety": "Calabi-Yau threefold",
+      "test_type": "spectral_concentration",
+      "average_sigma": 0.053965566193147886,
+      "success_rate": 0.0,
+      "threshold": 0.95,
+      "passed": false
+    },
+    {
+      "variety": "Calabi-Yau threefold",
+      "test_type": "integer_resonance",
+      "average_error": 0.5349717761950595,
+      "max_error": 1.216669887155574,
+      "passed": 

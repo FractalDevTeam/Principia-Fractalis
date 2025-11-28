@@ -1,0 +1,18 @@
+{
+  "N_20": {
+    "N": 20,
+    "results": {
+      "timestamp": "2025-06-09T02:43:30.922312",
+      "N_basis": 20,
+      "theoretical_framework": "Modified Transfer Operator on L\u00b2([0,1], dx/x)",
+      "alpha": 1.5,
+      "self_adjoint_verification": {
+        "norm_difference": 0.0,
+        "relative_error": 0.0,
+        "is_self_adjoint": true
+      },
+      "spectrum_analysis": {
+        "total_eigenvalues": 20,
+        "real_eigenvalues": 20,
+        "complex_eigenvalues": 0,
+        "largest_eigenvalue": 

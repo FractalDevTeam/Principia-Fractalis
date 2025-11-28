@@ -1,0 +1,68 @@
+{
+  "timestamp": "2025-06-11T21:36:29.776135",
+  "N_basis": 40,
+  "use_cutoff": true,
+  "pi_10_verification": {
+    "dimensional_regularization": -0.3141592653589793,
+    "zeta_regularization": -0.3141592653589793,
+    "heat_kernel": -0.3141592653589793,
+    "pauli_villars": -0.3141592653589793,
+    "max_difference": 0.0,
+    "consistent": true,
+    "expected_value": -0.3141592653589793
+  },
+  "natural_operator_norm": 3186735.428657526,
+  "self_adjointness": {
+    "is_self_adjoint": true,
+    "frobenius_error": 0.0,
+    "max_element_error": 0.0,
+    "max_imaginary_eigenvalue": 0.0,
+    "all_eigenvalues_real": true
+  },
+  "scaling_investigation": {
+    "3.1380076017834634e-08": 0,
+    "1e-07": 0,
+    "1.5690038008917315e-07": 0,
+    "3.138007601783463e-07": 10,
+    "6.276015203566926e-07": 10,
+    "1e-06": 10,
+    "3.138007601783463e-06": 10,
+    "7.692307692307692e-06": 10,
+    "1e-05": 10,
+    "3.1380076017834633e-05": 10,
+    "7.692307692307693e-05": 10,
+    "0.0001": 10,
+    "0.0007692307692307692": 10,
+    "0.001": 10,
+    "0.007692307692307693": 10
+  },
+  "best_match": {
+    "scaling_factor": 0.0001,
+    "distance": 14.134725713188235,
+    "zero_number": 1
+  },
+  "spectral_analysis": {
+    "natural_operator_norm": 3186735.428657526,
+    "num_eigenvalues": 40,
+    "num_nonzero": 40,
+    "eigenvalue_range": {
+      "min": 7107.210875453057,
+      "max": 1188075.2376045354
+    },
+    "spectral_statistics": {
+      "mean_spacing": 56220.748296560254,
+      "spacing_variance": 1.026281322709471,
+      "expected_wigner_variance": 0.286
+    },
+    "eigenvalue_scale_analysis": {
+      "suggested_scaling_factor": 3.1380076017834633e-05,
+      "eigenvalue_to_norm_ratio": 0.12521802250501526,
+      "factor_130_scaling": 4.0794098823185023e-05
+    },
+    "is_self_adjoint": true,
+    "frobenius_error": 0.0,
+    "max_element_error": 0.0,
+    "max_imaginary_eigenvalue": 0.0,
+    "all_eigenvalues_real": true
+  }
+}

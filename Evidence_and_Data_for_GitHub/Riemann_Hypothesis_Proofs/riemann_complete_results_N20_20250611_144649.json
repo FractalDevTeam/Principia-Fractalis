@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-06-11T14:42:31.674278",
+  "N_basis": 20,
+  "use_cutoff": true,
+  "pi_10_verification": {
+    "dimensional_regularization": -0.3141592653589793,
+    "zeta_regularization": -0.3141592653589793,
+    "heat_kernel": -0.3141592653589793,
+    "pauli_villars": -0.3141592653589793,
+    "max_difference": 0.0,
+    "consistent": true,
+    "expected_value": -0.3141592653589793
+  },
+  "natural_operator_norm": 1527014.3758092856,
+  "self_adjointness": {
+    "is_self_adjoint": 

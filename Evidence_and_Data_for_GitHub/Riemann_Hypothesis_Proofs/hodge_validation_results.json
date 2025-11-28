@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-06-13T01:46:04.190022",
+  "calabi_yau": {
+    "theoretical_threshold": 0.95,
+    "spectral_concentration": 0.5246066721973379,
+    "hodge_preservation": true,
+    "decomposition_terms": 4
+  },
+  "k3_surface": {
+    "theoretical_threshold": 0.99,
+    "spectral_concentration": 0.5246066721973379,
+    "validates_known_result": 

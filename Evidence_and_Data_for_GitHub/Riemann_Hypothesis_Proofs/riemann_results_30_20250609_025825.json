@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-06-09T02:56:50.555137",
+  "N_basis": 30,
+  "theoretical_framework": "Modified Transfer Operator on L\u00b2([0,1], dx/x)",
+  "alpha": 1.5,
+  "self_adjoint_error": 1.3535299772064946,
+  "spectrum_analysis": {
+    "non_zero_eigenvalues": 30,
+    "real_eigenvalues": 30,
+    "largest_magnitude": 217382020.1198371,
+    "eigenvalues": [
+      {
+        "real": -217382020.1198371,
+        "imag": 0.0
+      },
+      {
+        "real": 164694460.76938933,
+        "imag": 0.0
+      },
+      {
+        "real": -135245419.75973815,
+        "imag": 0.0
+      },
+      {
+        "real": 135155199.81509337,
+        "imag": 0.0
+      },
+      {
+        "real": -126055006.03796768,
+        "imag": 0.0
+      },
+      {
+        "real": 125693309.22587435,
+        "imag": 0.0
+      },
+      {
+        "real": 106547765.34571354,
+        "imag": 0.0
+      },
+      {
+        "real": 96991983.72861409,
+        "imag": 0.0
+      },
+      {
+        "real": -92577211.07485019,
+        "imag": 0.0
+      },
+      {
+        "real": 81753303.11022191,
+        "imag": 0.0
+      },
+      {
+        "real": -79500976.84116682,
+        "imag": 0.0
+      },
+      {
+        "real": -70595487.9121306,
+        "imag": 0.0
+      },
+      {
+        "real": 66696373.253326446,
+        "imag": 0.0
+      },
+      {
+        "real": -65695052.72575915,
+        "imag": 0.0
+      },
+      {
+        "real": 61392056.26192474,
+        "imag": 0.0
+      },
+      {
+        "real": -57959325.60303451,
+        "imag": 0.0
+      },
+      {
+        "real": -54802148.760828786,
+        "imag": 0.0
+      },
+      {
+        "real": 54586126.09403777,
+        "imag": 0.0
+      },
+      {
+        "real": -45523212.71662917,
+        "imag": 0.0
+      },
+      {
+        "real": -39030765.784682974,
+        "imag": 0.0
+      }
+    ]
+  },
+  "riemann_correspondence": {
+    "matches_found": 1,
+    "matches": [
+      {
+        "eigenvalue_index": 29,
+        "eigenvalue": {
+          "real": 1244234.3057414135,
+          "imag": 0.0
+        },
+        "s_value": {
+          "real": 0.5,
+          "imag": 14.03403088321261
+        },
+        "riemann_zero_index": 1,
+        "riemann_zero": {
+          "real": 0.5,
+          "imag": 14.134725141734695
+        },
+        "error": 0.10069425852208447,
+        "relationship": "1/2+i*log|\u03bb|"
+      }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "timestamp": "2025-06-14T02:54:38.212909",
+  "variety": "k3",
+  "dimension": 2,
+  "N_basis": 30,
+  "period_matrix_norm": 79.02788494685576,
+  "thresholds": {
+    "height_theory": 0.5901293176227858,
+    "transcendence": 0.7,
+    "l_functions": 0.49835540567260417,
+    "percolation": 0.6863416814832213,
+    "unified": 0.6274229990593446,
+    "uncertainty": 0.040684911342305084
+  },
+  "test_cases": [
+    {
+      "test_number": 1,
+      "test_type": "concentrated",
+      "description": "Highly Concentrated (Algebraic)",
+      "concentration": 0.8513551994281429,
+      "threshold": 0.6274229990593446,
+      "exceeds_threshold": true,
+      "num_cycles": 3,
+      "hankel_rank": 10,
+      "algebraic": true
+    },
+    {
+      "test_number": 2,
+      "test_type": "moderate",
+      "description": "Moderately Concentrated",
+      "concentration": 0.5927499565420341,
+      "threshold": 0.6274229990593446,
+      "exceeds_threshold": false,
+      "num_cycles": 3,
+      "hankel_rank": 10,
+      "algebraic": true
+    },
+    {
+      "test_number": 3,
+      "test_type": "dispersed",
+      "description": "Dispersed (Transcendental)",
+      "concentration": 0.9900461603730635,
+      "threshold": 0.6274229990593446,
+      "exceeds_threshold": true,
+      "num_cycles": 3,
+      "hankel_rank": 10,
+      "algebraic": true
+    },
+    {
+      "test_number": 4,
+      "test_type": "arithmetic",
+      "description": "Arithmetic Pattern",
+      "concentration": 0.48525134669534353,
+      "threshold": 0.6274229990593446,
+      "exceeds_threshold": false,
+      "num_cycles": 0,
+      "hankel_rank": 0,
+      "algebraic": false
+    },
+    {
+      "test_number": 5,
+      "test_type": "transcendental",
+      "description": "Transcendental Pattern",
+      "concentration": 0.5755704165913781,
+      "threshold": 0.6274229990593446,
+      "exceeds_threshold": false,
+      "num_cycles": 3,
+      "hankel_rank": 10,
+      "algebraic": true
+    },
+    {
+      "test_number": 6,
+      "test_type": "random",
+      "description": "Random Complex",
+      "concentration": 0.2846744541142682,
+      "threshold": 0.6274229990593446,
+      "exceeds_threshold": false,
+      "num_cycles": 0,
+      "hankel_rank": 0,
+      "algebraic": false
+    }
+  ],
+  "statistics": {
+    "mean_concentration": 0.6299412556240384,
+    "std_concentration": 0.2320859724937777,
+    "min_concentration": 0.2846744541142682,
+    "max_concentration": 0.9900461603730635,
+    "above_threshold": 2,
+    "total_tests": 6,
+    "success_rate": 0.3333333333333333
+  },
+  "spectral_data": {
+    "mean_eigenvalue": 0.16225550601231184,
+    "std_eigenvalue": 0.08459965064683844,
+    "num_samples": 580
+  }
+}

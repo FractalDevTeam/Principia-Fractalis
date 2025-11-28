@@ -1,0 +1,116 @@
+{
+  "calabi_yau": {
+    "timestamp": "2025-06-14T02:33:08.918198",
+    "variety": "calabi_yau",
+    "dimension": 3,
+    "N_basis": 30,
+    "period_matrix_norm": 22.039878366264922,
+    "thresholds": {
+      "height_theory": 0.6758336053868689,
+      "transcendence": 0.0049139950012849765,
+      "l_functions": 0.29709039926570163,
+      "percolation": 0.6863416814832213,
+      "unified": 0.4695788687192419,
+      "uncertainty": 0.1422430393325058
+    },
+    "test_cases": [
+      {
+        "test_number": 1,
+        "class_type": "Concentrated",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 2,
+        "algebraicity_verified": "True"
+      },
+      {
+        "test_number": 2,
+        "class_type": "Moderate",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 3,
+        "algebraicity_verified": "True"
+      },
+      {
+        "test_number": 3,
+        "class_type": "Dispersed",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 3,
+        "algebraicity_verified": "True"
+      },
+      {
+        "test_number": 4,
+        "class_type": "Arithmetic",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 3,
+        "algebraicity_verified": "True"
+      },
+      {
+        "test_number": 5,
+        "class_type": "Random",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 3,
+        "algebraicity_verified": "True"
+      }
+    ]
+  },
+  "k3": {
+    "timestamp": "2025-06-14T02:33:10.834589",
+    "variety": "k3",
+    "dimension": 2,
+    "N_basis": 30,
+    "period_matrix_norm": 23.066077697026106,
+    "thresholds": {
+      "height_theory": 0.5901293176227858,
+      "transcendence": 0.7,
+      "l_functions": 0.49835540567260417,
+      "percolation": 0.6863416814832213,
+      "unified": 0.6274229990593446,
+      "uncertainty": 0.040684911342305084
+    },
+    "test_cases": [
+      {
+        "test_number": 1,
+        "class_type": "Concentrated",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 2,
+        "algebraicity_verified": "True"
+      },
+      {
+        "test_number": 2,
+        "class_type": "Moderate",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 3,
+        "algebraicity_verified": "True"
+      },
+      {
+        "test_number": 3,
+        "class_type": "Dispersed",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 3,
+        "algebraicity_verified": "True"
+      },
+      {
+        "test_number": 4,
+        "class_type": "Arithmetic",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 3,
+        "algebraicity_verified": "True"
+      },
+      {
+        "test_number": 5,
+        "class_type": "Random",
+        "concentration": 1.0,
+        "exceeds_threshold": "True",
+        "num_cycles": 3,
+        "algebraicity_verified": "True"
+      }
+    ]
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "timestamp": "2025-06-09T02:43:30.922312",
+  "N_basis": 20,
+  "theoretical_framework": "Modified Transfer Operator on L\u00b2([0,1], dx/x)",
+  "alpha": 1.5,
+  "self_adjoint_verification": {
+    "norm_difference": 0.0,
+    "relative_error": 0.0,
+    "is_self_adjoint": 1
+  },
+  "spectrum_analysis": {
+    "total_eigenvalues": 20,
+    "real_eigenvalues": 20,
+    "complex_eigenvalues": 0,
+    "largest_eigenvalue": {
+      "real": -62.55630490136235,
+      "imag": 0.0
+    },
+    "smallest_eigenvalue": {
+      "real": 1.845985376162593e-15,
+      "imag": 0.0
+    },
+    "eigenvalues": [
+      {
+        "real": -62.55630490136235,
+        "imag": 0.0
+      },
+      {
+        "real": 46.84799467266619,
+        "imag": 0.0
+      },
+      {
+        "real": 22.076087316039192,
+        "imag": 0.0
+      },
+      {
+        "real": -17.83944185774966,
+        "imag": 0.0
+      },
+      {
+        "real": -14.071481716035253,
+        "imag": 0.0
+      },
+      {
+        "real": 13.842705191567829,
+        "imag": 0.0
+      },
+      {
+        "real": -8.826970951680472,
+        "imag": 0.0
+      },
+      {
+        "real": 7.70086933835198,
+        "imag": 0.0
+      },
+      {
+        "real": -7.122089749556323,
+        "imag": 0.0
+      },
+      {
+        "real": -4.046285354357999,
+        "imag": 0.0
+      },
+      {
+        "real": 3.196122123141618,
+        "imag": 0.0
+      },
+      {
+        "real": -2.444894804287655,
+        "imag": 0.0
+      },
+      {
+        "real": 0.7236739757935511,
+        "imag": 0.0
+      },
+      {
+        "real": -0.18857602637593998,
+        "imag": 0.0
+      },
+      {
+        "real": 0.003659771719020239,
+        "imag": 0.0
+      },
+      {
+        "real": -6.267200167592697e-05,
+        "imag": 0.0
+      },
+      {
+        "real": -1.29175561450925e-09,
+        "imag": 0.0
+      },
+      {
+        "real": 9.87181096682579e-12,
+        "imag": 0.0
+      },
+      {
+        "real": -7.887942964307767e-15,
+        "imag": 0.0
+      },
+      {
+        "real": 1.845985376162593e-15,
+        "imag": 0.0
+      }
+    ]
+  },
+  "riemann_correspondence": {
+    "matches_found": 0,
+    "matches": []
+  },
+  "functional_equation": {
+    "symmetry_pairs": 1,
+    "pairs": [
+      {
+        "lambda1": {
+          "real": -2.444894804287655,
+          "imag": 0.0
+        },
+        "lambda2": {
+          "real": 0.7236739757935511,
+          "imag": 0.0
+        },
+        "s1": {
+          "real": -0.4090155528353541,
+          "imag": 0.0
+        },
+        "s2": {
+          "real": 1.381837724513226,
+          "imag": 0.0
+        },
+        "sum": {
+          "real": 0.972822171677872,
+          "imag": 0.0
+        },
+        "error": 0.027177828322128006
+      }
+    ]
+  },
+  "trace_analysis": [
+    {
+      "n": 1,
+      "trace": {
+        "real": -22.704995645409802,
+        "imag": 0.0
+      },
+      "trace_per_dim": {
+        "real": -1.1352497822704901,
+        "imag": 0.0
+      }
+    },
+    {
+      "n": 2,
+      "trace": {
+        "real": 7524.319667335849,
+        "imag": 0.0
+      },
+      "trace_per_dim": {
+        "real": 376.21598336679244,
+        "imag": 0.0
+      }
+    },
+    {
+      "n": 3,
+      "trace": {
+        "real": -137674.4640801705,
+        "imag": 7.882583474838611e-15
+      },
+      "trace_per_dim": {
+        "real": -6883.7232040085255,
+        "imag": 3.941291737419306e-16
+      }
+    },
+    {
+      "n": 4,
+      "trace": {
+        "real": 20557996.610110514,
+        "imag": -1.6106732405199357e-13
+      },
+      "trace_per_dim": {
+        "real": 1027899.8305055257,
+        "imag": -8.05336620259968e-15
+      }
+    }
+  ]
+}

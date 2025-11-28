@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-06-11T13:46:56.735600",
+  "N_basis": 30,
+  "method": "Stabilized Modified Transfer Operator",
+  "self_adjoint": {
+    "is_self_adjoint": true,
+    "error": 0.0
+  },
+  "spectrum": {
+    "num_eigenvalues": 30,
+    "all_real": true,
+    "largest_magnitude": 10408.111643841174,
+    "smallest_nonzero": 31.425836315101552
+  },
+  "riemann_correspondences": [],
+  "spectral_measures": {
+    "moment_1": 2425.4349843298105,
+    "moment_2": 11599205.271572966,
+    "moment_4": 603074742430477.4,
+    "first_gaps": [
+      3271.4323366540566,
+      1211.3006331554907,
+      262.201814552428,
+      972.89237741337,
+      495.5973933953919
+    ],
+    "mean_level_spacing": 604.9927914147687,
+    "spacing_variance": 1.9252559987122975
+  }
+}
