@@ -12,6 +12,8 @@
 Require Import Coq.Reals.Reals.
 Require Import Coq.Logic.Classical.
 Require Import Coq.Lists.List.
+Require Import Coq.QArith.QArith.
+Require Import Coq.QArith.Qreals.
 Open Scope R_scope.
 
 (** ** Complex Projective Varieties *)

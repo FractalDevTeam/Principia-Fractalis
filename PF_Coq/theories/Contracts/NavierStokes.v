@@ -9,6 +9,7 @@
 *)
 
 Require Import Coq.Reals.Reals.
+Require Import Coq.Reals.Rfunctions.
 Require Import Coq.Logic.Classical.
 Require Import Coq.Lists.List.
 Open Scope R_scope.
@@ -64,8 +65,9 @@ Parameter divergence : VectorField -> ScalarField.
 Axiom initial_divergence_free : forall p, divergence u0 p = 0.
 
 (** Initial data has finite energy *)
-Definition energy (u : VectorField) : R.
-Admitted.
+(** Energy functional: integral of |u|^2 over domain *)
+Parameter energy : VectorField -> R.
+Axiom energy_nonneg : forall u, energy u >= 0.
 
 Axiom initial_finite_energy : energy u0 < 1e10.
 

@@ -271,6 +271,112 @@ Definition PF_axioms_BSD_Equivalence : list PFAxiom := [
 Definition PF_axioms_BSD : list PFAxiom :=
   PF_axioms_BSD_Core ++ PF_axioms_BSD_Equivalence.
 
+(** ** Hodge Conjecture Axioms (Ch. 25) *)
+
+Definition PF_axioms_Hodge_Core : list PFAxiom := [
+  mkPFAxiom "ProjectiveVariety" Hodge Structural
+    "Smooth projective variety over C";
+  mkPFAxiom "HodgeCohomology" Hodge Structural
+    "Hodge cohomology H^{p,q}(X)";
+  mkPFAxiom "DeRhamCohomology" Hodge Structural
+    "De Rham cohomology H^k(X, Q)";
+  mkPFAxiom "hodge_decomposition" Hodge Structural
+    "Hodge decomposition theorem";
+  mkPFAxiom "HodgeClass" Hodge Structural
+    "Hodge class in H^{p,p} ∩ H^{2p}(X, Q)";
+  mkPFAxiom "AlgebraicCycle" Hodge Structural
+    "Algebraic cycle on variety";
+  mkPFAxiom "cycle_class" Hodge Structural
+    "Cycle class map to cohomology";
+  mkPFAxiom "HodgeConjecture" Hodge Structural
+    "Hodge classes are algebraic";
+  mkPFAxiom "LefschetzOperator" Hodge Structural
+    "Lefschetz operator L";
+  mkPFAxiom "hard_lefschetz" Hodge Structural
+    "Hard Lefschetz theorem";
+  mkPFAxiom "HodgeOperator" Hodge Structural
+    "Spectral operator on cohomology";
+  mkPFAxiom "HodgeOperator_self_adjoint" Hodge Structural
+    "Hodge operator is self-adjoint";
+  mkPFAxiom "HodgeEigenvalue" Hodge Structural
+    "Eigenvalues of Hodge operator";
+  mkPFAxiom "Hodge_Spectral_Condition" Hodge Structural
+    "Spectral condition: eigenvalues rational on H^{p,p}";
+  mkPFAxiom "rationality_threshold" Hodge Numerical
+    "Rationality threshold 1e-10"
+].
+
+Definition PF_axioms_Hodge_Equivalence : list PFAxiom := [
+  mkPFAxiom "Hodge_to_Spectral" Hodge Equivalence
+    "Hodge Conjecture implies spectral condition";
+  mkPFAxiom "Spectral_to_Hodge" Hodge Equivalence
+    "Spectral condition implies Hodge Conjecture"
+].
+
+Definition PF_axioms_Hodge : list PFAxiom :=
+  PF_axioms_Hodge_Core ++ PF_axioms_Hodge_Equivalence.
+
+(** ** Navier-Stokes Axioms (Ch. 26) *)
+
+Definition PF_axioms_NS_Core : list PFAxiom := [
+  mkPFAxiom "R3" NavierStokes Structural
+    "Three-dimensional Euclidean space";
+  mkPFAxiom "VectorField" NavierStokes Structural
+    "Vector field R^3 -> R^3";
+  mkPFAxiom "velocity" NavierStokes Structural
+    "Velocity field u(t,x)";
+  mkPFAxiom "pressure" NavierStokes Structural
+    "Pressure field p(t,x)";
+  mkPFAxiom "nu_positive" NavierStokes Physical
+    "Kinematic viscosity nu > 0";
+  mkPFAxiom "is_smooth" NavierStokes Structural
+    "C^∞ smoothness predicate";
+  mkPFAxiom "divergence" NavierStokes Structural
+    "Divergence operator";
+  mkPFAxiom "initial_smooth" NavierStokes Structural
+    "Initial data is smooth";
+  mkPFAxiom "initial_divergence_free" NavierStokes Structural
+    "Initial data is divergence-free";
+  mkPFAxiom "energy" NavierStokes Structural
+    "Energy functional ∫|u|^2";
+  mkPFAxiom "energy_nonneg" NavierStokes Physical
+    "Energy is non-negative";
+  mkPFAxiom "initial_finite_energy" NavierStokes Numerical
+    "Initial energy < 1e10";
+  mkPFAxiom "NS_Solution" NavierStokes Structural
+    "Navier-Stokes solution structure";
+  mkPFAxiom "GlobalExistence" NavierStokes Structural
+    "Global existence of solutions";
+  mkPFAxiom "GlobalSmoothness" NavierStokes Structural
+    "Global smoothness of solutions";
+  mkPFAxiom "fourier_modes" NavierStokes Structural
+    "Fourier mode decomposition";
+  mkPFAxiom "energy_decomposition" NavierStokes Structural
+    "Energy = sum of mode energies";
+  mkPFAxiom "enstrophy" NavierStokes Structural
+    "Enstrophy ∫|ω|^2";
+  mkPFAxiom "enstrophy_controls_smoothness" NavierStokes Structural
+    "Bounded enstrophy implies smoothness";
+  mkPFAxiom "kolmogorov_scaling" NavierStokes Physical
+    "Kolmogorov -5/3 energy cascade";
+  mkPFAxiom "NS_Spectral_Condition" NavierStokes Structural
+    "Spectral condition for smoothness";
+  mkPFAxiom "BKM_Criterion" NavierStokes Structural
+    "Beale-Kato-Majda regularity criterion";
+  mkPFAxiom "BKM_holds" NavierStokes Structural
+    "BKM criterion holds for NS"
+].
+
+Definition PF_axioms_NS_Equivalence : list PFAxiom := [
+  mkPFAxiom "NS_to_Spectral" NavierStokes Equivalence
+    "NS solution implies spectral condition";
+  mkPFAxiom "Spectral_to_NS" NavierStokes Equivalence
+    "Spectral condition implies NS solution"
+].
+
+Definition PF_axioms_NS : list PFAxiom :=
+  PF_axioms_NS_Core ++ PF_axioms_NS_Equivalence.
+
 (** ** Interval Arithmetic Axioms *)
 
 Definition PF_axioms_Interval : list PFAxiom := [
@@ -304,6 +410,8 @@ Definition all_PF_axioms : list PFAxiom :=
   PF_axioms_RH ++
   PF_axioms_YM ++
   PF_axioms_BSD ++
+  PF_axioms_Hodge ++
+  PF_axioms_NS ++
   PF_axioms_Interval ++
   PF_axioms_Consciousness.
 
@@ -316,8 +424,11 @@ Definition count_by_pillar (p : Pillar) : nat :=
     | RiemannHypothesis, RiemannHypothesis => true
     | YangMills, YangMills => true
     | BSD, BSD => true
+    | NavierStokes, NavierStokes => true
+    | Hodge, Hodge => true
     | Consciousness, Consciousness => true
     | IntervalArithmetic, IntervalArithmetic => true
+    | UniversalFramework, UniversalFramework => true
     | _, _ => false
     end) all_PF_axioms).
 
