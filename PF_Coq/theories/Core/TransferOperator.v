@@ -14,6 +14,7 @@
 Require Import Coq.Reals.Reals.
 Require Import Coq.Logic.Classical.
 Require Import Coq.Sets.Ensembles.
+Require Import PF_Coq.Core.Zeta.  (* For complex number type C *)
 Open Scope R_scope.
 
 (** ** Logarithmic Hilbert Space *)
@@ -111,18 +112,16 @@ Axiom spectrum_accumulation : forall eps : R, eps > 0 ->
 
 (** ** Zeta Zero Correspondence *)
 
-(** Complex number representation for zeta zeros *)
-Record Complex := mkComplex {
-  Re : R;
-  Im : R
-}.
+(** Use complex number type C from Zeta.v for consistency *)
+(** C is defined as: Record C := mkC { Re : R; Im : R } *)
 
-(** Zeta zeros (nontrivial) *)
-Parameter zeta_zero : nat -> Complex.
+(** Zeta zeros (nontrivial) - indexed by natural numbers *)
+Parameter zeta_zero : nat -> C.
 
 (** RH states all nontrivial zeros have Re = 1/2 *)
-Definition RiemannHypothesis : Prop :=
-  forall n, Re (zeta_zero n) = 1/2.
+(** Note: This is consistent with Zeta.RiemannHypothesis *)
+Definition T3_RiemannHypothesis : Prop :=
+  forall n, Zeta.Re (zeta_zero n) = 1/2.
 
 (** Bijection between T3 eigenvalues and zeta zeros *)
 Parameter eigenvalue_to_zero : T3_Eigenvalue -> nat.
@@ -131,12 +130,12 @@ Parameter zero_to_eigenvalue : nat -> T3_Eigenvalue.
 (** The bijection property *)
 Axiom T3_zeta_bijection_forward : forall ev,
   let z := zeta_zero (eigenvalue_to_zero ev) in
-  ev_value ev = Im z.
+  ev_value ev = Zeta.Im z.
 
 Axiom T3_zeta_bijection_inverse : forall n,
   let ev := zero_to_eigenvalue n in
   let z := zeta_zero n in
-  ev_value ev = Im z.
+  ev_value ev = Zeta.Im z.
 
 Axiom T3_zeta_bijection_inv_l : forall ev,
   zero_to_eigenvalue (eigenvalue_to_zero ev) = ev.
@@ -149,10 +148,10 @@ Axiom T3_zeta_bijection_inv_r : forall n,
 (** T3 eigenvalue condition for RH *)
 Definition T3_RH_condition : Prop :=
   forall ev : T3_Eigenvalue,
-    Re (zeta_zero (eigenvalue_to_zero ev)) = 1/2.
+    Zeta.Re (zeta_zero (eigenvalue_to_zero ev)) = 1/2.
 
-(** Main equivalence theorem *)
-Axiom spectral_RH_equivalence : T3_RH_condition <-> RiemannHypothesis.
+(** Main equivalence theorem - links T3 eigenvalues to Zeta.RiemannHypothesis *)
+Axiom spectral_RH_equivalence : T3_RH_condition <-> Zeta.RiemannHypothesis.
 
 (** ** Trace Formula Connection *)
 

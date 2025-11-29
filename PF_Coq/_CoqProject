@@ -18,5 +18,6 @@ theories/Contracts/BSD.v
 theories/Contracts/Hodge.v
 theories/Contracts/NavierStokes.v
 
-# Main verification module
+# Integration and summary
+theories/Core/AxiomSummary.v
 theories/PF_Verification.v
