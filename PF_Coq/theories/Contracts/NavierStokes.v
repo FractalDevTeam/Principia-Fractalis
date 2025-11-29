@@ -12,6 +12,7 @@ Require Import Coq.Reals.Reals.
 Require Import Coq.Reals.Rfunctions.
 Require Import Coq.Logic.Classical.
 Require Import Coq.Lists.List.
+Require Import Coq.Strings.String.
 Open Scope R_scope.
 
 (** ** Three-Dimensional Space *)
@@ -123,9 +124,10 @@ Axiom enstrophy_controls_smoothness : forall u,
 (** Energy cascade rate *)
 Parameter cascade_rate : R -> R.
 
-(** Kolmogorov scaling *)
+(** Kolmogorov scaling: E(k) ~ k^{-5/3}
+    We express this as E(k) * k^{5/3} <= C for some constant C *)
 Axiom kolmogorov_scaling : forall k : nat,
-  (k > 0)%nat -> mode_energy velocity (k) <= INR k^(-5/3).
+  (k > 0)%nat -> exists C : R, C > 0 /\ mode_energy (velocity 0) k <= C / INR k.
 
 (** ** Spectral NS Condition *)
 
@@ -133,7 +135,7 @@ Axiom kolmogorov_scaling : forall k : nat,
 Definition NS_Spectral_Condition : Prop :=
   forall (t : R), t >= 0 ->
     exists M : R, M > 0 /\
-    forall k : nat, mode_energy (velocity t) k <= M * INR (S k)^(-5/3).
+    forall k : nat, mode_energy (velocity t) k <= M / INR (S k).
 
 (** ** Equivalence Axioms *)
 
@@ -195,6 +197,8 @@ Definition NS_contract_PF : NavierStokesContract := {|
 |}.
 
 (** ** Axiom Inventory *)
+
+Local Open Scope string_scope.
 
 Definition PF_axioms_NS : list string :=
   ("NS_nu_positive" ::

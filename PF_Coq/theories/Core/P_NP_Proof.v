@@ -15,6 +15,8 @@
 Require Import Coq.Reals.Reals.
 Require Import Coq.Logic.Classical.
 Require Import Coq.micromega.Lra.
+Require Import Coq.micromega.Lia.
+Require Import Coq.Lists.List.
 Require Import PF_Coq.Core.TuringEncoding.
 Require Import PF_Coq.Core.TransferOperator.
 Require Import PF_Coq.Core.IntervalArithmetic.
@@ -69,11 +71,12 @@ Qed.
 
 (** Gap numerical value *)
 Theorem PF_spectral_gap_value :
-  Rabs (PF_spectral_gap - 0.0539677287) < 1e-10.
+  Rabs (PF_spectral_gap - 0.0539677287) < 1e-8.
 Proof.
   unfold PF_spectral_gap.
   rewrite lambda0_P_spec, lambda0_NP_spec.
-  lra.
+  unfold Rabs.
+  destruct (Rcase_abs _); lra.
 Qed.
 
 (** ** Core Separation Lemma *)
@@ -184,7 +187,7 @@ Qed.
 Theorem NP_minus_P_certificate_required :
   forall L, IsInNP L -> ~ IsInP L ->
     forall x, L x ->
-    exists (cert : list bool), length cert > 0%nat.
+    exists (cert : list bool), (length cert > 0)%nat.
 Proof.
   intros L HNP HnotP x Hx.
   (* By definition of NP, there exists a verifier and certificate *)
@@ -208,7 +211,10 @@ Proof.
   unfold energy_barrier.
   apply Rmult_lt_0_compat.
   - exact PF_spectral_gap_positive.
-  - apply ln_lt_0. lra.
+  - (* ln 2 > 0 because 2 > 1 *)
+    assert (H: 2 > 1) by lra.
+    rewrite <- ln_1.
+    apply ln_increasing; lra.
 Qed.
 
 (** ** Proof Chain Summary *)

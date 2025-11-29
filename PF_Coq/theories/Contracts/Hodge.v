@@ -12,6 +12,7 @@
 Require Import Coq.Reals.Reals.
 Require Import Coq.Logic.Classical.
 Require Import Coq.Lists.List.
+Require Import Coq.Strings.String.
 Require Import Coq.QArith.QArith.
 Require Import Coq.QArith.Qreals.
 Open Scope R_scope.
@@ -38,7 +39,7 @@ Parameter DeRhamCohomology : ProjectiveVariety -> nat -> Type.
 (** Hodge decomposition *)
 Axiom hodge_decomposition : forall (X : ProjectiveVariety) (k : nat),
   forall (alpha : DeRhamCohomology X k),
-  exists (components : list { pq : nat * nat | fst pq + snd pq = k }),
+  exists (components : list { pq : nat * nat | (fst pq + snd pq)%nat = k }),
     True.
 
 (** ** Hodge Classes *)
@@ -78,7 +79,7 @@ Axiom hard_lefschetz : forall (X : ProjectiveVariety) (k : nat),
 Parameter HodgeOperator : ProjectiveVariety -> Type.
 
 (** Self-adjoint property *)
-Axiom HodgeOperator_self_adjoint : forall X,
+Axiom HodgeOperator_self_adjoint : forall (X : ProjectiveVariety),
   True. (* <L(alpha), beta> = <alpha, L(beta)> *)
 
 (** Eigenvalue of Hodge operator *)
@@ -140,6 +141,8 @@ Definition Hodge_contract_PF : HodgeContract := {|
 |}.
 
 (** ** Axiom Inventory *)
+
+Local Open Scope string_scope.
 
 Definition PF_axioms_Hodge : list string :=
   ("Hodge_complex_structure" ::

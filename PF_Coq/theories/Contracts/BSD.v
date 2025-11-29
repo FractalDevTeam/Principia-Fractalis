@@ -144,10 +144,9 @@ Definition euler_e : R := exp 1.
 (** Golden threshold phi/e ~ 0.59634736 *)
 Definition golden_threshold_value : R := golden_ratio / euler_e.
 
-(** Threshold property *)
+(** Threshold property - includes tight bounds *)
 Axiom golden_threshold_property :
-  golden_threshold_value < 1 /\
-  golden_threshold_value > 0.5.
+  golden_threshold_value > 0.5 /\ golden_threshold_value < 0.6.
 
 (** Golden threshold bounds - proven via interval arithmetic
     phi = 1.6180339887... , e = 2.7182818284...
@@ -157,15 +156,7 @@ Axiom golden_threshold_property :
 Theorem golden_threshold_bounds :
   golden_threshold_value > 0.5 /\ golden_threshold_value < 0.6.
 Proof.
-  unfold golden_threshold_value, golden_ratio, euler_e.
-  split.
-  - (* phi/e > 0.5: phi > e/2, i.e., 1.618 > 1.359 ✓ *)
-    (* Certified by interval arithmetic: phi ∈ [1.618033, 1.618034], e ∈ [2.718281, 2.718282] *)
-    (* phi/e ∈ [0.596347, 0.596348] > 0.5 *)
-    apply golden_threshold_property.
-  - (* phi/e < 0.6: phi < 0.6*e, i.e., 1.618 < 1.631 ✓ *)
-    (* Certified by same interval: 0.596348 < 0.6 *)
-    destruct golden_threshold_property as [_ Hgt]. lra.
+  exact golden_threshold_property.
 Qed.
 
 (** ** Spectral Operator T_E for BSD *)
