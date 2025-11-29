@@ -21,7 +21,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 
 ## Part I–II: Foundations, Resonance, Timeless Field, Consciousness
 
-### Ch01–Ch02 – Numbers and Complex Analysis
+### [AUX] Ch01–Ch02 – Numbers and Complex Analysis
 
 - **LaTeX**: `ch01_numbers.tex`, `ch02_complex.tex`
 - **Canonical Lean**:
@@ -31,7 +31,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
     - `PF/Basic.lean`
 - **PF_L4L**: none (background only).
 
-### Ch03 – Fractal Resonance
+### [CORE] Ch03 – Fractal Resonance
 
 - **LaTeX**: `ch03_resonance.tex`
 - **Canonical Lean**:
@@ -40,7 +40,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - Indirectly used by all four Millennium contracts via resonance/spectral gap definitions.
 
-### Ch04 – Timeless Field
+### [CORE] Ch04 – Timeless Field
 
 - **LaTeX**: `ch04_timeless_field.tex`
 - **Canonical Lean**:
@@ -49,7 +49,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - Tags: `UniversalFramework_consciousness`, shared by all pillar contracts.
 
-### Ch05 – Peixoto (Foundations of Dynamical Systems)
+### [AUX] Ch05 – Peixoto (Foundations of Dynamical Systems)
 
 - **LaTeX**: `ch05_peixoto.tex`
 - **Canonical Lean**:
@@ -57,7 +57,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
   - No dedicated `Peixoto.lean` yet.
 - **PF_L4L**: none.
 
-### Ch06, Ch30–Ch32 – Consciousness Core and Clinical/Neuro/IIT
+### [CORE] Ch06, Ch30–Ch32 – Consciousness Core and Clinical/Neuro/IIT
 
 - **LaTeX**:
   - `ch06_consciousness.tex`
@@ -71,7 +71,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - All contracts depend on these via `PFAxiomTag.UniversalFramework_consciousness`.
 
-### Ch07 – Constants
+### [CORE] Ch07 – Constants
 
 - **LaTeX**: `ch07_constants.tex`
 - **Canonical Lean**:
@@ -79,7 +79,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - Numeric certificates used by P vs NP and RH contracts.
 
-### Ch08 – Field Equations; Ch19 – Physical Applications
+### [CORE] Ch08 – Field Equations; Ch19 – Physical Applications
 
 - **LaTeX**: `ch08_field_equations.tex`, `ch19_physical_applications.tex`
 - **Canonical Lean**:
@@ -93,7 +93,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 
 ## Part III–IV: Spectral Unity, Hydrodynamics, Geometry, QFT
 
-### Ch09, Ch16 – Spectral Unity and Spectral Foundations
+### [CORE] Ch09, Ch16 – Spectral Unity and Spectral Foundations
 
 - **LaTeX**: `ch09_spectral_unity.tex`, `ch16_spectral_foundations.tex`
 - **Canonical Lean**:
@@ -104,7 +104,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - Used implicitly by P vs NP, RH, YM, BSD contracts.
 
-### Ch10, Ch22 – Hydrodynamics and Navier–Stokes
+### [PROBE] Ch10, Ch22 – Hydrodynamics and Navier–Stokes
 
 - **LaTeX**: `ch10_hydrodynamic.tex`, `ch22_navier_stokes.tex`, `ch22_vortex_formation_proof.tex`
 - **Canonical Lean**:
@@ -113,7 +113,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - No dedicated NS contract yet; NS axioms are tagged under `UniversalFramework`.
 
-### Ch11–Ch14 – Geometric Unity, QFT Consciousness, Solutions, Symmetries
+### [CORE] Ch11–Ch14 – Geometric Unity, QFT Consciousness, Solutions, Symmetries
 
 - **LaTeX**: `ch11_geometric_unity.tex`, `ch12_qft_consciousness.tex`, `ch13_solutions_dynamics.tex`, `ch14_symmetries_conservation.tex`
 - **Canonical Lean**:
@@ -123,7 +123,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - Indirectly via YM and global consciousness tags.
 
-### Ch15, Ch33, Ch35 – Computational and Numerical Methods, Software
+### [AUX] Ch15, Ch33, Ch35 – Computational and Numerical Methods, Software
 
 - **LaTeX**: `ch15_computational_methods.tex`, `ch33_numerical_methods.tex`, `ch35_software.tex`
 - **Canonical Lean**:
@@ -133,7 +133,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - P vs NP contract (`Ch21/PNP.lean`) depends on these via encoding and spectral gap.
 
-### Ch17, Ch18 – Operator Theory and Spectral Measures
+### [CORE] Ch17, Ch18 – Operator Theory and Spectral Measures
 
 - **LaTeX**: `ch17_operator_theory.tex`, `ch18_spectral_measures.tex`
 - **Canonical Lean**:
@@ -147,7 +147,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 
 ## Part V: Millennium Problems
 
-### Ch20 – Riemann Hypothesis
+### [PROBE] Ch20 – Riemann Hypothesis
 
 - **LaTeX**: `ch20_riemann_hypothesis.tex`
 - **Canonical Lean**:
@@ -157,7 +157,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
   - `PF_L4L/Ch20/RH.lean`
   - Tags: `PFAxiomTag.RH_operator_axioms`, `PFAxiomTag.UniversalFramework_consciousness`.
 
-### Ch21 – P vs NP and Turing Connection
+### [PROBE] Ch21 – P vs NP and Turing Connection
 
 - **LaTeX**: `ch21_p_vs_np.tex`, `ch21_turing_connection_proof.tex`
 - **Canonical Lean**:
@@ -170,7 +170,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
   - `PF_L4L/Ch21/PNP.lean`
   - Tags: `P_vs_NP_prime_encoding`, `P_vs_NP_resonance_spectrum`, `P_vs_NP_numeric_certificates`, `UniversalFramework_consciousness`.
 
-### Ch23 – Rigorous QFT and Yang–Mills
+### [PROBE] Ch23 – Rigorous QFT and Yang–Mills
 
 - **LaTeX**: `ch23_rigorous_qft_construction.tex`, `ch23_yang_mills.tex`
 - **Canonical Lean**:
@@ -181,7 +181,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
   - `PF_L4L/Ch23/YM.lean`
   - Tags: `YM_pillar_axioms`, `UniversalFramework_consciousness`.
 
-### Ch24 – Birch–Swinnerton–Dyer
+### [PROBE] Ch24 – Birch–Swinnerton–Dyer
 
 - **LaTeX**: `ch24_birch_swinnerton_dyer.tex`, `ch24_bsd_theoretical_proof.tex`
 - **Canonical Lean**:
@@ -191,7 +191,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
   - `PF_L4L/Ch24/BSD.lean`
   - Tags: `BSD_pillar_axioms`, `UniversalFramework_consciousness`.
 
-### Ch25 – Hodge Conjecture
+### [PROBE] Ch25 – Hodge Conjecture
 
 - **LaTeX**: `ch25_hodge_conjecture.tex`, `ch25_hodge_general_proof.tex`
 - **Canonical Lean**:
@@ -204,7 +204,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 
 ## Part VI–VII: Cosmology, Early Universe, Observational Tests
 
-### Ch26–Ch29 – Cosmological Constant, Dark Energy, Early Universe, Observational Tests
+### [PROBE] Ch26–Ch29 – Cosmological Constant, Dark Energy, Early Universe, Observational Tests
 
 - **LaTeX**:
   - `ch26_cosmological_constant.tex`
@@ -223,7 +223,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 
 ## Part VIII–IX: Consciousness, Neuroscience, Verification, Software
 
-### Ch30–Ch32 – Clinical, Neuroscience, IIT, Quantification
+### [CORE] Ch30–Ch32 – Clinical, Neuroscience, IIT, Quantification
 
 - **LaTeX**: `ch30_clinical_consciousness.tex`, `ch31_neuroscience_iit.tex`, `ch32_consciousness_quantification.tex`
 - **Canonical Lean**:
@@ -233,7 +233,7 @@ The goal is to show **where to look in code** for the mathematics of each part o
 - **PF_L4L**:
   - All pillar contracts depend on these via consciousness tags.
 
-### Ch33–Ch35 – Numerical Methods, Verification, Software
+### [AUX] Ch33–Ch35 – Numerical Methods, Verification, Software
 
 - **LaTeX**: `ch33_numerical_methods.tex`, `ch34_verification.tex`, `ch35_software.tex`
 - **Canonical Lean**:
