@@ -1,0 +1,222 @@
+DIGEST 5945c794f49422ffdcc905948e64f495
+FPF_Coq.Core.Resonance
+R418:432 Stdlib.Reals.Reals <> <> lib
+R450:465 Stdlib.Reals.Rpower <> <> lib
+R483:499 Stdlib.micromega.Lra <> <> lib
+R517:532 PF_Coq.Core.Zeta <> <> lib
+def 696:716 <> digital_sum_base3_aux
+R726:728 Corelib.Init.Datatypes <> nat ind
+binder 719:722 <> fuel:1
+R736:738 Corelib.Init.Datatypes <> nat ind
+binder 732:732 <> n:2
+R743:745 Corelib.Init.Datatypes <> nat ind
+R758:761 PF_Coq.Core.Resonance <> fuel:1 var
+R772:772 Corelib.Init.Datatypes <> O constr
+R777:777 Corelib.Init.Datatypes <> O constr
+R838:838 Corelib.Init.Datatypes <> S constr
+R859:859 PF_Coq.Core.Resonance <> n:2 var
+R872:872 Corelib.Init.Datatypes <> O constr
+R877:877 Corelib.Init.Datatypes <> O constr
+R905:911 Stdlib.Arith.PeanoNat Nat div def
+R913:913 PF_Coq.Core.Resonance <> n:2 var
+binder 900:900 <> q:6
+R935:944 Stdlib.Arith.PeanoNat Nat modulo def
+R946:946 PF_Coq.Core.Resonance <> n:2 var
+binder 930:930 <> r:7
+R960:962 Corelib.Init.Peano <> ::nat_scope:x_'+'_x not
+R959:959 PF_Coq.Core.Resonance <> r:7 var
+R963:983 PF_Coq.Core.Resonance <> digital_sum_base3_aux:3 def
+R991:991 PF_Coq.Core.Resonance <> q:6 var
+def 1138:1154 <> digital_sum_base3
+R1161:1163 Corelib.Init.Datatypes <> nat ind
+binder 1157:1157 <> n:8
+R1168:1170 Corelib.Init.Datatypes <> nat ind
+R1177:1197 PF_Coq.Core.Resonance <> digital_sum_base3_aux def
+R1200:1200 Corelib.Init.Datatypes <> S constr
+R1202:1202 PF_Coq.Core.Resonance <> n:8 var
+R1205:1205 PF_Coq.Core.Resonance <> n:8 var
+prf 1248:1260 <> digital_sum_0
+R1287:1289 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1264:1280 PF_Coq.Core.Resonance <> digital_sum_base3 def
+prf 1329:1341 <> digital_sum_1
+R1368:1370 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1345:1361 PF_Coq.Core.Resonance <> digital_sum_base3 def
+prf 1410:1422 <> digital_sum_3
+R1449:1451 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1426:1442 PF_Coq.Core.Resonance <> digital_sum_base3 def
+def 1585:1596 <> phase_factor
+R1607:1607 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1599:1603 <> alpha:9
+R1615:1617 Corelib.Init.Datatypes <> nat ind
+binder 1611:1611 <> n:10
+R1622:1622 PF_Coq.Core.Zeta <> C rec
+R1656:1658 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1648:1650 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1643:1645 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1646:1647 Stdlib.Reals.Rtrigo1 <> PI def
+R1651:1655 PF_Coq.Core.Resonance <> alpha:9 var
+R1659:1661 Stdlib.Reals.Raxioms <> INR def
+R1664:1680 PF_Coq.Core.Resonance <> digital_sum_base3 def
+R1682:1682 PF_Coq.Core.Resonance <> n:10 var
+binder 1633:1637 <> theta:11
+R1690:1692 PF_Coq.Core.Zeta <> mkC constr
+R1695:1697 Stdlib.Reals.Rtrigo_def <> cos def
+R1699:1703 PF_Coq.Core.Resonance <> theta:11 var
+R1707:1709 Stdlib.Reals.Rtrigo_def <> sin def
+R1711:1715 PF_Coq.Core.Resonance <> theta:11 var
+def 1767:1780 <> resonance_term
+R1791:1791 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1783:1787 <> alpha:12
+R1799:1799 PF_Coq.Core.Zeta <> C rec
+binder 1795:1795 <> s:13
+R1807:1809 Corelib.Init.Datatypes <> nat ind
+binder 1803:1803 <> n:14
+R1814:1814 PF_Coq.Core.Zeta <> C rec
+R1827:1827 PF_Coq.Core.Resonance <> n:14 var
+R1838:1838 Corelib.Init.Datatypes <> O constr
+R1843:1845 PF_Coq.Core.Zeta <> mkC constr
+R1886:1886 Corelib.Init.Datatypes <> S constr
+R1908:1919 PF_Coq.Core.Resonance <> phase_factor def
+R1921:1925 PF_Coq.Core.Resonance <> alpha:12 var
+R1928:1928 Corelib.Init.Datatypes <> S constr
+binder 1902:1903 <> pf:16
+R1954:1959 Stdlib.Reals.Rpower <> Rpower def
+R1962:1964 Stdlib.Reals.Raxioms <> INR def
+R1967:1967 Corelib.Init.Datatypes <> S constr
+R1975:1976 PF_Coq.Core.Zeta <> Re proj
+R1978:1978 PF_Coq.Core.Resonance <> s:13 var
+binder 1945:1949 <> denom:17
+R1988:1990 PF_Coq.Core.Zeta <> mkC constr
+R1998:2000 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1993:1994 PF_Coq.Core.Zeta <> Re proj
+R1996:1997 PF_Coq.Core.Resonance <> pf:16 var
+R2001:2005 PF_Coq.Core.Resonance <> denom:17 var
+R2014:2016 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2009:2010 PF_Coq.Core.Zeta <> Im proj
+R2012:2013 PF_Coq.Core.Resonance <> pf:16 var
+R2017:2021 PF_Coq.Core.Resonance <> denom:17 var
+ax 2171:2190 <> fractalResonanceSpec
+R2195:2198 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2194:2194 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2200:2203 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2199:2199 PF_Coq.Core.Zeta <> C rec
+R2204:2204 PF_Coq.Core.Zeta <> C rec
+ax 2266:2284 <> resonance_converges
+R2306:2306 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2298:2302 <> alpha:20
+R2314:2314 PF_Coq.Core.Zeta <> C rec
+binder 2310:2310 <> s:21
+R2328:2333 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2324:2326 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2320:2321 PF_Coq.Core.Zeta <> Re proj
+R2323:2323 PF_Coq.Core.Resonance <> s:21 var
+R2334:2337 Corelib.Init.Logic <> True ind
+ax 2422:2438 <> resonance_at_zero
+R2456:2456 PF_Coq.Core.Zeta <> C rec
+binder 2452:2452 <> s:24
+R2470:2475 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2466:2468 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2462:2463 PF_Coq.Core.Zeta <> Re proj
+R2465:2465 PF_Coq.Core.Resonance <> s:24 var
+R2500:2502 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2476:2495 PF_Coq.Core.Resonance <> fractalResonanceSpec defax
+R2499:2499 PF_Coq.Core.Resonance <> s:24 var
+R2503:2510 PF_Coq.Core.Zeta <> zetaSpec defax
+R2512:2512 PF_Coq.Core.Resonance <> s:24 var
+ax 2550:2567 <> resonance_periodic
+R2589:2589 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2581:2585 <> alpha:27
+R2597:2597 PF_Coq.Core.Zeta <> C rec
+binder 2593:2593 <> s:28
+R2637:2639 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2603:2622 PF_Coq.Core.Resonance <> fractalResonanceSpec defax
+R2630:2632 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2625:2629 PF_Coq.Core.Resonance <> alpha:27 var
+R2636:2636 PF_Coq.Core.Resonance <> s:28 var
+R2640:2659 PF_Coq.Core.Resonance <> fractalResonanceSpec defax
+R2661:2665 PF_Coq.Core.Resonance <> alpha:27 var
+R2667:2667 PF_Coq.Core.Resonance <> s:28 var
+def 2754:2773 <> PF_fractal_resonance
+R2778:2797 PF_Coq.Core.Resonance <> fractalResonanceSpec defax
+prf 2809:2828 <> PF_resonance_is_spec
+R2854:2856 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R2834:2853 PF_Coq.Core.Resonance <> PF_fractal_resonance def
+R2857:2876 PF_Coq.Core.Resonance <> fractalResonanceSpec defax
+def 3005:3014 <> pi_over_10
+R3018:3018 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3025:3027 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3023:3024 Stdlib.Reals.Rtrigo1 <> PI def
+def 3086:3103 <> critical_resonance
+R3110:3110 PF_Coq.Core.Zeta <> C rec
+binder 3106:3106 <> s:31
+R3115:3115 PF_Coq.Core.Zeta <> C rec
+R3122:3141 PF_Coq.Core.Resonance <> fractalResonanceSpec defax
+R3143:3152 PF_Coq.Core.Resonance <> pi_over_10 def
+R3154:3154 PF_Coq.Core.Resonance <> s:31 var
+def 3246:3272 <> resonance_spectrum_discrete
+R3286:3289 Corelib.Init.Logic <> True ind
+rec 3383:3401 <> ResonanceEigenvalue
+proj 3432:3441 <> eigenvalue
+proj 3450:3461 <> multiplicity
+proj 3472:3483 <> from_P_class
+proj 3495:3507 <> from_NP_class
+R3445:3445 PF_Coq.Core.Zeta <> C rec
+R3465:3467 Corelib.Init.Datatypes <> nat ind
+R3487:3490 Corelib.Init.Datatypes <> bool ind
+R3511:3514 Corelib.Init.Datatypes <> bool ind
+def 3621:3633 <> radix_economy
+R3640:3640 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3636:3636 <> b:37
+R3648:3650 Corelib.Init.Datatypes <> nat ind
+binder 3644:3644 <> n:38
+R3655:3655 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3663:3666 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3684:3684 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3662:3662 PF_Coq.Core.Resonance <> b:37 var
+R3677:3679 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3667:3668 Stdlib.Reals.Rpower <> ln def
+R3671:3673 Stdlib.Reals.Raxioms <> INR def
+R3675:3675 PF_Coq.Core.Resonance <> n:38 var
+R3680:3681 Stdlib.Reals.Rpower <> ln def
+R3683:3683 PF_Coq.Core.Resonance <> b:37 var
+ax 3734:3746 <> base3_optimal
+R3763:3765 Corelib.Init.Datatypes <> nat ind
+binder 3759:3759 <> n:39
+R3781:3786 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3772:3774 Corelib.Init.Peano <> ::nat_scope:x_'>'_x not
+R3771:3771 PF_Coq.Core.Resonance <> n:39 var
+R3825:3830 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3804:3807 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3787:3799 PF_Coq.Core.Resonance <> radix_economy def
+R3803:3803 PF_Coq.Core.Resonance <> n:39 var
+R3808:3820 PF_Coq.Core.Resonance <> radix_economy def
+R3824:3824 PF_Coq.Core.Resonance <> n:39 var
+R3848:3851 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3831:3843 PF_Coq.Core.Resonance <> radix_economy def
+R3847:3847 PF_Coq.Core.Resonance <> n:39 var
+R3852:3864 PF_Coq.Core.Resonance <> radix_economy def
+R3868:3868 PF_Coq.Core.Resonance <> n:39 var
+def 3904:3915 <> euler_number
+R3919:3919 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3924:3926 Stdlib.Reals.Rtrigo_def <> exp def
+ax 3938:3959 <> radix_economy_min_at_e
+R3976:3976 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3972:3972 <> b:42
+R3986:3991 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3982:3984 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3981:3981 PF_Coq.Core.Resonance <> b:42 var
+R4009:4014 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3993:3996 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R3992:3992 PF_Coq.Core.Resonance <> b:42 var
+R3997:4008 PF_Coq.Core.Resonance <> euler_number def
+binder 4022:4022 <> n:43
+R4036:4041 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4027:4029 Corelib.Init.Peano <> ::nat_scope:x_'>'_x not
+R4026:4026 PF_Coq.Core.Resonance <> n:43 var
+R4070:4073 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4042:4054 PF_Coq.Core.Resonance <> radix_economy def
+R4056:4067 PF_Coq.Core.Resonance <> euler_number def
+R4069:4069 PF_Coq.Core.Resonance <> n:43 var
+R4074:4086 PF_Coq.Core.Resonance <> radix_economy def
+R4088:4088 PF_Coq.Core.Resonance <> b:42 var
+R4090:4090 PF_Coq.Core.Resonance <> n:43 var

@@ -1,0 +1,542 @@
+DIGEST 6db5029243e440953c771f0ec08aed59
+FPF_Coq.Core.AxiomAudit
+R452:466 Stdlib.Reals.Reals <> <> lib
+R484:501 Stdlib.Strings.String <> <> lib
+R519:532 Stdlib.Lists.List <> <> lib
+R542:554 Stdlib.Lists.List ListNotations <> mod
+ind 662:667 <> Pillar
+constr 683:689 <> P_vs_NP
+constr 695:711 <> RiemannHypothesis
+constr 717:725 <> YangMills
+constr 731:733 <> BSD
+constr 739:750 <> NavierStokes
+constr 756:760 <> Hodge
+constr 766:778 <> Consciousness
+constr 784:801 <> IntervalArithmetic
+constr 807:824 <> UniversalFramework
+scheme 662:667 <> Pillar_rect
+scheme 662:667 <> Pillar_ind
+scheme 662:667 <> Pillar_rec
+scheme 662:667 <> Pillar_sind
+ind 871:879 <> AxiomKind
+constr 895:903 <> Numerical
+constr 949:956 <> Physical
+constr 1003:1012 <> Structural
+constr 1065:1075 <> Equivalence
+scheme 871:879 <> AxiomKind_rect
+scheme 871:879 <> AxiomKind_ind
+scheme 871:879 <> AxiomKind_rec
+scheme 871:879 <> AxiomKind_sind
+rec 1153:1159 <> PFAxiom
+proj 1185:1194 <> axiom_name
+proj 1208:1219 <> axiom_pillar
+proj 1233:1242 <> axiom_kind
+proj 1259:1275 <> axiom_description
+R1198:1203 Stdlib.Strings.String <> string ind
+R1223:1228 PF_Coq.Core.AxiomAudit <> Pillar ind
+R1246:1254 PF_Coq.Core.AxiomAudit <> AxiomKind ind
+R1279:1284 Stdlib.Strings.String <> string ind
+def 1408:1439 <> PF_axioms_P_vs_NP_TuringEncoding
+R1443:1446 Corelib.Init.Datatypes <> list ind
+R1448:1454 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R1459:1462 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1535:1538 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1620:1623 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1712:1715 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1780:1783 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1847:1850 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1952:1955 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2040:2043 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2142:2145 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2244:2247 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2356:2359 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2465:2466 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1463:1471 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R1484:1490 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R1492:1501 PF_Coq.Core.AxiomAudit <> Structural constr
+R1539:1547 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R1569:1575 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R1577:1586 PF_Coq.Core.AxiomAudit <> Structural constr
+R1624:1632 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R1656:1662 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R1664:1673 PF_Coq.Core.AxiomAudit <> Structural constr
+R1716:1724 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R1742:1748 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R1750:1758 PF_Coq.Core.AxiomAudit <> Numerical constr
+R1784:1792 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R1809:1815 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R1817:1825 PF_Coq.Core.AxiomAudit <> Numerical constr
+R1851:1859 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R1886:1892 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R1894:1903 PF_Coq.Core.AxiomAudit <> Structural constr
+R1956:1964 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R1976:1982 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R1984:1993 PF_Coq.Core.AxiomAudit <> Structural constr
+R2044:2052 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R2085:2091 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R2093:2102 PF_Coq.Core.AxiomAudit <> Structural constr
+R2146:2154 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R2184:2190 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R2192:2201 PF_Coq.Core.AxiomAudit <> Structural constr
+R2248:2256 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R2290:2296 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R2298:2307 PF_Coq.Core.AxiomAudit <> Structural constr
+R2360:2368 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R2406:2412 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R2414:2424 PF_Coq.Core.AxiomAudit <> Equivalence constr
+def 2545:2570 <> PF_axioms_P_vs_NP_Spectral
+R2574:2577 Corelib.Init.Datatypes <> list ind
+R2579:2585 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R2590:2593 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2684:2687 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2778:2781 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2877:2880 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2976:2979 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3070:3073 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3167:3170 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3270:3271 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2594:2602 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R2631:2637 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R2639:2647 PF_Coq.Core.AxiomAudit <> Numerical constr
+R2688:2696 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R2725:2731 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R2733:2741 PF_Coq.Core.AxiomAudit <> Numerical constr
+R2782:2790 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R2820:2826 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R2828:2836 PF_Coq.Core.AxiomAudit <> Numerical constr
+R2881:2889 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R2919:2925 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R2927:2935 PF_Coq.Core.AxiomAudit <> Numerical constr
+R2980:2988 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R3011:3017 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R3019:3027 PF_Coq.Core.AxiomAudit <> Numerical constr
+R3074:3082 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R3106:3112 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R3114:3122 PF_Coq.Core.AxiomAudit <> Numerical constr
+R3171:3179 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R3205:3211 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R3213:3221 PF_Coq.Core.AxiomAudit <> Numerical constr
+def 3326:3354 <> PF_axioms_P_vs_NP_Equivalence
+R3358:3361 Corelib.Init.Datatypes <> list ind
+R3363:3369 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R3374:3377 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3483:3486 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3581:3582 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3378:3386 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R3420:3426 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R3428:3438 PF_Coq.Core.AxiomAudit <> Equivalence constr
+R3487:3495 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R3524:3530 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R3532:3542 PF_Coq.Core.AxiomAudit <> Equivalence constr
+def 3655:3671 <> PF_axioms_P_vs_NP
+R3675:3678 Corelib.Init.Datatypes <> list ind
+R3680:3686 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R3725:3730 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3693:3724 PF_Coq.Core.AxiomAudit <> PF_axioms_P_vs_NP_TuringEncoding def
+R3757:3762 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R3731:3756 PF_Coq.Core.AxiomAudit <> PF_axioms_P_vs_NP_Spectral def
+R3763:3791 PF_Coq.Core.AxiomAudit <> PF_axioms_P_vs_NP_Equivalence def
+def 3919:3935 <> PF_axioms_RH_Core
+R3939:3942 Corelib.Init.Datatypes <> list ind
+R3944:3950 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R3955:3958 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4064:4067 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4169:4172 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4267:4270 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4375:4378 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4483:4486 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4609:4612 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4702:4705 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4828:4831 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4949:4952 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5077:5078 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3959:3967 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R3987:4003 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4005:4014 PF_Coq.Core.AxiomAudit <> Structural constr
+R4068:4076 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4102:4118 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4120:4129 PF_Coq.Core.AxiomAudit <> Structural constr
+R4173:4181 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4188:4204 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4206:4215 PF_Coq.Core.AxiomAudit <> Structural constr
+R4271:4279 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4299:4315 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4317:4326 PF_Coq.Core.AxiomAudit <> Structural constr
+R4379:4387 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4402:4418 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4420:4429 PF_Coq.Core.AxiomAudit <> Structural constr
+R4487:4495 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4527:4543 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4545:4553 PF_Coq.Core.AxiomAudit <> Numerical constr
+R4613:4621 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4639:4655 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4657:4666 PF_Coq.Core.AxiomAudit <> Structural constr
+R4706:4714 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4738:4754 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4756:4765 PF_Coq.Core.AxiomAudit <> Structural constr
+R4832:4840 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4870:4886 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R4888:4897 PF_Coq.Core.AxiomAudit <> Structural constr
+R4953:4961 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R4991:5007 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R5009:5017 PF_Coq.Core.AxiomAudit <> Numerical constr
+def 5133:5156 <> PF_axioms_RH_Equivalence
+R5160:5163 Corelib.Init.Datatypes <> list ind
+R5165:5171 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R5176:5179 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5305:5308 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5434:5435 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5180:5188 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R5222:5238 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R5240:5250 PF_Coq.Core.AxiomAudit <> Equivalence constr
+R5309:5317 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R5351:5367 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R5369:5379 PF_Coq.Core.AxiomAudit <> Equivalence constr
+def 5503:5514 <> PF_axioms_RH
+R5518:5521 Corelib.Init.Datatypes <> list ind
+R5523:5529 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R5553:5556 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5536:5552 PF_Coq.Core.AxiomAudit <> PF_axioms_RH_Core def
+R5557:5580 PF_Coq.Core.AxiomAudit <> PF_axioms_RH_Equivalence def
+def 5706:5722 <> PF_axioms_YM_Core
+R5726:5729 Corelib.Init.Datatypes <> list ind
+R5731:5737 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R5742:5745 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5826:5829 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5907:5910 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5997:6000 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6096:6099 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6195:6198 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6283:6286 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6391:6394 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6499:6502 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6616:6619 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6716:6719 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6812:6815 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6912:6915 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7000:7003 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7097:7100 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7191:7194 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7280:7283 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7366:7369 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7462:7465 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7553:7556 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7643:7646 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7748:7751 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7855:7856 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5746:5754 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R5769:5777 PF_Coq.Core.AxiomAudit <> YangMills constr
+R5779:5788 PF_Coq.Core.AxiomAudit <> Structural constr
+R5830:5838 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R5845:5853 PF_Coq.Core.AxiomAudit <> YangMills constr
+R5855:5864 PF_Coq.Core.AxiomAudit <> Structural constr
+R5911:5919 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R5937:5945 PF_Coq.Core.AxiomAudit <> YangMills constr
+R5947:5956 PF_Coq.Core.AxiomAudit <> Structural constr
+R6001:6009 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6032:6040 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6042:6051 PF_Coq.Core.AxiomAudit <> Structural constr
+R6100:6108 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6130:6138 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6140:6149 PF_Coq.Core.AxiomAudit <> Structural constr
+R6199:6207 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6226:6234 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6236:6245 PF_Coq.Core.AxiomAudit <> Structural constr
+R6287:6295 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6322:6330 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6332:6340 PF_Coq.Core.AxiomAudit <> Numerical constr
+R6395:6403 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6436:6444 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6446:6454 PF_Coq.Core.AxiomAudit <> Numerical constr
+R6503:6511 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6550:6558 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6560:6568 PF_Coq.Core.AxiomAudit <> Numerical constr
+R6620:6628 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6657:6665 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6667:6675 PF_Coq.Core.AxiomAudit <> Numerical constr
+R6720:6728 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6750:6758 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6760:6769 PF_Coq.Core.AxiomAudit <> Structural constr
+R6816:6824 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6854:6862 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6864:6873 PF_Coq.Core.AxiomAudit <> Structural constr
+R6916:6924 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R6941:6949 PF_Coq.Core.AxiomAudit <> YangMills constr
+R6951:6960 PF_Coq.Core.AxiomAudit <> Structural constr
+R7004:7012 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7034:7042 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7044:7053 PF_Coq.Core.AxiomAudit <> Structural constr
+R7101:7109 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7128:7136 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7138:7147 PF_Coq.Core.AxiomAudit <> Structural constr
+R7195:7203 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7225:7233 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7235:7244 PF_Coq.Core.AxiomAudit <> Structural constr
+R7284:7292 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7307:7315 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7317:7326 PF_Coq.Core.AxiomAudit <> Structural constr
+R7370:7378 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7406:7414 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7416:7425 PF_Coq.Core.AxiomAudit <> Structural constr
+R7466:7474 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7499:7507 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7509:7517 PF_Coq.Core.AxiomAudit <> Numerical constr
+R7557:7565 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7590:7598 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7600:7607 PF_Coq.Core.AxiomAudit <> Physical constr
+R7647:7655 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7684:7692 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7694:7701 PF_Coq.Core.AxiomAudit <> Physical constr
+R7752:7760 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7792:7800 PF_Coq.Core.AxiomAudit <> YangMills constr
+R7802:7809 PF_Coq.Core.AxiomAudit <> Physical constr
+def 7911:7934 <> PF_axioms_YM_Equivalence
+R7938:7941 Corelib.Init.Datatypes <> list ind
+R7943:7949 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R7954:7957 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8075:8078 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8196:8197 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7958:7966 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R7999:8007 PF_Coq.Core.AxiomAudit <> YangMills constr
+R8009:8019 PF_Coq.Core.AxiomAudit <> Equivalence constr
+R8079:8087 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R8120:8128 PF_Coq.Core.AxiomAudit <> YangMills constr
+R8130:8140 PF_Coq.Core.AxiomAudit <> Equivalence constr
+def 8265:8276 <> PF_axioms_YM
+R8280:8283 Corelib.Init.Datatypes <> list ind
+R8285:8291 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R8315:8318 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R8298:8314 PF_Coq.Core.AxiomAudit <> PF_axioms_YM_Core def
+R8319:8342 PF_Coq.Core.AxiomAudit <> PF_axioms_YM_Equivalence def
+def 8460:8477 <> PF_axioms_BSD_Core
+R8481:8484 Corelib.Init.Datatypes <> list ind
+R8486:8492 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R8497:8500 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8592:8595 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8673:8676 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8762:8765 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8845:8848 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8928:8931 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9004:9007 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9090:9093 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9180:9183 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9277:9280 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9364:9367 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9470:9473 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9538:9541 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9624:9627 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9721:9724 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9804:9807 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9894:9897 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9981:9984 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10047:10050 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10135:10138 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10251:10254 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10358:10361 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10460:10463 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10567:10570 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10653:10654 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8501:8509 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R8527:8529 PF_Coq.Core.AxiomAudit <> BSD constr
+R8531:8540 PF_Coq.Core.AxiomAudit <> Structural constr
+R8596:8604 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R8623:8625 PF_Coq.Core.AxiomAudit <> BSD constr
+R8627:8636 PF_Coq.Core.AxiomAudit <> Structural constr
+R8677:8685 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R8704:8706 PF_Coq.Core.AxiomAudit <> BSD constr
+R8708:8717 PF_Coq.Core.AxiomAudit <> Structural constr
+R8766:8774 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R8797:8799 PF_Coq.Core.AxiomAudit <> BSD constr
+R8801:8810 PF_Coq.Core.AxiomAudit <> Structural constr
+R8849:8857 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R8871:8873 PF_Coq.Core.AxiomAudit <> BSD constr
+R8875:8884 PF_Coq.Core.AxiomAudit <> Structural constr
+R8932:8940 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R8955:8957 PF_Coq.Core.AxiomAudit <> BSD constr
+R8959:8968 PF_Coq.Core.AxiomAudit <> Structural constr
+R9008:9016 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9042:9044 PF_Coq.Core.AxiomAudit <> BSD constr
+R9046:9055 PF_Coq.Core.AxiomAudit <> Structural constr
+R9094:9102 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9126:9128 PF_Coq.Core.AxiomAudit <> BSD constr
+R9130:9139 PF_Coq.Core.AxiomAudit <> Structural constr
+R9184:9192 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9208:9210 PF_Coq.Core.AxiomAudit <> BSD constr
+R9212:9221 PF_Coq.Core.AxiomAudit <> Structural constr
+R9281:9289 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9315:9317 PF_Coq.Core.AxiomAudit <> BSD constr
+R9319:9328 PF_Coq.Core.AxiomAudit <> Structural constr
+R9368:9376 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9400:9402 PF_Coq.Core.AxiomAudit <> BSD constr
+R9404:9413 PF_Coq.Core.AxiomAudit <> Structural constr
+R9474:9482 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9496:9498 PF_Coq.Core.AxiomAudit <> BSD constr
+R9500:9508 PF_Coq.Core.AxiomAudit <> Numerical constr
+R9542:9550 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9576:9578 PF_Coq.Core.AxiomAudit <> BSD constr
+R9580:9589 PF_Coq.Core.AxiomAudit <> Structural constr
+R9628:9636 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9659:9661 PF_Coq.Core.AxiomAudit <> BSD constr
+R9663:9672 PF_Coq.Core.AxiomAudit <> Structural constr
+R9725:9733 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9750:9752 PF_Coq.Core.AxiomAudit <> BSD constr
+R9754:9762 PF_Coq.Core.AxiomAudit <> Numerical constr
+R9808:9816 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9837:9839 PF_Coq.Core.AxiomAudit <> BSD constr
+R9841:9849 PF_Coq.Core.AxiomAudit <> Numerical constr
+R9898:9906 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R9931:9933 PF_Coq.Core.AxiomAudit <> BSD constr
+R9935:9944 PF_Coq.Core.AxiomAudit <> Structural constr
+R9985:9993 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10001:10003 PF_Coq.Core.AxiomAudit <> BSD constr
+R10005:10014 PF_Coq.Core.AxiomAudit <> Structural constr
+R10051:10059 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10080:10082 PF_Coq.Core.AxiomAudit <> BSD constr
+R10084:10093 PF_Coq.Core.AxiomAudit <> Structural constr
+R10139:10147 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10174:10176 PF_Coq.Core.AxiomAudit <> BSD constr
+R10178:10186 PF_Coq.Core.AxiomAudit <> Numerical constr
+R10255:10263 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10292:10294 PF_Coq.Core.AxiomAudit <> BSD constr
+R10296:10306 PF_Coq.Core.AxiomAudit <> Equivalence constr
+R10362:10370 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10408:10410 PF_Coq.Core.AxiomAudit <> BSD constr
+R10412:10421 PF_Coq.Core.AxiomAudit <> Structural constr
+R10464:10472 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10504:10506 PF_Coq.Core.AxiomAudit <> BSD constr
+R10508:10516 PF_Coq.Core.AxiomAudit <> Numerical constr
+R10571:10579 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10609:10611 PF_Coq.Core.AxiomAudit <> BSD constr
+R10613:10620 PF_Coq.Core.AxiomAudit <> Physical constr
+def 10709:10733 <> PF_axioms_BSD_Equivalence
+R10737:10740 Corelib.Init.Datatypes <> list ind
+R10742:10748 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R10753:10756 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10863:10866 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10973:10974 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10757:10765 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10800:10802 PF_Coq.Core.AxiomAudit <> BSD constr
+R10804:10814 PF_Coq.Core.AxiomAudit <> Equivalence constr
+R10867:10875 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R10910:10912 PF_Coq.Core.AxiomAudit <> BSD constr
+R10914:10924 PF_Coq.Core.AxiomAudit <> Equivalence constr
+def 11043:11055 <> PF_axioms_BSD
+R11059:11062 Corelib.Init.Datatypes <> list ind
+R11064:11070 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R11095:11098 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R11077:11094 PF_Coq.Core.AxiomAudit <> PF_axioms_BSD_Core def
+R11099:11123 PF_Coq.Core.AxiomAudit <> PF_axioms_BSD_Equivalence def
+def 11176:11193 <> PF_axioms_Interval
+R11197:11200 Corelib.Init.Datatypes <> list ind
+R11202:11208 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R11213:11216 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11310:11313 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11401:11404 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11501:11504 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11596:11597 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11217:11225 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R11242:11259 PF_Coq.Core.AxiomAudit <> IntervalArithmetic constr
+R11261:11269 PF_Coq.Core.AxiomAudit <> Numerical constr
+R11314:11322 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R11337:11354 PF_Coq.Core.AxiomAudit <> IntervalArithmetic constr
+R11356:11364 PF_Coq.Core.AxiomAudit <> Numerical constr
+R11405:11413 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R11435:11452 PF_Coq.Core.AxiomAudit <> IntervalArithmetic constr
+R11454:11462 PF_Coq.Core.AxiomAudit <> Numerical constr
+R11505:11513 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R11530:11547 PF_Coq.Core.AxiomAudit <> IntervalArithmetic constr
+R11549:11557 PF_Coq.Core.AxiomAudit <> Numerical constr
+def 11654:11676 <> PF_axioms_Consciousness
+R11680:11683 Corelib.Init.Datatypes <> list ind
+R11685:11691 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R11696:11699 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11790:11793 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11881:11884 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11972:11975 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12070:12071 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R11700:11708 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R11726:11738 PF_Coq.Core.AxiomAudit <> Consciousness constr
+R11740:11748 PF_Coq.Core.AxiomAudit <> Numerical constr
+R11794:11802 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R11819:11831 PF_Coq.Core.AxiomAudit <> Consciousness constr
+R11833:11840 PF_Coq.Core.AxiomAudit <> Physical constr
+R11885:11893 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R11910:11922 PF_Coq.Core.AxiomAudit <> Consciousness constr
+R11924:11931 PF_Coq.Core.AxiomAudit <> Physical constr
+R11976:11984 PF_Coq.Core.AxiomAudit <> mkPFAxiom constr
+R12004:12016 PF_Coq.Core.AxiomAudit <> Consciousness constr
+R12018:12025 PF_Coq.Core.AxiomAudit <> Physical constr
+def 12121:12133 <> all_PF_axioms
+R12137:12140 Corelib.Init.Datatypes <> list ind
+R12142:12148 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R12172:12177 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12155:12171 PF_Coq.Core.AxiomAudit <> PF_axioms_P_vs_NP def
+R12190:12195 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12178:12189 PF_Coq.Core.AxiomAudit <> PF_axioms_RH def
+R12208:12213 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12196:12207 PF_Coq.Core.AxiomAudit <> PF_axioms_YM def
+R12227:12232 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12214:12226 PF_Coq.Core.AxiomAudit <> PF_axioms_BSD def
+R12251:12256 Corelib.Init.Datatypes <> ::list_scope:x_'++'_x not
+R12233:12250 PF_Coq.Core.AxiomAudit <> PF_axioms_Interval def
+R12257:12279 PF_Coq.Core.AxiomAudit <> PF_axioms_Consciousness def
+def 12318:12332 <> count_by_pillar
+R12339:12344 PF_Coq.Core.AxiomAudit <> Pillar ind
+binder 12335:12335 <> p:10
+R12349:12351 Corelib.Init.Datatypes <> nat ind
+R12358:12368 Stdlib.Lists.List <> length abbrev
+R12371:12381 Stdlib.Lists.List <> filter def
+R12691:12703 PF_Coq.Core.AxiomAudit <> all_PF_axioms def
+binder 12388:12388 <> a:11
+R12419:12419 PF_Coq.Core.AxiomAudit <> p:10 var
+R12403:12414 PF_Coq.Core.AxiomAudit <> axiom_pillar proj
+R12416:12416 PF_Coq.Core.AxiomAudit <> a:11 var
+R12432:12438 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R12441:12447 PF_Coq.Core.AxiomAudit <> P_vs_NP constr
+R12452:12455 Corelib.Init.Datatypes <> true constr
+R12463:12479 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R12482:12498 PF_Coq.Core.AxiomAudit <> RiemannHypothesis constr
+R12503:12506 Corelib.Init.Datatypes <> true constr
+R12514:12522 PF_Coq.Core.AxiomAudit <> YangMills constr
+R12525:12533 PF_Coq.Core.AxiomAudit <> YangMills constr
+R12538:12541 Corelib.Init.Datatypes <> true constr
+R12549:12551 PF_Coq.Core.AxiomAudit <> BSD constr
+R12554:12556 PF_Coq.Core.AxiomAudit <> BSD constr
+R12561:12564 Corelib.Init.Datatypes <> true constr
+R12572:12584 PF_Coq.Core.AxiomAudit <> Consciousness constr
+R12587:12599 PF_Coq.Core.AxiomAudit <> Consciousness constr
+R12604:12607 Corelib.Init.Datatypes <> true constr
+R12615:12632 PF_Coq.Core.AxiomAudit <> IntervalArithmetic constr
+R12635:12652 PF_Coq.Core.AxiomAudit <> IntervalArithmetic constr
+R12657:12660 Corelib.Init.Datatypes <> true constr
+R12676:12680 Corelib.Init.Datatypes <> false constr
+def 12719:12731 <> count_by_kind
+R12738:12746 PF_Coq.Core.AxiomAudit <> AxiomKind ind
+binder 12734:12734 <> k:13
+R12751:12753 Corelib.Init.Datatypes <> nat ind
+R12760:12770 Stdlib.Lists.List <> length abbrev
+R12773:12783 Stdlib.Lists.List <> filter def
+R12999:13011 PF_Coq.Core.AxiomAudit <> all_PF_axioms def
+binder 12790:12790 <> a:14
+R12819:12819 PF_Coq.Core.AxiomAudit <> k:13 var
+R12805:12814 PF_Coq.Core.AxiomAudit <> axiom_kind proj
+R12816:12816 PF_Coq.Core.AxiomAudit <> a:14 var
+R12832:12840 PF_Coq.Core.AxiomAudit <> Numerical constr
+R12843:12851 PF_Coq.Core.AxiomAudit <> Numerical constr
+R12856:12859 Corelib.Init.Datatypes <> true constr
+R12867:12874 PF_Coq.Core.AxiomAudit <> Physical constr
+R12877:12884 PF_Coq.Core.AxiomAudit <> Physical constr
+R12889:12892 Corelib.Init.Datatypes <> true constr
+R12900:12909 PF_Coq.Core.AxiomAudit <> Structural constr
+R12912:12921 PF_Coq.Core.AxiomAudit <> Structural constr
+R12926:12929 Corelib.Init.Datatypes <> true constr
+R12937:12947 PF_Coq.Core.AxiomAudit <> Equivalence constr
+R12950:12960 PF_Coq.Core.AxiomAudit <> Equivalence constr
+R12965:12968 Corelib.Init.Datatypes <> true constr
+R12984:12988 Corelib.Init.Datatypes <> false constr
+def 13345:13358 <> coq_axiom_free
+R13370:13373 Corelib.Init.Logic <> True ind
+prf 13385:13409 <> this_module_is_axiom_free
+R13413:13426 PF_Coq.Core.AxiomAudit <> coq_axiom_free def
+R13442:13442 Corelib.Init.Logic <> I constr
+R13442:13442 Corelib.Init.Logic <> I constr

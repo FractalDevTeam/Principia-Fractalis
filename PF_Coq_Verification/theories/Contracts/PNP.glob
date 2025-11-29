@@ -1,0 +1,163 @@
+DIGEST dd961b5e7dab84e1981b4fb1328b4c12
+FPF_Coq.Contracts.PNP
+R234:248 Stdlib.Reals.Reals <> <> lib
+R266:283 Stdlib.Strings.String <> <> lib
+R301:317 Stdlib.micromega.Lra <> <> lib
+R335:356 PF_Coq.Core.AxiomAudit <> <> lib
+R374:389 PF_Coq.Core.Zeta <> <> lib
+R407:427 PF_Coq.Core.Resonance <> <> lib
+R445:467 PF_Coq.Core.SpectralGap <> <> lib
+rec 536:546 <> PNPContract
+proj 603:614 <> gap_positive
+proj 674:686 <> gap_certified
+proj 793:816 <> complexity_defs_standard
+proj 850:868 <> uses_prime_encoding
+proj 880:899 <> uses_interval_bounds
+proj 911:936 <> uses_spectral_discreteness
+R633:635 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R618:632 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R727:729 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R690:693 Stdlib.Reals.Rbasic_fun <> Rabs def
+R711:713 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R696:710 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+def 1008:1022 <> PNP_contract_PF
+R1026:1036 PF_Coq.Contracts.PNP <> PNPContract rec
+R1046:1057 PF_Coq.Contracts.PNP <> gap_positive proj
+R1046:1057 PF_Coq.Contracts.PNP <> gap_positive proj
+R1046:1057 PF_Coq.Contracts.PNP <> gap_positive proj
+R1087:1099 PF_Coq.Contracts.PNP <> gap_certified proj
+R1087:1099 PF_Coq.Contracts.PNP <> gap_certified proj
+R1126:1149 PF_Coq.Contracts.PNP <> complexity_defs_standard proj
+R1126:1149 PF_Coq.Contracts.PNP <> complexity_defs_standard proj
+R1162:1180 PF_Coq.Contracts.PNP <> uses_prime_encoding proj
+R1162:1180 PF_Coq.Contracts.PNP <> uses_prime_encoding proj
+R1193:1212 PF_Coq.Contracts.PNP <> uses_interval_bounds proj
+R1193:1212 PF_Coq.Contracts.PNP <> uses_interval_bounds proj
+R1225:1250 PF_Coq.Contracts.PNP <> uses_spectral_discreteness proj
+R1225:1250 PF_Coq.Contracts.PNP <> uses_spectral_discreteness proj
+R1062:1082 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R1104:1121 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
+R1154:1157 Corelib.Init.Logic <> True ind
+R1185:1188 Corelib.Init.Logic <> True ind
+R1217:1220 Corelib.Init.Logic <> True ind
+R1255:1258 Corelib.Init.Logic <> True ind
+def 1352:1365 <> TuringEncoding
+R1370:1372 Corelib.Init.Datatypes <> nat ind
+def 1407:1423 <> is_valid_encoding
+R1430:1432 Corelib.Init.Datatypes <> nat ind
+binder 1426:1426 <> n:8
+R1449:1451 Corelib.Init.Peano <> ::nat_scope:x_'>'_x not
+R1448:1448 PF_Coq.Contracts.PNP <> n:8 var
+ax 1549:1566 <> encoding_injective
+R1587:1600 PF_Coq.Contracts.PNP <> TuringEncoding def
+binder 1579:1580 <> M1:9
+binder 1582:1583 <> M2:10
+R1625:1630 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1605:1621 PF_Coq.Contracts.PNP <> is_valid_encoding def
+R1623:1624 PF_Coq.Contracts.PNP <> M1:9 var
+R1651:1656 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1631:1647 PF_Coq.Contracts.PNP <> is_valid_encoding def
+R1649:1650 PF_Coq.Contracts.PNP <> M2:10 var
+R1664:1667 Corelib.Init.Logic <> ::type_scope:x_'\/'_x not
+R1659:1661 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R1657:1658 PF_Coq.Contracts.PNP <> M1:9 var
+R1662:1663 PF_Coq.Contracts.PNP <> M2:10 var
+R1670:1673 Corelib.Init.Logic <> ::type_scope:x_'<>'_x not
+R1668:1669 PF_Coq.Contracts.PNP <> M1:9 var
+R1674:1675 PF_Coq.Contracts.PNP <> M2:10 var
+def 1830:1839 <> P_spectral
+R1846:1859 PF_Coq.Contracts.PNP <> TuringEncoding def
+binder 1842:1842 <> M:13
+R1893:1898 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R1874:1890 PF_Coq.Contracts.PNP <> is_valid_encoding def
+R1892:1892 PF_Coq.Contracts.PNP <> M:13 var
+R1899:1902 Corelib.Init.Logic <> True ind
+def 2005:2015 <> NP_spectral
+R2022:2035 PF_Coq.Contracts.PNP <> TuringEncoding def
+binder 2018:2018 <> M:14
+R2069:2074 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R2050:2066 PF_Coq.Contracts.PNP <> is_valid_encoding def
+R2068:2068 PF_Coq.Contracts.PNP <> M:14 var
+R2075:2078 Corelib.Init.Logic <> True ind
+ax 2182:2192 <> P_subset_NP
+binder 2205:2205 <> M:15
+R2220:2223 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2208:2217 PF_Coq.Contracts.PNP <> P_spectral def
+R2219:2219 PF_Coq.Contracts.PNP <> M:15 var
+R2224:2234 PF_Coq.Contracts.PNP <> NP_spectral def
+R2236:2236 PF_Coq.Contracts.PNP <> M:15 var
+prf 2341:2376 <> spectral_separation_implies_P_neq_NP
+R2401:2406 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2397:2399 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2382:2396 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2407:2409 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R2450:2450 Corelib.Init.Logic <> ::type_scope:'~'_x not
+binder 2417:2417 <> M:18
+R2432:2436 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R2420:2429 PF_Coq.Contracts.PNP <> P_spectral def
+R2431:2431 PF_Coq.Contracts.PNP <> M:18 var
+R2437:2447 PF_Coq.Contracts.PNP <> NP_spectral def
+R2449:2449 PF_Coq.Contracts.PNP <> M:18 var
+prf 2782:2798 <> P_neq_NP_from_gap
+R2804:2806 Corelib.Init.Logic <> ::type_scope:'~'_x not
+R2847:2847 Corelib.Init.Logic <> ::type_scope:'~'_x not
+binder 2814:2814 <> M:19
+R2829:2833 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R2817:2826 PF_Coq.Contracts.PNP <> P_spectral def
+R2828:2828 PF_Coq.Contracts.PNP <> M:19 var
+R2834:2844 PF_Coq.Contracts.PNP <> NP_spectral def
+R2846:2846 PF_Coq.Contracts.PNP <> M:19 var
+R2865:2900 PF_Coq.Contracts.PNP <> spectral_separation_implies_P_neq_NP prfax
+R2865:2900 PF_Coq.Contracts.PNP <> spectral_separation_implies_P_neq_NP prfax
+R2911:2931 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R2911:2931 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+def 3024:3048 <> certificate_trivial_for_P
+binder 3069:3069 <> M:20
+R3086:3091 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3074:3083 PF_Coq.Contracts.PNP <> P_spectral def
+R3085:3085 PF_Coq.Contracts.PNP <> M:20 var
+R3092:3095 Corelib.Init.Logic <> True ind
+def 3209:3236 <> certificate_essential_for_NP
+R3250:3253 Corelib.Init.Logic <> True ind
+def 3364:3373 <> PNP_axioms
+R3377:3380 Corelib.Init.Datatypes <> list ind
+R3382:3388 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R3393:3409 PF_Coq.Core.AxiomAudit <> PF_axioms_P_vs_NP def
+def 3424:3438 <> PNP_axiom_count
+R3442:3444 Corelib.Init.Datatypes <> nat ind
+R3449:3459 Stdlib.Lists.List <> length abbrev
+R3461:3470 PF_Coq.Contracts.PNP <> PNP_axioms def
+def 3506:3530 <> PNP_numerical_axiom_count
+R3534:3536 Corelib.Init.Datatypes <> nat ind
+def 3576:3601 <> PNP_structural_axiom_count
+R3605:3607 Corelib.Init.Datatypes <> nat ind
+def 3905:3933 <> numerical_certification_chain
+R3972:3977 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3958:3960 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3947:3957 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R4003:4008 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3989:3991 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3978:3988 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R4035:4040 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R4021:4023 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4009:4020 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R4067:4072 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R4053:4055 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4041:4052 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R4088:4090 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4073:4087 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+prf 4103:4126 <> numerical_chain_complete
+R4130:4158 PF_Coq.Contracts.PNP <> numerical_certification_chain def
+R4177:4205 PF_Coq.Contracts.PNP <> numerical_certification_chain def
+R4234:4247 PF_Coq.Core.SpectralGap <> lambda0P_lower prfax
+R4234:4247 PF_Coq.Core.SpectralGap <> lambda0P_lower prfax
+R4260:4273 PF_Coq.Core.SpectralGap <> lambda0P_upper prfax
+R4260:4273 PF_Coq.Core.SpectralGap <> lambda0P_upper prfax
+R4286:4300 PF_Coq.Core.SpectralGap <> lambda0NP_lower prfax
+R4286:4300 PF_Coq.Core.SpectralGap <> lambda0NP_lower prfax
+R4313:4327 PF_Coq.Core.SpectralGap <> lambda0NP_upper prfax
+R4313:4327 PF_Coq.Core.SpectralGap <> lambda0NP_upper prfax
+R4340:4360 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R4340:4360 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+def 4407:4425 <> PNP_chapter_summary
+R4429:4434 Stdlib.Strings.String <> string ind

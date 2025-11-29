@@ -1,0 +1,295 @@
+DIGEST 3525784e18dd1f7ca300b554ae89b18f
+FPF_Coq.Contracts.YM
+R237:251 Stdlib.Reals.Reals <> <> lib
+R269:286 Stdlib.Strings.String <> <> lib
+R304:320 Stdlib.micromega.Lra <> <> lib
+R338:351 Stdlib.Lists.List <> <> lib
+R361:373 Stdlib.Lists.List ListNotations <> mod
+R391:412 PF_Coq.Core.AxiomAudit <> <> lib
+R430:450 PF_Coq.Core.Resonance <> <> lib
+rec 522:531 <> YMContract
+proj 594:610 <> mass_gap_positive
+proj 647:660 <> mass_gap_value
+proj 697:707 <> confinement
+proj 746:760 <> uses_GaugeGroup
+proj 772:789 <> uses_FieldStrength
+proj 801:814 <> uses_YM_action
+proj 826:847 <> uses_mass_gap_property
+proj 859:880 <> uses_fractal_resonance
+proj 892:910 <> uses_omega_critical
+proj 922:936 <> uses_YM_measure
+proj 948:963 <> uses_Wilson_loop
+proj 975:987 <> uses_area_law
+proj 1042:1065 <> uses_mass_gap_implies_YM
+proj 1077:1100 <> uses_YM_implies_mass_gap
+R664:664 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1154:1164 <> mass_gap_YM
+R1168:1168 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1203:1214 <> glueball_0pp
+R1218:1218 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1262:1273 <> glueball_2pp
+R1277:1277 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1321:1334 <> string_tension
+R1338:1338 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1352:1354 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1346:1348 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+prf 1419:1439 <> mass_gap_positive_thm
+R1454:1456 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1443:1453 PF_Coq.Contracts.YM <> mass_gap_YM def
+R1474:1484 PF_Coq.Contracts.YM <> mass_gap_YM def
+ax 1571:1580 <> GaugeGroup
+ax 1627:1628 <> SU
+R1635:1638 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1632:1634 Corelib.Init.Datatypes <> nat ind
+R1639:1648 PF_Coq.Contracts.YM <> GaugeGroup defax
+def 1684:1686 <> SU3
+R1690:1699 PF_Coq.Contracts.YM <> GaugeGroup defax
+R1704:1705 PF_Coq.Contracts.YM <> SU defax
+ax 1749:1763 <> GaugeConnection
+ax 1818:1830 <> FieldStrength
+ax 1915:1932 <> standard_YM_action
+R1949:1952 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R1936:1948 PF_Coq.Contracts.YM <> FieldStrength defax
+R1953:1953 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 2026:2042 <> fractal_YM_action
+R2059:2062 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2046:2058 PF_Coq.Contracts.YM <> FieldStrength defax
+R2064:2067 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2063:2063 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2068:2068 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2168:2175 <> alpha_YM
+R2179:2179 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2238:2251 <> R_f_at_alpha_2
+R2265:2272 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2282:2284 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2281:2281 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2273:2277 <> R_val:28
+R2290:2292 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2285:2289 PF_Coq.Contracts.YM <> R_val:28 var
+ax 2412:2425 <> omega_critical
+R2429:2429 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 2496:2517 <> omega_critical_is_zero
+R2523:2526 Corelib.Init.Logic <> True ind
+ax 2633:2660 <> omega_critical_is_first_zero
+R2682:2682 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2674:2678 <> omega:33
+R2695:2698 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2687:2689 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2690:2694 PF_Coq.Contracts.YM <> omega:33 var
+R2721:2728 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2704:2706 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2699:2703 PF_Coq.Contracts.YM <> omega:33 var
+R2707:2720 PF_Coq.Contracts.YM <> omega_critical defax
+R2729:2732 Corelib.Init.Logic <> True ind
+ax 2827:2860 <> omega_critical_numerical_precision
+R2882:2884 Corelib.Init.Datatypes <> nat ind
+binder 2874:2878 <> N_max:36
+R2909:2916 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R2894:2896 Corelib.Init.Peano <> ::nat_scope:x_'>'_x not
+R2889:2893 PF_Coq.Contracts.YM <> N_max:36 var
+R2917:2920 Corelib.Init.Logic <> True ind
+ax 3077:3100 <> mass_gap_numerical_value
+R3126:3129 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3112:3114 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3115:3125 PF_Coq.Contracts.YM <> mass_gap_YM def
+R3141:3143 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3130:3140 PF_Coq.Contracts.YM <> mass_gap_YM def
+ax 3238:3249 <> NuclearSpace
+ax 3309:3325 <> gauge_field_space
+R3329:3340 PF_Coq.Contracts.YM <> NuclearSpace defax
+ax 3394:3407 <> minlos_theorem
+R3413:3416 Corelib.Init.Logic <> True ind
+ax 3507:3523 <> YM_measure_exists
+R3529:3532 Corelib.Init.Logic <> True ind
+ax 3651:3660 <> WilsonLoop
+ax 3718:3740 <> wilson_loop_expectation
+R3754:3757 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R3744:3753 PF_Coq.Contracts.YM <> WilsonLoop defax
+R3758:3758 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 3807:3826 <> string_tension_value
+R3867:3870 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R3843:3845 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3832:3832 Stdlib.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R3840:3841 Stdlib.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R3836:3838 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3860:3862 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3846:3859 PF_Coq.Contracts.YM <> string_tension def
+R3892:3894 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3885:3887 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3871:3884 PF_Coq.Contracts.YM <> string_tension def
+R3895:3895 Stdlib.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R3903:3904 Stdlib.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R3899:3901 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+ax 3951:3970 <> area_law_confinement
+R3988:3997 PF_Coq.Contracts.YM <> WilsonLoop defax
+binder 3984:3984 <> W:55
+R4008:4008 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4001:4004 <> area:56
+R4024:4027 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4020:4022 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4016:4019 PF_Coq.Contracts.YM <> area:56 var
+R4053:4055 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4028:4050 PF_Coq.Contracts.YM <> wilson_loop_expectation defax
+R4052:4052 PF_Coq.Contracts.YM <> W:55 var
+R4056:4058 Stdlib.Reals.Rtrigo_def <> exp def
+R4081:4083 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4074:4076 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4061:4062 Stdlib.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R4063:4073 PF_Coq.Contracts.YM <> mass_gap_YM def
+R4084:4087 PF_Coq.Contracts.YM <> area:56 var
+def 4136:4158 <> confinement_from_wilson
+R4184:4193 PF_Coq.Contracts.YM <> WilsonLoop defax
+binder 4180:4180 <> W:59
+R4204:4204 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4197:4200 <> area:60
+R4216:4219 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R4212:4214 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4208:4211 PF_Coq.Contracts.YM <> area:60 var
+R4245:4247 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4220:4242 PF_Coq.Contracts.YM <> wilson_loop_expectation defax
+R4244:4244 PF_Coq.Contracts.YM <> W:59 var
+rec 4299:4314 <> YangMillsProblem
+proj 4335:4345 <> gauge_group
+proj 4363:4374 <> has_mass_gap
+R4349:4358 PF_Coq.Contracts.YM <> GaugeGroup defax
+ax 4430:4446 <> mass_gap_property
+R4465:4480 PF_Coq.Contracts.YM <> YangMillsProblem rec
+binder 4460:4461 <> YM:64
+R4505:4509 Corelib.Init.Logic <> ::type_scope:x_'<->'_x not
+R4492:4503 PF_Coq.Contracts.YM <> has_mass_gap proj
+R4488:4489 PF_Coq.Contracts.YM <> YM:64 var
+R4510:4517 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4527:4529 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4526:4526 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4518:4522 <> Delta:65
+R4535:4537 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4530:4534 PF_Coq.Contracts.YM <> Delta:65 var
+def 4666:4691 <> consciousness_threshold_YM
+R4695:4695 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 4712:4735 <> YM_perfect_consciousness
+R4767:4769 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R4741:4766 PF_Coq.Contracts.YM <> consciousness_threshold_YM def
+ax 4825:4851 <> confinement_via_measurement
+R4857:4860 Corelib.Init.Logic <> True ind
+def 5028:5045 <> YM_MassGapSolution
+R5059:5066 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5076:5078 Corelib.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5075:5075 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5067:5071 <> Delta:72
+R5088:5091 Corelib.Init.Logic <> ::type_scope:x_'/\'_x not
+R5084:5086 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5079:5083 PF_Coq.Contracts.YM <> Delta:72 var
+R5097:5099 Corelib.Init.Logic <> ::type_scope:x_'='_x not
+R5092:5096 PF_Coq.Contracts.YM <> Delta:72 var
+R5100:5110 PF_Coq.Contracts.YM <> mass_gap_YM def
+ax 5169:5196 <> mass_gap_implies_YM_solution
+R5220:5223 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R5202:5219 PF_Coq.Contracts.YM <> YM_MassGapSolution def
+R5224:5227 Corelib.Init.Logic <> True ind
+ax 5321:5348 <> YM_solution_implies_mass_gap
+R5358:5361 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R5354:5357 Corelib.Init.Logic <> True ind
+R5362:5379 PF_Coq.Contracts.YM <> YM_MassGapSolution def
+def 5426:5439 <> YM_contract_PF
+R5443:5452 PF_Coq.Contracts.YM <> YMContract rec
+R5462:5478 PF_Coq.Contracts.YM <> mass_gap_positive proj
+R5462:5478 PF_Coq.Contracts.YM <> mass_gap_positive proj
+R5462:5478 PF_Coq.Contracts.YM <> mass_gap_positive proj
+R5502:5515 PF_Coq.Contracts.YM <> mass_gap_value proj
+R5502:5515 PF_Coq.Contracts.YM <> mass_gap_value proj
+R5535:5545 PF_Coq.Contracts.YM <> confinement proj
+R5535:5545 PF_Coq.Contracts.YM <> confinement proj
+R5577:5591 PF_Coq.Contracts.YM <> uses_GaugeGroup proj
+R5577:5591 PF_Coq.Contracts.YM <> uses_GaugeGroup proj
+R5604:5621 PF_Coq.Contracts.YM <> uses_FieldStrength proj
+R5604:5621 PF_Coq.Contracts.YM <> uses_FieldStrength proj
+R5634:5647 PF_Coq.Contracts.YM <> uses_YM_action proj
+R5634:5647 PF_Coq.Contracts.YM <> uses_YM_action proj
+R5660:5681 PF_Coq.Contracts.YM <> uses_mass_gap_property proj
+R5660:5681 PF_Coq.Contracts.YM <> uses_mass_gap_property proj
+R5694:5715 PF_Coq.Contracts.YM <> uses_fractal_resonance proj
+R5694:5715 PF_Coq.Contracts.YM <> uses_fractal_resonance proj
+R5728:5746 PF_Coq.Contracts.YM <> uses_omega_critical proj
+R5728:5746 PF_Coq.Contracts.YM <> uses_omega_critical proj
+R5759:5773 PF_Coq.Contracts.YM <> uses_YM_measure proj
+R5759:5773 PF_Coq.Contracts.YM <> uses_YM_measure proj
+R5786:5801 PF_Coq.Contracts.YM <> uses_Wilson_loop proj
+R5786:5801 PF_Coq.Contracts.YM <> uses_Wilson_loop proj
+R5814:5826 PF_Coq.Contracts.YM <> uses_area_law proj
+R5814:5826 PF_Coq.Contracts.YM <> uses_area_law proj
+R5839:5862 PF_Coq.Contracts.YM <> uses_mass_gap_implies_YM proj
+R5839:5862 PF_Coq.Contracts.YM <> uses_mass_gap_implies_YM proj
+R5875:5898 PF_Coq.Contracts.YM <> uses_YM_implies_mass_gap proj
+R5875:5898 PF_Coq.Contracts.YM <> uses_YM_implies_mass_gap proj
+R5494:5496 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5483:5493 PF_Coq.Contracts.YM <> mass_gap_YM def
+R5520:5530 PF_Coq.Contracts.YM <> mass_gap_YM def
+R5550:5572 PF_Coq.Contracts.YM <> confinement_from_wilson def
+R5596:5599 Corelib.Init.Logic <> True ind
+R5626:5629 Corelib.Init.Logic <> True ind
+R5652:5655 Corelib.Init.Logic <> True ind
+R5686:5689 Corelib.Init.Logic <> True ind
+R5720:5723 Corelib.Init.Logic <> True ind
+R5751:5754 Corelib.Init.Logic <> True ind
+R5778:5781 Corelib.Init.Logic <> True ind
+R5806:5809 Corelib.Init.Logic <> True ind
+R5831:5834 Corelib.Init.Logic <> True ind
+R5867:5870 Corelib.Init.Logic <> True ind
+R5903:5906 Corelib.Init.Logic <> True ind
+rec 5949:5956 <> Glueball
+proj 5976:5987 <> glueball_JPC
+proj 6041:6053 <> glueball_mass
+R6000:6002 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5994:5996 Corelib.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5991:5993 Corelib.Init.Datatypes <> nat ind
+R5997:5999 Corelib.Init.Datatypes <> nat ind
+R6003:6005 Corelib.Init.Datatypes <> nat ind
+R6057:6057 Stdlib.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 6074:6090 <> glueball_spectrum
+R6094:6097 Corelib.Init.Datatypes <> list ind
+R6099:6106 PF_Coq.Contracts.YM <> Glueball rec
+R6111:6114 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6160:6174 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6220:6233 Stdlib.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6115:6124 PF_Coq.Contracts.YM <> mkGlueball constr
+R6126:6126 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6132:6133 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6139:6140 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6146:6146 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6148:6159 PF_Coq.Contracts.YM <> glueball_0pp def
+R6175:6184 PF_Coq.Contracts.YM <> mkGlueball constr
+R6186:6186 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6192:6193 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6199:6200 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6206:6206 Corelib.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6208:6219 PF_Coq.Contracts.YM <> glueball_2pp def
+prf 6278:6294 <> glueballs_massive
+binder 6307:6307 <> g:80
+R6332:6335 Corelib.Init.Logic <> ::type_scope:x_'->'_x not
+R6310:6311 Stdlib.Lists.List <> In def
+R6315:6331 PF_Coq.Contracts.YM <> glueball_spectrum def
+R6313:6313 PF_Coq.Contracts.YM <> g:80 var
+R6351:6353 Stdlib.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6336:6348 PF_Coq.Contracts.YM <> glueball_mass proj
+R6350:6350 PF_Coq.Contracts.YM <> g:80 var
+R6388:6404 PF_Coq.Contracts.YM <> glueball_spectrum def
+R6488:6499 PF_Coq.Contracts.YM <> glueball_0pp def
+R6532:6543 PF_Coq.Contracts.YM <> glueball_2pp def
+def 6615:6623 <> YM_axioms
+R6627:6630 Corelib.Init.Datatypes <> list ind
+R6632:6638 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R6643:6654 PF_Coq.Core.AxiomAudit <> PF_axioms_YM def
+def 6669:6682 <> YM_axiom_count
+R6686:6688 Corelib.Init.Datatypes <> nat ind
+R6693:6703 Stdlib.Lists.List <> length abbrev
+R6705:6713 PF_Coq.Contracts.YM <> YM_axioms def
+def 6728:6746 <> YM_core_axiom_count
+R6750:6752 Corelib.Init.Datatypes <> nat ind
+R6757:6767 Stdlib.Lists.List <> length abbrev
+R6769:6785 PF_Coq.Core.AxiomAudit <> PF_axioms_YM_Core def
+def 6800:6825 <> YM_equivalence_axiom_count
+R6829:6831 Corelib.Init.Datatypes <> nat ind
+R6836:6846 Stdlib.Lists.List <> length abbrev
+R6848:6871 PF_Coq.Core.AxiomAudit <> PF_axioms_YM_Equivalence def
+def 6913:6930 <> YM_chapter_summary
+R6934:6939 Stdlib.Strings.String <> string ind
