@@ -1,11 +1,22 @@
 -Q theories PF_Coq
 
+# Core modules (order matters for dependencies)
 theories/Core/AxiomAudit.v
 theories/Core/Zeta.v
 theories/Core/Resonance.v
 theories/Core/SpectralGap.v
+theories/Core/TuringEncoding.v
+theories/Core/TransferOperator.v
+theories/Core/IntervalArithmetic.v
+theories/Core/P_NP_Proof.v
+
+# Contracts (Millennium Problems)
 theories/Contracts/RH.v
 theories/Contracts/PNP.v
 theories/Contracts/YM.v
 theories/Contracts/BSD.v
+theories/Contracts/Hodge.v
+theories/Contracts/NavierStokes.v
+
+# Main verification module
 theories/PF_Verification.v
