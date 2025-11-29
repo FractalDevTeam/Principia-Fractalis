@@ -99,27 +99,32 @@ Axiom spectral_P_NP_separation :
 
 (** ** Interval Arithmetic Foundation *)
 
-Record Interval := mkInterval {
-  lo : R;
-  hi : R;
-  interval_valid : lo <= hi
+(** Simple certified bound - for full interval arithmetic see IntervalArithmetic.v *)
+Record CertifiedBound := mkCertifiedBound {
+  bound_lo : R;
+  bound_hi : R;
+  bound_valid : bound_lo <= bound_hi
 }.
 
-Definition interval_contains (I : Interval) (x : R) : Prop :=
-  lo I <= x /\ x <= hi I.
+Definition bound_contains (B : CertifiedBound) (x : R) : Prop :=
+  bound_lo B <= x /\ x <= bound_hi B.
 
-(** Certified intervals for key values - CORRECTED to match Lean *)
-Definition lambda0P_interval : Interval.
+(** Certified bounds for key values - CORRECTED to match Lean *)
+Definition lambda0P_bound : CertifiedBound.
 Proof.
-  refine (mkInterval 0.222144146 0.222144147 _).
+  refine (mkCertifiedBound 0.222144146 0.222144147 _).
   lra.
 Defined.
 
-Definition lambda0NP_interval : Interval.
+Definition lambda0NP_bound : CertifiedBound.
 Proof.
-  refine (mkInterval 0.168176418 0.168176419 _).
+  refine (mkCertifiedBound 0.168176418 0.168176419 _).
   lra.
 Defined.
+
+(** Compatibility aliases *)
+Definition lambda0P_interval := lambda0P_bound.
+Definition lambda0NP_interval := lambda0NP_bound.
 
 (** ** Algebraic Definitions (matching Lean) *)
 
