@@ -43,8 +43,8 @@ Open Scope R_scope.
 
 Record PF_Verification_Status := mkVerificationStatus {
   (** Core theorems verified *)
-  spectral_gap_verified : PF_spectral_gap > 0;
-  P_neq_NP_verified : P_neq_NP_spectral;
+  spectral_gap_verified : SpectralGap.PF_spectral_gap > 0;
+  P_neq_NP_verified : SpectralGap.P_neq_NP_spectral;
   zeta_standard : PF_riemann_zeta = zetaSpec;
   resonance_standard : PF_fractal_resonance = fractalResonanceSpec;
 
@@ -93,9 +93,9 @@ Definition PF_verification_complete : PF_Verification_Status := {|
 
 Definition cross_system_consistent : Prop :=
   (* Spectral gap value matches - tightened to 1e-8 to match Lean *)
-  Rabs (PF_spectral_gap - 0.0539677287) < 1e-8 /\
+  Rabs (SpectralGap.PF_spectral_gap - 0.0539677287) < 1e-8 /\
   (* Gap is positive in both *)
-  PF_spectral_gap > 0 /\
+  SpectralGap.PF_spectral_gap > 0 /\
   (* Zeta aliasing is standard in both *)
   PF_riemann_zeta = zetaSpec /\
   (* Resonance function matches *)
@@ -179,11 +179,11 @@ Definition verification_status_ok : bool := true.
 Theorem all_checks_pass :
   verification_status_ok = true /\
   cross_system_consistent /\
-  PF_spectral_gap > 0.
+  SpectralGap.PF_spectral_gap > 0.
 Proof.
   split; [reflexivity |].
   split; [exact cross_system_consistency_verified |].
-  exact spectral_gap_positive.
+  exact SpectralGap.spectral_gap_positive.
 Qed.
 
 (** ** Pillar-Specific Counts *)

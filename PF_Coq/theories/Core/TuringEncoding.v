@@ -35,8 +35,12 @@ Record TMConfig := mkTMConfig {
 (** nthPrime 0 = 2, nthPrime 1 = 3, nthPrime 2 = 5, ... *)
 Parameter nthPrime : nat -> nat.
 
+(** Primality predicate for natural numbers *)
+Definition is_prime (n : nat) : Prop :=
+  (n >= 2)%nat /\ forall m, (1 < m < n)%nat -> ~ (Nat.divide m n).
+
 (** Properties of nthPrime (from Mathlib in Lean) *)
-Axiom nthPrime_is_prime : forall n, Nat.Prime (nthPrime n).
+Axiom nthPrime_is_prime : forall n, is_prime (nthPrime n).
 Axiom nthPrime_increasing : forall n m, (n < m)%nat -> (nthPrime n < nthPrime m)%nat.
 Axiom nthPrime_zero : nthPrime 0%nat = 2%nat.
 Axiom nthPrime_one : nthPrime 1%nat = 3%nat.
@@ -59,11 +63,11 @@ Parameter encodeConfig : TMConfig -> nat.
 (** Encoding specification *)
 Axiom encodeConfig_spec : forall (c : TMConfig),
   encodeConfig c =
-    Nat.pow 2 (tm_state c) *
-    Nat.pow 3 (tm_head c) *
-    fold_right (fun pair acc =>
-      Nat.pow (nthPrime (fst pair + 2)) (snd pair + 1) * acc
-    ) 1 (combine (seq 0 (length (tm_tape c))) (tm_tape c)).
+    (Nat.pow 2 (tm_state c) *
+     Nat.pow 3 (tm_head c) *
+     fold_right (fun pair acc =>
+       Nat.pow (nthPrime (fst pair + 2)) (snd pair + 1) * acc
+     ) 1 (combine (seq 0 (length (tm_tape c))) (tm_tape c)))%nat.
 
 (** ** Encoding Injectivity *)
 
@@ -89,12 +93,18 @@ Theorem encodeConfig_injective : forall c1 c2,
   encodeConfig c1 = encodeConfig c2 -> c1 = c2.
 Proof.
   intros c1 c2 Heq.
-  destruct c1 as [s1 t1 h1].
-  destruct c2 as [s2 t2 h2].
-  assert (Hs : s1 = s2) by (apply encodeConfig_state_eq; exact Heq).
-  assert (Hh : h1 = h2) by (apply encodeConfig_head_eq; exact Heq).
-  assert (Ht : t1 = t2) by (apply encodeConfig_tape_eq; exact Heq).
-  subst. reflexivity.
+  destruct c1 as [s1 t1 h1] eqn:Hc1.
+  destruct c2 as [s2 t2 h2] eqn:Hc2.
+  f_equal.
+  - apply (encodeConfig_state_eq {| tm_state := s1; tm_tape := t1; tm_head := h1 |}
+                                  {| tm_state := s2; tm_tape := t2; tm_head := h2 |}).
+    exact Heq.
+  - apply (encodeConfig_tape_eq {| tm_state := s1; tm_tape := t1; tm_head := h1 |}
+                                  {| tm_state := s2; tm_tape := t2; tm_head := h2 |}).
+    exact Heq.
+  - apply (encodeConfig_head_eq {| tm_state := s1; tm_tape := t1; tm_head := h1 |}
+                                  {| tm_state := s2; tm_tape := t2; tm_head := h2 |}).
+    exact Heq.
 Qed.
 
 (** ** Complexity Class Definitions *)
@@ -174,7 +184,7 @@ Definition energyNP (c : TMConfig) : R :=
 
 (** Energy difference *)
 Theorem energy_difference : forall c,
-  encodeConfig c > 0%nat -> energyNP c > energyP c.
+  (encodeConfig c > 0)%nat -> energyNP c > energyP c.
 Proof.
   intros c Hpos.
   unfold energyNP, energyP.
@@ -190,7 +200,7 @@ Definition Certificate := list bool.
 
 (** Certificate is nontrivial if nonempty *)
 Definition cert_nontrivial (c : Certificate) : Prop :=
-  length c > 0%nat.
+  (length c > 0)%nat.
 
 (** Certificate energy *)
 Definition cert_energy (c : Certificate) : R :=
@@ -224,7 +234,7 @@ Qed.
 Theorem P_neq_NP_from_frequency : P_neq_NP_def.
 Proof.
   apply frequency_separation_implies_P_neq_NP.
-  apply Rgt_not_eq.
+  apply Rlt_not_eq.
   exact alpha_separation.
 Qed.
 

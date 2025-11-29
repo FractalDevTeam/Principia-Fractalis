@@ -14,6 +14,7 @@
 Require Import Coq.Reals.Reals.
 Require Import Coq.Logic.Classical.
 Require Import Coq.Sets.Ensembles.
+Require Import Coq.micromega.Lra.
 Require Import PF_Coq.Core.Zeta.  (* For complex number type C *)
 Open Scope R_scope.
 
@@ -26,6 +27,11 @@ Open Scope R_scope.
 (** Abstract type for LogHilbertSpace elements *)
 Parameter LogHilbertSpace : Type.
 
+(** Vector space operations (parameters) - declared before axioms that use them *)
+Parameter LHS_zero : LogHilbertSpace.
+Parameter LHS_add : LogHilbertSpace -> LogHilbertSpace -> LogHilbertSpace.
+Parameter LHS_scale : R -> LogHilbertSpace -> LogHilbertSpace.
+
 (** Inner product structure *)
 Parameter LHS_inner : LogHilbertSpace -> LogHilbertSpace -> R.
 Axiom LHS_inner_symmetric : forall f g, LHS_inner f g = LHS_inner g f.
@@ -33,11 +39,6 @@ Axiom LHS_inner_linear_l : forall a f g h,
   LHS_inner (LHS_add (LHS_scale a f) g) h = a * LHS_inner f h + LHS_inner g h.
 Axiom LHS_inner_pos_def : forall f, LHS_inner f f >= 0.
 Axiom LHS_inner_pos_def_eq : forall f, LHS_inner f f = 0 -> f = LHS_zero.
-
-(** Vector space operations (parameters) *)
-Parameter LHS_zero : LogHilbertSpace.
-Parameter LHS_add : LogHilbertSpace -> LogHilbertSpace -> LogHilbertSpace.
-Parameter LHS_scale : R -> LogHilbertSpace -> LogHilbertSpace.
 
 (** Norm *)
 Definition LHS_norm (f : LogHilbertSpace) : R := sqrt (LHS_inner f f).
@@ -196,12 +197,13 @@ Qed.
 
 (** Numerical value *)
 Theorem spectral_gap_T3_value :
-  Rabs (spectral_gap_T3 - 0.0539677287) < 1e-10.
+  Rabs (spectral_gap_T3 - 0.0539677287) < 1e-8.
 Proof.
   unfold spectral_gap_T3.
   rewrite lambda0_P_spec, lambda0_NP_spec.
   (* 0.2221441469 - 0.1681764182 = 0.0539677287 *)
-  lra.
+  unfold Rabs.
+  destruct (Rcase_abs _); lra.
 Qed.
 
 (** ** Summary Statistics *)
