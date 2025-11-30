@@ -27,6 +27,7 @@ Require Import PF_Coq.Core.SpectralGap.
 Require Import PF_Coq.Core.RadixEconomy.
 Require Import PF_Coq.Core.ChernWeil.
 Require Import PF_Coq.Core.TuringEncoding.
+Require Import PF_Coq.Core.ComplexityTheory.
 Require Import PF_Coq.Core.TransferOperator.
 Require Import PF_Coq.Core.IntervalArithmetic.
 Require Import PF_Coq.Core.SpectralEmbedding.
@@ -179,8 +180,8 @@ Definition PF_certificate : VerificationCertificate := {|
   cert_system := "Coq";
   cert_version := "8.18+";
   cert_date := "2025-11-29";
-  cert_verified_theorems := 128;  (* +12 FractalOperators (phase factors, consciousness) *)
-  cert_axiom_count := 161;        (* +1 p_eq_np_spectrum_collapse *)
+  cert_verified_theorems := 134;  (* +6 ComplexityTheory (P⊆NP, poly bounds) *)
+  cert_axiom_count := 165;        (* +4 complexity theory axioms *)
   cert_pillars_covered := 6;      (* RH, P!=NP, YM, BSD, Hodge, NS *)
   cert_cross_validated := true
 |}.
@@ -236,7 +237,7 @@ Definition equivalences_verified : string :=
 (** ** Complete Module Statistics *)
 
 Definition core_module_stats : string :=
-  "CORE MODULES (19 total):
+  "CORE MODULES (20 total):
    - AxiomAudit.v: Axiom inventory and classification
    - Zeta.v: Riemann zeta function specification
    - Resonance.v: Fractal resonance functions
@@ -244,6 +245,7 @@ Definition core_module_stats : string :=
    - RadixEconomy.v: Radix economy and base-3 optimality
    - ChernWeil.v: Chern-Weil theory for gauge connections
    - TuringEncoding.v: TM configuration encoding
+   - ComplexityTheory.v: P and NP definitions, P⊆NP theorem
    - TransferOperator.v: T3 operator specification
    - IntervalArithmetic.v: Certified numerical bounds
    - SpectralEmbedding.v: SU(2)×U(1) gauge emergence
