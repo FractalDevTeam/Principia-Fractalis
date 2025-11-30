@@ -14,6 +14,7 @@ Require Import Coq.Arith.PeanoNat.
 Require Import Coq.Lists.List.
 Require Import Coq.micromega.Lia.
 Require Import Coq.micromega.Lra.
+Require Import PF_Coq.Core.IntervalArithmetic.
 Import ListNotations.
 Open Scope R_scope.
 
@@ -163,14 +164,21 @@ Definition alpha_NP : R := phi + 1/4.
 Theorem alpha_separation : alpha_NP > alpha_P.
 Proof.
   unfold alpha_NP, alpha_P, phi, sqrt2.
-  (* phi + 1/4 = (1 + sqrt(5))/2 + 1/4 ≈ 1.868
-     sqrt(2) ≈ 1.414
-     1.868 > 1.414 verified by interval arithmetic *)
-  (* ADMITTED: Defers to certified interval bounds *)
-  (* Could be completed with: Require Import IntervalArithmetic.
-     apply Rlt_trans with 1.5. apply alpha_separation_certified. lra. *)
-  admit.
-Admitted.
+  (* Chain: sqrt 2 <= sqrt2_hi < alpha_NP_lo <= phi_exact + 1/4 *)
+  apply Rle_lt_trans with sqrt2_hi.
+  - (* sqrt 2 <= sqrt2_hi *)
+    destruct sqrt2_in_interval as [_ Hhi].
+    exact Hhi.
+  - (* sqrt2_hi < phi_exact + 1/4 *)
+    apply Rlt_le_trans with alpha_NP_lo.
+    + (* sqrt2_hi < alpha_NP_lo *)
+      exact alpha_separation_certified.
+    + (* alpha_NP_lo <= phi_exact + 1/4 *)
+      unfold alpha_NP_lo.
+      destruct phi_in_interval as [Hlo _].
+      unfold phi_exact in Hlo.
+      lra.
+Qed.
 
 (** ** Energy Functionals *)
 
