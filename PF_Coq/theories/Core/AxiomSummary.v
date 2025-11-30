@@ -199,18 +199,18 @@ Definition referee_checklist : string :=
 
 (** Verify numerical consistency across modules *)
 
-(** SpectralGap and TransferOperator use same lambda values *)
+(** SpectralGap and TransferOperator use same lambda values - 15 decimal precision *)
 Theorem lambda0_P_consistent :
-  SpectralGap.PF_lambda0P = 0.2221441469.
+  SpectralGap.PF_lambda0P = 0.222144146907918.
 Proof. reflexivity. Qed.
 
 Theorem lambda0_NP_consistent :
-  SpectralGap.PF_lambda0NP = 0.1681764182.
+  SpectralGap.PF_lambda0NP = 0.168176418213693.
 Proof. reflexivity. Qed.
 
 (** Gap value is consistent *)
 Theorem gap_value_consistent :
-  SpectralGap.PF_spectral_gap = 0.2221441469 - 0.1681764182.
+  SpectralGap.PF_spectral_gap = 0.222144146907918 - 0.168176418213693.
 Proof.
   unfold SpectralGap.PF_spectral_gap, SpectralGap.PF_lambda0P, SpectralGap.PF_lambda0NP.
   reflexivity.

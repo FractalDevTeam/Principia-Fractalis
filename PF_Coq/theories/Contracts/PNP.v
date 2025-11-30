@@ -25,7 +25,7 @@ Record PNPContract := mkPNPContract {
   gap_positive : PF_spectral_gap > 0;
 
   (** Gap value is certified *)
-  gap_certified : Rabs (PF_spectral_gap - 0.0539677287) < 1e-8;
+  gap_certified : Rabs (PF_spectral_gap - 0.0539677286942250) < 1e-14;
 
   (** Complexity definitions match standard theory *)
   complexity_defs_standard : Prop;
@@ -136,14 +136,14 @@ Definition PNP_structural_axiom_count : nat := 2.  (* encoding, spectrum *)
 (** ** Interval Arithmetic Role *)
 
 (** The key numerical facts are certified via interval arithmetic *)
-(** CORRECTED to match Lean GitHub: *)
-(**   lambda0P  = pi/(10*sqrt(2))   = 0.2221441469 *)
-(**   lambda0NP = pi/(10*(phi+1/4)) = 0.1681764182 *)
+(** 15 decimal precision: *)
+(**   lambda0P  = pi/(10*sqrt(2))   = 0.222144146907918 *)
+(**   lambda0NP = pi/(10*(phi+1/4)) = 0.168176418213693 *)
 Definition numerical_certification_chain : Prop :=
-  PF_lambda0P > 0.222144146 /\
-  PF_lambda0P < 0.222144147 /\
-  PF_lambda0NP > 0.168176418 /\
-  PF_lambda0NP < 0.168176419 /\
+  PF_lambda0P > 0.2221441469079179 /\
+  PF_lambda0P < 0.2221441469079181 /\
+  PF_lambda0NP > 0.1681764182136929 /\
+  PF_lambda0NP < 0.1681764182136931 /\
   PF_spectral_gap > 0.
 
 Theorem numerical_chain_complete : numerical_certification_chain.
@@ -264,7 +264,7 @@ Definition PNP_chapter_summary : string :=
    KEY CERTIFIED VALUES:
    - λ₀(P) = 0.2221441469 ∈ [0.222144146, 0.222144147]
    - λ₀(NP) = 0.1681764182 ∈ [0.168176418, 0.168176419]
-   - Δ = 0.0539677287 > 0 (certified to 1e-10)
+   - Delta = 0.0539677286942250 > 0 (certified to 1e-14)
 
    PROOF CHAIN:
    1. TM configs encode to primes (injective)

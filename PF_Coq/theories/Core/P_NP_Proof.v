@@ -69,9 +69,9 @@ Proof.
   lra.
 Qed.
 
-(** Gap numerical value *)
+(** Gap numerical value - 15 decimal precision *)
 Theorem PF_spectral_gap_value :
-  Rabs (PF_spectral_gap - 0.0539677287) < 1e-8.
+  Rabs (PF_spectral_gap - 0.0539677286942250) < 1e-14.
 Proof.
   unfold PF_spectral_gap.
   rewrite lambda0_P_spec, lambda0_NP_spec.

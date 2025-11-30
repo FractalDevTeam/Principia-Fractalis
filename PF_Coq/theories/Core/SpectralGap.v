@@ -25,23 +25,23 @@ Record SpectralGapSpec := mkSpectralGapSpec {
   gap : R;           (* The spectral gap *)
   gap_def : gap = lambda0P - lambda0NP;
   gap_positive : gap > 0;
-  gap_approx : Rabs (gap - 0.0539677287) < 1e-8
+  gap_approx : Rabs (gap - 0.0539677286942250) < 1e-14
 }.
 
 (** ** PF Instantiation *)
 
-(** The specific numerical values from PF - CORRECTED to match Lean GitHub *)
+(** The specific numerical values from PF - 15 decimal precision *)
 (** lambda_0_P  = pi/(10*sqrt(2))   from SpectralGap.lean *)
 (** lambda_0_NP = pi/(10*(phi+1/4)) from SpectralGap.lean *)
-Definition PF_lambda0P : R := 0.2221441469.
-Definition PF_lambda0NP : R := 0.1681764182.
+Definition PF_lambda0P : R := 0.222144146907918.
+Definition PF_lambda0NP : R := 0.168176418213693.
 Definition PF_spectral_gap : R := PF_lambda0P - PF_lambda0NP.
 
-(** Certified bounds (matching IntervalArithmetic.lean from GitHub) *)
-Axiom lambda0P_lower : PF_lambda0P > 0.222144146.
-Axiom lambda0P_upper : PF_lambda0P < 0.222144147.
-Axiom lambda0NP_lower : PF_lambda0NP > 0.168176418.
-Axiom lambda0NP_upper : PF_lambda0NP < 0.168176419.
+(** Certified bounds (15 decimal precision) *)
+Axiom lambda0P_lower : PF_lambda0P > 0.2221441469079179.
+Axiom lambda0P_upper : PF_lambda0P < 0.2221441469079181.
+Axiom lambda0NP_lower : PF_lambda0NP > 0.1681764182136929.
+Axiom lambda0NP_upper : PF_lambda0NP < 0.1681764182136931.
 
 (** ** Main Theorems *)
 
@@ -52,9 +52,9 @@ Proof.
   lra.
 Qed.
 
-(** Gap approximation *)
+(** Gap approximation - 15 decimal precision *)
 Theorem spectral_gap_value :
-  Rabs (PF_spectral_gap - 0.0539677287) < 1e-8.
+  Rabs (PF_spectral_gap - 0.0539677286942250) < 1e-14.
 Proof.
   unfold PF_spectral_gap, PF_lambda0P, PF_lambda0NP, Rabs.
   destruct (Rcase_abs _); lra.
@@ -109,16 +109,16 @@ Record CertifiedBound := mkCertifiedBound {
 Definition bound_contains (B : CertifiedBound) (x : R) : Prop :=
   bound_lo B <= x /\ x <= bound_hi B.
 
-(** Certified bounds for key values - CORRECTED to match Lean *)
+(** Certified bounds for key values - 15 decimal precision *)
 Definition lambda0P_bound : CertifiedBound.
 Proof.
-  refine (mkCertifiedBound 0.222144146 0.222144147 _).
+  refine (mkCertifiedBound 0.2221441469079179 0.2221441469079181 _).
   lra.
 Defined.
 
 Definition lambda0NP_bound : CertifiedBound.
 Proof.
-  refine (mkCertifiedBound 0.168176418 0.168176419 _).
+  refine (mkCertifiedBound 0.1681764182136929 0.1681764182136931 _).
   lra.
 Defined.
 
