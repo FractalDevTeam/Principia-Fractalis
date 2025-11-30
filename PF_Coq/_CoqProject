@@ -21,6 +21,7 @@ theories/Core/CylindricalMeasures.v
 theories/Core/GaussianModel.v
 theories/Core/BochnerMinlos.v
 theories/Core/YangMillsMeasure.v
+theories/Core/UniversalFramework.v
 
 # Contracts (Millennium Problems)
 theories/Contracts/RH.v

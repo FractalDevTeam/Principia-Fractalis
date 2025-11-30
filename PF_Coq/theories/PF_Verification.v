@@ -40,6 +40,7 @@ Require Import PF_Coq.Core.CylindricalMeasures.
 Require Import PF_Coq.Core.GaussianModel.
 Require Import PF_Coq.Core.BochnerMinlos.
 Require Import PF_Coq.Core.YangMillsMeasure.
+Require Import PF_Coq.Core.UniversalFramework.
 Require Import PF_Coq.Core.UnifiedStructure.
 Require Import PF_Coq.Core.AxiomSummary.
 
@@ -180,8 +181,8 @@ Definition PF_certificate : VerificationCertificate := {|
   cert_system := "Coq";
   cert_version := "8.18+";
   cert_date := "2025-11-29";
-  cert_verified_theorems := 134;  (* +6 ComplexityTheory (P⊆NP, poly bounds) *)
-  cert_axiom_count := 165;        (* +4 complexity theory axioms *)
+  cert_verified_theorems := 142;  (* +8 UniversalFramework (meta-theorem, ch2 clustering) *)
+  cert_axiom_count := 172;        (* +7 UniversalFramework axioms *)
   cert_pillars_covered := 6;      (* RH, P!=NP, YM, BSD, Hodge, NS *)
   cert_cross_validated := true
 |}.
@@ -237,7 +238,7 @@ Definition equivalences_verified : string :=
 (** ** Complete Module Statistics *)
 
 Definition core_module_stats : string :=
-  "CORE MODULES (20 total):
+  "CORE MODULES (21 total):
    - AxiomAudit.v: Axiom inventory and classification
    - Zeta.v: Riemann zeta function specification
    - Resonance.v: Fractal resonance functions
@@ -258,6 +259,7 @@ Definition core_module_stats : string :=
    - GaussianModel.v: Free field covariance operators
    - BochnerMinlos.v: Bochner-Minlos theorem for QFT measures
    - YangMillsMeasure.v: Yang-Mills gauge field measure
+   - UniversalFramework.v: META-THEOREM - all problems are consciousness crystallization
    - UnifiedStructure.v: Cross-module connections
    - AxiomSummary.v: Comprehensive referee summary".
 
