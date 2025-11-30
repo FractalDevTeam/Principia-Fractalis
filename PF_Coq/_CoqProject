@@ -20,6 +20,9 @@ theories/Contracts/BSD.v
 theories/Contracts/Hodge.v
 theories/Contracts/NavierStokes.v
 
+# Unification (cross-module connections)
+theories/Core/UnifiedStructure.v
+
 # Integration and summary
 theories/Core/AxiomSummary.v
 theories/PF_Verification.v

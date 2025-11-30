@@ -41,11 +41,28 @@ Axiom e_bounds : 2.718 < e < 2.719.
 
 (** ** Critical Point Analysis *)
 
-(** ln(e) = 1 *)
-Axiom ln_e_eq_1 : ln e = 1.
+(** ln(e) = 1 - PROVEN from Coq.Reals.Rpower *)
+Theorem ln_e_eq_1 : ln e = 1.
+Proof.
+  unfold e.
+  apply ln_exp.  (* ln(exp x) = x from Coq.Reals *)
+Qed.
 
-(** The derivative equals zero at b = e *)
-Axiom radix_economy_critical_point : radix_economy_deriv e = 0.
+(** The derivative equals zero at b = e - PROVEN from ln(e) = 1 *)
+Theorem radix_economy_critical_point : radix_economy_deriv e = 0.
+Proof.
+  unfold radix_economy_deriv.
+  rewrite ln_e_eq_1.
+  (* (1 - 1) / e^2 = 0 / e^2 = 0 *)
+  field.
+  (* Need e^2 <> 0, which follows from e > 1 > 0 *)
+  assert (He_pos : e > 0) by (apply Rlt_trans with 1; [lra | exact e_gt_one]).
+  assert (He2_pos : e^2 > 0).
+  { unfold pow. simpl.
+    apply Rmult_lt_0_compat; [exact He_pos | ].
+    apply Rmult_lt_0_compat; [exact He_pos | lra]. }
+  lra.
+Qed.
 
 (** Q(b) has a maximum at b = e ≈ 2.718 *)
 Axiom radix_economy_max_at_e : forall b, b > 1 -> b <> e ->
@@ -199,5 +216,6 @@ Qed.
 
 (** ** Summary Statistics *)
 
-Definition radix_economy_theorem_count : nat := 8.
-Definition radix_economy_axiom_count : nat := 9.
+(** PROVEN: ln_e_eq_1, radix_economy_critical_point (previously axioms) *)
+Definition radix_economy_theorem_count : nat := 10.  (* +2 from axiom elimination *)
+Definition radix_economy_axiom_count : nat := 7.     (* -2 now proven *)
