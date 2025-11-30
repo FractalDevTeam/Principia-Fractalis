@@ -180,9 +180,9 @@ Axiom T3_NP_self_adjoint : forall f g,
 Parameter lambda0_P : R.
 Parameter lambda0_NP : R.
 
-(** Eigenvalue specifications *)
-Axiom lambda0_P_spec : lambda0_P = 0.2221441469.
-Axiom lambda0_NP_spec : lambda0_NP = 0.1681764182.
+(** Eigenvalue specifications - 15 decimal precision *)
+Axiom lambda0_P_spec : lambda0_P = 0.222144146907918.
+Axiom lambda0_NP_spec : lambda0_NP = 0.168176418213693.
 
 (** The spectral gap *)
 Definition spectral_gap_T3 : R := lambda0_P - lambda0_NP.
@@ -195,13 +195,13 @@ Proof.
   lra.
 Qed.
 
-(** Numerical value *)
+(** Numerical value - 15 decimal precision *)
 Theorem spectral_gap_T3_value :
-  Rabs (spectral_gap_T3 - 0.0539677287) < 1e-8.
+  Rabs (spectral_gap_T3 - 0.0539677286942250) < 1e-14.
 Proof.
   unfold spectral_gap_T3.
   rewrite lambda0_P_spec, lambda0_NP_spec.
-  (* 0.2221441469 - 0.1681764182 = 0.0539677287 *)
+  (* 0.222144146907918 - 0.168176418213693 = 0.053967728694225 *)
   unfold Rabs.
   destruct (Rcase_abs _); lra.
 Qed.

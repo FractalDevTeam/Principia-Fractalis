@@ -92,8 +92,8 @@ Definition PF_verification_complete : PF_Verification_Status := {|
     3. Both use the same axioms (modulo system differences) *)
 
 Definition cross_system_consistent : Prop :=
-  (* Spectral gap value matches - tightened to 1e-8 to match Lean *)
-  Rabs (SpectralGap.PF_spectral_gap - 0.0539677287) < 1e-8 /\
+  (* Spectral gap value matches - 15 decimal precision *)
+  Rabs (SpectralGap.PF_spectral_gap - 0.0539677286942250) < 1e-14 /\
   (* Gap is positive in both *)
   SpectralGap.PF_spectral_gap > 0 /\
   (* Zeta aliasing is standard in both *)

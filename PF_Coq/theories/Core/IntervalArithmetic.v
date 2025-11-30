@@ -121,9 +121,9 @@ Qed.
 
 (** ** Certified Constants *)
 
-(** Square root of 2 *)
-Definition sqrt2_lo : R := 14142135623 / 10000000000.
-Definition sqrt2_hi : R := 14142135624 / 10000000000.
+(** Square root of 2 - 15 decimal precision *)
+Definition sqrt2_lo : R := 1414213562373095 / 1000000000000000.
+Definition sqrt2_hi : R := 1414213562373096 / 1000000000000000.
 
 Axiom sqrt2_in_interval : sqrt2_lo <= sqrt 2 <= sqrt2_hi.
 
@@ -133,9 +133,9 @@ Next Obligation.
   unfold sqrt2_lo, sqrt2_hi. lra.
 Qed.
 
-(** Square root of 5 *)
-Definition sqrt5_lo : R := 22360679774 / 10000000000.
-Definition sqrt5_hi : R := 22360679775 / 10000000000.
+(** Square root of 5 - 15 decimal precision *)
+Definition sqrt5_lo : R := 2236067977499789 / 1000000000000000.
+Definition sqrt5_hi : R := 2236067977499790 / 1000000000000000.
 
 Axiom sqrt5_in_interval : sqrt5_lo <= sqrt 5 <= sqrt5_hi.
 
@@ -145,9 +145,9 @@ Next Obligation.
   unfold sqrt5_lo, sqrt5_hi. lra.
 Qed.
 
-(** Golden ratio phi = (1 + sqrt(5)) / 2 *)
-Definition phi_lo : R := 16180339887 / 10000000000.
-Definition phi_hi : R := 16180339888 / 10000000000.
+(** Golden ratio phi = (1 + sqrt(5)) / 2 - 15 decimal precision *)
+Definition phi_lo : R := 1618033988749894 / 1000000000000000.
+Definition phi_hi : R := 1618033988749895 / 1000000000000000.
 
 Definition phi_exact : R := (1 + sqrt 5) / 2.
 
@@ -161,12 +161,12 @@ Qed.
 
 (** ** Spectral Gap Intervals *)
 
-(** Lambda_0(P) interval *)
-Definition lambda0_P_lo : R := 2221441468 / 10000000000.
-Definition lambda0_P_hi : R := 2221441470 / 10000000000.
+(** Lambda_0(P) interval - 15 decimal precision *)
+Definition lambda0_P_lo : R := 222144146907918 / 1000000000000000.
+Definition lambda0_P_hi : R := 222144146907919 / 1000000000000000.
 
 Axiom lambda0_P_in_interval :
-  lambda0_P_lo <= 0.2221441469 <= lambda0_P_hi.
+  lambda0_P_lo <= 0.222144146907918 <= lambda0_P_hi.
 
 Program Definition lambda0_P_interval : Interval :=
   mkInterval lambda0_P_lo lambda0_P_hi _.
@@ -174,12 +174,12 @@ Next Obligation.
   unfold lambda0_P_lo, lambda0_P_hi. lra.
 Qed.
 
-(** Lambda_0(NP) interval *)
-Definition lambda0_NP_lo : R := 1681764181 / 10000000000.
-Definition lambda0_NP_hi : R := 1681764183 / 10000000000.
+(** Lambda_0(NP) interval - 15 decimal precision *)
+Definition lambda0_NP_lo : R := 168176418213693 / 1000000000000000.
+Definition lambda0_NP_hi : R := 168176418213694 / 1000000000000000.
 
 Axiom lambda0_NP_in_interval :
-  lambda0_NP_lo <= 0.1681764182 <= lambda0_NP_hi.
+  lambda0_NP_lo <= 0.168176418213693 <= lambda0_NP_hi.
 
 Program Definition lambda0_NP_interval : Interval :=
   mkInterval lambda0_NP_lo lambda0_NP_hi _.
@@ -187,9 +187,10 @@ Next Obligation.
   unfold lambda0_NP_lo, lambda0_NP_hi. lra.
 Qed.
 
-(** Spectral gap interval *)
-Definition gap_lo : R := 539677286 / 10000000000.
-Definition gap_hi : R := 539677288 / 10000000000.
+(** Spectral gap interval - 15 decimal precision *)
+(** gap = lambda0P - lambda0NP = 0.222144146907918 - 0.168176418213693 = 0.053967728694225 *)
+Definition gap_lo : R := 53967728694224 / 1000000000000000.
+Definition gap_hi : R := 53967728694226 / 1000000000000000.
 
 Program Definition spectral_gap_interval : Interval :=
   mkInterval gap_lo gap_hi _.
@@ -263,9 +264,9 @@ Definition iv_error (I : Interval) : R := (iv_hi I - iv_lo I) / 2.
 (** Width of interval *)
 Definition iv_width (I : Interval) : R := iv_hi I - iv_lo I.
 
-(** Spectral gap error bound *)
+(** Spectral gap error bound - now 1e-15 precision *)
 Theorem spectral_gap_error_bound :
-  iv_width spectral_gap_interval < 1e-9.
+  iv_width spectral_gap_interval < 1e-14.
 Proof.
   unfold iv_width, spectral_gap_interval. simpl.
   unfold gap_lo, gap_hi. lra.
