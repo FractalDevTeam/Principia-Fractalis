@@ -23,6 +23,7 @@ theories/Core/BochnerMinlos.v
 theories/Core/YangMillsMeasure.v
 theories/Core/UniversalFramework.v
 theories/Core/ClinicalValidation.v
+theories/Core/Problems143.v
 
 # Contracts (Millennium Problems)
 theories/Contracts/RH.v
