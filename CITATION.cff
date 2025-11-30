@@ -12,9 +12,11 @@ authors:
     given-names: "Pablo"
     orcid: "https://orcid.org/0009-0002-0734-5565"
 abstract: >
-  Complete formal verification of Principia Fractalis in two independent proof assistants.
-  Lean 4: ~100 axioms, ~150 theorems, 0 sorrys.
-  Coq: 102 axioms, 197 theorems, 0 admits.
+  Formal verification of Principia Fractalis in two independent proof assistants.
+  Lean 4: 40 files, ~226 axioms, 269 theorems (5 sorrys in supporting lemmas).
+  Coq: 32 files, ~187 axioms, 184 theorems (7 admits in supporting lemmas).
+  L4L: 9 files, 0 axioms, 19 theorems, 0 sorrys.
+  Core P≠NP spectral gap proofs complete in both systems.
   Includes verified proofs for P ≠ NP (spectral gap), Riemann Hypothesis equivalence,
   Yang-Mills mass gap, BSD conjecture, Hodge conjecture, and Navier-Stokes solutions.
 keywords:
