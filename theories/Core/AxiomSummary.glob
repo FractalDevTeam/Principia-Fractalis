@@ -1,0 +1,179 @@
+DIGEST 400ab57d208e66ea8104662e39968b94
+FPF_Coq.Core.AxiomSummary
+R436:450 Coq.Reals.Reals <> <> lib
+R468:485 Coq.Strings.String <> <> lib
+R503:516 Coq.Lists.List <> <> lib
+R534:550 Coq.micromega.Lia <> <> lib
+R568:584 Coq.micromega.Lra <> <> lib
+R594:606 Coq.Lists.List ListNotations <> mod
+R677:698 PF_Coq.Core.AxiomAudit <> <> lib
+R716:731 PF_Coq.Core.Zeta <> <> lib
+R749:769 PF_Coq.Core.Resonance <> <> lib
+R787:809 PF_Coq.Core.SpectralGap <> <> lib
+R827:852 PF_Coq.Core.TuringEncoding <> <> lib
+R870:897 PF_Coq.Core.TransferOperator <> <> lib
+R915:944 PF_Coq.Core.IntervalArithmetic <> <> lib
+R962:983 PF_Coq.Core.P_NP_Proof <> <> lib
+R1001:1029 PF_Coq.Core.SpectralBijection <> <> lib
+R1047:1071 PF_Coq.Core.NuclearSpaces <> <> lib
+R1089:1119 PF_Coq.Core.CylindricalMeasures <> <> lib
+R1137:1161 PF_Coq.Core.GaussianModel <> <> lib
+R1179:1203 PF_Coq.Core.BochnerMinlos <> <> lib
+R1222:1240 PF_Coq.Contracts.RH <> <> lib
+R1258:1277 PF_Coq.Contracts.PNP <> <> lib
+R1295:1313 PF_Coq.Contracts.YM <> <> lib
+R1331:1350 PF_Coq.Contracts.BSD <> <> lib
+R1368:1389 PF_Coq.Contracts.Hodge <> <> lib
+R1407:1435 PF_Coq.Contracts.NavierStokes <> <> lib
+def 1583:1601 <> axiom_count_P_vs_NP
+R1605:1607 Coq.Init.Datatypes <> nat ind
+R1612:1622 Coq.Lists.List <> length abbrev
+R1624:1651 PF_Coq.Core.AxiomAudit <> PF_axioms_P_vs_NP def
+def 1665:1678 <> axiom_count_RH
+R1682:1684 Coq.Init.Datatypes <> nat ind
+R1689:1699 Coq.Lists.List <> length abbrev
+R1701:1723 PF_Coq.Core.AxiomAudit <> PF_axioms_RH def
+def 1737:1750 <> axiom_count_YM
+R1754:1756 Coq.Init.Datatypes <> nat ind
+R1761:1771 Coq.Lists.List <> length abbrev
+R1773:1795 PF_Coq.Core.AxiomAudit <> PF_axioms_YM def
+def 1809:1823 <> axiom_count_BSD
+R1827:1829 Coq.Init.Datatypes <> nat ind
+R1834:1844 Coq.Lists.List <> length abbrev
+R1846:1869 PF_Coq.Core.AxiomAudit <> PF_axioms_BSD def
+def 1883:1899 <> axiom_count_Hodge
+R1903:1905 Coq.Init.Datatypes <> nat ind
+R1910:1920 Coq.Lists.List <> length abbrev
+R1922:1947 PF_Coq.Core.AxiomAudit <> PF_axioms_Hodge def
+def 1961:1974 <> axiom_count_NS
+R1978:1980 Coq.Init.Datatypes <> nat ind
+R1985:1995 Coq.Lists.List <> length abbrev
+R1997:2019 PF_Coq.Core.AxiomAudit <> PF_axioms_NS def
+def 2033:2052 <> axiom_count_Interval
+R2056:2058 Coq.Init.Datatypes <> nat ind
+R2063:2073 Coq.Lists.List <> length abbrev
+R2075:2103 PF_Coq.Core.AxiomAudit <> PF_axioms_Interval def
+def 2117:2141 <> axiom_count_Consciousness
+R2145:2147 Coq.Init.Datatypes <> nat ind
+R2152:2162 Coq.Lists.List <> length abbrev
+R2164:2197 PF_Coq.Core.AxiomAudit <> PF_axioms_Consciousness def
+def 2212:2228 <> total_axiom_count
+R2232:2234 Coq.Init.Datatypes <> nat ind
+R2374:2376 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2351:2353 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2334:2336 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2312:2316 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2294:2296 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2277:2279 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2260:2262 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2241:2259 PF_Coq.Core.AxiomSummary <> axiom_count_P_vs_NP def
+R2263:2276 PF_Coq.Core.AxiomSummary <> axiom_count_RH def
+R2280:2293 PF_Coq.Core.AxiomSummary <> axiom_count_YM def
+R2297:2311 PF_Coq.Core.AxiomSummary <> axiom_count_BSD def
+R2317:2333 PF_Coq.Core.AxiomSummary <> axiom_count_Hodge def
+R2337:2350 PF_Coq.Core.AxiomSummary <> axiom_count_NS def
+R2354:2373 PF_Coq.Core.AxiomSummary <> axiom_count_Interval def
+R2377:2401 PF_Coq.Core.AxiomSummary <> axiom_count_Consciousness def
+def 2448:2468 <> numerical_axiom_total
+R2472:2474 Coq.Init.Datatypes <> nat ind
+R2479:2491 PF_Coq.Core.AxiomAudit <> count_by_kind def
+R2493:2501 PF_Coq.Core.AxiomAudit <> Numerical constr
+def 2515:2534 <> physical_axiom_total
+R2538:2540 Coq.Init.Datatypes <> nat ind
+R2545:2557 PF_Coq.Core.AxiomAudit <> count_by_kind def
+R2559:2566 PF_Coq.Core.AxiomAudit <> Physical constr
+def 2580:2601 <> structural_axiom_total
+R2605:2607 Coq.Init.Datatypes <> nat ind
+R2612:2624 PF_Coq.Core.AxiomAudit <> count_by_kind def
+R2626:2635 PF_Coq.Core.AxiomAudit <> Structural constr
+def 2649:2671 <> equivalence_axiom_total
+R2675:2677 Coq.Init.Datatypes <> nat ind
+R2682:2694 PF_Coq.Core.AxiomAudit <> count_by_kind def
+R2696:2706 PF_Coq.Core.AxiomAudit <> Equivalence constr
+def 3612:3631 <> admitted_proof_count
+R3635:3637 Coq.Init.Datatypes <> nat ind
+def 3761:3773 <> key_constants
+R3777:3782 Coq.Strings.String <> string ind
+def 4318:4336 <> module_dependencies
+R4340:4345 Coq.Strings.String <> string ind
+rec 5737:5772 <> ComprehensiveVerificationCertificate
+proj 5829:5834 <> system
+proj 5848:5854 <> version
+proj 5868:5871 <> date
+proj 5902:5913 <> total_axioms
+proj 5924:5937 <> total_theorems
+proj 5948:5960 <> total_modules
+proj 5971:5989 <> millennium_problems
+proj 6026:6040 <> admitted_proofs
+proj 6051:6066 <> cross_references
+proj 6077:6094 <> interval_certified
+R5838:5843 Coq.Strings.String <> string ind
+R5858:5863 Coq.Strings.String <> string ind
+R5875:5880 Coq.Strings.String <> string ind
+R5917:5919 Coq.Init.Datatypes <> nat ind
+R5941:5943 Coq.Init.Datatypes <> nat ind
+R5964:5966 Coq.Init.Datatypes <> nat ind
+R5993:5995 Coq.Init.Datatypes <> nat ind
+R6044:6046 Coq.Init.Datatypes <> nat ind
+R6070:6072 Coq.Init.Datatypes <> nat ind
+R6098:6101 Coq.Init.Datatypes <> bool ind
+def 6118:6145 <> PF_comprehensive_certificate
+R6149:6184 PF_Coq.Core.AxiomSummary <> ComprehensiveVerificationCertificate rec
+R6194:6199 PF_Coq.Core.AxiomSummary <> system proj
+R6194:6199 PF_Coq.Core.AxiomSummary <> system proj
+R6194:6199 PF_Coq.Core.AxiomSummary <> system proj
+R6213:6219 PF_Coq.Core.AxiomSummary <> version proj
+R6213:6219 PF_Coq.Core.AxiomSummary <> version proj
+R6235:6238 PF_Coq.Core.AxiomSummary <> date proj
+R6235:6238 PF_Coq.Core.AxiomSummary <> date proj
+R6259:6270 PF_Coq.Core.AxiomSummary <> total_axioms proj
+R6259:6270 PF_Coq.Core.AxiomSummary <> total_axioms proj
+R6296:6309 PF_Coq.Core.AxiomSummary <> total_theorems proj
+R6296:6309 PF_Coq.Core.AxiomSummary <> total_theorems proj
+R6395:6407 PF_Coq.Core.AxiomSummary <> total_modules proj
+R6395:6407 PF_Coq.Core.AxiomSummary <> total_modules proj
+R6465:6483 PF_Coq.Core.AxiomSummary <> millennium_problems proj
+R6465:6483 PF_Coq.Core.AxiomSummary <> millennium_problems proj
+R6493:6507 PF_Coq.Core.AxiomSummary <> admitted_proofs proj
+R6493:6507 PF_Coq.Core.AxiomSummary <> admitted_proofs proj
+R6536:6551 PF_Coq.Core.AxiomSummary <> cross_references proj
+R6536:6551 PF_Coq.Core.AxiomSummary <> cross_references proj
+R6623:6640 PF_Coq.Core.AxiomSummary <> interval_certified proj
+R6623:6640 PF_Coq.Core.AxiomSummary <> interval_certified proj
+R6275:6291 PF_Coq.Core.AxiomSummary <> total_axiom_count def
+R6512:6531 PF_Coq.Core.AxiomSummary <> admitted_proof_count def
+R6645:6648 Coq.Init.Datatypes <> true constr
+def 6695:6711 <> referee_checklist
+R6715:6720 Coq.Strings.String <> string ind
+prf 7576:7595 <> lambda0_P_consistent
+R7624:7626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7601:7623 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+prf 7680:7700 <> lambda0_NP_consistent
+R7730:7732 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7706:7729 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+prf 7817:7836 <> gap_value_consistent
+R7869:7871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7842:7868 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R7889:7891 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R7927:7953 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R7956:7978 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R7981:8004 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+prf 8085:8109 <> gap_in_certified_interval
+R8140:8143 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8171:8174 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8115:8139 PF_Coq.Core.IntervalArithmetic <> gap_lo def
+R8144:8170 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R8144:8170 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R8175:8199 PF_Coq.Core.IntervalArithmetic <> gap_hi def
+R8218:8244 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R8247:8269 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R8272:8295 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R8307:8331 PF_Coq.Core.IntervalArithmetic <> gap_lo def
+R8334:8358 PF_Coq.Core.IntervalArithmetic <> gap_hi def
+prf 9135:9152 <> axiom_transparency
+R9243:9245 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9226:9242 PF_Coq.Core.AxiomSummary <> total_axiom_count def
+R9246:9256 Coq.Lists.List <> length abbrev
+R9258:9270 PF_Coq.Core.AxiomAudit <> all_PF_axioms def
+def 9355:9367 <> final_summary
+R9371:9376 Coq.Strings.String <> string ind

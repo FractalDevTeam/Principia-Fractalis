@@ -1,0 +1,34 @@
+-Q theories PF_Coq
+
+# Core modules (order matters for dependencies)
+theories/Core/AxiomAudit.v
+theories/Core/Zeta.v
+theories/Core/Resonance.v
+theories/Core/SpectralGap.v
+theories/Core/RadixEconomy.v
+theories/Core/ChernWeil.v
+theories/Core/TuringEncoding.v
+theories/Core/TransferOperator.v
+theories/Core/IntervalArithmetic.v
+theories/Core/ExtendedPrecisionBounds.v
+theories/Core/P_NP_Proof.v
+theories/Core/SpectralBijection.v
+theories/Core/NuclearSpaces.v
+theories/Core/GaussianModel.v
+theories/Core/CylindricalMeasures.v
+theories/Core/BochnerMinlos.v
+
+# Contracts (Millennium Problems)
+theories/Contracts/RH.v
+theories/Contracts/PNP.v
+theories/Contracts/YM.v
+theories/Contracts/BSD.v
+theories/Contracts/Hodge.v
+theories/Contracts/NavierStokes.v
+
+# Unification (cross-module connections)
+theories/Core/UnifiedStructure.v
+
+# Integration and summary
+theories/Core/AxiomSummary.v
+theories/PF_Verification.v

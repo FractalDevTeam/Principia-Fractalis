@@ -1,0 +1,262 @@
+DIGEST a94ad773cb2705c7f301c5cc47520922
+FPF_Coq.Contracts.PNP
+R234:248 Coq.Reals.Reals <> <> lib
+R266:283 Coq.Strings.String <> <> lib
+R301:317 Coq.micromega.Lra <> <> lib
+R335:351 Coq.micromega.Lia <> <> lib
+R369:390 PF_Coq.Core.AxiomAudit <> <> lib
+R408:423 PF_Coq.Core.Zeta <> <> lib
+R441:461 PF_Coq.Core.Resonance <> <> lib
+R479:501 PF_Coq.Core.SpectralGap <> <> lib
+R519:544 PF_Coq.Core.TuringEncoding <> <> lib
+R610:637 PF_Coq.Core.TransferOperator <> <> lib
+R688:717 PF_Coq.Core.IntervalArithmetic <> <> lib
+rec 819:829 <> PNPContract
+proj 886:897 <> gap_positive
+proj 957:969 <> gap_certified
+proj 1083:1106 <> complexity_defs_standard
+proj 1140:1158 <> uses_prime_encoding
+proj 1170:1189 <> uses_interval_bounds
+proj 1201:1226 <> uses_spectral_discreteness
+R916:918 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R901:915 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R1016:1018 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R973:976 Coq.Reals.Rbasic_fun <> Rabs def
+R994:996 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R979:993 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+def 1298:1312 <> PNP_contract_PF
+R1316:1326 PF_Coq.Contracts.PNP <> PNPContract rec
+R1336:1347 PF_Coq.Contracts.PNP <> gap_positive proj
+R1336:1347 PF_Coq.Contracts.PNP <> gap_positive proj
+R1336:1347 PF_Coq.Contracts.PNP <> gap_positive proj
+R1377:1389 PF_Coq.Contracts.PNP <> gap_certified proj
+R1377:1389 PF_Coq.Contracts.PNP <> gap_certified proj
+R1416:1439 PF_Coq.Contracts.PNP <> complexity_defs_standard proj
+R1416:1439 PF_Coq.Contracts.PNP <> complexity_defs_standard proj
+R1452:1470 PF_Coq.Contracts.PNP <> uses_prime_encoding proj
+R1452:1470 PF_Coq.Contracts.PNP <> uses_prime_encoding proj
+R1483:1502 PF_Coq.Contracts.PNP <> uses_interval_bounds proj
+R1483:1502 PF_Coq.Contracts.PNP <> uses_interval_bounds proj
+R1515:1540 PF_Coq.Contracts.PNP <> uses_spectral_discreteness proj
+R1515:1540 PF_Coq.Contracts.PNP <> uses_spectral_discreteness proj
+R1352:1372 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R1394:1411 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
+R1444:1447 Coq.Init.Logic <> True ind
+R1475:1478 Coq.Init.Logic <> True ind
+R1507:1510 Coq.Init.Logic <> True ind
+R1545:1548 Coq.Init.Logic <> True ind
+def 1642:1655 <> TuringEncoding
+R1660:1662 Coq.Init.Datatypes <> nat ind
+def 1697:1713 <> is_valid_encoding
+R1720:1722 Coq.Init.Datatypes <> nat ind
+binder 1716:1716 <> n:8
+R1739:1741 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1738:1738 PF_Coq.Contracts.PNP <> n:8 var
+ax 1839:1856 <> encoding_injective
+R1877:1890 PF_Coq.Contracts.PNP <> TuringEncoding def
+binder 1869:1870 <> M1:9
+binder 1872:1873 <> M2:10
+R1915:1920 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1895:1911 PF_Coq.Contracts.PNP <> is_valid_encoding def
+R1913:1914 PF_Coq.Contracts.PNP <> M1:9 var
+R1941:1946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1921:1937 PF_Coq.Contracts.PNP <> is_valid_encoding def
+R1939:1940 PF_Coq.Contracts.PNP <> M2:10 var
+R1954:1957 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R1949:1951 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1947:1948 PF_Coq.Contracts.PNP <> M1:9 var
+R1952:1953 PF_Coq.Contracts.PNP <> M2:10 var
+R1960:1963 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1958:1959 PF_Coq.Contracts.PNP <> M1:9 var
+R1964:1965 PF_Coq.Contracts.PNP <> M2:10 var
+def 2120:2129 <> P_spectral
+R2136:2149 PF_Coq.Contracts.PNP <> TuringEncoding def
+binder 2132:2132 <> M:12
+R2183:2188 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2164:2180 PF_Coq.Contracts.PNP <> is_valid_encoding def
+R2182:2182 PF_Coq.Contracts.PNP <> M:12 var
+R2189:2192 Coq.Init.Logic <> True ind
+def 2295:2305 <> NP_spectral
+R2312:2325 PF_Coq.Contracts.PNP <> TuringEncoding def
+binder 2308:2308 <> M:13
+R2359:2364 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2340:2356 PF_Coq.Contracts.PNP <> is_valid_encoding def
+R2358:2358 PF_Coq.Contracts.PNP <> M:13 var
+R2365:2368 Coq.Init.Logic <> True ind
+ax 2472:2482 <> P_subset_NP
+binder 2495:2495 <> M:14
+R2510:2513 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2498:2507 PF_Coq.Contracts.PNP <> P_spectral def
+R2509:2509 PF_Coq.Contracts.PNP <> M:14 var
+R2514:2524 PF_Coq.Contracts.PNP <> NP_spectral def
+R2526:2526 PF_Coq.Contracts.PNP <> M:14 var
+ax 3629:3668 <> spectral_equivalence_implies_P_equals_NP
+R3674:3674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3715:3721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3682:3682 <> M:16
+R3697:3701 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3685:3694 PF_Coq.Contracts.PNP <> P_spectral def
+R3696:3696 PF_Coq.Contracts.PNP <> M:16 var
+R3702:3712 PF_Coq.Contracts.PNP <> NP_spectral def
+R3714:3714 PF_Coq.Contracts.PNP <> M:16 var
+R3722:3747 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+prf 3759:3794 <> spectral_separation_implies_P_neq_NP
+R3819:3824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3815:3817 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3800:3814 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R3825:3827 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3868:3868 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 3835:3835 <> M:18
+R3850:3854 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3838:3847 PF_Coq.Contracts.PNP <> P_spectral def
+R3849:3849 PF_Coq.Contracts.PNP <> M:18 var
+R3855:3865 PF_Coq.Contracts.PNP <> NP_spectral def
+R3867:3867 PF_Coq.Contracts.PNP <> M:18 var
+R3989:4014 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R3989:4014 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R4029:4068 PF_Coq.Contracts.PNP <> spectral_equivalence_implies_P_equals_NP prfax
+R4029:4068 PF_Coq.Contracts.PNP <> spectral_equivalence_implies_P_equals_NP prfax
+R4330:4332 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4308:4329 PF_Coq.Core.TuringEncoding <> alpha_P def
+R4333:4355 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R4330:4332 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4308:4329 PF_Coq.Core.TuringEncoding <> alpha_P def
+R4333:4355 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R4370:4415 PF_Coq.Core.TuringEncoding <> operator_collapse_under_p_eq_np prfax
+R4370:4415 PF_Coq.Core.TuringEncoding <> operator_collapse_under_p_eq_np prfax
+R4470:4472 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4447:4469 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R4473:4494 PF_Coq.Core.TuringEncoding <> alpha_P def
+R4470:4472 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4447:4469 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R4473:4494 PF_Coq.Core.TuringEncoding <> alpha_P def
+R4508:4538 PF_Coq.Core.TuringEncoding <> alpha_separation thm
+R4508:4538 PF_Coq.Core.TuringEncoding <> alpha_separation thm
+prf 4650:4666 <> P_neq_NP_from_gap
+R4672:4674 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4715:4715 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 4682:4682 <> M:19
+R4697:4701 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4685:4694 PF_Coq.Contracts.PNP <> P_spectral def
+R4696:4696 PF_Coq.Contracts.PNP <> M:19 var
+R4702:4712 PF_Coq.Contracts.PNP <> NP_spectral def
+R4714:4714 PF_Coq.Contracts.PNP <> M:19 var
+R4733:4768 PF_Coq.Contracts.PNP <> spectral_separation_implies_P_neq_NP thm
+R4733:4768 PF_Coq.Contracts.PNP <> spectral_separation_implies_P_neq_NP thm
+R4779:4799 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R4779:4799 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+def 4892:4916 <> certificate_trivial_for_P
+binder 4937:4937 <> M:20
+R4954:4959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4942:4951 PF_Coq.Contracts.PNP <> P_spectral def
+R4953:4953 PF_Coq.Contracts.PNP <> M:20 var
+R4960:4963 Coq.Init.Logic <> True ind
+def 5077:5104 <> certificate_essential_for_NP
+R5118:5121 Coq.Init.Logic <> True ind
+def 5232:5241 <> PNP_axioms
+R5245:5248 Coq.Init.Datatypes <> list ind
+R5250:5256 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R5261:5277 PF_Coq.Core.AxiomAudit <> PF_axioms_P_vs_NP def
+def 5292:5306 <> PNP_axiom_count
+R5310:5312 Coq.Init.Datatypes <> nat ind
+R5317:5327 Coq.Lists.List <> length abbrev
+R5329:5338 PF_Coq.Contracts.PNP <> PNP_axioms def
+def 5374:5398 <> PNP_numerical_axiom_count
+R5402:5404 Coq.Init.Datatypes <> nat ind
+def 5444:5469 <> PNP_structural_axiom_count
+R5473:5475 Coq.Init.Datatypes <> nat ind
+def 5773:5801 <> numerical_certification_chain
+R5847:5852 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5826:5828 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5815:5825 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R5885:5890 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5864:5866 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5853:5863 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R5924:5929 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5903:5905 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5891:5902 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R5963:5968 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5942:5944 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5930:5941 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R5984:5986 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5969:5983 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+prf 5999:6022 <> numerical_chain_complete
+R6026:6054 PF_Coq.Contracts.PNP <> numerical_certification_chain def
+R6073:6101 PF_Coq.Contracts.PNP <> numerical_certification_chain def
+R6130:6143 PF_Coq.Core.SpectralGap <> lambda0P_lower prfax
+R6130:6143 PF_Coq.Core.SpectralGap <> lambda0P_lower prfax
+R6156:6169 PF_Coq.Core.SpectralGap <> lambda0P_upper prfax
+R6156:6169 PF_Coq.Core.SpectralGap <> lambda0P_upper prfax
+R6182:6196 PF_Coq.Core.SpectralGap <> lambda0NP_lower prfax
+R6182:6196 PF_Coq.Core.SpectralGap <> lambda0NP_lower prfax
+R6209:6223 PF_Coq.Core.SpectralGap <> lambda0NP_upper prfax
+R6209:6223 PF_Coq.Core.SpectralGap <> lambda0NP_upper prfax
+R6236:6256 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R6236:6256 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+def 7114:7129 <> gap_matches_core
+R7158:7160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7143:7157 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R7161:7192 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+prf 7242:7264 <> gap_matches_core_proven
+R7268:7283 PF_Coq.Contracts.PNP <> gap_matches_core def
+R7302:7317 PF_Coq.Contracts.PNP <> gap_matches_core def
+R7329:7343 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R7346:7377 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+R7389:7399 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R7402:7413 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R7426:7456 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R7459:7490 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+R7426:7456 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R7426:7456 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R7459:7490 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+R7459:7490 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+def 7586:7614 <> complexity_classes_referenced
+R7628:7628 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7661:7668 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7702:7702 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7629:7635 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7637:7638 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7636:7636 <> L:21
+R7639:7658 PF_Coq.Core.TuringEncoding <> IsInP def
+R7660:7660 PF_Coq.Contracts.PNP <> L:21 var
+R7669:7675 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7677:7678 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7676:7676 <> L:22
+R7679:7699 PF_Coq.Core.TuringEncoding <> IsInNP def
+R7701:7701 PF_Coq.Contracts.PNP <> L:22 var
+def 7773:7788 <> trivial_language
+R7792:7814 PF_Coq.Core.TuringEncoding <> Language def
+R7828:7831 Coq.Init.Logic <> True ind
+prf 7913:7924 <> trivial_in_P
+R7928:7947 PF_Coq.Core.TuringEncoding <> IsInP def
+R7949:7964 PF_Coq.Contracts.PNP <> trivial_language def
+R7983:8002 PF_Coq.Core.TuringEncoding <> IsInP def
+R8005:8020 PF_Coq.Contracts.PNP <> trivial_language def
+R8107:8110 Coq.Init.Datatypes <> true constr
+R8107:8110 Coq.Init.Datatypes <> true constr
+R8244:8271 PF_Coq.Core.TuringEncoding <> is_polynomial def
+R8491:8491 Coq.Init.Logic <> I constr
+R8491:8491 Coq.Init.Logic <> I constr
+prf 8572:8584 <> trivial_in_NP
+R8588:8608 PF_Coq.Core.TuringEncoding <> IsInNP def
+R8610:8625 PF_Coq.Contracts.PNP <> trivial_language def
+R8644:8664 PF_Coq.Core.TuringEncoding <> IsInNP def
+R8667:8682 PF_Coq.Contracts.PNP <> trivial_language def
+R8784:8787 Coq.Init.Datatypes <> true constr
+R8784:8787 Coq.Init.Datatypes <> true constr
+R8921:8948 PF_Coq.Core.TuringEncoding <> is_polynomial def
+R9171:9171 Coq.Init.Logic <> I constr
+R9171:9171 Coq.Init.Logic <> I constr
+prf 9228:9255 <> complexity_classes_non_empty
+R9259:9287 PF_Coq.Contracts.PNP <> complexity_classes_referenced def
+R9306:9334 PF_Coq.Contracts.PNP <> complexity_classes_referenced def
+R9357:9372 PF_Coq.Contracts.PNP <> trivial_language def
+R9357:9372 PF_Coq.Contracts.PNP <> trivial_language def
+R9381:9392 PF_Coq.Contracts.PNP <> trivial_in_P thm
+R9381:9392 PF_Coq.Contracts.PNP <> trivial_in_P thm
+R9406:9421 PF_Coq.Contracts.PNP <> trivial_language def
+R9406:9421 PF_Coq.Contracts.PNP <> trivial_language def
+R9430:9442 PF_Coq.Contracts.PNP <> trivial_in_NP thm
+R9430:9442 PF_Coq.Contracts.PNP <> trivial_in_NP thm
+def 9489:9507 <> PNP_chapter_summary
+R9511:9516 Coq.Strings.String <> string ind
