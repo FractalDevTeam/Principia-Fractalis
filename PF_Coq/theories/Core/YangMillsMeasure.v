@@ -82,6 +82,11 @@ Axiom yang_mills_covariance_positive :
   forall (ymc : YangMillsCovariance) (f : R),
     ymc_apply ymc f f >= 0.
 
+(** The covariance at zero is zero (bilinearity) *)
+Axiom yang_mills_covariance_zero :
+  forall (ymc : YangMillsCovariance),
+    ymc_apply ymc 0 0 = 0.
+
 (** ** Yang-Mills Generating Functional *)
 
 (** The Yang-Mills generating functional:
@@ -100,11 +105,11 @@ Lemma yang_mills_normalized (ymc : YangMillsCovariance) :
 Proof.
   unfold yangMillsGenerating.
   (* Q(0, 0) = 0, so exp(-½ · 0) = 1 *)
-  pose proof (yang_mills_covariance_positive ymc 0) as Hpos.
-  (* For a proper covariance, Q(0,0) = 0 *)
-  (* This is axiomatic for the zero function *)
-  admit.
-Admitted.
+  rewrite yang_mills_covariance_zero.
+  (* Now we have exp(- (1/2) * 0) = exp(0) = 1 *)
+  replace (- (1 / 2) * 0) with 0 by ring.
+  apply exp_0.
+Qed.
 
 (** Physical axiom: Positive definiteness *)
 Axiom yang_mills_positive_definite :

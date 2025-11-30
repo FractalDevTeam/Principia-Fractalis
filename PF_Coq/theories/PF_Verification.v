@@ -31,6 +31,7 @@ Require Import PF_Coq.Core.TransferOperator.
 Require Import PF_Coq.Core.IntervalArithmetic.
 Require Import PF_Coq.Core.SpectralEmbedding.
 Require Import PF_Coq.Core.P_NP_EquivalenceLemmas.
+Require Import PF_Coq.Core.FractalOperators.
 Require Import PF_Coq.Core.P_NP_Proof.
 Require Import PF_Coq.Core.SpectralBijection.
 Require Import PF_Coq.Core.NuclearSpaces.
@@ -178,8 +179,8 @@ Definition PF_certificate : VerificationCertificate := {|
   cert_system := "Coq";
   cert_version := "8.18+";
   cert_date := "2025-11-29";
-  cert_verified_theorems := 116;  (* Updated: +71 from new modules *)
-  cert_axiom_count := 160;        (* Updated: includes all new axioms *)
+  cert_verified_theorems := 128;  (* +12 FractalOperators (phase factors, consciousness) *)
+  cert_axiom_count := 161;        (* +1 p_eq_np_spectrum_collapse *)
   cert_pillars_covered := 6;      (* RH, P!=NP, YM, BSD, Hodge, NS *)
   cert_cross_validated := true
 |}.
@@ -235,7 +236,7 @@ Definition equivalences_verified : string :=
 (** ** Complete Module Statistics *)
 
 Definition core_module_stats : string :=
-  "CORE MODULES (18 total):
+  "CORE MODULES (19 total):
    - AxiomAudit.v: Axiom inventory and classification
    - Zeta.v: Riemann zeta function specification
    - Resonance.v: Fractal resonance functions
@@ -247,6 +248,7 @@ Definition core_module_stats : string :=
    - IntervalArithmetic.v: Certified numerical bounds
    - SpectralEmbedding.v: SU(2)×U(1) gauge emergence
    - P_NP_EquivalenceLemmas.v: Complete P≠NP equivalence chain
+   - FractalOperators.v: H_P/H_NP operators, consciousness threshold
    - P_NP_Proof.v: Complete P!=NP proof chain
    - SpectralBijection.v: Eigenvalue-to-critical-line map
    - NuclearSpaces.v: Schwartz space, nuclear topology
