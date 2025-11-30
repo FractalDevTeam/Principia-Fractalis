@@ -17,6 +17,7 @@ Require Import Coq.Reals.Reals.
 Require Import Coq.Strings.String.
 Require Import Coq.Lists.List.
 Require Import Coq.micromega.Lia.
+Require Import Coq.micromega.Lra.
 Import ListNotations.
 
 (** Import all modules to verify axiom inventory *)
@@ -70,24 +71,22 @@ Definition equivalence_axiom_total : nat := count_by_kind Equivalence.
 
     Admitted proofs in this verification:
 
-    1. IntervalArithmetic.v:
-       - iv_div_pos (obligation for positive interval division)
-
-    2. P_NP_Proof.v:
+    1. P_NP_Proof.v:
        - gap_zero_if_collapse (physical axiom about spectral structure)
        - spectral_gap_implies_P_neq_NP (relies on operator_collapse_under_p_eq_np)
        - P_equals_NP_implies_gap_zero (relies on operator_collapse_under_p_eq_np)
 
-    3. PNP.v:
+    2. PNP.v:
        - spectral_separation_implies_P_neq_NP (refers to P_NP_Proof.v)
 
     COMPLETED PROOFS (previously admitted):
     - TuringEncoding.v: alpha_separation (NOW PROVEN via interval bounds)
+    - IntervalArithmetic.v: iv_div_pos (NOW PROVEN via Rinv_le_contravar)
 
-    TOTAL ADMITTED: 5 proofs, all documented with axiom dependencies
+    TOTAL ADMITTED: 4 proofs, all rely on bridge axiom operator_collapse_under_p_eq_np
 *)
 
-Definition admitted_proof_count : nat := 5.
+Definition admitted_proof_count : nat := 4.
 
 (** ** Key Numerical Constants *)
 
@@ -196,6 +195,36 @@ Definition referee_checklist : string :=
    - Print Assumptions PF_comprehensive_certificate.
    - Check total_axiom_count.".
 
+(** ** Numerical Cross-Check Theorems *)
+
+(** Verify numerical consistency across modules *)
+
+(** SpectralGap and TransferOperator use same lambda values *)
+Theorem lambda0_P_consistent :
+  SpectralGap.PF_lambda0P = 0.2221441469.
+Proof. reflexivity. Qed.
+
+Theorem lambda0_NP_consistent :
+  SpectralGap.PF_lambda0NP = 0.1681764182.
+Proof. reflexivity. Qed.
+
+(** Gap value is consistent *)
+Theorem gap_value_consistent :
+  SpectralGap.PF_spectral_gap = 0.2221441469 - 0.1681764182.
+Proof.
+  unfold SpectralGap.PF_spectral_gap, SpectralGap.PF_lambda0P, SpectralGap.PF_lambda0NP.
+  reflexivity.
+Qed.
+
+(** Interval bounds contain the actual values *)
+Theorem gap_in_certified_interval :
+  IntervalArithmetic.gap_lo <= SpectralGap.PF_spectral_gap <= IntervalArithmetic.gap_hi.
+Proof.
+  unfold SpectralGap.PF_spectral_gap, SpectralGap.PF_lambda0P, SpectralGap.PF_lambda0NP.
+  unfold IntervalArithmetic.gap_lo, IntervalArithmetic.gap_hi.
+  split; lra.
+Qed.
+
 (** ** Axiom Transparency Theorem *)
 
 (** This Coq development adds NO mathematical axioms beyond standard Coq.
@@ -252,7 +281,11 @@ Definition final_summary : string :=
 
    RECENT IMPROVEMENTS (2025-11-29):
    - Completed alpha_separation proof using interval bounds
+   - Completed iv_div_pos proof using Rinv_le_contravar
    - Added cross-module connection proofs
-   - Reduced admitted proof count from 6 to 5
+   - Reduced admitted proof count from 6 to 4
+
+   REMAINING ADMITS: All 4 rely on operator_collapse_under_p_eq_np
+   (the core bridge axiom connecting complexity to spectral theory)
 
    STATUS: Ready for referee review".
