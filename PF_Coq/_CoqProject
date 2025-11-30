@@ -13,8 +13,9 @@ theories/Core/IntervalArithmetic.v
 theories/Core/P_NP_Proof.v
 theories/Core/SpectralBijection.v
 theories/Core/NuclearSpaces.v
-theories/Core/GaussianModel.v
 theories/Core/CylindricalMeasures.v
+theories/Core/GaussianModel.v
+theories/Core/BochnerMinlos.v
 
 # Contracts (Millennium Problems)
 theories/Contracts/RH.v
