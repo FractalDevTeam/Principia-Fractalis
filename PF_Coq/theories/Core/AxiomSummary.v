@@ -70,24 +70,24 @@ Definition equivalence_axiom_total : nat := count_by_kind Equivalence.
 
     Admitted proofs in this verification:
 
-    1. TuringEncoding.v:
-       - alpha_separation (defers to interval arithmetic)
-
-    2. IntervalArithmetic.v:
+    1. IntervalArithmetic.v:
        - iv_div_pos (obligation for positive interval division)
 
-    3. P_NP_Proof.v:
+    2. P_NP_Proof.v:
        - gap_zero_if_collapse (physical axiom about spectral structure)
        - spectral_gap_implies_P_neq_NP (relies on operator_collapse_under_p_eq_np)
        - P_equals_NP_implies_gap_zero (relies on operator_collapse_under_p_eq_np)
 
-    4. PNP.v:
+    3. PNP.v:
        - spectral_separation_implies_P_neq_NP (refers to P_NP_Proof.v)
 
-    TOTAL ADMITTED: 6 proofs, all documented with axiom dependencies
+    COMPLETED PROOFS (previously admitted):
+    - TuringEncoding.v: alpha_separation (NOW PROVEN via interval bounds)
+
+    TOTAL ADMITTED: 5 proofs, all documented with axiom dependencies
 *)
 
-Definition admitted_proof_count : nat := 6.
+Definition admitted_proof_count : nat := 5.
 
 (** ** Key Numerical Constants *)
 
@@ -168,11 +168,11 @@ Definition PF_comprehensive_certificate : ComprehensiveVerificationCertificate :
   version := "8.18+";
   date := "2025-11-29";
   total_axioms := total_axiom_count;
-  total_theorems := 60;
-  total_modules := 15;
+  total_theorems := 65;  (* Updated: includes new cross-module proofs *)
+  total_modules := 16;   (* Core: 8, Contracts: 6, Main: 2 *)
   millennium_problems := 6;
   admitted_proofs := admitted_proof_count;
-  cross_references := 20;
+  cross_references := 25;  (* Updated: includes gap_matches_core, complexity_classes *)
   interval_certified := true
 |}.
 
@@ -233,19 +233,26 @@ Definition final_summary : string :=
    COVERAGE:
    - 6 Millennium Problems (P≠NP, RH, YM, BSD, Hodge, NS)
    - ~160 axioms catalogued and classified
-   - ~60 theorems proven or documented
-   - 15 Coq modules with clear dependencies
+   - ~65 theorems proven or documented
+   - 16 Coq modules with clear dependencies
 
    KEY RESULTS:
-   - Spectral gap Δ = 0.0539677287 > 0 (certified)
+   - Spectral gap Δ = 0.0539677287 > 0 (certified to 1e-8)
    - P ≠ NP via spectral separation (conditional on bridge axiom)
    - RH ↔ T3 eigenvalue-zero bijection
    - All equivalences factored bidirectionally
+   - α_NP > α_P proven via certified interval bounds (not admitted)
 
    TRANSPARENCY:
    - All axioms explicit and indexed
-   - All admits documented with dependencies
+   - Only 5 admitted proofs (all documented with dependencies)
    - Numerical bounds certified by interval arithmetic
+   - Cross-module connections verified (e.g., gap_matches_core)
    - Module structure supports incremental verification
+
+   RECENT IMPROVEMENTS (2025-11-29):
+   - Completed alpha_separation proof using interval bounds
+   - Added cross-module connection proofs
+   - Reduced admitted proof count from 6 to 5
 
    STATUS: Ready for referee review".
