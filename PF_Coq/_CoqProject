@@ -5,6 +5,8 @@ theories/Core/AxiomAudit.v
 theories/Core/Zeta.v
 theories/Core/Resonance.v
 theories/Core/SpectralGap.v
+theories/Core/RadixEconomy.v
+theories/Core/ChernWeil.v
 theories/Core/TuringEncoding.v
 theories/Core/TransferOperator.v
 theories/Core/IntervalArithmetic.v
