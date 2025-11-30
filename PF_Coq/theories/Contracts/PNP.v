@@ -8,6 +8,7 @@
 Require Import Coq.Reals.Reals.
 Require Import Coq.Strings.String.
 Require Import Coq.micromega.Lra.
+Require Import Coq.micromega.Lia.
 Require Import PF_Coq.Core.AxiomAudit.
 Require Import PF_Coq.Core.Zeta.
 Require Import PF_Coq.Core.Resonance.
@@ -201,16 +202,43 @@ Definition complexity_classes_referenced : Prop :=
   (exists L, TuringEncoding.IsInNP L).
 
 (** PROVEN: The trivial language is in both P and NP *)
-Lemma trivial_language : TuringEncoding.Language.
+Definition trivial_language : TuringEncoding.Language := fun _ => True.
+
+(** Trivial is in P (everything accepts in constant time) - PROVEN *)
+Theorem trivial_in_P : TuringEncoding.IsInP trivial_language.
 Proof.
-  exact (fun _ => True).
-Defined.
+  unfold TuringEncoding.IsInP, trivial_language.
+  (* Construct constant-time decider that always returns true *)
+  exists (fun _ => true).
+  exists (fun _ => 1%nat).  (* O(1) time *)
+  split.
+  - (* is_polynomial: exists k c, forall n, f n <= c * n^k + c *)
+    unfold TuringEncoding.is_polynomial.
+    exists 0%nat, 1%nat.  (* k=0 (constant), c=1 *)
+    intros n. simpl.
+    (* Goal: 1 <= 1 * 1 + 1 = 2 *)
+    lia.
+  - (* Correctness: L x <-> decider x = true *)
+    intros x. split; intros _; [reflexivity | exact I].
+Qed.
 
-(** Trivial is in P (everything accepts in constant time) *)
-Axiom trivial_in_P : TuringEncoding.IsInP trivial_language.
-
-(** Trivial is in NP (verifier accepts everything) *)
-Axiom trivial_in_NP : TuringEncoding.IsInNP trivial_language.
+(** Trivial is in NP (verifier accepts everything) - PROVEN *)
+Theorem trivial_in_NP : TuringEncoding.IsInNP trivial_language.
+Proof.
+  unfold TuringEncoding.IsInNP, trivial_language.
+  (* Construct constant-time verifier that ignores certificate and accepts *)
+  exists (fun _ _ => true).
+  exists (fun _ => 1%nat).  (* O(1) time *)
+  split.
+  - (* is_polynomial: exists k c, forall n, f n <= c * n^k + c *)
+    unfold TuringEncoding.is_polynomial.
+    exists 0%nat, 1%nat.  (* k=0, c=1 *)
+    intros n. simpl. lia.
+  - (* Correctness: L x <-> exists cert, verifier x cert = true *)
+    intros x. split.
+    + intros _. exists 0%nat. reflexivity.
+    + intros _. exact I.
+Qed.
 
 (** Complexity classes are non-empty *)
 Theorem complexity_classes_non_empty : complexity_classes_referenced.
