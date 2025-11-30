@@ -125,7 +125,27 @@ Qed.
 Definition sqrt2_lo : R := 1414213562373095 / 1000000000000000.
 Definition sqrt2_hi : R := 1414213562373096 / 1000000000000000.
 
-Axiom sqrt2_in_interval : sqrt2_lo <= sqrt 2 <= sqrt2_hi.
+(** sqrt2 interval - PROVEN via sqrt_square and sqrt_lt_1 *)
+Lemma sqrt2_lo_sq_lt_2 : sqrt2_lo * sqrt2_lo < 2.
+Proof. unfold sqrt2_lo. lra. Qed.
+
+Lemma two_lt_sqrt2_hi_sq : 2 < sqrt2_hi * sqrt2_hi.
+Proof. unfold sqrt2_hi. lra. Qed.
+
+Lemma sqrt2_in_interval : sqrt2_lo <= sqrt 2 <= sqrt2_hi.
+Proof.
+  split.
+  - (* sqrt2_lo <= sqrt 2 *)
+    assert (Hlo_pos: 0 <= sqrt2_lo) by (unfold sqrt2_lo; lra).
+    assert (Hsq_pos: 0 <= sqrt2_lo * sqrt2_lo) by (apply Rmult_le_pos; lra).
+    apply Rlt_le. rewrite <- (sqrt_square sqrt2_lo Hlo_pos).
+    apply sqrt_lt_1; [exact Hsq_pos | lra | exact sqrt2_lo_sq_lt_2].
+  - (* sqrt 2 <= sqrt2_hi *)
+    assert (Hhi_pos: 0 <= sqrt2_hi) by (unfold sqrt2_hi; lra).
+    assert (Hsq_pos: 0 <= sqrt2_hi * sqrt2_hi) by (apply Rmult_le_pos; lra).
+    apply Rlt_le. rewrite <- (sqrt_square sqrt2_hi Hhi_pos).
+    apply sqrt_lt_1; [lra | exact Hsq_pos | exact two_lt_sqrt2_hi_sq].
+Qed.
 
 Program Definition sqrt2_interval : Interval :=
   mkInterval sqrt2_lo sqrt2_hi _.
@@ -137,7 +157,27 @@ Qed.
 Definition sqrt5_lo : R := 2236067977499789 / 1000000000000000.
 Definition sqrt5_hi : R := 2236067977499790 / 1000000000000000.
 
-Axiom sqrt5_in_interval : sqrt5_lo <= sqrt 5 <= sqrt5_hi.
+(** sqrt5 interval - PROVEN via sqrt_square and sqrt_lt_1 *)
+Lemma sqrt5_lo_sq_lt_5 : sqrt5_lo * sqrt5_lo < 5.
+Proof. unfold sqrt5_lo. lra. Qed.
+
+Lemma five_lt_sqrt5_hi_sq : 5 < sqrt5_hi * sqrt5_hi.
+Proof. unfold sqrt5_hi. lra. Qed.
+
+Lemma sqrt5_in_interval : sqrt5_lo <= sqrt 5 <= sqrt5_hi.
+Proof.
+  split.
+  - (* sqrt5_lo <= sqrt 5 *)
+    assert (Hlo_pos: 0 <= sqrt5_lo) by (unfold sqrt5_lo; lra).
+    assert (Hsq_pos: 0 <= sqrt5_lo * sqrt5_lo) by (apply Rmult_le_pos; lra).
+    apply Rlt_le. rewrite <- (sqrt_square sqrt5_lo Hlo_pos).
+    apply sqrt_lt_1; [exact Hsq_pos | lra | exact sqrt5_lo_sq_lt_5].
+  - (* sqrt 5 <= sqrt5_hi *)
+    assert (Hhi_pos: 0 <= sqrt5_hi) by (unfold sqrt5_hi; lra).
+    assert (Hsq_pos: 0 <= sqrt5_hi * sqrt5_hi) by (apply Rmult_le_pos; lra).
+    apply Rlt_le. rewrite <- (sqrt_square sqrt5_hi Hhi_pos).
+    apply sqrt_lt_1; [lra | exact Hsq_pos | exact five_lt_sqrt5_hi_sq].
+Qed.
 
 Program Definition sqrt5_interval : Interval :=
   mkInterval sqrt5_lo sqrt5_hi _.
@@ -151,7 +191,33 @@ Definition phi_hi : R := 1618033988749895 / 1000000000000000.
 
 Definition phi_exact : R := (1 + sqrt 5) / 2.
 
-Axiom phi_in_interval : phi_lo <= phi_exact <= phi_hi.
+(** phi interval - PROVEN from sqrt5_in_interval *)
+Lemma phi_lo_bound : phi_lo <= (1 + sqrt5_lo) / 2.
+Proof.
+  unfold sqrt5_lo, phi_lo.
+  apply Rmult_le_reg_r with 2; [lra|].
+  field_simplify. lra.
+Qed.
+
+Lemma phi_hi_bound : (1 + sqrt5_hi) / 2 <= phi_hi.
+Proof.
+  unfold sqrt5_hi, phi_hi.
+  apply Rmult_le_reg_r with 2; [lra|].
+  field_simplify. lra.
+Qed.
+
+Lemma phi_in_interval : phi_lo <= phi_exact <= phi_hi.
+Proof.
+  unfold phi_exact.
+  destruct sqrt5_in_interval as [Hlo Hhi].
+  split.
+  - apply Rle_trans with ((1 + sqrt5_lo) / 2).
+    + exact phi_lo_bound.
+    + apply Rmult_le_compat_r; [lra | lra].
+  - apply Rle_trans with ((1 + sqrt5_hi) / 2).
+    + apply Rmult_le_compat_r; [lra | lra].
+    + exact phi_hi_bound.
+Qed.
 
 Program Definition phi_interval : Interval :=
   mkInterval phi_lo phi_hi _.

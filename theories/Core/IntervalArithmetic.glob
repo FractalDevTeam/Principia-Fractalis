@@ -1,4 +1,4 @@
-DIGEST 9e445fb182587777dcfbec2f74d4227c
+DIGEST f87ee72d18eca5a9b96f340f1a52a147
 FPF_Coq.Core.IntervalArithmetic
 R407:421 Coq.Reals.Reals <> <> lib
 R439:455 Coq.micromega.Lra <> <> lib
@@ -170,279 +170,463 @@ R3466:3468 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
 def 3498:3505 <> sqrt2_hi
 R3509:3509 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 R3530:3532 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 3558:3574 <> sqrt2_in_interval
-R3586:3589 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R3596:3599 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R3578:3585 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
-R3590:3593 Coq.Reals.R_sqrt <> sqrt def
-R3590:3593 Coq.Reals.R_sqrt <> sqrt def
-R3600:3607 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
-def 3630:3643 <> sqrt2_interval
-R3647:3654 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R3661:3670 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
-R3672:3679 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
-R3681:3688 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
-R3719:3726 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+prf 3619:3634 <> sqrt2_lo_sq_lt_2
+R3657:3659 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3646:3648 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3638:3645 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R3649:3656 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R3677:3684 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+prf 3704:3721 <> two_lt_sqrt2_hi_sq
+R3726:3728 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3737:3739 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R3729:3736 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
-def 3808:3815 <> sqrt5_lo
-R3819:3819 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3840:3842 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 3872:3879 <> sqrt5_hi
-R3883:3883 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3904:3906 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 3932:3948 <> sqrt5_in_interval
-R3960:3963 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R3970:3973 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R3952:3959 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
-R3964:3967 Coq.Reals.R_sqrt <> sqrt def
-R3964:3967 Coq.Reals.R_sqrt <> sqrt def
-R3974:3981 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
-def 4004:4017 <> sqrt5_interval
-R4021:4028 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R4035:4044 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
-R4046:4053 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
-R4055:4062 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
-R4093:4100 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
-R4103:4110 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
-def 4202:4207 <> phi_lo
-R4211:4211 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4232:4234 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 4264:4269 <> phi_hi
-R4273:4273 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4294:4296 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 4327:4335 <> phi_exact
-R4339:4339 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4344:4344 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4355:4358 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4346:4348 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4349:4352 Coq.Reals.R_sqrt <> sqrt def
-ax 4369:4383 <> phi_in_interval
-R4393:4396 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R4406:4409 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R4387:4392 PF_Coq.Core.IntervalArithmetic <> phi_lo def
-R4397:4405 PF_Coq.Core.IntervalArithmetic <> phi_exact def
-R4397:4405 PF_Coq.Core.IntervalArithmetic <> phi_exact def
-R4410:4415 PF_Coq.Core.IntervalArithmetic <> phi_hi def
-def 4438:4449 <> phi_interval
-R4453:4460 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R4467:4476 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
-R4478:4483 PF_Coq.Core.IntervalArithmetic <> phi_lo def
-R4485:4490 PF_Coq.Core.IntervalArithmetic <> phi_hi def
-R4521:4526 PF_Coq.Core.IntervalArithmetic <> phi_lo def
-R4529:4534 PF_Coq.Core.IntervalArithmetic <> phi_hi def
-def 4643:4652 <> euler_e_lo
-R4656:4656 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4677:4679 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 4709:4718 <> euler_e_hi
-R4722:4722 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4743:4745 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 4776:4782 <> euler_e
-R4786:4786 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4791:4793 Coq.Reals.Rtrigo_def <> exp def
-ax 4805:4823 <> euler_e_in_interval
-R4837:4840 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R4848:4851 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R4827:4836 PF_Coq.Core.IntervalArithmetic <> euler_e_lo def
-R4841:4847 PF_Coq.Core.IntervalArithmetic <> euler_e def
-R4841:4847 PF_Coq.Core.IntervalArithmetic <> euler_e def
-R4852:4861 PF_Coq.Core.IntervalArithmetic <> euler_e_hi def
-def 4884:4899 <> euler_e_interval
-R4903:4910 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R4917:4926 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
-R4928:4937 PF_Coq.Core.IntervalArithmetic <> euler_e_lo def
-R4939:4948 PF_Coq.Core.IntervalArithmetic <> euler_e_hi def
-R4979:4988 PF_Coq.Core.IntervalArithmetic <> euler_e_lo def
-R4991:5000 PF_Coq.Core.IntervalArithmetic <> euler_e_hi def
-def 5173:5191 <> golden_threshold_lo
-R5195:5195 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5215:5217 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 5247:5265 <> golden_threshold_hi
-R5269:5269 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5289:5291 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-prf 5389:5413 <> golden_threshold_in_range
-R5444:5447 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5438:5440 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5419:5437 PF_Coq.Core.IntervalArithmetic <> golden_threshold_lo def
-R5467:5469 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R5448:5466 PF_Coq.Core.IntervalArithmetic <> golden_threshold_hi def
-R5491:5509 PF_Coq.Core.IntervalArithmetic <> golden_threshold_lo def
-R5512:5530 PF_Coq.Core.IntervalArithmetic <> golden_threshold_hi def
-def 5640:5651 <> lambda0_P_lo
-R5655:5655 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5675:5677 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 5707:5718 <> lambda0_P_hi
-R5722:5722 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5742:5744 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 5770:5790 <> lambda0_P_in_interval
-R5808:5811 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R5829:5832 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R5796:5807 PF_Coq.Core.IntervalArithmetic <> lambda0_P_lo def
-R5833:5844 PF_Coq.Core.IntervalArithmetic <> lambda0_P_hi def
-def 5867:5884 <> lambda0_P_interval
-R5888:5895 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R5902:5911 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
-R5913:5924 PF_Coq.Core.IntervalArithmetic <> lambda0_P_lo def
-R5926:5937 PF_Coq.Core.IntervalArithmetic <> lambda0_P_hi def
-R5968:5979 PF_Coq.Core.IntervalArithmetic <> lambda0_P_lo def
-R5982:5993 PF_Coq.Core.IntervalArithmetic <> lambda0_P_hi def
-def 6070:6082 <> lambda0_NP_lo
-R6086:6086 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6106:6108 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 6138:6150 <> lambda0_NP_hi
-R6154:6154 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6174:6176 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 6202:6223 <> lambda0_NP_in_interval
-R6242:6245 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R6263:6266 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R6229:6241 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_lo def
-R6267:6279 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_hi def
-def 6302:6320 <> lambda0_NP_interval
-R6324:6331 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R6338:6347 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
-R6349:6361 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_lo def
-R6363:6375 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_hi def
-R6406:6418 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_lo def
-R6421:6433 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_hi def
-def 6604:6609 <> gap_lo
-R6613:6613 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6632:6634 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 6664:6669 <> gap_hi
-R6673:6673 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6692:6694 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 6733:6753 <> spectral_gap_interval
-R6757:6764 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R6771:6780 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
-R6782:6787 PF_Coq.Core.IntervalArithmetic <> gap_lo def
-R6789:6794 PF_Coq.Core.IntervalArithmetic <> gap_hi def
-R6825:6830 PF_Coq.Core.IntervalArithmetic <> gap_lo def
-R6833:6838 PF_Coq.Core.IntervalArithmetic <> gap_hi def
-prf 6942:6972 <> spectral_gap_certified_positive
-R6984:6986 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6978:6983 PF_Coq.Core.IntervalArithmetic <> gap_lo def
-R7006:7011 PF_Coq.Core.IntervalArithmetic <> gap_lo def
-prf 7056:7079 <> spectral_gap_lower_bound
-binder 7092:7096 <> delta:33
-R7138:7145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7099:7109 PF_Coq.Core.IntervalArithmetic <> in_interval def
-R7111:7115 PF_Coq.Core.IntervalArithmetic <> delta:33 var
-R7117:7137 PF_Coq.Core.IntervalArithmetic <> spectral_gap_interval def
-R7151:7153 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R7146:7150 PF_Coq.Core.IntervalArithmetic <> delta:33 var
-R7218:7223 PF_Coq.Core.IntervalArithmetic <> gap_lo def
-R7327:7329 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R7313:7315 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7331:7333 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7327:7329 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R7313:7315 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7331:7333 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-prf 7409:7432 <> spectral_gap_upper_bound
-binder 7445:7449 <> delta:34
-R7491:7498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7452:7462 PF_Coq.Core.IntervalArithmetic <> in_interval def
-R7464:7468 PF_Coq.Core.IntervalArithmetic <> delta:34 var
-R7470:7490 PF_Coq.Core.IntervalArithmetic <> spectral_gap_interval def
-R7504:7506 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R7499:7503 PF_Coq.Core.IntervalArithmetic <> delta:34 var
-R7571:7576 PF_Coq.Core.IntervalArithmetic <> gap_hi def
-R7680:7682 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R7666:7668 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7684:7686 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7680:7682 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R7666:7668 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7684:7686 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 7808:7823 <> alpha_P_interval
-R7827:7834 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R7839:7852 PF_Coq.Core.IntervalArithmetic <> sqrt2_interval def
-def 7895:7905 <> alpha_NP_lo
-R7909:7909 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7920:7922 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7914:7919 PF_Coq.Core.IntervalArithmetic <> phi_lo def
-R7924:7924 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 7939:7949 <> alpha_NP_hi
-R7953:7953 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7964:7966 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7958:7963 PF_Coq.Core.IntervalArithmetic <> phi_hi def
-R7968:7968 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 7992:8008 <> alpha_NP_interval
-R8012:8019 PF_Coq.Core.IntervalArithmetic <> Interval rec
-R8026:8035 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
-R8037:8047 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
-R8049:8059 PF_Coq.Core.IntervalArithmetic <> alpha_NP_hi def
-R8090:8100 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
-R8103:8113 PF_Coq.Core.IntervalArithmetic <> alpha_NP_hi def
-R8116:8121 PF_Coq.Core.IntervalArithmetic <> phi_lo def
-R8124:8129 PF_Coq.Core.IntervalArithmetic <> phi_hi def
-prf 8184:8209 <> alpha_separation_certified
-R8226:8228 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R8215:8225 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
-R8229:8236 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
-R8255:8265 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
-R8268:8273 PF_Coq.Core.IntervalArithmetic <> phi_lo def
-R8276:8283 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
-def 8372:8379 <> iv_error
-R8386:8393 PF_Coq.Core.IntervalArithmetic <> Interval rec
-binder 8382:8382 <> I:35
-R8398:8398 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R8403:8403 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R8421:8424 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R8411:8413 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R8404:8408 PF_Coq.Core.IntervalArithmetic <> iv_hi proj
-R8410:8410 PF_Coq.Core.IntervalArithmetic <> I:35 var
-R8414:8418 PF_Coq.Core.IntervalArithmetic <> iv_lo proj
-R8420:8420 PF_Coq.Core.IntervalArithmetic <> I:35 var
-def 8465:8472 <> iv_width
-R8479:8486 PF_Coq.Core.IntervalArithmetic <> Interval rec
-binder 8475:8475 <> I:36
-R8491:8491 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R8503:8505 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R8496:8500 PF_Coq.Core.IntervalArithmetic <> iv_hi proj
-R8502:8502 PF_Coq.Core.IntervalArithmetic <> I:36 var
-R8506:8510 PF_Coq.Core.IntervalArithmetic <> iv_lo proj
-R8512:8512 PF_Coq.Core.IntervalArithmetic <> I:36 var
-prf 8578:8601 <> spectral_gap_error_bound
-R8637:8639 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R8607:8614 PF_Coq.Core.IntervalArithmetic <> iv_width def
-R8616:8636 PF_Coq.Core.IntervalArithmetic <> spectral_gap_interval def
-R8663:8670 PF_Coq.Core.IntervalArithmetic <> iv_width def
-R8673:8693 PF_Coq.Core.IntervalArithmetic <> spectral_gap_interval def
-R8712:8717 PF_Coq.Core.IntervalArithmetic <> gap_lo def
-R8720:8725 PF_Coq.Core.IntervalArithmetic <> gap_hi def
-prf 8773:8812 <> interval_positive_implies_value_positive
-binder 8825:8825 <> I:37
-binder 8827:8827 <> x:38
-R8841:8844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8837:8839 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R8830:8834 PF_Coq.Core.IntervalArithmetic <> iv_lo proj
-R8836:8836 PF_Coq.Core.IntervalArithmetic <> I:37 var
-R8860:8863 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8845:8855 PF_Coq.Core.IntervalArithmetic <> in_interval def
-R8857:8857 PF_Coq.Core.IntervalArithmetic <> x:38 var
-R8859:8859 PF_Coq.Core.IntervalArithmetic <> I:37 var
-R8865:8867 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R8864:8864 PF_Coq.Core.IntervalArithmetic <> x:38 var
-prf 8924:8952 <> interval_disjoint_implies_neq
-binder 8965:8965 <> I:39
-binder 8967:8967 <> J:40
-binder 8969:8969 <> x:41
-binder 8971:8971 <> y:42
-R8995:9002 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8985:8987 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R8978:8982 PF_Coq.Core.IntervalArithmetic <> iv_hi proj
-R8984:8984 PF_Coq.Core.IntervalArithmetic <> I:39 var
-R8988:8992 PF_Coq.Core.IntervalArithmetic <> iv_lo proj
-R8994:8994 PF_Coq.Core.IntervalArithmetic <> J:40 var
-R9018:9021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9003:9013 PF_Coq.Core.IntervalArithmetic <> in_interval def
-R9015:9015 PF_Coq.Core.IntervalArithmetic <> x:41 var
-R9017:9017 PF_Coq.Core.IntervalArithmetic <> I:39 var
-R9037:9044 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9022:9032 PF_Coq.Core.IntervalArithmetic <> in_interval def
-R9034:9034 PF_Coq.Core.IntervalArithmetic <> y:42 var
-R9036:9036 PF_Coq.Core.IntervalArithmetic <> J:40 var
-R9046:9048 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R9045:9045 PF_Coq.Core.IntervalArithmetic <> x:41 var
-R9049:9049 PF_Coq.Core.IntervalArithmetic <> y:42 var
-def 9155:9187 <> interval_arithmetic_theorem_count
-R9191:9193 Coq.Init.Datatypes <> nat ind
-def 9213:9243 <> interval_arithmetic_axiom_count
-R9247:9249 Coq.Init.Datatypes <> nat ind
+R3740:3747 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R3764:3771 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+prf 3791:3807 <> sqrt2_in_interval
+R3819:3822 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3829:3832 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3811:3818 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R3823:3826 Coq.Reals.R_sqrt <> sqrt def
+R3823:3826 Coq.Reals.R_sqrt <> sqrt def
+R3833:3840 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R3910:3913 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3914:3921 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R3935:3942 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R3910:3913 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3914:3921 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R3973:3976 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3985:3987 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3977:3984 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R3988:3995 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R4008:4019 Coq.Reals.RIneq <> Rmult_le_pos thm
+R3973:3976 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3985:3987 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3977:3984 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R3988:3995 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R4008:4019 Coq.Reals.RIneq <> Rmult_le_pos thm
+R4038:4043 Coq.Reals.RIneq <> Rlt_le thm
+R4038:4043 Coq.Reals.RIneq <> Rlt_le thm
+R4058:4068 Coq.Reals.R_sqrt <> sqrt_square thm
+R4070:4077 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R4058:4068 Coq.Reals.R_sqrt <> sqrt_square thm
+R4070:4077 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R4058:4068 Coq.Reals.R_sqrt <> sqrt_square thm
+R4070:4077 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R4099:4107 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R4139:4154 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo_sq_lt_2 thm
+R4099:4107 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R4139:4154 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo_sq_lt_2 thm
+R4209:4212 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4213:4220 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4234:4241 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4209:4212 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4213:4220 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4272:4275 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4284:4286 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4276:4283 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4287:4294 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4307:4318 Coq.Reals.RIneq <> Rmult_le_pos thm
+R4272:4275 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4284:4286 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4276:4283 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4287:4294 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4307:4318 Coq.Reals.RIneq <> Rmult_le_pos thm
+R4337:4342 Coq.Reals.RIneq <> Rlt_le thm
+R4337:4342 Coq.Reals.RIneq <> Rlt_le thm
+R4357:4367 Coq.Reals.R_sqrt <> sqrt_square thm
+R4369:4376 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4357:4367 Coq.Reals.R_sqrt <> sqrt_square thm
+R4369:4376 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4357:4367 Coq.Reals.R_sqrt <> sqrt_square thm
+R4369:4376 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4398:4406 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R4438:4455 PF_Coq.Core.IntervalArithmetic <> two_lt_sqrt2_hi_sq thm
+R4398:4406 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R4438:4455 PF_Coq.Core.IntervalArithmetic <> two_lt_sqrt2_hi_sq thm
+def 4484:4497 <> sqrt2_interval
+R4501:4508 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R4515:4524 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
+R4526:4533 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R4535:4542 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R4573:4580 PF_Coq.Core.IntervalArithmetic <> sqrt2_lo def
+R4583:4590 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+def 4662:4669 <> sqrt5_lo
+R4673:4673 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4694:4696 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 4726:4733 <> sqrt5_hi
+R4737:4737 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4758:4760 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 4847:4862 <> sqrt5_lo_sq_lt_5
+R4885:4887 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4874:4876 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4866:4873 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R4877:4884 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R4905:4912 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+prf 4932:4950 <> five_lt_sqrt5_hi_sq
+R4955:4957 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4966:4968 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4958:4965 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R4969:4976 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R4993:5000 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+prf 5020:5036 <> sqrt5_in_interval
+R5048:5051 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R5058:5061 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R5040:5047 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5052:5055 Coq.Reals.R_sqrt <> sqrt def
+R5052:5055 Coq.Reals.R_sqrt <> sqrt def
+R5062:5069 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5139:5142 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5143:5150 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5164:5171 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5139:5142 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5143:5150 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5202:5205 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5214:5216 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5206:5213 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5217:5224 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5237:5248 Coq.Reals.RIneq <> Rmult_le_pos thm
+R5202:5205 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5214:5216 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5206:5213 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5217:5224 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5237:5248 Coq.Reals.RIneq <> Rmult_le_pos thm
+R5267:5272 Coq.Reals.RIneq <> Rlt_le thm
+R5267:5272 Coq.Reals.RIneq <> Rlt_le thm
+R5287:5297 Coq.Reals.R_sqrt <> sqrt_square thm
+R5299:5306 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5287:5297 Coq.Reals.R_sqrt <> sqrt_square thm
+R5299:5306 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5287:5297 Coq.Reals.R_sqrt <> sqrt_square thm
+R5299:5306 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5328:5336 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R5368:5383 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo_sq_lt_5 thm
+R5328:5336 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R5368:5383 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo_sq_lt_5 thm
+R5438:5441 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5442:5449 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5463:5470 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5438:5441 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5442:5449 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5501:5504 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5513:5515 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5505:5512 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5516:5523 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5536:5547 Coq.Reals.RIneq <> Rmult_le_pos thm
+R5501:5504 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5513:5515 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5505:5512 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5516:5523 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5536:5547 Coq.Reals.RIneq <> Rmult_le_pos thm
+R5566:5571 Coq.Reals.RIneq <> Rlt_le thm
+R5566:5571 Coq.Reals.RIneq <> Rlt_le thm
+R5586:5596 Coq.Reals.R_sqrt <> sqrt_square thm
+R5598:5605 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5586:5596 Coq.Reals.R_sqrt <> sqrt_square thm
+R5598:5605 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5586:5596 Coq.Reals.R_sqrt <> sqrt_square thm
+R5598:5605 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5627:5635 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R5667:5685 PF_Coq.Core.IntervalArithmetic <> five_lt_sqrt5_hi_sq thm
+R5627:5635 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R5667:5685 PF_Coq.Core.IntervalArithmetic <> five_lt_sqrt5_hi_sq thm
+def 5714:5727 <> sqrt5_interval
+R5731:5738 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R5745:5754 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
+R5756:5763 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5765:5772 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R5803:5810 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R5813:5820 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+def 5912:5917 <> phi_lo
+R5921:5921 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5942:5944 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 5974:5979 <> phi_hi
+R5983:5983 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6004:6006 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 6037:6045 <> phi_exact
+R6049:6049 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6054:6054 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6065:6068 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6056:6058 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6059:6062 Coq.Reals.R_sqrt <> sqrt def
+prf 6131:6142 <> phi_lo_bound
+R6152:6155 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6146:6151 PF_Coq.Core.IntervalArithmetic <> phi_lo def
+R6156:6156 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6169:6172 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6158:6160 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6161:6168 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R6192:6199 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R6202:6207 PF_Coq.Core.IntervalArithmetic <> phi_lo def
+R6218:6231 Coq.Reals.RIneq <> Rmult_le_reg_r thm
+R6218:6231 Coq.Reals.RIneq <> Rmult_le_reg_r thm
+prf 6284:6295 <> phi_hi_bound
+R6317:6320 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6299:6299 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6312:6315 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6301:6303 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6304:6311 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R6321:6326 PF_Coq.Core.IntervalArithmetic <> phi_hi def
+R6345:6352 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R6355:6360 PF_Coq.Core.IntervalArithmetic <> phi_hi def
+R6371:6384 Coq.Reals.RIneq <> Rmult_le_reg_r thm
+R6371:6384 Coq.Reals.RIneq <> Rmult_le_reg_r thm
+prf 6437:6451 <> phi_in_interval
+R6461:6464 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R6474:6477 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R6455:6460 PF_Coq.Core.IntervalArithmetic <> phi_lo def
+R6465:6473 PF_Coq.Core.IntervalArithmetic <> phi_exact def
+R6465:6473 PF_Coq.Core.IntervalArithmetic <> phi_exact def
+R6478:6483 PF_Coq.Core.IntervalArithmetic <> phi_hi def
+R6502:6510 PF_Coq.Core.IntervalArithmetic <> phi_exact def
+R6524:6540 PF_Coq.Core.IntervalArithmetic <> sqrt5_in_interval thm
+R6591:6591 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6604:6607 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6593:6595 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6596:6603 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R6575:6583 Coq.Reals.RIneq <> Rle_trans thm
+R6591:6591 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6604:6607 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6593:6595 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6596:6603 PF_Coq.Core.IntervalArithmetic <> sqrt5_lo def
+R6575:6583 Coq.Reals.RIneq <> Rle_trans thm
+R6624:6635 PF_Coq.Core.IntervalArithmetic <> phi_lo_bound thm
+R6624:6635 PF_Coq.Core.IntervalArithmetic <> phi_lo_bound thm
+R6650:6666 Coq.Reals.RIneq <> Rmult_le_compat_r thm
+R6650:6666 Coq.Reals.RIneq <> Rmult_le_compat_r thm
+R6708:6708 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6721:6724 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6710:6712 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6713:6720 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R6692:6700 Coq.Reals.RIneq <> Rle_trans thm
+R6708:6708 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6721:6724 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6710:6712 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6713:6720 PF_Coq.Core.IntervalArithmetic <> sqrt5_hi def
+R6692:6700 Coq.Reals.RIneq <> Rle_trans thm
+R6741:6757 Coq.Reals.RIneq <> Rmult_le_compat_r thm
+R6741:6757 Coq.Reals.RIneq <> Rmult_le_compat_r thm
+R6785:6796 PF_Coq.Core.IntervalArithmetic <> phi_hi_bound thm
+R6785:6796 PF_Coq.Core.IntervalArithmetic <> phi_hi_bound thm
+def 6824:6835 <> phi_interval
+R6839:6846 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R6853:6862 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
+R6864:6869 PF_Coq.Core.IntervalArithmetic <> phi_lo def
+R6871:6876 PF_Coq.Core.IntervalArithmetic <> phi_hi def
+R6907:6912 PF_Coq.Core.IntervalArithmetic <> phi_lo def
+R6915:6920 PF_Coq.Core.IntervalArithmetic <> phi_hi def
+def 7029:7038 <> euler_e_lo
+R7042:7042 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7063:7065 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 7095:7104 <> euler_e_hi
+R7108:7108 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7129:7131 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 7162:7168 <> euler_e
+R7172:7172 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7177:7179 Coq.Reals.Rtrigo_def <> exp def
+ax 7191:7209 <> euler_e_in_interval
+R7223:7226 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R7234:7237 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R7213:7222 PF_Coq.Core.IntervalArithmetic <> euler_e_lo def
+R7227:7233 PF_Coq.Core.IntervalArithmetic <> euler_e def
+R7227:7233 PF_Coq.Core.IntervalArithmetic <> euler_e def
+R7238:7247 PF_Coq.Core.IntervalArithmetic <> euler_e_hi def
+def 7270:7285 <> euler_e_interval
+R7289:7296 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R7303:7312 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
+R7314:7323 PF_Coq.Core.IntervalArithmetic <> euler_e_lo def
+R7325:7334 PF_Coq.Core.IntervalArithmetic <> euler_e_hi def
+R7365:7374 PF_Coq.Core.IntervalArithmetic <> euler_e_lo def
+R7377:7386 PF_Coq.Core.IntervalArithmetic <> euler_e_hi def
+def 7559:7577 <> golden_threshold_lo
+R7581:7581 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7601:7603 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 7633:7651 <> golden_threshold_hi
+R7655:7655 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7675:7677 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 7775:7799 <> golden_threshold_in_range
+R7830:7833 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7824:7826 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7805:7823 PF_Coq.Core.IntervalArithmetic <> golden_threshold_lo def
+R7853:7855 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7834:7852 PF_Coq.Core.IntervalArithmetic <> golden_threshold_hi def
+R7877:7895 PF_Coq.Core.IntervalArithmetic <> golden_threshold_lo def
+R7898:7916 PF_Coq.Core.IntervalArithmetic <> golden_threshold_hi def
+def 8026:8037 <> lambda0_P_lo
+R8041:8041 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8061:8063 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 8093:8104 <> lambda0_P_hi
+R8108:8108 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8128:8130 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+ax 8156:8176 <> lambda0_P_in_interval
+R8194:8197 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8215:8218 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8182:8193 PF_Coq.Core.IntervalArithmetic <> lambda0_P_lo def
+R8219:8230 PF_Coq.Core.IntervalArithmetic <> lambda0_P_hi def
+def 8253:8270 <> lambda0_P_interval
+R8274:8281 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R8288:8297 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
+R8299:8310 PF_Coq.Core.IntervalArithmetic <> lambda0_P_lo def
+R8312:8323 PF_Coq.Core.IntervalArithmetic <> lambda0_P_hi def
+R8354:8365 PF_Coq.Core.IntervalArithmetic <> lambda0_P_lo def
+R8368:8379 PF_Coq.Core.IntervalArithmetic <> lambda0_P_hi def
+def 8456:8468 <> lambda0_NP_lo
+R8472:8472 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8492:8494 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 8524:8536 <> lambda0_NP_hi
+R8540:8540 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8560:8562 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+ax 8588:8609 <> lambda0_NP_in_interval
+R8628:8631 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8649:8652 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8615:8627 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_lo def
+R8653:8665 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_hi def
+def 8688:8706 <> lambda0_NP_interval
+R8710:8717 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R8724:8733 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
+R8735:8747 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_lo def
+R8749:8761 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_hi def
+R8792:8804 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_lo def
+R8807:8819 PF_Coq.Core.IntervalArithmetic <> lambda0_NP_hi def
+def 8990:8995 <> gap_lo
+R8999:8999 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R9018:9020 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 9050:9055 <> gap_hi
+R9059:9059 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R9078:9080 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 9119:9139 <> spectral_gap_interval
+R9143:9150 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R9157:9166 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
+R9168:9173 PF_Coq.Core.IntervalArithmetic <> gap_lo def
+R9175:9180 PF_Coq.Core.IntervalArithmetic <> gap_hi def
+R9211:9216 PF_Coq.Core.IntervalArithmetic <> gap_lo def
+R9219:9224 PF_Coq.Core.IntervalArithmetic <> gap_hi def
+prf 9328:9358 <> spectral_gap_certified_positive
+R9370:9372 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R9364:9369 PF_Coq.Core.IntervalArithmetic <> gap_lo def
+R9392:9397 PF_Coq.Core.IntervalArithmetic <> gap_lo def
+prf 9442:9465 <> spectral_gap_lower_bound
+binder 9478:9482 <> delta:30
+R9524:9531 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9485:9495 PF_Coq.Core.IntervalArithmetic <> in_interval def
+R9497:9501 PF_Coq.Core.IntervalArithmetic <> delta:30 var
+R9503:9523 PF_Coq.Core.IntervalArithmetic <> spectral_gap_interval def
+R9537:9539 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R9532:9536 PF_Coq.Core.IntervalArithmetic <> delta:30 var
+R9604:9609 PF_Coq.Core.IntervalArithmetic <> gap_lo def
+R9713:9715 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R9699:9701 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R9717:9719 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R9713:9715 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R9699:9701 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R9717:9719 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 9795:9818 <> spectral_gap_upper_bound
+binder 9831:9835 <> delta:31
+R9877:9884 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9838:9848 PF_Coq.Core.IntervalArithmetic <> in_interval def
+R9850:9854 PF_Coq.Core.IntervalArithmetic <> delta:31 var
+R9856:9876 PF_Coq.Core.IntervalArithmetic <> spectral_gap_interval def
+R9890:9892 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9885:9889 PF_Coq.Core.IntervalArithmetic <> delta:31 var
+R9957:9962 PF_Coq.Core.IntervalArithmetic <> gap_hi def
+R10066:10068 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R10052:10054 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10070:10072 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10066:10068 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R10052:10054 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10070:10072 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 10194:10209 <> alpha_P_interval
+R10213:10220 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R10225:10238 PF_Coq.Core.IntervalArithmetic <> sqrt2_interval def
+def 10281:10291 <> alpha_NP_lo
+R10295:10295 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R10306:10308 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10300:10305 PF_Coq.Core.IntervalArithmetic <> phi_lo def
+R10310:10310 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 10325:10335 <> alpha_NP_hi
+R10339:10339 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R10350:10352 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10344:10349 PF_Coq.Core.IntervalArithmetic <> phi_hi def
+R10354:10354 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 10378:10394 <> alpha_NP_interval
+R10398:10405 PF_Coq.Core.IntervalArithmetic <> Interval rec
+R10412:10421 PF_Coq.Core.IntervalArithmetic <> mkInterval constr
+R10423:10433 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
+R10435:10445 PF_Coq.Core.IntervalArithmetic <> alpha_NP_hi def
+R10476:10486 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
+R10489:10499 PF_Coq.Core.IntervalArithmetic <> alpha_NP_hi def
+R10502:10507 PF_Coq.Core.IntervalArithmetic <> phi_lo def
+R10510:10515 PF_Coq.Core.IntervalArithmetic <> phi_hi def
+prf 10570:10595 <> alpha_separation_certified
+R10612:10614 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R10601:10611 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
+R10615:10622 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+R10641:10651 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
+R10654:10659 PF_Coq.Core.IntervalArithmetic <> phi_lo def
+R10662:10669 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
+def 10758:10765 <> iv_error
+R10772:10779 PF_Coq.Core.IntervalArithmetic <> Interval rec
+binder 10768:10768 <> I:32
+R10784:10784 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R10789:10789 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10807:10810 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10797:10799 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R10790:10794 PF_Coq.Core.IntervalArithmetic <> iv_hi proj
+R10796:10796 PF_Coq.Core.IntervalArithmetic <> I:32 var
+R10800:10804 PF_Coq.Core.IntervalArithmetic <> iv_lo proj
+R10806:10806 PF_Coq.Core.IntervalArithmetic <> I:32 var
+def 10851:10858 <> iv_width
+R10865:10872 PF_Coq.Core.IntervalArithmetic <> Interval rec
+binder 10861:10861 <> I:33
+R10877:10877 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R10889:10891 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R10882:10886 PF_Coq.Core.IntervalArithmetic <> iv_hi proj
+R10888:10888 PF_Coq.Core.IntervalArithmetic <> I:33 var
+R10892:10896 PF_Coq.Core.IntervalArithmetic <> iv_lo proj
+R10898:10898 PF_Coq.Core.IntervalArithmetic <> I:33 var
+prf 10964:10987 <> spectral_gap_error_bound
+R11023:11025 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R10993:11000 PF_Coq.Core.IntervalArithmetic <> iv_width def
+R11002:11022 PF_Coq.Core.IntervalArithmetic <> spectral_gap_interval def
+R11049:11056 PF_Coq.Core.IntervalArithmetic <> iv_width def
+R11059:11079 PF_Coq.Core.IntervalArithmetic <> spectral_gap_interval def
+R11098:11103 PF_Coq.Core.IntervalArithmetic <> gap_lo def
+R11106:11111 PF_Coq.Core.IntervalArithmetic <> gap_hi def
+prf 11159:11198 <> interval_positive_implies_value_positive
+binder 11211:11211 <> I:34
+binder 11213:11213 <> x:35
+R11227:11230 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11223:11225 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R11216:11220 PF_Coq.Core.IntervalArithmetic <> iv_lo proj
+R11222:11222 PF_Coq.Core.IntervalArithmetic <> I:34 var
+R11246:11249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11231:11241 PF_Coq.Core.IntervalArithmetic <> in_interval def
+R11243:11243 PF_Coq.Core.IntervalArithmetic <> x:35 var
+R11245:11245 PF_Coq.Core.IntervalArithmetic <> I:34 var
+R11251:11253 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R11250:11250 PF_Coq.Core.IntervalArithmetic <> x:35 var
+prf 11310:11338 <> interval_disjoint_implies_neq
+binder 11351:11351 <> I:36
+binder 11353:11353 <> J:37
+binder 11355:11355 <> x:38
+binder 11357:11357 <> y:39
+R11381:11388 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11371:11373 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R11364:11368 PF_Coq.Core.IntervalArithmetic <> iv_hi proj
+R11370:11370 PF_Coq.Core.IntervalArithmetic <> I:36 var
+R11374:11378 PF_Coq.Core.IntervalArithmetic <> iv_lo proj
+R11380:11380 PF_Coq.Core.IntervalArithmetic <> J:37 var
+R11404:11407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11389:11399 PF_Coq.Core.IntervalArithmetic <> in_interval def
+R11401:11401 PF_Coq.Core.IntervalArithmetic <> x:38 var
+R11403:11403 PF_Coq.Core.IntervalArithmetic <> I:36 var
+R11423:11430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11408:11418 PF_Coq.Core.IntervalArithmetic <> in_interval def
+R11420:11420 PF_Coq.Core.IntervalArithmetic <> y:39 var
+R11422:11422 PF_Coq.Core.IntervalArithmetic <> J:37 var
+R11432:11434 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R11431:11431 PF_Coq.Core.IntervalArithmetic <> x:38 var
+R11435:11435 PF_Coq.Core.IntervalArithmetic <> y:39 var
+def 11541:11573 <> interval_arithmetic_theorem_count
+R11577:11579 Coq.Init.Datatypes <> nat ind
+def 11599:11629 <> interval_arithmetic_axiom_count
+R11633:11635 Coq.Init.Datatypes <> nat ind

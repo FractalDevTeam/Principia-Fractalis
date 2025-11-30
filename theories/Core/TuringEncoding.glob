@@ -361,7 +361,7 @@ R5827:5834 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
 R5809:5820 Coq.Reals.RIneq <> Rle_lt_trans thm
 R5827:5834 PF_Coq.Core.IntervalArithmetic <> sqrt2_hi def
 R5809:5820 Coq.Reals.RIneq <> Rle_lt_trans thm
-R5879:5895 PF_Coq.Core.IntervalArithmetic <> sqrt2_in_interval prfax
+R5879:5895 PF_Coq.Core.IntervalArithmetic <> sqrt2_in_interval thm
 R5989:5999 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
 R5971:5982 Coq.Reals.RIneq <> Rlt_le_trans thm
 R5989:5999 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
@@ -369,7 +369,7 @@ R5971:5982 Coq.Reals.RIneq <> Rlt_le_trans thm
 R6049:6074 PF_Coq.Core.IntervalArithmetic <> alpha_separation_certified thm
 R6049:6074 PF_Coq.Core.IntervalArithmetic <> alpha_separation_certified thm
 R6133:6143 PF_Coq.Core.IntervalArithmetic <> alpha_NP_lo def
-R6161:6175 PF_Coq.Core.IntervalArithmetic <> phi_in_interval prfax
+R6161:6175 PF_Coq.Core.IntervalArithmetic <> phi_in_interval thm
 R6202:6210 PF_Coq.Core.IntervalArithmetic <> phi_exact def
 def 6322:6328 <> energyP
 R6335:6342 PF_Coq.Core.TuringEncoding <> TMConfig rec
