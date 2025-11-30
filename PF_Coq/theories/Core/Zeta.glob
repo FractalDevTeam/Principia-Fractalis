@@ -1,0 +1,163 @@
+DIGEST 70e9218c9a14140feaad6d50be07e401
+FPF_Coq.Core.Zeta
+R417:431 Coq.Reals.Reals <> <> lib
+R449:464 Coq.Reals.Rpower <> <> lib
+R482:498 Coq.micromega.Lra <> <> lib
+rec 678:678 <> C
+proj 696:697 <> Re
+proj 704:705 <> Im
+R701:701 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R709:709 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 726:730 <> C_add
+R741:741 PF_Coq.Core.Zeta <> C rec
+binder 733:734 <> z1:4
+binder 736:737 <> z2:5
+R746:746 PF_Coq.Core.Zeta <> C rec
+R753:755 PF_Coq.Core.Zeta <> mkC constr
+R763:765 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R758:759 PF_Coq.Core.Zeta <> Re proj
+R761:762 PF_Coq.Core.Zeta <> z1:4 var
+R766:767 PF_Coq.Core.Zeta <> Re proj
+R769:770 PF_Coq.Core.Zeta <> z2:5 var
+R779:781 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R774:775 PF_Coq.Core.Zeta <> Im proj
+R777:778 PF_Coq.Core.Zeta <> z1:4 var
+R782:783 PF_Coq.Core.Zeta <> Im proj
+R785:786 PF_Coq.Core.Zeta <> z2:5 var
+def 802:806 <> C_mul
+R817:817 PF_Coq.Core.Zeta <> C rec
+binder 809:810 <> z1:6
+binder 812:813 <> z2:7
+R822:822 PF_Coq.Core.Zeta <> C rec
+R829:831 PF_Coq.Core.Zeta <> mkC constr
+R847:849 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R839:841 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R834:835 PF_Coq.Core.Zeta <> Re proj
+R837:838 PF_Coq.Core.Zeta <> z1:6 var
+R842:843 PF_Coq.Core.Zeta <> Re proj
+R845:846 PF_Coq.Core.Zeta <> z2:7 var
+R855:857 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R850:851 PF_Coq.Core.Zeta <> Im proj
+R853:854 PF_Coq.Core.Zeta <> z1:6 var
+R858:859 PF_Coq.Core.Zeta <> Im proj
+R861:862 PF_Coq.Core.Zeta <> z2:7 var
+R885:887 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R877:879 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R872:873 PF_Coq.Core.Zeta <> Re proj
+R875:876 PF_Coq.Core.Zeta <> z1:6 var
+R880:881 PF_Coq.Core.Zeta <> Im proj
+R883:884 PF_Coq.Core.Zeta <> z2:7 var
+R893:895 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R888:889 PF_Coq.Core.Zeta <> Im proj
+R891:892 PF_Coq.Core.Zeta <> z1:6 var
+R896:897 PF_Coq.Core.Zeta <> Re proj
+R899:900 PF_Coq.Core.Zeta <> z2:7 var
+def 916:921 <> C_of_R
+R928:928 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 924:924 <> r:8
+R933:933 PF_Coq.Core.Zeta <> C rec
+R938:940 PF_Coq.Core.Zeta <> mkC constr
+R942:942 PF_Coq.Core.Zeta <> r:8 var
+def 959:971 <> critical_line
+R978:978 PF_Coq.Core.Zeta <> C rec
+binder 974:974 <> s:9
+R995:997 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R991:992 PF_Coq.Core.Zeta <> Re proj
+R994:994 PF_Coq.Core.Zeta <> s:9 var
+R999:999 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+ax 1124:1131 <> zetaSpec
+R1136:1139 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1135:1135 PF_Coq.Core.Zeta <> C rec
+R1140:1140 PF_Coq.Core.Zeta <> C rec
+ax 1188:1196 <> zeta_at_2
+R1218:1220 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1200:1207 PF_Coq.Core.Zeta <> zetaSpec defax
+R1210:1212 PF_Coq.Core.Zeta <> mkC constr
+R1221:1223 PF_Coq.Core.Zeta <> mkC constr
+R1230:1232 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1228:1228 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1226:1227 Coq.Reals.Rtrigo1 <> PI def
+ax 1289:1312 <> zeta_functional_equation
+R1329:1329 PF_Coq.Core.Zeta <> C rec
+binder 1325:1325 <> s:12
+R1342:1347 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1338:1340 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1334:1335 PF_Coq.Core.Zeta <> Re proj
+R1337:1337 PF_Coq.Core.Zeta <> s:12 var
+R1356:1433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1352:1354 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1348:1349 PF_Coq.Core.Zeta <> Re proj
+R1351:1351 PF_Coq.Core.Zeta <> s:12 var
+R1434:1437 Coq.Init.Logic <> True ind
+def 1538:1554 <> RiemannHypothesis
+R1579:1579 PF_Coq.Core.Zeta <> C rec
+binder 1575:1575 <> s:14
+R1592:1597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1588:1590 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1584:1585 PF_Coq.Core.Zeta <> Re proj
+R1587:1587 PF_Coq.Core.Zeta <> s:14 var
+R1606:1611 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1602:1604 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1598:1599 PF_Coq.Core.Zeta <> Re proj
+R1601:1601 PF_Coq.Core.Zeta <> s:14 var
+R1632:1637 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1622:1624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1612:1619 PF_Coq.Core.Zeta <> zetaSpec defax
+R1621:1621 PF_Coq.Core.Zeta <> s:14 var
+R1625:1627 PF_Coq.Core.Zeta <> mkC constr
+R1642:1644 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1638:1639 PF_Coq.Core.Zeta <> Re proj
+R1641:1641 PF_Coq.Core.Zeta <> s:14 var
+R1646:1646 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 1743:1757 <> PF_riemann_zeta
+R1762:1769 PF_Coq.Core.Zeta <> zetaSpec defax
+prf 1781:1799 <> PF_zeta_is_standard
+R1818:1820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1803:1817 PF_Coq.Core.Zeta <> PF_riemann_zeta def
+R1821:1828 PF_Coq.Core.Zeta <> zetaSpec defax
+def 1890:1906 <> in_critical_strip
+R1913:1913 PF_Coq.Core.Zeta <> C rec
+binder 1909:1909 <> s:15
+R1936:1939 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1929:1931 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1932:1933 PF_Coq.Core.Zeta <> Re proj
+R1935:1935 PF_Coq.Core.Zeta <> s:15 var
+R1944:1946 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1940:1941 PF_Coq.Core.Zeta <> Re proj
+R1943:1943 PF_Coq.Core.Zeta <> s:15 var
+def 1987:2004 <> is_nontrivial_zero
+R2011:2011 PF_Coq.Core.Zeta <> C rec
+binder 2007:2007 <> s:16
+R2045:2048 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2026:2042 PF_Coq.Core.Zeta <> in_critical_strip def
+R2044:2044 PF_Coq.Core.Zeta <> s:16 var
+R2059:2061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2049:2056 PF_Coq.Core.Zeta <> zetaSpec defax
+R2058:2058 PF_Coq.Core.Zeta <> s:16 var
+R2062:2064 PF_Coq.Core.Zeta <> mkC constr
+prf 2143:2155 <> RH_equivalent
+R2178:2185 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2235:2235 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2161:2177 PF_Coq.Core.Zeta <> RiemannHypothesis def
+binder 2193:2193 <> s:17
+R2216:2219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2196:2213 PF_Coq.Core.Zeta <> is_nontrivial_zero def
+R2215:2215 PF_Coq.Core.Zeta <> s:17 var
+R2220:2232 PF_Coq.Core.Zeta <> critical_line def
+R2234:2234 PF_Coq.Core.Zeta <> s:17 var
+R2254:2270 PF_Coq.Core.Zeta <> RiemannHypothesis def
+R2273:2290 PF_Coq.Core.Zeta <> is_nontrivial_zero def
+R2293:2309 PF_Coq.Core.Zeta <> in_critical_strip def
+R2312:2324 PF_Coq.Core.Zeta <> critical_line def
+def 2453:2464 <> zeta_2_value
+R2468:2468 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2477:2479 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2475:2475 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R2473:2474 Coq.Reals.Rtrigo1 <> PI def
+def 2533:2553 <> zeta_neg1_regularized
+R2557:2557 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2564:2564 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 2605:2617 <> zeta_3_approx
+R2621:2621 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2811:2831 <> zeta_spec_axiom_count
+R2835:2837 Coq.Init.Datatypes <> nat ind

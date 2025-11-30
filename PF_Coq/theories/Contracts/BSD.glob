@@ -1,0 +1,376 @@
+DIGEST f557b2ec4563ff01391bc1c96c827bd5
+FPF_Coq.Contracts.BSD
+R259:273 Coq.Reals.Reals <> <> lib
+R291:308 Coq.Strings.String <> <> lib
+R326:339 Coq.Lists.List <> <> lib
+R349:361 Coq.Lists.List ListNotations <> mod
+R379:395 Coq.micromega.Lra <> <> lib
+R413:434 PF_Coq.Core.AxiomAudit <> <> lib
+R452:467 PF_Coq.Core.Zeta <> <> lib
+R485:505 PF_Coq.Core.Resonance <> <> lib
+rec 570:580 <> BSDContract
+proj 651:660 <> L_spectral
+proj 718:732 <> rank_eigenvalue
+proj 780:795 <> golden_threshold
+proj 834:851 <> uses_EllipticCurve
+proj 863:881 <> uses_algebraic_rank
+proj 893:907 <> uses_L_function
+proj 919:935 <> uses_L_order_at_1
+proj 947:959 <> uses_BSD_weak
+proj 971:985 <> uses_BSD_strong
+proj 997:1010 <> uses_alpha_BSD
+proj 1022:1042 <> uses_golden_threshold
+proj 1054:1075 <> uses_spectral_operator
+proj 1087:1107 <> uses_T_E_self_adjoint
+proj 1119:1145 <> uses_spectral_concentration
+proj 1157:1173 <> uses_rank_formula
+proj 1228:1245 <> uses_L_implies_BSD
+proj 1257:1274 <> uses_BSD_implies_L
+rec 1409:1421 <> EllipticCurve
+proj 1446:1449 <> EC_a
+proj 1458:1461 <> EC_b
+proj 1515:1537 <> EC_discriminant_nonzero
+R1453:1453 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1465:1465 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1565:1568 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1551:1553 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1542:1544 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1549:1549 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1545:1548 PF_Coq.Contracts.BSD <> EC_a:20 meth
+R1556:1558 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1563:1563 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1559:1562 PF_Coq.Contracts.BSD <> EC_b:21 meth
+def 1614:1627 <> RationalPoints
+R1634:1646 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 1630:1630 <> E:23
+R1661:1666 Coq.Init.Datatypes <> option ind
+R1668:1669 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1671:1673 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1679:1681 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1753:1754 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1675:1677 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1674:1674 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1678:1678 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1670:1670 <> p:24
+R1691:1693 Coq.Init.Datatypes <> fst def
+R1695:1695 PF_Coq.Contracts.BSD <> p:24 var
+binder 1686:1686 <> x:25
+R1709:1711 Coq.Init.Datatypes <> snd def
+R1713:1713 PF_Coq.Contracts.BSD <> p:24 var
+binder 1704:1704 <> y:26
+R1725:1727 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1723:1723 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1722:1722 PF_Coq.Contracts.BSD <> y:26 var
+R1744:1746 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1731:1733 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1729:1729 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1728:1728 PF_Coq.Contracts.BSD <> x:25 var
+R1740:1742 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1734:1737 PF_Coq.Contracts.BSD <> EC_a proj
+R1739:1739 PF_Coq.Contracts.BSD <> E:23 var
+R1743:1743 PF_Coq.Contracts.BSD <> x:25 var
+R1747:1750 PF_Coq.Contracts.BSD <> EC_b proj
+R1752:1752 PF_Coq.Contracts.BSD <> E:23 var
+ax 1804:1817 <> algebraic_rank
+R1834:1837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1821:1833 PF_Coq.Contracts.BSD <> EllipticCurve rec
+R1838:1840 Coq.Init.Datatypes <> nat ind
+ax 1934:1951 <> trace_of_frobenius
+R1968:1971 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1955:1967 PF_Coq.Contracts.BSD <> EllipticCurve rec
+R1975:1978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1972:1974 Coq.Init.Datatypes <> nat ind
+R1979:1979 Coq.Numbers.BinNums <> Z ind
+ax 2037:2045 <> conductor
+R2062:2065 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2049:2061 PF_Coq.Contracts.BSD <> EllipticCurve rec
+R2066:2068 Coq.Init.Datatypes <> nat ind
+ax 2143:2152 <> L_function
+R2169:2172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2156:2168 PF_Coq.Contracts.BSD <> EllipticCurve rec
+R2174:2177 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2173:2173 PF_Coq.Core.Zeta <> C rec
+R2178:2178 PF_Coq.Core.Zeta <> C rec
+def 2220:2225 <> L_at_1
+R2232:2244 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 2228:2228 <> E:31
+R2249:2249 PF_Coq.Core.Zeta <> C rec
+R2254:2263 PF_Coq.Contracts.BSD <> L_function defax
+R2265:2265 PF_Coq.Contracts.BSD <> E:31 var
+R2268:2270 PF_Coq.Core.Zeta <> mkC constr
+ax 2324:2344 <> L_function_order_at_1
+R2361:2364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2348:2360 PF_Coq.Contracts.BSD <> EllipticCurve rec
+R2365:2367 Coq.Init.Datatypes <> nat ind
+def 2452:2459 <> BSD_weak
+R2466:2478 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 2462:2462 <> E:33
+R2509:2511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2493:2506 PF_Coq.Contracts.BSD <> algebraic_rank defax
+R2508:2508 PF_Coq.Contracts.BSD <> E:33 var
+R2512:2532 PF_Coq.Contracts.BSD <> L_function_order_at_1 defax
+R2534:2534 PF_Coq.Contracts.BSD <> E:33 var
+rec 2574:2584 <> BSD_Product
+proj 2627:2637 <> real_period
+proj 2646:2654 <> regulator
+proj 2663:2678 <> tamagawa_product
+proj 2689:2697 <> sha_order
+proj 2736:2748 <> torsion_order
+R2591:2603 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 2587:2587 <> E:34
+R2641:2641 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2658:2658 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2682:2684 Coq.Init.Datatypes <> nat ind
+R2701:2703 Coq.Init.Datatypes <> nat ind
+R2752:2754 Coq.Init.Datatypes <> nat ind
+ax 2826:2846 <> BSD_strong_conjecture
+R2862:2874 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 2858:2858 <> E:41
+R2891:2894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2878:2888 PF_Coq.Contracts.BSD <> BSD_Product rec
+R2890:2890 PF_Coq.Contracts.BSD <> E:41 var
+def 2913:2922 <> BSD_strong
+R2929:2941 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 2925:2925 <> E:43
+R2966:2969 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2956:2963 PF_Coq.Contracts.BSD <> BSD_weak def
+R2965:2965 PF_Coq.Contracts.BSD <> E:43 var
+R2970:2976 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2994:2995 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2981:2991 PF_Coq.Contracts.BSD <> BSD_Product rec
+R2993:2993 PF_Coq.Contracts.BSD <> E:43 var
+binder 2977:2977 <> P:44
+R2996:3016 PF_Coq.Contracts.BSD <> BSD_strong_conjecture defax
+R3018:3018 PF_Coq.Contracts.BSD <> E:43 var
+R3020:3020 PF_Coq.Contracts.BSD <> P:44 var
+ax 3102:3120 <> BSD_proven_rank_0_1
+R3137:3149 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 3133:3133 <> E:45
+R3156:3156 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3216:3225 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3285:3285 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3188:3191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3180:3182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3157:3177 PF_Coq.Contracts.BSD <> L_function_order_at_1 defax
+R3179:3179 PF_Coq.Contracts.BSD <> E:45 var
+R3208:3210 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3192:3205 PF_Coq.Contracts.BSD <> algebraic_rank defax
+R3207:3207 PF_Coq.Contracts.BSD <> E:45 var
+R3257:3260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3249:3251 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3226:3246 PF_Coq.Contracts.BSD <> L_function_order_at_1 defax
+R3248:3248 PF_Coq.Contracts.BSD <> E:45 var
+R3277:3279 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3261:3274 PF_Coq.Contracts.BSD <> algebraic_rank defax
+R3276:3276 PF_Coq.Contracts.BSD <> E:45 var
+def 3390:3398 <> alpha_BSD
+R3402:3402 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3413:3415 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3408:3410 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3411:3412 Coq.Reals.Rtrigo1 <> PI def
+def 3455:3475 <> base3_digital_sum_aux
+R3487:3489 Coq.Init.Datatypes <> nat ind
+binder 3478:3481 <> fuel:47
+binder 3483:3483 <> n:48
+R3494:3496 Coq.Init.Datatypes <> nat ind
+R3509:3512 PF_Coq.Contracts.BSD <> fuel:47 var
+R3523:3523 Coq.Init.Datatypes <> O constr
+R3538:3538 Coq.Init.Datatypes <> S constr
+R3559:3559 PF_Coq.Contracts.BSD <> n:48 var
+R3572:3572 Coq.Init.Datatypes <> O constr
+R3609:3611 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3595:3604 Coq.Arith.PeanoNat Nat modulo def
+R3606:3606 PF_Coq.Contracts.BSD <> n:48 var
+R3612:3632 PF_Coq.Contracts.BSD <> base3_digital_sum_aux:49 def
+R3641:3647 Coq.Arith.PeanoNat Nat div def
+R3649:3649 PF_Coq.Contracts.BSD <> n:48 var
+def 3686:3706 <> base3_digital_sum_BSD
+R3713:3715 Coq.Init.Datatypes <> nat ind
+binder 3709:3709 <> n:52
+R3720:3722 Coq.Init.Datatypes <> nat ind
+R3729:3749 PF_Coq.Contracts.BSD <> base3_digital_sum_aux def
+R3751:3751 PF_Coq.Contracts.BSD <> n:52 var
+R3753:3753 PF_Coq.Contracts.BSD <> n:52 var
+ax 3816:3833 <> fractal_L_function
+R3850:3853 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3837:3849 PF_Coq.Contracts.BSD <> EllipticCurve rec
+R3855:3858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3854:3854 PF_Coq.Core.Zeta <> C rec
+R3859:3859 PF_Coq.Core.Zeta <> C rec
+def 3950:3961 <> golden_ratio
+R3965:3965 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3970:3970 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3981:3984 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3972:3974 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3975:3978 Coq.Reals.R_sqrt <> sqrt def
+def 4024:4030 <> euler_e
+R4034:4034 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4039:4041 Coq.Reals.Rtrigo_def <> exp def
+def 4101:4122 <> golden_threshold_value
+R4126:4126 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4143:4145 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4131:4142 PF_Coq.Contracts.BSD <> golden_ratio def
+R4146:4152 PF_Coq.Contracts.BSD <> euler_e def
+ax 4212:4236 <> golden_threshold_property
+R4270:4273 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4264:4266 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4242:4263 PF_Coq.Contracts.BSD <> golden_threshold_value def
+R4296:4298 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4274:4295 PF_Coq.Contracts.BSD <> golden_threshold_value def
+prf 4606:4628 <> golden_threshold_bounds
+R4662:4665 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4656:4658 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4634:4655 PF_Coq.Contracts.BSD <> golden_threshold_value def
+R4688:4690 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4666:4687 PF_Coq.Contracts.BSD <> golden_threshold_value def
+R4711:4735 PF_Coq.Contracts.BSD <> golden_threshold_property prfax
+R4711:4735 PF_Coq.Contracts.BSD <> golden_threshold_property prfax
+rec 4827:4846 <> SpectralOperator_BSD
+proj 4892:4901 <> BSD_domain
+proj 4913:4922 <> BSD_action
+R4853:4865 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 4849:4849 <> E:55
+R4936:4939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4926:4935 PF_Coq.Contracts.BSD <> BSD_domain:57 meth
+R4940:4949 PF_Coq.Contracts.BSD <> BSD_domain:57 meth
+ax 4985:4987 <> T_E
+R5002:5014 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 4998:4998 <> E:59
+R5017:5036 PF_Coq.Contracts.BSD <> SpectralOperator_BSD rec
+R5038:5038 PF_Coq.Contracts.BSD <> E:59 var
+ax 5090:5105 <> T_E_self_adjoint
+ax 5229:5250 <> spectral_concentration
+R5267:5279 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 5263:5263 <> E:62
+R5286:5293 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5316:5324 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5313:5315 Coq.Init.Datatypes <> nat ind
+binder 5294:5309 <> eigenvalue_count:63
+R5341:5343 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5325:5340 PF_Coq.Contracts.BSD <> eigenvalue_count:63 var
+R5344:5357 PF_Coq.Contracts.BSD <> algebraic_rank defax
+R5359:5359 PF_Coq.Contracts.BSD <> E:62 var
+ax 5458:5481 <> rank_equals_multiplicity
+ax 5592:5624 <> fractal_rank_algorithm_complexity
+def 5744:5770 <> consciousness_threshold_BSD
+R5774:5774 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 5852:5876 <> BSD_highest_consciousness
+R5904:5904 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5890:5900 <> problem_ch2:67
+R5923:5926 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5912:5922 PF_Coq.Contracts.BSD <> problem_ch2:67 var
+R5927:5953 PF_Coq.Contracts.BSD <> consciousness_threshold_BSD def
+def 6070:6089 <> BSD_LFunctionFormula
+R6114:6126 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 6110:6110 <> E:69
+R6129:6135 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6153:6154 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6140:6150 PF_Coq.Contracts.BSD <> BSD_Product rec
+R6152:6152 PF_Coq.Contracts.BSD <> E:69 var
+binder 6136:6136 <> P:70
+R6155:6175 PF_Coq.Contracts.BSD <> BSD_strong_conjecture defax
+R6177:6177 PF_Coq.Contracts.BSD <> E:69 var
+R6179:6179 PF_Coq.Contracts.BSD <> P:70 var
+def 6221:6234 <> BSD_Conjecture
+R6259:6271 PF_Coq.Contracts.BSD <> EllipticCurve rec
+binder 6255:6255 <> E:71
+R6288:6291 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6278:6285 PF_Coq.Contracts.BSD <> BSD_weak def
+R6287:6287 PF_Coq.Contracts.BSD <> E:71 var
+R6292:6298 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6316:6317 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6303:6313 PF_Coq.Contracts.BSD <> BSD_Product rec
+R6315:6315 PF_Coq.Contracts.BSD <> E:71 var
+binder 6299:6299 <> P:72
+R6318:6338 PF_Coq.Contracts.BSD <> BSD_strong_conjecture defax
+R6340:6340 PF_Coq.Contracts.BSD <> E:71 var
+R6342:6342 PF_Coq.Contracts.BSD <> P:72 var
+ax 6403:6432 <> L_function_formula_implies_BSD
+R6458:6461 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6438:6457 PF_Coq.Contracts.BSD <> BSD_LFunctionFormula def
+R6462:6475 PF_Coq.Contracts.BSD <> BSD_Conjecture def
+ax 6536:6565 <> BSD_implies_L_function_formula
+R6585:6588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6571:6584 PF_Coq.Contracts.BSD <> BSD_Conjecture def
+R6589:6608 PF_Coq.Contracts.BSD <> BSD_LFunctionFormula def
+prf 6652:6677 <> L_function_formula_iff_BSD
+R6703:6707 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6683:6702 PF_Coq.Contracts.BSD <> BSD_LFunctionFormula def
+R6708:6721 PF_Coq.Contracts.BSD <> BSD_Conjecture def
+R6750:6779 PF_Coq.Contracts.BSD <> L_function_formula_implies_BSD prfax
+R6750:6779 PF_Coq.Contracts.BSD <> L_function_formula_implies_BSD prfax
+R6792:6821 PF_Coq.Contracts.BSD <> BSD_implies_L_function_formula prfax
+R6792:6821 PF_Coq.Contracts.BSD <> BSD_implies_L_function_formula prfax
+def 6873:6887 <> BSD_contract_PF
+R6891:6901 PF_Coq.Contracts.BSD <> BSDContract rec
+R6911:6920 PF_Coq.Contracts.BSD <> L_spectral proj
+R6911:6920 PF_Coq.Contracts.BSD <> L_spectral proj
+R6911:6920 PF_Coq.Contracts.BSD <> L_spectral proj
+R6933:6947 PF_Coq.Contracts.BSD <> rank_eigenvalue proj
+R6933:6947 PF_Coq.Contracts.BSD <> rank_eigenvalue proj
+R7034:7049 PF_Coq.Contracts.BSD <> golden_threshold proj
+R7034:7049 PF_Coq.Contracts.BSD <> golden_threshold proj
+R7084:7101 PF_Coq.Contracts.BSD <> uses_EllipticCurve proj
+R7084:7101 PF_Coq.Contracts.BSD <> uses_EllipticCurve proj
+R7114:7132 PF_Coq.Contracts.BSD <> uses_algebraic_rank proj
+R7114:7132 PF_Coq.Contracts.BSD <> uses_algebraic_rank proj
+R7145:7159 PF_Coq.Contracts.BSD <> uses_L_function proj
+R7145:7159 PF_Coq.Contracts.BSD <> uses_L_function proj
+R7172:7188 PF_Coq.Contracts.BSD <> uses_L_order_at_1 proj
+R7172:7188 PF_Coq.Contracts.BSD <> uses_L_order_at_1 proj
+R7201:7213 PF_Coq.Contracts.BSD <> uses_BSD_weak proj
+R7201:7213 PF_Coq.Contracts.BSD <> uses_BSD_weak proj
+R7226:7240 PF_Coq.Contracts.BSD <> uses_BSD_strong proj
+R7226:7240 PF_Coq.Contracts.BSD <> uses_BSD_strong proj
+R7253:7266 PF_Coq.Contracts.BSD <> uses_alpha_BSD proj
+R7253:7266 PF_Coq.Contracts.BSD <> uses_alpha_BSD proj
+R7279:7299 PF_Coq.Contracts.BSD <> uses_golden_threshold proj
+R7279:7299 PF_Coq.Contracts.BSD <> uses_golden_threshold proj
+R7312:7333 PF_Coq.Contracts.BSD <> uses_spectral_operator proj
+R7312:7333 PF_Coq.Contracts.BSD <> uses_spectral_operator proj
+R7346:7366 PF_Coq.Contracts.BSD <> uses_T_E_self_adjoint proj
+R7346:7366 PF_Coq.Contracts.BSD <> uses_T_E_self_adjoint proj
+R7379:7405 PF_Coq.Contracts.BSD <> uses_spectral_concentration proj
+R7379:7405 PF_Coq.Contracts.BSD <> uses_spectral_concentration proj
+R7418:7434 PF_Coq.Contracts.BSD <> uses_rank_formula proj
+R7418:7434 PF_Coq.Contracts.BSD <> uses_rank_formula proj
+R7447:7464 PF_Coq.Contracts.BSD <> uses_L_implies_BSD proj
+R7447:7464 PF_Coq.Contracts.BSD <> uses_L_implies_BSD proj
+R7477:7494 PF_Coq.Contracts.BSD <> uses_BSD_implies_L proj
+R7477:7494 PF_Coq.Contracts.BSD <> uses_BSD_implies_L proj
+R6925:6928 Coq.Init.Logic <> True ind
+R6952:6975 PF_Coq.Contracts.BSD <> rank_equals_multiplicity prfax
+R7076:7078 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7054:7075 PF_Coq.Contracts.BSD <> golden_threshold_value def
+R7106:7109 Coq.Init.Logic <> True ind
+R7137:7140 Coq.Init.Logic <> True ind
+R7164:7167 Coq.Init.Logic <> True ind
+R7193:7196 Coq.Init.Logic <> True ind
+R7218:7221 Coq.Init.Logic <> True ind
+R7245:7248 Coq.Init.Logic <> True ind
+R7271:7274 Coq.Init.Logic <> True ind
+R7304:7307 Coq.Init.Logic <> True ind
+R7338:7341 Coq.Init.Logic <> True ind
+R7371:7374 Coq.Init.Logic <> True ind
+R7410:7413 Coq.Init.Logic <> True ind
+R7439:7442 Coq.Init.Logic <> True ind
+R7469:7472 Coq.Init.Logic <> True ind
+R7499:7502 Coq.Init.Logic <> True ind
+def 7548:7557 <> BSD_axioms
+R7561:7564 Coq.Init.Datatypes <> list ind
+R7566:7572 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R7577:7589 PF_Coq.Core.AxiomAudit <> PF_axioms_BSD def
+def 7604:7618 <> BSD_axiom_count
+R7622:7624 Coq.Init.Datatypes <> nat ind
+R7629:7639 Coq.Lists.List <> length abbrev
+R7641:7650 PF_Coq.Contracts.BSD <> BSD_axioms def
+def 7665:7684 <> BSD_core_axiom_count
+R7688:7690 Coq.Init.Datatypes <> nat ind
+R7695:7705 Coq.Lists.List <> length abbrev
+R7707:7724 PF_Coq.Core.AxiomAudit <> PF_axioms_BSD_Core def
+def 7739:7765 <> BSD_equivalence_axiom_count
+R7769:7771 Coq.Init.Datatypes <> nat ind
+R7776:7786 Coq.Lists.List <> length abbrev
+R7788:7812 PF_Coq.Core.AxiomAudit <> PF_axioms_BSD_Equivalence def
+def 7854:7872 <> BSD_chapter_summary
+R7876:7881 Coq.Strings.String <> string ind

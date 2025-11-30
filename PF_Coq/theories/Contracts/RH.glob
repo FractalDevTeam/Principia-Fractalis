@@ -1,0 +1,319 @@
+DIGEST e4647203654edb297bc9977fbe2ec30e
+FPF_Coq.Contracts.RH
+R326:340 Coq.Reals.Reals <> <> lib
+R358:375 Coq.Strings.String <> <> lib
+R393:406 Coq.Lists.List <> <> lib
+R416:428 Coq.Lists.List ListNotations <> mod
+R446:467 PF_Coq.Core.AxiomAudit <> <> lib
+R485:500 PF_Coq.Core.Zeta <> <> lib
+R518:538 PF_Coq.Core.Resonance <> <> lib
+R556:583 PF_Coq.Core.TransferOperator <> <> lib
+rec 683:692 <> RHContract
+proj 773:787 <> zeta_is_mathlib
+proj 857:871 <> RH_is_classical
+proj 910:929 <> uses_LogHilbertSpace
+proj 941:956 <> uses_T3_operator
+proj 968:987 <> uses_T3_self_adjoint
+proj 999:1013 <> uses_T3_compact
+proj 1025:1051 <> uses_eigenvalue_convergence
+proj 1063:1083 <> uses_eigenvalues_real
+proj 1095:1119 <> uses_eigenvalue_bijection
+proj 1174:1197 <> uses_spectral_implies_RH
+proj 1209:1232 <> uses_RH_implies_spectral
+R806:808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R791:805 PF_Coq.Core.Zeta <> PF_riemann_zeta def
+R809:816 PF_Coq.Core.Zeta <> zetaSpec defax
+def 1304:1317 <> RH_contract_PF
+R1321:1330 PF_Coq.Contracts.RH <> RHContract rec
+R1340:1354 PF_Coq.Contracts.RH <> zeta_is_mathlib proj
+R1340:1354 PF_Coq.Contracts.RH <> zeta_is_mathlib proj
+R1340:1354 PF_Coq.Contracts.RH <> zeta_is_mathlib proj
+R1382:1396 PF_Coq.Contracts.RH <> RH_is_classical proj
+R1382:1396 PF_Coq.Contracts.RH <> RH_is_classical proj
+R1422:1441 PF_Coq.Contracts.RH <> uses_LogHilbertSpace proj
+R1422:1441 PF_Coq.Contracts.RH <> uses_LogHilbertSpace proj
+R1454:1469 PF_Coq.Contracts.RH <> uses_T3_operator proj
+R1454:1469 PF_Coq.Contracts.RH <> uses_T3_operator proj
+R1482:1501 PF_Coq.Contracts.RH <> uses_T3_self_adjoint proj
+R1482:1501 PF_Coq.Contracts.RH <> uses_T3_self_adjoint proj
+R1514:1528 PF_Coq.Contracts.RH <> uses_T3_compact proj
+R1514:1528 PF_Coq.Contracts.RH <> uses_T3_compact proj
+R1541:1567 PF_Coq.Contracts.RH <> uses_eigenvalue_convergence proj
+R1541:1567 PF_Coq.Contracts.RH <> uses_eigenvalue_convergence proj
+R1580:1600 PF_Coq.Contracts.RH <> uses_eigenvalues_real proj
+R1580:1600 PF_Coq.Contracts.RH <> uses_eigenvalues_real proj
+R1613:1637 PF_Coq.Contracts.RH <> uses_eigenvalue_bijection proj
+R1613:1637 PF_Coq.Contracts.RH <> uses_eigenvalue_bijection proj
+R1650:1673 PF_Coq.Contracts.RH <> uses_spectral_implies_RH proj
+R1650:1673 PF_Coq.Contracts.RH <> uses_spectral_implies_RH proj
+R1686:1709 PF_Coq.Contracts.RH <> uses_RH_implies_spectral proj
+R1686:1709 PF_Coq.Contracts.RH <> uses_RH_implies_spectral proj
+R1359:1377 PF_Coq.Core.Zeta <> PF_zeta_is_standard thm
+R1401:1417 PF_Coq.Core.Zeta <> RiemannHypothesis def
+R1446:1449 Coq.Init.Logic <> True ind
+R1474:1477 Coq.Init.Logic <> True ind
+R1506:1509 Coq.Init.Logic <> True ind
+R1533:1536 Coq.Init.Logic <> True ind
+R1572:1575 Coq.Init.Logic <> True ind
+R1605:1608 Coq.Init.Logic <> True ind
+R1642:1645 Coq.Init.Logic <> True ind
+R1678:1681 Coq.Init.Logic <> True ind
+R1714:1717 Coq.Init.Logic <> True ind
+R2198:2206 PF_Coq.Core.TransferOperator <> LHS_inner defax
+not 2178:2178 <> :::'⟨'_x_','_x_'⟩'
+def 2283:2291 <> base3_map
+R2298:2298 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2294:2294 <> x:13
+R2303:2303 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2313:2319 Coq.Reals.RIneq <> Rlt_dec thm
+R2321:2321 PF_Coq.Contracts.RH <> x:13 var
+R2325:2325 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2350:2356 Coq.Reals.RIneq <> Rlt_dec thm
+R2358:2358 PF_Coq.Contracts.RH <> x:13 var
+R2362:2362 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2393:2395 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2389:2391 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2392:2392 PF_Coq.Contracts.RH <> x:13 var
+R2376:2378 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2372:2374 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2375:2375 PF_Coq.Contracts.RH <> x:13 var
+R2335:2337 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2338:2338 PF_Coq.Contracts.RH <> x:13 var
+def 2465:2476 <> phase_factor
+R2483:2485 Coq.Init.Datatypes <> nat ind
+binder 2479:2479 <> k:14
+R2490:2490 PF_Coq.Core.Zeta <> C rec
+R2503:2503 PF_Coq.Contracts.RH <> k:14 var
+R2523:2525 PF_Coq.Core.Zeta <> mkC constr
+R2558:2560 PF_Coq.Core.Zeta <> mkC constr
+R2594:2596 PF_Coq.Core.Zeta <> mkC constr
+R2626:2628 PF_Coq.Core.Zeta <> mkC constr
+def 2694:2707 <> inverse_branch
+R2714:2716 Coq.Init.Datatypes <> nat ind
+binder 2710:2710 <> k:16
+R2724:2724 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2720:2720 <> x:17
+R2729:2729 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2736:2736 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2746:2749 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2738:2740 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2737:2737 PF_Coq.Contracts.RH <> x:17 var
+R2741:2743 Coq.Reals.Raxioms <> INR def
+R2745:2745 PF_Coq.Contracts.RH <> k:16 var
+def 3240:3266 <> RH_T3_self_adjoint_verified
+binder 3287:3287 <> f:18
+binder 3289:3289 <> g:19
+R3322:3324 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3292:3294 PF_Coq.Contracts.RH <> :::'⟨'_x_','_x_'⟩' not
+R3316:3317 PF_Coq.Contracts.RH <> :::'⟨'_x_','_x_'⟩' not
+R3319:3321 PF_Coq.Contracts.RH <> :::'⟨'_x_','_x_'⟩' not
+R3295:3313 PF_Coq.Core.TransferOperator <> T3 defax
+R3315:3315 PF_Coq.Contracts.RH <> f:18 var
+R3318:3318 PF_Coq.Contracts.RH <> g:19 var
+R3325:3327 PF_Coq.Contracts.RH <> :::'⟨'_x_','_x_'⟩' not
+R3329:3330 PF_Coq.Contracts.RH <> :::'⟨'_x_','_x_'⟩' not
+R3352:3354 PF_Coq.Contracts.RH <> :::'⟨'_x_','_x_'⟩' not
+R3328:3328 PF_Coq.Contracts.RH <> f:18 var
+R3331:3349 PF_Coq.Core.TransferOperator <> T3 defax
+R3351:3351 PF_Coq.Contracts.RH <> g:19 var
+prf 3426:3443 <> RH_T3_self_adjoint
+R3447:3473 PF_Coq.Contracts.RH <> RH_T3_self_adjoint_verified def
+R3492:3518 PF_Coq.Contracts.RH <> RH_T3_self_adjoint_verified def
+R3544:3575 PF_Coq.Core.TransferOperator <> T3_self_adjoint prfax
+R3544:3575 PF_Coq.Core.TransferOperator <> T3_self_adjoint prfax
+def 3629:3650 <> RH_T3_compact_verified
+R3664:3671 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3683:3685 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3682:3682 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3672:3678 <> hs_norm:20
+R3693:3695 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3686:3692 PF_Coq.Contracts.RH <> hs_norm:20 var
+R3696:3699 Coq.Reals.R_sqrt <> sqrt def
+prf 3713:3725 <> RH_T3_compact
+R3729:3750 PF_Coq.Contracts.RH <> RH_T3_compact_verified def
+R3770:3773 Coq.Reals.R_sqrt <> sqrt def
+R3770:3773 Coq.Reals.R_sqrt <> sqrt def
+ax 4173:4199 <> eigenvalue_convergence_rate
+R4219:4221 Coq.Init.Datatypes <> nat ind
+binder 4213:4213 <> N:21
+binder 4215:4215 <> k:22
+R4225:4232 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4250:4256 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4249:4249 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4233:4237 <> lam_k:23
+R4249:4249 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4239:4245 <> lam_k_N:24
+R4279:4282 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4257:4260 Coq.Reals.Rbasic_fun <> Rabs def
+R4270:4272 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4263:4269 PF_Coq.Contracts.RH <> lam_k_N:24 var
+R4273:4277 PF_Coq.Contracts.RH <> lam_k:23 var
+R4288:4290 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4291:4293 Coq.Reals.Raxioms <> INR def
+R4295:4295 PF_Coq.Contracts.RH <> N:21 var
+def 4393:4408 <> is_RH_eigenvalue
+R4415:4415 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4411:4411 <> r:26
+R4430:4436 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4472:4473 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4442:4471 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+binder 4437:4438 <> ev:27
+R4502:4504 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4474:4498 PF_Coq.Core.TransferOperator <> ev_value proj
+R4500:4501 PF_Coq.Contracts.RH <> ev:27 var
+R4505:4505 PF_Coq.Contracts.RH <> r:26 var
+prf 4592:4610 <> RH_eigenvalues_real
+R4626:4655 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+binder 4621:4622 <> ev:28
+R4660:4666 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4672:4673 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4671:4671 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4667:4667 <> r:29
+R4702:4704 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4674:4698 PF_Coq.Core.TransferOperator <> ev_value proj
+R4700:4701 PF_Coq.Contracts.RH <> ev:28 var
+R4705:4705 PF_Coq.Contracts.RH <> r:29 var
+R4738:4762 PF_Coq.Core.TransferOperator <> ev_value proj
+R4738:4762 PF_Coq.Core.TransferOperator <> ev_value proj
+def 4902:4911 <> alpha_star
+R4915:4915 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 5002:5016 <> eigenvalue_to_t
+R5025:5025 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5019:5021 <> lam:30
+R5030:5030 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5039:5042 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5069:5069 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5056:5058 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5045:5047 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5043:5044 Coq.Reals.Rtrigo1 <> PI def
+R5048:5051 Coq.Reals.Rbasic_fun <> Rabs def
+R5053:5055 PF_Coq.Contracts.RH <> lam:30 var
+R5059:5068 PF_Coq.Contracts.RH <> alpha_star def
+def 5130:5147 <> eigenvalue_to_zero
+R5156:5156 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5150:5152 <> lam:31
+R5161:5161 PF_Coq.Core.Zeta <> C rec
+R5168:5170 PF_Coq.Core.Zeta <> mkC constr
+R5174:5174 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5179:5193 PF_Coq.Contracts.RH <> eigenvalue_to_t def
+R5195:5197 PF_Coq.Contracts.RH <> lam:31 var
+rec 5256:5278 <> EigenvalueZeroBijection
+proj 5299:5328 <> eigenvalue_index_to_zero_index
+proj 5346:5359 <> transformation
+proj 5373:5381 <> precision
+proj 5419:5427 <> injective
+proj 5533:5542 <> surjective
+R5335:5338 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5332:5334 Coq.Init.Datatypes <> nat ind
+R5339:5341 Coq.Init.Datatypes <> nat ind
+R5364:5367 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5363:5363 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5368:5368 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5385:5387 Coq.Init.Datatypes <> nat ind
+binder 5438:5439 <> k1:36
+binder 5441:5442 <> k2:37
+R5518:5521 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5482:5484 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5449:5478 PF_Coq.Contracts.RH <> eigenvalue_index_to_zero_index:33 meth
+R5480:5481 PF_Coq.Contracts.RH <> k1:36 var
+R5485:5514 PF_Coq.Contracts.RH <> eigenvalue_index_to_zero_index:33 meth
+R5516:5517 PF_Coq.Contracts.RH <> k2:37 var
+R5524:5526 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5522:5523 PF_Coq.Contracts.RH <> k1:36 var
+R5527:5528 PF_Coq.Contracts.RH <> k2:37 var
+binder 5553:5553 <> n:39
+R5556:5562 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5564:5565 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5563:5563 <> k:40
+R5598:5600 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5566:5595 PF_Coq.Contracts.RH <> eigenvalue_index_to_zero_index:33 meth
+R5597:5597 PF_Coq.Contracts.RH <> k:40 var
+R5601:5601 PF_Coq.Contracts.RH <> n:39 var
+ax 5655:5679 <> eigenvalue_zero_bijection
+R5683:5705 PF_Coq.Contracts.RH <> EigenvalueZeroBijection rec
+def 5809:5828 <> RH_SpectralBijection
+R5842:5848 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5878:5879 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5855:5877 PF_Coq.Contracts.RH <> EigenvalueZeroBijection rec
+binder 5849:5851 <> Phi:43
+R5880:5883 Coq.Init.Logic <> True ind
+ax 6005:6033 <> spectral_bijection_implies_RH
+R6059:6062 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6039:6058 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+R6063:6079 PF_Coq.Core.Zeta <> RiemannHypothesis def
+ax 6149:6177 <> RH_implies_spectral_bijection
+R6200:6203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6183:6199 PF_Coq.Core.Zeta <> RiemannHypothesis def
+R6204:6223 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+prf 6267:6291 <> spectral_bijection_iff_RH
+R6317:6321 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6297:6316 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+R6322:6338 PF_Coq.Core.Zeta <> RiemannHypothesis def
+R6367:6395 PF_Coq.Contracts.RH <> spectral_bijection_implies_RH prfax
+R6367:6395 PF_Coq.Contracts.RH <> spectral_bijection_implies_RH prfax
+R6408:6436 PF_Coq.Contracts.RH <> RH_implies_spectral_bijection prfax
+R6408:6436 PF_Coq.Contracts.RH <> RH_implies_spectral_bijection prfax
+def 6503:6525 <> RH_spectral_equivalence
+R6549:6553 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6529:6548 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+R6554:6570 PF_Coq.Core.Zeta <> RiemannHypothesis def
+R6577:6601 PF_Coq.Contracts.RH <> spectral_bijection_iff_RH thm
+def 6703:6728 <> consciousness_threshold_RH
+R6732:6732 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 6792:6816 <> millennium_ch2_clustering
+R6822:6829 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6849:6855 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6844:6847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6841:6843 Coq.Init.Datatypes <> nat ind
+R6848:6848 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6830:6837 <> problems:46
+R6856:6856 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6908:6917 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6998:6998 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 6864:6864 <> i:47
+R6878:6881 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6869:6871 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6868:6868 PF_Coq.Contracts.RH <> i:47 var
+R6886:6889 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R6900:6903 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R6890:6897 PF_Coq.Contracts.RH <> problems:46 var
+R6899:6899 PF_Coq.Contracts.RH <> i:47 var
+R6890:6897 PF_Coq.Contracts.RH <> problems:46 var
+R6899:6899 PF_Coq.Contracts.RH <> i:47 var
+binder 6925:6925 <> i:48
+binder 6927:6927 <> j:49
+R6941:6944 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6932:6934 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6931:6931 PF_Coq.Contracts.RH <> i:48 var
+R6956:6959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6947:6949 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6946:6946 PF_Coq.Contracts.RH <> j:49 var
+R6990:6993 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6960:6963 Coq.Reals.Rbasic_fun <> Rabs def
+R6976:6978 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6966:6973 PF_Coq.Contracts.RH <> problems:46 var
+R6975:6975 PF_Coq.Contracts.RH <> i:48 var
+R6979:6986 PF_Coq.Contracts.RH <> problems:46 var
+R6988:6988 PF_Coq.Contracts.RH <> j:49 var
+def 7050:7058 <> RH_axioms
+R7062:7065 Coq.Init.Datatypes <> list ind
+R7067:7073 PF_Coq.Core.AxiomAudit <> PFAxiom rec
+R7078:7089 PF_Coq.Core.AxiomAudit <> PF_axioms_RH def
+def 7104:7117 <> RH_axiom_count
+R7121:7123 Coq.Init.Datatypes <> nat ind
+R7128:7138 Coq.Lists.List <> length abbrev
+R7140:7148 PF_Coq.Contracts.RH <> RH_axioms def
+def 7163:7181 <> RH_core_axiom_count
+R7185:7187 Coq.Init.Datatypes <> nat ind
+R7192:7202 Coq.Lists.List <> length abbrev
+R7204:7220 PF_Coq.Core.AxiomAudit <> PF_axioms_RH_Core def
+def 7235:7260 <> RH_equivalence_axiom_count
+R7264:7266 Coq.Init.Datatypes <> nat ind
+R7271:7281 Coq.Lists.List <> length abbrev
+R7283:7306 PF_Coq.Core.AxiomAudit <> PF_axioms_RH_Equivalence def
+def 7621:7641 <> contract_matches_core
+R7675:7679 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7655:7674 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+R7680:7711 PF_Coq.Core.TransferOperator <> T3_RH_condition def
+def 7753:7770 <> RH_chapter_summary
+R7774:7779 Coq.Strings.String <> string ind

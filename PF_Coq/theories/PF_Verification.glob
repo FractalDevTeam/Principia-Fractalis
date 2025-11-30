@@ -1,0 +1,216 @@
+DIGEST 6167cad1a01d361a12978fc87ee20811
+FPF_Coq.PF_Verification
+R728:742 Coq.Reals.Reals <> <> lib
+R760:777 Coq.Strings.String <> <> lib
+R795:808 Coq.Lists.List <> <> lib
+R858:879 PF_Coq.Core.AxiomAudit <> <> lib
+R897:912 PF_Coq.Core.Zeta <> <> lib
+R930:950 PF_Coq.Core.Resonance <> <> lib
+R968:990 PF_Coq.Core.SpectralGap <> <> lib
+R1008:1033 PF_Coq.Core.TuringEncoding <> <> lib
+R1051:1078 PF_Coq.Core.TransferOperator <> <> lib
+R1096:1125 PF_Coq.Core.IntervalArithmetic <> <> lib
+R1143:1164 PF_Coq.Core.P_NP_Proof <> <> lib
+R1235:1253 PF_Coq.Contracts.RH <> <> lib
+R1271:1290 PF_Coq.Contracts.PNP <> <> lib
+R1308:1326 PF_Coq.Contracts.YM <> <> lib
+R1344:1363 PF_Coq.Contracts.BSD <> <> lib
+R1381:1402 PF_Coq.Contracts.Hodge <> <> lib
+R1420:1448 PF_Coq.Contracts.NavierStokes <> <> lib
+rec 1519:1540 <> PF_Verification_Status
+proj 1602:1622 <> spectral_gap_verified
+proj 1661:1677 <> P_neq_NP_verified
+proj 1714:1726 <> zeta_standard
+proj 1760:1777 <> resonance_standard
+proj 1886:1906 <> RH_contract_satisfied
+proj 1924:1945 <> PNP_contract_satisfied
+proj 1964:1984 <> YM_contract_satisfied
+proj 2002:2023 <> BSD_contract_satisfied
+proj 2042:2065 <> Hodge_contract_satisfied
+proj 2086:2106 <> NS_contract_satisfied
+proj 2157:2173 <> total_axiom_count
+proj 2184:2204 <> numerical_axiom_count
+proj 2215:2236 <> structural_axiom_count
+proj 2247:2269 <> equivalence_axiom_count
+proj 2280:2299 <> physical_axiom_count
+R1653:1655 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1626:1652 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R1681:1709 PF_Coq.Core.SpectralGap <> P_neq_NP_spectral def
+R1745:1747 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1730:1744 PF_Coq.Core.Zeta <> PF_riemann_zeta def
+R1748:1755 PF_Coq.Core.Zeta <> zetaSpec defax
+R1801:1803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1781:1800 PF_Coq.Core.Resonance <> PF_fractal_resonance def
+R1804:1823 PF_Coq.Core.Resonance <> fractalResonanceSpec defax
+R1910:1919 PF_Coq.Contracts.RH <> RHContract rec
+R1949:1959 PF_Coq.Contracts.PNP <> PNPContract rec
+R1988:1997 PF_Coq.Contracts.YM <> YMContract rec
+R2027:2037 PF_Coq.Contracts.BSD <> BSDContract rec
+R2069:2081 PF_Coq.Contracts.Hodge <> HodgeContract rec
+R2110:2129 PF_Coq.Contracts.NavierStokes <> NavierStokesContract rec
+R2177:2179 Coq.Init.Datatypes <> nat ind
+R2208:2210 Coq.Init.Datatypes <> nat ind
+R2240:2242 Coq.Init.Datatypes <> nat ind
+R2273:2275 Coq.Init.Datatypes <> nat ind
+R2303:2305 Coq.Init.Datatypes <> nat ind
+def 2360:2383 <> PF_verification_complete
+R2387:2408 PF_Coq.PF_Verification <> PF_Verification_Status rec
+R2418:2438 PF_Coq.PF_Verification <> spectral_gap_verified proj
+R2418:2438 PF_Coq.PF_Verification <> spectral_gap_verified proj
+R2418:2438 PF_Coq.PF_Verification <> spectral_gap_verified proj
+R2468:2484 PF_Coq.PF_Verification <> P_neq_NP_verified proj
+R2468:2484 PF_Coq.PF_Verification <> P_neq_NP_verified proj
+R2501:2513 PF_Coq.PF_Verification <> zeta_standard proj
+R2501:2513 PF_Coq.PF_Verification <> zeta_standard proj
+R2541:2558 PF_Coq.PF_Verification <> resonance_standard proj
+R2541:2558 PF_Coq.PF_Verification <> resonance_standard proj
+R2587:2607 PF_Coq.PF_Verification <> RH_contract_satisfied proj
+R2587:2607 PF_Coq.PF_Verification <> RH_contract_satisfied proj
+R2630:2651 PF_Coq.PF_Verification <> PNP_contract_satisfied proj
+R2630:2651 PF_Coq.PF_Verification <> PNP_contract_satisfied proj
+R2675:2695 PF_Coq.PF_Verification <> YM_contract_satisfied proj
+R2675:2695 PF_Coq.PF_Verification <> YM_contract_satisfied proj
+R2718:2739 PF_Coq.PF_Verification <> BSD_contract_satisfied proj
+R2718:2739 PF_Coq.PF_Verification <> BSD_contract_satisfied proj
+R2763:2786 PF_Coq.PF_Verification <> Hodge_contract_satisfied proj
+R2763:2786 PF_Coq.PF_Verification <> Hodge_contract_satisfied proj
+R2812:2832 PF_Coq.PF_Verification <> NS_contract_satisfied proj
+R2812:2832 PF_Coq.PF_Verification <> NS_contract_satisfied proj
+R2855:2871 PF_Coq.PF_Verification <> total_axiom_count proj
+R2855:2871 PF_Coq.PF_Verification <> total_axiom_count proj
+R2905:2925 PF_Coq.PF_Verification <> numerical_axiom_count proj
+R2905:2925 PF_Coq.PF_Verification <> numerical_axiom_count proj
+R2957:2978 PF_Coq.PF_Verification <> structural_axiom_count proj
+R2957:2978 PF_Coq.PF_Verification <> structural_axiom_count proj
+R3011:3033 PF_Coq.PF_Verification <> equivalence_axiom_count proj
+R3011:3033 PF_Coq.PF_Verification <> equivalence_axiom_count proj
+R3067:3086 PF_Coq.PF_Verification <> physical_axiom_count proj
+R3067:3086 PF_Coq.PF_Verification <> physical_axiom_count proj
+R2443:2463 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R2489:2496 PF_Coq.Core.SpectralGap <> P_neq_NP thm
+R2518:2536 PF_Coq.Core.Zeta <> PF_zeta_is_standard thm
+R2563:2582 PF_Coq.Core.Resonance <> PF_resonance_is_spec thm
+R2612:2625 PF_Coq.Contracts.RH <> RH_contract_PF def
+R2656:2670 PF_Coq.Contracts.PNP <> PNP_contract_PF def
+R2700:2713 PF_Coq.Contracts.YM <> YM_contract_PF def
+R2744:2758 PF_Coq.Contracts.BSD <> BSD_contract_PF def
+R2791:2807 PF_Coq.Contracts.Hodge <> Hodge_contract_PF def
+R2837:2850 PF_Coq.Contracts.NavierStokes <> NS_contract_PF def
+R2876:2886 Coq.Lists.List <> length abbrev
+R2888:2900 PF_Coq.Core.AxiomAudit <> all_PF_axioms def
+R2930:2942 PF_Coq.Core.AxiomAudit <> count_by_kind def
+R2944:2952 PF_Coq.Core.AxiomAudit <> Numerical constr
+R2983:2995 PF_Coq.Core.AxiomAudit <> count_by_kind def
+R2997:3006 PF_Coq.Core.AxiomAudit <> Structural constr
+R3038:3050 PF_Coq.Core.AxiomAudit <> count_by_kind def
+R3052:3062 PF_Coq.Core.AxiomAudit <> Equivalence constr
+R3091:3103 PF_Coq.Core.AxiomAudit <> count_by_kind def
+R3105:3112 PF_Coq.Core.AxiomAudit <> Physical constr
+def 3384:3406 <> cross_system_consistent
+R3541:3578 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3533:3535 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3478:3481 Coq.Reals.Rbasic_fun <> Rabs def
+R3511:3513 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3484:3510 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R3610:3657 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3606:3608 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3579:3605 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R3684:3724 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3673:3675 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3658:3672 PF_Coq.Core.Zeta <> PF_riemann_zeta def
+R3676:3683 PF_Coq.Core.Zeta <> zetaSpec defax
+R3745:3747 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3725:3744 PF_Coq.Core.Resonance <> PF_fractal_resonance def
+R3748:3767 PF_Coq.Core.Resonance <> fractalResonanceSpec defax
+prf 3779:3811 <> cross_system_consistency_verified
+R3815:3837 PF_Coq.PF_Verification <> cross_system_consistent def
+R3856:3878 PF_Coq.PF_Verification <> cross_system_consistent def
+R3897:3914 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
+R3897:3914 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
+R3936:3956 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R3936:3956 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R3978:3996 PF_Coq.Core.Zeta <> PF_zeta_is_standard thm
+R3978:3996 PF_Coq.Core.Zeta <> PF_zeta_is_standard thm
+R4010:4029 PF_Coq.Core.Resonance <> PF_resonance_is_spec thm
+R4010:4029 PF_Coq.Core.Resonance <> PF_resonance_is_spec thm
+def 4080:4098 <> axiom_audit_summary
+R4102:4107 Coq.Strings.String <> string ind
+rec 5538:5560 <> VerificationCertificate
+proj 5583:5593 <> cert_system
+proj 5607:5618 <> cert_version
+proj 5632:5640 <> cert_date
+proj 5654:5675 <> cert_verified_theorems
+proj 5686:5701 <> cert_axiom_count
+proj 5712:5731 <> cert_pillars_covered
+proj 5742:5761 <> cert_cross_validated
+R5597:5602 Coq.Strings.String <> string ind
+R5622:5627 Coq.Strings.String <> string ind
+R5644:5649 Coq.Strings.String <> string ind
+R5679:5681 Coq.Init.Datatypes <> nat ind
+R5705:5707 Coq.Init.Datatypes <> nat ind
+R5735:5737 Coq.Init.Datatypes <> nat ind
+R5765:5768 Coq.Init.Datatypes <> bool ind
+def 5785:5798 <> PF_certificate
+R5802:5824 PF_Coq.PF_Verification <> VerificationCertificate rec
+R5834:5844 PF_Coq.PF_Verification <> cert_system proj
+R5834:5844 PF_Coq.PF_Verification <> cert_system proj
+R5834:5844 PF_Coq.PF_Verification <> cert_system proj
+R5858:5869 PF_Coq.PF_Verification <> cert_version proj
+R5858:5869 PF_Coq.PF_Verification <> cert_version proj
+R5885:5893 PF_Coq.PF_Verification <> cert_date proj
+R5885:5893 PF_Coq.PF_Verification <> cert_date proj
+R5914:5935 PF_Coq.PF_Verification <> cert_verified_theorems proj
+R5914:5935 PF_Coq.PF_Verification <> cert_verified_theorems proj
+R5946:5961 PF_Coq.PF_Verification <> cert_axiom_count proj
+R5946:5961 PF_Coq.PF_Verification <> cert_axiom_count proj
+R5973:5992 PF_Coq.PF_Verification <> cert_pillars_covered proj
+R5973:5992 PF_Coq.PF_Verification <> cert_pillars_covered proj
+R6039:6058 PF_Coq.PF_Verification <> cert_cross_validated proj
+R6039:6058 PF_Coq.PF_Verification <> cert_cross_validated proj
+R6063:6066 Coq.Init.Datatypes <> true constr
+def 6108:6129 <> verification_status_ok
+R6133:6136 Coq.Init.Datatypes <> bool ind
+R6141:6144 Coq.Init.Datatypes <> true constr
+prf 6156:6170 <> all_checks_pass
+R6205:6210 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6198:6200 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6176:6197 PF_Coq.PF_Verification <> verification_status_ok def
+R6201:6204 Coq.Init.Datatypes <> true constr
+R6234:6239 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6211:6233 PF_Coq.PF_Verification <> cross_system_consistent def
+R6267:6269 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6240:6266 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R6322:6354 PF_Coq.PF_Verification <> cross_system_consistency_verified thm
+R6322:6354 PF_Coq.PF_Verification <> cross_system_consistency_verified thm
+R6368:6400 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R6368:6400 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+def 6454:6473 <> P_vs_NP_total_axioms
+R6477:6479 Coq.Init.Datatypes <> nat ind
+R6484:6494 Coq.Lists.List <> length abbrev
+R6496:6512 PF_Coq.Core.AxiomAudit <> PF_axioms_P_vs_NP def
+def 6526:6540 <> RH_total_axioms
+R6544:6546 Coq.Init.Datatypes <> nat ind
+R6551:6561 Coq.Lists.List <> length abbrev
+R6563:6574 PF_Coq.Core.AxiomAudit <> PF_axioms_RH def
+def 6588:6602 <> YM_total_axioms
+R6606:6608 Coq.Init.Datatypes <> nat ind
+R6613:6623 Coq.Lists.List <> length abbrev
+R6625:6636 PF_Coq.Core.AxiomAudit <> PF_axioms_YM def
+def 6650:6665 <> BSD_total_axioms
+R6669:6671 Coq.Init.Datatypes <> nat ind
+R6676:6686 Coq.Lists.List <> length abbrev
+R6688:6700 PF_Coq.Core.AxiomAudit <> PF_axioms_BSD def
+def 6714:6731 <> Hodge_total_axioms
+R6735:6737 Coq.Init.Datatypes <> nat ind
+R6742:6752 Coq.Lists.List <> length abbrev
+R6754:6768 PF_Coq.Contracts.Hodge <> PF_axioms_Hodge def
+def 6782:6796 <> NS_total_axioms
+R6800:6802 Coq.Init.Datatypes <> nat ind
+R6807:6817 Coq.Lists.List <> length abbrev
+R6819:6830 PF_Coq.Contracts.NavierStokes <> PF_axioms_NS def
+def 6890:6910 <> equivalences_verified
+R6914:6919 Coq.Strings.String <> string ind
+def 7538:7554 <> core_module_stats
+R7558:7563 Coq.Strings.String <> string ind
+def 8008:8028 <> contract_module_stats
+R8032:8037 Coq.Strings.String <> string ind

@@ -11,6 +11,7 @@ theories/Core/TuringEncoding.v
 theories/Core/TransferOperator.v
 theories/Core/IntervalArithmetic.v
 theories/Core/SpectralEmbedding.v
+theories/Core/P_NP_EquivalenceLemmas.v
 theories/Core/P_NP_Proof.v
 theories/Core/SpectralBijection.v
 theories/Core/NuclearSpaces.v
