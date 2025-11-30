@@ -26,6 +26,7 @@ Require Import PF_Coq.Core.Zeta.
 Require Import PF_Coq.Core.Resonance.
 Require Import PF_Coq.Core.SpectralGap.
 Require Import PF_Coq.Core.TuringEncoding.
+Require Import PF_Coq.Core.ComplexityTheory.
 Require Import PF_Coq.Core.TransferOperator.
 Require Import PF_Coq.Core.IntervalArithmetic.
 Require Import PF_Coq.Core.P_NP_EquivalenceLemmas.
@@ -132,6 +133,7 @@ Definition module_dependencies : string :=
    Layer 2 - Core Mathematics:
    ├── IntervalArithmetic.v (certified bounds, 1e-15 precision)
    ├── TuringEncoding.v (TM encoding, complexity classes)
+   ├── ComplexityTheory.v (P, NP definitions, P⊆NP theorem)
    ├── TransferOperator.v (T3 operator, eigenvalues)
    ├── SpectralGap.v (gap definition)
    ├── SpectralBijection.v (eigenvalue-to-critical-line map)
@@ -186,11 +188,11 @@ Definition PF_comprehensive_certificate : ComprehensiveVerificationCertificate :
   version := "8.18+";
   date := "2025-11-29";
   total_axioms := total_axiom_count;
-  total_theorems := 128;  (* +12 FractalOperators (phase factors, consciousness) *)
-  total_modules := 28;   (* Core: 19, Contracts: 6, Integration: 3 *)
+  total_theorems := 134;  (* +6 ComplexityTheory (P⊆NP, poly bounds) *)
+  total_modules := 29;   (* Core: 20, Contracts: 6, Integration: 3 *)
   millennium_problems := 6;
   admitted_proofs := admitted_proof_count;
-  cross_references := 46;  (* +4 fractal operator links *)
+  cross_references := 50;  (* +4 complexity theory links *)
   interval_certified := true
 |}.
 
@@ -281,12 +283,13 @@ Definition final_summary : string :=
    COVERAGE:
    - 6 Millennium Problems (P!=NP, RH, YM, BSD, Hodge, NS)
    - ~160 axioms catalogued and classified
-   - ~128 theorems proven or documented
-   - 28 Coq modules with clear dependencies
+   - ~134 theorems proven or documented
+   - 29 Coq modules with clear dependencies
 
    KEY RESULTS:
    - Spectral gap Delta = 0.0539677286942250 > 0 (certified to 1e-15)
    - P != NP via spectral separation (conditional on bridge axiom)
+   - P ⊆ NP formally proven (ComplexityTheory.v, Theorem P_subset_NP)
    - RH <-> T3 eigenvalue-zero bijection (SpectralBijection.v)
    - SU(2)×U(1) gauge emergence from toroidal structure (SpectralEmbedding.v)
    - Mass spectrum: M_γ=0, M_W≈80.4, M_Z≈91.2 GeV (SpectralEmbedding.v)
@@ -311,6 +314,7 @@ Definition final_summary : string :=
    - Added SpectralEmbedding.v (SU(2)×U(1) gauge emergence, electroweak masses)
    - Added P_NP_EquivalenceLemmas.v (complete equivalence chain for P≠NP)
    - Added FractalOperators.v (H_P/H_NP operators, phase factors, consciousness)
+   - Added ComplexityTheory.v (P, NP definitions, P⊆NP theorem)
    - Added NuclearSpaces.v (Schwartz space, nuclear topology)
    - Added CylindricalMeasures.v (positive definite functionals)
    - Added GaussianModel.v (free field covariance operators)
@@ -319,7 +323,7 @@ Definition final_summary : string :=
    - Completed yang_mills_normalized proof (no longer Admitted)
    - Tightened numerical precision from 1e-10 to 1e-15
    - Reduced admitted proof count from 6 to 4
-   - Expanded module count from 16 to 28
+   - Expanded module count from 16 to 29
 
    REMAINING ADMITS: All 4 rely on operator_collapse_under_p_eq_np
    (the core bridge axiom connecting complexity to spectral theory)

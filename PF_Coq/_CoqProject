@@ -9,6 +9,7 @@ theories/Core/RadixEconomy.v
 theories/Core/ChernWeil.v
 theories/Core/IntervalArithmetic.v
 theories/Core/TuringEncoding.v
+theories/Core/ComplexityTheory.v
 theories/Core/TransferOperator.v
 theories/Core/SpectralEmbedding.v
 theories/Core/P_NP_EquivalenceLemmas.v
