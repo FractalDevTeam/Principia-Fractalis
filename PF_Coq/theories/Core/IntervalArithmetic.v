@@ -59,29 +59,41 @@ Next Obligation.
 Qed.
 
 (** Division (positive intervals, nonzero denominator)
-    REFEREE NOTE: This obligation proof is deferred due to complexity of
-    Coq's real division lemmas. The bound [lo1/hi2, hi1/lo2] is standard
-    interval arithmetic and is correct for positive intervals.
-    VERIFICATION: Can be completed using Coq's Rdiv lemmas with careful
-    case analysis on the signs of lo2, hi2. *)
-(** REFEREE NOTE: Division obligation for positive intervals.
 
-    PROOF SKETCH:
+    PROOF STRUCTURE:
     Given I = [lo1, hi1] with lo1 >= 0 and J = [lo2, hi2] with lo2 > 0:
     We need: lo1/hi2 <= hi1/lo2
 
-    From hi2 >= lo2 > 0, we have 1/hi2 <= 1/lo2.
-    From hi1 >= lo1 >= 0, multiplying: lo1/hi2 <= hi1/hi2 <= hi1/lo2. ✓
+    The proof uses transitivity: lo1/hi2 <= hi1/hi2 <= hi1/lo2
+    1. lo1/hi2 <= hi1/hi2: Rmult_le_compat_r with v1 (lo1 <= hi1)
+    2. hi1/hi2 <= hi1/lo2: Rinv_le_contravar with v2 (lo2 <= hi2)
 
-    AXIOM DEPENDENCY: Standard properties of real division.
-    The proof uses Rdiv_le_compat lemmas from Coq.Reals. *)
+    FULLY PROVEN: No admits required. *)
 Program Definition iv_div_pos (I J : Interval)
   (HI : iv_lo I >= 0) (HJ : iv_lo J > 0) : Interval :=
   mkInterval (iv_lo I / iv_hi J) (iv_hi I / iv_lo J) _.
 Next Obligation.
-  (* ADMITTED: Standard interval arithmetic for positive division *)
-  admit.
-Admitted.
+  destruct I as [lo1 hi1 v1].
+  destruct J as [lo2 hi2 v2].
+  simpl in *.
+  (* Need: lo1/hi2 <= hi1/lo2 *)
+  (* From v2: lo2 <= hi2, and HJ: lo2 > 0, so hi2 > 0 *)
+  assert (Hhi2_pos : hi2 > 0) by lra.
+  (* Use transitivity: lo1/hi2 <= hi1/hi2 <= hi1/lo2 *)
+  apply Rle_trans with (hi1 / hi2).
+  - (* lo1/hi2 <= hi1/hi2: divide by same positive hi2 *)
+    apply Rmult_le_compat_r.
+    + left. apply Rinv_0_lt_compat. exact Hhi2_pos.
+    + exact v1.
+  - (* hi1/hi2 <= hi1/lo2: hi1 * (1/hi2) <= hi1 * (1/lo2) *)
+    unfold Rdiv.
+    apply Rmult_le_compat_l.
+    + lra.  (* hi1 >= lo1 >= 0 *)
+    + (* 1/hi2 <= 1/lo2 because hi2 >= lo2 > 0 *)
+      apply Rinv_le_contravar.
+      * exact HJ.
+      * exact v2.
+Qed.
 
 (** ** Correctness Theorems *)
 
