@@ -203,7 +203,9 @@ Qed.
 (** alpha* approx 5e-6 determined empirically to match known zeros *)
 Definition alpha_star_value : R := 5e-6.
 
-Axiom alpha_star_pos : alpha_star_value > 0.
+(** alpha_star positivity - PROVEN via lra *)
+Lemma alpha_star_pos : alpha_star_value > 0.
+Proof. unfold alpha_star_value. lra. Qed.
 
 Definition alpha_star : ScalingParameter :=
   mkScalingParam alpha_star_value alpha_star_pos.

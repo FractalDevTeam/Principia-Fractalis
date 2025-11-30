@@ -1,4 +1,4 @@
-DIGEST 7877d174f2d7912e9f3a7145cd19ba34
+DIGEST 283ffadbdc20392cc29eb353b116ae4a
 FPF_Coq.Contracts.Hodge
 R336:350 Coq.Reals.Reals <> <> lib
 R368:386 Coq.Logic.Classical <> <> lib
@@ -12,286 +12,292 @@ ax 748:750 <> dim
 R771:774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R754:770 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
 R775:777 Coq.Init.Datatypes <> nat ind
-ax 819:835 <> complex_structure
-R850:866 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 846:846 <> X:3
-R869:872 Coq.Init.Logic <> True ind
-ax 950:964 <> HodgeCohomology
-R985:988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R968:984 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-R992:995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R989:991 Coq.Init.Datatypes <> nat ind
-R999:1002 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R996:998 Coq.Init.Datatypes <> nat ind
-ax 1056:1071 <> DeRhamCohomology
-R1092:1095 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1075:1091 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-R1099:1102 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1096:1098 Coq.Init.Datatypes <> nat ind
-ax 1143:1161 <> hodge_decomposition
-R1177:1193 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 1173:1173 <> X:7
-R1201:1203 Coq.Init.Datatypes <> nat ind
-binder 1197:1197 <> k:8
-R1225:1240 PF_Coq.Contracts.Hodge <> DeRhamCohomology defax
-R1242:1242 PF_Coq.Contracts.Hodge <> X:7 var
-R1244:1244 PF_Coq.Contracts.Hodge <> k:8 var
-binder 1217:1221 <> alpha:9
-R1250:1257 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1322:1328 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1271:1274 Coq.Init.Datatypes <> list ind
-R1276:1277 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R1280:1282 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R1292:1294 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R1320:1321 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R1286:1288 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1283:1285 Coq.Init.Datatypes <> nat ind
-R1289:1291 Coq.Init.Datatypes <> nat ind
-binder 1278:1279 <> pq:10
-R1316:1318 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1302:1304 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1296:1298 Coq.Init.Datatypes <> fst def
-R1300:1301 PF_Coq.Contracts.Hodge <> pq:10 var
-R1305:1307 Coq.Init.Datatypes <> snd def
-R1309:1310 PF_Coq.Contracts.Hodge <> pq:10 var
-R1319:1319 PF_Coq.Contracts.Hodge <> k:8 var
-binder 1258:1267 <> components:11
-R1329:1332 Coq.Init.Logic <> True ind
-ax 1442:1451 <> HodgeClass
-R1467:1483 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 1463:1463 <> X:13
-R1491:1493 Coq.Init.Datatypes <> nat ind
-binder 1487:1487 <> p:14
-ax 1538:1551 <> AlgebraicCycle
-R1567:1583 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 1563:1563 <> X:16
-R1591:1593 Coq.Init.Datatypes <> nat ind
-binder 1587:1587 <> p:17
-ax 1667:1677 <> cycle_class
-R1693:1709 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 1689:1689 <> X:19
-R1717:1719 Coq.Init.Datatypes <> nat ind
-binder 1713:1713 <> p:20
-R1743:1746 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1725:1738 PF_Coq.Contracts.Hodge <> AlgebraicCycle defax
-R1740:1740 PF_Coq.Contracts.Hodge <> X:19 var
-R1742:1742 PF_Coq.Contracts.Hodge <> p:20 var
-R1747:1756 PF_Coq.Contracts.Hodge <> HodgeClass defax
-R1758:1758 PF_Coq.Contracts.Hodge <> X:19 var
-R1760:1760 PF_Coq.Contracts.Hodge <> p:20 var
-def 1907:1921 <> HodgeConjecture
-R1947:1963 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 1943:1943 <> X:22
-R1971:1973 Coq.Init.Datatypes <> nat ind
-binder 1967:1967 <> p:23
-R1985:1994 PF_Coq.Contracts.Hodge <> HodgeClass defax
-R1996:1996 PF_Coq.Contracts.Hodge <> X:22 var
-R1998:1998 PF_Coq.Contracts.Hodge <> p:23 var
-binder 1977:1981 <> alpha:24
-R2004:2011 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2064:2070 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2021:2024 Coq.Init.Datatypes <> list ind
-R2027:2040 PF_Coq.Contracts.Hodge <> AlgebraicCycle defax
-R2042:2042 PF_Coq.Contracts.Hodge <> X:22 var
-R2044:2044 PF_Coq.Contracts.Hodge <> p:23 var
-binder 2012:2017 <> cycles:25
-R2058:2061 Coq.Init.Datatypes <> list ind
-R2063:2063 Coq.QArith.QArith_base <> Q rec
-binder 2049:2054 <> coeffs:26
-R2071:2074 Coq.Init.Logic <> True ind
-ax 2200:2216 <> LefschetzOperator
-R2237:2240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2220:2236 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-ax 2292:2305 <> hard_lefschetz
-R2321:2337 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 2317:2317 <> X:28
-R2345:2347 Coq.Init.Datatypes <> nat ind
-binder 2341:2341 <> k:29
-R2369:2374 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2355:2358 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2354:2354 PF_Coq.Contracts.Hodge <> k:29 var
-R2359:2361 PF_Coq.Contracts.Hodge <> dim defax
-R2363:2363 PF_Coq.Contracts.Hodge <> X:28 var
-R2375:2378 Coq.Init.Logic <> True ind
-ax 2512:2524 <> HodgeOperator
-R2545:2548 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2528:2544 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-ax 2591:2616 <> HodgeOperator_self_adjoint
-R2632:2648 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 2628:2628 <> X:32
-R2654:2657 Coq.Init.Logic <> True ind
-ax 2749:2763 <> HodgeEigenvalue
-R2784:2787 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2767:2783 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-R2791:2794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2788:2790 Coq.Init.Datatypes <> nat ind
-R2795:2795 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 2907:2930 <> Hodge_Spectral_Condition
-R2956:2972 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 2952:2952 <> X:35
-R2980:2982 Coq.Init.Datatypes <> nat ind
-binder 2976:2976 <> p:36
-binder 3047:3047 <> n:37
-R3050:3056 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3062:3063 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3061:3061 Coq.QArith.QArith_base <> Q rec
-binder 3057:3057 <> q:38
-R3083:3085 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3064:3078 PF_Coq.Contracts.Hodge <> HodgeEigenvalue defax
-R3080:3080 PF_Coq.Contracts.Hodge <> X:35 var
-R3082:3082 PF_Coq.Contracts.Hodge <> n:37 var
-R3086:3088 Coq.Reals.Rdefinitions <> Q2R def
-R3090:3090 PF_Coq.Contracts.Hodge <> q:38 var
-ax 3133:3153 <> rationality_threshold
-R3157:3157 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-ax 3166:3192 <> rationality_threshold_value
-R3217:3219 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3196:3216 PF_Coq.Contracts.Hodge <> rationality_threshold defax
-ax 3324:3340 <> Hodge_to_Spectral
-R3361:3364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3346:3360 PF_Coq.Contracts.Hodge <> HodgeConjecture def
-R3365:3388 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
-ax 3459:3475 <> Spectral_to_Hodge
-R3505:3508 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3481:3504 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
-R3509:3523 PF_Coq.Contracts.Hodge <> HodgeConjecture def
-prf 3559:3584 <> Hodge_Spectral_Equivalence
-R3605:3609 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3590:3604 PF_Coq.Contracts.Hodge <> HodgeConjecture def
-R3610:3633 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
-R3659:3675 PF_Coq.Contracts.Hodge <> Hodge_to_Spectral prfax
-R3685:3701 PF_Coq.Contracts.Hodge <> Spectral_to_Hodge prfax
-R3659:3675 PF_Coq.Contracts.Hodge <> Hodge_to_Spectral prfax
-R3685:3701 PF_Coq.Contracts.Hodge <> Spectral_to_Hodge prfax
-ax 3811:3837 <> PF_Hodge_Spectral_Condition
-R3841:3864 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
-prf 3918:3936 <> PF_Hodge_Conjecture
-R3940:3954 PF_Coq.Contracts.Hodge <> HodgeConjecture def
-R3972:3988 PF_Coq.Contracts.Hodge <> Spectral_to_Hodge prfax
-R3972:3988 PF_Coq.Contracts.Hodge <> Spectral_to_Hodge prfax
-R3999:4025 PF_Coq.Contracts.Hodge <> PF_Hodge_Spectral_Condition prfax
-R3999:4025 PF_Coq.Contracts.Hodge <> PF_Hodge_Spectral_Condition prfax
-rec 4068:4080 <> HodgeContract
-proj 4105:4127 <> hodge_spectral_verified
-proj 4159:4184 <> hodge_equivalence_verified
-proj 4236:4259 <> hodge_conjecture_claimed
-R4131:4154 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
-R4203:4207 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R4188:4202 PF_Coq.Contracts.Hodge <> HodgeConjecture def
-R4208:4231 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
-R4263:4277 PF_Coq.Contracts.Hodge <> HodgeConjecture def
-def 4294:4310 <> Hodge_contract_PF
-R4314:4326 PF_Coq.Contracts.Hodge <> HodgeContract rec
-R4336:4358 PF_Coq.Contracts.Hodge <> hodge_spectral_verified proj
-R4336:4358 PF_Coq.Contracts.Hodge <> hodge_spectral_verified proj
-R4336:4358 PF_Coq.Contracts.Hodge <> hodge_spectral_verified proj
-R4394:4419 PF_Coq.Contracts.Hodge <> hodge_equivalence_verified proj
-R4394:4419 PF_Coq.Contracts.Hodge <> hodge_equivalence_verified proj
-R4454:4477 PF_Coq.Contracts.Hodge <> hodge_conjecture_claimed proj
-R4454:4477 PF_Coq.Contracts.Hodge <> hodge_conjecture_claimed proj
-R4363:4389 PF_Coq.Contracts.Hodge <> PF_Hodge_Spectral_Condition prfax
-R4424:4449 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Equivalence thm
-R4482:4500 PF_Coq.Contracts.Hodge <> PF_Hodge_Conjecture thm
-def 4577:4591 <> PF_axioms_Hodge
-R4595:4598 Coq.Init.Datatypes <> list ind
-R4600:4605 Coq.Strings.String <> string ind
-R4638:4644 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4672:4678 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4701:4707 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4737:4743 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4763:4769 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4789:4795 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4825:4831 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4832:4834 Coq.Init.Datatypes <> nil constr
-ax 4959:4980 <> spectral_concentration
-R4996:5012 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 4992:4992 <> X:48
-R5020:5022 Coq.Init.Datatypes <> nat ind
-binder 5016:5016 <> p:49
-R5042:5045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5028:5037 PF_Coq.Contracts.Hodge <> HodgeClass defax
-R5039:5039 PF_Coq.Contracts.Hodge <> X:48 var
-R5041:5041 PF_Coq.Contracts.Hodge <> p:49 var
-R5046:5046 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 5126:5143 <> spectral_threshold
-R5147:5147 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-ax 5235:5264 <> hodge_class_high_concentration
-R5282:5298 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 5278:5278 <> X:51
-R5306:5308 Coq.Init.Datatypes <> nat ind
-binder 5302:5302 <> p:52
-R5317:5326 PF_Coq.Contracts.Hodge <> HodgeClass defax
-R5328:5328 PF_Coq.Contracts.Hodge <> X:51 var
-R5330:5330 PF_Coq.Contracts.Hodge <> p:52 var
-binder 5312:5313 <> xi:53
-R5367:5370 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R5338:5359 PF_Coq.Contracts.Hodge <> spectral_concentration defax
-R5361:5361 PF_Coq.Contracts.Hodge <> X:51 var
-R5363:5363 PF_Coq.Contracts.Hodge <> p:52 var
-R5365:5366 PF_Coq.Contracts.Hodge <> xi:53 var
-R5371:5388 PF_Coq.Contracts.Hodge <> spectral_threshold def
-ax 5459:5489 <> concentration_implies_algebraic
-R5507:5523 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
-binder 5503:5503 <> X:55
-R5531:5533 Coq.Init.Datatypes <> nat ind
-binder 5527:5527 <> p:56
-R5542:5551 PF_Coq.Contracts.Hodge <> HodgeClass defax
-R5553:5553 PF_Coq.Contracts.Hodge <> X:55 var
-R5555:5555 PF_Coq.Contracts.Hodge <> p:56 var
-binder 5537:5538 <> xi:57
-R5614:5621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5592:5595 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R5563:5584 PF_Coq.Contracts.Hodge <> spectral_concentration defax
-R5586:5586 PF_Coq.Contracts.Hodge <> X:55 var
-R5588:5588 PF_Coq.Contracts.Hodge <> p:56 var
-R5590:5591 PF_Coq.Contracts.Hodge <> xi:57 var
-R5596:5613 PF_Coq.Contracts.Hodge <> spectral_threshold def
-R5622:5629 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5682:5684 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5639:5642 Coq.Init.Datatypes <> list ind
-R5645:5658 PF_Coq.Contracts.Hodge <> AlgebraicCycle defax
-R5660:5660 PF_Coq.Contracts.Hodge <> X:55 var
-R5662:5662 PF_Coq.Contracts.Hodge <> p:56 var
-binder 5630:5635 <> cycles:58
-R5676:5679 Coq.Init.Datatypes <> list ind
-R5681:5681 Coq.QArith.QArith_base <> Q rec
-binder 5667:5672 <> coeffs:59
-R5685:5688 Coq.Init.Logic <> True ind
-def 5773:5775 <> phi
-R5779:5779 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5784:5784 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5795:5798 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5786:5788 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5789:5792 Coq.Reals.R_sqrt <> sqrt def
-def 5894:5902 <> ch2_Hodge
-R5906:5906 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5915:5917 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5918:5918 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5928:5931 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5922:5924 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5919:5921 PF_Coq.Contracts.Hodge <> phi def
-R5926:5926 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-prf 6055:6064 <> sqrt5_gt_2
-R6074:6076 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6068:6071 Coq.Reals.R_sqrt <> sqrt def
-R6152:6162 Coq.Reals.R_sqrt <> sqrt_square thm
-R6152:6162 Coq.Reals.R_sqrt <> sqrt_square thm
-R6152:6162 Coq.Reals.R_sqrt <> sqrt_square thm
-R6152:6162 Coq.Reals.R_sqrt <> sqrt_square thm
-R6175:6183 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
-R6175:6183 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
-prf 6358:6376 <> hodge_supercritical
-R6389:6391 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6380:6388 PF_Coq.Contracts.Hodge <> ch2_Hodge def
-R6414:6422 PF_Coq.Contracts.Hodge <> ch2_Hodge def
-R6425:6427 PF_Coq.Contracts.Hodge <> phi def
-R6524:6526 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6518:6521 Coq.Reals.R_sqrt <> sqrt def
-R6539:6548 PF_Coq.Contracts.Hodge <> sqrt5_gt_2 thm
-R6524:6526 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6518:6521 Coq.Reals.R_sqrt <> sqrt def
-R6539:6548 PF_Coq.Contracts.Hodge <> sqrt5_gt_2 thm
-def 6605:6623 <> hodge_theorem_count
-R6627:6629 Coq.Init.Datatypes <> nat ind
-def 6681:6697 <> hodge_axiom_count
-R6701:6703 Coq.Init.Datatypes <> nat ind
+prf 836:852 <> complex_structure
+R867:883 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 863:863 <> X:3
+R886:889 Coq.Init.Logic <> True ind
+R912:912 Coq.Init.Logic <> I constr
+R912:912 Coq.Init.Logic <> I constr
+ax 995:1009 <> HodgeCohomology
+R1030:1033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1013:1029 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+R1037:1040 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1034:1036 Coq.Init.Datatypes <> nat ind
+R1044:1047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1041:1043 Coq.Init.Datatypes <> nat ind
+ax 1101:1116 <> DeRhamCohomology
+R1137:1140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1120:1136 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+R1144:1147 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1141:1143 Coq.Init.Datatypes <> nat ind
+ax 1188:1206 <> hodge_decomposition
+R1222:1238 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 1218:1218 <> X:6
+R1246:1248 Coq.Init.Datatypes <> nat ind
+binder 1242:1242 <> k:7
+R1270:1285 PF_Coq.Contracts.Hodge <> DeRhamCohomology defax
+R1287:1287 PF_Coq.Contracts.Hodge <> X:6 var
+R1289:1289 PF_Coq.Contracts.Hodge <> k:7 var
+binder 1262:1266 <> alpha:8
+R1295:1302 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1367:1373 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1316:1319 Coq.Init.Datatypes <> list ind
+R1321:1322 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1325:1327 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1337:1339 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1365:1366 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1331:1333 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1328:1330 Coq.Init.Datatypes <> nat ind
+R1334:1336 Coq.Init.Datatypes <> nat ind
+binder 1323:1324 <> pq:9
+R1361:1363 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1347:1349 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1341:1343 Coq.Init.Datatypes <> fst def
+R1345:1346 PF_Coq.Contracts.Hodge <> pq:9 var
+R1350:1352 Coq.Init.Datatypes <> snd def
+R1354:1355 PF_Coq.Contracts.Hodge <> pq:9 var
+R1364:1364 PF_Coq.Contracts.Hodge <> k:7 var
+binder 1303:1312 <> components:10
+R1374:1377 Coq.Init.Logic <> True ind
+ax 1487:1496 <> HodgeClass
+R1512:1528 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 1508:1508 <> X:12
+R1536:1538 Coq.Init.Datatypes <> nat ind
+binder 1532:1532 <> p:13
+ax 1583:1596 <> AlgebraicCycle
+R1612:1628 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 1608:1608 <> X:15
+R1636:1638 Coq.Init.Datatypes <> nat ind
+binder 1632:1632 <> p:16
+ax 1712:1722 <> cycle_class
+R1738:1754 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 1734:1734 <> X:18
+R1762:1764 Coq.Init.Datatypes <> nat ind
+binder 1758:1758 <> p:19
+R1788:1791 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1770:1783 PF_Coq.Contracts.Hodge <> AlgebraicCycle defax
+R1785:1785 PF_Coq.Contracts.Hodge <> X:18 var
+R1787:1787 PF_Coq.Contracts.Hodge <> p:19 var
+R1792:1801 PF_Coq.Contracts.Hodge <> HodgeClass defax
+R1803:1803 PF_Coq.Contracts.Hodge <> X:18 var
+R1805:1805 PF_Coq.Contracts.Hodge <> p:19 var
+def 1952:1966 <> HodgeConjecture
+R1992:2008 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 1988:1988 <> X:21
+R2016:2018 Coq.Init.Datatypes <> nat ind
+binder 2012:2012 <> p:22
+R2030:2039 PF_Coq.Contracts.Hodge <> HodgeClass defax
+R2041:2041 PF_Coq.Contracts.Hodge <> X:21 var
+R2043:2043 PF_Coq.Contracts.Hodge <> p:22 var
+binder 2022:2026 <> alpha:23
+R2049:2056 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2109:2115 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2066:2069 Coq.Init.Datatypes <> list ind
+R2072:2085 PF_Coq.Contracts.Hodge <> AlgebraicCycle defax
+R2087:2087 PF_Coq.Contracts.Hodge <> X:21 var
+R2089:2089 PF_Coq.Contracts.Hodge <> p:22 var
+binder 2057:2062 <> cycles:24
+R2103:2106 Coq.Init.Datatypes <> list ind
+R2108:2108 Coq.QArith.QArith_base <> Q rec
+binder 2094:2099 <> coeffs:25
+R2116:2119 Coq.Init.Logic <> True ind
+ax 2245:2261 <> LefschetzOperator
+R2282:2285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2265:2281 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+prf 2354:2367 <> hard_lefschetz
+R2383:2399 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 2379:2379 <> X:27
+R2407:2409 Coq.Init.Datatypes <> nat ind
+binder 2403:2403 <> k:28
+R2431:2436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2417:2420 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2416:2416 PF_Coq.Contracts.Hodge <> k:28 var
+R2421:2423 PF_Coq.Contracts.Hodge <> dim defax
+R2425:2425 PF_Coq.Contracts.Hodge <> X:27 var
+R2437:2440 Coq.Init.Logic <> True ind
+R2514:2514 Coq.Init.Logic <> I constr
+R2514:2514 Coq.Init.Logic <> I constr
+ax 2603:2615 <> HodgeOperator
+R2636:2639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2619:2635 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+prf 2699:2724 <> HodgeOperator_self_adjoint
+R2740:2756 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 2736:2736 <> X:30
+R2762:2765 Coq.Init.Logic <> True ind
+R2830:2830 Coq.Init.Logic <> I constr
+R2830:2830 Coq.Init.Logic <> I constr
+ax 2885:2899 <> HodgeEigenvalue
+R2920:2923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2903:2919 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+R2927:2930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2924:2926 Coq.Init.Datatypes <> nat ind
+R2931:2931 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 3043:3066 <> Hodge_Spectral_Condition
+R3092:3108 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 3088:3088 <> X:32
+R3116:3118 Coq.Init.Datatypes <> nat ind
+binder 3112:3112 <> p:33
+binder 3183:3183 <> n:34
+R3186:3192 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3198:3199 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3197:3197 Coq.QArith.QArith_base <> Q rec
+binder 3193:3193 <> q:35
+R3219:3221 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3200:3214 PF_Coq.Contracts.Hodge <> HodgeEigenvalue defax
+R3216:3216 PF_Coq.Contracts.Hodge <> X:32 var
+R3218:3218 PF_Coq.Contracts.Hodge <> n:34 var
+R3222:3224 Coq.Reals.Rdefinitions <> Q2R def
+R3226:3226 PF_Coq.Contracts.Hodge <> q:35 var
+def 3289:3309 <> rationality_threshold
+R3313:3313 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 3332:3358 <> rationality_threshold_value
+R3383:3385 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3362:3382 PF_Coq.Contracts.Hodge <> rationality_threshold def
+ax 3515:3531 <> Hodge_to_Spectral
+R3552:3555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3537:3551 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R3556:3579 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+ax 3650:3666 <> Spectral_to_Hodge
+R3696:3699 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3672:3695 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+R3700:3714 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+prf 3750:3775 <> Hodge_Spectral_Equivalence
+R3796:3800 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3781:3795 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R3801:3824 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+R3850:3866 PF_Coq.Contracts.Hodge <> Hodge_to_Spectral prfax
+R3876:3892 PF_Coq.Contracts.Hodge <> Spectral_to_Hodge prfax
+R3850:3866 PF_Coq.Contracts.Hodge <> Hodge_to_Spectral prfax
+R3876:3892 PF_Coq.Contracts.Hodge <> Spectral_to_Hodge prfax
+ax 4002:4028 <> PF_Hodge_Spectral_Condition
+R4032:4055 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+prf 4109:4127 <> PF_Hodge_Conjecture
+R4131:4145 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R4163:4179 PF_Coq.Contracts.Hodge <> Spectral_to_Hodge prfax
+R4163:4179 PF_Coq.Contracts.Hodge <> Spectral_to_Hodge prfax
+R4190:4216 PF_Coq.Contracts.Hodge <> PF_Hodge_Spectral_Condition prfax
+R4190:4216 PF_Coq.Contracts.Hodge <> PF_Hodge_Spectral_Condition prfax
+rec 4259:4271 <> HodgeContract
+proj 4296:4318 <> hodge_spectral_verified
+proj 4350:4375 <> hodge_equivalence_verified
+proj 4427:4450 <> hodge_conjecture_claimed
+R4322:4345 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+R4394:4398 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4379:4393 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R4399:4422 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+R4454:4468 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+def 4485:4501 <> Hodge_contract_PF
+R4505:4517 PF_Coq.Contracts.Hodge <> HodgeContract rec
+R4527:4549 PF_Coq.Contracts.Hodge <> hodge_spectral_verified proj
+R4527:4549 PF_Coq.Contracts.Hodge <> hodge_spectral_verified proj
+R4527:4549 PF_Coq.Contracts.Hodge <> hodge_spectral_verified proj
+R4585:4610 PF_Coq.Contracts.Hodge <> hodge_equivalence_verified proj
+R4585:4610 PF_Coq.Contracts.Hodge <> hodge_equivalence_verified proj
+R4645:4668 PF_Coq.Contracts.Hodge <> hodge_conjecture_claimed proj
+R4645:4668 PF_Coq.Contracts.Hodge <> hodge_conjecture_claimed proj
+R4554:4580 PF_Coq.Contracts.Hodge <> PF_Hodge_Spectral_Condition prfax
+R4615:4640 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Equivalence thm
+R4673:4691 PF_Coq.Contracts.Hodge <> PF_Hodge_Conjecture thm
+def 4768:4782 <> PF_axioms_Hodge
+R4786:4789 Coq.Init.Datatypes <> list ind
+R4791:4796 Coq.Strings.String <> string ind
+R4829:4835 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4863:4869 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4892:4898 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4928:4934 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4954:4960 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4980:4986 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5016:5022 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5023:5025 Coq.Init.Datatypes <> nil constr
+ax 5150:5171 <> spectral_concentration
+R5187:5203 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 5183:5183 <> X:43
+R5211:5213 Coq.Init.Datatypes <> nat ind
+binder 5207:5207 <> p:44
+R5233:5236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5219:5228 PF_Coq.Contracts.Hodge <> HodgeClass defax
+R5230:5230 PF_Coq.Contracts.Hodge <> X:43 var
+R5232:5232 PF_Coq.Contracts.Hodge <> p:44 var
+R5237:5237 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 5317:5334 <> spectral_threshold
+R5338:5338 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 5426:5455 <> hodge_class_high_concentration
+R5473:5489 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 5469:5469 <> X:46
+R5497:5499 Coq.Init.Datatypes <> nat ind
+binder 5493:5493 <> p:47
+R5508:5517 PF_Coq.Contracts.Hodge <> HodgeClass defax
+R5519:5519 PF_Coq.Contracts.Hodge <> X:46 var
+R5521:5521 PF_Coq.Contracts.Hodge <> p:47 var
+binder 5503:5504 <> xi:48
+R5558:5561 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5529:5550 PF_Coq.Contracts.Hodge <> spectral_concentration defax
+R5552:5552 PF_Coq.Contracts.Hodge <> X:46 var
+R5554:5554 PF_Coq.Contracts.Hodge <> p:47 var
+R5556:5557 PF_Coq.Contracts.Hodge <> xi:48 var
+R5562:5579 PF_Coq.Contracts.Hodge <> spectral_threshold def
+ax 5650:5680 <> concentration_implies_algebraic
+R5698:5714 PF_Coq.Contracts.Hodge <> ProjectiveVariety defax
+binder 5694:5694 <> X:50
+R5722:5724 Coq.Init.Datatypes <> nat ind
+binder 5718:5718 <> p:51
+R5733:5742 PF_Coq.Contracts.Hodge <> HodgeClass defax
+R5744:5744 PF_Coq.Contracts.Hodge <> X:50 var
+R5746:5746 PF_Coq.Contracts.Hodge <> p:51 var
+binder 5728:5729 <> xi:52
+R5805:5812 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5783:5786 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5754:5775 PF_Coq.Contracts.Hodge <> spectral_concentration defax
+R5777:5777 PF_Coq.Contracts.Hodge <> X:50 var
+R5779:5779 PF_Coq.Contracts.Hodge <> p:51 var
+R5781:5782 PF_Coq.Contracts.Hodge <> xi:52 var
+R5787:5804 PF_Coq.Contracts.Hodge <> spectral_threshold def
+R5813:5820 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5873:5875 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5830:5833 Coq.Init.Datatypes <> list ind
+R5836:5849 PF_Coq.Contracts.Hodge <> AlgebraicCycle defax
+R5851:5851 PF_Coq.Contracts.Hodge <> X:50 var
+R5853:5853 PF_Coq.Contracts.Hodge <> p:51 var
+binder 5821:5826 <> cycles:53
+R5867:5870 Coq.Init.Datatypes <> list ind
+R5872:5872 Coq.QArith.QArith_base <> Q rec
+binder 5858:5863 <> coeffs:54
+R5876:5879 Coq.Init.Logic <> True ind
+def 5964:5966 <> phi
+R5970:5970 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5975:5975 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5986:5989 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5977:5979 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5980:5983 Coq.Reals.R_sqrt <> sqrt def
+def 6085:6093 <> ch2_Hodge
+R6097:6097 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6106:6108 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6109:6109 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6119:6122 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6113:6115 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6110:6112 PF_Coq.Contracts.Hodge <> phi def
+R6117:6117 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 6246:6255 <> sqrt5_gt_2
+R6265:6267 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6259:6262 Coq.Reals.R_sqrt <> sqrt def
+R6343:6353 Coq.Reals.R_sqrt <> sqrt_square thm
+R6343:6353 Coq.Reals.R_sqrt <> sqrt_square thm
+R6343:6353 Coq.Reals.R_sqrt <> sqrt_square thm
+R6343:6353 Coq.Reals.R_sqrt <> sqrt_square thm
+R6366:6374 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+R6366:6374 Coq.Reals.R_sqrt <> sqrt_lt_1 thm
+prf 6549:6567 <> hodge_supercritical
+R6580:6582 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6571:6579 PF_Coq.Contracts.Hodge <> ch2_Hodge def
+R6605:6613 PF_Coq.Contracts.Hodge <> ch2_Hodge def
+R6616:6618 PF_Coq.Contracts.Hodge <> phi def
+R6715:6717 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6709:6712 Coq.Reals.R_sqrt <> sqrt def
+R6730:6739 PF_Coq.Contracts.Hodge <> sqrt5_gt_2 thm
+R6715:6717 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6709:6712 Coq.Reals.R_sqrt <> sqrt def
+R6730:6739 PF_Coq.Contracts.Hodge <> sqrt5_gt_2 thm
+def 6796:6814 <> hodge_theorem_count
+R6818:6820 Coq.Init.Datatypes <> nat ind
+def 6872:6888 <> hodge_axiom_count
+R6892:6894 Coq.Init.Datatypes <> nat ind

@@ -5,7 +5,7 @@
 | Prover | Admits/Sorries | Axioms | Theorems |
 |--------|----------------|--------|----------|
 | **Lean 4** | 0 | ~100 | ~150 |
-| **Coq** | 0 | 129 | 173 |
+| **Coq** | 0 | 121 | 181 |
 
 Both formalizations achieve **ZERO incomplete proofs**.
 

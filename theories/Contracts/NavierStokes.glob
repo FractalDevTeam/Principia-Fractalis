@@ -1,4 +1,4 @@
-DIGEST d7f6314a2cc0393b43f0d089dc24a3dc
+DIGEST ff8befecf86c1204b8170490bc448980
 FPF_Coq.Contracts.NavierStokes
 R297:311 Coq.Reals.Reals <> <> lib
 R329:348 Coq.Reals.Rfunctions <> <> lib
@@ -331,104 +331,108 @@ R6477:6477 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 R6486:6488 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
 R6482:6483 Coq.Reals.Rpower <> ln def
 R6489:6490 Coq.Reals.Rpower <> ln def
-ax 6572:6588 <> emergence_scaling
-R6603:6605 Coq.Init.Datatypes <> nat ind
-binder 6599:6599 <> n:67
-R6610:6616 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6628:6629 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6625:6627 Coq.Init.Datatypes <> nat ind
-binder 6617:6621 <> count:68
-R6635:6637 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6630:6634 PF_Coq.Contracts.NavierStokes <> count:68 var
-R6640:6640 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R6641:6641 PF_Coq.Contracts.NavierStokes <> n:67 var
-rec 6744:6754 <> OuterVortex
-proj 6777:6785 <> ov_center
-proj 6795:6803 <> ov_radius
-proj 6812:6825 <> ov_circulation
-proj 6834:6851 <> ov_circulation_pos
-R6789:6790 PF_Coq.Contracts.NavierStokes <> R3 rec
-R6807:6807 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6829:6829 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6869:6871 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6855:6868 PF_Coq.Contracts.NavierStokes <> ov_circulation:73 meth
-rec 6931:6941 <> InnerVortex
-proj 6964:6972 <> iv_center
-proj 6982:6990 <> iv_radius
-proj 6999:7012 <> iv_circulation
-proj 7021:7038 <> iv_circulation_neg
-R6976:6977 PF_Coq.Contracts.NavierStokes <> R3 rec
-R6994:6994 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7016:7016 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7056:7058 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R7042:7055 PF_Coq.Contracts.NavierStokes <> iv_circulation:78 meth
-rec 7126:7144 <> CounterRotatingPair
-proj 7175:7183 <> crp_outer
-proj 7202:7210 <> crp_inner
-proj 7229:7242 <> crp_constraint
-R7187:7197 PF_Coq.Contracts.NavierStokes <> OuterVortex rec
-R7214:7224 PF_Coq.Contracts.NavierStokes <> InnerVortex rec
-R7297:7299 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7270:7272 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7246:7259 PF_Coq.Contracts.NavierStokes <> ov_circulation proj
-R7261:7269 PF_Coq.Contracts.NavierStokes <> crp_outer:81 meth
-R7273:7286 PF_Coq.Contracts.NavierStokes <> iv_circulation proj
-R7288:7296 PF_Coq.Contracts.NavierStokes <> crp_inner:82 meth
-ax 7367:7389 <> counter_rotating_stable
-R7407:7425 PF_Coq.Contracts.NavierStokes <> CounterRotatingPair rec
-binder 7400:7403 <> pair:84
-R7428:7431 Coq.Init.Logic <> True ind
-def 7529:7536 <> alpha_NS
-R7540:7540 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7551:7553 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7546:7548 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7549:7550 Coq.Reals.Rtrigo1 <> PI def
-def 7637:7648 <> vortex_scale
+prf 6591:6607 <> emergence_scaling
+R6622:6624 Coq.Init.Datatypes <> nat ind
+binder 6618:6618 <> n:67
+R6629:6635 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6647:6648 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6644:6646 Coq.Init.Datatypes <> nat ind
+binder 6636:6640 <> count:68
+R6654:6656 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6649:6653 PF_Coq.Contracts.NavierStokes <> count:68 var
+R6659:6659 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6660:6660 PF_Coq.Contracts.NavierStokes <> n:67 var
+R6693:6693 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6693:6693 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+rec 6815:6825 <> OuterVortex
+proj 6848:6856 <> ov_center
+proj 6866:6874 <> ov_radius
+proj 6883:6896 <> ov_circulation
+proj 6905:6922 <> ov_circulation_pos
+R6860:6861 PF_Coq.Contracts.NavierStokes <> R3 rec
+R6878:6878 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6900:6900 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6940:6942 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6926:6939 PF_Coq.Contracts.NavierStokes <> ov_circulation:72 meth
+rec 7002:7012 <> InnerVortex
+proj 7035:7043 <> iv_center
+proj 7053:7061 <> iv_radius
+proj 7070:7083 <> iv_circulation
+proj 7092:7109 <> iv_circulation_neg
+R7047:7048 PF_Coq.Contracts.NavierStokes <> R3 rec
+R7065:7065 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7087:7087 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7127:7129 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7113:7126 PF_Coq.Contracts.NavierStokes <> iv_circulation:77 meth
+rec 7197:7215 <> CounterRotatingPair
+proj 7246:7254 <> crp_outer
+proj 7273:7281 <> crp_inner
+proj 7300:7313 <> crp_constraint
+R7258:7268 PF_Coq.Contracts.NavierStokes <> OuterVortex rec
+R7285:7295 PF_Coq.Contracts.NavierStokes <> InnerVortex rec
+R7368:7370 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7341:7343 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7317:7330 PF_Coq.Contracts.NavierStokes <> ov_circulation proj
+R7332:7340 PF_Coq.Contracts.NavierStokes <> crp_outer:80 meth
+R7344:7357 PF_Coq.Contracts.NavierStokes <> iv_circulation proj
+R7359:7367 PF_Coq.Contracts.NavierStokes <> crp_inner:81 meth
+prf 7455:7477 <> counter_rotating_stable
+R7495:7513 PF_Coq.Contracts.NavierStokes <> CounterRotatingPair rec
+binder 7488:7491 <> pair:83
+R7516:7519 Coq.Init.Logic <> True ind
+R7542:7542 Coq.Init.Logic <> I constr
+R7542:7542 Coq.Init.Logic <> I constr
+def 7645:7652 <> alpha_NS
 R7656:7656 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 7651:7652 <> l0:86
-R7664:7666 Coq.Init.Datatypes <> nat ind
-binder 7660:7660 <> n:87
-R7671:7671 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7678:7681 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7687:7687 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7676:7677 PF_Coq.Contracts.NavierStokes <> l0:86 var
-R7683:7685 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
-R7686:7686 PF_Coq.Contracts.NavierStokes <> n:87 var
-def 7814:7819 <> ch2_NS
-R7823:7823 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7832:7834 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7835:7835 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7850:7853 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7844:7846 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R7836:7843 PF_Coq.Contracts.NavierStokes <> alpha_NS def
-R7848:7848 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-prf 8172:8182 <> ch2_NS_high
-R8192:8194 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R8186:8191 PF_Coq.Contracts.NavierStokes <> ch2_NS def
-R8216:8221 PF_Coq.Contracts.NavierStokes <> ch2_NS def
-R8224:8231 PF_Coq.Contracts.NavierStokes <> alpha_NS def
-R8396:8398 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R8394:8395 Coq.Reals.Rtrigo1 <> PI def
-R8396:8398 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R8394:8395 Coq.Reals.Rtrigo1 <> PI def
-R8470:8476 Coq.Reals.Ratan <> PI2_3_2 thm
-R8470:8476 Coq.Reals.Ratan <> PI2_3_2 thm
-ax 8568:8590 <> emergence_consciousness
-R8606:8619 PF_Coq.Contracts.NavierStokes <> EmergencePoint rec
-binder 8601:8602 <> ep:88
-R8624:8630 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8642:8643 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8641:8641 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 8631:8631 <> H:89
-R8641:8641 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 8633:8637 <> H_max:90
-R8667:8670 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R8648:8650 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8660:8662 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8652:8654 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R8651:8651 PF_Coq.Contracts.NavierStokes <> H:89 var
-R8655:8659 PF_Coq.Contracts.NavierStokes <> H_max:90 var
-def 8719:8734 <> ns_theorem_count
-R8738:8740 Coq.Init.Datatypes <> nat ind
-def 8759:8772 <> ns_axiom_count
-R8776:8778 Coq.Init.Datatypes <> nat ind
+R7667:7669 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7662:7664 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7665:7666 Coq.Reals.Rtrigo1 <> PI def
+def 7753:7764 <> vortex_scale
+R7772:7772 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7767:7768 <> l0:84
+R7780:7782 Coq.Init.Datatypes <> nat ind
+binder 7776:7776 <> n:85
+R7787:7787 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7794:7797 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7803:7803 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7792:7793 PF_Coq.Contracts.NavierStokes <> l0:84 var
+R7799:7801 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R7802:7802 PF_Coq.Contracts.NavierStokes <> n:85 var
+def 7930:7935 <> ch2_NS
+R7939:7939 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7948:7950 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7951:7951 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7966:7969 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7960:7962 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R7952:7959 PF_Coq.Contracts.NavierStokes <> alpha_NS def
+R7964:7964 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 8288:8298 <> ch2_NS_high
+R8308:8310 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8302:8307 PF_Coq.Contracts.NavierStokes <> ch2_NS def
+R8332:8337 PF_Coq.Contracts.NavierStokes <> ch2_NS def
+R8340:8347 PF_Coq.Contracts.NavierStokes <> alpha_NS def
+R8512:8514 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8510:8511 Coq.Reals.Rtrigo1 <> PI def
+R8512:8514 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8510:8511 Coq.Reals.Rtrigo1 <> PI def
+R8586:8592 Coq.Reals.Ratan <> PI2_3_2 thm
+R8586:8592 Coq.Reals.Ratan <> PI2_3_2 thm
+prf 8693:8715 <> emergence_consciousness
+R8731:8744 PF_Coq.Contracts.NavierStokes <> EmergencePoint rec
+binder 8726:8727 <> ep:86
+R8749:8755 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8767:8768 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8766:8766 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8756:8756 <> H:87
+R8766:8766 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8758:8762 <> H_max:88
+R8792:8795 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R8773:8775 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8785:8787 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8777:8779 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R8776:8776 PF_Coq.Contracts.NavierStokes <> H:87 var
+R8780:8784 PF_Coq.Contracts.NavierStokes <> H_max:88 var
+def 8937:8952 <> ns_theorem_count
+R8956:8958 Coq.Init.Datatypes <> nat ind
+def 8977:8990 <> ns_axiom_count
+R8994:8996 Coq.Init.Datatypes <> nat ind

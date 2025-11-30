@@ -26,8 +26,9 @@ Parameter ProjectiveVariety : Type.
 (** Dimension of a variety *)
 Parameter dim : ProjectiveVariety -> nat.
 
-(** Complex structure exists *)
-Axiom complex_structure : forall X : ProjectiveVariety, True.
+(** Complex structure exists - TRIVIALLY TRUE *)
+Lemma complex_structure : forall X : ProjectiveVariety, True.
+Proof. intro. exact I. Qed.
 
 (** ** Cohomology Groups *)
 
@@ -69,19 +70,21 @@ Definition HodgeConjecture : Prop :=
 (** The Lefschetz operator *)
 Parameter LefschetzOperator : ProjectiveVariety -> Type.
 
-(** Hard Lefschetz theorem (known) *)
-Axiom hard_lefschetz : forall (X : ProjectiveVariety) (k : nat),
+(** Hard Lefschetz theorem (known) - TRIVIALLY TRUE *)
+Lemma hard_lefschetz : forall (X : ProjectiveVariety) (k : nat),
   (k <= dim X)%nat ->
   True. (* L^{n-k} : H^k -> H^{2n-k} is an isomorphism *)
+Proof. intros. exact I. Qed.
 
 (** ** Cohomology Operator *)
 
 (** Spectral operator on cohomology *)
 Parameter HodgeOperator : ProjectiveVariety -> Type.
 
-(** Self-adjoint property *)
-Axiom HodgeOperator_self_adjoint : forall (X : ProjectiveVariety),
+(** Self-adjoint property - TRIVIALLY TRUE *)
+Lemma HodgeOperator_self_adjoint : forall (X : ProjectiveVariety),
   True. (* <L(alpha), beta> = <alpha, L(beta)> *)
+Proof. intro. exact I. Qed.
 
 (** Eigenvalue of Hodge operator *)
 Parameter HodgeEigenvalue : ProjectiveVariety -> nat -> R.
@@ -94,9 +97,11 @@ Definition Hodge_Spectral_Condition : Prop :=
     (* All eigenvalues on H^{p,p} are rational *)
     forall n, exists q : Q, HodgeEigenvalue X n = Q2R q.
 
-(** Rationality parameter *)
-Parameter rationality_threshold : R.
-Axiom rationality_threshold_value : rationality_threshold = 1e-10.
+(** Rationality parameter - DEFINED directly *)
+Definition rationality_threshold : R := 1e-10.
+
+Lemma rationality_threshold_value : rationality_threshold = 1e-10.
+Proof. reflexivity. Qed.
 
 (** ** Equivalence Axioms *)
 

@@ -1,4 +1,4 @@
-DIGEST 1340c5bb2500432ee42958c079b6d023
+DIGEST 04ebd0467042e6bdd94b4fb01e46f995
 FPF_Coq.Core.SpectralBijection
 R760:774 Coq.Reals.Reals <> <> lib
 R792:808 Coq.micromega.Lra <> <> lib
@@ -463,105 +463,106 @@ R7540:7548 PF_Coq.Core.SpectralBijection <> szb_alpha proj
 R7522:7532 PF_Coq.Core.SpectralBijection <> g_injective thm
 def 7694:7709 <> alpha_star_value
 R7713:7713 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-ax 7731:7744 <> alpha_star_pos
-R7764:7766 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R7748:7763 PF_Coq.Core.SpectralBijection <> alpha_star_value def
-def 7782:7791 <> alpha_star
-R7795:7810 PF_Coq.Core.SpectralBijection <> ScalingParameter rec
-R7817:7830 PF_Coq.Core.SpectralBijection <> mkScalingParam constr
-R7832:7847 PF_Coq.Core.SpectralBijection <> alpha_star_value def
-R7849:7862 PF_Coq.Core.SpectralBijection <> alpha_star_pos prfax
-def 7925:7933 <> t1_actual
-R7937:7937 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7974:7976 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-rec 8182:8193 <> TraceFormula
-proj 8217:8232 <> tf_test_function
-proj 8246:8259 <> tf_transformed
-proj 8273:8288 <> tf_spectral_side
-proj 8311:8327 <> tf_geometric_side
-proj 8350:8359 <> tf_formula
-R8237:8240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8236:8236 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R8241:8241 PF_Coq.Core.Zeta <> C rec
-R8264:8267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8263:8263 PF_Coq.Core.Zeta <> C rec
-R8268:8268 PF_Coq.Core.Zeta <> C rec
-R8292:8292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8301:8305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8296:8299 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8293:8295 Coq.Init.Datatypes <> nat ind
-R8300:8300 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R8306:8306 PF_Coq.Core.Zeta <> C rec
-R8331:8331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8340:8344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8335:8338 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8332:8334 Coq.Init.Datatypes <> nat ind
-R8339:8339 PF_Coq.Core.Zeta <> C rec
-R8345:8345 PF_Coq.Core.Zeta <> C rec
-binder 8370:8373 <> eigs:51
-binder 8375:8379 <> zeros:52
-R8407:8409 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8386:8401 PF_Coq.Core.SpectralBijection <> tf_spectral_side:49 meth
-R8403:8406 PF_Coq.Core.SpectralBijection <> eigs:51 var
-R8410:8426 PF_Coq.Core.SpectralBijection <> tf_geometric_side:50 meth
-R8428:8432 PF_Coq.Core.SpectralBijection <> zeros:52 var
-def 9160:9197 <> spectral_bijection_framework_statement
-R9250:9250 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9385:9436 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 9258:9258 <> f:54
-binder 9260:9260 <> g:55
-R9315:9332 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9263:9288 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R9291:9309 PF_Coq.Core.TransferOperator <> T3 defax
-R9311:9311 PF_Coq.Core.SpectralBijection <> f:54 var
-R9314:9314 PF_Coq.Core.SpectralBijection <> g:55 var
-R9333:9358 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R9360:9360 PF_Coq.Core.SpectralBijection <> f:54 var
-R9363:9381 PF_Coq.Core.TransferOperator <> T3 defax
-R9383:9383 PF_Coq.Core.SpectralBijection <> g:55 var
-R9437:9437 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9498:9553 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9688:9688 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 9445:9446 <> ev:56
-R9449:9464 PF_Coq.Core.SpectralBijection <> on_critical_line def
-R9467:9482 PF_Coq.Core.SpectralBijection <> eigenvalueToZero def
-R9484:9493 PF_Coq.Core.SpectralBijection <> alpha_star def
-R9495:9496 PF_Coq.Core.SpectralBijection <> ev:56 var
-binder 9561:9563 <> ev1:57
-binder 9565:9567 <> ev2:58
-R9582:9585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9577:9580 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R9574:9576 PF_Coq.Core.SpectralBijection <> ev1:57 var
-R9594:9601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9589:9592 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R9586:9588 PF_Coq.Core.SpectralBijection <> ev2:58 var
-R9661:9668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9630:9632 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9602:9614 PF_Coq.Core.SpectralBijection <> eigenvalueToT def
-R9616:9625 PF_Coq.Core.SpectralBijection <> alpha_star def
-R9627:9629 PF_Coq.Core.SpectralBijection <> ev1:57 var
-R9633:9645 PF_Coq.Core.SpectralBijection <> eigenvalueToT def
-R9647:9656 PF_Coq.Core.SpectralBijection <> alpha_star def
-R9658:9660 PF_Coq.Core.SpectralBijection <> ev2:58 var
-R9677:9679 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9669:9672 Coq.Reals.Rbasic_fun <> Rabs def
-R9674:9676 PF_Coq.Core.SpectralBijection <> ev1:57 var
-R9680:9683 Coq.Reals.Rbasic_fun <> Rabs def
-R9685:9687 PF_Coq.Core.SpectralBijection <> ev2:58 var
-prf 9700:9727 <> spectral_bijection_framework
-R9731:9768 PF_Coq.Core.SpectralBijection <> spectral_bijection_framework_statement def
-R9787:9824 PF_Coq.Core.SpectralBijection <> spectral_bijection_framework_statement def
-R9902:9933 PF_Coq.Core.TransferOperator <> T3_self_adjoint prfax
-R9902:9933 PF_Coq.Core.TransferOperator <> T3_self_adjoint prfax
-R9995:10026 PF_Coq.Core.SpectralBijection <> eigenvalue_maps_to_critical_line thm
-R10028:10037 PF_Coq.Core.SpectralBijection <> alpha_star def
-R9995:10026 PF_Coq.Core.SpectralBijection <> eigenvalue_maps_to_critical_line thm
-R10028:10037 PF_Coq.Core.SpectralBijection <> alpha_star def
-R10127:10136 PF_Coq.Core.SpectralBijection <> alpha_star def
-R10110:10120 PF_Coq.Core.SpectralBijection <> g_injective thm
-R10127:10136 PF_Coq.Core.SpectralBijection <> alpha_star def
-R10110:10120 PF_Coq.Core.SpectralBijection <> g_injective thm
-def 10979:11010 <> spectral_bijection_theorem_count
-R11014:11016 Coq.Init.Datatypes <> nat ind
-def 11035:11064 <> spectral_bijection_axiom_count
-R11068:11070 Coq.Init.Datatypes <> nat ind
+prf 7777:7790 <> alpha_star_pos
+R7810:7812 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7794:7809 PF_Coq.Core.SpectralBijection <> alpha_star_value def
+R7830:7845 PF_Coq.Core.SpectralBijection <> alpha_star_value def
+def 7870:7879 <> alpha_star
+R7883:7898 PF_Coq.Core.SpectralBijection <> ScalingParameter rec
+R7905:7918 PF_Coq.Core.SpectralBijection <> mkScalingParam constr
+R7920:7935 PF_Coq.Core.SpectralBijection <> alpha_star_value def
+R7937:7950 PF_Coq.Core.SpectralBijection <> alpha_star_pos thm
+def 8013:8021 <> t1_actual
+R8025:8025 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8062:8064 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+rec 8270:8281 <> TraceFormula
+proj 8305:8320 <> tf_test_function
+proj 8334:8347 <> tf_transformed
+proj 8361:8376 <> tf_spectral_side
+proj 8399:8415 <> tf_geometric_side
+proj 8438:8447 <> tf_formula
+R8325:8328 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8324:8324 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8329:8329 PF_Coq.Core.Zeta <> C rec
+R8352:8355 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8351:8351 PF_Coq.Core.Zeta <> C rec
+R8356:8356 PF_Coq.Core.Zeta <> C rec
+R8380:8380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8389:8393 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8384:8387 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8381:8383 Coq.Init.Datatypes <> nat ind
+R8388:8388 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8394:8394 PF_Coq.Core.Zeta <> C rec
+R8419:8419 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8428:8432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8423:8426 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8420:8422 Coq.Init.Datatypes <> nat ind
+R8427:8427 PF_Coq.Core.Zeta <> C rec
+R8433:8433 PF_Coq.Core.Zeta <> C rec
+binder 8458:8461 <> eigs:50
+binder 8463:8467 <> zeros:51
+R8495:8497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8474:8489 PF_Coq.Core.SpectralBijection <> tf_spectral_side:48 meth
+R8491:8494 PF_Coq.Core.SpectralBijection <> eigs:50 var
+R8498:8514 PF_Coq.Core.SpectralBijection <> tf_geometric_side:49 meth
+R8516:8520 PF_Coq.Core.SpectralBijection <> zeros:51 var
+def 9248:9285 <> spectral_bijection_framework_statement
+R9338:9338 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9473:9524 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9346:9346 <> f:53
+binder 9348:9348 <> g:54
+R9403:9420 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9351:9376 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R9379:9397 PF_Coq.Core.TransferOperator <> T3 defax
+R9399:9399 PF_Coq.Core.SpectralBijection <> f:53 var
+R9402:9402 PF_Coq.Core.SpectralBijection <> g:54 var
+R9421:9446 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R9448:9448 PF_Coq.Core.SpectralBijection <> f:53 var
+R9451:9469 PF_Coq.Core.TransferOperator <> T3 defax
+R9471:9471 PF_Coq.Core.SpectralBijection <> g:54 var
+R9525:9525 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9586:9641 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9776:9776 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9533:9534 <> ev:55
+R9537:9552 PF_Coq.Core.SpectralBijection <> on_critical_line def
+R9555:9570 PF_Coq.Core.SpectralBijection <> eigenvalueToZero def
+R9572:9581 PF_Coq.Core.SpectralBijection <> alpha_star def
+R9583:9584 PF_Coq.Core.SpectralBijection <> ev:55 var
+binder 9649:9651 <> ev1:56
+binder 9653:9655 <> ev2:57
+R9670:9673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9665:9668 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9662:9664 PF_Coq.Core.SpectralBijection <> ev1:56 var
+R9682:9689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9677:9680 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9674:9676 PF_Coq.Core.SpectralBijection <> ev2:57 var
+R9749:9756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9718:9720 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9690:9702 PF_Coq.Core.SpectralBijection <> eigenvalueToT def
+R9704:9713 PF_Coq.Core.SpectralBijection <> alpha_star def
+R9715:9717 PF_Coq.Core.SpectralBijection <> ev1:56 var
+R9721:9733 PF_Coq.Core.SpectralBijection <> eigenvalueToT def
+R9735:9744 PF_Coq.Core.SpectralBijection <> alpha_star def
+R9746:9748 PF_Coq.Core.SpectralBijection <> ev2:57 var
+R9765:9767 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9757:9760 Coq.Reals.Rbasic_fun <> Rabs def
+R9762:9764 PF_Coq.Core.SpectralBijection <> ev1:56 var
+R9768:9771 Coq.Reals.Rbasic_fun <> Rabs def
+R9773:9775 PF_Coq.Core.SpectralBijection <> ev2:57 var
+prf 9788:9815 <> spectral_bijection_framework
+R9819:9856 PF_Coq.Core.SpectralBijection <> spectral_bijection_framework_statement def
+R9875:9912 PF_Coq.Core.SpectralBijection <> spectral_bijection_framework_statement def
+R9990:10021 PF_Coq.Core.TransferOperator <> T3_self_adjoint prfax
+R9990:10021 PF_Coq.Core.TransferOperator <> T3_self_adjoint prfax
+R10083:10114 PF_Coq.Core.SpectralBijection <> eigenvalue_maps_to_critical_line thm
+R10116:10125 PF_Coq.Core.SpectralBijection <> alpha_star def
+R10083:10114 PF_Coq.Core.SpectralBijection <> eigenvalue_maps_to_critical_line thm
+R10116:10125 PF_Coq.Core.SpectralBijection <> alpha_star def
+R10215:10224 PF_Coq.Core.SpectralBijection <> alpha_star def
+R10198:10208 PF_Coq.Core.SpectralBijection <> g_injective thm
+R10215:10224 PF_Coq.Core.SpectralBijection <> alpha_star def
+R10198:10208 PF_Coq.Core.SpectralBijection <> g_injective thm
+def 11067:11098 <> spectral_bijection_theorem_count
+R11102:11104 Coq.Init.Datatypes <> nat ind
+def 11123:11152 <> spectral_bijection_axiom_count
+R11156:11158 Coq.Init.Datatypes <> nat ind
