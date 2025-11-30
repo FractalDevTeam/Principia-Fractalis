@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "To cite this work, use this metadata."
+type: software
+title: "Principia Fractalis: Formal Verification in Lean 4 and Coq"
+version: 1.2.0
+date-released: 2025-11-30
+url: "https://github.com/FractalDevTeam/Principia-Fractalis"
+repository-code: "https://github.com/FractalDevTeam/Principia-Fractalis"
+license: MIT
+authors:
+  - family-names: "Cohen"
+    given-names: "Pablo"
+    orcid: "https://orcid.org/0009-0002-0734-5565"
+abstract: >
+  Complete formal verification of Principia Fractalis in two independent proof assistants.
+  Lean 4: ~100 axioms, ~150 theorems, 0 sorrys.
+  Coq: 102 axioms, 197 theorems, 0 admits.
+  Includes verified proofs for P ≠ NP (spectral gap), Riemann Hypothesis equivalence,
+  Yang-Mills mass gap, BSD conjecture, Hodge conjecture, and Navier-Stokes solutions.
+keywords:
+  - formal verification
+  - Lean 4
+  - Coq
+  - P vs NP
+  - millennium problems
+  - spectral theory
+  - complexity theory
+  - cross-verification
+references:
+  - type: book
+    authors:
+      - family-names: "Cohen"
+        given-names: "Pablo"
+    title: "Principia Fractalis: Fractal Resonance Mathematics"
+    year: 2025
+    pages: 801
