@@ -12,6 +12,7 @@ theories/Core/TransferOperator.v
 theories/Core/IntervalArithmetic.v
 theories/Core/P_NP_Proof.v
 theories/Core/SpectralBijection.v
+theories/Core/NuclearSpaces.v
 
 # Contracts (Millennium Problems)
 theories/Contracts/RH.v
