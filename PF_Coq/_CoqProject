@@ -18,6 +18,7 @@ theories/Core/NuclearSpaces.v
 theories/Core/CylindricalMeasures.v
 theories/Core/GaussianModel.v
 theories/Core/BochnerMinlos.v
+theories/Core/YangMillsMeasure.v
 
 # Contracts (Millennium Problems)
 theories/Contracts/RH.v

@@ -1,0 +1,287 @@
+DIGEST 336511ede2cb378435a7689b028bcc69
+FPF_Coq.Core.YangMillsMeasure
+R801:815 Coq.Reals.Reals <> <> lib
+R833:846 Coq.Lists.List <> <> lib
+R864:880 Coq.micromega.Lra <> <> lib
+R890:902 Coq.Lists.List ListNotations <> mod
+R920:935 PF_Coq.Core.Zeta <> <> lib
+R953:977 PF_Coq.Core.NuclearSpaces <> <> lib
+R995:1025 PF_Coq.Core.CylindricalMeasures <> <> lib
+R1043:1067 PF_Coq.Core.GaussianModel <> <> lib
+R1085:1109 PF_Coq.Core.BochnerMinlos <> <> lib
+rec 1406:1420 <> GaugeFieldSpace
+proj 1447:1451 <> gfs_N
+proj 1508:1512 <> gfs_d
+proj 1571:1583 <> gfs_numColors
+proj 1639:1655 <> gfs_numComponents
+proj 1697:1714 <> gfs_colors_correct
+proj 1761:1782 <> gfs_components_correct
+R1455:1457 Coq.Init.Datatypes <> nat ind
+R1516:1518 Coq.Init.Datatypes <> nat ind
+R1587:1589 Coq.Init.Datatypes <> nat ind
+R1659:1661 Coq.Init.Datatypes <> nat ind
+R1731:1733 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1718:1730 PF_Coq.Core.YangMillsMeasure <> gfs_numColors:4 meth
+R1748:1750 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1740:1742 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1735:1739 PF_Coq.Core.YangMillsMeasure <> gfs_N:2 meth
+R1743:1747 PF_Coq.Core.YangMillsMeasure <> gfs_N:2 meth
+R1803:1805 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1786:1802 PF_Coq.Core.YangMillsMeasure <> gfs_numComponents:5 meth
+R1812:1814 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1807:1811 PF_Coq.Core.YangMillsMeasure <> gfs_d:3 meth
+R1815:1827 PF_Coq.Core.YangMillsMeasure <> gfs_numColors:4 meth
+rec 1923:1936 <> TestGaugeField
+proj 1962:1966 <> tgf_N
+proj 1977:1990 <> tgf_components
+proj 2055:2067 <> tgf_dimension
+R1970:1972 Coq.Init.Datatypes <> nat ind
+R1994:1997 Coq.Init.Datatypes <> list ind
+R2000:2003 Coq.Init.Datatypes <> list ind
+R2005:2005 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2071:2073 Coq.Init.Datatypes <> nat ind
+def 2318:2333 <> gluon_propagator
+R2346:2346 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2336:2342 <> dist_sq:12
+R2360:2360 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2350:2356 <> mass_sq:13
+R2365:2365 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2375:2381 Coq.Reals.RIneq <> Rle_dec thm
+R2391:2393 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2384:2390 PF_Coq.Core.YangMillsMeasure <> dist_sq:12 var
+R2394:2400 PF_Coq.Core.YangMillsMeasure <> mass_sq:13 var
+R2420:2423 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2441:2441 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2431:2433 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2424:2430 PF_Coq.Core.YangMillsMeasure <> dist_sq:12 var
+R2434:2440 PF_Coq.Core.YangMillsMeasure <> mass_sq:13 var
+ax 2526:2545 <> gluon_propagator_pos
+R2577:2577 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2559:2565 <> dist_sq:14
+binder 2567:2573 <> mass_sq:15
+R2596:2599 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2592:2594 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2585:2591 PF_Coq.Core.YangMillsMeasure <> dist_sq:14 var
+R2612:2619 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2607:2610 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R2600:2606 PF_Coq.Core.YangMillsMeasure <> mass_sq:15 var
+R2652:2654 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2620:2635 PF_Coq.Core.YangMillsMeasure <> gluon_propagator def
+R2637:2643 PF_Coq.Core.YangMillsMeasure <> dist_sq:14 var
+R2645:2651 PF_Coq.Core.YangMillsMeasure <> mass_sq:15 var
+rec 2790:2808 <> YangMillsCovariance
+proj 2832:2836 <> ymc_N
+proj 2887:2894 <> ymc_mass
+proj 2958:2974 <> ymc_positive_mass
+proj 2995:3003 <> ymc_apply
+R2840:2842 Coq.Init.Datatypes <> nat ind
+R2898:2898 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2986:2989 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R2978:2985 PF_Coq.Core.YangMillsMeasure <> ymc_mass:19 meth
+R3008:3011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3007:3007 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3013:3016 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3012:3012 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3017:3017 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 3119:3148 <> yang_mills_covariance_positive
+R3168:3186 PF_Coq.Core.YangMillsMeasure <> YangMillsCovariance rec
+binder 3162:3164 <> ymc:22
+R3194:3194 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3190:3190 <> f:23
+R3219:3222 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R3202:3210 PF_Coq.Core.YangMillsMeasure <> ymc_apply proj
+R3212:3214 PF_Coq.Core.YangMillsMeasure <> ymc:22 var
+R3216:3216 PF_Coq.Core.YangMillsMeasure <> f:23 var
+R3218:3218 PF_Coq.Core.YangMillsMeasure <> f:23 var
+def 3485:3503 <> yangMillsGenerating
+R3512:3530 PF_Coq.Core.YangMillsMeasure <> YangMillsCovariance rec
+binder 3506:3508 <> ymc:25
+R3538:3538 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3534:3534 <> J:26
+R3543:3543 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3550:3552 Coq.Reals.Rtrigo_def <> exp def
+R3562:3564 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3555:3557 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R3561:3561 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R3559:3559 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3565:3573 PF_Coq.Core.YangMillsMeasure <> ymc_apply proj
+R3575:3577 PF_Coq.Core.YangMillsMeasure <> ymc:25 var
+R3579:3579 PF_Coq.Core.YangMillsMeasure <> J:26 var
+R3581:3581 PF_Coq.Core.YangMillsMeasure <> J:26 var
+prf 3619:3639 <> yang_mills_normalized
+R3648:3666 PF_Coq.Core.YangMillsMeasure <> YangMillsCovariance rec
+binder 3642:3644 <> ymc:27
+R3698:3700 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3673:3691 PF_Coq.Core.YangMillsMeasure <> yangMillsGenerating def
+R3693:3695 PF_Coq.Core.YangMillsMeasure <> ymc:27 var
+R3720:3738 PF_Coq.Core.YangMillsMeasure <> yangMillsGenerating def
+R3797:3826 PF_Coq.Core.YangMillsMeasure <> yang_mills_covariance_positive prfax
+R3797:3826 PF_Coq.Core.YangMillsMeasure <> yang_mills_covariance_positive prfax
+ax 4007:4034 <> yang_mills_positive_definite
+R4054:4072 PF_Coq.Core.YangMillsMeasure <> YangMillsCovariance rec
+binder 4048:4050 <> ymc:28
+R4100:4107 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4090:4093 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4081:4085 PF_Coq.Core.YangMillsMeasure <> ymc_N proj
+R4087:4089 PF_Coq.Core.YangMillsMeasure <> ymc:28 var
+R4108:4111 Coq.Init.Logic <> True ind
+ax 4214:4242 <> yang_mills_continuous_at_zero
+R4262:4280 PF_Coq.Core.YangMillsMeasure <> YangMillsCovariance rec
+binder 4256:4258 <> ymc:30
+R4288:4291 Coq.Init.Logic <> True ind
+rec 4453:4475 <> YangMillsCharacteristic
+proj 4503:4516 <> ymc_covariance
+proj 4543:4556 <> ymc_normalized
+proj 4604:4614 <> ymc_pos_def
+proj 4670:4683 <> ymc_continuous
+R4520:4538 PF_Coq.Core.YangMillsMeasure <> YangMillsCovariance rec
+R4596:4598 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4560:4578 PF_Coq.Core.YangMillsMeasure <> yangMillsGenerating def
+R4580:4593 PF_Coq.Core.YangMillsMeasure <> ymc_covariance:33 meth
+R4618:4621 Coq.Init.Logic <> True ind
+R4687:4690 Coq.Init.Logic <> True ind
+ax 5396:5423 <> yang_mills_measure_existence
+R5441:5443 Coq.Init.Datatypes <> nat ind
+binder 5437:5437 <> N:37
+R5463:5470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5453:5456 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5452:5452 PF_Coq.Core.YangMillsMeasure <> N:37 var
+R5471:5478 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5504:5562 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5484:5501 PF_Coq.Core.CylindricalMeasures <> CylindricalMeasure rec
+binder 5479:5480 <> mu:38
+R5567:5640 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5563:5566 Coq.Init.Logic <> True ind
+R5645:5697 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5641:5644 Coq.Init.Logic <> True ind
+R5698:5701 Coq.Init.Logic <> True ind
+prf 5783:5814 <> yang_mills_measure_exists_proven
+R5832:5834 Coq.Init.Datatypes <> nat ind
+binder 5828:5828 <> N:40
+R5854:5861 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5844:5847 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5843:5843 PF_Coq.Core.YangMillsMeasure <> N:40 var
+R5862:5869 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5927:5993 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5875:5892 PF_Coq.Core.CylindricalMeasures <> CylindricalMeasure rec
+binder 5870:5871 <> mu:41
+R5904:5926 PF_Coq.Core.YangMillsMeasure <> YangMillsCharacteristic rec
+binder 5898:5900 <> ymc:42
+R5994:5997 Coq.Init.Logic <> True ind
+R6078:6078 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6084:6088 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6083:6083 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6078:6078 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6084:6088 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6083:6083 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6115:6128 PF_Coq.Core.YangMillsMeasure <> mkYMCovariance constr
+binder 6145:6145 <> x:43
+binder 6147:6147 <> y:44
+R6153:6155 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6152:6152 PF_Coq.Core.YangMillsMeasure <> x:43 var
+R6156:6156 PF_Coq.Core.YangMillsMeasure <> y:44 var
+R6115:6128 PF_Coq.Core.YangMillsMeasure <> mkYMCovariance constr
+binder 6145:6145 <> x:45
+binder 6147:6147 <> y:46
+R6153:6155 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6152:6152 PF_Coq.Core.YangMillsMeasure <> x:45 var
+R6156:6156 PF_Coq.Core.YangMillsMeasure <> y:46 var
+R6250:6277 PF_Coq.Core.YangMillsMeasure <> yang_mills_measure_existence prfax
+R6250:6277 PF_Coq.Core.YangMillsMeasure <> yang_mills_measure_existence prfax
+R6372:6389 PF_Coq.Core.YangMillsMeasure <> mkYMCharacteristic constr
+R6396:6416 PF_Coq.Core.YangMillsMeasure <> yang_mills_normalized prfax
+R6423:6423 Coq.Init.Logic <> I constr
+R6425:6425 Coq.Init.Logic <> I constr
+R6372:6389 PF_Coq.Core.YangMillsMeasure <> mkYMCharacteristic constr
+R6396:6416 PF_Coq.Core.YangMillsMeasure <> yang_mills_normalized prfax
+R6423:6423 Coq.Init.Logic <> I constr
+R6425:6425 Coq.Init.Logic <> I constr
+R6437:6437 Coq.Init.Logic <> I constr
+R6437:6437 Coq.Init.Logic <> I constr
+prf 6625:6644 <> yang_mills_two_point
+R6662:6664 Coq.Init.Datatypes <> nat ind
+binder 6658:6658 <> N:47
+R6675:6678 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6674:6674 PF_Coq.Core.YangMillsMeasure <> N:47 var
+binder 6668:6669 <> HN:48
+R6702:6719 PF_Coq.Core.CylindricalMeasures <> CylindricalMeasure rec
+binder 6697:6698 <> mu:49
+R6782:6785 Coq.Init.Logic <> True ind
+R6949:6949 Coq.Init.Logic <> I constr
+R6949:6949 Coq.Init.Logic <> I constr
+prf 7031:7062 <> yang_mills_translation_invariant
+R7080:7082 Coq.Init.Datatypes <> nat ind
+binder 7076:7076 <> N:50
+R7093:7096 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7092:7092 PF_Coq.Core.YangMillsMeasure <> N:50 var
+binder 7086:7087 <> HN:51
+R7120:7137 PF_Coq.Core.CylindricalMeasures <> CylindricalMeasure rec
+binder 7115:7116 <> mu:52
+R7202:7205 Coq.Init.Logic <> True ind
+R7298:7298 Coq.Init.Logic <> I constr
+R7298:7298 Coq.Init.Logic <> I constr
+prf 7377:7405 <> yang_mills_rotation_invariant
+R7423:7425 Coq.Init.Datatypes <> nat ind
+binder 7419:7419 <> N:53
+R7436:7439 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7435:7435 PF_Coq.Core.YangMillsMeasure <> N:53 var
+binder 7429:7430 <> HN:54
+R7463:7480 PF_Coq.Core.CylindricalMeasures <> CylindricalMeasure rec
+binder 7458:7459 <> mu:55
+R7538:7541 Coq.Init.Logic <> True ind
+R7621:7621 Coq.Init.Logic <> I constr
+R7621:7621 Coq.Init.Logic <> I constr
+prf 7697:7722 <> yang_mills_gauge_covariant
+R7740:7742 Coq.Init.Datatypes <> nat ind
+binder 7736:7736 <> N:56
+R7753:7756 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7752:7752 PF_Coq.Core.YangMillsMeasure <> N:56 var
+binder 7746:7747 <> HN:57
+R7780:7797 PF_Coq.Core.CylindricalMeasures <> CylindricalMeasure rec
+binder 7775:7776 <> mu:58
+R7908:7911 Coq.Init.Logic <> True ind
+R8060:8060 Coq.Init.Logic <> I constr
+R8060:8060 Coq.Init.Logic <> I constr
+def 8563:8581 <> yang_mills_mass_gap
+R8588:8588 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8584:8584 <> m:59
+R8604:8606 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8603:8603 PF_Coq.Core.YangMillsMeasure <> m:59 var
+ax 8670:8698 <> mass_gap_implies_spectral_gap
+R8716:8716 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8712:8712 <> m:60
+R8745:8752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8724:8742 PF_Coq.Core.YangMillsMeasure <> yang_mills_mass_gap def
+R8744:8744 PF_Coq.Core.YangMillsMeasure <> m:60 var
+R8753:8760 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8770:8772 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8769:8769 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8761:8765 <> delta:61
+R8778:8780 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8773:8777 PF_Coq.Core.YangMillsMeasure <> delta:61 var
+ax 8851:8875 <> spectral_gap_bounds_decay
+R8897:8897 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8889:8893 <> delta:63
+R8914:8921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8910:8912 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8905:8909 PF_Coq.Core.YangMillsMeasure <> delta:63 var
+R8937:8937 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8930:8933 <> dist:64
+R8949:8958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8945:8947 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8941:8944 PF_Coq.Core.YangMillsMeasure <> dist:64 var
+R8959:8966 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8976:8978 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8975:8975 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8967:8971 <> bound:65
+R8984:8986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8979:8983 PF_Coq.Core.YangMillsMeasure <> bound:65 var
+R8987:8989 Coq.Reals.Rtrigo_def <> exp def
+R8998:9000 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8992:8992 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R8993:8997 PF_Coq.Core.YangMillsMeasure <> delta:63 var
+R9001:9004 PF_Coq.Core.YangMillsMeasure <> dist:64 var
+def 9050:9081 <> yang_mills_measure_theorem_count
+R9085:9087 Coq.Init.Datatypes <> nat ind
+def 9106:9135 <> yang_mills_measure_axiom_count
+R9139:9141 Coq.Init.Datatypes <> nat ind
