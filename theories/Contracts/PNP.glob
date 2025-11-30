@@ -183,14 +183,14 @@ R5969:5983 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
 prf 5999:6022 <> numerical_chain_complete
 R6026:6054 PF_Coq.Contracts.PNP <> numerical_certification_chain def
 R6073:6101 PF_Coq.Contracts.PNP <> numerical_certification_chain def
-R6130:6143 PF_Coq.Core.SpectralGap <> lambda0P_lower prfax
-R6130:6143 PF_Coq.Core.SpectralGap <> lambda0P_lower prfax
-R6156:6169 PF_Coq.Core.SpectralGap <> lambda0P_upper prfax
-R6156:6169 PF_Coq.Core.SpectralGap <> lambda0P_upper prfax
-R6182:6196 PF_Coq.Core.SpectralGap <> lambda0NP_lower prfax
-R6182:6196 PF_Coq.Core.SpectralGap <> lambda0NP_lower prfax
-R6209:6223 PF_Coq.Core.SpectralGap <> lambda0NP_upper prfax
-R6209:6223 PF_Coq.Core.SpectralGap <> lambda0NP_upper prfax
+R6130:6143 PF_Coq.Core.SpectralGap <> lambda0P_lower thm
+R6130:6143 PF_Coq.Core.SpectralGap <> lambda0P_lower thm
+R6156:6169 PF_Coq.Core.SpectralGap <> lambda0P_upper thm
+R6156:6169 PF_Coq.Core.SpectralGap <> lambda0P_upper thm
+R6182:6196 PF_Coq.Core.SpectralGap <> lambda0NP_lower thm
+R6182:6196 PF_Coq.Core.SpectralGap <> lambda0NP_lower thm
+R6209:6223 PF_Coq.Core.SpectralGap <> lambda0NP_upper thm
+R6209:6223 PF_Coq.Core.SpectralGap <> lambda0NP_upper thm
 R6236:6256 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
 R6236:6256 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
 def 7114:7129 <> gap_matches_core

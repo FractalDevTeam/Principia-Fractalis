@@ -183,8 +183,18 @@ Definition phi : R := (1 + sqrt 5) / 2.
 (** Consciousness threshold for Hodge: ch2 = 0.95 + (φ - 3/2)/10 ≈ 0.9612 *)
 Definition ch2_Hodge : R := 0.95 + (phi - 3/2) / 10.
 
-(** sqrt(5) > 2 (certified: sqrt(5) ≈ 2.236) *)
-Axiom sqrt5_gt_2 : sqrt 5 > 2.
+(** sqrt(5) > 2 - PROVEN (not axiom!)
+    Proof: 5 > 4 = 2², and sqrt is monotone, so sqrt(5) > sqrt(4) = 2 *)
+Lemma sqrt5_gt_2 : sqrt 5 > 2.
+Proof.
+  (* sqrt(5) > 2 ⟺ 5 > 4 (for positive values) *)
+  rewrite <- sqrt_square.
+  - apply sqrt_lt_1.
+    + lra.  (* 4 > 0 *)
+    + lra.  (* 5 > 0 *)
+    + lra.  (* 4 < 5 *)
+  - lra.  (* 2 >= 0 *)
+Qed.
 
 (** Hodge is supercritical (above universal 0.95 threshold) *)
 Theorem hodge_supercritical : ch2_Hodge > 0.95.
@@ -197,5 +207,5 @@ Qed.
 
 (** ** Summary Statistics *)
 
-Definition hodge_theorem_count : nat := 4.
-Definition hodge_axiom_count : nat := 9.
+Definition hodge_theorem_count : nat := 5.  (* +1: sqrt5_gt_2 now proven *)
+Definition hodge_axiom_count : nat := 8.   (* -1: sqrt5_gt_2 eliminated *)

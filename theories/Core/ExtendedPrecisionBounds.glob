@@ -1,4 +1,4 @@
-DIGEST bffea6ecabbbe9c579d8f684f7db5e83
+DIGEST afcc16d30cf62bc5db64eaf6563c2b2e
 FPF_Coq.Core.ExtendedPrecisionBounds
 R447:461 Coq.Reals.Reals <> <> lib
 R479:495 Coq.micromega.Lra <> <> lib
@@ -45,90 +45,93 @@ R3225:3227 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
 def 3293:3310 <> spectral_gap_50_hi
 R3314:3314 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
 R3370:3372 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 3780:3804 <> spectral_gap_50_certified
-R3826:3828 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3808:3825 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-prf 3904:3936 <> spectral_gap_50_strictly_positive
-R3958:3960 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3940:3957 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R3977:4001 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_certified prfax
-R3977:4001 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_certified prfax
-ax 4063:4083 <> spectral_gap_50_bound
-R4105:4107 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4087:4104 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R4110:4110 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-prf 4151:4177 <> spectral_gap_50_exceeds_053
-R4199:4201 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4181:4198 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R4204:4204 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4224:4244 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_bound prfax
-R4224:4244 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_bound prfax
-prf 4294:4320 <> spectral_gap_50_exceeds_005
-R4342:4344 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4324:4341 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R4346:4346 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4390:4392 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4372:4389 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R4395:4395 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4411:4431 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_bound prfax
-R4390:4392 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4372:4389 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R4395:4395 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4411:4431 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_bound prfax
-prf 4486:4508 <> spectral_gap_50_nonzero
-R4530:4533 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4512:4529 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R4575:4577 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4557:4574 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R4590:4614 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_certified prfax
-R4575:4577 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4557:4574 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
-R4590:4614 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_certified prfax
-def 4768:4781 <> alpha_NP_50_lo
-R4785:4785 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4842:4844 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 4909:4922 <> alpha_NP_50_hi
-R4926:4926 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4983:4985 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 5153:5174 <> alpha_separation_50_lo
-R5178:5178 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5235:5237 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 5303:5324 <> alpha_separation_50_hi
-R5328:5328 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5385:5387 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 5506:5534 <> alpha_separation_50_certified
-R5560:5562 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5538:5559 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
-ax 5572:5596 <> alpha_separation_50_bound
-R5622:5624 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5600:5621 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
-R5627:5627 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-prf 5687:5723 <> alpha_separation_50_strictly_positive
-R5749:5751 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5727:5748 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
-R5768:5796 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_certified prfax
-R5768:5796 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_certified prfax
-prf 5850:5880 <> alpha_separation_50_exceeds_045
-R5906:5908 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5884:5905 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
-R5911:5911 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5930:5954 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_bound prfax
-R5930:5954 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_bound prfax
-def 6155:6174 <> energy_barrier_50_lo
-R6178:6178 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6234:6236 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-def 6302:6321 <> energy_barrier_50_hi
-R6325:6325 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6381:6383 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 6500:6526 <> energy_barrier_50_certified
-R6550:6552 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6530:6549 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_lo def
-prf 6565:6590 <> energy_barrier_50_positive
-R6614:6616 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6594:6613 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_lo def
-R6633:6659 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_certified prfax
-R6633:6659 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_certified prfax
-def 6998:7029 <> extended_precision_theorem_count
-R7033:7035 Coq.Init.Datatypes <> nat ind
-def 7054:7093 <> extended_precision_numerical_axiom_count
-R7097:7099 Coq.Init.Datatypes <> nat ind
+prf 3713:3737 <> spectral_gap_50_certified
+R3759:3761 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3741:3758 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R3779:3796 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+prf 3881:3913 <> spectral_gap_50_strictly_positive
+R3935:3937 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3917:3934 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R3954:3978 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_certified thm
+R3954:3978 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_certified thm
+ax 4086:4106 <> spectral_gap_50_bound
+R4128:4130 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4110:4127 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R4133:4133 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 4174:4200 <> spectral_gap_50_exceeds_053
+R4222:4224 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4204:4221 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R4227:4227 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4247:4267 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_bound prfax
+R4247:4267 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_bound prfax
+prf 4317:4343 <> spectral_gap_50_exceeds_005
+R4365:4367 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4347:4364 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R4369:4369 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4413:4415 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4395:4412 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R4418:4418 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4434:4454 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_bound prfax
+R4413:4415 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4395:4412 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R4418:4418 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4434:4454 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_bound prfax
+prf 4509:4531 <> spectral_gap_50_nonzero
+R4553:4556 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4535:4552 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R4598:4600 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4580:4597 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R4613:4637 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_certified thm
+R4598:4600 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4580:4597 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_lo def
+R4613:4637 PF_Coq.Core.ExtendedPrecisionBounds <> spectral_gap_50_certified thm
+def 4791:4804 <> alpha_NP_50_lo
+R4808:4808 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4865:4867 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 4932:4945 <> alpha_NP_50_hi
+R4949:4949 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5006:5008 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 5176:5197 <> alpha_separation_50_lo
+R5201:5201 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5258:5260 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 5326:5347 <> alpha_separation_50_hi
+R5351:5351 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5408:5410 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 5532:5560 <> alpha_separation_50_certified
+R5586:5588 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5564:5585 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
+R5606:5627 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
+ax 5706:5730 <> alpha_separation_50_bound
+R5756:5758 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5734:5755 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
+R5761:5761 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 5821:5857 <> alpha_separation_50_strictly_positive
+R5883:5885 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5861:5882 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
+R5902:5930 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_certified thm
+R5902:5930 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_certified thm
+prf 5984:6014 <> alpha_separation_50_exceeds_045
+R6040:6042 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6018:6039 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_lo def
+R6045:6045 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6064:6088 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_bound prfax
+R6064:6088 PF_Coq.Core.ExtendedPrecisionBounds <> alpha_separation_50_bound prfax
+def 6289:6308 <> energy_barrier_50_lo
+R6312:6312 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6368:6370 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 6436:6455 <> energy_barrier_50_hi
+R6459:6459 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6515:6517 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 6637:6663 <> energy_barrier_50_certified
+R6687:6689 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6667:6686 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_lo def
+R6707:6726 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_lo def
+prf 6748:6773 <> energy_barrier_50_positive
+R6797:6799 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6777:6796 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_lo def
+R6816:6842 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_certified thm
+R6816:6842 PF_Coq.Core.ExtendedPrecisionBounds <> energy_barrier_50_certified thm
+def 7181:7212 <> extended_precision_theorem_count
+R7216:7218 Coq.Init.Datatypes <> nat ind
+def 7237:7276 <> extended_precision_numerical_axiom_count
+R7280:7282 Coq.Init.Datatypes <> nat ind

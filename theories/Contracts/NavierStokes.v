@@ -10,9 +10,11 @@
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.Reals.Rfunctions.
+Require Import Coq.Reals.Rtrigo.
 Require Import Coq.Logic.Classical.
 Require Import Coq.Lists.List.
 Require Import Coq.Strings.String.
+Require Import Coq.micromega.Lra.
 Open Scope R_scope.
 
 (** ** Three-Dimensional Space *)
@@ -271,8 +273,23 @@ Definition vortex_scale (l0 : R) (n : nat) : R := l0 / (3 ^ n).
 (** Consciousness threshold for NS: ch2 = 0.95 + (α - 3/2)/10 ≈ 1.27 *)
 Definition ch2_NS : R := 0.95 + (alpha_NS - 3/2) / 10.
 
-(** NS has highest ch2 among Millennium Problems (except BSD) *)
-Axiom ch2_NS_high : ch2_NS > 1.2.
+(** NS has highest ch2 among Millennium Problems (except BSD) - PROVEN!
+    ch2_NS = 0.95 + (3π/2 - 3/2)/10
+           = 0.95 + (3π - 3)/(2*10)
+           = 0.95 + (3(π-1))/20
+    Need: ch2_NS > 1.2 ⟺ (3(π-1))/20 > 0.25 ⟺ 3(π-1) > 5 ⟺ π > 8/3 ≈ 2.67
+    Since π > 3.14 > 2.67, this holds. *)
+Lemma ch2_NS_high : ch2_NS > 1.2.
+Proof.
+  unfold ch2_NS, alpha_NS.
+  (* Need: 0.95 + (3*PI/2 - 3/2)/10 > 1.2 *)
+  (* Simplifies to: PI > 8/3 ≈ 2.667 *)
+  (* Use PI2_3_2: 3/2 < PI/2, which gives PI > 3 > 8/3 *)
+  assert (HPI: PI > 3).
+  { (* From PI2_3_2: 3/2 < PI/2, multiply by 2 *)
+    assert (H := PI2_3_2). lra. }
+  lra.
+Qed.
 
 (** Emergence points achieve consciousness crystallization *)
 Axiom emergence_consciousness : forall ep : EmergencePoint,

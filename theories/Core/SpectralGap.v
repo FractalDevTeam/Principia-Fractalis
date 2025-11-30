@@ -37,11 +37,18 @@ Definition PF_lambda0P : R := 0.222144146907918.
 Definition PF_lambda0NP : R := 0.168176418213693.
 Definition PF_spectral_gap : R := PF_lambda0P - PF_lambda0NP.
 
-(** Certified bounds (15 decimal precision) *)
-Axiom lambda0P_lower : PF_lambda0P > 0.2221441469079179.
-Axiom lambda0P_upper : PF_lambda0P < 0.2221441469079181.
-Axiom lambda0NP_lower : PF_lambda0NP > 0.1681764182136929.
-Axiom lambda0NP_upper : PF_lambda0NP < 0.1681764182136931.
+(** Certified bounds (15 decimal precision) - PROVEN via lra *)
+Lemma lambda0P_lower : PF_lambda0P > 0.2221441469079179.
+Proof. unfold PF_lambda0P. lra. Qed.
+
+Lemma lambda0P_upper : PF_lambda0P < 0.2221441469079181.
+Proof. unfold PF_lambda0P. lra. Qed.
+
+Lemma lambda0NP_lower : PF_lambda0NP > 0.1681764182136929.
+Proof. unfold PF_lambda0NP. lra. Qed.
+
+Lemma lambda0NP_upper : PF_lambda0NP < 0.1681764182136931.
+Proof. unfold PF_lambda0NP. lra. Qed.
 
 (** ** Main Theorems *)
 

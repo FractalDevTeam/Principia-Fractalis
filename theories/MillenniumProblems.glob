@@ -1,0 +1,423 @@
+DIGEST 09e1d09eacf960ab9c205613704312ca
+FPF_Coq.MillenniumProblems
+R827:841 Coq.Reals.Reals <> <> lib
+R859:877 Coq.Logic.Classical <> <> lib
+R895:908 Coq.Lists.List <> <> lib
+R926:943 Coq.Strings.String <> <> lib
+R961:977 Coq.micromega.Lra <> <> lib
+R987:999 Coq.Lists.List ListNotations <> mod
+R1037:1059 PF_Coq.Core.SpectralGap <> <> lib
+R1077:1102 PF_Coq.Core.TuringEncoding <> <> lib
+R1120:1147 PF_Coq.Core.TransferOperator <> <> lib
+R1165:1194 PF_Coq.Core.IntervalArithmetic <> <> lib
+R1212:1233 PF_Coq.Core.P_NP_Proof <> <> lib
+R1275:1294 PF_Coq.Contracts.PNP <> <> lib
+R1312:1330 PF_Coq.Contracts.RH <> <> lib
+R1348:1366 PF_Coq.Contracts.YM <> <> lib
+R1384:1403 PF_Coq.Contracts.BSD <> <> lib
+R1421:1442 PF_Coq.Contracts.Hodge <> <> lib
+R1460:1488 PF_Coq.Contracts.NavierStokes <> <> lib
+ind 1568:1580 <> ProblemStatus
+constr 1589:1594 <> Proven
+constr 1642:1651 <> Equivalent
+constr 1706:1713 <> External
+scheme 1568:1580 <> ProblemStatus_rect
+scheme 1568:1580 <> ProblemStatus_ind
+scheme 1568:1580 <> ProblemStatus_rec
+scheme 1568:1580 <> ProblemStatus_sind
+rec 1769:1785 <> MillenniumProblem
+proj 1807:1818 <> problem_name
+proj 1832:1845 <> problem_status
+proj 1866:1883 <> spectral_condition
+proj 1895:1913 <> classical_statement
+proj 1925:1942 <> equivalence_proven
+proj 1954:1964 <> admit_count
+proj 1975:1985 <> axiom_count
+proj 1996:2008 <> theorem_count
+R1822:1827 Coq.Strings.String <> string ind
+R1849:1861 PF_Coq.MillenniumProblems <> ProblemStatus ind
+R1968:1970 Coq.Init.Datatypes <> nat ind
+R1989:1991 Coq.Init.Datatypes <> nat ind
+R2012:2014 Coq.Init.Datatypes <> nat ind
+def 2062:2076 <> P_vs_NP_problem
+R2080:2096 PF_Coq.MillenniumProblems <> MillenniumProblem rec
+R2106:2117 PF_Coq.MillenniumProblems <> problem_name proj
+R2106:2117 PF_Coq.MillenniumProblems <> problem_name proj
+R2106:2117 PF_Coq.MillenniumProblems <> problem_name proj
+R2135:2148 PF_Coq.MillenniumProblems <> problem_status proj
+R2135:2148 PF_Coq.MillenniumProblems <> problem_status proj
+R2163:2180 PF_Coq.MillenniumProblems <> spectral_condition proj
+R2163:2180 PF_Coq.MillenniumProblems <> spectral_condition proj
+R2220:2238 PF_Coq.MillenniumProblems <> classical_statement proj
+R2220:2238 PF_Coq.MillenniumProblems <> classical_statement proj
+R2275:2292 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R2275:2292 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R2365:2375 PF_Coq.MillenniumProblems <> admit_count proj
+R2365:2375 PF_Coq.MillenniumProblems <> admit_count proj
+R2385:2395 PF_Coq.MillenniumProblems <> axiom_count proj
+R2385:2395 PF_Coq.MillenniumProblems <> axiom_count proj
+R2444:2456 PF_Coq.MillenniumProblems <> theorem_count proj
+R2444:2456 PF_Coq.MillenniumProblems <> theorem_count proj
+R2153:2158 PF_Coq.MillenniumProblems <> Proven constr
+R2212:2214 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2185:2211 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2243:2244 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2245:2270 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R2328:2332 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2324:2326 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2297:2323 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2333:2334 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2335:2360 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+prf 2515:2533 <> P_neq_NP_millennium
+R2537:2538 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2539:2564 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R2582:2605 PF_Coq.Core.P_NP_Proof <> P_neq_NP_main thm
+R2582:2605 PF_Coq.Core.P_NP_Proof <> P_neq_NP_main thm
+prf 2663:2694 <> spectral_gap_positive_millennium
+R2725:2727 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2698:2724 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2746:2778 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R2746:2778 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+prf 2837:2865 <> spectral_gap_value_millennium
+R2926:2928 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2871:2874 Coq.Reals.Rbasic_fun <> Rabs def
+R2904:2906 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2877:2903 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2951:2980 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
+R2951:2980 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
+def 3046:3055 <> RH_problem
+R3059:3075 PF_Coq.MillenniumProblems <> MillenniumProblem rec
+R3085:3096 PF_Coq.MillenniumProblems <> problem_name proj
+R3085:3096 PF_Coq.MillenniumProblems <> problem_name proj
+R3085:3096 PF_Coq.MillenniumProblems <> problem_name proj
+R3125:3138 PF_Coq.MillenniumProblems <> problem_status proj
+R3125:3138 PF_Coq.MillenniumProblems <> problem_status proj
+R3157:3174 PF_Coq.MillenniumProblems <> spectral_condition proj
+R3157:3174 PF_Coq.MillenniumProblems <> spectral_condition proj
+R3206:3224 PF_Coq.MillenniumProblems <> classical_statement proj
+R3206:3224 PF_Coq.MillenniumProblems <> classical_statement proj
+R3255:3272 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R3255:3272 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R3331:3341 PF_Coq.MillenniumProblems <> admit_count proj
+R3331:3341 PF_Coq.MillenniumProblems <> admit_count proj
+R3351:3361 PF_Coq.MillenniumProblems <> axiom_count proj
+R3351:3361 PF_Coq.MillenniumProblems <> axiom_count proj
+R3372:3384 PF_Coq.MillenniumProblems <> theorem_count proj
+R3372:3384 PF_Coq.MillenniumProblems <> theorem_count proj
+R3143:3152 PF_Coq.MillenniumProblems <> Equivalent constr
+R3179:3201 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+R3229:3250 PF_Coq.Core.Zeta <> RiemannHypothesis def
+R3300:3304 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3277:3299 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+R3305:3326 PF_Coq.Core.Zeta <> RiemannHypothesis def
+prf 3444:3468 <> RH_equivalence_millennium
+R3497:3501 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3474:3496 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+R3502:3523 PF_Coq.Core.Zeta <> RiemannHypothesis def
+R3541:3568 PF_Coq.Contracts.RH <> spectral_bijection_iff_RH thm
+R3541:3568 PF_Coq.Contracts.RH <> spectral_bijection_iff_RH thm
+def 3631:3640 <> YM_problem
+R3644:3660 PF_Coq.MillenniumProblems <> MillenniumProblem rec
+R3670:3681 PF_Coq.MillenniumProblems <> problem_name proj
+R3670:3681 PF_Coq.MillenniumProblems <> problem_name proj
+R3670:3681 PF_Coq.MillenniumProblems <> problem_name proj
+R3711:3724 PF_Coq.MillenniumProblems <> problem_status proj
+R3711:3724 PF_Coq.MillenniumProblems <> problem_status proj
+R3739:3756 PF_Coq.MillenniumProblems <> spectral_condition proj
+R3739:3756 PF_Coq.MillenniumProblems <> spectral_condition proj
+R3786:3804 PF_Coq.MillenniumProblems <> classical_statement proj
+R3786:3804 PF_Coq.MillenniumProblems <> classical_statement proj
+R3831:3848 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R3831:3848 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R3878:3888 PF_Coq.MillenniumProblems <> admit_count proj
+R3878:3888 PF_Coq.MillenniumProblems <> admit_count proj
+R3898:3908 PF_Coq.MillenniumProblems <> axiom_count proj
+R3898:3908 PF_Coq.MillenniumProblems <> axiom_count proj
+R3919:3931 PF_Coq.MillenniumProblems <> theorem_count proj
+R3919:3931 PF_Coq.MillenniumProblems <> theorem_count proj
+R3729:3734 PF_Coq.MillenniumProblems <> Proven constr
+R3761:3781 PF_Coq.Contracts.YM <> YM_MassGapSolution def
+R3823:3825 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3809:3822 PF_Coq.Contracts.YM <> mass_gap_YM def
+R3853:3873 PF_Coq.Contracts.YM <> YM_MassGapSolution def
+prf 3988:4015 <> mass_gap_positive_millennium
+R4033:4035 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4019:4032 PF_Coq.Contracts.YM <> mass_gap_YM def
+R4054:4077 PF_Coq.Contracts.YM <> mass_gap_positive_thm thm
+R4054:4077 PF_Coq.Contracts.YM <> mass_gap_positive_thm thm
+prf 4138:4162 <> mass_gap_value_millennium
+R4191:4194 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4174:4176 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4177:4190 PF_Coq.Contracts.YM <> mass_gap_YM def
+R4209:4211 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4195:4208 PF_Coq.Contracts.YM <> mass_gap_YM def
+R4235:4261 PF_Coq.Contracts.YM <> mass_gap_numerical_value prfax
+R4235:4261 PF_Coq.Contracts.YM <> mass_gap_numerical_value prfax
+def 4323:4333 <> BSD_problem
+R4337:4353 PF_Coq.MillenniumProblems <> MillenniumProblem rec
+R4363:4374 PF_Coq.MillenniumProblems <> problem_name proj
+R4363:4374 PF_Coq.MillenniumProblems <> problem_name proj
+R4363:4374 PF_Coq.MillenniumProblems <> problem_name proj
+R4410:4423 PF_Coq.MillenniumProblems <> problem_status proj
+R4410:4423 PF_Coq.MillenniumProblems <> problem_status proj
+R4442:4459 PF_Coq.MillenniumProblems <> spectral_condition proj
+R4442:4459 PF_Coq.MillenniumProblems <> spectral_condition proj
+R4492:4510 PF_Coq.MillenniumProblems <> classical_statement proj
+R4492:4510 PF_Coq.MillenniumProblems <> classical_statement proj
+R4537:4554 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R4537:4554 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R4610:4620 PF_Coq.MillenniumProblems <> admit_count proj
+R4610:4620 PF_Coq.MillenniumProblems <> admit_count proj
+R4630:4640 PF_Coq.MillenniumProblems <> axiom_count proj
+R4630:4640 PF_Coq.MillenniumProblems <> axiom_count proj
+R4651:4663 PF_Coq.MillenniumProblems <> theorem_count proj
+R4651:4663 PF_Coq.MillenniumProblems <> theorem_count proj
+R4428:4437 PF_Coq.MillenniumProblems <> Equivalent constr
+R4464:4487 PF_Coq.Contracts.BSD <> BSD_LFunctionFormula def
+R4515:4532 PF_Coq.Contracts.BSD <> BSD_Conjecture def
+R4583:4587 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4559:4582 PF_Coq.Contracts.BSD <> BSD_LFunctionFormula def
+R4588:4605 PF_Coq.Contracts.BSD <> BSD_Conjecture def
+prf 4715:4740 <> BSD_equivalence_millennium
+R4770:4774 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4746:4769 PF_Coq.Contracts.BSD <> BSD_LFunctionFormula def
+R4775:4792 PF_Coq.Contracts.BSD <> BSD_Conjecture def
+R4810:4839 PF_Coq.Contracts.BSD <> L_function_formula_iff_BSD thm
+R4810:4839 PF_Coq.Contracts.BSD <> L_function_formula_iff_BSD thm
+prf 4896:4922 <> golden_threshold_millennium
+R4960:4963 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4954:4956 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4928:4953 PF_Coq.Contracts.BSD <> golden_threshold_value def
+R4990:4992 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4964:4989 PF_Coq.Contracts.BSD <> golden_threshold_value def
+R5013:5039 PF_Coq.Contracts.BSD <> golden_threshold_bounds thm
+R5013:5039 PF_Coq.Contracts.BSD <> golden_threshold_bounds thm
+def 5099:5111 <> Hodge_problem
+R5115:5131 PF_Coq.MillenniumProblems <> MillenniumProblem rec
+R5141:5152 PF_Coq.MillenniumProblems <> problem_name proj
+R5141:5152 PF_Coq.MillenniumProblems <> problem_name proj
+R5141:5152 PF_Coq.MillenniumProblems <> problem_name proj
+R5179:5192 PF_Coq.MillenniumProblems <> problem_status proj
+R5179:5192 PF_Coq.MillenniumProblems <> problem_status proj
+R5207:5224 PF_Coq.MillenniumProblems <> spectral_condition proj
+R5207:5224 PF_Coq.MillenniumProblems <> spectral_condition proj
+R5263:5281 PF_Coq.MillenniumProblems <> classical_statement proj
+R5263:5281 PF_Coq.MillenniumProblems <> classical_statement proj
+R5311:5328 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R5311:5328 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R5393:5403 PF_Coq.MillenniumProblems <> admit_count proj
+R5393:5403 PF_Coq.MillenniumProblems <> admit_count proj
+R5413:5423 PF_Coq.MillenniumProblems <> axiom_count proj
+R5413:5423 PF_Coq.MillenniumProblems <> axiom_count proj
+R5433:5445 PF_Coq.MillenniumProblems <> theorem_count proj
+R5433:5445 PF_Coq.MillenniumProblems <> theorem_count proj
+R5197:5202 PF_Coq.MillenniumProblems <> Proven constr
+R5229:5258 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+R5286:5306 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R5354:5358 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5333:5353 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R5359:5388 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+prf 5521:5536 <> Hodge_millennium
+R5540:5560 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R5578:5602 PF_Coq.Contracts.Hodge <> PF_Hodge_Conjecture thm
+R5578:5602 PF_Coq.Contracts.Hodge <> PF_Hodge_Conjecture thm
+prf 5653:5680 <> Hodge_equivalence_millennium
+R5707:5711 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5686:5706 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R5712:5741 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Condition def
+R5759:5790 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Equivalence thm
+R5759:5790 PF_Coq.Contracts.Hodge <> Hodge_Spectral_Equivalence thm
+def 5847:5856 <> NS_problem
+R5860:5876 PF_Coq.MillenniumProblems <> MillenniumProblem rec
+R5886:5897 PF_Coq.MillenniumProblems <> problem_name proj
+R5886:5897 PF_Coq.MillenniumProblems <> problem_name proj
+R5886:5897 PF_Coq.MillenniumProblems <> problem_name proj
+R5921:5934 PF_Coq.MillenniumProblems <> problem_status proj
+R5921:5934 PF_Coq.MillenniumProblems <> problem_status proj
+R5949:5966 PF_Coq.MillenniumProblems <> spectral_condition proj
+R5949:5966 PF_Coq.MillenniumProblems <> spectral_condition proj
+R6009:6027 PF_Coq.MillenniumProblems <> classical_statement proj
+R6009:6027 PF_Coq.MillenniumProblems <> classical_statement proj
+R6070:6087 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R6070:6087 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R6169:6179 PF_Coq.MillenniumProblems <> admit_count proj
+R6169:6179 PF_Coq.MillenniumProblems <> admit_count proj
+R6189:6199 PF_Coq.MillenniumProblems <> axiom_count proj
+R6189:6199 PF_Coq.MillenniumProblems <> axiom_count proj
+R6210:6222 PF_Coq.MillenniumProblems <> theorem_count proj
+R6210:6222 PF_Coq.MillenniumProblems <> theorem_count proj
+R5939:5944 PF_Coq.MillenniumProblems <> Proven constr
+R5971:6004 PF_Coq.Contracts.NavierStokes <> NS_Spectral_Condition def
+R6032:6065 PF_Coq.Contracts.NavierStokes <> NS_Millennium_Problem def
+R6126:6130 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6092:6125 PF_Coq.Contracts.NavierStokes <> NS_Millennium_Problem def
+R6131:6164 PF_Coq.Contracts.NavierStokes <> NS_Spectral_Condition def
+prf 6304:6316 <> NS_millennium
+R6320:6353 PF_Coq.Contracts.NavierStokes <> NS_Millennium_Problem def
+R6371:6397 PF_Coq.Contracts.NavierStokes <> PF_NS_Solution thm
+R6371:6397 PF_Coq.Contracts.NavierStokes <> PF_NS_Solution thm
+prf 6445:6469 <> NS_equivalence_millennium
+R6509:6513 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6475:6508 PF_Coq.Contracts.NavierStokes <> NS_Millennium_Problem def
+R6514:6547 PF_Coq.Contracts.NavierStokes <> NS_Spectral_Condition def
+R6565:6600 PF_Coq.Contracts.NavierStokes <> NS_Spectral_Equivalence thm
+R6565:6600 PF_Coq.Contracts.NavierStokes <> NS_Spectral_Equivalence thm
+def 6792:6807 <> Poincare_problem
+R6811:6827 PF_Coq.MillenniumProblems <> MillenniumProblem rec
+R6837:6848 PF_Coq.MillenniumProblems <> problem_name proj
+R6837:6848 PF_Coq.MillenniumProblems <> problem_name proj
+R6837:6848 PF_Coq.MillenniumProblems <> problem_name proj
+R6878:6891 PF_Coq.MillenniumProblems <> problem_status proj
+R6878:6891 PF_Coq.MillenniumProblems <> problem_status proj
+R6908:6925 PF_Coq.MillenniumProblems <> spectral_condition proj
+R6908:6925 PF_Coq.MillenniumProblems <> spectral_condition proj
+R6960:6978 PF_Coq.MillenniumProblems <> classical_statement proj
+R6960:6978 PF_Coq.MillenniumProblems <> classical_statement proj
+R7016:7033 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R7016:7033 PF_Coq.MillenniumProblems <> equivalence_proven proj
+R7046:7056 PF_Coq.MillenniumProblems <> admit_count proj
+R7046:7056 PF_Coq.MillenniumProblems <> admit_count proj
+R7066:7076 PF_Coq.MillenniumProblems <> axiom_count proj
+R7066:7076 PF_Coq.MillenniumProblems <> axiom_count proj
+R7086:7098 PF_Coq.MillenniumProblems <> theorem_count proj
+R7086:7098 PF_Coq.MillenniumProblems <> theorem_count proj
+R6896:6903 PF_Coq.MillenniumProblems <> External constr
+R6930:6933 Coq.Init.Logic <> True ind
+R6983:6986 Coq.Init.Logic <> True ind
+R7038:7041 Coq.Init.Logic <> True ind
+def 7154:7176 <> all_millennium_problems
+R7180:7183 Coq.Init.Datatypes <> list ind
+R7185:7201 PF_Coq.MillenniumProblems <> MillenniumProblem rec
+R7223:7228 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7208:7222 PF_Coq.MillenniumProblems <> P_vs_NP_problem def
+R7239:7244 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7229:7238 PF_Coq.MillenniumProblems <> RH_problem def
+R7255:7260 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7245:7254 PF_Coq.MillenniumProblems <> YM_problem def
+R7272:7277 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7261:7271 PF_Coq.MillenniumProblems <> BSD_problem def
+R7291:7296 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7278:7290 PF_Coq.MillenniumProblems <> Hodge_problem def
+R7307:7312 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7297:7306 PF_Coq.MillenniumProblems <> NS_problem def
+R7329:7334 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7313:7328 PF_Coq.MillenniumProblems <> Poincare_problem def
+R7335:7337 Coq.Init.Datatypes <> nil constr
+def 7429:7440 <> total_admits
+R7444:7446 Coq.Init.Datatypes <> nat ind
+R7453:7462 Coq.Lists.List <> fold_right def
+R7511:7533 PF_Coq.MillenniumProblems <> all_millennium_problems def
+binder 7469:7469 <> p:12
+binder 7471:7473 <> acc:13
+R7492:7494 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7479:7489 PF_Coq.MillenniumProblems <> admit_count proj
+R7491:7491 PF_Coq.MillenniumProblems <> p:12 var
+R7495:7497 PF_Coq.MillenniumProblems <> acc:13 var
+prf 7545:7555 <> zero_admits
+R7571:7573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7559:7570 PF_Coq.MillenniumProblems <> total_admits def
+def 7645:7658 <> total_theorems
+R7662:7664 Coq.Init.Datatypes <> nat ind
+R7671:7680 Coq.Lists.List <> fold_right def
+R7731:7753 PF_Coq.MillenniumProblems <> all_millennium_problems def
+binder 7687:7687 <> p:14
+binder 7689:7691 <> acc:15
+R7712:7714 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7697:7709 PF_Coq.MillenniumProblems <> theorem_count proj
+R7711:7711 PF_Coq.MillenniumProblems <> p:14 var
+R7715:7717 PF_Coq.MillenniumProblems <> acc:15 var
+def 7793:7804 <> total_axioms
+R7808:7810 Coq.Init.Datatypes <> nat ind
+R7817:7826 Coq.Lists.List <> fold_right def
+R7875:7897 PF_Coq.MillenniumProblems <> all_millennium_problems def
+binder 7833:7833 <> p:16
+binder 7835:7837 <> acc:17
+R7856:7858 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7843:7853 PF_Coq.MillenniumProblems <> axiom_count proj
+R7855:7855 PF_Coq.MillenniumProblems <> p:16 var
+R7859:7861 PF_Coq.MillenniumProblems <> acc:17 var
+def 8003:8009 <> ch2_PNP
+R8013:8013 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 8035:8040 <> ch2_RH
+R8044:8044 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 8066:8071 <> ch2_YM
+R8075:8075 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 8096:8102 <> ch2_BSD
+R8106:8106 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 8130:8138 <> ch2_Hodge
+R8142:8142 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 8164:8169 <> ch2_NS
+R8173:8173 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 8239:8252 <> ch2_clustering
+R8281:8286 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8262:8265 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8273:8276 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8266:8272 PF_Coq.MillenniumProblems <> ch2_PNP def
+R8266:8272 PF_Coq.MillenniumProblems <> ch2_PNP def
+R8309:8314 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8291:8294 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8301:8304 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8295:8300 PF_Coq.MillenniumProblems <> ch2_RH def
+R8295:8300 PF_Coq.MillenniumProblems <> ch2_RH def
+R8337:8342 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8319:8322 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8329:8332 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8323:8328 PF_Coq.MillenniumProblems <> ch2_YM def
+R8323:8328 PF_Coq.MillenniumProblems <> ch2_YM def
+R8366:8371 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8347:8350 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8358:8361 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8351:8357 PF_Coq.MillenniumProblems <> ch2_BSD def
+R8351:8357 PF_Coq.MillenniumProblems <> ch2_BSD def
+R8397:8402 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8376:8379 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8389:8392 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8380:8388 PF_Coq.MillenniumProblems <> ch2_Hodge def
+R8380:8388 PF_Coq.MillenniumProblems <> ch2_Hodge def
+R8407:8410 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8417:8420 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R8411:8416 PF_Coq.MillenniumProblems <> ch2_NS def
+R8411:8416 PF_Coq.MillenniumProblems <> ch2_NS def
+R8443:8449 PF_Coq.MillenniumProblems <> ch2_PNP def
+R8452:8457 PF_Coq.MillenniumProblems <> ch2_RH def
+R8460:8465 PF_Coq.MillenniumProblems <> ch2_YM def
+R8468:8474 PF_Coq.MillenniumProblems <> ch2_BSD def
+R8477:8485 PF_Coq.MillenniumProblems <> ch2_Hodge def
+R8488:8493 PF_Coq.MillenniumProblems <> ch2_NS def
+def 8859:8884 <> unified_spectral_framework
+R8945:8961 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8941:8943 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8914:8940 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R8962:8962 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9013:9030 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8986:8990 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R8963:8985 PF_Coq.Contracts.RH <> RH_SpectralBijection def
+R8991:9012 PF_Coq.Core.Zeta <> RiemannHypothesis def
+R9049:9066 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9045:9047 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R9031:9044 PF_Coq.Contracts.YM <> mass_gap_YM def
+R9067:9067 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9115:9135 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9092:9096 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9068:9091 PF_Coq.Contracts.BSD <> BSD_LFunctionFormula def
+R9097:9114 PF_Coq.Contracts.BSD <> BSD_Conjecture def
+R9157:9173 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9136:9156 PF_Coq.Contracts.Hodge <> HodgeConjecture def
+R9174:9207 PF_Coq.Contracts.NavierStokes <> NS_Millennium_Problem def
+prf 9219:9244 <> unified_framework_verified
+R9248:9273 PF_Coq.MillenniumProblems <> unified_spectral_framework def
+R9292:9317 PF_Coq.MillenniumProblems <> unified_spectral_framework def
+R9337:9368 PF_Coq.MillenniumProblems <> spectral_gap_positive_millennium thm
+R9337:9368 PF_Coq.MillenniumProblems <> spectral_gap_positive_millennium thm
+R9390:9414 PF_Coq.MillenniumProblems <> RH_equivalence_millennium thm
+R9390:9414 PF_Coq.MillenniumProblems <> RH_equivalence_millennium thm
+R9436:9463 PF_Coq.MillenniumProblems <> mass_gap_positive_millennium thm
+R9436:9463 PF_Coq.MillenniumProblems <> mass_gap_positive_millennium thm
+R9485:9510 PF_Coq.MillenniumProblems <> BSD_equivalence_millennium thm
+R9485:9510 PF_Coq.MillenniumProblems <> BSD_equivalence_millennium thm
+R9532:9547 PF_Coq.MillenniumProblems <> Hodge_millennium thm
+R9532:9547 PF_Coq.MillenniumProblems <> Hodge_millennium thm
+R9560:9572 PF_Coq.MillenniumProblems <> NS_millennium thm
+R9560:9572 PF_Coq.MillenniumProblems <> NS_millennium thm
+def 9651:9665 <> referee_summary
+R9669:9674 Coq.Strings.String <> string ind

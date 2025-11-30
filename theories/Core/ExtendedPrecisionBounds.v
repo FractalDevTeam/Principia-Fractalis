@@ -72,15 +72,15 @@ Definition spectral_gap_50_hi : R :=
     Here we state the key consequences as axioms referencing
     the external verification, then prove derived properties. *)
 
-(** EXTERNAL VERIFICATION: mpmath computation with 100-digit precision confirms:
-    spectral_gap_50_lo = 0.0539677... > 0.053 > 0 *)
-Axiom spectral_gap_50_certified : spectral_gap_50_lo > 0.
+(** Spectral gap positivity - PROVEN via lra on exact rationals *)
+Lemma spectral_gap_50_certified : spectral_gap_50_lo > 0.
+Proof. unfold spectral_gap_50_lo. lra. Qed.
 
 (** Spectral gap is strictly positive at 50-digit precision *)
 Theorem spectral_gap_50_strictly_positive : spectral_gap_50_lo > 0.
 Proof. exact spectral_gap_50_certified. Qed.
 
-(** EXTERNAL VERIFICATION: Bound comparison *)
+(** Spectral gap bound - requires external verification (lra overflow on large rationals) *)
 Axiom spectral_gap_50_bound : spectral_gap_50_lo > 53/1000.
 
 (** Gap exceeds 0.053 *)
@@ -115,8 +115,11 @@ Definition alpha_separation_50_lo : R :=
 Definition alpha_separation_50_hi : R :=
   45382042637679979940289811015594003915063730442882 / 1000000000000000000000000000000000000000000000000000.
 
-(** EXTERNAL VERIFICATION: Alpha separation certified *)
-Axiom alpha_separation_50_certified : alpha_separation_50_lo > 0.
+(** Alpha separation - PROVEN via lra on exact rationals *)
+Lemma alpha_separation_50_certified : alpha_separation_50_lo > 0.
+Proof. unfold alpha_separation_50_lo. lra. Qed.
+
+(** Bound requires external verification (lra overflow) *)
 Axiom alpha_separation_50_bound : alpha_separation_50_lo > 45/100.
 
 (** Alpha separation is strictly positive *)
@@ -136,8 +139,9 @@ Definition energy_barrier_50_lo : R :=
 Definition energy_barrier_50_hi : R :=
   3740757897464901080729644868735986145473468982790 / 1000000000000000000000000000000000000000000000000000.
 
-(** EXTERNAL VERIFICATION: Energy barrier certified *)
-Axiom energy_barrier_50_certified : energy_barrier_50_lo > 0.
+(** Energy barrier - PROVEN via lra on exact rationals *)
+Lemma energy_barrier_50_certified : energy_barrier_50_lo > 0.
+Proof. unfold energy_barrier_50_lo. lra. Qed.
 
 Theorem energy_barrier_50_positive : energy_barrier_50_lo > 0.
 Proof. exact energy_barrier_50_certified. Qed.
