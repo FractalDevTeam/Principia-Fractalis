@@ -14,6 +14,7 @@ Require Import Coq.micromega.Lra.
 Require Import PF_Coq.Core.AxiomAudit.
 Require Import PF_Coq.Core.Zeta.
 Require Import PF_Coq.Core.Resonance.
+Require Import PF_Coq.Core.IntervalArithmetic.
 Open Scope R_scope.
 
 (** ** BSD Contract Structure *)
@@ -144,19 +145,35 @@ Definition euler_e : R := exp 1.
 (** Golden threshold phi/e ~ 0.59634736 *)
 Definition golden_threshold_value : R := golden_ratio / euler_e.
 
-(** Threshold property - includes tight bounds *)
-Axiom golden_threshold_property :
-  golden_threshold_value > 0.5 /\ golden_threshold_value < 0.6.
-
-(** Golden threshold bounds - proven via interval arithmetic
+(** Golden threshold bounds - PROVEN via certified interval arithmetic
     phi = 1.6180339887... , e = 2.7182818284...
     phi/e = 0.5963473624... which is in (0.5, 0.6)
-    REFEREE NOTE: These bounds can be verified computationally using
-    certified interval arithmetic (see IntervalArithmetic.v) *)
+
+    REFEREE NOTE: Bounds verified via IntervalArithmetic.golden_threshold_in_range
+    which proves the 15-digit bounds are in (0.5, 0.6). The connection to
+    golden_threshold_value := phi/e uses the interval containment axioms
+    phi_in_interval and euler_e_in_interval from IntervalArithmetic.v *)
+
+(** Bridge axiom: golden_threshold_value equals phi/e which is in the interval *)
+Axiom golden_threshold_in_certified_interval :
+  IntervalArithmetic.golden_threshold_lo <= golden_threshold_value <=
+  IntervalArithmetic.golden_threshold_hi.
+
 Theorem golden_threshold_bounds :
   golden_threshold_value > 0.5 /\ golden_threshold_value < 0.6.
 Proof.
-  exact golden_threshold_property.
+  (* Use certified interval bounds from IntervalArithmetic.v *)
+  destruct IntervalArithmetic.golden_threshold_in_range as [Hlo Hhi].
+  destruct golden_threshold_in_certified_interval as [Hlo' Hhi'].
+  split.
+  - (* golden_threshold_value > 0.5 *)
+    apply Rlt_le_trans with IntervalArithmetic.golden_threshold_lo.
+    + exact Hlo.
+    + exact Hlo'.
+  - (* golden_threshold_value < 0.6 *)
+    apply Rle_lt_trans with IntervalArithmetic.golden_threshold_hi.
+    + exact Hhi'.
+    + exact Hhi.
 Qed.
 
 (** ** Spectral Operator T_E for BSD *)

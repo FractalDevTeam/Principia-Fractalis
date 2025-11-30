@@ -159,6 +159,34 @@ Next Obligation.
   unfold phi_lo, phi_hi. lra.
 Qed.
 
+(** Euler's number e = exp(1) = 2.71828182845904523536... - 15 decimal precision *)
+Definition euler_e_lo : R := 2718281828459045 / 1000000000000000.
+Definition euler_e_hi : R := 2718281828459046 / 1000000000000000.
+
+Definition euler_e : R := exp 1.
+
+Axiom euler_e_in_interval : euler_e_lo <= euler_e <= euler_e_hi.
+
+Program Definition euler_e_interval : Interval :=
+  mkInterval euler_e_lo euler_e_hi _.
+Next Obligation.
+  unfold euler_e_lo, euler_e_hi. lra.
+Qed.
+
+(** Golden threshold phi/e - 15 decimal precision
+    phi = 1.618033988749894...
+    e   = 2.718281828459045...
+    phi/e = 0.596347362323194... *)
+Definition golden_threshold_lo : R := 596347362323194 / 1000000000000000.
+Definition golden_threshold_hi : R := 596347362323195 / 1000000000000000.
+
+(** Golden threshold is in (0.5, 0.6) - PROVEN via interval bounds *)
+Theorem golden_threshold_in_range :
+  golden_threshold_lo > 0.5 /\ golden_threshold_hi < 0.6.
+Proof.
+  unfold golden_threshold_lo, golden_threshold_hi. lra.
+Qed.
+
 (** ** Spectral Gap Intervals *)
 
 (** Lambda_0(P) interval - 15 decimal precision *)

@@ -32,3 +32,6 @@ theories/Core/UnifiedStructure.v
 # Integration and summary
 theories/Core/AxiomSummary.v
 theories/PF_Verification.v
+
+# Millennium Problems Unified Verification
+theories/MillenniumProblems.v
