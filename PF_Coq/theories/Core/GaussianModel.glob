@@ -1,0 +1,412 @@
+DIGEST 1b9e565d811f63195cac5ec5ccc789ca
+FPF_Coq.Core.GaussianModel
+R766:780 Coq.Reals.Reals <> <> lib
+R798:814 Coq.micromega.Lra <> <> lib
+R832:847 PF_Coq.Core.Zeta <> <> lib
+R865:889 PF_Coq.Core.NuclearSpaces <> <> lib
+rec 1093:1110 <> CovarianceOperator
+proj 1200:1209 <> cov_kernel
+proj 1311:1323 <> cov_symmetric
+proj 1441:1452 <> cov_positive
+proj 1542:1555 <> cov_continuous
+R1117:1119 Coq.Init.Datatypes <> nat ind
+binder 1113:1113 <> d:1
+R1214:1217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1213:1213 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1219:1222 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1218:1218 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1223:1223 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1334:1334 <> x:4
+binder 1336:1336 <> y:5
+R1353:1355 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1339:1348 PF_Coq.Core.GaussianModel <> cov_kernel:3 meth
+R1352:1352 PF_Coq.Core.GaussianModel <> y:5 var
+R1350:1350 PF_Coq.Core.GaussianModel <> x:4 var
+R1356:1365 PF_Coq.Core.GaussianModel <> cov_kernel:3 meth
+R1369:1369 PF_Coq.Core.GaussianModel <> x:4 var
+R1367:1367 PF_Coq.Core.GaussianModel <> y:5 var
+R1456:1459 Coq.Init.Logic <> True ind
+R1559:1562 Coq.Init.Logic <> True ind
+def 1639:1652 <> quadratic_form
+R1659:1661 Coq.Init.Datatypes <> nat ind
+binder 1655:1655 <> d:9
+R1669:1686 PF_Coq.Core.GaussianModel <> CovarianceOperator rec
+R1688:1688 PF_Coq.Core.GaussianModel <> d:9 var
+binder 1665:1665 <> K:10
+R1702:1717 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R1719:1719 PF_Coq.Core.GaussianModel <> d:9 var
+binder 1696:1696 <> f:11
+binder 1698:1698 <> g:12
+R1724:1724 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 1846:1860 <> exp_zero_eq_one
+R1869:1871 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1864:1866 Coq.Reals.Rtrigo_def <> exp def
+R1888:1892 Coq.Reals.Rtrigo_def <> exp_0 thm
+R1888:1892 Coq.Reals.Rtrigo_def <> exp_0 thm
+prf 1931:1946 <> neg_zero_div_two
+R1957:1959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1953:1955 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R1950:1951 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+prf 2055:2073 <> gaussian_normalized
+R2080:2082 Coq.Init.Datatypes <> nat ind
+binder 2076:2076 <> d:13
+R2090:2107 PF_Coq.Core.GaussianModel <> CovarianceOperator rec
+R2109:2109 PF_Coq.Core.GaussianModel <> d:13 var
+binder 2086:2086 <> K:14
+R2188:2190 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2116:2118 PF_Coq.Core.Zeta <> mkC constr
+R2121:2123 Coq.Reals.Rtrigo_def <> exp def
+R2180:2182 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2126:2127 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R2128:2141 PF_Coq.Core.GaussianModel <> quadratic_form def
+R2164:2176 PF_Coq.Core.NuclearSpaces <> schwartz_zero def
+R2178:2178 PF_Coq.Core.GaussianModel <> d:13 var
+R2146:2158 PF_Coq.Core.NuclearSpaces <> schwartz_zero def
+R2160:2160 PF_Coq.Core.GaussianModel <> d:13 var
+R2143:2143 PF_Coq.Core.GaussianModel <> K:14 var
+R2191:2193 PF_Coq.Core.Zeta <> mkC constr
+R2216:2229 PF_Coq.Core.GaussianModel <> quadratic_form def
+R2253:2268 PF_Coq.Core.GaussianModel <> neg_zero_div_two thm
+R2253:2268 PF_Coq.Core.GaussianModel <> neg_zero_div_two thm
+R2253:2268 PF_Coq.Core.GaussianModel <> neg_zero_div_two thm
+R2279:2293 PF_Coq.Core.GaussianModel <> exp_zero_eq_one thm
+R2279:2293 PF_Coq.Core.GaussianModel <> exp_zero_eq_one thm
+def 2379:2400 <> covariance_to_gaussian
+R2407:2409 Coq.Init.Datatypes <> nat ind
+binder 2403:2403 <> d:15
+R2421:2438 PF_Coq.Core.GaussianModel <> CovarianceOperator rec
+R2440:2440 PF_Coq.Core.GaussianModel <> d:15 var
+binder 2417:2417 <> K:16
+R2445:2468 PF_Coq.Core.NuclearSpaces <> CharacteristicFunctional rec
+R2470:2470 PF_Coq.Core.GaussianModel <> d:15 var
+R2480:2487 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R2480:2487 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R2480:2487 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R2545:2557 PF_Coq.Core.NuclearSpaces <> cf_normalized proj
+R2545:2557 PF_Coq.Core.NuclearSpaces <> cf_normalized proj
+R2587:2599 PF_Coq.Core.NuclearSpaces <> cf_continuous proj
+R2587:2599 PF_Coq.Core.NuclearSpaces <> cf_continuous proj
+R2609:2628 PF_Coq.Core.NuclearSpaces <> cf_positive_definite proj
+R2609:2628 PF_Coq.Core.NuclearSpaces <> cf_positive_definite proj
+binder 2496:2496 <> f:17
+R2501:2503 PF_Coq.Core.Zeta <> mkC constr
+R2506:2508 Coq.Reals.Rtrigo_def <> exp def
+R2533:2535 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2511:2512 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R2513:2526 PF_Coq.Core.GaussianModel <> quadratic_form def
+R2532:2532 PF_Coq.Core.GaussianModel <> f:17 var
+R2530:2530 PF_Coq.Core.GaussianModel <> f:17 var
+R2528:2528 PF_Coq.Core.GaussianModel <> K:16 var
+R2562:2580 PF_Coq.Core.GaussianModel <> gaussian_normalized thm
+R2582:2582 PF_Coq.Core.GaussianModel <> K:16 var
+R2604:2604 Coq.Init.Logic <> I constr
+R2633:2633 Coq.Init.Logic <> I constr
+rec 2752:2767 <> MassiveLaplacian
+proj 2836:2842 <> ml_mass
+proj 2851:2864 <> ml_mass_nonneg
+R2774:2776 Coq.Init.Datatypes <> nat ind
+binder 2770:2770 <> d:18
+R2846:2846 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2875:2878 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R2868:2874 PF_Coq.Core.GaussianModel <> ml_mass:20 meth
+def 3092:3105 <> green_function
+R3112:3114 Coq.Init.Datatypes <> nat ind
+binder 3108:3108 <> d:22
+R3122:3137 PF_Coq.Core.GaussianModel <> MassiveLaplacian rec
+R3139:3139 PF_Coq.Core.GaussianModel <> d:22 var
+binder 3118:3118 <> L:23
+R3144:3161 PF_Coq.Core.GaussianModel <> CovarianceOperator rec
+R3163:3163 PF_Coq.Core.GaussianModel <> d:22 var
+R3173:3182 PF_Coq.Core.GaussianModel <> cov_kernel proj
+R3173:3182 PF_Coq.Core.GaussianModel <> cov_kernel proj
+R3173:3182 PF_Coq.Core.GaussianModel <> cov_kernel proj
+R3222:3234 PF_Coq.Core.GaussianModel <> cov_symmetric proj
+R3222:3234 PF_Coq.Core.GaussianModel <> cov_symmetric proj
+R3261:3272 PF_Coq.Core.GaussianModel <> cov_positive proj
+R3261:3272 PF_Coq.Core.GaussianModel <> cov_positive proj
+R3282:3295 PF_Coq.Core.GaussianModel <> cov_continuous proj
+R3282:3295 PF_Coq.Core.GaussianModel <> cov_continuous proj
+binder 3191:3191 <> x:24
+binder 3193:3193 <> y:25
+binder 3243:3243 <> x:26
+binder 3245:3245 <> y:27
+R3250:3256 Coq.Init.Logic <> eq_refl constr
+R3277:3277 Coq.Init.Logic <> I constr
+R3300:3300 Coq.Init.Logic <> I constr
+def 3424:3449 <> free_scalar_characteristic
+R3456:3458 Coq.Init.Datatypes <> nat ind
+binder 3452:3452 <> d:28
+R3470:3485 PF_Coq.Core.GaussianModel <> MassiveLaplacian rec
+R3487:3487 PF_Coq.Core.GaussianModel <> d:28 var
+binder 3466:3466 <> L:29
+R3492:3515 PF_Coq.Core.NuclearSpaces <> CharacteristicFunctional rec
+R3517:3517 PF_Coq.Core.GaussianModel <> d:28 var
+R3524:3545 PF_Coq.Core.GaussianModel <> covariance_to_gaussian def
+R3548:3561 PF_Coq.Core.GaussianModel <> green_function def
+R3563:3563 PF_Coq.Core.GaussianModel <> L:29 var
+prf 3811:3836 <> free_scalar_measure_exists
+R3852:3854 Coq.Init.Datatypes <> nat ind
+binder 3848:3848 <> d:30
+R3862:3877 PF_Coq.Core.GaussianModel <> MassiveLaplacian rec
+R3879:3879 PF_Coq.Core.GaussianModel <> d:30 var
+binder 3858:3858 <> L:31
+R3885:3892 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3928:3972 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3920:3923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3898:3917 PF_Coq.Core.NuclearSpaces <> TemperedDistribution rec
+R3919:3919 PF_Coq.Core.GaussianModel <> d:30 var
+binder 3893:3894 <> mu:32
+R3977:4060 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3973:3976 Coq.Init.Logic <> True ind
+R4061:4064 Coq.Init.Logic <> True ind
+R4097:4120 PF_Coq.Core.NuclearSpaces <> bochner_minlos_existence prfax
+R4125:4150 PF_Coq.Core.GaussianModel <> free_scalar_characteristic def
+R4097:4120 PF_Coq.Core.NuclearSpaces <> bochner_minlos_existence prfax
+R4125:4150 PF_Coq.Core.GaussianModel <> free_scalar_characteristic def
+rec 4347:4368 <> VectorSchwartzFunction
+proj 4463:4476 <> vsf_components
+R4375:4377 Coq.Init.Datatypes <> nat ind
+binder 4371:4371 <> d:33
+R4483:4486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4480:4482 Coq.Init.Datatypes <> nat ind
+R4487:4502 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R4504:4504 PF_Coq.Core.GaussianModel <> d:33 var
+def 4549:4568 <> vector_schwartz_zero
+R4575:4577 Coq.Init.Datatypes <> nat ind
+binder 4571:4571 <> d:36
+R4582:4603 PF_Coq.Core.GaussianModel <> VectorSchwartzFunction rec
+R4605:4605 PF_Coq.Core.GaussianModel <> d:36 var
+R4615:4628 PF_Coq.Core.GaussianModel <> vsf_components proj
+R4615:4628 PF_Coq.Core.GaussianModel <> vsf_components proj
+R4615:4628 PF_Coq.Core.GaussianModel <> vsf_components proj
+R4642:4654 PF_Coq.Core.NuclearSpaces <> schwartz_zero def
+R4656:4656 PF_Coq.Core.GaussianModel <> d:36 var
+rec 5048:5064 <> AbelianGaugeField
+proj 5155:5167 <> agf_gauge_fix
+R5071:5073 Coq.Init.Datatypes <> nat ind
+binder 5067:5067 <> d:37
+R5171:5171 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 5306:5329 <> abelian_gauge_covariance
+R5336:5338 Coq.Init.Datatypes <> nat ind
+binder 5332:5332 <> d:40
+R5350:5366 PF_Coq.Core.GaussianModel <> AbelianGaugeField rec
+R5368:5368 PF_Coq.Core.GaussianModel <> d:40 var
+binder 5346:5346 <> A:41
+R5397:5400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5373:5394 PF_Coq.Core.GaussianModel <> VectorSchwartzFunction rec
+R5396:5396 PF_Coq.Core.GaussianModel <> d:40 var
+R5425:5428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5401:5422 PF_Coq.Core.GaussianModel <> VectorSchwartzFunction rec
+R5424:5424 PF_Coq.Core.GaussianModel <> d:40 var
+R5429:5429 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5440:5440 <> f:42
+binder 5442:5442 <> g:43
+ax 5722:5749 <> abelian_gauge_measure_exists
+R5765:5767 Coq.Init.Datatypes <> nat ind
+binder 5761:5761 <> d:44
+R5775:5791 PF_Coq.Core.GaussianModel <> AbelianGaugeField rec
+R5793:5793 PF_Coq.Core.GaussianModel <> d:44 var
+binder 5771:5771 <> A:45
+R5799:5806 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5842:5906 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5834:5837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5812:5831 PF_Coq.Core.NuclearSpaces <> TemperedDistribution rec
+R5833:5833 PF_Coq.Core.GaussianModel <> d:44 var
+binder 5807:5808 <> mu:46
+R5907:5910 Coq.Init.Logic <> True ind
+rec 6301:6321 <> FreeYangMillsGaussian
+proj 6409:6426 <> fym_num_generators
+proj 6437:6453 <> fym_generators_eq
+proj 6554:6563 <> fym_fields
+R6330:6332 Coq.Init.Datatypes <> nat ind
+binder 6324:6324 <> d:48
+binder 6326:6326 <> N:49
+R6430:6432 Coq.Init.Datatypes <> nat ind
+R6475:6477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6457:6474 PF_Coq.Core.GaussianModel <> fym_num_generators:51 meth
+R6484:6486 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6480:6482 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R6479:6479 PF_Coq.Core.GaussianModel <> N:49 var
+R6483:6483 PF_Coq.Core.GaussianModel <> N:49 var
+R6570:6573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6567:6569 Coq.Init.Datatypes <> nat ind
+R6574:6590 PF_Coq.Core.GaussianModel <> AbelianGaugeField rec
+R6592:6592 PF_Coq.Core.GaussianModel <> d:48 var
+def 6881:6909 <> free_ym_generating_functional
+R6918:6920 Coq.Init.Datatypes <> nat ind
+binder 6912:6912 <> d:54
+binder 6914:6914 <> N:55
+R6933:6953 PF_Coq.Core.GaussianModel <> FreeYangMillsGaussian rec
+R6955:6955 PF_Coq.Core.GaussianModel <> d:54 var
+R6957:6957 PF_Coq.Core.GaussianModel <> N:55 var
+binder 6928:6929 <> YM:56
+R6962:6985 PF_Coq.Core.NuclearSpaces <> CharacteristicFunctional rec
+R6987:6987 PF_Coq.Core.GaussianModel <> d:54 var
+R6997:7004 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R6997:7004 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R6997:7004 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R7068:7080 PF_Coq.Core.NuclearSpaces <> cf_normalized proj
+R7068:7080 PF_Coq.Core.NuclearSpaces <> cf_normalized proj
+R7096:7108 PF_Coq.Core.NuclearSpaces <> cf_continuous proj
+R7096:7108 PF_Coq.Core.NuclearSpaces <> cf_continuous proj
+R7118:7137 PF_Coq.Core.NuclearSpaces <> cf_positive_definite proj
+R7118:7137 PF_Coq.Core.NuclearSpaces <> cf_positive_definite proj
+binder 7013:7013 <> f:57
+R7018:7020 PF_Coq.Core.Zeta <> mkC constr
+R7085:7091 Coq.Init.Logic <> eq_refl constr
+R7113:7113 Coq.Init.Logic <> I constr
+R7142:7142 Coq.Init.Logic <> I constr
+prf 7545:7574 <> free_yang_mills_measure_exists
+R7594:7596 Coq.Init.Datatypes <> nat ind
+binder 7588:7588 <> d:58
+binder 7590:7590 <> N:59
+R7605:7625 PF_Coq.Core.GaussianModel <> FreeYangMillsGaussian rec
+R7627:7627 PF_Coq.Core.GaussianModel <> d:58 var
+R7629:7629 PF_Coq.Core.GaussianModel <> N:59 var
+binder 7600:7601 <> YM:60
+R7635:7642 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7678:7721 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7670:7673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7648:7667 PF_Coq.Core.NuclearSpaces <> TemperedDistribution rec
+R7669:7669 PF_Coq.Core.GaussianModel <> d:58 var
+binder 7643:7644 <> mu:61
+R7726:7812 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7722:7725 Coq.Init.Logic <> True ind
+R7813:7816 Coq.Init.Logic <> True ind
+R7852:7875 PF_Coq.Core.NuclearSpaces <> bochner_minlos_existence prfax
+R7880:7908 PF_Coq.Core.GaussianModel <> free_ym_generating_functional def
+R7852:7875 PF_Coq.Core.NuclearSpaces <> bochner_minlos_existence prfax
+R7880:7908 PF_Coq.Core.GaussianModel <> free_ym_generating_functional def
+prf 8203:8219 <> sq_diff_symmetric
+R8236:8236 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8230:8230 <> x:62
+binder 8232:8232 <> y:63
+R8248:8250 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8239:8239 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8245:8246 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8241:8243 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8240:8240 PF_Coq.Core.GaussianModel <> x:62 var
+R8244:8244 PF_Coq.Core.GaussianModel <> y:63 var
+R8251:8251 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8257:8258 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8253:8255 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8252:8252 PF_Coq.Core.GaussianModel <> y:63 var
+R8256:8256 PF_Coq.Core.GaussianModel <> x:62 var
+prf 8332:8353 <> gluon_kernel_symmetric
+R8370:8370 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8364:8364 <> x:64
+binder 8366:8366 <> y:65
+R8375:8375 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8453:8459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8537:8537 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8388:8388 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8394:8395 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8390:8392 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8389:8389 PF_Coq.Core.GaussianModel <> x:64 var
+R8393:8393 PF_Coq.Core.GaussianModel <> y:65 var
+binder 8380:8383 <> r_sq:66
+R8404:8411 Coq.Reals.RIneq <> Req_EM_T abbrev
+R8413:8416 PF_Coq.Core.GaussianModel <> r_sq:66 var
+R8433:8436 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R8452:8452 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R8445:8447 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8438:8440 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8443:8443 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8441:8442 Coq.Reals.Rtrigo1 <> PI def
+R8448:8451 PF_Coq.Core.GaussianModel <> r_sq:66 var
+R8472:8472 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8478:8479 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8474:8476 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8473:8473 PF_Coq.Core.GaussianModel <> y:65 var
+R8477:8477 PF_Coq.Core.GaussianModel <> x:64 var
+binder 8464:8467 <> r_sq:67
+R8488:8495 Coq.Reals.RIneq <> Req_EM_T abbrev
+R8497:8500 PF_Coq.Core.GaussianModel <> r_sq:67 var
+R8517:8520 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R8536:8536 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R8529:8531 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8522:8524 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8527:8527 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8525:8526 Coq.Reals.Rtrigo1 <> PI def
+R8532:8535 PF_Coq.Core.GaussianModel <> r_sq:67 var
+R8571:8587 PF_Coq.Core.GaussianModel <> sq_diff_symmetric thm
+R8571:8587 PF_Coq.Core.GaussianModel <> sq_diff_symmetric thm
+R8571:8587 PF_Coq.Core.GaussianModel <> sq_diff_symmetric thm
+def 8622:8649 <> massless_gluon_propagator_4D
+R8653:8670 PF_Coq.Core.GaussianModel <> CovarianceOperator rec
+R8682:8691 PF_Coq.Core.GaussianModel <> cov_kernel proj
+R8682:8691 PF_Coq.Core.GaussianModel <> cov_kernel proj
+R8682:8691 PF_Coq.Core.GaussianModel <> cov_kernel proj
+R8796:8808 PF_Coq.Core.GaussianModel <> cov_symmetric proj
+R8796:8808 PF_Coq.Core.GaussianModel <> cov_symmetric proj
+R8839:8850 PF_Coq.Core.GaussianModel <> cov_positive proj
+R8839:8850 PF_Coq.Core.GaussianModel <> cov_positive proj
+R8860:8873 PF_Coq.Core.GaussianModel <> cov_continuous proj
+R8860:8873 PF_Coq.Core.GaussianModel <> cov_continuous proj
+binder 8700:8700 <> x:68
+binder 8702:8702 <> y:69
+R8723:8723 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8729:8730 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8725:8727 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8724:8724 PF_Coq.Core.GaussianModel <> x:68 var
+R8728:8728 PF_Coq.Core.GaussianModel <> y:69 var
+binder 8715:8718 <> r_sq:70
+R8743:8750 Coq.Reals.RIneq <> Req_EM_T abbrev
+R8752:8755 PF_Coq.Core.GaussianModel <> r_sq:70 var
+R8772:8775 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R8791:8791 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R8784:8786 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8777:8779 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8782:8782 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R8780:8781 Coq.Reals.Rtrigo1 <> PI def
+R8787:8790 PF_Coq.Core.GaussianModel <> r_sq:70 var
+R8813:8834 PF_Coq.Core.GaussianModel <> gluon_kernel_symmetric thm
+R8855:8855 Coq.Init.Logic <> I constr
+R8878:8878 Coq.Init.Logic <> I constr
+def 9135:9162 <> yang_mills_quadratic_form_4D
+R9184:9187 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9166:9181 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R9206:9209 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9188:9203 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R9210:9210 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R9217:9230 PF_Coq.Core.GaussianModel <> quadratic_form def
+R9232:9259 PF_Coq.Core.GaussianModel <> massless_gluon_propagator_4D def
+prf 9412:9439 <> yang_mills_4d_gaussian_valid
+R9445:9452 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9483:9557 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9457:9480 PF_Coq.Core.NuclearSpaces <> CharacteristicFunctional rec
+binder 9453:9453 <> G:71
+R9558:9561 Coq.Init.Logic <> True ind
+R9581:9602 PF_Coq.Core.GaussianModel <> covariance_to_gaussian def
+R9604:9631 PF_Coq.Core.GaussianModel <> massless_gluon_propagator_4D def
+R9581:9602 PF_Coq.Core.GaussianModel <> covariance_to_gaussian def
+R9604:9631 PF_Coq.Core.GaussianModel <> massless_gluon_propagator_4D def
+R9643:9643 Coq.Init.Logic <> I constr
+R9643:9643 Coq.Init.Logic <> I constr
+prf 10234:10261 <> gaussian_yang_mills_complete
+R10267:10274 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10371:10424 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10302:10305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10280:10299 PF_Coq.Core.NuclearSpaces <> TemperedDistribution rec
+binder 10275:10276 <> mu:72
+R10344:10347 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10326:10341 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R10366:10369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10348:10363 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R10370:10370 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10322:10322 <> Q:73
+R10457:10519 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10426:10428 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10425:10425 PF_Coq.Core.GaussianModel <> Q:73 var
+R10429:10456 PF_Coq.Core.GaussianModel <> yang_mills_quadratic_form_4D def
+R10520:10523 Coq.Init.Logic <> True ind
+R10552:10555 Coq.Init.Logic <> True ind
+R10552:10555 Coq.Init.Logic <> True ind
+R10568:10595 PF_Coq.Core.GaussianModel <> yang_mills_quadratic_form_4D def
+R10568:10595 PF_Coq.Core.GaussianModel <> yang_mills_quadratic_form_4D def
+R10634:10634 Coq.Init.Logic <> I constr
+R10634:10634 Coq.Init.Logic <> I constr
+def 11416:11448 <> gaussian_yang_mills_theorem_count
+R11452:11454 Coq.Init.Datatypes <> nat ind
+def 11473:11503 <> gaussian_yang_mills_axiom_count
+R11507:11509 Coq.Init.Datatypes <> nat ind

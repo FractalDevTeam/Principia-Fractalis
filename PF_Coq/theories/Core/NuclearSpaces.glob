@@ -1,0 +1,540 @@
+DIGEST e70dc95759c86b563d1d20c857f44b11
+FPF_Coq.Core.NuclearSpaces
+R564:578 Coq.Reals.Reals <> <> lib
+R596:612 Coq.micromega.Lra <> <> lib
+R630:645 PF_Coq.Core.Zeta <> <> lib
+rec 835:842 <> Seminorm
+proj 873:879 <> sem_fun
+proj 893:902 <> sem_nonneg
+proj 934:945 <> sem_triangle
+binder 845:845 <> E:1
+R884:887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R883:883 PF_Coq.Core.NuclearSpaces <> E:1 var
+R888:888 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 913:913 <> x:4
+R925:928 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R916:922 PF_Coq.Core.NuclearSpaces <> sem_fun:3 meth
+R924:924 PF_Coq.Core.NuclearSpaces <> x:4 var
+binder 956:956 <> x:6
+binder 958:958 <> y:7
+R982:985 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R970:972 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R961:967 PF_Coq.Core.NuclearSpaces <> sem_fun:3 meth
+R969:969 PF_Coq.Core.NuclearSpaces <> x:6 var
+R973:979 PF_Coq.Core.NuclearSpaces <> sem_fun:3 meth
+R981:981 PF_Coq.Core.NuclearSpaces <> y:7 var
+R986:992 PF_Coq.Core.NuclearSpaces <> sem_fun:3 meth
+R994:994 PF_Coq.Core.NuclearSpaces <> x:6 var
+rec 1087:1100 <> SeminormFamily
+proj 1148:1159 <> sf_seminorms
+proj 1266:1276 <> sf_directed
+binder 1103:1103 <> E:9
+binder 1114:1114 <> I:10
+R1164:1167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1163:1163 PF_Coq.Core.NuclearSpaces <> I:10 var
+R1168:1175 PF_Coq.Core.NuclearSpaces <> Seminorm rec
+R1177:1177 PF_Coq.Core.NuclearSpaces <> E:9 var
+R1293:1293 PF_Coq.Core.NuclearSpaces <> I:10 var
+binder 1287:1287 <> i:13
+binder 1289:1289 <> j:14
+R1296:1302 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1308:1313 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1307:1307 PF_Coq.Core.NuclearSpaces <> I:10 var
+binder 1303:1303 <> k:15
+R1325:1325 PF_Coq.Core.NuclearSpaces <> E:9 var
+binder 1321:1321 <> x:16
+R1388:1409 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1356:1359 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R1328:1334 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R1336:1336 PF_Coq.Core.NuclearSpaces <> E:9 var
+R1339:1350 PF_Coq.Core.NuclearSpaces <> sf_seminorms:12 meth
+R1352:1352 PF_Coq.Core.NuclearSpaces <> i:13 var
+R1355:1355 PF_Coq.Core.NuclearSpaces <> x:16 var
+R1360:1366 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R1368:1368 PF_Coq.Core.NuclearSpaces <> E:9 var
+R1371:1382 PF_Coq.Core.NuclearSpaces <> sf_seminorms:12 meth
+R1384:1384 PF_Coq.Core.NuclearSpaces <> k:15 var
+R1387:1387 PF_Coq.Core.NuclearSpaces <> x:16 var
+R1438:1441 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R1410:1416 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R1418:1418 PF_Coq.Core.NuclearSpaces <> E:9 var
+R1421:1432 PF_Coq.Core.NuclearSpaces <> sf_seminorms:12 meth
+R1434:1434 PF_Coq.Core.NuclearSpaces <> j:14 var
+R1437:1437 PF_Coq.Core.NuclearSpaces <> x:16 var
+R1442:1448 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R1450:1450 PF_Coq.Core.NuclearSpaces <> E:9 var
+R1453:1464 PF_Coq.Core.NuclearSpaces <> sf_seminorms:12 meth
+R1466:1466 PF_Coq.Core.NuclearSpaces <> k:15 var
+R1469:1469 PF_Coq.Core.NuclearSpaces <> x:16 var
+rec 1567:1584 <> LocallyConvexSpace
+proj 1610:1618 <> lcs_index
+proj 1630:1642 <> lcs_seminorms
+binder 1587:1587 <> E:18
+R1646:1659 PF_Coq.Core.NuclearSpaces <> SeminormFamily rec
+R1661:1661 PF_Coq.Core.NuclearSpaces <> E:18 var
+R1663:1671 PF_Coq.Core.NuclearSpaces <> lcs_index:20 meth
+def 1881:1896 <> traceNorm_finite
+R1908:1911 Coq.Init.Logic <> True ind
+def 2018:2026 <> IsNuclear
+R2038:2053 PF_Coq.Core.NuclearSpaces <> traceNorm_finite def
+rec 2482:2493 <> NuclearSpace
+proj 2528:2533 <> ns_lcs
+proj 2646:2664 <> ns_nuclear_property
+binder 2496:2496 <> E:22
+R2537:2554 PF_Coq.Core.NuclearSpaces <> LocallyConvexSpace rec
+R2556:2556 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2679:2687 PF_Coq.Core.NuclearSpaces <> lcs_index proj
+R2689:2689 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2691:2696 PF_Coq.Core.NuclearSpaces <> ns_lcs:24 meth
+binder 2675:2675 <> i:25
+R2703:2709 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2732:2739 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2714:2722 PF_Coq.Core.NuclearSpaces <> lcs_index proj
+R2724:2724 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2726:2731 PF_Coq.Core.NuclearSpaces <> ns_lcs:24 meth
+binder 2710:2710 <> j:26
+R2740:2740 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2927:2937 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2752:2752 PF_Coq.Core.NuclearSpaces <> E:22 var
+binder 2748:2748 <> x:27
+R2839:2850 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2763:2769 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R2771:2771 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2774:2785 PF_Coq.Core.NuclearSpaces <> sf_seminorms proj
+R2787:2787 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2790:2798 PF_Coq.Core.NuclearSpaces <> lcs_index proj
+R2800:2800 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2802:2807 PF_Coq.Core.NuclearSpaces <> ns_lcs:24 meth
+R2811:2823 PF_Coq.Core.NuclearSpaces <> lcs_seminorms proj
+R2825:2825 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2827:2832 PF_Coq.Core.NuclearSpaces <> ns_lcs:24 meth
+R2835:2835 PF_Coq.Core.NuclearSpaces <> i:25 var
+R2838:2838 PF_Coq.Core.NuclearSpaces <> x:27 var
+R2851:2857 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R2859:2859 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2862:2873 PF_Coq.Core.NuclearSpaces <> sf_seminorms proj
+R2875:2875 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2878:2886 PF_Coq.Core.NuclearSpaces <> lcs_index proj
+R2888:2888 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2890:2895 PF_Coq.Core.NuclearSpaces <> ns_lcs:24 meth
+R2899:2911 PF_Coq.Core.NuclearSpaces <> lcs_seminorms proj
+R2913:2913 PF_Coq.Core.NuclearSpaces <> E:22 var
+R2915:2920 PF_Coq.Core.NuclearSpaces <> ns_lcs:24 meth
+R2923:2923 PF_Coq.Core.NuclearSpaces <> j:26 var
+R2926:2926 PF_Coq.Core.NuclearSpaces <> x:27 var
+R2938:2946 PF_Coq.Core.NuclearSpaces <> IsNuclear def
+def 3081:3090 <> MultiIndex
+R3097:3099 Coq.Init.Datatypes <> nat ind
+binder 3093:3093 <> d:29
+R3105:3107 Coq.Init.Datatypes <> nat ind
+def 3188:3195 <> mi_order
+R3202:3204 Coq.Init.Datatypes <> nat ind
+binder 3198:3198 <> d:30
+R3216:3225 PF_Coq.Core.NuclearSpaces <> MultiIndex def
+R3227:3227 PF_Coq.Core.NuclearSpaces <> d:30 var
+binder 3208:3212 <> alpha:31
+R3232:3234 Coq.Init.Datatypes <> nat ind
+R3239:3243 PF_Coq.Core.NuclearSpaces <> alpha:31 var
+rec 3375:3390 <> SchwartzSeminorm
+proj 3428:3440 <> ss_poly_order
+proj 3487:3500 <> ss_deriv_order
+R3397:3399 Coq.Init.Datatypes <> nat ind
+binder 3393:3393 <> d:32
+R3444:3446 Coq.Init.Datatypes <> nat ind
+R3504:3506 Coq.Init.Datatypes <> nat ind
+rec 3738:3753 <> SchwartzFunction
+proj 3786:3791 <> sf_fun
+proj 3906:3914 <> sf_smooth
+proj 3985:4001 <> sf_rapid_decrease
+R3760:3762 Coq.Init.Datatypes <> nat ind
+binder 3756:3756 <> d:36
+R3796:3799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3795:3795 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3800:3800 PF_Coq.Core.Zeta <> C rec
+R3918:3921 Coq.Init.Logic <> True ind
+R4019:4021 Coq.Init.Datatypes <> nat ind
+binder 4013:4013 <> k:40
+binder 4015:4015 <> l:41
+R4025:4031 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4037:4038 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4036:4036 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4032:4032 <> C:42
+R4040:4043 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4039:4039 PF_Coq.Core.NuclearSpaces <> C:42 var
+prf 4078:4089 <> zero_ge_zero
+R4095:4098 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+prf 4155:4176 <> zero_plus_zero_ge_zero
+R4186:4189 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4182:4184 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+prf 4258:4272 <> C_add_zero_zero
+R4301:4303 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4276:4280 PF_Coq.Core.Zeta <> C_add def
+R4283:4285 PF_Coq.Core.Zeta <> mkC constr
+R4293:4295 PF_Coq.Core.Zeta <> mkC constr
+R4304:4306 PF_Coq.Core.Zeta <> mkC constr
+R4329:4333 PF_Coq.Core.Zeta <> C_add def
+def 4405:4417 <> schwartz_zero
+R4424:4426 Coq.Init.Datatypes <> nat ind
+binder 4420:4420 <> d:44
+R4431:4446 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R4448:4448 PF_Coq.Core.NuclearSpaces <> d:44 var
+R4458:4463 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R4458:4463 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R4458:4463 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R4488:4496 PF_Coq.Core.NuclearSpaces <> sf_smooth proj
+R4488:4496 PF_Coq.Core.NuclearSpaces <> sf_smooth proj
+R4506:4522 PF_Coq.Core.NuclearSpaces <> sf_rapid_decrease proj
+R4506:4522 PF_Coq.Core.NuclearSpaces <> sf_rapid_decrease proj
+R4477:4479 PF_Coq.Core.Zeta <> mkC constr
+R4501:4501 Coq.Init.Logic <> I constr
+binder 4531:4531 <> k:45
+binder 4533:4533 <> l:46
+R4538:4545 Coq.Init.Logic <> ex_intro constr
+R4567:4578 PF_Coq.Core.NuclearSpaces <> zero_ge_zero thm
+binder 4552:4552 <> C:47
+R4558:4561 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4557:4557 PF_Coq.Core.NuclearSpaces <> C:47 var
+def 4634:4645 <> schwartz_add
+R4652:4654 Coq.Init.Datatypes <> nat ind
+binder 4648:4648 <> d:48
+R4664:4679 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R4681:4681 PF_Coq.Core.NuclearSpaces <> d:48 var
+binder 4658:4658 <> f:49
+binder 4660:4660 <> g:50
+R4686:4701 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R4703:4703 PF_Coq.Core.NuclearSpaces <> d:48 var
+R4713:4718 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R4713:4718 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R4713:4718 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R4771:4779 PF_Coq.Core.NuclearSpaces <> sf_smooth proj
+R4771:4779 PF_Coq.Core.NuclearSpaces <> sf_smooth proj
+R4789:4805 PF_Coq.Core.NuclearSpaces <> sf_rapid_decrease proj
+R4789:4805 PF_Coq.Core.NuclearSpaces <> sf_rapid_decrease proj
+binder 4727:4727 <> x:51
+R4732:4736 PF_Coq.Core.Zeta <> C_add def
+R4739:4744 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R4746:4746 PF_Coq.Core.NuclearSpaces <> d:48 var
+R4748:4748 PF_Coq.Core.NuclearSpaces <> f:49 var
+R4750:4750 PF_Coq.Core.NuclearSpaces <> x:51 var
+R4754:4759 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R4761:4761 PF_Coq.Core.NuclearSpaces <> d:48 var
+R4763:4763 PF_Coq.Core.NuclearSpaces <> g:50 var
+R4765:4765 PF_Coq.Core.NuclearSpaces <> x:51 var
+R4784:4784 Coq.Init.Logic <> I constr
+binder 4814:4814 <> k:52
+binder 4816:4816 <> l:53
+R4821:4828 Coq.Init.Logic <> ex_intro constr
+R4850:4861 PF_Coq.Core.NuclearSpaces <> zero_ge_zero thm
+binder 4835:4835 <> C:54
+R4841:4844 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4840:4840 PF_Coq.Core.NuclearSpaces <> C:54 var
+def 4930:4942 <> schwartz_smul
+R4949:4951 Coq.Init.Datatypes <> nat ind
+binder 4945:4945 <> d:55
+R4959:4959 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4955:4955 <> c:56
+R4967:4982 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R4984:4984 PF_Coq.Core.NuclearSpaces <> d:55 var
+binder 4963:4963 <> f:57
+R4989:5004 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R5006:5006 PF_Coq.Core.NuclearSpaces <> d:55 var
+R5016:5021 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R5016:5021 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R5016:5021 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R5070:5078 PF_Coq.Core.NuclearSpaces <> sf_smooth proj
+R5070:5078 PF_Coq.Core.NuclearSpaces <> sf_smooth proj
+R5088:5104 PF_Coq.Core.NuclearSpaces <> sf_rapid_decrease proj
+R5088:5104 PF_Coq.Core.NuclearSpaces <> sf_rapid_decrease proj
+binder 5030:5030 <> x:58
+R5035:5039 PF_Coq.Core.Zeta <> C_mul def
+R5042:5047 PF_Coq.Core.Zeta <> C_of_R def
+R5049:5049 PF_Coq.Core.NuclearSpaces <> c:56 var
+R5053:5058 PF_Coq.Core.NuclearSpaces <> sf_fun proj
+R5060:5060 PF_Coq.Core.NuclearSpaces <> d:55 var
+R5062:5062 PF_Coq.Core.NuclearSpaces <> f:57 var
+R5064:5064 PF_Coq.Core.NuclearSpaces <> x:58 var
+R5083:5083 Coq.Init.Logic <> I constr
+binder 5113:5113 <> k:59
+binder 5115:5115 <> l:60
+R5120:5127 Coq.Init.Logic <> ex_intro constr
+R5149:5160 PF_Coq.Core.NuclearSpaces <> zero_ge_zero thm
+binder 5134:5134 <> C:61
+R5140:5143 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5139:5139 PF_Coq.Core.NuclearSpaces <> C:61 var
+def 5281:5297 <> schwartz_seminorm
+R5304:5306 Coq.Init.Datatypes <> nat ind
+binder 5300:5300 <> d:62
+R5318:5320 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5315:5317 Coq.Init.Datatypes <> nat ind
+R5321:5323 Coq.Init.Datatypes <> nat ind
+binder 5310:5311 <> kl:63
+R5328:5335 PF_Coq.Core.NuclearSpaces <> Seminorm rec
+R5338:5353 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R5355:5355 PF_Coq.Core.NuclearSpaces <> d:62 var
+R5366:5372 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R5366:5372 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R5366:5372 PF_Coq.Core.NuclearSpaces <> sem_fun proj
+R5446:5455 PF_Coq.Core.NuclearSpaces <> sem_nonneg proj
+R5446:5455 PF_Coq.Core.NuclearSpaces <> sem_nonneg proj
+R5485:5496 PF_Coq.Core.NuclearSpaces <> sem_triangle proj
+R5485:5496 PF_Coq.Core.NuclearSpaces <> sem_triangle proj
+R5469:5480 PF_Coq.Core.NuclearSpaces <> zero_ge_zero thm
+R5512:5533 PF_Coq.Core.NuclearSpaces <> zero_plus_zero_ge_zero thm
+def 5583:5606 <> schwartz_seminorm_family
+R5613:5615 Coq.Init.Datatypes <> nat ind
+binder 5609:5609 <> d:64
+R5620:5633 PF_Coq.Core.NuclearSpaces <> SeminormFamily rec
+R5636:5651 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R5653:5653 PF_Coq.Core.NuclearSpaces <> d:64 var
+R5660:5662 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5657:5659 Coq.Init.Datatypes <> nat ind
+R5663:5665 Coq.Init.Datatypes <> nat ind
+R5686:5701 PF_Coq.Core.NuclearSpaces <> mkSeminormFamily constr
+R5708:5724 PF_Coq.Core.NuclearSpaces <> schwartz_seminorm def
+R5686:5701 PF_Coq.Core.NuclearSpaces <> mkSeminormFamily constr
+R5708:5724 PF_Coq.Core.NuclearSpaces <> schwartz_seminorm def
+R5768:5768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5778:5779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5789:5789 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5769:5771 Coq.Init.Peano <> max abbrev
+R5780:5782 Coq.Init.Peano <> max abbrev
+R5768:5768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5778:5779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5789:5789 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5769:5771 Coq.Init.Peano <> max abbrev
+R5780:5782 Coq.Init.Peano <> max abbrev
+def 5890:5901 <> schwartz_lcs
+R5908:5910 Coq.Init.Datatypes <> nat ind
+binder 5904:5904 <> d:65
+R5915:5932 PF_Coq.Core.NuclearSpaces <> LocallyConvexSpace rec
+R5935:5950 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R5952:5952 PF_Coq.Core.NuclearSpaces <> d:65 var
+R5963:5971 PF_Coq.Core.NuclearSpaces <> lcs_index proj
+R5963:5971 PF_Coq.Core.NuclearSpaces <> lcs_index proj
+R5963:5971 PF_Coq.Core.NuclearSpaces <> lcs_index proj
+R5989:6001 PF_Coq.Core.NuclearSpaces <> lcs_seminorms proj
+R5989:6001 PF_Coq.Core.NuclearSpaces <> lcs_seminorms proj
+R5979:5981 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R5976:5978 Coq.Init.Datatypes <> nat ind
+R5982:5984 Coq.Init.Datatypes <> nat ind
+R6006:6029 PF_Coq.Core.NuclearSpaces <> schwartz_seminorm_family def
+R6031:6031 PF_Coq.Core.NuclearSpaces <> d:65 var
+prf 6522:6540 <> schwartz_is_nuclear
+R6555:6557 Coq.Init.Datatypes <> nat ind
+binder 6551:6551 <> d:66
+R6562:6569 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6608:6610 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6575:6586 PF_Coq.Core.NuclearSpaces <> NuclearSpace rec
+R6589:6604 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R6606:6606 PF_Coq.Core.NuclearSpaces <> d:66 var
+binder 6570:6571 <> ns:67
+R6611:6614 Coq.Init.Logic <> True ind
+R6688:6695 Coq.Init.Logic <> ex_intro constr
+R6756:6756 Coq.Init.Logic <> I constr
+R6702:6707 PF_Coq.Core.NuclearSpaces <> ns_lcs proj
+R6702:6707 PF_Coq.Core.NuclearSpaces <> ns_lcs proj
+R6702:6707 PF_Coq.Core.NuclearSpaces <> ns_lcs proj
+R6728:6746 PF_Coq.Core.NuclearSpaces <> ns_nuclear_property proj
+R6728:6746 PF_Coq.Core.NuclearSpaces <> ns_nuclear_property proj
+R6712:6723 PF_Coq.Core.NuclearSpaces <> schwartz_lcs def
+R6688:6695 Coq.Init.Logic <> ex_intro constr
+R6756:6756 Coq.Init.Logic <> I constr
+R6702:6707 PF_Coq.Core.NuclearSpaces <> ns_lcs proj
+R6702:6707 PF_Coq.Core.NuclearSpaces <> ns_lcs proj
+R6702:6707 PF_Coq.Core.NuclearSpaces <> ns_lcs proj
+R6728:6746 PF_Coq.Core.NuclearSpaces <> ns_nuclear_property proj
+R6728:6746 PF_Coq.Core.NuclearSpaces <> ns_nuclear_property proj
+R6712:6723 PF_Coq.Core.NuclearSpaces <> schwartz_lcs def
+R6846:6846 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6856:6857 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6867:6867 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6852:6854 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6848:6850 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6863:6865 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6859:6861 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6846:6846 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6856:6857 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6867:6867 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6852:6854 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6848:6850 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6863:6865 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6859:6861 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6982:6990 PF_Coq.Core.NuclearSpaces <> IsNuclear def
+R6993:7008 PF_Coq.Core.NuclearSpaces <> traceNorm_finite def
+R7017:7017 Coq.Init.Logic <> I constr
+R7017:7017 Coq.Init.Logic <> I constr
+rec 7204:7223 <> TemperedDistribution
+proj 7257:7264 <> td_apply
+proj 7314:7326 <> td_linear_add
+proj 7492:7504 <> td_continuous
+R7230:7232 Coq.Init.Datatypes <> nat ind
+binder 7226:7226 <> d:68
+R7286:7289 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7268:7283 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R7285:7285 PF_Coq.Core.NuclearSpaces <> d:68 var
+R7290:7290 PF_Coq.Core.Zeta <> C rec
+binder 7337:7337 <> f:71
+binder 7339:7339 <> g:72
+R7369:7401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7342:7349 PF_Coq.Core.NuclearSpaces <> td_apply:70 meth
+R7352:7363 PF_Coq.Core.NuclearSpaces <> schwartz_add def
+R7367:7367 PF_Coq.Core.NuclearSpaces <> g:72 var
+R7365:7365 PF_Coq.Core.NuclearSpaces <> f:71 var
+R7402:7406 PF_Coq.Core.Zeta <> C_add def
+R7409:7416 PF_Coq.Core.NuclearSpaces <> td_apply:70 meth
+R7418:7418 PF_Coq.Core.NuclearSpaces <> f:71 var
+R7422:7429 PF_Coq.Core.NuclearSpaces <> td_apply:70 meth
+R7431:7431 PF_Coq.Core.NuclearSpaces <> g:72 var
+R7508:7515 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7539:7541 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7522:7524 Coq.Init.Datatypes <> nat ind
+binder 7516:7516 <> k:74
+R7522:7524 Coq.Init.Datatypes <> nat ind
+binder 7518:7518 <> l:75
+R7538:7538 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7528:7534 <> C_bound:76
+R7549:7551 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7542:7548 PF_Coq.Core.NuclearSpaces <> C_bound:76 var
+prf 7606:7625 <> zero_dist_linear_add
+R7641:7643 Coq.Init.Datatypes <> nat ind
+binder 7637:7637 <> d:78
+R7653:7668 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R7670:7670 PF_Coq.Core.NuclearSpaces <> d:78 var
+binder 7647:7647 <> f:79
+binder 7649:7649 <> g:80
+R7683:7685 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7676:7678 PF_Coq.Core.Zeta <> mkC constr
+R7686:7690 PF_Coq.Core.Zeta <> C_add def
+R7693:7695 PF_Coq.Core.Zeta <> mkC constr
+R7703:7705 PF_Coq.Core.Zeta <> mkC constr
+R7746:7760 PF_Coq.Core.NuclearSpaces <> C_add_zero_zero thm
+R7746:7760 PF_Coq.Core.NuclearSpaces <> C_add_zero_zero thm
+def 7805:7817 <> tempered_zero
+R7824:7826 Coq.Init.Datatypes <> nat ind
+binder 7820:7820 <> d:81
+R7831:7850 PF_Coq.Core.NuclearSpaces <> TemperedDistribution rec
+R7852:7852 PF_Coq.Core.NuclearSpaces <> d:81 var
+R7862:7869 PF_Coq.Core.NuclearSpaces <> td_apply proj
+R7862:7869 PF_Coq.Core.NuclearSpaces <> td_apply proj
+R7862:7869 PF_Coq.Core.NuclearSpaces <> td_apply proj
+R7894:7906 PF_Coq.Core.NuclearSpaces <> td_linear_add proj
+R7894:7906 PF_Coq.Core.NuclearSpaces <> td_linear_add proj
+R7948:7960 PF_Coq.Core.NuclearSpaces <> td_continuous proj
+R7948:7960 PF_Coq.Core.NuclearSpaces <> td_continuous proj
+R7883:7885 PF_Coq.Core.Zeta <> mkC constr
+R7922:7927 Coq.Init.Logic <> eq_sym thm
+R7929:7943 PF_Coq.Core.NuclearSpaces <> C_add_zero_zero thm
+R7965:7972 Coq.Init.Logic <> ex_intro constr
+R7983:7990 Coq.Init.Logic <> ex_intro constr
+R8001:8008 Coq.Init.Logic <> ex_intro constr
+R8014:8020 Coq.Reals.RIneq <> Rlt_0_1 thm
+def 8064:8070 <> td_pair
+R8077:8079 Coq.Init.Datatypes <> nat ind
+binder 8073:8073 <> d:82
+R8087:8106 PF_Coq.Core.NuclearSpaces <> TemperedDistribution rec
+R8108:8108 PF_Coq.Core.NuclearSpaces <> d:82 var
+binder 8083:8083 <> T:83
+R8116:8131 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R8133:8133 PF_Coq.Core.NuclearSpaces <> d:82 var
+binder 8112:8112 <> f:84
+R8138:8138 PF_Coq.Core.Zeta <> C rec
+R8145:8152 PF_Coq.Core.NuclearSpaces <> td_apply proj
+R8154:8154 PF_Coq.Core.NuclearSpaces <> d:82 var
+R8156:8156 PF_Coq.Core.NuclearSpaces <> T:83 var
+R8158:8158 PF_Coq.Core.NuclearSpaces <> f:84 var
+rec 8390:8400 <> CylinderSet
+proj 8433:8436 <> cs_n
+proj 8516:8532 <> cs_test_functions
+proj 8593:8604 <> cs_borel_set
+R8407:8409 Coq.Init.Datatypes <> nat ind
+binder 8403:8403 <> d:85
+R8440:8442 Coq.Init.Datatypes <> nat ind
+R8539:8542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8536:8538 Coq.Init.Datatypes <> nat ind
+R8543:8558 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R8560:8560 PF_Coq.Core.NuclearSpaces <> d:85 var
+R8608:8608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8617:8621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8612:8615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8609:8611 Coq.Init.Datatypes <> nat ind
+R8616:8616 PF_Coq.Core.Zeta <> C rec
+def 8862:8889 <> in_cylindrical_sigma_algebra
+R8896:8898 Coq.Init.Datatypes <> nat ind
+binder 8892:8892 <> d:90
+R8932:8935 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8910:8929 PF_Coq.Core.NuclearSpaces <> TemperedDistribution rec
+R8931:8931 PF_Coq.Core.NuclearSpaces <> d:90 var
+binder 8906:8906 <> A:91
+R8954:8961 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8981:8987 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8968:8978 PF_Coq.Core.NuclearSpaces <> CylinderSet rec
+R8980:8980 PF_Coq.Core.NuclearSpaces <> d:90 var
+binder 8962:8964 <> cyl:92
+R8989:8991 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8988:8988 PF_Coq.Core.NuclearSpaces <> A:91 var
+binder 8996:9000 <> omega:93
+R9005:9016 PF_Coq.Core.NuclearSpaces <> cs_borel_set proj
+R9018:9018 PF_Coq.Core.NuclearSpaces <> d:90 var
+R9020:9022 PF_Coq.Core.NuclearSpaces <> cyl:92 var
+binder 9029:9029 <> i:94
+R9034:9040 PF_Coq.Core.NuclearSpaces <> td_pair def
+R9049:9065 PF_Coq.Core.NuclearSpaces <> cs_test_functions proj
+R9067:9067 PF_Coq.Core.NuclearSpaces <> d:90 var
+R9069:9071 PF_Coq.Core.NuclearSpaces <> cyl:92 var
+R9073:9073 PF_Coq.Core.NuclearSpaces <> i:94 var
+R9042:9046 PF_Coq.Core.NuclearSpaces <> omega:93 var
+rec 9483:9506 <> CharacteristicFunctional
+proj 9536:9543 <> cf_apply
+proj 9574:9586 <> cf_normalized
+proj 9630:9642 <> cf_continuous
+proj 9686:9705 <> cf_positive_definite
+R9513:9515 Coq.Init.Datatypes <> nat ind
+binder 9509:9509 <> d:95
+R9565:9568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9547:9562 PF_Coq.Core.NuclearSpaces <> SchwartzFunction rec
+R9564:9564 PF_Coq.Core.NuclearSpaces <> d:95 var
+R9569:9569 PF_Coq.Core.Zeta <> C rec
+R9616:9618 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9590:9597 PF_Coq.Core.NuclearSpaces <> cf_apply:97 meth
+R9600:9612 PF_Coq.Core.NuclearSpaces <> schwartz_zero def
+R9614:9614 PF_Coq.Core.NuclearSpaces <> d:95 var
+R9619:9621 PF_Coq.Core.Zeta <> mkC constr
+R9646:9649 Coq.Init.Logic <> True ind
+R9709:9712 Coq.Init.Logic <> True ind
+ax 10218:10241 <> bochner_minlos_existence
+R10259:10261 Coq.Init.Datatypes <> nat ind
+binder 10255:10255 <> d:101
+R10270:10293 PF_Coq.Core.NuclearSpaces <> CharacteristicFunctional rec
+R10295:10295 PF_Coq.Core.NuclearSpaces <> d:101 var
+binder 10265:10266 <> cf:102
+R10301:10308 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10344:10388 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10336:10339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10314:10333 PF_Coq.Core.NuclearSpaces <> TemperedDistribution rec
+R10335:10335 PF_Coq.Core.NuclearSpaces <> d:101 var
+binder 10309:10310 <> mu:103
+R10393:10452 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10389:10392 Coq.Init.Logic <> True ind
+R10453:10456 Coq.Init.Logic <> True ind
+def 10880:10913 <> gaussian_characteristic_functional
+R10920:10922 Coq.Init.Datatypes <> nat ind
+binder 10916:10916 <> d:105
+R10927:10950 PF_Coq.Core.NuclearSpaces <> CharacteristicFunctional rec
+R10952:10952 PF_Coq.Core.NuclearSpaces <> d:105 var
+R10962:10969 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R10962:10969 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R10962:10969 PF_Coq.Core.NuclearSpaces <> cf_apply proj
+R11042:11054 PF_Coq.Core.NuclearSpaces <> cf_normalized proj
+R11042:11054 PF_Coq.Core.NuclearSpaces <> cf_normalized proj
+R11070:11082 PF_Coq.Core.NuclearSpaces <> cf_continuous proj
+R11070:11082 PF_Coq.Core.NuclearSpaces <> cf_continuous proj
+R11092:11111 PF_Coq.Core.NuclearSpaces <> cf_positive_definite proj
+R11092:11111 PF_Coq.Core.NuclearSpaces <> cf_positive_definite proj
+R10983:10985 PF_Coq.Core.Zeta <> mkC constr
+R11059:11065 Coq.Init.Logic <> eq_refl constr
+R11087:11087 Coq.Init.Logic <> I constr
+R11116:11116 Coq.Init.Logic <> I constr
+def 11164:11191 <> nuclear_spaces_theorem_count
+R11195:11197 Coq.Init.Datatypes <> nat ind
+def 11216:11241 <> nuclear_spaces_axiom_count
+R11245:11247 Coq.Init.Datatypes <> nat ind

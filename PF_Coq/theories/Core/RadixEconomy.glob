@@ -1,0 +1,354 @@
+DIGEST 55f0239b273a64886882258ffe870b23
+FPF_Coq.Core.RadixEconomy
+R394:408 Coq.Reals.Reals <> <> lib
+R426:442 Coq.micromega.Lra <> <> lib
+R460:476 Coq.micromega.Lia <> <> lib
+R494:511 Coq.Arith.PeanoNat <> <> lib
+def 637:649 <> radix_economy
+R656:656 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 652:652 <> b:1
+R661:661 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R670:672 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R666:667 Coq.Reals.Rpower <> ln def
+R669:669 PF_Coq.Core.RadixEconomy <> b:1 var
+R673:673 PF_Coq.Core.RadixEconomy <> b:1 var
+def 740:758 <> radix_economy_deriv
+R765:765 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 761:761 <> b:2
+R770:770 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R775:775 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R784:788 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R792:792 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R777:779 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R780:781 Coq.Reals.Rpower <> ln def
+R783:783 PF_Coq.Core.RadixEconomy <> b:2 var
+R790:790 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R789:789 PF_Coq.Core.RadixEconomy <> b:2 var
+def 833:833 <> e
+R837:837 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R842:844 Coq.Reals.Rtrigo_def <> exp def
+prf 858:865 <> e_gt_one
+R870:872 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R869:869 PF_Coq.Core.RadixEconomy <> e def
+R892:892 PF_Coq.Core.RadixEconomy <> e def
+R989:991 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R984:986 Coq.Reals.Rtrigo_def <> exp def
+R992:994 Coq.Reals.Rtrigo_def <> exp def
+R1009:1022 Coq.Reals.Rpower <> exp_increasing thm
+R1031:1037 Coq.Reals.RIneq <> Rlt_0_1 thm
+R989:991 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R984:986 Coq.Reals.Rtrigo_def <> exp def
+R992:994 Coq.Reals.Rtrigo_def <> exp def
+R1009:1022 Coq.Reals.Rpower <> exp_increasing thm
+R1031:1037 Coq.Reals.RIneq <> Rlt_0_1 thm
+R1051:1055 Coq.Reals.Rtrigo_def <> exp_0 thm
+R1051:1055 Coq.Reals.Rtrigo_def <> exp_0 thm
+R1051:1055 Coq.Reals.Rtrigo_def <> exp_0 thm
+ax 1116:1123 <> e_bounds
+R1132:1134 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R1136:1138 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R1135:1135 PF_Coq.Core.RadixEconomy <> e def
+R1135:1135 PF_Coq.Core.RadixEconomy <> e def
+prf 1238:1246 <> ln_e_eq_1
+R1254:1256 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1250:1251 Coq.Reals.Rpower <> ln def
+R1253:1253 PF_Coq.Core.RadixEconomy <> e def
+R1276:1276 PF_Coq.Core.RadixEconomy <> e def
+R1287:1292 Coq.Reals.Rpower <> ln_exp thm
+R1287:1292 Coq.Reals.Rpower <> ln_exp thm
+prf 1412:1439 <> radix_economy_critical_point
+R1464:1466 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1443:1461 PF_Coq.Core.RadixEconomy <> radix_economy_deriv def
+R1463:1463 PF_Coq.Core.RadixEconomy <> e def
+R1486:1504 PF_Coq.Core.RadixEconomy <> radix_economy_deriv def
+R1517:1525 PF_Coq.Core.RadixEconomy <> ln_e_eq_1 thm
+R1517:1525 PF_Coq.Core.RadixEconomy <> ln_e_eq_1 thm
+R1517:1525 PF_Coq.Core.RadixEconomy <> ln_e_eq_1 thm
+R1645:1647 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1644:1644 PF_Coq.Core.RadixEconomy <> e def
+R1661:1669 Coq.Reals.Raxioms <> Rlt_trans thm
+R1692:1699 PF_Coq.Core.RadixEconomy <> e_gt_one thm
+R1645:1647 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1644:1644 PF_Coq.Core.RadixEconomy <> e def
+R1661:1669 Coq.Reals.Raxioms <> Rlt_trans thm
+R1692:1699 PF_Coq.Core.RadixEconomy <> e_gt_one thm
+R1727:1729 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1725:1725 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1724:1724 PF_Coq.Core.RadixEconomy <> e def
+R1727:1729 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1725:1725 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R1724:1724 PF_Coq.Core.RadixEconomy <> e def
+R1745:1747 Coq.Reals.Rpow_def <> pow def
+R1767:1783 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R1767:1783 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R1815:1831 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R1815:1831 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+ax 1922:1943 <> radix_economy_max_at_e
+binder 1954:1954 <> b:4
+R1962:1965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1958:1960 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1957:1957 PF_Coq.Core.RadixEconomy <> b:4 var
+R1972:1977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1967:1970 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1966:1966 PF_Coq.Core.RadixEconomy <> b:4 var
+R1971:1971 PF_Coq.Core.RadixEconomy <> e def
+R1993:1995 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1978:1990 PF_Coq.Core.RadixEconomy <> radix_economy def
+R1992:1992 PF_Coq.Core.RadixEconomy <> b:4 var
+R1996:2008 PF_Coq.Core.RadixEconomy <> radix_economy def
+R2010:2010 PF_Coq.Core.RadixEconomy <> e def
+def 2126:2128 <> Q_2
+R2132:2132 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2137:2149 PF_Coq.Core.RadixEconomy <> radix_economy def
+def 2165:2167 <> Q_3
+R2171:2171 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2176:2188 PF_Coq.Core.RadixEconomy <> radix_economy def
+def 2204:2206 <> Q_4
+R2210:2210 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2215:2227 PF_Coq.Core.RadixEconomy <> radix_economy def
+ax 2262:2270 <> Q_2_value
+R2280:2282 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R2286:2288 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R2283:2285 PF_Coq.Core.RadixEconomy <> Q_2 def
+R2283:2285 PF_Coq.Core.RadixEconomy <> Q_2 def
+ax 2327:2335 <> Q_3_value
+R2345:2347 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R2351:2353 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R2348:2350 PF_Coq.Core.RadixEconomy <> Q_3 def
+R2348:2350 PF_Coq.Core.RadixEconomy <> Q_3 def
+ax 2392:2400 <> Q_4_value
+R2410:2412 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R2416:2418 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R2413:2415 PF_Coq.Core.RadixEconomy <> Q_4 def
+R2413:2415 PF_Coq.Core.RadixEconomy <> Q_4 def
+prf 2512:2521 <> Q_3_gt_Q_2
+R2528:2530 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2525:2527 PF_Coq.Core.RadixEconomy <> Q_3 def
+R2531:2533 PF_Coq.Core.RadixEconomy <> Q_2 def
+R2554:2562 PF_Coq.Core.RadixEconomy <> Q_3_value prfax
+R2588:2596 PF_Coq.Core.RadixEconomy <> Q_2_value prfax
+prf 2672:2681 <> Q_3_gt_Q_4
+R2688:2690 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2685:2687 PF_Coq.Core.RadixEconomy <> Q_3 def
+R2691:2693 PF_Coq.Core.RadixEconomy <> Q_4 def
+R2714:2722 PF_Coq.Core.RadixEconomy <> Q_3_value prfax
+R2748:2756 PF_Coq.Core.RadixEconomy <> Q_4_value prfax
+ax 2824:2842 <> Q_decreasing_from_4
+binder 2853:2853 <> b:9
+R2862:2865 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2857:2860 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R2856:2856 PF_Coq.Core.RadixEconomy <> b:9 var
+R2881:2884 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R2866:2878 PF_Coq.Core.RadixEconomy <> radix_economy def
+R2885:2897 PF_Coq.Core.RadixEconomy <> radix_economy def
+R2899:2899 PF_Coq.Core.RadixEconomy <> b:9 var
+prf 3005:3025 <> base3_optimal_integer
+R3041:3043 Coq.Init.Datatypes <> nat ind
+binder 3037:3037 <> b:11
+R3061:3064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3051:3054 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3050:3050 PF_Coq.Core.RadixEconomy <> b:11 var
+R3075:3080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3066:3069 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3065:3065 PF_Coq.Core.RadixEconomy <> b:11 var
+R3084:3086 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3081:3083 PF_Coq.Core.RadixEconomy <> Q_3 def
+R3087:3099 PF_Coq.Core.RadixEconomy <> radix_economy def
+R3102:3104 Coq.Reals.Raxioms <> INR def
+R3106:3106 PF_Coq.Core.RadixEconomy <> b:11 var
+R3151:3160 Coq.Arith.PeanoNat Nat eq_dec thm
+R3151:3160 Coq.Arith.PeanoNat Nat eq_dec thm
+R3214:3216 PF_Coq.Core.RadixEconomy <> Q_2 def
+R3219:3221 PF_Coq.Core.RadixEconomy <> Q_3 def
+R3247:3249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3242:3244 Coq.Reals.Raxioms <> INR def
+R3247:3249 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3242:3244 Coq.Reals.Raxioms <> INR def
+R3293:3295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3288:3290 Coq.Reals.Raxioms <> INR def
+R3293:3295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3288:3290 Coq.Reals.Raxioms <> INR def
+R3347:3355 PF_Coq.Core.RadixEconomy <> Q_3_value prfax
+R3383:3391 PF_Coq.Core.RadixEconomy <> Q_2_value prfax
+R3417:3419 PF_Coq.Core.RadixEconomy <> Q_3 def
+R3422:3424 PF_Coq.Core.RadixEconomy <> Q_2 def
+R3451:3460 Coq.Arith.PeanoNat Nat eq_dec thm
+R3451:3460 Coq.Arith.PeanoNat Nat eq_dec thm
+R3518:3520 PF_Coq.Core.RadixEconomy <> Q_4 def
+R3523:3525 PF_Coq.Core.RadixEconomy <> Q_3 def
+R3553:3555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3548:3550 Coq.Reals.Raxioms <> INR def
+R3553:3555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3548:3550 Coq.Reals.Raxioms <> INR def
+R3611:3619 PF_Coq.Core.RadixEconomy <> Q_3_value prfax
+R3649:3657 PF_Coq.Core.RadixEconomy <> Q_4_value prfax
+R3685:3687 PF_Coq.Core.RadixEconomy <> Q_3 def
+R3690:3692 PF_Coq.Core.RadixEconomy <> Q_4 def
+R3768:3771 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3768:3771 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3817:3820 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R3812:3814 Coq.Reals.Raxioms <> INR def
+R3817:3820 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R3812:3814 Coq.Reals.Raxioms <> INR def
+R3839:3844 Coq.Reals.RIneq <> le_INR thm
+R3839:3844 Coq.Reals.RIneq <> le_INR thm
+R3892:3900 PF_Coq.Core.RadixEconomy <> Q_3_value prfax
+R3930:3938 PF_Coq.Core.RadixEconomy <> Q_4_value prfax
+R3991:3994 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R3976:3988 PF_Coq.Core.RadixEconomy <> radix_economy def
+R3995:4007 PF_Coq.Core.RadixEconomy <> radix_economy def
+R4010:4012 Coq.Reals.Raxioms <> INR def
+R3991:3994 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R3976:3988 PF_Coq.Core.RadixEconomy <> radix_economy def
+R3995:4007 PF_Coq.Core.RadixEconomy <> radix_economy def
+R4010:4012 Coq.Reals.Raxioms <> INR def
+R4033:4051 PF_Coq.Core.RadixEconomy <> Q_decreasing_from_4 prfax
+R4033:4051 PF_Coq.Core.RadixEconomy <> Q_decreasing_from_4 prfax
+R4084:4086 PF_Coq.Core.RadixEconomy <> Q_4 def
+prf 4180:4197 <> ternary_optimality
+R4213:4215 Coq.Init.Datatypes <> nat ind
+binder 4209:4209 <> b:12
+R4233:4236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4223:4226 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4222:4222 PF_Coq.Core.RadixEconomy <> b:12 var
+R4240:4243 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4237:4239 PF_Coq.Core.RadixEconomy <> Q_3 def
+R4244:4256 PF_Coq.Core.RadixEconomy <> radix_economy def
+R4259:4261 Coq.Reals.Raxioms <> INR def
+R4263:4263 PF_Coq.Core.RadixEconomy <> b:12 var
+R4303:4312 Coq.Arith.PeanoNat Nat eq_dec thm
+R4303:4312 Coq.Arith.PeanoNat Nat eq_dec thm
+R4376:4378 PF_Coq.Core.RadixEconomy <> Q_3 def
+R4404:4406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4399:4401 Coq.Reals.Raxioms <> INR def
+R4404:4406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4399:4401 Coq.Reals.Raxioms <> INR def
+R4502:4522 PF_Coq.Core.RadixEconomy <> base3_optimal_integer thm
+R4502:4522 PF_Coq.Core.RadixEconomy <> base3_optimal_integer thm
+prf 4661:4677 <> nature_uses_base3
+R4683:4691 Coq.Init.Logic <> ::type_scope:'exists'_'!'_x_'..'_x_','_x not
+R4699:4701 Coq.Init.Logic <> ::type_scope:'exists'_'!'_x_'..'_x_','_x not
+R4696:4698 Coq.Init.Datatypes <> nat ind
+binder 4692:4692 <> b:13
+R4714:4721 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4704:4707 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4703:4703 PF_Coq.Core.RadixEconomy <> b:13 var
+binder 4729:4730 <> b':14
+R4746:4749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4736:4739 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4734:4735 PF_Coq.Core.RadixEconomy <> b':14 var
+R4757:4766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4752:4755 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4750:4751 PF_Coq.Core.RadixEconomy <> b':14 var
+R4756:4756 PF_Coq.Core.RadixEconomy <> b:13 var
+R4788:4790 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4767:4779 PF_Coq.Core.RadixEconomy <> radix_economy def
+R4782:4784 Coq.Reals.Raxioms <> INR def
+R4786:4786 PF_Coq.Core.RadixEconomy <> b:13 var
+R4791:4803 PF_Coq.Core.RadixEconomy <> radix_economy def
+R4806:4808 Coq.Reals.Raxioms <> INR def
+R4810:4811 PF_Coq.Core.RadixEconomy <> b':14 var
+R4944:4946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4939:4941 Coq.Reals.Raxioms <> INR def
+R4944:4946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4939:4941 Coq.Reals.Raxioms <> INR def
+R5012:5014 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5009:5011 PF_Coq.Core.RadixEconomy <> Q_3 def
+R5015:5027 PF_Coq.Core.RadixEconomy <> radix_economy def
+R5030:5032 Coq.Reals.Raxioms <> INR def
+R5012:5014 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5009:5011 PF_Coq.Core.RadixEconomy <> Q_3 def
+R5015:5027 PF_Coq.Core.RadixEconomy <> radix_economy def
+R5030:5032 Coq.Reals.Raxioms <> INR def
+R5054:5074 PF_Coq.Core.RadixEconomy <> base3_optimal_integer thm
+R5054:5074 PF_Coq.Core.RadixEconomy <> base3_optimal_integer thm
+R5112:5114 PF_Coq.Core.RadixEconomy <> Q_3 def
+R5203:5212 Coq.Arith.PeanoNat Nat eq_dec thm
+R5203:5212 Coq.Arith.PeanoNat Nat eq_dec thm
+R5300:5302 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5297:5299 PF_Coq.Core.RadixEconomy <> Q_3 def
+R5303:5315 PF_Coq.Core.RadixEconomy <> radix_economy def
+R5318:5320 Coq.Reals.Raxioms <> INR def
+R5300:5302 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5297:5299 PF_Coq.Core.RadixEconomy <> Q_3 def
+R5303:5315 PF_Coq.Core.RadixEconomy <> radix_economy def
+R5318:5320 Coq.Reals.Raxioms <> INR def
+R5342:5362 PF_Coq.Core.RadixEconomy <> base3_optimal_integer thm
+R5342:5362 PF_Coq.Core.RadixEconomy <> base3_optimal_integer thm
+R5404:5406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5399:5401 Coq.Reals.Raxioms <> INR def
+R5404:5406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5399:5401 Coq.Reals.Raxioms <> INR def
+R5472:5474 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5450:5462 PF_Coq.Core.RadixEconomy <> radix_economy def
+R5465:5467 Coq.Reals.Raxioms <> INR def
+R5475:5477 PF_Coq.Core.RadixEconomy <> Q_3 def
+R5472:5474 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5450:5462 PF_Coq.Core.RadixEconomy <> radix_economy def
+R5465:5467 Coq.Reals.Raxioms <> INR def
+R5475:5477 PF_Coq.Core.RadixEconomy <> Q_3 def
+R5496:5498 PF_Coq.Core.RadixEconomy <> Q_3 def
+def 5912:5932 <> D3_optimality_summary
+R5979:5979 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6042:6089 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5987:5987 <> b:15
+R5995:5998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5991:5993 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5990:5990 PF_Coq.Core.RadixEconomy <> b:15 var
+R6005:6008 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6000:6003 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5999:5999 PF_Coq.Core.RadixEconomy <> b:15 var
+R6004:6004 PF_Coq.Core.RadixEconomy <> e def
+R6024:6026 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6009:6021 PF_Coq.Core.RadixEconomy <> radix_economy def
+R6023:6023 PF_Coq.Core.RadixEconomy <> b:15 var
+R6027:6039 PF_Coq.Core.RadixEconomy <> radix_economy def
+R6041:6041 PF_Coq.Core.RadixEconomy <> e def
+R6090:6090 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6151:6194 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6317:6317 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6102:6104 Coq.Init.Datatypes <> nat ind
+binder 6098:6098 <> b:16
+R6119:6122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6109:6112 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6108:6108 PF_Coq.Core.RadixEconomy <> b:16 var
+R6126:6129 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6123:6125 PF_Coq.Core.RadixEconomy <> Q_3 def
+R6130:6142 PF_Coq.Core.RadixEconomy <> radix_economy def
+R6145:6147 Coq.Reals.Raxioms <> INR def
+R6149:6149 PF_Coq.Core.RadixEconomy <> b:16 var
+R6195:6202 Coq.Init.Logic <> ::type_scope:'exists'_'!'_x_'..'_x_','_x not
+R6210:6211 Coq.Init.Logic <> ::type_scope:'exists'_'!'_x_'..'_x_','_x not
+R6207:6209 Coq.Init.Datatypes <> nat ind
+binder 6203:6203 <> b:17
+R6224:6227 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6214:6217 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6213:6213 PF_Coq.Core.RadixEconomy <> b:17 var
+binder 6235:6236 <> b':18
+R6252:6255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6242:6245 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6240:6241 PF_Coq.Core.RadixEconomy <> b':18 var
+R6263:6270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6258:6261 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6256:6257 PF_Coq.Core.RadixEconomy <> b':18 var
+R6262:6262 PF_Coq.Core.RadixEconomy <> b:17 var
+R6292:6294 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6271:6283 PF_Coq.Core.RadixEconomy <> radix_economy def
+R6286:6288 Coq.Reals.Raxioms <> INR def
+R6290:6290 PF_Coq.Core.RadixEconomy <> b:17 var
+R6295:6307 PF_Coq.Core.RadixEconomy <> radix_economy def
+R6310:6312 Coq.Reals.Raxioms <> INR def
+R6314:6315 PF_Coq.Core.RadixEconomy <> b':18 var
+prf 6329:6341 <> D3_optimality
+R6345:6365 PF_Coq.Core.RadixEconomy <> D3_optimality_summary def
+R6384:6404 PF_Coq.Core.RadixEconomy <> D3_optimality_summary def
+R6433:6454 PF_Coq.Core.RadixEconomy <> radix_economy_max_at_e prfax
+R6433:6454 PF_Coq.Core.RadixEconomy <> radix_economy_max_at_e prfax
+R6467:6484 PF_Coq.Core.RadixEconomy <> ternary_optimality thm
+R6467:6484 PF_Coq.Core.RadixEconomy <> ternary_optimality thm
+R6497:6513 PF_Coq.Core.RadixEconomy <> nature_uses_base3 thm
+R6497:6513 PF_Coq.Core.RadixEconomy <> nature_uses_base3 thm
+def 6638:6664 <> radix_economy_theorem_count
+R6668:6670 Coq.Init.Datatypes <> nat ind
+def 6723:6747 <> radix_economy_axiom_count
+R6751:6753 Coq.Init.Datatypes <> nat ind

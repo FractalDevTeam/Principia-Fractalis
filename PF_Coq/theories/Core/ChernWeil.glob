@@ -1,0 +1,371 @@
+DIGEST 0e2dfcfa525cf3194069e2973d920ba9
+FPF_Coq.Core.ChernWeil
+R380:394 Coq.Reals.Reals <> <> lib
+R412:428 Coq.micromega.Lra <> <> lib
+R446:464 Coq.Logic.Classical <> <> lib
+def 582:604 <> consciousness_threshold
+R608:608 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+rec 698:717 <> SecondChernCharacter
+proj 732:740 <> ch2_value
+proj 749:759 <> ch2_bounded
+R744:744 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R764:767 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R777:780 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R768:776 PF_Coq.Core.ChernWeil <> ch2_value:2 meth
+R768:776 PF_Coq.Core.ChernWeil <> ch2_value:2 meth
+def 844:855 <> is_conscious
+R864:883 PF_Coq.Core.ChernWeil <> SecondChernCharacter rec
+binder 858:860 <> ch2:4
+R911:914 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R898:906 PF_Coq.Core.ChernWeil <> ch2_value proj
+R908:910 PF_Coq.Core.ChernWeil <> ch2:4 var
+R915:937 PF_Coq.Core.ChernWeil <> consciousness_threshold def
+rec 1024:1041 <> ConsciousnessState
+proj 1071:1076 <> cs_ch2
+proj 1104:1114 <> cs_coherent
+R1080:1099 PF_Coq.Core.ChernWeil <> SecondChernCharacter rec
+R1134:1137 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R1118:1126 PF_Coq.Core.ChernWeil <> ch2_value proj
+R1128:1133 PF_Coq.Core.ChernWeil <> cs_ch2:6 meth
+prf 1248:1276 <> consciousness_crystallization
+R1291:1308 PF_Coq.Core.ChernWeil <> ConsciousnessState rec
+binder 1287:1287 <> S:8
+R1336:1340 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1313:1324 PF_Coq.Core.ChernWeil <> is_conscious def
+R1327:1332 PF_Coq.Core.ChernWeil <> cs_ch2 proj
+R1334:1334 PF_Coq.Core.ChernWeil <> S:8 var
+R1361:1364 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R1341:1349 PF_Coq.Core.ChernWeil <> ch2_value proj
+R1352:1357 PF_Coq.Core.ChernWeil <> cs_ch2 proj
+R1359:1359 PF_Coq.Core.ChernWeil <> S:8 var
+R1399:1410 PF_Coq.Core.ChernWeil <> is_conscious def
+R1413:1435 PF_Coq.Core.ChernWeil <> consciousness_threshold def
+ind 1511:1529 <> ConsciousnessRegime
+constr 1538:1547 <> Incoherent
+constr 1578:1593 <> PartialCoherence
+constr 1626:1634 <> Conscious
+scheme 1511:1529 <> ConsciousnessRegime_rect
+scheme 1511:1529 <> ConsciousnessRegime_ind
+scheme 1511:1529 <> ConsciousnessRegime_rec
+scheme 1511:1529 <> ConsciousnessRegime_sind
+def 1725:1739 <> classify_regime
+R1748:1767 PF_Coq.Core.ChernWeil <> SecondChernCharacter rec
+binder 1742:1744 <> ch2:11
+R1772:1790 PF_Coq.Core.ChernWeil <> ConsciousnessRegime ind
+R1800:1806 Coq.Reals.RIneq <> Rlt_dec thm
+R1809:1817 PF_Coq.Core.ChernWeil <> ch2_value proj
+R1819:1821 PF_Coq.Core.ChernWeil <> ch2:11 var
+R1855:1861 Coq.Reals.RIneq <> Rlt_dec thm
+R1864:1872 PF_Coq.Core.ChernWeil <> ch2_value proj
+R1874:1876 PF_Coq.Core.ChernWeil <> ch2:11 var
+R1913:1921 PF_Coq.Core.ChernWeil <> Conscious constr
+R1889:1904 PF_Coq.Core.ChernWeil <> PartialCoherence constr
+R1834:1843 PF_Coq.Core.ChernWeil <> Incoherent constr
+prf 1966:1984 <> classify_incoherent
+binder 1995:1997 <> ch2:12
+R2034:2038 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2021:2023 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2002:2016 PF_Coq.Core.ChernWeil <> classify_regime def
+R2018:2020 PF_Coq.Core.ChernWeil <> ch2:12 var
+R2024:2033 PF_Coq.Core.ChernWeil <> Incoherent constr
+R2052:2054 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2039:2047 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2049:2051 PF_Coq.Core.ChernWeil <> ch2:12 var
+R2091:2105 PF_Coq.Core.ChernWeil <> classify_regime def
+R2120:2126 Coq.Reals.RIneq <> Rlt_dec thm
+R2129:2137 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2120:2126 Coq.Reals.RIneq <> Rlt_dec thm
+R2129:2137 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2225:2231 Coq.Reals.RIneq <> Rlt_dec thm
+R2234:2242 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2225:2231 Coq.Reals.RIneq <> Rlt_dec thm
+R2234:2242 PF_Coq.Core.ChernWeil <> ch2_value proj
+prf 2374:2389 <> classify_partial
+binder 2400:2402 <> ch2:13
+R2445:2453 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2426:2428 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2407:2421 PF_Coq.Core.ChernWeil <> classify_regime def
+R2423:2425 PF_Coq.Core.ChernWeil <> ch2:13 var
+R2429:2444 PF_Coq.Core.ChernWeil <> PartialCoherence constr
+R2458:2461 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<'_x not
+R2475:2477 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<'_x not
+R2462:2470 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2472:2474 PF_Coq.Core.ChernWeil <> ch2:13 var
+R2462:2470 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2472:2474 PF_Coq.Core.ChernWeil <> ch2:13 var
+R2514:2528 PF_Coq.Core.ChernWeil <> classify_regime def
+R2543:2549 Coq.Reals.RIneq <> Rlt_dec thm
+R2552:2560 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2543:2549 Coq.Reals.RIneq <> Rlt_dec thm
+R2552:2560 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2646:2652 Coq.Reals.RIneq <> Rlt_dec thm
+R2655:2663 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2646:2652 Coq.Reals.RIneq <> Rlt_dec thm
+R2655:2663 PF_Coq.Core.ChernWeil <> ch2_value proj
+prf 2800:2817 <> classify_conscious
+binder 2828:2830 <> ch2:14
+R2866:2870 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2854:2856 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2835:2849 PF_Coq.Core.ChernWeil <> classify_regime def
+R2851:2853 PF_Coq.Core.ChernWeil <> ch2:14 var
+R2857:2865 PF_Coq.Core.ChernWeil <> Conscious constr
+R2884:2887 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R2871:2879 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2881:2883 PF_Coq.Core.ChernWeil <> ch2:14 var
+R2924:2938 PF_Coq.Core.ChernWeil <> classify_regime def
+R2953:2959 Coq.Reals.RIneq <> Rlt_dec thm
+R2962:2970 PF_Coq.Core.ChernWeil <> ch2_value proj
+R2953:2959 Coq.Reals.RIneq <> Rlt_dec thm
+R2962:2970 PF_Coq.Core.ChernWeil <> ch2_value proj
+R3056:3062 Coq.Reals.RIneq <> Rlt_dec thm
+R3065:3073 PF_Coq.Core.ChernWeil <> ch2_value proj
+R3056:3062 Coq.Reals.RIneq <> Rlt_dec thm
+R3065:3073 PF_Coq.Core.ChernWeil <> ch2_value proj
+prf 3300:3318 <> threshold_universal
+R3324:3331 Coq.Init.Logic <> ::type_scope:'exists'_'!'_x_'..'_x_','_x not
+R3337:3338 Coq.Init.Logic <> ::type_scope:'exists'_'!'_x_'..'_x_','_x not
+R3336:3336 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3332:3332 <> t:15
+R3348:3392 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3340:3342 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R3344:3346 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R3343:3343 PF_Coq.Core.ChernWeil <> t:15 var
+R3343:3343 PF_Coq.Core.ChernWeil <> t:15 var
+R3401:3454 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3394:3396 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3393:3393 PF_Coq.Core.ChernWeil <> t:15 var
+R3463:3502 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3456:3458 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3455:3455 PF_Coq.Core.ChernWeil <> t:15 var
+R3511:3556 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3504:3506 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3503:3503 PF_Coq.Core.ChernWeil <> t:15 var
+R3558:3560 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3557:3557 PF_Coq.Core.ChernWeil <> t:15 var
+prf 3806:3827 <> ch2_zero_not_conscious
+binder 3838:3840 <> ch2:16
+R3862:3865 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3858:3860 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3845:3853 PF_Coq.Core.ChernWeil <> ch2_value proj
+R3855:3857 PF_Coq.Core.ChernWeil <> ch2:16 var
+R3866:3867 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3868:3879 PF_Coq.Core.ChernWeil <> is_conscious def
+R3881:3883 PF_Coq.Core.ChernWeil <> ch2:16 var
+R3922:3933 PF_Coq.Core.ChernWeil <> is_conscious def
+R3936:3958 PF_Coq.Core.ChernWeil <> consciousness_threshold def
+prf 4037:4054 <> high_ch2_conscious
+binder 4065:4067 <> ch2:17
+R4093:4096 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4085:4088 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4072:4080 PF_Coq.Core.ChernWeil <> ch2_value proj
+R4082:4084 PF_Coq.Core.ChernWeil <> ch2:17 var
+R4097:4108 PF_Coq.Core.ChernWeil <> is_conscious def
+R4110:4112 PF_Coq.Core.ChernWeil <> ch2:17 var
+R4149:4160 PF_Coq.Core.ChernWeil <> is_conscious def
+R4163:4185 PF_Coq.Core.ChernWeil <> consciousness_threshold def
+ax 4322:4337 <> sharp_transition
+R4354:4354 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4348:4350 <> eps:18
+R4366:4369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4360:4362 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4363:4365 PF_Coq.Core.ChernWeil <> eps:18 var
+R4380:4385 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4373:4375 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4370:4372 PF_Coq.Core.ChernWeil <> eps:18 var
+R4386:4392 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4435:4440 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4415:4434 PF_Coq.Core.ChernWeil <> SecondChernCharacter rec
+binder 4393:4401 <> ch2_below:19
+R4415:4434 PF_Coq.Core.ChernWeil <> SecondChernCharacter rec
+binder 4403:4411 <> ch2_above:20
+R4473:4480 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4460:4462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4441:4449 PF_Coq.Core.ChernWeil <> ch2_value proj
+R4451:4459 PF_Coq.Core.ChernWeil <> ch2_below:19 var
+R4467:4469 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4470:4472 PF_Coq.Core.ChernWeil <> eps:18 var
+R4513:4520 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4500:4502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4481:4489 PF_Coq.Core.ChernWeil <> ch2_value proj
+R4491:4499 PF_Coq.Core.ChernWeil <> ch2_above:20 var
+R4507:4509 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4510:4512 PF_Coq.Core.ChernWeil <> eps:18 var
+R4545:4552 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4521:4522 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4523:4534 PF_Coq.Core.ChernWeil <> is_conscious def
+R4536:4544 PF_Coq.Core.ChernWeil <> ch2_below:19 var
+R4553:4564 PF_Coq.Core.ChernWeil <> is_conscious def
+R4566:4574 PF_Coq.Core.ChernWeil <> ch2_above:20 var
+def 4687:4703 <> clinical_accuracy
+R4707:4707 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 4728:4751 <> clinical_accuracy_exists
+R4757:4763 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4776:4777 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4775:4775 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4764:4771 <> accuracy:22
+R4786:4788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4778:4785 PF_Coq.Core.ChernWeil <> accuracy:22 var
+def 4953:4973 <> human_brain_ch2_value
+R4977:4977 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 5042:5063 <> human_brain_ch2_bounds
+R5068:5071 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R5093:5096 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R5072:5092 PF_Coq.Core.ChernWeil <> human_brain_ch2_value def
+R5072:5092 PF_Coq.Core.ChernWeil <> human_brain_ch2_value def
+R5114:5134 PF_Coq.Core.ChernWeil <> human_brain_ch2_value def
+def 5159:5173 <> human_brain_ch2
+R5177:5196 PF_Coq.Core.ChernWeil <> SecondChernCharacter rec
+R5203:5207 PF_Coq.Core.ChernWeil <> mkCh2 constr
+R5209:5229 PF_Coq.Core.ChernWeil <> human_brain_ch2_value def
+R5231:5252 PF_Coq.Core.ChernWeil <> human_brain_ch2_bounds thm
+prf 5296:5316 <> human_brain_conscious
+R5322:5328 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5355:5360 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5337:5354 PF_Coq.Core.ChernWeil <> ConsciousnessState rec
+binder 5329:5333 <> brain:23
+R5388:5395 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5361:5372 PF_Coq.Core.ChernWeil <> is_conscious def
+R5375:5380 PF_Coq.Core.ChernWeil <> cs_ch2 proj
+R5382:5386 PF_Coq.Core.ChernWeil <> brain:23 var
+R5420:5422 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5396:5404 PF_Coq.Core.ChernWeil <> ch2_value proj
+R5407:5412 PF_Coq.Core.ChernWeil <> cs_ch2 proj
+R5414:5418 PF_Coq.Core.ChernWeil <> brain:23 var
+R5483:5486 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5458:5466 PF_Coq.Core.ChernWeil <> ch2_value proj
+R5468:5482 PF_Coq.Core.ChernWeil <> human_brain_ch2 def
+R5483:5486 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5458:5466 PF_Coq.Core.ChernWeil <> ch2_value proj
+R5468:5482 PF_Coq.Core.ChernWeil <> human_brain_ch2 def
+R5505:5519 PF_Coq.Core.ChernWeil <> human_brain_ch2 def
+R5536:5556 PF_Coq.Core.ChernWeil <> human_brain_ch2_value def
+R5582:5601 PF_Coq.Core.ChernWeil <> mkConsciousnessState constr
+R5603:5617 PF_Coq.Core.ChernWeil <> human_brain_ch2 def
+R5582:5601 PF_Coq.Core.ChernWeil <> mkConsciousnessState constr
+R5603:5617 PF_Coq.Core.ChernWeil <> human_brain_ch2 def
+R5667:5678 PF_Coq.Core.ChernWeil <> is_conscious def
+R5681:5703 PF_Coq.Core.ChernWeil <> consciousness_threshold def
+R5731:5751 PF_Coq.Core.ChernWeil <> human_brain_ch2_value def
+R5791:5811 PF_Coq.Core.ChernWeil <> human_brain_ch2_value def
+def 5943:5956 <> rock_ch2_value
+R5960:5960 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 5977:5991 <> rock_ch2_bounds
+R5996:5999 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R6014:6017 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R6000:6013 PF_Coq.Core.ChernWeil <> rock_ch2_value def
+R6000:6013 PF_Coq.Core.ChernWeil <> rock_ch2_value def
+R6035:6048 PF_Coq.Core.ChernWeil <> rock_ch2_value def
+def 6073:6080 <> rock_ch2
+R6084:6103 PF_Coq.Core.ChernWeil <> SecondChernCharacter rec
+R6110:6114 PF_Coq.Core.ChernWeil <> mkCh2 constr
+R6116:6129 PF_Coq.Core.ChernWeil <> rock_ch2_value def
+R6131:6145 PF_Coq.Core.ChernWeil <> rock_ch2_bounds thm
+prf 6213:6231 <> rocks_not_conscious
+R6249:6266 PF_Coq.Core.ChernWeil <> ConsciousnessState rec
+binder 6242:6245 <> rock:24
+R6313:6318 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6300:6302 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6271:6285 PF_Coq.Core.ChernWeil <> classify_regime def
+R6288:6293 PF_Coq.Core.ChernWeil <> cs_ch2 proj
+R6295:6298 PF_Coq.Core.ChernWeil <> rock:24 var
+R6303:6312 PF_Coq.Core.ChernWeil <> Incoherent constr
+R6319:6320 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6321:6332 PF_Coq.Core.ChernWeil <> is_conscious def
+R6335:6340 PF_Coq.Core.ChernWeil <> cs_ch2 proj
+R6342:6345 PF_Coq.Core.ChernWeil <> rock:24 var
+R6391:6409 PF_Coq.Core.ChernWeil <> classify_incoherent thm
+R6391:6409 PF_Coq.Core.ChernWeil <> classify_incoherent thm
+R6436:6447 PF_Coq.Core.ChernWeil <> is_conscious def
+R6450:6472 PF_Coq.Core.ChernWeil <> consciousness_threshold def
+prf 6538:6563 <> rock_example_not_conscious
+R6567:6568 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6569:6580 PF_Coq.Core.ChernWeil <> is_conscious def
+R6582:6589 PF_Coq.Core.ChernWeil <> rock_ch2 def
+R6608:6619 PF_Coq.Core.ChernWeil <> is_conscious def
+R6622:6644 PF_Coq.Core.ChernWeil <> consciousness_threshold def
+R6647:6654 PF_Coq.Core.ChernWeil <> rock_ch2 def
+R6673:6686 PF_Coq.Core.ChernWeil <> rock_ch2_value def
+prf 6795:6820 <> consciousness_quantifiable
+R6826:6832 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6868:6873 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6863:6866 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6843:6862 PF_Coq.Core.ChernWeil <> SecondChernCharacter rec
+R6867:6867 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6833:6839 <> measure:25
+R6874:6874 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6914:6923 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6976:6976 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 6882:6884 <> ch2:26
+R6898:6900 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6887:6893 PF_Coq.Core.ChernWeil <> measure:25 var
+R6895:6897 PF_Coq.Core.ChernWeil <> ch2:26 var
+R6901:6909 PF_Coq.Core.ChernWeil <> ch2_value proj
+R6911:6913 PF_Coq.Core.ChernWeil <> ch2:26 var
+binder 6931:6933 <> ch2:27
+R6952:6956 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6936:6947 PF_Coq.Core.ChernWeil <> is_conscious def
+R6949:6951 PF_Coq.Core.ChernWeil <> ch2:27 var
+R6968:6971 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6957:6963 PF_Coq.Core.ChernWeil <> measure:25 var
+R6965:6967 PF_Coq.Core.ChernWeil <> ch2:27 var
+R6995:7003 PF_Coq.Core.ChernWeil <> ch2_value proj
+R6995:7003 PF_Coq.Core.ChernWeil <> ch2_value proj
+R7071:7082 PF_Coq.Core.ChernWeil <> is_conscious def
+R7085:7107 PF_Coq.Core.ChernWeil <> consciousness_threshold def
+def 7564:7595 <> consciousness_framework_complete
+R7637:7637 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7673:7704 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7638:7644 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7650:7651 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7649:7649 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7645:7645 <> t:28
+R7661:7664 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7653:7655 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R7657:7659 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x_'<'_x not
+R7656:7656 PF_Coq.Core.ChernWeil <> t:28 var
+R7656:7656 PF_Coq.Core.ChernWeil <> t:28 var
+R7666:7668 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7665:7665 PF_Coq.Core.ChernWeil <> t:28 var
+R7705:7705 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7831:7862 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7713:7715 <> eps:29
+R7725:7728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7719:7721 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7722:7724 PF_Coq.Core.ChernWeil <> eps:29 var
+R7739:7746 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7732:7734 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7729:7731 PF_Coq.Core.ChernWeil <> eps:29 var
+R7747:7753 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7773:7780 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7754:7762 <> ch2_below:30
+binder 7764:7772 <> ch2_above:31
+R7805:7808 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7781:7782 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7783:7794 PF_Coq.Core.ChernWeil <> is_conscious def
+R7796:7804 PF_Coq.Core.ChernWeil <> ch2_below:30 var
+R7809:7820 PF_Coq.Core.ChernWeil <> is_conscious def
+R7822:7830 PF_Coq.Core.ChernWeil <> ch2_above:31 var
+R7863:7863 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7905:7940 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7964:7964 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7864:7870 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7876:7877 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7871:7875 <> brain:32
+R7878:7889 PF_Coq.Core.ChernWeil <> is_conscious def
+R7892:7897 PF_Coq.Core.ChernWeil <> cs_ch2 proj
+R7899:7903 PF_Coq.Core.ChernWeil <> brain:32 var
+R7941:7942 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7943:7954 PF_Coq.Core.ChernWeil <> is_conscious def
+R7956:7963 PF_Coq.Core.ChernWeil <> rock_ch2 def
+prf 7976:7998 <> consciousness_framework
+R8002:8033 PF_Coq.Core.ChernWeil <> consciousness_framework_complete def
+R8052:8083 PF_Coq.Core.ChernWeil <> consciousness_framework_complete def
+R8173:8188 PF_Coq.Core.ChernWeil <> sharp_transition prfax
+R8173:8188 PF_Coq.Core.ChernWeil <> sharp_transition prfax
+R8324:8344 PF_Coq.Core.ChernWeil <> human_brain_conscious thm
+R8419:8444 PF_Coq.Core.ChernWeil <> rock_example_not_conscious thm
+R8419:8444 PF_Coq.Core.ChernWeil <> rock_example_not_conscious thm
+def 8494:8516 <> chernweil_theorem_count
+R8520:8522 Coq.Init.Datatypes <> nat ind
+def 8542:8562 <> chernweil_axiom_count
+R8566:8568 Coq.Init.Datatypes <> nat ind
