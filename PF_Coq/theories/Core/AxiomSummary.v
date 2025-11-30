@@ -35,6 +35,7 @@ Require Import PF_Coq.Core.NuclearSpaces.
 Require Import PF_Coq.Core.CylindricalMeasures.
 Require Import PF_Coq.Core.GaussianModel.
 Require Import PF_Coq.Core.BochnerMinlos.
+Require Import PF_Coq.Core.YangMillsMeasure.
 Require Import PF_Coq.Core.SpectralEmbedding.
 
 Require Import PF_Coq.Contracts.RH.
@@ -137,7 +138,8 @@ Definition module_dependencies : string :=
    ├── NuclearSpaces.v (Schwartz space, nuclear topology)
    ├── CylindricalMeasures.v (positive definite functionals, cylindrical measures)
    ├── GaussianModel.v (covariance operators, free field measures)
-   └── BochnerMinlos.v (main Bochner-Minlos theorem, QFT measures)
+   ├── BochnerMinlos.v (main Bochner-Minlos theorem, QFT measures)
+   └── YangMillsMeasure.v (Yang-Mills gauge field measure construction)
 
    Layer 3 - Proofs:
    ├── P_NP_EquivalenceLemmas.v (equivalence chain lemmas)
@@ -182,8 +184,8 @@ Definition PF_comprehensive_certificate : ComprehensiveVerificationCertificate :
   version := "8.18+";
   date := "2025-11-29";
   total_axioms := total_axiom_count;
-  total_theorems := 108;  (* Updated: +10 P_NP_EquivalenceLemmas (equivalence chain lemmas) *)
-  total_modules := 26;   (* Core: 17, Contracts: 6, Integration: 3 *)
+  total_theorems := 116;  (* Updated: +8 YangMillsMeasure (gauge field measure) *)
+  total_modules := 27;   (* Core: 18, Contracts: 6, Integration: 3 *)
   millennium_problems := 6;
   admitted_proofs := admitted_proof_count;
   cross_references := 42;  (* Updated: +4 gauge theory links *)
@@ -277,8 +279,8 @@ Definition final_summary : string :=
    COVERAGE:
    - 6 Millennium Problems (P!=NP, RH, YM, BSD, Hodge, NS)
    - ~160 axioms catalogued and classified
-   - ~108 theorems proven or documented
-   - 26 Coq modules with clear dependencies
+   - ~116 theorems proven or documented
+   - 27 Coq modules with clear dependencies
 
    KEY RESULTS:
    - Spectral gap Delta = 0.0539677286942250 > 0 (certified to 1e-15)
@@ -308,9 +310,10 @@ Definition final_summary : string :=
    - Added CylindricalMeasures.v (positive definite functionals)
    - Added GaussianModel.v (free field covariance operators)
    - Added BochnerMinlos.v (main theorem, QFT measure construction)
+   - Added YangMillsMeasure.v (gauge field measure, propagator)
    - Tightened numerical precision from 1e-10 to 1e-15
    - Reduced admitted proof count from 6 to 4
-   - Expanded module count from 16 to 26
+   - Expanded module count from 16 to 27
 
    REMAINING ADMITS: All 4 rely on operator_collapse_under_p_eq_np
    (the core bridge axiom connecting complexity to spectral theory)
