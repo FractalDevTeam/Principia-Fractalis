@@ -3,11 +3,15 @@
 <div align="center">
 
 <a href="https://ko-fi.com/pablocohen">
-  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" width="250"/>
+  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" height="50"/>
 </a>
-&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;
+<a href="https://buymeacoffee.com/pablocohen">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50"/>
+</a>
+&nbsp;&nbsp;
 <a href="https://liberapay.com/pablocohen">
-  <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Donate via Liberapay" width="140"/>
+  <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Donate via Liberapay" height="50"/>
 </a>
 
 <br/><br/>
