@@ -11,9 +11,15 @@ TERMS AND CONDITIONS
    mathematical proofs, formal verifications (Lean 4, Coq), and associated materials
    in this repository.
 
+   "Derivative Work" means any work that is based on, derived from, extends, modifies,
+   or incorporates the Work or any portion thereof, including but not limited to:
+   translations, adaptations, modified proofs, alternative formalizations, or any
+   work that builds upon the mathematical framework presented herein.
+
    "Commercial Use" means any use intended for or directed toward commercial advantage
    or monetary compensation, including but not limited to: selling, licensing for fee,
-   incorporating into commercial products, or using in commercial services.
+   incorporating into commercial products, using in commercial services, or any
+   monetization of the Work or Derivative Works.
 
    "Non-Commercial Research Use" means use for academic research, education, peer review,
    personal study, or other non-profit scholarly activities.
@@ -25,34 +31,58 @@ TERMS AND CONDITIONS
 
    a) Use, copy, and study the Work for Non-Commercial Research Use only.
 
-   b) Create derivative works for Non-Commercial Research Use only, provided that
-      such derivatives clearly attribute the original Work and author.
+   b) Create Derivative Works for Non-Commercial Research Use only, provided that
+      such derivatives clearly attribute the original Work and author, and comply
+      with all notification requirements in Section 4.
 
    c) Share the Work with others for Non-Commercial Research Use only, provided
       this License is included in full.
 
 3. RESTRICTIONS
 
-   a) COMMERCIAL USE PROHIBITED: You may NOT use this Work for any Commercial Use
-      without the prior written permission of the copyright holder.
+   a) COMMERCIAL USE PROHIBITED: You may NOT use this Work or any Derivative Works
+      for any Commercial Use without the prior written permission of the copyright
+      holder. This includes commercializing any insights, methods, algorithms, or
+      mathematical results derived from this Work.
 
    b) NO SUBLICENSING: You may not sublicense the Work or grant others rights
       beyond those granted by this License.
 
-   c) ATTRIBUTION REQUIRED: Any use of the Work must include clear attribution:
-      "Principia Fractalis by Pablo Cohen (https://github.com/FractalDevTeam/Principia-Fractalis)"
+   c) ATTRIBUTION REQUIRED: Any use of the Work or Derivative Works must include
+      clear and prominent attribution:
+      "Based on Principia Fractalis by Pablo Cohen
+      (https://github.com/FractalDevTeam/Principia-Fractalis)"
 
-4. NOTIFICATION REQUIREMENT
+   d) DERIVATIVE WORKS: All Derivative Works are subject to the same restrictions
+      as the original Work. You may not apply different licensing terms to
+      Derivative Works.
 
-   If you publish findings, papers, or derivative works based on this Work, you must:
+4. MANDATORY NOTIFICATION REQUIREMENTS
 
-   a) Notify the copyright holder at: psolorzano@gmail.com
+   You MUST notify the copyright holder in the following circumstances:
 
-   b) Provide appropriate citation using the CITATION.cff file in this repository.
+   a) FINDINGS AND PUBLICATIONS: If you publish any findings, papers, presentations,
+      or Derivative Works based on this Work, you must notify the copyright holder
+      BEFORE publication at: psolorzano@gmail.com
+
+   b) ERRORS AND INCONSISTENCIES: If you discover any errors, inconsistencies,
+      logical gaps, or potential issues in the mathematical content, proofs, or
+      formalizations, you MUST report them by:
+      - Opening an issue at: https://github.com/FractalDevTeam/Principia-Fractalis/issues
+      - AND emailing: psolorzano@gmail.com
+
+   c) DERIVATIVE WORKS: Before distributing any Derivative Work, you must notify
+      the copyright holder and provide a description of the modifications.
+
+   d) CITATION: All publications must provide appropriate citation using the
+      CITATION.cff file in this repository.
 
 5. COMMERCIAL LICENSING
 
    For commercial licensing inquiries, contact: psolorzano@gmail.com
+
+   Commercial licenses may be granted on a case-by-case basis with appropriate
+   compensation to the copyright holder.
 
 6. DISCLAIMER
 
@@ -65,12 +95,45 @@ TERMS AND CONDITIONS
 
 7. TERMINATION
 
-   This License automatically terminates if you violate any of its terms. Upon
-   termination, you must destroy all copies of the Work in your possession.
+   a) This License automatically terminates if you violate any of its terms.
+
+   b) Upon termination, you must destroy all copies of the Work and any Derivative
+      Works in your possession.
+
+   c) Failure to comply with the notification requirements in Section 4 constitutes
+      a material breach of this License.
+
+8. SPECIAL PROVISIONS FOR BOOK CONTENT
+
+   The contents of the `Principia_Fractalis_master_folder/` directory constitute
+   the LaTeX source for the book "Principia Fractalis" and are subject to
+   ADDITIONAL RESTRICTIONS:
+
+   a) The book content is provided FOR REFERENCE ONLY.
+
+   b) You may NOT reproduce, distribute, compile, render, or create derivative
+      works from the book content without express written permission.
+
+   c) You may NOT extract, copy, or repurpose any text, equations, figures,
+      or diagrams from the book.
+
+   d) The book may be commercially published. Unauthorized reproduction
+      constitutes copyright infringement.
+
+   See `Principia_Fractalis_master_folder/NOTICE.md` for details.
+
+9. GOVERNING LAW
+
+   This License shall be governed by and construed in accordance with applicable
+   copyright law. Any disputes arising under this License shall be resolved in
+   the jurisdiction of the copyright holder's residence.
 
 ---
 
 For permissions beyond the scope of this license, contact:
+
 Pablo Cohen
 Email: psolorzano@gmail.com
+Academic: psolorzano@alumni.berklee.edu
 ORCID: 0009-0002-0734-5565
+GitHub: https://github.com/FractalDevTeam/Principia-Fractalis
