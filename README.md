@@ -2,7 +2,7 @@
 
 # Principia Fractalis
 
-### A Unified Mathematical Framework for Consciousness, Computation, and Reality
+### The Correct Explanation of What Mathematics Actually Is
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
 [![Lean 4](https://img.shields.io/badge/Lean%204-40%20files%20%7C%20269%20theorems%20%7C%200%20sorrys-blue)](PF_Lean4_Code/)
@@ -38,9 +38,11 @@ cd PF_Coq && coq_makefile -f _CoqProject -o Makefile && make -j4
 
 ## What Is Principia Fractalis?
 
-Principia Fractalis presents **Fractal Resonance Ontology**—a unified mathematical framework that reveals consciousness, computation, and physical reality as manifestations of a single underlying structure: the **Timeless Field**.
+Principia Fractalis is not a mathematical discovery. It is **the correct explanation of what mathematics actually is** — why mathematics works, why it describes the universe so perfectly, and what that means for consciousness, computation, and existence.
 
-This is not philosophy. It is rigorous mathematics, formalized in two independent proof assistants (Lean 4 and Coq), with transparent accounting of axioms and proofs.
+The work presents **Fractal Resonance Ontology**: mathematics does not *describe* reality — mathematics *is* reality. The **Timeless Field** is the underlying structure from which space, time, matter, and mind all emerge. Consciousness is how reality experiences itself.
+
+This is rigorous mathematics, formalized in two independent proof assistants (Lean 4 and Coq), with transparent accounting of axioms and proofs.
 
 ### The Core Insight
 
