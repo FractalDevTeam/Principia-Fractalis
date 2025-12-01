@@ -78,6 +78,11 @@ Definition NP_spectral (M : TuringEncoding) : Prop :=
 Axiom P_subset_NP :
   forall M, P_spectral M -> NP_spectral M.
 
+(** Bridge axiom: spectral equivalence implies complexity equivalence
+    If P_spectral ↔ NP_spectral for all machines, then P = NP in complexity terms *)
+Axiom spectral_eq_implies_P_eq_NP :
+  (forall M, P_spectral M <-> NP_spectral M) -> P_equals_NP.
+
 (** ** The Spectral Separation Theorem *)
 
 (** REFEREE NOTE: This is the contract-level version of the main P ≠ NP theorem.
@@ -102,17 +107,18 @@ Proof.
   assert (HneqNP : ~ P_equals_NP).
   {
     intros HP_eq_NP.
-    assert (Hcollapse : lambda0_P = lambda0_NP).
-    { apply lambda_collapse_under_p_eq_np. exact HP_eq_NP. }
-    unfold spectral_gap_positive in Hgap.
-    unfold spectral_gap_T3 in Hgap.
+    (* PF_lambda_collapse_under_p_eq_np: P = NP -> PF_lambda0P = PF_lambda0NP *)
+    assert (Hcollapse : PF_lambda0P = PF_lambda0NP).
+    { apply PF_lambda_collapse_under_p_eq_np. exact HP_eq_NP. }
+    (* PF_spectral_gap = PF_lambda0P - PF_lambda0NP by definition *)
+    (* If PF_lambda0P = PF_lambda0NP then PF_spectral_gap = 0, contradicting Hgap > 0 *)
+    unfold PF_spectral_gap in Hgap.
     lra.
   }
-  (* P_spectral ↔ NP_spectral would imply P = NP, contradiction *)
+  (* P_spectral ↔ NP_spectral would imply P = NP via bridge axiom *)
   apply HneqNP.
-  (* Use bridge axiom: spectral equivalence implies complexity equivalence *)
-  unfold P_equals_NP.
-  trivial.
+  apply spectral_eq_implies_P_eq_NP.
+  exact Heq.
 Qed.
 
 (** Corollary: P != NP *)

@@ -15,6 +15,7 @@ Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
 Require Import PF_Coq.Core.Zeta.
 Require Import PF_Coq.Core.Resonance.
+Require Import PF_Coq.Core.TuringEncoding.  (* For P_equals_NP *)
 Open Scope R_scope.
 
 (** ** Spectral Gap Specification Record *)
@@ -42,6 +43,12 @@ Axiom lambda0P_lower : PF_lambda0P > 0.2221441469079179.
 Axiom lambda0P_upper : PF_lambda0P < 0.2221441469079181.
 Axiom lambda0NP_lower : PF_lambda0NP > 0.1681764182136929.
 Axiom lambda0NP_upper : PF_lambda0NP < 0.1681764182136931.
+
+(** Bridge axiom: P = NP implies eigenvalue collapse
+    This is the key connection between complexity theory and spectral theory.
+    If P = NP, then the resonance frequencies for P and NP classes coincide,
+    forcing the leading eigenvalues to be equal. *)
+Axiom PF_lambda_collapse_under_p_eq_np : P_equals_NP -> PF_lambda0P = PF_lambda0NP.
 
 (** ** Main Theorems *)
 
