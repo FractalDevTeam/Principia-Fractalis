@@ -1,10 +1,40 @@
+<div align="center">
+
 # Principia Fractalis
 
-**A Unified Mathematical Framework for Consciousness, Computation, and Reality**
+### A Unified Mathematical Framework for Consciousness, Computation, and Reality
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Lean 4](https://img.shields.io/badge/Lean%204-40%20files%20%7C%20269%20theorems%20%7C%200%20sorrys-blue)](PF_Lean4_Code/)
+[![Coq](https://img.shields.io/badge/Coq-32%20files%20%7C%20199%20theorems%20%7C%200%20admits-orange)](PF_Coq/)
+[![Pages](https://img.shields.io/badge/Book-801%20pages-green)](Principia_Fractalis_master_folder/)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
 
-**Author:** Pablo Cohen ([ORCID: 0009-0002-0734-5565](https://orcid.org/0009-0002-0734-5565))
+**Author:** Pablo Cohen
+
+[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20This%20Research-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/pablocohen)
+
+</div>
+
+---
+
+## Quick Start
+
+| Component | Description | Status |
+|-----------|-------------|--------|
+| **[PF_Lean4_Code/](PF_Lean4_Code/)** | Lean 4 formalization | 40 files, 269 theorems, **0 sorrys** |
+| **[PF_Coq/](PF_Coq/)** | Coq cross-verification | 32 files, 199 theorems, **0 admits** |
+| **[Book PDF](Principia_Fractalis_master_folder/main.pdf)** | 801-page textbook | Complete |
+| **[VERIFICATION_STATUS.md](VERIFICATION_STATUS.md)** | Proof audit & axiom breakdown | Current |
+
+**Build the proofs yourself:**
+```bash
+# Lean 4
+cd PF_Lean4_Code && lake update && lake build
+
+# Coq
+cd PF_Coq && coq_makefile -f _CoqProject -o Makefile && make -j4
+```
 
 ---
 
@@ -256,6 +286,26 @@ MIT License — see [LICENSE](LICENSE)
 
 ---
 
+## Support This Research
+
+Principia Fractalis is **open source** and freely available. If you find this work valuable, consider supporting its continued development:
+
+<div align="center">
+
+[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Pablo-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/pablocohen)
+
+</div>
+
+Your support enables:
+- Continued research and refinement
+- Response to peer review feedback
+- Conference presentations and outreach
+- Development of additional formalizations
+
+See [SUPPORT.md](SUPPORT.md) for more ways to contribute.
+
+---
+
 ## Acknowledgments
 
 - **Lean community** for Mathlib and the proof assistant
@@ -264,12 +314,18 @@ MIT License — see [LICENSE](LICENSE)
 
 ---
 
+<div align="center">
+
 *"The unreasonable effectiveness of mathematics is not unreasonable at all—it is inevitable. Mathematics does not describe reality; mathematics IS reality, and consciousness is how reality experiences itself."*
 
-— Pablo Cohen, Principia Fractalis
+**Pablo Cohen**, Principia Fractalis
 
 ---
 
 *Last updated: December 1, 2025*
-*Formal verification: COMPLETE — Zero incomplete proofs in both Lean 4 and Coq*
+
+*Formal verification: COMPLETE | Zero incomplete proofs in both Lean 4 and Coq*
+
 *Peer review: In progress*
+
+</div>

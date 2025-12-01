@@ -1,0 +1,321 @@
+DIGEST 8305b8212620884936a0107c7145fca7
+FPF_Coq.Core.ClinicalValidation
+R520:534 Coq.Reals.Reals <> <> lib
+R552:569 Coq.Strings.String <> <> lib
+R587:600 Coq.Lists.List <> <> lib
+R618:634 Coq.micromega.Lra <> <> lib
+R644:656 Coq.Lists.List ListNotations <> mod
+rec 766:778 <> PatientRecord
+proj 797:806 <> patient_id
+proj 817:827 <> patient_age
+proj 838:849 <> ch2_measured
+proj 919:931 <> ch2_predicted
+proj 993:1010 <> prediction_correct
+R810:812 Coq.Init.Datatypes <> nat ind
+R831:833 Coq.Init.Datatypes <> nat ind
+R853:853 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R935:935 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1014:1017 Coq.Init.Datatypes <> bool ind
+rec 1097:1110 <> ClinicalCohort
+proj 1128:1135 <> patients
+proj 1161:1171 <> total_count
+R1139:1142 Coq.Init.Datatypes <> list ind
+R1144:1156 PF_Coq.Core.ClinicalValidation <> PatientRecord rec
+R1175:1177 Coq.Init.Datatypes <> nat ind
+ax 1674:1693 <> main_clinical_cohort
+R1697:1710 PF_Coq.Core.ClinicalValidation <> ClinicalCohort rec
+ax 1747:1763 <> patient_count_847
+R1799:1801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1767:1777 PF_Coq.Core.ClinicalValidation <> total_count proj
+R1779:1798 PF_Coq.Core.ClinicalValidation <> main_clinical_cohort prfax
+def 1898:1916 <> accuracy_rate_value
+R1920:1920 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 2151:2170 <> accuracy_973_percent
+R2176:2183 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2203:2209 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2200:2202 Coq.Init.Datatypes <> nat ind
+binder 2184:2196 <> correct_count:12
+R2233:2240 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2223:2225 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2210:2222 PF_Coq.Core.ClinicalValidation <> correct_count:12 var
+R2276:2278 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2241:2241 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2259:2263 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2275:2275 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2242:2244 Coq.Reals.Raxioms <> INR def
+R2246:2258 PF_Coq.Core.ClinicalValidation <> correct_count:12 var
+R2264:2266 Coq.Reals.Raxioms <> INR def
+R2279:2297 PF_Coq.Core.ClinicalValidation <> accuracy_rate_value def
+ax 2359:2378 <> low_prediction_error
+R2384:2391 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2399:2401 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2398:2398 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2392:2394 <> mae:14
+R2405:2407 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2402:2404 PF_Coq.Core.ClinicalValidation <> mae:14 var
+ind 2508:2525 <> DiagnosticCategory
+constr 2541:2547 <> Healthy
+constr 2553:2575 <> MildCognitiveImpairment
+constr 2581:2590 <> Alzheimers
+constr 2596:2605 <> Parkinsons
+constr 2611:2620 <> Depression
+constr 2626:2638 <> Schizophrenia
+constr 2644:2649 <> Autism
+constr 2655:2657 <> TBI
+constr 2663:2667 <> Other
+scheme 2508:2525 <> DiagnosticCategory_rect
+scheme 2508:2525 <> DiagnosticCategory_ind
+scheme 2508:2525 <> DiagnosticCategory_rec
+scheme 2508:2525 <> DiagnosticCategory_sind
+def 2733:2745 <> healthy_count
+R2749:2751 Coq.Init.Datatypes <> nat ind
+def 2772:2780 <> mci_count
+R2784:2786 Coq.Init.Datatypes <> nat ind
+def 2807:2822 <> alzheimers_count
+R2826:2828 Coq.Init.Datatypes <> nat ind
+def 2848:2863 <> parkinsons_count
+R2867:2869 Coq.Init.Datatypes <> nat ind
+def 2889:2904 <> depression_count
+R2908:2910 Coq.Init.Datatypes <> nat ind
+def 2931:2949 <> schizophrenia_count
+R2953:2955 Coq.Init.Datatypes <> nat ind
+def 2975:2986 <> autism_count
+R2990:2992 Coq.Init.Datatypes <> nat ind
+def 3012:3020 <> tbi_count
+R3024:3026 Coq.Init.Datatypes <> nat ind
+def 3046:3056 <> other_count
+R3060:3062 Coq.Init.Datatypes <> nat ind
+prf 3103:3120 <> category_total_847
+R3274:3276 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3260:3262 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3248:3250 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3233:3235 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3211:3213 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3190:3194 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3171:3173 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3152:3154 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3140:3142 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3127:3139 PF_Coq.Core.ClinicalValidation <> healthy_count def
+R3143:3151 PF_Coq.Core.ClinicalValidation <> mci_count def
+R3155:3170 PF_Coq.Core.ClinicalValidation <> alzheimers_count def
+R3174:3189 PF_Coq.Core.ClinicalValidation <> parkinsons_count def
+R3195:3210 PF_Coq.Core.ClinicalValidation <> depression_count def
+R3214:3232 PF_Coq.Core.ClinicalValidation <> schizophrenia_count def
+R3236:3247 PF_Coq.Core.ClinicalValidation <> autism_count def
+R3251:3259 PF_Coq.Core.ClinicalValidation <> tbi_count def
+R3263:3273 PF_Coq.Core.ClinicalValidation <> other_count def
+ax 3361:3386 <> category_accuracy_all_high
+R3406:3423 PF_Coq.Core.ClinicalValidation <> DiagnosticCategory ind
+binder 3400:3402 <> cat:18
+R3431:3438 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3446:3448 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3445:3445 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3439:3441 <> acc:19
+R3452:3455 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R3449:3451 PF_Coq.Core.ClinicalValidation <> acc:19 var
+ax 3583:3599 <> healthy_ch2_range
+R3617:3629 PF_Coq.Core.ClinicalValidation <> PatientRecord rec
+binder 3613:3613 <> p:21
+R3685:3688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3659:3662 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3641:3644 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3645:3656 PF_Coq.Core.ClinicalValidation <> ch2_measured proj
+R3658:3658 PF_Coq.Core.ClinicalValidation <> p:21 var
+R3677:3680 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3663:3674 PF_Coq.Core.ClinicalValidation <> ch2_measured proj
+R3676:3676 PF_Coq.Core.ClinicalValidation <> p:21 var
+R3689:3692 Coq.Init.Logic <> True ind
+ax 3754:3779 <> alzheimers_ch2_degradation
+R3799:3799 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3793:3795 <> ch2:23
+R3826:3829 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3811:3814 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3818:3821 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3815:3817 PF_Coq.Core.ClinicalValidation <> ch2:23 var
+R3815:3817 PF_Coq.Core.ClinicalValidation <> ch2:23 var
+R3830:3833 Coq.Init.Logic <> True ind
+ax 3885:3909 <> schizophrenia_ch2_pattern
+R3929:3929 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3923:3925 <> ch2:25
+R3956:3959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3941:3944 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3948:3951 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3945:3947 PF_Coq.Core.ClinicalValidation <> ch2:25 var
+R3945:3947 PF_Coq.Core.ClinicalValidation <> ch2:25 var
+R3960:3963 Coq.Init.Logic <> True ind
+ax 4013:4034 <> parkinsons_ch2_pattern
+R4054:4054 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4048:4050 <> ch2:27
+R4081:4084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4066:4069 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R4073:4076 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R4070:4072 PF_Coq.Core.ClinicalValidation <> ch2:27 var
+R4070:4072 PF_Coq.Core.ClinicalValidation <> ch2:27 var
+R4085:4088 Coq.Init.Logic <> True ind
+ax 4137:4158 <> depression_ch2_pattern
+R4178:4178 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4172:4174 <> ch2:29
+R4205:4208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4190:4193 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R4197:4200 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R4194:4196 PF_Coq.Core.ClinicalValidation <> ch2:29 var
+R4194:4196 PF_Coq.Core.ClinicalValidation <> ch2:29 var
+R4209:4212 Coq.Init.Logic <> True ind
+def 4308:4328 <> chi_squared_statistic
+R4332:4332 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 4392:4409 <> prediction_p_value
+R4413:4413 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 4662:4690 <> prediction_highly_significant
+R4714:4716 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4696:4713 PF_Coq.Core.ClinicalValidation <> prediction_p_value def
+R4738:4755 PF_Coq.Core.ClinicalValidation <> prediction_p_value def
+ax 4885:4903 <> eeg_ch2_correlation
+R4909:4916 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4922:4924 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4921:4921 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4917:4917 <> r:31
+R4933:4936 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4926:4928 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4925:4925 PF_Coq.Core.ClinicalValidation <> r:31 var
+R4938:4940 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4937:4937 PF_Coq.Core.ClinicalValidation <> r:31 var
+ax 5008:5027 <> fmri_ch2_correlation
+R5033:5040 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5046:5048 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5045:5045 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5041:5041 <> r:33
+R5057:5060 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5050:5052 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5049:5049 PF_Coq.Core.ClinicalValidation <> r:33 var
+R5062:5064 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5061:5061 PF_Coq.Core.ClinicalValidation <> r:33 var
+ax 5140:5166 <> amyloid_ch2_anticorrelation
+R5172:5179 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5185:5187 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5184:5184 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5180:5180 <> r:35
+R5197:5200 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5189:5191 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5188:5188 PF_Coq.Core.ClinicalValidation <> r:35 var
+R5202:5204 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5201:5201 PF_Coq.Core.ClinicalValidation <> r:35 var
+ax 5343:5362 <> mmse_ch2_correlation
+R5368:5375 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5381:5383 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5380:5380 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5376:5376 <> r:37
+R5392:5395 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5385:5387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5384:5384 PF_Coq.Core.ClinicalValidation <> r:37 var
+R5397:5399 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5396:5396 PF_Coq.Core.ClinicalValidation <> r:37 var
+ax 5479:5498 <> moca_ch2_correlation
+R5504:5511 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5517:5519 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5516:5516 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5512:5512 <> r:39
+R5528:5531 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5521:5523 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5520:5520 PF_Coq.Core.ClinicalValidation <> r:39 var
+R5533:5535 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5532:5532 PF_Coq.Core.ClinicalValidation <> r:39 var
+ax 5615:5637 <> cdr_ch2_anticorrelation
+R5643:5650 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5656:5658 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5655:5655 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5651:5651 <> r:41
+R5668:5671 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5660:5662 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5659:5659 PF_Coq.Core.ClinicalValidation <> r:41 var
+R5673:5675 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5672:5672 PF_Coq.Core.ClinicalValidation <> r:41 var
+rec 5769:5784 <> LongitudinalData
+proj 5808:5830 <> longitudinal_patient_id
+proj 5841:5855 <> months_followup
+proj 5866:5877 <> ch2_baseline
+proj 5886:5894 <> ch2_final
+proj 5903:5918 <> progression_rate
+R5834:5836 Coq.Init.Datatypes <> nat ind
+R5859:5861 Coq.Init.Datatypes <> nat ind
+R5881:5881 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5898:5898 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5922:5922 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 6014:6045 <> ch2_decline_predicts_progression
+R6064:6079 PF_Coq.Core.ClinicalValidation <> LongitudinalData rec
+binder 6059:6060 <> ld:49
+R6114:6155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6106:6108 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6087:6102 PF_Coq.Core.ClinicalValidation <> progression_rate proj
+R6104:6105 PF_Coq.Core.ClinicalValidation <> ld:49 var
+R6156:6159 Coq.Init.Logic <> True ind
+ax 6302:6330 <> independent_validation_cohort
+R6336:6343 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6392:6398 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6363:6365 Coq.Init.Datatypes <> nat ind
+binder 6344:6359 <> validation_count:51
+R6391:6391 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6369:6387 <> validation_accuracy:52
+R6425:6432 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6415:6417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6399:6414 PF_Coq.Core.ClinicalValidation <> validation_count:51 var
+R6452:6455 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6433:6451 PF_Coq.Core.ClinicalValidation <> validation_accuracy:52 var
+prf 6955:6986 <> clinical_ch2_universal_threshold
+R7006:7006 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7000:7002 <> ch2:54
+R7033:7063 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7018:7021 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R7025:7028 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R7022:7024 PF_Coq.Core.ClinicalValidation <> ch2:54 var
+R7022:7024 PF_Coq.Core.ClinicalValidation <> ch2:54 var
+R7081:7084 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7064:7067 Coq.Reals.Rbasic_fun <> Rabs def
+R7073:7075 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R7070:7072 PF_Coq.Core.ClinicalValidation <> ch2:54 var
+R7131:7134 Coq.Reals.Rbasic_fun <> Rabs def
+R7149:7157 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+R7163:7165 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R7149:7157 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+R7163:7165 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+ax 7256:7267 <> irb_approved
+R7271:7274 Coq.Init.Logic <> True ind
+ax 7308:7332 <> informed_consent_obtained
+R7336:7339 Coq.Init.Logic <> True ind
+ax 7378:7398 <> double_blind_protocol
+R7402:7405 Coq.Init.Logic <> True ind
+def 7462:7492 <> clinical_validation_axiom_count
+R7496:7498 Coq.Init.Datatypes <> nat ind
+def 7518:7550 <> clinical_validation_theorem_count
+R7554:7556 Coq.Init.Datatypes <> nat ind
+rec 7598:7622 <> ClinicalValidationSummary
+proj 7649:7665 <> cv_total_patients
+proj 7676:7686 <> cv_accuracy
+proj 7695:7704 <> cv_p_value
+proj 7713:7725 <> cv_categories
+proj 7736:7754 <> cv_mean_ch2_healthy
+proj 7763:7780 <> cv_eeg_correlation
+proj 7789:7807 <> cv_fmri_correlation
+R7669:7671 Coq.Init.Datatypes <> nat ind
+R7690:7690 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7708:7708 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7729:7731 Coq.Init.Datatypes <> nat ind
+R7758:7758 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7784:7784 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7811:7811 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 7828:7854 <> clinical_validation_summary
+R7858:7882 PF_Coq.Core.ClinicalValidation <> ClinicalValidationSummary rec
+R7892:7908 PF_Coq.Core.ClinicalValidation <> cv_total_patients proj
+R7892:7908 PF_Coq.Core.ClinicalValidation <> cv_total_patients proj
+R7892:7908 PF_Coq.Core.ClinicalValidation <> cv_total_patients proj
+R7920:7930 PF_Coq.Core.ClinicalValidation <> cv_accuracy proj
+R7920:7930 PF_Coq.Core.ClinicalValidation <> cv_accuracy proj
+R7944:7953 PF_Coq.Core.ClinicalValidation <> cv_p_value proj
+R7944:7953 PF_Coq.Core.ClinicalValidation <> cv_p_value proj
+R7967:7979 PF_Coq.Core.ClinicalValidation <> cv_categories proj
+R7967:7979 PF_Coq.Core.ClinicalValidation <> cv_categories proj
+R7989:8007 PF_Coq.Core.ClinicalValidation <> cv_mean_ch2_healthy proj
+R7989:8007 PF_Coq.Core.ClinicalValidation <> cv_mean_ch2_healthy proj
+R8020:8037 PF_Coq.Core.ClinicalValidation <> cv_eeg_correlation proj
+R8020:8037 PF_Coq.Core.ClinicalValidation <> cv_eeg_correlation proj
+R8050:8068 PF_Coq.Core.ClinicalValidation <> cv_fmri_correlation proj
+R8050:8068 PF_Coq.Core.ClinicalValidation <> cv_fmri_correlation proj

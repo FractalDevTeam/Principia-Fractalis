@@ -1,447 +1,454 @@
-DIGEST 55e07b7e6709b59851f1f8cbfb553abe
+DIGEST 90e7df975fd54b0a18aaf17c3e12acf8
 FPF_Coq.Core.TransferOperator
 R424:438 Coq.Reals.Reals <> <> lib
 R456:474 Coq.Logic.Classical <> <> lib
 R492:509 Coq.Sets.Ensembles <> <> lib
 R527:543 Coq.micromega.Lra <> <> lib
 R561:576 PF_Coq.Core.Zeta <> <> lib
-ax 910:924 <> LogHilbertSpace
-ax 1028:1035 <> LHS_zero
-R1039:1053 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-ax 1066:1072 <> LHS_add
-R1091:1094 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1076:1090 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R1110:1113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1095:1109 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R1114:1128 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-ax 1141:1149 <> LHS_scale
-R1154:1157 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1153:1153 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R1173:1176 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1158:1172 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R1177:1191 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-ax 1236:1244 <> LHS_inner
-R1263:1266 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1248:1262 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R1282:1285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1267:1281 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R1286:1286 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-ax 1295:1313 <> LHS_inner_symmetric
-binder 1324:1324 <> f:6
-binder 1326:1326 <> g:7
-R1342:1344 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1329:1337 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R1339:1339 PF_Coq.Core.TransferOperator <> f:6 var
-R1341:1341 PF_Coq.Core.TransferOperator <> g:7 var
-R1345:1353 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R1355:1355 PF_Coq.Core.TransferOperator <> g:7 var
-R1357:1357 PF_Coq.Core.TransferOperator <> f:6 var
-ax 1366:1383 <> LHS_inner_linear_l
-binder 1394:1394 <> a:9
-binder 1396:1396 <> f:10
-binder 1398:1398 <> g:11
-binder 1400:1400 <> h:12
-R1444:1446 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1405:1413 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R1416:1422 PF_Coq.Core.TransferOperator <> LHS_add defax
-R1425:1433 PF_Coq.Core.TransferOperator <> LHS_scale defax
-R1435:1435 PF_Coq.Core.TransferOperator <> a:9 var
-R1437:1437 PF_Coq.Core.TransferOperator <> f:10 var
-R1440:1440 PF_Coq.Core.TransferOperator <> g:11 var
-R1443:1443 PF_Coq.Core.TransferOperator <> h:12 var
-R1464:1466 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R1448:1450 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1447:1447 PF_Coq.Core.TransferOperator <> a:9 var
-R1451:1459 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R1461:1461 PF_Coq.Core.TransferOperator <> f:10 var
-R1463:1463 PF_Coq.Core.TransferOperator <> h:12 var
-R1467:1475 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R1477:1477 PF_Coq.Core.TransferOperator <> g:11 var
-R1479:1479 PF_Coq.Core.TransferOperator <> h:12 var
-ax 1488:1504 <> LHS_inner_pos_def
-binder 1515:1515 <> f:14
-R1531:1534 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R1518:1526 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R1528:1528 PF_Coq.Core.TransferOperator <> f:14 var
-R1530:1530 PF_Coq.Core.TransferOperator <> f:14 var
-ax 1544:1563 <> LHS_inner_pos_def_eq
-binder 1574:1574 <> f:16
-R1594:1597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1590:1592 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1577:1585 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R1587:1587 PF_Coq.Core.TransferOperator <> f:16 var
-R1589:1589 PF_Coq.Core.TransferOperator <> f:16 var
-R1599:1601 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1598:1598 PF_Coq.Core.TransferOperator <> f:16 var
-R1602:1609 PF_Coq.Core.TransferOperator <> LHS_zero defax
-def 1636:1643 <> LHS_norm
-R1650:1664 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-binder 1646:1646 <> f:18
-R1669:1669 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R1674:1677 Coq.Reals.R_sqrt <> sqrt def
-R1680:1688 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R1690:1690 PF_Coq.Core.TransferOperator <> f:18 var
-R1692:1692 PF_Coq.Core.TransferOperator <> f:18 var
-ax 1808:1809 <> T3
-R1828:1831 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1813:1827 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R1832:1846 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-ax 1876:1888 <> T3_linear_add
-binder 1899:1899 <> f:20
-binder 1901:1901 <> g:21
-R1920:1922 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1904:1905 PF_Coq.Core.TransferOperator <> T3 defax
-R1908:1914 PF_Coq.Core.TransferOperator <> LHS_add defax
-R1916:1916 PF_Coq.Core.TransferOperator <> f:20 var
-R1918:1918 PF_Coq.Core.TransferOperator <> g:21 var
-R1923:1929 PF_Coq.Core.TransferOperator <> LHS_add defax
-R1932:1933 PF_Coq.Core.TransferOperator <> T3 defax
-R1935:1935 PF_Coq.Core.TransferOperator <> f:20 var
-R1939:1940 PF_Coq.Core.TransferOperator <> T3 defax
-R1942:1942 PF_Coq.Core.TransferOperator <> g:21 var
-ax 1952:1966 <> T3_linear_scale
-binder 1977:1977 <> a:23
-binder 1979:1979 <> f:24
-R2000:2002 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1982:1983 PF_Coq.Core.TransferOperator <> T3 defax
-R1986:1994 PF_Coq.Core.TransferOperator <> LHS_scale defax
-R1996:1996 PF_Coq.Core.TransferOperator <> a:23 var
-R1998:1998 PF_Coq.Core.TransferOperator <> f:24 var
-R2003:2011 PF_Coq.Core.TransferOperator <> LHS_scale defax
-R2013:2013 PF_Coq.Core.TransferOperator <> a:23 var
-R2016:2017 PF_Coq.Core.TransferOperator <> T3 defax
-R2019:2019 PF_Coq.Core.TransferOperator <> f:24 var
-ax 2079:2093 <> T3_self_adjoint
-binder 2104:2104 <> f:26
-binder 2106:2106 <> g:27
-R2129:2131 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2111:2119 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R2122:2123 PF_Coq.Core.TransferOperator <> T3 defax
-R2125:2125 PF_Coq.Core.TransferOperator <> f:26 var
-R2128:2128 PF_Coq.Core.TransferOperator <> g:27 var
-R2132:2140 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R2142:2142 PF_Coq.Core.TransferOperator <> f:26 var
-R2145:2146 PF_Coq.Core.TransferOperator <> T3 defax
-R2148:2148 PF_Coq.Core.TransferOperator <> g:27 var
-ax 2237:2246 <> T3_compact
-R2264:2264 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2258:2260 <> eps:29
-R2275:2280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2271:2273 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R2268:2270 PF_Coq.Core.TransferOperator <> eps:29 var
-R2281:2287 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2295:2296 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2292:2294 Coq.Init.Datatypes <> nat ind
-binder 2288:2288 <> N:30
-R2308:2310 Coq.Init.Datatypes <> nat ind
-binder 2304:2304 <> n:31
-R2324:2331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2315:2317 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R2314:2314 PF_Coq.Core.TransferOperator <> n:31 var
-R2318:2318 PF_Coq.Core.TransferOperator <> N:30 var
-binder 2339:2339 <> f:32
-R2357:2366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2352:2355 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2342:2349 PF_Coq.Core.TransferOperator <> LHS_norm def
-R2351:2351 PF_Coq.Core.TransferOperator <> f:32 var
-R2367:2373 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2375:2376 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2374:2374 <> g:33
-R2421:2423 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R2377:2384 PF_Coq.Core.TransferOperator <> LHS_norm def
-R2387:2393 PF_Coq.Core.TransferOperator <> LHS_add defax
-R2396:2397 PF_Coq.Core.TransferOperator <> T3 defax
-R2399:2399 PF_Coq.Core.TransferOperator <> f:32 var
-R2403:2411 PF_Coq.Core.TransferOperator <> LHS_scale defax
-R2418:2418 PF_Coq.Core.TransferOperator <> g:33 var
-R2424:2426 PF_Coq.Core.TransferOperator <> eps:29 var
-ax 2457:2466 <> T3_bounded
-R2470:2476 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2482:2483 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2481:2481 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2477:2477 <> M:35
-R2489:2494 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2485:2487 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R2484:2484 PF_Coq.Core.TransferOperator <> M:35 var
-binder 2502:2502 <> f:36
-R2520:2523 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2505:2512 PF_Coq.Core.TransferOperator <> LHS_norm def
-R2515:2516 PF_Coq.Core.TransferOperator <> T3 defax
-R2518:2518 PF_Coq.Core.TransferOperator <> f:36 var
-R2525:2527 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2524:2524 PF_Coq.Core.TransferOperator <> M:35 var
-R2528:2535 PF_Coq.Core.TransferOperator <> LHS_norm def
-R2537:2537 PF_Coq.Core.TransferOperator <> f:36 var
-rec 2605:2617 <> T3_Eigenvalue
-proj 2639:2646 <> ev_value
-proj 2655:2665 <> ev_function
-proj 2688:2697 <> ev_nonzero
-proj 2728:2738 <> ev_equation
-R2650:2650 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2669:2683 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R2712:2715 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R2701:2711 PF_Coq.Core.TransferOperator <> ev_function:40 meth
-R2716:2723 PF_Coq.Core.TransferOperator <> LHS_zero defax
-R2756:2758 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2742:2743 PF_Coq.Core.TransferOperator <> T3 defax
-R2745:2755 PF_Coq.Core.TransferOperator <> ev_function:40 meth
-R2759:2767 PF_Coq.Core.TransferOperator <> LHS_scale defax
-R2769:2776 PF_Coq.Core.TransferOperator <> ev_value:39 meth
-R2778:2788 PF_Coq.Core.TransferOperator <> ev_function:40 meth
-prf 2866:2884 <> T3_eigenvalues_real
-R2901:2913 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
-binder 2896:2897 <> ev:43
-R2919:2925 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2931:2932 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2930:2930 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2926:2926 <> r:44
-R2944:2946 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2933:2940 PF_Coq.Core.TransferOperator <> ev_value proj
-R2942:2943 PF_Coq.Core.TransferOperator <> ev:43 var
-R2947:2947 PF_Coq.Core.TransferOperator <> r:44 var
-R2980:2987 PF_Coq.Core.TransferOperator <> ev_value proj
-R2980:2987 PF_Coq.Core.TransferOperator <> ev_value proj
-ax 3052:3073 <> T3_eigenvalues_bounded
-R3090:3102 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
-binder 3085:3086 <> ev:45
-R3126:3129 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R3108:3111 Coq.Reals.Rbasic_fun <> Rabs def
-R3114:3121 PF_Coq.Core.TransferOperator <> ev_value proj
-R3123:3124 PF_Coq.Core.TransferOperator <> ev:45 var
-def 3200:3207 <> Spectrum
-R3212:3219 Coq.Sets.Ensembles <> Ensemble def
-R3221:3221 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 3272:3288 <> point_spectrum_T3
-R3292:3299 PF_Coq.Core.TransferOperator <> Spectrum def
-binder 3310:3315 <> lambda:47
-R3320:3326 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3345:3346 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3332:3344 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
-binder 3327:3328 <> ev:48
-R3358:3360 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3347:3354 PF_Coq.Core.TransferOperator <> ev_value proj
-R3356:3357 PF_Coq.Core.TransferOperator <> ev:48 var
-R3361:3366 PF_Coq.Core.TransferOperator <> lambda:47 var
-ax 3418:3435 <> spectrum_countable
-R3439:3446 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3462:3466 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3457:3460 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3454:3456 Coq.Init.Datatypes <> nat ind
-R3461:3461 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3447:3450 <> enum:49
-binder 3474:3479 <> lambda:50
-R3511:3518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3482:3483 Coq.Sets.Ensembles <> In def
-R3487:3503 PF_Coq.Core.TransferOperator <> point_spectrum_T3 def
-R3505:3510 PF_Coq.Core.TransferOperator <> lambda:50 var
-R3485:3485 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3519:3525 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3527:3528 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3526:3526 <> n:51
-R3535:3537 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3529:3532 PF_Coq.Core.TransferOperator <> enum:49 var
-R3534:3534 PF_Coq.Core.TransferOperator <> n:51 var
-R3538:3543 PF_Coq.Core.TransferOperator <> lambda:50 var
-ax 3591:3611 <> spectrum_accumulation
-R3628:3628 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3622:3624 <> eps:53
-R3638:3643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3634:3636 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3631:3633 PF_Coq.Core.TransferOperator <> eps:53 var
-R3644:3650 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3658:3659 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3655:3657 Coq.Init.Datatypes <> nat ind
-binder 3651:3651 <> N:54
-binder 3667:3672 <> lambda:55
-R3708:3715 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3679:3680 Coq.Sets.Ensembles <> In def
-R3684:3700 PF_Coq.Core.TransferOperator <> point_spectrum_T3 def
-R3702:3707 PF_Coq.Core.TransferOperator <> lambda:55 var
-R3682:3682 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3733:3740 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3727:3729 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3716:3719 Coq.Reals.Rbasic_fun <> Rabs def
-R3721:3726 PF_Coq.Core.TransferOperator <> lambda:55 var
-R3730:3732 PF_Coq.Core.TransferOperator <> eps:53 var
-R3741:3747 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3755:3756 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3752:3754 Coq.Init.Datatypes <> nat ind
-binder 3748:3748 <> n:56
-R3769:3778 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3759:3762 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3758:3758 PF_Coq.Core.TransferOperator <> n:56 var
-R3763:3763 PF_Coq.Core.TransferOperator <> N:54 var
-R3779:3785 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3804:3805 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3791:3803 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
-binder 3786:3787 <> ev:57
-R3817:3819 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3806:3813 PF_Coq.Core.TransferOperator <> ev_value proj
-R3815:3816 PF_Coq.Core.TransferOperator <> ev:57 var
-R3820:3825 PF_Coq.Core.TransferOperator <> lambda:55 var
-ax 4056:4064 <> zeta_zero
-R4071:4074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4068:4070 Coq.Init.Datatypes <> nat ind
-R4075:4075 PF_Coq.Core.Zeta <> C rec
-def 4202:4221 <> T3_RiemannHypothesis
-binder 4242:4242 <> n:60
-R4266:4268 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4245:4251 PF_Coq.Core.Zeta <> Re proj
-R4254:4262 PF_Coq.Core.TransferOperator <> zeta_zero defax
-R4264:4264 PF_Coq.Core.TransferOperator <> n:60 var
-R4270:4270 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 4340:4357 <> eigenvalue_to_zero
-R4374:4377 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4361:4373 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
-R4378:4380 Coq.Init.Datatypes <> nat ind
-ax 4393:4410 <> zero_to_eigenvalue
-R4417:4420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4414:4416 Coq.Init.Datatypes <> nat ind
-R4421:4433 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
-ax 4473:4497 <> T3_zeta_bijection_forward
-binder 4508:4509 <> ev:63
-R4523:4531 PF_Coq.Core.TransferOperator <> zeta_zero defax
-R4534:4551 PF_Coq.Core.TransferOperator <> eigenvalue_to_zero defax
-R4553:4554 PF_Coq.Core.TransferOperator <> ev:63 var
-binder 4518:4518 <> z:64
-R4573:4575 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4562:4569 PF_Coq.Core.TransferOperator <> ev_value proj
-R4571:4572 PF_Coq.Core.TransferOperator <> ev:63 var
-R4576:4582 PF_Coq.Core.Zeta <> Im proj
-R4584:4584 PF_Coq.Core.TransferOperator <> z:64 var
-ax 4594:4618 <> T3_zeta_bijection_inverse
-binder 4629:4629 <> n:66
-R4644:4661 PF_Coq.Core.TransferOperator <> zero_to_eigenvalue defax
-R4663:4663 PF_Coq.Core.TransferOperator <> n:66 var
-binder 4638:4639 <> ev:67
-R4679:4687 PF_Coq.Core.TransferOperator <> zeta_zero defax
-R4689:4689 PF_Coq.Core.TransferOperator <> n:66 var
-binder 4674:4674 <> z:68
-R4707:4709 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4696:4703 PF_Coq.Core.TransferOperator <> ev_value proj
-R4705:4706 PF_Coq.Core.TransferOperator <> ev:67 var
-R4710:4716 PF_Coq.Core.Zeta <> Im proj
-R4718:4718 PF_Coq.Core.TransferOperator <> z:68 var
-ax 4728:4750 <> T3_zeta_bijection_inv_l
-binder 4761:4762 <> ev:70
-R4809:4811 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4767:4784 PF_Coq.Core.TransferOperator <> zero_to_eigenvalue defax
-R4787:4804 PF_Coq.Core.TransferOperator <> eigenvalue_to_zero defax
-R4806:4807 PF_Coq.Core.TransferOperator <> ev:70 var
-R4812:4813 PF_Coq.Core.TransferOperator <> ev:70 var
-ax 4823:4845 <> T3_zeta_bijection_inv_r
-binder 4856:4856 <> n:72
-R4902:4904 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4861:4878 PF_Coq.Core.TransferOperator <> eigenvalue_to_zero defax
-R4881:4898 PF_Coq.Core.TransferOperator <> zero_to_eigenvalue defax
-R4900:4900 PF_Coq.Core.TransferOperator <> n:72 var
-R4905:4905 PF_Coq.Core.TransferOperator <> n:72 var
-def 4993:5007 <> T3_RH_condition
-R5033:5045 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
-binder 5028:5029 <> ev:74
-R5095:5097 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5052:5058 PF_Coq.Core.Zeta <> Re proj
-R5061:5069 PF_Coq.Core.TransferOperator <> zeta_zero defax
-R5072:5089 PF_Coq.Core.TransferOperator <> eigenvalue_to_zero defax
-R5091:5092 PF_Coq.Core.TransferOperator <> ev:74 var
-R5099:5099 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-ax 5191:5213 <> spectral_RH_equivalence
-R5232:5236 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5217:5231 PF_Coq.Core.TransferOperator <> T3_RH_condition def
-R5237:5258 PF_Coq.Core.Zeta <> RiemannHypothesis def
-ax 5336:5343 <> T3_trace
-R5347:5347 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-ax 5407:5422 <> T3_trace_formula
-R5437:5437 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 5433:5433 <> x:77
-R5445:5450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5441:5443 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5440:5440 PF_Coq.Core.TransferOperator <> x:77 var
-R5451:5457 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5463:5464 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5462:5462 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 5458:5458 <> C:78
-R5491:5493 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R5465:5468 Coq.Reals.Rbasic_fun <> Rabs def
-R5479:5481 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5471:5478 PF_Coq.Core.TransferOperator <> T3_trace defax
-R5483:5485 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5482:5482 PF_Coq.Core.TransferOperator <> C:78 var
-R5486:5487 Coq.Reals.Rpower <> ln def
-R5489:5489 PF_Coq.Core.TransferOperator <> x:77 var
-ax 5595:5598 <> T3_P
-R5617:5620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5602:5616 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R5621:5635 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-ax 5648:5652 <> T3_NP
-R5671:5674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5656:5670 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-R5675:5689 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
-ax 5728:5744 <> T3_P_self_adjoint
-binder 5755:5755 <> f:82
-binder 5757:5757 <> g:83
-R5782:5784 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5762:5770 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R5773:5776 PF_Coq.Core.TransferOperator <> T3_P defax
-R5778:5778 PF_Coq.Core.TransferOperator <> f:82 var
-R5781:5781 PF_Coq.Core.TransferOperator <> g:83 var
-R5785:5793 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R5795:5795 PF_Coq.Core.TransferOperator <> f:82 var
-R5798:5801 PF_Coq.Core.TransferOperator <> T3_P defax
-R5803:5803 PF_Coq.Core.TransferOperator <> g:83 var
-ax 5814:5831 <> T3_NP_self_adjoint
-binder 5842:5842 <> f:85
-binder 5844:5844 <> g:86
-R5870:5872 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5849:5857 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R5860:5864 PF_Coq.Core.TransferOperator <> T3_NP defax
-R5866:5866 PF_Coq.Core.TransferOperator <> f:85 var
-R5869:5869 PF_Coq.Core.TransferOperator <> g:86 var
-R5873:5881 PF_Coq.Core.TransferOperator <> LHS_inner defax
-R5883:5883 PF_Coq.Core.TransferOperator <> f:85 var
-R5886:5890 PF_Coq.Core.TransferOperator <> T3_NP defax
-R5892:5892 PF_Coq.Core.TransferOperator <> g:86 var
-ax 5934:5942 <> lambda0_P
-R5946:5946 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-ax 5959:5968 <> lambda0_NP
-R5972:5972 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-ax 6038:6051 <> lambda0_P_spec
-R6064:6066 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6055:6063 PF_Coq.Core.TransferOperator <> lambda0_P defax
-ax 6092:6106 <> lambda0_NP_spec
-R6120:6122 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6110:6119 PF_Coq.Core.TransferOperator <> lambda0_NP defax
-def 6178:6192 <> spectral_gap_T3
-R6196:6196 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6210:6212 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6201:6209 PF_Coq.Core.TransferOperator <> lambda0_P defax
-R6213:6222 PF_Coq.Core.TransferOperator <> lambda0_NP defax
-prf 6257:6280 <> spectral_gap_T3_positive
-R6299:6301 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R6284:6298 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
-R6321:6335 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
-R6348:6361 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
-R6364:6378 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
-R6348:6361 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
-R6348:6361 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
-R6364:6378 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
-R6364:6378 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
-prf 6448:6468 <> spectral_gap_T3_value
-R6517:6519 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R6474:6477 Coq.Reals.Rbasic_fun <> Rabs def
-R6495:6497 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6480:6494 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
-R6543:6557 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
-R6570:6583 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
-R6586:6600 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
-R6570:6583 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
-R6570:6583 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
-R6586:6600 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
-R6586:6600 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
-R6678:6681 Coq.Reals.Rbasic_fun <> Rabs def
-R6696:6704 Coq.Reals.Rbasic_fun <> Rcase_abs thm
-R6696:6704 Coq.Reals.Rbasic_fun <> Rcase_abs thm
-def 6762:6792 <> transfer_operator_theorem_count
-R6796:6798 Coq.Init.Datatypes <> nat ind
-def 6817:6845 <> transfer_operator_axiom_count
-R6849:6851 Coq.Init.Datatypes <> nat ind
+R627:652 PF_Coq.Core.TuringEncoding <> <> lib
+ax 976:990 <> LogHilbertSpace
+ax 1094:1101 <> LHS_zero
+R1105:1119 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+ax 1132:1138 <> LHS_add
+R1157:1160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1142:1156 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R1176:1179 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1161:1175 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R1180:1194 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+ax 1207:1215 <> LHS_scale
+R1220:1223 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1219:1219 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1239:1242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1224:1238 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R1243:1257 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+ax 1302:1310 <> LHS_inner
+R1329:1332 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1314:1328 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R1348:1351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1333:1347 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R1352:1352 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 1361:1379 <> LHS_inner_symmetric
+binder 1390:1390 <> f:6
+binder 1392:1392 <> g:7
+R1408:1410 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1395:1403 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R1405:1405 PF_Coq.Core.TransferOperator <> f:6 var
+R1407:1407 PF_Coq.Core.TransferOperator <> g:7 var
+R1411:1419 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R1421:1421 PF_Coq.Core.TransferOperator <> g:7 var
+R1423:1423 PF_Coq.Core.TransferOperator <> f:6 var
+ax 1432:1449 <> LHS_inner_linear_l
+binder 1460:1460 <> a:9
+binder 1462:1462 <> f:10
+binder 1464:1464 <> g:11
+binder 1466:1466 <> h:12
+R1510:1512 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1471:1479 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R1482:1488 PF_Coq.Core.TransferOperator <> LHS_add defax
+R1491:1499 PF_Coq.Core.TransferOperator <> LHS_scale defax
+R1501:1501 PF_Coq.Core.TransferOperator <> a:9 var
+R1503:1503 PF_Coq.Core.TransferOperator <> f:10 var
+R1506:1506 PF_Coq.Core.TransferOperator <> g:11 var
+R1509:1509 PF_Coq.Core.TransferOperator <> h:12 var
+R1530:1532 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1514:1516 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1513:1513 PF_Coq.Core.TransferOperator <> a:9 var
+R1517:1525 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R1527:1527 PF_Coq.Core.TransferOperator <> f:10 var
+R1529:1529 PF_Coq.Core.TransferOperator <> h:12 var
+R1533:1541 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R1543:1543 PF_Coq.Core.TransferOperator <> g:11 var
+R1545:1545 PF_Coq.Core.TransferOperator <> h:12 var
+ax 1554:1570 <> LHS_inner_pos_def
+binder 1581:1581 <> f:14
+R1597:1600 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R1584:1592 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R1594:1594 PF_Coq.Core.TransferOperator <> f:14 var
+R1596:1596 PF_Coq.Core.TransferOperator <> f:14 var
+ax 1610:1629 <> LHS_inner_pos_def_eq
+binder 1640:1640 <> f:16
+R1660:1663 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1656:1658 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1643:1651 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R1653:1653 PF_Coq.Core.TransferOperator <> f:16 var
+R1655:1655 PF_Coq.Core.TransferOperator <> f:16 var
+R1665:1667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1664:1664 PF_Coq.Core.TransferOperator <> f:16 var
+R1668:1675 PF_Coq.Core.TransferOperator <> LHS_zero defax
+def 1702:1709 <> LHS_norm
+R1716:1730 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+binder 1712:1712 <> f:18
+R1735:1735 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1740:1743 Coq.Reals.R_sqrt <> sqrt def
+R1746:1754 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R1756:1756 PF_Coq.Core.TransferOperator <> f:18 var
+R1758:1758 PF_Coq.Core.TransferOperator <> f:18 var
+ax 1874:1875 <> T3
+R1894:1897 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1879:1893 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R1898:1912 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+ax 1942:1954 <> T3_linear_add
+binder 1965:1965 <> f:20
+binder 1967:1967 <> g:21
+R1986:1988 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1970:1971 PF_Coq.Core.TransferOperator <> T3 defax
+R1974:1980 PF_Coq.Core.TransferOperator <> LHS_add defax
+R1982:1982 PF_Coq.Core.TransferOperator <> f:20 var
+R1984:1984 PF_Coq.Core.TransferOperator <> g:21 var
+R1989:1995 PF_Coq.Core.TransferOperator <> LHS_add defax
+R1998:1999 PF_Coq.Core.TransferOperator <> T3 defax
+R2001:2001 PF_Coq.Core.TransferOperator <> f:20 var
+R2005:2006 PF_Coq.Core.TransferOperator <> T3 defax
+R2008:2008 PF_Coq.Core.TransferOperator <> g:21 var
+ax 2018:2032 <> T3_linear_scale
+binder 2043:2043 <> a:23
+binder 2045:2045 <> f:24
+R2066:2068 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2048:2049 PF_Coq.Core.TransferOperator <> T3 defax
+R2052:2060 PF_Coq.Core.TransferOperator <> LHS_scale defax
+R2062:2062 PF_Coq.Core.TransferOperator <> a:23 var
+R2064:2064 PF_Coq.Core.TransferOperator <> f:24 var
+R2069:2077 PF_Coq.Core.TransferOperator <> LHS_scale defax
+R2079:2079 PF_Coq.Core.TransferOperator <> a:23 var
+R2082:2083 PF_Coq.Core.TransferOperator <> T3 defax
+R2085:2085 PF_Coq.Core.TransferOperator <> f:24 var
+ax 2145:2159 <> T3_self_adjoint
+binder 2170:2170 <> f:26
+binder 2172:2172 <> g:27
+R2195:2197 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2177:2185 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R2188:2189 PF_Coq.Core.TransferOperator <> T3 defax
+R2191:2191 PF_Coq.Core.TransferOperator <> f:26 var
+R2194:2194 PF_Coq.Core.TransferOperator <> g:27 var
+R2198:2206 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R2208:2208 PF_Coq.Core.TransferOperator <> f:26 var
+R2211:2212 PF_Coq.Core.TransferOperator <> T3 defax
+R2214:2214 PF_Coq.Core.TransferOperator <> g:27 var
+ax 2303:2312 <> T3_compact
+R2330:2330 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2324:2326 <> eps:29
+R2341:2346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2337:2339 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2334:2336 PF_Coq.Core.TransferOperator <> eps:29 var
+R2347:2353 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2361:2362 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2358:2360 Coq.Init.Datatypes <> nat ind
+binder 2354:2354 <> N:30
+R2374:2376 Coq.Init.Datatypes <> nat ind
+binder 2370:2370 <> n:31
+R2390:2397 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2381:2383 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R2380:2380 PF_Coq.Core.TransferOperator <> n:31 var
+R2384:2384 PF_Coq.Core.TransferOperator <> N:30 var
+binder 2405:2405 <> f:32
+R2423:2432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2418:2421 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2408:2415 PF_Coq.Core.TransferOperator <> LHS_norm def
+R2417:2417 PF_Coq.Core.TransferOperator <> f:32 var
+R2433:2439 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2441:2442 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2440:2440 <> g:33
+R2487:2489 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2443:2450 PF_Coq.Core.TransferOperator <> LHS_norm def
+R2453:2459 PF_Coq.Core.TransferOperator <> LHS_add defax
+R2462:2463 PF_Coq.Core.TransferOperator <> T3 defax
+R2465:2465 PF_Coq.Core.TransferOperator <> f:32 var
+R2469:2477 PF_Coq.Core.TransferOperator <> LHS_scale defax
+R2484:2484 PF_Coq.Core.TransferOperator <> g:33 var
+R2490:2492 PF_Coq.Core.TransferOperator <> eps:29 var
+ax 2523:2532 <> T3_bounded
+R2536:2542 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2548:2549 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2547:2547 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2543:2543 <> M:35
+R2555:2560 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2551:2553 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2550:2550 PF_Coq.Core.TransferOperator <> M:35 var
+binder 2568:2568 <> f:36
+R2586:2589 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2571:2578 PF_Coq.Core.TransferOperator <> LHS_norm def
+R2581:2582 PF_Coq.Core.TransferOperator <> T3 defax
+R2584:2584 PF_Coq.Core.TransferOperator <> f:36 var
+R2591:2593 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2590:2590 PF_Coq.Core.TransferOperator <> M:35 var
+R2594:2601 PF_Coq.Core.TransferOperator <> LHS_norm def
+R2603:2603 PF_Coq.Core.TransferOperator <> f:36 var
+rec 2671:2683 <> T3_Eigenvalue
+proj 2705:2712 <> ev_value
+proj 2721:2731 <> ev_function
+proj 2754:2763 <> ev_nonzero
+proj 2794:2804 <> ev_equation
+R2716:2716 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2735:2749 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R2778:2781 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2767:2777 PF_Coq.Core.TransferOperator <> ev_function:40 meth
+R2782:2789 PF_Coq.Core.TransferOperator <> LHS_zero defax
+R2822:2824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2808:2809 PF_Coq.Core.TransferOperator <> T3 defax
+R2811:2821 PF_Coq.Core.TransferOperator <> ev_function:40 meth
+R2825:2833 PF_Coq.Core.TransferOperator <> LHS_scale defax
+R2835:2842 PF_Coq.Core.TransferOperator <> ev_value:39 meth
+R2844:2854 PF_Coq.Core.TransferOperator <> ev_function:40 meth
+prf 2932:2950 <> T3_eigenvalues_real
+R2967:2979 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+binder 2962:2963 <> ev:43
+R2985:2991 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2997:2998 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2996:2996 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2992:2992 <> r:44
+R3010:3012 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2999:3006 PF_Coq.Core.TransferOperator <> ev_value proj
+R3008:3009 PF_Coq.Core.TransferOperator <> ev:43 var
+R3013:3013 PF_Coq.Core.TransferOperator <> r:44 var
+R3046:3053 PF_Coq.Core.TransferOperator <> ev_value proj
+R3046:3053 PF_Coq.Core.TransferOperator <> ev_value proj
+ax 3118:3139 <> T3_eigenvalues_bounded
+R3156:3168 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+binder 3151:3152 <> ev:45
+R3192:3195 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3174:3177 Coq.Reals.Rbasic_fun <> Rabs def
+R3180:3187 PF_Coq.Core.TransferOperator <> ev_value proj
+R3189:3190 PF_Coq.Core.TransferOperator <> ev:45 var
+def 3266:3273 <> Spectrum
+R3278:3285 Coq.Sets.Ensembles <> Ensemble def
+R3287:3287 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 3338:3354 <> point_spectrum_T3
+R3358:3365 PF_Coq.Core.TransferOperator <> Spectrum def
+binder 3376:3381 <> lambda:47
+R3386:3392 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3411:3412 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3398:3410 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+binder 3393:3394 <> ev:48
+R3424:3426 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3413:3420 PF_Coq.Core.TransferOperator <> ev_value proj
+R3422:3423 PF_Coq.Core.TransferOperator <> ev:48 var
+R3427:3432 PF_Coq.Core.TransferOperator <> lambda:47 var
+ax 3484:3501 <> spectrum_countable
+R3505:3512 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3528:3532 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3523:3526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3520:3522 Coq.Init.Datatypes <> nat ind
+R3527:3527 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3513:3516 <> enum:49
+binder 3540:3545 <> lambda:50
+R3577:3584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3548:3549 Coq.Sets.Ensembles <> In def
+R3553:3569 PF_Coq.Core.TransferOperator <> point_spectrum_T3 def
+R3571:3576 PF_Coq.Core.TransferOperator <> lambda:50 var
+R3551:3551 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3585:3591 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3593:3594 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3592:3592 <> n:51
+R3601:3603 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3595:3598 PF_Coq.Core.TransferOperator <> enum:49 var
+R3600:3600 PF_Coq.Core.TransferOperator <> n:51 var
+R3604:3609 PF_Coq.Core.TransferOperator <> lambda:50 var
+ax 3657:3677 <> spectrum_accumulation
+R3694:3694 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3688:3690 <> eps:53
+R3704:3709 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3700:3702 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3697:3699 PF_Coq.Core.TransferOperator <> eps:53 var
+R3710:3716 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3724:3725 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3721:3723 Coq.Init.Datatypes <> nat ind
+binder 3717:3717 <> N:54
+binder 3733:3738 <> lambda:55
+R3774:3781 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3745:3746 Coq.Sets.Ensembles <> In def
+R3750:3766 PF_Coq.Core.TransferOperator <> point_spectrum_T3 def
+R3768:3773 PF_Coq.Core.TransferOperator <> lambda:55 var
+R3748:3748 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3799:3806 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3793:3795 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3782:3785 Coq.Reals.Rbasic_fun <> Rabs def
+R3787:3792 PF_Coq.Core.TransferOperator <> lambda:55 var
+R3796:3798 PF_Coq.Core.TransferOperator <> eps:53 var
+R3807:3813 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3821:3822 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3818:3820 Coq.Init.Datatypes <> nat ind
+binder 3814:3814 <> n:56
+R3835:3844 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3825:3828 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3824:3824 PF_Coq.Core.TransferOperator <> n:56 var
+R3829:3829 PF_Coq.Core.TransferOperator <> N:54 var
+R3845:3851 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3870:3871 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3857:3869 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+binder 3852:3853 <> ev:57
+R3883:3885 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3872:3879 PF_Coq.Core.TransferOperator <> ev_value proj
+R3881:3882 PF_Coq.Core.TransferOperator <> ev:57 var
+R3886:3891 PF_Coq.Core.TransferOperator <> lambda:55 var
+ax 4122:4130 <> zeta_zero
+R4137:4140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4134:4136 Coq.Init.Datatypes <> nat ind
+R4141:4141 PF_Coq.Core.Zeta <> C rec
+def 4268:4287 <> T3_RiemannHypothesis
+binder 4308:4308 <> n:60
+R4332:4334 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4311:4317 PF_Coq.Core.Zeta <> Re proj
+R4320:4328 PF_Coq.Core.TransferOperator <> zeta_zero defax
+R4330:4330 PF_Coq.Core.TransferOperator <> n:60 var
+R4336:4336 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+ax 4406:4423 <> eigenvalue_to_zero
+R4440:4443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4427:4439 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+R4444:4446 Coq.Init.Datatypes <> nat ind
+ax 4459:4476 <> zero_to_eigenvalue
+R4483:4486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4480:4482 Coq.Init.Datatypes <> nat ind
+R4487:4499 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+ax 4539:4563 <> T3_zeta_bijection_forward
+binder 4574:4575 <> ev:63
+R4589:4597 PF_Coq.Core.TransferOperator <> zeta_zero defax
+R4600:4617 PF_Coq.Core.TransferOperator <> eigenvalue_to_zero defax
+R4619:4620 PF_Coq.Core.TransferOperator <> ev:63 var
+binder 4584:4584 <> z:64
+R4639:4641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4628:4635 PF_Coq.Core.TransferOperator <> ev_value proj
+R4637:4638 PF_Coq.Core.TransferOperator <> ev:63 var
+R4642:4648 PF_Coq.Core.Zeta <> Im proj
+R4650:4650 PF_Coq.Core.TransferOperator <> z:64 var
+ax 4660:4684 <> T3_zeta_bijection_inverse
+binder 4695:4695 <> n:66
+R4710:4727 PF_Coq.Core.TransferOperator <> zero_to_eigenvalue defax
+R4729:4729 PF_Coq.Core.TransferOperator <> n:66 var
+binder 4704:4705 <> ev:67
+R4745:4753 PF_Coq.Core.TransferOperator <> zeta_zero defax
+R4755:4755 PF_Coq.Core.TransferOperator <> n:66 var
+binder 4740:4740 <> z:68
+R4773:4775 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4762:4769 PF_Coq.Core.TransferOperator <> ev_value proj
+R4771:4772 PF_Coq.Core.TransferOperator <> ev:67 var
+R4776:4782 PF_Coq.Core.Zeta <> Im proj
+R4784:4784 PF_Coq.Core.TransferOperator <> z:68 var
+ax 4794:4816 <> T3_zeta_bijection_inv_l
+binder 4827:4828 <> ev:70
+R4875:4877 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4833:4850 PF_Coq.Core.TransferOperator <> zero_to_eigenvalue defax
+R4853:4870 PF_Coq.Core.TransferOperator <> eigenvalue_to_zero defax
+R4872:4873 PF_Coq.Core.TransferOperator <> ev:70 var
+R4878:4879 PF_Coq.Core.TransferOperator <> ev:70 var
+ax 4889:4911 <> T3_zeta_bijection_inv_r
+binder 4922:4922 <> n:72
+R4968:4970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4927:4944 PF_Coq.Core.TransferOperator <> eigenvalue_to_zero defax
+R4947:4964 PF_Coq.Core.TransferOperator <> zero_to_eigenvalue defax
+R4966:4966 PF_Coq.Core.TransferOperator <> n:72 var
+R4971:4971 PF_Coq.Core.TransferOperator <> n:72 var
+def 5059:5073 <> T3_RH_condition
+R5099:5111 PF_Coq.Core.TransferOperator <> T3_Eigenvalue rec
+binder 5094:5095 <> ev:74
+R5161:5163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5118:5124 PF_Coq.Core.Zeta <> Re proj
+R5127:5135 PF_Coq.Core.TransferOperator <> zeta_zero defax
+R5138:5155 PF_Coq.Core.TransferOperator <> eigenvalue_to_zero defax
+R5157:5158 PF_Coq.Core.TransferOperator <> ev:74 var
+R5165:5165 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+ax 5257:5279 <> spectral_RH_equivalence
+R5298:5302 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5283:5297 PF_Coq.Core.TransferOperator <> T3_RH_condition def
+R5303:5324 PF_Coq.Core.Zeta <> RiemannHypothesis def
+ax 5402:5409 <> T3_trace
+R5413:5413 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 5473:5488 <> T3_trace_formula
+R5503:5503 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5499:5499 <> x:77
+R5511:5516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5507:5509 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5506:5506 PF_Coq.Core.TransferOperator <> x:77 var
+R5517:5523 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5529:5530 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5528:5528 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5524:5524 <> C:78
+R5557:5559 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5531:5534 Coq.Reals.Rbasic_fun <> Rabs def
+R5545:5547 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5537:5544 PF_Coq.Core.TransferOperator <> T3_trace defax
+R5549:5551 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5548:5548 PF_Coq.Core.TransferOperator <> C:78 var
+R5552:5553 Coq.Reals.Rpower <> ln def
+R5555:5555 PF_Coq.Core.TransferOperator <> x:77 var
+ax 5661:5664 <> T3_P
+R5683:5686 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5668:5682 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R5687:5701 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+ax 5714:5718 <> T3_NP
+R5737:5740 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5722:5736 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+R5741:5755 PF_Coq.Core.TransferOperator <> LogHilbertSpace defax
+ax 5794:5810 <> T3_P_self_adjoint
+binder 5821:5821 <> f:82
+binder 5823:5823 <> g:83
+R5848:5850 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5828:5836 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R5839:5842 PF_Coq.Core.TransferOperator <> T3_P defax
+R5844:5844 PF_Coq.Core.TransferOperator <> f:82 var
+R5847:5847 PF_Coq.Core.TransferOperator <> g:83 var
+R5851:5859 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R5861:5861 PF_Coq.Core.TransferOperator <> f:82 var
+R5864:5867 PF_Coq.Core.TransferOperator <> T3_P defax
+R5869:5869 PF_Coq.Core.TransferOperator <> g:83 var
+ax 5880:5897 <> T3_NP_self_adjoint
+binder 5908:5908 <> f:85
+binder 5910:5910 <> g:86
+R5936:5938 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5915:5923 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R5926:5930 PF_Coq.Core.TransferOperator <> T3_NP defax
+R5932:5932 PF_Coq.Core.TransferOperator <> f:85 var
+R5935:5935 PF_Coq.Core.TransferOperator <> g:86 var
+R5939:5947 PF_Coq.Core.TransferOperator <> LHS_inner defax
+R5949:5949 PF_Coq.Core.TransferOperator <> f:85 var
+R5952:5956 PF_Coq.Core.TransferOperator <> T3_NP defax
+R5958:5958 PF_Coq.Core.TransferOperator <> g:86 var
+ax 6000:6008 <> lambda0_P
+R6012:6012 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 6025:6034 <> lambda0_NP
+R6038:6038 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 6104:6117 <> lambda0_P_spec
+R6130:6132 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6121:6129 PF_Coq.Core.TransferOperator <> lambda0_P defax
+ax 6158:6172 <> lambda0_NP_spec
+R6186:6188 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6176:6185 PF_Coq.Core.TransferOperator <> lambda0_NP defax
+ax 6271:6299 <> lambda_collapse_under_p_eq_np
+R6314:6317 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6303:6313 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R6327:6329 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6318:6326 PF_Coq.Core.TransferOperator <> lambda0_P defax
+R6330:6339 PF_Coq.Core.TransferOperator <> lambda0_NP defax
+def 6378:6392 <> spectral_gap_T3
+R6396:6396 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6410:6412 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6401:6409 PF_Coq.Core.TransferOperator <> lambda0_P defax
+R6413:6422 PF_Coq.Core.TransferOperator <> lambda0_NP defax
+prf 6457:6480 <> spectral_gap_T3_positive
+R6499:6501 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R6484:6498 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+R6521:6535 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+R6548:6561 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R6564:6578 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+R6548:6561 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R6548:6561 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R6564:6578 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+R6564:6578 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+prf 6648:6668 <> spectral_gap_T3_value
+R6717:6719 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6674:6677 Coq.Reals.Rbasic_fun <> Rabs def
+R6695:6697 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6680:6694 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+R6743:6757 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+R6770:6783 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R6786:6800 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+R6770:6783 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R6770:6783 PF_Coq.Core.TransferOperator <> lambda0_P_spec prfax
+R6786:6800 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+R6786:6800 PF_Coq.Core.TransferOperator <> lambda0_NP_spec prfax
+R6878:6881 Coq.Reals.Rbasic_fun <> Rabs def
+R6896:6904 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+R6896:6904 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+def 6962:6992 <> transfer_operator_theorem_count
+R6996:6998 Coq.Init.Datatypes <> nat ind
+def 7017:7045 <> transfer_operator_axiom_count
+R7049:7051 Coq.Init.Datatypes <> nat ind

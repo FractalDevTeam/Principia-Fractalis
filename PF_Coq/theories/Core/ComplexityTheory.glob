@@ -1,0 +1,370 @@
+DIGEST 8b2378c18c2c107cf6a5a5296a369917
+FPF_Coq.Core.ComplexityTheory
+R667:680 Coq.Lists.List <> <> lib
+R698:712 Coq.Arith.Arith <> <> lib
+R730:746 Coq.micromega.Lia <> <> lib
+R764:780 Coq.micromega.Lra <> <> lib
+R790:802 Coq.Lists.List ListNotations <> mod
+R820:845 PF_Coq.Core.TuringEncoding <> <> lib
+R863:890 PF_Coq.Core.TransferOperator <> <> lib
+ind 974:982 <> BinSymbol
+constr 998:1005 <> bin_zero
+constr 1023:1029 <> bin_one
+R1009:1017 PF_Coq.Core.ComplexityTheory <> BinSymbol:1 ind
+R1033:1041 PF_Coq.Core.ComplexityTheory <> BinSymbol:1 ind
+scheme 974:982 <> BinSymbol_rect
+scheme 974:982 <> BinSymbol_ind
+scheme 974:982 <> BinSymbol_rec
+scheme 974:982 <> BinSymbol_sind
+def 1101:1109 <> BinString
+R1114:1117 Coq.Init.Datatypes <> list ind
+R1119:1127 PF_Coq.Core.ComplexityTheory <> BinSymbol ind
+def 1187:1194 <> Language
+R1208:1211 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1199:1207 PF_Coq.Core.ComplexityTheory <> BinString def
+def 1263:1271 <> binLength
+R1278:1286 PF_Coq.Core.ComplexityTheory <> BinString def
+binder 1274:1274 <> s:3
+R1291:1293 Coq.Init.Datatypes <> nat ind
+R1298:1303 Coq.Init.Datatypes <> length def
+R1305:1305 PF_Coq.Core.ComplexityTheory <> s:3 var
+def 1443:1461 <> IsPolynomialBounded
+R1471:1474 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1468:1470 Coq.Init.Datatypes <> nat ind
+R1475:1477 Coq.Init.Datatypes <> nat ind
+binder 1464:1464 <> T:4
+R1492:1499 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1509:1511 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1506:1508 Coq.Init.Datatypes <> nat ind
+binder 1500:1500 <> c:5
+R1506:1508 Coq.Init.Datatypes <> nat ind
+binder 1502:1502 <> k:6
+R1517:1520 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1513:1515 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1512:1512 PF_Coq.Core.ComplexityTheory <> c:5 var
+R1526:1533 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1522:1524 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1521:1521 PF_Coq.Core.ComplexityTheory <> k:6 var
+R1546:1548 Coq.Init.Datatypes <> nat ind
+binder 1542:1542 <> n:7
+R1556:1559 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1553:1553 PF_Coq.Core.ComplexityTheory <> T:4 var
+R1555:1555 PF_Coq.Core.ComplexityTheory <> n:7 var
+R1561:1563 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1560:1560 PF_Coq.Core.ComplexityTheory <> c:5 var
+R1565:1567 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R1564:1564 PF_Coq.Core.ComplexityTheory <> n:7 var
+R1568:1568 PF_Coq.Core.ComplexityTheory <> k:6 var
+def 1637:1645 <> PolyBound
+R1654:1656 Coq.Init.Datatypes <> nat ind
+binder 1648:1648 <> c:8
+binder 1650:1650 <> k:9
+R1667:1670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1664:1666 Coq.Init.Datatypes <> nat ind
+R1671:1673 Coq.Init.Datatypes <> nat ind
+binder 1660:1660 <> T:10
+R1693:1696 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1689:1691 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1688:1688 PF_Coq.Core.ComplexityTheory <> c:8 var
+R1702:1705 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1698:1700 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1697:1697 PF_Coq.Core.ComplexityTheory <> k:9 var
+binder 1713:1713 <> n:11
+R1720:1723 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1717:1717 PF_Coq.Core.ComplexityTheory <> T:10 var
+R1719:1719 PF_Coq.Core.ComplexityTheory <> n:11 var
+R1725:1727 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R1724:1724 PF_Coq.Core.ComplexityTheory <> c:8 var
+R1729:1731 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R1728:1728 PF_Coq.Core.ComplexityTheory <> n:11 var
+R1732:1732 PF_Coq.Core.ComplexityTheory <> k:9 var
+rec 2120:2130 <> DTM_Decider
+proj 2145:2155 <> dtm_decides
+proj 2206:2213 <> dtm_time
+R2168:2171 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2159:2167 PF_Coq.Core.ComplexityTheory <> BinString def
+R2172:2175 Coq.Init.Datatypes <> bool ind
+R2226:2229 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2217:2225 PF_Coq.Core.ComplexityTheory <> BinString def
+R2230:2232 Coq.Init.Datatypes <> nat ind
+def 2342:2349 <> InClassP
+R2356:2363 PF_Coq.Core.ComplexityTheory <> Language def
+binder 2352:2352 <> L:15
+R2378:2385 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2401:2429 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2390:2400 PF_Coq.Core.ComplexityTheory <> DTM_Decider rec
+binder 2386:2386 <> M:16
+R2430:2430 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2485:2560 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2443:2451 PF_Coq.Core.ComplexityTheory <> BinString def
+binder 2439:2439 <> x:17
+R2458:2462 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2455:2455 PF_Coq.Core.ComplexityTheory <> L:15 var
+R2457:2457 PF_Coq.Core.ComplexityTheory <> x:17 var
+R2478:2480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2463:2473 PF_Coq.Core.ComplexityTheory <> dtm_decides proj
+R2475:2475 PF_Coq.Core.ComplexityTheory <> M:16 var
+R2477:2477 PF_Coq.Core.ComplexityTheory <> x:17 var
+R2481:2484 Coq.Init.Datatypes <> true constr
+R2561:2568 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2583:2585 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2576:2579 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2573:2575 Coq.Init.Datatypes <> nat ind
+R2580:2582 Coq.Init.Datatypes <> nat ind
+binder 2569:2569 <> T:18
+R2586:2604 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+R2606:2606 PF_Coq.Core.ComplexityTheory <> T:18 var
+def 2651:2656 <> ClassP
+R2668:2671 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2660:2667 PF_Coq.Core.ComplexityTheory <> Language def
+R2680:2687 PF_Coq.Core.ComplexityTheory <> InClassP def
+def 3186:3196 <> Certificate
+R3201:3209 PF_Coq.Core.ComplexityTheory <> BinString def
+rec 3269:3279 <> NP_Verifier
+proj 3299:3312 <> verifier_check
+proj 3352:3364 <> verifier_time
+R3325:3328 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3316:3324 PF_Coq.Core.ComplexityTheory <> BinString def
+R3340:3343 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3329:3339 PF_Coq.Core.ComplexityTheory <> Certificate def
+R3344:3347 Coq.Init.Datatypes <> bool ind
+R3377:3380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3368:3376 PF_Coq.Core.ComplexityTheory <> BinString def
+R3392:3395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3381:3391 PF_Coq.Core.ComplexityTheory <> Certificate def
+R3396:3398 Coq.Init.Datatypes <> nat ind
+def 3479:3487 <> InClassNP
+R3494:3501 PF_Coq.Core.ComplexityTheory <> Language def
+binder 3490:3490 <> L:22
+R3516:3523 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3539:3618 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3528:3538 PF_Coq.Core.ComplexityTheory <> NP_Verifier rec
+binder 3524:3524 <> V:23
+R3619:3619 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3666:3747 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3897:3897 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3620:3627 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3642:3644 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3635:3638 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3632:3634 Coq.Init.Datatypes <> nat ind
+R3639:3641 Coq.Init.Datatypes <> nat ind
+binder 3628:3628 <> T:24
+R3645:3663 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+R3665:3665 PF_Coq.Core.ComplexityTheory <> T:24 var
+R3760:3768 PF_Coq.Core.ComplexityTheory <> BinString def
+binder 3756:3756 <> x:25
+R3781:3785 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3778:3778 PF_Coq.Core.ComplexityTheory <> L:22 var
+R3780:3780 PF_Coq.Core.ComplexityTheory <> x:25 var
+R3786:3793 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3809:3819 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3798:3808 PF_Coq.Core.ComplexityTheory <> Certificate def
+binder 3794:3794 <> c:26
+R3858:3869 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3832:3835 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3821:3829 PF_Coq.Core.ComplexityTheory <> binLength def
+R3831:3831 PF_Coq.Core.ComplexityTheory <> c:26 var
+R3836:3836 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3848:3851 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3837:3845 PF_Coq.Core.ComplexityTheory <> binLength def
+R3847:3847 PF_Coq.Core.ComplexityTheory <> x:25 var
+R3890:3892 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3870:3883 PF_Coq.Core.ComplexityTheory <> verifier_check proj
+R3885:3885 PF_Coq.Core.ComplexityTheory <> V:23 var
+R3887:3887 PF_Coq.Core.ComplexityTheory <> x:25 var
+R3889:3889 PF_Coq.Core.ComplexityTheory <> c:26 var
+R3893:3896 Coq.Init.Datatypes <> true constr
+def 3943:3949 <> ClassNP
+R3961:3964 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3953:3960 PF_Coq.Core.ComplexityTheory <> Language def
+R3973:3981 PF_Coq.Core.ComplexityTheory <> InClassNP def
+prf 4338:4348 <> P_subset_NP
+binder 4359:4359 <> L:27
+R4370:4373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4362:4367 PF_Coq.Core.ComplexityTheory <> ClassP def
+R4369:4369 PF_Coq.Core.ComplexityTheory <> L:27 var
+R4374:4380 PF_Coq.Core.ComplexityTheory <> ClassNP def
+R4382:4382 PF_Coq.Core.ComplexityTheory <> L:27 var
+R4416:4421 PF_Coq.Core.ComplexityTheory <> ClassP def
+R4424:4431 PF_Coq.Core.ComplexityTheory <> InClassP def
+R4449:4455 PF_Coq.Core.ComplexityTheory <> ClassNP def
+R4458:4466 PF_Coq.Core.ComplexityTheory <> InClassNP def
+R4585:4594 PF_Coq.Core.ComplexityTheory <> mkVerifier constr
+binder 4601:4601 <> x:28
+R4608:4618 PF_Coq.Core.ComplexityTheory <> dtm_decides proj
+R4622:4622 PF_Coq.Core.ComplexityTheory <> x:28 var
+binder 4630:4630 <> x:29
+R4637:4644 PF_Coq.Core.ComplexityTheory <> dtm_time proj
+R4648:4648 PF_Coq.Core.ComplexityTheory <> x:29 var
+R4585:4594 PF_Coq.Core.ComplexityTheory <> mkVerifier constr
+binder 4601:4601 <> x:30
+R4608:4618 PF_Coq.Core.ComplexityTheory <> dtm_decides proj
+R4622:4622 PF_Coq.Core.ComplexityTheory <> x:30 var
+binder 4630:4630 <> x:31
+R4637:4644 PF_Coq.Core.ComplexityTheory <> dtm_time proj
+R4648:4648 PF_Coq.Core.ComplexityTheory <> x:31 var
+R4965:4966 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4965:4966 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5028:5036 PF_Coq.Core.ComplexityTheory <> binLength def
+def 5336:5349 <> PvsNP_Question
+binder 5368:5368 <> L:32
+R5379:5383 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5371:5376 PF_Coq.Core.ComplexityTheory <> ClassP def
+R5378:5378 PF_Coq.Core.ComplexityTheory <> L:32 var
+R5384:5390 PF_Coq.Core.ComplexityTheory <> ClassNP def
+R5392:5392 PF_Coq.Core.ComplexityTheory <> L:32 var
+def 5465:5483 <> P_neq_NP_complexity
+R5497:5503 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5505:5506 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 5504:5504 <> L:33
+R5516:5519 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5507:5513 PF_Coq.Core.ComplexityTheory <> ClassNP def
+R5515:5515 PF_Coq.Core.ComplexityTheory <> L:33 var
+R5520:5521 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5522:5527 PF_Coq.Core.ComplexityTheory <> ClassP def
+R5529:5529 PF_Coq.Core.ComplexityTheory <> L:33 var
+def 6000:6013 <> binSymbolToNat
+R6020:6028 PF_Coq.Core.ComplexityTheory <> BinSymbol ind
+binder 6016:6016 <> b:34
+R6033:6035 Coq.Init.Datatypes <> nat ind
+R6048:6048 PF_Coq.Core.ComplexityTheory <> b:34 var
+R6059:6066 PF_Coq.Core.ComplexityTheory <> bin_zero constr
+R6077:6083 PF_Coq.Core.ComplexityTheory <> bin_one constr
+def 6161:6175 <> binStringToTape
+R6182:6190 PF_Coq.Core.ComplexityTheory <> BinString def
+binder 6178:6178 <> x:36
+R6195:6198 Coq.Init.Datatypes <> list ind
+R6200:6202 Coq.Init.Datatypes <> nat ind
+R6209:6211 Coq.Lists.List <> map def
+R6228:6228 PF_Coq.Core.ComplexityTheory <> x:36 var
+R6213:6226 PF_Coq.Core.ComplexityTheory <> binSymbolToNat def
+def 6288:6304 <> binStringToConfig
+R6311:6319 PF_Coq.Core.ComplexityTheory <> BinString def
+binder 6307:6307 <> x:37
+R6324:6331 PF_Coq.Core.TuringEncoding <> TMConfig rec
+R6338:6347 PF_Coq.Core.TuringEncoding <> mkTMConfig constr
+R6352:6366 PF_Coq.Core.ComplexityTheory <> binStringToTape def
+R6368:6368 PF_Coq.Core.ComplexityTheory <> x:37 var
+def 6439:6453 <> encodeBinString
+R6460:6468 PF_Coq.Core.ComplexityTheory <> BinString def
+binder 6456:6456 <> x:38
+R6473:6475 Coq.Init.Datatypes <> nat ind
+R6482:6493 PF_Coq.Core.TuringEncoding <> encodeConfig defax
+R6496:6512 PF_Coq.Core.ComplexityTheory <> binStringToConfig def
+R6514:6514 PF_Coq.Core.ComplexityTheory <> x:38 var
+def 6602:6619 <> instanceDigitalSum
+R6626:6634 PF_Coq.Core.ComplexityTheory <> BinString def
+binder 6622:6622 <> x:39
+R6639:6641 Coq.Init.Datatypes <> nat ind
+R6648:6662 PF_Coq.Core.TuringEncoding <> digitalSumBase3 def
+R6665:6679 PF_Coq.Core.ComplexityTheory <> encodeBinString def
+R6681:6681 PF_Coq.Core.ComplexityTheory <> x:39 var
+def 6769:6787 <> empty_string_length
+R6803:6805 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6791:6799 PF_Coq.Core.ComplexityTheory <> binLength def
+R6801:6802 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 6894:6914 <> example_string_length
+R6958:6960 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6920:6928 PF_Coq.Core.ComplexityTheory <> binLength def
+R6930:6930 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6938:6939 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6948:6949 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6957:6957 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6931:6937 PF_Coq.Core.ComplexityTheory <> bin_one constr
+R6940:6947 PF_Coq.Core.ComplexityTheory <> bin_zero constr
+R6950:6956 PF_Coq.Core.ComplexityTheory <> bin_one constr
+prf 7071:7091 <> identity_poly_bounded
+R7095:7113 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+binder 7120:7120 <> n:40
+R7125:7125 PF_Coq.Core.ComplexityTheory <> n:40 var
+R7145:7163 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+prf 7283:7304 <> quadratic_poly_bounded
+R7308:7326 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+binder 7333:7333 <> n:41
+R7339:7341 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7338:7338 PF_Coq.Core.ComplexityTheory <> n:41 var
+R7342:7342 PF_Coq.Core.ComplexityTheory <> n:41 var
+R7362:7380 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+ax 7722:7741 <> poly_compose_bounded
+binder 7754:7755 <> T1:42
+binder 7757:7758 <> T2:43
+R7787:7794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7765:7783 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+R7785:7786 PF_Coq.Core.ComplexityTheory <> T1:42 var
+R7817:7824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7795:7813 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+R7815:7816 PF_Coq.Core.ComplexityTheory <> T2:43 var
+R7825:7843 PF_Coq.Core.ComplexityTheory <> IsPolynomialBounded def
+binder 7850:7850 <> n:44
+R7859:7861 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7855:7856 PF_Coq.Core.ComplexityTheory <> T1:42 var
+R7858:7858 PF_Coq.Core.ComplexityTheory <> n:44 var
+R7862:7863 PF_Coq.Core.ComplexityTheory <> T2:43 var
+R7865:7865 PF_Coq.Core.ComplexityTheory <> n:44 var
+ax 7984:8000 <> P_spectral_region
+binder 8013:8013 <> L:46
+R8024:8090 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8016:8021 PF_Coq.Core.ComplexityTheory <> ClassP def
+R8023:8023 PF_Coq.Core.ComplexityTheory <> L:46 var
+R8091:8094 Coq.Init.Logic <> True ind
+ax 8216:8241 <> NP_minus_P_spectral_region
+binder 8254:8254 <> L:48
+R8266:8269 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8257:8263 PF_Coq.Core.ComplexityTheory <> ClassNP def
+R8265:8265 PF_Coq.Core.ComplexityTheory <> L:48 var
+R8280:8352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8270:8271 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8272:8277 PF_Coq.Core.ComplexityTheory <> ClassP def
+R8279:8279 PF_Coq.Core.ComplexityTheory <> L:48 var
+R8353:8356 Coq.Init.Logic <> True ind
+R8607:8621 Coq.Reals.Reals <> <> lib
+ax 8715:8730 <> P_neq_NP_witness
+R8747:8750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8734:8735 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8736:8746 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R8751:8757 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8770:8771 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8762:8769 PF_Coq.Core.ComplexityTheory <> Language def
+binder 8758:8758 <> L:50
+R8781:8784 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8772:8778 PF_Coq.Core.ComplexityTheory <> ClassNP def
+R8780:8780 PF_Coq.Core.ComplexityTheory <> L:50 var
+R8785:8786 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8787:8792 PF_Coq.Core.ComplexityTheory <> ClassP def
+R8794:8794 PF_Coq.Core.ComplexityTheory <> L:50 var
+prf 8806:8836 <> spectral_gap_implies_separation
+R8893:8893 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8921:8982 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8894:8900 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8910:8911 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8909:8909 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8901:8905 <> delta:52
+R8917:8919 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8912:8916 PF_Coq.Core.ComplexityTheory <> delta:52 var
+R8983:9001 PF_Coq.Core.ComplexityTheory <> P_neq_NP_complexity def
+R9045:9063 PF_Coq.Core.ComplexityTheory <> P_neq_NP_complexity def
+R9126:9127 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9128:9138 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R9126:9127 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9128:9138 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R9200:9202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9191:9199 PF_Coq.Core.TransferOperator <> lambda0_P defax
+R9203:9212 PF_Coq.Core.TransferOperator <> lambda0_NP defax
+R9200:9202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9191:9199 PF_Coq.Core.TransferOperator <> lambda0_P defax
+R9203:9212 PF_Coq.Core.TransferOperator <> lambda0_NP defax
+R9228:9256 PF_Coq.Core.TransferOperator <> lambda_collapse_under_p_eq_np prfax
+R9228:9256 PF_Coq.Core.TransferOperator <> lambda_collapse_under_p_eq_np prfax
+R9311:9313 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R9296:9310 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+R9311:9313 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R9296:9310 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+R9330:9353 PF_Coq.Core.TransferOperator <> spectral_gap_T3_positive thm
+R9330:9353 PF_Coq.Core.TransferOperator <> spectral_gap_T3_positive thm
+R9369:9383 PF_Coq.Core.TransferOperator <> spectral_gap_T3 def
+R9463:9478 PF_Coq.Core.ComplexityTheory <> P_neq_NP_witness prfax
+R9463:9478 PF_Coq.Core.ComplexityTheory <> P_neq_NP_witness prfax
+def 9544:9574 <> complexity_theory_theorem_count
+R9578:9580 Coq.Init.Datatypes <> nat ind
+def 9599:9627 <> complexity_theory_axiom_count
+R9631:9633 Coq.Init.Datatypes <> nat ind

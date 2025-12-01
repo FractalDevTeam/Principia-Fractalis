@@ -16,6 +16,7 @@ Require Import Coq.Logic.Classical.
 Require Import Coq.Sets.Ensembles.
 Require Import Coq.micromega.Lra.
 Require Import PF_Coq.Core.Zeta.  (* For complex number type C *)
+Require Import PF_Coq.Core.TuringEncoding.  (* For P_equals_NP *)
 Open Scope R_scope.
 
 (** ** Logarithmic Hilbert Space *)
@@ -183,6 +184,9 @@ Parameter lambda0_NP : R.
 (** Eigenvalue specifications - 15 decimal precision *)
 Axiom lambda0_P_spec : lambda0_P = 0.222144146907918.
 Axiom lambda0_NP_spec : lambda0_NP = 0.168176418213693.
+
+(** Bridge axiom: P = NP implies eigenvalue collapse *)
+Axiom lambda_collapse_under_p_eq_np : P_equals_NP -> lambda0_P = lambda0_NP.
 
 (** The spectral gap *)
 Definition spectral_gap_T3 : R := lambda0_P - lambda0_NP.

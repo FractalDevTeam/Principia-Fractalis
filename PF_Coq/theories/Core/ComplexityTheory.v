@@ -17,8 +17,10 @@
 Require Import Coq.Lists.List.
 Require Import Coq.Arith.Arith.
 Require Import Coq.micromega.Lia.
+Require Import Coq.micromega.Lra.
 Import ListNotations.
 Require Import PF_Coq.Core.TuringEncoding.
+Require Import PF_Coq.Core.TransferOperator.
 
 (** ** Binary Strings and Languages *)
 
