@@ -1,5 +1,17 @@
 # Support Principia Fractalis
 
+<div align="center">
+
+<a href="https://ko-fi.com/pablocohen">
+  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" width="300"/>
+</a>
+
+**[☕ Support Pablo's Research](https://ko-fi.com/pablocohen)**
+
+</div>
+
+---
+
 ## About the Author
 
 **Pablo Cohen** ([ORCID: 0009-0002-0734-5565](https://orcid.org/0009-0002-0734-5565)) is an independent researcher who has dedicated years to developing Principia Fractalis — a unified mathematical framework connecting consciousness, computation, and physical reality.
@@ -12,36 +24,59 @@ This work includes:
 
 ## Why Support This Work?
 
-Independent mathematical research has no institutional funding. Your support directly enables:
+Independent mathematical research has **no institutional funding**. Unlike academics at universities, independent researchers have no salary, no grants, no safety net.
 
-- Continued development and refinement of the framework
-- Peer review and academic publication
-- Open access to all materials (code, proofs, book)
-- Living expenses for the author
+Your support directly enables:
+
+| Need | Impact |
+|------|--------|
+| 🔬 **Research** | Continued development and refinement of the framework |
+| 📝 **Publication** | Peer review fees, journal submissions, preprint hosting |
+| 🎤 **Outreach** | Conference travel, presentations, scientific communication |
+| 💻 **Infrastructure** | Computing resources, proof assistant development |
+| 🏠 **Survival** | Living expenses for the author |
+
+**Every contribution — no matter how small — makes a difference.**
 
 ## How to Support
 
 ### Financial Support
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/pablocohen)
+<div align="center">
+
+<a href="https://ko-fi.com/pablocohen">
+  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" width="250"/>
+</a>
 
 **One-time or monthly donations** help sustain this research.
 
+</div>
+
 ### Non-Financial Support
 
-- **Star this repository** — visibility helps
-- **Share the work** — tell colleagues, post on social media
-- **Review the mathematics** — open issues for questions or corrections
-- **Cite the work** — use CITATION.cff for proper attribution
-- **Contribute** — see CONTRIBUTING.md for guidelines
+Even if you can't donate, you can still help:
+
+- ⭐ **Star this repository** — visibility helps attract attention
+- 📢 **Share the work** — tell colleagues, post on social media, write about it
+- 🔍 **Review the mathematics** — open issues for questions or corrections
+- 📚 **Cite the work** — use `CITATION.cff` for proper attribution
+- 🛠️ **Contribute** — see `CONTRIBUTING.md` for guidelines
 
 ## Contact
 
-- **GitHub Issues**: For mathematical questions and bug reports
-- **ORCID**: [0009-0002-0734-5565](https://orcid.org/0009-0002-0734-5565)
+| Method | Address |
+|--------|---------|
+| **Email (Primary)** | psolorzano@gmail.com |
+| **Email (Academic)** | psolorzano@alumni.berklee.edu |
+| **GitHub Issues** | For mathematical questions and bug reports |
+| **ORCID** | [0009-0002-0734-5565](https://orcid.org/0009-0002-0734-5565) |
 
 ---
 
+<div align="center">
+
 *"The unreasonable effectiveness of mathematics is not unreasonable at all — it is inevitable."*
 
-— Pablo Cohen, Principia Fractalis
+**— Pablo Cohen**, Principia Fractalis
+
+</div>
