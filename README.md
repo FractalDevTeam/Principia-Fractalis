@@ -105,7 +105,7 @@ Clinical accuracy: **97.3%** in distinguishing conscious from vegetative states.
 | Prover | Files | Axioms | Theorems | Incomplete | Status |
 |--------|-------|--------|----------|------------|--------|
 | **Lean 4** (PF_Lean4_Code) | 40 | ~226 | 269 | **0 sorrys** | ✅ **COMPLETE** |
-| **Coq** (PF_Coq) | 32 | 190 | 194 | **0 admits** | ✅ **COMPLETE** |
+| **Coq** (PF_Coq) | 32 | 193 | 199 | **0 admits** | ✅ **COMPLETE** |
 | **L4L** (PF_L4L) | 9 | 0 | 19 | 0 | ✅ Contract layer |
 
 **Verification Achievement**: Both proof assistants now have **zero incomplete proofs**. All measure theory (Bochner-Minlos, cylindrical measures, Gaussian models, Yang-Mills gauge field construction) has been rigorously proven. The ~400 combined axioms include:

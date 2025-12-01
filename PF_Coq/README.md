@@ -5,8 +5,8 @@
 | Metric | Count |
 |--------|-------|
 | Source files (.v) | 32 |
-| Axioms | 190 |
-| Theorems/Lemmas | 194 |
+| Axioms | 193 |
+| Theorems/Lemmas | 199 |
 | Admitted statements | **0** |
 | Compilation errors | 0 |
 

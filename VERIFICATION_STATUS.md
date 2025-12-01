@@ -19,7 +19,7 @@ Principia Fractalis is formalized in two independent proof assistants (Lean 4 an
 | Component | Files | Axioms | Theorems | Incomplete | Core P≠NP Status |
 |-----------|-------|--------|----------|------------|------------------|
 | **Lean 4** (PF_Lean4_Code) | 40 | ~226 | 269 | **0 sorrys** | ✅ **COMPLETE** |
-| **Coq** (PF_Coq) | 32 | 190 | 194 | **0 admits** | ✅ **COMPLETE** |
+| **Coq** (PF_Coq) | 32 | 193 | 199 | **0 admits** | ✅ **COMPLETE** |
 | **L4L** (PF_L4L) | 9 | 0 | 19 | 0 | ✅ Contract layer |
 
 ---
