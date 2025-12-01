@@ -1,0 +1,676 @@
+/*
+ * Principia Fractalis Website
+ * Elegant, accessible, responsive
+ * Color palette: Deep purple, lavender, gold accents
+ */
+
+/* ============================================
+   CSS VARIABLES
+   ============================================ */
+:root {
+    /* Colors */
+    --purple-deep: #2d1b4e;
+    --purple-mid: #4a2c7a;
+    --purple-light: #6b4c9a;
+    --lavender: #b8a9c9;
+    --lavender-light: #e8e0f0;
+    --gold: #d4af37;
+    --gold-light: #f0e68c;
+    --white: #ffffff;
+    --off-white: #faf9fc;
+    --text-dark: #1a1a2e;
+    --text-mid: #4a4a6a;
+    --text-light: #8a8aa0;
+
+    /* Typography */
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+
+    /* Transitions */
+    --transition: 0.3s ease;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.7;
+    color: var(--text-dark);
+    background: var(--off-white);
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+a {
+    color: var(--purple-mid);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--gold);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+.section {
+    padding: var(--space-xl) 0;
+}
+
+.section-dark {
+    background: var(--purple-deep);
+    color: var(--white);
+}
+
+.section-dark h2 {
+    color: var(--white);
+}
+
+.section-dark p {
+    color: var(--lavender-light);
+}
+
+.section-dark a {
+    color: var(--gold);
+}
+
+.section-accent {
+    background: linear-gradient(135deg, var(--purple-mid) 0%, var(--purple-deep) 100%);
+    color: var(--white);
+}
+
+.section-accent h2, .section-accent p {
+    color: var(--white);
+}
+
+.section-support {
+    background: var(--lavender-light);
+    text-align: center;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: var(--white);
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--purple-deep);
+    margin-bottom: var(--space-md);
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: var(--purple-mid);
+    margin-bottom: var(--space-sm);
+}
+
+h4 {
+    font-size: 1.1rem;
+    color: var(--purple-light);
+    margin-bottom: var(--space-xs);
+}
+
+.lead {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--space-lg);
+    color: var(--text-mid);
+}
+
+.section-dark .lead {
+    color: var(--lavender);
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 50%, var(--purple-light) 100%);
+    padding: var(--space-lg) var(--space-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(184, 169, 201, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.subtitle {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--lavender);
+    margin: var(--space-md) 0;
+    font-style: italic;
+}
+
+.author {
+    color: var(--gold);
+    font-size: 1.2rem;
+    margin-bottom: var(--space-lg);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all var(--transition);
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: var(--gold);
+    color: var(--purple-deep);
+}
+
+.btn-primary:hover {
+    background: var(--gold-light);
+    color: var(--purple-deep);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border-color: var(--white);
+}
+
+.btn-secondary:hover {
+    background: var(--white);
+    color: var(--purple-deep);
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+.insight-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: var(--space-md);
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+}
+
+.card-icon {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: var(--space-sm);
+}
+
+.card h3 {
+    color: var(--white);
+}
+
+.card p {
+    color: var(--lavender);
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   CONSCIOUSNESS METER
+   ============================================ */
+.consciousness-meter {
+    max-width: 600px;
+    margin: var(--space-lg) auto;
+}
+
+.meter-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-bottom: var(--space-xs);
+}
+
+.meter-bar {
+    height: 24px;
+    background: var(--lavender-light);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple-light) 0%, var(--purple-mid) 50%, var(--gold) 100%);
+    border-radius: 12px;
+    transition: width 1s ease;
+}
+
+.meter-threshold {
+    position: absolute;
+    left: 95%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--purple-deep);
+}
+
+.meter-caption {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-mid);
+    margin-top: var(--space-sm);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   STATS
+   ============================================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--purple-mid);
+    font-weight: 600;
+}
+
+.stat-label {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   MILLENNIUM PROBLEMS
+   ============================================ */
+.problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+.problem {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: var(--space-md);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.problem h4 {
+    color: var(--white);
+    font-size: 1.2rem;
+    margin-bottom: var(--space-xs);
+}
+
+.problem p {
+    color: var(--lavender);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-sm);
+}
+
+.problem .status {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--purple-deep);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   VERIFICATION
+   ============================================ */
+.verification-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    margin: var(--space-lg) 0;
+}
+
+.prover {
+    text-align: center;
+}
+
+.prover h4 {
+    font-size: 1.5rem;
+    color: var(--purple-mid);
+    margin-bottom: var(--space-sm);
+}
+
+.prover-stats {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.prover-stats span {
+    background: var(--lavender-light);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+}
+
+.prover-stats .highlight {
+    background: var(--gold);
+    color: var(--purple-deep);
+    font-weight: 600;
+}
+
+.verification-note {
+    text-align: center;
+    color: var(--text-mid);
+    font-style: italic;
+    margin-bottom: var(--space-md);
+}
+
+/* ============================================
+   STORY
+   ============================================ */
+.story-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-lg);
+    align-items: start;
+}
+
+.story-quote {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--gold);
+    border-left: 4px solid var(--gold);
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.story-text p {
+    margin-bottom: var(--space-sm);
+    color: var(--lavender-light);
+}
+
+.story-links h4 {
+    color: var(--gold);
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-xs);
+}
+
+.story-links ul {
+    list-style: none;
+}
+
+.story-links li {
+    margin-bottom: var(--space-xs);
+}
+
+.story-links a {
+    color: var(--lavender);
+}
+
+.story-links a:hover {
+    color: var(--gold);
+}
+
+/* ============================================
+   DONATIONS
+   ============================================ */
+.donation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin: var(--space-md) 0;
+}
+
+.donate-btn {
+    transition: transform var(--transition);
+}
+
+.donate-btn:hover {
+    transform: translateY(-3px);
+}
+
+.donate-btn img {
+    height: 45px;
+    width: auto;
+}
+
+.support-note {
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    margin-top: var(--space-md);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+    background: var(--purple-deep);
+    color: var(--lavender);
+    padding: var(--space-lg) 0 var(--space-md);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--space-lg);
+}
+
+.footer-main h3 {
+    font-family: var(--font-display);
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+}
+
+.license-note {
+    font-size: 0.85rem;
+    color: var(--lavender);
+}
+
+.license-note a {
+    color: var(--gold);
+}
+
+.footer-links h4 {
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+}
+
+.footer-links a, .footer-links p {
+    display: block;
+    color: var(--lavender);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-xs);
+}
+
+.footer-links a:hover {
+    color: var(--gold);
+}
+
+/* ============================================
+   RESPONSIVE - TABLET
+   ============================================ */
+@media (max-width: 900px) {
+    .story-content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
+@media (max-width: 600px) {
+    :root {
+        --space-lg: 3rem;
+        --space-xl: 4rem;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: var(--space-xl) var(--space-sm);
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .insight-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .problems-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .verification-stats {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    .prover-stats {
+        flex-direction: column;
+        gap: var(--space-xs);
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .story-quote {
+        font-size: 1.2rem;
+    }
+
+    .donation-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Smooth scroll padding for fixed headers (if added later) */
+section[id] {
+    scroll-margin-top: 2rem;
+}
