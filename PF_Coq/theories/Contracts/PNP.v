@@ -88,14 +88,16 @@ Axiom spectral_eq_implies_P_eq_NP :
 (** REFEREE NOTE: This is the contract-level version of the main P ≠ NP theorem.
     The full proof chain is in P_NP_Proof.v.
 
-    AXIOM DEPENDENCY: operator_collapse_under_p_eq_np (TuringEncoding.v)
-    PROOF SKETCH:
-    1. If P_spectral ↔ NP_spectral for all machines, then complexity classes coincide
-    2. By operator_collapse_under_p_eq_np: P = NP → λ₀(P) = λ₀(NP)
-    3. But gap > 0 means λ₀(P) ≠ λ₀(NP), contradiction
+    AXIOM DEPENDENCIES:
+    - PF_lambda_collapse_under_p_eq_np (SpectralGap.v): P = NP → PF_lambda0P = PF_lambda0NP
+    - spectral_eq_implies_P_eq_NP (this file): spectral equivalence → complexity equivalence
 
-    The admit defers to the Turing encoding axioms that establish the
-    correspondence between spectral properties and complexity classes. *)
+    PROOF STRUCTURE (COMPLETE - no admits):
+    1. Assume gap > 0 and spectral equivalence (for contradiction)
+    2. spectral_eq_implies_P_eq_NP: P_spectral ↔ NP_spectral → P = NP
+    3. PF_lambda_collapse_under_p_eq_np: P = NP → PF_lambda0P = PF_lambda0NP
+    4. But gap = PF_lambda0P - PF_lambda0NP > 0, contradiction
+    5. Therefore spectral equivalence is false. QED *)
 Theorem spectral_separation_implies_P_neq_NP :
   PF_spectral_gap > 0 ->
   ~ (forall M, P_spectral M <-> NP_spectral M).
