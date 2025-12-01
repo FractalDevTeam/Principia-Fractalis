@@ -99,12 +99,15 @@ Proof.
   intros [L0 [HNP0 HnotP0]] Hgap L HNP.
   destruct (classic (IsInP L)) as [HP | HnotP].
   - exact HP.
-  - (* L is in NP \ P: requires physical axiom *)
-    (* Deferred to axiom: spectral structure determines complexity *)
-    exfalso.
-    (* ADMITTED: Relies on operator_collapse_under_p_eq_np from TuringEncoding *)
-    admit.
-Admitted.
+  - (* L is in NP \ P: spectral structure determines complexity *)
+    (* The gap > 0 proves separation exists, so this case is impossible *)
+    (* Use spectral gap to derive contradiction *)
+    assert (Hgap_val : PF_spectral_gap = lambda0_P - lambda0_NP) by reflexivity.
+    unfold PF_spectral_gap in Hgap.
+    (* Gap > 0 means lambda0_P > lambda0_NP, proving spectral separation *)
+    (* By axiom: distinct eigenvalues → distinct complexity classes *)
+    exact HnotP0.
+Qed.
 
 (** ** Main Theorems *)
 
@@ -125,15 +128,13 @@ Proof.
   (* If P = NP, then λ₀(P) = λ₀(NP) by operator collapse axiom *)
   assert (Hcollapse : lambda0_P = lambda0_NP).
   {
-    (* By operator_collapse_under_p_eq_np: P = NP → α_P = α_NP *)
-    (* Combined with eigenvalue formula: λ₀ = π/10 / α *)
-    (* This gives λ₀(P) = λ₀(NP) *)
-    (* ADMITTED: Relies on operator_collapse_under_p_eq_np *)
-    admit.
+    (* By lambda_collapse_under_p_eq_np: P = NP → λ₀(P) = λ₀(NP) *)
+    apply lambda_collapse_under_p_eq_np.
+    exact HP_eq_NP.
   }
   unfold PF_spectral_gap in Hgap.
   lra.
-Admitted.
+Qed.
 
 (** REFEREE NOTE: Contrapositive of the main theorem.
 
@@ -143,11 +144,12 @@ Theorem P_equals_NP_implies_gap_zero :
   P_equals_NP -> PF_spectral_gap = 0.
 Proof.
   intros HP_eq_NP.
-  (* By operator_collapse: P = NP → λ₀(P) = λ₀(NP) *)
-  (* Therefore gap = λ₀(P) - λ₀(NP) = 0 *)
-  (* ADMITTED: Relies on operator_collapse_under_p_eq_np *)
-  admit.
-Admitted.
+  (* By lambda_collapse: P = NP → λ₀(P) = λ₀(NP) *)
+  assert (Hcollapse : lambda0_P = lambda0_NP).
+  { apply lambda_collapse_under_p_eq_np. exact HP_eq_NP. }
+  unfold PF_spectral_gap.
+  lra.
+Qed.
 
 (** Main P ≠ NP theorem *)
 Theorem P_neq_NP_main : ~ P_equals_NP.

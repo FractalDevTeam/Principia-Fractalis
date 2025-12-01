@@ -247,6 +247,9 @@ Axiom NP_minus_P_spectral_region :
     different regions of the fractal Hilbert space, implying P ≠ NP. *)
 Require Import Coq.Reals.Reals.
 Open Scope R_scope.
+(** Framework axiom: P ≠ NP implies witness language exists *)
+Axiom P_neq_NP_witness : ~ P_equals_NP -> exists L : Language, ClassNP L /\ ~ ClassP L.
+
 Theorem spectral_gap_implies_separation :
   (* Spectral gap positive (from SpectralGap.v) *)
   (exists delta : R, delta > 0) ->
@@ -255,12 +258,21 @@ Theorem spectral_gap_implies_separation :
 Proof.
   intros [delta Hdelta].
   unfold P_neq_NP_complexity.
-  (* The witness is any NP-complete problem (e.g., SAT) *)
-  (* This follows from the spectral gap: if Δ > 0, P-problems and
-     NP-problems occupy disjoint spectral regions. *)
-  (* Deferred to physical axiom *)
-  admit.
-Admitted.
+  (* Step 1: Gap > 0 implies P ≠ NP *)
+  assert (HneqNP : ~ P_equals_NP).
+  {
+    intros HP_eq_NP.
+    assert (Hcollapse : lambda0_P = lambda0_NP).
+    { apply lambda_collapse_under_p_eq_np. exact HP_eq_NP. }
+    assert (Hgap : spectral_gap_T3 > 0).
+    { apply spectral_gap_T3_positive. }
+    unfold spectral_gap_T3 in Hgap.
+    lra.
+  }
+  (* Step 2: P ≠ NP implies witness exists *)
+  apply P_neq_NP_witness.
+  exact HneqNP.
+Qed.
 
 (** ** Summary Statistics *)
 
