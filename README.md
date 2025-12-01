@@ -322,14 +322,22 @@ Your support directly enables:
 
 **Every contribution matters.** See [SUPPORT.md](SUPPORT.md) for more ways to help.
 
-### Contact
+### Other Work by Pablo Cohen
+
+<a href="https://www.amazon.com/Death-Pablo-Suffering-Consciousness-Evolution/dp/B0FFSHMD5H">
+  <img src="https://img.shields.io/badge/Amazon-Death%20of%20Pablo-FF9900?style=for-the-badge&logo=amazon&logoColor=white" alt="Death of Pablo on Amazon"/>
+</a>
+
+*"Death of Pablo: Suffering, Consciousness Evolution and Personal Rebirth"* — A companion exploration of consciousness from a personal perspective.
+
+### Contact & Academic Profiles
 
 | Method | Address |
 |--------|---------|
 | **Email (Primary)** | psolorzano@gmail.com |
 | **Email (Academic)** | psolorzano@alumni.berklee.edu |
-| **GitHub Issues** | For mathematical questions and bug reports |
 | **ORCID** | [0009-0002-0734-5565](https://orcid.org/0009-0002-0734-5565) |
+| **GitHub Issues** | For mathematical questions and bug reports |
 
 ---
 
