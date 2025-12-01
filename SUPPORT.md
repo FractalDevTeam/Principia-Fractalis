@@ -3,10 +3,17 @@
 <div align="center">
 
 <a href="https://ko-fi.com/pablocohen">
-  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" width="300"/>
+  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" width="250"/>
+</a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://liberapay.com/pablocohen">
+  <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Donate via Liberapay" width="140"/>
 </a>
 
-**[☕ Support Pablo's Research](https://ko-fi.com/pablocohen)**
+<br/><br/>
+
+<img src="https://img.shields.io/liberapay/receives/pablocohen.svg?logo=liberapay" alt="Liberapay receiving"/>
+<img src="https://img.shields.io/liberapay/patrons/pablocohen.svg?logo=liberapay" alt="Liberapay patrons"/>
 
 </div>
 
