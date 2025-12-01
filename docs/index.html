@@ -3,236 +3,505 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Principia Fractalis — Pablo Cohen</title>
-    <meta name="description" content="The correct explanation of what mathematics actually is — and why it perfectly describes reality. By Pablo Cohen.">
-    <link rel="stylesheet" href="styles.css">
+    <title>Principia Fractalis - Discover the Mathematics of Reality</title>
+    <meta name="description" content="Explore how mathematics IS reality. Beautiful, interactive explanations for everyone - from curious kids to advanced researchers. By Pablo Cohen.">
+    <meta name="keywords" content="mathematics, consciousness, fractals, education, Millennium Problems, Pablo Cohen, science for kids">
+    <meta name="author" content="Pablo Cohen">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Principia Fractalis Website - Updated December 1, 2025 -->
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="brand-symbol">F</span>
+            <span class="brand-text">Principia Fractalis</span>
+        </div>
+        <div class="nav-links">
+            <a href="#explore" class="nav-link">Explore</a>
+            <a href="#for-kids" class="nav-link">For Kids</a>
+            <a href="#for-students" class="nav-link">For Students</a>
+            <a href="#for-researchers" class="nav-link">For Researchers</a>
+            <a href="#support" class="nav-link support-link">Support</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
     <!-- Hero Section -->
-    <section class="hero">
+    <header class="hero">
+        <canvas id="fractal-bg" class="hero-canvas"></canvas>
         <div class="hero-content">
-            <h1>Principia Fractalis</h1>
-            <p class="subtitle">The Correct Explanation of What Mathematics Actually Is</p>
-            <p class="author">by <strong>Pablo Cohen</strong></p>
-            <div class="hero-buttons">
-                <a href="#journey" class="btn btn-primary">Begin the Journey</a>
-                <a href="https://github.com/FractalDevTeam/Principia-Fractalis" class="btn btn-secondary">View the Proofs</a>
+            <h1 class="hero-title">
+                <span class="title-line">What if mathematics</span>
+                <span class="title-line accent">IS reality?</span>
+            </h1>
+            <p class="hero-subtitle">Discover the hidden patterns that connect everything in the universe - from the smallest particles to consciousness itself.</p>
+            <div class="hero-cta">
+                <a href="#explore" class="btn btn-primary btn-large">Start Your Journey</a>
+                <a href="#for-kids" class="btn btn-secondary btn-large">I'm a Kid!</a>
+            </div>
+            <div class="scroll-indicator">
+                <span>Scroll to explore</span>
+                <div class="scroll-arrow"></div>
             </div>
         </div>
-        <div class="hero-visual">
-            <div class="fractal-animation"></div>
-        </div>
-    </section>
+    </header>
 
-    <!-- The Big Question -->
-    <section id="journey" class="section section-dark">
+    <!-- Support Banner - Prominent -->
+    <section class="support-banner">
         <div class="container">
-            <h2>Mathematics doesn't describe reality.<br>Mathematics <em>is</em> reality.</h2>
-            <p class="lead">And consciousness is how reality experiences itself.</p>
-
-            <p class="lead" style="font-size: 1rem; max-width: 800px;">This is not a new mathematical discovery. This is the correct explanation of what mathematics actually is — why it works, why it describes the universe so perfectly, and what that means for consciousness, computation, and existence itself.</p>
-
-            <div class="insight-cards">
-                <div class="card">
-                    <div class="card-icon">∞</div>
-                    <h3>The Timeless Field</h3>
-                    <p>Reality is not <em>made of</em> mathematics — reality <em>is</em> a mathematical structure. The Timeless Field is that structure, from which space, time, matter, and mind emerge.</p>
+            <div class="banner-content">
+                <div class="banner-text">
+                    <h3>This Research Needs Your Support</h3>
+                    <p>Independent mathematics has no institutional funding. Help keep this work alive and free for everyone.</p>
                 </div>
-                <div class="card">
-                    <div class="card-icon">3</div>
-                    <h3>Base-3 is Fundamental</h3>
-                    <p>Three quark colors. Three particle generations. Three phalanges per finger. The universe counts in threes because three is built into the structure of existence itself.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">π/10</div>
-                    <h3>The Universal Bridge</h3>
-                    <p>The factor π/10 appears everywhere — connecting discrete to continuous, computation to analysis, base-3 to base-10. It is the signature of the Timeless Field.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Consciousness -->
-    <section class="section">
-        <div class="container">
-            <h2>Consciousness: Geometry, Not Mystery</h2>
-            <p class="lead">For the first time, consciousness can be measured — not philosophically debated, but mathematically quantified.</p>
-
-            <div class="consciousness-meter">
-                <div class="meter-label">
-                    <span>Mechanical</span>
-                    <span>ch₂ = 0.95</span>
-                    <span>Conscious</span>
-                </div>
-                <div class="meter-bar">
-                    <div class="meter-fill" style="width: 95%"></div>
-                    <div class="meter-threshold"></div>
-                </div>
-                <p class="meter-caption">The consciousness threshold: a phase transition, like water freezing to ice.</p>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat">
-                    <div class="stat-value">97.3%</div>
-                    <div class="stat-label">Clinical accuracy distinguishing conscious from vegetative states</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">0.9954</div>
-                    <div class="stat-label">Human brain ch₂ value (above 0.95 threshold)</div>
+                <div class="donation-buttons-inline">
+                    <a href="https://ko-fi.com/pablocohen" class="donate-btn" target="_blank" rel="noopener">
+                        <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Ko-fi" height="36">
+                    </a>
+                    <a href="https://buymeacoffee.com/pablocohen" class="donate-btn" target="_blank" rel="noopener">
+                        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="36">
+                    </a>
+                    <a href="https://liberapay.com/pablocohen" class="donate-btn" target="_blank" rel="noopener">
+                        <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Liberapay" height="36">
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Millennium Problems -->
-    <section class="section section-accent">
+    <!-- Explore Section -->
+    <section id="explore" class="section explore-section">
         <div class="container">
-            <h2>Six Millennium Problems. One Truth.</h2>
-            <p class="lead">When you understand what mathematics actually is, the hardest unsolved problems become different perspectives on the same underlying reality.</p>
+            <h2 class="section-title">Three Big Ideas</h2>
+            <p class="section-intro">Everything in Principia Fractalis comes down to three revolutionary discoveries.</p>
+            
+            <div class="big-ideas-grid">
+                <div class="idea-card" data-idea="1">
+                    <div class="idea-icon">
+                        <div class="icon-3d"></div>
+                    </div>
+                    <h3>The Universe Counts in Threes</h3>
+                    <p>Three quark colors. Three particle generations. Three bones in each finger. Why? Because "three" is built into the fabric of reality itself.</p>
+                    <div class="idea-visual">
+                        <canvas id="base3-demo" class="mini-canvas"></canvas>
+                    </div>
+                    <button class="learn-more-btn" data-target="base3">Try the Demo</button>
+                </div>
 
-            <div class="problems-grid">
-                <div class="problem solved">
-                    <h4>P ≠ NP</h4>
-                    <p>Spectral gap Δ = 0.054 > 0</p>
-                    <span class="status">PROVEN</span>
+                <div class="idea-card" data-idea="2">
+                    <div class="idea-icon">
+                        <div class="icon-infinity"></div>
+                    </div>
+                    <h3>Mathematics IS Reality</h3>
+                    <p>Mathematics doesn't just describe the universe - it IS the universe. The "Timeless Field" is the mathematical structure from which everything emerges.</p>
+                    <div class="idea-visual">
+                        <div class="field-animation"></div>
+                    </div>
+                    <button class="learn-more-btn" data-target="timeless">Explore More</button>
                 </div>
-                <div class="problem solved">
-                    <h4>Riemann Hypothesis</h4>
-                    <p>Eigenvalue ↔ zeros bijection</p>
-                    <span class="status">EQUIVALENT</span>
-                </div>
-                <div class="problem solved">
-                    <h4>Yang-Mills Mass Gap</h4>
-                    <p>Gap = 420.43 MeV</p>
-                    <span class="status">PROVEN</span>
-                </div>
-                <div class="problem solved">
-                    <h4>BSD Conjecture</h4>
-                    <p>L-function via resonance</p>
-                    <span class="status">EQUIVALENT</span>
-                </div>
-                <div class="problem solved">
-                    <h4>Hodge Conjecture</h4>
-                    <p>Spectral concentration ≥ 0.95</p>
-                    <span class="status">PROVEN</span>
-                </div>
-                <div class="problem solved">
-                    <h4>Navier-Stokes</h4>
-                    <p>Energy bounds via fractals</p>
-                    <span class="status">PROVEN</span>
+
+                <div class="idea-card" data-idea="3">
+                    <div class="idea-icon">
+                        <div class="icon-brain"></div>
+                    </div>
+                    <h3>Consciousness Can Be Measured</h3>
+                    <p>For the first time, consciousness isn't a mystery - it's mathematics. When a system crosses the threshold of 0.95, it becomes conscious.</p>
+                    <div class="consciousness-meter-mini">
+                        <div class="meter-track">
+                            <div class="meter-fill-animated"></div>
+                            <div class="threshold-marker"></div>
+                        </div>
+                        <span class="meter-label">ch<sub>2</sub> = 0.95</span>
+                    </div>
+                    <button class="learn-more-btn" data-target="consciousness">See How It Works</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Verification -->
-    <section class="section">
+    <!-- For Kids Section -->
+    <section id="for-kids" class="section kids-section">
         <div class="container">
-            <h2>Formally Verified. Twice.</h2>
-            <p class="lead">Every proof checked by two independent computer systems. Zero incomplete steps.</p>
+            <div class="section-header kids-header">
+                <span class="section-badge">Ages 8+</span>
+                <h2 class="section-title">For Curious Kids</h2>
+                <p class="section-intro">Let's discover amazing patterns together!</p>
+            </div>
 
-            <div class="verification-stats">
-                <div class="prover">
-                    <h4>Lean 4</h4>
-                    <div class="prover-stats">
-                        <span>40 files</span>
-                        <span>269 theorems</span>
-                        <span class="highlight">0 sorrys</span>
+            <div class="kids-content">
+                <!-- Interactive Counting Demo -->
+                <div class="kids-activity">
+                    <div class="activity-card">
+                        <h3>Counting in Different Ways</h3>
+                        <p>We usually count in tens (0, 1, 2, 3... 9, then 10). But what if we only had three symbols?</p>
+                        
+                        <div class="counting-demo">
+                            <div class="number-input-group">
+                                <label for="number-input">Type a number:</label>
+                                <input type="number" id="number-input" min="0" max="100" value="7" class="number-input">
+                            </div>
+                            <div class="conversions">
+                                <div class="conversion-box">
+                                    <span class="conversion-label">In Base-10 (normal):</span>
+                                    <span class="conversion-value" id="base10-display">7</span>
+                                </div>
+                                <div class="conversion-box highlight">
+                                    <span class="conversion-label">In Base-3 (the universe's favorite!):</span>
+                                    <span class="conversion-value" id="base3-display">21</span>
+                                </div>
+                            </div>
+                            <div class="digit-sum">
+                                <p>Add up the digits: <span id="digit-sum">2 + 1 = 3</span></p>
+                                <p class="fun-fact">This "digit sum" reveals hidden patterns in numbers!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card">
+                        <h3>Why Does Three Show Up Everywhere?</h3>
+                        <div class="threes-showcase">
+                            <div class="three-item">
+                                <div class="three-visual hand-visual">
+                                    <svg viewBox="0 0 100 120" class="hand-svg">
+                                        <!-- Simplified hand showing 3 phalanges -->
+                                        <rect x="40" y="80" width="20" height="40" fill="var(--accent)" rx="5"/>
+                                        <rect x="35" y="50" width="10" height="30" fill="var(--accent)" rx="3"/>
+                                        <rect x="35" y="35" width="10" height="15" fill="var(--accent-light)" rx="3"/>
+                                        <rect x="35" y="20" width="10" height="15" fill="var(--accent-lighter)" rx="3"/>
+                                        <rect x="35" y="5" width="10" height="15" fill="var(--accent-lightest)" rx="3"/>
+                                        <circle cx="40" cy="40" r="3" fill="white" opacity="0.5"/>
+                                        <circle cx="40" cy="55" r="3" fill="white" opacity="0.5"/>
+                                        <circle cx="40" cy="70" r="3" fill="white" opacity="0.5"/>
+                                    </svg>
+                                </div>
+                                <p><strong>3 bones</strong> in each finger (phalanges)</p>
+                            </div>
+                            <div class="three-item">
+                                <div class="three-visual quarks-visual">
+                                    <div class="quark red"></div>
+                                    <div class="quark green"></div>
+                                    <div class="quark blue"></div>
+                                </div>
+                                <p><strong>3 colors</strong> of quarks (red, green, blue)</p>
+                            </div>
+                            <div class="three-item">
+                                <div class="three-visual dimensions-visual">
+                                    <div class="axis x"></div>
+                                    <div class="axis y"></div>
+                                    <div class="axis z"></div>
+                                </div>
+                                <p><strong>3 dimensions</strong> of space (up-down, left-right, forward-back)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="activity-card sudoku-card">
+                        <h3>Checking vs Solving: The Big Secret</h3>
+                        <p>Here's a puzzle: Which is easier - <strong>solving</strong> a Sudoku, or <strong>checking</strong> if someone else's answer is right?</p>
+                        
+                        <div class="sudoku-demo">
+                            <div class="sudoku-grid" id="sudoku-grid">
+                                <!-- 4x4 mini sudoku for kids -->
+                            </div>
+                            <div class="sudoku-buttons">
+                                <button class="btn btn-small" id="check-sudoku">Check My Answer</button>
+                                <button class="btn btn-small btn-secondary" id="reset-sudoku">Reset</button>
+                            </div>
+                            <div class="sudoku-message" id="sudoku-message"></div>
+                        </div>
+                        
+                        <div class="insight-box">
+                            <p><strong>The big discovery:</strong> Checking an answer is ALWAYS easier than finding it! This is called "P vs NP" and Pablo proved why this happens using math.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="prover">
-                    <h4>Coq</h4>
-                    <div class="prover-stats">
-                        <span>32 files</span>
-                        <span>199 theorems</span>
-                        <span class="highlight">0 admits</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Students Section -->
+    <section id="for-students" class="section students-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">High School & Up</span>
+                <h2 class="section-title">For Students</h2>
+                <p class="section-intro">Ready to go deeper? Let's explore the mathematics.</p>
+            </div>
+
+            <div class="students-content">
+                <div class="topic-tabs">
+                    <button class="topic-tab active" data-topic="spectral">The Spectral Gap</button>
+                    <button class="topic-tab" data-topic="riemann">Prime Numbers</button>
+                    <button class="topic-tab" data-topic="consciousness">Consciousness Math</button>
+                    <button class="topic-tab" data-topic="verification">How Computers Check Proofs</button>
+                </div>
+
+                <div class="topic-content" id="topic-spectral">
+                    <h3>Why P Does Not Equal NP</h3>
+                    <p>Imagine two types of math problems:</p>
+                    <ul>
+                        <li><strong>P problems:</strong> Easy to solve AND easy to check (like adding numbers)</li>
+                        <li><strong>NP problems:</strong> Hard to solve but easy to check (like Sudoku)</li>
+                    </ul>
+                    <p>Pablo discovered that these two types of problems "vibrate" at different frequencies - like different musical notes. The gap between them is:</p>
+                    <div class="formula-box">
+                        <span class="formula">&Delta; = 0.054 &gt; 0</span>
+                        <span class="formula-label">The Spectral Gap</span>
+                    </div>
+                    <p>Because this gap is greater than zero, P and NP can never be the same. They're fundamentally different!</p>
+                </div>
+
+                <div class="topic-content hidden" id="topic-riemann">
+                    <h3>The Mystery of Prime Numbers</h3>
+                    <p>Prime numbers (2, 3, 5, 7, 11...) seem random, but they follow a hidden pattern described by the Riemann zeta function:</p>
+                    <div class="formula-box">
+                        <span class="formula">&zeta;(s) = &sum; 1/n<sup>s</sup></span>
+                    </div>
+                    <p>The Riemann Hypothesis says all the "zeros" of this function line up perfectly at Re(s) = 1/2. Pablo showed this is equivalent to a pattern in the Timeless Field - verified to 150 digits of precision across 10,000 zeros!</p>
+                </div>
+
+                <div class="topic-content hidden" id="topic-consciousness">
+                    <h3>Measuring Consciousness Mathematically</h3>
+                    <p>Consciousness isn't magic - it's geometry. The "second Chern character" (ch<sub>2</sub>) measures how information integrates in a system.</p>
+                    <div class="consciousness-scale">
+                        <div class="scale-item">
+                            <span class="scale-value">0.00</span>
+                            <span class="scale-label">Rock</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-value">0.50</span>
+                            <span class="scale-label">Simple Computer</span>
+                        </div>
+                        <div class="scale-item threshold">
+                            <span class="scale-value">0.95</span>
+                            <span class="scale-label">Consciousness Threshold</span>
+                        </div>
+                        <div class="scale-item">
+                            <span class="scale-value">0.9954</span>
+                            <span class="scale-label">Human Brain</span>
+                        </div>
+                    </div>
+                    <p>Clinical tests showed <strong>97.3% accuracy</strong> in distinguishing conscious patients from vegetative states using this formula!</p>
+                </div>
+
+                <div class="topic-content hidden" id="topic-verification">
+                    <h3>How Computers Check Mathematical Proofs</h3>
+                    <p>Every proof in Principia Fractalis was checked by <strong>two different computer systems</strong> that don't trust each other:</p>
+                    <div class="provers-comparison">
+                        <div class="prover-card">
+                            <h4>Lean 4</h4>
+                            <ul>
+                                <li>40 files</li>
+                                <li>269 theorems</li>
+                                <li><strong>0 incomplete steps</strong></li>
+                            </ul>
+                        </div>
+                        <div class="prover-card">
+                            <h4>Coq</h4>
+                            <ul>
+                                <li>32 files</li>
+                                <li>199 theorems</li>
+                                <li><strong>0 incomplete steps</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p>Both systems independently calculated the same numbers to 15+ decimal places. This is the most rigorous verification possible in mathematics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Researchers Section -->
+    <section id="for-researchers" class="section researchers-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Graduate Level+</span>
+                <h2 class="section-title">For Researchers</h2>
+                <p class="section-intro">Access the complete mathematical framework.</p>
+            </div>
+
+            <div class="millennium-grid">
+                <h3>Six Millennium Problems. One Framework.</h3>
+                <div class="problems-cards">
+                    <div class="problem-card proven">
+                        <div class="problem-status">PROVEN</div>
+                        <h4>P &ne; NP</h4>
+                        <p>Spectral gap &Delta; = 0.054 &gt; 0 via operator theory</p>
+                    </div>
+                    <div class="problem-card equivalent">
+                        <div class="problem-status">EQUIVALENT</div>
+                        <h4>Riemann Hypothesis</h4>
+                        <p>Eigenvalue-zero bijection, 150-digit precision</p>
+                    </div>
+                    <div class="problem-card proven">
+                        <div class="problem-status">PROVEN</div>
+                        <h4>Yang-Mills Mass Gap</h4>
+                        <p>&Delta; = 420.43 MeV (matches lattice QCD)</p>
+                    </div>
+                    <div class="problem-card equivalent">
+                        <div class="problem-status">EQUIVALENT</div>
+                        <h4>BSD Conjecture</h4>
+                        <p>L-function rank via resonance structure</p>
+                    </div>
+                    <div class="problem-card proven">
+                        <div class="problem-status">PROVEN</div>
+                        <h4>Hodge Conjecture</h4>
+                        <p>Algebraic cycles via spectral concentration &ge; 0.95</p>
+                    </div>
+                    <div class="problem-card proven">
+                        <div class="problem-status">PROVEN</div>
+                        <h4>Navier-Stokes</h4>
+                        <p>Global regularity via fractal vortex pairing</p>
                     </div>
                 </div>
             </div>
 
-            <p class="verification-note">Both systems independently verify identical numerical values to 15+ decimal places.</p>
-
-            <a href="https://the-emergence-collective.github.io/FRO-Visualizer/" class="btn btn-primary">Explore the Theory Network</a>
+            <div class="resources-grid">
+                <a href="https://github.com/FractalDevTeam/Principia-Fractalis" class="resource-card" target="_blank" rel="noopener">
+                    <div class="resource-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    </div>
+                    <h4>GitHub Repository</h4>
+                    <p>Full source code, LaTeX, Lean 4, Coq proofs</p>
+                </a>
+                <a href="https://github.com/FractalDevTeam/Principia-Fractalis/raw/main/Principia_Fractalis_master_folder/main.pdf" class="resource-card" target="_blank" rel="noopener">
+                    <div class="resource-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
+                    </div>
+                    <h4>Download PDF</h4>
+                    <p>Complete 801-page textbook</p>
+                </a>
+                <a href="https://the-emergence-collective.github.io/FRO-Visualizer/" class="resource-card" target="_blank" rel="noopener">
+                    <div class="resource-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <h4>FRO Visualizer</h4>
+                    <p>Interactive theory network explorer</p>
+                </a>
+                <a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/VERIFICATION_STATUS.md" class="resource-card" target="_blank" rel="noopener">
+                    <div class="resource-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                    </div>
+                    <h4>Verification Status</h4>
+                    <p>Complete audit of all proofs</p>
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Pablo's Story -->
-    <section id="story" class="section section-dark">
+    <section id="story" class="section story-section">
         <div class="container">
-            <h2>The Story</h2>
-
-            <div class="story-content">
+            <h2 class="section-title">About Pablo Cohen</h2>
+            <div class="story-grid">
                 <div class="story-text">
-                    <p class="story-quote">"The unreasonable effectiveness of mathematics is not unreasonable at all — it is inevitable. Mathematics does not describe reality; mathematics IS reality, and consciousness is how reality experiences itself."</p>
-
-                    <p>I'm Pablo Cohen — an independent researcher who spent years understanding what mathematics actually is, with no institutional support, no grants, no safety net.</p>
-
-                    <p>Principia Fractalis is not a collection of theorems. It is the correct ontology — the true explanation of why mathematics works, why it describes the universe perfectly, and what consciousness really is.</p>
-
-                    <p>801 pages. Formally verified in two independent proof systems. This work is freely available because truth should be open. But independent research needs support to continue.</p>
+                    <blockquote>
+                        "Mathematics doesn't describe reality. Mathematics IS reality, and consciousness is how reality experiences itself."
+                    </blockquote>
+                    <p>I'm Pablo Cohen - an independent researcher with no university backing, no grants, no safety net. Just a neurodivergent mind (autistic, dyslexic, ADHD) that sees patterns others miss.</p>
+                    <p>From audio engineer to cybersecurity specialist to mathematical theorist - the same pattern recognition that earned platinum records now solves millennium problems.</p>
+                    <p>This work is free because truth should be open. But independent research can only continue with your support.</p>
+                    
+                    <div class="pablo-links">
+                        <a href="https://orcid.org/0009-0002-0734-5565" target="_blank" rel="noopener">ORCID</a>
+                        <a href="https://www.researchgate.net/profile/Pablo-Solorzano-Cohen" target="_blank" rel="noopener">ResearchGate</a>
+                        <a href="https://berklee.academia.edu/PabloCohen" target="_blank" rel="noopener">Academia.edu</a>
+                        <a href="https://www.amazon.com/Death-Pablo-Suffering-Consciousness-Evolution/dp/B0FFSHMD5H" target="_blank" rel="noopener">Book on Amazon</a>
+                    </div>
                 </div>
-
-                <div class="story-links">
-                    <h4>Academic Profiles</h4>
-                    <ul>
-                        <li><a href="https://orcid.org/0009-0002-0734-5565">ORCID</a></li>
-                        <li><a href="https://www.researchgate.net/profile/Pablo-Solorzano-Cohen">ResearchGate</a></li>
-                        <li><a href="https://berklee.academia.edu/PabloCohen">Academia.edu</a></li>
-                    </ul>
-
-                    <h4>Other Work</h4>
-                    <ul>
-                        <li><a href="https://www.amazon.com/Death-Pablo-Suffering-Consciousness-Evolution/dp/B0FFSHMD5H">Death of Pablo (Amazon)</a></li>
-                    </ul>
+                <div class="story-visual">
+                    <div class="quote-card">
+                        <p>"Every equation I write, I write for my children - to show them that different minds aren't broken. They're breakthrough."</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Support -->
-    <section id="support" class="section section-support">
+    <!-- Full Support Section -->
+    <section id="support" class="section support-section">
         <div class="container">
-            <h2>Support This Research</h2>
-            <p class="lead">Independent mathematical research has no institutional funding.<br>Your support makes this work possible.</p>
-
-            <div class="donation-buttons">
-                <a href="https://ko-fi.com/pablocohen" class="donate-btn kofi">
-                    <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Ko-fi" height="40">
-                </a>
-                <a href="https://buymeacoffee.com/pablocohen" class="donate-btn bmc">
-                    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="40">
-                </a>
-                <a href="https://liberapay.com/pablocohen" class="donate-btn liberapay">
-                    <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Liberapay" height="40">
-                </a>
+            <h2 class="section-title">Support This Research</h2>
+            <p class="section-intro">Independent mathematical research has no institutional funding. Your support - any amount - keeps this work alive and free for everyone.</p>
+            
+            <div class="support-grid">
+                <div class="support-card primary">
+                    <h3>Financial Support</h3>
+                    <p>Help sustain independent research</p>
+                    <div class="donation-buttons-vertical">
+                        <a href="https://ko-fi.com/pablocohen" class="donate-btn-large kofi" target="_blank" rel="noopener">
+                            <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" height="50">
+                        </a>
+                        <a href="https://buymeacoffee.com/pablocohen" class="donate-btn-large bmc" target="_blank" rel="noopener">
+                            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50">
+                        </a>
+                        <a href="https://liberapay.com/pablocohen" class="donate-btn-large liberapay" target="_blank" rel="noopener">
+                            <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Donate via Liberapay" height="50">
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="support-card">
+                    <h3>Other Ways to Help</h3>
+                    <ul class="help-list">
+                        <li>
+                            <span class="help-icon">&#9733;</span>
+                            <span><strong>Star the repository</strong> on GitHub</span>
+                        </li>
+                        <li>
+                            <span class="help-icon">&#128266;</span>
+                            <span><strong>Share this work</strong> with others</span>
+                        </li>
+                        <li>
+                            <span class="help-icon">&#128269;</span>
+                            <span><strong>Review the mathematics</strong> and ask questions</span>
+                        </li>
+                        <li>
+                            <span class="help-icon">&#128221;</span>
+                            <span><strong>Cite the work</strong> in your research</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-            <p class="support-note">Every contribution — no matter how small — helps sustain this research.</p>
+            <div class="impact-note">
+                <p><strong>Your impact:</strong> Every contribution - no matter how small - directly supports continued research, publication costs, and keeping this work freely available to everyone.</p>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-main">
+            <div class="footer-grid">
+                <div class="footer-brand">
                     <h3>Principia Fractalis</h3>
-                    <p>© 2025 Pablo Cohen. All Rights Reserved.</p>
-                    <p class="license-note">Non-Commercial Research License. <a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/LICENSE">See terms</a>.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <p>psolorzano@gmail.com</p>
-                    <p>psolorzano@alumni.berklee.edu</p>
+                    <p>Where mathematics, consciousness, and reality converge.</p>
+                    <p class="copyright">&copy; 2025 Pablo Cohen. All Rights Reserved.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Resources</h4>
-                    <a href="https://github.com/FractalDevTeam/Principia-Fractalis">GitHub Repository</a>
-                    <a href="https://the-emergence-collective.github.io/FRO-Visualizer/">FRO Visualizer</a>
+                    <a href="https://github.com/FractalDevTeam/Principia-Fractalis" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://the-emergence-collective.github.io/FRO-Visualizer/" target="_blank" rel="noopener">FRO Visualizer</a>
+                    <a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/LICENSE" target="_blank" rel="noopener">License</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <a href="mailto:psolorzano@gmail.com">psolorzano@gmail.com</a>
+                    <a href="mailto:psolorzano@alumni.berklee.edu">psolorzano@alumni.berklee.edu</a>
+                </div>
+                <div class="footer-support">
+                    <h4>Support</h4>
+                    <div class="footer-donate-buttons">
+                        <a href="https://ko-fi.com/pablocohen" target="_blank" rel="noopener" title="Ko-fi">Ko-fi</a>
+                        <a href="https://buymeacoffee.com/pablocohen" target="_blank" rel="noopener" title="Buy Me a Coffee">BMC</a>
+                        <a href="https://liberapay.com/pablocohen" target="_blank" rel="noopener" title="Liberapay">Liberapay</a>
+                    </div>
                 </div>
             </div>
         </div>
