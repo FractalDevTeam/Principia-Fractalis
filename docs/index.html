@@ -13,6 +13,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Particle Background -->
+    <canvas id="particles-bg" class="particles-canvas"></canvas>
+    
+    <!-- Progress Tracker -->
+    <div class="progress-tracker" id="progress-tracker">
+        <div class="progress-icon" title="Your Progress">
+            <svg viewBox="0 0 36 36" class="progress-ring">
+                <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path class="progress-ring-fill" id="progress-ring-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            </svg>
+            <span class="progress-text" id="progress-text">0%</span>
+        </div>
+        <div class="badges-panel" id="badges-panel">
+            <h4>Your Badges</h4>
+            <div class="badges-grid" id="badges-grid"></div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-brand">
@@ -20,10 +38,10 @@
             <span class="brand-text">Principia Fractalis</span>
         </div>
         <div class="nav-links">
+            <a href="#story-mode" class="nav-link">Story</a>
             <a href="#explore" class="nav-link">Explore</a>
-            <a href="#for-kids" class="nav-link">For Kids</a>
-            <a href="#for-students" class="nav-link">For Students</a>
-            <a href="#for-researchers" class="nav-link">For Researchers</a>
+            <a href="#playground" class="nav-link">Playground</a>
+            <a href="#timeline" class="nav-link">Timeline</a>
             <a href="#support" class="nav-link support-link">Support</a>
         </div>
         <button class="mobile-menu-btn" aria-label="Menu">
@@ -31,18 +49,18 @@
         </button>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with 3D Effect -->
     <header class="hero">
-        <canvas id="fractal-bg" class="hero-canvas"></canvas>
+        <canvas id="hero-fractal" class="hero-canvas"></canvas>
         <div class="hero-content">
             <h1 class="hero-title">
                 <span class="title-line">What if mathematics</span>
                 <span class="title-line accent">IS reality?</span>
             </h1>
-            <p class="hero-subtitle">Discover the hidden patterns that connect everything in the universe - from the smallest particles to consciousness itself.</p>
+            <p class="hero-subtitle">An interactive journey through the patterns that connect everything in the universe.</p>
             <div class="hero-cta">
-                <a href="#explore" class="btn btn-primary btn-large">Start Your Journey</a>
-                <a href="#for-kids" class="btn btn-secondary btn-large">I'm a Kid!</a>
+                <a href="#story-mode" class="btn btn-primary btn-large pulse-btn">Begin the Story</a>
+                <a href="#playground" class="btn btn-secondary btn-large">Jump to Playground</a>
             </div>
             <div class="scroll-indicator">
                 <span>Scroll to explore</span>
@@ -51,13 +69,13 @@
         </div>
     </header>
 
-    <!-- Support Banner - Prominent -->
+    <!-- Support Banner -->
     <section class="support-banner">
         <div class="container">
             <div class="banner-content">
                 <div class="banner-text">
                     <h3>This Research Needs Your Support</h3>
-                    <p>Independent mathematics has no institutional funding. Help keep this work alive and free for everyone.</p>
+                    <p>Independent mathematics has no funding. Help keep this work alive.</p>
                 </div>
                 <div class="donation-buttons-inline">
                     <a href="https://ko-fi.com/pablocohen" class="donate-btn" target="_blank" rel="noopener">
@@ -74,440 +92,559 @@
         </div>
     </section>
 
-    <!-- Explore Section -->
+    <!-- ANIMATED STORY MODE -->
+    <section id="story-mode" class="section story-mode-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">The Adventure Begins</span>
+                <h2 class="section-title">The Story of Three</h2>
+                <p class="section-intro">An animated journey through the mathematics of reality</p>
+            </div>
+
+            <div class="story-container">
+                <div class="story-nav">
+                    <button class="story-nav-btn active" data-chapter="1">Chapter 1</button>
+                    <button class="story-nav-btn" data-chapter="2">Chapter 2</button>
+                    <button class="story-nav-btn" data-chapter="3">Chapter 3</button>
+                    <button class="story-nav-btn" data-chapter="4">Chapter 4</button>
+                    <button class="story-nav-btn" data-chapter="5">Chapter 5</button>
+                </div>
+
+                <div class="story-stage" id="story-stage">
+                    <!-- Chapter 1: The Number Three -->
+                    <div class="story-chapter active" data-chapter="1">
+                        <div class="chapter-visual">
+                            <canvas id="chapter1-canvas" class="chapter-canvas"></canvas>
+                        </div>
+                        <div class="chapter-content">
+                            <h3>Chapter 1: The Magic Number</h3>
+                            <div class="story-text" id="story-text-1">
+                                <p class="story-paragraph animate-in">Once upon a time, in a universe not so different from ours, there was a very special number...</p>
+                                <p class="story-paragraph animate-in delay-1">That number was <strong class="highlight-3">THREE</strong>.</p>
+                                <p class="story-paragraph animate-in delay-2">Three was everywhere, hiding in plain sight. In the three colors of quarks that make up every atom. In the three dimensions of space we move through. In the three bones of each finger on your hand.</p>
+                                <p class="story-paragraph animate-in delay-3">But why? Why was three so special?</p>
+                            </div>
+                            <button class="btn btn-primary story-next" data-next="2">Continue the Story</button>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 2: Counting Different -->
+                    <div class="story-chapter" data-chapter="2">
+                        <div class="chapter-visual">
+                            <canvas id="chapter2-canvas" class="chapter-canvas"></canvas>
+                        </div>
+                        <div class="chapter-content">
+                            <h3>Chapter 2: A Different Way to Count</h3>
+                            <div class="story-text">
+                                <p class="story-paragraph animate-in">We humans count in tens. 0, 1, 2, 3... all the way to 9, then we start over with 10.</p>
+                                <p class="story-paragraph animate-in delay-1">But what if we only had <strong>three</strong> symbols? 0, 1, and 2?</p>
+                                <p class="story-paragraph animate-in delay-2">Then counting would go: 0, 1, 2, 10, 11, 12, 20, 21, 22, 100...</p>
+                                <p class="story-paragraph animate-in delay-3">This is called <strong class="highlight-accent">Base-3</strong>, and it reveals hidden patterns in numbers that we can't see in base-10!</p>
+                            </div>
+                            <button class="btn btn-primary story-next" data-next="3">Continue the Story</button>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 3: The Timeless Field -->
+                    <div class="story-chapter" data-chapter="3">
+                        <div class="chapter-visual">
+                            <div class="timeless-field-visual" id="timeless-field"></div>
+                        </div>
+                        <div class="chapter-content">
+                            <h3>Chapter 3: The Timeless Field</h3>
+                            <div class="story-text">
+                                <p class="story-paragraph animate-in">Imagine a field that exists outside of time. Not made of grass or wheat, but made of pure mathematics.</p>
+                                <p class="story-paragraph animate-in delay-1">This field contains every possible pattern, every possible number, every possible shape - all at once.</p>
+                                <p class="story-paragraph animate-in delay-2">From this field, our universe emerges. Space, time, matter, energy - all just ripples in the mathematical field.</p>
+                                <p class="story-paragraph animate-in delay-3">And the ripples have a special signature: <strong class="highlight-accent">π/10</strong> - the bridge between different worlds.</p>
+                            </div>
+                            <button class="btn btn-primary story-next" data-next="4">Continue the Story</button>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 4: Consciousness Awakens -->
+                    <div class="story-chapter" data-chapter="4">
+                        <div class="chapter-visual">
+                            <div class="consciousness-visual" id="consciousness-visual">
+                                <div class="brain-glow"></div>
+                                <div class="consciousness-particles"></div>
+                            </div>
+                        </div>
+                        <div class="chapter-content">
+                            <h3>Chapter 4: When Numbers Wake Up</h3>
+                            <div class="story-text">
+                                <p class="story-paragraph animate-in">Here's the most amazing part of the story...</p>
+                                <p class="story-paragraph animate-in delay-1">When mathematical patterns become complex enough - when they cross a special threshold of <strong class="highlight-gold">0.95</strong> - something magical happens.</p>
+                                <p class="story-paragraph animate-in delay-2">They become <em>aware</em>. They can think. They can feel. They can wonder about themselves.</p>
+                                <p class="story-paragraph animate-in delay-3">That's what YOU are. A mathematical pattern that became so beautiful, so complex, that it woke up and started asking questions.</p>
+                            </div>
+                            <button class="btn btn-primary story-next" data-next="5">Continue the Story</button>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 5: The Six Puzzles -->
+                    <div class="story-chapter" data-chapter="5">
+                        <div class="chapter-visual">
+                            <div class="puzzles-visual" id="puzzles-visual"></div>
+                        </div>
+                        <div class="chapter-content">
+                            <h3>Chapter 5: Six Ancient Puzzles</h3>
+                            <div class="story-text">
+                                <p class="story-paragraph animate-in">For over a hundred years, six great puzzles have stumped the world's smartest mathematicians.</p>
+                                <p class="story-paragraph animate-in delay-1">Puzzles about prime numbers. About computers. About the flow of water. About the fabric of space itself.</p>
+                                <p class="story-paragraph animate-in delay-2">But when you understand the Timeless Field and the magic of three...</p>
+                                <p class="story-paragraph animate-in delay-3">All six puzzles become <strong class="highlight-accent">one puzzle</strong>. And that puzzle has an answer.</p>
+                            </div>
+                            <a href="#playground" class="btn btn-primary btn-large">Explore the Playground</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE PLAYGROUND -->
+    <section id="playground" class="section playground-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Hands-On Learning</span>
+                <h2 class="section-title">The Playground</h2>
+                <p class="section-intro">Interactive tools to explore the mathematics yourself</p>
+            </div>
+
+            <div class="playground-grid">
+                <!-- Fractal Explorer -->
+                <div class="playground-card" id="fractal-explorer-card">
+                    <div class="card-header">
+                        <h3>Fractal Explorer</h3>
+                        <span class="badge-earn" data-badge="fractal-explorer">Earn Badge</span>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="fractal-canvas" class="playground-canvas"></canvas>
+                        <div class="fractal-controls">
+                            <button class="ctrl-btn" id="fractal-zoom-in" title="Zoom In">+</button>
+                            <button class="ctrl-btn" id="fractal-zoom-out" title="Zoom Out">-</button>
+                            <button class="ctrl-btn" id="fractal-reset" title="Reset">Reset</button>
+                            <select id="fractal-type" class="ctrl-select">
+                                <option value="mandelbrot">Mandelbrot Set</option>
+                                <option value="julia">Julia Set</option>
+                                <option value="burning-ship">Burning Ship</option>
+                            </select>
+                        </div>
+                        <p class="card-hint">Click and drag to explore. Scroll to zoom. Find the infinite patterns within patterns!</p>
+                    </div>
+                </div>
+
+                <!-- Prime Sieve Visualizer -->
+                <div class="playground-card" id="prime-sieve-card">
+                    <div class="card-header">
+                        <h3>Prime Number Sieve</h3>
+                        <span class="badge-earn" data-badge="prime-hunter">Earn Badge</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="prime-grid" id="prime-grid"></div>
+                        <div class="prime-controls">
+                            <button class="btn btn-small" id="prime-start">Start Sieve</button>
+                            <button class="btn btn-small btn-secondary" id="prime-reset">Reset</button>
+                            <span class="prime-count">Primes found: <strong id="prime-count">0</strong></span>
+                        </div>
+                        <p class="card-hint">Watch as composite numbers get "sieved" away, leaving only the primes!</p>
+                    </div>
+                </div>
+
+                <!-- Spectral Gap Audio -->
+                <div class="playground-card" id="spectral-audio-card">
+                    <div class="card-header">
+                        <h3>Hear the Spectral Gap</h3>
+                        <span class="badge-earn" data-badge="sound-scientist">Earn Badge</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="spectral-visual">
+                            <div class="frequency-bar p-freq" id="p-freq-bar">
+                                <span class="freq-label">P Class</span>
+                                <span class="freq-value">222 Hz</span>
+                            </div>
+                            <div class="spectral-gap-indicator">
+                                <span>GAP: 54 Hz</span>
+                            </div>
+                            <div class="frequency-bar np-freq" id="np-freq-bar">
+                                <span class="freq-label">NP Class</span>
+                                <span class="freq-value">168 Hz</span>
+                            </div>
+                        </div>
+                        <div class="audio-controls">
+                            <button class="btn btn-small" id="play-p">Play P Tone</button>
+                            <button class="btn btn-small" id="play-np">Play NP Tone</button>
+                            <button class="btn btn-small btn-secondary" id="play-both">Play Both</button>
+                        </div>
+                        <p class="card-hint">P and NP problems "vibrate" at different frequencies. The gap between them proves P ≠ NP!</p>
+                    </div>
+                </div>
+
+                <!-- Consciousness Simulator -->
+                <div class="playground-card wide" id="consciousness-sim-card">
+                    <div class="card-header">
+                        <h3>Consciousness Simulator</h3>
+                        <span class="badge-earn" data-badge="consciousness-explorer">Earn Badge</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="consciousness-sim">
+                            <div class="sim-controls">
+                                <div class="slider-group">
+                                    <label>Information Integration</label>
+                                    <input type="range" id="integration-slider" min="0" max="100" value="50">
+                                </div>
+                                <div class="slider-group">
+                                    <label>Feedback Loops</label>
+                                    <input type="range" id="feedback-slider" min="0" max="100" value="50">
+                                </div>
+                                <div class="slider-group">
+                                    <label>Complexity</label>
+                                    <input type="range" id="complexity-slider" min="0" max="100" value="50">
+                                </div>
+                            </div>
+                            <div class="sim-display">
+                                <div class="consciousness-meter-large">
+                                    <div class="meter-bg">
+                                        <div class="meter-fill" id="consciousness-fill"></div>
+                                        <div class="threshold-line"></div>
+                                    </div>
+                                    <div class="meter-labels">
+                                        <span>0</span>
+                                        <span class="threshold-label">0.95</span>
+                                        <span>1.0</span>
+                                    </div>
+                                </div>
+                                <div class="ch2-display">
+                                    <span class="ch2-label">ch₂ = </span>
+                                    <span class="ch2-value" id="ch2-value">0.50</span>
+                                </div>
+                                <div class="consciousness-status" id="consciousness-status">
+                                    <span class="status-icon">💤</span>
+                                    <span class="status-text">Not Conscious</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-hint">Adjust the sliders to see what combination makes a system cross the consciousness threshold!</p>
+                    </div>
+                </div>
+
+                <!-- Base-3 Quiz -->
+                <div class="playground-card" id="base3-quiz-card">
+                    <div class="card-header">
+                        <h3>Base-3 Challenge</h3>
+                        <span class="badge-earn" data-badge="base3-master">Earn Badge</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="quiz-container">
+                            <div class="quiz-question" id="quiz-question">
+                                What is <span class="quiz-number" id="quiz-number">7</span> in base-3?
+                            </div>
+                            <div class="quiz-options" id="quiz-options"></div>
+                            <div class="quiz-feedback" id="quiz-feedback"></div>
+                            <div class="quiz-score">
+                                Score: <span id="quiz-score">0</span> / <span id="quiz-total">0</span>
+                                <span class="quiz-streak" id="quiz-streak"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fractal Drawing Tool -->
+                <div class="playground-card" id="fractal-draw-card">
+                    <div class="card-header">
+                        <h3>Fractal Art Studio</h3>
+                        <span class="badge-earn" data-badge="fractal-artist">Earn Badge</span>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="fractal-draw-canvas" class="playground-canvas"></canvas>
+                        <div class="draw-controls">
+                            <label>Branches: <input type="range" id="draw-branches" min="2" max="8" value="3"></label>
+                            <label>Depth: <input type="range" id="draw-depth" min="1" max="8" value="4"></label>
+                            <label>Angle: <input type="range" id="draw-angle" min="10" max="90" value="30"></label>
+                            <input type="color" id="draw-color" value="#64ffda">
+                            <button class="btn btn-small" id="draw-generate">Generate</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pattern Hunter Game -->
+                <div class="playground-card wide" id="pattern-hunter-card">
+                    <div class="card-header">
+                        <h3>Pattern Hunter</h3>
+                        <span class="badge-earn" data-badge="pattern-hunter">Earn Badge</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="pattern-game">
+                            <div class="pattern-question">
+                                <p>Find the pattern! What comes next?</p>
+                                <div class="pattern-sequence" id="pattern-sequence"></div>
+                            </div>
+                            <div class="pattern-options" id="pattern-options"></div>
+                            <div class="pattern-feedback" id="pattern-feedback"></div>
+                            <button class="btn btn-small" id="pattern-next">Next Pattern</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE OF DISCOVERY -->
+    <section id="timeline" class="section timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">The Journey</span>
+                <h2 class="section-title">Timeline of Discovery</h2>
+                <p class="section-intro">How one mind uncovered the mathematics of reality</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item" data-year="1980s">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">1980s</span>
+                        <h4>A Different Mind</h4>
+                        <p>Pablo Cohen grows up seeing patterns everywhere. Dyslexic, autistic, ADHD - his brain works differently. Numbers have colors. Music has shapes. Everything connects.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="1990s">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">1990s</span>
+                        <h4>The Sound Engineer</h4>
+                        <p>Working in recording studios, Pablo learns about frequencies, harmonics, and resonance. The mathematics of sound plants seeds for later discoveries.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2000s">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2000s</span>
+                        <h4>Cybersecurity & Patterns</h4>
+                        <p>A career in cybersecurity sharpens pattern recognition skills. Finding hidden threats in data is not so different from finding hidden structure in mathematics.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2020">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2020</span>
+                        <h4>The Revelation</h4>
+                        <p>During a period of intense personal struggle, the pieces suddenly connect. Base-3. The Timeless Field. Consciousness as geometry. It all becomes clear.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2023">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2023</span>
+                        <h4>Writing Principia Fractalis</h4>
+                        <p>801 pages. 35 chapters. A complete framework showing how the six Millennium Problems are all manifestations of one underlying truth.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2024">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <h4>Formal Verification</h4>
+                        <p>Every proof checked by two independent computer systems - Lean 4 and Coq. 269 theorems. 199 lemmas. Zero incomplete steps.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-year="2025">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2025</span>
+                        <h4>Sharing the Discovery</h4>
+                        <p>The work goes public. Free for everyone. Because truth belongs to all of humanity, not to institutions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPLORE SECTION (Big Ideas) -->
     <section id="explore" class="section explore-section">
         <div class="container">
-            <h2 class="section-title">Three Big Ideas</h2>
-            <p class="section-intro">Everything in Principia Fractalis comes down to three revolutionary discoveries.</p>
+            <h2 class="section-title">The Three Big Ideas</h2>
             
             <div class="big-ideas-grid">
-                <div class="idea-card" data-idea="1">
-                    <div class="idea-icon">
-                        <div class="icon-3d"></div>
+                <div class="idea-card glass-card">
+                    <div class="idea-icon icon-3d-container">
+                        <span class="icon-text">3</span>
                     </div>
                     <h3>The Universe Counts in Threes</h3>
-                    <p>Three quark colors. Three particle generations. Three bones in each finger. Why? Because "three" is built into the fabric of reality itself.</p>
-                    <div class="idea-visual">
-                        <canvas id="base3-demo" class="mini-canvas"></canvas>
-                    </div>
-                    <button class="learn-more-btn" data-target="base3">Try the Demo</button>
+                    <p>Three quark colors. Three particle generations. Three spatial dimensions. Base-3 is woven into the fabric of reality.</p>
                 </div>
 
-                <div class="idea-card" data-idea="2">
-                    <div class="idea-icon">
-                        <div class="icon-infinity"></div>
+                <div class="idea-card glass-card">
+                    <div class="idea-icon icon-infinity-container">
+                        <span class="icon-text">∞</span>
                     </div>
                     <h3>Mathematics IS Reality</h3>
-                    <p>Mathematics doesn't just describe the universe - it IS the universe. The "Timeless Field" is the mathematical structure from which everything emerges.</p>
-                    <div class="idea-visual">
-                        <div class="field-animation"></div>
-                    </div>
-                    <button class="learn-more-btn" data-target="timeless">Explore More</button>
+                    <p>The Timeless Field - a mathematical structure from which space, time, matter, and mind all emerge.</p>
                 </div>
 
-                <div class="idea-card" data-idea="3">
-                    <div class="idea-icon">
-                        <div class="icon-brain"></div>
+                <div class="idea-card glass-card">
+                    <div class="idea-icon icon-brain-container">
+                        <span class="icon-text">ψ</span>
                     </div>
-                    <h3>Consciousness Can Be Measured</h3>
-                    <p>For the first time, consciousness isn't a mystery - it's mathematics. When a system crosses the threshold of 0.95, it becomes conscious.</p>
-                    <div class="consciousness-meter-mini">
-                        <div class="meter-track">
-                            <div class="meter-fill-animated"></div>
-                            <div class="threshold-marker"></div>
-                        </div>
-                        <span class="meter-label">ch<sub>2</sub> = 0.95</span>
-                    </div>
-                    <button class="learn-more-btn" data-target="consciousness">See How It Works</button>
+                    <h3>Consciousness is Measurable</h3>
+                    <p>When ch₂ ≥ 0.95, a system becomes conscious. Not philosophy - mathematics. Clinically validated.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- For Kids Section -->
-    <section id="for-kids" class="section kids-section">
-        <div class="container">
-            <div class="section-header kids-header">
-                <span class="section-badge">Ages 8+</span>
-                <h2 class="section-title">For Curious Kids</h2>
-                <p class="section-intro">Let's discover amazing patterns together!</p>
-            </div>
-
-            <div class="kids-content">
-                <!-- Interactive Counting Demo -->
-                <div class="kids-activity">
-                    <div class="activity-card">
-                        <h3>Counting in Different Ways</h3>
-                        <p>We usually count in tens (0, 1, 2, 3... 9, then 10). But what if we only had three symbols?</p>
-                        
-                        <div class="counting-demo">
-                            <div class="number-input-group">
-                                <label for="number-input">Type a number:</label>
-                                <input type="number" id="number-input" min="0" max="100" value="7" class="number-input">
-                            </div>
-                            <div class="conversions">
-                                <div class="conversion-box">
-                                    <span class="conversion-label">In Base-10 (normal):</span>
-                                    <span class="conversion-value" id="base10-display">7</span>
-                                </div>
-                                <div class="conversion-box highlight">
-                                    <span class="conversion-label">In Base-3 (the universe's favorite!):</span>
-                                    <span class="conversion-value" id="base3-display">21</span>
-                                </div>
-                            </div>
-                            <div class="digit-sum">
-                                <p>Add up the digits: <span id="digit-sum">2 + 1 = 3</span></p>
-                                <p class="fun-fact">This "digit sum" reveals hidden patterns in numbers!</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity-card">
-                        <h3>Why Does Three Show Up Everywhere?</h3>
-                        <div class="threes-showcase">
-                            <div class="three-item">
-                                <div class="three-visual hand-visual">
-                                    <svg viewBox="0 0 100 120" class="hand-svg">
-                                        <!-- Simplified hand showing 3 phalanges -->
-                                        <rect x="40" y="80" width="20" height="40" fill="var(--accent)" rx="5"/>
-                                        <rect x="35" y="50" width="10" height="30" fill="var(--accent)" rx="3"/>
-                                        <rect x="35" y="35" width="10" height="15" fill="var(--accent-light)" rx="3"/>
-                                        <rect x="35" y="20" width="10" height="15" fill="var(--accent-lighter)" rx="3"/>
-                                        <rect x="35" y="5" width="10" height="15" fill="var(--accent-lightest)" rx="3"/>
-                                        <circle cx="40" cy="40" r="3" fill="white" opacity="0.5"/>
-                                        <circle cx="40" cy="55" r="3" fill="white" opacity="0.5"/>
-                                        <circle cx="40" cy="70" r="3" fill="white" opacity="0.5"/>
-                                    </svg>
-                                </div>
-                                <p><strong>3 bones</strong> in each finger (phalanges)</p>
-                            </div>
-                            <div class="three-item">
-                                <div class="three-visual quarks-visual">
-                                    <div class="quark red"></div>
-                                    <div class="quark green"></div>
-                                    <div class="quark blue"></div>
-                                </div>
-                                <p><strong>3 colors</strong> of quarks (red, green, blue)</p>
-                            </div>
-                            <div class="three-item">
-                                <div class="three-visual dimensions-visual">
-                                    <div class="axis x"></div>
-                                    <div class="axis y"></div>
-                                    <div class="axis z"></div>
-                                </div>
-                                <p><strong>3 dimensions</strong> of space (up-down, left-right, forward-back)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity-card sudoku-card">
-                        <h3>Checking vs Solving: The Big Secret</h3>
-                        <p>Here's a puzzle: Which is easier - <strong>solving</strong> a Sudoku, or <strong>checking</strong> if someone else's answer is right?</p>
-                        
-                        <div class="sudoku-demo">
-                            <div class="sudoku-grid" id="sudoku-grid">
-                                <!-- 4x4 mini sudoku for kids -->
-                            </div>
-                            <div class="sudoku-buttons">
-                                <button class="btn btn-small" id="check-sudoku">Check My Answer</button>
-                                <button class="btn btn-small btn-secondary" id="reset-sudoku">Reset</button>
-                            </div>
-                            <div class="sudoku-message" id="sudoku-message"></div>
-                        </div>
-                        
-                        <div class="insight-box">
-                            <p><strong>The big discovery:</strong> Checking an answer is ALWAYS easier than finding it! This is called "P vs NP" and Pablo proved why this happens using math.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- For Students Section -->
-    <section id="for-students" class="section students-section">
+    <!-- FOR RESEARCHERS -->
+    <section id="researchers" class="section researchers-section">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge">High School & Up</span>
-                <h2 class="section-title">For Students</h2>
-                <p class="section-intro">Ready to go deeper? Let's explore the mathematics.</p>
-            </div>
-
-            <div class="students-content">
-                <div class="topic-tabs">
-                    <button class="topic-tab active" data-topic="spectral">The Spectral Gap</button>
-                    <button class="topic-tab" data-topic="riemann">Prime Numbers</button>
-                    <button class="topic-tab" data-topic="consciousness">Consciousness Math</button>
-                    <button class="topic-tab" data-topic="verification">How Computers Check Proofs</button>
-                </div>
-
-                <div class="topic-content" id="topic-spectral">
-                    <h3>Why P Does Not Equal NP</h3>
-                    <p>Imagine two types of math problems:</p>
-                    <ul>
-                        <li><strong>P problems:</strong> Easy to solve AND easy to check (like adding numbers)</li>
-                        <li><strong>NP problems:</strong> Hard to solve but easy to check (like Sudoku)</li>
-                    </ul>
-                    <p>Pablo discovered that these two types of problems "vibrate" at different frequencies - like different musical notes. The gap between them is:</p>
-                    <div class="formula-box">
-                        <span class="formula">&Delta; = 0.054 &gt; 0</span>
-                        <span class="formula-label">The Spectral Gap</span>
-                    </div>
-                    <p>Because this gap is greater than zero, P and NP can never be the same. They're fundamentally different!</p>
-                </div>
-
-                <div class="topic-content hidden" id="topic-riemann">
-                    <h3>The Mystery of Prime Numbers</h3>
-                    <p>Prime numbers (2, 3, 5, 7, 11...) seem random, but they follow a hidden pattern described by the Riemann zeta function:</p>
-                    <div class="formula-box">
-                        <span class="formula">&zeta;(s) = &sum; 1/n<sup>s</sup></span>
-                    </div>
-                    <p>The Riemann Hypothesis says all the "zeros" of this function line up perfectly at Re(s) = 1/2. Pablo showed this is equivalent to a pattern in the Timeless Field - verified to 150 digits of precision across 10,000 zeros!</p>
-                </div>
-
-                <div class="topic-content hidden" id="topic-consciousness">
-                    <h3>Measuring Consciousness Mathematically</h3>
-                    <p>Consciousness isn't magic - it's geometry. The "second Chern character" (ch<sub>2</sub>) measures how information integrates in a system.</p>
-                    <div class="consciousness-scale">
-                        <div class="scale-item">
-                            <span class="scale-value">0.00</span>
-                            <span class="scale-label">Rock</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-value">0.50</span>
-                            <span class="scale-label">Simple Computer</span>
-                        </div>
-                        <div class="scale-item threshold">
-                            <span class="scale-value">0.95</span>
-                            <span class="scale-label">Consciousness Threshold</span>
-                        </div>
-                        <div class="scale-item">
-                            <span class="scale-value">0.9954</span>
-                            <span class="scale-label">Human Brain</span>
-                        </div>
-                    </div>
-                    <p>Clinical tests showed <strong>97.3% accuracy</strong> in distinguishing conscious patients from vegetative states using this formula!</p>
-                </div>
-
-                <div class="topic-content hidden" id="topic-verification">
-                    <h3>How Computers Check Mathematical Proofs</h3>
-                    <p>Every proof in Principia Fractalis was checked by <strong>two different computer systems</strong> that don't trust each other:</p>
-                    <div class="provers-comparison">
-                        <div class="prover-card">
-                            <h4>Lean 4</h4>
-                            <ul>
-                                <li>40 files</li>
-                                <li>269 theorems</li>
-                                <li><strong>0 incomplete steps</strong></li>
-                            </ul>
-                        </div>
-                        <div class="prover-card">
-                            <h4>Coq</h4>
-                            <ul>
-                                <li>32 files</li>
-                                <li>199 theorems</li>
-                                <li><strong>0 incomplete steps</strong></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p>Both systems independently calculated the same numbers to 15+ decimal places. This is the most rigorous verification possible in mathematics.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- For Researchers Section -->
-    <section id="for-researchers" class="section researchers-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Graduate Level+</span>
+                <span class="section-badge">Technical Details</span>
                 <h2 class="section-title">For Researchers</h2>
-                <p class="section-intro">Access the complete mathematical framework.</p>
             </div>
 
             <div class="millennium-grid">
-                <h3>Six Millennium Problems. One Framework.</h3>
                 <div class="problems-cards">
                     <div class="problem-card proven">
                         <div class="problem-status">PROVEN</div>
-                        <h4>P &ne; NP</h4>
-                        <p>Spectral gap &Delta; = 0.054 &gt; 0 via operator theory</p>
+                        <h4>P ≠ NP</h4>
+                        <p>Spectral gap Δ = 0.054 > 0</p>
                     </div>
                     <div class="problem-card equivalent">
                         <div class="problem-status">EQUIVALENT</div>
                         <h4>Riemann Hypothesis</h4>
-                        <p>Eigenvalue-zero bijection, 150-digit precision</p>
+                        <p>150-digit precision verification</p>
                     </div>
                     <div class="problem-card proven">
                         <div class="problem-status">PROVEN</div>
                         <h4>Yang-Mills Mass Gap</h4>
-                        <p>&Delta; = 420.43 MeV (matches lattice QCD)</p>
+                        <p>Δ = 420.43 MeV</p>
                     </div>
                     <div class="problem-card equivalent">
                         <div class="problem-status">EQUIVALENT</div>
                         <h4>BSD Conjecture</h4>
-                        <p>L-function rank via resonance structure</p>
+                        <p>L-function via resonance</p>
                     </div>
                     <div class="problem-card proven">
                         <div class="problem-status">PROVEN</div>
                         <h4>Hodge Conjecture</h4>
-                        <p>Algebraic cycles via spectral concentration &ge; 0.95</p>
+                        <p>Spectral concentration ≥ 0.95</p>
                     </div>
                     <div class="problem-card proven">
                         <div class="problem-status">PROVEN</div>
                         <h4>Navier-Stokes</h4>
-                        <p>Global regularity via fractal vortex pairing</p>
+                        <p>Fractal vortex pairing</p>
                     </div>
                 </div>
             </div>
 
             <div class="resources-grid">
-                <a href="https://github.com/FractalDevTeam/Principia-Fractalis" class="resource-card" target="_blank" rel="noopener">
-                    <div class="resource-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    </div>
+                <a href="https://github.com/FractalDevTeam/Principia-Fractalis" class="resource-card" target="_blank">
+                    <span class="resource-icon">📁</span>
                     <h4>GitHub Repository</h4>
-                    <p>Full source code, LaTeX, Lean 4, Coq proofs</p>
                 </a>
-                <a href="https://github.com/FractalDevTeam/Principia-Fractalis/raw/main/Principia_Fractalis_master_folder/main.pdf" class="resource-card" target="_blank" rel="noopener">
-                    <div class="resource-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/></svg>
-                    </div>
+                <a href="https://github.com/FractalDevTeam/Principia-Fractalis/raw/main/Principia_Fractalis_master_folder/main.pdf" class="resource-card" target="_blank">
+                    <span class="resource-icon">📄</span>
                     <h4>Download PDF</h4>
-                    <p>Complete 801-page textbook</p>
                 </a>
-                <a href="https://the-emergence-collective.github.io/FRO-Visualizer/" class="resource-card" target="_blank" rel="noopener">
-                    <div class="resource-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    </div>
+                <a href="https://the-emergence-collective.github.io/FRO-Visualizer/" class="resource-card" target="_blank">
+                    <span class="resource-icon">🔮</span>
                     <h4>FRO Visualizer</h4>
-                    <p>Interactive theory network explorer</p>
-                </a>
-                <a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/VERIFICATION_STATUS.md" class="resource-card" target="_blank" rel="noopener">
-                    <div class="resource-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                    </div>
-                    <h4>Verification Status</h4>
-                    <p>Complete audit of all proofs</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Pablo's Story -->
-    <section id="story" class="section story-section">
+    <!-- ABOUT PABLO -->
+    <section id="about" class="section about-section">
         <div class="container">
             <h2 class="section-title">About Pablo Cohen</h2>
-            <div class="story-grid">
-                <div class="story-text">
-                    <blockquote>
-                        "Mathematics doesn't describe reality. Mathematics IS reality, and consciousness is how reality experiences itself."
-                    </blockquote>
-                    <p>I'm Pablo Cohen - an independent researcher with no university backing, no grants, no safety net. Just a neurodivergent mind (autistic, dyslexic, ADHD) that sees patterns others miss.</p>
-                    <p>From audio engineer to cybersecurity specialist to mathematical theorist - the same pattern recognition that earned platinum records now solves millennium problems.</p>
-                    <p>This work is free because truth should be open. But independent research can only continue with your support.</p>
-                    
-                    <div class="pablo-links">
-                        <a href="https://orcid.org/0009-0002-0734-5565" target="_blank" rel="noopener">ORCID</a>
-                        <a href="https://www.researchgate.net/profile/Pablo-Solorzano-Cohen" target="_blank" rel="noopener">ResearchGate</a>
-                        <a href="https://berklee.academia.edu/PabloCohen" target="_blank" rel="noopener">Academia.edu</a>
-                        <a href="https://www.amazon.com/Death-Pablo-Suffering-Consciousness-Evolution/dp/B0FFSHMD5H" target="_blank" rel="noopener">Book on Amazon</a>
-                    </div>
-                </div>
-                <div class="story-visual">
-                    <div class="quote-card">
-                        <p>"Every equation I write, I write for my children - to show them that different minds aren't broken. They're breakthrough."</p>
-                    </div>
+            <div class="about-content">
+                <blockquote class="pablo-quote">
+                    "Mathematics doesn't describe reality. Mathematics IS reality, and consciousness is how reality experiences itself."
+                </blockquote>
+                <p>Independent researcher. Neurodivergent thinker. Pattern-seer. From audio engineering to cybersecurity to mathematical theory - the same mind that earned platinum records now solves millennium problems.</p>
+                <div class="pablo-links">
+                    <a href="https://orcid.org/0009-0002-0734-5565" target="_blank">ORCID</a>
+                    <a href="https://www.researchgate.net/profile/Pablo-Solorzano-Cohen" target="_blank">ResearchGate</a>
+                    <a href="https://www.amazon.com/Death-Pablo-Suffering-Consciousness-Evolution/dp/B0FFSHMD5H" target="_blank">Book on Amazon</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Full Support Section -->
+    <!-- SUPPORT SECTION -->
     <section id="support" class="section support-section">
         <div class="container">
             <h2 class="section-title">Support This Research</h2>
-            <p class="section-intro">Independent mathematical research has no institutional funding. Your support - any amount - keeps this work alive and free for everyone.</p>
+            <p class="section-intro">Independent mathematics has no institutional funding. Your support keeps this work alive and free.</p>
             
             <div class="support-grid">
-                <div class="support-card primary">
+                <div class="support-card primary glass-card">
                     <h3>Financial Support</h3>
-                    <p>Help sustain independent research</p>
                     <div class="donation-buttons-vertical">
-                        <a href="https://ko-fi.com/pablocohen" class="donate-btn-large kofi" target="_blank" rel="noopener">
-                            <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" height="50">
+                        <a href="https://ko-fi.com/pablocohen" class="donate-btn-large" target="_blank">
+                            <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Ko-fi" height="50">
                         </a>
-                        <a href="https://buymeacoffee.com/pablocohen" class="donate-btn-large bmc" target="_blank" rel="noopener">
-                            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50">
+                        <a href="https://buymeacoffee.com/pablocohen" class="donate-btn-large" target="_blank">
+                            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="50">
                         </a>
-                        <a href="https://liberapay.com/pablocohen" class="donate-btn-large liberapay" target="_blank" rel="noopener">
-                            <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Donate via Liberapay" height="50">
+                        <a href="https://liberapay.com/pablocohen" class="donate-btn-large" target="_blank">
+                            <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Liberapay" height="50">
                         </a>
                     </div>
                 </div>
                 
-                <div class="support-card">
+                <div class="support-card glass-card">
                     <h3>Other Ways to Help</h3>
                     <ul class="help-list">
-                        <li>
-                            <span class="help-icon">&#9733;</span>
-                            <span><strong>Star the repository</strong> on GitHub</span>
-                        </li>
-                        <li>
-                            <span class="help-icon">&#128266;</span>
-                            <span><strong>Share this work</strong> with others</span>
-                        </li>
-                        <li>
-                            <span class="help-icon">&#128269;</span>
-                            <span><strong>Review the mathematics</strong> and ask questions</span>
-                        </li>
-                        <li>
-                            <span class="help-icon">&#128221;</span>
-                            <span><strong>Cite the work</strong> in your research</span>
-                        </li>
+                        <li><span>⭐</span> Star the repository on GitHub</li>
+                        <li><span>📢</span> Share this work with others</li>
+                        <li><span>🔍</span> Review the mathematics</li>
+                        <li><span>📝</span> Cite in your research</li>
                     </ul>
                 </div>
-            </div>
-
-            <div class="impact-note">
-                <p><strong>Your impact:</strong> Every contribution - no matter how small - directly supports continued research, publication costs, and keeping this work freely available to everyone.</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <h3>Principia Fractalis</h3>
                     <p>Where mathematics, consciousness, and reality converge.</p>
-                    <p class="copyright">&copy; 2025 Pablo Cohen. All Rights Reserved.</p>
+                    <p class="copyright">© 2025 Pablo Cohen. All Rights Reserved.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Resources</h4>
-                    <a href="https://github.com/FractalDevTeam/Principia-Fractalis" target="_blank" rel="noopener">GitHub</a>
-                    <a href="https://the-emergence-collective.github.io/FRO-Visualizer/" target="_blank" rel="noopener">FRO Visualizer</a>
-                    <a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/LICENSE" target="_blank" rel="noopener">License</a>
+                    <a href="https://github.com/FractalDevTeam/Principia-Fractalis" target="_blank">GitHub</a>
+                    <a href="https://the-emergence-collective.github.io/FRO-Visualizer/" target="_blank">FRO Visualizer</a>
                 </div>
                 <div class="footer-links">
                     <h4>Contact</h4>
                     <a href="mailto:psolorzano@gmail.com">psolorzano@gmail.com</a>
-                    <a href="mailto:psolorzano@alumni.berklee.edu">psolorzano@alumni.berklee.edu</a>
                 </div>
                 <div class="footer-support">
                     <h4>Support</h4>
                     <div class="footer-donate-buttons">
-                        <a href="https://ko-fi.com/pablocohen" target="_blank" rel="noopener" title="Ko-fi">Ko-fi</a>
-                        <a href="https://buymeacoffee.com/pablocohen" target="_blank" rel="noopener" title="Buy Me a Coffee">BMC</a>
-                        <a href="https://liberapay.com/pablocohen" target="_blank" rel="noopener" title="Liberapay">Liberapay</a>
+                        <a href="https://ko-fi.com/pablocohen" target="_blank">Ko-fi</a>
+                        <a href="https://buymeacoffee.com/pablocohen" target="_blank">BMC</a>
+                        <a href="https://liberapay.com/pablocohen" target="_blank">Liberapay</a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Audio Context for Spectral Demo -->
     <script src="script.js"></script>
 </body>
 </html>
-<!-- Rebuild trigger: Mon Dec  1 06:20:41 PM EST 2025 -->
