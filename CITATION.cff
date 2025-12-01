@@ -6,7 +6,7 @@ version: 1.2.0
 date-released: 2025-11-30
 url: "https://github.com/FractalDevTeam/Principia-Fractalis"
 repository-code: "https://github.com/FractalDevTeam/Principia-Fractalis"
-license: MIT
+license: "Proprietary - Non-Commercial Research Only"
 authors:
   - family-names: "Cohen"
     given-names: "Pablo"

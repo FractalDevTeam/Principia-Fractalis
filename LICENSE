@@ -1,21 +1,76 @@
-MIT License
+PRINCIPIA FRACTALIS NON-COMMERCIAL RESEARCH LICENSE
 
 Copyright (c) 2025 Pablo Cohen
+All Rights Reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+TERMS AND CONDITIONS
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. DEFINITIONS
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+   "Work" refers to Principia Fractalis, including all source code, documentation,
+   mathematical proofs, formal verifications (Lean 4, Coq), and associated materials
+   in this repository.
+
+   "Commercial Use" means any use intended for or directed toward commercial advantage
+   or monetary compensation, including but not limited to: selling, licensing for fee,
+   incorporating into commercial products, or using in commercial services.
+
+   "Non-Commercial Research Use" means use for academic research, education, peer review,
+   personal study, or other non-profit scholarly activities.
+
+2. GRANT OF RIGHTS
+
+   Subject to the terms of this License, the copyright holder grants you a non-exclusive,
+   non-transferable, revocable license to:
+
+   a) Use, copy, and study the Work for Non-Commercial Research Use only.
+
+   b) Create derivative works for Non-Commercial Research Use only, provided that
+      such derivatives clearly attribute the original Work and author.
+
+   c) Share the Work with others for Non-Commercial Research Use only, provided
+      this License is included in full.
+
+3. RESTRICTIONS
+
+   a) COMMERCIAL USE PROHIBITED: You may NOT use this Work for any Commercial Use
+      without the prior written permission of the copyright holder.
+
+   b) NO SUBLICENSING: You may not sublicense the Work or grant others rights
+      beyond those granted by this License.
+
+   c) ATTRIBUTION REQUIRED: Any use of the Work must include clear attribution:
+      "Principia Fractalis by Pablo Cohen (https://github.com/FractalDevTeam/Principia-Fractalis)"
+
+4. NOTIFICATION REQUIREMENT
+
+   If you publish findings, papers, or derivative works based on this Work, you must:
+
+   a) Notify the copyright holder at: psolorzano@gmail.com
+
+   b) Provide appropriate citation using the CITATION.cff file in this repository.
+
+5. COMMERCIAL LICENSING
+
+   For commercial licensing inquiries, contact: psolorzano@gmail.com
+
+6. DISCLAIMER
+
+   THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+   INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+   PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDER
+   BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+   CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+   WORK OR THE USE OR OTHER DEALINGS IN THE WORK.
+
+7. TERMINATION
+
+   This License automatically terminates if you violate any of its terms. Upon
+   termination, you must destroy all copies of the Work in your possession.
+
+---
+
+For permissions beyond the scope of this license, contact:
+Pablo Cohen
+Email: psolorzano@gmail.com
+ORCID: 0009-0002-0734-5565
