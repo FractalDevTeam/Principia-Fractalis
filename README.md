@@ -295,10 +295,17 @@ Principia Fractalis is **open source** and freely available — no paywalls, no 
 This work represents years of independent research with **zero institutional funding**.
 
 <a href="https://ko-fi.com/pablocohen">
-  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" width="250"/>
+  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" width="220"/>
+</a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://liberapay.com/pablocohen">
+  <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Donate via Liberapay" width="120"/>
 </a>
 
-**[☕ Buy Pablo a Coffee](https://ko-fi.com/pablocohen)**
+<br/><br/>
+
+<img src="https://img.shields.io/liberapay/receives/pablocohen.svg?logo=liberapay" alt="Liberapay receiving"/>
+<img src="https://img.shields.io/liberapay/patrons/pablocohen.svg?logo=liberapay" alt="Liberapay patrons"/>
 
 </div>
 
