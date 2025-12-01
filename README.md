@@ -332,11 +332,13 @@ Your support directly enables:
 
 ### Contact & Academic Profiles
 
-| Method | Address |
-|--------|---------|
+| Platform | Link |
+|----------|------|
 | **Email (Primary)** | psolorzano@gmail.com |
 | **Email (Academic)** | psolorzano@alumni.berklee.edu |
 | **ORCID** | [0009-0002-0734-5565](https://orcid.org/0009-0002-0734-5565) |
+| **ResearchGate** | [Pablo Solorzano-Cohen](https://www.researchgate.net/profile/Pablo-Solorzano-Cohen) |
+| **Academia.edu** | [Pablo Cohen @ Berklee](https://berklee.academia.edu/PabloCohen) |
 | **GitHub Issues** | For mathematical questions and bug reports |
 
 ---
