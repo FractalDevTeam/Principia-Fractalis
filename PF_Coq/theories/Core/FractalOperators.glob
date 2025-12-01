@@ -1,0 +1,297 @@
+DIGEST a9a4445a91e809b659a73112645cc8ac
+FPF_Coq.Core.FractalOperators
+R648:662 Coq.Reals.Reals <> <> lib
+R680:696 Coq.micromega.Lra <> <> lib
+R714:729 PF_Coq.Core.Zeta <> <> lib
+R747:772 PF_Coq.Core.TuringEncoding <> <> lib
+R790:812 PF_Coq.Core.SpectralGap <> <> lib
+R830:859 PF_Coq.Core.IntervalArithmetic <> <> lib
+R877:910 PF_Coq.Core.P_NP_EquivalenceLemmas <> <> lib
+def 1406:1426 <> phasePclass_magnitude
+R1442:1444 Coq.Init.Datatypes <> nat ind
+binder 1429:1438 <> digitalSum:1
+R1449:1449 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1456:1458 Coq.Reals.Rtrigo_def <> cos def
+R1473:1475 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1463:1465 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1461:1462 Coq.Reals.Rtrigo1 <> PI def
+R1466:1472 PF_Coq.Core.TuringEncoding <> alpha_P def
+R1476:1478 Coq.Reals.Raxioms <> INR def
+R1480:1489 PF_Coq.Core.FractalOperators <> digitalSum:1 var
+def 1620:1641 <> phaseNPclass_magnitude
+R1657:1659 Coq.Init.Datatypes <> nat ind
+binder 1644:1653 <> digitalSum:2
+R1664:1664 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1671:1673 Coq.Reals.Rtrigo_def <> cos def
+R1689:1691 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1678:1680 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1676:1677 Coq.Reals.Rtrigo1 <> PI def
+R1681:1688 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R1692:1694 Coq.Reals.Raxioms <> INR def
+R1696:1705 PF_Coq.Core.FractalOperators <> digitalSum:2 var
+def 2263:2281 <> lambda_0_P_operator
+R2285:2285 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2290:2300 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+def 2314:2333 <> lambda_0_NP_operator
+R2337:2337 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2342:2353 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+prf 2703:2732 <> operator_spectral_gap_positive
+R2780:2782 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2757:2759 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2738:2756 PF_Coq.Core.FractalOperators <> lambda_0_P_operator def
+R2760:2779 PF_Coq.Core.FractalOperators <> lambda_0_NP_operator def
+R2802:2820 PF_Coq.Core.FractalOperators <> lambda_0_P_operator def
+R2823:2842 PF_Coq.Core.FractalOperators <> lambda_0_NP_operator def
+R2853:2873 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R2853:2873 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+ax 2968:2992 <> p_eq_np_spectrum_collapse
+R3009:3012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2998:3008 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R3032:3034 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3013:3031 PF_Coq.Core.FractalOperators <> lambda_0_P_operator def
+R3035:3054 PF_Coq.Core.FractalOperators <> lambda_0_NP_operator def
+prf 3138:3171 <> P_eq_NP_implies_same_ground_energy
+R3188:3191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3177:3187 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R3211:3213 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3192:3210 PF_Coq.Core.FractalOperators <> lambda_0_P_operator def
+R3214:3233 PF_Coq.Core.FractalOperators <> lambda_0_NP_operator def
+R3251:3275 PF_Coq.Core.FractalOperators <> p_eq_np_spectrum_collapse prfax
+R3251:3275 PF_Coq.Core.FractalOperators <> p_eq_np_spectrum_collapse prfax
+prf 3348:3373 <> P_neq_NP_from_spectral_gap
+R3377:3378 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3379:3389 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R3427:3460 PF_Coq.Core.FractalOperators <> P_eq_NP_implies_same_ground_energy thm
+R3427:3460 PF_Coq.Core.FractalOperators <> P_eq_NP_implies_same_ground_energy thm
+R3492:3521 PF_Coq.Core.FractalOperators <> operator_spectral_gap_positive thm
+R3492:3521 PF_Coq.Core.FractalOperators <> operator_spectral_gap_positive thm
+def 4131:4153 <> consciousness_threshold
+R4157:4157 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 4217:4243 <> consciousness_base_positive
+R4248:4250 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4252:4254 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4278:4280 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R4255:4277 PF_Coq.Core.FractalOperators <> consciousness_threshold def
+R4300:4322 PF_Coq.Core.FractalOperators <> consciousness_threshold def
+prf 4420:4459 <> consciousness_threshold_in_unit_interval
+R4492:4495 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4466:4468 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4469:4491 PF_Coq.Core.FractalOperators <> consciousness_threshold def
+R4519:4521 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4496:4518 PF_Coq.Core.FractalOperators <> consciousness_threshold def
+R4541:4563 PF_Coq.Core.FractalOperators <> consciousness_threshold def
+prf 4758:4771 <> ln_neg_of_lt_1
+R4786:4786 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4782:4782 <> x:4
+R4794:4797 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4790:4792 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4793:4793 PF_Coq.Core.FractalOperators <> x:4 var
+R4803:4806 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4799:4801 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4798:4798 PF_Coq.Core.FractalOperators <> x:4 var
+R4811:4813 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4807:4808 Coq.Reals.Rpower <> ln def
+R4810:4810 PF_Coq.Core.FractalOperators <> x:4 var
+R4951:4954 Coq.Reals.Rpower <> ln_1 thm
+R4951:4954 Coq.Reals.Rpower <> ln_1 thm
+R4951:4954 Coq.Reals.Rpower <> ln_1 thm
+R4965:4977 Coq.Reals.Rpower <> ln_increasing thm
+R4965:4977 Coq.Reals.Rpower <> ln_increasing thm
+prf 5004:5027 <> Rpower_ne_of_exponent_ne
+R5049:5049 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5041:5042 <> α:5
+binder 5044:5045 <> β:6
+R5057:5057 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5053:5053 <> x:7
+R5070:5073 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5066:5068 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5069:5069 PF_Coq.Core.FractalOperators <> x:7 var
+R5079:5082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5075:5077 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5074:5074 PF_Coq.Core.FractalOperators <> x:7 var
+R5091:5098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5085:5088 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5083:5084 PF_Coq.Core.FractalOperators <> α:5 var
+R5089:5090 PF_Coq.Core.FractalOperators <> β:6 var
+R5110:5113 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5099:5104 Coq.Reals.Rpower <> Rpower def
+R5106:5106 PF_Coq.Core.FractalOperators <> x:7 var
+R5108:5109 PF_Coq.Core.FractalOperators <> α:5 var
+R5114:5119 Coq.Reals.Rpower <> Rpower def
+R5121:5121 PF_Coq.Core.FractalOperators <> x:7 var
+R5123:5124 PF_Coq.Core.FractalOperators <> β:6 var
+R5420:5425 Coq.Reals.Rpower <> Rpower def
+R5444:5450 Coq.Reals.Rpower <> exp_inv thm
+R5444:5450 Coq.Reals.Rpower <> exp_inv thm
+R5485:5487 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5481:5482 Coq.Reals.Rpower <> ln def
+R5501:5514 PF_Coq.Core.FractalOperators <> ln_neg_of_lt_1 thm
+R5485:5487 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5481:5482 Coq.Reals.Rpower <> ln def
+R5501:5514 PF_Coq.Core.FractalOperators <> ln_neg_of_lt_1 thm
+R5554:5557 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5550:5551 Coq.Reals.Rpower <> ln def
+R5554:5557 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5550:5551 Coq.Reals.Rpower <> ln def
+R5577:5590 Coq.Reals.RIneq <> Rmult_eq_reg_r thm
+R5577:5590 Coq.Reals.RIneq <> Rmult_eq_reg_r thm
+prf 5732:5752 <> pow_ne_of_exponent_ne
+R5770:5770 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5766:5766 <> x:8
+R5782:5782 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5774:5775 <> α:9
+binder 5777:5778 <> β:10
+R5795:5798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5791:5793 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5794:5794 PF_Coq.Core.FractalOperators <> x:8 var
+R5804:5807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5800:5802 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5799:5799 PF_Coq.Core.FractalOperators <> x:8 var
+R5816:5823 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5810:5813 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5808:5809 PF_Coq.Core.FractalOperators <> α:9 var
+R5814:5815 PF_Coq.Core.FractalOperators <> β:10 var
+R5835:5838 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5824:5829 Coq.Reals.Rpower <> Rpower def
+R5831:5831 PF_Coq.Core.FractalOperators <> x:8 var
+R5833:5834 PF_Coq.Core.FractalOperators <> α:9 var
+R5839:5844 Coq.Reals.Rpower <> Rpower def
+R5846:5846 PF_Coq.Core.FractalOperators <> x:8 var
+R5848:5849 PF_Coq.Core.FractalOperators <> β:10 var
+R5883:5906 PF_Coq.Core.FractalOperators <> Rpower_ne_of_exponent_ne thm
+R5883:5906 PF_Coq.Core.FractalOperators <> Rpower_ne_of_exponent_ne thm
+prf 6005:6038 <> consciousness_resonance_separation
+R6063:6068 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6051:6054 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6044:6050 PF_Coq.Core.TuringEncoding <> alpha_P def
+R6055:6062 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R6117:6122 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6069:6074 Coq.Reals.Rpower <> Rpower def
+R6078:6080 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6104:6106 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R6081:6103 PF_Coq.Core.FractalOperators <> consciousness_threshold def
+R6110:6116 PF_Coq.Core.TuringEncoding <> alpha_P def
+R6123:6128 Coq.Reals.Rpower <> Rpower def
+R6132:6134 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6158:6160 Coq.Reals.Rfunctions <> ::R_scope:x_'^'_x not
+R6135:6157 PF_Coq.Core.FractalOperators <> consciousness_threshold def
+R6164:6171 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R6205:6228 PF_Coq.Core.FractalOperators <> Rpower_ne_of_exponent_ne thm
+R6205:6228 PF_Coq.Core.FractalOperators <> Rpower_ne_of_exponent_ne thm
+R6241:6267 PF_Coq.Core.FractalOperators <> consciousness_base_positive thm
+R6241:6267 PF_Coq.Core.FractalOperators <> consciousness_base_positive thm
+R6315:6337 PF_Coq.Core.FractalOperators <> consciousness_threshold def
+prf 6497:6515 <> alpha_P_ne_alpha_NP
+R6526:6529 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R6519:6525 PF_Coq.Core.TuringEncoding <> alpha_P def
+R6530:6537 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R6560:6575 PF_Coq.Core.TuringEncoding <> alpha_separation thm
+R6560:6575 PF_Coq.Core.TuringEncoding <> alpha_separation thm
+def 6713:6737 <> resonance_to_ground_state
+R6748:6748 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6740:6744 <> alpha:11
+R6753:6753 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6762:6765 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6776:6776 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6760:6761 Coq.Reals.Rtrigo1 <> PI def
+R6768:6770 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6771:6775 PF_Coq.Core.FractalOperators <> alpha:11 var
+prf 6786:6804 <> resonance_formula_P
+R6843:6845 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6810:6834 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R6836:6842 PF_Coq.Core.TuringEncoding <> alpha_P def
+R6848:6851 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6863:6863 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6846:6847 Coq.Reals.Rtrigo1 <> PI def
+R6854:6856 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6857:6860 Coq.Reals.R_sqrt <> sqrt def
+R6882:6906 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R6909:6915 PF_Coq.Core.TuringEncoding <> alpha_P def
+R6918:6922 PF_Coq.Core.TuringEncoding <> sqrt2 def
+prf 6952:6971 <> resonance_formula_NP
+R7011:7013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6977:7001 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R7003:7010 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R7016:7019 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7036:7036 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7014:7015 Coq.Reals.Rtrigo1 <> PI def
+R7022:7025 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7035:7035 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7029:7031 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7026:7028 PF_Coq.Core.SpectralGap <> phi def
+R7033:7033 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7055:7079 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R7082:7089 PF_Coq.Core.TuringEncoding <> alpha_NP def
+prf 7188:7212 <> higher_alpha_lower_lambda
+R7235:7235 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7225:7227 <> α1:12
+binder 7229:7231 <> α2:13
+R7249:7252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7245:7247 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7242:7244 PF_Coq.Core.FractalOperators <> α1:12 var
+R7260:7263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7256:7258 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7253:7255 PF_Coq.Core.FractalOperators <> α2:13 var
+R7273:7280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7267:7269 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7264:7266 PF_Coq.Core.FractalOperators <> α1:12 var
+R7270:7272 PF_Coq.Core.FractalOperators <> α2:13 var
+R7310:7312 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7281:7305 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R7307:7309 PF_Coq.Core.FractalOperators <> α1:12 var
+R7313:7337 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R7339:7341 PF_Coq.Core.FractalOperators <> α2:13 var
+R7403:7427 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R7522:7524 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7516:7518 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7522:7524 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7516:7518 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7563:7565 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7557:7559 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7563:7565 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R7557:7559 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7601:7603 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7595:7597 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7606:7608 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7601:7603 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7595:7597 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7606:7608 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7635:7642 Coq.Reals.Rtrigo1 <> PI_RGT_0 thm
+R7635:7642 Coq.Reals.Rtrigo1 <> PI_RGT_0 thm
+R7723:7725 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7726:7726 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7735:7739 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7748:7748 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7729:7731 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7742:7744 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7761:7777 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R7723:7725 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7726:7726 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7735:7739 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7748:7748 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7729:7731 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7742:7744 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7761:7777 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R7794:7810 Coq.Reals.RIneq <> Rinv_lt_contravar thm
+R7794:7810 Coq.Reals.RIneq <> Rinv_lt_contravar thm
+R7846:7849 Coq.Reals.Rdefinitions <> Rdiv def
+R7860:7876 Coq.Reals.Raxioms <> Rmult_lt_compat_l thm
+R7860:7876 Coq.Reals.Raxioms <> Rmult_lt_compat_l thm
+prf 7982:8017 <> lambda_P_gt_lambda_NP_from_resonance
+R8056:8058 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8023:8047 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R8049:8055 PF_Coq.Core.TuringEncoding <> alpha_P def
+R8059:8083 PF_Coq.Core.FractalOperators <> resonance_to_ground_state def
+R8085:8092 PF_Coq.Core.TuringEncoding <> alpha_NP def
+R8110:8134 PF_Coq.Core.FractalOperators <> higher_alpha_lower_lambda thm
+R8110:8134 PF_Coq.Core.FractalOperators <> higher_alpha_lower_lambda thm
+R8147:8157 PF_Coq.Core.P_NP_EquivalenceLemmas <> alpha_P_pos thm
+R8147:8157 PF_Coq.Core.P_NP_EquivalenceLemmas <> alpha_P_pos thm
+R8170:8181 PF_Coq.Core.P_NP_EquivalenceLemmas <> alpha_NP_pos thm
+R8170:8181 PF_Coq.Core.P_NP_EquivalenceLemmas <> alpha_NP_pos thm
+R8194:8209 PF_Coq.Core.TuringEncoding <> alpha_separation thm
+R8194:8209 PF_Coq.Core.TuringEncoding <> alpha_separation thm
+def 8259:8289 <> fractal_operators_theorem_count
+R8293:8295 Coq.Init.Datatypes <> nat ind
+def 8315:8343 <> fractal_operators_axiom_count
+R8347:8349 Coq.Init.Datatypes <> nat ind

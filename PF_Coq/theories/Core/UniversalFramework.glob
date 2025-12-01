@@ -1,0 +1,323 @@
+DIGEST 87a6a87b2bf0ff142894f53173f9084c
+FPF_Coq.Core.UniversalFramework
+R1353:1367 Coq.Reals.Reals <> <> lib
+R1385:1398 Coq.Lists.List <> <> lib
+R1416:1432 Coq.micromega.Lra <> <> lib
+R1442:1454 Coq.Lists.List ListNotations <> mod
+def 2115:2147 <> universal_consciousness_threshold
+R2151:2151 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 2239:2271 <> consciousness_clinical_validation
+R2277:2284 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2297:2299 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2296:2296 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2285:2292 <> accuracy:1
+R2308:2310 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2300:2307 PF_Coq.Core.UniversalFramework <> accuracy:1 var
+rec 2603:2632 <> MillenniumProblemConsciousness
+proj 2647:2654 <> mpc_name
+proj 2728:2736 <> mpc_alpha
+proj 2745:2751 <> mpc_ch2
+R2658:2660 Coq.Init.Datatypes <> nat ind
+R2740:2740 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2755:2755 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2835:2855 <> P_vs_NP_consciousness
+R2859:2888 PF_Coq.Core.UniversalFramework <> MillenniumProblemConsciousness rec
+R2895:2899 PF_Coq.Core.UniversalFramework <> mkMPC constr
+R2904:2907 Coq.Reals.R_sqrt <> sqrt def
+def 2996:3016 <> Riemann_consciousness
+R3020:3049 PF_Coq.Core.UniversalFramework <> MillenniumProblemConsciousness rec
+R3056:3060 PF_Coq.Core.UniversalFramework <> mkMPC constr
+R3066:3066 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+def 3154:3172 <> Hodge_consciousness
+R3176:3205 PF_Coq.Core.UniversalFramework <> MillenniumProblemConsciousness rec
+R3212:3216 PF_Coq.Core.UniversalFramework <> mkMPC constr
+R3221:3221 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3232:3235 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3223:3225 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3226:3229 Coq.Reals.R_sqrt <> sqrt def
+def 3326:3348 <> YangMills_consciousness
+R3352:3381 PF_Coq.Core.UniversalFramework <> MillenniumProblemConsciousness rec
+R3388:3392 PF_Coq.Core.UniversalFramework <> mkMPC constr
+def 3483:3499 <> BSD_consciousness
+R3503:3532 PF_Coq.Core.UniversalFramework <> MillenniumProblemConsciousness rec
+R3539:3543 PF_Coq.Core.UniversalFramework <> mkMPC constr
+R3554:3556 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3549:3551 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3552:3553 Coq.Reals.Rtrigo1 <> PI def
+def 3644:3669 <> NavierStokes_consciousness
+R3673:3702 PF_Coq.Core.UniversalFramework <> MillenniumProblemConsciousness rec
+R3709:3713 PF_Coq.Core.UniversalFramework <> mkMPC constr
+R3724:3726 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R3719:3721 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3722:3723 Coq.Reals.Rtrigo1 <> PI def
+def 3794:3818 <> all_millennium_ch2_values
+R3822:3825 Coq.Init.Datatypes <> list ind
+R3827:3827 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3834:3835 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3865:3870 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3900:3905 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3933:3938 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3970:3975 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4001:4006 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4041:4042 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R3836:3842 PF_Coq.Core.UniversalFramework <> mpc_ch2 proj
+R3844:3864 PF_Coq.Core.UniversalFramework <> P_vs_NP_consciousness def
+R3871:3877 PF_Coq.Core.UniversalFramework <> mpc_ch2 proj
+R3879:3899 PF_Coq.Core.UniversalFramework <> Riemann_consciousness def
+R3906:3912 PF_Coq.Core.UniversalFramework <> mpc_ch2 proj
+R3914:3932 PF_Coq.Core.UniversalFramework <> Hodge_consciousness def
+R3939:3945 PF_Coq.Core.UniversalFramework <> mpc_ch2 proj
+R3947:3969 PF_Coq.Core.UniversalFramework <> YangMills_consciousness def
+R3976:3982 PF_Coq.Core.UniversalFramework <> mpc_ch2 proj
+R3984:4000 PF_Coq.Core.UniversalFramework <> BSD_consciousness def
+R4007:4013 PF_Coq.Core.UniversalFramework <> mpc_ch2 proj
+R4015:4040 PF_Coq.Core.UniversalFramework <> NavierStokes_consciousness def
+rec 4114:4126 <> CH2Statistics
+proj 4146:4156 <> ch2_minimum
+proj 4165:4175 <> ch2_maximum
+proj 4184:4192 <> ch2_range
+proj 4201:4208 <> ch2_mean
+proj 4217:4226 <> ch2_median
+proj 4235:4245 <> ch2_std_dev
+proj 4254:4262 <> ch2_count
+R4160:4160 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4179:4179 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4196:4196 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4212:4212 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4230:4230 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4249:4249 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4266:4268 Coq.Init.Datatypes <> nat ind
+def 4285:4298 <> ch2_statistics
+R4302:4314 PF_Coq.Core.UniversalFramework <> CH2Statistics rec
+R4321:4330 PF_Coq.Core.UniversalFramework <> mkCH2Stats constr
+prf 4871:4884 <> ch2_clustering
+R4903:4903 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4897:4899 <> ch2:15
+R4942:4949 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4910:4911 Coq.Lists.List <> In def
+R4917:4941 PF_Coq.Core.UniversalFramework <> all_millennium_ch2_values def
+R4913:4915 PF_Coq.Core.UniversalFramework <> ch2:15 var
+R4961:4964 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4954:4957 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4958:4960 PF_Coq.Core.UniversalFramework <> ch2:15 var
+R4968:4971 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4965:4967 PF_Coq.Core.UniversalFramework <> ch2:15 var
+R5012:5036 PF_Coq.Core.UniversalFramework <> all_millennium_ch2_values def
+R5055:5075 PF_Coq.Core.UniversalFramework <> P_vs_NP_consciousness def
+R5078:5098 PF_Coq.Core.UniversalFramework <> Riemann_consciousness def
+R5101:5119 PF_Coq.Core.UniversalFramework <> Hodge_consciousness def
+R5131:5153 PF_Coq.Core.UniversalFramework <> YangMills_consciousness def
+R5156:5172 PF_Coq.Core.UniversalFramework <> BSD_consciousness def
+R5175:5200 PF_Coq.Core.UniversalFramework <> NavierStokes_consciousness def
+prf 5600:5620 <> max_pairwise_distance
+R5647:5647 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5633:5637 <> ch2_i:16
+binder 5639:5643 <> ch2_j:17
+R5688:5695 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5654:5655 Coq.Lists.List <> In def
+R5663:5687 PF_Coq.Core.UniversalFramework <> all_millennium_ch2_values def
+R5657:5661 PF_Coq.Core.UniversalFramework <> ch2_i:16 var
+R5730:5737 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5696:5697 Coq.Lists.List <> In def
+R5705:5729 PF_Coq.Core.UniversalFramework <> all_millennium_ch2_values def
+R5699:5703 PF_Coq.Core.UniversalFramework <> ch2_j:17 var
+R5758:5761 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5738:5741 Coq.Reals.Rbasic_fun <> Rabs def
+R5749:5751 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5744:5748 PF_Coq.Core.UniversalFramework <> ch2_i:16 var
+R5752:5756 PF_Coq.Core.UniversalFramework <> ch2_j:17 var
+R5867:5880 PF_Coq.Core.UniversalFramework <> ch2_clustering thm
+R5867:5880 PF_Coq.Core.UniversalFramework <> ch2_clustering thm
+R5922:5935 PF_Coq.Core.UniversalFramework <> ch2_clustering thm
+R5922:5935 PF_Coq.Core.UniversalFramework <> ch2_clustering thm
+R6010:6013 Coq.Reals.Rbasic_fun <> Rabs def
+R6028:6036 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+R6044:6046 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6028:6036 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+R6044:6046 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+def 6522:6541 <> universal_pi_over_10
+R6545:6545 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6552:6554 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6550:6551 Coq.Reals.Rtrigo1 <> PI def
+ax 6615:6639 <> pi_over_10_in_eigenvalues
+R6645:6652 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6684:6690 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6683:6683 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6653:6661 <> lambda_RH:18
+R6683:6683 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6663:6670 <> lambda_P:19
+R6683:6683 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6672:6679 <> Delta_YM:20
+R6721:6728 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6700:6702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6691:6699 PF_Coq.Core.UniversalFramework <> lambda_RH:18 var
+R6705:6708 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6720:6720 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6703:6704 Coq.Reals.Rtrigo1 <> PI def
+R6711:6713 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6714:6717 Coq.Reals.R_sqrt <> sqrt def
+R6758:6765 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6737:6739 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6729:6736 PF_Coq.Core.UniversalFramework <> lambda_P:19 var
+R6742:6745 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6757:6757 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6740:6741 Coq.Reals.Rtrigo1 <> PI def
+R6748:6750 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6751:6754 Coq.Reals.R_sqrt <> sqrt def
+R6774:6776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6766:6773 PF_Coq.Core.UniversalFramework <> Delta_YM:20 var
+R6795:6798 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6806:6806 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6782:6784 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6801:6803 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6799:6800 Coq.Reals.Rtrigo1 <> PI def
+prf 7142:7175 <> universal_coupling_not_coincidence
+R7181:7188 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7206:7208 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7205:7205 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7189:7201 <> p_coincidence:22
+R7222:7224 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7209:7221 PF_Coq.Core.UniversalFramework <> p_coincidence:22 var
+rec 7321:7339 <> CrossDomainEvidence
+proj 7359:7367 <> ev_domain
+proj 7404:7415 <> ev_precision
+proj 7454:7467 <> ev_sample_size
+proj 7507:7517 <> ev_accuracy
+proj 7557:7566 <> ev_p_value
+R7371:7373 Coq.Init.Datatypes <> nat ind
+R7419:7421 Coq.Init.Datatypes <> nat ind
+R7471:7473 Coq.Init.Datatypes <> nat ind
+R7521:7521 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R7570:7570 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 7682:7697 <> riemann_evidence
+R7701:7719 PF_Coq.Core.UniversalFramework <> CrossDomainEvidence rec
+R7726:7735 PF_Coq.Core.UniversalFramework <> mkEvidence constr
+def 7840:7852 <> p_np_evidence
+R7856:7874 PF_Coq.Core.UniversalFramework <> CrossDomainEvidence rec
+R7881:7890 PF_Coq.Core.UniversalFramework <> mkEvidence constr
+def 7979:7996 <> cosmology_evidence
+R8000:8018 PF_Coq.Core.UniversalFramework <> CrossDomainEvidence rec
+R8025:8034 PF_Coq.Core.UniversalFramework <> mkEvidence constr
+def 8126:8147 <> consciousness_evidence
+R8151:8169 PF_Coq.Core.UniversalFramework <> CrossDomainEvidence rec
+R8176:8185 PF_Coq.Core.UniversalFramework <> mkEvidence constr
+prf 8276:8306 <> cross_domain_validation_theorem
+R8347:8352 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8340:8342 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8312:8322 PF_Coq.Core.UniversalFramework <> ev_accuracy proj
+R8324:8339 PF_Coq.Core.UniversalFramework <> riemann_evidence def
+R8385:8390 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8378:8380 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8353:8363 PF_Coq.Core.UniversalFramework <> ev_accuracy proj
+R8365:8377 PF_Coq.Core.UniversalFramework <> p_np_evidence def
+R8428:8433 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8421:8423 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8391:8401 PF_Coq.Core.UniversalFramework <> ev_accuracy proj
+R8403:8420 PF_Coq.Core.UniversalFramework <> cosmology_evidence def
+R8468:8470 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R8434:8444 PF_Coq.Core.UniversalFramework <> ev_accuracy proj
+R8446:8467 PF_Coq.Core.UniversalFramework <> consciousness_evidence def
+R8493:8508 PF_Coq.Core.UniversalFramework <> riemann_evidence def
+R8511:8523 PF_Coq.Core.UniversalFramework <> p_np_evidence def
+R8526:8543 PF_Coq.Core.UniversalFramework <> cosmology_evidence def
+R8546:8567 PF_Coq.Core.UniversalFramework <> consciousness_evidence def
+ax 8672:8684 <> TimelessField
+ax 8778:8795 <> ConsciousnessField
+R8812:8815 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8799:8811 PF_Coq.Core.UniversalFramework <> TimelessField prfax
+R8816:8816 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+ax 8888:8926 <> consciousness_crystallization_threshold
+R8944:8956 PF_Coq.Core.UniversalFramework <> TimelessField prfax
+binder 8940:8940 <> x:31
+R8992:8995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8984:8987 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R8964:8981 PF_Coq.Core.UniversalFramework <> ConsciousnessField prfax
+R8983:8983 PF_Coq.Core.UniversalFramework <> x:31 var
+R8996:8999 Coq.Init.Logic <> True ind
+prf 9797:9849 <> millennium_problems_are_consciousness_crystallization
+R9900:9900 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9975:10017 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9908:9910 <> ch2:33
+R9945:9948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9913:9914 Coq.Lists.List <> In def
+R9920:9944 PF_Coq.Core.UniversalFramework <> all_millennium_ch2_values def
+R9916:9918 PF_Coq.Core.UniversalFramework <> ch2:33 var
+R9960:9963 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9953:9956 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R9957:9959 PF_Coq.Core.UniversalFramework <> ch2:33 var
+R9967:9970 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R9964:9966 PF_Coq.Core.UniversalFramework <> ch2:33 var
+R10018:10018 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10052:10093 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10019:10025 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10036:10037 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10035:10035 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10026:10031 <> p_pi10:34
+R10044:10046 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R10038:10043 PF_Coq.Core.UniversalFramework <> p_pi10:34 var
+R10094:10094 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10130:10136 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10123:10125 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R10095:10105 PF_Coq.Core.UniversalFramework <> ev_accuracy proj
+R10107:10122 PF_Coq.Core.UniversalFramework <> riemann_evidence def
+R10137:10137 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10170:10177 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10219:10219 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10163:10165 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R10138:10148 PF_Coq.Core.UniversalFramework <> ev_accuracy proj
+R10150:10162 PF_Coq.Core.UniversalFramework <> p_np_evidence def
+R10212:10214 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R10178:10188 PF_Coq.Core.UniversalFramework <> ev_accuracy proj
+R10190:10211 PF_Coq.Core.UniversalFramework <> consciousness_evidence def
+R10269:10282 PF_Coq.Core.UniversalFramework <> ch2_clustering thm
+R10269:10282 PF_Coq.Core.UniversalFramework <> ch2_clustering thm
+R10329:10362 PF_Coq.Core.UniversalFramework <> universal_coupling_not_coincidence thm
+R10329:10362 PF_Coq.Core.UniversalFramework <> universal_coupling_not_coincidence thm
+R10414:10429 PF_Coq.Core.UniversalFramework <> riemann_evidence def
+R10432:10444 PF_Coq.Core.UniversalFramework <> p_np_evidence def
+R10447:10468 PF_Coq.Core.UniversalFramework <> consciousness_evidence def
+ax 10615:10636 <> mathematical_platonism
+R10640:10647 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10665:10667 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10652:10664 PF_Coq.Core.UniversalFramework <> TimelessField prfax
+binder 10648:10648 <> T:35
+R10668:10671 Coq.Init.Logic <> True ind
+ax 10731:10755 <> consciousness_fundamental
+R10773:10785 PF_Coq.Core.UniversalFramework <> TimelessField prfax
+binder 10769:10769 <> x:37
+R10809:10812 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10789:10806 PF_Coq.Core.UniversalFramework <> ConsciousnessField prfax
+R10808:10808 PF_Coq.Core.UniversalFramework <> x:37 var
+prf 11006:11023 <> unity_of_knowledge
+R11029:11029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11067:11105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11030:11036 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11049:11050 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11048:11048 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 11037:11044 <> accuracy:39
+R11059:11061 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11051:11058 PF_Coq.Core.UniversalFramework <> accuracy:39 var
+R11106:11106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11150:11177 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11107:11113 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11129:11130 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11128:11128 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 11114:11124 <> improvement:40
+R11142:11144 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11131:11141 PF_Coq.Core.UniversalFramework <> improvement:40 var
+R11178:11178 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11246:11252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 11186:11188 <> ch2:41
+R11223:11226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11191:11192 Coq.Lists.List <> In def
+R11198:11222 PF_Coq.Core.UniversalFramework <> all_millennium_ch2_values def
+R11194:11196 PF_Coq.Core.UniversalFramework <> ch2:41 var
+R11231:11234 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R11238:11241 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R11235:11237 PF_Coq.Core.UniversalFramework <> ch2:41 var
+R11235:11237 PF_Coq.Core.UniversalFramework <> ch2:41 var
+R11253:11256 Coq.Init.Logic <> True ind
+def 11365:11397 <> universal_framework_theorem_count
+R11401:11403 Coq.Init.Datatypes <> nat ind
+def 11422:11452 <> universal_framework_axiom_count
+R11456:11458 Coq.Init.Datatypes <> nat ind

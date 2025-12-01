@@ -1,202 +1,209 @@
-DIGEST 0e4ae21a3b903e1d573f4cc13bf30bdc
+DIGEST 6fddc03f31d7829f1af68af5f5e0e7e9
 FPF_Coq.Core.SpectralGap
 R514:528 Coq.Reals.Reals <> <> lib
 R546:562 Coq.micromega.Lra <> <> lib
 R580:595 PF_Coq.Core.Zeta <> <> lib
 R613:633 PF_Coq.Core.Resonance <> <> lib
-rec 709:723 <> SpectralGapSpec
-proj 750:757 <> lambda0P
-proj 801:809 <> lambda0NP
-proj 853:855 <> gap
-proj 897:903 <> gap_def
-proj 937:948 <> gap_positive
-proj 963:972 <> gap_approx
-R761:761 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R813:813 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R859:859 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R910:912 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R907:909 PF_Coq.Core.SpectralGap <> gap:4 meth
-R921:923 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R913:920 PF_Coq.Core.SpectralGap <> lambda0P:2 meth
-R924:932 PF_Coq.Core.SpectralGap <> lambda0NP:3 meth
-R955:957 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R952:954 PF_Coq.Core.SpectralGap <> gap:4 meth
-R1007:1009 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R976:979 Coq.Reals.Rbasic_fun <> Rabs def
-R985:987 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R982:984 PF_Coq.Core.SpectralGap <> gap:4 meth
-def 1249:1259 <> PF_lambda0P
-R1263:1263 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 1298:1309 <> PF_lambda0NP
-R1313:1313 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 1348:1362 <> PF_spectral_gap
-R1366:1366 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R1382:1384 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R1371:1381 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-R1385:1396 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-ax 1453:1466 <> lambda0P_lower
-R1481:1483 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R1470:1480 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-ax 1510:1523 <> lambda0P_upper
-R1538:1540 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1527:1537 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-ax 1567:1581 <> lambda0NP_lower
-R1597:1599 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R1585:1596 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-ax 1626:1640 <> lambda0NP_upper
-R1656:1658 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1644:1655 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-prf 1749:1769 <> spectral_gap_positive
-R1788:1790 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R1773:1787 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-R1810:1824 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-R1827:1837 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-R1840:1851 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-prf 1923:1940 <> spectral_gap_value
-R1989:1991 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1946:1949 Coq.Reals.Rbasic_fun <> Rabs def
-R1967:1969 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R1952:1966 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-R2015:2029 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-R2032:2042 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-R2045:2056 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-R2059:2062 Coq.Reals.Rbasic_fun <> Rabs def
-R2077:2085 Coq.Reals.Rbasic_fun <> Rcase_abs thm
-R2077:2085 Coq.Reals.Rbasic_fun <> Rcase_abs thm
-def 2215:2231 <> P_neq_NP_spectral
-R2258:2260 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R2243:2257 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-prf 2273:2280 <> P_neq_NP
-R2284:2300 PF_Coq.Core.SpectralGap <> P_neq_NP_spectral def
-R2316:2336 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
-R2316:2336 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
-def 2536:2553 <> spectralGapSpec_PF
-R2557:2571 PF_Coq.Core.SpectralGap <> SpectralGapSpec rec
-R2591:2607 PF_Coq.Core.SpectralGap <> mkSpectralGapSpec constr
-R2609:2619 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-R2621:2632 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-R2634:2648 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-R2591:2607 PF_Coq.Core.SpectralGap <> mkSpectralGapSpec constr
-R2609:2619 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-R2621:2632 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-R2634:2648 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-R2683:2697 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-R2742:2762 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
-R2742:2762 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
-R2792:2809 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
-R2792:2809 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
-def 2935:2947 <> in_P_spectral
-R2954:2956 Coq.Init.Datatypes <> nat ind
-binder 2950:2950 <> M:12
-R2971:2974 Coq.Init.Logic <> True ind
-def 3044:3057 <> in_NP_spectral
-R3064:3066 Coq.Init.Datatypes <> nat ind
-binder 3060:3060 <> M:13
-R3081:3084 Coq.Init.Logic <> True ind
-ax 3194:3217 <> spectral_P_NP_separation
-binder 3230:3230 <> M:14
-R3250:3255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3235:3247 PF_Coq.Core.SpectralGap <> in_P_spectral def
-R3249:3249 PF_Coq.Core.SpectralGap <> M:14 var
-R3274:3279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3256:3257 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3258:3271 PF_Coq.Core.SpectralGap <> in_NP_spectral def
-R3273:3273 PF_Coq.Core.SpectralGap <> M:14 var
-R3295:3297 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3280:3294 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
-rec 3437:3450 <> CertifiedBound
-proj 3476:3483 <> bound_lo
-proj 3492:3499 <> bound_hi
-proj 3508:3518 <> bound_valid
-R3487:3487 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3503:3503 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3530:3533 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R3522:3529 PF_Coq.Core.SpectralGap <> bound_lo:17 meth
-R3534:3541 PF_Coq.Core.SpectralGap <> bound_hi:18 meth
-def 3558:3571 <> bound_contains
-R3578:3591 PF_Coq.Core.SpectralGap <> CertifiedBound rec
-binder 3574:3574 <> B:20
-R3599:3599 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3595:3595 <> x:21
-R3629:3632 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3624:3627 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R3614:3621 PF_Coq.Core.SpectralGap <> bound_lo proj
-R3623:3623 PF_Coq.Core.SpectralGap <> B:20 var
-R3628:3628 PF_Coq.Core.SpectralGap <> x:21 var
-R3634:3637 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R3633:3633 PF_Coq.Core.SpectralGap <> x:21 var
-R3638:3645 PF_Coq.Core.SpectralGap <> bound_hi proj
-R3647:3647 PF_Coq.Core.SpectralGap <> B:20 var
-def 3724:3737 <> lambda0P_bound
-R3741:3754 PF_Coq.Core.SpectralGap <> CertifiedBound rec
-R3774:3789 PF_Coq.Core.SpectralGap <> mkCertifiedBound constr
-R3774:3789 PF_Coq.Core.SpectralGap <> mkCertifiedBound constr
-def 3861:3875 <> lambda0NP_bound
-R3879:3892 PF_Coq.Core.SpectralGap <> CertifiedBound rec
-R3912:3927 PF_Coq.Core.SpectralGap <> mkCertifiedBound constr
-R3912:3927 PF_Coq.Core.SpectralGap <> mkCertifiedBound constr
-def 4028:4044 <> lambda0P_interval
-R4049:4062 PF_Coq.Core.SpectralGap <> lambda0P_bound def
-def 4076:4093 <> lambda0NP_interval
-R4098:4112 PF_Coq.Core.SpectralGap <> lambda0NP_bound def
-def 4219:4223 <> pi_10
-R4227:4227 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4234:4236 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4232:4233 Coq.Reals.Rtrigo1 <> PI def
-def 4299:4301 <> phi
-R4305:4305 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4310:4310 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4321:4324 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4312:4314 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4315:4318 Coq.Reals.R_sqrt <> sqrt def
-ax 4484:4501 <> lambda_P_algebraic
-R4516:4518 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4505:4515 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-R4524:4526 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4519:4523 PF_Coq.Core.SpectralGap <> pi_10 def
-R4527:4530 Coq.Reals.R_sqrt <> sqrt def
-ax 4541:4559 <> lambda_NP_algebraic
-R4575:4577 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4563:4574 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-R4583:4586 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4596:4596 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4578:4582 PF_Coq.Core.SpectralGap <> pi_10 def
-R4590:4592 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4587:4589 PF_Coq.Core.SpectralGap <> phi def
-R4594:4594 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-prf 4640:4665 <> universal_pi_10_coupling_P
-R4691:4693 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4682:4684 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4671:4681 PF_Coq.Core.SpectralGap <> PF_lambda0P def
-R4685:4688 Coq.Reals.R_sqrt <> sqrt def
-R4694:4698 PF_Coq.Core.SpectralGap <> pi_10 def
-R4718:4735 PF_Coq.Core.SpectralGap <> lambda_P_algebraic prfax
-R4718:4735 PF_Coq.Core.SpectralGap <> lambda_P_algebraic prfax
-R4718:4735 PF_Coq.Core.SpectralGap <> lambda_P_algebraic prfax
-R4755:4764 Coq.Reals.RIneq <> Rgt_not_eq thm
-R4755:4764 Coq.Reals.RIneq <> Rgt_not_eq thm
-R4775:4784 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
-R4775:4784 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
-prf 4806:4832 <> universal_pi_10_coupling_NP
-R4864:4866 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4850:4853 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4863:4863 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4838:4849 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
-R4857:4859 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4854:4856 PF_Coq.Core.SpectralGap <> phi def
-R4861:4861 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4867:4871 PF_Coq.Core.SpectralGap <> pi_10 def
-R4891:4909 PF_Coq.Core.SpectralGap <> lambda_NP_algebraic prfax
-R4891:4909 PF_Coq.Core.SpectralGap <> lambda_NP_algebraic prfax
-R4891:4909 PF_Coq.Core.SpectralGap <> lambda_NP_algebraic prfax
-R4930:4932 PF_Coq.Core.SpectralGap <> phi def
-R4976:4978 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4970:4973 Coq.Reals.R_sqrt <> sqrt def
-R4992:5001 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
-R4976:4978 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R4970:4973 Coq.Reals.R_sqrt <> sqrt def
-R4992:5001 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
-def 5064:5089 <> spectral_gap_theorem_count
-R5093:5095 Coq.Init.Datatypes <> nat ind
-def 5114:5137 <> spectral_gap_axiom_count
-R5141:5143 Coq.Init.Datatypes <> nat ind
+R651:676 PF_Coq.Core.TuringEncoding <> <> lib
+rec 775:789 <> SpectralGapSpec
+proj 816:823 <> lambda0P
+proj 867:875 <> lambda0NP
+proj 919:921 <> gap
+proj 963:969 <> gap_def
+proj 1003:1014 <> gap_positive
+proj 1029:1038 <> gap_approx
+R827:827 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R879:879 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R925:925 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R976:978 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R973:975 PF_Coq.Core.SpectralGap <> gap:4 meth
+R987:989 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R979:986 PF_Coq.Core.SpectralGap <> lambda0P:2 meth
+R990:998 PF_Coq.Core.SpectralGap <> lambda0NP:3 meth
+R1021:1023 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1018:1020 PF_Coq.Core.SpectralGap <> gap:4 meth
+R1073:1075 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1042:1045 Coq.Reals.Rbasic_fun <> Rabs def
+R1051:1053 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R1048:1050 PF_Coq.Core.SpectralGap <> gap:4 meth
+def 1315:1325 <> PF_lambda0P
+R1329:1329 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1364:1375 <> PF_lambda0NP
+R1379:1379 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1414:1428 <> PF_spectral_gap
+R1432:1432 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1448:1450 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R1437:1447 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R1451:1462 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+ax 1519:1532 <> lambda0P_lower
+R1547:1549 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1536:1546 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+ax 1576:1589 <> lambda0P_upper
+R1604:1606 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1593:1603 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+ax 1633:1647 <> lambda0NP_lower
+R1663:1665 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1651:1662 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+ax 1692:1706 <> lambda0NP_upper
+R1722:1724 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1710:1721 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+ax 2012:2043 <> PF_lambda_collapse_under_p_eq_np
+R2058:2061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2047:2057 PF_Coq.Core.TuringEncoding <> P_equals_NP def
+R2073:2075 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2062:2072 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R2076:2087 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+prf 2160:2180 <> spectral_gap_positive
+R2199:2201 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2184:2198 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2221:2235 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2238:2248 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R2251:2262 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+prf 2334:2351 <> spectral_gap_value
+R2400:2402 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2357:2360 Coq.Reals.Rbasic_fun <> Rabs def
+R2378:2380 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2363:2377 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2426:2440 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R2443:2453 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R2456:2467 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R2470:2473 Coq.Reals.Rbasic_fun <> Rabs def
+R2488:2496 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+R2488:2496 Coq.Reals.Rbasic_fun <> Rcase_abs thm
+def 2626:2642 <> P_neq_NP_spectral
+R2669:2671 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R2654:2668 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+prf 2684:2691 <> P_neq_NP
+R2695:2711 PF_Coq.Core.SpectralGap <> P_neq_NP_spectral def
+R2727:2747 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R2727:2747 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+def 2947:2964 <> spectralGapSpec_PF
+R2968:2982 PF_Coq.Core.SpectralGap <> SpectralGapSpec rec
+R3002:3018 PF_Coq.Core.SpectralGap <> mkSpectralGapSpec constr
+R3020:3030 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R3032:3043 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R3045:3059 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R3002:3018 PF_Coq.Core.SpectralGap <> mkSpectralGapSpec constr
+R3020:3030 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R3032:3043 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R3045:3059 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R3094:3108 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+R3153:3173 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R3153:3173 PF_Coq.Core.SpectralGap <> spectral_gap_positive thm
+R3203:3220 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
+R3203:3220 PF_Coq.Core.SpectralGap <> spectral_gap_value thm
+def 3346:3358 <> in_P_spectral
+R3365:3367 Coq.Init.Datatypes <> nat ind
+binder 3361:3361 <> M:13
+R3382:3385 Coq.Init.Logic <> True ind
+def 3455:3468 <> in_NP_spectral
+R3475:3477 Coq.Init.Datatypes <> nat ind
+binder 3471:3471 <> M:14
+R3492:3495 Coq.Init.Logic <> True ind
+ax 3605:3628 <> spectral_P_NP_separation
+binder 3641:3641 <> M:15
+R3661:3666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3646:3658 PF_Coq.Core.SpectralGap <> in_P_spectral def
+R3660:3660 PF_Coq.Core.SpectralGap <> M:15 var
+R3685:3690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3667:3668 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3669:3682 PF_Coq.Core.SpectralGap <> in_NP_spectral def
+R3684:3684 PF_Coq.Core.SpectralGap <> M:15 var
+R3706:3708 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3691:3705 PF_Coq.Core.SpectralGap <> PF_spectral_gap def
+rec 3848:3861 <> CertifiedBound
+proj 3887:3894 <> bound_lo
+proj 3903:3910 <> bound_hi
+proj 3919:3929 <> bound_valid
+R3898:3898 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3914:3914 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3941:3944 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3933:3940 PF_Coq.Core.SpectralGap <> bound_lo:18 meth
+R3945:3952 PF_Coq.Core.SpectralGap <> bound_hi:19 meth
+def 3969:3982 <> bound_contains
+R3989:4002 PF_Coq.Core.SpectralGap <> CertifiedBound rec
+binder 3985:3985 <> B:21
+R4010:4010 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4006:4006 <> x:22
+R4040:4043 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4035:4038 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4025:4032 PF_Coq.Core.SpectralGap <> bound_lo proj
+R4034:4034 PF_Coq.Core.SpectralGap <> B:21 var
+R4039:4039 PF_Coq.Core.SpectralGap <> x:22 var
+R4045:4048 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4044:4044 PF_Coq.Core.SpectralGap <> x:22 var
+R4049:4056 PF_Coq.Core.SpectralGap <> bound_hi proj
+R4058:4058 PF_Coq.Core.SpectralGap <> B:21 var
+def 4135:4148 <> lambda0P_bound
+R4152:4165 PF_Coq.Core.SpectralGap <> CertifiedBound rec
+R4185:4200 PF_Coq.Core.SpectralGap <> mkCertifiedBound constr
+R4185:4200 PF_Coq.Core.SpectralGap <> mkCertifiedBound constr
+def 4272:4286 <> lambda0NP_bound
+R4290:4303 PF_Coq.Core.SpectralGap <> CertifiedBound rec
+R4323:4338 PF_Coq.Core.SpectralGap <> mkCertifiedBound constr
+R4323:4338 PF_Coq.Core.SpectralGap <> mkCertifiedBound constr
+def 4439:4455 <> lambda0P_interval
+R4460:4473 PF_Coq.Core.SpectralGap <> lambda0P_bound def
+def 4487:4504 <> lambda0NP_interval
+R4509:4523 PF_Coq.Core.SpectralGap <> lambda0NP_bound def
+def 4630:4634 <> pi_10
+R4638:4638 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4645:4647 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4643:4644 Coq.Reals.Rtrigo1 <> PI def
+def 4710:4712 <> phi
+R4716:4716 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4721:4721 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4732:4735 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4723:4725 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4726:4729 Coq.Reals.R_sqrt <> sqrt def
+ax 4895:4912 <> lambda_P_algebraic
+R4927:4929 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4916:4926 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R4935:4937 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4930:4934 PF_Coq.Core.SpectralGap <> pi_10 def
+R4938:4941 Coq.Reals.R_sqrt <> sqrt def
+ax 4952:4970 <> lambda_NP_algebraic
+R4986:4988 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4974:4985 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R4994:4997 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5007:5007 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4989:4993 PF_Coq.Core.SpectralGap <> pi_10 def
+R5001:5003 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4998:5000 PF_Coq.Core.SpectralGap <> phi def
+R5005:5005 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+prf 5051:5076 <> universal_pi_10_coupling_P
+R5102:5104 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5093:5095 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5082:5092 PF_Coq.Core.SpectralGap <> PF_lambda0P def
+R5096:5099 Coq.Reals.R_sqrt <> sqrt def
+R5105:5109 PF_Coq.Core.SpectralGap <> pi_10 def
+R5129:5146 PF_Coq.Core.SpectralGap <> lambda_P_algebraic prfax
+R5129:5146 PF_Coq.Core.SpectralGap <> lambda_P_algebraic prfax
+R5129:5146 PF_Coq.Core.SpectralGap <> lambda_P_algebraic prfax
+R5166:5175 Coq.Reals.RIneq <> Rgt_not_eq thm
+R5166:5175 Coq.Reals.RIneq <> Rgt_not_eq thm
+R5186:5195 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
+R5186:5195 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
+prf 5217:5243 <> universal_pi_10_coupling_NP
+R5275:5277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5261:5264 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5274:5274 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5249:5260 PF_Coq.Core.SpectralGap <> PF_lambda0NP def
+R5268:5270 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5265:5267 PF_Coq.Core.SpectralGap <> phi def
+R5272:5272 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5278:5282 PF_Coq.Core.SpectralGap <> pi_10 def
+R5302:5320 PF_Coq.Core.SpectralGap <> lambda_NP_algebraic prfax
+R5302:5320 PF_Coq.Core.SpectralGap <> lambda_NP_algebraic prfax
+R5302:5320 PF_Coq.Core.SpectralGap <> lambda_NP_algebraic prfax
+R5341:5343 PF_Coq.Core.SpectralGap <> phi def
+R5387:5389 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5381:5384 Coq.Reals.R_sqrt <> sqrt def
+R5403:5412 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
+R5387:5389 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R5381:5384 Coq.Reals.R_sqrt <> sqrt def
+R5403:5412 Coq.Reals.R_sqrt <> sqrt_lt_R0 thm
+def 5475:5500 <> spectral_gap_theorem_count
+R5504:5506 Coq.Init.Datatypes <> nat ind
+def 5525:5548 <> spectral_gap_axiom_count
+R5552:5554 Coq.Init.Datatypes <> nat ind
