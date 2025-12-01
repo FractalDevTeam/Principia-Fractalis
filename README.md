@@ -12,8 +12,6 @@
 
 **Author:** Pablo Cohen
 
-[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20This%20Research-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/pablocohen)
-
 </div>
 
 ---
@@ -288,21 +286,39 @@ MIT License — see [LICENSE](LICENSE)
 
 ## Support This Research
 
-Principia Fractalis is **open source** and freely available. If you find this work valuable, consider supporting its continued development:
-
 <div align="center">
 
-[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Pablo-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/pablocohen)
+### Independent research needs your help
+
+Principia Fractalis is **open source** and freely available — no paywalls, no institutional gatekeeping.
+
+This work represents years of independent research with **zero institutional funding**.
+
+<a href="https://ko-fi.com/pablocohen">
+  <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" width="250"/>
+</a>
+
+**[☕ Buy Pablo a Coffee](https://ko-fi.com/pablocohen)**
 
 </div>
 
-Your support enables:
-- Continued research and refinement
-- Response to peer review feedback
-- Conference presentations and outreach
-- Development of additional formalizations
+Your support directly enables:
+- 🔬 Continued research and refinement of the framework
+- 📝 Response to peer review and academic publication
+- 🎤 Conference presentations and scientific outreach
+- 💻 Development of additional formalizations
+- 🏠 Living expenses for the author
 
-See [SUPPORT.md](SUPPORT.md) for more ways to contribute.
+**Every contribution matters.** See [SUPPORT.md](SUPPORT.md) for more ways to help.
+
+### Contact
+
+| Method | Address |
+|--------|---------|
+| **Email (Primary)** | psolorzano@gmail.com |
+| **Email (Academic)** | psolorzano@alumni.berklee.edu |
+| **GitHub Issues** | For mathematical questions and bug reports |
+| **ORCID** | [0009-0002-0734-5565](https://orcid.org/0009-0002-0734-5565) |
 
 ---
 
