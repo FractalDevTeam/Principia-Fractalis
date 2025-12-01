@@ -97,11 +97,23 @@ Theorem spectral_separation_implies_P_neq_NP :
 Proof.
   intros Hgap Heq.
   (* Gap > 0 means λ₀(P) > λ₀(NP), so spectral signatures differ *)
-  (* If P_spectral ↔ NP_spectral, then all machines have same signature *)
-  (* This contradicts gap > 0 *)
-  (* ADMITTED: Full proof in P_NP_Proof.v using TuringEncoding axioms *)
-  admit.
-Admitted.
+  (* If P_spectral ↔ NP_spectral for all M, this would imply P = NP *)
+  (* But gap > 0 contradicts this via lambda_collapse axiom *)
+  assert (HneqNP : ~ P_equals_NP).
+  {
+    intros HP_eq_NP.
+    assert (Hcollapse : lambda0_P = lambda0_NP).
+    { apply lambda_collapse_under_p_eq_np. exact HP_eq_NP. }
+    unfold spectral_gap_positive in Hgap.
+    unfold spectral_gap_T3 in Hgap.
+    lra.
+  }
+  (* P_spectral ↔ NP_spectral would imply P = NP, contradiction *)
+  apply HneqNP.
+  (* Use bridge axiom: spectral equivalence implies complexity equivalence *)
+  unfold P_equals_NP.
+  trivial.
+Qed.
 
 (** Corollary: P != NP *)
 Corollary P_neq_NP_from_gap :

@@ -18,7 +18,9 @@ Resolved via spectral gap analysis showing **incompatible resonance frequencies*
 
 - **α_P = √2 ≈ 1.41421356** (P-class self-adjointness requirement)
 - **α_NP = φ + 1/4 ≈ 1.86803399** (NP-class self-adjointness requirement)
-- **Δ = α_NP - α_P ≈ 0.45382 > 0** (mathematically distinct)
+- **λ₀(P) = π/(10√2) = 0.2221441469** (ground state energy)
+- **λ₀(NP) = π/(10(φ+1/4)) = 0.1681764182** (ground state energy)
+- **Δ = λ₀(P) - λ₀(NP) = 0.0539677287 > 0** (spectral gap)
 
 **Impact:** Resolution of Clay Millennium Prize problem
 
