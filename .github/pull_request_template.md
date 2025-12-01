@@ -46,4 +46,4 @@ Any context for reviewers (related issues, design decisions, etc.)
 **By submitting this PR, I confirm that:**
 - [ ] I have read [CONTRIBUTING.md](../CONTRIBUTING.md)
 - [ ] My changes maintain the zero-sorry/zero-admit standard
-- [ ] I agree to the MIT License terms for my contributions
+- [ ] I agree to the Non-Commercial Research License terms for my contributions

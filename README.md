@@ -4,7 +4,7 @@
 
 ### A Unified Mathematical Framework for Consciousness, Computation, and Reality
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
 [![Lean 4](https://img.shields.io/badge/Lean%204-40%20files%20%7C%20269%20theorems%20%7C%200%20sorrys-blue)](PF_Lean4_Code/)
 [![Coq](https://img.shields.io/badge/Coq-32%20files%20%7C%20199%20theorems%20%7C%200%20admits-orange)](PF_Coq/)
 [![Pages](https://img.shields.io/badge/Book-801%20pages-green)](Principia_Fractalis_master_folder/)
@@ -280,7 +280,9 @@ grep "sorry" PF_Lean4_Code/SpectralGap.lean                    # Should be empty
 
 ## License
 
-MIT License — see [LICENSE](LICENSE)
+**Non-Commercial Research License** — see [LICENSE](LICENSE)
+
+Commercial use requires explicit written permission from the author.
 
 ---
 
