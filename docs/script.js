@@ -37,7 +37,9 @@ const BADGES = {
     'brain-waker': { icon: '🧠', name: 'Brain Waker', desc: 'Woke up the brain!' },
     'sound-explorer': { icon: '🔊', name: 'Sound Explorer', desc: 'Heard the difference!' },
     'story-reader': { icon: '📖', name: 'Story Reader', desc: 'Finished the story!' },
-    'ocean-explorer': { icon: '🌊', name: 'Ocean Explorer', desc: 'Explored the ocean!' }
+    'ocean-explorer': { icon: '🌊', name: 'Ocean Explorer', desc: 'Explored the ocean!' },
+    'color-mixer': { icon: '🎨', name: 'Color Mixer', desc: 'Mixed colors with THREE primaries!' },
+    'mind-celebrator': { icon: '🧩', name: 'Mind Celebrator', desc: 'Discovered your superpowers!' }
 };
 
 // ============================================
@@ -465,6 +467,8 @@ function initGames() {
     initFractalGame();
     initBrainGame();
     initSoundGame();
+    initColorMixer();
+    initMindQuiz();
 }
 
 // Cookie Counter Game
@@ -938,6 +942,205 @@ function initSoundGame() {
         }
         awardBadge('sound-explorer');
     });
+}
+
+// Color Three Mixer Game - Teaching why THREE primary colors make ALL colors
+function initColorMixer() {
+    const redSlider = document.getElementById('red-slider');
+    const greenSlider = document.getElementById('green-slider');
+    const blueSlider = document.getElementById('blue-slider');
+    const preview = document.getElementById('color-preview');
+    const output = document.getElementById('color-output');
+    const feedback = document.getElementById('color-feedback');
+
+    if (!redSlider || !greenSlider || !blueSlider) return;
+
+    let matchedColors = new Set();
+
+    function updateColor() {
+        const r = parseInt(redSlider.value);
+        const g = parseInt(greenSlider.value);
+        const b = parseInt(blueSlider.value);
+
+        document.getElementById('red-val').textContent = r;
+        document.getElementById('green-val').textContent = g;
+        document.getElementById('blue-val').textContent = b;
+
+        const color = `rgb(${r}, ${g}, ${b})`;
+        if (preview) preview.style.backgroundColor = color;
+
+        // Describe the color
+        let colorName = describeColor(r, g, b);
+        if (output) output.textContent = colorName;
+
+        // Check challenges
+        checkColorChallenges(r, g, b);
+    }
+
+    function describeColor(r, g, b) {
+        // Simple color naming
+        if (r > 200 && g > 200 && b > 200) return "White - All THREE at max!";
+        if (r < 50 && g < 50 && b < 50) return "Black - All THREE at zero!";
+        if (r > 200 && g < 100 && b < 100) return "Red!";
+        if (r < 100 && g > 200 && b < 100) return "Green!";
+        if (r < 100 && g < 100 && b > 200) return "Blue!";
+        if (r > 200 && g > 200 && b < 100) return "Yellow! (Red + Green)";
+        if (r > 200 && g < 100 && b > 200) return "Magenta! (Red + Blue)";
+        if (r < 100 && g > 200 && b > 200) return "Cyan! (Green + Blue)";
+        if (r > 200 && g > 100 && g < 200 && b < 100) return "Orange! (Red + some Green)";
+        if (r > 100 && g < 100 && b > 100) return "Purple! (Red + Blue)";
+        return `RGB(${r}, ${g}, ${b})`;
+    }
+
+    function checkColorChallenges(r, g, b) {
+        const challenges = document.querySelectorAll('.challenge-btn');
+
+        challenges.forEach(btn => {
+            const target = btn.dataset.target.split(',').map(Number);
+            const [tr, tg, tb] = target;
+
+            // Allow some tolerance (±30)
+            const tolerance = 40;
+            const matched = Math.abs(r - tr) < tolerance &&
+                           Math.abs(g - tg) < tolerance &&
+                           Math.abs(b - tb) < tolerance;
+
+            if (matched && !matchedColors.has(btn.dataset.target)) {
+                matchedColors.add(btn.dataset.target);
+                btn.classList.add('matched');
+                if (feedback) {
+                    feedback.textContent = `🎉 You made ${btn.textContent}! THREE colors create everything!`;
+                    feedback.style.color = '#00ff88';
+                }
+                addStars(1);
+
+                // Award badge after matching 3 colors
+                if (matchedColors.size >= 3) {
+                    awardBadge('color-mixer');
+                }
+            }
+        });
+    }
+
+    redSlider.addEventListener('input', updateColor);
+    greenSlider.addEventListener('input', updateColor);
+    blueSlider.addEventListener('input', updateColor);
+
+    // Initialize
+    updateColor();
+}
+
+// Mind Type Celebration Quiz - Neurodivergent validation
+function initMindQuiz() {
+    const quizContent = document.getElementById('mind-quiz-content');
+    const resultDiv = document.getElementById('mind-result');
+    const superpowerList = document.getElementById('superpower-list');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    if (!quizContent) return;
+
+    let answers = {
+        type: null,
+        trait: null,
+        energy: null
+    };
+
+    const superpowers = {
+        // Learning types
+        visual: { icon: '👁️', name: 'Pattern Vision', desc: 'You see patterns others miss!' },
+        'hands-on': { icon: '✋', name: 'Body Wisdom', desc: 'Your hands know things your mind hasn\'t figured out yet!' },
+        story: { icon: '📖', name: 'Narrative Mind', desc: 'You connect everything into meaningful stories!' },
+        numbers: { icon: '🔢', name: 'Logic Flow', desc: 'Numbers and patterns speak to you!' },
+        // Traits
+        creative: { icon: '🎨', name: 'Idea Generator', desc: 'Your brain makes NEW things!' },
+        detail: { icon: '🔍', name: 'Detail Detective', desc: 'You notice what everyone else misses!' },
+        connect: { icon: '🔗', name: 'Connection Finder', desc: 'You see how everything links together!' },
+        question: { icon: '❓', name: 'Question Asker', desc: 'Your "why?" finds hidden truths!' },
+        // Energy
+        focus: { icon: '🎯', name: 'Deep Diver', desc: 'You can go DEEP into one thing!' },
+        variety: { icon: '🦋', name: 'Idea Butterfly', desc: 'You gather wisdom from many places!' },
+        quiet: { icon: '🌙', name: 'Inner World', desc: 'You have a rich inner universe!' },
+        move: { icon: '🏃', name: 'Body Thinker', desc: 'Movement helps your brain work!' }
+    };
+
+    let currentQuestion = 1;
+
+    function showQuestion(num) {
+        document.querySelectorAll('.mind-question').forEach(q => {
+            q.classList.add('hidden');
+        });
+        const q = document.getElementById(`mind-q${num}`);
+        if (q) q.classList.remove('hidden');
+    }
+
+    function handleAnswer(btn, answerType) {
+        // Mark selected
+        btn.closest('.mind-options').querySelectorAll('.mind-option').forEach(o => {
+            o.classList.remove('selected');
+        });
+        btn.classList.add('selected');
+
+        // Store answer
+        if (btn.dataset.type) answers.type = btn.dataset.type;
+        if (btn.dataset.trait) answers.trait = btn.dataset.trait;
+        if (btn.dataset.energy) answers.energy = btn.dataset.energy;
+
+        // Move to next question or show results
+        setTimeout(() => {
+            currentQuestion++;
+            if (currentQuestion <= 3) {
+                showQuestion(currentQuestion);
+            } else {
+                showResults();
+            }
+        }, 400);
+    }
+
+    function showResults() {
+        quizContent.classList.add('hidden');
+        resultDiv.classList.remove('hidden');
+
+        // Build superpower display
+        superpowerList.innerHTML = '';
+
+        Object.entries(answers).forEach(([key, value]) => {
+            if (value && superpowers[value]) {
+                const sp = superpowers[value];
+                const div = document.createElement('div');
+                div.className = 'superpower-item';
+                div.innerHTML = `
+                    <span class="superpower-icon">${sp.icon}</span>
+                    <span class="superpower-name">${sp.name}</span>
+                    <span class="superpower-desc">${sp.desc}</span>
+                `;
+                superpowerList.appendChild(div);
+            }
+        });
+
+        addStars(3);
+        awardBadge('mind-celebrator');
+    }
+
+    function resetQuiz() {
+        answers = { type: null, trait: null, energy: null };
+        currentQuestion = 1;
+        resultDiv.classList.add('hidden');
+        quizContent.classList.remove('hidden');
+        showQuestion(1);
+        document.querySelectorAll('.mind-option').forEach(o => {
+            o.classList.remove('selected');
+        });
+    }
+
+    // Attach event listeners
+    document.querySelectorAll('.mind-option').forEach(btn => {
+        btn.addEventListener('click', () => handleAnswer(btn));
+    });
+
+    retakeBtn?.addEventListener('click', resetQuiz);
+
+    // Initialize
+    showQuestion(1);
 }
 
 // ============================================
