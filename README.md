@@ -16,6 +16,42 @@
 
 ---
 
+<div align="center">
+
+## 🌟 START HERE: The Magic of Three 🌟
+
+### **[fractaldevteam.github.io/Principia-Fractalis](https://fractaldevteam.github.io/Principia-Fractalis/)**
+
+**An interactive journey into the mathematics of reality — for ALL minds**
+
+[![Educational Site](https://img.shields.io/badge/Educational_Site-The_Magic_of_Three-64ffda?style=for-the-badge)](https://fractaldevteam.github.io/Principia-Fractalis/)
+
+</div>
+
+Before diving into 801 pages of formal mathematics, explore the **educational gateway** that makes these ideas accessible:
+
+| What You'll Discover | Who It's For |
+|---------------------|--------------|
+| **Base-3 counting** — why the universe prefers threes | Children and curious adults |
+| **Fractals** — patterns inside patterns inside patterns | Visual learners |
+| **Consciousness threshold** — how patterns wake up (ch₂ ≥ 0.95) | Anyone wondering "what is awareness?" |
+| **The 5% universe** — why most of reality is invisible | Those seeking deeper understanding |
+| **Your superpower** — different thinking sees different truths | Neurodivergent minds |
+
+> *"Children's worldviews are not yet solidified. They can absorb the mathematics of existence naturally, before being taught that some questions are 'unanswerable.' This is the gateway."*
+
+**Features:**
+- **Three learning modes**: Kids, Teen, and Grown-Up (progressively technical)
+- **Accessibility-first**: Calm mode (no animations), dyslexia-friendly fonts, multiple learning pathways
+- **Interactive games**: Cookie counting (base-3), pattern recognition, prime number hunt, fractal art studio, consciousness meter
+- **The Ocean**: A gentle introduction to the Timeless Field / Omega-Space
+
+**The mathematics is the same. The gateway is for everyone.**
+
+**[Enter The Magic of Three](https://fractaldevteam.github.io/Principia-Fractalis/)** — no prerequisites, no judgment, just wonder.
+
+---
+
 ## Quick Start
 
 | Component | Description | Status |
@@ -92,9 +128,9 @@ The deepest result: P and NP are characterized by **self-adjoint operators** H_P
 
 These values yield distinct ground state energies:
 ```
-λ₀(P)  = π/(10√2)       = 0.222144146907918
-λ₀(NP) = π/(10(φ+1/4))  = 0.168176418213693
-Δ      = λ₀(P) - λ₀(NP) = 0.0539677287 > 0
+λ₀(P)  = π/(10√2)           = 0.2221441469
+λ₀(NP) = π(√5−1)/(30√2)     = 0.1330222423
+Δ      = λ₀(P) − λ₀(NP)     = 0.0891219046 > 0
 ```
 
 **The spectral gap is nonzero. Therefore P ≠ NP.**
@@ -199,6 +235,8 @@ Every claim is:
 - Mathematically proven (no hand-waving)
 - Computationally verified (numerical certificates)
 - Formally checked (Lean 4 + Coq)
+
+> **New to these ideas?** Start with the [interactive educational site](https://fractaldevteam.github.io/Principia-Fractalis/) — it teaches the same mathematics through games and exploration, accessible to any age or background.
 
 ---
 
@@ -328,9 +366,15 @@ Your support directly enables:
 
 ### Other Work by Pablo Cohen
 
+<a href="https://fractaldevteam.github.io/Principia-Fractalis/">
+  <img src="https://img.shields.io/badge/Interactive-The_Magic_of_Three-64ffda?style=for-the-badge" alt="The Magic of Three Educational Site"/>
+</a>
+&nbsp;&nbsp;
 <a href="https://www.amazon.com/Death-Pablo-Suffering-Consciousness-Evolution/dp/B0FFSHMD5H">
   <img src="https://img.shields.io/badge/Amazon-Death%20of%20Pablo-FF9900?style=for-the-badge&logo=amazon&logoColor=white" alt="Death of Pablo on Amazon"/>
 </a>
+
+*"The Magic of Three"* — Interactive educational site teaching the mathematics of reality to children, parents, and neurodivergent minds. **[Start here.](https://fractaldevteam.github.io/Principia-Fractalis/)**
 
 *"Death of Pablo: Suffering, Consciousness Evolution and Personal Rebirth"* — A companion exploration of consciousness from a personal perspective.
 
@@ -352,6 +396,7 @@ Your support directly enables:
 - **Lean community** for Mathlib and the proof assistant
 - **Coq community** for independent verification capability
 - The mathematical foundations built over centuries by countless researchers
+- The **neurodivergent community** — whose different ways of thinking inspired both this work and the accessible educational gateway
 
 ---
 
