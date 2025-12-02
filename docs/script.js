@@ -656,20 +656,20 @@ function initSpectralAudio() {
     }
     
     playP.addEventListener('click', () => {
-        playTone(222); // P frequency
+        playTone(222); // P frequency (λ₀ = 0.2221)
         animateBar('p-freq-bar');
         earnBadge('sound-scientist');
     });
-    
+
     playNP.addEventListener('click', () => {
-        playTone(168); // NP frequency
+        playTone(133); // NP frequency (λ₀ = 0.1330)
         animateBar('np-freq-bar');
         earnBadge('sound-scientist');
     });
-    
+
     playBoth.addEventListener('click', () => {
         playTone(222);
-        playTone(168);
+        playTone(133);
         animateBar('p-freq-bar');
         animateBar('np-freq-bar');
         earnBadge('sound-scientist');
