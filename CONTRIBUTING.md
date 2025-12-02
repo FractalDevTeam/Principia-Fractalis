@@ -2,6 +2,8 @@
 
 Thank you for your interest in contributing to this research.
 
+> **New to Principia Fractalis?** Start with the [interactive educational site](https://fractaldevteam.github.io/Principia-Fractalis/) — it teaches the core mathematics through games and exploration, accessible to any age.
+
 ## Ways to Contribute
 
 ### Mathematical Review (Most Valuable)
