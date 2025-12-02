@@ -2345,3 +2345,152 @@ body.adult-mode .adult-version { display: block; }
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
+/* ==========================================
+   CHARACTERS SECTION - Sesame Street Style
+   ========================================== */
+
+.characters-section {
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+    padding: var(--spacing-xl) 0;
+}
+
+.characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.character-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    cursor: pointer;
+}
+
+.character-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 15px 40px rgba(233, 69, 96, 0.2);
+}
+
+.character-card[data-character="tres"]:hover { border-color: #ff6b6b; }
+.character-card[data-character="digit"]:hover { border-color: #4ecdc4; }
+.character-card[data-character="zoomy"]:hover { border-color: #ffe66d; }
+.character-card[data-character="harmony"]:hover { border-color: #a8e6cf; }
+.character-card[data-character="chester"]:hover { border-color: #ff8b94; }
+.character-card[data-character="tessa"]:hover { border-color: #00d9ff; }
+.character-card[data-character="fiver"]:hover { border-color: #ffd700; }
+.character-card[data-character="neura"]:hover { border-color: #c9b1ff; }
+
+.character-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto var(--spacing-md);
+    background: var(--bg-darker);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    animation: characterBounce 2s ease-in-out infinite;
+}
+
+@keyframes characterBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+body.calm-mode .character-avatar {
+    animation: none;
+}
+
+.character-name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.character-role {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.character-desc {
+    color: var(--text-light);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.character-catchphrase {
+    font-style: italic;
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent);
+}
+
+.character-teaches {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.characters-message {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background: var(--bg-card);
+    border-radius: 15px;
+    border: 2px dashed var(--secondary);
+}
+
+.characters-message p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .characters-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .character-card {
+        padding: var(--spacing-md);
+    }
+
+    .character-avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+
+    .character-name {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .characters-grid {
+        grid-template-columns: 1fr;
+    }
+}
