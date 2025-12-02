@@ -497,7 +497,7 @@ function initCookieGame() {
             });
         }
 
-        document.getElementById('cookie-feedback').textContent = '';
+        document.getElementById('cookie-feedback').innerHTML = '';
     }
 
     function checkCookieAnswer(selected, correct) {
@@ -511,7 +511,7 @@ function initCookieGame() {
         });
 
         if (selected === correct) {
-            feedback.textContent = '⭐ Correct! Great counting!';
+            feedback.innerHTML = '⭐ Correct! Great counting!';
             feedback.style.color = '#00ff88';
             addStars(1);
             cookieScore++;
@@ -520,16 +520,130 @@ function initCookieGame() {
 
             if (cookieScore >= 5) awardBadge('cookie-master');
             saveUserData();
+            setTimeout(newCookieRound, 2000);
         } else {
-            feedback.textContent = `Not quite! ${currentCookies} cookies = ${correct} in base-3`;
+            // Educational explanation for wrong answer
+            const explanation = explainBase3Conversion(currentCookies, correct);
+            feedback.innerHTML = explanation;
             feedback.style.color = '#e94560';
+            // Give more time to read the explanation
+            setTimeout(newCookieRound, 6000);
         }
-
-        // Next round after delay
-        setTimeout(newCookieRound, 2000);
     }
 
     newCookieRound();
+}
+
+// Educational explanation for base-3 conversion
+function explainBase3Conversion(num, base3Result) {
+    const steps = [];
+    let remaining = num;
+    let placeValues = [];
+
+    // Calculate place values
+    while (remaining > 0) {
+        placeValues.unshift(remaining % 3);
+        remaining = Math.floor(remaining / 3);
+    }
+
+    // Build explanation
+    let explanation = `<strong>Let's learn!</strong> ${num} cookies in base-3 = <strong>${base3Result}</strong><br><br>`;
+    explanation += `<strong>How to convert:</strong><br>`;
+    explanation += `In base-3, we only use digits 0, 1, 2.<br>`;
+    explanation += `Each place is worth 3× more than the one to its right.<br><br>`;
+
+    // Show the division process
+    remaining = num;
+    let step = 1;
+    explanation += `<strong>Divide by 3 repeatedly:</strong><br>`;
+    while (remaining > 0) {
+        const quotient = Math.floor(remaining / 3);
+        const remainder = remaining % 3;
+        explanation += `${remaining} ÷ 3 = ${quotient} remainder <strong>${remainder}</strong><br>`;
+        remaining = quotient;
+    }
+
+    explanation += `<br>Read the remainders bottom-to-top: <strong>${base3Result}</strong>`;
+
+    return explanation;
+}
+
+// Educational explanation for pattern recognition
+function explainPattern(pattern) {
+    const seq = pattern.sequence;
+    const next = pattern.next;
+    const name = pattern.name;
+
+    let explanation = `<strong>Let's learn!</strong> The answer is <strong>${next}</strong><br><br>`;
+    explanation += `<strong>This pattern is: ${name}</strong><br><br>`;
+
+    switch(name) {
+        case 'odd numbers':
+            explanation += `Odd numbers skip the even ones.<br>`;
+            explanation += `Rule: Start at 1, add 2 each time.<br><br>`;
+            explanation += `<strong>Step by step:</strong><br>`;
+            explanation += `1 → 1+2=<strong>3</strong> → 3+2=<strong>5</strong> → 5+2=<strong>7</strong> → 7+2=<strong>9</strong>`;
+            break;
+
+        case 'even numbers':
+            explanation += `Even numbers are divisible by 2.<br>`;
+            explanation += `Rule: Start at 2, add 2 each time.<br><br>`;
+            explanation += `<strong>Step by step:</strong><br>`;
+            explanation += `2 → 2+2=<strong>4</strong> → 4+2=<strong>6</strong> → 6+2=<strong>8</strong> → 8+2=<strong>10</strong>`;
+            break;
+
+        case 'powers of 3':
+            explanation += `Each number is 3 times the previous!<br>`;
+            explanation += `Rule: Multiply by 3 each time.<br><br>`;
+            explanation += `<strong>Step by step:</strong><br>`;
+            explanation += `1 → 1×3=<strong>3</strong> → 3×3=<strong>9</strong> → 9×3=<strong>27</strong> → 27×3=<strong>81</strong><br><br>`;
+            explanation += `This is 3⁰, 3¹, 3², 3³, 3⁴ (the magic of THREE!)`;
+            break;
+
+        case 'Fibonacci':
+            explanation += `Each number is the sum of the two before it!<br>`;
+            explanation += `Rule: Add the last two numbers.<br><br>`;
+            explanation += `<strong>Step by step:</strong><br>`;
+            explanation += `1, 1 → 1+1=<strong>2</strong> → 1+2=<strong>3</strong> → 2+3=<strong>5</strong> → 3+5=<strong>8</strong><br><br>`;
+            explanation += `Nature uses this pattern in flowers, shells, and galaxies!`;
+            break;
+
+        case 'multiples of 3':
+            explanation += `These are numbers you land on when counting by 3.<br>`;
+            explanation += `Rule: Add 3 each time.<br><br>`;
+            explanation += `<strong>Step by step:</strong><br>`;
+            explanation += `3 → 3+3=<strong>6</strong> → 6+3=<strong>9</strong> → 9+3=<strong>12</strong> → 12+3=<strong>15</strong><br><br>`;
+            explanation += `Every third number: 1, 2, <strong>3</strong>, 4, 5, <strong>6</strong>, 7, 8, <strong>9</strong>...`;
+            break;
+
+        case 'squares':
+            explanation += `These are numbers multiplied by themselves!<br>`;
+            explanation += `Rule: 1², 2², 3², 4², 5²...<br><br>`;
+            explanation += `<strong>Step by step:</strong><br>`;
+            explanation += `1×1=<strong>1</strong> → 2×2=<strong>4</strong> → 3×3=<strong>9</strong> → 4×4=<strong>16</strong> → 5×5=<strong>25</strong><br><br>`;
+            explanation += `Imagine: 1 dot, then 2×2 dots, then 3×3 dots forming a square!`;
+            break;
+
+        case 'primes':
+            explanation += `Prime numbers can only be divided by 1 and themselves!<br>`;
+            explanation += `Rule: Find numbers with exactly 2 factors.<br><br>`;
+            explanation += `<strong>Why these are prime:</strong><br>`;
+            explanation += `2 ✓ (only 1×2) → 3 ✓ (only 1×3) → 5 ✓ (only 1×5) → 7 ✓ (only 1×7) → 11 ✓ (only 1×11)<br><br>`;
+            explanation += `4 is NOT prime because 4 = 2×2`;
+            break;
+
+        case 'tens':
+            explanation += `Counting by 10s is like counting our fingers!<br>`;
+            explanation += `Rule: Add 10 each time.<br><br>`;
+            explanation += `<strong>Step by step:</strong><br>`;
+            explanation += `10 → 10+10=<strong>20</strong> → 20+10=<strong>30</strong> → 30+10=<strong>40</strong> → 40+10=<strong>50</strong>`;
+            break;
+
+        default:
+            explanation += `Look at how each number changes to find the pattern!`;
+    }
+
+    return explanation;
 }
 
 // Pattern Spotter Game
@@ -589,7 +703,7 @@ function initPatternGame() {
         const correct = currentPattern.next;
 
         if (parseInt(selected) === correct) {
-            feedback.textContent = `⭐ Yes! It's ${currentPattern.name}!`;
+            feedback.innerHTML = `⭐ Yes! It's ${currentPattern.name}!`;
             feedback.style.color = '#00ff88';
             addStars(1);
             patternScore++;
@@ -597,7 +711,9 @@ function initPatternGame() {
             if (patternScore >= 3) awardBadge('pattern-spotter');
             saveUserData();
         } else {
-            feedback.textContent = `The pattern was ${currentPattern.name}. Answer: ${correct}`;
+            // Educational explanation for wrong answer
+            const explanation = explainPattern(currentPattern);
+            feedback.innerHTML = explanation;
             feedback.style.color = '#e94560';
         }
     }
