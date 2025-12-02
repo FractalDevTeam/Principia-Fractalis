@@ -704,6 +704,105 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- NEW: Color Three Mixer - Teaching why THREE primary colors make ALL colors -->
+                <div class="game-card" id="color-game" data-pathway="visual hands-on">
+                    <div class="game-header">
+                        <span class="game-icon">🎨</span>
+                        <h3>Color Three Mixer</h3>
+                        <span class="game-badge" data-badge="color-mixer">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Why do we only need THREE colors to make EVERY color? Mix and discover!</p>
+                        <div class="color-mixer-area">
+                            <div class="color-sliders">
+                                <div class="color-slider-row">
+                                    <span class="color-label red">🔴 Red</span>
+                                    <input type="range" id="red-slider" min="0" max="255" value="128" class="color-slider red">
+                                    <span class="color-value" id="red-val">128</span>
+                                </div>
+                                <div class="color-slider-row">
+                                    <span class="color-label green">🟢 Green</span>
+                                    <input type="range" id="green-slider" min="0" max="255" value="128" class="color-slider green">
+                                    <span class="color-value" id="green-val">128</span>
+                                </div>
+                                <div class="color-slider-row">
+                                    <span class="color-label blue">🔵 Blue</span>
+                                    <input type="range" id="blue-slider" min="0" max="255" value="128" class="color-slider blue">
+                                    <span class="color-value" id="blue-val">128</span>
+                                </div>
+                            </div>
+                            <div class="color-result-area">
+                                <div class="color-preview" id="color-preview"></div>
+                                <p class="color-output" id="color-output">Mix your color!</p>
+                            </div>
+                            <div class="color-challenges">
+                                <p class="challenge-label">Can you make...</p>
+                                <div class="challenge-buttons">
+                                    <button class="challenge-btn" data-target="255,255,0">☀️ Yellow</button>
+                                    <button class="challenge-btn" data-target="255,0,255">💜 Purple</button>
+                                    <button class="challenge-btn" data-target="0,255,255">🌊 Cyan</button>
+                                    <button class="challenge-btn" data-target="255,165,0">🍊 Orange</button>
+                                </div>
+                                <p id="color-feedback" class="color-feedback"></p>
+                            </div>
+                            <p class="color-lesson">THREE primary colors create MILLIONS of colors. The magic of THREE is everywhere!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Mind Type Celebration - Neurodivergent validation -->
+                <div class="game-card wide" id="mind-game" data-pathway="story hands-on">
+                    <div class="game-header">
+                        <span class="game-icon">🧩</span>
+                        <h3>Celebrate Your Mind!</h3>
+                        <span class="game-badge" data-badge="mind-celebrator">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Every brain works differently. That's not a bug - it's a FEATURE! Discover your superpowers.</p>
+                        <div class="mind-quiz-area">
+                            <div id="mind-quiz-content">
+                                <div class="mind-question" id="mind-q1">
+                                    <p class="question-text">When you learn something new, what helps you most?</p>
+                                    <div class="mind-options">
+                                        <button class="mind-option" data-type="visual">👁️ Seeing pictures and diagrams</button>
+                                        <button class="mind-option" data-type="hands-on">✋ Doing it with my hands</button>
+                                        <button class="mind-option" data-type="story">📖 Hearing a story about it</button>
+                                        <button class="mind-option" data-type="numbers">🔢 Seeing the patterns and numbers</button>
+                                    </div>
+                                </div>
+                                <div class="mind-question hidden" id="mind-q2">
+                                    <p class="question-text">In a group project, you're most likely to...</p>
+                                    <div class="mind-options">
+                                        <button class="mind-option" data-trait="creative">🎨 Come up with wild new ideas</button>
+                                        <button class="mind-option" data-trait="detail">🔍 Notice small things others miss</button>
+                                        <button class="mind-option" data-trait="connect">🔗 See how everything connects</button>
+                                        <button class="mind-option" data-trait="question">❓ Ask "but why?" a lot</button>
+                                    </div>
+                                </div>
+                                <div class="mind-question hidden" id="mind-q3">
+                                    <p class="question-text">When does your brain work best?</p>
+                                    <div class="mind-options">
+                                        <button class="mind-option" data-energy="focus">🎯 When I can focus deeply on one thing</button>
+                                        <button class="mind-option" data-energy="variety">🦋 When I can jump between different things</button>
+                                        <button class="mind-option" data-energy="quiet">🌙 When it's quiet and calm</button>
+                                        <button class="mind-option" data-energy="move">🏃 When I can move around while thinking</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="mind-result" class="hidden">
+                                <h4 class="result-title">🌟 Your Mind's Superpowers! 🌟</h4>
+                                <div class="superpower-list" id="superpower-list"></div>
+                                <div class="mind-message">
+                                    <p><strong>Remember:</strong> Different minds are not "better" or "worse" - they're <em>different valid representations</em> of consciousness itself.</p>
+                                    <p>The same mathematics that describes how fractals branch also shows that different perspectives reveal different truths. YOUR perspective matters.</p>
+                                    <p class="quote">"Your brain is not broken. It is not 'less than.' It is different, and that difference is valuable."<br>— Pablo Cohen, Principia Fractalis</p>
+                                </div>
+                                <button class="btn btn-small" id="retake-quiz">Take Again 🔄</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
