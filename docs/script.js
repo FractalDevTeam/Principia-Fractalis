@@ -1,17 +1,34 @@
-/**
- * The Magic of Three - Kid-Friendly Interactive Learning
- * Fun games and educational tools for all ages!
- */
+// ============================================
+// THE MAGIC OF THREE - ACCESSIBLE INTERACTIVE SCRIPT
+// For neurotypical AND neurodivergent minds
+// ============================================
 
-// ===== Global State =====
-const AppState = {
+// User Profile & Persistence
+const USER_DATA_KEY = 'magic-of-three-user';
+
+let userData = {
+    name: '',
+    learningStyles: [],
+    calmMode: false,
+    fontMode: 'default',
+    soundEnabled: true,
     stars: 0,
-    badges: {},
-    audioContext: null,
-    currentPage: 1
+    badges: [],
+    completedPages: [],
+    visitedSections: ['start'],
+    ageMode: 'kid',
+    currentPathway: 'all',
+    gameScores: {
+        cookie: 0,
+        pattern: 0,
+        prime: 0,
+        fractal: 0,
+        brain: 0,
+        sound: 0
+    }
 };
 
-// Kid-friendly badge definitions
+// Badge definitions
 const BADGES = {
     'cookie-master': { icon: '🍪', name: 'Cookie Master', desc: 'Counted 5 cookie problems!' },
     'pattern-spotter': { icon: '🔍', name: 'Pattern Spotter', desc: 'Found 3 patterns!' },
@@ -19,185 +36,856 @@ const BADGES = {
     'fractal-artist': { icon: '🎨', name: 'Fractal Artist', desc: 'Created fractal art!' },
     'brain-waker': { icon: '🧠', name: 'Brain Waker', desc: 'Woke up the brain!' },
     'sound-explorer': { icon: '🔊', name: 'Sound Explorer', desc: 'Heard the difference!' },
-    'story-reader': { icon: '📖', name: 'Story Reader', desc: 'Finished the story!' }
+    'story-reader': { icon: '📖', name: 'Story Reader', desc: 'Finished the story!' },
+    'ocean-explorer': { icon: '🌊', name: 'Ocean Explorer', desc: 'Explored the ocean!' }
 };
 
-// ===== Initialize Everything =====
+// ============================================
+// INITIALIZATION
+// ============================================
+
 document.addEventListener('DOMContentLoaded', () => {
-    loadProgress();
-    initParticles();
+    loadUserData();
+    initWelcome();
+    initAccessibility();
     initNavigation();
-    initStoryBook();
-    initCookieGame();
-    initPatternGame();
-    initPrimeHunt();
-    initFractalStudio();
-    initBrainGame();
-    initSoundGame();
-    initBadgesPanel();
     initAgeToggle();
+    initPathwaySelect();
+    initStoryBook();
+    initGames();
+    initOcean();
+    initSectionTracking();
+    updateUI();
 });
 
-// ===== Progress & Badges =====
-function loadProgress() {
-    const saved = localStorage.getItem('magic-of-three-progress');
+function loadUserData() {
+    const saved = localStorage.getItem(USER_DATA_KEY);
     if (saved) {
-        const data = JSON.parse(saved);
-        AppState.stars = data.stars || 0;
-        AppState.badges = data.badges || {};
-    }
-    updateStarDisplay();
-}
-
-function saveProgress() {
-    localStorage.setItem('magic-of-three-progress', JSON.stringify({
-        stars: AppState.stars,
-        badges: AppState.badges
-    }));
-    updateStarDisplay();
-}
-
-function updateStarDisplay() {
-    const starCount = document.getElementById('star-count');
-    if (starCount) {
-        starCount.textContent = AppState.stars;
+        try {
+            userData = { ...userData, ...JSON.parse(saved) };
+        } catch (e) {
+            console.log('Starting fresh user data');
+        }
     }
 }
 
-function addStars(count) {
-    AppState.stars += count;
-    saveProgress();
+function saveUserData() {
+    localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
+}
 
-    // Fun animation
-    const starIcon = document.querySelector('.star-icon');
-    if (starIcon) {
-        starIcon.style.transform = 'scale(1.5)';
-        setTimeout(() => starIcon.style.transform = 'scale(1)', 300);
+// ============================================
+// WELCOME MODAL / LOGIN
+// ============================================
+
+function initWelcome() {
+    const modal = document.getElementById('welcome-modal');
+    const toast = document.getElementById('welcome-back-toast');
+    const nameInput = document.getElementById('user-name-input');
+    const startBtn = document.getElementById('start-journey');
+    const skipBtn = document.getElementById('skip-welcome');
+    const calmModeWelcome = document.getElementById('calm-mode-welcome');
+    const notMeBtn = document.getElementById('not-me-btn');
+
+    // Check if returning user
+    if (userData.name) {
+        modal.classList.add('hidden');
+        document.getElementById('returning-name').textContent = userData.name;
+        toast.classList.remove('hidden');
+
+        // Auto-hide toast after 5 seconds
+        setTimeout(() => {
+            toast.classList.add('hidden');
+        }, 5000);
+
+        // Apply saved preferences
+        applyUserPreferences();
     }
-}
 
-function earnBadge(badgeId) {
-    if (AppState.badges[badgeId]) return;
+    // Start journey button
+    startBtn?.addEventListener('click', () => {
+        userData.name = nameInput.value.trim() || 'Explorer';
 
-    AppState.badges[badgeId] = true;
-    addStars(5); // Earn 5 stars for each badge!
+        // Get learning styles
+        const styleCheckboxes = document.querySelectorAll('input[name="learn-style"]:checked');
+        userData.learningStyles = Array.from(styleCheckboxes).map(cb => cb.value);
 
-    showBadgeNotification(badgeId);
-    updateBadgesPanel();
-}
+        // Get calm mode preference
+        userData.calmMode = calmModeWelcome?.checked || false;
 
-function showBadgeNotification(badgeId) {
-    const badge = BADGES[badgeId];
-    if (!badge) return;
+        saveUserData();
+        applyUserPreferences();
+        modal.classList.add('hidden');
+        updateGreeting();
+    });
 
-    const notif = document.createElement('div');
-    notif.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #e94560, #c44dff);
-            padding: 2rem 3rem;
-            border-radius: 20px;
-            text-align: center;
-            z-index: 10000;
-            animation: popIn 0.5s ease;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        ">
-            <div style="font-size: 4rem; margin-bottom: 1rem;">${badge.icon}</div>
-            <div style="font-size: 1.5rem; font-weight: bold; color: #ffd700;">Badge Earned!</div>
-            <div style="font-size: 1.2rem; color: white;">${badge.name}</div>
-            <div style="font-size: 0.9rem; color: rgba(255,255,255,0.8); margin-top: 0.5rem;">+5 Stars! ⭐</div>
-        </div>
-    `;
-    document.body.appendChild(notif);
+    // Skip button
+    skipBtn?.addEventListener('click', () => {
+        modal.classList.add('hidden');
+    });
 
-    setTimeout(() => notif.remove(), 2500);
-}
-
-function initBadgesPanel() {
-    const grid = document.getElementById('badges-grid');
-    if (!grid) return;
-
-    grid.innerHTML = Object.entries(BADGES).map(([id, badge]) => `
-        <div class="badge-item ${AppState.badges[id] ? 'earned' : ''}" title="${badge.name}">
-            ${badge.icon}
-        </div>
-    `).join('');
-}
-
-function updateBadgesPanel() {
-    initBadgesPanel();
-}
-
-// ===== Navigation =====
-function initNavigation() {
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-
-    menuBtn?.addEventListener('click', () => {
-        navLinks?.classList.toggle('active');
+    // Not me button
+    notMeBtn?.addEventListener('click', () => {
+        toast.classList.add('hidden');
+        resetUserData();
+        modal.classList.remove('hidden');
     });
 }
 
-// ===== Age Toggle =====
+function resetUserData() {
+    userData = {
+        name: '',
+        learningStyles: [],
+        calmMode: false,
+        fontMode: 'default',
+        soundEnabled: true,
+        stars: 0,
+        badges: [],
+        completedPages: [],
+        visitedSections: ['start'],
+        ageMode: 'kid',
+        currentPathway: 'all',
+        gameScores: {
+            cookie: 0,
+            pattern: 0,
+            prime: 0,
+            fractal: 0,
+            brain: 0,
+            sound: 0
+        }
+    };
+    saveUserData();
+    updateUI();
+}
+
+function applyUserPreferences() {
+    // Apply calm mode
+    if (userData.calmMode) {
+        document.body.classList.add('calm-mode');
+        document.getElementById('calm-mode-toggle')?.classList.add('active');
+    }
+
+    // Apply font mode
+    if (userData.fontMode === 'lexend') {
+        document.body.classList.add('font-lexend');
+    }
+
+    // Apply age mode
+    document.body.className = document.body.className.replace(/kid-mode|teen-mode|adult-mode/g, '');
+    document.body.classList.add(`${userData.ageMode}-mode`);
+
+    // Set active age button
+    document.querySelectorAll('.age-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === userData.ageMode);
+    });
+
+    // Apply pathway
+    setPathway(userData.currentPathway);
+}
+
+function updateGreeting() {
+    const greeting = document.getElementById('personalized-greeting');
+    if (greeting && userData.name) {
+        greeting.innerHTML = `Hey ${userData.name}! Did you know there's a secret pattern hiding in EVERYTHING?<br>In your fingers, in snowflakes, even in your brain! 🤯`;
+    }
+}
+
+// ============================================
+// ACCESSIBILITY CONTROLS
+// ============================================
+
+function initAccessibility() {
+    const calmToggle = document.getElementById('calm-mode-toggle');
+    const fontToggle = document.getElementById('font-toggle');
+    const soundToggle = document.getElementById('sound-toggle');
+    const userMenuBtn = document.getElementById('user-menu-btn');
+
+    // Calm mode toggle
+    calmToggle?.addEventListener('click', () => {
+        userData.calmMode = !userData.calmMode;
+        document.body.classList.toggle('calm-mode', userData.calmMode);
+        calmToggle.classList.toggle('active', userData.calmMode);
+        saveUserData();
+    });
+
+    // Font toggle
+    fontToggle?.addEventListener('click', () => {
+        userData.fontMode = userData.fontMode === 'default' ? 'lexend' : 'default';
+        document.body.classList.toggle('font-lexend', userData.fontMode === 'lexend');
+        fontToggle.classList.toggle('active', userData.fontMode === 'lexend');
+        saveUserData();
+    });
+
+    // Sound toggle
+    soundToggle?.addEventListener('click', () => {
+        userData.soundEnabled = !userData.soundEnabled;
+        soundToggle.classList.toggle('active', userData.soundEnabled);
+        const icon = soundToggle.querySelector('.access-icon');
+        if (icon) icon.textContent = userData.soundEnabled ? '🔊' : '🔇';
+        saveUserData();
+    });
+
+    // User menu
+    userMenuBtn?.addEventListener('click', () => {
+        if (userData.name) {
+            if (confirm(`Logged in as ${userData.name}. Want to switch users?`)) {
+                resetUserData();
+                document.getElementById('welcome-modal').classList.remove('hidden');
+            }
+        } else {
+            document.getElementById('welcome-modal').classList.remove('hidden');
+        }
+    });
+}
+
+// ============================================
+// NAVIGATION
+// ============================================
+
+function initNavigation() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileMenuBtn?.addEventListener('click', () => {
+        navLinks?.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks?.classList.remove('active');
+        });
+    });
+
+    // Progress tracker hover
+    const progressIcon = document.querySelector('.progress-icon');
+    const badgesPanel = document.getElementById('badges-panel');
+
+    progressIcon?.addEventListener('click', () => {
+        badgesPanel?.classList.toggle('show');
+    });
+
+    // Close badges panel when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.progress-tracker')) {
+            badgesPanel?.classList.remove('show');
+        }
+    });
+}
+
+// ============================================
+// AGE TOGGLE
+// ============================================
+
 function initAgeToggle() {
-    const buttons = document.querySelectorAll('.age-btn');
-
-    buttons.forEach(btn => {
+    document.querySelectorAll('.age-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            buttons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
             const mode = btn.dataset.mode;
-            document.body.className = mode === 'kid' ? 'kid-mode' : '';
-
-            // Could adjust content complexity here
+            setAgeMode(mode);
         });
     });
 }
 
-// ===== Particles Background =====
-function initParticles() {
-    const canvas = document.getElementById('particles-bg');
+function setAgeMode(mode) {
+    userData.ageMode = mode;
+
+    document.body.className = document.body.className.replace(/kid-mode|teen-mode|adult-mode/g, '');
+    document.body.classList.add(`${mode}-mode`);
+
+    document.querySelectorAll('.age-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+
+    saveUserData();
+}
+
+// ============================================
+// PATHWAY SELECT
+// ============================================
+
+function initPathwaySelect() {
+    document.querySelectorAll('.pathway-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const path = btn.dataset.path;
+            setPathway(path);
+        });
+    });
+}
+
+function setPathway(path) {
+    userData.currentPathway = path;
+
+    document.querySelectorAll('.pathway-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.path === path);
+    });
+
+    // Filter game cards
+    document.querySelectorAll('.game-card[data-pathway]').forEach(card => {
+        const cardPaths = card.dataset.pathway.split(' ');
+        const show = path === 'all' || cardPaths.includes(path);
+        card.classList.toggle('filtered-out', !show);
+    });
+
+    // Filter discovery cards
+    document.querySelectorAll('.discovery-card[data-pathway]').forEach(card => {
+        const show = path === 'all' || card.dataset.pathway === path;
+        card.classList.toggle('filtered-out', !show);
+    });
+
+    saveUserData();
+}
+
+// ============================================
+// SECTION TRACKING
+// ============================================
+
+function initSectionTracking() {
+    const sections = ['story', 'games', 'ocean', 'discover', 'pablo', 'grownups'];
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                updateCurrentSection(sectionId);
+
+                // Add to visited if not already
+                if (!userData.visitedSections.includes(sectionId)) {
+                    userData.visitedSections.push(sectionId);
+                    saveUserData();
+                    updateJourneyMap();
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+    });
+}
+
+function updateCurrentSection(sectionId) {
+    const sectionNames = {
+        'story': 'The Story',
+        'games': 'Math Games',
+        'ocean': 'The Ocean',
+        'discover': 'Discoveries',
+        'pablo': "Pablo's Story",
+        'grownups': 'For Grown-Ups'
+    };
+
+    const currentEl = document.getElementById('current-section');
+    if (currentEl) {
+        currentEl.textContent = sectionNames[sectionId] || 'Welcome';
+    }
+
+    // Update journey map
+    updateJourneyMap();
+}
+
+function updateJourneyMap() {
+    const sectionMap = {
+        'start': 'start',
+        'story': 'story',
+        'games': 'games',
+        'ocean': 'ocean',
+        'discover': 'discover'
+    };
+
+    document.querySelectorAll('.journey-step').forEach(step => {
+        const section = step.dataset.section;
+        step.classList.toggle('completed', userData.visitedSections.includes(section));
+    });
+}
+
+// ============================================
+// STORY BOOK
+// ============================================
+
+function initStoryBook() {
+    const totalPages = 8;
+
+    // Create page dots
+    const dotsContainer = document.getElementById('page-dots');
+    if (dotsContainer) {
+        for (let i = 1; i <= totalPages; i++) {
+            const dot = document.createElement('div');
+            dot.className = `page-dot${i === 1 ? ' active' : ''}`;
+            dot.dataset.page = i;
+            dot.addEventListener('click', () => goToPage(i));
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    // Page turn buttons
+    document.querySelectorAll('.page-turn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const nextPage = parseInt(btn.dataset.next);
+            goToPage(nextPage);
+        });
+    });
+}
+
+function goToPage(pageNum) {
+    // Update pages
+    document.querySelectorAll('.story-page').forEach(page => {
+        page.classList.remove('active');
+    });
+
+    const targetPage = document.querySelector(`.story-page[data-page="${pageNum}"]`);
+    if (targetPage) {
+        targetPage.classList.add('active');
+    }
+
+    // Update dots
+    document.querySelectorAll('.page-dot').forEach(dot => {
+        dot.classList.toggle('active', parseInt(dot.dataset.page) === pageNum);
+    });
+
+    // Track completed pages
+    if (!userData.completedPages.includes(pageNum)) {
+        userData.completedPages.push(pageNum);
+
+        // Award badge for completing story
+        if (userData.completedPages.length >= 8) {
+            awardBadge('story-reader');
+        }
+
+        saveUserData();
+    }
+}
+
+// ============================================
+// GAMES
+// ============================================
+
+function initGames() {
+    initCookieGame();
+    initPatternGame();
+    initPrimeGame();
+    initFractalGame();
+    initBrainGame();
+    initSoundGame();
+}
+
+// Cookie Counter Game
+function initCookieGame() {
+    let cookieScore = userData.gameScores.cookie;
+    let currentCookies = 0;
+
+    function newCookieRound() {
+        currentCookies = Math.floor(Math.random() * 12) + 1;
+
+        // Display cookies
+        const display = document.getElementById('cookie-display');
+        if (display) {
+            display.innerHTML = '🍪'.repeat(currentCookies);
+        }
+
+        // Generate options
+        const correctAnswer = toBase3(currentCookies);
+        const options = generateOptions(correctAnswer, 4, true);
+
+        const optionsContainer = document.getElementById('cookie-options');
+        if (optionsContainer) {
+            optionsContainer.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'cookie-option';
+                btn.textContent = opt;
+                btn.addEventListener('click', () => checkCookieAnswer(opt, correctAnswer));
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        document.getElementById('cookie-feedback').textContent = '';
+    }
+
+    function checkCookieAnswer(selected, correct) {
+        const feedback = document.getElementById('cookie-feedback');
+        const options = document.querySelectorAll('.cookie-option');
+
+        options.forEach(opt => {
+            opt.style.pointerEvents = 'none';
+            if (opt.textContent === correct) opt.classList.add('correct');
+            if (opt.textContent === selected && selected !== correct) opt.classList.add('wrong');
+        });
+
+        if (selected === correct) {
+            feedback.textContent = '⭐ Correct! Great counting!';
+            feedback.style.color = '#00ff88';
+            addStars(1);
+            cookieScore++;
+            userData.gameScores.cookie = cookieScore;
+            document.getElementById('cookie-score').textContent = cookieScore;
+
+            if (cookieScore >= 5) awardBadge('cookie-master');
+            saveUserData();
+        } else {
+            feedback.textContent = `Not quite! ${currentCookies} cookies = ${correct} in base-3`;
+            feedback.style.color = '#e94560';
+        }
+
+        // Next round after delay
+        setTimeout(newCookieRound, 2000);
+    }
+
+    newCookieRound();
+}
+
+// Pattern Spotter Game
+function initPatternGame() {
+    const patterns = [
+        { sequence: [1, 3, 5, 7], next: 9, name: 'odd numbers' },
+        { sequence: [2, 4, 6, 8], next: 10, name: 'even numbers' },
+        { sequence: [1, 3, 9, 27], next: 81, name: 'powers of 3' },
+        { sequence: [1, 1, 2, 3, 5], next: 8, name: 'Fibonacci' },
+        { sequence: [3, 6, 9, 12], next: 15, name: 'multiples of 3' },
+        { sequence: [1, 4, 9, 16], next: 25, name: 'squares' },
+        { sequence: [2, 3, 5, 7], next: 11, name: 'primes' },
+        { sequence: [10, 20, 30, 40], next: 50, name: 'tens' }
+    ];
+
+    let patternScore = 0;
+    let currentPattern = null;
+
+    function newPattern() {
+        currentPattern = patterns[Math.floor(Math.random() * patterns.length)];
+
+        const seqContainer = document.getElementById('pattern-sequence-kid');
+        if (seqContainer) {
+            seqContainer.innerHTML = '';
+            currentPattern.sequence.forEach(num => {
+                const span = document.createElement('span');
+                span.className = 'pattern-num';
+                span.textContent = num;
+                seqContainer.appendChild(span);
+            });
+
+            const mystery = document.createElement('span');
+            mystery.className = 'pattern-num mystery';
+            mystery.textContent = '?';
+            seqContainer.appendChild(mystery);
+        }
+
+        // Generate options
+        const options = generateOptions(currentPattern.next, 4, false);
+        const optionsContainer = document.getElementById('pattern-options-kid');
+        if (optionsContainer) {
+            optionsContainer.innerHTML = '';
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'pattern-option-kid';
+                btn.textContent = opt;
+                btn.addEventListener('click', () => checkPatternAnswer(opt));
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        document.getElementById('pattern-feedback-kid').textContent = '';
+    }
+
+    function checkPatternAnswer(selected) {
+        const feedback = document.getElementById('pattern-feedback-kid');
+        const correct = currentPattern.next;
+
+        if (parseInt(selected) === correct) {
+            feedback.textContent = `⭐ Yes! It's ${currentPattern.name}!`;
+            feedback.style.color = '#00ff88';
+            addStars(1);
+            patternScore++;
+
+            if (patternScore >= 3) awardBadge('pattern-spotter');
+            saveUserData();
+        } else {
+            feedback.textContent = `The pattern was ${currentPattern.name}. Answer: ${correct}`;
+            feedback.style.color = '#e94560';
+        }
+    }
+
+    document.getElementById('next-pattern-kid')?.addEventListener('click', newPattern);
+    newPattern();
+}
+
+// Prime Number Hunt Game
+function initPrimeGame() {
+    const gridContainer = document.getElementById('prime-grid-kid');
+    if (!gridContainer) return;
+
+    // Create grid
+    for (let i = 2; i <= 50; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'prime-cell';
+        cell.textContent = i;
+        cell.dataset.num = i;
+        gridContainer.appendChild(cell);
+    }
+
+    document.getElementById('prime-hunt-start')?.addEventListener('click', runSieve);
+}
+
+async function runSieve() {
+    const cells = document.querySelectorAll('.prime-cell');
+    const countEl = document.getElementById('primes-found-count');
+    let primesFound = 0;
+
+    // Reset
+    cells.forEach(cell => {
+        cell.classList.remove('is-prime', 'crossed-out');
+    });
+
+    // Sieve of Eratosthenes animation
+    for (let p = 2; p <= 50; p++) {
+        const pCell = document.querySelector(`.prime-cell[data-num="${p}"]`);
+        if (pCell && !pCell.classList.contains('crossed-out')) {
+            pCell.classList.add('is-prime');
+            primesFound++;
+            countEl.textContent = primesFound;
+
+            // Cross out multiples
+            for (let m = p * 2; m <= 50; m += p) {
+                await new Promise(r => setTimeout(r, 50));
+                const mCell = document.querySelector(`.prime-cell[data-num="${m}"]`);
+                if (mCell && !mCell.classList.contains('is-prime')) {
+                    mCell.classList.add('crossed-out');
+                }
+            }
+        }
+    }
+
+    addStars(2);
+    awardBadge('prime-finder');
+}
+
+// Fractal Art Studio
+function initFractalGame() {
+    const canvas = document.getElementById('fractal-kid-canvas');
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
 
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const branchesInput = document.getElementById('kid-branches');
+    const depthInput = document.getElementById('kid-depth');
+    const angleInput = document.getElementById('kid-angle');
+    const colorInput = document.getElementById('kid-color');
+
+    branchesInput?.addEventListener('input', () => {
+        document.getElementById('branches-val').textContent = branchesInput.value;
+    });
+
+    depthInput?.addEventListener('input', () => {
+        document.getElementById('depth-val').textContent = depthInput.value;
+    });
+
+    angleInput?.addEventListener('input', () => {
+        document.getElementById('angle-val').textContent = angleInput.value + '°';
+    });
+
+    document.getElementById('kid-generate')?.addEventListener('click', () => {
+        drawFractal();
+        awardBadge('fractal-artist');
+        addStars(1);
+    });
+
+    function drawFractal() {
+        const branches = parseInt(branchesInput?.value || 3);
+        const depth = parseInt(depthInput?.value || 4);
+        const spreadAngle = parseInt(angleInput?.value || 30) * Math.PI / 180;
+        const baseColor = colorInput?.value || '#64ffda';
+
+        ctx.fillStyle = '#16213e';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        function drawBranch(x, y, len, angle, d) {
+            if (d === 0 || len < 2) return;
+
+            const endX = x + Math.cos(angle) * len;
+            const endY = y + Math.sin(angle) * len;
+
+            // Rainbow effect
+            const hue = (d / depth) * 120 + parseInt(baseColor.slice(1), 16) % 360;
+            ctx.strokeStyle = `hsl(${hue}, 80%, 60%)`;
+            ctx.lineWidth = d * 1.5;
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+
+            // Create branches
+            const newLen = len * 0.7;
+            const angleStep = spreadAngle * 2 / (branches - 1);
+            const startAngle = angle - spreadAngle;
+
+            for (let i = 0; i < branches; i++) {
+                const branchAngle = startAngle + angleStep * i;
+                drawBranch(endX, endY, newLen, branchAngle, d - 1);
+            }
+        }
+
+        drawBranch(canvas.width / 2, canvas.height - 20, 80, -Math.PI / 2, depth);
+    }
+
+    drawFractal();
+}
+
+// Brain Wake-Up Game
+function initBrainGame() {
+    const connectionsSlider = document.getElementById('connections-slider');
+    const loopsSlider = document.getElementById('loops-slider');
+    const complexitySlider = document.getElementById('complexity-slider-kid');
+    const brainIcon = document.getElementById('brain-icon');
+    const brainFill = document.getElementById('brain-fill');
+    const brainStatus = document.getElementById('brain-status');
+    const ch2Display = document.getElementById('ch2-display');
+
+    let hasWoken = false;
+
+    function updateBrain() {
+        const c = parseInt(connectionsSlider?.value || 30);
+        const l = parseInt(loopsSlider?.value || 30);
+        const x = parseInt(complexitySlider?.value || 30);
+
+        // Calculate ch2 (simulated)
+        const ch2 = (c * 0.4 + l * 0.35 + x * 0.25) / 100;
+        const percentage = ch2 * 100;
+
+        if (brainFill) brainFill.style.width = `${percentage}%`;
+        if (ch2Display) ch2Display.textContent = ch2.toFixed(2);
+
+        // Check if awake (ch2 >= 0.95)
+        if (ch2 >= 0.95 && !hasWoken) {
+            hasWoken = true;
+            brainIcon?.classList.add('awake');
+            if (brainStatus) {
+                brainStatus.textContent = '🎉 AWAKE! Consciousness achieved!';
+                brainStatus.classList.add('awake');
+            }
+            addStars(2);
+            awardBadge('brain-waker');
+
+            if (userData.soundEnabled) playTone(880, 0.3);
+        } else if (ch2 < 0.95) {
+            hasWoken = false;
+            brainIcon?.classList.remove('awake');
+            if (brainStatus) {
+                if (ch2 < 0.5) {
+                    brainStatus.textContent = '💤 Sleeping...';
+                } else if (ch2 < 0.8) {
+                    brainStatus.textContent = '😴 Stirring...';
+                } else {
+                    brainStatus.textContent = '😳 Almost there!';
+                }
+                brainStatus.classList.remove('awake');
+            }
+        }
+    }
+
+    connectionsSlider?.addEventListener('input', updateBrain);
+    loopsSlider?.addEventListener('input', updateBrain);
+    complexitySlider?.addEventListener('input', updateBrain);
+
+    updateBrain();
+}
+
+// Sound Game (P vs NP)
+function initSoundGame() {
+    const playEasy = document.getElementById('play-easy');
+    const playHard = document.getElementById('play-hard');
+    const playBoth = document.getElementById('play-both-kid');
+
+    // λ₀(P) = 0.2221 -> higher frequency
+    const freqP = 440 * 0.2221 * 4; // ~390 Hz
+    // λ₀(NP) = 0.1330 -> lower frequency
+    const freqNP = 440 * 0.1330 * 4; // ~234 Hz
+
+    playEasy?.addEventListener('click', () => {
+        if (userData.soundEnabled) playTone(freqP, 0.5);
+        addStars(1);
+    });
+
+    playHard?.addEventListener('click', () => {
+        if (userData.soundEnabled) playTone(freqNP, 0.5);
+        addStars(1);
+    });
+
+    playBoth?.addEventListener('click', () => {
+        if (userData.soundEnabled) {
+            playTone(freqP, 1);
+            playTone(freqNP, 1);
+        }
+        awardBadge('sound-explorer');
+    });
+}
+
+// ============================================
+// OCEAN SECTION
+// ============================================
+
+function initOcean() {
+    const canvas = document.getElementById('ocean-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Particles representing possibilities
     const particles = [];
-    const colors = ['#e94560', '#00d9ff', '#ffd700', '#c44dff', '#4dff88'];
-
     for (let i = 0; i < 50; i++) {
         particles.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            size: Math.random() * 4 + 2,
-            speedX: (Math.random() - 0.5) * 0.5,
-            speedY: (Math.random() - 0.5) * 0.5,
-            color: colors[Math.floor(Math.random() * colors.length)]
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 3 + 1,
+            alpha: Math.random() * 0.5 + 0.2
         });
     }
 
     function animate() {
-        ctx.fillStyle = 'rgba(26, 26, 46, 0.1)';
+        if (document.body.classList.contains('calm-mode')) {
+            // Static version for calm mode
+            ctx.fillStyle = 'rgba(10, 22, 40, 1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 217, 255, ${p.alpha})`;
+                ctx.fill();
+            });
+            return;
+        }
+
+        ctx.fillStyle = 'rgba(10, 22, 40, 0.1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         particles.forEach(p => {
-            p.x += p.speedX;
-            p.y += p.speedY;
+            p.x += p.vx;
+            p.y += p.vy;
 
-            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            // Wrap around
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
 
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            ctx.fillStyle = p.color;
-            ctx.globalAlpha = 0.6;
+            ctx.fillStyle = `rgba(0, 217, 255, ${p.alpha})`;
             ctx.fill();
-            ctx.globalAlpha = 1;
         });
 
         requestAnimationFrame(animate);
@@ -205,500 +893,265 @@ function initParticles() {
 
     animate();
 
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
+    // Universe pie chart
+    drawUniversePie();
+
+    // Award badge for visiting ocean
+    setTimeout(() => {
+        awardBadge('ocean-explorer');
+    }, 5000);
 }
 
-// ===== Story Book =====
-function initStoryBook() {
-    const pages = document.querySelectorAll('.story-page');
-    const dotsContainer = document.getElementById('page-dots');
-
-    if (!pages.length || !dotsContainer) return;
-
-    // Create page dots
-    dotsContainer.innerHTML = Array.from(pages).map((_, i) =>
-        `<div class="page-dot ${i === 0 ? 'active' : ''}" data-page="${i + 1}"></div>`
-    ).join('');
-
-    // Page turn buttons
-    document.querySelectorAll('.page-turn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const nextPage = parseInt(btn.dataset.next);
-            showPage(nextPage);
-        });
-    });
-
-    // Click on dots
-    dotsContainer.querySelectorAll('.page-dot').forEach(dot => {
-        dot.addEventListener('click', () => {
-            showPage(parseInt(dot.dataset.page));
-        });
-    });
-
-    function showPage(pageNum) {
-        pages.forEach(p => p.classList.remove('active'));
-        const targetPage = document.querySelector(`.story-page[data-page="${pageNum}"]`);
-        if (targetPage) {
-            targetPage.classList.add('active');
-            AppState.currentPage = pageNum;
-        }
-
-        // Update dots
-        dotsContainer.querySelectorAll('.page-dot').forEach(d => {
-            d.classList.toggle('active', parseInt(d.dataset.page) === pageNum);
-        });
-
-        // Earn badge for finishing story
-        if (pageNum === pages.length && !AppState.badges['story-reader']) {
-            earnBadge('story-reader');
-        }
-    }
-}
-
-// ===== Cookie Counter Game =====
-function initCookieGame() {
-    const display = document.getElementById('cookie-display');
-    const numberEl = document.getElementById('cookie-number');
-    const optionsEl = document.getElementById('cookie-options');
-    const feedbackEl = document.getElementById('cookie-feedback');
-    const scoreEl = document.getElementById('cookie-score');
-    const streakEl = document.getElementById('cookie-streak');
-
-    if (!display) return;
-
-    let score = 0;
-    let streak = 0;
-
-    function newQuestion() {
-        // Random number of cookies (1-12)
-        const numCookies = Math.floor(Math.random() * 12) + 1;
-
-        // Display cookies
-        display.innerHTML = Array(numCookies).fill('<span class="cookie-item">🍪</span>').join('');
-
-        // Correct answer in base-3
-        const correct = numCookies.toString(3);
-
-        // Generate options
-        const options = [correct];
-        while (options.length < 4) {
-            const fake = (numCookies + Math.floor(Math.random() * 5) - 2);
-            if (fake > 0) {
-                const fakeBase3 = fake.toString(3);
-                if (!options.includes(fakeBase3)) {
-                    options.push(fakeBase3);
-                }
-            }
-        }
-
-        // Shuffle
-        options.sort(() => Math.random() - 0.5);
-
-        // Show options
-        optionsEl.innerHTML = options.map(opt =>
-            `<button class="cookie-option" data-answer="${opt}">${opt}</button>`
-        ).join('');
-
-        if (feedbackEl) feedbackEl.textContent = '';
-
-        // Add click handlers
-        optionsEl.querySelectorAll('.cookie-option').forEach(btn => {
-            btn.addEventListener('click', () => checkAnswer(btn, correct, numCookies));
-        });
-    }
-
-    function checkAnswer(btn, correct, numCookies) {
-        const isCorrect = btn.dataset.answer === correct;
-
-        if (isCorrect) {
-            score++;
-            streak++;
-            addStars(1);
-            btn.classList.add('correct');
-            if (feedbackEl) {
-                feedbackEl.textContent = `Yes! 🎉 ${numCookies} cookies = ${correct} in base-3!`;
-                feedbackEl.style.color = '#4dff88';
-            }
-
-            if (score >= 5 && !AppState.badges['cookie-master']) {
-                earnBadge('cookie-master');
-            }
-        } else {
-            streak = 0;
-            btn.classList.add('wrong');
-            optionsEl.querySelector(`[data-answer="${correct}"]`)?.classList.add('correct');
-            if (feedbackEl) {
-                feedbackEl.textContent = `Not quite! ${numCookies} = ${correct} in base-3`;
-                feedbackEl.style.color = '#ff6b6b';
-            }
-        }
-
-        if (scoreEl) scoreEl.textContent = score;
-        if (streakEl) streakEl.textContent = streak > 1 ? `🔥 ${streak} in a row!` : '';
-
-        // Disable all options
-        optionsEl.querySelectorAll('.cookie-option').forEach(b => b.disabled = true);
-
-        // Next question after delay
-        setTimeout(newQuestion, 2000);
-    }
-
-    newQuestion();
-}
-
-// ===== Pattern Spotter Game =====
-function initPatternGame() {
-    const sequenceEl = document.getElementById('pattern-sequence-kid');
-    const optionsEl = document.getElementById('pattern-options-kid');
-    const feedbackEl = document.getElementById('pattern-feedback-kid');
-    const nextBtn = document.getElementById('next-pattern-kid');
-
-    if (!sequenceEl) return;
-
-    let correctCount = 0;
-
-    // Kid-friendly patterns
-    const patterns = [
-        { seq: [2, 4, 6, 8], next: 10, options: [9, 10, 11, 12], hint: 'Count by 2s!' },
-        { seq: [5, 10, 15, 20], next: 25, options: [22, 25, 30, 24], hint: 'Count by 5s!' },
-        { seq: [1, 2, 3, 4, 5], next: 6, options: [6, 7, 8, 9], hint: 'Easy peasy!' },
-        { seq: [3, 6, 9, 12], next: 15, options: [13, 14, 15, 16], hint: 'Count by 3s!' },
-        { seq: [1, 1, 2, 3, 5], next: 8, options: [6, 7, 8, 9], hint: 'Add the last two!' },
-        { seq: [1, 4, 9, 16], next: 25, options: [20, 25, 36, 24], hint: '1×1, 2×2, 3×3...' },
-        { seq: [10, 20, 30, 40], next: 50, options: [45, 50, 55, 60], hint: 'Count by 10s!' },
-        { seq: [2, 3, 5, 7, 11], next: 13, options: [12, 13, 14, 15], hint: 'Prime numbers!' }
-    ];
-
-    let currentPattern;
-
-    function showPattern() {
-        currentPattern = patterns[Math.floor(Math.random() * patterns.length)];
-
-        // Show sequence with unknown
-        sequenceEl.innerHTML = currentPattern.seq.map(n =>
-            `<div class="pattern-item-kid">${n}</div>`
-        ).join('') + '<div class="pattern-item-kid unknown">?</div>';
-
-        // Show options
-        const shuffled = [...currentPattern.options].sort(() => Math.random() - 0.5);
-        optionsEl.innerHTML = shuffled.map(n =>
-            `<button class="pattern-option-kid" data-answer="${n}">${n}</button>`
-        ).join('');
-
-        if (feedbackEl) feedbackEl.textContent = '';
-
-        // Add click handlers
-        optionsEl.querySelectorAll('.pattern-option-kid').forEach(btn => {
-            btn.addEventListener('click', () => checkPattern(btn));
-        });
-    }
-
-    function checkPattern(btn) {
-        const isCorrect = parseInt(btn.dataset.answer) === currentPattern.next;
-
-        if (isCorrect) {
-            correctCount++;
-            addStars(1);
-            btn.style.background = '#4dff88';
-            btn.style.borderColor = '#4dff88';
-            if (feedbackEl) {
-                feedbackEl.textContent = `Yes! ${currentPattern.hint} 🎉`;
-                feedbackEl.style.color = '#4dff88';
-            }
-
-            if (correctCount >= 3 && !AppState.badges['pattern-spotter']) {
-                earnBadge('pattern-spotter');
-            }
-        } else {
-            btn.style.background = '#ff6b6b';
-            btn.style.borderColor = '#ff6b6b';
-            if (feedbackEl) {
-                feedbackEl.textContent = `The answer was ${currentPattern.next}. ${currentPattern.hint}`;
-                feedbackEl.style.color = '#ff6b6b';
-            }
-        }
-
-        optionsEl.querySelectorAll('.pattern-option-kid').forEach(b => b.disabled = true);
-    }
-
-    nextBtn?.addEventListener('click', showPattern);
-    showPattern();
-}
-
-// ===== Prime Number Hunt =====
-function initPrimeHunt() {
-    const grid = document.getElementById('prime-grid-kid');
-    const startBtn = document.getElementById('prime-hunt-start');
-    const countEl = document.getElementById('primes-found-count');
-
-    if (!grid) return;
-
-    let isRunning = false;
-
-    function createGrid() {
-        grid.innerHTML = '';
-        for (let i = 2; i <= 50; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'prime-cell-kid';
-            cell.textContent = i;
-            cell.dataset.number = i;
-            grid.appendChild(cell);
-        }
-        if (countEl) countEl.textContent = '0';
-    }
-
-    async function runHunt() {
-        if (isRunning) return;
-        isRunning = true;
-
-        createGrid();
-        await sleep(500);
-
-        const cells = grid.querySelectorAll('.prime-cell-kid');
-        let primeCount = 0;
-
-        for (let p = 2; p <= 50; p++) {
-            if (!isRunning) break;
-
-            const pCell = grid.querySelector(`[data-number="${p}"]`);
-            if (!pCell || pCell.classList.contains('composite')) continue;
-
-            // Mark as prime
-            pCell.classList.add('prime');
-            primeCount++;
-            if (countEl) countEl.textContent = primeCount;
-
-            await sleep(200);
-
-            // Mark multiples as composite
-            for (let m = p * 2; m <= 50; m += p) {
-                const mCell = grid.querySelector(`[data-number="${m}"]`);
-                if (mCell && !mCell.classList.contains('composite')) {
-                    mCell.classList.add('composite');
-                    await sleep(50);
-                }
-            }
-        }
-
-        isRunning = false;
-
-        if (!AppState.badges['prime-finder']) {
-            earnBadge('prime-finder');
-        }
-    }
-
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    startBtn?.addEventListener('click', runHunt);
-    createGrid();
-}
-
-// ===== Fractal Art Studio =====
-function initFractalStudio() {
-    const canvas = document.getElementById('fractal-kid-canvas');
-    const branchesSlider = document.getElementById('kid-branches');
-    const depthSlider = document.getElementById('kid-depth');
-    const angleSlider = document.getElementById('kid-angle');
-    const colorPicker = document.getElementById('kid-color');
-    const generateBtn = document.getElementById('kid-generate');
-
-    const branchesVal = document.getElementById('branches-val');
-    const depthVal = document.getElementById('depth-val');
-    const angleVal = document.getElementById('angle-val');
-
+function drawUniversePie() {
+    const canvas = document.getElementById('universe-chart');
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    canvas.width = canvas.clientWidth;
-    canvas.height = 300;
+    canvas.width = 250;
+    canvas.height = 250;
 
-    let hasDrawn = false;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = 100;
 
-    function drawTree(x, y, length, angle, depth, branches, spread, color) {
-        if (depth === 0) return;
+    // Data: ~5% visible, ~26% dark matter, ~69% dark energy
+    const data = [
+        { value: 5, color: '#00d9ff', label: 'Visible' },
+        { value: 26, color: '#6b5b95', label: 'Dark Matter' },
+        { value: 69, color: '#2c3e50', label: 'Dark Energy' }
+    ];
 
-        const endX = x + Math.cos(angle) * length;
-        const endY = y + Math.sin(angle) * length;
+    let startAngle = -Math.PI / 2;
 
-        // Rainbow gradient based on depth
-        const hue = (depth * 40) % 360;
-        ctx.strokeStyle = `hsl(${hue}, 80%, 60%)`;
+    data.forEach(slice => {
+        const sliceAngle = (slice.value / 100) * Math.PI * 2;
 
         ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(endX, endY);
-        ctx.lineWidth = depth * 1.5;
-        ctx.lineCap = 'round';
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+        ctx.closePath();
+        ctx.fillStyle = slice.color;
+        ctx.fill();
+
+        // Add border
+        ctx.strokeStyle = '#1a1a2e';
+        ctx.lineWidth = 2;
         ctx.stroke();
 
-        const spreadRad = spread * Math.PI / 180;
-        for (let i = 0; i < branches; i++) {
-            const newAngle = angle - spreadRad * (branches - 1) / 2 + spreadRad * i;
-            drawTree(endX, endY, length * 0.65, newAngle, depth - 1, branches, spread, color);
+        startAngle += sliceAngle;
+    });
+
+    // Center circle
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+    ctx.fillStyle = '#1a1a2e';
+    ctx.fill();
+
+    // YOU text
+    ctx.fillStyle = '#00d9ff';
+    ctx.font = 'bold 12px Nunito';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('YOU', centerX, centerY);
+}
+
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+
+function toBase3(num) {
+    if (num === 0) return '0';
+    let result = '';
+    while (num > 0) {
+        result = (num % 3) + result;
+        num = Math.floor(num / 3);
+    }
+    return result;
+}
+
+function generateOptions(correct, count, isBase3) {
+    const options = new Set();
+    options.add(isBase3 ? correct : correct.toString());
+
+    while (options.size < count) {
+        let wrong;
+        if (isBase3) {
+            const wrongNum = Math.max(1, parseInt(correct, 3) + Math.floor(Math.random() * 8) - 4);
+            wrong = toBase3(wrongNum);
+        } else {
+            wrong = (correct + Math.floor(Math.random() * 10) - 5).toString();
+        }
+        if (wrong !== correct.toString() && wrong !== '0') {
+            options.add(wrong);
         }
     }
 
-    function generate() {
-        ctx.fillStyle = '#1a1a2e';
+    return shuffleArray([...options]);
+}
+
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function addStars(count) {
+    userData.stars += count;
+    saveUserData();
+    updateUI();
+
+    // Visual feedback
+    const starCount = document.getElementById('star-count');
+    if (starCount) {
+        starCount.classList.add('pulse');
+        setTimeout(() => starCount.classList.remove('pulse'), 300);
+    }
+}
+
+function awardBadge(badgeId) {
+    if (userData.badges.includes(badgeId)) return;
+
+    userData.badges.push(badgeId);
+    addStars(5);
+    saveUserData();
+    updateUI();
+
+    // Show notification
+    const badge = BADGES[badgeId];
+    if (badge && userData.soundEnabled) {
+        playTone(523.25, 0.1);
+        playTone(659.25, 0.1);
+        playTone(783.99, 0.2);
+    }
+}
+
+function updateUI() {
+    // Update star count
+    const starCount = document.getElementById('star-count');
+    if (starCount) starCount.textContent = userData.stars;
+
+    // Update user display
+    const userInitial = document.getElementById('user-initial');
+    const userDisplayName = document.getElementById('user-display-name');
+    if (userInitial && userData.name) {
+        userInitial.textContent = userData.name.charAt(0).toUpperCase();
+    }
+    if (userDisplayName) {
+        userDisplayName.textContent = userData.name || 'Guest';
+    }
+
+    // Update badges grid
+    const badgesGrid = document.getElementById('badges-grid');
+    if (badgesGrid) {
+        badgesGrid.innerHTML = '';
+        Object.entries(BADGES).forEach(([id, badge]) => {
+            const div = document.createElement('div');
+            div.className = `badge-item${userData.badges.includes(id) ? ' earned' : ''}`;
+            div.innerHTML = `
+                <span class="badge-icon">${badge.icon}</span>
+                <span class="badge-name">${badge.name}</span>
+            `;
+            div.title = badge.desc;
+            badgesGrid.appendChild(div);
+        });
+    }
+
+    // Update game badges
+    Object.keys(BADGES).forEach(id => {
+        const badgeEl = document.querySelector(`.game-badge[data-badge="${id}"]`);
+        if (badgeEl) {
+            badgeEl.classList.toggle('earned', userData.badges.includes(id));
+        }
+    });
+
+    // Update journey map
+    updateJourneyMap();
+}
+
+// Audio functions
+let audioCtx = null;
+
+function playTone(freq, duration) {
+    if (!userData.soundEnabled) return;
+
+    try {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        oscillator.frequency.value = freq;
+        oscillator.type = 'sine';
+
+        gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + duration);
+    } catch (e) {
+        console.log('Audio not available');
+    }
+}
+
+// Particle background
+function initParticles() {
+    const canvas = document.getElementById('particles-bg');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const particles = [];
+    for (let i = 0; i < 30; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            size: Math.random() * 2 + 1
+        });
+    }
+
+    function animate() {
+        if (document.body.classList.contains('calm-mode')) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
+        ctx.fillStyle = 'rgba(26, 26, 46, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const branches = parseInt(branchesSlider?.value || 3);
-        const depth = parseInt(depthSlider?.value || 4);
-        const angle = parseInt(angleSlider?.value || 30);
-        const color = colorPicker?.value || '#64ffda';
+        ctx.fillStyle = 'rgba(233, 69, 96, 0.3)';
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
 
-        // Update display values
-        if (branchesVal) branchesVal.textContent = branches;
-        if (depthVal) depthVal.textContent = depth;
-        if (angleVal) angleVal.textContent = angle + '°';
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-        drawTree(canvas.width / 2, canvas.height - 20, 70, -Math.PI / 2, depth, branches, angle, color);
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
 
-        if (!hasDrawn) {
-            hasDrawn = true;
-            earnBadge('fractal-artist');
-        }
+        requestAnimationFrame(animate);
     }
 
-    generateBtn?.addEventListener('click', generate);
-    branchesSlider?.addEventListener('input', generate);
-    depthSlider?.addEventListener('input', generate);
-    angleSlider?.addEventListener('input', generate);
-    colorPicker?.addEventListener('input', generate);
-
-    generate();
+    animate();
 }
 
-// ===== Wake Up the Brain Game =====
-function initBrainGame() {
-    const connectionsSlider = document.getElementById('connections-slider');
-    const loopsSlider = document.getElementById('loops-slider');
-    const complexitySlider = document.getElementById('complexity-slider-kid');
-    const fill = document.getElementById('brain-fill');
-    const status = document.getElementById('brain-status');
-    const brainIcon = document.getElementById('brain-icon');
-
-    if (!connectionsSlider) return;
-
-    let hasAwakened = false;
-
-    function update() {
-        const c = parseInt(connectionsSlider.value) / 100;
-        const l = parseInt(loopsSlider.value) / 100;
-        const x = parseInt(complexitySlider.value) / 100;
-
-        // Calculate "consciousness" level
-        const level = Math.min(1, (c * 0.35 + l * 0.35 + x * 0.3) * 1.1);
-
-        if (fill) fill.style.width = `${level * 100}%`;
-
-        if (status && brainIcon) {
-            if (level >= 0.95) {
-                status.className = 'brain-status awake';
-                status.textContent = '✨ AWAKE! Thinking happening! ✨';
-                brainIcon.classList.add('awake');
-
-                if (!hasAwakened) {
-                    hasAwakened = true;
-                    earnBadge('brain-waker');
-                }
-            } else if (level >= 0.7) {
-                status.className = 'brain-status';
-                status.textContent = '😴 Getting drowsy...';
-                brainIcon.classList.remove('awake');
-            } else if (level >= 0.4) {
-                status.className = 'brain-status';
-                status.textContent = '💤 Sleeping...';
-                brainIcon.classList.remove('awake');
-            } else {
-                status.className = 'brain-status';
-                status.textContent = '😴 Deep sleep...';
-                brainIcon.classList.remove('awake');
-            }
-        }
-    }
-
-    connectionsSlider.addEventListener('input', update);
-    loopsSlider.addEventListener('input', update);
-    complexitySlider.addEventListener('input', update);
-
-    update();
-}
-
-// ===== Sound the Gap Game =====
-function initSoundGame() {
-    const playEasy = document.getElementById('play-easy');
-    const playHard = document.getElementById('play-hard');
-    const playBoth = document.getElementById('play-both-kid');
-
-    if (!playEasy) return;
-
-    let hasPlayed = false;
-
-    function getAudioContext() {
-        if (!AppState.audioContext) {
-            AppState.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        return AppState.audioContext;
-    }
-
-    function playTone(frequency, duration = 1.5) {
-        const ctx = getAudioContext();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.value = frequency;
-
-        gain.gain.setValueAtTime(0.3, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.start();
-        osc.stop(ctx.currentTime + duration);
-
-        if (!hasPlayed) {
-            hasPlayed = true;
-            earnBadge('sound-explorer');
-        }
-    }
-
-    playEasy.addEventListener('click', () => {
-        playTone(440); // Higher pitch for "easy" (P class)
-        playEasy.style.transform = 'scale(1.1)';
-        setTimeout(() => playEasy.style.transform = 'scale(1)', 200);
-    });
-
-    playHard.addEventListener('click', () => {
-        playTone(280); // Lower pitch for "hard" (NP class)
-        playHard.style.transform = 'scale(1.1)';
-        setTimeout(() => playHard.style.transform = 'scale(1)', 200);
-    });
-
-    playBoth?.addEventListener('click', () => {
-        playTone(440);
-        playTone(280);
-    });
-}
-
-// ===== Console Easter Egg =====
-console.log(`%c
-🔮 THE MAGIC OF THREE 🔮
-========================
-You found the secret console!
-You must be a real explorer!
-
-Here's a fun fact:
-3 × 3 × 3 = 27
-2 + 7 = 9
-9 = 3 × 3
-
-Three is EVERYWHERE! ✨
-`, 'color: #00d9ff; font-size: 14px; font-weight: bold;');
+// Start particle animation
+initParticles();
