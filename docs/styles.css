@@ -1338,9 +1338,22 @@ body.calm-mode .btn-bouncy {
 }
 
 .cookie-feedback {
-    text-align: center;
+    text-align: left;
     min-height: 30px;
-    font-weight: 700;
+    font-weight: 500;
+    padding: var(--spacing-md);
+    background: var(--bg-darker);
+    border-radius: 12px;
+    margin-top: var(--spacing-md);
+    line-height: 1.6;
+}
+
+.cookie-feedback:empty {
+    display: none;
+}
+
+.cookie-feedback strong {
+    color: var(--secondary);
 }
 
 .game-score {
@@ -1403,9 +1416,22 @@ body.calm-mode .btn-bouncy {
 }
 
 .pattern-feedback-kid {
-    text-align: center;
+    text-align: left;
     min-height: 24px;
-    font-weight: 700;
+    font-weight: 500;
+    padding: var(--spacing-md);
+    background: var(--bg-darker);
+    border-radius: 12px;
+    margin-top: var(--spacing-md);
+    line-height: 1.6;
+}
+
+.pattern-feedback-kid:empty {
+    display: none;
+}
+
+.pattern-feedback-kid strong {
+    color: var(--secondary);
 }
 
 /* Prime Game */
