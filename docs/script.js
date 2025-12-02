@@ -974,10 +974,138 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// ===== Digital Sum Explorer =====
+function initDigitalSumExplorer() {
+    const input = document.getElementById('ds-input');
+    const base10 = document.getElementById('ds-base10');
+    const base3 = document.getElementById('ds-base3');
+    const result = document.getElementById('ds-result');
+
+    if (!input) return;
+
+    function updateDigitalSum() {
+        const n = parseInt(input.value) || 0;
+        if (n <= 0) return;
+
+        // Convert to base-3
+        const base3Str = n.toString(3);
+
+        // Calculate digital sum
+        let digitSum = 0;
+        for (const digit of base3Str) {
+            digitSum += parseInt(digit);
+        }
+
+        // Update display
+        if (base10) base10.textContent = n;
+        if (base3) base3.textContent = base3Str;
+        if (result) result.textContent = digitSum;
+
+        // Award badge after using it a few times
+        if (!AppState.badges['digital-sum-master']) {
+            AppState.dsUseCount = (AppState.dsUseCount || 0) + 1;
+            if (AppState.dsUseCount >= 5) {
+                earnBadge('digital-sum-master');
+            }
+        }
+    }
+
+    input.addEventListener('input', updateDigitalSum);
+    updateDigitalSum();
+}
+
+// ===== Riemann Zeros Visualizer =====
+function initRiemannVisualizer() {
+    const canvas = document.getElementById('riemann-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.clientWidth;
+    canvas.height = 200;
+
+    // First several Riemann zeros (imaginary parts)
+    const zeros = [14.135, 21.022, 25.011, 30.425, 32.935, 37.586, 40.919, 43.327, 48.005, 49.774];
+
+    function draw() {
+        ctx.fillStyle = '#0a0a1a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw critical line (Re(s) = 1/2)
+        const centerX = canvas.width / 2;
+        ctx.strokeStyle = 'rgba(167, 139, 250, 0.5)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.moveTo(centerX, 0);
+        ctx.lineTo(centerX, canvas.height);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Label the critical line
+        ctx.fillStyle = 'rgba(167, 139, 250, 0.7)';
+        ctx.font = '12px JetBrains Mono, monospace';
+        ctx.fillText('Re(s) = 1/2', centerX + 5, 15);
+
+        // Draw zeros as points on the critical line
+        const scale = canvas.height / 55;
+
+        zeros.forEach((zero, i) => {
+            const y = zero * scale;
+
+            // Glow effect
+            const gradient = ctx.createRadialGradient(centerX, y, 0, centerX, y, 15);
+            gradient.addColorStop(0, 'rgba(100, 255, 218, 0.8)');
+            gradient.addColorStop(1, 'rgba(100, 255, 218, 0)');
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(centerX, y, 15, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Zero point
+            ctx.fillStyle = '#64ffda';
+            ctx.beginPath();
+            ctx.arc(centerX, y, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Label
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.font = '10px JetBrains Mono, monospace';
+            ctx.fillText(`ζ(1/2 + ${zero.toFixed(3)}i) = 0`, centerX + 20, y + 4);
+        });
+
+        // Title
+        ctx.fillStyle = '#c4b5fd';
+        ctx.font = 'bold 14px Nunito, sans-serif';
+        ctx.fillText('Riemann Zeta Zeros on Critical Line', 10, canvas.height - 10);
+    }
+
+    draw();
+
+    // Award badge on hover
+    canvas.addEventListener('mouseover', () => {
+        if (!AppState.badges['zero-hunter']) {
+            earnBadge('zero-hunter');
+        }
+    });
+}
+
+// Add new badge definitions
+BADGES['digital-sum-master'] = { icon: '∑', name: 'Digital Sum Master', desc: 'Explored the digital sum function' };
+BADGES['zero-hunter'] = { icon: 'ζ', name: 'Zero Hunter', desc: 'Explored Riemann zeros' };
+
+// Initialize new features
+document.addEventListener('DOMContentLoaded', () => {
+    initDigitalSumExplorer();
+    initRiemannVisualizer();
+});
+
 // ===== Console Easter Egg =====
 console.log(`%c
 ╔═══════════════════════════════════════╗
 ║     PRINCIPIA FRACTALIS               ║
 ║     Mathematics IS Reality            ║
+║     ch₂ ≥ 0.95 → Consciousness!       ║
 ╚═══════════════════════════════════════╝
 `, 'color: #64ffda; font-weight: bold;');
+
+console.log('%c"You are a pattern so beautiful it woke up and started asking questions."', 'color: #ffd700; font-style: italic;');
