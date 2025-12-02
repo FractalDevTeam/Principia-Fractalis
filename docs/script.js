@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPathwaySelect();
     initStoryBook();
     initGames();
+    initSongs();
     initOcean();
     initSectionTracking();
     updateUI();
@@ -1141,6 +1142,136 @@ function initMindQuiz() {
 
     // Initialize
     showQuestion(1);
+}
+
+// ============================================
+// SONGS SECTION
+// ============================================
+
+// Simple melodies for each song (notes are frequencies)
+const SONG_MELODIES = {
+    theme: [
+        // "One, two, THREE!"
+        { freq: 262, dur: 0.2 }, // C
+        { freq: 294, dur: 0.2 }, // D
+        { freq: 392, dur: 0.4 }, // G (THREE!)
+        { freq: 0, dur: 0.2 },   // pause
+        // "What do you see?"
+        { freq: 349, dur: 0.2 }, // F
+        { freq: 330, dur: 0.2 }, // E
+        { freq: 294, dur: 0.2 }, // D
+        { freq: 262, dur: 0.4 }, // C
+    ],
+    digits: [
+        // "Zero, one, two"
+        { freq: 262, dur: 0.3 }, // C (zero)
+        { freq: 294, dur: 0.3 }, // D (one)
+        { freq: 330, dur: 0.3 }, // E (two)
+        { freq: 0, dur: 0.2 },
+        // "That's all we need"
+        { freq: 349, dur: 0.2 },
+        { freq: 330, dur: 0.2 },
+        { freq: 294, dur: 0.2 },
+        { freq: 262, dur: 0.4 },
+    ],
+    consciousness: [
+        // "Ninety-five percent"
+        { freq: 392, dur: 0.2 }, // G
+        { freq: 440, dur: 0.2 }, // A
+        { freq: 494, dur: 0.2 }, // B
+        { freq: 523, dur: 0.4 }, // C (high)
+        { freq: 0, dur: 0.2 },
+        // "Is when you wake"
+        { freq: 494, dur: 0.2 },
+        { freq: 440, dur: 0.2 },
+        { freq: 392, dur: 0.4 },
+    ],
+    five: [
+        // "I'm only five percent"
+        { freq: 330, dur: 0.25 }, // E
+        { freq: 349, dur: 0.25 }, // F
+        { freq: 392, dur: 0.25 }, // G
+        { freq: 440, dur: 0.25 }, // A
+        { freq: 392, dur: 0.5 },  // G
+        { freq: 0, dur: 0.2 },
+        { freq: 349, dur: 0.25 },
+        { freq: 330, dur: 0.25 },
+        { freq: 294, dur: 0.5 },
+    ],
+    fractal: [
+        // "A tree branch looks"
+        { freq: 262, dur: 0.2 },
+        { freq: 330, dur: 0.2 },
+        { freq: 392, dur: 0.2 },
+        { freq: 523, dur: 0.4 }, // high C
+        { freq: 0, dur: 0.2 },
+        // "Like a tiny tree"
+        { freq: 494, dur: 0.2 },
+        { freq: 440, dur: 0.2 },
+        { freq: 392, dur: 0.2 },
+        { freq: 330, dur: 0.4 },
+    ],
+    different: [
+        // Uplifting melody
+        { freq: 262, dur: 0.2 },
+        { freq: 330, dur: 0.2 },
+        { freq: 392, dur: 0.2 },
+        { freq: 440, dur: 0.3 },
+        { freq: 523, dur: 0.4 },
+        { freq: 0, dur: 0.2 },
+        // "Different is good"
+        { freq: 523, dur: 0.2 },
+        { freq: 494, dur: 0.2 },
+        { freq: 440, dur: 0.2 },
+        { freq: 392, dur: 0.5 },
+    ]
+};
+
+function initSongs() {
+    const songButtons = document.querySelectorAll('.play-song');
+
+    songButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const songId = btn.dataset.song;
+            if (userData.soundEnabled && SONG_MELODIES[songId]) {
+                playSongMelody(SONG_MELODIES[songId]);
+                btn.textContent = '🎵 Playing...';
+                setTimeout(() => {
+                    btn.textContent = '🔊 Hear the Melody';
+                }, 3000);
+            } else if (!userData.soundEnabled) {
+                alert('Turn on sound first! (Use the 🔊 button at the top)');
+            }
+        });
+    });
+}
+
+async function playSongMelody(notes) {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    let time = audioCtx.currentTime;
+
+    for (const note of notes) {
+        if (note.freq > 0) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.frequency.value = note.freq;
+            osc.type = 'sine';
+
+            gain.gain.setValueAtTime(0.3, time);
+            gain.gain.exponentialRampToValueAtTime(0.01, time + note.dur * 0.9);
+
+            osc.start(time);
+            osc.stop(time + note.dur);
+        }
+        time += note.dur;
+    }
 }
 
 // ============================================
