@@ -405,7 +405,7 @@ function updateJourneyMap() {
 // ============================================
 
 function initStoryBook() {
-    const totalPages = 8;
+    const totalPages = 14;
 
     // Create page dots
     const dotsContainer = document.getElementById('page-dots');
@@ -449,7 +449,7 @@ function goToPage(pageNum) {
         userData.completedPages.push(pageNum);
 
         // Award badge for completing story
-        if (userData.completedPages.length >= 8) {
+        if (userData.completedPages.length >= 14) {
             awardBadge('story-reader');
         }
 
