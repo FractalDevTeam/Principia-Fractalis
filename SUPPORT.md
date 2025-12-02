@@ -2,6 +2,11 @@
 
 <div align="center">
 
+## 🌟 Start Here: [The Magic of Three](https://fractaldevteam.github.io/Principia-Fractalis/) 🌟
+**Free interactive educational site — teaching the real mathematics of existence**
+
+---
+
 <a href="https://ko-fi.com/pablocohen">
   <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Support on Ko-fi" height="50"/>
 </a>
@@ -45,6 +50,7 @@ Your support directly enables:
 | 📝 **Publication** | Peer review fees, journal submissions, preprint hosting |
 | 🎤 **Outreach** | Conference travel, presentations, scientific communication |
 | 💻 **Infrastructure** | Computing resources, proof assistant development |
+| 🌟 **Education** | [The Magic of Three](https://fractaldevteam.github.io/Principia-Fractalis/) — free interactive site teaching children the real mathematics |
 | 🏠 **Survival** | Living expenses for the author |
 
 **Every contribution — no matter how small — makes a difference.**
@@ -69,6 +75,7 @@ Even if you can't donate, you can still help:
 
 - ⭐ **Star this repository** — visibility helps attract attention
 - 📢 **Share the work** — tell colleagues, post on social media, write about it
+- 🌟 **Share the educational site** — [The Magic of Three](https://fractaldevteam.github.io/Principia-Fractalis/) teaches children the real mathematics
 - 🔍 **Review the mathematics** — open issues for questions or corrections
 - 📚 **Cite the work** — use `CITATION.cff` for proper attribution
 - 🛠️ **Contribute** — see `CONTRIBUTING.md` for guidelines
