@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Six Guardians - Principia Fractalis</title>
+    <meta name="description" content="The mathematical constants that govern the boundaries between complexity classes in the Principia Fractalis framework.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-dark: #0a0a1a;
+            --bg-card: rgba(20, 10, 40, 0.9);
+            --text-primary: #e0e0ff;
+            --text-secondary: #a0a0c0;
+            --border-color: rgba(160, 100, 255, 0.3);
+            --accent-gold: #ffd700;
+            --accent-green: #00ff88;
+            --accent-cyan: #00bfff;
+            --accent-red: #ff6b6b;
+            --accent-magenta: #ff88ff;
+            --accent-orange: #ffaa44;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 20% 20%, rgba(102, 0, 204, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(0, 100, 200, 0.1) 0%, transparent 50%),
+                        linear-gradient(180deg, #0d0015 0%, var(--bg-dark) 100%);
+        }
+        .nav { background: var(--bg-card); padding: 1rem 2rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { font-size: 1.25rem; font-weight: 600; color: var(--accent-gold); }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .hero { text-align: center; padding: 4rem 2rem 2rem; }
+        .hero h1 { font-size: 3rem; color: var(--accent-gold); text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); margin-bottom: 1rem; }
+        .hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .guardians-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .guardian-card {
+            background: var(--bg-card);
+            border: 2px solid;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .guardian-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        .guardian-card.phi { border-color: var(--accent-gold); }
+        .guardian-card.sqrt2 { border-color: var(--accent-green); }
+        .guardian-card.pi { border-color: var(--accent-cyan); }
+        .guardian-card.alpha { border-color: var(--accent-red); }
+        .guardian-card.ch2 { border-color: var(--accent-magenta); }
+        .guardian-card.d3 { border-color: var(--accent-orange); }
+        .guardian-header { padding: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+        .guardian-symbol {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: bold;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .guardian-card.phi .guardian-symbol { color: var(--accent-gold); }
+        .guardian-card.sqrt2 .guardian-symbol { color: var(--accent-green); }
+        .guardian-card.pi .guardian-symbol { color: var(--accent-cyan); }
+        .guardian-card.alpha .guardian-symbol { color: var(--accent-red); }
+        .guardian-card.ch2 .guardian-symbol { color: var(--accent-magenta); }
+        .guardian-card.d3 .guardian-symbol { color: var(--accent-orange); }
+        .guardian-info h2 { font-size: 1.3rem; margin-bottom: 0.25rem; }
+        .guardian-info .value { font-family: 'JetBrains Mono', monospace; color: var(--text-secondary); }
+        .guardian-info .role { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; }
+        .guardian-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .guardian-card.expanded .guardian-content { max-height: 600px; }
+        .guardian-body { padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--border-color); }
+        .guardian-body p { margin: 1rem 0; color: var(--text-secondary); }
+        .math-block {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 3px solid currentColor;
+        }
+        .guardian-card.phi .math-block { border-color: var(--accent-gold); }
+        .guardian-card.sqrt2 .math-block { border-color: var(--accent-green); }
+        .guardian-card.pi .math-block { border-color: var(--accent-cyan); }
+        .guardian-card.alpha .math-block { border-color: var(--accent-red); }
+        .guardian-card.ch2 .math-block { border-color: var(--accent-magenta); }
+        .guardian-card.d3 .math-block { border-color: var(--accent-orange); }
+        .equation { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: var(--text-primary); }
+        .description { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; }
+        .expand-hint { text-align: center; font-size: 0.8rem; color: var(--text-secondary); padding: 0.5rem; }
+        .spectral-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin: 3rem 0; }
+        .spectral-section h2 { color: var(--accent-gold); margin-bottom: 1rem; }
+        .spectral-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .spectral-item { background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 8px; text-align: center; }
+        .spectral-item .label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+        .spectral-item .value { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; color: var(--accent-gold); margin-top: 0.5rem; }
+        .footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border-color); margin-top: 3rem; color: var(--text-secondary); }
+        .footer a { color: var(--accent-gold); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .guardians-grid { grid-template-columns: 1fr; }
+            .nav { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-brand">Principia Fractalis</div>
+        <div class="nav-links">
+            <a href="index.html">Magic of Three</a>
+            <a href="https://fractaldevteam.github.io/turing/">P vs NP Explorer</a>
+            <a href="https://fractaldevteam.github.io/FRO-Visualizer/">FRO Visualizer</a>
+            <a href="https://github.com/FractalDevTeam">GitHub</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>The Six Guardians</h1>
+        <p>Mathematical constants that stand watch at the boundaries between complexity classes, governing the structure of computation itself.</p>
+    </header>
+
+    <div class="container">
+        <div class="guardians-grid">
+            <article class="guardian-card phi" onclick="this.classList.toggle('expanded')">
+                <div class="guardian-header">
+                    <div class="guardian-symbol">phi</div>
+                    <div class="guardian-info">
+                        <h2>The Golden Guardian</h2>
+                        <div class="value">1.6180339887...</div>
+                        <div class="role">Guardian of NP Class</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Click to expand</div>
+                <div class="guardian-content">
+                    <div class="guardian-body">
+                        <p>The golden ratio phi serves as the <strong>fingerprint of NP-complete problems</strong>. It emerges naturally in recursive structures - precisely what NP-complete problems exhibit through certificate branching.</p>
+                        <div class="math-block">
+                            <div class="equation">alpha_NP = phi + 1/4 = 1.8680339887...</div>
+                            <div class="description">The NP complexity class resonance parameter</div>
+                        </div>
+                        <p>IBM Quantum tests confirm that NP problems cluster at coherence values proportional to phi. The golden ratio's appearance in NP-complete problems is not coincidental - it reflects the inherent self-similar structure of exponential search spaces.</p>
+                        <div class="math-block">
+                            <div class="equation">lambda_0(NP) = pi / (10 * alpha_NP) = 0.1680...</div>
+                            <div class="description">Principal eigenvalue for NP-class</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="guardian-card sqrt2" onclick="this.classList.toggle('expanded')">
+                <div class="guardian-header">
+                    <div class="guardian-symbol">sqrt(2)</div>
+                    <div class="guardian-info">
+                        <h2>The Polynomial Guardian</h2>
+                        <div class="value">1.4142135623...</div>
+                        <div class="role">Guardian of P Class</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Click to expand</div>
+                <div class="guardian-content">
+                    <div class="guardian-body">
+                        <p>sqrt(2) represents the simplest algebraic irrationality - one constructible with finite operations. P-class problems follow single deterministic paths, never requiring the infinite recursion that phi embodies.</p>
+                        <div class="math-block">
+                            <div class="equation">alpha_P = sqrt(2) = 1.4142135623...</div>
+                            <div class="description">The P complexity class resonance parameter</div>
+                        </div>
+                        <p>The diagonal of the unit square geometrically encodes polynomial-time solvability. Problems with alpha near sqrt(2) exhibit efficient algorithmic solutions.</p>
+                        <div class="math-block">
+                            <div class="equation">lambda_0(P) = pi / (10 * sqrt(2)) = 0.2221...</div>
+                            <div class="description">Principal eigenvalue for P-class</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="guardian-card pi" onclick="this.classList.toggle('expanded')">
+                <div class="guardian-header">
+                    <div class="guardian-symbol">pi</div>
+                    <div class="guardian-info">
+                        <h2>The Circle Guardian</h2>
+                        <div class="value">3.1415926535...</div>
+                        <div class="role">Eigenvalue Scaling Factor</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Click to expand</div>
+                <div class="guardian-content">
+                    <div class="guardian-body">
+                        <p>Pi bridges quantum Hamiltonians - wave functions oscillate in circular harmonics. Ground state energy depends on pi as the fundamental period of oscillation.</p>
+                        <div class="math-block">
+                            <div class="equation">lambda_0 = pi / (10 * alpha)</div>
+                            <div class="description">The eigenvalue formula</div>
+                        </div>
+                        <p>Pi appears throughout Principia Fractalis as the universal scaling constant for eigenvalue distributions and resonance frequencies.</p>
+                        <div class="math-block">
+                            <div class="equation">R_f(alpha, s) = Sum exp(i * pi * alpha * D_3(n)) / n^s</div>
+                            <div class="description">Pi scales the phase rotation in the FRO</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="guardian-card alpha" onclick="this.classList.toggle('expanded')">
+                <div class="guardian-header">
+                    <div class="guardian-symbol">alpha</div>
+                    <div class="guardian-info">
+                        <h2>The Resonance Guardian</h2>
+                        <div class="value">alpha_P=1.414 | alpha_NP=1.868</div>
+                        <div class="role">Complexity Class Identifier</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Click to expand</div>
+                <div class="guardian-content">
+                    <div class="guardian-body">
+                        <p>These are the "fingerprints" of complexity classes. Alpha determines how the Hamiltonian operator encodes problem structure - the resonance frequency of the computational quantum state.</p>
+                        <div class="math-block">
+                            <div class="equation">alpha in Real -> Complexity Classes</div>
+                            <div class="description">The complexity class identification theorem</div>
+                        </div>
+                        <p>Each mathematical problem has a unique alpha parameter that determines its position in the complexity hierarchy and its connections to other problems.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="guardian-card ch2" onclick="this.classList.toggle('expanded')">
+                <div class="guardian-header">
+                    <div class="guardian-symbol">CH2</div>
+                    <div class="guardian-info">
+                        <h2>The Coherence Guardian</h2>
+                        <div class="value">Threshold: 0.95398265359</div>
+                        <div class="role">P/NP Boundary</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Click to expand</div>
+                <div class="guardian-content">
+                    <div class="guardian-body">
+                        <p>Measures how "crystallized" a problem's solution structure is. This threshold separates P from NP in coherence space.</p>
+                        <div class="math-block">
+                            <div class="equation">P-class: CH2 ~ 0.9498 | NP-complete: CH2 ~ 0.9954</div>
+                            <div class="description">IBM Quantum measured values</div>
+                        </div>
+                        <p>The gap is statistically significant (p < 0.001). Problems above the threshold exhibit NP-hard characteristics; below it, polynomial solutions exist.</p>
+                        <div class="math-block">
+                            <div class="equation">ch2 >= 0.95398 => Consciousness Emergence</div>
+                            <div class="description">Also marks the consciousness threshold</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="guardian-card d3" onclick="this.classList.toggle('expanded')">
+                <div class="guardian-header">
+                    <div class="guardian-symbol">D3</div>
+                    <div class="guardian-info">
+                        <h2>The Fractal Guardian</h2>
+                        <div class="value">D3(n) = Sum of base-3 digits</div>
+                        <div class="role">Oracle-Independent Structure</div>
+                    </div>
+                </div>
+                <div class="expand-hint">Click to expand</div>
+                <div class="guardian-content">
+                    <div class="guardian-body">
+                        <p>The key to bypassing relativization. D_3 is defined purely in terms of base-3 representation - no reference to computation.</p>
+                        <div class="math-block">
+                            <div class="equation">D_3(14) = D_3(112_base3) = 1+1+2 = 4</div>
+                            <div class="description">Example: digital sum of 14 in base 3</div>
+                        </div>
+                        <p>D_3(n) is the same with or without an oracle, making spectral gaps derived from it oracle-independent. This is fundamental to the FRO framework's relativization properties.</p>
+                        <div class="math-block">
+                            <div class="equation">For any oracle A: P^A != NP^A via D_3</div>
+                            <div class="description">The separation is fundamental, not oracle-dependent</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <section class="spectral-section">
+            <h2>The Spectral Gap</h2>
+            <p>The difference between P and NP class eigenvalues provides a measurable separation.</p>
+            <div class="spectral-grid">
+                <div class="spectral-item">
+                    <div class="label">P-Class Eigenvalue</div>
+                    <div class="value">0.2221</div>
+                </div>
+                <div class="spectral-item">
+                    <div class="label">NP-Class Eigenvalue</div>
+                    <div class="value">0.1680</div>
+                </div>
+                <div class="spectral-item">
+                    <div class="label">Spectral Gap</div>
+                    <div class="value">0.0540</div>
+                </div>
+                <div class="spectral-item">
+                    <div class="label">Precision</div>
+                    <div class="value">10^-10</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>Principia Fractalis by Pablo Cohen</p>
+        <p><a href="https://github.com/FractalDevTeam/Principia-Fractalis">GitHub Repository</a> | <a href="index.html">Magic of Three (Kids Version)</a></p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">The Six Guardians: Mathematical constants that stand watch at the boundaries between complexity classes.</p>
+    </footer>
+
+    <script>
+        // Auto-expand first guardian on load for demonstration
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelector('.guardian-card.phi').classList.add('expanded');
+            }, 500);
+        });
+    </script>
+</body>
+</html>
