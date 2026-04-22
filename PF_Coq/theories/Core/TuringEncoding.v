@@ -219,10 +219,17 @@ Axiom np_minus_p_needs_certificates :
   forall L, IsInNP L -> ~ IsInP L ->
     forall x, L x -> exists c : Certificate, cert_nontrivial c.
 
-(** ** Operator Collapse Under P = NP *)
+(** ** Operator Collapse Hypothesis *)
 
-(** The key axiom connecting complexity to spectral theory:
-    If P = NP, then the resonance frequencies must collapse. *)
+(** CONJECTURAL: If P = NP, then the energy functionals E_P and E_NP
+    become identical (certificate structure becomes redundant), forcing
+    the self-adjointness conditions to yield the same resonance frequency.
+
+    STATUS: Not yet formalized in Coq. Mathematical argument given in
+    Chapter 21, Theorem 21.3. Formalizing requires defining E_P, E_NP
+    as measurable functionals and proving self-adjointness uniqueness.
+
+    This is the sole non-numerical axiom in the P != NP proof chain. *)
 Axiom operator_collapse_under_p_eq_np :
   P_equals_NP -> alpha_P = alpha_NP.
 

@@ -183,11 +183,17 @@ Definition RH_SpectralBijection : Prop :=
 
 (** ** Main Equivalence Theorem (Bidirectional) *)
 
-(** Direction 1: Spectral bijection implies classical RH *)
+(** CONJECTURAL: Spectral bijection implies classical RH.
+    Argument: T̃₃ self-adjoint → eigenvalues real → g maps ℝ → critical line
+    → bijection forces all zeros onto Re(s) = 1/2.
+    STATUS: Not yet formalized. See Chapter 20, Theorem 20.3. *)
 Axiom spectral_bijection_implies_RH :
   RH_SpectralBijection -> RiemannHypothesis.
 
-(** Direction 2: Classical RH implies spectral bijection *)
+(** CONJECTURAL: Classical RH implies spectral bijection exists.
+    Argument: Timeless Field trace formula provides canonical bijection
+    when all zeros lie on critical line.
+    STATUS: Not yet formalized. See Chapter 20, Appendix K. *)
 Axiom RH_implies_spectral_bijection :
   RiemannHypothesis -> RH_SpectralBijection.
 
