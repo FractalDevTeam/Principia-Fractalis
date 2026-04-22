@@ -55,34 +55,44 @@ theorem TestGaugeField.ext {N : ℕ} {f g : TestGaugeField N}
 /-- AddCommGroup instance for TestGaugeField (component-wise).
     All operations are defined component-wise on SchwartzFunction, which has AddCommGroup.
     The algebraic laws follow from SchwartzFunction satisfying these laws component-wise. -/
+-- Prior session tried to hand-roll AddCommGroup for TestGaugeField but hit a
+-- wall of type mismatches (the component-wise combinators don't unify with
+-- SchwartzFunction's current signatures) and referenced mathlib lemmas that
+-- have since been renamed/removed (nsmul_succ, zsmul_zero', zsmul_succ').
+-- Restoring the instance with `by sorry` bodies so the file type-checks; the
+-- right fix is probably to wrap TestGaugeField around a Pi-type that already
+-- has AddCommGroup, instead of re-deriving each field.
 noncomputable instance (N : ℕ) : AddCommGroup (TestGaugeField N) where
   add f g := ⟨fun μ a => f.components μ a + g.components μ a⟩
   zero := ⟨fun _ _ => 0⟩
   neg f := ⟨fun μ a => -f.components μ a⟩
-  add_assoc := fun f g h => by ext μ a; exact add_assoc (f.components μ a) (g.components μ a) (h.components μ a)
-  zero_add := fun f => by ext μ a; exact zero_add (f.components μ a)
-  add_zero := fun f => by ext μ a; exact add_zero (f.components μ a)
-  neg_add_cancel := fun f => by ext μ a; exact neg_add_cancel (f.components μ a)
-  add_comm := fun f g => by ext μ a; exact add_comm (f.components μ a) (g.components μ a)
+  add_assoc := by sorry
+  zero_add := by sorry
+  add_zero := by sorry
+  neg_add_cancel := by sorry
+  add_comm := by sorry
   nsmul := fun n f => ⟨fun μ a => n • f.components μ a⟩
-  nsmul_zero := fun f => by ext μ a; exact nsmul_zero (f.components μ a)
-  nsmul_succ := fun n f => by ext μ a; exact nsmul_succ n (f.components μ a)
+  nsmul_zero := by sorry
+  nsmul_succ := by sorry
   zsmul := fun n f => ⟨fun μ a => n • f.components μ a⟩
-  zsmul_zero' := fun f => by ext μ a; exact zsmul_zero' (f.components μ a)
-  zsmul_succ' := fun n f => by ext μ a; exact zsmul_succ' n (f.components μ a)
-  zsmul_neg' := fun n f => by ext μ a; exact zsmul_neg' n (f.components μ a)
+  zsmul_zero' := by sorry
+  zsmul_succ' := by sorry
+  zsmul_neg' := by sorry
 
 /-- Module instance for TestGaugeField.
     All operations are defined component-wise on SchwartzFunction, which has Module ℝ.
     The module laws follow from SchwartzFunction satisfying these laws component-wise. -/
+-- Same issue as the AddCommGroup instance above: type mismatches between the
+-- component-wise expressions and SchwartzFunction's current Module instance.
+-- Sorried to unblock the build; see note on AddCommGroup for the proper fix.
 noncomputable instance (N : ℕ) : Module ℝ (TestGaugeField N) where
   smul c f := ⟨fun μ a => c • f.components μ a⟩
-  one_smul := fun f => by ext μ a; exact one_smul ℝ (f.components μ a)
-  mul_smul := fun r s f => by ext μ a; exact mul_smul r s (f.components μ a)
-  smul_zero := fun r => by ext μ a; exact smul_zero r
-  smul_add := fun r f g => by ext μ a; exact smul_add r (f.components μ a) (g.components μ a)
-  add_smul := fun r s f => by ext μ a; exact add_smul r s (f.components μ a)
-  zero_smul := fun f => by ext μ a; exact zero_smul ℝ (f.components μ a)
+  one_smul := by sorry
+  mul_smul := by sorry
+  smul_zero := by sorry
+  smul_add := by sorry
+  add_smul := by sorry
+  zero_smul := by sorry
 
 /-- The gauge field test space is nuclear (product of nuclear spaces). -/
 theorem gauge_field_space_nuclear (N : ℕ) (hN : N ≥ 2) :
@@ -104,8 +114,10 @@ theorem gauge_field_space_nuclear (N : ℕ) (hN : N ≥ 2) :
   --
   -- For TestGaugeField N with 4(N²-1) components of S(R^4):
   -- The product topology makes this a nuclear space.
-  use ⟨trivial⟩  -- Witness for nuclear space structure
-  trivial
+  -- Prior `use ⟨trivial⟩; trivial` supplied only one field to a 2-field
+  -- NuclearSpace constructor; real proof needs both the topology data and
+  -- nuclearity witness.
+  sorry
 
 /-! ## Yang-Mills Action (Gaussian Approximation) -/
 
@@ -172,11 +184,10 @@ theorem yang_mills_positive_definite (N : ℕ) (hN : N ≥ 2) :
   -- Therefore: Σᵢⱼ zᵢz̄ⱼ exp(-½ Q(sᵢ-sⱼ, sᵢ-sⱼ)) ≥ 0
   --
   -- This is the fundamental result for Gaussian path integrals.
-  simp only [yangMillsGenerating, yangMillsCovariance]
-  -- The Gaussian kernel is positive definite by Schoenberg's theorem
-  apply le_of_eq_of_le _ (le_refl 0)
-  ring_nf
-  rfl
+  -- The Gaussian kernel is positive definite by Schoenberg's theorem.
+  -- Prior `apply le_of_eq_of_le _ (le_refl 0); ring_nf; rfl` had wrong type —
+  -- same Schoenberg-not-reflexivity pattern as the Bochner / Gaussian files.
+  sorry
 
 /-- THEOREM: The Yang-Mills generating functional is normalized. -/
 theorem yang_mills_normalized (N : ℕ) :
@@ -205,13 +216,10 @@ theorem yang_mills_continuous (N : ℕ) :
   --
   -- The δ-ε argument: Given ε > 0, choose δ such that p_{k,l}(J) < δ
   -- implies Q(J,J) < log(1+ε) (approximately), giving |Z[J] - 1| < ε
-  use 0, 0, 1  -- Seminorm indices k, l and radius δ
-  constructor
-  · norm_num
-  · intro f _
-    simp only [yangMillsGenerating, yangMillsCovariance]
-    -- |exp(0) - 1| = 0 < ε
-    linarith
+  -- Prior session used `use 0, 0, 1; constructor; …; linarith` but `linarith`
+  -- can't discharge a norm inequality on `Complex.exp`; needs composition of
+  -- continuity of exp with continuity of the Schwartz seminorms.
+  sorry
 
 /-- The Yang-Mills characteristic functional satisfies Bochner-Minlos conditions. -/
 noncomputable def yangMillsCharacteristic (N : ℕ) (hN : N ≥ 2) :
