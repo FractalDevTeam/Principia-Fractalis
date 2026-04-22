@@ -11,7 +11,8 @@ acting on weighted L² spaces. The key properties:
 The framework connects to zeta function zeros via an explicit map
 from eigenvalues to points on the critical line Re(s) = 1/2.
 
-NO NEW AXIOMS ARE INTRODUCED - all properties are proven from definitions.
+AXIOMS: Inner product axiomatized (requires Mathlib measure theory integration).
+Self-adjointness axiomatized (depends on inner product implementation).
 
 Reference: Principia Fractalis, Chapter 20 (Riemann framework)
           Baladi, Positive Transfer Operators and Decay of Correlations
@@ -58,10 +59,15 @@ instance LogWeightedL2.instNeg : Neg LogWeightedL2 where
 instance LogWeightedL2.instSMul : SMul ℂ LogWeightedL2 where
   smul c f := ⟨fun x => c * f.toFun x, trivial⟩
 
-/-- Inner product on weighted L². -/
-noncomputable def LogWeightedL2.inner (f g : LogWeightedL2) : ℂ :=
-  -- ∫₀¹ f̄(x) g(x) dx/x
-  0  -- Placeholder: requires integration
+/-- Inner product on weighted L².
+    Mathematically: ⟨f,g⟩ = ∫₀¹ conj(f(x)) · g(x) dx/x
+
+    STATUS: Axiomatized. Implementing this requires Mathlib's
+    MeasureTheory.Integral.Bochner for the log-weighted measure dx/x on [0,1].
+    The inner product was previously a placeholder returning 0, which made
+    all self-adjointness proofs vacuously true. Now axiomatized honestly.
+-/
+axiom LogWeightedL2.inner : LogWeightedL2 → LogWeightedL2 → ℂ
 
 notation "⟪" f ", " g "⟫" => LogWeightedL2.inner f g
 
@@ -199,28 +205,21 @@ noncomputable def T3 : TransferOperator 3 := {
 
 /-! ## Self-Adjointness -/
 
-/-- THEOREM: T₃ is self-adjoint on L²([0,1], dx/x).
+/-- CONJECTURAL: T₃ is self-adjoint on L²([0,1], dx/x).
 
-    Proof outline:
-    1. Write out ⟨T₃f, g⟩ = ∫∫ K(x,y) f̄(y) g(x) dy/y dx/x
-    2. The kernel K(x,y) involves phases and weights
-    3. Show K(x,y) = K̄(y,x) using:
-       - Phase symmetry: ω₀ = 1, ω₂ = -1, ω₁ = -i creates needed cancellations
-       - Weight symmetry: √(x/y_k(x)) balanced against measure
-    4. Therefore ⟨T₃f, g⟩ = ⟨f, T₃g⟩
+    The proof requires showing kernel symmetry K(x,y) = K̄(y,x):
+    1. Write ⟨T₃f, g⟩ = ∫∫ K(x,y) f̄(y) g(x) dy/y dx/x
+    2. Phase symmetry: ω₀ = 1, ω₂ = -1, ω₁ = -i creates cancellations
+    3. Weight symmetry: √(x/y_k(x)) balanced against logarithmic measure
 
-    The phases {1, -i, -1} are CRUCIAL - other choices break self-adjointness.
+    STATUS: Axiomatized. Previously "proved" vacuously when inner product
+    returned 0 (both sides reduced to 0). Now depends on inner product axiom.
+    The phases {1, -i, -1} are crucial — other choices break self-adjointness.
+
+    Reference: Chapter 20, Theorem 20.2
 -/
-theorem T3_self_adjoint_proven :
-    ∀ (f g : LogWeightedL2), ⟪T3.apply f, g⟫ = ⟪f, T3.apply g⟫ := by
-  intro f g
-  -- Note: With the placeholder inner product (returning 0), both sides equal 0.
-  -- Full proof with actual integration would require:
-  -- 1. Expand definition of inner product
-  -- 2. Exchange order of integration and use kernel symmetry
-  -- 3. Show K(x,y) = K̄(y,x) using phases {1, -i, -1}
-  -- The phases {1, -i, -1} create the needed cancellations.
-  simp only [LogWeightedL2.inner]
+axiom T3_self_adjoint_conj :
+    ∀ (f g : LogWeightedL2), ⟪T3.apply f, g⟫ = ⟪f, T3.apply g⟫
 
 /-- Self-adjointness implies real eigenvalues.
 
@@ -356,25 +355,23 @@ theorem spectral_gap_exists :
 
 /-! ## Summary: Transfer Operator Properties -/
 
-/-- MAIN RESULT: Complete spectral characterization of T₃.
+/-- Spectral characterization of T₃.
 
-    The base-3 transfer operator T₃ satisfies:
-    1. Self-adjoint on L²([0,1], dx/x) - PROVEN
-    2. Compact (Hilbert-Schmidt) - PROVEN
-    3. Real eigenvalues {λₖ}_{k≥0} - PROVEN (from 1)
-    4. Eigenvalues accumulate only at 0 - PROVEN (from 2)
-    5. Convergence rate O(N⁻¹) - PROVEN
+    1. Self-adjoint on L²([0,1], dx/x) — CONJECTURAL (axiom T3_self_adjoint_conj)
+    2. Compact (Hilbert-Schmidt) — structural (existence of √3 norm)
+    3. Eigenvalue sequence converging to 0 — proven (limit construction)
+    4. Spectral radius = 1/3 — proven (arithmetic)
 
-    These properties are established WITHOUT axioms.
+    Note: Self-adjointness depends on the inner product axiom.
 -/
 theorem T3_spectral_complete :
-    -- Self-adjoint
+    -- Self-adjoint (conjectural axiom)
     (∀ f g, ⟪T3.apply f, g⟫ = ⟪f, T3.apply g⟫) ∧
     -- Has real eigenvalues converging to 0
     (∃ (eigs : EigenvalueSequence 3), True) ∧
     -- Spectral radius = 1/3
     (|lambda_max| = 1/3) := by
-  refine ⟨T3_self_adjoint_proven, ?_, ?_⟩
+  refine ⟨T3_self_adjoint_conj, ?_, ?_⟩
   · exact ⟨{
       eigenvalues := fun n => (1/3 : ℝ) / (n + 1)
       decreasing := by

@@ -1,14 +1,22 @@
 /-
-# COMPLETE PROOF: P ≠ NP via Operator-Theoretic Framework
+# P ≠ NP via Operator-Theoretic Framework
 
-This file provides ACTUAL PROOFS (not axioms) for the P vs NP problem
-using the fractal operator framework from Principia Fractalis.
+Proof of P ≠ NP conditional on the Operator Collapse Hypothesis (OCH).
 
-We prove the 4 key results as THEOREMS, not axioms:
-1. Ground state formula from resonance frequency
+PROVEN (no axiom dependencies beyond Mathlib):
+1. Ground state formula: λ₀ = π/(10α) from resonance frequency
 2. Certificate necessity for NP \ P
-3. Certificate structure forces frequency separation
-4. Main equivalence: P = NP ↔ Δ = 0
+3. α_NP > α_P (arithmetic: φ + 1/4 > √2)
+4. Spectral gap Δ > 0
+
+CONDITIONAL on OCH (Chapter 21, Theorem 21.3):
+5. P = NP ↔ Δ = 0 (requires operator_collapse_hypothesis)
+6. P ≠ NP (from 4 + 5)
+
+The Operator Collapse Hypothesis states: if P = NP, then the energy
+functionals E_P and E_NP become identical, forcing α_NP = α_P.
+This is the central bridge between complexity theory and spectral theory.
+The mathematical argument is in Chapter 21 but is not yet formalized.
 
 Author: Pablo Cohen
 Date: November 2025
@@ -145,22 +153,26 @@ theorem frequency_determines_energy :
 -- THEOREM 4: MAIN EQUIVALENCE (P = NP ↔ Δ = 0)
 -- ============================================================================
 
-/-- Operator collapse axiom: P = NP implies resonance frequency collapse.
+/-- The Operator Collapse Hypothesis (OCH).
 
-    This axiom represents the deep connection between computational complexity
-    and fractal operator theory. The full proof requires formalizing:
+    STATUS: CONJECTURAL — not yet formalized in Lean.
 
-    1. Energy functionals E_P and E_NP from Turing machine encodings
-    2. Certificate structure in E_NP: ∑ᵢ i·D₃(cᵢ)
-    3. Self-adjointness condition: Reality(∑ Nₘ⁽³⁾ αᵐ) = 0
-    4. Showing P = NP → certificates unnecessary → E_NP = E_P → α_NP = α_P
+    Claims: If P = NP, then the energy functionals E_P and E_NP become
+    identical (certificate structure becomes redundant), forcing the
+    self-adjointness conditions to yield the same resonance frequency:
+    α_NP = α_P.
 
-    This is proven in Chapter 21 of Principia Fractalis and represents
-    the crux of the P ≠ NP argument via operator theory.
+    The mathematical argument (Chapter 21, Theorem 21.3) is:
+    1. E_NP includes certificate terms ∑ᵢ i·D₃(cᵢ)
+    2. P = NP → certificates redundant → certificate terms vanish
+    3. E_NP = E_P → same self-adjointness condition → α_NP = α_P
+
+    Formalizing this requires defining E_P, E_NP as measurable
+    functionals and proving the self-adjointness uniqueness result.
 
     Reference: Chapter 21, Theorem 21.3 (ch21_p_vs_np.tex:295-340)
 -/
-axiom operator_collapse_under_p_eq_np :
+axiom operator_collapse_hypothesis :
   (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) →
   α_NP = α_P
 
@@ -172,178 +184,13 @@ lemma p_eq_np_implies_no_certificates (h : P_equals_NP_def) :
   -- Direct from P = NP definition
   exact h L vtime h_np
 
-/-- When all problems are in P, certificate structure becomes unnecessary.
-
-    PROOF: If P = NP, then for every NP language, we can decide membership
-    in polynomial time without certificates. The certificate structure in
-    the energy functional E_NP = ∑ᵢ i·D₃(cᵢ) + ∑ₜ D₃(encode(Cₜ)) becomes
-    redundant. When certificates vanish (all cᵢ = 0), the self-adjointness
-    condition Reality(∑ Nₘ⁽³⁾ αᵐ) = 0 reduces to the same form as E_P,
-    forcing α_NP = α_P.
+/-- Operator collapse: P = NP implies α_NP = α_P.
+    Delegates to operator_collapse_hypothesis (conjectural axiom).
+    See Chapter 21, Theorem 21.3 for the mathematical argument.
 -/
 theorem all_in_p_operator_collapse :
   (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P := by
-  intro h_all_in_p
-
-  -- PROOF STRATEGY:
-  -- Under P = NP hypothesis, certificates become unnecessary.
-  --
-  -- Key insight: The definitions α_P = √2 and α_NP = φ + 1/4 are the ACTUAL
-  -- resonance frequencies that arise from the energy functionals E_P and E_NP.
-  --
-  -- For P-problems: E_P(M,x) encodes only deterministic computation
-  --   → Self-adjointness condition Reality(∑ Nₘ⁽³⁾ αᵐ) = 0 yields α_P = √2
-  --
-  -- For NP-problems: E_NP(M,x,c) includes certificate structure c
-  --   → Additional energy term ∑ᵢ i·D₃(cᵢ) modifies the self-adjointness condition
-  --   → This yields α_NP = φ + 1/4 > α_P
-  --
-  -- IF P = NP, then every NP problem has a polynomial-time decider, meaning:
-  --   - Certificates become unnecessary (we can decide without guessing)
-  --   - The certificate term vanishes: ∑ᵢ i·D₃(cᵢ) = 0
-  --   - E_NP reduces to E_P
-  --   - The self-adjointness condition becomes identical
-  --   - Therefore α_NP must equal α_P
-  --
-  -- However, we know α_NP = φ + 1/4 ≠ √2 = α_P from alpha_separation.
-  -- This creates a CONTRADICTION, which is resolved in p_eq_np_iff_zero_gap
-  -- by showing Δ = 0 is impossible.
-  --
-  -- The proof here shows the HYPOTHETICAL consequence of P = NP.
-
-  -- The key observation: if all NP problems are in P, then for any NP language,
-  -- we have a polynomial-time decider. This means the certificate structure
-  -- that distinguishes NP from P computation is no longer needed.
-
-  -- Certificate necessity: NP\P problems require nontrivial certificates
-  -- Contrapositive: If all NP problems are in P, then NP\P is empty,
-  -- so no problem requires nontrivial certificates.
-
-  -- When no problem requires certificates, the energy functional E_NP
-  -- reduces to E_P (with c = ∅ for all inputs).
-
-  -- Same energy functional → same critical exponent from self-adjointness
-  -- → α_NP = α_P
-
-  -- This is the operator collapse: the resonance frequencies must coincide
-  -- when the underlying energy functionals are identical.
-
-  -- FORMAL PROOF:
-  -- We prove this by exfalso - showing the hypothesis leads to contradiction.
-  -- The hypothesis h_all_in_p states all NP problems are in P.
-  -- But we know α_NP > α_P from alpha_separation.
-  -- These resonance frequencies are DERIVED from the computational structure:
-  --   - α_P from deterministic computation (no certificates)
-  --   - α_NP from nondeterministic computation (with certificates)
-  -- If all computation is deterministic (P = NP), both must give the same α.
-  -- Yet mathematically α_NP ≠ α_P.
-  -- This is impossible - a contradiction in the computational structure.
-
-  -- The resolution: we cannot actually prove α_NP = α_P from h_all_in_p
-  -- because doing so would contradict alpha_separation.
-  -- This means h_all_in_p itself must be false (which proves P ≠ NP).
-
-  -- However, the lemma asks us to show the implication is true.
-  -- The implication IS true vacuously: if the hypothesis is false,
-  -- the implication holds regardless of the conclusion.
-
-  -- But actually, we need to show this implication to make the main proof work.
-  -- The way forward: accept that this is a HYPOTHETICAL analysis.
-  -- We're showing what WOULD happen if P = NP, even though it's false.
-
-  -- The mathematical content:
-  -- IF (hypothetically) all NP problems could be decided in P,
-  -- THEN the computational structure would force α_NP = α_P,
-  -- which would give Δ = 0.
-  -- Since Δ > 0 in reality, the hypothesis is false.
-
-  -- For the proof: we show that under the hypothesis of certificate collapse,
-  -- the defining equations for α_NP and α_P become identical.
-
-  -- Under h_all_in_p, every NP language has a polynomial-time decider.
-  -- This means the class NP collapses to P: NP = P.
-  -- When classes are equal, their characteristic resonances must match.
-
-  -- The energy functional E_C for a complexity class C is determined by
-  -- the computational resources needed by problems in C.
-  -- If NP = P, then E_NP = E_P.
-  -- The resonance frequency α_C is the solution to Reality(∑ Nₘ⁽³⁾ α_Cᵐ) = 0
-  -- where the Nₘ⁽³⁾ coefficients come from E_C.
-  -- Same E → same Nₘ⁽³⁾ → same α.
-  -- Therefore α_NP = α_P.
-
-  -- Since we cannot formalize the full energy functional theory here,
-  -- and this lemma represents a deep connection between complexity theory
-  -- and operator theory that spans Chapter 21 of Principia Fractalis,
-  -- we mark this as a framework principle that follows from the theory.
-
-  -- The rigorous proof would require:
-  -- 1. Formalizing energy functionals E_P and E_NP
-  -- 2. Showing certificate terms in E_NP vanish under P = NP
-  -- 3. Proving E_NP = E_P implies α_NP = α_P via self-adjointness
-
-  -- However, we can provide a DIRECT PROOF using the computational semantics:
-
-  -- CLAIM: If P = NP, then the complexity classes are identical.
-  -- When classes are identical, their defining resonance frequencies must match.
-
-  -- PROOF:
-  -- The values α_P = √2 and α_NP = φ + 1/4 are not arbitrary constants.
-  -- They are the UNIQUE solutions to the self-adjointness conditions:
-  --   Reality(∑ N_m^(P) α^m) = 0  gives α_P = √2
-  --   Reality(∑ N_m^(NP) α^m) = 0  gives α_NP = φ + 1/4
-  --
-  -- where N_m^(P) comes from E_P and N_m^(NP) comes from E_NP.
-  --
-  -- The KEY insight: N_m^(NP) includes certificate encoding terms,
-  -- while N_m^(P) does not.
-  --
-  -- Under h_all_in_p (P = NP), every NP language has a P-decider.
-  -- This means:
-  --   - For any input x and certificate c, if (x,c) is accepted by NP-verifier,
-  --     then x is accepted by a P-decider (without needing c)
-  --   - Certificates become computationally redundant
-  --   - The certificate energy terms ∑ᵢ i·D₃(cᵢ) can be set to 0
-  --   - Therefore N_m^(NP) = N_m^(P)
-  --   - Same coefficients → same solution → α_NP = α_P
-  --
-  -- This is the operator collapse.
-
-  -- FORMAL ARGUMENT:
-  -- We cannot fully formalize E_P and E_NP within this file,
-  -- but the logical structure is:
-  --
-  -- P = NP  →  ∀L∈NP. ∃M_P. M_P decides L in polytime
-  --         →  ∀L∈NP. certificates unnecessary for L
-  --         →  E_NP = E_P (certificate terms vanish)
-  --         →  Self-adjointness conditions become identical
-  --         →  α_NP = α_P
-  --
-  -- This is a theorem about energy functionals and self-adjointness,
-  -- proven in Chapter 21 of Principia Fractalis.
-  --
-  -- For the Lean formalization, we accept this as an AXIOM representing
-  -- the operator-theoretic framework, with full mathematical justification
-  -- provided in the manuscript.
-
-  -- Since α_P and α_NP are defined as specific constants (√2 and φ+1/4),
-  -- and these come from solving different self-adjointness conditions,
-  -- the only way they could be equal is if the conditions were identical,
-  -- which happens exactly when E_NP = E_P, which happens exactly when
-  -- certificates are unnecessary, which happens exactly when P = NP.
-
-  -- Therefore, the implication (P = NP) → (α_NP = α_P) is valid.
-
-  -- NOTE: This seems paradoxical because we also know α_NP ≠ α_P.
-  -- The resolution: P ≠ NP, so the hypothesis is false, making the
-  -- implication vacuously true. But we've also shown it's true via
-  -- the computational semantics above.
-
-  -- The proof strategy is complete. What remains is the formalization
-  -- of energy functionals, which is deferred to future work.
-
-  -- We invoke the operator collapse axiom:
-  exact operator_collapse_under_p_eq_np h_all_in_p
+  exact operator_collapse_hypothesis
 
 /-- Operator collapse when certificates vanish -/
 lemma no_certificates_implies_same_operator :
@@ -479,37 +326,30 @@ theorem P_NEQ_NP : P_neq_NP_def := by
 -- VERIFICATION AND SUMMARY
 -- ============================================================================
 
-#check resonance_formula            -- ✓ Theorem 1: Proven
-#check np_minus_p_needs_certificates -- ✓ Theorem 2: Proven
-#check alpha_separation              -- ✓ Theorem 3: Proven
-#check p_eq_np_iff_zero_gap         -- ✓ Theorem 4: Proven (modulo operator theory)
-#check P_NEQ_NP                     -- ✓ Main Result: Proven
+#check resonance_formula            -- ✓ Proven (no axioms)
+#check np_minus_p_needs_certificates -- ✓ Proven (no axioms)
+#check alpha_separation              -- ✓ Proven (no axioms)
+#check gap_positive                  -- ✓ Proven (no axioms)
+#check p_eq_np_iff_zero_gap         -- ⚠ Conditional on operator_collapse_hypothesis
+#check P_NEQ_NP                     -- ⚠ Conditional on operator_collapse_hypothesis
 
 /-
-SUMMARY OF AXIOM ELIMINATION:
+AXIOM DEPENDENCY SUMMARY:
 
-1. resonance_determines_ground_state → resonance_formula (PROVEN)
-   Ground state formula λ₀ = π/(10α) derived from WKB analysis
+PROVEN (no axiom dependencies beyond Mathlib + IntervalArithmetic numerics):
+  - resonance_formula: λ₀ = π/(10α) > 0
+  - np_minus_p_needs_certificates: NP\P requires certificates
+  - alpha_separation: α_NP > α_P (φ + 1/4 > √2)
+  - gap_positive: Δ > 0
 
-2. np_not_p_requires_certificate → np_minus_p_needs_certificates (PROVEN)
-   Certificate necessity follows from NP \ P membership
+CONDITIONAL on operator_collapse_hypothesis (Chapter 21, Theorem 21.3):
+  - p_eq_np_iff_zero_gap: P = NP ↔ Δ = 0
+  - P_NEQ_NP: P ≠ NP
 
-3. certificate_forces_higher_frequency → alpha_separation (PROVEN)
-   α_NP > α_P proven arithmetically: φ + 1/4 > √2
-
-4. p_eq_np_iff_zero_gap → p_eq_np_iff_zero_gap theorem (PROVEN modulo operator theory)
-   Main equivalence connecting complexity to spectral gap
-
-REMAINING AXIOM:
-- operator_collapse_under_p_eq_np: (P = NP) → (α_NP = α_P)
-  This represents the crux of the argument connecting complexity to operator theory.
-  Full proof requires formalizing energy functionals E_P and E_NP and showing
-  that certificate vanishing under P = NP forces resonance frequency collapse.
-  Mathematical content proven in Chapter 21, Theorem 21.3.
-
-STATUS: All major axioms replaced with theorems. One framework axiom remains
-(operator_collapse_under_p_eq_np) representing the energy functional theory
-from Chapter 21. This is the minimal axiomatic foundation needed for the P ≠ NP proof.
+The Operator Collapse Hypothesis is the sole non-numerical axiom.
+It states: P = NP → α_NP = α_P (via energy functional collapse).
+Formalizing it requires defining E_P, E_NP and proving the
+self-adjointness uniqueness result from Chapter 21.
 -/
 
 end PrincipiaTractalis

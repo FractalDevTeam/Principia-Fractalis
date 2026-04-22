@@ -331,7 +331,7 @@ theorem spectral_bijection_framework :
       |ev₁| = |ev₂|) ∧
     -- Framework identifies what's needed for full proof
     True := by
-  refine ⟨T3_self_adjoint_proven, g_injective α_star_empirical, trivial⟩
+  refine ⟨T3_self_adjoint_conj, g_injective α_star_empirical, trivial⟩
 
 /-! ## Toy Model: L-function Example -/
 
@@ -404,7 +404,7 @@ theorem framework_summary :
         ∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
           eigenvalueToT α ev₁ = eigenvalueToT α ev₂ → |ev₁| = |ev₂|)) := by
   use T3
-  refine ⟨T3_self_adjoint_proven, trivial, ?_⟩
+  refine ⟨T3_self_adjoint_conj, trivial, ?_⟩
   intro α
   exact g_injective α
 
