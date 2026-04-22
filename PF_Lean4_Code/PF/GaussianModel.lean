@@ -208,21 +208,16 @@ noncomputable def FreeYangMillsGaussian.generatingFunctional {d N : ℕ}
     --
     -- The sum Σᵢⱼ zᵢz̄ⱼ Z[sᵢ - sⱼ] ≥ 0 because:
     -- 1. Each factor exp(-½ ⟨sᵢ-sⱼ, G(sᵢ-sⱼ)⟩ₐ) gives a PD kernel
-    -- 2. Products of PD kernels are PD (Schur product theorem)
-    simp only []
-    apply le_of_eq_of_le _ (le_refl 0)
-    ring_nf; rfl
+    -- 2. Products of PD kernels are PD (Schur product theorem).
+    -- Prior `apply le_of_eq_of_le _ (le_refl 0); ring_nf; rfl` had wrong type;
+    -- real proof applies Schoenberg + Schur-product, not reflexivity.
+    sorry
   continuous_at_zero := fun ε hε => ⟨0, 0, 1, by norm_num, fun _ _ => by
-    -- PROOF: Continuity at 0 for the Gaussian generating functional
-    --
-    -- Z[J] = exp(-½ Σₐ Qₐ(J,J)) is continuous because:
-    -- 1. Each Qₐ is continuous on Schwartz space (bounded by seminorms)
-    -- 2. exp is continuous everywhere
-    -- 3. Composition of continuous functions is continuous
-    --
-    -- At J = 0: Z[0] = exp(0) = 1
-    -- For |J| small, Q(J,J) is small, so exp(-½ Q) ≈ 1
-    linarith⟩
+    -- Continuity at 0 for Z[J] = exp(-½ Σₐ Qₐ(J,J)):
+    -- each Qₐ is continuous on Schwartz space, exp is continuous everywhere.
+    -- Prior `linarith` can't discharge a norm inequality involving Complex.exp;
+    -- real proof composes continuity of exp with continuity of the seminorms.
+    sorry⟩
 }
 
 /-- THEOREM: Free Yang-Mills measure exists (Gaussian approximation).
@@ -330,14 +325,10 @@ theorem gaussian_yang_mills_complete :
     --
     have h1 : G.covariance = yangMillsQuadraticForm4D := hG
     have h2 := hμ f
-    -- G.toFun f = exp(-½ G.covariance f f) by definition of GaussianCharacteristic.toFun
-    -- and G.covariance = Q by h1
-    -- So G.toFun f = exp(-½ Q f f)
-    -- By h2: G.toFun f = ∫ exp(i⟨ω,f⟩) dμ
-    -- Therefore: exp(-½ Q f f) = ∫ exp(i⟨ω,f⟩) dμ
-    simp only [GaussianCharacteristic.toFun] at h2
-    rw [← h1] at h2 ⊢
-    -- Now both sides reduce to the same expression
-    exact h2
+    -- Goal: exp(-½ Q f f) = ∫ exp(i⟨ω,f⟩) dμ, using G.covariance = Q (h1).
+    -- Prior `rw [← h1] at h2 ⊢; exact h2` fails: after the simp, h2 already mentions
+    -- G.covariance in a form the rewrite can't locate in the target. Needs a more
+    -- careful rewrite sequence or `conv` block once mathlib API settles.
+    sorry
 
 end PrincipiaTractalis

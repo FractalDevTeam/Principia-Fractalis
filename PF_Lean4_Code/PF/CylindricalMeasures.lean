@@ -136,20 +136,11 @@ theorem pos_def_normalized_bounded {E : Type*} [AddCommGroup E] (C : E → ℂ)
   -- For normalized PD functions, this gives |C(s)| ≤ 1
   by_cases hzero : C s = 0
   · simp [hzero]
-  · -- |C(s)| ≤ |C(0)| = 1 by the 2×2 Gram matrix argument
-    -- This is a classical result in positive definite function theory
-    have h_bound : Complex.abs (C s) ≤ Complex.abs (C 0) := by
-      -- The Gram determinant condition gives |C(s)|² ≤ |C(0)|²
-      -- which implies |C(s)| ≤ |C(0)| for non-negative values
-      simp only [Complex.abs_apply]
-      -- Using that |C(0)| = |1| = 1 from normalization
-      rw [h_C0]
-      simp only [Complex.normSq_one, Real.sqrt_one]
-      -- The bound ‖C(s)‖ ≤ 1 follows from classical PD theory
-      exact le_of_lt (Real.sqrt_lt_sqrt (Complex.normSq_nonneg _) (by linarith))
-    rw [h_C0] at h_bound
-    simp only [Complex.abs_one] at h_bound
-    exact h_bound
+  · -- |C(s)| ≤ |C(0)| = 1 by the 2×2 Gram matrix argument (Sasvári 1.4.1)
+    -- Prior attempt used `Complex.abs` (deprecated in current mathlib) and
+    -- `Real.sqrt_lt_sqrt` which gave strict inequality, not ≤. Needs rewriting
+    -- with `‖·‖` notation and a non-strict sqrt monotonicity lemma.
+    sorry
 
 /-- Hermitian property: If C is positive definite, then C(-s) = conj(C(s)).
 
@@ -358,8 +349,10 @@ theorem pos_def_hermitian {E : Type*} [AddCommGroup E] (C : E → ℂ)
       -- For Fourier C: C(-f) = conj(C(f)), so re(C(-f)) = re(C(f))
       --
       -- The formal proof uses that the off-diagonal elements of a Hermitian matrix
-      -- satisfy M_{ij} = conj(M_{ji}), and M being PSD forces this structure
-      exact heq (by rfl)
+      -- satisfy M_{ij} = conj(M_{ji}), and M being PSD forces this structure.
+      -- Prior attempt used `exact heq (by rfl)` but re(C s) = re(C (-s)) is not
+      -- definitionally reflexive; it requires the Gram-matrix Hermitian derivation.
+      sorry
 
   · -- Imaginary part: im(C(-s)) = im(conj(C(s))) = -im(C(s))
     -- Use positive definiteness with z = (1, i) at points (0, s)
@@ -436,8 +429,10 @@ theorem pos_def_hermitian {E : Type*} [AddCommGroup E] (C : E → ℂ)
       -- [[C(0), C(s)], [C(-s), C(0)]] must satisfy C(-s) = conj(C(s))
       -- for the matrix to be Hermitian (required for PSD in ℂ²)
       --
-      -- Therefore heq (claiming im(C(-s)) ≠ -im(C(s))) contradicts PD
-      exact heq (by rfl)
+      -- Therefore heq (claiming im(C(-s)) ≠ -im(C(s))) contradicts PD.
+      -- Prior `exact heq (by rfl)` fails for the same reason as the re-case above:
+      -- im(C(-s)) = -im(C s) requires the full Hermitian derivation, not rfl.
+      sorry
 
 /-! ## Cylindrical Measures -/
 
@@ -513,13 +508,13 @@ theorem cylindrical_measure_fourier_is_characteristic {d : ℕ}
   --
   use {
     toFun := μ.fourierTransform
-    normalized := by simp [CylindricalMeasure.fourierTransform]
-    positive_definite := by
-      intro n s z
-      -- The sum Σᵢⱼ zᵢz̄ⱼ Ĉ(sᵢ-sⱼ) = ∫ |Σᵢ zᵢ e^{i⟨ω,sᵢ⟩}|² dμ ≥ 0
-      simp only [CylindricalMeasure.fourierTransform]
-      apply le_of_eq_of_le _ (le_refl 0)
-      ring_nf; rfl
+    -- Each field below needs a real proof; prior session attempted but failed:
+    -- `normalized`: simp did not close the goal (unsolved_goals).
+    -- `positive_definite`: `apply le_of_eq_of_le _ (le_refl 0)` had wrong type;
+    --   the real argument expands |Σᵢ zᵢ e^{i⟨ω,sᵢ⟩}|² and uses integrability.
+    -- `continuous_at_zero`: placeholder exit, reopen with real ε-δ.
+    normalized := by sorry
+    positive_definite := by sorry
     continuous_at_zero := by
       intro ε hε
       use 0, 0, 1
@@ -584,15 +579,14 @@ theorem finite_dim_bochner (n : ℕ) (C : (Fin n → ℝ) → ℂ)
   · -- Existence: the Dirac measure is a placeholder; the actual measure comes from
     -- the Bochner-Herglotz construction using the positive definite structure
     intro t
-    -- The characteristic function of Dirac at 0 is exp(i⟨t,0⟩) = 1
-    -- For general PD functions, the measure is constructed via spectral theory
-    simp only [MeasureTheory.ProbabilityMeasure.toMeasure]
-    rfl
-  · -- Uniqueness: follows from injectivity of Fourier transform
-    intro μ' hμ'
-    -- Two probability measures with same characteristic function are equal
-    ext
-    rfl
+    -- The characteristic function of Dirac at 0 is exp(i⟨t,0⟩) = 1.
+    -- For general PD functions, the measure is constructed via spectral theory.
+    -- Prior `simp … ; rfl` fails because the goal is not definitionally equal;
+    -- need a full Bochner–Herglotz construction here, not a Dirac placeholder.
+    sorry
+  · -- Uniqueness: follows from injectivity of Fourier transform.
+    -- Prior `ext; rfl` fails; need the actual injectivity-of-Fourier-transform lemma.
+    sorry
 
 /-! ## Consistency Verification -/
 
@@ -629,8 +623,10 @@ theorem characteristic_cylindrical_round_trip {d : ℕ}
   -- This is the content of finite-dimensional Bochner uniqueness: the characteristic
   -- functional uniquely determines the finite-dimensional distributions, and taking
   -- the Fourier transform recovers the original characteristic functional.
-  simp only [CylindricalMeasure.fourierTransform, CharacteristicFunctional.toCylindricalMeasure]
-  -- The construction ensures C.toFun f = (C.toCylindricalMeasure).fourierTransform f
-  rfl
+  -- The construction should give C.toFun f = (C.toCylindricalMeasure).fourierTransform f.
+  -- Prior `simp … ; rfl` fails because toCylindricalMeasure is currently a
+  -- Dirac placeholder (see `use ⟨MeasureTheory.Measure.dirac 0, …⟩` above),
+  -- which does not compute to C.toFun f. Rebuild once the real construction lands.
+  sorry
 
 end PrincipiaTractalis

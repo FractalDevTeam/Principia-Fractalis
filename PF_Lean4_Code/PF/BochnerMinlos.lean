@@ -114,10 +114,10 @@ theorem bochner_minlos_existence {d : ℕ} (C : CharacteristicFunctional d) :
   -- The equality follows from hν_agrees applied to the cylinder set determined by f
   specialize hν_agrees ⟨1, fun _ => f⟩
   -- The integration formula follows from the definition of characteristic functional
-  -- and the construction of the cylindrical measure from C
-  simp only [CharacteristicFunctional.toCylindricalMeasure] at *
-  -- The result follows from finite-dimensional Bochner uniqueness
-  rfl
+  -- and the construction of the cylindrical measure from C.
+  -- Prior `simp …; rfl` fails: toCylindricalMeasure is a Dirac placeholder, so
+  -- the final equality is not definitional. Finish once the real construction lands.
+  sorry
 
 /-- BOCHNER-MINLOS THEOREM (Uniqueness):
 
@@ -149,8 +149,9 @@ theorem bochner_minlos_uniqueness {d : ℕ} (C : CharacteristicFunctional d)
     intro f
     rw [← h₁ f, ← h₂ f]
   -- Characteristic functionals uniquely determine probability measures
-  -- This is the infinite-dimensional analog of the classical result
-  rfl
+  -- (infinite-dim analog of classical result).
+  -- Prior `rfl` fails: need a real Fourier-injectivity argument, not reflexivity.
+  sorry
 
 /-- BOCHNER-MINLOS THEOREM (Combined Statement):
 
@@ -176,13 +177,10 @@ theorem bochner_minlos_bijection (d : ℕ) :
     -- Need to show C₁ = C₂ from (Φ C₁).measure = (Φ C₂).measure
     have h1 := hΦ C₁
     have h2 := hΦ C₂
-    -- The measures uniquely determine the characteristic functionals
-    -- If Φ C₁ = Φ C₂, then the measures are equal, so integrals are equal
-    -- Therefore C₁.toFun f = C₂.toFun f for all f
-    cases heq
-    ext f
-    -- Both C₁ and C₂ integrate to the same measure
-    rw [h1 f, h2 f]
+    -- The measures uniquely determine the characteristic functionals.
+    -- Prior `cases heq; ext f; rw …` fails: Dependent elimination on heq does not
+    -- reduce, because Φ is not a constructor. Needs a genuine inversion argument.
+    sorry
 
 /-! ## Applications to Specific Characteristic Functionals -/
 
@@ -210,59 +208,16 @@ theorem gaussian_is_characteristic {d : ℕ} (G : GaussianCharacteristic d) :
     ∃ (C : CharacteristicFunctional d), C.toFun = G.toFun := by
   use {
     toFun := G.toFun
-    normalized := by
-      simp only [GaussianCharacteristic.toFun]
-      -- Q(0,0) = 0 for any quadratic form (bilinearity with 0)
-      -- For covariance: Q(0,0) = 0 follows from positive semi-definiteness
-      -- The covariance is a bilinear form, and Q(0,0) = Q(0·f, 0·f) = 0·Q(f,f) = 0
-      simp only [neg_mul, one_div]
-      -- exp(-½ · G.covariance 0 0) = exp(0) = 1 when covariance(0,0) = 0
-      -- For positive semi-definite Q: Q(0,0) ≥ 0 and Q(0,0) = Q(0,0) + Q(0,0) - Q(0,0) = Q(0,0)
-      -- By bilinearity of covariance (inherited from inner product structure):
-      -- Q(0, 0) = Q(0·e, 0·e) where e is any unit vector
-      -- By sesquilinearity: = 0·0·Q(e,e) = 0
-      norm_cast
-      simp only [Complex.exp_zero]
-      -- The covariance of 0 with 0 is 0 by positive semi-definiteness:
-      -- If Q(0,0) > 0, then Q would not be positive semi-definite
-      -- (consider -ε·0 for small ε, giving Q(-ε·0, -ε·0) = ε²·Q(0,0) which must equal 0)
-      rfl
-    positive_definite := by
-      intro n s z
-      -- PROOF: The Gaussian kernel K(x,y) = exp(-½ Q(x-y, x-y)) is positive definite
-      --
-      -- By Schoenberg's theorem (1938): A function f: ℝ≥0 → ℝ is such that
-      -- (x,y) ↦ f(‖x-y‖²) is positive definite on all Hilbert spaces
-      -- if and only if f is completely monotone.
-      --
-      -- The function f(t) = exp(-t/2) is completely monotone (derivatives alternate in sign)
-      -- and Q defines a semi-inner product (pre-Hilbert structure).
-      --
-      -- Therefore: Σᵢⱼ zᵢz̄ⱼ exp(-½ Q(sᵢ-sⱼ, sᵢ-sⱼ)) ≥ 0
-      --
-      -- The real part of this sum is non-negative by Schoenberg's characterization.
-      simp only [GaussianCharacteristic.toFun]
-      -- The Gaussian kernel exp(-½‖·‖²) is positive definite (Schoenberg 1938)
-      -- This is a fundamental result in the theory of positive definite functions
-      apply le_of_eq_of_le _ (le_refl 0)
-      ring_nf
-      rfl
-    continuous_at_zero := by
-      intro ε hε
-      -- For Gaussian C(f) = exp(-½ Q(f,f)):
-      -- |C(f) - C(0)| = |exp(-½ Q(f,f)) - 1|
-      -- As f → 0 in Schwartz topology, Q(f,f) → Q(0,0) = 0 (continuity of Q)
-      -- Therefore exp(-½ Q(f,f)) → exp(0) = 1 = C(0)
-      use 0, 0, 1  -- Seminorm indices k, l and radius δ
-      constructor
-      · norm_num
-      · intro f _
-        -- exp is uniformly continuous on bounded sets
-        -- For f in Schwartz space with bounded seminorm, Q(f,f) is bounded
-        -- The exponential converges to 1 as argument → 0
-        simp only [GaussianCharacteristic.toFun]
-        -- |exp(-½ Q(f,f)) - 1| < ε follows from continuity of exp at 0
-        linarith
+    -- Prior session attempted all three fields and all three failed:
+    -- `normalized`: ends with `rfl`, but covariance(0,0) = 0 is not definitional
+    --   for an arbitrary bilinear form; needs a covariance-at-zero lemma.
+    -- `positive_definite`: `apply le_of_eq_of_le _ (le_refl 0); ring_nf; rfl` had
+    --   wrong types; real proof is Schoenberg's theorem (1938) applied to exp(-t/2).
+    -- `continuous_at_zero`: `linarith` can't close a goal about `‖Complex.exp …‖ ≤ ε`;
+    --   need continuity of Complex.exp at 0 plus Q(f,f) → 0.
+    normalized := by sorry
+    positive_definite := by sorry
+    continuous_at_zero := by sorry
   }
 
 /-- COROLLARY: Gaussian measures exist on S'(R^d).
@@ -321,17 +276,12 @@ theorem nuclearity_essential :
   -- - This is the "no white noise on ℓ²" theorem
   --
   -- This is why nuclearity (Schwartz space, not ℓ²) is essential for Bochner-Minlos.
-  use ℕ → ℝ  -- ℓ² is a subspace of ℕ → ℝ with the ℓ² norm
-  use inferInstance  -- NormedAddCommGroup instance
-  use inferInstance  -- NormedSpace ℝ instance
-  constructor
-  · intro ns
-    -- ℓ² (or ℕ → ℝ with ℓ² topology) is not nuclear
-    -- The identity operator has non-summable singular values
-    -- This contradicts the nuclear space property
-    trivial
-  · -- The characteristic functional exists but gives no σ-additive measure
-    trivial
+  -- Prior session used `use ℕ → ℝ; use inferInstance; use inferInstance`
+  -- but Lean can't synthesize `NormedAddCommGroup (ℕ → ℝ)` — there's no canonical
+  -- ℓ² norm instance on the raw function type. Real proof needs `lp 2` or a
+  -- concrete ℓ² Hilbert space definition. The two `trivial` lines also don't
+  -- discharge the actual ¬Nuclear and no-measure goals.
+  sorry
 
 /-! ## Connection to Quantum Field Theory -/
 
