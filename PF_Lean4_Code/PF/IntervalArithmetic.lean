@@ -11,6 +11,7 @@ import Mathlib.Data.Real.Sqrt
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Exp
+import Mathlib.Analysis.Real.Pi.Bounds
 
 namespace PrincipiaTractalis
 
@@ -85,11 +86,14 @@ theorem phi_upper : (1 + Real.sqrt 5) / 2 ≤ (1.61803399 : ℝ) := by
 -- Division arithmetic bounds for spectral gap calculation
 -- These are certified via external computation (see spectral_gap_value_certificate.txt)
 
-/-- π/(10√2) lower bound (9 decimal places) -/
+/-- π/(10√2) lower bound (9 decimal places).
+    TODO: elimination requires √2 bounds tighter than `sqrt2_in_interval_ultra`
+    (8 decimals); the claim is tight to ~10⁻⁹. Needs either interval arithmetic
+    extensions or a squared-form proof with precise π² and 2·(2.22144146)². -/
 axiom lambda_P_lower_certified :
   pi_10 / Real.sqrt 2 > (0.222144146 : ℝ)
 
-/-- π/(10√2) upper bound (9 decimal places) -/
+/-- π/(10√2) upper bound (9 decimal places). Same TODO as the lower bound. -/
 axiom lambda_P_upper_certified :
   pi_10 / Real.sqrt 2 < (0.222144147 : ℝ)
 
@@ -229,13 +233,20 @@ axiom Q_decreasing_from_4 :
 axiom radix_economy_max_at_exp1 :
   ∀ (b : ℝ), b > 1 → b ≠ Real.exp 1 → Real.log b / b < Real.log (Real.exp 1) / Real.exp 1
 
-/-- Q(4) ≥ Q(b) for all b ≥ 4 -/
--- NOTE: Mathematically trivial (follows from Q_decreasing_from_4 by induction/transitivity)
--- but blocked by Lean 4 coercion issue: axiom elaborates (↑n + 1) but goal needs ↑(n+1)
--- These are equal by Nat.cast_add but tactics can't unify them automatically
--- Keeping as axiom for now, will revisit with Lean 4 elaboration expert
-axiom Q_4_ge_Q_larger :
-  ∀ (b : ℕ), b ≥ 4 → Real.log 4 / 4 ≥ Real.log (b : ℝ) / b
+/-- Q(4) ≥ Q(b) for all b ≥ 4.
+    Axiom → theorem: induction on b ≥ 4 using Q_decreasing_from_4 as the step.
+    The earlier coercion blocker (↑n + 1 vs ↑(n+1)) is handled by `push_cast`. -/
+theorem Q_4_ge_Q_larger :
+  ∀ (b : ℕ), b ≥ 4 → Real.log 4 / 4 ≥ Real.log (b : ℝ) / b := by
+  intro b hb
+  induction b, hb using Nat.le_induction with
+  | base => simp
+  | succ n hn ih =>
+    have step := Q_decreasing_from_4 n hn
+    -- step : log n / n ≥ log (n+1) / (n+1), with (n+1) : ℝ = ↑(n+1) after push_cast
+    have cast_eq : ((n : ℝ) + 1) = ((n + 1 : ℕ) : ℝ) := by push_cast; ring
+    rw [cast_eq] at step
+    exact le_trans step ih
 
 /-- λ₀(P) × √2 = π/10 (Algebraic identity) -/
 theorem lambda_P_pi10_relation :
