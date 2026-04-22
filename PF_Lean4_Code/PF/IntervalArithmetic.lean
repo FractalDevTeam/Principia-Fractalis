@@ -52,10 +52,19 @@ theorem sqrt2_in_interval_ultra :
   · show Real.sqrt 2 ≤ (1.41421357 : ℝ)
     nlinarith [hsq, hs_nn]
 
-/-- φ = (1 + √5)/2 is within the ultra-precision interval -/
-axiom phi_in_interval_ultra :
+/-- φ = (1 + √5)/2 is within the ultra-precision interval.
+    Axiom → theorem: bounds on √5 from squared-form inequality, then divide. -/
+theorem phi_in_interval_ultra :
   phi_interval_ultra.lower ≤ (1 + Real.sqrt 5) / 2 ∧
-  (1 + Real.sqrt 5) / 2 ≤ phi_interval_ultra.upper
+  (1 + Real.sqrt 5) / 2 ≤ phi_interval_ultra.upper := by
+  have h5 : (0 : ℝ) ≤ 5 := by norm_num
+  have hsq : Real.sqrt 5 * Real.sqrt 5 = 5 := Real.mul_self_sqrt h5
+  have hs_nn : 0 ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+  refine ⟨?_, ?_⟩
+  · show (1.61803398 : ℝ) ≤ (1 + Real.sqrt 5) / 2
+    nlinarith [hsq, hs_nn]
+  · show (1 + Real.sqrt 5) / 2 ≤ (1.61803399 : ℝ)
+    nlinarith [hsq, hs_nn]
 
 /-- √2 lower bound (8 decimal places) -/
 theorem sqrt2_lower : Real.sqrt 2 ≥ (1.41421356 : ℝ) := by
