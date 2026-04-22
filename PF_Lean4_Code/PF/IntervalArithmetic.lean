@@ -38,9 +38,19 @@ def phi_interval_ultra : Interval where
   upper := 1.61803399
   lower_le_upper := by norm_num
 
-/-- √2 is within the ultra-precision interval -/
-axiom sqrt2_in_interval_ultra :
-  sqrt2_interval_ultra.lower ≤ Real.sqrt 2 ∧ Real.sqrt 2 ≤ sqrt2_interval_ultra.upper
+/-- √2 is within the ultra-precision interval.
+    Axiom → theorem: the squared bounds straddle 2, closed by `nlinarith` on
+    `Real.sq_sqrt` for the nonneg `√2`. -/
+theorem sqrt2_in_interval_ultra :
+  sqrt2_interval_ultra.lower ≤ Real.sqrt 2 ∧ Real.sqrt 2 ≤ sqrt2_interval_ultra.upper := by
+  have h2 : (0 : ℝ) ≤ 2 := by norm_num
+  have hsq : Real.sqrt 2 * Real.sqrt 2 = 2 := Real.mul_self_sqrt h2
+  have hs_nn : 0 ≤ Real.sqrt 2 := Real.sqrt_nonneg 2
+  refine ⟨?_, ?_⟩
+  · show (1.41421356 : ℝ) ≤ Real.sqrt 2
+    nlinarith [hsq, hs_nn]
+  · show Real.sqrt 2 ≤ (1.41421357 : ℝ)
+    nlinarith [hsq, hs_nn]
 
 /-- φ = (1 + √5)/2 is within the ultra-precision interval -/
 axiom phi_in_interval_ultra :
