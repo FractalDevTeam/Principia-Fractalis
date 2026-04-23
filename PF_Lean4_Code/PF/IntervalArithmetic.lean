@@ -12,6 +12,8 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.Analysis.Real.Pi.Bounds
+import Mathlib.Analysis.Complex.ExponentialBounds
+import Mathlib.Analysis.SpecialFunctions.Log.Monotone
 
 namespace PrincipiaTractalis
 
@@ -225,9 +227,24 @@ theorem Q_3_gt_Q_4 : Real.log 3 / 3 > Real.log 4 / 4 := by
     _ = (2 * Real.log 2) / 4 := by ring
     _ = Real.log 4 / 4 := by rw [← h1]
 
-/-- Q decreasing for b ≥ 4 (Radix economy decreases after e ≈ 2.718) -/
-axiom Q_decreasing_from_4 :
-  ∀ (b : ℕ), b ≥ 4 → Real.log (b : ℝ) / (b : ℝ) ≥ Real.log ((b + 1) : ℝ) / ((b + 1) : ℝ)
+/-- Q decreasing for b ≥ 4 (Radix economy decreases after e ≈ 2.718).
+    Axiom → theorem: applies `Real.log_div_self_antitoneOn` (mathlib) on the set
+    `{x | exp 1 ≤ x}`. Since `exp 1 < 2.72 < 4 ≤ b`, the antitone property of
+    `log x / x` on `[exp 1, ∞)` yields `Q(b) ≥ Q(b+1)`. -/
+theorem Q_decreasing_from_4 :
+  ∀ (b : ℕ), b ≥ 4 → Real.log (b : ℝ) / (b : ℝ) ≥ Real.log ((b + 1) : ℝ) / ((b + 1) : ℝ) := by
+  intro b hb
+  have hb_r : (4 : ℝ) ≤ (b : ℝ) := by exact_mod_cast hb
+  have h_exp1_lt_4 : Real.exp 1 < 4 := by
+    have := Real.exp_one_lt_d9
+    linarith
+  have h_b_mem : (b : ℝ) ∈ { x : ℝ | Real.exp 1 ≤ x } :=
+    le_of_lt (lt_of_lt_of_le h_exp1_lt_4 hb_r)
+  have h_b1_mem : ((b : ℝ) + 1) ∈ { x : ℝ | Real.exp 1 ≤ x } := by
+    show Real.exp 1 ≤ _
+    linarith
+  have h_le : (b : ℝ) ≤ (b : ℝ) + 1 := by linarith
+  exact Real.log_div_self_antitoneOn h_b_mem h_b1_mem h_le
 
 /-- e = exp(1) is the global maximum of Q(b) = log(b)/b -/
 axiom radix_economy_max_at_exp1 :
