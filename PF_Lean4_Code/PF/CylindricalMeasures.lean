@@ -75,18 +75,47 @@ axiom pos_def_normalized_bounded {E : Type*} [AddCommGroup E] (C : E → ℂ)
     ∀ s : E, ‖C s‖ ≤ 1
 
 /-- Hermitian property: If C is positive definite, then C(-s) = conj(C(s)).
-
-    Kept as axiom (2026-04-22): derivable in principle from the newly
-    strengthened `IsPositiveDefinite` (the sum is now required to be
-    real-and-nonneg, which forces Re(C(-s)) = Re(C(s)) and Im(C(-s)) =
-    -Im(C(s)) via specific z-value evaluations at n=2). A proof attempt
-    stumbled on Lean-side algebra (`ring` doesn't push through
-    `starRingEnd ℂ` and a 4-term sum expansion hit simp's recursion
-    depth). Retained as axiom while the definitional upgrade lands;
-    next session should finish this proof using explicit `Complex.ext`
-    and hand-unfolded `Fin.sum_univ_two`. -/
-axiom pos_def_hermitian {E : Type*} [AddCommGroup E] (C : E → ℂ)
-    (hpd : IsPositiveDefinite C) : ∀ s : E, C (-s) = (starRingEnd ℂ) (C s)
+    Axiom → theorem (2026-04-22): from the strengthened `IsPositiveDefinite`
+    (sum is real-and-nonneg), specific z-value evaluations at n=2 force
+    C(-s) = conj(C(s)). See proof for the four imaginary-vanishing identities. -/
+theorem pos_def_hermitian {E : Type*} [AddCommGroup E] (C : E → ℂ)
+    (hpd : IsPositiveDefinite C) : ∀ s : E, C (-s) = (starRingEnd ℂ) (C s) := by
+  intro s
+  -- Step 1: from hpd at n=1 with z = 1, the sum equals C 0, so Im(C 0) = 0.
+  have hIm0 : (C 0).im = 0 := by
+    have h := (hpd 1 (fun _ => 0) (fun _ => 1)).1
+    simp [Fin.sum_univ_one] at h
+    exact h
+  -- Step 2: at n=2 with s = ![0, s], z = ![1, 1], sum = 2·C 0 + C(-s) + C s.
+  -- Im = 0 ⟹ 2·Im(C 0) + Im(C(-s)) + Im(C s) = 0 ⟹ Im(C(-s)) + Im(C s) = 0.
+  have hIm_sum : (C (-s)).im + (C s).im = 0 := by
+    have h := (hpd 2 ![0, s] ![1, 1]).1
+    simp [Fin.sum_univ_two, sub_zero, zero_sub] at h
+    -- After simp, h has (C 0).im and friends already split out. Use linarith.
+    linarith [hIm0, h]
+  -- Step 3: at n=2 with z = ![1, Complex.I], the i-th and -i cross terms yield
+  -- Re(C s) - Re(C(-s)) = 0 via the imaginary vanishing.
+  have hRe_eq : (C (-s)).re = (C s).re := by
+    have h := (hpd 2 ![0, s] ![1, Complex.I]).1
+    simp [Fin.sum_univ_two, sub_zero, zero_sub] at h
+    -- h unfolds to: Im(1·conj(1)·C 0 + 1·conj(i)·C(-s) + i·conj(1)·C s + i·conj(i)·C 0) = 0
+    -- = Im(C 0 + (-i)·C(-s) + i·C s + C 0) = 0
+    -- = 2·Im(C 0) + Im(-i·C(-s)) + Im(i·C s)
+    -- = 0 + (-Re(C(-s))) + Re(C s) = Re(C s) - Re(C(-s))
+    -- Let `h'` be this simplified form.
+    have : 2 * (C 0).im - (C (-s)).re + (C s).re = 0 := by
+      have := h
+      simp only [Complex.add_im, Complex.mul_im, Complex.mul_re,
+                 Complex.I_re, Complex.I_im, Complex.conj_I, Complex.neg_im, Complex.neg_re,
+                 map_one, one_mul, mul_one, Complex.one_im, Complex.one_re,
+                 zero_mul, mul_zero, sub_zero, zero_sub, zero_add, add_zero] at this
+      linarith [this]
+    linarith [hIm0]
+  -- Step 4: combine — B := C(-s), B' := C s satisfy Re(B) = Re(B') and Im(B) = -Im(B').
+  -- That means B = conj(B').
+  apply Complex.ext
+  · rw [Complex.conj_re]; exact hRe_eq
+  · rw [Complex.conj_im]; linarith
 
 /-! ## Cylindrical Measures -/
 
