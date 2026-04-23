@@ -29,16 +29,20 @@ open Nat (nth)
 -- These are mathematical facts that hold but require extensive machinery to prove
 -- ============================================================================
 
-/-- Prime number theorem bound - the nth prime is O(n log n) -/
-axiom prime_bound : ∀ n : ℕ, n ≥ 6 → nth Prime n ≤ n * (nat_log 2 n + nat_log 2 (nat_log 2 n))
-
-/-- Logarithm conversion between natural and binary logarithms -/
-axiom log_conversion : ∀ (x : ℝ) (hx : x > 0),
-  Real.log x ≤ (nat_log 2 ⌊x⌋₊ + 1) * Real.log 2
-
-/-- Empty tape edge case for growth bounds -/
-axiom empty_tape_bound : ∀ (s h : ℕ),
-  Real.log (2^s * 3^h : ℝ) ≤ 100 * Real.log 2 * 0
+-- Removed three unused axioms (2026-04-22):
+--
+-- * prime_bound: n ≥ 6 → nth Prime n ≤ n * (log₂ n + log₂ log₂ n). Classical
+--   PNT-adjacent bound. Never referenced as a term, only mentioned in a
+--   comment (line ~290 below). If needed, mathlib's `Nat.nth_prime_le_*`
+--   family is probably the right entry point.
+--
+-- * log_conversion: Real.log x ≤ (log₂ ⌊x⌋ + 1) * Real.log 2. Never referenced
+--   as a term, only mentioned in a comment (line ~333).
+--
+-- * empty_tape_bound: ∀ s h, Real.log (2^s * 3^h) ≤ 100 * Real.log 2 * 0.
+--   RHS is identically 0, so this claims log(2^s * 3^h) ≤ 0 for all s,h —
+--   FALSE (e.g. s=1, h=0 gives log 2 > 0). Never referenced. Removed as a
+--   dead, mathematically inconsistent assumption.
 
 -- ============================================================================
 -- SECTION 1: Natural Logarithm for Natural Numbers
