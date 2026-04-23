@@ -223,9 +223,18 @@ noncomputable def yangMillsQuadraticForm4D : SchwartzFunction 4 → SchwartzFunc
 
 /-- THEOREM: The 4D Yang-Mills quadratic form gives a well-defined Gaussian.
     exp(-½ Q(J,J)) is a valid characteristic functional.
--/
-axiom yang_mills_4d_gaussian_valid :
-    ∃ (G : GaussianCharacteristic 4), G.covariance = yangMillsQuadraticForm4D
+
+    ⚠ CURRENT PROOF CAVEAT (2026-04-22): `yangMillsQuadraticForm4D` resolves
+    via `masslessGluonPropagator4D.quadraticForm`, which in turn uses
+    `CovarianceOperator.quadraticForm` (defined as the constant 0
+    placeholder at line 48). So the "Gaussian" constructed here is the
+    trivial (zero-covariance) one. Existence is honest; the scientific
+    content (non-trivial Yang-Mills covariance) still requires replacing
+    the `CovarianceOperator.quadraticForm` placeholder with the real
+    integral. Tracked in rev2 LaTeX. -/
+theorem yang_mills_4d_gaussian_valid :
+    ∃ (G : GaussianCharacteristic 4), G.covariance = yangMillsQuadraticForm4D := by
+  exact ⟨masslessGluonPropagator4D.toGaussianCharacteristic, rfl⟩
 
 /-! ## Summary: Gaussian Model Complete -/
 

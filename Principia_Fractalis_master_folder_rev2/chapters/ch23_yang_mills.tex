@@ -317,6 +317,8 @@ The complete rigorous proof requires:
 \item Establishing convergence in the continuum limit $\Lambda \to \infty$
 \end{enumerate}
 
+\textbf{Formalization status (rev 2, 2026-04-22).} The Lean 4 formalization at \texttt{PF\_Lean4\_Code/PF/GaussianModel.lean} currently implements the covariance quadratic form $Q(J,K) = \langle J, G \cdot K \rangle$ as a \emph{placeholder returning 0} (see \texttt{CovarianceOperator.quadraticForm}, line 48). The machine-checked theorem \texttt{yang\_mills\_4d\_gaussian\_valid} therefore establishes existence of a \emph{degenerate} Gaussian characteristic (zero covariance), not the genuine Yang--Mills Gaussian. Replacing the placeholder with the actual integral $\int\!\int J_\mu^a(x) \, G_{\mu\nu}^{ab}(x-y) \, K_\nu^b(y) \, dx\, dy$ is tracked as an open subtask. This disclosure is intentional: a referee should see exactly where the formalization currently stands, and where real integration-theoretic work remains.
+
 These technical steps are outlined in the research paper but require measure-theoretic machinery beyond the scope of this chapter. The empirical validation comes from lattice QCD calculations that confirm the existence of the continuum limit.
 \end{remark}
 
