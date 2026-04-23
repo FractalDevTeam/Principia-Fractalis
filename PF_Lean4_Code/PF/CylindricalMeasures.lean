@@ -178,9 +178,16 @@ theorem characteristic_to_cylindrical_consistent {d : ℕ}
   -- C(t₁g₁ + ... + tₘgₘ) = C(s₁f₁ + ... + sₙfₙ) when appropriate
   trivial
 
-/-- Round trip: C → μ → Ĉ gives back C. -/
-axiom characteristic_cylindrical_round_trip {d : ℕ}
-    (C : CharacteristicFunctional d) :
-    C.toCylindricalMeasure.fourierTransform = C.toFun
+-- NOTE (2026-04-22): `characteristic_cylindrical_round_trip` was removed.
+-- It asserted `C.toCylindricalMeasure.fourierTransform = C.toFun`, but with
+-- the CURRENT placeholder implementations (toCylindricalMeasure returns a
+-- Dirac-at-0 measure, fourierTransform returns the constant 0), the LHS
+-- evaluates to `fun _ => 0` while RHS has `C.toFun 0 = 1` by the
+-- `normalized` field of CharacteristicFunctional. So the axiom was
+-- inconsistent with an existing field constraint — latently unsound, though
+-- not yet exploited (zero downstream uses, verified by grep).
+--
+-- When genuine Fourier-transform and Bochner-Herglotz constructions replace
+-- the placeholders, the round-trip can be restated and proven honestly.
 
 end PrincipiaTractalis
