@@ -24,6 +24,9 @@ structure CurvatureShell where
   alpha : ResonanceFrequency
   radius : ℝ
   positive_radius : radius > 0
+  /-- Shell resonance frequencies are natural-number indices (α_k for k ∈ ℕ,
+      k ≥ 1). Promoted from an axiom to a structural field (2026-04-22). -/
+  alpha_natural : ∃ k : ℕ, alpha.value = (k.succ : ℝ)
 
 /-- The SU(2) gauge sector (weak isospin) -/
 structure SU2_Sector where
@@ -40,6 +43,11 @@ structure TimelessFieldTorus where
   su2 : SU2_Sector
   u1 : U1_Sector
   embedding : ℝ → ℝ  -- Maps resonance to curvature
+  /-- The spectral embedding is strictly monotone: larger radius shells map to
+      higher energy/mass scales. Promoted from an axiom to a structural field
+      so that any `TimelessFieldTorus` carries the monotonicity witness by
+      construction (2026-04-22). -/
+  embedding_mono : StrictMono embedding
 
 /-- Mass spectrum from spectral projection -/
 structure MassSpectrum where
@@ -94,12 +102,14 @@ theorem gauge_group_emergence (T : TimelessFieldTorus) :
     True := by
   use Unit, Unit  -- Placeholder types, emergence guaranteed by axiom
 
-/-- Physical axiom: Curvature shells in the toroidal structure have resonance
-    frequencies that correspond to natural number quantum indices.
-    This reflects the discrete spectral nature of the gauge field embedding. -/
-axiom shell_has_natural_frequency :
+/-- Curvature shells in the toroidal structure have resonance frequencies
+    that correspond to natural number quantum indices.
+    Axiom → theorem (2026-04-22): extracted from the `alpha_natural` field
+    of `CurvatureShell`. -/
+theorem shell_has_natural_frequency :
     ∀ (shell : CurvatureShell),
-    ∃ (k : ℕ), shell.alpha.value = k.succ
+    ∃ (k : ℕ), shell.alpha.value = k.succ :=
+  fun shell => shell.alpha_natural
 
 /-- Each curvature shell corresponds to α_k resonance frequency -/
 theorem shell_resonance_correspondence (T : TimelessFieldTorus) :
@@ -110,12 +120,15 @@ theorem shell_resonance_correspondence (T : TimelessFieldTorus) :
   -- Apply the physical axiom that shells have natural frequency indices
   exact shell_has_natural_frequency shell
 
-/-- Physical axiom: The spectral embedding function in the toroidal structure
-    is strictly monotone, reflecting that larger radius shells correspond to
-    higher energy/mass scales in the gauge field hierarchy. -/
-axiom embedding_strictly_monotone :
+/-- The spectral embedding function in the toroidal structure is strictly
+    monotone, reflecting that larger radius shells correspond to higher
+    energy/mass scales in the gauge field hierarchy.
+    Axiom → theorem (2026-04-22): extracted from the `embedding_mono` field
+    of `TimelessFieldTorus`. -/
+theorem embedding_strictly_monotone :
     ∀ (T : TimelessFieldTorus) (r1 r2 : ℝ),
-    r1 > r2 → T.embedding r1 > T.embedding r2
+    r1 > r2 → T.embedding r1 > T.embedding r2 :=
+  fun T r1 r2 h => T.embedding_mono h
 
 /-- Mass gaps arise from spectral projections between nested shells -/
 theorem mass_gap_from_projection (T : TimelessFieldTorus) :
@@ -191,17 +204,20 @@ theorem su2_u1_spectral_embedding :
   let shell1 : CurvatureShell := {
     alpha := {value := 1, positive := by norm_num},
     radius := 1,
-    positive_radius := by norm_num
+    positive_radius := by norm_num,
+    alpha_natural := ⟨0, by norm_num⟩  -- α₁ = 0.succ = 1
   }
   let shell2 : CurvatureShell := {
     alpha := {value := 2, positive := by norm_num},
     radius := 2,
-    positive_radius := by norm_num
+    positive_radius := by norm_num,
+    alpha_natural := ⟨1, by norm_num⟩  -- α₂ = 1.succ = 2
   }
   let shell3 : CurvatureShell := {
     alpha := {value := 3, positive := by norm_num},
     radius := 3,
-    positive_radius := by norm_num
+    positive_radius := by norm_num,
+    alpha_natural := ⟨2, by norm_num⟩  -- α₃ = 2.succ = 3
   }
   let T : TimelessFieldTorus := {
     su2 := {
@@ -213,6 +229,7 @@ theorem su2_u1_spectral_embedding :
       one_boson := trivial
     },
     embedding := fun x => x
+    embedding_mono := strictMono_id
   }
   let M : MassSpectrum := {
     photon_mass := M_γ,
