@@ -192,7 +192,7 @@ noncomputable def FreeYangMillsGaussian.generatingFunctional {d N : ℕ}
   normalized := rfl
   positive_definite := by
     intro n s z
-    -- After `fun _ => 1`, the sum is Σᵢⱼ zᵢ·conj(zⱼ)·1 = |Σᵢ zᵢ|² ≥ 0.
+    -- After `fun _ => 1`, the sum factors as (Σᵢ zᵢ) · conj(Σⱼ zⱼ) = |Σᵢ zᵢ|² ∈ ℝ⁺ ⊂ ℂ.
     simp only [mul_one]
     have factored : (∑ i : Fin n, ∑ j : Fin n, z i * (starRingEnd ℂ) (z j))
                   = (∑ i : Fin n, z i) * (starRingEnd ℂ) (∑ j : Fin n, z j) := by
@@ -200,7 +200,9 @@ noncomputable def FreeYangMillsGaussian.generatingFunctional {d N : ℕ}
       congr 1
       ext i
       rw [Finset.mul_sum]
-    rw [factored, Complex.mul_conj, Complex.ofReal_re]
+    rw [factored, Complex.mul_conj]
+    refine ⟨Complex.ofReal_im _, ?_⟩
+    rw [Complex.ofReal_re]
     exact Complex.normSq_nonneg _
   continuous_at_zero := by
     intro ε hε

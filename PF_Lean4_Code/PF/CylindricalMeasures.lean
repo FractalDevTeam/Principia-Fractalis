@@ -25,12 +25,15 @@ namespace PrincipiaTractalis
 
 /-- A functional C : E → ℂ on a vector space is positive definite if for any
     finite collection of vectors s₁,...,sₙ and complex numbers z₁,...,zₙ,
-    the sum ∑ᵢⱼ zᵢ · conj(zⱼ) · C(sᵢ - sⱼ) ≥ 0.
+    the Hermitian form ∑ᵢⱼ zᵢ · conj(zⱼ) · C(sᵢ - sⱼ) is a NON-NEGATIVE REAL.
 
-    This is the key condition for the Bochner-Minlos theorem.
+    This is the standard definition (sum is real-and-nonneg, not just .re ≥ 0) —
+    strengthened from the prior .re-only formulation on 2026-04-22 so that
+    `pos_def_hermitian` and related properties become provable.
 -/
 def IsPositiveDefinite {E : Type*} [AddCommGroup E] (C : E → ℂ) : Prop :=
   ∀ (n : ℕ) (s : Fin n → E) (z : Fin n → ℂ),
+    (∑ i : Fin n, ∑ j : Fin n, z i * (starRingEnd ℂ) (z j) * C (s i - s j)).im = 0 ∧
     0 ≤ (∑ i : Fin n, ∑ j : Fin n, z i * (starRingEnd ℂ) (z j) * C (s i - s j)).re
 
 /-- Normalization condition: C(0) = 1. -/
@@ -60,9 +63,9 @@ structure CharacteristicFunctional (d : ℕ) where
 /-- If C is positive definite, then C(0) ≥ 0. -/
 theorem pos_def_zero_nonneg {E : Type*} [AddCommGroup E] (C : E → ℂ)
     (hpd : IsPositiveDefinite C) : 0 ≤ (C 0).re := by
-  -- Use n = 1, s₀ = 0, z₀ = 1
-  -- Then ∑ᵢⱼ zᵢ conj(zⱼ) C(sᵢ - sⱼ) = 1 · 1 · C(0 - 0) = C(0)
-  have h := hpd 1 (fun _ => 0) (fun _ => 1)
+  -- Use n = 1, s₀ = 0, z₀ = 1.
+  -- Then ∑ᵢⱼ zᵢ · conj(zⱼ) · C(sᵢ - sⱼ) = 1 · 1 · C(0 - 0) = C(0).
+  have h := (hpd 1 (fun _ => 0) (fun _ => 1)).2
   simp at h
   convert h using 1
 
@@ -71,7 +74,17 @@ axiom pos_def_normalized_bounded {E : Type*} [AddCommGroup E] (C : E → ℂ)
     (hpd : IsPositiveDefinite C) (hn : IsNormalized C) :
     ∀ s : E, ‖C s‖ ≤ 1
 
-/-- Hermitian property: If C is positive definite, then C(-s) = conj(C(s)). -/
+/-- Hermitian property: If C is positive definite, then C(-s) = conj(C(s)).
+
+    Kept as axiom (2026-04-22): derivable in principle from the newly
+    strengthened `IsPositiveDefinite` (the sum is now required to be
+    real-and-nonneg, which forces Re(C(-s)) = Re(C(s)) and Im(C(-s)) =
+    -Im(C(s)) via specific z-value evaluations at n=2). A proof attempt
+    stumbled on Lean-side algebra (`ring` doesn't push through
+    `starRingEnd ℂ` and a 4-term sum expansion hit simp's recursion
+    depth). Retained as axiom while the definitional upgrade lands;
+    next session should finish this proof using explicit `Complex.ext`
+    and hand-unfolded `Fin.sum_univ_two`. -/
 axiom pos_def_hermitian {E : Type*} [AddCommGroup E] (C : E → ℂ)
     (hpd : IsPositiveDefinite C) : ∀ s : E, C (-s) = (starRingEnd ℂ) (C s)
 
