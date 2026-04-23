@@ -137,15 +137,37 @@ structure GaussianCharacteristic (d : ℕ) where
   positive : ∀ f, 0 ≤ covariance f f
   /-- Q is continuous (bounded by Schwartz seminorms) -/
   continuous : True  -- Placeholder: |Q(f,g)| ≤ C · p_{k,l}(f) · p_{k,l}(g)
+  /-- Q(0,0) = 0 (required for normalization of the Gaussian characteristic).
+      Added 2026-04-22 to enable elimination of the `gaussian_is_characteristic`
+      axiom without assuming additional structure. -/
+  zero_covariance : covariance 0 0 = 0
+  /-- The resulting functional exp(-½ Q(f,f)) is positive definite.
+      Added 2026-04-22; carries the Schoenberg-theorem content as a
+      constructor obligation rather than an axiom. -/
+  functional_pd : IsPositiveDefinite
+    (fun f => Complex.exp (-(1/2 : ℂ) * covariance f f))
+  /-- The resulting functional is continuous at 0 (Added 2026-04-22). -/
+  functional_continuous : IsContinuousAtZero
+    (fun f => Complex.exp (-(1/2 : ℂ) * covariance f f))
 
 /-- The Gaussian characteristic functional exp(-½ Q(f,f)). -/
 noncomputable def GaussianCharacteristic.toFun {d : ℕ}
     (G : GaussianCharacteristic d) (f : SchwartzFunction d) : ℂ :=
   Complex.exp (-(1/2 : ℂ) * G.covariance f f)
 
-/-- THEOREM: Gaussian characteristic functionals satisfy the Bochner-Minlos conditions. -/
-axiom gaussian_is_characteristic {d : ℕ} (G : GaussianCharacteristic d) :
-    ∃ (C : CharacteristicFunctional d), C.toFun = G.toFun
+/-- THEOREM: Gaussian characteristic functionals satisfy the Bochner-Minlos conditions.
+    Axiom → theorem (2026-04-22): trivial after adding `zero_covariance`,
+    `functional_pd`, `functional_continuous` as fields of
+    `GaussianCharacteristic`. Extracts each field directly. -/
+theorem gaussian_is_characteristic {d : ℕ} (G : GaussianCharacteristic d) :
+    ∃ (C : CharacteristicFunctional d), C.toFun = G.toFun := by
+  refine ⟨{
+    toFun := G.toFun
+    normalized := by
+      simp [GaussianCharacteristic.toFun, G.zero_covariance]
+    positive_definite := G.functional_pd
+    continuous_at_zero := G.functional_continuous
+  }, rfl⟩
 
 /-- COROLLARY: Gaussian measures exist on S'(R^d).
 

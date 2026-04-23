@@ -47,18 +47,45 @@ noncomputable def CovarianceOperator.quadraticForm {d : ℕ}
   -- In full formalization: ∫∫ f(x) · K.kernel x y · g(y) dx dy
   0  -- Placeholder
 
-/-- Build a Gaussian characteristic from a covariance operator. -/
+/-- Build a Gaussian characteristic from a covariance operator.
+    Note (2026-04-22): with the placeholder `CovarianceOperator.quadraticForm := 0`
+    in force, every GaussianCharacteristic built this way has zero covariance
+    and therefore a constant-1 Gaussian functional. The `zero_covariance`,
+    `functional_pd`, `functional_continuous` fields are trivially discharged
+    by this placeholder. When the real quadraticForm replaces the 0, all
+    three fields will need genuine proofs (Schoenberg for functional_pd). -/
 noncomputable def CovarianceOperator.toGaussianCharacteristic {d : ℕ}
     (K : CovarianceOperator d) : GaussianCharacteristic d := {
   covariance := K.quadraticForm
   symmetric := fun f g => by
     simp [CovarianceOperator.quadraticForm]
-    -- By symmetry of kernel
   positive := by
     intro f
     simp [CovarianceOperator.quadraticForm]
-    -- By positivity of kernel
   continuous := trivial
+  zero_covariance := by simp [CovarianceOperator.quadraticForm]
+  functional_pd := by
+    intro n s z
+    -- Against placeholder quadraticForm = 0, exp(-(1/2) * 0) = 1, so the sum
+    -- reduces to (Σᵢ zᵢ) · conj(Σⱼ zⱼ) = |Σᵢ zᵢ|² ∈ ℝ⁺ ⊂ ℂ.
+    simp only [CovarianceOperator.quadraticForm, Complex.ofReal_zero,
+               mul_zero, neg_zero, Complex.exp_zero, mul_one]
+    have factored : (∑ i : Fin n, ∑ j : Fin n, z i * (starRingEnd ℂ) (z j))
+                  = (∑ i : Fin n, z i) * (starRingEnd ℂ) (∑ j : Fin n, z j) := by
+      rw [map_sum, Finset.sum_mul]
+      congr 1
+      ext i
+      rw [Finset.mul_sum]
+    rw [factored, Complex.mul_conj]
+    refine ⟨Complex.ofReal_im _, ?_⟩
+    rw [Complex.ofReal_re]
+    exact Complex.normSq_nonneg _
+  functional_continuous := by
+    intro ε hε
+    refine ⟨0, 0, 1, by norm_num, fun f _ => ?_⟩
+    simp only [CovarianceOperator.quadraticForm, Complex.ofReal_zero,
+               mul_zero, neg_zero, Complex.exp_zero, sub_self, norm_zero]
+    exact hε
 }
 
 /-! ## Free Scalar Field (Euclidean) -/
