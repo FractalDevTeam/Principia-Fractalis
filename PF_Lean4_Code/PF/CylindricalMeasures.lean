@@ -128,12 +128,15 @@ noncomputable def CylindricalMeasure.fourierTransform {d : ℕ}
   -- ∫ exp(i·z) dμ_{proj}(z)
   0  -- Placeholder: actual computation requires integration machinery
 
-/-- THEOREM: The Fourier transform of any cylindrical measure is a
-    characteristic functional (positive definite, normalized, continuous at 0).
--/
-axiom cylindrical_measure_fourier_is_characteristic {d : ℕ}
-    (μ : CylindricalMeasure d) :
-    ∃ (C : CharacteristicFunctional d), C.toFun = μ.fourierTransform
+-- NOTE (2026-04-22): `cylindrical_measure_fourier_is_characteristic` was
+-- removed. It asserted, for every cylindrical measure μ, the existence of a
+-- `CharacteristicFunctional` C with `C.toFun = μ.fourierTransform`. But the
+-- current placeholder `CylindricalMeasure.fourierTransform` returns the
+-- constant 0, while any `CharacteristicFunctional` satisfies `toFun 0 = 1`
+-- by its `normalized` field — so `C.toFun = fun _ => 0` would force 0 = 1.
+-- The axiom was therefore an unconditional falsehood against the current
+-- definitions (latently unsound; zero downstream uses, verified by grep).
+-- Will be restated and proven once fourierTransform is given a real body.
 
 /-! ## Inverse Problem: Characteristic Functional → Measure -/
 
