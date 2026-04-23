@@ -606,68 +606,15 @@ lemma empty_tape_no_high_primes (c : TMConfig) (h_empty : c.tape = []) (p : ℕ)
     simp [this]
   rw [h_2, h_3]
 
-/-! Forward declaration pattern for handling dependency ordering:
-
-    The theorems `encodeConfig_head_and_tape_eq_valid` and `encodeConfig_head_and_tape_eq`
-    logically depend on lemmas defined later in this file (specifically `encodeConfig_head_eq`,
-    `encodeConfig_tape_eq`, and `tape_encoding_injective`).
-
-    To allow these theorems to appear at this position in the file (as requested for
-    documentation and proof structure reasons), we use a forward declaration pattern:
-
-    1. Declare `axiom_head_and_tape_eq` as an axiom here
-    2. Use it to prove the theorems at their intended positions
-    3. Prove the axiom later (as `encodeConfig_head_and_tape_eq_PROVEN`) once dependencies are available
-
-    This is sound because:
-    - The axiom is actually proven in this file (line ~1201)
-    - Lean's soundness checker verifies the proof is complete
-    - The axiom serves only as a forward reference, not an unprovable assumption
-
-    This pattern is commonly used in Lean developments when logical dependencies and
-    presentational ordering conflict.
--/
-axiom axiom_head_and_tape_eq : ∀ c₁ c₂ : TMConfig,
-  encodeConfig c₁ = encodeConfig c₂ → (c₁.head = c₂.head ∧ c₁.tape = c₂.tape)
-
-/-- Combined theorem: If two encoded configurations are equal, both head and tape are equal.
-
-    CORRECTED ENCODING SIMPLIFICATION: No prime collision → direct extraction!
-
-    PROOF STRATEGY:
-    1. State equality (Wave 14): c₁.state = c₂.state ✓
-    2. Head equality: Extract from factorization[3] (no interference from tape)
-    3. Tape length equality: From highest prime in factorization support
-    4. Tape element equality: Extract tape[j] from factorization[nthPrime(j+2)]
-       - tape[0] from factorization[5]
-       - tape[1] from factorization[7]
-       - tape[2] from factorization[11]
-       - etc.
-
-    NOTE: Validity constraint c.isValid is included but may not be necessary
-          with the corrected encoding. Kept for now to maintain conservative approach.
--/
-theorem encodeConfig_head_and_tape_eq_valid : ∀ c₁ c₂ : TMConfig,
-  c₁.isValid → c₂.isValid → encodeConfig c₁ = encodeConfig c₂ →
-  (c₁.head = c₂.head ∧ c₁.tape = c₂.tape) := by
-  -- PROVEN using axiom_head_and_tape_eq (proven later after dependencies available)
-  intros c₁ c₂ _ _ h_eq
-  exact axiom_head_and_tape_eq c₁ c₂ h_eq
-
-/-- Wave 15 & 16 combined: Without validity constraint, encoding is still injective
-
-    With the corrected encoding (tape uses primes ≥ 5), we have clean separation:
-    - State uses prime 2
-    - Head uses prime 3
-    - Tape uses primes ≥ 5
-
-    Therefore, encoding is injective even for invalid configs (head ≥ |tape|).
--/
-theorem encodeConfig_head_and_tape_eq : ∀ c₁ c₂ : TMConfig,
-  encodeConfig c₁ = encodeConfig c₂ → (c₁.head = c₂.head ∧ c₁.tape = c₂.tape) := by
-  -- PROVEN using axiom_head_and_tape_eq (proven later after dependencies available)
-  intros c₁ c₂ h_eq
-  exact axiom_head_and_tape_eq c₁ c₂ h_eq
+/- NOTE (2026-04-22): The axiom `axiom_head_and_tape_eq` and the two consuming
+   theorems `encodeConfig_head_and_tape_eq_valid` / `encodeConfig_head_and_tape_eq`
+   were removed from this position. The "forward-declaration" pattern
+   (axiom here, proof later) is not actually sound — declaring an axiom is
+   always a real assumption, even if a later theorem happens to prove the same
+   statement. Neither of the two consumer theorems was referenced elsewhere
+   in the codebase (verified by grep), so we simply rely on
+   `encodeConfig_head_and_tape_eq_PROVEN` (defined ~line 1170 below) for the
+   combined statement. -/
 
 /-- Wave 15: Head equality - PROVEN with corrected encoding!
 
