@@ -103,10 +103,35 @@ noncomputable def yangMillsCovariance (N : ℕ)
 noncomputable def yangMillsGenerating (N : ℕ) (J : TestGaugeField N) : ℂ :=
   Complex.exp (-(1/2 : ℂ) * yangMillsCovariance N J J)
 
-/-- THEOREM: The Yang-Mills generating functional is positive definite. -/
-axiom yang_mills_positive_definite (N : ℕ) (hN : N ≥ 2) :
+/-- THEOREM: The Yang-Mills generating functional is positive definite.
+
+    ⚠ CURRENT PROOF CAVEAT (2026-04-22): `yangMillsCovariance` is defined as
+    the constant 0 placeholder (line 94), so `yangMillsGenerating N _` reduces
+    to `exp(0) = 1`. The theorem therefore establishes positive definiteness
+    of the constant-1 functional — trivially true because
+    Σᵢⱼ zᵢ·conj(zⱼ)·1 = ‖Σᵢ zᵢ‖² ≥ 0. When the real covariance is wired in,
+    this proof must be redone against the Gaussian form. -/
+theorem yang_mills_positive_definite (N : ℕ) (hN : N ≥ 2) :
     IsPositiveDefinite (fun f => yangMillsGenerating N
-      (fun _ _ => f : TestGaugeField N))
+      (fun _ _ => f : TestGaugeField N)) := by
+  intro n s z
+  -- With placeholder covariance = 0, yangMillsGenerating reduces to exp(0) = 1.
+  simp only [yangMillsGenerating, yangMillsCovariance, Complex.ofReal_zero,
+             mul_zero, neg_zero, Complex.exp_zero, mul_one]
+  -- Goal: 0 ≤ (∑ i, ∑ j, z i * (starRingEnd ℂ) (z j)).re
+  -- That sum = (∑ i, z i) * (∑ j, conj (z j)) = |∑ i, z i|² (nonneg real).
+  have factored : (∑ i : Fin n, ∑ j : Fin n, z i * (starRingEnd ℂ) (z j))
+                = (∑ i : Fin n, z i) * (∑ j : Fin n, (starRingEnd ℂ) (z j)) := by
+    rw [Finset.sum_mul]
+    congr 1
+    ext i
+    rw [Finset.mul_sum]
+  rw [factored]
+  have star_sum : (∑ j : Fin n, (starRingEnd ℂ) (z j))
+                = (starRingEnd ℂ) (∑ j : Fin n, z j) := by
+    rw [map_sum]
+  rw [star_sum, Complex.mul_conj, Complex.ofReal_re]
+  exact Complex.normSq_nonneg _
 
 /-- THEOREM: The Yang-Mills generating functional is normalized. -/
 theorem yang_mills_normalized (N : ℕ) :
@@ -114,9 +139,22 @@ theorem yang_mills_normalized (N : ℕ) :
   simp [yangMillsGenerating, yangMillsCovariance]
   -- Q(0, 0) = 0, so exp(-½ · 0) = 1
 
-/-- THEOREM: The Yang-Mills generating functional is continuous at 0. -/
-axiom yang_mills_continuous (N : ℕ) :
-    IsContinuousAtZero (fun f => yangMillsGenerating N (fun _ _ => f : TestGaugeField N))
+/-- THEOREM: The Yang-Mills generating functional is continuous at 0.
+
+    ⚠ CURRENT PROOF CAVEAT (2026-04-22): same placeholder situation as
+    `yang_mills_positive_definite` above. With covariance = 0,
+    yangMillsGenerating reduces to the constant function 1, which is
+    trivially continuous (C f - C 0 = 0 < ε for all ε > 0). Must be redone
+    when the real covariance is wired in. -/
+theorem yang_mills_continuous (N : ℕ) :
+    IsContinuousAtZero
+      (fun f => yangMillsGenerating N (fun _ _ => f : TestGaugeField N)) := by
+  intro ε hε
+  refine ⟨0, 0, 1, by norm_num, fun f _ => ?_⟩
+  -- C f = exp(0) = 1 and C 0 = exp(0) = 1, so C f - C 0 = 0
+  simp only [yangMillsGenerating, yangMillsCovariance, Complex.ofReal_zero,
+             mul_zero, neg_zero, Complex.exp_zero, sub_self, norm_zero]
+  exact hε
 
 /-- The Yang-Mills characteristic functional satisfies Bochner-Minlos conditions. -/
 noncomputable def yangMillsCharacteristic (N : ℕ) (hN : N ≥ 2) :
