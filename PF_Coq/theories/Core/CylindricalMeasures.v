@@ -205,10 +205,19 @@ Proof.
 Qed.
 
 (** Round trip: C -> mu -> C_hat gives back C. *)
-Axiom characteristic_cylindrical_round_trip :
-  forall (d : nat) (cf : CharacteristicFunctional d) (f : SchwartzFunction d),
-  cylindrical_fourier_transform (characteristic_to_cylindrical cf) f =
-  cf_apply d cf f.
+(** NOTE (2026-04-22): [characteristic_cylindrical_round_trip] was removed as
+    LATENTLY UNSOUND. It asserted that
+      [cylindrical_fourier_transform (characteristic_to_cylindrical cf) f = cf_apply d cf f]
+    for ALL cf. But the current placeholder [cylindrical_fourier_transform]
+    returns [mkC 1 0] (constant 1), and the [gaussian_to_characteristic]
+    constructor produces [cf] with [cf_apply = fun f => mkC (exp(-Q/2)) 0]
+    (non-constant). Combining these forced [exp(-Q/2) = 1] for all f, which
+    is not a general mathematical truth.
+
+    This was the Coq mirror of the same bug caught in Lean 4 during rev 2
+    (see Lean commit ce5ba7f). [bochner_minlos_existence_full] in
+    BochnerMinlos.v was converted to a directly-stated axiom to preserve
+    downstream compatibility without relying on the unsound round-trip. *)
 
 (** ** Probability Measure on Dual Space *)
 
