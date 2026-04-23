@@ -168,26 +168,20 @@ theorem gaussian_measure_exists {d : ℕ} (G : GaussianCharacteristic d) :
 
 /-! ## Nuclearity is Essential -/
 
-/-- THEOREM: Minlos' theorem fails without nuclearity.
-
-    For non-nuclear spaces (e.g., Banach spaces), there exist characteristic
-    functionals that do not correspond to any σ-additive measure.
-
-    Example: On ℓ² (non-nuclear), the functional C(x) = exp(-½||x||²)
-    does NOT come from a Gaussian measure (no "white noise" on ℓ²).
-
-    Nuclearity provides the "compactness" needed for:
-    - Finite-dimensional approximations to converge
-    - Cylinder sets to generate the full σ-algebra
-    - Kolmogorov extension to work
--/
-axiom nuclearity_essential :
-    -- There exist spaces where Minlos fails
-    ∃ (E : Type) (_ : NormedAddCommGroup E) (_ : NormedSpace ℝ E),
-      -- E is not nuclear
-      (∀ ns : NuclearSpace E, False) ∧
-      -- There exists a characteristic functional without a corresponding measure
-      True
+-- NOTE (2026-04-22): `nuclearity_essential` was removed as latently unsound.
+-- It asserted ∃ E (normed), ∀ ns : NuclearSpace E, False — i.e. some normed
+-- space where NuclearSpace is uninhabited. But with the CURRENT placeholder
+-- definitions (NuclearSpace.nuclear_property has a `True` body at
+-- NuclearSpaces.lean:82, and LocallyConvexSpace needs only a
+-- seminormFamily + directedness), a NuclearSpace witness can be built on
+-- ANY AddCommGroup-Module by using the zero seminorm family (see
+-- `gauge_field_space_nuclear` in YangMillsMeasure.lean for a concrete
+-- example). In particular, every NormedAddCommGroup/NormedSpace also has
+-- a trivial NuclearSpace instance, so `¬ NuclearSpace E` is not
+-- satisfiable — the axiom directly contradicts the trivial construction.
+-- When NuclearSpace is strengthened (real `nuclear_property` body
+-- replacing the `True` placeholder), this claim can be restated and
+-- then — for a concrete non-nuclear Banach space like ℓ² — proven.
 
 /-! ## Connection to Quantum Field Theory -/
 
