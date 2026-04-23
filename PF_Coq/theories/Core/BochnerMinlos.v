@@ -63,32 +63,23 @@ Axiom minlos_sigma_additivity : forall (d : nat) (mu : CylindricalMeasure d),
     3. Nuclearity of S -> sigma-additivity (Minlos' condition)
     4. sigma-additive cylindrical measure = genuine measure
 *)
-Theorem bochner_minlos_existence_full : forall (d : nat) (cf : CharacteristicFunctional d),
+(** NOTE (2026-04-22): Previously proven using the
+    [characteristic_cylindrical_round_trip] axiom, but that axiom was
+    shown to be latently unsound against the file's own definitions (it
+    asserted [cylindrical_fourier_transform ... = cf_apply cf f] globally,
+    combined with the constant-1 placeholder of [cylindrical_fourier_transform]
+    this forced [cf_apply cf = fun _ => 1] for every cf, contradicting the
+    non-constant Gaussian constructor [gaussian_to_characteristic]).
+
+    Converted to an axiom until a rigorous proof (via genuine Bochner-Minlos
+    with real cylindrical sigma-algebra) is available. The axiom statement
+    is now directly meaningful (the Minlos existence claim) rather than an
+    auxiliary ghost-equality. See Lean 4 mirror [bochner_minlos_existence]
+    in PF_Lean4_Code/PF/BochnerMinlos.lean and disclosure in rev2 Chapter 23. *)
+Axiom bochner_minlos_existence_full : forall (d : nat) (cf : CharacteristicFunctional d),
   exists (mu : ProbabilityMeasureOnDual d),
     forall f : SchwartzFunction d,
       cf_apply d cf f = integrate_exp_pairing mu f.
-Proof.
-  intros d cf.
-  (* Step 1: Construct cylindrical measure from characteristic functional *)
-  pose (mu_cyl := characteristic_to_cylindrical cf).
-
-  (* Step 2: Apply Minlos' theorem (nuclearity -> sigma-additivity) *)
-  pose proof (minlos_sigma_additivity d mu_cyl) as H_sigma.
-
-  (* Step 3: sigma-additive cylindrical measure gives genuine probability measure *)
-  destruct H_sigma as [nu [Hprob Hagrees]].
-
-  (* Step 4: Construct the probability measure *)
-  exists {| pm_measure := nu; pm_is_probability := I; pm_is_measure := I |}.
-
-  (* The characteristic functional equals the Fourier transform of the measure *)
-  intro f.
-  (* Rewrite using the round-trip axiom *)
-  rewrite <- (characteristic_cylindrical_round_trip d cf f).
-  (* Both cylindrical_fourier_transform and integrate_exp_pairing are placeholders *)
-  unfold cylindrical_fourier_transform, integrate_exp_pairing.
-  reflexivity.
-Qed.
 
 (** BOCHNER-MINLOS THEOREM (Uniqueness):
 
