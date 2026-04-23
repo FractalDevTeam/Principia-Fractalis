@@ -139,19 +139,17 @@ theorem yang_mills_positive_definite (N : ℕ) (hN : N ≥ 2) :
   -- With placeholder covariance = 0, yangMillsGenerating reduces to exp(0) = 1.
   simp only [yangMillsGenerating, yangMillsCovariance, Complex.ofReal_zero,
              mul_zero, neg_zero, Complex.exp_zero, mul_one]
-  -- Goal: 0 ≤ (∑ i, ∑ j, z i * (starRingEnd ℂ) (z j)).re
-  -- That sum = (∑ i, z i) * (∑ j, conj (z j)) = |∑ i, z i|² (nonneg real).
+  -- Goal: .im = 0 ∧ 0 ≤ .re of (∑ i, ∑ j, z i * conj(z j))
+  -- That sum = (∑ i, z i) * conj(∑ j, z j) = |∑ i, z i|² ∈ ℝ⁺ ⊂ ℂ.
   have factored : (∑ i : Fin n, ∑ j : Fin n, z i * (starRingEnd ℂ) (z j))
-                = (∑ i : Fin n, z i) * (∑ j : Fin n, (starRingEnd ℂ) (z j)) := by
-    rw [Finset.sum_mul]
+                = (∑ i : Fin n, z i) * (starRingEnd ℂ) (∑ j : Fin n, z j) := by
+    rw [map_sum, Finset.sum_mul]
     congr 1
     ext i
     rw [Finset.mul_sum]
-  rw [factored]
-  have star_sum : (∑ j : Fin n, (starRingEnd ℂ) (z j))
-                = (starRingEnd ℂ) (∑ j : Fin n, z j) := by
-    rw [map_sum]
-  rw [star_sum, Complex.mul_conj, Complex.ofReal_re]
+  rw [factored, Complex.mul_conj]
+  refine ⟨Complex.ofReal_im _, ?_⟩
+  rw [Complex.ofReal_re]
   exact Complex.normSq_nonneg _
 
 /-- THEOREM: The Yang-Mills generating functional is normalized. -/
