@@ -1,0 +1,74 @@
+\chapter*{Formalization Status (Revision 2)}
+\addcontentsline{toc}{chapter}{Formalization Status (Revision 2)}
+
+This revision accompanies substantial work on the Lean~4 formalization of the book's
+central claims. As of 2026-04-22 (GitHub master commit \texttt{c11a496}):
+
+\section*{Lean 4 layer (\texttt{PF\_Lean4\_Code/PF/})}
+
+\begin{itemize}
+\item \textbf{16 axioms remain} (down from 41 at the start of this revision cycle).
+\item \textbf{Zero \texttt{sorry} placeholders} anywhere in the library.
+\item \texttt{lake build} completes all 5486 jobs cleanly.
+\item During rev~2, \textbf{four latent unsoundness bugs} were identified and corrected.
+  These were axioms whose stated content was provably inconsistent with definitions
+  already present in the same file:
+  \begin{itemize}
+  \item \texttt{empty\_tape\_bound} (claimed $\log(2^s \cdot 3^h) \leq 0$, false at $s=1$)
+  \item \texttt{characteristic\_cylindrical\_round\_trip} (contradicted the
+        \texttt{normalized} field of \texttt{CharacteristicFunctional})
+  \item \texttt{cylindrical\_measure\_fourier\_is\_characteristic} (same
+        contradiction pattern)
+  \item \texttt{nuclearity\_essential} (contradicted a trivial \texttt{NuclearSpace}
+        witness construction that also lives in the codebase)
+  \end{itemize}
+\item \textbf{Classical results now machine-checked as theorems} (no longer axioms):
+  $\sqrt{2}$ and $\varphi$ interval bounds; radix-economy monotonicity
+  $\big(Q_{\text{decreasing}\geq 4}$, $Q_4 \geq Q_b\big)$; positive-definite
+  Hermitian property $\big(C(-s) = \overline{C(s)}\big)$; and
+  $\|C(s)\| \leq 1$ for PD-normalized functionals. The \texttt{IsPositiveDefinite}
+  definition itself was strengthened from a weak $.re \geq 0$ formulation to the
+  standard real-and-non-negative formulation, unlocking these proofs.
+\end{itemize}
+
+\section*{Yang--Mills cluster: honest placeholder disclosure}
+
+The Yang--Mills-related theorems in \texttt{PF\_Lean4\_Code/PF/YangMillsMeasure.lean}
+(and one in \texttt{GaussianModel.lean}) are now theorems with explicit
+\textbf{``\(\triangle\) CURRENT PROOF CAVEAT''} docstrings. They are proven against
+the current placeholder \texttt{CovarianceOperator.quadraticForm~:=~0} and therefore
+establish the degenerate (zero-covariance) Gaussian, not the genuine non-trivial
+Yang--Mills Gaussian. The scientific content that remains unproven is clearly
+delimited; see Chapter~23 \S``Status of Analytical Construction'' for details.
+
+\section*{Coq layer (\texttt{PF\_Coq/theories/})}
+
+The Coq formalization contains \textbf{253 axioms/parameters} distributed across
+32 files, covering broader scope than the Lean layer (Hodge, BSD, Navier--Stokes,
+and clinical validation are Coq-only). The axiom eliminations achieved in Lean
+during rev~2 have \textbf{not yet been ported to Coq}; this is flagged as future
+work in \texttt{PARITY\_REPORT.md} at the repository root.
+
+\section*{Lean4Lean layer (\texttt{PF\_L4L/})}
+
+Currently \textbf{non-buildable} because of a broken dependency path
+(\texttt{../PF\_canonical/2\_LEAN\_SOURCE\_CODE} is an empty directory). This is
+a separate structural issue to be addressed in a future revision.
+
+\section*{Reviewer guidance}
+
+For each chapter where a theorem has been machine-checked during rev~2, a
+``Formal verification (rev 2)'' note has been added to the relevant proof
+environment. Currently such notes appear in:
+\begin{itemize}
+\item Chapter~7 ``Ternary Optimality'' proof (\texttt{Q\_decreasing\_from\_4})
+\item Chapter~23 ``Status of Analytical Construction'' remark (Yang--Mills
+      placeholder disclosure)
+\end{itemize}
+Additional chapters will receive similar notes as the porting to Coq and the
+elimination of the remaining 16 Lean axioms proceeds.
+
+The canonical source of truth for all claims above is the GitHub repository
+\texttt{FractalDevTeam/Principia-Fractalis}, at or after commit \texttt{c11a496}.
+A detailed audit table (topic-by-topic axiom counts in Lean~4 vs Coq vs Lean4Lean)
+is maintained at \texttt{PARITY\_REPORT.md} in the repository root.
