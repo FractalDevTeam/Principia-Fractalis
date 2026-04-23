@@ -41,19 +41,19 @@ structure GaugeFieldSpace (N : ℕ) where
   /-- Total number of field components -/
   numComponents : ℕ := d * numColors
 
-/-- A test gauge field J_μ^a ∈ S(R^4)^{4(N²-1)} -/
-structure TestGaugeField (N : ℕ) where
-  /-- Component functions J_μ^a -/
-  components : Fin 4 → Fin (N * N - 1) → SchwartzFunction 4
+/-- A test gauge field J_μ^a ∈ S(R^4)^{4(N²-1)}.
+    Defined as a plain function type so that `AddCommGroup` and `Module ℝ`
+    instances are synthesized automatically from the Pi-type structure
+    (using SchwartzFunction's AddCommGroup / Module ℝ from NuclearSpaces.lean).
+    This eliminates the previous `instAddCommGroup` / `instModule` axioms. -/
+def TestGaugeField (N : ℕ) : Type :=
+  Fin 4 → Fin (N * N - 1) → SchwartzFunction 4
 
--- Axiomatized additive / module structure on TestGaugeField. Providing these as
--- axioms (rather than hand-rolled component-wise instances) avoids type-mismatch
--- synthesis issues with the current SchwartzFunction definition; the underlying
--- space IS AddCommGroup-module under pointwise operations.
-axiom TestGaugeField.instAddCommGroup (N : ℕ) : AddCommGroup (TestGaugeField N)
-attribute [instance] TestGaugeField.instAddCommGroup
-axiom TestGaugeField.instModule (N : ℕ) : Module ℝ (TestGaugeField N)
-attribute [instance] TestGaugeField.instModule
+noncomputable instance (N : ℕ) : AddCommGroup (TestGaugeField N) :=
+  inferInstanceAs (AddCommGroup (Fin 4 → Fin (N * N - 1) → SchwartzFunction 4))
+
+noncomputable instance (N : ℕ) : Module ℝ (TestGaugeField N) :=
+  inferInstanceAs (Module ℝ (Fin 4 → Fin (N * N - 1) → SchwartzFunction 4))
 
 /-- The gauge field test space is nuclear (product of nuclear spaces). -/
 axiom gauge_field_space_nuclear (N : ℕ) (hN : N ≥ 2) :
@@ -106,22 +106,22 @@ noncomputable def yangMillsGenerating (N : ℕ) (J : TestGaugeField N) : ℂ :=
 /-- THEOREM: The Yang-Mills generating functional is positive definite. -/
 axiom yang_mills_positive_definite (N : ℕ) (hN : N ≥ 2) :
     IsPositiveDefinite (fun f => yangMillsGenerating N
-      ⟨fun _ _ => f⟩)
+      (fun _ _ => f : TestGaugeField N))
 
 /-- THEOREM: The Yang-Mills generating functional is normalized. -/
 theorem yang_mills_normalized (N : ℕ) :
-    yangMillsGenerating N ⟨fun _ _ => 0⟩ = 1 := by
+    yangMillsGenerating N (fun _ _ => 0 : TestGaugeField N) = 1 := by
   simp [yangMillsGenerating, yangMillsCovariance]
   -- Q(0, 0) = 0, so exp(-½ · 0) = 1
 
 /-- THEOREM: The Yang-Mills generating functional is continuous at 0. -/
 axiom yang_mills_continuous (N : ℕ) :
-    IsContinuousAtZero (fun f => yangMillsGenerating N ⟨fun _ _ => f⟩)
+    IsContinuousAtZero (fun f => yangMillsGenerating N (fun _ _ => f : TestGaugeField N))
 
 /-- The Yang-Mills characteristic functional satisfies Bochner-Minlos conditions. -/
 noncomputable def yangMillsCharacteristic (N : ℕ) (hN : N ≥ 2) :
     CharacteristicFunctional 4 := {
-  toFun := fun f => yangMillsGenerating N ⟨fun _ _ => f⟩
+  toFun := fun f => yangMillsGenerating N (fun _ _ => f : TestGaugeField N)
   normalized := yang_mills_normalized N
   positive_definite := yang_mills_positive_definite N hN
   continuous_at_zero := yang_mills_continuous N
