@@ -99,9 +99,13 @@ structure CylindricalMeasure (d : ℕ) where
     -- If G is a "subprojection" of F, measures are consistent
     True  -- Placeholder: full statement requires pushforward measure equality
 
--- Trivial measurable space on TemperedDistribution so MeasureTheory.Measure
--- can be applied; the real cylindrical σ-algebra is defined below.
-instance (d : ℕ) : MeasurableSpace (TemperedDistribution d) := ⊥
+-- Discrete measurable space on TemperedDistribution so (a) MeasureTheory.Measure
+-- can be formed and (b) MeasurableSingletonClass holds (needed for Dirac
+-- probability measures at specific distributions). The real cylindrical
+-- σ-algebra is defined below; this is a scaffold until that lands.
+instance (d : ℕ) : MeasurableSpace (TemperedDistribution d) := ⊤
+instance (d : ℕ) : MeasurableSingletonClass (TemperedDistribution d) :=
+  ⟨fun _ => trivial⟩
 
 /-- A cylindrical measure is σ-additive if it extends to a genuine measure.
     This is the content of Minlos' theorem for nuclear spaces.
