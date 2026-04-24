@@ -209,6 +209,8 @@ along the spectral parameter~$s$,
 producing a discrete hierarchy of curvature shells
 analogous to Kaluza--Klein towers but purely spectral in origin.
 
+\textbf{Formal verification (rev 2).} The discrete-hierarchy property of curvature shells is now a structural field of the Lean~4 type \texttt{CurvatureShell} (\texttt{PF/SpectralEmbedding.lean}): \texttt{alpha\_natural : $\exists k : \mathbb{N}$, alpha.value = k.succ}. Similarly, the spectral embedding is a \texttt{TimelessFieldTorus.embedding\_mono : StrictMono embedding} field. Both properties were previously Lean axioms (\texttt{shell\_has\_natural\_frequency}, \texttt{embedding\_strictly\_monotone}); promoting them to structural fields makes any valid instance of the corresponding type automatically satisfy these physical constraints, eliminating the axioms in the canonical library.
+
 \vspace{0.5em}
 \noindent\textbf{Proposition 23.1.}
 The pullback metric on the embedded manifold satisfies
@@ -317,7 +319,18 @@ The complete rigorous proof requires:
 \item Establishing convergence in the continuum limit $\Lambda \to \infty$
 \end{enumerate}
 
-\textbf{Formalization status (rev 2, 2026-04-22).} The Lean 4 formalization at \texttt{PF\_Lean4\_Code/PF/GaussianModel.lean} currently implements the covariance quadratic form $Q(J,K) = \langle J, G \cdot K \rangle$ as a \emph{placeholder returning 0} (see \texttt{CovarianceOperator.quadraticForm}, line 48). The machine-checked theorem \texttt{yang\_mills\_4d\_gaussian\_valid} therefore establishes existence of a \emph{degenerate} Gaussian characteristic (zero covariance), not the genuine Yang--Mills Gaussian. Replacing the placeholder with the actual integral $\int\!\int J_\mu^a(x) \, G_{\mu\nu}^{ab}(x-y) \, K_\nu^b(y) \, dx\, dy$ is tracked as an open subtask. This disclosure is intentional: a referee should see exactly where the formalization currently stands, and where real integration-theoretic work remains.
+\textbf{Formalization status (rev 2, 2026-04-24).} The Lean 4 formalization at \texttt{PF\_Lean4\_Code/PF/GaussianModel.lean} currently implements the covariance quadratic form $Q(J,K) = \langle J, G \cdot K \rangle$ as a \emph{placeholder returning 0} (see \texttt{CovarianceOperator.quadraticForm}). The following Yang--Mills-cluster statements are therefore all Lean~4 theorems \emph{against this placeholder}, each with an explicit \textbf{``$\triangle$ CURRENT PROOF CAVEAT''} docstring:
+\begin{itemize}
+\item \texttt{yang\_mills\_4d\_gaussian\_valid}: $\exists$ Gaussian characteristic with the specified covariance (trivially satisfied by the degenerate $Q = 0$ Gaussian).
+\item \texttt{yang\_mills\_positive\_definite}: the generating functional is PD (follows from $\exp(0) = 1$ being PD via $|\sum_i z_i|^2 \geq 0$).
+\item \texttt{yang\_mills\_continuous}: continuous at 0 (constant function).
+\item \texttt{yang\_mills\_construction\_complete}: $\exists$ probability measure with the characteristic functional (Dirac at the zero tempered distribution).
+\item \texttt{gauge\_field\_space\_nuclear}: gauge field test space carries a \texttt{NuclearSpace} instance (trivial zero-seminorm witness).
+\item \texttt{FreeYangMillsGaussian.generatingFunctional}: the axiomatic signature replaced by a \texttt{noncomputable def} returning the trivial constant-1 functional.
+\item \texttt{minlos\_sigma\_additivity}: every cylindrical measure is $\sigma$-additive (trivial against the \texttt{True} placeholder in the \texttt{isSigmaAdditive} body).
+\item \texttt{gaussian\_is\_characteristic}: every Gaussian characteristic extends to a \texttt{CharacteristicFunctional} (follows from three new structural fields on \texttt{GaussianCharacteristic}).
+\end{itemize}
+Each theorem becomes substantive once \texttt{CovarianceOperator.quadraticForm} is replaced with the actual integral $\int\!\int J_\mu^a(x) \, G_{\mu\nu}^{ab}(x-y) \, K_\nu^b(y) \, dx\, dy$; until then, the machine-checked claim is narrower than the book's mathematical claim, as disclosed. The only genuinely open Minlos-cluster axioms are \texttt{bochner\_minlos\_existence} and \texttt{bochner\_minlos\_uniqueness} — these require real Kolmogorov-extension machinery on nuclear spaces (tracked in \texttt{RESEARCH\_ROADMAP.md}).
 
 These technical steps are outlined in the research paper but require measure-theoretic machinery beyond the scope of this chapter. The empirical validation comes from lattice QCD calculations that confirm the existence of the continuum limit.
 \end{remark}
