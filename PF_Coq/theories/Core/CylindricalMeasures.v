@@ -30,14 +30,20 @@ Open Scope R_scope.
 
     This is the key condition for the Bochner-Minlos theorem.
 *)
+(** Strengthened 2026-04-24 (mirroring Lean 4 upgrade): the Hermitian form
+    must be a non-negative REAL number, not just have non-negative real part.
+    The prior .re-only formulation was too weak to imply the Hermitian
+    property C(-s) = conj(C(s)), as established by the specific z-value
+    evaluation argument in the Lean proof of pos_def_hermitian. *)
 Definition IsPositiveDefinite {E : Type}
     (add_E : E -> E -> E) (neg_E : E -> E) (zero_E : E) (F : E -> C) : Prop :=
   forall (n : nat) (s : nat -> E) (z : nat -> C),
-    Re (List.fold_right C_add (mkC 0 0)
+    let Hform := List.fold_right C_add (mkC 0 0)
       (List.map (fun ij => let i := fst ij in let j := snd ij in
         C_mul (C_mul (z i) (mkC (Re (z j)) (- Im (z j))))  (* z_i * conj(z_j) *)
               (F (add_E (s i) (neg_E (s j)))))             (* F(s_i - s_j) *)
-      (List.list_prod (List.seq 0 n) (List.seq 0 n)))) >= 0.
+      (List.list_prod (List.seq 0 n) (List.seq 0 n))) in
+    Im Hform = 0 /\ Re Hform >= 0.
 
 (** Normalization condition: F(0) = 1. *)
 Definition IsNormalized {E : Type} (zero_E : E) (F : E -> C) : Prop :=
