@@ -271,6 +271,8 @@ creates **exact cancellations** in the non-diagonal terms, ensuring:
 Therefore $\tilde{T}_3$ is self-adjoint.
 \end{proof}
 
+\textbf{Formal verification status (rev 2, 2026-04-24).} The self-adjointness identity $\langle \tilde{T}_3[f], g \rangle = \langle f, \tilde{T}_3[g] \rangle$ is currently axiomatized in the Lean 4 formalization (\texttt{PF/TransferOperator.lean}, axiom \texttt{T3\_self\_adjoint\_conj}). The axiom cannot be trivialized: the inner product \texttt{LogWeightedL2.inner} is itself axiomatized (signature only), because formalizing the log-weighted Lebesgue integral $\int_0^1 \overline{f(x)} g(x) \, dx/x$ requires measure-theoretic scaffolding beyond the current scope. Defining the inner product as identically zero (the previous tempting shortcut) would render all self-adjointness proofs vacuously true, which prior revisions explicitly rejected. The pen-and-paper proof above is therefore the authoritative derivation; machine-checked elimination of this axiom is a prerequisite for any referee claim of fully mechanized RH formalization and is flagged accordingly in \texttt{AXIOM\_AUDIT.md} at the repository root (category: LOAD-BEARING PLACEHOLDER).
+
 \begin{corollary}[Reality of Eigenvalues]\label{cor:real-eigenvalues}
 All eigenvalues of $\tilde{T}_3$ are real.
 \end{corollary}
