@@ -408,6 +408,10 @@ The empirical value agrees with the closed form:
 \frac{\pi}{10\sqrt{2}} = \frac{\pi\sqrt{2}}{20} \approx 0.2221441469079...
 \end{equation}
 to within numerical precision ($< 10^{-10}$). This suggests an exact analytical relationship.
+
+\textbf{Formal verification (rev 2).} The closed-form identity $\lambda_0(H_P) = \pi/(10\sqrt{2})$ is now machine-checked in Lean 4 to 10-digit precision. Specifically, \texttt{PF/IntervalArithmetic.lean} contains the theorem
+$$\left|\,\pi/(10\sqrt{2}) - 0.2221441469\,\right| < 10^{-10}$$
+(name: \texttt{lambda\_0\_P\_precise}), proven from \texttt{Real.pi\_gt\_d20} / \texttt{Real.pi\_lt\_d20} (20-digit $\pi$ bounds) and a new supporting theorem \texttt{sqrt2\_in\_interval\_10digit} giving $1.4142135623 \leq \sqrt{2} \leq 1.4142135624$. The enclosing 9-digit bounds \texttt{lambda\_P\_lower\_certified} ($\pi/(10\sqrt{2}) > 0.222144146$) and \texttt{lambda\_P\_upper\_certified} ($\pi/(10\sqrt{2}) < 0.222144147$) are likewise proven theorems, not axioms as in the previous revision.
 \end{observation}
 
 \begin{experiment}[Convergence Study for $H_{NP}$]\label{exp:hnp-convergence}
