@@ -342,14 +342,16 @@ theorem log_exp_one : Real.log (Real.exp 1) = 1 := by
   exact Real.log_exp 1
 
 /-- ln(3) bounds (10-digit precision).
-    Remains axiom: margins are 6.81e-11 (lower) and 1.32e-10 (upper) between
-    the claim and actual ln(3) = 1.0986122886681... Using the published
-    `Real.log_two_near_10` (1e-10) plus a Taylor bound on log(3/2) at x = -1/2
-    gives composite error ~1e-10, which exceeds the lower margin.
-    Proving requires either (a) a sharper log_two_near_11 lemma (not in
-    mathlib) or (b) direct Taylor proof for log 3 at x = 2/3 with n ≥ 60
-    terms (error ~3.4e-11). Either path is a 30-60 min tactic session with
-    risk of norm_num timeout on the long rational sum. Deferred. -/
+    Remains axiom: attempted direct Taylor proof at x = 2/3 with n = 70
+    terms (error 1.3e-12, well within margins). `Real.abs_log_sub_add_sum_range_le`
+    gives the bound shape correctly, but `nlinarith`/`norm_num` cannot
+    evaluate the 70-term rational sum `Σ (2/3)^(i+1)/(i+1)` symbolically
+    in reasonable time to close the final linear inequality.
+    Full elimination requires: (a) manual computation of the partial sum
+    as a specific large rational `S₇₀ : ℚ`, (b) `have S_eq : (Σ ... ) = S₇₀
+    := by norm_num1`, (c) numerical verification `S₇₀ - (2/3)^71/(1/3) >
+    1.0986122886` by `norm_num1`. Time budget for this: ~1-2h, dedicated
+    session with tactic tuning. -/
 axiom log_3_bounds :
   (1.0986122886 : ℝ) < Real.log 3 ∧ Real.log 3 < (1.0986122888 : ℝ)
 
