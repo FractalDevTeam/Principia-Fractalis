@@ -60,6 +60,14 @@ Definition IsContinuousAtZero (d : nat) (C : SchwartzFunction d -> C) : Prop :=
 (** REFEREE NOTE: This theorem follows directly from the positive definite
     condition with n=1, s_0 = 0, z_0 = 1. The sum reduces to C(0), so
     Re(C(0)) >= 0 by the positive definiteness property.
+
+    Lean 4 mirror: see PF_Lean4_Code/PF/CylindricalMeasures.lean
+    pos_def_zero_nonneg (proven). Coq port attempted 2026-04-22 but
+    blocked by Coq record-equality handling of
+    `schwartz_add (schwartz_zero d) (schwartz_smul (-1) (schwartz_zero d))`
+    reducing to `schwartz_zero d` — this requires explicit record field
+    equality proofs rather than just `simpl`. Deferring to a future
+    session with dedicated Coq tactic work.
 *)
 Axiom pos_def_zero_nonneg : forall {d : nat} (F : SchwartzFunction d -> C),
   IsPositiveDefinite schwartz_add (fun f => schwartz_smul (-1) f) (schwartz_zero d) F ->
