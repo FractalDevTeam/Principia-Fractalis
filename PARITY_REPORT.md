@@ -7,10 +7,10 @@
 | System | Files | Axioms / Parameters | Build status |
 |---|---|---|---|
 | **Lean 4** (`PF_Lean4_Code/PF/*`) | 20 | **9** | `lake build` — 5486 jobs clean |
-| **Coq** (`PF_Coq/theories/*`) | 32 | **252** | `make` clean |
+| **Coq** (`PF_Coq/theories/*`) | 32 | **253** | `make` clean |
 | **Lean4Lean** (`PF_L4L/*`) | 9 | 0 | ❌ non-buildable — broken dependency path `PF_canonical/2_LEAN_SOURCE_CODE` (empty dir) |
 
-Change from prior report: Lean 16 → 9 (7 more numerical axioms eliminated via 10-digit √2/√5/φ supporting theorems + classical `log_lt_sub_one_of_pos` for radix_economy_max_at_exp1); Coq 253 → 252 (one latent-unsound axiom deleted).
+Change from prior report: Lean 16 → 9 (7 more numerical axioms eliminated via 10-digit √2/√5/φ supporting theorems + classical `log_lt_sub_one_of_pos` for radix_economy_max_at_exp1). Coq remains at 253 — the `characteristic_cylindrical_round_trip` deletion was net zero (it was replaced with a directly-stated `bochner_minlos_existence_full` axiom in BochnerMinlos.v to preserve downstream compatibility). Even though the total is unchanged, the axiom SHAPE is now significantly more honest (a concrete Minlos existence claim instead of a ghost-equality lie between placeholders).
 
 ## Axiom distribution by topic
 
