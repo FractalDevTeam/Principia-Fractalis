@@ -168,17 +168,21 @@ Clinical accuracy: **97.3%** in distinguishing conscious from vegetative states.
 
 **Unprecedented rigor**: The entire framework is formalized in two independent proof assistants.
 
-| Prover | Files | Axioms | Theorems | Incomplete | Status |
-|--------|-------|--------|----------|------------|--------|
-| **Lean 4** (PF_Lean4_Code) | 40 | ~226 | 269 | **0 sorrys** | ✅ **COMPLETE** |
-| **Coq** (PF_Coq) | 32 | 193 | 199 | **0 admits** | ✅ **COMPLETE** |
-| **L4L** (PF_L4L) | 9 | 0 | 19 | 0 | ✅ Contract layer |
+| Prover | Canonical library | Axioms (canonical) | Sorries / Admits | Status |
+|--------|-------------------|--------------------|------------------|--------|
+| **Lean 4** (PF_Lean4_Code/PF) | 20 `.lean` files | **9** | **0** | ✅ builds clean |
+| **Coq** (PF_Coq/theories) | 32 `.v` files | 253 | 0 | ✅ builds clean |
+| **L4L** (PF_L4L) | 9 `.lean` files | 0 | 0 | ❌ build broken (missing dep, tracked) |
 
-**Verification Achievement**: Both proof assistants now have **zero incomplete proofs**. All measure theory (Bochner-Minlos, cylindrical measures, Gaussian models, Yang-Mills gauge field construction) has been rigorously proven. The ~400 combined axioms include:
-- **Numerical axioms** (~30): Certified bounds for π, φ, √2, eigenvalues (standard practice, cf. Flyspeck)
-- **Framework axioms** (~150+): Encode Chapter 21's operator-complexity correspondence (the theoretical contribution)
+**Revision 2 status (2026-04-24).** See [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the detailed per-axiom breakdown and [`PARITY_REPORT.md`](PARITY_REPORT.md) for cross-system comparison. In this revision cycle, the Lean 4 canonical library went from **41 axioms to 9**, with **four latent-unsoundness bugs caught and fixed**. The remaining 9 Lean axioms split into four categories:
+- **NUM** (1): tight numerical bound requiring ~1-2h of dedicated Taylor-arithmetic work (`log_3_bounds`)
+- **CLASSIC** (3): classical theorems from analysis not yet in mathlib (`bochner_minlos_existence/uniqueness`, `finite_dim_bochner`)
+- **LOAD-BEARING PLACEHOLDER** (2): cannot be trivialized without making downstream proofs vacuous (`LogWeightedL2.inner`, `turingTimeComplexity`)
+- **BOOK-CORE** (3): the genuine mathematical claims of the book (`T3_self_adjoint_conj`, `p_eq_np_spectrum_collapse`, `operator_collapse_hypothesis`)
 
-Both systems independently verify identical numerical values to 15+ decimal places. This cross-system validation provides strong evidence that the mathematics is sound and not dependent on any single system's bugs.
+Every Yang-Mills-cluster theorem that was eliminated during rev 2 carries an **⚠ CURRENT PROOF CAVEAT** docstring disclosing that it is proven against the current zero-covariance placeholder. See rev 2 Chapter 23 "Status of Analytical Construction" for a referee-facing exposition of what this means.
+
+Note: the 240+ "axioms" that appear in older counts of `PF_Lean4_Code/*.lean` at the root level are in orphan files outside the canonical `PF/` library — they are not imported by the `lake build` target and are not part of the verified formalization. Porting Revision 2 Lean eliminations to Coq is future work.
 
 ### Build Instructions
 
