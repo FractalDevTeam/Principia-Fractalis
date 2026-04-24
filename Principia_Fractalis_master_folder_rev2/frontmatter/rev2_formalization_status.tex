@@ -7,7 +7,7 @@ central claims. As of 2026-04-22 (GitHub master commit \texttt{c11a496}):
 \section*{Lean 4 layer (\texttt{PF\_Lean4\_Code/PF/})}
 
 \begin{itemize}
-\item \textbf{16 axioms remain} (down from 41 at the start of this revision cycle).
+\item \textbf{9 axioms remain} (down from 41 at the start of this revision cycle).
 \item \textbf{Zero \texttt{sorry} placeholders} anywhere in the library.
 \item \texttt{lake build} completes all 5486 jobs cleanly.
 \item During rev~2, \textbf{four latent unsoundness bugs} were identified and corrected.
@@ -23,12 +23,22 @@ central claims. As of 2026-04-22 (GitHub master commit \texttt{c11a496}):
         witness construction that also lives in the codebase)
   \end{itemize}
 \item \textbf{Classical results now machine-checked as theorems} (no longer axioms):
-  $\sqrt{2}$ and $\varphi$ interval bounds; radix-economy monotonicity
-  $\big(Q_{\text{decreasing}\geq 4}$, $Q_4 \geq Q_b\big)$; positive-definite
+  $\sqrt{2}$ and $\varphi$ interval bounds at 8- and 10-digit precision;
+  radix-economy monotonicity $\big(Q_{\text{decreasing}\geq 4}$, $Q_4 \geq Q_b\big)$;
+  the strict maximum $\log b / b < 1/e$ for all $b > 1$, $b \neq e$ via the
+  classical $\log t < t - 1$ lemma with substitution $t = b/e$; positive-definite
   Hermitian property $\big(C(-s) = \overline{C(s)}\big)$; and
-  $\|C(s)\| \leq 1$ for PD-normalized functionals. The \texttt{IsPositiveDefinite}
-  definition itself was strengthened from a weak $.re \geq 0$ formulation to the
-  standard real-and-non-negative formulation, unlocking these proofs.
+  $\|C(s)\| \leq 1$ for PD-normalized functionals.
+\item \textbf{Tight numerical bounds now machine-checked} (late-session work):
+  $\pi/(10\sqrt{2}) > 0.222144146$ and $< 0.222144147$;
+  $\pi/(10(\varphi + 1/4)) > 0.168176418$ and $< 0.168176419$;
+  $|\pi/(10\sqrt{2}) - 0.2221441469| < 10^{-10}$;
+  $|\pi/(10(\varphi + 1/4)) - 0.168176418230| < 10^{-9}$.
+  These use \texttt{Real.pi\_gt\_d20} / \texttt{Real.pi\_lt\_d20} (20-digit $\pi$)
+  and new supporting theorems $\sqrt{2},\sqrt{5},\varphi$ at 10-digit precision.
+\item The \texttt{IsPositiveDefinite} definition itself was strengthened from a
+  weak $.re \geq 0$ formulation to the standard real-and-non-negative formulation,
+  unlocking the Hermitian and norm-bound proofs.
 \end{itemize}
 
 \section*{Yang--Mills cluster: honest placeholder disclosure}
