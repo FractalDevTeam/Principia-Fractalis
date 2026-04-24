@@ -393,9 +393,41 @@ theorem Q_decreasing_from_4 :
   have h_le : (b : ℝ) ≤ (b : ℝ) + 1 := by linarith
   exact Real.log_div_self_antitoneOn h_b_mem h_b1_mem h_le
 
-/-- e = exp(1) is the global maximum of Q(b) = log(b)/b -/
-axiom radix_economy_max_at_exp1 :
-  ∀ (b : ℝ), b > 1 → b ≠ Real.exp 1 → Real.log b / b < Real.log (Real.exp 1) / Real.exp 1
+/-- e = exp(1) is the global maximum of Q(b) = log(b)/b.
+    Axiom → theorem (2026-04-22): Classical argument via substitution t = b/e
+    and the strict inequality `Real.log_lt_sub_one_of_pos`.
+
+    For b > 0, b ≠ e:  let t = b/e ≠ 1.  Then log t < t - 1,
+    i.e. log b - 1 < b/e - 1, i.e. log b < b/e.
+    Dividing by b > 0 gives log b / b < 1/e = log e / e. -/
+theorem radix_economy_max_at_exp1 :
+  ∀ (b : ℝ), b > 1 → b ≠ Real.exp 1 →
+    Real.log b / b < Real.log (Real.exp 1) / Real.exp 1 := by
+  intro b hb1 hbne
+  have b_pos : 0 < b := by linarith
+  have e_pos : 0 < Real.exp 1 := Real.exp_pos 1
+  have log_e : Real.log (Real.exp 1) = 1 := Real.log_exp 1
+  rw [log_e]
+  -- Substitution t = b / exp 1; t > 0 and t ≠ 1.
+  set t := b / Real.exp 1 with ht_def
+  have t_pos : 0 < t := div_pos b_pos e_pos
+  have t_ne_one : t ≠ 1 := fun h => hbne (by
+    rw [ht_def, div_eq_one_iff_eq e_pos.ne'] at h
+    exact h)
+  have hkey : Real.log t < t - 1 := Real.log_lt_sub_one_of_pos t_pos t_ne_one
+  have hlog_t : Real.log t = Real.log b - 1 := by
+    rw [ht_def, Real.log_div b_pos.ne' e_pos.ne', log_e]
+  rw [hlog_t] at hkey
+  -- hkey : log b - 1 < b / exp 1 - 1, i.e. log b < b / exp 1.
+  have h_log_lt : Real.log b < b / Real.exp 1 := by linarith
+  -- Divide both sides by b (positive) to get the conclusion.
+  rw [div_lt_div_iff₀ b_pos e_pos]
+  -- Goal: log b * exp 1 < 1 * b
+  calc Real.log b * Real.exp 1
+      < (b / Real.exp 1) * Real.exp 1 :=
+        mul_lt_mul_of_pos_right h_log_lt e_pos
+    _ = b := by field_simp
+    _ = 1 * b := (one_mul b).symm
 
 /-- Q(4) ≥ Q(b) for all b ≥ 4.
     Axiom → theorem: induction on b ≥ 4 using Q_decreasing_from_4 as the step.
