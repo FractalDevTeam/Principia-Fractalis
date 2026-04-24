@@ -1,61 +1,56 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-04-22 late session, commit `e5682d4`. 9 axioms remain, 0 sorries.*
+*As of 2026-04-24 late session, commit `86a61d1`. **8 axioms** remain, 0 sorries.*
+
+The NUM category is now empty — `log_3_bounds` was eliminated via direct n=60 Taylor at x=2/3, with `simp [Finset.sum_range_succ, ...]` + `norm_num` handling the 60-term sum.
 
 Each axiom is one of:
-- **NUM** — Numerical claim requiring interval-arithmetic infrastructure.
 - **CLASSIC** — Classical theorem from analysis/probability literature.
 - **LOAD-BEARING PLACEHOLDER** — Trivializing would break other proofs.
 - **BOOK-CORE** — Stated as a book theorem; represents substantive math claim.
 
-## The 9
+## The 8
 
-### 1. `log_3_bounds` (NUM)
-- **File**: `PF/IntervalArithmetic.lean:343`
-- **Statement**: `1.0986122886 < Real.log 3 ∧ Real.log 3 < 1.0986122888`
-- **Margin**: 6.81e-11 / 1.32e-10 (actual `log 3 = 1.0986122886681...`)
-- **Elimination path** (in docstring): either sharpen log 2 to 7e-12 via n=37 Taylor at x=1/2 then compose with log(3/2) at n=40, OR direct Taylor for log 3 at x=2/3 with n=60. Both 30-60 min with norm_num timeout risk. Deferred.
-
-### 2. `bochner_minlos_existence` (CLASSIC)
+### 1. `bochner_minlos_existence` (CLASSIC)
 - **File**: `PF/BochnerMinlos.lean:81`
 - **Statement**: ∀ CharacteristicFunctional C, ∃ probability measure μ on S'(R^d) with Fourier = C
 - **Why hard**: Classical Minlos theorem. Needs full Kolmogorov extension on nuclear spaces.
 - **Book reference**: Chapter 23, Minlos Theorem
 
-### 3. `bochner_minlos_uniqueness` (CLASSIC)
+### 2. `bochner_minlos_uniqueness` (CLASSIC)
 - **File**: `PF/BochnerMinlos.lean:93`
 - **Statement**: Two measures with same Fourier transform are equal
 - **Why hard**: Fourier-transform injectivity on measures
 
-### 4. `finite_dim_bochner` (CLASSIC)
+### 3. `finite_dim_bochner` (CLASSIC)
 - **File**: `PF/CylindricalMeasures.lean:155`
 - **Statement**: ∀ PD+normalized+continuous C on ℝⁿ, ∃! probability measure with Fourier = C
 - **Why hard**: Not in mathlib. Would be substantial mathlib contribution.
 
-### 5. `LogWeightedL2.inner` (LOAD-BEARING PLACEHOLDER)
+### 4. `LogWeightedL2.inner` (LOAD-BEARING PLACEHOLDER)
 - **File**: `PF/TransferOperator.lean:70`
 - **Statement**: signature `LogWeightedL2 → LogWeightedL2 → ℂ`
 - **Why cannot trivialize**: defining as `fun _ _ => 0` would make all downstream self-adjointness proofs vacuously true
 - **Real elimination**: construct log-weighted Lebesgue integral ∫₀¹ f̄·g dx/x
 
-### 6. `T3_self_adjoint_conj` (BOOK-CORE)
+### 5. `T3_self_adjoint_conj` (BOOK-CORE)
 - **File**: `PF/TransferOperator.lean:221`
 - **Statement**: ∀ f g, ⟪T₃.apply f, g⟫ = ⟪f, T₃.apply g⟫
 - **Book reference**: Chapter 20, Theorem 20.2
 - **Depends on**: `LogWeightedL2.inner`
 
-### 7. `turingTimeComplexity` (LOAD-BEARING PLACEHOLDER)
+### 6. `turingTimeComplexity` (LOAD-BEARING PLACEHOLDER)
 - **File**: `PF/TuringEncoding/Complexity.lean:57`
 - **Statement**: signature `(Γ Λ σ : Type) → TM2.Machine Γ Λ σ → BinString → ℕ`
 - **Why cannot trivialize**: constant 0 would prove P = NP against the spectral-gap theorem
 - **Real elimination**: parameterize or construct from TM2 stepping semantics
 
-### 8. `p_eq_np_spectrum_collapse` (BOOK-CORE)
+### 7. `p_eq_np_spectrum_collapse` (BOOK-CORE)
 - **File**: `PF/TuringEncoding/Operators.lean:191`
 - **Statement**: `ClassP = ClassNP → λ₀_P = λ₀_NP`
 - **Book reference**: Chapter 21 (core P vs NP bridge)
 
-### 9. `operator_collapse_hypothesis` (BOOK-CORE)
+### 8. `operator_collapse_hypothesis` (BOOK-CORE)
 - **File**: `PF/P_NP_Complete_Proof.lean:175`
 - **Statement**: (∀ L vtime, IsInNP vtime → ∃ t, IsInP t) → α_NP = α_P
 - **Book reference**: Chapter 21, Theorem 21.3
@@ -64,7 +59,7 @@ Each axiom is one of:
 
 | Category | Count | Axioms |
 |---|---|---|
-| NUM | 1 | log_3_bounds |
+| NUM | 0 | (all eliminated 2026-04-24) |
 | CLASSIC | 3 | bochner_minlos_existence/uniqueness, finite_dim_bochner |
 | LOAD-BEARING PLACEHOLDER | 2 | LogWeightedL2.inner, turingTimeComplexity |
 | BOOK-CORE | 3 | T3_self_adjoint_conj, p_eq_np_spectrum_collapse, operator_collapse_hypothesis |

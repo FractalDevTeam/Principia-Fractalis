@@ -170,12 +170,11 @@ Clinical accuracy: **97.3%** in distinguishing conscious from vegetative states.
 
 | Prover | Canonical library | Axioms (canonical) | Sorries / Admits | Status |
 |--------|-------------------|--------------------|------------------|--------|
-| **Lean 4** (PF_Lean4_Code/PF) | 20 `.lean` files | **9** | **0** | ✅ builds clean |
+| **Lean 4** (PF_Lean4_Code/PF) | 20 `.lean` files | **8** | **0** | ✅ builds clean |
 | **Coq** (PF_Coq/theories) | 32 `.v` files | 253 | 0 | ✅ builds clean |
 | **L4L** (PF_L4L) | 9 `.lean` files | 0 | 0 | ❌ build broken (missing dep, tracked) |
 
-**Revision 2 status (2026-04-24).** See [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the detailed per-axiom breakdown and [`PARITY_REPORT.md`](PARITY_REPORT.md) for cross-system comparison. In this revision cycle, the Lean 4 canonical library went from **41 axioms to 9**, with **four latent-unsoundness bugs caught and fixed**. The remaining 9 Lean axioms split into four categories:
-- **NUM** (1): tight numerical bound requiring ~1-2h of dedicated Taylor-arithmetic work (`log_3_bounds`)
+**Revision 2 status (2026-04-24).** See [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the detailed per-axiom breakdown and [`PARITY_REPORT.md`](PARITY_REPORT.md) for cross-system comparison. In this revision cycle, the Lean 4 canonical library went from **41 axioms to 8**, with **four latent-unsoundness bugs caught and fixed**. The NUM category is empty — `log_3_bounds` was eliminated via direct n=60 Taylor at x=2/3. The remaining 8 Lean axioms split into three categories:
 - **CLASSIC** (3): classical theorems from analysis not yet in mathlib (`bochner_minlos_existence/uniqueness`, `finite_dim_bochner`)
 - **LOAD-BEARING PLACEHOLDER** (2): cannot be trivialized without making downstream proofs vacuous (`LogWeightedL2.inner`, `turingTimeComplexity`)
 - **BOOK-CORE** (3): the genuine mathematical claims of the book (`T3_self_adjoint_conj`, `p_eq_np_spectrum_collapse`, `operator_collapse_hypothesis`)
