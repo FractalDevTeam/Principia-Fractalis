@@ -14,6 +14,7 @@ import Mathlib.Analysis.SpecialFunctions.Exp
 import Mathlib.Analysis.Real.Pi.Bounds
 import Mathlib.Analysis.Complex.ExponentialBounds
 import Mathlib.Analysis.SpecialFunctions.Log.Monotone
+import Mathlib.Analysis.SpecialFunctions.Log.Deriv
 
 namespace PrincipiaTractalis
 
@@ -340,7 +341,15 @@ theorem lambda_0_NP_precise :
 theorem log_exp_one : Real.log (Real.exp 1) = 1 := by
   exact Real.log_exp 1
 
-/-- ln(3) bounds (10-digit precision) -/
+/-- ln(3) bounds (10-digit precision).
+    Remains axiom: margins are 6.81e-11 (lower) and 1.32e-10 (upper) between
+    the claim and actual ln(3) = 1.0986122886681... Using the published
+    `Real.log_two_near_10` (1e-10) plus a Taylor bound on log(3/2) at x = -1/2
+    gives composite error ~1e-10, which exceeds the lower margin.
+    Proving requires either (a) a sharper log_two_near_11 lemma (not in
+    mathlib) or (b) direct Taylor proof for log 3 at x = 2/3 with n ≥ 60
+    terms (error ~3.4e-11). Either path is a 30-60 min tactic session with
+    risk of norm_num timeout on the long rational sum. Deferred. -/
 axiom log_3_bounds :
   (1.0986122886 : ℝ) < Real.log 3 ∧ Real.log 3 < (1.0986122888 : ℝ)
 
