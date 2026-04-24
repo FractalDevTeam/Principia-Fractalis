@@ -55,6 +55,36 @@ theorem sqrt2_in_interval_ultra :
   · show Real.sqrt 2 ≤ (1.41421357 : ℝ)
     nlinarith [hsq, hs_nn]
 
+/-- √2 at 10-digit precision: 1.4142135623 ≤ √2 ≤ 1.4142135624.
+    Proof identical in structure to `sqrt2_in_interval_ultra`. -/
+theorem sqrt2_in_interval_10digit :
+  (1.4142135623 : ℝ) ≤ Real.sqrt 2 ∧ Real.sqrt 2 ≤ (1.4142135624 : ℝ) := by
+  have h2 : (0 : ℝ) ≤ 2 := by norm_num
+  have hsq : Real.sqrt 2 * Real.sqrt 2 = 2 := Real.mul_self_sqrt h2
+  have hs_nn : 0 ≤ Real.sqrt 2 := Real.sqrt_nonneg 2
+  refine ⟨?_, ?_⟩
+  · nlinarith [hsq, hs_nn]
+  · nlinarith [hsq, hs_nn]
+
+/-- √5 at 10-digit precision: 2.2360679774 ≤ √5 ≤ 2.2360679775. -/
+theorem sqrt5_in_interval_10digit :
+  (2.2360679774 : ℝ) ≤ Real.sqrt 5 ∧ Real.sqrt 5 ≤ (2.2360679775 : ℝ) := by
+  have h5 : (0 : ℝ) ≤ 5 := by norm_num
+  have hsq : Real.sqrt 5 * Real.sqrt 5 = 5 := Real.mul_self_sqrt h5
+  have hs_nn : 0 ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+  refine ⟨?_, ?_⟩
+  · nlinarith [hsq, hs_nn]
+  · nlinarith [hsq, hs_nn]
+
+/-- φ at 10-digit precision: 1.6180339887 ≤ φ ≤ 1.6180339888. -/
+theorem phi_in_interval_10digit :
+  (1.6180339887 : ℝ) ≤ phi ∧ phi ≤ (1.6180339888 : ℝ) := by
+  unfold phi
+  have ⟨h_lo, h_hi⟩ := sqrt5_in_interval_10digit
+  refine ⟨?_, ?_⟩
+  · linarith
+  · linarith
+
 /-- φ = (1 + √5)/2 is within the ultra-precision interval.
     Axiom → theorem: bounds on √5 from squared-form inequality, then divide. -/
 theorem phi_in_interval_ultra :
@@ -89,23 +119,78 @@ theorem phi_upper : (1 + Real.sqrt 5) / 2 ≤ (1.61803399 : ℝ) := by
 -- These are certified via external computation (see spectral_gap_value_certificate.txt)
 
 /-- π/(10√2) lower bound (9 decimal places).
-    TODO: elimination requires √2 bounds tighter than `sqrt2_in_interval_ultra`
-    (8 decimals); the claim is tight to ~10⁻⁹. Needs either interval arithmetic
-    extensions or a squared-form proof with precise π² and 2·(2.22144146)². -/
-axiom lambda_P_lower_certified :
-  pi_10 / Real.sqrt 2 > (0.222144146 : ℝ)
+    Axiom → theorem (2026-04-22): uses `Real.pi_gt_d20` + `sqrt2_in_interval_10digit`
+    to derive 2.22144146 · √2 ≤ 2.22144146 · 1.4142135624 < π. -/
+theorem lambda_P_lower_certified :
+  pi_10 / Real.sqrt 2 > (0.222144146 : ℝ) := by
+  unfold pi_10
+  have hs_pos : 0 < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  have hs_ub : Real.sqrt 2 ≤ 1.4142135624 := sqrt2_in_interval_10digit.2
+  have hpi : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  rw [gt_iff_lt, lt_div_iff₀ hs_pos]
+  -- Goal: 0.222144146 * √2 < π / 10
+  -- Step: 0.222144146 * √2 ≤ 0.222144146 * 1.4142135624
+  have h1 : (0.222144146 : ℝ) * Real.sqrt 2 ≤ 0.222144146 * 1.4142135624 :=
+    mul_le_mul_of_nonneg_left hs_ub (by norm_num)
+  -- Step: 0.222144146 * 1.4142135624 < 3.14159265358979323846 / 10 (numeric)
+  have h2 : (0.222144146 : ℝ) * 1.4142135624 < 3.14159265358979323846 / 10 := by norm_num
+  linarith
 
-/-- π/(10√2) upper bound (9 decimal places). Same TODO as the lower bound. -/
-axiom lambda_P_upper_certified :
-  pi_10 / Real.sqrt 2 < (0.222144147 : ℝ)
+/-- π/(10√2) upper bound (9 decimal places). Symmetric argument. -/
+theorem lambda_P_upper_certified :
+  pi_10 / Real.sqrt 2 < (0.222144147 : ℝ) := by
+  unfold pi_10
+  have hs_pos : 0 < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  have hs_lb : (1.4142135623 : ℝ) ≤ Real.sqrt 2 := sqrt2_in_interval_10digit.1
+  have hpi : Real.pi < 3.14159265358979323847 := Real.pi_lt_d20
+  rw [div_lt_iff₀ hs_pos]
+  -- Goal: π / 10 < 0.222144147 * √2
+  have h1 : Real.pi / 10 < 3.14159265358979323847 / 10 := by linarith
+  have h2 : (3.14159265358979323847 / 10 : ℝ) ≤ 0.222144147 * 1.4142135623 := by norm_num
+  have h3 : (0.222144147 : ℝ) * 1.4142135623 ≤ 0.222144147 * Real.sqrt 2 :=
+    mul_le_mul_of_nonneg_left hs_lb (by norm_num)
+  linarith
 
-/-- π/(10(φ + 1/4)) lower bound (9 decimal places, v3.3.1 corrected) -/
-axiom lambda_NP_lower_certified :
-  pi_10 / (phi + 1/4) > (0.168176418 : ℝ)
+/-- π/(10(φ + 1/4)) lower bound (9 decimal places, v3.3.1 corrected).
+    Axiom → theorem (2026-04-22): uses `Real.pi_gt_d20` + `phi_in_interval_10digit`. -/
+theorem lambda_NP_lower_certified :
+  pi_10 / (phi + 1/4) > (0.168176418 : ℝ) := by
+  unfold pi_10
+  have phi_pos : 0 < phi := by
+    unfold phi
+    have h5 : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+    linarith
+  have denom_pos : 0 < phi + 1/4 := by linarith
+  have phi_ub : phi ≤ 1.6180339888 := phi_in_interval_10digit.2
+  have hpi : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  rw [gt_iff_lt, lt_div_iff₀ denom_pos]
+  -- Goal: 0.168176418 * (phi + 1/4) < π/10
+  have h1 : (0.168176418 : ℝ) * (phi + 1/4) ≤ 0.168176418 * (1.6180339888 + 1/4) := by
+    apply mul_le_mul_of_nonneg_left _ (by norm_num)
+    linarith
+  have h2 : (0.168176418 : ℝ) * (1.6180339888 + 1/4) < 3.14159265358979323846 / 10 := by
+    norm_num
+  linarith
 
-/-- π/(10(φ + 1/4)) upper bound (9 decimal places, v3.3.1 corrected) -/
-axiom lambda_NP_upper_certified :
-  pi_10 / (phi + 1/4) < (0.168176419 : ℝ)
+/-- π/(10(φ + 1/4)) upper bound (9 decimal places, v3.3.1 corrected). -/
+theorem lambda_NP_upper_certified :
+  pi_10 / (phi + 1/4) < (0.168176419 : ℝ) := by
+  unfold pi_10
+  have phi_pos : 0 < phi := by
+    unfold phi
+    have h5 : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+    linarith
+  have denom_pos : 0 < phi + 1/4 := by linarith
+  have phi_lb : (1.6180339887 : ℝ) ≤ phi := phi_in_interval_10digit.1
+  have hpi : Real.pi < 3.14159265358979323847 := Real.pi_lt_d20
+  rw [div_lt_iff₀ denom_pos]
+  have h1 : Real.pi / 10 < 3.14159265358979323847 / 10 := by linarith
+  have h2 : (3.14159265358979323847 / 10 : ℝ) ≤ 0.168176419 * (1.6180339887 + 1/4) := by
+    norm_num
+  have h3 : (0.168176419 : ℝ) * (1.6180339887 + 1/4) ≤ 0.168176419 * (phi + 1/4) := by
+    apply mul_le_mul_of_nonneg_left _ (by norm_num)
+    linarith
+  linarith
 
 -- Certification: These bounds verified via external computation:
 -- * mpmath (Python): 100-digit precision
@@ -181,13 +266,75 @@ theorem phi_gt_16 : phi > (1.6 : ℝ) := by
   have h_sum : (3.2 : ℝ) < 1 + Real.sqrt 5 := by linarith
   linarith
 
-/-- λ₀(P) precise approximation (10-digit precision) -/
-axiom lambda_0_P_precise :
-  |pi_10 / Real.sqrt 2 - (0.2221441469 : ℝ)| < 1e-10
+/-- λ₀(P) precise approximation (10-digit precision).
+    Axiom → theorem (2026-04-22): unfold |x - c| < ε to bounds and apply
+    tighter versions of lambda_P_{lower,upper}_certified using 20-digit π
+    and 10-digit √2. -/
+theorem lambda_0_P_precise :
+  |pi_10 / Real.sqrt 2 - (0.2221441469 : ℝ)| < 1e-10 := by
+  unfold pi_10
+  have hs_pos : 0 < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  have hs_lb : (1.4142135623 : ℝ) ≤ Real.sqrt 2 := sqrt2_in_interval_10digit.1
+  have hs_ub : Real.sqrt 2 ≤ 1.4142135624 := sqrt2_in_interval_10digit.2
+  have hpi_lb : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  have hpi_ub : Real.pi < 3.14159265358979323847 := Real.pi_lt_d20
+  rw [abs_sub_lt_iff]
+  refine ⟨?_, ?_⟩
+  · -- π/(10√2) - 0.2221441469 < 1e-10
+    -- i.e. π/(10√2) < 0.2221441469 + 1e-10 = 0.22214414700
+    rw [sub_lt_iff_lt_add, div_lt_iff₀ hs_pos]
+    have h1 : Real.pi / 10 < 3.14159265358979323847 / 10 := by linarith
+    have h2 : (3.14159265358979323847 / 10 : ℝ) ≤
+              (0.2221441469 + 1e-10) * 1.4142135623 := by norm_num
+    have h3 : ((0.2221441469 + 1e-10 : ℝ)) * 1.4142135623 ≤
+              (0.2221441469 + 1e-10) * Real.sqrt 2 :=
+      mul_le_mul_of_nonneg_left hs_lb (by norm_num)
+    linarith
+  · -- 0.2221441469 - π/(10√2) < 1e-10
+    -- i.e. π/(10√2) > 0.2221441469 - 1e-10 = 0.22214414680
+    rw [sub_lt_comm, lt_div_iff₀ hs_pos]
+    have h1 : ((0.2221441469 - 1e-10 : ℝ)) * Real.sqrt 2 ≤
+              (0.2221441469 - 1e-10) * 1.4142135624 :=
+      mul_le_mul_of_nonneg_left hs_ub (by norm_num)
+    have h2 : ((0.2221441469 - 1e-10 : ℝ)) * 1.4142135624 <
+              3.14159265358979323846 / 10 := by norm_num
+    linarith
 
-/-- λ₀(NP) precise approximation (10-digit precision, v3.3.1) -/
-axiom lambda_0_NP_precise :
-  |pi_10 / (phi + 1/4) - (0.168176418230 : ℝ)| < 1e-9
+/-- λ₀(NP) precise approximation (10-digit precision, v3.3.1).
+    Axiom → theorem (2026-04-22): same technique with `phi_in_interval_10digit`. -/
+theorem lambda_0_NP_precise :
+  |pi_10 / (phi + 1/4) - (0.168176418230 : ℝ)| < 1e-9 := by
+  unfold pi_10
+  have phi_pos : 0 < phi := by
+    unfold phi
+    have h5 : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+    linarith
+  have denom_pos : 0 < phi + 1/4 := by linarith
+  have phi_lb : (1.6180339887 : ℝ) ≤ phi := phi_in_interval_10digit.1
+  have phi_ub : phi ≤ 1.6180339888 := phi_in_interval_10digit.2
+  have hpi_lb : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  have hpi_ub : Real.pi < 3.14159265358979323847 := Real.pi_lt_d20
+  rw [abs_sub_lt_iff]
+  refine ⟨?_, ?_⟩
+  · -- π/(10(φ + 1/4)) - 0.168176418230 < 1e-9
+    rw [sub_lt_iff_lt_add, div_lt_iff₀ denom_pos]
+    have h1 : Real.pi / 10 < 3.14159265358979323847 / 10 := by linarith
+    have h2 : (3.14159265358979323847 / 10 : ℝ) ≤
+              (0.168176418230 + 1e-9) * (1.6180339887 + 1/4) := by norm_num
+    have h3 : ((0.168176418230 + 1e-9 : ℝ)) * (1.6180339887 + 1/4) ≤
+              (0.168176418230 + 1e-9) * (phi + 1/4) := by
+      apply mul_le_mul_of_nonneg_left _ (by norm_num)
+      linarith
+    linarith
+  · -- 0.168176418230 - π/(10(φ + 1/4)) < 1e-9
+    rw [sub_lt_comm, lt_div_iff₀ denom_pos]
+    have h1 : ((0.168176418230 - 1e-9 : ℝ)) * (phi + 1/4) ≤
+              (0.168176418230 - 1e-9) * (1.6180339888 + 1/4) := by
+      apply mul_le_mul_of_nonneg_left _ (by norm_num)
+      linarith
+    have h2 : ((0.168176418230 - 1e-9 : ℝ)) * (1.6180339888 + 1/4) <
+              3.14159265358979323846 / 10 := by norm_num
+    linarith
 
 /-- log(e) = 1 (Fundamental logarithm identity, from Mathlib) -/
 theorem log_exp_one : Real.log (Real.exp 1) = 1 := by
