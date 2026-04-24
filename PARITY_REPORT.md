@@ -6,7 +6,7 @@
 
 | System | Files | Axioms / Parameters | Build status |
 |---|---|---|---|
-| **Lean 4** (`PF_Lean4_Code/PF/*`) | 20 | **9** | `lake build` — 5486 jobs clean |
+| **Lean 4** (`PF_Lean4_Code/PF/*`) | 20 | **8** | `lake build` — 5486 jobs clean |
 | **Coq** (`PF_Coq/theories/*`) | 32 | **253** | `make` clean |
 | **Lean4Lean** (`PF_L4L/*`) | 9 | 0 | ❌ non-buildable — broken dependency path `PF_canonical/2_LEAN_SOURCE_CODE` (empty dir) |
 
