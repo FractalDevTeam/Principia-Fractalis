@@ -71,22 +71,38 @@ For each chapter where a theorem has been machine-checked during rev~2, a
 ``Formal verification (rev 2)'' note has been added to the relevant proof
 environment. Currently such notes appear in:
 \begin{itemize}
-\item Chapter~7 ``Ternary Optimality'' proof --- three theorems now Lean 4
+\item Chapter~3 ``Complexity Separation'' theorem --- four $\lambda_0$
+      closed-form theorems (\texttt{lambda\_P\_lower/upper\_certified},
+      \texttt{lambda\_NP\_lower/upper\_certified}, \texttt{lambda\_0\_P\_precise},
+      \texttt{lambda\_0\_NP\_precise}) with supporting 10-digit
+      $\sqrt{2},\sqrt{5},\varphi$ bounds.
+\item Chapter~7 ``Ternary Optimality'' proof --- three theorems now Lean~4
       machine-checked: \texttt{Q\_decreasing\_from\_4}, \texttt{Q\_4\_ge\_Q\_larger},
       and the strict global maximum \texttt{radix\_economy\_max\_at\_exp1}.
-\item Chapter~20 ``Self-Adjointness Theorem'' --- status note disclosing that
-      \texttt{T3\_self\_adjoint\_conj} is the axiom version of Theorem~20.2
-      (load-bearing placeholder; depends on \texttt{LogWeightedL2.inner},
-      also axiomatized).
-\item Chapter~21 ``Closed Form Candidate'' observation --- the identity
-      $\lambda_0(H_P) = \pi/(10\sqrt{2})$ is machine-checked to $10^{-10}$
-      precision (\texttt{lambda\_0\_P\_precise}).
-\item Chapter~21 ``Main Conjecture'' remark --- enumerates the three BOOK-CORE
-      axioms (\texttt{operator\_collapse\_hypothesis},
-      \texttt{p\_eq\_np\_spectrum\_collapse}, \texttt{turingTimeComplexity})
-      and lists the five machine-checked downstream theorems.
-\item Chapter~23 ``Status of Analytical Construction'' remark --- Yang--Mills
-      placeholder disclosure and its consequences for the YM-cluster theorems.
+\item Chapter~16 ``Nuclear C*-Algebras'' critical-line argument --- a
+      ``Formalization status'' remark discloses that the previous rev's
+      \texttt{nuclearity\_essential} axiom was deleted as latently unsound,
+      and identifies what real \texttt{NuclearSpace.nuclear\_property}
+      would be needed to recover a machine-checked argument.
+\item Chapter~20 ``Self-Adjointness Theorem'' --- expanded status note: the
+      axiom \texttt{T3\_self\_adjoint\_conj} stays (LOAD-BEARING PLACEHOLDER)
+      but the two classical supporting theorems
+      \texttt{pos\_def\_hermitian} and \texttt{pos\_def\_normalized\_bounded}
+      are now machine-checked via the strengthened \texttt{IsPositiveDefinite}
+      definition; also cites \texttt{PF/LogWeightedIntegral.lean}
+      (foundation for the future elimination).
+\item Chapter~21 chapter-opening ``Status (rev 2)'' paragraph, ``Closed Form
+      Candidate'' observation, and ``Main Conjecture'' remark --- the main
+      conjecture is now labeled a \emph{conditional theorem modulo three
+      BOOK-CORE axioms}, with five machine-checked downstream theorems
+      enumerated.
+\item Chapter~23 ``Toroidal curvature shells'' paragraph --- citation of the
+      \texttt{CurvatureShell.alpha\_natural} and
+      \texttt{TimelessFieldTorus.embedding\_mono} promotions.
+\item Chapter~23 ``Status of Analytical Construction'' remark --- full
+      enumeration of the 8 YM-cluster theorems proven against the
+      zero-covariance placeholder, each with an explicit
+      ``$\triangle$ CURRENT PROOF CAVEAT'' docstring in the Lean source.
 \end{itemize}
 The corresponding machine-checked artefacts are in the Lean 4 source at
 \texttt{PF\_Lean4\_Code/PF/} on the repository master branch.
