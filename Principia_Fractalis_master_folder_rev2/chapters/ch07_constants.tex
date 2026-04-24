@@ -318,7 +318,12 @@ Q[10] &= \frac{\log 10}{10} \approx 0.230
 
 Therefore, base-3 is the most efficient integer base for representing numbers.
 
-\textbf{Formal verification (rev 2).} The monotonicity lemma $Q[b] \geq Q[b+1]$ for all integer $b \geq 4$ has been machine-checked in Lean 4, discharging what was previously an axiom in \texttt{PF/IntervalArithmetic.lean} (name: \texttt{Q\_decreasing\_from\_4}). The proof applies Mathlib's \texttt{Real.log\_div\_self\_antitoneOn}, which establishes antitonicity of $x \mapsto (\log x)/x$ on $\{x \mid \exp 1 \leq x\}$, combined with $\exp 1 < 2.7182818286 < 4$ from \texttt{Real.exp\_one\_lt\_d9}.
+\textbf{Formal verification (rev 2).} Three results supporting the Ternary Optimality theorem are now Lean 4 theorems, not axioms:
+\begin{itemize}
+\item \texttt{Q\_decreasing\_from\_4}: $Q[b] \geq Q[b+1]$ for integer $b \geq 4$, via Mathlib's \texttt{Real.log\_div\_self\_antitoneOn} (antitonicity of $(\log x)/x$ on $\{x \mid \exp 1 \leq x\}$) combined with $\exp 1 < 2.7182818286 < 4$ from \texttt{Real.exp\_one\_lt\_d9}.
+\item \texttt{Q\_4\_ge\_Q\_larger}: $Q[4] \geq Q[b]$ for all integer $b \geq 4$, via induction on the previous step. (The prior revision had this as an axiom, flagged with a comment that it was ``mathematically trivial but blocked by Lean 4 coercion''; the fix was a single \texttt{push\_cast; ring} invocation.)
+\item \texttt{radix\_economy\_max\_at\_exp1}: $(\log b)/b < 1/e$ for all real $b > 1$ with $b \neq e$ --- the \emph{strict} global maximum claim. Proof uses substitution $t = b/e$ and the classical strict inequality $\log t < t - 1$ (\texttt{Real.log\_lt\_sub\_one\_of\_pos}): $\log t < t - 1$ gives $\log b - 1 < b/e - 1$, hence $\log b < b/e$, hence $(\log b)/b < 1/e$ on dividing by positive $b$. This is the strict form that \texttt{Real.log\_div\_self\_antitoneOn} (which is only weakly antitone) does not provide.
+\end{itemize}
 \end{proof}
 
 \begin{intuitive}[The Goldilocks Base]
