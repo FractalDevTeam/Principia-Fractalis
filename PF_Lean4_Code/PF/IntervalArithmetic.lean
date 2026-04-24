@@ -342,18 +342,55 @@ theorem log_exp_one : Real.log (Real.exp 1) = 1 := by
   exact Real.log_exp 1
 
 /-- ln(3) bounds (10-digit precision).
-    Remains axiom: attempted direct Taylor proof at x = 2/3 with n = 70
-    terms (error 1.3e-12, well within margins). `Real.abs_log_sub_add_sum_range_le`
-    gives the bound shape correctly, but `nlinarith`/`norm_num` cannot
-    evaluate the 70-term rational sum `Σ (2/3)^(i+1)/(i+1)` symbolically
-    in reasonable time to close the final linear inequality.
-    Full elimination requires: (a) manual computation of the partial sum
-    as a specific large rational `S₇₀ : ℚ`, (b) `have S_eq : (Σ ... ) = S₇₀
-    := by norm_num1`, (c) numerical verification `S₇₀ - (2/3)^71/(1/3) >
-    1.0986122886` by `norm_num1`. Time budget for this: ~1-2h, dedicated
-    session with tactic tuning. -/
-axiom log_3_bounds :
-  (1.0986122886 : ℝ) < Real.log 3 ∧ Real.log 3 < (1.0986122888 : ℝ)
+    Axiom → theorem attempt (2026-04-24): direct Taylor at x = 2/3 with
+    sufficient n to fit both margins (6.81e-11 lower, 1.32e-10 upper). -/
+theorem log_3_bounds :
+  (1.0986122886 : ℝ) < Real.log 3 ∧ Real.log 3 < (1.0986122888 : ℝ) := by
+  -- Apply the Taylor bound at x = 2/3 with n = 60.
+  -- Error (2/3)^61 / (1 - 2/3) = 3·(2/3)^61 ≈ 3.4e-11, which fits both margins.
+  have hx_pos : (0 : ℝ) < 2/3 := by norm_num
+  have hx_lt : ((2 : ℝ)/3) < 1 := by norm_num
+  have hx_abs : |((2 : ℝ)/3)| = 2/3 := abs_of_pos hx_pos
+  have hx_abs_lt : |((2 : ℝ)/3)| < 1 := by rw [hx_abs]; exact hx_lt
+  have z := Real.abs_log_sub_add_sum_range_le hx_abs_lt 60
+  -- z : |(Σ i ∈ range 60, (2/3)^(i+1)/(i+1)) + log(1 - 2/3)| ≤ (2/3)^61 / (1 - |2/3|)
+  rw [hx_abs] at z
+  -- z : |(Σ ...) + log(1 - 2/3)| ≤ (2/3)^61 / (1 - 2/3)
+  -- Simplify: 1 - 2/3 = 1/3
+  have h_one_sub : (1 : ℝ) - 2/3 = 1/3 := by norm_num
+  rw [h_one_sub] at z
+  -- log(1/3) = -log 3
+  have h_log_inv : Real.log ((1:ℝ)/3) = -Real.log 3 := by
+    rw [show ((1:ℝ)/3) = 3⁻¹ by norm_num, Real.log_inv]
+  rw [h_log_inv, ← sub_eq_add_neg] at z
+  -- Now z : |S - log 3| ≤ E, where S = Σ ... and E = (2/3)^61 / (1/3) = 3·(2/3)^61
+  -- Extract bounds: S - E ≤ log 3 ≤ S + E
+  have hz := abs_sub_le_iff.mp z
+  -- hz.1 : S - log 3 ≤ E ⟹ log 3 ≥ S - E
+  -- hz.2 : -(S - log 3) ≤ E ... wait no
+  -- abs_sub_le_iff : |a - b| ≤ c ↔ a - b ≤ c ∧ -(a - b) ≤ c
+  --                  ↔ a - b ≤ c ∧ b - a ≤ c
+  -- So hz.1 : S - log 3 ≤ E, hz.2 : log 3 - S ≤ E.
+  -- i.e., log 3 ≥ S - E (from hz.1) and log 3 ≤ S + E (from hz.2)
+  -- The error E = (2/3)^61 / (1/3) ≈ 3.4e-11.
+  -- We need to bound S numerically. Use norm_num to establish:
+  --   S_lb ≤ S ≤ S_ub  where S_lb, S_ub are explicit rationals close to log 3.
+  -- Then combine with the error bounds.
+  --
+  -- Actually, direct approach: show the specific numerical inequalities.
+  constructor
+  · -- 1.0986122886 < log 3; have log 3 ≥ S - E
+    have : (1.0986122886 : ℝ) < (∑ i ∈ Finset.range 60, (2/3 : ℝ)^(i+1)/(i+1)) -
+                                (2/3 : ℝ)^61 / (1 - 2/3) := by
+      simp only [Finset.sum_range_succ, Finset.sum_range_zero]
+      norm_num
+    linarith [hz.1]
+  · -- log 3 < 1.0986122888; have log 3 ≤ S + E
+    have : (∑ i ∈ Finset.range 60, (2/3 : ℝ)^(i+1)/(i+1)) +
+           (2/3 : ℝ)^61 / (1 - 2/3) < (1.0986122888 : ℝ) := by
+      simp only [Finset.sum_range_succ, Finset.sum_range_zero]
+      norm_num
+    linarith [hz.2]
 
 /-- Q(3) > Q(2): Base-3 better than base-2 (PROVEN algebraically) -/
 theorem Q_3_gt_Q_2 : Real.log 3 / 3 > Real.log 2 / 2 := by
