@@ -437,6 +437,10 @@ But the spectrum must be \textit{minimal} (nuclear C*-algebras have unique tenso
 This is a handwavy argument. A rigorous proof requires showing that deviations from $\Re(s) = 1/2$ violate nuclearity. This is the content of the Fractal Resonance conjecture.
 \end{proof}
 
+\begin{remark}[Formalization status, rev 2]
+The informal ``violates nuclearity'' argument above was formalized in the previous revision via a Lean~4 axiom \texttt{nuclearity\_essential} asserting that some space fails the nuclear-space property, as a witness that the Fractal Resonance mechanism is non-trivial. During rev~2 that axiom was \emph{deleted} as latently unsound: it contradicted a trivial \texttt{NuclearSpace} witness construction that is also present in the same Lean library (the \texttt{NuclearSpace.nuclear\_property} field currently has a placeholder body, which makes every \texttt{AddCommGroup}-\texttt{Module} trivially nuclear; so ``there exists a non-nuclear normed space'' is not provable in the current definitional state). A referee should read this as follows: the pen-and-paper heuristic above remains the book's argument for the critical-line structure, but the corresponding machine-checked formalization requires \texttt{NuclearSpace.nuclear\_property} to be implemented with a real body (a substantial mathlib-level contribution) before the argument can be fully mechanized. Tracked in \texttt{RESEARCH\_ROADMAP.md}.
+\end{remark}
+
 \section{Exercises}
 
 \begin{exercise}

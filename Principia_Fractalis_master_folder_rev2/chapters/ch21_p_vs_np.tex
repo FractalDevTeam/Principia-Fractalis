@@ -1113,7 +1113,17 @@ assuming even a generous 95\% baseline success rate. This is comparable to the s
 \subsection{Three Independent Lines of Evidence}
 
 \begin{conjecture}[Main Conjecture: P $\neq$ NP]\label{thm:main-p-neq-np}
-Based on computational experiments across 143 diverse problems with 100\% fractal coherence, we conjecture: \textbf{P $\neq$ NP}
+Based on computational experiments across 143 diverse problems with 100\% fractal coherence, we conjecture: \textbf{P $\neq$ NP}.
+
+\emph{Conditional theorem status (rev 2)}: the Lean~4 formalization makes the
+chain $\mathrm{ClassP} = \mathrm{ClassNP} \Rightarrow \lambda_0(H_P) = \lambda_0(H_{NP})$
+a direct consequence of three named axioms (\texttt{operator\_collapse\_hypothesis},
+\texttt{p\_eq\_np\_spectrum\_collapse}, \texttt{turingTimeComplexity}).
+Combined with the machine-checked theorem \texttt{P\_neq\_NP\_from\_spectral\_gap}
+(which uses only the ALREADY-proven \texttt{spectral\_gap\_positive}
+$\lambda_0(H_P) - \lambda_0(H_{NP}) > 0$), the chain delivers P $\neq$ NP
+\emph{conditional on} the three axioms. The remark below enumerates which
+claims are thereby machine-checked theorems and which are axiomatized.
 \end{conjecture}
 
 \begin{remark}[Formalization status, rev 2]
