@@ -20,6 +20,7 @@ Reference: Principia Fractalis, Chapter 20
 
 import Mathlib.MeasureTheory.Measure.WithDensity
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
+import Mathlib.MeasureTheory.Function.L2Space
 import Mathlib.Data.ENNReal.Basic
 
 namespace PrincipiaTractalis
@@ -56,5 +57,18 @@ lemma logWeightDensity_ne_top (x : ℝ) : logWeightDensity x ≠ ⊤ := by
 instance : SigmaFinite logWeightedMeasure := by
   unfold logWeightedMeasure
   exact MeasureTheory.SigmaFinite.withDensity_of_ne_top' (fun x => logWeightDensity_ne_top x)
+
+/-- The concrete L²(logWeightedMeasure) Hilbert space. This is the type that
+    should replace the current structure-based `LogWeightedL2` in
+    `PF/TransferOperator.lean`. It automatically inherits an
+    `InnerProductSpace ℂ` instance from mathlib's `MeasureTheory.L2` theory
+    — when the refactor is complete, `LogWeightedL2.inner` and
+    `T3_self_adjoint_conj` become provable theorems, not axioms.
+
+    The `SigmaFinite` instance above is required for this type to
+    satisfy the `NormedAddCommGroup` / `InnerProductSpace` instances
+    consistently. -/
+noncomputable abbrev LogWeightedL2_concrete : Type :=
+  MeasureTheory.Lp ℂ 2 logWeightedMeasure
 
 end PrincipiaTractalis
