@@ -45,4 +45,16 @@ lemma logWeightedMeasure_def :
     logWeightedMeasure = volume.withDensity logWeightDensity := by
   rfl
 
+/-- The log-weighted density is everywhere finite (ne top). -/
+lemma logWeightDensity_ne_top (x : ℝ) : logWeightDensity x ≠ ⊤ := by
+  unfold logWeightDensity
+  split_ifs
+  · exact ENNReal.zero_ne_top
+  · exact ENNReal.ofReal_ne_top
+
+/-- `logWeightedMeasure` is sigma-finite. -/
+instance : SigmaFinite logWeightedMeasure := by
+  unfold logWeightedMeasure
+  exact MeasureTheory.SigmaFinite.withDensity_of_ne_top' (fun x => logWeightDensity_ne_top x)
+
 end PrincipiaTractalis
