@@ -10,7 +10,17 @@
 | **Coq** (`PF_Coq/theories/*`) | 32 | **253** | `make` clean |
 | **Lean4Lean** (`PF_L4L/*`) | 9 | 0 | ❌ non-buildable — broken dependency path `PF_canonical/2_LEAN_SOURCE_CODE` (empty dir) |
 
-Change from prior report: Lean 16 → 9 (7 more numerical axioms eliminated via 10-digit √2/√5/φ supporting theorems + classical `log_lt_sub_one_of_pos` for radix_economy_max_at_exp1). Coq remains at 253 — the `characteristic_cylindrical_round_trip` deletion was net zero (it was replaced with a directly-stated `bochner_minlos_existence_full` axiom in BochnerMinlos.v to preserve downstream compatibility). Even though the total is unchanged, the axiom SHAPE is now significantly more honest (a concrete Minlos existence claim instead of a ghost-equality lie between placeholders).
+Change from start of rev 2 cycle: Lean 41 → 8 (33 eliminations). Headline eliminations:
+- 8-digit + 10-digit numerical bounds for $\sqrt{2}$, $\sqrt{5}$, $\varphi$ (new theorems, not axioms)
+- Four $\lambda_0$ closed-form theorems via 20-digit $\pi$ bounds and the 10-digit $\sqrt{2}/\varphi$ supporting theorems
+- `log_3_bounds` via direct n=60 Taylor at $x = 2/3$ (session commit `86a61d1`)
+- `radix_economy_max_at_exp1` via classical `log_lt_sub_one_of_pos` substitution
+- Three classical positive-definite-functional theorems: `pos_def_hermitian`, `pos_def_normalized_bounded`, plus the underlying `IsPositiveDefinite` definitional upgrade
+- Eight Yang-Mills-cluster theorems proven against the zero-covariance placeholder with explicit `CURRENT PROOF CAVEAT` docstrings
+- Four latent-unsoundness axioms deleted: `empty_tape_bound`, `characteristic_cylindrical_round_trip`, `cylindrical_measure_fourier_is_characteristic`, `nuclearity_essential`
+- Four structure-field promotions: `TestGaugeField.instAddCommGroup/instModule` (Pi-type refactor), `embedding_strictly_monotone` → `TimelessFieldTorus.embedding_mono`, `shell_has_natural_frequency` → `CurvatureShell.alpha_natural`
+
+Coq remains at 253 — the `characteristic_cylindrical_round_trip` deletion was net zero (replaced with a directly-stated `bochner_minlos_existence_full` axiom to preserve downstream compatibility); the `IsPositiveDefinite` strengthening mirrors the Lean upgrade. Tonight's 33 Lean eliminations have not yet been ported to Coq (tracked as future work in `RESEARCH_ROADMAP.md`).
 
 ## Axiom distribution by topic
 
