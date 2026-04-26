@@ -4,7 +4,7 @@
 These "axioms" are actually DEFINITIONS or CONSTRUCTIONS that should be built
 from first principles, not assumed.
 
-Author: Guardian of Principia Fractalis
+Author: Pablo Cohen
 Date: November 16, 2025
 
 CRITICAL: These are NOT true axioms - they're lazily axiomatized definitions!

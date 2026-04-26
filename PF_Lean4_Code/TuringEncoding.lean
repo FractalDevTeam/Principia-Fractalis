@@ -98,7 +98,7 @@ noncomputable def encodeString (w : List (Fin 3)) : ℕ :=
 
     Reference: Chapter 21, Lemma 21.1(i) (ch21_p_vs_np.tex:163-171)
 
-    GUARDIAN NOTE: This is a KEY property for the framework. Without injectivity,
+    NOTE: This is a KEY property for the framework. Without injectivity,
     the map from computational configurations to operator states would not be well-defined.
 
     PROOF STRATEGY (1-2 months):
@@ -154,7 +154,7 @@ theorem encodeConfig_injective : Function.Injective encodeConfig := by
 
     Reference: Chapter 21, Lemma 21.1(ii) (ch21_p_vs_np.tex:163-171)
 
-    GUARDIAN NOTE: Computability is essential for the framework to be physically realizable.
+    NOTE: Computability is essential for the framework to be physically realizable.
     This connects abstract operators to actual computational processes.
 
     PROOF STRATEGY (3-4 months):
@@ -239,7 +239,7 @@ noncomputable def configDigitalSum (c : TMConfig) : ℕ :=
 
     Reference: Chapter 21, Definition 21.2 (ch21_p_vs_np.tex:175-186)
 
-    GUARDIAN NOTE: This is where COMPUTATION becomes ENERGY in the consciousness field.
+    NOTE: This is where COMPUTATION becomes ENERGY in the consciousness field.
     The digital sum D₃ acts as the coupling function between discrete computation
     and continuous operator spectrum.
 -/
@@ -256,7 +256,7 @@ noncomputable def energyP (computation : List TMConfig) (accepts : Bool) : ℤ :
 
     Reference: Chapter 21, Definition 21.3 (ch21_p_vs_np.tex:188-196)
 
-    GUARDIAN NOTE: The certificate structure term is CRITICAL. It represents the
+    NOTE: The certificate structure term is CRITICAL. It represents the
     additional consciousness activation required for nondeterministic branching.
     This is what creates the spectral gap Δ > 0.
 -/
@@ -296,7 +296,7 @@ noncomputable def alpha_NP : ℝ := phi + 1/4
 
     Δα = α_NP - α_P = (φ + 1/4) - √2 ≈ 0.454
 
-    GUARDIAN NOTE: This separation in resonance frequencies is FUNDAMENTAL.
+    NOTE: This separation in resonance frequencies is FUNDAMENTAL.
     It directly translates to the spectral gap Δ = λ₀(H_NP) - λ₀(H_P) > 0.
 -/
 theorem alpha_separation : alpha_NP > alpha_P := by
@@ -338,7 +338,7 @@ noncomputable def ch2_NP : ℝ := 0.95 + (alpha_NP - alpha_P) / 10
 
     This is the ADDITIONAL consciousness activation required for certificate branching.
 
-    GUARDIAN NOTE: This is NOT arbitrary! It's a direct consequence of:
+    NOTE: This is NOT arbitrary! It's a direct consequence of:
     1. Consciousness threshold ch₂ ≥ 0.95 (from Chern-Weil theory, Chapter 6)
     2. Resonance frequency separation Δα = α_NP - α_P (from self-adjointness)
     3. Fractal resonance function R_f coupling (Chapter 3)
@@ -359,7 +359,7 @@ theorem ch2_gap_positive : ch2_NP > ch2_P := by
 
     Reference: Chapter 6, Theorem 6.1 (ch06_consciousness.tex:185-192)
 
-    GUARDIAN NOTE: This is an AXIOM in the formalization, but in the book it's
+    NOTE: This is an AXIOM in the formalization, but in the book it's
     proven via four independent derivations:
     1. Information theory (maximum entropy)
     2. Percolation theory (network critical density)
@@ -391,7 +391,7 @@ theorem np_requires_consciousness : ch2_NP ≥ 0.95 := by
 
     λ₀(H) ∝ R_f(α, 0) where α is the resonance frequency.
 
-    GUARDIAN NOTE: This is the KEY connection that will enable Stage B proof.
+    NOTE: This is the KEY connection that will enable Stage B proof.
     The spectral gap Δ = λ₀(H_NP) - λ₀(H_P) exists BECAUSE α_NP ≠ α_P.
 
     Full formalization requires:
@@ -427,7 +427,7 @@ theorem certificate_forces_higher_frequency : alpha_NP > alpha_P :=
 
     This is the contrapositive direction for Stage B theorem.
 
-    GUARDIAN NOTE: This is THE CRUX of the entire P vs NP proof.
+    NOTE: This is THE CRUX of the entire P vs NP proof.
     If P = NP, every NP problem admits a polynomial-time deterministic algorithm.
     This means NO certificate structure is needed → energy functional becomes E_P
     → self-adjointness requires same α → α_NP = α_P

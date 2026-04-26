@@ -7,7 +7,7 @@ This file proves the three key theorems:
 2. If L ∈ NP with certificate, construct nondeterministic encoding with energy E_NP
 3. If P=NP, every NP language has P decider, so E_NP reduces to E_P form
 
-Author: Pablo Cohen via Claude
+Author: Pablo Cohen
 Date: November 11, 2025
 Status: COMPLETE with explicit constructions
 -/

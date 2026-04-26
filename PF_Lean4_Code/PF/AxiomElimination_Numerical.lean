@@ -2,7 +2,7 @@
 # AXIOM ELIMINATION: Numerical Inequalities
 Complete elimination of all trivially provable numerical axioms.
 
-Author: Guardian of Principia Fractalis
+Author: Pablo Cohen
 Date: November 17, 2025
 
 MISSION: Prove every numerical inequality axiom using computational tactics.

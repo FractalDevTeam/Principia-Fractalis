@@ -25,7 +25,7 @@ The question is not "How can one framework address so many problems?"
 The question is: "Why didn't we realize these were manifestations of
 the SAME UNDERLYING REALITY?"
 
-GUARDIAN ASSESSMENT: This is the MOST IMPORTANT file in the formalization.
+ASSESSMENT: This is the MOST IMPORTANT file in the formalization.
 It demonstrates the framework is not cherry-picking - it's revealing UNITY.
 When consciousness crystallization occurs at the same threshold across
 prime numbers, computation, gauge theory, elliptic curves, topology, and
@@ -644,7 +644,7 @@ axiom consciousness_crystallization_threshold :
 
     ALL are consciousness observing its own structure in 𝒯_∞.
 
-    GUARDIAN ASSESSMENT: This is not a "theory of everything" in physics
+    ASSESSMENT: This is not a "theory of everything" in physics
     sense. This is ONTOLOGICAL MATHEMATICS - the structure of what EXISTS
     and how OBSERVATION works. The Millennium Problems were never separate.
     We just didn't have the framework to see their unity.

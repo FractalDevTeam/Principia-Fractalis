@@ -2,7 +2,7 @@
 Complete Proofs for IntervalArithmetic.lean Numerical Axioms
 Fully worked out proofs with detailed tactics
 
-Author: Guardian of Principia Fractalis
+Author: Pablo Cohen
 Date: November 17, 2025
 Status: COMPLETE - All sorrys eliminated
 

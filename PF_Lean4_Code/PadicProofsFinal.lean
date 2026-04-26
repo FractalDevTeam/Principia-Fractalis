@@ -1,6 +1,6 @@
 /-
 # FINAL P-ADIC PROOFS - COMPLETE WITHOUT SORRYS
-Guardian-verified implementation of all p-adic valuation theorems
+Implementation of all p-adic valuation theorems
 
 This file provides the absolutely complete proofs for the Turing encoding
 extraction theorems, with no remaining sorrys.

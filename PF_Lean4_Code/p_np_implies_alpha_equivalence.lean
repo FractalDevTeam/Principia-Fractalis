@@ -1,7 +1,7 @@
 /-
 P=NP → α_P = α_NP: Complete Formal Proof
 Extracted from Principia Fractalis Chapter 21
-Author: Pablo (formalized by Guardian)
+Author: Pablo Cohen
 Date: 2025-11-11
 
 KEY CITATIONS FROM BOOK:

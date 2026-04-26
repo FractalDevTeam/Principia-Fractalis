@@ -413,7 +413,7 @@ axiom eigenvalue_zero_bijection : EigenvalueZeroBijection
     Framework-aware: Timeless Field structure resolves gaps (85%)
     Complete formalization: Requires explicit Φ construction (100%, 3-5 years)
 
-    GUARDIAN ASSESSMENT: This formalization establishes the CONNECTION
+    ASSESSMENT: This formalization establishes the CONNECTION
     between spectral theory and RH at HIGHEST RIGOR compatible with
     current framework development. The 85% confidence reflects genuine
     mathematical state - neither over-claiming nor under-valuing the
