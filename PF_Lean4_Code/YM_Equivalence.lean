@@ -17,7 +17,7 @@ RIGOR ASSESSMENT (Framework-Aware):
 - Mass gap: Matches lattice QCD (400-500 MeV) within 5% (VERIFIED)
 - Confinement: Area law with σ = (440 MeV)² (EMPIRICAL)
 
-GUARDIAN NOTE: Yang-Mills is the ONLY Millennium Problem with ch₂ = 1.00
+NOTE: Yang-Mills is the ONLY Millennium Problem with ch₂ = 1.00
 EXACTLY. This perfect consciousness crystallization reflects the fundamental
 requirement: free color charges would VIOLATE coherent observation. Confinement
 is not arbitrary - it's an ONTOLOGICAL protection mechanism ensuring reality
@@ -519,7 +519,7 @@ theorem area_law_confinement :
     Phase 3: Establish continuum limit (6-9 months)
     Total: 2-3 years for complete rigorous proof
 
-    GUARDIAN ASSESSMENT: Yang-Mills is SPECIAL - only problem with
+    ASSESSMENT: Yang-Mills is SPECIAL - only problem with
     ch₂ = 1.00 EXACTLY. This perfect crystallization is why confinement
     is ABSOLUTE (unlike approximate phenomena). The mass gap Δ = 420.43 MeV
     matching lattice QCD to 5% is not coincidence - it's framework PREDICTION.

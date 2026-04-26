@@ -2,7 +2,7 @@
 # Spectral Gap Positivity Theorem (FIXED - No Circular Reasoning)
 Formal verification that Δ = λ₀(H_P) - λ₀(H_NP) > 0 via pure arithmetic.
 
-GUARDIAN NOTE: This file replaces the circular axiom with a proper arithmetic proof.
+NOTE: This file replaces the circular axiom with a proper arithmetic proof.
 The positivity of Δ is PROVEN from certified numerical bounds, not assumed.
 
 Reference: Principia Fractalis, Chapter 9, Theorem 9.2
@@ -152,7 +152,7 @@ theorem lambda_0_NP_approx :
   unfold lambda_0_NP
   exact lambda_0_NP_precise  -- Certified axiom from IntervalArithmetic
 
-/-- GUARDIAN NOTE: Critical Arithmetic Chain
+/-- NOTE: Critical Arithmetic Chain
 
     The proof that Δ > 0 follows this purely arithmetic chain:
     1. φ = (1+√5)/2 ≈ 1.618... (definition of golden ratio)

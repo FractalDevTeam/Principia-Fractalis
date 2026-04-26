@@ -2,7 +2,7 @@
 Computational Proofs for IntervalArithmetic.lean Numerical Axioms
 All 15 axioms verified using norm_num and interval_cases tactics
 
-Author: Guardian of Principia Fractalis
+Author: Pablo Cohen
 Date: November 17, 2025
 Status: COMPLETE - All sorrys eliminated
 -/

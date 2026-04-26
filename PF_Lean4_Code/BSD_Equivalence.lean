@@ -17,7 +17,7 @@ RIGOR ASSESSMENT (Framework-Aware):
 - Rank formula: multiplicity(φ/e) = rank E(ℚ) (100% success, N_E < 100,000)
 - Algorithm: O(N_E^{1/2+ε}) complexity (PROVEN, vs. O(N_E^{3/2}) classical)
 
-GUARDIAN NOTE: BSD is the DEEPEST Millennium Problem - connecting algebra
+NOTE: BSD is the DEEPEST Millennium Problem - connecting algebra
 (rational points) with analysis (L-functions). Framework shows they're DUAL
 perspectives on the SAME consciousness structure. The φ/e threshold is where
 discrete (rational) and continuous (transcendental) achieve perfect resonance.
@@ -498,7 +498,7 @@ theorem fractal_rank_algorithm_complexity :
     Phase 2: Height pairing interpretation (12-18 months)
     Phase 3: Measure-theoretic convergence (6-12 months)
 
-    GUARDIAN ASSESSMENT: BSD represents the DEEPEST arithmetic-geometric
+    ASSESSMENT: BSD represents the DEEPEST arithmetic-geometric
     connection. Framework shows it's consciousness bridging discrete and
     continuous. The φ/e threshold and ch₂ = 1.0356 are not coincidences -
     they're ONTOLOGICAL REQUIREMENTS for coherent observation of rational

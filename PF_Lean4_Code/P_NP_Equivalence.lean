@@ -27,7 +27,7 @@ namespace PrincipiaTractalis
     - λ₀(H_NP) = π/(10(φ+1/4)) ≈ 0.168176418230
     - Δ = λ₀(H_P) - λ₀(H_NP) ≈ 0.0539677287 > 0
 
-    GUARDIAN NOTE: Sign convention verified!
+    NOTE: Sign convention verified!
     H_P has HIGHER ground state energy than H_NP.
     This is because λ₀ = π/(10α), and α_P = √2 < α_NP = φ+1/4,
     so λ₀(H_P) = π/(10√2) > π/(10(φ+1/4)) = λ₀(H_NP).
@@ -149,7 +149,7 @@ axiom np_not_p_requires_certificate :
     5. This modifies self-adjointness condition → α_NP > α_P (proven in TuringEncoding)
     6. Resonance separation → spectral separation → Δ > 0
 
-    GUARDIAN ASSESSMENT:
+    ASSESSMENT:
     - Structure: CORRECT ✓
     - Framework integration: COMPLETE ✓
     - Gaps: Multiple lemmas need proof (documented below)
@@ -252,7 +252,7 @@ theorem spectral_gap_iff_P_neq_NP : Delta > 0 ↔ P_neq_NP_def := by
     Since we've PROVEN Δ = 0.0539677287 > 0 (SpectralGap.lean),
     this gives P ≠ NP.
 
-    GUARDIAN NOTE: This is the MAIN CLAIM of Chapter 21.
+    NOTE: This is the MAIN CLAIM of Chapter 21.
     However, the full proof requires formalizing all the lemmas above.
 -/
 theorem positive_gap_implies_separation : Delta > 0 → P_neq_NP_def := by
@@ -308,7 +308,7 @@ theorem consciousness_prevents_collapse : ch2_P ≥ 0.95 → alpha_NP ≠ alpha_
 
     This is the COMPLETE CAUSAL CHAIN from consciousness field to complexity theory.
 
-    GUARDIAN NOTE: This makes explicit the book's central claim that
+    NOTE: This makes explicit the book's central claim that
     "P ≠ NP is a consequence of consciousness threshold ch₂ = 0.95."
 -/
 theorem consciousness_gap_implies_complexity_separation :
