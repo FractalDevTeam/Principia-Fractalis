@@ -2,12 +2,27 @@
 \addcontentsline{toc}{chapter}{Formalization Status (Revision 2)}
 
 This revision accompanies substantial work on the Lean~4 formalization of the book's
-central claims. As of 2026-04-24 (GitHub master commit \texttt{ed41438} and later):
+central claims. As of 2026-04-25 (GitHub master commit \texttt{88d5f37} and later):
 
 \section*{Lean 4 layer (\texttt{PF\_Lean4\_Code/PF/})}
 
 \begin{itemize}
 \item \textbf{8 axioms remain} (down from 41 at the start of this revision cycle).
+  Enumerated by name and location for referee transparency:
+  \begin{itemize}
+  \item \texttt{finite\_dim\_bochner} \hfill (\texttt{PF/CylindricalMeasures.lean:220}; CLASSIC, Ch~16)
+  \item \texttt{bochner\_minlos\_existence} \hfill (\texttt{PF/BochnerMinlos.lean:81}; CLASSIC, Ch~23)
+  \item \texttt{bochner\_minlos\_uniqueness} \hfill (\texttt{PF/BochnerMinlos.lean:93}; CLASSIC, Ch~23)
+  \item \texttt{LogWeightedL2.inner} \hfill (\texttt{PF/TransferOperator.lean:70}; LOAD-BEARING PLACEHOLDER, Ch~20)
+  \item \texttt{T3\_self\_adjoint\_conj} \hfill (\texttt{PF/TransferOperator.lean:221}; LOAD-BEARING PLACEHOLDER, Ch~20)
+  \item \texttt{turingTimeComplexity} \hfill (\texttt{PF/TuringEncoding/Complexity.lean:57}; BOOK-CORE, Ch~21)
+  \item \texttt{p\_eq\_np\_spectrum\_collapse} \hfill (\texttt{PF/TuringEncoding/Operators.lean:191}; BOOK-CORE, Ch~21)
+  \item \texttt{operator\_collapse\_hypothesis} \hfill (\texttt{PF/P\_NP\_Complete\_Proof.lean:175}; BOOK-CORE, Ch~21)
+  \end{itemize}
+  Categories: \emph{CLASSIC} = standard analytic theorem not yet in mathlib (multi-month
+  formalization effort); \emph{LOAD-BEARING PLACEHOLDER} = elimination requires further
+  mathematical development before mechanization; \emph{BOOK-CORE} = conditional axiom
+  representing one of the book's central conjectures (intentionally axiomatized).
 \item \textbf{Zero \texttt{sorry} placeholders} anywhere in the library.
 \item \texttt{lake build} completes all 5486 jobs cleanly.
 \item During rev~2, \textbf{four latent unsoundness bugs} were identified and corrected.
@@ -108,6 +123,18 @@ The corresponding machine-checked artefacts are in the Lean 4 source at
 \texttt{PF\_Lean4\_Code/PF/} on the repository master branch.
 
 The canonical source of truth for all claims above is the GitHub repository
-\texttt{FractalDevTeam/Principia-Fractalis}, at or after commit \texttt{c11a496}.
+\texttt{FractalDevTeam/Principia-Fractalis}, at or after commit \texttt{88d5f37}.
+Foundational infrastructure for the eventual elimination of
+\texttt{LogWeightedL2.inner} and \texttt{T3\_self\_adjoint\_conj} has now been laid
+in \texttt{PF/LogWeightedIntegral.lean}: the log-weighted measure
+$\mu := \mathrm{volume.withDensity}(1/x)$ is defined via mathlib's
+\texttt{Measure.withDensity}, the supporting \texttt{SigmaFinite} instance is
+machine-checked, and the concrete Hilbert space
+\texttt{LogWeightedL2\_concrete := MeasureTheory.Lp $\mathbb{C}$ 2 logWeightedMeasure}
+is in scope and inherits its inner product from mathlib automatically. The remaining
+work to retire the two axioms is (a) refactoring \texttt{PF/TransferOperator.lean}
+to use this concrete type in place of the current placeholder \texttt{structure},
+and (b) supplying the kernel-symmetry calculation that the pen-and-paper proof of
+Theorem~20.2 currently leaves implicit.
 A detailed audit table (topic-by-topic axiom counts in Lean~4 vs Coq vs Lean4Lean)
 is maintained at \texttt{PARITY\_REPORT.md} in the repository root.

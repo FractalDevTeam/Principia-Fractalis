@@ -139,7 +139,10 @@ ELIMINATED AXIOMS (ALL COMPLETE):
 
 STATUS: All 9 theorems now reference the proven theorems from IntervalArithmetic.lean.
 The two calculus-based theorems (Q_decreasing_from_4 and radix_economy_max_at_exp1)
-still have sorrys in IntervalArithmetic.lean but are properly referenced here.
+have full proofs in IntervalArithmetic.lean as of the late rev 2 cycle:
+Q_decreasing_from_4 follows from the n=60 Taylor series at x = 2/3, and
+radix_economy_max_at_exp1 follows from the classical log_lt_sub_one_of_pos
+substitution t = b/e. Zero sorrys remain in PF_Lean4_Code/PF/.
 -/
 
 end PrincipiaTractalis

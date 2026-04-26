@@ -36,14 +36,14 @@ theorem e_gt_one : e > 1 := by
 theorem radix_economy_critical_point :
     radix_economy_deriv e e_gt_one = 0 := by
   unfold radix_economy_deriv e
-  rw [log_exp_one]  -- Certified axiom: log(exp(1)) = 1
+  rw [log_exp_one]  -- Certified theorem: log(exp(1)) = 1
   norm_num
 
 /-- Q(b) has a maximum at b = e ≈ 2.718 -/
 theorem radix_economy_max_at_e (b : ℝ) (hb : b > 1) (hne : b ≠ e) :
     radix_economy b hb < radix_economy e e_gt_one := by
   unfold radix_economy e
-  exact radix_economy_max_at_exp1 b hb hne  -- Certified axiom
+  exact radix_economy_max_at_exp1 b hb hne  -- Certified theorem
 
 /-- Helper: radix economy for natural numbers ≥ 2 -/
 noncomputable def radix_economy_nat (b : ℕ) (hb : b ≥ 2) : ℝ :=
