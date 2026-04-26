@@ -1,6 +1,8 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-04-22 late session, commit `9a0936d`*
+*Last updated: 2026-04-25, commit `88d5f37`*
+
+*Note: since the prior update, two infrastructure commits landed in `PF_Lean4_Code/PF/LogWeightedIntegral.lean` toward elimination of `LogWeightedL2.inner` and `T3_self_adjoint_conj`: `83c1f38` proves `SigmaFinite logWeightedMeasure`, and `88d5f37` defines `LogWeightedL2_concrete := MeasureTheory.Lp ℂ 2 logWeightedMeasure`. Axiom counts are unchanged (the refactor of `PF/TransferOperator.lean` has not yet cascaded); see frontmatter `rev2_formalization_status.tex` for the full per-axiom enumeration.*
 
 ## Headline numbers
 
