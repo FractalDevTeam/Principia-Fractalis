@@ -10,7 +10,7 @@
 |---|---|---|---|
 | **Lean 4** (`PF_Lean4_Code/PF/*`) | 20 | **8** | `lake build` — 5486 jobs clean |
 | **Coq** (`PF_Coq/theories/*`) | 32 | **253** | `make` clean |
-| **Lean4Lean** (`PF_L4L/*`) | 9 | 0 | ❌ non-buildable — broken dependency path `PF_canonical/2_LEAN_SOURCE_CODE` (empty dir) |
+| **Lean4Lean** (formerly `PF_L4L/`) | — | — | Quarantined to `experimental/PF_L4L_future/` (was non-buildable; not part of rev 2 claim) |
 
 Change from start of rev 2 cycle: Lean 41 → 8 (33 eliminations). Headline eliminations:
 - 8-digit + 10-digit numerical bounds for $\sqrt{2}$, $\sqrt{5}$, $\varphi$ (new theorems, not axioms)
@@ -62,7 +62,7 @@ Coq remains at 253 — the `characteristic_cylindrical_round_trip` deletion was 
 ### For parity
 1. **Coq axiomatizes ~16× more content than Lean**, much of it covering topics Lean doesn't yet formalize (Hodge, BSD, Navier-Stokes, clinical validation). These aren't Lean shortcomings — they're out of current Lean scope.
 2. **Where both have files**, Coq is consistently more axiomatic. Tonight's 25 Lean eliminations have NOT yet been ported to Coq.
-3. **Lean4Lean layer is currently broken** — unbuildable due to missing canonical-source directory. Would require separate project work to restore.
+3. **Lean4Lean layer was quarantined** — the `PF_L4L/` directory was moved to `experimental/PF_L4L_future/` because it was structurally non-buildable (broken dependency path + import-layout mismatch with the current Lean codebase). Restoring it would require either restructuring the Lean code or rewriting the L4L imports.
 
 ### Referee-risk assessment
 - The FORMALIZATION, as a referee would encounter it, is **two partially-consistent systems**: a cleaner Lean 4 framework (16 axioms, many proven against honest placeholders with caveats) and a heavily-axiomatized Coq framework (253 axioms covering broader scope).
@@ -71,6 +71,6 @@ Coq remains at 253 — the `characteristic_cylindrical_round_trip` deletion was 
 
 ### Next actions
 1. **Port Lean eliminations to Coq**: specifically, `pos_def_hermitian`, `pos_def_normalized_bounded`, `Q_decreasing_from_4`, the structural promotions (embedding_strictly_monotone, shell_has_natural_frequency) should all be eliminable in Coq via analogous proofs.
-2. **Fix Lean4Lean build path** so the meta-verification layer can run.
+2. **Restore Lean4Lean meta-verification layer** (currently quarantined to `experimental/PF_L4L_future/`) by either restructuring the Lean code organization or rewriting the L4L imports against the current layout.
 3. **Coq-only topics** (Hodge, BSD, Navier-Stokes, etc.) need their own axiom elimination pass — each file's axioms are book-critical statements, not scaffolding.
 4. **Book sync** (rev2 LaTeX): add a "Formal verification state (rev 2)" note in each relevant chapter indicating which claims are currently axiomatized vs proven.
