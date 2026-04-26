@@ -496,7 +496,7 @@ All data provenance verified via SHA256 hashing.
 - Peer review submission
 - Public archival
 
-**Compiled by:** Claude Code AI Assistant (Anthropic)
+**Compiled by:** Pablo Cohen
 **Date:** November 5, 2025
 **Status:** ✅ COMPLETE AND VERIFIED
 
