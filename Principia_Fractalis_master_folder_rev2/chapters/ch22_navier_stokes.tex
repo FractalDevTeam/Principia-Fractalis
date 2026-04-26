@@ -390,6 +390,14 @@ Integrating over a ball $B_r(\mathcal{E})$ as $r \to 0$:
 As $|\mathbf{u}| \to 0$ at $\mathcal{E}$, kinetic energy flux vanishes, but pressure work and viscous terms remain, redistributing energy into structural organization.
 \end{proof}
 
+\begin{remark}[Formalization status, rev 2]
+The Navier--Stokes claims of this chapter are \textbf{not} formalized in the Lean~4 layer (\texttt{PF\_Lean4\_Code/PF/}). The Coq layer at \texttt{PF\_Coq/theories/Contracts/NavierStokes.v} contains a single conditional theorem,
+\begin{verbatim}
+Theorem PF_NS_Solution : NS_Millennium_Problem.
+\end{verbatim}
+whose proof is one line that applies the local axiom \texttt{Spectral\_to\_NS} to the local axiom \texttt{PF\_NS\_Spectral\_Condition}. The broader file declares approximately 23 framework-level axioms (regularity hypotheses, Kolmogorov scaling, enstrophy-controls-smoothness, the spectral-equivalence direction, etc.). Each is a postulate of the Principia Fractalis framework, not a result derived from Coq's standard library. The \texttt{Theorem} keyword indicates only that the implication ``framework axioms $\Rightarrow$ NS Millennium Problem'' typechecks. Inside Coq, \texttt{Print Assumptions PF\_NS\_Solution.} returns the full dependency list. Eliminating any of these axioms would be a substantial PDE-analysis contribution and is tracked as future work in \texttt{RESEARCH\_ROADMAP.md} at the repository root.
+\end{remark}
+
 \section{Connection to Consciousness}
 
 \subsection{Consciousness Crystallization at Emergence Points}
