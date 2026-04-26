@@ -172,7 +172,7 @@ Clinical accuracy: **97.3%** in distinguishing conscious from vegetative states.
 |--------|-------------------|--------------------|------------------|--------|
 | **Lean 4** (PF_Lean4_Code/PF) | 20 `.lean` files | **8** | **0** | ✅ builds clean |
 | **Coq** (PF_Coq/theories) | 32 `.v` files | 253 | 0 | ✅ builds clean |
-| **L4L** (PF_L4L) | 9 `.lean` files | 0 | 0 | ❌ build broken (missing dep, tracked) |
+| **L4L** | (quarantined to `experimental/PF_L4L_future/`) | — | — | not part of rev 2 claim |
 
 **Revision 2 status (2026-04-24).** See [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the detailed per-axiom breakdown and [`PARITY_REPORT.md`](PARITY_REPORT.md) for cross-system comparison. In this revision cycle, the Lean 4 canonical library went from **41 axioms to 8**, with **four latent-unsoundness bugs caught and fixed**. The NUM category is empty — `log_3_bounds` was eliminated via direct n=60 Taylor at x=2/3. The remaining 8 Lean axioms split into three categories:
 - **CLASSIC** (3): classical theorems from analysis not yet in mathlib (`bochner_minlos_existence/uniqueness`, `finite_dim_bochner`)
@@ -216,7 +216,8 @@ Principia-Fractalis/
 │       ├── Core/                       # Foundational modules
 │       └── Contracts/                  # Millennium problem proofs
 │
-├── PF_L4L/                             # Lean-for-Lean contract layer (9 files)
+├── experimental/                       # Future / quarantined work
+│   └── PF_L4L_future/                  # Skeletal Lean4Lean layer (non-buildable)
 │
 ├── Principia_Fractalis_master_folder/  # Book LaTeX source (801 pages)
 │   └── chapters/                       # 35 chapters
@@ -317,7 +318,7 @@ grep "sorry" PF_Lean4_Code/SpectralGap.lean                    # Should be empty
 | P ≠ NP | `PF/SpectralGap.lean` | `theories/Core/P_NP_Proof.v` |
 | Spectral values | `IntervalArithmetic.lean` | `theories/Core/IntervalArithmetic.v` |
 | Consciousness | `PF/ChernWeil.lean` | `theories/Core/ChernWeil.v` |
-| Axiom audit | `PF_L4L/Core/AxiomAudit.lean` | `theories/Core/AxiomSummary.v` |
+| Axiom audit | `AXIOM_AUDIT.md` (canonical) | `theories/Core/AxiomSummary.v` |
 
 ---
 

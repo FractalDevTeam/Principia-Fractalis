@@ -74,11 +74,19 @@ and clinical validation are Coq-only). The axiom eliminations achieved in Lean
 during rev~2 have \textbf{not yet been ported to Coq}; this is flagged as future
 work in \texttt{PARITY\_REPORT.md} at the repository root.
 
-\section*{Lean4Lean layer (\texttt{PF\_L4L/})}
+\section*{Lean4Lean layer (formerly \texttt{PF\_L4L/}, now quarantined)}
 
-Currently \textbf{non-buildable} because of a broken dependency path
-(\texttt{../PF\_canonical/2\_LEAN\_SOURCE\_CODE} is an empty directory). This is
-a separate structural issue to be addressed in a future revision.
+A skeletal Lean4Lean meta-verification layer was begun in earlier
+revisions, but it was never made to build (the package required a
+canonical-source directory that does not exist in the current repo
+layout, and the imports it expects do not match the current Lean
+file structure). To avoid misleading a referee with a non-buildable
+``third formalization layer,'' the directory has been moved to
+\texttt{experimental/PF\_L4L\_future/} and is \textbf{not} part of
+the rev~2 claim. Restoring it to a working state would require
+either restructuring the Lean code organization or rewriting the
+L4L imports against the current layout; both are tracked as future
+work in \texttt{RESEARCH\_ROADMAP.md}.
 
 \section*{Reviewer guidance}
 
@@ -169,5 +177,5 @@ work to retire the two axioms is (a) refactoring \texttt{PF/TransferOperator.lea
 to use this concrete type in place of the current placeholder \texttt{structure},
 and (b) supplying the kernel-symmetry calculation that the pen-and-paper proof of
 Theorem~20.2 currently leaves implicit.
-A detailed audit table (topic-by-topic axiom counts in Lean~4 vs Coq vs Lean4Lean)
+A detailed audit table (topic-by-topic axiom counts in Lean~4 vs Coq)
 is maintained at \texttt{PARITY\_REPORT.md} in the repository root.
