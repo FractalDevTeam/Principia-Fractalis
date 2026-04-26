@@ -1,8 +1,14 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-04-25, commit `88d5f37`*
+*Last updated: 2026-04-26, commit `76c7699` plus post-rev-2 verification updates*
 
-*Note: since the prior update, two infrastructure commits landed in `PF_Lean4_Code/PF/LogWeightedIntegral.lean` toward elimination of `LogWeightedL2.inner` and `T3_self_adjoint_conj`: `83c1f38` proves `SigmaFinite logWeightedMeasure`, and `88d5f37` defines `LogWeightedL2_concrete := MeasureTheory.Lp ℂ 2 logWeightedMeasure`. Axiom counts are unchanged (the refactor of `PF/TransferOperator.lean` has not yet cascaded); see frontmatter `rev2_formalization_status.tex` for the full per-axiom enumeration.*
+## ⚠ Post-rev-2 verification finding (2026-04-26)
+
+Independent symbolic + 40-digit numerical verification (sympy + mpmath), kernel-transversality analysis, and external literature cross-check have established that **`T3_self_adjoint_conj` is FALSE under the current operator and inner-product definitions**, not merely unproven. The axiom is retained as a placeholder; downstream `SpectralBijection` proofs are now conditional on a future operator redesign. Full disclosure: see `AXIOM_AUDIT.md` "Post-rev-2 verification finding" section and `rev2_formalization_status.tex` frontmatter remark of the same name. The other 7 axioms are unaffected.
+
+## Earlier infrastructure note (2026-04-25)
+
+Two infrastructure commits landed in `PF_Lean4_Code/PF/LogWeightedIntegral.lean` toward elimination of `LogWeightedL2.inner` and `T3_self_adjoint_conj`: `83c1f38` proves `SigmaFinite logWeightedMeasure`, and `88d5f37` defines `LogWeightedL2_concrete := MeasureTheory.Lp ℂ 2 logWeightedMeasure`. Following the post-rev-2 finding above, the planned T₃ refactor is on hold pending operator redesign. The `LogWeightedL2.inner` Phase A elimination remains feasible independently if desired (the redesigned T₃ will still need an inner product on log-weighted L²).
 
 ## Headline numbers
 

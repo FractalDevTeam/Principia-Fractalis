@@ -2,7 +2,100 @@
 \addcontentsline{toc}{chapter}{Formalization Status (Revision 2)}
 
 This revision accompanies substantial work on the Lean~4 formalization of the book's
-central claims. As of 2026-04-25 (GitHub master commit \texttt{88d5f37} and later):
+central claims. As of 2026-04-26 (GitHub master commit \texttt{76c7699} and later, plus
+post-rev-2 verification updates documented below):
+
+\section*{⚠ Post-rev-2 verification finding (2026-04-26)}
+
+In a verification pass conducted after the rev~2 frontmatter above was
+written, three independent investigations (symbolic + 40-digit
+numerical computation, kernel-transversality geometric analysis, and
+external literature cross-check against Baladi, Ruelle, Connes,
+Lapidus, and Mayer) converged on the conclusion that the
+self-adjointness identity claimed in Chapter~20 Theorem~20.2 is
+\textbf{false} under the manuscript's own definitions of the operator
+$\tilde{T}_3$ and the inner product $\langle\cdot,\cdot\rangle$ on
+$L^2([0,1], dx/x)$, not merely unproven.
+
+The technical core of the finding:
+\begin{itemize}
+\item Numerical: $\langle \tilde{T}_3 x, x\rangle \approx -0.110 + 0.162\,i$
+      (a self-adjoint operator must yield a real diagonal);
+      $\langle \tilde{T}_3 f, g\rangle - \langle f, \tilde{T}_3 g\rangle
+       \approx 0.096 + 0.188\,i$ for $f=x$, $g=x^2$ (40-digit precision;
+      not roundoff).
+\item Closed form: the $k=0$ branch alone contributes
+      $(3^{1/2-a} - 3^{1/2-b})/(3(a+b))$ to the commutator, nonzero
+      for $a \neq b$.
+\item Diagnostic: the chosen weight $\sqrt{bx/(x+k)}$ is the standard
+      Frobenius--Perron symmetrizer for Lebesgue measure $dx$
+      (per Baladi, \emph{Positive Transfer Operators and Decay of
+      Correlations} \S1.2; Ruelle, \emph{Notices AMS} 2002), not for
+      the log-weighted measure $dx/x$. The corresponding
+      $dx/x$-symmetrizer would be $\sqrt{(x+k)/(bx)}$.
+\item Deeper obstruction: replacing the weight does NOT recover
+      self-adjointness either. The inverse-branch maps
+      $y_k(x) = (x+k)/b$ are non-involutive for $k > 0$, so the
+      kernel support $\{(x, y_k(x))\}$ is not symmetric under $(x,y)$
+      swap. No reweighting of these branches can repair this; the
+      obstruction is geometric.
+\item Phase claim: the asserted identity
+      $\overline{\omega_k} = \omega_{2-k}$ at ch20 line~204 is false
+      for $\omega = \{1, -i, -1\}$
+      ($\overline{\omega_0} = 1 \neq -1 = \omega_2$).
+\item Literature: no published transfer-operator construction on
+      $L^2([0,1], dx/x)$ matches the manuscript's setup; the
+      $(1, -i, -1)$ phase pattern has no precedent. (Closest serious
+      analogs: Connes' adèle-class space arXiv:math/9811068, where
+      $\zeta$ zeros appear as absorption spectrum, not eigenvalues;
+      Lapidus' spectral operator arXiv:1505.01548 on the same
+      $dx/x$ measure but using $\zeta(\partial)$, not a transfer
+      operator.)
+\end{itemize}
+
+\textbf{Consequences for this revision}:
+
+\begin{itemize}
+\item The Lean axiom \texttt{T3\_self\_adjoint\_conj} (PF/TransferOperator.lean:221)
+      is recategorized from BOOK-CORE to \textbf{NEEDS REDESIGN} in
+      \texttt{AXIOM\_AUDIT.md}. It is retained in the source so that
+      downstream proofs in \texttt{SpectralBijection.lean} continue
+      to typecheck, but they are now to be read as conditional on a
+      future redesigned $\tilde{T}_3$ for which an analogous
+      self-adjointness statement is true.
+\item The numerical evidence reported in Chapter~20 \S20.5--20.6
+      (eigenvalue tabulation, 150-digit verification, the
+      $\alpha^* = 5 \times 10^{-6}$ fit) was computed against the
+      same operator and is therefore \emph{provisional pending
+      operator redesign}. This is disclosed inside Chapter~20 as
+      well in a coordinated update.
+\item Recovery options under investigation: (a) symmetrize via
+      $(T+T^*)/2$, (b) augment with expanding-direction branches
+      $y_k^{-1}(x) = bx - k$, (c) change measure to one for which
+      the inverse-branch maps form a unitary representation
+      (e.g.\ Gauss measure for the Gauss map), (d) downgrade
+      Theorem~20.2 to a conjecture and restate the chapter's
+      RH connection as a research program. Each of (a)--(c) is a
+      structural redesign; the bibliography hint is the
+      Lapidus/Mayer/Connes lineage.
+\item This finding was caught \emph{by} the rev~2 rigor pass; in
+      particular, by the very kind of independent verification the
+      rev~2 frontmatter committed to. The other 7 axioms in the
+      Lean canonical library are unaffected; build remains clean
+      (\texttt{lake build}: 5486 jobs, zero errors, zero
+      \texttt{sorry}).
+\end{itemize}
+
+\textit{End of post-rev-2 verification finding. The original rev~2
+status text follows below for historical reference; readers should
+treat the post-rev-2 finding above as the authoritative current
+status of the T₃ axiom.}
+
+\bigskip
+\noindent\rule{\textwidth}{0.4pt}
+\bigskip
+
+The original rev~2 status (as of 2026-04-25, commit \texttt{88d5f37}):
 
 \section*{Lean 4 layer (\texttt{PF\_Lean4\_Code/PF/})}
 
