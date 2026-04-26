@@ -159,7 +159,47 @@ noncomputable def weightFunction (b : ℕ) (k : Fin b) (x : ℝ) : ℝ :=
     - w_k(x) = √(bx/(x+k)) (weights for self-adjointness)
 
     This is the Ruelle-Perron-Frobenius operator with phases.
--/
+
+    ⚠ NEEDS REDESIGN (post-rev-2 verification, 2026-04-26).
+
+    Independent symbolic verification (40-digit mpmath, sympy) and
+    geometric analysis have established that this operator T_b (in
+    particular T₃ with phases ω = {1, -i, -1}) is NOT self-adjoint
+    on L²([0,1], dx/x).
+
+      - The chosen weight √(bx/(x+k)) is the Frobenius-Perron
+        symmetrizing weight for Lebesgue measure dx, not for
+        the log-weighted measure dx/x. (Standard reference:
+        Baladi, "Positive Transfer Operators and Decay of
+        Correlations" §1.2; Ruelle, Notices AMS 2002.)
+
+      - The naive correction (replace √(bx/(x+k)) with the dx/x-
+        symmetrizer √((x+k)/(bx))) ALSO fails to give self-
+        adjointness, because the inverse-branch maps y_k(x) =
+        (x+k)/b are NOT involutive for k > 0; the kernel support
+        {(x, y_k(x))} is therefore not symmetric under (x, y)
+        swap. No reweighting of these branches can repair this;
+        the obstruction is geometric, not analytic.
+
+      - Real recovery paths require a structural redesign of the
+        operator (e.g., symmetrize via (T + T*)/2, or include the
+        expanding-direction branches y_k^{-1}(x) = bx - k so the
+        kernel support becomes (x, y)-symmetric, or change the
+        measure to one for which the inverse-branch maps form a
+        unitary representation — e.g., the Gauss measure for the
+        Stern-Brocot/Gauss map).
+
+    Until that redesign lands, the axiom `T3_self_adjoint_conj`
+    below is FALSE under the manuscript's own definitions of
+    `T̃₃` and `⟨·,·⟩`. The axiom is retained as a formal
+    placeholder for the redesigned operator's self-adjointness
+    statement, but downstream proofs that depend on it should be
+    treated as conditional on a future operator definition.
+
+    Manuscript ch20:226-272 contains the same gap; see the
+    "Formalization status, post-rev-2 verification" remark in
+    the rev2 frontmatter for full disclosure. Tracked in
+    `RESEARCH_ROADMAP.md`. -/
 structure TransferOperator (b : ℕ) where
   /-- Phase factors -/
   phases : Fin b → ℂ
@@ -205,18 +245,50 @@ noncomputable def T3 : TransferOperator 3 := {
 
 /-! ## Self-Adjointness -/
 
-/-- CONJECTURAL: T₃ is self-adjoint on L²([0,1], dx/x).
+/-- ⚠ FALSE-AS-STATED — placeholder pending operator redesign
+    (post-rev-2 verification, 2026-04-26).
 
-    The proof requires showing kernel symmetry K(x,y) = K̄(y,x):
-    1. Write ⟨T₃f, g⟩ = ∫∫ K(x,y) f̄(y) g(x) dy/y dx/x
-    2. Phase symmetry: ω₀ = 1, ω₂ = -1, ω₁ = -i creates cancellations
-    3. Weight symmetry: √(x/y_k(x)) balanced against logarithmic measure
+    Originally axiomatized to assert: T₃ is self-adjoint on L²([0,1], dx/x).
 
-    STATUS: Axiomatized. Previously "proved" vacuously when inner product
-    returned 0 (both sides reduced to 0). Now depends on inner product axiom.
-    The phases {1, -i, -1} are crucial — other choices break self-adjointness.
+    Independent verification (symbolic + 40-digit numerical + kernel
+    transversality + literature cross-check) has established that this
+    statement is **false** under the current definitions of `T3` and
+    `⟪·, ·⟫`:
+      - For f(x) = x and g(x) = x², ⟪T₃ f, g⟫ - ⟪f, T₃ g⟫ ≈
+        0.096 + 0.188i (40-digit precision; not roundoff).
+      - For diagonal f(x) = x with itself, ⟪T₃ f, f⟫ ≈
+        −0.110 + 0.162i — a self-adjoint operator must yield a
+        real diagonal.
+      - The k=0 branch alone gives a closed-form asymmetry
+        (3^(½−a) − 3^(½−b)) / (3(a+b)), nonzero for a ≠ b.
+      - The asserted phase identity "ω̄_k = ω_{2−k}" (manuscript
+        ch20:204) is false for ω = {1, −i, −1}.
+      - Literature has no published precedent for "complex unimodular
+        phases produce self-adjointness" in transfer operators of
+        this form.
+      - The geometric obstruction: branches y_k(x) = (x+k)/3 are not
+        involutive, so the kernel support {(x, y_k(x))} is not
+        symmetric under (x, y) swap — no reweighting can repair this.
 
-    Reference: Chapter 20, Theorem 20.2
+    The axiom is RETAINED here (rather than deleted) so that downstream
+    proofs in `SpectralBijection.lean` and elsewhere continue to typecheck
+    and remain inspectable. They are now to be read as **conditional on
+    a future redesigned T₃ for which an analogous self-adjointness
+    statement is true and provable** — not as currently sound.
+
+    Recovery options under investigation (book Chapter 20 will need
+    coordinated revision; tracked in `RESEARCH_ROADMAP.md`):
+      (a) Symmetrize the operator: (T + T*)/2 — clean but loses
+          dynamical interpretation.
+      (b) Augment with expanding-direction branches y_k^{-1}(x) = 3x − k
+          so kernel support becomes (x,y)-symmetric.
+      (c) Change measure to one for which the branches form a unitary
+          representation (e.g., Gauss measure for the Gauss map).
+      (d) Downgrade Theorem 20.2 to a conjecture; restate the chapter's
+          RH connection as a research program rather than a proof.
+
+    Reference: Chapter 20, Theorem 20.2 (under revision); see frontmatter
+    "Formalization status, post-rev-2 verification" remark.
 -/
 axiom T3_self_adjoint_conj :
     ∀ (f g : LogWeightedL2), ⟪T3.apply f, g⟫ = ⟪f, T3.apply g⟫
