@@ -473,6 +473,14 @@ h^{p,q} = \begin{pmatrix}
 \item \textbf{Extracted cycle}: Intersection of two hyperplane sections
 \end{itemize}
 
+\begin{remark}[Formalization status, rev 2]
+The Hodge Conjecture claims of this chapter are \textbf{not} formalized in the Lean~4 layer (\texttt{PF\_Lean4\_Code/PF/}). The Coq layer at \texttt{PF\_Coq/theories/Contracts/Hodge.v} contains a single conditional theorem,
+\begin{verbatim}
+Theorem PF_Hodge_Conjecture : HodgeConjecture.
+\end{verbatim}
+whose proof is one line that applies the local axiom \texttt{Spectral\_to\_Hodge} to the local axiom \texttt{PF\_Hodge\_Spectral\_Condition}. The broader file declares approximately 19 framework-level axioms (Hodge decomposition, hard Lefschetz, self-adjointness of the Hodge operator, the rationality threshold, the spectral-equivalence direction, etc.). Each is a postulate of the Principia Fractalis framework, not a result derived from Coq's standard library. The \texttt{Theorem} keyword indicates only that the implication ``framework axioms $\Rightarrow$ Hodge Conjecture'' typechecks. Inside Coq, \texttt{Print Assumptions PF\_Hodge\_Conjecture.} returns the full dependency list. Eliminating any of these axioms would be a substantial algebraic-geometry contribution and is tracked as future work in \texttt{RESEARCH\_ROADMAP.md} at the repository root.
+\end{remark}
+
 \section{Connection to Consciousness}
 
 \subsection{Why Consciousness Bridges Topology and Algebra}

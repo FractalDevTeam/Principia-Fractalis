@@ -118,7 +118,40 @@ environment. Currently such notes appear in:
       enumeration of the 8 YM-cluster theorems proven against the
       zero-covariance placeholder, each with an explicit
       ``$\triangle$ CURRENT PROOF CAVEAT'' docstring in the Lean source.
+\item Chapter~22 ``Connection to Consciousness'' (preceding remark) ---
+      new ``Formalization status, rev 2'' note discloses that
+      Navier--Stokes is Coq-only with $\sim$23 framework axioms, and
+      that the existing \texttt{Theorem PF\_NS\_Solution} in
+      \texttt{PF\_Coq/theories/Contracts/NavierStokes.v} is a
+      one-line application of two of those local axioms.
+\item Chapter~24 ``Connection to Consciousness'' (preceding remark) ---
+      new ``Formalization status, rev 2'' note discloses that
+      Birch--Swinnerton-Dyer is Coq-only with $\sim$20 framework
+      axioms encoding the spectral-operator $T_E$ structure and the
+      rank-equals-multiplicity identity (axiomatized, not theorem).
+\item Chapter~25 ``Connection to Consciousness'' (preceding remark) ---
+      new ``Formalization status, rev 2'' note discloses that the
+      Hodge Conjecture is Coq-only with $\sim$19 framework axioms,
+      and that the existing \texttt{Theorem PF\_Hodge\_Conjecture}
+      in \texttt{PF\_Coq/theories/Contracts/Hodge.v} is a one-line
+      application of two of those local axioms.
 \end{itemize}
+
+\section*{Coq honesty pass (Contracts layer)}
+
+In rev~2 a referee-disclosure pass was added to the Coq
+\texttt{Contracts/} layer. Each ``Theorem'' that establishes a
+Millennium-Problem proposition (\texttt{PF\_NS\_Solution} in
+\texttt{NavierStokes.v}, \texttt{PF\_Hodge\_Conjecture} in
+\texttt{Hodge.v}) and each ``Theorem'' that wraps an underlying
+\texttt{Axiom} (\texttt{RH\_T3\_self\_adjoint},
+\texttt{RH\_T3\_compact} in \texttt{RH.v}) now carries a prominent
+in-source comment block stating: (i) the theorem is conditional, (ii)
+which local axioms its proof depends on, (iii) the
+\texttt{Print Assumptions} command that recovers the full dependency
+list, and (iv) the cross-reference to the corresponding manuscript
+chapter. No proofs were modified; the Coq build still completes
+cleanly.
 The corresponding machine-checked artefacts are in the Lean 4 source at
 \texttt{PF\_Lean4\_Code/PF/} on the repository master branch.
 

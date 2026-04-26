@@ -119,7 +119,24 @@ Qed.
 (** The PF claim is that Hodge_Spectral_Condition holds *)
 Axiom PF_Hodge_Spectral_Condition : Hodge_Spectral_Condition.
 
-(** Therefore Hodge Conjecture follows *)
+(** ⚠ CONDITIONAL THEOREM — referee disclosure (rev 2)
+
+    [PF_Hodge_Conjecture] typechecks as a [Theorem] in Coq, but it is NOT
+    an independent proof of the Clay Millennium Hodge Conjecture. Its
+    one-line proof depends on:
+      - [Axiom PF_Hodge_Spectral_Condition] declared above on line 120
+      - [Axiom Spectral_to_Hodge] declared on line 107
+      - the broader local axiom collection in this file (~19 axioms total
+        including [hodge_decomposition], [hard_lefschetz],
+        [HodgeOperator_self_adjoint], [rationality_threshold_value], etc.)
+    Each of these axioms encodes a Principia Fractalis framework hypothesis;
+    none are proven from first principles in this Coq development. The
+    [Theorem] keyword indicates only that the conditional implication
+    "axioms ⇒ Hodge Conjecture" typechecks. Verify the full dependency
+    list with:
+        [Print Assumptions PF_Hodge_Conjecture.]
+    See also Chapter 25 of the manuscript ("Formalization status, rev 2"
+    remark) for the human-readable disclosure. *)
 Theorem PF_Hodge_Conjecture : HodgeConjecture.
 Proof.
   apply Spectral_to_Hodge.

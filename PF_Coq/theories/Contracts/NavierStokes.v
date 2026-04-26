@@ -159,7 +159,25 @@ Qed.
 (** PF claims the spectral condition holds *)
 Axiom PF_NS_Spectral_Condition : NS_Spectral_Condition.
 
-(** Therefore NS Millennium Problem is solved *)
+(** ⚠ CONDITIONAL THEOREM — referee disclosure (rev 2)
+
+    [PF_NS_Solution] typechecks as a [Theorem] in Coq, but it is NOT an
+    independent solution of the Clay Millennium Navier-Stokes problem.
+    Its one-line proof depends on:
+      - [Axiom PF_NS_Spectral_Condition] declared above on line 159
+      - [Axiom Spectral_to_NS] declared on line 147
+      - the broader local axiom collection in this file (~23 axioms total
+        including [nu_positive], [initial_smooth], [initial_divergence_free],
+        [initial_finite_energy], [energy_decomposition],
+        [enstrophy_controls_smoothness], [kolmogorov_scaling], etc.)
+    Each of these axioms encodes a Principia Fractalis framework hypothesis;
+    none are proven from first principles in this Coq development. The
+    [Theorem] keyword indicates only that the conditional implication
+    "axioms ⇒ Millennium problem" typechecks. Verify the full dependency
+    list with:
+        [Print Assumptions PF_NS_Solution.]
+    See also Chapter 22 of the manuscript ("Formalization status, rev 2"
+    remark) for the human-readable disclosure. *)
 Theorem PF_NS_Solution : NS_Millennium_Problem.
 Proof.
   apply Spectral_to_NS.

@@ -105,7 +105,18 @@ Definition inverse_branch (k : nat) (x : R) : R :=
 Definition RH_T3_self_adjoint_verified : Prop :=
   forall f g, ⟨TransferOperator.T3 f, g⟩ = ⟨f, TransferOperator.T3 g⟩.
 
-(** Self-adjointness follows from TransferOperator axiom *)
+(** ⚠ CONDITIONAL THEOREM — referee disclosure (rev 2)
+
+    [RH_T3_self_adjoint] typechecks as a [Theorem] in Coq, but its proof is a
+    one-line application of [TransferOperator.T3_self_adjoint], which is
+    declared as an [Axiom] in [PF_Coq/theories/Core/TransferOperator.v].
+    Cross-system note: the same identity is also axiomatized on the Lean 4
+    side at [PF_Lean4_Code/PF/TransferOperator.lean:221]
+    ([axiom T3_self_adjoint_conj]) and is documented as a LOAD-BEARING
+    PLACEHOLDER in the rev 2 frontmatter and in Chapter 20 of the manuscript.
+    The referee should NOT read this [Theorem] as an independent Coq proof
+    of [T₃] self-adjointness. Verify the dependency with:
+        [Print Assumptions RH_T3_self_adjoint.] *)
 Theorem RH_T3_self_adjoint : RH_T3_self_adjoint_verified.
 Proof.
   unfold RH_T3_self_adjoint_verified.
@@ -117,6 +128,15 @@ Qed.
 Definition RH_T3_compact_verified : Prop :=
   exists (hs_norm : R), hs_norm = sqrt 3.
 
+(** ⚠ TRIVIAL THEOREM — referee disclosure (rev 2)
+
+    [RH_T3_compact_verified] above is defined as the bare existential
+    [exists hs_norm : R, hs_norm = sqrt 3] — i.e., "there exists a real
+    number equal to sqrt 3", which is trivially witnessed by [sqrt 3].
+    This is a STRUCTURAL placeholder, not a proof that [T₃] is a compact
+    operator. The actual compactness claim (Hilbert-Schmidt with HS norm
+    [sqrt 3]) requires the analytic content from the manuscript and is
+    not formalized here. *)
 Theorem RH_T3_compact : RH_T3_compact_verified.
 Proof.
   exists (sqrt 3). reflexivity.
