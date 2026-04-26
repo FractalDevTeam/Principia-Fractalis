@@ -71,5 +71,4 @@ All novel mathematical results are rigorously proven with ZERO unproven assumpti
 
 ---
 
-*Formalized with assistance from Claude Code*
-*Guardian of Principia Fractalis: Mathematical integrity maintained*
+*Pablo Cohen — Mathematical integrity maintained throughout.*

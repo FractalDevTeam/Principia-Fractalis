@@ -279,8 +279,6 @@ Please open an issue before submitting major changes.
 ## 🙏 Acknowledgments
 
 - **Lean community** for the proof assistant and Mathlib
-- **Claude Code** for formalization assistance
-- Guardian agent for mathematical verification
 
 ---
 
