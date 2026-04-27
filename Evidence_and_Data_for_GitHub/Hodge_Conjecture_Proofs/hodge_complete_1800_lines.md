@@ -1,3 +1,25 @@
+<!--
+==============================================================================
+NOTE on internal consistency (added 2026-04-27)
+==============================================================================
+This 2492-line proof attempt uses α = π/2 for the Hodge spectral operator
+(see line 335 below). The published rev2 Chapter 25 manuscript at
+`Principia_Fractalis_master_folder_rev2/chapters/ch25_hodge_conjecture.tex`
+uses α = φ = (1+√5)/2 for the same operator. These are two different
+operators with different spectra; the divergence is documented in
+`AXIOM_AUDIT.md` and in the Verification-status remark added to ch25
+preceding "Connection to Consciousness".
+
+The rev2 manuscript (α = φ) is the canonical convention. This file is
+preserved as a separate construction documenting an alternative α-choice;
+the section establishing the operator (around line 335) should be read with
+that distinction in mind.
+
+This note is informational only — no content of the proof attempt below
+has been modified.
+==============================================================================
+-->
+
 ```latex
 \documentclass[12pt,a4paper]{amsart}
 \usepackage[margin=1in]{geometry}
