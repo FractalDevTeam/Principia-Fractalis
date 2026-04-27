@@ -281,10 +281,11 @@ where $\phi = (1+\sqrt{5})/2$ is the golden ratio.
 \end{theorem}
 
 \begin{proof}[Proof sketch]
-The generating function for $N_m^{(3)}$ is:
-\begin{equation}
-\sum_{m=0}^{\infty} N_m^{(3)} z^m = \prod_{k=0}^{\infty} (1 + z + z^2 \cdot 3^k)
+The (finite, well-defined) generating function for base-3 digital sums at digit-length $N$, as used in the author's canonical derivation script \texttt{Evidence\_and\_Data\_for\_GitHub/alpha\_sqrt2\_derivation.py} (PART 1, Step 1 of the proof outline), is:
+\begin{equation}\label{eq:gen-fn-finite}
+G_N(z) \;:=\; \sum_{n=0}^{3^N - 1} z^{S_3(n)} \;=\; \sum_{s=0}^{2N} C_N(s)\, z^s \;=\; (1 + z + z^2)^N,
 \end{equation}
+where $C_N(s) := \#\{n \in [0, 3^N - 1] : S_3(n) = s\}$ is the count of integers with digital sum $s$ at digit-length $N$. The truncation at digit-length $N$ is essential: the previous-edition transcription of an unbounded $\prod_{k=0}^{\infty} (1 + z + z^2 \cdot 3^k)$ at this point in the manuscript was divergent as written (each $z^2$ coefficient is an unbounded sum over $k$). The finite form $G_N(z) = (1+z+z^2)^N$ corrects the transcription and matches the derivation script verbatim. The infinite-digit-length limit $N \to \infty$ is taken in the phase-sum self-adjointness condition below via the convergence factor $a^{-n}$ (PART 3 of the script), not at the level of the generating function itself.
 
 Evaluating at $z = e^{i\pi\alpha}$ and requiring reality involves:
 \begin{enumerate}
