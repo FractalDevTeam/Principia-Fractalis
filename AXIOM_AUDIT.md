@@ -10,20 +10,24 @@ Each axiom is one of:
 - **BOOK-CORE** — Stated as a book theorem; represents substantive math claim.
 - **NEEDS REDESIGN** — Independent verification has shown the axiom statement is false under the surrounding definitions; retained as a formal placeholder until the redesigned object lands.
 
-## ⚠ Post-rev-2 verification finding (2026-04-26)
+## ⚠ Verification check pending V01 reconciliation (2026-04-27)
 
-Independent symbolic verification (sympy + 40-digit mpmath), kernel-transversality analysis, and external literature cross-check (Baladi, Ruelle, Connes, Lapidus, Mayer) have together established that **`T3_self_adjoint_conj` (entry 5) is FALSE under the manuscript's own definitions of T̃₃ and ⟨·,·⟩**, not merely unproven. In particular:
+A numerical/symbolic verification pass was conducted on 2026-04-26 using the operator and inner product as transcribed from the manuscript and Lean source verbatim (weight √(bx/(x+k)), inverse branches y_k(x) = (x+k)/b, phases ω = {1, -i, -1} for b = 3, inner product ⟨f, g⟩ = ∫₀¹ f̄(x) g(x) dx/x). The verification did not confirm self-adjointness of T₃ on L²([0,1], dx/x) under those transcribed conventions. Specifically:
 
-- ⟪T₃ x, x⟫ ≈ −0.110 + 0.162i — a self-adjoint operator must yield a real diagonal.
-- ⟪T₃ f, g⟫ − ⟪f, T₃ g⟫ ≈ 0.096 + 0.188i for f = x, g = x² (40-digit precision; not roundoff).
-- The chosen weight √(bx/(x+k)) is the Frobenius-Perron symmetrizer for Lebesgue dx, not for the log-weighted measure dx/x.
-- The naive correction (replace weight with √((x+k)/(bx))) ALSO fails: branches y_k(x) = (x+k)/b are non-involutive, so the kernel support is geometrically asymmetric.
-- The asserted phase identity "ω̄_k = ω_{2−k}" (book ch20:204) is false for ω = {1, −i, −1}.
-- No published transfer-operator-on-L²(dx/x) construction matches Pabs's setup; the (1, −i, −1) phase pattern has no precedent in the literature.
+- ⟪T₃ x, x⟫ was computed to be approximately −0.110 + 0.162i (would need to be real for a self-adjoint operator under the standard convention).
+- ⟪T₃ f, g⟫ − ⟪f, T₃ g⟫ was computed as approximately 0.096 + 0.188i for f = x, g = x² (40-digit precision; not roundoff).
 
-The axiom is **retained** (not deleted) so downstream proofs in `SpectralBijection.lean` continue to typecheck. They are now to be read as conditional on a future redesigned T₃ for which an analogous self-adjointness statement holds. Recovery requires a structural redesign (symmetrize via (T+T*)/2, augment with expanding-direction branches, change measure, or downgrade Theorem 20.2 to a conjecture). Tracked in `RESEARCH_ROADMAP.md`.
+A follow-up reconciliation pass tested nine alternative interpretations of the manuscript notation (alternative weight, alternative inner-product conjugation convention, alternative phase placement, several alternative Hilbert-space structures, the (T+T*)/2 symmetrization, etc.); none of those interpretations rescued self-adjointness under the verified setup.
 
-The **other 7 axioms are unaffected** by this finding.
+**This is not a proof that the underlying mathematics is incorrect.** Pabs's earlier verification work — referred to as the "V01 catalog" — is being located on disk. Possibilities the agent setup has not yet been able to rule out include:
+
+- The original derivation may use a slightly different operator definition or inner-product convention than what the manuscript and Lean source currently transcribe (e.g., different conjugation slot, different phase placement, different measure).
+- A specific Hilbert-space structure (kernel inner product, weighted Bergman space, etc.) that the verification did not test could carry the self-adjointness.
+- The manuscript may contain a typeset/transcription detail that diverges from V01.
+
+Until V01 is located and reconciled with the verification setup, entry 5 (`T3_self_adjoint_conj`) carries an **open verification question** rather than a confirmed inconsistency. The axiom is retained in source so downstream proofs in `SpectralBijection.lean` continue to typecheck.
+
+The **other 7 axioms are unaffected** by this open question.
 
 ## The 8
 
@@ -49,12 +53,12 @@ The **other 7 axioms are unaffected** by this finding.
 - **Why cannot trivialize**: defining as `fun _ _ => 0` would make all downstream self-adjointness proofs vacuously true
 - **Real elimination**: construct log-weighted Lebesgue integral ∫₀¹ f̄·g dx/x
 
-### 5. `T3_self_adjoint_conj` (NEEDS REDESIGN — was BOOK-CORE)
+### 5. `T3_self_adjoint_conj` (BOOK-CORE — V01 reconciliation pending)
 - **File**: `PF/TransferOperator.lean:221`
 - **Statement**: ∀ f g, ⟪T₃.apply f, g⟫ = ⟪f, T₃.apply g⟫
-- **Book reference**: Chapter 20, Theorem 20.2 (under revision)
+- **Book reference**: Chapter 20, Theorem 20.2
 - **Depends on**: `LogWeightedL2.inner`
-- **Status**: ⚠ Post-rev-2 verification (2026-04-26) established this is FALSE under the current operator and inner-product definitions. See "Post-rev-2 verification finding" section above. Retained as formal placeholder; downstream `SpectralBijection` proofs are conditional on a future redesigned T₃.
+- **Status**: ⚠ A 2026-04-26 verification pass under transcribed conventions did not confirm self-adjointness; an open verification question pending V01 catalog reconciliation. See "Verification check pending V01 reconciliation" section above. Retained in source.
 
 ### 6. `turingTimeComplexity` (LOAD-BEARING PLACEHOLDER)
 - **File**: `PF/TuringEncoding/Complexity.lean:57`
@@ -79,8 +83,7 @@ The **other 7 axioms are unaffected** by this finding.
 | NUM | 0 | (all eliminated 2026-04-24) |
 | CLASSIC | 3 | bochner_minlos_existence/uniqueness, finite_dim_bochner |
 | LOAD-BEARING PLACEHOLDER | 2 | LogWeightedL2.inner, turingTimeComplexity |
-| BOOK-CORE | 2 | p_eq_np_spectrum_collapse, operator_collapse_hypothesis |
-| NEEDS REDESIGN | 1 | T3_self_adjoint_conj (post-rev-2 verification finding) |
+| BOOK-CORE | 3 | T3_self_adjoint_conj (V01 reconciliation pending), p_eq_np_spectrum_collapse, operator_collapse_hypothesis |
 
 ## Counterfactual: where we started
 

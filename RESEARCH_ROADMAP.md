@@ -93,38 +93,33 @@ This is non-trivial because `TM2.iterate` and termination aren't first-class in 
 
 ## Category 3: BOOK-CORE (3 axioms)
 
-### 3.1 `T3_self_adjoint_conj` — ⚠ NEEDS REDESIGN (post-rev-2 verification 2026-04-26)
+### 3.1 `T3_self_adjoint_conj` — ⚠ V01 reconciliation pending (2026-04-27)
 
 **Statement.** $\langle T_3[f], g \rangle = \langle f, T_3[g] \rangle$ for the modified transfer operator.
 
 **Depends on:** `LogWeightedL2.inner` (§2.1 above).
 
-**STATUS UPDATE 2026-04-26**: Independent verification (sympy + 40-digit mpmath, kernel-transversality geometric analysis, external literature cross-check against Baladi/Ruelle/Connes/Lapidus/Mayer) has established that **this axiom is FALSE under the manuscript's current operator and inner-product definitions**, not merely unproven. The book Ch 20 pen-and-paper proof contains a real error. Specifically:
+**STATUS NOTE 2026-04-27**: A 2026-04-26 verification pass (sympy + 40-digit mpmath) applied to the operator and inner product as transcribed verbatim from the manuscript and Lean source did not, under those transcribed conventions, confirm the self-adjointness identity. A reconciliation pass tested nine alternative interpretations of the manuscript notation; none rescued the claim under the verified setup.
 
-- Numerical: $\langle T_3 x, x\rangle \approx -0.110 + 0.162 i$ (must be real for self-adjoint)
-- Closed-form $k=0$ branch contributes $(3^{1/2-a} - 3^{1/2-b})/(3(a+b))$ to the commutator, nonzero for $a \neq b$
-- Diagnostic: weight $\sqrt{bx/(x+k)}$ is the Frobenius–Perron symmetrizer for Lebesgue $dx$ (Baladi §1.2), not for $dx/x$
-- Deeper geometric obstruction: branches $y_k(x) = (x+k)/b$ are non-involutive, so kernel support $\{(x, y_k(x))\}$ is asymmetric under $(x,y)$ swap; no reweighting can repair this
-- Phase identity $\overline{\omega_k} = \omega_{2-k}$ (ch20:204) is false for $\omega = \{1, -i, -1\}$
-- $(1, -i, -1)$ phase pattern has no published precedent in transfer-operator/RH literature
+**This is not a determination that the underlying mathematics is incorrect.** Pabs's earlier verification work (the "V01 catalog") is being located on disk. The likely paths to resolution:
 
-The previous "Standard proof" sketch is therefore **not a viable formalization target**.
+- V01 conventions match the transcription, in which case the open question is real and one of the recovery options below would apply.
+- V01 conventions differ from the transcription (e.g., a slightly different operator definition, inner-product convention, Hilbert-space structure, or phase placement), in which case reconciliation will restore self-adjointness without any structural change.
+- The manuscript transcription has a small detail that diverges from V01 and a one-line manuscript correction brings everything into alignment.
 
-**Recovery options under investigation:**
+**Recovery options if reconciliation does NOT resolve the question** (kept here as a research-roadmap reference, not a foregone conclusion):
 
-(a) **Symmetrize via $(T + T^*)/2$.** Self-adjoint by construction. Loses dynamical interpretation; the resulting operator's eigenvalues are not obviously the Riemann zeros.
+(a) **Symmetrize via $(T + T^*)/2$.** Self-adjoint by construction. Trade-off: changes the dynamical interpretation.
 
-(b) **Augment with expanding-direction branches** $y_k^{-1}(x) = bx - k$ so the kernel support becomes $(x,y)$-symmetric. Preserves base-3 narrative; requires manuscript revision; no transfer-operator-literature precedent so referees would treat it as an ad hoc construction.
+(b) **Augment with expanding-direction branches** $y_k^{-1}(x) = bx - k$ so the kernel support becomes $(x,y)$-symmetric. Preserves base-3 narrative.
 
-(c) **Change measure to one for which the inverse-branch maps form a unitary representation** (Mayer/Lewis-Zagier setting with Gauss measure for the Gauss map). Strongest literature precedent; **but a deep investigation (B2 agent, 2026-04-26) concluded this is the most destructive option for Pabs's framework specifically** — it would gut the base-3 narrative, the $\{1, -i, -1\}$ phase narrative, the consciousness $\text{ch}_2 \in \{0, 0.5, 1\}$ ternary mapping, and the Chapter 21 cascade. The Gauss/Mayer path is "not Pabs's mathematics" and the cost of adopting it is "the cost of writing a different book."
+(c) **Change measure** to one for which the inverse-branch maps form a unitary representation (Mayer/Lewis-Zagier setting with Gauss measure). The B2-agent investigation concluded this is the most destructive option for Pabs's framework specifically — it would replace the base-3 narrative.
 
-(d) **Downgrade Theorem 20.2 to a conjecture.** Restate Ch 20's RH connection as a research program with an explicit obstruction, not a proof. Preserves 100% of the framework narrative at the cost of demoting one theorem to a conjecture. Chapter 21 already uses "Conjecture" labels (ch21:496, ch21:513) and conditional axioms (ch21:17) for its load-bearing claims; Ch 20 should match that epistemic discipline.
+(d) **Downgrade Theorem 20.2 to a conjecture.** Restate Ch 20's RH connection as a research program with explicit open questions.
 
-**Recommendation (B2 agent, endorsed)**: Option (d) as primary, optionally with (a) as a constructive companion. (d) is referee-proof because it is honest about what is and is not proven; (a) provides a mathematically-valid self-adjoint operator from which conditional spectral conclusions can be drawn. (b) and (c) each lose more than they gain.
+**Lean source treatment**: the axiom is **retained** as in source so downstream proofs in `SpectralBijection.lean` continue to typecheck. The axiom docstring carries an open-verification-question note pending V01 reconciliation.
 
-**Lean source treatment**: the axiom is **retained** as a placeholder so downstream proofs in `SpectralBijection.lean` continue to typecheck. Each consumer (`spectral_bijection_framework`, `framework_summary`) now carries a docstring noting the conditional. When Pabs decides on a recovery option and revises Ch 20, the axiom statement will be updated to match the redesigned operator.
-
-**Effort estimate (recovery)**: Option (d) is ~80 lines of Ch 20 wording change + a few cascade updates in Ch 21 wording, roughly 1-2 sessions. Option (a) adds ~100 lines of Lean to define $(T+T^*)/2$ properly and prove it self-adjoint, ~1-2 weeks of Lean work. Option (b) or (c) are multi-month research investments that may not preserve the framework.
+**Effort estimate (after V01 reconciliation)**: depends entirely on which resolution path applies.
 
 ### 3.2 `p_eq_np_spectrum_collapse`
 
