@@ -1,0 +1,80 @@
+# --- Lean 4 / Lake ---
+.lake/
+build/
+lakefile.olean
+*.olean
+
+# --- Coq ---
+*.aux
+*.glob
+*.vo
+*.vok
+*.vos
+*.cmi
+*.cmo
+*.cmx
+*.cmxa
+*.cmxs
+*.crashcoqide
+.coq-native/
+.lia.cache
+.nia.cache
+# Coq's _CoqProject auto-generated Makefiles
+PF_Coq/Makefile
+PF_Coq/Makefile.conf
+PF_Coq/Makefile.coq
+PF_Coq/Makefile.coq.conf
+
+# --- LaTeX (build byproducts) ---
+# (note: .aux is also covered by Coq pattern above, intentional overlap)
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.synctex.gz
+*.synctex(busy)
+*.fdb_latexmk
+*.fls
+*.idx
+*.ind
+*.ilg
+*.nav
+*.snm
+*.vrb
+_minted-*/
+*-blx.bib
+*.dvi
+# Don't ignore .pdf — final outputs may be intentionally tracked
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.tox/
+*.egg-info/
+.venv/
+venv/
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- ad hoc verification scratch ---
+tmp_pf_verify/
+verify_*.py
+/tmp_*/
