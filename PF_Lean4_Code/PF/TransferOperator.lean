@@ -206,7 +206,22 @@ structure TransferOperator (b : ℕ) where
   /-- The operator acts on weighted L² -/
   apply : LogWeightedL2 → LogWeightedL2
 
-/-- Action of transfer operator (explicit formula). -/
+/-- Action of transfer operator (explicit formula).
+
+    ⚠ This implementation uses the manuscript's weight √(bx/(x+k))
+    which the post-rev-2 verification (2026-04-26) identified as the
+    Frobenius–Perron symmetrizer for Lebesgue dx, NOT for the
+    log-weighted measure dx/x of the surrounding L² space. As a
+    consequence, the resulting operator is not self-adjoint on
+    L²(dx/x); see the disclosure block above the surrounding
+    `structure TransferOperator` and above `axiom T3_self_adjoint_conj`.
+
+    The definition is retained verbatim so that it matches the
+    manuscript Chapter 20 §20.3.3 formula and so that the type
+    `LogWeightedL2 → LogWeightedL2` remains inhabited. A redesigned
+    operator that IS self-adjoint on L²(dx/x) will replace this
+    definition coordinated with the corresponding manuscript
+    revision. -/
 noncomputable def transferOperatorAction (b : ℕ) (phases : Fin b → ℂ)
     (f : LogWeightedL2) : LogWeightedL2 := {
   toFun := fun ⟨x, hx⟩ =>
@@ -237,7 +252,14 @@ noncomputable def transferOperatorAction (b : ℕ) (phases : Fin b → ℂ)
   integrable := trivial
 }
 
-/-- The base-3 transfer operator T₃ (used in RH analysis). -/
+/-- The base-3 transfer operator T₃ (used in RH analysis).
+
+    ⚠ As currently constructed (with `transferOperatorAction` above
+    and complex phases `phaseFactorBase3 = {1, -i, -1}`), T₃ is NOT
+    self-adjoint on L²([0,1], dx/x); see the disclosure blocks above
+    `structure TransferOperator` and above `axiom T3_self_adjoint_conj`.
+    The definition is retained as it appears in manuscript
+    Chapter 20 §20.3.3 pending coordinated operator redesign. -/
 noncomputable def T3 : TransferOperator 3 := {
   phases := phaseFactorBase3
   apply := transferOperatorAction 3 phaseFactorBase3

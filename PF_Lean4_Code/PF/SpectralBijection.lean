@@ -321,7 +321,18 @@ theorem first_zero_agreement :
 
     The framework is COMPLETE and AXIOM-FREE.
     The connection to ζ requires spectral determinant or trace formula proof.
--/
+
+    ⚠ Post-rev-2 verification (2026-04-26): the first conjunct of this
+    theorem (T₃ self-adjointness, supplied by `T3_self_adjoint_conj`)
+    has been recategorized in `AXIOM_AUDIT.md` as NEEDS REDESIGN —
+    it is false under the current operator/inner-product definitions.
+    This `theorem` therefore typechecks but is to be read as
+    **conditional on a future redesigned T₃** for which an analogous
+    self-adjointness statement is true. See `PF/TransferOperator.lean`
+    docstrings (above `axiom T3_self_adjoint_conj`) and the rev2
+    frontmatter "Post-rev-2 verification finding" remark for the
+    full disclosure. The second and third conjuncts (g_injective, the
+    `True` placeholder) are independent and unaffected. -/
 theorem spectral_bijection_framework :
     -- Self-adjoint transfer operator
     (∀ f g, ⟪T3.apply f, g⟫ = ⟪f, T3.apply g⟫) ∧
@@ -391,7 +402,21 @@ theorem selberg_model_works (M : SelbergZetaModel) :
 
     The framework is mathematically rigorous.
     The connection to ζ zeros is the remaining research challenge.
--/
+
+    ⚠ Post-rev-2 verification (2026-04-26): the first ESTABLISHED
+    bullet ("T₃ is self-adjoint") has been recategorized in
+    `AXIOM_AUDIT.md` as NEEDS REDESIGN. The summary text above
+    predates the verification finding and overstates what is
+    proven; the operator as currently defined is NOT self-adjoint
+    on L²(dx/x), and the "phases {1,-i,-1} create symmetry"
+    claim is incorrect. See `PF/TransferOperator.lean` docstrings
+    and rev2 frontmatter for the full disclosure. The
+    "T₃ is compact (Hilbert-Schmidt)" bullet is also under question
+    (a singular-kernel transfer operator is not generically HS on
+    L²(dx/x); the previously claimed HS norm √3 was unrelated to
+    a literal Hilbert-Schmidt computation). The `framework_summary`
+    theorem below typechecks but is conditional on the operator
+    redesign. -/
 theorem framework_summary :
     -- We have a rigorous spectral framework
     (∃ T : TransferOperator 3,
