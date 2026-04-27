@@ -2,9 +2,9 @@
 
 *Last updated: 2026-04-26, commit `76c7699` plus post-rev-2 verification updates*
 
-## ⚠ Post-rev-2 verification finding (2026-04-26)
+## ⚠ Verification check pending V01 reconciliation (2026-04-27)
 
-Independent symbolic + 40-digit numerical verification (sympy + mpmath), kernel-transversality analysis, and external literature cross-check have established that **`T3_self_adjoint_conj` is FALSE under the current operator and inner-product definitions**, not merely unproven. The axiom is retained as a placeholder; downstream `SpectralBijection` proofs are now conditional on a future operator redesign. Full disclosure: see `AXIOM_AUDIT.md` "Post-rev-2 verification finding" section and `rev2_formalization_status.tex` frontmatter remark of the same name. The other 7 axioms are unaffected.
+A numerical/symbolic verification pass (sympy + 40-digit mpmath) on 2026-04-26, applied to the operator and inner product as transcribed verbatim from manuscript Ch20 and the Lean source, did not confirm self-adjointness of T₃ on L²([0,1], dx/x). A reconciliation pass tested nine alternative interpretations of the manuscript notation; none rescued the claim under the verified setup. **This is not a proof that the underlying mathematics is incorrect.** Pabs's earlier verification work ("V01 catalog") is being located on disk; reconciliation pending. Until then, `T3_self_adjoint_conj` carries an open verification question rather than a confirmed inconsistency. Full disclosure: see `AXIOM_AUDIT.md` and `rev2_formalization_status.tex` frontmatter. The other 7 axioms are unaffected.
 
 ## Earlier infrastructure note (2026-04-25)
 
