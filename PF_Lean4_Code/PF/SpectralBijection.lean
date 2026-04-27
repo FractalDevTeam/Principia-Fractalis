@@ -220,7 +220,16 @@ noncomputable def spectralDeterminant (T : TransferOperator 3) (z : ℂ) : ℂ :
 
     IF det(I - zT) = ζ(s(z))⁻¹ for appropriate s(z),
     THEN zeros of ζ correspond to eigenvalues where λₖ = 1/z.
--/
+
+    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The conclusion
+    below is `True`; the hypothesis itself is also vacuous (its
+    body is `∃ k : ℕ, True`). Proof is `trivial`. The "spectral
+    determinant" used as input is the placeholder `0` defined just
+    above (`spectralDeterminant T z := 0`), so the hypothesis
+    `∀ z, 0 = 0 ↔ ∃ k, True` is trivially satisfied for any T,
+    and the conclusion conveys no information about a bijection.
+    Retained as a structural placeholder for the RH-bridge
+    chapter. -/
 theorem spectral_det_implies_bijection
     (T : TransferOperator 3)
     (hdet : ∀ z, spectralDeterminant T z = 0 ↔
