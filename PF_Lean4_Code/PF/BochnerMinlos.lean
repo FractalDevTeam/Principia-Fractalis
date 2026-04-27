@@ -103,7 +103,19 @@ axiom bochner_minlos_uniqueness {d : ℕ} (C : CharacteristicFunctional d)
     - Probability measures on S'(R^d)
 
     given by the Fourier transform C(f) = ∫ exp(i⟨ω,f⟩) dμ(ω).
--/
+
+    ⚠ MISLEADING NAME (post-rev-2 audit, 2026-04-26). The
+    "injectivity" arm of this theorem (line ~118 below) derives
+    `C₁ = C₂` from `Φ C₁ = Φ C₂` via `congrArg (·.measure)` plus
+    pointwise rewriting using `hΦ`. This is a TAUTOLOGY: it shows
+    `C₁.toFun = C₂.toFun` only because both sides equal the same
+    integral against the same measure (since `Φ C₁ = Φ C₂`). It
+    does NOT invoke the `bochner_minlos_uniqueness` axiom and does
+    NOT use any actual injectivity property of the Fourier transform.
+    The two axioms above (`bochner_minlos_existence`,
+    `bochner_minlos_uniqueness`) carry the real content; this
+    theorem's "Combined Statement" name suggests more was proved.
+    Retained as a structural-naming placeholder. -/
 theorem bochner_minlos_bijection (d : ℕ) :
     ∃ (Φ : CharacteristicFunctional d → ProbabilityMeasureOnDual d),
       -- Surjectivity: every characteristic functional comes from a unique measure

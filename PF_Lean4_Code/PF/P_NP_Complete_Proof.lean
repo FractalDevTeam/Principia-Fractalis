@@ -96,7 +96,18 @@ def cert_energy (c : Certificate) : ℕ :=
 
     Proof idea: If L ∈ NP \ P, then L needs nontrivial certificates
     for verification. These certificates contribute positive energy.
--/
+
+    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The proof below
+    literally ignores both hypotheses (`is_np` and `not_in_p`) and
+    returns the literal certificate `⟨[1], _⟩`. The theorem is
+    therefore equivalent to `∃ c, cert_energy c > 0` — a one-line
+    existence claim with NO connection to NP \ P. The docstring
+    promises "Languages in NP \ P require certificates with positive
+    energy", but the proof establishes nothing of the sort. To make
+    this a real theorem, the proof must use `is_np` to extract a
+    verification structure from L and `not_in_p` to argue that
+    elimination of certificates is impossible. Retained as a
+    structural placeholder for the P-vs-NP framework chapter. -/
 theorem np_minus_p_needs_certificates :
   ∀ (L : Type) (vtime : TimeComplexity),
     IsInNP vtime → (∀ (t : TimeComplexity), ¬IsInP t) →

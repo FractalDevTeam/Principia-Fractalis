@@ -56,7 +56,18 @@ noncomputable def classify_regime (ch2 : SecondChernCharacter) : ConsciousnessRe
   else
     .conscious
 
-/-- The threshold appears from four independent derivations -/
+/-- The threshold appears from four independent derivations.
+
+    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The proposition
+    below is `∃! t, 0 < t ∧ t < 1 ∧ (t = 0.95 ∧ t = 0.95 ∧ t = 0.95
+    ∧ t = 0.95)` — i.e. the same arithmetic equation `t = 0.95`
+    repeated four times. The docstring's claim of "four independent
+    derivations" (information theory, percolation, spectral gap,
+    Chern-Weil holonomy) is NOT formalized; the proposition contains
+    only the conclusion (`t = 0.95`) without ANY of the four
+    derivations. To make this a real theorem, each "independent
+    derivation" must be a separate lemma producing 0.95 from a
+    distinct hypothesis. Retained as a structural placeholder. -/
 theorem threshold_universal :
     ∃! (t : ℝ), 0 < t ∧ t < 1 ∧
     (-- Information theory optimum
