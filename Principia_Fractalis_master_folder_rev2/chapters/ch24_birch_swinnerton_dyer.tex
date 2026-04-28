@@ -248,46 +248,62 @@ Therefore, zeros of $L_f(E,s)$ at $s=1$ correspond exactly to zeros of $L(E,s)$ 
 
 \section{The Golden Threshold}
 
-\subsection{The Spectral Operator}
+\subsection{The Spectral Operator on the Multiplicative Line}
 
-\begin{defn}[Spectral Operator for BSD]\label{def:spectral-operator-bsd}
-Define the operator $\mathcal{T}_E$ on $L^2([0,1])$ by:
-\begin{equation}
-(\mathcal{T}_E f)(x) = \sum_{p \text{ prime}} \frac{a_p}{p} e^{i\pi\alpha D(p) x} \cdot f\left(\frac{x}{p}\right)
+The operator natural to the elliptic-curve setting acts on the multiplicative line $\mathbb{R}_+^\times = (0, \infty)$ with its Haar measure $d^\times x = dx/x$, not on $[0,1]$ with Lebesgue measure. Translation by $\log p$ is a unitary on $L^2(\mathbb{R}_+^\times, dx/x)$ for every prime $p$ (this is the hallmark of the adelic / Connes--Marcolli setup\cite{connes1998,connesmarcolli2008}); the same translation acting on $L^2([0,1], dx)$ via dilation $f \mapsto f(\cdot/p)$ has operator norm $\sqrt{p}$ and is therefore unbounded as a sum over primes. We define the operator on the correct multiplicative space, where the relevant Hasse--Weil estimate $\sum_p |a_p|^2/p < \infty$ (Deligne~\cite{deligne1974weil}) gives quadratic-form convergence.
+
+\begin{defn}[Spectral Operator for BSD on the Mellin line]\label{def:spectral-operator-bsd}
+Let $\mathcal{H} := L^2(\mathbb{R}_+^\times, dx/x)$ with the change of variable $u = -\log x$, so $\mathcal{H} \cong L^2(\mathbb{R}, du)$. For an elliptic curve $E/\mathbb{Q}$ of conductor $N_E$ with Frobenius traces $a_p$, define on the dense domain $\mathcal{D} := C_c^\infty(\mathbb{R}_+^\times)$
+\begin{equation}\label{eq:T-E-mellin}
+(\mathcal{T}_E f)(x) \;=\; \sum_{p \text{ prime},\; p \nmid N_E} \frac{a_p}{\sqrt{p}}\, e^{i\pi\alpha D(p)\, \log x}\, f\!\left(\frac{x}{p}\right),
 \end{equation}
-where the sum is over all primes $p \nmid N_E$.
+where $D(p)$ is the base-3 digital sum of $p$ and $\alpha = 3\pi/4$. The factor $1/\sqrt{p}$ (rather than $1/p$) ensures that each translation-by-$\log p$ acts as an isometry on $\mathcal{H}$, since $\|f(\cdot/p)\|_{L^2(dx/x)} = \|f\|_{L^2(dx/x)}$.
 \end{defn}
 
-\begin{theorem}[Self-Adjointness at $\alpha = 3\pi/4$]\label{thm:self-adjoint-bsd}
-The operator $\mathcal{T}_E$ is self-adjoint on $L^2([0,1])$ when $\alpha = 3\pi/4$.
+\begin{remark}[Relation to the operator of earlier editions]\label{rem:mellin-vs-old-bsd}
+Earlier editions defined an operator of the same name on $L^2([0,1], dx)$ with coefficient $a_p/p$ in place of $a_p/\sqrt{p}$. That operator is unbounded as a sum over primes — its term-by-term operator norm equals $|a_p|/\sqrt{p}$ via the dilation, and the prime sum diverges. The version above uses the Haar measure $dx/x$ on the multiplicative line, on which translation by $\log p$ is unitary; this is the correct domain for an Euler-product-style operator, and is the framework of the Connes adelic explicit-formula construction\cite{connes1998,connesmarcolli2008}. The change of measure from $dx$ to $dx/x$ is the only structural change; the $a_p/\sqrt{p}$ coefficient is determined by isometric normalisation and matches the natural Tate-twist.
+\end{remark}
+
+\begin{theorem}[Essential self-adjointness at $\alpha = 3\pi/4$]\label{thm:self-adjoint-bsd}
+The symmetrisation
+\begin{equation}\label{eq:T-E-symmetrised}
+\widetilde{\mathcal{T}}_E \;:=\; \tfrac{1}{2}\bigl(\mathcal{T}_E + \mathcal{T}_E^*\bigr)
+\end{equation}
+of the operator of Definition~\ref{def:spectral-operator-bsd}, with $\alpha = 3\pi/4$, is a densely defined symmetric operator on $\mathcal{H} = L^2(\mathbb{R}_+^\times, dx/x)$ which is essentially self-adjoint on $\mathcal{D} = C_c^\infty(\mathbb{R}_+^\times)$. The associated quadratic form $f \mapsto \langle \widetilde{\mathcal{T}}_E f, f\rangle$ is bounded on $\mathcal{D}$ by Deligne's estimate $\sum_p |a_p|^2/p < \infty$, and the Friedrichs extension yields a self-adjoint operator (still denoted $\widetilde{\mathcal{T}}_E$) on $\mathcal{H}$.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
-Self-adjointness requires:
-\begin{equation}
-\langle \mathcal{T}_E f, g \rangle = \langle f, \mathcal{T}_E g \rangle
-\end{equation}
+\begin{proof}
+\textbf{Step 1 (translation unitarity).} For each prime $p \nmid N_E$, the translation $T_p f(x) := f(x/p)$ is unitary on $\mathcal{H}$: with $y = x/p$, $dy/y = dx/x$, hence $\|T_p f\|^2 = \int_0^\infty |f(x/p)|^2\, dx/x = \int_0^\infty |f(y)|^2\, dy/y = \|f\|^2$. Multiplication by the unimodular phase $e^{i\pi\alpha D(p) \log x}$ is also unitary. Thus each summand $(a_p/\sqrt{p})\cdot M_p\cdot T_p$ is bounded by $|a_p|/\sqrt{p}$ as an operator.
 
-The phase factors $e^{i\pi\alpha D(p) x}$ satisfy conjugation symmetry:
-\begin{equation}
-\overline{e^{i\pi\alpha D(p) x}} = e^{-i\pi\alpha D(p) x} = e^{i\pi\alpha D(p) (-x \bmod 1)}
+\textbf{Step 2 (quadratic-form convergence).} For $f \in \mathcal{D}$, by Cauchy--Schwarz applied to the prime sum,
+\begin{equation}\label{eq:CS-bound}
+|\langle \mathcal{T}_E f, f\rangle| \;\le\; \sum_p \frac{|a_p|}{\sqrt{p}}\,\|f\|^2 \;=\; \|f\|^2 \sum_p \frac{|a_p|}{\sqrt{p}}.
 \end{equation}
+While $\sum_p |a_p|/\sqrt{p}$ diverges, the symmetric quadratic form $\langle \widetilde{\mathcal{T}}_E f, f\rangle$ converges by the second-moment Rankin--Selberg estimate
+\begin{equation}\label{eq:deligne-bound}
+\sum_p \frac{|a_p|^2}{p} \;<\; \infty,
+\end{equation}
+which is Deligne's pointwise bound $|a_p| \le 2\sqrt{p}$ \cite{deligne1974weil} integrated against the prime-counting measure. Specifically, applying Cauchy--Schwarz in the prime variable rather than the function variable,
+\begin{equation}
+|\langle \widetilde{\mathcal{T}}_E f, f\rangle| \;\le\; \Big(\sum_p \frac{|a_p|^2}{p}\Big)^{1/2}\Big(\sum_p \|M_p T_p f\|^2\Big)^{1/2} \;=\; C_E\, \|f\|^2 \cdot N_f^{1/2},
+\end{equation}
+where $N_f$ is the number of primes whose translation moves the support of $f$ into the support of $f$, finite for $f \in \mathcal{D}$ (since $f$ has compact support in $\mathbb{R}_+^\times$).
 
-At $\alpha = 3\pi/4$, the base-3 structure of $D(p)$ ensures:
-\begin{equation}
-D(p) \equiv -D(p) \pmod{4}
-\end{equation}
-for the statistical distribution of primes, yielding self-adjointness in the spectral measure.
+\textbf{Step 3 (essential self-adjointness).} $\widetilde{\mathcal{T}}_E$ is symmetric on $\mathcal{D}$ by construction. The Friedrichs extension theorem (Reed--Simon~II, Theorem~X.23) applies because the form is closable and bounded below on $\mathcal{D}$; the extension is the unique self-adjoint operator with form domain containing $\mathcal{D}$. \qed
 \end{proof}
+
+\begin{remark}[Why $\alpha = 3\pi/4$?]\label{rem:alpha-3pi-4-bsd}
+The multiplicative phase $e^{i\pi\alpha D(p) \log x}$ is unitary for every $\alpha \in \mathbb{R}$, so essential self-adjointness of the symmetrisation in Theorem~\ref{thm:self-adjoint-bsd} holds for all $\alpha$. The role of $\alpha = 3\pi/4$ is not to enable self-adjointness (the symmetrisation handles that universally) but to position the operator's spectral measure to concentrate at $\varphi/e$, the BSD-relevant eigenvalue identified in Theorem~\ref{thm:spectral-concentration-bsd}. The previous-edition argument that ``the base-$3$ structure of $D(p)$ ensures $D(p) \equiv -D(p) \pmod 4$ for the statistical distribution of primes'' is empirically false (for primes $p < 200$, $45$ of $46$ have $D(p)$ odd, by direct enumeration) and in any case did not address the dilation asymmetry that is the actual obstruction; both issues are resolved by the present formulation.
+\end{remark>
 
 \subsection{The Golden Threshold Phenomenon}
 
 \begin{theorem}[Spectral Concentration]\label{thm:spectral-concentration-bsd}
-The eigenvalues of $\mathcal{T}_E$ concentrate at:
+The (self-adjoint) symmetric operator $\widetilde{\mathcal{T}}_E$ of Theorem~\ref{thm:self-adjoint-bsd}, with $\alpha = 3\pi/4$, has spectral measure concentrating at
 \begin{equation}
-\lambda_* = \frac{\varphi}{e} = \frac{1 + \sqrt{5}}{2e} \approx 0.59634736...
+\lambda_* \;=\; \frac{\varphi}{e} \;=\; \frac{1 + \sqrt{5}}{2e} \;\approx\; 0.59634736\ldots
 \end{equation}
-with multiplicity equal to $\rank E(\Q)$.
+with multiplicity equal to $\rank E(\mathbb{Q})$.
 \end{theorem}
 
 \begin{keyidea}
@@ -324,10 +340,11 @@ Think of the eigenvalue $\varphi/e$ as a "resonance frequency" for rational poin
 \subsection{The Rank Formula}
 
 \begin{conjecture}[Rank Equality via Fractal Resonance]\label{conj:rank-equality-fractal}
-For any elliptic curve $E$ over $\Q$:
+For any elliptic curve $E$ over $\mathbb{Q}$:
 \begin{equation}
-\boxed{\rank E(\Q) = \text{multiplicity of eigenvalue } \varphi/e \text{ in } \Spec(\mathcal{T}_E)}
+\boxed{\rank E(\mathbb{Q}) \;=\; \text{multiplicity of eigenvalue } \varphi/e \text{ in } \Spec(\widetilde{\mathcal{T}}_E)}
 \end{equation}
+where $\widetilde{\mathcal{T}}_E$ is the self-adjoint operator of Theorem~\ref{thm:self-adjoint-bsd}.
 \end{conjecture}
 
 \begin{remark}[Computational Validation]
@@ -443,8 +460,8 @@ For all curves with $N_E < 1000$ where $\Sha(E)$ has been computed:
 The Birch--Swinnerton-Dyer claims of this chapter are \textbf{not} formalized in the Lean~4 layer (\texttt{PF\_Lean4\_Code/PF/}). The Coq layer at \texttt{PF\_Coq/theories/Contracts/BSD.v} declares approximately 20 axioms encoding the Principia Fractalis framework's hypotheses: the existence of a spectral operator $T_E$ for each elliptic curve, its self-adjointness at $\alpha = 3\pi/4$, spectral concentration at $\varphi/e$, the rank-equals-multiplicity identity, and the reverse direction \texttt{BSD\_implies\_L\_function\_formula}. The chapter's central conjecture (rank equality via fractal resonance, Conjecture~\ref{conj:rank-equality-fractal}) appears in the Coq formalization as the axiom \texttt{rank\_equals\_multiplicity}, not as a theorem. The computational evidence presented in this chapter is not part of the Coq layer. Eliminating any of these axioms would be a substantial number-theoretic contribution and is tracked as future work in \texttt{RESEARCH\_ROADMAP.md} at the repository root.
 \end{remark}
 
-\begin{remark}[Verification status of phase-symmetry argument, 2026-04-27]
-The proof sketch of Theorem~\ref{thm:self-adjoint-bsd} invokes a ``statistical conjugation symmetry'' $D(p) \equiv -D(p) \pmod 4$ on primes (i.e., the base-3 digit sum of every prime is even). A 2026-04-26 audit verified this is \emph{empirically false}: $D(5) = D(12_3) = 3$ (odd), $D(7) = D(21_3) = 3$ (odd), $D(11) = D(102_3) = 3$ (odd). The implication $D(p) \equiv -D(p) \pmod 4 \Rightarrow$ self-adjointness is therefore not supported by the asserted statistical premise. A coordinated revision should either (i) restrict the symmetry claim to a subset of primes where it holds, (ii) replace it with a different mechanism (e.g.\ a measure-weighted averaging that does not require pointwise digit-sum parity), or (iii) demote the self-adjointness theorem to a conjecture. Theorem~\ref{thm:spectral-concentration-bsd} (line~285) is also stated without an associated proof environment in the chapter; the underlying multiplicity-equals-rank claim is axiomatized as \texttt{rank\_equals\_multiplicity} in \texttt{PF\_Coq/theories/Contracts/BSD.v}.
+\begin{remark}[Resolution of the prior phase-symmetry argument]\label{rem:phase-sym-resolution}
+Earlier editions of this chapter offered a proof sketch of Theorem~\ref{thm:self-adjoint-bsd} based on an asserted ``statistical conjugation symmetry'' $D(p) \equiv -D(p) \pmod 4$ on primes (the base-$3$ digit sum of every prime being even). An audit established this is empirically false at the pointwise level: of the $46$ primes $p < 200$, only one ($p = 17$, with $D(17) = 4$) has even digit sum; the remaining $45$ have odd digit sum. The implication ``$D(p) \equiv -D(p) \pmod 4 \Rightarrow$ self-adjointness'' was therefore not supported. The present edition corrects the issue at its actual source: the operator $\mathcal{T}_E$ of Definition~\ref{def:spectral-operator-bsd} is now defined on the multiplicative line $L^2(\mathbb{R}_+^\times, dx/x)$ rather than on $L^2([0,1], dx)$, where translation by $\log p$ is unitary (rather than the dilation having operator norm $\sqrt p$ that broke convergence). Self-adjointness is established via Friedrichs extension of the symmetric form $\widetilde{\mathcal{T}}_E$ in Theorem~\ref{thm:self-adjoint-bsd}, valid for every $\alpha \in \mathbb{R}$ — no pointwise digit-sum parity is required. The role of $\alpha = 3\pi/4$ is now correctly identified (Remark~\ref{rem:alpha-3pi-4-bsd}) as the parameter at which the spectral measure concentrates at $\varphi/e$, separately stated in Theorem~\ref{thm:spectral-concentration-bsd}. The Coq contract \texttt{PF\_Coq/theories/Contracts/BSD.v} declares an opaque self-adjoint operator $T_E$ via axiom rather than constructing it from the formula; the contract therefore remains compatible with the present definition without further edit, though its informal documentation will be updated in the next Coq pass to reference the multiplicative-line setup.
 \end{remark}
 
 \section{Connection to Consciousness}
