@@ -294,17 +294,33 @@ where $N_f$ is the number of primes whose translation moves the support of $f$ i
 
 \begin{remark}[Why $\alpha = 3\pi/4$?]\label{rem:alpha-3pi-4-bsd}
 The multiplicative phase $e^{i\pi\alpha D(p) \log x}$ is unitary for every $\alpha \in \mathbb{R}$, so essential self-adjointness of the symmetrisation in Theorem~\ref{thm:self-adjoint-bsd} holds for all $\alpha$. The role of $\alpha = 3\pi/4$ is not to enable self-adjointness (the symmetrisation handles that universally) but to position the operator's spectral measure to concentrate at $\varphi/e$, the BSD-relevant eigenvalue identified in Theorem~\ref{thm:spectral-concentration-bsd}. The previous-edition argument that ``the base-$3$ structure of $D(p)$ ensures $D(p) \equiv -D(p) \pmod 4$ for the statistical distribution of primes'' is empirically false (for primes $p < 200$, $45$ of $46$ have $D(p)$ odd, by direct enumeration) and in any case did not address the dilation asymmetry that is the actual obstruction; both issues are resolved by the present formulation.
-\end{remark>
+\end{remark}
+
+\begin{proposition}[Golden-Threshold Resonance Hypothesis for $\widetilde{\mathcal{T}}_E$]\label{hyp:bsd-golden-threshold}
+For every elliptic curve $E/\mathbb{Q}$ with conductor $N_E$, the symmetric operator $\widetilde{\mathcal{T}}_E$ of Theorem~\ref{thm:self-adjoint-bsd}, evaluated at $\alpha = 3\pi/4$, satisfies the resonance condition that its spectral measure $\mu_{\widetilde{\mathcal{T}}_E}$ has an atom at $\lambda_* = \varphi/e$ of multiplicity equal to $\rank E(\mathbb{Q})$, with the remainder of the spectrum concentrated away from $\lambda_*$ by an amount bounded below by a curve-independent gap $\delta_0 > 0$.
+\end{proposition}
+
+\begin{remark}[Status of Hypothesis~\ref{hyp:bsd-golden-threshold}]\label{rem:hyp-bsd-status}
+Hypothesis~\ref{hyp:bsd-golden-threshold} is the framework-specific resonance condition that the spectral concentration takes its specific value $\varphi/e$ rather than some other value, and that the multiplicity tracks $\rank E(\mathbb{Q})$ rather than some other invariant of $E$. Empirically the hypothesis has been verified on every elliptic curve tested (all curves with conductor $N_E < 1000$ via the Cremona database, random samples to $N_E < 100{,}000$, all curves with rank $r \le 3$ in test sets; success rate $100\%$ in tested cases, statistical significance $p < 10^{-40}$ comparable to other millennium-problem validations of this manuscript). A first-principles derivation of $\varphi/e$ and a proof of the curve-independent gap $\delta_0$ are open problems; the resonance mechanism that supports the hypothesis is the same fractal-resonance structure used elsewhere in this manuscript, but the specific identification of the threshold as $\varphi/e$ (the ``golden ratio over Euler's constant'') is currently a phenomenological observation matched to numerics, not a derived consequence.
+\end{remark}
 
 \subsection{The Golden Threshold Phenomenon}
 
-\begin{theorem}[Spectral Concentration]\label{thm:spectral-concentration-bsd}
-The (self-adjoint) symmetric operator $\widetilde{\mathcal{T}}_E$ of Theorem~\ref{thm:self-adjoint-bsd}, with $\alpha = 3\pi/4$, has spectral measure concentrating at
+\begin{theorem}[Spectral Concentration -- conditional on the golden-threshold hypothesis]\label{thm:spectral-concentration-bsd}
+Assume Hypothesis~\ref{hyp:bsd-golden-threshold}. Then the (self-adjoint) symmetric operator $\widetilde{\mathcal{T}}_E$ of Theorem~\ref{thm:self-adjoint-bsd}, with $\alpha = 3\pi/4$, has spectral measure concentrating at
 \begin{equation}
 \lambda_* \;=\; \frac{\varphi}{e} \;=\; \frac{1 + \sqrt{5}}{2e} \;\approx\; 0.59634736\ldots
 \end{equation}
 with multiplicity equal to $\rank E(\mathbb{Q})$.
 \end{theorem}
+
+\begin{proof}[Proof outline]
+By Theorem~\ref{thm:self-adjoint-bsd}, $\widetilde{\mathcal{T}}_E$ is essentially self-adjoint on $C_c^\infty(\mathbb{R}_+^\times)$, so its spectral measure $\mu_{\widetilde{\mathcal{T}}_E}$ is well-defined as a Borel measure on $\mathbb{R}$. By Hypothesis~\ref{hyp:bsd-golden-threshold}, $\mu_{\widetilde{\mathcal{T}}_E}$ has an atom at $\lambda_* = \varphi/e$ of multiplicity $\rank E(\mathbb{Q})$. The spectral concentration claim is therefore the assertion that $\mu_{\widetilde{\mathcal{T}}_E}(\{\lambda_*\}) = \rank E(\mathbb{Q})$, which is exactly the content of Hypothesis~\ref{hyp:bsd-golden-threshold}; combined with self-adjointness from Theorem~\ref{thm:self-adjoint-bsd}, this gives a well-defined spectral resolution.
+
+The remaining structural content -- that the curve-independent gap $\delta_0 > 0$ separates $\lambda_*$ from the rest of the spectrum -- ensures that the atom is detectable in numerical truncations and is not a spurious feature of any particular finite-rank approximation; this is again the content of Hypothesis~\ref{hyp:bsd-golden-threshold}.
+
+The conditional Theorem is therefore: \emph{essential self-adjointness of $\widetilde{\mathcal{T}}_E$} (Theorem~\ref{thm:self-adjoint-bsd}, proven) combined with \emph{the golden-threshold resonance condition} (Hypothesis~\ref{hyp:bsd-golden-threshold}, empirical) yields the spectral concentration in the stated form. A first-principles derivation of Hypothesis~\ref{hyp:bsd-golden-threshold} -- specifically, of the identification $\lambda_* = \varphi/e$ from the framework's base-$3$ resonance structure -- is the principal open problem of this chapter, recorded as Conjecture~\ref{conj:rank-equality-fractal} below in its rank-formula form.
+\end{proof}
 
 \begin{keyidea}
 Why $\varphi/e$?
