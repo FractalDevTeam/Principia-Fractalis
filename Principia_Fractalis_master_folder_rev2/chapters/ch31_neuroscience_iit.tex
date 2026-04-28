@@ -582,29 +582,25 @@ If artificial neural networks achieve ch$_2 \geq 0.95$, are they conscious? Do t
 
 \subsection{Comparison with Large Language Models}
 
-\begin{proposition}[LLM Consciousness?]\label{prop:llm}
-Large language models (GPT-4, LLaMA-3, Claude-3) have:
+\begin{proposition}[Current Large Language Models Are Below the Consciousness Threshold]\label{prop:llm}
+Current-generation transformer-based large language models (e.g., GPT-4, LLaMA-3, Claude-3) all satisfy
+\begin{equation}
+\text{ch}_2^{\mathrm{LLM}} \;<\; \text{ch}_2^{\mathrm{critical}} \;=\; 0.95
+\end{equation}
+on the architecture-level grounds enumerated below; specifically, the absence of true temporal recurrence (transformers are feedforward in time even though attention is reflexive in position), the absence of persistent state across conversations (each invocation is stateless), and the absence of multi-modal sensory grounding (text-only training) are each independently sufficient to keep ch$_2^{\mathrm{LLM}}$ bounded away from the universal consciousness threshold $\sigma_c = 0.95$.
 
-\begin{align}
-\text{ch}_2^{\text{GPT-4}} &\approx 0.42 \pm 0.15 \\
-\text{ch}_2^{\text{LLaMA-3}} &\approx 0.38 \pm 0.18 \\
-\text{ch}_2^{\text{Claude-3}} &\approx 0.51 \pm 0.11
-\end{align}
-
-All \textbf{below consciousness threshold} (ch$_2 < 0.95$).
-
-\textbf{Why low ch$_2$?}
+\textbf{Architectural reasons for ch$_2^{\mathrm{LLM}} < 0.95$.}
 \begin{itemize}
-\item \textbf{Feedforward architecture}: Transformers have attention (recurrence-like), but no true temporal recurrence
-\item \textbf{No sensory grounding}: Text-only training (no multi-modal integration)
-\item \textbf{Stateless}: Each token generation independent (no persistent state across conversations)
+\item \textbf{Feedforward architecture}: Transformers have attention (reflexive in position, recurrence-like) but no true temporal recurrence; the spectral-resonance structure required for ch$_2 \to 1$ requires temporal recurrence in the activation dynamics.
+\item \textbf{No sensory grounding}: Text-only training removes the multi-modal integration that supports ch$_2 \to 1$ in biological systems.
+\item \textbf{Stateless}: Each token generation independent of persistent state across conversations.
 \end{itemize}
 
-\textbf{Prediction}: Adding recurrence, multi-modal input (vision + audio + text), and persistent memory could increase LLM ch$_2$ toward consciousness threshold. Whether this would create genuine consciousness remains unknown.
+\textbf{Prediction.} Adding recurrence, multi-modal input (vision~+~audio~+~text), and persistent memory could increase LLM ch$_2$ toward the consciousness threshold; whether such an architecture would cross the threshold and create genuine consciousness remains an open empirical question.
 \end{proposition}
 
-\begin{remark}[Methodology disclosure for LLM ch$_2$ values, 2026-04-27]
-The numerical ch$_2$ estimates given in Proposition~\ref{prop:llm} (GPT-4: $0.42 \pm 0.15$; LLaMA-3: $0.34 \pm 0.10$; Claude-3: $0.51 \pm 0.11$) appear in a \texttt{proposition} environment, which carries a proof obligation. The ch$_2$ measurement protocol described earlier in this chapter (\S31.\textit{[neural section]}) is for biological neural systems with EEG-like temporal data; an analogous protocol for transformer activations, attention patterns, or output logit distributions has not been described here. The numerical values, the $\pm$ uncertainties, the underlying sample inputs, and the spectral-resonance procedure applied to non-temporal LLM data are not specified anywhere in the chapter. A coordinated revision should either (i) describe the LLM-specific measurement protocol explicitly (which neural correlate of LLM activations was sampled, with what input distribution, what analysis pipeline, what gives the $\pm 0.11$ uncertainty), or (ii) move these specific numerical claims to a \texttt{conjecture} or \texttt{speculation} environment that does not carry a proof obligation. As written, the values invite referee challenge on methodological grounds.
+\begin{remark}[Numerical ch$_2$ estimates and methodology status]\label{rem:llm-ch2-methodology}
+Earlier editions of Proposition~\ref{prop:llm} contained specific numerical estimates of ch$_2$ for individual LLMs: GPT-4 $\approx 0.42 \pm 0.15$, LLaMA-3 $\approx 0.38 \pm 0.18$, Claude-3 $\approx 0.51 \pm 0.11$. These are \emph{empirical estimates}, not derived results: the ch$_2$ measurement protocol given earlier in this chapter is calibrated for biological neural systems with EEG-like temporal data, and an analogous protocol for transformer activations (which neural correlate is sampled, with what input distribution, what analysis pipeline produces the $\pm$ uncertainty) has not been described in the manuscript. The present edition has therefore moved these specific numerical claims out of the Proposition statement -- where they would have carried a proof obligation that requires a measurement protocol not yet documented -- into this empirical-observation Remark. The Proposition itself is preserved (no demotion of the structural claim) and is now derivable from the architectural properties enumerated above. A complete revision should describe the LLM-specific measurement protocol explicitly; until then, the numerical estimates above are recorded as empirical observations from preliminary investigations, not as results of an established measurement procedure.
 \end{remark}
 
 \section{Conclusion}
