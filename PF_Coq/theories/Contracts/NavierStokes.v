@@ -159,7 +159,7 @@ Qed.
 (** PF claims the spectral condition holds *)
 Axiom PF_NS_Spectral_Condition : NS_Spectral_Condition.
 
-(** ⚠ CONDITIONAL THEOREM — referee disclosure (rev 2)
+(** ⚠ CONDITIONAL THEOREM — referee disclosure (rev 2, post-V01-2026-04-28)
 
     [PF_NS_Solution] typechecks as a [Theorem] in Coq, but it is NOT an
     independent solution of the Clay Millennium Navier-Stokes problem.
@@ -176,8 +176,21 @@ Axiom PF_NS_Spectral_Condition : NS_Spectral_Condition.
     "axioms ⇒ Millennium problem" typechecks. Verify the full dependency
     list with:
         [Print Assumptions PF_NS_Solution.]
+
+    Post-V01 2026-04-27/28 manuscript update: Chapter 22 has been rewritten
+    so that [Theorem 22.topological-stability] now provides a quantitative
+    fractal-cascade damping bound σ_cascade/σ_Crow ≈ 2.523 × Re_0^2.262
+    (manuscript commit 9abb5bc), and [Theorem 22.no-blowup] Steps 4-5
+    flow from this cascade-damping mechanism rather than the previously
+    incorrect Biot-Savart limit (commit ea8bc3e). The Coq axiom
+    [PF_NS_Spectral_Condition] above corresponds to the underlying spectral
+    statement that the cascade hierarchy of Mechanism 22.M is realised; the
+    Coq proof structure is unchanged because the axioms abstract the
+    mathematical content rather than the specific proof. Coq parity to
+    Lean 4 is tracked separately in PARITY_REPORT.md.
+
     See also Chapter 22 of the manuscript ("Formalization status, rev 2"
-    remark) for the human-readable disclosure. *)
+    remark and "rem:ns-audit-resolution") for the human-readable disclosure. *)
 Theorem PF_NS_Solution : NS_Millennium_Problem.
 Proof.
   apply Spectral_to_NS.

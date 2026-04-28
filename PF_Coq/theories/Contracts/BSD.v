@@ -302,7 +302,39 @@ Axiom L_function_formula_implies_BSD :
 Axiom BSD_implies_L_function_formula :
   BSD_Conjecture -> BSD_LFunctionFormula.
 
-(** Main equivalence theorem *)
+(** ⚠ CONDITIONAL THEOREM — referee disclosure (rev 2, post-V01-2026-04-28)
+
+    [L_function_formula_iff_BSD] typechecks as a [Theorem] in Coq, but it
+    is NOT an independent proof of the Birch--Swinnerton-Dyer Conjecture.
+    Its proof depends on:
+      - [Axiom L_function_formula_implies_BSD] (line 298)
+      - [Axiom BSD_implies_L_function_formula] (line 302)
+      - the broader local axiom collection (~20 axioms total including
+        [T_E_self_adjoint], [spectral_concentration],
+        [rank_equals_multiplicity], [BSD_proven_rank_0_1], etc.)
+    Each axiom encodes a Principia Fractalis framework hypothesis; none
+    are proven from first principles in this Coq development. The
+    [Theorem] keyword indicates only that the conditional equivalence
+    "axioms ⇒ BSD ⇔ L-function formula" typechecks. Verify the full
+    dependency list with:
+        [Print Assumptions L_function_formula_iff_BSD.]
+
+    Post-V01 2026-04-27/28 manuscript update: Chapter 24 has been
+    restructured. The BSD spectral operator [T_E] is now defined on the
+    multiplicative line L²(ℝ₊, dx/x) with translation by log p unitary
+    (Connes-Marcolli framework), with self-adjointness via Friedrichs
+    extension of the symmetrization (manuscript commit 4fa2fc9).
+    Theorem [thm:spectral-concentration-bsd] is now CONDITIONAL on the
+    explicit [Proposition: Golden-Threshold Resonance Hypothesis]
+    (manuscript commit ee31d6e). The Coq axioms [T_E_self_adjoint] and
+    [rank_equals_multiplicity] above correspond to these manuscript-level
+    statements; the Coq proof structure is unchanged because the axioms
+    abstract the mathematical content. Coq parity to Lean 4 is tracked
+    separately in PARITY_REPORT.md.
+
+    See also Chapter 24 of the manuscript ("Formalization status, rev 2"
+    remark and rem:phase-sym-resolution, rem:hyp-bsd-status) for the
+    human-readable disclosure. *)
 Theorem L_function_formula_iff_BSD :
   BSD_LFunctionFormula <-> BSD_Conjecture.
 Proof.
