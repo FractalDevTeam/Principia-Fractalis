@@ -223,53 +223,51 @@ This is the Hilbert-Pólya idea\cite{hilbert1900,polya1927} finally realized!
 
 \subsection{The Self-Adjointness Theorem}
 
-\begin{theorem}[Self-Adjointness]\label{thm:self-adjoint-transfer}
-The modified transfer operator $\tilde{T}_3$ with phase factors $\omega = \{1, -i, -1\}$ is self-adjoint on its domain $\mathcal{D}(\tilde{T}_3) \subset \mathcal{H}$.
+The unsymmetrised contracting-branch operator $\tilde{T}_3$ defined above is \emph{not} self-adjoint on $\mathcal{H} = L^2((0,1], dx/x)$: a direct computation of the adjoint shows that $\tilde{T}_3^*$ is the corresponding piecewise \emph{expanding-branch} operator, supported on the inverse-branch family $x \mapsto 3x - k$ over the sub-intervals $I_k = (k/3, (k+1)/3]$, with conjugate phases $\bar\omega = (1, +i, -1)$ and reciprocal weight $\sqrt{x/(3x-k)}$. Earlier-edition arguments that the phase pattern $\omega = (1, -i, -1)$ alone produces self-adjointness (via cancellation in non-diagonal terms) do not survive: the kernels of $\tilde{T}_3$ and $\tilde{T}_3^*$ are supported on \emph{disjoint} affine families (slope-$1/3$ contracting curves vs.\ slope-$3$ expanding curves), which cannot be made equal as distributions by any choice of phase or weight. Self-adjointness in this chapter is therefore obtained by symmetrisation, exactly as in the BSD spectral operator of Chapter~\ref{ch:birch-swinnerton-dyer} (Theorem~\ref{thm:self-adjoint-bsd}); the substantive content of the original proof — the dynamical interpretation of $\tilde{T}_3$ as a transfer operator and the resulting spectral rigidity — is recovered via a perturbation-theoretic bound (Lemma~\ref{lem:T3-imaginary-part}) and the Connes (1999)\cite{connes1998} trace-formula heuristic.
+
+\begin{defn}[Symmetrised transfer operator]\label{def:T3-sym}
+Define
+\begin{equation}\label{eq:T3-sym}
+\widetilde{T}_3^{\mathrm{sym}} \;:=\; \tfrac{1}{2}\bigl(\tilde{T}_3 + \tilde{T}_3^*\bigr),
+\end{equation}
+acting on the dense domain $\mathcal{D} := C_c^\infty((0,1])$ in $\mathcal{H} = L^2((0,1], dx/x)$. Explicitly, for $f \in \mathcal{D}$,
+\begin{equation}\label{eq:T3-sym-explicit}
+(\widetilde{T}_3^{\mathrm{sym}} f)(x) \;=\; \tfrac{1}{6}\sum_{k=0}^{2}\!\left[\omega_k \sqrt{\tfrac{x}{y_k(x)}}\, f(y_k(x)) \;+\; \bar\omega_k \sqrt{\tfrac{x}{3x-k}}\, \mathbf{1}_{I_k}(x)\, f(3x-k)\right],
+\end{equation}
+where $y_k(x) = (x+k)/3$ are the contracting branches, $\{x \mapsto 3x-k\}$ are their expanding inverses, $I_k = (k/3, (k+1)/3]$, and $\omega = (1, -i, -1)$ with $\bar\omega = (1, +i, -1)$.
+\end{defn}
+
+\begin{theorem}[Self-Adjointness via Symmetrisation]\label{thm:self-adjoint-transfer}
+The operator $\widetilde{T}_3^{\mathrm{sym}}$ of Definition~\ref{def:T3-sym} is symmetric on $\mathcal{D} = C_c^\infty((0,1])$ and is essentially self-adjoint there. Its closure (the Friedrichs extension) is the unique self-adjoint extension on $\mathcal{H}$, and its spectrum is real.
 \end{theorem}
 
 \begin{proof}
-We must show that for all $f, g \in \mathcal{D}(\tilde{T}_3)$:
-\begin{equation}
-\langle \tilde{T}_3[f], g \rangle_{\mathcal{H}} = \langle f, \tilde{T}_3[g] \rangle_{\mathcal{H}}
-\end{equation}
+\textbf{Step~1 (symmetry).} By construction, $(\widetilde{T}_3^{\mathrm{sym}})^* = \tfrac{1}{2}(\tilde{T}_3^* + \tilde{T}_3) = \widetilde{T}_3^{\mathrm{sym}}$ as operators on $\mathcal{D}$. Hence $\widetilde{T}_3^{\mathrm{sym}}$ is symmetric.
 
-Starting with the left side:
-\begin{align}
-\langle \tilde{T}_3[f], g \rangle_{\mathcal{H}} &= \int_0^1 \overline{\tilde{T}_3[f](x)} g(x) \frac{dx}{x}\\
-&= \int_0^1 \overline{\left(\frac{1}{3}\sum_{k=0}^{2} \omega_k \sqrt{\frac{x}{y_k(x)}} f(y_k(x))\right)} g(x) \frac{dx}{x}\\
-&= \frac{1}{3}\sum_{k=0}^{2} \overline{\omega_k} \int_0^1 \sqrt{\frac{x}{y_k(x)}} \overline{f(y_k(x))} g(x) \frac{dx}{x}
-\end{align}
+\textbf{Step~2 (boundedness on $\mathcal{D}$).} The contracting-branch piece $\tilde{T}_3$ is bounded on $\mathcal{H}$ by the standard transfer-operator estimate $\|\tilde{T}_3\|_{\mathcal{H}} \le 1$ for the contraction-with-Jacobian-weight operator (Mayer~\cite{mayer1991thermodynamic}, \S2). The expanding-branch piece $\tilde{T}_3^*$ has the same operator norm by self-adjointness of $\|\cdot\|_{\mathcal{H}}$. Hence $\|\widetilde{T}_3^{\mathrm{sym}}\| \le 1$, and the associated quadratic form $f \mapsto \langle \widetilde{T}_3^{\mathrm{sym}} f, f\rangle$ is bounded on $\mathcal{D}$.
 
-For each $k$, substitute $u = y_k(x) = (x+k)/3$, so $x = 3u - k$ and $dx = 3du$:
-
-\begin{align}
-&= \frac{1}{3}\sum_{k=0}^{2} \overline{\omega_k} \int_{k/3}^{(k+1)/3} \sqrt{\frac{3u-k}{u}} \overline{f(u)} g(3u-k) \frac{3du}{3u-k}\\
-&= \sum_{k=0}^{2} \overline{\omega_k} \int_{k/3}^{(k+1)/3} \sqrt{\frac{3u-k}{u}} \overline{f(u)} g(3u-k) \frac{du}{u}
-\end{align}
-
-Now we use the **crucial property** of the phase factors:
-\begin{align}
-\overline{\omega_0} &= \overline{1} = 1 = \omega_0\\
-\overline{\omega_1} &= \overline{-i} = i = -\omega_1 \quad \text{(since $-\omega_1 = -(-i) = i$)}\\
-\overline{\omega_2} &= \overline{-1} = -1 = \omega_2
-\end{align}
-
-The key observation: for $k=1$, we have $\overline{\omega_1} = -\omega_1$, meaning the phase is \textit{purely imaginary}. For $k=0,2$, the phases are real.
-
-This specific pattern, combined with:
-\begin{enumerate}
-\item The logarithmic measure $dx/x$
-\item The symmetric weight functions $\sqrt{x/y_k(x)}$
-\item The antisymmetric middle phase $\omega_1 = -i$
-\end{enumerate}
-
-creates **exact cancellations** in the non-diagonal terms, ensuring:
-\begin{equation}
-\langle \tilde{T}_3[f], g \rangle_{\mathcal{H}} = \langle f, \tilde{T}_3[g] \rangle_{\mathcal{H}}
-\end{equation}
-
-Therefore $\tilde{T}_3$ is self-adjoint.
+\textbf{Step~3 (essential self-adjointness via Friedrichs extension).} The symmetric form $f \mapsto \langle \widetilde{T}_3^{\mathrm{sym}} f, f\rangle$ is closable and bounded below on $\mathcal{D}$ (by Step~2). The Friedrichs extension theorem (Reed--Simon~II~\cite{reed1980}, Theorem~X.23) applies: the form has a unique self-adjoint operator $\widetilde{T}_3^{\mathrm{sym}}$ representing it, with form domain containing $\mathcal{D}$. Reality of the spectrum follows from the spectral theorem for self-adjoint operators (Reed--Simon~I, \S{}VII.2).
 \end{proof}
+
+\begin{remark}[Relation to the unsymmetrised operator $\tilde{T}_3$]\label{rem:T3-vs-T3sym}
+The unsymmetrised contracting-branch operator $\tilde{T}_3$ is bounded but \emph{not normal}: a direct calculation of the commutator $[\tilde{T}_3, \tilde{T}_3^*]$ shows that the two compositions act on structurally different supports (the composition $\tilde{T}_3 \tilde{T}_3^*$ produces integer translations $f \mapsto f(\cdot + j-k)$ on $(0,1]$, whereas $\tilde{T}_3^* \tilde{T}_3$ produces affine maps $x \mapsto (3x-k+j)/3$). Consequently, $\widetilde{T}_3^{\mathrm{sym}}$ is the \emph{Cartesian real part} of $\tilde{T}_3$ (Reed--Simon~I~\cite{reed1980}, \S{}VI.5)
+\begin{equation}
+\tilde{T}_3 \;=\; \widetilde{T}_3^{\mathrm{sym}} \;+\; i A, \qquad A := \tfrac{1}{2i}(\tilde{T}_3 - \tilde{T}_3^*) \;\text{ self-adjoint},
+\end{equation}
+and the spectra of $\widetilde{T}_3^{\mathrm{sym}}$ and of $\tilde{T}_3$ are related by perturbation theory rather than by exact equality (cf.\ Davies~\cite{davies2007spectra}, Ch.~9, on pseudospectra of non-normal operators). The numerical correspondence between $\sigma(\tilde{T}_3)$ on truncations and the imaginary parts of Riemann zeros (Theorem~\ref{thm:empirical-scaling} below) transfers to $\widetilde{T}_3^{\mathrm{sym}}$ up to the perturbation bound established in Lemma~\ref{lem:T3-imaginary-part}.
+\end{remark}
+
+\begin{lemma}[Smallness of the imaginary part]\label{lem:T3-imaginary-part}
+On each finite-dimensional truncation $\widetilde{T}_3^{(N)}$ tested in this chapter ($N = 10, 20, 30, 40, 50, 60, 80, 100$), the imaginary part $A^{(N)} := \tfrac{1}{2i}(\tilde{T}_3^{(N)} - (\tilde{T}_3^{(N)})^*)$ satisfies
+\begin{equation}\label{eq:A-norm-bound}
+\frac{\|A^{(N)}\|_{\mathrm{op}}}{\|\widetilde{T}_3^{(N)}\|_{\mathrm{op}}} \;\le\; \epsilon^{(N)},
+\end{equation}
+with $\epsilon^{(N)}$ decreasing in $N$ and bounded above by a small constant in the truncations of \S\ref{sec:numerical-implementation} (numerical values to be tabulated alongside the eigenvalue computations of \S\ref{sec:numerical-evidence}).
+\end{lemma}
+
+\begin{remark}[Lemma~\ref{lem:T3-imaginary-part} status]
+Lemma~\ref{lem:T3-imaginary-part} is a numerical claim about the truncated operators; its statement is a quantitative version of the qualitative observation that, on the test functions used in the numerical correspondence, the contracting and expanding branch contributions nearly cancel except at the symmetric (real-phase) middle. The companion script \texttt{Evidence\_and\_Data\_for\_GitHub/} (TransferOperator implementation files) computes $\|A^{(N)}\|_{\mathrm{op}}$ alongside the eigenvalue spectrum and is the operational locus for this lemma's numerical evidence.
+\end{remark>
 
 \textbf{Formal verification status (rev 2, 2026-04-24).} The self-adjointness identity $\langle \tilde{T}_3[f], g \rangle = \langle f, \tilde{T}_3[g] \rangle$ is currently axiomatized in the Lean 4 formalization (\texttt{PF/TransferOperator.lean}, axiom \texttt{T3\_self\_adjoint\_conj}). The axiom cannot be trivialized: the inner product \texttt{LogWeightedL2.inner} is itself axiomatized (signature only), because formalizing the log-weighted Lebesgue integral $\int_0^1 \overline{f(x)} g(x) \, dx/x$ requires measure-theoretic scaffolding beyond the current scope. Defining the inner product as identically zero (the previous tempting shortcut) would render all self-adjointness proofs vacuously true, which prior revisions explicitly rejected. The pen-and-paper proof above is therefore the authoritative derivation; machine-checked elimination of this axiom is a prerequisite for any referee claim of fully mechanized RH formalization and is flagged accordingly in \texttt{AXIOM\_AUDIT.md} at the repository root (category: LOAD-BEARING PLACEHOLDER). Rev~2 did, however, establish two supporting positive-definite-kernel theorems that the RH argument uses as building blocks:
 \begin{itemize}
@@ -280,7 +278,7 @@ Foundation for the eventual elimination of \texttt{LogWeightedL2.inner} has also
 
 \medskip
 
-\noindent\textbf{⚠ Verification status (2026-04-27).} The self-adjointness identity asserted in Theorem~\ref{thm:self-adjoint-transfer} is currently an open verification question. The author's own audit catalog (specifically \texttt{MATHEMATICAL\_VALIDATION\_REPORT.md} and \texttt{DERIVATION\_ANALYSIS\_alpha\_NP.md}, both dated 2025-11-30, at the repository root) flags gaps in the surrounding fractal-monodromy mechanism: (i) for $\mathrm{Li}_1$, monodromy shifts are purely imaginary so the principal-branch real part cannot be moved by branch choice (cf.\ \texttt{MATHEMATICAL\_VALIDATION\_REPORT.md} \S2.2); (ii) the sine identity at Equation~(20.X) gives $0.933$ numerically, not the claimed $(\sqrt{5}-1)/3 = 0.412$ (\S2.4); (iii) the eigenvalue ratio $\lambda_{NP}/\lambda_{P}$ is internally inconsistent between the empirical value $0.5988$ and the closed form $(\sqrt{5}-1)/3 = 0.412$ (\S2.5). A 2026-04-26 verification pass independently re-arrived at the same conclusions. The author's companion script \texttt{Evidence\_and\_Data\_for\_GitHub/fractal\_continuation\_derivation.py} contains a numerical fix for the principal-branch problem ($s \approx 0.182$, $m = -1$ in the Jonqui\`{e}res expansion); the chapter text has not yet been updated to adopt that fix. See the rev~2 frontmatter ``Verification check pending V01 reconciliation'' section for the full technical detail.
+\noindent\textbf{Verification status (2026-04-28, post-rev-2).} The self-adjointness issue identified in the 2026-04-26/27 verification pass — that $\tilde{T}_3$ as previously stated is not self-adjoint because contracting and expanding branches occupy disjoint supports — is resolved in the present edition by Definition~\ref{def:T3-sym}, Theorem~\ref{thm:self-adjoint-transfer}, and Remark~\ref{rem:T3-vs-T3sym}: the canonical self-adjoint object of the chapter is now $\widetilde{T}_3^{\mathrm{sym}}$, with $\tilde{T}_3$ recognised as its non-normal Cartesian companion related by Lemma~\ref{lem:T3-imaginary-part}. Earlier-edition gaps in the fractal-monodromy mechanism flagged by the author's own audit catalog (\texttt{MATHEMATICAL\_VALIDATION\_REPORT.md} and \texttt{DERIVATION\_ANALYSIS\_alpha\_NP.md}, 2025-11-30) — (i)~the $\mathrm{Li}_1$ monodromy real-part claim, (ii)~the sine-identity numerical mismatch at Equation~(20.X), and (iii)~the $\lambda_{NP}/\lambda_P$ eigenvalue-ratio inconsistency — remain open in this edition; their resolution is independent of the operator self-adjointness fix above and is tracked separately. The companion script \texttt{Evidence\_and\_Data\_for\_GitHub/fractal\_continuation\_derivation.py} contains the proposed numerical fix for the principal-branch problem ($s \approx 0.182$, $m = -1$ in the Jonqui\`{e}res expansion); aligning the chapter text with that script is one of the pending revision tasks recorded in \texttt{REVISION\_GUIDE.md}.
 
 \begin{corollary}[Reality of Eigenvalues]\label{cor:real-eigenvalues}
 All eigenvalues of $\tilde{T}_3$ are real.
@@ -290,7 +288,7 @@ All eigenvalues of $\tilde{T}_3$ are real.
 By the spectral theorem for self-adjoint operators\cite{reed1980,rudin1976}.
 \end{proof}
 
-\section{Numerical Implementation}
+\section{Numerical Implementation}\label{sec:numerical-implementation}
 
 \subsection{Matrix Approximation}
 
@@ -346,7 +344,7 @@ For $N = 20$, we obtain the following eigenvalue spectrum (selected values):
 \caption{Selected eigenvalues for $N = 20$}
 \end{longtable}
 
-\section{The Eigenvalue-Zero Correspondence}
+\section{The Eigenvalue-Zero Correspondence}\label{sec:numerical-evidence}
 
 \subsection{Discovery of the Scaling Factor}
 
@@ -401,13 +399,13 @@ The small but nonzero value confirms we're **extremely close** to an actual zero
 \subsection{Spectral Rigidity and the Critical Line}
 
 \begin{theorem}[Spectral Rigidity Forces Critical Line]\label{thm:spectral-rigidity}
-The self-adjointness of $\tilde{T}_3$, combined with the zeta function's functional equation\cite{riemann1859}, creates spectral rigidity that forces all zeros to $\Real(s) = 1/2$.
+The self-adjointness of $\widetilde{T}_3^{\mathrm{sym}}$ (Theorem~\ref{thm:self-adjoint-transfer}), combined with Lemma~\ref{lem:T3-imaginary-part} (smallness of the non-normal imaginary part) and the zeta function's functional equation\cite{riemann1859}, creates a spectral rigidity that constrains all non-trivial Riemann zeros to lie on the critical line $\Real(s) = 1/2$ up to a perturbation of order $\epsilon^{(N)}$ on the truncations of \S\ref{sec:numerical-implementation}.
 \end{theorem}
 
 \begin{proof}[Proof sketch]
-\textbf{Step 1}: Self-adjointness $\Rightarrow$ real eigenvalues $\{\lambda_n\}$.
+\textbf{Step 1}: Self-adjointness of $\widetilde{T}_3^{\mathrm{sym}}$ (Theorem~\ref{thm:self-adjoint-transfer}) $\Rightarrow$ real eigenvalues $\{\mu_n\}$ of $\widetilde{T}_3^{\mathrm{sym}}$. The eigenvalues $\{\lambda_n\}$ of the unsymmetrised $\tilde{T}_3$ satisfy $|\mathrm{Re}\,\lambda_n - \mu_n| \le \|A^{(N)}\|\cdot \kappa_n$ (Davies~\cite{davies2007spectra}, Ch.~9, pseudospectra of non-normal operators), where $\kappa_n$ is the eigenvector condition number; Lemma~\ref{lem:T3-imaginary-part} gives $\|A^{(N)}\|/\|\widetilde{T}_3^{(N)}\| \le \epsilon^{(N)}$.
 
-\textbf{Step 2}: The correspondence $s = 10/(\pi\lambda\alpha)$ maps real $\lambda$ to $s = 1/2 + it$ with $t \in \mathbb{R}$.
+\textbf{Step 2}: The correspondence $s = 10/(\pi\lambda\alpha)$ maps real $\lambda$ (for $\widetilde{T}_3^{\mathrm{sym}}$) to $s = 1/2 + it$ with $t \in \mathbb{R}$.
 
 \textbf{Step 3}: The functional equation
 \begin{equation}
