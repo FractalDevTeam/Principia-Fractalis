@@ -119,7 +119,7 @@ Qed.
 (** The PF claim is that Hodge_Spectral_Condition holds *)
 Axiom PF_Hodge_Spectral_Condition : Hodge_Spectral_Condition.
 
-(** ⚠ CONDITIONAL THEOREM — referee disclosure (rev 2)
+(** ⚠ CONDITIONAL THEOREM — referee disclosure (rev 2, post-V01-2026-04-28)
 
     [PF_Hodge_Conjecture] typechecks as a [Theorem] in Coq, but it is NOT
     an independent proof of the Clay Millennium Hodge Conjecture. Its
@@ -135,8 +135,21 @@ Axiom PF_Hodge_Spectral_Condition : Hodge_Spectral_Condition.
     "axioms ⇒ Hodge Conjecture" typechecks. Verify the full dependency
     list with:
         [Print Assumptions PF_Hodge_Conjecture.]
+
+    Post-V01 2026-04-27/28 manuscript update: Chapter 25's Theorem
+    [thm:hodge-concentration] is now stated CONDITIONAL on an explicit
+    [Proposition: Rationality-Hodge-Galois Concentration Hypothesis]
+    (manuscript commit 3b20099); Theorem [thm:critical-threshold] is
+    restated as an exact decomposition fact with empirical-status remark
+    rem:sigma-c-empirical (commit b66fc45). The Coq axioms
+    [rationality_threshold_value] and [PF_Hodge_Spectral_Condition] above
+    correspond to these manuscript-level hypothesis statements; the Coq
+    proof structure is unchanged because the axioms abstract the
+    mathematical content rather than the specific manuscript proof.
+    Coq parity to Lean 4 is tracked separately in PARITY_REPORT.md.
+
     See also Chapter 25 of the manuscript ("Formalization status, rev 2"
-    remark) for the human-readable disclosure. *)
+    remark and rem:hyp-hodge-status) for the human-readable disclosure. *)
 Theorem PF_Hodge_Conjecture : HodgeConjecture.
 Proof.
   apply Spectral_to_Hodge.
