@@ -5,8 +5,8 @@
 ### The Correct Explanation of What Mathematics Actually Is
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204-40%20files%20%7C%20269%20theorems%20%7C%200%20sorrys-blue)](PF_Lean4_Code/)
-[![Coq](https://img.shields.io/badge/Coq-32%20files%20%7C%20199%20theorems%20%7C%200%20admits-orange)](PF_Coq/)
+[![Lean 4](https://img.shields.io/badge/Lean%204%20canonical-8%20axioms%20%7C%200%20sorrys%20%7C%205486%20jobs%20clean-blue)](PF_Lean4_Code/)
+[![Coq](https://img.shields.io/badge/Coq-32%20files%20%7C%200%20admits%20%7C%20conditional%20Theorem%20disclosures-orange)](PF_Coq/)
 [![Pages](https://img.shields.io/badge/Book-801%20pages-green)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
 
@@ -56,10 +56,14 @@ Before diving into 801 pages of formal mathematics, explore the **educational ga
 
 | Component | Description | Status |
 |-----------|-------------|--------|
-| **[PF_Lean4_Code/](PF_Lean4_Code/)** | Lean 4 formalization | 40 files, 269 theorems, **0 sorrys** |
-| **[PF_Coq/](PF_Coq/)** | Coq cross-verification | 32 files, 199 theorems, **0 admits** |
-| **[Book PDF](Principia_Fractalis_master_folder/main.pdf)** | 801-page textbook | Complete |
-| **[VERIFICATION_STATUS.md](VERIFICATION_STATUS.md)** | Proof audit & axiom breakdown | Current |
+| **[PF_Lean4_Code/PF/](PF_Lean4_Code/PF/)** | Lean 4 canonical library | **8 axioms**, 0 sorries, `lake build` 5486 jobs clean |
+| **[PF_Coq/](PF_Coq/)** | Coq cross-verification | 32 files, 0 admits, conditional-Theorem disclosure on Millennium-claim files |
+| **[Principia_Fractalis_master_folder_rev2/](Principia_Fractalis_master_folder_rev2/)** | Manuscript (rev 2 + rev 3 fixes) | Complete; rev-3 cycle 2026-04-27/28 coordinated theorem statements with formalization |
+| **[VERIFICATION_STATUS.md](VERIFICATION_STATUS.md)** | Proof audit & axiom breakdown | Current (2026-04-28) |
+| **[AXIOM_AUDIT.md](AXIOM_AUDIT.md)** | Per-axiom catalog with categories | Current (2026-04-28) |
+| **[PARITY_REPORT.md](PARITY_REPORT.md)** | Lean ↔ Coq axiom parity | Current (2026-04-28) |
+| **[REVISION_GUIDE.md](REVISION_GUIDE.md)** | rev-3 punch list (all 20 items resolved) | Complete (2026-04-28) |
+| **[RESEARCH_ROADMAP.md](RESEARCH_ROADMAP.md)** | Per-axiom elimination paths and effort estimates | Current (2026-04-28) |
 
 **Build the proofs yourself:**
 ```bash
