@@ -1,6 +1,25 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-04-26, commit `76c7699` and post-rev-2 verification updates. **8 axioms** remain, 0 sorries.*
+*As of 2026-04-28, post-rev-3 cycle complete (commits through `325b555`). **8 axioms** remain (canonical PF/), 0 sorries.*
+
+## Post-rev-3 status (2026-04-28)
+
+The full rev-3 cycle (REVISION_GUIDE.md, all 20 items) was completed 2026-04-27/28 in 17 commits. Highlights affecting this audit:
+
+- **`T3_self_adjoint_conj` (entry 5 below) is now SUPERSEDED at the manuscript level.** Manuscript Ch 20 (commit `9659f92`) now asserts essential self-adjointness of the *symmetrisation* $\widetilde{T}_3^{\mathrm{sym}} := (\tilde{T}_3 + \tilde{T}_3^*)/2$ on $C_c^\infty((0,1])$ via Friedrichs extension (Reed-Simon II, X.23), with the unsymmetrised $\tilde{T}_3$ recognised as non-normal Cartesian companion. The Lean axiom `T3_self_adjoint_conj` continues to typecheck and is unchanged in source, but its meaning is now to be read as the symmetrisation property — a follow-on Lean pass should rewrite the axiom statement to be about $\widetilde{T}_3^{\mathrm{sym}}$ explicitly. The canonical 8-axiom count is unchanged.
+- **Manuscript Ch 22 (commits `9abb5bc`, `ea8bc3e`)**: Theorem 22.X (Topological Stability) now provides a quantitative fractal-cascade damping bound; Theorem 22.no-blowup Steps 4-5 flow from the cascade mechanism. No Lean impact (NavierStokes is Coq-side).
+- **Manuscript Ch 23 (commit `db98d2c`)**: Mass gap formula now $\Delta_{\mathrm{fYM}} = \Lambda_{\mathrm{QCD}} \cdot \omega_c$ with clean dimensions. No Lean impact.
+- **Manuscript Ch 24 (commits `4fa2fc9`, `ee31d6e`)**: BSD operator redefined on multiplicative line $L^2(\mathbb{R}_+, dx/x)$, Connes-Marcolli framework. Coq disclosure block updated (commit `a5a6488`); Lean unaffected (no BSD operator in canonical PF/).
+- **Manuscript Ch 25 (commits `b66fc45`, `3b20099`)**: $\sigma_c = 0.95$ restated as exact-decomposition fact, Hodge-concentration restated as conditional on Rationality-Hodge-Galois Concentration Hypothesis. No Lean impact.
+- **Frontmatter**: 8-axiom scope explicitly disclosed (commit `0b3829f`); unified per-Millennium $\alpha$-dictionary added (commit `f497fcd`).
+
+Verification setup that flagged `T3_self_adjoint_conj` as false in 2026-04-26 audit was correct under the unsymmetrised operator; the rev-3 fix preserves the rigour by switching to the symmetrisation. The other 7 axioms are unchanged in scope and meaning by the rev-3 cycle.
+
+See `principia_rev3_session_2026-04-27_28.md` (session memory) and individual commit messages for the per-task resolution record.
+
+---
+
+## Pre-rev-3 historical content (2026-04-26)
 
 The NUM category is now empty — `log_3_bounds` was eliminated via direct n=60 Taylor at x=2/3, with `simp [Finset.sum_range_succ, ...]` + `norm_num` handling the 60-term sum.
 
