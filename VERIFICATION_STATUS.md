@@ -1,26 +1,33 @@
 # Principia Fractalis: Formal Verification Status
 
-**Last Updated:** December 1, 2025
-**Status:** ✅ **COMPLETE** — Zero incomplete proofs in both Lean 4 and Coq
+**Last Updated:** 2026-04-28 (post-rev-3 cycle complete; master at `d0e92b6` and later)
+**Status:** ✅ Rev-3 cycle complete — manuscript and formalization layers coordinated
 **Audited By:** Pablo Cohen
 
 ---
 
 ## Executive Summary
 
-Principia Fractalis is formalized in two independent proof assistants (Lean 4 and Coq). This document provides **honest, transparent accounting** of what is proven versus axiomatized.
+Principia Fractalis is formalized in two independent proof assistants (Lean 4 and Coq), with a third Lean4Lean (L4L) verification layer kept under `experimental/PF_L4L_future/`. This document provides **honest, transparent accounting** of what is proven versus axiomatized.
 
-**As of December 1, 2025, all proofs are complete with ZERO sorrys/admits.**
+The rev-2 cycle (2026-01 through 2026-04-26) eliminated 33 Lean axioms (41 → 8 in the canonical `PF_Lean4_Code/PF/` library). The rev-3 cycle (2026-04-27 / 2026-04-28) completed all 20 items in `REVISION_GUIDE.md`, coordinating manuscript-level theorem statements with the formalization layers without changing the canonical 8-axiom count.
+
+**Current state: 8 axioms (canonical Lean 4 PF/), 0 sorries, `lake build` clean (5486 jobs).**
 
 ---
 
-## Verification Statistics
+## Verification Statistics (post-rev-3, 2026-04-28)
 
-| Component | Files | Axioms | Theorems | Incomplete | Core P≠NP Status |
-|-----------|-------|--------|----------|------------|------------------|
-| **Lean 4** (PF_Lean4_Code) | 40 | ~226 | 269 | **0 sorrys** | ✅ **COMPLETE** |
-| **Coq** (PF_Coq) | 32 | 193 | 199 | **0 admits** | ✅ **COMPLETE** |
-| **L4L** (PF_L4L) | 9 | 0 | 19 | 0 | ✅ Contract layer |
+| Component | Scope | Axioms | Sorries / Admits | Build status |
+|-----------|-------|--------|------------------|--------------|
+| **Lean 4 canonical** (`PF_Lean4_Code/PF/`) | All chapters covered | **8** | 0 | `lake build` — 5486 jobs clean |
+| Lean 4 top-level (`PF_Lean4_Code/*.lean`) | Equivalence files (YM, RH, BSD) | ~240 (separate axiomatization scope) | 0 | builds with canonical lib |
+| **Coq** (`PF_Coq/theories/*`) | All chapters + Contracts | 253 | 0 admits | `make` clean |
+| **L4L** (`experimental/PF_L4L_future/`) | Quarantined under experimental | — | — | gated per Path B decision |
+
+The 8-axiom claim refers EXCLUSIVELY to the canonical `PF_Lean4_Code/PF/` library; this scope is explicitly disclosed in the manuscript frontmatter (commit `0b3829f`). The ~240 additional top-level axioms (in `YM_Equivalence.lean`, `RH_Equivalence.lean`, `BSD_Equivalence.lean`, etc.) and the 253 Coq axioms reflect a broader axiomatisation scope and are tracked in `AXIOM_AUDIT.md` and `PARITY_REPORT.md` separately.
+
+Earlier December 2025 figures (Lean ~226, Coq 193) reflected an earlier scope-of-counting; these were superseded by the rev-2 cycle eliminations and the explicit canonical-PF/ scoping of the rev-3 frontmatter.
 
 ---
 
