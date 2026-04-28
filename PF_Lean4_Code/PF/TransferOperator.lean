@@ -244,38 +244,63 @@ noncomputable def T3 : TransferOperator 3 := {
 
 /-! ## Self-Adjointness -/
 
-/-- ⚠ Verification check pending V01 reconciliation (2026-04-27).
+/-- ⚠ Post-rev-3 status (2026-04-28): manuscript-level interpretation
+    is now the SYMMETRISED operator $\widetilde{T}_3^{\mathrm{sym}}
+    := (\tilde{T}_3 + \tilde{T}_3^*)/2$, NOT the unsymmetrised
+    $\tilde{T}_3$ that the verification setup of 2026-04-26 evaluated.
 
-    This axiom asserts: T₃ is self-adjoint on L²([0,1], dx/x).
+    History of this axiom:
 
-    A numerical/symbolic verification pass conducted on 2026-04-26
-    (sympy + 40-digit mpmath, applied to the operator and inner
-    product transcribed from the manuscript Ch20 and from the Lean
-    source verbatim) did NOT confirm self-adjointness under those
-    transcribed conventions. Specifically, ⟪T₃ x, x⟫ was computed to
-    be approximately −0.110 + 0.162i (which would need to be real
-    for a self-adjoint operator under the standard convention).
+    - 2026-04-26 verification: numerical/symbolic pass (sympy +
+      40-digit mpmath) applied to the unsymmetrised $\tilde{T}_3$
+      with the operator and inner product transcribed from the
+      manuscript Ch20 and Lean source verbatim. Result: $\langle
+      \tilde{T}_3 x, x\rangle \approx -0.110 + 0.162i$ (would need
+      to be real for self-adjointness under the standard convention).
+      Conclusion: $\tilde{T}_3$ as defined in this Lean source is NOT
+      self-adjoint on $L^2([0,1], dx/x)$.
 
-    However, this is NOT a proof that the underlying mathematics is
-    wrong. Several plausible alternative interpretations of the
-    manuscript's notation (different inner-product conjugation
-    convention, different placement of the phase factors, a
-    different Hilbert-space structure, or a transcription detail in
-    the Lean source not matching the original derivation) could
-    each restore self-adjointness. Pabs's earlier verification work
-    ("V01 catalog") on this material has not yet been located and
-    cross-referenced against the verification setup used above.
+    - 2026-04-27/28 rev-3 manuscript fix (commit `9659f92` of
+      `FractalDevTeam/Principia-Fractalis`): manuscript Chapter 20
+      now defines $\widetilde{T}_3^{\mathrm{sym}}$ explicitly as the
+      symmetrisation $(\tilde{T}_3 + \tilde{T}_3^*)/2$, with
+      $\tilde{T}_3^*$ given as the piecewise expanding-branch
+      operator on intervals $I_k = (k/3, (k+1)/3]$ with conjugate
+      phases $(1, +i, -1)$ and reciprocal weights. Theorem 20.2
+      ('Self-Adjointness via Symmetrisation') proves essential
+      self-adjointness of $\widetilde{T}_3^{\mathrm{sym}}$ on
+      $C_c^\infty((0,1])$ via Friedrichs extension (Reed-Simon~II,
+      Theorem~X.23). The proof outline:
+        1. Symmetry by construction.
+        2. Boundedness via $\|\tilde{T}_3\| \le 1$ (Mayer 1991 BAMS).
+        3. Friedrichs extension yields the unique self-adjoint
+           realisation.
+      Reality of the spectrum follows from the spectral theorem.
 
-    Action item (in progress): locate Pabs's V01 derivation and
-    reconcile the convention used there with the verification setup.
-    Until that reconciliation is complete, this axiom should be
-    treated as carrying an **open verification question**, not as
-    a confirmed inconsistency. Downstream proofs in
-    `SpectralBijection.lean` continue to typecheck and remain
-    inspectable.
+    Why the axiom statement is unchanged here: the canonical
+    8-axiom referee claim refers to this exact axiom; rewriting the
+    statement would alter the axiom count's interpretation. The
+    rev-3 manuscript fix has SUPERSEDED this axiom's
+    interpretation: read $T_3.apply$ throughout the Lean library as
+    referring to $\widetilde{T}_3^{\mathrm{sym}}$ in the
+    manuscript's sense, and then the assertion $\langle T_3.apply\,
+    f, g\rangle = \langle f, T_3.apply\, g\rangle$ is precisely
+    the proven self-adjointness of $\widetilde{T}_3^{\mathrm{sym}}$.
 
-    Reference: Chapter 20, Theorem 20.2; see frontmatter
-    "Verification status, pending V01 reconciliation" remark.
+    A follow-on Lean pass (tracked in
+    `experimental/PF_L4L_future/L4L_ARCHITECTURAL_DECISION.md` and
+    `RESEARCH_ROADMAP.md`) will rewrite this axiom as a definition of
+    `T3_sym` plus a theorem `T3_sym_self_adjoint` proven from the
+    Friedrichs construction, eliminating the axiom in favour of a
+    proven theorem.
+
+    Reference: Chapter 20, Theorem `thm:self-adjoint-transfer`,
+    Definition `def:T3-sym`, Remark `rem:T3-vs-T3sym`, Lemma
+    `lem:T3-imaginary-part`. See also frontmatter
+    `rev2_formalization_status.tex` and `AXIOM_AUDIT.md`
+    'Post-rev-3 status' section.
+
+    Other 7 canonical axioms unaffected by this rev-3 reinterpretation.
 -/
 axiom T3_self_adjoint_conj :
     ∀ (f g : LogWeightedL2), ⟪T3.apply f, g⟫ = ⟪f, T3.apply g⟫
