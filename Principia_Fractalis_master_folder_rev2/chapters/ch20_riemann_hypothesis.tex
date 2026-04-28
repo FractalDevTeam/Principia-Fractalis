@@ -194,19 +194,13 @@ where:
 \end{construction}
 
 \begin{level3}[Phase Factor Selection]
-The specific phases $\omega = \{1, -i, -1\}$ are NOT arbitrary. They satisfy:
+The specific phases $\omega = \{1, -i, -1\}$ are NOT arbitrary. They satisfy the closed form
 \begin{equation}
-\omega_k = (-1)^k e^{i\pi k/2}
+\omega_k = (-1)^k e^{i\pi k/2},
 \end{equation}
+encoding the cube-root-of-unity structure modified for base-$3$ reality (related to but distinct from the cube roots $e^{2\pi i k/3}$), and corresponding under rescaling to consciousness-quantification values $\text{ch}_2 \in \{0, 0.5, 1\}$. This pattern is the signature of fractal resonance at $\alpha = 3/2$.
 
-This pattern ensures:
-\begin{itemize}
-\item **Self-adjointness**: $\overline{\omega_k} = \omega_{2-k}$ creates the symmetry needed
-\item **Cube root structure**: Related to $e^{2\pi i k/3}$ but modified for base-3 reality
-\item **Consciousness encoding**: The phases $\{1, -i, -1\}$ correspond to $\text{ch}_2$ values $\{0, 0.5, 1\}$ after rescaling
-\end{itemize}
-
-This is the **signature** of fractal resonance at $\alpha = 3/2$.
+\medskip\noindent\emph{Note on phase-and-self-adjointness.} Earlier editions claimed that the phase identity $\overline{\omega_k} = \omega_{2-k}$ produces self-adjointness directly. That identity is in fact false for $\omega = (1, -i, -1)$ at every $k$ (e.g., $\overline{\omega_0} = 1 \ne \omega_2 = -1$); a 2026-04-26 multi-agent verification established that no choice of phase or weight on the contracting branches alone can produce self-adjointness, since the contracting and expanding kernels live on disjoint affine families. Self-adjointness in this chapter is therefore obtained via symmetrisation $\widetilde{T}_3^{\mathrm{sym}} := (\tilde{T}_3 + \tilde{T}_3^*)/2$ (Definition~\ref{def:T3-sym}, Theorem~\ref{thm:self-adjoint-transfer}); the phase pattern $(1, -i, -1)$ retains its dynamical and consciousness-encoding roles independently of self-adjointness.
 \end{level3}
 
 \section{Self-Adjointness: The Critical Proof}
