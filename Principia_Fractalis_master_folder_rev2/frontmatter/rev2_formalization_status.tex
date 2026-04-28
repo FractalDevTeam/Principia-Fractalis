@@ -109,6 +109,7 @@ The original rev~2 status (as of 2026-04-25, commit \texttt{88d5f37}):
 
 \begin{itemize}
 \item \textbf{8 axioms remain} (down from 41 at the start of this revision cycle).
+  \emph{Scope of the 8-axiom count:} this enumeration is the \emph{canonical} \texttt{PF\_Lean4\_Code/PF/} library only. The repository's top-level Lean files outside the canonical library (\texttt{PF\_Lean4\_Code/YM\_Equivalence.lean}, \texttt{PF\_Lean4\_Code/RH\_Equivalence.lean}, \texttt{PF\_Lean4\_Code/BSD\_Equivalence.lean}, and others) carry approximately 240 additional axioms representing exploratory framework-level statements not part of the canonical Lean~4 layer; those axioms are documented separately in \texttt{AXIOM\_AUDIT.md} at the repository root and are tracked toward elimination on a separate cycle. The 8-axiom claim of this manuscript refers exclusively to the canonical library at \texttt{PF\_Lean4\_Code/PF/}.
   Enumerated by name and location for referee transparency:
   \begin{itemize}
   \item \texttt{finite\_dim\_bochner} \hfill (\texttt{PF/CylindricalMeasures.lean:220}; CLASSIC, Ch~16)
