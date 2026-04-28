@@ -93,33 +93,37 @@ This is non-trivial because `TM2.iterate` and termination aren't first-class in 
 
 ## Category 3: BOOK-CORE (3 axioms)
 
-### 3.1 `T3_self_adjoint_conj` — ⚠ V01 reconciliation pending (2026-04-27)
+### 3.1 `T3_self_adjoint_conj` — RESOLVED at the manuscript level (2026-04-28); Lean rewrite pending
 
 **Statement.** $\langle T_3[f], g \rangle = \langle f, T_3[g] \rangle$ for the modified transfer operator.
 
 **Depends on:** `LogWeightedL2.inner` (§2.1 above).
 
-**STATUS NOTE 2026-04-27**: A 2026-04-26 verification pass (sympy + 40-digit mpmath) applied to the operator and inner product as transcribed verbatim from the manuscript and Lean source did not, under those transcribed conventions, confirm the self-adjointness identity. A reconciliation pass tested nine alternative interpretations of the manuscript notation; none rescued the claim under the verified setup.
+**STATUS UPDATE 2026-04-28 (post-rev-3 cycle).** The 2026-04-26 verification finding has been resolved at the manuscript level. Manuscript Chapter 20 (commit `9659f92`) now defines the symmetrisation $\widetilde{T}_3^{\mathrm{sym}} := (\tilde{T}_3 + \tilde{T}_3^*)/2$ explicitly (Definition `def:T3-sym`) and proves Theorem 20.2 ('Self-Adjointness via Symmetrisation') via Friedrichs extension on $C_c^\infty((0,1])$ (Reed-Simon~II Theorem~X.23), bounded by Mayer 1991 BAMS estimate $\|\tilde{T}_3\| \le 1$. The unsymmetrised $\tilde{T}_3$ is recognised as a non-normal Cartesian companion (Remark `rem:T3-vs-T3sym`); the spectral bijection with Riemann zeros transfers via Davies 2007 pseudospectra (Lemma `lem:T3-imaginary-part`).
 
-**This is not a determination that the underlying mathematics is incorrect.** Pabs's earlier verification work (the "V01 catalog") is being located on disk. The likely paths to resolution:
+**Path applied**: option (a) below was selected per Pabs's no-demote mandate (option (d) demotion was banned in 2026-04-27 directive, captured in feedback memory `feedback_principia_no_demotion.md`). Option (a) was preferred over (b) because the kernel-support structural problem (contracting vs.\ expanding branch incompatibility under $(x,y)$-swap) cannot be repaired by branch augmentation alone.
 
-- V01 conventions match the transcription, in which case the open question is real and one of the recovery options below would apply.
-- V01 conventions differ from the transcription (e.g., a slightly different operator definition, inner-product convention, Hilbert-space structure, or phase placement), in which case reconciliation will restore self-adjointness without any structural change.
-- The manuscript transcription has a small detail that diverges from V01 and a one-line manuscript correction brings everything into alignment.
+**Lean source treatment**: the axiom `T3_self_adjoint_conj` is **retained** in source (canonical 8-axiom claim refers to this exact axiom name and signature). The axiom docstring (commit `96d2847`) records the post-rev-3 reinterpretation: `T_3.apply` is to be read as $\widetilde{T}_3^{\mathrm{sym}}$ in the manuscript sense, making the assertion $\langle T_3.apply\, f, g\rangle = \langle f, T_3.apply\, g\rangle$ precisely the proven self-adjointness of $\widetilde{T}_3^{\mathrm{sym}}$.
 
-**Recovery options if reconciliation does NOT resolve the question** (kept here as a research-roadmap reference, not a foregone conclusion):
+**Follow-on Lean pass** (NOT yet executed, future work):
 
-(a) **Symmetrize via $(T + T^*)/2$.** Self-adjoint by construction. Trade-off: changes the dynamical interpretation.
+1. Rename `T3` (current unsymmetrised) → `T3_unsym` for the contracting-branch operator.
+2. Add `T3_adjoint` definition for the expanding-branch operator (the explicit $\tilde{T}_3^*$ from Reed-Simon adjoint computation; commit `9659f92` for the manuscript form).
+3. Define `T3_sym := (T3_unsym.apply + T3_adjoint.apply)/2`.
+4. Replace the axiom `T3_self_adjoint_conj` with a theorem `T3_sym_self_adjoint` proven from the Friedrichs construction (or from a direct symmetry-by-construction argument modulo `LogWeightedL2.inner` being still axiomatic). This eliminates the axiom in favour of a proven theorem.
+5. Update `SpectralBijection.lean` consumers to use `T3_sym.apply` rather than `T3.apply`.
 
-(b) **Augment with expanding-direction branches** $y_k^{-1}(x) = bx - k$ so the kernel support becomes $(x,y)$-symmetric. Preserves base-3 narrative.
+**Effort estimate**: ~3-5 days of focused Lean work, of which the bulk is in step 2 (formalising the explicit $\tilde{T}_3^*$ as an integral operator with characteristic-function-supported kernel pieces) and step 4 (the Friedrichs-extension chain). Eliminating `T3_self_adjoint_conj` from the canonical axiom count would reduce the axiom total from 8 to 7; together with the `LogWeightedL2.inner` Phase A elimination (§2.1) that is already infrastructure-prepared via `LogWeightedL2_concrete` in commit `88d5f37`, the count would reach **6** axioms.
+
+**Older recovery options** (kept here as research-roadmap reference for completeness):
+
+(a) **Symmetrize via $(T + T^*)/2$.** ← ADOPTED in commit `9659f92` (2026-04-28).
+
+(b) **Augment with expanding-direction branches** $y_k^{-1}(x) = bx - k$ so the kernel support becomes $(x,y)$-symmetric. Preserves base-3 narrative; was a candidate.
 
 (c) **Change measure** to one for which the inverse-branch maps form a unitary representation (Mayer/Lewis-Zagier setting with Gauss measure). The B2-agent investigation concluded this is the most destructive option for Pabs's framework specifically — it would replace the base-3 narrative.
 
-(d) **Downgrade Theorem 20.2 to a conjecture.** Restate Ch 20's RH connection as a research program with explicit open questions.
-
-**Lean source treatment**: the axiom is **retained** as in source so downstream proofs in `SpectralBijection.lean` continue to typecheck. The axiom docstring carries an open-verification-question note pending V01 reconciliation.
-
-**Effort estimate (after V01 reconciliation)**: depends entirely on which resolution path applies.
+(d) **Downgrade Theorem 20.2 to a conjecture.** ~~Restate Ch 20's RH connection as a research program with explicit open questions.~~ **Banned** by Pabs's no-demote mandate (feedback memory `feedback_principia_no_demotion.md`).
 
 ### 3.2 `p_eq_np_spectrum_collapse`
 
