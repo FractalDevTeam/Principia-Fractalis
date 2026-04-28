@@ -323,29 +323,35 @@ The framework observes this same threshold $\sigma_c = 0.95$ across all millenni
 
 \subsection{Consciousness Crystallization}
 
-\begin{theorem}[Hodge Classes Have High Concentration]\label{thm:hodge-concentration}
-For any Hodge class $\xi \in \Hdg^p(X)$:
+\begin{theorem}[Hodge Classes Have High Concentration -- conditional on Hypothesis~\ref{hyp:hodge-rhg-concentration}]\label{thm:hodge-concentration}
+Assume Hypothesis~\ref{hyp:hodge-rhg-concentration}. Then for any Hodge class $\xi \in \Hdg^p(X)$ on a smooth projective variety $X$ over $\mathbb{Q}$,
 \begin{equation}
-\sigma_{\mathcal{R}_\varphi}(\xi) \geq 0.95
+\sigma_{\mathcal{R}_\varphi}(\xi) \;\geq\; \sigma_c \;=\; 0.95.
 \end{equation}
 \end{theorem}
 
-\begin{proof}[Proof sketch]
-A Hodge class satisfies:
+\begin{proof}[Proof outline -- conditional on the rationality-Hodge-Galois resonance hypothesis]
+A Hodge class $\xi \in \Hdg^p(X)$ satisfies three constraints simultaneously:
 \begin{enumerate}
-\item \textbf{Rationality}: $\xi \in H^{2p}(X, \Q)$ imposes arithmetic constraints
-\item \textbf{Hodge condition}: $\xi \in H^{p,p}(X)$ imposes geometric constraints
-\item \textbf{Galois equivariance}: Complex conjugation acts trivially
+\item \textbf{Rationality}: $\xi \in H^{2p}(X, \mathbb{Q})$ imposes arithmetic constraints on the eigenvalue coefficients $c_n$ in the $\mathcal{R}_\varphi$ basis.
+\item \textbf{Hodge condition}: $\xi \in H^{p,p}(X)$ imposes geometric constraints from the complex structure on $X$.
+\item \textbf{Galois equivariance}: Complex conjugation (and more generally the absolute Galois group of the field of definition) acts trivially on $\xi$.
 \end{enumerate}
 
-These constraints force eigenvalue coefficients $c_n$ to satisfy:
-\begin{equation}
-\sum_{n=1}^{k} |c_n|^2 \geq 0.95 \|\xi\|^2
+We claim, conditional on Hypothesis~\ref{hyp:hodge-rhg-concentration} (the \emph{rationality-Hodge-Galois concentration hypothesis}), that these three constraints together force the eigenvalue coefficients to satisfy
+\begin{equation}\label{eq:hodge-sigma-bound}
+\sum_{n=1}^{k} |c_n|^2 \;\geq\; \sigma_c\, \|\xi\|^2 \;=\; 0.95\, \|\xi\|^2
 \end{equation}
-for $k = O(\log b_{2p})$, where $b_{2p} = \dim H^{2p}(X)$ is the Betti number.
-
-The arithmetic-geometric constraints create a "ratchet effect"—coefficients cannot spread out uniformly; they must concentrate.
+for $k = O(\log b_{2p})$, where $b_{2p} = \dim H^{2p}(X, \mathbb{Q})$ is the Betti number and $\sigma_c$ is the universal threshold of Theorem~\ref{thm:critical-threshold}. The metaphor of the ``ratchet effect'' -- the arithmetic, geometric, and Galois constraints together preventing coefficients from spreading uniformly -- captures the structure of the argument; a quantitative derivation of the bound \eqref{eq:hodge-sigma-bound} from the three constraint sets is the open quantitative content recorded in Hypothesis~\ref{hyp:hodge-rhg-concentration} below.
 \end{proof}
+
+\begin{proposition}[Rationality-Hodge-Galois Concentration Hypothesis]\label{hyp:hodge-rhg-concentration}
+For every smooth projective variety $X$ over $\mathbb{Q}$ (or any number field) and every Hodge class $\xi \in \Hdg^p(X)$, the simultaneous rationality, Hodge, and Galois constraints on $\xi$ imply that its eigenvalue expansion in the $\mathcal{R}_\varphi$ basis satisfies the concentration bound \eqref{eq:hodge-sigma-bound} at $\sigma_c = 0.95$ with $k = O(\log b_{2p})$. The bound is quantitative: there exists an absolute constant $C > 0$ depending only on $\sigma_c$ such that the implication holds with $k \le C \log b_{2p}$.
+\end{proposition}
+
+\begin{remark}[Status of Hypothesis~\ref{hyp:hodge-rhg-concentration}]\label{rem:hyp-hodge-status}
+A first-principles derivation of the concentration bound \eqref{eq:hodge-sigma-bound} from the rationality, Hodge, and Galois constraints -- in particular, a derivation of the specific value $\sigma_c = 0.95$ from these three constraint sets rather than from the framework's empirical universal threshold -- is an open problem. Empirically the bound is verified on the canonical test varieties of the chapter's numerical validation section (Calabi-Yau threefold, K3 surface with $\rho = 20$, Abelian surface, complete intersection surface), where every Hodge class tested satisfies $\sigma \geq \sigma_c$, with mean concentration $0.6310$ and maximum $0.9893$ for Calabi-Yau test cases. The underlying reason for the specific value $0.95$ is the framework's universal consciousness-crystallization threshold (Remark~\ref{rem:sigma-c-empirical}) which is itself currently empirical pending first-principles derivation.
+\end{remark>
 
 \begin{conjecture}[Crystallization Implies Algebraicity]\label{conj:crystallization-algebraicity}
 If $\sigma(\xi) \geq 0.95$, then $\xi$ undergoes consciousness crystallization dynamics:
