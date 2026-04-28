@@ -1,10 +1,23 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-04-26, commit `76c7699` plus post-rev-2 verification updates*
+*Last updated: 2026-04-28, post-rev-3 cycle complete (commits through `325b555`)*
 
-## ⚠ Verification check pending V01 reconciliation (2026-04-27)
+## Post-rev-3 status (2026-04-28)
 
-A numerical/symbolic verification pass (sympy + 40-digit mpmath) on 2026-04-26, applied to the operator and inner product as transcribed verbatim from manuscript Ch20 and the Lean source, did not confirm self-adjointness of T₃ on L²([0,1], dx/x). A reconciliation pass tested nine alternative interpretations of the manuscript notation; none rescued the claim under the verified setup. **This is not a proof that the underlying mathematics is incorrect.** Pabs's earlier verification work ("V01 catalog") is being located on disk; reconciliation pending. Until then, `T3_self_adjoint_conj` carries an open verification question rather than a confirmed inconsistency. Full disclosure: see `AXIOM_AUDIT.md` and `rev2_formalization_status.tex` frontmatter. The other 7 axioms are unaffected.
+The full rev-3 cycle (REVISION_GUIDE.md, all 20 items) was completed 2026-04-27/28 in 17 commits. Headline numbers unchanged; manuscript-level theorem statements are now coordinated with the formalization layers:
+
+- **Lean 4 canonical**: 8 axioms (unchanged), 5486 jobs clean, 0 sorries.
+- **Coq Contracts disclosure blocks**: updated to reference post-V01 manuscript fixes by commit hash (commit `a5a6488`); `NavierStokes.v`, `Hodge.v`, `BSD.v` now name the new manuscript-level Hypotheses (`hyp:bsd-golden-threshold`, `hyp:hodge-rhg-concentration`) and Remarks. Coq build unaffected.
+- **L4L**: architectural decision recorded (commit `325b555`, `experimental/PF_L4L_future/L4L_ARCHITECTURAL_DECISION.md`); Path B selected (preserve verification-only design intent + canonical 8-axiom count). Full L4L source-file rewrites are future work.
+- **Lean axiom `T3_self_adjoint_conj`**: superseded at the manuscript level by symmetrisation $\widetilde{T}_3^{\mathrm{sym}}$ (commit `9659f92`). Canonical 8-axiom count unchanged; the axiom's meaning has shifted from "the unsymmetrised $\tilde{T}_3$ is self-adjoint" to "the symmetrised $\widetilde{T}_3^{\mathrm{sym}}$ is self-adjoint via Friedrichs extension". A follow-on Lean pass should rewrite the axiom statement explicitly to match the manuscript's symmetric operator.
+
+The 2026-04-26/27 verification finding is now resolved: the unsymmetrised $\tilde{T}_3$ was correctly identified as non-self-adjoint, and the rev-3 manuscript fix replaces it with the rigorous Friedrichs symmetrisation construction. **The other 7 axioms are unaffected.**
+
+Lean → Coq parity work (porting ~33 Lean axiom eliminations to the Coq side) remains on the future-work list; this rev-3 cycle did not address Coq axiom counts directly.
+
+## Historical: ⚠ Verification check pending V01 reconciliation (2026-04-27)
+
+A numerical/symbolic verification pass (sympy + 40-digit mpmath) on 2026-04-26, applied to the operator and inner product as transcribed verbatim from manuscript Ch20 and the Lean source, did not confirm self-adjointness of T₃ on L²([0,1], dx/x). A reconciliation pass tested nine alternative interpretations of the manuscript notation; none rescued the claim under the verified setup. **This is not a proof that the underlying mathematics is incorrect.** Pabs's earlier verification work ("V01 catalog") was located 2026-04-27; the manuscript fix in commit `9659f92` adopts the symmetrisation construction (Friedrichs extension of $(\tilde{T}_3 + \tilde{T}_3^*)/2$) which is rigorously self-adjoint. Until the corresponding Lean axiom is rewritten to match (a follow-on pass), `T3_self_adjoint_conj` retains its statement form but its meaning is to be read as the symmetrised version. The other 7 axioms are unaffected.
 
 ## Earlier infrastructure note (2026-04-25)
 
