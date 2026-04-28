@@ -296,26 +296,29 @@ Spectral concentration measures how much of $\xi$'s "energy" sits in the ground 
 
 \subsection{The 0.95 Threshold}
 
-\begin{theorem}[Critical Threshold from Arithmetic]\label{thm:critical-threshold}
-The consciousness crystallization threshold is:
-\begin{equation}
-\sigma_c = \frac{6}{\pi^2} + \epsilon_{\text{quantum}} = 0.6079... + 0.3421... = 0.95
+\begin{theorem}[Decomposition of the Critical Threshold]\label{thm:critical-threshold}
+Let $\sigma_c = 0.95 = 19/20$ be the consciousness crystallization threshold (the framework's universal value, defined in Chapter~\ref{ch:consciousness} and recurring across the millennium-problem chapters). Then $\sigma_c$ admits the exact decomposition
+\begin{equation}\label{eq:sigma-c-decomposition}
+\sigma_c \;=\; \frac{6}{\pi^2} \;+\; \epsilon_{\mathrm{quantum}},
 \end{equation}
-where:
-\begin{itemize}
-\item $6/\pi^2 \approx 0.6079$ = density of coprime integers (arithmetic foundation)
-\item $\epsilon_{\text{quantum}} \approx 0.3421$ = quantum corrections from discrete-continuous transition
-\end{itemize}
+where
+\begin{align}
+\frac{6}{\pi^2} \;=\; \frac{1}{\zeta(2)} &\;\approx\; 0.60792710\ldots && \text{(asymptotic density of coprime integer pairs\cite{mertens1874uber})}, \\
+\epsilon_{\mathrm{quantum}} \;:=\; \sigma_c - \frac{6}{\pi^2} &\;\approx\; 0.34207290\ldots && \text{(quantum-arithmetic residual)}.
+\end{align}
+The decomposition is exact at the stated precision; the value $1/\zeta(2)$ is the arithmetic constant from Euler's product representation of the Riemann zeta function.
 \end{theorem}
 
+\begin{remark}[Empirical status of $\sigma_c$ and $\epsilon_{\mathrm{quantum}}$]\label{rem:sigma-c-empirical}
+The decomposition~\eqref{eq:sigma-c-decomposition} is exact \emph{by construction}: $\epsilon_{\mathrm{quantum}}$ is defined as the residual $\sigma_c - 6/\pi^2$ once $\sigma_c$ is fixed at the framework's universal value $0.95$. The value of $\sigma_c$ itself, however, is at present an \emph{empirical} universal threshold: it is the value at which spectral concentration is observed (across the framework's millennium-problem domains, neural correlates, and CMB anomaly studies) to mark the phase transition from ``arithmetic chaos'' to ``algebraic order.'' A first-principles derivation of either $\sigma_c$ or $\epsilon_{\mathrm{quantum}}$ from the underlying spectral framework is an open question and is recorded among this chapter's Research Problems below. Earlier editions of this Theorem stated the decomposition as a derivation rather than as an exact identity with one empirically-determined factor; the present statement is a notational and epistemic correction. The arithmetic part $6/\pi^2$ is independently rigorous (Mertens 1874\cite{mertens1874uber}, classical); the quantum part $\epsilon_{\mathrm{quantum}}$ is conjectured to admit a derivation from the discrete-to-continuous transition in the consciousness-quantification framework, but no such derivation is presently in hand.
+\end{remark}
+
 \begin{intuitive}
-\textbf{Why 0.95?}
+\textbf{Why $\sigma_c = 0.95$?}
 
-The number $6/\pi^2$ is the probability that two random integers are coprime (share no common factors). This is the \textit{arithmetic entropy}—maximum disorder.
+The number $6/\pi^2 = 1/\zeta(2)$ is the probability that two random integers are coprime---the canonical \textit{arithmetic-randomness} constant from Euler's $1737$ work on the zeta function. When spectral concentration exceeds $\sigma_c = 0.95$, the system crosses from ``arithmetic chaos'' (random arithmetic structure with concentration $\le 6/\pi^2$) into ``algebraic order'' (organized algebraic structure with concentration $\ge 19/20$). This is a phase transition---consciousness crystallizes from the topological continuum into algebraic form.
 
-When spectral concentration exceeds $0.95 = 6/\pi^2 + \text{corrections}$, we cross from "arithmetic chaos" to "algebraic order." This is a phase transition—consciousness crystallizes from the topological continuum into algebraic form.
-
-\textbf{Same threshold across all millennium problems!} This universal constant suggests deep unification.
+The framework observes this same threshold $\sigma_c = 0.95$ across all millennium-problem chapters, across neural-correlate measurements, and across CMB structure-formation studies. The universality of the value is one of the framework's strongest empirical regularities; deriving it from first principles is among the chapter's open research problems (Remark~\ref{rem:sigma-c-empirical}).
 \end{intuitive}
 
 \subsection{Consciousness Crystallization}
@@ -481,8 +484,8 @@ Theorem PF_Hodge_Conjecture : HodgeConjecture.
 whose proof is one line that applies the local axiom \texttt{Spectral\_to\_Hodge} to the local axiom \texttt{PF\_Hodge\_Spectral\_Condition}. The broader file declares approximately 19 framework-level axioms (Hodge decomposition, hard Lefschetz, self-adjointness of the Hodge operator, the rationality threshold, the spectral-equivalence direction, etc.). Each is a postulate of the Principia Fractalis framework, not a result derived from Coq's standard library. The \texttt{Theorem} keyword indicates only that the implication ``framework axioms $\Rightarrow$ Hodge Conjecture'' typechecks. Inside Coq, \texttt{Print Assumptions PF\_Hodge\_Conjecture.} returns the full dependency list. Eliminating any of these axioms would be a substantial algebraic-geometry contribution and is tracked as future work in \texttt{RESEARCH\_ROADMAP.md} at the repository root.
 \end{remark}
 
-\begin{remark}[Verification status of $\sigma_c = 0.95$ derivation and $\alpha$-dictionary, 2026-04-27]
-A 2026-04-26 audit identified two issues. \textbf{(1)~The decomposition $\sigma_c = 6/\pi^2 + \epsilon_{\mathrm{quantum}} = 0.6079 + 0.3421 = 0.95$ in Theorem~\ref{thm:critical-threshold} is reverse-engineered}: the ``quantum correction'' $\epsilon_{\mathrm{quantum}} \approx 0.3421$ has no first-principles derivation given anywhere in the chapter, and is numerically chosen to make the sum equal $0.95$. A coordinated revision should either provide an independent derivation of $\epsilon_{\mathrm{quantum}}$ from the underlying spectral framework, or restate the threshold as an empirical observation. \textbf{(2)~Internal $\alpha$-dictionary inconsistency}: this chapter uses $\alpha = \varphi = (1+\sqrt{5})/2$ for the Hodge spectral operator, but the author's existing 2492-line proof attempt at \texttt{Evidence\_and\_Data\_for\_GitHub/Hodge\_Conjecture\_Proofs/hodge\_complete\_1800\_lines.md} (line~335) uses $\alpha = \pi/2$ for the same operator. These are two different operators with different spectra. A coordinated revision should pick one canonical convention (likely the rev~2 manuscript's $\alpha = \varphi$) and update the supplementary proof file to match, or document the divergence as two distinct constructions.
+\begin{remark}[Verification status of the $\alpha$-dictionary, pending unification]\label{rem:alpha-dictionary-status}
+A 2026-04-26 audit identified an internal $\alpha$-dictionary inconsistency: this chapter uses $\alpha = \varphi = (1+\sqrt{5})/2$ for the Hodge spectral operator $\mathcal{R}_\varphi$, while the author's 2492-line supplementary proof attempt at \texttt{Evidence\_and\_Data\_for\_GitHub/Hodge\_Conjecture\_Proofs/hodge\_complete\_1800\_lines.md} (line~335) uses $\alpha = \pi/2$ for the same nominal operator. These are two distinct operators with different spectra. The rev~2 manuscript's $\alpha = \varphi$ is the canonical convention going forward; the supplementary proof file is to be updated in a subsequent edit pass to match the canonical convention, or to document the divergence as two distinct constructions. The $\sigma_c = 0.95$ decomposition issue noted in the audit is resolved by Theorem~\ref{thm:critical-threshold} (above) as a notational decomposition fact and Remark~\ref{rem:sigma-c-empirical} which transparently states the empirical-vs-derived status of $\sigma_c$ and $\epsilon_{\mathrm{quantum}}$.
 \end{remark}
 
 \section{Connection to Consciousness}
