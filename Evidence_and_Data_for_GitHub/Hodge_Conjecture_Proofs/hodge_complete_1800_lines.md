@@ -1,19 +1,35 @@
 <!--
 ==============================================================================
-NOTE on internal consistency (added 2026-04-27)
+NOTE on internal consistency (last updated 2026-04-28)
 ==============================================================================
-This 2492-line proof attempt uses α = π/2 for the Hodge spectral operator
-(see line 335 below). The published rev2 Chapter 25 manuscript at
-`Principia_Fractalis_master_folder_rev2/chapters/ch25_hodge_conjecture.tex`
-uses α = φ = (1+√5)/2 for the same operator. These are two different
-operators with different spectra; the divergence is documented in
-`AXIOM_AUDIT.md` and in the Verification-status remark added to ch25
-preceding "Connection to Consciousness".
+This 2492-line proof attempt is preserved as documentation of an alternative
+α-parametrisation that uses *systematic* π/4 increments across the
+millennium-problem chapters, distinct from the canonical α-dictionary
+adopted in the rev 2 / rev 3 manuscript.
 
-The rev2 manuscript (α = φ) is the canonical convention. This file is
-preserved as a separate construction documenting an alternative α-choice;
-the section establishing the operator (around line 335) should be read with
-that distinction in mind.
+α-dictionary, this file vs. canonical (rev 2 / rev 3 manuscript at
+`Principia_Fractalis_master_folder_rev2/`):
+
+|                       | This file (alternative)    | Canonical (rev 3)                           |
+|-----------------------|----------------------------|---------------------------------------------|
+| Riemann Hypothesis    | α = 0                      | α_RH = 3/2                                  |
+| P vs NP               | α = π/4                    | α_P = √2 ; α_NP = φ + 1/4                  |
+| Hodge Conjecture      | α = π/2                    | α_Hodge = φ = (1+√5)/2                      |
+| BSD Conjecture        | α = 3π/4                   | α_BSD = 3π/4                                |
+| (Yang-Mills)          | α = π                      | α_YM = 2                                    |
+| (Navier-Stokes)       | (uses different setup)     | α_NS = 3π/2                                 |
+
+These are two distinct α-conventions; each is internally consistent within
+its own document. The canonical convention is established in the rev 3
+frontmatter `frontmatter/alpha_dictionary.tex` (commit `f497fcd` on
+master, 2026-04-27); the divergence is also documented in `AXIOM_AUDIT.md`
+and in remark `rem:alpha-dictionary-status` of rev 2 Chapter 25.
+
+The rev 2 / rev 3 manuscript α-values are CANONICAL for the published
+manuscript and all formalisations (Lean 4, Coq, L4L). This file is
+preserved as a parallel-construction reference documenting the
+alternative π/k parametrisation; it is NOT the manuscript's published
+convention.
 
 This note is informational only — no content of the proof attempt below
 has been modified.
