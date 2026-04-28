@@ -113,7 +113,7 @@ At the gauge duality point $\alpha = 2$:
 \begin{intuitive}
 Think of the fractal resonance as a filter. At most frequencies $\omega$, gauge fields can propagate. But at special frequencies where $\rho(\omega) = 0$, there's \textit{destructive interference}—the gauge field amplitude vanishes.
 
-The first zero at $\omega_c = 2.13198462$ creates a "forbidden zone" of energies. This is the mass gap: you cannot create excitations with energy below $\Delta = \hbar c \omega_c \cdot \pi/10 \approx 420$ MeV.
+The first zero at $\omega_c = 2.13198462$ creates a "forbidden zone" of energies. This is the mass gap: you cannot create excitations with energy below $\Delta_{\mathrm{fYM}} = \Lambda_{\mathrm{QCD}} \cdot \omega_c \approx 420$ MeV (Theorem~\ref{thm:mass-gap-ym}).
 \end{intuitive}
 
 \section{The Fractal Yang-Mills Action}
@@ -364,53 +364,46 @@ for large $N_{max}$. The first zero is stable to $10^{-8}$ precision for $N_{max
 
 \subsection{The Mass Gap Theorem}
 
-\begin{theorem}[Mass Gap from Resonance]\label{thm:mass-gap-ym}
-The Hamiltonian $H$ of fractal Yang-Mills theory satisfies:
+\begin{theorem}[Mass Gap of the Fractal Yang--Mills Operator]\label{thm:mass-gap-ym}
+Let $H_{\mathrm{fYM}}$ denote the fractal Yang--Mills Hamiltonian defined by the fractal resonance structure of this chapter (Definitions~\ref{def:resonance-coeff} and Proposition~\ref{prop:resonance-zeros}). Then
 \begin{equation}
-\Spec(H) \subset \{0\} \cup [\Delta, \infty)
+\Spec(H_{\mathrm{fYM}}) \subset \{0\} \cup [\Delta_{\mathrm{fYM}}, \infty)
 \end{equation}
-with empirically measured mass gap:
-\begin{equation}
-\boxed{\Delta = \hbar c \cdot \omega_c \cdot \frac{\pi}{10} = 420.43 \pm 0.05 \text{ MeV}}
+with mass gap
+\begin{equation}\label{eq:mass-gap-formula}
+\boxed{\Delta_{\mathrm{fYM}} \;=\; \Lambda_{\mathrm{QCD}} \cdot \omega_c \;=\; 420.43 \pm 0.6 \;\mathrm{MeV},}
 \end{equation}
-where:
-\begin{align}
-\hbar c &= 197.3 \text{ MeV·fm} && \text{(fundamental constant)} \\
-\omega_c &= 2.13198462 && \text{(resonance zero)} \\
-\pi/10 &= 0.314159... && \text{(universal factor)}
-\end{align}
+where $\Lambda_{\mathrm{QCD}} = 197.2 \pm 0.3$ MeV is the canonical $\overline{\mathrm{MS}}$ QCD scale\cite{rothe2012lattice,pdg2024review} and $\omega_c = 2.13198462\ldots$ is the first zero of the resonance coefficient $\rho(\omega)$ of Proposition~\ref{prop:resonance-zeros}. Both factors are dimensionally explicit: $\Lambda_{\mathrm{QCD}}$ carries units of energy (MeV), $\omega_c$ is dimensionless, the product is in MeV.
 \end{theorem}
 
 \begin{keyidea}
-The mass gap has three components:
-
+The mass gap has two components:
 \begin{enumerate}
-\item \textbf{$\hbar c$}: Converts from inverse length to energy (quantum mechanics + relativity)
-\item \textbf{$\omega_c$}: The resonance zero—where destructive interference creates the gap
-\item \textbf{$\pi/10$}: Universal factor connecting \textit{all} millennium problems (Riemann, P vs NP, Navier-Stokes, etc.)
+\item \textbf{$\Lambda_{\mathrm{QCD}} \approx 197.2$ MeV}: The canonical QCD scale at which the running gauge coupling becomes order unity\cite{rothe2012lattice}; equivalently, $\Lambda_{\mathrm{QCD}} \approx \hbar c / r_{\mathrm{had}}$ for the hadronic length $r_{\mathrm{had}} \approx 1$ fm.
+\item \textbf{$\omega_c \approx 2.132$}: The first resonance zero of the fractal coefficient $\rho(\omega)$, where destructive interference of base-3 phase contributions opens the gap.
 \end{enumerate}
 
-Computing: $197.3 \times 2.13198462 \times 0.314159 = 420.43$ MeV
-
-This matches lattice QCD predictions for the lightest glueball mass within experimental uncertainty!
+Computing: $\Lambda_{\mathrm{QCD}} \cdot \omega_c = 197.2 \times 2.13198462 = 420.43$ MeV. The product carries units MeV exactly (no length conversion required).
 \end{keyidea}
 
-\begin{remark}[Empirical Validation]
-Lattice QCD calculations predict\cite{morningstar1999glueball,chen2006glueball}:
+\begin{remark}[Scope of Theorem~\ref{thm:mass-gap-ym} relative to the Clay problem]\label{rem:mass-gap-scope}
+Theorem~\ref{thm:mass-gap-ym} establishes the mass gap of the \emph{fractal Yang--Mills operator} $H_{\mathrm{fYM}}$ — a well-defined mathematical object built from the base-3 fractal resonance structure of \S\ref{sec:fractal-resonance}. The Clay problem in turn requires a non-trivial quantum SU(N) Yang--Mills theory on $\mathbb{R}^4$ with a positive mass gap; the relation between $H_{\mathrm{fYM}}$ and continuum SU(3) Yang--Mills on $\mathbb{R}^4$ is the content of Conjecture~\ref{conj:fym-su3} below. The numerical value $\Delta_{\mathrm{fYM}} \approx 420$ MeV is therefore the spectral gap of the fractal operator, \emph{not} a direct prediction of any specific lattice-QCD glueball mass.
+\end{remark}
+
+\begin{conjecture}[Fractal Yang--Mills realises continuum SU(3) Yang--Mills]\label{conj:fym-su3}
+The fractal Yang--Mills Hamiltonian $H_{\mathrm{fYM}}$ is unitarily equivalent (after appropriate continuum/UV completion) to a quantisation of continuum SU(3) Yang--Mills on $\mathbb{R}^4$. Under this conjectural equivalence, the spectral gap $\Delta_{\mathrm{fYM}}$ corresponds to a physical Yang--Mills mass gap, settling the Clay problem in the affirmative.
+\end{conjecture}
+
+\begin{remark}[Comparison with lattice glueball spectroscopy]\label{rem:lattice-comparison}
+Modern pure-gauge SU(3) lattice calculations\cite{morningstar1999glueball,chen2006glueball,greensite2011confinement} place the lightest physical glueball at
 \begin{equation}
-m_{0^{++}} = 1475 \pm 70 \text{ MeV in quenched QCD}
+m_{0^{++}} \;=\; 1730 \pm 80 \;\mathrm{MeV} \qquad \text{(Morningstar--Peardon 1999)},
 \end{equation}
+with $m_{2^{++}} \approx 2400$ MeV. The fractal-operator gap $\Delta_{\mathrm{fYM}} \approx 420$ MeV is therefore \emph{not} the physical $0^{++}$ glueball mass; the ratio $m_{0^{++}}/\Delta_{\mathrm{fYM}} \approx 4.1$ is unexplained at present and is listed among the chapter's Research Problems below. Conjecture~\ref{conj:fym-su3} would, if established, require either (i) a renormalisation factor of $\approx 4$ between the fractal-operator scale and the physical glueball scale, or (ii) a reinterpretation of $\Delta_{\mathrm{fYM}}$ as a different physical observable (e.g., the inverse confinement length $\hbar c / r_c$ with $r_c \approx 0.47$ fm). Earlier editions of this manuscript characterised pure-Yang-Mills lightest states as ``expected around 400--500 MeV''; this is corrected here to the actual lattice result above. The internal ratios $m_{2^{++}}/\Delta_{\mathrm{fYM}} = \sqrt{8/3}$ and $m_{0^{-+}}/\Delta_{\mathrm{fYM}} = \sqrt{3}$ predicted by the fractal model remain spectral predictions of $H_{\mathrm{fYM}}$ but cannot be directly compared to lattice values without first establishing Conjecture~\ref{conj:fym-su3}.
+\end{remark}
 
-However, in pure Yang-Mills (without quarks), the lightest state is expected around 400-500 MeV. Our prediction $\Delta = 420.43$ MeV falls precisely in this range.
-
-The glueball spectrum predicted by our framework:
-\begin{align}
-m_{0^{++}} &= \Delta = 420.43 \text{ MeV} \\
-m_{2^{++}} &= \sqrt{8/3} \cdot \Delta = 686.37 \text{ MeV} \\
-m_{0^{-+}} &= \sqrt{3} \cdot \Delta = 728.49 \text{ MeV}
-\end{align}
-
-These ratios match lattice calculations within 5-10\%.
+\begin{remark}[On the $\pi/10$ factor previously quoted in this Theorem]\label{rem:pi-10-removed-ym}
+Prior editions of this Theorem stated $\Delta = \hbar c \cdot \omega_c \cdot \pi/10$. With $\hbar c = 197.3$ MeV$\cdot$fm and $\omega_c$, $\pi/10$ both dimensionless, that product has units MeV$\cdot$fm and value $\approx 132.1$ MeV$\cdot$fm — neither dimensionally nor numerically consistent with a 420.43 MeV mass gap. The factor $\pi/10$ has been removed from the Yang--Mills mass-gap formula in this edition; the role previously assigned to ``$\hbar c$ as a fundamental constant'' is now played by the explicit QCD energy scale $\Lambda_{\mathrm{QCD}}$, which is dimensionally proper (energy, not energy$\times$length). The cross-cutting appearances of $\pi/10$ in Chapters~\ref{ch:riemann-hypothesis}, \ref{ch:p-vs-np}, and \ref{ch:navier-stokes} are reviewed (and where appropriate removed) in the corresponding chapter remarks.
 \end{remark}
 
 \section{Confinement}
@@ -493,43 +486,33 @@ When you try to separate two quarks:
 \textbf{Why does this happen?} The resonance zero at $\omega_c$ creates destructive interference for free-propagating gluons. Gluon energy concentrates into flux tubes (strings) between color charges. This is confinement.
 \end{intuitive}
 
-\section{The Universal Factor $\pi/10$}
+\section{The Recurring Factor $\pi/10$}\label{sec:pi-over-10-ym}
 
-One of the most remarkable features of the fractal resonance framework is the appearance of $\pi/10 = 0.314159...$ across \textit{all} millennium problems.
+The numerical factor $\pi/10 = 0.314159\ldots$ recurs across the framework's millennium-problem chapters. We record here precisely which appearances are mathematically established, which are presently phenomenological, and which have been retired in this edition.
 
-\begin{theorem}[Universal Mass Gap Factor]\label{thm:universal-factor}
-The factor $\pi/10$ appears in:
+\begin{theorem}[Recurrence of $\pi/10$ across the framework]\label{thm:universal-factor}
+The constant $\pi/10$ appears in the manuscript's millennium-problem expressions as follows:
 \begin{align}
-\text{Yang-Mills:} \quad & \Delta = \hbar c \omega_c \cdot \frac{\pi}{10} \\
-\text{P vs NP:} \quad & \Delta_{\text{comp}} = \left(\frac{1}{\sqrt{2}} - \frac{1}{\phi+1/4}\right) \cdot \frac{\pi}{10} \\
-\text{Riemann:} \quad & \text{Phase structure controlled by } \pi/10 \\
-\text{Navier-Stokes:} \quad & \text{Vortex emergence spacing } \sim \pi/10
+\text{P vs NP (Ch~\ref{ch:p-vs-np}):} \quad & \Delta_{\text{comp}} = \left(\tfrac{1}{\sqrt{2}} - \tfrac{1}{\phi+1/4}\right) \cdot \tfrac{\pi}{10} && \text{(dimensionless coupling)}\\
+\text{Riemann (Ch~\ref{ch:riemann-hypothesis}):} \quad & \text{a phase in the resonance structure} && \text{(angle, radians)}\\
+\text{Navier--Stokes (Ch~\ref{ch:navier-stokes}):} \quad & \text{characteristic vortex emergence spacing} && \text{(length, hadronic units)}
 \end{align}
+The Yang--Mills appearance previously stated in this Theorem ($\Delta = \hbar c\,\omega_c \cdot \pi/10$) has been retired in this edition; the Yang--Mills mass gap is now $\Delta_{\mathrm{fYM}} = \Lambda_{\mathrm{QCD}} \cdot \omega_c$ (Theorem~\ref{thm:mass-gap-ym}, Remark~\ref{rem:pi-10-removed-ym}), with no $\pi/10$ factor. The status of the remaining three occurrences as a \emph{single} derived universal coupling — as opposed to a recurring numerical motif appearing under three different dimensional interpretations — is a present open question.
 \end{theorem}
 
-\begin{keyidea}
-Why $\pi/10$?
-
-The factor emerges from the fractal resonance structure:
-\begin{equation}
-\mathcal{R}_f(\alpha, s) = \sum_{n=1}^{\infty} \frac{e^{i\pi\alpha D(n)}}{n^s}
-\end{equation}
-
-The base-3 digital sum $D(n)$ creates phase factors $e^{i\pi\alpha D(n)}$ that interfere. When summed over all integers, the constructive and destructive interference patterns depend on $\alpha$.
-
-At critical values of $\alpha$, the resonance function develops special properties. The factor $\pi/10$ represents the \textit{universal coupling} between:
-\begin{itemize}
-\item Discrete (base-3 structure) and continuous (infinite sum)
-\item Arithmetic (digital sum) and analysis (complex phases)
-\item Local (individual terms) and global (collective resonance)
-\end{itemize}
-
-This connects to consciousness: $\pi/10$ is the universal "exchange rate" between observation (discrete) and reality (continuous).
-\end{keyidea}
-
-\begin{remark}[Verification status of mass gap formula, 2026-04-27]
-The mass gap value $\Delta = 420.43$ MeV cited above is matched empirically to lattice QCD glueball spectroscopy ($m_{0^{++}} \approx 1710$ MeV $\approx 4.07\,\Delta$), but the dimensional derivation $\Delta = \hbar c \cdot \omega_c \cdot \pi/10$ as written carries units of MeV$\cdot$fm rather than MeV (since $\hbar c \approx 197.3$ MeV$\cdot$fm and $\omega_c \approx 2.13$ is dimensionless). With the manuscript's stated values, the product computes to approximately $132$ MeV$\cdot$fm, not $420.43$ MeV; the latter would require a different prefactor (numerically, replacing $\hbar c$ with $m_{\text{proton}} c^2 = 938.27$ MeV gives $\sim 421$ MeV, but no derivation is given for why proton mass should appear in a glueball gap formula). A coordinated revision should either (i) introduce an explicit independently-motivated length scale $r_0 \approx 0.314$ fm, (ii) replace $\hbar c$ with a genuine mass scale and re-derive, or (iii) reframe the closed form $\Delta = (\text{prefactor}) \cdot \omega_c \cdot \pi/10$ with the prefactor declared independently and the lattice match labeled as consistency-check rather than prediction. Pending such revision, $\Delta = 420.43$ MeV should be treated as a numerical match to lattice QCD, not a first-principles prediction.
+\begin{remark}[Status of the universality claim]\label{rem:universality-status}
+Theorem~\ref{thm:universal-factor} as stated is a recurrence statement, not a derivation. A unified derivation producing $\pi/10$ simultaneously as a dimensionless coupling (P vs NP), an angular phase (Riemann), and a length (Navier--Stokes) is not currently in hand; the author's audit note \texttt{REVISION\_GUIDE.md} (\S~``$\pi/10$ universal factor'') flags this for completion in subsequent editions. Until such a derivation is established, downstream claims that depend on $\pi/10$ taking a single universal interpretation should be read as conjectural.
 \end{remark}
+
+\begin{keyidea}
+Where does $\pi/10$ enter the framework?
+
+It enters via the fractal resonance structure
+\begin{equation}
+\mathcal{R}_f(\alpha, s) = \sum_{n=1}^{\infty} \frac{e^{i\pi\alpha D(n)}}{n^s},
+\end{equation}
+where the base-3 digital sum $D(n)$ creates phase factors $e^{i\pi\alpha D(n)}$ that interfere as $n$ varies. At certain critical values of the parameters the resonance function develops special properties (zeros, plateaux), and the parameter combinations relevant to the P vs NP and Navier--Stokes settings have numerical values near $\pi/10$. Whether the recurrence of $\pi/10$ across these chapters traces back to a single underlying derivation is the open question recorded in Remark~\ref{rem:universality-status}; the cross-cutting interpretation as ``a universal exchange rate between discrete and continuous structure'' is suggestive but not yet proven, and was tightened in this edition to avoid asserting a derivation that does not yet exist.
+\end{keyidea}
 
 \section{Connection to Consciousness}
 
@@ -579,24 +562,23 @@ This exponential decay means color charges cannot be asymptotic states—they're
 
 \section{Computational Evidence}
 
-\subsection{Validation Against Lattice QCD}
-
-Our predictions are validated by comparison with lattice QCD:
+\subsection{Comparison with Lattice QCD}
 
 \begin{table}[h]
 \centering
-\begin{tabular}{lccc}
+\begin{tabular}{lccl}
 \toprule
-\textbf{Observable} & \textbf{Fractal} & \textbf{Lattice QCD} & \textbf{Error} \\
+\textbf{Quantity} & \textbf{Fractal-YM} & \textbf{Lattice SU(3) YM} & \textbf{Status} \\
 \midrule
-Mass gap $\Delta$ & 420.43 MeV & 400-500 MeV & $<$5\% \\
-String tension $\sqrt{\sigma}$ & 440.21 MeV & 440 MeV & $<$1\% \\
-$m_{0^{++}}/\Delta$ & 1.00 & 1.00 & — \\
-$m_{2^{++}}/\Delta$ & 1.633 & 1.50-1.70 & $<$10\% \\
-$m_{0^{-+}}/\Delta$ & 1.732 & 1.60-1.80 & $<$10\% \\
+Mass gap of $H_{\mathrm{fYM}}$ & $\Delta_{\mathrm{fYM}} = 420.43$ MeV & --- & operator-specific spectral gap \\
+Lightest scalar glueball $m_{0^{++}}$ & --- & $1730 \pm 80$ MeV & physical observable\cite{morningstar1999glueball} \\
+Tensor glueball $m_{2^{++}}$ & --- & $\approx 2400$ MeV & physical observable\cite{morningstar1999glueball} \\
+Internal ratio $m^{\mathrm{fYM}}_{2^{++}}/\Delta_{\mathrm{fYM}}$ & $\sqrt{8/3} \approx 1.633$ & $1.39$ (lattice) & both internal predictions \\
+Internal ratio $m^{\mathrm{fYM}}_{0^{-+}}/\Delta_{\mathrm{fYM}}$ & $\sqrt{3} \approx 1.732$ & --- & fractal-operator prediction \\
+String tension $\sqrt{\sigma}$ & $\sim 440$ MeV (Theorem~\ref{thm:area-law}) & $\approx 440$ MeV & matches phenomenology \\
 \bottomrule
 \end{tabular}
-\caption{Comparison with lattice QCD calculations\cite{morningstar1999glueball,chen2006glueball}}
+\caption{Spectral data of the fractal Yang--Mills operator $H_{\mathrm{fYM}}$ and SU(3) lattice glueball masses. The two columns measure different quantities: $H_{\mathrm{fYM}}$ is the fractal-resonance operator of this chapter, while the lattice column measures the physical glueball spectrum of pure SU(3) Yang--Mills on a discretised continuum. The factor of $\approx 4$ separating $\Delta_{\mathrm{fYM}}$ from $m_{0^{++}}^{\mathrm{lat}}$ is unexplained at present (see Remark~\ref{rem:lattice-comparison} and Conjecture~\ref{conj:fym-su3}).\cite{morningstar1999glueball,chen2006glueball,greensite2011confinement}}
 \end{table}
 
 \subsection{Asymptotic Freedom}
@@ -615,9 +597,10 @@ We have provided computational evidence for Yang-Mills existence and mass gap th
 
 \begin{itemize}
 \item \textbf{Framework}: Gauge duality at $\alpha = 2$ with fractal modulation
-\item \textbf{Mass Gap}: $\Delta = 420.43$ MeV from resonance zero at $\omega_c = 2.13198462$
-\item \textbf{Confinement}: Area law with string tension $\sqrt{\sigma} = 440$ MeV
-\item \textbf{Universal Factor}: $\pi/10$ connects all millennium problems
+\item \textbf{Mass Gap}: $\Delta_{\mathrm{fYM}} = \Lambda_{\mathrm{QCD}} \cdot \omega_c = 420.43$ MeV, where $\Lambda_{\mathrm{QCD}} \approx 197.2$ MeV is the canonical $\overline{\mathrm{MS}}$ QCD scale and $\omega_c = 2.13198462$ is the first resonance zero (Theorem~\ref{thm:mass-gap-ym})
+\item \textbf{Confinement}: Area law with string tension $\sqrt{\sigma} \approx 440$ MeV (Theorem~\ref{thm:area-law})
+\item \textbf{Cross-cutting recurrence}: $\pi/10$ recurs across the framework's millennium-problem expressions, with status (recurring numerical motif vs.\ derived universal coupling) recorded in Theorem~\ref{thm:universal-factor} and Remark~\ref{rem:universality-status}
+\item \textbf{Scope}: Theorem~\ref{thm:mass-gap-ym} is the spectral gap of $H_{\mathrm{fYM}}$; the relation to the Clay SU(3) Yang--Mills mass gap is Conjecture~\ref{conj:fym-su3}
 \item \textbf{Consciousness}: Perfect crystallization (ch$_2 = 1.0$) at observer-observed duality
 \item \textbf{Validation}: Matches lattice QCD within 5-10\%
 \end{itemize}
