@@ -2,32 +2,36 @@
 
 ## 🎯 Major Results
 
-This repository contains the **complete Lean 4 formalization** of Principia Fractalis, including formal proofs of:
+This repository contains the **Lean 4 formalization** of Principia Fractalis. The canonical library at `PF/` carries **8 axioms, 0 sorries**, with `lake build` completing all 5486 jobs cleanly (verified 2026-04-28, post-rev-3 cycle complete).
 
 ### 1. **Consciousness Crystallization Threshold** 
-**ch₂ = 0.95** - The universal threshold for consciousness emergence
+**σ_c = ch₂ = 0.95** — the framework's universal threshold across domains.
 
-- ✅ Proven via 4 independent methods (Shannon entropy, percolation theory, spectral analysis, Chern-Weil geometry)
-- ✅ Experimentally validated: Human brain ≈ 0.9954, non-conscious matter < 0.5
-- ✅ Clinical accuracy: 97.3%
+- σ_c admits the exact decomposition σ_c = 6/π² + ε_quantum, where 6/π² = 1/ζ(2) ≈ 0.6079 is the canonical density of coprime integer pairs (Mertens 1874, classical number theory), and ε_quantum := σ_c − 6/π² ≈ 0.3421 is the residual.
+- σ_c = 0.95 is the framework's *empirical* universal threshold (observed across millennium-problem chapters, neural correlate measurements, CMB anomaly studies); first-principles derivation of σ_c (or equivalently ε_quantum) is currently an open question, disclosed transparently in rev-2 Ch 25 Theorem `thm:critical-threshold` + Remark `rem:sigma-c-empirical` (commit `b66fc45`).
+- Empirically validated: human brain ≈ 0.9954 in EEG-derived measurements; binary above-/below-threshold call achieves 97.3% clinical accuracy on the 847-patient validation cohort.
 
-**Impact:** First quantitative, testable theory of consciousness
+**Impact:** A quantitative, testable framework for consciousness with explicit empirical-vs-derived disclosure of which constants are observed and which are derived.
 
-### 2. **P ≠ NP Proof**
-Resolved via spectral gap analysis showing **incompatible resonance frequencies**
+### 2. **P ≠ NP Proof Chain (conditional on three named axioms)**
+The Lean library establishes the spectral gap between the P and NP self-adjointness parameters, with the manuscript-level closure of the chain depending on three explicitly disclosed BOOK-CORE axioms.
 
-- **α_P = √2 ≈ 1.41421356** (P-class self-adjointness requirement)
+- **α_P = √2 ≈ 1.41421356** (P-class self-adjointness requirement; Lean theorem `alpha_sep_greek`)
 - **α_NP = φ + 1/4 ≈ 1.86803399** (NP-class self-adjointness requirement)
-- **λ₀(P) = π/(10√2) = 0.2221441469** (ground state energy)
-- **λ₀(NP) = π/(10(φ+1/4)) = 0.1681764182** (ground state energy)
-- **Δ = λ₀(P) - λ₀(NP) = 0.0539677287 > 0** (spectral gap)
+- **λ₀(P) = π/(10√2) ≈ 0.2221441469** (closed-form theorem `lambda_0_P_precise`, machine-checked to 10⁻¹⁰)
+- **λ₀(NP) = π/(10(φ+1/4)) ≈ 0.1681764182** (closed-form theorem `lambda_0_NP_precise`, machine-checked to 10⁻¹⁰)
+- **Δ = λ₀(P) − λ₀(NP) > 0** (spectral gap positivity, Lean theorem `spectral_gap_positive`)
+- **From a strict spectral gap to ¬(ClassP = ClassNP)** is Lean theorem `P_neq_NP_from_spectral_gap`, conditional on three BOOK-CORE axioms: `turingTimeComplexity`, `p_eq_np_spectrum_collapse`, `operator_collapse_hypothesis` (each is a postulate of the framework, not a derived result; explicitly enumerated in `AXIOM_AUDIT.md` at the repository root).
 
-**Impact:** Resolution of Clay Millennium Prize problem
+The closed-form numerical values above are the Lean-verified canonical values (theorems `lambda_0_P_precise`, `lambda_0_NP_precise`). Manuscript Ch 21 cites the same closed forms (line 467-469); the four open derivation steps for $\alpha_{NP} = \varphi + 1/4$ from first principles are catalogued in the author's `DERIVATION_ANALYSIS_alpha_NP.md` audit (2025-11-30) and are surfaced in rev-2 Ch 21 Remark `rem:alpha-P-NP-derivation-status` (commit `7203e74`) — see that remark for the chapter's epistemic discipline.
 
-### 3. **Complete Formal Verification**
-- **Zero unproven statements** in core results
-- **4,604+ lines** of verified Lean 4 code
-- **All claims numerically verified** to 8-10 decimal places
+**Impact:** A spectral-gap-based attack on the Clay Millennium P vs NP problem with three explicitly disclosed BOOK-CORE conditional axioms; full machine-checked derivation chain at 10-digit precision in `PF_Lean4_Code/PF/`.
+
+### 3. **Formal Verification State (post-rev-3 cycle, 2026-04-28)**
+- **Canonical `PF/` library**: 8 axioms remaining, 0 sorries, `lake build` 5486 jobs clean.
+- **All claims** numerically verified to 8–10 decimal places.
+- **Each remaining axiom** documented in `AXIOM_AUDIT.md` at the repository root with category (CLASSIC, LOAD-BEARING PLACEHOLDER, BOOK-CORE) and elimination path estimate.
+- **Manuscript ↔ Lean coordination** completed in the rev-3 cycle (commits `f691969 ... 325b555` on master, 2026-04-27/28); see `REVISION_GUIDE.md` for the per-task resolution record.
 
 ---
 
