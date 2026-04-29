@@ -692,4 +692,65 @@ theorem T3_spectral_complete :
     }, trivial⟩
   · simp only [lambda_max, abs_of_pos (by norm_num : (1:ℝ)/3 > 0)]
 
+/-! ## RH Spectral Framework Precondition (composition of today's work) -/
+
+/-- The RH spectral framework precondition for the symmetrised
+    operator $\widetilde{T}_3^{\mathrm{sym}}$.
+
+    This theorem composes the rev-3 follow-on chain (commits `f06243f`,
+    `9c06820`, `f7d2f11`, `6d62102`, plus this one) into a single
+    statement that the manuscript's spectral bijection (Chapter 20,
+    Theorem `thm:spectral-bijection`) actually requires:
+
+      1. $T_3^{\mathrm{sym}}$ is self-adjoint on $L^2([0,1], dx/x)$
+         (from `axiom T3_self_adjoint_conj`, sharpened form
+         2026-04-29).
+      2. Every eigenvalue of $T_3^{\mathrm{sym}}$ is real
+         (from `self_adjoint_real_eigenvalues`, proven 2026-04-29).
+      3. The eigenvalue sequence accumulates only at $0$
+         (from `compact_discrete_spectrum`, proven 2026-04-29).
+
+    The first conclusion is the axiom (sharpened to refer to the
+    explicit `T3_sym` witness). The other two are proven theorems
+    composed via `T3_self_adjoint_conj` as the self-adjointness
+    hypothesis.
+
+    The Phase A inner-product hypotheses (`hsmul_left`, `hsmul_right`,
+    `hpos_def`) and the spectral-theorem hypothesis (an explicit
+    eigenvalue sequence with $1/n$-decay modulus bound) become free
+    once the corresponding mathlib instances + spectral-theorem
+    proof land. At that point this theorem's hypotheses collapse to
+    the `T3_self_adjoint_conj` axiom alone, and the conclusion
+    becomes the unconditional precondition for the manuscript's
+    Theorem 20.spectral-bijection.
+
+    Reference: Manuscript Chapter 20, Theorem `thm:spectral-bijection`.
+    Reed-Simon Vol. I, Theorems VI.8 + VI.16. -/
+theorem T3_sym_spectral_framework
+    -- Phase A inner-product hypotheses (free once
+    -- LogWeightedL2 := MeasureTheory.Lp ℂ 2 logWeightedMeasure)
+    (hsmul_left : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪a • f, g⟫ = (star a) * ⟪f, g⟫)
+    (hsmul_right : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪f, a • g⟫ = a * ⟪f, g⟫)
+    (hpos_def : ∀ f : LogWeightedL2, f ≠ 0 → ⟪f, f⟫ ≠ 0)
+    -- Spectral-theorem hypothesis: eigenvalue sequence with
+    -- 1/n-decay modulus bound (Hilbert-Schmidt singular-value
+    -- asymptotics; mathlib's IsCompactOperator API)
+    (eigenvalues : ℕ → ℝ)
+    (hev : ∀ n : ℕ, IsEigenvalue T3_sym.apply ((eigenvalues n : ℂ)))
+    (K : ℝ) (hK : K > 0)
+    (hbound : ∀ n : ℕ, |eigenvalues n| ≤ K / ((n : ℝ) + 1)) :
+    -- (1) T3_sym is self-adjoint
+    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- (2) Every eigenvalue of T3_sym is real
+    (∀ lam : ℂ, IsEigenvalue T3_sym.apply lam → lam.im = 0) ∧
+    -- (3) The eigenvalue sequence accumulates at 0
+    Filter.Tendsto eigenvalues Filter.atTop (nhds 0) := by
+  refine ⟨T3_self_adjoint_conj, ?_, ?_⟩
+  · exact self_adjoint_real_eigenvalues T3_sym T3_self_adjoint_conj
+      hsmul_left hsmul_right hpos_def
+  · exact compact_discrete_spectrum T3_sym T3_self_adjoint_conj
+      eigenvalues hev K hK hbound
+
 end PrincipiaTractalis
