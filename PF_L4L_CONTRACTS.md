@@ -1,9 +1,20 @@
 # PF_L4L – Contracts and Axiom Usage
 
-This document summarizes the **Lean-for-Lean** layer (`PF_L4L`) and how it uses the canonical Principia Fractalis axioms.
+This document summarizes the **Lean4Lean** verification layer (referred to historically as `PF_L4L`) and how it uses the canonical Principia Fractalis axioms.
 
-- Canonical Lean axioms: `PF_canonical/2_LEAN_SOURCE_CODE/**`
-- PF_L4L contracts and audit: `PF_L4L/PF_L4L/**`
+**Path note (post-rev-3, 2026-04-28).** The repository structure has evolved; path references below should be read with these substitutions:
+
+| Older path label                               | Current canonical path                                                          |
+|------------------------------------------------|---------------------------------------------------------------------------------|
+| `PF_canonical/2_LEAN_SOURCE_CODE/`             | `PF_Lean4_Code/PF/` (canonical Lean 4 library; **8 axioms**, 0 sorries)          |
+| `PF_L4L/PF_L4L/`                               | `experimental/PF_L4L_future/PF_L4L/` (quarantined under experimental)            |
+
+L4L is currently quarantined under `experimental/PF_L4L_future/` per the architectural decision recorded at `experimental/PF_L4L_future/L4L_ARCHITECTURAL_DECISION.md` (2026-04-28, Path B selected: preserve verification-only design intent + canonical 8-axiom count). The `lake build` command at the repository root refers EXCLUSIVELY to the canonical `PF_Lean4_Code/PF/`; an explicit `cd experimental/PF_L4L_future && lake build` is required to build L4L. CI does not currently run L4L's build.
+
+The substantive content of this document — the L4L axiom-tag classification of canonical Principia Fractalis axioms — remains valid for the L4L layer when restored.
+
+- Canonical Lean axioms: `PF_Lean4_Code/PF/**`
+- PF_L4L contracts and audit: `experimental/PF_L4L_future/PF_L4L/**`
 - **PF_L4L introduces no new `axiom`s**. It only references and classifies existing canonical axioms.
 
 ---
