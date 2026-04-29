@@ -331,21 +331,17 @@ theorem first_zero_agreement :
     The framework is COMPLETE and AXIOM-FREE.
     The connection to ζ requires spectral determinant or trace formula proof.
 
-    Post-rev-3 follow-on (2026-04-28): the first conjunct now
-    asserts the existential symmetrisation form supplied by
-    `T3_self_adjoint_conj` — there exists a formal $L^2(dx/x)$
-    adjoint $T_{\mathrm{adj}}$ such that
-    $(\widetilde{T}_3 + T_{\mathrm{adj}})/2$ is self-adjoint. See
-    the axiom's docstring in `PF/TransferOperator.lean` for the
+    Post-rev-3 follow-on (2026-04-29, sharpened form): the first
+    conjunct asserts symmetry of the explicit `T3_sym` operator
+    (defined as $(\widetilde{T}_3 + \widetilde{T}_3^*)/2$ in
+    `PF/TransferOperator.lean`). See that axiom's docstring for
     history (2026-04-26 verification, 2026-04-27/28 manuscript fix
-    via Friedrichs extension, 2026-04-28 Lean alignment). The
-    second and third conjuncts are independent. -/
+    via Friedrichs extension, 2026-04-28 existential bridge,
+    2026-04-29 explicit-witness sharpening). The second and third
+    conjuncts are independent. -/
 theorem spectral_bijection_framework :
-    -- Symmetrised transfer operator is self-adjoint (rev-3 form)
-    (∃ (T_adj : LogWeightedL2 → LogWeightedL2),
-      (∀ f g, ⟪T3.apply f, g⟫ = ⟪f, T_adj g⟫) ∧
-      (∀ f g, ⟪((1/2 : ℂ)) • (T3.apply f + T_adj f), g⟫ =
-              ⟪f, ((1/2 : ℂ)) • (T3.apply g + T_adj g)⟫)) ∧
+    -- T3_sym is self-adjoint (sharpened rev-3 form)
+    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
     -- Map to critical line is well-defined and injective
     (∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
       eigenvalueToT α_star_empirical ev₁ = eigenvalueToT α_star_empirical ev₂ →
@@ -413,29 +409,26 @@ theorem selberg_model_works (M : SelbergZetaModel) :
     The framework is mathematically rigorous.
     The connection to ζ zeros is the remaining research challenge.
 
-    Post-rev-3 follow-on (2026-04-28): the "T₃ is self-adjoint"
-    bullet now corresponds to the existential symmetrisation form of
-    `T3_self_adjoint_conj` — there exists a formal $L^2(dx/x)$
-    adjoint $T_{\mathrm{adj}}$ such that
-    $(\widetilde{T}_3 + T_{\mathrm{adj}})/2$ is self-adjoint on
-    $L^2(dx/x)$. The pre-rev-3 false claim (about the unsymmetrised
-    $\widetilde{T}_3$) has been retired. See the axiom's docstring
-    in `PF/TransferOperator.lean` for the history. -/
+    Post-rev-3 follow-on (2026-04-29, sharpened form): the "T₃ is
+    self-adjoint" bullet corresponds to symmetry of the explicit
+    `T3_sym` operator (the half-sum
+    $(\widetilde{T}_3 + \widetilde{T}_3^*)/2$ defined in
+    `PF/TransferOperator.lean`). The pre-rev-3 false claim (about
+    the unsymmetrised $\widetilde{T}_3$) has been retired. See the
+    axiom's docstring for full history. -/
 theorem framework_summary :
-    -- We have a rigorous spectral framework
+    -- We have a rigorous spectral framework, with T3_sym carrying
+    -- the self-adjointness identity (rev-3 sharpened form).
     (∃ T : TransferOperator 3,
-      -- Symmetrised T is self-adjoint (rev-3 form)
-      (∃ (T_adj : LogWeightedL2 → LogWeightedL2),
-        (∀ f g, ⟪T.apply f, g⟫ = ⟪f, T_adj g⟫) ∧
-        (∀ f g, ⟪((1/2 : ℂ)) • (T.apply f + T_adj f), g⟫ =
-                ⟪f, ((1/2 : ℂ)) • (T.apply g + T_adj g)⟫)) ∧
+      -- Self-adjoint (axiom T3_self_adjoint_conj instantiated at T3_sym)
+      (∀ f g, ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫) ∧
       -- Compact
       True ∧
       -- Maps eigenvalues to critical line injectively
       (∀ α : ScalingParameter,
         ∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
           eigenvalueToT α ev₁ = eigenvalueToT α ev₂ → |ev₁| = |ev₂|)) := by
-  use T3
+  use T3_sym
   refine ⟨T3_self_adjoint_conj, trivial, ?_⟩
   intro α
   exact g_injective α
