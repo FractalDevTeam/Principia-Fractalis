@@ -408,30 +408,69 @@ noncomputable def T3_sym : TransferOperator 3 := {
 axiom T3_self_adjoint_conj :
     ∀ (f g : LogWeightedL2), ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫
 
+/-- Eigenvalue predicate for an operator on `LogWeightedL2`.
+
+    `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
+    with `T f = λ • f`. Standard linear-algebra definition; the
+    non-zero requirement excludes the trivial $0 = \lambda \cdot 0$
+    case that would make every $\lambda$ a vacuous "eigenvalue". -/
+def IsEigenvalue (T : LogWeightedL2 → LogWeightedL2) (lam : ℂ) : Prop :=
+  ∃ f : LogWeightedL2, f ≠ 0 ∧ T f = lam • f
+
 /-- Self-adjointness implies real eigenvalues.
 
-    The standard argument: For self-adjoint T and eigenvalue λ with eigenvector f ≠ 0:
-    ⟨Tf, f⟩ = λ⟨f,f⟩ and ⟨f, Tf⟩ = λ̄⟨f,f⟩
-    Self-adjointness gives ⟨Tf, f⟩ = ⟨f, Tf⟩, hence λ = λ̄, so λ ∈ ℝ.
+    The standard Hilbert-space argument: for self-adjoint $T$ and
+    eigenvalue $\lambda$ with eigenvector $f \ne 0$:
+        $\langle T f, f\rangle = \langle \lambda f, f\rangle =
+         \overline{\lambda}\, \langle f, f\rangle$  (conjugate-linear left)
+        $\langle f, T f\rangle = \langle f, \lambda f\rangle =
+         \lambda\, \langle f, f\rangle$              (linear right)
+    Self-adjointness $\langle T f, f\rangle = \langle f, T f\rangle$
+    forces $\overline{\lambda} = \lambda$ (cancelling $\langle f, f\rangle
+    \ne 0$), hence $\lambda \in \mathbb{R}$.
 
-    Note: This theorem establishes the STRUCTURE for real eigenvalues.
-    For T₃ specifically, numerical computation confirms all eigenvalues are real.
+    The proof below takes inner-product sesquilinearity + weak
+    positive-definiteness as explicit hypotheses. These hypotheses
+    will become available as mathlib `InnerProductSpace ℂ` instance
+    fields automatically once the Phase A
+    `LogWeightedL2 := MeasureTheory.Lp ℂ 2 logWeightedMeasure`
+    refactor lands (RESEARCH_ROADMAP.md §2.1); at that point this
+    theorem becomes hypothesis-free.
 
-    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The conclusion as
-    formalized below is `∀ (eigenval : ℝ), True` — i.e. trivially
-    provable, with NO actual content about real eigenvalues. The
-    docstring oversells what is proven. The hypothesis `hsa` is
-    unused. To make this a real theorem, the conclusion must be
-    something like `∀ ev, IsEigenvalue T ev → ev.im = 0`, which
-    requires a definition of `IsEigenvalue` not currently in scope.
-    Retained as a structural placeholder for the spectral-properties
-    chapter of the Lean library. -/
-theorem self_adjoint_real_eigenvalues (T : TransferOperator 3)
+    Reference: Reed-Simon I, Theorem VI.8 (real spectrum of
+    self-adjoint operators). Manuscript Chapter 20, foundational to
+    the spectral bijection in Theorem 20.spectral-bijection. -/
+theorem self_adjoint_real_eigenvalues
+    (T : TransferOperator 3)
+    -- Self-adjointness of T
     (hsa : ∀ f g, ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫)
-    -- The condition now asserts that eigenvalues satisfying certain properties are real
-    : ∀ (eigenval : ℝ), True := by
-  intro eigenval
-  trivial
+    -- Conjugate-linearity of inner product in the first slot
+    (hsmul_left : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪a • f, g⟫ = (star a) * ⟪f, g⟫)
+    -- Linearity of inner product in the second slot
+    (hsmul_right : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪f, a • g⟫ = a * ⟪f, g⟫)
+    -- Weak positive-definiteness: ⟨f,f⟩ ≠ 0 for f ≠ 0
+    (hpos_def : ∀ f : LogWeightedL2, f ≠ 0 → ⟪f, f⟫ ≠ 0)
+    : ∀ (lam : ℂ), IsEigenvalue T.apply lam → lam.im = 0 := by
+  intro lam ⟨f, hf_ne, hf_eig⟩
+  -- ⟪T f, f⟫ = ⟪lam • f, f⟫ = star lam * ⟪f, f⟫
+  have h1 : ⟪T.apply f, f⟫ = (star lam) * ⟪f, f⟫ := by
+    rw [hf_eig]; exact hsmul_left lam f f
+  -- ⟪f, T f⟫ = ⟪f, lam • f⟫ = lam * ⟪f, f⟫
+  have h2 : ⟪f, T.apply f⟫ = lam * ⟪f, f⟫ := by
+    rw [hf_eig]; exact hsmul_right lam f f
+  -- Self-adjointness chains: star lam * ⟪f,f⟫ = lam * ⟪f,f⟫
+  have h3 : (star lam) * ⟪f, f⟫ = lam * ⟪f, f⟫ := by
+    rw [← h1, ← h2]; exact hsa f f
+  -- ⟪f,f⟫ ≠ 0 from positive-definiteness
+  have h4 : ⟪f, f⟫ ≠ 0 := hpos_def f hf_ne
+  -- Cancel ⟪f,f⟫: star lam = lam
+  have h5 : star lam = lam := mul_right_cancel₀ h4 h3
+  -- For complex z: star z = z ↔ z.im = 0
+  have h6 : (star lam).im = -lam.im := Complex.conj_im lam
+  have h7 : (star lam).im = lam.im := by rw [h5]
+  linarith
 
 /-! ## Compactness -/
 
