@@ -47,6 +47,11 @@ import PF.YangMillsMeasure    -- Full Yang-Mills measure via Minlos
 import PF.TransferOperator    -- Transfer operator T₃ and spectral properties
 import PF.SpectralBijection   -- Eigenvalue → critical line map framework
 
+-- ============================================================================
+-- CAPSTONE: Millennium-problem status summary (RH + P ≠ NP, conditional)
+-- ============================================================================
+import PF.Millennium          -- principia_fractalis_millennium_capstone
+
 /-!
 ## Principia Fractalis Formal Verification
 
