@@ -504,4 +504,114 @@ theorem T3_sym_RH_precondition
     (eigenvalues n) (eigenvalues m) (hne n) (hne m)
     (hdistinct n m hne_idx) heq
 
+/-! ## The Riemann Hypothesis (capstone) -/
+
+/-- The Riemann Hypothesis: every nontrivial zero of $\zeta$ lies on the
+    critical line $\mathrm{Re}(s) = 1/2$.
+
+    Stated for the critical strip $0 < \mathrm{Re}(s) < 1$, which contains
+    exactly the nontrivial zeros (the trivial zeros at negative even
+    integers and the pole at $s = 1$ are excluded by the strict bounds).
+
+    This is the canonical Lean formulation of RH; mathlib does not
+    currently expose it as a named predicate. -/
+def RiemannHypothesis : Prop :=
+  ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 → s.re = 1/2
+
+/-- **Conditional RH via the spectral bijection (minimal form).**
+
+    *If* there exists an eigenvalue sequence $\{\lambda_n\}$ such that
+    every nontrivial $\zeta$-zero in the critical strip is in the image
+    of $\lambda \mapsto 1/2 + i \cdot g(\lambda)$, *then* the Riemann
+    Hypothesis holds.
+
+    Proof: $\mathrm{eigenvalueToZero}$ lands on the critical line by
+    construction (`eigenvalue_maps_to_critical_line`). Surjectivity
+    transports this property to every nontrivial $\zeta$-zero.
+
+    This is intentionally a **conditional** statement. The hard content
+    of RH lives in the surjectivity hypothesis: producing such an
+    eigenvalue sequence and proving the image surjects onto $\zeta$-zeros
+    is the open research problem (Manuscript Chapter 20,
+    Theorem `thm:spectral-bijection`'s second leg). The Lean theorem
+    captures the geometric/analytic implication once surjectivity is
+    granted: any zero in the bijection image is automatically on the
+    critical line.
+
+    Composes with `T3_sym_RH_precondition` (above) for the full chain. -/
+theorem riemann_hypothesis_via_spectral_bijection
+    (α : ScalingParameter)
+    -- An eigenvalue sequence (existence is the content of the
+    -- compact-operator spectral theorem applied to T3_sym).
+    (eigenvalues : ℕ → ℝ)
+    -- Surjectivity: every nontrivial ζ-zero is in the eigenvalue image.
+    -- This is the open conjecture from Chapter 20 (commit 9659f92's
+    -- companion remark `rem:bijection-surjectivity`).
+    (surjectivity : ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 →
+        ∃ n : ℕ, eigenvalueToZero α (eigenvalues n) = s) :
+    RiemannHypothesis := by
+  intro s h_re_pos h_re_lt riemann_zero
+  obtain ⟨n, hn⟩ := surjectivity s h_re_pos h_re_lt riemann_zero
+  rw [← hn]
+  exact eigenvalue_maps_to_critical_line α (eigenvalues n)
+
+/-- **Conditional RH via the full $T_3^{\mathrm{sym}}$ framework chain.**
+
+    Composes the entire rev-3 follow-on chain (commits `f06243f`,
+    `9c06820`, `f7d2f11`, `6d62102`, `6cc08f4`, `f989bba`) plus the
+    surjectivity hypothesis into the most explicit conditional RH
+    statement representable from the manuscript's Chapter 20 framework.
+
+    What this theorem says, plainly: GIVEN
+      - Phase A inner-product structure on $L^2([0,1], dx/x)$,
+      - A compact-operator spectral-theorem witness for $T_3^{\mathrm{sym}}$
+        (an eigenvalue sequence with $1/n$-decay modulus bound),
+      - Empirical non-degeneracy of the spectrum (nonzero, distinct moduli),
+      - Surjectivity of the spectral bijection onto nontrivial $\zeta$-zeros,
+    THEN the Riemann Hypothesis holds.
+
+    Each hypothesis corresponds to a specific discharge track:
+      - Phase A → `RESEARCH_ROADMAP.md` §2.1 (LogWeightedL2.inner
+        elimination, ~2-3 weeks of Lean engineering).
+      - Spectral theorem → mathlib's `IsCompactOperator` API
+        (Mathlib.Analysis.NormedSpace.OperatorNorm.Compact).
+      - Non-degeneracy → empirical fact about $T_3^{\mathrm{sym}}$'s
+        spectrum (numerical verification, Mayer 1991).
+      - Surjectivity → the load-bearing conjecture of the entire RH
+        program (det/trace-formula completion). This is the open
+        mathematical problem; the other three are research engineering.
+
+    The theorem itself is **not** a proof of RH. It is the precise
+    Lean-checkable statement of the manuscript's claim that "if these
+    four discharge tracks complete, RH follows". -/
+theorem riemann_hypothesis_via_T3_sym_framework
+    -- Phase A inner-product hypotheses
+    (hsmul_left : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪a • f, g⟫ = (star a) * ⟪f, g⟫)
+    (hsmul_right : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪f, a • g⟫ = a * ⟪f, g⟫)
+    (hpos_def : ∀ f : LogWeightedL2, f ≠ 0 → ⟪f, f⟫ ≠ 0)
+    -- Spectral-theorem hypothesis (eigenvalue sequence with 1/n decay)
+    (eigenvalues : ℕ → ℝ)
+    (hev : ∀ n : ℕ, IsEigenvalue T3_sym.apply ((eigenvalues n : ℂ)))
+    (K : ℝ) (hK : K > 0)
+    (hbound : ∀ n : ℕ, |eigenvalues n| ≤ K / ((n : ℝ) + 1))
+    -- Bijection-injection hypothesis (nonzero, distinct moduli)
+    (α : ScalingParameter)
+    (hne : ∀ n, eigenvalues n ≠ 0)
+    (hdistinct : ∀ n m, n ≠ m → |eigenvalues n| ≠ |eigenvalues m|)
+    -- Surjectivity hypothesis (the open conjecture)
+    (surjectivity : ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 →
+        ∃ n : ℕ, eigenvalueToZero α (eigenvalues n) = s) :
+    RiemannHypothesis := by
+  -- The four-clause precondition (hypotheses 1-3 deliver clauses 1-3 of
+  -- the bijection precondition; hypotheses 4-5 deliver clause 4) ensures
+  -- the bijection is well-defined; the RH conclusion is then immediate
+  -- from surjectivity + `eigenvalue_maps_to_critical_line`.
+  have _precondition := T3_sym_RH_precondition
+    hsmul_left hsmul_right hpos_def
+    eigenvalues hev K hK hbound
+    α hne hdistinct
+  exact riemann_hypothesis_via_spectral_bijection α eigenvalues surjectivity
+
 end PrincipiaTractalis
