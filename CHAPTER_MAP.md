@@ -1,12 +1,18 @@
 # Principia Fractalis – Chapter ↔ Lean ↔ PF_L4L Map
 
-This document summarizes how the LaTeX book chapters map to the canonical Lean 4 formalization (PF_canonical) and the Lean-for-Lean contracts (PF_L4L).
+This document summarizes how the LaTeX book chapters map to the canonical Lean 4 formalization and the Lean4Lean (L4L) verification layer.
 
-- LaTeX chapters: `PF_canonical/1_BOOK_LATEX_SOURCE/chapters/*.tex`
-- Canonical Lean: `PF_canonical/2_LEAN_SOURCE_CODE/**`
-- PF_L4L contracts: `PF_L4L/PF_L4L/**`
+**Path note (post-rev-3, 2026-04-28).** The repository structure has evolved since this document was first written; the path references below for `PF_canonical/...` should be read with the following substitutions:
 
-The goal is to show **where to look in code** for the mathematics of each part of the book.
+| Older path label                               | Current canonical path                                                          |
+|------------------------------------------------|---------------------------------------------------------------------------------|
+| `PF_canonical/1_BOOK_LATEX_SOURCE/chapters/`   | `Principia_Fractalis_master_folder_rev2/chapters/`                              |
+| `PF_canonical/2_LEAN_SOURCE_CODE/`             | `PF_Lean4_Code/PF/` (canonical Lean 4 library; **8 axioms**, 0 sorries)          |
+| `PF_L4L/PF_L4L/`                               | `experimental/PF_L4L_future/PF_L4L/` (quarantined; see `L4L_ARCHITECTURAL_DECISION.md` in that directory) |
+
+The empty directory `PF_canonical/` at the repository root is preserved as a path-redirect placeholder pending a full path-rewrite of this document. The chapter ↔ Lean mapping below is still substantively correct; only the path prefixes have moved.
+
+The goal of this document is to show **where to look in code** for the mathematics of each part of the book. For the post-rev-3 audit-document chain, see `AXIOM_AUDIT.md`, `PARITY_REPORT.md`, `RESEARCH_ROADMAP.md`, and `REVISION_GUIDE.md` at the repository root, all current as of 2026-04-28.
 
 ---
 
