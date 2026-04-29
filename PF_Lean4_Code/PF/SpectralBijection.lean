@@ -433,4 +433,75 @@ theorem framework_summary :
   intro α
   exact g_injective α
 
+/-! ## RH Spectral Bijection Precondition (composes T3_sym_spectral_framework
+    with the eigenvalue → critical-line injection) -/
+
+/-- The complete RH spectral bijection precondition for $T_3^{\mathrm{sym}}$.
+
+    This composes the rev-3 follow-on chain into the four-clause precondition
+    that the manuscript's Chapter 20 spectral bijection
+    (Theorem `thm:spectral-bijection`) requires:
+
+      1. $T_3^{\mathrm{sym}}$ is self-adjoint on $L^2([0,1], dx/x)$.
+      2. Every eigenvalue of $T_3^{\mathrm{sym}}$ is real.
+      3. The eigenvalue sequence accumulates only at $0$.
+      4. The map $n \mapsto 1/2 + i \cdot g(\lambda_n)$ from eigenvalue
+         indices to critical-line points is injective.
+
+    Clauses (1)-(3) come from `T3_sym_spectral_framework`
+    (PF/TransferOperator.lean). Clause (4) follows from
+    `different_eigenvalues_different_zeros` applied with the explicit
+    distinctness hypothesis on $|\lambda_n|$.
+
+    Hypotheses split into three groups:
+      - **Phase A (inner-product structure)**: become free once
+        `LogWeightedL2 := MeasureTheory.Lp ℂ 2 logWeightedMeasure` lands
+        (RESEARCH_ROADMAP.md §2.1).
+      - **Spectral theorem**: existence of an eigenvalue sequence with
+        $1/n$-decay modulus bound becomes free once mathlib's
+        `IsCompactOperator` spectral theorem is applied to $T_3^{sym}$.
+      - **Bijection assumption**: nonzero + distinct moduli are properties
+        of the spectrum that hold generically (no degeneracies); they enter
+        as explicit hypotheses since the manuscript treats them as
+        empirical facts about $T_3^{sym}$.
+
+    Once all three groups are discharged, the conclusion becomes the
+    unconditional precondition for the manuscript's spectral bijection.
+
+    Reference: Manuscript Chapter 20, Theorem `thm:spectral-bijection`.
+    Reed-Simon Vol I, Theorems VI.8 + VI.16. -/
+theorem T3_sym_RH_precondition
+    -- Phase A inner-product hypotheses (free post-Phase-A)
+    (hsmul_left : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪a • f, g⟫ = (star a) * ⟪f, g⟫)
+    (hsmul_right : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪f, a • g⟫ = a * ⟪f, g⟫)
+    (hpos_def : ∀ f : LogWeightedL2, f ≠ 0 → ⟪f, f⟫ ≠ 0)
+    -- Spectral theorem hypothesis: eigenvalue sequence with 1/n decay
+    (eigenvalues : ℕ → ℝ)
+    (hev : ∀ n : ℕ, IsEigenvalue T3_sym.apply ((eigenvalues n : ℂ)))
+    (K : ℝ) (hK : K > 0)
+    (hbound : ∀ n : ℕ, |eigenvalues n| ≤ K / ((n : ℝ) + 1))
+    -- Bijection-injection hypothesis: nonzero, distinct moduli
+    (α : ScalingParameter)
+    (hne : ∀ n, eigenvalues n ≠ 0)
+    (hdistinct : ∀ n m, n ≠ m → |eigenvalues n| ≠ |eigenvalues m|) :
+    -- (1) T3_sym is self-adjoint
+    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- (2) Every eigenvalue of T3_sym is real
+    (∀ lam : ℂ, IsEigenvalue T3_sym.apply lam → lam.im = 0) ∧
+    -- (3) The eigenvalue sequence accumulates at 0
+    Filter.Tendsto eigenvalues Filter.atTop (nhds 0) ∧
+    -- (4) The eigenvalue → critical-line index map is injective
+    Function.Injective (fun n => eigenvalueToZero α (eigenvalues n)) := by
+  obtain ⟨h1, h2, h3⟩ := T3_sym_spectral_framework
+    hsmul_left hsmul_right hpos_def eigenvalues hev K hK hbound
+  refine ⟨h1, h2, h3, ?_⟩
+  -- Injectivity of n ↦ eigenvalueToZero α (eigenvalues n)
+  intro n m heq
+  by_contra hne_idx
+  exact different_eigenvalues_different_zeros α
+    (eigenvalues n) (eigenvalues m) (hne n) (hne m)
+    (hdistinct n m hne_idx) heq
+
 end PrincipiaTractalis
