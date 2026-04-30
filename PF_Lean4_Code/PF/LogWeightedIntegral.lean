@@ -298,6 +298,31 @@ theorem weight_squared_eq_jacobian (b : ℕ) (k : Fin b) (x : ℝ)
     · exact mul_nonneg (Nat.cast_nonneg _) (le_of_lt hx)
     · exact le_of_lt hxk
 
+/-- The crisp one-line form of the Radon-Nikodym identity:
+    $w_k(x)^2 \cdot y_k(x) = x$.
+
+    Multiplying both sides of `weight_squared_eq_jacobian` by $x \cdot y_k(x)
+    = x \cdot (x + k)/b$ yields this form. Says that the weight squared
+    is exactly the Jacobian of the inverse branch in the multiplicative
+    sense: $|w_k|^2 = x / y_k(x)$. -/
+theorem weight_squared_times_inverseBranch (b : ℕ) (k : Fin b) (x : ℝ)
+    (hb : b ≥ 1) (hx : x > 0) (hxk : x + (k.val : ℝ) > 0) :
+    (weightFunction b k x)^2 * inverseBranch b k x = x := by
+  unfold weightFunction inverseBranch
+  rw [dif_pos ⟨hx, hxk⟩]
+  -- Goal: (√(b·x/(x+k)))² · ((x+k)/b) = x
+  rw [Real.sq_sqrt]
+  · -- Goal: (b·x/(x+k)) · ((x+k)/b) = x
+    have hb_pos : (0 : ℝ) < (b : ℝ) := by
+      exact_mod_cast (Nat.lt_of_lt_of_le Nat.zero_lt_one hb)
+    have hxk_ne : (x + (k.val : ℝ)) ≠ 0 := ne_of_gt hxk
+    have hb_ne : (b : ℝ) ≠ 0 := ne_of_gt hb_pos
+    field_simp
+  · -- b·x/(x+k) ≥ 0
+    apply div_nonneg
+    · exact mul_nonneg (Nat.cast_nonneg _) (le_of_lt hx)
+    · exact le_of_lt hxk
+
 /-! ## AEStronglyMeasurable counterparts (for MemLp / Lp interop) -/
 
 /-- The inverse branch is `AEStronglyMeasurable` with respect to
