@@ -21,6 +21,7 @@ Reference: Principia Fractalis, Chapter 20
 import Mathlib.MeasureTheory.Measure.WithDensity
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.MeasureTheory.Function.L2Space
+import Mathlib.MeasureTheory.Function.Floor
 import Mathlib.Data.ENNReal.Basic
 import PF.TransferOperator
 
@@ -102,15 +103,49 @@ theorem inverseBranch_measurable (b : ℕ) (k : Fin b) (hb : b ≥ 1) :
   have hb_pos : (0 : ℝ) < (b : ℝ) := by exact_mod_cast (Nat.lt_of_lt_of_le Nat.zero_lt_one hb)
   exact (inverseBranch_continuous b k (ne_of_gt hb_pos)).measurable
 
--- Note: `expandingMap_measurable` and `weightFunction_measurable`
--- deferred. The expanding map requires `Int.measurable_floor`-style
--- measurability of the floor function (mathlib API in flux); the weight
--- function requires `Measurable.dite` or an equivalent disposition for
--- the if-then-else over a propositional condition. Both are tractable
--- in a follow-on session; the `inverseBranch` lemmas above suffice as
--- foundational infrastructure for the immediate Phase A path
--- (the `MemLp` proof for `transferOperatorAction`'s output is dominated
--- by the inverse-branch composition, which is the load-bearing
--- measurability claim).
+/-- The expanding base-$b$ map $\tau_b(x) = bx \bmod 1 = bx - \lfloor bx \rfloor$
+    is Borel measurable on $\mathbb{R}$.
+
+    Recognises $\tau_b(x) = \mathrm{Int.fract}(bx)$ and discharges
+    via `Measurable.fract` (`Mathlib.MeasureTheory.Function.Floor`). -/
+theorem expandingMap_measurable (b : ℕ) :
+    Measurable (fun x : ℝ => expandingMap b x) := by
+  -- `expandingMap b x = b*x - ⌊b*x⌋ = Int.fract (b*x)` definitionally
+  -- (mathlib's `Int.fract` reduces to that form).
+  show Measurable (fun x : ℝ => (b : ℝ) * x - ⌊(b : ℝ) * x⌋)
+  have heq : (fun x : ℝ => (b : ℝ) * x - ⌊(b : ℝ) * x⌋)
+      = fun x => Int.fract ((b : ℝ) * x) := by
+    ext x; rfl
+  rw [heq]
+  exact (measurable_const.mul measurable_id).fract
+
+/-- The weight function $w_k(x) = \sqrt{bx/(x+k)}$ (or 0 outside its
+    domain) is Borel measurable on $\mathbb{R}$.
+
+    The `dite` over the propositional condition reduces to an `ite`
+    (the body $\sqrt{bx/(x+k)}$ does not use the proof of the
+    condition), which is then handled by `Measurable.ite` over the
+    measurable predicate $\{x > 0\} \cap \{x + k > 0\}$ with both
+    branches measurable. -/
+theorem weightFunction_measurable (b : ℕ) (k : Fin b) :
+    Measurable (fun x : ℝ => weightFunction b k x) := by
+  -- Convert dite to ite: the body doesn't use the bound proof.
+  have heq : (fun x : ℝ => weightFunction b k x)
+      = fun x => if x > 0 ∧ x + (k.val : ℝ) > 0
+                  then Real.sqrt ((b : ℝ) * x / (x + (k.val : ℝ)))
+                  else 0 := by
+    ext x
+    unfold weightFunction
+    split_ifs <;> rfl
+  rw [heq]
+  refine Measurable.ite ?_ ?_ measurable_const
+  · -- {x | x > 0 ∧ x + k > 0} is measurable
+    refine MeasurableSet.inter measurableSet_Ioi ?_
+    -- {x | x + k > 0} = preimage of Ioi 0 under (· + k)
+    exact (measurable_id.add measurable_const) measurableSet_Ioi
+  · -- √(bx/(x+k)) is measurable via Real.sqrt (continuous) ∘ measurable
+    refine Continuous.measurable Real.continuous_sqrt |>.comp ?_
+    exact (measurable_const.mul measurable_id).div
+      (measurable_id.add measurable_const)
 
 end PrincipiaTractalis
