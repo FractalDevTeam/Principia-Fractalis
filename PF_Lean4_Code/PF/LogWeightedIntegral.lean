@@ -119,6 +119,44 @@ theorem expandingMap_measurable (b : ℕ) :
   rw [heq]
   exact (measurable_const.mul measurable_id).fract
 
+/-- The weight function $w_k(x) = \sqrt{bx/(x+k)}$ is uniformly bounded
+    by $\sqrt{b}$ on all of $\mathbb{R}$.
+
+    Proof: when the if-branch fires (so $x > 0$ and $x + k > 0$), we have
+    $bx/(x+k) \le b$ because $b \cdot x \le b \cdot (x + k)$ holds whenever
+    $b \ge 0$ and $k \ge 0$ (both hold since $b, k$ come from $\mathbb{N}$).
+    When the if-branch is false the weight is $0 \le \sqrt{b}$.
+
+    The bound is uniform in $x$ — no domain restriction needed (an earlier
+    weaker form required $x \in [0, 1]$, but the proof only needs the
+    nonnegativity of $b$ and $k$).
+
+    Load-bearing for the future Phase A `MemLp` proof: the $L^2$ norm
+    of `transferOperatorAction f` decomposes as a sum over branches, each
+    bounded by $\sqrt{b}$ times the $L^2$ norm of $f$ on the branch image. -/
+theorem weightFunction_bounded (b : ℕ) (k : Fin b) (x : ℝ) :
+    weightFunction b k x ≤ Real.sqrt (b : ℝ) := by
+  unfold weightFunction
+  split_ifs with h
+  · -- Active branch: weight = √(b·x/(x+k))
+    obtain ⟨_, hxk_pos⟩ := h
+    apply Real.sqrt_le_sqrt
+    -- Goal: b·x/(x+k) ≤ b
+    rw [div_le_iff₀ hxk_pos]
+    -- Goal: b·x ≤ b·(x+k)
+    have hk_nonneg : (0:ℝ) ≤ k.val := Nat.cast_nonneg _
+    have hb_nonneg : (0:ℝ) ≤ b := Nat.cast_nonneg _
+    nlinarith
+  · -- Inactive branch: weight = 0 ≤ √b
+    exact Real.sqrt_nonneg _
+
+/-- Composition of a measurable function with the inverse branch is
+    measurable. Direct consequence of `inverseBranch_measurable`. -/
+theorem Measurable.comp_inverseBranch {α : Type*} [MeasurableSpace α]
+    {f : ℝ → α} (hf : Measurable f) (b : ℕ) (k : Fin b) (hb : b ≥ 1) :
+    Measurable (fun x : ℝ => f (inverseBranch b k x)) :=
+  hf.comp (inverseBranch_measurable b k hb)
+
 /-- The weight function $w_k(x) = \sqrt{bx/(x+k)}$ (or 0 outside its
     domain) is Borel measurable on $\mathbb{R}$.
 
