@@ -256,6 +256,48 @@ theorem weightFunction_measurable (b : ℕ) (k : Fin b) :
     exact (measurable_const.mul measurable_id).div
       (measurable_id.add measurable_const)
 
+/-! ## The Radon-Nikodym Identity (Phase A change-of-variables key)
+
+The weight function $w_k(x) = \sqrt{bx/(x+k)}$ is designed so that
+$|w_k(x)|^2 \cdot d\mu_{\log}(x)$ is the pull-back of $d\mu_{\log}(y)$
+under $y = y_k(x) = (x+k)/b$:
+
+  $|w_k(x)|^2 \cdot \frac{dx}{x} = \frac{bx}{x+k} \cdot \frac{dx}{x}
+   = \frac{b\, dx}{x+k} = \frac{b\, dx}{b\, y_k(x)} = \frac{dx}{y_k(x)}.$
+
+Then under $u = y_k(x)$ (with $x = bu - k$, $dx = b\, du$):
+
+  $\frac{dx}{y_k(x)} = \frac{b\, du}{u} = b \cdot \frac{du}{u}.$
+
+So $\int_0^1 |w_k(x)|^2 \cdot g(y_k(x)) \cdot d\mu_{\log}(x)
+   = b \int_{k/b}^{(k+1)/b} g(u) \cdot d\mu_{\log}(u)$.
+
+This is the change-of-variables identity that drives the $b$-branch
+Mayer-1991 estimate $\|T_b f\|_{L^2(d\mu_{\log})} \le \|f\|_{L^2(d\mu_{\log})}$
+via Cauchy-Schwarz. The algebraic identity below is the Lean version
+of the cancellation $|w_k|^2 / x = b / (x+k)$ that makes the calculation
+go through. -/
+
+/-- The Radon-Nikodym identity: $w_k(x)^2 / x = b / (x + k)$ on the
+    active domain $\{x > 0\} \cap \{x + k > 0\}$.
+
+    This is the algebraic core of the change-of-variables computation
+    that proves $\|T_b\| \le 1$ on $L^2(d\mu_{\log})$. -/
+theorem weight_squared_eq_jacobian (b : ℕ) (k : Fin b) (x : ℝ)
+    (hx : x > 0) (hxk : x + (k.val : ℝ) > 0) :
+    (weightFunction b k x)^2 / x = (b : ℝ) / (x + (k.val : ℝ)) := by
+  unfold weightFunction
+  -- Active branch fires by hypotheses
+  rw [dif_pos ⟨hx, hxk⟩]
+  -- Goal: (√(b·x/(x+k)))² / x = b / (x + k)
+  rw [Real.sq_sqrt]
+  · -- Goal: (b·x/(x+k)) / x = b / (x + k)
+    field_simp
+  · -- b·x/(x+k) ≥ 0
+    apply div_nonneg
+    · exact mul_nonneg (Nat.cast_nonneg _) (le_of_lt hx)
+    · exact le_of_lt hxk
+
 /-! ## AEStronglyMeasurable counterparts (for MemLp / Lp interop) -/
 
 /-- The inverse branch is `AEStronglyMeasurable` with respect to
