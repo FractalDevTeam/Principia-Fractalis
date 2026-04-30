@@ -73,6 +73,31 @@ instance : SigmaFinite logWeightedMeasure := by
 noncomputable abbrev LogWeightedL2_concrete : Type :=
   MeasureTheory.Lp ℂ 2 logWeightedMeasure
 
+/-! ### Phase A milestone: `LogWeightedL2_concrete` is an `InnerProductSpace ℂ`
+
+The strongest Lean-side evidence that the Phase A elimination of
+`LogWeightedL2.inner` is structurally viable: mathlib's
+`InnerProductSpace ℂ (Lp ℂ 2 μ)` instance applies directly, with no
+extra hypotheses (the `SigmaFinite logWeightedMeasure` instance proven
+above provides any measure-theoretic side condition that mathlib needs).
+
+After the eventual structural swap (`LogWeightedL2 :=
+LogWeightedL2_concrete`), the inner product `⟪·, ·⟫` becomes the mathlib
+`@inner ℂ _ _` (with `inner f g = ∫ conj(f) * g ∂logWeightedMeasure`),
+the axiom `LogWeightedL2.inner` is replaceable by the mathlib instance,
+and sesquilinearity + conjugate symmetry + positive-definiteness
+(currently taken as hypotheses in `self_adjoint_real_eigenvalues`)
+become free instance fields.
+-/
+
+/-- `LogWeightedL2_concrete` carries mathlib's `InnerProductSpace ℂ`
+    instance. -/
+noncomputable example : InnerProductSpace ℂ LogWeightedL2_concrete := inferInstance
+
+/-- `LogWeightedL2_concrete` carries mathlib's `NormedAddCommGroup`
+    instance (the additive structure with the L² norm). -/
+noncomputable example : NormedAddCommGroup LogWeightedL2_concrete := inferInstance
+
 /-! ## Phase A Foundations: Measurability of Transfer-Operator Constituents
 
 Measurability lemmas for the maps that compose `transferOperatorAction`
