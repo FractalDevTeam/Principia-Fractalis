@@ -1,6 +1,26 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-04-28, post-rev-3 cycle complete (commits through `325b555`). **8 axioms** remain (canonical PF/), 0 sorries.*
+*As of 2026-04-29, post-rev-3 follow-on chain complete (commits through `2a76b26`). **8 axioms** remain (canonical PF/), 0 sorries, 5488 jobs clean.*
+
+## Post-rev-3 follow-on (2026-04-29)
+
+An eight-commit chain on 2026-04-29 executed the follow-on Lean pass flagged in the 2026-04-28 audit (below), plus extended the framework to a Lean-checkable conditional Riemann Hypothesis statement. Headline numbers unchanged; mathematical content materially strengthened:
+
+- **`T3_self_adjoint_conj` (entry 5 below) statement REWRITTEN.** The axiom now references `T3_sym.apply` (the explicit symmetrisation $(T_3 + T_3^*)/2$ defined as `T3_sym` in `PF/TransferOperator.lean`), not the unsymmetrised $\tilde{T}_3$. Two-stage transition: commit `f06243f` introduced the existential bridge form; commit `9c06820` sharpened to the explicit-witness form. The canonical 8-axiom referee surface preserves the axiom name (`T3_self_adjoint_conj`) per Pabs's no-demote mandate; the statement is now mathematically defensible.
+- **New explicit definitions** in `PF/TransferOperator.lean` (commit `9c06820`): `phaseFactorBase3Conj` (conjugate phases $(1, +i, -1)$), `adjointWeight` (reciprocal weight $\sqrt{x/(3x-k)}$), `T3_adjoint_action` (piecewise expanding-branch operator on $I_k = (k/3, (k+1)/3]$ with bounds proofs by linarith chain), `T3_adjoint`, `T3_sym_action`, `T3_sym`.
+- **`IsEigenvalue` predicate defined** (commit `f7d2f11`, `PF/TransferOperator.lean`). Eigenvalue predicate: `∃ f : LogWeightedL2, f ≠ 0 ∧ T f = lam • f`.
+- **Two `True`-placeholder theorems converted to real conditional theorems**:
+  - `self_adjoint_real_eigenvalues` (commit `f7d2f11`): real Reed-Simon I VI.8 chain proving self-adjoint operators have real eigenvalues. Hypothesis bundle: `hsa`, `hsmul_left`, `hsmul_right`, `hpos_def`. The `hsmul_*` and `hpos_def` hypotheses become free post-Phase-A.
+  - `compact_discrete_spectrum` (commit `6d62102`): real squeeze proof showing that an eigenvalue sequence with $1/n$-decay modulus bound tends to zero.
+- **Composing theorems added**:
+  - `T3_sym_spectral_framework` (commit `6cc08f4`, `PF/TransferOperator.lean`): three-clause precondition (self-adjoint, real eigenvalues, decay) under the Phase A + spectral-theorem hypothesis bundle.
+  - `T3_sym_RH_precondition` (commit `f989bba`, `PF/SpectralBijection.lean`): four-clause precondition (above three plus eigenvalue → critical-line index injection).
+  - `RiemannHypothesis : Prop` definition + `riemann_hypothesis_via_spectral_bijection` (minimal) + `riemann_hypothesis_via_T3_sym_framework` (full chain) (commit `1fdf3e5`).
+  - `principia_fractalis_millennium_capstone` (commit `2a76b26`, new file `PF/Millennium.lean`): bundled both Millennium claims (`P_neq_NP_def ∧ RiemannHypothesis`) under the four-track RH hypothesis bundle.
+
+The 8-axiom canonical surface is preserved throughout. No new axioms introduced; no sorries introduced. `lake build` 5488 jobs (was 5486; +2 for the new Millennium module) clean.
+
+See `principia_t3_lean_followon_2026-04-28.md` (session memory) for full per-commit detail.
 
 ## Post-rev-3 status (2026-04-28)
 
@@ -72,12 +92,12 @@ The **other 7 axioms are unaffected** by this open question.
 - **Why cannot trivialize**: defining as `fun _ _ => 0` would make all downstream self-adjointness proofs vacuously true
 - **Real elimination**: construct log-weighted Lebesgue integral ∫₀¹ f̄·g dx/x
 
-### 5. `T3_self_adjoint_conj` (BOOK-CORE — V01 reconciliation pending)
-- **File**: `PF/TransferOperator.lean:221`
-- **Statement**: ∀ f g, ⟪T₃.apply f, g⟫ = ⟪f, T₃.apply g⟫
-- **Book reference**: Chapter 20, Theorem 20.2
-- **Depends on**: `LogWeightedL2.inner`
-- **Status**: ⚠ A 2026-04-26 verification pass under transcribed conventions did not confirm self-adjointness; an open verification question pending V01 catalog reconciliation. See "Verification check pending V01 reconciliation" section above. Retained in source.
+### 5. `T3_self_adjoint_conj` (BOOK-CORE — sharpened 2026-04-29)
+- **File**: `PF/TransferOperator.lean` (axiom declaration line shifts with each commit; see Lean source for current line)
+- **Statement (post 2026-04-29 follow-on)**: ∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫
+- **Book reference**: Chapter 20, Theorem `thm:self-adjoint-transfer` (manuscript Definition `def:T3-sym`)
+- **Depends on**: `LogWeightedL2.inner` (axiom 4 below)
+- **Status**: Statement rewritten to reference the explicit symmetrisation `T3_sym` (defined in same file as `(1/2 : ℂ) • (T3.apply + T3_adjoint.apply)`, with `T3_adjoint` the piecewise expanding-branch operator on $I_k = (k/3, (k+1)/3]$ with conjugate phases $(1, +i, -1)$ and reciprocal weights $\sqrt{x/(3x-k)}$). Axiom name preserved; statement now mathematically defensible. The 2026-04-26 verification finding (unsymmetrised $\tilde{T}_3$ is NOT self-adjoint) is correctly disclosed in the axiom docstring as historical motivation. Becomes provable as a theorem once Phase A inner-product structure on `LogWeightedL2` lands (see entry 4).
 
 ### 6. `turingTimeComplexity` (LOAD-BEARING PLACEHOLDER)
 - **File**: `PF/TuringEncoding/Complexity.lean:57`
