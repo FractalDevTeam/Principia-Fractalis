@@ -22,6 +22,7 @@ import Mathlib.MeasureTheory.Measure.WithDensity
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.MeasureTheory.Function.L2Space
 import Mathlib.Data.ENNReal.Basic
+import PF.TransferOperator
 
 namespace PrincipiaTractalis
 
@@ -70,5 +71,46 @@ instance : SigmaFinite logWeightedMeasure := by
     consistently. -/
 noncomputable abbrev LogWeightedL2_concrete : Type :=
   MeasureTheory.Lp ℂ 2 logWeightedMeasure
+
+/-! ## Phase A Foundations: Measurability of Transfer-Operator Constituents
+
+Measurability lemmas for the maps that compose `transferOperatorAction`
+(in `PF/TransferOperator.lean`). These are prerequisites for the
+eventual Phase A elimination of `LogWeightedL2.inner` — the load-bearing
+`MemLp` proof for the rewritten `transferOperatorAction` output requires
+that each constituent map (inverse branches, weight functions, expanding
+maps) is Borel measurable so the integral against `logWeightedMeasure`
+is well-defined.
+
+Added 2026-04-29 as durable infrastructure ahead of the structural
+abbrev swap (`LogWeightedL2 := LogWeightedL2_concrete`).
+RESEARCH_ROADMAP.md §2.1.
+-/
+
+/-- The inverse branch $y_k(x) = (x + k)/b$ is continuous on $\mathbb{R}$
+    when $b \ne 0$. -/
+theorem inverseBranch_continuous (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
+    Continuous (fun x : ℝ => inverseBranch b k x) := by
+  unfold inverseBranch
+  exact (continuous_id.add continuous_const).div_const _
+
+/-- The inverse branch $y_k(x) = (x + k)/b$ is Borel measurable on
+    $\mathbb{R}$ when $b \ge 1$ (which is the only regime the transfer
+    operator framework uses; in particular $b = 3$). -/
+theorem inverseBranch_measurable (b : ℕ) (k : Fin b) (hb : b ≥ 1) :
+    Measurable (fun x : ℝ => inverseBranch b k x) := by
+  have hb_pos : (0 : ℝ) < (b : ℝ) := by exact_mod_cast (Nat.lt_of_lt_of_le Nat.zero_lt_one hb)
+  exact (inverseBranch_continuous b k (ne_of_gt hb_pos)).measurable
+
+-- Note: `expandingMap_measurable` and `weightFunction_measurable`
+-- deferred. The expanding map requires `Int.measurable_floor`-style
+-- measurability of the floor function (mathlib API in flux); the weight
+-- function requires `Measurable.dite` or an equivalent disposition for
+-- the if-then-else over a propositional condition. Both are tractable
+-- in a follow-on session; the `inverseBranch` lemmas above suffice as
+-- foundational infrastructure for the immediate Phase A path
+-- (the `MemLp` proof for `transferOperatorAction`'s output is dominated
+-- by the inverse-branch composition, which is the load-bearing
+-- measurability claim).
 
 end PrincipiaTractalis
