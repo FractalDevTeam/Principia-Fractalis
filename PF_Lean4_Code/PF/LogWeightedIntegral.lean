@@ -157,6 +157,51 @@ theorem Measurable.comp_inverseBranch {α : Type*} [MeasurableSpace α]
     Measurable (fun x : ℝ => f (inverseBranch b k x)) :=
   hf.comp (inverseBranch_measurable b k hb)
 
+/-- The inverse branch maps the unit interval into itself:
+    $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
+
+    Lower bound: $(x + k)/b \ge 0/b = 0$ since $x, k \ge 0$.
+    Upper bound: $(x + k)/b \le (1 + (b-1))/b = 1$ since $x \le 1$ and
+    $k \le b - 1$. -/
+theorem inverseBranch_image_in_unit_interval (b : ℕ) (k : Fin b) (x : ℝ)
+    (hx : x ∈ Set.Icc (0:ℝ) 1) :
+    inverseBranch b k x ∈ Set.Icc (0:ℝ) 1 := by
+  unfold inverseBranch
+  have hb_pos : (0 : ℝ) < (b : ℝ) := by
+    have hb_nat : 0 < b := Fin.pos k
+    exact_mod_cast hb_nat
+  refine ⟨?_, ?_⟩
+  · -- Lower bound: (x + k) / b ≥ 0
+    apply div_nonneg
+    · exact add_nonneg hx.1 (Nat.cast_nonneg k.val)
+    · exact le_of_lt hb_pos
+  · -- Upper bound: (x + k) / b ≤ 1
+    rw [div_le_one hb_pos]
+    have hk_lt : k.val + 1 ≤ b := k.isLt
+    have hk_cast : (k.val : ℝ) + 1 ≤ (b : ℝ) := by exact_mod_cast hk_lt
+    linarith [hx.2]
+
+/-- The expanding map maps the unit interval into itself:
+    $\tau_b(x) = bx \bmod 1 \in [0, 1)$ for $x \in [0, 1]$ and $b \ge 1$.
+    (At $x = 1$ exactly, $\tau_b(1) = b - \lfloor b \rfloor = 0$.)
+
+    Uses the Mathlib `Int.fract` characterisation: $\mathrm{Int.fract}(y)
+    \in [0, 1)$ for any $y \in \mathbb{R}$. -/
+theorem expandingMap_image_in_unit_interval (b : ℕ) (x : ℝ) :
+    expandingMap b x ∈ Set.Ico (0:ℝ) 1 := by
+  show (b : ℝ) * x - ⌊(b : ℝ) * x⌋ ∈ Set.Ico (0:ℝ) 1
+  have h_eq : (b : ℝ) * x - ⌊(b : ℝ) * x⌋ = Int.fract ((b : ℝ) * x) := rfl
+  rw [h_eq]
+  exact ⟨Int.fract_nonneg _, Int.fract_lt_one _⟩
+
+-- Note: `logWeightedMeasure_Iic_zero` (the lemma that the log-weighted
+-- measure assigns 0 to the non-positive half-line) is left for a
+-- follow-on commit; the `setLIntegral_congr_fun` discharge ran into
+-- elaboration friction (measure inference on the right-hand-side
+-- `lintegral_zero`). The mathematical content is true by definition
+-- (density is 0 on `Iic 0`); deferring lets us focus on bounds lemmas
+-- that are immediately load-bearing for Phase A.
+
 /-- The weight function $w_k(x) = \sqrt{bx/(x+k)}$ (or 0 outside its
     domain) is Borel measurable on $\mathbb{R}$.
 
