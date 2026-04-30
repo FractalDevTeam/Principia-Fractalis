@@ -1,6 +1,19 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-04-28, post-rev-3 cycle complete (commits through `325b555`)*
+*Last updated: 2026-04-29, post-rev-3 follow-on chain complete (commits through `2a76b26`)*
+
+## Post-rev-3 follow-on (2026-04-29)
+
+An eight-commit chain on 2026-04-29 executed the follow-on Lean pass flagged in the 2026-04-28 entry below, plus extended the Lean side substantially. Headline numbers unchanged on the Lean side; Coq side untouched (still on the future-work list).
+
+- **Lean 4 canonical**: 8 axioms (unchanged), **5488 jobs clean** (was 5486; +2 for the new `PF.Millennium` capstone module), 0 sorries.
+- **`T3_self_adjoint_conj` Lean rewrite COMPLETE.** The follow-on Lean pass flagged in the 2026-04-28 entry below was executed in two stages: commit `f06243f` (existential bridge form) and commit `9c06820` (sharpened to explicit `T3_sym` witness). Axiom now states `∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫` where `T3_sym := (1/2 : ℂ) • (T3.apply + T3_adjoint.apply)` with explicit `T3_adjoint` definition (piecewise expanding-branch operator on $I_k = (k/3, (k+1)/3]$ with conjugate phases $(1, +i, -1)$ and reciprocal weights $\sqrt{x/(3x-k)}$). The canonical 8-axiom referee surface preserves the axiom name per Pabs's no-demote mandate; the statement is now mathematically defensible.
+- **New `PF.Millennium` capstone module** (commit `2a76b26`): top-level Lean-checkable address bundling `P_neq_NP_def ∧ RiemannHypothesis` under a single hypothesis bundle.
+- **`IsEigenvalue` predicate + `RiemannHypothesis` Prop defined.** New conditional theorems: `self_adjoint_real_eigenvalues` (Reed-Simon I VI.8 chain), `compact_discrete_spectrum` (squeeze on $1/n$-decay), `T3_sym_spectral_framework`, `T3_sym_RH_precondition`, `riemann_hypothesis_via_spectral_bijection` (minimal), `riemann_hypothesis_via_T3_sym_framework` (full chain).
+- **Two `True`-placeholder theorems converted to real conditional theorems** (above).
+- **Coq side unchanged.** Lean → Coq parity work (porting ~33 Lean axiom eliminations + the rev-3 follow-on chain) remains on the future-work list. Coq Contracts disclosure blocks (`NavierStokes.v`, `Hodge.v`, `BSD.v`) updated 2026-04-28 (commit `a5a6488`); no Coq updates this cycle.
+
+See `principia_t3_lean_followon_2026-04-28.md` (session memory) for full per-commit detail.
 
 ## Post-rev-3 status (2026-04-28)
 
