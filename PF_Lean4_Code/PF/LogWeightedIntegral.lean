@@ -256,4 +256,31 @@ theorem weightFunction_measurable (b : ℕ) (k : Fin b) :
     exact (measurable_const.mul measurable_id).div
       (measurable_id.add measurable_const)
 
+/-! ## AEStronglyMeasurable counterparts (for MemLp / Lp interop) -/
+
+/-- The inverse branch is `AEStronglyMeasurable` with respect to
+    `logWeightedMeasure`. This is the form mathlib's `MemLp` predicate
+    consumes; the future Phase A `MemLp` proof of
+    `transferOperatorAction`'s output requires the constituent maps in
+    this form. -/
+theorem inverseBranch_aestronglyMeasurable (b : ℕ) (k : Fin b)
+    (hb : (b : ℝ) ≠ 0) :
+    MeasureTheory.AEStronglyMeasurable
+      (fun x : ℝ => inverseBranch b k x) logWeightedMeasure :=
+  (inverseBranch_continuous b k hb).aestronglyMeasurable
+
+/-- The expanding map is `AEStronglyMeasurable` with respect to
+    `logWeightedMeasure`. -/
+theorem expandingMap_aestronglyMeasurable (b : ℕ) :
+    MeasureTheory.AEStronglyMeasurable
+      (fun x : ℝ => expandingMap b x) logWeightedMeasure :=
+  (expandingMap_measurable b).aestronglyMeasurable
+
+/-- The weight function is `AEStronglyMeasurable` with respect to
+    `logWeightedMeasure`. -/
+theorem weightFunction_aestronglyMeasurable (b : ℕ) (k : Fin b) :
+    MeasureTheory.AEStronglyMeasurable
+      (fun x : ℝ => weightFunction b k x) logWeightedMeasure :=
+  (weightFunction_measurable b k).aestronglyMeasurable
+
 end PrincipiaTractalis
