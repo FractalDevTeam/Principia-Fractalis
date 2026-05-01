@@ -191,6 +191,24 @@ theorem Measurable.comp_inverseBranch {α : Type*} [MeasurableSpace α]
     Measurable (fun x : ℝ => f (inverseBranch b k x)) :=
   hf.comp (inverseBranch_measurable b k hb)
 
+/-- The inverse branch is injective on $\mathbb{R}$ (when $b \ne 0$).
+
+    $y_k(x) = (x + k)/b$ is an affine map with nonzero slope $1/b$,
+    hence injective. Required by mathlib's change-of-variables formula
+    `MeasurePreserving.lintegral_comp`, which expects the substitution
+    map to be a `MeasurableEmbedding` (injective + measurable). -/
+theorem inverseBranch_injective (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
+    Function.Injective (fun x : ℝ => inverseBranch b k x) := by
+  intros x y hxy
+  unfold inverseBranch at hxy
+  -- hxy : (x + ↑k) / ↑b = (y + ↑k) / ↑b
+  -- Multiply both sides by b (nonzero) and cancel.
+  have h_eq : x + (k.val : ℝ) = y + (k.val : ℝ) := by
+    have := congr_arg (fun r => r * (b : ℝ)) hxy
+    simp only at this
+    rwa [div_mul_cancel₀ _ hb, div_mul_cancel₀ _ hb] at this
+  linarith
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
