@@ -499,7 +499,48 @@ theorem transferOperatorAction_norm_sq_bound (b : ℕ) (hb : b ≥ 1)
     (fun k => f.toFun ⟨inverseBranch b k x,
       inverseBranch_image_in_unit_interval b k x hx⟩)
 
-/-! ## AEStronglyMeasurable counterparts (for MemLp / Lp interop) -/
+/-! ## Conditional Mayer 1991 Bound (Phase A integration arithmetic)
+
+The arithmetic skeleton of the Mayer 1991 operator-norm estimate. The
+real-number inequality below is what the integration step reduces to
+once mathlib's change-of-variables formula is applied per branch.
+
+Concretely, the integration step shows:
+
+  $\|T_b f\|^2_{L^2(d\mu_{\log})} \le (1/b) \sum_k \int_0^1 w_k(x)^2 \cdot \|f(y_k(x))\|^2 \, d\mu_{\log}(x)$
+
+(via `lintegral_mono` applied to the pointwise bound), and the per-branch
+change-of-variables shows:
+
+  $\int_0^1 w_k(x)^2 \cdot \|f(y_k(x))\|^2 \, d\mu_{\log}(x) = b \cdot \int_{k/b}^{(k+1)/b} \|f(u)\|^2 \, d\mu_{\log}(u)$
+
+(via `MeasurePreserving.lintegral_comp` with the affine map $y_k$).
+Summing over $k$ and using the partition $[0, 1] = \cup_k [k/b, (k+1)/b]$
+gives $\sum_k = b \cdot \|f\|^2_{L^2(d\mu_{\log})}$. The arithmetic
+combination $(1/b) \cdot b = 1$ then yields $\|T_b f\|^2 \le \|f\|^2$.
+
+The lemma below captures this arithmetic combination as a real-number
+identity, abstracting away from the integration. -/
+
+/-- Arithmetic skeleton of the Mayer 1991 bound: given a per-branch
+    decomposition `lhs ≤ (1/b) Σ_k branch_k` and a partition
+    `Σ_k branch_k = b · target`, conclude `lhs ≤ target`.
+
+    Discharge: substitute `Σ_k branch_k` by `b · target` in the
+    pointwise bound, then simplify $(1/b) \cdot b \cdot t = t$
+    via `field_simp`. -/
+theorem mayer_bound_arithmetic
+    {b : ℕ} (hb : b ≥ 1)
+    {lhs : ℝ} {branch : Fin b → ℝ} {target : ℝ}
+    (h_pointwise_integrated : lhs ≤ (1 / (b : ℝ)) * ∑ k, branch k)
+    (h_partition_with_CoV : ∑ k, branch k = (b : ℝ) * target) :
+    lhs ≤ target := by
+  rw [h_partition_with_CoV] at h_pointwise_integrated
+  have hb_pos : (0 : ℝ) < (b : ℝ) := by
+    exact_mod_cast (Nat.lt_of_lt_of_le Nat.zero_lt_one hb)
+  have h_simp : (1 / (b : ℝ)) * ((b : ℝ) * target) = target := by
+    field_simp
+  linarith
 
 /-- The inverse branch is `AEStronglyMeasurable` with respect to
     `logWeightedMeasure`. This is the form mathlib's `MemLp` predicate
