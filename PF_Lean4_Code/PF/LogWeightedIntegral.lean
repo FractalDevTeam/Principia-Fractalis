@@ -444,6 +444,53 @@ theorem transferOperator_pointwise_norm_sq_bound (b : ℕ) (hb : b ≥ 1)
     _ = (1 / (b : ℝ)) * ∑ k, (weightFunction b k x)^2 * ‖vals k‖^2 := by
         field_simp
 
+/-- Pointwise norm-squared bound on `transferOperatorAction`'s output,
+    for any unit-modulus phase family.
+
+    Plumbs `transferOperator_pointwise_norm_sq_bound` (the abstract
+    pointwise estimate) onto the concrete structural `toFun` field
+    of `transferOperatorAction` from `PF/TransferOperator.lean`.
+
+    The structural definition unfolds to exactly the abstract pattern
+    $\frac{1}{b}\sum_k \omega_k \cdot w_k(x) \cdot f(y_k(x))$, with the
+    inverse-branch bounds proof inline; here we extract the abstract
+    pointwise bound at each $x \in [0, 1]$.
+
+    Combined with the Radon-Nikodym identity
+    `weight_squared_times_inverseBranch` (which gives
+    $w_k(x)^2 = x / y_k(x)$ on the active domain), and integration
+    against $d\mu_{\log}(x) = dx/x$ plus the change-of-variables
+    formula per branch, this yields the Mayer 1991 bound
+    $\|T_b f\|_{L^2(d\mu_{\log})} \le \|f\|_{L^2(d\mu_{\log})}$. -/
+theorem transferOperatorAction_norm_sq_bound (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : LogWeightedL2) (x : ℝ) (hx : x ∈ Set.Icc (0:ℝ) 1) :
+    ‖(transferOperatorAction b phases f).toFun ⟨x, hx⟩‖^2
+      ≤ (1 / (b : ℝ)) * ∑ k, (weightFunction b k x)^2 *
+          ‖f.toFun ⟨inverseBranch b k x,
+              inverseBranch_image_in_unit_interval b k x hx⟩‖^2 := by
+  -- Unfold transferOperatorAction's toFun: it's the pattern
+  -- (1/b) · Σ ω_k · w_k(x) · f(y_k(x)) that our abstract bound applies to.
+  -- Need to massage left-assoc multiplication to match the abstract bound's
+  -- right-assoc parenthesisation `phases k * (weightFunction k x · vals k)`.
+  unfold transferOperatorAction
+  simp only
+  -- Rewrite the LHS sum to match the abstract bound's parenthesisation
+  -- (phases k * w * f → phases k * (w * f) via mul_assoc inside Σ)
+  have heq : (1 / (b : ℂ)) * ∑ k, phases k * (weightFunction b k x : ℂ) *
+                  f.toFun ⟨inverseBranch b k x,
+                    inverseBranch_image_in_unit_interval b k x hx⟩
+           = (1 / (b : ℂ)) * ∑ k, phases k * ((weightFunction b k x : ℂ) *
+                  f.toFun ⟨inverseBranch b k x,
+                    inverseBranch_image_in_unit_interval b k x hx⟩) := by
+    congr 1
+    apply Finset.sum_congr rfl
+    intros k _; ring
+  rw [heq]
+  exact transferOperator_pointwise_norm_sq_bound b hb phases hphases x
+    (fun k => f.toFun ⟨inverseBranch b k x,
+      inverseBranch_image_in_unit_interval b k x hx⟩)
+
 /-! ## AEStronglyMeasurable counterparts (for MemLp / Lp interop) -/
 
 /-- The inverse branch is `AEStronglyMeasurable` with respect to
