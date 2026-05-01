@@ -240,6 +240,42 @@ theorem inverseBranchInverse_leftInverse (b : ℕ) (k : Fin b) (hb : (b : ℝ) �
   field_simp
   ring
 
+/-- The range of `inverseBranch b k : ℝ → ℝ` is all of $\mathbb{R}$.
+
+    The affine map $y_k(x) = (x + k)/b$ is surjective $\mathbb{R} \to \mathbb{R}$:
+    for any $y$, pick $x = b \cdot y - k$, then $y_k(x) = y$. -/
+theorem inverseBranch_range_eq_univ (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
+    Set.range (fun x : ℝ => inverseBranch b k x) = Set.univ := by
+  apply Set.eq_univ_of_forall
+  intro y
+  refine ⟨(b : ℝ) * y - (k.val : ℝ), ?_⟩
+  unfold inverseBranch
+  field_simp
+  ring
+
+/-- The range of `inverseBranch b k : ℝ → ℝ` is Borel measurable
+    (trivially, since it equals $\mathbb{R}$). -/
+theorem inverseBranch_range_measurable (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
+    MeasurableSet (Set.range (fun x : ℝ => inverseBranch b k x)) := by
+  rw [inverseBranch_range_eq_univ b k hb]
+  exact MeasurableSet.univ
+
+/-- The inverse branch is a `MeasurableEmbedding` — the four-piece
+    composition: injective + measurable + measurable inverse with
+    LeftInverse + measurable range.
+
+    Required by mathlib's `MeasurePreserving.lintegral_comp` and
+    `MeasurableEmbedding.lintegral_map` for the per-branch change-of-
+    variables in the Mayer 1991 operator-norm bound. -/
+theorem inverseBranch_measurableEmbedding (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0)
+    (hb_ge : b ≥ 1) :
+    MeasurableEmbedding (fun x : ℝ => inverseBranch b k x) :=
+  MeasurableEmbedding.of_measurable_inverse
+    (inverseBranch_measurable b k hb_ge)
+    (inverseBranch_range_measurable b k hb)
+    (inverseBranchInverse_measurable b k)
+    (inverseBranchInverse_leftInverse b k hb)
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
