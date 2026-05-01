@@ -360,6 +360,31 @@ theorem branch_sum_sq_bound {b : ℕ} (a : Fin b → ℂ) :
     _ ≤ (Finset.univ : Finset (Fin b)).card * ∑ k, ‖a k‖^2 := h_amqm
     _ = (b : ℝ) * ∑ k, ‖a k‖^2 := by rw [h_card]
 
+/-- The b-branch Cauchy-Schwarz bound applied to phase-multiplied values:
+    when each phase $\omega_k$ has unit modulus, the phase modulus drops
+    out of the bound.
+
+    $\|\sum_k \omega_k \cdot v_k\|^2 \le b \cdot \sum_k \|v_k\|^2$
+      whenever $\|\omega_k\| = 1$ for all $k$.
+
+    Discharge: apply `branch_sum_sq_bound` to `fun k => phases k * vals k`,
+    then simplify $\|\omega_k \cdot v_k\| = \|\omega_k\| \cdot \|v_k\| = \|v_k\|$
+    via the unit-modulus hypothesis. -/
+theorem branch_pointwise_bound_with_unit_phases {b : ℕ}
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (vals : Fin b → ℂ) :
+    ‖∑ k, phases k * vals k‖^2 ≤ (b : ℝ) * ∑ k, ‖vals k‖^2 := by
+  have h_pre : ‖∑ k, phases k * vals k‖^2 ≤
+      (b : ℝ) * ∑ k, ‖phases k * vals k‖^2 :=
+    branch_sum_sq_bound _
+  have h_phase_drop : ∀ k, ‖phases k * vals k‖^2 = ‖vals k‖^2 := by
+    intro k
+    rw [norm_mul, hphases k, one_mul]
+  -- Replace ‖ω_k · v_k‖² with ‖v_k‖² in the sum
+  rw [show (∑ k, ‖phases k * vals k‖^2) = ∑ k, ‖vals k‖^2 from
+        Finset.sum_congr rfl (fun k _ => h_phase_drop k)] at h_pre
+  exact h_pre
+
 /-! ## AEStronglyMeasurable counterparts (for MemLp / Lp interop) -/
 
 /-- The inverse branch is `AEStronglyMeasurable` with respect to
