@@ -276,6 +276,22 @@ theorem inverseBranch_measurableEmbedding (b : ℕ) (k : Fin b) (hb : (b : ℝ) 
     (inverseBranchInverse_measurable b k)
     (inverseBranchInverse_leftInverse b k hb)
 
+/-- `inverseBranchInverse b k` is also a right inverse of `inverseBranch b k`:
+    `inverseBranch (inverseBranchInverse u) = u`.
+
+    Computation: $y_k(b u - k) = ((bu - k) + k)/b = bu/b = u$.
+    Together with `inverseBranchInverse_leftInverse`, this gives
+    a full bijection (Equiv) between $\mathbb{R}$ and itself,
+    making `inverseBranch` a `MeasurableEquiv`. -/
+theorem inverseBranchInverse_rightInverse (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
+    Function.RightInverse (fun u => inverseBranchInverse b k u)
+                           (fun x => inverseBranch b k x) := by
+  intro u
+  unfold inverseBranchInverse inverseBranch
+  -- Goal: ((b * u - k) + k) / b = u
+  field_simp
+  ring
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
