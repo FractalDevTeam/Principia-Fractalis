@@ -318,6 +318,28 @@ theorem inverseBranchInverse_measurableEmbedding (b : ℕ) (k : Fin b)
     (inverseBranch_measurable b k hb_ge)
     (inverseBranchInverse_rightInverse b k hb)
 
+/-- The `Equiv` (bijection) between $\mathbb{R}$ and itself given by
+    `inverseBranch b k` and its inverse `inverseBranchInverse b k`. -/
+noncomputable def inverseBranch_equiv (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
+    ℝ ≃ ℝ where
+  toFun := fun x => inverseBranch b k x
+  invFun := fun u => inverseBranchInverse b k u
+  left_inv := inverseBranchInverse_leftInverse b k hb
+  right_inv := inverseBranchInverse_rightInverse b k hb
+
+/-- The `MeasurableEquiv` between $\mathbb{R}$ and itself given by
+    `inverseBranch b k`.
+
+    Strongest measure-theoretic structure: combined with the affine
+    pushforward identity `volume.map inverseBranch = ENNReal.ofReal b
+    • volume` (next chunk of Phase A), it unlocks the per-branch
+    change-of-variables in its full mathlib form. -/
+noncomputable def inverseBranch_measurableEquiv (b : ℕ) (k : Fin b)
+    (hb : (b : ℝ) ≠ 0) (hb_ge : b ≥ 1) : ℝ ≃ᵐ ℝ where
+  toEquiv := inverseBranch_equiv b k hb
+  measurable_toFun := inverseBranch_measurable b k hb_ge
+  measurable_invFun := inverseBranchInverse_measurable b k
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
