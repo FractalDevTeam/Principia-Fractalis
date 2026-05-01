@@ -292,6 +292,32 @@ theorem inverseBranchInverse_rightInverse (b : ℕ) (k : Fin b) (hb : (b : ℝ) 
   field_simp
   ring
 
+/-- The `MeasurableEmbedding` instance for `inverseBranchInverse b k`
+    (the inverse direction).
+
+    Symmetric construction to `inverseBranch_measurableEmbedding`:
+    `inverseBranchInverse u = b · u - k` is also affine with nonzero
+    slope $b$, hence injective; its inverse is `inverseBranch`, which
+    is measurable; and its range is all of $\mathbb{R}$. -/
+theorem inverseBranchInverse_measurableEmbedding (b : ℕ) (k : Fin b)
+    (hb : (b : ℝ) ≠ 0) (hb_ge : b ≥ 1) :
+    MeasurableEmbedding (fun u : ℝ => inverseBranchInverse b k u) :=
+  MeasurableEmbedding.of_measurable_inverse
+    (inverseBranchInverse_measurable b k)
+    (by
+      -- Range of inverseBranchInverse is all of ℝ (it's surjective:
+      -- u = (x+k)/b is hit by x = inverseBranch b k u given b ≠ 0).
+      have : Set.range (fun u : ℝ => inverseBranchInverse b k u) = Set.univ := by
+        apply Set.eq_univ_of_forall
+        intro x
+        refine ⟨(x + (k.val : ℝ)) / (b : ℝ), ?_⟩
+        unfold inverseBranchInverse
+        field_simp
+        ring
+      rw [this]; exact MeasurableSet.univ)
+    (inverseBranch_measurable b k hb_ge)
+    (inverseBranchInverse_rightInverse b k hb)
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
