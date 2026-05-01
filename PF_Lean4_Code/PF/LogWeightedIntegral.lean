@@ -375,6 +375,38 @@ theorem inverseBranch_volume_map (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
   congr 1
   rw [one_div, inv_inv, abs_of_nonneg (Nat.cast_nonneg b)]
 
+/-- The full lintegral change-of-variables identity for the inverse
+    branch:
+
+      $\int_x g(y_k(x))\, \mathrm{dvolume}(x) = b \cdot \int_y g(y)\, \mathrm{dvolume}(y)$
+
+    Composes:
+      1. `MeasurableEmbedding.lintegral_map` (commit c54bf82) gives
+         $\int_x g(y_k(x)) = \int_y g(y) \, \mathrm{d}(volume.map\, y_k)$.
+      2. `inverseBranch_volume_map` (commit 91d3254) substitutes
+         $\mathrm{volume.map}\, y_k = \mathrm{ENNReal.ofReal}\, b \cdot \mathrm{volume}$.
+      3. `lintegral_smul_measure` pulls out the constant factor $b$.
+
+    This is the **per-branch change-of-variables formula** in its
+    full mathlib form. Combined with the Radon-Nikodym identity
+    `weight_squared_eq_jacobian` (commit 257726c) and the linearity
+    of integration over the b-branch sum, it gives the integration
+    of the pointwise bound that closes the Mayer 1991 chain. -/
+theorem inverseBranch_lintegral_change_of_variables (b : ℕ) (k : Fin b)
+    (hb : (b : ℝ) ≠ 0) (hb_ge : b ≥ 1) (g : ℝ → ENNReal) :
+    ∫⁻ x, g (inverseBranch b k x) ∂volume
+      = ENNReal.ofReal (b : ℝ) * ∫⁻ y, g y ∂volume := by
+  -- Step 1: Apply MeasurableEmbedding.lintegral_map (right-to-left).
+  rw [← (inverseBranch_measurableEmbedding b k hb hb_ge).lintegral_map g]
+  -- Goal: ∫⁻ y, g y ∂(volume.map inverseBranch) = b * ∫⁻ y, g y ∂volume
+  -- Step 2: Substitute the volume pushforward identity.
+  rw [inverseBranch_volume_map b k hb]
+  -- Goal: ∫⁻ y, g y ∂(ENNReal.ofReal b • volume) = ENNReal.ofReal b * ∫⁻ y, g y ∂volume
+  -- Step 3: Pull out the scalar factor via lintegral_smul_measure.
+  rw [lintegral_smul_measure]
+  -- Goal: ENNReal.ofReal b • ∫⁻ y, g y ∂volume = ENNReal.ofReal b * ∫⁻ y, g y ∂volume
+  rfl
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
