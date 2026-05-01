@@ -153,6 +153,43 @@ noncomputable def phaseFactorBase3Conj (k : Fin 3) : ℂ :=
   | 1 => Complex.I
   | 2 => -1
 
+/-- The base-3 phase factors all have unit modulus: $\|\omega_k\| = 1$
+    for $\omega_k \in \{1, -i, -1\}$ (the three roots-of-unity-like phases).
+
+    Proven by case-split on `Fin 3` followed by direct computation.
+
+    Load-bearing for the Mayer 1991 operator-norm bound: with unit
+    phases, $\|\sum_k \omega_k \cdot w_k(x) \cdot f(y_k(x))\|^2$
+    reduces (via Cauchy-Schwarz, `branch_sum_sq_bound`) to
+    $b \cdot \sum_k |w_k(x)|^2 \cdot |f(y_k(x))|^2$, eliminating the
+    phase modulus from the estimate. -/
+theorem phaseFactorBase3_norm (k : Fin 3) : ‖phaseFactorBase3 k‖ = 1 := by
+  fin_cases k <;> simp [phaseFactorBase3]
+
+/-- The conjugate base-3 phase factors all have unit modulus:
+    $\|\overline{\omega_k}\| = 1$ for $\overline{\omega_k} \in \{1, +i, -1\}$.
+
+    Same case-split + computation as `phaseFactorBase3_norm`. -/
+theorem phaseFactorBase3Conj_norm (k : Fin 3) : ‖phaseFactorBase3Conj k‖ = 1 := by
+  fin_cases k <;> simp [phaseFactorBase3Conj]
+
+/-- The general base-$b$ phase factors $\omega_k = \exp(2\pi i \cdot k/b)$
+    all have unit modulus.
+
+    Direct consequence of $\|\exp(i \theta)\| = 1$ for any
+    $\theta \in \mathbb{R}$ (mathlib `Complex.norm_exp_ofReal_mul_I`
+    or via `Complex.exp` of a purely-imaginary argument). -/
+theorem phaseFactorGeneral_norm (b : ℕ) (k : Fin b) (_hb : b ≥ 1) :
+    ‖phaseFactorGeneral b k‖ = 1 := by
+  unfold phaseFactorGeneral
+  -- ‖exp(2πi · k/b)‖ = exp(Re(2πi · k/b)) = exp(0) = 1
+  rw [Complex.norm_exp]
+  have h_re : (2 * (Real.pi : ℂ) * Complex.I * (k.val : ℂ) / (b : ℂ)).re = 0 := by
+    simp [Complex.div_re, Complex.mul_re, Complex.mul_im, Complex.I_re, Complex.I_im,
+          Complex.ofReal_re, Complex.ofReal_im, Complex.natCast_re, Complex.natCast_im]
+  rw [h_re]
+  exact Real.exp_zero
+
 /-- Weight functions for self-adjointness: w_k(x) = √(x/y_k(x)) = √(bx/(x+k)).
     These weights balance the logarithmic measure under composition.
 -/
