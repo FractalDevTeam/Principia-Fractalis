@@ -385,6 +385,65 @@ theorem branch_pointwise_bound_with_unit_phases {b : ℕ}
         Finset.sum_congr rfl (fun k _ => h_phase_drop k)] at h_pre
   exact h_pre
 
+/-- The full pointwise pre-integral bound for the transfer operator:
+
+    $\left\|\frac{1}{b}\sum_k \omega_k \cdot w_k(x) \cdot v_k\right\|^2
+     \le \frac{1}{b} \cdot \sum_k w_k(x)^2 \cdot \|v_k\|^2$
+
+    given unit-modulus phases $\|\omega_k\| = 1$ and $b \ge 1$.
+
+    This is the final pointwise estimate before integration. Composes
+    `branch_pointwise_bound_with_unit_phases` (Cauchy-Schwarz with unit
+    phases) with the prefactor $1/b$ and the real-to-complex coercion
+    of the (nonnegative) weight function. The remaining work for the
+    Mayer 1991 operator-norm bound $\|T_b f\|_{L^2} \le \|f\|_{L^2}$
+    is integrating both sides against $d\mu_{\log}$ and applying the
+    change-of-variables formula per branch. -/
+theorem transferOperator_pointwise_norm_sq_bound (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (x : ℝ) (vals : Fin b → ℂ) :
+    ‖(1 / (b : ℂ)) * ∑ k, phases k * ((weightFunction b k x : ℂ) * vals k)‖^2
+      ≤ (1 / (b : ℝ)) * ∑ k, (weightFunction b k x)^2 * ‖vals k‖^2 := by
+  have hb_pos : (0 : ℝ) < (b : ℝ) := by
+    exact_mod_cast (Nat.lt_of_lt_of_le Nat.zero_lt_one hb)
+  -- Step 1: Apply branch_pointwise_bound_with_unit_phases to the values
+  -- (w_k(x) : ℂ) * vals k, getting ‖Σ ω_k (w_k v_k)‖² ≤ b · Σ ‖w_k v_k‖²
+  have h_sum_bound :
+      ‖∑ k, phases k * ((weightFunction b k x : ℂ) * vals k)‖^2
+        ≤ (b : ℝ) * ∑ k, ‖(weightFunction b k x : ℂ) * vals k‖^2 :=
+    branch_pointwise_bound_with_unit_phases phases hphases _
+  -- Step 2: simplify ‖(w : ℂ) · v‖² = w² · ‖v‖² (since w ≥ 0)
+  have h_weight_sq : ∀ k,
+      ‖(weightFunction b k x : ℂ) * vals k‖^2 = (weightFunction b k x)^2 * ‖vals k‖^2 := by
+    intro k
+    rw [norm_mul, mul_pow]
+    congr 1
+    -- ‖(w : ℂ)‖² = w² since w ≥ 0; chain via Complex.norm_real → ℝ-norm → |w| → w
+    have hw_nonneg : 0 ≤ weightFunction b k x := by
+      unfold weightFunction
+      split_ifs
+      · exact Real.sqrt_nonneg _
+      · exact le_refl 0
+    simp [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hw_nonneg]
+  -- Step 3: rewrite the right-hand side of h_sum_bound
+  rw [show (∑ k, ‖(weightFunction b k x : ℂ) * vals k‖^2) = ∑ k, (weightFunction b k x)^2 * ‖vals k‖^2 from
+        Finset.sum_congr rfl (fun k _ => h_weight_sq k)] at h_sum_bound
+  -- Step 4: apply ‖(1/b) · S‖² = (1/b)² · ‖S‖² = (1/b²) · ‖S‖²
+  rw [norm_mul, mul_pow, norm_div, norm_one]
+  rw [Complex.norm_natCast]
+  -- Goal: (1/b)² · ‖S‖² ≤ (1/b) · Σ w_k² ‖v_k‖²
+  have h_b_ne : (b : ℝ) ≠ 0 := ne_of_gt hb_pos
+  have h_one_div_b_pos : (0 : ℝ) < 1 / (b : ℝ) := by positivity
+  -- Multiply h_sum_bound by (1/b²) ≥ 0 on both sides:
+  --   (1/b²) · ‖S‖² ≤ (1/b²) · b · Σ w_k² ‖v_k‖² = (1/b) · Σ w_k² ‖v_k‖²
+  have h_scaled : ((1 / (b : ℝ))^2) * ‖∑ k, phases k * ((weightFunction b k x : ℂ) * vals k)‖^2
+      ≤ ((1 / (b : ℝ))^2) * ((b : ℝ) * ∑ k, (weightFunction b k x)^2 * ‖vals k‖^2) :=
+    mul_le_mul_of_nonneg_left h_sum_bound (by positivity)
+  calc (1 / (b : ℝ))^2 * ‖∑ k, phases k * ((weightFunction b k x : ℂ) * vals k)‖^2
+      ≤ (1 / (b : ℝ))^2 * ((b : ℝ) * ∑ k, (weightFunction b k x)^2 * ‖vals k‖^2) := h_scaled
+    _ = (1 / (b : ℝ)) * ∑ k, (weightFunction b k x)^2 * ‖vals k‖^2 := by
+        field_simp
+
 /-! ## AEStronglyMeasurable counterparts (for MemLp / Lp interop) -/
 
 /-- The inverse branch is `AEStronglyMeasurable` with respect to
