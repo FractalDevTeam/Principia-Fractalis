@@ -99,6 +99,14 @@ noncomputable example : InnerProductSpace ℂ LogWeightedL2_concrete := inferIns
     instance (the additive structure with the L² norm). -/
 noncomputable example : NormedAddCommGroup LogWeightedL2_concrete := inferInstance
 
+/-- `LogWeightedL2_concrete` is complete: it is a Hilbert space, so the
+    spectral theorem applies (mathlib's `IsCompactOperator` API depends
+    on this). -/
+noncomputable example : CompleteSpace LogWeightedL2_concrete := inferInstance
+
+/-- `LogWeightedL2_concrete` is a `ℂ`-normed space. -/
+noncomputable example : NormedSpace ℂ LogWeightedL2_concrete := inferInstance
+
 /-! ## Phase A Foundations: Measurability of Transfer-Operator Constituents
 
 Measurability lemmas for the maps that compose `transferOperatorAction`
