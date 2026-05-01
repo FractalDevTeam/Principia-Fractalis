@@ -1,7 +1,7 @@
 # Principia Fractalis: Formal Verification Status
 
-**Last Updated:** 2026-04-28 (post-rev-3 cycle complete; master at `d0e92b6` and later)
-**Status:** ✅ Rev-3 cycle complete — manuscript and formalization layers coordinated
+**Last Updated:** 2026-05-01 (post-rev-3 follow-on chain; master at `6a414f7` and later)
+**Status:** ✅ Rev-3 cycle complete + 23-commit follow-on chain extending the framework with conditional RH theorem, Millennium capstone, and Phase A foundations
 **Audited By:** Pablo Cohen
 
 ---
@@ -12,15 +12,22 @@ Principia Fractalis is formalized in two independent proof assistants (Lean 4 an
 
 The rev-2 cycle (2026-01 through 2026-04-26) eliminated 33 Lean axioms (41 → 8 in the canonical `PF_Lean4_Code/PF/` library). The rev-3 cycle (2026-04-27 / 2026-04-28) completed all 20 items in `REVISION_GUIDE.md`, coordinating manuscript-level theorem statements with the formalization layers without changing the canonical 8-axiom count.
 
-**Current state: 8 axioms (canonical Lean 4 PF/), 0 sorries, `lake build` clean (5486 jobs).**
+The post-rev-3 follow-on chain (2026-04-29 → 2026-05-01, 23 commits) extended the framework substantially:
+  - **T₃ axiom realignment + sharpening**: `T3_self_adjoint_conj` rewritten to assert self-adjointness of the explicit `T3_sym` operator (not the empirically-false unsymmetrised `T3`); manuscript and Lean now coordinated on the symmetrisation construction.
+  - **Conditional RH theorem**: `riemann_hypothesis_via_T3_sym_framework` in `PF/SpectralBijection.lean` — Lean-checkable statement of "Phase A + spectral theorem + non-degeneracy + surjectivity ⟹ RH".
+  - **Millennium capstone module** (`PF/Millennium.lean`): bundles `P_neq_NP_def ∧ RiemannHypothesis` under a single hypothesis bundle.
+  - **Two `True`-placeholder theorems converted to real conditional theorems**: `self_adjoint_real_eigenvalues` (Reed-Simon I VI.8) and `compact_discrete_spectrum` (squeeze on 1/n-decay).
+  - **Phase A foundations** in `PF/LogWeightedIntegral.lean`: complete measurability + bounds + AEStronglyMeasurable counterparts + Radon-Nikodym identities (additive `w² /x = b/(x+k)` and multiplicative `w² · y_k = x`) + b-branch Cauchy-Schwarz `‖Σ a_k‖² ≤ b · Σ ‖a_k‖²` + phase-modulus + composed pointwise pre-integral bound, including the structural bridge to `transferOperatorAction`'s `toFun`. Confirmed `LogWeightedL2_concrete` carries `InnerProductSpace ℂ`, `NormedAddCommGroup`, `CompleteSpace`, and `NormedSpace ℂ` from mathlib via `inferInstance`.
+
+**Current state: 8 axioms (canonical Lean 4 PF/), 0 sorries, `lake build` clean (5488 jobs; +2 over rev-3 for the new `PF.Millennium` capstone module).**
 
 ---
 
-## Verification Statistics (post-rev-3, 2026-04-28)
+## Verification Statistics (post-2026-05-01 follow-on chain)
 
 | Component | Scope | Axioms | Sorries / Admits | Build status |
 |-----------|-------|--------|------------------|--------------|
-| **Lean 4 canonical** (`PF_Lean4_Code/PF/`) | All chapters covered | **8** | 0 | `lake build` — 5486 jobs clean |
+| **Lean 4 canonical** (`PF_Lean4_Code/PF/`) | All chapters + Millennium capstone | **8** | 0 | `lake build` — 5488 jobs clean |
 | Lean 4 top-level (`PF_Lean4_Code/*.lean`) | Equivalence files (YM, RH, BSD) | ~240 (separate axiomatization scope) | 0 | builds with canonical lib |
 | **Coq** (`PF_Coq/theories/*`) | All chapters + Contracts | 253 | 0 admits | `make` clean |
 | **L4L** (`experimental/PF_L4L_future/`) | Quarantined under experimental | — | — | gated per Path B decision |
