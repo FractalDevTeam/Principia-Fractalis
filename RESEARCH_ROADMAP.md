@@ -58,14 +58,26 @@ The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of
 - The measure $d\mu = dx/x$ on $(0, 1]$ has infinite total mass (log-divergent at 0). The Hilbert space $L^2((0,1], dx/x)$ consists of functions whose $|f|^2$ is integrable w.r.t. this measure.
 - For concrete $f, g \in L^2$, the inner product is $\langle f, g \rangle = \int_0^1 \overline{f(x)}\, g(x)\, dx/x$.
 
-**Attack in Lean 4:**
-- Mathlib has `MeasureTheory.Measure.withDensity`: if $\mu$ is a measure and $h$ is measurable, `μ.withDensity h` multiplies $\mu$ by $h$.
-- Define `logWeighted : Measure (Set.Ioc (0:ℝ) 1) := MeasureTheory.Measure.withDensity MeasureTheory.volume (fun x => 1/x)`.
-- Define `LogWeightedL2 := MeasureTheory.Lp ℂ 2 logWeighted`.
-- Then `LogWeightedL2.inner f g := ∫ x, star (f x) * g x ∂logWeighted` — automatically defined via the `InnerProductSpace` instance on $L^p$.
-- The existing abstract `LogWeightedL2` structure in `PF/TransferOperator.lean` would need to be REPLACED with this concrete definition. That cascades to `T3.apply`, which is also currently abstract.
+**STATUS UPDATE 2026-05-01 (post-rev-3 follow-on chain).** Substantial Phase A foundations have been added to `PF/LogWeightedIntegral.lean` over a 23-commit chain (commits `ab98579` through `c7d8a23`). The path is no longer "infrastructure-prepared" — it is **structurally complete except for the integration step**:
 
-**Effort estimate:** ~2-3 weeks of Lean 4 engineering. Main risks: (a) the `withDensity` operation on a non-sigma-finite log-divergent measure has subtleties; (b) integrability witnesses for $T_3.apply$ need to be established.
+  - **Target type confirmed Hilbert-space-ready**: `LogWeightedL2_concrete := MeasureTheory.Lp ℂ 2 logWeightedMeasure` carries `InnerProductSpace ℂ`, `NormedAddCommGroup`, `CompleteSpace`, and `NormedSpace ℂ` from mathlib via `inferInstance` (commits `0164c3d`, `6a414f7`).
+  - **All operator constituents proven measurable**: `inverseBranch_measurable`, `expandingMap_measurable` (via `Measurable.fract`), `weightFunction_measurable` (via `split_ifs` + `Measurable.ite`); plus `AEStronglyMeasurable` counterparts in the form mathlib's `MemLp` predicate consumes.
+  - **Image bounds proven**: `inverseBranch_image_in_unit_interval`, `expandingMap_image_in_unit_interval`.
+  - **Uniform weight bound**: `weightFunction_bounded` ($w_k(x) \le \sqrt{b}$ uniformly).
+  - **Two Radon-Nikodym identities proven**: `weight_squared_eq_jacobian` ($w_k^2/x = b/(x+k)$, additive form) and `weight_squared_times_inverseBranch` ($w_k^2 \cdot y_k = x$, multiplicative form). These are the algebraic core of the change-of-variables computation.
+  - **b-branch Cauchy-Schwarz proven**: `branch_sum_sq_bound` ($\|\sum a_k\|^2 \le b \cdot \sum \|a_k\|^2$ for $a : \mathrm{Fin}\, b \to \mathbb{C}$), via `sq_sum_le_card_mul_sum_sq` from `Mathlib.Algebra.Order.Chebyshev`.
+  - **Phase factor unit modulus proven**: `phaseFactorBase3_norm`, `phaseFactorBase3Conj_norm`, `phaseFactorGeneral_norm` (commit `2153bff`).
+  - **Composed pointwise estimate proven**: `transferOperator_pointwise_norm_sq_bound` gives $\|(1/b) \sum_k \omega_k \cdot w_k(x) \cdot v_k\|^2 \le (1/b) \sum_k w_k(x)^2 \cdot \|v_k\|^2$ for any unit-modulus phase family.
+  - **Structural bridge proven**: `transferOperatorAction_norm_sq_bound` lifts the abstract pointwise bound onto the concrete `transferOperatorAction.toFun` from `PF/TransferOperator.lean`.
+
+**What remains for $\|T_b\| \le 1$**: integrating both sides of the pointwise bound against $d\mu_{\log}$ and applying mathlib's `MeasureTheory.MeasurePreserving.lintegral_comp` (or equivalent affine-change-of-variables formula) per branch to identify each per-branch integral with the restricted integral over $[k/b, (k+1)/b]$. This is concrete mathlib API work, not blocked on missing infrastructure.
+
+**Attack in Lean 4 (revised 2026-05-01):**
+- The structural swap `LogWeightedL2 := LogWeightedL2_concrete` itself is the main remaining engineering: it cascades through `transferOperatorAction`'s pointwise definition (which uses `f.toFun` on the structure that doesn't exist on `Lp`).
+- The `MemLp` proof for `transferOperatorAction`'s output is now nearly assembled — combining the pointwise bound (above) with a single mathlib `MeasurePreserving.lintegral_comp` per branch.
+- After the swap lands, `LogWeightedL2.inner` becomes mathlib's `@inner ℂ _ _` instance, and the three Phase-A hypothesis fields (`hsmul_left`, `hsmul_right`, `hpos_def`) consumed by `self_adjoint_real_eigenvalues` and the conditional RH theorem become free instance fields.
+
+**Effort estimate (revised):** ~1-2 weeks of focused Lean engineering for the structural swap and the mathlib integration plumbing. The mathematical content is now in source; the remaining work is engineering the swap cascade and the per-branch change-of-variables.
 
 ### 2.2 `turingTimeComplexity` — construct from TM2 stepping semantics
 
