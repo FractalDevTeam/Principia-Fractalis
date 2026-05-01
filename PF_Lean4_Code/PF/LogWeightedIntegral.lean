@@ -209,6 +209,37 @@ theorem inverseBranch_injective (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
     rwa [div_mul_cancel₀ _ hb, div_mul_cancel₀ _ hb] at this
   linarith
 
+/-- The (left) inverse of `inverseBranch b k`: `g(u) = b · u - k`.
+
+    Globally on $\mathbb{R}$ this is a continuous affine map
+    (slope $b$). Restricted to the image $[k/b, (k+1)/b]$ of
+    `inverseBranch b k` on $[0, 1]$, this is the genuine inverse. -/
+noncomputable def inverseBranchInverse (b : ℕ) (k : Fin b) (u : ℝ) : ℝ :=
+  (b : ℝ) * u - (k.val : ℝ)
+
+/-- `inverseBranchInverse` is continuous: an affine map. -/
+theorem inverseBranchInverse_continuous (b : ℕ) (k : Fin b) :
+    Continuous (fun u : ℝ => inverseBranchInverse b k u) := by
+  unfold inverseBranchInverse
+  exact (continuous_const.mul continuous_id).sub continuous_const
+
+/-- `inverseBranchInverse` is Borel measurable. -/
+theorem inverseBranchInverse_measurable (b : ℕ) (k : Fin b) :
+    Measurable (fun u : ℝ => inverseBranchInverse b k u) :=
+  (inverseBranchInverse_continuous b k).measurable
+
+/-- `inverseBranchInverse b k` is a left inverse of `inverseBranch b k`.
+
+    Computation: `g(y_k(x)) = b · ((x + k)/b) - k = x + k - k = x`. -/
+theorem inverseBranchInverse_leftInverse (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
+    Function.LeftInverse (fun u => inverseBranchInverse b k u)
+                          (fun x => inverseBranch b k x) := by
+  intro x
+  unfold inverseBranchInverse inverseBranch
+  -- Goal: b * ((x + k) / b) - k = x
+  field_simp
+  ring
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
