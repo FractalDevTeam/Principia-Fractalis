@@ -332,13 +332,48 @@ noncomputable def inverseBranch_equiv (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 
 
     Strongest measure-theoretic structure: combined with the affine
     pushforward identity `volume.map inverseBranch = ENNReal.ofReal b
-    • volume` (next chunk of Phase A), it unlocks the per-branch
-    change-of-variables in its full mathlib form. -/
+    • volume` below, it unlocks the per-branch change-of-variables in
+    its full mathlib form. -/
 noncomputable def inverseBranch_measurableEquiv (b : ℕ) (k : Fin b)
     (hb : (b : ℝ) ≠ 0) (hb_ge : b ≥ 1) : ℝ ≃ᵐ ℝ where
   toEquiv := inverseBranch_equiv b k hb
   measurable_toFun := inverseBranch_measurable b k hb_ge
   measurable_invFun := inverseBranchInverse_measurable b k
+
+/-- The volume pushforward identity for the inverse branch:
+    $\mathrm{volume.map}\, y_k = \mathrm{ENNReal.ofReal}\, b \cdot \mathrm{volume}$.
+
+    Decomposes $y_k(x) = (x + k)/b$ as the composition of translation
+    `(· + k)` (which preserves volume on $\mathbb{R}$ by Haar measure
+    translation invariance) and scaling `(· / b) = (· * (1/b))`
+    (which scales volume by `|1/b|⁻¹ = b` via `Real.map_volume_mul_right`).
+
+    This is the **affine Jacobian** of the change-of-variables,
+    machine-checked from mathlib's pre-existing affine-pushforward
+    infrastructure. -/
+theorem inverseBranch_volume_map (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) :
+    Measure.map (fun x : ℝ => inverseBranch b k x) volume =
+      ENNReal.ofReal (b : ℝ) • volume := by
+  -- Decompose: y_k = (· / b) ∘ (· + k.val)
+  have h_decomp : (fun x : ℝ => inverseBranch b k x)
+                = (fun y : ℝ => y / (b : ℝ)) ∘ (fun x : ℝ => x + (k.val : ℝ)) := by
+    funext x; unfold inverseBranch; rfl
+  rw [h_decomp]
+  rw [← Measure.map_map (f := fun x : ℝ => x + (k.val : ℝ))
+                        (g := fun y : ℝ => y / (b : ℝ))
+                        (measurable_id.div_const _) (measurable_id.add_const _)]
+  -- (volume.map (· + k.val)).map (· / b) = ENNReal.ofReal b • volume
+  -- Translation invariance: volume.map (· + k.val) = volume
+  rw [show Measure.map (fun x : ℝ => x + (k.val : ℝ)) volume = volume from
+      map_add_right_eq_self volume (k.val : ℝ)]
+  -- Now: volume.map (· / b) = ENNReal.ofReal b • volume
+  -- (· / b) = (· * (1/b))
+  have h_div : (fun y : ℝ => y / (b : ℝ)) = (fun y => y * (1 / (b : ℝ))) := by
+    funext y; rw [div_eq_mul_inv, one_div]
+  rw [h_div, Real.map_volume_mul_right (one_div_ne_zero hb)]
+  -- Goal: ENNReal.ofReal |(1/b)⁻¹| • volume = ENNReal.ofReal b • volume
+  congr 1
+  rw [one_div, inv_inv, abs_of_nonneg (Nat.cast_nonneg b)]
 
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
