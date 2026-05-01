@@ -22,6 +22,7 @@ import Mathlib.MeasureTheory.Measure.WithDensity
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.MeasureTheory.Function.L2Space
 import Mathlib.MeasureTheory.Function.Floor
+import Mathlib.Algebra.Order.Chebyshev
 import Mathlib.Data.ENNReal.Basic
 import PF.TransferOperator
 
@@ -322,6 +323,42 @@ theorem weight_squared_times_inverseBranch (b : ℕ) (k : Fin b) (x : ℝ)
     apply div_nonneg
     · exact mul_nonneg (Nat.cast_nonneg _) (le_of_lt hx)
     · exact le_of_lt hxk
+
+/-! ## Cauchy-Schwarz on the b-branch finite sum -/
+
+/-- The b-branch Cauchy-Schwarz bound: $\|\sum_{k=0}^{b-1} a_k\|^2
+    \le b \cdot \sum_{k=0}^{b-1} \|a_k\|^2$ for any
+    $a : \mathrm{Fin}\, b \to \mathbb{C}$.
+
+    Proof: triangle inequality $\|\sum a_k\| \le \sum \|a_k\|$, then
+    `sq_sum_le_card_mul_sum_sq` (Chebyshev / AM-QM) on the
+    nonnegative sequence $\|a_k\|$.
+
+    This is the pointwise bound that drives the Mayer 1991
+    operator-norm estimate for transfer operators: combined with
+    the Radon-Nikodym identity (`weight_squared_eq_jacobian`,
+    `weight_squared_times_inverseBranch`) and the change-of-
+    variables formula, it gives $\|T_b f\|_{L^2(d\mu_{\log})} \le
+    \|f\|_{L^2(d\mu_{\log})}$. -/
+theorem branch_sum_sq_bound {b : ℕ} (a : Fin b → ℂ) :
+    ‖∑ k, a k‖^2 ≤ (b : ℝ) * ∑ k, ‖a k‖^2 := by
+  -- Step 1: triangle inequality ‖Σ a_k‖ ≤ Σ ‖a_k‖
+  have h_tri : ‖∑ k, a k‖ ≤ ∑ k, ‖a k‖ := norm_sum_le _ _
+  -- Step 2: square both sides (both nonneg)
+  have h_sq : ‖∑ k, a k‖^2 ≤ (∑ k, ‖a k‖)^2 :=
+    pow_le_pow_left₀ (norm_nonneg _) h_tri 2
+  -- Step 3: AM-QM (sq_sum_le_card_mul_sum_sq) on nonneg ‖a_k‖
+  have h_amqm : (∑ k, ‖a k‖)^2 ≤
+      (Finset.univ : Finset (Fin b)).card * ∑ k, ‖a k‖^2 :=
+    sq_sum_le_card_mul_sum_sq
+  -- Step 4: Finset.univ.card = b
+  have h_card : ((Finset.univ : Finset (Fin b)).card : ℝ) = (b : ℝ) := by
+    rw [Finset.card_univ, Fintype.card_fin]
+  -- Combine
+  calc ‖∑ k, a k‖^2
+      ≤ (∑ k, ‖a k‖)^2 := h_sq
+    _ ≤ (Finset.univ : Finset (Fin b)).card * ∑ k, ‖a k‖^2 := h_amqm
+    _ = (b : ℝ) * ∑ k, ‖a k‖^2 := by rw [h_card]
 
 /-! ## AEStronglyMeasurable counterparts (for MemLp / Lp interop) -/
 
