@@ -423,6 +423,38 @@ theorem inverseBranch_measurePreserving (b : ℕ) (k : Fin b)
   measurable := inverseBranch_measurable b k hb_ge
   map_eq := inverseBranch_volume_map b k hb
 
+/-- The set-restricted change-of-variables identity for the inverse branch:
+
+      $\int_{x \in y_k^{-1}(s)} h(y_k(x))\, \mathrm{dvolume}(x)
+        = b \cdot \int_{y \in s} h(y)\, \mathrm{dvolume}(y)$
+
+    for any set $s \subseteq \mathbb{R}$ and any (possibly non-measurable)
+    integrand $h : \mathbb{R} \to \mathbb{R}_{\ge 0}^\infty$.
+
+    Composes:
+      1. `MeasurePreserving.setLIntegral_comp_preimage_emb` (mathlib) on the
+         packaged `inverseBranch_measurePreserving` (this commit) and
+         `inverseBranch_measurableEmbedding` (commit c54bf82) gives
+         $\int_{y_k^{-1} s} h(y_k(x))\, \mathrm{dvolume}
+            = \int_s h(y)\, \mathrm{d}(\mathrm{ENNReal.ofReal}\, b \cdot \mathrm{volume})$.
+      2. `setLIntegral_smul_measure` (mathlib) pulls out the constant factor $b$.
+
+    This is the **set-restricted per-branch CoV** — the form the operator-norm
+    bound consumes when integrating the pointwise estimate over $[0,1]$ and
+    partitioning into the per-branch images $[k/b, (k+1)/b]$. -/
+theorem inverseBranch_set_lintegral_change_of_variables (b : ℕ) (k : Fin b)
+    (hb : (b : ℝ) ≠ 0) (hb_ge : b ≥ 1) (s : Set ℝ) (h : ℝ → ENNReal) :
+    ∫⁻ x in (inverseBranch b k) ⁻¹' s, h (inverseBranch b k x) ∂volume
+      = ENNReal.ofReal (b : ℝ) * ∫⁻ y in s, h y ∂volume := by
+  -- Step 1: Push the integral through the change-of-variables. Result is
+  --   a setLIntegral of `h` over `s` against the pushforward measure
+  --   `ENNReal.ofReal b • volume`.
+  rw [(inverseBranch_measurePreserving b k hb hb_ge).setLIntegral_comp_preimage_emb
+        (inverseBranch_measurableEmbedding b k hb hb_ge) h s]
+  -- Step 2: Pull out the scalar factor via setLIntegral_smul_measure.
+  rw [setLIntegral_smul_measure]
+  rfl
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
