@@ -407,6 +407,22 @@ theorem inverseBranch_lintegral_change_of_variables (b : ℕ) (k : Fin b)
   -- Goal: ENNReal.ofReal b • ∫⁻ y, g y ∂volume = ENNReal.ofReal b * ∫⁻ y, g y ∂volume
   rfl
 
+/-- `inverseBranch b k` is a `MeasurePreserving` map from volume to
+    the scaled measure `ENNReal.ofReal b • volume`.
+
+    Packages `inverseBranch_measurable` (commit ab98579) and
+    `inverseBranch_volume_map` (commit 91d3254) into mathlib's
+    `MeasurePreserving` structure. Useful for downstream API that
+    expects this packaged form (e.g., for `MeasurePreserving.lintegral_comp`
+    in restricted-measure variants). -/
+theorem inverseBranch_measurePreserving (b : ℕ) (k : Fin b)
+    (hb : (b : ℝ) ≠ 0) (hb_ge : b ≥ 1) :
+    MeasureTheory.MeasurePreserving (fun x : ℝ => inverseBranch b k x)
+                                    volume
+                                    (ENNReal.ofReal (b : ℝ) • volume) where
+  measurable := inverseBranch_measurable b k hb_ge
+  map_eq := inverseBranch_volume_map b k hb
+
 /-- The inverse branch maps the unit interval into itself:
     $y_k(x) = (x + k)/b \in [0, 1]$ for $x \in [0, 1]$ and $k \in \mathrm{Fin}\, b$.
 
