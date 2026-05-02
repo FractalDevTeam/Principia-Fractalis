@@ -831,4 +831,52 @@ theorem weightFunction_aestronglyMeasurable (b : ℕ) (k : Fin b) :
       (fun x : ℝ => weightFunction b k x) logWeightedMeasure :=
   (weightFunction_measurable b k).aestronglyMeasurable
 
+/-- The unit half-open interval $[0, 1)$ decomposes as the union of the
+    per-branch image intervals $[k/b, (k+1)/b)$ for $k \in \mathrm{Fin}\, b$.
+
+    Geometric partition fact, prerequisite for the integration partition.
+    The `Ico` formulation is genuinely disjoint (no boundary overlap)
+    making it the natural input to `lintegral_iUnion`.
+
+    Forward (`x ∈ [0, 1) → ∃ k, x ∈ [k/b, (k+1)/b)`): set
+    $k := \lfloor b \cdot x \rfloor$. Then $0 \le k < b$ since $0 \le bx < b$,
+    and $k \le bx < k+1$ implies $k/b \le x < (k+1)/b$.
+
+    Reverse: from $k/b \le x$ with $k \ge 0$ get $x \ge 0$;
+    from $x < (k+1)/b$ with $k+1 \le b$ get $x < 1$. -/
+theorem unitInterval_eq_iUnion_Ico_partition (b : ℕ) (hb : b ≥ 1) :
+    Set.Ico (0:ℝ) 1
+      = ⋃ k : Fin b, Set.Ico ((k : ℝ) / (b : ℝ)) (((k : ℝ) + 1) / (b : ℝ)) := by
+  have hb_pos : (0 : ℝ) < (b : ℝ) := by
+    have : 0 < b := Nat.lt_of_lt_of_le Nat.zero_lt_one hb
+    exact_mod_cast this
+  ext x
+  simp only [Set.mem_Ico, Set.mem_iUnion]
+  constructor
+  · rintro ⟨hx0, hx1⟩
+    have hbx_nonneg : (0 : ℝ) ≤ (b : ℝ) * x := mul_nonneg hb_pos.le hx0
+    have hbx_lt : (b : ℝ) * x < (b : ℝ) := by
+      calc (b : ℝ) * x
+          < (b : ℝ) * 1 := mul_lt_mul_of_pos_left hx1 hb_pos
+        _ = (b : ℝ) := mul_one _
+    set k : ℕ := ⌊((b : ℝ) * x)⌋₊ with hk_def
+    have hk_lt_b : k < b := by
+      rw [hk_def, Nat.floor_lt hbx_nonneg]
+      exact_mod_cast hbx_lt
+    have hk_le : (k : ℝ) ≤ (b : ℝ) * x := by
+      rw [hk_def]; exact Nat.floor_le hbx_nonneg
+    have hk_succ_gt : (b : ℝ) * x < (k : ℝ) + 1 := by
+      rw [hk_def]; exact Nat.lt_floor_add_one _
+    refine ⟨⟨k, hk_lt_b⟩, ?_, ?_⟩
+    · rw [div_le_iff₀ hb_pos]; linarith
+    · rw [lt_div_iff₀ hb_pos]; linarith
+  · rintro ⟨k, hk0, hk1⟩
+    have hk_div_nonneg : (0 : ℝ) ≤ (k.val : ℝ) / (b : ℝ) :=
+      div_nonneg (by exact_mod_cast Nat.zero_le _) hb_pos.le
+    have hk_succ_le_one : ((k.val : ℝ) + 1) / (b : ℝ) ≤ 1 := by
+      rw [div_le_one hb_pos]
+      have : k.val + 1 ≤ b := k.isLt
+      exact_mod_cast this
+    exact ⟨by linarith, by linarith⟩
+
 end PrincipiaTractalis
