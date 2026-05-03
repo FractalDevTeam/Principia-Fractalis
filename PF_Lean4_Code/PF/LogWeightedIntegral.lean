@@ -1713,4 +1713,43 @@ theorem transferOperatorAction_fn_memLp
        b hb phases hphases f hf)
      hfMemLp.eLpNorm_lt_top⟩
 
+/-! ## L² structural-swap scaffolding (begin cascade)
+
+The pieces below establish the parallel `Lp`-typed scaffolding alongside
+the existing structural `LogWeightedL2`. They do NOT touch the existing
+structure; the eventual rename cascade through `PF/TransferOperator.lean`
+will use these pieces as drop-in replacements once the cascade lands. -/
+
+/-- The `L²` Hilbert space against the log-weighted measure restricted
+    to the unit interval $(0, 1)$ — the **target type** for the L²
+    structural swap. Inherits `InnerProductSpace ℂ`,
+    `NormedAddCommGroup`, `CompleteSpace`, and `NormedSpace ℂ` from
+    mathlib's `MeasureTheory.Lp` family via `inferInstance`. -/
+noncomputable abbrev LogWeightedL2_Ioo : Type :=
+  MeasureTheory.Lp ℂ 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+
+/-- `LogWeightedL2_Ioo` carries mathlib's `InnerProductSpace ℂ`. -/
+noncomputable example : InnerProductSpace ℂ LogWeightedL2_Ioo := inferInstance
+
+/-- `LogWeightedL2_Ioo` is a complete normed space (Hilbert space). -/
+noncomputable example : CompleteSpace LogWeightedL2_Ioo := inferInstance
+
+/-- The transfer operator action lifted to an `Lp` element via
+    `MemLp.toLp`. Given measurable `f : ℝ → ℂ` with `MemLp f 2`,
+    produces an `LogWeightedL2_Ioo` element representing $T_b^{fn}\, f$.
+
+    This is the lift through the `Lp = MemLp / AE-equiv` quotient at
+    a single representative. A future step will establish AE-compatibility
+    of `transferOperatorAction_fn` and lift to a `Lp → Lp` quotient map.
+    For now, this is the operator-norm-bounded $L^2$-target form of the
+    Mayer 1991 contractivity result. -/
+noncomputable def transferOperatorAction_fn_toLp
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f)
+    (hfMemLp : MemLp f 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    LogWeightedL2_Ioo :=
+  MemLp.toLp (transferOperatorAction_fn b phases f)
+    (transferOperatorAction_fn_memLp b hb phases hphases f hf hfMemLp)
+
 end PrincipiaTractalis
