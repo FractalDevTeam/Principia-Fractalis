@@ -957,4 +957,49 @@ theorem lintegral_unitInterval_eq_sum_Ico_partition
   -- Step 3: tsum on Fin b (a Fintype) collapses to a Finset.sum.
   exact tsum_fintype _
 
+/-- The preimage of the per-branch image $[k/b, (k+1)/b)$ under
+    $y_k(x) = (x+k)/b$ is exactly the unit half-open interval $[0, 1)$.
+
+    $(x+k)/b \in [k/b, (k+1)/b) \iff k \le x+k < k+1 \iff 0 \le x < 1$
+    (for $b > 0$, dividing/multiplying by $b$ preserves order).
+
+    This is the geometric link between the per-branch CoV (which restricts
+    on the source side via a preimage) and the unit-interval target form
+    needed by the operator-norm bound. -/
+theorem inverseBranch_preimage_Ico_image (b : ℕ) (k : Fin b)
+    (hb : (0 : ℝ) < (b : ℝ)) :
+    inverseBranch b k ⁻¹' Set.Ico ((k : ℝ) / (b : ℝ)) (((k : ℝ) + 1) / (b : ℝ))
+      = Set.Ico (0:ℝ) 1 := by
+  unfold inverseBranch
+  ext x
+  simp only [Set.mem_preimage, Set.mem_Ico,
+             div_le_div_iff_of_pos_right hb, div_lt_div_iff_of_pos_right hb]
+  constructor
+  · rintro ⟨h1, h2⟩; exact ⟨by linarith, by linarith⟩
+  · rintro ⟨h1, h2⟩; exact ⟨by linarith, by linarith⟩
+
+/-- The per-branch CoV specialized to the unit interval source:
+
+      $\int_{[0, 1)} h(y_k(y))\, \mathrm{dvolume}(y)
+        = b \cdot \int_{[k/b, (k+1)/b)} h(u)\, \mathrm{dvolume}(u)$
+
+    Composes `inverseBranch_set_lintegral_change_of_variables`
+    (commit 28a669a) with the preimage identity
+    `inverseBranch_preimage_Ico_image` (this commit). The unit-interval
+    source [0, 1) on the LHS lines up with the operator-norm integration
+    domain; the per-branch image [k/b, (k+1)/b) on the RHS lines up with
+    the partition pieces from `lintegral_unitInterval_eq_sum_Ico_partition`
+    (commit bf8c69f). Together: the per-branch piece of the operator-norm
+    bound, ready for the partition reassembly. -/
+theorem branch_lintegral_unitInterval_to_Ico
+    (b : ℕ) (k : Fin b) (hb : (b : ℝ) ≠ 0) (hb_ge : b ≥ 1) (h : ℝ → ENNReal) :
+    ∫⁻ y in Set.Ico (0:ℝ) 1, h (inverseBranch b k y) ∂volume
+      = ENNReal.ofReal (b : ℝ)
+          * ∫⁻ u in Set.Ico ((k : ℝ) / (b : ℝ)) (((k : ℝ) + 1) / (b : ℝ)),
+              h u ∂volume := by
+  have hb_pos : (0 : ℝ) < (b : ℝ) :=
+    lt_of_le_of_ne (Nat.cast_nonneg _) (Ne.symm hb)
+  rw [← inverseBranch_preimage_Ico_image b k hb_pos]
+  exact inverseBranch_set_lintegral_change_of_variables b k hb hb_ge _ h
+
 end PrincipiaTractalis
