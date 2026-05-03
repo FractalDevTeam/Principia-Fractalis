@@ -1638,4 +1638,49 @@ theorem enorm_rpow_two_eq_ofReal_norm_sq (x : ℂ) :
   rw [ENNReal.rpow_two, sq, ← ofReal_norm_eq_enorm,
       ← ENNReal.ofReal_mul (norm_nonneg _), ← sq]
 
+/-- The transfer operator is a contraction on $L^2(d\mu_{\log})$ over
+    $(0, 1)$ — the **operator-norm bound** $\|T_b\| \le 1$ in `eLpNorm`
+    form, restricted to the unit interval:
+
+      $\|T_b^{fn}\, f\|_{L^2(\mu_{\log}\!\restriction(0,1))}
+        \le \|f\|_{L^2(\mu_{\log}\!\restriction(0,1))}$.
+
+    This is **Mayer 1991 contractivity** in the form mathlib's
+    `MemLp` / `Lp` space-API consume. Once the L² structural swap
+    `LogWeightedL2 := MeasureTheory.Lp ℂ 2 logWeightedMeasure` lands,
+    this lifts directly to a `ContinuousLinearMap` instance with
+    operator norm $\le 1$, retiring the `T3_self_adjoint_conj` axiom
+    for the canonical 8-axiom referee surface (8 → 7).
+
+    Proof — four-step:
+      1. `eLpNorm_eq_lintegral_rpow_enorm` (mathlib) reduces both
+         eLpNorms to lintegral form `(∫⁻ ‖·‖ₑ^(2.toReal) ∂μ)^(1/2.toReal)`.
+      2. `ENNReal.rpow_le_rpow` (with $0 \le 1/2$) reduces the
+         outer rpow to a lintegral inequality.
+      3. The pointwise bridge `enorm_rpow_two_eq_ofReal_norm_sq` lifted
+         under `lintegral_congr` rewrites both integrands `‖·‖ₑ^(2:ℝ)`
+         to `ENNReal.ofReal(‖·‖²)`.
+      4. The named-operator Mayer bound
+         `transferOperatorAction_fn_lintegral_norm_sq_bound_logWeightedMeasure`
+         (commit e259e42) closes the chain. -/
+theorem transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f) :
+    eLpNorm (transferOperatorAction_fn b phases f) 2
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+      ≤ eLpNorm f 2
+          (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  rw [eLpNorm_eq_lintegral_rpow_enorm two_ne_zero ENNReal.ofNat_ne_top,
+      eLpNorm_eq_lintegral_rpow_enorm two_ne_zero ENNReal.ofNat_ne_top]
+  refine ENNReal.rpow_le_rpow ?_ (by positivity)
+  have h_toReal : (2 : ENNReal).toReal = 2 := by norm_num
+  simp only [h_toReal]
+  rw [lintegral_congr
+        (fun x => enorm_rpow_two_eq_ofReal_norm_sq
+          (transferOperatorAction_fn b phases f x))]
+  rw [lintegral_congr (fun x => enorm_rpow_two_eq_ofReal_norm_sq (f x))]
+  exact transferOperatorAction_fn_lintegral_norm_sq_bound_logWeightedMeasure
+    b hb phases hphases f hf
+
 end PrincipiaTractalis
