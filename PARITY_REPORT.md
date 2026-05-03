@@ -1,6 +1,20 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-04-29, post-rev-3 follow-on chain complete (commits through `2a76b26`)*
+*Last updated: 2026-05-03, post-rev-3 follow-on chain extended through Phase A integration ladder + Mayer 1991 capstone (commits through `f13126b`)*
+
+## Phase A integration ladder + Mayer 1991 capstone (2026-05-01 → 2026-05-03)
+
+A 32-commit extension of the rev-3 follow-on chain (commits `2c2a737` through `f13126b`) completed the analytic foundation for the Mayer 1991 transfer-operator contractivity bound on $L^2(d\mu_{\log})$. Headline numbers unchanged on the Lean side; Coq side untouched.
+
+- **Lean 4 canonical**: 8 axioms (unchanged), **5488 jobs clean**, 0 sorries.
+- **Phase A integration ladder complete in `PF/LogWeightedIntegral.lean`** (eleven named lintegral identities, commits `2c2a737`...`8038a01`): per-branch CoV (set-restricted, unit-interval-specialized), geometric and integration partition of $[0, 1)$, summed per-branch identity (sum-outside and sum-inside), Radon-Nikodym integrand substitution, combined Mayer chain identity, $(1/b)$-normalized form, integrated lift of the pointwise transfer-operator bound, and integrand-distribution lemmas.
+- **Phase A capstone** (commit `b8ee9a9`): `mayer_1991_lintegral_norm_sq_bound_log_weighted` — the operator-norm bound $\|T_b f\|^2 \le \|f\|^2$ in lintegral form against $d\mu_{\log}$, for unit-modulus phases. Hypothesis: `Measurable f`. The analytic foundation of T₃-style operator self-adjointness is now fully in source.
+- **logWeightedMeasure bridge + restatement** (commits `69b7054`, `f13126b`): bridge `setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv` and the restated Mayer bound `mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure` — the form mathlib's `eLpNorm` consumes for the operator-norm statement.
+- **Coq side unchanged.** Lean → Coq parity work (porting the rev-3 follow-on chain plus the 32-commit Phase A integration ladder) remains on the future-work list.
+
+The remaining work for `LogWeightedL2.inner` elimination is now purely the **structural swap** `LogWeightedL2 := LogWeightedL2_concrete` cascading through `transferOperatorAction`'s `f.toFun` callsites; the `MemLp` proof is a direct corollary of `mayer_1991_lintegral_norm_sq_bound_log_weighted`. Effort estimate revised: ~3-7 days of focused Lean engineering (was 1-2 weeks per RESEARCH_ROADMAP §2.1).
+
+See `principia_t3_lean_followon_2026-04-28.md` (session memory) for full per-commit detail of all 52 commits.
 
 ## Post-rev-3 follow-on (2026-04-29)
 

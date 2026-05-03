@@ -1,6 +1,31 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-04-29, post-rev-3 follow-on chain complete (commits through `2a76b26`). **8 axioms** remain (canonical PF/), 0 sorries, 5488 jobs clean.*
+*As of 2026-05-03, post-rev-3 follow-on chain extended through Phase A integration ladder + Mayer 1991 capstone (commits through `f13126b`). **8 axioms** remain (canonical PF/), 0 sorries, 5488 jobs clean.*
+
+## Phase A integration ladder + Mayer 1991 capstone (2026-05-01 → 2026-05-03)
+
+A 32-commit extension of the rev-3 follow-on chain (commits `2c2a737` through `f13126b`) completed the analytic foundation for the Mayer 1991 transfer-operator contractivity bound on $L^2(d\mu_{\log})$. Headline numbers unchanged; mathematical content materially strengthened.
+
+- **Phase A integration ladder in `PF/LogWeightedIntegral.lean`** — eleven named lintegral identities composing into the Mayer chain:
+  - `inverseBranch_measurePreserving` packages the affine pushforward into mathlib's `MeasurePreserving` API (commit `2c2a737`).
+  - `inverseBranch_set_lintegral_change_of_variables` — set-restricted per-branch CoV $\int_{y_k^{-1}(s)} h(y_k(x))\, dx = b \cdot \int_s h(u)\, du$ (commit `28a669a`).
+  - `unitInterval_eq_iUnion_Ico_partition` + `pairwiseDisjoint_Ico_partition` + `lintegral_unitInterval_eq_sum_Ico_partition` — geometric and integration partition of $[0, 1)$ (commits `76f8246`, `d2b04ae`, `bf8c69f`).
+  - `inverseBranch_preimage_Ico_image` + `branch_lintegral_unitInterval_to_Ico` — per-branch CoV specialised to the unit interval (commit `e4cc6b9`).
+  - `sum_branch_lintegral_unitInterval_eq_b_lintegral` (and sum-inside variant `lintegral_sum_branch_compose_unitInterval_eq_b_lintegral`) — summed per-branch identity $\sum_k \int_{[0,1)} h(y_k\, y)\, dy = b \cdot \int_{[0,1)} h$ (commits `d2c6487`, `88d7baf`).
+  - `lintegral_weight_squared_branch_eq_jacobian_subst` — Radon-Nikodym integrand substitution on $(0, 1)$ (commit `0befd95`).
+  - `lintegral_sum_weight_squared_branch_eq_b_lintegral_inv` and $(1/b)$-normalized form `lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv` — combined Mayer chain identity (commits `ab41c4e`, `a3960ce`).
+  - `lintegral_transferOp_pointwise_bound_log_weighted` — integrated ENNReal lift of the pointwise Cauchy-Schwarz bound (commit `dc8cb14`).
+  - `ofReal_one_div_b_sum_mul_ofReal_one_div_eq` + `lintegral_one_div_b_sum_weight_squared_vals_sq_eq_inv_mul_sum_lintegral` — integrand-distribution lemmas bridging the pointwise bound's RHS to the form the $(1/b)$-normalized identity consumes (commits `84ad7ac`, `8038a01`).
+
+- **Phase A capstone (commit `b8ee9a9`)**: `mayer_1991_lintegral_norm_sq_bound_log_weighted` — the operator-norm bound $\|T_b f\|^2 \le \|f\|^2$ in lintegral form against $d\mu_{\log}$, for $T_b f(x) := (1/b)\sum_k \omega_k\, w_k(x)\, f(y_k(x))$ with unit-modulus phases $\|\omega_k\| = 1$. Hypothesis: `Measurable f`. The analytic foundation of T₃-style operator self-adjointness is now fully in source.
+
+- **logWeightedMeasure bridge + Mayer restatement (commits `69b7054`, `f13126b`)**: the bridge `setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv` converts integration-against-$\mu_{\log}$ to integration-against-volume with explicit $(1/x)$ factor, and `mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure` restates the Mayer bound in the form mathlib's `eLpNorm` consumes: $\int_{(0,1)} \|T_b f\|^2\, d\mu_{\log} \le \int_{(0,1)} \|f\|^2\, d\mu_{\log}$.
+
+The 8-axiom canonical surface is preserved throughout. No new axioms introduced; no sorries introduced. `lake build` 5488 jobs clean.
+
+The remaining work for `LogWeightedL2.inner` elimination (entry 5 below) is now purely the **structural swap** `LogWeightedL2 := LogWeightedL2_concrete` cascading through `transferOperatorAction`'s `f.toFun` callsites. The `MemLp` proof for `transferOperatorAction`'s output is a direct corollary of `mayer_1991_lintegral_norm_sq_bound_log_weighted` (the lintegral bound shows the squared norm is finite, which is the `MemLp 2` predicate). Effort estimate revised: ~3-7 days of focused Lean engineering, was 1-2 weeks (RESEARCH_ROADMAP §2.1).
+
+See `principia_t3_lean_followon_2026-04-28.md` (session memory) for full per-commit detail of all 52 commits.
 
 ## Post-rev-3 follow-on (2026-04-29)
 
