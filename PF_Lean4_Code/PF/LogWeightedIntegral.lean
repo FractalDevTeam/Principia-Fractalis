@@ -1002,4 +1002,43 @@ theorem branch_lintegral_unitInterval_to_Ico
   rw [← inverseBranch_preimage_Ico_image b k hb_pos]
   exact inverseBranch_set_lintegral_change_of_variables b k hb hb_ge _ h
 
+/-- The combined per-branch sum identity over the unit interval:
+
+      $\sum_{k=0}^{b-1} \int_{[0, 1)} h(y_k(y))\, \mathrm{dvolume}(y)
+        = b \cdot \int_{[0, 1)} h(y)\, \mathrm{dvolume}(y)$.
+
+    Composes:
+      1. `branch_lintegral_unitInterval_to_Ico` (commit e4cc6b9), applied
+         under the sum, replaces each summand by
+         `b * ∫⁻ in [k/b, (k+1)/b), h`.
+      2. `Finset.mul_sum` extracts the constant factor `b`.
+      3. `lintegral_unitInterval_eq_sum_Ico_partition` (commit bf8c69f),
+         used in reverse, collapses the per-branch sum into a single
+         integral over [0, 1).
+
+    This is the **summed per-branch identity** in the operator-norm chain.
+    For the transfer operator $T_b f(y) = (1/b) \sum_k \omega_k\, w_k(y)\, f(y_k(y))$,
+    the integral $\int_{[0,1)} \|T_b f\|^2 (1/y)\, dy$ — after the
+    pointwise Cauchy-Schwarz bound and the Radon-Nikodym substitution —
+    reduces to $\sum_k \int_{[0,1)} (1/(y+k)) |f(y_k(y))|^2\, dy$, and a
+    suitable rewrite of $1/(y+k) = w_k(y)^2/y$ followed by this lemma
+    closes the bound to $\|f\|^2$. -/
+theorem sum_branch_lintegral_unitInterval_eq_b_lintegral
+    (b : ℕ) (hb : b ≥ 1) (h : ℝ → ENNReal) :
+    ∑ k : Fin b, ∫⁻ y in Set.Ico (0:ℝ) 1, h (inverseBranch b k y) ∂volume
+      = ENNReal.ofReal (b : ℝ)
+          * ∫⁻ y in Set.Ico (0:ℝ) 1, h y ∂volume := by
+  have hb_pos : (0 : ℝ) < (b : ℝ) := by
+    have : 0 < b := Nat.lt_of_lt_of_le Nat.zero_lt_one hb
+    exact_mod_cast this
+  have hb_ne : (b : ℝ) ≠ 0 := hb_pos.ne'
+  -- Step 1: Replace each summand using branch_lintegral_unitInterval_to_Ico.
+  rw [Finset.sum_congr rfl
+        (fun k _ => branch_lintegral_unitInterval_to_Ico b k hb_ne hb h)]
+  -- Goal: ∑ k, b * ∫⁻ in [k/b, (k+1)/b) = b * ∫⁻ in [0, 1)
+  -- Step 2: Pull out the constant `b` via Finset.mul_sum.
+  rw [← Finset.mul_sum]
+  -- Step 3: Collapse the sum via the partition identity (in reverse).
+  rw [← lintegral_unitInterval_eq_sum_Ico_partition b hb h]
+
 end PrincipiaTractalis
