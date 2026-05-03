@@ -1316,4 +1316,60 @@ theorem ofReal_one_div_b_sum_mul_ofReal_one_div_eq
   congr 1
   ring
 
+/-- The integrated form of `ofReal_one_div_b_sum_mul_ofReal_one_div_eq`
+    (commit 84ad7ac): integrating the pointwise identity over $(0, 1)$,
+    pulling out the constant $(\mathrm{ofReal}\, b)^{-1}$, and commuting
+    Σ with ∫⁻.
+
+      $\int_{(0, 1)} \mathrm{ofReal}\bigl(\tfrac{1}{b}\sum_k w_k(x)^2 \|f(y_k x)\|^2\bigr) \cdot \mathrm{ofReal}(1/x)\, \mathrm{dvolume}
+        = (\mathrm{ofReal}\, b)^{-1} \cdot
+            \sum_k \int_{(0, 1)} \mathrm{ofReal}(w_k(x)^2/x) \cdot \mathrm{ofReal}(\|f(y_k x)\|^2)\, \mathrm{dvolume}$.
+
+    Three-step chain:
+      1. `setLIntegral_congr_fun` on `measurableSet_Ioo` substitutes the
+         integrand using the pointwise identity (commit 84ad7ac).
+      2. `lintegral_const_mul'` pulls $(\mathrm{ofReal}\, b)^{-1}$ outside
+         the integral (needs $(\mathrm{ofReal}\, b)^{-1} \ne \infty$,
+         from $b > 0$ via `ENNReal.inv_ne_top`).
+      3. `lintegral_finset_sum` commutes Σ with ∫⁻ (needs measurability
+         of each summand, established via composition of
+         `weightFunction_measurable`, `ENNReal.continuous_ofReal.measurable`,
+         `Measurable.norm`, `Measurable.pow_const`, `Measurable.div`,
+         and `inverseBranch_measurable`).
+
+    The RHS is exactly the LHS of
+    `lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv`
+    (commit a3960ce) instantiated with $h(u) := \mathrm{ofReal}(\|f(u)\|^2)$.
+    Composing with a3960ce closes the operator-norm chain. -/
+theorem lintegral_one_div_b_sum_weight_squared_vals_sq_eq_inv_mul_sum_lintegral
+    (b : ℕ) (hb : b ≥ 1) (f : ℝ → ℂ) (hf : Measurable f) :
+    ∫⁻ x in Set.Ioo (0:ℝ) 1,
+        ENNReal.ofReal ((1 / (b : ℝ)) *
+            ∑ k, (weightFunction b k x)^2 * ‖f (inverseBranch b k x)‖^2) *
+          ENNReal.ofReal (1 / x) ∂volume
+      = (ENNReal.ofReal (b : ℝ))⁻¹ *
+          ∑ k : Fin b, ∫⁻ x in Set.Ioo (0:ℝ) 1,
+              ENNReal.ofReal ((weightFunction b k x)^2 / x) *
+                ENNReal.ofReal (‖f (inverseBranch b k x)‖^2) ∂volume := by
+  have hb_real_pos : (0:ℝ) < (b:ℝ) := by
+    have : 0 < b := Nat.lt_of_lt_of_le Nat.zero_lt_one hb
+    exact_mod_cast this
+  have h_inv_ne_top : (ENNReal.ofReal (b : ℝ))⁻¹ ≠ ⊤ :=
+    ENNReal.inv_ne_top.mpr (ENNReal.ofReal_pos.mpr hb_real_pos).ne'
+  -- Step 1: substitute integrand via pointwise identity (commit 84ad7ac)
+  rw [setLIntegral_congr_fun measurableSet_Ioo
+        (fun x hx => ofReal_one_div_b_sum_mul_ofReal_one_div_eq b hb x hx.1
+          (fun k => f (inverseBranch b k x)))]
+  -- Step 2: pull constant `(ofReal b)⁻¹` out of integral
+  rw [lintegral_const_mul' _ _ h_inv_ne_top]
+  -- Step 3: commute Σ and ∫⁻
+  congr 1
+  rw [lintegral_finset_sum]
+  intro k _
+  refine Measurable.mul ?_ ?_
+  · exact ENNReal.continuous_ofReal.measurable.comp
+      (((weightFunction_measurable b k).pow_const 2).div measurable_id)
+  · exact ENNReal.continuous_ofReal.measurable.comp
+      ((hf.comp (inverseBranch_measurable b k hb)).norm.pow_const 2)
+
 end PrincipiaTractalis
