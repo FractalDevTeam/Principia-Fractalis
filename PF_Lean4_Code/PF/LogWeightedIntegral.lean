@@ -1255,4 +1255,65 @@ theorem lintegral_transferOp_pointwise_bound_log_weighted
     (transferOperator_pointwise_norm_sq_bound b hb phases hphases x
       (fun k => f (inverseBranch b k x)))
 
+/-- Integrand identity bridging the pointwise bound's RHS to the form
+    consumed by the (1/b)-normalized Mayer identity. For $x > 0$:
+
+      $\mathrm{ofReal}\bigl(\tfrac{1}{b} \sum_k w_k(x)^2 \|v_k\|^2\bigr) \cdot \mathrm{ofReal}(1/x)
+        = (\mathrm{ofReal}\, b)^{-1} \cdot \sum_k \mathrm{ofReal}(w_k(x)^2/x) \cdot \mathrm{ofReal}(\|v_k\|^2)$.
+
+    Pure ENNReal arithmetic on top of mathlib lifts:
+      * `ENNReal.ofReal_mul` (and reverse) for distributing/combining
+        `ofReal` over real products of nonneg factors.
+      * `ENNReal.ofReal_sum_of_nonneg` for distributing `ofReal` over
+        a real Finset.sum of nonneg terms.
+      * `ENNReal.ofReal_inv_of_pos` for `ofReal (1/b) = (ofReal b)⁻¹`
+        when $b > 0$.
+      * `Finset.sum_mul` for distributing the trailing `ofReal(1/x)`
+        factor inside the sum.
+
+    With $\|v_k\|^2 := \|f(y_k(x))\|^2$, the RHS is exactly the
+    integrand of the LHS of `lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv`
+    (commit a3960ce) — modulo the still-pending pulling-out of the
+    constant $(\mathrm{ofReal}\, b)^{-1}$ and commuting Σ with ∫⁻. -/
+theorem ofReal_one_div_b_sum_mul_ofReal_one_div_eq
+    (b : ℕ) (hb : b ≥ 1) (x : ℝ) (hx_pos : x > 0)
+    (vals : Fin b → ℂ) :
+    ENNReal.ofReal ((1 / (b : ℝ)) *
+        ∑ k, (weightFunction b k x)^2 * ‖vals k‖^2) *
+      ENNReal.ofReal (1 / x)
+      = (ENNReal.ofReal (b : ℝ))⁻¹ *
+          ∑ k, ENNReal.ofReal ((weightFunction b k x)^2 / x) *
+            ENNReal.ofReal (‖vals k‖^2) := by
+  have hb_real_pos : (0:ℝ) < (b:ℝ) := by
+    have : 0 < b := Nat.lt_of_lt_of_le Nat.zero_lt_one hb
+    exact_mod_cast this
+  have hone_div_b_nonneg : (0 : ℝ) ≤ 1 / (b : ℝ) := by positivity
+  have hweight_sq_vals_sq_nonneg : ∀ k : Fin b,
+      (0 : ℝ) ≤ (weightFunction b k x)^2 * ‖vals k‖^2 :=
+    fun k => mul_nonneg (sq_nonneg _) (sq_nonneg _)
+  have hweight_sq_div_x_nonneg : ∀ k : Fin b,
+      (0 : ℝ) ≤ (weightFunction b k x)^2 / x :=
+    fun k => div_nonneg (sq_nonneg _) hx_pos.le
+  -- ofReal((1/b) · Σ a_k) → ofReal(1/b) · ofReal(Σ a_k)
+  rw [ENNReal.ofReal_mul hone_div_b_nonneg]
+  -- ofReal(Σ a_k) → Σ ofReal(a_k)
+  rw [ENNReal.ofReal_sum_of_nonneg (fun k _ => hweight_sq_vals_sq_nonneg k)]
+  -- ofReal(1/b) → (ofReal b)⁻¹
+  rw [show ENNReal.ofReal (1 / (b : ℝ)) = (ENNReal.ofReal (b : ℝ))⁻¹ by
+    rw [one_div, ENNReal.ofReal_inv_of_pos hb_real_pos]]
+  -- (ofReal b)⁻¹ · (Σ ofReal a_k) · ofReal(1/x) → (ofReal b)⁻¹ · ((Σ ofReal a_k) · ofReal(1/x))
+  rw [mul_assoc]
+  -- (Σ ofReal a_k) · ofReal(1/x) → Σ (ofReal a_k · ofReal(1/x))
+  rw [Finset.sum_mul]
+  -- Per-summand cleanup
+  congr 1
+  apply Finset.sum_congr rfl
+  intro k _
+  -- LHS summand:  ofReal((w_k x)² * ‖v_k‖²) * ofReal(1/x)
+  -- RHS summand:  ofReal((w_k x)²/x) * ofReal(‖v_k‖²)
+  rw [← ENNReal.ofReal_mul (hweight_sq_vals_sq_nonneg k),
+      ← ENNReal.ofReal_mul (hweight_sq_div_x_nonneg k)]
+  congr 1
+  ring
+
 end PrincipiaTractalis
