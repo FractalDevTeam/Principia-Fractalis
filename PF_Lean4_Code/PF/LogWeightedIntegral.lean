@@ -1545,4 +1545,59 @@ theorem mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure
   -- Goal is now exactly the volume-form Mayer bound (commit b8ee9a9)
   exact mayer_1991_lintegral_norm_sq_bound_log_weighted b hb phases hphases f hf
 
+/-! ## Function-level transfer operator (bridge to mathlib's `Lp`)
+
+The structure-based `transferOperatorAction` in `PF/TransferOperator.lean`
+acts on the placeholder `LogWeightedL2` structure (whose `toFun` is
+restricted to `Set.Icc 0 1 → ℂ`). For the L² structural swap to
+`MeasureTheory.Lp ℂ 2 logWeightedMeasure`, we need a parallel
+**function-level** action on `ℝ → ℂ`, whose `MemLp` membership is
+controlled by the Mayer 1991 lintegral bound. The definitions and
+lemmas below establish that bridge. -/
+
+/-- Function-level transfer operator action: directly on `ℝ → ℂ` rather
+    than the structure-based `LogWeightedL2`. The formula matches
+    `transferOperatorAction` (in `PF/TransferOperator.lean`) but operates
+    on plain functions — the form mathlib's `MemLp` predicate consumes.
+
+    For `f : ℝ → ℂ`:
+    $$T_b^{fn}\, f(x) := \frac{1}{b}\sum_k \omega_k \cdot w_k(x) \cdot f(y_k(x)).$$
+
+    This is the bridge between the structural `transferOperatorAction`
+    (which acts on `LogWeightedL2`) and mathlib's `Lp ℂ 2 μ_log` function
+    space. The Mayer 1991 lintegral bound
+    (`mayer_1991_lintegral_norm_sq_bound_log_weighted`, commit b8ee9a9)
+    controls `transferOperatorAction_fn`'s `MemLp` membership; combined
+    with `Measurable f`, this lifts to a well-defined map `Lp ℂ 2 μ_log
+    → Lp ℂ 2 μ_log` once the structural swap lands. -/
+noncomputable def transferOperatorAction_fn (b : ℕ) (phases : Fin b → ℂ)
+    (f : ℝ → ℂ) (x : ℝ) : ℂ :=
+  (1 / (b : ℂ)) * ∑ k, phases k *
+    ((weightFunction b k x : ℂ) * f (inverseBranch b k x))
+
+/-- The function-level transfer operator action preserves measurability:
+    when `f` is Borel measurable, so is `T_b^{fn} f`.
+
+    Proof composes:
+      * `weightFunction_measurable` (for each branch's weight),
+      * `Complex.continuous_ofReal.measurable` (the ℝ → ℂ coercion),
+      * `inverseBranch_measurable` + `hf` (for `f ∘ y_k`),
+      * `Measurable.mul`, `Measurable.const_mul` (phase and 1/b factors),
+      * `Finset.measurable_sum` (the b-branch sum).
+
+    This is the measurability ingredient required to lift the action
+    onto `MeasureTheory.Lp` (which insists on the underlying function
+    being AE-strongly-measurable). -/
+theorem transferOperatorAction_fn_measurable (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (f : ℝ → ℂ) (hf : Measurable f) :
+    Measurable (transferOperatorAction_fn b phases f) := by
+  unfold transferOperatorAction_fn
+  refine Measurable.const_mul ?_ _
+  refine Finset.measurable_sum _ ?_
+  intro k _
+  refine Measurable.const_mul ?_ _
+  refine Measurable.mul ?_ ?_
+  · exact Complex.continuous_ofReal.measurable.comp (weightFunction_measurable b k)
+  · exact hf.comp (inverseBranch_measurable b k hb)
+
 end PrincipiaTractalis
