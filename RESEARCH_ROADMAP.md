@@ -58,7 +58,7 @@ The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of
 - The measure $d\mu = dx/x$ on $(0, 1]$ has infinite total mass (log-divergent at 0). The Hilbert space $L^2((0,1], dx/x)$ consists of functions whose $|f|^2$ is integrable w.r.t. this measure.
 - For concrete $f, g \in L^2$, the inner product is $\langle f, g \rangle = \int_0^1 \overline{f(x)}\, g(x)\, dx/x$.
 
-**STATUS UPDATE 2026-05-01 (post-rev-3 follow-on chain).** Substantial Phase A foundations have been added to `PF/LogWeightedIntegral.lean` over a 23-commit chain (commits `ab98579` through `c7d8a23`). The path is no longer "infrastructure-prepared" — it is **structurally complete except for the integration step**:
+**STATUS UPDATE 2026-05-03 (post-rev-3 follow-on chain extended through Phase A capstone).** Substantial Phase A foundations have been added to `PF/LogWeightedIntegral.lean` over a 49-commit chain (commits `ab98579` through `b8ee9a9`). The analytic content is now **complete in source**:
 
   - **Target type confirmed Hilbert-space-ready**: `LogWeightedL2_concrete := MeasureTheory.Lp ℂ 2 logWeightedMeasure` carries `InnerProductSpace ℂ`, `NormedAddCommGroup`, `CompleteSpace`, and `NormedSpace ℂ` from mathlib via `inferInstance` (commits `0164c3d`, `6a414f7`).
   - **All operator constituents proven measurable**: `inverseBranch_measurable`, `expandingMap_measurable` (via `Measurable.fract`), `weightFunction_measurable` (via `split_ifs` + `Measurable.ite`); plus `AEStronglyMeasurable` counterparts in the form mathlib's `MemLp` predicate consumes.
@@ -69,15 +69,26 @@ The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of
   - **Phase factor unit modulus proven**: `phaseFactorBase3_norm`, `phaseFactorBase3Conj_norm`, `phaseFactorGeneral_norm` (commit `2153bff`).
   - **Composed pointwise estimate proven**: `transferOperator_pointwise_norm_sq_bound` gives $\|(1/b) \sum_k \omega_k \cdot w_k(x) \cdot v_k\|^2 \le (1/b) \sum_k w_k(x)^2 \cdot \|v_k\|^2$ for any unit-modulus phase family.
   - **Structural bridge proven**: `transferOperatorAction_norm_sq_bound` lifts the abstract pointwise bound onto the concrete `transferOperatorAction.toFun` from `PF/TransferOperator.lean`.
+  - **Phase A integration ladder complete (commits `2c2a737` … `b8ee9a9`)**:
+    * `inverseBranch_measurePreserving` packages the affine pushforward into mathlib's `MeasurePreserving` API.
+    * `inverseBranch_set_lintegral_change_of_variables` gives the set-restricted per-branch CoV $\int_{y_k^{-1}(s)} h(y_k(x))\, dx = b \cdot \int_s h(u)\, du$.
+    * `unitInterval_eq_iUnion_Ico_partition` + `pairwiseDisjoint_Ico_partition` + `lintegral_unitInterval_eq_sum_Ico_partition` give the partition $\int_{[0,1)} g\, dy = \sum_k \int_{[k/b,(k+1)/b)} g$.
+    * `inverseBranch_preimage_Ico_image` + `branch_lintegral_unitInterval_to_Ico` specialise the per-branch CoV to the unit-interval source.
+    * `sum_branch_lintegral_unitInterval_eq_b_lintegral` (and its sum-inside variant `lintegral_sum_branch_compose_unitInterval_eq_b_lintegral`) give the summed per-branch identity $\sum_k \int_{[0,1)} h(y_k\, y)\, dy = b \cdot \int_{[0,1)} h$.
+    * `lintegral_weight_squared_branch_eq_jacobian_subst` lifts the Radon-Nikodym identity to an integrand congruence on $(0, 1)$.
+    * `lintegral_sum_weight_squared_branch_eq_b_lintegral_inv` and its $(1/b)$-normalized form `lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv` collapse the weighted per-branch sum to the log-weighted integral.
+    * `lintegral_transferOp_pointwise_bound_log_weighted` is the integrated ENNReal lift of the pointwise Cauchy-Schwarz bound, against $d\mu_{\log}$.
+    * `ofReal_one_div_b_sum_mul_ofReal_one_div_eq` + `lintegral_one_div_b_sum_weight_squared_vals_sq_eq_inv_mul_sum_lintegral` are the integrand-distribution lemmas bridging the pointwise bound's RHS to the form the $(1/b)$-normalized identity consumes.
+  - **Phase A capstone (commit `b8ee9a9`)**: `mayer_1991_lintegral_norm_sq_bound_log_weighted` — the operator-norm bound $\|T_b f\|^2 \le \|f\|^2$ in lintegral form against $d\mu_{\log}$, for unit-modulus phases. Hypothesis: `Measurable f`. The analytic foundation is now in source.
 
-**What remains for $\|T_b\| \le 1$**: integrating both sides of the pointwise bound against $d\mu_{\log}$ and applying mathlib's `MeasureTheory.MeasurePreserving.lintegral_comp` (or equivalent affine-change-of-variables formula) per branch to identify each per-branch integral with the restricted integral over $[k/b, (k+1)/b]$. This is concrete mathlib API work, not blocked on missing infrastructure.
+**What remains for $\|T_b\| \le 1$ in operator-norm form**: the structural swap `LogWeightedL2 := LogWeightedL2_concrete` itself, which cascades through `transferOperatorAction`'s pointwise definition (which uses `f.toFun` on the structure that doesn't exist on `Lp`). With the Mayer 1991 lintegral bound now in source, the `MemLp` proof for `transferOperatorAction`'s output is a direct corollary.
 
-**Attack in Lean 4 (revised 2026-05-01):**
-- The structural swap `LogWeightedL2 := LogWeightedL2_concrete` itself is the main remaining engineering: it cascades through `transferOperatorAction`'s pointwise definition (which uses `f.toFun` on the structure that doesn't exist on `Lp`).
-- The `MemLp` proof for `transferOperatorAction`'s output is now nearly assembled — combining the pointwise bound (above) with a single mathlib `MeasurePreserving.lintegral_comp` per branch.
+**Attack in Lean 4 (revised 2026-05-03):**
+- The structural swap `LogWeightedL2 := LogWeightedL2_concrete` is the main remaining engineering: it cascades through `transferOperatorAction`'s pointwise definition (which uses `f.toFun` on the structure that doesn't exist on `Lp`).
+- The `MemLp` proof for `transferOperatorAction`'s output is a direct corollary of `mayer_1991_lintegral_norm_sq_bound_log_weighted` (commit `b8ee9a9`): the lintegral bound shows the squared norm is finite, which is the `MemLp 2` predicate.
 - After the swap lands, `LogWeightedL2.inner` becomes mathlib's `@inner ℂ _ _` instance, and the three Phase-A hypothesis fields (`hsmul_left`, `hsmul_right`, `hpos_def`) consumed by `self_adjoint_real_eigenvalues` and the conditional RH theorem become free instance fields.
 
-**Effort estimate (revised):** ~1-2 weeks of focused Lean engineering for the structural swap and the mathlib integration plumbing. The mathematical content is now in source; the remaining work is engineering the swap cascade and the per-branch change-of-variables.
+**Effort estimate (revised 2026-05-03):** ~3-7 days of focused Lean engineering for the structural swap and the `MemLp` packaging. The mathematical content (including the operator-norm bound) is now fully in source; the remaining work is purely the swap cascade and the `MemLp` instance plumbing.
 
 ### 2.2 `turingTimeComplexity` — construct from TM2 stepping semantics
 
