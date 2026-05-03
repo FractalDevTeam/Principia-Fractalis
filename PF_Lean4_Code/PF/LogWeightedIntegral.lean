@@ -1484,4 +1484,65 @@ theorem setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv
   unfold logWeightDensity
   rw [if_neg (not_le.mpr hx.1), mul_comm]
 
+/-- The **Mayer 1991 operator-norm bound** restated against the
+    `logWeightedMeasure` directly:
+
+      $\int_{(0, 1)} \|T_b f(x)\|^2\, \mathrm{d}\mu_{\log}(x)
+        \le \int_{(0, 1)} \|f(u)\|^2\, \mathrm{d}\mu_{\log}(u)$.
+
+    Composes:
+      1. The volume-form Mayer bound `mayer_1991_lintegral_norm_sq_bound_log_weighted`
+         (commit b8ee9a9).
+      2. The `logWeightedMeasure ↔ volume · (1/x)` bridge
+         `setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv`
+         (commit 69b7054), applied to both sides.
+
+    Measurability of the LHS integrand
+    `fun x => ofReal(‖(1/b) Σ_k ω_k · w_k(x) · f(y_k(x))‖²)`
+    is established by chaining `weightFunction_measurable`,
+    `inverseBranch_measurable`, `Complex.continuous_ofReal.measurable`,
+    `Measurable.mul` / `Measurable.const_mul`, `Finset.measurable_sum`,
+    `Measurable.norm`, `Measurable.pow_const`, and
+    `ENNReal.continuous_ofReal.measurable`.
+
+    This is the form mathlib's `eLpNorm` consumes: once the L²
+    structural swap lands, this restated bound is one
+    `eLpNorm_eq_lintegral_rpow_enorm` away from `‖T_b f‖_{L²(μ_log)}^2
+    ≤ ‖f‖_{L²(μ_log)}^2`, which by `Real.sqrt`-monotonicity gives
+    `‖T_b‖ ≤ 1` — the Mayer 1991 contractivity. -/
+theorem mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f) :
+    ∫⁻ x in Set.Ioo (0:ℝ) 1,
+        ENNReal.ofReal (‖(1 / (b : ℂ)) *
+            ∑ k, phases k *
+              ((weightFunction b k x : ℂ) * f (inverseBranch b k x))‖^2)
+          ∂logWeightedMeasure
+      ≤ ∫⁻ u in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal (‖f u‖^2) ∂logWeightedMeasure := by
+  -- LHS integrand measurability (long chain)
+  have h_lhs_meas : Measurable (fun x : ℝ => ENNReal.ofReal
+      (‖(1 / (b : ℂ)) *
+          ∑ k, phases k *
+            ((weightFunction b k x : ℂ) * f (inverseBranch b k x))‖^2)) := by
+    refine ENNReal.continuous_ofReal.measurable.comp ?_
+    refine Measurable.pow_const ?_ 2
+    refine Measurable.norm ?_
+    refine Measurable.const_mul ?_ _
+    refine Finset.measurable_sum _ ?_
+    intro k _
+    refine Measurable.const_mul ?_ _
+    refine Measurable.mul ?_ ?_
+    · exact Complex.continuous_ofReal.measurable.comp (weightFunction_measurable b k)
+    · exact hf.comp (inverseBranch_measurable b k hb)
+  -- RHS integrand measurability
+  have h_rhs_meas : Measurable (fun u : ℝ => ENNReal.ofReal (‖f u‖^2)) :=
+    ENNReal.continuous_ofReal.measurable.comp (hf.norm.pow_const 2)
+  -- Apply bridges to convert both sides to volume · (1/x) form
+  rw [setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv _ h_lhs_meas,
+      setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv _ h_rhs_meas]
+  -- Goal is now exactly the volume-form Mayer bound (commit b8ee9a9)
+  exact mayer_1991_lintegral_norm_sq_bound_log_weighted b hb phases hphases f hf
+
 end PrincipiaTractalis
