@@ -1041,4 +1041,41 @@ theorem sum_branch_lintegral_unitInterval_eq_b_lintegral
   -- Step 3: Collapse the sum via the partition identity (in reverse).
   rw [← lintegral_unitInterval_eq_sum_Ico_partition b hb h]
 
+/-- The integrated form of the summed per-branch identity:
+
+      $\int_{[0, 1)} \Bigl(\sum_{k=0}^{b-1} h(y_k(y))\Bigr)\, \mathrm{dvolume}(y)
+        = b \cdot \int_{[0, 1)} h(y)\, \mathrm{dvolume}(y)$
+
+    Same content as `sum_branch_lintegral_unitInterval_eq_b_lintegral`
+    (commit d2c6487), but with the per-branch sum **inside** the integral.
+    This is the form the operator-norm chain consumes after distributing
+    the Radon-Nikodym factor $w_k(y)^2/y = b/(y+k)$ across the branches.
+
+    Composes:
+      1. `lintegral_finset_sum` (mathlib) — commutes Finset.sum with
+         lintegral, given measurability of each summand
+         `h ∘ inverseBranch b k` (via `Measurable.comp` on
+         `inverseBranch_measurable`, commit ab98579).
+      2. `sum_branch_lintegral_unitInterval_eq_b_lintegral` (commit d2c6487)
+         — the summed identity in its sum-outside form.
+
+    The `Measurable h` hypothesis will dissolve in the eventual
+    operator-norm proof, where `h` is `‖f‖²` for `f` in the L² space
+    (automatically AE-strongly-measurable). -/
+theorem lintegral_sum_branch_compose_unitInterval_eq_b_lintegral
+    (b : ℕ) (hb : b ≥ 1) (h : ℝ → ENNReal) (hh : Measurable h) :
+    ∫⁻ y in Set.Ico (0:ℝ) 1, (∑ k : Fin b, h (inverseBranch b k y)) ∂volume
+      = ENNReal.ofReal (b : ℝ) * ∫⁻ y in Set.Ico (0:ℝ) 1, h y ∂volume := by
+  -- Step 1: Commute Finset.sum with lintegral via linearity.
+  --   The cast through `Eq.trans` (rather than `rw`) avoids an eta-expansion
+  --   mismatch on the implicit `f` argument of `lintegral_finset_sum`.
+  have step1 : ∫⁻ y in Set.Ico (0:ℝ) 1,
+                  (∑ k : Fin b, h (inverseBranch b k y)) ∂volume
+             = ∑ k : Fin b,
+                  ∫⁻ y in Set.Ico (0:ℝ) 1, h (inverseBranch b k y) ∂volume :=
+    lintegral_finset_sum Finset.univ
+      (fun k _ => hh.comp (inverseBranch_measurable b k hb))
+  -- Step 2: Apply the summed identity (sum-outside form).
+  rw [step1, sum_branch_lintegral_unitInterval_eq_b_lintegral b hb h]
+
 end PrincipiaTractalis
