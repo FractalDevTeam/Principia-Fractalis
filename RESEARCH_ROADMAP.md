@@ -58,7 +58,7 @@ The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of
 - The measure $d\mu = dx/x$ on $(0, 1]$ has infinite total mass (log-divergent at 0). The Hilbert space $L^2((0,1], dx/x)$ consists of functions whose $|f|^2$ is integrable w.r.t. this measure.
 - For concrete $f, g \in L^2$, the inner product is $\langle f, g \rangle = \int_0^1 \overline{f(x)}\, g(x)\, dx/x$.
 
-**STATUS UPDATE 2026-05-03 (post-rev-3 follow-on chain extended through Phase A capstone).** Substantial Phase A foundations have been added to `PF/LogWeightedIntegral.lean` over a 49-commit chain (commits `ab98579` through `b8ee9a9`). The analytic content is now **complete in source**:
+**STATUS UPDATE 2026-05-03 (post-rev-3 follow-on chain extended through Mayer 1991 eLpNorm contractivity + MemLp preservation).** Substantial Phase A foundations have been added to `PF/LogWeightedIntegral.lean` over a 58-commit chain (commits `ab98579` through `2e026aa`). The analytic content is now **complete in source**, and the L²-structural-swap analytic prerequisites — function-level operator, measurability, eLpNorm contractivity, MemLp preservation — are also in source:
 
   - **Target type confirmed Hilbert-space-ready**: `LogWeightedL2_concrete := MeasureTheory.Lp ℂ 2 logWeightedMeasure` carries `InnerProductSpace ℂ`, `NormedAddCommGroup`, `CompleteSpace`, and `NormedSpace ℂ` from mathlib via `inferInstance` (commits `0164c3d`, `6a414f7`).
   - **All operator constituents proven measurable**: `inverseBranch_measurable`, `expandingMap_measurable` (via `Measurable.fract`), `weightFunction_measurable` (via `split_ifs` + `Measurable.ite`); plus `AEStronglyMeasurable` counterparts in the form mathlib's `MemLp` predicate consumes.
@@ -80,15 +80,21 @@ The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of
     * `lintegral_transferOp_pointwise_bound_log_weighted` is the integrated ENNReal lift of the pointwise Cauchy-Schwarz bound, against $d\mu_{\log}$.
     * `ofReal_one_div_b_sum_mul_ofReal_one_div_eq` + `lintegral_one_div_b_sum_weight_squared_vals_sq_eq_inv_mul_sum_lintegral` are the integrand-distribution lemmas bridging the pointwise bound's RHS to the form the $(1/b)$-normalized identity consumes.
   - **Phase A capstone (commit `b8ee9a9`)**: `mayer_1991_lintegral_norm_sq_bound_log_weighted` — the operator-norm bound $\|T_b f\|^2 \le \|f\|^2$ in lintegral form against $d\mu_{\log}$, for unit-modulus phases. Hypothesis: `Measurable f`. The analytic foundation is now in source.
+  - **L² structural-swap analytic prerequisites (commits `9429dd6` … `2e026aa`, six commits 2026-05-03)**:
+    * `transferOperatorAction_fn` — function-level transfer operator on `ℝ → ℂ` (parallel to the structural one), plus `transferOperatorAction_fn_measurable` (commit `9429dd6`).
+    * `transferOperatorAction_fn_lintegral_norm_sq_bound_logWeightedMeasure` — Mayer bound restated for the named operator (commit `e259e42`).
+    * `enorm_rpow_two_eq_ofReal_norm_sq` — pointwise bridge `‖x‖ₑ^(2:ℝ) = ENNReal.ofReal(‖x‖^2)` (commit `63daa64`).
+    * `transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure` — **Mayer 1991 contractivity in `eLpNorm` form**: $\|T_b f\|_{L^2(\mu_{\log}\!\restriction(0,1))} \le \|f\|_{L^2(\mu_{\log}\!\restriction(0,1))}$ (commit `de54564`).
+    * `transferOperatorAction_fn_memLp` — **MemLp preservation** corollary: the transfer operator preserves $L^2$ membership (commit `2e026aa`).
 
-**What remains for $\|T_b\| \le 1$ in operator-norm form**: the structural swap `LogWeightedL2 := LogWeightedL2_concrete` itself, which cascades through `transferOperatorAction`'s pointwise definition (which uses `f.toFun` on the structure that doesn't exist on `Lp`). With the Mayer 1991 lintegral bound now in source, the `MemLp` proof for `transferOperatorAction`'s output is a direct corollary.
+**What remains for $\|T_b\| \le 1$ as a `ContinuousLinearMap` on `Lp ℂ 2`:** the structural rename / cascade — replacing the placeholder `structure LogWeightedL2` with `LogWeightedL2_concrete := MeasureTheory.Lp ℂ 2 logWeightedMeasure`, and updating `transferOperatorAction`'s `f.toFun` callsites to use the function-level `transferOperatorAction_fn` lifted via `MemLp.toLp`. The `MemLp` corollary (commit `2e026aa`) makes this lift mechanical.
 
-**Attack in Lean 4 (revised 2026-05-03):**
-- The structural swap `LogWeightedL2 := LogWeightedL2_concrete` is the main remaining engineering: it cascades through `transferOperatorAction`'s pointwise definition (which uses `f.toFun` on the structure that doesn't exist on `Lp`).
-- The `MemLp` proof for `transferOperatorAction`'s output is a direct corollary of `mayer_1991_lintegral_norm_sq_bound_log_weighted` (commit `b8ee9a9`): the lintegral bound shows the squared norm is finite, which is the `MemLp 2` predicate.
-- After the swap lands, `LogWeightedL2.inner` becomes mathlib's `@inner ℂ _ _` instance, and the three Phase-A hypothesis fields (`hsmul_left`, `hsmul_right`, `hpos_def`) consumed by `self_adjoint_real_eigenvalues` and the conditional RH theorem become free instance fields.
+**Attack in Lean 4 (revised 2026-05-03 with eLpNorm contractivity in source):**
+- The analytic content is **complete**: function-level operator, measurability, eLpNorm contractivity, MemLp preservation are all in source.
+- The remaining engineering is the structural rename cascade through `PF/TransferOperator.lean`. The `T_b^{fn}` function-level operator (commit `9429dd6`) is the bridge: the structural `transferOperatorAction.toFun` rewrites in terms of `transferOperatorAction_fn` after the swap.
+- Once the swap lands, `LogWeightedL2.inner` becomes mathlib's `@inner ℂ _ _` instance, and the three Phase-A hypothesis fields (`hsmul_left`, `hsmul_right`, `hpos_def`) consumed by `self_adjoint_real_eigenvalues` and the conditional RH theorem become free instance fields. `T_b` itself becomes a `ContinuousLinearMap` with operator norm $\le 1$ via `MemLp.toLp` + `de54564`.
 
-**Effort estimate (revised 2026-05-03):** ~3-7 days of focused Lean engineering for the structural swap and the `MemLp` packaging. The mathematical content (including the operator-norm bound) is now fully in source; the remaining work is purely the swap cascade and the `MemLp` instance plumbing.
+**Effort estimate (revised 2026-05-03):** ~2-5 days of focused Lean engineering for the structural rename cascade. The mathematical content (operator-norm bound, MemLp preservation) is now fully in source; only mechanical Lean refactoring remains.
 
 ### 2.2 `turingTimeComplexity` — construct from TM2 stepping semantics
 

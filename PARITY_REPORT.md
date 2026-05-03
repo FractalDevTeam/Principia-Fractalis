@@ -1,20 +1,21 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-05-03, post-rev-3 follow-on chain extended through Phase A integration ladder + Mayer 1991 capstone (commits through `f13126b`)*
+*Last updated: 2026-05-03, post-rev-3 follow-on chain extended through Mayer 1991 contractivity in `eLpNorm` form + MemLp preservation (commits through `2e026aa`)*
 
-## Phase A integration ladder + Mayer 1991 capstone (2026-05-01 → 2026-05-03)
+## Phase A integration ladder + Mayer 1991 capstone + L² structural-swap analytic prerequisites (2026-05-01 → 2026-05-03)
 
-A 32-commit extension of the rev-3 follow-on chain (commits `2c2a737` through `f13126b`) completed the analytic foundation for the Mayer 1991 transfer-operator contractivity bound on $L^2(d\mu_{\log})$. Headline numbers unchanged on the Lean side; Coq side untouched.
+A 38-commit extension of the rev-3 follow-on chain (commits `2c2a737` through `2e026aa`) completed the analytic foundation for the Mayer 1991 transfer-operator contractivity bound on $L^2(d\mu_{\log})$ AND the L²-structural-swap analytic prerequisites. Headline numbers unchanged on the Lean side; Coq side untouched.
 
 - **Lean 4 canonical**: 8 axioms (unchanged), **5488 jobs clean**, 0 sorries.
 - **Phase A integration ladder complete in `PF/LogWeightedIntegral.lean`** (eleven named lintegral identities, commits `2c2a737`...`8038a01`): per-branch CoV (set-restricted, unit-interval-specialized), geometric and integration partition of $[0, 1)$, summed per-branch identity (sum-outside and sum-inside), Radon-Nikodym integrand substitution, combined Mayer chain identity, $(1/b)$-normalized form, integrated lift of the pointwise transfer-operator bound, and integrand-distribution lemmas.
 - **Phase A capstone** (commit `b8ee9a9`): `mayer_1991_lintegral_norm_sq_bound_log_weighted` — the operator-norm bound $\|T_b f\|^2 \le \|f\|^2$ in lintegral form against $d\mu_{\log}$, for unit-modulus phases. Hypothesis: `Measurable f`. The analytic foundation of T₃-style operator self-adjointness is now fully in source.
 - **logWeightedMeasure bridge + restatement** (commits `69b7054`, `f13126b`): bridge `setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv` and the restated Mayer bound `mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure` — the form mathlib's `eLpNorm` consumes for the operator-norm statement.
-- **Coq side unchanged.** Lean → Coq parity work (porting the rev-3 follow-on chain plus the 32-commit Phase A integration ladder) remains on the future-work list.
+- **L² structural-swap analytic prerequisites** (commits `9429dd6` … `2e026aa`, six commits 2026-05-03): `transferOperatorAction_fn` (function-level operator on `ℝ → ℂ`) + measurability (commit `9429dd6`); restated Mayer bound under the named operator (commit `e259e42`); enorm-ofReal pointwise bridge `enorm_rpow_two_eq_ofReal_norm_sq` (commit `63daa64`); **Mayer 1991 contractivity in `eLpNorm` form** $\|T_b\| \le 1$ on $L^2(\mu_{\log}\!\restriction(0,1))$ (commit `de54564`); **MemLp preservation corollary** (commit `2e026aa`).
+- **Coq side unchanged.** Lean → Coq parity work (porting the rev-3 follow-on chain plus the 38-commit Phase A + structural-prep extension) remains on the future-work list.
 
-The remaining work for `LogWeightedL2.inner` elimination is now purely the **structural swap** `LogWeightedL2 := LogWeightedL2_concrete` cascading through `transferOperatorAction`'s `f.toFun` callsites; the `MemLp` proof is a direct corollary of `mayer_1991_lintegral_norm_sq_bound_log_weighted`. Effort estimate revised: ~3-7 days of focused Lean engineering (was 1-2 weeks per RESEARCH_ROADMAP §2.1).
+The remaining work for `LogWeightedL2.inner` elimination is now purely the **structural rename cascade** through `PF/TransferOperator.lean` — the analytic content (eLpNorm contractivity, MemLp preservation) is fully in source. Effort estimate revised: ~2-5 days of focused Lean engineering (was 3-7 days per RESEARCH_ROADMAP §2.1).
 
-See `principia_t3_lean_followon_2026-04-28.md` (session memory) for full per-commit detail of all 52 commits.
+See `principia_t3_lean_followon_2026-04-28.md` (session memory) for full per-commit detail of all 58 commits.
 
 ## Post-rev-3 follow-on (2026-04-29)
 
