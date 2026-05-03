@@ -1215,4 +1215,44 @@ theorem lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv
   rw [lintegral_sum_weight_squared_branch_eq_b_lintegral_inv b hb h,
       ← mul_assoc, ENNReal.inv_mul_cancel hne_zero hne_top, one_mul]
 
+/-- The integrated form of the pointwise transfer-operator bound,
+    against the log-weighted density `1/x` over $(0, 1)$:
+
+      $\int_{(0, 1)} \bigl\|\tfrac{1}{b} \sum_k \omega_k\, w_k(x)\, f(y_k(x))\bigr\|^2 \cdot \frac{1}{x}\, \mathrm{dvolume}(x)
+        \le \int_{(0, 1)} \tfrac{1}{b} \sum_k w_k(x)^2 \cdot |f(y_k(x))|^2 \cdot \frac{1}{x}\, \mathrm{dvolume}(x)$.
+
+    This is the **integrated form** of the Cauchy-Schwarz pointwise
+    bound on the transfer operator action. Lifts
+    `transferOperator_pointwise_norm_sq_bound` (commit 6c4ea9c) from
+    real to `ENNReal` via `ENNReal.ofReal_le_ofReal`, then applies
+    monotonicity of multiplication by `ofReal (1/x)` followed by
+    `lintegral_mono`.
+
+    Combined with
+    `lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv`
+    (commit a3960ce), the RHS becomes (after distributing `(1/x)`
+    inside the sum and recognizing the `(w_k x)²/x` factor)
+    exactly $\int_{(0,1)} \frac{1}{u}\, |f(u)|^2\, \mathrm{dvolume}(u) = \|f\|^2$
+    in the log-weighted norm. The remaining work is the algebraic
+    distribution of the `(1/x)` factor inside the sum on the RHS. -/
+theorem lintegral_transferOp_pointwise_bound_log_weighted
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) :
+    ∫⁻ x in Set.Ioo (0:ℝ) 1,
+        ENNReal.ofReal (‖(1 / (b : ℂ)) *
+            ∑ k, phases k *
+              ((weightFunction b k x : ℂ) * f (inverseBranch b k x))‖^2) *
+          ENNReal.ofReal (1 / x) ∂volume
+      ≤ ∫⁻ x in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal ((1 / (b : ℝ)) *
+              ∑ k, (weightFunction b k x)^2 * ‖f (inverseBranch b k x)‖^2) *
+            ENNReal.ofReal (1 / x) ∂volume := by
+  apply lintegral_mono
+  intro x
+  apply mul_le_mul_right'
+  exact ENNReal.ofReal_le_ofReal
+    (transferOperator_pointwise_norm_sq_bound b hb phases hphases x
+      (fun k => f (inverseBranch b k x)))
+
 end PrincipiaTractalis
