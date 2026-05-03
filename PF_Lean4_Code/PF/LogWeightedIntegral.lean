@@ -917,4 +917,44 @@ theorem pairwiseDisjoint_Ico_partition (b : ℕ) (hb : (0 : ℝ) < (b : ℝ)) :
     rw [min_eq_right hk_succ_le, max_eq_left hk_le]
     exact div_le_div_of_nonneg_right h1 hb.le
 
+/-- The lintegral partition identity for the unit interval:
+
+      $\int_{[0, 1)} g(y)\, \mathrm{dvolume}
+        = \sum_{k=0}^{b-1} \int_{[k/b,\, (k+1)/b)} g(y)\, \mathrm{dvolume}$
+
+    for any (possibly non-measurable) integrand $g : \mathbb{R} \to \mathbb{R}_{\ge 0}^\infty$
+    and any $b \ge 1$.
+
+    Composes:
+      1. `unitInterval_eq_iUnion_Ico_partition` (commit 76f8246) — the
+         set equality $[0, 1) = \bigcup_k [k/b, (k+1)/b)$.
+      2. `pairwiseDisjoint_Ico_partition` (commit d2b04ae) — the
+         pairwise disjointness of the family.
+      3. `lintegral_iUnion` (mathlib) — converts the integral over the
+         union to a tsum of integrals over the parts.
+      4. `tsum_fintype` (mathlib) — converts the tsum over the
+         finite type `Fin b` to a `Finset.sum`.
+
+    This is the **partition identity** at the integration level. Combined
+    with `inverseBranch_set_lintegral_change_of_variables` (commit
+    28a669a) and the Radon-Nikodym identity `weight_squared_eq_jacobian`
+    (commit 257726c), this completes the analytic ingredients to
+    integrate the pointwise transfer-operator bound and obtain
+    $\|T_b f\|_2 \le \|f\|_2$. -/
+theorem lintegral_unitInterval_eq_sum_Ico_partition
+    (b : ℕ) (hb : b ≥ 1) (g : ℝ → ENNReal) :
+    ∫⁻ y in Set.Ico (0:ℝ) 1, g y ∂volume
+      = ∑ k : Fin b, ∫⁻ y in Set.Ico ((k : ℝ) / (b : ℝ)) (((k : ℝ) + 1) / (b : ℝ)),
+                       g y ∂volume := by
+  have hb_pos : (0 : ℝ) < (b : ℝ) := by
+    have : 0 < b := Nat.lt_of_lt_of_le Nat.zero_lt_one hb
+    exact_mod_cast this
+  -- Step 1: Rewrite [0,1) as the iUnion of per-branch images.
+  rw [unitInterval_eq_iUnion_Ico_partition b hb]
+  -- Step 2: Apply lintegral_iUnion (measurable + pairwise disjoint).
+  rw [lintegral_iUnion (fun _ => measurableSet_Ico)
+        (pairwiseDisjoint_Ico_partition b hb_pos) g]
+  -- Step 3: tsum on Fin b (a Fintype) collapses to a Finset.sum.
+  exact tsum_fintype _
+
 end PrincipiaTractalis
