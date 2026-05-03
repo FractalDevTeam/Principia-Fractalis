@@ -1180,4 +1180,39 @@ theorem lintegral_sum_weight_squared_branch_eq_b_lintegral_inv
           congr 1
           exact setLIntegral_congr (Filter.EventuallyEq.symm Ioo_ae_eq_Ico)
 
+/-- The $(1/b)$-normalized combined Mayer-1991 identity:
+
+      $\frac{1}{b} \cdot \sum_{k=0}^{b-1} \int_{(0, 1)} \frac{w_k(y)^2}{y}\,
+            h(y_k(y))\, \mathrm{dvolume}(y)
+        = \int_{(0, 1)} \frac{1}{u}\, h(u)\, \mathrm{dvolume}(u)$
+
+    The form that directly matches the $(1/b)$ prefactor in the
+    pointwise bound `transferOperator_pointwise_norm_sq_bound`
+    (commit 6c4ea9c). Multiplies both sides of
+    `lintegral_sum_weight_squared_branch_eq_b_lintegral_inv`
+    (commit ab41c4e) by $(\mathrm{ofReal}\, b)^{-1}$ and uses
+    `ENNReal.inv_mul_cancel` ($b > 0$, $b < \infty$) to cancel.
+
+    With $h := |f|^2$, the LHS is exactly the integrated form of the
+    pointwise bound's right-hand side against $d\mu_{\log} = (1/y)\,dy$,
+    and the RHS is $\|f\|^2$ in the log-weighted norm. The remaining
+    work for $\|T_b f\|_2 \le \|f\|_2$ is just lifting the real
+    pointwise inequality to ENNReal and integrating. -/
+theorem lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv
+    (b : ℕ) (hb : b ≥ 1) (h : ℝ → ENNReal) :
+    (ENNReal.ofReal (b : ℝ))⁻¹ *
+        (∑ k : Fin b, ∫⁻ y in Set.Ioo (0:ℝ) 1,
+            ENNReal.ofReal ((weightFunction b k y)^2 / y) *
+              h (inverseBranch b k y) ∂volume)
+      = ∫⁻ u in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal (1 / u) * h u ∂volume := by
+  have hb_real_pos : (0:ℝ) < (b:ℝ) := by
+    have : 0 < b := Nat.lt_of_lt_of_le Nat.zero_lt_one hb
+    exact_mod_cast this
+  have hne_zero : ENNReal.ofReal (b : ℝ) ≠ 0 :=
+    (ENNReal.ofReal_pos.mpr hb_real_pos).ne'
+  have hne_top : ENNReal.ofReal (b : ℝ) ≠ ⊤ := ENNReal.ofReal_ne_top
+  rw [lintegral_sum_weight_squared_branch_eq_b_lintegral_inv b hb h,
+      ← mul_assoc, ENNReal.inv_mul_cancel hne_zero hne_top, one_mul]
+
 end PrincipiaTractalis
