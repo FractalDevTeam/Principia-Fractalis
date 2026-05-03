@@ -1078,4 +1078,50 @@ theorem lintegral_sum_branch_compose_unitInterval_eq_b_lintegral
   -- Step 2: Apply the summed identity (sum-outside form).
   rw [step1, sum_branch_lintegral_unitInterval_eq_b_lintegral b hb h]
 
+/-- The Radon-Nikodym integrand identity at the lintegral level: on the
+    open unit interval (0, 1), the weight-squared-over-$y$ integrand
+    against $h \circ y_k$ equals the simpler $1/y_k(y)$ integrand
+    against $h \circ y_k$.
+
+      $\int_{(0, 1)} \frac{w_k(y)^2}{y}\, h(y_k(y))\, \mathrm{dvolume}(y)
+        = \int_{(0, 1)} \frac{1}{y_k(y)}\, h(y_k(y))\, \mathrm{dvolume}(y)$.
+
+    Proof composes two pointwise facts on $(0, 1)$:
+      1. `weight_squared_eq_jacobian` (commit 257726c) — the
+         Radon-Nikodym identity $w_k(y)^2/y = b/(y + k)$ on
+         $\{y > 0\} \cap \{y + k > 0\}$ (both hold for $y \in (0, 1)$,
+         $k \in \mathrm{Fin}\, b$, since $k \ge 0$).
+      2. The algebraic identity $b/(y + k) = 1/y_k(y)$ since
+         $y_k(y) = (y + k)/b$, via `one_div_div` (mathlib).
+
+    Lift to `ENNReal` via `setLIntegral_congr_fun` on `measurableSet_Ioo`.
+
+    This is the **integrand-level Radon-Nikodym substitution** in the
+    operator-norm chain: it lets the per-branch contribution of
+    `‖T_b f‖²` against `dμ_log = (1/y) dy` be rewritten in the form
+    `(1/y_k(y)) · h(y_k(y))`, ready for the summed per-branch identity
+    (commit 88d7baf) once we recognize the integrand as `g(y_k(y))`
+    with `g(u) = (1/u) · h(u)`. -/
+theorem lintegral_weight_squared_branch_eq_jacobian_subst
+    (b : ℕ) (k : Fin b) (h : ℝ → ENNReal) :
+    ∫⁻ y in Set.Ioo (0:ℝ) 1,
+        ENNReal.ofReal ((weightFunction b k y)^2 / y) *
+          h (inverseBranch b k y) ∂volume
+      = ∫⁻ y in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal (1 / inverseBranch b k y) *
+            h (inverseBranch b k y) ∂volume := by
+  apply setLIntegral_congr_fun measurableSet_Ioo
+  intro y hy
+  have hy_pos : y > 0 := hy.1
+  have hyk_pos : y + (k.val : ℝ) > 0 := by
+    have : (0 : ℝ) ≤ (k.val : ℝ) := Nat.cast_nonneg _
+    linarith
+  have key : (weightFunction b k y)^2 / y = 1 / inverseBranch b k y := by
+    rw [weight_squared_eq_jacobian b k y hy_pos hyk_pos]
+    unfold inverseBranch
+    rw [one_div_div]
+  show ENNReal.ofReal ((weightFunction b k y)^2 / y) * h (inverseBranch b k y)
+     = ENNReal.ofReal (1 / inverseBranch b k y) * h (inverseBranch b k y)
+  rw [key]
+
 end PrincipiaTractalis
