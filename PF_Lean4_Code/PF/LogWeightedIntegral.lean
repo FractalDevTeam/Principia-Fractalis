@@ -1623,4 +1623,19 @@ theorem transferOperatorAction_fn_lintegral_norm_sq_bound_logWeightedMeasure
   exact mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure
     b hb phases hphases f hf
 
+/-- Pointwise bridge: `‖x‖ₑ^(2:ℝ)` (enorm raised to the real exponent
+    2, in `ℝ≥0∞`) equals `ENNReal.ofReal(‖x‖^2)` for any element of a
+    normed group.
+
+    Standard mathlib chain: `ENNReal.rpow_two` reduces `x^(2:ℝ)` to
+    `x * x`; `ofReal_norm_eq_enorm` lifts the norm to ofReal-form;
+    `ENNReal.ofReal_mul` combines the two factors. This bridge is
+    the missing link between the volume-form Mayer bound (which is
+    stated in `ENNReal.ofReal(‖·‖²)` form) and mathlib's `eLpNorm`
+    (which uses `‖·‖ₑ^(p.toReal)` form). -/
+theorem enorm_rpow_two_eq_ofReal_norm_sq (x : ℂ) :
+    ‖x‖ₑ ^ (2 : ℝ) = ENNReal.ofReal (‖x‖ ^ 2) := by
+  rw [ENNReal.rpow_two, sq, ← ofReal_norm_eq_enorm,
+      ← ENNReal.ofReal_mul (norm_nonneg _), ← sq]
+
 end PrincipiaTractalis
