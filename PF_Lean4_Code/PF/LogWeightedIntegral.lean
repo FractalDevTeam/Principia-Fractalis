@@ -29,6 +29,7 @@ import PF.TransferOperator
 namespace PrincipiaTractalis
 
 open MeasureTheory
+open scoped Function  -- for the `on` notation in `Pairwise (Disjoint on _)`
 
 /-- The log-weighted measure on the real line: dμ = (1/x) · dx, with
     dμ({x ≤ 0}) = 0 by the piecewise definition (the physical domain
@@ -878,5 +879,42 @@ theorem unitInterval_eq_iUnion_Ico_partition (b : ℕ) (hb : b ≥ 1) :
       have : k.val + 1 ≤ b := k.isLt
       exact_mod_cast this
     exact ⟨by linarith, by linarith⟩
+
+/-- The per-branch image intervals $[k/b, (k+1)/b)$ are pairwise disjoint
+    over $k \in \mathrm{Fin}\, b$.
+
+    For distinct $k, k' \in \mathrm{Fin}\, b$, WLOG $k < k'$ as naturals,
+    so $k + 1 \le k'$, hence $(k+1)/b \le k'/b$ (with $b > 0$). The two
+    intervals $[k/b, (k+1)/b)$ and $[k'/b, (k'+1)/b)$ are then disjoint
+    via mathlib's `Set.Ico_disjoint_Ico` criterion
+    `min a₂ b₂ ≤ max a₁ b₁`.
+
+    Combined with `unitInterval_eq_iUnion_Ico_partition` (this commit
+    chain), this is the data `lintegral_iUnion` consumes to give the
+    integration partition $\int_{[0,1)} = \sum_k \int_{[k/b, (k+1)/b)}$. -/
+theorem pairwiseDisjoint_Ico_partition (b : ℕ) (hb : (0 : ℝ) < (b : ℝ)) :
+    Pairwise (Disjoint on (fun k : Fin b =>
+        Set.Ico ((k : ℝ) / (b : ℝ)) (((k : ℝ) + 1) / (b : ℝ)))) := by
+  intro k k' hkk'
+  simp only [Function.onFun]
+  rw [Set.Ico_disjoint_Ico]
+  have hval_ne : k.val ≠ k'.val := fun h => hkk' (Fin.ext h)
+  rcases lt_or_gt_of_ne hval_ne with h | h
+  · -- k.val < k'.val
+    have h1 : ((k.val : ℝ) + 1) ≤ (k'.val : ℝ) := by exact_mod_cast h
+    have hk_succ_le : ((k.val : ℝ) + 1) / (b : ℝ) ≤ ((k'.val : ℝ) + 1) / (b : ℝ) :=
+      div_le_div_of_nonneg_right (by linarith) hb.le
+    have hk_le : ((k.val : ℝ)) / (b : ℝ) ≤ ((k'.val : ℝ)) / (b : ℝ) :=
+      div_le_div_of_nonneg_right (by exact_mod_cast Nat.le_of_lt h) hb.le
+    rw [min_eq_left hk_succ_le, max_eq_right hk_le]
+    exact div_le_div_of_nonneg_right h1 hb.le
+  · -- k.val > k'.val: symmetric
+    have h1 : ((k'.val : ℝ) + 1) ≤ (k.val : ℝ) := by exact_mod_cast h
+    have hk_succ_le : ((k'.val : ℝ) + 1) / (b : ℝ) ≤ ((k.val : ℝ) + 1) / (b : ℝ) :=
+      div_le_div_of_nonneg_right (by linarith) hb.le
+    have hk_le : ((k'.val : ℝ)) / (b : ℝ) ≤ ((k.val : ℝ)) / (b : ℝ) :=
+      div_le_div_of_nonneg_right (by exact_mod_cast Nat.le_of_lt h) hb.le
+    rw [min_eq_right hk_succ_le, max_eq_left hk_le]
+    exact div_le_div_of_nonneg_right h1 hb.le
 
 end PrincipiaTractalis
