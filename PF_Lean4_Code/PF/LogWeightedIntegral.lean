@@ -1372,4 +1372,69 @@ theorem lintegral_one_div_b_sum_weight_squared_vals_sq_eq_inv_mul_sum_lintegral
   · exact ENNReal.continuous_ofReal.measurable.comp
       ((hf.comp (inverseBranch_measurable b k hb)).norm.pow_const 2)
 
+/-- **Mayer 1991 operator-norm bound** in lintegral form, against the
+    log-weighted measure $d\mu_{\log} = (1/x)\, dx$ on $(0, 1)$:
+
+      $\int_{(0, 1)} \bigl\|\tfrac{1}{b} \sum_k \omega_k\, w_k(x)\, f(y_k(x))\bigr\|^2 \cdot \frac{1}{x}\, \mathrm{dvolume}(x)
+        \le \int_{(0, 1)} \|f(u)\|^2 \cdot \frac{1}{u}\, \mathrm{dvolume}(u)$.
+
+    This is the integrated form of $\|T_b f\|_2^2 \le \|f\|_2^2$ for
+    the transfer operator
+    $T_b f(x) := \tfrac{1}{b} \sum_k \omega_k \cdot w_k(x) \cdot f(y_k(x))$
+    with unit-modulus phases $\|\omega_k\| = 1$.
+
+    **Capstone of the Phase A analytic chain**, composing four steps:
+      1. `lintegral_transferOp_pointwise_bound_log_weighted` (commit dc8cb14)
+         — the integrated pointwise Cauchy-Schwarz bound:
+         $\int_{(0,1)} \|T_b f\|^2 \cdot (1/x) \le \int_{(0,1)} \tfrac{1}{b} \sum_k w_k^2 \|f \circ y_k\|^2 \cdot (1/x)$.
+      2. `lintegral_one_div_b_sum_weight_squared_vals_sq_eq_inv_mul_sum_lintegral`
+         (commit 8038a01) — rewrites the RHS as
+         $(\mathrm{ofReal}\, b)^{-1} \cdot \sum_k \int_{(0,1)} \mathrm{ofReal}(w_k^2/x) \cdot \mathrm{ofReal}(\|f \circ y_k\|^2)$.
+      3. `lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv`
+         (commit a3960ce) instantiated with $h(u) := \mathrm{ofReal}(\|f(u)\|^2)$
+         — collapses to $\int_{(0,1)} \mathrm{ofReal}(1/u) \cdot \mathrm{ofReal}(\|f(u)\|^2)$.
+      4. `setLIntegral_congr_fun` with `mul_comm` reorders the integrand
+         to match the standard log-weighted-norm form.
+
+    With the structural `transferOperatorAction` (commit ed0efbd) and
+    once Phase A swaps `LogWeightedL2` for `MeasureTheory.Lp ℂ 2 logWeightedMeasure`,
+    this lintegral form lifts directly to the operator-norm statement
+    `‖T_b‖ ≤ 1`, retiring the `T3_self_adjoint_conj` axiom and closing
+    the spectral framework's analytic foundation. -/
+theorem mayer_1991_lintegral_norm_sq_bound_log_weighted
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f) :
+    ∫⁻ x in Set.Ioo (0:ℝ) 1,
+        ENNReal.ofReal (‖(1 / (b : ℂ)) *
+            ∑ k, phases k *
+              ((weightFunction b k x : ℂ) * f (inverseBranch b k x))‖^2) *
+          ENNReal.ofReal (1 / x) ∂volume
+      ≤ ∫⁻ u in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal (‖f u‖^2) * ENNReal.ofReal (1 / u) ∂volume := by
+  calc ∫⁻ x in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal (‖(1 / (b : ℂ)) *
+              ∑ k, phases k *
+                ((weightFunction b k x : ℂ) * f (inverseBranch b k x))‖^2) *
+            ENNReal.ofReal (1 / x) ∂volume
+      ≤ ∫⁻ x in Set.Ioo (0:ℝ) 1,
+            ENNReal.ofReal ((1 / (b : ℝ)) *
+                ∑ k, (weightFunction b k x)^2 * ‖f (inverseBranch b k x)‖^2) *
+              ENNReal.ofReal (1 / x) ∂volume :=
+        lintegral_transferOp_pointwise_bound_log_weighted b hb phases hphases f
+    _ = (ENNReal.ofReal (b : ℝ))⁻¹ *
+          ∑ k : Fin b, ∫⁻ x in Set.Ioo (0:ℝ) 1,
+              ENNReal.ofReal ((weightFunction b k x)^2 / x) *
+                ENNReal.ofReal (‖f (inverseBranch b k x)‖^2) ∂volume :=
+        lintegral_one_div_b_sum_weight_squared_vals_sq_eq_inv_mul_sum_lintegral b hb f hf
+    _ = ∫⁻ u in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal (1 / u) * ENNReal.ofReal (‖f u‖^2) ∂volume :=
+        lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv b hb
+          (fun u => ENNReal.ofReal (‖f u‖^2))
+    _ = ∫⁻ u in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal (‖f u‖^2) * ENNReal.ofReal (1 / u) ∂volume := by
+        apply setLIntegral_congr_fun measurableSet_Ioo
+        intro u _
+        exact mul_comm _ _
+
 end PrincipiaTractalis
