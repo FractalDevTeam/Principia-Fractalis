@@ -1683,4 +1683,34 @@ theorem transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure
   exact transferOperatorAction_fn_lintegral_norm_sq_bound_logWeightedMeasure
     b hb phases hphases f hf
 
+/-- The transfer operator preserves $L^2$ membership against
+    `logWeightedMeasure` over $(0, 1)$:
+
+      $f \in L^2(\mu_{\log}\!\restriction(0,1))
+        \Rightarrow T_b^{fn}\, f \in L^2(\mu_{\log}\!\restriction(0,1))$.
+
+    Direct corollary of the eLpNorm contractivity bound (commit
+    de54564) via `MemLp = AEStronglyMeasurable + eLpNorm_lt_top`:
+      * AEStronglyMeasurable: from `Measurable T_b^{fn} f` (commit
+        9429dd6) via `Measurable.aestronglyMeasurable`.
+      * eLpNorm < ⊤: `eLpNorm (T_b^{fn} f) 2 μ ≤ eLpNorm f 2 μ < ⊤`
+        via `lt_of_le_of_lt` on de54564 + `hfMemLp.eLpNorm_lt_top`.
+
+    This is the **MemLp corollary** of Mayer 1991 contractivity. With
+    this, `T_b^{fn}` lifts to a well-defined map
+    `Lp ℂ 2 (μ_log.restrict (0,1)) → Lp ℂ 2 (μ_log.restrict (0,1))`
+    via mathlib's `MemLp.toLp` once the structural swap lands. -/
+theorem transferOperatorAction_fn_memLp
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f)
+    (hfMemLp : MemLp f 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    MemLp (transferOperatorAction_fn b phases f) 2
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+  ⟨(transferOperatorAction_fn_measurable b hb phases f hf).aestronglyMeasurable,
+   lt_of_le_of_lt
+     (transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure
+       b hb phases hphases f hf)
+     hfMemLp.eLpNorm_lt_top⟩
+
 end PrincipiaTractalis
