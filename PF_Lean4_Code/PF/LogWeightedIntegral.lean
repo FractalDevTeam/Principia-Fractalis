@@ -1600,4 +1600,27 @@ theorem transferOperatorAction_fn_measurable (b : ℕ) (hb : b ≥ 1)
   · exact Complex.continuous_ofReal.measurable.comp (weightFunction_measurable b k)
   · exact hf.comp (inverseBranch_measurable b k hb)
 
+/-- The Mayer 1991 bound restated in terms of the named function-level
+    operator `transferOperatorAction_fn`:
+
+      $\int_{(0, 1)} \|T_b^{fn} f(x)\|^2\, \mathrm{d}\mu_{\log}(x)
+        \le \int_{(0, 1)} \|f(u)\|^2\, \mathrm{d}\mu_{\log}(u)$.
+
+    Pure restatement of `mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure`
+    (commit f13126b) under the name `transferOperatorAction_fn`. The
+    `unfold` reduces to the spelled-out formula matching the Mayer
+    bound's LHS. -/
+theorem transferOperatorAction_fn_lintegral_norm_sq_bound_logWeightedMeasure
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f) :
+    ∫⁻ x in Set.Ioo (0:ℝ) 1,
+        ENNReal.ofReal (‖transferOperatorAction_fn b phases f x‖^2)
+          ∂logWeightedMeasure
+      ≤ ∫⁻ u in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal (‖f u‖^2) ∂logWeightedMeasure := by
+  unfold transferOperatorAction_fn
+  exact mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure
+    b hb phases hphases f hf
+
 end PrincipiaTractalis
