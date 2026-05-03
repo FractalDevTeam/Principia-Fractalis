@@ -1437,4 +1437,51 @@ theorem mayer_1991_lintegral_norm_sq_bound_log_weighted
         intro u _
         exact mul_comm _ _
 
+/-- The log-weighted density `logWeightDensity` is Borel measurable.
+
+    Mathematically: $\mathrm{logWeightDensity}(x) = \mathbf{1}_{x > 0} \cdot \mathrm{ofReal}(1/x)$,
+    a measurable function on $\mathbb{R}$ via `Measurable.ite` over the
+    measurable set $\{x \le 0\}$, with branches `measurable_const` and
+    `ENNReal.continuous_ofReal.measurable.comp (measurable_const.div measurable_id)`. -/
+theorem logWeightDensity_measurable : Measurable logWeightDensity := by
+  unfold logWeightDensity
+  refine Measurable.ite measurableSet_Iic measurable_const ?_
+  exact ENNReal.continuous_ofReal.measurable.comp
+    (measurable_const.div measurable_id)
+
+/-- **Bridge lemma**: integrating an `ENNReal`-valued integrand against
+    `logWeightedMeasure` on $(0, 1)$ equals integrating it against
+    `volume` with an explicit $\mathrm{ofReal}(1/x)$ factor:
+
+      $\int_{(0, 1)} g(x)\, \mathrm{d}\mu_{\log}(x)
+        = \int_{(0, 1)} g(x) \cdot \mathrm{ofReal}(1/x)\, \mathrm{dvolume}(x)$.
+
+    Composes:
+      1. `setLIntegral_withDensity_eq_setLIntegral_mul` (mathlib) on the
+         density `logWeightDensity` (whose measurability is established
+         in `logWeightDensity_measurable`) and the user's integrand `g`
+         (`Measurable g` is a hypothesis).
+      2. `setLIntegral_congr_fun` on `measurableSet_Ioo` rewrites the
+         resulting `logWeightDensity x * g x` integrand to
+         `g x * ofReal(1/x)` using $x > 0$ from $x \in (0, 1)$ to fire
+         the else-branch of the if-then-else and `mul_comm` to swap factors.
+
+    With this bridge, the Mayer 1991 lintegral bound (commit b8ee9a9)
+    can be restated as $\int_{(0,1)} \|T_b f\|^2\, \mathrm{d}\mu_{\log}
+    \le \int_{(0,1)} \|f\|^2\, \mathrm{d}\mu_{\log}$ — the form mathlib's
+    `eLpNorm` consumes for the operator-norm statement once the L²
+    structural swap lands. -/
+theorem setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv
+    (g : ℝ → ENNReal) (hg : Measurable g) :
+    ∫⁻ x in Set.Ioo (0:ℝ) 1, g x ∂logWeightedMeasure
+      = ∫⁻ x in Set.Ioo (0:ℝ) 1, g x * ENNReal.ofReal (1 / x) ∂volume := by
+  rw [logWeightedMeasure_def]
+  rw [setLIntegral_withDensity_eq_setLIntegral_mul _
+        logWeightDensity_measurable hg measurableSet_Ioo]
+  apply setLIntegral_congr_fun measurableSet_Ioo
+  intro x hx
+  show logWeightDensity x * g x = g x * ENNReal.ofReal (1 / x)
+  unfold logWeightDensity
+  rw [if_neg (not_le.mpr hx.1), mul_comm]
+
 end PrincipiaTractalis
