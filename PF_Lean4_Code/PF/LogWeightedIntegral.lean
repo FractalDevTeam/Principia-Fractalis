@@ -1124,4 +1124,60 @@ theorem lintegral_weight_squared_branch_eq_jacobian_subst
      = ENNReal.ofReal (1 / inverseBranch b k y) * h (inverseBranch b k y)
   rw [key]
 
+/-- The combined Mayer-1991 chain identity: the weighted per-branch sum
+    of integrals reduces to `b` times the log-weighted integral of `h`.
+
+      $\sum_{k=0}^{b-1} \int_{(0, 1)} \frac{w_k(y)^2}{y}\, h(y_k(y))\, \mathrm{dvolume}(y)
+        = b \cdot \int_{(0, 1)} \frac{1}{u}\, h(u)\, \mathrm{dvolume}(u)$
+
+    Composes four facts:
+      1. `lintegral_weight_squared_branch_eq_jacobian_subst` (commit 0befd95)
+         — applied per-summand under `Finset.sum_congr` to substitute
+         `(w_k y)²/y · h(y_k y) → (1/y_k y) · h(y_k y)`.
+      2. `setLIntegral_congr` with `Ioo_ae_eq_Ico` (mathlib) — bridges
+         each summand from $(0, 1)$ to $[0, 1)$ (the partition's domain).
+      3. `sum_branch_lintegral_unitInterval_eq_b_lintegral` (commit d2c6487)
+         — the summed per-branch identity on $[0, 1)$, applied with
+         `g(u) := \mathrm{ofReal}(1/u) \cdot h(u)`. Collapses the sum
+         to $b \cdot \int_{[0,1)} g$.
+      4. `setLIntegral_congr` with `Ioo_ae_eq_Ico.symm` — bridges the
+         RHS back from $[0, 1)$ to $(0, 1)$ to match the goal statement.
+
+    With $h = |f|^2$, the RHS is $b \cdot \|f\|^2_{L^2(d\mu_{\log})}$
+    (modulo the $1/b$ in $T_b$'s prefactor). This is the **last
+    analytic identity** in the operator-norm chain — combined with the
+    pointwise bound `transferOperator_pointwise_norm_sq_bound`
+    (commit 6c4ea9c), the Mayer-1991 estimate
+    $\|T_b f\|_2 \le \|f\|_2$ now reduces to algebraic plumbing
+    around the $(1/b)$ prefactor and lifting the real pointwise
+    inequality to ENNReal. -/
+theorem lintegral_sum_weight_squared_branch_eq_b_lintegral_inv
+    (b : ℕ) (hb : b ≥ 1) (h : ℝ → ENNReal) :
+    ∑ k : Fin b, ∫⁻ y in Set.Ioo (0:ℝ) 1,
+        ENNReal.ofReal ((weightFunction b k y)^2 / y) *
+          h (inverseBranch b k y) ∂volume
+      = ENNReal.ofReal (b : ℝ)
+          * ∫⁻ u in Set.Ioo (0:ℝ) 1,
+              ENNReal.ofReal (1 / u) * h u ∂volume := by
+  calc ∑ k : Fin b, ∫⁻ y in Set.Ioo (0:ℝ) 1,
+          ENNReal.ofReal ((weightFunction b k y)^2 / y) *
+            h (inverseBranch b k y) ∂volume
+      = ∑ k : Fin b, ∫⁻ y in Set.Ioo (0:ℝ) 1,
+            ENNReal.ofReal (1 / inverseBranch b k y) *
+              h (inverseBranch b k y) ∂volume :=
+        Finset.sum_congr rfl
+          (fun k _ => lintegral_weight_squared_branch_eq_jacobian_subst b k h)
+    _ = ∑ k : Fin b, ∫⁻ y in Set.Ico (0:ℝ) 1,
+            ENNReal.ofReal (1 / inverseBranch b k y) *
+              h (inverseBranch b k y) ∂volume :=
+        Finset.sum_congr rfl (fun k _ => setLIntegral_congr Ioo_ae_eq_Ico)
+    _ = ENNReal.ofReal (b : ℝ) *
+            ∫⁻ y in Set.Ico (0:ℝ) 1, ENNReal.ofReal (1 / y) * h y ∂volume :=
+        sum_branch_lintegral_unitInterval_eq_b_lintegral b hb
+          (fun u => ENNReal.ofReal (1 / u) * h u)
+    _ = ENNReal.ofReal (b : ℝ) *
+            ∫⁻ u in Set.Ioo (0:ℝ) 1, ENNReal.ofReal (1 / u) * h u ∂volume := by
+          congr 1
+          exact setLIntegral_congr (Filter.EventuallyEq.symm Ioo_ae_eq_Ico)
+
 end PrincipiaTractalis
