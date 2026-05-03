@@ -1752,4 +1752,24 @@ noncomputable def transferOperatorAction_fn_toLp
   MemLp.toLp (transferOperatorAction_fn b phases f)
     (transferOperatorAction_fn_memLp b hb phases hphases f hf hfMemLp)
 
+/-- The Lp-lifted transfer operator action is contractive: its eLpNorm
+    is bounded by the input's eLpNorm. Direct corollary of
+    `transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure`
+    (commit de54564) via `MemLp.coeFn_toLp` (which establishes
+    `(h.toLp f) =ᵐ[μ] f`, allowing `eLpNorm_congr_ae` to swap the
+    Lp-element's eLpNorm with the underlying function's eLpNorm). -/
+theorem transferOperatorAction_fn_toLp_eLpNorm_le
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f)
+    (hfMemLp : MemLp f 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    eLpNorm (transferOperatorAction_fn_toLp b hb phases hphases f hf hfMemLp) 2
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+      ≤ eLpNorm f 2
+          (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  unfold transferOperatorAction_fn_toLp
+  rw [eLpNorm_congr_ae (MemLp.coeFn_toLp _)]
+  exact transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure
+    b hb phases hphases f hf
+
 end PrincipiaTractalis
