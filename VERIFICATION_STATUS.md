@@ -1,7 +1,7 @@
 # Principia Fractalis: Formal Verification Status
 
-**Last Updated:** 2026-05-03 (post-rev-3 follow-on chain extended through Phase A capstone; master at `b8ee9a9`)
-**Status:** ✅ Rev-3 cycle complete + 49-commit follow-on chain extending the framework with conditional RH theorem, Millennium capstone, complete Phase A analytic foundations, and the Mayer 1991 operator-norm bound in lintegral form
+**Last Updated:** 2026-05-03 (post-rev-3 follow-on chain extended through Mayer 1991 contractivity in eLpNorm form + MemLp preservation; master at `2e026aa`)
+**Status:** ✅ Rev-3 cycle complete + 58-commit follow-on chain extending the framework with conditional RH theorem, Millennium capstone, complete Phase A analytic foundations, the Mayer 1991 operator-norm bound in lintegral form, the function-level transfer operator with measurability, Mayer 1991 contractivity in mathlib's `eLpNorm` form ($\|T_b\| \le 1$ on $L^2(\mu_{\log}\!\restriction(0,1))$), and the `MemLp` preservation corollary
 **Audited By:** Pablo Cohen
 
 ---
@@ -20,6 +20,13 @@ The post-rev-3 follow-on chain (2026-04-29 → 2026-05-03, 49 commits) extended 
   - **Phase A foundations** in `PF/LogWeightedIntegral.lean`: complete measurability + bounds + AEStronglyMeasurable counterparts + Radon-Nikodym identities (additive `w² /x = b/(x+k)` and multiplicative `w² · y_k = x`) + b-branch Cauchy-Schwarz `‖Σ a_k‖² ≤ b · Σ ‖a_k‖²` + phase-modulus + composed pointwise pre-integral bound, including the structural bridge to `transferOperatorAction`'s `toFun`. Confirmed `LogWeightedL2_concrete` carries `InnerProductSpace ℂ`, `NormedAddCommGroup`, `CompleteSpace`, and `NormedSpace ℂ` from mathlib via `inferInstance`.
   - **Phase A integration ladder complete (commits `2c2a737` … `b8ee9a9`, 2026-05-01 → 2026-05-03)**: per-branch change-of-variables (`inverseBranch_set_lintegral_change_of_variables`), geometric and integration partition of $[0,1)$ (`unitInterval_eq_iUnion_Ico_partition`, `pairwiseDisjoint_Ico_partition`, `lintegral_unitInterval_eq_sum_Ico_partition`), summed per-branch identity (`sum_branch_lintegral_unitInterval_eq_b_lintegral`), Radon-Nikodym integrand substitution (`lintegral_weight_squared_branch_eq_jacobian_subst`), combined Mayer chain identity and its $(1/b)$-normalized form (`lintegral_sum_weight_squared_branch_eq_b_lintegral_inv`, `lintegral_one_div_b_sum_weight_squared_branch_eq_lintegral_inv`), and the integrated lift of the pointwise transfer-operator bound (`lintegral_transferOp_pointwise_bound_log_weighted`).
   - **Phase A capstone (commit `b8ee9a9`)**: `mayer_1991_lintegral_norm_sq_bound_log_weighted` — the operator-norm bound $\|T_b f\|^2 \le \|f\|^2$ in lintegral form against the log-weighted measure $d\mu_{\log} = (1/x)\, dx$ on $(0, 1)$, for $T_b f(x) := (1/b)\sum_k \omega_k\, w_k(x)\, f(y_k(x))$ with unit-modulus phases. Hypothesis: `Measurable f`. The analytic foundation of T₃-style operator self-adjointness is now in source.
+  - **logWeightedMeasure bridge + restated bound** (commits `69b7054`, `f13126b`): bridge `setLIntegral_Ioo_logWeightedMeasure_eq_setLIntegral_volume_mul_inv` and restated Mayer bound `mayer_1991_lintegral_norm_sq_bound_against_logWeightedMeasure` in the form mathlib's `eLpNorm` consumes.
+  - **L² structural-swap analytic prerequisites complete (commits `9429dd6` … `2e026aa`, six commits 2026-05-03)**:
+    * `transferOperatorAction_fn` — function-level transfer operator on `ℝ → ℂ`, parallel to the structural one, plus `transferOperatorAction_fn_measurable` (commit `9429dd6`).
+    * `transferOperatorAction_fn_lintegral_norm_sq_bound_logWeightedMeasure` — Mayer bound restated under the named operator (commit `e259e42`).
+    * `enorm_rpow_two_eq_ofReal_norm_sq` — pointwise bridge `‖x‖ₑ^(2:ℝ) = ENNReal.ofReal(‖x‖^2)` (commit `63daa64`).
+    * `transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure` — **Mayer 1991 contractivity in eLpNorm form** $\|T_b\| \le 1$ on $L^2(\mu_{\log}\!\restriction(0,1))$ (commit `de54564`).
+    * `transferOperatorAction_fn_memLp` — **MemLp preservation corollary** (commit `2e026aa`).
 
 **Current state: 8 axioms (canonical Lean 4 PF/), 0 sorries, `lake build` clean (5488 jobs; +2 over rev-3 for the `PF.Millennium` capstone module).**
 
