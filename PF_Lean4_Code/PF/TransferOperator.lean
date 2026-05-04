@@ -314,6 +314,22 @@ theorem LogWeightedL2.norm_sq_eq_inner_self_re (f : LogWeightedL2) :
   unfold LogWeightedL2.norm
   exact Real.sq_sqrt (LogWeightedL2.inner_self_re_nonneg f)
 
+/-- The self-inner-product as an integral of `Complex.normSq`:
+    `⟪f, f⟫ = ∫ ↑‖f.toFunℝ‖² ∂μ_log↾(0,1)`.
+
+    Reformulation via `Complex.normSq_eq_conj_mul_self`. Useful for
+    connecting to `MeasureTheory.lintegral` and for showing
+    integrability properties: `⟪f, f⟫` is real-valued and represents
+    the L²-squared-norm of `f.toFunℝ` against the log-weighted measure. -/
+theorem LogWeightedL2.inner_self_eq_integral_normSq (f : LogWeightedL2) :
+    LogWeightedL2.inner f f =
+      ∫ x in Set.Ioo (0:ℝ) 1,
+        ((Complex.normSq (f.toFunℝ x) : ℝ) : ℂ) ∂logWeightedMeasure := by
+  unfold LogWeightedL2.inner
+  congr 1
+  funext x
+  exact Complex.normSq_eq_conj_mul_self.symm
+
 /-- Additivity in the left argument (with integrability hypotheses):
     `inner (f₁ + f₂) g = inner f₁ g + inner f₂ g`.
 
