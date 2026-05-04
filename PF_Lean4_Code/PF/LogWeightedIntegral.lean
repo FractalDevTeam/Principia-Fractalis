@@ -2052,6 +2052,31 @@ theorem logWeightedMeasure_restrict_Ioo_map_inverseBranch_absolutelyContinuous
         ((inverseBranch_measurable b k hb hE).inter measurableSet_Ioo),
        Set.inter_assoc, Set.inter_self] at h_target
 
+/-- Per-branch ae-propagation: `f₁ =ᵐ f₂ ⟹ f₁ ∘ y_k =ᵐ f₂ ∘ y_k`
+    (under `μ_log↾(0,1)`).
+
+    Two-step proof using the pushforward absolute continuity:
+      1. `EventuallyEq.filter_mono` lifts the hypothesis at `μ_log↾(0,1).ae`
+         to `(μ_log↾(0,1).map y_k).ae` via the filter inequality from
+         `25e00eb.ae_le : (μ.map y_k).ae ≤ μ.ae`.
+      2. `EventuallyEq.comp_tendsto` composes with
+         `Measure.tendsto_ae_map (inverseBranch_measurable b k hb).aemeasurable`
+         (giving `Tendsto y_k μ.ae (μ.map y_k).ae`) to pull back to the
+         source filter, yielding `f₁ ∘ y_k =ᵐ[μ.ae] f₂ ∘ y_k`. -/
+theorem inverseBranch_ae_eq_propagation
+    (b : ℕ) (hb : b ≥ 1) (k : Fin b)
+    {f₁ f₂ : ℝ → ℂ}
+    (h : f₁ =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)] f₂) :
+    (fun x => f₁ (inverseBranch b k x))
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+        (fun x => f₂ (inverseBranch b k x)) := by
+  have h_le := (logWeightedMeasure_restrict_Ioo_map_inverseBranch_absolutelyContinuous b hb k).ae_le
+  have h_map : f₁ =ᵐ[(logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)).map
+                      (inverseBranch b k)] f₂ :=
+    h.filter_mono h_le
+  exact h_map.comp_tendsto
+    (Measure.tendsto_ae_map (inverseBranch_measurable b k hb).aemeasurable)
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
