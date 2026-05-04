@@ -305,6 +305,15 @@ theorem LogWeightedL2.norm_nonneg (f : LogWeightedL2) :
   unfold LogWeightedL2.norm
   exact Real.sqrt_nonneg _
 
+/-- The squared norm equals the real part of the self-inner-product:
+    `‖f‖² = (⟪f, f⟫).re`. The Hilbert-space identity connecting norm
+    and inner product. Direct from `Real.sq_sqrt` (which uses
+    `inner_self_re_nonneg` for the non-negativity precondition). -/
+theorem LogWeightedL2.norm_sq_eq_inner_self_re (f : LogWeightedL2) :
+    (LogWeightedL2.norm f) ^ 2 = (LogWeightedL2.inner f f).re := by
+  unfold LogWeightedL2.norm
+  exact Real.sq_sqrt (LogWeightedL2.inner_self_re_nonneg f)
+
 /-- Additivity in the left argument (with integrability hypotheses):
     `inner (f₁ + f₂) g = inner f₁ g + inner f₂ g`.
 
