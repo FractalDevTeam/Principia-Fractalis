@@ -1,6 +1,21 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-05-04, post-rev-3 follow-on chain extended through CLM-packaging analytic prerequisites (commits through `0e5e4b9`)*
+*Last updated: 2026-05-04, post-rev-3 follow-on chain extended through complete CLM packaging — T_b as `ContinuousLinearMap` with op-norm ≤ 1 (commits through `de5d131`)*
+
+## CLM PACKAGING COMPLETE (2026-05-04, commits `98b1f7e` … `de5d131`)
+
+A nine-commit extension takes T_b to a **`ContinuousLinearMap`** on $L^2(\mu_{\log}\!\restriction(0,1))$ with operator norm $\le 1$. Phase A analytic content for the manuscript $\|T_b\| \le 1$ statement is COMPLETE.
+
+- **Lean 4 canonical**: 8 axioms (unchanged), **5488 jobs clean**, 0 sorries.
+- **Mutual absolute continuity** (commits `98b1f7e`, `869b6f7`): $\mu_{\log}\!\restriction(0,1)$ and $\text{volume}\!\restriction(0,1)$ share null sets — substantive measure-theoretic equivalence on (0,1).
+- **Pushforward absolute continuity** (commit `25e00eb`): $(\mu_{\log}\!\restriction(0,1)).\mathrm{map}(y_k) \ll \mu_{\log}\!\restriction(0,1)$.
+- **AE-propagation through T_b** (commits `8aac4c4`, `e989098`): per-branch and full T_b ae-respect, the well-definedness step for `transferOperator_lp` linearity.
+- **Lp-level linearity** (commits `483b388`, `d448a7e`): `transferOperator_lp_add` and `_smul`.
+- **CLM packaging** (commit `de5d131`): `transferOperator_clm : LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo` + `transferOperator_clm_norm_le : ‖transferOperator_clm‖ ≤ 1` via `LinearMap.mkContinuous`.
+
+**Coq parity**: unchanged. The Coq formalization has its own independent axiomatization (253 axioms, separate scope from the canonical Lean's 8) and is not touched by this CLM-packaging chain.
+
+**What remains for retiring `LogWeightedL2.inner` (canonical 8 → 7)**: the structural rename cascade through ~44 callsites in `PF/TransferOperator.lean`, `PF/SpectralBijection.lean`, `PF/Millennium.lean`, swapping the placeholder `structure LogWeightedL2` with `LogWeightedL2_Ioo`. **Mechanical refactor only — no new mathematics needed.**
 
 ## CLM-packaging analytic prerequisites (2026-05-04)
 
