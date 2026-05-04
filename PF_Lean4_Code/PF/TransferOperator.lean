@@ -173,6 +173,15 @@ lemma LogWeightedL2.toFunℝ_smul_apply (c : ℂ) (f : LogWeightedL2) (x : ℝ) 
     rfl
   · simp
 
+/-- Addition pointwise: `(f1 + f2).toFunℝ x = f1.toFunℝ x + f2.toFunℝ x`. -/
+lemma LogWeightedL2.toFunℝ_add_apply (f1 f2 : LogWeightedL2) (x : ℝ) :
+    (f1 + f2).toFunℝ x = f1.toFunℝ x + f2.toFunℝ x := by
+  unfold LogWeightedL2.toFunℝ
+  split_ifs with h
+  · show (f1 + f2).toFun ⟨x, h⟩ = f1.toFun ⟨x, h⟩ + f2.toFun ⟨x, h⟩
+    rfl
+  · simp
+
 /-- `inner (-f) g = -(inner f g)`. Uses `MeasureTheory.integral_neg`. -/
 theorem LogWeightedL2.inner_neg_left (f g : LogWeightedL2) :
     LogWeightedL2.inner (-f) g = -(LogWeightedL2.inner f g) := by
@@ -295,6 +304,54 @@ theorem LogWeightedL2.norm_nonneg (f : LogWeightedL2) :
     0 ≤ LogWeightedL2.norm f := by
   unfold LogWeightedL2.norm
   exact Real.sqrt_nonneg _
+
+/-- Additivity in the left argument (with integrability hypotheses):
+    `inner (f₁ + f₂) g = inner f₁ g + inner f₂ g`.
+
+    Requires both integrand-of-`f₁` and integrand-of-`f₂` to be
+    integrable against `μ_log↾(0,1)` (since `MeasureTheory.integral_add`
+    is conditional on integrability of both summands). The placeholder
+    `integrable : True` field of `LogWeightedL2` doesn't enforce this,
+    so the hypothesis must be supplied per call.
+
+    Once the structural refactor enriches `LogWeightedL2` with
+    integrability information, this hypothesis becomes free. -/
+theorem LogWeightedL2.inner_add_left (f₁ f₂ g : LogWeightedL2)
+    (h₁ : MeasureTheory.Integrable
+            (fun x => (starRingEnd ℂ) (f₁.toFunℝ x) * g.toFunℝ x)
+            (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (h₂ : MeasureTheory.Integrable
+            (fun x => (starRingEnd ℂ) (f₂.toFunℝ x) * g.toFunℝ x)
+            (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    LogWeightedL2.inner (f₁ + f₂) g
+      = LogWeightedL2.inner f₁ g + LogWeightedL2.inner f₂ g := by
+  unfold LogWeightedL2.inner
+  rw [show (fun x => (starRingEnd ℂ) ((f₁ + f₂).toFunℝ x) * g.toFunℝ x)
+        = (fun x => (starRingEnd ℂ) (f₁.toFunℝ x) * g.toFunℝ x
+                  + (starRingEnd ℂ) (f₂.toFunℝ x) * g.toFunℝ x) from ?_]
+  · exact MeasureTheory.integral_add h₁ h₂
+  · funext x
+    rw [LogWeightedL2.toFunℝ_add_apply, map_add, add_mul]
+
+/-- Additivity in the right argument (with integrability hypotheses):
+    `inner f (g₁ + g₂) = inner f g₁ + inner f g₂`. Symmetric to
+    `inner_add_left`. -/
+theorem LogWeightedL2.inner_add_right (f g₁ g₂ : LogWeightedL2)
+    (h₁ : MeasureTheory.Integrable
+            (fun x => (starRingEnd ℂ) (f.toFunℝ x) * g₁.toFunℝ x)
+            (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (h₂ : MeasureTheory.Integrable
+            (fun x => (starRingEnd ℂ) (f.toFunℝ x) * g₂.toFunℝ x)
+            (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    LogWeightedL2.inner f (g₁ + g₂)
+      = LogWeightedL2.inner f g₁ + LogWeightedL2.inner f g₂ := by
+  unfold LogWeightedL2.inner
+  rw [show (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (g₁ + g₂).toFunℝ x)
+        = (fun x => (starRingEnd ℂ) (f.toFunℝ x) * g₁.toFunℝ x
+                  + (starRingEnd ℂ) (f.toFunℝ x) * g₂.toFunℝ x) from ?_]
+  · exact MeasureTheory.integral_add h₁ h₂
+  · funext x
+    rw [LogWeightedL2.toFunℝ_add_apply, mul_add]
 
 /-! ## Base-b Expanding Map -/
 
