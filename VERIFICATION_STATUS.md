@@ -1,7 +1,7 @@
 # Principia Fractalis: Formal Verification Status
 
-**Last Updated:** 2026-05-04 (post-rev-3 follow-on chain extended through complete CLM packaging — T_b as `ContinuousLinearMap` with operator norm ≤ 1 on L²(μ_log↾(0,1)); master at `de5d131`)
-**Status:** ✅ Rev-3 cycle complete + 71-commit follow-on chain. **The transfer operator $T_b$ is now formally packaged as a `ContinuousLinearMap` $L^2(\mu_{\log}\!\restriction(0,1)) \to L^2(\mu_{\log}\!\restriction(0,1))$ with operator norm $\le 1$** (`transferOperator_clm`, commit `de5d131`). Phase A analytic content for the manuscript-level $\|T_b\| \le 1$ statement is COMPLETE in source. What remains for retiring the `LogWeightedL2.inner` axiom is the structural rename cascade through ~44 callsites — mechanical refactoring with no new mathematical content needed.
+**Last Updated:** 2026-05-04 (post `LogWeightedL2.inner` axiom RETIREMENT — canonical Lean PF/ at **7 axioms**; master at `a43a669`)
+**Status:** ✅ Rev-3 cycle complete + 73-commit follow-on chain. **`LogWeightedL2.inner` axiom ELIMINATED** (commit `a43a669`, 2026-05-04) — replaced with a real `noncomputable def` against the log-weighted Bochner integral. **The canonical Lean PF/ axiom count drops from 8 to 7** for the first time since Phase A began. Additionally, the transfer operator $T_b$ is now formally packaged as a `ContinuousLinearMap` $L^2(\mu_{\log}\!\restriction(0,1)) \to L^2(\mu_{\log}\!\restriction(0,1))$ with operator norm $\le 1$ (`transferOperator_clm`, commit `de5d131`).
 **Audited By:** Pablo Cohen
 
 ---
@@ -10,7 +10,7 @@
 
 Principia Fractalis is formalized in two independent proof assistants (Lean 4 and Coq), with a third Lean4Lean (L4L) verification layer kept under `experimental/PF_L4L_future/`. This document provides **honest, transparent accounting** of what is proven versus axiomatized.
 
-The rev-2 cycle (2026-01 through 2026-04-26) eliminated 33 Lean axioms (41 → 8 in the canonical `PF_Lean4_Code/PF/` library). The rev-3 cycle (2026-04-27 / 2026-04-28) completed all 20 items in `REVISION_GUIDE.md`, coordinating manuscript-level theorem statements with the formalization layers without changing the canonical 8-axiom count.
+The rev-2 cycle (2026-01 through 2026-04-26) eliminated 33 Lean axioms (41 → 8 in the canonical `PF_Lean4_Code/PF/` library). The rev-3 cycle (2026-04-27 / 2026-04-28) completed all 20 items in `REVISION_GUIDE.md`, coordinating manuscript-level theorem statements with the formalization layers without changing the canonical 8-axiom count. **The 2026-05-04 follow-on chain culminated in the elimination of `LogWeightedL2.inner` (commit `a43a669`), bringing the canonical count to 7 — the first axiom retirement since Phase A began.**
 
 The post-rev-3 follow-on chain (2026-04-29 → 2026-05-03, 49 commits) extended the framework substantially:
   - **T₃ axiom realignment + sharpening**: `T3_self_adjoint_conj` rewritten to assert self-adjointness of the explicit `T3_sym` operator (not the empirically-false unsymmetrised `T3`); manuscript and Lean now coordinated on the symmetrisation construction.
@@ -45,7 +45,16 @@ The post-rev-3 follow-on chain (2026-04-29 → 2026-05-03, 49 commits) extended 
     * `transferOperator_lp_smul` — $\mathrm{transferOperator}_{lp}(c \cdot g) = c \cdot \mathrm{transferOperator}_{lp}\,g$. Analogous to `_add` with `Lp.coeFn_smul`, `EventuallyEq.const_smul` (`Order/Filter/Basic.lean:991`, `to_additive` of `pow_const`), and `MemLp.toLp_const_smul` (commit `d448a7e`).
   - **CLM packaging (commit `de5d131`, 2026-05-04)**: `transferOperator_clm` and `transferOperator_clm_norm_le` — **the transfer operator $T_b$ as a `ContinuousLinearMap` `LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo` with operator norm $\le 1$**. Built first try via `LinearMap.mkContinuous L 1 bound` where $L$ packages the linearity from `483b388` + `d448a7e`, and bound is `transferOperator_lp_norm_le` (`0e5e4b9`) lifted from $\|\cdot\| \le \|\cdot\|$ to $\|\cdot\| \le 1 \cdot \|\cdot\|$ via `one_mul`. **Phase A analytic content COMPLETE in source for the manuscript-level $\|T_b\| \le 1$ statement.**
 
-**Current state: 8 axioms (canonical Lean 4 PF/), 0 sorries, `lake build` clean (5488 jobs; +2 over rev-3 for the `PF.Millennium` capstone module).**
+**Current state: 7 axioms (canonical Lean 4 PF/, post `LogWeightedL2.inner` retirement at commit `a43a669`), 0 sorries, `lake build` clean (5488 jobs).**
+
+The `LogWeightedL2.inner` retirement at commit `a43a669` took a SIMPLER path than the originally-projected "structural rename cascade through ~44 callsites": the placeholder `structure LogWeightedL2` is preserved, and the axiom is replaced in-place with a `noncomputable def`:
+```
+noncomputable def LogWeightedL2.inner (f g : LogWeightedL2) : ℂ :=
+  ∫ x in Set.Ioo (0:ℝ) 1,
+    (starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x
+    ∂logWeightedMeasure
+```
+where `LogWeightedL2.toFunℝ` extends the `Icc 0 1 → ℂ` `toFun` to `ℝ → ℂ` by zero outside the unit interval, allowing the Bochner integrand to be a well-typed `ℝ → ℂ` function. The full structural rename cascade remains a future option but is no longer required for retiring this axiom.
 
 ---
 
@@ -58,7 +67,7 @@ The post-rev-3 follow-on chain (2026-04-29 → 2026-05-03, 49 commits) extended 
 | **Coq** (`PF_Coq/theories/*`) | All chapters + Contracts | 253 | 0 admits | `make` clean |
 | **L4L** (`experimental/PF_L4L_future/`) | Quarantined under experimental | — | — | gated per Path B decision |
 
-The 8-axiom claim refers EXCLUSIVELY to the canonical `PF_Lean4_Code/PF/` library; this scope is explicitly disclosed in the manuscript frontmatter (commit `0b3829f`). The ~240 additional top-level axioms (in `YM_Equivalence.lean`, `RH_Equivalence.lean`, `BSD_Equivalence.lean`, etc.) and the 253 Coq axioms reflect a broader axiomatisation scope and are tracked in `AXIOM_AUDIT.md` and `PARITY_REPORT.md` separately.
+The 7-axiom claim (post-`a43a669`) refers EXCLUSIVELY to the canonical `PF_Lean4_Code/PF/` library; this scope is explicitly disclosed in the manuscript frontmatter (commit `0b3829f`). The ~240 additional top-level axioms (in `YM_Equivalence.lean`, `RH_Equivalence.lean`, `BSD_Equivalence.lean`, etc.) and the 253 Coq axioms reflect a broader axiomatisation scope and are tracked in `AXIOM_AUDIT.md` and `PARITY_REPORT.md` separately.
 
 Earlier December 2025 figures (Lean ~226, Coq 193) reflected an earlier scope-of-counting; these were superseded by the rev-2 cycle eliminations and the explicit canonical-PF/ scoping of the rev-3 frontmatter.
 

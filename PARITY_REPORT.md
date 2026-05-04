@@ -1,6 +1,13 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-05-04, post-rev-3 follow-on chain extended through complete CLM packaging — T_b as `ContinuousLinearMap` with op-norm ≤ 1 (commits through `de5d131`)*
+*Last updated: 2026-05-04, post `LogWeightedL2.inner` axiom RETIREMENT (commit `a43a669`); canonical Lean PF/ at **7 axioms** (down from 8)*
+
+## ⭐ AXIOM ELIMINATION (2026-05-04, commit `a43a669`)
+
+**`LogWeightedL2.inner` ELIMINATED.** First canonical-axiom retirement since Phase A began. Replaced with a real `noncomputable def` against the log-weighted Bochner integral. Took a simpler path than the originally-projected ~44-callsite structural rename cascade: the placeholder structure is preserved, and a `toFunℝ` extension bridges the `Icc 0 1` domain to `ℝ` for the integrand.
+
+- **Lean 4 canonical**: 7 axioms (down from 8), 5488 jobs clean, 0 sorries.
+- **Coq parity**: unchanged. The Coq formalization retains its own independent axiomatization (253 axioms, separate scope from canonical Lean's 7) and is not touched by this retirement.
 
 ## CLM PACKAGING COMPLETE (2026-05-04, commits `98b1f7e` … `de5d131`)
 
@@ -15,7 +22,7 @@ A nine-commit extension takes T_b to a **`ContinuousLinearMap`** on $L^2(\mu_{\l
 
 **Coq parity**: unchanged. The Coq formalization has its own independent axiomatization (253 axioms, separate scope from the canonical Lean's 8) and is not touched by this CLM-packaging chain.
 
-**What remains for retiring `LogWeightedL2.inner` (canonical 8 → 7)**: the structural rename cascade through ~44 callsites in `PF/TransferOperator.lean`, `PF/SpectralBijection.lean`, `PF/Millennium.lean`, swapping the placeholder `structure LogWeightedL2` with `LogWeightedL2_Ioo`. **Mechanical refactor only — no new mathematics needed.**
+**Status of `LogWeightedL2.inner` retirement (2026-05-04, post `a43a669`)**: ✅ DONE — see top "AXIOM ELIMINATION" section. The retirement avoided the projected cascade by replacing the axiom in-place with a `noncomputable def` plus a `toFunℝ` extension.
 
 ## CLM-packaging analytic prerequisites (2026-05-04)
 
