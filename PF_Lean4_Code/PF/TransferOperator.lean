@@ -819,6 +819,41 @@ theorem T3_self_adjoint_conj_via_formal_adjoint
   rw [h_star_half]
   ring
 
+/-- **Simpler conditional theorem**: `T3_self_adjoint_conj_via_formal_adjoint`
+    only needs `h_T3_adj` (the forward formal-adjoint relation) — the
+    inverse `h_T3_adj_inv` follows automatically via `inner_conj_symm`
+    + `star_star`.
+
+    Reduces the hypothesis surface for retiring `T3_self_adjoint_conj`
+    to ONE substantive theorem: `⟪T3 f, g⟫ = ⟪f, T3_adj g⟫`. -/
+theorem T3_self_adjoint_conj_via_formal_adjoint'
+    (h_T3_adj : ∀ (f' g' : LogWeightedL2),
+      ⟪T3.apply f', g'⟫ = ⟪f', T3_adjoint.apply g'⟫)
+    (h_int_left : ∀ (f' g' : LogWeightedL2),
+      MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) ((T3.apply f').toFunℝ x) * g'.toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) ∧
+      MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) ((T3_adjoint.apply f').toFunℝ x) * g'.toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (h_int_right : ∀ (f' g' : LogWeightedL2),
+      MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) (f'.toFunℝ x) * (T3.apply g').toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) ∧
+      MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) (f'.toFunℝ x) * (T3_adjoint.apply g').toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (f g : LogWeightedL2) :
+    ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫ := by
+  -- Derive the inverse relation from inner_conj_symm + star_star
+  have h_T3_adj_inv : ∀ (f' g' : LogWeightedL2),
+      ⟪T3_adjoint.apply f', g'⟫ = ⟪f', T3.apply g'⟫ := by
+    intros f' g'
+    rw [LogWeightedL2.inner_conj_symm, ← h_T3_adj g' f',
+        LogWeightedL2.inner_conj_symm, star_star]
+  exact T3_self_adjoint_conj_via_formal_adjoint h_T3_adj h_T3_adj_inv
+    h_int_left h_int_right f g
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
