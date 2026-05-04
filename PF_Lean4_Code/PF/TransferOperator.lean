@@ -29,6 +29,7 @@ import Mathlib.MeasureTheory.Measure.WithDensity
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Set
+import Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap
 import PF.IntervalArithmetic
 
 namespace PrincipiaTractalis
@@ -216,6 +217,26 @@ theorem LogWeightedL2.inner_smul_right (c : ℂ) (f g : LogWeightedL2) :
   · funext x
     rw [LogWeightedL2.toFunℝ_smul_apply, smul_eq_mul]
     ring
+
+/-- Conjugate symmetry: `inner f g = star (inner g f)`. The standard
+    sesquilinear form symmetry, holding unconditionally via
+    `MeasureTheory.integral_conj` (mathlib) plus the fact that
+    `starRingEnd ℂ X = star X` by `rfl` (`starRingEnd_apply`). -/
+theorem LogWeightedL2.inner_conj_symm (f g : LogWeightedL2) :
+    LogWeightedL2.inner f g = star (LogWeightedL2.inner g f) := by
+  unfold LogWeightedL2.inner
+  -- Bridge `star (∫ ...)` to `(starRingEnd ℂ) (∫ ...)`, then `integral_conj`
+  -- pulls the conj inside; the integrand swaps via map_mul + conj_conj + mul_comm.
+  symm
+  show ((starRingEnd ℂ) (∫ x in Set.Ioo (0:ℝ) 1,
+          (starRingEnd ℂ) (g.toFunℝ x) * f.toFunℝ x ∂logWeightedMeasure))
+     = ∫ x in Set.Ioo (0:ℝ) 1,
+          (starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x ∂logWeightedMeasure
+  rw [← integral_conj]
+  congr 1
+  funext x
+  rw [map_mul, starRingEnd_self_apply]
+  ring
 
 /-- Norm on weighted L². -/
 noncomputable def LogWeightedL2.norm (f : LogWeightedL2) : ℝ :=
