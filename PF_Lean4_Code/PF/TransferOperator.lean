@@ -276,6 +276,26 @@ theorem LogWeightedL2.inner_self_re_nonneg (f : LogWeightedL2) :
 noncomputable def LogWeightedL2.norm (f : LogWeightedL2) : ℝ :=
   Real.sqrt (LogWeightedL2.inner f f).re
 
+/-- The zero vector has norm 0. Direct from `inner_zero_left`. -/
+theorem LogWeightedL2.norm_zero : LogWeightedL2.norm (0 : LogWeightedL2) = 0 := by
+  unfold LogWeightedL2.norm
+  rw [LogWeightedL2.inner_zero_left]
+  simp
+
+/-- Norm is invariant under negation: `‖-f‖ = ‖f‖`. Two applications
+    of `inner_neg_left`/`_right` collapse via `neg_neg`. -/
+theorem LogWeightedL2.norm_neg (f : LogWeightedL2) :
+    LogWeightedL2.norm (-f) = LogWeightedL2.norm f := by
+  unfold LogWeightedL2.norm
+  rw [LogWeightedL2.inner_neg_left, LogWeightedL2.inner_neg_right, neg_neg]
+
+/-- The norm is non-negative: `0 ≤ ‖f‖`. Direct from
+    `Real.sqrt_nonneg` (the real square root of any number is ≥ 0). -/
+theorem LogWeightedL2.norm_nonneg (f : LogWeightedL2) :
+    0 ≤ LogWeightedL2.norm f := by
+  unfold LogWeightedL2.norm
+  exact Real.sqrt_nonneg _
+
 /-! ## Base-b Expanding Map -/
 
 /-- The base-b expanding map τ_b(x) = bx mod 1.
