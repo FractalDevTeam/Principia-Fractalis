@@ -758,6 +758,20 @@ theorem T3_sym_apply_zero :
   rw [show ∀ z : Set.Icc (0:ℝ) 1, (0 : LogWeightedL2).toFun z = 0 from fun _ => rfl]
   ring
 
+/-- Boundary case: `T3_self_adjoint_conj` holds with first argument zero. -/
+theorem T3_self_adjoint_conj_at_zero_left (g : LogWeightedL2) :
+    ⟪T3_sym.apply (0 : LogWeightedL2), g⟫
+      = ⟪(0 : LogWeightedL2), T3_sym.apply g⟫ := by
+  rw [T3_sym_apply_zero, LogWeightedL2.inner_zero_left,
+      LogWeightedL2.inner_zero_left]
+
+/-- Boundary case: `T3_self_adjoint_conj` holds with second argument zero. -/
+theorem T3_self_adjoint_conj_at_zero_right (f : LogWeightedL2) :
+    ⟪T3_sym.apply f, (0 : LogWeightedL2)⟫
+      = ⟪f, T3_sym.apply (0 : LogWeightedL2)⟫ := by
+  rw [T3_sym_apply_zero, LogWeightedL2.inner_zero_right,
+      LogWeightedL2.inner_zero_right]
+
 /-! ## Self-Adjointness -/
 
 /-- ⚠ Post-rev-3 follow-on, sharpened form (2026-04-29): the Lean axiom
