@@ -2077,6 +2077,32 @@ theorem inverseBranch_ae_eq_propagation
   exact h_map.comp_tendsto
     (Measure.tendsto_ae_map (inverseBranch_measurable b k hb).aemeasurable)
 
+/-- Full T_b ae-respect: `f₁ =ᵐ f₂ ⟹ T_b f₁ =ᵐ T_b f₂` (under `μ_log↾(0,1)`).
+
+    Combines `inverseBranch_ae_eq_propagation` per branch via
+    `Filter.eventually_all` (for the finite indexing `Fin b`):
+    suffices to show, simultaneously for all branches at almost every x,
+    that `f₁ (y_k x) = f₂ (y_k x)`, and then `Finset.sum_congr` composes
+    pointwise inside the b-summed pointwise definition of T_b.
+
+    With this lemma, `transferOperator_lp` becomes well-defined as a
+    `Lp → Lp` map modulo ae-equivalence — the well-definedness step that
+    `LinearMap.mkContinuous` packaging consumes. -/
+theorem transferOperatorAction_fn_ae_eq_of_ae_eq
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ)
+    {f₁ f₂ : ℝ → ℂ}
+    (h : f₁ =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)] f₂) :
+    transferOperatorAction_fn b phases f₁
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+        transferOperatorAction_fn b phases f₂ := by
+  have h_all : ∀ᵐ x ∂(logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)),
+      ∀ k : Fin b, f₁ (inverseBranch b k x) = f₂ (inverseBranch b k x) :=
+    Filter.eventually_all.mpr fun k => inverseBranch_ae_eq_propagation b hb k h
+  filter_upwards [h_all] with x hx_all
+  unfold transferOperatorAction_fn
+  congr 1
+  exact Finset.sum_congr rfl fun k _ => by rw [hx_all k]
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
