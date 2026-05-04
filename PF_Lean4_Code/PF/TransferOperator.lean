@@ -351,6 +351,7 @@ theorem LogWeightedL2.inner_self_zero_iff_norm_zero (f : LogWeightedL2) :
     have h_im : (LogWeightedL2.inner f f).im = 0 := LogWeightedL2.inner_self_im f
     exact Complex.ext h_re h_im
 
+
 /-- Additivity in the left argument (with integrability hypotheses):
     `inner (f₁ + f₂) g = inner f₁ g + inner f₂ g`.
 
@@ -692,6 +693,30 @@ noncomputable def T3_sym : TransferOperator 3 := {
   phases := phaseFactorBase3
   apply := T3_sym_action
 }
+
+/-! ### Zero-respecting properties of T3, T3_adjoint, T3_sym
+
+These lemmas verify that the transfer operators are well-behaved on
+the zero element — useful for boundary cases of self-adjointness
+and as sanity checks for the operator definitions. -/
+
+/-- The transfer-operator action `transferOperatorAction b phases` sends
+    the zero element to the zero element. Each summand contains
+    `(0 : LogWeightedL2).toFun ⟨_, _⟩ = 0`, so the sum is 0. -/
+theorem transferOperatorAction_zero (b : ℕ) (phases : Fin b → ℂ) :
+    transferOperatorAction b phases (0 : LogWeightedL2) = (0 : LogWeightedL2) := by
+  unfold transferOperatorAction
+  -- LHS: ⟨fun ⟨x, hx⟩ => (1/b) * Σ ... * (0 : LogWeightedL2).toFun ⟨y_k(x), _⟩, trivial⟩
+  -- (0 : LogWeightedL2) = ⟨fun _ => 0, trivial⟩
+  show LogWeightedL2.mk _ _ = LogWeightedL2.mk _ _
+  congr 1
+  funext ⟨x, hx⟩
+  simp only [show (0 : LogWeightedL2).toFun = fun _ => 0 from rfl, mul_zero,
+    Finset.sum_const_zero]
+
+/-- `T3.apply 0 = 0`. Direct from `transferOperatorAction_zero`. -/
+theorem T3_apply_zero : T3.apply (0 : LogWeightedL2) = (0 : LogWeightedL2) :=
+  transferOperatorAction_zero 3 phaseFactorBase3
 
 /-! ## Self-Adjointness -/
 
