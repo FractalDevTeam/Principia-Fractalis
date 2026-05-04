@@ -1969,6 +1969,32 @@ theorem logWeightedMeasure_restrict_Ioo_absolutelyContinuous_volume :
   Measure.absolutelyContinuous_of_le Measure.restrict_le_self
     |>.trans (withDensity_absolutelyContinuous _ _)
 
+/-- `volume↾(0,1) ≪ μ_log↾(0,1)`: the converse absolute continuity.
+    The log-weight density `(1/x)` is strictly positive on `(0,1)`, so
+    `μ_log` and `volume` share null sets there.
+
+    Proof via `withDensity_apply_eq_zero` (mathlib `WithDensity.lean:279`):
+      `μ_log s = 0 ↔ volume({x | logWeightDensity x ≠ 0} ∩ s) = 0`
+    Since `logWeightDensity x ≠ 0` for all `x > 0` (and `(0,1) ⊂ (0,∞)`),
+    the intersection with `s ∩ (0,1)` equals `s ∩ (0,1)` itself, giving
+    `volume(s ∩ (0,1)) = 0`. -/
+theorem volume_restrict_Ioo_absolutelyContinuous_logWeightedMeasure :
+    (volume : Measure ℝ).restrict (Set.Ioo (0:ℝ) 1)
+      ≪ logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1) := by
+  refine Measure.AbsolutelyContinuous.mk fun s hs hs_zero => ?_
+  rw [Measure.restrict_apply hs] at hs_zero
+  rw [Measure.restrict_apply hs]
+  rw [logWeightedMeasure_def] at hs_zero
+  rw [withDensity_apply_eq_zero logWeightDensity_measurable] at hs_zero
+  have h_sub : (s ∩ Set.Ioo (0:ℝ) 1) ⊆ {x | logWeightDensity x ≠ 0} := by
+    intro x hx
+    have hx_pos : (0:ℝ) < x := hx.2.1
+    simp only [Set.mem_setOf_eq, logWeightDensity]
+    rw [if_neg (not_le.mpr hx_pos)]
+    exact (ENNReal.ofReal_pos.mpr (one_div_pos.mpr hx_pos)).ne'
+  rw [Set.inter_eq_right.mpr h_sub] at hs_zero
+  exact hs_zero
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
