@@ -1941,6 +1941,34 @@ theorem transferOperator_lp_norm_le
     (Lp.aestronglyMeasurable g).measurable_mk
     ((Lp.memLp g).ae_eq (Lp.aestronglyMeasurable g).ae_eq_mk)
 
+/-! ### AE-equality propagation infrastructure (toward CLM linearity)
+
+To package `transferOperator_lp` as a `ContinuousLinearMap`, we need to
+show `T_b` respects ae-equality of input under `μ_log↾(0,1)`. The route
+goes through two absolute-continuity facts:
+  (a) `μ_log↾(0,1) ≪ volume`            — the log-weighted measure is
+                                            absolutely continuous wrt
+                                            Lebesgue (via `withDensity`),
+                                            so this lifts naturally
+                                            to the restriction.
+  (b) `(μ_log↾(0,1)).map y_k ≪ μ_log↾(0,1)` — the pushforward under
+                                            `inverseBranch` preserves
+                                            null sets.
+
+The combination plus `ae_map_iff` propagates `f₁ =ᵐ f₂` through
+`f ↦ f ∘ y_k`. Applied per branch and summed, this gives
+`T_b f₁ =ᵐ T_b f₂`. -/
+
+/-- `μ_log↾(0,1) ≪ volume`: the log-weighted measure restricted to
+    the unit interval is absolutely continuous wrt Lebesgue measure
+    on ℝ. Direct chain: `restrict_le_self` (giving `μ_log↾(0,1) ≪ μ_log`)
+    then `withDensity_absolutelyContinuous` (giving `μ_log ≪ volume`),
+    composed via `Measure.AbsolutelyContinuous.trans`. -/
+theorem logWeightedMeasure_restrict_Ioo_absolutelyContinuous_volume :
+    logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1) ≪ (volume : Measure ℝ) :=
+  Measure.absolutelyContinuous_of_le Measure.restrict_le_self
+    |>.trans (withDensity_absolutelyContinuous _ _)
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
