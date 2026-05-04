@@ -1995,6 +1995,63 @@ theorem volume_restrict_Ioo_absolutelyContinuous_logWeightedMeasure :
   rw [Set.inter_eq_right.mpr h_sub] at hs_zero
   exact hs_zero
 
+/-- `(μ_log↾(0,1)).map y_k ≪ μ_log↾(0,1)`: the pushforward absolute
+    continuity — the substantive lemma needed for ae-equality propagation
+    through the transfer operator T_b.
+
+    Proof chain (combining the previous two abs-continuity directions
+    with `inverseBranch_volume_map`):
+
+      μ_log↾(0,1)(E) = 0
+        ⟹ volume(E ∩ (0,1)) = 0           [volume↾(0,1) ≪ μ_log↾(0,1)]
+        ⟹ volume(y_k⁻¹(E ∩ (0,1))) = 0    [inverseBranch_volume_map: vol.map y_k = b·vol]
+        ⟹ volume(y_k⁻¹(E) ∩ (0,1)) = 0    [y_k⁻¹(E) ∩ (0,1) ⊆ y_k⁻¹(E ∩ (0,1)),
+                                            since y_k((0,1)) ⊆ (0,1)]
+        ⟹ μ_log(y_k⁻¹(E) ∩ (0,1)) = 0     [μ_log↾(0,1) ≪ volume]
+        ⟹ ((μ_log↾(0,1)).map y_k) E = 0    [unfold pushforward + restrict] -/
+theorem logWeightedMeasure_restrict_Ioo_map_inverseBranch_absolutelyContinuous
+    (b : ℕ) (hb : b ≥ 1) (k : Fin b) :
+    (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)).map (inverseBranch b k)
+      ≪ logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1) := by
+  have hb_real : (b : ℝ) ≠ 0 := by exact_mod_cast Nat.one_le_iff_ne_zero.mp hb
+  have hb_pos : (0 : ℝ) < b := by exact_mod_cast hb
+  refine Measure.AbsolutelyContinuous.mk fun E hE hE_zero => ?_
+  -- Step A: volume(E ∩ Ioo) = 0 via volume↾(0,1) ≪ μ_log↾(0,1) (commit 869b6f7)
+  have hE_volume : volume (E ∩ Set.Ioo (0:ℝ) 1) = 0 := by
+    have key := volume_restrict_Ioo_absolutelyContinuous_logWeightedMeasure hE_zero
+    rwa [Measure.restrict_apply hE] at key
+  -- Step B: volume(y_k⁻¹(E ∩ Ioo)) = 0 via inverseBranch_volume_map
+  have hY_preimage : volume (inverseBranch b k ⁻¹' (E ∩ Set.Ioo (0:ℝ) 1)) = 0 := by
+    rw [← Measure.map_apply (inverseBranch_measurable b k hb)
+          (hE.inter measurableSet_Ioo)]
+    rw [inverseBranch_volume_map b k hb_real]
+    rw [Measure.smul_apply, hE_volume, smul_zero]
+  -- Step C: y_k⁻¹(E) ∩ Ioo ⊆ y_k⁻¹(E ∩ Ioo), hence its volume is 0
+  have hY_inter : volume (inverseBranch b k ⁻¹' E ∩ Set.Ioo (0:ℝ) 1) = 0 := by
+    apply measure_mono_null _ hY_preimage
+    intro x hx
+    refine ⟨hx.1, ?_⟩
+    have hx_pos : 0 < x := hx.2.1
+    have hx_lt : x < 1 := hx.2.2
+    have hk_succ_le_b_nat : k.val + 1 ≤ b := k.isLt
+    have hk_succ_le_b : (k.val : ℝ) + 1 ≤ (b : ℝ) := by exact_mod_cast hk_succ_le_b_nat
+    have hk_nonneg : (0 : ℝ) ≤ k.val := Nat.cast_nonneg _
+    refine ⟨?_, ?_⟩
+    · simp only [inverseBranch]
+      apply div_pos (by linarith) hb_pos
+    · simp only [inverseBranch]
+      rw [div_lt_one hb_pos]
+      linarith
+  -- Step D: μ_log↾(0,1)(y_k⁻¹(E)) = 0 via μ_log↾(0,1) ≪ volume (commit 98b1f7e)
+  rw [Measure.map_apply (inverseBranch_measurable b k hb) hE]
+  have h_target : (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+                  (inverseBranch b k ⁻¹' E ∩ Set.Ioo (0:ℝ) 1) = 0 :=
+    logWeightedMeasure_restrict_Ioo_absolutelyContinuous_volume hY_inter
+  rw [Measure.restrict_apply (inverseBranch_measurable b k hb hE)]
+  rwa [Measure.restrict_apply
+        ((inverseBranch_measurable b k hb hE).inter measurableSet_Ioo),
+       Set.inter_assoc, Set.inter_self] at h_target
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
