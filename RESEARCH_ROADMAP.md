@@ -92,12 +92,30 @@ The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of
     * `transferOperatorAction_fn_toLp_add` + `transferOperatorAction_fn_toLp_smul` — Lp-lifted linearity via `MemLp.toLp_congr` chain (mathlib `LpSpace/Basic.lean:109`) bridging to `MemLp.toLp_add` / `_const_smul` (each `rfl`) (commit `aef881c`).
     * `transferOperatorAction_fn_toLp_norm_le_input_toLp` — contractivity stated entirely in `Lp.norm`: $\|T_b^{fn,Lp}\, f\| \le \|\mathrm{MemLp.toLp}\, f\, h\|$, the form `LinearMap.mkContinuous` consumes (commit `712ee4e`).
     * `transferOperator_lp` + `transferOperator_lp_norm_le` — direct `Lp → Lp` form via `(Lp.aestronglyMeasurable g).mk g` (canonical strongly-measurable representative), plus operator-norm bound `‖transferOperator_lp g‖ ≤ ‖g‖` (commit `0e5e4b9`).
+  - **Measure-theoretic + ae-propagation prerequisites (commits `98b1f7e` … `e989098`, five commits 2026-05-04)**:
+    * `logWeightedMeasure_restrict_Ioo_absolutelyContinuous_volume` — $\mu_{\log}\!\restriction(0,1) \ll \text{volume}$ (commit `98b1f7e`).
+    * `volume_restrict_Ioo_absolutelyContinuous_logWeightedMeasure` — converse, via mathlib's `withDensity_apply_eq_zero` (commit `869b6f7`).
+    * `logWeightedMeasure_restrict_Ioo_map_inverseBranch_absolutelyContinuous` — pushforward abs continuity $(\mu_{\log}\!\restriction(0,1)).\mathrm{map}(y_k) \ll \mu_{\log}\!\restriction(0,1)$ (commit `25e00eb`).
+    * `inverseBranch_ae_eq_propagation` — per-branch ae-prop $f_1 =^{a.e.} f_2 \Rightarrow f_1 \circ y_k =^{a.e.} f_2 \circ y_k$ (commit `8aac4c4`).
+    * `transferOperatorAction_fn_ae_eq_of_ae_eq` — full T_b ae-respect $f_1 =^{a.e.} f_2 \Rightarrow T_b f_1 =^{a.e.} T_b f_2$ (commit `e989098`).
+  - **Lp-level linearity (commits `483b388`, `d448a7e`, two commits 2026-05-04)**:
+    * `transferOperator_lp_add`: $\mathrm{transferOperator}_{lp}(g+h) = \mathrm{transferOperator}_{lp}\,g + \mathrm{transferOperator}_{lp}\,h$ (commit `483b388`).
+    * `transferOperator_lp_smul`: $\mathrm{transferOperator}_{lp}(c \cdot g) = c \cdot \mathrm{transferOperator}_{lp}\,g$ (commit `d448a7e`).
+  - **CLM packaging (commit `de5d131`, 2026-05-04)**: `transferOperator_clm : LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo` and `transferOperator_clm_norm_le : ‖transferOperator_clm‖ ≤ 1` via `LinearMap.mkContinuous`. **Phase A analytic content COMPLETE.**
 
-**What remains for $\|T_b\| \le 1$ as a `ContinuousLinearMap` on `Lp ℂ 2`** (revised 2026-05-04, post `0e5e4b9`):
-- The function `transferOperator_lp : Lp → Lp` is in source with operator-norm bound `≤ 1` (commit `0e5e4b9`); both ingredients `LinearMap.mkContinuous` consumes are present at the right type level.
-- The remaining piece is **lifting linearity** (`_add`, `_smul` from commit `aef881c`) **to `transferOperator_lp`**. The challenge: `transferOperator_lp` uses the canonical `(Lp.aestronglyMeasurable g).mk g` representative, which differs (pointwise but not ae) between `g+h` and the sum of representatives of `g`, `h` separately. To prove `transferOperator_lp (g + h) = transferOperator_lp g + transferOperator_lp h`, one must show $T_b$ respects ae-equality of input under $\mu_{\log}\!\restriction(0,1)$ — equivalently, that $y_k$ preserves $\mu_{\log}$-null sets. This follows from `inverseBranch_measurePreserving` (volume level, already in source) plus absolute continuity of $\mu_{\log}$ wrt volume on $(0,1)$.
-- After the ae-equality propagation lemma, `LinearMap.mkContinuous` is a one-shot.
-- Once the CLM lands, `LogWeightedL2.inner` becomes mathlib's `@inner ℂ _ _` instance via the structural rename to `LogWeightedL2_concrete` (commit `88d5f37` already infrastructure-prepared).
+**$\|T_b\| \le 1$ as a `ContinuousLinearMap` — COMPLETE (2026-05-04, commit `de5d131`)**:
+- `transferOperator_clm : LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo` is now in source via `LinearMap.mkContinuous`, packaging:
+  - `transferOperator_lp` (commit `0e5e4b9`) as the underlying function `Lp → Lp`,
+  - `transferOperator_lp_add` (commit `483b388`) and `_smul` (commit `d448a7e`) as the linearity `LinearMap` fields,
+  - `transferOperator_lp_norm_le` (commit `0e5e4b9`) as the operator-norm bound (lifted to `‖·‖ ≤ 1 · ‖·‖` via `one_mul`).
+- `transferOperator_clm_norm_le : ‖transferOperator_clm b hb phases hphases‖ ≤ 1` via `LinearMap.mkContinuous_norm_le`.
+- The substantive ae-equality propagation chain (commits `98b1f7e` → `e989098`):
+  - $\mu_{\log}\!\restriction(0,1) \ll \text{volume}$ + converse → mutual abs continuity on (0,1).
+  - $(\mu_{\log}\!\restriction(0,1)).\mathrm{map}(y_k) \ll \mu_{\log}\!\restriction(0,1)$ — pushforward abs continuity, using `inverseBranch_volume_map`.
+  - Per-branch ae-prop via `EventuallyEq.filter_mono` + `EventuallyEq.comp_tendsto`.
+  - Full T_b ae-respect via `Filter.eventually_all` (Finite `Fin b`) + `Finset.sum_congr`.
+
+**What remains for `LogWeightedL2.inner` retirement (canonical 8 → 7)**: the structural rename cascade through ~44 callsites in `PF/TransferOperator.lean`, `PF/SpectralBijection.lean`, `PF/Millennium.lean`, swapping the placeholder `structure LogWeightedL2` with `LogWeightedL2_Ioo` (or `LogWeightedL2_concrete`). The mathematical content is COMPLETE; only mechanical Lean refactoring remains. Once the swap lands, `LogWeightedL2.inner` becomes mathlib's `@inner ℂ _ _` instance.
 
 **Attack in Lean 4 (revised 2026-05-03 with eLpNorm contractivity in source):**
 - The analytic content is **complete**: function-level operator, measurability, eLpNorm contractivity, MemLp preservation are all in source.

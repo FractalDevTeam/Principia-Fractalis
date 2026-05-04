@@ -1,6 +1,27 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-05-04, post-rev-3 follow-on chain extended through CLM-packaging analytic prerequisites (commits through `0e5e4b9`). **8 axioms** remain (canonical PF/), 0 sorries, 5488 jobs clean.*
+*As of 2026-05-04, post-rev-3 follow-on chain extended through complete CLM packaging — T_b as a `ContinuousLinearMap` with operator norm ≤ 1 (commits through `de5d131`). **8 axioms** remain (canonical PF/), 0 sorries, 5488 jobs clean.*
+
+## CLM PACKAGING COMPLETE (2026-05-04, commits `98b1f7e` … `de5d131`)
+
+A nine-commit extension takes the transfer operator T_b from "operator-norm bound proven on functions" to **"`ContinuousLinearMap` on the Hilbert space $L^2(\mu_{\log}\!\restriction(0,1))$ with operator norm $\le 1$"**. Phase A's analytic content for the manuscript-level $\|T_b\| \le 1$ statement is now COMPLETE in source.
+
+- **Mutual absolute continuity on (0,1)** (commits `98b1f7e`, `869b6f7`):
+  - `logWeightedMeasure_restrict_Ioo_absolutelyContinuous_volume`: $\mu_{\log}\!\restriction(0,1) \ll \text{volume}$ via `restrict_le_self` + `withDensity_absolutelyContinuous`.
+  - `volume_restrict_Ioo_absolutelyContinuous_logWeightedMeasure`: converse via `withDensity_apply_eq_zero` and the positivity of `logWeightDensity` on (0,1).
+- **Pushforward absolute continuity** (commit `25e00eb`): `logWeightedMeasure_restrict_Ioo_map_inverseBranch_absolutelyContinuous` — $(\mu_{\log}\!\restriction(0,1)).\mathrm{map}(y_k) \ll \mu_{\log}\!\restriction(0,1)$. Composes the previous two abs-continuity directions with `inverseBranch_volume_map`, plus explicit $(x+k)/b \in (0,1)$ bounds via `k.isLt : k.val + 1 \le b` lifted to ℝ.
+- **AE-propagation through T_b** (commits `8aac4c4`, `e989098`):
+  - `inverseBranch_ae_eq_propagation`: per-branch $f_1 =^{a.e.} f_2 \Rightarrow f_1 \circ y_k =^{a.e.} f_2 \circ y_k$. Two-line proof: `EventuallyEq.filter_mono (25e00eb.ae_le)` + `EventuallyEq.comp_tendsto (Measure.tendsto_ae_map …)`.
+  - `transferOperatorAction_fn_ae_eq_of_ae_eq`: full T_b ae-respect. Three-line proof using `Filter.eventually_all` (Finite `Fin b`) + `Finset.sum_congr` inside the b-summed pointwise definition.
+- **Lp-level linearity of `transferOperator_lp`** (commits `483b388`, `d448a7e`):
+  - `transferOperator_lp_add`: $\mathrm{transferOperator}_{lp}(g+h) = \mathrm{transferOperator}_{lp}\,g + \mathrm{transferOperator}_{lp}\,h$.
+  - `transferOperator_lp_smul`: $\mathrm{transferOperator}_{lp}(c \cdot g) = c \cdot \mathrm{transferOperator}_{lp}\,g$.
+  Both compose `Lp.coeFn_add`/`coeFn_smul` + `ae_eq_mk` (input ae-eq), `e989098` (T_b respects ae), `49ff3ba` pointwise distribution, and `MemLp.toLp_congr` + `MemLp.toLp_add`/`_const_smul`.
+- **`transferOperator_clm` + op-norm bound** (commit `de5d131`):
+  - `transferOperator_clm : LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo` via `LinearMap.mkContinuous L 1 bound`.
+  - `transferOperator_clm_norm_le`: $\|\mathrm{transferOperator}_{clm}\| \le 1$ via `LinearMap.mkContinuous_norm_le`.
+
+**What remains for `LogWeightedL2.inner` axiom retirement** (canonical 8 → 7): the structural rename cascade through ~44 callsites in `PF/TransferOperator.lean`, `PF/SpectralBijection.lean`, `PF/Millennium.lean`, swapping the placeholder `structure LogWeightedL2` with `LogWeightedL2_Ioo`. **No more new mathematics needed; only mechanical refactoring.**
 
 ## CLM-packaging analytic prerequisites (2026-05-04)
 
