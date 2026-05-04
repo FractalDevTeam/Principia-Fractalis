@@ -25,6 +25,9 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.LinearAlgebra.Eigenspace.Basic
+import Mathlib.MeasureTheory.Measure.WithDensity
+import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
+import Mathlib.MeasureTheory.Integral.Bochner
 import PF.IntervalArithmetic
 
 namespace PrincipiaTractalis
@@ -59,15 +62,59 @@ instance LogWeightedL2.instNeg : Neg LogWeightedL2 where
 instance LogWeightedL2.instSMul : SMul ℂ LogWeightedL2 where
   smul c f := ⟨fun x => c * f.toFun x, trivial⟩
 
-/-- Inner product on weighted L².
-    Mathematically: ⟨f,g⟩ = ∫₀¹ conj(f(x)) · g(x) dx/x
+/-! ### Log-weighted measure (definition lives here so `LogWeightedL2.inner`
+    can be a real Bochner integral, not an axiom). -/
 
-    STATUS: Axiomatized. Implementing this requires Mathlib's
-    MeasureTheory.Integral.Bochner for the log-weighted measure dx/x on [0,1].
-    The inner product was previously a placeholder returning 0, which made
-    all self-adjointness proofs vacuously true. Now axiomatized honestly.
--/
-axiom LogWeightedL2.inner : LogWeightedL2 → LogWeightedL2 → ℂ
+/-- The log-weighted density: 1/x on (0, ∞), 0 on (-∞, 0]. -/
+noncomputable def logWeightDensity (x : ℝ) : ENNReal :=
+  if x ≤ 0 then 0 else ENNReal.ofReal (1 / x)
+
+/-- The log-weighted measure on ℝ: dμ = (1/x) · dx, supported on (0, ∞).
+    On (0, 1], `∫_{(0,1]} dx/x = ∞` (logarithmic divergence at 0), but
+    L² with respect to it is well-defined. -/
+noncomputable def logWeightedMeasure : MeasureTheory.Measure ℝ :=
+  MeasureTheory.volume.withDensity logWeightDensity
+
+lemma logWeightedMeasure_def :
+    logWeightedMeasure = MeasureTheory.volume.withDensity logWeightDensity := rfl
+
+/-- The log-weighted density is everywhere finite. -/
+lemma logWeightDensity_ne_top (x : ℝ) : logWeightDensity x ≠ ⊤ := by
+  unfold logWeightDensity
+  split_ifs
+  · exact ENNReal.zero_ne_top
+  · exact ENNReal.ofReal_ne_top
+
+/-- `logWeightedMeasure` is sigma-finite. -/
+instance : MeasureTheory.SigmaFinite logWeightedMeasure := by
+  unfold logWeightedMeasure
+  exact MeasureTheory.SigmaFinite.withDensity_of_ne_top'
+    (fun x => logWeightDensity_ne_top x)
+
+/-- Extend a `LogWeightedL2` element's `toFun` (defined on `Set.Icc 0 1`)
+    to all of `ℝ` by zero outside the unit interval. Required so the
+    inner-product Bochner integral can use a `ℝ → ℂ` function.
+
+    For x ∈ Icc 0 1, returns f.toFun ⟨x, h⟩; else 0. -/
+noncomputable def LogWeightedL2.toFunℝ (f : LogWeightedL2) (x : ℝ) : ℂ :=
+  if h : x ∈ Set.Icc (0:ℝ) 1 then f.toFun ⟨x, h⟩ else 0
+
+/-- Inner product on `LogWeightedL2`:
+      `⟨f, g⟩ = ∫₀¹ conj(f(x)) · g(x) dx/x`
+
+    Real Bochner integral against `logWeightedMeasure.restrict (Ioo 0 1)`,
+    using `LogWeightedL2.toFunℝ` to extend the `Icc 0 1`-domain functions
+    to `ℝ → ℂ`.
+
+    PREVIOUSLY AXIOMATIZED — the axiom `LogWeightedL2.inner` is now
+    eliminated by this definition. (The earlier docstring noted the
+    axiom was "to be replaced once `MeasureTheory.Integral.Bochner` for
+    the log-weighted measure is integrated"; that integration is now
+    in source via `logWeightedMeasure` above.) -/
+noncomputable def LogWeightedL2.inner (f g : LogWeightedL2) : ℂ :=
+  ∫ x in Set.Ioo (0:ℝ) 1,
+    (starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x
+    ∂logWeightedMeasure
 
 notation "⟪" f ", " g "⟫" => LogWeightedL2.inner f g
 
