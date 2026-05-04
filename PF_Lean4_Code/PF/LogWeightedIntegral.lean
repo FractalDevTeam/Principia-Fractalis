@@ -1892,6 +1892,55 @@ theorem transferOperatorAction_fn_toLp_norm_le_input_toLp
   rw [h_eq]
   exact transferOperatorAction_fn_toLp_norm_le b hb phases hphases f hf hfMemLp
 
+/-! ### Direct `Lp → Lp` form of the transfer operator
+
+`transferOperatorAction_fn_toLp` takes (function, Measurable, MemLp) as
+input. To package T_b as a `ContinuousLinearMap`, we need a function
+`Lp → Lp` directly. This is achieved by extracting the canonical
+strongly-measurable representative from any Lp element via
+`AEStronglyMeasurable.mk`. -/
+
+/-- The Lp-element-level transfer operator action. Takes
+    `g : LogWeightedL2_Ioo` directly (not function + Measurable + MemLp)
+    by extracting the canonical strongly-measurable representative
+    `(Lp.aestronglyMeasurable g).mk g`, then applying
+    `transferOperatorAction_fn_toLp`. -/
+noncomputable def transferOperator_lp
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (g : LogWeightedL2_Ioo) : LogWeightedL2_Ioo :=
+  transferOperatorAction_fn_toLp b hb phases hphases
+    ((Lp.aestronglyMeasurable g).mk (g : ℝ → ℂ))
+    (Lp.aestronglyMeasurable g).measurable_mk
+    ((Lp.memLp g).ae_eq (Lp.aestronglyMeasurable g).ae_eq_mk)
+
+/-- Contractivity for the direct `Lp → Lp` form: `‖T_b^{Lp} g‖ ≤ ‖g‖`.
+    The operator-norm bound on `transferOperator_lp` — the form
+    `LinearMap.mkContinuous` consumes (with `M = 1`).
+
+    Proof: chain `transferOperatorAction_fn_toLp_norm_le_input_toLp`
+    (commit 712ee4e) with the identity `MemLp.toLp ((aesm g).mk g) ... = g`
+    in `Lp`, which holds because `↑↑(MemLp.toLp ...) =ᵐ (aesm g).mk g =ᵐ ↑↑g`
+    via `MemLp.coeFn_toLp` and `AEStronglyMeasurable.ae_eq_mk`. -/
+theorem transferOperator_lp_norm_le
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (g : LogWeightedL2_Ioo) :
+    ‖transferOperator_lp b hb phases hphases g‖ ≤ ‖g‖ := by
+  have h_eq : (MemLp.toLp ((Lp.aestronglyMeasurable g).mk (g : ℝ → ℂ))
+                ((Lp.memLp g).ae_eq (Lp.aestronglyMeasurable g).ae_eq_mk)
+              : LogWeightedL2_Ioo) = g := by
+    apply Lp.ext
+    filter_upwards [MemLp.coeFn_toLp
+                      ((Lp.memLp g).ae_eq (Lp.aestronglyMeasurable g).ae_eq_mk),
+                    (Lp.aestronglyMeasurable g).ae_eq_mk]
+      with x h1 h2
+    rw [h1, ← h2]
+  unfold transferOperator_lp
+  conv_rhs => rw [← h_eq]
+  exact transferOperatorAction_fn_toLp_norm_le_input_toLp b hb phases hphases
+    ((Lp.aestronglyMeasurable g).mk (g : ℝ → ℂ))
+    (Lp.aestronglyMeasurable g).measurable_mk
+    ((Lp.memLp g).ae_eq (Lp.aestronglyMeasurable g).ae_eq_mk)
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
