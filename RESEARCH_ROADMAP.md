@@ -2,7 +2,7 @@
 
 *Author's mathematical attack plan for the `FractalDevTeam/Principia-Fractalis` Lean 4 formalization, 2026-04-24.*
 
-The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of the rev 2 formalization. Each requires research-grade work; this document gives a concrete mathematical attack plan for each, so a collaborator (human or future AI session) can pick up cleanly.
+The remaining 7 axioms (post `a43a669`, 2026-05-04 — `LogWeightedL2.inner` RETIRED) listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of the rev 2 formalization. Each requires research-grade work; this document gives a concrete mathematical attack plan for each, so a collaborator (human or future AI session) can pick up cleanly.
 
 ---
 
@@ -50,7 +50,15 @@ The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of
 
 ## Category 2: LOAD-BEARING PLACEHOLDER (2 axioms)
 
-### 2.1 `LogWeightedL2.inner` — construct the log-weighted Lebesgue integral
+### 2.1 `LogWeightedL2.inner` — ⭐ RETIRED 2026-05-04 (commit `a43a669`) ⭐
+
+The axiom is RETIRED. Replaced with a `noncomputable def` against the log-weighted Bochner integral (using `LogWeightedL2.toFunℝ` extension to bridge the structure's `Icc 0 1` domain to `ℝ`). Canonical Lean PF/ count: 8 → 7.
+
+The historical attack-plan content for §2.1 is preserved below (showing how the elimination was originally projected via a structural rename cascade through ~44 callsites — that path was NOT taken; the simpler in-place replacement worked).
+
+#### Historical content (pre-retirement)
+
+
 
 **What's needed:** the integral $\int_0^1 \overline{f(x)} \, g(x) \, \frac{dx}{x}$ as a well-typed Lean function `LogWeightedL2 → LogWeightedL2 → ℂ`.
 

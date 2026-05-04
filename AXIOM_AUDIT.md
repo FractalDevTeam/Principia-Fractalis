@@ -1,6 +1,28 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-05-04, post-rev-3 follow-on chain extended through complete CLM packaging — T_b as a `ContinuousLinearMap` with operator norm ≤ 1 (commits through `de5d131`). **8 axioms** remain (canonical PF/), 0 sorries, 5488 jobs clean.*
+*As of 2026-05-04, post `LogWeightedL2.inner` axiom retirement (commit `a43a669`). **7 axioms** remain (canonical PF/, down from 8 — first reduction since Phase A began), 0 sorries, 5488 jobs clean.*
+
+## ⭐ AXIOM ELIMINATION (2026-05-04, commit `a43a669`)
+
+**`LogWeightedL2.inner` is RETIRED.** Canonical Lean PF/ axiom count drops from 8 to 7.
+
+Replaced `axiom LogWeightedL2.inner : LogWeightedL2 → LogWeightedL2 → ℂ` with `noncomputable def`:
+
+```lean
+noncomputable def LogWeightedL2.inner (f g : LogWeightedL2) : ℂ :=
+  ∫ x in Set.Ioo (0:ℝ) 1,
+    (starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x
+    ∂logWeightedMeasure
+```
+
+The retirement took a SIMPLER path than the originally-projected "structural rename cascade":
+- The placeholder `structure LogWeightedL2` is PRESERVED.
+- New `LogWeightedL2.toFunℝ` extends the `Icc 0 1 → ℂ` `toFun` to `ℝ → ℂ` by zero outside the unit interval, so the Bochner integrand is well-typed.
+- `logWeightDensity`, `logWeightedMeasure`, `logWeightedMeasure_def`, `logWeightDensity_ne_top`, and the `SigmaFinite logWeightedMeasure` instance moved from `PF/LogWeightedIntegral.lean` to `PF/TransferOperator.lean` (so they're upstream of the `inner` definition). Duplicate defs removed from `LogWeightedIntegral.lean`.
+
+The def is non-vacuous: for integrable inputs, returns the true $\int_0^1 \overline{f(x)} g(x) \frac{dx}{x}$; for non-integrable, returns 0 by Bochner convention. Honors the rigor mandate (no placeholder = 0 — the function returns the actual integral whenever defined).
+
+Self-adjointness theorems in `PF/TransferOperator.lean` (e.g. `self_adjoint_real_eigenvalues`) still take hypothesis-style sesquilinearity / positive-definiteness args; converting these to free theorems (provable from the new `def` plus standard Bochner-integral linearity) is a follow-on refactor not required for the axiom retirement.
 
 ## CLM PACKAGING COMPLETE (2026-05-04, commits `98b1f7e` … `de5d131`)
 
@@ -21,7 +43,7 @@ A nine-commit extension takes the transfer operator T_b from "operator-norm boun
   - `transferOperator_clm : LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo` via `LinearMap.mkContinuous L 1 bound`.
   - `transferOperator_clm_norm_le`: $\|\mathrm{transferOperator}_{clm}\| \le 1$ via `LinearMap.mkContinuous_norm_le`.
 
-**What remains for `LogWeightedL2.inner` axiom retirement** (canonical 8 → 7): the structural rename cascade through ~44 callsites in `PF/TransferOperator.lean`, `PF/SpectralBijection.lean`, `PF/Millennium.lean`, swapping the placeholder `structure LogWeightedL2` with `LogWeightedL2_Ioo`. **No more new mathematics needed; only mechanical refactoring.**
+**Status of `LogWeightedL2.inner` retirement (2026-05-04, post `a43a669`)**: ✅ DONE — see top "AXIOM ELIMINATION" section. The retirement was achieved without the originally-projected ~44-callsite cascade, by replacing the axiom in-place with a `noncomputable def` plus a `toFunℝ` extension to bridge the structure's `Icc 0 1` domain to `ℝ`.
 
 ## CLM-packaging analytic prerequisites (2026-05-04)
 
