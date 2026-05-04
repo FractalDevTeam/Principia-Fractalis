@@ -1793,4 +1793,38 @@ theorem transferOperatorAction_fn_toLp_norm_le
     (transferOperatorAction_fn_toLp_eLpNorm_le
       b hb phases hphases f hf hfMemLp)
 
+/-! ### Linearity of the function-level transfer operator
+
+The pointwise additivity and homogeneity identities for
+`transferOperatorAction_fn`. These are the linearity ingredients consumed
+by `LinearMap.mkContinuous`, which builds a `ContinuousLinearMap` out of
+a linear map plus an operator-norm bound. Combined with
+`transferOperatorAction_fn_toLp_norm_le`, this is all the analytic
+content needed to package `T_b^{fn,Lp}` as a CLM
+`LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo` with operator norm ≤ 1. -/
+
+/-- Additivity: `T_b^{fn} (f + g) = T_b^{fn} f + T_b^{fn} g` pointwise. -/
+theorem transferOperatorAction_fn_add (b : ℕ) (phases : Fin b → ℂ)
+    (f g : ℝ → ℂ) (x : ℝ) :
+    transferOperatorAction_fn b phases (f + g) x
+      = transferOperatorAction_fn b phases f x
+        + transferOperatorAction_fn b phases g x := by
+  unfold transferOperatorAction_fn
+  simp only [Pi.add_apply, mul_add, Finset.sum_add_distrib]
+
+/-- Homogeneity: `T_b^{fn} (c • f) = c • T_b^{fn} f` pointwise. -/
+theorem transferOperatorAction_fn_smul (b : ℕ) (phases : Fin b → ℂ) (c : ℂ)
+    (f : ℝ → ℂ) (x : ℝ) :
+    transferOperatorAction_fn b phases (c • f) x
+      = c • transferOperatorAction_fn b phases f x := by
+  unfold transferOperatorAction_fn
+  simp only [Pi.smul_apply, smul_eq_mul]
+  rw [show ∑ k, phases k * ((weightFunction b k x : ℂ) * (c * f (inverseBranch b k x)))
+        = c * ∑ k, phases k * ((weightFunction b k x : ℂ) * f (inverseBranch b k x)) from ?_]
+  · ring
+  · rw [Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intros
+    ring
+
 end PrincipiaTractalis
