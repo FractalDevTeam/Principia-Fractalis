@@ -2,6 +2,42 @@
 
 *As of 2026-05-04, post `LogWeightedL2.inner` axiom retirement (commit `a43a669`). **7 axioms** remain (canonical PF/, down from 8 — first reduction since Phase A began), 0 sorries, 5488 jobs clean.*
 
+## Inner-product API + conditional T3 self-adjointness (2026-05-04, commits `3520de8` … `06134f3`)
+
+After the `LogWeightedL2.inner` retirement (`a43a669`), a 12-commit chain
+built out the sesquilinearity API for the new Bochner-integral-based
+`inner` definition:
+
+**Unconditional (no integrability hypothesis)**:
+- `inner_zero_left`/`inner_zero_right`/`toFunℝ_zero` (`3520de8`)
+- `inner_neg_left`/`inner_neg_right`/`toFunℝ_neg_apply` (`a189dac`)
+- `inner_smul_left`/`inner_smul_right`/`toFunℝ_smul_apply` (`a189dac`)
+- `inner_conj_symm` (`551b42d`) — via `MeasureTheory.integral_conj`
+- `inner_self_im` (`ad4a08e`) — `(⟪f, f⟫).im = 0`
+- `inner_self_re_nonneg` (`116a033`) — positive-semidefinite property
+- `norm_zero`, `norm_neg`, `norm_nonneg` (`057ec18`)
+- `norm_sq_eq_inner_self_re` (`ce0b0eb`) — Hilbert-space identity
+- `inner_self_eq_integral_normSq` (`558b9d8`) — explicit integral form
+- `inner_self_zero_iff_norm_zero` (`06134f3`) — equivalence
+
+**Integrability-conditional**:
+- `inner_add_left`/`inner_add_right`/`toFunℝ_add_apply` (`9ba099e`)
+  — sesquilinearity in the additive direction; takes per-call
+  integrability hypotheses since `MeasureTheory.integral_add` requires
+  both summands to be integrable.
+
+**Conditional T3 self-adjointness reduction** (`adda67e`):
+- `T3_self_adjoint_conj_via_formal_adjoint` — proves the statement of
+  `axiom T3_self_adjoint_conj` from formal-adjoint relations
+  (`⟪T3 f, g⟫ = ⟪f, T3_adj g⟫`, inverse, integrability hypotheses).
+  Reduces axiom retirement to proving the formal-adjoint relations,
+  which are concrete Mayer-1991 change-of-variables claims.
+
+The structure's placeholder `integrable : True` field forces
+integrability hypotheses to be supplied per-lemma. The eventual
+structural refactor (`structure → abbrev := Lp ℂ 2 ...`) will make
+these hypotheses free instance fields.
+
 ## ⭐ AXIOM ELIMINATION (2026-05-04, commit `a43a669`)
 
 **`LogWeightedL2.inner` is RETIRED.** Canonical Lean PF/ axiom count drops from 8 to 7.
