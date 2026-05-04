@@ -152,6 +152,71 @@ theorem LogWeightedL2.inner_zero_right (f : LogWeightedL2) :
   simp only [LogWeightedL2.toFunℝ_zero, mul_zero,
     MeasureTheory.integral_zero]
 
+/-- Negation pointwise: `(-f).toFunℝ x = -(f.toFunℝ x)`.
+    Pointwise version (avoids Pi.neg_apply complications in the funext form). -/
+lemma LogWeightedL2.toFunℝ_neg_apply (f : LogWeightedL2) (x : ℝ) :
+    (-f).toFunℝ x = -(f.toFunℝ x) := by
+  unfold LogWeightedL2.toFunℝ
+  split_ifs with h
+  · -- (-f).toFun ⟨x,h⟩ = -(f.toFun ⟨x,h⟩) — needs explicit unfold of instNeg
+    show (-f).toFun ⟨x, h⟩ = -(f.toFun ⟨x, h⟩)
+    rfl
+  · exact (neg_zero).symm
+
+/-- Scalar multiplication pointwise: `(c • f).toFunℝ x = c • (f.toFunℝ x)`. -/
+lemma LogWeightedL2.toFunℝ_smul_apply (c : ℂ) (f : LogWeightedL2) (x : ℝ) :
+    (c • f).toFunℝ x = c • (f.toFunℝ x) := by
+  unfold LogWeightedL2.toFunℝ
+  split_ifs with h
+  · show (c • f).toFun ⟨x, h⟩ = c • f.toFun ⟨x, h⟩
+    rfl
+  · simp
+
+/-- `inner (-f) g = -(inner f g)`. Uses `MeasureTheory.integral_neg`. -/
+theorem LogWeightedL2.inner_neg_left (f g : LogWeightedL2) :
+    LogWeightedL2.inner (-f) g = -(LogWeightedL2.inner f g) := by
+  unfold LogWeightedL2.inner
+  rw [show (fun x => (starRingEnd ℂ) ((-f).toFunℝ x) * g.toFunℝ x)
+        = (fun x => -((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) from ?_]
+  · exact MeasureTheory.integral_neg _
+  · funext x
+    rw [LogWeightedL2.toFunℝ_neg_apply, map_neg, neg_mul]
+
+/-- `inner f (-g) = -(inner f g)`. Symmetric to `inner_neg_left`. -/
+theorem LogWeightedL2.inner_neg_right (f g : LogWeightedL2) :
+    LogWeightedL2.inner f (-g) = -(LogWeightedL2.inner f g) := by
+  unfold LogWeightedL2.inner
+  rw [show (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (-g).toFunℝ x)
+        = (fun x => -((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) from ?_]
+  · exact MeasureTheory.integral_neg _
+  · funext x
+    rw [LogWeightedL2.toFunℝ_neg_apply, mul_neg]
+
+/-- `inner (c • f) g = (star c) * inner f g` — conjugate linearity in
+    the left argument. Uses `MeasureTheory.integral_const_mul`. -/
+theorem LogWeightedL2.inner_smul_left (c : ℂ) (f g : LogWeightedL2) :
+    LogWeightedL2.inner (c • f) g = (star c) * LogWeightedL2.inner f g := by
+  unfold LogWeightedL2.inner
+  rw [show (fun x => (starRingEnd ℂ) ((c • f).toFunℝ x) * g.toFunℝ x)
+        = (fun x => (star c) * ((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) from ?_]
+  · exact MeasureTheory.integral_const_mul (star c) _
+  · funext x
+    rw [LogWeightedL2.toFunℝ_smul_apply, smul_eq_mul, map_mul]
+    simp only [starRingEnd_apply]
+    ring
+
+/-- `inner f (c • g) = c * inner f g` — linearity in the right argument.
+    Uses `MeasureTheory.integral_const_mul`. -/
+theorem LogWeightedL2.inner_smul_right (c : ℂ) (f g : LogWeightedL2) :
+    LogWeightedL2.inner f (c • g) = c * LogWeightedL2.inner f g := by
+  unfold LogWeightedL2.inner
+  rw [show (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (c • g).toFunℝ x)
+        = (fun x => c * ((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) from ?_]
+  · exact MeasureTheory.integral_const_mul c _
+  · funext x
+    rw [LogWeightedL2.toFunℝ_smul_apply, smul_eq_mul]
+    ring
+
 /-- Norm on weighted L². -/
 noncomputable def LogWeightedL2.norm (f : LogWeightedL2) : ℝ :=
   Real.sqrt (LogWeightedL2.inner f f).re
