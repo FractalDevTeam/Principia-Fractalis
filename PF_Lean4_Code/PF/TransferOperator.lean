@@ -534,6 +534,51 @@ noncomputable def adjointWeight (k : Fin 3) (x : ℝ) : ℝ :=
     Real.sqrt (x / (3 * x - k.val))
   else 0
 
+/-- **Weight identity for the formal adjoint relation** (Mayer 1991, §2;
+    manuscript Ch 20, equation in the proof of Theorem `thm:self-adjoint-transfer`).
+
+    For $u \in I_k = (k/3, (k+1)/3]$ (so `3u - k > 0`):
+      $w^*_k(u) = u \cdot \frac{w_k(3u - k)}{3u - k}$
+
+    where $w_k(x) = \sqrt{3x/(x+k)}$ and $w^*_k(u) = \sqrt{u/(3u-k)}$.
+
+    This identity is the algebraic core of the formal-adjoint relation
+    `⟪T_3 f, g⟫ = ⟪f, T_3^* g⟫`: under the change-of-variables
+    $u = y_k(x) = (x+k)/3$ on the kth contracting branch, the
+    Jacobian factor `(1/x) · 3` becomes `3/(3u-k)`, and combining with
+    `w_k(3u-k) = w_k(x)`'s explicit form gives `w^*_k(u)/u`.
+
+    Squared form for tractability: both sides squared equal `u/(3u-k)`. -/
+lemma adjointWeight_eq_weightFunction (k : Fin 3) (u : ℝ)
+    (hu_pos : u > 0) (h3u_k : (3 * u - (k.val : ℝ) : ℝ) > 0) :
+    adjointWeight k u =
+      u * weightFunction 3 k (3 * u - (k.val : ℝ)) / (3 * u - (k.val : ℝ)) := by
+  -- Both sides are non-negative; equate via squaring (Real.sqrt characterization).
+  have h3u : (3 : ℝ) * u > 0 := by linarith
+  have h3u_k_plus_k : (3 * u - (k.val : ℝ)) + (k.val : ℝ) > 0 := by linarith
+  have h_arg_pos : (3 : ℝ) * (3 * u - k.val) / ((3 * u - k.val) + k.val) > 0 := by
+    apply div_pos
+    · linarith
+    · linarith
+  -- Unfold both sides
+  unfold adjointWeight weightFunction
+  rw [if_pos h3u_k]
+  rw [dif_pos ⟨h3u_k, h3u_k_plus_k⟩]
+  push_cast  -- normalize the Nat → ℝ coercion of `3` from `weightFunction 3 ...`
+  -- Goal: √(u/(3u-k)) = u · √(3·(3u-k)/((3u-k)+k.val)) / (3u-k)
+  -- Simplify the inner sqrt arg: 3(3u-k)/((3u-k)+k) = 3(3u-k)/(3u) = (3u-k)/u
+  have h_simplify : (3 : ℝ) * (3 * u - (k.val : ℝ)) / ((3 * u - (k.val : ℝ)) + (k.val : ℝ)) =
+                    (3 * u - (k.val : ℝ)) / u := by
+    have h_denom : (3 * u - (k.val : ℝ)) + (k.val : ℝ) = 3 * u := by ring
+    rw [h_denom]
+    field_simp
+  rw [h_simplify]
+  rw [Real.sqrt_div hu_pos.le, Real.sqrt_div h3u_k.le]
+  field_simp
+  rw [show Real.sqrt u ^ 2 = u from Real.sq_sqrt hu_pos.le,
+      show Real.sqrt (3 * u - (k.val : ℝ)) ^ 2 = 3 * u - (k.val : ℝ)
+        from Real.sq_sqrt h3u_k.le]
+
 /-- The modified transfer operator T_b.
 
     (T_b f)(x) = (1/b) ∑_{k=0}^{b-1} ω_k · w_k(x) · f(y_k(x))
