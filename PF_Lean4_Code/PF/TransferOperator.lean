@@ -748,6 +748,56 @@ noncomputable def T3_sym : TransferOperator 3 := {
 axiom T3_self_adjoint_conj :
     ∀ (f g : LogWeightedL2), ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫
 
+/-- **Conditional theorem**: `T3_self_adjoint_conj` is provable assuming
+    the formal-adjoint relation between T3 and T3_adjoint plus
+    integrability hypotheses for `inner_add`.
+
+    The reduction:
+      ⟪T3_sym f, g⟫ = (1/2) • ⟪T3 f + T3_adj f, g⟫
+                    = (1/2) (⟪T3 f, g⟫ + ⟪T3_adj f, g⟫)         [inner_add_left]
+                    = (1/2) (⟪f, T3_adj g⟫ + ⟪f, T3 g⟫)         [formal adjoint hyps]
+                    = (1/2) (⟪f, T3 g⟫ + ⟪f, T3_adj g⟫)         [add_comm]
+                    = (1/2) ⟪f, T3 g + T3_adj g⟫                [inner_add_right]
+                    = ⟪f, (1/2) • (T3 g + T3_adj g)⟫            [inner_smul_right + star_real]
+                    = ⟪f, T3_sym g⟫                              [def of T3_sym]
+
+    Once the formal-adjoint relations and integrability are proven
+    (multi-day Mayer-1991 change-of-variables work), this theorem
+    retires `T3_self_adjoint_conj` as a direct corollary. -/
+theorem T3_self_adjoint_conj_via_formal_adjoint
+    (h_T3_adj : ∀ (f' g' : LogWeightedL2),
+      ⟪T3.apply f', g'⟫ = ⟪f', T3_adjoint.apply g'⟫)
+    (h_T3_adj_inv : ∀ (f' g' : LogWeightedL2),
+      ⟪T3_adjoint.apply f', g'⟫ = ⟪f', T3.apply g'⟫)
+    (h_int_left : ∀ (f' g' : LogWeightedL2),
+      MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) ((T3.apply f').toFunℝ x) * g'.toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) ∧
+      MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) ((T3_adjoint.apply f').toFunℝ x) * g'.toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (h_int_right : ∀ (f' g' : LogWeightedL2),
+      MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) (f'.toFunℝ x) * (T3.apply g').toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) ∧
+      MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) (f'.toFunℝ x) * (T3_adjoint.apply g').toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (f g : LogWeightedL2) :
+    ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫ := by
+  show ⟪((1/2 : ℂ)) • (T3.apply f + T3_adjoint.apply f), g⟫
+     = ⟪f, ((1/2 : ℂ)) • (T3.apply g + T3_adjoint.apply g)⟫
+  rw [LogWeightedL2.inner_smul_left, LogWeightedL2.inner_smul_right]
+  rw [LogWeightedL2.inner_add_left _ _ _ (h_int_left f g).1 (h_int_left f g).2]
+  rw [LogWeightedL2.inner_add_right _ _ _ (h_int_right f g).1 (h_int_right f g).2]
+  rw [h_T3_adj, h_T3_adj_inv]
+  -- Goal: star (1/2) * (⟪f, T3_adj g⟫ + ⟪f, T3 g⟫)
+  --     = (1/2) * (⟪f, T3 g⟫ + ⟪f, T3_adj g⟫)
+  have h_star_half : star ((1/2 : ℂ)) = (1/2 : ℂ) := by
+    simp [Complex.star_def]
+  rw [h_star_half]
+  ring
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
