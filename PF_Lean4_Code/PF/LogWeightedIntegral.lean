@@ -2196,6 +2196,44 @@ theorem transferOperator_lp_smul
         ((Lp.memLp g).ae_eq (Lp.aestronglyMeasurable g).ae_eq_mk)).const_smul c)
     h_T).trans (MemLp.toLp_const_smul c _)
 
+/-! ### Continuous linear map packaging
+
+Assembles `transferOperator_lp` (commit `0e5e4b9`), its linearity
+(commits `483b388` for `_add`, `d448a7e` for `_smul`), and its
+operator-norm bound (`transferOperator_lp_norm_le`, commit `0e5e4b9`)
+into a `ContinuousLinearMap` `LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo`
+with operator norm `≤ 1` via `LinearMap.mkContinuous`. -/
+
+/-- The transfer operator T_b as a `ContinuousLinearMap`
+    `LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo` with operator norm `≤ 1`.
+
+    Construction:
+      LinearMap.mkContinuous L 1 (op-norm bound)
+    where `L` packages `transferOperator_lp` with its additivity (`483b388`)
+    and homogeneity (`d448a7e`) into a `LinearMap`, and the op-norm bound
+    is `transferOperator_lp_norm_le` (`0e5e4b9`) lifted from `‖·‖ ≤ ‖·‖`
+    to `‖·‖ ≤ 1 * ‖·‖` via `one_mul`. -/
+noncomputable def transferOperator_clm
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1) :
+    LogWeightedL2_Ioo →L[ℂ] LogWeightedL2_Ioo :=
+  LinearMap.mkContinuous
+    { toFun := transferOperator_lp b hb phases hphases
+      map_add' := transferOperator_lp_add b hb phases hphases
+      map_smul' := transferOperator_lp_smul b hb phases hphases }
+    1
+    (fun g => by
+      rw [one_mul]
+      exact transferOperator_lp_norm_le b hb phases hphases g)
+
+/-- Operator-norm bound for the continuous linear map form:
+    `‖transferOperator_clm‖ ≤ 1`. Direct from `LinearMap.mkContinuous_norm_le`
+    (mathlib) given the bound passed to `mkContinuous`. -/
+theorem transferOperator_clm_norm_le
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1) :
+    ‖transferOperator_clm b hb phases hphases‖ ≤ 1 := by
+  unfold transferOperator_clm
+  exact LinearMap.mkContinuous_norm_le _ zero_le_one _
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
