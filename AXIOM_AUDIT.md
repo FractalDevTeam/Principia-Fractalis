@@ -26,12 +26,27 @@ built out the sesquilinearity API for the new Bochner-integral-based
   integrability hypotheses since `MeasureTheory.integral_add` requires
   both summands to be integrable.
 
-**Conditional T3 self-adjointness reduction** (`adda67e`):
+**Conditional T3 self-adjointness reduction** (`adda67e`, `3af64dd`):
 - `T3_self_adjoint_conj_via_formal_adjoint` — proves the statement of
   `axiom T3_self_adjoint_conj` from formal-adjoint relations
   (`⟪T3 f, g⟫ = ⟪f, T3_adj g⟫`, inverse, integrability hypotheses).
-  Reduces axiom retirement to proving the formal-adjoint relations,
-  which are concrete Mayer-1991 change-of-variables claims.
+- `T3_self_adjoint_conj_via_formal_adjoint'` — simpler form (drops the
+  inverse hypothesis, derives from the forward via `inner_conj_symm`).
+- Reduces axiom retirement to proving the forward formal-adjoint relation,
+  which is the concrete Mayer-1991 change-of-variables claim.
+
+**Mayer 1991 weight identity** (`1f1d735`, 2026-05-04):
+- `adjointWeight_eq_weightFunction`:
+  $w^*_k(u) = u \cdot w_k(3u - k) / (3u - k)$ for $u \in I_k$.
+- The algebraic core of the formal-adjoint relation. Squared form: both
+  sides equal $u/(3u-k)$. Proven via `Real.sqrt_div` + `field_simp` +
+  `Real.sq_sqrt` + `ring`.
+- Concrete progress toward retiring `T3_self_adjoint_conj`: the
+  algebraic identity is now in source. Remaining work for full retirement
+  is the Bochner-integral change-of-variables step (multi-day; mathlib
+  scaffolding via `setIntegral_withDensity_eq_setIntegral_smul` + affine
+  CoV). Manuscript reference: Ch 20, equation in proof of
+  `thm:self-adjoint-transfer`; Mayer 1991 §2.
 
 The structure's placeholder `integrable : True` field forces
 integrability hypotheses to be supplied per-lemma. The eventual
