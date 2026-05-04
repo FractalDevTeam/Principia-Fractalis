@@ -1772,4 +1772,25 @@ theorem transferOperatorAction_fn_toLp_eLpNorm_le
   exact transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure
     b hb phases hphases f hf
 
+/-- The Lp-lifted transfer operator action is contractive in the natural
+    Banach-space norm on `LogWeightedL2_Ioo`:
+      `‖T_b^{fn,Lp} f‖ ≤ (eLpNorm f 2 μ_log).toReal`.
+
+    This is the real-norm form of `‖T_b‖ ≤ 1` consumed by the operator-norm
+    interpretation. Direct corollary of `transferOperatorAction_fn_toLp_eLpNorm_le`
+    via `Lp.norm_def` (Lp norm = toReal of eLpNorm) and `ENNReal.toReal_mono`
+    with the side condition `eLpNorm f 2 μ ≠ ⊤` from `hfMemLp.eLpNorm_lt_top`. -/
+theorem transferOperatorAction_fn_toLp_norm_le
+    (b : ℕ) (hb : b ≥ 1)
+    (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f)
+    (hfMemLp : MemLp f 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    ‖transferOperatorAction_fn_toLp b hb phases hphases f hf hfMemLp‖
+      ≤ (eLpNorm f 2
+          (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))).toReal := by
+  rw [Lp.norm_def]
+  exact ENNReal.toReal_mono hfMemLp.eLpNorm_lt_top.ne
+    (transferOperatorAction_fn_toLp_eLpNorm_le
+      b hb phases hphases f hf hfMemLp)
+
 end PrincipiaTractalis
