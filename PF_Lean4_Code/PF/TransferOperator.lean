@@ -718,6 +718,46 @@ theorem transferOperatorAction_zero (b : ℕ) (phases : Fin b → ℂ) :
 theorem T3_apply_zero : T3.apply (0 : LogWeightedL2) = (0 : LogWeightedL2) :=
   transferOperatorAction_zero 3 phaseFactorBase3
 
+/-- `T3_adjoint_action 0 = 0`. The if-cascade falls through to inner
+    factor `(0 : LogWeightedL2).toFun ⟨_, _⟩ = 0` regardless of branch. -/
+theorem T3_adjoint_action_zero :
+    T3_adjoint_action (0 : LogWeightedL2) = (0 : LogWeightedL2) := by
+  unfold T3_adjoint_action
+  show LogWeightedL2.mk _ _ = LogWeightedL2.mk _ _
+  congr 1
+  funext y
+  obtain ⟨x, hx⟩ := y
+  -- Now goal has explicit if-then-else
+  have h_zero : ∀ z : Set.Icc (0:ℝ) 1, (0 : LogWeightedL2).toFun z = 0 := fun _ => rfl
+  by_cases h0 : x ≤ 1/3
+  · simp [h0, h_zero]
+  · by_cases h1 : x ≤ 2/3
+    · simp [h0, h1, h_zero]
+    · simp [h0, h1, h_zero]
+
+/-- `T3_adjoint.apply 0 = 0`. -/
+theorem T3_adjoint_apply_zero :
+    T3_adjoint.apply (0 : LogWeightedL2) = (0 : LogWeightedL2) :=
+  T3_adjoint_action_zero
+
+/-- `T3_sym.apply 0 = 0`. From `T3_apply_zero` + `T3_adjoint_apply_zero`
+    plus the trivial fact that `(1/2) • (0 + 0) = 0`. -/
+theorem T3_sym_apply_zero :
+    T3_sym.apply (0 : LogWeightedL2) = (0 : LogWeightedL2) := by
+  show T3_sym_action (0 : LogWeightedL2) = (0 : LogWeightedL2)
+  unfold T3_sym_action
+  rw [T3_apply_zero, T3_adjoint_apply_zero]
+  -- Now: (1/2) • (0 + 0) = 0 in LogWeightedL2
+  show LogWeightedL2.mk _ _ = LogWeightedL2.mk _ _
+  congr 1
+  funext y
+  -- (0 + 0 : LogWeightedL2).toFun y = (0 : LogWeightedL2).toFun y + (0 : LogWeightedL2).toFun y
+  -- = 0 + 0 = 0; multiplied by 1/2 = 0
+  show (1/2 : ℂ) * ((0 + 0 : LogWeightedL2).toFun y) = 0
+  show (1/2 : ℂ) * ((0 : LogWeightedL2).toFun y + (0 : LogWeightedL2).toFun y) = 0
+  rw [show ∀ z : Set.Icc (0:ℝ) 1, (0 : LogWeightedL2).toFun z = 0 from fun _ => rfl]
+  ring
+
 /-! ## Self-Adjointness -/
 
 /-- ⚠ Post-rev-3 follow-on, sharpened form (2026-04-29): the Lean axiom
