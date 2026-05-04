@@ -1,6 +1,21 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-05-03, post-rev-3 follow-on chain extended through Mayer 1991 contractivity in `eLpNorm` form + MemLp preservation (commits through `2e026aa`)*
+*Last updated: 2026-05-04, post-rev-3 follow-on chain extended through CLM-packaging analytic prerequisites (commits through `0e5e4b9`)*
+
+## CLM-packaging analytic prerequisites (2026-05-04)
+
+A five-commit extension (`0e87907` through `0e5e4b9`) brings $T_b$ to the `Lp → Lp` level with operator-norm bound stated in real-valued `Lp.norm`. Headline numbers unchanged on the Lean side; Coq side untouched.
+
+- **Lean 4 canonical**: 8 axioms (unchanged), **5488 jobs clean**, 0 sorries.
+- **Real-Lp.norm bridge of contractivity** (commit `0e87907`): `transferOperatorAction_fn_toLp_norm_le` — the eLpNorm bound (commit `de54564`) lifted via `Lp.norm_def` + `ENNReal.toReal_mono`.
+- **Pointwise linearity at the function level** (commit `49ff3ba`): `transferOperatorAction_fn_add` and `_smul` — $T_b(f+g) = T_b f + T_b g$, $T_b(c \cdot f) = c \cdot T_b f$ pointwise. No measurability hypothesis.
+- **Lp-lifted linearity** (commit `aef881c`): `transferOperatorAction_fn_toLp_add` and `_smul` — `Eq.trans` chain via `MemLp.toLp_congr` (mathlib `LpSpace/Basic.lean:109`) bridging to `MemLp.toLp_add` / `MemLp.toLp_const_smul` (each `rfl` in mathlib).
+- **Input-Lp.norm form of contractivity** (commit `712ee4e`): `transferOperatorAction_fn_toLp_norm_le_input_toLp` — $\|T_b^{fn,Lp}\, f\| \le \|\mathrm{MemLp.toLp}\, f\, h\|$. The form `LinearMap.mkContinuous` consumes as op-norm bound with $M = 1$.
+- **Direct `Lp → Lp` form** (commit `0e5e4b9`): `transferOperator_lp` (extracts canonical strongly-measurable representative via `(Lp.aestronglyMeasurable g).mk g`) + `transferOperator_lp_norm_le` ($\|\mathrm{transferOperator}_{lp}\, g\| \le \|g\|$). $T_b$ is now `Lp → Lp` with op norm $\le 1$.
+
+**Coq parity**: unchanged. The Coq formalization has its own independent axiomatization (253 axioms, separate scope from the canonical Lean's 8) and is not touched by this CLM-packaging work.
+
+**Effort to complete CLM packaging on the Lean side**: ~1-3 days remaining — lift `aef881c`'s linearity to `transferOperator_lp`, which requires showing $T_b$ respects ae-equality of input under $\mu_{\log}\!\restriction(0,1)$ (reduces to $y_k$ preserving $\mu_{\log}$-null sets, which follows from `inverseBranch_measurePreserving` + absolute continuity of $\mu_{\log}$ wrt volume on $(0,1)$). After that, `LinearMap.mkContinuous` is a one-shot.
 
 ## Phase A integration ladder + Mayer 1991 capstone + L² structural-swap analytic prerequisites (2026-05-01 → 2026-05-03)
 

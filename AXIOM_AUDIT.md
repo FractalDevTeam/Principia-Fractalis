@@ -1,6 +1,18 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-05-03, post-rev-3 follow-on chain extended through Mayer 1991 contractivity in `eLpNorm` form + MemLp preservation (commits through `2e026aa`). **8 axioms** remain (canonical PF/), 0 sorries, 5488 jobs clean.*
+*As of 2026-05-04, post-rev-3 follow-on chain extended through CLM-packaging analytic prerequisites (commits through `0e5e4b9`). **8 axioms** remain (canonical PF/), 0 sorries, 5488 jobs clean.*
+
+## CLM-packaging analytic prerequisites (2026-05-04)
+
+A five-commit extension (`0e87907` through `0e5e4b9`) brings the transfer operator T_b's analytic content into the form mathlib's `LinearMap.mkContinuous` and `ContinuousLinearMap` API expect. Headline numbers unchanged; the formalization now exposes T_b at the `Lp → Lp` level with its operator-norm bound stated in real-valued `Lp.norm`.
+
+- `transferOperatorAction_fn_toLp_norm_le` — eLpNorm bound bridged to real-valued `Lp.norm` form via `Lp.norm_def` + `ENNReal.toReal_mono` (commit `0e87907`).
+- `transferOperatorAction_fn_add` + `transferOperatorAction_fn_smul` — pointwise additivity / homogeneity of $T_b^{fn}$ at the function level: $T_b(f+g) = T_b f + T_b g$, $T_b(c \cdot f) = c \cdot T_b f$ (commit `49ff3ba`).
+- `transferOperatorAction_fn_toLp_add` + `transferOperatorAction_fn_toLp_smul` — Lp-lifted linearity via `MemLp.toLp_congr` chain (mathlib `LpSpace/Basic.lean:109`) bridging to `MemLp.toLp_add` / `_const_smul` (each `rfl`) (commit `aef881c`).
+- `transferOperatorAction_fn_toLp_norm_le_input_toLp` — contractivity stated entirely in `Lp.norm`: $\|T_b^{fn,Lp}\, f\| \le \|\mathrm{MemLp.toLp}\, f\, h\|$, the form `LinearMap.mkContinuous` consumes as the operator-norm bound with $M = 1$ (commit `712ee4e`).
+- `transferOperator_lp` + `transferOperator_lp_norm_le` — direct `Lp → Lp` form via `(Lp.aestronglyMeasurable g).mk g` (canonical strongly-measurable representative), plus operator-norm bound $\|\mathrm{transferOperator}_{lp}\, g\| \le \|g\|$ (commit `0e5e4b9`).
+
+**What remains for $\|T_b\| \le 1$ as a `ContinuousLinearMap`**: lift the linearity (`_add`, `_smul` from `aef881c`) to `transferOperator_lp`. This requires showing $T_b$ respects ae-equality of input under $\mu_{\log}\!\restriction(0,1)$, which reduces to: $y_k$ preserves $\mu_{\log}$-null sets. The latter follows from `inverseBranch_measurePreserving` (volume level) plus absolute continuity of $\mu_{\log}$ wrt volume on $(0,1)$. Effort: ~1-3 days for the ae-equality propagation lemma, then `LinearMap.mkContinuous` is a one-shot.
 
 ## Phase A integration ladder + Mayer 1991 capstone + L² structural-swap analytic prerequisites (2026-05-01 → 2026-05-03)
 
