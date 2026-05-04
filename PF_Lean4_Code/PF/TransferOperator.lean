@@ -330,6 +330,27 @@ theorem LogWeightedL2.inner_self_eq_integral_normSq (f : LogWeightedL2) :
   funext x
   exact Complex.normSq_eq_conj_mul_self.symm
 
+/-- `⟪f, f⟫ = 0 ↔ ‖f‖ = 0`. The standard equivalence between inner-product
+    zero and norm zero, holding unconditionally because `(⟪f, f⟫).im = 0`
+    (`inner_self_im`) and `(⟪f, f⟫).re ≥ 0` (`inner_self_re_nonneg`)
+    combine via `Complex.ext` to determine the inner from its real part,
+    which equals `‖f‖²` (`norm_sq_eq_inner_self_re`). -/
+theorem LogWeightedL2.inner_self_zero_iff_norm_zero (f : LogWeightedL2) :
+    LogWeightedL2.inner f f = 0 ↔ LogWeightedL2.norm f = 0 := by
+  constructor
+  · intro h
+    unfold LogWeightedL2.norm
+    rw [h]
+    simp
+  · intro h
+    have h_sq : (LogWeightedL2.norm f) ^ 2 = (LogWeightedL2.inner f f).re :=
+      LogWeightedL2.norm_sq_eq_inner_self_re f
+    rw [h] at h_sq
+    simp at h_sq
+    have h_re : (LogWeightedL2.inner f f).re = 0 := h_sq.symm
+    have h_im : (LogWeightedL2.inner f f).im = 0 := LogWeightedL2.inner_self_im f
+    exact Complex.ext h_re h_im
+
 /-- Additivity in the left argument (with integrability hypotheses):
     `inner (f₁ + f₂) g = inner f₁ g + inner f₂ g`.
 
