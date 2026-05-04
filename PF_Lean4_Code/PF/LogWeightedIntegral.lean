@@ -1827,4 +1827,68 @@ theorem transferOperatorAction_fn_smul (b : ℕ) (phases : Fin b → ℂ) (c : �
     intros
     ring
 
+/-! ### Lp-lifted linearity
+
+Lifting the pointwise linearity of `T_b^{fn}` through `MemLp.toLp`:
+the Lp elements built from `T_b^{fn} (f+g)` and `T_b^{fn} (c•f)` are
+literally the sum / scalar of the Lp elements built from `T_b^{fn} f`
+and `T_b^{fn} g`.
+
+Both proofs are an `Eq.trans` chain:
+  1. `MemLp.toLp_congr` (mathlib `LpSpace/Basic.lean:109`) bridges
+     `MemLp.toLp (T_b (f+g)) hWit_lhs` to `MemLp.toLp (T_b f + T_b g)
+     (hWit_f.add hWit_g)` using ae-equality from pointwise equality.
+  2. `MemLp.toLp_add` / `MemLp.toLp_const_smul` (each `rfl`, mathlib
+     `LpSpace/Basic.lean:120, 456`) splits the canonical-form Lp element
+     into the sum / scalar.
+
+A direct `rw [funext ...]` approach hits "motive is not type correct"
+because the MemLp witness's type depends on the function being rewritten;
+the `MemLp.toLp_congr` route bypasses this by accepting two distinct
+witnesses for ae-equal functions. -/
+
+/-- Lp-lifted additivity: `T_b^{fn,Lp} (f+g) = T_b^{fn,Lp} f + T_b^{fn,Lp} g`. -/
+theorem transferOperatorAction_fn_toLp_add
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f g : ℝ → ℂ) (hf : Measurable f) (hg : Measurable g)
+    (hfMemLp : MemLp f 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (hgMemLp : MemLp g 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    transferOperatorAction_fn_toLp b hb phases hphases (f + g) (hf.add hg)
+        (hfMemLp.add hgMemLp)
+      = transferOperatorAction_fn_toLp b hb phases hphases f hf hfMemLp
+        + transferOperatorAction_fn_toLp b hb phases hphases g hg hgMemLp := by
+  unfold transferOperatorAction_fn_toLp
+  have h_ae : transferOperatorAction_fn b phases (f + g)
+            =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+              transferOperatorAction_fn b phases f
+                + transferOperatorAction_fn b phases g :=
+    Filter.Eventually.of_forall
+      fun x => transferOperatorAction_fn_add b phases f g x
+  exact (MemLp.toLp_congr
+    (transferOperatorAction_fn_memLp b hb phases hphases (f + g)
+      (hf.add hg) (hfMemLp.add hgMemLp))
+    ((transferOperatorAction_fn_memLp b hb phases hphases f hf hfMemLp).add
+      (transferOperatorAction_fn_memLp b hb phases hphases g hg hgMemLp))
+    h_ae).trans (MemLp.toLp_add _ _)
+
+/-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
+theorem transferOperatorAction_fn_toLp_smul
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (c : ℂ) (f : ℝ → ℂ) (hf : Measurable f)
+    (hfMemLp : MemLp f 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    transferOperatorAction_fn_toLp b hb phases hphases (c • f) (hf.const_smul c)
+        (hfMemLp.const_smul c)
+      = c • transferOperatorAction_fn_toLp b hb phases hphases f hf hfMemLp := by
+  unfold transferOperatorAction_fn_toLp
+  have h_ae : transferOperatorAction_fn b phases (c • f)
+            =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+              c • transferOperatorAction_fn b phases f :=
+    Filter.Eventually.of_forall
+      fun x => transferOperatorAction_fn_smul b phases c f x
+  exact (MemLp.toLp_congr
+    (transferOperatorAction_fn_memLp b hb phases hphases (c • f)
+      (hf.const_smul c) (hfMemLp.const_smul c))
+    ((transferOperatorAction_fn_memLp b hb phases hphases f hf hfMemLp).const_smul c)
+    h_ae).trans (MemLp.toLp_const_smul c _)
+
 end PrincipiaTractalis
