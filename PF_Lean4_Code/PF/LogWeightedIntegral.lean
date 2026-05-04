@@ -1871,6 +1871,27 @@ theorem transferOperatorAction_fn_toLp_add
       (transferOperatorAction_fn_memLp b hb phases hphases g hg hgMemLp))
     h_ae).trans (MemLp.toLp_add _ _)
 
+/-- Contractivity stated entirely in Lp.norm: input is the Lp element built
+    from `f`, and the bound `‖T_b^{fn,Lp} f‖ ≤ ‖f-toLp‖` is exactly
+    the form `LinearMap.mkContinuous` consumes as the operator-norm bound
+    (with `M = 1`). Direct corollary of
+    `transferOperatorAction_fn_toLp_norm_le` (commit 0e87907) plus the
+    identity `‖MemLp.toLp f hfMemLp‖ = (eLpNorm f 2 μ).toReal` from
+    `Lp.norm_def` + `MemLp.coeFn_toLp`. -/
+theorem transferOperatorAction_fn_toLp_norm_le_input_toLp
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (f : ℝ → ℂ) (hf : Measurable f)
+    (hfMemLp : MemLp f 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    ‖transferOperatorAction_fn_toLp b hb phases hphases f hf hfMemLp‖
+      ≤ ‖(MemLp.toLp f hfMemLp : LogWeightedL2_Ioo)‖ := by
+  have h_eq : ‖(MemLp.toLp f hfMemLp : LogWeightedL2_Ioo)‖
+            = (eLpNorm f 2
+                (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))).toReal := by
+    rw [Lp.norm_def]
+    exact congrArg ENNReal.toReal (eLpNorm_congr_ae (MemLp.coeFn_toLp _))
+  rw [h_eq]
+  exact transferOperatorAction_fn_toLp_norm_le b hb phases hphases f hf hfMemLp
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
