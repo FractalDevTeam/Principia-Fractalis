@@ -248,6 +248,30 @@ theorem LogWeightedL2.inner_self_im (f : LogWeightedL2) :
     (LogWeightedL2.inner_conj_symm f f).symm
   exact Complex.conj_eq_iff_im.mp h
 
+/-- The self-inner-product `⟪f, f⟫` has non-negative real part.
+    The integrand `conj(f) · f = ↑(normSq f)` is non-negative real,
+    so its Bochner integral has real part ≥ 0 (unconditional via
+    `integral_nonneg` applied to the real-valued underlying integral).
+
+    Combined with `inner_self_im` (which gives `(⟪f, f⟫).im = 0`),
+    this means `⟪f, f⟫` is a non-negative real number — the
+    positivity property an inner product on a Hilbert space satisfies. -/
+theorem LogWeightedL2.inner_self_re_nonneg (f : LogWeightedL2) :
+    0 ≤ (LogWeightedL2.inner f f).re := by
+  unfold LogWeightedL2.inner
+  rw [show (fun x => (starRingEnd ℂ) (f.toFunℝ x) * f.toFunℝ x)
+        = (fun x => ((Complex.normSq (f.toFunℝ x) : ℝ) : ℂ)) from ?_]
+  · -- The integral of an ofReal is ofReal of the real integral
+    rw [show ∫ x in Set.Ioo (0:ℝ) 1, ((Complex.normSq (f.toFunℝ x) : ℝ) : ℂ) ∂logWeightedMeasure
+            = ((∫ x in Set.Ioo (0:ℝ) 1, Complex.normSq (f.toFunℝ x) ∂logWeightedMeasure : ℝ) : ℂ)
+        from integral_ofReal]
+    rw [Complex.ofReal_re]
+    apply MeasureTheory.integral_nonneg
+    intro x
+    exact Complex.normSq_nonneg _
+  · funext x
+    exact Complex.normSq_eq_conj_mul_self.symm
+
 /-- Norm on weighted L². -/
 noncomputable def LogWeightedL2.norm (f : LogWeightedL2) : ℝ :=
   Real.sqrt (LogWeightedL2.inner f f).re
