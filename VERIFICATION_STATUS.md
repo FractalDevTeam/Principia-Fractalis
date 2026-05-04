@@ -1,7 +1,7 @@
 # Principia Fractalis: Formal Verification Status
 
-**Last Updated:** 2026-05-03 (post-rev-3 follow-on chain extended through Mayer 1991 contractivity in eLpNorm form + MemLp preservation; master at `2e026aa`)
-**Status:** ✅ Rev-3 cycle complete + 58-commit follow-on chain extending the framework with conditional RH theorem, Millennium capstone, complete Phase A analytic foundations, the Mayer 1991 operator-norm bound in lintegral form, the function-level transfer operator with measurability, Mayer 1991 contractivity in mathlib's `eLpNorm` form ($\|T_b\| \le 1$ on $L^2(\mu_{\log}\!\restriction(0,1))$), and the `MemLp` preservation corollary
+**Last Updated:** 2026-05-04 (post-rev-3 follow-on chain extended through CLM-packaging analytic prerequisites: pointwise + Lp-lifted linearity, real-`Lp.norm` contractivity, direct `Lp → Lp` form; master at `0e5e4b9`)
+**Status:** ✅ Rev-3 cycle complete + 63-commit follow-on chain extending the framework with conditional RH theorem, Millennium capstone, complete Phase A analytic foundations, the Mayer 1991 operator-norm bound in lintegral form, the function-level transfer operator with measurability, Mayer 1991 contractivity in mathlib's `eLpNorm` form ($\|T_b\| \le 1$ on $L^2(\mu_{\log}\!\restriction(0,1))$), the `MemLp` preservation corollary, pointwise + Lp-lifted linearity of $T_b^{fn}$ ($T_b(f+g) = T_b f + T_b g$, $T_b(c\cdot f) = c\cdot T_b f$), and the direct `Lp → Lp` operator `transferOperator_lp` with `Lp.norm`-form contractivity bound
 **Audited By:** Pablo Cohen
 
 ---
@@ -27,6 +27,12 @@ The post-rev-3 follow-on chain (2026-04-29 → 2026-05-03, 49 commits) extended 
     * `enorm_rpow_two_eq_ofReal_norm_sq` — pointwise bridge `‖x‖ₑ^(2:ℝ) = ENNReal.ofReal(‖x‖^2)` (commit `63daa64`).
     * `transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure` — **Mayer 1991 contractivity in eLpNorm form** $\|T_b\| \le 1$ on $L^2(\mu_{\log}\!\restriction(0,1))$ (commit `de54564`).
     * `transferOperatorAction_fn_memLp` — **MemLp preservation corollary** (commit `2e026aa`).
+  - **CLM-packaging analytic prerequisites (commits `0e87907` … `0e5e4b9`, five commits 2026-05-04)**:
+    * `transferOperatorAction_fn_toLp_norm_le` — eLpNorm bound bridged to real-valued `Lp.norm` form via `Lp.norm_def` + `ENNReal.toReal_mono` (commit `0e87907`).
+    * `transferOperatorAction_fn_add` + `transferOperatorAction_fn_smul` — pointwise additivity / homogeneity of $T_b^{fn}$ at the function level: $T_b(f+g) = T_b f + T_b g$, $T_b(c \cdot f) = c \cdot T_b f$ (commit `49ff3ba`).
+    * `transferOperatorAction_fn_toLp_add` + `transferOperatorAction_fn_toLp_smul` — Lp-lifted linearity via `MemLp.toLp_congr` chain (mathlib `LpSpace/Basic.lean:109`) bridging to `MemLp.toLp_add` / `_const_smul` (each `rfl`) (commit `aef881c`).
+    * `transferOperatorAction_fn_toLp_norm_le_input_toLp` — contractivity stated entirely in `Lp.norm`: $\|T_b^{fn,Lp} f\| \le \|\mathrm{MemLp.toLp}\,f\,h\|$, the form `LinearMap.mkContinuous` consumes (commit `712ee4e`).
+    * `transferOperator_lp` + `transferOperator_lp_norm_le` — direct `Lp → Lp` form of the transfer operator via `(Lp.aestronglyMeasurable g).mk g` (extracts the canonical strongly-measurable representative), plus its operator-norm bound `‖transferOperator_lp g‖ ≤ ‖g‖` (commit `0e5e4b9`).
 
 **Current state: 8 axioms (canonical Lean 4 PF/), 0 sorries, `lake build` clean (5488 jobs; +2 over rev-3 for the `PF.Millennium` capstone module).**
 

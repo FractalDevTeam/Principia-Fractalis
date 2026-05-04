@@ -86,8 +86,18 @@ The 8 axioms listed in `AXIOM_AUDIT.md` are the genuine mathematical boundary of
     * `enorm_rpow_two_eq_ofReal_norm_sq` — pointwise bridge `‖x‖ₑ^(2:ℝ) = ENNReal.ofReal(‖x‖^2)` (commit `63daa64`).
     * `transferOperatorAction_fn_eLpNorm_le_logWeightedMeasure` — **Mayer 1991 contractivity in `eLpNorm` form**: $\|T_b f\|_{L^2(\mu_{\log}\!\restriction(0,1))} \le \|f\|_{L^2(\mu_{\log}\!\restriction(0,1))}$ (commit `de54564`).
     * `transferOperatorAction_fn_memLp` — **MemLp preservation** corollary: the transfer operator preserves $L^2$ membership (commit `2e026aa`).
+  - **CLM-packaging analytic prerequisites (commits `0e87907` … `0e5e4b9`, five commits 2026-05-04)**: brings $T_b$ to the `Lp → Lp` level with operator-norm bound stated in real-valued `Lp.norm` — the form mathlib's `LinearMap.mkContinuous` and `ContinuousLinearMap` API consume.
+    * `transferOperatorAction_fn_toLp_norm_le` — eLpNorm bound bridged to real-valued `Lp.norm` form via `Lp.norm_def` + `ENNReal.toReal_mono` (commit `0e87907`).
+    * `transferOperatorAction_fn_add` + `transferOperatorAction_fn_smul` — pointwise additivity / homogeneity of $T_b^{fn}$ at the function level: $T_b(f+g) = T_b f + T_b g$, $T_b(c \cdot f) = c \cdot T_b f$ (commit `49ff3ba`).
+    * `transferOperatorAction_fn_toLp_add` + `transferOperatorAction_fn_toLp_smul` — Lp-lifted linearity via `MemLp.toLp_congr` chain (mathlib `LpSpace/Basic.lean:109`) bridging to `MemLp.toLp_add` / `_const_smul` (each `rfl`) (commit `aef881c`).
+    * `transferOperatorAction_fn_toLp_norm_le_input_toLp` — contractivity stated entirely in `Lp.norm`: $\|T_b^{fn,Lp}\, f\| \le \|\mathrm{MemLp.toLp}\, f\, h\|$, the form `LinearMap.mkContinuous` consumes (commit `712ee4e`).
+    * `transferOperator_lp` + `transferOperator_lp_norm_le` — direct `Lp → Lp` form via `(Lp.aestronglyMeasurable g).mk g` (canonical strongly-measurable representative), plus operator-norm bound `‖transferOperator_lp g‖ ≤ ‖g‖` (commit `0e5e4b9`).
 
-**What remains for $\|T_b\| \le 1$ as a `ContinuousLinearMap` on `Lp ℂ 2`:** the structural rename / cascade — replacing the placeholder `structure LogWeightedL2` with `LogWeightedL2_concrete := MeasureTheory.Lp ℂ 2 logWeightedMeasure`, and updating `transferOperatorAction`'s `f.toFun` callsites to use the function-level `transferOperatorAction_fn` lifted via `MemLp.toLp`. The `MemLp` corollary (commit `2e026aa`) makes this lift mechanical.
+**What remains for $\|T_b\| \le 1$ as a `ContinuousLinearMap` on `Lp ℂ 2`** (revised 2026-05-04, post `0e5e4b9`):
+- The function `transferOperator_lp : Lp → Lp` is in source with operator-norm bound `≤ 1` (commit `0e5e4b9`); both ingredients `LinearMap.mkContinuous` consumes are present at the right type level.
+- The remaining piece is **lifting linearity** (`_add`, `_smul` from commit `aef881c`) **to `transferOperator_lp`**. The challenge: `transferOperator_lp` uses the canonical `(Lp.aestronglyMeasurable g).mk g` representative, which differs (pointwise but not ae) between `g+h` and the sum of representatives of `g`, `h` separately. To prove `transferOperator_lp (g + h) = transferOperator_lp g + transferOperator_lp h`, one must show $T_b$ respects ae-equality of input under $\mu_{\log}\!\restriction(0,1)$ — equivalently, that $y_k$ preserves $\mu_{\log}$-null sets. This follows from `inverseBranch_measurePreserving` (volume level, already in source) plus absolute continuity of $\mu_{\log}$ wrt volume on $(0,1)$.
+- After the ae-equality propagation lemma, `LinearMap.mkContinuous` is a one-shot.
+- Once the CLM lands, `LogWeightedL2.inner` becomes mathlib's `@inner ℂ _ _` instance via the structural rename to `LogWeightedL2_concrete` (commit `88d5f37` already infrastructure-prepared).
 
 **Attack in Lean 4 (revised 2026-05-03 with eLpNorm contractivity in source):**
 - The analytic content is **complete**: function-level operator, measurability, eLpNorm contractivity, MemLp preservation are all in source.
