@@ -238,6 +238,16 @@ theorem LogWeightedL2.inner_conj_symm (f g : LogWeightedL2) :
   rw [map_mul, starRingEnd_self_apply]
   ring
 
+/-- The self-inner-product `⟪f, f⟫` is real (imaginary part is zero).
+    Direct corollary of `inner_conj_symm`: `⟪f, f⟫ = star (⟪f, f⟫)`,
+    i.e., the value equals its own conjugate, so its imaginary part
+    vanishes (`Complex.conj_eq_iff_im`). -/
+theorem LogWeightedL2.inner_self_im (f : LogWeightedL2) :
+    (LogWeightedL2.inner f f).im = 0 := by
+  have h : star (LogWeightedL2.inner f f) = LogWeightedL2.inner f f :=
+    (LogWeightedL2.inner_conj_symm f f).symm
+  exact Complex.conj_eq_iff_im.mp h
+
 /-- Norm on weighted L². -/
 noncomputable def LogWeightedL2.norm (f : LogWeightedL2) : ℝ :=
   Real.sqrt (LogWeightedL2.inner f f).re
