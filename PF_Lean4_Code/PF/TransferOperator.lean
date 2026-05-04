@@ -27,7 +27,8 @@ import Mathlib.Topology.MetricSpace.Basic
 import Mathlib.LinearAlgebra.Eigenspace.Basic
 import Mathlib.MeasureTheory.Measure.WithDensity
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
-import Mathlib.MeasureTheory.Integral.Bochner
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Set
 import PF.IntervalArithmetic
 
 namespace PrincipiaTractalis
@@ -117,6 +118,39 @@ noncomputable def LogWeightedL2.inner (f g : LogWeightedL2) : ℂ :=
     ∂logWeightedMeasure
 
 notation "⟪" f ", " g "⟫" => LogWeightedL2.inner f g
+
+/-! ### Basic identities for `LogWeightedL2.inner`
+
+Sesquilinearity-skeleton lemmas, provable directly from the Bochner-integral
+definition. These are session-scale follow-ons to the axiom retirement
+(`a43a669`) and provide API that downstream consumers (e.g. self-adjointness
+proofs that previously took `hsmul_left`/`hsmul_right`/`hpos_def` as
+hypotheses) can use to discharge those hypotheses. -/
+
+/-- The zero element's `toFunℝ` is the zero function. -/
+lemma LogWeightedL2.toFunℝ_zero : LogWeightedL2.toFunℝ 0 = (fun _ => 0) := by
+  funext x
+  unfold LogWeightedL2.toFunℝ
+  split_ifs with h
+  · -- (0 : LogWeightedL2).toFun ⟨x, h⟩ = 0 by instZero
+    rfl
+  · rfl
+
+/-- `inner 0 g = 0`. The zero element's `toFunℝ` is identically 0,
+    so the integrand is 0 and the integral vanishes. -/
+theorem LogWeightedL2.inner_zero_left (g : LogWeightedL2) :
+    LogWeightedL2.inner 0 g = 0 := by
+  unfold LogWeightedL2.inner
+  simp only [LogWeightedL2.toFunℝ_zero, map_zero, zero_mul,
+    MeasureTheory.integral_zero]
+
+/-- `inner f 0 = 0`. The zero element's `toFunℝ` is identically 0,
+    so the integrand is 0 and the integral vanishes. -/
+theorem LogWeightedL2.inner_zero_right (f : LogWeightedL2) :
+    LogWeightedL2.inner f 0 = 0 := by
+  unfold LogWeightedL2.inner
+  simp only [LogWeightedL2.toFunℝ_zero, mul_zero,
+    MeasureTheory.integral_zero]
 
 /-- Norm on weighted L². -/
 noncomputable def LogWeightedL2.norm (f : LogWeightedL2) : ℝ :=
