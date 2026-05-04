@@ -2153,6 +2153,49 @@ theorem transferOperator_lp_add
         ((Lp.memLp h).ae_eq (Lp.aestronglyMeasurable h).ae_eq_mk)))
     h_T).trans (MemLp.toLp_add _ _)
 
+/-- Lp-level homogeneity: `transferOperator_lp (c • g) = c • transferOperator_lp g`.
+
+    Analogous to `transferOperator_lp_add` (commit 483b388):
+      Lp.coeFn_smul + AEStronglyMeasurable.ae_eq_mk →
+        `(aesm (c•g)).mk ⇑(c•g) =ᵐ c • (aesm g).mk ⇑g`
+        (via `EventuallyEq.const_smul`)
+      transferOperatorAction_fn_ae_eq_of_ae_eq (commit e989098) →
+        `T_b f_cg =ᵐ T_b (c • f_g)`
+      transferOperatorAction_fn_smul (commit 49ff3ba, pointwise) →
+        `T_b (c • f_g) = c • T_b f_g`
+      MemLp.toLp_congr + MemLp.toLp_const_smul → final Lp equality.
+
+    Together with `transferOperator_lp_add`, this completes the linearity
+    of `transferOperator_lp` — both ingredients `LinearMap.mkContinuous`
+    consumes are now in source. -/
+theorem transferOperator_lp_smul
+    (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
+    (c : ℂ) (g : LogWeightedL2_Ioo) :
+    transferOperator_lp b hb phases hphases (c • g)
+      = c • transferOperator_lp b hb phases hphases g := by
+  set f_cg := (Lp.aestronglyMeasurable (c • g)).mk ((c • g : LogWeightedL2_Ioo) : ℝ → ℂ)
+  set f_g := (Lp.aestronglyMeasurable g).mk ((g : LogWeightedL2_Ioo) : ℝ → ℂ)
+  -- Step 1: f_cg =ᵐ c • f_g
+  have h_input : f_cg =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)] c • f_g :=
+    ((Lp.aestronglyMeasurable (c • g)).ae_eq_mk.symm.trans (Lp.coeFn_smul c g)).trans
+      ((Lp.aestronglyMeasurable g).ae_eq_mk.const_smul c)
+  -- Step 2: T_b respects ae (e989098), then split via pointwise smul (49ff3ba)
+  have h_T : transferOperatorAction_fn b phases f_cg
+            =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+              c • transferOperatorAction_fn b phases f_g := by
+    have h_T_pre := transferOperatorAction_fn_ae_eq_of_ae_eq b hb phases h_input
+    rw [show transferOperatorAction_fn b phases (c • f_g)
+          = c • transferOperatorAction_fn b phases f_g
+        from funext fun x => transferOperatorAction_fn_smul b phases c f_g x] at h_T_pre
+    exact h_T_pre
+  -- Step 3: bridge to Lp via toLp_congr + toLp_const_smul
+  unfold transferOperator_lp transferOperatorAction_fn_toLp
+  exact (MemLp.toLp_congr _
+    ((transferOperatorAction_fn_memLp b hb phases hphases f_g
+        (Lp.aestronglyMeasurable g).measurable_mk
+        ((Lp.memLp g).ae_eq (Lp.aestronglyMeasurable g).ae_eq_mk)).const_smul c)
+    h_T).trans (MemLp.toLp_const_smul c _)
+
 /-- Lp-lifted homogeneity: `T_b^{fn,Lp} (c•f) = c • T_b^{fn,Lp} f`. -/
 theorem transferOperatorAction_fn_toLp_smul
     (b : ℕ) (hb : b ≥ 1) (phases : Fin b → ℂ) (hphases : ∀ k, ‖phases k‖ = 1)
