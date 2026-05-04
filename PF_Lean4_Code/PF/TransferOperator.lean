@@ -772,6 +772,41 @@ theorem T3_self_adjoint_conj_at_zero_right (f : LogWeightedL2) :
   rw [T3_sym_apply_zero, LogWeightedL2.inner_zero_right,
       LogWeightedL2.inner_zero_right]
 
+/-- Additivity of the structure-based transfer operator action:
+    `transferOperatorAction b phases (f₁ + f₂) =
+       transferOperatorAction b phases f₁ + transferOperatorAction b phases f₂`.
+
+    Direct from the linearity of `(f₁ + f₂).toFun = f₁.toFun + f₂.toFun`
+    (instAdd's structural projection) plus distributivity over the
+    finite sum: `mul_add` + `Finset.sum_add_distrib`. -/
+theorem transferOperatorAction_add (b : ℕ) (phases : Fin b → ℂ)
+    (f₁ f₂ : LogWeightedL2) :
+    transferOperatorAction b phases (f₁ + f₂)
+      = transferOperatorAction b phases f₁ + transferOperatorAction b phases f₂ := by
+  show LogWeightedL2.mk _ _ = LogWeightedL2.mk _ _
+  congr 1
+  funext y
+  obtain ⟨x, hx⟩ := y
+  show (1 / (b : ℂ)) * ∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
+         (f₁ + f₂).toFun ⟨inverseBranch b k x, _⟩
+       = ((1 / (b : ℂ)) * ∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
+            f₁.toFun ⟨inverseBranch b k x, _⟩) +
+         ((1 / (b : ℂ)) * ∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
+            f₂.toFun ⟨inverseBranch b k x, _⟩)
+  have h_add : ∀ z : Set.Icc (0:ℝ) 1, (f₁ + f₂).toFun z = f₁.toFun z + f₂.toFun z :=
+    fun _ => rfl
+  simp only [h_add]
+  rw [show (∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
+              (f₁.toFun ⟨inverseBranch b k x, _⟩ +
+               f₂.toFun ⟨inverseBranch b k x, _⟩))
+        = ∑ k : Fin b, ((phases k * (weightFunction b k x : ℂ) *
+                         f₁.toFun ⟨inverseBranch b k x, _⟩) +
+                       (phases k * (weightFunction b k x : ℂ) *
+                         f₂.toFun ⟨inverseBranch b k x, _⟩))
+      from Finset.sum_congr rfl (fun _ _ => by ring)]
+  rw [Finset.sum_add_distrib]
+  ring
+
 /-! ## Self-Adjointness -/
 
 /-- ⚠ Post-rev-3 follow-on, sharpened form (2026-04-29): the Lean axiom
