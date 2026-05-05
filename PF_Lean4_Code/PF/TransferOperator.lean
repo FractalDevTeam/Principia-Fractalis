@@ -1325,6 +1325,73 @@ lemma T3_adjoint_inner_volume_form (f g : LogWeightedL2) :
   rw [Complex.real_smul]
   ring
 
+/-- **Partition decomposition** of `∫_{Ioo 0 1}` into the three
+    dyadic-thirds sub-intervals. Pure interval-integral additivity:
+
+      $\int_{(0,1)} F = \int_{(0,1/3)} F + \int_{(1/3,2/3)} F + \int_{(2/3,1)} F$
+
+    Requires interval-integrability over $[0,1]$ (which restricts to
+    each sub-interval automatically via `mono_set`).
+
+    14th piece of the Mayer formal-adjoint chain. Discharges the
+    spatial-decomposition piece needed for the `h_partition` hypothesis
+    of `T3_formal_adjoint_relation`. -/
+lemma setIntegral_Ioo_partition_three (F : ℝ → ℂ)
+    (h_int : IntervalIntegrable F MeasureTheory.volume 0 1) :
+    ∫ x in Set.Ioo (0:ℝ) 1, F x
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ)
+    = (∫ x in Set.Ioo (0:ℝ) (1/3), F x
+          ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ))
+      + (∫ x in Set.Ioo ((1:ℝ)/3) (2/3), F x
+            ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ))
+      + (∫ x in Set.Ioo ((2:ℝ)/3) 1, F x
+            ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ)) := by
+  -- Convert all setIntegrals over Ioo to intervalIntegrals.
+  have h13 : (0:ℝ) ≤ 1/3 := by norm_num
+  have h12 : ((1:ℝ)/3) ≤ 2/3 := by norm_num
+  have h23 : ((2:ℝ)/3) ≤ 1 := by norm_num
+  have h01 : (0:ℝ) ≤ 1 := by norm_num
+  have h_main : ∫ x in Set.Ioo (0:ℝ) 1, F x ∂MeasureTheory.volume
+              = ∫ x in (0:ℝ)..1, F x := by
+    rw [← MeasureTheory.integral_Ioc_eq_integral_Ioo,
+        ← intervalIntegral.integral_of_le h01]
+  have h_left : ∫ x in Set.Ioo (0:ℝ) (1/3), F x ∂MeasureTheory.volume
+              = ∫ x in (0:ℝ)..(1/3), F x := by
+    rw [← MeasureTheory.integral_Ioc_eq_integral_Ioo,
+        ← intervalIntegral.integral_of_le h13]
+  have h_mid : ∫ x in Set.Ioo ((1:ℝ)/3) (2/3), F x ∂MeasureTheory.volume
+             = ∫ x in ((1:ℝ)/3)..(2/3), F x := by
+    rw [← MeasureTheory.integral_Ioc_eq_integral_Ioo,
+        ← intervalIntegral.integral_of_le h12]
+  have h_right : ∫ x in Set.Ioo ((2:ℝ)/3) 1, F x ∂MeasureTheory.volume
+               = ∫ x in ((2:ℝ)/3)..1, F x := by
+    rw [← MeasureTheory.integral_Ioc_eq_integral_Ioo,
+        ← intervalIntegral.integral_of_le h23]
+  rw [h_main, h_left, h_mid, h_right]
+  -- Apply intervalIntegral additivity twice: ∫_0^1 = ∫_0^(1/3) + ∫_(1/3)^1
+  --                                          ∫_(1/3)^1 = ∫_(1/3)^(2/3) + ∫_(2/3)^1
+  -- Need interval-integrability on each sub-interval.
+  have h_int_left : IntervalIntegrable F
+      MeasureTheory.volume 0 (1/3) := by
+    refine IntervalIntegrable.mono_set h_int ?_
+    rw [Set.uIcc_of_le h13, Set.uIcc_of_le h01]
+    exact Set.Icc_subset_Icc_right (by norm_num)
+  have h_int_mid : IntervalIntegrable F
+      MeasureTheory.volume (1/3) (2/3) := by
+    refine IntervalIntegrable.mono_set h_int ?_
+    rw [Set.uIcc_of_le h12, Set.uIcc_of_le h01]
+    refine Set.Icc_subset_Icc ?_ ?_ <;> norm_num
+  have h_int_right : IntervalIntegrable F
+      MeasureTheory.volume (2/3) 1 := by
+    refine IntervalIntegrable.mono_set h_int ?_
+    rw [Set.uIcc_of_le h23, Set.uIcc_of_le h01]
+    exact Set.Icc_subset_Icc_left (by norm_num)
+  have h_int_mid_right : IntervalIntegrable F
+      MeasureTheory.volume (1/3) 1 := h_int_mid.trans h_int_right
+  rw [← intervalIntegral.integral_add_adjacent_intervals h_int_left h_int_mid_right,
+      ← intervalIntegral.integral_add_adjacent_intervals h_int_mid h_int_right]
+  ring
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
