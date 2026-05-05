@@ -753,7 +753,32 @@ lemma T3_toFunℝ_Ioo (f : LogWeightedL2) (x : ℝ) (hx : x ∈ Set.Ioo (0:ℝ) 
   unfold LogWeightedL2.toFunℝ
   rw [dif_pos h_yk_Icc]
 
-/-! ## Adjoint and Symmetrised Operator (rev-3 §3.1 follow-on, 2026-04-29) -/
+/-- Integrand identity for `⟪T₃ f, g⟫`: on the open unit interval,
+    the integrand `bar((T₃ f)(x)) · g(x)` decomposes as a sum over
+    contracting branches, with each summand having `f.toFunℝ(y_k(x))`
+    inside the conjugation.
+
+    Direct from `T3_toFunℝ_Ioo` (commit `f8abab7`) plus distributivity
+    of `starRingEnd ℂ` over multiplication and summation, and the fact
+    that `bar((r : ℝ) : ℂ) = (r : ℂ)` for real-cast values (the
+    contracting weight `weightFunction 3 k x` is real, as is `1/3`). -/
+lemma T3_inner_integrand_Ioo (f g : LogWeightedL2) (x : ℝ)
+    (hx : x ∈ Set.Ioo (0:ℝ) 1) :
+    (starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x =
+      (1/3 : ℂ) * ∑ k : Fin 3, (starRingEnd ℂ) (phaseFactorBase3 k) *
+        ((weightFunction 3 k x : ℝ) : ℂ) *
+        (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+        g.toFunℝ x := by
+  rw [T3_toFunℝ_Ioo f x hx]
+  rw [map_mul, map_sum]
+  have h_conj_third : (starRingEnd ℂ) (1/3 : ℂ) = (1/3 : ℂ) := by
+    rw [show (1/3 : ℂ) = ((1/3 : ℝ) : ℂ) from by push_cast; ring]
+    exact Complex.conj_ofReal _
+  rw [h_conj_third, mul_assoc, Finset.sum_mul]
+  congr 1
+  apply Finset.sum_congr rfl
+  intros k _
+  simp only [map_mul, Complex.conj_ofReal]
 
 /-- Action of the formal adjoint $\widetilde{T}_3^*$ on $L^2([0,1], dx/x)$.
 
