@@ -93,6 +93,15 @@ instance : MeasureTheory.SigmaFinite logWeightedMeasure := by
   exact MeasureTheory.SigmaFinite.withDensity_of_ne_top'
     (fun x => logWeightDensity_ne_top x)
 
+/-- `logWeightDensity` is measurable: piecewise-constant on `Iic 0` and
+    a measurable function on $\mathbb{R}$ via `Measurable.ite` over the
+    measurable set $\{x \le 0\}$. -/
+theorem logWeightDensity_measurable : Measurable logWeightDensity := by
+  unfold logWeightDensity
+  refine Measurable.ite measurableSet_Iic measurable_const ?_
+  exact ENNReal.continuous_ofReal.measurable.comp
+    (measurable_const.div measurable_id)
+
 /-- Extend a `LogWeightedL2` element's `toFun` (defined on `Set.Icc 0 1`)
     to all of `ℝ` by zero outside the unit interval. Required so the
     inner-product Bochner integral can use a `ℝ → ℂ` function.

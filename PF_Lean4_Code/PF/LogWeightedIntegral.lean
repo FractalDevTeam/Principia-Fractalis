@@ -1420,11 +1420,8 @@ theorem mayer_1991_lintegral_norm_sq_bound_log_weighted
     a measurable function on $\mathbb{R}$ via `Measurable.ite` over the
     measurable set $\{x \le 0\}$, with branches `measurable_const` and
     `ENNReal.continuous_ofReal.measurable.comp (measurable_const.div measurable_id)`. -/
-theorem logWeightDensity_measurable : Measurable logWeightDensity := by
-  unfold logWeightDensity
-  refine Measurable.ite measurableSet_Iic measurable_const ?_
-  exact ENNReal.continuous_ofReal.measurable.comp
-    (measurable_const.div measurable_id)
+-- `logWeightDensity_measurable` is now defined in PF/TransferOperator.lean
+-- (moved upstream so the Bochner CoV bridge for `LogWeightedL2.inner` can use it).
 
 /-- **Bridge lemma**: integrating an `ENNReal`-valued integrand against
     `logWeightedMeasure` on $(0, 1)$ equals integrating it against
