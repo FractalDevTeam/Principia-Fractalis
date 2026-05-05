@@ -557,7 +557,7 @@ theorem phaseFactorGeneral_norm (b : ℕ) (k : Fin b) (_hb : b ≥ 1) :
     These weights balance the logarithmic measure under composition.
 -/
 noncomputable def weightFunction (b : ℕ) (k : Fin b) (x : ℝ) : ℝ :=
-  if h : x > 0 ∧ x + k.val > 0 then
+  if _h : x > 0 ∧ x + k.val > 0 then
     Real.sqrt (b * x / (x + k.val))
   else 0
 
@@ -1613,10 +1613,10 @@ theorem T3_adjoint_action_zero :
   -- Now goal has explicit if-then-else
   have h_zero : ∀ z : Set.Icc (0:ℝ) 1, (0 : LogWeightedL2).toFun z = 0 := fun _ => rfl
   by_cases h0 : x ≤ 1/3
-  · simp [h0, h_zero]
+  · simp [h_zero]
   · by_cases h1 : x ≤ 2/3
-    · simp [h0, h1, h_zero]
-    · simp [h0, h1, h_zero]
+    · simp [h_zero]
+    · simp [h_zero]
 
 /-- `T3_adjoint.apply 0 = 0`. -/
 theorem T3_adjoint_apply_zero :
@@ -1811,8 +1811,7 @@ theorem T3_self_adjoint_conj_via_formal_adjoint
   rw [h_T3_adj, h_T3_adj_inv]
   -- Goal: star (1/2) * (⟪f, T3_adj g⟫ + ⟪f, T3 g⟫)
   --     = (1/2) * (⟪f, T3 g⟫ + ⟪f, T3_adj g⟫)
-  have h_star_half : star ((1/2 : ℂ)) = (1/2 : ℂ) := by
-    simp [Complex.star_def]
+  have h_star_half : star ((1/2 : ℂ)) = (1/2 : ℂ) := by simp
   rw [h_star_half]
   ring
 
