@@ -1214,6 +1214,48 @@ lemma T3_inner_volume_form (f g : LogWeightedL2)
     intros k _
     ring
 
+/-- **Half-formula**: $\langle T_3 f, g \rangle$ as a sum over the
+    expanding branches of the adjoint integrand on each $I_k$.
+
+    Composes `T3_inner_volume_form` (LHS expansion as Σ contracting
+    integrals) with `T3_per_branch_integral_eq` (per-branch CoV+Mayer)
+    and uses the cancellation $(1/3) \cdot 3 = 1$ to reach:
+
+      $\langle T_3 f, g \rangle = \sum_k \int_{I_k}
+        \frac{1}{u} \cdot \overline{f(u)} \cdot \overline{\omega_k}^{\mathrm{adj}}
+        \cdot w^*_k(u) \cdot g(3u-k) \, du$
+
+    **12th piece** of the Mayer formal-adjoint chain. The sum-over-$I_k$
+    on the RHS is exactly $\langle f, T_3^* g \rangle$ once partition
+    decomposition $\int_{(0,1)} = \sum_k \int_{I_k}$ is applied to the
+    adjoint side. -/
+lemma T3_inner_eq_branch_sum (f g : LogWeightedL2)
+    (h_int : ∀ k : Fin 3, MeasureTheory.Integrable
+      (fun x => ((1 / x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (phaseFactorBase3 k) *
+                ((weightFunction 3 k x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                g.toFunℝ x)
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+          (Set.Ioo (0:ℝ) 1))) :
+    ⟪T3.apply f, g⟫ = ∑ k : Fin 3,
+      ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((1 / u : ℝ) : ℂ) *
+        (starRingEnd ℂ) (f.toFunℝ u) *
+        phaseFactorBase3Conj k *
+        ((adjointWeight k u : ℝ) : ℂ) *
+        g.toFunℝ (3 * u - (k.val : ℝ))
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  rw [T3_inner_volume_form f g h_int]
+  -- Distribute (1/3) into the sum, then per-summand apply T3_per_branch_integral_eq
+  -- and use (1/3) * 3 = 1.
+  rw [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intros k _
+  rw [T3_per_branch_integral_eq k f g, Complex.real_smul]
+  push_cast
+  ring
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
