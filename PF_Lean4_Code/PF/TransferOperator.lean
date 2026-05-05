@@ -1054,6 +1054,80 @@ lemma T3_branch_integrand_pointwise (k : Fin 3) (u : ℝ)
    _ = ((1 / u : ℝ) : ℂ) * cf * phaseFactorBase3Conj k *
        ((adjointWeight k u : ℝ) : ℂ) * cg := by ring
 
+/-- **Per-branch formal-adjoint integral identity** (Mayer 1991, §2).
+    Combines `branch_setIntegral_CoV` (CoV from $(0,1)$ to $I_k$) with
+    `T3_branch_integrand_pointwise` (Mayer + phase conjugation) to
+    produce the per-branch integral form of the formal-adjoint relation:
+
+      $\int_{(0,1)} \frac{1}{x} \cdot \overline{\omega_k} \cdot w_k(x)
+        \cdot \overline{f(y_k(x))} \cdot g(x) \, dx
+       = 3 \int_{I_k} \frac{1}{u} \cdot \overline{f(u)} \cdot
+        \overline{\omega_k}^{\text{adj}} \cdot w^*_k(u) \cdot g(3u-k) \, du$
+
+    **10th piece** of the Mayer formal-adjoint chain. After this is
+    summed over $k = 0, 1, 2$ (with the $(1/3)$ prefactor of $T_3$
+    canceling the factor $3$), the LHS becomes $\langle T_3 f, g \rangle_\text{vol}$
+    (Bochner-volume form via the bridge `setIntegral_logWeightedMeasure_Ioo_eq_smul`)
+    and the RHS becomes $\langle f, T_3^* g \rangle_\text{vol}$ via partition
+    decomposition $\int_{(0,1)} = \sum_k \int_{I_k}$ and the
+    if-cascade form `T3_adjoint_inner_integrand_Ioo`. -/
+lemma T3_per_branch_integral_eq (k : Fin 3) (f g : LogWeightedL2) :
+    (∫ x in Set.Ioo (0:ℝ) 1,
+        ((1 / x : ℝ) : ℂ) *
+        (starRingEnd ℂ) (phaseFactorBase3 k) *
+        ((weightFunction 3 k x : ℝ) : ℂ) *
+        (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+        g.toFunℝ x
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ))
+    = (3:ℝ) • ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((1 / u : ℝ) : ℂ) *
+        (starRingEnd ℂ) (f.toFunℝ u) *
+        phaseFactorBase3Conj k *
+        ((adjointWeight k u : ℝ) : ℂ) *
+        g.toFunℝ (3 * u - (k.val : ℝ))
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  -- Define F : ℝ → ℂ such that F (y_k x) = LHS integrand at x.
+  -- Setting F(u) := contracting integrand evaluated under x = 3u - k.
+  set F : ℝ → ℂ := fun u =>
+    ((1 / (3*u - (k.val : ℝ)) : ℝ) : ℂ) *
+    (starRingEnd ℂ) (phaseFactorBase3 k) *
+    ((weightFunction 3 k (3*u - (k.val : ℝ)) : ℝ) : ℂ) *
+    (starRingEnd ℂ) (f.toFunℝ u) *
+    g.toFunℝ (3 * u - (k.val : ℝ)) with hF_def
+  -- LHS integrand equals F(y_k x) on Ioo (0,1).
+  have h_LHS_pointwise : ∀ x ∈ Set.Ioo (0:ℝ) 1,
+      ((1 / x : ℝ) : ℂ) *
+      (starRingEnd ℂ) (phaseFactorBase3 k) *
+      ((weightFunction 3 k x : ℝ) : ℂ) *
+      (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+      g.toFunℝ x
+      = F (inverseBranch 3 k x) := by
+    intros x _
+    have h_three_y_k : 3 * inverseBranch 3 k x - (k.val : ℝ) = x := by
+      unfold inverseBranch; field_simp; ring
+    simp only [hF_def, h_three_y_k]
+  -- Convert LHS integral via h_LHS_pointwise + setIntegral_congr_fun.
+  rw [MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo h_LHS_pointwise]
+  -- Now LHS = ∫ x in Set.Ioo 0 1, F (inverseBranch 3 k x) ∂volume
+  -- Apply branch_setIntegral_CoV
+  rw [branch_setIntegral_CoV k F]
+  -- Goal: 3 • ∫ u in I_k, F u = 3 • ∫ u in I_k, [adjoint integrand]
+  -- Reduce to integral-level equality by removing common smul factor
+  congr 1
+  -- Apply T3_branch_integrand_pointwise pointwise via setIntegral_congr_fun
+  refine MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo ?_
+  intros u hu
+  -- u ∈ Ioo (k/3) ((k+1)/3)
+  have hu_lower : (k.val : ℝ)/3 < u := hu.1
+  have hu_pos : u > 0 := by
+    have h_k_nonneg : (0:ℝ) ≤ (k.val : ℝ)/3 := by positivity
+    linarith
+  have h3u_k : (3*u - (k.val : ℝ) : ℝ) > 0 := by linarith
+  -- F(u) = LHS of T3_branch_integrand_pointwise; goal is RHS form.
+  simp only [hF_def]
+  exact T3_branch_integrand_pointwise k u hu_pos h3u_k
+    ((starRingEnd ℂ) (f.toFunℝ u)) (g.toFunℝ (3 * u - (k.val : ℝ)))
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
