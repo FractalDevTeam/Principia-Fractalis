@@ -809,6 +809,67 @@ noncomputable def T3_adjoint : TransferOperator 3 := {
   apply := T3_adjoint_action
 }
 
+/-- `(T3_adjoint.apply f).toFunℝ x` evaluated on the open unit interval,
+    expressed via `f.toFunℝ` at the expanding-branch image points
+    $3x - k$. The if-cascade selects the appropriate branch:
+      x ≤ 1/3:           bar(ω₀) · w*₀(x) · f.toFunℝ(3x)
+      1/3 < x ≤ 2/3:     bar(ω₁) · w*₁(x) · f.toFunℝ(3x - 1)
+      2/3 < x:           bar(ω₂) · w*₂(x) · f.toFunℝ(3x - 2)
+    where each `3x - k ∈ Icc 0 1` on the corresponding sub-interval. -/
+lemma T3_adjoint_toFunℝ_Ioo (f : LogWeightedL2) (x : ℝ) (hx : x ∈ Set.Ioo (0:ℝ) 1) :
+    (T3_adjoint.apply f).toFunℝ x =
+      if x ≤ 1/3 then
+        phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) * f.toFunℝ (3 * x)
+      else if x ≤ 2/3 then
+        phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) * f.toFunℝ (3 * x - 1)
+      else
+        phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) * f.toFunℝ (3 * x - 2) := by
+  have hx_Icc : x ∈ Set.Icc (0:ℝ) 1 := ⟨hx.1.le, hx.2.le⟩
+  unfold LogWeightedL2.toFunℝ
+  rw [dif_pos hx_Icc]
+  -- Now LHS = (T3_adjoint.apply f).toFun ⟨x, hx_Icc⟩ = T3_adjoint_action f .toFun ⟨x, hx_Icc⟩
+  show (if h0 : x ≤ 1/3 then
+          phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) *
+            f.toFun ⟨3 * x, _⟩
+        else if h1 : x ≤ 2/3 then
+          phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) *
+            f.toFun ⟨3 * x - 1, _⟩
+        else
+          phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) *
+            f.toFun ⟨3 * x - 2, _⟩) = _
+  by_cases h0 : x ≤ 1/3
+  · rw [dif_pos h0, if_pos h0]
+    congr 1
+    have h3x_Icc : 3 * x ∈ Set.Icc (0:ℝ) 1 := by
+      refine ⟨?_, ?_⟩
+      · linarith [hx.1]
+      · linarith
+    show f.toFun ⟨3 * x, _⟩ = f.toFunℝ (3 * x)
+    unfold LogWeightedL2.toFunℝ
+    rw [dif_pos h3x_Icc]
+  · rw [dif_neg h0, if_neg h0]
+    by_cases h1 : x ≤ 2/3
+    · rw [dif_pos h1, if_pos h1]
+      congr 1
+      push_neg at h0
+      have h3x1_Icc : 3 * x - 1 ∈ Set.Icc (0:ℝ) 1 := by
+        refine ⟨?_, ?_⟩
+        · linarith
+        · linarith
+      show f.toFun ⟨3 * x - 1, _⟩ = f.toFunℝ (3 * x - 1)
+      unfold LogWeightedL2.toFunℝ
+      rw [dif_pos h3x1_Icc]
+    · rw [dif_neg h1, if_neg h1]
+      congr 1
+      push_neg at h1
+      have h3x2_Icc : 3 * x - 2 ∈ Set.Icc (0:ℝ) 1 := by
+        refine ⟨?_, ?_⟩
+        · linarith
+        · linarith [hx.2]
+      show f.toFun ⟨3 * x - 2, _⟩ = f.toFunℝ (3 * x - 2)
+      unfold LogWeightedL2.toFunℝ
+      rw [dif_pos h3x2_Icc]
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
