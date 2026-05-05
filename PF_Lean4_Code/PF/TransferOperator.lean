@@ -1293,6 +1293,38 @@ theorem T3_formal_adjoint_relation
     ⟪T3.apply f, g⟫ = ⟪f, T3_adjoint.apply g⟫ := by
   rw [T3_inner_eq_branch_sum f g h_int, h_partition]
 
+/-- **Adjoint volume form**: $\langle f, T_3^* g \rangle$ as a single
+    Bochner volume integral. Pure Bochner-bridge composition — no
+    pointwise expansion or partition decomposition yet.
+
+    Bridges the inner-product form (over $\mu_\log$) to the volume-integral
+    form needed downstream by `T3_adjoint_inner_integrand_Ioo` (pointwise
+    if-cascade) and partition decomposition.
+
+    13th piece of the Mayer formal-adjoint chain. The next step is:
+      (a) Apply `T3_adjoint_inner_integrand_Ioo` pointwise via
+          `setIntegral_congr_fun` to expose the if-cascade.
+      (b) Decompose `∫_{Ioo 0 1}` as `∫_{Ioo 0 (1/3)} + ∫_{Ioo (1/3) (2/3)} +
+          ∫_{Ioo (2/3) 1}` via interval-integral additivity.
+      (c) On each sub-interval, the if-cascade reduces to one branch
+          (via the inequality bounds defining $I_k$).
+    Together these discharge `h_partition` of `T3_formal_adjoint_relation`. -/
+lemma T3_adjoint_inner_volume_form (f g : LogWeightedL2) :
+    ⟪f, T3_adjoint.apply g⟫ =
+      ∫ x in Set.Ioo (0:ℝ) 1,
+        ((1 / x : ℝ) : ℂ) *
+        (starRingEnd ℂ) (f.toFunℝ x) *
+        (T3_adjoint.apply g).toFunℝ x
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  unfold LogWeightedL2.inner
+  rw [setIntegral_logWeightedMeasure_Ioo_eq_smul]
+  refine MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo ?_
+  intros x _
+  show ((1/x : ℝ) : ℝ) • ((starRingEnd ℂ) (f.toFunℝ x) * (T3_adjoint.apply g).toFunℝ x)
+     = ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) * (T3_adjoint.apply g).toFunℝ x
+  rw [Complex.real_smul]
+  ring
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
