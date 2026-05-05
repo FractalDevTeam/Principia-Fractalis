@@ -997,6 +997,63 @@ lemma phaseFactorBase3_conj_eq (k : Fin 3) :
     (starRingEnd ℂ) (phaseFactorBase3 k) = phaseFactorBase3Conj k := by
   fin_cases k <;> simp [phaseFactorBase3, phaseFactorBase3Conj]
 
+/-- **Per-branch pointwise integrand identity** combining the Mayer
+    weight identity (`weight_ratio_branch`) with the phase conjugation
+    (`phaseFactorBase3_conj_eq`). For $u > 0$ with $3u - k > 0$ and any
+    complex placeholders `cf, cg : ℂ` (intended to stand in for
+    `conj(f(u))` and `g(3u-k)` respectively):
+
+      $\frac{1}{3u-k} \cdot \overline{\omega_k} \cdot w_k(3u-k) \cdot c_f \cdot c_g
+       = \frac{1}{u} \cdot c_f \cdot \overline{\omega_k}^{\text{adj}} \cdot
+         w^*_k(u) \cdot c_g$
+
+    where the LHS is the kth contracting integrand at $x = 3u - k$ (in
+    Bochner-volume form, with $(1/x)$ Jacobian baked in) and the RHS
+    is the kth expanding integrand at $u$ (Bochner-volume form, with
+    $(1/u)$ Jacobian).
+
+    **9th piece** of the Mayer 1991 formal-adjoint chain. Algebraic
+    core of the formal-adjoint proof — applied pointwise inside the
+    integrand of `branch_setIntegral_CoV` to produce the per-branch
+    formal-adjoint integral identity. -/
+lemma T3_branch_integrand_pointwise (k : Fin 3) (u : ℝ)
+    (hu_pos : u > 0) (h3u_k : (3 * u - (k.val : ℝ) : ℝ) > 0)
+    (cf cg : ℂ) :
+    ((1 / (3 * u - (k.val : ℝ)) : ℝ) : ℂ) *
+    (starRingEnd ℂ) (phaseFactorBase3 k) *
+    ((weightFunction 3 k (3 * u - (k.val : ℝ)) : ℝ) : ℂ) *
+    cf * cg
+  =
+    ((1 / u : ℝ) : ℂ) *
+    cf * phaseFactorBase3Conj k *
+    ((adjointWeight k u : ℝ) : ℂ) * cg := by
+  rw [phaseFactorBase3_conj_eq]
+  -- Real-level identity: (1/(3u-k)) * w_k(3u-k) = (1/u) * w*_k(u)
+  have h_real : (1 / (3 * u - (k.val : ℝ)) : ℝ) *
+                weightFunction 3 k (3 * u - (k.val : ℝ))
+              = (1 / u : ℝ) * adjointWeight k u := by
+    have h_ratio := weight_ratio_branch k u hu_pos h3u_k
+    have hu_ne : u ≠ 0 := ne_of_gt hu_pos
+    have h3u_k_ne : (3 * u - (k.val : ℝ)) ≠ 0 := ne_of_gt h3u_k
+    field_simp at h_ratio
+    field_simp
+    linarith [h_ratio]
+  -- Complex-level pull-out via Complex.ofReal_mul
+  have h_complex : ((1 / (3 * u - (k.val : ℝ)) : ℝ) : ℂ) *
+                   ((weightFunction 3 k (3 * u - (k.val : ℝ)) : ℝ) : ℂ)
+                 = ((1 / u : ℝ) : ℂ) * ((adjointWeight k u : ℝ) : ℂ) := by
+    rw [← Complex.ofReal_mul, ← Complex.ofReal_mul, h_real]
+  -- Rearrange products via `ring`
+  calc ((1 / (3 * u - (k.val : ℝ)) : ℝ) : ℂ) * phaseFactorBase3Conj k *
+       ((weightFunction 3 k (3 * u - (k.val : ℝ)) : ℝ) : ℂ) * cf * cg
+     = (((1 / (3 * u - (k.val : ℝ)) : ℝ) : ℂ) *
+        ((weightFunction 3 k (3 * u - (k.val : ℝ)) : ℝ) : ℂ)) *
+       phaseFactorBase3Conj k * cf * cg := by ring
+   _ = (((1 / u : ℝ) : ℂ) * ((adjointWeight k u : ℝ) : ℂ)) *
+       phaseFactorBase3Conj k * cf * cg := by rw [h_complex]
+   _ = ((1 / u : ℝ) : ℂ) * cf * phaseFactorBase3Conj k *
+       ((adjointWeight k u : ℝ) : ℂ) * cg := by ring
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
