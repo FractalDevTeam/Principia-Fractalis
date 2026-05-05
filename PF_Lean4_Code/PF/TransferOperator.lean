@@ -1128,6 +1128,92 @@ lemma T3_per_branch_integral_eq (k : Fin 3) (f g : LogWeightedL2) :
   exact T3_branch_integrand_pointwise k u hu_pos h3u_k
     ((starRingEnd ℂ) (f.toFunℝ u)) (g.toFunℝ (3 * u - (k.val : ℝ)))
 
+/-- **LHS expansion**: $\langle T_3 f, g \rangle$ as a sum of three
+    per-branch volume integrals. Bridges the inner-product form (over
+    $\mu_\log$) to the volume-integral form needed by
+    `T3_per_branch_integral_eq`.
+
+    Conjuncts:
+    1. Definition `LogWeightedL2.inner` (post-axiom-retirement, Bochner over μ_log).
+    2. Bochner bridge `setIntegral_logWeightedMeasure_Ioo_eq_smul`:
+       $\mu_\log \to \mathrm{volume}\cdot (1/x)$.
+    3. Pointwise expansion `T3_inner_integrand_Ioo`: $(T_3 f)(x)$ broken
+       into contracting branches.
+    4. Distribute $\sum$ over $\int$ via `integral_finset_sum` (needs
+       per-branch integrability, supplied as `h_int`).
+    5. Pull out the global $(1/3)$ constant via `integral_const_mul`.
+
+    **11th piece** of the Mayer formal-adjoint chain. Once each branch
+    is replaced via `T3_per_branch_integral_eq`, the $(1/3)$ here cancels
+    the factor $3$ from the per-branch CoV — leaving a clean sum of
+    expanding-branch integrals over $I_k$. -/
+lemma T3_inner_volume_form (f g : LogWeightedL2)
+    (h_int : ∀ k : Fin 3, MeasureTheory.Integrable
+      (fun x => ((1 / x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (phaseFactorBase3 k) *
+                ((weightFunction 3 k x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                g.toFunℝ x)
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+          (Set.Ioo (0:ℝ) 1))) :
+    ⟪T3.apply f, g⟫ = (1/3 : ℂ) *
+      ∑ k : Fin 3, ∫ x in Set.Ioo (0:ℝ) 1,
+        ((1 / x : ℝ) : ℂ) *
+        (starRingEnd ℂ) (phaseFactorBase3 k) *
+        ((weightFunction 3 k x : ℝ) : ℂ) *
+        (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+        g.toFunℝ x
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  -- Step 1: Unfold inner, apply Bochner bridge to volume·(1/x).
+  unfold LogWeightedL2.inner
+  rw [setIntegral_logWeightedMeasure_Ioo_eq_smul]
+  -- Step 2: Pointwise expand the integrand using T3_inner_integrand_Ioo,
+  -- AND convert the real smul to ℂ-multiplication, AND distribute (1/x)
+  -- through the (1/3)·Σ structure — all in one setIntegral_congr_fun pass.
+  rw [MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo
+      (f := fun x => ((1/x : ℝ) : ℝ) •
+            ((starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x))
+      (g := fun x => (1/3 : ℂ) * ∑ k : Fin 3,
+            ((1 / x : ℝ) : ℂ) *
+            (starRingEnd ℂ) (phaseFactorBase3 k) *
+            ((weightFunction 3 k x : ℝ) : ℂ) *
+            (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+            g.toFunℝ x) ?_]
+  · -- Now goal: ∫ (1/3) * Σ_k [...] = (1/3) * Σ_k ∫ [...]
+    -- Pull (1/3) constant out via integral_const_mul, then distribute Σ via integral_finset_sum.
+    rw [MeasureTheory.integral_const_mul,
+        MeasureTheory.integral_finset_sum _ (fun k _ => h_int k)]
+  · -- Pointwise equality on Ioo (0,1):
+    -- (1/x:ℝ) • (conj((T3 f)(x)) · g(x)) = (1/3) * Σ_k (1/x:ℂ) * conj(ω_k) * w_k(x) * conj(f(y_k(x))) * g(x)
+    intros x hx
+    show ((1/x : ℝ) : ℝ) • ((starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x)
+       = (1/3 : ℂ) * ∑ k : Fin 3,
+            ((1 / x : ℝ) : ℂ) *
+            (starRingEnd ℂ) (phaseFactorBase3 k) *
+            ((weightFunction 3 k x : ℝ) : ℂ) *
+            (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+            g.toFunℝ x
+    rw [T3_inner_integrand_Ioo f g x hx, Complex.real_smul]
+    -- Goal: (1/x:ℝ:ℂ) * ((1/3) * Σ_k T_k) = (1/3) * Σ_k (1/x:ℂ) * T_k * ...
+    -- Step a: rearrange so (1/3) is the outermost factor.
+    rw [show ((1/x : ℝ) : ℂ) * ((1/3 : ℂ) *
+            ∑ k : Fin 3, (starRingEnd ℂ) (phaseFactorBase3 k) *
+                        ((weightFunction 3 k x : ℝ) : ℂ) *
+                        (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                        g.toFunℝ x)
+          = (1/3 : ℂ) * (((1/x : ℝ) : ℂ) *
+            ∑ k : Fin 3, (starRingEnd ℂ) (phaseFactorBase3 k) *
+                        ((weightFunction 3 k x : ℝ) : ℂ) *
+                        (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                        g.toFunℝ x) from by ring]
+    -- Step b: distribute (1/x) into the sum.
+    rw [Finset.mul_sum]
+    -- Step c: each summand matches up to associativity.
+    congr 1
+    apply Finset.sum_congr rfl
+    intros k _
+    ring
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
