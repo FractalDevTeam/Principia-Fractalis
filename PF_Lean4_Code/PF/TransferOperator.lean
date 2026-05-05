@@ -30,6 +30,7 @@ import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Set
 import Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 import PF.IntervalArithmetic
 
 namespace PrincipiaTractalis
@@ -918,6 +919,53 @@ lemma T3_adjoint_inner_integrand_Ioo (f g : LogWeightedL2) (x : ℝ)
           (phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) * g.toFunℝ (3 * x - 2)) := by
   rw [T3_adjoint_toFunℝ_Ioo g x hx]
   split_ifs <;> rfl
+
+/-- **Per-branch change-of-variables**: substitution $u = y_k(x) = (x+k)/3$,
+    inverse $x = 3u - k$, on the open unit interval. Maps $(0,1)$ onto
+    the kth dyadic-thirds sub-interval $I_k = (k/3, (k+1)/3)$, with
+    Jacobian factor $3$.
+
+    Statement: for any `F : ℝ → ℂ` (no continuity hypothesis needed —
+    `intervalIntegral.integral_comp_div_add` accepts general `f`):
+
+      $\int_0^1 F(y_k(x)) \, dx = 3 \int_{k/3}^{(k+1)/3} F(u) \, du$
+
+    Implementation chain (all from Mathlib):
+      `setIntegral over Ioo  ↔  intervalIntegral`  via
+        `intervalIntegral.integral_of_le` + `integral_Ioc_eq_integral_Ioo`
+      Substitution lemma  ↔
+        `intervalIntegral.integral_comp_div_add` (c=3, d=k.val/3).
+
+    7th piece of the Mayer 1991 formal-adjoint chain — bridges the
+    contracting integrand on $(0,1)$ to the expanding integrand on $I_k$. -/
+lemma branch_setIntegral_CoV (k : Fin 3) (F : ℝ → ℂ) :
+    ∫ x in Set.Ioo (0:ℝ) 1, F (inverseBranch 3 k x)
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) =
+      (3:ℝ) • ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3), F u
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  -- Pointwise reduction: inverseBranch 3 k x = x/3 + k.val/3.
+  have h_yk : ∀ x, inverseBranch 3 k x = x / 3 + (k.val : ℝ) / 3 := by
+    intro x; unfold inverseBranch; push_cast; ring
+  -- Convert both setIntegrals over Ioo to intervalIntegrals.
+  have h_le_kk : (k.val : ℝ) / 3 ≤ ((k.val : ℝ) + 1) / 3 := by linarith
+  have h_LHS : (∫ x in Set.Ioo (0:ℝ) 1, F (inverseBranch 3 k x)
+            ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ))
+          = ∫ x in (0:ℝ)..1, F (inverseBranch 3 k x) := by
+    rw [← MeasureTheory.integral_Ioc_eq_integral_Ioo,
+        ← intervalIntegral.integral_of_le (by norm_num : (0:ℝ) ≤ 1)]
+  have h_RHS : (∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3), F u
+            ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ))
+          = ∫ u in ((k.val : ℝ)/3)..(((k.val : ℝ) + 1)/3), F u := by
+    rw [← MeasureTheory.integral_Ioc_eq_integral_Ioo,
+        ← intervalIntegral.integral_of_le h_le_kk]
+  rw [h_LHS, h_RHS]
+  -- Both sides are now intervalIntegrals. Apply substitution.
+  simp_rw [h_yk]
+  rw [intervalIntegral.integral_comp_div_add F (by norm_num : (3:ℝ) ≠ 0) ((k.val : ℝ) / 3)]
+  -- Bounds simplify: 0/3 + k.val/3 = k.val/3 ; 1/3 + k.val/3 = (k.val+1)/3
+  have h_lb : (0:ℝ) / 3 + (k.val : ℝ) / 3 = (k.val : ℝ) / 3 := by ring
+  have h_ub : (1:ℝ) / 3 + (k.val : ℝ) / 3 = ((k.val : ℝ) + 1) / 3 := by ring
+  rw [h_lb, h_ub]
 
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
