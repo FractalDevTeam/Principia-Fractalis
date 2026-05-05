@@ -1520,6 +1520,42 @@ lemma T3_adjoint_inner_eq_branch_sum (f g : LogWeightedL2)
     simp only [Fin.val_two, Nat.cast_ofNat] at this
     exact this
 
+/-- **Formal adjoint relation** $\langle T_3 f, g \rangle = \langle f, T_3^* g \rangle$
+    via Mayer 1991 §2 — fully discharged from integrability hypotheses
+    only (no axiomatic content from the math).
+
+    Composes the two half-formulas:
+    - `T3_inner_eq_branch_sum`: ⟪T3 f, g⟫ = Σ_k ∫_{I_k} [adjoint integrand]
+    - `T3_adjoint_inner_eq_branch_sum`: ⟪f, T3* g⟫ = Σ_k ∫_{I_k} [adjoint integrand]
+
+    Both sides reduce to the same `Σ_k ∫_{I_k}` form, so the equality is
+    immediate — the entire 16-piece Mayer chain has worked out.
+
+    **17th piece** of the Mayer formal-adjoint chain — the capstone.
+    Conditional on:
+    - `h_int_T3`: per-branch contracting integrand integrability on (0,1).
+    - `h_int_T3adj`: adjoint inner integrand is IntervalIntegrable on [0,1].
+
+    Both are standard L² estimates (Mayer 1991: ‖T_3‖ ≤ 1 implies the
+    relevant integrability via Cauchy-Schwarz on each branch). -/
+theorem T3_formal_adjoint_relation_via_integrability
+    (f g : LogWeightedL2)
+    (h_int_T3 : ∀ k : Fin 3, MeasureTheory.Integrable
+      (fun x => ((1 / x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (phaseFactorBase3 k) *
+                ((weightFunction 3 k x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                g.toFunℝ x)
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+          (Set.Ioo (0:ℝ) 1)))
+    (h_int_T3adj : IntervalIntegrable
+      (fun x => ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+                (T3_adjoint.apply g).toFunℝ x)
+      MeasureTheory.volume 0 1) :
+    ⟪T3.apply f, g⟫ = ⟪f, T3_adjoint.apply g⟫ := by
+  rw [T3_inner_eq_branch_sum f g h_int_T3,
+      T3_adjoint_inner_eq_branch_sum f g h_int_T3adj]
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
