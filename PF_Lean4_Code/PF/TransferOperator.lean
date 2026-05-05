@@ -699,6 +699,60 @@ noncomputable def T3 : TransferOperator 3 := {
   apply := transferOperatorAction 3 phaseFactorBase3
 }
 
+/-- Helper: `inverseBranch 3 k x ∈ Set.Icc 0 1` for `x ∈ Set.Ioo 0 1`.
+    Direct from the bounds proof in `transferOperatorAction`'s definition,
+    factored out for reuse. -/
+lemma inverseBranch_three_mem_Icc (k : Fin 3) (x : ℝ) (hx : x ∈ Set.Ioo (0:ℝ) 1) :
+    inverseBranch 3 k x ∈ Set.Icc (0:ℝ) 1 := by
+  refine ⟨?_, ?_⟩
+  · simp only [inverseBranch]
+    apply div_nonneg
+    · exact add_nonneg hx.1.le (Nat.cast_nonneg k.val)
+    · exact Nat.cast_nonneg 3
+  · simp only [inverseBranch]
+    have h3_pos : (0:ℝ) < (3 : ℕ) := by exact_mod_cast (by norm_num : (0:ℕ) < 3)
+    rw [div_le_one h3_pos]
+    have hk_lt : (k.val : ℝ) + 1 ≤ 3 := by
+      have : k.val + 1 ≤ 3 := k.isLt
+      exact_mod_cast this
+    push_cast
+    linarith [hx.2]
+
+/-- `(T3.apply f).toFunℝ x` evaluated on the open unit interval, expressed
+    via `f.toFunℝ` at the inverse-branch points. The structural projections
+    unfold cleanly when `x ∈ Set.Ioo 0 1`, since (a) `Ioo 0 1 ⊆ Icc 0 1`
+    so `toFunℝ` selects the structure's `toFun` (not the zero fallback),
+    and (b) `inverseBranch 3 k x ∈ Icc 0 1` so `f.toFun ⟨y_k(x), _⟩` is
+    defined and equals `f.toFunℝ (y_k(x))`. -/
+lemma T3_toFunℝ_Ioo (f : LogWeightedL2) (x : ℝ) (hx : x ∈ Set.Ioo (0:ℝ) 1) :
+    (T3.apply f).toFunℝ x =
+      (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
+        (weightFunction 3 k x : ℂ) *
+        f.toFunℝ (inverseBranch 3 k x) := by
+  have hx_Icc : x ∈ Set.Icc (0:ℝ) 1 := ⟨hx.1.le, hx.2.le⟩
+  unfold LogWeightedL2.toFunℝ
+  rw [dif_pos hx_Icc]
+  -- After dif_pos, LHS = (T3.apply f).toFun ⟨x, hx_Icc⟩
+  -- = transferOperatorAction 3 phaseFactorBase3 f .toFun ⟨x, hx_Icc⟩
+  -- = (1/3) * Σ k, phases k * w_k(x) * f.toFun ⟨inverseBranch 3 k x, _⟩
+  show (1 / (3 : ℕ) : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
+        (weightFunction 3 k x : ℂ) *
+        f.toFun ⟨inverseBranch 3 k x, _⟩
+       = (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
+        (weightFunction 3 k x : ℂ) *
+        f.toFunℝ (inverseBranch 3 k x)
+  push_cast
+  congr 1
+  apply Finset.sum_congr rfl
+  intros k _
+  congr 1
+  -- Need: f.toFun ⟨inverseBranch 3 k x, _⟩ = f.toFunℝ (inverseBranch 3 k x)
+  have h_yk_Icc : inverseBranch 3 k x ∈ Set.Icc (0:ℝ) 1 :=
+    inverseBranch_three_mem_Icc k x hx
+  show f.toFun ⟨inverseBranch 3 k x, _⟩ = f.toFunℝ (inverseBranch 3 k x)
+  unfold LogWeightedL2.toFunℝ
+  rw [dif_pos h_yk_Icc]
+
 /-! ## Adjoint and Symmetrised Operator (rev-3 §3.1 follow-on, 2026-04-29) -/
 
 /-- Action of the formal adjoint $\widetilde{T}_3^*$ on $L^2([0,1], dx/x)$.
