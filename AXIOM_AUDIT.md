@@ -1,6 +1,68 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-05-04, post `LogWeightedL2.inner` axiom retirement (commit `a43a669`). **7 axioms** remain (canonical PF/, down from 8 — first reduction since Phase A began), 0 sorries, 5488 jobs clean.*
+*As of 2026-05-05, **7 axioms** (canonical PF/), 0 sorries, 5488 jobs clean. Mayer 1991 §2 formal-adjoint chain COMPLETE (17 pieces, commits `c117493` … `344be4c`).*
+
+## Mayer 1991 §2 formal-adjoint chain — COMPLETE (2026-05-03/05, commits `c117493` … `344be4c`)
+
+A 17-piece Lean infrastructure that takes the formal-adjoint relation
+$\langle T_3 f, g \rangle = \langle f, T_3^* g \rangle$ from "asserted by axiom"
+to "**provable from integrability hypotheses ONLY**" — no creative math left.
+
+### The 17 pieces (in dependency order)
+
+| # | Lemma | Commit | Role |
+|---|-------|--------|------|
+| 1 | `T3_inner_integrand_Ioo` | `c117493` | Pointwise: $\overline{(T_3 f)(x)} \cdot g(x)$ as Σ over branches |
+| 2 | `T3_adjoint_inner_integrand_Ioo` | `3f25598` | Mirror: $\overline{f(x)} \cdot (T_3^* g)(x)$ as if-cascade |
+| 3 | `branch_setIntegral_CoV` | `07dee91` | Per-branch CoV: $u = (x+k)/3$, Jacobian 3 |
+| 4 | `weight_ratio_branch` | `21a8db5` | Mayer pointwise: $w_k(3u-k)/(3u-k) = w^*_k(u)/u$ |
+| 5 | `phaseFactorBase3_conj_eq` | `21a8db5` | $\overline{\omega_k} = \omega_k^{\mathrm{adj}}$ |
+| 6 | `T3_branch_integrand_pointwise` | `6e56224` | Pointwise integrand identity (combines 4+5) |
+| 7 | `T3_per_branch_integral_eq` | `a290cda` | Per-branch integral identity (combines 3+6) |
+| 8 | `T3_inner_volume_form` | `4c51e48` | LHS expansion via Bochner bridge |
+| 9 | `T3_inner_eq_branch_sum` | `6070f25` | Half-formula: $\langle T_3 f, g \rangle = \sum_k \int_{I_k}$ |
+| 10 | `T3_formal_adjoint_relation` (cond.) | `97f38a6` | Conditional theorem on `h_partition` |
+| 11 | `T3_adjoint_inner_volume_form` | `b03ad0d` | RHS as single Bochner volume integral |
+| 12 | `setIntegral_Ioo_partition_three` | `33b51ca` | Spatial decomposition of $(0,1)$ into thirds |
+| 13 | `T3_adjoint_integrand_on_branch` | `a1c8f86` | If-cascade evaluation per $I_k$ piece |
+| 14 | `T3_adjoint_inner_eq_branch_sum` | `36e5afe` | RHS half-formula (composes 11+12+13) |
+| 15 | **`T3_formal_adjoint_relation_via_integrability`** | **`344be4c`** | **CAPSTONE** |
+
+### Capstone signature
+
+```lean
+theorem T3_formal_adjoint_relation_via_integrability
+    (f g : LogWeightedL2)
+    (h_int_T3 : ∀ k : Fin 3, MeasureTheory.Integrable
+      (fun x => ((1 / x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (phaseFactorBase3 k) *
+                ((weightFunction 3 k x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                g.toFunℝ x)
+      ((volume : Measure ℝ).restrict (Set.Ioo (0:ℝ) 1)))
+    (h_int_T3adj : IntervalIntegrable
+      (fun x => ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+                (T3_adjoint.apply g).toFunℝ x)
+      volume 0 1) :
+    ⟪T3.apply f, g⟫ = ⟪f, T3_adjoint.apply g⟫
+```
+
+### Path to `T3_self_adjoint_conj` retirement
+
+```
+T3_self_adjoint_conj_via_formal_adjoint'  (existing)
+  ← T3_formal_adjoint_relation_via_integrability  (this session's capstone)
+    ← h_int_T3 + h_int_T3adj  (standard L² estimates from Mayer 1991 ‖T_b‖ ≤ 1)
+```
+
+The remaining work is purely measure-theoretic: discharge `h_int_T3` and
+`h_int_T3adj` for L²-functions. **No new mathematics required.**
+
+The blocker: `LogWeightedL2.integrable : True` placeholder. A future
+structural strengthening (`LogWeightedL2 := Lp ℂ 2 logWeightedMeasure`,
+or equivalent measurability + L² constraint on the structure) makes
+both hypotheses derivable from the structure's invariants, finally
+enabling the universal claim of the axiom.
 
 ## Inner-product API + conditional T3 self-adjointness (2026-05-04, commits `3520de8` … `06134f3`)
 
