@@ -35,18 +35,46 @@ built out the sesquilinearity API for the new Bochner-integral-based
 - Reduces axiom retirement to proving the forward formal-adjoint relation,
   which is the concrete Mayer-1991 change-of-variables claim.
 
-**Mayer 1991 weight identity** (`1f1d735`, 2026-05-04):
-- `adjointWeight_eq_weightFunction`:
-  $w^*_k(u) = u \cdot w_k(3u - k) / (3u - k)$ for $u \in I_k$.
-- The algebraic core of the formal-adjoint relation. Squared form: both
-  sides equal $u/(3u-k)$. Proven via `Real.sqrt_div` + `field_simp` +
-  `Real.sq_sqrt` + `ring`.
-- Concrete progress toward retiring `T3_self_adjoint_conj`: the
-  algebraic identity is now in source. Remaining work for full retirement
-  is the Bochner-integral change-of-variables step (multi-day; mathlib
-  scaffolding via `setIntegral_withDensity_eq_setIntegral_smul` + affine
-  CoV). Manuscript reference: Ch 20, equation in proof of
-  `thm:self-adjoint-transfer`; Mayer 1991 §2.
+**Mayer 1991 formal-adjoint building blocks** (commits `1f1d735` …
+`5eb54c4`, 2026-05-04). All four pieces needed for the integral
+manipulation are now in source:
+
+1. `adjointWeight_eq_weightFunction` (`1f1d735`):
+   $w^*_k(u) = u \cdot w_k(3u - k) / (3u - k)$ for $u \in I_k$. The
+   algebraic core. Squared form: both sides equal $u/(3u-k)$. Proven
+   via `Real.sqrt_div` + `field_simp` + `Real.sq_sqrt` + `ring`.
+
+2. `setIntegral_logWeightedMeasure_Ioo_eq_smul` (`474a998`):
+   $\int_{(0,1)} h\, d\mu_{\log} = \int_{(0,1)} (1/x) \cdot h\, d\text{volume}$.
+   Bochner-integral bridge from log-weighted measure to volume with
+   explicit Jacobian. Proven via `restrict_withDensity` +
+   `integral_withDensity_eq_integral_toReal_smul₀` (mathlib) +
+   `setIntegral_congr_fun` (with explicit `(E := ℂ)` to bypass
+   typeclass-inference fragility).
+
+3. `T3_toFunℝ_Ioo` (`f8abab7`) plus helper `inverseBranch_three_mem_Icc`:
+   On $(0,1)$, $(T_3 f).toFunℝ\,x = (1/3)\sum_k \omega_k\, w_k(x)\, f.toFunℝ(y_k(x))$.
+   The structural-projection unfolding reducing T₃'s `LogWeightedL2`
+   action to the function-level `f.toFunℝ`.
+
+4. `T3_adjoint_toFunℝ_Ioo` (`5eb54c4`):
+   On $(0,1)$, $(T_3^* f).toFunℝ\,x$ given as the if-cascade selecting
+   the appropriate expanding branch $3x - k$ on $I_k$. Three-branch
+   case-split via `by_cases`; each branch's `f.toFun ⟨3x - k, _⟩`
+   becomes `f.toFunℝ (3x - k)` after verifying $3x - k \in [0, 1]$.
+
+Combined with the existing infrastructure (`inverseBranch_volume_map`,
+`inverseBranch_set_lintegral_change_of_variables`, ae-equality
+propagation), all building blocks are present for proving the formal
+adjoint relation $⟪T_3 f, g⟫ = ⟪f, T_3^* g⟫$ in Lean.
+
+**Remaining work for full retirement of `T3_self_adjoint_conj`**:
+- Compose the four pieces with the affine CoV under volume.
+- Sum over branches via partition of $(0,1) = \bigcup_k I_k$.
+- Conditional on integrability hypotheses (forms of `inner_add_left/right`).
+
+Manuscript reference: Ch 20, proof of `thm:self-adjoint-transfer`;
+Mayer 1991 §2.
 
 The structure's placeholder `integrable : True` field forces
 integrability hypotheses to be supplied per-lemma. The eventual
