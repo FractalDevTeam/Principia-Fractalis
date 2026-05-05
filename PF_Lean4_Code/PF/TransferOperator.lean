@@ -1392,6 +1392,56 @@ lemma setIntegral_Ioo_partition_three (F : ℝ → ℂ)
       ← intervalIntegral.integral_add_adjacent_intervals h_int_mid h_int_right]
   ring
 
+/-- **If-cascade evaluation on $I_k$**: on the open kth dyadic-thirds
+    sub-interval $I_k = (k/3, (k+1)/3)$, the if-cascade form of
+    `(T_3^* g).toFunℝ` (from `T3_adjoint_inner_integrand_Ioo`)
+    selects exactly the kth branch.
+
+    For each k:
+      - k=0: $x \in (0, 1/3)$ implies $x \le 1/3$ (first branch).
+      - k=1: $x \in (1/3, 2/3)$ implies $x > 1/3$ but $x \le 2/3$ (second).
+      - k=2: $x \in (2/3, 1)$ implies $x > 2/3$ (third branch).
+
+    15th piece of the Mayer formal-adjoint chain. Together with
+    `setIntegral_Ioo_partition_three`, discharges the spatial+
+    if-cascade portion of `h_partition`. -/
+lemma T3_adjoint_integrand_on_branch (f g : LogWeightedL2) (k : Fin 3)
+    (x : ℝ) (hx : x ∈ Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)) :
+    ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+      (T3_adjoint.apply g).toFunℝ x
+    = ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+      phaseFactorBase3Conj k * ((adjointWeight k x : ℝ) : ℂ) *
+      g.toFunℝ (3 * x - (k.val : ℝ)) := by
+  have hx_Ioo01 : x ∈ Set.Ioo (0:ℝ) 1 := by
+    refine ⟨?_, ?_⟩
+    · have h_k_nonneg : (0:ℝ) ≤ (k.val : ℝ)/3 := by positivity
+      linarith [hx.1]
+    · have h_kp1_le_1 : ((k.val : ℝ) + 1)/3 ≤ 1 := by
+        have h_k : (k.val : ℝ) ≤ 2 := by exact_mod_cast Fin.is_le k
+        linarith
+      linarith [hx.2]
+  rw [mul_assoc, T3_adjoint_inner_integrand_Ioo f g x hx_Ioo01]
+  -- The if-cascade selects branch k based on x being in I_k.
+  -- Use rcases on k.val (Fin 3 → val ∈ {0,1,2}) to get clean literal substitution.
+  have hk_lt : k.val < 3 := k.isLt
+  obtain ⟨_, h_k_eq⟩ : ∃ v, k = v := ⟨k, rfl⟩
+  -- Direct case analysis on Fin 3 via decide-elim
+  match k, h_k_eq with
+  | 0, _ =>
+      simp only [Fin.val_zero, Nat.cast_zero, sub_zero] at hx ⊢
+      have h_x_le_third : x ≤ 1/3 := by linarith [hx.2]
+      rw [if_pos h_x_le_third]; ring
+  | 1, _ =>
+      simp only [Fin.val_one, Nat.cast_one] at hx ⊢
+      have h_x_gt_third : ¬ (x ≤ 1/3) := by linarith [hx.1]
+      have h_x_le_two_thirds : x ≤ 2/3 := by linarith [hx.2]
+      rw [if_neg h_x_gt_third, if_pos h_x_le_two_thirds]; ring
+  | 2, _ =>
+      simp only [Fin.val_two, Nat.cast_ofNat] at hx ⊢
+      have h_x_gt_third : ¬ (x ≤ 1/3) := by linarith [hx.1]
+      have h_x_gt_two_thirds : ¬ (x ≤ 2/3) := by linarith [hx.1]
+      rw [if_neg h_x_gt_third, if_neg h_x_gt_two_thirds]; ring
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
