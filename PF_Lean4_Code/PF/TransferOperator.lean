@@ -967,6 +967,36 @@ lemma branch_setIntegral_CoV (k : Fin 3) (F : ℝ → ℂ) :
   have h_ub : (1:ℝ) / 3 + (k.val : ℝ) / 3 = ((k.val : ℝ) + 1) / 3 := by ring
   rw [h_lb, h_ub]
 
+/-- **Pointwise weight-ratio corollary** of the Mayer weight identity
+    `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
+
+      $\frac{w_k(3u - k)}{3u - k} = \frac{w^*_k(u)}{u}$
+
+    Direct algebraic consequence: Mayer says $w^*_k(u) = u \cdot
+    w_k(3u-k)/(3u-k)$, divide both sides by $u$.
+
+    8th piece of the Mayer 1991 formal-adjoint chain. After the
+    per-branch CoV `branch_setIntegral_CoV`, the Jacobian factor
+    `(1/(3u-k))` combines with the contracting weight $w_k(3u-k)$ to
+    produce the expanding weight $w^*_k(u)$ scaled by `(1/u)`. This is
+    exactly the form needed to match the integrand of $\langle f, T^*_3 g \rangle$
+    on the kth dyadic-thirds sub-interval $I_k$. -/
+lemma weight_ratio_branch (k : Fin 3) (u : ℝ)
+    (hu_pos : u > 0) (h3u_k : (3 * u - (k.val : ℝ) : ℝ) > 0) :
+    weightFunction 3 k (3 * u - (k.val : ℝ)) / (3 * u - (k.val : ℝ))
+      = adjointWeight k u / u := by
+  rw [adjointWeight_eq_weightFunction k u hu_pos h3u_k]
+  field_simp
+
+/-- Conjugation of the contracting phase $\omega_k$ produces the
+    expanding adjoint phase $\overline{\omega_k}$. Trivial finite-case
+    identity: `phaseFactorBase3 k ∈ {1, -i, -1}` and
+    `phaseFactorBase3Conj k ∈ {1, +i, -1}`, and conjugation flips
+    $-i \leftrightarrow +i$ while fixing $\pm 1$. -/
+lemma phaseFactorBase3_conj_eq (k : Fin 3) :
+    (starRingEnd ℂ) (phaseFactorBase3 k) = phaseFactorBase3Conj k := by
+  fin_cases k <;> simp [phaseFactorBase3, phaseFactorBase3Conj]
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
