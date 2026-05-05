@@ -1256,6 +1256,43 @@ lemma T3_inner_eq_branch_sum (f g : LogWeightedL2)
   push_cast
   ring
 
+/-- **Formal adjoint relation** $\langle T_3 f, g \rangle = \langle f, T_3^* g \rangle$
+    via Mayer 1991 §2 — conditional on per-branch integrability AND
+    partition decomposition of the adjoint inner product.
+
+    Conjuncts:
+    - `h_int`: per-branch contracting integrand is integrable on $(0,1)$.
+    - `h_partition`: $\langle f, T_3^* g \rangle$ decomposes as the sum
+      of per-branch expanding integrals on $I_k$.
+
+    Conditional on `h_partition`, this theorem composes the entire
+    Mayer 1991 chain (12 building blocks above) into the formal-adjoint
+    relation. Together with `T3_self_adjoint_conj_via_formal_adjoint'`,
+    this reduces retiring `T3_self_adjoint_conj` to discharging
+    `h_int` and `h_partition` — both of which are clearly-isolated
+    measure-theory sub-claims (per-branch L¹ bounds, and partition-of-Ioo
+    decomposition via interval-integral additivity). -/
+theorem T3_formal_adjoint_relation
+    (f g : LogWeightedL2)
+    (h_int : ∀ k : Fin 3, MeasureTheory.Integrable
+      (fun x => ((1 / x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (phaseFactorBase3 k) *
+                ((weightFunction 3 k x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                g.toFunℝ x)
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+          (Set.Ioo (0:ℝ) 1)))
+    (h_partition : ⟪f, T3_adjoint.apply g⟫ = ∑ k : Fin 3,
+      ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((1 / u : ℝ) : ℂ) *
+        (starRingEnd ℂ) (f.toFunℝ u) *
+        phaseFactorBase3Conj k *
+        ((adjointWeight k u : ℝ) : ℂ) *
+        g.toFunℝ (3 * u - (k.val : ℝ))
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ)) :
+    ⟪T3.apply f, g⟫ = ⟪f, T3_adjoint.apply g⟫ := by
+  rw [T3_inner_eq_branch_sum f g h_int, h_partition]
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
