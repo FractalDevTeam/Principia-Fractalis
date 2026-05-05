@@ -895,6 +895,30 @@ lemma T3_adjoint_toFunℝ_Ioo (f : LogWeightedL2) (x : ℝ) (hx : x ∈ Set.Ioo 
       unfold LogWeightedL2.toFunℝ
       rw [dif_pos h3x2_Icc]
 
+/-- Mirror integrand identity for `⟪f, T₃^* g⟫`: on the open unit
+    interval, the integrand `bar(f(x)) · (T₃^* g)(x)` decomposes as
+    an if-cascade indexed by the partition $I_0=[0,1/3]$,
+    $I_1=(1/3,2/3]$, $I_2=(2/3,1]$, with each branch carrying the
+    conjugate phase $\bar{\omega_k}$, the reciprocal weight
+    `adjointWeight k x`, and `g.toFunℝ(3x - k)`.
+    Direct from `T3_adjoint_toFunℝ_Ioo` (commit `5eb54c4`) by
+    distributing the prefactor `bar(f(x)) · _` over the if-cascade
+    on the right of the multiplication. -/
+lemma T3_adjoint_inner_integrand_Ioo (f g : LogWeightedL2) (x : ℝ)
+    (hx : x ∈ Set.Ioo (0:ℝ) 1) :
+    (starRingEnd ℂ) (f.toFunℝ x) * (T3_adjoint.apply g).toFunℝ x =
+      if x ≤ 1/3 then
+        (starRingEnd ℂ) (f.toFunℝ x) *
+          (phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) * g.toFunℝ (3 * x))
+      else if x ≤ 2/3 then
+        (starRingEnd ℂ) (f.toFunℝ x) *
+          (phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) * g.toFunℝ (3 * x - 1))
+      else
+        (starRingEnd ℂ) (f.toFunℝ x) *
+          (phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) * g.toFunℝ (3 * x - 2)) := by
+  rw [T3_adjoint_toFunℝ_Ioo g x hx]
+  split_ifs <;> rfl
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
