@@ -1442,6 +1442,84 @@ lemma T3_adjoint_integrand_on_branch (f g : LogWeightedL2) (k : Fin 3)
       have h_x_gt_two_thirds : ¬ (x ≤ 2/3) := by linarith [hx.1]
       rw [if_neg h_x_gt_third, if_neg h_x_gt_two_thirds]; ring
 
+/-- **Partition + if-cascade composition**: $\langle f, T_3^* g \rangle$
+    expressed as the sum over expanding-branch integrals on $I_k$. This
+    is exactly the form of `h_partition` in `T3_formal_adjoint_relation`.
+
+    Conjuncts:
+    - `T3_adjoint_inner_volume_form`: ⟪f, T3* g⟫ as Bochner volume integral.
+    - `setIntegral_Ioo_partition_three`: split Ioo (0,1) into three pieces.
+    - `T3_adjoint_integrand_on_branch`: per-piece if-cascade evaluates
+      to the kth branch.
+    - `Fin.sum_univ_three`: expand ∑ over Fin 3 to three explicit terms.
+
+    16th piece of the Mayer formal-adjoint chain. With this lemma,
+    `h_partition` of `T3_formal_adjoint_relation` is dischargeable
+    from `IntervalIntegrable` of the volume integrand on $[0,1]$. -/
+lemma T3_adjoint_inner_eq_branch_sum (f g : LogWeightedL2)
+    (h_int : IntervalIntegrable
+      (fun x => ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+                (T3_adjoint.apply g).toFunℝ x)
+      MeasureTheory.volume 0 1) :
+    ⟪f, T3_adjoint.apply g⟫ = ∑ k : Fin 3,
+      ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((1 / u : ℝ) : ℂ) *
+        (starRingEnd ℂ) (f.toFunℝ u) *
+        phaseFactorBase3Conj k *
+        ((adjointWeight k u : ℝ) : ℂ) *
+        g.toFunℝ (3 * u - (k.val : ℝ))
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  rw [T3_adjoint_inner_volume_form f g]
+  rw [setIntegral_Ioo_partition_three _ h_int]
+  -- Expand Σ over Fin 3 to f 0 + f 1 + f 2 and normalize bounds.
+  rw [Fin.sum_univ_three]
+  simp only [Fin.val_zero, Nat.cast_zero, zero_div, zero_add,
+    Fin.val_one, Nat.cast_one, Fin.val_two, Nat.cast_ofNat, sub_zero]
+  -- Normalize arithmetic in bounds: (1+1)/3 = 2/3 ; (2+1)/3 = 1.
+  have h_arith1 : ((1:ℝ) + 1) / 3 = 2 / 3 := by norm_num
+  have h_arith2 : ((2:ℝ) + 1) / 3 = 1 := by norm_num
+  rw [h_arith1, h_arith2]
+  -- Now bounds are clean: Ioo 0 (1/3), Ioo (1/3) (2/3), Ioo (2/3) 1.
+  congr 1
+  · congr 1
+    · -- k = 0 piece
+      refine MeasureTheory.setIntegral_congr_fun (E := ℂ)
+        (measurableSet_Ioo : MeasurableSet (Set.Ioo (0:ℝ) (1/3))) ?_
+      intros x hx
+      have hx' : x ∈ Set.Ioo (((0 : Fin 3).val : ℝ)/3)
+          ((((0 : Fin 3).val : ℝ) + 1)/3) := by
+        simp only [Fin.val_zero, Nat.cast_zero, zero_div, zero_add]
+        exact hx
+      have := T3_adjoint_integrand_on_branch f g 0 x hx'
+      simp only [Fin.val_zero, Nat.cast_zero, sub_zero] at this
+      exact this
+    · -- k = 1 piece
+      refine MeasureTheory.setIntegral_congr_fun (E := ℂ)
+        (measurableSet_Ioo : MeasurableSet (Set.Ioo ((1:ℝ)/3) (2/3))) ?_
+      intros x hx
+      have hx' : x ∈ Set.Ioo (((1 : Fin 3).val : ℝ)/3)
+          ((((1 : Fin 3).val : ℝ) + 1)/3) := by
+        simp only [Fin.val_one, Nat.cast_one]
+        have : ((1:ℝ) + 1)/3 = 2/3 := by norm_num
+        rw [this]
+        exact hx
+      have := T3_adjoint_integrand_on_branch f g 1 x hx'
+      simp only [Fin.val_one, Nat.cast_one] at this
+      exact this
+  · -- k = 2 piece
+    refine MeasureTheory.setIntegral_congr_fun (E := ℂ)
+      (measurableSet_Ioo : MeasurableSet (Set.Ioo ((2:ℝ)/3) 1)) ?_
+    intros x hx
+    have hx' : x ∈ Set.Ioo (((2 : Fin 3).val : ℝ)/3)
+        ((((2 : Fin 3).val : ℝ) + 1)/3) := by
+      simp only [Fin.val_two, Nat.cast_ofNat]
+      have : ((2:ℝ) + 1)/3 = 1 := by norm_num
+      rw [this]
+      exact hx
+    have := T3_adjoint_integrand_on_branch f g 2 x hx'
+    simp only [Fin.val_two, Nat.cast_ofNat] at this
+    exact this
+
 /-- Action of the symmetrised operator $\widetilde{T}_3^{\mathrm{sym}}
     := (\widetilde{T}_3 + \widetilde{T}_3^*)/2$.
 
