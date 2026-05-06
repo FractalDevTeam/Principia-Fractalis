@@ -158,6 +158,30 @@ noncomputable def LogWeightedL2.inner (f g : LogWeightedL2) : ℂ :=
 
 notation "⟪" f ", " g "⟫" => LogWeightedL2.inner f g
 
+/-! ### L² membership predicate for `LogWeightedL2`
+
+`LogWeightedL2` is currently a shell type whose `integrable : True`
+field carries no actual L² content. The predicate `MemLp2` below packages
+"the canonical extension `f.toFunℝ` is L²(μ_log) on (0,1)" as an
+external Prop, letting downstream lemmas express the L² hypothesis
+without changing the structure.
+
+Closure under +, 0, scalar mult, and negation is established below.
+For operator outputs (T3, T3*) the corresponding closure lemma is the
+Mayer 1991 ‖T_3‖ ≤ 1 estimate, proved further down via per-branch CoV.
+
+This is the structural foundation for retiring `T3_self_adjoint_conj`:
+once every operator preserves `MemLp2` and inner-product integrability
+follows from `MemLp2 f ∧ MemLp2 g` via Cauchy-Schwarz, the Mayer
+formal-adjoint chain (`T3_formal_adjoint_relation_via_integrability`,
+commit `344be4c`) closes without external hypotheses. -/
+
+/-- `f` is in $L^2((0,1), \mu_{\log})$ via its canonical zero-extension
+    `f.toFunℝ`. The restriction to `Ioo 0 1` matches the inner-product
+    integration domain. -/
+def LogWeightedL2.MemLp2 (f : LogWeightedL2) : Prop :=
+  MeasureTheory.MemLp f.toFunℝ 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+
 /-! ### Basic identities for `LogWeightedL2.inner`
 
 Sesquilinearity-skeleton lemmas, provable directly from the Bochner-integral
@@ -219,6 +243,84 @@ lemma LogWeightedL2.toFunℝ_add_apply (f1 f2 : LogWeightedL2) (x : ℝ) :
   · show (f1 + f2).toFun ⟨x, h⟩ = f1.toFun ⟨x, h⟩ + f2.toFun ⟨x, h⟩
     rfl
   · simp
+
+/-! #### `MemLp2` closure lemmas
+
+`LogWeightedL2.MemLp2` is closed under the linear operations of the
+shell type. Each closure lemma reduces to the corresponding mathlib
+`MemLp` closure via the pointwise `toFunℝ_*_apply` lemmas above.
+
+These four lemmas are the **vector-space closure half** of the
+structural foundation for retiring `T3_self_adjoint_conj`. The
+operator-action half (i.e. `(T3.apply f).MemLp2` from `f.MemLp2`)
+uses Mayer 1991's `‖T_3‖ ≤ 1` bound and is proved further down. -/
+
+/-- The zero element is in $L^2(\mu_{\log})$ on $(0,1)$. -/
+@[simp] theorem LogWeightedL2.MemLp2_zero : (0 : LogWeightedL2).MemLp2 := by
+  unfold LogWeightedL2.MemLp2
+  rw [LogWeightedL2.toFunℝ_zero]
+  exact MeasureTheory.MemLp.zero'
+
+/-- Closure under addition: $f, g \in L^2 \Rightarrow f + g \in L^2$. -/
+theorem LogWeightedL2.MemLp2.add {f g : LogWeightedL2}
+    (hf : f.MemLp2) (hg : g.MemLp2) : (f + g).MemLp2 := by
+  unfold LogWeightedL2.MemLp2 at *
+  have h_eq : (f + g).toFunℝ = f.toFunℝ + g.toFunℝ := by
+    funext x
+    exact LogWeightedL2.toFunℝ_add_apply f g x
+  rw [h_eq]
+  exact hf.add hg
+
+/-- Closure under negation: $f \in L^2 \Rightarrow -f \in L^2$. -/
+theorem LogWeightedL2.MemLp2.neg {f : LogWeightedL2} (hf : f.MemLp2) :
+    (-f).MemLp2 := by
+  unfold LogWeightedL2.MemLp2 at *
+  have h_eq : (-f).toFunℝ = -f.toFunℝ := by
+    funext x
+    exact LogWeightedL2.toFunℝ_neg_apply f x
+  rw [h_eq]
+  exact hf.neg
+
+/-- Closure under scalar multiplication:
+    $f \in L^2 \Rightarrow c \cdot f \in L^2$ for any `c : ℂ`. -/
+theorem LogWeightedL2.MemLp2.const_smul {f : LogWeightedL2} (c : ℂ)
+    (hf : f.MemLp2) : (c • f).MemLp2 := by
+  unfold LogWeightedL2.MemLp2 at *
+  have h_eq : (c • f).toFunℝ = c • f.toFunℝ := by
+    funext x
+    exact LogWeightedL2.toFunℝ_smul_apply c f x
+  rw [h_eq]
+  exact hf.const_smul c
+
+/-- **Inner-product integrand integrability via Hölder (L²·L² ⊂ L¹)**.
+
+    If `f, g ∈ L²(μ_log↾(0,1))`, the inner-product integrand
+    `x ↦ conj(f(x)) · g(x)` is L¹ (i.e. `Integrable`) on `(0,1)` w.r.t.
+    `μ_log`. This is the standard Hölder inequality with conjugate
+    exponents (2, 2): mathlib's `HolderConjugate 2 2` instance plus
+    `MemLp.mul` gives the result.
+
+    Closes the inner-product half of "integrability follows from L²
+    membership" — used to discharge `h_int_left` / `h_int_right` in
+    `T3_self_adjoint_conj_via_formal_adjoint'` once operator outputs
+    are known to be `MemLp2`. -/
+theorem LogWeightedL2.MemLp2.inner_integrand_integrable
+    {f g : LogWeightedL2} (hf : f.MemLp2) (hg : g.MemLp2) :
+    MeasureTheory.Integrable
+      (fun x => (starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  unfold LogWeightedL2.MemLp2 at hf hg
+  rw [← MeasureTheory.memLp_one_iff_integrable]
+  -- Hölder: MemLp 2 · MemLp 2 → MemLp 1.
+  -- (HolderConjugate 2 2 instance gives HolderTriple 2 2 1.)
+  -- conj is an isometry, so star f.toFunℝ ∈ MemLp 2.
+  have h_star : MeasureTheory.MemLp (star f.toFunℝ) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := hf.star
+  have h_prod : MeasureTheory.MemLp (star f.toFunℝ * g.toFunℝ) 1
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    MeasureTheory.MemLp.mul hg h_star
+  -- Pointwise: `(starRingEnd ℂ) z = star z` on ℂ — defeq, so `exact` suffices.
+  exact h_prod
 
 /-- `inner (-f) g = -(inner f g)`. Uses `MeasureTheory.integral_neg`. -/
 theorem LogWeightedL2.inner_neg_left (f g : LogWeightedL2) :
