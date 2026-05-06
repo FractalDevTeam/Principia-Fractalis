@@ -676,6 +676,56 @@ noncomputable def weightFunction (b : ℕ) (k : Fin b) (x : ℝ) : ℝ :=
     Real.sqrt (b * x / (x + k.val))
   else 0
 
+/-! #### Branch-specific evaluations of `inverseBranch` and `weightFunction`
+
+Specialised forms for each `k : Fin 3`. Useful infrastructure for
+per-branch reasoning, especially in the operator-`MemLp2` closure
+toward retiring `T3_self_adjoint_conj` (Mayer 1991 ‖T_3‖ ≤ 1
+estimate). Branch 0 is special: `weightFunction 3 0` is constant
+`√3` for `x > 0`. -/
+
+@[simp] lemma inverseBranch_3_0 (x : ℝ) : inverseBranch 3 0 x = x / 3 := by
+  simp [inverseBranch]
+
+lemma inverseBranch_3_1 (x : ℝ) : inverseBranch 3 1 x = (x + 1) / 3 := by
+  simp [inverseBranch]
+
+lemma inverseBranch_3_2 (x : ℝ) : inverseBranch 3 2 x = (x + 2) / 3 := by
+  simp [inverseBranch]
+
+/-- For `x > 0`, the branch-0 weight is the constant `√3`. The
+    pointwise simplification `√(3x/x) = √3` is what makes branch 0
+    structurally simpler than branches 1 and 2 in the Mayer L² estimate. -/
+lemma weightFunction_3_0_pos (x : ℝ) (hx : x > 0) :
+    weightFunction 3 0 x = Real.sqrt 3 := by
+  have h_val : ((0 : Fin 3).val : ℝ) = 0 := by norm_cast
+  unfold weightFunction
+  rw [dif_pos ⟨hx, by rw [h_val]; linarith⟩]
+  congr 1
+  rw [h_val, add_zero]
+  push_cast
+  rw [mul_div_assoc, div_self (ne_of_gt hx), mul_one]
+
+lemma weightFunction_3_1_pos (x : ℝ) (hx : x > 0) :
+    weightFunction 3 1 x = Real.sqrt (3 * x / (x + 1)) := by
+  have h_val : ((1 : Fin 3).val : ℝ) = 1 := by norm_cast
+  unfold weightFunction
+  rw [dif_pos ⟨hx, by rw [h_val]; linarith⟩]
+  congr 1
+  try rw [h_val]
+  try push_cast
+  try rfl
+
+lemma weightFunction_3_2_pos (x : ℝ) (hx : x > 0) :
+    weightFunction 3 2 x = Real.sqrt (3 * x / (x + 2)) := by
+  have h_val : ((2 : Fin 3).val : ℝ) = 2 := by norm_cast
+  unfold weightFunction
+  rw [dif_pos ⟨hx, by rw [h_val]; linarith⟩]
+  congr 1
+  try rw [h_val]
+  try push_cast
+  try rfl
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
