@@ -1993,6 +1993,42 @@ theorem T3_self_adjoint_conj_via_formal_adjoint_at_pair
   rw [h_star_half]
   ring
 
+/-- **Per-pair self-adjointness via `MemLp2` hypotheses**.
+
+    Same conclusion as `T3_self_adjoint_conj_via_formal_adjoint_at_pair`
+    but with the four raw `Integrable` hypotheses replaced by four
+    `MemLp2` hypotheses (one per operator output that appears under an
+    `inner_add` rewrite). Each `MemLp2` hypothesis discharges its
+    corresponding integrability via Hölder
+    (`MemLp2.inner_integrand_integrable`).
+
+    Cleaner interface for callers who already track `L^2` membership:
+    `f.MemLp2`, `g.MemLp2` plus four operator-preserves-`MemLp2`
+    facts. The four operator-preservation facts collectively encode
+    `T_3, T_3^*` map `L^2 → L^2` at the specific pair `(f, g)` —
+    precisely Mayer 1991's `‖T_3‖ ≤ 1` applied to the relevant inputs.
+
+    Combined with a future universal closure
+    `(T3.apply f).MemLp2` from `f.MemLp2` (and similarly for `T3_adjoint`),
+    this lets `T3_self_adjoint_conj` retire as a direct consequence of
+    the formal-adjoint relation. -/
+theorem T3_self_adjoint_conj_via_formal_adjoint_at_pair_MemLp2
+    {f g : LogWeightedL2}
+    (hf : f.MemLp2) (hg : g.MemLp2)
+    (h_T3f : (T3.apply f).MemLp2)
+    (h_T3adj_f : (T3_adjoint.apply f).MemLp2)
+    (h_T3g : (T3.apply g).MemLp2)
+    (h_T3adj_g : (T3_adjoint.apply g).MemLp2)
+    (h_T3_adj_fg : ⟪T3.apply f, g⟫ = ⟪f, T3_adjoint.apply g⟫)
+    (h_T3_adj_inv_fg : ⟪T3_adjoint.apply f, g⟫ = ⟪f, T3.apply g⟫) :
+    ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫ :=
+  T3_self_adjoint_conj_via_formal_adjoint_at_pair f g
+    h_T3_adj_fg h_T3_adj_inv_fg
+    (h_T3f.inner_integrand_integrable hg)
+    (h_T3adj_f.inner_integrand_integrable hg)
+    (hf.inner_integrand_integrable h_T3g)
+    (hf.inner_integrand_integrable h_T3adj_g)
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
