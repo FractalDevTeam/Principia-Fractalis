@@ -1850,6 +1850,47 @@ theorem T3_self_adjoint_conj_via_formal_adjoint'
   exact T3_self_adjoint_conj_via_formal_adjoint h_T3_adj h_T3_adj_inv
     h_int_left h_int_right f g
 
+/-- **Per-pair conditional theorem**: composes
+    `T3_formal_adjoint_relation_via_integrability` (per-pair) with the
+    self-adjointness reduction (`T3_self_adjoint_conj_via_formal_adjoint'`).
+
+    Takes formal-adjoint relations and integrability hypotheses at the
+    SPECIFIC pair `(f, g)` (and, for the inverse relation, at `(g, f)`),
+    rather than universally. This lets callers chain
+    `T3_formal_adjoint_relation_via_integrability` (which supplies the
+    per-pair relation given per-pair integrability) directly into the
+    self-adjointness conclusion at `(f, g)`.
+
+    Combined with future structural strengthening of `LogWeightedL2`
+    to actual L²(μ_log), all integrability hypotheses become free, and
+    `T3_self_adjoint_conj` retires entirely. -/
+theorem T3_self_adjoint_conj_via_formal_adjoint_at_pair
+    (f g : LogWeightedL2)
+    (h_T3_adj_fg : ⟪T3.apply f, g⟫ = ⟪f, T3_adjoint.apply g⟫)
+    (h_T3_adj_inv_fg : ⟪T3_adjoint.apply f, g⟫ = ⟪f, T3.apply g⟫)
+    (h_int_left_T3 : MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (h_int_left_T3adj : MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) ((T3_adjoint.apply f).toFunℝ x) * g.toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (h_int_right_T3 : MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (T3.apply g).toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)))
+    (h_int_right_T3adj : MeasureTheory.Integrable
+        (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (T3_adjoint.apply g).toFunℝ x)
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫ := by
+  show ⟪((1/2 : ℂ)) • (T3.apply f + T3_adjoint.apply f), g⟫
+     = ⟪f, ((1/2 : ℂ)) • (T3.apply g + T3_adjoint.apply g)⟫
+  rw [LogWeightedL2.inner_smul_left, LogWeightedL2.inner_smul_right]
+  rw [LogWeightedL2.inner_add_left _ _ _ h_int_left_T3 h_int_left_T3adj]
+  rw [LogWeightedL2.inner_add_right _ _ _ h_int_right_T3 h_int_right_T3adj]
+  rw [h_T3_adj_fg, h_T3_adj_inv_fg]
+  have h_star_half : star ((1/2 : ℂ)) = (1/2 : ℂ) := by simp
+  rw [h_star_half]
+  ring
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
