@@ -1132,6 +1132,23 @@ lemma branch_setIntegral_CoV (k : Fin 3) (F : ℝ → ℂ) :
   have h_ub : (1:ℝ) / 3 + (k.val : ℝ) / 3 = ((k.val : ℝ) + 1) / 3 := by ring
   rw [h_lb, h_ub]
 
+/-- **Per-branch volume CoV with `(1/y_k(x))` weight**, via instantiation
+    of `branch_setIntegral_CoV` with `G(u) := (1/u : ℂ) · F u`.
+
+    This is the **load-bearing lemma** for the per-branch L² bound in
+    Mayer 1991: the volume-integral form of `∫ |w_k(x)|² · |f(y_k(x))|² /x dx`
+    has integrand `(3/(x+k)) · |f(y_k(x))|² = (1/y_k(x)) · |f(y_k(x))|²`
+    (using `3/(x+k) = 1/y_k(x)` since `y_k(x) = (x+k)/3`), so the
+    integrand IS of the form `G(y_k(x))` and the existing CoV applies. -/
+lemma branch_volume_integral_inv_x_form (k : Fin 3) (F : ℝ → ℂ) :
+    ∫ x in Set.Ioo (0:ℝ) 1,
+        ((1 / inverseBranch 3 k x : ℝ) : ℂ) * F (inverseBranch 3 k x)
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ)
+    = (3:ℝ) • ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((1/u : ℝ) : ℂ) * F u
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) :=
+  branch_setIntegral_CoV k (fun u => ((1/u : ℝ) : ℂ) * F u)
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
