@@ -1149,6 +1149,52 @@ lemma branch_volume_integral_inv_x_form (k : Fin 3) (F : ℝ → ℂ) :
         ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) :=
   branch_setIntegral_CoV k (fun u => ((1/u : ℝ) : ℂ) * F u)
 
+/-- **Pointwise identity** `3/(x+k) = 1/y_k(x)` since `y_k(x) = (x+k)/3`. -/
+lemma three_div_x_plus_k_eq_inv_inverseBranch (k : Fin 3) (x : ℝ)
+    (hx_plus_k_pos : x + (k.val : ℝ) > 0) :
+    (3 : ℝ) / (x + (k.val : ℝ)) = 1 / inverseBranch 3 k x := by
+  unfold inverseBranch
+  push_cast
+  field_simp
+
+/-- **Per-branch L² volume integral identity** (Mayer 1991, §2 — operator-norm step).
+
+    For `k : Fin 3` and `f : LogWeightedL2`, the volume-integral form
+    of the per-branch L² norm² equals 3 times the L² norm² of `f` on
+    the dyadic-thirds sub-interval `(k/3, (k+1)/3)`.
+
+    LHS is the Bochner-bridge image of `∫ |w_k(x) · f.toFunℝ(y_k(x))|² ∂μ_log`
+    (using `(1/x) · |w_k(x)|² = 3/(x+k) = 1/y_k(x)` for x ∈ (0,1)).
+    RHS is the Bochner-bridge image of `3 · ∫ |f.toFunℝ u|² ∂μ_log↾(k/3,(k+1)/3)`.
+
+    Direct application of `branch_volume_integral_inv_x_form` after
+    pointwise rewriting via `three_div_x_plus_k_eq_inv_inverseBranch`. -/
+lemma branch_volume_norm_sq_eq (k : Fin 3) (f : LogWeightedL2) :
+    ∫ x in Set.Ioo (0:ℝ) 1,
+        ((3 / (x + (k.val : ℝ)) : ℝ) : ℂ) *
+        ((Complex.normSq (f.toFunℝ (inverseBranch 3 k x)) : ℝ) : ℂ)
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ)
+    = (3:ℝ) • ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((1 / u : ℝ) : ℂ) *
+        ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ)
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  have h_pointwise : Set.EqOn
+    (fun x : ℝ => ((3 / (x + (k.val : ℝ)) : ℝ) : ℂ) *
+                  ((Complex.normSq (f.toFunℝ (inverseBranch 3 k x)) : ℝ) : ℂ))
+    (fun x : ℝ => ((1 / inverseBranch 3 k x : ℝ) : ℂ) *
+                  ((Complex.normSq (f.toFunℝ (inverseBranch 3 k x)) : ℝ) : ℂ))
+    (Set.Ioo (0:ℝ) 1) := by
+    intros x hx
+    have hx_pos : (0 : ℝ) < x := hx.1
+    have hk_nonneg : (k.val : ℝ) ≥ 0 := Nat.cast_nonneg _
+    have h_x_plus_k_pos : x + (k.val : ℝ) > 0 := by linarith
+    show ((3 / (x + (k.val : ℝ)) : ℝ) : ℂ) * _ = ((1 / inverseBranch 3 k x : ℝ) : ℂ) * _
+    congr 1
+    exact_mod_cast three_div_x_plus_k_eq_inv_inverseBranch k x h_x_plus_k_pos
+  rw [MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo h_pointwise]
+  exact branch_volume_integral_inv_x_form k
+    (fun u => ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ))
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
