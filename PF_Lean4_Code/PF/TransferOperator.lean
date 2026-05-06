@@ -1743,6 +1743,31 @@ theorem T3_sym_apply_zero :
   rw [show ∀ z : Set.Icc (0:ℝ) 1, (0 : LogWeightedL2).toFun z = 0 from fun _ => rfl]
   ring
 
+/-! #### Boundary `MemLp2` closures for operator outputs at zero
+
+The three `T*_apply_zero` lemmas above show each operator sends the
+zero element to the zero element. Composing with `MemLp2_zero` gives
+the boundary `MemLp2` closure for free.
+
+These are the trivial cases of the general operator-`MemLp2` closure
+(`T3_apply_MemLp2`, `T3_adjoint_apply_MemLp2`) which require the
+Mayer 1991 ‖T_3‖ ≤ 1 estimate for the universal version. -/
+
+@[simp] theorem T3_apply_zero_MemLp2 :
+    (T3.apply (0 : LogWeightedL2)).MemLp2 := by
+  rw [T3_apply_zero]
+  exact LogWeightedL2.MemLp2_zero
+
+@[simp] theorem T3_adjoint_apply_zero_MemLp2 :
+    (T3_adjoint.apply (0 : LogWeightedL2)).MemLp2 := by
+  rw [T3_adjoint_apply_zero]
+  exact LogWeightedL2.MemLp2_zero
+
+@[simp] theorem T3_sym_apply_zero_MemLp2 :
+    (T3_sym.apply (0 : LogWeightedL2)).MemLp2 := by
+  rw [T3_sym_apply_zero]
+  exact LogWeightedL2.MemLp2_zero
+
 /-- Boundary case: `T3_self_adjoint_conj` holds with first argument zero. -/
 theorem T3_self_adjoint_conj_at_zero_left (g : LogWeightedL2) :
     ⟪T3_sym.apply (0 : LogWeightedL2), g⟫
