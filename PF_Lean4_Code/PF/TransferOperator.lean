@@ -322,6 +322,19 @@ theorem LogWeightedL2.MemLp2.inner_integrand_integrable
   -- Pointwise: `(starRingEnd ℂ) z = star z` on ℂ — defeq, so `exact` suffices.
   exact h_prod
 
+/-- **Sub-interval monotonicity**: `f.MemLp2` (i.e. L²(μ_log) on `(0,1)`)
+    implies `MemLp f.toFunℝ 2` on any subset `s ⊆ Ioo 0 1`.
+
+    Building block for the per-branch L² bound: each `T_3` branch's
+    L² norm reduces (via per-branch CoV) to an L² norm on a dyadic-thirds
+    sub-interval `Ioo (k/3) ((k+1)/3) ⊆ Ioo 0 1`. -/
+theorem LogWeightedL2.MemLp2.mono_subset
+    {f : LogWeightedL2} (hf : f.MemLp2)
+    {s : Set ℝ} (hs : s ⊆ Set.Ioo (0:ℝ) 1) :
+    MeasureTheory.MemLp f.toFunℝ 2 (logWeightedMeasure.restrict s) := by
+  unfold LogWeightedL2.MemLp2 at hf
+  exact hf.mono_measure (MeasureTheory.Measure.restrict_mono_set _ hs)
+
 /-- `inner (-f) g = -(inner f g)`. Uses `MeasureTheory.integral_neg`. -/
 theorem LogWeightedL2.inner_neg_left (f g : LogWeightedL2) :
     LogWeightedL2.inner (-f) g = -(LogWeightedL2.inner f g) := by
