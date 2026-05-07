@@ -1253,6 +1253,46 @@ lemma branch_volume_norm_sq_eq (k : Fin 3) (f : LogWeightedL2) :
   exact branch_volume_integral_inv_x_form k
     (fun u => ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ))
 
+/-- **Per-branch L² identity in μ_log form** — Mayer 1991, §2 operator-norm step.
+
+    For `k : Fin 3` and `f : LogWeightedL2`:
+
+        ∫ x in (0,1), |w_k(x) · f.toFunℝ(y_k(x))|² ∂μ_log
+          = 3 · ∫ u in (k/3, (k+1)/3), |f.toFunℝ u|² ∂μ_log
+
+    Equivalently (after taking square roots):
+        eLpNorm² (w_k · f∘y_k) (μ_log↾(0,1)) = 3 · eLpNorm² f.toFunℝ (μ_log↾(k/3,(k+1)/3))
+
+    The substantive operator-norm bound applied per-branch, chaining:
+    Bochner bridge → pointwise simplify → volume CoV → bridge back. -/
+lemma branch_logWeightedMeasure_norm_sq_eq (k : Fin 3) (f : LogWeightedL2) :
+    ∫ x in Set.Ioo (0:ℝ) 1,
+        ((Complex.normSq ((weightFunction 3 k x : ℂ) *
+            f.toFunℝ (inverseBranch 3 k x)) : ℝ) : ℂ)
+        ∂logWeightedMeasure
+    = (3:ℝ) • ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ)
+        ∂logWeightedMeasure := by
+  -- Step 1: Apply bridge on LHS.
+  rw [setIntegral_logWeightedMeasure_Ioo_eq_smul]
+  -- LHS: ∫ x in (0,1), (1/x : ℝ) • ((normSq (w_k · f∘y_k) : ℝ) : ℂ) ∂volume
+  -- Step 2: Pointwise-simplify integrand via branch_norm_sq_pointwise_simplify.
+  rw [MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo
+      (fun x hx => branch_norm_sq_pointwise_simplify k f x hx)]
+  -- LHS: ∫ x in (0,1), ((3/(x+k) : ℝ) : ℂ) * ((normSq f∘y_k : ℝ) : ℂ) ∂volume
+  -- Step 3: Apply branch_volume_norm_sq_eq.
+  rw [branch_volume_norm_sq_eq]
+  -- LHS: 3 • ∫ u in (k/3, (k+1)/3), ((1/u : ℝ) : ℂ) * ((normSq f : ℝ) : ℂ) ∂volume
+  -- Step 4: Apply generalized bridge backwards.
+  congr 1
+  rw [setIntegral_logWeightedMeasure_Ioo_eq_smul_general
+      ((k.val : ℝ) / 3) (((k.val : ℝ) + 1) / 3) (by positivity)]
+  -- Match the smul form with the cast-mul form.
+  refine MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo ?_
+  intros u _
+  show ((1/u : ℝ) : ℂ) * _ = (1/u : ℝ) • _
+  rw [Complex.real_smul]
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
