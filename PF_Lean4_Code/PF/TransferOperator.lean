@@ -850,6 +850,25 @@ lemma volume_pos_null_of_logWeightedMeasure_null
     exact h_meas_pos
   exact h_int_pos.ne' h
 
+/-- **Converse density argument**: volume-null on (0,∞) implies μ_log-null.
+
+    For measurable B with `volume(B ∩ Ioi 0) = 0`, we have
+    `logWeightedMeasure B = 0`. The density is 0 outside (0,∞) so the
+    integral only sees the (0,∞) part, which has volume 0. -/
+lemma logWeightedMeasure_null_of_volume_pos_null
+    {B : Set ℝ} (hB : MeasurableSet B)
+    (h : (MeasureTheory.volume : MeasureTheory.Measure ℝ) (B ∩ Set.Ioi (0:ℝ)) = 0) :
+    logWeightedMeasure B = 0 := by
+  unfold logWeightedMeasure
+  rw [MeasureTheory.withDensity_apply _ hB]
+  by_contra h_int
+  have h_int_pos : 0 < ∫⁻ x in B, logWeightDensity x ∂MeasureTheory.volume :=
+    pos_iff_ne_zero.mpr h_int
+  rw [MeasureTheory.lintegral_pos_iff_support logWeightDensity_measurable,
+      support_logWeightDensity] at h_int_pos
+  rw [MeasureTheory.Measure.restrict_apply measurableSet_Ioi, Set.inter_comm] at h_int_pos
+  exact h_int_pos.ne' h
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
