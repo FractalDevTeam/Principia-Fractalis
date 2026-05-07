@@ -1179,6 +1179,42 @@ lemma three_div_x_plus_k_eq_inv_inverseBranch (k : Fin 3) (x : ℝ)
   push_cast
   field_simp
 
+/-- **Pointwise identity for the per-branch L² integrand** under the
+    Bochner bridge: `(1/x) · |w_k(x) · f(y_k(x))|² = (3/(x+k)) · |f(y_k(x))|²`
+    for `x ∈ Ioo 0 1` and `k : Fin 3`.
+
+    Combines `(weightFunction 3 k x)² = 3x/(x+k)` (Real.sq_sqrt) with
+    `(1/x) · (3x/(x+k)) = 3/(x+k)` (algebra on ℝ). -/
+lemma branch_norm_sq_pointwise_simplify (k : Fin 3) (f : LogWeightedL2)
+    (x : ℝ) (hx : x ∈ Set.Ioo (0:ℝ) 1) :
+    (1/x : ℝ) • ((Complex.normSq ((weightFunction 3 k x : ℂ) *
+        f.toFunℝ (inverseBranch 3 k x)) : ℝ) : ℂ)
+    = ((3 / (x + (k.val : ℝ)) : ℝ) : ℂ) *
+        ((Complex.normSq (f.toFunℝ (inverseBranch 3 k x)) : ℝ) : ℂ) := by
+  have hx_pos : (0 : ℝ) < x := hx.1
+  have hk_nonneg : (k.val : ℝ) ≥ 0 := Nat.cast_nonneg _
+  have h_x_plus_k_pos : x + (k.val : ℝ) > 0 := by linarith
+  have h_w_sq : (weightFunction 3 k x) * (weightFunction 3 k x)
+      = 3 * x / (x + (k.val : ℝ)) := by
+    unfold weightFunction
+    rw [dif_pos ⟨hx_pos, h_x_plus_k_pos⟩]
+    rw [Real.mul_self_sqrt (by positivity :
+        (0:ℝ) ≤ ((3:ℕ) : ℝ) * x / (x + ((k.val : ℕ) : ℝ)))]
+    push_cast
+    ring
+  -- Establish the ℝ-valued identity first
+  have hx_ne : x ≠ 0 := ne_of_gt hx_pos
+  have hxk_ne : x + (k.val : ℝ) ≠ 0 := ne_of_gt h_x_plus_k_pos
+  have h_real : (1/x) * Complex.normSq ((weightFunction 3 k x : ℂ) *
+                  f.toFunℝ (inverseBranch 3 k x))
+              = (3/(x + (k.val : ℝ))) *
+                  Complex.normSq (f.toFunℝ (inverseBranch 3 k x)) := by
+    rw [Complex.normSq_mul, Complex.normSq_ofReal, h_w_sq]
+    field_simp
+  -- Now lift to ℂ
+  rw [Complex.real_smul]
+  exact_mod_cast h_real
+
 /-- **Per-branch L² volume integral identity** (Mayer 1991, §2 — operator-norm step).
 
     For `k : Fin 3` and `f : LogWeightedL2`, the volume-integral form
