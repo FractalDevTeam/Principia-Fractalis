@@ -869,6 +869,61 @@ lemma logWeightedMeasure_null_of_volume_pos_null
   rw [MeasureTheory.Measure.restrict_apply measurableSet_Ioi, Set.inter_comm] at h_int_pos
   exact h_int_pos.ne' h
 
+/-- **`inverseBranch 3 k` is QuasiMeasurePreserving** w.r.t. `logWeightedMeasure`.
+
+    The pushforward `μ_log.map (inverseBranch 3 k)` is absolutely continuous
+    w.r.t. `μ_log`. Combines:
+    - density-positivity (`volume_pos_null_of_logWeightedMeasure_null`)
+    - volume Jacobian (`volume_map_inverseBranch`: volume(h⁻¹ B) = 3·volume(B))
+    - support arithmetic (h⁻¹(A) ∩ Ioi 0 ⊆ h⁻¹(A ∩ Ioi (k/3)))
+    - converse density (`logWeightedMeasure_null_of_volume_pos_null`)
+
+    Unblocks `AEStronglyMeasurable.comp_quasiMeasurePreserving` for the
+    operator branch composition `f.toFunℝ ∘ inverseBranch 3 k`,
+    which unblocks `T3_apply_MemLp2`, which retires `T3_self_adjoint_conj`. -/
+lemma inverseBranch_qmp (k : Fin 3) :
+    MeasureTheory.Measure.QuasiMeasurePreserving (inverseBranch 3 k)
+      logWeightedMeasure logWeightedMeasure := by
+  refine ⟨inverseBranch_measurable 3 k, ?_⟩
+  refine MeasureTheory.Measure.AbsolutelyContinuous.mk ?_
+  intros A hA hA_zero
+  rw [MeasureTheory.Measure.map_apply (inverseBranch_measurable 3 k) hA]
+  -- Goal: logWeightedMeasure ((inverseBranch 3 k)⁻¹' A) = 0
+  apply logWeightedMeasure_null_of_volume_pos_null
+    ((inverseBranch_measurable 3 k) hA)
+  -- Goal: volume((inverseBranch 3 k)⁻¹' A ∩ Ioi 0) = 0
+  have h_A_pos_null : (MeasureTheory.volume : MeasureTheory.Measure ℝ)
+      (A ∩ Set.Ioi (0:ℝ)) = 0 :=
+    volume_pos_null_of_logWeightedMeasure_null hA hA_zero
+  -- Subset bound: h⁻¹(A) ∩ Ioi 0 ⊆ h⁻¹(A ∩ Ioi (k/3))
+  have h_subset : (inverseBranch 3 k)⁻¹' A ∩ Set.Ioi (0:ℝ) ⊆
+      (inverseBranch 3 k)⁻¹' (A ∩ Set.Ioi ((k.val : ℝ)/3)) := by
+    rintro x ⟨hx_in, hx_pos⟩
+    refine ⟨hx_in, ?_⟩
+    show (k.val : ℝ)/3 < inverseBranch 3 k x
+    unfold inverseBranch
+    push_cast
+    linarith [Set.mem_Ioi.mp hx_pos]
+  refine MeasureTheory.measure_mono_null h_subset ?_
+  -- Goal: volume(h⁻¹(A ∩ Ioi (k/3))) = 0
+  rw [← MeasureTheory.Measure.map_apply (inverseBranch_measurable 3 k)
+      (hA.inter measurableSet_Ioi)]
+  rw [volume_map_inverseBranch k]
+  rw [MeasureTheory.Measure.smul_apply, smul_eq_mul]
+  -- Goal: 3 * volume(A ∩ Ioi (k/3)) = 0
+  have h_sub_null : (MeasureTheory.volume : MeasureTheory.Measure ℝ)
+      (A ∩ Set.Ioi ((k.val : ℝ)/3)) = 0 := by
+    refine le_antisymm ?_ (zero_le _)
+    rw [← h_A_pos_null]
+    apply MeasureTheory.measure_mono
+    apply Set.inter_subset_inter_right
+    intros x hx
+    have hk_nonneg : (k.val : ℝ) ≥ 0 := Nat.cast_nonneg _
+    have h_kdiv_nonneg : (k.val : ℝ)/3 ≥ 0 := by positivity
+    exact lt_of_le_of_lt h_kdiv_nonneg hx
+  rw [h_sub_null]
+  exact mul_zero _
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
