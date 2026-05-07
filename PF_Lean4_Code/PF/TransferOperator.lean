@@ -976,6 +976,24 @@ lemma branch_function_aestronglyMeasurable (k : Fin 3) (f : LogWeightedL2)
         (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := hf.1
     exact h_outer.comp_quasiMeasurePreserving (inverseBranch_qmp_restrict k)
 
+/-- **`weightFunction 3 k x ≤ √3`** for all `x : ℝ`.
+
+    On the support `x > 0 ∧ x + k.val > 0`, `weightFunction = √(3x/(x+k))` and
+    `3x/(x+k) ≤ 3` since `k.val ≥ 0`. Off-support, it's 0 ≤ √3. -/
+lemma weightFunction_3_le_sqrt_three (k : Fin 3) (x : ℝ) :
+    weightFunction 3 k x ≤ Real.sqrt 3 := by
+  unfold weightFunction
+  by_cases h : x > 0 ∧ x + (k.val : ℕ) > 0
+  · rw [dif_pos h]
+    apply Real.sqrt_le_sqrt
+    have h_xk_pos : (0 : ℝ) < x + ((k.val : ℕ) : ℝ) := h.2
+    rw [div_le_iff₀ h_xk_pos]
+    have hk_nonneg : (0 : ℝ) ≤ ((k.val : ℕ) : ℝ) := by exact_mod_cast Nat.zero_le _
+    push_cast
+    linarith
+  · rw [dif_neg h]
+    exact Real.sqrt_nonneg 3
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
