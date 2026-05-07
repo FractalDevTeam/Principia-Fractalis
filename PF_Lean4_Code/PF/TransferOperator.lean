@@ -771,6 +771,13 @@ lemma inverseBranch_measurable (b : ℕ) (k : Fin b) :
   unfold inverseBranch
   exact (measurable_id.add_const _).div_const _
 
+/-- ℂ-valued cast of `weightFunction b k` is measurable.
+
+    Composition of `weightFunction_measurable` with `Complex.continuous_ofReal`. -/
+lemma weightFunction_complex_measurable (b : ℕ) (k : Fin b) :
+    Measurable (fun x : ℝ => (weightFunction b k x : ℂ)) :=
+  Complex.continuous_ofReal.measurable.comp (weightFunction_measurable b k)
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
