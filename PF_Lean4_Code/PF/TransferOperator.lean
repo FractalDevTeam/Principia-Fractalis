@@ -748,6 +748,20 @@ lemma weightFunction_3_2_pos (x : ℝ) (hx : x > 0) :
   try push_cast
   try rfl
 
+/-- **`weightFunction b k` is Borel-measurable** as a function `ℝ → ℝ`.
+
+    Used downstream for AEStronglyMeasurable proofs of the per-branch
+    operator components `(weightFunction 3 k x : ℂ) · f.toFunℝ(y_k(x))`. -/
+lemma weightFunction_measurable (b : ℕ) (k : Fin b) :
+    Measurable (weightFunction b k) := by
+  unfold weightFunction
+  refine Measurable.ite ?_ ?_ measurable_const
+  · refine MeasurableSet.inter ?_ ?_
+    · exact measurableSet_lt measurable_const measurable_id
+    · exact measurableSet_lt measurable_const (measurable_id.add_const _)
+  · refine Real.continuous_sqrt.measurable.comp ?_
+    exact (measurable_const.mul measurable_id).div (measurable_id.add_const _)
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
