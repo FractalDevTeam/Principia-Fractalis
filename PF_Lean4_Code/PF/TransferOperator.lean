@@ -829,6 +829,27 @@ lemma support_logWeightDensity : Function.support logWeightDensity = Set.Ioi (0:
     refine ⟨fun _ => hx, fun _ => ?_⟩
     exact (ENNReal.ofReal_pos.mpr (one_div_pos.mpr hx)).ne'
 
+/-- **Density-positivity argument**: μ_log-null implies volume-null on (0,∞).
+
+    For measurable A with `logWeightedMeasure A = 0`, we have
+    `volume(A ∩ Ioi 0) = 0`. Direct from `lintegral_pos_iff_support` +
+    `support_logWeightDensity`. -/
+lemma volume_pos_null_of_logWeightedMeasure_null
+    {A : Set ℝ} (hA : MeasurableSet A) (h : logWeightedMeasure A = 0) :
+    (MeasureTheory.volume : MeasureTheory.Measure ℝ) (A ∩ Set.Ioi (0:ℝ)) = 0 := by
+  unfold logWeightedMeasure at h
+  rw [MeasureTheory.withDensity_apply _ hA] at h
+  -- h : ∫⁻ x in A, logWeightDensity x ∂volume = 0
+  by_contra h_pos
+  have h_meas_pos : 0 < (MeasureTheory.volume.restrict A) (Set.Ioi (0:ℝ)) := by
+    rw [MeasureTheory.Measure.restrict_apply measurableSet_Ioi, Set.inter_comm]
+    exact pos_iff_ne_zero.mpr h_pos
+  have h_int_pos : 0 < ∫⁻ x in A, logWeightDensity x ∂MeasureTheory.volume := by
+    rw [MeasureTheory.lintegral_pos_iff_support logWeightDensity_measurable,
+        support_logWeightDensity]
+    exact h_meas_pos
+  exact h_int_pos.ne' h
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
