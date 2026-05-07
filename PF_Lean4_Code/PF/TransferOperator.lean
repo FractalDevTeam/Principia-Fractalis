@@ -955,6 +955,27 @@ lemma inverseBranch_qmp_restrict (k : Fin 3) :
       linarith
   exact h_qmp.restrict h_mapsTo
 
+/-- **Per-branch function is AEStronglyMeasurable** on `μ_log↾(0,1)`.
+
+    `(fun x => (weightFunction 3 k x : ℂ) * f.toFunℝ(inverseBranch 3 k x))` is
+    AEStronglyMeasurable as a product:
+    - `(weightFunction 3 k x : ℂ)` is measurable (`weightFunction_complex_measurable`)
+    - `f.toFunℝ ∘ inverseBranch 3 k` is AEStronglyMeasurable via
+      `AEStronglyMeasurable.comp_quasiMeasurePreserving` with
+      `inverseBranch_qmp_restrict`. -/
+lemma branch_function_aestronglyMeasurable (k : Fin 3) (f : LogWeightedL2)
+    (hf : f.MemLp2) :
+    MeasureTheory.AEStronglyMeasurable
+      (fun x => (weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x))
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  refine MeasureTheory.AEStronglyMeasurable.mul ?_ ?_
+  · -- weightFunction 3 k cast to ℂ is measurable
+    exact (weightFunction_complex_measurable 3 k).aestronglyMeasurable
+  · -- f.toFunℝ ∘ inverseBranch 3 k is AEStronglyMeasurable via QMP composition
+    have h_outer : MeasureTheory.AEStronglyMeasurable f.toFunℝ
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := hf.1
+    exact h_outer.comp_quasiMeasurePreserving (inverseBranch_qmp_restrict k)
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
