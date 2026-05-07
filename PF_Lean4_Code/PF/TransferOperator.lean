@@ -1539,6 +1539,43 @@ lemma branch_logWeightedMeasure_norm_sq_eq (k : Fin 3) (f : LogWeightedL2) :
   show ((1/u : ℝ) : ℂ) * _ = (1/u : ℝ) • _
   rw [Complex.real_smul]
 
+/-- **Real-valued per-branch L² identity in μ_log form**.
+
+    ℝ-valued analog of `branch_logWeightedMeasure_norm_sq_eq` (the ℂ-cast
+    version). Derived by applying `integral_ofReal` to both sides and
+    using `Complex.ofReal_inj`. -/
+lemma branch_logWeightedMeasure_norm_sq_eq_real (k : Fin 3) (f : LogWeightedL2) :
+    ∫ x in Set.Ioo (0:ℝ) 1,
+        Complex.normSq ((weightFunction 3 k x : ℂ) *
+            f.toFunℝ (inverseBranch 3 k x))
+        ∂logWeightedMeasure
+    = 3 * ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        Complex.normSq (f.toFunℝ u)
+        ∂logWeightedMeasure := by
+  have h_C := branch_logWeightedMeasure_norm_sq_eq k f
+  -- Strip cast on LHS
+  have h_LHS : (∫ x in Set.Ioo (0:ℝ) 1,
+        ((Complex.normSq ((weightFunction 3 k x : ℂ) *
+            f.toFunℝ (inverseBranch 3 k x)) : ℝ) : ℂ)
+        ∂logWeightedMeasure)
+      = ((∫ x in Set.Ioo (0:ℝ) 1,
+          Complex.normSq ((weightFunction 3 k x : ℂ) *
+              f.toFunℝ (inverseBranch 3 k x))
+          ∂logWeightedMeasure : ℝ) : ℂ) := integral_ofReal
+  -- Strip cast on RHS (inside the smul)
+  have h_RHS_inner : (∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ)
+        ∂logWeightedMeasure)
+      = ((∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+          Complex.normSq (f.toFunℝ u)
+          ∂logWeightedMeasure : ℝ) : ℂ) := integral_ofReal
+  rw [h_LHS, h_RHS_inner] at h_C
+  -- h_C : ↑(LHS_ℝ) = 3 • ↑(RHS_ℝ)
+  -- Convert smul to mul: (3:ℝ) • ↑x = ↑3 * ↑x = ↑(3 * x)
+  rw [Complex.real_smul, ← Complex.ofReal_mul] at h_C
+  -- h_C : ↑(LHS_ℝ) = ↑(3 * RHS_ℝ)  ... but `↑3` might be ↑(3:ℝ) explicit
+  exact_mod_cast h_C
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
