@@ -28,6 +28,7 @@ import Mathlib.LinearAlgebra.Eigenspace.Basic
 import Mathlib.MeasureTheory.Measure.WithDensity
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Function.L2Space
 import Mathlib.MeasureTheory.Integral.Bochner.Set
 import Mathlib.MeasureTheory.Integral.Bochner.ContinuousLinearMap
 import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
@@ -994,6 +995,28 @@ lemma weightFunction_3_le_sqrt_three (k : Fin 3) (x : ℝ) :
   · rw [dif_neg h]
     exact Real.sqrt_nonneg 3
 
+/-- **`inverseBranch 3 k` QMP with sharp target** to the dyadic-thirds sub-interval.
+
+    `QMP h (μ_log↾(0,1)) (μ_log↾(k/3,(k+1)/3))`. Direct from full QMP + `restrict`. -/
+lemma inverseBranch_qmp_to_sub (k : Fin 3) :
+    MeasureTheory.Measure.QuasiMeasurePreserving (inverseBranch 3 k)
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+      (logWeightedMeasure.restrict (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))) := by
+  have h_qmp := inverseBranch_qmp k
+  have h_mapsTo : Set.MapsTo (inverseBranch 3 k) (Set.Ioo (0:ℝ) 1)
+                    (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)) := by
+    intros x hx
+    refine ⟨?_, ?_⟩
+    · -- y_k(x) > k/3
+      unfold inverseBranch
+      push_cast
+      linarith [hx.1]
+    · -- y_k(x) < (k+1)/3
+      unfold inverseBranch
+      push_cast
+      linarith [hx.2]
+  exact h_qmp.restrict h_mapsTo
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
@@ -1575,6 +1598,108 @@ lemma branch_logWeightedMeasure_norm_sq_eq_real (k : Fin 3) (f : LogWeightedL2) 
   rw [Complex.real_smul, ← Complex.ofReal_mul] at h_C
   -- h_C : ↑(LHS_ℝ) = ↑(3 * RHS_ℝ)  ... but `↑3` might be ↑(3:ℝ) explicit
   exact_mod_cast h_C
+
+/-- **Per-branch operator function is in `L²(μ_log↾(0,1))`** from `f.MemLp2`.
+
+    Combines `memLp_two_iff_integrable_sq_norm` with the per-branch L²
+    identity. Case analysis on whether the sub-interval `∫ normSq f ∂μ_log↾(k/3,(k+1)/3)`
+    is zero:
+    - Nonzero: by `integral_undef` contrapositive, `branch_func` is integrable.
+    - Zero: by `integral_eq_zero_iff_of_nonneg_ae` + Integrable, `f.toFunℝ = 0` a.e.
+      on `(k/3,(k+1)/3)`. Then via `QMP.ae_eq`, `branch_func = 0` a.e. on `(0,1)`,
+      hence trivially integrable. -/
+lemma branch_function_MemLp2 (k : Fin 3) (f : LogWeightedL2) (hf : f.MemLp2) :
+    MeasureTheory.MemLp
+      (fun x => (weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x))
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  have h_ae := branch_function_aestronglyMeasurable k f hf
+  rw [MeasureTheory.memLp_two_iff_integrable_sq_norm h_ae]
+  have h_eq : (fun x : ℝ => ‖(weightFunction 3 k x : ℂ) *
+                f.toFunℝ (inverseBranch 3 k x)‖ ^ 2)
+            = (fun x : ℝ => Complex.normSq
+                ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x))) := by
+    funext x
+    exact (Complex.normSq_eq_norm_sq _).symm
+  rw [h_eq]
+  have h_normSq_ae : MeasureTheory.AEStronglyMeasurable
+      (fun x => Complex.normSq
+          ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x)))
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    Complex.continuous_normSq.comp_aestronglyMeasurable h_ae
+  have h_f_normSq_int : MeasureTheory.Integrable
+      (fun u => Complex.normSq (f.toFunℝ u))
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+    have h := MeasureTheory.MemLp.integrable_norm_rpow hf two_ne_zero ENNReal.ofNat_ne_top
+    convert h using 1
+    funext x
+    simp only [ENNReal.toReal_ofNat]
+    rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) from by norm_num, Real.rpow_natCast]
+    exact Complex.normSq_eq_norm_sq _
+  have h_sub_eq : (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)).restrict
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))
+      = logWeightedMeasure.restrict
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)) := by
+    rw [MeasureTheory.Measure.restrict_restrict measurableSet_Ioo]
+    congr 1
+    ext y
+    simp only [Set.mem_inter_iff, Set.mem_Ioo]
+    refine ⟨fun ⟨h1, _⟩ => h1, fun ⟨h1, h2⟩ => ⟨⟨h1, h2⟩, ?_⟩⟩
+    have hk_nonneg : (0:ℝ) ≤ (k.val : ℝ) / 3 := by positivity
+    have hk_ub : ((k.val : ℝ) + 1) / 3 ≤ 1 := by
+      have : (k.val : ℝ) ≤ 2 := by
+        have : k.val ≤ 2 := by have := k.isLt; omega
+        exact_mod_cast this
+      linarith
+    exact ⟨lt_of_le_of_lt hk_nonneg h1, lt_of_lt_of_le h2 hk_ub⟩
+  have h_f_sub : MeasureTheory.Integrable
+      (fun u => Complex.normSq (f.toFunℝ u))
+      (logWeightedMeasure.restrict
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))) := by
+    rw [← h_sub_eq]
+    exact h_f_normSq_int.restrict (s := Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))
+  have h_l2 := branch_logWeightedMeasure_norm_sq_eq_real k f
+  by_cases h_zero : (∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        Complex.normSq (f.toFunℝ u) ∂logWeightedMeasure) = 0
+  · -- Zero case
+    have h_normSq_zero_ae : ∀ᵐ u ∂(logWeightedMeasure.restrict
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))),
+        Complex.normSq (f.toFunℝ u) = 0 := by
+      have h_iff := (MeasureTheory.integral_eq_zero_iff_of_nonneg_ae
+          (Filter.Eventually.of_forall fun x => Complex.normSq_nonneg _) h_f_sub)
+      exact h_iff.mp h_zero
+    have h_f_zero_ae : ∀ᵐ u ∂(logWeightedMeasure.restrict
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))),
+        f.toFunℝ u = 0 := by
+      filter_upwards [h_normSq_zero_ae] with u hu
+      exact Complex.normSq_eq_zero.mp hu
+    have h_branch_zero_ae : ∀ᵐ x ∂(logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)),
+        f.toFunℝ (inverseBranch 3 k x) = 0 := by
+      have h_qmp_sub := inverseBranch_qmp_to_sub k
+      exact h_qmp_sub.ae_eq (g₁ := f.toFunℝ) (g₂ := fun _ => 0) h_f_zero_ae
+    have h_normSq_branch_zero : ∀ᵐ x ∂(logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)),
+        Complex.normSq ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x)) = 0 := by
+      filter_upwards [h_branch_zero_ae] with x hx
+      rw [hx, mul_zero, Complex.normSq_zero]
+    refine ⟨h_normSq_ae, ?_⟩
+    rw [MeasureTheory.HasFiniteIntegral]
+    have h_lint_zero : (fun x => ‖Complex.normSq ((weightFunction 3 k x : ℂ) *
+                f.toFunℝ (inverseBranch 3 k x))‖ₑ : ℝ → ENNReal)
+          =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)] 0 := by
+      filter_upwards [h_normSq_branch_zero] with x hx
+      simp [hx]
+    rw [MeasureTheory.lintegral_congr_ae h_lint_zero]
+    simp
+  · -- Nonzero case
+    have h_main_ne : (∫ x in Set.Ioo (0:ℝ) 1,
+        Complex.normSq ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x))
+        ∂logWeightedMeasure) ≠ 0 := by
+      rw [h_l2]
+      intro h_eq
+      apply h_zero
+      have h3_ne : (3 : ℝ) ≠ 0 := by norm_num
+      exact (mul_eq_zero.mp h_eq).resolve_left h3_ne
+    by_contra h_not_int
+    exact h_main_ne (MeasureTheory.integral_undef h_not_int)
 
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
