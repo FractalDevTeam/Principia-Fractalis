@@ -131,6 +131,28 @@ lemma setIntegral_logWeightedMeasure_Ioo_eq_smul (h : ℝ → ℂ) :
   unfold logWeightDensity
   rw [if_neg (not_le.mpr hx_pos), ENNReal.toReal_ofReal (one_div_pos.mpr hx_pos).le]
 
+/-- **Generalized Bochner bridge** for `μ_log↾(Ioo a b) → volume↾(Ioo a b) with (1/x) weight**,
+    valid for any `a ≥ 0`. Specializes to `setIntegral_logWeightedMeasure_Ioo_eq_smul`
+    when `a = 0`.
+
+    Needed for the per-branch L² identity on μ_log: the per-branch sub-interval
+    `Ioo (k/3) ((k+1)/3)` has lower bound `k/3 ≥ 0` for `k : Fin 3`. -/
+lemma setIntegral_logWeightedMeasure_Ioo_eq_smul_general
+    (a b : ℝ) (ha : 0 ≤ a) (h : ℝ → ℂ) :
+    ∫ x in Set.Ioo a b, h x ∂logWeightedMeasure
+      = ∫ x in Set.Ioo a b, (1/x : ℝ) • h x
+          ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  rw [logWeightedMeasure_def, MeasureTheory.restrict_withDensity measurableSet_Ioo,
+      integral_withDensity_eq_integral_toReal_smul₀
+        logWeightDensity_measurable.aemeasurable.restrict
+        (MeasureTheory.ae_of_all _ (fun x => (logWeightDensity_ne_top x).lt_top))]
+  refine MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo ?_
+  intros x hx
+  have hx_pos : (0:ℝ) < x := lt_of_le_of_lt ha hx.1
+  show (logWeightDensity x).toReal • h x = (1/x : ℝ) • h x
+  unfold logWeightDensity
+  rw [if_neg (not_le.mpr hx_pos), ENNReal.toReal_ofReal (one_div_pos.mpr hx_pos).le]
+
 /-- Extend a `LogWeightedL2` element's `toFun` (defined on `Set.Icc 0 1`)
     to all of `ℝ` by zero outside the unit interval. Required so the
     inner-product Bochner integral can use a `ℝ → ℂ` function.
