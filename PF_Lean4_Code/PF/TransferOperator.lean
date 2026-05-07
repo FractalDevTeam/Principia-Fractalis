@@ -1701,6 +1701,48 @@ lemma branch_function_MemLp2 (k : Fin 3) (f : LogWeightedL2) (hf : f.MemLp2) :
     by_contra h_not_int
     exact h_main_ne (MeasureTheory.integral_undef h_not_int)
 
+/-- **`T3.apply f` is in `L²(μ_log↾(0,1))`** when `f.MemLp2`.
+
+    The full operator-MemLp2 closure: combines the per-branch closure
+    (`branch_function_MemLp2`) for k = 0, 1, 2 with `MemLp.const_smul`
+    (phase factors and 1/3 prefactor) and `MemLp.add` (sum over branches),
+    then transfers via `MemLp.ae_eq` from the explicit sum (true on Ioo 0 1
+    via `T3_toFunℝ_Ioo`) to `(T3.apply f).toFunℝ`. -/
+theorem T3_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
+    (T3.apply f).MemLp2 := by
+  show MeasureTheory.MemLp (T3.apply f).toFunℝ 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+  -- Per-branch summand: MemLp from branch_function_MemLp2 + const_smul (phase factor).
+  have h_summand : ∀ k : Fin 3, MeasureTheory.MemLp
+      (fun x => phaseFactorBase3 k * ((weightFunction 3 k x : ℂ) *
+                  f.toFunℝ (inverseBranch 3 k x)))
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    fun k => (branch_function_MemLp2 k f hf).const_smul (phaseFactorBase3 k)
+  -- Sum over Fin 3 is MemLp via memLp_finset_sum.
+  have h_sum : MeasureTheory.MemLp
+      (fun x => ∑ k : Fin 3, phaseFactorBase3 k * ((weightFunction 3 k x : ℂ) *
+                  f.toFunℝ (inverseBranch 3 k x)))
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    MeasureTheory.memLp_finset_sum Finset.univ (fun k _ => h_summand k)
+  -- (1/3) • sum is MemLp.
+  have h_T3_explicit : MeasureTheory.MemLp
+      (fun x => (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
+                  ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x)))
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    h_sum.const_smul (1/3 : ℂ)
+  -- AE on (0,1): (T3.apply f).toFunℝ = explicit sum (via T3_toFunℝ_Ioo + associativity).
+  have h_ae : (T3.apply f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      (fun x => (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
+                  ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x))) := by
+    refine MeasureTheory.ae_restrict_of_forall_mem measurableSet_Ioo ?_
+    intros x hx
+    rw [T3_toFunℝ_Ioo f x hx]
+    congr 1
+    apply Finset.sum_congr rfl
+    intros k _
+    ring
+  exact h_T3_explicit.ae_eq h_ae.symm
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
