@@ -924,6 +924,37 @@ lemma inverseBranch_qmp (k : Fin 3) :
   rw [h_sub_null]
   exact mul_zero _
 
+/-- **Restricted QMP**: `inverseBranch 3 k` is QuasiMeasurePreserving from
+    `μ_log.restrict (Ioo 0 1)` to itself.
+
+    Direct from `inverseBranch_qmp` + `QuasiMeasurePreserving.restrict`,
+    using the fact that `inverseBranch 3 k` maps `Ioo 0 1` into
+    `Ioo (k/3) ((k+1)/3) ⊆ Ioo 0 1`. -/
+lemma inverseBranch_qmp_restrict (k : Fin 3) :
+    MeasureTheory.Measure.QuasiMeasurePreserving (inverseBranch 3 k)
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  have h_qmp : MeasureTheory.Measure.QuasiMeasurePreserving (inverseBranch 3 k)
+      logWeightedMeasure logWeightedMeasure := inverseBranch_qmp k
+  have h_mapsTo : Set.MapsTo (inverseBranch 3 k) (Set.Ioo (0:ℝ) 1) (Set.Ioo (0:ℝ) 1) := by
+    intros x hx
+    refine ⟨?_, ?_⟩
+    · -- 0 < inverseBranch 3 k x
+      unfold inverseBranch
+      have hk_nonneg : (k.val : ℝ) ≥ 0 := Nat.cast_nonneg _
+      have : x + (k.val : ℝ) > 0 := by linarith [hx.1]
+      push_cast
+      positivity
+    · -- inverseBranch 3 k x < 1
+      unfold inverseBranch
+      have hk_le : (k.val : ℝ) ≤ 2 := by
+        have hk_nat : k.val ≤ 2 := by have := k.isLt; omega
+        exact_mod_cast hk_nat
+      have : x + (k.val : ℝ) < 3 := by linarith [hx.2]
+      push_cast
+      linarith
+  exact h_qmp.restrict h_mapsTo
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
