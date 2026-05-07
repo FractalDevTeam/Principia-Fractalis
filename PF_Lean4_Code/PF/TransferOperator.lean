@@ -762,6 +762,15 @@ lemma weightFunction_measurable (b : ℕ) (k : Fin b) :
   · refine Real.continuous_sqrt.measurable.comp ?_
     exact (measurable_const.mul measurable_id).div (measurable_id.add_const _)
 
+/-- **`inverseBranch b k` is Borel-measurable** as a function `ℝ → ℝ`.
+
+    `inverseBranch b k x = (x + k.val) / b` is affine, hence continuous,
+    hence measurable. -/
+lemma inverseBranch_measurable (b : ℕ) (k : Fin b) :
+    Measurable (inverseBranch b k) := by
+  unfold inverseBranch
+  exact (measurable_id.add_const _).div_const _
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
