@@ -814,6 +814,21 @@ lemma volume_map_inverseBranch (k : Fin 3) :
   rw [abs_of_pos (by norm_num : (3:ℝ) > 0)]
   exact ENNReal.ofReal_ofNat 3
 
+/-- **Support of `logWeightDensity` is `Ioi 0`**.
+
+    `logWeightDensity x = if x ≤ 0 then 0 else ofReal(1/x)`. The function is
+    zero exactly on `(-∞, 0]` and positive on `(0, ∞)`. -/
+lemma support_logWeightDensity : Function.support logWeightDensity = Set.Ioi (0:ℝ) := by
+  ext x
+  simp only [Function.mem_support, Set.mem_Ioi]
+  unfold logWeightDensity
+  by_cases hx : x ≤ 0
+  · simp [hx, not_lt.mpr hx]
+  · push_neg at hx
+    simp only [not_le.mpr hx, ↓reduceIte]
+    refine ⟨fun _ => hx, fun _ => ?_⟩
+    exact (ENNReal.ofReal_pos.mpr (one_div_pos.mpr hx)).ne'
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
