@@ -778,6 +778,42 @@ lemma weightFunction_complex_measurable (b : ℕ) (k : Fin b) :
     Measurable (fun x : ℝ => (weightFunction b k x : ℂ)) :=
   Complex.continuous_ofReal.measurable.comp (weightFunction_measurable b k)
 
+/-- **Volume pushforward under `inverseBranch 3 k`** equals `3 • volume`.
+
+    The affine map `inverseBranch 3 k x = (x + k.val)/3` decomposes as
+    `(fun x => x * (1/3))` (multiplicative scaling) composed with
+    `(fun x => x + k.val)` (translation). Translation is volume-preserving;
+    scaling by 1/3 stretches volume by factor 3 (Jacobian). -/
+lemma volume_map_inverseBranch (k : Fin 3) :
+    MeasureTheory.Measure.map (inverseBranch 3 k)
+      (MeasureTheory.volume : MeasureTheory.Measure ℝ)
+    = (3 : ENNReal) • (MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  -- Decompose: inverseBranch 3 k = scale-by-1/3 then add k.val ... no:
+  -- (x + k.val)/3 = (x + k.val) * (1/3) = (translation by k.val) ∘ (mul by 1/3) NO
+  -- Right form: (·*(1/3)) ∘ (·+k.val): apply add first → x+k, then mul → (x+k)/3 ✓
+  -- Use map_map: Measure.map (g ∘ f) μ = Measure.map g (Measure.map f μ)
+  have h_inv : (fun x : ℝ => (x + (k.val : ℝ)) * (1/3 : ℝ)) = inverseBranch 3 k := by
+    funext x
+    unfold inverseBranch
+    push_cast
+    ring
+  rw [← h_inv]
+  -- Goal: Measure.map (fun x => (x + k.val) * (1/3)) volume = 3 • volume
+  -- Apply map_map with f = (·+k.val), g = (·*(1/3))
+  have h_inner_map : MeasureTheory.Measure.map (fun x : ℝ => x + (k.val : ℝ))
+      (MeasureTheory.volume : MeasureTheory.Measure ℝ) = MeasureTheory.volume :=
+    (MeasureTheory.measurePreserving_add_right MeasureTheory.volume (k.val : ℝ)).map_eq
+  rw [show (fun x : ℝ => (x + (k.val : ℝ)) * (1/3 : ℝ))
+        = (fun x : ℝ => x * (1/3 : ℝ)) ∘ (fun x : ℝ => x + (k.val : ℝ)) from rfl]
+  rw [← MeasureTheory.Measure.map_map (by fun_prop : Measurable (fun x : ℝ => x * (1/3 : ℝ)))
+        (by fun_prop : Measurable (fun x : ℝ => x + (k.val : ℝ)))]
+  rw [h_inner_map]
+  rw [Real.map_volume_mul_right (by norm_num : (1/3 : ℝ) ≠ 0)]
+  congr 1
+  rw [show ((1 / 3 : ℝ))⁻¹ = 3 by norm_num]
+  rw [abs_of_pos (by norm_num : (3:ℝ) > 0)]
+  exact ENNReal.ofReal_ofNat 3
+
 /-- Reciprocal weight for the formal adjoint $\widetilde{T}_3^*$ on intervals
     $I_k = (k/3, (k+1)/3]$: $w^*_k(x) = \sqrt{x/(3x-k)}$.
 
