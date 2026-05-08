@@ -1903,6 +1903,79 @@ lemma branch_volume_norm_sq_eq_adjoint (k : Fin 3) (f : LogWeightedL2) :
   branch_volume_integral_inv_3x_minus_k_form_adjoint k
     (fun u => ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ))
 
+/-- **Per-branch L² identity in μ_log form for the adjoint** —
+    Mayer 1991, §2 operator-norm step (expanding direction, μ_log form).
+
+    For `k : Fin 3` and `f : LogWeightedL2`:
+
+        ∫ x in I_k, |w*_k(x) · f.toFunℝ(3x - k)|² ∂μ_log
+          = (1/3) · ∫ u in (0,1), |f.toFunℝ u|² ∂μ_log
+
+    The substantive operator-norm bound applied per-branch (expanding direction).
+    Chains: Bochner bridge on $I_k$ → pointwise simplify → volume CoV
+    (`branch_volume_norm_sq_eq_adjoint`) → bridge back on $(0,1)$.
+
+    Mirror of `branch_logWeightedMeasure_norm_sq_eq` for the adjoint. -/
+lemma branch_logWeightedMeasure_norm_sq_eq_adjoint (k : Fin 3) (f : LogWeightedL2) :
+    ∫ x in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((Complex.normSq ((adjointWeight k x : ℂ) *
+            f.toFunℝ (3 * x - (k.val : ℝ))) : ℝ) : ℂ)
+        ∂logWeightedMeasure
+    = (1 / 3 : ℝ) • ∫ u in Set.Ioo (0:ℝ) 1,
+        ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ)
+        ∂logWeightedMeasure := by
+  -- Step 1: Apply bridge on LHS over I_k (lower bound k/3 ≥ 0).
+  have hk_div_nonneg : (0:ℝ) ≤ (k.val : ℝ) / 3 := by positivity
+  rw [setIntegral_logWeightedMeasure_Ioo_eq_smul_general
+      ((k.val : ℝ) / 3) (((k.val : ℝ) + 1) / 3) hk_div_nonneg]
+  -- LHS: ∫ x in I_k, (1/x : ℝ) • ((normSq (w*_k · f∘(3x-k)) : ℝ) : ℂ) ∂volume
+  -- Step 2: Pointwise-simplify integrand via branch_norm_sq_pointwise_simplify_adjoint.
+  rw [MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo
+      (fun x hx => branch_norm_sq_pointwise_simplify_adjoint k f x hx)]
+  -- LHS: ∫ x in I_k, ((1/(3x-k) : ℝ) : ℂ) * ((normSq f∘(3x-k) : ℝ) : ℂ) ∂volume
+  -- Step 3: Apply branch_volume_norm_sq_eq_adjoint.
+  rw [branch_volume_norm_sq_eq_adjoint]
+  -- LHS: (1/3) • ∫ u in (0,1), ((1/u : ℝ) : ℂ) * ((normSq f : ℝ) : ℂ) ∂volume
+  -- Step 4: Apply bridge backwards on (0,1).
+  congr 1
+  rw [setIntegral_logWeightedMeasure_Ioo_eq_smul]
+  -- Match the smul form with the cast-mul form.
+  refine MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo ?_
+  intros u _
+  show ((1/u : ℝ) : ℂ) * _ = (1/u : ℝ) • _
+  rw [Complex.real_smul]
+
+/-- **Real-valued per-branch L² identity in μ_log form for the adjoint**.
+
+    ℝ-valued analog of `branch_logWeightedMeasure_norm_sq_eq_adjoint` (the ℂ-cast
+    version). Derived by applying `integral_ofReal` to both sides. -/
+lemma branch_logWeightedMeasure_norm_sq_eq_adjoint_real (k : Fin 3) (f : LogWeightedL2) :
+    ∫ x in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        Complex.normSq ((adjointWeight k x : ℂ) *
+            f.toFunℝ (3 * x - (k.val : ℝ)))
+        ∂logWeightedMeasure
+    = (1 / 3 : ℝ) * ∫ u in Set.Ioo (0:ℝ) 1,
+        Complex.normSq (f.toFunℝ u)
+        ∂logWeightedMeasure := by
+  have h_C := branch_logWeightedMeasure_norm_sq_eq_adjoint k f
+  have h_LHS : (∫ x in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((Complex.normSq ((adjointWeight k x : ℂ) *
+            f.toFunℝ (3 * x - (k.val : ℝ))) : ℝ) : ℂ)
+        ∂logWeightedMeasure)
+      = ((∫ x in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+          Complex.normSq ((adjointWeight k x : ℂ) *
+              f.toFunℝ (3 * x - (k.val : ℝ)))
+          ∂logWeightedMeasure : ℝ) : ℂ) := integral_ofReal
+  have h_RHS_inner : (∫ u in Set.Ioo (0:ℝ) 1,
+        ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ)
+        ∂logWeightedMeasure)
+      = ((∫ u in Set.Ioo (0:ℝ) 1,
+          Complex.normSq (f.toFunℝ u)
+          ∂logWeightedMeasure : ℝ) : ℂ) := integral_ofReal
+  rw [h_LHS, h_RHS_inner] at h_C
+  rw [Complex.real_smul, ← Complex.ofReal_mul] at h_C
+  exact_mod_cast h_C
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
