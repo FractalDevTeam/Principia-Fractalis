@@ -3373,6 +3373,61 @@ theorem T3_self_adjoint_conj_via_formal_adjoint_at_pair_MemLp2
     (hf.inner_integrand_integrable h_T3g)
     (hf.inner_integrand_integrable h_T3adj_g)
 
+/-! ### Discharge Mayer integrability hypotheses from MemLp2
+
+The integrability hypotheses required by `T3_formal_adjoint_relation_via_integrability`
+follow from `f.MemLp2` and `g.MemLp2` via:
+- `MemLp2.inner_integrand_integrable` (Hölder L²·L² ⊂ L¹) for the μ_log form,
+- `integrable_logWeightedMeasure_restrict_Ioo_iff_smul` for the Bochner bridge to
+  the volume form,
+- `T3_apply_MemLp2` / `T3_adjoint_apply_MemLp2` to supply operator-output MemLp2.
+
+These discharge the last "external" hypotheses of the formal-adjoint capstone,
+making the formal-adjoint relation provable from `f.MemLp2 ∧ g.MemLp2` alone.
+-/
+
+/-- **Adjoint inner integrand IntervalIntegrable from MemLp2** —
+    discharges `h_int_T3adj` of `T3_formal_adjoint_relation_via_integrability`.
+
+    For `f.MemLp2` and `g.MemLp2`, the integrand
+    `(1/x : ℂ) · conj(f(x)) · (T3_adjoint g)(x)` is `IntervalIntegrable` on
+    `volume` from 0 to 1.
+
+    Chain: `T3_adjoint_apply_MemLp2 g hg` gives `(T3_adjoint g).MemLp2`. Then
+    Hölder (`MemLp2.inner_integrand_integrable`) gives Integrable on
+    `μ_log↾(Ioo 0 1)` of `conj(f) · (T3_adj g)`. Bridge via
+    `integrable_logWeightedMeasure_restrict_Ioo_iff_smul` to volume form,
+    convert smul to mul, then apply `intervalIntegrable_iff_integrableOn_Ioo_of_le`. -/
+lemma T3_adjoint_inner_integrand_IntervalIntegrable_from_MemLp2
+    (f g : LogWeightedL2) (hf : f.MemLp2) (hg : g.MemLp2) :
+    IntervalIntegrable
+      (fun x => ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+                (T3_adjoint.apply g).toFunℝ x)
+      MeasureTheory.volume 0 1 := by
+  have h_T3adj_g : (T3_adjoint.apply g).MemLp2 := T3_adjoint_apply_MemLp2 g hg
+  have h_int_mu_log : MeasureTheory.Integrable
+      (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (T3_adjoint.apply g).toFunℝ x)
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    hf.inner_integrand_integrable h_T3adj_g
+  have h_int_vol_smul : MeasureTheory.Integrable
+      (fun x => (1/x : ℝ) • ((starRingEnd ℂ) (f.toFunℝ x) *
+                  (T3_adjoint.apply g).toFunℝ x))
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+        (Set.Ioo (0:ℝ) 1)) :=
+    (integrable_logWeightedMeasure_restrict_Ioo_iff_smul 0 1 le_rfl _).mp h_int_mu_log
+  have h_int_vol_mul : MeasureTheory.Integrable
+      (fun x => ((1/x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+                (T3_adjoint.apply g).toFunℝ x)
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+        (Set.Ioo (0:ℝ) 1)) := by
+    refine (MeasureTheory.integrable_congr ?_).mp h_int_vol_smul
+    refine MeasureTheory.ae_of_all _ (fun x => ?_)
+    show (1/x : ℝ) • _ = _
+    rw [Complex.real_smul]
+    ring
+  rw [intervalIntegrable_iff_integrableOn_Ioo_of_le (by norm_num : (0:ℝ) ≤ 1)]
+  exact h_int_vol_mul
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
