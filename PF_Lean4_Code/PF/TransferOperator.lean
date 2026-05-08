@@ -3138,12 +3138,13 @@ theorem transferOperatorAction_add (b : ℕ) (phases : Fin b → ℂ)
 
 /-! ## Self-Adjointness -/
 
-/-- ⚠ Post-rev-3 follow-on, sharpened form (2026-04-29): the Lean axiom
-    asserts self-adjointness of the EXPLICIT `T3_sym` operator defined
+/- ⚠ Post-rev-3 follow-on, sharpened form (2026-04-29): the Lean axiom
+    asserted self-adjointness of the EXPLICIT `T3_sym` operator defined
     above (formed as $(\widetilde{T}_3 + \widetilde{T}_3^*)/2$ from the
     explicit `T3_adjoint_action` piecewise expanding-branch construction).
-    The axiom NAME (`T3_self_adjoint_conj`) is preserved so the
-    canonical 8-axiom referee claim stays intact.
+    The axiom NAME (`T3_self_adjoint_conj`) was preserved through several
+    revisions; it has now been retired (2026-05-08) in favour of the
+    proven `T3_self_adjoint_conj_via_MemLp2` per-pair theorem.
 
     Statement: $\langle T_3^{\mathrm{sym}}\, f, g\rangle = \langle f,
     T_3^{\mathrm{sym}}\, g\rangle$ for all $f, g \in L^2([0,1], dx/x)$,
@@ -3227,11 +3228,24 @@ theorem transferOperatorAction_add (b : ℕ) (phases : Fin b → ℂ)
     'Post-rev-3 status' section.
 
     Other 7 canonical axioms unaffected by this rev-3 follow-on.
--/
-axiom T3_self_adjoint_conj :
-    ∀ (f g : LogWeightedL2), ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫
 
-/-- **Conditional theorem**: `T3_self_adjoint_conj` is provable assuming
+    **2026-05-08 RETIRED (axiom 7→6).** The universal axiom is replaced
+    by the proven per-pair MemLp2 theorem `T3_self_adjoint_conj_via_MemLp2`
+    (commit `aa6b28b`). The five consumer theorems
+    (`spectral_bijection_framework`, `framework_summary`,
+    `T3_sym_spectral_framework`, `T3_sym_RH_precondition`,
+    `T3_spectral_complete`) had their specs narrowed to take
+    `f.MemLp2 ∧ g.MemLp2` hypotheses — the mathematically meaningful
+    setting (the L²(μ_log) subspace).
+
+    The truly UNCONDITIONAL claim over arbitrary `LogWeightedL2` (a "shell"
+    type with no L² constraint) is recoverable later via structural
+    refactor of `LogWeightedL2 := Lp ℂ 2 logWeightedMeasure`, after which
+    every element is automatically MemLp2 and `T3_self_adjoint_conj_via_MemLp2`
+    universally quantified is the unconditional self-adjointness statement.
+-/
+
+/-- **Conditional theorem**: `T3_self_adjoint_conj` (formerly axiom, retired 2026-05-08) is provable assuming
     the formal-adjoint relation between T3 and T3_adjoint plus
     integrability hypotheses for `inner_add`.
 
