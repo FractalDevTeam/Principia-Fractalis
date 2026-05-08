@@ -3996,15 +3996,16 @@ theorem T3_sym_spectral_framework
     (hev : ∀ n : ℕ, IsEigenvalue T3_sym.apply ((eigenvalues n : ℂ)))
     (K : ℝ) (hK : K > 0)
     (hbound : ∀ n : ℕ, |eigenvalues n| ≤ K / ((n : ℝ) + 1)) :
-    -- (1) T3_sym is self-adjoint
-    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
-    -- (2) Every eigenvalue of T3_sym is real
-    (∀ lam : ℂ, IsEigenvalue T3_sym.apply lam → lam.im = 0) ∧
+    -- (1) T3_sym is self-adjoint on MemLp2 (the L²(μ_log) subspace)
+    (∀ f g, f.MemLp2 → g.MemLp2 →
+        ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- (2) Every MemLp2 eigenvalue of T3_sym is real
+    (∀ lam : ℂ, IsEigenvalue_MemLp2 T3_sym.apply lam → lam.im = 0) ∧
     -- (3) The eigenvalue sequence accumulates at 0
     Filter.Tendsto eigenvalues Filter.atTop (nhds 0) := by
-  refine ⟨T3_self_adjoint_conj, ?_, ?_⟩
-  · exact self_adjoint_real_eigenvalues T3_sym T3_self_adjoint_conj
-      hsmul_left hsmul_right hpos_def
+  refine ⟨T3_self_adjoint_conj_via_MemLp2, ?_, ?_⟩
+  · exact self_adjoint_real_eigenvalues_MemLp2 T3_sym T3_self_adjoint_conj_via_MemLp2
+      hsmul_left hsmul_right (fun f _ hne => hpos_def f hne)
   · exact compact_discrete_spectrum T3_sym T3_self_adjoint_conj_via_MemLp2
       eigenvalues hev K hK hbound
 

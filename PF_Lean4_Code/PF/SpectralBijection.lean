@@ -491,10 +491,11 @@ theorem T3_sym_RH_precondition
     (α : ScalingParameter)
     (hne : ∀ n, eigenvalues n ≠ 0)
     (hdistinct : ∀ n m, n ≠ m → |eigenvalues n| ≠ |eigenvalues m|) :
-    -- (1) T3_sym is self-adjoint
-    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
-    -- (2) Every eigenvalue of T3_sym is real
-    (∀ lam : ℂ, IsEigenvalue T3_sym.apply lam → lam.im = 0) ∧
+    -- (1) T3_sym is self-adjoint on MemLp2 (the L²(μ_log) subspace)
+    (∀ f g, f.MemLp2 → g.MemLp2 →
+        ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- (2) Every MemLp2 eigenvalue of T3_sym is real
+    (∀ lam : ℂ, IsEigenvalue_MemLp2 T3_sym.apply lam → lam.im = 0) ∧
     -- (3) The eigenvalue sequence accumulates at 0
     Filter.Tendsto eigenvalues Filter.atTop (nhds 0) ∧
     -- (4) The eigenvalue → critical-line index map is injective
