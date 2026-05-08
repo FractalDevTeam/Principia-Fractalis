@@ -154,6 +154,35 @@ lemma setIntegral_logWeightedMeasure_Ioo_eq_smul_general
   unfold logWeightDensity
   rw [if_neg (not_le.mpr hx_pos), ENNReal.toReal_ofReal (one_div_pos.mpr hx_pos).le]
 
+/-- **Integrability bridge: μ_log↾(Ioo a b) ↔ volume↾(Ioo a b) with weight (1/x)**
+    (for `a ≥ 0`).
+
+    For ℂ-valued `h`:
+      `Integrable h (μ_log↾(Ioo a b)) ↔ Integrable ((1/x : ℝ) • h x) (vol↾(Ioo a b))`
+
+    The integrability analog of `setIntegral_logWeightedMeasure_Ioo_eq_smul_general`.
+    Direct from mathlib's `integrable_withDensity_iff_integrable_smul'` plus the
+    pointwise identity `(logWeightDensity x).toReal = 1/x` on `Ioi 0`. Used to
+    discharge the volume-form integrability hypotheses of
+    `T3_formal_adjoint_relation_via_integrability` from MemLp2 hypotheses
+    (which give Integrable on μ_log via Hölder). -/
+lemma integrable_logWeightedMeasure_restrict_Ioo_iff_smul
+    (a b : ℝ) (ha : 0 ≤ a) (h : ℝ → ℂ) :
+    MeasureTheory.Integrable h (logWeightedMeasure.restrict (Set.Ioo a b)) ↔
+    MeasureTheory.Integrable (fun x => (1/x : ℝ) • h x)
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict (Set.Ioo a b)) := by
+  rw [logWeightedMeasure_def, MeasureTheory.restrict_withDensity measurableSet_Ioo]
+  rw [MeasureTheory.integrable_withDensity_iff_integrable_smul'
+        logWeightDensity_measurable
+        (MeasureTheory.ae_of_all _ (fun x => (logWeightDensity_ne_top x).lt_top))]
+  apply MeasureTheory.integrable_congr
+  refine MeasureTheory.ae_restrict_of_forall_mem measurableSet_Ioo ?_
+  intros x hx
+  show (logWeightDensity x).toReal • h x = (1/x : ℝ) • h x
+  have hx_pos : (0:ℝ) < x := lt_of_le_of_lt ha hx.1
+  unfold logWeightDensity
+  rw [if_neg (not_le.mpr hx_pos), ENNReal.toReal_ofReal (one_div_pos.mpr hx_pos).le]
+
 /-- Extend a `LogWeightedL2` element's `toFun` (defined on `Set.Icc 0 1`)
     to all of `ℝ` by zero outside the unit interval. Required so the
     inner-product Bochner integral can use a `ℝ → ℂ` function.
