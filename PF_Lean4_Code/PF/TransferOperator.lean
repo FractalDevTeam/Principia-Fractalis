@@ -3769,10 +3769,13 @@ theorem T3_compact_proven :
     in `Mathlib.Analysis.NormedSpace.OperatorNorm.Compact`. -/
 theorem compact_discrete_spectrum
     (T : TransferOperator 3)
-    -- Self-adjointness (documents context; not used in the squeeze
-    -- step but carried for downstream reasoning that combines this
-    -- theorem with `self_adjoint_real_eigenvalues`).
-    (_hsa : ∀ f g, ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫)
+    -- Self-adjointness on MemLp2 inputs (documents context; not used
+    -- in the squeeze step but carried for downstream reasoning that
+    -- combines this theorem with `self_adjoint_real_eigenvalues_MemLp2`).
+    -- 2026-05-08: type narrowed to MemLp2-conditional form to break
+    -- dependence on the universal `T3_self_adjoint_conj` axiom.
+    (_hsa_MemLp2 : ∀ f g, f.MemLp2 → g.MemLp2 →
+        ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫)
     -- An eigenvalue sequence (real-valued; existence is the content
     -- of the compact-operator spectral theorem, taken as input here)
     (eigenvalues : ℕ → ℝ)
@@ -4002,7 +4005,7 @@ theorem T3_sym_spectral_framework
   refine ⟨T3_self_adjoint_conj, ?_, ?_⟩
   · exact self_adjoint_real_eigenvalues T3_sym T3_self_adjoint_conj
       hsmul_left hsmul_right hpos_def
-  · exact compact_discrete_spectrum T3_sym T3_self_adjoint_conj
+  · exact compact_discrete_spectrum T3_sym T3_self_adjoint_conj_via_MemLp2
       eigenvalues hev K hK hbound
 
 end PrincipiaTractalis
