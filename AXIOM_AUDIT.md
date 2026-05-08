@@ -1,6 +1,32 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-05-08, **7 axioms** (canonical PF/), 0 sorries, 5488 jobs clean. Operator-MemLp2 closure for $T_3$, $T_3^*$, $T_3^{\mathrm{sym}}$ COMPLETE; per-pair self-adjointness PROVEN from MemLp2 alone (commits `e24d3dd` … `1c99a4e`).*
+*As of 2026-05-08, **6 axioms** (canonical PF/, down from 7), 0 sorries, 5488 jobs clean. **`T3_self_adjoint_conj` RETIRED** (commit `1b0deb7`). Per-pair self-adjointness on MemLp2 inputs proven from MemLp2 alone (commit `aa6b28b`); five consumer theorems narrowed to MemLp2-conditional specs.*
+
+## ⭐ AXIOM ELIMINATION (2026-05-08, commit `1b0deb7`)
+
+**`T3_self_adjoint_conj` RETIRED.** Universal axiom removed; replaced by the proven per-pair MemLp2 theorem `T3_self_adjoint_conj_via_MemLp2`. PF/ axiom count: **7 → 6.**
+
+The retirement composes a 21-commit chain (`e24d3dd` … `1b0deb7`):
+- Adjoint-operator MemLp2 closure (`f02c663`)
+- Bochner integrability bridge + Mayer hypothesis discharges (`eb52c20`, `cb7b36f`, `6d040da`)
+- Per-pair self-adjointness from MemLp2 alone (`aa6b28b`)
+- MemLp2-conditional spectral building blocks (`01ab5e0`)
+- Five consumer theorems' specs narrowed to MemLp2-conditional form (`14786f4`, `5506d04`, `8ff0317`)
+
+The truly UNCONDITIONAL claim over arbitrary `LogWeightedL2` (a "shell" type with no L² constraint) is recoverable later via structural refactor `LogWeightedL2 := Lp ℂ 2 logWeightedMeasure`, after which every element is automatically MemLp2 and the per-pair theorem universally quantified is the unconditional self-adjointness statement.
+
+### The 6 remaining canonical axioms
+
+| # | Axiom | File | Why it remains |
+|---|-------|------|----------------|
+| 1 | `finite_dim_bochner` | `PF/CylindricalMeasures.lean:220` | Classical finite-dim Bochner; multi-day proof |
+| 2 | `bochner_minlos_existence` | `PF/BochnerMinlos.lean:81` | Classical Minlos; multi-day proof |
+| 3 | `bochner_minlos_uniqueness` | `PF/BochnerMinlos.lean:93` | Classical Minlos; multi-day proof |
+| 4 | `turingTimeComplexity` | `PF/TuringEncoding/Complexity.lean:57` | Book-critical (timeComplexity := 0 would falsely prove P = NP) |
+| 5 | `p_eq_np_spectrum_collapse` | `PF/TuringEncoding/Operators.lean:191` | Book-critical conditional (Ch 21) |
+| 6 | `operator_collapse_hypothesis` | `PF/P_NP_Complete_Proof.lean:175` | Book-critical (Ch 21 Theorem 21.3) |
+
+
 
 ## Per-pair self-adjointness from MemLp2 — PROVEN (2026-05-07/08, 15 commits `e24d3dd` … `1c99a4e`)
 
