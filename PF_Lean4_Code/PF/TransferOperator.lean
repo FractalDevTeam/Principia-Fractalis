@@ -3678,6 +3678,52 @@ theorem self_adjoint_real_eigenvalues
   have h7 : (star lam).im = lam.im := by rw [h5]
   linarith
 
+/-- **Eigenvalue with MemLp2 witness**: stronger eigenvalue predicate
+    requiring the eigenvector to be in `L²(μ_log)` (i.e. `f.MemLp2`).
+
+    The mathematically meaningful eigenvalue notion for the spectral
+    framework: only `MemLp2` eigenvectors carry the L² Hilbert-space
+    structure that makes "eigenvalue" a well-behaved spectral concept.
+    For non-`MemLp2` witnesses, the inner product structure degenerates. -/
+def IsEigenvalue_MemLp2 (T : LogWeightedL2 → LogWeightedL2) (lam : ℂ) : Prop :=
+  ∃ f : LogWeightedL2, f ≠ 0 ∧ f.MemLp2 ∧ T f = lam • f
+
+/-- **Self-adjointness implies real eigenvalues** (MemLp2 version):
+    same conclusion as `self_adjoint_real_eigenvalues` but with the
+    self-adjointness hypothesis restricted to `MemLp2 × MemLp2` and the
+    eigenvalue predicate restricted to MemLp2 witnesses.
+
+    Match for the spectral framework where `T3_self_adjoint_conj_via_MemLp2`
+    supplies the (conditional) self-adjointness. The proof follows the
+    same Hilbert-space argument as the universal version: applies the
+    self-adjointness identity at the diagonal `(f, f)` for the eigenvector. -/
+theorem self_adjoint_real_eigenvalues_MemLp2
+    (T : TransferOperator 3)
+    -- Self-adjointness on MemLp2 inputs
+    (hsa_MemLp2 : ∀ f g, f.MemLp2 → g.MemLp2 →
+        ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫)
+    -- Conjugate-linearity of inner product (slot 1)
+    (hsmul_left : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪a • f, g⟫ = (star a) * ⟪f, g⟫)
+    -- Linearity of inner product (slot 2)
+    (hsmul_right : ∀ (a : ℂ) (f g : LogWeightedL2),
+        ⟪f, a • g⟫ = a * ⟪f, g⟫)
+    -- Weak positive-definiteness on MemLp2: ⟨f,f⟩ ≠ 0 for MemLp2 f ≠ 0
+    (hpos_def_MemLp2 : ∀ f : LogWeightedL2, f.MemLp2 → f ≠ 0 → ⟪f, f⟫ ≠ 0) :
+    ∀ (lam : ℂ), IsEigenvalue_MemLp2 T.apply lam → lam.im = 0 := by
+  intro lam ⟨f, hf_ne, hf_memlp2, hf_eig⟩
+  have h1 : ⟪T.apply f, f⟫ = (star lam) * ⟪f, f⟫ := by
+    rw [hf_eig]; exact hsmul_left lam f f
+  have h2 : ⟪f, T.apply f⟫ = lam * ⟪f, f⟫ := by
+    rw [hf_eig]; exact hsmul_right lam f f
+  have h3 : (star lam) * ⟪f, f⟫ = lam * ⟪f, f⟫ := by
+    rw [← h1, ← h2]; exact hsa_MemLp2 f f hf_memlp2 hf_memlp2
+  have h4 : ⟪f, f⟫ ≠ 0 := hpos_def_MemLp2 f hf_memlp2 hf_ne
+  have h5 : star lam = lam := mul_right_cancel₀ h4 h3
+  have h6 : (star lam).im = -lam.im := Complex.conj_im lam
+  have h7 : (star lam).im = lam.im := by rw [h5]
+  linarith
+
 /-! ## Compactness -/
 
 /-- THEOREM: T₃ is a compact operator.
