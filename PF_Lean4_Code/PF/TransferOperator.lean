@@ -1827,6 +1827,56 @@ lemma branch_volume_integral_inv_3x_minus_k_form_adjoint (k : Fin 3) (F : ℝ �
         ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) :=
   branch_setIntegral_CoV_adjoint k (fun u => ((1 / u : ℝ) : ℂ) * F u)
 
+/-- **Squared adjoint weight identity**: for $x \in I_k$ (so $x > 0$ and
+    $3x - k > 0$), $w^*_k(x)^2 = x/(3x - k)$.
+
+    Direct from the definition `adjointWeight k x = √(x/(3x-k))` via
+    `Real.mul_self_sqrt`. Used inside the per-branch L² pointwise
+    simplification to cancel the $(1/x)$ Bochner-bridge prefactor. -/
+lemma adjointWeight_sq (k : Fin 3) (x : ℝ)
+    (hx_pos : x > 0) (h3x_k : (3 * x - (k.val : ℝ) : ℝ) > 0) :
+    adjointWeight k x * adjointWeight k x = x / (3 * x - (k.val : ℝ)) := by
+  unfold adjointWeight
+  rw [if_pos h3x_k]
+  exact Real.mul_self_sqrt (div_nonneg hx_pos.le h3x_k.le)
+
+/-- **Pointwise identity for the per-branch L² integrand of the adjoint**
+    under the Bochner bridge. For $x \in I_k = (k/3, (k+1)/3)$:
+
+      $(1/x) \cdot |w^*_k(x) \cdot f(3x - k)|^2 = (1/(3x - k)) \cdot |f(3x - k)|^2$
+
+    Combines $|w^*_k(x)|^2 = x/(3x - k)$ (`adjointWeight_sq`) with the
+    pointwise cancellation $(1/x) \cdot (x/(3x - k)) = 1/(3x - k)$.
+
+    Mirror of `branch_norm_sq_pointwise_simplify` for the expanding direction. -/
+lemma branch_norm_sq_pointwise_simplify_adjoint (k : Fin 3) (f : LogWeightedL2)
+    (x : ℝ) (hx : x ∈ Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)) :
+    (1/x : ℝ) • ((Complex.normSq ((adjointWeight k x : ℂ) *
+        f.toFunℝ (3 * x - (k.val : ℝ))) : ℝ) : ℂ)
+    = ((1 / (3 * x - (k.val : ℝ)) : ℝ) : ℂ) *
+        ((Complex.normSq (f.toFunℝ (3 * x - (k.val : ℝ))) : ℝ) : ℂ) := by
+  -- x > 0 and 3x - k > 0 from membership in I_k.
+  have hk_nonneg : (k.val : ℝ) ≥ 0 := Nat.cast_nonneg _
+  have hx_pos : (0 : ℝ) < x := by
+    have h_kdiv_nonneg : (0:ℝ) ≤ (k.val : ℝ) / 3 := by positivity
+    exact lt_of_le_of_lt h_kdiv_nonneg hx.1
+  have h3x_k : (3 * x - (k.val : ℝ) : ℝ) > 0 := by
+    have h_lower : (k.val : ℝ) / 3 < x := hx.1
+    linarith
+  have hx_ne : x ≠ 0 := ne_of_gt hx_pos
+  have h3xk_ne : (3 * x - (k.val : ℝ) : ℝ) ≠ 0 := ne_of_gt h3x_k
+  -- |adjointWeight k x|² = x/(3x-k).
+  have h_w_sq := adjointWeight_sq k x hx_pos h3x_k
+  -- Establish the ℝ-valued identity first.
+  have h_real : (1/x) * Complex.normSq ((adjointWeight k x : ℂ) *
+                  f.toFunℝ (3 * x - (k.val : ℝ)))
+              = (1/(3 * x - (k.val : ℝ))) *
+                  Complex.normSq (f.toFunℝ (3 * x - (k.val : ℝ))) := by
+    rw [Complex.normSq_mul, Complex.normSq_ofReal, h_w_sq]
+    field_simp
+  rw [Complex.real_smul]
+  exact_mod_cast h_real
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
