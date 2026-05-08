@@ -1877,6 +1877,32 @@ lemma branch_norm_sq_pointwise_simplify_adjoint (k : Fin 3) (f : LogWeightedL2)
   rw [Complex.real_smul]
   exact_mod_cast h_real
 
+/-- **Per-branch L² volume integral identity for the adjoint** —
+    Mayer 1991, §2 operator-norm step (expanding direction).
+
+    For `k : Fin 3` and `f : LogWeightedL2`, the volume-integral form of the
+    per-branch L² norm² of the adjoint integrand on $I_k$ equals $1/3$ times
+    the L² norm² of `f` on $(0,1)$ (in $\mu_{\log}$-Bochner-bridge form).
+
+    LHS is the Bochner-bridge image of $\int_{I_k} |w^*_k(x) \cdot f(3x-k)|^2 \, d\mu_{\log}$
+    (using $(1/x) \cdot |w^*_k(x)|^2 = 1/(3x-k)$ for $x \in I_k$).
+    RHS is $1/3$ times the Bochner-bridge image of $\int_0^1 |f|^2 \, d\mu_{\log}$.
+
+    Direct application of `branch_volume_integral_inv_3x_minus_k_form_adjoint`
+    to $F(u) := |f(u)|^2$. Mirror of `branch_volume_norm_sq_eq` for the
+    expanding direction. -/
+lemma branch_volume_norm_sq_eq_adjoint (k : Fin 3) (f : LogWeightedL2) :
+    ∫ x in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((1 / (3 * x - (k.val : ℝ)) : ℝ) : ℂ) *
+        ((Complex.normSq (f.toFunℝ (3 * x - (k.val : ℝ))) : ℝ) : ℂ)
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ)
+    = (1 / 3 : ℝ) • ∫ u in Set.Ioo (0:ℝ) 1,
+        ((1 / u : ℝ) : ℂ) *
+        ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ)
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) :=
+  branch_volume_integral_inv_3x_minus_k_form_adjoint k
+    (fun u => ((Complex.normSq (f.toFunℝ u) : ℝ) : ℂ))
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
