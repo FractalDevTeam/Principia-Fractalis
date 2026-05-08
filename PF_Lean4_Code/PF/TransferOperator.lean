@@ -3593,6 +3593,27 @@ theorem T3_sym_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
   show ((1/2 : ℂ) • (T3.apply f + T3_adjoint.apply f)).MemLp2
   exact ((T3_apply_MemLp2 f hf).add (T3_adjoint_apply_MemLp2 f hf)).const_smul (1/2 : ℂ)
 
+/-- **Self-adjoint diagonal inner-product is real** for the symmetrised
+    operator $\widetilde{T}_3^{\mathrm{sym}}$ on MemLp2 inputs.
+
+    Standard Hilbert-space corollary of self-adjointness: for self-adjoint
+    $T$ and any $f$, $\langle Tf, f \rangle \in \mathbb{R}$ (imaginary part
+    vanishes). Direct from
+    $\langle T_3^{\mathrm{sym}} f, f \rangle = \langle f, T_3^{\mathrm{sym}} f \rangle$
+    (self-adjointness, `T3_self_adjoint_conj_via_MemLp2`) plus
+    $\langle f, T_3^{\mathrm{sym}} f \rangle = \overline{\langle T_3^{\mathrm{sym}} f, f \rangle}$
+    (sesquilinearity, `inner_conj_symm`).
+
+    Foundational for spectral theory: real eigenvalues of $\widetilde{T}_3^{\mathrm{sym}}$
+    are pinned down via this real-spectrum lemma combined with
+    `self_adjoint_real_eigenvalues`. -/
+theorem T3_sym_inner_self_im (f : LogWeightedL2) (hf : f.MemLp2) :
+    (⟪T3_sym.apply f, f⟫).im = 0 := by
+  have h : star ⟪T3_sym.apply f, f⟫ = ⟪T3_sym.apply f, f⟫ := by
+    rw [← LogWeightedL2.inner_conj_symm f (T3_sym.apply f),
+        ← T3_self_adjoint_conj_via_MemLp2 f f hf hf]
+  exact Complex.conj_eq_iff_im.mp h
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
