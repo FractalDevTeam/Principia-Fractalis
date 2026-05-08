@@ -2202,6 +2202,163 @@ lemma branch_function_MemLp2_adjoint (k : Fin 3) (f : LogWeightedL2) (hf : f.Mem
     by_contra h_not_int
     exact h_main_ne (MeasureTheory.integral_undef h_not_int)
 
+/-- **`T3_adjoint.apply f` is in `L²(μ_log↾(0,1))`** when `f.MemLp2`.
+
+    The full adjoint-operator MemLp2 closure: combines the per-branch
+    closure (`branch_function_MemLp2_adjoint`) for $k = 0, 1, 2$ via
+    `MemLp.indicator` (lifting from $\mu_{\log}|_{I_k}$ to $\mu_{\log}|_{(0,1)}$),
+    then sums via `memLp_finset_sum`, and transfers via `MemLp.ae_eq` from
+    the indicator-sum form to `(T3_adjoint.apply f).toFunℝ`.
+
+    The piecewise structure of `T3_adjoint` (one branch active per $x \in (0,1)$
+    according to which $I_k$ contains $x$) means the AE-equality with the
+    indicator sum holds on $(0,1) \setminus \{1/3, 2/3\}$ pointwise, and the
+    excluded boundary points have $\mu_{\log}$-measure zero. -/
+theorem T3_adjoint_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
+    (T3_adjoint.apply f).MemLp2 := by
+  show MeasureTheory.MemLp (T3_adjoint.apply f).toFunℝ 2
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+  -- Per-branch MemLp lifted via indicator from μ_log↾I_k to μ_log↾(0,1).
+  have h_summand : ∀ k : Fin 3, MeasureTheory.MemLp
+      ((Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)).indicator
+        (fun x => phaseFactorBase3Conj k * ((adjointWeight k x : ℂ) *
+                    f.toFunℝ (3 * x - (k.val : ℝ)))))
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+    intro k
+    have h_branch := branch_function_MemLp2_adjoint k f hf
+    have h_branch_phased := h_branch.const_smul (phaseFactorBase3Conj k)
+    rw [MeasureTheory.memLp_indicator_iff_restrict measurableSet_Ioo]
+    have h_sub_eq : (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)).restrict
+          (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))
+        = logWeightedMeasure.restrict
+          (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)) := by
+      rw [MeasureTheory.Measure.restrict_restrict measurableSet_Ioo]
+      congr 1
+      ext y
+      simp only [Set.mem_inter_iff, Set.mem_Ioo]
+      have hk_nonneg : (0:ℝ) ≤ (k.val : ℝ) / 3 := by positivity
+      have hk_ub : ((k.val : ℝ) + 1) / 3 ≤ 1 := by
+        have : (k.val : ℝ) ≤ 2 := by
+          have : k.val ≤ 2 := by have := k.isLt; omega
+          exact_mod_cast this
+        linarith
+      refine ⟨fun ⟨h1, _⟩ => h1, fun ⟨h1, h2⟩ => ⟨⟨h1, h2⟩, ?_⟩⟩
+      exact ⟨lt_of_le_of_lt hk_nonneg h1, lt_of_lt_of_le h2 hk_ub⟩
+    rw [h_sub_eq]
+    exact h_branch_phased
+  -- Sum over k via memLp_finset_sum.
+  have h_sum : MeasureTheory.MemLp
+      (fun x => ∑ k : Fin 3,
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)).indicator
+          (fun y => phaseFactorBase3Conj k * ((adjointWeight k y : ℂ) *
+                      f.toFunℝ (3 * y - (k.val : ℝ)))) x)
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    MeasureTheory.memLp_finset_sum Finset.univ (fun k _ => h_summand k)
+  -- AE equality: operator equals indicator-sum, modulo {1/3, 2/3} (measure zero).
+  have h_ae : (T3_adjoint.apply f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      (fun x => ∑ k : Fin 3,
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)).indicator
+          (fun y => phaseFactorBase3Conj k * ((adjointWeight k y : ℂ) *
+                      f.toFunℝ (3 * y - (k.val : ℝ)))) x) := by
+    -- {1/3, 2/3} has μ_log-measure zero.
+    have h_bdry_vol_zero : (MeasureTheory.volume : MeasureTheory.Measure ℝ)
+        ({(1/3 : ℝ), 2/3}) = 0 := by
+      have h_subset : ({(1/3 : ℝ), 2/3} : Set ℝ) ⊆ {(1/3 : ℝ)} ∪ {(2/3 : ℝ)} := by
+        intro y hy; simp at hy ⊢; tauto
+      refine MeasureTheory.measure_mono_null h_subset ?_
+      have h_union : (MeasureTheory.volume : MeasureTheory.Measure ℝ)
+          (({(1/3 : ℝ)} : Set ℝ) ∪ {(2/3 : ℝ)}) ≤ _ + _ :=
+        MeasureTheory.measure_union_le _ _
+      apply le_antisymm _ (zero_le _)
+      calc (MeasureTheory.volume : MeasureTheory.Measure ℝ)
+              (({(1/3 : ℝ)} : Set ℝ) ∪ {(2/3 : ℝ)})
+          ≤ MeasureTheory.volume ({(1/3 : ℝ)} : Set ℝ) +
+              MeasureTheory.volume ({(2/3 : ℝ)} : Set ℝ) :=
+            MeasureTheory.measure_union_le _ _
+        _ = 0 + 0 := by rw [Real.volume_singleton, Real.volume_singleton]
+        _ = 0 := by ring
+    have h_bdry_meas_zero : (logWeightedMeasure : MeasureTheory.Measure ℝ)
+        ({(1/3 : ℝ), 2/3}) = 0 := by
+      apply logWeightedMeasure_null_of_volume_pos_null
+      · exact ((Set.finite_singleton (2/3 : ℝ)).insert _).measurableSet
+      · refine MeasureTheory.measure_mono_null Set.inter_subset_left ?_
+        exact h_bdry_vol_zero
+    have h_bdry_ae : ∀ᵐ x ∂logWeightedMeasure, x ≠ 1/3 ∧ x ≠ 2/3 := by
+      rw [MeasureTheory.ae_iff]
+      have h_eq : {x : ℝ | ¬(x ≠ 1/3 ∧ x ≠ 2/3)} = {(1/3 : ℝ), 2/3} := by
+        ext y
+        simp only [Set.mem_setOf_eq, ne_eq, not_and, not_not, Set.mem_insert_iff,
+          Set.mem_singleton_iff]
+        tauto
+      rw [h_eq]
+      exact h_bdry_meas_zero
+    refine (MeasureTheory.ae_restrict_iff' measurableSet_Ioo).mpr ?_
+    filter_upwards [h_bdry_ae] with x hx_bdry hx_Ioo
+    obtain ⟨hx_ne_1_3, hx_ne_2_3⟩ := hx_bdry
+    rw [T3_adjoint_toFunℝ_Ioo f x hx_Ioo]
+    -- Pre-compute bound simplifications (kills cast/arithmetic mismatches).
+    have h_b0_lo : ((0 : Fin 3).val : ℝ)/3 = 0 := by norm_num
+    have h_b0_hi : (((0 : Fin 3).val : ℝ) + 1)/3 = 1/3 := by norm_num
+    have h_b1_lo : ((1 : Fin 3).val : ℝ)/3 = 1/3 := by norm_num
+    have h_b1_hi : (((1 : Fin 3).val : ℝ) + 1)/3 = 2/3 := by norm_num
+    have h_b2_lo : ((2 : Fin 3).val : ℝ)/3 = 2/3 := by norm_num
+    have h_b2_hi : (((2 : Fin 3).val : ℝ) + 1)/3 = 1 := by norm_num
+    have h_v0 : ((0 : Fin 3).val : ℝ) = 0 := by norm_num
+    have h_v1 : ((1 : Fin 3).val : ℝ) = 1 := by norm_num
+    have h_v2 : ((2 : Fin 3).val : ℝ) = 2 := by norm_num
+    -- Expand the sum.
+    simp only [Fin.sum_univ_three]
+    -- LHS: if-cascade. RHS: indicator_0(x) + indicator_1(x) + indicator_2(x).
+    rcases lt_trichotomy x (1/3 : ℝ) with hx1 | hx1 | hx1
+    · -- x < 1/3
+      rw [if_pos hx1.le]
+      have h_in_I0 : x ∈ Set.Ioo (((0 : Fin 3).val : ℝ)/3) ((((0 : Fin 3).val : ℝ) + 1)/3) := by
+        rw [h_b0_lo, h_b0_hi]; exact ⟨hx_Ioo.1, hx1⟩
+      have h_notin_I1 : x ∉ Set.Ioo (((1 : Fin 3).val : ℝ)/3)
+                          ((((1 : Fin 3).val : ℝ) + 1)/3) := by
+        rw [h_b1_lo, h_b1_hi]; simp only [Set.mem_Ioo, not_and, not_lt]; intro h; linarith
+      have h_notin_I2 : x ∉ Set.Ioo (((2 : Fin 3).val : ℝ)/3)
+                          ((((2 : Fin 3).val : ℝ) + 1)/3) := by
+        rw [h_b2_lo, h_b2_hi]; simp only [Set.mem_Ioo, not_and, not_lt]; intro h; linarith
+      rw [Set.indicator_of_mem h_in_I0, Set.indicator_of_notMem h_notin_I1,
+          Set.indicator_of_notMem h_notin_I2]
+      rw [h_v0]; ring
+    · exact absurd hx1 hx_ne_1_3
+    · -- x > 1/3
+      have h_op_1 : ¬(x ≤ 1/3) := not_le.mpr hx1
+      rcases lt_trichotomy x (2/3 : ℝ) with hx2 | hx2 | hx2
+      · -- 1/3 < x < 2/3
+        rw [if_neg h_op_1, if_pos hx2.le]
+        have h_notin_I0 : x ∉ Set.Ioo (((0 : Fin 3).val : ℝ)/3)
+                            ((((0 : Fin 3).val : ℝ) + 1)/3) := by
+          rw [h_b0_lo, h_b0_hi]; simp only [Set.mem_Ioo, not_and, not_lt]; intro _; linarith
+        have h_in_I1 : x ∈ Set.Ioo (((1 : Fin 3).val : ℝ)/3)
+                          ((((1 : Fin 3).val : ℝ) + 1)/3) := by
+          rw [h_b1_lo, h_b1_hi]; exact ⟨hx1, hx2⟩
+        have h_notin_I2 : x ∉ Set.Ioo (((2 : Fin 3).val : ℝ)/3)
+                            ((((2 : Fin 3).val : ℝ) + 1)/3) := by
+          rw [h_b2_lo, h_b2_hi]; simp only [Set.mem_Ioo, not_and, not_lt]; intro h; linarith
+        rw [Set.indicator_of_notMem h_notin_I0, Set.indicator_of_mem h_in_I1,
+            Set.indicator_of_notMem h_notin_I2]
+        rw [h_v1]; ring
+      · exact absurd hx2 hx_ne_2_3
+      · -- x > 2/3
+        rw [if_neg h_op_1, if_neg (not_le.mpr hx2)]
+        have h_notin_I0 : x ∉ Set.Ioo (((0 : Fin 3).val : ℝ)/3)
+                            ((((0 : Fin 3).val : ℝ) + 1)/3) := by
+          rw [h_b0_lo, h_b0_hi]; simp only [Set.mem_Ioo, not_and, not_lt]; intro _; linarith
+        have h_notin_I1 : x ∉ Set.Ioo (((1 : Fin 3).val : ℝ)/3)
+                            ((((1 : Fin 3).val : ℝ) + 1)/3) := by
+          rw [h_b1_lo, h_b1_hi]; simp only [Set.mem_Ioo, not_and, not_lt]; intro _; linarith
+        have h_in_I2 : x ∈ Set.Ioo (((2 : Fin 3).val : ℝ)/3)
+                          ((((2 : Fin 3).val : ℝ) + 1)/3) := by
+          rw [h_b2_lo, h_b2_hi]; exact ⟨hx2, hx_Ioo.2⟩
+        rw [Set.indicator_of_notMem h_notin_I0, Set.indicator_of_notMem h_notin_I1,
+            Set.indicator_of_mem h_in_I2]
+        rw [h_v2]; ring
+  exact h_sum.ae_eq h_ae.symm
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
