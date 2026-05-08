@@ -3201,6 +3201,25 @@ theorem transferOperatorAction_add (b : ℕ) (phases : Fin b → ℂ)
     variables identity on each $I_k$. See `RESEARCH_ROADMAP.md` §3.1
     step 4.
 
+    **2026-05-08 PROGRESS**: the per-pair MemLp2 case is now proven —
+    `T3_self_adjoint_conj_via_MemLp2 (f g : LogWeightedL2)
+        (hf : f.MemLp2) (hg : g.MemLp2) :
+        ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫`
+    composes the entire chain (operator-MemLp2 closures
+    `T3_apply_MemLp2` + `T3_adjoint_apply_MemLp2`, the integrability
+    discharges from Hölder via `MemLp2.inner_integrand_integrable` +
+    Bochner bridge, the formal-adjoint relations from those, and the
+    self-adjointness reduction `_at_pair_MemLp2`) entirely from
+    `f.MemLp2 ∧ g.MemLp2`. The remaining gap to UNCONDITIONAL retirement
+    (over arbitrary `LogWeightedL2`, not just MemLp2) requires either:
+    (a) structural strengthening of `LogWeightedL2` to actual
+        `Lp ℂ 2 logWeightedMeasure` (cascading refactor), OR
+    (b) a non-MemLp2 case argument: when the integrand fails Bochner
+        integrability conditions (e.g., AE-strong-measurability), both
+        sides reduce to 0 via `MeasureTheory.integral_undef`, and the
+        equality holds trivially. Path (b) is subtle because the two
+        sides involve different operator applications.
+
     Reference: Chapter 20, Theorem `thm:self-adjoint-transfer`,
     Definition `def:T3-sym`, Definition `def:T3-adjoint`, Remark
     `rem:T3-vs-T3sym`, Lemma `lem:T3-imaginary-part`. See also
