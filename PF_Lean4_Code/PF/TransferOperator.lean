@@ -1803,6 +1803,30 @@ lemma branch_setIntegral_CoV_adjoint (k : Fin 3) (F : ℝ → ℂ) :
     rw [show (1 / 3 : ℝ) * 3 = 1 by norm_num, one_smul]
   exact h_inv _ _ h
 
+/-- **(1/u)-weighted form of the per-branch CoV for the expanding map**.
+
+    Specialization of `branch_setIntegral_CoV_adjoint` to integrands of the form
+    `(1/(3x - k) : ℂ) · F(3x - k)`, which is the form produced by the Bochner
+    bridge `setIntegral_logWeightedMeasure_Ioo_eq_smul_general` on the LHS
+    sub-interval $I_k$ (where $\mu_{\log} = (1/x) \, dx$).
+
+    Statement: for any `F : ℝ → ℂ`,
+
+      $\int_{k/3}^{(k+1)/3} \frac{F(3u - k)}{3u - k} \, du
+        = \tfrac{1}{3} \int_0^1 \frac{F(u)}{u} \, du$
+
+    Direct via `branch_setIntegral_CoV_adjoint` with $G(u) := (1/u : ℂ) \cdot F(u)$:
+    after substitution, $G(3u - k) = (1/(3u - k)) \cdot F(3u - k)$, exactly the
+    LHS integrand. -/
+lemma branch_volume_integral_inv_3x_minus_k_form_adjoint (k : Fin 3) (F : ℝ → ℂ) :
+    ∫ x in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        ((1 / (3 * x - (k.val : ℝ)) : ℝ) : ℂ) * F (3 * x - (k.val : ℝ))
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ)
+    = (1 / 3 : ℝ) • ∫ u in Set.Ioo (0:ℝ) 1,
+        ((1 / u : ℝ) : ℂ) * F u
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) :=
+  branch_setIntegral_CoV_adjoint k (fun u => ((1 / u : ℝ) : ℂ) * F u)
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
