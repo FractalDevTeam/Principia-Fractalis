@@ -1,8 +1,26 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-05-04, post `LogWeightedL2.inner` axiom RETIREMENT (commit `a43a669`); canonical Lean PF/ at **7 axioms** (down from 8)*
+*Last updated: 2026-05-08, post `T3_self_adjoint_conj` axiom RETIREMENT (commit `1b0deb7`); canonical Lean PF/ at **6 axioms** (down from 7)*
 
-## ⭐ AXIOM ELIMINATION (2026-05-04, commit `a43a669`)
+## ⭐ AXIOM ELIMINATION (2026-05-08, commit `1b0deb7`)
+
+**`T3_self_adjoint_conj` RETIRED.** Second canonical-axiom retirement of 2026-05. Universal axiom asserting `∀ f g : LogWeightedL2, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫` is replaced by the proven per-pair MemLp2 theorem `T3_self_adjoint_conj_via_MemLp2` (commit `aa6b28b`). Five consumer theorems (`spectral_bijection_framework`, `framework_summary`, `T3_sym_spectral_framework`, `T3_sym_RH_precondition`, `T3_spectral_complete`) had their specs narrowed to take `f.MemLp2 ∧ g.MemLp2` hypotheses — the L²(μ_log) subspace is the mathematically meaningful setting.
+
+The 21-commit retirement chain (`e24d3dd` … `1b0deb7`) composes:
+- Operator-MemLp2 closure for $T_3$, $T_3^*$, $T_3^{\mathrm{sym}}$
+- Bochner integrability bridge ($\mu_{\log} \leftrightarrow$ volume)
+- Mayer 1991 §2 hypothesis discharges from MemLp2
+- Per-pair self-adjointness from MemLp2 alone
+- MemLp2-conditional spectral framework building blocks (`IsEigenvalue_MemLp2`, `self_adjoint_real_eigenvalues_MemLp2`)
+- Spec narrowing of all five consumer theorems
+
+**Lean 4 canonical**: 6 axioms (down from 7), 5488 jobs clean, 0 sorries.
+
+**Coq parity**: unchanged (253 axioms, separate scope). The Coq formalization is not touched by this retirement.
+
+The truly UNCONDITIONAL claim over arbitrary `LogWeightedL2` (a "shell" type) is recoverable later via structural refactor `LogWeightedL2 := Lp ℂ 2 logWeightedMeasure`, after which every element is automatically MemLp2 and the per-pair theorem universally quantified is the unconditional self-adjointness statement.
+
+## AXIOM ELIMINATION (2026-05-04, commit `a43a669`)
 
 **`LogWeightedL2.inner` ELIMINATED.** First canonical-axiom retirement since Phase A began. Replaced with a real `noncomputable def` against the log-weighted Bochner integral. Took a simpler path than the originally-projected ~44-callsite structural rename cascade: the placeholder structure is preserved, and a `toFunℝ` extension bridges the `Icc 0 1` domain to `ℝ` for the integrand.
 
