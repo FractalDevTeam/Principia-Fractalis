@@ -1,6 +1,56 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-05-05, **7 axioms** (canonical PF/), 0 sorries, 5488 jobs clean. Mayer 1991 §2 formal-adjoint chain COMPLETE (17 pieces, commits `c117493` … `344be4c`).*
+*As of 2026-05-08, **7 axioms** (canonical PF/), 0 sorries, 5488 jobs clean. Operator-MemLp2 closure for $T_3$, $T_3^*$, $T_3^{\mathrm{sym}}$ COMPLETE; per-pair self-adjointness PROVEN from MemLp2 alone (commits `e24d3dd` … `1c99a4e`).*
+
+## Per-pair self-adjointness from MemLp2 — PROVEN (2026-05-07/08, 15 commits `e24d3dd` … `1c99a4e`)
+
+The full $T_3$ + $T_3^*$ + $T_3^{\mathrm{sym}}$ operator chain on $L^2(\mu_{\log})$
+elements is now in Lean. Headline theorem:
+
+```lean
+theorem T3_self_adjoint_conj_via_MemLp2
+    (f g : LogWeightedL2) (hf : f.MemLp2) (hg : g.MemLp2) :
+    ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫
+```
+
+This composes the entire chain (operator-MemLp2 closures + Bochner-bridge
+integrability discharge + Mayer 1991 formal-adjoint capstone + self-adjointness
+reduction) entirely from `f.MemLp2 ∧ g.MemLp2`. No external integrability
+hypotheses remain.
+
+### Headline theorems
+
+| Theorem | Commit | Role |
+|---------|--------|------|
+| `T3_apply_MemLp2` | `a13be9d` (2026-05-07) | $f \in L^2 \Rightarrow T_3 f \in L^2$ |
+| **`T3_adjoint_apply_MemLp2`** | **`f02c663`** (2026-05-08) | **$f \in L^2 \Rightarrow T_3^* f \in L^2$** |
+| `T3_sym_apply_MemLp2` | `4eca59f` | $f \in L^2 \Rightarrow T_3^{\mathrm{sym}} f \in L^2$ |
+| `T3_inner_branch_integrable_volume_form_from_MemLp2` | `6d040da` | Discharges `h_int_T3` per branch |
+| `T3_adjoint_inner_integrand_IntervalIntegrable_from_MemLp2` | `cb7b36f` | Discharges `h_int_T3adj` |
+| `integrable_logWeightedMeasure_restrict_Ioo_iff_smul` | `eb52c20` | Bochner integrability bridge |
+| `T3_formal_adjoint_relation_from_MemLp2` | `aa6b28b` | $\langle T_3 f, g \rangle = \langle f, T_3^* g \rangle$ from MemLp2 |
+| **`T3_self_adjoint_conj_via_MemLp2`** | **`aa6b28b`** | **Per-pair self-adjointness from MemLp2** |
+| `T3_sym_inner_self_im` | `1c99a4e` | $\langle T_3^{\mathrm{sym}} f, f \rangle \in \mathbb{R}$ on MemLp2 |
+
+### Path to UNCONDITIONAL `T3_self_adjoint_conj` retirement (axiom 7→6)
+
+The axiom is universal over arbitrary `LogWeightedL2` (a "shell" type with
+no L² constraint). Two paths to retirement:
+
+**(a) Structural refactor**: Replace `structure LogWeightedL2` with
+`abbrev LogWeightedL2 := Lp ℂ 2 (logWeightedMeasure.restrict (Ioo 0 1))`.
+Every element automatically MemLp2; `T3_self_adjoint_conj_via_MemLp2`
+universally quantified retires the axiom unconditionally. Cascading
+refactor through every `LogWeightedL2` consumer.
+
+**(b) Non-MemLp2 case via `integral_undef`**: For non-MemLp2 inputs, argue
+both sides of the equation reduce to 0 (Bochner default for non-Integrable
+integrands). Subtle because the two sides involve different operator
+applications; their Integrability behavior may not be symmetric.
+
+Both multi-day. The session memory documents the chain in detail.
+
+## Mayer 1991 §2 formal-adjoint chain — COMPLETE (2026-05-03/05, commits `c117493` … `344be4c`)
 
 ## Mayer 1991 §2 formal-adjoint chain — COMPLETE (2026-05-03/05, commits `c117493` … `344be4c`)
 
