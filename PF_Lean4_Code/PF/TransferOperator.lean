@@ -3508,6 +3508,58 @@ lemma T3_inner_branch_integrable_volume_form_from_MemLp2
   rw [h_star_eq]
   ring
 
+/-- **Formal adjoint relation from MemLp2 alone**:
+    $\langle T_3 f, g \rangle = \langle f, T_3^* g \rangle$ from
+    `f.MemLp2 ∧ g.MemLp2`.
+
+    Composes the two integrability discharges
+    (`T3_inner_branch_integrable_volume_form_from_MemLp2` and
+    `T3_adjoint_inner_integrand_IntervalIntegrable_from_MemLp2`) with
+    `T3_formal_adjoint_relation_via_integrability` (the Mayer 1991 chain
+    capstone). The entire 17-piece Mayer chain now closes from MemLp2
+    hypotheses alone — no external integrability assumptions needed. -/
+theorem T3_formal_adjoint_relation_from_MemLp2
+    (f g : LogWeightedL2) (hf : f.MemLp2) (hg : g.MemLp2) :
+    ⟪T3.apply f, g⟫ = ⟪f, T3_adjoint.apply g⟫ :=
+  T3_formal_adjoint_relation_via_integrability f g
+    (fun k => T3_inner_branch_integrable_volume_form_from_MemLp2 f g hf hg k)
+    (T3_adjoint_inner_integrand_IntervalIntegrable_from_MemLp2 f g hf hg)
+
+/-- **Inverse formal adjoint relation from MemLp2**:
+    $\langle T_3^* f, g \rangle = \langle f, T_3 g \rangle$.
+
+    Derived from `T3_formal_adjoint_relation_from_MemLp2` (applied at $(g, f)$)
+    via `LogWeightedL2.inner_conj_symm` + `star_star`. -/
+theorem T3_formal_adjoint_relation_inv_from_MemLp2
+    (f g : LogWeightedL2) (hf : f.MemLp2) (hg : g.MemLp2) :
+    ⟪T3_adjoint.apply f, g⟫ = ⟪f, T3.apply g⟫ := by
+  rw [LogWeightedL2.inner_conj_symm (T3_adjoint.apply f) g,
+      ← T3_formal_adjoint_relation_from_MemLp2 g f hg hf,
+      ← LogWeightedL2.inner_conj_symm]
+
+/-- **Per-pair self-adjointness of $\widetilde{T}_3^{\mathrm{sym}}$ from MemLp2 alone**:
+    $\langle T_3^{\mathrm{sym}} f, g \rangle = \langle f, T_3^{\mathrm{sym}} g \rangle$
+    when `f.MemLp2` and `g.MemLp2`.
+
+    Composes:
+    - `T3_apply_MemLp2`, `T3_adjoint_apply_MemLp2` (operator-MemLp2 closure)
+    - `T3_formal_adjoint_relation_{,_inv}_from_MemLp2` (formal-adjoint chain)
+    - `T3_self_adjoint_conj_via_formal_adjoint_at_pair_MemLp2` (self-adjointness reduction)
+
+    All 6 inputs of `_at_pair_MemLp2` are now derived from `f.MemLp2 ∧ g.MemLp2` —
+    no external hypotheses remain. -/
+theorem T3_self_adjoint_conj_via_MemLp2
+    (f g : LogWeightedL2) (hf : f.MemLp2) (hg : g.MemLp2) :
+    ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫ :=
+  T3_self_adjoint_conj_via_formal_adjoint_at_pair_MemLp2
+    hf hg
+    (T3_apply_MemLp2 f hf)
+    (T3_adjoint_apply_MemLp2 f hf)
+    (T3_apply_MemLp2 g hg)
+    (T3_adjoint_apply_MemLp2 g hg)
+    (T3_formal_adjoint_relation_from_MemLp2 f g hf hg)
+    (T3_formal_adjoint_relation_inv_from_MemLp2 f g hf hg)
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
