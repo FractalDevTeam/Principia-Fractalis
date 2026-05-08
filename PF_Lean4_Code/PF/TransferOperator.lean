@@ -3579,6 +3579,20 @@ theorem T3_self_adjoint_conj_via_MemLp2
     (T3_formal_adjoint_relation_from_MemLp2 f g hf hg)
     (T3_formal_adjoint_relation_inv_from_MemLp2 f g hf hg)
 
+/-- **Symmetrised operator MemLp2 closure**: `(T3_sym.apply f).MemLp2`
+    follows from `f.MemLp2`.
+
+    By construction `T3_sym.apply f = (1/2 : ℂ) • (T3.apply f + T3_adjoint.apply f)`.
+    Combines `T3_apply_MemLp2` + `T3_adjoint_apply_MemLp2` via
+    `MemLp2.add` and `MemLp2.const_smul`.
+
+    This completes the operator-MemLp2 closure for the entire $T_3, T_3^*, T_3^{\mathrm{sym}}$
+    family — every operator preserves $L^2(\mu_{\log})$. -/
+theorem T3_sym_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
+    (T3_sym.apply f).MemLp2 := by
+  show ((1/2 : ℂ) • (T3.apply f + T3_adjoint.apply f)).MemLp2
+  exact ((T3_apply_MemLp2 f hf).add (T3_adjoint_apply_MemLp2 f hf)).const_smul (1/2 : ℂ)
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
