@@ -340,15 +340,18 @@ theorem first_zero_agreement :
     2026-04-29 explicit-witness sharpening). The second and third
     conjuncts are independent. -/
 theorem spectral_bijection_framework :
-    -- T3_sym is self-adjoint (sharpened rev-3 form)
-    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- T3_sym is self-adjoint on MemLp2 inputs (the L²(μ_log) subspace —
+    -- the mathematically meaningful setting; spec narrowed 2026-05-08
+    -- as part of the T3_self_adjoint_conj retirement cascade).
+    (∀ f g, f.MemLp2 → g.MemLp2 →
+      ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
     -- Map to critical line is well-defined and injective
     (∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
       eigenvalueToT α_star_empirical ev₁ = eigenvalueToT α_star_empirical ev₂ →
       |ev₁| = |ev₂|) ∧
     -- Framework identifies what's needed for full proof
     True := by
-  refine ⟨T3_self_adjoint_conj, g_injective α_star_empirical, trivial⟩
+  refine ⟨T3_self_adjoint_conj_via_MemLp2, g_injective α_star_empirical, trivial⟩
 
 /-! ## Toy Model: L-function Example -/
 
@@ -418,10 +421,12 @@ theorem selberg_model_works (M : SelbergZetaModel) :
     axiom's docstring for full history. -/
 theorem framework_summary :
     -- We have a rigorous spectral framework, with T3_sym carrying
-    -- the self-adjointness identity (rev-3 sharpened form).
+    -- the self-adjointness identity on MemLp2 inputs (the L²(μ_log)
+    -- subspace — the mathematically meaningful setting; spec narrowed
+    -- 2026-05-08 as part of the T3_self_adjoint_conj retirement cascade).
     (∃ T : TransferOperator 3,
-      -- Self-adjoint (axiom T3_self_adjoint_conj instantiated at T3_sym)
-      (∀ f g, ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫) ∧
+      -- Self-adjoint on MemLp2 (proven via T3_self_adjoint_conj_via_MemLp2)
+      (∀ f g, f.MemLp2 → g.MemLp2 → ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫) ∧
       -- Compact
       True ∧
       -- Maps eigenvalues to critical line injectively
@@ -429,7 +434,7 @@ theorem framework_summary :
         ∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
           eigenvalueToT α ev₁ = eigenvalueToT α ev₂ → |ev₁| = |ev₂|)) := by
   use T3_sym
-  refine ⟨T3_self_adjoint_conj, trivial, ?_⟩
+  refine ⟨T3_self_adjoint_conj_via_MemLp2, trivial, ?_⟩
   intro α
   exact g_injective α
 
