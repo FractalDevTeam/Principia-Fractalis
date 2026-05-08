@@ -3913,13 +3913,16 @@ theorem spectral_gap_exists :
     Note: Self-adjointness depends on the inner product axiom.
 -/
 theorem T3_spectral_complete :
-    -- T3_sym is self-adjoint (conjectural axiom; sharpened rev-3 form)
-    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- T3_sym is self-adjoint on MemLp2 inputs (the L²(μ_log) subspace —
+    -- the mathematically meaningful setting; spec narrowed 2026-05-08
+    -- as part of the T3_self_adjoint_conj retirement cascade).
+    (∀ f g, f.MemLp2 → g.MemLp2 →
+        ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
     -- Has real eigenvalues converging to 0
     (∃ (eigs : EigenvalueSequence 3), True) ∧
     -- Spectral radius = 1/3
     (|lambda_max| = 1/3) := by
-  refine ⟨T3_self_adjoint_conj, ?_, ?_⟩
+  refine ⟨T3_self_adjoint_conj_via_MemLp2, ?_, ?_⟩
   · exact ⟨{
       eigenvalues := fun n => (1/3 : ℝ) / (n + 1)
       decreasing := by
