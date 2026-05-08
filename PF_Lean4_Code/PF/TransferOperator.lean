@@ -1976,6 +1976,144 @@ lemma branch_logWeightedMeasure_norm_sq_eq_adjoint_real (k : Fin 3) (f : LogWeig
   rw [Complex.real_smul, ← Complex.ofReal_mul] at h_C
   exact_mod_cast h_C
 
+/-- **Expanding-branch map is measurable**. The map $x \mapsto 3x - k$
+    is the affine inverse of the contracting branch $y_k$; it is the
+    composition of a multiplication and a translation, both Borel-measurable. -/
+lemma expandingBranch_measurable (k : Fin 3) :
+    Measurable (fun x : ℝ => 3 * x - (k.val : ℝ)) := by
+  fun_prop
+
+/-- **Volume pushforward under the expanding branch map**.
+
+    For the affine map $\psi_k(x) = 3x - k$, the volume pushforward is
+    $(1/3) \cdot \text{volume}$. Decomposes as $(\cdot - k) \circ (3 \cdot)$:
+    multiplication by 3 stretches volume by factor $1/3$ (Jacobian) and
+    translation is volume-preserving. Mirror of `volume_map_inverseBranch` for
+    the expanding direction. -/
+lemma volume_map_expandingBranch (k : Fin 3) :
+    MeasureTheory.Measure.map (fun x : ℝ => 3 * x - (k.val : ℝ))
+      (MeasureTheory.volume : MeasureTheory.Measure ℝ)
+    = (ENNReal.ofReal (1/3 : ℝ)) •
+        (MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  -- Decompose ψ_k = (·-k) ∘ (3*·) and apply map_map.
+  rw [show (fun x : ℝ => 3 * x - (k.val : ℝ))
+        = (fun y : ℝ => y - (k.val : ℝ)) ∘ (fun x : ℝ => 3 * x) from rfl]
+  rw [← MeasureTheory.Measure.map_map
+        (by fun_prop : Measurable (fun y : ℝ => y - (k.val : ℝ)))
+        (by fun_prop : Measurable (fun x : ℝ => 3 * x))]
+  -- map (3 * ·) volume = ofReal |3|⁻¹ • volume
+  rw [Real.map_volume_mul_left (by norm_num : (3 : ℝ) ≠ 0)]
+  -- map (·-k) ((|3|⁻¹) • volume) = (|3|⁻¹) • map (·-k) volume = (|3|⁻¹) • volume
+  rw [MeasureTheory.Measure.map_smul]
+  congr 1
+  · -- ofReal |3⁻¹| = ofReal (1/3)
+    congr 1
+    rw [abs_of_pos (by norm_num : (3:ℝ)⁻¹ > 0)]
+    norm_num
+  · -- map (·-k) volume = volume (translation invariance)
+    exact (MeasureTheory.measurePreserving_sub_right MeasureTheory.volume
+            (k.val : ℝ)).map_eq
+
+/-- **Expanding-branch map is QuasiMeasurePreserving** from `μ_log↾I_k` to
+    `μ_log↾(0,1)`.
+
+    For x ∈ I_k, ψ_k(x) = 3x - k ∈ (0,1), so the pushforward is supported on
+    (0,1). For absolute continuity: any μ_log-null set A ⊆ (0,1) has
+    volume(A) = 0 (by density bridge), and ψ_k⁻¹(A) ∩ I_k has volume
+    (1/3)·volume(A) = 0 (by Jacobian), hence μ_log-null on Ioi 0
+    (by converse density bridge).
+
+    Mirror of `inverseBranch_qmp_to_sub` for the expanding direction.
+    Unblocks `AEStronglyMeasurable.comp_quasiMeasurePreserving` for
+    `f.toFunℝ ∘ ψ_k` on I_k. -/
+lemma expandingBranch_qmp_to_unit (k : Fin 3) :
+    MeasureTheory.Measure.QuasiMeasurePreserving
+      (fun x : ℝ => 3 * x - (k.val : ℝ))
+      (logWeightedMeasure.restrict
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)))
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  refine ⟨expandingBranch_measurable k, ?_⟩
+  refine MeasureTheory.Measure.AbsolutelyContinuous.mk ?_
+  intros A hA hA_zero
+  -- hA_zero : μ_log↾(0,1) A = 0  →  μ_log(A ∩ Ioo 0 1) = 0
+  rw [MeasureTheory.Measure.restrict_apply hA] at hA_zero
+  -- Goal: (μ_log↾I_k).map ψ_k A = 0
+  rw [MeasureTheory.Measure.map_apply (expandingBranch_measurable k) hA]
+  rw [MeasureTheory.Measure.restrict_apply
+      ((expandingBranch_measurable k) hA)]
+  -- Goal: μ_log (ψ_k⁻¹ A ∩ I_k) = 0
+  -- For x ∈ I_k, ψ_k x = 3x - k ∈ (0,1). So ψ_k⁻¹ A ∩ I_k ⊆ ψ_k⁻¹ (A ∩ Ioo 0 1).
+  apply logWeightedMeasure_null_of_volume_pos_null
+    (((expandingBranch_measurable k) hA).inter measurableSet_Ioo)
+  -- Goal: volume((ψ_k⁻¹ A ∩ I_k) ∩ Ioi 0) = 0
+  -- ψ_k⁻¹ A ∩ I_k ⊆ ψ_k⁻¹ (A ∩ Ioo 0 1), and I_k ⊆ Ioi 0 for k : Fin 3.
+  have h_subset : (fun x : ℝ => 3 * x - (k.val : ℝ))⁻¹' A ∩
+                    Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3) ∩ Set.Ioi (0:ℝ)
+              ⊆ (fun x : ℝ => 3 * x - (k.val : ℝ))⁻¹' (A ∩ Set.Ioo (0:ℝ) 1) := by
+    rintro x ⟨⟨hx_pre, hx_Ik⟩, _⟩
+    refine ⟨hx_pre, ?_, ?_⟩
+    · -- 0 < 3x - k
+      have h_lower : (k.val : ℝ) / 3 < x := hx_Ik.1
+      linarith
+    · -- 3x - k < 1
+      have h_upper : x < ((k.val : ℝ) + 1) / 3 := hx_Ik.2
+      linarith
+  refine MeasureTheory.measure_mono_null h_subset ?_
+  -- Goal: volume(ψ_k⁻¹ (A ∩ Ioo 0 1)) = 0
+  rw [← MeasureTheory.Measure.map_apply (expandingBranch_measurable k)
+      (hA.inter measurableSet_Ioo)]
+  rw [volume_map_expandingBranch k]
+  rw [MeasureTheory.Measure.smul_apply, smul_eq_mul]
+  -- Goal: ofReal(1/3) * volume(A ∩ Ioo 0 1) = 0
+  have h_vol_zero : (MeasureTheory.volume : MeasureTheory.Measure ℝ)
+      (A ∩ Set.Ioo (0:ℝ) 1) = 0 := by
+    have h := volume_pos_null_of_logWeightedMeasure_null
+                (hA.inter measurableSet_Ioo) hA_zero
+    rw [show A ∩ Set.Ioo (0:ℝ) 1 = (A ∩ Set.Ioo (0:ℝ) 1) ∩ Set.Ioi (0:ℝ) from ?_]
+    · exact h
+    · ext y
+      simp only [Set.mem_inter_iff, Set.mem_Ioo, Set.mem_Ioi]
+      tauto
+  rw [h_vol_zero]
+  exact mul_zero _
+
+/-- **Per-branch adjoint function is AEStronglyMeasurable** on `μ_log↾I_k`.
+
+    `(fun x => (adjointWeight k x : ℂ) * f.toFunℝ(3x - k))` is AEStronglyMeasurable
+    as a product:
+    - `(adjointWeight k x : ℂ)` will need a measurability lemma.
+    - `f.toFunℝ ∘ (3 * · - k)` is AEStronglyMeasurable via
+      `AEStronglyMeasurable.comp_quasiMeasurePreserving` with
+      `expandingBranch_qmp_to_unit`. -/
+lemma adjointWeight_measurable (k : Fin 3) :
+    Measurable (adjointWeight k) := by
+  unfold adjointWeight
+  apply Measurable.ite
+  · exact measurableSet_lt measurable_const
+            ((measurable_const.mul measurable_id).sub measurable_const)
+  · exact (measurable_id.div ((measurable_const.mul measurable_id).sub
+            measurable_const)).sqrt
+  · exact measurable_const
+
+/-- ℂ-cast measurability of `adjointWeight`. -/
+lemma adjointWeight_complex_measurable (k : Fin 3) :
+    Measurable (fun x : ℝ => (adjointWeight k x : ℂ)) :=
+  Complex.continuous_ofReal.measurable.comp (adjointWeight_measurable k)
+
+/-- **Per-branch adjoint function is AEStronglyMeasurable** on `μ_log↾I_k`. -/
+lemma branch_function_aestronglyMeasurable_adjoint (k : Fin 3) (f : LogWeightedL2)
+    (hf : f.MemLp2) :
+    MeasureTheory.AEStronglyMeasurable
+      (fun x => (adjointWeight k x : ℂ) * f.toFunℝ (3 * x - (k.val : ℝ)))
+      (logWeightedMeasure.restrict
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))) := by
+  refine MeasureTheory.AEStronglyMeasurable.mul ?_ ?_
+  · exact (adjointWeight_complex_measurable k).aestronglyMeasurable
+  · -- f.toFunℝ ∘ (3*·-k) AE-strongly-measurable on μ_log↾I_k via QMP composition
+    have h_outer : MeasureTheory.AEStronglyMeasurable f.toFunℝ
+        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := hf.1
+    exact h_outer.comp_quasiMeasurePreserving (expandingBranch_qmp_to_unit k)
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
