@@ -3428,6 +3428,86 @@ lemma T3_adjoint_inner_integrand_IntervalIntegrable_from_MemLp2
   rw [intervalIntegrable_iff_integrableOn_Ioo_of_le (by norm_num : (0:ℝ) ≤ 1)]
   exact h_int_vol_mul
 
+/-- **Per-branch contracting integrand Integrable from MemLp2** —
+    discharges `h_int_T3 k` of `T3_formal_adjoint_relation_via_integrability`.
+
+    For `f.MemLp2` and `g.MemLp2`, the per-branch contracting integrand
+      `(1/x : ℂ) · conj(ω_k) · w_k(x) · conj(f(y_k(x))) · g(x)`
+    is `Integrable` on `volume.restrict (Ioo 0 1)`.
+
+    Chain:
+    1. `branch_function_MemLp2 k f hf` → MemLp `(w_k(x) · f(y_k(x)))` 2 on μ_log↾(0,1).
+    2. `.star` → MemLp `star(w_k · f∘y_k)` 2 (which equals `w_k · conj(f∘y_k)`
+       since `w_k` is real-cast).
+    3. `.const_smul (conj(ω_k))` → MemLp 2 of the conjugated phased branch.
+    4. `MemLp.mul hg` → MemLp 1 of the product with `g`.
+    5. `memLp_one_iff_integrable` → Integrable on μ_log↾(0,1).
+    6. `integrable_logWeightedMeasure_restrict_Ioo_iff_smul` → Integrable of
+       `(1/x) • (·)` on volume↾(0,1).
+    7. Convert smul to mul and rearrange via `Complex.real_smul` + `ring`. -/
+lemma T3_inner_branch_integrable_volume_form_from_MemLp2
+    (f g : LogWeightedL2) (hf : f.MemLp2) (hg : g.MemLp2) (k : Fin 3) :
+    MeasureTheory.Integrable
+      (fun x => ((1 / x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (phaseFactorBase3 k) *
+                ((weightFunction 3 k x : ℝ) : ℂ) *
+                (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                g.toFunℝ x)
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+          (Set.Ioo (0:ℝ) 1)) := by
+  have h_branch : MeasureTheory.MemLp
+      (fun x => (weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x))
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    branch_function_MemLp2 k f hf
+  have h_branch_star : MeasureTheory.MemLp
+      (fun x => star ((weightFunction 3 k x : ℂ) *
+                  f.toFunℝ (inverseBranch 3 k x)))
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := h_branch.star
+  have h_phase_branch_star : MeasureTheory.MemLp
+      (fun x => (starRingEnd ℂ) (phaseFactorBase3 k) *
+                star ((weightFunction 3 k x : ℂ) *
+                  f.toFunℝ (inverseBranch 3 k x)))
+      2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    h_branch_star.const_smul ((starRingEnd ℂ) (phaseFactorBase3 k))
+  have hg_memlp2 : MeasureTheory.MemLp g.toFunℝ 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := hg
+  have h_prod_1 : MeasureTheory.MemLp
+      (fun x => ((starRingEnd ℂ) (phaseFactorBase3 k) *
+                  star ((weightFunction 3 k x : ℂ) *
+                    f.toFunℝ (inverseBranch 3 k x))) * g.toFunℝ x)
+      1 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    MeasureTheory.MemLp.mul hg_memlp2 h_phase_branch_star
+  have h_int_mu_log : MeasureTheory.Integrable
+      (fun x => ((starRingEnd ℂ) (phaseFactorBase3 k) *
+                  star ((weightFunction 3 k x : ℂ) *
+                    f.toFunℝ (inverseBranch 3 k x))) * g.toFunℝ x)
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    MeasureTheory.memLp_one_iff_integrable.mp h_prod_1
+  have h_int_vol_smul : MeasureTheory.Integrable
+      (fun x => (1/x : ℝ) •
+                (((starRingEnd ℂ) (phaseFactorBase3 k) *
+                  star ((weightFunction 3 k x : ℂ) *
+                    f.toFunℝ (inverseBranch 3 k x))) * g.toFunℝ x))
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+        (Set.Ioo (0:ℝ) 1)) :=
+    (integrable_logWeightedMeasure_restrict_Ioo_iff_smul 0 1 le_rfl _).mp h_int_mu_log
+  refine (MeasureTheory.integrable_congr ?_).mp h_int_vol_smul
+  refine MeasureTheory.ae_of_all _ (fun x => ?_)
+  show (1/x : ℝ) • _ = _
+  rw [Complex.real_smul]
+  -- Need: ((1/x:ℝ):ℂ) · [(conj(ω_k) · star(w_k · f∘y_k)) · g]
+  --     = ((1/x:ℝ):ℂ) · conj(ω_k) · ((w_k:ℝ):ℂ) · conj(f∘y_k) · g
+  have h_star_eq :
+      star (((weightFunction 3 k x : ℝ) : ℂ) * f.toFunℝ (inverseBranch 3 k x))
+        = ((weightFunction 3 k x : ℝ) : ℂ) *
+          (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) := by
+    rw [star_mul']
+    congr 1
+    -- star ((w_real : ℝ) : ℂ) = ((w_real : ℝ) : ℂ): real cast is fixed by star.
+    exact Complex.conj_ofReal _
+  rw [h_star_eq]
+  ring
+
 /-- Eigenvalue predicate for an operator on `LogWeightedL2`.
 
     `IsEigenvalue T λ` holds iff there is a non-zero `f : LogWeightedL2`
