@@ -1743,6 +1743,66 @@ theorem T3_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
     ring
   exact h_T3_explicit.ae_eq h_ae.symm
 
+/-! ### Adjoint operator MemLp2 chain — per-branch L² identity for the expanding map
+
+The adjoint operator $\widetilde{T}_3^*$ acts piecewise: on $I_k = (k/3, (k+1)/3]$
+the operator equals $\bar{\omega}_k \cdot w^*_k(x) \cdot f(3x - k)$, where
+$3x - k$ is the expanding map mapping $I_k \to (0,1)$ with Jacobian $3$ (so the
+inverse Jacobian is $1/3$). This contrasts the contracting case where each
+branch maps the FULL $(0,1)$ to a sub-interval $I_k$.
+
+Per-branch L² identity (Mayer 1991, §2 — operator-norm step for the adjoint):
+  $\int_{I_k} |w^*_k(x) \cdot f(3x-k)|^2 \, d\mu_{\log}(x) = \tfrac{1}{3} \int_0^1 |f(u)|^2 \, d\mu_{\log}(u)$
+(versus $3 \cdot \int_{I_k} |f|^2$ in the contracting case — both forms are
+mass-preserving). Summing over $k$ gives the operator bound
+$\|T_3^* f\|^2 \le \|f\|^2$.
+
+Chain mirrors the contracting one (`branch_setIntegral_CoV` →
+`branch_norm_sq_pointwise_simplify` → `branch_volume_norm_sq_eq` →
+`branch_logWeightedMeasure_norm_sq_eq`), terminating in the closure
+`T3_adjoint_apply_MemLp2`. The final composition uses the piecewise
+indicator decomposition of $\widetilde{T}_3^*$ on the partition
+$I_0 \cup I_1 \cup I_2 = (0,1)$. -/
+
+/-- **Per-branch CoV for the expanding map** $\psi_k(x) = 3x - k$ on the
+    dyadic-thirds sub-interval $I_k = (k/3, (k+1)/3)$, mapping $I_k$ onto
+    $(0,1)$ with Jacobian factor $1/3$.
+
+    Statement: for any `F : ℝ → ℂ`,
+
+      $\int_{k/3}^{(k+1)/3} F(3u - k) \, du = \tfrac{1}{3} \int_0^1 F(x) \, dx$
+
+    Direct corollary of `branch_setIntegral_CoV` applied to $G(u) := F(3u - k)$:
+    the simplification $3 \cdot y_k(x) - k = x$ pointwise reduces the LHS to
+    $\int_0^1 F(x) \, dx$, and the prefactor of 3 inverts to $1/3$. Mirror of
+    `branch_setIntegral_CoV` for the expanding direction needed by the adjoint
+    operator's per-branch L² identity. -/
+lemma branch_setIntegral_CoV_adjoint (k : Fin 3) (F : ℝ → ℂ) :
+    ∫ u in Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3),
+        F (3 * u - (k.val : ℝ))
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ)
+    = (1 / 3 : ℝ) • ∫ x in Set.Ioo (0:ℝ) 1, F x
+        ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ) := by
+  have h := branch_setIntegral_CoV k (fun u => F (3 * u - (k.val : ℝ)))
+  -- h : ∫ x in (0,1), F(3·y_k(x) - k) dx = 3 • ∫ u in I_k, F(3u - k) du
+  have h_pointwise : Set.EqOn
+      (fun x : ℝ => F (3 * inverseBranch 3 k x - (k.val : ℝ)))
+      F (Set.Ioo (0:ℝ) 1) := by
+    intros x _
+    show F _ = F _
+    congr 1
+    unfold inverseBranch
+    push_cast
+    ring
+  rw [MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo h_pointwise] at h
+  -- h : ∫ x in (0,1), F x dx = 3 • ∫ u in I_k, F(3u - k) du
+  -- Solve linearly: multiply both sides by (1/3).
+  have h_inv : ∀ a b : ℂ, a = (3 : ℝ) • b → b = (1 / 3 : ℝ) • a := by
+    intros a b heq
+    rw [heq, smul_smul]
+    rw [show (1 / 3 : ℝ) * 3 = 1 by norm_num, one_smul]
+  exact h_inv _ _ h
+
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
 
