@@ -259,59 +259,71 @@ definition. These are session-scale follow-ons to the axiom retirement
 proofs that previously took `hsmul_left`/`hsmul_right`/`hpos_def` as
 hypotheses) can use to discharge those hypotheses. -/
 
-/-- The zero element's `toFunℝ` is the zero function. -/
-lemma LogWeightedL2.toFunℝ_zero : LogWeightedL2.toFunℝ 0 = (fun _ => 0) := by
-  funext x
-  unfold LogWeightedL2.toFunℝ
-  split_ifs with h
-  · -- (0 : LogWeightedL2).toFun ⟨x, h⟩ = 0 by instZero
-    rfl
-  · rfl
+/-- The zero element's `toFunℝ` is AE-equal to the zero function on the
+    integration measure. Refactored 2026-05-09: was pointwise function
+    equality for the structure-form `LogWeightedL2`; now AE-equality
+    on `μ_log↾(Ioo 0 1)` via `Lp.coeFn_zero` for the Lp form. -/
+lemma LogWeightedL2.toFunℝ_zero :
+    (LogWeightedL2.toFunℝ (0 : LogWeightedL2))
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)] 0 := by
+  unfold LogWeightedL2.toFunℝ LogWeightedL2.toFun LogWeightedL2
+  exact MeasureTheory.Lp.coeFn_zero ℂ 2 _
 
-/-- `inner 0 g = 0`. The zero element's `toFunℝ` is identically 0,
-    so the integrand is 0 and the integral vanishes. -/
+/-- `inner 0 g = 0`. The zero element's `toFunℝ` is AE-zero,
+    so the integrand is AE-zero and the integral vanishes via
+    `integral_congr_ae`. -/
 theorem LogWeightedL2.inner_zero_left (g : LogWeightedL2) :
     LogWeightedL2.inner 0 g = 0 := by
   unfold LogWeightedL2.inner
-  simp only [LogWeightedL2.toFunℝ_zero, map_zero, zero_mul,
-    MeasureTheory.integral_zero]
+  rw [MeasureTheory.integral_congr_ae
+    (f := fun x => (starRingEnd ℂ) ((0 : LogWeightedL2).toFunℝ x) * g.toFunℝ x)
+    (g := fun _ => 0) ?_]
+  · exact MeasureTheory.integral_zero
+  · filter_upwards [LogWeightedL2.toFunℝ_zero] with x hx
+    have hx0 : (0 : LogWeightedL2).toFunℝ x = (0 : ℂ) := by
+      rw [hx]; rfl
+    rw [hx0, map_zero, zero_mul]
 
-/-- `inner f 0 = 0`. The zero element's `toFunℝ` is identically 0,
-    so the integrand is 0 and the integral vanishes. -/
+/-- `inner f 0 = 0`. The zero element's `toFunℝ` is AE-zero,
+    so the integrand is AE-zero and the integral vanishes. -/
 theorem LogWeightedL2.inner_zero_right (f : LogWeightedL2) :
     LogWeightedL2.inner f 0 = 0 := by
   unfold LogWeightedL2.inner
-  simp only [LogWeightedL2.toFunℝ_zero, mul_zero,
-    MeasureTheory.integral_zero]
+  rw [MeasureTheory.integral_congr_ae
+    (f := fun x => (starRingEnd ℂ) (f.toFunℝ x) * (0 : LogWeightedL2).toFunℝ x)
+    (g := fun _ => 0) ?_]
+  · exact MeasureTheory.integral_zero
+  · filter_upwards [LogWeightedL2.toFunℝ_zero] with x hx
+    have hx0 : (0 : LogWeightedL2).toFunℝ x = (0 : ℂ) := by
+      rw [hx]; rfl
+    rw [hx0, mul_zero]
 
-/-- Negation pointwise: `(-f).toFunℝ x = -(f.toFunℝ x)`.
-    Pointwise version (avoids Pi.neg_apply complications in the funext form). -/
-lemma LogWeightedL2.toFunℝ_neg_apply (f : LogWeightedL2) (x : ℝ) :
-    (-f).toFunℝ x = -(f.toFunℝ x) := by
-  unfold LogWeightedL2.toFunℝ
-  split_ifs with h
-  · -- (-f).toFun ⟨x,h⟩ = -(f.toFun ⟨x,h⟩) — needs explicit unfold of instNeg
-    show (-f).toFun ⟨x, h⟩ = -(f.toFun ⟨x, h⟩)
-    rfl
-  · exact (neg_zero).symm
+/-- Negation AE-equality: `(-f).toFunℝ =ᵐ[μ] -(f.toFunℝ)` on the integration measure.
+    Refactored 2026-05-09 from pointwise to AE form via `Lp.coeFn_neg`. -/
+lemma LogWeightedL2.toFunℝ_neg (f : LogWeightedL2) :
+    (-f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      -(f.toFunℝ) := by
+  unfold LogWeightedL2.toFunℝ LogWeightedL2.toFun LogWeightedL2
+  exact MeasureTheory.Lp.coeFn_neg _
 
-/-- Scalar multiplication pointwise: `(c • f).toFunℝ x = c • (f.toFunℝ x)`. -/
-lemma LogWeightedL2.toFunℝ_smul_apply (c : ℂ) (f : LogWeightedL2) (x : ℝ) :
-    (c • f).toFunℝ x = c • (f.toFunℝ x) := by
-  unfold LogWeightedL2.toFunℝ
-  split_ifs with h
-  · show (c • f).toFun ⟨x, h⟩ = c • f.toFun ⟨x, h⟩
-    rfl
-  · simp
+/-- Scalar multiplication AE-equality: `(c • f).toFunℝ =ᵐ[μ] c • f.toFunℝ`.
+    Refactored 2026-05-09 from pointwise to AE form via `Lp.coeFn_smul`. -/
+lemma LogWeightedL2.toFunℝ_smul (c : ℂ) (f : LogWeightedL2) :
+    (c • f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      c • (f.toFunℝ) := by
+  unfold LogWeightedL2.toFunℝ LogWeightedL2.toFun LogWeightedL2
+  exact MeasureTheory.Lp.coeFn_smul _ _
 
-/-- Addition pointwise: `(f1 + f2).toFunℝ x = f1.toFunℝ x + f2.toFunℝ x`. -/
-lemma LogWeightedL2.toFunℝ_add_apply (f1 f2 : LogWeightedL2) (x : ℝ) :
-    (f1 + f2).toFunℝ x = f1.toFunℝ x + f2.toFunℝ x := by
-  unfold LogWeightedL2.toFunℝ
-  split_ifs with h
-  · show (f1 + f2).toFun ⟨x, h⟩ = f1.toFun ⟨x, h⟩ + f2.toFun ⟨x, h⟩
-    rfl
-  · simp
+/-- Addition AE-equality: `(f1 + f2).toFunℝ =ᵐ[μ] f1.toFunℝ + f2.toFunℝ`.
+    Refactored 2026-05-09 from pointwise to AE form via `Lp.coeFn_add`. -/
+lemma LogWeightedL2.toFunℝ_add (f1 f2 : LogWeightedL2) :
+    (f1 + f2).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      f1.toFunℝ + f2.toFunℝ := by
+  unfold LogWeightedL2.toFunℝ LogWeightedL2.toFun LogWeightedL2
+  exact MeasureTheory.Lp.coeFn_add _ _
 
 /-! #### `MemLp2` closure lemmas
 
@@ -324,42 +336,35 @@ structural foundation for retiring `T3_self_adjoint_conj`. The
 operator-action half (i.e. `(T3.apply f).MemLp2` from `f.MemLp2`)
 uses Mayer 1991's `‖T_3‖ ≤ 1` bound and is proved further down. -/
 
+/-- **Universal `MemLp2` for the Lp form.** Refactored 2026-05-09: every
+    `LogWeightedL2` element is now a genuine `Lp ℂ 2 μ` element, so its
+    `toFunℝ` representative satisfies `MemLp` by construction (`Lp.memLp`).
+    The `MemLp2` predicate is therefore trivially universal — no caveat
+    needed. The closure lemmas below (`MemLp2_zero`, `.add`, `.neg`,
+    `.const_smul`) are derived corollaries kept for API stability. -/
+theorem LogWeightedL2.MemLp2_universal (f : LogWeightedL2) : f.MemLp2 := by
+  unfold LogWeightedL2.MemLp2 LogWeightedL2.toFunℝ LogWeightedL2.toFun LogWeightedL2
+  exact MeasureTheory.Lp.memLp _
+
 /-- The zero element is in $L^2(\mu_{\log})$ on $(0,1)$. -/
-@[simp] theorem LogWeightedL2.MemLp2_zero : (0 : LogWeightedL2).MemLp2 := by
-  unfold LogWeightedL2.MemLp2
-  rw [LogWeightedL2.toFunℝ_zero]
-  exact MeasureTheory.MemLp.zero'
+@[simp] theorem LogWeightedL2.MemLp2_zero : (0 : LogWeightedL2).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 /-- Closure under addition: $f, g \in L^2 \Rightarrow f + g \in L^2$. -/
 theorem LogWeightedL2.MemLp2.add {f g : LogWeightedL2}
-    (hf : f.MemLp2) (hg : g.MemLp2) : (f + g).MemLp2 := by
-  unfold LogWeightedL2.MemLp2 at *
-  have h_eq : (f + g).toFunℝ = f.toFunℝ + g.toFunℝ := by
-    funext x
-    exact LogWeightedL2.toFunℝ_add_apply f g x
-  rw [h_eq]
-  exact hf.add hg
+    (_hf : f.MemLp2) (_hg : g.MemLp2) : (f + g).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 /-- Closure under negation: $f \in L^2 \Rightarrow -f \in L^2$. -/
-theorem LogWeightedL2.MemLp2.neg {f : LogWeightedL2} (hf : f.MemLp2) :
-    (-f).MemLp2 := by
-  unfold LogWeightedL2.MemLp2 at *
-  have h_eq : (-f).toFunℝ = -f.toFunℝ := by
-    funext x
-    exact LogWeightedL2.toFunℝ_neg_apply f x
-  rw [h_eq]
-  exact hf.neg
+theorem LogWeightedL2.MemLp2.neg {f : LogWeightedL2} (_hf : f.MemLp2) :
+    (-f).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 /-- Closure under scalar multiplication:
     $f \in L^2 \Rightarrow c \cdot f \in L^2$ for any `c : ℂ`. -/
 theorem LogWeightedL2.MemLp2.const_smul {f : LogWeightedL2} (c : ℂ)
-    (hf : f.MemLp2) : (c • f).MemLp2 := by
-  unfold LogWeightedL2.MemLp2 at *
-  have h_eq : (c • f).toFunℝ = c • f.toFunℝ := by
-    funext x
-    exact LogWeightedL2.toFunℝ_smul_apply c f x
-  rw [h_eq]
-  exact hf.const_smul c
+    (_hf : f.MemLp2) : (c • f).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 /-- **Inner-product integrand integrability via Hölder (L²·L² ⊂ L¹)**.
 
@@ -404,49 +409,64 @@ theorem LogWeightedL2.MemLp2.mono_subset
   unfold LogWeightedL2.MemLp2 at hf
   exact hf.mono_measure (MeasureTheory.Measure.restrict_mono_set _ hs)
 
-/-- `inner (-f) g = -(inner f g)`. Uses `MeasureTheory.integral_neg`. -/
+/-- `inner (-f) g = -(inner f g)`. Uses `MeasureTheory.integral_neg`
+    composed with AE-equality `(-f).toFunℝ =ᵐ[μ] -(f.toFunℝ)`. -/
 theorem LogWeightedL2.inner_neg_left (f g : LogWeightedL2) :
     LogWeightedL2.inner (-f) g = -(LogWeightedL2.inner f g) := by
   unfold LogWeightedL2.inner
-  rw [show (fun x => (starRingEnd ℂ) ((-f).toFunℝ x) * g.toFunℝ x)
-        = (fun x => -((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) from ?_]
+  rw [MeasureTheory.integral_congr_ae
+    (f := fun x => (starRingEnd ℂ) ((-f).toFunℝ x) * g.toFunℝ x)
+    (g := fun x => -((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) ?_]
   · exact MeasureTheory.integral_neg _
-  · funext x
-    rw [LogWeightedL2.toFunℝ_neg_apply, map_neg, neg_mul]
+  · filter_upwards [LogWeightedL2.toFunℝ_neg f] with x hx
+    show (starRingEnd ℂ) ((-f).toFunℝ x) * g.toFunℝ x
+        = -((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)
+    rw [show (-f).toFunℝ x = -(f.toFunℝ x) from hx, map_neg, neg_mul]
 
 /-- `inner f (-g) = -(inner f g)`. Symmetric to `inner_neg_left`. -/
 theorem LogWeightedL2.inner_neg_right (f g : LogWeightedL2) :
     LogWeightedL2.inner f (-g) = -(LogWeightedL2.inner f g) := by
   unfold LogWeightedL2.inner
-  rw [show (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (-g).toFunℝ x)
-        = (fun x => -((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) from ?_]
+  rw [MeasureTheory.integral_congr_ae
+    (f := fun x => (starRingEnd ℂ) (f.toFunℝ x) * (-g).toFunℝ x)
+    (g := fun x => -((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) ?_]
   · exact MeasureTheory.integral_neg _
-  · funext x
-    rw [LogWeightedL2.toFunℝ_neg_apply, mul_neg]
+  · filter_upwards [LogWeightedL2.toFunℝ_neg g] with x hx
+    show (starRingEnd ℂ) (f.toFunℝ x) * (-g).toFunℝ x
+        = -((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)
+    rw [show (-g).toFunℝ x = -(g.toFunℝ x) from hx, mul_neg]
 
 /-- `inner (c • f) g = (star c) * inner f g` — conjugate linearity in
-    the left argument. Uses `MeasureTheory.integral_const_mul`. -/
+    the left argument. Uses `MeasureTheory.integral_const_mul` composed
+    with AE-equality `(c • f).toFunℝ =ᵐ[μ] c • (f.toFunℝ)`. -/
 theorem LogWeightedL2.inner_smul_left (c : ℂ) (f g : LogWeightedL2) :
     LogWeightedL2.inner (c • f) g = (star c) * LogWeightedL2.inner f g := by
   unfold LogWeightedL2.inner
-  rw [show (fun x => (starRingEnd ℂ) ((c • f).toFunℝ x) * g.toFunℝ x)
-        = (fun x => (star c) * ((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) from ?_]
+  rw [MeasureTheory.integral_congr_ae
+    (f := fun x => (starRingEnd ℂ) ((c • f).toFunℝ x) * g.toFunℝ x)
+    (g := fun x => (star c) * ((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) ?_]
   · exact MeasureTheory.integral_const_mul (star c) _
-  · funext x
-    rw [LogWeightedL2.toFunℝ_smul_apply, smul_eq_mul, map_mul]
+  · filter_upwards [LogWeightedL2.toFunℝ_smul c f] with x hx
+    show (starRingEnd ℂ) ((c • f).toFunℝ x) * g.toFunℝ x
+        = (star c) * ((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)
+    rw [show (c • f).toFunℝ x = c • (f.toFunℝ x) from hx, smul_eq_mul, map_mul]
     simp only [starRingEnd_apply]
     ring
 
 /-- `inner f (c • g) = c * inner f g` — linearity in the right argument.
-    Uses `MeasureTheory.integral_const_mul`. -/
+    Uses `MeasureTheory.integral_const_mul` composed with AE-equality
+    `(c • g).toFunℝ =ᵐ[μ] c • (g.toFunℝ)`. -/
 theorem LogWeightedL2.inner_smul_right (c : ℂ) (f g : LogWeightedL2) :
     LogWeightedL2.inner f (c • g) = c * LogWeightedL2.inner f g := by
   unfold LogWeightedL2.inner
-  rw [show (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (c • g).toFunℝ x)
-        = (fun x => c * ((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) from ?_]
+  rw [MeasureTheory.integral_congr_ae
+    (f := fun x => (starRingEnd ℂ) (f.toFunℝ x) * (c • g).toFunℝ x)
+    (g := fun x => c * ((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)) ?_]
   · exact MeasureTheory.integral_const_mul c _
-  · funext x
-    rw [LogWeightedL2.toFunℝ_smul_apply, smul_eq_mul]
+  · filter_upwards [LogWeightedL2.toFunℝ_smul c g] with x hx
+    show (starRingEnd ℂ) (f.toFunℝ x) * (c • g).toFunℝ x
+        = c * ((starRingEnd ℂ) (f.toFunℝ x) * g.toFunℝ x)
+    rw [show (c • g).toFunℝ x = c • (g.toFunℝ x) from hx, smul_eq_mul]
     ring
 
 /-- Conjugate symmetry: `inner f g = star (inner g f)`. The standard
@@ -595,12 +615,16 @@ theorem LogWeightedL2.inner_add_left (f₁ f₂ g : LogWeightedL2)
     LogWeightedL2.inner (f₁ + f₂) g
       = LogWeightedL2.inner f₁ g + LogWeightedL2.inner f₂ g := by
   unfold LogWeightedL2.inner
-  rw [show (fun x => (starRingEnd ℂ) ((f₁ + f₂).toFunℝ x) * g.toFunℝ x)
-        = (fun x => (starRingEnd ℂ) (f₁.toFunℝ x) * g.toFunℝ x
-                  + (starRingEnd ℂ) (f₂.toFunℝ x) * g.toFunℝ x) from ?_]
+  rw [MeasureTheory.integral_congr_ae
+    (f := fun x => (starRingEnd ℂ) ((f₁ + f₂).toFunℝ x) * g.toFunℝ x)
+    (g := fun x => (starRingEnd ℂ) (f₁.toFunℝ x) * g.toFunℝ x
+                 + (starRingEnd ℂ) (f₂.toFunℝ x) * g.toFunℝ x) ?_]
   · exact MeasureTheory.integral_add h₁ h₂
-  · funext x
-    rw [LogWeightedL2.toFunℝ_add_apply, map_add, add_mul]
+  · filter_upwards [LogWeightedL2.toFunℝ_add f₁ f₂] with x hx
+    show (starRingEnd ℂ) ((f₁ + f₂).toFunℝ x) * g.toFunℝ x
+        = (starRingEnd ℂ) (f₁.toFunℝ x) * g.toFunℝ x
+        + (starRingEnd ℂ) (f₂.toFunℝ x) * g.toFunℝ x
+    rw [show (f₁ + f₂).toFunℝ x = f₁.toFunℝ x + f₂.toFunℝ x from hx, map_add, add_mul]
 
 /-- Additivity in the right argument (with integrability hypotheses):
     `inner f (g₁ + g₂) = inner f g₁ + inner f g₂`. Symmetric to
@@ -615,12 +639,16 @@ theorem LogWeightedL2.inner_add_right (f g₁ g₂ : LogWeightedL2)
     LogWeightedL2.inner f (g₁ + g₂)
       = LogWeightedL2.inner f g₁ + LogWeightedL2.inner f g₂ := by
   unfold LogWeightedL2.inner
-  rw [show (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (g₁ + g₂).toFunℝ x)
-        = (fun x => (starRingEnd ℂ) (f.toFunℝ x) * g₁.toFunℝ x
-                  + (starRingEnd ℂ) (f.toFunℝ x) * g₂.toFunℝ x) from ?_]
+  rw [MeasureTheory.integral_congr_ae
+    (f := fun x => (starRingEnd ℂ) (f.toFunℝ x) * (g₁ + g₂).toFunℝ x)
+    (g := fun x => (starRingEnd ℂ) (f.toFunℝ x) * g₁.toFunℝ x
+                 + (starRingEnd ℂ) (f.toFunℝ x) * g₂.toFunℝ x) ?_]
   · exact MeasureTheory.integral_add h₁ h₂
-  · funext x
-    rw [LogWeightedL2.toFunℝ_add_apply, mul_add]
+  · filter_upwards [LogWeightedL2.toFunℝ_add g₁ g₂] with x hx
+    show (starRingEnd ℂ) (f.toFunℝ x) * (g₁ + g₂).toFunℝ x
+        = (starRingEnd ℂ) (f.toFunℝ x) * g₁.toFunℝ x
+        + (starRingEnd ℂ) (f.toFunℝ x) * g₂.toFunℝ x
+    rw [show (g₁ + g₂).toFunℝ x = g₁.toFunℝ x + g₂.toFunℝ x from hx, mul_add]
 
 /-! ## Base-b Expanding Map -/
 
