@@ -1245,40 +1245,28 @@ lemma inverseBranch_three_mem_Icc (k : Fin 3) (x : ℝ) (hx : x ∈ Set.Ioo (0:�
     push_cast
     linarith [hx.2]
 
-/-- `(T3.apply f).toFunℝ x` evaluated on the open unit interval, expressed
-    via `f.toFunℝ` at the inverse-branch points. The structural projections
-    unfold cleanly when `x ∈ Set.Ioo 0 1`, since (a) `Ioo 0 1 ⊆ Icc 0 1`
-    so `toFunℝ` selects the structure's `toFun` (not the zero fallback),
-    and (b) `inverseBranch 3 k x ∈ Icc 0 1` so `f.toFun ⟨y_k(x), _⟩` is
-    defined and equals `f.toFunℝ (y_k(x))`. -/
-lemma T3_toFunℝ_Ioo (f : LogWeightedL2) (x : ℝ) (hx : x ∈ Set.Ioo (0:ℝ) 1) :
-    (T3.apply f).toFunℝ x =
-      (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
-        (weightFunction 3 k x : ℂ) *
-        f.toFunℝ (inverseBranch 3 k x) := by
-  have hx_Icc : x ∈ Set.Icc (0:ℝ) 1 := ⟨hx.1.le, hx.2.le⟩
-  unfold LogWeightedL2.toFunℝ
-  rw [dif_pos hx_Icc]
-  -- After dif_pos, LHS = (T3.apply f).toFun ⟨x, hx_Icc⟩
-  -- = transferOperatorAction 3 phaseFactorBase3 f .toFun ⟨x, hx_Icc⟩
-  -- = (1/3) * Σ k, phases k * w_k(x) * f.toFun ⟨inverseBranch 3 k x, _⟩
-  show (1 / (3 : ℕ) : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
-        (weightFunction 3 k x : ℂ) *
-        f.toFun ⟨inverseBranch 3 k x, _⟩
-       = (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
-        (weightFunction 3 k x : ℂ) *
-        f.toFunℝ (inverseBranch 3 k x)
-  push_cast
-  congr 1
-  apply Finset.sum_congr rfl
-  intros k _
-  congr 1
-  -- Need: f.toFun ⟨inverseBranch 3 k x, _⟩ = f.toFunℝ (inverseBranch 3 k x)
-  have h_yk_Icc : inverseBranch 3 k x ∈ Set.Icc (0:ℝ) 1 :=
-    inverseBranch_three_mem_Icc k x hx
-  show f.toFun ⟨inverseBranch 3 k x, _⟩ = f.toFunℝ (inverseBranch 3 k x)
-  unfold LogWeightedL2.toFunℝ
-  rw [dif_pos h_yk_Icc]
+/-- `(T3.apply f).toFunℝ` AE-equals the explicit pointwise formula
+    `transferOperatorAction_func 3 phaseFactorBase3 f` on `μ_log↾(Ioo 0 1)`,
+    given the MemLp closure for the explicit formula.
+
+    Refactored 2026-05-09 from the structure-form pointwise equality to
+    AE-equality + MemLp hypothesis. The MemLp witness is supplied later
+    in this file via the per-branch closure chain (`branch_function_MemLp2`
+    + `MemLp.const_smul` + `memLp_finset_sum`). -/
+lemma T3_toFunℝ_Ioo (f : LogWeightedL2)
+    (h_MemLp : MeasureTheory.MemLp
+      (transferOperatorAction_func 3 phaseFactorBase3 f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    (T3.apply f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      transferOperatorAction_func 3 phaseFactorBase3 f := by
+  show LogWeightedL2.toFunℝ (transferOperatorAction 3 phaseFactorBase3 f) =ᵐ[_] _
+  unfold LogWeightedL2.toFunℝ LogWeightedL2.toFun
+  show ⇑((transferOperatorAction 3 phaseFactorBase3 f
+      : MeasureTheory.Lp ℂ 2 _).val) =ᵐ[_] _
+  unfold transferOperatorAction
+  rw [dif_pos h_MemLp]
+  exact MeasureTheory.MemLp.coeFn_toLp h_MemLp
 
 /-- Integrand identity for `⟪T₃ f, g⟫`: on the open unit interval,
     the integrand `bar((T₃ f)(x)) · g(x)` decomposes as a sum over
@@ -1357,66 +1345,26 @@ noncomputable def T3_adjoint : TransferOperator 3 := {
   apply := T3_adjoint_action
 }
 
-/-- `(T3_adjoint.apply f).toFunℝ x` evaluated on the open unit interval,
-    expressed via `f.toFunℝ` at the expanding-branch image points
-    $3x - k$. The if-cascade selects the appropriate branch:
-      x ≤ 1/3:           bar(ω₀) · w*₀(x) · f.toFunℝ(3x)
-      1/3 < x ≤ 2/3:     bar(ω₁) · w*₁(x) · f.toFunℝ(3x - 1)
-      2/3 < x:           bar(ω₂) · w*₂(x) · f.toFunℝ(3x - 2)
-    where each `3x - k ∈ Icc 0 1` on the corresponding sub-interval. -/
-lemma T3_adjoint_toFunℝ_Ioo (f : LogWeightedL2) (x : ℝ) (hx : x ∈ Set.Ioo (0:ℝ) 1) :
-    (T3_adjoint.apply f).toFunℝ x =
-      if x ≤ 1/3 then
-        phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) * f.toFunℝ (3 * x)
-      else if x ≤ 2/3 then
-        phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) * f.toFunℝ (3 * x - 1)
-      else
-        phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) * f.toFunℝ (3 * x - 2) := by
-  have hx_Icc : x ∈ Set.Icc (0:ℝ) 1 := ⟨hx.1.le, hx.2.le⟩
-  unfold LogWeightedL2.toFunℝ
-  rw [dif_pos hx_Icc]
-  -- Now LHS = (T3_adjoint.apply f).toFun ⟨x, hx_Icc⟩ = T3_adjoint_action f .toFun ⟨x, hx_Icc⟩
-  show (if h0 : x ≤ 1/3 then
-          phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) *
-            f.toFun ⟨3 * x, _⟩
-        else if h1 : x ≤ 2/3 then
-          phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) *
-            f.toFun ⟨3 * x - 1, _⟩
-        else
-          phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) *
-            f.toFun ⟨3 * x - 2, _⟩) = _
-  by_cases h0 : x ≤ 1/3
-  · rw [dif_pos h0, if_pos h0]
-    congr 1
-    have h3x_Icc : 3 * x ∈ Set.Icc (0:ℝ) 1 := by
-      refine ⟨?_, ?_⟩
-      · linarith [hx.1]
-      · linarith
-    show f.toFun ⟨3 * x, _⟩ = f.toFunℝ (3 * x)
-    unfold LogWeightedL2.toFunℝ
-    rw [dif_pos h3x_Icc]
-  · rw [dif_neg h0, if_neg h0]
-    by_cases h1 : x ≤ 2/3
-    · rw [dif_pos h1, if_pos h1]
-      congr 1
-      push_neg at h0
-      have h3x1_Icc : 3 * x - 1 ∈ Set.Icc (0:ℝ) 1 := by
-        refine ⟨?_, ?_⟩
-        · linarith
-        · linarith
-      show f.toFun ⟨3 * x - 1, _⟩ = f.toFunℝ (3 * x - 1)
-      unfold LogWeightedL2.toFunℝ
-      rw [dif_pos h3x1_Icc]
-    · rw [dif_neg h1, if_neg h1]
-      congr 1
-      push_neg at h1
-      have h3x2_Icc : 3 * x - 2 ∈ Set.Icc (0:ℝ) 1 := by
-        refine ⟨?_, ?_⟩
-        · linarith
-        · linarith [hx.2]
-      show f.toFun ⟨3 * x - 2, _⟩ = f.toFunℝ (3 * x - 2)
-      unfold LogWeightedL2.toFunℝ
-      rw [dif_pos h3x2_Icc]
+/-- `(T3_adjoint.apply f).toFunℝ` AE-equals the explicit pointwise formula
+    `T3_adjoint_action_func f` (piecewise expanding-branch if-cascade) on
+    `μ_log↾(Ioo 0 1)`, given the MemLp closure for the explicit formula.
+
+    Refactored 2026-05-09 from the structure-form pointwise equality to
+    AE-equality + MemLp hypothesis. The MemLp witness is supplied later
+    via the per-branch adjoint closure chain (`branch_function_MemLp2_adjoint`
+    + indicator decomposition modulo measure-zero {1/3, 2/3}). -/
+lemma T3_adjoint_toFunℝ_Ioo (f : LogWeightedL2)
+    (h_MemLp : MeasureTheory.MemLp (T3_adjoint_action_func f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    (T3_adjoint.apply f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      T3_adjoint_action_func f := by
+  show LogWeightedL2.toFunℝ (T3_adjoint_action f) =ᵐ[_] _
+  unfold LogWeightedL2.toFunℝ LogWeightedL2.toFun
+  show ⇑((T3_adjoint_action f : MeasureTheory.Lp ℂ 2 _).val) =ᵐ[_] _
+  unfold T3_adjoint_action
+  rw [dif_pos h_MemLp]
+  exact MeasureTheory.MemLp.coeFn_toLp h_MemLp
 
 /-- Mirror integrand identity for `⟪f, T₃^* g⟫`: on the open unit
     interval, the integrand `bar(f(x)) · (T₃^* g)(x)` decomposes as
