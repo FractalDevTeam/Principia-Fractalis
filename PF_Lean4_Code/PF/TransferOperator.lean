@@ -1277,14 +1277,21 @@ lemma T3_toFunℝ_Ioo (f : LogWeightedL2)
     of `starRingEnd ℂ` over multiplication and summation, and the fact
     that `bar((r : ℝ) : ℂ) = (r : ℂ)` for real-cast values (the
     contracting weight `weightFunction 3 k x` is real, as is `1/3`). -/
-lemma T3_inner_integrand_Ioo (f g : LogWeightedL2) (x : ℝ)
-    (hx : x ∈ Set.Ioo (0:ℝ) 1) :
-    (starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x =
-      (1/3 : ℂ) * ∑ k : Fin 3, (starRingEnd ℂ) (phaseFactorBase3 k) *
+lemma T3_inner_integrand_Ioo (f g : LogWeightedL2)
+    (h_MemLp : MeasureTheory.MemLp
+      (transferOperatorAction_func 3 phaseFactorBase3 f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    (fun x => (starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x)
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      (fun x => (1/3 : ℂ) * ∑ k : Fin 3, (starRingEnd ℂ) (phaseFactorBase3 k) *
         ((weightFunction 3 k x : ℝ) : ℂ) *
         (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
-        g.toFunℝ x := by
-  rw [T3_toFunℝ_Ioo f x hx]
+        g.toFunℝ x) := by
+  filter_upwards [T3_toFunℝ_Ioo f h_MemLp] with x hx
+  rw [show (T3.apply f).toFunℝ x = transferOperatorAction_func 3 phaseFactorBase3 f x
+        from hx]
+  unfold transferOperatorAction_func
+  push_cast
   rw [map_mul, map_sum]
   have h_conj_third : (starRingEnd ℂ) (1/3 : ℂ) = (1/3 : ℂ) := by
     rw [show (1/3 : ℂ) = ((1/3 : ℝ) : ℂ) from by push_cast; ring]
@@ -1375,19 +1382,24 @@ lemma T3_adjoint_toFunℝ_Ioo (f : LogWeightedL2)
     Direct from `T3_adjoint_toFunℝ_Ioo` (commit `5eb54c4`) by
     distributing the prefactor `bar(f(x)) · _` over the if-cascade
     on the right of the multiplication. -/
-lemma T3_adjoint_inner_integrand_Ioo (f g : LogWeightedL2) (x : ℝ)
-    (hx : x ∈ Set.Ioo (0:ℝ) 1) :
-    (starRingEnd ℂ) (f.toFunℝ x) * (T3_adjoint.apply g).toFunℝ x =
-      if x ≤ 1/3 then
-        (starRingEnd ℂ) (f.toFunℝ x) *
-          (phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) * g.toFunℝ (3 * x))
-      else if x ≤ 2/3 then
-        (starRingEnd ℂ) (f.toFunℝ x) *
-          (phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) * g.toFunℝ (3 * x - 1))
-      else
-        (starRingEnd ℂ) (f.toFunℝ x) *
-          (phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) * g.toFunℝ (3 * x - 2)) := by
-  rw [T3_adjoint_toFunℝ_Ioo g x hx]
+lemma T3_adjoint_inner_integrand_Ioo (f g : LogWeightedL2)
+    (h_MemLp : MeasureTheory.MemLp (T3_adjoint_action_func g) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) :
+    (fun x => (starRingEnd ℂ) (f.toFunℝ x) * (T3_adjoint.apply g).toFunℝ x)
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      (fun x =>
+        if x ≤ 1/3 then
+          (starRingEnd ℂ) (f.toFunℝ x) *
+            (phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) * g.toFunℝ (3 * x))
+        else if x ≤ 2/3 then
+          (starRingEnd ℂ) (f.toFunℝ x) *
+            (phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) * g.toFunℝ (3 * x - 1))
+        else
+          (starRingEnd ℂ) (f.toFunℝ x) *
+            (phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) * g.toFunℝ (3 * x - 2))) := by
+  filter_upwards [T3_adjoint_toFunℝ_Ioo g h_MemLp] with x hx
+  rw [show (T3_adjoint.apply g).toFunℝ x = T3_adjoint_action_func g x from hx]
+  unfold T3_adjoint_action_func
   split_ifs <;> rfl
 
 /-- **Per-branch change-of-variables**: substitution $u = y_k(x) = (x+k)/3$,
@@ -1743,19 +1755,33 @@ theorem T3_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
                   ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x)))
       2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
     h_sum.const_smul (1/3 : ℂ)
-  -- AE on (0,1): (T3.apply f).toFunℝ = explicit sum (via T3_toFunℝ_Ioo + associativity).
-  have h_ae : (T3.apply f).toFunℝ
+  -- Bridge: the explicit sum's function is pointwise (= AE-) equal to
+  -- `transferOperatorAction_func 3 phaseFactorBase3 f` modulo associativity.
+  have h_func_eq : (fun x => (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
+                    ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x)))
       =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
-      (fun x => (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
-                  ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x))) := by
-    refine MeasureTheory.ae_restrict_of_forall_mem measurableSet_Ioo ?_
-    intros x hx
-    rw [T3_toFunℝ_Ioo f x hx]
+      transferOperatorAction_func 3 phaseFactorBase3 f := by
+    refine Filter.Eventually.of_forall ?_
+    intros x
+    show (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
+            ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x))
+       = transferOperatorAction_func 3 phaseFactorBase3 f x
+    unfold transferOperatorAction_func
+    push_cast
     congr 1
     apply Finset.sum_congr rfl
     intros k _
     ring
-  exact h_T3_explicit.ae_eq h_ae.symm
+  have h_T3_func_MemLp : MeasureTheory.MemLp
+      (transferOperatorAction_func 3 phaseFactorBase3 f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    h_T3_explicit.ae_eq h_func_eq
+  -- AE on (0,1): (T3.apply f).toFunℝ = transferOperatorAction_func via T3_toFunℝ_Ioo
+  have h_ae_func : (T3.apply f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      transferOperatorAction_func 3 phaseFactorBase3 f :=
+    T3_toFunℝ_Ioo f h_T3_func_MemLp
+  exact h_T3_func_MemLp.ae_eq h_ae_func.symm
 
 /-! ### Adjoint operator MemLp2 chain — per-branch L² identity for the expanding map
 
@@ -2268,8 +2294,11 @@ theorem T3_adjoint_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
                       f.toFunℝ (3 * y - (k.val : ℝ)))) x)
       2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
     MeasureTheory.memLp_finset_sum Finset.univ (fun k _ => h_summand k)
-  -- AE equality: operator equals indicator-sum, modulo {1/3, 2/3} (measure zero).
-  have h_ae : (T3_adjoint.apply f).toFunℝ
+  -- AE equality: T3_adjoint_action_func equals indicator-sum, modulo {1/3, 2/3} (measure zero).
+  -- Reformulated 2026-05-09: was `(T3_adjoint.apply f).toFunℝ =ᵐ[μ] indicator-sum`;
+  -- now bridges through `T3_adjoint_action_func f` since the operator's representative
+  -- is AE-equal to the explicit pointwise formula via `T3_adjoint_toFunℝ_Ioo`.
+  have h_ae_func : T3_adjoint_action_func f
       =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
       (fun x => ∑ k : Fin 3,
         (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)).indicator
@@ -2310,7 +2339,8 @@ theorem T3_adjoint_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
     refine (MeasureTheory.ae_restrict_iff' measurableSet_Ioo).mpr ?_
     filter_upwards [h_bdry_ae] with x hx_bdry hx_Ioo
     obtain ⟨hx_ne_1_3, hx_ne_2_3⟩ := hx_bdry
-    rw [T3_adjoint_toFunℝ_Ioo f x hx_Ioo]
+    show T3_adjoint_action_func f x = _
+    unfold T3_adjoint_action_func
     -- Pre-compute bound simplifications (kills cast/arithmetic mismatches).
     have h_b0_lo : ((0 : Fin 3).val : ℝ)/3 = 0 := by norm_num
     have h_b0_hi : (((0 : Fin 3).val : ℝ) + 1)/3 = 1/3 := by norm_num
@@ -2371,7 +2401,16 @@ theorem T3_adjoint_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
         rw [Set.indicator_of_notMem h_notin_I0, Set.indicator_of_notMem h_notin_I1,
             Set.indicator_of_mem h_in_I2]
         rw [h_v2]; ring
-  exact h_sum.ae_eq h_ae.symm
+  -- Bridge: T3_adjoint_action_func is MemLp via h_sum (indicator-sum) + ae_eq.
+  have h_T3_adjoint_func_MemLp : MeasureTheory.MemLp (T3_adjoint_action_func f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
+    h_sum.ae_eq h_ae_func.symm
+  -- (T3_adjoint.apply f).toFunℝ AE-equals T3_adjoint_action_func via T3_adjoint_toFunℝ_Ioo.
+  have h_apply_ae : (T3_adjoint.apply f).toFunℝ
+      =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
+      T3_adjoint_action_func f :=
+    T3_adjoint_toFunℝ_Ioo f h_T3_adjoint_func_MemLp
+  exact h_T3_adjoint_func_MemLp.ae_eq h_apply_ae.symm
 
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
