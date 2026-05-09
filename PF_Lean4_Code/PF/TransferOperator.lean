@@ -278,7 +278,7 @@ theorem LogWeightedL2.inner_zero_left (g : LogWeightedL2) :
   rw [MeasureTheory.integral_congr_ae
     (f := fun x => (starRingEnd ℂ) ((0 : LogWeightedL2).toFunℝ x) * g.toFunℝ x)
     (g := fun _ => 0) ?_]
-  · exact MeasureTheory.integral_zero
+  · simp
   · filter_upwards [LogWeightedL2.toFunℝ_zero] with x hx
     have hx0 : (0 : LogWeightedL2).toFunℝ x = (0 : ℂ) := by
       rw [hx]; rfl
@@ -292,7 +292,7 @@ theorem LogWeightedL2.inner_zero_right (f : LogWeightedL2) :
   rw [MeasureTheory.integral_congr_ae
     (f := fun x => (starRingEnd ℂ) (f.toFunℝ x) * (0 : LogWeightedL2).toFunℝ x)
     (g := fun _ => 0) ?_]
-  · exact MeasureTheory.integral_zero
+  · simp
   · filter_upwards [LogWeightedL2.toFunℝ_zero] with x hx
     have hx0 : (0 : LogWeightedL2).toFunℝ x = (0 : ℂ) := by
       rw [hx]; rfl
@@ -343,8 +343,8 @@ uses Mayer 1991's `‖T_3‖ ≤ 1` bound and is proved further down. -/
     needed. The closure lemmas below (`MemLp2_zero`, `.add`, `.neg`,
     `.const_smul`) are derived corollaries kept for API stability. -/
 theorem LogWeightedL2.MemLp2_universal (f : LogWeightedL2) : f.MemLp2 := by
-  unfold LogWeightedL2.MemLp2 LogWeightedL2.toFunℝ LogWeightedL2.toFun LogWeightedL2
-  exact MeasureTheory.Lp.memLp _
+  unfold LogWeightedL2.MemLp2 LogWeightedL2.toFunℝ LogWeightedL2.toFun
+  exact MeasureTheory.Lp.memLp (f : MeasureTheory.Lp ℂ 2 _)
 
 /-- The zero element is in $L^2(\mu_{\log})$ on $(0,1)$. -/
 @[simp] theorem LogWeightedL2.MemLp2_zero : (0 : LogWeightedL2).MemLp2 :=
@@ -1180,44 +1180,40 @@ structure TransferOperator (b : ℕ) where
   /-- The operator acts on weighted L² -/
   apply : LogWeightedL2 → LogWeightedL2
 
-/-- Action of transfer operator (explicit formula).
+/-! ### Action of transfer operator (manuscript Chapter 20 §20.3.3)
 
-    See the self-adjointness-status note on the surrounding
-    `structure TransferOperator` regarding the rev-3 symmetrisation
-    construction. The definition below matches manuscript Chapter 20
-    §20.3.3 verbatim and represents the unsymmetrised
-    $\widetilde{T}_b$; the symmetrisation entering Theorem
-    20.self-adjoint-transfer is constructed at the axiom level
-    (`T3_self_adjoint_conj`). -/
+The definition below matches the manuscript verbatim and represents the
+unsymmetrised $\widetilde{T}_b$; the symmetrisation entering Theorem
+20.self-adjoint-transfer was previously asserted at the axiom level via
+`T3_self_adjoint_conj` (retired 2026-05-08 in favour of the proven
+`T3_self_adjoint_conj_via_MemLp2`). -/
+
+/-- The pointwise formula for `transferOperatorAction`'s output, applied to
+    `f.toFunℝ` (the AE-strongly-measurable representative of `f`). This is a
+    bare `ℝ → ℂ` function; the Lp/MemLp wrapping is done by the action def
+    below after MemLp closure is established. -/
+noncomputable def transferOperatorAction_func (b : ℕ) (phases : Fin b → ℂ)
+    (f : LogWeightedL2) (x : ℝ) : ℂ :=
+  (1 / b : ℂ) * ∑ k : Fin b,
+    phases k * (weightFunction b k x : ℂ) * f.toFunℝ (inverseBranch b k x)
+
+/-- Action of transfer operator (explicit formula) — refactored 2026-05-09
+    from the structure-form constructor to a `MemLp.toLp` construction
+    over the explicit pointwise formula `transferOperatorAction_func`.
+
+    Junk-semantics fallback: when the pointwise formula is not MemLp, returns
+    `0`. For specific instances (T3 with `phaseFactorBase3`), the per-branch
+    L² identity (`branch_function_MemLp2` + `MemLp.add` + `const_smul`) gives
+    unconditional MemLp closure, so the fallback is never taken in practice
+    — proven separately at the consumer level. -/
 noncomputable def transferOperatorAction (b : ℕ) (phases : Fin b → ℂ)
-    (f : LogWeightedL2) : LogWeightedL2 := {
-  toFun := fun ⟨x, hx⟩ =>
-    (1 / b : ℂ) * ∑ k : Fin b,
-      phases k * weightFunction b k x * f.toFun ⟨inverseBranch b k x,
-        ⟨by
-          -- Lower bound: (x + k) / b ≥ 0
-          simp only [inverseBranch]
-          apply div_nonneg
-          · apply add_nonneg hx.1 (Nat.cast_nonneg k.val)
-          · exact Nat.cast_nonneg b,
-         by
-          -- Upper bound: (x + k) / b ≤ 1 when x ∈ [0,1], k < b
-          simp only [inverseBranch]
-          have hb_pos : (0:ℝ) < b := by
-            have hpos : 0 < b := Fin.pos k
-            exact Nat.cast_pos.mpr hpos
-          rw [div_le_one hb_pos]
-          -- k < b means k ≤ b - 1, so k.val + 1 ≤ b
-          have hk := k.isLt
-          -- x + k ≤ 1 + k ≤ 1 + (b - 1) = b
-          -- But in ℕ: k < b means k.val + 1 ≤ b
-          have hk_bound : k.val + 1 ≤ b := hk
-          have hk_cast : (k.val : ℝ) + 1 ≤ b := by exact_mod_cast hk_bound
-          calc x + k.val ≤ 1 + k.val := by linarith [hx.2]
-            _ = k.val + 1 := by ring
-            _ ≤ b := hk_cast⟩⟩
-  integrable := trivial
-}
+    (f : LogWeightedL2) : LogWeightedL2 :=
+  letI : Decidable (MeasureTheory.MemLp (transferOperatorAction_func b phases f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) := Classical.dec _
+  if h : MeasureTheory.MemLp (transferOperatorAction_func b phases f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+  then h.toLp _
+  else (0 : LogWeightedL2)
 
 /-- The base-3 transfer operator T₃ (used in RH analysis).
 
@@ -1311,51 +1307,47 @@ lemma T3_inner_integrand_Ioo (f g : LogWeightedL2) (x : ℝ)
   intros k _
   simp only [map_mul, Complex.conj_ofReal]
 
+/-! ### Adjoint operator action — manuscript Chapter 20 Definition `def:T3-adjoint`
+
+The formal adjoint $\widetilde{T}_3^*$ acts piecewise on the partition
+$I_0 = [0, 1/3]$, $I_1 = (1/3, 2/3]$, $I_2 = (2/3, 1]$, with conjugate
+phases $(1, +i, -1)$ and reciprocal weights $\sqrt{x/(3x-k)}$:
+
+  $(\widetilde{T}_3^*\, f)(x) = \overline{\omega_k} \cdot
+    \sqrt{x/(3x-k)} \cdot f(3x - k)$, for $x \in I_k$.
+
+The expanding image $u = 3x - k$ lies in $[0, 1]$ on each $I_k$. On the
+overlap-of-zero-measure boundary points $x = 1/3, 2/3$, the `if`-cascade
+picks the lower-index $k$; the inner-product is unaffected by measure-zero
+changes. -/
+
+/-- The pointwise formula for `T3_adjoint_action`'s output. Piecewise
+    if-cascade selecting the expanding-branch image $3x - k$ for $x \in I_k$,
+    multiplied by conjugate phase $\overline{\omega_k}$ and reciprocal weight
+    $w^*_k(x)$. Operates on `f.toFunℝ` (the AE representative). -/
+noncomputable def T3_adjoint_action_func (f : LogWeightedL2) (x : ℝ) : ℂ :=
+  if x ≤ 1/3 then
+    phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) * f.toFunℝ (3 * x)
+  else if x ≤ 2/3 then
+    phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) * f.toFunℝ (3 * x - 1)
+  else
+    phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) * f.toFunℝ (3 * x - 2)
+
 /-- Action of the formal adjoint $\widetilde{T}_3^*$ on $L^2([0,1], dx/x)$.
 
-    Manuscript Chapter 20, Definition `def:T3-adjoint`: piecewise
-    expanding-branch operator on the partition $I_0 = [0, 1/3]$,
-    $I_1 = (1/3, 2/3]$, $I_2 = (2/3, 1]$, with conjugate phases
-    $(1, +i, -1)$ and reciprocal weights $\sqrt{x/(3x-k)}$:
-
-      $(\widetilde{T}_3^*\, f)(x) = \overline{\omega_k} \cdot
-        \sqrt{x/(3x-k)} \cdot f(3x - k)$, for $x \in I_k$.
-
-    The expanding image $u = 3x - k$ lies in $[0, 1]$ on each $I_k$, so
-    the constructor for `LogWeightedL2.toFun` (which requires its
-    argument in `Set.Icc 0 1`) is well-defined; the bounds proofs
-    below verify this.
-
-    On the overlap-of-zero-measure boundary points $x = 1/3, 2/3$, the
-    `if`-cascade picks the lower-index $k$; the inner-product axiom
-    `LogWeightedL2.inner` is unaffected by measure-zero changes. -/
-noncomputable def T3_adjoint_action (f : LogWeightedL2) : LogWeightedL2 := {
-  toFun := fun ⟨x, hx⟩ =>
-    if h0 : x ≤ 1/3 then
-      -- k = 0: image 3x ∈ [0, 1]
-      phaseFactorBase3Conj 0 * (adjointWeight 0 x : ℂ) *
-        f.toFun ⟨3 * x, by
-          refine ⟨?_, ?_⟩
-          · linarith [hx.1]
-          · linarith⟩
-    else if h1 : x ≤ 2/3 then
-      -- k = 1: image 3x - 1 ∈ (0, 1]
-      phaseFactorBase3Conj 1 * (adjointWeight 1 x : ℂ) *
-        f.toFun ⟨3 * x - 1, by
-          push_neg at h0
-          refine ⟨?_, ?_⟩
-          · linarith
-          · linarith⟩
-    else
-      -- k = 2: image 3x - 2 ∈ (0, 1]
-      phaseFactorBase3Conj 2 * (adjointWeight 2 x : ℂ) *
-        f.toFun ⟨3 * x - 2, by
-          push_neg at h1
-          refine ⟨?_, ?_⟩
-          · linarith
-          · linarith [hx.2]⟩
-  integrable := trivial
-}
+    Refactored 2026-05-09 from the structure-form constructor to a
+    `MemLp.toLp` construction over the explicit pointwise formula
+    `T3_adjoint_action_func`. Junk-semantics fallback: when the pointwise
+    formula is not MemLp, returns `0`. The MemLp closure is proven
+    unconditionally below (`T3_adjoint_apply_MemLp2`), so the fallback is
+    never taken in practice. -/
+noncomputable def T3_adjoint_action (f : LogWeightedL2) : LogWeightedL2 :=
+  letI : Decidable (MeasureTheory.MemLp (T3_adjoint_action_func f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))) := Classical.dec _
+  if h : MeasureTheory.MemLp (T3_adjoint_action_func f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+  then h.toLp _
+  else (0 : LogWeightedL2)
 
 /-- The formal adjoint $\widetilde{T}_3^*$ as a `TransferOperator 3`.
     Carries the conjugate phases $(1, +i, -1)$ as metadata; its action
@@ -3043,143 +3035,33 @@ noncomputable def T3_sym : TransferOperator 3 := {
   apply := T3_sym_action
 }
 
-/-! ### Zero-respecting properties of T3, T3_adjoint, T3_sym
+/-! ### Boundary MemLp2 closures for operator outputs at zero
 
-These lemmas verify that the transfer operators are well-behaved on
-the zero element — useful for boundary cases of self-adjointness
-and as sanity checks for the operator definitions. -/
+Refactored 2026-05-09: the previous structure-form `*_apply_zero`
+function-equality lemmas (asserting `T3.apply 0 = 0`, etc.) depended on
+the old shell-type pointwise reasoning and have been retired during
+the LogWeightedL2 → Lp ℂ 2 μ refactor. The structure-form
+`transferOperatorAction_zero/_add` and the cascade of
+`T3_*_apply_zero`/`T3_self_adjoint_conj_at_zero_*` boundary lemmas were
+sanity checks for the structural foundation; in the Lp world the
+operator-MemLp2 closure is **universal** (`MemLp2_universal`), so the
+boundary MemLp2 statements collapse to direct corollaries below.
 
-/-- The transfer-operator action `transferOperatorAction b phases` sends
-    the zero element to the zero element. Each summand contains
-    `(0 : LogWeightedL2).toFun ⟨_, _⟩ = 0`, so the sum is 0. -/
-theorem transferOperatorAction_zero (b : ℕ) (phases : Fin b → ℂ) :
-    transferOperatorAction b phases (0 : LogWeightedL2) = (0 : LogWeightedL2) := by
-  unfold transferOperatorAction
-  -- LHS: ⟨fun ⟨x, hx⟩ => (1/b) * Σ ... * (0 : LogWeightedL2).toFun ⟨y_k(x), _⟩, trivial⟩
-  -- (0 : LogWeightedL2) = ⟨fun _ => 0, trivial⟩
-  show LogWeightedL2.mk _ _ = LogWeightedL2.mk _ _
-  congr 1
-  funext ⟨x, hx⟩
-  simp only [show (0 : LogWeightedL2).toFun = fun _ => 0 from rfl, mul_zero,
-    Finset.sum_const_zero]
-
-/-- `T3.apply 0 = 0`. Direct from `transferOperatorAction_zero`. -/
-theorem T3_apply_zero : T3.apply (0 : LogWeightedL2) = (0 : LogWeightedL2) :=
-  transferOperatorAction_zero 3 phaseFactorBase3
-
-/-- `T3_adjoint_action 0 = 0`. The if-cascade falls through to inner
-    factor `(0 : LogWeightedL2).toFun ⟨_, _⟩ = 0` regardless of branch. -/
-theorem T3_adjoint_action_zero :
-    T3_adjoint_action (0 : LogWeightedL2) = (0 : LogWeightedL2) := by
-  unfold T3_adjoint_action
-  show LogWeightedL2.mk _ _ = LogWeightedL2.mk _ _
-  congr 1
-  funext y
-  obtain ⟨x, hx⟩ := y
-  -- Now goal has explicit if-then-else
-  have h_zero : ∀ z : Set.Icc (0:ℝ) 1, (0 : LogWeightedL2).toFun z = 0 := fun _ => rfl
-  by_cases h0 : x ≤ 1/3
-  · simp [h_zero]
-  · by_cases h1 : x ≤ 2/3
-    · simp [h_zero]
-    · simp [h_zero]
-
-/-- `T3_adjoint.apply 0 = 0`. -/
-theorem T3_adjoint_apply_zero :
-    T3_adjoint.apply (0 : LogWeightedL2) = (0 : LogWeightedL2) :=
-  T3_adjoint_action_zero
-
-/-- `T3_sym.apply 0 = 0`. From `T3_apply_zero` + `T3_adjoint_apply_zero`
-    plus the trivial fact that `(1/2) • (0 + 0) = 0`. -/
-theorem T3_sym_apply_zero :
-    T3_sym.apply (0 : LogWeightedL2) = (0 : LogWeightedL2) := by
-  show T3_sym_action (0 : LogWeightedL2) = (0 : LogWeightedL2)
-  unfold T3_sym_action
-  rw [T3_apply_zero, T3_adjoint_apply_zero]
-  -- Now: (1/2) • (0 + 0) = 0 in LogWeightedL2
-  show LogWeightedL2.mk _ _ = LogWeightedL2.mk _ _
-  congr 1
-  funext y
-  -- (0 + 0 : LogWeightedL2).toFun y = (0 : LogWeightedL2).toFun y + (0 : LogWeightedL2).toFun y
-  -- = 0 + 0 = 0; multiplied by 1/2 = 0
-  show (1/2 : ℂ) * ((0 + 0 : LogWeightedL2).toFun y) = 0
-  show (1/2 : ℂ) * ((0 : LogWeightedL2).toFun y + (0 : LogWeightedL2).toFun y) = 0
-  rw [show ∀ z : Set.Icc (0:ℝ) 1, (0 : LogWeightedL2).toFun z = 0 from fun _ => rfl]
-  ring
-
-/-! #### Boundary `MemLp2` closures for operator outputs at zero
-
-The three `T*_apply_zero` lemmas above show each operator sends the
-zero element to the zero element. Composing with `MemLp2_zero` gives
-the boundary `MemLp2` closure for free.
-
-These are the trivial cases of the general operator-`MemLp2` closure
-(`T3_apply_MemLp2`, `T3_adjoint_apply_MemLp2`) which require the
-Mayer 1991 ‖T_3‖ ≤ 1 estimate for the universal version. -/
+If a function-equality boundary identity is needed downstream, the
+correct reformulation is `Lp.ext` on AE-equality of representatives;
+none of the current consumers require that form. -/
 
 @[simp] theorem T3_apply_zero_MemLp2 :
-    (T3.apply (0 : LogWeightedL2)).MemLp2 := by
-  rw [T3_apply_zero]
-  exact LogWeightedL2.MemLp2_zero
+    (T3.apply (0 : LogWeightedL2)).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 @[simp] theorem T3_adjoint_apply_zero_MemLp2 :
-    (T3_adjoint.apply (0 : LogWeightedL2)).MemLp2 := by
-  rw [T3_adjoint_apply_zero]
-  exact LogWeightedL2.MemLp2_zero
+    (T3_adjoint.apply (0 : LogWeightedL2)).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 @[simp] theorem T3_sym_apply_zero_MemLp2 :
-    (T3_sym.apply (0 : LogWeightedL2)).MemLp2 := by
-  rw [T3_sym_apply_zero]
-  exact LogWeightedL2.MemLp2_zero
-
-/-- Boundary case: `T3_self_adjoint_conj` holds with first argument zero. -/
-theorem T3_self_adjoint_conj_at_zero_left (g : LogWeightedL2) :
-    ⟪T3_sym.apply (0 : LogWeightedL2), g⟫
-      = ⟪(0 : LogWeightedL2), T3_sym.apply g⟫ := by
-  rw [T3_sym_apply_zero, LogWeightedL2.inner_zero_left,
-      LogWeightedL2.inner_zero_left]
-
-/-- Boundary case: `T3_self_adjoint_conj` holds with second argument zero. -/
-theorem T3_self_adjoint_conj_at_zero_right (f : LogWeightedL2) :
-    ⟪T3_sym.apply f, (0 : LogWeightedL2)⟫
-      = ⟪f, T3_sym.apply (0 : LogWeightedL2)⟫ := by
-  rw [T3_sym_apply_zero, LogWeightedL2.inner_zero_right,
-      LogWeightedL2.inner_zero_right]
-
-/-- Additivity of the structure-based transfer operator action:
-    `transferOperatorAction b phases (f₁ + f₂) =
-       transferOperatorAction b phases f₁ + transferOperatorAction b phases f₂`.
-
-    Direct from the linearity of `(f₁ + f₂).toFun = f₁.toFun + f₂.toFun`
-    (instAdd's structural projection) plus distributivity over the
-    finite sum: `mul_add` + `Finset.sum_add_distrib`. -/
-theorem transferOperatorAction_add (b : ℕ) (phases : Fin b → ℂ)
-    (f₁ f₂ : LogWeightedL2) :
-    transferOperatorAction b phases (f₁ + f₂)
-      = transferOperatorAction b phases f₁ + transferOperatorAction b phases f₂ := by
-  show LogWeightedL2.mk _ _ = LogWeightedL2.mk _ _
-  congr 1
-  funext y
-  obtain ⟨x, hx⟩ := y
-  show (1 / (b : ℂ)) * ∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
-         (f₁ + f₂).toFun ⟨inverseBranch b k x, _⟩
-       = ((1 / (b : ℂ)) * ∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
-            f₁.toFun ⟨inverseBranch b k x, _⟩) +
-         ((1 / (b : ℂ)) * ∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
-            f₂.toFun ⟨inverseBranch b k x, _⟩)
-  have h_add : ∀ z : Set.Icc (0:ℝ) 1, (f₁ + f₂).toFun z = f₁.toFun z + f₂.toFun z :=
-    fun _ => rfl
-  simp only [h_add]
-  rw [show (∑ k : Fin b, phases k * (weightFunction b k x : ℂ) *
-              (f₁.toFun ⟨inverseBranch b k x, _⟩ +
-               f₂.toFun ⟨inverseBranch b k x, _⟩))
-        = ∑ k : Fin b, ((phases k * (weightFunction b k x : ℂ) *
-                         f₁.toFun ⟨inverseBranch b k x, _⟩) +
-                       (phases k * (weightFunction b k x : ℂ) *
-                         f₂.toFun ⟨inverseBranch b k x, _⟩))
-      from Finset.sum_congr rfl (fun _ _ => by ring)]
-  rw [Finset.sum_add_distrib]
-  ring
+    (T3_sym.apply (0 : LogWeightedL2)).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 /-! ## Self-Adjointness -/
 
