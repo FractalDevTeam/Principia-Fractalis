@@ -198,13 +198,15 @@ lemma integrable_logWeightedMeasure_restrict_Ioo_iff_smul
   unfold logWeightDensity
   rw [if_neg (not_le.mpr hx_pos), ENNReal.toReal_ofReal (one_div_pos.mpr hx_pos).le]
 
-/-- Extend a `LogWeightedL2` element's `toFun` (defined on `Set.Icc 0 1`)
-    to all of `ℝ` by zero outside the unit interval. Required so the
-    inner-product Bochner integral can use a `ℝ → ℂ` function.
+/-- The function representative of an `LogWeightedL2 = Lp ℂ 2 μ` element.
+    Refactored 2026-05-08 from the previous structure-field-based extension
+    to mathlib's Lp coercion via the AEEqFun representative.
 
-    For x ∈ Icc 0 1, returns f.toFun ⟨x, h⟩; else 0. -/
-noncomputable def LogWeightedL2.toFunℝ (f : LogWeightedL2) (x : ℝ) : ℂ :=
-  if h : x ∈ Set.Icc (0:ℝ) 1 then f.toFun ⟨x, h⟩ else 0
+    Mathematically: returns any chosen AE-strongly-measurable representative
+    of `f`'s AE-equivalence class. All Lp-level reasoning treats this
+    representative as canonical up to a.e.-equality. -/
+noncomputable def LogWeightedL2.toFunℝ (f : LogWeightedL2) : ℝ → ℂ :=
+  (f.toFun : ℝ → ℂ)
 
 /-- Inner product on `LogWeightedL2`:
       `⟨f, g⟩ = ∫₀¹ conj(f(x)) · g(x) dx/x`
