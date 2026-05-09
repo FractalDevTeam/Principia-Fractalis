@@ -38,33 +38,18 @@ namespace PrincipiaTractalis
 
 /-! ## Weighted Hilbert Space -/
 
-/-- The weighted L² space H = L²([0,1], w(x)dx) where w(x) = 1/x.
-    Inner product: ⟨f,g⟩ = ∫₀¹ f̄(x)g(x) dx/x
+/- The weighted L² space H = L²([0,1], w(x)dx) where w(x) = 1/x.
+   Inner product: ⟨f,g⟩ = ∫₀¹ f̄(x)g(x) dx/x
 
-    The logarithmic weight is natural for multiplicative number theory
-    since d(log n)/dn = 1/n.
+   The logarithmic weight is natural for multiplicative number theory
+   since d(log n)/dn = 1/n.
+
+   LogWeightedL2 structure REMOVED 2026-05-08 (refactor branch). Replaced
+   with `def LogWeightedL2 := Lp ℂ 2 (logWeightedMeasure.restrict (Ioo 0 1))`
+   after `logWeightedMeasure` is defined below. Mathlib's Lp provides Add,
+   Zero, Neg, Smul, NormedAddCommGroup, InnerProductSpace, CompleteSpace
+   instances automatically.
 -/
-structure LogWeightedL2 where
-  /-- The underlying function (represented as a placeholder) -/
-  toFun : Set.Icc (0 : ℝ) 1 → ℂ
-  /-- Square integrability with weight -/
-  integrable : True  -- Placeholder: ∫₀¹ |f(x)|² dx/x < ∞
-
-/-- Addition on weighted L². -/
-instance LogWeightedL2.instAdd : Add LogWeightedL2 where
-  add f g := ⟨fun x => f.toFun x + g.toFun x, trivial⟩
-
-/-- Zero function. -/
-instance LogWeightedL2.instZero : Zero LogWeightedL2 where
-  zero := ⟨fun _ => 0, trivial⟩
-
-/-- Negation. -/
-instance LogWeightedL2.instNeg : Neg LogWeightedL2 where
-  neg f := ⟨fun x => -f.toFun x, trivial⟩
-
-/-- Scalar multiplication. -/
-instance LogWeightedL2.instSMul : SMul ℂ LogWeightedL2 where
-  smul c f := ⟨fun x => c * f.toFun x, trivial⟩
 
 /-! ### Log-weighted measure (definition lives here so `LogWeightedL2.inner`
     can be a real Bochner integral, not an axiom). -/
@@ -94,6 +79,36 @@ instance : MeasureTheory.SigmaFinite logWeightedMeasure := by
   unfold logWeightedMeasure
   exact MeasureTheory.SigmaFinite.withDensity_of_ne_top'
     (fun x => logWeightDensity_ne_top x)
+
+/-- The weighted L² space H = L²((0,1), dx/x) — actual Hilbert space.
+    Refactored 2026-05-08 from the previous shell-type structure to mathlib's
+    `Lp ℂ 2 μ` with μ = logWeightedMeasure restricted to Ioo 0 1.
+
+    Mathlib provides Add, Zero, Neg, Smul, NormedAddCommGroup, NormedSpace ℂ,
+    InnerProductSpace ℂ, CompleteSpace instances automatically — every
+    `LogWeightedL2` element is now genuinely L² (no MemLp2 caveat).
+
+    Use `def` (not `abbrev`) so dot notation `f.toFunℝ`, `f.MemLp2` resolves
+    via the `LogWeightedL2.*` namespace rather than Lp/Subtype. -/
+noncomputable def LogWeightedL2 : Type :=
+  MeasureTheory.Lp ℂ 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+
+/-- LogWeightedL2 inherits all Lp instances. -/
+noncomputable instance : NormedAddCommGroup LogWeightedL2 := by
+  unfold LogWeightedL2; infer_instance
+noncomputable instance : NormedSpace ℂ LogWeightedL2 := by
+  unfold LogWeightedL2; infer_instance
+noncomputable instance : InnerProductSpace ℂ LogWeightedL2 := by
+  unfold LogWeightedL2; infer_instance
+noncomputable instance : CompleteSpace LogWeightedL2 := by
+  unfold LogWeightedL2; infer_instance
+
+/-- The underlying AEEqFun representative of an `LogWeightedL2 = Lp ℂ 2 μ`
+    element. Compatibility shim for code that previously used the
+    structure's `toFun` field. -/
+noncomputable def LogWeightedL2.toFun (f : LogWeightedL2) :
+    ℝ →ₘ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)] ℂ :=
+  (f : MeasureTheory.Lp ℂ 2 _).val
 
 /-- `logWeightDensity` is measurable: piecewise-constant on `Iic 0` and
     a measurable function on $\mathbb{R}$ via `Measurable.ite` over the
