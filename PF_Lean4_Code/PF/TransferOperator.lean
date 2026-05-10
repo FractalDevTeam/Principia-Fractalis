@@ -3538,6 +3538,15 @@ theorem T3_self_adjoint_conj_via_MemLp2
     (T3_formal_adjoint_relation_from_MemLp2 f g hf hg)
     (T3_formal_adjoint_relation_inv_from_MemLp2 f g hf hg)
 
+/-- **Universal self-adjointness of $T_3^{\mathrm{sym}}$** — no MemLp2
+    hypothesis. Lifted from `T3_self_adjoint_conj_via_MemLp2` using
+    the universal `MemLp2_universal` (every `LogWeightedL2 = Lp ℂ 2 μ`
+    element is automatically MemLp2 in the post-refactor form). -/
+theorem T3_self_adjoint_conj (f g : LogWeightedL2) :
+    ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫ :=
+  T3_self_adjoint_conj_via_MemLp2 f g
+    (LogWeightedL2.MemLp2_universal f) (LogWeightedL2.MemLp2_universal g)
+
 /-- **Symmetrised operator MemLp2 closure**: `(T3_sym.apply f).MemLp2`
     follows from `f.MemLp2`.
 
@@ -3640,12 +3649,22 @@ theorem self_adjoint_real_eigenvalues
 /-- **Eigenvalue with MemLp2 witness**: stronger eigenvalue predicate
     requiring the eigenvector to be in `L²(μ_log)` (i.e. `f.MemLp2`).
 
-    The mathematically meaningful eigenvalue notion for the spectral
-    framework: only `MemLp2` eigenvectors carry the L² Hilbert-space
-    structure that makes "eigenvalue" a well-behaved spectral concept.
-    For non-`MemLp2` witnesses, the inner product structure degenerates. -/
+    Post-Lp-refactor (2026-05-09): `MemLp2` is universal on the Lp form
+    of `LogWeightedL2`, so this predicate is now equivalent to
+    `IsEigenvalue` (see `IsEigenvalue_iff_MemLp2`). Retained for API
+    stability — downstream code that mentions `MemLp2` witnesses does
+    not need to change. -/
 def IsEigenvalue_MemLp2 (T : LogWeightedL2 → LogWeightedL2) (lam : ℂ) : Prop :=
   ∃ f : LogWeightedL2, f ≠ 0 ∧ f.MemLp2 ∧ T f = lam • f
+
+/-- **Equivalence of eigenvalue predicates**: in the Lp form of
+    `LogWeightedL2`, `MemLp2` is universal, so the MemLp2-restricted and
+    unrestricted eigenvalue predicates coincide. -/
+theorem IsEigenvalue_iff_MemLp2 (T : LogWeightedL2 → LogWeightedL2) (lam : ℂ) :
+    IsEigenvalue T lam ↔ IsEigenvalue_MemLp2 T lam := by
+  refine ⟨fun ⟨f, hf_ne, hf_eig⟩ =>
+    ⟨f, hf_ne, LogWeightedL2.MemLp2_universal f, hf_eig⟩,
+   fun ⟨f, hf_ne, _, hf_eig⟩ => ⟨f, hf_ne, hf_eig⟩⟩
 
 /-- **Self-adjointness implies real eigenvalues** (MemLp2 version):
     same conclusion as `self_adjoint_real_eigenvalues` but with the
@@ -3872,16 +3891,15 @@ theorem spectral_gap_exists :
     Note: Self-adjointness depends on the inner product axiom.
 -/
 theorem T3_spectral_complete :
-    -- T3_sym is self-adjoint on MemLp2 inputs (the L²(μ_log) subspace —
-    -- the mathematically meaningful setting; spec narrowed 2026-05-08
-    -- as part of the T3_self_adjoint_conj retirement cascade).
-    (∀ f g, f.MemLp2 → g.MemLp2 →
-        ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- T3_sym is self-adjoint UNIVERSALLY on `LogWeightedL2` (post-Lp-refactor:
+    -- every element is automatically `L²(μ_log)`, so the prior MemLp2
+    -- narrowing collapses to the universal claim).
+    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
     -- Has real eigenvalues converging to 0
     (∃ (eigs : EigenvalueSequence 3), True) ∧
     -- Spectral radius = 1/3
     (|lambda_max| = 1/3) := by
-  refine ⟨T3_self_adjoint_conj_via_MemLp2, ?_, ?_⟩
+  refine ⟨T3_self_adjoint_conj, ?_, ?_⟩
   · exact ⟨{
       eigenvalues := fun n => (1/3 : ℝ) / (n + 1)
       decreasing := by
@@ -3944,8 +3962,9 @@ theorem T3_spectral_complete :
     Reference: Manuscript Chapter 20, Theorem `thm:spectral-bijection`.
     Reed-Simon Vol. I, Theorems VI.8 + VI.16. -/
 theorem T3_sym_spectral_framework
-    -- Phase A inner-product hypotheses (free once
-    -- LogWeightedL2 := MeasureTheory.Lp ℂ 2 logWeightedMeasure)
+    -- Phase A inner-product hypotheses (post-Lp-refactor: derivable from
+    -- mathlib's `InnerProductSpace ℂ` instance via the Lp form, but kept
+    -- as explicit args so the API does not change).
     (hsmul_left : ∀ (a : ℂ) (f g : LogWeightedL2),
         ⟪a • f, g⟫ = (star a) * ⟪f, g⟫)
     (hsmul_right : ∀ (a : ℂ) (f g : LogWeightedL2),
@@ -3958,17 +3977,19 @@ theorem T3_sym_spectral_framework
     (hev : ∀ n : ℕ, IsEigenvalue T3_sym.apply ((eigenvalues n : ℂ)))
     (K : ℝ) (hK : K > 0)
     (hbound : ∀ n : ℕ, |eigenvalues n| ≤ K / ((n : ℝ) + 1)) :
-    -- (1) T3_sym is self-adjoint on MemLp2 (the L²(μ_log) subspace)
-    (∀ f g, f.MemLp2 → g.MemLp2 →
-        ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
-    -- (2) Every MemLp2 eigenvalue of T3_sym is real
-    (∀ lam : ℂ, IsEigenvalue_MemLp2 T3_sym.apply lam → lam.im = 0) ∧
+    -- (1) T3_sym is self-adjoint UNIVERSALLY (post-Lp-refactor: every
+    --     `LogWeightedL2` element is automatically in `L²(μ_log)`).
+    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- (2) Every eigenvalue of T3_sym is real (universal, no MemLp2
+    --     restriction).
+    (∀ lam : ℂ, IsEigenvalue T3_sym.apply lam → lam.im = 0) ∧
     -- (3) The eigenvalue sequence accumulates at 0
     Filter.Tendsto eigenvalues Filter.atTop (nhds 0) := by
-  refine ⟨T3_self_adjoint_conj_via_MemLp2, ?_, ?_⟩
-  · exact self_adjoint_real_eigenvalues_MemLp2 T3_sym T3_self_adjoint_conj_via_MemLp2
-      hsmul_left hsmul_right (fun f _ hne => hpos_def f hne)
-  · exact compact_discrete_spectrum T3_sym T3_self_adjoint_conj_via_MemLp2
+  refine ⟨T3_self_adjoint_conj, ?_, ?_⟩
+  · exact self_adjoint_real_eigenvalues T3_sym T3_self_adjoint_conj
+      hsmul_left hsmul_right hpos_def
+  · exact compact_discrete_spectrum T3_sym
+      (fun f g _ _ => T3_self_adjoint_conj f g)
       eigenvalues hev K hK hbound
 
 end PrincipiaTractalis
