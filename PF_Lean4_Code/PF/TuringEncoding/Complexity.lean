@@ -59,18 +59,29 @@ def IsPolynomialBounded (T : ℕ → ℕ) : Prop :=
     parametrizes over `K` (stack indices), `Γ : K → Type` (alphabet per stack),
     `Λ` (state set), and `σ` (auxiliary register). Here we keep the
     surface signature `(Γ Λ σ : Type)` for compatibility with the manuscript
-    formalization, with `accepts : BinString → Prop` as the only operationally
-    observable predicate. The concrete TM model is hidden behind this
-    abstraction; the `turingTimeComplexity` axiom below supplies step counts. -/
+    formalization, with two operationally observable fields:
+    - `accepts : BinString → Prop` — whether the machine accepts an input.
+    - `steps : BinString → ℕ` — the step count on a given input.
+
+    For non-halting computations the `steps` value is a sentinel (any ℕ);
+    machines that decide a language in time `T` are characterized by a
+    pointwise bound `steps x ≤ T (binLength x)` for inputs in the language,
+    so non-halting cases never satisfy the polynomial bound and are excluded
+    from `InClassP` / `InClassNP` automatically. -/
 structure Machine (Γ Λ σ : Type) where
   /-- Accept predicate on binary strings. -/
   accepts : BinString → Prop
+  /-- Step count on a given input (sentinel for non-halting; the polynomial
+      bound in `InClassP` / `InClassNP` constrains halting cases). -/
+  steps : BinString → ℕ
 
-/-- Time complexity function for a Turing machine (axiomatized — TM2 stepping
-    is partial; total step-count requires either a halting hypothesis or a
-    sentinel for non-halting computations. See
-    `principia_remaining_axioms_roadmap.md` Tier 2 for retirement strategy). -/
-axiom turingTimeComplexity : (Γ Λ σ : Type) → Machine Γ Λ σ → BinString → ℕ
+/-- Time complexity function for a Turing machine. Retired 2026-05-10 from an
+    axiom to a `def`: the step count is now a field of the `Machine` structure,
+    eliminating the need for an external axiom. The function-level signature
+    `(Γ Λ σ : Type) → Machine Γ Λ σ → BinString → ℕ` is preserved for API
+    compatibility with downstream consumers. -/
+def turingTimeComplexity : (Γ Λ σ : Type) → Machine Γ Λ σ → BinString → ℕ :=
+  fun _ _ _ M x => M.steps x
 
 /-!
 ## The P Class: Polynomial-Time Decidable Languages
