@@ -91,14 +91,14 @@ computational structure through the digital sum."
     e^(iπ·√2·D(encode(x))) where D is the base-3 digital sum
 -/
 noncomputable def phasePclass (x : BinString) : ℂ :=
-  Complex.exp (I * π * alphaPclass * (instanceDigitalSum x : ℝ))
+  Complex.exp (I * (Real.pi : ℂ) * alphaPclass * (instanceDigitalSum x : ℝ))
 
 /-- Phase factor for NP-class operator
     e^(iπ·(φ+1/4)·D(encode(x,c))) including certificate information
 -/
 noncomputable def phaseNPclass (x : BinString) (c : Certificate) : ℂ :=
   let totalDigitalSum := instanceDigitalSum x + instanceDigitalSum c
-  Complex.exp (I * π * alphaNPclass * (totalDigitalSum : ℝ))
+  Complex.exp (I * (Real.pi : ℂ) * alphaNPclass * (totalDigitalSum : ℝ))
 
 -- OPERATOR DEFINITION REMOVED: H_Pclass (UNUSED)
 -- Was a placeholder definition (constant 0 function) defined on L2LanguageSpace.
@@ -267,14 +267,8 @@ theorem consciousness_base_lt_one : 1 - (0.95 : ℝ)^2 < 1 := by norm_num
     Squaring: 32 = 9 + 12√5 + 20 = 29 + 12√5
     So 3 = 12√5, giving √5 = 1/4, which is false (√5 ≈ 2.236).
 
-    This proof requires algebraic manipulation beyond norm_num's capabilities.
-    Formalizing it properly would take 1-2 days with field axioms and contradiction.
-
-    For now, we axiomatize this obvious numerical fact. It's not a deep mathematical
-    assumption - just stating that two algebraic numbers with different numerical
-    values are indeed different.
--/
-/-- √2 ≠ φ + 1/4 (follows from strict inequality, PROVEN) -/
+    Proven below via `phi_plus_quarter_gt_sqrt2` (strict inequality from
+    `PF.IntervalArithmetic`) plus `linarith`. -/
 theorem sqrt2_neq_phi_plus_quarter : Real.sqrt 2 ≠ (1 + Real.sqrt 5) / 2 + 1/4 := by
   -- We proved φ + 1/4 > √2 in IntervalArithmetic.lean
   -- Strict inequality implies ≠
@@ -282,19 +276,15 @@ theorem sqrt2_neq_phi_plus_quarter : Real.sqrt 2 ≠ (1 + Real.sqrt 5) / 2 + 1/4
   unfold phi at h
   linarith
 
-/-- At consciousness threshold, fractal modulation crystallizes the P/NP distinction -/
-theorem consciousness_crystallization_at_threshold :
-  let s := consciousnessThreshold
-  let R_P := fractalModulation alphaPclass s
-  let R_NP := fractalModulation alphaNPclass s
-  R_P ≠ R_NP := by
-  unfold consciousnessThreshold fractalModulation alphaPclass alphaNPclass
-  -- At s = 0.95, we have (1-s²)^√2 ≠ (1-s²)^(φ+1/4)
-  -- This follows from pow_injective_on_unit_interval
-  apply pow_injective_on_unit_interval
-  · exact consciousness_base_positive
-  · exact consciousness_base_lt_one
-  · exact sqrt2_neq_phi_plus_quarter
+/- `consciousness_crystallization_at_threshold` — proof retired 2026-05-10.
+
+   Prior statement: `R_P ≠ R_NP` where `R_α = (1-s²)^α * Real.exp (s·α)` at
+   `s = 0.95`. The proof requires log-injectivity at a specific numerical point
+   (`log 0.0975 + 0.95 ≠ 0`) which is auxiliary to the file's main P/NP
+   operator framework. The theorem has no downstream consumers; deleting
+   avoids introducing an unproven claim. Retain as a documented side-fact
+   for the manuscript; the formal Lean version belongs in a real-analysis
+   numerical-interval add-on file, not in this operator-definition module. -/
 
 /-!
 ## Summary: The Turing-to-Operator Encoding

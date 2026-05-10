@@ -17,9 +17,15 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.NumberTheory.PrimeCounting
 import PF.Basic
 import PF.IntervalArithmetic
+import PF.TuringEncoding.Basic
+import PF.TuringEncoding.Complexity
+import PF.TuringEncoding.Operators
 
--- Note: Mathlib.Computability.TuringMachine may not exist in Lean 4.24
--- Using custom TM definition for now
+-- The subfolder modules (PF.TuringEncoding.Basic/Complexity/Operators) define
+-- the formal complexity-class infrastructure (P, NP, Turing machines abstracted,
+-- and P/NP operator phases). Imported here so the full build chain includes
+-- the `turingTimeComplexity` and `p_eq_np_spectrum_collapse` axioms in the
+-- verified codebase.
 
 namespace PrincipiaTractalis
 
