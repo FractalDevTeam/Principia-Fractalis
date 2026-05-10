@@ -212,16 +212,27 @@ noncomputable def CharacteristicFunctional.toCylindricalMeasure {d : ℕ}
   consistent := fun _ _ => trivial
 }
 
-/-- LEMMA: Finite-dimensional Bochner theorem.
-    If C : ℝ^n → ℂ is positive definite, normalized, and continuous,
-    then there exists a unique probability measure μ on ℝ^n such that
-    C(t) = ∫ exp(i⟨t,x⟩) dμ(x).
--/
-axiom finite_dim_bochner (n : ℕ) (C : (Fin n → ℝ) → ℂ)
-    (hpd : IsPositiveDefinite C) (hn : C 0 = 1)
-    (hcont : Continuous C) :
-    ∃! (μ : MeasureTheory.ProbabilityMeasure (Fin n → ℝ)),
-      ∀ t : Fin n → ℝ, C t = ∫ x, Complex.exp (Complex.I * (∑ i, t i * x i)) ∂(μ : MeasureTheory.Measure (Fin n → ℝ))
+/- `finite_dim_bochner` — axiom retired 2026-05-10 by deletion.
+
+   The classical finite-dimensional Bochner theorem (positive-definite normalized
+   continuous → unique probability measure with prescribed characteristic
+   function) WAS asserted here as an axiom, but it had **zero downstream
+   consumers** in the codebase. The intended use site
+   (`CharacteristicFunctional.toCylindricalMeasure`, line 204) substitutes a
+   placeholder `Measure.dirac 0` rather than actually invoking the axiom; no
+   theorem in the verified codebase depends on `finite_dim_bochner`.
+
+   Deletion is the honest move per the referee-grade rigor mandate: an axiom
+   that doesn't contribute to any verified result is worse than no axiom (it
+   claims content without doing the verification work).
+
+   Future retirement path (when the cylindrical-measure machinery is fleshed
+   out and a finite-dim Bochner becomes load-bearing):
+   - Uniqueness half: provable from mathlib's `Measure.ext_of_charFun` after
+     transport via `PiLp.continuousLinearEquiv 2 ℝ (fun _ : Fin n => ℝ)` to
+     `EuclideanSpace ℝ (Fin n)` (which has all the required instances).
+   - Existence half: classical Bochner theorem (Reed-Simon I §IX.2). Not in
+     mathlib; substantive multi-week formalization. -/
 
 /-! ## Consistency Verification -/
 
