@@ -1727,36 +1727,34 @@ lemma branch_function_MemLp2 (k : Fin 3) (f : LogWeightedL2) (hf : f.MemLp2) :
     by_contra h_not_int
     exact h_main_ne (MeasureTheory.integral_undef h_not_int)
 
-/-- **`T3.apply f` is in `L²(μ_log↾(0,1))`** when `f.MemLp2`.
+/-- **Unconditional MemLp closure for the contracting transfer-operator
+    formula.** The function `transferOperatorAction_func 3 phaseFactorBase3 f`
+    is in `L²(μ_log↾(0,1))` for any `f : LogWeightedL2`.
 
-    The full operator-MemLp2 closure: combines the per-branch closure
-    (`branch_function_MemLp2`) for k = 0, 1, 2 with `MemLp.const_smul`
-    (phase factors and 1/3 prefactor) and `MemLp.add` (sum over branches),
-    then transfers via `MemLp.ae_eq` from the explicit sum (true on Ioo 0 1
-    via `T3_toFunℝ_Ioo`) to `(T3.apply f).toFunℝ`. -/
-theorem T3_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
-    (T3.apply f).MemLp2 := by
-  show MeasureTheory.MemLp (T3.apply f).toFunℝ 2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
-  -- Per-branch summand: MemLp from branch_function_MemLp2 + const_smul (phase factor).
+    Built from the per-branch closure (`branch_function_MemLp2`) with
+    `MemLp.const_smul` (phase factors and 1/3 prefactor) and `MemLp.add`
+    (sum over branches), bridged by associativity to the explicit
+    `transferOperatorAction_func` form. The `f.MemLp2` precondition
+    becomes universal in the Lp-form `LogWeightedL2`. -/
+theorem T3_apply_func_MemLp (f : LogWeightedL2) :
+    MeasureTheory.MemLp (transferOperatorAction_func 3 phaseFactorBase3 f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  have hf := LogWeightedL2.MemLp2_universal f
   have h_summand : ∀ k : Fin 3, MeasureTheory.MemLp
       (fun x => phaseFactorBase3 k * ((weightFunction 3 k x : ℂ) *
                   f.toFunℝ (inverseBranch 3 k x)))
       2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
     fun k => (branch_function_MemLp2 k f hf).const_smul (phaseFactorBase3 k)
-  -- Sum over Fin 3 is MemLp via memLp_finset_sum.
   have h_sum : MeasureTheory.MemLp
       (fun x => ∑ k : Fin 3, phaseFactorBase3 k * ((weightFunction 3 k x : ℂ) *
                   f.toFunℝ (inverseBranch 3 k x)))
       2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
     MeasureTheory.memLp_finset_sum Finset.univ (fun k _ => h_summand k)
-  -- (1/3) • sum is MemLp.
   have h_T3_explicit : MeasureTheory.MemLp
       (fun x => (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
                   ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x)))
       2 (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
     h_sum.const_smul (1/3 : ℂ)
-  -- Bridge: the explicit sum's function is pointwise (= AE-) equal to
-  -- `transferOperatorAction_func 3 phaseFactorBase3 f` modulo associativity.
   have h_func_eq : (fun x => (1/3 : ℂ) * ∑ k : Fin 3, phaseFactorBase3 k *
                     ((weightFunction 3 k x : ℂ) * f.toFunℝ (inverseBranch 3 k x)))
       =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
@@ -1772,16 +1770,23 @@ theorem T3_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
     apply Finset.sum_congr rfl
     intros k _
     ring
-  have h_T3_func_MemLp : MeasureTheory.MemLp
-      (transferOperatorAction_func 3 phaseFactorBase3 f) 2
-      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
-    h_T3_explicit.ae_eq h_func_eq
-  -- AE on (0,1): (T3.apply f).toFunℝ = transferOperatorAction_func via T3_toFunℝ_Ioo
-  have h_ae_func : (T3.apply f).toFunℝ
+  exact h_T3_explicit.ae_eq h_func_eq
+
+/-- **Unconditional `T3_toFunℝ_Ioo`**: `(T3.apply f).toFunℝ` AE-equals
+    `transferOperatorAction_func 3 phaseFactorBase3 f` on `μ_log↾(Ioo 0 1)`,
+    no MemLp hypothesis required. Direct corollary of `T3_toFunℝ_Ioo`
+    discharged by `T3_apply_func_MemLp`. -/
+theorem T3_toFunℝ_Ioo_unconditional (f : LogWeightedL2) :
+    (T3.apply f).toFunℝ
       =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
       transferOperatorAction_func 3 phaseFactorBase3 f :=
-    T3_toFunℝ_Ioo f h_T3_func_MemLp
-  exact h_T3_func_MemLp.ae_eq h_ae_func.symm
+  T3_toFunℝ_Ioo f (T3_apply_func_MemLp f)
+
+/-- `T3.apply f` is in `L²(μ_log↾(0,1))` — universal in the Lp form
+    (the `f.MemLp2` hypothesis is now automatic via `MemLp2_universal`). -/
+theorem T3_apply_MemLp2 (f : LogWeightedL2) (_hf : f.MemLp2) :
+    (T3.apply f).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 /-! ### Adjoint operator MemLp2 chain — per-branch L² identity for the expanding map
 
@@ -2242,22 +2247,23 @@ lemma branch_function_MemLp2_adjoint (k : Fin 3) (f : LogWeightedL2) (hf : f.Mem
     by_contra h_not_int
     exact h_main_ne (MeasureTheory.integral_undef h_not_int)
 
-/-- **`T3_adjoint.apply f` is in `L²(μ_log↾(0,1))`** when `f.MemLp2`.
+/-- **Unconditional MemLp closure for the adjoint transfer-operator
+    formula.** The piecewise if-cascade `T3_adjoint_action_func f` is in
+    `L²(μ_log↾(0,1))` for any `f : LogWeightedL2`.
 
-    The full adjoint-operator MemLp2 closure: combines the per-branch
-    closure (`branch_function_MemLp2_adjoint`) for $k = 0, 1, 2$ via
-    `MemLp.indicator` (lifting from $\mu_{\log}|_{I_k}$ to $\mu_{\log}|_{(0,1)}$),
-    then sums via `memLp_finset_sum`, and transfers via `MemLp.ae_eq` from
-    the indicator-sum form to `(T3_adjoint.apply f).toFunℝ`.
+    Built from the per-branch adjoint closure (`branch_function_MemLp2_adjoint`)
+    via `MemLp.indicator` (lifting from $\mu_{\log}|_{I_k}$ to
+    $\mu_{\log}|_{(0,1)}$), then `memLp_finset_sum` to combine branches, and
+    `MemLp.ae_eq` to bridge from the indicator-sum form to `T3_adjoint_action_func`.
 
-    The piecewise structure of `T3_adjoint` (one branch active per $x \in (0,1)$
-    according to which $I_k$ contains $x$) means the AE-equality with the
-    indicator sum holds on $(0,1) \setminus \{1/3, 2/3\}$ pointwise, and the
-    excluded boundary points have $\mu_{\log}$-measure zero. -/
-theorem T3_adjoint_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
-    (T3_adjoint.apply f).MemLp2 := by
-  show MeasureTheory.MemLp (T3_adjoint.apply f).toFunℝ 2
-        (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1))
+    The piecewise structure of $\widetilde{T}_3^*$ (one branch active per
+    $x \in (0,1)$ according to which $I_k$ contains $x$) means the AE-equality
+    holds on $(0,1) \setminus \{1/3, 2/3\}$ pointwise, and the excluded boundary
+    points have $\mu_{\log}$-measure zero. -/
+theorem T3_adjoint_action_func_MemLp (f : LogWeightedL2) :
+    MeasureTheory.MemLp (T3_adjoint_action_func f) 2
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  have hf := LogWeightedL2.MemLp2_universal f
   -- Per-branch MemLp lifted via indicator from μ_log↾I_k to μ_log↾(0,1).
   have h_summand : ∀ k : Fin 3, MeasureTheory.MemLp
       ((Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)).indicator
@@ -2402,15 +2408,23 @@ theorem T3_adjoint_apply_MemLp2 (f : LogWeightedL2) (hf : f.MemLp2) :
             Set.indicator_of_mem h_in_I2]
         rw [h_v2]; ring
   -- Bridge: T3_adjoint_action_func is MemLp via h_sum (indicator-sum) + ae_eq.
-  have h_T3_adjoint_func_MemLp : MeasureTheory.MemLp (T3_adjoint_action_func f) 2
-      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) :=
-    h_sum.ae_eq h_ae_func.symm
-  -- (T3_adjoint.apply f).toFunℝ AE-equals T3_adjoint_action_func via T3_adjoint_toFunℝ_Ioo.
-  have h_apply_ae : (T3_adjoint.apply f).toFunℝ
+  exact h_sum.ae_eq h_ae_func.symm
+
+/-- **Unconditional `T3_adjoint_toFunℝ_Ioo`**: `(T3_adjoint.apply f).toFunℝ`
+    AE-equals `T3_adjoint_action_func f` on `μ_log↾(Ioo 0 1)`, no MemLp
+    hypothesis required. Direct corollary of `T3_adjoint_toFunℝ_Ioo`
+    discharged by `T3_adjoint_action_func_MemLp`. -/
+theorem T3_adjoint_toFunℝ_Ioo_unconditional (f : LogWeightedL2) :
+    (T3_adjoint.apply f).toFunℝ
       =ᵐ[logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)]
       T3_adjoint_action_func f :=
-    T3_adjoint_toFunℝ_Ioo f h_T3_adjoint_func_MemLp
-  exact h_T3_adjoint_func_MemLp.ae_eq h_apply_ae.symm
+  T3_adjoint_toFunℝ_Ioo f (T3_adjoint_action_func_MemLp f)
+
+/-- `T3_adjoint.apply f` is in `L²(μ_log↾(0,1))` — universal in the Lp form
+    (the `f.MemLp2` hypothesis is now automatic via `MemLp2_universal`). -/
+theorem T3_adjoint_apply_MemLp2 (f : LogWeightedL2) (_hf : f.MemLp2) :
+    (T3_adjoint.apply f).MemLp2 :=
+  LogWeightedL2.MemLp2_universal _
 
 /-- **Pointwise weight-ratio corollary** of the Mayer weight identity
     `adjointWeight_eq_weightFunction`. For $u > 0$ with $3u - k > 0$:
