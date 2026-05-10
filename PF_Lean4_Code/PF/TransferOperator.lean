@@ -119,6 +119,27 @@ theorem logWeightDensity_measurable : Measurable logWeightDensity := by
   exact ENNReal.continuous_ofReal.measurable.comp
     (measurable_const.div measurable_id)
 
+/-- **Volume ≪ μ_log on (0,1)**: every `volume.restrict (Ioo 0 1)`-null set is
+    also `logWeightedMeasure.restrict (Ioo 0 1)`-null. Holds because the
+    density `1/x` is positive on `(0,1)`. Composes with mathlib's
+    `MeasureTheory.AbsolutelyContinuous.ae_eq` to lift AE-equalities from
+    `μ_log↾(Ioo 0 1)` to `volume↾(Ioo 0 1)`. -/
+lemma volume_absolutelyContinuous_logWeightedMeasure_Ioo :
+    MeasureTheory.Measure.AbsolutelyContinuous
+      ((MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict (Set.Ioo (0:ℝ) 1))
+      (logWeightedMeasure.restrict (Set.Ioo (0:ℝ) 1)) := by
+  rw [logWeightedMeasure_def, MeasureTheory.restrict_withDensity measurableSet_Ioo]
+  apply MeasureTheory.withDensity_absolutelyContinuous'
+  · exact logWeightDensity_measurable.aemeasurable
+  · refine MeasureTheory.ae_restrict_of_forall_mem measurableSet_Ioo ?_
+    intros x hx
+    unfold logWeightDensity
+    rw [if_neg (not_le.mpr hx.1)]
+    intro hzero
+    rw [ENNReal.ofReal_eq_zero] at hzero
+    have hx_pos : 0 < 1/x := one_div_pos.mpr hx.1
+    linarith
+
 /-- **Bochner-integral bridge: μ_log↾(0,1) → volume↾(0,1) with weight (1/x)**.
     For ℂ-valued integrand `h : ℝ → ℂ`:
 
@@ -2626,25 +2647,28 @@ lemma T3_inner_volume_form (f g : LogWeightedL2)
   -- Step 1: Unfold inner, apply Bochner bridge to volume·(1/x).
   unfold LogWeightedL2.inner
   rw [setIntegral_logWeightedMeasure_Ioo_eq_smul]
-  -- Step 2: Pointwise expand the integrand using T3_inner_integrand_Ioo,
-  -- AND convert the real smul to ℂ-multiplication, AND distribute (1/x)
-  -- through the (1/3)·Σ structure — all in one setIntegral_congr_fun pass.
-  rw [MeasureTheory.setIntegral_congr_fun (E := ℂ) measurableSet_Ioo
-      (f := fun x => ((1/x : ℝ) : ℝ) •
-            ((starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x))
-      (g := fun x => (1/3 : ℂ) * ∑ k : Fin 3,
-            ((1 / x : ℝ) : ℂ) *
-            (starRingEnd ℂ) (phaseFactorBase3 k) *
-            ((weightFunction 3 k x : ℝ) : ℂ) *
-            (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
-            g.toFunℝ x) ?_]
+  -- Step 2: AE-expand the integrand using T3_inner_integrand_Ioo (now AE-equality
+  -- on μ_log↾Ioo), bridged to volume↾Ioo via volume_absolutelyContinuous_logWeightedMeasure_Ioo.
+  -- Convert the real smul to ℂ-multiplication and distribute (1/x).
+  rw [MeasureTheory.setIntegral_congr_ae measurableSet_Ioo ?_]
   · -- Now goal: ∫ (1/3) * Σ_k [...] = (1/3) * Σ_k ∫ [...]
-    -- Pull (1/3) constant out via integral_const_mul, then distribute Σ via integral_finset_sum.
     rw [MeasureTheory.integral_const_mul,
         MeasureTheory.integral_finset_sum _ (fun k _ => h_int k)]
-  · -- Pointwise equality on Ioo (0,1):
-    -- (1/x:ℝ) • (conj((T3 f)(x)) · g(x)) = (1/3) * Σ_k (1/x:ℂ) * conj(ω_k) * w_k(x) * conj(f(y_k(x))) * g(x)
-    intros x hx
+  · -- AE-equality on volume.restrict (Ioo 0 1) lifted via AC from μ_log↾Ioo.
+    have h_ae_μlog := T3_inner_integrand_Ioo f g (T3_apply_func_MemLp f)
+    have h_ae_vol :
+        (fun x => (starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x)
+          =ᵐ[(MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+              (Set.Ioo (0:ℝ) 1)]
+          (fun x => (1/3 : ℂ) * ∑ k : Fin 3,
+                    (starRingEnd ℂ) (phaseFactorBase3 k) *
+                    ((weightFunction 3 k x : ℝ) : ℂ) *
+                    (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
+                    g.toFunℝ x) :=
+      volume_absolutelyContinuous_logWeightedMeasure_Ioo.ae_eq h_ae_μlog
+    -- Lift the restricted-AE equality to an `∀ᵐ ∂volume, x ∈ Ioo → _` form.
+    refine (MeasureTheory.ae_restrict_iff' measurableSet_Ioo).mp ?_
+    filter_upwards [h_ae_vol] with x h_inner
     show ((1/x : ℝ) : ℝ) • ((starRingEnd ℂ) ((T3.apply f).toFunℝ x) * g.toFunℝ x)
        = (1/3 : ℂ) * ∑ k : Fin 3,
             ((1 / x : ℝ) : ℂ) *
@@ -2652,8 +2676,7 @@ lemma T3_inner_volume_form (f g : LogWeightedL2)
             ((weightFunction 3 k x : ℝ) : ℂ) *
             (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
             g.toFunℝ x
-    rw [T3_inner_integrand_Ioo f g x hx, Complex.real_smul]
-    -- Goal: (1/x:ℝ:ℂ) * ((1/3) * Σ_k T_k) = (1/3) * Σ_k (1/x:ℂ) * T_k * ...
+    rw [Complex.real_smul, h_inner]
     -- Step a: rearrange so (1/3) is the outermost factor.
     rw [show ((1/x : ℝ) : ℂ) * ((1/3 : ℂ) *
             ∑ k : Fin 3, (starRingEnd ℂ) (phaseFactorBase3 k) *
@@ -2665,9 +2688,7 @@ lemma T3_inner_volume_form (f g : LogWeightedL2)
                         ((weightFunction 3 k x : ℝ) : ℂ) *
                         (starRingEnd ℂ) (f.toFunℝ (inverseBranch 3 k x)) *
                         g.toFunℝ x) from by ring]
-    -- Step b: distribute (1/x) into the sum.
     rw [Finset.mul_sum]
-    -- Step c: each summand matches up to associativity.
     congr 1
     apply Finset.sum_congr rfl
     intros k _
@@ -2864,13 +2885,28 @@ lemma setIntegral_Ioo_partition_three (F : ℝ → ℂ)
     15th piece of the Mayer formal-adjoint chain. Together with
     `setIntegral_Ioo_partition_three`, discharges the spatial+
     if-cascade portion of `h_partition`. -/
-lemma T3_adjoint_integrand_on_branch (f g : LogWeightedL2) (k : Fin 3)
-    (x : ℝ) (hx : x ∈ Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3)) :
-    ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
-      (T3_adjoint.apply g).toFunℝ x
-    = ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+lemma T3_adjoint_integrand_on_branch (f g : LogWeightedL2) (k : Fin 3) :
+    (fun x => ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+      (T3_adjoint.apply g).toFunℝ x)
+    =ᵐ[(MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+        (Set.Ioo ((k.val : ℝ)/3) (((k.val : ℝ) + 1)/3))]
+    (fun x => ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
       phaseFactorBase3Conj k * ((adjointWeight k x : ℝ) : ℂ) *
-      g.toFunℝ (3 * x - (k.val : ℝ)) := by
+      g.toFunℝ (3 * x - (k.val : ℝ))) := by
+  -- AE-equality of (T3_adjoint.apply g).toFunℝ to T3_adjoint_action_func g on volume↾Ioo 0 1
+  have h_ae_Ioo01 :
+      (T3_adjoint.apply g).toFunℝ
+        =ᵐ[(MeasureTheory.volume : MeasureTheory.Measure ℝ).restrict
+            (Set.Ioo (0:ℝ) 1)]
+        T3_adjoint_action_func g :=
+    volume_absolutelyContinuous_logWeightedMeasure_Ioo.ae_eq
+      (T3_adjoint_toFunℝ_Ioo_unconditional g)
+  have h_ae_vol : ∀ᵐ x ∂(MeasureTheory.volume : MeasureTheory.Measure ℝ),
+      x ∈ Set.Ioo (0:ℝ) 1 →
+      (T3_adjoint.apply g).toFunℝ x = T3_adjoint_action_func g x :=
+    (MeasureTheory.ae_restrict_iff' measurableSet_Ioo).mp h_ae_Ioo01
+  refine (MeasureTheory.ae_restrict_iff' measurableSet_Ioo).mpr ?_
+  filter_upwards [h_ae_vol] with x h_eq hx
   have hx_Ioo01 : x ∈ Set.Ioo (0:ℝ) 1 := by
     refine ⟨?_, ?_⟩
     · have h_k_nonneg : (0:ℝ) ≤ (k.val : ℝ)/3 := by positivity
@@ -2879,23 +2915,25 @@ lemma T3_adjoint_integrand_on_branch (f g : LogWeightedL2) (k : Fin 3)
         have h_k : (k.val : ℝ) ≤ 2 := by exact_mod_cast Fin.is_le k
         linarith
       linarith [hx.2]
-  rw [mul_assoc, T3_adjoint_inner_integrand_Ioo f g x hx_Ioo01]
-  -- The if-cascade selects branch k based on x being in I_k.
-  -- Use rcases on k.val (Fin 3 → val ∈ {0,1,2}) to get clean literal substitution.
-  have hk_lt : k.val < 3 := k.isLt
-  obtain ⟨_, h_k_eq⟩ : ∃ v, k = v := ⟨k, rfl⟩
-  -- Direct case analysis on Fin 3 via decide-elim
-  match k, h_k_eq with
-  | 0, _ =>
+  have h_pointwise := h_eq hx_Ioo01
+  show ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+      (T3_adjoint.apply g).toFunℝ x
+    = ((1 / x : ℝ) : ℂ) * (starRingEnd ℂ) (f.toFunℝ x) *
+      phaseFactorBase3Conj k * ((adjointWeight k x : ℝ) : ℂ) *
+      g.toFunℝ (3 * x - (k.val : ℝ))
+  rw [h_pointwise]
+  unfold T3_adjoint_action_func
+  match k with
+  | 0 =>
       simp only [Fin.val_zero, Nat.cast_zero, sub_zero] at hx ⊢
       have h_x_le_third : x ≤ 1/3 := by linarith [hx.2]
       rw [if_pos h_x_le_third]; ring
-  | 1, _ =>
+  | 1 =>
       simp only [Fin.val_one, Nat.cast_one] at hx ⊢
       have h_x_gt_third : ¬ (x ≤ 1/3) := by linarith [hx.1]
       have h_x_le_two_thirds : x ≤ 2/3 := by linarith [hx.2]
       rw [if_neg h_x_gt_third, if_pos h_x_le_two_thirds]; ring
-  | 2, _ =>
+  | 2 =>
       simp only [Fin.val_two, Nat.cast_ofNat] at hx ⊢
       have h_x_gt_third : ¬ (x ≤ 1/3) := by linarith [hx.1]
       have h_x_gt_two_thirds : ¬ (x ≤ 2/3) := by linarith [hx.1]
@@ -2941,43 +2979,22 @@ lemma T3_adjoint_inner_eq_branch_sum (f g : LogWeightedL2)
   -- Now bounds are clean: Ioo 0 (1/3), Ioo (1/3) (2/3), Ioo (2/3) 1.
   congr 1
   · congr 1
-    · -- k = 0 piece
-      refine MeasureTheory.setIntegral_congr_fun (E := ℂ)
-        (measurableSet_Ioo : MeasurableSet (Set.Ioo (0:ℝ) (1/3))) ?_
-      intros x hx
-      have hx' : x ∈ Set.Ioo (((0 : Fin 3).val : ℝ)/3)
-          ((((0 : Fin 3).val : ℝ) + 1)/3) := by
-        simp only [Fin.val_zero, Nat.cast_zero, zero_div, zero_add]
-        exact hx
-      have := T3_adjoint_integrand_on_branch f g 0 x hx'
-      simp only [Fin.val_zero, Nat.cast_zero, sub_zero] at this
-      exact this
-    · -- k = 1 piece
-      refine MeasureTheory.setIntegral_congr_fun (E := ℂ)
-        (measurableSet_Ioo : MeasurableSet (Set.Ioo ((1:ℝ)/3) (2/3))) ?_
-      intros x hx
-      have hx' : x ∈ Set.Ioo (((1 : Fin 3).val : ℝ)/3)
-          ((((1 : Fin 3).val : ℝ) + 1)/3) := by
-        simp only [Fin.val_one, Nat.cast_one]
-        have : ((1:ℝ) + 1)/3 = 2/3 := by norm_num
-        rw [this]
-        exact hx
-      have := T3_adjoint_integrand_on_branch f g 1 x hx'
-      simp only [Fin.val_one, Nat.cast_one] at this
-      exact this
-  · -- k = 2 piece
-    refine MeasureTheory.setIntegral_congr_fun (E := ℂ)
-      (measurableSet_Ioo : MeasurableSet (Set.Ioo ((2:ℝ)/3) 1)) ?_
-    intros x hx
-    have hx' : x ∈ Set.Ioo (((2 : Fin 3).val : ℝ)/3)
-        ((((2 : Fin 3).val : ℝ) + 1)/3) := by
-      simp only [Fin.val_two, Nat.cast_ofNat]
-      have : ((2:ℝ) + 1)/3 = 1 := by norm_num
-      rw [this]
-      exact hx
-    have := T3_adjoint_integrand_on_branch f g 2 x hx'
-    simp only [Fin.val_two, Nat.cast_ofNat] at this
-    exact this
+    · -- k = 0 piece (AE on volume↾(Ioo 0 (1/3)))
+      have h_ae_k0 := T3_adjoint_integrand_on_branch f g 0
+      simp only [Fin.val_zero, Nat.cast_zero, zero_div, zero_add, sub_zero] at h_ae_k0
+      exact MeasureTheory.integral_congr_ae h_ae_k0
+    · -- k = 1 piece (AE on volume↾(Ioo (1/3) (2/3)))
+      have h_ae_k1 := T3_adjoint_integrand_on_branch f g 1
+      simp only [Fin.val_one, Nat.cast_one] at h_ae_k1
+      have h_two_thirds : ((1:ℝ) + 1)/3 = 2/3 := by norm_num
+      rw [h_two_thirds] at h_ae_k1
+      exact MeasureTheory.integral_congr_ae h_ae_k1
+  · -- k = 2 piece (AE on volume↾(Ioo (2/3) 1))
+    have h_ae_k2 := T3_adjoint_integrand_on_branch f g 2
+    simp only [Fin.val_two, Nat.cast_ofNat] at h_ae_k2
+    have h_one : ((2:ℝ) + 1)/3 = 1 := by norm_num
+    rw [h_one] at h_ae_k2
+    exact MeasureTheory.integral_congr_ae h_ae_k2
 
 /-- **Formal adjoint relation** $\langle T_3 f, g \rangle = \langle f, T_3^* g \rangle$
     via Mayer 1991 §2 — fully discharged from integrability hypotheses
