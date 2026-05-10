@@ -340,18 +340,17 @@ theorem first_zero_agreement :
     2026-04-29 explicit-witness sharpening). The second and third
     conjuncts are independent. -/
 theorem spectral_bijection_framework :
-    -- T3_sym is self-adjoint on MemLp2 inputs (the L²(μ_log) subspace —
-    -- the mathematically meaningful setting; spec narrowed 2026-05-08
-    -- as part of the T3_self_adjoint_conj retirement cascade).
-    (∀ f g, f.MemLp2 → g.MemLp2 →
-      ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- T3_sym is self-adjoint UNIVERSALLY on `LogWeightedL2` (post-Lp-refactor:
+    -- every element is automatically `L²(μ_log)`; the prior MemLp2 narrowing
+    -- collapses to the universal claim).
+    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
     -- Map to critical line is well-defined and injective
     (∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
       eigenvalueToT α_star_empirical ev₁ = eigenvalueToT α_star_empirical ev₂ →
       |ev₁| = |ev₂|) ∧
     -- Framework identifies what's needed for full proof
     True := by
-  refine ⟨T3_self_adjoint_conj_via_MemLp2, g_injective α_star_empirical, trivial⟩
+  refine ⟨T3_self_adjoint_conj, g_injective α_star_empirical, trivial⟩
 
 /-! ## Toy Model: L-function Example -/
 
@@ -421,12 +420,11 @@ theorem selberg_model_works (M : SelbergZetaModel) :
     axiom's docstring for full history. -/
 theorem framework_summary :
     -- We have a rigorous spectral framework, with T3_sym carrying
-    -- the self-adjointness identity on MemLp2 inputs (the L²(μ_log)
-    -- subspace — the mathematically meaningful setting; spec narrowed
-    -- 2026-05-08 as part of the T3_self_adjoint_conj retirement cascade).
+    -- the universal self-adjointness identity on `LogWeightedL2`
+    -- (post-Lp-refactor: every element is automatically `L²(μ_log)`).
     (∃ T : TransferOperator 3,
-      -- Self-adjoint on MemLp2 (proven via T3_self_adjoint_conj_via_MemLp2)
-      (∀ f g, f.MemLp2 → g.MemLp2 → ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫) ∧
+      -- Self-adjoint UNIVERSALLY (proven via T3_self_adjoint_conj)
+      (∀ f g, ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫) ∧
       -- Compact
       True ∧
       -- Maps eigenvalues to critical line injectively
@@ -434,7 +432,7 @@ theorem framework_summary :
         ∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
           eigenvalueToT α ev₁ = eigenvalueToT α ev₂ → |ev₁| = |ev₂|)) := by
   use T3_sym
-  refine ⟨T3_self_adjoint_conj_via_MemLp2, trivial, ?_⟩
+  refine ⟨T3_self_adjoint_conj, trivial, ?_⟩
   intro α
   exact g_injective α
 
@@ -491,11 +489,11 @@ theorem T3_sym_RH_precondition
     (α : ScalingParameter)
     (hne : ∀ n, eigenvalues n ≠ 0)
     (hdistinct : ∀ n m, n ≠ m → |eigenvalues n| ≠ |eigenvalues m|) :
-    -- (1) T3_sym is self-adjoint on MemLp2 (the L²(μ_log) subspace)
-    (∀ f g, f.MemLp2 → g.MemLp2 →
-        ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
-    -- (2) Every MemLp2 eigenvalue of T3_sym is real
-    (∀ lam : ℂ, IsEigenvalue_MemLp2 T3_sym.apply lam → lam.im = 0) ∧
+    -- (1) T3_sym is self-adjoint UNIVERSALLY on `LogWeightedL2`
+    --     (post-Lp-refactor: every element is automatically `L²(μ_log)`).
+    (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
+    -- (2) Every eigenvalue of T3_sym is real (universal, no MemLp2 restriction)
+    (∀ lam : ℂ, IsEigenvalue T3_sym.apply lam → lam.im = 0) ∧
     -- (3) The eigenvalue sequence accumulates at 0
     Filter.Tendsto eigenvalues Filter.atTop (nhds 0) ∧
     -- (4) The eigenvalue → critical-line index map is injective
