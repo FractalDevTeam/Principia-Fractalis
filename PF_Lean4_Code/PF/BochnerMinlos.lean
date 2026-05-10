@@ -83,18 +83,29 @@ axiom bochner_minlos_existence {d : ℕ} (C : CharacteristicFunctional d) :
       ∀ f : SchwartzFunction d,
         C.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure
 
-/-- BOCHNER-MINLOS THEOREM (Uniqueness):
+/- `bochner_minlos_uniqueness` — axiom retired 2026-05-10 by deletion.
 
-    The probability measure μ satisfying C(f) = ∫ exp(i⟨ω,f⟩) dμ(ω) is unique.
+   The classical Bochner-Minlos uniqueness statement (probability measures
+   on S'(ℝ^d) with the same characteristic functional are equal) WAS asserted
+   here as an axiom, but it had **zero actual proof consumers** in the
+   codebase — only doc-comment references at lines 113, 116 below
+   (in `bochner_minlos_bijection`'s docstring noting that the bijection is
+   structurally tautological and `bochner_minlos_uniqueness` carries the
+   "real content" but isn't actually invoked).
 
-    Proof: Characteristic functionals determine measures uniquely.
-    If μ₁ and μ₂ have the same Fourier transform, then μ₁ = μ₂.
--/
-axiom bochner_minlos_uniqueness {d : ℕ} (C : CharacteristicFunctional d)
-    (μ₁ μ₂ : ProbabilityMeasureOnDual d)
-    (h₁ : ∀ f, C.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ₁.measure)
-    (h₂ : ∀ f, C.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ₂.measure) :
-    μ₁.measure = μ₂.measure
+   Deletion is the honest move per the referee-grade rigor mandate: an axiom
+   whose claimed content isn't load-bearing in any verified proof is worse
+   than no axiom (it claims content without doing the verification work).
+
+   When the codebase grows to a point where infinite-dim Bochner-Minlos
+   uniqueness becomes load-bearing (e.g., for full Yang-Mills measure
+   uniqueness or QFT correlation-function uniqueness), the retirement path is:
+   - Equip `TemperedDistribution d` with a real `PseudoEMetricSpace`,
+     `BorelSpace`, `CompleteSpace`, `SecondCountableTopology` (multi-week
+     infrastructure: topologize SchwartzFunction first, then take continuous
+     dual with weak-* topology).
+   - Apply mathlib's `Measure.ext_of_charFunDual` (the Hilbert-pair variant
+     suitable for non-Hilbert duals like S'). -/
 
 /-- BOCHNER-MINLOS THEOREM (Combined Statement):
 
