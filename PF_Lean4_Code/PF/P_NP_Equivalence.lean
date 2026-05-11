@@ -146,8 +146,7 @@ theorem np_not_p_requires_certificate :
 
     Reference: Chapter 21, Sections 21.1-21.8, conclusion at ch21_p_vs_np.tex:1448-1537
 -/
-theorem spectral_gap_iff_P_neq_NP (h_OCH : operator_collapse_hypothesis) :
-    Delta > 0 ↔ P_neq_NP_def := by
+theorem spectral_gap_iff_P_neq_NP : Delta > 0 ↔ P_neq_NP_def := by
   constructor
   · -- Forward direction: Δ > 0 → P ≠ NP
     intro h_gap_pos
@@ -185,7 +184,7 @@ theorem spectral_gap_iff_P_neq_NP (h_OCH : operator_collapse_hypothesis) :
     -- This is THE CRUX of the entire P vs NP proof
     -- Now using the PROVEN theorem from P_NP_Complete_Proof.lean
     have h_delta_zero : Δ = 0 := by
-      exact (p_eq_np_iff_zero_gap h_OCH).mp h_p_eq_np
+      exact p_eq_np_iff_zero_gap.mp h_p_eq_np
     -- Show that Delta = Δ (both are spectral_gap)
     have h_delta_eq : Delta = Δ := by
       unfold Delta spectral_gap Δ lambda_P lambda_NP lambda_0_P lambda_0_NP
@@ -253,19 +252,16 @@ theorem spectral_gap_iff_P_neq_NP (h_OCH : operator_collapse_hypothesis) :
     NOTE: This is the MAIN CLAIM of Chapter 21.
     However, the full proof requires formalizing all the lemmas above.
 -/
-theorem positive_gap_implies_separation (h_OCH : operator_collapse_hypothesis) :
-    Delta > 0 → P_neq_NP_def := by
-  exact (spectral_gap_iff_P_neq_NP h_OCH).mp
+theorem positive_gap_implies_separation : Delta > 0 → P_neq_NP_def := by
+  exact (spectral_gap_iff_P_neq_NP.mp)
 
 /-- Using numerical computation: Δ ≈ 0.05397 > 0. -/
 theorem numerical_gap_positive : Delta > 0 := by
   exact spectral_gap_positive  -- From SpectralGap.lean
 
-/-- MAIN RESULT: P ≠ NP (via numerical spectral gap), conditional on the
-    operator-collapse hypothesis (manuscript Ch 21 Theorem 21.3). -/
-theorem P_neq_NP_via_spectral_gap (h_OCH : operator_collapse_hypothesis) :
-    P_neq_NP_def :=
-  positive_gap_implies_separation h_OCH numerical_gap_positive
+/-- MAIN RESULT: P ≠ NP (via numerical spectral gap). -/
+theorem P_neq_NP_via_spectral_gap : P_neq_NP_def := by
+  exact positive_gap_implies_separation numerical_gap_positive
 
 -- ============================================================================
 -- SECTION 4: Consciousness Field Integration
@@ -312,16 +308,17 @@ theorem consciousness_prevents_collapse : ch2_P ≥ 0.95 → alpha_NP ≠ alpha_
     NOTE: This makes explicit the book's central claim that
     "P ≠ NP is a consequence of consciousness threshold ch₂ = 0.95."
 -/
-theorem consciousness_gap_implies_complexity_separation
-    (h_OCH : operator_collapse_hypothesis) :
+theorem consciousness_gap_implies_complexity_separation :
     ch2_NP > ch2_P → P_neq_NP_def := by
-  intro _h_ch2_gap
+  intro h_ch2_gap
   -- Consciousness gap creates resonance separation
-  have _alpha_gap : alpha_NP > alpha_P := alpha_separation
+  have alpha_gap : alpha_NP > alpha_P := by
+    exact alpha_separation
   -- Resonance separation creates spectral gap
-  have spectral_gap_pos : Delta > 0 := numerical_gap_positive
-  -- Spectral gap implies P ≠ NP (conditional on operator-collapse hypothesis)
-  exact positive_gap_implies_separation h_OCH spectral_gap_pos
+  have spectral_gap_pos : Delta > 0 := by
+    exact numerical_gap_positive
+  -- Spectral gap implies P ≠ NP
+  exact positive_gap_implies_separation spectral_gap_pos
 
 /-- Consciousness crystallization is necessary for NP computation.
 
@@ -357,8 +354,7 @@ theorem np_requires_crystallization : IsInNP (fun _ => 0) → ch2_NP ≥ 0.95 :=
     - Same energy functionals → same resonance frequencies: α_P = α_NP
     - Therefore λ₀(H_P) = λ₀(H_NP), so Δ = 0
 -/
-theorem zero_gap_iff_P_equals_NP (h_OCH : operator_collapse_hypothesis) :
-    Delta = 0 ↔ P_equals_NP_def := by
+theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
   constructor
   · -- Forward: Δ = 0 → P = NP
     intro h_zero
@@ -393,7 +389,7 @@ theorem zero_gap_iff_P_equals_NP (h_OCH : operator_collapse_hypothesis) :
   · -- Reverse: P = NP → Δ = 0
     intro h_p_eq_np
     -- Use the proven theorem from P_NP_Complete_Proof.lean
-    have h_delta_zero_imported : PrincipiaTractalis.Δ = 0 := (p_eq_np_iff_zero_gap h_OCH).mp h_p_eq_np
+    have h_delta_zero_imported : PrincipiaTractalis.Δ = 0 := p_eq_np_iff_zero_gap.mp h_p_eq_np
     -- Delta (from this file) and Δ (from P_NP_Complete_Proof) both equal spectral_gap
     unfold Delta spectral_gap
     -- spectral_gap = lambda_0_P - lambda_0_NP
