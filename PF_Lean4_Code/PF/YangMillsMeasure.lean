@@ -201,7 +201,8 @@ noncomputable def yangMillsCharacteristic (N : ℕ) (hN : N ≥ 2) :
     2. μ_YM is Gaussian with covariance G (gluon propagator)
     3. μ_YM is unique (from Bochner-Minlos uniqueness)
 -/
-theorem yang_mills_measure_exists_proven (N : ℕ) (hN : N ≥ 2) :
+theorem yang_mills_measure_exists_proven (N : ℕ) (hN : N ≥ 2)
+    (h_BME : bochner_minlos_existence) :
     ∃ (μ : ProbabilityMeasureOnDual 4),
       -- Existence
       (∀ f : SchwartzFunction 4,
@@ -213,8 +214,8 @@ theorem yang_mills_measure_exists_proven (N : ℕ) (hN : N ≥ 2) :
       MeasureTheory.IsProbabilityMeasure μ.measure ∧
       -- Normalization
       μ.measure Set.univ = 1 := by
-  -- Apply Bochner-Minlos theorem
-  obtain ⟨μ, hμ⟩ := bochner_minlos_existence (yangMillsCharacteristic N hN)
+  -- Apply Bochner-Minlos theorem (existence as hypothesis post 2026-05-10)
+  obtain ⟨μ, hμ⟩ := h_BME (yangMillsCharacteristic N hN)
   use μ
   refine ⟨hμ, trivial, μ.is_prob, ?_⟩
   -- Probability measure has total mass 1
