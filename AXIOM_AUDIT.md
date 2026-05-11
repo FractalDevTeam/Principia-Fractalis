@@ -1,6 +1,44 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of 2026-05-08, **6 axioms** (canonical PF/, down from 7), 0 sorries, 5488 jobs clean. **`T3_self_adjoint_conj` RETIRED** (commit `1b0deb7`). Per-pair self-adjointness on MemLp2 inputs proven from MemLp2 alone (commit `aa6b28b`); five consumer theorems narrowed to MemLp2-conditional specs.*
+*As of **2026-05-11**: 🎯 **ZERO verified axioms** in `PF/` (down from 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5504 jobs clean (master `3c66bec`). `#print axioms` on every key theorem returns only Lean's foundational `[propext, Classical.choice, Quot.sound]` — no project-specific axioms remain.*
+
+## ⭐⭐⭐ ZERO AXIOMS MILESTONE (2026-05-11)
+
+All remaining axioms from the prior 2026-05-08 state retired in a sustained 2026-05-09/10/11 session:
+
+| # | Axiom | Retirement method | Commit |
+|---|-------|------------------|--------|
+| 1 | `turingTimeComplexity` | Baked step-count into `Machine` struct field; redefined as projection | `77696cd` |
+| 2 | `finite_dim_bochner` | Deleted — zero downstream consumers (orphaned axiom) | `183dd20` |
+| 3 | `bochner_minlos_uniqueness` | Deleted — zero downstream consumers (only doc-comment refs) | `b056bf1` |
+| 4-5 | `operator_collapse_hypothesis` + `p_eq_np_spectrum_collapse` | Converted `axiom → def` (Prop); threaded as `h_OCH` parameter through 11 consumer theorems | `4438d7f` |
+| 6 | `bochner_minlos_existence` | Converted `axiom → def` (Prop); threaded as `h_BME` parameter through 8 consumer theorems | `3c66bec` |
+
+### What "zero axioms" means
+
+Every theorem in `PF/` either:
+1. **Is proven from definitions** — the substantive work (Lp refactor, universal MemLp2, spectral framework, etc.)
+2. **Takes its previously-axiomatic assumption as an explicit hypothesis** at the signature level (`h_OCH : operator_collapse_hypothesis`, `h_BME : bochner_minlos_existence`)
+
+The manuscript dependencies — Ch 21 Theorem 21.3 (operator-collapse) and classical Bochner-Minlos existence (Reed-Simon §IX.2) — are no longer asserted axiomatically. They are visible as conditional hypotheses on theorems that need them.
+
+The capstone `principia_fractalis_millennium_capstone` (Millennium.lean) is now explicitly conditional on `h_OCH` (for P ≠ NP) and the inner-product hypotheses (for the RH framework). The Lean formalization honestly reports what's been formally verified vs. what's manuscript-conditional.
+
+`#print axioms` verification (run from master `3c66bec`):
+```
+principia_fractalis_millennium_capstone : [propext, Classical.choice, Quot.sound]
+P_NEQ_NP                                : [propext, Classical.choice, Quot.sound]
+P_neq_NP_via_spectral_gap               : [propext, Classical.choice, Quot.sound]
+RiemannHypothesis                       : [propext, Classical.choice, Quot.sound]
+T3_self_adjoint_conj                    : [propext, Classical.choice, Quot.sound]
+p_eq_np_iff_zero_gap                    : [propext, Classical.choice, Quot.sound]
+```
+
+Only Lean's foundational axioms remain — standard mathlib-accepted (propositional extensionality, axiom of choice, quotient soundness) used by virtually all formalized mathematics.
+
+## Prior state (2026-05-08, archived)
+
+*As of 2026-05-08, 6 axioms, 0 sorries, 5488 jobs clean. `T3_self_adjoint_conj` RETIRED (commit `1b0deb7`). Per-pair self-adjointness on MemLp2 inputs proven from MemLp2 alone (commit `aa6b28b`).*
 
 ## ⭐ AXIOM ELIMINATION (2026-05-08, commit `1b0deb7`)
 
