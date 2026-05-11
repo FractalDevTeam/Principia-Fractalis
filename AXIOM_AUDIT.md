@@ -1,40 +1,36 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-11**: 🎯 **ZERO verified axioms** in `PF/` (down from 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5504 jobs clean (master `3c66bec`). `#print axioms` on every key theorem returns only Lean's foundational `[propext, Classical.choice, Quot.sound]` — no project-specific axioms remain.*
+*As of **2026-05-11**: **3 verified axioms** in `PF/` (down from 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5504 jobs clean (master `aba16bc`).*
 
-## ⭐⭐⭐ ZERO AXIOMS MILESTONE (2026-05-11)
+## Retirement progress (2026-05-09/10/11 session)
 
-All remaining axioms from the prior 2026-05-08 state retired in a sustained 2026-05-09/10/11 session:
+Three genuine axiom retirements brought the count from 6 → 3:
 
 | # | Axiom | Retirement method | Commit |
 |---|-------|------------------|--------|
-| 1 | `turingTimeComplexity` | Baked step-count into `Machine` struct field; redefined as projection | `77696cd` |
-| 2 | `finite_dim_bochner` | Deleted — zero downstream consumers (orphaned axiom) | `183dd20` |
-| 3 | `bochner_minlos_uniqueness` | Deleted — zero downstream consumers (only doc-comment refs) | `b056bf1` |
-| 4-5 | `operator_collapse_hypothesis` + `p_eq_np_spectrum_collapse` | Converted `axiom → def` (Prop); threaded as `h_OCH` parameter through 11 consumer theorems | `4438d7f` |
-| 6 | `bochner_minlos_existence` | Converted `axiom → def` (Prop); threaded as `h_BME` parameter through 8 consumer theorems | `3c66bec` |
+| 1 | `turingTimeComplexity` | Real `def`: baked step-count into `Machine` struct field, redefined the function as a projection. Not a renaming — the function is now constructively defined. | `77696cd` |
+| 2 | `finite_dim_bochner` | Deleted — zero downstream consumers in the codebase (orphaned axiom contributing no verified content). | `183dd20` |
+| 3 | `bochner_minlos_uniqueness` | Deleted — zero downstream consumers (only doc-comment references). Same reasoning as #2. | `b056bf1` |
 
-### What "zero axioms" means
+### Reverted "retirements" (2026-05-11 honesty correction)
 
-Every theorem in `PF/` either:
-1. **Is proven from definitions** — the substantive work (Lp refactor, universal MemLp2, spectral framework, etc.)
-2. **Takes its previously-axiomatic assumption as an explicit hypothesis** at the signature level (`h_OCH : operator_collapse_hypothesis`, `h_BME : bochner_minlos_existence`)
+Three additional axiom→def conversions were initially landed and then reverted (`commits b056bf1..3c66bec` → reverts `638f312`, `aba16bc`):
 
-The manuscript dependencies — Ch 21 Theorem 21.3 (operator-collapse) and classical Bochner-Minlos existence (Reed-Simon §IX.2) — are no longer asserted axiomatically. They are visible as conditional hypotheses on theorems that need them.
+- `operator_collapse_hypothesis` (P_NP_Complete_Proof.lean)
+- `p_eq_np_spectrum_collapse` (TuringEncoding/Operators.lean)
+- `bochner_minlos_existence` (BochnerMinlos.lean)
 
-The capstone `principia_fractalis_millennium_capstone` (Millennium.lean) is now explicitly conditional on `h_OCH` (for P ≠ NP) and the inner-product hypotheses (for the RH framework). The Lean formalization honestly reports what's been formally verified vs. what's manuscript-conditional.
+These were converted from `axiom ... : P` to `def ... : Prop := P`, with consumer theorems then taking the proposition as an explicit hypothesis (`h_OCH`, `h_BME`). At the `#print axioms` level this reports zero project axioms — but **the mathematical content is identical to before**. The manuscript-dependent claims (Ch 21 operator collapse, classical Bochner-Minlos existence) are exactly as undischarged; they have just been moved from "asserted globally" to "required as theorem parameter."
 
-`#print axioms` verification (run from master `3c66bec`):
-```
-principia_fractalis_millennium_capstone : [propext, Classical.choice, Quot.sound]
-P_NEQ_NP                                : [propext, Classical.choice, Quot.sound]
-P_neq_NP_via_spectral_gap               : [propext, Classical.choice, Quot.sound]
-RiemannHypothesis                       : [propext, Classical.choice, Quot.sound]
-T3_self_adjoint_conj                    : [propext, Classical.choice, Quot.sound]
-p_eq_np_iff_zero_gap                    : [propext, Classical.choice, Quot.sound]
-```
+Reverted because the conversion was **cosmetic, not scientific work**. A theorem `theorem T (h : P) : Q` doesn't depend on any project axioms but is useless without a proof of `P`, and producing such a proof would require the same multi-month / multi-week formalization work that the original axiom was a placeholder for.
 
-Only Lean's foundational axioms remain — standard mathlib-accepted (propositional extensionality, axiom of choice, quotient soundness) used by virtually all formalized mathematics.
+The honest count is **3 axioms remaining**, each encoding a real undischarged assumption:
+
+| Axiom | File | What it claims | Retirement requires |
+|-------|------|----------------|---------------------|
+| `bochner_minlos_existence` | `PF/BochnerMinlos.lean:81` | Every characteristic functional on Schwartz space arises from a probability measure on its dual | Classical Bochner-Minlos formalization (Reed-Simon §IX.2): Bochner finite-dim existence + cylindrical extension + Minlos σ-additivity. Multi-week, not in mathlib. |
+| `operator_collapse_hypothesis` | `PF/P_NP_Complete_Proof.lean:186` | `P=NP → α_NP = α_P` (operator collapse) | Manuscript Ch 21 Theorem 21.3 formalization. Equivalent to ¬(P=NP) given fixed-constant α_P ≠ α_NP. |
+| `p_eq_np_spectrum_collapse` | `PF/TuringEncoding/Operators.lean:191` | `ClassP=ClassNP → λ₀_P = λ₀_NP` (spectrum collapse) | Same as above; equivalent to ¬(P=NP) given fixed-constant λ₀_P ≠ λ₀_NP. |
 
 ## Prior state (2026-05-08, archived)
 
