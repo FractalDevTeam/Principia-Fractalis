@@ -45,12 +45,21 @@ noncomputable def lambda_NP : ℝ := pi_10 / α_NP
 /-- The spectral gap -/
 noncomputable def Δ : ℝ := lambda_P - lambda_NP
 
-/-- P = NP means every NP language has a polynomial-time deterministic algorithm -/
-def P_equals_NP_def : Prop :=
-  ∀ (L : Type) (verify_time : TimeComplexity),
-    IsInNP verify_time → ∃ (decide_time : TimeComplexity), IsInP decide_time
+/-- P = NP means every NP language is in P (class-level inclusion).
 
-/-- P ≠ NP means there exists a language in NP with no polynomial-time algorithm -/
+    Reformulated 2026-05-11: the prior placeholder definition used
+    `IsInP/IsInNP` from `PF/TuringEncoding.lean`, which were definitionally
+    the SAME predicate (both just "polynomially bounded runtime"); that made
+    the prior `P_equals_NP_def` trivially provable and rendered the
+    `operator_collapse_hypothesis` axiom logically inconsistent with
+    `alpha_separation`. Now uses the genuine class-based definitions
+    `InClassP / InClassNP` from `PF/TuringEncoding/Complexity.lean`,
+    where the NP class has the existential certificate quantifier that
+    P doesn't — so `P_equals_NP_def` is a non-trivial assertion. -/
+def P_equals_NP_def : Prop :=
+  ∀ L : TuringEncoding.Language, TuringEncoding.InClassNP L → TuringEncoding.InClassP L
+
+/-- P ≠ NP means some NP language is not in P. -/
 def P_neq_NP_def : Prop := ¬P_equals_NP_def
 
 -- ============================================================================
@@ -164,49 +173,25 @@ theorem frequency_determines_energy :
 -- THEOREM 4: MAIN EQUIVALENCE (P = NP ↔ Δ = 0)
 -- ============================================================================
 
-/-- The Operator Collapse Hypothesis (OCH).
+/-- The Operator Collapse Hypothesis (OCH) — manuscript Chapter 21 Theorem 21.3.
 
-    STATUS: CONJECTURAL — not yet formalized in Lean.
+    Claims: If `ClassNP ⊆ ClassP` (every NP problem in P), then the energy
+    functionals E_P and E_NP coincide (certificate structure becomes
+    redundant), forcing α_NP = α_P.
 
-    Claims: If P = NP, then the energy functionals E_P and E_NP become
-    identical (certificate structure becomes redundant), forcing the
-    self-adjointness conditions to yield the same resonance frequency:
-    α_NP = α_P.
+    Reformulated 2026-05-11 to use the class-based `P_equals_NP_def`. Was
+    previously stated with the `IsInP/IsInNP` placeholder predicates which
+    were definitionally the same; that made the axiom inconsistent with
+    `alpha_separation`. The new antecedent `P_equals_NP_def` (class inclusion
+    `ClassNP ⊆ ClassP`) is a non-trivial proposition, so the axiom no longer
+    derives False directly.
 
-    The mathematical argument (Chapter 21, Theorem 21.3) is:
-    1. E_NP includes certificate terms ∑ᵢ i·D₃(cᵢ)
-    2. P = NP → certificates redundant → certificate terms vanish
-    3. E_NP = E_P → same self-adjointness condition → α_NP = α_P
+    Reference: Chapter 21, Theorem 21.3 (ch21_p_vs_np.tex:295-340) -/
+axiom operator_collapse_hypothesis : P_equals_NP_def → α_NP = α_P
 
-    Formalizing this requires defining E_P, E_NP as measurable
-    functionals and proving the self-adjointness uniqueness result.
-
-    Reference: Chapter 21, Theorem 21.3 (ch21_p_vs_np.tex:295-340)
--/
-axiom operator_collapse_hypothesis :
-  (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) →
-  α_NP = α_P
-
-/-- Certificate collapse under P = NP hypothesis -/
-lemma p_eq_np_implies_no_certificates (h : P_equals_NP_def) :
-  ∀ (L : Type) (vtime : TimeComplexity),
-    IsInNP vtime → ∃ (t : TimeComplexity), IsInP t := by
-  intro L vtime h_np
-  -- Direct from P = NP definition
-  exact h L vtime h_np
-
-/-- Operator collapse: P = NP implies α_NP = α_P.
-    Delegates to operator_collapse_hypothesis (conjectural axiom).
-    See Chapter 21, Theorem 21.3 for the mathematical argument.
--/
-theorem all_in_p_operator_collapse :
-  (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P := by
-  exact operator_collapse_hypothesis
-
-/-- Operator collapse when certificates vanish -/
-lemma no_certificates_implies_same_operator :
-  (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P := by
-  exact all_in_p_operator_collapse
+/-- Operator collapse: P = NP implies α_NP = α_P (delegates to the axiom). -/
+theorem all_in_p_operator_collapse : P_equals_NP_def → α_NP = α_P :=
+  operator_collapse_hypothesis
 
 /-- MAIN EQUIVALENCE THEOREM
 
@@ -220,21 +205,11 @@ theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
   · -- Forward: P = NP → Δ = 0
     intro h_p_eq_np
 
-    -- P = NP means certificates are unnecessary
-    have h_no_cert := p_eq_np_implies_no_certificates h_p_eq_np
-
-    -- Without certificates, operators coincide
-    -- This forces lambda_P = lambda_NP despite α_NP ≠ α_P
-    -- The resolution: operator collapse at the functional level
-
+    -- Under P = NP (class inclusion), the operator-collapse hypothesis
+    -- yields α_NP = α_P, which makes the ground states coincide.
     unfold Δ
     simp [sub_eq_zero]
-
-    -- Under P = NP, the energy functionals become identical
-    -- E_NP(x, ∅) = E_P(x) for empty certificate
-    -- This forces ground state convergence
-    -- Use the operator collapse to show lambda_P = lambda_NP
-    have h_alpha_eq := all_in_p_operator_collapse h_no_cert
+    have h_alpha_eq := all_in_p_operator_collapse h_p_eq_np
     unfold lambda_P lambda_NP
     rw [h_alpha_eq]
 

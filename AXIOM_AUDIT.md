@@ -449,9 +449,21 @@ The **other 7 axioms are unaffected** by this open question.
 - **Book reference**: Chapter 21 (core P vs NP bridge)
 
 ### 8. `operator_collapse_hypothesis` (BOOK-CORE)
-- **File**: `PF/P_NP_Complete_Proof.lean:175`
-- **Statement**: (∀ L vtime, IsInNP vtime → ∃ t, IsInP t) → α_NP = α_P
+- **File**: `PF/P_NP_Complete_Proof.lean:190`
+- **Statement**: `P_equals_NP_def → α_NP = α_P`
+  where `P_equals_NP_def := ∀ L : Language, InClassNP L → InClassP L`
 - **Book reference**: Chapter 21, Theorem 21.3
+- **2026-05-11 correction**: the antecedent was previously stated as
+  `(∀ L vtime, IsInNP vtime → ∃ t, IsInP t)` using the placeholder predicates
+  `IsInP/IsInNP` from `PF/TuringEncoding.lean`, which were definitionally
+  identical (both just "polynomially bounded runtime"). With a tautological
+  antecedent the axiom collapsed to `α_NP = α_P` unconditionally, which
+  contradicted `alpha_separation : α_NP > α_P` — i.e. the framework as
+  stated derived `False`. Reformulated to use the genuine class-based
+  predicates `InClassP / InClassNP` from `PF/TuringEncoding/Complexity.lean`
+  (NP carries an existential certificate quantifier that P does not), so
+  `P_equals_NP_def` is a non-trivial assertion and the axiom is no longer
+  inconsistent with the rest of the framework.
 
 ## Summary by category
 
