@@ -164,26 +164,27 @@ theorem frequency_determines_energy :
 -- THEOREM 4: MAIN EQUIVALENCE (P = NP ↔ Δ = 0)
 -- ============================================================================
 
-/-- The Operator Collapse Hypothesis (OCH).
+/-- The Operator Collapse Hypothesis (OCH) — manuscript Chapter 21 Theorem 21.3.
 
-    STATUS: CONJECTURAL — not yet formalized in Lean.
-
-    Claims: If P = NP, then the energy functionals E_P and E_NP become
-    identical (certificate structure becomes redundant), forcing the
-    self-adjointness conditions to yield the same resonance frequency:
+    The mathematical claim: if every NP problem has a P decider, then the
+    energy functionals E_P and E_NP become identical (certificate structure
+    becomes redundant), forcing the self-adjointness conditions to yield
     α_NP = α_P.
 
-    The mathematical argument (Chapter 21, Theorem 21.3) is:
-    1. E_NP includes certificate terms ∑ᵢ i·D₃(cᵢ)
-    2. P = NP → certificates redundant → certificate terms vanish
-    3. E_NP = E_P → same self-adjointness condition → α_NP = α_P
+    Argument outline (Chapter 21, Theorem 21.3):
+    1. E_NP includes certificate terms ∑ᵢ i·D₃(cᵢ).
+    2. P = NP → certificates redundant → certificate terms vanish.
+    3. E_NP = E_P → same self-adjointness condition → α_NP = α_P.
 
-    Formalizing this requires defining E_P, E_NP as measurable
-    functionals and proving the self-adjointness uniqueness result.
-
-    Reference: Chapter 21, Theorem 21.3 (ch21_p_vs_np.tex:295-340)
--/
-axiom operator_collapse_hypothesis :
+    Retired 2026-05-10 from `axiom` to `def`. The statement is FORMALLY
+    EQUIVALENT to ¬(P = NP) in the current formalization (since α_P = √2
+    and α_NP = φ + 1/4 are fixed constants with `sqrt2_neq_phi_plus_quarter`
+    already proved); therefore it cannot be discharged as an axiom without
+    proving the millennium prize problem. Instead we make the dependency
+    EXPLICIT: theorems requiring it take it as a hypothesis. The math of
+    Chapter 21 Theorem 21.3 is the actual content; this Lean formalization
+    surfaces the manuscript dependency at theorem signatures. -/
+def operator_collapse_hypothesis : Prop :=
   (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) →
   α_NP = α_P
 
@@ -195,18 +196,18 @@ lemma p_eq_np_implies_no_certificates (h : P_equals_NP_def) :
   -- Direct from P = NP definition
   exact h L vtime h_np
 
-/-- Operator collapse: P = NP implies α_NP = α_P.
-    Delegates to operator_collapse_hypothesis (conjectural axiom).
-    See Chapter 21, Theorem 21.3 for the mathematical argument.
--/
-theorem all_in_p_operator_collapse :
-  (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P := by
-  exact operator_collapse_hypothesis
+/-- Operator collapse: P = NP implies α_NP = α_P, given the operator-collapse
+    hypothesis. Carries `h_OCH` as a parameter (was: invoked the
+    `operator_collapse_hypothesis` axiom directly, now takes the corresponding
+    Prop as hypothesis). -/
+theorem all_in_p_operator_collapse (h_OCH : operator_collapse_hypothesis) :
+  (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P :=
+  h_OCH
 
 /-- Operator collapse when certificates vanish -/
-lemma no_certificates_implies_same_operator :
-  (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P := by
-  exact all_in_p_operator_collapse
+lemma no_certificates_implies_same_operator (h_OCH : operator_collapse_hypothesis) :
+  (∀ (L : Type) (vtime : TimeComplexity), IsInNP vtime → ∃ (t : TimeComplexity), IsInP t) → α_NP = α_P :=
+  all_in_p_operator_collapse h_OCH
 
 /-- MAIN EQUIVALENCE THEOREM
 
@@ -214,7 +215,8 @@ lemma no_certificates_implies_same_operator :
 
     The heart of the P vs NP connection to spectral theory.
 -/
-theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
+theorem p_eq_np_iff_zero_gap (h_OCH : operator_collapse_hypothesis) :
+    P_equals_NP_def ↔ Δ = 0 := by
   constructor
 
   · -- Forward: P = NP → Δ = 0
@@ -230,11 +232,9 @@ theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
     unfold Δ
     simp [sub_eq_zero]
 
-    -- Under P = NP, the energy functionals become identical
-    -- E_NP(x, ∅) = E_P(x) for empty certificate
-    -- This forces ground state convergence
-    -- Use the operator collapse to show lambda_P = lambda_NP
-    have h_alpha_eq := all_in_p_operator_collapse h_no_cert
+    -- Under P = NP + operator-collapse hypothesis, the energy functionals
+    -- become identical and ground states converge.
+    have h_alpha_eq := all_in_p_operator_collapse h_OCH h_no_cert
     unfold lambda_P lambda_NP
     rw [h_alpha_eq]
 
@@ -320,12 +320,12 @@ theorem gap_positive : Δ > 0 := by
     2. P = NP ↔ Δ = 0 (operator-theoretic equivalence)
     3. Therefore P ≠ NP (by contrapositive)
 -/
-theorem P_NEQ_NP : P_neq_NP_def := by
+theorem P_NEQ_NP (h_OCH : operator_collapse_hypothesis) : P_neq_NP_def := by
   unfold P_neq_NP_def
   intro h_p_eq_np
 
-  -- If P = NP, then Δ = 0
-  have h_zero : Δ = 0 := p_eq_np_iff_zero_gap.mp h_p_eq_np
+  -- If P = NP (and operator-collapse hypothesis holds), then Δ = 0
+  have h_zero : Δ = 0 := (p_eq_np_iff_zero_gap h_OCH).mp h_p_eq_np
 
   -- But Δ > 0
   have h_pos : Δ > 0 := gap_positive
