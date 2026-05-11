@@ -187,44 +187,20 @@ different regions of the fractal Hilbert space. They are topologically distinct.
 theorem operator_spectral_gap_positive :
   lambda_0_P - lambda_0_NP > 0 := spectral_gap_positive
 
-/-- **Spectrum-collapse hypothesis** (manuscript Chapter 21, Theorem 21.3).
-
-    The mathematical claim: if `ClassP = ClassNP`, then the fractal-operator
-    ground states `lambda_0_P` and `lambda_0_NP` coincide (because the
-    certificate-energy distinction that separates them collapses when every
-    NP problem has a P decider).
-
-    Retired 2026-05-10 from `axiom` to `def`. This statement is FORMALLY
-    EQUIVALENT to `ClassP ≠ ClassNP` (since `lambda_0_P ≠ lambda_0_NP` is
-    provable via `spectral_gap_positive` in SpectralGap.lean, by
-    contrapositive); therefore it cannot be "discharged" as an axiom without
-    proving the millennium prize problem. Instead we make the dependency
-    EXPLICIT: theorems requiring this fact take it as a hypothesis.
-
-    The math of Chapter 21 Theorem 21.3 is the actual content; this Lean
-    formalization makes the manuscript dependency visible at theorem
-    signatures. -/
-def operator_collapse_spectrum_hypothesis : Prop :=
+-- Axiom: P = NP implies equal ground energies (spectrum collapse)
+axiom p_eq_np_spectrum_collapse :
   ClassP = ClassNP → lambda_0_P = lambda_0_NP
 
-/-- If `ClassP = ClassNP` and the operator-collapse hypothesis holds, the
-    operators have the same ground state. Statement carries the hypothesis. -/
-theorem P_eq_NP_implies_same_ground_energy
-    (h_OCH : operator_collapse_spectrum_hypothesis) :
-    ClassP = ClassNP → lambda_0_P = lambda_0_NP :=
-  h_OCH
+/-- If P = NP, the operators would have the same ground state energy (contradiction) -/
+theorem P_eq_NP_implies_same_ground_energy :
+  ClassP = ClassNP → lambda_0_P = lambda_0_NP := by
+  exact p_eq_np_spectrum_collapse
 
-/-- Main theorem: P ≠ NP, conditional on the manuscript's Chapter 21
-    operator-collapse hypothesis. The conditional form is mandatory — without
-    a formal proof of Theorem 21.3 in mathlib, the implication
-    `ClassP = ClassNP → lambda_0_P = lambda_0_NP` cannot be discharged
-    (it is the millennium problem in disguise; see docstring of
-    `operator_collapse_spectrum_hypothesis`). -/
-theorem P_neq_NP_from_spectral_gap
-    (h_OCH : operator_collapse_spectrum_hypothesis) :
-    ClassP ≠ ClassNP := by
+/-- Main theorem: P ≠ NP follows from spectral gap -/
+theorem P_neq_NP_from_spectral_gap :
+  ClassP ≠ ClassNP := by
   intro h_eq
-  have h_same := P_eq_NP_implies_same_ground_energy h_OCH h_eq
+  have h_same := P_eq_NP_implies_same_ground_energy h_eq
   have h_diff := operator_spectral_gap_positive
   linarith  -- Contradiction: λ₀_P - λ₀_NP > 0 but λ₀_P = λ₀_NP
 

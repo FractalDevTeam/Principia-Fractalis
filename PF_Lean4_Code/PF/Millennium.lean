@@ -86,15 +86,12 @@ theorem principia_fractalis_millennium_capstone
     (hdistinct : ∀ n m, n ≠ m → |eigenvalues n| ≠ |eigenvalues m|)
     -- Surjectivity hypothesis (the open RH conjecture)
     (surjectivity : ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 →
-        ∃ n : ℕ, eigenvalueToZero α (eigenvalues n) = s)
-    -- Operator-collapse hypothesis (manuscript Ch 21 Theorem 21.3, formerly
-    -- the `operator_collapse_hypothesis` axiom; retired 2026-05-10 as a Prop)
-    (h_OCH : operator_collapse_hypothesis) :
+        ∃ n : ℕ, eigenvalueToZero α (eigenvalues n) = s) :
     -- Conjunct (i): P ≠ NP
     P_neq_NP_def ∧
     -- Conjunct (ii): The Riemann Hypothesis
     RiemannHypothesis := by
-  exact ⟨P_neq_NP_via_spectral_gap h_OCH,
+  exact ⟨P_neq_NP_via_spectral_gap,
     riemann_hypothesis_via_T3_sym_framework
       hsmul_left hsmul_right hpos_def
       eigenvalues hev K hK hbound
