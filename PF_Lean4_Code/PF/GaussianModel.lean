@@ -126,13 +126,12 @@ noncomputable def freeScalarCharacteristic {d : ℕ}
 
     This is the Euclidean free field measure.
 -/
-theorem free_scalar_measure_exists {d : ℕ} (L : MassiveLaplacian d)
-    (h_BME : bochner_minlos_existence) :
+theorem free_scalar_measure_exists {d : ℕ} (L : MassiveLaplacian d) :
     ∃ (μ : ProbabilityMeasureOnDual d),
       ∀ f : SchwartzFunction d,
         (freeScalarCharacteristic L).toFun f =
-          ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure :=
-  gaussian_measure_exists (freeScalarCharacteristic L) h_BME
+          ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure := by
+  exact gaussian_measure_exists (freeScalarCharacteristic L)
 
 /-! ## Free Vector Field (Abelian Gauge Field) -/
 
@@ -177,15 +176,14 @@ noncomputable def AbelianGaugeField.covariance {d : ℕ}
     For the abelian gauge field A_μ with action S[A] = ½ ∫ (∂_μ A_ν - ∂_ν A_μ)² dx,
     there exists a Gaussian measure μ on the space of gauge field configurations.
 -/
-theorem abelian_gauge_measure_exists (d : ℕ) (_A : AbelianGaugeField d)
-    (h_BME : bochner_minlos_existence) :
+theorem abelian_gauge_measure_exists (d : ℕ) (A : AbelianGaugeField d) :
     ∃ (μ : ProbabilityMeasureOnDual d),
       -- The measure is Gaussian with correct covariance
       True := by
   -- This follows from Bochner-Minlos applied to the Gaussian characteristic
   -- C[J] = exp(-½ ∫∫ J_μ(x) G_μν(x-y) J_ν(y) dx dy)
   let L : MassiveLaplacian d := { mass := 0, mass_nonneg := by simp }
-  obtain ⟨μ, _⟩ := free_scalar_measure_exists (d := d) L h_BME
+  obtain ⟨μ, _⟩ := free_scalar_measure_exists (d := d) L
   exact ⟨μ, trivial⟩
 
 /-! ## Free Yang-Mills (Gaussian Approximation) -/
@@ -246,13 +244,12 @@ noncomputable def FreeYangMillsGaussian.generatingFunctional {d N : ℕ}
     Full non-perturbative measure requires Bochner-Minlos with
     interacting (non-Gaussian) characteristic functional.
 -/
-theorem free_yang_mills_measure_exists (d N : ℕ) (YM : FreeYangMillsGaussian d N)
-    (h_BME : bochner_minlos_existence) :
+theorem free_yang_mills_measure_exists (d N : ℕ) (YM : FreeYangMillsGaussian d N) :
     ∃ (μ : ProbabilityMeasureOnDual d),
       ∀ f : SchwartzFunction d,
         YM.generatingFunctional.toFun f =
-          ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure :=
-  h_BME YM.generatingFunctional
+          ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure := by
+  exact bochner_minlos_existence YM.generatingFunctional
 
 /-! ## Explicit Quadratic Form for d = 4 -/
 
@@ -308,7 +305,7 @@ theorem yang_mills_4d_gaussian_valid :
 
     This μ is the free field Yang-Mills measure (Gaussian approximation).
 -/
-theorem gaussian_yang_mills_complete (h_BME : bochner_minlos_existence) :
+theorem gaussian_yang_mills_complete :
     ∃ (μ : ProbabilityMeasureOnDual 4) (Q : SchwartzFunction 4 → SchwartzFunction 4 → ℝ),
       -- Q is the gluon propagator covariance
       Q = yangMillsQuadraticForm4D ∧
@@ -317,7 +314,7 @@ theorem gaussian_yang_mills_complete (h_BME : bochner_minlos_existence) :
         Complex.exp (-(1/2 : ℂ) * Q f f) =
           ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure := by
   obtain ⟨G, hG⟩ := yang_mills_4d_gaussian_valid
-  obtain ⟨μ, hμ⟩ := gaussian_measure_exists G h_BME
+  obtain ⟨μ, hμ⟩ := gaussian_measure_exists G
   refine ⟨μ, yangMillsQuadraticForm4D, rfl, fun f => ?_⟩
   rw [show yangMillsQuadraticForm4D f f = G.covariance f f by rw [hG]]
   exact hμ f

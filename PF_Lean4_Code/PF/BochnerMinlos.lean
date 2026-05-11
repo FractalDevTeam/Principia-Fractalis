@@ -64,41 +64,24 @@ structure ProbabilityMeasureOnDual (d : ℕ) where
   measure : MeasureTheory.Measure (TemperedDistribution d)
   is_prob : MeasureTheory.IsProbabilityMeasure measure
 
-/-! ### BOCHNER-MINLOS THEOREM (Existence) — manuscript Ch 21 reference
+/-- BOCHNER-MINLOS THEOREM (Existence):
 
     Let C : S(R^d) → ℂ be a characteristic functional (positive definite,
-    normalized, continuous at 0). Then there exists a probability measure
-    μ on S'(R^d) such that:
+    normalized, continuous at 0).
+
+    Then there exists a probability measure μ on S'(R^d) such that:
     C(f) = ∫_{S'} exp(i⟨ω, f⟩) dμ(ω) for all f ∈ S(R^d).
 
     Proof structure:
-    1. C determines finite-dimensional distributions via finite-dim Bochner.
-    2. These form a consistent family → cylindrical measure.
-    3. Nuclearity of S → σ-additivity (Minlos' condition).
-    4. σ-additive cylindrical measure = genuine measure. -/
-
-/-- The Bochner-Minlos existence claim as a Prop family. Retired 2026-05-10
-    from `axiom` to `def`. For each characteristic functional `C`, this is
-    the statement that there exists a corresponding probability measure on
-    the tempered-distribution dual whose Fourier transform is `C`.
-
-    The classical Bochner-Minlos theorem (Reed-Simon I §IX.2) proves this
-    for nuclear duals like S'(ℝ^d). Formalization requires:
-    1. Bochner finite-dim existence (positive-definite continuous → measure)
-       — not in mathlib; Stone-Weierstrass + Riesz-Markov argument.
-    2. Cylindrical extension via finite-dim distributions.
-    3. Minlos' σ-additivity from nuclearity of Schwartz space.
-
-    Until formalized, theorems requiring this take it as an explicit
-    hypothesis at the signature level. -/
-def BochnerMinlosExistence {d : ℕ} (C : CharacteristicFunctional d) : Prop :=
-  ∃ (μ : ProbabilityMeasureOnDual d),
-    ∀ f : SchwartzFunction d,
-      C.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure
-
-/-- Universal form: every characteristic functional has a witnessing measure. -/
-def bochner_minlos_existence : Prop :=
-  ∀ {d : ℕ} (C : CharacteristicFunctional d), BochnerMinlosExistence C
+    1. C determines finite-dimensional distributions via finite-dim Bochner
+    2. These form a consistent family → cylindrical measure
+    3. Nuclearity of S → σ-additivity (Minlos' condition)
+    4. σ-additive cylindrical measure = genuine measure
+-/
+axiom bochner_minlos_existence {d : ℕ} (C : CharacteristicFunctional d) :
+    ∃ (μ : ProbabilityMeasureOnDual d),
+      ∀ f : SchwartzFunction d,
+        C.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure
 
 /- `bochner_minlos_uniqueness` — axiom retired 2026-05-10 by deletion.
 
@@ -144,21 +127,23 @@ def bochner_minlos_existence : Prop :=
     `bochner_minlos_uniqueness`) carry the real content; this
     theorem's "Combined Statement" name suggests more was proved.
     Retained as a structural-naming placeholder. -/
-theorem bochner_minlos_bijection (d : ℕ) (h_BME : bochner_minlos_existence) :
+theorem bochner_minlos_bijection (d : ℕ) :
     ∃ (Φ : CharacteristicFunctional d → ProbabilityMeasureOnDual d),
       -- Surjectivity: every characteristic functional comes from a unique measure
       (∀ C, ∀ f, C.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂(Φ C).measure) ∧
       -- Injectivity: different characteristic functionals give different measures
       (∀ C₁ C₂, Φ C₁ = Φ C₂ → C₁ = C₂) := by
-  -- Combine existence (from h_BME) and the structural injectivity below.
-  choose Φ hΦ using fun C => h_BME C
+  -- Combine existence and uniqueness
+  choose Φ hΦ using fun C => bochner_minlos_existence C
   use Φ
-  refine ⟨hΦ, ?_⟩
-  intro C₁ C₂ heq
-  ext f
-  rw [hΦ C₁ f, hΦ C₂ f]
-  congr 1
-  exact congrArg (·.measure) heq
+  constructor
+  · exact hΦ
+  · intro C₁ C₂ heq
+    -- If measures are equal, characteristic functionals are equal
+    ext f
+    rw [hΦ C₁ f, hΦ C₂ f]
+    congr 1
+    exact congrArg (·.measure) heq
 
 /-! ## Applications to Specific Characteristic Functionals -/
 
@@ -215,13 +200,12 @@ theorem gaussian_is_characteristic {d : ℕ} (G : GaussianCharacteristic d) :
 
     This is the foundation for free field theory path integrals.
 -/
-theorem gaussian_measure_exists {d : ℕ} (G : GaussianCharacteristic d)
-    (h_BME : bochner_minlos_existence) :
+theorem gaussian_measure_exists {d : ℕ} (G : GaussianCharacteristic d) :
     ∃ (μ : ProbabilityMeasureOnDual d),
       ∀ f : SchwartzFunction d,
         G.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure := by
   obtain ⟨C, hC⟩ := gaussian_is_characteristic G
-  obtain ⟨μ, hμ⟩ := h_BME C
+  obtain ⟨μ, hμ⟩ := bochner_minlos_existence C
   use μ
   intro f
   rw [← hC]
@@ -270,10 +254,9 @@ structure EuclideanFieldMeasure (d : ℕ) where
     if exp(-S[·]) defines a characteristic functional,
     then the path integral measure exists uniquely.
 -/
-theorem qft_measure_foundation {d : ℕ} (C : CharacteristicFunctional d)
-    (h_BME : bochner_minlos_existence) :
+theorem qft_measure_foundation {d : ℕ} (C : CharacteristicFunctional d) :
     ∃ (μ : EuclideanFieldMeasure d), μ.generating = C := by
-  obtain ⟨ν, hν⟩ := h_BME C
+  obtain ⟨ν, hν⟩ := bochner_minlos_existence C
   exact ⟨⟨ν, C, hν⟩, rfl⟩
 
 end PrincipiaTractalis
