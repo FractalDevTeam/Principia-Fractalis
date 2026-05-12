@@ -32,9 +32,17 @@ The honest count is **3 axioms remaining**, each encoding a real undischarged as
 | `operator_collapse_hypothesis` | `PF/P_NP_Complete_Proof.lean:190` | `P_equals_NP_def → α_NP = α_P` (operator collapse, class-based) | Manuscript Ch 21 Theorem 21.3 formalization. Equivalent to ¬(P=NP) given fixed-constant α_P ≠ α_NP. |
 | `p_eq_np_spectrum_collapse` | `PF/TuringEncoding/Operators.lean:191` | `ClassP=ClassNP → λ₀_P = λ₀_NP` (spectrum collapse) | Same as above; equivalent to ¬(P=NP) given fixed-constant λ₀_P ≠ λ₀_NP. |
 
-### ⚠ Placeholder caveat on `bochner_minlos_existence` (2026-05-11 disclosure, partial closure)
+### Placeholder caveat on `bochner_minlos_existence` (2026-05-11/12, fully closed)
 
-The "3 axioms" headline is correct, but referees must know that `bochner_minlos_existence` is currently stated over a chain of structures whose defining properties are partly still `True`/`trivial` placeholders. As of the Stage 1 refactor (below), the Schwartz space itself is real; the remaining placeholders are in nuclearity, cylindrical-measure consistency, and Minlos σ-additivity.
+This caveat originally disclosed 6 placeholder rows in the structures
+quantified over by `bochner_minlos_existence`. As of 2026-05-12 all 6
+(plus 1 additional predicate-level placeholder found during the refactor)
+are closed. The axiom now quantifies over genuinely smooth/decaying
+Schwartz functions (mathlib `SchwartzMap`), genuinely continuous linear
+functionals (`ContinuousLinearMap`), and genuinely Kolmogorov-consistent
+cylindrical measures. The remaining content to retire the axiom is the
+actual analytic proof (finite-dim Bochner → cylindrical extension →
+σ-additivity), not infrastructure cleanup.
 
 Status table:
 
@@ -43,8 +51,8 @@ Status table:
 | ~~`PF/NuclearSpaces.lean:109`~~ | ~~`SchwartzFunction.smooth = True`~~ | — | ✅ **Closed 2026-05-11** (Stage 1): `SchwartzFunction d` is now `abbrev` for mathlib's `SchwartzMap (Fin d → ℝ) ℂ` with real `ContDiff ℝ ∞`. |
 | ~~`PF/NuclearSpaces.lean:111-112`~~ | ~~`SchwartzFunction.rapid_decrease` `True` body~~ | — | ✅ **Closed 2026-05-11** (Stage 1): mathlib's `SchwartzMap.decay'` is `∀ k n, ∃ C, ‖x‖^k * ‖iteratedFDeriv ℝ n toFun x‖ ≤ C` — real polynomial decay. |
 | ~~`PF/NuclearSpaces.lean:154-157`~~ | ~~`TemperedDistribution.continuous`~~ | — | ✅ **Closed 2026-05-11** (Stage 2): `TemperedDistribution d` is now `abbrev` for `SchwartzFunction d →L[ℂ] ℂ`. Continuity is structural — `ContinuousLinearMap` only inhabits continuous maps. |
-| `PF/NuclearSpaces.lean:60` | `traceNorm` | `0` | Open (orphan-scaffold; not in critical path). Singular-value sum needed. |
-| `PF/NuclearSpaces.lean:82` | `NuclearSpace.nuclear_property` nuclear-map clause | `True` | Open (orphan-scaffold; not in critical path). Trace-class canonical map. |
+| ~~`PF/NuclearSpaces.lean:60`~~ | ~~`traceNorm = 0`~~ | — | ✅ **Closed 2026-05-12** (Stage 5): deleted with the rest of the in-house nuclear-spaces infrastructure (Seminorm', SeminormFamily, LocallyConvexSpace, IsNuclear, NuclearSpace, MultiIndex, SchwartzSeminorm, schwartz_is_nuclear, gauge_field_space_nuclear) as orphan scaffolding. Zero downstream consumers; same precedent as bochner_minlos_uniqueness / finite_dim_bochner / minlos_sigma_additivity. -123 lines NuclearSpaces.lean, -30 lines YangMillsMeasure.lean. |
+| ~~`PF/NuclearSpaces.lean:82`~~ | ~~`NuclearSpace.nuclear_property` `True` clause~~ | — | ✅ **Closed 2026-05-12** (Stage 5): deleted as above. |
 | ~~`PF/CylindricalMeasures.lean:212`~~ | ~~`CylindricalMeasure.consistent`~~ | — | ✅ **Closed 2026-05-11** (Stage 3): real Kolmogorov consistency `(μ_G).toMeasure = (μ_F).toMeasure.map (x ↦ x ∘ σ)` for any sub-projection σ. |
 | ~~`PF/BochnerMinlos.lean:48-58`~~ | ~~`minlos_sigma_additivity` cylinder-agreement clause~~ | — | ✅ **Closed 2026-05-11** (Stage 3): `isSigmaAdditive` cylinder clause upgraded to genuine pushforward-equality; the orphaned `minlos_sigma_additivity` theorem (zero downstream consumers, hollow Dirac-0 proof) deleted following the same `bochner_minlos_uniqueness` precedent (commit b056bf1). |
 | ~~`PF/CylindricalMeasures.lean:44-47`~~ | ~~`IsContinuousAtZero` predicate body~~ | — | ✅ **Closed 2026-05-12** (Stage 4): replaced `∀ ε > 0, ∃ k l δ > 0 ∧ ∀ f, True → ‖C f - C 0‖ < ε` (overconstrained — would force C uniformly within ε of C 0 everywhere, satisfied only by near-constant functions) with mathlib's `ContinuousAt C 0` using SchwartzMap's genuine Fréchet topology. All 3 consumer sites (FreeYangMillsGaussian.generatingFunctional, yang_mills_continuous, CovarianceOperator.toGaussianCharacteristic) updated to use `continuousAt_const` (the placeholder functional bodies are constant 1). |
