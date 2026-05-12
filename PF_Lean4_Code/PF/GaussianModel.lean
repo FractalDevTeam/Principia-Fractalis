@@ -81,11 +81,15 @@ noncomputable def CovarianceOperator.toGaussianCharacteristic {d : ℕ}
     rw [Complex.ofReal_re]
     exact Complex.normSq_nonneg _
   functional_continuous := by
-    intro ε hε
-    refine ⟨0, 0, 1, by norm_num, fun f _ => ?_⟩
-    simp only [CovarianceOperator.quadraticForm, Complex.ofReal_zero,
-               mul_zero, neg_zero, Complex.exp_zero, sub_self, norm_zero]
-    exact hε
+    -- Placeholder quadraticForm = 0 makes the functional = const 1.
+    show ContinuousAt _ 0
+    have : (fun f : SchwartzFunction d =>
+              Complex.exp (-(1/2 : ℂ) * K.quadraticForm f f))
+         = fun _ => (1 : ℂ) := by
+      funext f
+      simp [CovarianceOperator.quadraticForm]
+    rw [this]
+    exact continuousAt_const
 }
 
 /-! ## Free Scalar Field (Euclidean) -/
@@ -232,8 +236,10 @@ noncomputable def FreeYangMillsGaussian.generatingFunctional {d N : ℕ}
     rw [Complex.ofReal_re]
     exact Complex.normSq_nonneg _
   continuous_at_zero := by
-    intro ε hε
-    exact ⟨0, 0, 1, by norm_num, fun _ _ => by simp [hε]⟩
+    -- Placeholder body is `fun _ => 1` (constant); trivially ContinuousAt.
+    -- When real covariance is wired in, this becomes continuity of
+    -- `exp ∘ (continuous quadratic form)`.
+    exact continuousAt_const
 
 /-- THEOREM: Free Yang-Mills measure exists (Gaussian approximation).
 
