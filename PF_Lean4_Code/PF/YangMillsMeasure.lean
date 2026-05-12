@@ -160,20 +160,24 @@ theorem yang_mills_normalized (N : ℕ) :
 
 /-- THEOREM: The Yang-Mills generating functional is continuous at 0.
 
-    ⚠ CURRENT PROOF CAVEAT (2026-04-22): same placeholder situation as
-    `yang_mills_positive_definite` above. With covariance = 0,
+    ⚠ CURRENT PROOF CAVEAT (2026-04-22, refreshed 2026-05-12): same placeholder
+    situation as `yang_mills_positive_definite` above. With covariance = 0,
     yangMillsGenerating reduces to the constant function 1, which is
-    trivially continuous (C f - C 0 = 0 < ε for all ε > 0). Must be redone
-    when the real covariance is wired in. -/
+    trivially `ContinuousAt _ 0` via `continuousAt_const`. Must be redone
+    when the real covariance is wired in (then continuity of
+    `exp ∘ (continuous quadratic form)`). -/
 theorem yang_mills_continuous (N : ℕ) :
     IsContinuousAtZero
       (fun f => yangMillsGenerating N (fun _ _ => f : TestGaugeField N)) := by
-  intro ε hε
-  refine ⟨0, 0, 1, by norm_num, fun f _ => ?_⟩
-  -- C f = exp(0) = 1 and C 0 = exp(0) = 1, so C f - C 0 = 0
-  simp only [yangMillsGenerating, yangMillsCovariance, Complex.ofReal_zero,
-             mul_zero, neg_zero, Complex.exp_zero, sub_self, norm_zero]
-  exact hε
+  -- Under placeholder yangMillsCovariance = 0, yangMillsGenerating = const 1.
+  show ContinuousAt _ 0
+  have hconst : (fun f : SchwartzFunction 4 =>
+        yangMillsGenerating N (fun _ _ => f : TestGaugeField N))
+      = fun _ => (1 : ℂ) := by
+    funext f
+    simp [yangMillsGenerating, yangMillsCovariance]
+  rw [hconst]
+  exact continuousAt_const
 
 /-- The Yang-Mills characteristic functional satisfies Bochner-Minlos conditions. -/
 noncomputable def yangMillsCharacteristic (N : ℕ) (hN : N ≥ 2) :

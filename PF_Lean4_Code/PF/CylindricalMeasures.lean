@@ -40,11 +40,16 @@ def IsPositiveDefinite {E : Type*} [AddCommGroup E] (C : E → ℂ) : Prop :=
 def IsNormalized {E : Type*} [AddCommGroup E] (C : E → ℂ) : Prop :=
   C 0 = 1
 
-/-- Continuity at 0 (for Schwartz space, this means continuity wrt some seminorm). -/
+/-- Continuity at 0 of a functional `C : S(ℝᵈ) → ℂ`.
+
+    Refactored 2026-05-12: replaced the broken placeholder body
+    `∀ ε > 0, ∃ k l δ, δ > 0 ∧ ∀ f : SchwartzFunction d, True → ‖C f - C 0‖ < ε`
+    (which simplified to `∀ f, ‖C f - C 0‖ < ε` — overconstrained, would force
+    `C` to be uniformly within ε of `C 0` everywhere, true only for `C` very
+    close to constant) with mathlib's `ContinuousAt C 0`, using the genuine
+    Fréchet topology on `SchwartzMap (Fin d → ℝ) ℂ`. -/
 def IsContinuousAtZero {d : ℕ} (C : SchwartzFunction d → ℂ) : Prop :=
-  ∀ ε > 0, ∃ (k l : ℕ) (δ : ℝ), δ > 0 ∧
-    ∀ f : SchwartzFunction d, True → ‖C f - C 0‖ < ε
-    -- Full statement: p_{k,l}(f) < δ → |C(f) - C(0)| < ε
+  ContinuousAt C 0
 
 /-- A characteristic functional satisfies all Bochner-Minlos conditions. -/
 @[ext]
