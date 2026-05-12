@@ -138,17 +138,22 @@ structure FiniteDimProjection (d : ℕ) where
 
 /-- A cylindrical measure on S'(R^d) assigns a probability measure μ_F to each
     finite-dimensional projection, with consistency:
-    If G ⊂ F (i.e., test functions of G are a subset of F),
-    then μ_G = (π_{F,G})_* μ_F where π_{F,G} is the coordinate projection.
+    If G is a sub-projection of F (i.e., G's test functions appear among F's
+    via an indexing map σ : Fin G.n → Fin F.n), then μ_G equals the pushforward
+    of μ_F under the coordinate projection `x ↦ x ∘ σ : ℂ^F.n → ℂ^G.n`.
 -/
 structure CylindricalMeasure (d : ℕ) where
   /-- For each finite-dimensional projection, a probability measure on ℂ^n -/
   measure : (proj : FiniteDimProjection d) →
             MeasureTheory.ProbabilityMeasure (Fin proj.n → ℂ)
-  /-- Consistency under projections -/
-  consistent : ∀ (F G : FiniteDimProjection d),
-    -- If G is a "subprojection" of F, measures are consistent
-    True  -- Placeholder: full statement requires pushforward measure equality
+  /-- Consistency under projections (Kolmogorov compatibility).
+      Refactored 2026-05-11: replaced `True` placeholder with the genuine
+      pushforward-equality statement. -/
+  consistent : ∀ (F G : FiniteDimProjection d) (σ : Fin G.n → Fin F.n),
+    (∀ i : Fin G.n, G.testFunctions i = F.testFunctions (σ i)) →
+    ((measure G : MeasureTheory.Measure (Fin G.n → ℂ))
+      = (measure F : MeasureTheory.Measure (Fin F.n → ℂ)).map
+          (fun (x : Fin F.n → ℂ) (i : Fin G.n) => x (σ i)))
 
 -- Discrete measurable space on TemperedDistribution so (a) MeasureTheory.Measure
 -- can be formed and (b) MeasurableSingletonClass holds (needed for Dirac
@@ -158,16 +163,25 @@ instance (d : ℕ) : MeasurableSpace (TemperedDistribution d) := ⊤
 instance (d : ℕ) : MeasurableSingletonClass (TemperedDistribution d) :=
   ⟨fun _ => trivial⟩
 
-/-- A cylindrical measure is σ-additive if it extends to a genuine measure.
-    This is the content of Minlos' theorem for nuclear spaces.
--/
+/-- A cylindrical measure is σ-additive if it extends to a genuine probability
+    measure ν on S'(R^d) whose finite-dimensional projections recover μ.
+
+    Refactored 2026-05-11: replaced the placeholder `True` cylinder-agreement
+    clause with the genuine pushforward-equality statement
+    `ν.map π_proj = μ.measure proj` for every finite-dim projection.
+    The `MeasurableSpace (TemperedDistribution d) := ⊤` scaffold above
+    makes the projection map measurable trivially (every function out of a
+    discrete space is measurable); a later refactor will replace ⊤ with
+    the genuine cylindrical σ-algebra.
+
+    This is the content of Minlos' theorem for nuclear spaces. -/
 def CylindricalMeasure.isSigmaAdditive {d : ℕ} (μ : CylindricalMeasure d) : Prop :=
-  -- The cylindrical measure extends to a probability measure on the Borel σ-algebra
   ∃ (ν : MeasureTheory.Measure (TemperedDistribution d)),
     MeasureTheory.IsProbabilityMeasure ν ∧
-    -- For all cylinder sets, ν agrees with μ
-    ∀ (proj : FiniteDimProjection d) (B : Set (Fin proj.n → ℂ)),
-      True  -- ν(π_proj⁻¹(B)) = μ.measure proj (B)
+    ∀ (proj : FiniteDimProjection d),
+      ν.map (fun (ω : TemperedDistribution d) (i : Fin proj.n) =>
+              ⟨ω, proj.testFunctions i⟩ₛ)
+        = (μ.measure proj : MeasureTheory.Measure (Fin proj.n → ℂ))
 
 /-! ## Fourier Transform of Cylindrical Measures -/
 
@@ -209,7 +223,18 @@ noncomputable def CharacteristicFunctional.toCylindricalMeasure {d : ℕ}
     -- This uses positive definiteness of C restricted to span{f₁,...,fₙ}
     ⟨MeasureTheory.Measure.dirac 0, MeasureTheory.Measure.dirac.isProbabilityMeasure⟩
     -- Placeholder: actual construction via finite-dim Bochner
-  consistent := fun _ _ => trivial
+  consistent := by
+    -- For the dirac-at-0 placeholder, pushforward under any measurable
+    -- coordinate projection sends Dirac 0 to Dirac (0 ∘ σ) = Dirac 0.
+    intro F G σ _
+    show (MeasureTheory.Measure.dirac (0 : Fin G.n → ℂ))
+      = (MeasureTheory.Measure.dirac (0 : Fin F.n → ℂ)).map
+          (fun (x : Fin F.n → ℂ) (i : Fin G.n) => x (σ i))
+    have hmeas : Measurable
+        (fun (x : Fin F.n → ℂ) (i : Fin G.n) => x (σ i)) := by
+      exact measurable_pi_lambda _ (fun _ => measurable_pi_apply _)
+    rw [MeasureTheory.Measure.map_dirac hmeas]
+    congr 1
 }
 
 /- `finite_dim_bochner` — axiom retired 2026-05-10 by deletion.
