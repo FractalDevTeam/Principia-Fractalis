@@ -23,6 +23,7 @@ import Mathlib.LinearAlgebra.Dual.Lemmas
 import Mathlib.Order.Filter.Basic
 import Mathlib.Analysis.Calculus.FDeriv.Basic
 import Mathlib.Data.ENNReal.Basic
+import Mathlib.Analysis.Distribution.SchwartzSpace
 
 namespace PrincipiaTractalis
 
@@ -98,123 +99,20 @@ structure SchwartzSeminorm (d : ℕ) where
   /-- Multi-index for derivative order -/
   β : MultiIndex d
 
-/-- The Schwartz space S(R^d) of rapidly decreasing smooth functions.
-    A function f : R^d → C is in S if for all multi-indices α, β:
-    sup_x |x^α D^β f(x)| < ∞
--/
-structure SchwartzFunction (d : ℕ) where
-  /-- The underlying function -/
-  toFun : (Fin d → ℝ) → ℂ
-  /-- Smoothness: f is C^∞ -/
-  smooth : True  -- Placeholder: requires ContDiff ℝ ⊤ toFun
-  /-- Rapid decrease: all Schwartz seminorms are finite -/
-  rapid_decrease : ∀ (α β : MultiIndex d), ∃ C : ℝ, C ≥ 0 ∧
-    ∀ x : Fin d → ℝ, True  -- |x^α D^β f(x)| ≤ C
+/-- The Schwartz space `S(ℝᵈ; ℂ)` of rapidly decreasing smooth functions
+    `ℝᵈ → ℂ`.
 
-/-- Extensionality for Schwartz functions. -/
-@[ext]
-theorem SchwartzFunction.ext {d : ℕ} {f g : SchwartzFunction d}
-    (h : ∀ x, f.toFun x = g.toFun x) : f = g := by
-  cases f; cases g
-  simp only [mk.injEq]
-  funext x
-  exact h x
-
-/-- Addition on Schwartz functions. -/
-noncomputable def SchwartzFunction.add' {d : ℕ} (f g : SchwartzFunction d) : SchwartzFunction d := {
-  toFun := fun x => f.toFun x + g.toFun x
-  smooth := trivial
-  rapid_decrease := fun α β => ⟨0, by norm_num, fun _ => trivial⟩
-}
-
-/-- Zero Schwartz function. -/
-noncomputable def SchwartzFunction.zero' (d : ℕ) : SchwartzFunction d := {
-  toFun := fun _ => 0
-  smooth := trivial
-  rapid_decrease := fun α β => ⟨0, by norm_num, fun _ => trivial⟩
-}
-
-/-- Negation on Schwartz functions. -/
-noncomputable def SchwartzFunction.neg' {d : ℕ} (f : SchwartzFunction d) : SchwartzFunction d := {
-  toFun := fun x => -f.toFun x
-  smooth := trivial
-  rapid_decrease := fun α β => ⟨0, by norm_num, fun _ => trivial⟩
-}
-
-noncomputable instance SchwartzFunction.instAdd (d : ℕ) : Add (SchwartzFunction d) where
-  add := SchwartzFunction.add'
-
-noncomputable instance SchwartzFunction.instZero (d : ℕ) : Zero (SchwartzFunction d) where
-  zero := SchwartzFunction.zero' d
-
-noncomputable instance SchwartzFunction.instNeg (d : ℕ) : Neg (SchwartzFunction d) where
-  neg := SchwartzFunction.neg'
-
-/-- Scalar multiplication on Schwartz functions. -/
-noncomputable instance SchwartzFunction.instSMul (d : ℕ) : SMul ℂ (SchwartzFunction d) where
-  smul c f := {
-    toFun := fun x => c * f.toFun x
-    smooth := trivial
-    rapid_decrease := fun α β => ⟨0, by norm_num, fun _ => trivial⟩
-  }
-
-/-- Real scalar multiplication on Schwartz functions. -/
-noncomputable instance SchwartzFunction.instRealSMul (d : ℕ) : SMul ℝ (SchwartzFunction d) where
-  smul c f := {
-    toFun := fun x => c * f.toFun x
-    smooth := trivial
-    rapid_decrease := fun α β => ⟨0, by norm_num, fun _ => trivial⟩
-  }
-
-/-- Schwartz space forms an additive commutative group. -/
-noncomputable instance SchwartzFunction.instAddCommGroup (d : ℕ) : AddCommGroup (SchwartzFunction d) where
-  add := (· + ·)
-  zero := 0
-  neg := Neg.neg
-  add_assoc := fun a b c => by ext x; show (a.toFun x + b.toFun x) + c.toFun x = a.toFun x + (b.toFun x + c.toFun x); ring
-  zero_add := fun a => by ext x; show (0 : ℂ) + a.toFun x = a.toFun x; ring
-  add_zero := fun a => by ext x; show a.toFun x + (0 : ℂ) = a.toFun x; ring
-  neg_add_cancel := fun a => by ext x; show -a.toFun x + a.toFun x = (0 : ℂ); ring
-  add_comm := fun a b => by ext x; show a.toFun x + b.toFun x = b.toFun x + a.toFun x; ring
-  nsmul := fun n f => {
-    toFun := fun x => n • f.toFun x
-    smooth := trivial
-    rapid_decrease := fun α β => ⟨0, by norm_num, fun _ => trivial⟩
-  }
-  nsmul_zero := fun f => by ext x; show (0 : ℕ) • f.toFun x = (0 : ℂ); simp
-  nsmul_succ := fun n f => by ext x; show (n + 1) • f.toFun x = n • f.toFun x + f.toFun x; simp [add_smul, one_smul]
-  zsmul := fun n f => {
-    toFun := fun x => n • f.toFun x
-    smooth := trivial
-    rapid_decrease := fun α β => ⟨0, by norm_num, fun _ => trivial⟩
-  }
-  zsmul_zero' := fun f => by ext x; show (0 : ℤ) • f.toFun x = (0 : ℂ); simp
-  zsmul_succ' := fun n f => by ext x; show (Int.ofNat n.succ) • f.toFun x = (Int.ofNat n) • f.toFun x + f.toFun x; simp [add_smul, one_smul]
-  zsmul_neg' := fun n f => by
-    ext x
-    show Int.negSucc n • f.toFun x = -(Int.ofNat n.succ • f.toFun x)
-    simp only [Int.negSucc_eq, neg_smul, add_smul, one_smul]
-    congr 1
-    rw [show Int.ofNat n.succ = (n : ℤ) + 1 from rfl]
-    simp only [add_smul, one_smul]
-
-/-- Schwartz space is a module over ℂ. -/
-noncomputable instance SchwartzFunction.instModule (d : ℕ) : Module ℂ (SchwartzFunction d) where
-  one_smul := fun a => by ext x; show (1 : ℂ) * a.toFun x = a.toFun x; ring
-  mul_smul := fun r s a => by ext x; show (r * s) * a.toFun x = r * (s * a.toFun x); ring
-  smul_zero := fun r => by ext x; show r * (0 : ℂ) = (0 : ℂ); ring
-  smul_add := fun r a b => by ext x; show r * (a.toFun x + b.toFun x) = r * a.toFun x + r * b.toFun x; ring
-  add_smul := fun r s a => by ext x; show (r + s) * a.toFun x = r * a.toFun x + s * a.toFun x; ring
-  zero_smul := fun a => by ext x; show (0 : ℂ) * a.toFun x = (0 : ℂ); ring
-
-/-- The Schwartz space as a real module (for nuclear space theory). -/
-noncomputable instance SchwartzFunction.instRealModule (d : ℕ) : Module ℝ (SchwartzFunction d) where
-  one_smul := fun a => by ext x; show (1 : ℝ) * a.toFun x = a.toFun x; simp only [Complex.ofReal_one, one_mul]
-  mul_smul := fun r s a => by ext x; show ((r * s : ℝ) : ℂ) * a.toFun x = (r : ℂ) * ((s : ℂ) * a.toFun x); simp only [Complex.ofReal_mul]; ring
-  smul_zero := fun r => by ext x; show (r : ℂ) * (0 : ℂ) = (0 : ℂ); ring
-  smul_add := fun r a b => by ext x; show (r : ℂ) * (a.toFun x + b.toFun x) = (r : ℂ) * a.toFun x + (r : ℂ) * b.toFun x; ring
-  add_smul := fun r s a => by ext x; show ((r + s : ℝ) : ℂ) * a.toFun x = (r : ℂ) * a.toFun x + (s : ℂ) * a.toFun x; simp only [Complex.ofReal_add]; ring
-  zero_smul := fun a => by ext x; show ((0 : ℝ) : ℂ) * a.toFun x = (0 : ℂ); simp only [Complex.ofReal_zero, zero_mul]
+    Refactored 2026-05-11: this is now an `abbrev` for mathlib's
+    `SchwartzMap (Fin d → ℝ) ℂ`, which carries real `ContDiff ℝ ∞`
+    smoothness and real polynomial decay
+    (`Mathlib.Analysis.Distribution.SchwartzSpace.SchwartzMap`).
+    The prior in-house `structure SchwartzFunction` had `smooth : True`
+    and a `True`-bodied rapid-decay clause, making `bochner_minlos_existence`
+    non-substantive (any function inhabited the placeholder structure).
+    Mathlib provides the full algebra of operations (`Zero`, `Add`, `Neg`,
+    `SMul ℝ`, `SMul ℂ`, `AddCommGroup`, `Module ℝ`, `Module ℂ`, `FunLike`)
+    automatically. -/
+abbrev SchwartzFunction (d : ℕ) : Type := SchwartzMap (Fin d → ℝ) ℂ
 
 /-- THEOREM: Schwartz space is a nuclear space.
 

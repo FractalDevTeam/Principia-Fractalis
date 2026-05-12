@@ -32,22 +32,24 @@ The honest count is **3 axioms remaining**, each encoding a real undischarged as
 | `operator_collapse_hypothesis` | `PF/P_NP_Complete_Proof.lean:190` | `P_equals_NP_def → α_NP = α_P` (operator collapse, class-based) | Manuscript Ch 21 Theorem 21.3 formalization. Equivalent to ¬(P=NP) given fixed-constant α_P ≠ α_NP. |
 | `p_eq_np_spectrum_collapse` | `PF/TuringEncoding/Operators.lean:191` | `ClassP=ClassNP → λ₀_P = λ₀_NP` (spectrum collapse) | Same as above; equivalent to ¬(P=NP) given fixed-constant λ₀_P ≠ λ₀_NP. |
 
-### ⚠ Placeholder caveat on `bochner_minlos_existence` (2026-05-11 disclosure)
+### ⚠ Placeholder caveat on `bochner_minlos_existence` (2026-05-11 disclosure, partial closure)
 
-The "3 axioms" headline is correct, but referees must know that `bochner_minlos_existence` is currently stated over a chain of structures whose defining properties are still `True`/`trivial` placeholders. The axiom is therefore **non-substantive in its current form** — the structures it quantifies over carry no real properties, so the claim it appears to make about Schwartz functions and tempered distributions is much weaker than the name suggests.
+The "3 axioms" headline is correct, but referees must know that `bochner_minlos_existence` is currently stated over a chain of structures whose defining properties are partly still `True`/`trivial` placeholders. As of the Stage 1 refactor (below), the Schwartz space itself is real; the remaining placeholders are in nuclearity, cylindrical-measure consistency, and Minlos σ-additivity.
 
-Concrete placeholder sites:
+Status table:
 
-| File:line | Field | Placeholder body | What real version requires |
-|-----------|-------|------------------|----------------------------|
-| `PF/NuclearSpaces.lean:109` | `SchwartzFunction.smooth` | `True` | `ContDiff ℝ ∞ toFun` |
-| `PF/NuclearSpaces.lean:111-112` | `SchwartzFunction.rapid_decrease` | `True` body inside the bound | `‖x^α D^β f(x)‖ ≤ C` (the actual rapid decay) |
-| `PF/NuclearSpaces.lean:60` | `traceNorm` | `0` | Singular-value sum |
-| `PF/NuclearSpaces.lean:82` | `NuclearSpace.nuclear_property`'s nuclear-map clause | `True` | Trace-class canonical Ê_V → Ê_U |
-| `PF/CylindricalMeasures.lean:212` | `CylindricalMeasure.consistent` | `fun _ _ => trivial` | Compatibility under projections |
-| `PF/BochnerMinlos.lean:48-58` | `minlos_sigma_additivity`'s cylinder-agreement clause | `True` (witnessed by Dirac at 0) | Real cylinder-set agreement of ν with the cylindrical μ |
+| File:line | Field | Placeholder body | Status |
+|-----------|-------|------------------|--------|
+| ~~`PF/NuclearSpaces.lean:109`~~ | ~~`SchwartzFunction.smooth = True`~~ | — | ✅ **Closed 2026-05-11**: `SchwartzFunction d` is now `abbrev` for mathlib's `SchwartzMap (Fin d → ℝ) ℂ` with real `ContDiff ℝ ∞`. |
+| ~~`PF/NuclearSpaces.lean:111-112`~~ | ~~`SchwartzFunction.rapid_decrease` `True` body~~ | — | ✅ **Closed 2026-05-11**: mathlib's `SchwartzMap.decay'` is `∀ k n, ∃ C, ‖x‖^k * ‖iteratedFDeriv ℝ n toFun x‖ ≤ C` — real polynomial decay. |
+| `PF/NuclearSpaces.lean:60` | `traceNorm` | `0` | Open. Singular-value sum needed. |
+| `PF/NuclearSpaces.lean:82` | `NuclearSpace.nuclear_property` nuclear-map clause | `True` | Open. Trace-class canonical map. |
+| `PF/CylindricalMeasures.lean:212` | `CylindricalMeasure.consistent` | `fun _ _ => trivial` | Open. Compatibility under projections. |
+| `PF/BochnerMinlos.lean:48-58` | `minlos_sigma_additivity` cylinder-agreement clause | `True` (Dirac-at-0 witness) | Open. Real cylinder-set agreement. |
 
-Until these are replaced with their real (mathlib-backed) counterparts, retiring `bochner_minlos_existence` would produce a "theorem" whose mathematical content is correspondingly hollow. The honest retirement path is therefore the **SchwartzFunction → mathlib `SchwartzMap` refactor first**, then build genuine `TemperedDistribution`/`CylindricalMeasure` on top, then prove the existence theorem — see [memory: principia_bochner_minlos_refactor_plan.md] for the staged plan.
+Stage 1 of the refactor (2026-05-11, commit pending) replaced the `structure SchwartzFunction (d : ℕ)` and its ~110 lines of custom placeholder algebraic instances (`Add`, `Zero`, `Neg`, `SMul ℝ`, `SMul ℂ`, `AddCommGroup`, `Module ℝ`, `Module ℂ`) with the single line `abbrev SchwartzFunction (d : ℕ) := SchwartzMap (Fin d → ℝ) ℂ`. Mathlib provides every instance that the consumer files (`BochnerMinlos`, `CylindricalMeasures`, `GaussianModel`, `YangMillsMeasure`) need. The full project builds clean (5504 jobs unchanged) with 3 axioms and 0 sorries.
+
+The honest retirement path for the remaining open placeholders, then `bochner_minlos_existence` itself, is in [memory: principia_bochner_minlos_refactor_plan.md].
 
 This caveat does **not** affect the other two axioms — `operator_collapse_hypothesis` and `p_eq_np_spectrum_collapse` are stated over the class-based `P_equals_NP_def` / `ClassP = ClassNP`, which use the genuine `InClassP/InClassNP` definitions in `PF/TuringEncoding/Complexity.lean` (verified non-trivial post commit `6d2ede1`).
 
