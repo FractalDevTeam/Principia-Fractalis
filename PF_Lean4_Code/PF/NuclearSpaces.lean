@@ -27,77 +27,25 @@ import Mathlib.Analysis.Distribution.SchwartzSpace
 
 namespace PrincipiaTractalis
 
-/-! ## Basic Definitions for Nuclear Spaces -/
-
-/-- A seminorm on a vector space over a field. -/
-structure Seminorm' (𝕜 : Type*) (E : Type*) [Ring 𝕜] [AddCommGroup E] [Module 𝕜 E] where
-  toFun : E → ℝ
-  nonneg' : ∀ x, 0 ≤ toFun x
-  add_le' : ∀ x y, toFun (x + y) ≤ toFun x + toFun y
-  smul' : ∀ (a : 𝕜) (x : E), ∃ c : ℝ, toFun (a • x) ≤ c * toFun x
-
-/-- A family of seminorms defining a locally convex topology. -/
-structure SeminormFamily (𝕜 : Type*) (E : Type*) [Ring 𝕜] [AddCommGroup E] [Module 𝕜 E]
-    (ι : Type*) where
-  seminorms : ι → Seminorm' 𝕜 E
-  /-- The family is directed: for any two seminorms, there's one dominating both -/
-  directed : ∀ i j, ∃ k, ∀ x, (seminorms i).toFun x ≤ (seminorms k).toFun x ∧
-                           (seminorms j).toFun x ≤ (seminorms k).toFun x
-
-/-- A locally convex topological vector space with a defining family of seminorms. -/
-structure LocallyConvexSpace (𝕜 : Type*) (E : Type*) [Ring 𝕜] [AddCommGroup E] [Module 𝕜 E]
-    where
-  ι : Type*
-  seminormFamily : SeminormFamily 𝕜 E ι
-
-/-! ## Nuclear Space Definition -/
-
-/-- The trace norm (nuclear norm) of a linear map between Banach spaces.
-    A map is trace-class if this is finite. -/
-noncomputable def traceNorm {E F : Type*} [NormedAddCommGroup E] [NormedAddCommGroup F]
-    [NormedSpace ℝ E] [NormedSpace ℝ F] (T : E →L[ℝ] F) : ENNReal :=
-  -- In a complete formalization, this would be ∑ σₙ where σₙ are singular values
-  -- For now, we use a placeholder that will be proven to satisfy required properties
-  0  -- Placeholder: actual definition requires singular value decomposition
-
-/-- A linear map is nuclear (trace-class) if its trace norm is finite. -/
-def IsNuclear {E F : Type*} [NormedAddCommGroup E] [NormedAddCommGroup F]
-    [NormedSpace ℝ E] [NormedSpace ℝ F] (T : E →L[ℝ] F) : Prop :=
-  traceNorm T < ⊤
-
-/-- A locally convex space is nuclear if for every continuous seminorm p,
-    there exists a stronger seminorm q such that the canonical inclusion
-    E_q → E_p is nuclear (trace-class).
-
-    Equivalent formulation: For every absolutely convex neighborhood U of 0,
-    there exists an absolutely convex neighborhood V ⊂ U such that the
-    canonical map Ê_V → Ê_U is nuclear, where Ê_V is the Banach completion.
--/
-structure NuclearSpace (E : Type*) [AddCommGroup E] [Module ℝ E] extends
-    LocallyConvexSpace ℝ E where
-  /-- For each seminorm, there's a dominating seminorm with nuclear canonical map -/
-  nuclear_property : ∀ i : ι,
-    ∃ j : ι, (∀ x, (seminormFamily.seminorms i).toFun x ≤
-                   (seminormFamily.seminorms j).toFun x) ∧
-             -- The canonical map is nuclear
-             True  -- Placeholder: full statement requires Banach completion machinery
+/- 2026-05-12 cleanup: the in-house nuclear-spaces infrastructure
+   (`Seminorm'`, `SeminormFamily`, `LocallyConvexSpace`, `traceNorm`,
+   `IsNuclear`, `NuclearSpace`, `MultiIndex`, `MultiIndex.order`,
+   `SchwartzSeminorm`, and the `schwartz_is_nuclear` theorem) was
+   deleted as orphan scaffolding. Each of these was a placeholder
+   reimplementation of material that mathlib provides (`Seminorm`,
+   `LocallyConvexSpace`, derivatives' multi-index machinery,
+   `SchwartzMap.seminorm`), with `True`/`0` bodies in the load-bearing
+   fields (`traceNorm = 0`, `NuclearSpace.nuclear_property := True`).
+   Zero downstream consumers in PF/, verified by grep — same precedent
+   as the deletions of `bochner_minlos_uniqueness` (b056bf1),
+   `finite_dim_bochner` (183dd20), and `minlos_sigma_additivity` (fa3e9ed).
+   When real nuclear-space machinery is needed for Bochner-Minlos
+   (Reed-Simon §IX.2), mathlib's `LocallyConvexSpace ℝ` instance on
+   `SchwartzMap (Fin d → ℝ) ℂ` is the load-bearing replacement; nuclear
+   typeclasses can be added on top as mathlib's distribution-theory
+   infrastructure matures. -/
 
 /-! ## Schwartz Space Model -/
-
-/-- Multi-index for derivatives. -/
-abbrev MultiIndex (d : ℕ) := Fin d → ℕ
-
-/-- Order of a multi-index |α| = α₁ + ... + αd -/
-def MultiIndex.order {d : ℕ} (α : MultiIndex d) : ℕ :=
-  Finset.sum Finset.univ α
-
-/-- Schwartz seminorm p_{α,β}(f) = sup_x |x^α D^β f(x)|.
-    These seminorms make S(R^d) into a Fréchet nuclear space. -/
-structure SchwartzSeminorm (d : ℕ) where
-  /-- Multi-index for polynomial weight -/
-  α : MultiIndex d
-  /-- Multi-index for derivative order -/
-  β : MultiIndex d
 
 /-- The Schwartz space `S(ℝᵈ; ℂ)` of rapidly decreasing smooth functions
     `ℝᵈ → ℂ`.
@@ -114,36 +62,13 @@ structure SchwartzSeminorm (d : ℕ) where
     automatically. -/
 abbrev SchwartzFunction (d : ℕ) : Type := SchwartzMap (Fin d → ℝ) ℂ
 
-/-- THEOREM: Schwartz space is a nuclear space.
-
-    Proof strategy (classical):
-    1. S(R^d) is a Fréchet space with seminorms p_{k,l} = max_{|α|≤k, |β|≤l} sup_x |x^α D^β f|
-    2. For each (k,l), consider (k+d+1, l+d+1) seminorm
-    3. The inclusion S_{k+d+1,l+d+1} → S_{k,l} factors through L²
-    4. The composition is Hilbert-Schmidt, hence nuclear
-    5. This uses: ∫ (1+|x|²)^{-(d+1)} dx < ∞
-
-    Reference: Gel'fand-Vilenkin, Generalized Functions Vol. 4
--/
-theorem schwartz_is_nuclear (d : ℕ) :
-    ∃ (ns : NuclearSpace.{0, 0} (SchwartzFunction d)), True := by
-  -- Construct the nuclear space structure
-  -- The full proof requires showing S(R^d) has the nuclear property:
-  -- For each seminorm p_{k,l}, there's a stronger p_{k+d+1, l+d+1} such that
-  -- the canonical inclusion is Hilbert-Schmidt (hence nuclear)
-  refine ⟨{
-    ι := ℕ × ℕ
-    seminormFamily := {
-      seminorms := fun ⟨_, _⟩ => {
-        toFun := fun _ => 0  -- Placeholder seminorm
-        nonneg' := fun _ => le_refl 0
-        add_le' := fun _ _ => by norm_num
-        smul' := fun _ _ => ⟨0, by norm_num⟩
-      }
-      directed := fun i j => ⟨(max i.1 j.1, max i.2 j.2), fun _ => ⟨le_refl 0, le_refl 0⟩⟩
-    }
-    nuclear_property := fun i => ⟨(i.1 + d + 1, i.2 + d + 1), fun _ => le_refl 0, trivial⟩
-  }, trivial⟩
+/- `schwartz_is_nuclear` — deleted 2026-05-12 with the in-house NuclearSpace
+   infrastructure. The theorem's proof was a zero-seminorm placeholder
+   that exploited `NuclearSpace.nuclear_property`'s `True` body. Zero
+   downstream consumers. When real nuclearity is needed for Bochner-Minlos,
+   the load-bearing claim is the Grothendieck nuclearity of Schwartz space
+   (Reed-Simon I §V.3) — formalized via mathlib's locally-convex topology
+   on `SchwartzMap`, not via this orphan structure. -/
 
 /-! ## Dual Space (Tempered Distributions) -/
 
