@@ -29,31 +29,23 @@ namespace PrincipiaTractalis
 
 /-! ## Minlos' Condition -/
 
-/-- Minlos' condition: A cylindrical measure on a nuclear space is σ-additive.
+/- `minlos_sigma_additivity` — orphaned theorem deleted 2026-05-11.
 
-    The key insight is that nuclearity provides enough "compactness" to ensure
-    that finite-dimensional approximations converge to a genuine measure.
+   The classical Minlos statement (every cylindrical measure on a nuclear
+   space is σ-additive) WAS asserted here, with a "proof" that witnessed
+   `∃ ν, IsProbabilityMeasure ν ∧ ...` by Dirac at 0 — relying on the
+   `isSigmaAdditive` predicate's cylinder-agreement clause being a `True`
+   placeholder. With the placeholder upgraded to the genuine pushforward
+   equality (2026-05-11), the Dirac-at-0 witness no longer satisfies the
+   statement for arbitrary μ; a real proof requires the full Kolmogorov
+   extension argument on nuclear projective limits.
 
-    For Schwartz space S(R^d):
-    - S is nuclear (proven in NuclearSpaces.lean)
-    - Any cylindrical measure on S' satisfying continuity extends to a measure
-
-    Proof outline:
-    1. Nuclear space has a fundamental system of Hilbert space seminorms
-    2. Cylindrical measure induces compatible Gaussian measures on these spaces
-    3. Kolmogorov extension theorem gives consistent measure on projective limit
-    4. Projective limit = S' (for nuclear S)
-
-    ⚠ CURRENT PROOF CAVEAT (2026-04-22): `isSigmaAdditive` currently has a
-    `True` placeholder in its "ν agrees with μ on cylinder sets" clause, so
-    the predicate reduces to `∃ ν, IsProbabilityMeasure ν`. Satisfied by a
-    Dirac measure at the zero distribution. When the real agreement clause
-    replaces the placeholder, this proof must be redone. -/
-theorem minlos_sigma_additivity {d : ℕ} (_μ : CylindricalMeasure d) :
-    _μ.isSigmaAdditive := by
-  refine ⟨MeasureTheory.Measure.dirac (0 : TemperedDistribution d),
-    MeasureTheory.Measure.dirac.isProbabilityMeasure,
-    fun _ _ => trivial⟩
+   Deletion is the honest move per the rigor mandate: a "theorem" whose
+   proof was an artefact of a placeholder clause carried no verified
+   content. There are zero downstream consumers in PF/ (grep verified),
+   so removing it is structurally safe. The retirement path when Minlos
+   becomes load-bearing is the same multi-week formalization Reed-Simon
+   §IX.2 calls for. -/
 
 /-! ## Main Bochner-Minlos Theorem -/
 

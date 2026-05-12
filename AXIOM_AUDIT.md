@@ -43,10 +43,10 @@ Status table:
 | ~~`PF/NuclearSpaces.lean:109`~~ | ~~`SchwartzFunction.smooth = True`~~ | — | ✅ **Closed 2026-05-11** (Stage 1): `SchwartzFunction d` is now `abbrev` for mathlib's `SchwartzMap (Fin d → ℝ) ℂ` with real `ContDiff ℝ ∞`. |
 | ~~`PF/NuclearSpaces.lean:111-112`~~ | ~~`SchwartzFunction.rapid_decrease` `True` body~~ | — | ✅ **Closed 2026-05-11** (Stage 1): mathlib's `SchwartzMap.decay'` is `∀ k n, ∃ C, ‖x‖^k * ‖iteratedFDeriv ℝ n toFun x‖ ≤ C` — real polynomial decay. |
 | ~~`PF/NuclearSpaces.lean:154-157`~~ | ~~`TemperedDistribution.continuous`~~ | — | ✅ **Closed 2026-05-11** (Stage 2): `TemperedDistribution d` is now `abbrev` for `SchwartzFunction d →L[ℂ] ℂ`. Continuity is structural — `ContinuousLinearMap` only inhabits continuous maps. |
-| `PF/NuclearSpaces.lean:60` | `traceNorm` | `0` | Open. Singular-value sum needed. |
-| `PF/NuclearSpaces.lean:82` | `NuclearSpace.nuclear_property` nuclear-map clause | `True` | Open. Trace-class canonical map. |
-| `PF/CylindricalMeasures.lean:212` | `CylindricalMeasure.consistent` | `fun _ _ => trivial` | Open. Compatibility under projections. |
-| `PF/BochnerMinlos.lean:48-58` | `minlos_sigma_additivity` cylinder-agreement clause | `True` (Dirac-at-0 witness) | Open. Real cylinder-set agreement. |
+| `PF/NuclearSpaces.lean:60` | `traceNorm` | `0` | Open (orphan-scaffold; not in critical path). Singular-value sum needed. |
+| `PF/NuclearSpaces.lean:82` | `NuclearSpace.nuclear_property` nuclear-map clause | `True` | Open (orphan-scaffold; not in critical path). Trace-class canonical map. |
+| ~~`PF/CylindricalMeasures.lean:212`~~ | ~~`CylindricalMeasure.consistent`~~ | — | ✅ **Closed 2026-05-11** (Stage 3): real Kolmogorov consistency `(μ_G).toMeasure = (μ_F).toMeasure.map (x ↦ x ∘ σ)` for any sub-projection σ. |
+| ~~`PF/BochnerMinlos.lean:48-58`~~ | ~~`minlos_sigma_additivity` cylinder-agreement clause~~ | — | ✅ **Closed 2026-05-11** (Stage 3): `isSigmaAdditive` cylinder clause upgraded to genuine pushforward-equality; the orphaned `minlos_sigma_additivity` theorem (zero downstream consumers, hollow Dirac-0 proof) deleted following the same `bochner_minlos_uniqueness` precedent (commit b056bf1). |
 
 Stage 1 of the refactor (2026-05-11, commit pending) replaced the `structure SchwartzFunction (d : ℕ)` and its ~110 lines of custom placeholder algebraic instances (`Add`, `Zero`, `Neg`, `SMul ℝ`, `SMul ℂ`, `AddCommGroup`, `Module ℝ`, `Module ℂ`) with the single line `abbrev SchwartzFunction (d : ℕ) := SchwartzMap (Fin d → ℝ) ℂ`. Mathlib provides every instance that the consumer files (`BochnerMinlos`, `CylindricalMeasures`, `GaussianModel`, `YangMillsMeasure`) need. The full project builds clean (5504 jobs unchanged) with 3 axioms and 0 sorries.
 
