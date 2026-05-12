@@ -51,9 +51,7 @@ namespace PrincipiaTractalis
     replaces the placeholder, this proof must be redone. -/
 theorem minlos_sigma_additivity {d : ℕ} (_μ : CylindricalMeasure d) :
     _μ.isSigmaAdditive := by
-  refine ⟨MeasureTheory.Measure.dirac
-    ({ toLinearMap := 0
-       continuous := ⟨0, 0, 1, by norm_num, fun _ => trivial⟩ } : TemperedDistribution d),
+  refine ⟨MeasureTheory.Measure.dirac (0 : TemperedDistribution d),
     MeasureTheory.Measure.dirac.isProbabilityMeasure,
     fun _ _ => trivial⟩
 

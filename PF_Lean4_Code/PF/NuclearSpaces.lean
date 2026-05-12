@@ -147,35 +147,26 @@ theorem schwartz_is_nuclear (d : ℕ) :
 
 /-! ## Dual Space (Tempered Distributions) -/
 
-/-- A tempered distribution is a continuous linear functional on Schwartz space.
-    S'(R^d) = continuous dual of S(R^d). -/
-structure TemperedDistribution (d : ℕ) where
-  /-- The linear functional -/
-  toLinearMap : SchwartzFunction d →ₗ[ℂ] ℂ
-  /-- Continuity: bounded by some Schwartz seminorm -/
-  continuous : ∃ (k l : ℕ) (C : ℝ), C > 0 ∧
-    ∀ f : SchwartzFunction d, True  -- |⟨T, f⟩| ≤ C · p_{k,l}(f)
+/-- The space S'(ℝᵈ) of tempered distributions: continuous ℂ-linear
+    functionals on Schwartz space.
 
-/-- Pairing between distribution and test function. -/
+    Refactored 2026-05-11: this is now an `abbrev` for
+    `SchwartzFunction d →L[ℂ] ℂ` (mathlib's `ContinuousLinearMap`).
+    The prior in-house `structure TemperedDistribution` had a
+    `True`-bodied placeholder for continuity, making the "continuous
+    linear functional" claim vacuous. Continuity is now structural
+    (`ContinuousLinearMap` only inhabits continuous maps), and mathlib
+    provides `Zero`, `Add`, `Neg`, `SMul`, `AddCommGroup`, `Module`,
+    `FunLike`, and a normed-space topology automatically. -/
+abbrev TemperedDistribution (d : ℕ) : Type :=
+  SchwartzFunction d →L[ℂ] ℂ
+
+/-- Pairing between distribution and test function (FunLike application). -/
 noncomputable def TemperedDistribution.apply {d : ℕ} (T : TemperedDistribution d)
     (f : SchwartzFunction d) : ℂ :=
-  T.toLinearMap f
+  T f
 
 notation "⟨" T ", " f "⟩ₛ" => TemperedDistribution.apply T f
-
-/-- Addition on tempered distributions. -/
-noncomputable instance TemperedDistribution.instAdd (d : ℕ) : Add (TemperedDistribution d) where
-  add T₁ T₂ := {
-    toLinearMap := T₁.toLinearMap + T₂.toLinearMap
-    continuous := ⟨0, 0, 1, by norm_num, fun _ => trivial⟩
-  }
-
-/-- Zero distribution. -/
-noncomputable instance TemperedDistribution.instZero (d : ℕ) : Zero (TemperedDistribution d) where
-  zero := {
-    toLinearMap := 0
-    continuous := ⟨0, 0, 1, by norm_num, fun _ => trivial⟩
-  }
 
 /-! ## Cylindrical σ-algebra -/
 

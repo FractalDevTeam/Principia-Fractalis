@@ -40,8 +40,9 @@ Status table:
 
 | File:line | Field | Placeholder body | Status |
 |-----------|-------|------------------|--------|
-| ~~`PF/NuclearSpaces.lean:109`~~ | ~~`SchwartzFunction.smooth = True`~~ | — | ✅ **Closed 2026-05-11**: `SchwartzFunction d` is now `abbrev` for mathlib's `SchwartzMap (Fin d → ℝ) ℂ` with real `ContDiff ℝ ∞`. |
-| ~~`PF/NuclearSpaces.lean:111-112`~~ | ~~`SchwartzFunction.rapid_decrease` `True` body~~ | — | ✅ **Closed 2026-05-11**: mathlib's `SchwartzMap.decay'` is `∀ k n, ∃ C, ‖x‖^k * ‖iteratedFDeriv ℝ n toFun x‖ ≤ C` — real polynomial decay. |
+| ~~`PF/NuclearSpaces.lean:109`~~ | ~~`SchwartzFunction.smooth = True`~~ | — | ✅ **Closed 2026-05-11** (Stage 1): `SchwartzFunction d` is now `abbrev` for mathlib's `SchwartzMap (Fin d → ℝ) ℂ` with real `ContDiff ℝ ∞`. |
+| ~~`PF/NuclearSpaces.lean:111-112`~~ | ~~`SchwartzFunction.rapid_decrease` `True` body~~ | — | ✅ **Closed 2026-05-11** (Stage 1): mathlib's `SchwartzMap.decay'` is `∀ k n, ∃ C, ‖x‖^k * ‖iteratedFDeriv ℝ n toFun x‖ ≤ C` — real polynomial decay. |
+| ~~`PF/NuclearSpaces.lean:154-157`~~ | ~~`TemperedDistribution.continuous`~~ | — | ✅ **Closed 2026-05-11** (Stage 2): `TemperedDistribution d` is now `abbrev` for `SchwartzFunction d →L[ℂ] ℂ`. Continuity is structural — `ContinuousLinearMap` only inhabits continuous maps. |
 | `PF/NuclearSpaces.lean:60` | `traceNorm` | `0` | Open. Singular-value sum needed. |
 | `PF/NuclearSpaces.lean:82` | `NuclearSpace.nuclear_property` nuclear-map clause | `True` | Open. Trace-class canonical map. |
 | `PF/CylindricalMeasures.lean:212` | `CylindricalMeasure.consistent` | `fun _ _ => trivial` | Open. Compatibility under projections. |
