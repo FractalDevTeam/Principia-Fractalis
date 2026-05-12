@@ -282,10 +282,8 @@ theorem yang_mills_construction_complete (N : ℕ) (hN : N ≥ 2) :
       (∀ f : SchwartzFunction 4,
         Complex.exp (-(1/2 : ℂ) * G.quadraticForm f f) =
           ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure) := by
-  -- Zero distribution: zero linear map + trivial continuity witness.
-  let zeroDist : TemperedDistribution 4 :=
-    { toLinearMap := 0
-      continuous := ⟨0, 0, 1, by norm_num, fun _ => trivial⟩ }
+  -- Zero distribution: the zero continuous linear functional.
+  let zeroDist : TemperedDistribution 4 := 0
   let μ : ProbabilityMeasureOnDual 4 :=
     { measure := MeasureTheory.Measure.dirac zeroDist
       is_prob := MeasureTheory.Measure.dirac.isProbabilityMeasure }
