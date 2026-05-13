@@ -142,6 +142,35 @@ theorem pos_def_normalized_bounded {E : Type*} [AddCommGroup E] (C : E → ℂ)
   have hNorm_sq : ‖C s‖ ^ 2 ≤ 1 := by rw [Complex.sq_norm]; exact hnormSq
   nlinarith [norm_nonneg (C s), hNorm_sq]
 
+/-- The real part of a normalized positive-definite functional is bounded by 1.
+    Direct corollary of `pos_def_normalized_bounded`: `Re(C s) ≤ |C s| ≤ 1`.
+
+    Added 2026-05-13. Useful framing for Bochner-type modulus inequalities,
+    where the difference `1 - Re C(x) ≥ 0` plays the role of a "translation
+    energy" at displacement `x`. -/
+theorem pos_def_normalized_re_le_one {E : Type*} [AddCommGroup E] (C : E → ℂ)
+    (hpd : IsPositiveDefinite C) (hn : IsNormalized C) :
+    ∀ s : E, (C s).re ≤ 1 := by
+  intro s
+  have h_bound : ‖C s‖ ≤ 1 := pos_def_normalized_bounded C hpd hn s
+  have h_abs : |(C s).re| ≤ ‖C s‖ := Complex.abs_re_le_norm (C s)
+  have h_re_le_abs : (C s).re ≤ |(C s).re| := le_abs_self _
+  linarith
+
+/-- One minus the real part of a normalized positive-definite functional
+    is non-negative — equivalently, `Re(C x) ≤ Re(C 0) = 1`.
+
+    Added 2026-05-13. The quantity `1 - Re C(x)` measures how far `C(x)`
+    is from `C(0) = 1` in the real direction; it appears as the
+    "translation-distance" bound in the classical Bochner modulus
+    inequality `|C(s) - C(t)|² ≤ 2 · (1 - Re C(s - t))`. -/
+theorem pos_def_normalized_one_sub_re_nonneg {E : Type*} [AddCommGroup E] (C : E → ℂ)
+    (hpd : IsPositiveDefinite C) (hn : IsNormalized C) :
+    ∀ s : E, 0 ≤ 1 - (C s).re := by
+  intro s
+  have := pos_def_normalized_re_le_one C hpd hn s
+  linarith
+
 /-! ## Cylindrical Measures -/
 
 /-- A finite-dimensional projection π_F : S'(R^d) → ℂ^n
