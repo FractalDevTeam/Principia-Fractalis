@@ -3829,37 +3829,16 @@ theorem T3_spectral_complete :
     -- every element is automatically `L²(μ_log)`, so the prior MemLp2
     -- narrowing collapses to the universal claim).
     (∀ f g, ⟪T3_sym.apply f, g⟫ = ⟪f, T3_sym.apply g⟫) ∧
-    -- Has real eigenvalues converging to 0
-    (∃ (eigs : EigenvalueSequence 3), True) ∧
     -- Spectral radius = 1/3
     (|lambda_max| = 1/3) := by
-  refine ⟨T3_self_adjoint_conj, ?_, ?_⟩
-  · exact ⟨{
-      eigenvalues := fun n => (1/3 : ℝ) / (n + 1)
-      decreasing := by
-        intro n
-        -- Need: |1/3 / ((n+1) + 1)| ≤ |1/3 / (n + 1)|
-        have h1 : (0:ℝ) < 1/3 := by norm_num
-        have h1' : (0:ℝ) ≤ 1/3 := le_of_lt h1
-        have h2 : (0:ℝ) < (n:ℝ) + 1 := by positivity
-        have h3 : (0:ℝ) < ((n:ℝ) + 1) + 1 := by positivity
-        have h4 : (n:ℝ) + 1 ≤ ((n:ℝ) + 1) + 1 := by linarith
-        have hpos1 : 0 < 1/3 / ((n:ℝ) + 1) := div_pos h1 h2
-        have hpos2 : 0 < 1/3 / (((n:ℝ) + 1) + 1) := div_pos h1 h3
-        simp only [Nat.cast_add, Nat.cast_one]
-        rw [abs_of_pos hpos2, abs_of_pos hpos1]
-        -- div_le_div_of_nonneg_left : 0 ≤ a → 0 < c → c ≤ b → a / b ≤ a / c
-        exact div_le_div_of_nonneg_left h1' h2 h4
-      tend_to_zero := by
-        -- 1/3/(n+1) → 0
-        have h1 : Filter.Tendsto (fun n : ℕ => (n : ℝ) + 1) Filter.atTop Filter.atTop := by
-          apply Filter.tendsto_atTop_add_const_right
-          exact tendsto_natCast_atTop_atTop
-        have h2 : Filter.Tendsto (fun n : ℕ => (1/3 : ℝ) / ((n : ℝ) + 1)) Filter.atTop (nhds 0) := by
-          exact Filter.Tendsto.div_atTop tendsto_const_nhds h1
-        convert h2 using 1
-    }, trivial⟩
-  · simp only [lambda_max, abs_of_pos (by norm_num : (1:ℝ)/3 > 0)]
+  -- Refactored 2026-05-13: dropped the middle `∃ eigs : EigenvalueSequence 3, True`
+  -- conjunct. The `EigenvalueSequence 3` type is decoupled from T₃'s actual
+  -- spectrum (the parameter `b : ℕ` is just a label, not a binding to T₃),
+  -- so the existence claim was vacuous (witnessed by any decreasing sequence
+  -- tending to 0). The two real conjuncts — universal self-adjointness and
+  -- spectral-radius arithmetic — are retained.
+  refine ⟨T3_self_adjoint_conj, ?_⟩
+  simp only [lambda_max, abs_of_pos (by norm_num : (1:ℝ)/3 > 0)]
 
 /-! ## RH Spectral Framework Precondition (composition of today's work) -/
 
