@@ -411,14 +411,12 @@ theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
       _ = PrincipiaTractalis.Δ := by unfold PrincipiaTractalis.Δ; rfl
       _ = 0 := h_delta_zero_imported
 
-/-- The spectral gap is a topological invariant of the complexity class structure. -/
-theorem spectral_gap_is_invariant : ∀ (ε : ℝ), ε > 0 → ε < Delta →
-    ∃ (δ : ℝ), δ > 0 ∧ True := by  -- Placeholder for stability statement
-  intro ε hε h_small
-  use ε / 2
-  constructor
-  · linarith
-  · trivial
+/- `spectral_gap_is_invariant` — deleted 2026-05-13. The claim
+   "spectral gap is a topological invariant" was reduced to
+   `∀ ε > 0, ε < Δ → ∃ δ > 0 ∧ True`, witnessed by δ = ε/2. The True
+   conjunct hid the actual stability statement. Zero downstream
+   consumers. The real invariance claim needs a topology on the
+   class-pair space, not yet in scope. -/
 
 -- ============================================================================
 -- SECTION 6: Numerical Validation

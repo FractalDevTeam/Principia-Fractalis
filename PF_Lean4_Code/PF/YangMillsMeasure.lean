@@ -258,29 +258,31 @@ theorem yang_mills_construction_complete (N : ℕ) (hN : N ≥ 2) :
 
 /-! ## Connection to Physical Yang-Mills -/
 
-/-- The Gaussian measure constructed here is the leading-order approximation
-    to the full interacting Yang-Mills measure.
+/- The Gaussian measure constructed here is the leading-order approximation
+   to the full interacting Yang-Mills measure.
 
-    Full YM action: S[A] = ½ ∫ tr(F²) = S_free[A] + S_int[A]
-    where S_int contains cubic and quartic self-interactions.
+   Full YM action: S[A] = ½ ∫ tr(F²) = S_free[A] + S_int[A]
+   where S_int contains cubic and quartic self-interactions.
 
-    The full generating functional:
-    Z_full[J] = (1/Z_norm) ∫ exp(-S[A] + ⟨J,A⟩) DA
+   The full generating functional:
+   Z_full[J] = (1/Z_norm) ∫ exp(-S[A] + ⟨J,A⟩) DA
 
-    In perturbation theory:
-    Z_full[J] = Z_Gaussian[J] · (1 + O(g²))
+   In perturbation theory:
+   Z_full[J] = Z_Gaussian[J] · (1 + O(g²))
 
-    where g is the coupling constant.
+   where g is the coupling constant.
 
-    Non-perturbative construction requires:
-    1. Lattice regularization, then
-    2. Continuum limit (mass gap problem!)
+   Non-perturbative construction requires:
+   1. Lattice regularization, then
+   2. Continuum limit (mass gap problem!)
 
-    The Gaussian measure μ_YM constructed here is rigorous.
-    Full interacting measure remains open (Clay Millennium Problem).
--/
-theorem gaussian_is_leading_order (N : ℕ) (hN : N ≥ 2) :
-    -- The Gaussian characteristic functional is the g → 0 limit
-    True := by trivial
+   The Gaussian measure μ_YM constructed here is rigorous.
+   Full interacting measure remains open (Clay Millennium Problem).
+
+   `gaussian_is_leading_order` — deleted 2026-05-13. Statement was
+   literally `True`, claiming the Gaussian functional is the g → 0
+   limit of the full interacting theory. The real claim requires a
+   perturbative-series framework not yet in scope. Zero downstream
+   consumers. -/
 
 end PrincipiaTractalis

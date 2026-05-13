@@ -98,12 +98,11 @@ theorem spectral_embedding_masses (T : TimelessFieldTorus) :
 /-- Electroweak unification point in toroidal structure -/
 def electroweak_unification_point : ℝ × ℝ := (0, 2.0)
 
-/-- SU(2)×U(1) emerges from toroidal topology -/
-theorem gauge_group_emergence (T : TimelessFieldTorus) :
-    ∃ (su2_algebra u1_algebra : Type),
-    -- Gauge algebras emerge from resonance structure
-    True := by
-  use Unit, Unit  -- Placeholder types, emergence guaranteed by axiom
+/- `gauge_group_emergence` — deleted 2026-05-13. The claim "SU(2)×U(1)
+   emerges from toroidal topology" was reduced to `∃ Type Type, True`,
+   witnessed by `Unit, Unit`. No real Lie-algebra content. Zero
+   downstream consumers. When real `LieAlgebra ℝ`-structured types
+   are available for SU(2) and U(1), this can be restated meaningfully. -/
 
 /-- Curvature shells in the toroidal structure have resonance frequencies
     that correspond to natural number quantum indices.
