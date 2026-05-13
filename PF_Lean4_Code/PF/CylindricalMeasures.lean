@@ -393,6 +393,26 @@ theorem CharacteristicFunctional.continuous {d : ℕ} (C : CharacteristicFunctio
   pos_def_continuous_of_continuous_at_zero C.toFun
     C.positive_definite C.normalized C.continuous_at_zero
 
+/- STAGE 21 (deferred): The characteristic function of a probability measure
+   is positive-definite.
+
+   Statement: For μ a probability measure on a real inner-product space E,
+   `IsPositiveDefinite (MeasureTheory.charFun μ)`.
+
+   Mathematical content: the factorization
+     ∑ᵢⱼ zᵢ · conj(zⱼ) · ∫ exp(⟪x, sᵢ - sⱼ⟫·i) dμ
+       = ∫ |∑ᵢ zᵢ · exp(⟪x, sᵢ⟫·i)|² dμ ≥ 0
+   uses real-linearity of inner product + Fubini-style swap of finite sum
+   and integral + (Σaᵢ)(Σconj(bⱼ)) = Σᵢⱼ aᵢ·conj(bⱼ).
+
+   Formalization status: drafted in Stage 21 attempt, but the integrability
+   plumbing for `Complex.exp (⟪x, s⟫·i)` as integrable on a finite measure
+   (via the boundedness `‖exp(it)‖ = 1`) requires careful invocation of
+   mathlib's `MeasureTheory.Integrable.const_mul` chain. Deferred to a
+   dedicated session focused on the swap-sum-integral algebra. -/
+
+
+
 /-! ## Cylindrical Measures -/
 
 /-- A finite-dimensional projection π_F : S'(R^d) → ℂ^n
