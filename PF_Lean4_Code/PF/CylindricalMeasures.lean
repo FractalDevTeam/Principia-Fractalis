@@ -264,18 +264,14 @@ noncomputable def CharacteristicFunctional.toCylindricalMeasure {d : ℕ}
    - Existence half: classical Bochner theorem (Reed-Simon I §IX.2). Not in
      mathlib; substantive multi-week formalization. -/
 
-/-! ## Consistency Verification -/
-
-/-- The cylindrical measure from a characteristic functional is consistent. -/
-theorem characteristic_to_cylindrical_consistent {d : ℕ}
-    (C : CharacteristicFunctional d) :
-    ∀ (F G : FiniteDimProjection d),
-      True := by  -- Consistency condition
-  intros F G
-  -- If G ⊂ F, the finite-dimensional Bochner measures are compatible
-  -- This follows from the functional equation:
-  -- C(t₁g₁ + ... + tₘgₘ) = C(s₁f₁ + ... + sₙfₙ) when appropriate
-  trivial
+/- `characteristic_to_cylindrical_consistent` — deleted 2026-05-13 as
+   orphan with `∀ F G, True` statement (proved by `trivial`, no real
+   content). The real Kolmogorov-consistency proof for
+   `CharacteristicFunctional.toCylindricalMeasure` now lives inside
+   the `consistent` field of that definition (above, lines 230-242),
+   and is discharged honestly via `Measure.map_dirac` plus measurability
+   of the coordinate-projection map. Zero downstream consumers in PF/;
+   same orphan-deletion precedent as the prior cleanups. -/
 
 -- NOTE (2026-04-22): `characteristic_cylindrical_round_trip` was removed.
 -- It asserted `C.toCylindricalMeasure.fourierTransform = C.toFun`, but with
