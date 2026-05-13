@@ -156,8 +156,11 @@ Basic properties of the configuration encoding that will be needed
 for the operator construction.
 -/
 
-/-- Digital sum is well-defined for all natural numbers -/
-theorem digitalSum3_wellDefined (_n : ℕ) : True := trivial
+/- `digitalSum3_wellDefined` — deleted 2026-05-13. Statement was `True`,
+   proof was `trivial`. The name misleadingly suggested well-definedness
+   verification when none was performed. Well-definedness of `digitalSum3`
+   follows from its `def`-construction (Lean's totality checker). Zero
+   downstream consumers. -/
 
 /-- Digital sum of 0 is 0 (base case) -/
 theorem digitalSum3_zero : digitalSum3 0 = 0 := by

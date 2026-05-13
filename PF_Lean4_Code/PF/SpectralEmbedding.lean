@@ -33,10 +33,13 @@ structure SU2_Sector where
   curvature_shells : List CurvatureShell
   three_bosons : curvature_shells.length = 3  -- W⁺, W⁻, W⁰
 
-/-- The U(1) gauge sector (hypercharge) -/
+/-- The U(1) gauge sector (hypercharge). One curvature shell, one boson
+    (the photon). Refactored 2026-05-13: removed the decorative
+    `one_boson : True` field (cleanup of `True`-bodied placeholder; the
+    "single boson" content is already enforced structurally since
+    `curvature_shell` is a single shell, not a list). -/
 structure U1_Sector where
   curvature_shell : CurvatureShell
-  one_boson : True  -- Photon
 
 /-- Toroidal projective limit of Timeless Field -/
 structure TimelessFieldTorus where
@@ -225,8 +228,7 @@ theorem su2_u1_spectral_embedding :
       three_bosons := by simp
     },
     u1 := {
-      curvature_shell := shell1,
-      one_boson := trivial
+      curvature_shell := shell1
     },
     embedding := fun x => x
     embedding_mono := strictMono_id
