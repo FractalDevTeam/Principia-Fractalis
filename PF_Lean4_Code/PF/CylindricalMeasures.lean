@@ -74,6 +74,20 @@ theorem pos_def_zero_nonneg {E : Type*} [AddCommGroup E] (C : E → ℂ)
   simp at h
   convert h using 1
 
+/-- If C is positive definite, then `(C 0).im = 0` — i.e. `C 0` is real.
+
+    Added 2026-05-13 as a standalone lemma (previously inline in
+    `pos_def_hermitian` and `pos_def_normalized_bounded`). The proof
+    uses `IsPositiveDefinite C` at `n = 1` with the singleton point
+    `s₀ = 0` and weight `z₀ = 1`: the sum reduces to `C 0`, whose
+    real-and-nonneg conclusion of `IsPositiveDefinite` includes
+    `Im(C 0) = 0`. -/
+theorem pos_def_zero_imaginary {E : Type*} [AddCommGroup E] (C : E → ℂ)
+    (hpd : IsPositiveDefinite C) : (C 0).im = 0 := by
+  have h := (hpd 1 (fun _ => 0) (fun _ => 1)).1
+  simp [Fin.sum_univ_one] at h
+  exact h
+
 /-- Hermitian property: If C is positive definite, then C(-s) = conj(C(s)).
     Axiom → theorem (2026-04-22): from the strengthened `IsPositiveDefinite`
     (sum is real-and-nonneg), specific z-value evaluations at n=2 force
@@ -82,10 +96,7 @@ theorem pos_def_hermitian {E : Type*} [AddCommGroup E] (C : E → ℂ)
     (hpd : IsPositiveDefinite C) : ∀ s : E, C (-s) = (starRingEnd ℂ) (C s) := by
   intro s
   -- Step 1: from hpd at n=1 with z = 1, the sum equals C 0, so Im(C 0) = 0.
-  have hIm0 : (C 0).im = 0 := by
-    have h := (hpd 1 (fun _ => 0) (fun _ => 1)).1
-    simp [Fin.sum_univ_one] at h
-    exact h
+  have hIm0 : (C 0).im = 0 := pos_def_zero_imaginary C hpd
   -- Step 2: at n=2 with s = ![0, s], z = ![1, 1], sum = 2·C 0 + C(-s) + C s.
   have hIm_sum : (C (-s)).im + (C s).im = 0 := by
     have h := (hpd 2 ![0, s] ![1, 1]).1
