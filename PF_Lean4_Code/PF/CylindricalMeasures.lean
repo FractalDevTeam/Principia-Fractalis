@@ -382,6 +382,17 @@ theorem pos_def_continuous_of_continuous_at_zero
   rw [Complex.dist_eq]
   exact h_norm_lt
 
+/-- Every `CharacteristicFunctional d` has a globally continuous underlying
+    functional `toFun`. Combines the structure's `continuous_at_zero` field
+    with `pos_def_continuous_of_continuous_at_zero` (Stage 19) and the
+    `IsTopologicalAddGroup` instance on `SchwartzMap (Fin d → ℝ) ℂ`.
+
+    Added 2026-05-14 (Stage 20). -/
+theorem CharacteristicFunctional.continuous {d : ℕ} (C : CharacteristicFunctional d) :
+    Continuous C.toFun :=
+  pos_def_continuous_of_continuous_at_zero C.toFun
+    C.positive_definite C.normalized C.continuous_at_zero
+
 /-! ## Cylindrical Measures -/
 
 /-- A finite-dimensional projection π_F : S'(R^d) → ℂ^n
