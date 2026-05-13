@@ -3704,27 +3704,14 @@ theorem self_adjoint_real_eigenvalues_MemLp2
 
 /-! ## Compactness -/
 
-/-- THEOREM: T₃ is a compact operator.
-
-    Proof: T₃ is Hilbert-Schmidt (integral operator with L² kernel).
-    The kernel K(x,y) = (1/3) ∑_k ω_k √(x/y_k(x)) δ(y - y_k(x))
-    is square-integrable:
-    ∫∫ |K(x,y)|² dx dy = 3 < ∞
-
-    Hilbert-Schmidt ⟹ compact.
-
-    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The conclusion below
-    is `∃ hs_norm, hs_norm = √3 ∧ True` — proves only that √3 = √3,
-    not that T₃ has a Hilbert-Schmidt norm. The docstring's
-    "∫∫ |K(x,y)|² dx dy = 3 < ∞" computation is also suspect: a
-    transfer operator with delta-supported kernel is not generically
-    Hilbert-Schmidt on L²(dx/x) in the literal sense (cf. the Ch 20
-    bridge audit, 2026-04-26). Retained as a structural placeholder. -/
-theorem T3_compact_proven :
-    ∃ (hs_norm : ℝ), hs_norm = Real.sqrt 3 ∧
-      -- Hilbert-Schmidt norm equals √3
-      True := by
-  exact ⟨Real.sqrt 3, rfl, trivial⟩
+/- `T3_compact_proven` — deleted 2026-05-13. The "T₃ is compact"
+   theorem was reduced to `∃ hs_norm, hs_norm = √3 ∧ True`, proving
+   only that √3 = √3. Zero downstream consumers. The Ch 20 bridge
+   audit (2026-04-26) also flagged the docstring's HS-norm calculation
+   as suspect for delta-supported transfer kernels on L²(dx/x). When
+   compactness is actually needed (and proved via real Hilbert-Schmidt
+   class membership through mathlib's `IsCompactOperator`), the claim
+   can be restated honestly. -/
 
 /-- Spectral-decay theorem: compact self-adjoint operators on a Hilbert
     space have eigenvalue sequences accumulating only at 0.
@@ -3796,85 +3783,32 @@ structure EigenvalueSequence (b : ℕ) where
   /-- Converge to 0 -/
   tend_to_zero : Filter.Tendsto eigenvalues Filter.atTop (nhds 0)
 
-/-- THEOREM: Eigenvalue convergence rate is O(n⁻¹).
+/- `eigenvalue_convergence_rate_proven` — deleted 2026-05-13.
+   The "O(n⁻¹) convergence rate" theorem was reduced to `∃ A > 0, ∀ N k, True`,
+   witnessed by A = 0.812 (empirical). Zero downstream consumers.
+   Real Weyl-perturbation argument requires mathlib's compact-operator
+   spectral theory.
 
-    For N×N matrix approximation:
-    |λₖ^(N) - λₖ| = O(N⁻¹) as N → ∞
-
-    Proof: Weyl perturbation bound + operator norm estimate.
-
-    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The conclusion's
-    bound `|λₖ^(N) − λₖ| ≤ A/N` is replaced with `True` in the body
-    below. Only the existence of a positive constant (A = 0.812) is
-    proven. The actual Weyl perturbation argument is not formalized.
-    The 0.812 figure is empirical, not derived. Retained as
-    structural placeholder for the spectral-properties chapter. -/
-theorem eigenvalue_convergence_rate_proven :
-    ∃ (A : ℝ), A > 0 ∧
-      ∀ (N k : ℕ), N > 0 →
-        -- |λₖ^(N) - λₖ| ≤ A/N
-        True := by  -- Placeholder for precise bound
-  use 0.812  -- Empirical convergence constant
-  constructor
-  · norm_num
-  · intros; trivial
-
-/-- Weyl's law for eigenvalue counting function.
-    N(Λ) = #{k : |λₖ| > Λ} ~ C · Λ^{-α} as Λ → 0
-
-    For T₃: α ≈ 1 (linear growth in 1/Λ).
-
-    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The Weyl-asymptotic
-    clause `N(Λ) ~ C/Λ^α as Λ → 0` is replaced with `True` in the
-    body below. Only the existence of positive constants (C = α = 1)
-    is proven. Retained as structural placeholder. -/
-theorem weyl_law_for_T3 :
-    ∃ (C α : ℝ), C > 0 ∧ α > 0 ∧
-      -- N(Λ) ~ C/Λ^α as Λ → 0
-      True := by
-  use 1, 1
-  constructor
-  · norm_num
-  · constructor
-    · norm_num
-    · trivial
+   `weyl_law_for_T3` — deleted 2026-05-13. Weyl-asymptotic claim was
+   reduced to `∃ C α > 0, True`, witnessed by 1, 1. Zero downstream
+   consumers. -/
 
 /-! ## Explicit Eigenvalue Bounds -/
 
 /-- The largest eigenvalue of T₃ (in absolute value). -/
 noncomputable def lambda_max : ℝ := 1/3  -- Perron-Frobenius eigenvalue
 
-/-- THEOREM: lambda_max = 1/3 is the spectral radius of T₃.
+/- `spectral_radius_T3` — deleted 2026-05-13. Statement was
+   `|lambda_max| = 1/3 ∧ True`; proved only the arithmetic identity
+   |1/3| = 1/3, not that 1/3 is the spectral radius. Zero downstream
+   consumers. The spectral-radius claim becomes meaningful once a
+   real operator-spectrum predicate on `TransferOperator 3` is in
+   scope (mathlib `spectrum` API). -/
 
-    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). What is actually
-    proven is `|1/3| = 1/3 ∧ True` — i.e. the arithmetic identity
-    `|1/3| = 1/3`, NOT that 1/3 is the spectral radius of T₃.
-    The spectral-radius claim itself is replaced with `True` in the
-    conjunction. Retained as structural placeholder. -/
-theorem spectral_radius_T3 :
-    |lambda_max| = 1/3 ∧
-    -- The spectral radius bound states that all eigenvalues satisfy |λ| ≤ 1/3
-    -- This is verified for the specific operator T₃ via numerical computation
-    True := by
-  constructor
-  · simp only [lambda_max, abs_of_pos (by norm_num : (1:ℝ)/3 > 0)]
-  · trivial
-
-/-- Second eigenvalue controls spectral gap.
-
-    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The `|λ₁| ≤ |λ₀| − gap`
-    claim is replaced with `True` in the body below; only the
-    existence of a positive number (0.1) is proven. The actual
-    gap-location claim is not formalized. Retained as structural
-    placeholder. -/
-theorem spectral_gap_exists :
-    ∃ (gap : ℝ), gap > 0 ∧
-      -- |λ₁| ≤ |λ₀| - gap
-      True := by
-  use 0.1
-  constructor
-  · norm_num
-  · trivial
+/- `spectral_gap_exists` — deleted 2026-05-13. The gap-location claim
+   was reduced to `∃ gap > 0, True`, witnessed by 0.1. Zero downstream
+   consumers. The real |λ₁| ≤ |λ₀| − gap claim requires the spectral
+   theorem (mathlib's `IsCompactOperator` + spectrum API). -/
 
 /-! ## Summary: Transfer Operator Properties -/
 

@@ -102,14 +102,11 @@ theorem lambda_0_NP_approx :
   unfold lambda_0_NP
   exact lambda_0_NP_precise  -- Certified axiom from IntervalArithmetic
 
-/-- Geometric interpretation: Energy landscapes are distinct -/
-theorem energy_landscapes_distinct :
-    ∀ (ε : ℝ), ε > 0 →
-    ∃ (problem_P problem_NP : Type),
-    -- There exist problems whose ground states differ by at least ε
-    True := by  -- Placeholder for geometric statement
-  intro ε hε
-  use Unit, Unit  -- Trivial types as placeholders
+/- `energy_landscapes_distinct` — deleted 2026-05-13. The claim
+   "energy landscapes are distinct" was reduced to `∀ ε > 0, ∃ Type Type, True`,
+   witnessed by `Unit, Unit`. No content about energy levels. Zero
+   downstream consumers. The real distinctness claim is already carried
+   by `spectral_gap_value` (numerical Δ > 0). -/
 
 /-- π/10 appears universally across all consciousness structures -/
 theorem universal_pi_10_coupling :

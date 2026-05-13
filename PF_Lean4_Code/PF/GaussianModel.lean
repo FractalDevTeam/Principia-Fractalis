@@ -188,20 +188,13 @@ noncomputable def AbelianGaugeField.covariance {d : ℕ}
     -- ∑_μ ⟨f_μ, G g_μ⟩ where G = (-Δ)⁻¹
     0  -- Placeholder
 
-/-- THEOREM: U(1) gauge field measure exists.
-
-    For the abelian gauge field A_μ with action S[A] = ½ ∫ (∂_μ A_ν - ∂_ν A_μ)² dx,
-    there exists a Gaussian measure μ on the space of gauge field configurations.
--/
-theorem abelian_gauge_measure_exists (d : ℕ) (A : AbelianGaugeField d) :
-    ∃ (μ : ProbabilityMeasureOnDual d),
-      -- The measure is Gaussian with correct covariance
-      True := by
-  -- This follows from Bochner-Minlos applied to the Gaussian characteristic
-  -- C[J] = exp(-½ ∫∫ J_μ(x) G_μν(x-y) J_ν(y) dx dy)
-  let L : MassiveLaplacian d := { mass := 0, mass_nonneg := by simp }
-  obtain ⟨μ, _⟩ := free_scalar_measure_exists (d := d) L
-  exact ⟨μ, trivial⟩
+/- `abelian_gauge_measure_exists` — deleted 2026-05-13 as orphan with
+   `∃ μ, True` conclusion. The "U(1) gauge field measure exists" claim
+   was reduced to "some ProbabilityMeasureOnDual d exists" — true via
+   any free-scalar witness, but conveying nothing about the gauge
+   structure or correct covariance. Zero downstream consumers. When
+   the real gauge-covariance bound replaces the True placeholder, this
+   can be restated as `∃ μ, μ realizes the gauge-field covariance`. -/
 
 /-! ## Free Yang-Mills (Gaussian Approximation) -/
 
