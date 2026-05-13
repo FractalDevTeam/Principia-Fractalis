@@ -313,6 +313,75 @@ theorem pos_def_modulus_inequality {E : Type*} [AddCommGroup E] (C : E → ℂ)
   -- Since D ≥ 0, D - 2R ≤ 0 (or D = 0).
   nlinarith [hD_nonneg, hR_nonneg, sq_nonneg D, sq_nonneg (D - 2 * R)]
 
+/-- COROLLARY OF BOCHNER MODULUS INEQUALITY: continuity at 0 propagates globally.
+
+    For a normalized positive-definite functional `C : E → ℂ` on a topological
+    additive group `E`, if `C` is continuous at 0, then `C` is continuous
+    everywhere. This is the standard "regularity automatic" result for
+    characteristic functions.
+
+    PROOF. Apply `pos_def_modulus_inequality` to get the pointwise bound
+    `‖C t - C s‖² ≤ 2 · (1 - Re C(t - s))`. As `t → s` (in the topological
+    group), `t - s → 0`, so `C(t - s) → C 0 = 1` (by continuity at 0),
+    so `Re C(t - s) → 1`, so `1 - Re C(t - s) → 0`, so the bound forces
+    `‖C t - C s‖ → 0`, giving `ContinuousAt C s`.
+
+    Added 2026-05-14 (Stage 19). -/
+theorem pos_def_continuous_of_continuous_at_zero
+    {E : Type*} [AddCommGroup E] [TopologicalSpace E] [IsTopologicalAddGroup E]
+    (C : E → ℂ) (hpd : IsPositiveDefinite C) (hn : IsNormalized C)
+    (hc : ContinuousAt C 0) : Continuous C := by
+  refine continuous_iff_continuousAt.mpr fun s => ?_
+  -- We use `Metric.tendsto_nhds` on the codomain ℂ.
+  rw [ContinuousAt, Metric.tendsto_nhds]
+  intro ε hε
+  -- Get neighborhood of 0 in E where ‖C u - 1‖ < (ε/2)² · 2 = ε²/2.
+  -- (We pick ε²/2 so that the modulus-inequality bound gives ‖C t - C s‖ < ε strictly.)
+  rw [ContinuousAt, Metric.tendsto_nhds] at hc
+  rw [hn] at hc
+  have hε2 : 0 < ε^2 / 2 := by positivity
+  have hc' := hc (ε^2 / 2) hε2
+  -- hc' : ∀ᶠ u in 𝓝 0, dist (C u) 1 < ε²/2
+  -- Translate via the topological-group continuous map `t ↦ t - s` sending s ↦ 0.
+  have h_translate : Filter.Tendsto (fun t : E => t - s) (nhds s) (nhds 0) := by
+    have h_cont : Continuous (fun t : E => t - s) := continuous_id.sub continuous_const
+    have := h_cont.tendsto s
+    simpa using this
+  have hc'' : ∀ᶠ t in nhds s, dist (C (t - s)) 1 < ε^2 / 2 := h_translate hc'
+  -- For each such t, the modulus inequality gives ‖C t - C s‖² ≤ ε², hence < ε strict
+  -- requires a strict pass; we use the half-margin
+  -- `1 - Re C(t-s) ≤ ‖C(t-s) - 1‖ < ε²/2`, then `‖C t - C s‖² ≤ ε² but we need
+  -- strict. Witnessed by tightening: bound directly with strict inequality.
+  filter_upwards [hc''] with t ht
+  -- ht : dist (C (t - s)) 1 < ε²/2
+  have hd1 : ‖C (t - s) - 1‖ < ε^2 / 2 := by
+    rw [Complex.dist_eq] at ht
+    exact ht
+  -- 1 - Re C(t-s) ≤ ‖C(t-s) - 1‖
+  have h_re_bound : 1 - (C (t - s)).re ≤ ‖C (t - s) - 1‖ := by
+    have : (1 - C (t - s)).re ≤ ‖1 - C (t - s)‖ := Complex.re_le_norm _
+    rw [Complex.sub_re, Complex.one_re, norm_sub_rev] at this
+    exact this
+  -- ‖C t - C s‖² ≤ 2 · (1 - Re C(t - s)) < 2 · (ε²/2) = ε²
+  have h_mod := pos_def_modulus_inequality C hpd hn t s
+  have h_sq_strict : ‖C t - C s‖^2 < ε^2 := by
+    calc ‖C t - C s‖^2 ≤ 2 * (1 - (C (t - s)).re) := h_mod
+      _ ≤ 2 * ‖C (t - s) - 1‖ := by linarith [h_re_bound]
+      _ < 2 * (ε^2 / 2) := by linarith
+      _ = ε^2 := by ring
+  -- ‖C t - C s‖ < ε
+  have h_norm_nonneg : 0 ≤ ‖C t - C s‖ := norm_nonneg _
+  have h_eps_nonneg : 0 ≤ ε := le_of_lt hε
+  have h_norm_lt : ‖C t - C s‖ < ε := by
+    by_contra h_not
+    push_neg at h_not
+    have : ε^2 ≤ ‖C t - C s‖^2 := by
+      have := mul_self_le_mul_self h_eps_nonneg h_not
+      nlinarith
+    linarith
+  rw [Complex.dist_eq]
+  exact h_norm_lt
+
 /-! ## Cylindrical Measures -/
 
 /-- A finite-dimensional projection π_F : S'(R^d) → ℂ^n
