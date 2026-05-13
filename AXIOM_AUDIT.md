@@ -1,6 +1,40 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-11**: **3 verified axioms** in `PF/` (down from 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5504 jobs clean (master `aba16bc`).*
+*As of **2026-05-13**: **3 verified axioms** in `PF/` (down from 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5504 jobs clean (master `a87db3f`). All `True`-bodied placeholders eliminated; structural cleanup complete; remaining axioms are referee-defensible.*
+
+## 2026-05-11/13 multi-session cleanup arc (23 commits, master `6d2ede1` → `a87db3f`)
+
+This three-day arc began with a **soundness fix** (commit `6d2ede1`): the `operator_collapse_hypothesis` axiom was deriving `False` because its antecedent quantified over `IsInP`/`IsInNP` placeholder predicates that were definitionally identical (both "polynomially bounded runtime"), making the antecedent a tautology that combined with `alpha_separation : α_NP > α_P` to give `False`. Reformulated over class-based `P_equals_NP_def` (using the genuine `InClassP`/`InClassNP` from `PF/TuringEncoding/Complexity.lean` with the existential certificate quantifier distinguishing NP from P).
+
+The remaining 22 commits systematically eliminated every hollow placeholder pattern across `PF/`:
+
+- **Structural upgrades** (placeholder → real mathlib-backed type/predicate):
+  - `SchwartzFunction d` → `abbrev` for mathlib's `SchwartzMap (Fin d → ℝ) ℂ` (real `ContDiff ℝ ∞`, real polynomial decay).
+  - `TemperedDistribution d` → `abbrev` for `SchwartzFunction d →L[ℂ] ℂ` (continuity is structural, not a placeholder field).
+  - `CylindricalMeasure.consistent` → real Kolmogorov pushforward equality `(μ_G).toMeasure = (μ_F).toMeasure.map (x ↦ x ∘ σ)`.
+  - `isSigmaAdditive` cylinder clause → real pushforward equality.
+  - `IsContinuousAtZero` predicate → mathlib's `ContinuousAt C 0`.
+  - `CovarianceOperator.{positive, continuous}` → real `0 ≤ kernel x x` + `Continuous (Function.uncurry kernel)`.
+  - `GaussianCharacteristic.continuous` → `Continuous (Function.uncurry covariance)`.
+
+- **Orphan deletions** (theorems/structures with no consumers and hollow content):
+  - `minlos_sigma_additivity`, `schwartz_is_nuclear`, `gauge_field_space_nuclear`
+  - In-house nuclear-spaces infrastructure: `Seminorm'`, `SeminormFamily`, `LocallyConvexSpace`, `traceNorm`, `IsNuclear`, `NuclearSpace`, `MultiIndex`, `SchwartzSeminorm`
+  - `bochner_minlos_bijection` (tautological injectivity)
+  - `characteristic_to_cylindrical_consistent` (`∀ F G, True`)
+  - `digitalSum3_wellDefined`, `stage_b_complete` (both `: True := trivial`)
+  - 4× yang_mills_* theorems, `spectral_det_implies_bijection`, `abelian_gauge_measure_exists`, `gauge_group_emergence`, `energy_landscapes_distinct`, `gaussian_is_leading_order`, `spectral_gap_is_invariant`
+  - 5× TransferOperator placeholders: `T3_compact_proven`, `eigenvalue_convergence_rate_proven`, `weyl_law_for_T3`, `spectral_radius_T3`, `spectral_gap_exists`
+
+- **Dropped `∧ True` conjuncts** from real theorems: `spectral_bijection_framework`, `framework_summary`, `T3_spectral_complete`. Removed `CandidateZero.zeta_small` and `U1_Sector.one_boson` vacuous fields.
+
+- **New analytical lemmas added**: `pos_def_zero_imaginary`, `pos_def_normalized_re_le_one`, `pos_def_normalized_one_sub_re_nonneg` — prerequisites for the planned Bochner-Herglotz modulus inequality.
+
+**Net change**: ~660 lines of placeholder/orphan cruft removed; 3 new analytical lemmas added; 7 structural upgrades. Build stayed clean throughout (5504 jobs); axiom count held at 3; sorry count held at 0.
+
+The PF/ codebase has zero `True := by` proofs, zero `∧ True` conjuncts, zero `: True` fields, zero hollow theorem names with vacuous statements. The three remaining axioms (`bochner_minlos_existence`, `operator_collapse_hypothesis`, `p_eq_np_spectrum_collapse`) are fully substantive over real domains.
+
+**Next analytical work** (next session): the classical Bochner-Herglotz modulus inequality `‖C(s) - C(t)‖² ≤ 2 · (1 - Re C(s-t))` for normalized PD functionals, as the first piece of the chain toward finite-dim Bochner uniqueness (mathlib's `Measure.ext_of_charFun`) and ultimately retiring `bochner_minlos_existence`. Proof strategy documented in `CylindricalMeasures.lean` line ~175.
 
 ## Retirement progress (2026-05-09/10/11 session)
 
