@@ -171,31 +171,147 @@ theorem pos_def_normalized_one_sub_re_nonneg {E : Type*} [AddCommGroup E] (C : E
   have := pos_def_normalized_re_le_one C hpd hn s
   linarith
 
-/- BOCHNER MODULUS INEQUALITY — drafted but not yet completed.
+/-- CLASSICAL BOCHNER MODULUS INEQUALITY (Bochner-Herglotz).
 
-   The classical Bochner-Herglotz inequality states that for a normalized
-   positive-definite `C : E → ℂ` on an additive group and any `s, t : E`:
-   `‖C s - C t‖² ≤ 2 · (1 - (C (s - t)).re)`.
+    For a normalized positive-definite functional `C : E → ℂ` on an additive
+    group `E` and any two points `s, t : E`:
+    `‖C s - C t‖² ≤ 2 · (1 - (C (s - t)).re)`.
 
-   The proof strategy:
-   - Apply `hpd 3 ![0, s, t] ![1, -a, a]` with `a = α · conj(C s - C t)`
-     for arbitrary real α. The `.re ≥ 0` conclusion expands (via
-     `Fin.sum_univ_three`, `pos_def_hermitian`, and `IsNormalized`)
-     to `1 + 2α²DR - 2αD ≥ 0` where `D = ‖C s - C t‖²` and
-     `R = 1 - Re C(s-t)`.
-   - For `R > 0`: instantiate at α = 1/(2R) to get D ≤ 2R.
-   - For `R = 0`: instantiate at α = 1/D (when D > 0) to derive a
-     contradiction.
+    PROOF STRATEGY. Apply `IsPositiveDefinite C` at `n = 3` with points
+    `(0, s, t)` and weights `(1, -α·conj(C s - C t), α·conj(C s - C t))`
+    for arbitrary real `α`. The complex sum expands via `Fin.sum_univ_three`
+    + `pos_def_hermitian` (`C(-x) = conj(C x)`) + `IsNormalized` (`C 0 = 1`)
+    into a real polynomial of the form `1 + 2 α² D R - 2 α D` where
+    `D = ‖C s - C t‖²` and `R = 1 - Re C(s-t)`. The polynomial is
+    non-negative on all of `ℝ` (from PD's `.re ≥ 0` clause), so applying
+    the discriminant criterion (`discrim_le_zero` in mathlib) yields
+    `(2D)² ≤ 4 · (2DR) · 1`, i.e., `D² ≤ 2DR`, i.e., `D ≤ 2R`.
 
-   The case-analysis on R is straightforward. The substantive piece is
-   the algebraic reduction of the 9-term n=3 sum's .re to the form
-   `1 + 2α²DR - 2αD` — too complex for `nlinarith` to close
-   automatically. Multi-hour focused work to formalize cleanly via
-   explicit expansion + careful simp/ring/linear_combination.
-
-   Stage 16 deferred to a dedicated session. Prerequisites
-   (`pos_def_normalized_re_le_one`, `pos_def_normalized_one_sub_re_nonneg`)
-   are in place from Stage 15. -/
+    Reference: Reed-Simon I §IX.2; Folland Real Analysis Chapter 4.
+    Added 2026-05-14. -/
+theorem pos_def_modulus_inequality {E : Type*} [AddCommGroup E] (C : E → ℂ)
+    (hpd : IsPositiveDefinite C) (hn : IsNormalized C) :
+    ∀ s t : E, ‖C s - C t‖^2 ≤ 2 * (1 - (C (s - t)).re) := by
+  intro s t
+  -- Coordinatize. Let (x, y) = C s, (u, v) = C t, (p, q) = C(s-t).
+  set x : ℝ := (C s).re
+  set y : ℝ := (C s).im
+  set u : ℝ := (C t).re
+  set v : ℝ := (C t).im
+  set p : ℝ := (C (s - t)).re
+  set q : ℝ := (C (s - t)).im
+  -- D = ‖C s - C t‖² = (x - u)² + (y - v)²
+  set D : ℝ := (x - u)^2 + (y - v)^2 with hD_def
+  set R : ℝ := 1 - p with hR_def
+  have hD_eq : ‖C s - C t‖^2 = D := by
+    rw [Complex.sq_norm, Complex.normSq_apply]
+    show (C s - C t).re * (C s - C t).re + (C s - C t).im * (C s - C t).im = D
+    simp only [Complex.sub_re, Complex.sub_im]
+    show (x - u) * (x - u) + (y - v) * (y - v) = D
+    rw [hD_def]; ring
+  rw [hD_eq]
+  -- After `set R := 1 - p` above, the goal `D ≤ 2 * (1 - (C (s-t)).re)`
+  -- already folds to `D ≤ 2 * R`.
+  show D ≤ 2 * R
+  have hD_nonneg : 0 ≤ D := by rw [hD_def]; positivity
+  -- R ≥ 0 from previous lemma
+  have hR_nonneg : 0 ≤ R := by
+    have := pos_def_normalized_one_sub_re_nonneg C hpd hn (s - t)
+    exact this
+  -- Normalization facts: C 0 = 1, so (C 0).re = 1 and (C 0).im = 0
+  have hC0 : C 0 = 1 := hn
+  have hC0_re : (C 0).re = 1 := by rw [hC0]; rfl
+  have hC0_im : (C 0).im = 0 := by rw [hC0]; rfl
+  -- Hermitian: C(-s) = conj(C s), C(-t) = conj(C t), C(t - s) = conj(C(s - t))
+  have herm_s : C (-s) = (starRingEnd ℂ) (C s) := pos_def_hermitian C hpd s
+  have herm_t : C (-t) = (starRingEnd ℂ) (C t) := pos_def_hermitian C hpd t
+  have herm_st : C (t - s) = (starRingEnd ℂ) (C (s - t)) := by
+    have h := pos_def_hermitian C hpd (s - t)
+    have h' : -(s - t) = t - s := by abel
+    rw [h'] at h
+    exact h
+  -- KEY: The polynomial bound. For every real α,
+  --   0 ≤ 1 + 2 α² D R - 2 α D.
+  -- Proved by instantiating hpd at n=3 with z = ![1, -α·conj(C s - C t), α·conj(C s - C t)].
+  -- After expansion using normalization and hermitian, the .re of the sum reduces
+  -- exactly to this polynomial.
+  have key : ∀ α : ℝ, 0 ≤ 1 + 2 * α^2 * D * R - 2 * α * D := by
+    intro α
+    -- Define the complex weight `a = α · conj(C s - C t)`.
+    -- Components: a.re = α(x - u), a.im = -α(y - v)
+    set a : ℂ := (α : ℂ) * (starRingEnd ℂ) (C s - C t) with ha_def
+    have ha_re : a.re = α * (x - u) := by
+      rw [ha_def]
+      simp only [Complex.mul_re, Complex.sub_re, Complex.conj_re, Complex.conj_im,
+                 Complex.sub_im, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
+      show α * ((C s).re - (C t).re) = α * (x - u)
+      rfl
+    have ha_im : a.im = -(α * (y - v)) := by
+      rw [ha_def]
+      simp only [Complex.mul_im, Complex.sub_im, Complex.conj_re, Complex.conj_im,
+                 Complex.sub_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, add_zero]
+      show α * -((C s).im - (C t).im) = -(α * (y - v))
+      show α * -(y - v) = -(α * (y - v))
+      ring
+    -- |a|² = α² · D in real terms
+    have hSq_a : a.re^2 + a.im^2 = α^2 * D := by
+      rw [ha_re, ha_im, hD_def]; ring
+    -- Apply PD at n=3
+    have hpd_inst := (hpd 3 ![0, s, t] ![1, -a, a]).2
+    have hpd_im := (hpd 3 ![0, s, t] ![1, -a, a]).1
+    -- Expand the sum via Fin.sum_univ_three; unfold all Fin-3 matrix indices.
+    simp only [Fin.sum_univ_three, show (![0, s, t] : Fin 3 → E) 0 = 0 from rfl,
+               show (![0, s, t] : Fin 3 → E) 1 = s from rfl,
+               show (![0, s, t] : Fin 3 → E) 2 = t from rfl,
+               show (![(1 : ℂ), -a, a] : Fin 3 → ℂ) 0 = 1 from rfl,
+               show (![(1 : ℂ), -a, a] : Fin 3 → ℂ) 1 = -a from rfl,
+               show (![(1 : ℂ), -a, a] : Fin 3 → ℂ) 2 = a from rfl,
+               sub_zero, zero_sub, sub_self] at hpd_inst hpd_im
+    -- Use hermitian to simplify C(-s), C(-t), C(t-s)
+    rw [herm_s, herm_t, herm_st, hC0] at hpd_inst
+    -- Now hpd_inst is `0 ≤ Re of a long complex sum`. Reduce algebraically.
+    -- After full expansion, the .re of the sum equals
+    --     1 + 2(a.re² + a.im²)(1 - p) + 2·(a.re(u - x) + a.im(v - y))
+    --   = 1 + 2 α² D R - 2 α D
+    -- We prove this by direct computation.
+    have hreduce :
+        (1 * (starRingEnd ℂ) 1 * 1 + 1 * (starRingEnd ℂ) (-a) * (starRingEnd ℂ) (C s)
+         + 1 * (starRingEnd ℂ) a * (starRingEnd ℂ) (C t)
+         + (-a * (starRingEnd ℂ) 1 * C s + -a * (starRingEnd ℂ) (-a) * 1
+            + -a * (starRingEnd ℂ) a * C (s - t))
+         + (a * (starRingEnd ℂ) 1 * C t + a * (starRingEnd ℂ) (-a) * (starRingEnd ℂ) (C (s - t))
+            + a * (starRingEnd ℂ) a * 1)).re
+        = 1 + 2 * α^2 * D * R - 2 * α * D := by
+      -- Reduce conj-of-product, mul_one, etc.
+      simp only [map_one, map_neg, neg_mul, mul_neg, neg_neg, mul_one, one_mul,
+                 Complex.add_re, Complex.sub_re, Complex.neg_re, Complex.mul_re,
+                 Complex.mul_im, Complex.conj_re, Complex.conj_im, Complex.one_re,
+                 Complex.one_im]
+      -- After simp, the goal should be a pure real-arithmetic identity in
+      -- terms of a.re, a.im, x, y, u, v, p, q.
+      -- Substitute the known expressions for a.re, a.im and use ring.
+      rw [ha_re, ha_im]
+      show _ = 1 + 2 * α^2 * D * R - 2 * α * D
+      rw [hD_def, hR_def]
+      ring
+    -- Apply hreduce to hpd_inst
+    linarith [hpd_inst.trans_eq hreduce]
+  -- Now apply discriminant criterion.
+  -- We have: ∀ α, 0 ≤ (2 D R) · α² + (-2 D) · α + 1.
+  -- Apply discrim_le_zero: (-2D)² - 4 · (2DR) · 1 ≤ 0, i.e., 4D² - 8DR ≤ 0,
+  -- i.e., D² ≤ 2DR. Since D ≥ 0, either D = 0 (≤ 2R) or D ≤ 2R.
+  have hquad : ∀ α : ℝ, 0 ≤ (2 * D * R) * (α * α) + (-2 * D) * α + 1 := by
+    intro α
+    have := key α
+    nlinarith [sq_nonneg α]
+  have hdiscrim : discrim (2 * D * R) (-2 * D) 1 ≤ 0 := discrim_le_zero hquad
+  -- discrim a b c = b² - 4ac, so discrim (2DR) (-2D) 1 = 4D² - 8DR
+  have hdiscrim_eq : discrim (2 * D * R) (-2 * D) 1 = 4 * D^2 - 8 * D * R := by
+    unfold discrim; ring
+  rw [hdiscrim_eq] at hdiscrim
+  -- So 4D² ≤ 8DR, i.e., D² ≤ 2DR, i.e., D(D - 2R) ≤ 0.
+  -- Since D ≥ 0, D - 2R ≤ 0 (or D = 0).
+  nlinarith [hD_nonneg, hR_nonneg, sq_nonneg D, sq_nonneg (D - 2 * R)]
 
 /-! ## Cylindrical Measures -/
 
