@@ -171,6 +171,32 @@ theorem pos_def_normalized_one_sub_re_nonneg {E : Type*} [AddCommGroup E] (C : E
   have := pos_def_normalized_re_le_one C hpd hn s
   linarith
 
+/- BOCHNER MODULUS INEQUALITY — drafted but not yet completed.
+
+   The classical Bochner-Herglotz inequality states that for a normalized
+   positive-definite `C : E → ℂ` on an additive group and any `s, t : E`:
+   `‖C s - C t‖² ≤ 2 · (1 - (C (s - t)).re)`.
+
+   The proof strategy:
+   - Apply `hpd 3 ![0, s, t] ![1, -a, a]` with `a = α · conj(C s - C t)`
+     for arbitrary real α. The `.re ≥ 0` conclusion expands (via
+     `Fin.sum_univ_three`, `pos_def_hermitian`, and `IsNormalized`)
+     to `1 + 2α²DR - 2αD ≥ 0` where `D = ‖C s - C t‖²` and
+     `R = 1 - Re C(s-t)`.
+   - For `R > 0`: instantiate at α = 1/(2R) to get D ≤ 2R.
+   - For `R = 0`: instantiate at α = 1/D (when D > 0) to derive a
+     contradiction.
+
+   The case-analysis on R is straightforward. The substantive piece is
+   the algebraic reduction of the 9-term n=3 sum's .re to the form
+   `1 + 2α²DR - 2αD` — too complex for `nlinarith` to close
+   automatically. Multi-hour focused work to formalize cleanly via
+   explicit expansion + careful simp/ring/linear_combination.
+
+   Stage 16 deferred to a dedicated session. Prerequisites
+   (`pos_def_normalized_re_le_one`, `pos_def_normalized_one_sub_re_nonneg`)
+   are in place from Stage 15. -/
+
 /-! ## Cylindrical Measures -/
 
 /-- A finite-dimensional projection π_F : S'(R^d) → ℂ^n
