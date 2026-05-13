@@ -148,8 +148,10 @@ structure GaussianCharacteristic (d : ℕ) where
   symmetric : ∀ f g, covariance f g = covariance g f
   /-- Q is positive semi-definite -/
   positive : ∀ f, 0 ≤ covariance f f
-  /-- Q is continuous (bounded by Schwartz seminorms) -/
-  continuous : True  -- Placeholder: |Q(f,g)| ≤ C · p_{k,l}(f) · p_{k,l}(g)
+  /-- Q is continuous as a bilinear form `S × S → ℝ`.
+      Refactored 2026-05-13 from `True` placeholder to mathlib's
+      `Continuous` on the uncurried covariance. -/
+  continuous : Continuous (Function.uncurry covariance)
   /-- Q(0,0) = 0 (required for normalization of the Gaussian characteristic).
       Added 2026-04-22 to enable elimination of the `gaussian_is_characteristic`
       axiom without assuming additional structure. -/
