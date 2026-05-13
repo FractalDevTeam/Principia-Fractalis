@@ -208,47 +208,18 @@ theorem yang_mills_measure_exists_proven (N : ℕ) (hN : N ≥ 2) :
 
 /-! ## Gauge Field Properties -/
 
-/-- The Yang-Mills measure satisfies correct two-point function (propagator). -/
-theorem yang_mills_two_point (N : ℕ) (hN : N ≥ 2)
-    (μ : ProbabilityMeasureOnDual 4)
-    (hμ : ∀ f, (yangMillsCharacteristic N hN).toFun f =
-           ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure) :
-    -- ⟨A_μ^a(x) A_ν^b(y)⟩_μ = δ_{ab} δ_{μν} G(x-y)
-    True := by
-  -- Two-point function equals covariance (from Gaussian structure)
-  -- ∫ A(x) A(y) dμ = d²/dJ(x)dJ(y) log Z[J]|_{J=0} = G(x-y)
-  trivial
-
-/-- The Yang-Mills measure is translation invariant. -/
-theorem yang_mills_translation_invariant (N : ℕ) (hN : N ≥ 2)
-    (μ : ProbabilityMeasureOnDual 4)
-    (hμ : ∀ f, (yangMillsCharacteristic N hN).toFun f =
-           ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure) :
-    -- μ is invariant under spacetime translations
-    True := by
-  -- Follows from translation invariance of covariance G(x-y)
-  trivial
-
-/-- The Yang-Mills measure is rotation invariant. -/
-theorem yang_mills_rotation_invariant (N : ℕ) (hN : N ≥ 2)
-    (μ : ProbabilityMeasureOnDual 4)
-    (hμ : ∀ f, (yangMillsCharacteristic N hN).toFun f =
-           ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure) :
-    -- μ is invariant under SO(4) rotations
-    True := by
-  -- Follows from rotation invariance of |x-y|²
-  trivial
-
-/-- The Yang-Mills measure is gauge invariant (in appropriate sense). -/
-theorem yang_mills_gauge_covariant (N : ℕ) (hN : N ≥ 2)
-    (μ : ProbabilityMeasureOnDual 4)
-    (hμ : ∀ f, (yangMillsCharacteristic N hN).toFun f =
-           ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure) :
-    -- Under gauge transformation A → A + dα, correlation functions transform correctly
-    True := by
-  -- For free theory: gauge transformations act linearly
-  -- Gaussian measure transforms correctly under linear maps
-  trivial
+/- `yang_mills_two_point`, `yang_mills_translation_invariant`,
+   `yang_mills_rotation_invariant`, `yang_mills_gauge_covariant` —
+   deleted 2026-05-13 as four orphan theorems with `True` statements
+   and `trivial` proofs. Names suggested substantive physics content
+   (two-point correlation = covariance, Euclidean translation/rotation
+   invariance, gauge covariance) but the statements were literally
+   `True`. Zero downstream consumers in PF/. Same precedent as the
+   prior orphan deletions. When the real Yang-Mills covariance
+   replaces the placeholder zero quadraticForm, each of these claims
+   can be restated meaningfully and proved (the Gaussian-measure
+   side follows from `μ`'s Fourier-transform identity once `μ` is
+   built on a real `yangMillsQuadraticForm4D`). -/
 
 /-! ## Summary: Yang-Mills Measure Construction Complete -/
 

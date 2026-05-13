@@ -130,24 +130,26 @@ theorem different_eigenvalues_different_zeros (α : ScalingParameter)
 
 /-! ## Connection to Zeta Zeros (Framework) -/
 
-/-- A candidate zero: a point s = 1/2 + it where ζ(s) is "small".
+/-- A candidate zero: a point s = 1/2 + it conjectured to satisfy ζ(s) = 0.
 
-    For RH verification, we would show |ζ(s)| < ε for predicted zeros.
-    This is the numerical verification criterion.
--/
+    Refactored 2026-05-13: removed the vacuous `zeta_small : ∃ ε > 0 ∧ True`
+    field (placeholder for `|ζ(1/2 + it)| < ε`, with no actual ζ bound).
+    `CandidateZero` is now just a position on the critical line; the
+    "this is a zero" claim is carried by the bijection conjecture below,
+    not by hollow placeholder evidence in the structure itself.
+
+    When the real ζ-numerical-bound infrastructure is wired in
+    (via mathlib's `riemannZeta` + interval arithmetic on the critical
+    line), the field can be re-added as
+    `zeta_small : ∃ ε > 0, ‖riemannZeta (1/2 + Complex.I * t)‖ < ε`. -/
 structure CandidateZero where
   /-- The t-value (imaginary part) -/
   t : ℝ
-  /-- Evidence that ζ(1/2 + it) is small -/
-  zeta_small : ∃ ε : ℝ, ε > 0 ∧ True  -- |ζ(1/2 + it)| < ε
 
 /-- Sequence of candidate zeros from eigenvalues. -/
 noncomputable def candidateZeros (α : ScalingParameter)
     (eigs : EigenvalueSequence 3) : ℕ → CandidateZero :=
-  fun n => {
-    t := eigenvalueToT α (eigs.eigenvalues n)
-    zeta_small := ⟨1, by norm_num, trivial⟩
-  }
+  fun n => { t := eigenvalueToT α (eigs.eigenvalues n) }
 
 /-! ## The Bijection Conjecture -/
 
@@ -216,28 +218,13 @@ noncomputable def spectralDeterminant (T : TransferOperator 3) (z : ℂ) : ℂ :
   -- det(I - zT) = ∏_k (1 - z λₖ)
   0  -- Placeholder: requires infinite product
 
-/-- THEOREM (Conditional): Spectral determinant = zeta inverse.
-
-    IF det(I - zT) = ζ(s(z))⁻¹ for appropriate s(z),
-    THEN zeros of ζ correspond to eigenvalues where λₖ = 1/z.
-
-    ⚠ PLACEHOLDER (post-rev-2 audit, 2026-04-26). The conclusion
-    below is `True`; the hypothesis itself is also vacuous (its
-    body is `∃ k : ℕ, True`). Proof is `trivial`. The "spectral
-    determinant" used as input is the placeholder `0` defined just
-    above (`spectralDeterminant T z := 0`), so the hypothesis
-    `∀ z, 0 = 0 ↔ ∃ k, True` is trivially satisfied for any T,
-    and the conclusion conveys no information about a bijection.
-    Retained as a structural placeholder for the RH-bridge
-    chapter. -/
-theorem spectral_det_implies_bijection
-    (T : TransferOperator 3)
-    (hdet : ∀ z, spectralDeterminant T z = 0 ↔
-             -- z = 1/λₖ for some eigenvalue
-             ∃ k : ℕ, True) :
-    -- Then we have a correspondence
-    True := by
-  trivial
+/- `spectral_det_implies_bijection` — deleted 2026-05-13. The theorem's
+   antecedent `∀ z, spectralDeterminant T z = 0 ↔ ∃ k : ℕ, True` is
+   vacuous (the existential body is `True`; `spectralDeterminant` is
+   itself the placeholder `0`), and the conclusion was `True`. No
+   content, zero consumers. Same orphan-deletion precedent as prior
+   cleanups. When `spectralDeterminant` has a real body, this claim
+   can be restated as a genuine zero-eigenvalue correspondence. -/
 
 /-! ## Trace Formula Approach -/
 
@@ -347,10 +334,10 @@ theorem spectral_bijection_framework :
     -- Map to critical line is well-defined and injective
     (∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
       eigenvalueToT α_star_empirical ev₁ = eigenvalueToT α_star_empirical ev₂ →
-      |ev₁| = |ev₂|) ∧
-    -- Framework identifies what's needed for full proof
-    True := by
-  refine ⟨T3_self_adjoint_conj, g_injective α_star_empirical, trivial⟩
+      |ev₁| = |ev₂|) := by
+  -- Refactored 2026-05-13: dropped the trailing `∧ True` "framework
+  -- identifies what's needed" clause (rigor-mandate placeholder removal).
+  exact ⟨T3_self_adjoint_conj, g_injective α_star_empirical⟩
 
 /-! ## Toy Model: L-function Example -/
 
@@ -422,17 +409,20 @@ theorem framework_summary :
     -- We have a rigorous spectral framework, with T3_sym carrying
     -- the universal self-adjointness identity on `LogWeightedL2`
     -- (post-Lp-refactor: every element is automatically `L²(μ_log)`).
+    --
+    -- Refactored 2026-05-13: dropped the middle `∧ True` "compact"
+    -- placeholder conjunct (rigor-mandate placeholder removal). The
+    -- compactness claim will be re-added once a real compactness
+    -- predicate on `TransferOperator 3` is in scope.
     (∃ T : TransferOperator 3,
       -- Self-adjoint UNIVERSALLY (proven via T3_self_adjoint_conj)
       (∀ f g, ⟪T.apply f, g⟫ = ⟪f, T.apply g⟫) ∧
-      -- Compact
-      True ∧
       -- Maps eigenvalues to critical line injectively
       (∀ α : ScalingParameter,
         ∀ ev₁ ev₂ : ℝ, ev₁ ≠ 0 → ev₂ ≠ 0 →
           eigenvalueToT α ev₁ = eigenvalueToT α ev₂ → |ev₁| = |ev₂|)) := by
   use T3_sym
-  refine ⟨T3_self_adjoint_conj, trivial, ?_⟩
+  refine ⟨T3_self_adjoint_conj, ?_⟩
   intro α
   exact g_injective α
 
