@@ -489,7 +489,7 @@ lemma zero_gap_implies_p_equals_np :
 -- SUMMARY: Lemma Dependency Graph and Timeline
 -- ============================================================================
 
-/-- DEPENDENCY GRAPH:
+/- DEPENDENCY GRAPH:
 
     Main Theorem: Δ > 0 ↔ P ≠ NP
     ├─ Forward (Δ > 0 → P ≠ NP):
@@ -534,8 +534,9 @@ OVERALL: Main theorem structure 100% ✓
          Timeline: 12-18 months to 100%
 -/
 
--- Summary lemma (trivial, for documentation)
-lemma stage_b_complete : True := trivial
+/- `stage_b_complete : True := trivial` — deleted 2026-05-13.
+   Documentation marker with zero verification content. Zero downstream
+   consumers. -/
 
 end P_NP_Equivalence_Lemmas
 end PrincipiaTractalis
