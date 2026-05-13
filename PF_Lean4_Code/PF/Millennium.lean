@@ -111,7 +111,8 @@ MILLENNIUM STATUS SUMMARY (2026-04-29):
 
 Conditional results in Lean:
   ✓ P ≠ NP             — conditional on `operator_collapse_hypothesis` axiom
-                          (P_NP_Complete_Proof.lean:186)
+                          (P_NP_Complete_Proof.lean:190; statement reformulated
+                          2026-05-11 via class-based P_equals_NP_def, commit 6d2ede1)
   ✓ Riemann Hypothesis — conditional on Phase A + spectral theorem +
                           non-degeneracy + surjectivity
                           (SpectralBijection.lean::riemann_hypothesis_via_T3_sym_framework)
