@@ -36,10 +36,15 @@ structure CovarianceOperator (d : ℕ) where
   kernel : (Fin d → ℝ) → (Fin d → ℝ) → ℝ
   /-- Symmetry: G(x,y) = G(y,x) -/
   symmetric : ∀ x y, kernel x y = kernel y x
-  /-- Positivity: ∫∫ f(x) G(x,y) f(y) dx dy ≥ 0 -/
-  positive : ∀ f : SchwartzFunction d, True  -- Placeholder: actual integral inequality
-  /-- Continuity/regularity: G maps S × S to ℝ continuously -/
-  continuous : True  -- Placeholder: smoothness conditions
+  /-- Kernel-level positivity. Refactored 2026-05-13 from `∀ f, True`
+      (placeholder, vacuous) to the genuine pointwise non-negativity
+      of the diagonal kernel. The full ∫∫-integral positivity becomes
+      meaningful once the real `quadraticForm` body lands; this
+      structural constraint is the minimum honest substitute. -/
+  positive : ∀ x : Fin d → ℝ, 0 ≤ kernel x x
+  /-- Continuity of the kernel as a function on (ℝᵈ)². Refactored
+      2026-05-13 from `True` placeholder to mathlib's `Continuous`. -/
+  continuous : Continuous (Function.uncurry kernel)
 
 /-- The covariance quadratic form Q(f,g) = ⟨f, K⁻¹ g⟩ = ∫∫ f(x) G(x,y) g(y) dx dy. -/
 noncomputable def CovarianceOperator.quadraticForm {d : ℕ}
@@ -62,7 +67,15 @@ noncomputable def CovarianceOperator.toGaussianCharacteristic {d : ℕ}
   positive := by
     intro f
     simp [CovarianceOperator.quadraticForm]
-  continuous := trivial
+  continuous := by
+    -- Placeholder quadraticForm = 0 makes the uncurried bilinear form
+    -- the constant-zero function on S × S; trivially continuous.
+    show Continuous (Function.uncurry K.quadraticForm)
+    have : Function.uncurry K.quadraticForm = fun _ => (0 : ℝ) := by
+      funext ⟨f, g⟩
+      simp [CovarianceOperator.quadraticForm]
+    rw [this]
+    exact continuous_const
   zero_covariance := by simp [CovarianceOperator.quadraticForm]
   functional_pd := by
     intro n s z
@@ -112,8 +125,8 @@ noncomputable def MassiveLaplacian.greenFunction {d : ℕ}
     -- For m = 0: G(r) = 1/(4π² r²) (massless propagator)
     0  -- Placeholder
   symmetric := fun x y => rfl
-  positive := fun _ => trivial
-  continuous := trivial
+  positive := fun _ => le_refl 0
+  continuous := continuous_const
 }
 
 /-- The free scalar field characteristic functional.
@@ -267,8 +280,8 @@ noncomputable def masslessGluonPropagator4D : CovarianceOperator 4 := {
   kernel := fun _ _ => 0
   symmetric := by
     intros; rfl
-  positive := fun _ => trivial
-  continuous := trivial
+  positive := fun _ => le_refl 0
+  continuous := continuous_const
 }
 
 /-- The explicit quadratic form for 4D Yang-Mills (free).
