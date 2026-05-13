@@ -97,43 +97,19 @@ axiom bochner_minlos_existence {d : ℕ} (C : CharacteristicFunctional d) :
    - Apply mathlib's `Measure.ext_of_charFunDual` (the Hilbert-pair variant
      suitable for non-Hilbert duals like S'). -/
 
-/-- BOCHNER-MINLOS THEOREM (Combined Statement):
-
-    There is a bijection between:
-    - Characteristic functionals on S(R^d)
-    - Probability measures on S'(R^d)
-
-    given by the Fourier transform C(f) = ∫ exp(i⟨ω,f⟩) dμ(ω).
-
-    ⚠ MISLEADING NAME (post-rev-2 audit, 2026-04-26). The
-    "injectivity" arm of this theorem (line ~118 below) derives
-    `C₁ = C₂` from `Φ C₁ = Φ C₂` via `congrArg (·.measure)` plus
-    pointwise rewriting using `hΦ`. This is a TAUTOLOGY: it shows
-    `C₁.toFun = C₂.toFun` only because both sides equal the same
-    integral against the same measure (since `Φ C₁ = Φ C₂`). It
-    does NOT invoke the `bochner_minlos_uniqueness` axiom and does
-    NOT use any actual injectivity property of the Fourier transform.
-    The two axioms above (`bochner_minlos_existence`,
-    `bochner_minlos_uniqueness`) carry the real content; this
-    theorem's "Combined Statement" name suggests more was proved.
-    Retained as a structural-naming placeholder. -/
-theorem bochner_minlos_bijection (d : ℕ) :
-    ∃ (Φ : CharacteristicFunctional d → ProbabilityMeasureOnDual d),
-      -- Surjectivity: every characteristic functional comes from a unique measure
-      (∀ C, ∀ f, C.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂(Φ C).measure) ∧
-      -- Injectivity: different characteristic functionals give different measures
-      (∀ C₁ C₂, Φ C₁ = Φ C₂ → C₁ = C₂) := by
-  -- Combine existence and uniqueness
-  choose Φ hΦ using fun C => bochner_minlos_existence C
-  use Φ
-  constructor
-  · exact hΦ
-  · intro C₁ C₂ heq
-    -- If measures are equal, characteristic functionals are equal
-    ext f
-    rw [hΦ C₁ f, hΦ C₂ f]
-    congr 1
-    exact congrArg (·.measure) heq
+/- `bochner_minlos_bijection` — deleted 2026-05-13 as orphan with
+   tautological injectivity. The theorem claimed a bijection
+   `CharacteristicFunctional d ≃ ProbabilityMeasureOnDual d`, but its
+   "injectivity" arm derived `C₁ = C₂` from `Φ C₁ = Φ C₂` purely by
+   `congrArg (·.measure)` + pointwise rewriting on `hΦ` — a tautology
+   that did not invoke any genuine Fourier-injectivity. Zero downstream
+   consumers in PF/. Same orphan-deletion precedent as
+   `bochner_minlos_uniqueness` (b056bf1), `finite_dim_bochner` (183dd20),
+   `minlos_sigma_additivity` (fa3e9ed), and the in-house nuclear-spaces
+   block (55ff0cd). When the real Bochner-Minlos bijection becomes
+   load-bearing, it will follow from `bochner_minlos_existence` + a
+   genuine uniqueness statement built on mathlib's
+   `Measure.ext_of_charFunDual`. -/
 
 /-! ## Applications to Specific Characteristic Functionals -/
 
@@ -205,20 +181,20 @@ theorem gaussian_measure_exists {d : ℕ} (G : GaussianCharacteristic d) :
 
 /-! ## Nuclearity is Essential -/
 
--- NOTE (2026-04-22): `nuclearity_essential` was removed as latently unsound.
--- It asserted ∃ E (normed), ∀ ns : NuclearSpace E, False — i.e. some normed
--- space where NuclearSpace is uninhabited. But with the CURRENT placeholder
--- definitions (NuclearSpace.nuclear_property has a `True` body at
--- NuclearSpaces.lean:82, and LocallyConvexSpace needs only a
--- seminormFamily + directedness), a NuclearSpace witness can be built on
--- ANY AddCommGroup-Module by using the zero seminorm family (see
--- `gauge_field_space_nuclear` in YangMillsMeasure.lean for a concrete
--- example). In particular, every NormedAddCommGroup/NormedSpace also has
--- a trivial NuclearSpace instance, so `¬ NuclearSpace E` is not
--- satisfiable — the axiom directly contradicts the trivial construction.
--- When NuclearSpace is strengthened (real `nuclear_property` body
--- replacing the `True` placeholder), this claim can be restated and
--- then — for a concrete non-nuclear Banach space like ℓ² — proven.
+-- NOTE (2026-04-22, refreshed 2026-05-13): `nuclearity_essential` was
+-- removed as latently unsound. The full in-house nuclear-spaces
+-- infrastructure (Seminorm', SeminormFamily, LocallyConvexSpace,
+-- NuclearSpace, traceNorm, IsNuclear, schwartz_is_nuclear,
+-- gauge_field_space_nuclear) was subsequently deleted on 2026-05-12
+-- (commit 55ff0cd) as orphan scaffolding. When real Grothendieck
+-- nuclearity is needed for Bochner-Minlos's *existence* proof, the
+-- load-bearing replacement will be mathlib's `LocallyConvexSpace ℝ`
+-- instance on `SchwartzMap`, plus nuclear typeclasses (forthcoming
+-- in mathlib's distribution-theory infrastructure). The
+-- "nuclearity is essential" claim — that for non-nuclear Banach
+-- spaces some characteristic functionals fail to extend to measures —
+-- becomes a meaningful theorem once a real `IsNuclear` predicate is
+-- in scope.
 
 /-! ## Connection to Quantum Field Theory -/
 
