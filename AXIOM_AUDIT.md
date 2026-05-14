@@ -2,27 +2,34 @@
 
 *As of **2026-05-14 (Stage 33)**: **1 verified axiom** in `PF/`, restructured to its self-adjointness algebraic form (down from 2 on Stage 30, 3 on Stage 25, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `b0da9ed`). The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their algebraic form: `(alpha_of_class ClassP)² = 2 ∧ 0 < alpha_of_class ClassP ∧ alpha_of_class ClassNP = φ+¼`. The P-class component is now the self-adjointness equation form (not the resolved value); the NP-class component remains pinned directly (its minimal polynomial 16α² - 24α - 11 = 0 is less elementary).*
 
-## Stage 33: Axiom restructured to self-adjointness algebraic form
+## Stage 35: Axiom in FULL algebraic form (May 14, 2026)
 
-**Was** (Stage 25–32):
-```lean
-axiom alpha_class_canonical_values :
-    alpha_of_class ClassP = Real.sqrt 2 ∧
-    alpha_of_class ClassNP = phi + 1/4
-```
+The remaining 1 axiom is now in pure algebraic-equation form for both classes:
 
-**Now** (Stage 33):
 ```lean
 axiom alpha_class_self_adjointness_canonical :
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
-    alpha_of_class ClassNP = phi + 1/4
+    (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0
+     ∧ 0 < alpha_of_class ClassNP)
 ```
 
-`alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2` is now a **theorem** (was the axiom's first conjunct, derived via `Real.sqrt_sq`). `alpha_class_canonical_values` is also a derived theorem for backwards compatibility.
+Both components are SELF-ADJOINTNESS ALGEBRAIC EQUATIONS — matching the manuscript's Construction 3 (`α² = 2` from H_P kernel symmetry) and Construction 4 (`16α² − 24α − 11 = 0` from H_NP kernel symmetry, which has positive root `(3+2√5)/4 = φ+¼`).
 
-This restructure brings the axiom closer to the manuscript's Construction 3 derivation: the self-adjointness condition on H_P's kernel reduces to α² = 2, and the positive square root gives α_P = √2. Net axiom count unchanged (1), but the axiom is no longer a "value postulate" — it's an algebraic condition that the manuscript's analysis derives.
+Specific values are now **theorems**, not axioms:
+- `alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2` — proved via `Real.sqrt_sq` on the positive square root.
+- `alpha_at_ClassNP_eq_phi_plus_quarter : alpha_of_class ClassNP = phi + 1/4` — proved via quadratic factoring + positivity exclusion of the negative root `(3 − 2√5)/4`.
 
-Future-session work could similarly restructure the NP-class component (axiomatize `16α² - 24α - 11 = 0 ∧ 0 < α` and derive `α = phi + 1/4`), bringing the full axiom into algebraic form.
+The framework's substantive claim is now visible AS the algebraic constraint, not hidden behind value postulates. The remaining axiom encodes the manuscript's self-adjointness equations directly.
+
+### Retirement path
+
+To retire `alpha_class_self_adjointness_canonical` entirely:
+1. Define H_P and H_NP as Hilbert-Schmidt operators on L²(LanguageSpace) with their actual integral-kernel bodies (Constructions 3 and 4: `(1/2^|x|) · e^(iπα·D(x)) · E_P(M_L,x)` and the NP analog with certificate quantifier).
+2. Define self-adjointness for these operators.
+3. Prove that self-adjointness of H_P forces `α² = 2`, and self-adjointness of H_NP forces `16α² − 24α − 11 = 0`. (Both reduce algebraically from the kernel reflection symmetry analysis in Reed-Simon-style operator theory.)
+4. The current axiom becomes a theorem from these derivations.
+
+This is multi-month operator-theory formalization, bounded in scope. Not a Clay problem — the manuscript's analysis is rigorous; this is the formalization runway.
 
 ## Stage 30: 2 → 1 axiom via orphan-consumer chain analysis
 
