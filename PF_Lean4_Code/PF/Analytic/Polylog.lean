@@ -112,4 +112,28 @@ theorem hasSum_polyLog
     HasSum (fun n : ℕ => z ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ s) (polyLog s z) :=
   (summable_polyLog_term hs hz).hasSum
 
+/-! ## Closed-form identity: `Li_0(z) = z / (1 - z)` on the open unit disk
+
+The simplest polylog: at `s = 0`, the denominator `(n+1)^0 = 1`, so
+the series reduces to the geometric series `Σ z^(n+1) = z / (1 − z)`. -/
+
+/-- **`Li_0(z) = z / (1 − z)` for `‖z‖ < 1`.** Direct consequence of the
+    geometric series `Σ z^n = 1/(1−z)`. -/
+theorem polyLog_zero_exponent (z : ℂ) (hz : ‖z‖ < 1) :
+    polyLog 0 z = z / (1 - z) := by
+  unfold polyLog
+  -- For s = 0: (n+1)^0 = 1, so each term is z^(n+1).
+  have h_term : ∀ n : ℕ,
+      z ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ (0 : ℂ) = z ^ (n + 1) := by
+    intro n
+    rw [cpow_zero, div_one]
+  simp_rw [h_term]
+  -- Σ' n, z^(n+1) = z · Σ' n, z^n = z · 1/(1-z) = z/(1-z)
+  have h_factor : ∀ n : ℕ, z ^ (n + 1) = z * z ^ n := by
+    intro n; rw [pow_succ, mul_comm]
+  simp_rw [h_factor]
+  rw [tsum_mul_left, tsum_geometric_of_norm_lt_one hz]
+  rw [show (1 : ℂ) - z = -(z - 1) from by ring]
+  field_simp
+
 end PrincipiaTractalis.Analytic
