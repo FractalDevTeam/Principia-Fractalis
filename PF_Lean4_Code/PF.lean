@@ -24,6 +24,7 @@ import PF.IntegralKernel.Basic
 import PF.IntegralKernel.SelfAdjoint
 import PF.IntegralKernel.FractalKernel
 import PF.IntegralKernel.HilbertSchmidt
+import PF.IntegralKernel.Bridge
 
 -- The Four Anchor Theorems
 import PF.RadixEconomy       -- Theorem 1: Base-3 optimality
