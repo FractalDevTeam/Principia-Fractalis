@@ -136,19 +136,12 @@ noncomputable def freeScalarCharacteristic {d : ℕ}
     (L : MassiveLaplacian d) : GaussianCharacteristic d :=
   L.greenFunction.toGaussianCharacteristic
 
-/-- THEOREM: Free scalar field measure exists.
-
-    For any mass m ≥ 0, there exists a unique Gaussian probability measure
-    μ_m on S'(R^d) with covariance G = (-Δ + m²)⁻¹.
-
-    This is the Euclidean free field measure.
--/
-theorem free_scalar_measure_exists {d : ℕ} (L : MassiveLaplacian d) :
-    ∃ (μ : ProbabilityMeasureOnDual d),
-      ∀ f : SchwartzFunction d,
-        (freeScalarCharacteristic L).toFun f =
-          ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure := by
-  exact gaussian_measure_exists (freeScalarCharacteristic L)
+/- `free_scalar_measure_exists` — deleted 2026-05-14 (Stage 30) with
+   `gaussian_measure_exists` and `bochner_minlos_existence`. Was an
+   orphan top-level theorem with zero downstream consumers, asserting
+   free-scalar-field Gaussian-measure existence conditional on the now-
+   retired Bochner-Minlos axiom. Reinstatement path: when classical
+   Bochner-Minlos is formalized, this can return as a real theorem. -/
 
 /-! ## Free Vector Field (Abelian Gauge Field) -/
 
@@ -247,21 +240,13 @@ noncomputable def FreeYangMillsGaussian.generatingFunctional {d N : ℕ}
     -- `exp ∘ (continuous quadratic form)`.
     exact continuousAt_const
 
-/-- THEOREM: Free Yang-Mills measure exists (Gaussian approximation).
-
-    For SU(N) gauge theory in the free field approximation,
-    there exists a Gaussian measure μ on the configuration space.
-
-    This is the zeroth-order term in the perturbative expansion.
-    Full non-perturbative measure requires Bochner-Minlos with
-    interacting (non-Gaussian) characteristic functional.
--/
-theorem free_yang_mills_measure_exists (d N : ℕ) (YM : FreeYangMillsGaussian d N) :
-    ∃ (μ : ProbabilityMeasureOnDual d),
-      ∀ f : SchwartzFunction d,
-        YM.generatingFunctional.toFun f =
-          ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure := by
-  exact bochner_minlos_existence YM.generatingFunctional
+/- `free_yang_mills_measure_exists` — deleted 2026-05-14 (Stage 30) with
+   the `bochner_minlos_existence` axiom retirement. Was an orphan
+   top-level theorem with zero downstream consumers, asserting the
+   free-field-Yang-Mills Gaussian-measure existence as a direct
+   application of the now-retired Bochner-Minlos axiom. Reinstatement
+   path: when classical Bochner-Minlos is formalized, this can return
+   as a real theorem. -/
 
 /-! ## Explicit Quadratic Form for d = 4 -/
 
@@ -303,32 +288,14 @@ theorem yang_mills_4d_gaussian_valid :
 
 /-! ## Summary: Gaussian Model Complete -/
 
-/-- MAIN RESULT: Complete construction of Gaussian Yang-Mills measure.
-
-    Given:
-    - d = 4 (spacetime dimension)
-    - G(x,y) = 1/(4π²|x-y|²) (massless gluon propagator)
-    - Q(f,g) = ⟨f, G·g⟩ (covariance form)
-    - C(f) = exp(-½ Q(f,f)) (characteristic functional)
-
-    Bochner-Minlos guarantees:
-    ∃! μ : probability measure on S'(R⁴) such that
-    C(f) = ∫_{S'} exp(i⟨ω,f⟩) dμ(ω)
-
-    This μ is the free field Yang-Mills measure (Gaussian approximation).
--/
-theorem gaussian_yang_mills_complete :
-    ∃ (μ : ProbabilityMeasureOnDual 4) (Q : SchwartzFunction 4 → SchwartzFunction 4 → ℝ),
-      -- Q is the gluon propagator covariance
-      Q = yangMillsQuadraticForm4D ∧
-      -- μ is the Gaussian measure with covariance Q
-      ∀ f : SchwartzFunction 4,
-        Complex.exp (-(1/2 : ℂ) * Q f f) =
-          ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure := by
-  obtain ⟨G, hG⟩ := yang_mills_4d_gaussian_valid
-  obtain ⟨μ, hμ⟩ := gaussian_measure_exists G
-  refine ⟨μ, yangMillsQuadraticForm4D, rfl, fun f => ?_⟩
-  rw [show yangMillsQuadraticForm4D f f = G.covariance f f by rw [hG]]
-  exact hμ f
+/- `gaussian_yang_mills_complete` — deleted 2026-05-14 (Stage 30) with
+   the `gaussian_measure_exists` / `bochner_minlos_existence` chain
+   retirement. Was an orphan top-level theorem with zero downstream
+   consumers, asserting the free-field Yang-Mills Gaussian-measure
+   existence conditional on the now-retired Bochner-Minlos axiom.
+   Reinstatement path: when classical Bochner-Minlos is formalized
+   AND the placeholder `CovarianceOperator.quadraticForm = 0` is
+   replaced with the real gluon-propagator integral, this can return
+   as a real theorem of the free-field Yang-Mills measure. -/
 
 end PrincipiaTractalis
