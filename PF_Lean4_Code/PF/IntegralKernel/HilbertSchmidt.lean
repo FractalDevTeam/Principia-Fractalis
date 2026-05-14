@@ -140,32 +140,156 @@ theorem aestronglyMeasurable_action (V : KernelL2 μ) {f : K → ℂ}
 end FiniteMeasure
 end KernelL2
 
-/-! ## Next milestone: the Hilbert-Schmidt L²-bound
+/-! ## The Hilbert-Schmidt L²-bound
 
-The remaining analytic step:
-```
-theorem eLpNorm_kernelAction_le (V : KernelL2 μ) (f : K → ℂ) (hf : MemLp f 2 μ) :
-    eLpNorm (kernelAction V f μ) 2 μ ≤ eLpNorm V 2 (μ.prod μ) * eLpNorm f 2 μ
-```
+For `V ∈ L²(K × K, μ ⊗ μ)` and `f ∈ L²(K, μ)`, the integral kernel action
 
-Proof outline:
-1. **Pointwise Cauchy-Schwarz** (for a.e. `x`): viewing the integrand as an
-   inner-product-like form, `|∫ V(x, y) · f(y) dμ(y)| ≤ ‖V(x, ·)‖₂ · ‖f‖₂`.
-2. **Fubini-Tonelli for the squared norm**:
-   `∫⁻ x, ‖V(x, ·)‖₊² ∂μ = ∫⁻ x, ∫⁻ y, ‖V(x, y)‖₊² ∂μ ∂μ = eLpNorm V 2 (μ ⊗ μ)²`.
-3. Combine and take square roots.
+  (T_V f)(x) = ∫ V(x, y) · f(y) dμ(y)
 
-Once established, `kernelAction V f` lies in `Lp ℂ 2 μ` and we build:
-```
-def kernelOperator (V : KernelL2 μ) : Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ :=
-  LinearMap.mkContinuous {
-    toFun := fun f => MemLp.toLp _ (memLp_kernelAction V f.memLp)
-    map_add' := …  -- from linearity of the inner integral
-    map_smul' := …
-  } ‖(V : K × K → ℂ)‖_{L²(μ⊗μ)} (eLpNorm_kernelAction_le V)
-```
+satisfies
 
-The L1 lift then gives `IsSelfAdjoint (kernelOperator V)` whenever
-`IsConjSymmetric (V : K × K → ℂ) μ` holds, closing the L2 chain for V_P. -/
+  ‖T_V f‖_{L²(μ)} ≤ ‖V‖_{L²(μ ⊗ μ)} · ‖f‖_{L²(μ)}.
+
+Proof strategy (lintegral form, then take square roots):
+1. For a.e. `x`: pointwise bound from triangle inequality + Cauchy-Schwarz
+   gives `‖(T_V f)(x)‖ₑ² ≤ (∫⁻ y, ‖V(x, y)‖ₑ² ∂μ) · (∫⁻ y, ‖f(y)‖ₑ² ∂μ)`.
+2. Integrate in `x`, pull `eLpNorm f 2 μ²` out as constant, apply Fubini-Tonelli
+   to identify `∫⁻ x, ∫⁻ y, ‖V(x, y)‖ₑ² ∂μ ∂μ = (eLpNorm V 2 (μ.prod μ))²`.
+3. Convert from squared lintegrals back to `eLpNorm` via `rpow (1/2)`.
+-/
+
+section HilbertSchmidtBound
+
+variable [SFinite μ] [IsFiniteMeasure μ]
+
+open ENNReal
+
+omit [SFinite μ] [IsFiniteMeasure μ] in
+/-- **Pointwise lintegral bound** for the kernel action via Cauchy-Schwarz.
+
+    `‖kernelAction V f x‖ₑ ≤ (∫⁻ y, ‖V(x, y)‖ₑ ^ 2 ∂μ) ^ (1/2)
+                         · (∫⁻ y, ‖f y‖ₑ ^ 2 ∂μ) ^ (1/2)`.
+
+    Combines `enorm_integral_le_lintegral_enorm` (Bochner norm bound) with
+    `ENNReal.lintegral_mul_le_Lp_mul_Lq` (Hölder at lintegral level, p=q=2).
+
+    Requires AEMeasurability of the relevant sections for the Hölder step. -/
+theorem enorm_kernelAction_le
+    {V : K × K → ℂ} {f : K → ℂ} (x : K)
+    (hVsec : AEMeasurable (fun y => ‖V (x, y)‖ₑ) μ)
+    (hfMble : AEMeasurable (fun y => ‖f y‖ₑ) μ) :
+    ‖kernelAction V f μ x‖ₑ ≤
+      (∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ) ^ (1 / (2 : ℝ)) *
+      (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) ^ (1 / (2 : ℝ)) := by
+  unfold kernelAction
+  -- Step A: ‖∫ V(x,y)·f y dμ y‖ₑ ≤ ∫⁻ y, ‖V(x,y)‖ₑ · ‖f y‖ₑ ∂μ
+  have h_norm_int :
+      ‖∫ y, V (x, y) * f y ∂μ‖ₑ ≤
+        ∫⁻ y, ‖V (x, y)‖ₑ * ‖f y‖ₑ ∂μ := by
+    calc ‖∫ y, V (x, y) * f y ∂μ‖ₑ
+        ≤ ∫⁻ y, ‖V (x, y) * f y‖ₑ ∂μ := enorm_integral_le_lintegral_enorm _
+      _ = ∫⁻ y, ‖V (x, y)‖ₑ * ‖f y‖ₑ ∂μ := by
+          congr 1
+          ext y
+          rw [enorm_mul]
+  -- Step B: Hölder/Cauchy-Schwarz at lintegral level (p=q=2)
+  have h_holder := ENNReal.lintegral_mul_le_Lp_mul_Lq μ
+      (p := 2) (q := 2)
+      ⟨by norm_num, by norm_num, by norm_num⟩
+      hVsec hfMble
+  -- Chain via transitivity
+  exact h_norm_int.trans h_holder
+
+omit [SFinite μ] [IsFiniteMeasure μ] in
+/-- **Squared pointwise bound.** Squaring `enorm_kernelAction_le` yields
+    `‖kernelAction V f x‖ₑ² ≤ (∫⁻ y, ‖V(x,y)‖ₑ² ∂μ) · (∫⁻ y, ‖f y‖ₑ² ∂μ)`. -/
+theorem enorm_kernelAction_sq_le
+    {V : K × K → ℂ} {f : K → ℂ} (x : K)
+    (hVsec : AEMeasurable (fun y => ‖V (x, y)‖ₑ) μ)
+    (hfMble : AEMeasurable (fun y => ‖f y‖ₑ) μ) :
+    ‖kernelAction V f μ x‖ₑ ^ (2 : ℝ) ≤
+      (∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ) *
+      (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) := by
+  have h := enorm_kernelAction_le (μ := μ) x hVsec hfMble
+  -- h : ‖kAct‖ₑ ≤ A^(1/2) * B^(1/2)
+  -- Square both sides (rpow 2 is monotone on ENNReal)
+  calc ‖kernelAction V f μ x‖ₑ ^ (2 : ℝ)
+      ≤ ((∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ) ^ (1 / (2 : ℝ)) *
+         (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) ^ (1 / (2 : ℝ))) ^ (2 : ℝ) := by
+        gcongr
+    _ = (∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ) ^ ((1 / (2 : ℝ)) * 2) *
+        (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) ^ ((1 / (2 : ℝ)) * 2) := by
+        rw [ENNReal.mul_rpow_of_nonneg _ _ (by norm_num : (0 : ℝ) ≤ 2),
+            ← ENNReal.rpow_mul, ← ENNReal.rpow_mul]
+    _ = (∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ) *
+        (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) := by
+        rw [show (1 / (2 : ℝ)) * 2 = 1 by norm_num]
+        simp [ENNReal.rpow_one]
+
+omit [IsFiniteMeasure μ] in
+/-- **Hilbert-Schmidt L²-bound (lintegral form).** Integrating the squared
+    pointwise bound in `x` and applying Fubini-Tonelli to the iterated
+    integral of `‖V(x, y)‖ₑ²` gives the lintegral-level H-S bound:
+    `∫⁻ x, ‖(T_V f)(x)‖ₑ² ∂μ ≤ (∫⁻ z, ‖V z‖ₑ² ∂(μ⊗μ)) · (∫⁻ y, ‖f y‖ₑ² ∂μ)`. -/
+theorem lintegral_enorm_kernelAction_sq_le
+    {V : K × K → ℂ} (hV : Measurable V)
+    {f : K → ℂ} (hf : AEMeasurable (fun y => ‖f y‖ₑ) μ) :
+    (∫⁻ x, ‖kernelAction V f μ x‖ₑ ^ (2 : ℝ) ∂μ) ≤
+      (∫⁻ z, ‖V z‖ₑ ^ (2 : ℝ) ∂(μ.prod μ)) *
+      (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) := by
+  -- Apply the pointwise squared bound for each x, then integrate.
+  -- The pointwise bound needs AEMeasurable (fun y => ‖V (x, y)‖ₑ) μ for each x,
+  -- which follows from Measurable V via section measurability.
+  have hVsec : ∀ x, Measurable (fun y => ‖V (x, y)‖ₑ) := fun x => by
+    exact (hV.comp (Measurable.prodMk measurable_const measurable_id)).enorm
+  -- Squared pointwise bound, holding for ALL x:
+  have h_pt : ∀ x, ‖kernelAction V f μ x‖ₑ ^ (2 : ℝ) ≤
+      (∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ) *
+      (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) := fun x =>
+    enorm_kernelAction_sq_le x (hVsec x).aemeasurable hf
+  -- Integrate the pointwise bound
+  -- The inner integral x ↦ ∫⁻ y, ‖V(x,y)‖ₑ² ∂μ is measurable (Fubini-Tonelli kernel).
+  have h_inner_mble :
+      Measurable (fun x => ∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ) := by
+    exact Measurable.lintegral_prod_right (hV.enorm.pow_const _)
+  calc (∫⁻ x, ‖kernelAction V f μ x‖ₑ ^ (2 : ℝ) ∂μ)
+      ≤ ∫⁻ x, (∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ) *
+              (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) ∂μ := lintegral_mono h_pt
+    _ = (∫⁻ x, ∫⁻ y, ‖V (x, y)‖ₑ ^ (2 : ℝ) ∂μ ∂μ) *
+        (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) :=
+        lintegral_mul_const'' _ h_inner_mble.aemeasurable
+    _ = (∫⁻ z, ‖V z‖ₑ ^ (2 : ℝ) ∂(μ.prod μ)) *
+        (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) := by
+        -- Fubini-Tonelli for lintegral
+        congr 1
+        exact (MeasureTheory.lintegral_prod _ (hV.enorm.pow_const _).aemeasurable).symm
+
+omit [IsFiniteMeasure μ] in
+/-- **The Hilbert-Schmidt L²-bound (eLpNorm form).**
+    `eLpNorm (kernelAction V f) 2 μ ≤ eLpNorm V 2 (μ ⊗ μ) · eLpNorm f 2 μ`. -/
+theorem eLpNorm_kernelAction_le
+    {V : K × K → ℂ} (hV : Measurable V)
+    {f : K → ℂ} (hf : AEMeasurable (fun y => ‖f y‖ₑ) μ) :
+    eLpNorm (kernelAction V f μ) 2 μ ≤
+      eLpNorm V 2 (μ.prod μ) * eLpNorm f 2 μ := by
+  -- Express all three eLpNorms via lintegrals
+  have hp_ne : (2 : ℝ≥0∞) ≠ 0 := by norm_num
+  have hp_top : (2 : ℝ≥0∞) ≠ ∞ := by norm_num
+  have h_two : ((2 : ℝ≥0∞).toReal) = (2 : ℝ) := by norm_num
+  rw [eLpNorm_eq_lintegral_rpow_enorm hp_ne hp_top,
+      eLpNorm_eq_lintegral_rpow_enorm hp_ne hp_top,
+      eLpNorm_eq_lintegral_rpow_enorm hp_ne hp_top,
+      h_two]
+  -- Goal: (∫⁻ x, ‖kAct x‖ₑ^2 ∂μ)^(1/2) ≤ (∫⁻ z, ‖V z‖ₑ^2 ∂(μ.prod μ))^(1/2) * (∫⁻ y, ‖f y‖ₑ^2 ∂μ)^(1/2)
+  -- Use the lintegral bound + monotonicity of rpow + mul_rpow distribution
+  have h_lint := lintegral_enorm_kernelAction_sq_le hV hf
+  calc (∫⁻ x, ‖kernelAction V f μ x‖ₑ ^ (2 : ℝ) ∂μ) ^ (1 / (2 : ℝ))
+      ≤ ((∫⁻ z, ‖V z‖ₑ ^ (2 : ℝ) ∂(μ.prod μ)) *
+         (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ)) ^ (1 / (2 : ℝ)) := by gcongr
+    _ = (∫⁻ z, ‖V z‖ₑ ^ (2 : ℝ) ∂(μ.prod μ)) ^ (1 / (2 : ℝ)) *
+        (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) ^ (1 / (2 : ℝ)) :=
+        ENNReal.mul_rpow_of_nonneg _ _ (by norm_num : (0 : ℝ) ≤ 1 / 2)
+
+end HilbertSchmidtBound
 
 end PrincipiaTractalis.IntegralKernel
