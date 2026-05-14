@@ -1,6 +1,6 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-14 (Stage 42)**: **1 verified axiom** in `PF/`, in pure algebraic self-adjointness form for both classes (down from 2 on Stage 30, 3 on Stage 25, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `1fce275`). The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their full algebraic form:*
+*As of **2026-05-14 (Stage 44)**: **1 verified axiom** in `PF/`, in pure algebraic self-adjointness form for both classes (down from 2 on Stage 30, 3 on Stage 25, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5534 jobs clean (master `52cb931`). The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their full algebraic form:*
 
 ```lean
 axiom alpha_class_self_adjointness_canonical :
@@ -37,6 +37,42 @@ To retire `alpha_class_self_adjointness_canonical` entirely:
 2. Define self-adjointness for these operators.
 3. Prove that self-adjointness of H_P forces `α² = 2`, and self-adjointness of H_NP forces `16α² − 24α − 11 = 0`. (Both reduce algebraically from the kernel reflection symmetry analysis in Reed-Simon-style operator theory.)
 4. The current axiom becomes a theorem from these derivations.
+
+## Stage 44: L1/L2 integral-kernel infrastructure (May 14, 2026)
+
+Phase 1 of the retirement work. Adds operator-theory infrastructure under
+`PF/IntegralKernel/`. Zero project axioms in any added theorem.
+
+**L1 — Foundation (`PF/IntegralKernel/Basic.lean`, `PF/IntegralKernel/SelfAdjoint.lean`)**:
+- `kernelAction V f x = ∫ V(x, y) · f(y) dμ(y)` — unwrapped kernel action
+- `pairing V f g μ = ∫∫ conj(f x) · V(x, y) · g(y) dμ dμ` — bilinear form
+- `IsConjSymmetric V μ` — kernel-level self-adjointness predicate
+- `pairing_conj_symm` — Fubini-based symmetric pairing theorem
+- `inner_eq_pairing` — L²-inner ↔ pairing identification (operator hypothesis)
+- `isSymmetric_of_kernel_conjSymm` — symmetry from conj-symmetric kernel
+- `isSelfAdjoint_of_kernel_conjSymm` — bounded operator → IsSelfAdjoint
+
+**L2 partial — V_P kernel (`PF/IntegralKernel/FractalKernel.lean`)**:
+- `fractalKernelTerm α a (z : K × K) n = a^(-n) · cos(π · α^n · dist z.1 z.2)`
+- `fractalKernelReal α a` / `fractalKernel α a` — tsum form (real / complex)
+- `fractalKernel_swap` — symmetric in (x, y) via `dist_comm` + cos-even
+- `fractalKernel_isConjSymmetric` — feeds the L1 self-adjoint lift
+- `abs_fractalKernelTerm_le` — termwise `|·| ≤ (1/a)^n`
+- `summable_fractalKernelTerm` — Summable when `1 < a` (geometric majorant)
+- `abs_fractalKernelReal_le` — uniform L^∞ bound `|V_P z| ≤ a/(a-1)`
+- `V_P_canonical a = fractalKernel √2 a` — book's α_P = √2 specialization
+
+**Remaining (L2 → L4)**:
+- L2 continued: measurability of `fractalKernel`, `MemLp 2 (μ.prod μ)` membership
+  under finite μ, Hilbert-Schmidt operator construction
+  `kernelOperator : (K × K → ℂ) → Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ`
+- V_NP via unitary conjugation `H_NP = U(φ) · H_P · U(φ)†` (preserves SA)
+- L3: generating-function identity `Σ N_m^(3) z^m = Π (1 + z + z²·3^k)` and
+  the SA criterion `H_P SA ⇔ Σ e^{iπαm} N_m^(3) ∈ ℝ`
+- L4: theta-sum reality at α = √2 and α = φ + 1/4 (requires Jacobi triple
+  product and Dedekind eta values; not in mathlib)
+
+Build: master `52cb931`, 5534 jobs, 1 project axiom, 0 sorries.
 
 This is multi-month operator-theory formalization, bounded in scope. Not a Clay problem — the manuscript's analysis is rigorous; this is the formalization runway.
 
