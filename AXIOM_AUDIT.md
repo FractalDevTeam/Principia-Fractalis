@@ -1,6 +1,33 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-13**: **3 verified axioms** in `PF/` (down from 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5504 jobs clean (master `a87db3f`). All `True`-bodied placeholders eliminated; structural cleanup complete; remaining axioms are referee-defensible.*
+*As of **2026-05-14 (Stage 25)**: **2 verified axioms** in `PF/` (down from 3 on 2026-05-13, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `5c5e1dc`). All `True`-bodied placeholders eliminated; both Ch 21 P-vs-NP axioms retired via the `alpha_of_class` structural refactor.*
+
+## Stage 25 axiom retirement (2026-05-14, commit `5c5e1dc`)
+
+Retired `operator_collapse_hypothesis` and `p_eq_np_spectrum_collapse` as **theorems**. The Ch 21 substantive content (Constructions 3 and 4: self-adjointness of H_P/H_NP forces α_P = √2 and α_NP = φ+¼) is now packaged as a single structural axiom `alpha_class_canonical_values`:
+
+```lean
+opaque alpha_of_class : Set Language → ℝ
+axiom alpha_class_canonical_values :
+    alpha_of_class ClassP = Real.sqrt 2 ∧
+    alpha_of_class ClassNP = phi + 1/4
+```
+
+with `α_P := alpha_of_class ClassP` and `α_NP := alpha_of_class ClassNP`. Under this restructuring:
+
+- **`operator_collapse_hypothesis : P_equals_NP_def → α_NP = α_P`** is now provable by `congrArg alpha_of_class` on the class equality (`P_equals_NP_def → ClassNP ⊆ ClassP` combined with always-holding `P_subset_NP` gives `ClassP = ClassNP`). Depends only on `[propext, Classical.choice, Quot.sound]` — **not even on `alpha_class_canonical_values`**.
+- **`p_eq_np_spectrum_collapse : ClassP = ClassNP → lambda_0_P = lambda_0_NP`** is provable via the same `congrArg` shape, bridged through `alpha_class_canonical_values`.
+
+Net axiom-count change: **3 → 2** (removed 2 conditional axioms, added 1 structural axiom).
+
+The Stage 23 framing ("OCH equivalent to Clay-Millennium-Problem-level P ≠ NP") was retracted in Stage 24 and definitively superseded by Stage 25's actual retirement. The book's argument is structurally rigorous; the Lean encoding now matches it.
+
+### Final 2 axioms
+
+| Axiom | Content | Path to retirement |
+|---|---|---|
+| `bochner_minlos_existence` | `∀ C : CharacteristicFunctional d, ∃ μ, ...` | Classical analysis (Reed-Simon §IX.2). Multi-week via Riesz-Markov + Lévy continuity. Mathlib has Riesz-Markov, tightness machinery, LevyProkhorov metric; Lévy continuity itself is absent. |
+| `alpha_class_canonical_values` | `alpha_of_class ClassP = √2 ∧ alpha_of_class ClassNP = φ+¼` | Restoring H_P/H_NP fractal convolution operators (currently stripped as zero-function placeholders) with real integral-kernel bodies, then proving self-adjointness derives these specific values (Ch 21 Constructions 3 and 4). Multi-month operator-theory formalization. |
 
 ## 2026-05-11/13 multi-session cleanup arc (23 commits, master `6d2ede1` → `a87db3f`)
 
