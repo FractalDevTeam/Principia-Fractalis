@@ -304,6 +304,139 @@ theorem memLp_kernelAction
         eLpNorm_kernelAction_le hVmble hf.aestronglyMeasurable.enorm
     _ < ∞ := ENNReal.mul_lt_top hV.eLpNorm_lt_top hf.eLpNorm_lt_top
 
+/-! ### Linearity of the kernel action -/
+
+/-- Additivity (a.e.): `kernelAction V (f + g) =ᵐ kernelAction V f + kernelAction V g`
+    when each section product is integrable. -/
+theorem kernelAction_add_ae
+    {V : K × K → ℂ} (hV : MemLp V 2 (μ.prod μ))
+    {f g : K → ℂ} (hf : MemLp f 2 μ) (hg : MemLp g 2 μ) :
+    kernelAction V (f + g) μ =ᵐ[μ]
+      kernelAction V f μ + kernelAction V g μ := by
+  filter_upwards [integrable_kernel_section hV hf,
+                  integrable_kernel_section hV hg] with x hxf hxg
+  simp only [Pi.add_apply, kernelAction]
+  -- ∫ V(x,y) * (f y + g y) dμ y = ∫ V(x,y) * f y + V(x,y) * g y dμ y
+  --                            = ∫ V(x,y) * f y dμ y + ∫ V(x,y) * g y dμ y
+  have h_eq : (fun y => V (x, y) * (f y + g y))
+            = (fun y => V (x, y) * f y + V (x, y) * g y) := by
+    funext y; ring
+  rw [h_eq, integral_add hxf hxg]
+
+/-- Scalar multiplication (a.e.): `kernelAction V (c • f) =ᵐ c • kernelAction V f`. -/
+theorem kernelAction_smul_ae
+    {V : K × K → ℂ} (hV : MemLp V 2 (μ.prod μ))
+    (c : ℂ) {f : K → ℂ} (hf : MemLp f 2 μ) :
+    kernelAction V (c • f) μ =ᵐ[μ] c • kernelAction V f μ := by
+  filter_upwards [integrable_kernel_section hV hf] with x hxf
+  simp only [Pi.smul_apply, kernelAction, smul_eq_mul]
+  -- ∫ V(x,y) * (c * f y) dμ y = c * ∫ V(x,y) * f y dμ y
+  have h_eq : (fun y => V (x, y) * (c * f y))
+            = (fun y => c * (V (x, y) * f y)) := by
+    funext y; ring
+  rw [h_eq, integral_const_mul]
+
+/-! ### The kernel operator as a function and as a linear map -/
+
+/-- Function-level kernel operator action: takes an `Lp ℂ 2 μ` element `f` to
+    the `Lp ℂ 2 μ` element of `kernelAction V f` (using `memLp_kernelAction`
+    as the membership witness). -/
+noncomputable def kernelOperatorFn
+    {V : K × K → ℂ} (hVmble : Measurable V) (hV : MemLp V 2 (μ.prod μ))
+    (f : Lp ℂ 2 μ) : Lp ℂ 2 μ :=
+  (memLp_kernelAction hVmble hV (Lp.memLp f)).toLp (kernelAction V (f : K → ℂ) μ)
+
+/-- The Lp-coercion of `kernelOperatorFn V f` is a.e. equal to the raw
+    `kernelAction V f`. -/
+theorem coeFn_kernelOperatorFn
+    {V : K × K → ℂ} (hVmble : Measurable V) (hV : MemLp V 2 (μ.prod μ))
+    (f : Lp ℂ 2 μ) :
+    (kernelOperatorFn hVmble hV f : K → ℂ) =ᵐ[μ] kernelAction V (f : K → ℂ) μ :=
+  MemLp.coeFn_toLp _
+
+/-- Norm bound on the function-level operator action. -/
+theorem norm_kernelOperatorFn_le
+    {V : K × K → ℂ} (hVmble : Measurable V) (hV : MemLp V 2 (μ.prod μ))
+    (f : Lp ℂ 2 μ) :
+    ‖kernelOperatorFn hVmble hV f‖ ≤ (eLpNorm V 2 (μ.prod μ)).toReal * ‖f‖ := by
+  unfold kernelOperatorFn
+  rw [Lp.norm_def, eLpNorm_congr_ae (MemLp.coeFn_toLp _)]
+  -- Goal: (eLpNorm (kernelAction V (↑f) μ) 2 μ).toReal ≤ (eLpNorm V 2 (μ.prod μ)).toReal * ‖f‖
+  have h_norm_f : ‖f‖ = (eLpNorm (f : K → ℂ) 2 μ).toReal := Lp.norm_def f
+  rw [h_norm_f]
+  rw [← ENNReal.toReal_mul]
+  apply ENNReal.toReal_mono
+  · exact ENNReal.mul_ne_top hV.eLpNorm_ne_top (Lp.memLp f).eLpNorm_ne_top
+  · exact eLpNorm_kernelAction_le hVmble (Lp.memLp f).aestronglyMeasurable.enorm
+
+/-- Additivity of `kernelOperatorFn` on `Lp ℂ 2 μ`. -/
+theorem kernelOperatorFn_add
+    {V : K × K → ℂ} (hVmble : Measurable V) (hV : MemLp V 2 (μ.prod μ))
+    (f g : Lp ℂ 2 μ) :
+    kernelOperatorFn hVmble hV (f + g) =
+      kernelOperatorFn hVmble hV f + kernelOperatorFn hVmble hV g := by
+  apply Lp.ext
+  refine (coeFn_kernelOperatorFn hVmble hV (f + g)).trans ?_
+  -- kernelAction V ((f + g : Lp) : K → ℂ) μ =ᵐ (kOp f + kOp g : Lp ℂ 2 μ : K → ℂ)
+  have h_coe_add : ((f + g : Lp ℂ 2 μ) : K → ℂ) =ᵐ[μ]
+                   (f : K → ℂ) + (g : K → ℂ) := Lp.coeFn_add f g
+  -- kernelAction is congruent under ae-eq of input
+  have h1 : kernelAction V ((f + g : Lp ℂ 2 μ) : K → ℂ) μ =ᵐ[μ]
+            kernelAction V ((f : K → ℂ) + (g : K → ℂ)) μ := by
+    refine Filter.Eventually.of_forall (fun x => ?_)
+    unfold kernelAction
+    apply integral_congr_ae
+    filter_upwards [h_coe_add] with y hy
+    rw [hy]
+  -- additivity at the function level
+  have h2 := kernelAction_add_ae hV (Lp.memLp f) (Lp.memLp g)
+  refine (h1.trans h2).trans ?_
+  -- now align with the Lp coercion of the sum
+  symm
+  refine (Lp.coeFn_add _ _).trans ?_
+  filter_upwards [coeFn_kernelOperatorFn hVmble hV f,
+                  coeFn_kernelOperatorFn hVmble hV g] with x hx1 hx2
+  simp [hx1, hx2]
+
+/-- Homogeneity of `kernelOperatorFn` on `Lp ℂ 2 μ`. -/
+theorem kernelOperatorFn_smul
+    {V : K × K → ℂ} (hVmble : Measurable V) (hV : MemLp V 2 (μ.prod μ))
+    (c : ℂ) (f : Lp ℂ 2 μ) :
+    kernelOperatorFn hVmble hV (c • f) = c • kernelOperatorFn hVmble hV f := by
+  apply Lp.ext
+  refine (coeFn_kernelOperatorFn hVmble hV (c • f)).trans ?_
+  have h_coe_smul : ((c • f : Lp ℂ 2 μ) : K → ℂ) =ᵐ[μ]
+                    c • (f : K → ℂ) := Lp.coeFn_smul c f
+  have h1 : kernelAction V ((c • f : Lp ℂ 2 μ) : K → ℂ) μ =ᵐ[μ]
+            kernelAction V (c • (f : K → ℂ)) μ := by
+    refine Filter.Eventually.of_forall (fun x => ?_)
+    unfold kernelAction
+    apply integral_congr_ae
+    filter_upwards [h_coe_smul] with y hy
+    rw [hy]
+  have h2 := kernelAction_smul_ae hV c (Lp.memLp f)
+  refine (h1.trans h2).trans ?_
+  symm
+  refine (Lp.coeFn_smul c _).trans ?_
+  filter_upwards [coeFn_kernelOperatorFn hVmble hV f] with x hx1
+  simp [hx1]
+
+/-- **The Hilbert-Schmidt integral kernel operator** as a bounded linear map
+    `Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ`.
+
+    Given a measurable kernel `V` in `L²(K × K, μ ⊗ μ)`, the operator acts as
+    `(kernelOperator V _ _ f)(x) = ∫ V(x, y) · f(y) dμ(y)` (a.e. in x), and
+    its operator norm is bounded by `‖V‖_{L²(μ ⊗ μ)}`. -/
+noncomputable def kernelOperator
+    {V : K × K → ℂ} (hVmble : Measurable V) (hV : MemLp V 2 (μ.prod μ)) :
+    Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ :=
+  LinearMap.mkContinuous
+    { toFun := kernelOperatorFn hVmble hV
+      map_add' := kernelOperatorFn_add hVmble hV
+      map_smul' := kernelOperatorFn_smul hVmble hV }
+    (eLpNorm V 2 (μ.prod μ)).toReal
+    (norm_kernelOperatorFn_le hVmble hV)
+
 end HilbertSchmidtBound
 
 end PrincipiaTractalis.IntegralKernel
