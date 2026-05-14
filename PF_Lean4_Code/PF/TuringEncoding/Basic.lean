@@ -124,30 +124,26 @@ From Chapter 21, Theorem 4 (Critical Values for Consciousness Computation):
 The self-adjointness condition determines these values uniquely.
 -/
 
-/-- Critical parameter for P-class (√2)
-    Reference: Chapter 21, Theorem 4 (thm:critical-values)
-    This value makes H_P self-adjoint through the generating function identity.
--/
-noncomputable def alphaPclass : ℝ := Real.sqrt 2
+/- `alphaPclass`, `alphaNPclass`, `alphaPclass_eq_sqrt2`,
+   `alphaNPclass_eq_phi_quarter`, and the local `alpha_separation`
+   — all deleted 2026-05-14 (Stage 40) as orphans following the deletion
+   of `phasePclass`/`phaseNPclass` in TuringEncoding/Operators.lean.
 
-/-- Critical parameter for NP-class (φ + 1/4)
-    Reference: Chapter 21, Theorem 4 (thm:critical-values)
-    The golden ratio φ provides optimal packing for nondeterministic branches.
--/
-noncomputable def alphaNPclass : ℝ := phi + 1/4
+   These were the third (camelCase) set of α-parameter definitions in
+   the codebase, used only by the phase functions for the H_P/H_NP
+   operator kernels. With those phase functions gone, this whole
+   sub-block has no consumers.
 
-/-- The P-class parameter equals √2 -/
-theorem alphaPclass_eq_sqrt2 : alphaPclass = Real.sqrt 2 := rfl
+   The canonical α-parameter definitions live elsewhere:
+   - `α_P, α_NP` (Unicode, in P_NP_Complete_Proof.lean) via alpha_of_class
+   - `alpha_P, alpha_NP` (ASCII, in TuringEncoding.lean) via alpha_of_class
+   - With `α_P_value`, `α_NP_value`, `alpha_P_value_ascii`,
+     `alpha_NP_value_ascii` deriving the canonical √2 / φ+¼ values
+     from `alpha_class_self_adjointness_canonical`.
 
-/-- The NP-class parameter equals φ + 1/4 -/
-theorem alphaNPclass_eq_phi_quarter : alphaNPclass = phi + 1/4 := rfl
-
-/-- NP parameter is strictly larger than P parameter
-    This geometric separation is fundamental to P ≠ NP
--/
-theorem alpha_separation : alphaNPclass > alphaPclass := by
-  unfold alphaNPclass alphaPclass
-  exact phi_plus_quarter_gt_sqrt2
+   A separate `alpha_separation` theorem (parent namespace) lives in
+   `TuringEncoding.lean` proving `alpha_NP > alpha_P` for the unified
+   ASCII versions, which is what downstream code uses. -/
 
 /-!
 ## Encoding Properties

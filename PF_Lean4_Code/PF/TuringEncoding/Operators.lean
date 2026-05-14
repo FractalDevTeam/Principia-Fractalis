@@ -87,18 +87,13 @@ From Chapter 21, Construction 3: "The phase e^(iπα_P·D(encode(x))) encodes th
 computational structure through the digital sum."
 -/
 
-/-- Phase factor for P-class operator
-    e^(iπ·√2·D(encode(x))) where D is the base-3 digital sum
--/
-noncomputable def phasePclass (x : BinString) : ℂ :=
-  Complex.exp (I * (Real.pi : ℂ) * alphaPclass * (instanceDigitalSum x : ℝ))
-
-/-- Phase factor for NP-class operator
-    e^(iπ·(φ+1/4)·D(encode(x,c))) including certificate information
--/
-noncomputable def phaseNPclass (x : BinString) (c : Certificate) : ℂ :=
-  let totalDigitalSum := instanceDigitalSum x + instanceDigitalSum c
-  Complex.exp (I * (Real.pi : ℂ) * alphaNPclass * (totalDigitalSum : ℝ))
+/- `phasePclass` and `phaseNPclass` — deleted 2026-05-14 (Stage 40) as
+   orphan phase-factor definitions. These were the phase functions
+   `e^(iπ·α·D(x))` intended for use in the H_P and H_NP integral kernels,
+   but those operators were deleted earlier as zero-function placeholders
+   (line 103, 111 commentary). Without the operators, the phase functions
+   have nothing to be applied to and are pure orphans. When operator
+   infrastructure is restored, these can return as kernel components. -/
 
 -- OPERATOR DEFINITION REMOVED: H_Pclass (UNUSED)
 -- Was a placeholder definition (constant 0 function) defined on L2LanguageSpace.
