@@ -112,25 +112,46 @@ depend only on `{propext, Classical.choice, Quot.sound}`.
   — the **fully-bounded CLM** via `LinearMap.mkContinuous`. Stage L2's
   operator-construction milestone closed.
 
+**Bridge layer added** (commit b0134a6):
+- `integrable_pairingIntegrand_of_bounded` — for bounded V on finite μ, the
+  pairingIntegrand `conj(f x) · V(x,y) · g(y)` is L¹(μ⊗μ). Combines:
+  L² ⊂ L¹ on finite μ (MemLp.integrable), Integrable.mul_prod for L¹ × L¹
+  product, AEStronglyMeasurable.comp_fst/snd + `.mul` for the integrand
+  composition, and Integrable.mono with the explicit pointwise bound
+  `‖conj(f) · V · g‖ ≤ C · ‖f‖ · ‖g‖`.
+- `H_P_canonical : Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ` — the book's H_P operator
+  (Ch 21 Definition 4.2) instantiated as `kernelOperator V_P_canonical`.
+- **`H_P_canonical_isSelfAdjoint : IsSelfAdjoint (H_P_canonical ha)`** —
+  the formal version of the book's Theorem 4.4 (self-adjointness clause).
+  Proved by combining the L1 lift `isSelfAdjoint_of_kernel_conjSymm` with
+  `coeFn_kernelOperatorFn` + `fractalKernel_isConjSymmetric` +
+  `integrable_pairingIntegrand_of_bounded` (with C = a/(a-1) bound from
+  `abs_fractalKernelReal_le`).
+
 **Stage 44 totals**:
-- 4 new files under `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
-  HilbertSchmidt.
-- ~40 new theorems / definitions, all axiom-clean.
-- Master: `e02eb0d`, 5536 jobs, 1 project axiom, 0 sorries.
+- 5 new files under `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
+  HilbertSchmidt, Bridge.
+- ~45 new theorems / definitions, all axiom-clean.
+- Master: `b0134a6`, 5538 jobs, 1 project axiom, 0 sorries.
 
-**Pickup point for next session**: Bridge to `V_P_canonical`. With the
-infrastructure in place, `kernelOperator (measurable_fractalKernel α ha)
-(memLp_fractalKernel α ha μ 2)` produces the H_P operator, and the L1 lift
-`isSelfAdjoint_of_kernel_conjSymm` applied to `fractalKernel_isConjSymmetric`
-yields `IsSelfAdjoint H_P` as a theorem. The remaining bookkeeping is the
-`hAction` hypothesis (immediate from `coeFn_kernelOperatorFn`) and the
-`hFub` integrability hypothesis for `pairingIntegrand` (Hölder triple
-2-2-1 applied twice, or a direct triple-Hölder).
+**Stage 44 chain complete**: V_P kernel definition → measurability + L²
+membership → Hilbert-Schmidt CLM construction → conj-symmetry → H_P
+operator → **self-adjointness as a Lean theorem**.
 
-After that, V_NP via unitary R_φ conjugation preserves self-adjointness
-via `IsSelfAdjoint.conj_adjoint`, and L3 (generating-function identity for
-N_m^(3)) + L4 (theta-sum reality at α = √2 and φ + 1/4) close out the
+**Pickup point for next session**: V_NP via unitary R_φ conjugation
+(`IsSelfAdjoint.conj_adjoint` lifts SA through unitary conjugation; the
+question is how R_φ acts on `Lp ℂ 2 μ` — it's a tensor-factor rotation in
+the book's setup). Then L3 (generating-function identity for N_m^(3),
+discrete-side SA criterion) and L4 (theta-sum reality at α = √2 and
+α = φ + 1/4, requires Jacobi triple product / Dedekind eta) for the final
 axiom retirement.
+
+Note: the L1-L2-Bridge work establishes the *continuous* H_P framework
+matching the book's Section 4.3. The axiom retirement also requires
+connecting this to the *discrete* H_P framework (Sections 4.1-4.2) where
+the theta-sum reality criterion lives, OR proving the algebraic α-equations
+directly from the continuous-kernel structure via different analytical
+content. Either path is genuine analytic mathematics, not infrastructure.
 
 This is multi-month operator-theory formalization, bounded in scope. Not a Clay problem — the manuscript's analysis is rigorous; this is the formalization runway.
 
