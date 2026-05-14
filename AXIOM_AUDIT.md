@@ -217,16 +217,23 @@ foundation for the polylog-route axiom retirement.
   `Tendsto` statements identifying polylog with its partial-sum limit.
 - **`polyLog_zero_exponent`** — closed-form identity `Li_0(z) = z/(1−z)`
   for `‖z‖ < 1`, via `tsum_geometric_of_norm_lt_one` + `field_simp`.
+- **`partial_polyLog_one_eq_neg_logTaylor`** — per-N partial-sum bridge
+  `Σ_{n < N} z^(n+1) / (n+1) = −Complex.logTaylor (N+1) (−z)`. Proved by
+  induction using `conv_rhs` + `Complex.logTaylor_succ`, plus the sign
+  identity `(−1)^(N+2) · (−z)^(N+1) = −z^(N+1)`.
+- **`polyLog_one`** — closed-form identity `Li_1(z) = −log(1 − z)`
+  (Mercator series) for `‖z‖ < 1`. Bridges the partial-sum identity with
+  `Complex.norm_log_sub_logTaylor_le` (giving `logTaylor(N+1)(−z) → log(1−z)`)
+  via `tendsto_nhds_unique`.
 
 Documented roadmap for the polylog-route axiom retirement:
-1. `Li_1(z) = −log(1−z)` (Mercator) via mathlib's `Complex.logTaylor`
-2. Derivative recurrence `d/dz Li_{s+1}(z) = Li_s(z)/z`
-3. Functional equation / reflection
-4. **Jonquières analytic continuation** for `|z|` near 1
-5. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula
-6. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`
+1. Derivative recurrence `d/dz Li_{s+1}(z) = Li_s(z)/z`
+2. Functional equation / reflection
+3. **Jonquières analytic continuation** for `|z|` near 1
+4. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula
+5. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`
 
-Steps 4-6 are the substantive analytic-number-theory work that would
+Steps 3-5 are the substantive analytic-number-theory work that would
 retire `alpha_class_self_adjointness_canonical` via the polylog route.
 
 **L4 analytic layer** (commit 7733bcc):
@@ -342,10 +349,10 @@ theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
   HilbertSchmidt, Bridge.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
-- 1 new file in `PF/Analytic/`: Polylog.
-- ~78 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+- 1 new file in `PF/Analytic/`: Polylog (now with `Li_0` AND `Li_1` closed forms).
+- ~80 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
   L4-algebra / L4-analytic / L4-polylog, all axiom-clean.
-- Master: `12293a6`, 5548 jobs, 1 project axiom, 0 sorries.
+- Master: `1d49f84`, 5548 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
