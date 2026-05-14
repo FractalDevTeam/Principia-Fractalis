@@ -146,11 +146,12 @@ theorem np_minus_p_needs_certificates :
 -- ============================================================================
 
 /-- Localα frequency separation using Greek letters matches the imported version.
-    After Stage 25 (α_P, α_NP via alpha_of_class), bridge via α_P_value / α_NP_value. -/
+    After Stages 25+28 (both unicode α_P/α_NP and ASCII alpha_P/alpha_NP now
+    use alpha_of_class), bridge via the canonical-values theorems. -/
 lemma alpha_sep_greek : α_NP > α_P := by
   rw [α_P_value, α_NP_value]
-  -- Goal: phi + 1/4 > Real.sqrt 2 (which is alpha_separation's content)
-  exact alpha_separation
+  -- Goal: phi + 1/4 > Real.sqrt 2
+  exact phi_plus_quarter_gt_sqrt2
 
 /-- Different frequencies give different ground states -/
 theorem frequency_determines_energy :

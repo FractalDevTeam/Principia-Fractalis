@@ -1363,7 +1363,7 @@ noncomputable def energyNP (certificate : List (Fin 3))
 
     Reference: Chapter 21, Theorem 21.2 (ch21_p_vs_np.tex:284-291)
 -/
-noncomputable def alpha_P : ℝ := Real.sqrt 2
+noncomputable def alpha_P : ℝ := TuringEncoding.alpha_of_class TuringEncoding.ClassP
 
 /-- Critical resonance frequency for NP-class operators.
 
@@ -1372,9 +1372,21 @@ noncomputable def alpha_P : ℝ := Real.sqrt 2
     This value ensures self-adjointness of H_NP operator.
     The golden ratio φ appears due to certificate branching structure.
 
+    Stage 28 unification (2026-05-14): now `alpha_of_class ClassNP`, with
+    the concrete value `phi + 1/4` pinned via `alpha_class_canonical_values.2`.
+
     Reference: Chapter 21, Theorem 21.2 (ch21_p_vs_np.tex:284-291)
 -/
-noncomputable def alpha_NP : ℝ := phi + 1/4
+noncomputable def alpha_NP : ℝ := TuringEncoding.alpha_of_class TuringEncoding.ClassNP
+
+/-- The ASCII `alpha_P` (defined here) equals `√2` via the canonical-values
+    axiom. Bridges the structural definition to its numerical content. -/
+theorem alpha_P_value_ascii : alpha_P = Real.sqrt 2 :=
+  TuringEncoding.alpha_class_canonical_values.1
+
+/-- The ASCII `alpha_NP` equals `φ + 1/4`. -/
+theorem alpha_NP_value_ascii : alpha_NP = phi + 1/4 :=
+  TuringEncoding.alpha_class_canonical_values.2
 
 /-- Resonance frequency separation.
 
@@ -1384,9 +1396,8 @@ noncomputable def alpha_NP : ℝ := phi + 1/4
     It directly translates to the spectral gap Δ = λ₀(H_NP) - λ₀(H_P) > 0.
 -/
 theorem alpha_separation : alpha_NP > alpha_P := by
-  unfold alpha_NP alpha_P
-  -- φ + 1/4 ≈ 1.868 > √2 ≈ 1.414
-  -- This follows from phi_plus_quarter_gt_sqrt2 axiom in IntervalArithmetic
+  rw [alpha_P_value_ascii, alpha_NP_value_ascii]
+  -- φ + 1/4 ≈ 1.868 > √2 ≈ 1.414 (from phi_plus_quarter_gt_sqrt2)
   exact phi_plus_quarter_gt_sqrt2
 
 -- ============================================================================
