@@ -134,6 +134,71 @@ depend only on `{propext, Classical.choice, Quot.sound}`.
   `IsSelfAdjoint.conj_adjoint` applied to `H_P_canonical_isSelfAdjoint`.
 - `H_NP_via_conjugation_id_eq_H_P` — sanity-check: `S = id` recovers H_P.
 
+**L4 source investigation (this session, post-foundation)**:
+
+After building the truncated theta-sum framework, I traced the book's
+α-derivation through the supporting materials:
+
+* `Evidence_and_Data_for_GitHub/alpha_sqrt2_derivation.py` — the canonical
+  α = √2 derivation script referenced by rev2 Ch 21 (line 287). The script's
+  "Step 5" identifies the constraint system
+  ```
+  α^{d_H} = 3    (kernel-measure scaling consistency)
+  3 r^{d_H} = 1  (IFS / Moran equation for 3 contractions with ratio r)
+  α · r = 1      (inverse relation)
+  ```
+  These give the parametric family `α = 3^{1/d_H}, r = 3^{-1/d_H}` but do
+  **not** pin `d_H` to a specific value. The script's claim
+  "d_H = √2 emerges uniquely" is asserted, not proved — the script confirms
+  `d_H = √2` is consistent and gives convenient closed forms, but does not
+  rigorously exclude other values.
+
+* `Evidence_and_Data_for_GitHub/fractal_continuation_derivation.py` —
+  expresses `λ_0(H_P) = π/(10√2)` as `Re[Li_{s*}^{[m*]}(e^{iπ√2})]` with
+  numerically-determined `s* ≈ 0.182, m* = -1`. The polylog parameters
+  are fit to the closed-form target, not derived from first principles.
+
+* Ch 7 (book line 248-258): the values `{√2, φ, π, e}` are described
+  as "Sacred Geometry" — `√2` is "the smallest irrational" (geometric
+  argument), `φ` is "the most irrational" (continued-fraction argument).
+  These are MOTIVATIONS, not analytic derivations from SA.
+
+**Honest conclusion**: the book's α = √2 and α = φ + 1/4 are *choices* of
+resonance parameters consistent with the framework's structural relations
+(`α^{d_H} = 3`, etc.), but not analytically forced by a self-adjointness
+reality criterion. The "complete proof shows..." language in Ch 21 §297
+overstates the derivation: only `α = 2/3 + 2k` and `α = 4/3 + 2k` solve
+the simple theta-factor reality condition (per L4 foundation's
+`truncatedThetaSum_succ_of_factor_zero`); `α = √2` does not.
+
+**Implication for the remaining axiom**:
+`alpha_class_self_adjointness_canonical` encodes the book's chosen
+resonance values via opaque-function indirection. The axiom's literal
+content (algebraic equations on `alpha_of_class ClassP` /
+`alpha_of_class ClassNP`) is the framework's *structural commitment*, not
+a downstream theorem of the operator-self-adjointness analysis. Two paths
+remain for retirement:
+1. **Definitional refactor** — define `alpha_of_class` concretely
+   (`λ S, if S = ClassP then √2 else φ + 1/4`, using `Classical.byCases`).
+   The algebraic equations become trivial corollaries (`(√2)² = 2`,
+   `16(φ+1/4)² - 24(φ+1/4) - 11 = 0` by Real.sq_sqrt + golden-ratio
+   algebra). **Catch**: this changes the semantics of
+   `alpha_class_distinct` — it no longer encodes P ≠ NP, since the
+   if-then-else collapses when `ClassP = ClassNP` (i.e. when P = NP).
+   The downstream P ≠ NP chain breaks.
+2. **Genuine analytic derivation** — formalize an SA reality criterion
+   strong enough to pin α = √2 and α = φ + 1/4. The book's polylog /
+   modular-form route is currently informal; rigorizing it is multi-month
+   analytic-number-theory work.
+
+The current axiom should therefore be understood as the framework's
+**irreducible structural commitment**, encoding "P-class and NP-class are
+distinguished by these specific resonance values". The L1-L2-L3-L4
+infrastructure built this session establishes that this commitment is
+consistent with a fully formalized continuous operator framework — both
+H_P and H_NP are self-adjoint as theorems — but the commitment itself
+remains the axiom.
+
 **L4 foundation added** (commit 6b7fd41):
 `PF/TuringEncoding/ThetaSum.lean` — the complex-valued specialization of
 the L3 truncated GF, providing the foundational reality framework:
