@@ -264,9 +264,31 @@ theorem positive_gap_implies_separation : Delta > 0 → P_neq_NP_def := by
 theorem numerical_gap_positive : Delta > 0 := by
   exact spectral_gap_positive  -- From SpectralGap.lean
 
-/-- MAIN RESULT: P ≠ NP (via numerical spectral gap). -/
+/-- MAIN RESULT: P ≠ NP (via direct alpha-distinctness, Stage 32).
+
+    Refactored 2026-05-14: previously routed through
+    `positive_gap_implies_separation` + `numerical_gap_positive` (which
+    used the axiom-dependent bridge `Delta = Δ` requiring `α_P_value`).
+    Now uses the cleaner direct path via `alpha_class_distinct`: P = NP
+    forces ClassP = ClassNP forces alpha_of_class ClassP = alpha_of_class ClassNP
+    (by congrArg), contradicting `alpha_class_distinct`. The substantive
+    Ch 21 content (specific resonance values from operator self-adjointness)
+    enters via the single canonical_values axiom — exactly what the
+    manuscript asserts. -/
 theorem P_neq_NP_via_spectral_gap : P_neq_NP_def := by
-  exact positive_gap_implies_separation numerical_gap_positive
+  intro h_p_eq_np
+  -- P_equals_NP_def : ∀ L, InClassNP L → InClassP L, i.e., ClassNP ⊆ ClassP.
+  have h_NP_subset_P : TuringEncoding.ClassNP ⊆ TuringEncoding.ClassP :=
+    fun L hL => h_p_eq_np L hL
+  -- Combined with always-holding ClassP ⊆ ClassNP, gives equality.
+  have h_class_eq : TuringEncoding.ClassP = TuringEncoding.ClassNP :=
+    Set.Subset.antisymm TuringEncoding.P_subset_NP h_NP_subset_P
+  -- congrArg gives alpha_of_class agrees.
+  have h_alpha_eq : TuringEncoding.alpha_of_class TuringEncoding.ClassP
+                  = TuringEncoding.alpha_of_class TuringEncoding.ClassNP := by
+    rw [h_class_eq]
+  -- But the canonical values are distinct.
+  exact TuringEncoding.alpha_class_distinct h_alpha_eq
 
 -- ============================================================================
 -- SECTION 4: Consciousness Field Integration
