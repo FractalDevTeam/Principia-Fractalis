@@ -300,7 +300,7 @@ theorem alpha_class_canonical_values :
     theorem) to derive P ≠ NP, without needing the specific numerical
     values. Added Stage 32 (2026-05-14). -/
 theorem alpha_class_distinct : alpha_of_class ClassP ≠ alpha_of_class ClassNP := by
-  rw [alpha_class_canonical_values.1, alpha_class_canonical_values.2]
+  rw [alpha_at_ClassP_eq_sqrt2, alpha_at_ClassNP_eq_phi_plus_quarter]
   intro h
   -- h : Real.sqrt 2 = phi + 1/4, but phi_plus_quarter_gt_sqrt2 says φ+¼ > √2.
   linarith [phi_plus_quarter_gt_sqrt2]
@@ -316,7 +316,7 @@ theorem alpha_class_distinct : alpha_of_class ClassP ≠ alpha_of_class ClassNP 
 theorem p_eq_np_spectrum_collapse (h : ClassP = ClassNP) :
     lambda_0_P = lambda_0_NP := by
   show pi_10 / Real.sqrt 2 = pi_10 / (phi + 1/4)
-  rw [← alpha_class_canonical_values.1, ← alpha_class_canonical_values.2, h]
+  rw [← alpha_at_ClassP_eq_sqrt2, ← alpha_at_ClassNP_eq_phi_plus_quarter, h]
 
 /-- If P = NP, the operators would have the same ground state energy (contradiction) -/
 theorem P_eq_NP_implies_same_ground_energy :
