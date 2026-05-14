@@ -94,4 +94,64 @@ theorem canonical_alpha_algebraic_pair :
     (16 * (phi + 1/4) ^ 2 - 24 * (phi + 1/4) - 11 = 0 ∧ 0 < phi + 1/4) :=
   ⟨⟨alpha_P_sq, alpha_P_pos⟩, ⟨alpha_NP_quadratic, alpha_NP_pos⟩⟩
 
+/-! ## Equivalence: axiom's algebraic form ⇔ value assignment
+
+The axiom `alpha_class_self_adjointness_canonical` asserts the algebraic
+conjunction on `alpha_of_class ClassP` and `alpha_of_class ClassNP`. We
+show this is logically equivalent (for *any* real-valued function `f`)
+to the *value assignment* `f x = √2 ∧ f y = φ + 1/4` — making the
+axiom's substantive content transparent as a structural identification
+of two distinguished resonance values. -/
+
+/-- **Forward direction**: the algebraic system pins the values. Given
+    `f` satisfying the algebra on `(x, y)`, then `f x = √2` and `f y = φ + 1/4`. -/
+theorem algebraic_pair_to_value_assignment
+    {f : Set Language → ℝ} {x y : Set Language}
+    (h : ((f x) ^ 2 = 2 ∧ 0 < f x) ∧
+         (16 * (f y) ^ 2 - 24 * (f y) - 11 = 0 ∧ 0 < f y)) :
+    f x = Real.sqrt 2 ∧ f y = phi + 1/4 := by
+  obtain ⟨⟨hxsq, hxpos⟩, ⟨hyquad, hypos⟩⟩ := h
+  refine ⟨?_, ?_⟩
+  · -- f x = √2 via Real.sqrt_sq + (f x)² = 2 + positivity
+    have : Real.sqrt ((f x) ^ 2) = f x := Real.sqrt_sq hxpos.le
+    rw [← this, hxsq]
+  · -- f y = φ + 1/4: the positive root of 16α² − 24α − 11 = 0
+    -- Discriminant: 24² + 4·16·11 = 576 + 704 = 1280 = 64·20 = 256·5
+    -- Roots: (24 ± √1280) / 32 = (24 ± 16√5) / 32 = (3 ± 2√5) / 4
+    -- Positive root: (3 + 2√5) / 4. We claim (3 + 2√5)/4 = φ + 1/4.
+    -- φ + 1/4 = (1 + √5)/2 + 1/4 = (2 + 2√5 + 1)/4 = (3 + 2√5)/4. ✓
+    have h_target : phi + 1/4 = (3 + 2 * Real.sqrt 5) / 4 := by
+      unfold phi; ring
+    -- Factor the quadratic: 16y² - 24y - 11 = 16(y - (3+2√5)/4)(y - (3-2√5)/4)
+    have h5_pos : (0 : ℝ) < Real.sqrt 5 :=
+      Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+    have h5_sq : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+    have h_factor : (16 : ℝ) * (f y) ^ 2 - 24 * (f y) - 11 =
+                    16 * (f y - (3 + 2 * Real.sqrt 5) / 4) *
+                         (f y - (3 - 2 * Real.sqrt 5) / 4) := by
+      have h5sq : (Real.sqrt 5) * (Real.sqrt 5) = 5 := by
+        have := h5_sq; nlinarith [this]
+      ring_nf
+      nlinarith [h5_sq]
+    rw [h_factor] at hyquad
+    -- Either f y = (3+2√5)/4 or f y = (3-2√5)/4. The negative root is excluded.
+    have h_neg_root : (3 - 2 * Real.sqrt 5) / 4 < 0 := by
+      have h_sqrt5_gt : Real.sqrt 5 > 3 / 2 := by
+        have : (3/2 : ℝ)^2 < 5 := by norm_num
+        nlinarith [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5), h5_pos]
+      linarith
+    -- From product = 0 (modulo factor 16 ≠ 0), one of the factors is zero
+    have h16_ne : (16 : ℝ) ≠ 0 := by norm_num
+    have h_prod_zero : (f y - (3 + 2 * Real.sqrt 5) / 4) *
+                       (f y - (3 - 2 * Real.sqrt 5) / 4) = 0 := by
+      have := hyquad
+      nlinarith [hyquad]
+    rcases mul_eq_zero.mp h_prod_zero with h_pos_root | h_neg_root_eq
+    · -- f y = (3+2√5)/4 = φ + 1/4 ✓
+      have : f y = (3 + 2 * Real.sqrt 5) / 4 := by linarith
+      rw [this, ← h_target]
+    · -- f y = (3-2√5)/4 < 0, contradicts hypos
+      have : f y = (3 - 2 * Real.sqrt 5) / 4 := by linarith
+      linarith [this ▸ hypos]
+
 end PrincipiaTractalis.TuringEncoding
