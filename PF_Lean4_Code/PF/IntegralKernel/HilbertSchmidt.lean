@@ -96,4 +96,76 @@ theorem aestronglyMeasurable_kernelAction [SFinite μ] [IsFiniteMeasure μ]
   unfold kernelAction
   exact (integrable_kernel_mul hV hf).aestronglyMeasurable.integral_prod_right'
 
+/-! ## `KernelL2` — the bundled kernel data
+
+To make downstream `kernelOperator` constructions clean, we package the
+data `(V, hMem)` as a single subtype. This is the input type to the
+eventual `kernelOperator : KernelL2 μ → Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ`. -/
+
+/-- The space of L²(K × K, μ ⊗ μ)-valued kernels. -/
+def KernelL2 (μ : Measure K) [SFinite μ] : Type _ :=
+  { V : K × K → ℂ // MemLp V 2 (μ.prod μ) }
+
+namespace KernelL2
+
+variable [SFinite μ]
+
+/-- The kernel as a raw function. -/
+@[coe] def toFun (V : KernelL2 μ) : K × K → ℂ := V.val
+
+instance : CoeFun (KernelL2 μ) (fun _ => K × K → ℂ) := ⟨toFun⟩
+
+/-- The bundled `MemLp` witness. -/
+theorem memLp (V : KernelL2 μ) : MemLp (V : K × K → ℂ) 2 (μ.prod μ) := V.property
+
+section FiniteMeasure
+variable [IsFiniteMeasure μ]
+
+/-- Integrability of `V · f.comp_snd` on the product measure, packaged. -/
+theorem integrable_mul (V : KernelL2 μ) {f : K → ℂ} (hf : MemLp f 2 μ) :
+    Integrable (fun z => (V : K × K → ℂ) z * f z.2) (μ.prod μ) :=
+  integrable_kernel_mul V.memLp hf
+
+/-- For a.e. `x`, the section `y ↦ V(x, y) · f y` is integrable, packaged. -/
+theorem integrable_section (V : KernelL2 μ) {f : K → ℂ} (hf : MemLp f 2 μ) :
+    ∀ᵐ x ∂μ, Integrable (fun y => (V : K × K → ℂ) (x, y) * f y) μ :=
+  integrable_kernel_section V.memLp hf
+
+/-- `kernelAction (V : KernelL2 μ) f` is AEStronglyMeasurable, packaged. -/
+theorem aestronglyMeasurable_action (V : KernelL2 μ) {f : K → ℂ}
+    (hf : MemLp f 2 μ) :
+    AEStronglyMeasurable (kernelAction (V : K × K → ℂ) f μ) μ :=
+  aestronglyMeasurable_kernelAction V.memLp hf
+
+end FiniteMeasure
+end KernelL2
+
+/-! ## Next milestone: the Hilbert-Schmidt L²-bound
+
+The remaining analytic step:
+```
+theorem eLpNorm_kernelAction_le (V : KernelL2 μ) (f : K → ℂ) (hf : MemLp f 2 μ) :
+    eLpNorm (kernelAction V f μ) 2 μ ≤ eLpNorm V 2 (μ.prod μ) * eLpNorm f 2 μ
+```
+
+Proof outline:
+1. **Pointwise Cauchy-Schwarz** (for a.e. `x`): viewing the integrand as an
+   inner-product-like form, `|∫ V(x, y) · f(y) dμ(y)| ≤ ‖V(x, ·)‖₂ · ‖f‖₂`.
+2. **Fubini-Tonelli for the squared norm**:
+   `∫⁻ x, ‖V(x, ·)‖₊² ∂μ = ∫⁻ x, ∫⁻ y, ‖V(x, y)‖₊² ∂μ ∂μ = eLpNorm V 2 (μ ⊗ μ)²`.
+3. Combine and take square roots.
+
+Once established, `kernelAction V f` lies in `Lp ℂ 2 μ` and we build:
+```
+def kernelOperator (V : KernelL2 μ) : Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ :=
+  LinearMap.mkContinuous {
+    toFun := fun f => MemLp.toLp _ (memLp_kernelAction V f.memLp)
+    map_add' := …  -- from linearity of the inner integral
+    map_smul' := …
+  } ‖(V : K × K → ℂ)‖_{L²(μ⊗μ)} (eLpNorm_kernelAction_le V)
+```
+
+The L1 lift then gives `IsSelfAdjoint (kernelOperator V)` whenever
+`IsConjSymmetric (V : K × K → ℂ) μ` holds, closing the L2 chain for V_P. -/
+
 end PrincipiaTractalis.IntegralKernel
