@@ -34,9 +34,19 @@ namespace PrincipiaTractalis
 -- FOUNDATIONAL DEFINITIONS
 -- ============================================================================
 
-/-- Resonance frequencies for complexity classes -/
-noncomputable def α_P : ℝ := Real.sqrt 2
-noncomputable def α_NP : ℝ := phi + 1/4
+/-- Resonance frequency for P-class. Stage 25 (2026-05-14): structurally
+    derived from the class-resonance function `alpha_of_class` in
+    `TuringEncoding/Operators.lean` (was: `noncomputable def α_P : ℝ := Real.sqrt 2`). -/
+noncomputable def α_P : ℝ := TuringEncoding.alpha_of_class TuringEncoding.ClassP
+
+/-- Resonance frequency for NP-class. -/
+noncomputable def α_NP : ℝ := TuringEncoding.alpha_of_class TuringEncoding.ClassNP
+
+/-- α_P equals √2 (theorem from `alpha_class_canonical_values.1`). -/
+theorem α_P_value : α_P = Real.sqrt 2 := TuringEncoding.alpha_class_canonical_values.1
+
+/-- α_NP equals φ + ¼. -/
+theorem α_NP_value : α_NP = phi + 1/4 := TuringEncoding.alpha_class_canonical_values.2
 
 /-- Ground state energies from fractal resonance -/
 noncomputable def lambda_P : ℝ := pi_10 / α_P
@@ -135,11 +145,11 @@ theorem np_minus_p_needs_certificates :
 -- THEOREM 3: CERTIFICATE STRUCTURE FORCES α_NP > α_P
 -- ============================================================================
 
-/-- Localα frequency separation using Greek letters matches the imported version -/
+/-- Localα frequency separation using Greek letters matches the imported version.
+    After Stage 25 (α_P, α_NP via alpha_of_class), bridge via α_P_value / α_NP_value. -/
 lemma alpha_sep_greek : α_NP > α_P := by
-  unfold α_NP α_P
-  -- α_NP = phi + 1/4, α_P = Real.sqrt 2
-  -- These are the same values as alpha_NP and alpha_P
+  rw [α_P_value, α_NP_value]
+  -- Goal: phi + 1/4 > Real.sqrt 2 (which is alpha_separation's content)
   exact alpha_separation
 
 /-- Different frequencies give different ground states -/
@@ -158,12 +168,12 @@ theorem frequency_determines_energy :
   have h_alpha_eq : α_NP = α_P := by
     field_simp [ne_of_gt h_pi_pos] at h_eq
     have h1 : α_P > 0 := by
-      unfold α_P
+      rw [α_P_value]
       exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
     have h2 : α_NP > 0 := by
       trans α_P
-      exact alpha_separation
-      exact h1
+      · exact alpha_sep_greek
+      · exact h1
     rw [div_eq_div_iff (ne_of_gt h2) (ne_of_gt h1)] at h_eq
     linarith
 
@@ -179,17 +189,25 @@ theorem frequency_determines_energy :
     functionals E_P and E_NP coincide (certificate structure becomes
     redundant), forcing α_NP = α_P.
 
-    Reformulated 2026-05-11 to use the class-based `P_equals_NP_def`. Was
-    previously stated with the `IsInP/IsInNP` placeholder predicates which
-    were definitionally the same; that made the axiom inconsistent with
-    `alpha_separation`. The new antecedent `P_equals_NP_def` (class inclusion
-    `ClassNP ⊆ ClassP`) is a non-trivial proposition, so the axiom no longer
-    derives False directly.
+    AXIOM RETIRED 2026-05-14 (Stage 25). Previously an axiom; now provable
+    as a theorem from the structural reformulation of α_P and α_NP as
+    `alpha_of_class ClassP` and `alpha_of_class ClassNP` (above). The proof
+    is `congrArg alpha_of_class` on the class equality
+    `ClassP = ClassNP` (which follows from `P_equals_NP_def` combined with
+    the always-holding `P_subset_NP`).
 
     Reference: Chapter 21, Theorem 21.3 (ch21_p_vs_np.tex:295-340) -/
-axiom operator_collapse_hypothesis : P_equals_NP_def → α_NP = α_P
+theorem operator_collapse_hypothesis (h : P_equals_NP_def) : α_NP = α_P := by
+  -- P_equals_NP_def : ∀ L, InClassNP L → InClassP L  ⟺  ClassNP ⊆ ClassP.
+  have h_NP_subset_P : TuringEncoding.ClassNP ⊆ TuringEncoding.ClassP := fun L hL => h L hL
+  -- Combined with always-holding ClassP ⊆ ClassNP, gives equality.
+  have h_eq : TuringEncoding.ClassP = TuringEncoding.ClassNP :=
+    Set.Subset.antisymm TuringEncoding.P_subset_NP h_NP_subset_P
+  show TuringEncoding.alpha_of_class TuringEncoding.ClassNP
+     = TuringEncoding.alpha_of_class TuringEncoding.ClassP
+  rw [h_eq]
 
-/-- Operator collapse: P = NP implies α_NP = α_P (delegates to the axiom). -/
+/-- Operator collapse: P = NP implies α_NP = α_P (delegates to the theorem). -/
 theorem all_in_p_operator_collapse : P_equals_NP_def → α_NP = α_P :=
   operator_collapse_hypothesis
 
@@ -223,18 +241,18 @@ theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
       -- Therefore π/(10α_NP) < π/(10α_P)
       -- So Δ = π/(10α_P) - π/(10α_NP) > 0
 
-      have h_alpha : α_NP > α_P := alpha_separation
+      have h_alpha : α_NP > α_P := alpha_sep_greek
       have h_pi : pi_10 > 0 := by
         unfold pi_10
         apply div_pos Real.pi_pos
         norm_num
 
       have h_ap_pos : α_P > 0 := by
-        unfold α_P
+        rw [α_P_value]
         exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
 
       have h_anp_pos : α_NP > 0 := by
-        calc α_NP > α_P := alpha_separation
+        calc α_NP > α_P := alpha_sep_greek
           _ > 0 := h_ap_pos
 
       have h_inv : (1 : ℝ) / α_NP < 1 / α_P := by
@@ -262,14 +280,14 @@ theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
 theorem gap_positive : Δ > 0 := by
   unfold Δ lambda_P lambda_NP
 
-  have h_alpha : α_NP > α_P := alpha_separation
+  have h_alpha : α_NP > α_P := alpha_sep_greek
   have h_pi : pi_10 > 0 := by
     unfold pi_10
     apply div_pos Real.pi_pos
     norm_num
 
   have h_ap : α_P > 0 := by
-    unfold α_P
+    rw [α_P_value]
     exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
 
   have h_anp : α_NP > 0 := by

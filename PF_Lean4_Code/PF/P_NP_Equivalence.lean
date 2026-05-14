@@ -187,8 +187,13 @@ theorem spectral_gap_iff_P_neq_NP : Delta > 0 ↔ P_neq_NP_def := by
       exact p_eq_np_iff_zero_gap.mp h_p_eq_np
     -- Show that Delta = Δ (both are spectral_gap)
     have h_delta_eq : Delta = Δ := by
-      unfold Delta spectral_gap Δ lambda_P lambda_NP lambda_0_P lambda_0_NP
-      rfl
+      show spectral_gap = PrincipiaTractalis.Δ
+      unfold spectral_gap PrincipiaTractalis.Δ
+      show PrincipiaTractalis.lambda_0_P - PrincipiaTractalis.lambda_0_NP
+         = PrincipiaTractalis.lambda_P - PrincipiaTractalis.lambda_NP
+      show pi_10 / Real.sqrt 2 - pi_10 / (phi + 1/4)
+         = pi_10 / PrincipiaTractalis.α_P - pi_10 / PrincipiaTractalis.α_NP
+      rw [PrincipiaTractalis.α_P_value, PrincipiaTractalis.α_NP_value]
     -- Therefore Delta = 0
     have h_p_eq_np_forces_zero_gap : Delta = 0 := by
       rw [h_delta_eq]; exact h_delta_zero
@@ -401,11 +406,11 @@ theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
     --   alpha_P = Real.sqrt 2 and alpha_NP = phi + 1/4
     -- So they're the same! lambda_0_P = lambda_P and lambda_0_NP = lambda_NP
     have h_same_P : lambda_0_P = PrincipiaTractalis.lambda_P := by
-      unfold lambda_0_P PrincipiaTractalis.lambda_P
-      simp [alpha_P, PrincipiaTractalis.α_P]
+      show pi_10 / Real.sqrt 2 = pi_10 / PrincipiaTractalis.α_P
+      rw [PrincipiaTractalis.α_P_value]
     have h_same_NP : lambda_0_NP = PrincipiaTractalis.lambda_NP := by
-      unfold lambda_0_NP PrincipiaTractalis.lambda_NP
-      simp [alpha_NP, PrincipiaTractalis.α_NP]
+      show pi_10 / (phi + 1/4) = pi_10 / PrincipiaTractalis.α_NP
+      rw [PrincipiaTractalis.α_NP_value]
     calc lambda_0_P - lambda_0_NP
         = PrincipiaTractalis.lambda_P - PrincipiaTractalis.lambda_NP := by rw [h_same_P, h_same_NP]
       _ = PrincipiaTractalis.Δ := by unfold PrincipiaTractalis.Δ; rfl
