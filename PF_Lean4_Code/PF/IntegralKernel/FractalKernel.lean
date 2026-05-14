@@ -31,7 +31,8 @@ Stage L2 — kernel definitions and elementary symmetries.
 import PF.IntegralKernel.Basic
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Analysis.SpecificLimits.Basic
-import Mathlib.Topology.MetricSpace.Defs
+import Mathlib.Topology.MetricSpace.Pseudo.Constructions
+import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
 
 namespace PrincipiaTractalis.IntegralKernel
 
@@ -201,5 +202,29 @@ theorem V_P_canonical_swap (a : ℝ) (z : K × K) :
 theorem abs_V_P_canonical_le {a : ℝ} (ha : 1 < a) (z : K × K) :
     |fractalKernelReal (Real.sqrt 2) a z| ≤ a / (a - 1) :=
   abs_fractalKernelReal_le (Real.sqrt 2) ha z
+
+/-! ## Measurability of `fractalKernel`
+
+Under standard topological/measurable-space compatibility on `K`
+(`OpensMeasurableSpace K` plus second-countability for the product),
+the kernel is Borel-measurable. -/
+
+/-- Each termwise summand is continuous, hence Borel-measurable. -/
+theorem measurable_fractalKernelTerm
+    [MeasurableSpace K] [SecondCountableTopology K] [OpensMeasurableSpace K]
+    (α a : ℝ) (n : ℕ) :
+    Measurable (fun z : K × K => fractalKernelTerm α a z n) := by
+  unfold fractalKernelTerm
+  have h_dist : Continuous (fun p : K × K => dist p.1 p.2) := continuous_dist
+  have h_cos_arg : Continuous (fun z : K × K =>
+      Real.pi * α ^ n * dist z.1 z.2) :=
+    (continuous_const.mul h_dist)
+  have h_cos : Continuous (fun z : K × K =>
+      Real.cos (Real.pi * α ^ n * dist z.1 z.2)) :=
+    Real.continuous_cos.comp h_cos_arg
+  have h_scaled : Continuous (fun z : K × K =>
+      a ^ (-(n : ℤ)) * Real.cos (Real.pi * α ^ n * dist z.1 z.2)) :=
+    continuous_const.mul h_cos
+  exact h_scaled.measurable
 
 end PrincipiaTractalis.IntegralKernel
