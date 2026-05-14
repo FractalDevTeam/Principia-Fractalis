@@ -33,6 +33,7 @@ import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import Mathlib.Analysis.SpecificLimits.Basic
 import Mathlib.Topology.MetricSpace.Pseudo.Constructions
 import Mathlib.MeasureTheory.Constructions.BorelSpace.Basic
+import Mathlib.MeasureTheory.Constructions.BorelSpace.Metrizable
 
 namespace PrincipiaTractalis.IntegralKernel
 
@@ -226,5 +227,37 @@ theorem measurable_fractalKernelTerm
       a ^ (-(n : ℤ)) * Real.cos (Real.pi * α ^ n * dist z.1 z.2)) :=
     continuous_const.mul h_cos
   exact h_scaled.measurable
+
+/-- Partial sums of `fractalKernelTerm` are measurable (finite sum of
+    measurables). -/
+theorem measurable_fractalKernelPartialSum
+    [MeasurableSpace K] [SecondCountableTopology K] [OpensMeasurableSpace K]
+    (α a : ℝ) (N : ℕ) :
+    Measurable (fun z : K × K =>
+      ∑ n ∈ Finset.range N, fractalKernelTerm α a z n) :=
+  Finset.measurable_sum _ fun n _ => measurable_fractalKernelTerm α a n
+
+/-- **Measurability of the V_P kernel**: the tsum-defined kernel is the
+    pointwise limit of its measurable partial sums (under `a > 1`
+    summability), so it is measurable. -/
+theorem measurable_fractalKernelReal
+    [MeasurableSpace K] [SecondCountableTopology K] [OpensMeasurableSpace K]
+    (α : ℝ) {a : ℝ} (ha : 1 < a) :
+    Measurable (fractalKernelReal α a : K × K → ℝ) := by
+  refine measurable_of_tendsto_metrizable
+      (f := fun N => fun z => ∑ n ∈ Finset.range N, fractalKernelTerm α a z n)
+      (measurable_fractalKernelPartialSum α a) ?_
+  rw [tendsto_pi_nhds]
+  intro z
+  -- For each z, partial sums tend to the tsum
+  unfold fractalKernelReal
+  exact (summable_fractalKernelTerm α ha z).hasSum.tendsto_sum_nat
+
+/-- Measurability of the complexified kernel. -/
+theorem measurable_fractalKernel
+    [MeasurableSpace K] [SecondCountableTopology K] [OpensMeasurableSpace K]
+    (α : ℝ) {a : ℝ} (ha : 1 < a) :
+    Measurable (fractalKernel α a : K × K → ℂ) :=
+  Complex.measurable_ofReal.comp (measurable_fractalKernelReal α ha)
 
 end PrincipiaTractalis.IntegralKernel
