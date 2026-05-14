@@ -228,7 +228,8 @@ opaque alpha_of_class : Set Language → ℝ
     end value. -/
 axiom alpha_class_self_adjointness_canonical :
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
-    alpha_of_class ClassNP = phi + 1/4
+    (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0 ∧
+     0 < alpha_of_class ClassNP)
 
 /-- Canonical resonance value at ClassP, derived from the
     self-adjointness equation `α² = 2 ∧ α > 0` (which has unique
@@ -240,10 +241,47 @@ theorem alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2 := by
     Real.sqrt_sq (le_of_lt h_pos)
   rw [← h_sqrt_sq, h_sq]
 
-/-- Canonical resonance value at ClassNP. -/
+/-- Canonical resonance value at ClassNP, derived from the self-adjointness
+    quadratic `16α² - 24α - 11 = 0 ∧ α > 0` (which has unique positive root
+    `(3 + 2√5)/4 = φ + 1/4`). Stage 35 (2026-05-14). -/
 theorem alpha_at_ClassNP_eq_phi_plus_quarter :
-    alpha_of_class ClassNP = phi + 1/4 :=
-  alpha_class_self_adjointness_canonical.2
+    alpha_of_class ClassNP = phi + 1/4 := by
+  obtain ⟨_, ⟨h_quad, h_pos⟩⟩ := alpha_class_self_adjointness_canonical
+  set y := alpha_of_class ClassNP with hy_def
+  -- The quadratic 16y² - 24y - 11 = 0 factors as 16(y - r₁)(y - r₂) = 0
+  -- where r₁ = (3 + 2√5)/4 and r₂ = (3 - 2√5)/4.
+  have hsqrt5_sq : (Real.sqrt 5) ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h_factor : (y - (3 + 2*Real.sqrt 5)/4) * (y - (3 - 2*Real.sqrt 5)/4) = 0 := by
+    have h_id : 16 * ((y - (3 + 2*Real.sqrt 5)/4) * (y - (3 - 2*Real.sqrt 5)/4))
+              = 16 * y^2 - 24 * y - 11 := by
+      have h5 : Real.sqrt 5 * Real.sqrt 5 = 5 := by
+        have := hsqrt5_sq
+        nlinarith [this]
+      ring_nf
+      linarith [h5]
+    nlinarith [h_id, h_quad]
+  -- Show (3 - 2√5)/4 < 0 since 2√5 > 3
+  have h_sqrt5_gt : Real.sqrt 5 > 3/2 := by
+    have h_eq : Real.sqrt (9/4) = 3/2 := by
+      rw [show (9/4 : ℝ) = (3/2)^2 from by norm_num]
+      exact Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 3/2)
+    have h_lt : (9/4 : ℝ) < 5 := by norm_num
+    have h_nonneg : (0 : ℝ) ≤ 9/4 := by norm_num
+    have := Real.sqrt_lt_sqrt h_nonneg h_lt
+    linarith [h_eq, this]
+  have h_r2_neg : (3 - 2*Real.sqrt 5)/4 < 0 := by linarith
+  -- From the factorization, y equals one of the two roots
+  rcases mul_eq_zero.mp h_factor with h₁ | h₂
+  · -- y = (3 + 2√5)/4 = phi + 1/4
+    have : y = (3 + 2*Real.sqrt 5)/4 := by linarith
+    rw [this]
+    -- (3 + 2√5)/4 = (1 + √5)/2 + 1/4 = phi + 1/4
+    unfold phi
+    ring
+  · -- y = (3 - 2√5)/4, but y > 0 and this root is negative — contradiction
+    have hy_eq : y = (3 - 2*Real.sqrt 5)/4 := by linarith
+    rw [hy_eq] at h_pos
+    linarith
 
 /-- Backwards-compatible form: the pair of canonical values.
     Provided as a theorem (was an axiom in Stage 25; now derived in Stage 33
