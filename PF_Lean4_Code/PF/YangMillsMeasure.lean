@@ -172,39 +172,15 @@ noncomputable def yangMillsCharacteristic (N : ℕ) (hN : N ≥ 2) :
 
 /-! ## Main Existence Theorem -/
 
-/-- THEOREM (Yang-Mills Measure Existence):
-
-    For SU(N) gauge theory (N ≥ 2) in the Gaussian approximation,
-    there exists a unique probability measure μ_YM on the space of
-    gauge field configurations S'(R^4)^{4(N²-1)} such that:
-
-    Z[J] = ∫ exp(i⟨A, J⟩) dμ_YM(A)
-
-    where Z[J] = exp(-½ ⟨J, G·J⟩) is the generating functional.
-
-    Properties verified:
-    1. μ_YM is a probability measure (normalized)
-    2. μ_YM is Gaussian with covariance G (gluon propagator)
-    3. μ_YM is unique (from Bochner-Minlos uniqueness)
--/
-theorem yang_mills_measure_exists_proven (N : ℕ) (hN : N ≥ 2) :
-    ∃ (μ : ProbabilityMeasureOnDual 4),
-      -- Existence
-      (∀ f : SchwartzFunction 4,
-        (yangMillsCharacteristic N hN).toFun f =
-          ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure) ∧
-      -- Correct covariance (Gaussian with gluon propagator)
-      True ∧
-      -- Positivity (inherited from measure)
-      MeasureTheory.IsProbabilityMeasure μ.measure ∧
-      -- Normalization
-      μ.measure Set.univ = 1 := by
-  -- Apply Bochner-Minlos theorem
-  obtain ⟨μ, hμ⟩ := bochner_minlos_existence (yangMillsCharacteristic N hN)
-  use μ
-  refine ⟨hμ, trivial, μ.is_prob, ?_⟩
-  -- Probability measure has total mass 1
-  exact μ.is_prob.measure_univ
+/- `yang_mills_measure_exists_proven` — deleted 2026-05-14 (Stage 30)
+   with the `bochner_minlos_existence` axiom retirement. Was an orphan
+   top-level theorem with zero downstream consumers, asserting the
+   Yang-Mills measure existence conditional on the now-retired
+   Bochner-Minlos axiom. The proof was a direct application of the
+   axiom to `yangMillsCharacteristic N hN`. Reinstatement path: when
+   classical Bochner-Minlos is formalized AND real Yang-Mills covariance
+   replaces the placeholder zero quadraticForm, this can return as a
+   real theorem of the free-field Yang-Mills measure construction. -/
 
 /-! ## Gauge Field Properties -/
 

@@ -54,24 +54,42 @@ structure ProbabilityMeasureOnDual (d : ℕ) where
   measure : MeasureTheory.Measure (TemperedDistribution d)
   is_prob : MeasureTheory.IsProbabilityMeasure measure
 
-/-- BOCHNER-MINLOS THEOREM (Existence):
+/- BOCHNER-MINLOS THEOREM (Existence): previously asserted as an axiom
+   for any characteristic functional C : S(R^d) → ℂ (positive definite,
+   normalized, continuous at 0), claiming `∃ μ probability measure on
+   S'(R^d) with C(f) = ∫ exp(i⟨ω, f⟩) dμ(ω)`.
 
-    Let C : S(R^d) → ℂ be a characteristic functional (positive definite,
-    normalized, continuous at 0).
+   Proof outline (Reed-Simon §IX.2):
+   1. C determines finite-dimensional distributions via finite-dim Bochner.
+   2. These form a consistent family → cylindrical measure.
+   3. Nuclearity of S → σ-additivity (Minlos' condition).
+   4. σ-additive cylindrical measure = genuine measure.
 
-    Then there exists a probability measure μ on S'(R^d) such that:
-    C(f) = ∫_{S'} exp(i⟨ω, f⟩) dμ(ω) for all f ∈ S(R^d).
+   `bochner_minlos_existence` — axiom retired 2026-05-14 (Stage 30) by deletion.
 
-    Proof structure:
-    1. C determines finite-dimensional distributions via finite-dim Bochner
-    2. These form a consistent family → cylindrical measure
-    3. Nuclearity of S → σ-additivity (Minlos' condition)
-    4. σ-additive cylindrical measure = genuine measure
--/
-axiom bochner_minlos_existence {d : ℕ} (C : CharacteristicFunctional d) :
-    ∃ (μ : ProbabilityMeasureOnDual d),
-      ∀ f : SchwartzFunction d,
-        C.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure
+   The classical Bochner-Minlos existence statement (every continuous PD
+   normalized characteristic functional on Schwartz space arises from a
+   probability measure on the dual) was previously an axiom with three
+   downstream consumers: `gaussian_measure_exists`, `qft_measure_foundation`,
+   and `yang_mills_measure_exists_proven`. Each of those was a top-level
+   "showcase" theorem with **zero internal downstream consumers** —
+   isolated assertions of measure existence, not building blocks for
+   the framework's headline results (P ≠ NP and Riemann Hypothesis).
+   The two transitive consumers in GaussianModel.lean
+   (`free_scalar_measure_exists`, `gaussian_yang_mills_complete`) were
+   similarly orphan.
+
+   Deletion of all five orphan theorems + the axiom is the honest move
+   per the rigor mandate (same precedent as the prior orphan deletions
+   of `bochner_minlos_uniqueness`, `finite_dim_bochner`,
+   `minlos_sigma_additivity`, the in-house nuclear-spaces block, plus
+   ~15 yang_mills_*/spectral_*/T3_* orphans across the cleanup arc).
+
+   The framework no longer makes claims about Yang-Mills/QFT measure
+   existence in Lean. When the classical Bochner-Minlos theorem is
+   eventually formalized (Reed-Simon §IX.2, multi-week via Riesz-Markov
+   + Lévy continuity), the consumer theorems can be reinstated as real
+   theorems of the formalized analysis, not axiom-dependent placeholders. -/
 
 /- `bochner_minlos_uniqueness` — axiom retired 2026-05-10 by deletion.
 
@@ -160,24 +178,16 @@ theorem gaussian_is_characteristic {d : ℕ} (G : GaussianCharacteristic d) :
     continuous_at_zero := G.functional_continuous
   }, rfl⟩
 
-/-- COROLLARY: Gaussian measures exist on S'(R^d).
+/- `gaussian_measure_exists` — deleted 2026-05-14 (Stage 30) with the
+   `bochner_minlos_existence` axiom retirement. Was an orphan top-level
+   theorem with only 2 internal consumers (`free_scalar_measure_exists`
+   and `gaussian_yang_mills_complete`), both also orphan top-level
+   theorems with no downstream uses. Deletion removes the axiom-
+   dependent QFT-measure-existence chain.
 
-    For any continuous positive semi-definite quadratic form Q on S(R^d),
-    there exists a unique Gaussian probability measure μ_Q on S'(R^d) with
-    covariance Q.
-
-    This is the foundation for free field theory path integrals.
--/
-theorem gaussian_measure_exists {d : ℕ} (G : GaussianCharacteristic d) :
-    ∃ (μ : ProbabilityMeasureOnDual d),
-      ∀ f : SchwartzFunction d,
-        G.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure := by
-  obtain ⟨C, hC⟩ := gaussian_is_characteristic G
-  obtain ⟨μ, hμ⟩ := bochner_minlos_existence C
-  use μ
-  intro f
-  rw [← hC]
-  exact hμ f
+   Reinstatement path: when classical Bochner-Minlos is formalized
+   (Reed-Simon §IX.2), `gaussian_measure_exists` can be re-introduced
+   as a genuine theorem. -/
 
 /-! ## Nuclearity is Essential -/
 
@@ -196,35 +206,13 @@ theorem gaussian_measure_exists {d : ℕ} (G : GaussianCharacteristic d) :
 -- becomes a meaningful theorem once a real `IsNuclear` predicate is
 -- in scope.
 
-/-! ## Connection to Quantum Field Theory -/
-
-/-- For QFT applications, the measure μ constructed via Bochner-Minlos
-    gives the Euclidean path integral measure.
-
-    The generating functional Z[J] = ∫ exp(-S[φ] + ∫ J·φ) Dφ
-    becomes well-defined as:
-    Z[J] = ∫_{S'} exp(⟨ω, J⟩) dμ(ω)
-
-    where μ is the measure from Bochner-Minlos applied to:
-    C(J) = "exp(-S[J])_normalized"
--/
-structure EuclideanFieldMeasure (d : ℕ) where
-  /-- The underlying probability measure on configurations -/
-  measure : ProbabilityMeasureOnDual d
-  /-- The characteristic functional (generating functional) -/
-  generating : CharacteristicFunctional d
-  /-- Consistency: measure comes from generating functional via Bochner-Minlos -/
-  consistent : ∀ f, generating.toFun f = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂measure.measure
-
-/-- THEOREM: Bochner-Minlos provides the foundation for rigorous QFT.
-
-    Given a Euclidean action S[φ] with suitable growth/regularity,
-    if exp(-S[·]) defines a characteristic functional,
-    then the path integral measure exists uniquely.
--/
-theorem qft_measure_foundation {d : ℕ} (C : CharacteristicFunctional d) :
-    ∃ (μ : EuclideanFieldMeasure d), μ.generating = C := by
-  obtain ⟨ν, hν⟩ := bochner_minlos_existence C
-  exact ⟨⟨ν, C, hν⟩, rfl⟩
+/- `EuclideanFieldMeasure` and `qft_measure_foundation` — deleted
+   2026-05-14 (Stage 30) with the `bochner_minlos_existence` axiom
+   retirement. Both were orphan top-level definitions/theorems with
+   zero downstream consumers in PF/. The QFT-measure-foundation
+   claim was conditional on the now-deleted axiom; without it, the
+   theorem collapses. Reinstatement path: when classical
+   Bochner-Minlos is formalized, both can be reintroduced as
+   genuine definitions/theorems. -/
 
 end PrincipiaTractalis
