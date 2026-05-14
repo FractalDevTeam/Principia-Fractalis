@@ -280,6 +280,24 @@ theorem alpha_class_distinct : alpha_of_class ClassP ≠ alpha_of_class ClassNP 
   -- h : Real.sqrt 2 = phi + 1/4, but phi_plus_quarter_gt_sqrt2 says φ+¼ > √2.
   linarith [phi_plus_quarter_gt_sqrt2]
 
+/-- Positivity of `alpha_of_class ClassP` — direct from the axiom's
+    `0 < alpha_of_class ClassP` conjunct. -/
+theorem alpha_of_class_pos_at_ClassP : 0 < alpha_of_class ClassP :=
+  alpha_class_self_adjointness_canonical.1.2
+
+/-- Positivity of `alpha_of_class ClassNP` — direct from the axiom's
+    `0 < alpha_of_class ClassNP` conjunct. -/
+theorem alpha_of_class_pos_at_ClassNP : 0 < alpha_of_class ClassNP :=
+  alpha_class_self_adjointness_canonical.2.2
+
+/-- Resonance-parameter separation: `alpha_of_class ClassP < alpha_of_class ClassNP`.
+    Derived from canonical values + `phi_plus_quarter_gt_sqrt2` (the numerical
+    inequality `φ + ¼ > √2` proved axiom-free in `IntervalArithmetic`). -/
+theorem alpha_class_separation_lt :
+    alpha_of_class ClassP < alpha_of_class ClassNP := by
+  rw [alpha_at_ClassP_eq_sqrt2, alpha_at_ClassNP_eq_phi_plus_quarter]
+  exact phi_plus_quarter_gt_sqrt2
+
 /-- Spectrum collapse under P = NP: equal ground energies follow from class
     equality + canonical resonance values.
 
