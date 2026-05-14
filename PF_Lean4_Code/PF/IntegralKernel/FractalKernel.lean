@@ -30,6 +30,7 @@ Stage L2 — kernel definitions and elementary symmetries.
 
 import PF.IntegralKernel.Basic
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.SpecificLimits.Basic
 import Mathlib.Topology.MetricSpace.Defs
 
 namespace PrincipiaTractalis.IntegralKernel
@@ -86,6 +87,42 @@ For a real-valued symmetric kernel, conjugate symmetry is automatic:
 `conj (V z.swap) = conj (V z) = V z` (the first equality from swap-symmetry,
 the second from real-valuedness).
 -/
+
+/-! ## Summability of the fractal kernel under `a > 1`
+
+The infinite series defining `fractalKernelReal` converges absolutely whenever
+`a > 1`, since each term is bounded in absolute value by `(1/a)^n` and the
+geometric series converges for `0 ≤ 1/a < 1`.
+-/
+
+/-- Termwise bound: `|fractalKernelTerm α a z n| ≤ (1/a)^n` whenever `a > 0`. -/
+theorem abs_fractalKernelTerm_le (α : ℝ) {a : ℝ} (ha : 0 < a) (z : K × K)
+    (n : ℕ) :
+    |fractalKernelTerm α a z n| ≤ (1 / a) ^ n := by
+  unfold fractalKernelTerm
+  have h_pow_pos : (0 : ℝ) < a ^ (-(n : ℤ)) := zpow_pos ha _
+  rw [abs_mul, abs_of_pos h_pow_pos]
+  -- a^(-n) * |cos(...)| ≤ a^(-n) * 1 = (1/a)^n
+  calc a ^ (-(n : ℤ)) * |Real.cos (Real.pi * α ^ n * dist z.1 z.2)|
+      ≤ a ^ (-(n : ℤ)) * 1 := by
+        apply mul_le_mul_of_nonneg_left (Real.abs_cos_le_one _) h_pow_pos.le
+    _ = a ^ (-(n : ℤ)) := mul_one _
+    _ = (1 / a) ^ n := by
+        rw [zpow_neg, zpow_natCast, one_div, inv_pow]
+
+/-- The fractal kernel summands are summable when `a > 1`. -/
+theorem summable_fractalKernelTerm (α : ℝ) {a : ℝ} (ha : 1 < a) (z : K × K) :
+    Summable (fractalKernelTerm α a z) := by
+  have ha_pos : 0 < a := lt_trans zero_lt_one ha
+  have h_inv_lt_one : 1 / a < 1 := by
+    rw [div_lt_one ha_pos]
+    exact ha
+  have h_inv_nn : 0 ≤ 1 / a := div_nonneg zero_le_one ha_pos.le
+  -- Bound by geometric series
+  apply Summable.of_norm_bounded (g := fun n => (1 / a) ^ n)
+  · exact summable_geometric_of_lt_one h_inv_nn h_inv_lt_one
+  · intro n
+    exact abs_fractalKernelTerm_le α ha_pos z n
 
 theorem fractalKernel_isConjSymmetric [MeasurableSpace K] (α a : ℝ)
     (μ : Measure K) :
