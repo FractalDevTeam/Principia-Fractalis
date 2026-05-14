@@ -290,6 +290,20 @@ theorem eLpNorm_kernelAction_le
         (∫⁻ y, ‖f y‖ₑ ^ (2 : ℝ) ∂μ) ^ (1 / (2 : ℝ)) :=
         ENNReal.mul_rpow_of_nonneg _ _ (by norm_num : (0 : ℝ) ≤ 1 / 2)
 
+/-- **`MemLp` for the kernel action.** Combines the H-S bound with the
+    AEStronglyMeasurable witness to certify that `kernelAction V f` is in
+    `L²(μ)` whenever `V` is measurable & in `L²(μ⊗μ)` and `f` is in `L²(μ)`. -/
+theorem memLp_kernelAction
+    {V : K × K → ℂ} (hVmble : Measurable V) (hV : MemLp V 2 (μ.prod μ))
+    {f : K → ℂ} (hf : MemLp f 2 μ) :
+    MemLp (kernelAction V f μ) 2 μ := by
+  refine ⟨aestronglyMeasurable_kernelAction hV hf, ?_⟩
+  -- eLpNorm < ∞ from H-S bound: ≤ ‖V‖_{L²(μ⊗μ)} · ‖f‖_{L²(μ)}, both finite
+  calc eLpNorm (kernelAction V f μ) 2 μ
+      ≤ eLpNorm V 2 (μ.prod μ) * eLpNorm f 2 μ :=
+        eLpNorm_kernelAction_le hVmble hf.aestronglyMeasurable.enorm
+    _ < ∞ := ENNReal.mul_lt_top hV.eLpNorm_lt_top hf.eLpNorm_lt_top
+
 end HilbertSchmidtBound
 
 end PrincipiaTractalis.IntegralKernel
