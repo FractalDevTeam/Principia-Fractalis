@@ -23,6 +23,7 @@ import PF.IntervalArithmetic
 import PF.IntegralKernel.Basic
 import PF.IntegralKernel.SelfAdjoint
 import PF.IntegralKernel.FractalKernel
+import PF.IntegralKernel.HilbertSchmidt
 
 -- The Four Anchor Theorems
 import PF.RadixEconomy       -- Theorem 1: Base-3 optimality
