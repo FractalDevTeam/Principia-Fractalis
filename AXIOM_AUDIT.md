@@ -52,7 +52,7 @@ Phase 1 of the retirement work. Adds operator-theory infrastructure under
 - `isSymmetric_of_kernel_conjSymm` — symmetry from conj-symmetric kernel
 - `isSelfAdjoint_of_kernel_conjSymm` — bounded operator → IsSelfAdjoint
 
-**L2 partial — V_P kernel (`PF/IntegralKernel/FractalKernel.lean`)**:
+**L2 — V_P kernel (`PF/IntegralKernel/FractalKernel.lean`)**:
 - `fractalKernelTerm α a (z : K × K) n = a^(-n) · cos(π · α^n · dist z.1 z.2)`
 - `fractalKernelReal α a` / `fractalKernel α a` — tsum form (real / complex)
 - `fractalKernel_swap` — symmetric in (x, y) via `dist_comm` + cos-even
@@ -61,18 +61,33 @@ Phase 1 of the retirement work. Adds operator-theory infrastructure under
 - `summable_fractalKernelTerm` — Summable when `1 < a` (geometric majorant)
 - `abs_fractalKernelReal_le` — uniform L^∞ bound `|V_P z| ≤ a/(a-1)`
 - `V_P_canonical a = fractalKernel √2 a` — book's α_P = √2 specialization
+- `measurable_fractalKernelTerm` / `_PartialSum` / `_Real` / fractalKernel —
+  full measurability chain under `OpensMeasurableSpace K + SecondCountableTopology K`
+  (tsum-measurability via partial-sum limit and `measurable_of_tendsto_metrizable`)
+- `memLp_fractalKernel : MemLp (fractalKernel α a) p (μ.prod μ)` under
+  `IsFiniteMeasure μ` and `1 < a` (combines measurability + uniform L^∞ bound
+  via `MemLp.of_bound`)
 
 **Remaining (L2 → L4)**:
-- L2 continued: measurability of `fractalKernel`, `MemLp 2 (μ.prod μ)` membership
-  under finite μ, Hilbert-Schmidt operator construction
-  `kernelOperator : (K × K → ℂ) → Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ`
-- V_NP via unitary conjugation `H_NP = U(φ) · H_P · U(φ)†` (preserves SA)
+- L2 finalization: the actual bounded-operator construction
+  `kernelOperator : {V // V ∈ L²(K × K)} → Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ`
+  with the Hilbert-Schmidt bound `‖T_V‖_{op} ≤ ‖V‖_{L²(K×K)}`
+  (pointwise Cauchy-Schwarz + Fubini).
+- V_NP via unitary conjugation `H_NP = U(φ) · H_P · U(φ)†` (R_φ rotation;
+  preserves self-adjointness via `IsSelfAdjoint.adjoint_conj`).
 - L3: generating-function identity `Σ N_m^(3) z^m = Π (1 + z + z²·3^k)` and
   the SA criterion `H_P SA ⇔ Σ e^{iπαm} N_m^(3) ∈ ℝ`
+  (uses `Nat.digits 3` machinery from mathlib).
 - L4: theta-sum reality at α = √2 and α = φ + 1/4 (requires Jacobi triple
-  product and Dedekind eta values; not in mathlib)
+  product and Dedekind eta special values; neither in mathlib — multi-week
+  analytic-number-theory foundation work).
 
-Build: master `52cb931`, 5534 jobs, 1 project axiom, 0 sorries.
+Build: master `c2aeb31`, 5534 jobs, 1 project axiom, 0 sorries.
+
+**Session arc** (Stage 44, commits cf38a7e → c2aeb31, 8 commits):
+each adds either pure foundational lemmas (L1) or strictly forward
+progress on V_P operator construction. All theorems in this stage
+depend only on `{propext, Classical.choice, Quot.sound}`.
 
 This is multi-month operator-theory formalization, bounded in scope. Not a Clay problem — the manuscript's analysis is rigorous; this is the formalization runway.
 
