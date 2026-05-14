@@ -35,32 +35,13 @@ The operators act on L²(X, μ) where:
 States are functions f : Language → ℂ representing superpositions over computational problems.
 -/
 
-/-- The space of all languages (powerset of binary strings) -/
-def LanguageSpace := Language
-
--- AXIOM ELIMINATED: computationalMeasure (UNUSED - operator infrastructure)
--- This axiom was used only to define L2LanguageSpace, which itself was only used
--- to define H_Pclass and H_NPclass operators. None of these are used in actual proofs.
--- The P ≠ NP proof uses lambda_0_P and lambda_0_NP directly, not through operators.
---
--- Was: axiom computationalMeasure : MeasureTheory.Measure LanguageSpace
--- Was: def L2LanguageSpace := Lp (E := ℂ) 2 computationalMeasure
---
--- DEFINITIONS REMOVED: H_Pclass and H_NPclass (unused operator infrastructure)
--- These were placeholder definitions (constant 0 function) never used in proofs.
-
-/-!
-## Symmetric Difference (Language Transition)
-
-The operators transition between languages that differ by a single string.
-L ⊕ {x} = (L \ {x}) ∪ ({x} \ L) is the symmetric difference.
--/
-
-/-- Symmetric difference: flip membership of string x in language L -/
-def symmetricDifference (L : Language) (x : BinString) : Language :=
-  {y | (y ∈ L ∧ y ≠ x) ∨ (y ∉ L ∧ y = x)}
-
-notation:65 L " ⊕ " x => symmetricDifference L x
+/- `LanguageSpace`, `symmetricDifference`, and the `⊕` notation — deleted
+   2026-05-14 (Stage 41) as orphan operator scaffolding. These supported
+   the H_P/H_NP operator construction; with those operators long since
+   deleted (zero-function placeholders) and their phase functions
+   `phasePclass`/`phaseNPclass` removed in Stage 40, this scaffolding
+   has no consumers. When operator infrastructure is restored, these
+   helpers can return. -/
 
 /-!
 ## Energy Functions
