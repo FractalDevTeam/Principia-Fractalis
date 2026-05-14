@@ -134,6 +134,28 @@ depend only on `{propext, Classical.choice, Quot.sound}`.
   `IsSelfAdjoint.conj_adjoint` applied to `H_P_canonical_isSelfAdjoint`.
 - `H_NP_via_conjugation_id_eq_H_P` — sanity-check: `S = id` recovers H_P.
 
+**L4 foundation added** (commit 6b7fd41):
+`PF/TuringEncoding/ThetaSum.lean` — the complex-valued specialization of
+the L3 truncated GF, providing the foundational reality framework:
+- `truncatedThetaSum α N := Σ_{n < 3^N} exp(I·π·α·digitalSum3 n)` —
+  the well-defined finite form of the book's theta-sum (Ch 21 Thm 4.3).
+- **`truncatedThetaSum_factorization`** — the headline identity
+  `Θ_N(α) = (1 + e^{iπα} + e^{2iπα})^N`, by `Complex.exp_nat_mul` +
+  `digitalSum3_generating_truncated` at `z = e^{iπα}`.
+- `thetaFactor α`, `truncatedThetaSum_eq_factor_pow`,
+  `truncatedThetaSum_succ_of_factor_zero`,
+  `truncatedThetaSum_re_of_factor_re` — supporting reality lemmas
+  (cube-root-of-unity zero case + general "factor real ⟹ sum real").
+
+Note: the book's `α = √2` (P) and `α = φ + 1/4` (NP) do *not* solve the
+simple cube-root reality condition `thetaFactor α = 0` or `∈ ℝ`. The
+book's SA criterion uses a more refined analytic structure (Dirichlet
+L-functions, Dedekind eta) that is beyond the truncated GF reality
+alone — that derivation is L4-proper, requiring Jacobi triple product /
+modular forms infrastructure currently absent from mathlib. This file
+establishes the foundation; the deeper analytic-number-theory chain
+remains the multi-month L4-proper work.
+
 **L3 layer added** (commit 3de05de):
 `PF/TuringEncoding/DigitalSum.lean` — digital-sum / generating-function
 infrastructure for Ch 21 Section 4.2:
@@ -153,12 +175,13 @@ captures the substantive combinatorial content as a polynomial identity in
 any commutative semiring; this is the foundation for L4's analytic-number-
 theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
 
-**Stage 44 totals** (extended into L3):
+**Stage 44 totals** (extended into L3 + L4 foundation):
 - 5 new files in `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
   HilbertSchmidt, Bridge.
-- 1 new file in `PF/TuringEncoding/`: DigitalSum.
-- ~53 new theorems / definitions across L1 / L2 / L3, all axiom-clean.
-- Master: `3de05de`, 5540 jobs, 1 project axiom, 0 sorries.
+- 2 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum.
+- ~60 new theorems / definitions across L1 / L2 / L3 / L4-foundation,
+  all axiom-clean.
+- Master: `6b7fd41`, 5542 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
