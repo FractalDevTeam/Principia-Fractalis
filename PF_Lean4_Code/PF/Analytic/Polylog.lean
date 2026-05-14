@@ -136,4 +136,47 @@ theorem polyLog_zero_exponent (z : ℂ) (hz : ‖z‖ < 1) :
   rw [show (1 : ℂ) - z = -(z - 1) from by ring]
   field_simp
 
+/-! ## Continuity at z = 0 and basic structural properties
+
+The polylog is continuous (in fact analytic) on the open unit disk. We
+prove the simplest consequence: the polylog can be expressed as a
+limit of partial sums. -/
+
+/-- The polylog as the limit of partial sums on the open unit disk
+    for `Re s ≥ 0`. -/
+theorem polyLog_eq_tendsto_partial_sum
+    {s z : ℂ} (hs : 0 ≤ s.re) (hz : ‖z‖ < 1) :
+    Filter.Tendsto
+      (fun N : ℕ => ∑ n ∈ Finset.range N, z ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ s)
+      Filter.atTop (nhds (polyLog s z)) := by
+  exact (hasSum_polyLog hs hz).tendsto_sum_nat
+
+/-! ## Roadmap for future polylog development
+
+The next pieces to build (in order of difficulty):
+
+1. **`Li_1(z) = −log(1 − z)`** for `‖z‖ < 1` (the Mercator series).
+   Requires bridging mathlib's `Complex.logTaylor` partial-sum bound
+   `Complex.norm_log_sub_logTaylor_le` to a `HasSum` statement via
+   substituting `z ↦ −z` and identifying the alternating series.
+
+2. **Recurrence**: `d/dz Li_{s+1}(z) = Li_s(z) / z` (formal derivative
+   identity). Provable via term-by-term differentiation on the disk.
+
+3. **Functional equation / reflection**: `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`.
+
+4. **Jonquières analytic continuation**: `Li_s(z) = Γ(1−s)·(−log z)^{s−1}
+   + Σ_{k=0}^∞ ζ(s−k)·(log z)^k / k!` for `|z|` near 1.
+
+5. **Monodromy / Riemann sheets**: `Li_s^{[m]}(z) = Li_s(z) + 2πi·m·(log z)^{s−1}/Γ(s)`
+   on the m-th sheet. This is the key tool for the book's
+   `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)` identity.
+
+6. **Numerical evaluation at e^{iπ√2}**: identify the specific (s*, m*)
+   from `fractal_continuation_derivation.py` (s* ≈ 0.182, m* = −1) as
+   formal Lean values, prove the identity holds.
+
+Steps 4-6 are the analytic-number-theory pieces required to retire
+`alpha_class_self_adjointness_canonical` via the polylog route. -/
+
 end PrincipiaTractalis.Analytic
