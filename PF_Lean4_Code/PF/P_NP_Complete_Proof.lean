@@ -42,11 +42,13 @@ noncomputable def α_P : ℝ := TuringEncoding.alpha_of_class TuringEncoding.Cla
 /-- Resonance frequency for NP-class. -/
 noncomputable def α_NP : ℝ := TuringEncoding.alpha_of_class TuringEncoding.ClassNP
 
-/-- α_P equals √2 (theorem from `alpha_class_canonical_values.1`). -/
-theorem α_P_value : α_P = Real.sqrt 2 := TuringEncoding.alpha_class_canonical_values.1
+/-- α_P equals √2 (Stage 35: derived from `alpha_at_ClassP_eq_sqrt2`,
+    which itself follows from the self-adjointness algebraic axiom). -/
+theorem α_P_value : α_P = Real.sqrt 2 := TuringEncoding.alpha_at_ClassP_eq_sqrt2
 
-/-- α_NP equals φ + ¼. -/
-theorem α_NP_value : α_NP = phi + 1/4 := TuringEncoding.alpha_class_canonical_values.2
+/-- α_NP equals φ + ¼ (Stage 35: derived from the NP-class quadratic
+    self-adjointness equation). -/
+theorem α_NP_value : α_NP = phi + 1/4 := TuringEncoding.alpha_at_ClassNP_eq_phi_plus_quarter
 
 /-- Ground state energies from fractal resonance -/
 noncomputable def lambda_P : ℝ := pi_10 / α_P
