@@ -29,6 +29,7 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Complex
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecificLimits.Normed
 import Mathlib.Analysis.Normed.Group.InfiniteSum
+import Mathlib.Analysis.SpecialFunctions.Complex.LogBounds
 
 namespace PrincipiaTractalis.Analytic
 
@@ -151,32 +152,149 @@ theorem polyLog_eq_tendsto_partial_sum
       Filter.atTop (nhds (polyLog s z)) := by
   exact (hasSum_polyLog hs hz).tendsto_sum_nat
 
+/-! ## `Li_1(z) = −log(1 − z)` (the Mercator identity) — partial-sum step
+
+The substantive combinatorial identity: the polylog partial sum at `s = 1`
+equals minus the mathlib Taylor polynomial of `log(1 + w)` evaluated at
+`w = −z`. The sign manipulation collapses the alternating-sign Mercator
+coefficient with the `−z` substitution. -/
+
+/-- **Partial-sum bridge** for `Li_1`:
+    `Σ_{n < N} z^(n+1) / (n+1) = −Complex.logTaylor (N+1) (−z)`.
+
+    Proof by induction on `N`. The step uses `Complex.logTaylor_succ`
+    targeted at `logTaylor (N+1+1)` (via `conv`) to expose the extra term,
+    then verifies the per-step increment via the sign identity
+    `(−1)^(N+2) · (−z)^(N+1) = −z^(N+1)`. -/
+theorem partial_polyLog_one_eq_neg_logTaylor (z : ℂ) (N : ℕ) :
+    ∑ n ∈ Finset.range N, z ^ (n + 1) / ((n + 1 : ℕ) : ℂ) =
+      -Complex.logTaylor (N + 1) (-z) := by
+  induction N with
+  | zero =>
+    -- LHS = 0 (empty sum). RHS = -logTaylor 1 (-z) = -(j=0 term) = -((-1)·1/0) = 0.
+    simp [Complex.logTaylor]
+  | succ N ih =>
+    rw [Finset.sum_range_succ, ih]
+    -- Goal: -logTaylor(N+1)(-z) + z^(N+1)/((N+1):ℕ:ℂ) = -logTaylor(N+1+1)(-z)
+    -- Use logTaylor_succ at the RHS only, via conv
+    conv_rhs => rw [show N + 1 + 1 = (N + 1) + 1 from rfl, Complex.logTaylor_succ]
+    -- After conv: -logTaylor(N+1)(-z) + z^(N+1)/(N+1) = -(logTaylor(N+1) + extra)(-z)
+    simp only [Pi.add_apply]
+    -- Now: -logTaylor(N+1)(-z) + z^(N+1)/(N+1) = -(logTaylor(N+1)(-z) + (-1)^(N+1+1) · (-z)^(N+1) / (N+1))
+    -- Rearrange: cancel -logTaylor(N+1)(-z) from both sides, need to show
+    -- z^(N+1)/(N+1) = -((-1)^(N+1+1) · (-z)^(N+1) / (N+1))
+    -- i.e. (-1)^(N+1+1) · (-z)^(N+1) = -z^(N+1)
+    have h_sign : (-1 : ℂ) ^ (N + 1 + 1) * (-z) ^ (N + 1) = -(z ^ (N + 1)) := by
+      rw [show (-z : ℂ) ^ (N + 1) = (-1 : ℂ) ^ (N + 1) * z ^ (N + 1) from neg_pow z (N + 1)]
+      rw [← mul_assoc, ← pow_add]
+      have h_eq : N + 1 + 1 + (N + 1) = 2 * (N + 1) + 1 := by ring
+      rw [h_eq, pow_succ, pow_mul]
+      simp
+    -- Substitute h_sign into the goal
+    have h_term : (-1 : ℂ) ^ (N + 1 + 1) * (-z) ^ (N + 1) / ((N + 1 : ℕ) : ℂ) =
+                  -(z ^ (N + 1)) / ((N + 1 : ℕ) : ℂ) := by
+      rw [h_sign]
+    rw [h_term]
+    ring
+
+/-- **`Li_1(z) = −log(1 − z)` for `‖z‖ < 1`** (the Mercator series).
+
+    Combine `partial_polyLog_one_eq_neg_logTaylor` (per-N equality) with
+    `Complex.norm_log_sub_logTaylor_le` (giving `logTaylor(N+1)(−z) →
+    log(1 − z)`), then `tendsto_nhds_unique` against
+    `polyLog_eq_tendsto_partial_sum`. -/
+theorem polyLog_one (z : ℂ) (hz : ‖z‖ < 1) :
+    polyLog 1 z = -Complex.log (1 - z) := by
+  have h_norm_neg : ‖(-z : ℂ)‖ < 1 := by rwa [norm_neg]
+  -- Step 1: `logTaylor (N+1) (−z) → log(1 + (−z)) = log(1 − z)` as N → ∞.
+  have h_tendsto_log :
+      Filter.Tendsto
+        (fun N : ℕ => Complex.logTaylor (N + 1) (-z))
+        Filter.atTop (nhds (Complex.log (1 + (-z)))) := by
+    rw [Metric.tendsto_atTop]
+    intro ε hε
+    -- The mathlib bound function tends to 0.
+    have h_bound_tendsto :
+        Filter.Tendsto
+          (fun N : ℕ => ‖(-z : ℂ)‖ ^ (N + 1) * (1 - ‖(-z : ℂ)‖)⁻¹ / (N + 1 : ℝ))
+          Filter.atTop (nhds 0) := by
+      have h_pow_zero : Filter.Tendsto (fun N : ℕ => ‖(-z : ℂ)‖ ^ (N + 1))
+          Filter.atTop (nhds 0) := by
+        have h0 := tendsto_pow_atTop_nhds_zero_of_lt_one
+          (norm_nonneg (-z : ℂ)) h_norm_neg
+        exact h0.comp (Filter.tendsto_add_atTop_nat 1)
+      have h_prod1 : Filter.Tendsto
+          (fun N : ℕ => ‖(-z : ℂ)‖ ^ (N + 1) * (1 - ‖(-z : ℂ)‖)⁻¹)
+          Filter.atTop (nhds 0) := by
+        simpa using h_pow_zero.mul_const (1 - ‖(-z : ℂ)‖)⁻¹
+      have h_div : Filter.Tendsto (fun N : ℕ => ((N + 1 : ℕ) : ℝ)⁻¹)
+          Filter.atTop (nhds 0) := by
+        have := tendsto_one_div_add_atTop_nhds_zero_nat
+        refine this.congr (fun N => ?_)
+        push_cast; rw [one_div]
+      have h_combined := h_prod1.mul h_div
+      simp only [mul_zero] at h_combined
+      refine h_combined.congr (fun N => ?_)
+      rw [div_eq_mul_inv]
+      push_cast
+      ring
+    obtain ⟨N₀, hN₀⟩ := Metric.tendsto_atTop.mp h_bound_tendsto ε hε
+    refine ⟨N₀, fun N hN => ?_⟩
+    have h_bnd := Complex.norm_log_sub_logTaylor_le N h_norm_neg
+    rw [dist_eq_norm]
+    have h_bnd_at_N := hN₀ N hN
+    have h_nn : (0 : ℝ) ≤ ‖(-z : ℂ)‖ ^ (N + 1) * (1 - ‖(-z : ℂ)‖)⁻¹ / (N + 1) := by
+      have h1 : (0 : ℝ) ≤ ‖(-z : ℂ)‖ ^ (N + 1) := pow_nonneg (norm_nonneg _) _
+      have h2 : (0 : ℝ) ≤ (1 - ‖(-z : ℂ)‖)⁻¹ := by
+        have : 0 < 1 - ‖(-z : ℂ)‖ := by linarith
+        positivity
+      have h3 : (0 : ℝ) ≤ (N + 1 : ℝ) := by positivity
+      positivity
+    rw [Real.dist_eq, sub_zero, abs_of_nonneg h_nn] at h_bnd_at_N
+    calc ‖Complex.logTaylor (N + 1) (-z) - Complex.log (1 + -z)‖
+        = ‖Complex.log (1 + -z) - Complex.logTaylor (N + 1) (-z)‖ := by
+          rw [← norm_neg]; congr 1; ring
+      _ ≤ ‖(-z : ℂ)‖ ^ (N + 1) * (1 - ‖(-z : ℂ)‖)⁻¹ / (N + 1) := h_bnd
+      _ < ε := h_bnd_at_N
+  -- Step 2: bridge the polylog partial sum to logTaylor convergence
+  have h_tendsto_partial :
+      Filter.Tendsto
+        (fun N : ℕ =>
+          ∑ n ∈ Finset.range N, z ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ (1 : ℂ))
+        Filter.atTop (nhds (-Complex.log (1 + -z))) := by
+    refine h_tendsto_log.neg.congr (fun N => ?_)
+    rw [← partial_polyLog_one_eq_neg_logTaylor]
+    apply Finset.sum_congr rfl
+    intro n _
+    rw [Complex.cpow_one]
+  rw [show (1 : ℂ) + -z = 1 - z from by ring] at h_tendsto_partial
+  -- Step 3: limit uniqueness against polyLog's own tendsto
+  have h_polylog_tendsto := polyLog_eq_tendsto_partial_sum
+    (show (0 : ℝ) ≤ (1 : ℂ).re from by simp) hz
+  exact tendsto_nhds_unique h_polylog_tendsto h_tendsto_partial
+
 /-! ## Roadmap for future polylog development
 
-The next pieces to build (in order of difficulty):
+With `Li_0(z) = z/(1−z)` and `Li_1(z) = −log(1−z)` now established as
+axiom-free theorems, the next pieces:
 
-1. **`Li_1(z) = −log(1 − z)`** for `‖z‖ < 1` (the Mercator series).
-   Requires bridging mathlib's `Complex.logTaylor` partial-sum bound
-   `Complex.norm_log_sub_logTaylor_le` to a `HasSum` statement via
-   substituting `z ↦ −z` and identifying the alternating series.
-
-2. **Recurrence**: `d/dz Li_{s+1}(z) = Li_s(z) / z` (formal derivative
+1. **Recurrence**: `d/dz Li_{s+1}(z) = Li_s(z) / z` (formal derivative
    identity). Provable via term-by-term differentiation on the disk.
 
-3. **Functional equation / reflection**: `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`.
+2. **Functional equation / reflection**: `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`.
 
-4. **Jonquières analytic continuation**: `Li_s(z) = Γ(1−s)·(−log z)^{s−1}
+3. **Jonquières analytic continuation**: `Li_s(z) = Γ(1−s)·(−log z)^{s−1}
    + Σ_{k=0}^∞ ζ(s−k)·(log z)^k / k!` for `|z|` near 1.
 
-5. **Monodromy / Riemann sheets**: `Li_s^{[m]}(z) = Li_s(z) + 2πi·m·(log z)^{s−1}/Γ(s)`
+4. **Monodromy / Riemann sheets**: `Li_s^{[m]}(z) = Li_s(z) + 2πi·m·(log z)^{s−1}/Γ(s)`
    on the m-th sheet. This is the key tool for the book's
    `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)` identity.
 
-6. **Numerical evaluation at e^{iπ√2}**: identify the specific (s*, m*)
+5. **Numerical evaluation at e^{iπ√2}**: identify the specific (s*, m*)
    from `fractal_continuation_derivation.py` (s* ≈ 0.182, m* = −1) as
    formal Lean values, prove the identity holds.
 
-Steps 4-6 are the analytic-number-theory pieces required to retire
+Steps 3-5 are the analytic-number-theory pieces required to retire
 `alpha_class_self_adjointness_canonical` via the polylog route. -/
 
 end PrincipiaTractalis.Analytic
