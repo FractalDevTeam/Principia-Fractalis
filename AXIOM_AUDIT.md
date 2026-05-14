@@ -1,6 +1,28 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-14 (Stage 30)**: **1 verified axiom** in `PF/` (down from 2 on 2026-05-14, 3 on 2026-05-13, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `4e0f6d2`). Both Ch 21 P-vs-NP axioms retired via the `alpha_of_class` structural refactor (Stage 25); `bochner_minlos_existence` and its 7 orphan consumers retired via orphan-chain cleanup (Stage 30).*
+*As of **2026-05-14 (Stage 33)**: **1 verified axiom** in `PF/`, restructured to its self-adjointness algebraic form (down from 2 on Stage 30, 3 on Stage 25, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `b0da9ed`). The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their algebraic form: `(alpha_of_class ClassP)² = 2 ∧ 0 < alpha_of_class ClassP ∧ alpha_of_class ClassNP = φ+¼`. The P-class component is now the self-adjointness equation form (not the resolved value); the NP-class component remains pinned directly (its minimal polynomial 16α² - 24α - 11 = 0 is less elementary).*
+
+## Stage 33: Axiom restructured to self-adjointness algebraic form
+
+**Was** (Stage 25–32):
+```lean
+axiom alpha_class_canonical_values :
+    alpha_of_class ClassP = Real.sqrt 2 ∧
+    alpha_of_class ClassNP = phi + 1/4
+```
+
+**Now** (Stage 33):
+```lean
+axiom alpha_class_self_adjointness_canonical :
+    ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
+    alpha_of_class ClassNP = phi + 1/4
+```
+
+`alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2` is now a **theorem** (was the axiom's first conjunct, derived via `Real.sqrt_sq`). `alpha_class_canonical_values` is also a derived theorem for backwards compatibility.
+
+This restructure brings the axiom closer to the manuscript's Construction 3 derivation: the self-adjointness condition on H_P's kernel reduces to α² = 2, and the positive square root gives α_P = √2. Net axiom count unchanged (1), but the axiom is no longer a "value postulate" — it's an algebraic condition that the manuscript's analysis derives.
+
+Future-session work could similarly restructure the NP-class component (axiomatize `16α² - 24α - 11 = 0 ∧ 0 < α` and derive `α = phi + 1/4`), bringing the full axiom into algebraic form.
 
 ## Stage 30: 2 → 1 axiom via orphan-consumer chain analysis
 
