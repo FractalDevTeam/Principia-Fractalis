@@ -145,13 +145,11 @@ theorem np_minus_p_needs_certificates :
 -- THEOREM 3: CERTIFICATE STRUCTURE FORCES α_NP > α_P
 -- ============================================================================
 
-/-- Localα frequency separation using Greek letters matches the imported version.
-    After Stages 25+28 (both unicode α_P/α_NP and ASCII alpha_P/alpha_NP now
-    use alpha_of_class), bridge via the canonical-values theorems. -/
-lemma alpha_sep_greek : α_NP > α_P := by
-  rw [α_P_value, α_NP_value]
-  -- Goal: phi + 1/4 > Real.sqrt 2
-  exact phi_plus_quarter_gt_sqrt2
+/-- Localα frequency separation using Greek letters.
+    After Stages 25+28 (both unicode α_P/α_NP and ASCII alpha_P/alpha_NP
+    share `alpha_of_class` as their underlying definition), `alpha_separation`
+    proves this directly by definitional equality. -/
+lemma alpha_sep_greek : α_NP > α_P := alpha_separation
 
 /-- Different frequencies give different ground states -/
 theorem frequency_determines_energy :
