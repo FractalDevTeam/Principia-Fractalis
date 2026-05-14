@@ -124,6 +124,42 @@ theorem summable_fractalKernelTerm (α : ℝ) {a : ℝ} (ha : 1 < a) (z : K × K
   · intro n
     exact abs_fractalKernelTerm_le α ha_pos z n
 
+/-- Uniform L^∞ bound: `|fractalKernelReal α a z| ≤ a / (a - 1)` for `a > 1`.
+
+    This is the closed form of the geometric majorant `Σ (1/a)^n = a/(a-1)`.
+    Combined with finiteness of `μ.prod μ`, it gives `fractalKernel ∈ L²(K × K)`,
+    the integrability prerequisite for promoting the kernel action to a bounded
+    operator on `Lp ℂ 2 μ`. -/
+theorem abs_fractalKernelReal_le (α : ℝ) {a : ℝ} (ha : 1 < a) (z : K × K) :
+    |fractalKernelReal α a z| ≤ a / (a - 1) := by
+  have ha_pos : 0 < a := lt_trans zero_lt_one ha
+  have h_inv_lt_one : 1 / a < 1 := by rw [div_lt_one ha_pos]; exact ha
+  have h_inv_nn : 0 ≤ 1 / a := div_nonneg zero_le_one ha_pos.le
+  have h_sum_summable : Summable (fun n : ℕ => (1 / a) ^ n) :=
+    summable_geometric_of_lt_one h_inv_nn h_inv_lt_one
+  -- |tsum| ≤ tsum |·|
+  unfold fractalKernelReal
+  -- Apply norm_tsum_le_tsum_norm specialized to ℝ (where ‖·‖ = |·|).
+  have h_abs_sum :
+      Summable (fun n : ℕ => ‖fractalKernelTerm α a z n‖) := by
+    simp_rw [Real.norm_eq_abs]
+    exact (summable_fractalKernelTerm α ha z).abs
+  have h1 : ‖∑' n, fractalKernelTerm α a z n‖ ≤
+            ∑' n, ‖fractalKernelTerm α a z n‖ :=
+    norm_tsum_le_tsum_norm h_abs_sum
+  have h2 : (∑' n : ℕ, ‖fractalKernelTerm α a z n‖) ≤ ∑' n : ℕ, (1 / a) ^ n := by
+    refine Summable.tsum_le_tsum ?_ h_abs_sum h_sum_summable
+    intro n
+    simp_rw [Real.norm_eq_abs]
+    exact abs_fractalKernelTerm_le α ha_pos z n
+  have h3 : (∑' n : ℕ, (1 / a) ^ n) = (1 - 1 / a)⁻¹ :=
+    tsum_geometric_of_lt_one h_inv_nn h_inv_lt_one
+  have h4 : (1 - 1 / a)⁻¹ = a / (a - 1) := by
+    rw [one_div]
+    field_simp
+  rw [Real.norm_eq_abs] at h1
+  linarith [h1.trans (h2.trans (le_of_eq (h3.trans h4)))]
+
 theorem fractalKernel_isConjSymmetric [MeasurableSpace K] (α a : ℝ)
     (μ : Measure K) :
     IsConjSymmetric (fractalKernel α a) μ := by
