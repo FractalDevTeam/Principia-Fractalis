@@ -530,6 +530,24 @@ theorem charFun_positive_definite {E : Type*}
 
 
 
+/-- FINITE-DIM BOCHNER UNIQUENESS — thin wrapper around mathlib's
+    `Measure.ext_of_charFun`.
+
+    Two finite measures on a complete second-countable real inner-product
+    space with the same characteristic function are equal. This is the
+    "uniqueness" half of finite-dim Bochner-Herglotz; the existence half
+    is the substantive analytical content not yet in mathlib.
+
+    Added 2026-05-14 (Stage 22). -/
+theorem finite_dim_bochner_uniqueness {E : Type*}
+    [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+    [MeasurableSpace E] [BorelSpace E] [SecondCountableTopology E] [CompleteSpace E]
+    (μ ν : MeasureTheory.Measure E)
+    [MeasureTheory.IsFiniteMeasure μ] [MeasureTheory.IsFiniteMeasure ν]
+    (h : MeasureTheory.charFun μ = MeasureTheory.charFun ν) :
+    μ = ν :=
+  MeasureTheory.Measure.ext_of_charFun h
+
 /-! ## Cylindrical Measures -/
 
 /-- A finite-dimensional projection π_F : S'(R^d) → ℂ^n
