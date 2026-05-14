@@ -84,10 +84,34 @@ Phase 1 of the retirement work. Adds operator-theory infrastructure under
 
 Build: master `c2aeb31`, 5534 jobs, 1 project axiom, 0 sorries.
 
-**Session arc** (Stage 44, commits cf38a7e → c2aeb31, 8 commits):
+**Session arc** (Stage 44, commits cf38a7e → 644e529, 12 commits):
 each adds either pure foundational lemmas (L1) or strictly forward
 progress on V_P operator construction. All theorems in this stage
 depend only on `{propext, Classical.choice, Quot.sound}`.
+
+**HilbertSchmidt foundation added** (commits f828d2e, 644e529):
+- `integrable_kernel_mul` — V·f.comp_snd ∈ L¹(μ⊗μ) via HolderConjugate 2 2.
+- `integrable_kernel_section` — for ae x, y ↦ V(x,y)·f(y) is L¹.
+- `aestronglyMeasurable_kernelAction` — kernelAction V f is AEStronglyMeasurable.
+- `KernelL2 μ := { V // MemLp V 2 (μ.prod μ) }` — bundled L² kernel
+  subtype with packaged accessors.
+- Documented next-milestone theorem `eLpNorm_kernelAction_le` (the
+  Hilbert-Schmidt L²-bound) with proof outline (pointwise Cauchy-Schwarz
+  + Fubini-Tonelli for ‖V‖²) and the LinearMap.mkContinuous closure.
+
+**Stage 44 totals**:
+- 4 new files under `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
+  HilbertSchmidt.
+- ~28 new theorems / definitions, all axiom-clean.
+- Master: `644e529`, 5536 jobs, 1 project axiom, 0 sorries.
+
+**Pickup point for next session**: the Hilbert-Schmidt L²-bound on
+`kernelAction`. This requires either (a) developing a `MemLp.prod_right_ae`
+L²-Fubini analog of `Integrable.prod_right_ae` (not currently in mathlib),
+plus pointwise Cauchy-Schwarz, or (b) direct lintegral manipulation via
+`ENNReal.lintegral_mul_le_Lp_mul_Lq`. With that bound, `kernelOperator`
+becomes the obvious `LinearMap.mkContinuous` construction, and `V_P` 
+self-adjointness is the L1 lift applied to `fractalKernel_isConjSymmetric`.
 
 This is multi-month operator-theory formalization, bounded in scope. Not a Clay problem — the manuscript's analysis is rigorous; this is the formalization runway.
 
