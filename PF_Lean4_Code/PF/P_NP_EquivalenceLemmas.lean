@@ -301,18 +301,16 @@ lemma np_minus_p_requires_certificates :
     λ₀(H_P) = π/(10α_P) > π/(10α_NP) = λ₀(H_NP)
 -/
 theorem spectral_lambda_P_gt_lambda_NP : lambda_0_P > lambda_0_NP := by
-  unfold lambda_0_P lambda_0_NP
-  -- Need to show: π/(10√2) > π/(10(φ+1/4))
-  -- Equivalent to: φ+1/4 > √2 (since we divide by α)
+  -- After Stage 28, alpha_P/alpha_NP use alpha_of_class; bridge via canonical-values.
   have h_alpha : alpha_P < alpha_NP := by
-    unfold alpha_P alpha_NP
+    rw [alpha_P_value_ascii, alpha_NP_value_ascii]
     exact phi_plus_quarter_gt_sqrt2
   have h_pi : pi_10 > 0 := by
     unfold pi_10
     apply div_pos Real.pi_pos
     norm_num
   have h_ap : alpha_P > 0 := by
-    unfold alpha_P
+    rw [alpha_P_value_ascii]
     exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
   have h_anp : alpha_NP > 0 := by
     calc alpha_NP > alpha_P := h_alpha
@@ -321,6 +319,8 @@ theorem spectral_lambda_P_gt_lambda_NP : lambda_0_P > lambda_0_NP := by
   have h_inv : (1 : ℝ) / alpha_NP < 1 / alpha_P := by
     apply one_div_lt_one_div_of_lt h_ap h_alpha
   -- Therefore π/(10α_P) > π/(10α_NP)
+  show pi_10 / Real.sqrt 2 > pi_10 / (phi + 1/4)
+  rw [← alpha_P_value_ascii, ← alpha_NP_value_ascii]
   calc pi_10 / alpha_P
     = pi_10 * (1 / alpha_P) := by ring
     _ > pi_10 * (1 / alpha_NP) := by nlinarith [h_pi, h_inv]

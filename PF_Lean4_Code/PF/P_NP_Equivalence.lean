@@ -370,22 +370,23 @@ theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
     -- The implication is vacuously true
     exfalso
     have h_pos : lambda_0_P > lambda_0_NP := by
-      unfold lambda_0_P lambda_0_NP
       have h_alpha : alpha_P < alpha_NP := by
-        unfold alpha_P alpha_NP
+        rw [alpha_P_value_ascii, alpha_NP_value_ascii]
         exact phi_plus_quarter_gt_sqrt2
       have h_pi : pi_10 > 0 := by
         unfold pi_10
         apply div_pos Real.pi_pos
         norm_num
       have h_ap : alpha_P > 0 := by
-        unfold alpha_P
+        rw [alpha_P_value_ascii]
         exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
       have h_anp : alpha_NP > 0 := by
         calc alpha_NP > alpha_P := h_alpha
           _ > 0 := h_ap
       have h_inv : (1 : ℝ) / alpha_NP < 1 / alpha_P := by
         apply one_div_lt_one_div_of_lt h_ap h_alpha
+      show pi_10 / Real.sqrt 2 > pi_10 / (phi + 1/4)
+      rw [← alpha_P_value_ascii, ← alpha_NP_value_ascii]
       calc pi_10 / alpha_P
         = pi_10 * (1 / alpha_P) := by ring
         _ > pi_10 * (1 / alpha_NP) := by nlinarith [h_pi, h_inv]
