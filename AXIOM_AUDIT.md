@@ -84,34 +84,53 @@ Phase 1 of the retirement work. Adds operator-theory infrastructure under
 
 Build: master `c2aeb31`, 5534 jobs, 1 project axiom, 0 sorries.
 
-**Session arc** (Stage 44, commits cf38a7e → 644e529, 12 commits):
+**Session arc** (Stage 44, commits cf38a7e → e02eb0d, 17 commits):
 each adds either pure foundational lemmas (L1) or strictly forward
 progress on V_P operator construction. All theorems in this stage
 depend only on `{propext, Classical.choice, Quot.sound}`.
 
-**HilbertSchmidt foundation added** (commits f828d2e, 644e529):
+**HilbertSchmidt complete** (commits f828d2e, 644e529, 7737b25, fbffa83, e02eb0d):
 - `integrable_kernel_mul` — V·f.comp_snd ∈ L¹(μ⊗μ) via HolderConjugate 2 2.
 - `integrable_kernel_section` — for ae x, y ↦ V(x,y)·f(y) is L¹.
 - `aestronglyMeasurable_kernelAction` — kernelAction V f is AEStronglyMeasurable.
-- `KernelL2 μ := { V // MemLp V 2 (μ.prod μ) }` — bundled L² kernel
-  subtype with packaged accessors.
-- Documented next-milestone theorem `eLpNorm_kernelAction_le` (the
-  Hilbert-Schmidt L²-bound) with proof outline (pointwise Cauchy-Schwarz
-  + Fubini-Tonelli for ‖V‖²) and the LinearMap.mkContinuous closure.
+- `KernelL2 μ := { V // MemLp V 2 (μ.prod μ) }` — bundled L² kernel subtype.
+- `enorm_kernelAction_le` — pointwise Cauchy-Schwarz bound via
+  `enorm_integral_le_lintegral_enorm` + `ENNReal.lintegral_mul_le_Lp_mul_Lq`.
+- `enorm_kernelAction_sq_le` — squared pointwise bound (square and distribute rpow).
+- `lintegral_enorm_kernelAction_sq_le` — integrate in x, pull out via
+  `lintegral_mul_const''` (measurability of inner integral from
+  `Measurable.lintegral_prod_right`), Fubini-Tonelli via `lintegral_prod`.
+- `eLpNorm_kernelAction_le` — the headline Hilbert-Schmidt bound:
+  `eLpNorm (kernelAction V f) 2 μ ≤ eLpNorm V 2 (μ⊗μ) · eLpNorm f 2 μ`.
+- `memLp_kernelAction` — L²-membership of the kernel action.
+- `kernelAction_add_ae` / `kernelAction_smul_ae` — additivity / homogeneity (a.e.).
+- `kernelOperatorFn` — function-level operator `Lp ℂ 2 μ → Lp ℂ 2 μ`.
+- `coeFn_kernelOperatorFn` — Lp coercion is a.e. equal to raw `kernelAction`.
+- `norm_kernelOperatorFn_le` — operator-norm bound (toReal version).
+- `kernelOperatorFn_add` / `kernelOperatorFn_smul` — Lp-level linearity.
+- **`kernelOperator : (Measurable V × MemLp V 2 (μ⊗μ)) → Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ`**
+  — the **fully-bounded CLM** via `LinearMap.mkContinuous`. Stage L2's
+  operator-construction milestone closed.
 
 **Stage 44 totals**:
 - 4 new files under `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
   HilbertSchmidt.
-- ~28 new theorems / definitions, all axiom-clean.
-- Master: `644e529`, 5536 jobs, 1 project axiom, 0 sorries.
+- ~40 new theorems / definitions, all axiom-clean.
+- Master: `e02eb0d`, 5536 jobs, 1 project axiom, 0 sorries.
 
-**Pickup point for next session**: the Hilbert-Schmidt L²-bound on
-`kernelAction`. This requires either (a) developing a `MemLp.prod_right_ae`
-L²-Fubini analog of `Integrable.prod_right_ae` (not currently in mathlib),
-plus pointwise Cauchy-Schwarz, or (b) direct lintegral manipulation via
-`ENNReal.lintegral_mul_le_Lp_mul_Lq`. With that bound, `kernelOperator`
-becomes the obvious `LinearMap.mkContinuous` construction, and `V_P` 
-self-adjointness is the L1 lift applied to `fractalKernel_isConjSymmetric`.
+**Pickup point for next session**: Bridge to `V_P_canonical`. With the
+infrastructure in place, `kernelOperator (measurable_fractalKernel α ha)
+(memLp_fractalKernel α ha μ 2)` produces the H_P operator, and the L1 lift
+`isSelfAdjoint_of_kernel_conjSymm` applied to `fractalKernel_isConjSymmetric`
+yields `IsSelfAdjoint H_P` as a theorem. The remaining bookkeeping is the
+`hAction` hypothesis (immediate from `coeFn_kernelOperatorFn`) and the
+`hFub` integrability hypothesis for `pairingIntegrand` (Hölder triple
+2-2-1 applied twice, or a direct triple-Hölder).
+
+After that, V_NP via unitary R_φ conjugation preserves self-adjointness
+via `IsSelfAdjoint.conj_adjoint`, and L3 (generating-function identity for
+N_m^(3)) + L4 (theta-sum reality at α = √2 and φ + 1/4) close out the
+axiom retirement.
 
 This is multi-month operator-theory formalization, bounded in scope. Not a Clay problem — the manuscript's analysis is rigorous; this is the formalization runway.
 
