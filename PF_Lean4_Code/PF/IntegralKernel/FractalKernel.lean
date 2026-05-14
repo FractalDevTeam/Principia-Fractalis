@@ -260,4 +260,30 @@ theorem measurable_fractalKernel
     Measurable (fractalKernel α a : K × K → ℂ) :=
   Complex.measurable_ofReal.comp (measurable_fractalKernelReal α ha)
 
+/-! ## L² membership of the fractal kernel on a finite measure
+
+The kernel is uniformly bounded (`a/(a-1)`) and measurable, so on any finite
+product measure `μ.prod μ` it satisfies the `MemLp 2` predicate. This is the
+last ingredient needed before promoting the kernel to a Hilbert-Schmidt
+operator on `Lp ℂ 2 μ` (the next step).
+-/
+
+/-- The V_P kernel is in `L^p (μ.prod μ)` for any `p`, when `μ` is finite and
+    `a > 1`. -/
+theorem memLp_fractalKernel
+    [MeasurableSpace K] [SecondCountableTopology K] [OpensMeasurableSpace K]
+    (α : ℝ) {a : ℝ} (ha : 1 < a) (μ : Measure K) [IsFiniteMeasure μ]
+    (p : ENNReal) :
+    MemLp (fractalKernel α a : K × K → ℂ) p (μ.prod μ) := by
+  refine MemLp.of_bound
+    ((measurable_fractalKernel α ha).aestronglyMeasurable)
+    (a / (a - 1)) ?_
+  refine Filter.Eventually.of_forall (fun z => ?_)
+  -- ‖fractalKernel α a z‖ = |fractalKernelReal α a z| ≤ a/(a-1)
+  show ‖(((fractalKernelReal α a z : ℝ) : ℂ))‖ ≤ a / (a - 1)
+  rw [show ‖(((fractalKernelReal α a z : ℝ) : ℂ))‖ =
+        |fractalKernelReal α a z| from
+      RCLike.norm_ofReal (K := ℂ) _]
+  exact abs_fractalKernelReal_le α ha z
+
 end PrincipiaTractalis.IntegralKernel
