@@ -1,6 +1,15 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-14 (Stage 33)**: **1 verified axiom** in `PF/`, restructured to its self-adjointness algebraic form (down from 2 on Stage 30, 3 on Stage 25, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `b0da9ed`). The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their algebraic form: `(alpha_of_class ClassP)² = 2 ∧ 0 < alpha_of_class ClassP ∧ alpha_of_class ClassNP = φ+¼`. The P-class component is now the self-adjointness equation form (not the resolved value); the NP-class component remains pinned directly (its minimal polynomial 16α² - 24α - 11 = 0 is less elementary).*
+*As of **2026-05-14 (Stage 42)**: **1 verified axiom** in `PF/`, in pure algebraic self-adjointness form for both classes (down from 2 on Stage 30, 3 on Stage 25, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `1fce275`). The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their full algebraic form:*
+
+```lean
+axiom alpha_class_self_adjointness_canonical :
+    ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
+    (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0
+     ∧ 0 < alpha_of_class ClassNP)
+```
+
+*Specific values (α_P = √2, α_NP = φ+¼) are now **derived theorems**, not axiomatic; separation, positivity, and distinctness are also derived. Stages 36-42 finalized the orphan cleanup: the camelCase α-parameter set in TuringEncoding/Basic.lean, the orphan phase functions phasePclass/phaseNPclass, the orphan LanguageSpace/symmetricDifference scaffolding, and the conjunction-form `alpha_class_canonical_values` were all deleted.*
 
 ## Stage 35: Axiom in FULL algebraic form (May 14, 2026)
 
