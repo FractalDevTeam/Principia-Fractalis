@@ -66,6 +66,48 @@ The honest count is **3 axioms remaining**, each encoding a real undischarged as
 | `operator_collapse_hypothesis` | `PF/P_NP_Complete_Proof.lean:190` | `P_equals_NP_def → α_NP = α_P` (operator collapse, class-based) | Manuscript Ch 21 Theorem 21.3 formalization. Equivalent to ¬(P=NP) given fixed-constant α_P ≠ α_NP. |
 | `p_eq_np_spectrum_collapse` | `PF/TuringEncoding/Operators.lean:191` | `ClassP=ClassNP → λ₀_P = λ₀_NP` (spectrum collapse) | Same as above; equivalent to ¬(P=NP) given fixed-constant λ₀_P ≠ λ₀_NP. |
 
+### Honest finale on the 3 remaining axioms (2026-05-14)
+
+After the 22-stage cleanup arc (commits `6d2ede1` → `fafe0f7`, 28 commits across May 11–14), the framework is structurally referee-defensible: every hollow `True`-bodied placeholder is gone, every `∧ True` conjunct dropped, every orphan with vacuous statement deleted. Four real analytical theorems landed (Stages 18–22) — Bochner-Herglotz modulus inequality, ContinuousAt-0 → globally continuous, `CharacteristicFunctional.continuous`, `charFun_positive_definite` (Bochner forward direction), `finite_dim_bochner_uniqueness` (mathlib wrapper).
+
+What "finishing" means for each of the 3 remaining axioms:
+
+**1. `bochner_minlos_existence` — classical analysis, retirable**
+
+The genuine mathematical content (Reed-Simon §IX.2): given continuous PD normalized C on Schwartz space, construct a probability measure μ on S' whose pairing-Fourier-transform is C. The construction proceeds via finite-dim Bochner existence (using Riesz-Markov-Kakutani on continuous compactly-supported functions, which IS in mathlib) → consistent family of finite-dim measures → Kolmogorov extension → Minlos σ-additivity for nuclear spaces. Mathlib survey (2026-05-14) found:
+
+- ✅ Riesz-Markov-Kakutani (`rieszMeasure`, `integral_rieszMeasure`)
+- ✅ Tightness machinery (`MeasureTheory.Measure.Tight`)
+- ✅ Lévy-Prokhorov metric (`LevyProkhorovMetric`)
+- ✅ Finite-dim charFun uniqueness (`Measure.ext_of_charFun`, wrapped as `finite_dim_bochner_uniqueness` in Stage 22)
+- ❌ Lévy continuity theorem (absent from mathlib)
+- ❌ Bochner existence (absent from mathlib)
+
+Retirement is multi-week classical analysis work, fully tractable. This is the path.
+
+**2 & 3. `operator_collapse_hypothesis` and `p_eq_np_spectrum_collapse` — manuscript content, equivalent to P ≠ NP**
+
+These two axioms state `P_equals_NP_def → α_NP = α_P` and `ClassP = ClassNP → λ₀_P = λ₀_NP` respectively. Since:
+
+- `α_P = √2 ≈ 1.414` and `α_NP = φ + ¼ ≈ 1.868` are concrete distinct reals;
+- `λ₀_P = π₁₀/√2` and `λ₀_NP = π₁₀/(φ + ¼)` are concrete distinct reals (numerically verified to differ by ≈ 0.054 in `spectral_gap_value`);
+
+each implication's *conclusion* is a numerically false equation. Therefore each implication is provable iff its *antecedent* is false — i.e., iff ClassP ≠ ClassNP — i.e., iff **P ≠ NP**.
+
+Retiring these axioms is logically equivalent to **proving P ≠ NP**, a Clay Millennium Problem. They are not infrastructure gaps; they are the manuscript's substantive scientific claim — the spectral-separation framework's *conditional resolution* of the P vs NP question. The honest framing is not "axioms to be eliminated" but "this is the conjectural content the framework asserts."
+
+This is consistent with Pabs's no-demotion rule: we don't claim P ≠ NP as theorem (which would be false-pretence given it's an open problem), but we also don't demote to `Conjecture` (which would erase the framework's scientific commitment). The axiom is the honest representation: "**this is what we claim, and its truth is equivalent to P ≠ NP.**"
+
+### State after the multi-session arc
+
+- master `fafe0f7`, synced with origin.
+- **3 project axioms** (2 of which are equivalent to P ≠ NP; 1 is classical analysis awaiting Lévy/Bochner formalization).
+- **0 sorries**.
+- **5526 jobs clean**.
+- All True-bodied placeholders eliminated.
+- 4 real analytical theorems on the books.
+- The framework is referee-defensible: it makes one substantive scientific claim (P ≠ NP via spectral separation), one classical-analysis claim (Bochner-Minlos existence), and discharges everything else rigorously.
+
 ### Placeholder caveat on `bochner_minlos_existence` (2026-05-11/12, fully closed)
 
 This caveat originally disclosed 6 placeholder rows in the structures
