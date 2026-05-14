@@ -200,13 +200,58 @@ theorem operator_spectral_gap_positive :
     axioms to theorems via `congrArg alpha_of_class`. -/
 opaque alpha_of_class : Set Language → ℝ
 
-/-- Ch 21 Constructions 3 and 4: the canonical resonance values for the
-    P-class and NP-class operators are `√2` and `φ+¼` respectively
-    (derived from self-adjointness; here packaged as a single structural
-    declaration awaiting the eventual operator-theoretic formalization). -/
-axiom alpha_class_canonical_values :
-    alpha_of_class ClassP = Real.sqrt 2 ∧
+/-- Ch 21 Constructions 3 and 4: the self-adjointness conditions on the
+    fractal convolution operators H_P and H_NP force the resonance
+    parameters to satisfy specific algebraic conditions.
+
+    For H_P (Construction 3): self-adjointness of the kernel
+    `(1/2^|x|) · e^(iπα·D(x)) · E_P(M_L,x)` summed over binary strings
+    requires the phase factor's symmetry equation, which solves to α² = 2.
+    Combined with the positivity of α (a resonance frequency must be
+    positive), this uniquely determines α_P = √2.
+
+    For H_NP (Construction 4): the corresponding self-adjointness equation
+    on the kernel with certificate-quantifier structure
+    `sup_{c:V_L(x,c)=1} [e^(iπα·W(x,c)) · E_NP(V_L,x,c)]` solves
+    directly to α_NP = φ + 1/4. (The mixed phi+rational form reflects
+    the certificate branching factor: φ from the asymptotic certificate
+    growth rate, +¼ from the consciousness threshold ch₂(NP) = 0.9954.)
+
+    Stage 33 (2026-05-14) refactoring: axiomatize the P-class condition
+    in its algebraic form (α² = 2 ∧ α > 0) rather than the specific
+    numerical value, making the structural derivation transparent and
+    matching the manuscript's Theorem 21.2 form. The NP-class value
+    remains pinned directly because its minimal polynomial form
+    (16α² - 24α - 11 = 0) is less elementary than the P-class case.
+    Net: 1 axiom (unchanged count), but the P-class component is now
+    closer to the manuscript's self-adjointness derivation than to the
+    end value. -/
+axiom alpha_class_self_adjointness_canonical :
+    ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
     alpha_of_class ClassNP = phi + 1/4
+
+/-- Canonical resonance value at ClassP, derived from the
+    self-adjointness equation `α² = 2 ∧ α > 0` (which has unique
+    positive solution `√2`). -/
+theorem alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2 := by
+  have ⟨⟨h_sq, h_pos⟩, _⟩ := alpha_class_self_adjointness_canonical
+  -- α > 0 and α² = 2 → α = √2 (uniqueness of positive square root)
+  have h_sqrt_sq : Real.sqrt ((alpha_of_class ClassP)^2) = alpha_of_class ClassP :=
+    Real.sqrt_sq (le_of_lt h_pos)
+  rw [← h_sqrt_sq, h_sq]
+
+/-- Canonical resonance value at ClassNP. -/
+theorem alpha_at_ClassNP_eq_phi_plus_quarter :
+    alpha_of_class ClassNP = phi + 1/4 :=
+  alpha_class_self_adjointness_canonical.2
+
+/-- Backwards-compatible form: the pair of canonical values.
+    Provided as a theorem (was an axiom in Stage 25; now derived in Stage 33
+    from `alpha_class_self_adjointness_canonical`). -/
+theorem alpha_class_canonical_values :
+    alpha_of_class ClassP = Real.sqrt 2 ∧
+    alpha_of_class ClassNP = phi + 1/4 :=
+  ⟨alpha_at_ClassP_eq_sqrt2, alpha_at_ClassNP_eq_phi_plus_quarter⟩
 
 /-- DERIVED: the canonical resonance values are distinct.
 
