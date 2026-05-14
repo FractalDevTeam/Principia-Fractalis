@@ -199,6 +199,36 @@ consistent with a fully formalized continuous operator framework — both
 H_P and H_NP are self-adjoint as theorems — but the commitment itself
 remains the axiom.
 
+**L4 polylog foundation** (commits c0c5aa0, 99be40c, 12293a6):
+
+`PF/Analytic/Polylog.lean` (new directory + file) — the foundational
+definition of the polylogarithm function, the analytic-number-theory
+foundation for the polylog-route axiom retirement.
+
+- `polyLog (s z : ℂ) : ℂ := Σ' n : ℕ, z^(n+1) / ((n+1):ℂ)^s` — the
+  polylog series, indexed via `n+1` shift.
+- `polyLog_zero` — `Li_s(0) = 0`.
+- `norm_polyLog_term_le` — termwise norm bound `‖z^(n+1)/(n+1)^s‖ ≤ ‖z‖^(n+1)`
+  when `Re s ≥ 0`, via `Complex.norm_cpow_eq_rpow_re_of_pos` and the
+  fact `(n+1)^Re(s) ≥ 1`.
+- `summable_polyLog_term` — absolute convergence on the open unit disk
+  for `Re s ≥ 0`, via `Summable.of_norm_bounded` with geometric majorant.
+- `hasSum_polyLog`, `polyLog_eq_tendsto_partial_sum` — `HasSum` /
+  `Tendsto` statements identifying polylog with its partial-sum limit.
+- **`polyLog_zero_exponent`** — closed-form identity `Li_0(z) = z/(1−z)`
+  for `‖z‖ < 1`, via `tsum_geometric_of_norm_lt_one` + `field_simp`.
+
+Documented roadmap for the polylog-route axiom retirement:
+1. `Li_1(z) = −log(1−z)` (Mercator) via mathlib's `Complex.logTaylor`
+2. Derivative recurrence `d/dz Li_{s+1}(z) = Li_s(z)/z`
+3. Functional equation / reflection
+4. **Jonquières analytic continuation** for `|z|` near 1
+5. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula
+6. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`
+
+Steps 4-6 are the substantive analytic-number-theory work that would
+retire `alpha_class_self_adjointness_canonical` via the polylog route.
+
 **L4 analytic layer** (commit 7733bcc):
 
 `PF/TuringEncoding/PhaseSum.lean` — the phase-weighted theta-sum and its
@@ -307,14 +337,15 @@ captures the substantive combinatorial content as a polynomial identity in
 any commutative semiring; this is the foundation for L4's analytic-number-
 theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
 
-**Stage 44 totals** (extended into L3 + L4 foundation + L4 analytic):
+**Stage 44 totals** (full L1+L2+L3+L4 chain):
 - 5 new files in `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
   HilbertSchmidt, Bridge.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
-- ~70 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
-  L4-algebra / L4-analytic, all axiom-clean.
-- Master: `7733bcc`, 5546 jobs, 1 project axiom, 0 sorries.
+- 1 new file in `PF/Analytic/`: Polylog.
+- ~78 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+  L4-algebra / L4-analytic / L4-polylog, all axiom-clean.
+- Master: `12293a6`, 5548 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
