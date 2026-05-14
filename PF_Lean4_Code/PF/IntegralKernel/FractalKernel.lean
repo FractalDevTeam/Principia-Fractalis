@@ -172,4 +172,34 @@ theorem fractalKernel_isConjSymmetric [MeasurableSpace K] (α a : ℝ)
   unfold fractalKernel
   simp [Complex.conj_ofReal]
 
+/-! ## Canonical instance: `V_P` at the book's `α = √2`
+
+Chapter 21 fixes the resonance parameter for P-class to `α_P = √2`. The
+NP-class kernel `V_NP = V_P ⊗ R_φ` is a unitary conjugate of `V_P` (book
+line 510), so its self-adjointness follows from `V_P`'s by
+`IsSelfAdjoint.adjoint_conj` once the unitary `R_φ` is in place.
+-/
+
+/-- **The book's canonical V_P kernel** (Ch 21, Definition 4.2, line 333):
+    `V_P(x, y) = Σ a^{-n} cos(π · 2^{n/2} · d(x, y))`.
+
+    This is `fractalKernel` with the canonical P-class resonance
+    `α = √2`. The auxiliary base `a > 1` is left free (to be chosen
+    for convergence; book uses `a = 10√2/π` for the spectral-gap
+    normalisation). -/
+noncomputable def V_P_canonical (a : ℝ) : K × K → ℂ :=
+  fractalKernel (Real.sqrt 2) a
+
+theorem V_P_canonical_isConjSymmetric [MeasurableSpace K] (a : ℝ)
+    (μ : Measure K) : IsConjSymmetric (V_P_canonical (K := K) a) μ :=
+  fractalKernel_isConjSymmetric (Real.sqrt 2) a μ
+
+theorem V_P_canonical_swap (a : ℝ) (z : K × K) :
+    V_P_canonical (K := K) a z.swap = V_P_canonical (K := K) a z :=
+  fractalKernel_swap (Real.sqrt 2) a z
+
+theorem abs_V_P_canonical_le {a : ℝ} (ha : 1 < a) (z : K × K) :
+    |fractalKernelReal (Real.sqrt 2) a z| ≤ a / (a - 1) :=
+  abs_fractalKernelReal_le (Real.sqrt 2) ha z
+
 end PrincipiaTractalis.IntegralKernel
