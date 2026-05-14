@@ -17,6 +17,12 @@ Updated: November 28, 2025 - Added Minlos/YM/Spectral frameworks
 import PF.Basic
 import PF.IntervalArithmetic
 
+-- ============================================================================
+-- L1: Integral Kernel Operator Infrastructure (Stage L1 — May 2026)
+-- ============================================================================
+import PF.IntegralKernel.Basic
+import PF.IntegralKernel.SelfAdjoint
+
 -- The Four Anchor Theorems
 import PF.RadixEconomy       -- Theorem 1: Base-3 optimality
 import PF.SpectralGap        -- Theorem 2: P ≠ NP via spectral gap
