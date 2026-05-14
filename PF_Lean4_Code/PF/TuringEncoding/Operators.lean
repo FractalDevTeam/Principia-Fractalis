@@ -208,6 +208,20 @@ axiom alpha_class_canonical_values :
     alpha_of_class ClassP = Real.sqrt 2 ∧
     alpha_of_class ClassNP = phi + 1/4
 
+/-- DERIVED: the canonical resonance values are distinct.
+
+    Direct corollary of `alpha_class_canonical_values` and
+    `phi_plus_quarter_gt_sqrt2`. Useful as the *minimal substantive content*
+    of the axiom for P ≠ NP: just the distinctness of alpha_of_class at
+    ClassP vs ClassNP is sufficient (combined with the OCH structural
+    theorem) to derive P ≠ NP, without needing the specific numerical
+    values. Added Stage 32 (2026-05-14). -/
+theorem alpha_class_distinct : alpha_of_class ClassP ≠ alpha_of_class ClassNP := by
+  rw [alpha_class_canonical_values.1, alpha_class_canonical_values.2]
+  intro h
+  -- h : Real.sqrt 2 = phi + 1/4, but phi_plus_quarter_gt_sqrt2 says φ+¼ > √2.
+  linarith [phi_plus_quarter_gt_sqrt2]
+
 /-- Spectrum collapse under P = NP: equal ground energies follow from class
     equality + canonical resonance values.
 
