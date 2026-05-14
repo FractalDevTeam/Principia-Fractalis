@@ -35,6 +35,7 @@ import PF.SpectralEmbedding  -- Theorem 4: SU(2)×U(1) emergence
 -- Stage B: P vs NP Equivalence
 import PF.TuringEncoding     -- Turing machine encoding into operators
 import PF.TuringEncoding.DigitalSum  -- Stage L3 — digital sum lemmas
+import PF.TuringEncoding.ThetaSum    -- Stage L4 — truncated theta-sum
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
