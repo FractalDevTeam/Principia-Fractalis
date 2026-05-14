@@ -1379,14 +1379,17 @@ noncomputable def alpha_P : ℝ := TuringEncoding.alpha_of_class TuringEncoding.
 -/
 noncomputable def alpha_NP : ℝ := TuringEncoding.alpha_of_class TuringEncoding.ClassNP
 
-/-- The ASCII `alpha_P` (defined here) equals `√2` via the canonical-values
-    axiom. Bridges the structural definition to its numerical content. -/
+/-- The ASCII `alpha_P` (defined here) equals `√2` via the derived
+    theorem `alpha_at_ClassP_eq_sqrt2` (Stage 35: from the algebraic
+    self-adjointness axiom α² = 2 ∧ α > 0). -/
 theorem alpha_P_value_ascii : alpha_P = Real.sqrt 2 :=
-  TuringEncoding.alpha_class_canonical_values.1
+  TuringEncoding.alpha_at_ClassP_eq_sqrt2
 
-/-- The ASCII `alpha_NP` equals `φ + 1/4`. -/
+/-- The ASCII `alpha_NP` equals `φ + 1/4` via the derived theorem
+    `alpha_at_ClassNP_eq_phi_plus_quarter` (Stage 35: from the
+    algebraic self-adjointness axiom 16α² - 24α - 11 = 0 ∧ α > 0). -/
 theorem alpha_NP_value_ascii : alpha_NP = phi + 1/4 :=
-  TuringEncoding.alpha_class_canonical_values.2
+  TuringEncoding.alpha_at_ClassNP_eq_phi_plus_quarter
 
 /-- Resonance frequency separation.
 
