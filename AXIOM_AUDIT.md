@@ -134,11 +134,31 @@ depend only on `{propext, Classical.choice, Quot.sound}`.
   `IsSelfAdjoint.conj_adjoint` applied to `H_P_canonical_isSelfAdjoint`.
 - `H_NP_via_conjugation_id_eq_H_P` — sanity-check: `S = id` recovers H_P.
 
-**Stage 44 totals**:
-- 5 new files under `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
+**L3 layer added** (commit 3de05de):
+`PF/TuringEncoding/DigitalSum.lean` — digital-sum / generating-function
+infrastructure for Ch 21 Section 4.2:
+- `digitalSum3_eq_digits_sum` — bridge to mathlib's `Nat.digits 3` via
+  strong induction + `Nat.digits_def'`.
+- `digitalSum3_add_3_mul` — composition law `D(x + 3y) = x + D(y)` for `x < 3`.
+- `pow_digitalSum3_eq_low_mul` — multiplicative form
+  `z^(D n) = z^(n%3) · z^(D (n/3))` over a commutative semiring.
+- `sum_range_three_mul_eq` — Finset reindex `range(3M) ↔ range(M) × range(3)`
+  via the `n ↔ (n/3, n%3)` bijection (`Finset.sum_nbij'`).
+- **`digitalSum3_generating_truncated`** — the truncated form of Ch 21
+  line 286: `Σ_{n < 3^N} z^(digitalSum3 n) = (1 + z + z²)^N`.
+
+The book's infinite GF `Σ N_m^(3) z^m = Π (1+z+z²·3^k)` is informal since
+`N_m^(3) = |{n : D(n) = m}|` is generally infinite. The truncated form
+captures the substantive combinatorial content as a polynomial identity in
+any commutative semiring; this is the foundation for L4's analytic-number-
+theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
+
+**Stage 44 totals** (extended into L3):
+- 5 new files in `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
   HilbertSchmidt, Bridge.
-- ~48 new theorems / definitions, all axiom-clean.
-- Master: `083fcae`, 5538 jobs, 1 project axiom, 0 sorries.
+- 1 new file in `PF/TuringEncoding/`: DigitalSum.
+- ~53 new theorems / definitions across L1 / L2 / L3, all axiom-clean.
+- Master: `3de05de`, 5540 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
