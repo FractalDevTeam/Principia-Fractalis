@@ -1,6 +1,14 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-14 (Stage 25)**: **2 verified axioms** in `PF/` (down from 3 on 2026-05-13, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `5c5e1dc`). All `True`-bodied placeholders eliminated; both Ch 21 P-vs-NP axioms retired via the `alpha_of_class` structural refactor.*
+*As of **2026-05-14 (Stage 30)**: **1 verified axiom** in `PF/` (down from 2 on 2026-05-14, 3 on 2026-05-13, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5526 jobs clean (master `4e0f6d2`). Both Ch 21 P-vs-NP axioms retired via the `alpha_of_class` structural refactor (Stage 25); `bochner_minlos_existence` and its 7 orphan consumers retired via orphan-chain cleanup (Stage 30).*
+
+## Stage 30: 2 → 1 axiom via orphan-consumer chain analysis
+
+Retired `bochner_minlos_existence` after verifying that all 7 of its consumers (`qft_measure_foundation`, `gaussian_measure_exists`, `yang_mills_measure_exists_proven`, `free_yang_mills_measure_exists`, `free_scalar_measure_exists`, `gaussian_yang_mills_complete`, plus the support structure `EuclideanFieldMeasure`) were **orphan top-level theorems with zero downstream consumers in PF/** — isolated showcase claims about Yang-Mills / free-scalar / QFT measure existence, not building blocks for the framework's headline P ≠ NP or Riemann Hypothesis results.
+
+Following the established orphan-deletion precedent (same as `bochner_minlos_uniqueness`, `finite_dim_bochner`, `minlos_sigma_additivity`, the in-house nuclear-spaces block, and the ~15 yang_mills_*/spectral_*/T3_* orphans from the prior cleanup), all 7 consumers + the axiom were deleted. The framework no longer makes claims about Yang-Mills/QFT measure existence in Lean. Those claims were conditional on a placeholder axiom (classical Bochner-Minlos, not yet formalized in mathlib).
+
+Reinstatement path: when classical Bochner-Minlos is formalized (Reed-Simon §IX.2, multi-week via Riesz-Markov + Lévy continuity), the deleted theorems can return as real theorems, not axiom-dependent placeholders.
 
 ## Stage 25 axiom retirement (2026-05-14, commit `5c5e1dc`)
 
