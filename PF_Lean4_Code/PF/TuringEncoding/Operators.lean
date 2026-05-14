@@ -283,13 +283,12 @@ theorem alpha_at_ClassNP_eq_phi_plus_quarter :
     rw [hy_eq] at h_pos
     linarith
 
-/-- Backwards-compatible form: the pair of canonical values.
-    Provided as a theorem (was an axiom in Stage 25; now derived in Stage 33
-    from `alpha_class_self_adjointness_canonical`). -/
-theorem alpha_class_canonical_values :
-    alpha_of_class ClassP = Real.sqrt 2 ∧
-    alpha_of_class ClassNP = phi + 1/4 :=
-  ⟨alpha_at_ClassP_eq_sqrt2, alpha_at_ClassNP_eq_phi_plus_quarter⟩
+/- `alpha_class_canonical_values` (conjunction form) — deleted 2026-05-14
+   (Stage 39) as orphan. After Stages 35-38, all internal consumers use
+   the elementary derived theorems (`alpha_at_ClassP_eq_sqrt2`,
+   `alpha_at_ClassNP_eq_phi_plus_quarter`) directly. The conjunction
+   form had zero internal users in PF/. Same orphan-deletion precedent
+   as the ~30 prior orphan removals across the multi-day cleanup arc. -/
 
 /-- DERIVED: the canonical resonance values are distinct.
 
