@@ -38,6 +38,11 @@ import PF.TuringEncoding.DigitalSum  -- Stage L3 — digital sum lemmas
 import PF.TuringEncoding.ThetaSum    -- Stage L4 — truncated theta-sum
 import PF.TuringEncoding.AlphaCanonical  -- Stage L4 — axiom-free α algebraic identities
 import PF.TuringEncoding.PhaseSum     -- Stage L4 — phase-weighted theta-sum + closed form
+
+-- ============================================================================
+-- L4: Analytic foundation (polylogarithm)
+-- ============================================================================
+import PF.Analytic.Polylog            -- Stage L4 — polylog foundation
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
