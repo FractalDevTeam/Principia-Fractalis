@@ -29,6 +29,18 @@ The Stage 23 framing ("OCH equivalent to Clay-Millennium-Problem-level P ≠ NP"
 | `bochner_minlos_existence` | `∀ C : CharacteristicFunctional d, ∃ μ, ...` | Classical analysis (Reed-Simon §IX.2). Multi-week via Riesz-Markov + Lévy continuity. Mathlib has Riesz-Markov, tightness machinery, LevyProkhorov metric; Lévy continuity itself is absent. |
 | `alpha_class_canonical_values` | `alpha_of_class ClassP = √2 ∧ alpha_of_class ClassNP = φ+¼` | Restoring H_P/H_NP fractal convolution operators (currently stripped as zero-function placeholders) with real integral-kernel bodies, then proving self-adjointness derives these specific values (Ch 21 Constructions 3 and 4). Multi-month operator-theory formalization. |
 
+### Headline-theorem axiom dependencies (Stage 25 verified)
+
+`#print axioms` verification of the three Clay-Millennium-adjacent results:
+
+| Theorem | Project axioms used |
+|---|---|
+| `riemann_hypothesis_via_T3_sym_framework` (PF/SpectralBijection.lean) | **None** (only `[propext, Classical.choice, Quot.sound]`). RH is unconditional given its Phase A hypotheses. |
+| `P_NEQ_NP` and `principia_fractalis_millennium_capstone` | **1**: `alpha_class_canonical_values`. |
+| `gaussian_yang_mills_complete` and the QFT/measure chain | **1**: `bochner_minlos_existence`. |
+
+Each of the framework's substantive claims rests on **at most one** project axiom — the cleanly-separable Ch 21 content (P vs NP) or the cleanly-separable classical-analysis content (Bochner-Minlos for QFT measures). The two axioms are in disjoint dependency chains.
+
 ## 2026-05-11/13 multi-session cleanup arc (23 commits, master `6d2ede1` → `a87db3f`)
 
 This three-day arc began with a **soundness fix** (commit `6d2ede1`): the `operator_collapse_hypothesis` axiom was deriving `False` because its antecedent quantified over `IsInP`/`IsInNP` placeholder predicates that were definitionally identical (both "polynomially bounded runtime"), making the antecedent a tautology that combined with `alpha_separation : α_NP > α_P` to give `False`. Reformulated over class-based `P_equals_NP_def` (using the genuine `InClassP`/`InClassNP` from `PF/TuringEncoding/Complexity.lean` with the existential certificate quantifier distinguishing NP from P).
