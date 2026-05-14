@@ -199,6 +199,31 @@ consistent with a fully formalized continuous operator framework — both
 H_P and H_NP are self-adjoint as theorems — but the commitment itself
 remains the axiom.
 
+**L4 analytic layer** (commit 7733bcc):
+
+`PF/TuringEncoding/PhaseSum.lean` — the phase-weighted theta-sum and its
+closed form, matching PART 3 of `alpha_sqrt2_derivation.py`:
+
+- `phaseWeightedThetaSum α a := Σ' n, (1/a)^n · (thetaFactor α)^n` —
+  the book's V_P kernel's `a^{-n}`-weighted theta-sum.
+- `phaseWeightedThetaSum_eq_geom` — recast as geometric series in
+  `thetaFactor α / a`.
+- **`phaseWeightedThetaSum_closed_form`** — under `‖thetaFactor α‖ < a`,
+  `Φ_a(α) = a / (a − thetaFactor α)` via `tsum_geometric_of_norm_lt_one`.
+- **`phaseWeightedThetaSum_im_eq_zero_of_factor_im_zero`** — reality of
+  the inner factor implies reality of the weighted sum (`Complex.div_im`
+  computation).
+- `phaseWeightedThetaSum_eq_thetaSum_series` — bridges to the L3
+  truncated GF: `Φ_a(α) = Σ_N (1/a)^N · truncatedThetaSum α N`.
+
+This captures the analytic content of the book's V_P kernel SA criterion
+in Lean. The reality of the phase-weighted theta-sum reduces to the
+reality of `thetaFactor α = 1 + e^{iπα} + e^{2iπα}` — the same condition
+that pins α = 2/3 + 2k or α = 4/3 + 2k, NOT α = √2. The honest
+conclusion remains: this simple framework does not capture the book's
+sophisticated polylog / Dedekind-eta SA criterion, which requires
+analytic-number-theory machinery currently absent from mathlib.
+
 **L4 axiom-free algebra layer** (commits 1e093cb, 18cb661):
 
 `PF/TuringEncoding/AlphaCanonical.lean` — direct, axiom-free proofs of
@@ -282,13 +307,14 @@ captures the substantive combinatorial content as a polynomial identity in
 any commutative semiring; this is the foundation for L4's analytic-number-
 theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
 
-**Stage 44 totals** (extended into L3 + L4 foundation):
+**Stage 44 totals** (extended into L3 + L4 foundation + L4 analytic):
 - 5 new files in `PF/IntegralKernel/`: Basic, SelfAdjoint, FractalKernel,
   HilbertSchmidt, Bridge.
-- 2 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum.
-- ~60 new theorems / definitions across L1 / L2 / L3 / L4-foundation,
-  all axiom-clean.
-- Master: `6b7fd41`, 5542 jobs, 1 project axiom, 0 sorries.
+- 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
+  AlphaCanonical, PhaseSum.
+- ~70 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+  L4-algebra / L4-analytic, all axiom-clean.
+- Master: `7733bcc`, 5546 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
