@@ -134,4 +134,43 @@ theorem H_P_canonical_isSelfAdjoint {a : ℝ} (ha : 1 < a) :
       (measurable_fractalKernel (Real.sqrt 2) ha) h_C_nn h_Vbdd
       (Lp.memLp f) (Lp.memLp g)
 
+/-! ## H_NP_canonical via unitary conjugation
+
+The book's H_NP (Ch 21 line 510) is a unitary conjugate of H_P:
+`H_NP = U(φ) · H_P · U(φ)†`, where `U(φ)` is a rotation by the golden
+angle. Since unitary conjugation preserves self-adjointness, H_NP's
+self-adjointness follows immediately from H_P's.
+
+For the abstract framework, we parameterize over an arbitrary conjugating
+CLM `S : Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ`. The book's `R_φ` is a specific
+instance; for self-adjointness we don't need to fix the instance, since
+`IsSelfAdjoint.conj_adjoint` works for any conjugating map.
+-/
+
+/-- **The book's canonical H_NP operator** as a conjugate of H_P by a CLM
+    `S` (think `S = U(φ)`, the unitary rotation by golden angle). -/
+noncomputable def H_NP_via_conjugation
+    (S : Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ) {a : ℝ} (ha : 1 < a) :
+    Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ :=
+  S ∘L (H_P_canonical (μ := μ) ha) ∘L S.adjoint
+
+/-- **Self-adjointness of H_NP_via_conjugation**. Follows from
+    `IsSelfAdjoint.conj_adjoint`: conjugating any self-adjoint operator
+    by an arbitrary CLM preserves self-adjointness. -/
+theorem H_NP_via_conjugation_isSelfAdjoint
+    (S : Lp ℂ 2 μ →L[ℂ] Lp ℂ 2 μ) {a : ℝ} (ha : 1 < a) :
+    IsSelfAdjoint (H_NP_via_conjugation S ha) :=
+  (H_P_canonical_isSelfAdjoint ha).conj_adjoint S
+
+/-- **The identity-conjugate case**: when `S = id`, `H_NP_via_conjugation`
+    coincides with `H_P_canonical`. Useful as the trivial (degenerate)
+    instance illustrating the construction. -/
+theorem H_NP_via_conjugation_id_eq_H_P
+    {a : ℝ} (ha : 1 < a) :
+    H_NP_via_conjugation
+      (ContinuousLinearMap.id ℂ (Lp ℂ 2 μ)) ha =
+      H_P_canonical (μ := μ) ha := by
+  unfold H_NP_via_conjugation
+  simp
+
 end PrincipiaTractalis.IntegralKernel
