@@ -16,6 +16,7 @@ Reference: Gel'fand-Vilenkin, Generalized Functions Vol. 4
 import PF.NuclearSpaces
 import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
 import Mathlib.MeasureTheory.Integral.Bochner
+import Mathlib.MeasureTheory.Measure.CharacteristicFunction
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Data.Complex.Exponential
 
@@ -393,23 +394,139 @@ theorem CharacteristicFunctional.continuous {d : ℕ} (C : CharacteristicFunctio
   pos_def_continuous_of_continuous_at_zero C.toFun
     C.positive_definite C.normalized C.continuous_at_zero
 
-/- STAGE 21 (deferred): The characteristic function of a probability measure
-   is positive-definite.
+/-- THE CHARACTERISTIC FUNCTION OF A PROBABILITY MEASURE IS POSITIVE DEFINITE.
 
-   Statement: For μ a probability measure on a real inner-product space E,
-   `IsPositiveDefinite (MeasureTheory.charFun μ)`.
+    Mathlib provides `MeasureTheory.charFun μ : E → ℂ` as the Fourier transform
+    of a measure on a real inner-product space, but not the fact that this
+    function is positive-definite (a classical Bochner-direction prerequisite).
+    This theorem closes that gap, connecting mathlib's `charFun` to our
+    `IsPositiveDefinite` predicate.
 
-   Mathematical content: the factorization
-     ∑ᵢⱼ zᵢ · conj(zⱼ) · ∫ exp(⟪x, sᵢ - sⱼ⟫·i) dμ
-       = ∫ |∑ᵢ zᵢ · exp(⟪x, sᵢ⟫·i)|² dμ ≥ 0
-   uses real-linearity of inner product + Fubini-style swap of finite sum
-   and integral + (Σaᵢ)(Σconj(bⱼ)) = Σᵢⱼ aᵢ·conj(bⱼ).
+    PROOF. For any finite collection `s : Fin n → E`, `z : Fin n → ℂ`:
+    $$ \sum_{i,j} z_i \overline{z_j} \, \widehat{\mu}(s_i - s_j)
+       = \int_E \left| \sum_i z_i \, e^{i \langle x, s_i \rangle} \right|^2 d\mu(x) $$
+    The right side is the integral of a non-negative real function, hence
+    a real non-negative complex number.
 
-   Formalization status: drafted in Stage 21 attempt, but the integrability
-   plumbing for `Complex.exp (⟪x, s⟫·i)` as integrable on a finite measure
-   (via the boundedness `‖exp(it)‖ = 1`) requires careful invocation of
-   mathlib's `MeasureTheory.Integrable.const_mul` chain. Deferred to a
-   dedicated session focused on the swap-sum-integral algebra. -/
+    Key steps:
+    1. Real-linearity of `⟪x, ·⟫` and `Complex.exp_sub` give
+       `exp(⟪x, sᵢ-sⱼ⟫·i) = exp(⟪x, sᵢ⟫·i) · conj(exp(⟪x, sⱼ⟫·i))`.
+    2. Hence the double-sum integrand equals `g(x) · conj(g(x))` where
+       `g(x) := ∑ᵢ zᵢ · exp(⟪x, sᵢ⟫·i)`, by the elementary identity
+       `(∑aᵢ)(∑conj(bⱼ)) = ∑ᵢⱼ aᵢ·conj(bⱼ)` (`Finset.sum_mul_sum`).
+    3. `g(x) · conj(g(x)) = (Complex.normSq (g x) : ℂ)` (Complex.mul_conj).
+    4. Each summand is integrable on the finite measure μ:
+       `exp(⟪x,t⟫·i)` is continuous and bounded by 1, hence integrable
+       (`Integrable.bdd_mul` with the constant-1 integrable witness).
+    5. Swap finite sum and integral (`integral_finset_sum`).
+
+    Added 2026-05-14 (Stage 21). -/
+theorem charFun_positive_definite {E : Type*}
+    [SeminormedAddCommGroup E] [InnerProductSpace ℝ E] [MeasurableSpace E]
+    [OpensMeasurableSpace E]
+    (μ : MeasureTheory.Measure E) [MeasureTheory.IsProbabilityMeasure μ] :
+    IsPositiveDefinite (MeasureTheory.charFun μ) := by
+  intro n s z
+  -- The "Fourier mode" function
+  let g : E → ℂ := fun x => ∑ i, z i * Complex.exp (((@inner ℝ E _ x (s i) : ℝ) : ℂ) * Complex.I)
+  -- Pointwise: factorization of the exp factor.
+  have exp_factor : ∀ (i j : Fin n) (x : E),
+      Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I)
+      = Complex.exp (((@inner ℝ E _ x (s i) : ℝ) : ℂ) * Complex.I)
+        * (starRingEnd ℂ) (Complex.exp (((@inner ℝ E _ x (s j) : ℝ) : ℂ) * Complex.I)) := by
+    intro i j x
+    -- conj(exp(↑r·I)) = exp(-(↑r·I)) via exp_conj + ring on conj
+    have hconj : (starRingEnd ℂ) (Complex.exp (((@inner ℝ E _ x (s j) : ℝ) : ℂ) * Complex.I))
+               = Complex.exp (-(((@inner ℝ E _ x (s j) : ℝ) : ℂ) * Complex.I)) := by
+      rw [← Complex.exp_conj, map_mul, Complex.conj_ofReal, Complex.conj_I, mul_neg]
+    rw [hconj, inner_sub_right, Complex.ofReal_sub, sub_mul, Complex.exp_sub,
+        div_eq_mul_inv]
+    congr 1
+    exact (Complex.exp_neg _).symm
+  -- Pointwise: the double-sum integrand equals g x * conj(g x).
+  have pointwise : ∀ x : E,
+      (∑ i, ∑ j, z i * (starRingEnd ℂ) (z j) *
+              Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I))
+      = g x * (starRingEnd ℂ) (g x) := by
+    intro x
+    -- Rewrite each summand via exp_factor and regroup
+    have step1 : (∑ i, ∑ j, z i * (starRingEnd ℂ) (z j) *
+              Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I))
+        = ∑ i, ∑ j, (z i * Complex.exp (((@inner ℝ E _ x (s i) : ℝ) : ℂ) * Complex.I))
+              * (starRingEnd ℂ) (z j * Complex.exp (((@inner ℝ E _ x (s j) : ℝ) : ℂ) * Complex.I)) := by
+      refine Finset.sum_congr rfl fun i _ => ?_
+      refine Finset.sum_congr rfl fun j _ => ?_
+      rw [exp_factor i j x, map_mul]
+      ring
+    rw [step1]
+    -- (∑ᵢ aᵢ) · (∑ⱼ conj(bⱼ)) = ∑ᵢⱼ aᵢ · conj(bⱼ)
+    rw [← Finset.sum_mul_sum]
+    show _ = g x * _
+    rw [map_sum]
+  -- The integrand equals (Complex.normSq (g x) : ℂ).
+  have integrand_normSq : ∀ x : E,
+      g x * (starRingEnd ℂ) (g x) = (Complex.normSq (g x) : ℂ) := by
+    intro x
+    rw [Complex.mul_conj]
+  -- Each `exp(⟪x, sᵢ-sⱼ⟫·i)` is integrable: bounded continuous on finite μ.
+  have exp_integrable : ∀ (i j : Fin n), MeasureTheory.Integrable
+      (fun x => Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I)) μ := by
+    intro i j
+    -- `(fun x => exp(⟪x, sᵢ-sⱼ⟫·i)) = (fun x => exp(...) * 1)`; apply bdd_mul.
+    have heq : (fun x => Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I))
+             = (fun x => Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I) * 1) := by
+      funext x; ring
+    rw [heq]
+    refine MeasureTheory.Integrable.bdd_mul (MeasureTheory.integrable_const (1 : ℂ)) ?_ ?_
+    · -- AEStronglyMeasurable from continuity
+      apply Continuous.aestronglyMeasurable
+      have h1 : Continuous (fun x : E => @inner ℝ E _ x (s i - s j)) := by
+        exact continuous_inner.comp (continuous_id.prodMk continuous_const)
+      exact Complex.continuous_exp.comp ((Complex.continuous_ofReal.comp h1).mul continuous_const)
+    · -- Bounded by 1
+      refine ⟨1, fun x => ?_⟩
+      rw [Complex.norm_exp]
+      simp [Complex.mul_re, Complex.I_re, Complex.I_im, Complex.ofReal_im]
+  -- Each `zᵢ · conj(zⱼ) · exp(⟪x, sᵢ-sⱼ⟫·i)` is integrable: constant times integrable.
+  have summand_integrable : ∀ (i j : Fin n), MeasureTheory.Integrable
+      (fun x => z i * (starRingEnd ℂ) (z j) *
+            Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I)) μ := by
+    intro i j
+    exact (exp_integrable i j).const_mul _
+  -- Swap finite sum and integral: ∑ᵢⱼ ∫ = ∫ ∑ᵢⱼ.
+  have swap_sum_integral :
+      (∑ i, ∑ j, z i * (starRingEnd ℂ) (z j) *
+              MeasureTheory.charFun μ (s i - s j))
+      = ∫ x, (∑ i, ∑ j, z i * (starRingEnd ℂ) (z j) *
+              Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I)) ∂μ := by
+    simp_rw [MeasureTheory.charFun_apply, ← MeasureTheory.integral_const_mul]
+    -- Goal: ∑ i, ∑ j, ∫ exp_term ∂μ = ∫ ∑ i, ∑ j, exp_term ∂μ
+    -- Swap inner sum and integral first
+    have inner_swap : ∀ i,
+        (∑ j, ∫ x, z i * (starRingEnd ℂ) (z j) *
+                Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I) ∂μ)
+        = ∫ x, ∑ j, z i * (starRingEnd ℂ) (z j) *
+                Complex.exp (((@inner ℝ E _ x (s i - s j) : ℝ) : ℂ) * Complex.I) ∂μ := by
+      intro i
+      rw [← MeasureTheory.integral_finset_sum (Finset.univ : Finset (Fin n))]
+      intro j _
+      exact summand_integrable i j
+    simp_rw [inner_swap]
+    rw [← MeasureTheory.integral_finset_sum (Finset.univ : Finset (Fin n))]
+    intro i _
+    exact MeasureTheory.integrable_finset_sum _ (fun j _ => summand_integrable i j)
+  -- Combine: sum = ∫ (Complex.normSq (g x) : ℂ) ∂μ = ((∫ Complex.normSq (g x) ∂μ : ℝ) : ℂ)
+  have sum_eq : (∑ i, ∑ j, z i * (starRingEnd ℂ) (z j) *
+              MeasureTheory.charFun μ (s i - s j))
+              = ((∫ x, Complex.normSq (g x) ∂μ : ℝ) : ℂ) := by
+    rw [swap_sum_integral]
+    simp_rw [pointwise, integrand_normSq]
+    rw [integral_complex_ofReal]
+  -- Conclude: .im = 0 and .re ≥ 0.
+  refine ⟨?_, ?_⟩
+  · rw [sum_eq, Complex.ofReal_im]
+  · rw [sum_eq, Complex.ofReal_re]
+    exact MeasureTheory.integral_nonneg (fun x => Complex.normSq_nonneg _)
 
 
 
