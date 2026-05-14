@@ -199,6 +199,48 @@ consistent with a fully formalized continuous operator framework — both
 H_P and H_NP are self-adjoint as theorems — but the commitment itself
 remains the axiom.
 
+**L4 axiom-free algebra layer** (commits 1e093cb, 18cb661):
+
+`PF/TuringEncoding/AlphaCanonical.lean` — direct, axiom-free proofs of
+the algebraic content of `alpha_class_self_adjointness_canonical` for the
+specific real numbers `√2` and `φ + 1/4`:
+
+- `alpha_P_sq : (Real.sqrt 2) ^ 2 = 2` — `Real.sq_sqrt`.
+- `phi_sq_eq : phi ^ 2 = phi + 1` — golden ratio's defining quadratic
+  via `field_simp + nlinarith` with `(Real.sqrt 5)² = 5`.
+- `alpha_NP_quadratic : 16·(φ + 1/4)² − 24·(φ + 1/4) − 11 = 0` — algebraic
+  computation using `phi_sq_eq`: `16(φ + 1/4)² = 24φ + 17`,
+  `24(φ + 1/4) = 24φ + 6`, difference = 0.
+- `alpha_P_pos`, `alpha_NP_pos` — positivity facts.
+- `canonical_alpha_algebraic_pair` — combined statement matching the
+  axiom's content on the specific values `(√2, φ + 1/4)`.
+
+**The substantive equivalence** (`algebraic_pair_to_value_assignment`):
+for ANY function `f : Set Language → ℝ` and any sets `x, y`, the
+algebraic conjunction (`(f x)² = 2 ∧ f x > 0` ∧
+`16·(f y)² − 24·(f y) − 11 = 0 ∧ f y > 0`) **implies**
+`f x = √2 ∧ f y = φ + 1/4`. Proof uses quadratic factoring
+`16y² − 24y − 11 = 16(y − (3 + 2√5)/4)(y − (3 − 2√5)/4)` and excludes
+the negative root via `√5 > 3/2`.
+
+**This makes the axiom's substantive content transparent**: the algebraic
+conjunction is logically equivalent to the direct value assignment
+`alpha_of_class ClassP = √2 ∧ alpha_of_class ClassNP = φ + 1/4`. The
+axiom's irreducible content is the assignment itself; the algebraic
+content is provable axiom-free for those specific values. With this
+infrastructure, an alternative (cosmetically simpler but semantically
+equivalent) axiom form would be:
+
+```lean
+axiom alpha_of_class_canonical_values :
+    alpha_of_class ClassP = Real.sqrt 2 ∧
+    alpha_of_class ClassNP = phi + 1/4
+```
+
+This form makes the framework's structural commitment explicit. The
+current form is preserved as it matches Ch 21's "self-adjointness
+algebraic equation" framing.
+
 **L4 foundation added** (commit 6b7fd41):
 `PF/TuringEncoding/ThetaSum.lean` — the complex-valued specialization of
 the L3 truncated GF, providing the foundational reality framework:
