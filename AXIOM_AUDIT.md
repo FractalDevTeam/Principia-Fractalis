@@ -267,6 +267,20 @@ continuation `Li_s(z) = Γ(1-s)·(-log z)^{s-1} + Σ_k ζ(s-k)·(log z)^k / k!`.
 - **`jonquieresZetaSeries_at_one`** — at `z = 1`, the ζ-series collapses
   to `riemannZeta s` (all `k ≥ 1` terms vanish since `log 1 = 0`).
 
+**Final eigenvalue identity** (commit b52f884):
+`PF/Analytic/EigenvalueIdentity.lean` — formalizes the book's specific
+analytic claim from `fractal_continuation_derivation.py`:
+- `z_book := exp(I·π·√2)` — the evaluation point on the unit circle.
+- `lambda_zero_HP_book := π/(10√2)` — the target eigenvalue.
+- `norm_z_book : ‖z_book‖ = 1` — on the unit circle.
+- `BookEigenvalueIdentity : Prop` — `∃ s_star ∈ (0,1),
+  Re[polyLogSheet (-1) s_star z_book] = π/(10√2)`. Numerically
+  `s_star ≈ 0.182049937912121`.
+- Documents the full chain from this proposition to retiring
+  `alpha_class_self_adjointness_canonical`: spectral identification
+  `λ_0(H_P) = π/(10·α_P)` (book Ch 21 line 462) + polylog
+  identification + matching → `α_P = √2` → `α_P² = 2`.
+
 **Riemann sheet monodromy** (commit 2ced55d):
 `PF/Analytic/Monodromy.lean` — definitions and basic identities for the
 polylog on non-principal sheets.
@@ -282,15 +296,30 @@ polylog on non-principal sheets.
   `polyLogSheet_eq_polyLog_of_Gamma_zero`: at `Γ(s) = 0` (s ∈ ℤ≤0), all
   sheets collapse to the principal sheet (Lean's `x/0 = 0` convention).
 
-Documented roadmap for the polylog-route axiom retirement:
-1. The full identity `polyLog s z = jonquieresExpansion s z` for `z` near
-   1 (avoiding branch cut) and `s ∉ {1, 2, 3, ...}` — requires Hankel-
-   contour integration (not in mathlib) or Lerch-zeta machinery.
-2. The book's specific identity `Re[polyLogSheet (-1) s_star (e^{iπ√2})]
-   = π/(10√2)` with `s_star ≈ 0.182`.
+**The polylog-route framework is now complete at the statement level.**
+The full chain from book to formal Lean is:
 
-Steps 1-2 are the substantive analytic-number-theory work that would
-retire `alpha_class_self_adjointness_canonical` via the polylog route.
+```
+Stage 44 Lean infrastructure (axiom-clean, this stage):
+   Foundation:  polyLog definition + convergence
+   Closed:      Li_0 = z/(1-z), Li_1 = -log(1-z)
+   Derivative:  d/dz Li_{s+1} = Li_s/z (general)
+   Functional:  Li_s(z) + Li_s(-z) = 2^{1-s} Li_s(z²)
+   Jonquieres:  jonquieresExpansion definition + smoke test
+   Monodromy:   polyLogSheet m + arithmetic + m=-1 specialization
+   Final:       BookEigenvalueIdentity proposition + chain documentation
+```
+
+The remaining work to actually retire the axiom is the analytic proof
+of `BookEigenvalueIdentity` itself, requiring:
+- The full Jonquières identity `polyLog s z = jonquieresExpansion s z`
+  (Hankel-contour or Lerch-zeta proof; not in mathlib).
+- A formal H_P resolvent expansion matching the polylog form.
+- Numerical determination of `s_star ≈ 0.182` as the unique solution in
+  (0, 1) of the transcendental equation.
+
+Each is a substantial analytic-number-theory deliverable building on the
+now-complete foundational scaffolding.
 
 **L4 analytic layer** (commit 7733bcc):
 
@@ -405,14 +434,15 @@ theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
   HilbertSchmidt, Bridge.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
-- 3 new files in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
+- 4 new files in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
   derivative recurrences, functional equation), Jonquieres (definitions
-  + ζ-series at z=1), and Monodromy (Riemann sheet structure + sheet
-  arithmetic).
-- ~104 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
-  L4-algebra / L4-analytic / L4-polylog / L4-jonquieres / L4-monodromy,
-  all axiom-clean.
-- Master: `2ced55d`, 5552 jobs, 1 project axiom, 0 sorries.
+  + ζ-series at z=1), Monodromy (Riemann sheet structure + sheet
+  arithmetic), and EigenvalueIdentity (book's final claim formalized as
+  a Lean proposition + chain to axiom retirement).
+- ~110 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+  L4-algebra / L4-analytic / L4-polylog / L4-jonquieres / L4-monodromy /
+  L4-eigenvalue, all axiom-clean.
+- Master: `b52f884`, 5554 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
