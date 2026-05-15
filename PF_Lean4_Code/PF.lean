@@ -74,6 +74,7 @@ import PF.Analytic.SpectralParameterBridge        -- Stage L4 — SPECTRAL BRIDG
 import PF.Analytic.SpectralAnalysisFramework      -- Stage L4 — SPECTRAL ANALYSIS FRAMEWORK: full axiom-retirement chain
 import PF.Analytic.HPGeneralOperator              -- Stage L4 — H_P_at α: α-parameterized P-class operator with self-adjointness
 import PF.Analytic.FourierCosineDecomposition     -- Stage L4 — Fourier-cosine decomposition of the fractal kernel (Mercer-type)
+import PF.Analytic.CosineModeInnerProducts        -- Stage L4 — cosineMode/sineMode L² inner products on [0,1]
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
