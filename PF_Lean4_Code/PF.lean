@@ -55,6 +55,7 @@ import PF.Analytic.HankelUpperEdgeDCT   -- Stage L4 — upper-edge integrand poi
 import PF.Analytic.HankelLowerEdgeDCT   -- Stage L4 — lower-edge (wrapped branch) pointwise convergence
 import PF.Analytic.HankelUpperEdgeBound -- Stage L4 — upper-edge integrand modulus inequality
 import PF.Analytic.HankelLowerEdgeBound -- Stage L4 — lower-edge integrand modulus inequality
+import PF.Analytic.HankelIntegrability  -- Stage L4 — DCT dominating-function integrability
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
