@@ -65,6 +65,7 @@ import PF.Analytic.HankelUpperEdgeDCTProofReGeOne -- Stage L4 — Re s ≥ 1 bou
 import PF.Analytic.HankelUpperEdgeDCTUnified      -- Stage L4 — UPPER-EDGE DCT UNIFIED: all Re s > 0 (incl. Re s = 1)
 import PF.Analytic.HankelLowerEdgeDCTUnified      -- Stage L4 — LOWER-EDGE DCT UNIFIED + UNIFIED CAUCHY CAPSTONE
 import PF.Analytic.SStarBridge                    -- Stage L4 — s_star NUMERICAL BRIDGE: IVT-based existence framework
+import PF.Analytic.BookEvaluationContinuity       -- Stage L4 — bookEvaluation continuity: monodromy-shift component
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
