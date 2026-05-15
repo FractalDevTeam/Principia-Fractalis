@@ -120,7 +120,7 @@ theorem yang_mills_positive_definite (N : ℕ) (_hN : N ≥ 2) :
   intro n s z
   -- With placeholder covariance = 0, yangMillsGenerating reduces to exp(0) = 1.
   simp only [yangMillsGenerating, yangMillsCovariance, Complex.ofReal_zero,
-             mul_zero, neg_zero, Complex.exp_zero, mul_one]
+             mul_zero, Complex.exp_zero, mul_one]
   -- Goal: .im = 0 ∧ 0 ≤ .re of (∑ i, ∑ j, z i * conj(z j))
   -- That sum = (∑ i, z i) * conj(∑ j, z j) = |∑ i, z i|² ∈ ℝ⁺ ⊂ ℂ.
   have factored : (∑ i : Fin n, ∑ j : Fin n, z i * (starRingEnd ℂ) (z j))
@@ -223,7 +223,7 @@ theorem yang_mills_construction_complete (N : ℕ) (_hN : N ≥ 2) :
   refine ⟨μ, masslessGluonPropagator4D, μ.is_prob, rfl, fun f => ?_⟩
   -- LHS: exp(-½ · 0) = 1 (placeholder quadraticForm returns 0)
   simp only [CovarianceOperator.quadraticForm, Complex.ofReal_zero,
-             mul_zero, neg_zero, Complex.exp_zero]
+             mul_zero, Complex.exp_zero]
   -- RHS: Dirac integration picks out integrand at zeroDist
   show (1 : ℂ) = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂μ.measure
   show (1 : ℂ) = ∫ ω, Complex.exp (Complex.I * ⟨ω, f⟩ₛ) ∂ MeasureTheory.Measure.dirac zeroDist

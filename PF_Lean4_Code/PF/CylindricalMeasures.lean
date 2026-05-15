@@ -15,10 +15,11 @@ Reference: Gel'fand-Vilenkin, Generalized Functions Vol. 4
 
 import PF.NuclearSpaces
 import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-import Mathlib.MeasureTheory.Integral.Bochner
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.L1
 import Mathlib.MeasureTheory.Measure.CharacteristicFunction
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
-import Mathlib.Data.Complex.Exponential
+import Mathlib.Analysis.Complex.Exponential
 
 namespace PrincipiaTractalis
 
@@ -86,7 +87,7 @@ theorem pos_def_zero_nonneg {E : Type*} [AddCommGroup E] (C : E → ℂ)
 theorem pos_def_zero_imaginary {E : Type*} [AddCommGroup E] (C : E → ℂ)
     (hpd : IsPositiveDefinite C) : (C 0).im = 0 := by
   have h := (hpd 1 (fun _ => 0) (fun _ => 1)).1
-  simp [Fin.sum_univ_one] at h
+  simp at h
   exact h
 
 /-- Hermitian property: If C is positive definite, then C(-s) = conj(C(s)).
@@ -108,12 +109,7 @@ theorem pos_def_hermitian {E : Type*} [AddCommGroup E] (C : E → ℂ)
     have h := (hpd 2 ![0, s] ![1, Complex.I]).1
     simp [Fin.sum_univ_two, sub_zero, zero_sub] at h
     have : 2 * (C 0).im - (C (-s)).re + (C s).re = 0 := by
-      have := h
-      simp only [Complex.add_im, Complex.mul_im, Complex.mul_re,
-                 Complex.I_re, Complex.I_im, Complex.conj_I, Complex.neg_im, Complex.neg_re,
-                 map_one, one_mul, mul_one, Complex.one_im, Complex.one_re,
-                 zero_mul, mul_zero, sub_zero, zero_sub, zero_add, add_zero] at this
-      linarith [this]
+      linarith [h]
     linarith [hIm0]
   -- Step 4: combine — C(-s) and conj(C s) have matching re and im.
   apply Complex.ext
@@ -285,9 +281,8 @@ theorem pos_def_modulus_inequality {E : Type*} [AddCommGroup E] (C : E → ℂ)
         = 1 + 2 * α^2 * D * R - 2 * α * D := by
       -- Reduce conj-of-product, mul_one, etc.
       simp only [map_one, map_neg, neg_mul, mul_neg, neg_neg, mul_one, one_mul,
-                 Complex.add_re, Complex.sub_re, Complex.neg_re, Complex.mul_re,
-                 Complex.mul_im, Complex.conj_re, Complex.conj_im, Complex.one_re,
-                 Complex.one_im]
+                 Complex.add_re, Complex.neg_re, Complex.mul_re,
+                 Complex.mul_im, Complex.conj_re, Complex.conj_im, Complex.one_re]
       -- After simp, the goal should be a pure real-arithmetic identity in
       -- terms of a.re, a.im, x, y, u, v, p, q.
       -- Substitute the known expressions for a.re, a.im and use ring.

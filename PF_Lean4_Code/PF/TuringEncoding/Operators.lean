@@ -15,7 +15,8 @@ Reference: Principia Fractalis, Chapter 21
 
 import Mathlib.Analysis.InnerProductSpace.Basic
 import Mathlib.Analysis.Complex.Basic
-import Mathlib.MeasureTheory.Integral.Bochner
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.L1
 import Mathlib.MeasureTheory.Function.L2Space
 import PF.TuringEncoding.Basic
 import PF.TuringEncoding.Complexity
@@ -343,8 +344,7 @@ crystallization. This gap IS the difference between mechanical checking and crea
 -/
 theorem pow_injective_on_unit_interval :
   ∀ (α β : ℝ) (x : ℝ), 0 < x → x < 1 → α ≠ β → x^α ≠ x^β := by
-  intro α β x hx_pos hx_lt1 hαβ_ne
-  intro h_eq
+  intro α β x hx_pos hx_lt1 hαβ_ne h_eq
   -- Assume x^α = x^β for contradiction
   -- Since x = e^(log x), we have x^α = e^(α log x) and x^β = e^(β log x)
   have hx_ne1 : x ≠ 1 := by linarith

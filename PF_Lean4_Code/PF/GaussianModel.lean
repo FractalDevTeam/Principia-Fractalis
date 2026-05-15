@@ -82,7 +82,7 @@ noncomputable def CovarianceOperator.toGaussianCharacteristic {d : ℕ}
     -- Against placeholder quadraticForm = 0, exp(-(1/2) * 0) = 1, so the sum
     -- reduces to (Σᵢ zᵢ) · conj(Σⱼ zⱼ) = |Σᵢ zᵢ|² ∈ ℝ⁺ ⊂ ℂ.
     simp only [CovarianceOperator.quadraticForm, Complex.ofReal_zero,
-               mul_zero, neg_zero, Complex.exp_zero, mul_one]
+               mul_zero, Complex.exp_zero, mul_one]
     have factored : (∑ i : Fin n, ∑ j : Fin n, z i * (starRingEnd ℂ) (z j))
                   = (∑ i : Fin n, z i) * (starRingEnd ℂ) (∑ j : Fin n, z j) := by
       rw [map_sum, Finset.sum_mul]
