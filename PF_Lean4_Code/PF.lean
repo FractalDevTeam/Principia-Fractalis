@@ -69,6 +69,7 @@ import PF.Analytic.BookEvaluationContinuity       -- Stage L4 — bookEvaluation
 import PF.Analytic.ZBookNeOne                     -- Stage L4 — z_book ≠ 1 via √2 irrationality + unconditional monodromy continuity
 import PF.Analytic.PolyLogContinuity              -- Stage L4 — polylog termwise continuity + path to analytic continuation
 import PF.Analytic.PolyLogContinuityInDisc        -- Stage L4 — polylog continuity for |z| < 1 via Weierstrass M-test
+import PF.Analytic.PolyLogHankelIdentity          -- Stage L4 — polylog Hankel identity framework + continuity of target value
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
