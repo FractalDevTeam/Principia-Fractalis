@@ -45,6 +45,7 @@ import PF.TuringEncoding.PhaseSum     -- Stage L4 — phase-weighted theta-sum +
 import PF.Analytic.Polylog            -- Stage L4 — polylog foundation
 import PF.Analytic.Jonquieres         -- Stage L4 — Jonquières expansion foundation
 import PF.Analytic.Monodromy          -- Stage L4 — Riemann sheet monodromy
+import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue identity (statement)
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
