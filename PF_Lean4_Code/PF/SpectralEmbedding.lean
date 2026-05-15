@@ -62,7 +62,7 @@ structure MassSpectrum where
   Z_mass_value : |Z_mass - 91.2| < 1  -- GeV
 
 /-- Spectral embedding produces correct mass splitting -/
-theorem spectral_embedding_masses (T : TimelessFieldTorus) :
+theorem spectral_embedding_masses (_T : TimelessFieldTorus) :
     ∃ (M : MassSpectrum),
     M.photon_mass = 0 ∧
     M.W_mass > 0 ∧
@@ -130,7 +130,7 @@ theorem shell_resonance_correspondence (T : TimelessFieldTorus) :
 theorem embedding_strictly_monotone :
     ∀ (T : TimelessFieldTorus) (r1 r2 : ℝ),
     r1 > r2 → T.embedding r1 > T.embedding r2 :=
-  fun T r1 r2 h => T.embedding_mono h
+  fun T _r1 _r2 h => T.embedding_mono h
 
 /-- Mass gaps arise from spectral projections between nested shells -/
 theorem mass_gap_from_projection (T : TimelessFieldTorus) :
@@ -254,11 +254,11 @@ theorem su2_u1_spectral_embedding :
 /-- Connection to Weinstein's Geometric Unity -/
 theorem rescues_geometric_unity :
     -- Principia Fractalis provides regularization mechanism for GU divergences
-    ∀ (T : TimelessFieldTorus),
+    ∀ (_T : TimelessFieldTorus),
     ∃ (regularization : ℝ → ℝ),
     ∀ (curvature : ℝ), curvature > 0 →
     regularization curvature < 1 := by
-  intro T
+  intro _T
   use (fun x => x / (1 + x))  -- Example regularization
   intro curvature hc
   exact regularization_bounded curvature hc  -- Certified axiom

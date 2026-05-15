@@ -130,7 +130,7 @@ def cert_energy (c : Certificate) : ℕ :=
     elimination of certificates is impossible. Retained as a
     structural placeholder for the P-vs-NP framework chapter. -/
 theorem np_minus_p_needs_certificates :
-  ∀ (L : Type) (vtime : TimeComplexity),
+  ∀ (_L : Type) (vtime : TimeComplexity),
     IsInNP vtime → (∀ (t : TimeComplexity), ¬IsInP t) →
     ∃ (c : Certificate), cert_energy c > 0 := by
   intro L vtime is_np not_in_p

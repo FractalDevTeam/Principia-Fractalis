@@ -214,7 +214,7 @@ theorem bijection_structure (Φ : SpectralZeroBijection) :
 
     where s(z) encodes the spectral parameter.
 -/
-noncomputable def spectralDeterminant (T : TransferOperator 3) (z : ℂ) : ℂ :=
+noncomputable def spectralDeterminant (_T : TransferOperator 3) (_z : ℂ) : ℂ :=
   -- det(I - zT) = ∏_k (1 - z λₖ)
   0  -- Placeholder: requires infinite product
 

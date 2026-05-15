@@ -486,7 +486,7 @@ theorem polyLog_succ_hasDerivAt {s : ℂ} (hs : 0 ≤ s.re) {z : ℂ} (hz : ‖z
 
 /-- **Connection to `Li_s`**: `polyLog s z / z = Σ' n, z^n / ((n+1):ℂ)^s`
     for `‖z‖ < 1` and `z ≠ 0`. -/
-theorem polyLog_div_z {s : ℂ} (hs : 0 ≤ s.re) {z : ℂ} (hz : ‖z‖ < 1)
+theorem polyLog_div_z {s : ℂ} (_hs : 0 ≤ s.re) {z : ℂ} (_hz : ‖z‖ < 1)
     (hz_ne : z ≠ 0) :
     polyLog s z / z = ∑' n : ℕ, z ^ n / ((n + 1 : ℕ) : ℂ) ^ s := by
   unfold polyLog

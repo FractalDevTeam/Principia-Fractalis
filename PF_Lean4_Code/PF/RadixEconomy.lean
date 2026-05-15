@@ -16,11 +16,11 @@ import PF.IntervalArithmetic
 namespace PrincipiaTractalis
 
 /-- Radix economy function Q(b) = (log b) / b -/
-noncomputable def radix_economy (b : ℝ) (hb : b > 1) : ℝ :=
+noncomputable def radix_economy (b : ℝ) (_hb : b > 1) : ℝ :=
   Real.log b / b
 
 /-- Derivative of Q(b) -/
-noncomputable def radix_economy_deriv (b : ℝ) (hb : b > 1) : ℝ :=
+noncomputable def radix_economy_deriv (b : ℝ) (_hb : b > 1) : ℝ :=
   (1 - Real.log b) / (b ^ 2)
 
 /-- Euler's number e = exp(1) -/

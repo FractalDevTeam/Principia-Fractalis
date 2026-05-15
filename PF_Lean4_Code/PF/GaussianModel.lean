@@ -48,7 +48,7 @@ structure CovarianceOperator (d : ℕ) where
 
 /-- The covariance quadratic form Q(f,g) = ⟨f, K⁻¹ g⟩ = ∫∫ f(x) G(x,y) g(y) dx dy. -/
 noncomputable def CovarianceOperator.quadraticForm {d : ℕ}
-    (K : CovarianceOperator d) (f g : SchwartzFunction d) : ℝ :=
+    (_K : CovarianceOperator d) (_f _g : SchwartzFunction d) : ℝ :=
   -- In full formalization: ∫∫ f(x) · K.kernel x y · g(y) dx dy
   0  -- Placeholder
 
@@ -118,13 +118,13 @@ structure MassiveLaplacian (d : ℕ) where
     In position space: G(x-y) = ∫ e^{ip·(x-y)} / (|p|² + m²) dp/(2π)^d
 -/
 noncomputable def MassiveLaplacian.greenFunction {d : ℕ}
-    (L : MassiveLaplacian d) : CovarianceOperator d := {
-  kernel := fun x y =>
+    (_L : MassiveLaplacian d) : CovarianceOperator d := {
+  kernel := fun _x _y =>
     -- G(x-y) = Fourier transform of 1/(|p|² + m²)
     -- For d = 4: G(r) = (1/4π²) · K₁(mr) / r where K₁ is modified Bessel
     -- For m = 0: G(r) = 1/(4π² r²) (massless propagator)
     0  -- Placeholder
-  symmetric := fun x y => rfl
+  symmetric := fun _x _y => rfl
   positive := fun _ => le_refl 0
   continuous := continuous_const
 }
@@ -176,8 +176,8 @@ structure AbelianGaugeField (d : ℕ) where
     Q_μν(f, g) = δ_μν ⟨f_μ, (-Δ)⁻¹ g_ν⟩
 -/
 noncomputable def AbelianGaugeField.covariance {d : ℕ}
-    (A : AbelianGaugeField d) : VectorSchwartzFunction d → VectorSchwartzFunction d → ℝ :=
-  fun f g =>
+    (_A : AbelianGaugeField d) : VectorSchwartzFunction d → VectorSchwartzFunction d → ℝ :=
+  fun _f _g =>
     -- ∑_μ ⟨f_μ, G g_μ⟩ where G = (-Δ)⁻¹
     0  -- Placeholder
 

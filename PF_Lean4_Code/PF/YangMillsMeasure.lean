@@ -70,7 +70,7 @@ noncomputable instance (N : ℕ) : Module ℝ (TestGaugeField N) :=
     In Lorentz gauge, this equals:
     S_free[A] = ¼ ∫ ∑_{a} (∂_μ A_ν^a - ∂_ν A_μ^a)² dx
 -/
-noncomputable def freeYangMillsAction (N : ℕ) (A : TestGaugeField N) : ℝ :=
+noncomputable def freeYangMillsAction (N : ℕ) (_A : TestGaugeField N) : ℝ :=
   -- ½ ∑_{μ,a} ⟨A_μ^a, (-Δ) A_μ^a⟩_{L²}
   0  -- Placeholder: actual integral computation
 
@@ -92,7 +92,7 @@ noncomputable def gluonPropagator (N : ℕ) :
     Q(J, K) = ∑_{μ,a} ∫∫ J_μ^a(x) · G(x-y) · K_μ^a(y) dx dy
 -/
 noncomputable def yangMillsCovariance (N : ℕ)
-    (J K : TestGaugeField N) : ℝ :=
+    (_J _K : TestGaugeField N) : ℝ :=
   -- ∑_{μ,a} ⟨J_μ^a, G · K_μ^a⟩
   0  -- Placeholder
 
@@ -114,7 +114,7 @@ noncomputable def yangMillsGenerating (N : ℕ) (J : TestGaugeField N) : ℂ :=
     of the constant-1 functional — trivially true because
     Σᵢⱼ zᵢ·conj(zⱼ)·1 = ‖Σᵢ zᵢ‖² ≥ 0. When the real covariance is wired in,
     this proof must be redone against the Gaussian form. -/
-theorem yang_mills_positive_definite (N : ℕ) (hN : N ≥ 2) :
+theorem yang_mills_positive_definite (N : ℕ) (_hN : N ≥ 2) :
     IsPositiveDefinite (fun f => yangMillsGenerating N
       (fun _ _ => f : TestGaugeField N)) := by
   intro n s z
@@ -208,7 +208,7 @@ noncomputable def yangMillsCharacteristic (N : ℕ) (hN : N ≥ 2) :
     zero distribution evaluates to 1. The genuine non-trivial measure
     construction requires the real covariance plus Bochner-Minlos.
     Tracked in rev2 ch23. -/
-theorem yang_mills_construction_complete (N : ℕ) (hN : N ≥ 2) :
+theorem yang_mills_construction_complete (N : ℕ) (_hN : N ≥ 2) :
     ∃ (μ : ProbabilityMeasureOnDual 4) (G : CovarianceOperator 4),
       MeasureTheory.IsProbabilityMeasure μ.measure ∧
       G = masslessGluonPropagator4D ∧

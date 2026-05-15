@@ -592,7 +592,7 @@ lemma encodeConfig_factorization_three_eq_head (c : TMConfig) :
 
 /-- Helper: If encoding has empty tape, factorization[p] = 0 for all primes p ≥ 5 -/
 lemma empty_tape_no_high_primes (c : TMConfig) (h_empty : c.tape = []) (p : ℕ)
-    (h_prime : Nat.Prime p) (h_ge_5 : p ≥ 5) :
+    (_h_prime : Nat.Prime p) (h_ge_5 : p ≥ 5) :
     (encodeConfig c).factorization p = 0 := by
   unfold encodeConfig
   rw [h_empty]
@@ -644,7 +644,7 @@ theorem encodeConfig_head_eq : ∀ c₁ c₂ : TMConfig,
   rw [←h₁, ←h₂]
 
 /-- Helper: For empty tape, encoding has no factors of primes ≥ 5 -/
-lemma empty_tape_encoding_factorization (p : ℕ) (hp : Nat.Prime p) (hp_ge : p ≥ 5) :
+lemma empty_tape_encoding_factorization (p : ℕ) (_hp : Nat.Prime p) (_hp_ge : p ≥ 5) :
     (([]: List (Fin 3)).mapIdx (fun j sym => (nthPrime (j + 2))^(sym.val + 1))).prod.factorization p = 0 := by
   simp  -- Empty list → product = 1 → factorization = 0
 
@@ -708,10 +708,10 @@ lemma prime_pow_factorization_ne (p q : ℕ) (k : ℕ) (hp : Nat.Prime p) (hq : 
   exact h_ne h_eq.symm
 
 /-- Helper: Generalized tape encoding with offset only uses primes up to nthPrime(offset+length+1) -/
-lemma tape_encoding_prime_bound_gen : ∀ (tape : List (Fin 3)) (p : ℕ) (hp_prime : Nat.Prime p)
-    (offset : ℕ) (hp_large : p > nthPrime (offset + tape.length + 1)),
+lemma tape_encoding_prime_bound_gen : ∀ (tape : List (Fin 3)) (p : ℕ) (_hp_prime : Nat.Prime p)
+    (offset : ℕ) (_hp_large : p > nthPrime (offset + tape.length + 1)),
     (tape.mapIdx (fun j sym => (nthPrime (j + offset + 2))^(sym.val + 1))).prod.factorization p = 0
-  | [], p, hp_prime, offset, hp_large => by simp
+  | [], _p, _hp_prime, _offset, _hp_large => by simp
   | head :: tail, p, hp_prime, offset, hp_large => by
     rw [List.mapIdx_cons, List.prod_cons]
     simp only [Nat.zero_add]
@@ -799,10 +799,10 @@ lemma tape_encoding_prime_bound (tape : List (Fin 3)) (p : ℕ) (hp_prime : Nat.
   exact tape_encoding_prime_bound_gen tape p hp_prime 0 h_bound
 
 /-- Helper: Tape encoding with given offset has zero factorization at primes smaller than offset bound -/
-lemma tape_encoding_zero_at_small_prime : ∀ (tape : List (Fin 3)) (p : ℕ) (hp : Nat.Prime p)
-    (offset : ℕ) (h_bound : p < nthPrime (offset + 2)),
+lemma tape_encoding_zero_at_small_prime : ∀ (tape : List (Fin 3)) (p : ℕ) (_hp : Nat.Prime p)
+    (offset : ℕ) (_h_bound : p < nthPrime (offset + 2)),
     (tape.mapIdx fun j sym => nthPrime (j + offset + 2) ^ (sym.val + 1)).prod.factorization p = 0
-  | [], p, hp, offset, h_bound => by simp
+  | [], _p, _hp, _offset, _h_bound => by simp
   | head :: tail, p, hp, offset, h_bound => by
     rw [List.mapIdx_cons, List.prod_cons]
     simp only [Nat.zero_add]
@@ -1500,8 +1500,8 @@ theorem np_requires_consciousness : ch2_NP ≥ 0.95 := by
     is captured in other axioms about lambda_0_P and lambda_0_NP.
 -/
 theorem resonance_determines_spectrum :
-  ∀ (α : ℝ), ∃ (lambda0 : ℝ), lambda0 > 0 := by
-  intro α
+  ∀ (_α : ℝ), ∃ (lambda0 : ℝ), lambda0 > 0 := by
+  intro _α
   use 1
   norm_num
 

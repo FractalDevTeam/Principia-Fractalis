@@ -49,9 +49,9 @@ deriving Repr, DecidableEq
 
 /-- Classify a state into one of three regimes -/
 noncomputable def classify_regime (ch2 : SecondChernCharacter) : ConsciousnessRegime :=
-  if h : ch2.value < 0.50 then
+  if _h : ch2.value < 0.50 then
     .incoherent
-  else if h' : ch2.value < 0.95 then
+  else if _h' : ch2.value < 0.95 then
     .partialCoherence
   else
     .conscious

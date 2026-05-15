@@ -194,7 +194,7 @@ namespace P_NP_Equivalence_Lemmas
     the energy is energyNP [1] [] = 1 * D₃(1) = 1 > 0.
 -/
 theorem np_certificate_energy_positive :
-  ∀ (L : Type) (vtime : TimeComplexity),
+  ∀ (_L : Type) (vtime : TimeComplexity),
   (IsInNP vtime ∧ (∀ dtime, ¬IsInP dtime)) →
   ∃ (cert : List (Fin 3)), energyNP cert [] > 0 := by
   intro L vtime ⟨h_in_np, h_not_in_p⟩
@@ -223,7 +223,7 @@ theorem np_certificate_energy_positive :
   norm_num
 
 lemma np_minus_p_requires_certificates :
-    ∀ (L : Type) (vtime : TimeComplexity),
+    ∀ (_L : Type) (vtime : TimeComplexity),
     (IsInNP vtime ∧ (∀ dtime, ¬IsInP dtime)) →
     ∃ (cert : List (Fin 3)), energyNP cert [] > 0 := by
   intro L vtime h
