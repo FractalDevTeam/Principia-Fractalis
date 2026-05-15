@@ -1,11 +1,13 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-15**: **1 verified axiom** in `PF/`, unchanged since Stage 35. Build at **5626 jobs clean** (master `44d00db`), 0 sorries. Headline dependencies:*
+*As of **2026-05-15** (master `ae46797`): **1 verified axiom** in `PF/`, unchanged since Stage 35. Build at **5622 jobs clean, 0 warnings, 0 sorries**. Headline dependencies:*
 - *`principia_fractalis_millennium_capstone` → 1 axiom (`alpha_class_self_adjointness_canonical`)*
 - *`riemann_hypothesis_via_T3_sym_framework` → 0 project axioms*
 - *`P_neq_NP_via_spectral_gap` → 1 axiom (same)*
 
-*Between Stage 44 (5534 jobs, the prior recorded state) and now, a **28-module polylog-route framework** was added under `PF/Analytic/`, providing the conditional analytic chain for retiring the remaining axiom. The axiom itself is unchanged; the framework gives a structured path to its retirement.*
+*Between Stage 44 (5534 jobs, the prior recorded state) and now:*
+1. *A **28-module polylog-route framework** was added under `PF/Analytic/`, providing the conditional analytic chain for retiring the remaining axiom. The axiom itself is unchanged; the framework gives a structured path to its retirement.*
+2. *A **two-pass warning cleanup** (commits `0fd3207` + `ae46797`) cleared all 78 build warnings across 21 files: 45 unused-variable warnings (prefixed with `_`), 26 unused-`simp`-argument warnings, 3 deprecated import warnings (`Mathlib.MeasureTheory.Integral.Bochner` → split modules; `Mathlib.Data.Complex.Exponential` → `Mathlib.Analysis.Complex.Exponential`), 2 deprecated lemma warnings (`List.length_pos` → `List.length_pos_iff`), 1 `push_cast does nothing`, 1 merged-`intro` suggestion. Build is now zero-warning. All changes non-semantic; headlines verified unchanged.*
 
 ## Polylog-route framework (added 2026-05-15)
 
