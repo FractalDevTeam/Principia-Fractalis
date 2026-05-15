@@ -80,6 +80,25 @@ theorem jonquieresZetaTerm_at_log_zero_zero (s : ℂ) :
   unfold jonquieresZetaTerm
   simp [Complex.log_one]
 
+/-- **The ζ-series at z = 1 collapses to ζ(s).** All terms with `k ≥ 1`
+    vanish because `log 1 = 0`, leaving only the `k = 0` term `ζ(s)`. -/
+theorem jonquieresZetaSeries_at_one (s : ℂ) :
+    jonquieresZetaSeries s 1 = riemannZeta s := by
+  unfold jonquieresZetaSeries
+  -- The summand is non-zero only at k=0; tsum reduces to that single term.
+  have h_summand : ∀ k : ℕ,
+      jonquieresZetaTerm s 1 k = if k = 0 then riemannZeta s else 0 := by
+    intro k
+    rcases eq_or_ne k 0 with hk | hk
+    · subst hk
+      rw [if_pos rfl]
+      exact jonquieresZetaTerm_at_log_zero_zero s
+    · rw [if_neg hk]
+      exact jonquieresZetaTerm_at_log_zero s k hk
+  simp_rw [h_summand]
+  -- ∑' k, (if k = 0 then ζ(s) else 0) = ζ(s)
+  rw [tsum_ite_eq 0 (riemannZeta s)]
+
 /-! ## Roadmap for the full Jonquières identity
 
 The substantive theorem to prove (next step):
