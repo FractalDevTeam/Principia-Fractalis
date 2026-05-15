@@ -30,6 +30,7 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecificLimits.Normed
 import Mathlib.Analysis.Normed.Group.InfiniteSum
 import Mathlib.Analysis.SpecialFunctions.Complex.LogBounds
+import Mathlib.Analysis.Calculus.SmoothSeries
 
 namespace PrincipiaTractalis.Analytic
 
@@ -352,14 +353,166 @@ theorem polyLog_one_hasDerivAt_eq_polyLog_zero_div
   rw [polyLog_zero_div_z hz hz_ne]
   exact polyLog_one_hasDerivAt hz
 
+/-! ## General derivative recurrence: `d/dz Li_{s+1}(z) = Li_s(z) / z`
+
+For arbitrary complex `s` with `Re s ≥ 0` and `‖z‖ < 1`, the polylog
+satisfies the derivative recurrence
+
+  `d/dz Li_{s+1}(z) = Σ' n : ℕ, z^n / ((n+1):ℂ)^s = Li_s(z) / z (when z ≠ 0)`.
+
+Proof: term-by-term differentiation via `hasDerivAt_tsum_of_isPreconnected`.
+Each summand `z^(n+1) / ((n+1):ℂ)^(s+1)` has derivative
+`z^n / ((n+1):ℂ)^s` (using `cpow_add` to factor `((n+1):ℂ)^(s+1) =
+((n+1):ℂ)^s · (n+1)`). The derivative series is bounded by `r^n` on
+`Metric.ball 0 r` for any `r < 1`, which is summable; the original series
+is summable at `0`. The derivative-of-sum theorem then yields the result. -/
+
+/-- **Term-by-term derivative**: each polylog summand `y^(n+1)/(n+1)^(s+1)`
+    has derivative `y^n/(n+1)^s`. -/
+theorem polyLog_term_hasDerivAt (s : ℂ) (n : ℕ) (y : ℂ) :
+    HasDerivAt (fun w => w ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ (s + 1))
+      (y ^ n / ((n + 1 : ℕ) : ℂ) ^ s) y := by
+  have h_n_ne : ((n + 1 : ℕ) : ℂ) ≠ 0 := by
+    exact_mod_cast Nat.succ_ne_zero n
+  have h_split : ((n + 1 : ℕ) : ℂ) ^ (s + 1) =
+                 ((n + 1 : ℕ) : ℂ) ^ s * ((n + 1 : ℕ) : ℂ) := by
+    rw [Complex.cpow_add _ _ h_n_ne, Complex.cpow_one]
+  have h_pow : HasDerivAt (fun w : ℂ => w ^ (n + 1))
+      ((((n + 1 : ℕ)) : ℂ) * y ^ n) y := by
+    have h := hasDerivAt_pow (n + 1) y
+    -- h : HasDerivAt (fun x => x^(n+1)) (↑(n+1) * y^(n+1-1)) y
+    -- Simplify y^(n+1-1) = y^n via Nat.add_sub_cancel
+    simp only [Nat.add_sub_cancel] at h
+    exact h
+  have h_div := h_pow.div_const (((n + 1 : ℕ) : ℂ) ^ (s + 1))
+  -- h_div: HasDerivAt (fun w => w^(n+1) / ((n+1):ℂ)^(s+1))
+  --   (((n+1):ℂ) * y^n / ((n+1):ℂ)^(s+1)) y
+  -- Want: HasDerivAt (...) (y^n / ((n+1):ℂ)^s) y
+  -- Use h_split + algebra: ((n+1) * y^n) / ((n+1)^s * (n+1)) = y^n / (n+1)^s
+  have h_target : ((n + 1 : ℕ) : ℂ) * y ^ n / ((n + 1 : ℕ) : ℂ) ^ (s + 1) =
+                  y ^ n / ((n + 1 : ℕ) : ℂ) ^ s := by
+    rw [h_split]
+    have h_ne_s : ((n + 1 : ℕ) : ℂ) ^ s ≠ 0 := by
+      have : ((n + 1 : ℕ) : ℂ) = ((n : ℕ) + 1 : ℂ) := by push_cast; ring
+      rw [this]
+      exact Complex.natCast_add_one_cpow_ne_zero n s
+    field_simp
+  rw [← h_target]
+  exact h_div
+
+/-- **General derivative recurrence** for the polylog at `s + 1` on the
+    open unit disk:
+    `HasDerivAt (polyLog (s+1)) (Σ' n, z^n / ((n+1):ℂ)^s) z`.
+
+    Proof: term-by-term differentiation via
+    `hasDerivAt_tsum_of_isPreconnected` on the ball of radius
+    `(‖z‖ + 1)/2 < 1`. The derivative summand `y^n/(n+1)^s` is bounded
+    in norm by `r^n` on the ball (using `(n+1)^Re(s) ≥ 1` for `Re(s) ≥ 0`),
+    which is summable. -/
+theorem polyLog_succ_hasDerivAt {s : ℂ} (hs : 0 ≤ s.re) {z : ℂ} (hz : ‖z‖ < 1) :
+    HasDerivAt (polyLog (s + 1))
+      (∑' n : ℕ, z ^ n / ((n + 1 : ℕ) : ℂ) ^ s) z := by
+  -- Choose r with ‖z‖ < r < 1
+  set r := (‖z‖ + 1) / 2 with hr_def
+  have hz_lt_r : ‖z‖ < r := by show ‖z‖ < (‖z‖ + 1) / 2; linarith
+  have hr_lt_one : r < 1 := by show (‖z‖ + 1) / 2 < 1; linarith
+  have hr_nn : (0 : ℝ) ≤ r := by
+    have h : (0 : ℝ) ≤ ‖z‖ := norm_nonneg z
+    show 0 ≤ (‖z‖ + 1) / 2; linarith
+  -- The geometric majorant
+  have hu_sum : Summable (fun n : ℕ => r ^ n) :=
+    summable_geometric_of_lt_one hr_nn hr_lt_one
+  -- Each summand and its derivative
+  let g : ℕ → ℂ → ℂ :=
+    fun n y => y ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ (s + 1)
+  let g' : ℕ → ℂ → ℂ := fun n y => y ^ n / ((n + 1 : ℕ) : ℂ) ^ s
+  -- The open ball t
+  let t : Set ℂ := Metric.ball 0 r
+  have ht_open : IsOpen t := Metric.isOpen_ball
+  have hz_in_t : z ∈ t := by
+    simp [t, Metric.mem_ball, hz_lt_r]
+  have h0_in_t : (0 : ℂ) ∈ t := by
+    simp [t, Metric.mem_ball]
+    have hr_pos : 0 < r := by
+      show 0 < (‖z‖ + 1) / 2; linarith [norm_nonneg z]
+    exact hr_pos
+  -- Each g n has derivative g' n
+  have hg_deriv : ∀ (n : ℕ) (y : ℂ), y ∈ t → HasDerivAt (g n) (g' n y) y := by
+    intro n y _hy
+    exact polyLog_term_hasDerivAt s n y
+  -- Bound on g'
+  have hg_bound : ∀ (n : ℕ) (y : ℂ), y ∈ t → ‖g' n y‖ ≤ r ^ n := by
+    intro n y hy
+    simp only [t, Metric.mem_ball, dist_zero_right] at hy
+    have h_y_le : ‖y‖ ≤ r := le_of_lt hy
+    -- ‖y^n / ((n+1):ℂ)^s‖ = ‖y‖^n / (n+1)^Re(s) ≤ r^n / 1 = r^n
+    show ‖y ^ n / ((n + 1 : ℕ) : ℂ) ^ s‖ ≤ r ^ n
+    rw [norm_div, norm_pow]
+    have h_denom : ‖((n + 1 : ℕ) : ℂ) ^ s‖ = (n + 1 : ℕ) ^ s.re := by
+      have h_pos : (0 : ℝ) < (n + 1 : ℕ) := by exact_mod_cast Nat.succ_pos n
+      rw [show (((n + 1 : ℕ) : ℂ) : ℂ) = (((n + 1 : ℕ) : ℝ) : ℂ) from by norm_cast]
+      exact Complex.norm_cpow_eq_rpow_re_of_pos h_pos s
+    rw [h_denom]
+    -- ‖y‖^n / (n+1)^Re(s) ≤ ‖y‖^n ≤ r^n (using (n+1)^Re(s) ≥ 1 and y bound)
+    have h_denom_ge : (1 : ℝ) ≤ (n + 1 : ℕ) ^ s.re := by
+      have h_base : (1 : ℝ) ≤ (n + 1 : ℕ) := by exact_mod_cast Nat.succ_pos n
+      exact Real.one_le_rpow h_base hs
+    have h_num_nn : (0 : ℝ) ≤ ‖y‖ ^ n := pow_nonneg (norm_nonneg _) _
+    have h_num_le : ‖y‖ ^ n ≤ r ^ n :=
+      pow_le_pow_left₀ (norm_nonneg _) h_y_le n
+    calc ‖y‖ ^ n / (n + 1 : ℕ) ^ s.re
+        ≤ ‖y‖ ^ n / 1 := by
+          apply div_le_div_of_nonneg_left h_num_nn (by norm_num) h_denom_ge
+      _ = ‖y‖ ^ n := by rw [div_one]
+      _ ≤ r ^ n := h_num_le
+  -- g summable at 0
+  have hg0 : Summable (fun n => g n 0) := by
+    have h_eq : ∀ n, g n (0 : ℂ) = 0 := by
+      intro n
+      simp only [g]
+      rw [zero_pow (Nat.succ_ne_zero n), zero_div]
+    simp_rw [h_eq]
+    exact summable_zero
+  -- Preconnected
+  have h_preconn : IsPreconnected t :=
+    (convex_ball 0 r).isPreconnected
+  -- Apply hasDerivAt_tsum_of_isPreconnected
+  have := hasDerivAt_tsum_of_isPreconnected (u := fun n => r ^ n)
+    hu_sum ht_open h_preconn hg_deriv hg_bound h0_in_t hg0 hz_in_t
+  -- The conclusion is `HasDerivAt (fun z => ∑' n, g n z) (∑' n, g' n z) z`,
+  -- which equals `HasDerivAt (polyLog (s+1)) (∑' n, z^n / ((n+1):ℂ)^s) z`
+  -- definitionally.
+  exact this
+
+/-- **Connection to `Li_s`**: `polyLog s z / z = Σ' n, z^n / ((n+1):ℂ)^s`
+    for `‖z‖ < 1` and `z ≠ 0`. -/
+theorem polyLog_div_z {s : ℂ} (hs : 0 ≤ s.re) {z : ℂ} (hz : ‖z‖ < 1)
+    (hz_ne : z ≠ 0) :
+    polyLog s z / z = ∑' n : ℕ, z ^ n / ((n + 1 : ℕ) : ℂ) ^ s := by
+  unfold polyLog
+  -- (Σ' n, z^(n+1) / (n+1)^s) / z = Σ' n, z^n / (n+1)^s
+  rw [← tsum_div_const]
+  apply tsum_congr
+  intro n
+  rw [pow_succ]
+  field_simp
+
+/-- **The general derivative recurrence**: `d/dz Li_{s+1}(z) = Li_s(z) / z`
+    for `‖z‖ < 1`, `z ≠ 0`, and `Re s ≥ 0`. -/
+theorem polyLog_succ_hasDerivAt_eq_polyLog_div
+    {s : ℂ} (hs : 0 ≤ s.re) {z : ℂ} (hz : ‖z‖ < 1) (hz_ne : z ≠ 0) :
+    HasDerivAt (polyLog (s + 1)) (polyLog s z / z) z := by
+  rw [polyLog_div_z hs hz hz_ne]
+  exact polyLog_succ_hasDerivAt hs hz
+
 /-! ## Roadmap for future polylog development
 
-With `Li_0(z) = z/(1−z)`, `Li_1(z) = −log(1−z)`, and the derivative
-recurrence at `s = 1` (`d/dz Li_1 = Li_0/z`) established as axiom-free
-theorems, the next pieces:
+With `Li_0(z) = z/(1−z)`, `Li_1(z) = −log(1−z)`, the derivative
+recurrence at `s = 1` (`d/dz Li_1 = Li_0/z`), AND the **general
+derivative recurrence** `d/dz Li_{s+1}(z) = Li_s(z) / z` now
+established as axiom-free theorems, the next pieces:
 
-1. **General derivative recurrence**: `d/dz Li_{s+1}(z) = Li_s(z) / z`
-   for arbitrary complex `s`, via term-by-term differentiation on the disk.
+1. (RETIRED — proved above) ~~General derivative recurrence~~.
 
 2. **Functional equation / reflection**: `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`.
 
