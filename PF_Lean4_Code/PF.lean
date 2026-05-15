@@ -61,6 +61,7 @@ import PF.Analytic.HankelUpperEdgeDCTProof       -- Stage L4 — UPPER-EDGE DCT 
 import PF.Analytic.HankelLowerEdgeDCTProof       -- Stage L4 — LOWER-EDGE DCT CLOSED: ∫ → e^(2πi(s-1))·Γ(s)
 import PF.Analytic.HankelSmallLoopBoundProof     -- Stage L4 — SMALL-LOOP BOUND CLOSED: ‖∮‖ ≤ 2π·ε^(Re s)·exp(...)
 import PF.Analytic.HankelCauchyCapstone          -- Stage L4 — CAUCHY CAPSTONE: ∫ upper − ∫ lower → e^(iπ(s-1)) · 2πi/Γ(1-s)
+import PF.Analytic.HankelUpperEdgeDCTProofReGeOne -- Stage L4 — Re s ≥ 1 bounds + integrability
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
