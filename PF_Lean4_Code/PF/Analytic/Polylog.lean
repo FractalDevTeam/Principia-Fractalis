@@ -505,14 +505,127 @@ theorem polyLog_succ_hasDerivAt_eq_polyLog_div
   rw [polyLog_div_z hs hz hz_ne]
   exact polyLog_succ_hasDerivAt hs hz
 
+/-! ## Functional equation: `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`
+
+The reflection identity. Verify formally: in `Li_s(z) + Li_s(−z)`, the
+odd-power terms `z^(2k+1)` cancel (since `(−z)^(2k+1) = −z^(2k+1)`),
+leaving only even-power terms `z^(2(k+1))` with coefficient `2/(2(k+1))^s
+= 2^{1−s} / (k+1)^s` — matching `2^{1−s} · Li_s(z²)`. The Lean proof uses
+`tsum_even_add_odd` to split the combined sum by parity. -/
+
+/-- **The polylog functional (reflection) equation**:
+    `Li_s(z) + Li_s(−z) = 2^{1−s} · Li_s(z²)` for `‖z‖ < 1` and
+    `Re s ≥ 0`. -/
+theorem polyLog_functional_equation {s : ℂ} (hs : 0 ≤ s.re) {z : ℂ}
+    (hz : ‖z‖ < 1) :
+    polyLog s z + polyLog s (-z) = (2 : ℂ) ^ (1 - s) * polyLog s (z ^ 2) := by
+  have h_norm_neg : ‖(-z : ℂ)‖ < 1 := by rwa [norm_neg]
+  have h_norm_sq : ‖z ^ 2‖ < 1 := by
+    rw [norm_pow]
+    calc ‖z‖ ^ 2 = ‖z‖ * ‖z‖ := sq ‖z‖
+      _ ≤ ‖z‖ * 1 :=
+        mul_le_mul_of_nonneg_left (le_of_lt hz) (norm_nonneg _)
+      _ = ‖z‖ := by ring
+      _ < 1 := hz
+  -- Combined summand
+  let f : ℕ → ℂ := fun n => (z ^ (n + 1) + (-z) ^ (n + 1)) /
+                            ((n + 1 : ℕ) : ℂ) ^ s
+  -- polyLog s z + polyLog s (-z) = Σ' f
+  have h_sum_form : polyLog s z + polyLog s (-z) = ∑' n, f n := by
+    unfold polyLog
+    rw [← Summable.tsum_add (summable_polyLog_term hs hz)
+        (summable_polyLog_term hs h_norm_neg)]
+    apply tsum_congr
+    intro n
+    show z ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ s +
+         (-z) ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ s = f n
+    show _ = (z ^ (n + 1) + (-z) ^ (n + 1)) / ((n + 1 : ℕ) : ℂ) ^ s
+    rw [div_add_div_same]
+  rw [h_sum_form]
+  -- f(2k) = 0 (odd-power case, cancellation)
+  have h_even_zero : ∀ k : ℕ, f (2 * k) = 0 := by
+    intro k
+    show (z ^ (2 * k + 1) + (-z) ^ (2 * k + 1)) /
+         ((2 * k + 1 : ℕ) : ℂ) ^ s = 0
+    have h_neg_odd : (-z : ℂ) ^ (2 * k + 1) = -(z ^ (2 * k + 1)) := by
+      rw [neg_pow]
+      have h_neg1 : ((-1 : ℂ)) ^ (2 * k + 1) = -1 := by
+        rw [pow_add, pow_mul, pow_one]
+        simp
+      rw [h_neg1]
+      ring
+    rw [h_neg_odd]
+    ring
+  -- f(2k+1) = 2^(1-s) · (z²)^(k+1) / ((k+1):ℂ)^s
+  have h_odd_form : ∀ k : ℕ, f (2 * k + 1) =
+      (2 : ℂ) ^ (1 - s) * ((z ^ 2) ^ (k + 1) / ((k + 1 : ℕ) : ℂ) ^ s) := by
+    intro k
+    show (z ^ (2 * k + 2) + (-z) ^ (2 * k + 2)) /
+         ((2 * k + 2 : ℕ) : ℂ) ^ s =
+         (2 : ℂ) ^ (1 - s) * ((z ^ 2) ^ (k + 1) / ((k + 1 : ℕ) : ℂ) ^ s)
+    have h_neg_even : (-z : ℂ) ^ (2 * k + 2) = z ^ (2 * k + 2) := by
+      rw [neg_pow]
+      have h_neg1 : ((-1 : ℂ)) ^ (2 * k + 2) = 1 := by
+        rw [show (2 * k + 2 : ℕ) = 2 * (k + 1) from by ring]
+        rw [pow_mul]
+        simp
+      rw [h_neg1, one_mul]
+    rw [h_neg_even]
+    rw [show (z ^ 2) ^ (k + 1) = z ^ (2 * k + 2) from by ring]
+    rw [show (2 * k + 2 : ℕ) = 2 * (k + 1) from by ring]
+    rw [show ((2 * (k + 1) : ℕ) : ℂ) = ((2 : ℕ) : ℂ) * ((k + 1 : ℕ) : ℂ)
+        from by push_cast; ring]
+    rw [Complex.natCast_mul_natCast_cpow]
+    -- LHS: (z^(2k+2) + z^(2k+2)) / ((2:ℕ:ℂ)^s · ((k+1):ℕ:ℂ)^s)
+    --    = 2 · z^(2k+2) / (2^s · (k+1)^s)
+    have h_two_ne : (2 : ℂ) ≠ 0 := by norm_num
+    have h_two_cast : ((2 : ℕ) : ℂ) = (2 : ℂ) := by norm_cast
+    rw [h_two_cast]
+    have h_kp1_cpow_ne : ((k + 1 : ℕ) : ℂ) ^ s ≠ 0 := by
+      have h_cast : ((k + 1 : ℕ) : ℂ) = ((k : ℕ) + 1 : ℂ) := by push_cast; ring
+      rw [h_cast]
+      exact Complex.natCast_add_one_cpow_ne_zero k s
+    have h_two_cpow_ne : (2 : ℂ) ^ s ≠ 0 :=
+      Complex.cpow_ne_zero_iff.mpr (Or.inl h_two_ne)
+    have h_two_split : (2 : ℂ) ^ (1 - s) = (2 : ℂ) / (2 : ℂ) ^ s := by
+      rw [show (1 - s : ℂ) = 1 + (-s) from by ring]
+      rw [Complex.cpow_add _ _ h_two_ne, Complex.cpow_one,
+          Complex.cpow_neg]
+      rfl
+    rw [h_two_split]
+    field_simp
+    ring
+  -- Σ' f(2k) = 0
+  have h_even_sum : ∑' k, f (2 * k) = 0 := by
+    simp_rw [h_even_zero]
+    exact tsum_zero
+  -- Σ' f(2k+1) = 2^(1-s) · polyLog s (z²)
+  have h_odd_sum : ∑' k, f (2 * k + 1) =
+      (2 : ℂ) ^ (1 - s) * polyLog s (z ^ 2) := by
+    simp_rw [h_odd_form]
+    rw [tsum_mul_left]
+    rfl
+  -- Summability
+  have h_summable_even : Summable (fun k => f (2 * k)) := by
+    simp_rw [h_even_zero]
+    exact summable_zero
+  have h_summable_odd : Summable (fun k => f (2 * k + 1)) := by
+    simp_rw [h_odd_form]
+    apply Summable.mul_left
+    exact summable_polyLog_term hs h_norm_sq
+  -- Combine via tsum_even_add_odd
+  rw [← tsum_even_add_odd h_summable_even h_summable_odd]
+  rw [h_even_sum, h_odd_sum, zero_add]
+
 /-! ## Roadmap for future polylog development
 
 With `Li_0(z) = z/(1−z)`, `Li_1(z) = −log(1−z)`, the derivative
-recurrence at `s = 1` (`d/dz Li_1 = Li_0/z`), AND the **general
-derivative recurrence** `d/dz Li_{s+1}(z) = Li_s(z) / z` now
-established as axiom-free theorems, the next pieces:
+recurrence (both `s = 1` and general), AND now the **functional
+equation** `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)` established as
+axiom-free theorems, the next pieces:
 
 1. (RETIRED — proved above) ~~General derivative recurrence~~.
+2. (RETIRED — proved above) ~~Functional equation~~.
 
 2. **Functional equation / reflection**: `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`.
 
