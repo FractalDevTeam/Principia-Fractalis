@@ -49,6 +49,7 @@ import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue i
 import PF.Analytic.HankelContour       -- Stage L4 — Hankel contour foundation
 import PF.Analytic.GammaHankel          -- Stage L4 — Γ-functional identity via Euler reflection
 import PF.Analytic.HankelDeformation    -- Stage L4 — contour deformation: branch-jump + algebraic combination
+import PF.Analytic.HankelEdgeIntegrals  -- Stage L4 — upper/lower edge limits + symmetric-orientation bridge
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
