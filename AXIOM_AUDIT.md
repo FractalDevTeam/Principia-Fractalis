@@ -233,18 +233,30 @@ foundation for the polylog-route axiom retirement.
   `‖z‖ < 1` and `z ≠ 0`, via `field_simp` on `polyLog_zero_exponent`.
 - **`polyLog_one_hasDerivAt_eq_polyLog_zero_div`** — **the derivative
   recurrence at s = 1**: `HasDerivAt (polyLog 1) (polyLog 0 z / z) z`.
-  The concrete case of the general polylog recurrence
-  `d/dz Li_{s+1}(z) = Li_s(z) / z`.
+  The concrete case of the general polylog recurrence.
+- **`polyLog_term_hasDerivAt`** — term-by-term derivative:
+  `HasDerivAt (fun w ↦ w^(n+1) / ((n+1):ℂ)^(s+1)) (y^n / ((n+1):ℂ)^s) y`.
+  Uses `hasDerivAt_pow` + `.div_const` + `cpow_add` to split
+  `((n+1):ℂ)^(s+1) = ((n+1):ℂ)^s · ((n+1):ℂ)` and cancel.
+- **`polyLog_succ_hasDerivAt`** — term-by-term differentiation of the
+  polylog series on the ball `Metric.ball 0 r` with `r = (‖z‖+1)/2 < 1`,
+  via `hasDerivAt_tsum_of_isPreconnected`. Derivative summand bound:
+  `‖y^n/(n+1)^s‖ ≤ r^n` (using `‖y‖^n ≤ r^n` and `(n+1)^Re(s) ≥ 1` for
+  `Re(s) ≥ 0`), giving the summable geometric majorant.
+- **`polyLog_div_z`** — `polyLog s z / z = Σ' n, z^n / ((n+1):ℂ)^s` for
+  `z ≠ 0`.
+- **`polyLog_succ_hasDerivAt_eq_polyLog_div`** — **the general
+  polylog derivative recurrence**:
+  `HasDerivAt (polyLog (s+1)) (polyLog s z / z) z`
+  for `‖z‖ < 1`, `z ≠ 0`, and `Re s ≥ 0`.
 
 Documented roadmap for the polylog-route axiom retirement:
-1. **General derivative recurrence** for arbitrary complex `s` (term-by-term
-   differentiation of the polylog series).
-2. Functional equation / reflection.
-3. **Jonquières analytic continuation** for `|z|` near 1.
-4. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula.
-5. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`.
+1. Functional equation / reflection `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`.
+2. **Jonquières analytic continuation** for `|z|` near 1.
+3. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula.
+4. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`.
 
-Steps 3-5 are the substantive analytic-number-theory work that would
+Steps 2-4 are the substantive analytic-number-theory work that would
 retire `alpha_class_self_adjointness_canonical` via the polylog route.
 
 **L4 analytic layer** (commit 7733bcc):
@@ -360,11 +372,12 @@ theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
   HilbertSchmidt, Bridge.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
-- 1 new file in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms
-  AND the derivative recurrence at `s = 1`).
-- ~83 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+- 1 new file in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
+  the derivative recurrence at `s = 1`, AND the **general derivative
+  recurrence** for arbitrary complex `s` with `Re s ≥ 0`).
+- ~87 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
   L4-algebra / L4-analytic / L4-polylog, all axiom-clean.
-- Master: `82a704b`, 5548 jobs, 1 project axiom, 0 sorries.
+- Master: `dfaac20`, 5548 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
