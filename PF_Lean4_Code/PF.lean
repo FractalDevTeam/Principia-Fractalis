@@ -47,6 +47,7 @@ import PF.Analytic.Jonquieres         -- Stage L4 — Jonquières expansion foun
 import PF.Analytic.Monodromy          -- Stage L4 — Riemann sheet monodromy
 import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue identity (statement)
 import PF.Analytic.HankelContour       -- Stage L4 — Hankel contour foundation
+import PF.Analytic.GammaHankel          -- Stage L4 — Γ-functional identity via Euler reflection
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
