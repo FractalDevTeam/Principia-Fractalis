@@ -21,7 +21,8 @@ Reference: Gel'fand-Vilenkin, Generalized Functions Vol. 4, Ch. IV
 import PF.NuclearSpaces
 import PF.CylindricalMeasures
 import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
-import Mathlib.MeasureTheory.Integral.Bochner
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.L1
 import Mathlib.Analysis.SpecialFunctions.ExpDeriv
 import Mathlib.Topology.Algebra.Module.FiniteDimension
 

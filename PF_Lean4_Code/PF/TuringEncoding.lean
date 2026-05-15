@@ -1031,11 +1031,11 @@ lemma tape_encoding_injective (t₁ t₂ : List (Fin 3))
         -- Get the lengths
         have ⟨n₁, h_len₁⟩ : ∃ n, t₁.length = n + 1 := by
           use t₁.length - 1
-          have : t₁.length ≥ 1 := List.length_pos.mpr h₁_ne_nil
+          have : t₁.length ≥ 1 := List.length_pos_iff.mpr h₁_ne_nil
           omega
         have ⟨n₂, h_len₂⟩ : ∃ n, t₂.length = n + 1 := by
           use t₂.length - 1
-          have : t₂.length ≥ 1 := List.length_pos.mpr h₂_ne_nil
+          have : t₂.length ≥ 1 := List.length_pos_iff.mpr h₂_ne_nil
           omega
 
         -- The highest prime in t₁'s encoding is nthPrime(n₁ + 2)

@@ -110,7 +110,7 @@ theorem norm_hankelLoopParametricIntegrand_le
     apply Real.exp_le_exp.mpr
     -- Compute (exp(I·θ)).re = cos θ
     have h_exp_re : (Complex.exp (I * (θ : ℂ))).re = Real.cos θ := by
-      rw [show I * (θ : ℂ) = ((θ : ℝ) : ℂ) * I from by push_cast; ring]
+      rw [show I * (θ : ℂ) = ((θ : ℝ) : ℂ) * I from by ring]
       rw [Complex.exp_mul_I]
       simp [Complex.cos_ofReal_re]
     -- Re(-z) = -ε · cos θ
