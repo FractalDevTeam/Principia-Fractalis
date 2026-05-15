@@ -59,6 +59,7 @@ import PF.Analytic.HankelIntegrability  -- Stage L4 — DCT dominating-function 
 import PF.Analytic.HankelUpperEdgeIntegralLimit  -- Stage L4 — DCT bridge: Γ-integrand + ε-uniform bound
 import PF.Analytic.HankelUpperEdgeDCTProof       -- Stage L4 — UPPER-EDGE DCT CLOSED: ∫ → Γ(s)
 import PF.Analytic.HankelLowerEdgeDCTProof       -- Stage L4 — LOWER-EDGE DCT CLOSED: ∫ → e^(2πi(s-1))·Γ(s)
+import PF.Analytic.HankelSmallLoopBoundProof     -- Stage L4 — SMALL-LOOP BOUND CLOSED: ‖∮‖ ≤ 2π·ε^(Re s)·exp(...)
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
