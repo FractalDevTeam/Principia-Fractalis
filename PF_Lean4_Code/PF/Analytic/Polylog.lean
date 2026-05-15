@@ -273,13 +273,93 @@ theorem polyLog_one (z : ℂ) (hz : ‖z‖ < 1) :
     (show (0 : ℝ) ≤ (1 : ℂ).re from by simp) hz
   exact tendsto_nhds_unique h_polylog_tendsto h_tendsto_partial
 
+/-! ## Derivative recurrence (concrete case): `d/dz Li_1(z) = Li_0(z) / z`
+
+The general derivative recurrence is `d/dz Li_{s+1}(z) = Li_s(z) / z`. For
+the specific case `s = 0` (giving `d/dz Li_1(z) = Li_0(z) / z`), we can
+derive directly from the closed forms `Li_1(z) = −log(1 − z)` and
+`Li_0(z) = z / (1 − z)`:
+
+  `d/dz [−log(1 − z)] = (1 − z)⁻¹ = 1 / (1 − z) = Li_0(z) / z`. -/
+
+/-- **Derivative of `Li_1`**: for `‖z‖ < 1`,
+    `HasDerivAt (polyLog 1) (1/(1−z)) z`.
+
+    Uses `polyLog_one` to identify `polyLog 1` with `−log(1 − ·)` in a
+    neighborhood of `z`, then `Complex.hasDerivAt_log` for the chain
+    rule computation. -/
+theorem polyLog_one_hasDerivAt {z : ℂ} (hz : ‖z‖ < 1) :
+    HasDerivAt (polyLog 1) (1 / (1 - z)) z := by
+  -- polyLog 1 = -log(1-·) in a neighborhood of z.
+  have h_eq : polyLog 1 =ᶠ[nhds z] fun w => -Complex.log (1 - w) := by
+    have h_open : IsOpen (Metric.ball (0 : ℂ) 1) := Metric.isOpen_ball
+    have h_z_mem : z ∈ Metric.ball (0 : ℂ) 1 := by
+      simp [Metric.mem_ball]; exact hz
+    have h_ball : Metric.ball (0 : ℂ) 1 ∈ nhds z :=
+      h_open.mem_nhds h_z_mem
+    filter_upwards [h_ball] with w hw
+    have : ‖w‖ < 1 := by simpa [Metric.mem_ball] using hw
+    exact polyLog_one w this
+  -- Derivative of -log(1-w) at z:
+  -- 1 - z is in the slit plane (positive real part since ‖z‖ < 1)
+  have h_slit : (1 - z) ∈ Complex.slitPlane := by
+    -- (1 - z).re = 1 - z.re > 0 since z.re ≤ ‖z‖ < 1
+    refine Or.inl ?_
+    simp only [Complex.sub_re, Complex.one_re]
+    have h_re_le : z.re ≤ ‖z‖ := Complex.re_le_norm z
+    linarith
+  -- d/dz [log (1 - z)] via chain rule with (1 - z)
+  have h_inner : HasDerivAt (fun w : ℂ => (1 : ℂ) - w) (-1) z := by
+    have h1 : HasDerivAt (fun w : ℂ => (1 : ℂ)) 0 z := hasDerivAt_const z 1
+    have h2 : HasDerivAt (fun w : ℂ => w) 1 z := hasDerivAt_id z
+    have := h1.sub h2
+    simpa using this
+  have h_log : HasDerivAt (fun w => Complex.log (1 - w))
+      (((1 - z)⁻¹) * (-1)) z :=
+    (Complex.hasDerivAt_log h_slit).comp z h_inner
+  -- Negate: derivative of -log(1-w) is -((1-z)⁻¹ · (-1)) = (1-z)⁻¹ = 1/(1-z)
+  have h_neg_log : HasDerivAt (fun w => -Complex.log (1 - w))
+      (-((1 - z)⁻¹ * (-1))) z := h_log.neg
+  have h_simplify : -((1 - z)⁻¹ * (-1)) = 1 / (1 - z) := by
+    have h_ne : (1 : ℂ) - z ≠ 0 := by
+      intro h
+      have : (1 - z).re = 0 := by rw [h]; simp
+      have := h_slit
+      rcases this with hre | him
+      · linarith
+      · have : (1 - z).im = 0 := by rw [h]; simp
+        exact him this
+    field_simp
+  rw [← h_simplify]
+  exact h_neg_log.congr_of_eventuallyEq h_eq
+
+/-- **Connection to `Li_0`**: `1/(1−z) = Li_0(z) / z` for `‖z‖ < 1` and `z ≠ 0`.
+
+    Combined with `polyLog_one_hasDerivAt`, this gives the s = 0 case of
+    the derivative recurrence: `d/dz Li_1(z) = Li_0(z) / z`. -/
+theorem polyLog_zero_div_z {z : ℂ} (hz : ‖z‖ < 1) (hz_ne : z ≠ 0) :
+    polyLog 0 z / z = 1 / (1 - z) := by
+  rw [polyLog_zero_exponent z hz]
+  -- (z/(1-z)) / z = 1/(1-z) for z ≠ 0
+  field_simp
+
+/-- **The derivative recurrence at s = 1**: `d/dz Li_1(z) = Li_0(z) / z`
+    for `‖z‖ < 1` and `z ≠ 0`. This is the concrete case of the general
+    polylog recurrence `d/dz Li_{s+1}(z) = Li_s(z) / z`. -/
+theorem polyLog_one_hasDerivAt_eq_polyLog_zero_div
+    {z : ℂ} (hz : ‖z‖ < 1) (hz_ne : z ≠ 0) :
+    HasDerivAt (polyLog 1) (polyLog 0 z / z) z := by
+  rw [polyLog_zero_div_z hz hz_ne]
+  exact polyLog_one_hasDerivAt hz
+
 /-! ## Roadmap for future polylog development
 
-With `Li_0(z) = z/(1−z)` and `Li_1(z) = −log(1−z)` now established as
-axiom-free theorems, the next pieces:
+With `Li_0(z) = z/(1−z)`, `Li_1(z) = −log(1−z)`, and the derivative
+recurrence at `s = 1` (`d/dz Li_1 = Li_0/z`) established as axiom-free
+theorems, the next pieces:
 
-1. **Recurrence**: `d/dz Li_{s+1}(z) = Li_s(z) / z` (formal derivative
-   identity). Provable via term-by-term differentiation on the disk.
+1. **General derivative recurrence**: `d/dz Li_{s+1}(z) = Li_s(z) / z`
+   for arbitrary complex `s`, via term-by-term differentiation on the disk.
 
 2. **Functional equation / reflection**: `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`.
 
