@@ -225,13 +225,24 @@ foundation for the polylog-route axiom retirement.
   (Mercator series) for `‖z‖ < 1`. Bridges the partial-sum identity with
   `Complex.norm_log_sub_logTaylor_le` (giving `logTaylor(N+1)(−z) → log(1−z)`)
   via `tendsto_nhds_unique`.
+- **`polyLog_one_hasDerivAt`** — derivative of `Li_1` at any z in the
+  open unit disk: `HasDerivAt (polyLog 1) (1/(1−z)) z`. Uses `polyLog_one`
+  + `HasDerivAt.congr_of_eventuallyEq` + chain rule on
+  `Complex.hasDerivAt_log` at `1 − z ∈ slitPlane`.
+- **`polyLog_zero_div_z`** — bridge `polyLog 0 z / z = 1/(1−z)` for
+  `‖z‖ < 1` and `z ≠ 0`, via `field_simp` on `polyLog_zero_exponent`.
+- **`polyLog_one_hasDerivAt_eq_polyLog_zero_div`** — **the derivative
+  recurrence at s = 1**: `HasDerivAt (polyLog 1) (polyLog 0 z / z) z`.
+  The concrete case of the general polylog recurrence
+  `d/dz Li_{s+1}(z) = Li_s(z) / z`.
 
 Documented roadmap for the polylog-route axiom retirement:
-1. Derivative recurrence `d/dz Li_{s+1}(z) = Li_s(z)/z`
-2. Functional equation / reflection
-3. **Jonquières analytic continuation** for `|z|` near 1
-4. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula
-5. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`
+1. **General derivative recurrence** for arbitrary complex `s` (term-by-term
+   differentiation of the polylog series).
+2. Functional equation / reflection.
+3. **Jonquières analytic continuation** for `|z|` near 1.
+4. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula.
+5. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`.
 
 Steps 3-5 are the substantive analytic-number-theory work that would
 retire `alpha_class_self_adjointness_canonical` via the polylog route.
@@ -349,10 +360,11 @@ theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
   HilbertSchmidt, Bridge.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
-- 1 new file in `PF/Analytic/`: Polylog (now with `Li_0` AND `Li_1` closed forms).
-- ~80 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+- 1 new file in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms
+  AND the derivative recurrence at `s = 1`).
+- ~83 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
   L4-algebra / L4-analytic / L4-polylog, all axiom-clean.
-- Master: `1d49f84`, 5548 jobs, 1 project axiom, 0 sorries.
+- Master: `82a704b`, 5548 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
