@@ -72,6 +72,7 @@ import PF.Analytic.PolyLogContinuityInDisc        -- Stage L4 — polylog contin
 import PF.Analytic.PolyLogHankelIdentity          -- Stage L4 — polylog Hankel identity framework + continuity of target value
 import PF.Analytic.SpectralParameterBridge        -- Stage L4 — SPECTRAL BRIDGE: polylog identity → α_P = √2, α_NP = φ + 1/4
 import PF.Analytic.SpectralAnalysisFramework      -- Stage L4 — SPECTRAL ANALYSIS FRAMEWORK: full axiom-retirement chain
+import PF.Analytic.HPGeneralOperator              -- Stage L4 — H_P_at α: α-parameterized P-class operator with self-adjointness
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
