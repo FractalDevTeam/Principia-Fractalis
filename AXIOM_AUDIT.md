@@ -257,8 +257,20 @@ foundation for the polylog-route axiom retirement.
   to `2^(1-s) · (z²)^(k+1) / ((k+1):ℂ)^s` (via
   `Complex.natCast_mul_natCast_cpow` and `Complex.cpow_add`).
 
+**Jonquières foundation** (commits 3d90307, 1a6f69a):
+`PF/Analytic/Jonquieres.lean` — definitions for the Jonquières analytic
+continuation `Li_s(z) = Γ(1-s)·(-log z)^{s-1} + Σ_k ζ(s-k)·(log z)^k / k!`.
+- `jonquieresGammaTerm s z := Γ(1-s) · (-log z)^(s-1)`.
+- `jonquieresZetaTerm s z k := ζ(s-k) · (log z)^k / k!`.
+- `jonquieresZetaSeries s z := Σ' k, jonquieresZetaTerm s z k`.
+- `jonquieresExpansion s z := jonquieresGammaTerm s z + jonquieresZetaSeries s z`.
+- **`jonquieresZetaSeries_at_one`** — at `z = 1`, the ζ-series collapses
+  to `riemannZeta s` (all `k ≥ 1` terms vanish since `log 1 = 0`).
+
 Documented roadmap for the polylog-route axiom retirement:
-1. **Jonquières analytic continuation** for `|z|` near 1.
+1. The full identity `polyLog s z = jonquieresExpansion s z` for `z` near
+   1 (avoiding branch cut) and `s ∉ {1, 2, 3, ...}` — requires Hankel-
+   contour integration (not in mathlib) or Lerch-zeta machinery.
 2. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula.
 3. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`.
 
@@ -378,12 +390,12 @@ theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
   HilbertSchmidt, Bridge.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
-- 1 new file in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
-  derivative recurrences at `s = 1` and general, AND the
-  **functional equation** `Li_s(z) + Li_s(-z) = 2^{1-s} Li_s(z²)`).
-- ~88 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
-  L4-algebra / L4-analytic / L4-polylog, all axiom-clean.
-- Master: `0d33301`, 5548 jobs, 1 project axiom, 0 sorries.
+- 2 new files in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
+  derivative recurrences, functional equation) and Jonquieres (definitions
+  + ζ-series at z=1).
+- ~95 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+  L4-algebra / L4-analytic / L4-polylog / L4-jonquieres, all axiom-clean.
+- Master: `1a6f69a`, 5550 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
