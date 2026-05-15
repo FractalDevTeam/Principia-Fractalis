@@ -267,14 +267,29 @@ continuation `Li_s(z) = Γ(1-s)·(-log z)^{s-1} + Σ_k ζ(s-k)·(log z)^k / k!`.
 - **`jonquieresZetaSeries_at_one`** — at `z = 1`, the ζ-series collapses
   to `riemannZeta s` (all `k ≥ 1` terms vanish since `log 1 = 0`).
 
+**Riemann sheet monodromy** (commit 2ced55d):
+`PF/Analytic/Monodromy.lean` — definitions and basic identities for the
+polylog on non-principal sheets.
+- `polyLogMonodromyShift m s z := 2πi · m · (log z)^(s-1) / Γ(s)`.
+- `polyLogSheet m s z := polyLog s z + polyLogMonodromyShift m s z`.
+- `polyLogSheet_zero`: m=0 recovers principal-branch `polyLog`.
+- `polyLogSheet_sub_polyLog`: sheet difference = monodromy shift.
+- `polyLogMonodromyShift_add`: shift linear in `m`.
+- `polyLogSheet_add_sheet`: advancing by `n` sheets adds `n` units of shift.
+- **`polyLogSheet_neg_one`** — the book's m* = −1 case:
+  `polyLogSheet (-1) s z = polyLog s z − 2πi·(log z)^(s-1) / Γ(s)`.
+- `polyLogMonodromyShift_at_Gamma_zero` /
+  `polyLogSheet_eq_polyLog_of_Gamma_zero`: at `Γ(s) = 0` (s ∈ ℤ≤0), all
+  sheets collapse to the principal sheet (Lean's `x/0 = 0` convention).
+
 Documented roadmap for the polylog-route axiom retirement:
 1. The full identity `polyLog s z = jonquieresExpansion s z` for `z` near
    1 (avoiding branch cut) and `s ∉ {1, 2, 3, ...}` — requires Hankel-
    contour integration (not in mathlib) or Lerch-zeta machinery.
-2. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula.
-3. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`.
+2. The book's specific identity `Re[polyLogSheet (-1) s_star (e^{iπ√2})]
+   = π/(10√2)` with `s_star ≈ 0.182`.
 
-Steps 1-3 are the substantive analytic-number-theory work that would
+Steps 1-2 are the substantive analytic-number-theory work that would
 retire `alpha_class_self_adjointness_canonical` via the polylog route.
 
 **L4 analytic layer** (commit 7733bcc):
@@ -390,12 +405,14 @@ theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
   HilbertSchmidt, Bridge.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
-- 2 new files in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
-  derivative recurrences, functional equation) and Jonquieres (definitions
-  + ζ-series at z=1).
-- ~95 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
-  L4-algebra / L4-analytic / L4-polylog / L4-jonquieres, all axiom-clean.
-- Master: `1a6f69a`, 5550 jobs, 1 project axiom, 0 sorries.
+- 3 new files in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
+  derivative recurrences, functional equation), Jonquieres (definitions
+  + ζ-series at z=1), and Monodromy (Riemann sheet structure + sheet
+  arithmetic).
+- ~104 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+  L4-algebra / L4-analytic / L4-polylog / L4-jonquieres / L4-monodromy,
+  all axiom-clean.
+- Master: `2ced55d`, 5552 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
