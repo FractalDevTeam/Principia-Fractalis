@@ -249,14 +249,20 @@ foundation for the polylog-route axiom retirement.
   polylog derivative recurrence**:
   `HasDerivAt (polyLog (s+1)) (polyLog s z / z) z`
   for `‖z‖ < 1`, `z ≠ 0`, and `Re s ≥ 0`.
+- **`polyLog_functional_equation`** — **the reflection identity**:
+  `polyLog s z + polyLog s (-z) = (2:ℂ)^(1-s) * polyLog s (z^2)`
+  for `‖z‖ < 1` and `Re s ≥ 0`. Proved via `tsum_even_add_odd`
+  splitting the combined sum by parity: even-indexed terms vanish
+  (odd-power `z^(2k+1) + (-z)^(2k+1) = 0`), odd-indexed terms collapse
+  to `2^(1-s) · (z²)^(k+1) / ((k+1):ℂ)^s` (via
+  `Complex.natCast_mul_natCast_cpow` and `Complex.cpow_add`).
 
 Documented roadmap for the polylog-route axiom retirement:
-1. Functional equation / reflection `Li_s(z) + Li_s(−z) = 2^{1−s} Li_s(z²)`.
-2. **Jonquières analytic continuation** for `|z|` near 1.
-3. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula.
-4. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`.
+1. **Jonquières analytic continuation** for `|z|` near 1.
+2. **Monodromy / Riemann sheets** `Li_s^{[m]}(z)` formula.
+3. The book's specific identity `Re[Li_{s*}^{[−1]}(e^{iπ√2})] = π/(10√2)`.
 
-Steps 2-4 are the substantive analytic-number-theory work that would
+Steps 1-3 are the substantive analytic-number-theory work that would
 retire `alpha_class_self_adjointness_canonical` via the polylog route.
 
 **L4 analytic layer** (commit 7733bcc):
@@ -373,11 +379,11 @@ theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
 - 1 new file in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
-  the derivative recurrence at `s = 1`, AND the **general derivative
-  recurrence** for arbitrary complex `s` with `Re s ≥ 0`).
-- ~87 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+  derivative recurrences at `s = 1` and general, AND the
+  **functional equation** `Li_s(z) + Li_s(-z) = 2^{1-s} Li_s(z²)`).
+- ~88 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
   L4-algebra / L4-analytic / L4-polylog, all axiom-clean.
-- Master: `dfaac20`, 5548 jobs, 1 project axiom, 0 sorries.
+- Master: `0d33301`, 5548 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
