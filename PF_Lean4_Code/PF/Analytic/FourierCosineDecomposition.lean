@@ -85,7 +85,7 @@ theorem cos_kernel_decomp_abs (α : ℝ) (n : ℕ) (x y : ℝ) :
     sineMode α n x * sineMode α n y := by
   rw [show Real.cos (Real.pi * α ^ n * |x - y|) =
         Real.cos (Real.pi * α ^ n * (x - y)) by
-        rcases le_or_lt 0 (x - y) with h | h
+        rcases le_or_gt 0 (x - y) with h | h
         · rw [abs_of_nonneg h]
         · rw [abs_of_neg h]
           rw [show Real.pi * α ^ n * -(x - y) = -(Real.pi * α ^ n * (x - y))

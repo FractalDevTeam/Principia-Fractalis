@@ -1,6 +1,51 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-14 (Stage 44)**: **1 verified axiom** in `PF/`, in pure algebraic self-adjointness form for both classes (down from 2 on Stage 30, 3 on Stage 25, 6 on 2026-05-08, 7 on 2026-05-04, 8 on 2026-04-26). 0 sorries, 5534 jobs clean (master `52cb931`). The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their full algebraic form:*
+*As of **2026-05-15**: **1 verified axiom** in `PF/`, unchanged since Stage 35. Build at **5626 jobs clean** (master `44d00db`), 0 sorries. Headline dependencies:*
+- *`principia_fractalis_millennium_capstone` → 1 axiom (`alpha_class_self_adjointness_canonical`)*
+- *`riemann_hypothesis_via_T3_sym_framework` → 0 project axioms*
+- *`P_neq_NP_via_spectral_gap` → 1 axiom (same)*
+
+*Between Stage 44 (5534 jobs, the prior recorded state) and now, a **28-module polylog-route framework** was added under `PF/Analytic/`, providing the conditional analytic chain for retiring the remaining axiom. The axiom itself is unchanged; the framework gives a structured path to its retirement.*
+
+## Polylog-route framework (added 2026-05-15)
+
+28 axiom-clean modules under `PF/Analytic/`, organized into 5 layers:
+
+**Layer 1: Hankel chain (modules 1-17)** — the polylog Hankel identity for all `Re s > 0`
+- `GammaHankel`, `HankelDeformation` — Euler reflection + branch jump (algebraic core, proven)
+- `HankelEdgeIntegrals`, `HankelSmallLoop` — edge difference + small loop (algebraic, proven)
+- `HankelUpperEdgeDCT`/`HankelLowerEdgeDCT` — pointwise convergence (proven)
+- `HankelUpperEdgeBound`/`HankelLowerEdgeBound` — modulus inequalities (proven)
+- `HankelIntegrability` — dominating-function integrability (proven via `Real.GammaIntegral_convergent`)
+- `HankelUpperEdgeIntegralLimit`/`HankelUpperEdgeDCTProof`/`HankelLowerEdgeDCTProof` — full DCT invocations (proven)
+- `HankelSmallLoopBoundProof` — bound-by-integration via interval integral (proven)
+- `HankelCauchyCapstone` — assembly: `∫ upper − ∫ lower → e^(iπ(s-1))·2πi/Γ(1-s)` (proven for `0 < Re s ≤ 1`)
+- `HankelUpperEdgeDCTProofReGeOne`/`HankelUpperEdgeDCTUnified`/`HankelLowerEdgeDCTUnified` — extension to all `Re s > 0` (proven)
+
+**Layer 2: s_star IVT framework (module 18)**
+- `SStarBridge` — IVT-based existence framework for `BookEigenvalueIdentity`, conditional on numerical sign-change input
+
+**Layer 3: bookEvaluation continuity (modules 19-23)**
+- `BookEvaluationContinuity` — monodromy-shift component continuity (proven)
+- `ZBookNeOne` — `z_book ≠ 1` via √2 irrationality, unconditional monodromy continuity (proven)
+- `PolyLogContinuity` — termwise continuity of polylog series (proven)
+- `PolyLogContinuityInDisc` — full polylog continuity for `|z| < 1` via Weierstrass M-test (proven)
+- `PolyLogHankelIdentity` — target value continuity for the polylog Hankel expression (proven)
+
+**Layer 4: Spectral parameter bridge (modules 24-25)**
+- `SpectralParameterBridge` — algebraic derivation `π/(10α) = π/(10√2)` → `α = √2` (proven)
+- `SpectralAnalysisFramework` — full conditional axiom-retirement theorem from named manuscript inputs (proven)
+
+**Layer 5: Spectral analysis scaffolding (modules 26-28)**
+- `HPGeneralOperator` — α-parameterized `H_P_at α a` with self-adjointness (proven)
+- `FourierCosineDecomposition` — Mercer-type rank-2 decomposition of fractal kernel (proven)
+- `CosineModeInnerProducts` — closed-form integrals `∫_0^1 cos(αx) dx`, `∫_0^1 cos(πx)² dx`, product-to-sum identities (proven)
+
+**What the framework establishes**: a fully conditional chain from named manuscript inputs (positivity, eigenvalue formula `λ_0(H_P α) = π/(10α)`, polylog/spectral identification, α_NP value) to the axiom's content. The 5 hypotheses are now SPECIFIC, FOCUSED claims rather than the opaque "self-adjointness algebraic equations" of the axiom itself.
+
+**What the framework does NOT do**: the deep operator-theoretic content — actually proving `λ_0(H_P α) = π/(10α)` from the fractal-kernel structure — is documented as the remaining open analytic deliverable. Layer 5 provides the algebraic scaffolding (Mercer decomposition, inner product formulas) but does not derive the eigenvalue. Closing that gap is multi-page operator theory beyond the framework here.
+
+*The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their full algebraic form:*
 
 ```lean
 axiom alpha_class_self_adjointness_canonical :

@@ -98,7 +98,7 @@ theorem one_plus_pow_le_two_pow_one_plus_pow
     (1 + t) ^ a ≤ 2 ^ a * (1 + t ^ a) := by
   -- Step 1: 1 + t ≤ 2 · max(1, t)
   have h1 : 1 + t ≤ 2 * max 1 t := by
-    rcases le_or_lt t 1 with hle | hlt
+    rcases le_or_gt t 1 with hle | hlt
     · simp [max_eq_left hle]; linarith
     · simp [max_eq_right hlt.le]; linarith
   -- Step 2: (1 + t)^a ≤ (2 · max(1, t))^a
