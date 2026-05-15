@@ -71,6 +71,7 @@ import PF.Analytic.PolyLogContinuity              -- Stage L4 — polylog termwi
 import PF.Analytic.PolyLogContinuityInDisc        -- Stage L4 — polylog continuity for |z| < 1 via Weierstrass M-test
 import PF.Analytic.PolyLogHankelIdentity          -- Stage L4 — polylog Hankel identity framework + continuity of target value
 import PF.Analytic.SpectralParameterBridge        -- Stage L4 — SPECTRAL BRIDGE: polylog identity → α_P = √2, α_NP = φ + 1/4
+import PF.Analytic.SpectralAnalysisFramework      -- Stage L4 — SPECTRAL ANALYSIS FRAMEWORK: full axiom-retirement chain
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
