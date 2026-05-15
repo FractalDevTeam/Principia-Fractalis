@@ -267,6 +267,21 @@ continuation `Li_s(z) = Γ(1-s)·(-log z)^{s-1} + Σ_k ζ(s-k)·(log z)^k / k!`.
 - **`jonquieresZetaSeries_at_one`** — at `z = 1`, the ζ-series collapses
   to `riemannZeta s` (all `k ≥ 1` terms vanish since `log 1 = 0`).
 
+**Hankel-contour foundation** (commit b69a068):
+`PF/Analytic/HankelContour.lean` — structural foundation for the Hankel
+integral representation `Li_s(z) = (Γ(1-s)/(2πi))·∮_H (-t)^(s-1)/(e^t/z - 1) dt`:
+- `hankelUpperEdge ε t := t + ε·I` (upper-edge segment at im=+ε).
+- `hankelLowerEdge ε t := t − ε·I` (lower-edge segment at im=−ε).
+- `hankelLoopZero ε θ := ε · exp(I·θ)` (circular arc around 0, radius ε).
+- `hankelPolylogIntegrand s z t := (-t)^(s-1) / (exp t / z - 1)`.
+- `hankelUpperEdge_im_eq / hankelLowerEdge_im_eq` — imaginary parts.
+- `hankelLoopZero_norm` — loop modulus = ε (when ε ≥ 0).
+
+Documents the full Wikipedia/EMOT proof strategy: series-to-integral
+expansion `1/(e^t/z - 1) = Σ z^n e^(-nt)` combined with the Hankel
+representation `∮_H t^{s-1} e^{-t} dt = 2πi / Γ(1-s)` to recover
+`Li_s(z) = (Γ(1-s)/(2πi)) · Σ z^n · (2πi)/(Γ(1-s)·n^s) = Σ z^n/n^s`.
+
 **Final eigenvalue identity** (commit b52f884):
 `PF/Analytic/EigenvalueIdentity.lean` — formalizes the book's specific
 analytic claim from `fractal_continuation_derivation.py`:
@@ -434,15 +449,16 @@ theory derivation of α = √2 and α = φ + 1/4 from the SA reality criterion.
   HilbertSchmidt, Bridge.
 - 4 new files in `PF/TuringEncoding/`: DigitalSum, ThetaSum,
   AlphaCanonical, PhaseSum.
-- 4 new files in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
+- 5 new files in `PF/Analytic/`: Polylog (with `Li_0`, `Li_1` closed forms,
   derivative recurrences, functional equation), Jonquieres (definitions
   + ζ-series at z=1), Monodromy (Riemann sheet structure + sheet
-  arithmetic), and EigenvalueIdentity (book's final claim formalized as
-  a Lean proposition + chain to axiom retirement).
-- ~110 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
+  arithmetic), EigenvalueIdentity (book's final claim formalized as a
+  Lean proposition + chain to axiom retirement), and HankelContour
+  (Hankel-contour components + polylog integrand foundation).
+- ~117 new theorems / definitions across L1 / L2 / L3 / L4-foundation /
   L4-algebra / L4-analytic / L4-polylog / L4-jonquieres / L4-monodromy /
-  L4-eigenvalue, all axiom-clean.
-- Master: `b52f884`, 5554 jobs, 1 project axiom, 0 sorries.
+  L4-eigenvalue / L4-hankel, all axiom-clean.
+- Master: `b69a068`, 5556 jobs, 1 project axiom, 0 sorries.
 
 **Stage 44 chain complete**: V_P kernel definition → measurability + L²
 membership → Hilbert-Schmidt CLM construction → conj-symmetry → **H_P
