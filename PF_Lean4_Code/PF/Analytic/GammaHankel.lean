@@ -89,7 +89,7 @@ noncomputable def gammaHankelCollapsed (s : ℂ) : ℂ :=
     gammaHankelTarget s`. -/
 theorem gammaHankelCollapsed_eq_target
     {s : ℂ} (h_sin_ne : Complex.sin ((Real.pi : ℂ) * s) ≠ 0)
-    (h_Gamma_ne : Complex.Gamma s ≠ 0) :
+    (_h_Gamma_ne : Complex.Gamma s ≠ 0) :
     gammaHankelCollapsed s = gammaHankelTarget s := by
   unfold gammaHankelCollapsed gammaHankelTarget
   -- Use Euler's reflection: Γ(s) · Γ(1-s) = π / sin(πs)

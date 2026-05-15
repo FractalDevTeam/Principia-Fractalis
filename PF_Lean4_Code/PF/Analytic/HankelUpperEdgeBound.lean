@@ -144,7 +144,7 @@ theorem norm_sq_upper_edge_le (t ε : ℝ) (hε : |ε| ≤ 1) :
     Proof: `‖z‖^(Re s - 1) = (‖z‖²)^((Re s - 1)/2) ≤ (t² + 1)^((Re s - 1)/2)`
     by monotonicity of `rpow` on nonneg base with nonneg exponent. -/
 theorem norm_rpow_upper_edge_le_of_re_ge_one
-    (t ε : ℝ) (ht : 0 < t) (hε : |ε| ≤ 1) (s : ℂ) (hs : 1 ≤ s.re) :
+    (t ε : ℝ) (_ht : 0 < t) (hε : |ε| ≤ 1) (s : ℂ) (hs : 1 ≤ s.re) :
     ‖(t : ℂ) + (ε : ℂ) * I‖ ^ (s.re - 1) ≤
     (t^2 + 1) ^ ((s.re - 1) / 2) := by
   set z : ℂ := (t : ℂ) + (ε : ℂ) * I

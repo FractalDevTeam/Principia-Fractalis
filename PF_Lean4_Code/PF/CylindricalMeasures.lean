@@ -611,10 +611,10 @@ def CylindricalMeasure.isSigmaAdditive {d : ℕ} (μ : CylindricalMeasure d) : P
     Ĉ(f) = ∫_{S'} exp(i⟨ω, f⟩) dμ(ω)
 -/
 noncomputable def CylindricalMeasure.fourierTransform {d : ℕ}
-    (μ : CylindricalMeasure d) (f : SchwartzFunction d) : ℂ :=
+    (_μ : CylindricalMeasure d) (f : SchwartzFunction d) : ℂ :=
   -- For a cylinder measure, this is computed via finite-dimensional integral
   -- Using the projection to f
-  let proj : FiniteDimProjection d := ⟨1, fun _ => f⟩
+  let _proj : FiniteDimProjection d := ⟨1, fun _ => f⟩
   -- Integrate exp(i·z) over the projected measure
   -- ∫ exp(i·z) dμ_{proj}(z)
   0  -- Placeholder: actual computation requires integration machinery
@@ -638,7 +638,7 @@ noncomputable def CylindricalMeasure.fourierTransform {d : ℕ}
     ∫ exp(i(t₁z₁ + ... + tₙzₙ)) dμ_F(z) = C(t₁f₁ + ... + tₙfₙ)
 -/
 noncomputable def CharacteristicFunctional.toCylindricalMeasure {d : ℕ}
-    (C : CharacteristicFunctional d) : CylindricalMeasure d := {
+    (_C : CharacteristicFunctional d) : CylindricalMeasure d := {
   measure := fun proj =>
     -- By finite-dimensional Bochner theorem, there exists unique measure μ_F
     -- with Fourier transform (t₁,...,tₙ) ↦ C(t₁f₁ + ... + tₙfₙ)

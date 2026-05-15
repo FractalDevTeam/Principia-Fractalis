@@ -90,7 +90,7 @@ theorem resonance_determines_ground_state :
     Reference: Chapter 21, Definition 21.3 (ch21_p_vs_np.tex:188-196)
 -/
 theorem np_not_p_requires_certificate :
-  ∀ (L : Type) (vtime : TimeComplexity),
+  ∀ (_L : Type) (vtime : TimeComplexity),
     IsInNP vtime → (∀ (dtime : TimeComplexity), ¬IsInP dtime) →
     ∃ (cert_energy : ℤ), cert_energy > 0 := by
   intro L vtime h_in_np h_not_in_p
