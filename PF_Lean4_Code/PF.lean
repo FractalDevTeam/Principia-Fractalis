@@ -51,6 +51,7 @@ import PF.Analytic.GammaHankel          -- Stage L4 — Γ-functional identity v
 import PF.Analytic.HankelDeformation    -- Stage L4 — contour deformation: branch-jump + algebraic combination
 import PF.Analytic.HankelEdgeIntegrals  -- Stage L4 — upper/lower edge limits + symmetric-orientation bridge
 import PF.Analytic.HankelSmallLoop      -- Stage L4 — small-loop ε-bound, vanishes for Re s > 0
+import PF.Analytic.HankelUpperEdgeDCT   -- Stage L4 — upper-edge integrand pointwise convergence
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
