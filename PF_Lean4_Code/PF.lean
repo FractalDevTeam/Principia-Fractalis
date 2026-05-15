@@ -54,6 +54,7 @@ import PF.Analytic.HankelSmallLoop      -- Stage L4 — small-loop ε-bound, van
 import PF.Analytic.HankelUpperEdgeDCT   -- Stage L4 — upper-edge integrand pointwise convergence
 import PF.Analytic.HankelLowerEdgeDCT   -- Stage L4 — lower-edge (wrapped branch) pointwise convergence
 import PF.Analytic.HankelUpperEdgeBound -- Stage L4 — upper-edge integrand modulus inequality
+import PF.Analytic.HankelLowerEdgeBound -- Stage L4 — lower-edge integrand modulus inequality
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
