@@ -3,3 +3,5 @@
 PF/Basic.v
 PF/IntervalArithmetic.v
 PF/TuringEncoding/Basic.v
+PF/TuringEncoding/AlphaCanonical.v
+PF/TuringEncoding/AlphaEnum.v
