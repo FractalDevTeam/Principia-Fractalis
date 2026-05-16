@@ -1,0 +1,217 @@
+/-
+# Kernel Self-Similarity Equation
+
+The structural heart of the manuscript's Ch 21 argument for the polylog
+eigenvalue conjecture: the fractal kernel `V_P(x, y) = Σ aⁿ cos(παⁿd)`
+satisfies a **self-similarity functional equation** under the scaling
+`(x, y) ↦ (αx, αy)`.
+
+## Main result
+
+For `K = ℝ`, `a > 1`, `α ≥ 0`:
+
+  ```
+  V_P(x, y) = cos(π·|x−y|) + (1/a) · V_P(αx, αy)
+  ```
+
+Equivalently:
+
+  ```
+  V_P(αx, αy) = a · V_P(x, y) − a · cos(π·|x−y|)
+  ```
+
+## Significance
+
+This is the structural identity that drives the conjectured polylog
+formula `λ_k = (1/aᵏ) · Re[Li₁(e^{iπαᵏ})]`:
+
+* It tells us that the kernel restricted to scale-`(αx, αy)` differs
+  from the kernel at `(x, y)` by exactly the n=0 cosine term, modulo
+  the `1/a` weight.
+* At the operator level (formalized in `OperatorSelfSimilarity.lean` —
+  a follow-on), this yields a functional equation relating
+  `(H_P f)(x)` to `(H_P D_α f)(αx)`, where `D_α` is the dilation
+  operator. Substituting candidate eigenfunctions `ψ_k(x) = cos(παᵏx)`
+  into this functional equation produces a *recursion* on the
+  eigenvalues `λ_k`, with the n=0 cosine inner product as the
+  inhomogeneous term.
+* That inner-product term, evaluated via the closed forms in
+  `PolylogSpectrum.lean`, is conjecturally what generates the
+  `Re[Li₁(e^{iπαᵏ})]` polylogarithm structure.
+
+## What this file delivers
+
+* `fractalKernelTerm_scale` — per-term scaling: each summand at scale
+  `(αx, αy)` equals `a` times the next summand at `(x, y)`.
+* `fractalKernelReal_self_similarity` — the full self-similarity
+  equation, proven from per-term identity + tsum index shift.
+* `fractalKernel_self_similarity` — complex-valued version.
+
+All theorems use only Lean standard foundation; **zero project axioms**.
+
+Stage L4+ — Kernel self-similarity (structural lever for the polylog
+spectrum conjecture).
+-/
+
+import PF.IntegralKernel.FractalKernel
+
+namespace PrincipiaTractalis.IntegralKernel
+
+open MeasureTheory Real
+
+/-! ## Per-term self-similarity -/
+
+/-- **Per-term scaling identity** (on `K = ℝ`): the `n`-th summand of
+    `fractalKernelTerm α a` at the scaled point `(αx, αy)` equals `a`
+    times the `(n+1)`-th summand at `(x, y)`.
+
+    This is the algebraic seed of the full self-similarity equation:
+    the scaling `(x, y) ↦ (αx, αy)` shifts the summation index by one
+    and absorbs a factor of `a` from the exponential weight. -/
+theorem fractalKernelTerm_scale
+    (α a : ℝ) (ha : a ≠ 0) (hα : 0 ≤ α) (x y : ℝ) (n : ℕ) :
+    fractalKernelTerm α a ((α * x, α * y) : ℝ × ℝ) n =
+    a * fractalKernelTerm α a ((x, y) : ℝ × ℝ) (n + 1) := by
+  unfold fractalKernelTerm
+  have hd : dist (α * x) (α * y) = α * dist x y := by
+    simp [Real.dist_eq, ← mul_sub, abs_mul, abs_of_nonneg hα]
+  show a ^ (-(n : ℤ)) * Real.cos (Real.pi * α^n * dist (α * x) (α * y)) =
+       a * (a ^ (-((n + 1 : ℕ) : ℤ)) * Real.cos (Real.pi * α^(n+1) * dist x y))
+  rw [hd]
+  -- Argument-of-cos equality: π · αⁿ · (α · d) = π · α^(n+1) · d.
+  have hcos_arg : Real.pi * α^n * (α * dist x y) = Real.pi * α^(n+1) * dist x y := by
+    rw [show α^(n+1) = α^n * α from by ring]; ring
+  rw [hcos_arg]
+  -- Scalar prefactor: a^(-n) = a · a^(-(n+1)).
+  have hscalar : a ^ (-(n : ℤ)) = a * a ^ (-((n + 1 : ℕ) : ℤ)) := by
+    rw [show -((n + 1 : ℕ) : ℤ) = -(n : ℤ) + (-1 : ℤ) by push_cast; ring]
+    rw [zpow_add₀ ha, zpow_neg_one]
+    field_simp
+  rw [hscalar]
+  ring
+
+/-! ## The self-similarity equation -/
+
+/-- **Kernel self-similarity equation** (the structural lever of
+    manuscript Ch 21's polylog argument):
+
+      `V_P(x, y) = cos(π·|x−y|) + (1/a) · V_P(αx, αy)`
+
+    on `K = ℝ`, under `a > 1` and `α ≥ 0`.
+
+    Proof: peel off the `n = 0` term of `V_P(x, y) = Σ aⁿ cos(παⁿd)`
+    (which is `cos(π·d)`), then re-index the tail
+    `Σ_{n≥1} aⁿ cos(παⁿd)` against the per-term identity above to
+    recognise it as `(1/a) · V_P(αx, αy)`. -/
+theorem fractalKernelReal_self_similarity
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (x y : ℝ) :
+    fractalKernelReal α a ((x, y) : ℝ × ℝ) =
+    Real.cos (Real.pi * dist x y) +
+    (1 / a) * fractalKernelReal α a ((α * x, α * y) : ℝ × ℝ) := by
+  have ha_pos : 0 < a := lt_trans zero_lt_one ha
+  have ha_ne : a ≠ 0 := ne_of_gt ha_pos
+  have hsum_xy : Summable (fractalKernelTerm α a ((x, y) : ℝ × ℝ)) :=
+    summable_fractalKernelTerm α ha ((x, y) : ℝ × ℝ)
+  have hsum_αxαy : Summable (fractalKernelTerm α a ((α * x, α * y) : ℝ × ℝ)) :=
+    summable_fractalKernelTerm α ha ((α * x, α * y) : ℝ × ℝ)
+  unfold fractalKernelReal
+  rw [Summable.tsum_eq_zero_add hsum_xy]
+  -- The n=0 term is cos(π · dist x y):
+  have hn0 : fractalKernelTerm α a ((x, y) : ℝ × ℝ) 0 = Real.cos (Real.pi * dist x y) := by
+    unfold fractalKernelTerm; simp
+  rw [hn0]
+  congr 1
+  rw [show (fun n => fractalKernelTerm α a ((x, y) : ℝ × ℝ) (n + 1))
+       = (fun n => (1/a) * fractalKernelTerm α a ((α * x, α * y) : ℝ × ℝ) n)
+       from ?_]
+  · exact hsum_αxαy.tsum_mul_left (1/a)
+  · funext n
+    have := fractalKernelTerm_scale α a ha_ne hα x y n
+    rw [this]
+    field_simp
+
+/-- **Self-similarity, complex form**: same equation lifted to the
+    `Complex`-valued `fractalKernel`. -/
+theorem fractalKernel_self_similarity
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (x y : ℝ) :
+    fractalKernel α a ((x, y) : ℝ × ℝ) =
+    ((Real.cos (Real.pi * dist x y) : ℝ) : ℂ) +
+    ((1 / a : ℝ) : ℂ) * fractalKernel α a ((α * x, α * y) : ℝ × ℝ) := by
+  unfold fractalKernel
+  rw [fractalKernelReal_self_similarity α a ha hα x y]
+  push_cast
+  ring
+
+/-! ## Rearranged forms -/
+
+/-- **Self-similarity, rearranged for the scaled kernel value**:
+
+      `V_P(αx, αy) = a · V_P(x, y) − a · cos(π·|x−y|)`. -/
+theorem fractalKernelReal_self_similarity_scaled
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (x y : ℝ) :
+    fractalKernelReal α a ((α * x, α * y) : ℝ × ℝ) =
+    a * fractalKernelReal α a ((x, y) : ℝ × ℝ) - a * Real.cos (Real.pi * dist x y) := by
+  have ha_pos : 0 < a := lt_trans zero_lt_one ha
+  have ha_ne : a ≠ 0 := ne_of_gt ha_pos
+  have h := fractalKernelReal_self_similarity α a ha hα x y
+  -- V_P(x,y) = cos(π·d) + (1/a) · V_P(αx, αy)
+  -- ⟹ a · V_P(x,y) − a · cos(π·d) = V_P(αx, αy)
+  field_simp at h
+  linarith
+
+/-! ## Iterated (k-fold) self-similarity -/
+
+/-- **k-fold iterated self-similarity** (the explicit recursion structure):
+
+      `V_P(x, y) = Σ_{j=0}^{k-1} a^(-j) · cos(π · αʲ · |x−y|)
+                + a^(-k) · V_P(αᵏx, αᵏy)`
+
+    Direct proof by induction on `k`, using the single-step
+    `fractalKernelReal_self_similarity` at each step to peel off the
+    next summand and rescale the residual.
+
+    This is the structural identity that drives the conjectured
+    polylog formula: each application of the self-similar rescaling
+    produces one term of the series, and the residual is the entire
+    series at scale `(αᵏx, αᵏy)` weighted by `a^(-k)`. The conjectured
+    eigenvalues `λ_k = a^(-k) · Re[Li₁(e^{iπαᵏ})]` are conjecturally
+    the eigenvalues that organize this `a^(-k)` residual structure
+    against the `cosineMode α k` eigenvector candidates from
+    `PolylogSpectrum.lean`. -/
+theorem fractalKernelReal_iterated_self_similarity
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (x y : ℝ) (k : ℕ) :
+    fractalKernelReal α a ((x, y) : ℝ × ℝ) =
+    (Finset.range k).sum
+      (fun j => a^(-(j : ℤ)) * Real.cos (Real.pi * α^j * dist x y)) +
+    a^(-(k : ℤ)) * fractalKernelReal α a ((α^k * x, α^k * y) : ℝ × ℝ) := by
+  induction k with
+  | zero => simp
+  | succ n ih =>
+    rw [ih]
+    have hα_n_nn : 0 ≤ α^n := pow_nonneg hα n
+    have hself := fractalKernelReal_self_similarity α a ha hα (α^n * x) (α^n * y)
+    have hd_eq : dist (α^n * x) (α^n * y) = α^n * dist x y := by
+      simp [Real.dist_eq, ← mul_sub, abs_mul, abs_of_nonneg hα_n_nn]
+    rw [hd_eq] at hself
+    have hαsucc_x : α * (α^n * x) = α^(n+1) * x := by ring
+    have hαsucc_y : α * (α^n * y) = α^(n+1) * y := by ring
+    rw [hαsucc_x, hαsucc_y] at hself
+    have hcos_assoc :
+        Real.cos (Real.pi * (α^n * dist x y)) = Real.cos (Real.pi * α^n * dist x y) := by
+      congr 1; ring
+    rw [hcos_assoc] at hself
+    rw [Finset.sum_range_succ, hself]
+    have ha_pos : 0 < a := lt_trans zero_lt_one ha
+    have ha_ne : a ≠ 0 := ne_of_gt ha_pos
+    have hpow : a^(-(n : ℤ)) * (1/a) = a^(-((n+1 : ℕ) : ℤ)) := by
+      rw [show -((n + 1 : ℕ) : ℤ) = -(n : ℤ) + (-1 : ℤ) by push_cast; ring]
+      rw [zpow_add₀ ha_ne, zpow_neg_one]
+      ring
+    set V := fractalKernelReal α a ((α^(n+1) * x, α^(n+1) * y) : ℝ × ℝ)
+    set C := Real.cos (Real.pi * α^n * dist x y)
+    set S := (Finset.range n).sum
+      (fun j => a^(-(j : ℤ)) * Real.cos (Real.pi * α^j * dist x y))
+    rw [← hpow]
+    ring
+
+end PrincipiaTractalis.IntegralKernel
