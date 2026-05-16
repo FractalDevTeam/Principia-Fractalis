@@ -6,7 +6,7 @@
   This port mirrors the SINGLE REMAINING PROJECT AXIOM of the Lean
   development at the SET LEVEL and all of its derived consequences:
     * alpha_of_class : (Language -> Prop) -> R                  (opaque)
-    * Axiom alpha_class_self_adjointness_canonical              (Ch 21 C3+C4)
+    * Axiom alpha_class_polylog_eigenvalue_conjecture              (Ch 21 C3+C4)
     * alpha_at_ClassP_eq_sqrt2                                  (derived)
     * alpha_at_ClassNP_eq_phi_plus_quarter                      (derived)
     * alpha_of_class_pos_at_ClassP / _at_ClassNP                (derived)
@@ -17,8 +17,8 @@
   this gives full cross-prover verification of the Lean development's
   headline 1-axiom state:
 
-    Lean 4: `alpha_class_self_adjointness_canonical` + 6 derived theorems.
-    Coq:    `alpha_class_self_adjointness_canonical` + 6 derived theorems.
+    Lean 4: `alpha_class_polylog_eigenvalue_conjecture` + 6 derived theorems.
+    Coq:    `alpha_class_polylog_eigenvalue_conjecture` + 6 derived theorems.
 
   Both provers carry the SAME single axiom (irreducible at the
   Set Language level - see AlphaEnum.v for the rationale), with the
@@ -75,7 +75,7 @@ Parameter ClassNP : Language -> Prop.
 Parameter alpha_of_class : (Language -> Prop) -> R.
 
 (* ============================================================ *)
-(* THE AXIOM (mirror of Lean's alpha_class_self_adjointness_canonical) *)
+(* THE AXIOM (mirror of Lean's alpha_class_polylog_eigenvalue_conjecture) *)
 (* ============================================================ *)
 
 (** *** Ch 21 Constructions 3 and 4: the self-adjointness conditions
@@ -106,7 +106,7 @@ Parameter alpha_of_class : (Language -> Prop) -> R.
     solve P vs NP via a non-spectral mechanism. See
     `PF/TuringEncoding/AlphaEnum.v` for the axiom-free enum-level
     analog that proves the algebraic content. *)
-Axiom alpha_class_self_adjointness_canonical :
+Axiom alpha_class_polylog_eigenvalue_conjecture :
     ((alpha_of_class ClassP) ^ 2 = 2 /\ 0 < alpha_of_class ClassP) /\
     (16 * (alpha_of_class ClassNP) ^ 2 - 24 * (alpha_of_class ClassNP) - 11 = 0
      /\ 0 < alpha_of_class ClassNP).
@@ -120,7 +120,7 @@ Axiom alpha_class_self_adjointness_canonical :
     unique positive solution sqrt 2). *)
 Theorem alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = sqrt 2.
 Proof.
-  destruct alpha_class_self_adjointness_canonical as [[h_sq h_pos] _].
+  destruct alpha_class_polylog_eigenvalue_conjecture as [[h_sq h_pos] _].
   (* alpha > 0 /\ alpha^2 = 2 -> alpha = sqrt 2 by uniqueness of positive sqrt *)
   assert (h_sqrt_sq : sqrt ((alpha_of_class ClassP) ^ 2) = alpha_of_class ClassP).
   { apply sqrt_pow2. lra. }
@@ -134,7 +134,7 @@ Qed.
 Theorem alpha_at_ClassNP_eq_phi_plus_quarter :
     alpha_of_class ClassNP = phi + 1/4.
 Proof.
-  destruct alpha_class_self_adjointness_canonical as [_ [h_quad h_pos]].
+  destruct alpha_class_polylog_eigenvalue_conjecture as [_ [h_quad h_pos]].
   set (y := alpha_of_class ClassNP) in *.
   (* 16y^2 - 24y - 11 = 0  factors as  16(y - r1)(y - r2) = 0
      with r1 = (3 + 2*sqrt 5)/4 and r2 = (3 - 2*sqrt 5)/4. *)
@@ -170,14 +170,14 @@ Qed.
     `0 < alpha_of_class ClassP` conjunct. *)
 Theorem alpha_of_class_pos_at_ClassP : 0 < alpha_of_class ClassP.
 Proof.
-  destruct alpha_class_self_adjointness_canonical as [[_ h] _]. exact h.
+  destruct alpha_class_polylog_eigenvalue_conjecture as [[_ h] _]. exact h.
 Qed.
 
 (** Positivity of `alpha_of_class ClassNP` - direct from the axiom's
     `0 < alpha_of_class ClassNP` conjunct. *)
 Theorem alpha_of_class_pos_at_ClassNP : 0 < alpha_of_class ClassNP.
 Proof.
-  destruct alpha_class_self_adjointness_canonical as [_ [_ h]]. exact h.
+  destruct alpha_class_polylog_eigenvalue_conjecture as [_ [_ h]]. exact h.
 Qed.
 
 (** DERIVED: the canonical resonance values are distinct.
@@ -264,17 +264,17 @@ Qed.
 (* Cross-prover headline                                         *)
 (*                                                              *)
 (* Lean 4 side: `PF/TuringEncoding/Operators.lean`               *)
-(*   axiom alpha_class_self_adjointness_canonical                *)
+(*   axiom alpha_class_polylog_eigenvalue_conjecture                *)
 (*   + 6 derived theorems above                                  *)
 (*   axiom dependencies of each derived theorem:                 *)
-(*     {alpha_class_self_adjointness_canonical,                  *)
+(*     {alpha_class_polylog_eigenvalue_conjecture,                  *)
 (*      propext, Classical.choice, Quot.sound}                   *)
 (*                                                              *)
 (* Coq side (this file):                                         *)
-(*   Axiom alpha_class_self_adjointness_canonical                *)
+(*   Axiom alpha_class_polylog_eigenvalue_conjecture                *)
 (*   + 6 derived theorems above                                  *)
 (*   axiom dependencies of each derived theorem (Print           *)
-(*   Assumptions): {alpha_class_self_adjointness_canonical,      *)
+(*   Assumptions): {alpha_class_polylog_eigenvalue_conjecture,      *)
 (*                  Coq stdlib classical foundation}             *)
 (*                                                              *)
 (* The SINGLE PROJECT AXIOM is the same statement in both        *)

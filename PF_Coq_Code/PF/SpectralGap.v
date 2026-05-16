@@ -240,6 +240,6 @@ Qed.
 (* This means the LOAD-BEARING content for `P_neq_NP_via_        *)
 (* spectral_gap` IS mirrored: both provers prove the gap is      *)
 (* non-zero with no project axioms beyond                        *)
-(* `alpha_class_self_adjointness_canonical` (which is not used   *)
+(* `alpha_class_polylog_eigenvalue_conjecture` (which is not used   *)
 (* here at all - this file is fully axiom-clean).                *)
 (* ============================================================ *)

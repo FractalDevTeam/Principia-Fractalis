@@ -7,7 +7,7 @@ The book's `fractal_continuation_derivation.py` claims:
 
 with `s* ≈ 0.182049937912121` and `m* = -1` (the non-principal Riemann
 sheet). This is the **final analytic identity** that, combined with the
-spectral framework, would retire `alpha_class_self_adjointness_canonical`
+spectral framework, would retire `alpha_class_polylog_eigenvalue_conjecture`
 via the polylog route.
 
 This file:
@@ -80,7 +80,7 @@ def BookEigenvalueIdentity : Prop :=
 /-! ## Chain to axiom retirement
 
 The chain from `BookEigenvalueIdentity` to retiring the project axiom
-`alpha_class_self_adjointness_canonical`:
+`alpha_class_polylog_eigenvalue_conjecture`:
 
 1. **Spectral identification**: `λ_0(H_P) = π/(10√2)` and
    `λ_0(H_NP) = π·(√5−1)/(30√2)` (from `IntervalArithmetic.lean`).

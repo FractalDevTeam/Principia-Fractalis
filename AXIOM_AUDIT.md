@@ -1,11 +1,13 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-16** (master `67fcaed`): **1 verified axiom** in `PF/`, unchanged since Stage 35. Build at **5626 jobs clean, 0 warnings, 0 sorries**. Headline dependencies:*
-- *`principia_fractalis_millennium_capstone` → 1 axiom (`alpha_class_self_adjointness_canonical`)*
-- *`riemann_hypothesis_via_T3_sym_framework` → 0 project axioms*
+*As of **2026-05-16**: **1 verified axiom** in `PF/`. Build at **5626 jobs clean, 0 warnings, 0 sorries**. Headline dependencies:*
+- *`principia_fractalis_millennium_capstone` → 1 axiom (`alpha_class_polylog_eigenvalue_conjecture`)*
+- *`riemann_hypothesis_via_T3_sym_framework` → 0 project axioms (but **4-hypothesis conditional** — see honest framing note)*
 - *`P_neq_NP_via_spectral_gap` → 1 axiom (same)*
 
-*Cross-prover state (2026-05-16): the headline 1-axiom Lean state + spectral-gap consequence chain are MIRRORED in Coq under `PF_Coq_Code/`. Seven modules ported (Basic, IntervalArithmetic, TuringEncoding/{Basic, AlphaCanonical, AlphaEnum, Operators}, SpectralGap). The single project axiom `alpha_class_self_adjointness_canonical` exists in both provers with identical statement; the axiom-free enum-level analog `alpha_at_enum_self_adjointness_canonical` is proven in both provers. Nine derived theorems in `Operators.v` (value/positivity/distinctness/separation + `p_eq_np_spectrum_collapse`, `P_eq_NP_implies_same_ground_energy`, `P_neq_NP_from_spectral_gap`) mirrored, each depending only on the project axiom + Coq stdlib classical. Eight algebraic-content theorems in `SpectralGap.v` (defs, pi/10 relations, gap positivity via monotonicity of `pi_10/x` + `phi_plus_quarter_gt_sqrt2`) proven zero-project-axiom. NUMERICAL bounds (`spectral_gap_value`, `lambda_0_*_approx`, `pvsnp_spectral_separation`) deferred on the Coq side pending high-precision π infrastructure not present in Coq stdlib — file headers document the closure paths (Coquelicot, native Machin-series proof, or stdlib expansion). Critically: the LOAD-BEARING `spectral_gap > 0` IS proven in both provers, so `P_neq_NP_from_spectral_gap` has full cross-prover support — only the numerical value of Δ is Lean-only.*
+**Honest framing**: the single axiom is the formal encoding of the manuscript's Ch 21 Conjecture (`conj:polylog-spectrum`) + Heuristic (`heur:branch-selection`) + Conjecture (`conj:golden-modulation`), backed by 10⁻¹⁰ numerical evidence but NOT proven. The 0-axiom RH theorem takes the **surjectivity of the spectral bijection onto ζ-zeros** as a hypothesis parameter, which the file itself describes as "the load-bearing conjecture of the entire RH program (det/trace-formula completion). This is the open mathematical problem." See `OPEN_PROBLEMS.md`, Problems 1–4.
+
+*Cross-prover state (2026-05-16): the headline 1-axiom Lean state + spectral-gap consequence chain are MIRRORED in Coq under `PF_Coq_Code/`. Seven modules ported (Basic, IntervalArithmetic, TuringEncoding/{Basic, AlphaCanonical, AlphaEnum, Operators}, SpectralGap). The single project axiom `alpha_class_polylog_eigenvalue_conjecture` exists in both provers with identical statement; the axiom-free enum-level analog `alpha_at_enum_self_adjointness_canonical` is proven in both provers. Nine derived theorems in `Operators.v` (value/positivity/distinctness/separation + `p_eq_np_spectrum_collapse`, `P_eq_NP_implies_same_ground_energy`, `P_neq_NP_from_spectral_gap`) mirrored, each depending only on the project axiom + Coq stdlib classical. Eight algebraic-content theorems in `SpectralGap.v` (defs, pi/10 relations, gap positivity via monotonicity of `pi_10/x` + `phi_plus_quarter_gt_sqrt2`) proven zero-project-axiom. NUMERICAL bounds (`spectral_gap_value`, `lambda_0_*_approx`, `pvsnp_spectral_separation`) deferred on the Coq side pending high-precision π infrastructure not present in Coq stdlib — file headers document the closure paths (Coquelicot, native Machin-series proof, or stdlib expansion). Critically: the LOAD-BEARING `spectral_gap > 0` IS proven in both provers, so `P_neq_NP_from_spectral_gap` has full cross-prover support — only the numerical value of Δ is Lean-only.*
 
 *Between Stage 44 (5534 jobs, the prior recorded state) and now:*
 1. *A **28-module polylog-route framework** was added under `PF/Analytic/`, providing the conditional analytic chain for retiring the remaining axiom. The axiom itself is unchanged; the framework gives a structured path to its retirement.*
@@ -52,7 +54,7 @@
 *The remaining axiom encodes the manuscript's Ch 21 Constructions 3 & 4 in their full algebraic form:*
 
 ```lean
-axiom alpha_class_self_adjointness_canonical :
+axiom alpha_class_polylog_eigenvalue_conjecture :
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
     (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0
      ∧ 0 < alpha_of_class ClassNP)
@@ -65,7 +67,7 @@ axiom alpha_class_self_adjointness_canonical :
 The remaining 1 axiom is now in pure algebraic-equation form for both classes:
 
 ```lean
-axiom alpha_class_self_adjointness_canonical :
+axiom alpha_class_polylog_eigenvalue_conjecture :
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
     (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0
      ∧ 0 < alpha_of_class ClassNP)
@@ -81,7 +83,7 @@ The framework's substantive claim is now visible AS the algebraic constraint, no
 
 ### Retirement path
 
-To retire `alpha_class_self_adjointness_canonical` entirely:
+To retire `alpha_class_polylog_eigenvalue_conjecture` entirely:
 1. Define H_P and H_NP as Hilbert-Schmidt operators on L²(LanguageSpace) with their actual integral-kernel bodies (Constructions 3 and 4: `(1/2^|x|) · e^(iπα·D(x)) · E_P(M_L,x)` and the NP analog with certificate quantifier).
 2. Define self-adjointness for these operators.
 3. Prove that self-adjointness of H_P forces `α² = 2`, and self-adjointness of H_NP forces `16α² − 24α − 11 = 0`. (Both reduce algebraically from the kernel reflection symmetry analysis in Reed-Simon-style operator theory.)
@@ -221,7 +223,7 @@ the simple theta-factor reality condition (per L4 foundation's
 `truncatedThetaSum_succ_of_factor_zero`); `α = √2` does not.
 
 **Implication for the remaining axiom**:
-`alpha_class_self_adjointness_canonical` encodes the book's chosen
+`alpha_class_polylog_eigenvalue_conjecture` encodes the book's chosen
 resonance values via opaque-function indirection. The axiom's literal
 content (algebraic equations on `alpha_of_class ClassP` /
 `alpha_of_class ClassNP`) is the framework's *structural commitment*, not
@@ -341,7 +343,7 @@ analytic claim from `fractal_continuation_derivation.py`:
   Re[polyLogSheet (-1) s_star z_book] = π/(10√2)`. Numerically
   `s_star ≈ 0.182049937912121`.
 - Documents the full chain from this proposition to retiring
-  `alpha_class_self_adjointness_canonical`: spectral identification
+  `alpha_class_polylog_eigenvalue_conjecture`: spectral identification
   `λ_0(H_P) = π/(10·α_P)` (book Ch 21 line 462) + polylog
   identification + matching → `α_P = √2` → `α_P² = 2`.
 
@@ -413,7 +415,7 @@ analytic-number-theory machinery currently absent from mathlib.
 **L4 axiom-free algebra layer** (commits 1e093cb, 18cb661):
 
 `PF/TuringEncoding/AlphaCanonical.lean` — direct, axiom-free proofs of
-the algebraic content of `alpha_class_self_adjointness_canonical` for the
+the algebraic content of `alpha_class_polylog_eigenvalue_conjecture` for the
 specific real numbers `√2` and `φ + 1/4`:
 
 - `alpha_P_sq : (Real.sqrt 2) ^ 2 = 2` — `Real.sq_sqrt`.

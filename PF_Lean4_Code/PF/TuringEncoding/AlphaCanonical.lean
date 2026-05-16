@@ -3,7 +3,7 @@
 
 The book's Ch 21 Section 4.2 fixes the canonical resonance values
 `α_P = √2` and `α_NP = φ + 1/4` for the P-class and NP-class operators
-respectively. The remaining project axiom `alpha_class_self_adjointness_canonical`
+respectively. The remaining project axiom `alpha_class_polylog_eigenvalue_conjecture`
 asserts these values satisfy the algebraic equations
 
   `α_P^2 = 2`         and         `16·α_NP^2 − 24·α_NP − 11 = 0`
@@ -83,7 +83,7 @@ theorem alpha_NP_pos : 0 < phi + 1/4 := by
 /-! ## Bridge: the canonical pair satisfies the axiom's content
 
 The pair `(√2, φ + 1/4)` jointly satisfies the algebraic system of
-`alpha_class_self_adjointness_canonical` — but now as a direct
+`alpha_class_polylog_eigenvalue_conjecture` — but now as a direct
 algebraic fact, not as an axiom about an opaque function. -/
 
 /-- **The canonical algebraic pair** (axiom-free version of the axiom's
@@ -96,7 +96,7 @@ theorem canonical_alpha_algebraic_pair :
 
 /-! ## Equivalence: axiom's algebraic form ⇔ value assignment
 
-The axiom `alpha_class_self_adjointness_canonical` asserts the algebraic
+The axiom `alpha_class_polylog_eigenvalue_conjecture` asserts the algebraic
 conjunction on `alpha_of_class ClassP` and `alpha_of_class ClassNP`. We
 show this is logically equivalent (for *any* real-valued function `f`)
 to the *value assignment* `f x = √2 ∧ f y = φ + 1/4` — making the

@@ -6,7 +6,7 @@ Given the manuscript's spectral-parameter eigenvalue formulas, the
 polylog identity uniquely determines the kernel parameters
 `α_P` and `α_NP`.
 
-**The chain to retire `alpha_class_self_adjointness_canonical`:**
+**The chain to retire `alpha_class_polylog_eigenvalue_conjecture`:**
 
 1. **Polylog identity** (mechanized): `Re[polyLogSheet (-1) s_star z_book]
    = π/(10√2)` (manuscript's `BookEigenvalueIdentity`, established via
@@ -129,8 +129,8 @@ theorem alpha_NP_axiom_content
 /-- **★ Full axiom retirement** (conditional):
 
     Given the manuscript hypotheses for both classes, conclude
-    the content of `alpha_class_self_adjointness_canonical`. -/
-theorem alpha_class_self_adjointness_canonical_content
+    the content of `alpha_class_polylog_eigenvalue_conjecture`. -/
+theorem alpha_class_polylog_eigenvalue_conjecture_content
     (h_P_pos : 0 < alpha_of_class ClassP)
     (h_P_eig : ∃ lambdaHP : ℝ,
         lambdaHP = Real.pi / (10 * alpha_of_class ClassP) ∧

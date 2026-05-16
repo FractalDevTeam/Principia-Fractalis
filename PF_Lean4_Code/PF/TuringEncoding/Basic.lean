@@ -139,7 +139,7 @@ The self-adjointness condition determines these values uniquely.
    - `alpha_P, alpha_NP` (ASCII, in TuringEncoding.lean) via alpha_of_class
    - With `α_P_value`, `α_NP_value`, `alpha_P_value_ascii`,
      `alpha_NP_value_ascii` deriving the canonical √2 / φ+¼ values
-     from `alpha_class_self_adjointness_canonical`.
+     from `alpha_class_polylog_eigenvalue_conjecture`.
 
    A separate `alpha_separation` theorem (parent namespace) lives in
    `TuringEncoding.lean` proving `alpha_NP > alpha_P` for the unified

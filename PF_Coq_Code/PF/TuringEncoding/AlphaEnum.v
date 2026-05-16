@@ -5,7 +5,7 @@
   Cross-prover verification of the enum-level axiom elimination.
 
   The Lean development's project axiom
-    `alpha_class_self_adjointness_canonical`
+    `alpha_class_polylog_eigenvalue_conjecture`
   is replaced HERE by the enum-level THEOREM
     `alpha_at_enum_self_adjointness_canonical`
   proven axiom-free in BOTH Lean 4 AND Coq.
@@ -68,7 +68,7 @@ Proof. reflexivity. Qed.
 (** *** alpha_at_enum_self_adjointness_canonical ***
 
     The exact structural form of the project axiom
-    `alpha_class_self_adjointness_canonical` (from Lean), here
+    `alpha_class_polylog_eigenvalue_conjecture` (from Lean), here
     PROVEN AS A THEOREM at the enum level.
 
     Statement:

@@ -1,14 +1,22 @@
 # Principia Fractalis — Lean 4 Pristine Certification
 
-**Date**: 2026-05-15
-**Master commit**: `f7d4cc6`
+**Date**: 2026-05-16
 **Build verification**: `lake build` in `PF_Lean4_Code/`
+
+## ⚠ Honest Framing (read this first)
+
+This document certifies the **internal Lean 4 + Coq formal state** of the codebase. Some headline numbers below (1 axiom, 5626 jobs clean, 0 sorries, cross-prover verification) describe a real and substantial body of mechanized mathematics. Other claims (e.g., "headline P ≠ NP capstone") are **conditional reductions, not unconditional proofs**. Specifically:
+
+- The single remaining project axiom `alpha_class_polylog_eigenvalue_conjecture` is the **formal encoding** of the manuscript's Ch 21 Conjecture (`conj:polylog-spectrum`) + Heuristic (`heur:branch-selection`) + Conjecture (`conj:golden-modulation`). The manuscript labels these as conjectures backed by 10⁻¹⁰ numerical evidence; it does **not** claim to derive them.
+- The Riemann Hypothesis theorem (`riemann_hypothesis_via_T3_sym_framework`) is 0-axiom but takes the **surjectivity of the spectral bijection onto ζ-zeros** as a hypothesis. The file itself describes that surjectivity as "the load-bearing conjecture of the entire RH program (det/trace-formula completion). This is the open mathematical problem."
+
+The four open mathematical problems isolated by the framework — three for P ≠ NP, one for RH — are catalogued in [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md). What is and is not proven is delineated in [`THE_REAL_SCIENCE.md`](THE_REAL_SCIENCE.md) §"Status of Proofs". Read those first if you are evaluating the framework's Millennium-Problem-related claims.
 
 ## Headline Status
 
 | Theorem | Project-Axiom Dependencies |
 |---------|----------------------------|
-| `principia_fractalis_millennium_capstone` | 1 axiom (`alpha_class_self_adjointness_canonical`) |
+| `principia_fractalis_millennium_capstone` | 1 axiom (`alpha_class_polylog_eigenvalue_conjecture`) |
 | `riemann_hypothesis_via_T3_sym_framework` | **0 axioms** ★ |
 | `P_neq_NP_via_spectral_gap` | 1 axiom (same as capstone) |
 | `alpha_at_ClassP_eq_sqrt2` (theorem, not axiom) | 1 axiom (same) |
@@ -21,22 +29,30 @@ external axioms used. No `sorry`, no `admit`, no skipped proofs.
 ## The Single Remaining Project Axiom
 
 ```lean
-axiom alpha_class_self_adjointness_canonical :
+axiom alpha_class_polylog_eigenvalue_conjecture :
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
     (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0
      ∧ 0 < alpha_of_class ClassNP)
 ```
 
-This encodes the **algebraic self-adjointness conditions** of the
-fractal-kernel operators `H_P` and `H_NP` (manuscript Ch 21,
-Constructions 3 & 4):
-* `α² = 2` from `H_P` kernel symmetry (unique positive root: `α_P = √2`)
-* `16α² − 24α − 11 = 0` from `H_NP` kernel symmetry
-  (unique positive root: `α_NP = φ + ¼ = (3 + 2√5)/4`)
+This is the **formal encoding** of the manuscript's Ch 21 polylog-spectrum
+Conjecture + branch-selection Heuristic + golden-modulation Conjecture.
+**The manuscript does not prove these.** It provides:
 
-The specific values `α_P = √2` and `α_NP = φ + ¼` are **derived theorems**
-(`alpha_at_ClassP_eq_sqrt2`, `alpha_at_ClassNP_eq_phi_plus_quarter`),
-not axiomatic.
+* `α² = 2` from `H_P` self-similar kernel structure (asserted in Ch 21
+  Construction 3 + Observation `obs:hp-closed-form` + Conjecture
+  `conj:polylog-spectrum` + Heuristic `heur:branch-selection`; numerical
+  evidence to 10⁻¹⁰).
+* `16α² − 24α − 11 = 0` from the H_NP unitary-conjugation Conjecture
+  `conj:golden-modulation` (Ch 21; numerical evidence to 10⁻¹⁰).
+
+The specific values `α_P = √2` and `α_NP = φ + ¼` are derived as Lean
+**theorems** from this axiom (`alpha_at_ClassP_eq_sqrt2`,
+`alpha_at_ClassNP_eq_phi_plus_quarter`) — they are not separately
+axiomatized — but the axiom itself is the load-bearing conjecture content,
+not a proven theorem. **Retiring this axiom is original mathematical
+research that has not been done in the manuscript.** See
+[`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md) Problems 1–3.
 
 ## Conditional Axiom Retirement Framework
 
@@ -65,7 +81,7 @@ theorem alpha_at_enum_self_adjointness_canonical :
 This demonstrates that the **algebraic content** of the project axiom
 is independently verifiable as a theorem when the class is represented
 by a 2-element inductive enum (where constructor distinctness is
-decidable). The set-level axiom `alpha_class_self_adjointness_canonical`
+decidable). The set-level axiom `alpha_class_polylog_eigenvalue_conjecture`
 remains because the P ≠ NP chain uses `congrArg alpha_of_class` on
 `Set Language` equality, which requires set-level
 `alpha_of_class : Set Language → ℝ`. The enum-level theorem provides
@@ -85,7 +101,7 @@ theorem alpha_class_axiom_via_full_chain
     (h_value_P : lambda_HP = lambda_zero_HP_book)
     (h_NP_pos : 0 < alpha_of_class ClassNP)
     (h_NP_value : alpha_of_class ClassNP = phi + 1/4) :
-    -- Conclusion = full content of alpha_class_self_adjointness_canonical
+    -- Conclusion = full content of alpha_class_polylog_eigenvalue_conjecture
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
     (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0 ∧
      0 < alpha_of_class ClassNP)
@@ -205,14 +221,14 @@ Lean directory layout. Seven modules ported, build clean against Coq
 | `PF/TuringEncoding/AlphaCanonical.v` | `PF/TuringEncoding/AlphaCanonical.lean` | `alpha_P_sq`, `alpha_NP_quadratic`, positivity (axiom-free) |
 | `PF/TuringEncoding/AlphaEnum.v` | `PF/TuringEncoding/AlphaEnum.lean` | `alpha_at_enum_self_adjointness_canonical` (axiom-free enum mirror) |
 | `PF/SpectralGap.v` | `PF/SpectralGap.lean` | algebraic content (defs, pi/10 relations, `spectral_gap_pos`); numerical bounds deferred (require Coq stdlib pi-precision infrastructure) |
-| `PF/TuringEncoding/Operators.v` | `PF/TuringEncoding/Operators.lean` | **headline 1-axiom state + consequence theorems**: opaque `alpha_of_class`, `Axiom alpha_class_self_adjointness_canonical`, + 9 derived theorems including `P_neq_NP_from_spectral_gap` |
+| `PF/TuringEncoding/Operators.v` | `PF/TuringEncoding/Operators.lean` | **headline 1-axiom state + consequence theorems**: opaque `alpha_of_class`, `Axiom alpha_class_polylog_eigenvalue_conjecture`, + 9 derived theorems including `P_neq_NP_from_spectral_gap` |
 
 Axiom-count discipline matches Lean side exactly:
 * **`alpha_at_enum_self_adjointness_canonical`** — both provers
   prove the algebraic content as a THEOREM with no project axioms
   (Lean axioms: `{propext, Classical.choice, Quot.sound}`; Coq
   axioms: `{ClassicalDedekindReals.*, FunctionalExtensionality}`).
-* **`alpha_class_self_adjointness_canonical`** — both provers carry
+* **`alpha_class_polylog_eigenvalue_conjecture`** — both provers carry
   the SAME SINGLE PROJECT AXIOM at the `Set Language` level (in Coq:
   `Language -> Prop`).
 * **9 derived theorems** in `Operators.v` (`alpha_at_ClassP_eq_sqrt2`,

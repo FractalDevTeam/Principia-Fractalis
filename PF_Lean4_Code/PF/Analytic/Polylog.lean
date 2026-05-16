@@ -641,6 +641,6 @@ axiom-free theorems, the next pieces:
    formal Lean values, prove the identity holds.
 
 Steps 3-5 are the analytic-number-theory pieces required to retire
-`alpha_class_self_adjointness_canonical` via the polylog route. -/
+`alpha_class_polylog_eigenvalue_conjecture` via the polylog route. -/
 
 end PrincipiaTractalis.Analytic

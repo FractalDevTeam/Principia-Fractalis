@@ -177,33 +177,68 @@ theorem operator_spectral_gap_positive :
     axioms to theorems via `congrArg alpha_of_class`. -/
 opaque alpha_of_class : Set Language → ℝ
 
-/-- Ch 21 Constructions 3 and 4: the self-adjointness conditions on the
-    fractal convolution operators H_P and H_NP force the resonance
-    parameters to satisfy specific algebraic conditions.
+/-- **The polylog-spectrum eigenvalue conjecture** (Ch 21, manuscript
+    label `conj:polylog-spectrum` + `heur:branch-selection` +
+    `conj:golden-modulation`), formalized as a Lean axiom because it
+    is *not yet proven in the manuscript itself*.
 
-    For H_P (Construction 3): self-adjointness of the kernel
-    `(1/2^|x|) · e^(iπα·D(x)) · E_P(M_L,x)` summed over binary strings
-    requires the phase factor's symmetry equation, which solves to α² = 2.
-    Combined with the positivity of α (a resonance frequency must be
-    positive), this uniquely determines α_P = √2.
+    HONEST STATUS (referee-grade):
 
-    For H_NP (Construction 4): the corresponding self-adjointness equation
-    on the kernel with certificate-quantifier structure
-    `sup_{c:V_L(x,c)=1} [e^(iπα·W(x,c)) · E_NP(V_L,x,c)]` solves
-    directly to α_NP = φ + 1/4. (The mixed phi+rational form reflects
-    the certificate branching factor: φ from the asymptotic certificate
-    growth rate, +¼ from the consciousness threshold ch₂(NP) = 0.9954.)
+    The manuscript Ch 21 establishes the values `α_P = √2` and
+    `α_NP = φ + 1/4` via three named non-theorems:
 
-    Stage 33 (2026-05-14) refactoring: axiomatize the P-class condition
-    in its algebraic form (α² = 2 ∧ α > 0) rather than the specific
-    numerical value, making the structural derivation transparent and
-    matching the manuscript's Theorem 21.2 form. The NP-class value
-    remains pinned directly because its minimal polynomial form
-    (16α² - 24α - 11 = 0) is less elementary than the P-class case.
-    Net: 1 axiom (unchanged count), but the P-class component is now
-    closer to the manuscript's self-adjointness derivation than to the
-    end value. -/
-axiom alpha_class_self_adjointness_canonical :
+    * `Observation obs:hp-closed-form` — the empirical (numerical,
+      finite-dim, 10-digit-precision) ground-state energy of `H_P`
+      AGREES with the closed form `π/(10√2)` to within 10⁻¹⁰. The
+      manuscript states this match "suggests an exact analytical
+      relationship" — it does NOT claim to derive the closed form
+      from the operator's spectral structure.
+
+    * `Conjecture conj:polylog-spectrum` — the eigenvalues of `H_P`
+      are given by `λ_k = (1/aᵏ) · Re[Li₁(e^{iπαᵏ})]` for the
+      polylogarithm on a specific Riemann sheet. NOT proven.
+
+    * `Heuristic heur:branch-selection` — the ground-state branch
+      selection rule that picks the physical (positive) Riemann
+      sheet to yield `π/(10√2)`. Labeled `\\begin{heuristic}`,
+      not `\\begin{theorem}`.
+
+    * `Conjecture conj:golden-modulation` — the unitary conjugacy
+      `H_NP = U(φ) · H_P · U†(φ)` that pins α_NP = φ + 1/4 via
+      the sine-ratio identity. NOT proven.
+
+    The "algebraic equations" form here (α² = 2 and 16α² − 24α − 11 = 0)
+    is the *consequence* of these conjectures' content for the
+    parameters: a clean algebraic statement equivalent to "α_P = √2
+    and α_NP = φ + ¼". It is NOT itself derivable from the
+    `alpha_of_class : Set Language → ℝ` opacity without one of:
+
+    (a) a concrete definition of `alpha_of_class` (which would
+        require deciding ClassP = ClassNP — itself the P vs NP
+        problem),
+    (b) the spectral derivation of `λ_0(H_P_at α a) = π/(10α)`
+        from the fractal-kernel construction (multi-page operator
+        theory, not yet attempted in the manuscript),
+    (c) treating the manuscript's Conjectures/Heuristic AS
+        primitive assumptions — which is what this axiom does.
+
+    **Retirement requires original mathematical research, not
+    formalization labor.** The minimal substantive content this
+    axiom encodes is: "the spectral parameters that make the
+    manuscript's H_P and H_NP self-similar in the manuscript's
+    sense are exactly √2 and φ+¼, respectively."
+
+    Numerical evidence at 10⁻¹⁰ precision is documented in
+    Experiments `exp:hp-convergence` and `exp:hnp-convergence`
+    (Ch 21) and machine-checked at the closed-form level in
+    `PF/IntervalArithmetic.lean` (`lambda_0_P_precise`,
+    `lambda_0_NP_precise`).
+
+    See also: `OPEN_PROBLEMS.md`, `PF/TuringEncoding/AlphaEnum.lean`
+    (axiom-free enum-level proof of the algebraic content),
+    `PF/Analytic/SpectralParameterBridge.lean::alpha_class_polylog_eigenvalue_conjecture_content`
+    (conditional retirement modulo the manuscript inputs). -/
+axiom alpha_class_polylog_eigenvalue_conjecture :
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
     (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0 ∧
      0 < alpha_of_class ClassNP)
@@ -212,7 +247,7 @@ axiom alpha_class_self_adjointness_canonical :
     self-adjointness equation `α² = 2 ∧ α > 0` (which has unique
     positive solution `√2`). -/
 theorem alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2 := by
-  have ⟨⟨h_sq, h_pos⟩, _⟩ := alpha_class_self_adjointness_canonical
+  have ⟨⟨h_sq, h_pos⟩, _⟩ := alpha_class_polylog_eigenvalue_conjecture
   -- α > 0 and α² = 2 → α = √2 (uniqueness of positive square root)
   have h_sqrt_sq : Real.sqrt ((alpha_of_class ClassP)^2) = alpha_of_class ClassP :=
     Real.sqrt_sq (le_of_lt h_pos)
@@ -223,7 +258,7 @@ theorem alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2 := by
     `(3 + 2√5)/4 = φ + 1/4`). Stage 35 (2026-05-14). -/
 theorem alpha_at_ClassNP_eq_phi_plus_quarter :
     alpha_of_class ClassNP = phi + 1/4 := by
-  obtain ⟨_, ⟨h_quad, h_pos⟩⟩ := alpha_class_self_adjointness_canonical
+  obtain ⟨_, ⟨h_quad, h_pos⟩⟩ := alpha_class_polylog_eigenvalue_conjecture
   set y := alpha_of_class ClassNP with hy_def
   -- The quadratic 16y² - 24y - 11 = 0 factors as 16(y - r₁)(y - r₂) = 0
   -- where r₁ = (3 + 2√5)/4 and r₂ = (3 - 2√5)/4.
@@ -284,12 +319,12 @@ theorem alpha_class_distinct : alpha_of_class ClassP ≠ alpha_of_class ClassNP 
 /-- Positivity of `alpha_of_class ClassP` — direct from the axiom's
     `0 < alpha_of_class ClassP` conjunct. -/
 theorem alpha_of_class_pos_at_ClassP : 0 < alpha_of_class ClassP :=
-  alpha_class_self_adjointness_canonical.1.2
+  alpha_class_polylog_eigenvalue_conjecture.1.2
 
 /-- Positivity of `alpha_of_class ClassNP` — direct from the axiom's
     `0 < alpha_of_class ClassNP` conjunct. -/
 theorem alpha_of_class_pos_at_ClassNP : 0 < alpha_of_class ClassNP :=
-  alpha_class_self_adjointness_canonical.2.2
+  alpha_class_polylog_eigenvalue_conjecture.2.2
 
 /-- Resonance-parameter separation: `alpha_of_class ClassP < alpha_of_class ClassNP`.
     Derived from canonical values + `phi_plus_quarter_gt_sqrt2` (the numerical
