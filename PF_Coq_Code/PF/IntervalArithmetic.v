@@ -135,6 +135,56 @@ Proof.
 Qed.
 
 (* ============================================================ *)
+(* Key downstream inequality: φ + 1/4 > √2                      *)
+(* ============================================================ *)
+
+(** **`φ + 1/4 > √2`** — the foundational inequality establishing
+    `α_NP > α_P` in the framework.
+
+    Numerical: 1.86803... > 1.41421...
+
+    Proof via lower bound `√5 > 2` (since 2² = 4 < 5):
+    * `φ + 1/4 = (3 + 2√5)/4 > (3 + 2·2)/4 = 7/4 = 1.75`
+    * `√2 < 1.415` (since 1.415² = 2.002225 > 2)
+    * Therefore `φ + 1/4 > 1.75 > 1.415 > √2`. *)
+Theorem phi_plus_quarter_gt_sqrt2 : sqrt 2 < phi + 1/4.
+Proof.
+  unfold phi.
+  (* Step 1: √5 > 2 *)
+  assert (Hsqrt5_gt_2 : 2 < sqrt 5).
+  {
+    rewrite <- (sqrt_square 2 ltac:(lra)).
+    apply sqrt_lt_1_alt. split; lra.
+  }
+  (* Step 2: √2 < 1.415 (since 1.415² = 2.002225 > 2) *)
+  assert (Hsqrt2_lt_1415 : sqrt 2 < 1.415).
+  {
+    rewrite <- (sqrt_square 1.415 ltac:(lra)).
+    apply sqrt_lt_1_alt. split; [lra | nra].
+  }
+  (* Step 3: combine *)
+  (* (1 + √5)/2 + 1/4 = (3 + 2√5)/4 > (3 + 2·2)/4 = 1.75 > 1.415 > √2 *)
+  pose proof sqrt5_nonneg.
+  lra.
+Qed.
+
+(** **`√2 < 1.415`** — conservative upper bound, useful downstream. *)
+Theorem sqrt2_lt_1415 : sqrt 2 < 1.415.
+Proof.
+  rewrite <- (sqrt_square 1.415 ltac:(lra)).
+  apply sqrt_lt_1_alt. split; [lra | nra].
+Qed.
+
+(** **`φ > 1.6`** — conservative lower bound. *)
+Theorem phi_gt_16 : 1.6 < phi.
+Proof.
+  unfold phi.
+  pose proof sqrt5_sq as Hsq.
+  pose proof sqrt5_nonneg as Hnn.
+  nra.
+Qed.
+
+(* ============================================================ *)
 (* Documentation: remaining ports                               *)
 (*                                                              *)
 (* The Lean file continues with:                                *)
