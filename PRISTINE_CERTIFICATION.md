@@ -193,14 +193,45 @@ discharged in the conditional theorem.
 
 ## Status for Coq Port (Phase C)
 
-The Coq port is not yet started. Strategy:
-* Mirror directory structure under `PF_Coq_Code/`.
-* Port file-by-file using `mathcomp` + `mathcomp-analysis` +
-  `coq-equations`.
-* Maintain the same axiom-count discipline (target: 0 sorries, 1 axiom
-  matching the Lean axiom).
-* Provide cross-prover independent verification of the headline
-  theorems.
+**Phase C in progress.** Coq port under `PF_Coq_Code/` mirrors the
+Lean directory layout. Six modules ported, build clean against Coq
+8.18 + stdlib Reals:
+
+| Coq module | Mirrors Lean module | Status |
+|---|---|---|
+| `PF/Basic.v` | `PF/Basic.lean` | foundation (minimal) |
+| `PF/IntervalArithmetic.v` | `PF/IntervalArithmetic.lean` | numerical bounds incl. `phi_plus_quarter_gt_sqrt2` |
+| `PF/TuringEncoding/Basic.v` | `PF/TuringEncoding/Basic.lean` | digital sum + indexed-product positivity |
+| `PF/TuringEncoding/AlphaCanonical.v` | `PF/TuringEncoding/AlphaCanonical.lean` | `alpha_P_sq`, `alpha_NP_quadratic`, positivity (axiom-free) |
+| `PF/TuringEncoding/AlphaEnum.v` | `PF/TuringEncoding/AlphaEnum.lean` | `alpha_at_enum_self_adjointness_canonical` (axiom-free enum mirror) |
+| `PF/TuringEncoding/Operators.v` | `PF/TuringEncoding/Operators.lean` | **headline 1-axiom state**: opaque `alpha_of_class`, `Axiom alpha_class_self_adjointness_canonical`, + 6 derived theorems |
+
+Axiom-count discipline matches Lean side exactly:
+* **`alpha_at_enum_self_adjointness_canonical`** — both provers
+  prove the algebraic content as a THEOREM with no project axioms
+  (Lean axioms: `{propext, Classical.choice, Quot.sound}`; Coq
+  axioms: `{ClassicalDedekindReals.*, FunctionalExtensionality}`).
+* **`alpha_class_self_adjointness_canonical`** — both provers carry
+  the SAME SINGLE PROJECT AXIOM at the `Set Language` level (in Coq:
+  `Language -> Prop`).
+* **6 derived theorems** (`alpha_at_ClassP_eq_sqrt2`,
+  `alpha_at_ClassNP_eq_phi_plus_quarter`,
+  `alpha_of_class_pos_at_ClassP`, `alpha_of_class_pos_at_ClassNP`,
+  `alpha_class_distinct`, `alpha_class_separation_lt`) mirrored on
+  both sides, each depending only on the single project axiom plus
+  stdlib classical foundation.
+
+The Coq port provides **independent referee-grade verification** of
+the headline algebraic content of the manuscript's α-value claims in
+two unrelated proof assistants.
+
+Remaining for full Coq parity with Lean PF/:
+* `PF/SpectralGap.v` — for `p_eq_np_spectrum_collapse` and
+  `P_neq_NP_from_spectral_gap`.
+* `PF/Analytic/` 28-module polylog chain — for the conditional
+  axiom-retirement framework.
+* Long tail of supporting infrastructure (PhaseSum, ThetaSum,
+  DigitalSum, Complexity, GaussianModel, RadixEconomy, ...).
 
 ## Status for Clay-Standard Papers (Phase P)
 
