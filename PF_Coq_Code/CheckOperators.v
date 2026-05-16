@@ -1,6 +1,6 @@
 (* Axiom-dependency audit for PF/TuringEncoding/Operators.v.
    Each derived theorem should depend on:
-     * alpha_class_self_adjointness_canonical  (the single project axiom)
+     * alpha_class_polylog_eigenvalue_conjecture  (the single project axiom)
      * Language, ClassP, ClassNP                (opaque parameters)
      * alpha_of_class                           (opaque parameter)
      * Coq stdlib classical foundation

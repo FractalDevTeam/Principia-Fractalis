@@ -71,7 +71,7 @@ Mirroring the Lean module layout 1-to-1:
 
 Match the Lean state's axiom-count discipline:
 * Target: **0 sorries (axioms)**, **0 admits**.
-* The single mathematical axiom `alpha_class_self_adjointness_canonical`
+* The single mathematical axiom `alpha_class_polylog_eigenvalue_conjecture`
   (declared identically in both provers).
 * Headline theorems' axiom dependencies traceable via `Print Assumptions`.
 

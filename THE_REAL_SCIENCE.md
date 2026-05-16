@@ -5,6 +5,37 @@
 
 ---
 
+## ⚠ Status of Proofs (read this first)
+
+**Principia Fractalis delivers conditional reductions, not unconditional proofs, of the Millennium Problems it addresses.** The framework is rigorous; the conditional reductions are mechanized in Lean 4 + Coq with referee-grade discipline. But the public framing has sometimes conflated "rigorously reduced to a named conjecture" with "proven." This is the honest, separator-line distinction:
+
+### Genuinely proven, axiom-free, machine-checked in Lean 4
+
+- **Base-3 radix optimality** (`PF/RadixEconomy.lean`)
+- **Spectral-gap positivity** `λ_0(H_P) − λ_0(H_NP) > 0` (`PF/SpectralGap.lean::spectral_gap_positive`)
+- **Spectral-gap numerical value** `Δ = 0.0539677287 ± 10⁻⁸` (`spectral_gap_value`)
+- **10-digit-precision closed-form match** for the conjectured ground states `λ_0(H_P) = π/(10√2)` and `λ_0(H_NP) = π/(10(φ+¼))` (`lambda_0_P_precise`, `lambda_0_NP_precise`)
+- **Algebraic content of the α-value claims** at the inductive-enum level (`PF/TuringEncoding/AlphaEnum.lean`, mirrored axiom-free in Coq `AlphaEnum.v`)
+
+### Conditional reduction (1 axiom) — P ≠ NP
+
+`P_neq_NP_via_spectral_gap : ClassP ≠ ClassNP` is proven in Lean conditional on **one** project axiom, `alpha_class_polylog_eigenvalue_conjecture`. That axiom is the formal encoding of three things the manuscript itself labels Conjecture or Heuristic (Ch 21 `conj:polylog-spectrum`, `heur:branch-selection`, `conj:golden-modulation`). The manuscript backs these with 10⁻¹⁰ numerical agreement, **not** with a proof. **Retiring this axiom is original mathematical research that has not been done — by anyone, including the manuscript's author.**
+
+### Conditional reduction (4 hypotheses, 1 of them THE open problem) — Riemann Hypothesis
+
+`riemann_hypothesis_via_T3_sym_framework` is proven in Lean with **zero project axioms** — but as a **4-hypothesis** conditional. The fourth hypothesis, **surjectivity of the spectral bijection onto ζ-zeros**, is described in the Lean file itself (`PF/SpectralBijection.lean:574-576`) as *"the load-bearing conjecture of the entire RH program (det/trace-formula completion). This is the open mathematical problem."* The other three hypotheses are tractable engineering. **This is not a proof of RH. It is a mechanical reduction of RH to a named open problem.**
+
+### Not in the Lean formalization at all
+
+- **Yang-Mills mass gap** — Gaussian-measure construction deleted Stage 30 along with its `bochner_minlos_existence` axiom.
+- **Navier-Stokes, BSD, Hodge** — Coq-side scaffolding only; no end-to-end mechanization.
+
+The open problems isolated by the framework are catalogued precisely in [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md). The internal Lean axiom audit is in [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md). The referee-ready certification of state is [`PRISTINE_CERTIFICATION.md`](PRISTINE_CERTIFICATION.md).
+
+The framework is significant. The reductions are referee-grade. The numerical evidence is strong. **None of that is the same as "we proved the Millennium Problems," and reading anything below this disclaimer should be done with that distinction firmly in mind.** The manuscript quotes that follow describe the framework's *claims* and *ambitions*; they should be read as such, not as ratified proofs.
+
+---
+
 # 1. THE CORE TRUTH: What the Mathematics Actually Proves
 
 ## The Central Discovery

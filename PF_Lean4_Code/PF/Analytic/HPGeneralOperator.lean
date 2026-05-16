@@ -110,7 +110,7 @@ The full chain (already proven in `SpectralAnalysisFramework.lean`):
   ∧ λ_HP = lambda_zero_HP_book                         [Ch 21 + BookEig + IVT]
   ∧ 0 < alpha_of_class ClassNP                         [manuscript]
   ∧ alpha_of_class ClassNP = phi + 1/4                 [manuscript]
-  ⟹ alpha_class_self_adjointness_canonical content
+  ⟹ alpha_class_polylog_eigenvalue_conjecture content
 ```
 
 With `H_P_at` parameterized as above, the `HPSpectralFormula` hypothesis

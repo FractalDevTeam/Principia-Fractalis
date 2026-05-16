@@ -1,7 +1,7 @@
 /-
 # Enum-Based α Framework — Axiom-Free Parallel to `alpha_of_class`
 
-The remaining project axiom `alpha_class_self_adjointness_canonical`
+The remaining project axiom `alpha_class_polylog_eigenvalue_conjecture`
 (in `PF/TuringEncoding/Operators.lean`) asserts that the opaque
 function `alpha_of_class : Set Language → ℝ` satisfies the manuscript's
 algebraic self-adjointness equations at `ClassP` and `ClassNP`:
@@ -86,7 +86,7 @@ noncomputable def alpha_at_enum : PFClass → ℝ
     equations directly, by computation.
 
     Statement structure identical to the project axiom
-    `alpha_class_self_adjointness_canonical` but at the enum level:
+    `alpha_class_polylog_eigenvalue_conjecture` but at the enum level:
 
     * `(α_P)² = 2 ∧ 0 < α_P`
     * `16·(α_NP)² − 24·α_NP − 11 = 0 ∧ 0 < α_NP`
@@ -135,7 +135,7 @@ theorem PFClass_P_ne_NP : (PFClass.P) ≠ PFClass.NP := by
 
 The enum-level analog above is **fully axiom-clean** for the
 algebraic content. The remaining project axiom
-`alpha_class_self_adjointness_canonical` is purely the **structural
+`alpha_class_polylog_eigenvalue_conjecture` is purely the **structural
 assignment** of these specific values to the SET-LEVEL classes
 `ClassP, ClassNP : Set Language`. It is the bridge that makes the
 P ≠ NP chain work via `congrArg alpha_of_class`:
