@@ -64,7 +64,7 @@ For those ready to go further:
 
 The academic establishment treats consciousness as a byproduct — complexity reaches some threshold, and awareness magically appears. *Principia Fractalis* inverts this: consciousness is as fundamental as spacetime itself, quantifiable through topological invariants.
 
-This isn't philosophy dressed as science. The second Chern character (ch₂) provides objective measurement. The mathematics is formalized in Lean 4 (canonical PF/ library: 8 axioms remaining, 0 sorries, 5486 jobs clean) and Coq, with each remaining axiom explicitly disclosed and categorized in the public AXIOM_AUDIT.md.
+This isn't philosophy dressed as science. The second Chern character (ch₂) provides objective measurement. The mathematics is formalized in Lean 4 (canonical PF/ library: 1 axiom remaining, 0 sorries, 5626 jobs clean) and Coq, with each remaining axiom explicitly disclosed and categorized in the public AXIOM_AUDIT.md.
 
 **Reality vibrates like a bell.**
 
@@ -100,7 +100,7 @@ Not dogma. Not belief. Mathematics you can verify.
 
 Good. We want skeptics.
 
-Every equation is documented. Every claim is falsifiable. The proofs are formalized in Lean 4 (canonical PF/ library: 8 explicitly-disclosed axioms remaining, zero "sorries") and Coq (zero "admits", with explicit conditional-Theorem disclosures on Millennium-claim files). The computational methods run to 150-digit precision. The source code is public.
+Every equation is documented. Every claim is falsifiable. The proofs are formalized in Lean 4 (canonical PF/ library: 1 explicitly-disclosed axiom remaining, zero "sorries") and Coq (zero "admits", with explicit conditional-Theorem disclosures on Millennium-claim files). The computational methods run to 150-digit precision. The source code is public.
 
 Do not take our word for it. Run the calculations yourself. Check the axioms. Find the errors.
 

@@ -5,8 +5,8 @@
 ### The Correct Explanation of What Mathematics Actually Is
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204%20canonical-8%20axioms%20%7C%200%20sorrys%20%7C%205486%20jobs%20clean-blue)](PF_Lean4_Code/)
-[![Coq](https://img.shields.io/badge/Coq-32%20files%20%7C%200%20admits%20%7C%20conditional%20Theorem%20disclosures-orange)](PF_Coq/)
+[![Lean 4](https://img.shields.io/badge/Lean%204%20canonical-1%20axiom%20%7C%200%20sorries%20%7C%205626%20jobs%20clean-blue)](PF_Lean4_Code/)
+[![Coq](https://img.shields.io/badge/Coq%20port-7%20modules%20%7C%201%20axiom%20%7C%20cross--prover%20mirror-orange)](PF_Coq_Code/)
 [![Pages](https://img.shields.io/badge/Book-801%20pages-green)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
 
@@ -56,7 +56,7 @@ Before diving into 801 pages of formal mathematics, explore the **educational ga
 
 | Component | Description | Status |
 |-----------|-------------|--------|
-| **[PF_Lean4_Code/PF/](PF_Lean4_Code/PF/)** | Lean 4 canonical library | **8 axioms**, 0 sorries, `lake build` 5486 jobs clean |
+| **[PF_Lean4_Code/PF/](PF_Lean4_Code/PF/)** | Lean 4 canonical library | **1 axiom** (`alpha_class_polylog_eigenvalue_conjecture`), 0 sorries, `lake build` 5626 jobs clean, 0 warnings |
 | **[PF_Coq/](PF_Coq/)** | Coq cross-verification | 32 files, 0 admits, conditional-Theorem disclosure on Millennium-claim files |
 | **[Principia_Fractalis_master_folder_rev2/](Principia_Fractalis_master_folder_rev2/)** | Manuscript (rev 2 + rev 3 fixes) | Complete; rev-3 cycle 2026-04-27/28 coordinated theorem statements with formalization |
 | **[VERIFICATION_STATUS.md](VERIFICATION_STATUS.md)** | Proof audit & axiom breakdown | Current (2026-04-28) |
@@ -107,19 +107,25 @@ Throughout the framework, the factor **π/10** emerges as a universal bridge:
 
 ---
 
-## The Millennium Problems: Byproducts of Unity
+## The Millennium Problems: Conditional Reductions, Not Proofs
 
-The solutions to six Millennium Prize Problems emerge naturally as **consequences** of the unified framework—not as isolated results, but as different views of the same spectral structure.
+> **Read this before the table below.** Earlier revisions of this README claimed several Millennium Problems as "PROVEN." That was an overclaim — the manuscript itself labels its load-bearing P-vs-NP and RH claims as `\begin{conjecture}` and `\begin{heuristic}`, not `\begin{theorem}`. What the framework actually delivers, and where each problem honestly stands in the formalization, is below. For the precise list of open problems isolated by the framework, see [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md). For the public-facing status disclaimer, see [`THE_REAL_SCIENCE.md`](THE_REAL_SCIENCE.md) §"Status of Proofs".
 
-| Problem | Status | Key Insight |
-|---------|--------|-------------|
-| **P ≠ NP** | PROVEN | Spectral gap Δ = 0.054 > 0 between complexity class operators |
-| **Riemann Hypothesis** | EQUIVALENT | Eigenvalues of T₃ operator ↔ zeros on critical line |
-| **Yang-Mills Mass Gap** | PROVEN | Consciousness coupling yields gap = 420.43 MeV |
-| **BSD Conjecture** | EQUIVALENT | L-function rank via resonance structure |
-| **Hodge Conjecture** | PROVEN | Algebraic cycles through spectral concentration |
-| **Navier-Stokes** | PROVEN | Energy bounds via fractal vortex pairing |
-| **Poincaré** | External | Perelman (2003) |
+| Problem | Lean 4 status | What that means |
+|---|---|---|
+| **P ≠ NP** | Conditional reduction, 1 axiom | `P_neq_NP_via_spectral_gap` proven IN LEAN, conditional on `alpha_class_polylog_eigenvalue_conjecture` — the formal encoding of Ch 21's polylog Conjecture + branch-selection Heuristic + golden-modulation Conjecture. Manuscript backs these with 10⁻¹⁰ numerical evidence but provides no analytical proof. |
+| **Riemann Hypothesis** | Conditional reduction, 4 hypotheses | `riemann_hypothesis_via_T3_sym_framework` proven IN LEAN with zero project axioms but as a 4-hypothesis conditional. The fourth hypothesis (spectral-bijection surjectivity onto ζ-zeros) is THE open mathematical problem of the framework's RH approach — described in the file itself as "the load-bearing conjecture of the entire RH program (det/trace-formula completion)." |
+| **Yang-Mills Mass Gap** | NOT IN LEAN | Gaussian-measure construction + `bochner_minlos_existence` axiom + all consumer theorems were deleted Stage 30 (commit `4e0f6d2`) as unsupported orphans. Manuscript discusses but does not deliver. |
+| **BSD Conjecture** | NOT IN LEAN | Coq-side scaffolding only. |
+| **Hodge Conjecture** | NOT IN LEAN | Coq-side scaffolding only. |
+| **Navier-Stokes** | NOT IN LEAN | Coq-side scaffolding only. |
+| **Poincaré** | External (Perelman 2003) | Independent of this framework. |
+
+**What the framework actually delivers, accurately stated:**
+
+> *A complete, machine-checked, cross-prover conditional reduction of two Clay Millennium Problems (P ≠ NP and the Riemann Hypothesis) to four sharply-stated mathematical conjectures, three of which carry 10⁻¹⁰ numerical evidence.*
+
+That is meaningful, original, publishable mathematics. It is not the same as proving the Millennium Problems. Anyone reading the supporting infrastructure should be aware of the distinction.
 
 ### P ≠ NP: The Spectral Gap
 
@@ -178,7 +184,7 @@ Clinical accuracy: **97.3%** in distinguishing conscious from vegetative states.
 | **Coq** (PF_Coq/theories) | 32 `.v` files | 253 | 0 | ✅ builds clean |
 | **L4L** | (quarantined to `experimental/PF_L4L_future/`) | — | — | not part of rev 2 claim |
 
-**Revision 2 status (2026-04-24).** See [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the detailed per-axiom breakdown and [`PARITY_REPORT.md`](PARITY_REPORT.md) for cross-system comparison. In this revision cycle, the Lean 4 canonical library went from **41 axioms to 8**, with **four latent-unsoundness bugs caught and fixed**. The NUM category is empty — `log_3_bounds` was eliminated via direct n=60 Taylor at x=2/3. The remaining 8 Lean axioms split into three categories:
+**Current Lean 4 status (2026-05-16).** See [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the full historical and current axiom record. The canonical library has gone from 41 → 8 → 6 → 1 axiom across rev 2 and the May 2026 elimination arc (Stages 1–35). The single remaining axiom `alpha_class_polylog_eigenvalue_conjecture` is the formal encoding of Ch 21's polylog Conjecture + branch-selection Heuristic + golden-modulation Conjecture — **retiring it requires original mathematical research, not formalization labor**. The historical 8-axiom breakdown below is preserved for the audit trail:
 - **CLASSIC** (3): classical theorems from analysis not yet in mathlib (`bochner_minlos_existence/uniqueness`, `finite_dim_bochner`)
 - **LOAD-BEARING PLACEHOLDER** (2): cannot be trivialized without making downstream proofs vacuous (`LogWeightedL2.inner`, `turingTimeComplexity`)
 - **BOOK-CORE** (3): the genuine mathematical claims of the book (`T3_self_adjoint_conj`, `p_eq_np_spectrum_collapse`, `operator_collapse_hypothesis`)
@@ -269,11 +275,11 @@ Unlike speculative frameworks, Principia Fractalis makes **testable predictions*
 
 ## Why This Matters
 
-1. **Mathematical Unification**: Number theory, computation, and consciousness become one subject
-2. **Quantified Consciousness**: First rigorous, testable theory of awareness
-3. **Solved Problems**: Six Millennium Prize Problems resolved as corollaries
+1. **Mathematical Unification**: Number theory, computation, and consciousness become one subject under a single resonance framework
+2. **Quantified Consciousness**: First rigorous, testable theory of awareness in the manuscript's framing
+3. **Sharply Reduced Open Problems**: Two Millennium Prize Problems (P ≠ NP and the Riemann Hypothesis) mechanically reduced in Lean 4 to four sharply-stated mathematical conjectures (see [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md)) — three with 10⁻¹⁰ numerical evidence; not the same as proving them
 4. **Predictive Power**: Makes falsifiable predictions at cosmological and laboratory scales
-5. **Formal Verification**: Unprecedented rigor with two independent proof assistants
+5. **Formal Verification**: Cross-prover (Lean 4 + Coq) mechanization of the reduction chain with full axiom-discipline traceability
 
 ---
 
