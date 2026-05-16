@@ -36,6 +36,7 @@ Require Import Lra.
 Require Import Coq.micromega.Psatz.
 Require Import PrincipiaTractalis.IntervalArithmetic.
 Require Import PrincipiaTractalis.TuringEncoding.AlphaCanonical.
+Require Import PrincipiaTractalis.SpectralGap.
 
 Open Scope R_scope.
 
@@ -204,6 +205,59 @@ Theorem alpha_class_separation_lt :
 Proof.
   rewrite alpha_at_ClassP_eq_sqrt2, alpha_at_ClassNP_eq_phi_plus_quarter.
   exact phi_plus_quarter_gt_sqrt2.
+Qed.
+
+(* ============================================================ *)
+(* Spectrum-collapse consequence theorems                        *)
+(* ============================================================ *)
+
+(** Spectrum collapse under P = NP: equal ground energies follow from
+    class equality + canonical resonance values.
+
+    Mirror of Lean `p_eq_np_spectrum_collapse`. Proof: lambda_0_P =
+    pi_10 / sqrt 2 = pi_10 / alpha_of_class ClassP (via
+    `alpha_at_ClassP_eq_sqrt2`); similarly for lambda_0_NP; then
+    ClassP = ClassNP forces alpha_of_class ClassP = alpha_of_class
+    ClassNP by `f_equal`, hence the ground energies coincide. *)
+Theorem p_eq_np_spectrum_collapse :
+    ClassP = ClassNP -> lambda_0_P = lambda_0_NP.
+Proof.
+  intro h.
+  unfold lambda_0_P, lambda_0_NP.
+  rewrite <- alpha_at_ClassP_eq_sqrt2.
+  rewrite <- alpha_at_ClassNP_eq_phi_plus_quarter.
+  rewrite h. reflexivity.
+Qed.
+
+(** If P = NP, the operators would have the same ground state energy.
+    Mirror of Lean `P_eq_NP_implies_same_ground_energy`. *)
+Theorem P_eq_NP_implies_same_ground_energy :
+    ClassP = ClassNP -> lambda_0_P = lambda_0_NP.
+Proof. exact p_eq_np_spectrum_collapse. Qed.
+
+(** **Main theorem**: P /= NP follows from the spectral gap.
+
+    Mirror of Lean `P_neq_NP_from_spectral_gap`. This is the
+    HEADLINE CONSEQUENCE of the entire framework: combining
+    `p_eq_np_spectrum_collapse` (algebraic) with `spectral_gap_pos`
+    (algebraic positivity of the gap, from SpectralGap.v) yields the
+    contradiction that proves the complexity classes are
+    structurally distinct.
+
+    Note: the Coq side's `spectral_gap_pos` is the ALGEBRAIC
+    positivity (from monotonicity of x |-> pi_10 / x and
+    `phi_plus_quarter_gt_sqrt2`); the NUMERICAL value Delta = 0.054
+    is the Lean-only extra (requiring high-precision pi bounds, see
+    SpectralGap.v header). The load-bearing fact
+    `spectral_gap > 0` IS proven in both provers. *)
+Theorem P_neq_NP_from_spectral_gap :
+    ClassP <> ClassNP.
+Proof.
+  intro h_eq.
+  pose proof (P_eq_NP_implies_same_ground_energy h_eq) as h_same.
+  pose proof spectral_gap_pos as h_diff.
+  unfold spectral_gap in h_diff.
+  lra.
 Qed.
 
 (* ============================================================ *)

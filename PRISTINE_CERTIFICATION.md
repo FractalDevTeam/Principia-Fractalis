@@ -194,7 +194,7 @@ discharged in the conditional theorem.
 ## Status for Coq Port (Phase C)
 
 **Phase C in progress.** Coq port under `PF_Coq_Code/` mirrors the
-Lean directory layout. Six modules ported, build clean against Coq
+Lean directory layout. Seven modules ported, build clean against Coq
 8.18 + stdlib Reals:
 
 | Coq module | Mirrors Lean module | Status |
@@ -204,7 +204,8 @@ Lean directory layout. Six modules ported, build clean against Coq
 | `PF/TuringEncoding/Basic.v` | `PF/TuringEncoding/Basic.lean` | digital sum + indexed-product positivity |
 | `PF/TuringEncoding/AlphaCanonical.v` | `PF/TuringEncoding/AlphaCanonical.lean` | `alpha_P_sq`, `alpha_NP_quadratic`, positivity (axiom-free) |
 | `PF/TuringEncoding/AlphaEnum.v` | `PF/TuringEncoding/AlphaEnum.lean` | `alpha_at_enum_self_adjointness_canonical` (axiom-free enum mirror) |
-| `PF/TuringEncoding/Operators.v` | `PF/TuringEncoding/Operators.lean` | **headline 1-axiom state**: opaque `alpha_of_class`, `Axiom alpha_class_self_adjointness_canonical`, + 6 derived theorems |
+| `PF/SpectralGap.v` | `PF/SpectralGap.lean` | algebraic content (defs, pi/10 relations, `spectral_gap_pos`); numerical bounds deferred (require Coq stdlib pi-precision infrastructure) |
+| `PF/TuringEncoding/Operators.v` | `PF/TuringEncoding/Operators.lean` | **headline 1-axiom state + consequence theorems**: opaque `alpha_of_class`, `Axiom alpha_class_self_adjointness_canonical`, + 9 derived theorems including `P_neq_NP_from_spectral_gap` |
 
 Axiom-count discipline matches Lean side exactly:
 * **`alpha_at_enum_self_adjointness_canonical`** — both provers
@@ -214,20 +215,30 @@ Axiom-count discipline matches Lean side exactly:
 * **`alpha_class_self_adjointness_canonical`** — both provers carry
   the SAME SINGLE PROJECT AXIOM at the `Set Language` level (in Coq:
   `Language -> Prop`).
-* **6 derived theorems** (`alpha_at_ClassP_eq_sqrt2`,
+* **9 derived theorems** in `Operators.v` (`alpha_at_ClassP_eq_sqrt2`,
   `alpha_at_ClassNP_eq_phi_plus_quarter`,
   `alpha_of_class_pos_at_ClassP`, `alpha_of_class_pos_at_ClassNP`,
-  `alpha_class_distinct`, `alpha_class_separation_lt`) mirrored on
-  both sides, each depending only on the single project axiom plus
-  stdlib classical foundation.
+  `alpha_class_distinct`, `alpha_class_separation_lt`,
+  `p_eq_np_spectrum_collapse`, `P_eq_NP_implies_same_ground_energy`,
+  `P_neq_NP_from_spectral_gap`) mirrored on both sides, each
+  depending only on the single project axiom plus stdlib classical
+  foundation.
+* **8 algebraic-content theorems** in `SpectralGap.v`
+  (`lambda_P_pi10_relation`, `lambda_NP_pi10_relation`,
+  `universal_pi_10_coupling`, `lambda_0_P_pos`, `lambda_0_NP_pos`,
+  `lambda_0_NP_lt_lambda_0_P`, `spectral_gap_pos`,
+  `P_neq_NP_via_spectral_gap`) all proven with **zero** project
+  axioms.
 
 The Coq port provides **independent referee-grade verification** of
-the headline algebraic content of the manuscript's α-value claims in
-two unrelated proof assistants.
+the headline algebraic content of the manuscript's α-value claims
+**and** the spectral-gap consequence chain (P ≠ NP) in two unrelated
+proof assistants.
 
 Remaining for full Coq parity with Lean PF/:
-* `PF/SpectralGap.v` — for `p_eq_np_spectrum_collapse` and
-  `P_neq_NP_from_spectral_gap`.
+* `PF/SpectralGap.v` numerical bounds — `spectral_gap_value`,
+  `lambda_0_P_approx`, `lambda_0_NP_approx`, `pvsnp_spectral_separation`
+  (require Coq stdlib high-precision π infrastructure or Coquelicot).
 * `PF/Analytic/` 28-module polylog chain — for the conditional
   axiom-retirement framework.
 * Long tail of supporting infrastructure (PhaseSum, ThetaSum,

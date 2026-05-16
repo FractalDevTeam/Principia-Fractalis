@@ -14,3 +14,6 @@ Print Assumptions alpha_of_class_pos_at_ClassP.
 Print Assumptions alpha_of_class_pos_at_ClassNP.
 Print Assumptions alpha_class_distinct.
 Print Assumptions alpha_class_separation_lt.
+Print Assumptions p_eq_np_spectrum_collapse.
+Print Assumptions P_eq_NP_implies_same_ground_energy.
+Print Assumptions P_neq_NP_from_spectral_gap.
