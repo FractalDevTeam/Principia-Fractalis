@@ -170,6 +170,55 @@ theorem re_polyLog_one_principal_exp_I_pi_alpha_pow
     -Real.log (2 * |Real.sin (Real.pi * α^k / 2)|) := by
   exact re_polyLog_one_principal_exp_I_t (Real.pi * α^k) hα
 
+/-! ## Cosine-series representation of `Re[polyLog]` -/
+
+/-- **Real part of `exp(I·θ)` for real `θ`**: `Re[exp(I·θ)] = cos(θ)`.
+    Direct from `exp(I·θ) = cos(θ) + I·sin(θ)` (Euler). -/
+theorem re_exp_I_mul_real (θ : ℝ) :
+    (Complex.exp (Complex.I * (θ : ℂ))).re = Real.cos θ := by
+  rw [show Complex.I * (θ : ℂ) = (θ : ℂ) * Complex.I from by ring]
+  rw [Complex.exp_mul_I]
+  rw [Complex.add_re, Complex.mul_re, Complex.I_re, Complex.I_im]
+  simp [Complex.cos_ofReal_re]
+
+/-- **Real part of the `n`-th polylog summand at `exp(I·t)`**:
+
+      `Re[(exp(I·t))^(n+1) / (n+1)] = cos((n+1)·t) / (n+1)`. -/
+theorem re_polyLog_term_exp_I (t : ℝ) (n : ℕ) :
+    ((Complex.exp (Complex.I * (t : ℂ))) ^ (n + 1) / ((n + 1 : ℕ) : ℂ)).re
+    = Real.cos ((n + 1) * t) / (n + 1) := by
+  have h1 : Complex.exp (Complex.I * (t : ℂ)) ^ (n + 1) =
+            Complex.exp (Complex.I * (((n + 1 : ℕ) * t : ℝ) : ℂ)) := by
+    rw [← Complex.exp_nat_mul]
+    congr 1; push_cast; ring
+  rw [h1]
+  have hreal : ((n + 1 : ℕ) : ℂ) = (((n + 1 : ℕ) : ℝ) : ℂ) := by push_cast; ring
+  rw [hreal, Complex.div_ofReal_re, re_exp_I_mul_real]
+  push_cast; ring
+
+/-- **Real part of the polylog partial sum at `exp(I·t)`**:
+
+      `Re[Σ_{n=0}^{N-1} (exp(I·t))^(n+1)/(n+1)] = Σ_{n=0}^{N-1} cos((n+1)·t)/(n+1)`.
+
+    The partial-sum cosine series is what the conjecture's polylog
+    evaluation reduces to under principal-branch summation. The
+    boundary-extended polylog `Li₁(e^{i·t}) = −log(1 − e^{i·t})`
+    is the limit of this partial sum as `N → ∞` (conditionally
+    convergent for `t ≠ 2π·k`, k ∈ ℤ; convergence rate analysis is
+    a separate well-studied topic — the Dirichlet test handles it).
+-/
+theorem re_polyLog_partial_exp_I (t : ℝ) (N : ℕ) :
+    ((Finset.range N).sum
+      (fun n => (Complex.exp (Complex.I * (t : ℂ))) ^ (n + 1)
+                / ((n + 1 : ℕ) : ℂ))).re
+    = (Finset.range N).sum
+      (fun n => Real.cos ((n + 1) * t) / (n + 1)) := by
+  induction N with
+  | zero => simp
+  | succ k ih =>
+    rw [Finset.sum_range_succ, Complex.add_re, ih, re_polyLog_term_exp_I,
+        Finset.sum_range_succ]
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
