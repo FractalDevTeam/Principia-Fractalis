@@ -1,9 +1,11 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-15** (master `ae46797`): **1 verified axiom** in `PF/`, unchanged since Stage 35. Build at **5622 jobs clean, 0 warnings, 0 sorries**. Headline dependencies:*
+*As of **2026-05-16** (master `67fcaed`): **1 verified axiom** in `PF/`, unchanged since Stage 35. Build at **5626 jobs clean, 0 warnings, 0 sorries**. Headline dependencies:*
 - *`principia_fractalis_millennium_capstone` → 1 axiom (`alpha_class_self_adjointness_canonical`)*
 - *`riemann_hypothesis_via_T3_sym_framework` → 0 project axioms*
 - *`P_neq_NP_via_spectral_gap` → 1 axiom (same)*
+
+*Cross-prover state (2026-05-16): the headline 1-axiom Lean state is now MIRRORED in Coq under `PF_Coq_Code/`. Six modules ported (Basic, IntervalArithmetic, TuringEncoding/{Basic, AlphaCanonical, AlphaEnum, Operators}). The single project axiom `alpha_class_self_adjointness_canonical` exists in both provers with identical statement; the axiom-free enum-level analog `alpha_at_enum_self_adjointness_canonical` is proven in both provers. The six derived value/positivity/distinctness/separation theorems (`alpha_at_ClassP_eq_sqrt2`, `alpha_at_ClassNP_eq_phi_plus_quarter`, `alpha_of_class_pos_at_ClassP/_at_ClassNP`, `alpha_class_distinct`, `alpha_class_separation_lt`) are mirrored on both sides. `Print Assumptions` confirms each derived Coq theorem depends only on the project axiom + opaque parameters + Coq stdlib classical foundation.*
 
 *Between Stage 44 (5534 jobs, the prior recorded state) and now:*
 1. *A **28-module polylog-route framework** was added under `PF/Analytic/`, providing the conditional analytic chain for retiring the remaining axiom. The axiom itself is unchanged; the framework gives a structured path to its retirement.*
