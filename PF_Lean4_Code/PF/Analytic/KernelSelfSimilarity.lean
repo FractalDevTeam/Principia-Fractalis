@@ -214,4 +214,82 @@ theorem fractalKernelReal_iterated_self_similarity
     rw [← hpow]
     ring
 
+/-! ## Residual bound and partial-sum approximation -/
+
+/-- **Residual bound**: the rescaled-tail term in the iterated identity is
+    bounded above by `a^(-k) · a/(a−1)`.
+
+    Direct from the uniform-bound `|V_P z| ≤ a/(a−1)` (provable for all
+    `a > 1` and any `z` — already in `IntegralKernel.FractalKernel`)
+    combined with the positivity of `a^(-k)`. -/
+theorem fractalKernelReal_residual_bound
+    (α a : ℝ) (ha : 1 < a) (k : ℕ) (x y : ℝ) :
+    |a^(-(k : ℤ)) * fractalKernelReal α a ((α^k * x, α^k * y) : ℝ × ℝ)|
+    ≤ a^(-(k : ℤ)) * (a / (a - 1)) := by
+  have ha_pos : 0 < a := lt_trans zero_lt_one ha
+  have hzpow_pos : 0 < a^(-(k : ℤ)) := zpow_pos ha_pos _
+  rw [abs_mul, abs_of_pos hzpow_pos]
+  apply mul_le_mul_of_nonneg_left _ (le_of_lt hzpow_pos)
+  exact abs_fractalKernelReal_le α ha ((α^k * x, α^k * y) : ℝ × ℝ)
+
+/-- **Partial-sum approximation error** (the rigorous spectral
+    approximation theorem):
+
+      `|V_P(x, y) − Σ_{j=0}^{k-1} a^(-j) · cos(π · αʲ · |x−y|)|
+        ≤ a^(-k) · a/(a−1)`.
+
+    Since `a > 1`, the right-hand side decays as `O(a^(-k))` uniformly
+    in `(x, y)`. The first `k` summands of the series approximate the
+    full fractal kernel to within this uniform error.
+
+    This is the rigorous foundation for finite-rank spectral
+    approximations of `H_P_at α a` — truncate the kernel to the first
+    `k` cosine terms, and the resulting operator approximates `H_P`
+    in uniform operator norm with error `O(a^(-k))`. -/
+theorem fractalKernelReal_partial_sum_error
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (k : ℕ) (x y : ℝ) :
+    |fractalKernelReal α a ((x, y) : ℝ × ℝ)
+      - (Finset.range k).sum
+          (fun j => a^(-(j : ℤ)) * Real.cos (Real.pi * α^j * dist x y))|
+    ≤ a^(-(k : ℤ)) * (a / (a - 1)) := by
+  rw [fractalKernelReal_iterated_self_similarity α a ha hα x y k]
+  rw [add_sub_cancel_left]
+  exact fractalKernelReal_residual_bound α a ha k x y
+
+/-! ## Documentation: connection to the eigenvalue conjecture
+
+The chain of identities above provides the **structural framework** the
+manuscript's Ch 21 polylog spectrum conjecture inhabits:
+
+1. **Self-similarity** (`fractalKernelReal_self_similarity`): each
+   application of the rescaling `(x, y) → (αx, αy)` peels off one
+   cosine term and weights the residual by `1/a`. This generates the
+   `a^(-k)` weight in the conjectured `λ_k = a^(-k) · Re[Li₁(...)]`.
+
+2. **Iterated form** (`fractalKernelReal_iterated_self_similarity`):
+   the explicit k-fold expansion, written as a partial sum plus
+   rescaled residual.
+
+3. **Tail bound** (`fractalKernelReal_residual_bound`,
+   `fractalKernelReal_partial_sum_error`): the rescaled residual is
+   uniformly `O(a^(-k))`, so the partial sums approximate `V_P`
+   uniformly with explicitly-controlled error.
+
+The CONJECTURE goes further: it claims the precise eigenvalue
+extracted from the k-th level of this iteration is `Re[Li₁(e^{iπαᵏ})]`,
+the polylogarithm-on-the-physical-Riemann-sheet evaluation. THAT step
+requires:
+
+* Identifying the eigenvectors of `H_P_at α a` (likely linear
+  combinations of the `cosineMode α k` modes from
+  `FourierCosineDecomposition`, organized by scale).
+* Computing the action of the iterated kernel on those eigenvectors
+  using the matrix entries from `PolylogSpectrum.lean`.
+* Recognizing the resulting series as the polylog `Li₁(e^{iπαᵏ})`
+  on the appropriate Riemann sheet.
+
+That is the open mathematical content of Problem 1 in
+`OPEN_PROBLEMS.md`. The pieces above are the axiom-free infrastructure
+for any future attack on it. -/
+
 end PrincipiaTractalis.IntegralKernel
