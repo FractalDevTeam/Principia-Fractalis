@@ -51,6 +51,7 @@ Stage L4+ — Polylog spectrum infrastructure.
 -/
 
 import PF.Analytic.CosineModeInnerProducts
+import PF.Analytic.KernelSelfSimilarity
 import Mathlib.Analysis.SpecialFunctions.Complex.Log
 
 namespace PrincipiaTractalis.Analytic
@@ -259,6 +260,43 @@ theorem integral_sin_mul_cos_alpha_beta_zero_one (α β : ℝ)
   simp [smul_eq_mul]
   field_simp
   ring
+
+/-! ## Mercer decomposition of the truncated kernel on `ℝ` -/
+
+/-- **Mercer decomposition of the truncated fractal kernel** on `K = ℝ`:
+
+      `V_P^(k)(x, y) = Σ_{j=0}^{k-1} a^(-j) ·
+                       (cosineMode α j x · cosineMode α j y +
+                        sineMode α j x · sineMode α j y)`
+
+    Each summand is a rank-2 separable kernel (one rank-1 piece each
+    for cosineMode and sineMode). The truncated operator induced by
+    this kernel is therefore rank ≤ 2k on `L²([0,1])` — explicit
+    eigenbasis from the cosineMode/sineMode functions, with matrix
+    entries given by the inner products proven above.
+
+    Combined with the `O(a^(-k))` uniform-norm approximation from
+    `KernelSelfSimilarity.abs_fractalKernelReal_sub_truncated_le`,
+    this gives finite-rank spectral approximations of
+    `H_P_at α a` with concretely-computable matrix entries and
+    explicit operator-norm error bounds. -/
+theorem truncatedFractalKernelReal_mercer
+    (α a : ℝ) (k : ℕ) (x y : ℝ) :
+    PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+      α a k ((x, y) : ℝ × ℝ)
+    = (Finset.range k).sum
+        (fun j => a^(-(j : ℤ)) *
+          (cosineMode α j x * cosineMode α j y +
+           sineMode α j x * sineMode α j y)) := by
+  unfold PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+  apply Finset.sum_congr rfl
+  intro j _
+  show a ^ (-(j : ℤ)) * Real.cos (Real.pi * α ^ j * dist x y) =
+       a ^ (-(j : ℤ)) * (cosineMode α j x * cosineMode α j y
+                       + sineMode α j x * sineMode α j y)
+  congr 1
+  rw [Real.dist_eq]
+  exact cos_kernel_decomp_abs α j x y
 
 /-! ## Specialization to cosineMode/sineMode -/
 
