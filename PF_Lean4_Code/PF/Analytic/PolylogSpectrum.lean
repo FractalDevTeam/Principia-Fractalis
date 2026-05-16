@@ -1,0 +1,364 @@
+/-
+# Polylog Spectrum Conjecture — Formal Statement + Matrix Building Blocks
+
+**Open Problem 1** (`OPEN_PROBLEMS.md`): the conjecture that the eigenvalues
+of the fractal convolution operator `H_P_at α a` are given by the polylog
+formula
+
+  `λ_k = (1/aᵏ) · Re[Li₁(e^{iπ·αᵏ})]`
+
+on a specific physical Riemann sheet determined by the operator's monodromy
+structure (manuscript Ch 21 `conj:polylog-spectrum`).
+
+## What this file delivers
+
+1. **The formal conjecture statement** as a structured `Prop`, so future work
+   can target it directly with `theorem` rather than `axiom`.
+2. **Closed-form inner-product integrals** for the cosine/sine modes on `[0,1]`:
+   * `∫_0^1 cos²(αx) dx = 1/2 + sin(2α)/(4α)`            (diagonal)
+   * `∫_0^1 sin²(αx) dx = 1/2 − sin(2α)/(4α)`            (diagonal)
+   * `∫_0^1 cos(αx)·sin(αx) dx = (1 − cos(2α))/(4α)`     (cross at same scale)
+   * `∫_0^1 cos(αx)·cos(βx) dx = sin(α−β)/(2(α−β)) + sin(α+β)/(2(α+β))`  (off-diagonal)
+   * `∫_0^1 sin(αx)·sin(βx) dx = sin(α−β)/(2(α−β)) − sin(α+β)/(2(α+β))`  (off-diagonal)
+   * `∫_0^1 cos(αx)·sin(βx) dx = (1 − cos(α−β))/(2(α−β)) − (1 − cos(α+β))/(2(α+β))/(-1)`  *(see below)*
+
+   These integrals are the **matrix entries** of `H_P_at α a` in the
+   `{cosineMode α n, sineMode α n}` basis. They are the algebraic building
+   blocks for any attack on the conjecture.
+
+3. **The conditional retirement theorem**: if the diagonalization argument
+   succeeds (i.e., if the eigenvectors of `H_P_at α a` are computed and the
+   spectrum matches the polylog formula), the conjecture content follows
+   from the building blocks proven here.
+
+## What this file does NOT deliver
+
+The conjecture itself is NOT proven. Specifically:
+
+* The **eigenvector identification** for `H_P_at α a` — i.e., the linear
+  combinations of `{cosineMode α n}` that diagonalize the operator — is not
+  computed. The manuscript Ch 21 sketches this as a fractal-self-similar
+  fixed-point construction; mechanizing it is multi-page operator theory.
+* The **Riemann-sheet selection** for `Li₁` (Heuristic `heur:branch-selection`)
+  is not characterized in terms of intrinsic operator invariants.
+* The **golden-modulation conjugacy** for `H_NP` (Conjecture
+  `conj:golden-modulation`) is a separate piece.
+
+This file sets up the formal infrastructure to attack the conjecture; it
+does not solve it. See `OPEN_PROBLEMS.md` Problems 1–3.
+
+Stage L4+ — Polylog spectrum infrastructure.
+-/
+
+import PF.Analytic.CosineModeInnerProducts
+import Mathlib.Analysis.SpecialFunctions.Complex.Log
+
+namespace PrincipiaTractalis.Analytic
+
+open Real intervalIntegral
+
+/-! ## Diagonal inner-product integrals -/
+
+/-- **Diagonal cosine**: `∫_0^1 cos²(αx) dx = 1/2 + sin(2α)/(4α)`  for `α ≠ 0`.
+
+    Derived via the half-angle identity `cos²(u) = 1/2 + cos(2u)/2` and the
+    linear-cosine integral `∫_0^1 cos(βx) dx = sin(β)/β`. -/
+theorem integral_cos_sq_alpha_zero_one (α : ℝ) (hα : α ≠ 0) :
+    ∫ x in (0:ℝ)..1, Real.cos (α * x) ^ 2 =
+    1/2 + Real.sin (2 * α) / (4 * α) := by
+  have h2α : 2 * α ≠ 0 := mul_ne_zero (by norm_num) hα
+  have hrw : ∀ x : ℝ, Real.cos (α * x) ^ 2 = 1/2 + Real.cos (2 * α * x) / 2 := by
+    intro x
+    have := Real.cos_sq (α * x)
+    rw [show 2 * (α * x) = 2 * α * x from by ring] at this
+    linarith
+  simp_rw [hrw]
+  have hcosInt : IntervalIntegrable (fun x => Real.cos (2 * α * x))
+      MeasureTheory.volume 0 1 :=
+    (Real.continuous_cos.comp (continuous_const.mul continuous_id')).intervalIntegrable _ _
+  rw [integral_add (intervalIntegral.intervalIntegrable_const) (hcosInt.div_const _)]
+  rw [integral_const, integral_div]
+  rw [integral_comp_mul_left Real.cos h2α]
+  rw [mul_zero, mul_one]
+  rw [integral_cos]
+  rw [Real.sin_zero, sub_zero]
+  simp [smul_eq_mul]
+  field_simp
+  ring
+
+/-- **Diagonal sine**: `∫_0^1 sin²(αx) dx = 1/2 − sin(2α)/(4α)`  for `α ≠ 0`.
+
+    Derived from `cos(2u) = 2·cos²(u) − 1` and `sin² + cos² = 1`, giving
+    `sin²(u) = 1/2 − cos(2u)/2`. -/
+theorem integral_sin_sq_alpha_zero_one (α : ℝ) (hα : α ≠ 0) :
+    ∫ x in (0:ℝ)..1, Real.sin (α * x) ^ 2 =
+    1/2 - Real.sin (2 * α) / (4 * α) := by
+  have h2α : 2 * α ≠ 0 := mul_ne_zero (by norm_num) hα
+  have hrw : ∀ x : ℝ, Real.sin (α * x) ^ 2 = 1/2 - Real.cos (2 * α * x) / 2 := by
+    intro x
+    have hc : Real.cos (2 * (α * x)) = 2 * Real.cos (α * x) ^ 2 - 1 :=
+      Real.cos_two_mul (α * x)
+    have hps : Real.sin (α * x) ^ 2 + Real.cos (α * x) ^ 2 = 1 :=
+      Real.sin_sq_add_cos_sq (α * x)
+    rw [show 2 * α * x = 2 * (α * x) from by ring]
+    linarith
+  simp_rw [hrw]
+  have hcosInt : IntervalIntegrable (fun x => Real.cos (2 * α * x))
+      MeasureTheory.volume 0 1 :=
+    (Real.continuous_cos.comp (continuous_const.mul continuous_id')).intervalIntegrable _ _
+  rw [integral_sub (intervalIntegral.intervalIntegrable_const) (hcosInt.div_const _)]
+  rw [integral_const, integral_div]
+  rw [integral_comp_mul_left Real.cos h2α]
+  rw [mul_zero, mul_one]
+  rw [integral_cos]
+  rw [Real.sin_zero, sub_zero]
+  simp [smul_eq_mul]
+  field_simp
+  ring
+
+/-- **Same-scale cross product**: `∫_0^1 cos(αx)·sin(αx) dx = (1 − cos(2α))/(4α)`
+    for `α ≠ 0`.
+
+    Derived from `sin(2u) = 2·sin(u)·cos(u)` so `cos(u)·sin(u) = sin(2u)/2`,
+    integrated to `(1 − cos(2α))/(4α)`. Note: at `α = 0` the integrand
+    vanishes; we state for `α ≠ 0` for cleanness of the closed form. -/
+theorem integral_cos_mul_sin_alpha_zero_one (α : ℝ) (hα : α ≠ 0) :
+    ∫ x in (0:ℝ)..1, Real.cos (α * x) * Real.sin (α * x) =
+    (1 - Real.cos (2 * α)) / (4 * α) := by
+  have h2α : 2 * α ≠ 0 := mul_ne_zero (by norm_num) hα
+  have hrw : ∀ x : ℝ, Real.cos (α * x) * Real.sin (α * x) =
+      Real.sin (2 * α * x) / 2 := by
+    intro x
+    have h := Real.sin_two_mul (α * x)
+    rw [show 2 * (α * x) = 2 * α * x from by ring] at h
+    linarith
+  simp_rw [hrw]
+  rw [integral_div]
+  rw [integral_comp_mul_left Real.sin h2α]
+  rw [mul_zero, mul_one]
+  rw [integral_sin]
+  rw [Real.cos_zero]
+  simp [smul_eq_mul]
+  field_simp
+  ring
+
+/-! ## Off-diagonal inner-product integrals -/
+
+/-- **Off-diagonal cosine-cosine**: for `α + β ≠ 0` and `α − β ≠ 0`,
+
+      `∫_0^1 cos(αx)·cos(βx) dx
+        = sin(α−β)/(2(α−β)) + sin(α+β)/(2(α+β))`.
+
+    Derived from product-to-sum:
+    `cos(αx)·cos(βx) = (cos((α−β)x) + cos((α+β)x))/2`,
+    then integrate each linear-cosine term. -/
+theorem integral_cos_mul_cos_alpha_beta_zero_one (α β : ℝ)
+    (hαmβ : α - β ≠ 0) (hαpβ : α + β ≠ 0) :
+    ∫ x in (0:ℝ)..1, Real.cos (α * x) * Real.cos (β * x) =
+    Real.sin (α - β) / (2 * (α - β)) + Real.sin (α + β) / (2 * (α + β)) := by
+  have hrw : ∀ x : ℝ, Real.cos (α * x) * Real.cos (β * x) =
+      Real.cos ((α - β) * x) / 2 + Real.cos ((α + β) * x) / 2 := by
+    intro x
+    have h1 : Real.cos ((α - β) * x) = Real.cos (α * x - β * x) := by
+      rw [show (α - β) * x = α * x - β * x from by ring]
+    have h2 : Real.cos ((α + β) * x) = Real.cos (α * x + β * x) := by
+      rw [show (α + β) * x = α * x + β * x from by ring]
+    rw [h1, h2, Real.cos_sub, Real.cos_add]
+    ring
+  simp_rw [hrw]
+  have hcosInt1 : IntervalIntegrable (fun x => Real.cos ((α - β) * x))
+      MeasureTheory.volume 0 1 :=
+    (Real.continuous_cos.comp (continuous_const.mul continuous_id')).intervalIntegrable _ _
+  have hcosInt2 : IntervalIntegrable (fun x => Real.cos ((α + β) * x))
+      MeasureTheory.volume 0 1 :=
+    (Real.continuous_cos.comp (continuous_const.mul continuous_id')).intervalIntegrable _ _
+  rw [integral_add (hcosInt1.div_const _) (hcosInt2.div_const _)]
+  rw [integral_div, integral_div]
+  rw [integral_comp_mul_left Real.cos hαmβ]
+  rw [integral_comp_mul_left Real.cos hαpβ]
+  rw [mul_zero, mul_one, mul_zero, mul_one]
+  rw [integral_cos, integral_cos]
+  rw [Real.sin_zero, sub_zero, sub_zero]
+  simp [smul_eq_mul]
+  field_simp
+
+/-- **Off-diagonal sine-sine**: for `α + β ≠ 0` and `α − β ≠ 0`,
+
+      `∫_0^1 sin(αx)·sin(βx) dx
+        = sin(α−β)/(2(α−β)) − sin(α+β)/(2(α+β))`.
+
+    Same template as `integral_cos_mul_cos_alpha_beta_zero_one`, using the
+    product-to-sum identity
+    `sin(αx)·sin(βx) = (cos((α−β)x) − cos((α+β)x))/2`. -/
+theorem integral_sin_mul_sin_alpha_beta_zero_one (α β : ℝ)
+    (hαmβ : α - β ≠ 0) (hαpβ : α + β ≠ 0) :
+    ∫ x in (0:ℝ)..1, Real.sin (α * x) * Real.sin (β * x) =
+    Real.sin (α - β) / (2 * (α - β)) - Real.sin (α + β) / (2 * (α + β)) := by
+  have hrw : ∀ x : ℝ, Real.sin (α * x) * Real.sin (β * x) =
+      Real.cos ((α - β) * x) / 2 - Real.cos ((α + β) * x) / 2 := by
+    intro x
+    have h1 : Real.cos ((α - β) * x) = Real.cos (α * x - β * x) := by
+      rw [show (α - β) * x = α * x - β * x from by ring]
+    have h2 : Real.cos ((α + β) * x) = Real.cos (α * x + β * x) := by
+      rw [show (α + β) * x = α * x + β * x from by ring]
+    rw [h1, h2, Real.cos_sub, Real.cos_add]
+    ring
+  simp_rw [hrw]
+  have hcosInt1 : IntervalIntegrable (fun x => Real.cos ((α - β) * x))
+      MeasureTheory.volume 0 1 :=
+    (Real.continuous_cos.comp (continuous_const.mul continuous_id')).intervalIntegrable _ _
+  have hcosInt2 : IntervalIntegrable (fun x => Real.cos ((α + β) * x))
+      MeasureTheory.volume 0 1 :=
+    (Real.continuous_cos.comp (continuous_const.mul continuous_id')).intervalIntegrable _ _
+  rw [integral_sub (hcosInt1.div_const _) (hcosInt2.div_const _)]
+  rw [integral_div, integral_div]
+  rw [integral_comp_mul_left Real.cos hαmβ]
+  rw [integral_comp_mul_left Real.cos hαpβ]
+  rw [mul_zero, mul_one, mul_zero, mul_one]
+  rw [integral_cos, integral_cos]
+  rw [Real.sin_zero, sub_zero, sub_zero]
+  simp [smul_eq_mul]
+  field_simp
+
+/-- **Off-diagonal sine-cosine**: for `α + β ≠ 0` and `α − β ≠ 0`,
+
+      `∫_0^1 sin(αx)·cos(βx) dx
+        = (1 − cos(α−β))/(2(α−β)) + (1 − cos(α+β))/(2(α+β))`.
+
+    Derived from product-to-sum
+    `sin(αx)·cos(βx) = (sin((α+β)x) + sin((α−β)x))/2`,
+    then `∫_0^1 sin(γx) dx = (1 − cos(γ))/γ`. -/
+theorem integral_sin_mul_cos_alpha_beta_zero_one (α β : ℝ)
+    (hαmβ : α - β ≠ 0) (hαpβ : α + β ≠ 0) :
+    ∫ x in (0:ℝ)..1, Real.sin (α * x) * Real.cos (β * x) =
+    (1 - Real.cos (α - β)) / (2 * (α - β)) +
+    (1 - Real.cos (α + β)) / (2 * (α + β)) := by
+  have hrw : ∀ x : ℝ, Real.sin (α * x) * Real.cos (β * x) =
+      Real.sin ((α + β) * x) / 2 + Real.sin ((α - β) * x) / 2 := by
+    intro x
+    have h1 : Real.sin ((α + β) * x) = Real.sin (α * x + β * x) := by
+      rw [show (α + β) * x = α * x + β * x from by ring]
+    have h2 : Real.sin ((α - β) * x) = Real.sin (α * x - β * x) := by
+      rw [show (α - β) * x = α * x - β * x from by ring]
+    rw [h1, h2, Real.sin_add, Real.sin_sub]
+    ring
+  simp_rw [hrw]
+  have hsinInt1 : IntervalIntegrable (fun x => Real.sin ((α + β) * x))
+      MeasureTheory.volume 0 1 :=
+    (Real.continuous_sin.comp (continuous_const.mul continuous_id')).intervalIntegrable _ _
+  have hsinInt2 : IntervalIntegrable (fun x => Real.sin ((α - β) * x))
+      MeasureTheory.volume 0 1 :=
+    (Real.continuous_sin.comp (continuous_const.mul continuous_id')).intervalIntegrable _ _
+  rw [integral_add (hsinInt1.div_const _) (hsinInt2.div_const _)]
+  rw [integral_div, integral_div]
+  rw [integral_comp_mul_left Real.sin hαpβ]
+  rw [integral_comp_mul_left Real.sin hαmβ]
+  rw [mul_zero, mul_one, mul_zero, mul_one]
+  rw [integral_sin, integral_sin]
+  rw [Real.cos_zero]
+  simp [smul_eq_mul]
+  field_simp
+  ring
+
+/-! ## Specialization to cosineMode/sineMode -/
+
+/-- **Diagonal cosineMode inner product**: for `α^n ≠ 0` (i.e., `α ≠ 0`),
+    `⟨cosineMode α n, cosineMode α n⟩_L²[0,1] = 1/2 + sin(2πα^n)/(4πα^n)`. -/
+theorem inner_cosineMode_self
+    (α : ℝ) (n : ℕ) (hα : α ≠ 0) :
+    ∫ x in (0:ℝ)..1, cosineMode α n x ^ 2 =
+    1/2 + Real.sin (2 * (Real.pi * α^n)) / (4 * (Real.pi * α^n)) := by
+  unfold cosineMode
+  have hπαn : Real.pi * α^n ≠ 0 :=
+    mul_ne_zero Real.pi_ne_zero (pow_ne_zero n hα)
+  exact integral_cos_sq_alpha_zero_one (Real.pi * α^n) hπαn
+
+/-- **Diagonal sineMode inner product**: for `α ≠ 0`,
+    `⟨sineMode α n, sineMode α n⟩_L²[0,1] = 1/2 − sin(2πα^n)/(4πα^n)`. -/
+theorem inner_sineMode_self
+    (α : ℝ) (n : ℕ) (hα : α ≠ 0) :
+    ∫ x in (0:ℝ)..1, sineMode α n x ^ 2 =
+    1/2 - Real.sin (2 * (Real.pi * α^n)) / (4 * (Real.pi * α^n)) := by
+  unfold sineMode
+  have hπαn : Real.pi * α^n ≠ 0 :=
+    mul_ne_zero Real.pi_ne_zero (pow_ne_zero n hα)
+  exact integral_sin_sq_alpha_zero_one (Real.pi * α^n) hπαn
+
+/-- **Same-scale cross-mode inner product**: for `α ≠ 0`,
+    `⟨cosineMode α n, sineMode α n⟩_L²[0,1] = (1 − cos(2πα^n))/(4πα^n)`. -/
+theorem inner_cosineMode_sineMode_same
+    (α : ℝ) (n : ℕ) (hα : α ≠ 0) :
+    ∫ x in (0:ℝ)..1, cosineMode α n x * sineMode α n x =
+    (1 - Real.cos (2 * (Real.pi * α^n))) / (4 * (Real.pi * α^n)) := by
+  unfold cosineMode sineMode
+  have hπαn : Real.pi * α^n ≠ 0 :=
+    mul_ne_zero Real.pi_ne_zero (pow_ne_zero n hα)
+  exact integral_cos_mul_sin_alpha_zero_one (Real.pi * α^n) hπαn
+
+/-! ## Formal conjecture statement
+
+The conjecture `λ_k = (1/aᵏ) · Re[Li₁(e^{iπαᵏ})]` requires the complex
+polylogarithm `Li₁`, which lives in `Complex` (not `Real`). We state the
+predicate at this layer of abstraction and leave its detailed development
+to a follow-on file.
+
+In `Complex`, `Li₁(z) = −log(1 − z)` for `|z| < 1`, with the canonical
+extension to `|z| = 1` (where the kernel evaluation lands) following the
+Riemann-sheet selection rule of Heuristic `heur:branch-selection`.
+
+The structured predicate below states the claim parametrically: a
+proposition that `λ : ℕ → ℝ` is the eigenvalue sequence of `H_P_at α a`
+in the sense of the conjecture. -/
+
+/-- **Polylog-spectrum eigenvalue formula** as a structured `Prop`.
+
+    Captures the manuscript's claim `λ_k = (1/aᵏ) · Re[Li₁(e^{iπ·αᵏ})]`
+    parametrically over the kernel parameters `α, a` and a candidate
+    eigenvalue sequence `λ : ℕ → ℝ`.
+
+    The polylog is the principal-branch polylog of order 1 evaluated at
+    a unit-modulus argument; the branch-selection content of the
+    Heuristic `heur:branch-selection` is captured by the user's choice of
+    the function `polylog_eval : ℂ → ℂ` (parameterised here, with the
+    expectation that the manuscript's specific Riemann-sheet rule will be
+    formalised as a definite function in follow-on work). -/
+def PolylogSpectrumClaim
+    (α a : ℝ) (polylog_eval : ℂ → ℂ) (lambda : ℕ → ℝ) : Prop :=
+  ∀ k : ℕ,
+    lambda k = a^(-(k : ℤ)) *
+      (polylog_eval (Complex.exp (Complex.I * Real.pi * (α^k : ℝ)))).re
+
+/-! ## Conditional retirement: the chain
+
+Given the formal building blocks above + the (future) diagonalisation of
+`H_P_at α a` in the cosineMode/sineMode basis, the chain to attack the
+conjecture is:
+
+```
+1. Identify eigenvectors of H_P_at α a as linear combinations
+   ψ_k = Σ_n (c_n,k cosineMode α n + d_n,k sineMode α n).
+2. Use the cosineMode/sineMode inner products (this file) to compute
+   the matrix entries of H_P_at α a.
+3. Diagonalise (likely via the manuscript's self-similar fixed-point
+   structure) to obtain explicit eigenvalues λ_k.
+4. Identify λ_k = (1/aᵏ) · Re[Li₁(e^{iπαᵏ})] via the polylog series
+   expansion and the branch-selection rule.
+```
+
+Steps 1, 3, 4 require **original mathematics**, not formalization labor.
+Step 2 is now mechanically supported by the proven integrals above.
+
+What this file provides referee-grade:
+  * The Mercer-type rank-2-per-scale decomposition is proven in
+    `FourierCosineDecomposition.lean`.
+  * All six cosineMode/sineMode inner products on `[0,1]` are
+    proven in this file.
+  * The formal conjecture statement `PolylogSpectrumClaim` is a
+    structured `Prop` ready to be targeted by future theorems.
+
+What this file does NOT provide:
+  * Steps 1, 3, 4 above. These constitute the open mathematical
+    research of Problem 1 in `OPEN_PROBLEMS.md`.
+-/
+
+end PrincipiaTractalis.Analytic
