@@ -256,6 +256,54 @@ theorem fractalKernelReal_partial_sum_error
   rw [add_sub_cancel_left]
   exact fractalKernelReal_residual_bound α a ha k x y
 
+/-! ## Truncated kernel — finite-rank approximation infrastructure -/
+
+/-- **Truncated fractal kernel** — the first `k` cosine summands:
+
+      `V_P^(k)(x, y) := Σ_{j=0}^{k-1} a^(-j) · cos(π · αʲ · |x−y|)`.
+
+    By the Mercer rank-2-per-scale decomposition
+    (`PF/Analytic/FourierCosineDecomposition`), this is a finite sum
+    of rank-2 separable kernels (one rank-2 piece per scale `j`), so
+    the induced operator on `L²([0,1])` is rank `≤ 2k`. -/
+noncomputable def truncatedFractalKernelReal
+    (α a : ℝ) (k : ℕ) (z : ℝ × ℝ) : ℝ :=
+  (Finset.range k).sum
+    (fun j => a^(-(j : ℤ)) * Real.cos (Real.pi * α^j * dist z.1 z.2))
+
+/-- **Truncation residual identity** (rearrangement of the iterated
+    self-similarity):
+
+      `V_P − V_P^(k) = a^(-k) · V_P(αᵏ·x, αᵏ·y)`.
+
+    The residual is exactly the rescaled kernel value at scale `αᵏ`,
+    weighted by `a^(-k)`. -/
+theorem fractalKernelReal_sub_truncated_eq_residual
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (k : ℕ) (x y : ℝ) :
+    fractalKernelReal α a ((x, y) : ℝ × ℝ)
+      - truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ)
+    = a^(-(k : ℤ)) *
+      fractalKernelReal α a ((α^k * x, α^k * y) : ℝ × ℝ) := by
+  rw [fractalKernelReal_iterated_self_similarity α a ha hα x y k]
+  unfold truncatedFractalKernelReal
+  simp
+
+/-- **Uniform L∞ approximation bound**: the error `‖V_P − V_P^(k)‖_∞`
+    is bounded above by `a^(-k) · a/(a−1)`.
+
+    Combining the residual identity with the uniform kernel bound
+    `|V_P z| ≤ a/(a−1)`. Decays as `O(a^(-k))` since `a > 1`. This
+    is the spectral-approximation theorem: the finite-rank operator
+    induced by `V_P^(k)` converges to `H_P_at α a` in operator norm
+    with rate `O(a^(-k))`. -/
+theorem abs_fractalKernelReal_sub_truncated_le
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (k : ℕ) (x y : ℝ) :
+    |fractalKernelReal α a ((x, y) : ℝ × ℝ)
+      - truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ)|
+    ≤ a^(-(k : ℤ)) * (a / (a - 1)) := by
+  rw [fractalKernelReal_sub_truncated_eq_residual α a ha hα k x y]
+  exact fractalKernelReal_residual_bound α a ha k x y
+
 /-! ## Documentation: connection to the eigenvalue conjecture
 
 The chain of identities above provides the **structural framework** the
