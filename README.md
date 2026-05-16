@@ -184,10 +184,14 @@ Clinical accuracy: **97.3%** in distinguishing conscious from vegetative states.
 | **Coq** (PF_Coq/theories) | 32 `.v` files | 253 | 0 | ✅ builds clean |
 | **L4L** | (quarantined to `experimental/PF_L4L_future/`) | — | — | not part of rev 2 claim |
 
-**Current Lean 4 status (2026-05-16).** See [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the full historical and current axiom record. The canonical library has gone from 41 → 8 → 6 → 1 axiom across rev 2 and the May 2026 elimination arc (Stages 1–35). The single remaining axiom `alpha_class_polylog_eigenvalue_conjecture` is the formal encoding of Ch 21's polylog Conjecture + branch-selection Heuristic + golden-modulation Conjecture — **retiring it requires original mathematical research, not formalization labor**. The historical 8-axiom breakdown below is preserved for the audit trail:
-- **CLASSIC** (3): classical theorems from analysis not yet in mathlib (`bochner_minlos_existence/uniqueness`, `finite_dim_bochner`)
-- **LOAD-BEARING PLACEHOLDER** (2): cannot be trivialized without making downstream proofs vacuous (`LogWeightedL2.inner`, `turingTimeComplexity`)
-- **BOOK-CORE** (3): the genuine mathematical claims of the book (`T3_self_adjoint_conj`, `p_eq_np_spectrum_collapse`, `operator_collapse_hypothesis`)
+**Current Lean 4 status (2026-05-16).** See [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the full historical and current axiom record. The canonical library has gone from 41 → 8 → 6 → 1 axiom across rev 2 and the May 2026 elimination arc (Stages 1–35). The single remaining axiom `alpha_class_polylog_eigenvalue_conjecture` is the formal encoding of Ch 21's polylog Conjecture + branch-selection Heuristic + golden-modulation Conjecture — **retiring it requires original mathematical research, not formalization labor**.
+
+*Historical 8-axiom breakdown (rev 2 — all 7 of these have since been retired or restructured; preserved here for the audit trail):*
+- **CLASSIC** (3, all retired): classical theorems from analysis not yet in mathlib (`bochner_minlos_existence/uniqueness`, `finite_dim_bochner` — deleted Stage 30, commit `4e0f6d2`)
+- **LOAD-BEARING PLACEHOLDER** (2): `LogWeightedL2.inner` (replaced by the `Lp ℂ 2` refactor, Stage 2026-05-09); `turingTimeComplexity` (retired by struct-field projection, commit `77696cd`)
+- **BOOK-CORE** (3, restructured): `T3_self_adjoint_conj` (retired commit `1b0deb7`); `p_eq_np_spectrum_collapse` and `operator_collapse_hypothesis` (restructured to theorems via `alpha_of_class` opaque + the single load-bearing axiom, Stage 25 commit `5c5e1dc`).
+
+The only remaining axiom is `alpha_class_polylog_eigenvalue_conjecture` — see [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md).
 
 Every Yang-Mills-cluster theorem that was eliminated during rev 2 carries an **⚠ CURRENT PROOF CAVEAT** docstring disclosing that it is proven against the current zero-covariance placeholder. See rev 2 Chapter 23 "Status of Analytical Construction" for a referee-facing exposition of what this means.
 

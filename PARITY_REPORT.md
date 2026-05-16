@@ -1,6 +1,8 @@
 # Lean 4 ↔ Coq Axiom Parity Report
 
-*Last updated: 2026-05-08, post `T3_self_adjoint_conj` axiom RETIREMENT (commit `1b0deb7`); canonical Lean PF/ at **6 axioms** (down from 7)*
+> **⚠ Historical snapshot.** The per-section state-claims below are from 2026-05-08 and earlier (canonical Lean PF/ at 6–8 axioms). **Current state as of 2026-05-16: 1 axiom** (`alpha_class_polylog_eigenvalue_conjecture`), 5626 jobs clean. The May 2026 Stage 1–35 elimination arc reduced the axiom count 6 → 3 → 1; see [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) for the current authoritative state. This document is preserved as an audit-trail record of the parity state at intermediate stages.
+
+*Last updated (body): 2026-05-08, post `T3_self_adjoint_conj` axiom RETIREMENT (commit `1b0deb7`); canonical Lean PF/ at **6 axioms** (down from 7)*
 
 ## ⭐ AXIOM ELIMINATION (2026-05-08, commit `1b0deb7`)
 

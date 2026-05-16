@@ -6,10 +6,10 @@ This document summarizes the **Lean4Lean** verification layer (referred to histo
 
 | Older path label                               | Current canonical path                                                          |
 |------------------------------------------------|---------------------------------------------------------------------------------|
-| `PF_canonical/2_LEAN_SOURCE_CODE/`             | `PF_Lean4_Code/PF/` (canonical Lean 4 library; **8 axioms**, 0 sorries)          |
+| `PF_canonical/2_LEAN_SOURCE_CODE/`             | `PF_Lean4_Code/PF/` (canonical Lean 4 library; **1 axiom**, 0 sorries, 5626 jobs clean as of 2026-05-16)          |
 | `PF_L4L/PF_L4L/`                               | `experimental/PF_L4L_future/PF_L4L/` (quarantined under experimental)            |
 
-L4L is currently quarantined under `experimental/PF_L4L_future/` per the architectural decision recorded at `experimental/PF_L4L_future/L4L_ARCHITECTURAL_DECISION.md` (2026-04-28, Path B selected: preserve verification-only design intent + canonical 8-axiom count). The `lake build` command at the repository root refers EXCLUSIVELY to the canonical `PF_Lean4_Code/PF/`; an explicit `cd experimental/PF_L4L_future && lake build` is required to build L4L. CI does not currently run L4L's build.
+L4L is currently quarantined under `experimental/PF_L4L_future/` per the architectural decision recorded at `experimental/PF_L4L_future/L4L_ARCHITECTURAL_DECISION.md` (2026-04-28, Path B selected: preserve verification-only design intent + canonical axiom count). The `lake build` command at the repository root refers EXCLUSIVELY to the canonical `PF_Lean4_Code/PF/`; an explicit `cd experimental/PF_L4L_future && lake build` is required to build L4L. CI does not currently run L4L's build. *Note: this document and L4L's tag system were authored when the canonical library had 8 axioms; the canonical library now has 1, with 7 axioms retired across the rev-2-finale and May 2026 elimination arcs. The axiom-tag taxonomy below remains pedagogically useful for the historical record.*
 
 The substantive content of this document — the L4L axiom-tag classification of canonical Principia Fractalis axioms — remains valid for the L4L layer when restored.
 
