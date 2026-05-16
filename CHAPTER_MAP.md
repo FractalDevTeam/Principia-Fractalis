@@ -7,7 +7,7 @@ This document summarizes how the LaTeX book chapters map to the canonical Lean 4
 | Older path label                               | Current canonical path                                                          |
 |------------------------------------------------|---------------------------------------------------------------------------------|
 | `PF_canonical/1_BOOK_LATEX_SOURCE/chapters/`   | `Principia_Fractalis_master_folder_rev2/chapters/`                              |
-| `PF_canonical/2_LEAN_SOURCE_CODE/`             | `PF_Lean4_Code/PF/` (canonical Lean 4 library; **8 axioms**, 0 sorries)          |
+| `PF_canonical/2_LEAN_SOURCE_CODE/`             | `PF_Lean4_Code/PF/` (canonical Lean 4 library; **1 axiom**, 0 sorries, 5626 jobs clean)          |
 | `PF_L4L/PF_L4L/`                               | `experimental/PF_L4L_future/PF_L4L/` (quarantined; see `L4L_ARCHITECTURAL_DECISION.md` in that directory) |
 
 The empty directory `PF_canonical/` at the repository root is preserved as a path-redirect placeholder pending a full path-rewrite of this document. The chapter ↔ Lean mapping below is still substantively correct; only the path prefixes have moved.
