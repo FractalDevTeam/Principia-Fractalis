@@ -143,6 +143,24 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
   - **Level-2 explicit matrix entries**: all 6 off-diagonal entries (`cellMatrixEntry_level2_ff_ft`, `_ff_tf`, `_ff_tt`, `_ft_tf`, `_ft_tt`, `_tf_tt`) as explicit tsum closed forms; `level2_within_half_equality` and `level2_outer_cross_equality` codify the IFS reflection symmetry.
   - **Level-2 explicit measure**: `cantorDiscMeasure_two = (1/4)·(δ_{1/18} + δ_{5/18} + δ_{13/18} + δ_{17/18})`.
   - **Level-2 explicit operator action** `H_P_at_disc_cantorDiscMeasure_two`: closed-form 4-Dirac action on the level-2 midpoint span (matrix-vector product M^{(2)}·v explicit).
+  - **Level-2 sym/antisym 2×2 block decomposition**: under the IFS reflection `x ↦ 1 − x`, the 4×4 problem decomposes into two 2×2 sub-blocks `B_sym`, `B_anti` with explicit entries. Verified by 4 parametric action theorems: `level2_{sym, antisym}_action_at_{ff, tf}`.
+  - **Level-2 four eigenvalues** in closed form via the symmetric 2×2 quadratic formula:
+    - `lambdaSymPlusLevel2`, `lambdaSymMinusLevel2`: eigenvalues of `B_sym`.
+    - `lambdaAntiPlusLevel2`, `lambdaAntiMinusLevel2`: eigenvalues of `B_anti`.
+  - **Level-2 algebraic spectral identities** (per block + cross-block):
+    - `lambdaSymLevel2_trace`, `lambdaAntiLevel2_trace`: trace of each block.
+    - `lambdaSymLevel2_gap`, `lambdaAntiLevel2_gap`: explicit spectral gap closed form.
+    - `lambdaSymLevel2_det`, `lambdaAntiLevel2_det`: determinant of each block.
+    - `lambdaSymLevel2_sumSq`, `lambdaAntiLevel2_sumSq`: sum of squared eigenvalues per block.
+    - `level2_full_trace_identity`: cross-block cancellation: Σ all 4 = a/(a−1).
+    - `level2_full_sumSq`: total ‖M^{(2)}‖_F² explicit expansion in V_P values.
+  - **Level-2 spectrum bounds**:
+    - `level2_block_traces_nonneg` (a > 1): both block traces ≥ 0 (necessary PSD condition).
+    - `level2_{sym, anti}_PSD_from_det`: CONDITIONAL PSD via Sylvester's criterion (`B² ≤ A·C` ⟹ λ ≥ 0). The hypothesis is an OPEN ESTIMATE on V_P inner products.
+    - `level1_sumSq_le_level0`, `level2_sumSq_le_level0` (a > 1): Frobenius monotonicity `‖M^{(n)}‖_F² ≤ (a/(a−1))²` (eigenvalue SPREADING inequality).
+    - `level2_spectral_radius_bound` (a > 1): all 4 eigenvalues `|λ| ≤ a/(a−1)`.
+    - `level2_spectrum_bracketing` (a > 1): all 4 eigenvalues in `[−a/(a−1), a/(a−1)]`.
+  - **Level-1 Frobenius identity** `level1_sumSq_identity`: `λ⁺² + λ⁻² = (1/2)·((a/(a−1))² + V_P²(1/6, 5/6))`.
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
