@@ -42,6 +42,7 @@ Stage L4+ — Hutchinson operator + fixed-point framework.
 
 import PF.Analytic.FractalDomain
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
+import Mathlib.MeasureTheory.Measure.Dirac
 
 namespace PrincipiaTractalis.Analytic
 
@@ -232,6 +233,53 @@ theorem preCantorSet_succ_frameworkContractions (n : ℕ) :
     (cantorContraction2 '' preCantorSet n) := by
   rw [preCantorSet_succ]
   rw [cantorContraction1_eq, cantorContraction2_eq]
+
+/-! ## ★ Discrete n-cell approximations ★ -/
+
+/-- **Discrete n-cell Hutchinson approximation**:
+
+      `cantorDiscMeasure n := T^n (δ_{1/2})`
+
+    The `n`-fold iterate of the Hutchinson operator applied to a
+    single Dirac measure at the center of `[0, 1]`. After `n` steps,
+    the support is a set of `2^n` points, each carrying mass `1/2^n`
+    — exactly the cell midpoints of `preCantorSet n` (when iterated
+    from `[0,1]`'s midpoint).
+
+    This is the **finite-rank, computable approximation** to the
+    Hutchinson measure `μ_H`. Each level adds detail (more cells,
+    smaller Dirac masses), and the sequence converges weakly to `μ_H`
+    as `n → ∞`. -/
+noncomputable def cantorDiscMeasure (n : ℕ) : MeasureTheory.Measure ℝ :=
+  hutchinsonOp^[n] (MeasureTheory.Measure.dirac (1/2 : ℝ))
+
+/-- **Base case**: at level 0, the measure is a single Dirac at the
+    center of `[0, 1]`. -/
+theorem cantorDiscMeasure_zero :
+    cantorDiscMeasure 0 = MeasureTheory.Measure.dirac (1/2 : ℝ) := by
+  unfold cantorDiscMeasure
+  simp
+
+/-- **Recursive step**:
+
+      `cantorDiscMeasure (n+1) = T (cantorDiscMeasure n)`
+
+    Each level applies one more Hutchinson step, doubling the cell
+    count and halving the per-cell mass. -/
+theorem cantorDiscMeasure_succ (n : ℕ) :
+    cantorDiscMeasure (n + 1) = hutchinsonOp (cantorDiscMeasure n) := by
+  unfold cantorDiscMeasure
+  rw [Function.iterate_succ_apply']
+
+/-- **Probability measure**: at every level, `cantorDiscMeasure n`
+    is a probability measure (total mass 1). -/
+theorem cantorDiscMeasure_total (n : ℕ) :
+    cantorDiscMeasure n Set.univ = 1 := by
+  unfold cantorDiscMeasure
+  rw [hutchinsonOp_iter_total]
+  rw [MeasureTheory.Measure.dirac_apply']
+  · simp
+  · exact MeasurableSet.univ
 
 /-! ## Documentation: existence and uniqueness of μ_H
 
