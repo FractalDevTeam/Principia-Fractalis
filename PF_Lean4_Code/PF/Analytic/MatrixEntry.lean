@@ -656,6 +656,95 @@ theorem cellMatrixEntry_eq_tsum_distance (α a : ℝ) (n : ℕ)
   unfold cellMatrixEntry cantorKernel fractalKernelReal fractalKernelTerm
   rfl
 
+/-! ## ★ Level-2 explicit off-diagonal matrix entries ★ -/
+
+/-- **Level-2 entry** `M^{(2)}_{ff, ft}`:
+
+      `M^{(2)}_{[ff], [ft]} = (1/4) · Σ a^(-k) · cos(π · αᵏ · 2/9)` -/
+theorem cellMatrixEntry_level2_ff_ft (α a : ℝ) :
+    cellMatrixEntry α a 2 [false, false] [false, true] =
+    (1 / (2:ℝ)^2) * ∑' k : ℕ,
+      a ^ (-(k : ℤ)) * Real.cos (Real.pi * α ^ k * (2/9)) := by
+  rw [cellMatrixEntry_eq_tsum_distance]
+  rw [cellMidpoint_level2_dist_ff_ft]
+
+/-- **Level-2 entry** `M^{(2)}_{ff, tf}`:
+
+      `M^{(2)}_{[ff], [tf]} = (1/4) · Σ a^(-k) · cos(π · αᵏ · 2/3)` -/
+theorem cellMatrixEntry_level2_ff_tf (α a : ℝ) :
+    cellMatrixEntry α a 2 [false, false] [true, false] =
+    (1 / (2:ℝ)^2) * ∑' k : ℕ,
+      a ^ (-(k : ℤ)) * Real.cos (Real.pi * α ^ k * (2/3)) := by
+  rw [cellMatrixEntry_eq_tsum_distance]
+  rw [cellMidpoint_level2_dist_ff_tf]
+
+/-- **Level-2 entry** `M^{(2)}_{ff, tt}`:
+
+      `M^{(2)}_{[ff], [tt]} = (1/4) · Σ a^(-k) · cos(π · αᵏ · 8/9)` -/
+theorem cellMatrixEntry_level2_ff_tt (α a : ℝ) :
+    cellMatrixEntry α a 2 [false, false] [true, true] =
+    (1 / (2:ℝ)^2) * ∑' k : ℕ,
+      a ^ (-(k : ℤ)) * Real.cos (Real.pi * α ^ k * (8/9)) := by
+  rw [cellMatrixEntry_eq_tsum_distance]
+  rw [cellMidpoint_level2_dist_ff_tt]
+
+/-- **Level-2 entry** `M^{(2)}_{ft, tf}`:
+
+      `M^{(2)}_{[ft], [tf]} = (1/4) · Σ a^(-k) · cos(π · αᵏ · 4/9)` -/
+theorem cellMatrixEntry_level2_ft_tf (α a : ℝ) :
+    cellMatrixEntry α a 2 [false, true] [true, false] =
+    (1 / (2:ℝ)^2) * ∑' k : ℕ,
+      a ^ (-(k : ℤ)) * Real.cos (Real.pi * α ^ k * (4/9)) := by
+  rw [cellMatrixEntry_eq_tsum_distance]
+  rw [cellMidpoint_level2_dist_ft_tf]
+
+/-- **Level-2 entry** `M^{(2)}_{ft, tt}`:
+
+      `M^{(2)}_{[ft], [tt]} = (1/4) · Σ a^(-k) · cos(π · αᵏ · 2/3)` -/
+theorem cellMatrixEntry_level2_ft_tt (α a : ℝ) :
+    cellMatrixEntry α a 2 [false, true] [true, true] =
+    (1 / (2:ℝ)^2) * ∑' k : ℕ,
+      a ^ (-(k : ℤ)) * Real.cos (Real.pi * α ^ k * (2/3)) := by
+  rw [cellMatrixEntry_eq_tsum_distance]
+  rw [cellMidpoint_level2_dist_ft_tt]
+
+/-- **Level-2 entry** `M^{(2)}_{tf, tt}`:
+
+      `M^{(2)}_{[tf], [tt]} = (1/4) · Σ a^(-k) · cos(π · αᵏ · 2/9)` -/
+theorem cellMatrixEntry_level2_tf_tt (α a : ℝ) :
+    cellMatrixEntry α a 2 [true, false] [true, true] =
+    (1 / (2:ℝ)^2) * ∑' k : ℕ,
+      a ^ (-(k : ℤ)) * Real.cos (Real.pi * α ^ k * (2/9)) := by
+  rw [cellMatrixEntry_eq_tsum_distance]
+  rw [cellMidpoint_level2_dist_tf_tt]
+
+/-- **★ Level-2 within-half symmetry ★**:
+
+    The two "within-half" entries are equal:
+
+      `M^{(2)}_{[ff], [ft]} = M^{(2)}_{[tf], [tt]}`
+
+    Both encode the same `2/9` distance: within left half (`[ff], [ft]`)
+    and within right half (`[tf], [tt]`) — the IFS reflection symmetry
+    `x ↦ 1 − x` maps one to the other. -/
+theorem level2_within_half_equality (α a : ℝ) :
+    cellMatrixEntry α a 2 [false, false] [false, true] =
+    cellMatrixEntry α a 2 [true, false] [true, true] := by
+  rw [cellMatrixEntry_level2_ff_ft, cellMatrixEntry_level2_tf_tt]
+
+/-- **★ Level-2 outer-cross symmetry ★**:
+
+    The two "outer-cross" entries are equal:
+
+      `M^{(2)}_{[ff], [tf]} = M^{(2)}_{[ft], [tt]}`
+
+    Both encode the same `2/3` distance (the level-1 distance scaled
+    by `1` — i.e., the outer-of-pair cross-half pairs). -/
+theorem level2_outer_cross_equality (α a : ℝ) :
+    cellMatrixEntry α a 2 [false, false] [true, false] =
+    cellMatrixEntry α a 2 [false, true] [true, true] := by
+  rw [cellMatrixEntry_level2_ff_tf, cellMatrixEntry_level2_ft_tt]
+
 /-! ## ★ Uniform absolute bound ★ -/
 
 /-- **★ Uniform matrix-entry bound ★** (`a > 1`):
