@@ -365,6 +365,38 @@ theorem trace_level0_eq_trace_level1 (α a : ℝ) :
   rw [level1_trace_identity]
   rfl
 
+/-! ## ★ Explicit trace computations at levels 0, 1, 2 ★ -/
+
+/-- **Level-0 trace** (1×1 matrix, single diagonal entry):
+
+      `tr M^{(0)} = M^{(0)}_{[], []} = (1/2^0) · a/(a − 1) = a/(a − 1)` -/
+theorem trace_level0 {α a : ℝ} (ha : 1 < a) :
+    cellMatrixEntry α a 0 [] [] = a / (a - 1) := by
+  rw [cellMatrixEntry_diagonal ha]
+  simp
+
+/-- **Level-1 trace** (2×2 matrix, sum of 2 equal diagonal entries):
+
+      `tr M^{(1)} = M^{(1)}_{[false], [false]} + M^{(1)}_{[true], [true]}
+                  = 2 · (1/2) · a/(a − 1) = a/(a − 1)` -/
+theorem trace_level1 {α a : ℝ} (ha : 1 < a) :
+    cellMatrixEntry α a 1 [false] [false] +
+    cellMatrixEntry α a 1 [true] [true] = a / (a - 1) := by
+  rw [cellMatrixEntry_diagonal ha, cellMatrixEntry_diagonal ha]
+  ring
+
+/-- **Level-2 trace** (4×4 matrix, sum of 4 equal diagonal entries):
+
+      `tr M^{(2)} = 4 · (1/4) · a/(a − 1) = a/(a − 1)` -/
+theorem trace_level2 {α a : ℝ} (ha : 1 < a) :
+    cellMatrixEntry α a 2 [false, false] [false, false] +
+    cellMatrixEntry α a 2 [false, true] [false, true] +
+    cellMatrixEntry α a 2 [true, false] [true, false] +
+    cellMatrixEntry α a 2 [true, true] [true, true] = a / (a - 1) := by
+  rw [cellMatrixEntry_diagonal ha, cellMatrixEntry_diagonal ha,
+      cellMatrixEntry_diagonal ha, cellMatrixEntry_diagonal ha]
+  ring
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
