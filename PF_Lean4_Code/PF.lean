@@ -87,6 +87,7 @@ import PF.Analytic.Hutchinson                      -- Open Problem 1 — Hutchin
 import PF.Analytic.CellMidpoint                    -- Open Problem 1 — explicit cell-midpoint enumeration via boolean lists
 import PF.Analytic.MatrixEntry                     -- Open Problem 1 — discrete eigenvalue matrix-entry framework + symmetry
 import PF.Analytic.Lipschitz                       -- Open Problem 1 — Lipschitz infrastructure for IFS contractions (Banach contraction)
+import PF.Analytic.SpectrumSqrt2                   -- Open Problem 1 — level-1 spectrum at α = √2 (manuscript's case)
 import PF.Analytic.LambdaZeroHPBookBounds         -- Stage L4 — concrete numerical bounds: lambda_zero_HP_book ≈ 0.2221441469
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
