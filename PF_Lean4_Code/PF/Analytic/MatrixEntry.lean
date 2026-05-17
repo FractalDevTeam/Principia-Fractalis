@@ -448,6 +448,45 @@ theorem level1_matrix_psd {α a : ℝ} (ha : 1 < a) :
     0 ≤ lambdaPlusLevel1 α a ∧ 0 ≤ lambdaMinusLevel1 α a :=
   ⟨lambdaPlusLevel1_nonneg ha, lambdaMinusLevel1_nonneg ha⟩
 
+/-- **★ Upper spectral bound: λ⁺^{(1)} ≤ a/(a − 1) ★**:
+
+    The symmetric eigenvalue is bounded above by the operator-norm
+    bound `a/(a − 1)`. -/
+theorem lambdaPlusLevel1_le {α a : ℝ} (ha : 1 < a) :
+    lambdaPlusLevel1 α a ≤ a / (a - 1) := by
+  unfold lambdaPlusLevel1
+  have habs : |fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ)| ≤ a / (a - 1) :=
+    abs_fractalKernelReal_le α ha _
+  have hhigh : fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ) ≤ a/(a-1) :=
+    (abs_le.mp habs).2
+  linarith
+
+/-- **★ Upper spectral bound: λ⁻^{(1)} ≤ a/(a − 1) ★**:
+
+    The antisymmetric eigenvalue is bounded above by the operator-norm
+    bound `a/(a − 1)`. -/
+theorem lambdaMinusLevel1_le {α a : ℝ} (ha : 1 < a) :
+    lambdaMinusLevel1 α a ≤ a / (a - 1) := by
+  unfold lambdaMinusLevel1
+  have habs : |fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ)| ≤ a / (a - 1) :=
+    abs_fractalKernelReal_le α ha _
+  have hlow : -(a/(a-1)) ≤ fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ) :=
+    (abs_le.mp habs).1
+  linarith
+
+/-- **★ Full level-1 spectral bracketing ★**:
+
+      `0 ≤ λ±^{(1)} ≤ a/(a − 1)`
+
+    Both eigenvalues are sandwiched between 0 and the operator-norm
+    bound. This is the uniform spectral constraint at level 1, matching
+    the documented general bound from `abs_cellMatrixEntry_le`. -/
+theorem level1_spectrum_in_unit_interval {α a : ℝ} (ha : 1 < a) :
+    (0 ≤ lambdaPlusLevel1 α a ∧ lambdaPlusLevel1 α a ≤ a/(a-1)) ∧
+    (0 ≤ lambdaMinusLevel1 α a ∧ lambdaMinusLevel1 α a ≤ a/(a-1)) :=
+  ⟨⟨lambdaPlusLevel1_nonneg ha, lambdaPlusLevel1_le ha⟩,
+   ⟨lambdaMinusLevel1_nonneg ha, lambdaMinusLevel1_le ha⟩⟩
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
