@@ -265,6 +265,31 @@ theorem H_P_at_disc_cantorDiscMeasure_two (α a : ℝ) (f : ℝ → ℝ) (x : �
   rw [integral_dirac, integral_dirac, integral_dirac, integral_dirac]
   simp [ENNReal.toReal_ofNat]
 
+/-- **★ Level-2 constant-vector evaluation at x = 1/18 ★**:
+
+    For the constant function `f ≡ 1`,
+
+      `(H_P^disc[cantorDiscMeasure 2] 1)(1/18)
+         = (1/4) · (a/(a−1) + V_P(2/3) + V_P(2/9) + V_P(8/9))`
+
+    where `V_P(d) := V_P(x, y)` for any `(x, y)` with `dist(x, y) = d`
+    (depending only on distance by symmetry).
+
+    Computes the sum of the first row of `M^{(2)}`. This is the "row
+    sum" diagnostic: under the constant test function `1`, the
+    operator value at `x = m_{[ff]} = 1/18` equals the sum of all
+    matrix entries in row `[ff]`. -/
+theorem level2_constant_at_ff {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (1/18) =
+    (1/4) * (a/(a-1) +
+             fractalKernelReal α a ((1/18, 13/18) : ℝ × ℝ) +
+             fractalKernelReal α a ((1/18, 5/18) : ℝ × ℝ) +
+             fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ)) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (1/18)]
+  ring
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
