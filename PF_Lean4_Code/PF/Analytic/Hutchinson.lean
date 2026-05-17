@@ -41,6 +41,7 @@ Stage L4+ — Hutchinson operator + fixed-point framework.
 -/
 
 import PF.Analytic.FractalDomain
+import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 
 namespace PrincipiaTractalis.Analytic
 
@@ -185,6 +186,34 @@ theorem hutchinsonOp_smul (c : ENNReal) (μ : MeasureTheory.Measure ℝ) :
   ext s _
   simp [Measure.add_apply, Measure.smul_apply]
   ring
+
+/-! ## Seed measure for Hutchinson iteration -/
+
+/-- **Seed measure for the Hutchinson iteration**: Lebesgue restricted
+    to `[0, 1]`.
+
+      `cantorSeed := volume.restrict ([0, 1])`
+
+    The canonical initial probability measure for the iteration
+    `μ_n := T^n cantorSeed`. As `n → ∞`, the sequence concentrates
+    on `cantorSet` and converges (in Wasserstein-1) to the Hutchinson
+    invariant measure `μ_H`. -/
+noncomputable def cantorSeed : MeasureTheory.Measure ℝ :=
+  MeasureTheory.volume.restrict (Set.Icc (0 : ℝ) 1)
+
+/-- **`cantorSeed` is a probability measure**: total mass 1. -/
+theorem cantorSeed_total : cantorSeed Set.univ = 1 := by
+  unfold cantorSeed
+  rw [MeasureTheory.Measure.restrict_apply MeasurableSet.univ]
+  simp
+
+/-- **Hutchinson iteration starting from `cantorSeed` stays on
+    probability measures**:
+
+      `(T^n cantorSeed)(univ) = 1`  for all `n`. -/
+theorem hutchinsonOp_iter_cantorSeed_total (n : ℕ) :
+    (hutchinsonOp^[n] cantorSeed) Set.univ = 1 := by
+  rw [hutchinsonOp_iter_total, cantorSeed_total]
 
 /-! ## Pre-Cantor-set recursion (using framework contraction names) -/
 
