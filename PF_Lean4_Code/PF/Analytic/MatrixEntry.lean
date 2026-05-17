@@ -905,6 +905,49 @@ theorem level2_block_traces_nonneg {α a : ℝ} (ha : 1 < a) :
     have h2 : 0 ≤ level2AntiC α a := level2AntiC_nonneg ha
     linarith
 
+/-! ## ★ Level-2 block trace bounds ★ -/
+
+/-- **★ Level-2 sym block trace upper bound ★** (`a > 1`):
+
+      `λ_sym⁺ + λ_sym⁻ ≤ a/(a − 1)`
+
+    Each block trace is bounded by the operator-norm bound. Derived
+    from the trace identity `λ_sym⁺ + λ_sym⁻ = (1/4)·(A_sym + C_sym)`,
+    with `A_sym ≤ 2·a/(a−1)` and `C_sym ≤ 2·a/(a−1)` (each from
+    `a/(a−1) + |V_P| ≤ 2·a/(a−1)`). -/
+theorem lambdaSymLevel2_trace_le {α a : ℝ} (ha : 1 < a) :
+    lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a ≤ a/(a-1) := by
+  rw [lambdaSymLevel2_trace]
+  unfold level2SymA level2SymC
+  have h1 : fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ) ≤ a/(a-1) := by
+    have := (abs_le.mp (abs_fractalKernelReal_le α ha
+      (((1/18 : ℝ), (17/18 : ℝ)) : ℝ × ℝ))).2
+    exact this
+  have h2 : fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ) ≤ a/(a-1) := by
+    have := (abs_le.mp (abs_fractalKernelReal_le α ha
+      (((5/18 : ℝ), (13/18 : ℝ)) : ℝ × ℝ))).2
+    exact this
+  linarith
+
+/-- **★ Level-2 antisym block trace upper bound ★** (`a > 1`):
+
+      `λ_anti⁺ + λ_anti⁻ ≤ a/(a − 1)`
+
+    Symmetric argument. -/
+theorem lambdaAntiLevel2_trace_le {α a : ℝ} (ha : 1 < a) :
+    lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a ≤ a/(a-1) := by
+  rw [lambdaAntiLevel2_trace]
+  unfold level2AntiA level2AntiC
+  have h1 : -(a/(a-1)) ≤ fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ) := by
+    have := (abs_le.mp (abs_fractalKernelReal_le α ha
+      (((1/18 : ℝ), (17/18 : ℝ)) : ℝ × ℝ))).1
+    exact this
+  have h2 : -(a/(a-1)) ≤ fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ) := by
+    have := (abs_le.mp (abs_fractalKernelReal_le α ha
+      (((5/18 : ℝ), (13/18 : ℝ)) : ℝ × ℝ))).1
+    exact this
+  linarith
+
 /-! ## ★ Level-2 conditional PSD ★ -/
 
 /-- **★ Level-2 sym block conditional PSD ★**:
