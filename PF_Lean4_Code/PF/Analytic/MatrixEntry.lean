@@ -409,6 +409,23 @@ theorem trace_level2 {α a : ℝ} (ha : 1 < a) :
       cellMatrixEntry_diagonal ha, cellMatrixEntry_diagonal ha]
   ring
 
+/-- **★ Cross-level trace chain ★**:
+
+      `tr M^{(0)} = tr M^{(1)} = tr M^{(2)} = a/(a − 1)`
+
+    The trace is preserved across the first three refinement levels.
+    By the general trace identity (independent of `n`), this extends
+    to every level `n ≥ 0`. -/
+theorem trace_chain_levels_0_1_2 {α a : ℝ} (ha : 1 < a) :
+    cellMatrixEntry α a 0 [] [] = a / (a - 1) ∧
+    cellMatrixEntry α a 1 [false] [false] +
+      cellMatrixEntry α a 1 [true] [true] = a / (a - 1) ∧
+    cellMatrixEntry α a 2 [false, false] [false, false] +
+      cellMatrixEntry α a 2 [false, true] [false, true] +
+      cellMatrixEntry α a 2 [true, false] [true, false] +
+      cellMatrixEntry α a 2 [true, true] [true, true] = a / (a - 1) :=
+  ⟨trace_level0 ha, trace_level1 ha, trace_level2 ha⟩
+
 /-! ## ★ Level-1 positive semi-definiteness ★ -/
 
 /-- **★ Level-1 symmetric eigenvalue non-negativity ★**:
