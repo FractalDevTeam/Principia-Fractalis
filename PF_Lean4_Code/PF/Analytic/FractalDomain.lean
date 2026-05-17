@@ -49,6 +49,7 @@ Stage L4+ — Route A, Step 3: fractal-domain (Cantor-set) extension.
 
 import Mathlib.Topology.Instances.CantorSet
 import Mathlib.MeasureTheory.Measure.MeasureSpace
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import PF.RadixEconomy
 import PF.Analytic.KernelSelfSimilarity
 
@@ -313,6 +314,26 @@ def IsHutchinsonInvariant (μ : MeasureTheory.Measure ℝ) : Prop :=
         (MeasureTheory.Measure.map cantorContraction1 μ) +
       (1/2 : ENNReal) •
         (MeasureTheory.Measure.map cantorContraction2 μ)
+
+/-! ## The H_P^cantor operator (parametric in measure) -/
+
+/-- **Cantor-substrate operator action**:
+
+      `(H_P^cantor[μ] f)(x) := ∫_{cantorSet} V_P(x, y) · f(y) dμ(y)`
+
+    Parametric in the choice of Borel measure `μ`. For the
+    Hutchinson-invariant measure `μ_H` on `cantorSet`, this is the
+    canonical operator-substrate transport of `H_P_at α a`.
+
+    The integrand `cantorKernel α a x y · f y` is bounded (kernel
+    bounded by `a/(a-1)` for `a > 1`), so the integral converges
+    whenever `μ` is finite and `f` is integrable.
+
+    The integration uses `MeasureTheory.integral` restricted to
+    `cantorSet ⊆ ℝ` (mathlib's `∫ y in S, ... ∂μ` notation). -/
+noncomputable def H_P_at_cantor (α a : ℝ) (μ : MeasureTheory.Measure ℝ)
+    (f : ℝ → ℝ) (x : ℝ) : ℝ :=
+  ∫ y in cantorSet, cantorKernel α a x y * f y ∂μ
 
 /-! ## Documentation: the H_P^cantor operator (conditional definition)
 
