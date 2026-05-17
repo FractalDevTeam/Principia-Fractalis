@@ -1097,6 +1097,71 @@ theorem truncatedOperatorAction_zero_of_orthogonal
   rw [h_orth_cos j hj, h_orth_sin j hj]
   ring
 
+/-! ## Spectral convergence framework -/
+
+/-- **Spectral convergence claim** as a structured `Prop`:
+
+      `∀ k, ∀ ε > 0, ∃ K, ∀ K' ≥ K, the truncated operator T_{K'}
+       has a continuous eigenfunction with eigenvalue ε-close to λ_k`.
+
+    This is the formal statement that the truncated spectral
+    approximations converge to the conjectured eigenvalue sequence.
+    It is implied by Banach-Steinhaus / compact-operator spectral
+    continuity given the L¹→L∞ bound (session 21) and the convergence
+    theorem (sessions 11/16), but stated separately here as a
+    structured `Prop` for the conditional reduction below. -/
+def SpectralConvergenceClaim (α a : ℝ) (lambda : ℕ → ℝ) : Prop :=
+  ∀ k : ℕ, ∀ ε > 0, ∃ K : ℕ, ∀ K' ≥ K,
+    ∃ μ : ℝ, |μ - lambda k| < ε ∧
+      ∃ (f : ℝ → ℝ), Continuous f ∧ f ≠ 0 ∧
+        ∀ x ∈ Set.Icc (0 : ℝ) 1, truncatedOperatorAction α a K' f x = μ * f x
+
+/-- **The full polylog spectrum conjecture** as a structured `Prop`:
+
+    There exists an eigenvalue sequence `lambda` satisfying both
+    * the polylog formula (`PolylogSpectrumClaim` with the
+      principal-branch polylog `−log(1 − z)`), and
+    * spectral convergence from the truncations.
+
+    Solving Problem 1 of `OPEN_PROBLEMS.md` is equivalent to proving
+    or disproving this `PolylogSpectrumFullConjecture` for `α = √2`,
+    `a > 1`. -/
+def PolylogSpectrumFullConjecture (α a : ℝ) : Prop :=
+  ∃ lambda : ℕ → ℝ,
+    PolylogSpectrumClaim α a (fun z => -Complex.log (1 - z)) lambda ∧
+    SpectralConvergenceClaim α a lambda
+
+/-- **Principal-branch consequence**: if the conjecture holds with the
+    polylog evaluated on the principal branch (i.e., `−log(1 − z)`
+    extended to the closed unit disk), then for each `k` with
+    `sin(π·αᵏ/2) ≠ 0`,
+
+      `λ_k = −a^(-k) · log(2 · |sin(π·αᵏ/2)|)`.
+
+    This is the closed-form eigenvalue prediction on the principal
+    branch, matching the principal-branch evaluation from
+    `PolylogBoundary`. For `α = √2, k = 0` this gives the NEGATIVE
+    value `≈ −0.468`; the manuscript's positive `π/(10·√2)` requires
+    a different Riemann sheet (Problem 2 Heuristic). -/
+theorem polylog_principal_branch_eigenvalue
+    (α a : ℝ) (lambda : ℕ → ℝ)
+    (h : PolylogSpectrumClaim α a (fun z => -Complex.log (1 - z)) lambda)
+    (k : ℕ) (hsin : Real.sin (Real.pi * α^k / 2) ≠ 0) :
+    lambda k = -a^(-(k : ℤ)) *
+      Real.log (2 * |Real.sin (Real.pi * α^k / 2)|) := by
+  have h_eq_arg : Complex.I * (Real.pi * α^k : ℝ)
+                = Complex.I * ↑Real.pi * ↑(α^k) := by
+    push_cast; ring
+  rw [h k]
+  show a^(-(k : ℤ)) *
+    (-Complex.log (1 - Complex.exp (Complex.I * ↑Real.pi * ↑(α^k)))).re
+    = -a^(-(k : ℤ)) * Real.log (2 * |Real.sin (Real.pi * α^k / 2)|)
+  rw [← h_eq_arg]
+  have h_ppl := re_polyLog_one_principal_exp_I_pi_alpha_pow α k hsin
+  unfold polyLog_one_principal at h_ppl
+  rw [h_ppl]
+  ring
+
 /-! ## Tendsto form of T_k → H_P -/
 
 /-- **Truncated operator action converges to full operator action**:
