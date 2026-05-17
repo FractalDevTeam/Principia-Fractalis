@@ -9,3 +9,4 @@ PF/TuringEncoding/Operators.v
 PF/SpectralGap.v
 PF/Analytic/CantorIFS.v
 PF/Analytic/MatrixSpectrum.v
+PF/Analytic/MatrixSpectrumLevel2.v
