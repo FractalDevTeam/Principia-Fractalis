@@ -290,6 +290,101 @@ theorem level2_constant_at_ff {α a : ℝ} (ha : 1 < a) :
   rw [fractalKernelReal_diagonal ha (1/18)]
   ring
 
+/-- **★ Level-2 constant-vector evaluation at x = 5/18 ★**:
+
+      `(H_P^disc[cantorDiscMeasure 2] 1)(5/18)
+         = (1/4) · (V_P(2/9) + V_P(4/9) + a/(a−1) + V_P(2/3))`
+
+    The second-row sum of `M^{(2)}`. Compare with `level2_constant_at_ff`
+    (first-row sum) to see that the row sums DIFFER — the difference
+
+      `V_P(8/9) − V_P(4/9)`
+
+    is generically nonzero, so the constant function is NOT a level-2
+    eigenvector (in contrast with level 1 where the constant IS the
+    symmetric eigenvector). The true level-2 sym/antisym eigenvectors
+    live in the (a, b, b, a) and (a, b, −b, −a) sub-blocks under the
+    IFS reflection `x ↦ 1 − x`. -/
+theorem level2_constant_at_ft {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (5/18) =
+    (1/4) * (fractalKernelReal α a ((5/18, 1/18) : ℝ × ℝ) +
+             fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ) +
+             a/(a-1) +
+             fractalKernelReal α a ((5/18, 17/18) : ℝ × ℝ)) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (5/18)]
+  ring
+
+/-- **★ Level-2 NON-eigenvector statement ★**:
+
+    The first-row sum at `x = 1/18` and second-row sum at `x = 5/18`
+    of the constant test function under `H_P^disc[cantorDiscMeasure 2]`
+    differ by
+
+      `(1/4) · (V_P(1/18, 17/18) − V_P(5/18, 13/18))`
+      `= (1/4) · (V_P(8/9) − V_P(4/9))`
+
+    (where the kernel depends only on distance). When this difference
+    is nonzero (the GENERIC case — true for `α = √2` and most other α),
+    the constant function is NOT a level-2 eigenvector of
+    `H_P^disc[cantorDiscMeasure 2]`. This is the explicit witness for
+    the breakdown of the constant as an eigenvector at level 2 (compare
+    `level1_sym_eigenvector_at_{left,right}` where it IS an eigenvector). -/
+theorem level2_constant_row_diff {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (1/18) -
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (5/18) =
+    (1/4) * (fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ) -
+             fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ)) := by
+  rw [level2_constant_at_ff ha, level2_constant_at_ft ha]
+  -- Use V_P symmetry to consolidate the cross terms.
+  have hsym1 : fractalKernelReal α a (((1/18 : ℝ), (13/18 : ℝ)) : ℝ × ℝ)
+             = fractalKernelReal α a (((13/18 : ℝ), (1/18 : ℝ)) : ℝ × ℝ) := by
+    have h := fractalKernelReal_swap α a (((13/18 : ℝ), (1/18 : ℝ)) : ℝ × ℝ)
+    have hswap : (((13/18 : ℝ), (1/18 : ℝ)) : ℝ × ℝ).swap
+               = (((1/18 : ℝ), (13/18 : ℝ)) : ℝ × ℝ) := rfl
+    rw [hswap] at h
+    exact h
+  -- 5/18 → 13/18 vs 1/18 → 13/18: different (5/18, 13/18)
+  -- but symmetry of V_P implies V_P((5/18, 13/18)) = V_P((13/18, 5/18))
+  -- and V_P((1/18, 5/18)) = V_P((5/18, 1/18))
+  -- This doesn't directly cancel; the difference is genuinely V_P(8/9) - V_P(4/9).
+  have hsym2 : fractalKernelReal α a (((1/18 : ℝ), (5/18 : ℝ)) : ℝ × ℝ)
+             = fractalKernelReal α a (((5/18 : ℝ), (1/18 : ℝ)) : ℝ × ℝ) := by
+    have h := fractalKernelReal_swap α a (((5/18 : ℝ), (1/18 : ℝ)) : ℝ × ℝ)
+    have hswap : (((5/18 : ℝ), (1/18 : ℝ)) : ℝ × ℝ).swap
+               = (((1/18 : ℝ), (5/18 : ℝ)) : ℝ × ℝ) := rfl
+    rw [hswap] at h
+    exact h
+  -- distance-equality cross-terms:
+  -- V_P(1/18, 13/18) (dist 2/3) = V_P(5/18, 17/18) (dist 2/3)
+  -- both are the same V_P value at distance 2/3
+  have hd_2_3_a : dist ((1/18 : ℝ)) (13/18 : ℝ) = 2/3 := by
+    rw [Real.dist_eq]; norm_num
+  have hd_2_3_b : dist ((5/18 : ℝ)) (17/18 : ℝ) = 2/3 := by
+    rw [Real.dist_eq]; norm_num
+  have hd_2_9_a : dist ((1/18 : ℝ)) (5/18 : ℝ) = 2/9 := by
+    rw [Real.dist_eq]; norm_num
+  have hd_2_9_b : dist ((5/18 : ℝ)) (1/18 : ℝ) = 2/9 := by
+    rw [Real.dist_eq]; norm_num
+  -- The dist-based equality: V_P depends only on dist, so equal dists give
+  -- equal V_P. We use the explicit form `fractalKernelReal_swap` and the
+  -- fact that the tsum depends only on dist.
+  have h_2_3 : fractalKernelReal α a (((1/18 : ℝ), (13/18 : ℝ)) : ℝ × ℝ)
+             = fractalKernelReal α a (((5/18 : ℝ), (17/18 : ℝ)) : ℝ × ℝ) := by
+    unfold fractalKernelReal fractalKernelTerm
+    apply tsum_congr; intro n
+    rw [hd_2_3_a, hd_2_3_b]
+  have h_2_9 : fractalKernelReal α a (((1/18 : ℝ), (5/18 : ℝ)) : ℝ × ℝ)
+             = fractalKernelReal α a (((5/18 : ℝ), (1/18 : ℝ)) : ℝ × ℝ) := hsym2
+  rw [h_2_3]
+  -- Now goal: 1/4 * (a/(a-1) + V_P(5/18,17/18) + V_P(1/18,5/18) + V_P(1/18,17/18))
+  --        - 1/4 * (V_P(5/18,1/18) + V_P(5/18,13/18) + a/(a-1) + V_P(5/18,17/18))
+  --       = 1/4 * (V_P(1/18,17/18) - V_P(5/18,13/18))
+  -- This reduces to V_P(1/18, 5/18) = V_P(5/18, 1/18), which is hsym2.
+  rw [hsym2]
+  ring
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
