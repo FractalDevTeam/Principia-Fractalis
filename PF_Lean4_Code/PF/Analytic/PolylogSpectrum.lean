@@ -645,6 +645,74 @@ theorem fullOperatorAction_sub_truncated_bound
     _ = a^(-(k : ℤ)) * (a / (a - 1)) * ∫ y in (0:ℝ)..1, |f y| := by
           rw [intervalIntegral.integral_const_mul]
 
+/-! ## k = 2 truncation: scale mixing makes cosineMode α 0 NOT an eigenfunction -/
+
+/-- **k = 2 truncation explicit action on `cosineMode α 0`**:
+
+      `(T_2 · cosineMode α 0)(x)
+        = (1/2) · cosineMode α 0 x
+        + a⁻¹ · [ cosineMode α 1 x · ⟨cosineMode α 1, cosineMode α 0⟩
+                + sineMode   α 1 x · ⟨sineMode   α 1, cosineMode α 0⟩ ]`
+
+    where the cross-scale inner products are the closed forms from
+    `inner_cosineMode_cosineMode_off` and `inner_sineMode_cosineMode_off`.
+
+    Hypotheses: `α ≠ 0`, `α ≠ 1`, `α ≠ −1` (the last two ensure
+    `α¹ ≠ α⁰` and `α¹ + α⁰ ≠ 0`, the conditions for the off-diagonal
+    formulas to apply).
+
+    **Significance**: cosineMode α 0 is NOT an eigenfunction of T_2
+    in general — it has explicit mixing with `cosineMode α 1` and
+    `sineMode α 1` whose coefficients depend on `α`. The true T_2
+    eigenfunctions are linear combinations of `{cosineMode α 0,
+    sineMode α 0, cosineMode α 1, sineMode α 1}` whose explicit
+    determination requires diagonalising the 4×4 matrix with
+    entries given by the inner-product theorems in this file. -/
+theorem truncatedOperatorAction_two_cosineMode_zero
+    (α a : ℝ) (hα : α ≠ 0) (hα_ne_one : α ≠ 1) (hα_ne_neg_one : α ≠ -1)
+    (x : ℝ) :
+    truncatedOperatorAction α a 2 (cosineMode α 0) x =
+    (1/2 : ℝ) * cosineMode α 0 x
+    + a^(-(1 : ℤ)) *
+      (cosineMode α 1 x *
+        (Real.sin (Real.pi * α^1 - Real.pi * α^0) /
+            (2 * (Real.pi * α^1 - Real.pi * α^0)) +
+         Real.sin (Real.pi * α^1 + Real.pi * α^0) /
+            (2 * (Real.pi * α^1 + Real.pi * α^0)))
+       + sineMode α 1 x *
+         ((1 - Real.cos (Real.pi * α^1 - Real.pi * α^0)) /
+              (2 * (Real.pi * α^1 - Real.pi * α^0)) +
+          (1 - Real.cos (Real.pi * α^1 + Real.pi * α^0)) /
+              (2 * (Real.pi * α^1 + Real.pi * α^0)))) := by
+  have hcont : Continuous (cosineMode α 0) := by
+    unfold cosineMode
+    exact Real.continuous_cos.comp (continuous_const.mul continuous_id')
+  rw [truncatedOperatorAction_eq_sum α a 2 (cosineMode α 0) hcont x]
+  rw [show (2 : ℕ) = 1 + 1 from rfl]
+  rw [Finset.sum_range_succ, Finset.sum_range_one]
+  have h_inner_cos0_cos0 :
+      (∫ y in (0:ℝ)..1, cosineMode α 0 y * cosineMode α 0 y) = 1/2 := by
+    have hrw : ∀ y, cosineMode α 0 y * cosineMode α 0 y = cosineMode α 0 y ^ 2 :=
+      fun y => by ring
+    simp_rw [hrw]; exact inner_cosineMode_zero_self_eq_half α hα
+  have h_inner_sin0_cos0 :
+      (∫ y in (0:ℝ)..1, sineMode α 0 y * cosineMode α 0 y) = 0 := by
+    rw [show (fun y => sineMode α 0 y * cosineMode α 0 y) =
+            (fun y => cosineMode α 0 y * sineMode α 0 y) from
+        by funext y; ring]
+    exact inner_cosineMode_zero_sineMode_zero_eq_zero α hα
+  have hα_pow_diff : (α : ℝ)^(1 : ℕ) ≠ α^(0 : ℕ) := by
+    simp; exact hα_ne_one
+  have hα_pow_sum : (α : ℝ)^(1 : ℕ) + α^(0 : ℕ) ≠ 0 := by
+    simp; intro h; apply hα_ne_neg_one; linarith
+  have h_inner_cos1_cos0 :=
+    inner_cosineMode_cosineMode_off α 1 0 hα_pow_diff hα_pow_sum
+  have h_inner_sin1_cos0 :=
+    inner_sineMode_cosineMode_off α 1 0 hα_pow_diff hα_pow_sum
+  rw [h_inner_cos0_cos0, h_inner_sin0_cos0, h_inner_cos1_cos0, h_inner_sin1_cos0]
+  simp only [Nat.cast_zero, neg_zero, zpow_zero, Nat.cast_one]
+  ring
+
 /-! ## Formal conjecture statement
 
 The conjecture `λ_k = (1/aᵏ) · Re[Li₁(e^{iπαᵏ})]` requires the complex
