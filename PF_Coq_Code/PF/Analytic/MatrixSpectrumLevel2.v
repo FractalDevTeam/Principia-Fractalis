@@ -283,6 +283,84 @@ Proof.
     lra.
 Qed.
 
+(* ============================================================ *)
+(* Conditional PSD via Sylvester                                 *)
+(* ============================================================ *)
+
+(** **Eigenvalue ordering** (always true, from disc ≥ 0):
+    λ_sym⁻ ≤ λ_sym⁺. *)
+Theorem lambdaSym_le_Level2 :
+    lambdaSymMinusLevel2 <= lambdaSymPlusLevel2.
+Proof.
+  unfold lambdaSymPlusLevel2, lambdaSymMinusLevel2.
+  pose proof (sqrt_pos level2SymDisc).
+  pose proof (sqrt_positivity level2SymDisc level2SymDisc_nonneg).
+  lra.
+Qed.
+
+Theorem lambdaAnti_le_Level2 :
+    lambdaAntiMinusLevel2 <= lambdaAntiPlusLevel2.
+Proof.
+  unfold lambdaAntiPlusLevel2, lambdaAntiMinusLevel2.
+  pose proof (sqrt_positivity level2AntiDisc level2AntiDisc_nonneg).
+  lra.
+Qed.
+
+(** **Conditional sym PSD** (Sylvester): if B_sym² ≤ A_sym · C_sym,
+    then 0 ≤ λ_sym⁻. *)
+Theorem level2_sym_PSD_from_det
+    (hdet : level2SymOffdiag^2 <= level2SymA * level2SymC) :
+    0 <= lambdaSymMinusLevel2.
+Proof.
+  unfold lambdaSymMinusLevel2.
+  set (s := level2SymA + level2SymC).
+  set (S := sqrt level2SymDisc).
+  (* Need: 0 ≤ (1/8)(s - S) iff s ≥ S. *)
+  (* s ≥ 0 from level2Sym{A,C}_nonneg.
+     Suffices to show S ≤ s, i.e., S² ≤ s² (since both non-neg).
+     S² = (A-C)² + 4·B² ≤ (A+C)² ⟺ 4·A·C ≥ 4·B², which is hdet. *)
+  assert (Hs_nn : 0 <= s).
+  { unfold s. pose proof level2SymA_nonneg. pose proof level2SymC_nonneg. lra. }
+  assert (HS_nn : 0 <= S).
+  { unfold S. apply sqrt_pos. }
+  assert (HS2 : S^2 = level2SymDisc).
+  { unfold S, pow. rewrite Rmult_1_r. apply sqrt_sqrt. apply level2SymDisc_nonneg. }
+  assert (Hkey : level2SymDisc <= s^2).
+  { unfold level2SymDisc, s. nra. }
+  assert (HSle : S <= s).
+  { (* sqrt is monotone; sqrt(disc) ≤ sqrt(s²) = |s| = s. *)
+    unfold S.
+    apply Rle_trans with (sqrt (s^2)).
+    - apply sqrt_le_1; [apply level2SymDisc_nonneg | apply pow2_ge_0 | exact Hkey ].
+    - rewrite sqrt_pow2; [lra | exact Hs_nn]. }
+  lra.
+Qed.
+
+(** **Conditional antisym PSD**. *)
+Theorem level2_anti_PSD_from_det
+    (hdet : level2AntiOffdiag^2 <= level2AntiA * level2AntiC) :
+    0 <= lambdaAntiMinusLevel2.
+Proof.
+  unfold lambdaAntiMinusLevel2.
+  set (s := level2AntiA + level2AntiC).
+  set (S := sqrt level2AntiDisc).
+  assert (Hs_nn : 0 <= s).
+  { unfold s. pose proof level2AntiA_nonneg. pose proof level2AntiC_nonneg. lra. }
+  assert (HS_nn : 0 <= S).
+  { unfold S. apply sqrt_pos. }
+  assert (HS2 : S^2 = level2AntiDisc).
+  { unfold S, pow. rewrite Rmult_1_r. apply sqrt_sqrt. apply level2AntiDisc_nonneg. }
+  assert (Hkey : level2AntiDisc <= s^2).
+  { unfold level2AntiDisc, s. nra. }
+  assert (HSle : S <= s).
+  { (* sqrt is monotone; sqrt(disc) ≤ sqrt(s²) = |s| = s. *)
+    unfold S.
+    apply Rle_trans with (sqrt (s^2)).
+    - apply sqrt_le_1; [apply level2AntiDisc_nonneg | apply pow2_ge_0 | exact Hkey ].
+    - rewrite sqrt_pow2; [lra | exact Hs_nn]. }
+  lra.
+Qed.
+
 End Level2Spectrum.
 
 (* ============================================================ *)
