@@ -281,6 +281,23 @@ theorem cantorDiscMeasure_total (n : ℕ) :
   · simp
   · exact MeasurableSet.univ
 
+/-- **Level 1 explicit form**:
+
+      `cantorDiscMeasure 1 = (1/2)·δ_{1/6} + (1/2)·δ_{5/6}`
+
+    The two Dirac points `1/6, 5/6` are exactly the midpoints of the
+    level-1 cells `[0, 1/3]` and `[2/3, 1]`. -/
+theorem cantorDiscMeasure_one :
+    cantorDiscMeasure 1 =
+    (1/2 : ENNReal) • MeasureTheory.Measure.dirac (1/6 : ℝ) +
+    (1/2 : ENNReal) • MeasureTheory.Measure.dirac (5/6 : ℝ) := by
+  rw [cantorDiscMeasure_succ, cantorDiscMeasure_zero]
+  unfold hutchinsonOp
+  rw [MeasureTheory.Measure.map_dirac cantorContraction1_measurable]
+  rw [MeasureTheory.Measure.map_dirac cantorContraction2_measurable]
+  unfold cantorContraction1 cantorContraction2
+  norm_num
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
