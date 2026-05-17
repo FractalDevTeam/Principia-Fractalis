@@ -465,6 +465,50 @@ theorem conjectured_eigenvalue_principal_zero_eq_neg_log_two (α a : ℝ) :
   unfold conjectured_eigenvalue_principal
   simp [pow_zero]
 
+/-! ## NP-class parallels (α = φ + 1/4) -/
+
+/-- **NP-class bridge**: `manuscript_predicted_eigenvalue_zero (φ + 1/4) =
+    lambda_0_NP` from `SpectralGap.lean`. -/
+theorem manuscript_predicted_eigenvalue_zero_NP_eq_lambda_0_NP :
+    manuscript_predicted_eigenvalue_zero (phi + 1/4) =
+    PrincipiaTractalis.lambda_0_NP := by
+  unfold manuscript_predicted_eigenvalue_zero
+        PrincipiaTractalis.lambda_0_NP PrincipiaTractalis.pi_10
+  have hphi_pos : 0 < phi := by
+    unfold phi
+    have h5 : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+    linarith
+  have hdenom : 0 < phi + 1/4 := by linarith
+  field_simp
+
+/-- **NP-class predicted value is positive**: `π/(10·(φ+¼)) > 0`. -/
+theorem manuscript_predicted_eigenvalue_zero_NP_pos :
+    manuscript_predicted_eigenvalue_zero (phi + 1/4) > 0 := by
+  unfold manuscript_predicted_eigenvalue_zero
+  have h1 : 0 < Real.pi := Real.pi_pos
+  have h2 : 0 < phi + 1/4 := by
+    unfold phi
+    have h5 : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+    linarith
+  positivity
+
+/-- **NP-class incompatibility** (parallel to session 32 P-class):
+
+    Manuscript's `λ_0(H_NP) = π/(10·(φ+¼)) ≈ +0.168` is POSITIVE, while
+    principal-branch `−log 2 ≈ −0.693` is NEGATIVE. They cannot be
+    equal — so Problem 2's Riemann-sheet selection is also required
+    for the NP-class part of the conjecture. -/
+theorem manuscript_principal_incompatibility_NP (a : ℝ) :
+    manuscript_predicted_eigenvalue_zero (phi + 1/4) ≠
+    conjectured_eigenvalue_principal (phi + 1/4) a 0 := by
+  intro h
+  have h_pos := manuscript_predicted_eigenvalue_zero_NP_pos
+  rw [conjectured_eigenvalue_principal_zero_eq_neg_log_two] at h
+  have h_neg : -Real.log 2 < 0 := by
+    have := Real.log_pos (by norm_num : (1 : ℝ) < 2); linarith
+  rw [h] at h_pos
+  linarith
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
