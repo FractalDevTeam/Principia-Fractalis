@@ -213,6 +213,58 @@ theorem H_P_at_disc_cantorDiscMeasure_one (α a : ℝ) (f : ℝ → ℝ) (x : �
       exact ENNReal.mul_lt_top (by simp [enorm_eq_nnnorm])
         (by simp [enorm_eq_nnnorm]))
 
+/-! ## ★ Level-2 discrete operator action ★ -/
+
+/-- **Level-2 explicit operator action**:
+
+      `(H_P^disc[cantorDiscMeasure 2] f)(x) =
+            (1/4) · V_P(x, 1/18)  · f(1/18)
+          + (1/4) · V_P(x, 13/18) · f(13/18)
+          + (1/4) · V_P(x, 5/18)  · f(5/18)
+          + (1/4) · V_P(x, 17/18) · f(17/18)`
+
+    The level-2 discrete operator is a 4×4 matrix acting on the
+    quadruple `(f(1/18), f(5/18), f(13/18), f(17/18))`. Specialising
+    `x ∈ {1/18, 5/18, 13/18, 17/18}` gives the full matrix-vector
+    product.
+
+    (Note the ordering: the natural Hutchinson-iteration order is
+    `{1/18, 13/18, 5/18, 17/18}` — `f₁` children first, then `f₂`
+    children — matching `cantorDiscMeasure_two`.) -/
+theorem H_P_at_disc_cantorDiscMeasure_two (α a : ℝ) (f : ℝ → ℝ) (x : ℝ) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f x =
+      (1/4) * (cantorKernel α a x (1/18) * f (1/18)) +
+      (1/4) * (cantorKernel α a x (13/18) * f (13/18)) +
+      ((1/4) * (cantorKernel α a x (5/18) * f (5/18)) +
+       (1/4) * (cantorKernel α a x (17/18) * f (17/18))) := by
+  unfold H_P_at_disc
+  rw [cantorDiscMeasure_two]
+  -- two-step integral add: ((m₁ + m₂) + (m₃ + m₄))
+  -- structurally: μ = (a + b) + (c + d) where each a,b,c,d is (1/4)·dirac
+  set ν1 : MeasureTheory.Measure ℝ := (1/4 : ENNReal) • MeasureTheory.Measure.dirac (1/18 : ℝ) with hν1
+  set ν2 : MeasureTheory.Measure ℝ := (1/4 : ENNReal) • MeasureTheory.Measure.dirac (13/18 : ℝ) with hν2
+  set ν3 : MeasureTheory.Measure ℝ := (1/4 : ENNReal) • MeasureTheory.Measure.dirac (5/18 : ℝ) with hν3
+  set ν4 : MeasureTheory.Measure ℝ := (1/4 : ENNReal) • MeasureTheory.Measure.dirac (17/18 : ℝ) with hν4
+  -- Each νᵢ is a scaled Dirac → integrand integrable
+  have hint : ∀ z : ℝ, MeasureTheory.Integrable
+      (fun y => cantorKernel α a x y * f y)
+      ((1/4 : ENNReal) • MeasureTheory.Measure.dirac z) := by
+    intro z
+    refine Integrable.smul_measure ?_ (by simp : ((1/4 : ENNReal) : ENNReal) ≠ ⊤)
+    exact integrable_dirac (by
+      rw [enorm_mul]
+      exact ENNReal.mul_lt_top (by simp [enorm_eq_nnnorm])
+        (by simp [enorm_eq_nnnorm]))
+  -- (ν1 + ν2) + (ν3 + ν4)
+  rw [integral_add_measure (Integrable.add_measure (hint _) (hint _))
+                           (Integrable.add_measure (hint _) (hint _))]
+  rw [integral_add_measure (hint _) (hint _),
+      integral_add_measure (hint _) (hint _)]
+  rw [integral_smul_measure, integral_smul_measure,
+      integral_smul_measure, integral_smul_measure]
+  rw [integral_dirac, integral_dirac, integral_dirac, integral_dirac]
+  simp [ENNReal.toReal_ofNat]
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
