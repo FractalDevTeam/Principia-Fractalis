@@ -131,6 +131,35 @@ theorem hutchinsonOp_probability (μ : MeasureTheory.Measure ℝ)
     (hutchinsonOp μ) Set.univ = 1 := by
   rw [hutchinsonOp_total μ, hμ]
 
+/-! ## Linearity in μ -/
+
+/-- **Additivity**: `T(μ₁ + μ₂) = T μ₁ + T μ₂`.
+
+    The Hutchinson operator distributes over measure addition. Direct
+    consequence of `Measure.map_add` for each contraction + the
+    additive structure of the smul-weighted sum. -/
+theorem hutchinsonOp_add (μ₁ μ₂ : MeasureTheory.Measure ℝ) :
+    hutchinsonOp (μ₁ + μ₂) = hutchinsonOp μ₁ + hutchinsonOp μ₂ := by
+  unfold hutchinsonOp
+  rw [Measure.map_add _ _ cantorContraction1_measurable]
+  rw [Measure.map_add _ _ cantorContraction2_measurable]
+  rw [smul_add, smul_add]
+  ext s _
+  simp [Measure.add_apply, Measure.smul_apply]
+  ring
+
+/-- **Scalar homogeneity**: `T(c · μ) = c · T μ` for any `c : ℝ≥0∞`.
+
+    Consequence of `Measure.map_smul` applied to each contraction. -/
+theorem hutchinsonOp_smul (c : ENNReal) (μ : MeasureTheory.Measure ℝ) :
+    hutchinsonOp (c • μ) = c • hutchinsonOp μ := by
+  unfold hutchinsonOp
+  rw [Measure.map_smul]
+  rw [Measure.map_smul]
+  ext s _
+  simp [Measure.add_apply, Measure.smul_apply]
+  ring
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
