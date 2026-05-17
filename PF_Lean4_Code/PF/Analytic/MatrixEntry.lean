@@ -1263,6 +1263,29 @@ theorem level2_spectral_radius_bound {α a : ℝ} (ha : 1 < a) :
    abs_lambdaAntiPlusLevel2_le ha,
    abs_lambdaAntiMinusLevel2_le ha⟩
 
+/-- **★ Frobenius monotonicity chain (levels 0, 1, 2) ★** (`a > 1`):
+
+      `‖M^{(0)}‖_F² = (a/(a−1))²`
+      `‖M^{(1)}‖_F² ≤ (a/(a−1))²`
+      `‖M^{(2)}‖_F² ≤ (a/(a−1))²`
+
+    Both level-1 and level-2 Frobenius norms are bounded by the level-0
+    value. The conjectured (but not proven) GENERAL monotonicity:
+
+      `‖M^{(n+1)}‖_F² ≤ ‖M^{(n)}‖_F²`  for all `n ≥ 0`
+
+    would express the spectrum spreading monotonically with refinement
+    (a property of the polylog spectrum conjecture). -/
+theorem frobenius_chain_levels_0_1_2 {α a : ℝ} (ha : 1 < a) :
+    (lambdaLevel0 a)^2 = (a/(a-1))^2 ∧
+    (lambdaPlusLevel1 α a)^2 + (lambdaMinusLevel1 α a)^2 ≤ (a/(a-1))^2 ∧
+    (lambdaSymPlusLevel2 α a)^2 + (lambdaSymMinusLevel2 α a)^2 +
+      ((lambdaAntiPlusLevel2 α a)^2 + (lambdaAntiMinusLevel2 α a)^2) ≤
+      (a/(a-1))^2 :=
+  ⟨by unfold lambdaLevel0; rfl,
+   level1_sumSq_le_level0 ha,
+   level2_sumSq_le_level0 ha⟩
+
 /-- **★ Full level-2 spectrum bracketing ★** (`a > 1`):
 
     All 4 level-2 eigenvalues lie in `[−a/(a−1), a/(a−1)]`:
