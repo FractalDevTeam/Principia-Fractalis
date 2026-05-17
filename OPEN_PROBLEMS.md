@@ -35,7 +35,7 @@ where `Li₁` is the polylogarithm of order 1, evaluated on a specific physical 
 
 **Lean encoding.** Part of `alpha_class_polylog_eigenvalue_conjecture` axiom (`PF/TuringEncoding/Operators.lean`).
 
-**Supporting infrastructure delivered (2026-05-16, 25 sessions, 60 axiom-free theorems + 8 definitions).**
+**Supporting infrastructure delivered (2026-05-16, 31 sessions, 70 axiom-free theorems + 8 definitions).**
 
 The following machine-checked infrastructure for attacking Problem 1 has been delivered in Lean 4, all zero-project-axiom:
 
@@ -75,7 +75,16 @@ For α = √2, k = 0 the principal-branch evaluation is `−log(2·sin(π·√2/
 * `SpectralConvergenceClaim` + `PolylogSpectrumFullConjecture` — full structured-`Prop` packaging of the conjecture.
 * `sq_truncatedFractalKernelReal_le` + `sq_fractalKernelReal_le` — Hilbert-Schmidt norm bounds: `‖T_k‖_HS ≤ a/(a−1)` and `‖H_P‖_HS ≤ a/(a−1)`. Establishes H_P as Hilbert-Schmidt compact + self-adjoint, hence discrete spectrum with eigenvalues → 0.
 
-**What this infrastructure gives the framework.** Every matrix entry of the finite-rank truncated operator `T_k` in the cosineMode/sineMode basis is a proven closed form. `T_k → H_P` with explicit O(a^{-k}) convergence (pointwise and Tendsto). The natural basis is provably NOT the eigenbasis for k ≥ 2 (scale-mixing explicit at all 4 rows of `T_2`). `H_P` is provably Hilbert-Schmidt with HS norm ≤ a/(a−1), hence compact + self-adjoint with discrete spectrum. The principal-branch evaluation of the conjectured formula is in closed form, and the conjecture's incompatibility with principal-branch evaluation is a formal theorem. The remaining work is genuinely original mathematics: eigenvector identification + Riemann-sheet selection (= Problems 1+2 of this catalogue).
+**What this infrastructure gives the framework.** Every matrix entry of the finite-rank truncated operator `T_k` in the cosineMode/sineMode basis is a proven closed form. `T_k → H_P` with explicit O(a^{-k}) convergence (pointwise and Tendsto, at both kernel and operator level). The natural basis is provably NOT the eigenbasis for k ≥ 2 (scale-mixing explicit at all 4 rows of `T_2`). `H_P` is provably Hilbert-Schmidt with HS norm ≤ a/(a−1), hence compact + self-adjoint with discrete spectrum. The principal-branch evaluation of the conjectured formula is in closed form, and the conjecture's incompatibility with principal-branch evaluation is a formal theorem.
+
+**Sharp formal constraints on the physical Riemann sheet** (sessions 26–31): for α = √2, the principal-branch eigenvalue formula:
+* Gives `λ_0_principal = −log 2 ≈ −0.693` (theorem `conjectured_eigenvalue_principal_sqrt2_zero`), while the manuscript predicts `λ_0_physical = +π/(10·√2) ≈ +0.222` — sign flip + magnitude shift of `≈ 0.915`.
+* Has singularities `sin(π·αᵏ/2) = 0` at every even `k ≥ 2` (theorems `principal_branch_singularity_sqrt2_k2`, `principal_branch_singularity_sqrt2_even_k`).
+* Is well-defined at `k = 0` and `k = 1` (theorems `sin_pi_sqrt2_pow_zero_div_2_ne_zero`, `sin_pi_sqrt2_pow_one_div_2_ne_zero`).
+
+So the physical Riemann sheet (Problem 2's Heuristic) must (a) flip signs at `k = 0, 1`, (b) resolve infinitely many singularities at every even `k ≥ 2`, (c) produce finite values matching the manuscript's eigenvalue predictions. These are now FORMAL THEOREM CONSTRAINTS, not numerical observations.
+
+The remaining work is genuinely original mathematics: eigenvector identification + Riemann-sheet selection (= Problems 1+2 of this catalogue).
 
 **What a solution would deliver.** Together with Problems 2 and 3, retires the project axiom and gives an unconditional P ≠ NP via the framework's spectral-gap chain.
 
