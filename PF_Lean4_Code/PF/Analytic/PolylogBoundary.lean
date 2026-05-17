@@ -440,6 +440,31 @@ theorem manuscript_predicted_eigenvalue_zero_eq_lambda_0_P :
         PrincipiaTractalis.lambda_0_P PrincipiaTractalis.pi_10
   ring
 
+/-! ## α-independence of principal-branch at k = 0 -/
+
+/-- **At k = 0, the principal-branch evaluation is α-independent**:
+
+      `conjectured_eigenvalue_principal α a 0 = −log 2`
+
+    for any `α : ℝ`, any `a : ℝ`. Proof: at `k = 0`, `α^0 = 1`, so
+    `π · α^0 / 2 = π/2`, `sin(π/2) = 1`, hence `−log(2·1) = −log 2`.
+    The `a^(-0) = 1` prefactor doesn't depend on `a` either.
+
+    **Structural consequence**: the manuscript's distinct predictions
+    `λ_0(H_P √2 a) = π/(10·√2) ≈ 0.222` (P-class) and
+    `λ_0(H_P (φ+¼) a) = π/(10·(φ+¼)) ≈ 0.168` (NP-class) are
+    DIFFERENT, but the principal-branch evaluation at `k = 0` gives
+    the SAME value `−log 2 ≈ −0.693` for BOTH α values. Therefore
+    the physical-branch selection (Problem 2's Heuristic) must depend
+    *non-trivially* on α — not just resolve a singularity, but
+    actually distinguish between different α values at the same
+    `(α^k, k)` evaluation point. This is a sharper structural
+    constraint than session 32's incompatibility theorem. -/
+theorem conjectured_eigenvalue_principal_zero_eq_neg_log_two (α a : ℝ) :
+    conjectured_eigenvalue_principal α a 0 = -Real.log 2 := by
+  unfold conjectured_eigenvalue_principal
+  simp [pow_zero]
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
