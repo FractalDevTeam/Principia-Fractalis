@@ -826,6 +826,77 @@ theorem level2_block_traces_nonneg {α a : ℝ} (ha : 1 < a) :
     have h2 : 0 ≤ level2AntiC α a := level2AntiC_nonneg ha
     linarith
 
+/-! ## ★ Level-2 conditional PSD ★ -/
+
+/-- **★ Level-2 sym block conditional PSD ★**:
+
+    Both sym-block eigenvalues are non-negative IFF the determinant
+    is non-negative (given the trace is already non-negative, which
+    we proved unconditionally):
+
+      `A_sym · C_sym ≥ B_sym_offdiag²  ⟹  λ_sym⁺ ≥ 0  ∧  λ_sym⁻ ≥ 0`
+
+    This is Sylvester's criterion for the 2×2 sym block.
+    The hypothesis is the formal PSD criterion for the sym block;
+    it is an OPEN ESTIMATE for general α (depends on V_P inner products
+    at distances 2/9, 4/9, 2/3, 8/9).
+
+    Proof: combine the trace-non-neg + det-non-neg + the standard
+    fact that x² − sx + p = 0 with s ≥ 0 and p ≥ 0 has both roots ≥ 0. -/
+theorem level2_sym_PSD_from_det {α a : ℝ} (ha : 1 < a)
+    (hdet : (level2SymOffdiag α a)^2 ≤ level2SymA α a * level2SymC α a) :
+    0 ≤ lambdaSymMinusLevel2 α a := by
+  -- We have trace ≥ 0, det ≥ 0. Use λ⁻ = (1/8)(S - √D) and want this ≥ 0,
+  -- i.e., S ≥ √D, i.e., S² ≥ D (when S ≥ 0).
+  unfold lambdaSymMinusLevel2
+  -- Goal: 0 ≤ (1/8) · ((A+C) - √D)
+  -- Suffices: (A+C) ≥ √D.
+  -- Since A+C ≥ 0, this is equivalent to (A+C)² ≥ D.
+  -- (A+C)² - D = (A+C)² - (A-C)² - 4·B² = 4·AC - 4·B² = 4·(AC - B²) ≥ 0 (by hdet).
+  set A := level2SymA α a
+  set C := level2SymC α a
+  set B := level2SymOffdiag α a
+  have hA : 0 ≤ A := level2SymA_nonneg ha
+  have hC : 0 ≤ C := level2SymC_nonneg ha
+  have hsum_nonneg : 0 ≤ A + C := by linarith
+  -- (A+C)² - D = 4(AC - B²)
+  have hkey : (A + C)^2 - ((A - C)^2 + 4 * B^2) = 4 * (A * C - B^2) := by ring
+  have hD_le_sq : (A - C)^2 + 4 * B^2 ≤ (A + C)^2 := by
+    have : 0 ≤ A * C - B^2 := by linarith
+    nlinarith
+  have hsqrt_le : Real.sqrt ((A - C)^2 + 4 * B^2) ≤ A + C := by
+    have habsAC : |A + C| = A + C := abs_of_nonneg hsum_nonneg
+    calc Real.sqrt ((A - C)^2 + 4 * B^2)
+        ≤ Real.sqrt ((A + C)^2) := Real.sqrt_le_sqrt hD_le_sq
+      _ = |A + C| := Real.sqrt_sq_eq_abs (A + C)
+      _ = A + C := habsAC
+  linarith
+
+/-- **★ Level-2 antisym block conditional PSD ★**:
+
+      `A_anti · C_anti ≥ B_anti_offdiag²  ⟹  λ_anti⁻ ≥ 0` -/
+theorem level2_anti_PSD_from_det {α a : ℝ} (ha : 1 < a)
+    (hdet : (level2AntiOffdiag α a)^2 ≤ level2AntiA α a * level2AntiC α a) :
+    0 ≤ lambdaAntiMinusLevel2 α a := by
+  unfold lambdaAntiMinusLevel2
+  set A := level2AntiA α a
+  set C := level2AntiC α a
+  set B := level2AntiOffdiag α a
+  have hA : 0 ≤ A := level2AntiA_nonneg ha
+  have hC : 0 ≤ C := level2AntiC_nonneg ha
+  have hsum_nonneg : 0 ≤ A + C := by linarith
+  have hkey : (A + C)^2 - ((A - C)^2 + 4 * B^2) = 4 * (A * C - B^2) := by ring
+  have hD_le_sq : (A - C)^2 + 4 * B^2 ≤ (A + C)^2 := by
+    have : 0 ≤ A * C - B^2 := by linarith
+    nlinarith
+  have hsqrt_le : Real.sqrt ((A - C)^2 + 4 * B^2) ≤ A + C := by
+    have habsAC : |A + C| = A + C := abs_of_nonneg hsum_nonneg
+    calc Real.sqrt ((A - C)^2 + 4 * B^2)
+        ≤ Real.sqrt ((A + C)^2) := Real.sqrt_le_sqrt hD_le_sq
+      _ = |A + C| := Real.sqrt_sq_eq_abs (A + C)
+      _ = A + C := habsAC
+  linarith
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
