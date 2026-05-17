@@ -577,7 +577,7 @@ theorem truncatedOperatorAction_one_sineMode_zero
       `(H_P f)(x) := ∫_0^1 V_P(x, y) · f(y) dy`. -/
 noncomputable def fullOperatorAction
     (α a : ℝ) (f : ℝ → ℝ) (x : ℝ) : ℝ :=
-  ∫ y in (0:ℝ)..1, fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+  ∫ y in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
 
 /-- **Truncated-to-full convergence bound**: the truncation error at
     each point `x` is bounded by `a^(-k) · a/(a−1) · ∫_0^1 |f(y)| dy`.
@@ -601,7 +601,7 @@ theorem fullOperatorAction_sub_truncated_bound
     (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (k : ℕ)
     (f : ℝ → ℝ) (x : ℝ)
     (hf_int_full : IntervalIntegrable
-        (fun y => fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y)
+        (fun y => PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y)
         MeasureTheory.volume 0 1)
     (hf_int_trunc : IntervalIntegrable
         (fun y => PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
@@ -615,24 +615,25 @@ theorem fullOperatorAction_sub_truncated_bound
   unfold fullOperatorAction truncatedOperatorAction
   rw [← intervalIntegral.integral_sub hf_int_full hf_int_trunc]
   have hbound : ∀ y,
-      |fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+      |PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
         - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
             α a k ((x, y) : ℝ × ℝ) * f y|
       ≤ (a^(-(k : ℤ)) * (a / (a - 1))) * |f y| := by
     intro y
-    rw [show fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+    rw [show PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
             - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
                 α a k ((x, y) : ℝ × ℝ) * f y
-          = (fractalKernelReal α a ((x, y) : ℝ × ℝ)
+          = (PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, y) : ℝ × ℝ)
             - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
                 α a k ((x, y) : ℝ × ℝ)) * f y from by ring]
     rw [abs_mul]
     exact mul_le_mul_of_nonneg_right
-      (abs_fractalKernelReal_sub_truncated_le α a ha hα k x y) (abs_nonneg _)
-  calc |∫ y in (0:ℝ)..1, fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+      (PrincipiaTractalis.IntegralKernel.abs_fractalKernelReal_sub_truncated_le
+        α a ha hα k x y) (abs_nonneg _)
+  calc |∫ y in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
               - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
                   α a k ((x, y) : ℝ × ℝ) * f y|
-      ≤ ∫ y in (0:ℝ)..1, |fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+      ≤ ∫ y in (0:ℝ)..1, |PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
               - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
                   α a k ((x, y) : ℝ × ℝ) * f y| := by
           exact intervalIntegral.abs_integral_le_integral_abs zero_le_one
