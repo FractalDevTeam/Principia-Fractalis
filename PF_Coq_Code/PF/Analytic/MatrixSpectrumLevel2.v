@@ -389,6 +389,19 @@ Proof.
   nra.
 Qed.
 
+(** **Level-2 full sum-of-squared-eigenvalues** (cross-block):
+    Σ all 4 squared eigenvalues = (1/16)·(sym + antisym sums). *)
+Theorem level2_full_sumSq :
+    (lambdaSymPlusLevel2^2 + lambdaSymMinusLevel2^2) +
+    (lambdaAntiPlusLevel2^2 + lambdaAntiMinusLevel2^2) =
+    (1/16) * (level2SymA^2 + level2SymC^2 + 2 * level2SymOffdiag^2 +
+              (level2AntiA^2 + level2AntiC^2 + 2 * level2AntiOffdiag^2)).
+Proof.
+  rewrite lambdaSymLevel2_sumSq.
+  rewrite lambdaAntiLevel2_sumSq.
+  lra.
+Qed.
+
 End Level2Spectrum.
 
 (* ============================================================ *)
