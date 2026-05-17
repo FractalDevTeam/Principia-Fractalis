@@ -1263,6 +1263,34 @@ theorem level2_spectral_radius_bound {α a : ℝ} (ha : 1 < a) :
    abs_lambdaAntiPlusLevel2_le ha,
    abs_lambdaAntiMinusLevel2_le ha⟩
 
+/-- **★ Full level-2 spectrum bracketing ★** (`a > 1`):
+
+    All 4 level-2 eigenvalues lie in `[−a/(a−1), a/(a−1)]`:
+
+      `−a/(a−1) ≤ λ_sym^±, λ_anti^± ≤ a/(a−1)`
+
+    Direct from `level2_spectral_radius_bound` via `abs_le`.
+
+    NOTE: this is the operator-norm bracketing. Full PSD (`λ ≥ 0`)
+    requires the conditional Sylvester criterion
+    (`level2_{sym, anti}_PSD_from_det`) — an OPEN ESTIMATE on the
+    V_P inner products at distances {2/9, 4/9, 2/3, 8/9}. -/
+theorem level2_spectrum_bracketing {α a : ℝ} (ha : 1 < a) :
+    (-(a/(a-1)) ≤ lambdaSymPlusLevel2 α a ∧
+     lambdaSymPlusLevel2 α a ≤ a/(a-1)) ∧
+    (-(a/(a-1)) ≤ lambdaSymMinusLevel2 α a ∧
+     lambdaSymMinusLevel2 α a ≤ a/(a-1)) ∧
+    (-(a/(a-1)) ≤ lambdaAntiPlusLevel2 α a ∧
+     lambdaAntiPlusLevel2 α a ≤ a/(a-1)) ∧
+    (-(a/(a-1)) ≤ lambdaAntiMinusLevel2 α a ∧
+     lambdaAntiMinusLevel2 α a ≤ a/(a-1)) := by
+  obtain ⟨h1, h2, h3, h4⟩ := level2_spectral_radius_bound ha
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · exact ⟨(abs_le.mp h1).1, (abs_le.mp h1).2⟩
+  · exact ⟨(abs_le.mp h2).1, (abs_le.mp h2).2⟩
+  · exact ⟨(abs_le.mp h3).1, (abs_le.mp h3).2⟩
+  · exact ⟨(abs_le.mp h4).1, (abs_le.mp h4).2⟩
+
 /-- **★ Level-1 trace identity ★**:
 
       `λ⁺^{(1)} + λ⁻^{(1)} = a/(a − 1)`
