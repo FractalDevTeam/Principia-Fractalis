@@ -421,6 +421,58 @@ noncomputable def H_P_at_disc (α a : ℝ) (μ : MeasureTheory.Measure ℝ)
     (f : ℝ → ℝ) (x : ℝ) : ℝ :=
   ∫ y, cantorKernel α a x y * f y ∂μ
 
+/-- **★ H_P^disc is self-adjoint ★** (Lebesgue integration form):
+
+      `∫ (H_P^disc[μ] f)(x) · g(x) dμ(x) = ∫ f(x) · (H_P^disc[μ] g)(x) dμ(x)`
+
+    The bilinear form `(f, g) ↦ ∫ (H_P^disc f) · g dμ` is **symmetric**
+    in `f` and `g`. This is the operator-theoretic statement of
+    self-adjointness for the kernel operator H_P^disc.
+
+    Proof: pull `g(x)` into the inner integral (linearity), swap
+    integration order via Fubini (`integral_integral_swap`), use kernel
+    symmetry `V_P(x, y) = V_P(y, x)` (`cantorKernel_symm`), pull
+    `f(y)` out, and recognise the inner integral as `H_P^disc g`.
+
+    **Hypothesis**: the bilinear integrand `V_P(x, y) · f(y) · g(x)` is
+    integrable on the product measure `μ × μ`. For DISCRETE measures
+    (finite sums of Diracs, including `cantorDiscMeasure n`), this is
+    automatic via the bounded kernel and finite support. -/
+theorem H_P_at_disc_self_adjoint (α a : ℝ) (μ : MeasureTheory.Measure ℝ)
+    [MeasureTheory.SFinite μ]
+    (f g : ℝ → ℝ)
+    (h_int : MeasureTheory.Integrable
+      (Function.uncurry (fun x y => cantorKernel α a x y * f y * g x))
+      (μ.prod μ)) :
+    ∫ x, H_P_at_disc α a μ f x * g x ∂μ =
+    ∫ x, f x * H_P_at_disc α a μ g x ∂μ := by
+  unfold H_P_at_disc
+  -- Pull g(x) into the inner integral
+  have hL : ∀ x, (∫ y, cantorKernel α a x y * f y ∂μ) * g x =
+                  ∫ y, cantorKernel α a x y * f y * g x ∂μ := by
+    intro x
+    rw [← MeasureTheory.integral_mul_const]
+  simp_rw [hL]
+  -- Fubini: swap integration order
+  rw [MeasureTheory.integral_integral_swap h_int]
+  -- Pull f(y) out + apply kernel symmetry, both inner integrands
+  apply MeasureTheory.integral_congr_ae
+  apply Filter.Eventually.of_forall
+  intro y
+  simp only
+  -- Goal: ∫ x, V_P(x, y) · f(y) · g(x) dμ
+  --     = f(y) · ∫ y', V_P(y, y') · g(y') dμ
+  rw [show (fun x => cantorKernel α a x y * f y * g x) =
+          (fun x => f y * (cantorKernel α a x y * g x)) from by
+        funext x; ring]
+  rw [MeasureTheory.integral_const_mul]
+  congr 1
+  apply MeasureTheory.integral_congr_ae
+  apply Filter.Eventually.of_forall
+  intro x
+  simp only
+  rw [cantorKernel_symm]
+
 /-- **Dirac action**: for `μ = δ_z`,
 
       `(H_P^disc[δ_z] f)(x) = V_P(x, z) · f(z)`.
