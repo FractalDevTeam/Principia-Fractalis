@@ -989,6 +989,59 @@ theorem trace_truncatedOperator_closed_form
   rw [trace_truncatedOperator α a k]
   exact geometric_sum_zpow_neg a ha ha_ne k
 
+/-! ## Operator-norm-like bound: T_k as L¹ → L∞ -/
+
+/-- **Uniform bound on `(T_k f)(x)` in terms of `‖f‖_{L¹}`**:
+
+      `|(T_k f)(x)| ≤ (a / (a − 1)) · ∫_0^1 |f(y)| dy`
+
+    for `a > 1`, all `x`, continuous `f`. This expresses `T_k` as a
+    bounded operator `L¹([0,1]) → L^∞([0,1])` with norm uniformly
+    bounded by `a/(a−1)` (independent of `k`).
+
+    Combined with the convergence theorem `tendsto_truncatedOperatorAction`,
+    this shows the truncated operators form a uniformly bounded family
+    converging pointwise to the full operator. -/
+theorem abs_truncatedOperatorAction_le
+    (α a : ℝ) (ha : 1 < a) (k : ℕ)
+    (f : ℝ → ℝ) (hf : Continuous f) (x : ℝ) :
+    |truncatedOperatorAction α a k f x| ≤
+    (a / (a - 1)) * ∫ y in (0:ℝ)..1, |f y| := by
+  unfold truncatedOperatorAction
+  have hbound : ∀ y,
+      |PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+        α a k ((x, y) : ℝ × ℝ) * f y|
+      ≤ (a / (a - 1)) * |f y| := by
+    intro y
+    rw [abs_mul]
+    exact mul_le_mul_of_nonneg_right
+      (PrincipiaTractalis.IntegralKernel.abs_truncatedFractalKernelReal_le
+        α a ha k x y) (abs_nonneg _)
+  have hcont_summand : Continuous (fun y =>
+      PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+        α a k ((x, y) : ℝ × ℝ) * f y) :=
+    (PrincipiaTractalis.IntegralKernel.continuous_truncatedFractalKernelReal_snd
+      α a k x).mul hf
+  have h_iint : IntervalIntegrable
+      (fun y => PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+        α a k ((x, y) : ℝ × ℝ) * f y) MeasureTheory.volume 0 1 :=
+    hcont_summand.intervalIntegrable _ _
+  have h_iint_abs : IntervalIntegrable (fun y => |f y|) MeasureTheory.volume 0 1 :=
+    hf.abs.intervalIntegrable _ _
+  calc |∫ y in (0:ℝ)..1,
+            PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+              α a k ((x, y) : ℝ × ℝ) * f y|
+      ≤ ∫ y in (0:ℝ)..1, |PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+              α a k ((x, y) : ℝ × ℝ) * f y| :=
+            intervalIntegral.abs_integral_le_integral_abs zero_le_one
+    _ ≤ ∫ y in (0:ℝ)..1, (a / (a - 1)) * |f y| := by
+            apply intervalIntegral.integral_mono_on zero_le_one
+            · exact h_iint.abs
+            · exact h_iint_abs.const_mul _
+            · intro y _; exact hbound y
+    _ = (a / (a - 1)) * ∫ y in (0:ℝ)..1, |f y| := by
+            rw [intervalIntegral.integral_const_mul]
+
 /-! ## Tendsto form of T_k → H_P -/
 
 /-- **Truncated operator action converges to full operator action**:
