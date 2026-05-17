@@ -526,6 +526,118 @@ The pattern generalises: at level n, the IFS reflection produces a
 spectrum should organise into a structured family — the formal
 target of the polylog conjecture. -/
 
+/-! ## ★ Level-2 block eigenvalues (closed form) ★ -/
+
+/-- **Level-2 sym block diagonal entries**:
+
+    `A_sym := a/(a−1) + V_P(1/18, 17/18)`  [(1,1) of 4·B_sym]
+    `C_sym := a/(a−1) + V_P(5/18, 13/18)`  [(2,2) of 4·B_sym] -/
+noncomputable def level2SymA (α a : ℝ) : ℝ :=
+  a/(a-1) + fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ)
+
+noncomputable def level2SymC (α a : ℝ) : ℝ :=
+  a/(a-1) + fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ)
+
+/-- **Level-2 sym block off-diagonal entry**:
+
+    `B_sym_offdiag := V_P(1/18, 13/18) + V_P(1/18, 5/18)`  [(1,2) of 4·B_sym] -/
+noncomputable def level2SymOffdiag (α a : ℝ) : ℝ :=
+  fractalKernelReal α a ((1/18, 13/18) : ℝ × ℝ) +
+  fractalKernelReal α a ((1/18, 5/18) : ℝ × ℝ)
+
+/-- **Level-2 antisym block diagonal entries**:
+
+    `A_anti := a/(a−1) − V_P(1/18, 17/18)`  [(1,1) of 4·B_anti]
+    `C_anti := a/(a−1) − V_P(5/18, 13/18)`  [(2,2) of 4·B_anti] -/
+noncomputable def level2AntiA (α a : ℝ) : ℝ :=
+  a/(a-1) - fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ)
+
+noncomputable def level2AntiC (α a : ℝ) : ℝ :=
+  a/(a-1) - fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ)
+
+/-- **Level-2 antisym block off-diagonal entry**:
+
+    `B_anti_offdiag := V_P(1/18, 13/18) − V_P(1/18, 5/18)` -/
+noncomputable def level2AntiOffdiag (α a : ℝ) : ℝ :=
+  fractalKernelReal α a ((1/18, 13/18) : ℝ × ℝ) -
+  fractalKernelReal α a ((1/18, 5/18) : ℝ × ℝ)
+
+/-- **Level-2 sym block eigenvalue (larger root)**:
+
+      `λ_sym^+ := (1/8) · ((A_sym + C_sym) + √((A_sym − C_sym)² + 4·B_sym²))`
+
+    Larger eigenvalue of the sym 2×2 block `B_sym`, via the standard
+    quadratic formula for symmetric 2×2 matrices. The `1/8` factor is
+    `1/4` (the level-2 mass weight) times `1/2` (from the quadratic
+    formula). -/
+noncomputable def lambdaSymPlusLevel2 (α a : ℝ) : ℝ :=
+  (1/8) * ((level2SymA α a + level2SymC α a) +
+           Real.sqrt ((level2SymA α a - level2SymC α a)^2 +
+                      4 * (level2SymOffdiag α a)^2))
+
+/-- **Level-2 sym block eigenvalue (smaller root)**:
+
+      `λ_sym^− := (1/8) · ((A_sym + C_sym) − √((A_sym − C_sym)² + 4·B_sym²))` -/
+noncomputable def lambdaSymMinusLevel2 (α a : ℝ) : ℝ :=
+  (1/8) * ((level2SymA α a + level2SymC α a) -
+           Real.sqrt ((level2SymA α a - level2SymC α a)^2 +
+                      4 * (level2SymOffdiag α a)^2))
+
+/-- **Level-2 antisym block eigenvalue (larger root)**:
+
+      `λ_anti^+ := (1/8) · ((A_anti + C_anti) + √((A_anti − C_anti)² + 4·B_anti²))` -/
+noncomputable def lambdaAntiPlusLevel2 (α a : ℝ) : ℝ :=
+  (1/8) * ((level2AntiA α a + level2AntiC α a) +
+           Real.sqrt ((level2AntiA α a - level2AntiC α a)^2 +
+                      4 * (level2AntiOffdiag α a)^2))
+
+/-- **Level-2 antisym block eigenvalue (smaller root)**:
+
+      `λ_anti^− := (1/8) · ((A_anti + C_anti) − √((A_anti − C_anti)² + 4·B_anti²))` -/
+noncomputable def lambdaAntiMinusLevel2 (α a : ℝ) : ℝ :=
+  (1/8) * ((level2AntiA α a + level2AntiC α a) -
+           Real.sqrt ((level2AntiA α a - level2AntiC α a)^2 +
+                      4 * (level2AntiOffdiag α a)^2))
+
+/-- **★ Level-2 sym block trace identity ★**:
+
+      `λ_sym^+ + λ_sym^− = (1/4) · (A_sym + C_sym)
+                          = (1/4) · (2 · a/(a−1) + V_P(8/9) + V_P(4/9))`
+
+    The trace of the sym 2×2 sub-block of `M^{(2)}`. -/
+theorem lambdaSymLevel2_trace (α a : ℝ) :
+    lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a =
+    (1/4) * (level2SymA α a + level2SymC α a) := by
+  unfold lambdaSymPlusLevel2 lambdaSymMinusLevel2
+  ring
+
+/-- **★ Level-2 antisym block trace identity ★**:
+
+      `λ_anti^+ + λ_anti^− = (1/4) · (A_anti + C_anti)
+                            = (1/4) · (2 · a/(a−1) − V_P(8/9) − V_P(4/9))` -/
+theorem lambdaAntiLevel2_trace (α a : ℝ) :
+    lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a =
+    (1/4) * (level2AntiA α a + level2AntiC α a) := by
+  unfold lambdaAntiPlusLevel2 lambdaAntiMinusLevel2
+  ring
+
+/-- **★ Level-2 full trace identity ★**:
+
+      `λ_sym^+ + λ_sym^− + λ_anti^+ + λ_anti^− = a/(a − 1)`
+
+    The sum of all four level-2 eigenvalues equals the operator-norm
+    bound `a/(a − 1)` — matching the general trace identity
+    `tr M^{(n)} = a/(a − 1)` (independent of `n`). The `V_P(8/9)` and
+    `V_P(4/9)` cross-block terms CANCEL between the sym and antisym
+    block contributions. -/
+theorem level2_full_trace_identity (α a : ℝ) :
+    lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a +
+    (lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a) =
+    a / (a - 1) := by
+  rw [lambdaSymLevel2_trace, lambdaAntiLevel2_trace]
+  unfold level2SymA level2SymC level2AntiA level2AntiC
+  ring
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
