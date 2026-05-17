@@ -466,6 +466,41 @@ theorem continuous_truncatedFractalKernelReal_snd
   apply Continuous.mul continuous_const
   exact continuous_const.dist continuous_id'
 
+/-! ## Single-variable L² norm² bound -/
+
+/-- **Single-variable L²-norm-squared bound** on `V_P^(k)(x, ·)`:
+
+      `∫_0^1 (V_P^(k)(x, y))² dy ≤ (a / (a − 1))²`
+
+    for any fixed `x` and any `k`. Integrating the pointwise-squared
+    bound (`sq_truncatedFractalKernelReal_le`) over `y ∈ [0, 1]` and
+    using `μ([0, 1]) = 1`.
+
+    Integrating once more over `x ∈ [0, 1]` gives the full
+    Hilbert-Schmidt norm-squared bound `‖V_P^(k)‖²_{L²([0,1]²)} ≤
+    (a/(a−1))²`. -/
+theorem integral_sq_truncatedFractalKernelReal_le
+    (α a : ℝ) (ha : 1 < a) (k : ℕ) (x : ℝ) :
+    (∫ y in (0:ℝ)..1, (truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ))^2)
+    ≤ (a / (a - 1))^2 := by
+  have h_sq : ∀ y, (truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ))^2
+              ≤ (a / (a - 1))^2 := fun y =>
+    sq_truncatedFractalKernelReal_le α a ha k x y
+  have hcont : Continuous (fun y : ℝ =>
+      (truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ))^2) :=
+    (continuous_truncatedFractalKernelReal_snd α a k x).pow 2
+  have hiint : IntervalIntegrable
+      (fun y => (truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ))^2)
+      MeasureTheory.volume 0 1 :=
+    hcont.intervalIntegrable _ _
+  calc (∫ y in (0:ℝ)..1, (truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ))^2)
+      ≤ ∫ y in (0:ℝ)..1, (a / (a - 1))^2 := by
+          apply intervalIntegral.integral_mono_on zero_le_one hiint
+          · exact (continuous_const :
+              Continuous (fun _ : ℝ => (a / (a - 1))^2)).intervalIntegrable _ _
+          · intro y _; exact h_sq y
+    _ = (a / (a - 1))^2 := by simp
+
 /-! ## Documentation: connection to the eigenvalue conjecture
 
 The chain of identities above provides the **structural framework** the
