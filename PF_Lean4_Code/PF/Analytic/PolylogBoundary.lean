@@ -299,6 +299,36 @@ theorem principal_branch_singularity_sqrt2_even_k (m : ℕ) (hm : m ≥ 1) :
     rw [h_int]
     exact Real.sin_nat_mul_pi (2^m')
 
+/-! ## Well-definedness of principal-branch at α = √2, k = 0 -/
+
+/-- **Positivity of `sin(π·√2/2)`**: since `π·√2/2 ∈ (0, π)` and
+    `sin` is positive on `(0, π)`. Specifically, `√2 < 2` so
+    `√2/2 < 1`, giving `π·√2/2 < π`. -/
+theorem sin_pi_sqrt2_div_2_pos :
+    Real.sin (Real.pi * Real.sqrt 2 / 2) > 0 := by
+  apply Real.sin_pos_of_pos_of_lt_pi
+  · have h1 : 0 < Real.pi := Real.pi_pos
+    have h2 : 0 < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
+    positivity
+  · have h_sqrt2_lt : Real.sqrt 2 < 2 := by
+      have : Real.sqrt 2 < Real.sqrt 4 := by
+        apply Real.sqrt_lt_sqrt
+        · norm_num
+        · norm_num
+      have h4 : Real.sqrt 4 = 2 := by
+        rw [show (4 : ℝ) = 2^2 from by norm_num]
+        exact Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 2)
+      linarith
+    have h_pi_pos : 0 < Real.pi := Real.pi_pos
+    nlinarith
+
+/-- **Consequence**: `sin(π·√2/2) ≠ 0`, so the principal-branch
+    formula `conjectured_eigenvalue_principal √2 a 0` is well-defined
+    (equals `−log(2·sin(π·√2/2))`, a finite negative real). -/
+theorem sin_pi_sqrt2_div_2_ne_zero :
+    Real.sin (Real.pi * Real.sqrt 2 / 2) ≠ 0 :=
+  ne_of_gt sin_pi_sqrt2_div_2_pos
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
