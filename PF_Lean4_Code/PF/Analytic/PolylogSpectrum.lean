@@ -713,6 +713,73 @@ theorem truncatedOperatorAction_two_cosineMode_zero
   simp only [Nat.cast_zero, neg_zero, zpow_zero, Nat.cast_one]
   ring
 
+/-! ## k = 2 truncation: scale mixing on sineMode -/
+
+/-- **k = 2 truncation explicit action on `sineMode α 0`** (sine analog
+    of `truncatedOperatorAction_two_cosineMode_zero`):
+
+      `(T_2 · sineMode α 0)(x)
+        = (1/2) · sineMode α 0 x
+        + a⁻¹ · [ cosineMode α 1 x · ⟨cosineMode α 1, sineMode α 0⟩
+                + sineMode α 1 x   · ⟨sineMode α 1, sineMode α 0⟩ ]`
+
+    where the cross-scale inner products are the closed forms from
+    `inner_sineMode_cosineMode_off` (transposed via product
+    commutativity) and `inner_sineMode_sineMode_off`. -/
+theorem truncatedOperatorAction_two_sineMode_zero
+    (α a : ℝ) (hα : α ≠ 0) (hα_ne_one : α ≠ 1) (hα_ne_neg_one : α ≠ -1)
+    (x : ℝ) :
+    truncatedOperatorAction α a 2 (sineMode α 0) x =
+    (1/2 : ℝ) * sineMode α 0 x
+    + a^(-(1 : ℤ)) *
+      (cosineMode α 1 x *
+        ((1 - Real.cos (Real.pi * α^0 - Real.pi * α^1)) /
+            (2 * (Real.pi * α^0 - Real.pi * α^1)) +
+         (1 - Real.cos (Real.pi * α^0 + Real.pi * α^1)) /
+            (2 * (Real.pi * α^0 + Real.pi * α^1)))
+       + sineMode α 1 x *
+         (Real.sin (Real.pi * α^1 - Real.pi * α^0) /
+              (2 * (Real.pi * α^1 - Real.pi * α^0)) -
+          Real.sin (Real.pi * α^1 + Real.pi * α^0) /
+              (2 * (Real.pi * α^1 + Real.pi * α^0)))) := by
+  have hcont : Continuous (sineMode α 0) := by
+    unfold sineMode
+    exact Real.continuous_sin.comp (continuous_const.mul continuous_id')
+  rw [truncatedOperatorAction_eq_sum α a 2 (sineMode α 0) hcont x]
+  rw [show (2 : ℕ) = 1 + 1 from rfl]
+  rw [Finset.sum_range_succ, Finset.sum_range_one]
+  have h_inner_cos0_sin0 :
+      (∫ y in (0:ℝ)..1, cosineMode α 0 y * sineMode α 0 y) = 0 :=
+    inner_cosineMode_zero_sineMode_zero_eq_zero α hα
+  have h_inner_sin0_sin0 :
+      (∫ y in (0:ℝ)..1, sineMode α 0 y * sineMode α 0 y) = 1/2 := by
+    have hrw : ∀ y, sineMode α 0 y * sineMode α 0 y = sineMode α 0 y ^ 2 :=
+      fun y => by ring
+    simp_rw [hrw]; exact inner_sineMode_zero_self_eq_half α hα
+  have hα_pow_diff_01 : (α : ℝ)^(0 : ℕ) ≠ α^(1 : ℕ) := by
+    simp; intro h; exact hα_ne_one h.symm
+  have hα_pow_sum_01 : (α : ℝ)^(0 : ℕ) + α^(1 : ℕ) ≠ 0 := by
+    simp; intro h; apply hα_ne_neg_one; linarith
+  have hα_pow_diff_10 : (α : ℝ)^(1 : ℕ) ≠ α^(0 : ℕ) := by
+    simp; exact hα_ne_one
+  have hα_pow_sum_10 : (α : ℝ)^(1 : ℕ) + α^(0 : ℕ) ≠ 0 := by
+    simp; intro h; apply hα_ne_neg_one; linarith
+  have h_inner_cos1_sin0 :
+      (∫ y in (0:ℝ)..1, cosineMode α 1 y * sineMode α 0 y) =
+      (1 - Real.cos (Real.pi * α^0 - Real.pi * α^1)) /
+          (2 * (Real.pi * α^0 - Real.pi * α^1)) +
+      (1 - Real.cos (Real.pi * α^0 + Real.pi * α^1)) /
+          (2 * (Real.pi * α^0 + Real.pi * α^1)) := by
+    rw [show (fun y => cosineMode α 1 y * sineMode α 0 y) =
+            (fun y => sineMode α 0 y * cosineMode α 1 y) from
+        by funext y; ring]
+    exact inner_sineMode_cosineMode_off α 0 1 hα_pow_diff_01 hα_pow_sum_01
+  have h_inner_sin1_sin0 :=
+    inner_sineMode_sineMode_off α 1 0 hα_pow_diff_10 hα_pow_sum_10
+  rw [h_inner_cos0_sin0, h_inner_sin0_sin0, h_inner_cos1_sin0, h_inner_sin1_sin0]
+  simp only [Nat.cast_zero, neg_zero, zpow_zero, Nat.cast_one]
+  ring
+
 /-! ## Tendsto form of T_k → H_P -/
 
 /-- **Truncated operator action converges to full operator action**:
