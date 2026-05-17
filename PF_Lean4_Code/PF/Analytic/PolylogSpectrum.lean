@@ -949,6 +949,46 @@ theorem trace_truncatedOperator (α a : ℝ) (k : ℕ) :
   rw [intervalIntegral.integral_const]
   simp
 
+/-- **Closed form of the trace geometric sum**:
+
+      `Σ_{j<k} a^(-j) = (1 − a^(-k)) / (1 − 1/a)`
+
+    for `a ≠ 0, a ≠ 1`. Standard geometric-sum identity applied to
+    `(1/a)^j`. As `k → ∞` for `a > 1`, this tends to `a/(a−1)`. -/
+theorem geometric_sum_zpow_neg
+    (a : ℝ) (ha : a ≠ 0) (ha_ne : a ≠ 1) (k : ℕ) :
+    (Finset.range k).sum (fun j => a^(-(j : ℤ))) =
+    (1 - a^(-(k : ℤ))) / (1 - 1/a) := by
+  have h_eq : ∀ j : ℕ, (a : ℝ)^(-(j : ℤ)) = (1/a)^j := fun j => by
+    rw [zpow_neg, zpow_natCast, one_div, inv_pow]
+  simp_rw [h_eq]
+  have h_one_div_ne : (1/a : ℝ) ≠ 1 := by
+    intro h; apply ha_ne
+    have : (a : ℝ) = 1 := by field_simp at h; linarith
+    exact this
+  rw [geom_sum_eq h_one_div_ne k]
+  rw [show ((1:ℝ)/a)^k = a^(-(k:ℤ)) from by
+    rw [zpow_neg, zpow_natCast, one_div, inv_pow]]
+  rw [show (1 - 1/a : ℝ) = -(1/a - 1) from by ring]
+  rw [show (1 - a^(-(k:ℤ)) : ℝ) = -(a^(-(k:ℤ)) - 1) from by ring]
+  rw [neg_div_neg_eq]
+
+/-- **Closed-form trace of T_k**:
+
+      `Tr(T_k) = (1 − a^(-k)) / (1 − 1/a)`
+
+    for `a > 1, a ≠ 0, a ≠ 1`. Combines `trace_truncatedOperator` with
+    `geometric_sum_zpow_neg`. For `k → ∞`, this tends to `a/(a−1)` —
+    the trace of the limiting full operator (informally; rigorous
+    convergence requires trace-class limit, separate analysis). -/
+theorem trace_truncatedOperator_closed_form
+    (α a : ℝ) (ha : a ≠ 0) (ha_ne : a ≠ 1) (k : ℕ) :
+    ∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+      α a k ((x, x) : ℝ × ℝ) =
+    (1 - a^(-(k : ℤ))) / (1 - 1/a) := by
+  rw [trace_truncatedOperator α a k]
+  exact geometric_sum_zpow_neg a ha ha_ne k
+
 /-! ## Tendsto form of T_k → H_P -/
 
 /-- **Truncated operator action converges to full operator action**:
