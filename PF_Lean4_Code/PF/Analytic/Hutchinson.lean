@@ -456,6 +456,28 @@ def IsWeakLimitOfHutchinsonIterates (μ : MeasureTheory.Measure ℝ) : Prop :=
     Filter.Tendsto (fun n => ∫ x, f x ∂(cantorDiscMeasure n))
             Filter.atTop (nhds (∫ x, f x ∂μ))
 
+/-- **Integral recursion for `cantorDiscMeasure` iterates**:
+
+      `∫ f d(cantorDiscMeasure (n+1)) =
+        (1/2) ∫ f∘f₁ d(cantorDiscMeasure n) +
+        (1/2) ∫ f∘f₂ d(cantorDiscMeasure n)`
+
+    Specialisation of `integral_hutchinsonOp_apply` to the iterate
+    `cantorDiscMeasure n`. The recursion shows how integral
+    evaluations at level `n+1` reduce to integral evaluations at
+    level `n`, with the IFS-word composition `f∘f_i` on the
+    integrand. -/
+theorem integral_cantorDiscMeasure_succ (n : ℕ) (f : ℝ → ℝ)
+    (h1 : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction1 (cantorDiscMeasure n)))
+    (h2 : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction2 (cantorDiscMeasure n))) :
+    ∫ x, f x ∂(cantorDiscMeasure (n + 1)) =
+    (1/2) * ∫ y, f (cantorContraction1 y) ∂(cantorDiscMeasure n) +
+    (1/2) * ∫ y, f (cantorContraction2 y) ∂(cantorDiscMeasure n) := by
+  rw [cantorDiscMeasure_succ]
+  exact integral_hutchinsonOp_apply (cantorDiscMeasure n) f h1 h2
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
