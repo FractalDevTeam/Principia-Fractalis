@@ -374,6 +374,22 @@ theorem H_P_at_disc_smul_dirac (α a : ℝ) (c : ENNReal) (z : ℝ)
     c.toReal * (cantorKernel α a x z * f z) := by
   rw [H_P_at_disc_smul_measure, H_P_at_disc_dirac, smul_eq_mul]
 
+/-- **`T` applied to a Dirac**:
+
+      `T(δ_z) = (1/2)·δ_{f₁(z)} + (1/2)·δ_{f₂(z)}`
+
+    Each Dirac splits into two children Diracs under one application
+    of the Hutchinson operator, with equal weights `1/2`. This is the
+    recursive step generating the level-by-level structure of
+    `cantorDiscMeasure n`. -/
+theorem hutchinsonOp_dirac (z : ℝ) :
+    hutchinsonOp (MeasureTheory.Measure.dirac z) =
+    (1/2 : ENNReal) • MeasureTheory.Measure.dirac (cantorContraction1 z) +
+    (1/2 : ENNReal) • MeasureTheory.Measure.dirac (cantorContraction2 z) := by
+  unfold hutchinsonOp
+  rw [MeasureTheory.Measure.map_dirac cantorContraction1_measurable]
+  rw [MeasureTheory.Measure.map_dirac cantorContraction2_measurable]
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
