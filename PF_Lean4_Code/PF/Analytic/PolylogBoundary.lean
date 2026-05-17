@@ -52,6 +52,7 @@ Stage L4+ — `Li₁` boundary closed form (toward Problem 1 / 2).
 import Mathlib.Analysis.SpecialFunctions.Complex.Log
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import PF.Analytic.Polylog
+import PF.SpectralGap
 
 namespace PrincipiaTractalis.Analytic
 
@@ -418,6 +419,26 @@ theorem manuscript_principal_incompatibility (a : ℝ) :
   have h_neg := conjectured_eigenvalue_principal_sqrt2_zero_neg a
   rw [h] at h_pos
   linarith
+
+/-! ## Bridge to existing SpectralGap.lean infrastructure -/
+
+/-- **Bridge theorem**: the manuscript's predicted ground-state
+    eigenvalue at α = √2 equals `lambda_0_P` from `SpectralGap.lean`.
+
+      `manuscript_predicted_eigenvalue_zero (√2) = lambda_0_P`
+
+    Since `lambda_0_P = pi_10 / √2 = (π/10) / √2 = π/(10·√2) =
+    manuscript_predicted_eigenvalue_zero (√2)`. Pure algebraic
+    rewriting; ties together the framework's two ways of naming
+    the same value:
+    * Manuscript Ch 21 Theorem 4.4: `λ_0(H_P √2 a) = π/(10·√2)`
+    * `SpectralGap.lean`: `lambda_0_P := pi_10 / √2`. -/
+theorem manuscript_predicted_eigenvalue_zero_eq_lambda_0_P :
+    manuscript_predicted_eigenvalue_zero (Real.sqrt 2) =
+    PrincipiaTractalis.lambda_0_P := by
+  unfold manuscript_predicted_eigenvalue_zero
+        PrincipiaTractalis.lambda_0_P PrincipiaTractalis.pi_10
+  ring
 
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
