@@ -944,6 +944,29 @@ theorem lambdaAntiLevel2_sumSq (α a : ℝ) :
   rw [hvieta, hsum, hprod]
   ring
 
+/-- **★ Level-2 full sum-of-squared-eigenvalues ★**:
+
+    Adding the sym and antisym block sum-of-squares (with cross-block
+    cancellation of the linear `V_P` terms inside the squares):
+
+      `λ_sym⁺² + λ_sym⁻² + λ_anti⁺² + λ_anti⁻²
+        = (1/16) · (A_sym² + C_sym² + A_anti² + C_anti²
+                  + 2·B_sym² + 2·B_anti²)`
+
+    By the spectral theorem, the LHS equals `‖M^{(2)}‖_F²` (Frobenius
+    norm squared of the level-2 matrix). The RHS is the explicit
+    expansion in terms of the kernel values `V_P(d)` at the level-2
+    distances. -/
+theorem level2_full_sumSq (α a : ℝ) :
+    (lambdaSymPlusLevel2 α a)^2 + (lambdaSymMinusLevel2 α a)^2 +
+    ((lambdaAntiPlusLevel2 α a)^2 + (lambdaAntiMinusLevel2 α a)^2) =
+    (1/16) * ((level2SymA α a)^2 + (level2SymC α a)^2 +
+              2 * (level2SymOffdiag α a)^2 +
+              ((level2AntiA α a)^2 + (level2AntiC α a)^2 +
+               2 * (level2AntiOffdiag α a)^2)) := by
+  rw [lambdaSymLevel2_sumSq, lambdaAntiLevel2_sumSq]
+  ring
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
