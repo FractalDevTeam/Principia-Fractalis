@@ -491,6 +491,85 @@ theorem level2_antisym_action_at_tf {α a : ℝ} (ha : 1 < a)
   rw [fractalKernelReal_diagonal ha (13/18)]
   ring
 
+/-! ## ★ Level-2 sym/antisym invariance (reflection-symmetric image) ★ -/
+
+/-- **★ Level-2 sym-test action at x = 5/18 ★**:
+
+      `(H_P^disc[cantorDiscMeasure 2] f)(5/18)
+         = (1/4) · ((V_P(2/9) + V_P(2/3)) · c + (V_P(4/9) + a/(a−1)) · d)`
+
+    Same form as `level2_sym_action_at_tf` (the value at the IFS-
+    reflection partner `13/18`). Confirms that the sym test maps to
+    a sym output under `M^{(2)}` (row 3 of the matrix-vector product). -/
+theorem level2_sym_action_at_ft {α a : ℝ} (ha : 1 < a)
+    (c d : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/18) = c) (h2 : f (5/18) = d)
+    (h3 : f (13/18) = d) (h4 : f (17/18) = c) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f (5/18) =
+    (1/4) * ((fractalKernelReal α a ((5/18, 1/18) : ℝ × ℝ) +
+              fractalKernelReal α a ((5/18, 17/18) : ℝ × ℝ)) * c +
+             (a/(a-1) + fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ)) * d) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  rw [h1, h2, h3, h4]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (5/18)]
+  ring
+
+/-- **★ Level-2 sym-test action at x = 17/18 ★**:
+
+      `(H_P^disc[cantorDiscMeasure 2] f)(17/18)
+         = (1/4) · ((a/(a−1) + V_P(8/9)) · c + (V_P(2/3) + V_P(2/9)) · d)`
+
+    Same form as `level2_sym_action_at_ff` (the value at the IFS-
+    reflection partner `1/18`). Confirms sym → sym output (row 4). -/
+theorem level2_sym_action_at_tt {α a : ℝ} (ha : 1 < a)
+    (c d : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/18) = c) (h2 : f (5/18) = d)
+    (h3 : f (13/18) = d) (h4 : f (17/18) = c) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f (17/18) =
+    (1/4) * ((a/(a-1) + fractalKernelReal α a ((17/18, 1/18) : ℝ × ℝ)) * c +
+             (fractalKernelReal α a ((17/18, 13/18) : ℝ × ℝ) +
+              fractalKernelReal α a ((17/18, 5/18) : ℝ × ℝ)) * d) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  rw [h1, h2, h3, h4]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (17/18)]
+  ring
+
+/-- **★ Level-2 antisym-test action at x = 5/18 ★**:
+
+    Cross-reflection row of B_anti — verifies antisym → −antisym output. -/
+theorem level2_antisym_action_at_ft {α a : ℝ} (ha : 1 < a)
+    (c d : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/18) = c) (h2 : f (5/18) = -d)
+    (h3 : f (13/18) = d) (h4 : f (17/18) = -c) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f (5/18) =
+    (1/4) * ((fractalKernelReal α a ((5/18, 1/18) : ℝ × ℝ) -
+              fractalKernelReal α a ((5/18, 17/18) : ℝ × ℝ)) * c +
+             (-(a/(a-1)) + fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ)) * d) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  rw [h1, h2, h3, h4]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (5/18)]
+  ring
+
+/-- **★ Level-2 antisym-test action at x = 17/18 ★**:
+
+    Cross-reflection row of B_anti — verifies antisym → −antisym. -/
+theorem level2_antisym_action_at_tt {α a : ℝ} (ha : 1 < a)
+    (c d : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/18) = c) (h2 : f (5/18) = -d)
+    (h3 : f (13/18) = d) (h4 : f (17/18) = -c) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f (17/18) =
+    (1/4) * ((-(a/(a-1)) + fractalKernelReal α a ((17/18, 1/18) : ℝ × ℝ)) * c +
+             (fractalKernelReal α a ((17/18, 13/18) : ℝ × ℝ) -
+              fractalKernelReal α a ((17/18, 5/18) : ℝ × ℝ)) * d) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  rw [h1, h2, h3, h4]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (17/18)]
+  ring
+
 /-! ## Documentation: level-2 sym/antisym 2×2 block matrices
 
 The level-2 4×4 matrix `M^{(2)}` decomposes under the IFS reflection
