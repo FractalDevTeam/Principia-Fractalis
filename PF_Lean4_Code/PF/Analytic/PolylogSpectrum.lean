@@ -569,6 +569,81 @@ theorem truncatedOperatorAction_one_sineMode_zero
   rw [h_cos_sin, h_sin_sin]
   ring
 
+/-! ## Operator-action convergence: T_k → H_P pointwise -/
+
+/-- **Full operator action** on `f : ℝ → ℝ` via the (un-truncated)
+    fractal kernel:
+
+      `(H_P f)(x) := ∫_0^1 V_P(x, y) · f(y) dy`. -/
+noncomputable def fullOperatorAction
+    (α a : ℝ) (f : ℝ → ℝ) (x : ℝ) : ℝ :=
+  ∫ y in (0:ℝ)..1, fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+
+/-- **Truncated-to-full convergence bound**: the truncation error at
+    each point `x` is bounded by `a^(-k) · a/(a−1) · ∫_0^1 |f(y)| dy`.
+
+    Direct from:
+    * the kernel-level uniform L∞ bound
+      (`abs_fractalKernelReal_sub_truncated_le`),
+    * `|kernel·f| ≤ (kernel L∞ bound) · |f|` pointwise,
+    * monotonicity of the integral.
+
+    Integrability hypotheses are taken as parameters — caller supplies
+    them. They are satisfied, e.g., when `fractalKernelReal α a (x, ·)`
+    is interval-integrable on `[0,1]` (which holds because the kernel
+    is bounded; the formal `Measurable`+`Integrable` chain is in
+    `IntegralKernel.FractalKernel`) and `f` is continuous.
+
+    As `k → ∞` the right-hand side is `O(a^(-k))`, so the truncated
+    operator action converges pointwise to the full operator action
+    with explicit error rate. -/
+theorem fullOperatorAction_sub_truncated_bound
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (k : ℕ)
+    (f : ℝ → ℝ) (x : ℝ)
+    (hf_int_full : IntervalIntegrable
+        (fun y => fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y)
+        MeasureTheory.volume 0 1)
+    (hf_int_trunc : IntervalIntegrable
+        (fun y => PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+          α a k ((x, y) : ℝ × ℝ) * f y)
+        MeasureTheory.volume 0 1)
+    (hf_int_abs : IntervalIntegrable
+        (fun y => |f y|) MeasureTheory.volume 0 1) :
+    |fullOperatorAction α a f x - truncatedOperatorAction α a k f x|
+    ≤ a^(-(k : ℤ)) * (a / (a - 1)) *
+      ∫ y in (0:ℝ)..1, |f y| := by
+  unfold fullOperatorAction truncatedOperatorAction
+  rw [← intervalIntegral.integral_sub hf_int_full hf_int_trunc]
+  have hbound : ∀ y,
+      |fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+        - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+            α a k ((x, y) : ℝ × ℝ) * f y|
+      ≤ (a^(-(k : ℤ)) * (a / (a - 1))) * |f y| := by
+    intro y
+    rw [show fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+            - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+                α a k ((x, y) : ℝ × ℝ) * f y
+          = (fractalKernelReal α a ((x, y) : ℝ × ℝ)
+            - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+                α a k ((x, y) : ℝ × ℝ)) * f y from by ring]
+    rw [abs_mul]
+    exact mul_le_mul_of_nonneg_right
+      (abs_fractalKernelReal_sub_truncated_le α a ha hα k x y) (abs_nonneg _)
+  calc |∫ y in (0:ℝ)..1, fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+              - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+                  α a k ((x, y) : ℝ × ℝ) * f y|
+      ≤ ∫ y in (0:ℝ)..1, |fractalKernelReal α a ((x, y) : ℝ × ℝ) * f y
+              - PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+                  α a k ((x, y) : ℝ × ℝ) * f y| := by
+          exact intervalIntegral.abs_integral_le_integral_abs zero_le_one
+    _ ≤ ∫ y in (0:ℝ)..1, (a^(-(k : ℤ)) * (a / (a - 1))) * |f y| := by
+          apply intervalIntegral.integral_mono_on zero_le_one
+          · exact (hf_int_full.sub hf_int_trunc).abs
+          · exact hf_int_abs.const_mul _
+          · intro y _; exact hbound y
+    _ = a^(-(k : ℤ)) * (a / (a - 1)) * ∫ y in (0:ℝ)..1, |f y| := by
+          rw [intervalIntegral.integral_const_mul]
+
 /-! ## Formal conjecture statement
 
 The conjecture `λ_k = (1/aᵏ) · Re[Li₁(e^{iπαᵏ})]` requires the complex
