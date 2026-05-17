@@ -343,6 +343,20 @@ theorem H_P_at_cantor_zero (α a : ℝ) (μ : MeasureTheory.Measure ℝ) :
   unfold H_P_at_cantor
   simp
 
+/-- **`H_P^cantor` is scalar-linear in `f`**:
+    `H_P^cantor[μ] (c · f) = c · H_P^cantor[μ] f` for any scalar `c`. -/
+theorem H_P_at_cantor_smul (α a c : ℝ)
+    (μ : MeasureTheory.Measure ℝ) (f : ℝ → ℝ) :
+    H_P_at_cantor α a μ (c • f) = c • H_P_at_cantor α a μ f := by
+  funext x
+  unfold H_P_at_cantor
+  rw [show (fun y => cantorKernel α a x y * (c • f) y) =
+          (fun y => c * (cantorKernel α a x y * f y)) from by
+        funext y
+        show cantorKernel α a x y * (c * f y) = c * (cantorKernel α a x y * f y)
+        ring]
+  exact MeasureTheory.integral_const_mul c _
+
 /-! ## Documentation: the H_P^cantor operator (conditional definition)
 
 Given a Hutchinson-invariant measure `μ` on `cantorSet`, the
