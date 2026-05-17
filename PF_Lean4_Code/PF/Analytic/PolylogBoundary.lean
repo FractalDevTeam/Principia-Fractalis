@@ -509,6 +509,28 @@ theorem manuscript_principal_incompatibility_NP (a : ℝ) :
   rw [h] at h_pos
   linarith
 
+/-! ## Exact discrepancy: manuscript − principal at α = √2, k = 0 -/
+
+/-- **Exact discrepancy** between the manuscript's predicted ground-state
+    eigenvalue and the principal-branch evaluation at `α = √2, k = 0`:
+
+      `manuscript − principal = π/(10·√2) + log 2 ≈ 0.222 + 0.693 ≈ 0.915`
+
+    (independent of `a`).
+
+    This is the EXACT, MACHINE-CHECKED magnitude that Problem 2's
+    Riemann-sheet selection must produce as a correction to the
+    principal-branch evaluation. Any candidate physical-branch rule
+    must satisfy this exact arithmetic identity at this specific
+    `(α, k) = (√2, 0)` evaluation point. -/
+theorem manuscript_minus_principal_sqrt2_zero (a : ℝ) :
+    manuscript_predicted_eigenvalue_zero (Real.sqrt 2) -
+    conjectured_eigenvalue_principal (Real.sqrt 2) a 0
+    = Real.pi / (10 * Real.sqrt 2) + Real.log 2 := by
+  rw [conjectured_eigenvalue_principal_sqrt2_zero a]
+  unfold manuscript_predicted_eigenvalue_zero
+  ring
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
