@@ -361,6 +361,34 @@ Proof.
   lra.
 Qed.
 
+(* ============================================================ *)
+(* Frobenius / sum-of-squares identities                         *)
+(* ============================================================ *)
+
+(** **Level-2 sym block sum of squared eigenvalues**:
+    λ_sym⁺² + λ_sym⁻² = (1/16) · (A_sym² + C_sym² + 2·B_sym²).
+
+    Derived via Vieta from trace + determinant. *)
+Theorem lambdaSymLevel2_sumSq :
+    lambdaSymPlusLevel2^2 + lambdaSymMinusLevel2^2 =
+    (1/16) * (level2SymA^2 + level2SymC^2 + 2 * level2SymOffdiag^2).
+Proof.
+  (* (λ⁺² + λ⁻²) = (λ⁺ + λ⁻)² − 2·(λ⁺·λ⁻) *)
+  pose proof lambdaSymLevel2_trace as Htr.
+  pose proof lambdaSymLevel2_det as Hdt.
+  nra.
+Qed.
+
+(** **Level-2 antisym block sum of squared eigenvalues**. *)
+Theorem lambdaAntiLevel2_sumSq :
+    lambdaAntiPlusLevel2^2 + lambdaAntiMinusLevel2^2 =
+    (1/16) * (level2AntiA^2 + level2AntiC^2 + 2 * level2AntiOffdiag^2).
+Proof.
+  pose proof lambdaAntiLevel2_trace as Htr.
+  pose proof lambdaAntiLevel2_det as Hdt.
+  nra.
+Qed.
+
 End Level2Spectrum.
 
 (* ============================================================ *)
