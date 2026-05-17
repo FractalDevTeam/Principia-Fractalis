@@ -86,6 +86,62 @@ So the physical Riemann sheet (Problem 2's Heuristic) must (a) flip signs at `k 
 
 The remaining work is genuinely original mathematics: eigenvector identification + Riemann-sheet selection (= Problems 1+2 of this catalogue).
 
+**Phase A continuation — Route A Mellin geometry + Cantor substrate (sessions 64–80).**
+
+After the Phase A infrastructure above (truncated-kernel approximations on `L²([0, 1])`), a second arc developed the Cantor-substrate framework that connects the polylog conjecture to the actual fractal IFS structure:
+
+* `PF/Analytic/Dilation.lean` (21 theorems + 1 def):
+  - Dilation operator `dilation α f x := f(x/α)` + group structure: composition, identity, iteration, bijectivity.
+  - Scale shift on `cosineMode`/`sineMode` (turns the polylog conjecture's α-scaling into a unitary group action).
+
+* `PF/Analytic/LogCoord.lean` (13 theorems + 4 defs):
+  - Log-coordinate transform `logCoord f t := f(exp(-t))` + translation operator.
+  - **★ Dilation ↔ Translation bridge ★**: the action by `α` becomes translation by `log α` in log coordinates.
+  - Joint translation self-similarity for the fractal kernel.
+
+* `PF/Analytic/MellinMode.lean` (8 theorems + 3 defs):
+  - `mellinCos λ x := cos(λ · log x)`, `mellinSin λ x := sin(λ · log x)` — explicit translation eigenvectors in log coordinates.
+  - Dilation as rotation; dilation-invariant Mellin-weighted integrals.
+
+* `PF/Analytic/FractalDomain.lean` (13 theorems + 5 defs):
+  - Cantor IFS contractions `f₁(x) = x/3`, `f₂(x) = (x+2)/3` + fixed-point structure.
+  - 4-cell decomposition + disjointness lemmas.
+  - `IsHutchinsonInvariant`, `cantorKernel`, `H_P_at_cantor` operator on `(cantorSet, μ_Hutchinson)`.
+
+* `PF/Analytic/Hutchinson.lean` (29 theorems + 5 defs):
+  - `hutchinsonOp`: linearity, iteration, mass preservation; `cantorSeed`; **`cantorDiscMeasure n := T^n δ_{1/2}`** = level-n discrete approximation.
+  - Level-1 explicit form: `cantorDiscMeasure 1 = (1/2)·δ_{1/6} + (1/2)·δ_{5/6}`.
+  - `H_P_at_disc`, Dirac evaluation, `hutchinsonOp_dirac`, integral recursion.
+  - **`integral_difference_recursion`**: the structural contraction at the integral level — `|Δ_{n+1}(f)| ≤ (L/3) · sup |Δ_n(g)|` — the formal core of the Banach-contraction argument for weak convergence `cantorDiscMeasure n → μ_H`.
+
+* `PF/Analytic/CellMidpoint.lean` (9 theorems + 1 def):
+  - Recursive `cellMidpointOfBools : List Bool → ℝ` (length-n boolean lists enumerate level-n cells).
+  - Explicit values at levels 1–2 (`[false] = 1/6`, `[true] = 5/6`, `[false, false] = 1/18`, …).
+
+* `PF/Analytic/MatrixEntry.lean` (matrix-entry framework for the discrete eigenvalue problem):
+  - `cellMatrixEntry α a n bs bs' := (1/2^n) · V_P(m_{bs}, m_{bs'})` — explicit `2^n × 2^n` real symmetric matrix at level `n`.
+  - **`cellMatrixEntry_symm`**: matrix symmetry → discrete operator self-adjoint → `2^n` real eigenvalues at every level.
+  - **`fractalKernelReal_diagonal`** (a > 1): closed-form `V_P(x, x) = a/(a−1)` via the geometric series.
+  - **`cellMatrixEntry_diagonal`**: every diagonal entry of `M^{(n)}` is the constant `(1/2^n) · a/(a−1)`.
+  - **`cellMatrixEntry_eq_tsum_distance`**: a single distance-parametrised closed form that subsumes all explicit matrix entries.
+  - **`abs_cellMatrixEntry_le`**: uniform bound `|M^{(n)}_{bs, bs'}| ≤ (1/2^n) · a/(a−1)` → row-sum bound `≤ a/(a−1)` independent of `n` → all level-n eigenvalues satisfy `|λ^{(n)}_k| ≤ a/(a−1)` (finite-rank operator-norm stability).
+  - **Level-0 spectrum**: `lambdaLevel0 a := a/(a−1)`, sole eigenvalue with constant eigenvector (`level0_eigenvector_identity`).
+  - **Level-1 spectrum** (full closed form):
+    - `H_P_at_disc_cantorDiscMeasure_one`: explicit two-Dirac action.
+    - `lambdaPlusLevel1`, `lambdaMinusLevel1`: closed-form `(1/2)·(a/(a−1) ± V_P(1/6, 5/6))`.
+    - `level1_sym_eigenvector_at_{left,right}`: constant eigenvector with eigenvalue λ⁺.
+    - `level1_antisym_eigenvector_at_{left,right}`: alternating eigenvector with eigenvalue λ⁻.
+    - `level1_trace_identity`: λ⁺ + λ⁻ = a/(a−1).
+    - `level1_gap_identity`: λ⁺ − λ⁻ = V_P(1/6, 5/6).
+    - `level1_det_identity`: λ⁺ · λ⁻ = (1/4) · ((a/(a−1))² − V_P²(1/6, 5/6)).
+  - **Cross-level trace consistency**: `tr M^{(0)} = lambdaLevel0 = lambdaPlusLevel1 + lambdaMinusLevel1 = tr M^{(1)}`.
+  - **Level-2 geometry** (6 pairwise distances): all four distinct values `{2/9, 4/9, 2/3, 8/9}` computed in closed form; documented block structure under IFS self-similarity.
+  - **Level-1 off-diagonal explicit form**: `M^{(1)}_{[false],[true]} = (1/2) · Σ a^(-n) cos(π · α^n · 2/3)`.
+
+**What the Phase A continuation gives the framework.** The polylog conjecture is now equipped with concrete, machine-checked finite-rank discrete approximations at every level `n`. The level-`n` discrete operator is realised as an explicit real symmetric `2^n × 2^n` matrix with closed-form entries, uniformly bounded `≤ a/(a−1)` in operator norm. Level-0 (1×1) and level-1 (2×2) are fully diagonalised with explicit eigenvectors; the trace identity `Σ λ^{(n)}_k = a/(a−1)` is preserved across levels and provides an empirical test for any candidate closed-form eigenvalue. The full operator `H_P^cantor[μ_H]` is recovered in the `n → ∞` limit via the weak-convergence machinery from `Hutchinson.lean` (the difference recursion + Banach contraction structure is in place; full Wasserstein convergence requires the Lipschitz infrastructure that mathlib's `LipschitzWith` provides).
+
+The polylog conjecture for the FULL operator is now reduced to a finite-rank spectral-convergence argument plus the Riemann-sheet selection of Problem 2.
+
 **What a solution would deliver.** Together with Problems 2 and 3, retires the project axiom and gives an unconditional P ≠ NP via the framework's spectral-gap chain.
 
 **Difficulty estimate.** Multi-month to multi-year original operator-theory research. The supporting infrastructure above is now machine-checked and out of the way; future work attacks the substantive content directly.
