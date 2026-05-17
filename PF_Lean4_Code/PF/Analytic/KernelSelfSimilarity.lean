@@ -350,6 +350,31 @@ theorem abs_truncatedFractalKernelReal_le
     _ = (1 - 1/a)⁻¹ := tsum_geometric_of_lt_one h_nn h_lt_one
     _ = a / (a - 1) := by field_simp
 
+/-! ## Continuity of truncated-kernel sections -/
+
+/-- **The map `y ↦ V_P^(k)(x, y)` is continuous** for any fixed `x : ℝ`.
+
+    Direct from the finite-sum form: each summand is `a^(-j) ·
+    cos(π · αʲ · dist x y)`, where `dist x y` is continuous in `y`,
+    `cos` is continuous, and `a^(-j)` is a constant. Finite sum of
+    continuous functions is continuous.
+
+    Closes the interval-integrability hypothesis of
+    `fullOperatorAction_sub_truncated_bound` for continuous `f`: the
+    integrand `V_P^(k)(x, y) · f(y)` is then a product of two
+    continuous functions on `[0, 1]`, hence interval-integrable. -/
+theorem continuous_truncatedFractalKernelReal_snd
+    (α a : ℝ) (k : ℕ) (x : ℝ) :
+    Continuous (fun y : ℝ =>
+      truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ)) := by
+  unfold truncatedFractalKernelReal
+  apply continuous_finset_sum
+  intros j _
+  apply Continuous.mul continuous_const
+  apply Real.continuous_cos.comp
+  apply Continuous.mul continuous_const
+  exact continuous_const.dist continuous_id'
+
 /-! ## Documentation: connection to the eigenvalue conjecture
 
 The chain of identities above provides the **structural framework** the
