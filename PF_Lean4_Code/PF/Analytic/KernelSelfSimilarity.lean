@@ -352,6 +352,26 @@ theorem abs_truncatedFractalKernelReal_le
 
 /-! ## Squared kernel bound (toward Hilbert-Schmidt norm) -/
 
+/-- **Pointwise square bound on the full fractal kernel**:
+
+      `(V_P(x, y))² ≤ (a / (a − 1))²`
+
+    for any `(x, y) ∈ K × K` on any `PseudoMetricSpace K`. Direct from
+    the absolute-value bound `abs_fractalKernelReal_le`. Integrating
+    against any finite measure gives the L²-norm bound on the kernel,
+    hence the Hilbert-Schmidt norm bound on the operator. -/
+theorem sq_fractalKernelReal_le {K : Type*} [PseudoMetricSpace K]
+    (α a : ℝ) (ha : 1 < a) (z : K × K) :
+    (fractalKernelReal α a z)^2 ≤ (a / (a - 1))^2 := by
+  have h := abs_fractalKernelReal_le α ha z
+  have h_pos : 0 ≤ a / (a - 1) := by
+    have ha_pos : 0 < a := lt_trans zero_lt_one ha
+    have ha_minus_one_pos : 0 < a - 1 := by linarith
+    exact div_nonneg (le_of_lt ha_pos) (le_of_lt ha_minus_one_pos)
+  rw [← sq_abs]
+  exact sq_le_sq' (by linarith [abs_nonneg (fractalKernelReal α a z)]) h
+
+
 /-- **Pointwise square bound on the truncated kernel**:
 
       `(V_P^(k)(x, y))² ≤ (a / (a − 1))²`
