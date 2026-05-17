@@ -21,6 +21,7 @@ Stage L4+ — Route A, Step 1: Mellin modes.
 -/
 
 import PF.Analytic.LogCoord
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 
 namespace PrincipiaTractalis.Analytic
 
@@ -104,6 +105,73 @@ theorem dilation_mellinSin (α : ℝ) (hα : 0 < α) (lam : ℝ) (x : ℝ) (hx :
         = lam * Real.log x - lam * Real.log α from by ring]
   rw [Real.sin_sub (lam * Real.log x) (lam * Real.log α)]
   ring
+
+/-! ## Mellin-weighted integral (toward dilation unitarity) -/
+
+/-- **Mellin-weighted integral** on a strictly positive interval:
+
+      `mellinIntegral a b f := ∫_a^b f(x) · (1/x) dx`
+
+    Integration against the dilation-invariant measure `dx/x`. The
+    natural integration on the multiplicative group `(0, ∞)`. -/
+noncomputable def mellinIntegral (a b : ℝ) (f : ℝ → ℝ) : ℝ :=
+  ∫ x in a..b, f x / x
+
+/-- **★ Change of variables under dilation ★** — the Mellin-weighted
+    integral is invariant under `x = α·y`:
+
+      `∫_{a/α}^{b/α} f(α·y) / y dy = ∫_a^b f(x) / x dx`
+
+    for `α > 0`. The substitution `x = α·y` transforms `dx = α dy`
+    and `1/x = 1/(α·y)`, so `dx/x = dy/y`. The limits transform as
+    `a ↦ a/α, b ↦ b/α`, but the integrand `f(α·y)/y` is the same as
+    `f(x)/x` evaluated at `x = α·y`. This is the foundational
+    identity for dilation unitarity on `L²((0, ∞), dx/x)`. -/
+theorem mellin_change_of_variables_dilation
+    (α a b : ℝ) (hα : 0 < α) (f : ℝ → ℝ) :
+    ∫ y in (a/α)..(b/α), f (α * y) / y =
+    ∫ x in a..b, f x / x := by
+  have h_eq : ∀ y, α * (f (α * y) / (α * y)) = f (α * y) / y := by
+    intro y; field_simp
+  rw [show (fun y => f (α * y) / y)
+        = (fun y => α * (f (α * y) / (α * y))) from by
+        funext y; rw [h_eq]]
+  rw [intervalIntegral.integral_const_mul]
+  rw [intervalIntegral.integral_comp_mul_left (fun x => f x / x) (ne_of_gt hα)]
+  rw [smul_eq_mul]
+  have h_lim : α * (a / α) = a ∧ α * (b / α) = b := by
+    constructor <;> field_simp
+  rw [h_lim.1, h_lim.2]
+  rw [← mul_assoc]
+  rw [mul_inv_cancel₀ (ne_of_gt hα)]
+  rw [one_mul]
+
+/-- **Mellin-norm preservation under dilation on (0, ∞)** (special
+    case of `mellin_change_of_variables_dilation`):
+
+    For the full positive real line `(0, ∞)`, dilation `x ↦ α·x` is
+    norm-preserving with respect to `dx/x`. The boundary terms
+    `a = 0, b = ∞` give `a/α = 0, b/α = ∞`, so the limits are
+    unchanged.
+
+    On a finite interval `(a, b)` with `0 < a < b`, the dilation
+    changes the interval to `(a/α, b/α)` — same integral, different
+    integration region. This is the structural distinction that
+    makes `(0, ∞)` (or equivalently `ℝ` in log coordinates) the
+    canonical domain for the dilation group's unitary representation. -/
+theorem mellin_dilation_invariance_on_finite_interval
+    (α a b : ℝ) (hα : 0 < α) (f : ℝ → ℝ) :
+    mellinIntegral (a/α) (b/α) (dilation α⁻¹ f) =
+    mellinIntegral a b f := by
+  unfold mellinIntegral
+  -- (dilation α⁻¹ f) y = f(y / α⁻¹) = f(α · y)
+  have hrw : ∀ y, dilation α⁻¹ f y = f (α * y) := by
+    intro y
+    unfold dilation
+    congr 1
+    field_simp
+  simp_rw [hrw]
+  exact mellin_change_of_variables_dilation α a b hα f
 
 /-! ## Documentation: Mellin modes as the canonical eigen-objects
 
