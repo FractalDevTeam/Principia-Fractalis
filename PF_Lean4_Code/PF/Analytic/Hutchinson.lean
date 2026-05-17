@@ -507,6 +507,47 @@ theorem integral_of_isHutchinsonInvariant (μ : MeasureTheory.Measure ℝ)
   conv_lhs => rw [hμ]
   exact integral_hutchinsonOp_apply μ f h1 h2
 
+/-! ## ★ Difference recursion (the weak-convergence contraction structure) ★ -/
+
+/-- **★ Difference recursion ★** — for any Hutchinson-invariant `μ`,
+    the difference between `cantorDiscMeasure` integrals and the
+    `μ`-integral satisfies the same recursion as the iterate integral:
+
+      `(∫ f d(cantorDiscMeasure (n+1))) − (∫ f dμ)
+        = (1/2) · [(∫ f∘f₁ d(cantorDiscMeasure n)) − (∫ f∘f₁ dμ)]
+        + (1/2) · [(∫ f∘f₂ d(cantorDiscMeasure n)) − (∫ f∘f₂ dμ)]`
+
+    **This is the structural CONTRACTION at the integral level**.
+    For Lipschitz `f` with constant `L`, `f∘f_i` has Lipschitz
+    constant `L/3` (since each `f_i` is a `1/3`-contraction). So:
+
+      `|Δ_{n+1}(f)| ≤ (L/3) · sup{|Δ_n(g)| : g Lipschitz constant L/3}`
+
+    Iterating gives `|Δ_n(f)| ≤ L · (1/3)^n · |Δ_0|`, the geometric
+    rate of weak-* convergence.
+
+    The full convergence proof requires Lipschitz/Wasserstein
+    machinery; this commit establishes the STRUCTURAL DIFFERENCE
+    RECURSION that any such proof reduces to. -/
+theorem integral_difference_recursion (μ : MeasureTheory.Measure ℝ)
+    (hμ : IsHutchinsonInvariant μ) (n : ℕ) (f : ℝ → ℝ)
+    (h1n : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction1 (cantorDiscMeasure n)))
+    (h2n : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction2 (cantorDiscMeasure n)))
+    (h1μ : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction1 μ))
+    (h2μ : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction2 μ)) :
+    (∫ x, f x ∂(cantorDiscMeasure (n + 1))) - ∫ x, f x ∂μ =
+    (1/2) * ((∫ y, f (cantorContraction1 y) ∂(cantorDiscMeasure n)) -
+             ∫ y, f (cantorContraction1 y) ∂μ) +
+    (1/2) * ((∫ y, f (cantorContraction2 y) ∂(cantorDiscMeasure n)) -
+             ∫ y, f (cantorContraction2 y) ∂μ) := by
+  rw [integral_cantorDiscMeasure_succ n f h1n h2n]
+  rw [integral_of_isHutchinsonInvariant μ hμ f h1μ h2μ]
+  ring
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
