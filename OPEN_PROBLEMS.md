@@ -35,7 +35,7 @@ where `Li₁` is the polylogarithm of order 1, evaluated on a specific physical 
 
 **Lean encoding.** Part of `alpha_class_polylog_eigenvalue_conjecture` axiom (`PF/TuringEncoding/Operators.lean`).
 
-**Supporting infrastructure delivered (2026-05-16, 15 sessions, 43 axiom-free theorems).**
+**Supporting infrastructure delivered (2026-05-16, 25 sessions, 60 axiom-free theorems + 8 definitions).**
 
 The following machine-checked infrastructure for attacking Problem 1 has been delivered in Lean 4, all zero-project-axiom:
 
@@ -63,9 +63,19 @@ The following machine-checked infrastructure for attacking Problem 1 has been de
   - **Cosine-series representation** of polylog partial sums.
   - **`conjectured_eigenvalue_principal` definition** giving the closed form on principal branch.
 
-For α = √2, k = 0 the principal-branch evaluation is `−log(2·sin(π·√2/2)) ≈ −0.468`, which is **NEGATIVE**. The manuscript's claimed positive value `π/(10√2) ≈ +0.222` requires a **different Riemann sheet** (Problem 2's branch-selection Heuristic). The discrepancy is now sharp and machine-checkable.
+For α = √2, k = 0 the principal-branch evaluation is `−log(2·sin(π·√2/2)) ≈ −0.468`, which is **NEGATIVE**. The manuscript's claimed positive value `π/(10√2) ≈ +0.222` requires a **different Riemann sheet** (Problem 2's branch-selection Heuristic). The discrepancy is now sharp and machine-checkable; `polylog_principal_branch_eigenvalue` makes this a formal theorem: if the polylog conjecture holds with principal-branch evaluation, then `λ_k = −a^(−k) · log(2·|sin(π·αᵏ/2)|)` — incompatible with the manuscript's positive prediction.
 
-**What this infrastructure gives the framework.** Every matrix entry of the finite-rank truncated operator T_k in the cosineMode/sineMode basis is a proven closed form. T_k → H_P with explicit O(a^{-k}) convergence. The natural basis is provably NOT the eigenbasis for k ≥ 2 (scale-mixing explicit). The principal-branch evaluation of the conjectured formula is in closed form. The remaining work is genuinely original mathematics: eigenvector identification + Riemann-sheet selection.
+**Additional infrastructure (sessions 16–25)**:
+* `truncatedOperatorAction_two_*` — complete explicit 4×4 matrix `T_2` in the `{cosineMode α 0, sineMode α 0, cosineMode α 1, sineMode α 1}` basis (all 4 rows, every entry closed-form).
+* `tendsto_truncatedOperatorAction` — `Filter.Tendsto` form of operator-action convergence.
+* `truncatedFractalKernelReal_diagonal` + `trace_truncatedOperator` + `geometric_sum_zpow_neg` + `trace_truncatedOperator_closed_form` — `Tr(T_k) = Σ_{j<k} a^(−j) = (1 − a^(−k))/(1 − 1/a)`, giving a sum-rule constraint on the spectrum.
+* `abs_truncatedOperatorAction_le` — L¹→L∞ operator-norm bound `‖T_k‖ ≤ a/(a−1)` uniformly in `k`.
+* `truncatedOperatorAction_zero_of_orthogonal` — kernel characterization (forward).
+* `L2_norm_sq_cosineMode` + `L2_norm_sq_sineMode` — L²[0,1] norm-squared formulas.
+* `SpectralConvergenceClaim` + `PolylogSpectrumFullConjecture` — full structured-`Prop` packaging of the conjecture.
+* `sq_truncatedFractalKernelReal_le` + `sq_fractalKernelReal_le` — Hilbert-Schmidt norm bounds: `‖T_k‖_HS ≤ a/(a−1)` and `‖H_P‖_HS ≤ a/(a−1)`. Establishes H_P as Hilbert-Schmidt compact + self-adjoint, hence discrete spectrum with eigenvalues → 0.
+
+**What this infrastructure gives the framework.** Every matrix entry of the finite-rank truncated operator `T_k` in the cosineMode/sineMode basis is a proven closed form. `T_k → H_P` with explicit O(a^{-k}) convergence (pointwise and Tendsto). The natural basis is provably NOT the eigenbasis for k ≥ 2 (scale-mixing explicit at all 4 rows of `T_2`). `H_P` is provably Hilbert-Schmidt with HS norm ≤ a/(a−1), hence compact + self-adjoint with discrete spectrum. The principal-branch evaluation of the conjectured formula is in closed form, and the conjecture's incompatibility with principal-branch evaluation is a formal theorem. The remaining work is genuinely original mathematics: eigenvector identification + Riemann-sheet selection (= Problems 1+2 of this catalogue).
 
 **What a solution would deliver.** Together with Problems 2 and 3, retires the project axiom and gives an unconditional P ≠ NP via the framework's spectral-gap chain.
 
