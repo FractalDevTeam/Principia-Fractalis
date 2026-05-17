@@ -182,6 +182,62 @@ theorem cellMidpointOfBools_true_cons_mem_Icc (bs : List Bool) :
   · linarith
   · linarith
 
+/-! ## ★ Strict cell-midpoint bounds ★ -/
+
+/-- **★ Strict positivity ★**: every cell midpoint is strictly positive.
+
+    Proof by induction:
+    * Base `[]`: `1/2 > 0`.
+    * `false :: bs`: `(midpoint of bs)/3 > 0` since midpoint > 0.
+    * `true :: bs`: `((midpoint of bs) + 2)/3 > 0` since the
+      numerator is > 0 (midpoint ≥ 0 and +2). -/
+theorem cellMidpointOfBools_pos (bs : List Bool) :
+    0 < cellMidpointOfBools bs := by
+  induction bs with
+  | nil => rw [cellMidpointOfBools_nil]; norm_num
+  | cons b bs ih =>
+    cases b
+    · rw [cellMidpointOfBools_false_cons]
+      unfold cantorContraction1
+      linarith
+    · rw [cellMidpointOfBools_true_cons]
+      unfold cantorContraction2
+      linarith
+
+/-- **★ Strict upper bound ★**: every cell midpoint is strictly less than 1.
+
+    Proof by induction:
+    * Base `[]`: `1/2 < 1`.
+    * `false :: bs`: `(midpoint of bs)/3 ≤ 1/3 < 1` (since midpoint ≤ 1).
+    * `true :: bs`: `((midpoint of bs) + 2)/3 < 1` iff
+      `midpoint of bs + 2 < 3` iff `midpoint of bs < 1` (by IH). -/
+theorem cellMidpointOfBools_lt_one (bs : List Bool) :
+    cellMidpointOfBools bs < 1 := by
+  induction bs with
+  | nil => rw [cellMidpointOfBools_nil]; norm_num
+  | cons b bs ih =>
+    cases b
+    · rw [cellMidpointOfBools_false_cons]
+      unfold cantorContraction1
+      have h := cellMidpointOfBools_le_one bs
+      linarith
+    · rw [cellMidpointOfBools_true_cons]
+      unfold cantorContraction2
+      linarith
+
+/-- **★ Strict interior containment ★**: every cell midpoint lies in
+    the OPEN unit interval `(0, 1)`:
+
+      `cellMidpointOfBools bs ∈ Set.Ioo 0 1`
+
+    Confirms all level-`n` Dirac points are interior to `[0, 1]`,
+    consistent with their geometric interpretation as midpoints of
+    the level-`n` Cantor cells (which never include the boundary
+    points 0 and 1). -/
+theorem cellMidpointOfBools_mem_Ioo (bs : List Bool) :
+    cellMidpointOfBools bs ∈ Set.Ioo (0 : ℝ) 1 :=
+  ⟨cellMidpointOfBools_pos bs, cellMidpointOfBools_lt_one bs⟩
+
 /-! ## Documentation: cantorDiscMeasure as a sum of Diracs over boolean words
 
 By induction on `n` (using `hutchinsonOp_dirac` to split each Dirac
