@@ -360,6 +360,20 @@ theorem H_P_at_disc_smul_measure (α a : ℝ) (c : ENNReal)
   unfold H_P_at_disc
   rw [MeasureTheory.integral_smul_measure]
 
+/-- **Scaled Dirac evaluation**:
+
+      `H_P^disc[c • δ_z] f x = c.toReal · V_P(x, z) · f(z)`
+
+    The atomic building block for any finite Dirac-sum measure.
+    Combining with `H_P_at_disc_add` gives the explicit form for
+    `H_P^disc` against any discrete probability measure
+    `Σ p_i · δ_{z_i}`. -/
+theorem H_P_at_disc_smul_dirac (α a : ℝ) (c : ENNReal) (z : ℝ)
+    (f : ℝ → ℝ) (x : ℝ) :
+    H_P_at_disc α a (c • MeasureTheory.Measure.dirac z) f x =
+    c.toReal * (cantorKernel α a x z * f z) := by
+  rw [H_P_at_disc_smul_measure, H_P_at_disc_dirac, smul_eq_mul]
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
