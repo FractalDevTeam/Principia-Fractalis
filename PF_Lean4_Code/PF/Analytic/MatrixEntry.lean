@@ -1083,6 +1083,18 @@ theorem level1_antisym_eigenvector_at_right {α a : ℝ} (ha : 1 < a) :
   rw [hdiag, hsymm]
   ring
 
+/-- **★ Level-1 sum of squared eigenvalues (Frobenius identity) ★**:
+
+      `λ⁺² + λ⁻² = (1/2) · ((a/(a−1))² + V_P²(1/6, 5/6))`
+
+    Equals `‖M^{(1)}‖_F²` (Frobenius norm squared of the level-1
+    matrix). Derived via Vieta: `(λ+² + λ-²) = (sum)² − 2·prod`. -/
+theorem level1_sumSq_identity (α a : ℝ) :
+    (lambdaPlusLevel1 α a)^2 + (lambdaMinusLevel1 α a)^2 =
+    (1/2) * ((a/(a-1))^2 + (fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))^2) := by
+  unfold lambdaPlusLevel1 lambdaMinusLevel1
+  ring
+
 /-- **★ Level-1 trace identity ★**:
 
       `λ⁺^{(1)} + λ⁻^{(1)} = a/(a − 1)`
