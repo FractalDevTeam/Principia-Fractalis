@@ -80,6 +80,7 @@ import PF.Analytic.PolylogSpectrum                -- Open Problem 1 — closed-f
 import PF.Analytic.KernelSelfSimilarity            -- Open Problem 1 — kernel self-similarity equation (structural lever)
 import PF.Analytic.PolylogBoundary                 -- Open Problem 1 — Li₁ on unit circle, principal-branch closed form
 import PF.Analytic.Dilation                        -- Open Problem 1 — dilation operator + scale shift on cosineMode/sineMode
+import PF.Analytic.LogCoord                        -- Open Problem 1 — log-coordinate bridge: dilation ↔ translation (Route A)
 import PF.Analytic.LambdaZeroHPBookBounds         -- Stage L4 — concrete numerical bounds: lambda_zero_HP_book ≈ 0.2221441469
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
