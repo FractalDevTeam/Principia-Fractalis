@@ -108,6 +108,41 @@ theorem cellMatrixEntry_diagonal {α a : ℝ} (ha : 1 < a) (n : ℕ)
   unfold cellMatrixEntry cantorKernel
   rw [fractalKernelReal_diagonal ha (cellMidpointOfBools bs)]
 
+/-! ## ★ Level-1 explicit matrix ★ -/
+
+/-- **Level-1 off-diagonal distance**: `|m_{[false]} − m_{[true]}| = 2/3`.
+
+    The level-1 cells `[0, 1/3]` and `[2/3, 1]` have midpoints `1/6`
+    and `5/6` respectively; their distance is `2/3` (which is the
+    "gap" length between the two cells plus the half-cell offsets). -/
+theorem cellMidpoint_level1_distance :
+    dist (cellMidpointOfBools [false]) (cellMidpointOfBools [true]) = 2/3 := by
+  rw [cellMidpointOfBools_false, cellMidpointOfBools_true]
+  rw [Real.dist_eq]
+  norm_num
+
+/-- **Level-1 matrix off-diagonal entry**: closed form as a tsum.
+
+      `M^{(1)}_{[false], [true]} = (1/2) · Σ a^(-n) · cos(π · αⁿ · 2/3)`
+
+    This is the SINGLE off-diagonal entry (modulo symmetry) of the
+    `2 × 2` matrix at level 1. Combined with `cellMatrixEntry_diagonal`,
+    the level-1 matrix is:
+
+      `M^{(1)} = (1/2) · [[a/(a−1), V_P(1/6,5/6)], [V_P(1/6,5/6), a/(a−1)]]`
+
+    Its eigenvalues are `(1/2) · (a/(a−1) ± V_P(1/6,5/6))` — explicit
+    finite-rank approximations to the spectrum of `H_P^cantor[μ_H]`. -/
+theorem cellMatrixEntry_level1_offdiag (α a : ℝ) :
+    cellMatrixEntry α a 1 [false] [true] =
+    (1 / 2) * ∑' n : ℕ, a ^ (-(n : ℤ)) * Real.cos (Real.pi * α ^ n * (2/3)) := by
+  unfold cellMatrixEntry cantorKernel fractalKernelReal fractalKernelTerm
+  congr 1
+  · norm_num
+  · apply tsum_congr
+    intro n
+    rw [cellMidpoint_level1_distance]
+
 /-! ## Documentation: trace identity
 
 The trace of the level-`n` matrix is the sum of its diagonal entries:
