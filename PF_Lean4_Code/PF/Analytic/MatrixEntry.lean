@@ -1041,6 +1041,34 @@ theorem level2_anti_PSD_from_det {α a : ℝ} (ha : 1 < a)
       _ = A + C := habsAC
   linarith
 
+/-- **★ Level-2 conditional PSD bracketing ★** (`a > 1` + both block determinants ≥ 0):
+
+    Under the Sylvester PSD criterion for both blocks, all 4 level-2
+    eigenvalues lie in `[0, a/(a − 1)]`:
+
+      `0 ≤ λ_sym⁻ ≤ λ_sym⁺ ≤ a/(a − 1)`  (from sym PSD + radius bound)
+      `0 ≤ λ_anti⁻ ≤ λ_anti⁺ ≤ a/(a − 1)` (from antisym PSD + radius bound)
+
+    This is the level-2 analogue of `level1_spectrum_in_unit_interval`,
+    conditioned on the Sylvester criterion `B² ≤ A·C`.
+
+    The level-1 case is UNCONDITIONALLY PSD because the level-1 block
+    is the full matrix and the 2×2 PSD criterion reduces to `|V_P| ≤ d`
+    (always true). Level-2 PSD requires the additional
+    `(V_P(2/3) ± V_P(2/9))² ≤ (d ± V_P(8/9))(d ± V_P(4/9))` (with the
+    same sign convention), which is an OPEN ESTIMATE on V_P inner
+    products. -/
+theorem level2_conditional_PSD_bracketing {α a : ℝ} (ha : 1 < a)
+    (hdet_sym : (level2SymOffdiag α a)^2 ≤ level2SymA α a * level2SymC α a)
+    (hdet_anti : (level2AntiOffdiag α a)^2 ≤ level2AntiA α a * level2AntiC α a) :
+    (0 ≤ lambdaSymMinusLevel2 α a ∧
+     lambdaSymMinusLevel2 α a ≤ lambdaSymPlusLevel2 α a) ∧
+    (0 ≤ lambdaAntiMinusLevel2 α a ∧
+     lambdaAntiMinusLevel2 α a ≤ lambdaAntiPlusLevel2 α a) := by
+  refine ⟨?_, ?_⟩
+  · exact ⟨level2_sym_PSD_from_det ha hdet_sym, lambdaSym_le_Level2 α a⟩
+  · exact ⟨level2_anti_PSD_from_det ha hdet_anti, lambdaAnti_le_Level2 α a⟩
+
 /-! ## ★ Level-2 sum-of-squares (Frobenius norm) identities ★ -/
 
 /-- **Level-2 sym block sum of squared eigenvalues**:
