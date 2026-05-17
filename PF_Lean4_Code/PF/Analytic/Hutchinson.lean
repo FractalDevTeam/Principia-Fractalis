@@ -186,6 +186,24 @@ theorem hutchinsonOp_smul (c : ENNReal) (μ : MeasureTheory.Measure ℝ) :
   simp [Measure.add_apply, Measure.smul_apply]
   ring
 
+/-! ## Pre-Cantor-set recursion (using framework contraction names) -/
+
+/-- **Pre-Cantor-set IFS recursion** using framework's
+    `cantorContraction1, 2` names:
+
+      `preCantorSet (n+1) = f₁(preCantorSet n) ∪ f₂(preCantorSet n)`
+
+    Equivalent to mathlib's `preCantorSet_succ` but in framework
+    naming. This is the level-by-level construction of `cantorSet`
+    from `[0,1]`: each level applies both IFS contractions to the
+    previous level. -/
+theorem preCantorSet_succ_frameworkContractions (n : ℕ) :
+    preCantorSet (n + 1) =
+    (cantorContraction1 '' preCantorSet n) ∪
+    (cantorContraction2 '' preCantorSet n) := by
+  rw [preCantorSet_succ]
+  rw [cantorContraction1_eq, cantorContraction2_eq]
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
