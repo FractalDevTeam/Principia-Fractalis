@@ -1184,6 +1184,85 @@ theorem level2_sumSq_le_level0 {α a : ℝ} (ha : 1 < a) :
   nlinarith [hbnd_8_9, hbnd_4_9, hbnd_2_3, hbnd_2_9, sq_nonneg d,
              sq_nonneg v_8_9, sq_nonneg v_4_9, sq_nonneg v_2_3, sq_nonneg v_2_9]
 
+/-! ## ★ Level-2 individual eigenvalue bounds ★ -/
+
+/-- **★ Level-2 sym⁺ eigenvalue bound ★** (`a > 1`): `|λ_sym⁺| ≤ a/(a−1)`. -/
+theorem abs_lambdaSymPlusLevel2_le {α a : ℝ} (ha : 1 < a) :
+    |lambdaSymPlusLevel2 α a| ≤ a/(a-1) := by
+  have ha_nn : 0 ≤ a / (a - 1) := div_nonneg (by linarith) (by linarith)
+  have hfrob := level2_sumSq_le_level0 (α := α) ha
+  have hsq_pos : (lambdaSymPlusLevel2 α a)^2 ≤ (a/(a-1))^2 := by
+    have h1 : 0 ≤ (lambdaSymMinusLevel2 α a)^2 := sq_nonneg _
+    have h2 : 0 ≤ (lambdaAntiPlusLevel2 α a)^2 := sq_nonneg _
+    have h3 : 0 ≤ (lambdaAntiMinusLevel2 α a)^2 := sq_nonneg _
+    linarith
+  rw [abs_le]
+  constructor
+  · nlinarith [sq_nonneg (lambdaSymPlusLevel2 α a + a/(a-1))]
+  · nlinarith [sq_nonneg (lambdaSymPlusLevel2 α a - a/(a-1))]
+
+/-- **★ Level-2 sym⁻ eigenvalue bound ★** (`a > 1`): `|λ_sym⁻| ≤ a/(a−1)`. -/
+theorem abs_lambdaSymMinusLevel2_le {α a : ℝ} (ha : 1 < a) :
+    |lambdaSymMinusLevel2 α a| ≤ a/(a-1) := by
+  have ha_nn : 0 ≤ a / (a - 1) := div_nonneg (by linarith) (by linarith)
+  have hfrob := level2_sumSq_le_level0 (α := α) ha
+  have hsq_pos : (lambdaSymMinusLevel2 α a)^2 ≤ (a/(a-1))^2 := by
+    have h1 : 0 ≤ (lambdaSymPlusLevel2 α a)^2 := sq_nonneg _
+    have h2 : 0 ≤ (lambdaAntiPlusLevel2 α a)^2 := sq_nonneg _
+    have h3 : 0 ≤ (lambdaAntiMinusLevel2 α a)^2 := sq_nonneg _
+    linarith
+  rw [abs_le]
+  constructor
+  · nlinarith [sq_nonneg (lambdaSymMinusLevel2 α a + a/(a-1))]
+  · nlinarith [sq_nonneg (lambdaSymMinusLevel2 α a - a/(a-1))]
+
+/-- **★ Level-2 anti⁺ eigenvalue bound ★** (`a > 1`): `|λ_anti⁺| ≤ a/(a−1)`. -/
+theorem abs_lambdaAntiPlusLevel2_le {α a : ℝ} (ha : 1 < a) :
+    |lambdaAntiPlusLevel2 α a| ≤ a/(a-1) := by
+  have ha_nn : 0 ≤ a / (a - 1) := div_nonneg (by linarith) (by linarith)
+  have hfrob := level2_sumSq_le_level0 (α := α) ha
+  have hsq_pos : (lambdaAntiPlusLevel2 α a)^2 ≤ (a/(a-1))^2 := by
+    have h1 : 0 ≤ (lambdaSymPlusLevel2 α a)^2 := sq_nonneg _
+    have h2 : 0 ≤ (lambdaSymMinusLevel2 α a)^2 := sq_nonneg _
+    have h3 : 0 ≤ (lambdaAntiMinusLevel2 α a)^2 := sq_nonneg _
+    linarith
+  rw [abs_le]
+  constructor
+  · nlinarith [sq_nonneg (lambdaAntiPlusLevel2 α a + a/(a-1))]
+  · nlinarith [sq_nonneg (lambdaAntiPlusLevel2 α a - a/(a-1))]
+
+/-- **★ Level-2 anti⁻ eigenvalue bound ★** (`a > 1`): `|λ_anti⁻| ≤ a/(a−1)`. -/
+theorem abs_lambdaAntiMinusLevel2_le {α a : ℝ} (ha : 1 < a) :
+    |lambdaAntiMinusLevel2 α a| ≤ a/(a-1) := by
+  have ha_nn : 0 ≤ a / (a - 1) := div_nonneg (by linarith) (by linarith)
+  have hfrob := level2_sumSq_le_level0 (α := α) ha
+  have hsq_pos : (lambdaAntiMinusLevel2 α a)^2 ≤ (a/(a-1))^2 := by
+    have h1 : 0 ≤ (lambdaSymPlusLevel2 α a)^2 := sq_nonneg _
+    have h2 : 0 ≤ (lambdaSymMinusLevel2 α a)^2 := sq_nonneg _
+    have h3 : 0 ≤ (lambdaAntiPlusLevel2 α a)^2 := sq_nonneg _
+    linarith
+  rw [abs_le]
+  constructor
+  · nlinarith [sq_nonneg (lambdaAntiMinusLevel2 α a + a/(a-1))]
+  · nlinarith [sq_nonneg (lambdaAntiMinusLevel2 α a - a/(a-1))]
+
+/-- **★ Level-2 full spectral radius bound ★** (`a > 1`):
+
+      All 4 level-2 eigenvalues satisfy `|λ| ≤ a/(a−1)`.
+
+    The level-2 SPECTRAL RADIUS is bounded by the operator-norm bound
+    `a/(a−1)` — the **same uniform bound** as level 0 and the
+    documented general bound from `abs_cellMatrixEntry_le`. -/
+theorem level2_spectral_radius_bound {α a : ℝ} (ha : 1 < a) :
+    |lambdaSymPlusLevel2 α a|  ≤ a/(a-1) ∧
+    |lambdaSymMinusLevel2 α a| ≤ a/(a-1) ∧
+    |lambdaAntiPlusLevel2 α a| ≤ a/(a-1) ∧
+    |lambdaAntiMinusLevel2 α a| ≤ a/(a-1) :=
+  ⟨abs_lambdaSymPlusLevel2_le ha,
+   abs_lambdaSymMinusLevel2_le ha,
+   abs_lambdaAntiPlusLevel2_le ha,
+   abs_lambdaAntiMinusLevel2_le ha⟩
+
 /-- **★ Level-1 trace identity ★**:
 
       `λ⁺^{(1)} + λ⁻^{(1)} = a/(a − 1)`
