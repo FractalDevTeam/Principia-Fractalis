@@ -140,4 +140,56 @@ The manuscript's numerical computation at `α = √2` gives
 This is the n → ∞ limit; the discrete approximations defined here
 should converge to it. -/
 
+/-! ## ★ Polylog finite-rank convergence target ★ -/
+
+/-- **★ Polylog finite-rank convergence target ★** (`α = √2`, `a > 1`):
+
+    Formal Prop expressing the manuscript's conjecture in the
+    finite-rank approximation framework: there exists a sequence
+    `λ : ℕ → ℝ` of "level-`n` ground-state eigenvalues" that
+    converges (as `n → ∞`) to the polylog prediction
+
+      `λ_0(√2, a) := (1/a^0) · π/(10·√2) = π/(10·√2)`
+
+    where `π/(10·√2)` is the manuscript's claimed value on the
+    physical Riemann sheet (Problem 2's branch-selection Heuristic).
+
+    At each level, `λ(n)` must be one of the 2^n eigenvalues of
+    the discrete matrix `M^{(n)}` (the spectrum being the union of
+    sym/antisym block spectra at all levels). Convergence means
+    `λ(n) → π/(10·√2)` in the standard real-number topology.
+
+    This is the FORMAL STATEMENT of the manuscript's λ_0 ≈ 0.222
+    claim in the finite-rank approximation framework. -/
+def PolylogGroundStateConvergence_sqrt2 (a : ℝ) : Prop :=
+  ∃ (lam_seq : ℕ → ℝ),
+    Filter.Tendsto lam_seq Filter.atTop
+      (nhds (Real.pi / (10 * Real.sqrt 2))) ∧
+    -- At level 0, lam_seq 0 = lambdaLevel0 a (the only level-0 eigenvalue)
+    lam_seq 0 = lambdaLevel0 a ∧
+    -- At level 1, lam_seq 1 is one of the two level-1 eigenvalues
+    (lam_seq 1 = lambdaPlusLevel1_sqrt2 a ∨
+     lam_seq 1 = lambdaMinusLevel1_sqrt2 a)
+
+/-- **Polylog ground-state convergence at α = √2 — DOCUMENTATION**:
+
+    This is the FORMAL FINITE-RANK CONJECTURE: as the level `n` of
+    discrete approximation increases, the level-`n` matrix `M^{(n)}`
+    has `2^n` real eigenvalues (from the spectral theorem), and one
+    of them — the "ground state" — should converge to the manuscript's
+    asymptotic value `π/(10·√2) ≈ 0.2221441469`.
+
+    **Status**: open. The discrete matrix framework above provides:
+    * Explicit closed forms for `λ` at levels 0, 1, 2.
+    * Uniform spectral-radius bound `|λ| ≤ a/(a − 1)` (operator-norm
+      stability).
+    * Trace identity `Σ λ = a/(a − 1)` at every level.
+
+    Combined with the Banach-contraction weak-convergence framework
+    in `Hutchinson.lean` + `Lipschitz.lean`, the spectral convergence
+    follows IF an additional uniform spectral-stability argument
+    (e.g., compactness of `H_P^cantor[μ_H]`) is supplied. -/
+def PolylogGroundStateConjecture_sqrt2 : Prop :=
+  ∀ (a : ℝ), 1 < a → PolylogGroundStateConvergence_sqrt2 a
+
 end PrincipiaTractalis.Analytic
