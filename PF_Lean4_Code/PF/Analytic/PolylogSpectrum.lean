@@ -409,6 +409,87 @@ theorem inner_cosineMode_sineMode_same
     mul_ne_zero Real.pi_ne_zero (pow_ne_zero n hα)
   exact integral_cos_mul_sin_alpha_zero_one (Real.pi * α^n) hπαn
 
+/-! ## Base case: explicit eigenvalues of the k = 1 truncation
+
+The lowest-scale truncation `T_1` is the rank-2 operator induced by the
+single kernel term `cos(π · |x − y|)`. Its action on the n = 0
+cosineMode/sineMode functions has explicit closed-form eigenvalues.
+
+The scale-0 inner products are trivial because `α^0 = 1` for any `α`:
+
+  `⟨cosineMode α 0, cosineMode α 0⟩ = 1/2 + sin(2π)/(4π) = 1/2`     (since sin 2π = 0)
+  `⟨sineMode α 0, sineMode α 0⟩   = 1/2 − sin(2π)/(4π) = 1/2`
+  `⟨cosineMode α 0, sineMode α 0⟩ = (1 − cos(2π))/(4π) = 0`         (orthogonal)
+
+So `T_1` is diagonalised by `{cos(π·), sin(π·)}` with both
+eigenvalues equal to `1/2`. -/
+
+/-- `⟨cosineMode α 0, cosineMode α 0⟩_L²[0,1] = 1/2`  (any `α ≠ 0`). -/
+theorem inner_cosineMode_zero_self_eq_half (α : ℝ) (hα : α ≠ 0) :
+    ∫ y in (0:ℝ)..1, cosineMode α 0 y ^ 2 = 1/2 := by
+  rw [inner_cosineMode_self α 0 hα]; simp [Real.sin_two_pi]
+
+/-- `⟨sineMode α 0, sineMode α 0⟩_L²[0,1] = 1/2`  (any `α ≠ 0`). -/
+theorem inner_sineMode_zero_self_eq_half (α : ℝ) (hα : α ≠ 0) :
+    ∫ y in (0:ℝ)..1, sineMode α 0 y ^ 2 = 1/2 := by
+  rw [inner_sineMode_self α 0 hα]; simp [Real.sin_two_pi]
+
+/-- `⟨cosineMode α 0, sineMode α 0⟩_L²[0,1] = 0`  (orthogonal at scale 0). -/
+theorem inner_cosineMode_zero_sineMode_zero_eq_zero (α : ℝ) (hα : α ≠ 0) :
+    ∫ y in (0:ℝ)..1, cosineMode α 0 y * sineMode α 0 y = 0 := by
+  rw [inner_cosineMode_sineMode_same α 0 hα]; simp [Real.cos_two_pi]
+
+/-- **k = 1 truncation eigenvalue, cosine mode**:
+
+      `(T_1 · cosineMode α 0)(x) = (1/2) · cosineMode α 0 x`
+
+    i.e., `cos(π·)` is an eigenfunction of the rank-2 truncated
+    operator `T_1` with eigenvalue `1/2`. -/
+theorem truncatedOperatorAction_one_cosineMode_zero
+    (α a : ℝ) (hα : α ≠ 0) (x : ℝ) :
+    truncatedOperatorAction α a 1 (cosineMode α 0) x =
+    (1/2 : ℝ) * cosineMode α 0 x := by
+  have hcont : Continuous (cosineMode α 0) := by
+    unfold cosineMode
+    exact Real.continuous_cos.comp (continuous_const.mul continuous_id')
+  rw [truncatedOperatorAction_eq_sum α a 1 (cosineMode α 0) hcont x]
+  simp
+  have h_cos_cos : (∫ y in (0:ℝ)..1, cosineMode α 0 y * cosineMode α 0 y) = 1/2 := by
+    have hrw : ∀ y, cosineMode α 0 y * cosineMode α 0 y = cosineMode α 0 y ^ 2 :=
+      fun y => by ring
+    simp_rw [hrw]; exact inner_cosineMode_zero_self_eq_half α hα
+  have h_sin_cos : (∫ y in (0:ℝ)..1, sineMode α 0 y * cosineMode α 0 y) = 0 := by
+    rw [show (fun y => sineMode α 0 y * cosineMode α 0 y) =
+            (fun y => cosineMode α 0 y * sineMode α 0 y)
+        from by funext y; ring]
+    exact inner_cosineMode_zero_sineMode_zero_eq_zero α hα
+  rw [h_cos_cos, h_sin_cos]
+  ring
+
+/-- **k = 1 truncation eigenvalue, sine mode**:
+
+      `(T_1 · sineMode α 0)(x) = (1/2) · sineMode α 0 x`
+
+    i.e., `sin(π·)` is an eigenfunction of the rank-2 truncated
+    operator `T_1` with eigenvalue `1/2`. -/
+theorem truncatedOperatorAction_one_sineMode_zero
+    (α a : ℝ) (hα : α ≠ 0) (x : ℝ) :
+    truncatedOperatorAction α a 1 (sineMode α 0) x =
+    (1/2 : ℝ) * sineMode α 0 x := by
+  have hcont : Continuous (sineMode α 0) := by
+    unfold sineMode
+    exact Real.continuous_sin.comp (continuous_const.mul continuous_id')
+  rw [truncatedOperatorAction_eq_sum α a 1 (sineMode α 0) hcont x]
+  simp
+  have h_cos_sin : (∫ y in (0:ℝ)..1, cosineMode α 0 y * sineMode α 0 y) = 0 :=
+    inner_cosineMode_zero_sineMode_zero_eq_zero α hα
+  have h_sin_sin : (∫ y in (0:ℝ)..1, sineMode α 0 y * sineMode α 0 y) = 1/2 := by
+    have hrw : ∀ y, sineMode α 0 y * sineMode α 0 y = sineMode α 0 y ^ 2 :=
+      fun y => by ring
+    simp_rw [hrw]; exact inner_sineMode_zero_self_eq_half α hα
+  rw [h_cos_sin, h_sin_sin]
+  ring
+
 /-! ## Formal conjecture statement
 
 The conjecture `λ_k = (1/aᵏ) · Re[Li₁(e^{iπαᵏ})]` requires the complex
