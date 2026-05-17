@@ -298,6 +298,82 @@ theorem truncatedFractalKernelReal_mercer
   rw [Real.dist_eq]
   exact cos_kernel_decomp_abs α j x y
 
+/-! ## Truncated operator action -/
+
+/-- **Truncated operator action** on `f : ℝ → ℝ`:
+
+      `(T_k f)(x) := ∫_0^1 V_P^(k)(x, y) · f(y) dy`. -/
+noncomputable def truncatedOperatorAction
+    (α a : ℝ) (k : ℕ) (f : ℝ → ℝ) (x : ℝ) : ℝ :=
+  ∫ y in (0:ℝ)..1,
+    PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+      α a k ((x, y) : ℝ × ℝ) * f y
+
+/-- **Explicit action formula** (the matrix-rank-2k structure):
+
+      `(T_k f)(x) = Σ_{j=0}^{k-1} a^(-j) ·
+                    [cosineMode α j x · ⟨cosineMode α j, f⟩_L²[0,1]
+                   + sineMode α j x   · ⟨sineMode α j,   f⟩_L²[0,1]]`
+
+    where `⟨·, ·⟩_L²[0,1]` is the standard L²([0,1]) inner product
+    `∫_0^1 g(y) · f(y) dy` (real-valued).
+
+    Direct consequence of the Mercer decomposition
+    `truncatedFractalKernelReal_mercer` plus linearity of the integral
+    (with continuous `f` giving the required interval integrability of
+    every summand).
+
+    This is the explicit FINITE-RANK ACTION of the truncated operator
+    on the cosineMode/sineMode basis. Combined with the L∞
+    approximation bound from `KernelSelfSimilarity`, finite-rank
+    spectral computations on `H_P_at α a` are now formally supported. -/
+theorem truncatedOperatorAction_eq_sum
+    (α a : ℝ) (k : ℕ) (f : ℝ → ℝ) (hf : Continuous f) (x : ℝ) :
+    truncatedOperatorAction α a k f x =
+    (Finset.range k).sum (fun j =>
+      a^(-(j : ℤ)) *
+        (cosineMode α j x * (∫ y in (0:ℝ)..1, cosineMode α j y * f y) +
+         sineMode α j x   * (∫ y in (0:ℝ)..1, sineMode α j y   * f y))) := by
+  unfold truncatedOperatorAction
+  have hpoint : ∀ y,
+      PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+        α a k ((x, y) : ℝ × ℝ) * f y =
+      (Finset.range k).sum (fun j => a^(-(j : ℤ)) *
+        ((cosineMode α j x * (cosineMode α j y * f y))
+       + (sineMode α j x   * (sineMode α j y   * f y)))) := by
+    intro y
+    rw [truncatedFractalKernelReal_mercer]
+    rw [Finset.sum_mul]
+    apply Finset.sum_congr rfl
+    intro j _; ring
+  simp_rw [hpoint]
+  have cont_cosineMode : ∀ j, Continuous (cosineMode α j) := fun j => by
+    unfold cosineMode
+    exact Real.continuous_cos.comp (continuous_const.mul continuous_id')
+  have cont_sineMode : ∀ j, Continuous (sineMode α j) := fun j => by
+    unfold sineMode
+    exact Real.continuous_sin.comp (continuous_const.mul continuous_id')
+  have iint_summand : ∀ j ∈ Finset.range k,
+      IntervalIntegrable (fun y => a^(-(j : ℤ)) *
+        ((cosineMode α j x * (cosineMode α j y * f y))
+       + (sineMode α j x   * (sineMode α j y   * f y))))
+        MeasureTheory.volume 0 1 := by
+    intros j _
+    have h1 : Continuous (fun y => cosineMode α j x * (cosineMode α j y * f y)) :=
+      continuous_const.mul ((cont_cosineMode j).mul hf)
+    have h2 : Continuous (fun y => sineMode α j x * (sineMode α j y * f y)) :=
+      continuous_const.mul ((cont_sineMode j).mul hf)
+    exact (continuous_const.mul (h1.add h2)).intervalIntegrable _ _
+  rw [integral_finset_sum (h := iint_summand)]
+  apply Finset.sum_congr rfl
+  intro j _
+  rw [integral_const_mul]
+  congr 1
+  rw [integral_add
+        ((continuous_const.mul ((cont_cosineMode j).mul hf)).intervalIntegrable _ _)
+        ((continuous_const.mul ((cont_sineMode j).mul hf)).intervalIntegrable _ _)]
+  congr 1 <;> rw [integral_const_mul]
+
 /-! ## Specialization to cosineMode/sineMode -/
 
 /-- **Diagonal cosineMode inner product**: for `α^n ≠ 0` (i.e., `α ≠ 0`),
