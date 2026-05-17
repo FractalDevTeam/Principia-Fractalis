@@ -696,6 +696,60 @@ theorem lambdaAntiLevel2_gap (α a : ℝ) :
   unfold lambdaAntiPlusLevel2 lambdaAntiMinusLevel2
   ring
 
+/-- **Level-2 sym block determinant**:
+
+      `λ_sym⁺ · λ_sym⁻ = (1/16) · (A_sym · C_sym − B_sym_offdiag²)`
+
+    Product of the two sym-block eigenvalues — the determinant of
+    `B_sym` (divided by `1/16` from the scaling). -/
+theorem lambdaSymLevel2_det (α a : ℝ) :
+    lambdaSymPlusLevel2 α a * lambdaSymMinusLevel2 α a =
+    (1/16) * (level2SymA α a * level2SymC α a -
+              (level2SymOffdiag α a)^2) := by
+  -- Abbreviations
+  set S := level2SymA α a + level2SymC α a with hS
+  set D := (level2SymA α a - level2SymC α a)^2 + 4 * (level2SymOffdiag α a)^2 with hD
+  have hdisc : 0 ≤ D := by
+    rw [hD]
+    have h1 : 0 ≤ (level2SymA α a - level2SymC α a)^2 := sq_nonneg _
+    have h2 : 0 ≤ 4 * (level2SymOffdiag α a)^2 := by
+      have := sq_nonneg (level2SymOffdiag α a); linarith
+    linarith
+  have hsq : (Real.sqrt D)^2 = D := Real.sq_sqrt hdisc
+  -- (1/8)(S + √D) · (1/8)(S - √D) = (1/64)(S² - D)
+  have hprod : lambdaSymPlusLevel2 α a * lambdaSymMinusLevel2 α a =
+               (1/64) * (S^2 - (Real.sqrt D)^2) := by
+    unfold lambdaSymPlusLevel2 lambdaSymMinusLevel2
+    rw [← hS, ← hD]
+    ring
+  rw [hprod, hsq, hD, hS]
+  -- (1/64) · ((A+C)² - ((A-C)² + 4B²)) = (1/64) · (4AC - 4B²) = (1/16)(AC - B²)
+  ring
+
+/-- **Level-2 antisym block determinant**:
+
+      `λ_anti⁺ · λ_anti⁻ = (1/16) · (A_anti · C_anti − B_anti_offdiag²)` -/
+theorem lambdaAntiLevel2_det (α a : ℝ) :
+    lambdaAntiPlusLevel2 α a * lambdaAntiMinusLevel2 α a =
+    (1/16) * (level2AntiA α a * level2AntiC α a -
+              (level2AntiOffdiag α a)^2) := by
+  set S := level2AntiA α a + level2AntiC α a with hS
+  set D := (level2AntiA α a - level2AntiC α a)^2 + 4 * (level2AntiOffdiag α a)^2 with hD
+  have hdisc : 0 ≤ D := by
+    rw [hD]
+    have h1 : 0 ≤ (level2AntiA α a - level2AntiC α a)^2 := sq_nonneg _
+    have h2 : 0 ≤ 4 * (level2AntiOffdiag α a)^2 := by
+      have := sq_nonneg (level2AntiOffdiag α a); linarith
+    linarith
+  have hsq : (Real.sqrt D)^2 = D := Real.sq_sqrt hdisc
+  have hprod : lambdaAntiPlusLevel2 α a * lambdaAntiMinusLevel2 α a =
+               (1/64) * (S^2 - (Real.sqrt D)^2) := by
+    unfold lambdaAntiPlusLevel2 lambdaAntiMinusLevel2
+    rw [← hS, ← hD]
+    ring
+  rw [hprod, hsq, hD, hS]
+  ring
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
