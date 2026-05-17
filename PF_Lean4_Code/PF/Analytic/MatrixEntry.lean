@@ -1125,6 +1125,65 @@ theorem level1_sumSq_le_level0 {α a : ℝ} (ha : 1 < a) :
     exact sq_le_sq' (by linarith [abs_nonneg (fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))]) habs
   linarith
 
+/-- **★ Cross-level Frobenius monotonicity (level 2 ≤ level 0) ★** (`a > 1`):
+
+      `‖M^{(2)}‖_F² = Σ_{k=1}^4 λ_k^{(2)²} ≤ (a/(a−1))² = λ_0² = ‖M^{(0)}‖_F²`
+
+    Same spreading inequality at level 2: the 4 level-2 eigenvalues
+    sum to `a/(a−1)` and the sum-of-squares is bounded by the
+    single-eigenvalue case at level 0.
+
+    Algebraic proof: the explicit Frobenius² expansion is
+      `(1/4)·d² + (1/8)·V_{8/9}² + (1/8)·V_{4/9}² + (1/4)·V_{2/3}² + (1/4)·V_{2/9}²`
+    where `d = a/(a-1)`. Using `|V_P| ≤ d` (the uniform bound):
+      `(1/4)·d² + (1/8)·d² + (1/8)·d² + (1/4)·d² + (1/4)·d² = d²`. -/
+theorem level2_sumSq_le_level0 {α a : ℝ} (ha : 1 < a) :
+    (lambdaSymPlusLevel2 α a)^2 + (lambdaSymMinusLevel2 α a)^2 +
+    ((lambdaAntiPlusLevel2 α a)^2 + (lambdaAntiMinusLevel2 α a)^2) ≤
+    (a/(a-1))^2 := by
+  rw [level2_full_sumSq]
+  -- Need to bound (1/16)·(A_sym² + C_sym² + 2·B_sym² + A_anti² + C_anti² + 2·B_anti²)
+  -- by d² = (a/(a-1))².
+  -- The RHS expansion equals (1/4)d² + (1/8)V_{8/9}² + (1/8)V_{4/9}² + (1/4)V_{2/3}² + (1/4)V_{2/9}²
+  -- but I'll just bound each piece directly.
+  have ha_nn : 0 ≤ a / (a - 1) := div_nonneg (by linarith) (by linarith)
+  have hd : (a/(a-1))^2 = (a/(a-1))^2 := rfl
+  set d := a/(a-1)
+  set v_8_9 := fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ)
+  set v_4_9 := fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ)
+  set v_2_3 := fractalKernelReal α a ((1/18, 13/18) : ℝ × ℝ)
+  set v_2_9 := fractalKernelReal α a ((1/18, 5/18) : ℝ × ℝ)
+  -- Bounds
+  have hbnd : ∀ v : ℝ, v^2 ≤ d^2 → True := fun _ _ => trivial
+  have hbnd_8_9 : v_8_9^2 ≤ d^2 := by
+    rw [← sq_abs v_8_9]
+    have habs : |v_8_9| ≤ d := abs_fractalKernelReal_le α ha _
+    exact sq_le_sq' (by linarith [abs_nonneg v_8_9]) habs
+  have hbnd_4_9 : v_4_9^2 ≤ d^2 := by
+    rw [← sq_abs v_4_9]
+    have habs : |v_4_9| ≤ d := abs_fractalKernelReal_le α ha _
+    exact sq_le_sq' (by linarith [abs_nonneg v_4_9]) habs
+  have hbnd_2_3 : v_2_3^2 ≤ d^2 := by
+    rw [← sq_abs v_2_3]
+    have habs : |v_2_3| ≤ d := abs_fractalKernelReal_le α ha _
+    exact sq_le_sq' (by linarith [abs_nonneg v_2_3]) habs
+  have hbnd_2_9 : v_2_9^2 ≤ d^2 := by
+    rw [← sq_abs v_2_9]
+    have habs : |v_2_9| ≤ d := abs_fractalKernelReal_le α ha _
+    exact sq_le_sq' (by linarith [abs_nonneg v_2_9]) habs
+  -- Expand the LHS using the definitions
+  unfold level2SymA level2SymC level2SymOffdiag
+         level2AntiA level2AntiC level2AntiOffdiag
+  -- After unfold, the LHS is purely algebraic in d, v_8_9, v_4_9, v_2_3, v_2_9
+  show (1/16) * ((d + v_8_9)^2 + (d + v_4_9)^2 + 2 * (v_2_3 + v_2_9)^2 +
+                 ((d - v_8_9)^2 + (d - v_4_9)^2 + 2 * (v_2_3 - v_2_9)^2)) ≤ d^2
+  -- Expand: = (1/16) * (2d² + 2v_{8/9}² + 2d² + 2v_{4/9}² + 2·(2v_{2/3}² + 2v_{2/9}²))
+  --       = (1/16) * (4d² + 2v_{8/9}² + 2v_{4/9}² + 4v_{2/3}² + 4v_{2/9}²)
+  --       = (1/4)d² + (1/8)v_{8/9}² + (1/8)v_{4/9}² + (1/4)v_{2/3}² + (1/4)v_{2/9}²
+  --       ≤ (1/4 + 1/8 + 1/8 + 1/4 + 1/4)·d² = d²
+  nlinarith [hbnd_8_9, hbnd_4_9, hbnd_2_3, hbnd_2_9, sq_nonneg d,
+             sq_nonneg v_8_9, sq_nonneg v_4_9, sq_nonneg v_2_3, sq_nonneg v_2_9]
+
 /-- **★ Level-1 trace identity ★**:
 
       `λ⁺^{(1)} + λ⁻^{(1)} = a/(a − 1)`
