@@ -251,6 +251,54 @@ theorem conjectured_eigenvalue_principal_eq_re_polyLog
   rw [re_polyLog_one_principal_exp_I_pi_alpha_pow α k hα]
   ring
 
+/-! ## Singularities of the principal-branch formula at α = √2 -/
+
+/-- **Concrete singularity at α = √2, k = 2**:
+
+      `sin(π · (√2)² / 2) = sin(π) = 0`
+
+    So `polylog_one_principal(exp(I·π·(√2)²)) = polylog_one_principal(exp(0)·exp(I·0))`
+    has `Re = −log(2·0) = +∞` (undefined on principal branch). The
+    conjecture's eigenvalue λ_2 (for α = √2) is therefore NOT defined
+    by the principal-branch formula. -/
+theorem principal_branch_singularity_sqrt2_k2 :
+    Real.sin (Real.pi * (Real.sqrt 2 : ℝ)^2 / 2) = 0 := by
+  rw [Real.sq_sqrt (by norm_num : (0 : ℝ) ≤ 2)]
+  rw [show (Real.pi * 2 / 2 : ℝ) = Real.pi from by ring]
+  exact Real.sin_pi
+
+/-- **Helper**: `(√2)^(2m) = 2^m`. -/
+theorem sqrt2_pow_two_mul (m : ℕ) :
+    (Real.sqrt 2 : ℝ)^(2 * m) = (2 : ℝ)^m := by
+  rw [pow_mul]
+  rw [Real.sq_sqrt (by norm_num : (0 : ℝ) ≤ 2)]
+
+/-- **General singularity at α = √2, k = 2m for m ≥ 1**:
+
+      `sin(π · (√2)^(2m) / 2) = sin(π · 2^(m-1)) = 0`
+
+    since `2^(m-1)` is a positive integer for `m ≥ 1` and `sin(nπ) = 0`
+    for any natural `n`.
+
+    **Massive consequence**: at α = √2, the principal-branch
+    `conjectured_eigenvalue_principal` is UNDEFINED (formally `−log(0)`)
+    at infinitely many `k` (every even `k ≥ 2`). The manuscript's
+    conjecture predicts finite eigenvalues at every `k`, so the
+    physical Riemann sheet (Problem 2's Heuristic) must resolve ALL
+    these singularities, not just provide a finite correction at the
+    one principal-branch evaluation point `k = 0`. -/
+theorem principal_branch_singularity_sqrt2_even_k (m : ℕ) (hm : m ≥ 1) :
+    Real.sin (Real.pi * (Real.sqrt 2 : ℝ)^(2 * m) / 2) = 0 := by
+  rw [sqrt2_pow_two_mul]
+  rcases m with _ | m'
+  · omega
+  · rw [show (2 : ℝ)^(m'+1) = 2 * (2 : ℝ)^m' from by rw [pow_succ]; ring]
+    rw [show Real.pi * (2 * (2 : ℝ)^m') / 2 = Real.pi * (2 : ℝ)^m' from by ring]
+    have h_int : Real.pi * (2 : ℝ)^m' = (2^m' : ℕ) * Real.pi := by
+      push_cast; ring
+    rw [h_int]
+    exact Real.sin_nat_mul_pi (2^m')
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
