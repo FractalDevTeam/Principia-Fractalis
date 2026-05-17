@@ -329,6 +329,25 @@ theorem sin_pi_sqrt2_div_2_ne_zero :
     Real.sin (Real.pi * Real.sqrt 2 / 2) ≠ 0 :=
   ne_of_gt sin_pi_sqrt2_div_2_pos
 
+/-! ## Well-definedness at k = 0 and k = 1 for α = √2 -/
+
+/-- **At α = √2, k = 0**: `sin(π · (√2)⁰ / 2) = sin(π/2) = 1 ≠ 0`,
+    so the principal-branch eigenvalue formula is well-defined. -/
+theorem sin_pi_sqrt2_pow_zero_div_2_ne_zero :
+    Real.sin (Real.pi * (Real.sqrt 2 : ℝ)^0 / 2) ≠ 0 := by
+  simp only [pow_zero, mul_one]
+  rw [show Real.pi * 1 / 2 = Real.pi / 2 from by ring]
+  rw [Real.sin_pi_div_two]
+  norm_num
+
+/-- **At α = √2, k = 1**: `sin(π · √2 / 2) > 0`, so the principal-branch
+    eigenvalue formula is well-defined (and gives a finite negative
+    value `≈ -0.468`). -/
+theorem sin_pi_sqrt2_pow_one_div_2_ne_zero :
+    Real.sin (Real.pi * (Real.sqrt 2 : ℝ)^1 / 2) ≠ 0 := by
+  simp only [pow_one]
+  exact sin_pi_sqrt2_div_2_ne_zero
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
