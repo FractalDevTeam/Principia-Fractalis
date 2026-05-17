@@ -31,13 +31,45 @@ for `a > 1` and `K` a suitable compact fractal domain. Conjecture: the eigenvalu
 
 where `Li₁` is the polylogarithm of order 1, evaluated on a specific physical Riemann sheet determined by the operator's monodromy.
 
-**Current status.** Numerical: ground-state eigenvalue computed via finite-dimensional approximation (`N = 2⁸` to `2¹⁶` basis functions) converges to `0.2221441469 ± 10⁻¹⁰`, matching `π/(10√2) ≈ 0.2221441469079…` to within 10⁻¹⁰. Analytical: no proof.
+**Current status.** Numerical: ground-state eigenvalue computed via finite-dimensional approximation (`N = 2⁸` to `2¹⁶` basis functions) converges to `0.2221441469 ± 10⁻¹⁰`, matching `π/(10√2) ≈ 0.2221441469079…` to within 10⁻¹⁰. Analytical: no proof of the eigenvalue formula itself.
 
 **Lean encoding.** Part of `alpha_class_polylog_eigenvalue_conjecture` axiom (`PF/TuringEncoding/Operators.lean`).
 
+**Supporting infrastructure delivered (2026-05-16, 15 sessions, 43 axiom-free theorems).**
+
+The following machine-checked infrastructure for attacking Problem 1 has been delivered in Lean 4, all zero-project-axiom:
+
+* `PF/Analytic/PolylogSpectrum.lean` (22 theorems + 3 definitions):
+  - **All 6 matrix-entry product integrals** on L²([0,1]) (diagonal cos², sin², cos·sin; off-diagonal cos·cos, sin·sin, sin·cos).
+  - **Cross-scale specialisations** ⟨cosineMode α n, cosineMode α m⟩, ⟨sineMode α n, sineMode α m⟩, ⟨sineMode α n, cosineMode α m⟩ closed forms.
+  - **Mercer rank-2-per-scale decomposition** of the truncated kernel.
+  - **Truncated operator action** explicit formula + **base case eigenvalues** (T_1 cosineMode α 0 = (1/2) cosineMode α 0, similarly sineMode).
+  - **k=2 explicit scale mixing** (cosineMode α 0 NOT a T_2 eigenfunction; concrete demonstration).
+  - **Full operator action** definition + **pointwise convergence** T_k → H_P with O(a^{-k}) rate.
+  - **Formal conjecture predicate** `PolylogSpectrumClaim`.
+
+* `PF/Analytic/KernelSelfSimilarity.lean` (12 theorems + 1 definition):
+  - **Per-term scaling identity**.
+  - **Single-step self-similarity equation** `V_P(x,y) = cos(π·d) + (1/a)·V_P(αx, αy)` (the structural lever generating the a^{-k} weight in the conjecture).
+  - **k-fold iterated self-similarity** explicit recursion.
+  - **Residual bound** + **uniform L∞ approximation** O(a^{-k}).
+  - **Truncated kernel** definition + **pointwise bound** ≤ a/(a-1) uniformly in k.
+  - **Continuity of truncated kernel sections** (closes integrability loops).
+
+* `PF/Analytic/PolylogBoundary.lean` (9 theorems + 2 definitions):
+  - **Principal-branch extension** `polyLog_one_principal z := −log(1 − z)` of Li₁ to the closed unit disk minus z=1.
+  - **Norm formula** `‖1 − exp(I·t)‖ = 2·|sin(t/2)|`.
+  - **Closed-form principal-branch eigenvalue**: `Re[polyLog_one_principal(exp(I·π·αᵏ))] = −log(2·|sin(π·αᵏ/2)|)`.
+  - **Cosine-series representation** of polylog partial sums.
+  - **`conjectured_eigenvalue_principal` definition** giving the closed form on principal branch.
+
+For α = √2, k = 0 the principal-branch evaluation is `−log(2·sin(π·√2/2)) ≈ −0.468`, which is **NEGATIVE**. The manuscript's claimed positive value `π/(10√2) ≈ +0.222` requires a **different Riemann sheet** (Problem 2's branch-selection Heuristic). The discrepancy is now sharp and machine-checkable.
+
+**What this infrastructure gives the framework.** Every matrix entry of the finite-rank truncated operator T_k in the cosineMode/sineMode basis is a proven closed form. T_k → H_P with explicit O(a^{-k}) convergence. The natural basis is provably NOT the eigenbasis for k ≥ 2 (scale-mixing explicit). The principal-branch evaluation of the conjectured formula is in closed form. The remaining work is genuinely original mathematics: eigenvector identification + Riemann-sheet selection.
+
 **What a solution would deliver.** Together with Problems 2 and 3, retires the project axiom and gives an unconditional P ≠ NP via the framework's spectral-gap chain.
 
-**Difficulty estimate.** Multi-month to multi-year original operator-theory research.
+**Difficulty estimate.** Multi-month to multi-year original operator-theory research. The supporting infrastructure above is now machine-checked and out of the way; future work attacks the substantive content directly.
 
 ---
 
