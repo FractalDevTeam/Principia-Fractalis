@@ -443,6 +443,47 @@ theorem cellMatrixEntry_eq_tsum_distance (α a : ℝ) (n : ℕ)
   unfold cellMatrixEntry cantorKernel fractalKernelReal fractalKernelTerm
   rfl
 
+/-! ## ★ Uniform absolute bound ★ -/
+
+/-- **★ Uniform matrix-entry bound ★** (`a > 1`):
+
+      `|M^{(n)}_{bs, bs'}| ≤ (1/2^n) · a/(a−1)`
+
+    Every entry is bounded by the per-cell mass `1/2^n` times the
+    geometric-series majorant `a/(a−1)` (the maximum value of `V_P`,
+    attained on the diagonal). -/
+theorem abs_cellMatrixEntry_le {α a : ℝ} (ha : 1 < a) (n : ℕ)
+    (bs bs' : List Bool) :
+    |cellMatrixEntry α a n bs bs'| ≤ (1 / (2 : ℝ)^n) * (a / (a - 1)) := by
+  unfold cellMatrixEntry cantorKernel
+  rw [abs_mul]
+  have hpos : (0 : ℝ) < 2^n := pow_pos (by norm_num : (0:ℝ) < 2) n
+  have habs : |(1 / (2 : ℝ)^n)| = 1 / (2 : ℝ)^n :=
+    abs_of_pos (one_div_pos.mpr hpos)
+  rw [habs]
+  apply mul_le_mul_of_nonneg_left _ (le_of_lt (one_div_pos.mpr hpos))
+  exact abs_fractalKernelReal_le α ha _
+
+/-! ## Documentation: operator-norm row-sum bound
+
+The sum `Σ_{bs'} |M^{(n)}_{bs, bs'}|` over all length-`n` boolean
+words is bounded by `a/(a−1)` — UNIFORM in `n`. There are `2^n`
+columns, each contributing at most `(1/2^n) · a/(a−1)` (by
+`abs_cellMatrixEntry_le`), so the row sum is at most
+`2^n · (1/2^n) · a/(a−1) = a/(a−1)`.
+
+**Spectral consequence**: by the row-sum bound on the operator
+norm `‖M^{(n)}‖ ≤ max_bs Σ_{bs'} |M^{(n)}_{bs, bs'}|`, the level-`n`
+discrete operator has operator norm bounded by `a/(a−1)` for every
+`n`. So all level-`n` eigenvalues satisfy `|λ^{(n)}_k| ≤ a/(a−1)`,
+INDEPENDENT OF `n`. This is the **finite-rank operator-norm
+stability** that underwrites the spectral convergence argument
+(uniform-bound + weak-convergence → spectral convergence).
+
+Formalising the row-sum equality (rather than the per-entry bound)
+requires the Finset-of-length-`n`-Boolean-lists infrastructure
+documented in `CellMidpoint.lean`. -/
+
 /-! ## Documentation: trace identity
 
 The trace of the level-`n` matrix is the sum of its diagonal entries:
