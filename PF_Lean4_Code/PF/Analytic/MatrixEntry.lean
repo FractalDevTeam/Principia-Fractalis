@@ -29,7 +29,7 @@ import PF.IntegralKernel.FractalKernel
 
 namespace PrincipiaTractalis.Analytic
 
-open PrincipiaTractalis.IntegralKernel
+open PrincipiaTractalis.IntegralKernel MeasureTheory
 
 /-! ## Matrix-entry definition -/
 
@@ -142,6 +142,166 @@ theorem cellMatrixEntry_level1_offdiag (α a : ℝ) :
   · apply tsum_congr
     intro n
     rw [cellMidpoint_level1_distance]
+
+/-! ## ★ Level-1 discrete operator action ★ -/
+
+/-- **Level-1 explicit operator action**:
+
+      `(H_P^disc[cantorDiscMeasure 1] f)(x) =
+            (1/2) · V_P(x, 1/6) · f(1/6) +
+            (1/2) · V_P(x, 5/6) · f(5/6)`
+
+    The level-1 discrete operator is a `2 × 2` matrix acting on the
+    pair `(f(1/6), f(5/6))`. Specialising `x ∈ {1/6, 5/6}` gives the
+    full matrix-vector product (matrix-form action on the midpoint
+    span). -/
+theorem H_P_at_disc_cantorDiscMeasure_one (α a : ℝ) (f : ℝ → ℝ) (x : ℝ) :
+    H_P_at_disc α a (cantorDiscMeasure 1) f x =
+      (1/2) * (cantorKernel α a x (1/6) * f (1/6)) +
+      (1/2) * (cantorKernel α a x (5/6) * f (5/6)) := by
+  unfold H_P_at_disc
+  rw [cantorDiscMeasure_one]
+  rw [integral_add_measure]
+  · rw [integral_smul_measure, integral_smul_measure,
+        integral_dirac, integral_dirac]
+    simp [ENNReal.toReal_ofNat]
+  · refine Integrable.smul_measure ?_ (by simp : ((1/2 : ENNReal) : ENNReal) ≠ ⊤)
+    exact integrable_dirac (by
+      rw [enorm_mul]
+      exact ENNReal.mul_lt_top (by simp [enorm_eq_nnnorm])
+        (by simp [enorm_eq_nnnorm]))
+  · refine Integrable.smul_measure ?_ (by simp : ((1/2 : ENNReal) : ENNReal) ≠ ⊤)
+    exact integrable_dirac (by
+      rw [enorm_mul]
+      exact ENNReal.mul_lt_top (by simp [enorm_eq_nnnorm])
+        (by simp [enorm_eq_nnnorm]))
+
+/-! ## ★ Level-1 eigenvalue closed form ★ -/
+
+/-- **Level-1 symmetric eigenvalue**: the spectral value paired with
+    the symmetric eigenvector `f(1/6) = f(5/6) = 1`:
+
+      `λ⁺^{(1)} := (1/2) · (a/(a−1) + V_P(1/6, 5/6))` -/
+noncomputable def lambdaPlusLevel1 (α a : ℝ) : ℝ :=
+  (1/2) * ((a / (a - 1)) +
+    fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))
+
+/-- **Level-1 antisymmetric eigenvalue**: the spectral value paired with
+    the antisymmetric eigenvector `f(1/6) = 1, f(5/6) = −1`:
+
+      `λ⁻^{(1)} := (1/2) · (a/(a−1) − V_P(1/6, 5/6))` -/
+noncomputable def lambdaMinusLevel1 (α a : ℝ) : ℝ :=
+  (1/2) * ((a / (a - 1)) -
+    fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))
+
+/-- **★ Symmetric eigenvector identity at x = 1/6 ★**:
+
+    For `f(1/6) = f(5/6) = 1`,
+
+      `(H_P^disc[cantorDiscMeasure 1] f)(1/6) = λ⁺^{(1)} · f(1/6) = λ⁺^{(1)}` -/
+theorem level1_sym_eigenvector_at_left {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 1) (fun _ => (1 : ℝ)) (1/6) =
+    lambdaPlusLevel1 α a := by
+  rw [H_P_at_disc_cantorDiscMeasure_one]
+  unfold lambdaPlusLevel1 cantorKernel
+  have hdiag : fractalKernelReal α a (((1/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ)
+              = a / (a - 1) :=
+    fractalKernelReal_diagonal ha (1/6)
+  rw [hdiag]
+  ring
+
+/-- **★ Symmetric eigenvector identity at x = 5/6 ★**:
+
+    For `f(1/6) = f(5/6) = 1`,
+
+      `(H_P^disc[cantorDiscMeasure 1] f)(5/6) = λ⁺^{(1)} · f(5/6) = λ⁺^{(1)}`
+
+    Uses kernel SYMMETRY: `V_P(5/6, 1/6) = V_P(1/6, 5/6)` (via
+    `fractalKernelReal_swap`). -/
+theorem level1_sym_eigenvector_at_right {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 1) (fun _ => (1 : ℝ)) (5/6) =
+    lambdaPlusLevel1 α a := by
+  rw [H_P_at_disc_cantorDiscMeasure_one]
+  unfold lambdaPlusLevel1 cantorKernel
+  have hdiag : fractalKernelReal α a (((5/6 : ℝ), (5/6 : ℝ)) : ℝ × ℝ)
+              = a / (a - 1) :=
+    fractalKernelReal_diagonal ha (5/6)
+  have hsymm : fractalKernelReal α a (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ)
+              = fractalKernelReal α a (((1/6 : ℝ), (5/6 : ℝ)) : ℝ × ℝ) := by
+    have h := fractalKernelReal_swap α a (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ)
+    have hswap : (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ).swap
+               = (((1/6 : ℝ), (5/6 : ℝ)) : ℝ × ℝ) := rfl
+    rw [hswap] at h
+    exact h.symm
+  rw [hdiag, hsymm]
+  ring
+
+/-- **Level-1 antisymmetric test function**: `f(1/6) = 1`, `f(5/6) = −1`.
+
+    Indicator function on `{1/6}` used to extract the antisymmetric
+    eigenvector. -/
+noncomputable def level1_antisym_test (y : ℝ) : ℝ :=
+  if y < (1/2 : ℝ) then (1 : ℝ) else -1
+
+theorem level1_antisym_test_at_left : level1_antisym_test (1/6) = 1 := by
+  unfold level1_antisym_test
+  rw [if_pos (by norm_num : (1/6 : ℝ) < 1/2)]
+
+theorem level1_antisym_test_at_right : level1_antisym_test (5/6) = -1 := by
+  unfold level1_antisym_test
+  rw [if_neg (by norm_num : ¬ (5/6 : ℝ) < 1/2)]
+
+/-- **★ Antisymmetric eigenvector identity at x = 1/6 ★**:
+
+    For `f(1/6) = 1, f(5/6) = −1`,
+
+      `(H_P^disc[cantorDiscMeasure 1] f)(1/6) = λ⁻^{(1)} · f(1/6) = λ⁻^{(1)}` -/
+theorem level1_antisym_eigenvector_at_left {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 1) level1_antisym_test (1/6) =
+    lambdaMinusLevel1 α a := by
+  rw [H_P_at_disc_cantorDiscMeasure_one]
+  rw [level1_antisym_test_at_left, level1_antisym_test_at_right]
+  unfold lambdaMinusLevel1 cantorKernel
+  have hdiag : fractalKernelReal α a (((1/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ)
+              = a / (a - 1) :=
+    fractalKernelReal_diagonal ha (1/6)
+  rw [hdiag]
+  ring
+
+/-- **★ Antisymmetric eigenvector identity at x = 5/6 ★**:
+
+    For `f(1/6) = 1, f(5/6) = −1`,
+
+      `(H_P^disc[cantorDiscMeasure 1] f)(5/6) = λ⁻^{(1)} · f(5/6) = −λ⁻^{(1)}` -/
+theorem level1_antisym_eigenvector_at_right {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 1) level1_antisym_test (5/6) =
+    -lambdaMinusLevel1 α a := by
+  rw [H_P_at_disc_cantorDiscMeasure_one]
+  rw [level1_antisym_test_at_left, level1_antisym_test_at_right]
+  unfold lambdaMinusLevel1 cantorKernel
+  have hdiag : fractalKernelReal α a (((5/6 : ℝ), (5/6 : ℝ)) : ℝ × ℝ)
+              = a / (a - 1) :=
+    fractalKernelReal_diagonal ha (5/6)
+  have hsymm : fractalKernelReal α a (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ)
+              = fractalKernelReal α a (((1/6 : ℝ), (5/6 : ℝ)) : ℝ × ℝ) := by
+    have h := fractalKernelReal_swap α a (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ)
+    have hswap : (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ).swap
+               = (((1/6 : ℝ), (5/6 : ℝ)) : ℝ × ℝ) := rfl
+    rw [hswap] at h
+    exact h.symm
+  rw [hdiag, hsymm]
+  ring
+
+/-- **★ Level-1 trace identity ★**:
+
+      `λ⁺^{(1)} + λ⁻^{(1)} = a/(a − 1)`
+
+    Sum of the two level-1 eigenvalues equals the matrix trace
+    (independent of the off-diagonal `V_P(1/6, 5/6)`). -/
+theorem level1_trace_identity (α a : ℝ) :
+    lambdaPlusLevel1 α a + lambdaMinusLevel1 α a = a / (a - 1) := by
+  unfold lambdaPlusLevel1 lambdaMinusLevel1
+  ring
 
 /-! ## Documentation: trace identity
 
