@@ -298,6 +298,44 @@ theorem cantorDiscMeasure_one :
   unfold cantorContraction1 cantorContraction2
   norm_num
 
+/-! ## Discrete operator action -/
+
+/-- **Discrete operator action**:
+
+      `(H_P^disc[μ] f)(x) := ∫ y, V_P(x, y) · f(y) dμ(y)`
+
+    The operator action against a measure `μ` without restricting to
+    `cantorSet`. For `μ = cantorDiscMeasure n`, this is a FINITE SUM
+    over the level-n cell midpoints.
+
+    Distinct from `H_P_at_cantor` (which restricts to `cantorSet`).
+    `H_P_at_disc` is the natural operator-action for discrete
+    approximations, where the support of `μ` is a finite point set
+    (Dirac comb). -/
+noncomputable def H_P_at_disc (α a : ℝ) (μ : MeasureTheory.Measure ℝ)
+    (f : ℝ → ℝ) (x : ℝ) : ℝ :=
+  ∫ y, cantorKernel α a x y * f y ∂μ
+
+/-- **Dirac action**: for `μ = δ_z`,
+
+      `(H_P^disc[δ_z] f)(x) = V_P(x, z) · f(z)`.
+
+    Direct consequence of `MeasureTheory.integral_dirac`. -/
+theorem H_P_at_disc_dirac (α a : ℝ) (z : ℝ) (f : ℝ → ℝ) (x : ℝ) :
+    H_P_at_disc α a (MeasureTheory.Measure.dirac z) f x =
+    cantorKernel α a x z * f z := by
+  unfold H_P_at_disc
+  exact MeasureTheory.integral_dirac _ z
+
+/-- **Level-0 explicit action**:
+
+      `(H_P^disc[cantorDiscMeasure 0] f)(x) = V_P(x, 1/2) · f(1/2)`. -/
+theorem H_P_at_disc_cantorDiscMeasure_zero (α a : ℝ) (f : ℝ → ℝ) (x : ℝ) :
+    H_P_at_disc α a (cantorDiscMeasure 0) f x =
+    cantorKernel α a x (1/2) * f (1/2) := by
+  rw [cantorDiscMeasure_zero]
+  exact H_P_at_disc_dirac α a (1/2) f x
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
