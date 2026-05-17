@@ -713,6 +713,77 @@ theorem truncatedOperatorAction_two_cosineMode_zero
   simp only [Nat.cast_zero, neg_zero, zpow_zero, Nat.cast_one]
   ring
 
+/-! ## Tendsto form of T_k → H_P -/
+
+/-- **Truncated operator action converges to full operator action**:
+
+      `lim_{k → ∞} (T_k f)(x) = (H_P f)(x)`
+
+    for fixed `x : ℝ`, given the integrability hypotheses.
+
+    This is the `Tendsto`-form of the convergence theorem
+    `fullOperatorAction_sub_truncated_bound`, packaged for use with
+    mathlib's filter/topology infrastructure. The proof uses the
+    explicit error bound `O(a^(-k))` and the standard fact that
+    `a^(-k) → 0` as `k → ∞` for `a > 1`. -/
+theorem tendsto_truncatedOperatorAction
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α)
+    (f : ℝ → ℝ) (x : ℝ)
+    (hf_int_full : IntervalIntegrable
+        (fun y => PrincipiaTractalis.IntegralKernel.fractalKernelReal
+          α a ((x, y) : ℝ × ℝ) * f y)
+        MeasureTheory.volume 0 1)
+    (hf_int_trunc : ∀ (k : ℕ), IntervalIntegrable
+        (fun y => PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+          α a k ((x, y) : ℝ × ℝ) * f y)
+        MeasureTheory.volume 0 1)
+    (hf_int_abs : IntervalIntegrable
+        (fun y => |f y|) MeasureTheory.volume 0 1) :
+    Filter.Tendsto (fun k => truncatedOperatorAction α a k f x)
+            Filter.atTop (nhds (fullOperatorAction α a f x)) := by
+  rw [Metric.tendsto_atTop]
+  intro ε hε
+  have ha_pos : 0 < a := lt_trans zero_lt_one ha
+  have ha_minus_one_pos : 0 < a - 1 := by linarith
+  have h_factor_nn : 0 ≤ a / (a - 1) :=
+    div_nonneg (le_of_lt ha_pos) (le_of_lt ha_minus_one_pos)
+  have h_int_nn : 0 ≤ ∫ y in (0:ℝ)..1, |f y| := by
+    apply intervalIntegral.integral_nonneg zero_le_one
+    intro y _; exact abs_nonneg _
+  have hinv_lt_one : a⁻¹ < 1 := inv_lt_one_of_one_lt₀ ha
+  have h_inv_nn : (0 : ℝ) ≤ a⁻¹ := le_of_lt (by positivity)
+  have h_zpow : Filter.Tendsto (fun k : ℕ => (a : ℝ)^(-(k : ℤ)))
+      Filter.atTop (nhds 0) := by
+    have h_inv : Filter.Tendsto (fun k : ℕ => (a⁻¹ : ℝ)^k)
+        Filter.atTop (nhds 0) :=
+      tendsto_pow_atTop_nhds_zero_of_lt_one h_inv_nn hinv_lt_one
+    have h_eq : ∀ k : ℕ, (a⁻¹ : ℝ)^k = a^(-(k : ℤ)) := fun k => by
+      rw [zpow_neg, zpow_natCast, inv_pow]
+    simp_rw [h_eq] at h_inv
+    exact h_inv
+  have h_bound_tendsto : Filter.Tendsto (fun k : ℕ =>
+      a^(-(k : ℤ)) * (a / (a - 1)) * (∫ y in (0:ℝ)..1, |f y|))
+      Filter.atTop (nhds 0) := by
+    have h1 := (h_zpow.mul_const (a / (a - 1))).mul_const (∫ y in (0:ℝ)..1, |f y|)
+    simp only [zero_mul] at h1
+    exact h1
+  rcases Metric.tendsto_atTop.mp h_bound_tendsto ε hε with ⟨N, hN⟩
+  use N
+  intro k hkN
+  rw [Real.dist_eq, abs_sub_comm]
+  calc |fullOperatorAction α a f x - truncatedOperatorAction α a k f x|
+      ≤ a^(-(k : ℤ)) * (a / (a - 1)) * ∫ y in (0:ℝ)..1, |f y| :=
+        fullOperatorAction_sub_truncated_bound α a ha hα k f x
+          hf_int_full (hf_int_trunc k) hf_int_abs
+    _ < ε := by
+        have h := hN k hkN
+        rw [Real.dist_eq, sub_zero] at h
+        have h_pos : 0 ≤ a^(-(k : ℤ)) * (a / (a - 1)) * ∫ y in (0:ℝ)..1, |f y| := by
+          apply mul_nonneg _ h_int_nn
+          exact mul_nonneg (le_of_lt (zpow_pos ha_pos _)) h_factor_nn
+        rw [abs_of_nonneg h_pos] at h
+        exact h
+
 /-! ## Formal conjecture statement
 
 The conjecture `λ_k = (1/aᵏ) · Re[Li₁(e^{iπαᵏ})]` requires the complex
