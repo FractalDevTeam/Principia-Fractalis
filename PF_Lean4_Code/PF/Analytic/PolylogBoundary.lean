@@ -336,7 +336,6 @@ theorem sin_pi_sqrt2_div_2_ne_zero :
 theorem sin_pi_sqrt2_pow_zero_div_2_ne_zero :
     Real.sin (Real.pi * (Real.sqrt 2 : ℝ)^0 / 2) ≠ 0 := by
   simp only [pow_zero, mul_one]
-  rw [show Real.pi * 1 / 2 = Real.pi / 2 from by ring]
   rw [Real.sin_pi_div_two]
   norm_num
 
