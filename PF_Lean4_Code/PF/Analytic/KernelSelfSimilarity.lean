@@ -350,6 +350,30 @@ theorem abs_truncatedFractalKernelReal_le
     _ = (1 - 1/a)⁻¹ := tsum_geometric_of_lt_one h_nn h_lt_one
     _ = a / (a - 1) := by field_simp
 
+/-! ## Squared kernel bound (toward Hilbert-Schmidt norm) -/
+
+/-- **Pointwise square bound on the truncated kernel**:
+
+      `(V_P^(k)(x, y))² ≤ (a / (a − 1))²`
+
+    Direct from the pointwise absolute-value bound
+    `abs_truncatedFractalKernelReal_le`. Integrating over `[0,1]²`
+    gives the Hilbert-Schmidt norm-squared bound `‖V_P^(k)‖²_{L²} ≤
+    (a/(a−1))²`, hence `‖T_k‖_HS ≤ a/(a−1)` (operator-norm bound on
+    the L²([0,1]) Hilbert-Schmidt operator induced by V_P^(k)). -/
+theorem sq_truncatedFractalKernelReal_le
+    (α a : ℝ) (ha : 1 < a) (k : ℕ) (x y : ℝ) :
+    (truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ))^2
+    ≤ (a / (a - 1))^2 := by
+  have h := abs_truncatedFractalKernelReal_le α a ha k x y
+  have h_pos : 0 ≤ a / (a - 1) := by
+    have ha_pos : 0 < a := lt_trans zero_lt_one ha
+    have ha_minus_one_pos : 0 < a - 1 := by linarith
+    exact div_nonneg (le_of_lt ha_pos) (le_of_lt ha_minus_one_pos)
+  rw [← sq_abs]
+  exact sq_le_sq' (by
+    linarith [abs_nonneg (truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ))]) h
+
 /-! ## Continuity of truncated-kernel sections -/
 
 /-- **The map `y ↦ V_P^(k)(x, y)` is continuous** for any fixed `x : ℝ`.
