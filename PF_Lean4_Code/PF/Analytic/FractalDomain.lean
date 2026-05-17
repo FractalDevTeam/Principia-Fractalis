@@ -108,6 +108,55 @@ theorem cantorSet_is_fixed_point :
   rw [cantorContraction1_eq, cantorContraction2_eq]
   exact cantorSet_eq_union_halves
 
+/-! ## Cell containment and disjointness -/
+
+/-- **`f₁(cantorSet) ⊆ [0, 1/3]`**: the left IFS contraction maps
+    the Cantor set into the closed left third of the unit interval. -/
+theorem image_cantorContraction1_subset :
+    cantorContraction1 '' cantorSet ⊆ Set.Icc (0 : ℝ) (1/3) := by
+  rintro y ⟨x, hx, hxy⟩
+  have h1 : x ∈ Set.Icc (0 : ℝ) 1 := by
+    have h0 : preCantorSet 0 = Set.Icc (0 : ℝ) 1 := rfl
+    have := Set.mem_iInter.mp hx 0
+    rw [h0] at this; exact this
+  rcases h1 with ⟨hx0, hx1⟩
+  unfold cantorContraction1 at hxy
+  rw [← hxy]
+  exact ⟨by linarith, by linarith⟩
+
+/-- **`f₂(cantorSet) ⊆ [2/3, 1]`**: the right IFS contraction maps
+    the Cantor set into the closed right third of the unit interval. -/
+theorem image_cantorContraction2_subset :
+    cantorContraction2 '' cantorSet ⊆ Set.Icc (2/3 : ℝ) 1 := by
+  rintro y ⟨x, hx, hxy⟩
+  have h1 : x ∈ Set.Icc (0 : ℝ) 1 := by
+    have h0 : preCantorSet 0 = Set.Icc (0 : ℝ) 1 := rfl
+    have := Set.mem_iInter.mp hx 0
+    rw [h0] at this; exact this
+  rcases h1 with ⟨hx0, hx1⟩
+  unfold cantorContraction2 at hxy
+  rw [← hxy]
+  exact ⟨by linarith, by linarith⟩
+
+/-- **★ The two contraction images are disjoint ★**:
+    `f₁(cantorSet) ∩ f₂(cantorSet) = ∅`. The middle third
+    `(1/3, 2/3)` separates them.
+
+    Combined with the IFS fixed-point property, this means
+    `cantorSet = f₁(cantorSet) ⊔ f₂(cantorSet)` is a DISJOINT
+    union. The Hutchinson measure on `cantorSet` therefore has a
+    clean decomposition `μ_H = (1/2)(μ_H ∘ f₁⁻¹) + (1/2)(μ_H ∘ f₂⁻¹)`. -/
+theorem cantorContraction_images_disjoint :
+    Disjoint (cantorContraction1 '' cantorSet) (cantorContraction2 '' cantorSet) := by
+  apply Set.disjoint_of_subset (image_cantorContraction1_subset)
+                                (image_cantorContraction2_subset)
+  rw [Set.disjoint_iff_inter_eq_empty]
+  ext z
+  constructor
+  · rintro ⟨⟨_, h⟩, ⟨h', _⟩⟩
+    exfalso; linarith
+  · intro h; exact absurd h (Set.notMem_empty z)
+
 /-! ## Product-set IFS decomposition (4 cells) -/
 
 /-- **Helper**: `(A ∪ B) ×ˢ (C ∪ D) = (A ×ˢ C) ∪ (A ×ˢ D) ∪ (B ×ˢ C) ∪ (B ×ˢ D)`.
