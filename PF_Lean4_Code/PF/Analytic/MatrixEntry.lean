@@ -948,6 +948,28 @@ theorem lambdaAntiLevel2_trace_le {α a : ℝ} (ha : 1 < a) :
     exact this
   linarith
 
+/-- **★ Level-2 block trace partition ★** (`a > 1`):
+
+    The trace identity partitions `a/(a − 1)` between the sym and
+    antisym block traces, with each piece in `[0, a/(a − 1)]`:
+
+      `0 ≤ λ_sym⁺ + λ_sym⁻ ≤ a/(a − 1)`
+      `0 ≤ λ_anti⁺ + λ_anti⁻ ≤ a/(a − 1)`
+      `(λ_sym⁺ + λ_sym⁻) + (λ_anti⁺ + λ_anti⁻) = a/(a − 1)`
+
+    Both block traces are sandwiched in `[0, a/(a − 1)]`, and they
+    partition the total operator-norm bound `a/(a − 1)` (full trace). -/
+theorem level2_block_traces_partition {α a : ℝ} (ha : 1 < a) :
+    (0 ≤ lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a ∧
+     lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a ≤ a/(a-1)) ∧
+    (0 ≤ lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a ∧
+     lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a ≤ a/(a-1)) ∧
+    lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a +
+      (lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a) = a/(a-1) :=
+  ⟨⟨(level2_block_traces_nonneg ha).1, lambdaSymLevel2_trace_le ha⟩,
+   ⟨(level2_block_traces_nonneg ha).2, lambdaAntiLevel2_trace_le ha⟩,
+   level2_full_trace_identity α a⟩
+
 /-! ## ★ Level-2 conditional PSD ★ -/
 
 /-- **★ Level-2 sym block conditional PSD ★**:
