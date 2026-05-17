@@ -385,6 +385,67 @@ theorem level2_constant_row_diff {α a : ℝ} (ha : 1 < a) :
   rw [hsym2]
   ring
 
+/-- **★ Level-2 symmetric-test action at x = 1/18 ★**:
+
+    For any test function `f : ℝ → ℝ` with `f(1/18) = f(17/18) = c` and
+    `f(5/18) = f(13/18) = d` (the **symmetric** values under the IFS
+    reflection `x ↦ 1 − x`), the operator action at `x = 1/18` is:
+
+      `(H_P^disc[cantorDiscMeasure 2] f)(1/18)
+         = (1/4) · ((a/(a−1) + V_P(8/9)) · c
+                  + (V_P(2/3)  + V_P(2/9)) · d)`
+
+    This is the FIRST ROW of the symmetric 2×2 sub-block of `M^{(2)}`.
+    The symmetric block (under the reflection) has form
+
+      `B_sym = (1/4) · [[d + V_P(8/9),    e + V_P(2/9)],
+                        [e + V_P(2/9),    d + V_P(4/9)]]`
+
+    where `d = a/(a−1)` and `e = V_P(2/3)`.
+
+    Combined with the antisymmetric counterpart (a parametric form
+    for `f(1/18) = c, f(13/18) = d, f(5/18) = −d, f(17/18) = −c`),
+    this fully decomposes the 4×4 problem into two 2×2 problems —
+    the IFS-reflection block structure. -/
+theorem level2_sym_action_at_ff {α a : ℝ} (ha : 1 < a)
+    (c d : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/18) = c) (h2 : f (5/18) = d)
+    (h3 : f (13/18) = d) (h4 : f (17/18) = c) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f (1/18) =
+    (1/4) * ((a/(a-1) + fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ)) * c +
+             (fractalKernelReal α a ((1/18, 13/18) : ℝ × ℝ) +
+              fractalKernelReal α a ((1/18, 5/18) : ℝ × ℝ)) * d) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  rw [h1, h2, h3, h4]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (1/18)]
+  ring
+
+/-- **★ Level-2 antisymmetric-test action at x = 1/18 ★**:
+
+    For any test function `f : ℝ → ℝ` with `f(1/18) = c`, `f(13/18) = d`,
+    `f(5/18) = −d`, `f(17/18) = −c` (the **antisymmetric** values under
+    the IFS reflection `x ↦ 1 − x`), the operator action at `x = 1/18` is:
+
+      `(H_P^disc[cantorDiscMeasure 2] f)(1/18)
+         = (1/4) · ((a/(a−1) − V_P(8/9)) · c
+                  + (V_P(2/3)  − V_P(2/9)) · d)`
+
+    This is the FIRST ROW of the antisymmetric 2×2 sub-block of `M^{(2)}`. -/
+theorem level2_antisym_action_at_ff {α a : ℝ} (ha : 1 < a)
+    (c d : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/18) = c) (h2 : f (5/18) = -d)
+    (h3 : f (13/18) = d) (h4 : f (17/18) = -c) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f (1/18) =
+    (1/4) * ((a/(a-1) - fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ)) * c +
+             (fractalKernelReal α a ((1/18, 13/18) : ℝ × ℝ) -
+              fractalKernelReal α a ((1/18, 5/18) : ℝ × ℝ)) * d) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  rw [h1, h2, h3, h4]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (1/18)]
+  ring
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
