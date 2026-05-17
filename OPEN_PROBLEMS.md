@@ -134,9 +134,20 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `level1_trace_identity`: λ⁺ + λ⁻ = a/(a−1).
     - `level1_gap_identity`: λ⁺ − λ⁻ = V_P(1/6, 5/6).
     - `level1_det_identity`: λ⁺ · λ⁻ = (1/4) · ((a/(a−1))² − V_P²(1/6, 5/6)).
-  - **Cross-level trace consistency**: `tr M^{(0)} = lambdaLevel0 = lambdaPlusLevel1 + lambdaMinusLevel1 = tr M^{(1)}`.
+    - `lambdaPlusLevel1_nonneg`, `lambdaMinusLevel1_nonneg`: BOTH eigenvalues ≥ 0 (matrix is POSITIVE SEMI-DEFINITE).
+    - `lambdaPlusLevel1_le`, `lambdaMinusLevel1_le`: UPPER BOUNDS λ± ≤ a/(a−1).
+    - `level1_spectrum_in_unit_interval`: bracketing 0 ≤ λ± ≤ a/(a−1).
+  - **Cross-level trace consistency**: `tr M^{(0)} = lambdaLevel0 = lambdaPlusLevel1 + lambdaMinusLevel1 = tr M^{(1)}` and `trace_chain_levels_0_1_2`: chain across n = 0, 1, 2.
   - **Level-2 geometry** (6 pairwise distances): all four distinct values `{2/9, 4/9, 2/3, 8/9}` computed in closed form; documented block structure under IFS self-similarity.
   - **Level-1 off-diagonal explicit form**: `M^{(1)}_{[false],[true]} = (1/2) · Σ a^(-n) cos(π · α^n · 2/3)`.
+  - **Level-2 explicit matrix entries**: all 6 off-diagonal entries (`cellMatrixEntry_level2_ff_ft`, `_ff_tf`, `_ff_tt`, `_ft_tf`, `_ft_tt`, `_tf_tt`) as explicit tsum closed forms; `level2_within_half_equality` and `level2_outer_cross_equality` codify the IFS reflection symmetry.
+  - **Level-2 explicit measure**: `cantorDiscMeasure_two = (1/4)·(δ_{1/18} + δ_{5/18} + δ_{13/18} + δ_{17/18})`.
+  - **Level-2 explicit operator action** `H_P_at_disc_cantorDiscMeasure_two`: closed-form 4-Dirac action on the level-2 midpoint span (matrix-vector product M^{(2)}·v explicit).
+
+* `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
+  - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
+  - `lipschitzWith_comp_cantorContraction{1,2}`: composition with a Lipschitz function shrinks the constant by 1/3.
+  - **`iteratedIFSComp_lipschitz`**: under n iterations along any boolean word, the test function's Lipschitz constant shrinks to `L · (1/3)^n`. Combined with `integral_difference_recursion` from `Hutchinson.lean`, this is the COMPLETE analytic engine for the Banach contraction giving GEOMETRIC weak-convergence rate `cantorDiscMeasure n → μ_H` on bounded Lipschitz test functions.
 
 **What the Phase A continuation gives the framework.** The polylog conjecture is now equipped with concrete, machine-checked finite-rank discrete approximations at every level `n`. The level-`n` discrete operator is realised as an explicit real symmetric `2^n × 2^n` matrix with closed-form entries, uniformly bounded `≤ a/(a−1)` in operator norm. Level-0 (1×1) and level-1 (2×2) are fully diagonalised with explicit eigenvectors; the trace identity `Σ λ^{(n)}_k = a/(a−1)` is preserved across levels and provides an empirical test for any candidate closed-form eigenvalue. The full operator `H_P^cantor[μ_H]` is recovered in the `n → ∞` limit via the weak-convergence machinery from `Hutchinson.lean` (the difference recursion + Banach contraction structure is in place; full Wasserstein convergence requires the Lipschitz infrastructure that mathlib's `LipschitzWith` provides).
 
