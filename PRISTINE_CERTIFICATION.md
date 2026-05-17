@@ -1,11 +1,12 @@
 # Principia Fractalis — Lean 4 Pristine Certification
 
-**Date**: 2026-05-16
-**Build verification**: `lake build` in `PF_Lean4_Code/`
+**Date**: 2026-05-17
+**Build verification**: `lake build` in `PF_Lean4_Code/` — **5652 jobs clean, 0 warnings, 0 sorries**
+**Axiom verification**: `#print axioms` confirms 1 verified project axiom; headline reductions preserved
 
 ## ⚠ Honest Framing (read this first)
 
-This document certifies the **internal Lean 4 + Coq formal state** of the codebase. Some headline numbers below (1 axiom, 5626 jobs clean, 0 sorries, cross-prover verification) describe a real and substantial body of mechanized mathematics. Other claims (e.g., "headline P ≠ NP capstone") are **conditional reductions, not unconditional proofs**. Specifically:
+This document certifies the **internal Lean 4 + Coq formal state** of the codebase. Some headline numbers below (1 axiom, 5652 jobs clean, 0 sorries, cross-prover verification) describe a real and substantial body of mechanized mathematics. Other claims (e.g., "headline P ≠ NP capstone") are **conditional reductions, not unconditional proofs**. Specifically:
 
 - The single remaining project axiom `alpha_class_polylog_eigenvalue_conjecture` is the **formal encoding** of the manuscript's Ch 21 Conjecture (`conj:polylog-spectrum`) + Heuristic (`heur:branch-selection`) + Conjecture (`conj:golden-modulation`). The manuscript labels these as conjectures backed by 10⁻¹⁰ numerical evidence; it does **not** claim to derive them.
 - The Riemann Hypothesis theorem (`riemann_hypothesis_via_T3_sym_framework`) is 0-axiom but takes the **surjectivity of the spectral bijection onto ζ-zeros** as a hypothesis. The file itself describes that surjectivity as "the load-bearing conjecture of the entire RH program (det/trace-formula completion). This is the open mathematical problem."
