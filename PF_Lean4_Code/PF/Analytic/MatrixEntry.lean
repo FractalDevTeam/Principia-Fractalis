@@ -1715,6 +1715,44 @@ theorem level1_spectrum_in_unit_interval {α a : ℝ} (ha : 1 < a) :
   ⟨⟨lambdaPlusLevel1_nonneg ha, lambdaPlusLevel1_le ha⟩,
    ⟨lambdaMinusLevel1_nonneg ha, lambdaMinusLevel1_le ha⟩⟩
 
+/-! ## ★ Level-1 spectral radius ★ -/
+
+/-- **★ Level-1 spectral radius closed form ★** (`a > 1`):
+
+    The spectral radius (max absolute eigenvalue) of `M^{(1)}` is:
+
+      `max(|λ⁺^{(1)}|, |λ⁻^{(1)}|) = (1/2)·(a/(a−1) + |V_P(1/6, 5/6)|)`
+
+    Both eigenvalues are non-negative (PSD), so the absolute values
+    drop. The maximum of `(d + V)/2` and `(d − V)/2` is `(d + |V|)/2`. -/
+theorem level1_spectral_radius_closed_form {α a : ℝ} (ha : 1 < a) :
+    max |lambdaPlusLevel1 α a| |lambdaMinusLevel1 α a| =
+    (1/2) * (a/(a-1) + |fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ)|) := by
+  have hplus_nn : 0 ≤ lambdaPlusLevel1 α a := lambdaPlusLevel1_nonneg ha
+  have hminus_nn : 0 ≤ lambdaMinusLevel1 α a := lambdaMinusLevel1_nonneg ha
+  have habs_plus : |lambdaPlusLevel1 α a| = lambdaPlusLevel1 α a :=
+    abs_of_nonneg hplus_nn
+  have habs_minus : |lambdaMinusLevel1 α a| = lambdaMinusLevel1 α a :=
+    abs_of_nonneg hminus_nn
+  rw [habs_plus, habs_minus]
+  unfold lambdaPlusLevel1 lambdaMinusLevel1
+  -- max((d + V)/2, (d - V)/2) = (d + |V|)/2 via cases on sign of V
+  set V := fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ)
+  rcases le_or_gt 0 V with hV | hV
+  · -- V ≥ 0: max((d+V)/2, (d-V)/2) = (d+V)/2 = (d + |V|)/2
+    rw [abs_of_nonneg hV]
+    have heq : (1/2) * (a/(a-1) + V) =
+               (1/2) * (a/(a-1) + V) := rfl
+    rw [show (1/2) * (a/(a-1) + V) = (1/2) * (a/(a-1) + V) from rfl]
+    refine max_eq_left ?_
+    -- (1/2)(d - V) ≤ (1/2)(d + V) when V ≥ 0
+    nlinarith
+  · -- V < 0: max((d+V)/2, (d-V)/2) = (d-V)/2 = (d + |V|)/2 since |V| = -V
+    rw [abs_of_neg hV]
+    rw [show (1/2) * (a/(a-1) + -V) = (1/2) * (a/(a-1) - V) from by ring]
+    refine max_eq_right ?_
+    nlinarith
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
