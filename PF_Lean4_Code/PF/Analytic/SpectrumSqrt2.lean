@@ -169,7 +169,12 @@ def PolylogGroundStateConvergence_sqrt2 (a : ℝ) : Prop :=
     lam_seq 0 = lambdaLevel0 a ∧
     -- At level 1, lam_seq 1 is one of the two level-1 eigenvalues
     (lam_seq 1 = lambdaPlusLevel1_sqrt2 a ∨
-     lam_seq 1 = lambdaMinusLevel1_sqrt2 a)
+     lam_seq 1 = lambdaMinusLevel1_sqrt2 a) ∧
+    -- At level 2, lam_seq 2 is one of the four level-2 eigenvalues
+    (lam_seq 2 = lambdaSymPlusLevel2  (Real.sqrt 2) a ∨
+     lam_seq 2 = lambdaSymMinusLevel2 (Real.sqrt 2) a ∨
+     lam_seq 2 = lambdaAntiPlusLevel2 (Real.sqrt 2) a ∨
+     lam_seq 2 = lambdaAntiMinusLevel2 (Real.sqrt 2) a)
 
 /-- **Polylog ground-state convergence at α = √2 — DOCUMENTATION**:
 
