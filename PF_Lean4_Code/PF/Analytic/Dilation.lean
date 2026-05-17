@@ -134,6 +134,34 @@ theorem dilation_sineMode_succ_fun (α : ℝ) (hα : α ≠ 0) (k : ℕ) :
     dilation α (sineMode α (k + 1)) = sineMode α k :=
   funext (fun x => dilation_sineMode_succ α hα k x)
 
+/-! ## j-fold scale shift -/
+
+/-- **j-fold scale shift on cosineMode**:
+
+      `(D_α)^[j] (cosineMode α (k + j)) = cosineMode α k`
+
+    Iterating the single-step shift `j` times lowers the scale by
+    exactly `j`. Direct from `dilation_iter` + the explicit `α^k`
+    factorisation `cos(π · α^(k+j) · x/α^j) = cos(π · α^k · x)`. -/
+theorem dilation_iter_cosineMode (α : ℝ) (hα : α ≠ 0) (k j : ℕ) :
+    (dilation α)^[j] (cosineMode α (k + j)) = cosineMode α k := by
+  rw [dilation_iter α hα j]
+  funext x
+  unfold dilation cosineMode
+  congr 1
+  rw [pow_add]
+  field_simp
+
+/-- **j-fold scale shift on sineMode** (parallel). -/
+theorem dilation_iter_sineMode (α : ℝ) (hα : α ≠ 0) (k j : ℕ) :
+    (dilation α)^[j] (sineMode α (k + j)) = sineMode α k := by
+  rw [dilation_iter α hα j]
+  funext x
+  unfold dilation sineMode
+  congr 1
+  rw [pow_add]
+  field_simp
+
 /-! ## Inverse-dilation shift (raise the scale index) -/
 
 /-- **Inverse-dilation scale shift on cosineMode**:
