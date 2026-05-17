@@ -65,6 +65,27 @@ theorem dilation_inv_dilation (α : ℝ) (hα : α ≠ 0) (f : ℝ → ℝ) :
   unfold dilation
   field_simp
 
+/-! ## Preserved properties under dilation -/
+
+/-- **Bounded functions stay bounded under dilation**: if `|f x| ≤ M`
+    for all `x`, then `|(D_α f) x| ≤ M` for all `x`. (Same `M`; the
+    dilation doesn't change the sup.) -/
+theorem dilation_bounded (α : ℝ) (f : ℝ → ℝ) (M : ℝ) (hf : ∀ x, |f x| ≤ M) :
+    ∀ x, |dilation α f x| ≤ M := by
+  intro x
+  unfold dilation
+  exact hf (x / α)
+
+/-- **Constants are fixed**: `D_α (constant c) = (constant c)`. -/
+theorem dilation_const (α c : ℝ) :
+    dilation α (fun _ => c) = fun _ => c := by
+  funext _; rfl
+
+/-- **Zero is fixed**: `D_α 0 = 0`. -/
+theorem dilation_zero (α : ℝ) :
+    dilation α (0 : ℝ → ℝ) = 0 := by
+  funext _; unfold dilation; rfl
+
 /-! ## Bijectivity (group inverse) -/
 
 /-- **The other direction of inverse**: `D_α (D_α⁻¹ f) = f`.
