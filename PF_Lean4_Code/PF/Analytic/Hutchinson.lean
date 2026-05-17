@@ -390,6 +390,46 @@ theorem hutchinsonOp_dirac (z : ℝ) :
   rw [MeasureTheory.Measure.map_dirac cantorContraction1_measurable]
   rw [MeasureTheory.Measure.map_dirac cantorContraction2_measurable]
 
+/-! ## ★ Integral recursion under Hutchinson iteration ★ -/
+
+/-- **★ Integral recursion ★**:
+
+      `∫ f d(T μ) = (1/2) ∫ f ∘ f₁ dμ + (1/2) ∫ f ∘ f₂ dμ`
+
+    The fundamental recursion for integrals against the Hutchinson
+    iterate. Each step distributes via the pushforward formula
+    `∫ f d(map g μ) = ∫ f∘g dμ` (mathlib `integral_map`) and the
+    measure-additivity of integrals.
+
+    **Consequence**: applied iteratively, `∫ f d(T^n μ)` decomposes
+    into a sum of `2^n` integrals against `μ`, each of `f` composed
+    with a length-`n` IFS-word. For `μ = δ_{1/2}`, each integral is
+    a single point evaluation `f(IFS-word(1/2))`, giving the explicit
+    `2^n`-term finite sum. -/
+theorem integral_hutchinsonOp_apply (μ : MeasureTheory.Measure ℝ) (f : ℝ → ℝ)
+    (h1 : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction1 μ))
+    (h2 : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction2 μ)) :
+    ∫ x, f x ∂(hutchinsonOp μ) =
+    (1/2) * ∫ y, f (cantorContraction1 y) ∂μ +
+    (1/2) * ∫ y, f (cantorContraction2 y) ∂μ := by
+  unfold hutchinsonOp
+  rw [MeasureTheory.integral_add_measure
+        ((MeasureTheory.integrable_smul_measure
+          (by norm_num : (1/2 : ENNReal) ≠ 0)
+          (by norm_num : (1/2 : ENNReal) ≠ ⊤)).mpr h1)
+        ((MeasureTheory.integrable_smul_measure
+          (by norm_num : (1/2 : ENNReal) ≠ 0)
+          (by norm_num : (1/2 : ENNReal) ≠ ⊤)).mpr h2)]
+  rw [MeasureTheory.integral_smul_measure, MeasureTheory.integral_smul_measure]
+  rw [MeasureTheory.integral_map cantorContraction1_measurable.aemeasurable
+        h1.aestronglyMeasurable]
+  rw [MeasureTheory.integral_map cantorContraction2_measurable.aemeasurable
+        h2.aestronglyMeasurable]
+  rw [show (1/2 : ENNReal).toReal = (1/2 : ℝ) from by simp]
+  simp only [smul_eq_mul]
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
