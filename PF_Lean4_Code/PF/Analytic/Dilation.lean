@@ -65,6 +65,31 @@ theorem dilation_inv_dilation (α : ℝ) (hα : α ≠ 0) (f : ℝ → ℝ) :
   unfold dilation
   field_simp
 
+/-! ## Bijectivity (group inverse) -/
+
+/-- **The other direction of inverse**: `D_α (D_α⁻¹ f) = f`.
+
+    Together with `dilation_inv_dilation` (`D_α⁻¹ (D_α f) = f` from
+    earlier), this gives bidirectional invertibility. -/
+theorem dilation_dilation_inv (α : ℝ) (hα : α ≠ 0) (f : ℝ → ℝ) :
+    dilation α (dilation α⁻¹ f) = f := by
+  funext x
+  unfold dilation
+  field_simp
+
+/-- **Bijectivity**: `dilation α : (ℝ → ℝ) → (ℝ → ℝ)` is a bijection
+    for `α ≠ 0`. Inverse is `dilation α⁻¹`. -/
+theorem dilation_bijective (α : ℝ) (hα : α ≠ 0) :
+    Function.Bijective (dilation α : (ℝ → ℝ) → (ℝ → ℝ)) := by
+  refine ⟨?_, ?_⟩
+  · intro f g h
+    calc f = dilation α⁻¹ (dilation α f) := (dilation_inv_dilation α hα f).symm
+      _ = dilation α⁻¹ (dilation α g) := by rw [h]
+      _ = g := dilation_inv_dilation α hα g
+  · intro g
+    use dilation α⁻¹ g
+    exact dilation_dilation_inv α hα g
+
 /-! ## Group structure: composition and powers -/
 
 /-- **Composition**: `D_α ∘ D_β = D_(αβ)`.
