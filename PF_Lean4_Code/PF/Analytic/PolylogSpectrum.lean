@@ -906,6 +906,49 @@ theorem truncatedOperatorAction_two_sineMode_one
   simp only [pow_zero, pow_one, Nat.cast_zero, neg_zero, zpow_zero, Nat.cast_one,
              mul_one, one_mul]
 
+/-! ## Trace of T_k (sum of eigenvalues) -/
+
+/-- **The diagonal of the truncated kernel is constant**:
+
+      `V_P^(k)(x, x) = Σ_{j<k} a^(-j)`
+
+    independent of `x`. (Each summand reduces to `a^(-j) · cos(0) =
+    a^(-j)` on the diagonal.) -/
+theorem truncatedFractalKernelReal_diagonal
+    (α a : ℝ) (k : ℕ) (x : ℝ) :
+    PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+      α a k ((x, x) : ℝ × ℝ) =
+    (Finset.range k).sum (fun j => a^(-(j : ℤ))) := by
+  unfold PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+  apply Finset.sum_congr rfl
+  intro j _
+  show a ^ (-(j : ℤ)) * Real.cos (Real.pi * α^j * dist x x) =
+       a ^ (-(j : ℤ))
+  rw [dist_self]
+  simp
+
+/-- **Trace of `T_k`** (sum of eigenvalues with multiplicity):
+
+      `Tr(T_k) = ∫_0^1 V_P^(k)(x, x) dx = Σ_{j<k} a^(-j)`
+
+    a finite geometric partial sum, in closed form
+    `(1 − a^(-k))/(1 − 1/a) = a(1 − a^(-k))/(a−1)` for `a > 1`.
+
+    Since `T_k` is finite-rank (rank ≤ 2k by the Mercer decomposition),
+    its trace is well-defined and equals the sum of its eigenvalues.
+    This gives a sum-rule constraint on the eigenvalues of the
+    truncated operator. -/
+theorem trace_truncatedOperator (α a : ℝ) (k : ℕ) :
+    ∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+      α a k ((x, x) : ℝ × ℝ) =
+    (Finset.range k).sum (fun j => a^(-(j : ℤ))) := by
+  rw [show (fun x => PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+              α a k ((x, x) : ℝ × ℝ)) =
+          (fun _ => (Finset.range k).sum (fun j => a^(-(j : ℤ))))
+       from by funext x; exact truncatedFractalKernelReal_diagonal α a k x]
+  rw [intervalIntegral.integral_const]
+  simp
+
 /-! ## Tendsto form of T_k → H_P -/
 
 /-- **Truncated operator action converges to full operator action**:
