@@ -48,6 +48,7 @@ Stage L4+ — Route A, Step 3: fractal-domain (Cantor-set) extension.
 -/
 
 import Mathlib.Topology.Instances.CantorSet
+import Mathlib.MeasureTheory.Measure.MeasureSpace
 import PF.RadixEconomy
 import PF.Analytic.KernelSelfSimilarity
 
@@ -282,6 +283,81 @@ Hutchinson measure infrastructure (not yet in mathlib in directly
 usable form). The structural framework is here; the full
 mechanization requires building `MeasureTheory.Measure.Hutchinson`
 or instantiating `Measure.Hausdorff` at dimension `log 2 / log 3`. -/
+
+/-! ## Hutchinson-invariant measure predicate -/
+
+/-- **Hutchinson invariance** for the Cantor IFS:
+
+      `μ = (1/2)·(f₁)_* μ + (1/2)·(f₂)_* μ`
+
+    A Borel measure `μ` on `ℝ` is Hutchinson-invariant for the
+    Cantor IFS if it equals the equal-weighted pushforward sum
+    under the two contractions. The weights `(1/2, 1/2)` reflect
+    the uniform mass distribution between the two halves —
+    equivalent to the Hausdorff measure normalization at dimension
+    `log 2 / log 3`.
+
+    The **Hutchinson invariant measure** `μ_H` on `cantorSet` is
+    the unique (up to scaling) measure satisfying this property
+    with `μ_H(cantorSet) = 1`. Its existence and uniqueness follow
+    from the Banach fixed-point theorem applied to the IFS-induced
+    contraction on probability measures (a classical result —
+    Hutchinson 1981).
+
+    Constructing `μ_H` explicitly in Lean requires the
+    `MeasureTheory.Hausdorff` infrastructure (or building it from
+    scratch via the Hutchinson construction). The PREDICATE here
+    enables stating Hutchinson-invariance properties parametrically. -/
+def IsHutchinsonInvariant (μ : MeasureTheory.Measure ℝ) : Prop :=
+  μ = (1/2 : ENNReal) •
+        (MeasureTheory.Measure.map cantorContraction1 μ) +
+      (1/2 : ENNReal) •
+        (MeasureTheory.Measure.map cantorContraction2 μ)
+
+/-! ## Documentation: the H_P^cantor operator (conditional definition)
+
+Given a Hutchinson-invariant measure `μ` on `cantorSet`, the
+Cantor-substrate operator is:
+
+  `(H_P^cantor f)(x) := ∫_{cantorSet} cantorKernel α a x y · f(y) dμ(y)`
+
+By the 4-cell decomposition `cantorSet_prod_decomp` and the
+disjointness `cantorContraction_images_disjoint`, the integration
+splits cleanly into 4 sub-integrals. Combined with the Hutchinson
+invariance, each sub-integral transforms back to an integral over
+the whole `cantorSet`:
+
+  `∫_{f_i(cantorSet)} g(y) dμ(y) = (1/2) ∫_{cantorSet} g(f_i(z)) dμ(z)`
+
+(via the pushforward `μ ∘ f_i⁻¹`).
+
+So `(H_P^cantor f)(x)` decomposes as:
+
+```
+(H_P^cantor f)(x)
+  = (1/2) ∫_{cantorSet} V_P(x, f_1(z)) · f(f_1(z)) dμ(z)
+  + (1/2) ∫_{cantorSet} V_P(x, f_2(z)) · f(f_2(z)) dμ(z)
+```
+
+When `x = f_i(x')` for some `x' ∈ cantorSet`:
+
+```
+(H_P^cantor f)(f_i(x'))
+  = (1/2) ∫ V_P(f_i(x'), f_1(z)) · f(f_1(z)) dμ(z)
+  + (1/2) ∫ V_P(f_i(x'), f_2(z)) · f(f_2(z)) dμ(z)
+```
+
+The kernel `V_P(f_i(x'), f_j(z))` decomposes according to whether
+`i = j` (diagonal cell) or `i ≠ j` (cross cell), with the diagonal
+case admitting a `V_P` self-similarity reduction (per
+`KernelSelfSimilarity.lean`) and the cross case being a "scattering"
+term.
+
+This is the CLEAN OPERATOR-LEVEL self-similarity equation on the
+Cantor substrate — no boundary issues, exact decomposition.
+The full mechanization requires the Hutchinson measure construction
+(future work). The structural framework is now machine-checked
+at every algebraic layer. -/
 
 /-! ## Documentation: connection to the resonance operator
 
