@@ -1338,6 +1338,18 @@ theorem level1_gap_identity (α a : ℝ) :
   unfold lambdaPlusLevel1 lambdaMinusLevel1
   ring
 
+/-- **★ Level-1 spectral gap bound ★** (`a > 1`):
+
+      `|λ⁺^{(1)} − λ⁻^{(1)}| ≤ a/(a − 1)`
+
+    The level-1 spectral gap is bounded by the operator-norm bound,
+    consistent with `|λ±| ≤ a/(a−1)`. From the gap identity:
+    `gap = V_P(1/6, 5/6)`, and `|V_P| ≤ a/(a−1)`. -/
+theorem abs_level1_gap_le {α a : ℝ} (ha : 1 < a) :
+    |lambdaPlusLevel1 α a - lambdaMinusLevel1 α a| ≤ a/(a-1) := by
+  rw [level1_gap_identity]
+  exact abs_fractalKernelReal_le α ha _
+
 /-- **★ Level-1 determinant identity ★**:
 
       `λ⁺^{(1)} · λ⁻^{(1)} = (1/4) · ((a/(a−1))² − V_P(1/6, 5/6)²)`
