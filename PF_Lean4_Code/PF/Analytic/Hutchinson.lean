@@ -131,6 +131,32 @@ theorem hutchinsonOp_probability (μ : MeasureTheory.Measure ℝ)
     (hutchinsonOp μ) Set.univ = 1 := by
   rw [hutchinsonOp_total μ, hμ]
 
+/-! ## Iteration -/
+
+/-- **The n-th iterate of T preserves total mass**: `(T^n μ)(univ) = μ(univ)`.
+
+    By induction: each step preserves mass via `hutchinsonOp_total`. -/
+theorem hutchinsonOp_iter_total (μ : MeasureTheory.Measure ℝ) (n : ℕ) :
+    (hutchinsonOp^[n] μ) Set.univ = μ Set.univ := by
+  induction n with
+  | zero => simp
+  | succ k ih =>
+    rw [Function.iterate_succ_apply']
+    rw [hutchinsonOp_total]
+    exact ih
+
+/-- **Iteration preserves probability measures**: if `μ(univ) = 1`,
+    then `(T^n μ)(univ) = 1` for all `n`. -/
+theorem hutchinsonOp_iter_probability (μ : MeasureTheory.Measure ℝ) (n : ℕ)
+    (hμ : μ Set.univ = 1) :
+    (hutchinsonOp^[n] μ) Set.univ = 1 := by
+  rw [hutchinsonOp_iter_total, hμ]
+
+/-- **Iteration additivity**: `T^(n+m) = T^n ∘ T^m`. -/
+theorem hutchinsonOp_iter_add (μ : MeasureTheory.Measure ℝ) (n m : ℕ) :
+    hutchinsonOp^[n + m] μ = hutchinsonOp^[n] (hutchinsonOp^[m] μ) := by
+  rw [Function.iterate_add_apply]
+
 /-! ## Linearity in μ -/
 
 /-- **Additivity**: `T(μ₁ + μ₂) = T μ₁ + T μ₂`.
