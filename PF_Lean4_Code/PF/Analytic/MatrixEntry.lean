@@ -1486,6 +1486,36 @@ theorem level2_spectrum_bracketing {α a : ℝ} (ha : 1 < a) :
   · exact ⟨(abs_le.mp h3).1, (abs_le.mp h3).2⟩
   · exact ⟨(abs_le.mp h4).1, (abs_le.mp h4).2⟩
 
+/-- **★ Level-2 full conditional spectrum bracketing in `[0, a/(a−1)]` ★**:
+
+    Combining the conditional PSD (from Sylvester) with the
+    unconditional spectral radius bound, all 4 level-2 eigenvalues
+    lie in `[0, a/(a−1)]` whenever both block determinants are
+    non-negative:
+
+      `0 ≤ λ_sym⁻ ≤ λ_sym⁺ ≤ a/(a−1)`
+      `0 ≤ λ_anti⁻ ≤ λ_anti⁺ ≤ a/(a−1)`
+
+    This is the level-2 analogue of `level1_spectrum_in_unit_interval`,
+    conditioned on the Sylvester criterion `B² ≤ A·C` for both blocks. -/
+theorem level2_full_conditional_bracketing {α a : ℝ} (ha : 1 < a)
+    (hdet_sym : (level2SymOffdiag α a)^2 ≤ level2SymA α a * level2SymC α a)
+    (hdet_anti : (level2AntiOffdiag α a)^2 ≤ level2AntiA α a * level2AntiC α a) :
+    (0 ≤ lambdaSymMinusLevel2 α a ∧
+     lambdaSymMinusLevel2 α a ≤ lambdaSymPlusLevel2 α a ∧
+     lambdaSymPlusLevel2 α a ≤ a/(a-1)) ∧
+    (0 ≤ lambdaAntiMinusLevel2 α a ∧
+     lambdaAntiMinusLevel2 α a ≤ lambdaAntiPlusLevel2 α a ∧
+     lambdaAntiPlusLevel2 α a ≤ a/(a-1)) := by
+  obtain ⟨⟨h_sym_min_nn, h_sym_order⟩, ⟨h_anti_min_nn, h_anti_order⟩⟩ :=
+    level2_conditional_PSD_bracketing ha hdet_sym hdet_anti
+  have h_sym_plus_upper : lambdaSymPlusLevel2 α a ≤ a/(a-1) :=
+    (abs_le.mp (abs_lambdaSymPlusLevel2_le ha)).2
+  have h_anti_plus_upper : lambdaAntiPlusLevel2 α a ≤ a/(a-1) :=
+    (abs_le.mp (abs_lambdaAntiPlusLevel2_le ha)).2
+  exact ⟨⟨h_sym_min_nn, h_sym_order, h_sym_plus_upper⟩,
+         ⟨h_anti_min_nn, h_anti_order, h_anti_plus_upper⟩⟩
+
 /-- **★ Level-1 trace identity ★**:
 
       `λ⁺^{(1)} + λ⁻^{(1)} = a/(a − 1)`
