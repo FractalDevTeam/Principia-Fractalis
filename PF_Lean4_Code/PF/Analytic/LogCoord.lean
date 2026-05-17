@@ -48,6 +48,8 @@ Stage L4+ — Route A: log-coordinate / Mellin-natural framework.
 -/
 
 import PF.Analytic.Dilation
+import PF.Analytic.KernelSelfSimilarity
+import PF.IntegralKernel.FractalKernel
 
 namespace PrincipiaTractalis.Analytic
 
@@ -144,6 +146,90 @@ theorem logCoord_dilation_eq_translation_logCoord
   rw [logCoord_dilation α hα f t]
   unfold translation
   congr 1; ring
+
+/-! ## Inverse transform: expCoord -/
+
+/-- **Inverse log-coordinate transform**: maps a function on `ℝ` (in
+    `t`) back to a function on `(0, ∞)` (in `x`):
+
+      `(expCoord g) x := g(-log x)`
+
+    Inverse of `logCoord` on `(0, ∞)`. -/
+noncomputable def expCoord (g : ℝ → ℝ) : ℝ → ℝ :=
+  fun x => g (-Real.log x)
+
+/-- **Right inverse**: `expCoord (logCoord f) x = f x` for `x > 0`. -/
+theorem expCoord_logCoord (f : ℝ → ℝ) (x : ℝ) (hx : 0 < x) :
+    expCoord (logCoord f) x = f x := by
+  unfold expCoord logCoord
+  rw [neg_neg]
+  rw [Real.exp_log hx]
+
+/-- **Left inverse**: `logCoord (expCoord g) t = g t` for all `t`. -/
+theorem logCoord_expCoord (g : ℝ → ℝ) (t : ℝ) :
+    logCoord (expCoord g) t = g t := by
+  unfold logCoord expCoord
+  rw [Real.log_exp]
+  rw [neg_neg]
+
+/-! ## Log-coordinate fractal kernel -/
+
+/-- **Fractal kernel in log coordinates**:
+
+      `V_P^log(s, t) := V_P(e^{-s}, e^{-t})`
+
+    The kernel of the dilation-symmetrised version of `H_P`. -/
+noncomputable def fractalKernelReal_log (α a : ℝ) (s t : ℝ) : ℝ :=
+  PrincipiaTractalis.IntegralKernel.fractalKernelReal
+    α a ((Real.exp (-s), Real.exp (-t)) : ℝ × ℝ)
+
+/-- **Joint translation in log coordinates corresponds to joint
+    scaling in x coordinates**:
+
+      `V_P^log(s − c, t − c) = V_P(e^c · e^{-s}, e^c · e^{-t})`
+
+    The translation group acts on the log-coordinate kernel by
+    arguments-shift, which corresponds via the bridge to dilation by
+    `e^c` in the original `x`-coordinates. -/
+theorem fractalKernelReal_log_joint_translation
+    (α a c : ℝ) (s t : ℝ) :
+    fractalKernelReal_log α a (s - c) (t - c) =
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      α a ((Real.exp c * Real.exp (-s), Real.exp c * Real.exp (-t)) : ℝ × ℝ) := by
+  unfold fractalKernelReal_log
+  have h1 : Real.exp (-(s - c)) = Real.exp c * Real.exp (-s) := by
+    rw [show -(s - c) = c + (-s) from by ring]
+    exact Real.exp_add c (-s)
+  have h2 : Real.exp (-(t - c)) = Real.exp c * Real.exp (-t) := by
+    rw [show -(t - c) = c + (-t) from by ring]
+    exact Real.exp_add c (-t)
+  rw [h1, h2]
+
+/-- **★ Self-similarity in log coordinates ★** (the translation-shifted
+    form of the kernel self-similarity equation):
+
+      `V_P^log(s − log α, t − log α) = a · V_P^log(s, t)
+                                       − a · cos(π · dist(e^{-s}, e^{-t}))`
+
+    The dilation by `α` on `(x, y)` becomes the translation by
+    `log α` on `(s, t)` (per `logCoord_dilation`). The kernel
+    self-similarity (scaled form) `V_P(αx, αy) = a · V_P(x, y) − a · cos`
+    therefore becomes a translation-invariance-mod-cosine equation
+    in log coordinates.
+
+    This is the structural form making the self-similarity manifest
+    as a TRANSLATION SYMMETRY (Pontryagin-dual to multiplicative
+    dilation) in the log-coordinate picture. -/
+theorem fractalKernelReal_log_self_similarity
+    (α a : ℝ) (ha : 1 < a) (hα : 0 < α) (s t : ℝ) :
+    fractalKernelReal_log α a (s - Real.log α) (t - Real.log α) =
+    a * fractalKernelReal_log α a s t -
+    a * Real.cos (Real.pi * dist (Real.exp (-s)) (Real.exp (-t))) := by
+  rw [fractalKernelReal_log_joint_translation α a (Real.log α) s t]
+  rw [Real.exp_log hα]
+  rw [PrincipiaTractalis.IntegralKernel.fractalKernelReal_self_similarity_scaled
+        α a ha (le_of_lt hα) (Real.exp (-s)) (Real.exp (-t))]
+  rfl
 
 /-! ## Documentation: the next layer of Route A
 
