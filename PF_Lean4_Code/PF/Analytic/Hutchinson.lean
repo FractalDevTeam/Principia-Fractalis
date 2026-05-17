@@ -336,6 +336,30 @@ theorem H_P_at_disc_cantorDiscMeasure_zero (α a : ℝ) (f : ℝ → ℝ) (x : �
   rw [cantorDiscMeasure_zero]
   exact H_P_at_disc_dirac α a (1/2) f x
 
+/-! ## H_P^disc additivity in μ -/
+
+/-- **`H_P^disc` is additive in μ** (with integrability hypotheses):
+
+      `H_P^disc[μ₁ + μ₂] f x = H_P^disc[μ₁] f x + H_P^disc[μ₂] f x`
+
+    Required for unfolding `cantorDiscMeasure` iterates into explicit
+    sums of Dirac contributions. -/
+theorem H_P_at_disc_add (α a : ℝ) (μ₁ μ₂ : MeasureTheory.Measure ℝ)
+    (f : ℝ → ℝ) (x : ℝ)
+    (h₁ : MeasureTheory.Integrable (fun y => cantorKernel α a x y * f y) μ₁)
+    (h₂ : MeasureTheory.Integrable (fun y => cantorKernel α a x y * f y) μ₂) :
+    H_P_at_disc α a (μ₁ + μ₂) f x =
+    H_P_at_disc α a μ₁ f x + H_P_at_disc α a μ₂ f x := by
+  unfold H_P_at_disc
+  exact MeasureTheory.integral_add_measure h₁ h₂
+
+/-- **`H_P^disc` scalar in μ**: `H_P^disc[c • μ] f x = c · H_P^disc[μ] f x`. -/
+theorem H_P_at_disc_smul_measure (α a : ℝ) (c : ENNReal)
+    (μ : MeasureTheory.Measure ℝ) (f : ℝ → ℝ) (x : ℝ) :
+    H_P_at_disc α a (c • μ) f x = c.toReal • H_P_at_disc α a μ f x := by
+  unfold H_P_at_disc
+  rw [MeasureTheory.integral_smul_measure]
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
