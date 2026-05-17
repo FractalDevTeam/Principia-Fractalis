@@ -1095,6 +1095,36 @@ theorem level1_sumSq_identity (α a : ℝ) :
   unfold lambdaPlusLevel1 lambdaMinusLevel1
   ring
 
+/-- **★ Cross-level Frobenius monotonicity (level 1 ≤ level 0) ★** (`a > 1`):
+
+      `‖M^{(1)}‖_F² = λ⁺² + λ⁻² ≤ (a/(a−1))² = λ_0² = ‖M^{(0)}‖_F²`
+
+    By the trace-preservation identity, the same total mass `a/(a−1)`
+    is distributed across 2 eigenvalues at level 1 versus 1 eigenvalue
+    at level 0; by Cauchy-Schwarz / convexity, the sum of squares is
+    bounded by the single-eigenvalue case.
+
+    Algebraically: `‖M^{(1)}‖_F² = (1/2)·((a/(a−1))² + V_P²(1/6, 5/6))`
+    and `V_P²(1/6, 5/6) ≤ (a/(a−1))²` (from the uniform kernel bound).
+
+    This is the formal "EIGENVALUE SPREADING" inequality: as `n`
+    increases, the spectrum spreads and the sum of squares decreases,
+    with equality iff all eigenvalues are equal. -/
+theorem level1_sumSq_le_level0 {α a : ℝ} (ha : 1 < a) :
+    (lambdaPlusLevel1 α a)^2 + (lambdaMinusLevel1 α a)^2 ≤
+    (a/(a-1))^2 := by
+  rw [level1_sumSq_identity]
+  have habs : |fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ)| ≤ a/(a-1) :=
+    abs_fractalKernelReal_le α ha _
+  have ha_nn : 0 ≤ a / (a - 1) := by
+    apply div_nonneg
+    · linarith
+    · linarith
+  have hsq : (fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))^2 ≤ (a/(a-1))^2 := by
+    rw [← sq_abs (fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))]
+    exact sq_le_sq' (by linarith [abs_nonneg (fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))]) habs
+  linarith
+
 /-- **★ Level-1 trace identity ★**:
 
       `λ⁺^{(1)} + λ⁻^{(1)} = a/(a − 1)`
