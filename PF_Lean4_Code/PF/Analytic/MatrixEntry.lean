@@ -328,6 +328,30 @@ theorem level1_trace_identity (α a : ℝ) :
   unfold lambdaPlusLevel1 lambdaMinusLevel1
   ring
 
+/-- **★ Level-1 eigenvalue gap ★**:
+
+      `λ⁺^{(1)} − λ⁻^{(1)} = V_P(1/6, 5/6)`
+
+    The spectral gap at level 1 equals the off-diagonal kernel value.
+    This is the "splitting" induced by the bicell structure of the
+    level-1 Cantor approximation. -/
+theorem level1_gap_identity (α a : ℝ) :
+    lambdaPlusLevel1 α a - lambdaMinusLevel1 α a =
+    fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ) := by
+  unfold lambdaPlusLevel1 lambdaMinusLevel1
+  ring
+
+/-- **★ Level-1 determinant identity ★**:
+
+      `λ⁺^{(1)} · λ⁻^{(1)} = (1/4) · ((a/(a−1))² − V_P(1/6, 5/6)²)`
+
+    Product of the two level-1 eigenvalues — the determinant of `M^{(1)}`. -/
+theorem level1_det_identity (α a : ℝ) :
+    lambdaPlusLevel1 α a * lambdaMinusLevel1 α a =
+    (1/4) * ((a/(a-1))^2 - (fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))^2) := by
+  unfold lambdaPlusLevel1 lambdaMinusLevel1
+  ring
+
 /-- **★ Trace consistency across levels ★**:
 
       `tr M^{(0)} = λ^{(0)}_0 = a/(a − 1) = λ⁺^{(1)} + λ⁻^{(1)} = tr M^{(1)}`
