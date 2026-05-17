@@ -143,6 +143,31 @@ theorem cellMatrixEntry_level1_offdiag (α a : ℝ) :
     intro n
     rw [cellMidpoint_level1_distance]
 
+/-! ## ★ Level-0 discrete operator action ★ -/
+
+/-- **Level-0 single eigenvalue**:
+
+      `λ^{(0)}_0 := a/(a − 1)`
+
+    The level-0 measure `cantorDiscMeasure 0 = δ_{1/2}` gives a 1×1
+    "matrix" `M^{(0)} = [a/(a−1)]` with the single eigenvalue equal
+    to the diagonal entry. -/
+noncomputable def lambdaLevel0 (a : ℝ) : ℝ := a / (a - 1)
+
+/-- **★ Level-0 eigenvector identity ★**:
+
+    The constant function `f ≡ 1` is an eigenvector of
+    `H_P^disc[cantorDiscMeasure 0]` with eigenvalue `a/(a − 1)`:
+
+      `(H_P^disc[δ_{1/2}] 1)(1/2) = V_P(1/2, 1/2) · 1 = a/(a − 1) = λ^{(0)}_0` -/
+theorem level0_eigenvector_identity {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 0) (fun _ => (1 : ℝ)) (1/2) =
+    lambdaLevel0 a := by
+  rw [H_P_at_disc_cantorDiscMeasure_zero]
+  unfold lambdaLevel0 cantorKernel
+  rw [fractalKernelReal_diagonal ha (1/2)]
+  ring
+
 /-! ## ★ Level-1 discrete operator action ★ -/
 
 /-- **Level-1 explicit operator action**:
@@ -302,6 +327,19 @@ theorem level1_trace_identity (α a : ℝ) :
     lambdaPlusLevel1 α a + lambdaMinusLevel1 α a = a / (a - 1) := by
   unfold lambdaPlusLevel1 lambdaMinusLevel1
   ring
+
+/-- **★ Trace consistency across levels ★**:
+
+      `tr M^{(0)} = λ^{(0)}_0 = a/(a − 1) = λ⁺^{(1)} + λ⁻^{(1)} = tr M^{(1)}`
+
+    The trace is INVARIANT under level refinement at levels 0 and 1.
+    This is consistent with the general trace identity
+    `tr M^{(n)} = a/(a − 1)` (independent of `n`), and is a direct
+    test of the level-by-level eigenvalue approximation framework. -/
+theorem trace_level0_eq_trace_level1 (α a : ℝ) :
+    lambdaLevel0 a = lambdaPlusLevel1 α a + lambdaMinusLevel1 α a := by
+  rw [level1_trace_identity]
+  rfl
 
 /-! ## ★ Level-2 distance structure ★ -/
 
