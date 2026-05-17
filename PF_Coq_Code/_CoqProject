@@ -7,3 +7,4 @@ PF/TuringEncoding/AlphaCanonical.v
 PF/TuringEncoding/AlphaEnum.v
 PF/TuringEncoding/Operators.v
 PF/SpectralGap.v
+PF/Analytic/CantorIFS.v
