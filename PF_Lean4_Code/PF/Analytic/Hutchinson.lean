@@ -375,6 +375,34 @@ theorem integral_cantorDiscMeasure_one (f : ℝ → ℝ) :
   · refine MeasureTheory.Integrable.smul_measure ?_ (by simp)
     exact MeasureTheory.integrable_dirac (by simp [enorm_eq_nnnorm])
 
+/-- **Level-2 integral**:
+
+      `∫ f d(cantorDiscMeasure 2) = (1/4)·(f(1/18) + f(5/18) + f(13/18) + f(17/18))`
+
+    Direct from the explicit level-2 form
+    `cantorDiscMeasure 2 = (1/4)·(δ_{1/18} + δ_{13/18} + δ_{5/18} + δ_{17/18})`. -/
+theorem integral_cantorDiscMeasure_two (f : ℝ → ℝ) :
+    ∫ x, f x ∂(cantorDiscMeasure 2) =
+    (1/4) * (f (1/18) + f (13/18) + f (5/18) + f (17/18)) := by
+  rw [cantorDiscMeasure_two]
+  -- Reuse the integrability helper used in MatrixEntry.lean
+  have hint : ∀ z : ℝ, MeasureTheory.Integrable (f : ℝ → ℝ)
+      ((1/4 : ENNReal) • MeasureTheory.Measure.dirac z) := by
+    intro z
+    refine MeasureTheory.Integrable.smul_measure ?_ (by simp)
+    exact MeasureTheory.integrable_dirac (by simp [enorm_eq_nnnorm])
+  rw [MeasureTheory.integral_add_measure
+        (MeasureTheory.Integrable.add_measure (hint _) (hint _))
+        (MeasureTheory.Integrable.add_measure (hint _) (hint _))]
+  rw [MeasureTheory.integral_add_measure (hint _) (hint _),
+      MeasureTheory.integral_add_measure (hint _) (hint _)]
+  rw [MeasureTheory.integral_smul_measure, MeasureTheory.integral_smul_measure,
+      MeasureTheory.integral_smul_measure, MeasureTheory.integral_smul_measure]
+  rw [MeasureTheory.integral_dirac, MeasureTheory.integral_dirac,
+      MeasureTheory.integral_dirac, MeasureTheory.integral_dirac]
+  simp [ENNReal.toReal_ofNat]
+  ring
+
 /-! ## Discrete operator action -/
 
 /-- **Discrete operator action**:
