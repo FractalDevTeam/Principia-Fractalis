@@ -208,6 +208,36 @@ theorem dilation_iter_sineMode (α : ℝ) (hα : α ≠ 0) (k j : ℕ) :
   rw [pow_add]
   field_simp
 
+/-! ## j-fold inverse-dilation: raise scale by j -/
+
+/-- **j-fold inverse-dilation on cosineMode raises scale by j**:
+
+      `(D_α⁻¹)^[j] (cosineMode α k) = cosineMode α (k + j)`
+
+    The mirror of `dilation_iter_cosineMode`. -/
+theorem dilation_inv_iter_cosineMode (α : ℝ) (hα : α ≠ 0) (k j : ℕ) :
+    (dilation α⁻¹)^[j] (cosineMode α k) = cosineMode α (k + j) := by
+  have h_inv : α⁻¹ ≠ 0 := inv_ne_zero hα
+  rw [dilation_iter α⁻¹ h_inv j]
+  funext x
+  unfold dilation cosineMode
+  congr 1
+  rw [pow_add]
+  rw [inv_pow]
+  field_simp
+
+/-- **j-fold inverse-dilation on sineMode raises scale by j** (parallel). -/
+theorem dilation_inv_iter_sineMode (α : ℝ) (hα : α ≠ 0) (k j : ℕ) :
+    (dilation α⁻¹)^[j] (sineMode α k) = sineMode α (k + j) := by
+  have h_inv : α⁻¹ ≠ 0 := inv_ne_zero hα
+  rw [dilation_iter α⁻¹ h_inv j]
+  funext x
+  unfold dilation sineMode
+  congr 1
+  rw [pow_add]
+  rw [inv_pow]
+  field_simp
+
 /-! ## Inverse-dilation shift (raise the scale index) -/
 
 /-- **Inverse-dilation scale shift on cosineMode**:
