@@ -1042,6 +1042,61 @@ theorem abs_truncatedOperatorAction_le
     _ = (a / (a - 1)) * ∫ y in (0:ℝ)..1, |f y| := by
             rw [intervalIntegral.integral_const_mul]
 
+/-! ## L²-norms of cosineMode/sineMode -/
+
+/-- **L²([0,1]) norm-squared of `cosineMode α n`** (re-stating
+    `inner_cosineMode_self` with the more conventional `2π·α^n` form):
+
+      `∫_0^1 cosineMode α n y ^ 2 dy = 1/2 + sin(2π·αⁿ) / (4π·αⁿ)`
+
+    for `α ≠ 0`. -/
+theorem L2_norm_sq_cosineMode (α : ℝ) (n : ℕ) (hα : α ≠ 0) :
+    ∫ y in (0:ℝ)..1, cosineMode α n y ^ 2 =
+    1/2 + Real.sin (2 * Real.pi * α^n) / (4 * Real.pi * α^n) := by
+  have := inner_cosineMode_self α n hα
+  have h_eq : 2 * (Real.pi * α^n) = 2 * Real.pi * α^n := by ring
+  have h_eq2 : 4 * (Real.pi * α^n) = 4 * Real.pi * α^n := by ring
+  rw [this, h_eq, h_eq2]
+
+/-- **L²([0,1]) norm-squared of `sineMode α n`**:
+
+      `∫_0^1 sineMode α n y ^ 2 dy = 1/2 − sin(2π·αⁿ) / (4π·αⁿ)`. -/
+theorem L2_norm_sq_sineMode (α : ℝ) (n : ℕ) (hα : α ≠ 0) :
+    ∫ y in (0:ℝ)..1, sineMode α n y ^ 2 =
+    1/2 - Real.sin (2 * Real.pi * α^n) / (4 * Real.pi * α^n) := by
+  have := inner_sineMode_self α n hα
+  have h_eq : 2 * (Real.pi * α^n) = 2 * Real.pi * α^n := by ring
+  have h_eq2 : 4 * (Real.pi * α^n) = 4 * Real.pi * α^n := by ring
+  rw [this, h_eq, h_eq2]
+
+/-! ## Kernel characterization (forward direction) -/
+
+/-- **If `f` is L²([0,1])-orthogonal to every `cosineMode α j` and every
+    `sineMode α j` for `j < k`, then `(T_k f)(x) = 0`** for every `x`.
+
+    Direct consequence of the explicit action formula
+    `truncatedOperatorAction_eq_sum`: every coefficient is an inner
+    product, all of which are zero by hypothesis.
+
+    This is the **forward direction** of the kernel characterization
+    `ker(T_k) = (span{cosineMode α j, sineMode α j : j < k})⊥`. The
+    converse direction would require the spanning vectors to be
+    linearly independent — they are generically, but a clean proof
+    requires more work. -/
+theorem truncatedOperatorAction_zero_of_orthogonal
+    (α a : ℝ) (k : ℕ) (f : ℝ → ℝ) (hf : Continuous f)
+    (h_orth_cos : ∀ j ∈ Finset.range k,
+      ∫ y in (0:ℝ)..1, cosineMode α j y * f y = 0)
+    (h_orth_sin : ∀ j ∈ Finset.range k,
+      ∫ y in (0:ℝ)..1, sineMode α j y * f y = 0)
+    (x : ℝ) :
+    truncatedOperatorAction α a k f x = 0 := by
+  rw [truncatedOperatorAction_eq_sum α a k f hf x]
+  apply Finset.sum_eq_zero
+  intros j hj
+  rw [h_orth_cos j hj, h_orth_sin j hj]
+  ring
+
 /-! ## Tendsto form of T_k → H_P -/
 
 /-- **Truncated operator action converges to full operator action**:
