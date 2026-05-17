@@ -638,6 +638,64 @@ theorem level2_full_trace_identity (α a : ℝ) :
   unfold level2SymA level2SymC level2AntiA level2AntiC
   ring
 
+/-! ## ★ Level-2 block eigenvalue ordering ★ -/
+
+/-- **Level-2 sym block eigenvalue ordering**: `λ_sym^− ≤ λ_sym^+`.
+
+    The smaller eigenvalue is `≤` the larger eigenvalue (true for any
+    symmetric 2×2 matrix, since the discriminant `(A−C)² + 4B² ≥ 0`). -/
+theorem lambdaSym_le_Level2 (α a : ℝ) :
+    lambdaSymMinusLevel2 α a ≤ lambdaSymPlusLevel2 α a := by
+  unfold lambdaSymPlusLevel2 lambdaSymMinusLevel2
+  have hdisc : 0 ≤ (level2SymA α a - level2SymC α a)^2 +
+                   4 * (level2SymOffdiag α a)^2 := by
+    have h1 : 0 ≤ (level2SymA α a - level2SymC α a)^2 := sq_nonneg _
+    have h2 : 0 ≤ 4 * (level2SymOffdiag α a)^2 := by
+      have := sq_nonneg (level2SymOffdiag α a); linarith
+    linarith
+  have hsqrt : 0 ≤ Real.sqrt ((level2SymA α a - level2SymC α a)^2 +
+                              4 * (level2SymOffdiag α a)^2) :=
+    Real.sqrt_nonneg _
+  -- (1/8)(s - √D) ≤ (1/8)(s + √D)  where s = A_sym + C_sym, D ≥ 0
+  linarith
+
+/-- **Level-2 antisym block eigenvalue ordering**: `λ_anti^− ≤ λ_anti^+`. -/
+theorem lambdaAnti_le_Level2 (α a : ℝ) :
+    lambdaAntiMinusLevel2 α a ≤ lambdaAntiPlusLevel2 α a := by
+  unfold lambdaAntiPlusLevel2 lambdaAntiMinusLevel2
+  have hdisc : 0 ≤ (level2AntiA α a - level2AntiC α a)^2 +
+                   4 * (level2AntiOffdiag α a)^2 := by
+    have h1 : 0 ≤ (level2AntiA α a - level2AntiC α a)^2 := sq_nonneg _
+    have h2 : 0 ≤ 4 * (level2AntiOffdiag α a)^2 := by
+      have := sq_nonneg (level2AntiOffdiag α a); linarith
+    linarith
+  have hsqrt : 0 ≤ Real.sqrt ((level2AntiA α a - level2AntiC α a)^2 +
+                              4 * (level2AntiOffdiag α a)^2) :=
+    Real.sqrt_nonneg _
+  linarith
+
+/-- **Level-2 sym block eigenvalue gap**: explicit closed form.
+
+      `λ_sym^+ − λ_sym^− = (1/4) · √((A_sym − C_sym)² + 4·B_sym_offdiag²)`
+
+    The spectral gap of the sym block (always `≥ 0`). -/
+theorem lambdaSymLevel2_gap (α a : ℝ) :
+    lambdaSymPlusLevel2 α a - lambdaSymMinusLevel2 α a =
+    (1/4) * Real.sqrt ((level2SymA α a - level2SymC α a)^2 +
+                       4 * (level2SymOffdiag α a)^2) := by
+  unfold lambdaSymPlusLevel2 lambdaSymMinusLevel2
+  ring
+
+/-- **Level-2 antisym block eigenvalue gap**: explicit closed form.
+
+      `λ_anti^+ − λ_anti^− = (1/4) · √((A_anti − C_anti)² + 4·B_anti_offdiag²)` -/
+theorem lambdaAntiLevel2_gap (α a : ℝ) :
+    lambdaAntiPlusLevel2 α a - lambdaAntiMinusLevel2 α a =
+    (1/4) * Real.sqrt ((level2AntiA α a - level2AntiC α a)^2 +
+                       4 * (level2AntiOffdiag α a)^2) := by
+  unfold lambdaAntiPlusLevel2 lambdaAntiMinusLevel2
+  ring
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
