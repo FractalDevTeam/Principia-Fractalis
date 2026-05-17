@@ -303,6 +303,122 @@ theorem level1_trace_identity (α a : ℝ) :
   unfold lambdaPlusLevel1 lambdaMinusLevel1
   ring
 
+/-! ## ★ Level-2 distance structure ★ -/
+
+/-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
+    and `[false, true]` (midpoint `5/18`):
+
+      `|1/18 − 5/18| = 2/9`
+
+    Both cells are inside the LEFT half `[0, 1/3]`; their distance is
+    `1/3` of the level-1 distance `2/3`. -/
+theorem cellMidpoint_level2_dist_ff_ft :
+    dist (cellMidpointOfBools [false, false])
+         (cellMidpointOfBools [false, true]) = 2/9 := by
+  rw [cellMidpointOfBools_ff, cellMidpointOfBools_ft]
+  rw [Real.dist_eq]
+  norm_num
+
+/-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
+    and `[true, false]` (midpoint `13/18`):
+
+      `|1/18 − 13/18| = 2/3`
+
+    These cells are in OPPOSITE halves and form a level-1-scale gap. -/
+theorem cellMidpoint_level2_dist_ff_tf :
+    dist (cellMidpointOfBools [false, false])
+         (cellMidpointOfBools [true, false]) = 2/3 := by
+  rw [cellMidpointOfBools_ff, cellMidpointOfBools_tf]
+  rw [Real.dist_eq]
+  norm_num
+
+/-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
+    and `[true, true]` (midpoint `17/18`):
+
+      `|1/18 − 17/18| = 8/9`
+
+    The maximum level-2 distance — the two extreme cells. -/
+theorem cellMidpoint_level2_dist_ff_tt :
+    dist (cellMidpointOfBools [false, false])
+         (cellMidpointOfBools [true, true]) = 8/9 := by
+  rw [cellMidpointOfBools_ff, cellMidpointOfBools_tt]
+  rw [Real.dist_eq]
+  norm_num
+
+/-- **Level-2 distance** between cells `[false, true]` (midpoint `5/18`)
+    and `[true, false]` (midpoint `13/18`):
+
+      `|5/18 − 13/18| = 4/9` -/
+theorem cellMidpoint_level2_dist_ft_tf :
+    dist (cellMidpointOfBools [false, true])
+         (cellMidpointOfBools [true, false]) = 4/9 := by
+  rw [cellMidpointOfBools_ft, cellMidpointOfBools_tf]
+  rw [Real.dist_eq]
+  norm_num
+
+/-- **Level-2 distance** between cells `[false, true]` (midpoint `5/18`)
+    and `[true, true]` (midpoint `17/18`):
+
+      `|5/18 − 17/18| = 2/3` -/
+theorem cellMidpoint_level2_dist_ft_tt :
+    dist (cellMidpointOfBools [false, true])
+         (cellMidpointOfBools [true, true]) = 2/3 := by
+  rw [cellMidpointOfBools_ft, cellMidpointOfBools_tt]
+  rw [Real.dist_eq]
+  norm_num
+
+/-- **Level-2 distance** between cells `[true, false]` (midpoint `13/18`)
+    and `[true, true]` (midpoint `17/18`):
+
+      `|13/18 − 17/18| = 2/9`
+
+    Both cells are inside the RIGHT half `[2/3, 1]`; their distance is
+    `1/3` of the level-1 distance `2/3` (mirroring the `ff↔ft` pair on
+    the left half). -/
+theorem cellMidpoint_level2_dist_tf_tt :
+    dist (cellMidpointOfBools [true, false])
+         (cellMidpointOfBools [true, true]) = 2/9 := by
+  rw [cellMidpointOfBools_tf, cellMidpointOfBools_tt]
+  rw [Real.dist_eq]
+  norm_num
+
+/-! ## Documentation: level-2 matrix structure
+
+The level-2 matrix `M^{(2)}` is a `4 × 4` real symmetric matrix
+indexed by `{[false,false], [false,true], [true,false], [true,true]}`.
+
+Using the diagonal closed form `M^{(2)}_{bs, bs} = (1/4) · a/(a−1)`
+(constant), and the six pairwise distances above, the off-diagonal
+entries split into THREE distinct distance values (with multiplicities):
+
+  * distance `2/9` (multiplicity 2): pairs `(ff, ft)`, `(tf, tt)`
+    — within-half neighbours, mirrored across the `[0, 1/3]` ↔ `[2/3, 1]`
+    symmetry.
+  * distance `4/9` (multiplicity 1): pair `(ft, tf)`
+    — the inner cross-half pair.
+  * distance `2/3` (multiplicity 2): pairs `(ff, tf)`, `(ft, tt)`
+    — outer-of-pair cross-half pairs.
+  * distance `8/9` (multiplicity 1): pair `(ff, tt)`
+    — extreme corners.
+
+**Block structure** (by IFS self-similarity): the `[false, *]` ×
+`[false, *]` sub-block and the `[true, *]` × `[true, *]` sub-block
+each replicate the level-1 matrix structure on the left/right half,
+SCALED by `1/3` in distance and `(1/2)` in mass weight.
+
+**Reflective symmetry**: under the map `bs ↦ negate bs` (swap
+`false ↔ true` in every position), the level-2 distance pattern is
+invariant, reflecting the `x ↦ 1 − x` reflection symmetry of the
+Cantor set IFS. This gives the matrix the additional reflection
+invariance, which in turn implies that all level-2 eigenvectors come
+in `(symmetric, antisymmetric)` pairs under this reflection.
+
+**Spectral consequence**: the four eigenvalues of `M^{(2)}` group as
+two pairs under reflection symmetry; combined with the self-similar
+block structure, they decompose into the level-1 eigenvalues
+`{λ⁺^{(1)}, λ⁻^{(1)}}` PLUS scale-shifted corrections proportional
+to `(1/a) · V_P(α·x, α·y)`. -/
+
 /-! ## Documentation: trace identity
 
 The trace of the level-`n` matrix is the sum of its diagonal entries:
