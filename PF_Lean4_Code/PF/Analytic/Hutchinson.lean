@@ -349,6 +349,32 @@ theorem cantorDiscMeasure_two :
   rw [hq]
   abel
 
+/-! ## ★ Integral against cantorDiscMeasure at low levels ★ -/
+
+/-- **Level-0 integral**: `∫ f d(cantorDiscMeasure 0) = f(1/2)`. -/
+theorem integral_cantorDiscMeasure_zero (f : ℝ → ℝ) :
+    ∫ x, f x ∂(cantorDiscMeasure 0) = f (1/2) := by
+  rw [cantorDiscMeasure_zero]
+  exact MeasureTheory.integral_dirac _ _
+
+/-- **Level-1 integral**: `∫ f d(cantorDiscMeasure 1) = (1/2)·(f(1/6) + f(5/6))`.
+
+    Direct from the explicit level-1 form
+    `cantorDiscMeasure 1 = (1/2)·(δ_{1/6} + δ_{5/6})`. -/
+theorem integral_cantorDiscMeasure_one (f : ℝ → ℝ) :
+    ∫ x, f x ∂(cantorDiscMeasure 1) = (1/2) * (f (1/6) + f (5/6)) := by
+  rw [cantorDiscMeasure_one]
+  rw [MeasureTheory.integral_add_measure]
+  · rw [MeasureTheory.integral_smul_measure,
+        MeasureTheory.integral_smul_measure,
+        MeasureTheory.integral_dirac, MeasureTheory.integral_dirac]
+    simp [ENNReal.toReal_ofNat]
+    ring
+  · refine MeasureTheory.Integrable.smul_measure ?_ (by simp)
+    exact MeasureTheory.integrable_dirac (by simp [enorm_eq_nnnorm])
+  · refine MeasureTheory.Integrable.smul_measure ?_ (by simp)
+    exact MeasureTheory.integrable_dirac (by simp [enorm_eq_nnnorm])
+
 /-! ## Discrete operator action -/
 
 /-- **Discrete operator action**:
