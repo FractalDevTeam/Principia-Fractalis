@@ -478,6 +478,35 @@ theorem integral_cantorDiscMeasure_succ (n : ℕ) (f : ℝ → ℝ)
   rw [cantorDiscMeasure_succ]
   exact integral_hutchinsonOp_apply (cantorDiscMeasure n) f h1 h2
 
+/-! ## Hutchinson-invariant ⟹ integral fixed-point identity -/
+
+/-- **★ Integral fixed-point identity for Hutchinson-invariant measures ★**:
+
+    If `μ` is Hutchinson-invariant, then for every (suitably-integrable)
+    function `f`:
+
+      `∫ f dμ = (1/2) ∫ f∘f₁ dμ + (1/2) ∫ f∘f₂ dμ`
+
+    Direct from `μ = T μ` (Hutchinson invariance) + the integral
+    recursion `integral_hutchinsonOp_apply`.
+
+    **Significance**: this is the integral-level expression of the
+    measure-level invariance. It says that integration against `μ_H`
+    is BALANCED across the two IFS cells. Specialized to indicator
+    functions of cells gives `μ_H(cell) = 1/2 · μ_H(parent)`, the
+    canonical cell-mass identity. -/
+theorem integral_of_isHutchinsonInvariant (μ : MeasureTheory.Measure ℝ)
+    (hμ : IsHutchinsonInvariant μ) (f : ℝ → ℝ)
+    (h1 : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction1 μ))
+    (h2 : MeasureTheory.Integrable f
+            (MeasureTheory.Measure.map cantorContraction2 μ)) :
+    ∫ x, f x ∂μ =
+    (1/2) * ∫ y, f (cantorContraction1 y) ∂μ +
+    (1/2) * ∫ y, f (cantorContraction2 y) ∂μ := by
+  conv_lhs => rw [hμ]
+  exact integral_hutchinsonOp_apply μ f h1 h2
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
