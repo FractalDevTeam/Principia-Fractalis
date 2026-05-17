@@ -357,6 +357,24 @@ theorem H_P_at_cantor_smul (α a c : ℝ)
         ring]
   exact MeasureTheory.integral_const_mul c _
 
+/-! ## ★ Kernel symmetry (foundational identity) ★ -/
+
+/-- **★ Cantor kernel symmetry ★**: `V_P(x, y) = V_P(y, x)`.
+
+    The fractal kernel is symmetric — direct application of
+    `fractalKernelReal_swap` to the substrate-restricted `cantorKernel`.
+    This is the foundational identity underwriting the operator's
+    self-adjointness (the bilinear form `(f, g) ↦ ⟨H_P f, g⟩` is
+    symmetric in `f` and `g`). -/
+theorem cantorKernel_symm (α a : ℝ) (x y : ℝ) :
+    cantorKernel α a x y = cantorKernel α a y x := by
+  unfold cantorKernel
+  have h := PrincipiaTractalis.IntegralKernel.fractalKernelReal_swap α a
+    ((x, y) : ℝ × ℝ)
+  have hpswap : (((x, y) : ℝ × ℝ).swap) = ((y, x) : ℝ × ℝ) := rfl
+  rw [hpswap] at h
+  exact h.symm
+
 /-! ## Documentation: the H_P^cantor operator (conditional definition)
 
 Given a Hutchinson-invariant measure `μ` on `cantorSet`, the
