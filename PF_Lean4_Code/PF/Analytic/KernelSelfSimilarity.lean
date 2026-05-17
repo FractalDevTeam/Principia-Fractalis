@@ -304,6 +304,52 @@ theorem abs_fractalKernelReal_sub_truncated_le
   rw [fractalKernelReal_sub_truncated_eq_residual α a ha hα k x y]
   exact fractalKernelReal_residual_bound α a ha k x y
 
+/-! ## Pointwise bound on the truncated kernel -/
+
+/-- **Uniform pointwise bound on the truncated kernel**:
+
+      `|V_P^(k)(x, y)| ≤ a / (a − 1)`
+
+    independent of `k`. Direct from `|cos| ≤ 1` and the geometric sum
+    `Σ_{j<∞} (1/a)ʲ = a/(a−1)` for `a > 1`.
+
+    This is uniform in `k`, so it complements the `O(a^(-k))`
+    approximation-error bound: the truncated kernels are uniformly
+    bounded, and converge to the full kernel as `k → ∞`. The Banach-
+    Steinhaus / Hilbert-Schmidt machinery then gives the operator-norm
+    convergence `‖T_k − H_P‖_op → 0`. -/
+theorem abs_truncatedFractalKernelReal_le
+    (α a : ℝ) (ha : 1 < a) (k : ℕ) (x y : ℝ) :
+    |truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ)|
+    ≤ (a / (a - 1)) := by
+  unfold truncatedFractalKernelReal
+  have ha_pos : 0 < a := lt_trans zero_lt_one ha
+  have h_lt_one : (1 / a : ℝ) < 1 := by
+    rw [one_div]; exact inv_lt_one_of_one_lt₀ ha
+  have h_nn : (0 : ℝ) ≤ 1 / a := by positivity
+  calc |(Finset.range k).sum
+          (fun j => a^(-(j : ℤ)) * Real.cos (Real.pi * α^j * dist x y))|
+      ≤ (Finset.range k).sum
+          (fun j => |a^(-(j : ℤ)) * Real.cos (Real.pi * α^j * dist x y)|) :=
+            Finset.abs_sum_le_sum_abs _ _
+    _ ≤ (Finset.range k).sum (fun j => |a^(-(j : ℤ))| * 1) := by
+            apply Finset.sum_le_sum
+            intros j _
+            rw [abs_mul]
+            apply mul_le_mul_of_nonneg_left _ (abs_nonneg _)
+            exact Real.abs_cos_le_one _
+    _ = (Finset.range k).sum (fun j => ((1/a) : ℝ)^j) := by
+            apply Finset.sum_congr rfl
+            intros j _
+            rw [mul_one]
+            rw [abs_of_pos (zpow_pos ha_pos _)]
+            rw [zpow_neg, zpow_natCast, one_div, inv_pow]
+    _ ≤ ∑' j, ((1/a) : ℝ)^j := Summable.sum_le_tsum _
+            (fun j _ => by positivity)
+            (summable_geometric_of_lt_one h_nn h_lt_one)
+    _ = (1 - 1/a)⁻¹ := tsum_geometric_of_lt_one h_nn h_lt_one
+    _ = a / (a - 1) := by field_simp
+
 /-! ## Documentation: connection to the eigenvalue conjecture
 
 The chain of identities above provides the **structural framework** the
