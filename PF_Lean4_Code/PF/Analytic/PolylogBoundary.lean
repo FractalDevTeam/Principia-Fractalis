@@ -219,6 +219,38 @@ theorem re_polyLog_partial_exp_I (t : ℝ) (N : ℕ) :
     rw [Finset.sum_range_succ, Complex.add_re, ih, re_polyLog_term_exp_I,
         Finset.sum_range_succ]
 
+/-! ## Conjectured eigenvalue (principal branch) -/
+
+/-- **The conjectured eigenvalue formula `λ_k = a^(-k) · Re[Li₁(...)]`
+    evaluated on the principal branch**:
+
+      `conjectured_eigenvalue_principal α a k
+        := −a^(-k) · log(2 · |sin(π · αᵏ / 2)|)`.
+
+    Closed-form value of the conjecture's eigenvalue formula `λ_k` when
+    the polylog is evaluated on the principal-branch logarithm. For
+    `α = √2, k = 0, a = 1` this is approximately `−0.468` (NEGATIVE);
+    the manuscript posits the true `λ_0` is the positive value
+    `π/(10√2) ≈ +0.222`, achievable only on a different Riemann sheet
+    (Heuristic `heur:branch-selection`, OPEN_PROBLEMS.md Problem 2). -/
+noncomputable def conjectured_eigenvalue_principal
+    (α a : ℝ) (k : ℕ) : ℝ :=
+  -a^(-(k : ℤ)) * Real.log (2 * |Real.sin (Real.pi * α^k / 2)|)
+
+/-- **Bridge** between the explicit principal-branch closed form and
+    the conjecture's polylog-evaluation:
+
+      `conjectured_eigenvalue_principal α a k
+        = a^(-k) · Re[polyLog_one_principal(exp(I·π·αᵏ))]`. -/
+theorem conjectured_eigenvalue_principal_eq_re_polyLog
+    (α a : ℝ) (k : ℕ) (hα : Real.sin (Real.pi * α^k / 2) ≠ 0) :
+    conjectured_eigenvalue_principal α a k =
+    a^(-(k : ℤ)) *
+      (polyLog_one_principal (Complex.exp (Complex.I * (Real.pi * α^k : ℝ)))).re := by
+  unfold conjectured_eigenvalue_principal
+  rw [re_polyLog_one_principal_exp_I_pi_alpha_pow α k hα]
+  ring
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
