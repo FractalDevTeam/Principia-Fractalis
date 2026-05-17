@@ -49,6 +49,7 @@ Stage L4+ — Route A, Step 3: fractal-domain (Cantor-set) extension.
 
 import Mathlib.Topology.Instances.CantorSet
 import PF.RadixEconomy
+import PF.Analytic.KernelSelfSimilarity
 
 namespace PrincipiaTractalis.Analytic
 
@@ -106,6 +107,93 @@ theorem cantorSet_is_fixed_point :
     (cantorContraction1 '' cantorSet) ∪ (cantorContraction2 '' cantorSet) := by
   rw [cantorContraction1_eq, cantorContraction2_eq]
   exact cantorSet_eq_union_halves
+
+/-! ## Cantor-substrate kernel and IFS cell decomposition -/
+
+/-- **Cantor-restricted kernel**: `V_P` evaluated on `cantorSet × cantorSet`.
+
+    Definitionally equal to `fractalKernelReal α a`; the rename makes
+    the SUBSTRATE-LEVEL semantic explicit. Operator theory on
+    `(cantorSet, μ_Hutchinson)` works with this kernel restricted to
+    the substrate. -/
+noncomputable def cantorKernel (α a : ℝ) (x y : ℝ) : ℝ :=
+  PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, y) : ℝ × ℝ)
+
+/-- **Kernel evaluated on the diagonal cell**:
+
+      `cantorKernel α a (f₁(x), f₁(y)) = V_P(x/3, y/3)`
+
+    The kernel evaluated at the left-cell pair. -/
+theorem cantorKernel_at_contraction1 (α a : ℝ) (x y : ℝ) :
+    cantorKernel α a (cantorContraction1 x) (cantorContraction1 y) =
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      α a ((x/3, y/3) : ℝ × ℝ) := rfl
+
+/-- **Kernel evaluated on the right-cell pair**:
+
+      `cantorKernel α a (f₂(x), f₂(y)) = V_P((x+2)/3, (y+2)/3)`. -/
+theorem cantorKernel_at_contraction2 (α a : ℝ) (x y : ℝ) :
+    cantorKernel α a (cantorContraction2 x) (cantorContraction2 y) =
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      α a (((x+2)/3, (y+2)/3) : ℝ × ℝ) := rfl
+
+/-- **Cross-cell distance**:
+
+      `dist(f₁(x), f₂(y)) = |x − y − 2| / 3`
+
+    The distance between a point in the left cell and a point in the
+    right cell. The `−2` in the numerator reflects the gap (the
+    middle third `(1/3, 2/3)`) between the two cells: even if `x = y`
+    in the original domain, the corresponding points in the two
+    cells are separated by `2/3`. -/
+theorem cantorKernel_cross_distance (x y : ℝ) :
+    dist (cantorContraction1 x) (cantorContraction2 y) = |x - y - 2| / 3 := by
+  unfold cantorContraction1 cantorContraction2
+  rw [Real.dist_eq]
+  rw [show x/3 - (y+2)/3 = (x - y - 2)/3 from by ring]
+  rw [abs_div]
+  simp
+
+/-! ## Documentation: operator transport to the Cantor substrate
+
+The Cantor-substrate operator theory takes `cantorKernel α a` and
+defines its action on `L²(cantorSet, μ_Hutchinson)`:
+
+  `(H_P^cantor f)(x) := ∫_{cantorSet} cantorKernel α a x y · f(y) dμ_H(y)`
+
+By the IFS fixed-point structure (`cantorSet_is_fixed_point`), this
+integral DECOMPOSES into four sub-integrals over the four
+cell-pair combinations `(f_i, f_j)` for `i, j ∈ {1, 2}`:
+
+```
+∫_{cantorSet} ... = ∫_{f₁(cantorSet)} ... + ∫_{f₂(cantorSet)} ...
+                  = (1/2) [∫_{cantorSet} ... transported via f₁
+                          + ∫_{cantorSet} ... transported via f₂]
+```
+
+where the weights `(1/2, 1/2)` are the Hutchinson weights for the
+two contractions (uniform mass distribution).
+
+Combined with the per-cell evaluations
+(`cantorKernel_at_contraction1`, `_at_contraction2`) and the
+cross-cell distance (`cantorKernel_cross_distance`), this gives a
+FOUR-PIECE DECOMPOSITION of `(H_P^cantor f)(x)`:
+
+* Self-pair (1,1): `(1/2) · ∫ V_P(x/3, y/3) · f(y/3) dμ_H(y)`
+* Self-pair (2,2): `(1/2) · ∫ V_P((x+2)/3, (y+2)/3) · f((y+2)/3) dμ_H(y)`
+* Cross-pair (1,2): `(1/2) · ∫ V_P(f₁(x), f₂(y)) · f(f₂(y)) dμ_H(y)`
+* Cross-pair (2,1): symmetric
+
+This is the OPERATOR-LEVEL self-similarity equation on the Cantor
+substrate. It does NOT have the `[0,1]` boundary obstacle (since
+the IFS decomposition exhausts the domain), and it makes the
+self-similarity STRUCTURAL.
+
+Completing this operator-theoretic transport requires the formal
+Hutchinson measure infrastructure (not yet in mathlib in directly
+usable form). The structural framework is here; the full
+mechanization requires building `MeasureTheory.Measure.Hutchinson`
+or instantiating `Measure.Hausdorff` at dimension `log 2 / log 3`. -/
 
 /-! ## Documentation: connection to the resonance operator
 
