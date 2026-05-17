@@ -84,6 +84,73 @@ theorem lipschitzWith_comp_cantorContraction2 {L : ℝ≥0} {f : ℝ → ℝ}
     LipschitzWith (L * (1 / 3)) (fun x => f (cantorContraction2 x)) :=
   hf.comp cantorContraction2_lipschitz
 
+/-! ## ★ Iterated composition: the (1/3)ⁿ shrinkage ★ -/
+
+/-- **Iterated composition along an `n`-step IFS word**: the function
+
+      `g_{bs} := f ∘ f_{b_{n−1}} ∘ ⋯ ∘ f_{b_0}`
+
+    (built by composing with one cell contraction per boolean in
+    `bs`, head-first inside-out, matching the `cellMidpointOfBools`
+    structure) is `LipschitzWith (L · (1/3)^n)`.
+
+    This is the explicit shrinkage of the test function's Lipschitz
+    constant under `n` iterations of the Hutchinson recursion. -/
+noncomputable def iteratedIFSComp (f : ℝ → ℝ) : List Bool → (ℝ → ℝ)
+  | [] => f
+  | false :: bs => fun x => iteratedIFSComp f bs (cantorContraction1 x)
+  | true :: bs => fun x => iteratedIFSComp f bs (cantorContraction2 x)
+
+theorem iteratedIFSComp_nil (f : ℝ → ℝ) : iteratedIFSComp f [] = f := rfl
+
+theorem iteratedIFSComp_false_cons (f : ℝ → ℝ) (bs : List Bool) :
+    iteratedIFSComp f (false :: bs) =
+    (fun x => iteratedIFSComp f bs (cantorContraction1 x)) := rfl
+
+theorem iteratedIFSComp_true_cons (f : ℝ → ℝ) (bs : List Bool) :
+    iteratedIFSComp f (true :: bs) =
+    (fun x => iteratedIFSComp f bs (cantorContraction2 x)) := rfl
+
+/-- **★ Iterated Lipschitz bound ★**:
+
+    For `f : ℝ → ℝ` `LipschitzWith L` and any length-`n` boolean
+    word `bs`, the iterated composition `iteratedIFSComp f bs` is
+    `LipschitzWith (L · (1/3)^n)` — the test function's Lipschitz
+    constant shrinks by `1/3` at every level. -/
+theorem iteratedIFSComp_lipschitz {L : ℝ≥0} {f : ℝ → ℝ} (hf : LipschitzWith L f)
+    (bs : List Bool) :
+    LipschitzWith (L * (1/3)^bs.length) (iteratedIFSComp f bs) := by
+  induction bs generalizing L with
+  | nil =>
+    simp [iteratedIFSComp]
+    exact hf
+  | cons b bs ih =>
+    cases b
+    · -- false :: bs
+      rw [iteratedIFSComp_false_cons]
+      have hcomp : LipschitzWith (L * (1/3)^bs.length * (1/3))
+                                  (fun x => iteratedIFSComp f bs
+                                              (cantorContraction1 x)) :=
+        (ih hf).comp cantorContraction1_lipschitz
+      have hpow : L * (1/3)^bs.length * (1/3) =
+                  L * (1/3)^(false :: bs).length := by
+        simp [List.length_cons, pow_succ]
+        ring
+      rw [hpow] at hcomp
+      exact hcomp
+    · -- true :: bs
+      rw [iteratedIFSComp_true_cons]
+      have hcomp : LipschitzWith (L * (1/3)^bs.length * (1/3))
+                                  (fun x => iteratedIFSComp f bs
+                                              (cantorContraction2 x)) :=
+        (ih hf).comp cantorContraction2_lipschitz
+      have hpow : L * (1/3)^bs.length * (1/3) =
+                  L * (1/3)^(true :: bs).length := by
+        simp [List.length_cons, pow_succ]
+        ring
+      rw [hpow] at hcomp
+      exact hcomp
+
 /-! ## Documentation: the Banach contraction argument
 
 For a Lipschitz test function `f : ℝ → ℝ` with constant `L`, the
