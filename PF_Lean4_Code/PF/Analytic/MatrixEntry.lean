@@ -419,6 +419,30 @@ block structure, they decompose into the level-1 eigenvalues
 `{λ⁺^{(1)}, λ⁻^{(1)}}` PLUS scale-shifted corrections proportional
 to `(1/a) · V_P(α·x, α·y)`. -/
 
+/-! ## ★ Distance-parametrised matrix entry (general) ★ -/
+
+/-- **★ Matrix entry as a function of distance ★**:
+
+      `M^{(n)}_{bs, bs'} = (1/2^n) · Σ_{k≥0} a^(-k) · cos(π · αᵏ · d)`
+
+    where `d = dist(m_{bs}, m_{bs'})` is the distance between the two
+    cell midpoints. This is the SINGLE FORMULA that produces all
+    explicit matrix entries at every level — diagonal (d = 0 → `a/(a-1)`
+    via geometric series), level-1 off-diagonal (d = 2/3), level-2
+    cases (d ∈ {2/9, 4/9, 2/3, 8/9}), etc.
+
+    Specialising `bs = bs'` recovers `cellMatrixEntry_diagonal`;
+    specialising `n = 1, bs = [false], bs' = [true]` recovers
+    `cellMatrixEntry_level1_offdiag`. -/
+theorem cellMatrixEntry_eq_tsum_distance (α a : ℝ) (n : ℕ)
+    (bs bs' : List Bool) :
+    cellMatrixEntry α a n bs bs' =
+    (1 / (2 : ℝ)^n) * ∑' k : ℕ,
+      a ^ (-(k : ℤ)) * Real.cos (Real.pi * α ^ k *
+        dist (cellMidpointOfBools bs) (cellMidpointOfBools bs')) := by
+  unfold cellMatrixEntry cantorKernel fractalKernelReal fractalKernelTerm
+  rfl
+
 /-! ## Documentation: trace identity
 
 The trace of the level-`n` matrix is the sum of its diagonal entries:
