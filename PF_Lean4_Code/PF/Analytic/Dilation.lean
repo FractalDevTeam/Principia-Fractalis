@@ -65,6 +65,38 @@ theorem dilation_inv_dilation (α : ℝ) (hα : α ≠ 0) (f : ℝ → ℝ) :
   unfold dilation
   field_simp
 
+/-! ## Group structure: composition and powers -/
+
+/-- **Composition**: `D_α ∘ D_β = D_(αβ)`.
+
+    The dilation operators form an abelian group under composition,
+    parametrised by `ℝ \ {0}` (with `D_1 = id` and `D_α⁻¹` as
+    inverse). -/
+theorem dilation_comp (α β : ℝ) (hα : α ≠ 0) (hβ : β ≠ 0) (f : ℝ → ℝ) :
+    dilation α (dilation β f) = dilation (α * β) f := by
+  funext x
+  unfold dilation
+  congr 1
+  field_simp
+
+/-- **Identity**: `D_1 = id`. -/
+theorem dilation_one (f : ℝ → ℝ) : dilation 1 f = f := by
+  funext _; unfold dilation; simp
+
+/-- **Iteration**: `(D_α)^j = D_(α^j)`.
+
+    By induction on `j`, using `dilation_comp` at each step. Provides
+    the natural-number power structure of the dilation group. -/
+theorem dilation_iter (α : ℝ) (hα : α ≠ 0) (j : ℕ) (f : ℝ → ℝ) :
+    (dilation α)^[j] f = dilation (α^j) f := by
+  induction j with
+  | zero => simp [dilation_one]
+  | succ j ih =>
+    rw [Function.iterate_succ_apply', ih]
+    rw [show dilation α (dilation (α^j) f) = dilation (α * α^j) f from
+        dilation_comp α (α^j) hα (pow_ne_zero j hα) f]
+    rw [show α * α^j = α^(j+1) from by ring]
+
 /-! ## Scale shift on cosineMode/sineMode (the structural identity) -/
 
 /-- **★ Scale shift on cosineMode ★**:
