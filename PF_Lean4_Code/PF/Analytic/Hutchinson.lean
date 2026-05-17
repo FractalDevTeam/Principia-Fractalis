@@ -430,6 +430,32 @@ theorem integral_hutchinsonOp_apply (μ : MeasureTheory.Measure ℝ) (f : ℝ �
   rw [show (1/2 : ENNReal).toReal = (1/2 : ℝ) from by simp]
   simp only [smul_eq_mul]
 
+/-! ## Weak-* convergence predicate -/
+
+/-- **Weak-* limit predicate** for the Hutchinson iterates:
+
+      `IsWeakLimitOfHutchinsonIterates μ :=
+        ∀ bounded continuous f, ∫ f d(cantorDiscMeasure n) → ∫ f dμ`
+
+    `μ` is a weak-* limit of the iterates `cantorDiscMeasure n` if
+    integrals against bounded continuous test functions converge to
+    integrals against `μ`. This is the standard "weak convergence
+    of measures" notion (Portmanteau theorem characterisation).
+
+    **Conjecture** (provable from Banach contraction in Wasserstein-1):
+
+      `IsWeakLimitOfHutchinsonIterates μ_H`
+
+    i.e., the Hutchinson invariant measure `μ_H` is the (unique)
+    weak-* limit of the iterates from `δ_{1/2}`. The proof uses the
+    integral recursion (`integral_hutchinsonOp_apply`) iteratively
+    + the Cauchy property in Wasserstein-1 (factor 1/3 per
+    iteration step). -/
+def IsWeakLimitOfHutchinsonIterates (μ : MeasureTheory.Measure ℝ) : Prop :=
+  ∀ (f : ℝ → ℝ), Continuous f → (∃ M, ∀ x, |f x| ≤ M) →
+    Filter.Tendsto (fun n => ∫ x, f x ∂(cantorDiscMeasure n))
+            Filter.atTop (nhds (∫ x, f x ∂μ))
+
 /-! ## Documentation: existence and uniqueness of μ_H
 
 The existence and uniqueness of the Hutchinson measure `μ_H` follow
