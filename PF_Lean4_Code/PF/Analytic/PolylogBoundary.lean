@@ -531,6 +531,21 @@ theorem manuscript_minus_principal_sqrt2_zero (a : ℝ) :
   unfold manuscript_predicted_eigenvalue_zero
   ring
 
+/-- **Exact discrepancy** at the NP-class spectral parameter:
+
+      `manuscript − principal = π/(10·(φ+¼)) + log 2 ≈ 0.168 + 0.693 ≈ 0.861`
+
+    Parallel to the P-class discrepancy theorem. The NP-class
+    correction Problem 2 must produce is slightly different in
+    magnitude (0.861 vs 0.915), but structurally the same form. -/
+theorem manuscript_minus_principal_NP_zero (a : ℝ) :
+    manuscript_predicted_eigenvalue_zero (phi + 1/4) -
+    conjectured_eigenvalue_principal (phi + 1/4) a 0
+    = Real.pi / (10 * (phi + 1/4)) + Real.log 2 := by
+  rw [conjectured_eigenvalue_principal_zero_eq_neg_log_two]
+  unfold manuscript_predicted_eigenvalue_zero
+  ring
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
