@@ -394,6 +394,53 @@ theorem sq_truncatedFractalKernelReal_le
   exact sq_le_sq' (by
     linarith [abs_nonneg (truncatedFractalKernelReal α a k ((x, y) : ℝ × ℝ))]) h
 
+/-! ## Pointwise kernel convergence (Tendsto) -/
+
+/-- **Pointwise kernel convergence**: for any fixed `(x, y)`, the
+    truncated-kernel values converge to the full-kernel value as
+    `K → ∞`:
+
+      `truncatedFractalKernelReal α a K (x, y) → fractalKernelReal α a (x, y)`
+
+    The rate is `O(a^(-K))` (from `abs_fractalKernelReal_sub_truncated_le`).
+    This is the Tendsto form of the kernel-level approximation. -/
+theorem tendsto_truncatedFractalKernelReal
+    (α a : ℝ) (ha : 1 < a) (hα : 0 ≤ α) (x y : ℝ) :
+    Filter.Tendsto (fun K => truncatedFractalKernelReal α a K ((x, y) : ℝ × ℝ))
+            Filter.atTop (nhds (fractalKernelReal α a ((x, y) : ℝ × ℝ))) := by
+  rw [Metric.tendsto_atTop]
+  intro ε hε
+  have ha_pos : 0 < a := lt_trans zero_lt_one ha
+  have ha_minus_one_pos : 0 < a - 1 := by linarith
+  have hinv_lt_one : a⁻¹ < 1 := inv_lt_one_of_one_lt₀ ha
+  have h_inv_nn : (0 : ℝ) ≤ a⁻¹ := le_of_lt (by positivity)
+  have h_zpow : Filter.Tendsto (fun k : ℕ => (a : ℝ)^(-(k : ℤ)))
+      Filter.atTop (nhds 0) := by
+    have h_inv : Filter.Tendsto (fun k : ℕ => (a⁻¹ : ℝ)^k)
+        Filter.atTop (nhds 0) :=
+      tendsto_pow_atTop_nhds_zero_of_lt_one h_inv_nn hinv_lt_one
+    have h_eq : ∀ k : ℕ, (a⁻¹ : ℝ)^k = a^(-(k : ℤ)) := fun k => by
+      rw [zpow_neg, zpow_natCast, inv_pow]
+    simp_rw [h_eq] at h_inv
+    exact h_inv
+  have h_bound : Filter.Tendsto (fun k : ℕ => a^(-(k : ℤ)) * (a / (a - 1)))
+      Filter.atTop (nhds 0) := by
+    have h1 := h_zpow.mul_const (a / (a - 1))
+    simp only [zero_mul] at h1
+    exact h1
+  rcases Metric.tendsto_atTop.mp h_bound ε hε with ⟨N, hN⟩
+  use N
+  intro K hKN
+  rw [Real.dist_eq, abs_sub_comm]
+  have h1 := abs_fractalKernelReal_sub_truncated_le α a ha hα K x y
+  have h2 := hN K hKN
+  rw [Real.dist_eq, sub_zero] at h2
+  have h_pos : 0 ≤ a^(-(K : ℤ)) * (a / (a - 1)) := by
+    apply mul_nonneg (le_of_lt (zpow_pos ha_pos _))
+    apply div_nonneg (le_of_lt ha_pos) (le_of_lt ha_minus_one_pos)
+  rw [abs_of_nonneg h_pos] at h2
+  linarith
+
 /-! ## Continuity of truncated-kernel sections -/
 
 /-- **The map `y ↦ V_P^(k)(x, y)` is continuous** for any fixed `x : ℝ`.
