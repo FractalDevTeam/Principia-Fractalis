@@ -1753,6 +1753,18 @@ theorem level1_spectral_radius_closed_form {α a : ℝ} (ha : 1 < a) :
     refine max_eq_right ?_
     nlinarith
 
+/-- **★ Level-1 spectral radius bound ★** (`a > 1`):
+
+      `max(|λ⁺^{(1)}|, |λ⁻^{(1)}|) ≤ a/(a − 1)`
+
+    From the closed form + the uniform kernel bound `|V_P| ≤ a/(a−1)`. -/
+theorem level1_spectral_radius_le {α a : ℝ} (ha : 1 < a) :
+    max |lambdaPlusLevel1 α a| |lambdaMinusLevel1 α a| ≤ a/(a-1) := by
+  rw [level1_spectral_radius_closed_form ha]
+  have habs : |fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ)| ≤ a/(a-1) :=
+    abs_fractalKernelReal_le α ha _
+  linarith
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
