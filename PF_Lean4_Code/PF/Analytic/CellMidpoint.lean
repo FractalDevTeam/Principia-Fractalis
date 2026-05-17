@@ -105,6 +105,83 @@ theorem cellMidpointOfBools_tt : cellMidpointOfBools [true, true] = 17/18 := by
   unfold cantorContraction2
   norm_num
 
+/-! ## ★ Cell midpoint range bounds ★ -/
+
+/-- **★ Cell midpoint range bound ★**: for any length-`n` boolean
+    word `bs`, the cell midpoint `cellMidpointOfBools bs` lies in
+    `[0, 1]`. Proven by induction on `bs`:
+
+    * Base `[]`: `1/2 ∈ [0, 1]`.
+    * Inductive step (`false :: bs`): `f₁(x) = x/3` maps `[0, 1]` to
+      `[0, 1/3] ⊆ [0, 1]`.
+    * Inductive step (`true :: bs`): `f₂(x) = (x + 2)/3` maps `[0, 1]`
+      to `[2/3, 1] ⊆ [0, 1]`.
+
+    Confirms that all level-`n` Dirac points of `cantorDiscMeasure n`
+    are supported in the unit interval `[0, 1]`, consistent with the
+    Hutchinson invariant measure `μ_H` being supported on the Cantor
+    set `⊆ [0, 1]`. -/
+theorem cellMidpointOfBools_mem_Icc (bs : List Bool) :
+    cellMidpointOfBools bs ∈ Set.Icc (0 : ℝ) 1 := by
+  induction bs with
+  | nil =>
+    rw [cellMidpointOfBools_nil]
+    constructor
+    · norm_num
+    · norm_num
+  | cons b bs ih =>
+    cases b
+    · -- false :: bs
+      rw [cellMidpointOfBools_false_cons]
+      unfold cantorContraction1
+      obtain ⟨h1, h2⟩ := ih
+      constructor
+      · -- x/3 ≥ 0 since x ≥ 0
+        linarith
+      · -- x/3 ≤ 1 since x ≤ 1 and 1/3 ≤ 1
+        linarith
+    · -- true :: bs
+      rw [cellMidpointOfBools_true_cons]
+      unfold cantorContraction2
+      obtain ⟨h1, h2⟩ := ih
+      constructor
+      · -- (x + 2)/3 ≥ 0 since x ≥ 0 (so x + 2 ≥ 2 > 0)
+        linarith
+      · -- (x + 2)/3 ≤ 1 since x ≤ 1 (so x + 2 ≤ 3, x + 2)/3 ≤ 1)
+        linarith
+
+/-- **Cell midpoint non-negativity**: `cellMidpointOfBools bs ≥ 0`. -/
+theorem cellMidpointOfBools_nonneg (bs : List Bool) :
+    0 ≤ cellMidpointOfBools bs :=
+  (cellMidpointOfBools_mem_Icc bs).1
+
+/-- **Cell midpoint upper bound**: `cellMidpointOfBools bs ≤ 1`. -/
+theorem cellMidpointOfBools_le_one (bs : List Bool) :
+    cellMidpointOfBools bs ≤ 1 :=
+  (cellMidpointOfBools_mem_Icc bs).2
+
+/-- **Cell midpoint left-half range** (`false :: bs`): for words
+    starting with `false`, the midpoint is in `[0, 1/3]`. -/
+theorem cellMidpointOfBools_false_cons_mem_Icc (bs : List Bool) :
+    cellMidpointOfBools (false :: bs) ∈ Set.Icc (0 : ℝ) (1/3) := by
+  rw [cellMidpointOfBools_false_cons]
+  unfold cantorContraction1
+  obtain ⟨h1, h2⟩ := cellMidpointOfBools_mem_Icc bs
+  constructor
+  · linarith
+  · linarith
+
+/-- **Cell midpoint right-half range** (`true :: bs`): for words
+    starting with `true`, the midpoint is in `[2/3, 1]`. -/
+theorem cellMidpointOfBools_true_cons_mem_Icc (bs : List Bool) :
+    cellMidpointOfBools (true :: bs) ∈ Set.Icc (2/3 : ℝ) 1 := by
+  rw [cellMidpointOfBools_true_cons]
+  unfold cantorContraction2
+  obtain ⟨h1, h2⟩ := cellMidpointOfBools_mem_Icc bs
+  constructor
+  · linarith
+  · linarith
+
 /-! ## Documentation: cantorDiscMeasure as a sum of Diracs over boolean words
 
 By induction on `n` (using `hutchinsonOp_dirac` to split each Dirac
