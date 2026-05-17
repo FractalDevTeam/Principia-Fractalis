@@ -335,6 +335,14 @@ noncomputable def H_P_at_cantor (α a : ℝ) (μ : MeasureTheory.Measure ℝ)
     (f : ℝ → ℝ) (x : ℝ) : ℝ :=
   ∫ y in cantorSet, cantorKernel α a x y * f y ∂μ
 
+/-- **`H_P^cantor` annihilates the zero function**:
+    `H_P^cantor[μ] 0 = 0` for any μ. -/
+theorem H_P_at_cantor_zero (α a : ℝ) (μ : MeasureTheory.Measure ℝ) :
+    H_P_at_cantor α a μ 0 = 0 := by
+  funext x
+  unfold H_P_at_cantor
+  simp
+
 /-! ## Documentation: the H_P^cantor operator (conditional definition)
 
 Given a Hutchinson-invariant measure `μ` on `cantorSet`, the
