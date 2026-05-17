@@ -409,6 +409,85 @@ theorem inner_cosineMode_sineMode_same
     mul_ne_zero Real.pi_ne_zero (pow_ne_zero n hα)
   exact integral_cos_mul_sin_alpha_zero_one (Real.pi * α^n) hπαn
 
+/-! ## Off-diagonal cosineMode/sineMode inner products (different scales) -/
+
+/-- **Off-diagonal cosineMode-cosineMode at different scales**:
+
+      `⟨cosineMode α n, cosineMode α m⟩_L²[0,1]
+        = sin(π·αⁿ − π·αᵐ)/(2·(π·αⁿ − π·αᵐ))
+        + sin(π·αⁿ + π·αᵐ)/(2·(π·αⁿ + π·αᵐ))`
+
+    valid when `αⁿ ≠ αᵐ` and `αⁿ + αᵐ ≠ 0`.
+
+    The matrix entry `M_{n,m}^{cos,cos}` of the kernel-multiplication
+    operator at scales `n, m`. -/
+theorem inner_cosineMode_cosineMode_off
+    (α : ℝ) (n m : ℕ) (h_diff : α^n ≠ α^m) (h_sum : α^n + α^m ≠ 0) :
+    ∫ y in (0:ℝ)..1, cosineMode α n y * cosineMode α m y =
+    Real.sin (Real.pi * α^n - Real.pi * α^m)
+      / (2 * (Real.pi * α^n - Real.pi * α^m)) +
+    Real.sin (Real.pi * α^n + Real.pi * α^m)
+      / (2 * (Real.pi * α^n + Real.pi * α^m)) := by
+  unfold cosineMode
+  have h_amb : Real.pi * α^n - Real.pi * α^m ≠ 0 := by
+    intro h; apply h_diff
+    have : Real.pi * α^n = Real.pi * α^m := by linarith
+    exact mul_left_cancel₀ Real.pi_ne_zero this
+  have h_apb : Real.pi * α^n + Real.pi * α^m ≠ 0 := by
+    intro h; apply h_sum
+    have : Real.pi * (α^n + α^m) = 0 := by linarith
+    exact (mul_eq_zero.mp this).resolve_left Real.pi_ne_zero
+  exact integral_cos_mul_cos_alpha_beta_zero_one
+    (Real.pi * α^n) (Real.pi * α^m) h_amb h_apb
+
+/-- **Off-diagonal sineMode-sineMode at different scales**:
+
+      `⟨sineMode α n, sineMode α m⟩_L²[0,1]
+        = sin(π·αⁿ − π·αᵐ)/(2·(π·αⁿ − π·αᵐ))
+        − sin(π·αⁿ + π·αᵐ)/(2·(π·αⁿ + π·αᵐ))`. -/
+theorem inner_sineMode_sineMode_off
+    (α : ℝ) (n m : ℕ) (h_diff : α^n ≠ α^m) (h_sum : α^n + α^m ≠ 0) :
+    ∫ y in (0:ℝ)..1, sineMode α n y * sineMode α m y =
+    Real.sin (Real.pi * α^n - Real.pi * α^m)
+      / (2 * (Real.pi * α^n - Real.pi * α^m)) -
+    Real.sin (Real.pi * α^n + Real.pi * α^m)
+      / (2 * (Real.pi * α^n + Real.pi * α^m)) := by
+  unfold sineMode
+  have h_amb : Real.pi * α^n - Real.pi * α^m ≠ 0 := by
+    intro h; apply h_diff
+    have : Real.pi * α^n = Real.pi * α^m := by linarith
+    exact mul_left_cancel₀ Real.pi_ne_zero this
+  have h_apb : Real.pi * α^n + Real.pi * α^m ≠ 0 := by
+    intro h; apply h_sum
+    have : Real.pi * (α^n + α^m) = 0 := by linarith
+    exact (mul_eq_zero.mp this).resolve_left Real.pi_ne_zero
+  exact integral_sin_mul_sin_alpha_beta_zero_one
+    (Real.pi * α^n) (Real.pi * α^m) h_amb h_apb
+
+/-- **Off-diagonal sineMode-cosineMode at different scales**:
+
+      `⟨sineMode α n, cosineMode α m⟩_L²[0,1]
+        = (1 − cos(π·αⁿ − π·αᵐ))/(2·(π·αⁿ − π·αᵐ))
+        + (1 − cos(π·αⁿ + π·αᵐ))/(2·(π·αⁿ + π·αᵐ))`. -/
+theorem inner_sineMode_cosineMode_off
+    (α : ℝ) (n m : ℕ) (h_diff : α^n ≠ α^m) (h_sum : α^n + α^m ≠ 0) :
+    ∫ y in (0:ℝ)..1, sineMode α n y * cosineMode α m y =
+    (1 - Real.cos (Real.pi * α^n - Real.pi * α^m)) /
+        (2 * (Real.pi * α^n - Real.pi * α^m)) +
+    (1 - Real.cos (Real.pi * α^n + Real.pi * α^m)) /
+        (2 * (Real.pi * α^n + Real.pi * α^m)) := by
+  unfold sineMode cosineMode
+  have h_amb : Real.pi * α^n - Real.pi * α^m ≠ 0 := by
+    intro h; apply h_diff
+    have : Real.pi * α^n = Real.pi * α^m := by linarith
+    exact mul_left_cancel₀ Real.pi_ne_zero this
+  have h_apb : Real.pi * α^n + Real.pi * α^m ≠ 0 := by
+    intro h; apply h_sum
+    have : Real.pi * (α^n + α^m) = 0 := by linarith
+    exact (mul_eq_zero.mp this).resolve_left Real.pi_ne_zero
+  exact integral_sin_mul_cos_alpha_beta_zero_one
+    (Real.pi * α^n) (Real.pi * α^m) h_amb h_apb
+
 /-! ## Base case: explicit eigenvalues of the k = 1 truncation
 
 The lowest-scale truncation `T_1` is the rank-2 operator induced by the
