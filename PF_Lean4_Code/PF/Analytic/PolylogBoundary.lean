@@ -372,6 +372,53 @@ theorem conjectured_eigenvalue_principal_sqrt2_zero (a : ℝ) :
   unfold conjectured_eigenvalue_principal
   simp [pow_zero]
 
+/-! ## Manuscript's predicted ground-state eigenvalue + incompatibility -/
+
+/-- **Manuscript's predicted ground-state eigenvalue** for `H_P_at α a`:
+
+      `λ_0_manuscript α := π / (10 · α)`
+
+    (Manuscript Theorem 4.4 in Ch 21; matches the 10⁻¹⁰ numerical
+    finite-dim approximation.) For α = √2: `≈ 0.222`. -/
+noncomputable def manuscript_predicted_eigenvalue_zero (α : ℝ) : ℝ :=
+  Real.pi / (10 * α)
+
+/-- **Manuscript's predicted value at α = √2 is positive**:
+    `π/(10·√2) > 0`. Trivial from positivity of π and √2. -/
+theorem manuscript_predicted_eigenvalue_zero_sqrt2_pos :
+    manuscript_predicted_eigenvalue_zero (Real.sqrt 2) > 0 := by
+  unfold manuscript_predicted_eigenvalue_zero
+  have h1 : 0 < Real.pi := Real.pi_pos
+  have h2 : 0 < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
+  positivity
+
+/-- **Principal-branch value at α = √2, k = 0 is NEGATIVE**:
+    `−log 2 < 0` since `log 2 > 0` (because `2 > 1`). -/
+theorem conjectured_eigenvalue_principal_sqrt2_zero_neg (a : ℝ) :
+    conjectured_eigenvalue_principal (Real.sqrt 2) a 0 < 0 := by
+  rw [conjectured_eigenvalue_principal_sqrt2_zero a]
+  have h := Real.log_pos (by norm_num : (1 : ℝ) < 2)
+  linarith
+
+/-- **★ Incompatibility theorem** ★: the manuscript's predicted
+    ground-state eigenvalue and the principal-branch polylog
+    evaluation CANNOT be equal at α = √2, k = 0 (one positive,
+    one negative).
+
+    This is the FORMAL, MACHINE-CHECKED statement that the polylog
+    conjecture (`conj:polylog-spectrum` Ch 21) is INCOMPATIBLE with
+    principal-branch evaluation of the polylog. Resolving Problem 1
+    therefore REQUIRES the Riemann-sheet selection of Problem 2's
+    Heuristic — without it, the conjecture is provably false. -/
+theorem manuscript_principal_incompatibility (a : ℝ) :
+    manuscript_predicted_eigenvalue_zero (Real.sqrt 2) ≠
+    conjectured_eigenvalue_principal (Real.sqrt 2) a 0 := by
+  intro h
+  have h_pos := manuscript_predicted_eigenvalue_zero_sqrt2_pos
+  have h_neg := conjectured_eigenvalue_principal_sqrt2_zero_neg a
+  rw [h] at h_pos
+  linarith
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
