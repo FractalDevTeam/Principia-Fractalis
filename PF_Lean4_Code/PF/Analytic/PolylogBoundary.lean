@@ -347,6 +347,31 @@ theorem sin_pi_sqrt2_pow_one_div_2_ne_zero :
   simp only [pow_one]
   exact sin_pi_sqrt2_div_2_ne_zero
 
+/-! ## Concrete principal-branch value at α = √2, k = 0 -/
+
+/-- **Closed-form value at α = √2, k = 0**:
+
+      `conjectured_eigenvalue_principal (√2) a 0 = −log 2 ≈ −0.693`
+
+    (independent of `a`, since `a^0 = 1`).
+
+    The manuscript's claim (Theorem 4.4) is that the actual eigenvalue
+    `λ_0(H_P_at √2 a) = π/(10·√2) ≈ +0.222`. The discrepancy
+    `principal ↦ physical : −log 2 ↦ +π/(10√2)` is the precise
+    sign/magnitude flip that the physical Riemann sheet (Problem 2's
+    Heuristic) must accomplish.
+
+    Numerically: `−log 2 ≈ −0.693` vs `+π/(10√2) ≈ +0.222`. The
+    difference is about `0.915` — substantially more than a small
+    correction, requiring the physical Riemann sheet to be a
+    fundamentally different branch (not a small perturbation of
+    the principal sheet). -/
+theorem conjectured_eigenvalue_principal_sqrt2_zero (a : ℝ) :
+    conjectured_eigenvalue_principal (Real.sqrt 2) a 0 =
+    -Real.log 2 := by
+  unfold conjectured_eigenvalue_principal
+  simp [pow_zero]
+
 /-! ## Documentation: principal-branch vs the manuscript's physical branch
 
 For `α = √2, k = 0`, the principal-branch evaluation gives:
