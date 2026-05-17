@@ -750,6 +750,82 @@ theorem lambdaAntiLevel2_det (α a : ℝ) :
   rw [hprod, hsq, hD, hS]
   ring
 
+/-! ## ★ Level-2 block diagonal non-negativity ★ -/
+
+/-- **Level-2 sym block (1,1) entry non-negativity**:
+
+      `A_sym = a/(a−1) + V_P(8/9) ≥ 0`
+
+    Combining `a/(a−1) > 0` (from `a > 1`) with the uniform bound
+    `|V_P| ≤ a/(a−1)` gives `A_sym ≥ 0`. -/
+theorem level2SymA_nonneg {α a : ℝ} (ha : 1 < a) :
+    0 ≤ level2SymA α a := by
+  unfold level2SymA
+  have habs : |fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ)| ≤ a / (a - 1) :=
+    abs_fractalKernelReal_le α ha _
+  have hlow : -(a/(a-1)) ≤ fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ) :=
+    (abs_le.mp habs).1
+  linarith
+
+/-- **Level-2 sym block (2,2) entry non-negativity**:
+
+      `C_sym = a/(a−1) + V_P(4/9) ≥ 0` -/
+theorem level2SymC_nonneg {α a : ℝ} (ha : 1 < a) :
+    0 ≤ level2SymC α a := by
+  unfold level2SymC
+  have habs : |fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ)| ≤ a / (a - 1) :=
+    abs_fractalKernelReal_le α ha _
+  have hlow : -(a/(a-1)) ≤ fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ) :=
+    (abs_le.mp habs).1
+  linarith
+
+/-- **Level-2 antisym block (1,1) entry non-negativity**:
+
+      `A_anti = a/(a−1) − V_P(8/9) ≥ 0` -/
+theorem level2AntiA_nonneg {α a : ℝ} (ha : 1 < a) :
+    0 ≤ level2AntiA α a := by
+  unfold level2AntiA
+  have habs : |fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ)| ≤ a / (a - 1) :=
+    abs_fractalKernelReal_le α ha _
+  have hhigh : fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ) ≤ a/(a-1) :=
+    (abs_le.mp habs).2
+  linarith
+
+/-- **Level-2 antisym block (2,2) entry non-negativity**:
+
+      `C_anti = a/(a−1) − V_P(4/9) ≥ 0` -/
+theorem level2AntiC_nonneg {α a : ℝ} (ha : 1 < a) :
+    0 ≤ level2AntiC α a := by
+  unfold level2AntiC
+  have habs : |fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ)| ≤ a / (a - 1) :=
+    abs_fractalKernelReal_le α ha _
+  have hhigh : fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ) ≤ a/(a-1) :=
+    (abs_le.mp habs).2
+  linarith
+
+/-- **★ Level-2 block trace non-negativity ★**:
+
+    Both block traces are non-negative:
+
+      `λ_sym⁺ + λ_sym⁻   = (1/4) · (A_sym + C_sym)   ≥ 0`
+      `λ_anti⁺ + λ_anti⁻ = (1/4) · (A_anti + C_anti) ≥ 0`
+
+    Necessary condition for PSD-ness of each block. Combined with the
+    determinant identities, fully characterises PSD via Sylvester's
+    criterion. -/
+theorem level2_block_traces_nonneg {α a : ℝ} (ha : 1 < a) :
+    0 ≤ lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a ∧
+    0 ≤ lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a := by
+  refine ⟨?_, ?_⟩
+  · rw [lambdaSymLevel2_trace]
+    have h1 : 0 ≤ level2SymA α a := level2SymA_nonneg ha
+    have h2 : 0 ≤ level2SymC α a := level2SymC_nonneg ha
+    linarith
+  · rw [lambdaAntiLevel2_trace]
+    have h1 : 0 ≤ level2AntiA α a := level2AntiA_nonneg ha
+    have h2 : 0 ≤ level2AntiC α a := level2AntiC_nonneg ha
+    linarith
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
