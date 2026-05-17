@@ -8,3 +8,4 @@ PF/TuringEncoding/AlphaEnum.v
 PF/TuringEncoding/Operators.v
 PF/SpectralGap.v
 PF/Analytic/CantorIFS.v
+PF/Analytic/MatrixSpectrum.v
