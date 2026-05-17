@@ -897,6 +897,53 @@ theorem level2_anti_PSD_from_det {α a : ℝ} (ha : 1 < a)
       _ = A + C := habsAC
   linarith
 
+/-! ## ★ Level-2 sum-of-squares (Frobenius norm) identities ★ -/
+
+/-- **Level-2 sym block sum of squared eigenvalues**:
+
+      `λ_sym⁺² + λ_sym⁻² = (1/16) · (A_sym² + C_sym² + 2·B_sym_offdiag²)`
+
+    The Frobenius norm of the sym 2×2 sub-block (which equals the
+    sum of squared eigenvalues by the spectral theorem). Derived via
+    Vieta: `λ+² + λ-² = (λ+ + λ-)² − 2·(λ+·λ-)`. -/
+theorem lambdaSymLevel2_sumSq (α a : ℝ) :
+    (lambdaSymPlusLevel2 α a)^2 + (lambdaSymMinusLevel2 α a)^2 =
+    (1/16) * ((level2SymA α a)^2 + (level2SymC α a)^2 +
+              2 * (level2SymOffdiag α a)^2) := by
+  -- Vieta: λ+² + λ-² = (λ+ + λ-)² - 2·λ+·λ- = (sum)² - 2·prod
+  have hsum : lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a =
+              (1/4) * (level2SymA α a + level2SymC α a) :=
+    lambdaSymLevel2_trace α a
+  have hprod : lambdaSymPlusLevel2 α a * lambdaSymMinusLevel2 α a =
+               (1/16) * (level2SymA α a * level2SymC α a -
+                         (level2SymOffdiag α a)^2) :=
+    lambdaSymLevel2_det α a
+  have hvieta : (lambdaSymPlusLevel2 α a)^2 + (lambdaSymMinusLevel2 α a)^2 =
+                (lambdaSymPlusLevel2 α a + lambdaSymMinusLevel2 α a)^2 -
+                2 * (lambdaSymPlusLevel2 α a * lambdaSymMinusLevel2 α a) := by ring
+  rw [hvieta, hsum, hprod]
+  ring
+
+/-- **Level-2 antisym block sum of squared eigenvalues**:
+
+      `λ_anti⁺² + λ_anti⁻² = (1/16) · (A_anti² + C_anti² + 2·B_anti_offdiag²)` -/
+theorem lambdaAntiLevel2_sumSq (α a : ℝ) :
+    (lambdaAntiPlusLevel2 α a)^2 + (lambdaAntiMinusLevel2 α a)^2 =
+    (1/16) * ((level2AntiA α a)^2 + (level2AntiC α a)^2 +
+              2 * (level2AntiOffdiag α a)^2) := by
+  have hsum : lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a =
+              (1/4) * (level2AntiA α a + level2AntiC α a) :=
+    lambdaAntiLevel2_trace α a
+  have hprod : lambdaAntiPlusLevel2 α a * lambdaAntiMinusLevel2 α a =
+               (1/16) * (level2AntiA α a * level2AntiC α a -
+                         (level2AntiOffdiag α a)^2) :=
+    lambdaAntiLevel2_det α a
+  have hvieta : (lambdaAntiPlusLevel2 α a)^2 + (lambdaAntiMinusLevel2 α a)^2 =
+                (lambdaAntiPlusLevel2 α a + lambdaAntiMinusLevel2 α a)^2 -
+                2 * (lambdaAntiPlusLevel2 α a * lambdaAntiMinusLevel2 α a) := by ring
+  rw [hvieta, hsum, hprod]
+  ring
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
