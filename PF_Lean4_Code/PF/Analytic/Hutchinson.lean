@@ -298,6 +298,57 @@ theorem cantorDiscMeasure_one :
   unfold cantorContraction1 cantorContraction2
   norm_num
 
+/-- **Level 2 explicit form**:
+
+      `cantorDiscMeasure 2 = (1/4)·δ_{1/18} + (1/4)·δ_{5/18}
+                            + (1/4)·δ_{13/18} + (1/4)·δ_{17/18}`
+
+    The four Dirac points are exactly the midpoints of the four
+    level-2 Cantor cells (`[0, 1/9]`, `[2/9, 1/3]`, `[2/3, 7/9]`,
+    `[8/9, 1]`). Derived via one application of `hutchinsonOp_dirac`
+    to each of the two level-1 Diracs. -/
+theorem cantorDiscMeasure_two :
+    cantorDiscMeasure 2 =
+    (1/4 : ENNReal) • MeasureTheory.Measure.dirac (1/18 : ℝ) +
+    (1/4 : ENNReal) • MeasureTheory.Measure.dirac (13/18 : ℝ) +
+    ((1/4 : ENNReal) • MeasureTheory.Measure.dirac (5/18 : ℝ) +
+     (1/4 : ENNReal) • MeasureTheory.Measure.dirac (17/18 : ℝ)) := by
+  have : cantorDiscMeasure 2 = hutchinsonOp (cantorDiscMeasure 1) :=
+    cantorDiscMeasure_succ 1
+  rw [this, cantorDiscMeasure_one]
+  -- T((1/2)·δ_{1/6} + (1/2)·δ_{5/6}) splits into 4 pieces
+  unfold hutchinsonOp
+  rw [MeasureTheory.Measure.map_add _ _ cantorContraction1_measurable,
+      MeasureTheory.Measure.map_add _ _ cantorContraction2_measurable]
+  rw [MeasureTheory.Measure.map_smul,
+      MeasureTheory.Measure.map_smul,
+      MeasureTheory.Measure.map_smul,
+      MeasureTheory.Measure.map_smul]
+  rw [MeasureTheory.Measure.map_dirac cantorContraction1_measurable,
+      MeasureTheory.Measure.map_dirac cantorContraction1_measurable,
+      MeasureTheory.Measure.map_dirac cantorContraction2_measurable,
+      MeasureTheory.Measure.map_dirac cantorContraction2_measurable]
+  -- f₁(1/6) = 1/18, f₁(5/6) = 5/18, f₂(1/6) = 13/18, f₂(5/6) = 17/18
+  have h1 : cantorContraction1 (1/6 : ℝ) = 1/18 := by
+    unfold cantorContraction1; norm_num
+  have h2 : cantorContraction1 (5/6 : ℝ) = 5/18 := by
+    unfold cantorContraction1; norm_num
+  have h3 : cantorContraction2 (1/6 : ℝ) = 13/18 := by
+    unfold cantorContraction2; norm_num
+  have h4 : cantorContraction2 (5/6 : ℝ) = 17/18 := by
+    unfold cantorContraction2; norm_num
+  rw [h1, h2, h3, h4]
+  -- Now distribute the outer (1/2) and combine smuls into (1/4)
+  rw [smul_add, smul_add]
+  rw [smul_smul, smul_smul, smul_smul, smul_smul]
+  have hq : (1/2 : ENNReal) * (1/2 : ENNReal) = 1/4 := by
+    rw [show (1/2 : ENNReal) = 2⁻¹ from one_div 2,
+        show (1/4 : ENNReal) = 4⁻¹ from one_div 4]
+    rw [← ENNReal.mul_inv (Or.inl (by norm_num)) (Or.inl (by norm_num))]
+    norm_num
+  rw [hq]
+  abel
+
 /-! ## Discrete operator action -/
 
 /-- **Discrete operator action**:
