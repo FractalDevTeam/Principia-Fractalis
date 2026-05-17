@@ -397,6 +397,57 @@ theorem trace_level2 {α a : ℝ} (ha : 1 < a) :
       cellMatrixEntry_diagonal ha, cellMatrixEntry_diagonal ha]
   ring
 
+/-! ## ★ Level-1 positive semi-definiteness ★ -/
+
+/-- **★ Level-1 symmetric eigenvalue non-negativity ★**:
+
+      `λ⁺^{(1)} ≥ 0`
+
+    Combining the closed form `λ⁺ = (1/2)(a/(a−1) + V_P(1/6, 5/6))`
+    with the uniform bound `|V_P| ≤ a/(a−1)` gives `λ⁺ ≥ 0`. -/
+theorem lambdaPlusLevel1_nonneg {α a : ℝ} (ha : 1 < a) :
+    0 ≤ lambdaPlusLevel1 α a := by
+  unfold lambdaPlusLevel1
+  have habs : |fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ)| ≤ a / (a - 1) :=
+    abs_fractalKernelReal_le α ha _
+  have hlow : -(a/(a-1)) ≤ fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ) :=
+    (abs_le.mp habs).1
+  linarith
+
+/-- **★ Level-1 antisymmetric eigenvalue non-negativity ★**:
+
+      `λ⁻^{(1)} ≥ 0`
+
+    Symmetric argument to `lambdaPlusLevel1_nonneg`. -/
+theorem lambdaMinusLevel1_nonneg {α a : ℝ} (ha : 1 < a) :
+    0 ≤ lambdaMinusLevel1 α a := by
+  unfold lambdaMinusLevel1
+  have habs : |fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ)| ≤ a / (a - 1) :=
+    abs_fractalKernelReal_le α ha _
+  have hhigh : fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ) ≤ a/(a-1) :=
+    (abs_le.mp habs).2
+  linarith
+
+/-- **★ Level-1 matrix is positive semi-definite ★**:
+
+    Both eigenvalues `λ⁺^{(1)}, λ⁻^{(1)}` are non-negative, so the
+    real symmetric matrix `M^{(1)}` is POSITIVE SEMI-DEFINITE:
+
+      `M^{(1)} ⪰ 0` (in the partial order on real symmetric matrices)
+
+    This is consistent with the operator `H_P^cantor[μ_H]` being a
+    Hilbert-Schmidt KERNEL OPERATOR with non-negative spectrum (since
+    `V_P` is a positive-definite kernel in the Bochner sense — sum
+    of cosines on a contracting scale series).
+
+    Spectral interpretation: every level-`n` finite-rank approximation
+    `M^{(n)}` is expected to be positive semi-definite, paralleling
+    the positive-definiteness of `V_P` itself. The level-1 case is
+    here proved directly from the closed-form eigenvalues. -/
+theorem level1_matrix_psd {α a : ℝ} (ha : 1 < a) :
+    0 ≤ lambdaPlusLevel1 α a ∧ 0 ≤ lambdaMinusLevel1 α a :=
+  ⟨lambdaPlusLevel1_nonneg ha, lambdaMinusLevel1_nonneg ha⟩
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
