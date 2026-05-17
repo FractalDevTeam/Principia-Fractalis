@@ -25,6 +25,7 @@ Stage L4+ — discrete eigenvalue matrix framework.
 -/
 
 import PF.Analytic.CellMidpoint
+import PF.IntegralKernel.FractalKernel
 
 namespace PrincipiaTractalis.Analytic
 
@@ -68,6 +69,72 @@ theorem cellMatrixEntry_symm (α a : ℝ) (n : ℕ) (bs bs' : List Bool) :
     ((cellMidpointOfBools bs, cellMidpointOfBools bs') : ℝ × ℝ)
   simp [Prod.swap] at h
   rw [← h]
+
+/-! ## ★ Diagonal entries ★ -/
+
+/-- **Kernel on the diagonal**: `V_P(x, x) = a/(a − 1)` for `a > 1`.
+
+    On the diagonal, every distance is zero, so `cos(π·αⁿ·0) = 1` at
+    every depth, and the kernel reduces to the geometric series
+    `Σ a^(-n) = 1/(1 − 1/a) = a/(a−1)`. This is the maximum value of
+    `V_P`. -/
+theorem fractalKernelReal_diagonal {α a : ℝ} (ha : 1 < a) (x : ℝ) :
+    fractalKernelReal α a ((x, x) : ℝ × ℝ) = a / (a - 1) := by
+  unfold fractalKernelReal fractalKernelTerm
+  have hd : dist x x = 0 := dist_self x
+  have hterm : ∀ n : ℕ,
+      (a : ℝ) ^ (-(n : ℤ)) * Real.cos (Real.pi * α ^ n * dist (x : ℝ) x) =
+      (1 / a) ^ n := by
+    intro n
+    rw [hd, mul_zero, Real.cos_zero, mul_one]
+    rw [zpow_neg, zpow_natCast, one_div, inv_pow]
+  rw [tsum_congr hterm]
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have h_inv_lt_one : (1 / a) < 1 := (div_lt_one ha_pos).mpr ha
+  have h_inv_nn : (0 : ℝ) ≤ 1 / a := div_nonneg zero_le_one ha_pos.le
+  rw [tsum_geometric_of_lt_one h_inv_nn h_inv_lt_one]
+  rw [one_div]
+  field_simp
+
+/-- **Matrix diagonal**: `M_{bs, bs} = (1/2^n) · a/(a − 1)`.
+
+    Every diagonal entry of the level-`n` matrix is the SAME constant
+    `(1/2^n) · a/(a−1)`, independent of which boolean word `bs`
+    indexes the cell. This is because the kernel `V_P` evaluated on
+    the diagonal is independent of the point. -/
+theorem cellMatrixEntry_diagonal {α a : ℝ} (ha : 1 < a) (n : ℕ)
+    (bs : List Bool) :
+    cellMatrixEntry α a n bs bs = (1 / (2 : ℝ)^n) * (a / (a - 1)) := by
+  unfold cellMatrixEntry cantorKernel
+  rw [fractalKernelReal_diagonal ha (cellMidpointOfBools bs)]
+
+/-! ## Documentation: trace identity
+
+The trace of the level-`n` matrix is the sum of its diagonal entries:
+
+  `tr M^{(n)} = Σ_{bs : List Bool, bs.length = n} M^{(n)}_{bs, bs}
+              = 2^n · (1/2^n) · a/(a − 1)
+              = a/(a − 1)`
+
+So the **trace is independent of the level `n`** — every finite-level
+approximation has the same trace. By the spectral theorem, this trace
+equals the sum of all `2^n` eigenvalues:
+
+  `Σ_{k=1}^{2^n} λ^{(n)}_k = a/(a − 1)`
+
+In the limit `n → ∞`, this becomes the (formally regularised) trace
+of the full operator `H_P^cantor[μ_H]`, which is the polylog-series
+sum:
+
+  `Σ_{k≥0} λ_k = a/(a − 1)`  (formal, modulo convergence)
+
+Under the polylog conjecture `λ_k = a^(-k) · Re[Li₁(e^{iπ·αᵏ})]`,
+this becomes a constraint on the cosine averages of the principal
+branch of `Li₁` evaluated at the points `e^{iπαᵏ}`.
+
+This trace identity is a NONTRIVIAL EMPIRICAL TEST of any candidate
+eigenvalue closed form: numerical eigenvalues of `M^{(n)}` must sum
+to `a/(a−1)` exactly. -/
 
 /-! ## Documentation: the discrete eigenvalue problem
 
