@@ -168,6 +168,18 @@ theorem level0_eigenvector_identity {α a : ℝ} (ha : 1 < a) :
   rw [fractalKernelReal_diagonal ha (1/2)]
   ring
 
+/-- **Level-0 eigenvalue positivity** (a > 1): `λ^{(0)}_0 = a/(a−1) > 0`. -/
+theorem lambdaLevel0_pos {a : ℝ} (ha : 1 < a) : 0 < lambdaLevel0 a := by
+  unfold lambdaLevel0
+  apply div_pos
+  · linarith
+  · linarith
+
+/-- **Level-0 trace = sole eigenvalue**: at the trivial 1×1 level, the
+    trace equals the operator-norm bound exactly. The "spectrum"
+    `{λ^{(0)}_0} = {a/(a−1)}` saturates the operator-norm bound. -/
+theorem lambdaLevel0_eq_op_norm {a : ℝ} : lambdaLevel0 a = a / (a - 1) := rfl
+
 /-! ## ★ Level-1 discrete operator action ★ -/
 
 /-- **Level-1 explicit operator action**:
