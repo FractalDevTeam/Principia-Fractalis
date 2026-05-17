@@ -108,6 +108,45 @@ theorem cantorSet_is_fixed_point :
   rw [cantorContraction1_eq, cantorContraction2_eq]
   exact cantorSet_eq_union_halves
 
+/-! ## Product-set IFS decomposition (4 cells) -/
+
+/-- **Helper**: `(A ∪ B) ×ˢ (C ∪ D) = (A ×ˢ C) ∪ (A ×ˢ D) ∪ (B ×ˢ C) ∪ (B ×ˢ D)`.
+
+    Standard set-theoretic distributivity of `×ˢ` over `∪`. -/
+theorem prod_union_union {α β : Type*} (A B : Set α) (C D : Set β) :
+    (A ∪ B) ×ˢ (C ∪ D) =
+    (A ×ˢ C) ∪ (A ×ˢ D) ∪ (B ×ˢ C) ∪ (B ×ˢ D) := by
+  ext ⟨x, y⟩
+  simp only [mem_prod, mem_union]
+  constructor
+  · rintro ⟨hx | hx, hy | hy⟩ <;> tauto
+  · rintro (((⟨hx, hy⟩ | ⟨hx, hy⟩) | ⟨hx, hy⟩) | ⟨hx, hy⟩) <;> tauto
+
+/-- **★ Four-cell decomposition of `cantorSet × cantorSet` ★**:
+
+      `cantorSet × cantorSet =
+        (f₁ × f₁)(cantorSet × cantorSet) ∪ (f₁ × f₂)(...) ∪
+        (f₂ × f₁)(...) ∪ (f₂ × f₂)(...)`
+
+    By the IFS fixed-point property of `cantorSet`
+    (`cantorSet_is_fixed_point`) and the distributivity of `×ˢ`
+    over `∪`, the product `cantorSet × cantorSet` decomposes into
+    exactly four cell-product pieces, corresponding to the four
+    `(i, j) ∈ {1, 2}²` cell-pair labels.
+
+    This is the foundation of the OPERATOR-LEVEL self-similarity
+    equation on the Cantor substrate: integration of the kernel over
+    `cantorSet × cantorSet` decomposes into four sub-integrals over
+    the four cell-pair domains. -/
+theorem cantorSet_prod_decomp :
+    cantorSet ×ˢ cantorSet =
+    ((cantorContraction1 '' cantorSet) ×ˢ (cantorContraction1 '' cantorSet)) ∪
+    ((cantorContraction1 '' cantorSet) ×ˢ (cantorContraction2 '' cantorSet)) ∪
+    ((cantorContraction2 '' cantorSet) ×ˢ (cantorContraction1 '' cantorSet)) ∪
+    ((cantorContraction2 '' cantorSet) ×ˢ (cantorContraction2 '' cantorSet)) := by
+  conv_lhs => rw [cantorSet_is_fixed_point]
+  exact prod_union_union _ _ _ _
+
 /-! ## Cantor-substrate kernel and IFS cell decomposition -/
 
 /-- **Cantor-restricted kernel**: `V_P` evaluated on `cantorSet × cantorSet`.
