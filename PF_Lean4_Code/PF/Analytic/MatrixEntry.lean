@@ -446,6 +446,86 @@ theorem level2_antisym_action_at_ff {α a : ℝ} (ha : 1 < a)
   rw [fractalKernelReal_diagonal ha (1/18)]
   ring
 
+/-- **★ Level-2 symmetric-test action at x = 13/18 ★**:
+
+      `(H_P^disc[cantorDiscMeasure 2] f)(13/18)
+         = (1/4) · ((V_P(2/3) + V_P(2/9)) · c
+                  + (a/(a−1) + V_P(4/9)) · d)`
+
+    Second row of the symmetric 2×2 sub-block of `M^{(2)}` —
+    completing the sym block structure together with
+    `level2_sym_action_at_ff`. -/
+theorem level2_sym_action_at_tf {α a : ℝ} (ha : 1 < a)
+    (c d : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/18) = c) (h2 : f (5/18) = d)
+    (h3 : f (13/18) = d) (h4 : f (17/18) = c) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f (13/18) =
+    (1/4) * ((fractalKernelReal α a ((13/18, 1/18) : ℝ × ℝ) +
+              fractalKernelReal α a ((13/18, 17/18) : ℝ × ℝ)) * c +
+             (a/(a-1) + fractalKernelReal α a ((13/18, 5/18) : ℝ × ℝ)) * d) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  rw [h1, h2, h3, h4]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (13/18)]
+  ring
+
+/-- **★ Level-2 antisymmetric-test action at x = 13/18 ★**:
+
+      `(H_P^disc[cantorDiscMeasure 2] f)(13/18)
+         = (1/4) · ((V_P(2/3) − V_P(2/9)) · c
+                  + (a/(a−1) − V_P(4/9)) · d)`
+
+    Second row of the antisymmetric 2×2 sub-block of `M^{(2)}` —
+    completing the antisym block structure. -/
+theorem level2_antisym_action_at_tf {α a : ℝ} (ha : 1 < a)
+    (c d : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/18) = c) (h2 : f (5/18) = -d)
+    (h3 : f (13/18) = d) (h4 : f (17/18) = -c) :
+    H_P_at_disc α a (cantorDiscMeasure 2) f (13/18) =
+    (1/4) * ((fractalKernelReal α a ((13/18, 1/18) : ℝ × ℝ) -
+              fractalKernelReal α a ((13/18, 17/18) : ℝ × ℝ)) * c +
+             (a/(a-1) - fractalKernelReal α a ((13/18, 5/18) : ℝ × ℝ)) * d) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  rw [h1, h2, h3, h4]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (13/18)]
+  ring
+
+/-! ## Documentation: level-2 sym/antisym 2×2 block matrices
+
+The level-2 4×4 matrix `M^{(2)}` decomposes under the IFS reflection
+`x ↦ 1 − x` (which permutes the level-2 cells via `[ff] ↔ [tt]` and
+`[ft] ↔ [tf]`) into two 2×2 sub-blocks acting on the symmetric and
+antisymmetric subspaces:
+
+  `B_sym = (1/4) · [[a/(a-1) + V_P(8/9),    V_P(2/3) + V_P(2/9)],
+                    [V_P(2/3) + V_P(2/9),   a/(a-1) + V_P(4/9)]]`
+
+  `B_anti = (1/4) · [[a/(a-1) - V_P(8/9),   V_P(2/3) - V_P(2/9)],
+                     [V_P(2/3) - V_P(2/9),  a/(a-1) - V_P(4/9)]]`
+
+where `V_P(d) := V_P(x, y)` for any `(x, y)` with `dist(x, y) = d`.
+
+The four theorems
+  `level2_sym_action_at_{ff, tf}`,
+  `level2_antisym_action_at_{ff, tf}`
+together verify the matrix entries of both blocks (first/second rows
+of sym/antisym). The block decomposition is a CONSEQUENCE of the
+IFS reflection symmetry of the kernel and substrate.
+
+Each 2×2 block has 2 real eigenvalues (by the symmetric 2×2 formula
+`λ = ((α+γ) ± √((α−γ)² + 4β²))/2`), giving 4 eigenvalues total — the
+full level-2 spectrum in closed form (up to evaluating the inner
+`V_P(d)` tsums).
+
+This is the LEVEL-2 ANALOGUE of the level-1 sym/antisym decomposition
+(`level1_sym_eigenvector_*` and `level1_antisym_eigenvector_*`).
+The pattern generalises: at level n, the IFS reflection produces a
+2-fold block decomposition; combined with additional symmetries
+(e.g., the two-cell self-similar refinement at each level), the
+spectrum should organise into a structured family — the formal
+target of the polylog conjecture. -/
+
 /-! ## ★ Level-1 eigenvalue closed form ★ -/
 
 /-- **Level-1 symmetric eigenvalue**: the spectral value paired with
