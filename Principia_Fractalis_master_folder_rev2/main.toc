@@ -1,16 +1,16 @@
 \contentsline {chapter}{Version History}{iv}{chapter*.1}%
-\contentsline {chapter}{Formalization Status (Revision 2)}{xi}{chapter*.2}%
-\contentsline {chapter}{Prologue}{xix}{chapter*.3}%
-\contentsline {chapter}{Prologue}{xx}{chapter*.4}%
-\contentsline {chapter}{Preface}{xxiv}{chapter*.5}%
-\contentsline {chapter}{Preface}{xxv}{chapter*.6}%
-\contentsline {chapter}{How to Use This Book}{xxx}{chapter*.7}%
-\contentsline {chapter}{How to Use This Book}{xxxi}{chapter*.8}%
-\contentsline {chapter}{Notation and Conventions}{xl}{chapter*.9}%
-\contentsline {chapter}{Notation and Conventions}{xli}{chapter*.10}%
-\contentsline {chapter}{The Per-Millennium $\alpha $-Dictionary}{xlix}{chapter*.11}%
-\contentsline {chapter}{Acknowledgments}{lii}{chapter*.12}%
-\contentsline {chapter}{Acknowledgments}{liii}{chapter*.13}%
+\contentsline {chapter}{Formalization Status (Revision 2)}{xii}{chapter*.2}%
+\contentsline {chapter}{Prologue}{xx}{chapter*.3}%
+\contentsline {chapter}{Prologue}{xxi}{chapter*.4}%
+\contentsline {chapter}{Preface}{xxv}{chapter*.5}%
+\contentsline {chapter}{Preface}{xxvi}{chapter*.6}%
+\contentsline {chapter}{How to Use This Book}{xxxi}{chapter*.7}%
+\contentsline {chapter}{How to Use This Book}{xxxii}{chapter*.8}%
+\contentsline {chapter}{Notation and Conventions}{xli}{chapter*.9}%
+\contentsline {chapter}{Notation and Conventions}{xlii}{chapter*.10}%
+\contentsline {chapter}{The Per-Millennium $\alpha $-Dictionary}{l}{chapter*.11}%
+\contentsline {chapter}{Acknowledgments}{liii}{chapter*.12}%
+\contentsline {chapter}{Acknowledgments}{liv}{chapter*.13}%
 \contentsline {part}{I\hspace {1em}Foundations}{1}{part.1}%
 \contentsline {chapter}{\numberline {1}Numbers and Base-3 Arithmetic}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Counting Systems Throughout History}{2}{section.1.1}%
