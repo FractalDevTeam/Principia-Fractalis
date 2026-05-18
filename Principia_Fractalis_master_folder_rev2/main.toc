@@ -611,11 +611,11 @@
 \contentsline {section}{\numberline {20.4}Self-Adjointness: The Critical Proof}{312}{section.20.4}%
 \contentsline {subsection}{\numberline {20.4.1}Why Self-Adjointness Matters}{312}{subsection.20.4.1}%
 \contentsline {subsection}{\numberline {20.4.2}The Self-Adjointness Theorem}{312}{subsection.20.4.2}%
-\contentsline {section}{\numberline {20.5}Numerical Implementation}{315}{section.20.5}%
-\contentsline {subsection}{\numberline {20.5.1}Matrix Approximation}{315}{subsection.20.5.1}%
+\contentsline {section}{\numberline {20.5}Numerical Implementation}{316}{section.20.5}%
+\contentsline {subsection}{\numberline {20.5.1}Matrix Approximation}{316}{subsection.20.5.1}%
 \contentsline {subsection}{\numberline {20.5.2}Computed Eigenvalues}{316}{subsection.20.5.2}%
-\contentsline {section}{\numberline {20.6}The Eigenvalue-Zero Correspondence}{316}{section.20.6}%
-\contentsline {subsection}{\numberline {20.6.1}Discovery of the Scaling Factor}{316}{subsection.20.6.1}%
+\contentsline {section}{\numberline {20.6}The Eigenvalue-Zero Correspondence}{317}{section.20.6}%
+\contentsline {subsection}{\numberline {20.6.1}Discovery of the Scaling Factor}{317}{subsection.20.6.1}%
 \contentsline {subsection}{\numberline {20.6.2}Primary Correspondences}{317}{subsection.20.6.2}%
 \contentsline {section}{\numberline {20.7}Theoretical Explanation}{318}{section.20.7}%
 \contentsline {subsection}{\numberline {20.7.1}Spectral Rigidity and the Critical Line}{318}{subsection.20.7.1}%
@@ -623,7 +623,7 @@
 \contentsline {section}{\numberline {20.8}Implications and Open Questions}{319}{section.20.8}%
 \contentsline {subsection}{\numberline {20.8.1}Resolution of the Riemann Hypothesis}{319}{subsection.20.8.1}%
 \contentsline {subsection}{\numberline {20.8.2}Prime Number Distribution}{319}{subsection.20.8.2}%
-\contentsline {subsection}{\numberline {20.8.3}Open Problems}{319}{subsection.20.8.3}%
+\contentsline {subsection}{\numberline {20.8.3}Open Problems}{320}{subsection.20.8.3}%
 \contentsline {section}{\numberline {20.9}Conclusion}{320}{section.20.9}%
 \contentsline {chapter}{\numberline {21}P vs NP through Consciousness Computation}{322}{chapter.21}%
 \contentsline {section}{\numberline {21.1}Introduction: The 54-Year Question}{323}{section.21.1}%
