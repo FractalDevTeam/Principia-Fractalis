@@ -907,4 +907,72 @@ theorem summable_kernel_term_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
       ≤ (1/a)^k * 1 := mul_le_mul_of_nonneg_left h_cos_le h_inv_pow_pos.le
     _ = (1/a)^k := mul_one _
 
+/-- **Summability of the EVEN-indexed subseries**: `Σ_m f(2m)` is
+    absolutely summable. -/
+theorem summable_even_kernel_term_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
+    Summable (fun m : ℕ => (a : ℝ)^(-(2*m : ℤ)) *
+      Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (2/3))) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_pos : (0 : ℝ) < a^2 := by positivity
+  have h_inv_sq_lt : (1/a^2 : ℝ) < 1 := by
+    rw [div_lt_one ha_sq_pos]; nlinarith
+  have h_inv_sq_nn : (0 : ℝ) ≤ 1/a^2 := by positivity
+  -- Each term: a^(-(2m)) · cos = -1/(2·a^(2m)) (exact, fractalKernel_even_term)
+  -- So we want Summable of -1/(2·a^(2m)) = -(1/2) · (1/a²)^m
+  have hterm : ∀ m : ℕ,
+      (a : ℝ)^(-(2*m : ℤ)) * Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (2/3))
+      = -(1/2) * (1/a^2)^m := by
+    intro m
+    rw [fractalKernel_even_term_sqrt2_two_thirds]
+    rw [show (a : ℝ)^(2*m) = (a^2)^m from by rw [pow_mul]]
+    rw [div_pow, one_pow]
+    ring
+  rw [show (fun m : ℕ => (a : ℝ)^(-(2*m : ℤ)) *
+            Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (2/3))) =
+          (fun m : ℕ => -(1/2 : ℝ) * (1/a^2)^m) from funext hterm]
+  exact (summable_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt).mul_left _
+
+/-- **HasSum of the EVEN subseries** to `-a²/(2·(a²-1))`. -/
+theorem hasSum_even_kernel_term_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
+    HasSum (fun m : ℕ => (a : ℝ)^(-(2*m : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (2/3)))
+      (-(a^2 / (2 * (a^2 - 1)))) := by
+  have hs := summable_even_kernel_term_sqrt2_two_thirds ha
+  have h_tsum := even_subseries_sqrt2_two_thirds ha
+  rw [← h_tsum]
+  exact hs.hasSum
+
+/-- **Summability of the ODD-indexed subseries**: `Σ_m f(2m+1)` is
+    absolutely summable. -/
+theorem summable_odd_kernel_term_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
+    Summable (fun m : ℕ => (a : ℝ)^(-(2*m+1 : ℤ)) *
+      Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_pos : (0 : ℝ) < a^2 := by positivity
+  have h_inv_sq_lt : (1/a^2 : ℝ) < 1 := by
+    rw [div_lt_one ha_sq_pos]; nlinarith
+  have h_inv_sq_nn : (0 : ℝ) ≤ 1/a^2 := by positivity
+  -- Bound each term by a^(-(2m+1)) = (1/a) · (1/a²)^m geometric majorant
+  apply Summable.of_norm_bounded (g := fun m : ℕ => (1/a : ℝ) * (1/a^2)^m)
+  · exact (summable_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt).mul_left _
+  intro m
+  rw [Real.norm_eq_abs, abs_mul]
+  have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(2*m+1 : ℤ)) := zpow_pos ha_pos _
+  rw [abs_of_pos h_pow_pos]
+  have h_cos_le : |Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))| ≤ 1 :=
+    Real.abs_cos_le_one _
+  have h_pow_eq : (a : ℝ)^(-(2*m+1 : ℤ)) = (1/a) * (1/a^2)^m := by
+    rw [show (-(2*m+1 : ℤ)) = -(((2*m+1) : ℕ) : ℤ) from by push_cast; ring]
+    rw [zpow_neg, zpow_natCast]
+    rw [show (2*m+1 : ℕ) = 1 + 2*m from by ring]
+    rw [pow_add, pow_mul]
+    rw [pow_one, div_pow, one_pow]
+    field_simp
+  rw [h_pow_eq]
+  have hpos : (0 : ℝ) < (1/a) * (1/a^2)^m := by positivity
+  calc (1/a : ℝ) * (1/a^2)^m *
+          |Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))|
+      ≤ (1/a) * (1/a^2)^m * 1 := mul_le_mul_of_nonneg_left h_cos_le hpos.le
+    _ = (1/a) * (1/a^2)^m := mul_one _
+
 end PrincipiaTractalis.Analytic
