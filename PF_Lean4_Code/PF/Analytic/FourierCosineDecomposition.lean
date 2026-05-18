@@ -93,6 +93,43 @@ theorem cos_kernel_decomp_abs (α : ℝ) (n : ℕ) (x y : ℝ) :
           exact Real.cos_neg _]
   exact cos_kernel_decomp α n x y
 
+/-! ## ★ Full Mercer decomposition of V_P ★ -/
+
+/-- **★ Full Mercer decomposition of the fractal kernel ★**:
+
+      `V_P(x, y) = Σ_{n≥0} a^(-n) · (cos_n(x) · cos_n(y) + sin_n(x) · sin_n(y))`
+
+    where `cos_n(x) = cosineMode α n x = cos(π · αⁿ · x)` and similarly
+    for `sin_n`. Direct tsum form of the rank-2-per-scale decomposition.
+
+    This is the **separable-kernel structure** of `V_P`, foundational
+    for spectral analysis: any spectral attack must use this Mercer
+    structure either directly (eigenvalue equations in the cos/sin
+    basis) or via the truncated approximations
+    (`truncatedFractalKernelReal_mercer` for the finite-rank cutoff).
+
+    Combined with the operator action `(H_P f)(x) = ∫_0^1 V_P(x,y)·f(y)dy`,
+    the operator becomes a bilinear form in the cos/sin Fourier
+    coefficients of `f` — exposing the operator's `2k × 2k`-block
+    structure (matrix on the truncation level) and the genuine
+    INFINITE-DIMENSIONAL spectral problem at the limit. -/
+theorem fractalKernelReal_mercer (α a : ℝ) (x y : ℝ) :
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      α a ((x, y) : ℝ × ℝ) =
+    ∑' n : ℕ, a^(-(n : ℤ)) *
+      (cosineMode α n x * cosineMode α n y +
+       sineMode α n x * sineMode α n y) := by
+  unfold PrincipiaTractalis.IntegralKernel.fractalKernelReal
+  unfold PrincipiaTractalis.IntegralKernel.fractalKernelTerm
+  apply tsum_congr
+  intro n
+  show a ^ (-(n : ℤ)) * Real.cos (Real.pi * α ^ n * dist (x : ℝ) y) =
+       a ^ (-(n : ℤ)) * (cosineMode α n x * cosineMode α n y +
+                         sineMode α n x * sineMode α n y)
+  congr 1
+  rw [Real.dist_eq]
+  exact cos_kernel_decomp_abs α n x y
+
 /-! ## Action of cosine kernel on cosine modes (per-scale eigenvalue) -/
 
 /-- **Inner product of cosine modes**: for the operator action
