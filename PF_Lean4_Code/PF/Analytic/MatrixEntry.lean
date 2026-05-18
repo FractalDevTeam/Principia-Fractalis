@@ -1831,6 +1831,55 @@ theorem level1_eigenbasis_completeness (f : ℝ → ℝ) :
     f (5/6) = (1/2) * (f (1/6) + f (5/6)) - (1/2) * (f (1/6) - f (5/6)) := by
   refine ⟨by ring, by ring⟩
 
+/-- **★ Level-1 spectral action at left midpoint ★** (`a > 1`):
+
+    For any test function `f` of the form `f(x) = c_sym + c_anti · ε(x)`
+    where `ε(1/6) = 1, ε(5/6) = -1` (decomposed in the orthonormal
+    eigenbasis):
+
+      `(H_P^disc[cantorDiscMeasure 1] f)(1/6) = λ⁺ · c_sym + λ⁻ · c_anti`
+
+    The operator acts DIAGONALLY on the eigenbasis: c_sym scaled by λ⁺,
+    c_anti scaled by λ⁻. This is the spectral theorem at level 1 in
+    functional (test-function) form. -/
+theorem level1_spectral_action_at_left {α a : ℝ} (ha : 1 < a)
+    (c_sym c_anti : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/6) = c_sym + c_anti) (h2 : f (5/6) = c_sym - c_anti) :
+    H_P_at_disc α a (cantorDiscMeasure 1) f (1/6) =
+    lambdaPlusLevel1 α a * c_sym + lambdaMinusLevel1 α a * c_anti := by
+  rw [H_P_at_disc_cantorDiscMeasure_one]
+  rw [h1, h2]
+  unfold cantorKernel lambdaPlusLevel1 lambdaMinusLevel1
+  rw [fractalKernelReal_diagonal ha (1/6)]
+  ring
+
+/-- **★ Level-1 spectral action at right midpoint ★** (`a > 1`):
+
+      `(H_P^disc[cantorDiscMeasure 1] f)(5/6) = λ⁺ · c_sym − λ⁻ · c_anti`
+
+    At the right midpoint, the alternating-coefficient gets a sign
+    flip (since `ε(5/6) = −1`), matching the diagonal eigenvalue
+    action: the operator's output `c'_sym + c'_anti · ε(x)` with
+    `c'_sym = λ⁺ · c_sym` and `c'_anti = λ⁻ · c_anti`. -/
+theorem level1_spectral_action_at_right {α a : ℝ} (ha : 1 < a)
+    (c_sym c_anti : ℝ) (f : ℝ → ℝ)
+    (h1 : f (1/6) = c_sym + c_anti) (h2 : f (5/6) = c_sym - c_anti) :
+    H_P_at_disc α a (cantorDiscMeasure 1) f (5/6) =
+    lambdaPlusLevel1 α a * c_sym - lambdaMinusLevel1 α a * c_anti := by
+  rw [H_P_at_disc_cantorDiscMeasure_one]
+  rw [h1, h2]
+  unfold cantorKernel lambdaPlusLevel1 lambdaMinusLevel1
+  rw [fractalKernelReal_diagonal ha (5/6)]
+  have hsymm : fractalKernelReal α a (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ)
+              = fractalKernelReal α a (((1/6 : ℝ), (5/6 : ℝ)) : ℝ × ℝ) := by
+    have h := fractalKernelReal_swap α a (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ)
+    have hswap : (((5/6 : ℝ), (1/6 : ℝ)) : ℝ × ℝ).swap
+               = (((1/6 : ℝ), (5/6 : ℝ)) : ℝ × ℝ) := rfl
+    rw [hswap] at h
+    exact h.symm
+  rw [hsymm]
+  ring
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
