@@ -1158,6 +1158,32 @@ theorem cos_two_pi_sqrt2_div_three_nonpos :
   · -- need 2π√2/3 ≤ π + π/2 = 3π/2
     linarith
 
+/-! ## Documentation: refined tail bound for tightening at α=√2
+
+The bound `cos(2π·√2/3) ≤ 0` proven above gives the SIGN of the first
+odd-frequency term in the V_P sum at α=√2, distance 2/3, a > 1.
+Specifically: `(1/a)·cos(2π·√2/3) ≤ 0`.
+
+Combined with a m≥1 odd-tail bound `|Σ_{m≥1} a^(-(2m+1))·cos(...)| ≤
+1/(a·(a²−1))`, this would tighten the V_P upper bound:
+
+  V_P = even_subseries + (m=0 odd term) + (m≥1 odd tail)
+      ≤ -a²/(2·(a²-1)) + 0 + 1/(a·(a²-1))   [first term ≤ 0, tail bounded]
+      = (some explicit tighter upper bound)
+
+At a=2: tighter V_P upper bound ≤ -2/3 + 0 + 1/6 = -1/2 (vs current 0).
+
+This would tighten the level-1 spectrum brackets:
+  λ⁺^(1) at α=√2, a=2 ∈ [1/3, 3/4] (vs current [1/3, 1])
+  λ⁻^(1) at α=√2, a=2 ∈ [5/4, 5/3] (vs current [1, 5/3])
+
+The m≥1 tail bound proof requires shifting the odd subseries index by 1
+and bounding it geometrically — straightforward but with a Lean
+mechanization that hits coercion/normalization issues similar to
+HasSum.even_add_odd. Documented as a roadmap entry; the mathematics
+is concrete and tractable.
+-/
+
 /-! ## Documentation: full V_P bracketing pending HasSum.even_add_odd combination
 
 The technical pieces are all in place:
