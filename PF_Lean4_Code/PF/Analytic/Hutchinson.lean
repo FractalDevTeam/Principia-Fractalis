@@ -493,6 +493,29 @@ theorem H_P_at_disc_cantorDiscMeasure_zero (α a : ℝ) (f : ℝ → ℝ) (x : �
   rw [cantorDiscMeasure_zero]
   exact H_P_at_disc_dirac α a (1/2) f x
 
+/-- **★ Sup-norm bound at level 0 ★** (`a > 1`):
+
+    For any test function `f` with `|f(1/2)| ≤ M`,
+
+      `|H_P^disc[cantorDiscMeasure 0] f (x)| ≤ M · a/(a − 1)`
+
+    Direct from the level-0 explicit action
+    `(H_P^disc f)(x) = V_P(x, 1/2) · f(1/2)` and the uniform kernel
+    bound `|V_P| ≤ a/(a − 1)`. -/
+theorem abs_H_P_at_disc_level0_le {α a : ℝ} (ha : 1 < a)
+    (M : ℝ) (f : ℝ → ℝ) (hf : |f (1/2)| ≤ M) (x : ℝ) :
+    |H_P_at_disc α a (cantorDiscMeasure 0) f x| ≤ M * (a / (a - 1)) := by
+  rw [H_P_at_disc_cantorDiscMeasure_zero]
+  rw [abs_mul]
+  have h1 : |cantorKernel α a x (1/2)| ≤ a/(a-1) := by
+    unfold cantorKernel
+    exact PrincipiaTractalis.IntegralKernel.abs_fractalKernelReal_le α ha _
+  calc |cantorKernel α a x (1/2)| * |f (1/2)|
+      ≤ (a/(a-1)) * M :=
+        mul_le_mul h1 hf (abs_nonneg _)
+          (div_nonneg (by linarith) (by linarith))
+    _ = M * (a/(a-1)) := by ring
+
 /-! ## H_P^disc additivity in μ -/
 
 /-- **`H_P^disc` is additive in μ** (with integrability hypotheses):
