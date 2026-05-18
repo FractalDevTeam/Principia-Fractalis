@@ -1911,6 +1911,122 @@ theorem level1_c_anti_lipschitz_bound (f : ℝ → ℝ) (L : ℝ) (_hL : 0 ≤ L
   rw [abs_mul, abs_of_pos (by norm_num : (0:ℝ) < 1/2)]
   linarith
 
+/-! ## ★ Level-2 reflection symmetry of operator on constant function ★ -/
+
+/-- **★ Level-2 constant-vector evaluation at x = 17/18 ★**:
+
+      `(H_P^disc[cantorDiscMeasure 2] 1)(17/18)
+         = (1/4) · (V_P(17/18, 1/18) + V_P(17/18, 13/18)
+                  + V_P(17/18, 5/18) + a/(a−1))`
+
+    The fourth-row sum. By the IFS-reflection x ↦ 1 − x symmetry,
+    this should equal `(H_P 1)(1/18)` (the multi-set of distances
+    {0, 2/9, 2/3, 8/9} is the same as from x = 1/18). -/
+theorem level2_constant_at_tt {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (17/18) =
+    (1/4) * (fractalKernelReal α a ((17/18, 1/18) : ℝ × ℝ) +
+             fractalKernelReal α a ((17/18, 13/18) : ℝ × ℝ) +
+             fractalKernelReal α a ((17/18, 5/18) : ℝ × ℝ) +
+             a/(a-1)) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (17/18)]
+  ring
+
+/-- **★ Level-2 constant-vector evaluation at x = 13/18 ★**:
+
+    Third-row sum. By the IFS-reflection x ↦ 1 − x symmetry, equals
+    `(H_P 1)(5/18)`. -/
+theorem level2_constant_at_tf {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (13/18) =
+    (1/4) * (fractalKernelReal α a ((13/18, 1/18) : ℝ × ℝ) +
+             a/(a-1) +
+             fractalKernelReal α a ((13/18, 5/18) : ℝ × ℝ) +
+             fractalKernelReal α a ((13/18, 17/18) : ℝ × ℝ)) := by
+  rw [H_P_at_disc_cantorDiscMeasure_two]
+  unfold cantorKernel
+  rw [fractalKernelReal_diagonal ha (13/18)]
+  ring
+
+/-- **★ Level-2 constant-vector IFS reflection symmetry ★**:
+
+    Under the IFS reflection `x ↦ 1 − x` (which permutes midpoints
+    via `1/18 ↔ 17/18`, `5/18 ↔ 13/18`), the operator action on the
+    constant function is INVARIANT at the reflected midpoint pairs:
+
+      `(H_P^disc[μ_2] 1)(1/18) = (H_P^disc[μ_2] 1)(17/18)`
+      `(H_P^disc[μ_2] 1)(5/18) = (H_P^disc[μ_2] 1)(13/18)`
+
+    This reflects the kernel's `V_P(x, y) = V_P(y, x)` symmetry combined
+    with the IFS reflection-invariance of the level-2 midpoint set. -/
+theorem level2_constant_reflection_symmetry {α a : ℝ} (ha : 1 < a) :
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (1/18) =
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (17/18) ∧
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (5/18) =
+    H_P_at_disc α a (cantorDiscMeasure 2) (fun _ => (1 : ℝ)) (13/18) := by
+  refine ⟨?_, ?_⟩
+  · -- (H_P 1)(1/18) = (H_P 1)(17/18)
+    rw [level2_constant_at_ff ha, level2_constant_at_tt ha]
+    -- LHS coeff: a/(a-1) + V(1/18, 13/18) + V(1/18, 5/18) + V(1/18, 17/18)
+    -- RHS coeff: V(17/18, 1/18) + V(17/18, 13/18) + V(17/18, 5/18) + a/(a-1)
+    -- By symmetry V(x, y) = V(y, x):
+    --   V(1/18, 13/18) = V(13/18, 1/18); and by distance V(1/18, 13/18) = V(17/18, 5/18)
+    --   V(1/18, 5/18)  = V(5/18, 1/18); and by distance V(1/18, 5/18)  = V(17/18, 13/18)
+    --   V(1/18, 17/18) = V(17/18, 1/18) (kernel symmetry)
+    -- Show each pair equal via distance equality.
+    have h1 : fractalKernelReal α a ((1/18, 13/18) : ℝ × ℝ) =
+              fractalKernelReal α a ((17/18, 5/18) : ℝ × ℝ) := by
+      unfold fractalKernelReal fractalKernelTerm
+      apply tsum_congr; intro n
+      congr 1
+      have d1 : dist ((1/18 : ℝ)) (13/18) = 2/3 := by rw [Real.dist_eq]; norm_num
+      have d2 : dist ((17/18 : ℝ)) (5/18) = 2/3 := by rw [Real.dist_eq]; norm_num
+      rw [d1, d2]
+    have h2 : fractalKernelReal α a ((1/18, 5/18) : ℝ × ℝ) =
+              fractalKernelReal α a ((17/18, 13/18) : ℝ × ℝ) := by
+      unfold fractalKernelReal fractalKernelTerm
+      apply tsum_congr; intro n
+      congr 1
+      have d1 : dist ((1/18 : ℝ)) (5/18) = 2/9 := by rw [Real.dist_eq]; norm_num
+      have d2 : dist ((17/18 : ℝ)) (13/18) = 2/9 := by rw [Real.dist_eq]; norm_num
+      rw [d1, d2]
+    have h3 : fractalKernelReal α a ((1/18, 17/18) : ℝ × ℝ) =
+              fractalKernelReal α a ((17/18, 1/18) : ℝ × ℝ) := by
+      have h := fractalKernelReal_swap α a (((1/18 : ℝ), (17/18 : ℝ)) : ℝ × ℝ)
+      have hp : (((1/18 : ℝ), (17/18 : ℝ)) : ℝ × ℝ).swap
+              = (((17/18 : ℝ), (1/18 : ℝ)) : ℝ × ℝ) := rfl
+      rw [hp] at h
+      exact h.symm
+    rw [h1, h2, h3]
+    ring
+  · -- (H_P 1)(5/18) = (H_P 1)(13/18)
+    rw [level2_constant_at_ft ha, level2_constant_at_tf ha]
+    have h1 : fractalKernelReal α a ((5/18, 1/18) : ℝ × ℝ) =
+              fractalKernelReal α a ((13/18, 17/18) : ℝ × ℝ) := by
+      unfold fractalKernelReal fractalKernelTerm
+      apply tsum_congr; intro n
+      congr 1
+      have d1 : dist ((5/18 : ℝ)) (1/18) = 2/9 := by rw [Real.dist_eq]; norm_num
+      have d2 : dist ((13/18 : ℝ)) (17/18) = 2/9 := by rw [Real.dist_eq]; norm_num
+      rw [d1, d2]
+    have h2 : fractalKernelReal α a ((5/18, 13/18) : ℝ × ℝ) =
+              fractalKernelReal α a ((13/18, 5/18) : ℝ × ℝ) := by
+      have h := fractalKernelReal_swap α a (((5/18 : ℝ), (13/18 : ℝ)) : ℝ × ℝ)
+      have hp : (((5/18 : ℝ), (13/18 : ℝ)) : ℝ × ℝ).swap
+              = (((13/18 : ℝ), (5/18 : ℝ)) : ℝ × ℝ) := rfl
+      rw [hp] at h
+      exact h.symm
+    have h3 : fractalKernelReal α a ((5/18, 17/18) : ℝ × ℝ) =
+              fractalKernelReal α a ((13/18, 1/18) : ℝ × ℝ) := by
+      unfold fractalKernelReal fractalKernelTerm
+      apply tsum_congr; intro n
+      congr 1
+      have d1 : dist ((5/18 : ℝ)) (17/18) = 2/3 := by rw [Real.dist_eq]; norm_num
+      have d2 : dist ((13/18 : ℝ)) (1/18) = 2/3 := by rw [Real.dist_eq]; norm_num
+      rw [d1, d2]
+    rw [h1, h2, h3]
+    ring
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
