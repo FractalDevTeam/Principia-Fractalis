@@ -248,4 +248,70 @@ theorem level1_spectrum_bracketing_sqrt2 {a : ℝ} (ha : 1 < a) :
   unfold lambdaPlusLevel1_sqrt2 lambdaMinusLevel1_sqrt2
   exact level1_spectrum_bracketing_from_V_P h_low' h_high'
 
+/-! ## ★★★ Numerical bracketing at α=√2, a=2 (manuscript's distinguished case) ★★★ -/
+
+/-- **★★★ V_P at α=√2, a=2: numerical bracket ★★★** (axiom-free):
+
+      `V_P(α=√2, a=2, 1/6, 5/6) ∈ [−4/3, 0]`
+
+    Direct specialization of `fractalKernelReal_sqrt2_two_thirds_bracketing`
+    at `a = 2`:
+    * `−(a²+2a)/(2·(a²−1)) = −8/6 = −4/3`
+    * `−(a²−2a)/(2·(a²−1)) = 0/6 = 0` -/
+theorem fractalKernelReal_sqrt2_two_thirds_at_two_bracketing :
+    -(4/3 : ℝ) ≤
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ∧
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ≤ 0 := by
+  obtain ⟨h_low, h_high⟩ := fractalKernelReal_sqrt2_two_thirds_bracketing
+    (by norm_num : (1 : ℝ) < 2)
+  refine ⟨?_, ?_⟩
+  · -- -(2²+2·2)/(2·(2²-1)) = -8/6 = -4/3
+    have : -(((2:ℝ)^2 + 2*2) / (2 * ((2:ℝ)^2 - 1))) = -(4/3) := by norm_num
+    linarith [this ▸ h_low]
+  · -- -(2²-2·2)/(2·(2²-1)) = 0/6 = 0
+    have : -(((2:ℝ)^2 - 2*2) / (2 * ((2:ℝ)^2 - 1))) = 0 := by norm_num
+    linarith [this ▸ h_high]
+
+/-- **★★★ Level-1 spectrum at α=√2, a=2: NUMERICAL BRACKET ★★★**
+    (axiom-free):
+
+      `λ⁺^(1)(√2, 2) ∈ [1/3, 1]`
+      `λ⁻^(1)(√2, 2) ∈ [1, 5/3]`
+
+    The level-1 finite-rank spectrum at the manuscript's distinguished
+    case `α = √2, a = 2` is bracketed in EXPLICIT NUMERICAL INTERVALS,
+    fully axiom-free.
+
+    The manuscript's asymptotic conjecture `λ_0 ≈ π/(10·√2) ≈ 0.222`
+    lies BELOW `λ⁺^(1) ∈ [1/3, 1]` — fully consistent with the
+    spectrum descending across levels as the conjecture predicts. -/
+theorem level1_spectrum_at_sqrt2_two :
+    -- λ⁺^(1)(√2, 2) ∈ [1/3, 1]
+    (1/3 : ℝ) ≤ lambdaPlusLevel1_sqrt2 2 ∧
+    lambdaPlusLevel1_sqrt2 2 ≤ 1 ∧
+    -- λ⁻^(1)(√2, 2) ∈ [1, 5/3]
+    (1 : ℝ) ≤ lambdaMinusLevel1_sqrt2 2 ∧
+    lambdaMinusLevel1_sqrt2 2 ≤ 5/3 := by
+  obtain ⟨h1, h2, h3, h4⟩ := level1_spectrum_bracketing_sqrt2
+    (by norm_num : (1 : ℝ) < 2)
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · -- (1/2)(2/(2-1) + -(2²+2·2)/(2(2²-1))) = (1/2)(2 - 4/3) = 1/3
+    have : (1/2 : ℝ) * (2/((2:ℝ) - 1) + (-((2:ℝ)^2 + 2*2)/(2 * ((2:ℝ)^2 - 1))))
+         = 1/3 := by norm_num
+    linarith [this ▸ h1]
+  · -- (1/2)(2/(2-1) + -(2²-2·2)/(2(2²-1))) = (1/2)(2 + 0) = 1
+    have : (1/2 : ℝ) * (2/((2:ℝ) - 1) + (-((2:ℝ)^2 - 2*2)/(2 * ((2:ℝ)^2 - 1))))
+         = 1 := by norm_num
+    linarith [this ▸ h2]
+  · -- (1/2)(2/(2-1) - -(2²-2·2)/(2(2²-1))) = (1/2)(2 - 0) = 1
+    have : (1/2 : ℝ) * (2/((2:ℝ) - 1) - (-((2:ℝ)^2 - 2*2)/(2 * ((2:ℝ)^2 - 1))))
+         = 1 := by norm_num
+    linarith [this ▸ h3]
+  · -- (1/2)(2/(2-1) - -(2²+2·2)/(2(2²-1))) = (1/2)(2 + 4/3) = 5/3
+    have : (1/2 : ℝ) * (2/((2:ℝ) - 1) - (-((2:ℝ)^2 + 2*2)/(2 * ((2:ℝ)^2 - 1))))
+         = 5/3 := by norm_num
+    linarith [this ▸ h4]
+
 end PrincipiaTractalis.Analytic
