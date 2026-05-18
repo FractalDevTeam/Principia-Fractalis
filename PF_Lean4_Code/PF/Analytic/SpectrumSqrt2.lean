@@ -314,6 +314,37 @@ theorem level1_spectrum_at_sqrt2_two :
          = 5/3 := by norm_num
     linarith [this ▸ h4]
 
+/-! ## ★ Level-2 diagonal matrix entries at α=√2, a=2 (EXACT) ★ -/
+
+/-- **★ Level-2 diagonal at α=√2, a=2: EXACT value 1/2 ★**
+    (axiom-free):
+
+      `M^(2)_{bs, bs} = (1/4) · V_P(m_bs, m_bs) = (1/4) · (2/(2-1)) = 1/2`
+
+    The diagonal value is the same for every length-2 boolean word `bs`. -/
+theorem cellMatrixEntry_level2_diagonal_at_sqrt2_two (bs : List Bool) :
+    cellMatrixEntry (Real.sqrt 2) 2 2 bs bs = 1/2 := by
+  rw [cellMatrixEntry_diagonal (by norm_num : (1 : ℝ) < 2)]
+  norm_num
+
+/-- **★ Level-2 trace at α=√2, a=2: EXACT value 2 ★**
+    (axiom-free):
+
+      `tr M^(2) = (1/2) + (1/2) + (1/2) + (1/2) = 2 = a/(a-1)`
+
+    The four diagonal entries at α=√2, a=2 all equal 1/2, so the
+    trace is exactly 2, matching the general identity `tr M^(n) = a/(a-1)`. -/
+theorem level2_trace_at_sqrt2_two :
+    cellMatrixEntry (Real.sqrt 2) 2 2 [false, false] [false, false] +
+    cellMatrixEntry (Real.sqrt 2) 2 2 [false, true]  [false, true]  +
+    cellMatrixEntry (Real.sqrt 2) 2 2 [true, false]  [true, false]  +
+    cellMatrixEntry (Real.sqrt 2) 2 2 [true, true]   [true, true]   = 2 := by
+  rw [cellMatrixEntry_level2_diagonal_at_sqrt2_two,
+      cellMatrixEntry_level2_diagonal_at_sqrt2_two,
+      cellMatrixEntry_level2_diagonal_at_sqrt2_two,
+      cellMatrixEntry_level2_diagonal_at_sqrt2_two]
+  norm_num
+
 /-! ## ★ Level-2 outer-cross matrix entries at α=√2, a=2 (numerical brackets) ★ -/
 
 /-- **★ Level-1 matrix entry M^(1)_[false,true] at α=√2, a=2 ★**
