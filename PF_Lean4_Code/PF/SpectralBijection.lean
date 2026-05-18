@@ -608,4 +608,75 @@ theorem riemann_hypothesis_via_T3_sym_framework
     α hne hdistinct
   exact riemann_hypothesis_via_spectral_bijection α eigenvalues surjectivity
 
+/-! ## ★★★ RH chain with two Phase A inner-product hypotheses DISCHARGED ★★★
+
+After the May 2026 LogWeightedL2 → `Lp ℂ 2 μ` refactor (commit b41429f,
+session principia_lp_refactor_session_2026-05-09), the smul-linearity
+identities
+
+  * `hsmul_left : ⟪a • f, g⟫ = (star a) * ⟪f, g⟫`
+  * `hsmul_right : ⟪f, a • g⟫ = a * ⟪f, g⟫`
+
+are PROVED in `PF/TransferOperator.lean` as
+`LogWeightedL2.inner_smul_left` / `LogWeightedL2.inner_smul_right`.
+We re-export them at the `SpectralBijection` namespace level and use
+them to give a variant of `riemann_hypothesis_via_T3_sym_framework`
+where only the positive-definiteness hypothesis remains from Phase A.
+
+The strict-positivity hypothesis
+
+  * `hpos_def : f ≠ 0 → ⟪f, f⟫ ≠ 0`
+
+still requires a bridge from `LogWeightedL2.inner_self_zero_iff_norm_zero`
+(which gives the equivalence in terms of the CUSTOM
+`LogWeightedL2.norm`) to mathlib's standard `Lp.eq_zero_iff_ae_eq_zero`.
+That bridge is now the only remaining Phase A item to discharge. -/
+
+theorem hsmul_left_LogWeightedL2 (a : ℂ) (f g : LogWeightedL2) :
+    ⟪a • f, g⟫ = (star a) * ⟪f, g⟫ :=
+  LogWeightedL2.inner_smul_left a f g
+
+theorem hsmul_right_LogWeightedL2 (a : ℂ) (f g : LogWeightedL2) :
+    ⟪f, a • g⟫ = a * ⟪f, g⟫ :=
+  LogWeightedL2.inner_smul_right a f g
+
+/-- **★★★ RH chain with smul-linearity hypotheses discharged ★★★**
+
+    Variant of `riemann_hypothesis_via_T3_sym_framework`, with the two
+    smul-linearity hypotheses `hsmul_left` and `hsmul_right` discharged
+    via the existing
+    `LogWeightedL2.inner_smul_{left,right}` theorems.
+
+    Remaining hypothesis bundle (reduced from 4 tracks to 3.5):
+
+      (a) Positive-definiteness `hpos_def`: ⟪f,f⟫ ≠ 0 for f ≠ 0.
+          Discharge path: bridge `LogWeightedL2.inner_self_zero_iff_norm_zero`
+          to `Lp.eq_zero_iff_ae_eq_zero` via the integral-of-normSq form
+          (`LogWeightedL2.inner_self_eq_integral_normSq`) and
+          `integral_eq_zero_iff_of_nonneg_ae`.
+      (b) Spectral-theorem witness: eigenvalue sequence with 1/n decay.
+      (c) Non-degeneracy: empirical from Mayer 1991.
+      (d) Surjectivity: the LOAD-BEARING unresolved conjecture. -/
+theorem riemann_hypothesis_via_T3_sym_framework_smul_discharged
+    -- Positive-definiteness (only Phase A hypothesis still required)
+    (hpos_def : ∀ f : LogWeightedL2, f ≠ 0 → ⟪f, f⟫ ≠ 0)
+    -- Spectral-theorem hypothesis (eigenvalue sequence with 1/n decay)
+    (eigenvalues : ℕ → ℝ)
+    (hev : ∀ n : ℕ, IsEigenvalue T3_sym.apply ((eigenvalues n : ℂ)))
+    (K : ℝ) (hK : K > 0)
+    (hbound : ∀ n : ℕ, |eigenvalues n| ≤ K / ((n : ℝ) + 1))
+    -- Bijection-injection hypothesis (nonzero, distinct moduli)
+    (α : ScalingParameter)
+    (hne : ∀ n, eigenvalues n ≠ 0)
+    (hdistinct : ∀ n m, n ≠ m → |eigenvalues n| ≠ |eigenvalues m|)
+    -- Surjectivity hypothesis (the open conjecture)
+    (surjectivity : ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 →
+        ∃ n : ℕ, eigenvalueToZero α (eigenvalues n) = s) :
+    RiemannHypothesis :=
+  riemann_hypothesis_via_T3_sym_framework
+    hsmul_left_LogWeightedL2 hsmul_right_LogWeightedL2 hpos_def
+    eigenvalues hev K hK hbound
+    α hne hdistinct
+    surjectivity
+
 end PrincipiaTractalis
