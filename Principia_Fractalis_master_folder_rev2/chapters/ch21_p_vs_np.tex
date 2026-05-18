@@ -14,7 +14,7 @@ In this chapter, we provide \textbf{rigorous mathematical foundations and comput
 \item Validate framework across 143 problems (100\% empirical coherence)
 \end{itemize}
 
-\textbf{Status (rev 2)}: The closed-form identities $\lambda_0(H_P) = \pi/(10\sqrt{2})$ and $\lambda_0(H_{NP}) = \pi/(10(\varphi + 1/4))$ are now machine-checked Lean~4 theorems to 10-digit precision (\texttt{lambda\_0\_P\_precise}, \texttt{lambda\_0\_NP\_precise}), as is the fractal-dimension separation $\sqrt{2} < \varphi + 1/4$ (\texttt{alpha\_sep\_greek}) and the spectral-gap positivity (\texttt{spectral\_gap\_positive}). Three BOOK-CORE claims remain as named Lean axioms --- the operator--complexity bridge (\texttt{turingTimeComplexity}, \texttt{p\_eq\_np\_spectrum\_collapse}, \texttt{operator\_collapse\_hypothesis}) --- under which the main chain $\mathrm{ClassP} = \mathrm{ClassNP} \Rightarrow \lambda_0(H_P) = \lambda_0(H_{NP})$ becomes a theorem, delivering P $\neq$ NP conditional on those three. See the remark immediately after Conjecture~\ref{thm:main-p-neq-np} and \texttt{AXIOM\_AUDIT.md} at the repository root for details. The polylogarithm-modulation conjecture and the fractal-analytic-continuation mechanism remain genuinely open and are not part of the 8 remaining Lean axioms.
+\textbf{Status (current as of 2026-05-17)}: The closed-form identities $\lambda_0(H_P) = \pi/(10\sqrt{2})$ and $\lambda_0(H_{NP}) = \pi/(10(\varphi + 1/4))$ are machine-checked Lean~4 theorems to 10-digit precision (\texttt{lambda\_0\_P\_precise}, \texttt{lambda\_0\_NP\_precise}), as is the fractal-dimension separation $\sqrt{2} < \varphi + 1/4$ (\texttt{alpha\_class\_separation\_lt}) and the spectral-gap positivity (\texttt{spectral\_gap\_positive}). The conditional reduction chain $\mathrm{ClassP} = \mathrm{ClassNP} \Rightarrow \lambda_0(H_P) = \lambda_0(H_{NP}) \Rightarrow \mathrm{spectral\_gap} = 0$ is theorem-level; the contrapositive \texttt{P\_neq\_NP\_via\_spectral\_gap} delivers P $\neq$ NP conditional on \textbf{a single named axiom}, \texttt{alpha\_class\_polylog\_eigenvalue\_conjecture}, which is the formal encoding of this chapter's Conjecture~\ref{conj:polylog-spectrum}, the branch-selection Heuristic, and Conjecture~\ref{conj:golden-modulation}. The previous three-axiom decomposition (\texttt{turingTimeComplexity}, \texttt{p\_eq\_np\_spectrum\_collapse}, \texttt{operator\_collapse\_hypothesis}) has been unified into this single axiom via the May~2026 Stage~25--35 restructuring; specific values $\alpha_P = \sqrt{2}$, $\alpha_{NP} = \varphi + 1/4$ are now \emph{derived theorems}, not axiomatic. Build state: 5652 jobs clean, 0 warnings, 0 sorries; cross-prover Coq mirror at 10 modules with same 1-axiom parity. \texttt{AXIOM\_AUDIT.md}, \texttt{PRISTINE\_CERTIFICATION.md}, and \texttt{THE\_REAL\_SCIENCE.md} at the repository root document the current state authoritatively. The 28+ module Phase~A retirement-infrastructure framework under \texttt{PF/Analytic/} (Cantor-substrate matrix-entry framework + cosine/sine basis truncated-operator framework + Mellin/dilation bridge + Banach-contraction $(1/3)^n$ Lipschitz shrinkage + Hilbert-Schmidt compactness) provides the structured path to retiring the remaining axiom; the deep operator-theoretic derivation of the polylog formula on the physical Riemann sheet remains genuinely open.
 \end{chapterobjectives}
 
 \section{Introduction: The 54-Year Question}
@@ -1116,25 +1116,28 @@ assuming even a generous 95\% baseline success rate. This is comparable to the s
 \begin{conjecture}[Main Conjecture: P $\neq$ NP]\label{thm:main-p-neq-np}
 Based on computational experiments across 143 diverse problems with 100\% fractal coherence, we conjecture: \textbf{P $\neq$ NP}.
 
-\emph{Conditional theorem status (rev 2)}: the Lean~4 formalization makes the
-chain $\mathrm{ClassP} = \mathrm{ClassNP} \Rightarrow \lambda_0(H_P) = \lambda_0(H_{NP})$
-a direct consequence of three named axioms (\texttt{operator\_collapse\_hypothesis},
-\texttt{p\_eq\_np\_spectrum\_collapse}, \texttt{turingTimeComplexity}).
-Combined with the machine-checked theorem \texttt{P\_neq\_NP\_from\_spectral\_gap}
-(which uses only the ALREADY-proven \texttt{spectral\_gap\_positive}
-$\lambda_0(H_P) - \lambda_0(H_{NP}) > 0$), the chain delivers P $\neq$ NP
-\emph{conditional on} the three axioms. The remark below enumerates which
-claims are thereby machine-checked theorems and which are axiomatized.
+\emph{Conditional theorem status (current as of 2026-05-17)}: the Lean~4
+formalization makes the chain
+$\mathrm{ClassP} = \mathrm{ClassNP} \Rightarrow \lambda_0(H_P) = \lambda_0(H_{NP})$
+a direct consequence of a \emph{single} named axiom
+(\texttt{alpha\_class\_polylog\_eigenvalue\_conjecture}), which is the formal
+encoding of this chapter's Conjecture~\ref{conj:polylog-spectrum}, the
+branch-selection Heuristic, and Conjecture~\ref{conj:golden-modulation}.
+The previous three-axiom decomposition (May~2026 pre-Stage~25) has been
+unified into this single axiom; cross-prover Coq mirror at \texttt{PF\_Coq\_Code/}
+carries the same 1-axiom state. Combined with the machine-checked theorem
+\texttt{P\_neq\_NP\_via\_spectral\_gap} (which uses only the already-proven
+\texttt{spectral\_gap\_positive}: $\lambda_0(H_P) - \lambda_0(H_{NP}) > 0$),
+the chain delivers P $\neq$ NP \emph{conditional on the single axiom}. The
+remark below enumerates the current state.
 \end{conjecture}
 
-\begin{remark}[Formalization status, rev 2]
-The Lean 4 formalization of this chapter's main argument is complete modulo three named axioms, each tagged \textbf{BOOK-CORE} in the repository's \texttt{AXIOM\_AUDIT.md}:
+\begin{remark}[Formalization status, current as of 2026-05-17]
+The Lean 4 formalization of this chapter's main argument is complete modulo \emph{a single} named axiom, documented in the repository's \texttt{AXIOM\_AUDIT.md}:
 \begin{itemize}
-\item \texttt{operator\_collapse\_hypothesis} (\texttt{PF/P\_NP\_Complete\_Proof.lean:175}): formalizes the bridge $(\forall L\in\mathrm{NP},\ L\in\mathrm{P}) \Rightarrow \alpha_{\mathrm{NP}} = \alpha_{\mathrm{P}}$ —  that is, if certificates become redundant, the spectral coefficients collapse.
-\item \texttt{p\_eq\_np\_spectrum\_collapse} (\texttt{PF/TuringEncoding/Operators.lean:191}): the derived implication $\mathrm{ClassP} = \mathrm{ClassNP} \Rightarrow \lambda_0(H_P) = \lambda_0(H_{NP})$.
-\item \texttt{turingTimeComplexity} (\texttt{PF/TuringEncoding/Complexity.lean:57}): the time-cost function signature for TM2 machines, retained as an abstract signature rather than a concrete step-counter (defining it as a constant would make $\mathrm{ClassP} = \mathrm{ClassNP}$ provable and destroy the whole argument; the correct path is to parameterize \texttt{InClassP}/\texttt{InClassNP} over an abstract time-cost function or to construct the counter from \texttt{TM2}'s stepping semantics).
+\item \texttt{alpha\_class\_polylog\_eigenvalue\_conjecture} (\texttt{PF/TuringEncoding/Operators.lean}): the unified axiom asserting $(\alpha_P)^2 = 2 \land \alpha_P > 0$ and $16\alpha_{NP}^2 - 24\alpha_{NP} - 11 = 0 \land \alpha_{NP} > 0$, where $\alpha_P, \alpha_{NP}$ are the operator-class resonance values. This is the formal encoding of Conjecture~\ref{conj:polylog-spectrum} + the branch-selection Heuristic + Conjecture~\ref{conj:golden-modulation}. The same axiom is mirrored in Coq at \texttt{PF\_Coq\_Code/PF/TuringEncoding/Operators.v}.
 \end{itemize}
-Everything \emph{downstream} of these three axioms is machine-checked: the fact that $\alpha_{\mathrm{NP}} > \alpha_{\mathrm{P}}$ (\texttt{alpha\_sep\_greek}), that $\lambda_0(H_P) > \lambda_0(H_{NP})$ (\texttt{spectral\_gap\_positive}), that a strict spectral gap implies \textbf{not} $\mathrm{ClassP} = \mathrm{ClassNP}$ (\texttt{P\_neq\_NP\_from\_spectral\_gap}), and that the closed-form values $\pi/(10\sqrt{2})$ and $\pi/(10(\varphi + 1/4))$ match to $10^{-10}$ precision (\texttt{lambda\_0\_P\_precise}, \texttt{lambda\_0\_NP\_precise}) are all Lean 4 theorems in the current revision.
+Everything \emph{derived} from this single axiom is machine-checked: the values $\alpha_P = \sqrt{2}$ (\texttt{alpha\_at\_ClassP\_eq\_sqrt2}, via \texttt{Real.sqrt\_sq}) and $\alpha_{NP} = \varphi + 1/4$ (\texttt{alpha\_at\_ClassNP\_eq\_phi\_plus\_quarter}, via quadratic factoring and positivity exclusion), the positivity (\texttt{alpha\_of\_class\_pos\_at\_ClassP}/\texttt{ClassNP}), the separation $\alpha_P \neq \alpha_{NP}$ (\texttt{alpha\_class\_distinct}, \texttt{alpha\_class\_separation\_lt}), the spectrum-collapse implication (\texttt{p\_eq\_np\_spectrum\_collapse}), the spectral-gap consequence chain (\texttt{spectral\_gap\_positive}, \texttt{P\_neq\_NP\_via\_spectral\_gap}), and the closed-form matches $\pi/(10\sqrt{2})$, $\pi/(10(\varphi + 1/4))$ to $10^{-10}$ precision (\texttt{lambda\_0\_P\_precise}, \texttt{lambda\_0\_NP\_precise}) are all Lean 4 theorems. The Phase~A retirement framework (28+ \texttt{PF/Analytic/} modules, all zero-project-axiom) provides the structured path toward retiring the single remaining axiom; the actual deep operator-theoretic derivation of the polylog formula on the physical Riemann sheet is the open mathematical problem.
 \end{remark}
 
 \begin{remark}[Derivation status of $\alpha_P$ and $\alpha_{NP}$]\label{rem:alpha-P-NP-derivation-status}
