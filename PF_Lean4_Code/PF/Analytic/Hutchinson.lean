@@ -554,6 +554,56 @@ theorem H_P_at_disc_smul_dirac (α a : ℝ) (c : ENNReal) (z : ℝ)
     c.toReal * (cantorKernel α a x z * f z) := by
   rw [H_P_at_disc_smul_measure, H_P_at_disc_dirac, smul_eq_mul]
 
+/-- **★ Sup-norm bound at level 1 ★** (`a > 1`):
+
+    For any test function `f` with `|f(1/6)| ≤ M` and `|f(5/6)| ≤ M`,
+
+      `|H_P^disc[cantorDiscMeasure 1] f (x)| ≤ M · a/(a − 1)`
+
+    Same uniform bound as level 0, now via two Diracs at the level-1
+    midpoints. The triangle inequality + uniform kernel bound gives:
+
+      `|(1/2)·V_P(x, 1/6)·f(1/6) + (1/2)·V_P(x, 5/6)·f(5/6)|`
+      `≤ (1/2)·(a/(a−1))·M + (1/2)·(a/(a−1))·M = M·a/(a−1)`. -/
+theorem abs_H_P_at_disc_level1_le {α a : ℝ} (ha : 1 < a)
+    (M : ℝ) (f : ℝ → ℝ)
+    (hf1 : |f (1/6)| ≤ M) (hf2 : |f (5/6)| ≤ M) (x : ℝ) :
+    |H_P_at_disc α a (cantorDiscMeasure 1) f x| ≤ M * (a / (a - 1)) := by
+  rw [cantorDiscMeasure_one]
+  have hint : ∀ z : ℝ, MeasureTheory.Integrable
+      (fun y => cantorKernel α a x y * f y)
+      ((1/2 : ENNReal) • MeasureTheory.Measure.dirac z) := by
+    intro z
+    refine MeasureTheory.Integrable.smul_measure ?_ (by simp)
+    exact MeasureTheory.integrable_dirac (by
+      rw [enorm_mul]
+      exact ENNReal.mul_lt_top (by simp [enorm_eq_nnnorm])
+        (by simp [enorm_eq_nnnorm]))
+  rw [H_P_at_disc_add α a _ _ f x (hint _) (hint _)]
+  rw [H_P_at_disc_smul_dirac, H_P_at_disc_smul_dirac]
+  have h1 : |cantorKernel α a x (1/6)| ≤ a/(a-1) := by
+    unfold cantorKernel
+    exact PrincipiaTractalis.IntegralKernel.abs_fractalKernelReal_le α ha _
+  have h2 : |cantorKernel α a x (5/6)| ≤ a/(a-1) := by
+    unfold cantorKernel
+    exact PrincipiaTractalis.IntegralKernel.abs_fractalKernelReal_le α ha _
+  have hd_nn : 0 ≤ a/(a-1) := div_nonneg (by linarith) (by linarith)
+  have hM_nn : 0 ≤ M := le_trans (abs_nonneg _) hf1
+  have hhalf : ((1 / 2 : ENNReal)).toReal = (1 / 2 : ℝ) := by simp
+  rw [hhalf]
+  calc |(1/2 : ℝ) * (cantorKernel α a x (1/6) * f (1/6)) +
+        (1/2 : ℝ) * (cantorKernel α a x (5/6) * f (5/6))|
+      ≤ |(1/2 : ℝ) * (cantorKernel α a x (1/6) * f (1/6))| +
+        |(1/2 : ℝ) * (cantorKernel α a x (5/6) * f (5/6))| :=
+        abs_add _ _
+    _ ≤ (1/2) * ((a/(a-1)) * M) + (1/2) * ((a/(a-1)) * M) := by
+        gcongr
+        · rw [abs_mul, abs_mul, abs_of_pos (by norm_num : (0:ℝ) < 1/2)]
+          gcongr
+        · rw [abs_mul, abs_mul, abs_of_pos (by norm_num : (0:ℝ) < 1/2)]
+          gcongr
+    _ = M * (a/(a-1)) := by ring
+
 /-- **`T` applied to a Dirac**:
 
       `T(δ_z) = (1/2)·δ_{f₁(z)} + (1/2)·δ_{f₂(z)}`
