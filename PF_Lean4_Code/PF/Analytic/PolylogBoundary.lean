@@ -578,4 +578,69 @@ What this file does NOT prove:
 Both are part of `OPEN_PROBLEMS.md` Problem 1 + Problem 2 — original
 mathematical research, multi-month at minimum. -/
 
+/-! ## ★ Exact identities at α = √2 — even-frequency cosine values ★ -/
+
+/-- **★ Exact cos identity for the even-frequency orbit at α = √2 ★**:
+
+      `cos(π · 2^(m+1) / 3) = −1/2` for all `m ≥ 0`
+
+    The orbit `{2π/3, 4π/3, 8π/3 ≡ 2π/3, 16π/3 ≡ 4π/3, …}` under doubling
+    stays in `{2π/3, 4π/3}` (both of which have `cos = −1/2`), giving the
+    EXACT closed form for every iterate.
+
+    **Polylog conjecture significance**: at `α = √2`, the kernel
+    `V_P(α=√2, a, 1/6, 5/6) = Σ a^(-k)·cos(π·(√2)^k·2/3)` splits into
+    even-k and odd-k subseries. For EVEN `k = 2m`, the cos argument is
+    `π·2^m·2/3 = 2^(m+1)·π/3`, giving the constant `−1/2` (this theorem).
+    The even-k subseries therefore sums to a CLOSED FORM:
+
+      `Σ_{m≥0} a^(-2m) · (−1/2) = −a²/(2·(a²−1))` for `a > 1`.
+
+    This is the FIRST exact closed-form fragment of the polylog
+    eigenvalue sum at `α = √2` — pushing the conjectural content
+    toward the not-conjectural side.
+
+    Proof: induction on `m` with the double-angle identity
+    `cos(2θ) = 2·cos²(θ) − 1` applied to `θ = π·2^m/3`. -/
+theorem cos_two_pow_succ_pi_div_three (m : ℕ) :
+    Real.cos (Real.pi * 2^(m+1) / 3) = -1/2 := by
+  induction m with
+  | zero =>
+    show Real.cos (Real.pi * 2^1 / 3) = -1/2
+    have h : Real.pi * 2^1 / 3 = 2 * (Real.pi / 3) := by ring
+    rw [h, Real.cos_two_mul, Real.cos_pi_div_three]
+    norm_num
+  | succ n ih =>
+    have h : Real.pi * (2:ℝ)^(n+2) / 3 = 2 * (Real.pi * (2:ℝ)^(n+1) / 3) := by
+      ring
+    rw [show (n+1+1) = n+2 from rfl]
+    rw [h, Real.cos_two_mul, ih]
+    norm_num
+
+/-- **★ Even-frequency kernel summand at α = √2, k = 2m ★**:
+
+      `(a : ℝ)^(-(2m : ℤ)) · cos(π · (√2)^(2m) · 2/3) = −(1/(2·a^(2m)))`
+
+    The `k`-th term of `V_P(√2, a, 1/6, 5/6)` for EVEN `k = 2m` evaluates
+    to `−a^(-2m)/2` — a CLOSED FORM independent of any transcendental
+    cosine evaluation. -/
+theorem fractalKernel_even_term_sqrt2_two_thirds (a : ℝ) (m : ℕ) :
+    (a : ℝ)^(-(2*m : ℤ)) *
+      Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (2/3)) =
+    -(1 / (2 * a^(2*m))) := by
+  have hsqrt2_pow : (Real.sqrt 2 : ℝ)^(2*m) = (2:ℝ)^m := by
+    rw [pow_mul]
+    rw [Real.sq_sqrt (by norm_num : (2:ℝ) ≥ 0)]
+  rw [hsqrt2_pow]
+  have harg : Real.pi * (2:ℝ)^m * (2/3) = Real.pi * (2:ℝ)^(m+1) / 3 := by
+    have : (2:ℝ)^(m+1) = 2 * (2:ℝ)^m := by ring
+    rw [this]; ring
+  rw [harg]
+  rw [cos_two_pow_succ_pi_div_three]
+  -- Goal: a^(-(2*↑m : ℤ)) * (-1/2) = -(1 / (2 * a^(2*m)))
+  -- a^(-(2*↑m : ℤ)) = a^(2*m)⁻¹ by zpow_neg + zpow_natCast
+  rw [show (-(2 * (m : ℤ))) = -((2*m : ℕ) : ℤ) from by push_cast; ring]
+  rw [zpow_neg, zpow_natCast]
+  field_simp
+
 end PrincipiaTractalis.Analytic
