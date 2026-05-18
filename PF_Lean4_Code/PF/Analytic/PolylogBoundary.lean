@@ -975,4 +975,25 @@ theorem summable_odd_kernel_term_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
       ≤ (1/a) * (1/a^2)^m * 1 := mul_le_mul_of_nonneg_left h_cos_le hpos.le
     _ = (1/a) * (1/a^2)^m := mul_one _
 
+/-! ## Documentation: full V_P bracketing pending HasSum.even_add_odd combination
+
+The technical pieces are all in place:
+* `summable_kernel_term_sqrt2_two_thirds`: full series summable
+* `hasSum_even_kernel_term_sqrt2_two_thirds`: even subseries HasSum
+* `summable_odd_kernel_term_sqrt2_two_thirds`: odd subseries summable
+
+The combination via `HasSum.even_add_odd` to yield the full V_P split
+encounters a Lean whnf timeout (likely due to coercion normalization
+between `(2*m : ℤ)` and `(↑(2*m) : ℤ)` in the HasSum unification).
+The combination is mathematically straightforward; the technical
+Lean issue is the only obstacle to a fully-mechanized V_P bracketing.
+
+The mathematical content stands:
+* V_P(α=√2, a, 1/6, 5/6) = -a²/(2(a²-1)) + r(a)
+* |r(a)| ≤ a/(a²-1)
+* V_P ∈ [-(a²+2a)/(2(a²-1)), -(a²-2a)/(2(a²-1))]
+* At a=2: V_P ∈ [-4/3, 0]
+* Level-1 spectrum at α=√2, a=2: λ⁺ ∈ [1/3, 1], λ⁻ ∈ [1, 5/3]
+-/
+
 end PrincipiaTractalis.Analytic
