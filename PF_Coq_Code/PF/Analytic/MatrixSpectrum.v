@@ -210,6 +210,33 @@ Proof.
   reflexivity.
 Qed.
 
+(* ============================================================ *)
+(* Operator-theoretic self-adjointness (abstract bilinear form)  *)
+(* ============================================================ *)
+
+(** **Abstract operator-self-adjointness via discrete bilinear pairing**:
+    for any (z_1, z_2) and test functions (f_1, f_2 / g_1, g_2), the
+    discrete bilinear form
+
+      B(f, g) := V_P(z_1, z_1)·f_1·g_1 + V_P(z_1, z_2)·f_2·g_1
+              + V_P(z_2, z_1)·f_1·g_2 + V_P(z_2, z_2)·f_2·g_2
+
+    is SYMMETRIC in f and g.
+
+    The 2-point discrete analog of the operator-self-adjointness
+    statement `∫ (H_P f) · g dμ = ∫ f · (H_P g) dμ` for a 2-Dirac
+    measure μ = δ_{z_1} + δ_{z_2}. Proven purely from kernel symmetry. *)
+Theorem discrete_bilinear_form_symmetric (z_1 z_2 : R) (f_1 f_2 g_1 g_2 : R) :
+    V_P z_1 z_1 * f_1 * g_1 + V_P z_1 z_2 * f_2 * g_1 +
+    V_P z_2 z_1 * f_1 * g_2 + V_P z_2 z_2 * f_2 * g_2 =
+    V_P z_1 z_1 * g_1 * f_1 + V_P z_1 z_2 * g_2 * f_1 +
+    V_P z_2 z_1 * g_1 * f_2 + V_P z_2 z_2 * g_2 * f_2.
+Proof.
+  (* Use V_P symmetry: V_P z_1 z_2 = V_P z_2 z_1 *)
+  rewrite (V_P_sym z_1 z_2).
+  ring.
+Qed.
+
 End MatrixSpectrum.
 
 (* ============================================================ *)
