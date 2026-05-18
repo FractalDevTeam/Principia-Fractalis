@@ -1120,6 +1120,44 @@ lies BELOW the level-1 bracket `[1/3, 1]` — consistent with the
 spectrum descending across levels as the conjecture predicts.
 -/
 
+/-! ## ★ Sign refinement: first odd term at α=√2, distance 2/3 ★ -/
+
+/-- **★ Quadrant identity for the first odd-frequency angle ★** (axiom-free):
+
+    `π/2 < 2π√2/3 < 3π/2`
+
+    i.e., `2π√2/3` lies in the LEFT HALF-PLANE (second or third quadrant),
+    where cosine is non-positive. Therefore `cos(2π·√2/3) ≤ 0`. -/
+theorem cos_two_pi_sqrt2_div_three_nonpos :
+    Real.cos (2 * Real.pi * Real.sqrt 2 / 3) ≤ 0 := by
+  -- Show 2π·√2/3 ∈ [π/2, 3π/2] so cos is non-positive
+  have hsqrt2_lower : (3 : ℝ)/4 < Real.sqrt 2 := by
+    rw [show ((3:ℝ)/4 : ℝ) = Real.sqrt ((3/4)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 3/4)).symm]
+    apply Real.sqrt_lt_sqrt
+    · positivity
+    · norm_num
+  have hsqrt2_upper : Real.sqrt 2 < (9 : ℝ)/4 := by
+    rw [show ((9:ℝ)/4 : ℝ) = Real.sqrt ((9/4)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 9/4)).symm]
+    apply Real.sqrt_lt_sqrt
+    · norm_num
+    · norm_num
+  -- π/2 < 2π√2/3 (from √2 > 3/4)
+  have h_lower : Real.pi / 2 < 2 * Real.pi * Real.sqrt 2 / 3 := by
+    have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+    nlinarith [h_pi_pos]
+  -- 2π√2/3 < 3π/2 (from √2 < 9/4)
+  have h_upper : 2 * Real.pi * Real.sqrt 2 / 3 < 3 * Real.pi / 2 := by
+    have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+    nlinarith [h_pi_pos]
+  -- cos is non-positive on [π/2, 3π/2]
+  -- Use Real.cos_nonpos_of_pi_div_two_le_of_le or similar
+  apply Real.cos_nonpos_of_pi_div_two_le_of_le
+  · exact h_lower.le
+  · -- need 2π√2/3 ≤ π + π/2 = 3π/2
+    linarith
+
 /-! ## Documentation: full V_P bracketing pending HasSum.even_add_odd combination
 
 The technical pieces are all in place:
