@@ -1765,6 +1765,51 @@ theorem level1_spectral_radius_le {α a : ℝ} (ha : 1 < a) :
     abs_fractalKernelReal_le α ha _
   linarith
 
+/-! ## ★ Level-1 L²(cantorDiscMeasure 1) eigenvector orthonormality ★ -/
+
+/-- **★ Level-1 constant-eigenvector L² norm ★**:
+
+      `∫ 1 · 1 d(cantorDiscMeasure 1) = 1`
+
+    The constant function `f ≡ 1` has unit L²-norm against the
+    level-1 Cantor probability measure. -/
+theorem level1_const_eigenvec_norm :
+    ∫ x, ((fun _ : ℝ => (1 : ℝ)) x * (fun _ : ℝ => (1 : ℝ)) x)
+        ∂(cantorDiscMeasure 1) = 1 := by
+  rw [integral_cantorDiscMeasure_one]
+  simp; ring
+
+/-- **★ Level-1 alternating-eigenvector L² norm ★**:
+
+      `∫ (alt · alt) d(cantorDiscMeasure 1) = 1`
+
+    where `alt(x) = 1 if x < 1/2 else -1`. Since `alt(1/6) = 1` and
+    `alt(5/6) = -1`, the L² norm is `(1/2)·(1·1 + (-1)·(-1)) = 1`. -/
+theorem level1_alt_eigenvec_norm :
+    ∫ x, (level1_antisym_test x * level1_antisym_test x)
+        ∂(cantorDiscMeasure 1) = 1 := by
+  rw [integral_cantorDiscMeasure_one]
+  rw [level1_antisym_test_at_left, level1_antisym_test_at_right]
+  ring
+
+/-- **★ Level-1 eigenvector orthogonality ★**:
+
+      `∫ 1 · alt d(cantorDiscMeasure 1) = 0`
+
+    The constant and alternating eigenvectors are orthogonal in the
+    L²(cantorDiscMeasure 1) inner product:
+    `(1/2)·(1·1 + 1·(-1)) = 0`.
+
+    Combined with the L² norm theorems, these are an ORTHONORMAL
+    BASIS of the 2D test function space `f : {1/6, 5/6} → ℝ` (which
+    is the natural Hilbert space for the level-1 discrete operator). -/
+theorem level1_eigenvec_orthogonal :
+    ∫ x, ((fun _ : ℝ => (1 : ℝ)) x * level1_antisym_test x)
+        ∂(cantorDiscMeasure 1) = 0 := by
+  rw [integral_cantorDiscMeasure_one]
+  rw [level1_antisym_test_at_left, level1_antisym_test_at_right]
+  ring
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
