@@ -518,4 +518,60 @@ theorem level1_spectrum_at_sqrt2_two_tighter :
     have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(29/24)) = 77/48 := by norm_num
     linarith [heq ▸ hmU]
 
+/-! ## ★★★★ STRICTLY tightest Level-1 spectrum at α=√2, a=2 ★★★★ -/
+
+/-- **★★★★ STRICTLY tightest V_P bracket at α=√2, a=2 ★★★★** (axiom-free):
+
+      `V_P(α=√2, a=2, 1/6, 5/6) ∈ [−55/48, −3/4]`
+
+    Two-sided STRICT refinement combining:
+    * `cos(2π√2/3) ≤ -1/2` (m=0 strict sign — upper bound -3/4)
+    * `cos(4π√2/3) ≥  1/2` (m=1 strict sign — lower bound -55/48) -/
+theorem fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_strict :
+    -(55/48 : ℝ) ≤
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ∧
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ≤ -(3/4 : ℝ) :=
+  ⟨fractalKernelReal_sqrt2_two_thirds_at_two_lower_strict,
+   fractalKernelReal_sqrt2_two_thirds_at_two_upper_strict⟩
+
+/-- **★★★★ STRICTLY tightest Level-1 spectrum at α=√2, a=2 ★★★★** (axiom-free):
+
+      `λ⁺^(1)(√2, 2) ∈ [41/96, 5/8] ≈ [0.427, 0.625]`
+      `λ⁻^(1)(√2, 2) ∈ [11/8, 151/96] ≈ [1.375, 1.573]`
+
+    Refinement using STRICT cos bounds:
+    * λ⁺^(1) ≥ (2 + (-55/48))/2 = (96/48 - 55/48)/2 = (41/48)/2 = 41/96
+    * λ⁺^(1) ≤ (2 + (-3/4))/2 = (5/4)/2 = 5/8
+    * λ⁻^(1) ≥ (2 - (-3/4))/2 = (11/4)/2 = 11/8
+    * λ⁻^(1) ≤ (2 - (-55/48))/2 = (151/48)/2 = 151/96
+
+    The bracket width on λ⁺^(1) is now `5/8 - 41/96 = 60/96 - 41/96 = 19/96 ≈ 0.198`,
+    cut roughly in half from the prior bracket. Numerical
+    `λ⁺^(1)(√2, 2) ≈ 0.49` sits comfortably inside `[0.427, 0.625]`. -/
+theorem level1_spectrum_at_sqrt2_two_strict :
+    -- λ⁺^(1)(√2, 2) ∈ [41/96, 5/8]
+    (41/96 : ℝ) ≤ lambdaPlusLevel1_sqrt2 2 ∧
+    lambdaPlusLevel1_sqrt2 2 ≤ 5/8 ∧
+    -- λ⁻^(1)(√2, 2) ∈ [11/8, 151/96]
+    (11/8 : ℝ) ≤ lambdaMinusLevel1_sqrt2 2 ∧
+    lambdaMinusLevel1_sqrt2 2 ≤ 151/96 := by
+  obtain ⟨h_low, h_high⟩ :=
+    fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_strict
+  have h_spec := level1_spectrum_bracketing_from_V_P (α := Real.sqrt 2)
+                   (a := 2) (low := -(55/48)) (high := -(3/4))
+                   h_low h_high
+  obtain ⟨hpL, hpU, hmL, hmU⟩ := h_spec
+  unfold lambdaPlusLevel1_sqrt2 lambdaMinusLevel1_sqrt2
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) + -(55/48)) = 41/96 := by norm_num
+    linarith [heq ▸ hpL]
+  · have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) + -(3/4)) = 5/8 := by norm_num
+    linarith [heq ▸ hpU]
+  · have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(3/4)) = 11/8 := by norm_num
+    linarith [heq ▸ hmL]
+  · have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(55/48)) = 151/96 := by norm_num
+    linarith [heq ▸ hmU]
+
 end PrincipiaTractalis.Analytic
