@@ -698,4 +698,86 @@ theorem even_subseries_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
     nlinarith
   field_simp
 
+/-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
+
+/-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
+
+      `|Σ_{m≥0} a^(-(2m+1)) · cos(π · (√2)^(2m+1) · 2/3)| ≤ a/(a² − 1)`
+
+    The ODD-frequency part of the polylog kernel sum
+    `V_P(α=√2, a, 1/6, 5/6)` involves genuinely transcendental
+    `cos(π·2^m·√2·2/3)` factors, but each is bounded by `1` in absolute
+    value, so the series sum is bounded by the geometric majorant.
+
+    Combined with `even_subseries_sqrt2_two_thirds`, this fully
+    BRACKETS the polylog kernel sum at `α = √2`:
+
+      `V_P(α=√2, a, 1/6, 5/6) ∈ [−(a² + 2a)/(2·(a²−1)), −(a² − 2a)/(2·(a²−1))]`
+
+    For `a = 2`: `V_P ∈ [−4/3, 0]` (concrete numerical bracketing,
+    fully axiom-free). -/
+theorem abs_odd_subseries_sqrt2_two_thirds_le {a : ℝ} (ha : 1 < a) :
+    |∑' m : ℕ, (a : ℝ)^(-(2*m+1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))|
+    ≤ a / (a^2 - 1) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_pos : (0 : ℝ) < a^2 := by positivity
+  have ha_sq_gt_one : (1 : ℝ) < a^2 := by nlinarith
+  have h_inv_sq_lt : (1/a^2 : ℝ) < 1 := by
+    rw [div_lt_one ha_sq_pos]; linarith
+  have h_inv_sq_nn : (0 : ℝ) ≤ 1/a^2 := by positivity
+  -- Rewrite the series in (1/a²)^m form via a^(-(2m+1)) = (1/a)·(1/a²)^m
+  have htransform : ∀ m : ℕ,
+      (a : ℝ)^(-(2*m+1 : ℤ)) = (1/a) * (1/a^2)^m := by
+    intro m
+    rw [show (-(2*m+1 : ℤ)) = -(((2*m+1) : ℕ) : ℤ) from by push_cast; ring]
+    rw [zpow_neg, zpow_natCast]
+    rw [show (2*m+1 : ℕ) = 1 + 2*m from by ring]
+    rw [pow_add, pow_mul]
+    rw [pow_one, div_pow, one_pow]
+    field_simp
+  -- Pointwise bound: |a^(-(2m+1))·cos(...)| ≤ a^(-(2m+1))
+  have h_norm_le : ∀ m : ℕ,
+      ‖(a : ℝ)^(-(2*m+1 : ℤ)) *
+          Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))‖
+      ≤ (1/a) * (1/a^2)^m := by
+    intro m
+    rw [Real.norm_eq_abs, abs_mul]
+    have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(2*m+1 : ℤ)) := zpow_pos ha_pos _
+    rw [abs_of_pos h_pow_pos]
+    have h_cos_le : |Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))| ≤ 1 :=
+      Real.abs_cos_le_one _
+    rw [htransform m]
+    have hone_a_pos : (0 : ℝ) < 1/a := by positivity
+    have hpow_pos : (0 : ℝ) < (1/a^2)^m := pow_pos (by positivity) m
+    calc (1/a) * (1/a^2)^m *
+            |Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))|
+        ≤ (1/a) * (1/a^2)^m * 1 :=
+          mul_le_mul_of_nonneg_left h_cos_le (by positivity)
+      _ = (1/a) * (1/a^2)^m := mul_one _
+  -- Apply norm_tsum_le_tsum_norm + dominated geometric series
+  have h_geom_summable : Summable (fun m : ℕ => (1/a : ℝ) * (1/a^2)^m) :=
+    (summable_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt).mul_left _
+  have h_summable_norm : Summable
+      (fun m : ℕ => ‖(a : ℝ)^(-(2*m+1 : ℤ)) *
+          Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))‖) := by
+    apply Summable.of_nonneg_of_le (fun _ => norm_nonneg _) h_norm_le h_geom_summable
+  have h_tsum_le : ‖∑' m : ℕ, (a : ℝ)^(-(2*m+1 : ℤ)) *
+              Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))‖
+              ≤ ∑' m : ℕ, ‖(a : ℝ)^(-(2*m+1 : ℤ)) *
+                  Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))‖ :=
+    norm_tsum_le_tsum_norm h_summable_norm
+  rw [Real.norm_eq_abs] at h_tsum_le
+  apply le_trans h_tsum_le
+  apply le_trans (Summable.tsum_le_tsum h_norm_le h_summable_norm h_geom_summable)
+  -- Compute Σ (1/a)·(1/a²)^m = (1/a)·1/(1 - 1/a²) = a/(a²-1)
+  rw [tsum_mul_left, tsum_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt]
+  have h_ne : (1 - 1/a^2 : ℝ) ≠ 0 := by linarith
+  have h_a_ne : a ≠ 0 := ne_of_gt ha_pos
+  have h_a_sq_ne : a^2 - 1 ≠ 0 := by nlinarith
+  have h_eq : (1/a : ℝ) * (1 - 1/a^2)⁻¹ = a / (a^2 - 1) := by
+    rw [eq_div_iff h_a_sq_ne]
+    field_simp
+  rw [h_eq]
+
 end PrincipiaTractalis.Analytic
