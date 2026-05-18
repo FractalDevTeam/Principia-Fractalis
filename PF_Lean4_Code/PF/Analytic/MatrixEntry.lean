@@ -1880,6 +1880,37 @@ theorem level1_spectral_action_at_right {α a : ℝ} (ha : 1 < a)
   rw [hsymm]
   ring
 
+/-- **★ Lipschitz contraction on the anti-coefficient at level 1 ★**:
+
+    For any function `f : ℝ → ℝ` that is `L`-Lipschitz with `L ≥ 0`,
+    the antisymmetric eigenbasis coefficient
+
+      `c_anti(f) := (1/2) · (f(1/6) − f(5/6))`
+
+    satisfies
+
+      `|c_anti(f)| ≤ (L/3)`
+
+    (since `|1/6 − 5/6| = 2/3` and Lipschitz `|f(x) − f(y)| ≤ L·|x−y|`).
+
+    Compared to the symmetric coefficient `c_sym(f) = (1/2)(f(1/6)+f(5/6))`
+    (bounded only by `sup |f|`), the antisymmetric coefficient
+    **CONTRACTS** for Lipschitz functions: it scales as `L/3` regardless
+    of `sup |f|`. This is the spectral-level analog of the
+    `iteratedIFSComp_lipschitz` shrinkage that drives the geometric
+    weak-convergence rate `cantorDiscMeasure n → μ_H`. -/
+theorem level1_c_anti_lipschitz_bound (f : ℝ → ℝ) (L : ℝ) (_hL : 0 ≤ L)
+    (hf : ∀ x y : ℝ, |f x - f y| ≤ L * |x - y|) :
+    |(1/2) * (f (1/6) - f (5/6))| ≤ L / 3 := by
+  have hbnd : |f (1/6) - f (5/6)| ≤ L * |((1:ℝ)/6) - 5/6| := hf (1/6) (5/6)
+  have habs : |((1:ℝ)/6) - 5/6| = 2/3 := by
+    rw [show ((1:ℝ)/6) - 5/6 = -(2/3) from by norm_num]
+    rw [abs_neg]
+    rw [abs_of_nonneg (by norm_num : (0:ℝ) ≤ 2/3)]
+  rw [habs] at hbnd
+  rw [abs_mul, abs_of_pos (by norm_num : (0:ℝ) < 1/2)]
+  linarith
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
