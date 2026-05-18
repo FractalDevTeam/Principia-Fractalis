@@ -314,4 +314,55 @@ theorem level1_spectrum_at_sqrt2_two :
          = 5/3 := by norm_num
     linarith [this ▸ h4]
 
+/-! ## ★ Level-2 outer-cross matrix entries at α=√2, a=2 (numerical brackets) ★ -/
+
+/-- **★ Level-1 matrix entry M^(1)_[false,true] at α=√2, a=2 ★**
+    (axiom-free, EXPLICIT NUMERICAL BRACKET):
+
+      `cellMatrixEntry(√2, 2, 1, [false], [true]) ∈ [−2/3, 0]`
+
+    From `cellMatrixEntry α a 1 [false] [true] = (1/2)·V_P(1/6, 5/6)`
+    and the V_P bracket `V_P ∈ [−4/3, 0]` at α=√2, a=2. -/
+theorem cellMatrixEntry_level1_at_sqrt2_two_bracketing :
+    -(2/3 : ℝ) ≤ cellMatrixEntry (Real.sqrt 2) 2 1 [false] [true] ∧
+    cellMatrixEntry (Real.sqrt 2) 2 1 [false] [true] ≤ 0 := by
+  obtain ⟨h_low, h_high⟩ := fractalKernelReal_sqrt2_two_thirds_at_two_bracketing
+  unfold cellMatrixEntry cantorKernel
+  rw [cellMidpointOfBools_false, cellMidpointOfBools_true]
+  refine ⟨?_, ?_⟩
+  · -- (1/2^1) · V_P = (1/2) · V_P ≥ (1/2) · (-4/3) = -2/3
+    have : (1 / (2:ℝ)^1) = 1/2 := by norm_num
+    rw [this]
+    linarith
+  · -- (1/2) · V_P ≤ (1/2) · 0 = 0
+    have : (1 / (2:ℝ)^1) = 1/2 := by norm_num
+    rw [this]
+    linarith
+
+/-- **★★ Level-2 outer-cross matrix entries at α=√2, a=2 ★★**
+    (axiom-free, EXPLICIT NUMERICAL BRACKET):
+
+      `M^(2)_{[ff],[tf]} ∈ [−1/3, 0]` and `M^(2)_{[ft],[tt]} ∈ [−1/3, 0]`
+
+    Combines `cellMatrixEntry_level2_ff_tf_eq_half_level1` (cross-level
+    factor 1/2) with the level-1 bracket `[-2/3, 0]` to give:
+    `M^(2) ∈ (1/2)·[-2/3, 0] = [-1/3, 0]`. -/
+theorem cellMatrixEntry_level2_outer_cross_at_sqrt2_two_bracketing :
+    -(1/3 : ℝ) ≤ cellMatrixEntry (Real.sqrt 2) 2 2 [false, false] [true, false] ∧
+    cellMatrixEntry (Real.sqrt 2) 2 2 [false, false] [true, false] ≤ 0 ∧
+    -(1/3 : ℝ) ≤ cellMatrixEntry (Real.sqrt 2) 2 2 [false, true] [true, true] ∧
+    cellMatrixEntry (Real.sqrt 2) 2 2 [false, true] [true, true] ≤ 0 := by
+  obtain ⟨h_level1_low, h_level1_high⟩ :=
+    cellMatrixEntry_level1_at_sqrt2_two_bracketing
+  have h_ff_tf := cellMatrixEntry_level2_ff_tf_eq_half_level1 2
+  have h_ft_tt := cellMatrixEntry_level2_ft_tt_eq_half_level1 2
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · -- M^(2)_{ff, tf} = (1/2) · M^(1) ≥ (1/2) · (-2/3) = -1/3
+    rw [h_ff_tf]; linarith
+  · -- M^(2)_{ff, tf} ≤ (1/2) · 0 = 0
+    rw [h_ff_tf]; linarith
+  · -- M^(2)_{ft, tt} same brackets
+    rw [h_ft_tt]; linarith
+  · rw [h_ft_tt]; linarith
+
 end PrincipiaTractalis.Analytic
