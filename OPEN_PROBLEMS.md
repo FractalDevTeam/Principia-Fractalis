@@ -172,6 +172,13 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `H_P_at_disc_self_adjoint`: bilinear form symmetry `∫ (H_P f)·g dμ = ∫ f·(H_P g) dμ` via Fubini + kernel symmetry (axiom-free, requires `SFinite μ` + bilinear-integrand integrability hypothesis).
     - `H_P_at_disc_add_func`, `H_P_at_disc_smul_func`: test-function linearity (additive + scalar).
     - `abs_H_P_at_disc_level0_le`, `abs_H_P_at_disc_level1_le`: sup-norm operator-norm bounds `|H_P^disc f| ≤ M · a/(a−1)` at levels 0 and 1.
+    - `sq_cantorKernel_le`, `abs_cantorKernel_le`: substrate-level uniform pointwise bounds.
+    - `level2_constant_at_{ff, ft, tf, tt}`, `level2_constant_reflection_symmetry`: level-2 IFS-reflection symmetry verification (operator action on constant test function is invariant under `x ↦ 1−x`).
+  - **★ Deep spectral infrastructure ★** (added 2026-05-17/18):
+    - `fractalKernelReal_mercer`: full TSUM Mercer decomposition `V_P = Σ a^(-n)·(cos_n ⊗ cos_n + sin_n ⊗ sin_n)` — the separable-kernel structure foundational for spectral analysis.
+    - `trace_fullOperator_closed_form`: `∫₀¹ V_P(x, x) dx = a/(a-1)` — the SPECTRAL SUM RULE constraint that any candidate eigenvalue formula must satisfy.
+    - `integral_cosine_pi_c`, `integral_sine_pi_c`, `integral_cosineMode_pow`, `integral_sineMode_pow`: closed-form first moments `∫ cos(πcx) dx = sin(πc)/(πc)`, etc. — foundational for variational eigenvalue computations on H_P^α.
+    - Pending (documented roadmap): variational identity `⟨1, H_P^α · 1⟩` closed form; full Hilbert-Schmidt double-integral bound (requires parameter-continuity-of-integral lemma).
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
