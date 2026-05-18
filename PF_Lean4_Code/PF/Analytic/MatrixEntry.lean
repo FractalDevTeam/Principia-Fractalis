@@ -1810,6 +1810,27 @@ theorem level1_eigenvec_orthogonal :
   rw [level1_antisym_test_at_left, level1_antisym_test_at_right]
   ring
 
+/-- **★ Level-1 spectral decomposition (completeness) ★**:
+
+    For any test function `f : ℝ → ℝ`, define the SYMMETRIC and
+    ANTISYMMETRIC coefficients
+
+      `c_sym(f)  := (1/2)·(f(1/6) + f(5/6))`   [⟨f, const⟩_{L²(μ_1)}]
+      `c_anti(f) := (1/2)·(f(1/6) − f(5/6))`   [⟨f, alt⟩_{L²(μ_1)}]
+
+    Then `f` is reproduced on the level-1 midpoints by the
+    eigenbasis expansion:
+
+      `f(1/6) = c_sym(f) · 1 + c_anti(f) · 1 = c_sym + c_anti`
+      `f(5/6) = c_sym(f) · 1 + c_anti(f) · (−1) = c_sym − c_anti`
+
+    Equivalently, `f|_{{1/6, 5/6}}` lies in the 2-dimensional span
+    of the eigenvectors. -/
+theorem level1_eigenbasis_completeness (f : ℝ → ℝ) :
+    f (1/6) = (1/2) * (f (1/6) + f (5/6)) + (1/2) * (f (1/6) - f (5/6)) ∧
+    f (5/6) = (1/2) * (f (1/6) + f (5/6)) - (1/2) * (f (1/6) - f (5/6)) := by
+  refine ⟨by ring, by ring⟩
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
