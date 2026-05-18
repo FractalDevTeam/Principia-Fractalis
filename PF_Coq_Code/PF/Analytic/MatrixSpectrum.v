@@ -237,6 +237,63 @@ Proof.
   ring.
 Qed.
 
+(* ============================================================ *)
+(* Level-1 spectral theorem completeness (functional form)       *)
+(* ============================================================ *)
+
+(** **Level-1 eigenbasis completeness**: any test function `f` is
+    reproduced on the level-1 midpoints `{1/6, 5/6}` by the eigenbasis
+    expansion with symmetric coefficient `c_sym = (1/2)(f(1/6) + f(5/6))`
+    and antisymmetric coefficient `c_anti = (1/2)(f(1/6) − f(5/6))`:
+
+      `f(1/6) = c_sym + c_anti`
+      `f(5/6) = c_sym − c_anti`
+
+    Trivial algebraic identity; the spectral content lies in the
+    diagonal action below. *)
+Theorem level1_eigenbasis_completeness (f : R -> R) :
+    f (1/6) = (1/2) * (f (1/6) + f (5/6)) + (1/2) * (f (1/6) - f (5/6)) /\
+    f (5/6) = (1/2) * (f (1/6) + f (5/6)) - (1/2) * (f (1/6) - f (5/6)).
+Proof.
+  split; lra.
+Qed.
+
+(** **Level-1 spectral action at left midpoint**: for any test function
+    `f` decomposed in the eigenbasis (`c_sym, c_anti`), the operator
+    acts DIAGONALLY:
+
+      `(H_P^disc[μ_1] f)(1/6) = λ⁺ · c_sym + λ⁻ · c_anti`
+
+    where the discrete operator at level 1 is the 2-Dirac integration
+    against `(1/2)·δ_{1/6} + (1/2)·δ_{5/6}`. This is the FUNCTIONAL
+    form of the spectral theorem at level 1. *)
+Theorem level1_spectral_action_at_left
+    (c_sym c_anti : R) (f : R -> R)
+    (h1 : f (1/6) = c_sym + c_anti) (h2 : f (5/6) = c_sym - c_anti) :
+    (1/2) * (V_P (1/6) (1/6) * f (1/6)) +
+    (1/2) * (V_P (1/6) (5/6) * f (5/6)) =
+    lambdaPlusLevel1 * c_sym + lambdaMinusLevel1 * c_anti.
+Proof.
+  rewrite h1, h2, V_P_diag.
+  unfold lambdaPlusLevel1, lambdaMinusLevel1.
+  field. lra.
+Qed.
+
+(** **Level-1 spectral action at right midpoint**:
+
+      `(H_P^disc[μ_1] f)(5/6) = λ⁺ · c_sym − λ⁻ · c_anti` *)
+Theorem level1_spectral_action_at_right
+    (c_sym c_anti : R) (f : R -> R)
+    (h1 : f (1/6) = c_sym + c_anti) (h2 : f (5/6) = c_sym - c_anti) :
+    (1/2) * (V_P (5/6) (1/6) * f (1/6)) +
+    (1/2) * (V_P (5/6) (5/6) * f (5/6)) =
+    lambdaPlusLevel1 * c_sym - lambdaMinusLevel1 * c_anti.
+Proof.
+  rewrite h1, h2, V_P_diag, (V_P_sym (5/6) (1/6)).
+  unfold lambdaPlusLevel1, lambdaMinusLevel1.
+  field. lra.
+Qed.
+
 End MatrixSpectrum.
 
 (* ============================================================ *)
