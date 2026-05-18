@@ -1056,6 +1056,70 @@ theorem kernel_series_sqrt2_two_thirds_bracketing {a : ℝ} (ha : 1 < a) :
     rw [h_alg]
     linarith
 
+/-- **★ V_P at distance 2/3 equals the kernel series ★** (axiom-free):
+
+      `fractalKernelReal(√2, a, (1/6, 5/6)) = Σ_k a^(-k)·cos(π·(√2)^k·2/3)`
+
+    Direct from the kernel definition + `dist(1/6, 5/6) = 2/3`. -/
+theorem fractalKernelReal_at_one_sixth_five_sixths_eq (a : ℝ) :
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) a ((1/6, 5/6) : ℝ × ℝ) =
+    ∑' k : ℕ, (a : ℝ)^(-(k : ℤ)) *
+      Real.cos (Real.pi * (Real.sqrt 2)^k * (2/3)) := by
+  unfold PrincipiaTractalis.IntegralKernel.fractalKernelReal
+          PrincipiaTractalis.IntegralKernel.fractalKernelTerm
+  apply tsum_congr
+  intro n
+  have hdist : dist ((1/6 : ℝ)) (5/6) = 2/3 := by
+    rw [Real.dist_eq]; norm_num
+  rw [hdist]
+
+/-- **★★ V_P FULL BRACKETING at α=√2 at the kernel level ★★**
+    (`a > 1`, axiom-free):
+
+      `−(a²+2a)/(2·(a²−1)) ≤ V_P(α=√2, a, 1/6, 5/6) ≤ −(a²−2a)/(2·(a²−1))`
+
+    The kernel value `V_P(α=√2, a, 1/6, 5/6)` is now a fully bracketed
+    explicit algebraic interval, fully mechanized. At `a = 2`:
+    `V_P ∈ [−4/3, 0]`.
+
+    Combined with `level1_spectrum_bracketing_from_V_P`, this gives
+    EXPLICIT axiom-free brackets on the level-1 finite-rank eigenvalues
+    at α=√2, a=2: `λ⁺^(1) ∈ [1/3, 1]`, `λ⁻^(1) ∈ [1, 5/3]`. -/
+theorem fractalKernelReal_sqrt2_two_thirds_bracketing {a : ℝ} (ha : 1 < a) :
+    -((a^2 + 2*a) / (2 * (a^2 - 1))) ≤
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) a ((1/6, 5/6) : ℝ × ℝ) ∧
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) a ((1/6, 5/6) : ℝ × ℝ) ≤
+    -((a^2 - 2*a) / (2 * (a^2 - 1))) := by
+  rw [fractalKernelReal_at_one_sixth_five_sixths_eq]
+  exact kernel_series_sqrt2_two_thirds_bracketing ha
+
+/-! ## Documentation: full level-1 spectrum bracketing at α=√2
+
+Combining `fractalKernelReal_sqrt2_two_thirds_bracketing` with
+`level1_spectrum_bracketing_from_V_P` (defined in
+`PF/Analytic/MatrixEntry.lean`, which depends on this file's earlier
+content so the combined theorem lives in MatrixEntry.lean or a
+downstream file):
+
+  `λ⁺^{(1)}(√2, a) ∈ [(a/(a−1) − (a²+2a)/(2(a²−1)))/2,
+                       (a/(a−1) − (a²−2a)/(2(a²−1)))/2]`
+  `λ⁻^{(1)}(√2, a) ∈ [(a/(a−1) − (−(a²−2a)/(2(a²−1))))/2,
+                       (a/(a−1) − (−(a²+2a)/(2(a²−1))))/2]`
+
+For `a = 2`:
+  `λ⁺^{(1)}(√2, 2) ∈ [1/3, 1]`
+  `λ⁻^{(1)}(√2, 2) ∈ [1, 5/3]`
+
+(both fully axiom-free, EXPLICIT bracketed intervals).
+
+The manuscript's asymptotic conjecture `λ_0 → π/(10·√2) ≈ 0.222`
+lies BELOW the level-1 bracket `[1/3, 1]` — consistent with the
+spectrum descending across levels as the conjecture predicts.
+-/
+
 /-! ## Documentation: full V_P bracketing pending HasSum.even_add_odd combination
 
 The technical pieces are all in place:
