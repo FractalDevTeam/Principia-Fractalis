@@ -437,6 +437,81 @@ Proof.
   nra.
 Qed.
 
+(** **Level-2 individual eigenvalue spectral-radius bound** (a > 1):
+    each of the 4 eigenvalues |λ| ≤ a/(a-1). *)
+Theorem abs_lambdaSymPlusLevel2_le :
+    Rabs lambdaSymPlusLevel2 <= a / (a - 1).
+Proof.
+  pose proof level2_sumSq_le_level0 as Hsum.
+  pose proof (pow2_ge_0 lambdaSymMinusLevel2) as H1.
+  pose proof (pow2_ge_0 lambdaAntiPlusLevel2) as H2.
+  pose proof (pow2_ge_0 lambdaAntiMinusLevel2) as H3.
+  assert (Hsq : lambdaSymPlusLevel2 ^ 2 <= (a / (a - 1))^2) by nra.
+  assert (Hd_nn : 0 <= a / (a - 1)).
+  { apply Rlt_le. apply Rdiv_pos_pos; lra. }
+  (* x² ≤ d² → |x| ≤ d (for d ≥ 0) *)
+  destruct (Rle_or_lt 0 lambdaSymPlusLevel2) as [Hpos | Hneg].
+  - rewrite Rabs_right by lra. nra.
+  - rewrite Rabs_left by exact Hneg. nra.
+Qed.
+
+Theorem abs_lambdaSymMinusLevel2_le :
+    Rabs lambdaSymMinusLevel2 <= a / (a - 1).
+Proof.
+  pose proof level2_sumSq_le_level0 as Hsum.
+  pose proof (pow2_ge_0 lambdaSymPlusLevel2) as H1.
+  pose proof (pow2_ge_0 lambdaAntiPlusLevel2) as H2.
+  pose proof (pow2_ge_0 lambdaAntiMinusLevel2) as H3.
+  assert (Hsq : lambdaSymMinusLevel2 ^ 2 <= (a / (a - 1))^2) by nra.
+  assert (Hd_nn : 0 <= a / (a - 1)).
+  { apply Rlt_le. apply Rdiv_pos_pos; lra. }
+  destruct (Rle_or_lt 0 lambdaSymMinusLevel2) as [Hpos | Hneg].
+  - rewrite Rabs_right by lra. nra.
+  - rewrite Rabs_left by exact Hneg. nra.
+Qed.
+
+Theorem abs_lambdaAntiPlusLevel2_le :
+    Rabs lambdaAntiPlusLevel2 <= a / (a - 1).
+Proof.
+  pose proof level2_sumSq_le_level0 as Hsum.
+  pose proof (pow2_ge_0 lambdaSymPlusLevel2) as H1.
+  pose proof (pow2_ge_0 lambdaSymMinusLevel2) as H2.
+  pose proof (pow2_ge_0 lambdaAntiMinusLevel2) as H3.
+  assert (Hsq : lambdaAntiPlusLevel2 ^ 2 <= (a / (a - 1))^2) by nra.
+  assert (Hd_nn : 0 <= a / (a - 1)).
+  { apply Rlt_le. apply Rdiv_pos_pos; lra. }
+  destruct (Rle_or_lt 0 lambdaAntiPlusLevel2) as [Hpos | Hneg].
+  - rewrite Rabs_right by lra. nra.
+  - rewrite Rabs_left by exact Hneg. nra.
+Qed.
+
+Theorem abs_lambdaAntiMinusLevel2_le :
+    Rabs lambdaAntiMinusLevel2 <= a / (a - 1).
+Proof.
+  pose proof level2_sumSq_le_level0 as Hsum.
+  pose proof (pow2_ge_0 lambdaSymPlusLevel2) as H1.
+  pose proof (pow2_ge_0 lambdaSymMinusLevel2) as H2.
+  pose proof (pow2_ge_0 lambdaAntiPlusLevel2) as H3.
+  assert (Hsq : lambdaAntiMinusLevel2 ^ 2 <= (a / (a - 1))^2) by nra.
+  assert (Hd_nn : 0 <= a / (a - 1)).
+  { apply Rlt_le. apply Rdiv_pos_pos; lra. }
+  destruct (Rle_or_lt 0 lambdaAntiMinusLevel2) as [Hpos | Hneg].
+  - rewrite Rabs_right by lra. nra.
+  - rewrite Rabs_left by exact Hneg. nra.
+Qed.
+
+(** **Level-2 spectral radius**: all 4 eigenvalues |λ| ≤ a/(a-1). *)
+Theorem level2_spectral_radius_bound :
+    Rabs lambdaSymPlusLevel2  <= a / (a - 1) /\
+    Rabs lambdaSymMinusLevel2 <= a / (a - 1) /\
+    Rabs lambdaAntiPlusLevel2 <= a / (a - 1) /\
+    Rabs lambdaAntiMinusLevel2 <= a / (a - 1).
+Proof.
+  exact (conj abs_lambdaSymPlusLevel2_le
+        (conj abs_lambdaSymMinusLevel2_le
+        (conj abs_lambdaAntiPlusLevel2_le abs_lambdaAntiMinusLevel2_le))).
+Qed.
+
 End Level2Spectrum.
 
 (* ============================================================ *)
