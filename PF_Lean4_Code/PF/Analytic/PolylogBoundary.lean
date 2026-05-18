@@ -1323,6 +1323,59 @@ theorem cos_four_pi_sqrt2_div_three_ge_half :
   rw [show (1/2 : ℝ) = Real.cos (Real.pi/3) from Real.cos_pi_div_three.symm]
   exact Real.cos_le_cos_of_nonneg_of_le_pi h_neg_z_pos h_pi3_le_pi h_neg_z_le
 
+/-! ## ★★ STRICT cos bound at third odd-frequency angle ★★ -/
+
+/-- **★★ STRICT lower bound `cos(8π·√2/3) ≥ 1/2` ★★** (axiom-free):
+
+    Same approach as `cos(4π·√2/3) ≥ 1/2` but at the m=2 odd-frequency
+    angle.
+
+    Reduce by `4π = 2·(2π)` (apply `cos_sub_two_pi` twice):
+    `cos(8π√2/3) = cos(8π√2/3 - 4π) = cos(4π(2√2-3)/3)`.
+
+    Let `w = 4π(2√2-3)/3 < 0`. `|w| = 4π(3-2√2)/3 ≤ π/3` iff
+    `4(3-2√2) ≤ 1` iff `11 ≤ 8√2` iff `121 ≤ 128` ✓.
+
+    Then `cos(|w|) ≥ cos(π/3) = 1/2`, hence `cos(8π√2/3) ≥ 1/2`. -/
+theorem cos_eight_pi_sqrt2_div_three_ge_half :
+    (1/2 : ℝ) ≤ Real.cos (8 * Real.pi * Real.sqrt 2 / 3) := by
+  -- √2 < 3/2
+  have h_sqrt2_upper : Real.sqrt 2 < 3/2 := by
+    rw [show ((3:ℝ)/2 : ℝ) = Real.sqrt ((3/2)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 3/2)).symm]
+    apply Real.sqrt_lt_sqrt
+    · norm_num
+    · norm_num
+  -- √2 > 11/8 (since (11/8)² = 121/64 < 2 = 128/64)
+  have h_sqrt2_lower : (11:ℝ)/8 < Real.sqrt 2 := by
+    rw [show ((11:ℝ)/8 : ℝ) = Real.sqrt ((11/8)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 11/8)).symm]
+    apply Real.sqrt_lt_sqrt
+    · positivity
+    · norm_num
+  -- Reduce 8π√2/3 by 4π = 2·(2π): apply cos_sub_two_pi twice
+  have h_reduce : Real.cos (8 * Real.pi * Real.sqrt 2 / 3) =
+                  Real.cos (8 * Real.pi * Real.sqrt 2 / 3 - 4 * Real.pi) := by
+    have h_arith : 8 * Real.pi * Real.sqrt 2 / 3 - 4 * Real.pi =
+                   (8 * Real.pi * Real.sqrt 2 / 3 - 2 * Real.pi) - 2 * Real.pi := by ring
+    rw [h_arith, Real.cos_sub_two_pi, Real.cos_sub_two_pi]
+  rw [h_reduce]
+  set w := 8 * Real.pi * Real.sqrt 2 / 3 - 4 * Real.pi
+  -- w = 4π(2√2 - 3)/3 < 0 since 2√2 < 3
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_w_neg : w < 0 := by
+    show 8 * Real.pi * Real.sqrt 2 / 3 - 4 * Real.pi < 0
+    nlinarith [h_pi_pos, h_sqrt2_upper]
+  rw [show Real.cos w = Real.cos (-w) from (Real.cos_neg w).symm]
+  have h_neg_w_pos : (0 : ℝ) ≤ -w := by linarith
+  have h_neg_w_le : -w ≤ Real.pi / 3 := by
+    show -(8 * Real.pi * Real.sqrt 2 / 3 - 4 * Real.pi) ≤ Real.pi / 3
+    -- 4π - 8π√2/3 ≤ π/3 ⟺ 12 - 8√2 ≤ 1 ⟺ √2 ≥ 11/8
+    nlinarith [h_pi_pos, h_sqrt2_lower]
+  have h_pi3_le_pi : Real.pi / 3 ≤ Real.pi := by linarith
+  rw [show (1/2 : ℝ) = Real.cos (Real.pi/3) from Real.cos_pi_div_three.symm]
+  exact Real.cos_le_cos_of_nonneg_of_le_pi h_neg_w_pos h_pi3_le_pi h_neg_w_le
+
 /-! ## Documentation: refined tail bound for tightening at α=√2
 
 The bound `cos(2π·√2/3) ≤ 0` proven above gives the SIGN of the first
@@ -2060,6 +2113,204 @@ theorem fractalKernelReal_sqrt2_two_thirds_at_two_lower_strict :
   -- total V_P bound: -2/3 + (-23/48) = -32/48 - 23/48 = -55/48
   have h_bound_at_two : -((1:ℝ)/2) + 1/(2 * 2^3) - 1/(2^3 * (2^2 - 1)) = -(23/48) := by
     norm_num
+  linarith [h_bound_at_two ▸ h_odd_lower]
+
+/-! ## ★★★★★ Three-term STRICT lower bound for odd subseries ★★★★★ -/
+
+/-- **★★★★★ Three-term STRICT lower bound on odd subseries at α=√2 ★★★★★**
+    (`a > 1`, axiom-free):
+
+      `Σ ≥ -1/a + 1/(2a³) + 1/(2a^5) - 1/(a^5(a²-1))`
+
+    Adds the m=2 contribution `f(2) ≥ 1/(2a^5)` (from
+    `cos_eight_pi_sqrt2_div_three_ge_half`) to the previous strict
+    lower bound, with the tail bound shifted to start at m=3. -/
+theorem odd_subseries_sqrt2_two_thirds_lower_super {a : ℝ} (ha : 1 < a) :
+    -(1/a) + 1/(2 * a^3) + 1/(2 * a^5) - 1/(a^5 * (a^2 - 1)) ≤
+    (∑' m : ℕ, (a : ℝ)^(-(2*m+1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_pos : (0 : ℝ) < a^2 := by positivity
+  have ha_sq_gt_one : (1 : ℝ) < a^2 := by nlinarith
+  have ha_sq_minus_one_pos : (0 : ℝ) < a^2 - 1 := by linarith
+  have h_inv_sq_lt : (1/a^2 : ℝ) < 1 := by rw [div_lt_one ha_sq_pos]; linarith
+  have h_inv_sq_nn : (0 : ℝ) ≤ 1/a^2 := by positivity
+  set f : ℕ → ℝ := fun m => (a : ℝ)^(-(2*m+1 : ℤ)) *
+    Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3)) with hf_def
+  have h_summable : Summable f := summable_odd_kernel_term_sqrt2_two_thirds ha
+  -- Split at k=3: (f 0 + f 1 + f 2) + ∑' n, f(n+3) = ∑' f
+  have h_split_aux := h_summable.sum_add_tsum_nat_add 3
+  have h_range3 : (∑ i ∈ Finset.range 3, f i) = f 0 + f 1 + f 2 := by
+    rw [Finset.sum_range_succ, Finset.sum_range_succ, Finset.sum_range_one]
+  rw [h_range3] at h_split_aux
+  -- f 0 ≥ -1/a (trivial cos ≥ -1)
+  have h_f0_ge : -1/a ≤ f 0 := by
+    have h_f0_eq : f 0 = a⁻¹ * Real.cos (2 * Real.pi * Real.sqrt 2 / 3) := by
+      show (a : ℝ)^(-(2 * ((0 : ℕ) : ℤ) + 1)) *
+          Real.cos (Real.pi * (Real.sqrt 2)^(2*0+1) * (2/3))
+          = a⁻¹ * Real.cos (2 * Real.pi * Real.sqrt 2 / 3)
+      have h_exp : (-(2 * ((0 : ℕ) : ℤ) + 1)) = -1 := by push_cast
+      rw [h_exp, zpow_neg_one]
+      have h_sqrt_pow : (Real.sqrt 2 : ℝ)^(2 * 0 + 1) = Real.sqrt 2 := by
+        norm_num
+      rw [h_sqrt_pow]
+      rw [show Real.pi * Real.sqrt 2 * (2/3) = 2 * Real.pi * Real.sqrt 2 / 3 from
+        by ring]
+    rw [h_f0_eq]
+    have h_cos_ge : -1 ≤ Real.cos (2 * Real.pi * Real.sqrt 2 / 3) :=
+      Real.neg_one_le_cos _
+    have h_inv_pos : (0 : ℝ) < a⁻¹ := inv_pos.mpr ha_pos
+    have h_inv_eq : (-1/a : ℝ) = a⁻¹ * (-1) := by
+      rw [mul_neg_one, neg_div, ← inv_eq_one_div]
+    rw [h_inv_eq]
+    exact mul_le_mul_of_nonneg_left h_cos_ge h_inv_pos.le
+  -- f 1 ≥ 1/(2a³)  (STRICT, using cos(4π√2/3) ≥ 1/2)
+  have h_f1_ge : 1/(2 * a^3) ≤ f 1 := by
+    have h_f1_eq : f 1 = a^(-3 : ℤ) * Real.cos (4 * Real.pi * Real.sqrt 2 / 3) := by
+      show (a : ℝ)^(-(2 * ((1 : ℕ) : ℤ) + 1)) *
+          Real.cos (Real.pi * (Real.sqrt 2)^(2*1+1) * (2/3))
+          = a^(-3 : ℤ) * Real.cos (4 * Real.pi * Real.sqrt 2 / 3)
+      have h_exp : (-(2 * ((1 : ℕ) : ℤ) + 1)) = -3 := by push_cast
+      rw [h_exp]
+      have h_sqrt_pow : (Real.sqrt 2 : ℝ)^(2 * 1 + 1) = (Real.sqrt 2)^3 := by
+        norm_num
+      rw [h_sqrt_pow]
+      have h_sqrt_cube : (Real.sqrt 2 : ℝ)^3 = 2 * Real.sqrt 2 := by
+        rw [show (3 : ℕ) = 2 + 1 from rfl, pow_succ, sq]
+        have h_sqrt_sq : Real.sqrt 2 * Real.sqrt 2 = 2 :=
+          Real.mul_self_sqrt (by norm_num : (0:ℝ) ≤ 2)
+        rw [h_sqrt_sq]
+      rw [h_sqrt_cube]
+      rw [show Real.pi * (2 * Real.sqrt 2) * (2/3) = 4 * Real.pi * Real.sqrt 2 / 3 from
+        by ring]
+    rw [h_f1_eq]
+    have h_cos_strict := cos_four_pi_sqrt2_div_three_ge_half
+    have h_pow_eq : (a : ℝ)^(-3 : ℤ) = 1/a^3 := by
+      rw [show (-3 : ℤ) = -((3 : ℕ) : ℤ) from rfl]
+      rw [zpow_neg, zpow_natCast]
+      exact (one_div _).symm
+    rw [h_pow_eq]
+    have h_target : (1/a^3 : ℝ) * (1/2) = 1/(2 * a^3) := by ring
+    rw [← h_target]
+    have h_pos : (0 : ℝ) < 1/a^3 := by positivity
+    exact mul_le_mul_of_nonneg_left h_cos_strict h_pos.le
+  -- f 2 ≥ 1/(2a^5)  (STRICT, using cos(8π√2/3) ≥ 1/2)
+  have h_f2_ge : 1/(2 * a^5) ≤ f 2 := by
+    have h_f2_eq : f 2 = a^(-5 : ℤ) * Real.cos (8 * Real.pi * Real.sqrt 2 / 3) := by
+      show (a : ℝ)^(-(2 * ((2 : ℕ) : ℤ) + 1)) *
+          Real.cos (Real.pi * (Real.sqrt 2)^(2*2+1) * (2/3))
+          = a^(-5 : ℤ) * Real.cos (8 * Real.pi * Real.sqrt 2 / 3)
+      have h_exp : (-(2 * ((2 : ℕ) : ℤ) + 1)) = -5 := by push_cast
+      rw [h_exp]
+      have h_sqrt_pow : (Real.sqrt 2 : ℝ)^(2 * 2 + 1) = (Real.sqrt 2)^5 := by
+        norm_num
+      rw [h_sqrt_pow]
+      -- (√2)^5 = 4·√2
+      have h_sqrt5 : (Real.sqrt 2 : ℝ)^5 = 4 * Real.sqrt 2 := by
+        have h_sqrt_sq : Real.sqrt 2 * Real.sqrt 2 = 2 :=
+          Real.mul_self_sqrt (by norm_num : (0:ℝ) ≤ 2)
+        have h_rearr : (Real.sqrt 2)^5 =
+            (Real.sqrt 2 * Real.sqrt 2) * (Real.sqrt 2 * Real.sqrt 2) * Real.sqrt 2 := by ring
+        rw [h_rearr, h_sqrt_sq]
+        ring
+      rw [h_sqrt5]
+      rw [show Real.pi * (4 * Real.sqrt 2) * (2/3) = 8 * Real.pi * Real.sqrt 2 / 3 from
+        by ring]
+    rw [h_f2_eq]
+    have h_cos_strict := cos_eight_pi_sqrt2_div_three_ge_half
+    have h_pow_eq : (a : ℝ)^(-5 : ℤ) = 1/a^5 := by
+      rw [show (-5 : ℤ) = -((5 : ℕ) : ℤ) from rfl]
+      rw [zpow_neg, zpow_natCast]
+      exact (one_div _).symm
+    rw [h_pow_eq]
+    have h_target : (1/a^5 : ℝ) * (1/2) = 1/(2 * a^5) := by ring
+    rw [← h_target]
+    have h_pos : (0 : ℝ) < 1/a^5 := by positivity
+    exact mul_le_mul_of_nonneg_left h_cos_strict h_pos.le
+  -- Tail bound: ∑' n, f (n+3) ≥ -1/(a^5(a²-1))
+  have h_tail_bound : -(1 / (a^5 * (a^2 - 1))) ≤ ∑' n, f (n+3) := by
+    have h_pointwise : ∀ n : ℕ, -((1/a^7 : ℝ) * (1/a^2)^n) ≤ f (n+3) := by
+      intro n
+      show -((1/a^7 : ℝ) * (1/a^2)^n) ≤
+        (a : ℝ)^(-(2 * (n+3) + 1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*(n+3)+1) * (2/3))
+      have h_pow_eq : (a : ℝ)^(-(2 * (n+3) + 1 : ℤ)) = (1/a^7) * (1/a^2)^n := by
+        rw [show (-(2 * (n+3) + 1 : ℤ)) = -(((2*n+7) : ℕ) : ℤ) from by
+          push_cast; ring]
+        rw [zpow_neg, zpow_natCast]
+        rw [show (2*n+7 : ℕ) = 7 + 2*n from by ring]
+        rw [pow_add, pow_mul]
+        have h_a_ne : a ≠ 0 := ne_of_gt ha_pos
+        have h_a_sq_ne : (a^2 : ℝ) ≠ 0 := ne_of_gt ha_sq_pos
+        field_simp
+        rw [← mul_pow]
+        rw [show (a^2 : ℝ) * (1/a^2) = 1 from by field_simp]
+        rw [one_pow]
+      rw [h_pow_eq]
+      have h_pos : (0 : ℝ) ≤ (1/a^7 : ℝ) * (1/a^2)^n := by positivity
+      have h_cos_ge := Real.neg_one_le_cos
+        (Real.pi * (Real.sqrt 2)^(2*(n+3)+1) * (2/3))
+      calc -((1/a^7 : ℝ) * (1/a^2)^n)
+          = ((1/a^7 : ℝ) * (1/a^2)^n) * (-1) := by ring
+        _ ≤ ((1/a^7 : ℝ) * (1/a^2)^n) *
+              Real.cos (Real.pi * (Real.sqrt 2)^(2*(n+3)+1) * (2/3)) :=
+            mul_le_mul_of_nonneg_left h_cos_ge h_pos
+    have h_g_summable : Summable (fun n : ℕ => -((1/a^7 : ℝ) * (1/a^2)^n)) := by
+      apply Summable.neg
+      exact (summable_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt).mul_left _
+    have h_f_shift_summable : Summable (fun n : ℕ => f (n+3)) :=
+      (summable_nat_add_iff 3).mpr h_summable
+    have h_tsum_le :=
+      Summable.tsum_le_tsum h_pointwise h_g_summable h_f_shift_summable
+    apply le_trans _ h_tsum_le
+    rw [show (fun n : ℕ => -((1/a^7 : ℝ) * (1/a^2)^n)) =
+            (fun n : ℕ => (-(1/a^7 : ℝ)) * (1/a^2)^n) from by
+      funext n; ring]
+    rw [tsum_mul_left, tsum_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt]
+    have h_a_sq_pos_ne : (a^2 : ℝ) ≠ 0 := ne_of_gt ha_sq_pos
+    have h_target : -(1 / (a^5 * (a^2 - 1))) = -(1/a^7 : ℝ) * (1 - 1/a^2)⁻¹ := by
+      have h_inv_eq : (1 - 1/a^2 : ℝ)⁻¹ = a^2 / (a^2 - 1) := by
+        rw [show (1 - 1/a^2 : ℝ) = (a^2 - 1)/a^2 from by field_simp]
+        rw [inv_div]
+      rw [h_inv_eq]
+      field_simp
+    linarith [h_target]
+  have h_combined : -1/a + 1/(2*a^3) + 1/(2*a^5) + (-(1/(a^5 * (a^2 - 1)))) ≤
+                    f 0 + f 1 + f 2 + ∑' n, f (n+3) := by
+    linarith
+  have h_alg : -(1/a) + 1/(2 * a^3) + 1/(2 * a^5) - 1/(a^5 * (a^2 - 1)) =
+               -1/a + 1/(2 * a^3) + 1/(2 * a^5) + (-(1/(a^5 * (a^2 - 1)))) := by ring
+  rw [h_alg, ← h_split_aux]
+  exact h_combined
+
+/-- **★★★★★ Three-term lower bound on V_P at α=√2, a=2: V_P ≥ -211/192 ★★★★★**
+    (axiom-free, EXPLICIT NUMERICAL LOWER BOUND):
+
+      `V_P(α=√2, 2, 1/6, 5/6) ≥ -211/192 ≈ -1.099`
+
+    Refinement adding f(2) ≥ 1/64 (from `cos(8π√2/3) ≥ 1/2`). At a=2:
+    * even subseries = -2/3 = -128/192
+    * f(0) ≥ -1/2 = -96/192
+    * f(1) ≥ 1/16 = 12/192
+    * f(2) ≥ 1/64 = 3/192
+    * tail from m=3 ≥ -1/96 = -2/192
+    Total: V_P ≥ (-128 - 96 + 12 + 3 - 2)/192 = -211/192.
+
+    Tighter than -55/48 = -220/192 from the prior two-term bound. -/
+theorem fractalKernelReal_sqrt2_two_thirds_at_two_lower_super :
+    -(211/192 : ℝ) ≤
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) := by
+  rw [fractalKernelReal_at_one_sixth_five_sixths_eq]
+  rw [kernel_series_sqrt2_two_thirds_split (by norm_num : (1:ℝ) < 2)]
+  have h_odd_lower := odd_subseries_sqrt2_two_thirds_lower_super
+    (by norm_num : (1:ℝ) < 2)
+  have h_even_at_two : -((2:ℝ)^2 / (2 * (2^2 - 1))) = -(2/3) := by norm_num
+  rw [h_even_at_two]
+  -- bound at a=2: -1/2 + 1/16 + 1/64 - 1/96 = -83/192
+  -- total V_P bound: -2/3 + (-83/192) = -128/192 - 83/192 = -211/192
+  have h_bound_at_two : -((1:ℝ)/2) + 1/(2 * 2^3) + 1/(2 * 2^5) - 1/(2^5 * (2^2 - 1)) =
+                        -(83/192) := by norm_num
   linarith [h_bound_at_two ▸ h_odd_lower]
 
 /-! ## ★★★★ SHARPER STRICT cos bound → SHARPER V_P at α=√2 ★★★★ -/
