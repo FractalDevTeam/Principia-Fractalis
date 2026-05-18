@@ -459,4 +459,63 @@ theorem level1_spectrum_at_sqrt2_two_tight :
     have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(4/3)) = 5/3 := by norm_num
     linarith [heq ▸ hmU]
 
+/-! ## ★★★ EVEN TIGHTER Level-1 spectrum at α=√2, a=2 ★★★ -/
+
+/-- **★★★ EVEN TIGHTER V_P bracket at α=√2, a=2 ★★★** (axiom-free):
+
+      `V_P(α=√2, a=2, 1/6, 5/6) ∈ [−29/24, −1/2]`
+
+    Two-sided refinement: upper bound uses `cos(2π√2/3) ≤ 0` (m=0 sign);
+    lower bound additionally uses `cos(4π√2/3) ≥ 0` (m=1 sign) to
+    avoid the symmetric tail penalty at m=1. -/
+theorem fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_tighter :
+    -(29/24 : ℝ) ≤
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ∧
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ≤ -(1/2 : ℝ) :=
+  ⟨fractalKernelReal_sqrt2_two_thirds_at_two_lower_tight,
+   fractalKernelReal_sqrt2_two_thirds_at_two_upper_tight⟩
+
+/-- **★★★ EVEN TIGHTER Level-1 spectrum at α=√2, a=2 ★★★** (axiom-free):
+
+      `λ⁺^(1)(√2, 2) ∈ [19/48, 3/4]`
+      `λ⁻^(1)(√2, 2) ∈ [5/4, 77/48]`
+
+    Refinement using BOTH `cos(2π√2/3) ≤ 0` (m=0 sign, for upper)
+    AND `cos(4π√2/3) ≥ 0` (m=1 sign, for lower):
+    * λ⁺^(1) ≥ (2 + (-29/24))/2 = (48/24 - 29/24)/2 = 19/48 ≈ 0.396
+    * λ⁻^(1) ≤ (2 - (-29/24))/2 = (48/24 + 29/24)/2 = 77/48 ≈ 1.604
+
+    The manuscript's conjecture `λ_0 ≈ π/(10·√2) ≈ 0.222` lies STRICTLY
+    BELOW the tightened bracket `λ⁺^(1) ∈ [19/48, 3/4] = [0.396, 0.750]`
+    by a quantifiable amount. -/
+theorem level1_spectrum_at_sqrt2_two_tighter :
+    -- λ⁺^(1)(√2, 2) ∈ [19/48, 3/4]
+    (19/48 : ℝ) ≤ lambdaPlusLevel1_sqrt2 2 ∧
+    lambdaPlusLevel1_sqrt2 2 ≤ 3/4 ∧
+    -- λ⁻^(1)(√2, 2) ∈ [5/4, 77/48]
+    (5/4 : ℝ) ≤ lambdaMinusLevel1_sqrt2 2 ∧
+    lambdaMinusLevel1_sqrt2 2 ≤ 77/48 := by
+  obtain ⟨h_low, h_high⟩ :=
+    fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_tighter
+  have h_spec := level1_spectrum_bracketing_from_V_P (α := Real.sqrt 2)
+                   (a := 2) (low := -(29/24)) (high := -(1/2))
+                   h_low h_high
+  obtain ⟨hpL, hpU, hmL, hmU⟩ := h_spec
+  unfold lambdaPlusLevel1_sqrt2 lambdaMinusLevel1_sqrt2
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · -- λ⁺ ≥ (1/2)(2/(2-1) + (-29/24)) = (1/2)(48/24 - 29/24) = (1/2)(19/24) = 19/48
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) + -(29/24)) = 19/48 := by norm_num
+    linarith [heq ▸ hpL]
+  · -- λ⁺ ≤ (1/2)(2/(2-1) + (-1/2)) = (1/2)(3/2) = 3/4
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) + -(1/2)) = 3/4 := by norm_num
+    linarith [heq ▸ hpU]
+  · -- λ⁻ ≥ (1/2)(2/(2-1) - (-1/2)) = (1/2)(5/2) = 5/4
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(1/2)) = 5/4 := by norm_num
+    linarith [heq ▸ hmL]
+  · -- λ⁻ ≤ (1/2)(2/(2-1) - (-29/24)) = (1/2)(48/24 + 29/24) = (1/2)(77/24) = 77/48
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(29/24)) = 77/48 := by norm_num
+    linarith [heq ▸ hmU]
+
 end PrincipiaTractalis.Analytic
