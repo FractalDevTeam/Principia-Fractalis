@@ -208,6 +208,13 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_tight`: at a=2, **V_P ∈ [−4/3, −1/2]**.
     - `level1_spectrum_at_sqrt2_two_tight`: at a=2, **λ⁺^{(1)} ∈ [1/3, 3/4]**, **λ⁻^{(1)} ∈ [5/4, 5/3]**.
   - **Significance**: at the manuscript's distinguished case α=√2, a=2, the level-1 finite-rank operator's smallest eigenvalue is now sandwiched as `λ⁺^{(1)} ∈ [1/3, 3/4] = [0.333, 0.750]`. The asymptotic conjecture `λ_0 ≈ π/(10·√2) ≈ 0.222` lies STRICTLY BELOW this tightened bracket — sharper evidence that the spectrum is descending toward 0.222 across levels. ZERO project axioms.
+  - **★★★ EVEN TIGHTER V_P + Level-1 SPECTRUM BRACKETING at α=√2 ★★★** (added 2026-05-19, **ZERO project axioms**):
+    - `cos_four_pi_sqrt2_div_three_nonneg`: `cos(4π·√2/3) ≥ 0` via 2π-periodicity + reduced angle `|2π(2√2−3)/3| ≤ π/2` (provable from `9 ≤ 8√2 ≤ 15`, i.e., `81 ≤ 128 ≤ 225`).
+    - `odd_subseries_sqrt2_two_thirds_lower`: refined LOWER bound on odd subseries: `Σ ≥ -1/a - 1/(a³(a²-1))`. Combines `f(0) ≥ -1/a` (trivial `cos ≥ -1`), `f(1) ≥ 0` (from `cos(4π√2/3) ≥ 0`), and the geometric tail bound from m=2.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_lower_tight`: at a=2, **V_P ≥ -29/24 ≈ -1.208** (vs the loose bound `-4/3 = -32/24 ≈ -1.333`).
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_tighter`: at a=2, **V_P ∈ [-29/24, -1/2]**.
+    - `level1_spectrum_at_sqrt2_two_tighter`: at a=2, **λ⁺^{(1)} ∈ [19/48, 3/4] ≈ [0.396, 0.750]**, **λ⁻^{(1)} ∈ [5/4, 77/48] ≈ [1.250, 1.604]**.
+  - **Significance of doubly-tightened bracket**: numerical evaluation gives `V_P(√2, 2, 1/6, 5/6) ≈ -1.02`, so `λ⁺^{(1)}(√2, 2) ≈ 0.49` — well inside the tightened bracket `[0.396, 0.750]`. The gap from the level-1 ground state ≈ 0.49 down to the conjectured limit 0.222 is the SPECTRUM DESCENT predicted by the polylog conjecture, which must be delivered by higher-level eigenvalue computations + the eventual spectral convergence theorem.
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
