@@ -215,6 +215,16 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_tighter`: at a=2, **V_P ∈ [-29/24, -1/2]**.
     - `level1_spectrum_at_sqrt2_two_tighter`: at a=2, **λ⁺^{(1)} ∈ [19/48, 3/4] ≈ [0.396, 0.750]**, **λ⁻^{(1)} ∈ [5/4, 77/48] ≈ [1.250, 1.604]**.
   - **Significance of doubly-tightened bracket**: numerical evaluation gives `V_P(√2, 2, 1/6, 5/6) ≈ -1.02`, so `λ⁺^{(1)}(√2, 2) ≈ 0.49` — well inside the tightened bracket `[0.396, 0.750]`. The gap from the level-1 ground state ≈ 0.49 down to the conjectured limit 0.222 is the SPECTRUM DESCENT predicted by the polylog conjecture, which must be delivered by higher-level eigenvalue computations + the eventual spectral convergence theorem.
+  - **★★★★ STRICTLY tightest V_P + Level-1 SPECTRUM BRACKETING at α=√2 ★★★★** (added 2026-05-19, **ZERO project axioms**):
+    - `cos_two_pi_sqrt2_div_three_le_neg_half`: `cos(2π·√2/3) ≤ -1/2` (STRICT, via `cos(π + y) = -cos(y)` with `|y| ≤ π/3` from `1 ≤ √2` + `Real.cos_pi_div_three = 1/2` + monotonicity).
+    - `cos_four_pi_sqrt2_div_three_ge_half`: `cos(4π·√2/3) ≥ 1/2` (STRICT, via 2π-periodicity with `|z| ≤ π/3` from `√2 ≥ 5/4`, i.e., `25 ≤ 32`).
+    - `odd_subseries_sqrt2_two_thirds_upper_strict`: `Σ ≤ -1/(2a) + 1/(a(a²-1))`.
+    - `odd_subseries_sqrt2_two_thirds_lower_strict`: `Σ ≥ -1/a + 1/(2a³) - 1/(a³(a²-1))`.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_upper_strict`: at a=2, **V_P ≤ -3/4 = -0.75**.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_lower_strict`: at a=2, **V_P ≥ -55/48 ≈ -1.146**.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_strict`: at a=2, **V_P ∈ [-55/48, -3/4]**.
+    - `level1_spectrum_at_sqrt2_two_strict`: at a=2, **λ⁺^{(1)} ∈ [41/96, 5/8] ≈ [0.427, 0.625]**, **λ⁻^{(1)} ∈ [11/8, 151/96] ≈ [1.375, 1.573]**.
+  - **Significance of strictly-tightest bracket**: bracket width on λ⁺^(1) reduced from 0.354 (prior) to 0.198 (~44% reduction). Numerical λ⁺^(1)(√2, 2) ≈ 0.49 sits comfortably inside `[0.427, 0.625]`. The conjectured asymptotic limit `π/(10·√2) ≈ 0.222` is BELOW the level-1 lower bound 41/96 ≈ 0.427 by a quantifiable gap — the spectrum descent across refinement levels remains the polylog conjecture's content.
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
