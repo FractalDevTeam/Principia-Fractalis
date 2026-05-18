@@ -161,6 +161,17 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `level2_spectral_radius_bound` (a > 1): all 4 eigenvalues `|λ| ≤ a/(a−1)`.
     - `level2_spectrum_bracketing` (a > 1): all 4 eigenvalues in `[−a/(a−1), a/(a−1)]`.
   - **Level-1 Frobenius identity** `level1_sumSq_identity`: `λ⁺² + λ⁻² = (1/2)·((a/(a−1))² + V_P²(1/6, 5/6))`.
+  - **★ Level-1 spectral theorem (complete) ★** (added 2026-05-17):
+    - `level1_const_eigenvec_norm`, `level1_alt_eigenvec_norm`, `level1_eigenvec_orthogonal`: the constant function `1` and the alternating function `level1_antisym_test` form an ORTHONORMAL BASIS of the test-function space under the L²(cantorDiscMeasure 1) inner product.
+    - `level1_eigenbasis_completeness`: every test function `f` is reproduced on the level-1 midpoints by the eigenbasis decomposition `f = c_sym · 1 + c_anti · alt` with `c_sym = (1/2)(f(1/6)+f(5/6))`, `c_anti = (1/2)(f(1/6)−f(5/6))`.
+    - `level1_spectral_action_at_{left,right}`: the operator acts DIAGONALLY on the eigenbasis: `(H_P^disc f)(1/6) = λ⁺ · c_sym + λ⁻ · c_anti`, `(H_P^disc f)(5/6) = λ⁺ · c_sym − λ⁻ · c_anti`.
+    - `level1_c_anti_lipschitz_bound`: for L-Lipschitz `f`, the anti-coefficient satisfies `|c_anti(f)| ≤ L/3` (matching the IFS contraction factor — spectral-level analog of the Banach-contraction shrinkage).
+    - **Together**: M^{(1)} is fully diagonalised in the orthonormal eigenbasis with eigenvalues `{λ⁺, λ⁻}` — the spectral theorem at the finite-rank discrete level.
+  - **★ Operator-theoretic foundations ★** (added 2026-05-17):
+    - `cantorKernel_symm`: V_P(x, y) = V_P(y, x).
+    - `H_P_at_disc_self_adjoint`: bilinear form symmetry `∫ (H_P f)·g dμ = ∫ f·(H_P g) dμ` via Fubini + kernel symmetry (axiom-free, requires `SFinite μ` + bilinear-integrand integrability hypothesis).
+    - `H_P_at_disc_add_func`, `H_P_at_disc_smul_func`: test-function linearity (additive + scalar).
+    - `abs_H_P_at_disc_level0_le`, `abs_H_P_at_disc_level1_le`: sup-norm operator-norm bounds `|H_P^disc f| ≤ M · a/(a−1)` at levels 0 and 1.
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
