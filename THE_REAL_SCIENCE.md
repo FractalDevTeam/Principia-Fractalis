@@ -21,6 +21,17 @@
 
 `P_neq_NP_via_spectral_gap : ClassP ≠ ClassNP` is proven in Lean conditional on **one** project axiom, `alpha_class_polylog_eigenvalue_conjecture`. That axiom is the formal encoding of three things the manuscript itself labels Conjecture or Heuristic (Ch 21 `conj:polylog-spectrum`, `heur:branch-selection`, `conj:golden-modulation`). The manuscript backs these with 10⁻¹⁰ numerical agreement, **not** with a proof. **Retiring this axiom is original mathematical research that has not been done — by anyone, including the manuscript's author.**
 
+**Phase A retirement infrastructure** (as of 2026-05-17, multi-arc work):
+
+* `PF/Analytic/` (50+ modules) — discrete + continuous operator framework attacking the polylog conjecture from two complementary directions:
+  - **L²([0, 1]) cosine/sine basis side** (`PolylogSpectrum.lean`, `KernelSelfSimilarity.lean`, `PolylogBoundary.lean`, `Polylog.lean`, `GammaHankel.lean`, `HankelCauchyCapstone.lean`, etc.): truncated operator T_k with closed-form matrix entries, Mercer rank-2-per-scale decomposition, Hilbert-Schmidt bound `‖H_P‖_HS ≤ a/(a−1)` (compactness ⟹ discrete spectrum), polylog Hankel identity for all `Re s > 0` (axiom-free), principal-branch sharp constraint disclosure.
+  - **Cantor-substrate matrix-entry side** (`FractalDomain.lean`, `Hutchinson.lean`, `CellMidpoint.lean`, `MatrixEntry.lean`, `Lipschitz.lean`, `SpectrumSqrt2.lean`): IFS contractions + Hutchinson operator + `cantorDiscMeasure n` discrete approximations + Banach-contraction analytic engine via `(1/3)^n` Lipschitz shrinkage. Discrete `2^n × 2^n` real symmetric matrix at every level n with explicit closed-form entries; level 0/1/2 fully diagonalised algebraically (trace, gap, det, sum-of-squares, conditional Sylvester PSD, eigenvalue ordering, IFS-reflection block decomposition).
+  - **Operator-theoretic foundation**: `H_P_at_disc_self_adjoint` (proven 2026-05-17) — kernel operator is self-adjoint via Fubini + kernel symmetry (axiom-free).
+
+* Cross-prover mirror: **10 Coq modules** (was 7) cover the headline reduction chain + Phase A foundational/spectral algebraic content (`Analytic/CantorIFS.v`, `Analytic/MatrixSpectrum.v`, `Analytic/MatrixSpectrumLevel2.v`), with the same 1-axiom state in both provers.
+
+Critical honest framing: **none of this proves the polylog conjecture**. The infrastructure provides the structured retirement path. The deep operator-theoretic content — actually deriving `λ_0(H_P^cantor[μ_H]) = π/(10·√2)` from the kernel structure on the physical Riemann sheet — is the GENUINELY OPEN mathematical problem (catalogued as Problems 1+2 in `OPEN_PROBLEMS.md`).
+
 ### Conditional reduction (4 hypotheses, 1 of them THE open problem) — Riemann Hypothesis
 
 `riemann_hypothesis_via_T3_sym_framework` is proven in Lean with **zero project axioms** — but as a **4-hypothesis** conditional. The fourth hypothesis, **surjectivity of the spectral bijection onto ζ-zeros**, is described in the Lean file itself (`PF/SpectralBijection.lean:574-576`) as *"the load-bearing conjecture of the entire RH program (det/trace-formula completion). This is the open mathematical problem."* The other three hypotheses are tractable engineering. **This is not a proof of RH. It is a mechanical reduction of RH to a named open problem.**
