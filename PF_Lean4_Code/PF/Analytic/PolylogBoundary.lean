@@ -878,4 +878,33 @@ This is the most concrete progress to date toward proving the polylog
 conjecture: V_P at α=√2 is now an EXPLICIT BRACKETED ALGEBRAIC INTERVAL,
 not an opaque transcendental. -/
 
+/-! ## ★ Full V_P bracketing at α = √2 (combining even + odd subseries) ★ -/
+
+/-- **Summability of the V_P kernel series at α = √2, distance 2/3**: the
+    series `Σ_k a^(-k)·cos(π·(√2)^k·2/3)` is absolutely summable for
+    `a > 1` (geometric majorant `(1/a)^k`). -/
+theorem summable_kernel_term_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
+    Summable (fun k : ℕ => (a : ℝ)^(-(k : ℤ)) *
+      Real.cos (Real.pi * (Real.sqrt 2)^k * (2/3))) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have h_inv_a_pos : (0 : ℝ) < 1/a := by positivity
+  have h_inv_a_lt : (1/a : ℝ) < 1 := by rw [div_lt_one ha_pos]; exact ha
+  have h_inv_a_nn : (0 : ℝ) ≤ 1/a := h_inv_a_pos.le
+  -- Bound |a^(-k) · cos(...)| ≤ a^(-k) = (1/a)^k
+  apply Summable.of_norm_bounded (g := fun k : ℕ => (1/a : ℝ)^k)
+    (summable_geometric_of_lt_one h_inv_a_nn h_inv_a_lt)
+  intro k
+  rw [Real.norm_eq_abs, abs_mul]
+  have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(k : ℤ)) := zpow_pos ha_pos _
+  rw [abs_of_pos h_pow_pos]
+  have h_cos_le : |Real.cos (Real.pi * (Real.sqrt 2)^k * (2/3))| ≤ 1 :=
+    Real.abs_cos_le_one _
+  have h_pow_eq : (a : ℝ)^(-(k : ℤ)) = (1/a)^k := by
+    rw [zpow_neg, zpow_natCast, one_div, inv_pow]
+  rw [h_pow_eq]
+  have h_inv_pow_pos : (0 : ℝ) < (1/a)^k := pow_pos h_inv_a_pos _
+  calc (1/a : ℝ)^k * |Real.cos (Real.pi * (Real.sqrt 2)^k * (2/3))|
+      ≤ (1/a)^k * 1 := mul_le_mul_of_nonneg_left h_cos_le h_inv_pow_pos.le
+    _ = (1/a)^k := mul_one _
+
 end PrincipiaTractalis.Analytic
