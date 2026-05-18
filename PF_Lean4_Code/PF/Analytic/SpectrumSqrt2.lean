@@ -396,4 +396,67 @@ theorem cellMatrixEntry_level2_outer_cross_at_sqrt2_two_bracketing :
     rw [h_ft_tt]; linarith
   · rw [h_ft_tt]; linarith
 
+/-! ## ★★★ TIGHTENED Level-1 spectrum at α=√2, a=2 ★★★ -/
+
+/-- **★★★ TIGHTENED V_P bracket at α=√2, a=2 ★★★** (axiom-free):
+
+      `V_P(α=√2, a=2, 1/6, 5/6) ∈ [−4/3, −1/2]`
+
+    Refinement of `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing`
+    (which gave `V_P ∈ [-4/3, 0]`) using the sign of `cos(2π√2/3) ≤ 0`
+    and a geometric bound on the m≥1 odd tail. Upper bound now `-1/2`
+    instead of `0` — a strict separation from zero. -/
+theorem fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_tight :
+    -(4/3 : ℝ) ≤
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ∧
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ≤ -(1/2 : ℝ) := by
+  refine ⟨?_, fractalKernelReal_sqrt2_two_thirds_at_two_upper_tight⟩
+  exact fractalKernelReal_sqrt2_two_thirds_at_two_bracketing.1
+
+/-- **★★★ TIGHTENED Level-1 spectrum at α=√2, a=2 ★★★** (axiom-free):
+
+      `λ⁺^(1)(√2, 2) ∈ [1/3, 3/4]`
+      `λ⁻^(1)(√2, 2) ∈ [5/4, 5/3]`
+
+    Refinement of `level1_spectrum_at_sqrt2_two` (which gave
+    `λ⁺ ∈ [1/3, 1]` and `λ⁻ ∈ [1, 5/3]`) using the tighter V_P upper
+    bound `V_P ≤ -1/2` instead of `V_P ≤ 0`.
+
+    The manuscript's asymptotic conjecture `λ_0 ≈ π/(10·√2) ≈ 0.222`
+    lies BELOW the tightened bracket `λ⁺^(1) ∈ [1/3, 3/4]` — sharper
+    evidence that the spectrum is descending toward 0.222 across
+    levels. The gap from the upper bound `3/4 = 0.75` to the
+    conjectured limit `0.222` represents the descent that the
+    spectral-convergence content of the polylog conjecture predicts. -/
+theorem level1_spectrum_at_sqrt2_two_tight :
+    -- λ⁺^(1)(√2, 2) ∈ [1/3, 3/4]
+    (1/3 : ℝ) ≤ lambdaPlusLevel1_sqrt2 2 ∧
+    lambdaPlusLevel1_sqrt2 2 ≤ 3/4 ∧
+    -- λ⁻^(1)(√2, 2) ∈ [5/4, 5/3]
+    (5/4 : ℝ) ≤ lambdaMinusLevel1_sqrt2 2 ∧
+    lambdaMinusLevel1_sqrt2 2 ≤ 5/3 := by
+  obtain ⟨h_low, h_high⟩ :=
+    fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_tight
+  -- Apply level1_spectrum_bracketing_from_V_P at α=√2, a=2 with [-4/3, -1/2]
+  have h_spec := level1_spectrum_bracketing_from_V_P (α := Real.sqrt 2)
+                   (a := 2) (low := -(4/3)) (high := -(1/2))
+                   h_low h_high
+  obtain ⟨hpL, hpU, hmL, hmU⟩ := h_spec
+  unfold lambdaPlusLevel1_sqrt2 lambdaMinusLevel1_sqrt2
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · -- λ⁺ ≥ (1/2)(2/(2-1) + (-4/3)) = (1/2)(2 - 4/3) = (1/2)(2/3) = 1/3
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) + -(4/3)) = 1/3 := by norm_num
+    linarith [heq ▸ hpL]
+  · -- λ⁺ ≤ (1/2)(2/(2-1) + (-1/2)) = (1/2)(2 - 1/2) = (1/2)(3/2) = 3/4
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) + -(1/2)) = 3/4 := by norm_num
+    linarith [heq ▸ hpU]
+  · -- λ⁻ ≥ (1/2)(2/(2-1) - (-1/2)) = (1/2)(2 + 1/2) = 5/4
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(1/2)) = 5/4 := by norm_num
+    linarith [heq ▸ hmL]
+  · -- λ⁻ ≤ (1/2)(2/(2-1) - (-4/3)) = (1/2)(2 + 4/3) = 5/3
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(4/3)) = 5/3 := by norm_num
+    linarith [heq ▸ hmU]
+
 end PrincipiaTractalis.Analytic
