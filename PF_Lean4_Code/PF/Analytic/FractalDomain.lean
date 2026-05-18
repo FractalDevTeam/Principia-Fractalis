@@ -375,6 +375,33 @@ theorem cantorKernel_symm (α a : ℝ) (x y : ℝ) :
   rw [hpswap] at h
   exact h.symm
 
+/-! ## ★ Substrate-level kernel bound (a > 1) ★ -/
+
+/-- **★ Substrate-level squared-kernel bound ★** (`a > 1`):
+
+      `(cantorKernel α a x y)² ≤ (a/(a−1))²`
+
+    The substrate-restricted kernel inherits the uniform pointwise
+    bound from the underlying `fractalKernelReal`. Integrating against
+    any probability measure (e.g., the Hutchinson measure `μ_H`) gives
+    the substrate L²-norm bound on the kernel, hence the Hilbert-Schmidt
+    norm bound on the substrate operator `H_P^cantor[μ_H]`. -/
+theorem sq_cantorKernel_le {α a : ℝ} (ha : 1 < a) (x y : ℝ) :
+    (cantorKernel α a x y)^2 ≤ (a / (a - 1))^2 := by
+  unfold cantorKernel
+  exact PrincipiaTractalis.IntegralKernel.sq_fractalKernelReal_le α a ha _
+
+/-- **★ Substrate-level absolute-value bound ★** (`a > 1`):
+
+      `|cantorKernel α a x y| ≤ a/(a−1)`
+
+    Direct consequence of `abs_fractalKernelReal_le`. The substrate
+    kernel is BOUNDED uniformly across `cantorSet × cantorSet`. -/
+theorem abs_cantorKernel_le {α a : ℝ} (ha : 1 < a) (x y : ℝ) :
+    |cantorKernel α a x y| ≤ a / (a - 1) := by
+  unfold cantorKernel
+  exact PrincipiaTractalis.IntegralKernel.abs_fractalKernelReal_le α ha _
+
 /-! ## Documentation: the H_P^cantor operator (conditional definition)
 
 Given a Hutchinson-invariant measure `μ` on `cantorSet`, the
