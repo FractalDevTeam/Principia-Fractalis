@@ -2027,6 +2027,45 @@ theorem level2_constant_reflection_symmetry {α a : ℝ} (ha : 1 < a) :
     rw [h1, h2, h3]
     ring
 
+/-! ## ★ Level-1 eigenvalue bracketing from V_P bracketing ★ -/
+
+/-- **★ Level-1 eigenvalue bracketing from V_P bracket ★** (`a > 1`):
+
+    For any `low ≤ V_P(α, a, 1/6, 5/6) ≤ high`, the level-1 eigenvalues
+    satisfy:
+
+      `(a/(a−1) + low)/2 ≤ λ⁺^{(1)} ≤ (a/(a−1) + high)/2`
+      `(a/(a−1) − high)/2 ≤ λ⁻^{(1)} ≤ (a/(a−1) − low)/2`
+
+    This is the CLEAN ALGEBRAIC PROPAGATION of any V_P kernel-value
+    bracket to the level-1 spectrum bracket.
+
+    Combined with `even_subseries_sqrt2_two_thirds` (exact) and
+    `abs_odd_subseries_sqrt2_two_thirds_le` (bounded), this gives the
+    level-1 eigenvalue brackets at α=√2 once the tsum even/odd split
+    is established: at `α = √2, a = 2`, `low = −4/3, high = 0`, so
+    `λ⁺ ∈ [1/3, 1], λ⁻ ∈ [1, 5/3]`. -/
+theorem level1_spectrum_bracketing_from_V_P {α a low high : ℝ}
+    (h_low : low ≤ fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ))
+    (h_high : fractalKernelReal α a ((1/6, 5/6) : ℝ × ℝ) ≤ high) :
+    (1/2) * (a/(a-1) + low) ≤ lambdaPlusLevel1 α a ∧
+    lambdaPlusLevel1 α a ≤ (1/2) * (a/(a-1) + high) ∧
+    (1/2) * (a/(a-1) - high) ≤ lambdaMinusLevel1 α a ∧
+    lambdaMinusLevel1 α a ≤ (1/2) * (a/(a-1) - low) := by
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · -- λ⁺ ≥ (a/(a-1) + low)/2 from V_P ≥ low
+    unfold lambdaPlusLevel1
+    linarith
+  · -- λ⁺ ≤ (a/(a-1) + high)/2 from V_P ≤ high
+    unfold lambdaPlusLevel1
+    linarith
+  · -- λ⁻ ≥ (a/(a-1) - high)/2 from V_P ≤ high
+    unfold lambdaMinusLevel1
+    linarith
+  · -- λ⁻ ≤ (a/(a-1) - low)/2 from V_P ≥ low
+    unfold lambdaMinusLevel1
+    linarith
+
 /-! ## ★ Level-2 distance structure ★ -/
 
 /-- **Level-2 distance** between cells `[false, false]` (midpoint `1/18`)
