@@ -232,6 +232,13 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_sharper`: at a=2, **V_P ∈ [-55/48, -1/2 - √3/4]**.
     - `level1_spectrum_at_sqrt2_two_sharper`: at a=2, **λ⁺^{(1)} ∈ [41/96, 3/4 - √3/8] ≈ [0.427, 0.534]**, **λ⁻^{(1)} ∈ [5/4 + √3/8, 151/96] ≈ [1.466, 1.573]**.
   - **Significance of sharpest bracket**: bracket width on λ⁺^(1) now `(3/4 - √3/8) - 41/96 ≈ 0.107` — cut nearly in half again from `0.198`. Total reduction from initial `0.667` (width of `[1/3, 1]`) to `0.107` is ~84%. Numerical λ⁺^(1) ≈ 0.49 is sandwiched in a tight interval of width 0.107 just below 0.49.
+  - **★★★★★★ THREE-TERM V_P + Level-1 SPECTRUM at α=√2 ★★★★★★** (added 2026-05-19, **ZERO project axioms**):
+    - `cos_eight_pi_sqrt2_div_three_ge_half`: `cos(8π·√2/3) ≥ 1/2` (m=2 STRICT, via 4π-periodicity + `|w| ≤ π/3` from `11 ≤ 8√2` i.e. `121 ≤ 128` + cos_pi_div_three).
+    - `odd_subseries_sqrt2_two_thirds_lower_super`: `Σ ≥ -1/a + 1/(2a³) + 1/(2a^5) - 1/(a^5(a²-1))`.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_lower_super`: at a=2, **V_P ≥ -211/192 ≈ -1.099**.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_super`: at a=2, **V_P ∈ [-211/192, -1/2 - √3/4]**.
+    - `level1_spectrum_at_sqrt2_two_super`: at a=2, **λ⁺^{(1)} ∈ [173/384, 3/4 - √3/8] ≈ [0.451, 0.534]**, **λ⁻^{(1)} ∈ [5/4 + √3/8, 595/384] ≈ [1.466, 1.549]**.
+  - **Significance of three-term bracket**: bracket width on λ⁺^(1) now `0.083`. Total reduction from initial `0.667` (width of `[1/3, 1]`) to `0.083` is **~88%**. The actual `λ⁺^(1) ≈ 0.49` is tightly sandwiched. Asymptotic limit `π/(10·√2) ≈ 0.222` is BELOW the level-1 lower bound `173/384 ≈ 0.451` by `0.229` (about half of the level-1 value).
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
