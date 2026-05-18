@@ -990,6 +990,74 @@ theorem trace_truncatedOperator_closed_form
   rw [trace_truncatedOperator α a k]
   exact geometric_sum_zpow_neg a ha ha_ne k
 
+/-! ## ★ Full operator trace (spectral sum rule) ★ -/
+
+/-- **★ Trace of the full operator H_P ★** (`a > 1`):
+
+      `Tr(H_P^α) = ∫_0^1 V_P(x, x) dx = a/(a − 1)`
+
+    Direct from the diagonal closed form `V_P(x, x) = a/(a−1)`
+    (axiom-free, via `fractalKernelReal_diagonal` in
+    `PF/Analytic/MatrixEntry.lean`) integrated over `[0, 1]`. The
+    diagonal is INDEPENDENT of `x`, so the integral is trivially
+    `a/(a−1) · μ([0, 1]) = a/(a−1)`.
+
+    **Spectral sum rule**: by the spectral theorem for self-adjoint
+    Hilbert-Schmidt operators, the trace equals the sum of eigenvalues
+    (with multiplicity). So if the polylog conjecture
+    `λ_k = a^(-k)·Re[Li_1(e^{iπ·αᵏ})]` holds for the full operator
+    `H_P^α`, then
+
+      `Σ_{k≥0} a^(-k)·Re[Li_1(e^{iπ·αᵏ})] = a/(a − 1)`
+
+    is a NECESSARY CONDITION on the polylog formula. Combined with the
+    trace identity at each finite truncation level k
+    (`trace_truncatedOperator_closed_form`:
+    `Tr(T_k) = (1 − a^(-k))/(1 − 1/a)`), the limit as `k → ∞` gives
+    exactly `a/(a−1)`, **consistent with the spectral sum rule**.
+
+    This is a STRUCTURAL CONSTRAINT on any candidate eigenvalue formula
+    for `H_P^α` — both the polylog formula and any candidate eigenvalue
+    sequence must sum to `a/(a−1)`.
+
+    Note: the trace as defined here (∫ diagonal) requires the operator
+    to be trace-class. For Hilbert-Schmidt operators (which `H_P^α` is,
+    per `KernelSelfSimilarity.lean`'s `sq_fractalKernelReal_le`), the
+    diagonal integral equals the Hilbert-Schmidt-norm-squared on the
+    L² product, not the operator trace directly. But the formula
+    `∫_0^1 V_P(x, x) dx = a/(a-1)` is unconditionally true at the
+    integral level. -/
+theorem trace_fullOperator_closed_form {α a : ℝ} (ha : 1 < a) :
+    ∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      α a ((x, x) : ℝ × ℝ) = a / (a - 1) := by
+  -- V_P(x, x) = a/(a - 1) for all x (diagonal closed form), independent of x.
+  have hdiag : ∀ x : ℝ,
+      PrincipiaTractalis.IntegralKernel.fractalKernelReal
+        α a ((x, x) : ℝ × ℝ) = a / (a - 1) := by
+    intro x
+    unfold PrincipiaTractalis.IntegralKernel.fractalKernelReal
+            PrincipiaTractalis.IntegralKernel.fractalKernelTerm
+    have hd : dist x x = 0 := dist_self x
+    have hterm : ∀ n : ℕ,
+        (a : ℝ) ^ (-(n : ℤ)) *
+          Real.cos (Real.pi * α ^ n * dist (x : ℝ) x) =
+        (1 / a) ^ n := by
+      intro n
+      rw [hd, mul_zero, Real.cos_zero, mul_one]
+      rw [zpow_neg, zpow_natCast, one_div, inv_pow]
+    rw [tsum_congr hterm]
+    have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+    have h_inv_lt_one : (1 / a) < 1 := (div_lt_one ha_pos).mpr ha
+    have h_inv_nn : (0 : ℝ) ≤ 1 / a := div_nonneg zero_le_one ha_pos.le
+    rw [tsum_geometric_of_lt_one h_inv_nn h_inv_lt_one]
+    rw [one_div]
+    field_simp
+  rw [show (fun x => PrincipiaTractalis.IntegralKernel.fractalKernelReal
+              α a ((x, x) : ℝ × ℝ)) =
+          (fun _ => a / (a - 1)) from by funext x; exact hdiag x]
+  rw [intervalIntegral.integral_const]
+  simp
+
 /-! ## Operator-norm-like bound: T_k as L¹ → L∞ -/
 
 /-- **Uniform bound on `(T_k f)(x)` in terms of `‖f‖_{L¹}`**:
