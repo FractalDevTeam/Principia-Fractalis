@@ -2185,6 +2185,35 @@ theorem cellMatrixEntry_level2_ff_tf_eq_half_level1 (a : ℝ) :
   rw [hkernel_eq]
   ring
 
+/-- **★ Cross-level identity: second outer-cross pair ★** (any `a`):
+
+      `M^{(2)}_{[ft], [tt]} = (1/2) · M^{(1)}_{[false], [true]}`
+
+    Same as `cellMatrixEntry_level2_ff_tf_eq_half_level1`, applied to
+    the OTHER level-2 outer-cross pair `(5/18, 17/18)` (distance 2/3).
+    The two level-2 outer-cross entries are EQUAL (by IFS reflection
+    symmetry, see `level2_outer_cross_equality`), and both equal half
+    the level-1 cross-cell entry. -/
+theorem cellMatrixEntry_level2_ft_tt_eq_half_level1 (a : ℝ) :
+    cellMatrixEntry (Real.sqrt 2) a 2 [false, true] [true, true] =
+    (1/2) * cellMatrixEntry (Real.sqrt 2) a 1 [false] [true] := by
+  unfold cellMatrixEntry cantorKernel
+  rw [cellMidpointOfBools_ft, cellMidpointOfBools_tt,
+      cellMidpointOfBools_false, cellMidpointOfBools_true]
+  have hkernel_eq : PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) a ((5/18, 17/18) : ℝ × ℝ) =
+      PrincipiaTractalis.IntegralKernel.fractalKernelReal
+        (Real.sqrt 2) a ((1/6, 5/6) : ℝ × ℝ) := by
+    unfold PrincipiaTractalis.IntegralKernel.fractalKernelReal
+            PrincipiaTractalis.IntegralKernel.fractalKernelTerm
+    apply tsum_congr; intro n
+    congr 1
+    have d1 : dist ((5/18 : ℝ)) (17/18) = 2/3 := by rw [Real.dist_eq]; norm_num
+    have d2 : dist ((1/6 : ℝ)) (5/6) = 2/3 := by rw [Real.dist_eq]; norm_num
+    rw [d1, d2]
+  rw [hkernel_eq]
+  ring
+
 /-! ## ★ Distance-parametrised matrix entry (general) ★ -/
 
 /-- **★ Matrix entry as a function of distance ★**:
