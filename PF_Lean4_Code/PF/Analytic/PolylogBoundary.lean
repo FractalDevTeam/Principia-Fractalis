@@ -1184,6 +1184,174 @@ HasSum.even_add_odd. Documented as a roadmap entry; the mathematics
 is concrete and tractable.
 -/
 
+/-! ## ★ Refined V_P upper bound via sign of first odd term ★
+
+The bound `cos(2π·√2/3) ≤ 0` (`cos_two_pi_sqrt2_div_three_nonpos`)
+gives the sign of the m=0 odd term. Splitting the odd subseries as
+
+  `Σ_{m≥0} f(m) = f(0) + Σ_{n≥0} f(n+1)`
+
+and using:
+* `f(0) = (1/a)·cos(2π√2/3) ≤ 0`     [from cos_two_pi_sqrt2_div_three_nonpos]
+* `|Σ_{n≥0} f(n+1)| ≤ Σ_{n≥0} a^(-(2n+3)) = 1/(a(a²-1))`
+
+we obtain a TIGHTER upper bound on the odd subseries:
+
+  `Σ_{m≥0} f(m) ≤ 0 + 1/(a(a²-1)) = 1/(a(a²-1))`
+
+(vs the loose `a/(a²-1)` previously used). Propagating to V_P:
+
+  `V_P ≤ -a²/(2(a²-1)) + 1/(a(a²-1)) = -(a³-2)/(2a(a²-1))`
+
+At a=2: `V_P ≤ -(8-2)/(2·2·3) = -1/2`  (vs current 0).
+-/
+
+/-- **★ Refined odd-subseries UPPER BOUND at α=√2, distance 2/3 ★**
+    (`a > 1`, axiom-free):
+
+      `Σ_{m≥0} a^(-(2m+1)) · cos(π·(√2)^(2m+1)·(2/3)) ≤ 1/(a(a²-1))`
+
+    Uses the SIGN of the m=0 term (`cos(2π√2/3) ≤ 0`) plus a
+    geometric bound on the m≥1 tail. This refines the symmetric
+    bound `|·| ≤ a/(a²-1)` from `abs_odd_subseries_sqrt2_two_thirds_le`. -/
+theorem odd_subseries_sqrt2_two_thirds_upper {a : ℝ} (ha : 1 < a) :
+    (∑' m : ℕ, (a : ℝ)^(-(2*m+1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))) ≤
+    1 / (a * (a^2 - 1)) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_pos : (0 : ℝ) < a^2 := by positivity
+  have ha_sq_gt_one : (1 : ℝ) < a^2 := by nlinarith
+  have ha_sq_minus_one_pos : (0 : ℝ) < a^2 - 1 := by linarith
+  have h_inv_sq_lt : (1/a^2 : ℝ) < 1 := by rw [div_lt_one ha_sq_pos]; linarith
+  have h_inv_sq_nn : (0 : ℝ) ≤ 1/a^2 := by positivity
+  set f : ℕ → ℝ := fun m => (a : ℝ)^(-(2*m+1 : ℤ)) *
+    Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3)) with hf_def
+  have h_summable : Summable f := summable_odd_kernel_term_sqrt2_two_thirds ha
+  -- Split: ∑' m, f m = f 0 + ∑' n, f (n+1)
+  have h_split : (∑' m, f m) = f 0 + ∑' n, f (n+1) :=
+    h_summable.tsum_eq_zero_add
+  rw [h_split]
+  -- f 0 ≤ 0
+  have h_f0_nonpos : f 0 ≤ 0 := by
+    have h_f0_eq : f 0 = a⁻¹ * Real.cos (2 * Real.pi * Real.sqrt 2 / 3) := by
+      show (a : ℝ)^(-(2 * ((0 : ℕ) : ℤ) + 1)) *
+          Real.cos (Real.pi * (Real.sqrt 2)^(2*0+1) * (2/3))
+          = a⁻¹ * Real.cos (2 * Real.pi * Real.sqrt 2 / 3)
+      have h_exp : (-(2 * ((0 : ℕ) : ℤ) + 1)) = -1 := by push_cast
+      rw [h_exp, zpow_neg_one]
+      have h_sqrt_pow : (Real.sqrt 2 : ℝ)^(2 * 0 + 1) = Real.sqrt 2 := by
+        norm_num
+      rw [h_sqrt_pow]
+      rw [show Real.pi * Real.sqrt 2 * (2/3) = 2 * Real.pi * Real.sqrt 2 / 3 from
+        by ring]
+    rw [h_f0_eq]
+    have h_cos_nonpos := cos_two_pi_sqrt2_div_three_nonpos
+    have h_inv_pos : (0 : ℝ) < a⁻¹ := inv_pos.mpr ha_pos
+    exact mul_nonpos_of_nonneg_of_nonpos h_inv_pos.le h_cos_nonpos
+  -- Tail bound: ∑' n, f (n+1) ≤ 1/(a(a²-1))
+  have h_tail_bound : (∑' n, f (n+1)) ≤ 1 / (a * (a^2 - 1)) := by
+    -- pointwise bound: f(n+1) ≤ (1/a^3)·(1/a²)^n
+    have h_pointwise : ∀ n : ℕ, f (n+1) ≤ (1/a^3 : ℝ) * (1/a^2)^n := by
+      intro n
+      show (a : ℝ)^(-(2 * (n+1) + 1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*(n+1)+1) * (2/3)) ≤
+        (1/a^3 : ℝ) * (1/a^2)^n
+      have h_pow_eq : (a : ℝ)^(-(2 * (n+1) + 1 : ℤ)) = (1/a^3) * (1/a^2)^n := by
+        rw [show (-(2 * (n+1) + 1 : ℤ)) = -(((2*n+3) : ℕ) : ℤ) from by
+          push_cast; ring]
+        rw [zpow_neg, zpow_natCast]
+        rw [show (2*n+3 : ℕ) = 3 + 2*n from by ring]
+        rw [pow_add, pow_mul]
+        have h_a_ne : a ≠ 0 := ne_of_gt ha_pos
+        have h_a_sq_ne : (a^2 : ℝ) ≠ 0 := ne_of_gt ha_sq_pos
+        field_simp
+        rw [← mul_pow]
+        rw [show (a^2 : ℝ) * (1/a^2) = 1 from by field_simp]
+        rw [one_pow]
+      rw [h_pow_eq]
+      have h_pos : (0 : ℝ) ≤ (1/a^3 : ℝ) * (1/a^2)^n := by positivity
+      have h_cos_abs := Real.abs_cos_le_one
+        (Real.pi * (Real.sqrt 2)^(2*(n+1)+1) * (2/3))
+      calc (1/a^3 : ℝ) * (1/a^2)^n *
+              Real.cos (Real.pi * (Real.sqrt 2)^(2*(n+1)+1) * (2/3))
+          ≤ (1/a^3 : ℝ) * (1/a^2)^n *
+              |Real.cos (Real.pi * (Real.sqrt 2)^(2*(n+1)+1) * (2/3))| :=
+            mul_le_mul_of_nonneg_left (le_abs_self _) h_pos
+        _ ≤ (1/a^3 : ℝ) * (1/a^2)^n * 1 :=
+            mul_le_mul_of_nonneg_left h_cos_abs h_pos
+        _ = (1/a^3 : ℝ) * (1/a^2)^n := mul_one _
+    -- summability of the geometric majorant
+    have h_g_summable : Summable (fun n : ℕ => (1/a^3 : ℝ) * (1/a^2)^n) :=
+      (summable_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt).mul_left _
+    -- summability of the shifted sequence
+    have h_f_shift_summable : Summable (fun n : ℕ => f (n+1)) :=
+      (summable_nat_add_iff 1).mpr h_summable
+    have h_tsum_le :=
+      Summable.tsum_le_tsum h_pointwise h_f_shift_summable h_g_summable
+    apply le_trans h_tsum_le
+    rw [tsum_mul_left, tsum_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt]
+    -- (1/a³) · (1 - 1/a²)⁻¹ = 1/(a(a²-1))
+    have h_a_ne : a ≠ 0 := ne_of_gt ha_pos
+    have h_a_sq_ne : a^2 - 1 ≠ 0 := by linarith
+    have h_a_sq_pos_ne : (a^2 : ℝ) ≠ 0 := ne_of_gt ha_sq_pos
+    have h_target : 1 / (a * (a^2 - 1)) = (1/a^3 : ℝ) * (1 - 1/a^2)⁻¹ := by
+      have h_inv_eq : (1 - 1/a^2 : ℝ)⁻¹ = a^2 / (a^2 - 1) := by
+        rw [show (1 - 1/a^2 : ℝ) = (a^2 - 1)/a^2 from by field_simp]
+        rw [inv_div]
+      rw [h_inv_eq]
+      field_simp
+    linarith [h_target]
+  linarith
+
+/-- **★★ TIGHTENED V_P UPPER BOUND at α=√2 ★★** (`a > 1`, axiom-free):
+
+      `V_P(α=√2, a, 1/6, 5/6) ≤ -(a³ - 2) / (2 · a · (a²-1))`
+
+    At `a = 2`: `V_P ≤ -1/2` (vs the previous `≤ 0` bound).
+
+    Combines the EXACT even subseries value `-a²/(2(a²-1))` with the
+    REFINED odd subseries upper bound `1/(a(a²-1))` from
+    `odd_subseries_sqrt2_two_thirds_upper`. -/
+theorem fractalKernelReal_sqrt2_two_thirds_upper_tight {a : ℝ} (ha : 1 < a) :
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) a ((1/6, 5/6) : ℝ × ℝ) ≤
+    -((a^3 - 2) / (2 * a * (a^2 - 1))) := by
+  rw [fractalKernelReal_at_one_sixth_five_sixths_eq]
+  rw [kernel_series_sqrt2_two_thirds_split ha]
+  have h_odd_upper := odd_subseries_sqrt2_two_thirds_upper ha
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_gt : (1 : ℝ) < a^2 := by nlinarith
+  have ha_sq_minus_one_pos : (0 : ℝ) < a^2 - 1 := by linarith
+  -- Goal: -(a²/(2(a²-1))) + odd ≤ -(a³-2)/(2a(a²-1))
+  -- equivalent to odd ≤ -(a³-2)/(2a(a²-1)) + a²/(2(a²-1))
+  --                   = -(a³-2)/(2a(a²-1)) + a³/(2a(a²-1))
+  --                   = 2/(2a(a²-1)) = 1/(a(a²-1))  ✓
+  have h_alg : -((a^3 - 2) / (2 * a * (a^2 - 1))) =
+               -(a^2 / (2 * (a^2 - 1))) + 1/(a * (a^2 - 1)) := by
+    have h_ne1 : (a^2 - 1 : ℝ) ≠ 0 := by linarith
+    have h_ne2 : a ≠ 0 := ne_of_gt ha_pos
+    field_simp
+    ring
+  rw [h_alg]
+  linarith
+
+/-- **★★ TIGHTENED V_P UPPER BOUND at α=√2, a=2: V_P ≤ -1/2 ★★**
+    (axiom-free, EXPLICIT NUMERICAL UPPER BOUND):
+
+      `V_P(α=√2, 2, 1/6, 5/6) ≤ -1/2`
+
+    Direct numerical specialization of
+    `fractalKernelReal_sqrt2_two_thirds_upper_tight` at a=2. -/
+theorem fractalKernelReal_sqrt2_two_thirds_at_two_upper_tight :
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ≤ -(1/2 : ℝ) := by
+  have h := fractalKernelReal_sqrt2_two_thirds_upper_tight
+    (by norm_num : (1 : ℝ) < 2)
+  -- at a=2: -((8 - 2)/(2·2·3)) = -6/12 = -1/2
+  have h_eq : -(((2:ℝ)^3 - 2) / (2 * 2 * ((2:ℝ)^2 - 1))) = -(1/2 : ℝ) := by
+    norm_num
+  linarith [h_eq ▸ h]
+
 /-! ## Documentation: full V_P bracketing pending HasSum.even_add_odd combination
 
 The technical pieces are all in place:
@@ -1201,8 +1369,11 @@ The mathematical content stands:
 * V_P(α=√2, a, 1/6, 5/6) = -a²/(2(a²-1)) + r(a)
 * |r(a)| ≤ a/(a²-1)
 * V_P ∈ [-(a²+2a)/(2(a²-1)), -(a²-2a)/(2(a²-1))]
-* At a=2: V_P ∈ [-4/3, 0]
-* Level-1 spectrum at α=√2, a=2: λ⁺ ∈ [1/3, 1], λ⁻ ∈ [1, 5/3]
+* At a=2: V_P ∈ [-4/3, 0]                         [symmetric bound]
+* At a=2: V_P ∈ [-4/3, -1/2]                      [refined upper bound]
+* Level-1 spectrum at α=√2, a=2:
+   - With symmetric bound: λ⁺ ∈ [1/3, 1], λ⁻ ∈ [1, 5/3]
+   - With refined upper bound: λ⁺ ∈ [1/3, 3/4], λ⁻ ∈ [5/4, 5/3]
 -/
 
 end PrincipiaTractalis.Analytic

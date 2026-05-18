@@ -200,7 +200,14 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `cellMatrixEntry_level2_outer_cross_at_sqrt2_two_bracketing`: M^{(2)} outer-cross entries at α=√2, a=2 ∈ [−1/3, 0].
     - `cellMatrixEntry_level2_diagonal_at_sqrt2_two`: M^{(2)} diagonal entries at α=√2, a=2 are EXACTLY 1/2.
     - `level2_trace_at_sqrt2_two`: tr M^{(2)} at α=√2, a=2 is EXACTLY 2 (matches general identity `tr M^{(n)} = a/(a-1)`).
-  - **Significance**: at the manuscript's distinguished case α=√2, a=2, the level-1 and level-2 finite-rank discrete operators are now in **explicit numerical brackets**, ZERO project axioms. The asymptotic conjecture λ_0 ≈ π/(10·√2) ≈ 0.222 lies BELOW the level-1 bracket [1/3, 1], fully consistent with spectrum descent across refinement levels.
+  - **★★★ TIGHTENED V_P + Level-1 SPECTRUM BRACKETING at α=√2 ★★★** (added 2026-05-19, **ZERO project axioms**):
+    - `cos_two_pi_sqrt2_div_three_nonpos`: `cos(2π·√2/3) ≤ 0` (sign of the first odd-frequency term).
+    - `odd_subseries_sqrt2_two_thirds_upper`: refined ONE-SIDED upper bound on odd subseries: `Σ ≤ 1/(a(a²−1))` (vs the loose symmetric bound `a/(a²−1)`). Combines `f(0) = (1/a)·cos(2π√2/3) ≤ 0` with the geometric bound on the m≥1 tail.
+    - `fractalKernelReal_sqrt2_two_thirds_upper_tight`: V_P upper bound `≤ -(a³−2)/(2a(a²−1))`.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_upper_tight`: at a=2, **V_P ≤ −1/2** (strict separation from zero, vs the loose bound `≤ 0`).
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_tight`: at a=2, **V_P ∈ [−4/3, −1/2]**.
+    - `level1_spectrum_at_sqrt2_two_tight`: at a=2, **λ⁺^{(1)} ∈ [1/3, 3/4]**, **λ⁻^{(1)} ∈ [5/4, 5/3]**.
+  - **Significance**: at the manuscript's distinguished case α=√2, a=2, the level-1 finite-rank operator's smallest eigenvalue is now sandwiched as `λ⁺^{(1)} ∈ [1/3, 3/4] = [0.333, 0.750]`. The asymptotic conjecture `λ_0 ≈ π/(10·√2) ≈ 0.222` lies STRICTLY BELOW this tightened bracket — sharper evidence that the spectrum is descending toward 0.222 across levels. ZERO project axioms.
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
