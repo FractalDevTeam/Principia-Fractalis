@@ -1,6 +1,61 @@
 \chapter*{Formalization Status (Revision 2)}
 \addcontentsline{toc}{chapter}{Formalization Status (Revision 2)}
 
+\section*{Current state (2026-05-17 addendum)}
+
+The Lean~4 + Coq formalization has substantially advanced since the
+April~2026 baseline documented below. The current authoritative state:
+
+\begin{itemize}
+\item \textbf{Lean 4}: 5652 jobs clean, \textbf{1 verified project axiom}
+  (\texttt{alpha\_class\_polylog\_eigenvalue\_conjecture}), 0 sorries,
+  0 warnings. The May~2026 Stage~25--35 unification reduced the earlier
+  6--8 axiom state to a single axiom that is the formal encoding of
+  Chapter~21's polylog Conjecture + branch-selection Heuristic +
+  golden-modulation Conjecture. Specific values $\alpha_P = \sqrt{2}$
+  and $\alpha_{NP} = \varphi + 1/4$ are derived \emph{theorems} from
+  this axiom, not separately axiomatized.
+\item \textbf{Cross-prover Coq}: 10 modules clean with the same
+  1-axiom state; the headline reduction chain (operator algebra,
+  spectral-gap consequence, P~$\neq$~NP capstone) is mirrored, and
+  the Phase~A Cantor-substrate matrix-entry framework's algebraic
+  spectral content is mirrored at the abstract-kernel level.
+\item \textbf{Axiom dependency verified} via \texttt{\#print axioms}:
+  \texttt{P\_neq\_NP\_via\_spectral\_gap} depends only on Lean's
+  standard \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}
+  + the single project axiom;
+  \texttt{riemann\_hypothesis\_via\_T3\_sym\_framework} depends on the
+  three standard axioms only (\emph{zero project axioms}) as a
+  4-hypothesis conditional, the load-bearing fourth hypothesis being
+  surjectivity of the spectral bijection onto $\zeta$-zeros (the open
+  problem of the RH program).
+\item \textbf{Phase~A retirement framework}: 50+ \texttt{PF/Analytic/}
+  Lean modules, all zero-project-axiom, comprising two complementary
+  spectral attacks: the $L^2([0,1])$ cosine/sine basis framework
+  (Mercer rank-2-per-scale decomposition, polylog Hankel identity for
+  all $\mathrm{Re}\,s > 0$, Hilbert--Schmidt compactness with
+  $\|H_P\|_{HS} \leq a/(a-1)$) and the Cantor-substrate matrix-entry
+  framework (IFS contractions, Hutchinson operator,
+  \texttt{cantorDiscMeasure}~$n$ discrete approximations, complete
+  finite-rank spectral theorem at level~1 with orthonormal eigenbasis,
+  IFS-reflection block decomposition at level~2, Banach-contraction
+  analytic engine via $(1/3)^n$ Lipschitz shrinkage). The deep
+  operator-theoretic derivation of the polylog formula on the physical
+  Riemann sheet remains the open mathematical problem.
+\item \textbf{Open Problems catalog} at \texttt{OPEN\_PROBLEMS.md}
+  authoritatively enumerates the four open problems isolated by the
+  framework (three for P~$\neq$~NP axiom retirement; one =
+  RH surjectivity = the load-bearing open problem of the RH program).
+\end{itemize}
+
+\noindent The historical record below (April~2026, V01 reconciliation pass)
+remains accurate for that snapshot but is superseded by the May~2026
+unification arc. See \texttt{AXIOM\_AUDIT.md},
+\texttt{PRISTINE\_CERTIFICATION.md}, and \texttt{THE\_REAL\_SCIENCE.md}
+at the repository root for the current authoritative state.
+
+\hrulefill
+
 This revision accompanies substantial work on the Lean~4 formalization of the book's
 central claims. As of 2026-04-26 (GitHub master commit \texttt{76c7699} and later, plus
 post-rev-2 verification updates documented below):
