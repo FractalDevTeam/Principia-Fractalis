@@ -484,6 +484,40 @@ theorem H_P_at_disc_dirac (α a : ℝ) (z : ℝ) (f : ℝ → ℝ) (x : ℝ) :
   unfold H_P_at_disc
   exact MeasureTheory.integral_dirac _ z
 
+/-- **★ H_P^disc is additive in `f` ★** (with integrability hypotheses):
+
+      `H_P^disc[μ] (f + g) (x) = H_P^disc[μ] f (x) + H_P^disc[μ] g (x)`
+
+    Test-function additivity — basic linearity property of the kernel
+    operator. Required for spectral-theory eigenvector identification
+    (linear combinations of eigenvectors are eigenvectors of the
+    corresponding multiples). -/
+theorem H_P_at_disc_add_func (α a : ℝ) (μ : MeasureTheory.Measure ℝ)
+    (f g : ℝ → ℝ) (x : ℝ)
+    (hf : MeasureTheory.Integrable (fun y => cantorKernel α a x y * f y) μ)
+    (hg : MeasureTheory.Integrable (fun y => cantorKernel α a x y * g y) μ) :
+    H_P_at_disc α a μ (f + g) x =
+    H_P_at_disc α a μ f x + H_P_at_disc α a μ g x := by
+  unfold H_P_at_disc
+  rw [show (fun y => cantorKernel α a x y * (f + g) y) =
+        (fun y => cantorKernel α a x y * f y + cantorKernel α a x y * g y)
+      from by funext y; show cantorKernel α a x y * (f y + g y) = _; ring]
+  exact MeasureTheory.integral_add hf hg
+
+/-- **★ H_P^disc is scalar-linear in `f` ★**:
+
+      `H_P^disc[μ] (c • f) (x) = c · H_P^disc[μ] f (x)`
+
+    Test-function scalar linearity. -/
+theorem H_P_at_disc_smul_func (α a c : ℝ) (μ : MeasureTheory.Measure ℝ)
+    (f : ℝ → ℝ) (x : ℝ) :
+    H_P_at_disc α a μ (c • f) x = c * H_P_at_disc α a μ f x := by
+  unfold H_P_at_disc
+  rw [show (fun y => cantorKernel α a x y * (c • f) y) =
+        (fun y => c * (cantorKernel α a x y * f y))
+      from by funext y; show cantorKernel α a x y * (c * f y) = _; ring]
+  exact MeasureTheory.integral_const_mul c _
+
 /-- **Level-0 explicit action**:
 
       `(H_P^disc[cantorDiscMeasure 0] f)(x) = V_P(x, 1/2) · f(1/2)`. -/
