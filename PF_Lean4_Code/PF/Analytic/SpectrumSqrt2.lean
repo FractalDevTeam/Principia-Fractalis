@@ -574,4 +574,59 @@ theorem level1_spectrum_at_sqrt2_two_strict :
   · have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(55/48)) = 151/96 := by norm_num
     linarith [heq ▸ hmU]
 
+/-! ## ★★★★★ SHARPER Level-1 spectrum at α=√2, a=2 (with √3 bound) ★★★★★ -/
+
+/-- **★★★★★ SHARPER V_P bracket at α=√2, a=2 (with √3) ★★★★★** (axiom-free):
+
+      `V_P(α=√2, a=2, 1/6, 5/6) ∈ [−55/48, −1/2 − √3/4]`
+
+    Upper bound uses sharper `cos(2π√2/3) ≤ -√3/2` (from
+    `cos_two_pi_sqrt2_div_three_le_neg_sqrt3_half`); lower bound is
+    the previous strict bound `-55/48`. -/
+theorem fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_sharper :
+    -(55/48 : ℝ) ≤
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ∧
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) 2 ((1/6, 5/6) : ℝ × ℝ) ≤ -(1/2 : ℝ) - Real.sqrt 3 / 4 :=
+  ⟨fractalKernelReal_sqrt2_two_thirds_at_two_lower_strict,
+   fractalKernelReal_sqrt2_two_thirds_at_two_upper_sharper⟩
+
+/-- **★★★★★ SHARPER Level-1 spectrum at α=√2, a=2 (with √3) ★★★★★** (axiom-free):
+
+      `λ⁺^(1)(√2, 2) ∈ [41/96, 3/4 − √3/8] ≈ [0.427, 0.534]`
+      `λ⁻^(1)(√2, 2) ∈ [5/4 + √3/8, 151/96] ≈ [1.466, 1.573]`
+
+    The bracket width on `λ⁺^(1)` is now `(3/4 − √3/8) − 41/96
+    ≈ 0.534 − 0.427 = 0.107` — cut nearly in half again from `0.198`. -/
+theorem level1_spectrum_at_sqrt2_two_sharper :
+    -- λ⁺^(1) ∈ [41/96, 3/4 − √3/8]
+    (41/96 : ℝ) ≤ lambdaPlusLevel1_sqrt2 2 ∧
+    lambdaPlusLevel1_sqrt2 2 ≤ 3/4 - Real.sqrt 3 / 8 ∧
+    -- λ⁻^(1) ∈ [5/4 + √3/8, 151/96]
+    (5/4 + Real.sqrt 3 / 8 : ℝ) ≤ lambdaMinusLevel1_sqrt2 2 ∧
+    lambdaMinusLevel1_sqrt2 2 ≤ 151/96 := by
+  obtain ⟨h_low, h_high⟩ :=
+    fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_sharper
+  have h_spec := level1_spectrum_bracketing_from_V_P (α := Real.sqrt 2)
+                   (a := 2) (low := -(55/48)) (high := -(1/2 : ℝ) - Real.sqrt 3 / 4)
+                   h_low h_high
+  obtain ⟨hpL, hpU, hmL, hmU⟩ := h_spec
+  unfold lambdaPlusLevel1_sqrt2 lambdaMinusLevel1_sqrt2
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · -- λ⁺ ≥ (1/2)(2/(2-1) + (-55/48)) = 41/96
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) + -(55/48)) = 41/96 := by norm_num
+    linarith [heq ▸ hpL]
+  · -- λ⁺ ≤ (1/2)(2/(2-1) + (-1/2 - √3/4)) = (1/2)(3/2 - √3/4) = 3/4 - √3/8
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) + (-(1/2 : ℝ) - Real.sqrt 3 / 4)) =
+               3/4 - Real.sqrt 3 / 8 := by ring
+    linarith [heq ▸ hpU]
+  · -- λ⁻ ≥ (1/2)(2/(2-1) - (-1/2 - √3/4)) = (1/2)(5/2 + √3/4) = 5/4 + √3/8
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - (-(1/2 : ℝ) - Real.sqrt 3 / 4)) =
+               5/4 + Real.sqrt 3 / 8 := by ring
+    linarith [heq ▸ hmL]
+  · -- λ⁻ ≤ (1/2)(2/(2-1) - (-55/48)) = 151/96
+    have heq : (1/2 : ℝ) * (2/((2:ℝ) - 1) - -(55/48)) = 151/96 := by norm_num
+    linarith [heq ▸ hmU]
+
 end PrincipiaTractalis.Analytic
