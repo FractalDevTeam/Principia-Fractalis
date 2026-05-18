@@ -179,6 +179,12 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `trace_fullOperator_closed_form`: `∫₀¹ V_P(x, x) dx = a/(a-1)` — the SPECTRAL SUM RULE constraint that any candidate eigenvalue formula must satisfy.
     - `integral_cosine_pi_c`, `integral_sine_pi_c`, `integral_cosineMode_pow`, `integral_sineMode_pow`: closed-form first moments `∫ cos(πcx) dx = sin(πc)/(πc)`, etc. — foundational for variational eigenvalue computations on H_P^α.
     - Pending (documented roadmap): variational identity `⟨1, H_P^α · 1⟩` closed form; full Hilbert-Schmidt double-integral bound (requires parameter-continuity-of-integral lemma).
+  - **★★ MAJOR: First exact closed-form fragment of the polylog kernel sum at α = √2 ★★** (added 2026-05-18):
+    - `cos_two_pow_succ_pi_div_three`: `cos(π · 2^(m+1) / 3) = −1/2` for all `m ≥ 0` (induction + double-angle).
+    - `fractalKernel_even_term_sqrt2_two_thirds`: per-term identity at EVEN `k = 2m`: `a^(-(2m))·cos(π·(√2)^(2m)·2/3) = −1/(2·a^(2m))` — no transcendental.
+    - `even_subseries_sqrt2_two_thirds` (`a > 1`): **EXACT CLOSED FORM** for the even-frequency subseries:
+      $$\sum_{m\geq 0} a^{-2m}\cos\bigl(\pi\cdot(\sqrt{2})^{2m}\cdot\tfrac{2}{3}\bigr) = -\tfrac{a^{2}}{2(a^{2}-1)}.$$
+    - **Significance**: the polylog kernel sum `V_P(α=√2, a, 1/6, 5/6)` was previously treated as an opaque transcendental object. The even-frequency HALF is now in EXACT closed form (rational in `a`); only the odd-frequency subseries (with genuinely transcendental `cos(π · 2^m · √2 · 2/3)` factors) remains transcendental. **The conjectural transcendental sum is now demonstrably split into [exact rational] + [transcendental remainder]** — a concrete step pushing conjectural content toward the not-conjectural side.
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
