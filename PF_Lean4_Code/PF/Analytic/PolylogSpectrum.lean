@@ -1058,6 +1058,69 @@ theorem trace_fullOperator_closed_form {α a : ℝ} (ha : 1 < a) :
   rw [intervalIntegral.integral_const]
   simp
 
+/-! ## ★ Single-integral cosine/sine closed forms ★ -/
+
+/-- **Cosine integral closed form** on `[0, 1]`:
+
+      `∫_0^1 cos(π · c · x) dx = sin(π · c) / (π · c)` (for `c ≠ 0`)
+
+    The first moment of `cos(πcx)` over the unit interval. Foundational
+    for any variational / energy-functional computation on H_P^α with
+    constant or polynomial test functions. -/
+theorem integral_cosine_pi_c {c : ℝ} (hc : c ≠ 0) :
+    ∫ x in (0:ℝ)..1, Real.cos (Real.pi * c * x) =
+    Real.sin (Real.pi * c) / (Real.pi * c) := by
+  have hpi_c_ne : Real.pi * c ≠ 0 := mul_ne_zero Real.pi_ne_zero hc
+  rw [show (fun x => Real.cos (Real.pi * c * x)) =
+          (fun x => Real.cos ((Real.pi * c) * x)) from by funext; ring]
+  rw [intervalIntegral.integral_comp_mul_left _ hpi_c_ne]
+  rw [integral_cos]
+  rw [mul_zero, mul_one, Real.sin_zero, sub_zero, smul_eq_mul]
+  field_simp
+
+/-- **Sine integral closed form** on `[0, 1]`:
+
+      `∫_0^1 sin(π · c · x) dx = (1 − cos(π · c)) / (π · c)` (for `c ≠ 0`)
+
+    Companion to `integral_cosine_pi_c`. -/
+theorem integral_sine_pi_c {c : ℝ} (hc : c ≠ 0) :
+    ∫ x in (0:ℝ)..1, Real.sin (Real.pi * c * x) =
+    (1 - Real.cos (Real.pi * c)) / (Real.pi * c) := by
+  have hpi_c_ne : Real.pi * c ≠ 0 := mul_ne_zero Real.pi_ne_zero hc
+  rw [show (fun x => Real.sin (Real.pi * c * x)) =
+          (fun x => Real.sin ((Real.pi * c) * x)) from by funext; ring]
+  rw [intervalIntegral.integral_comp_mul_left _ hpi_c_ne]
+  rw [integral_sin]
+  -- (π*c)⁻¹ • (cos (π*c*0) - cos (π*c*1)) = (1 - cos (π*c)) / (π*c)
+  rw [mul_zero, mul_one, Real.cos_zero, smul_eq_mul]
+  field_simp
+
+/-- **First-moment formula in cosineMode**: for `α ≠ 0` and `n : ℕ`
+    with `α^n ≠ 0`,
+
+      `∫_0^1 cosineMode α n x dx = sin(π · αⁿ) / (π · αⁿ)`
+
+    Direct specialization of `integral_cosine_pi_c` at `c = αⁿ`.
+    These are the first moments of the cosine eigenmode basis —
+    foundational for variational eigenvalue upper bounds on H_P^α
+    (via `⟨ψ, H_P ψ⟩` evaluation for ψ in the cos/sin basis). -/
+theorem integral_cosineMode_pow {α : ℝ} (hα : α ≠ 0) (n : ℕ) :
+    ∫ x in (0:ℝ)..1, cosineMode α n x =
+    Real.sin (Real.pi * α^n) / (Real.pi * α^n) := by
+  have hpow : α^n ≠ 0 := pow_ne_zero n hα
+  unfold cosineMode
+  exact integral_cosine_pi_c hpow
+
+/-- **First-moment formula in sineMode**: for `α ≠ 0` and `n : ℕ`,
+
+      `∫_0^1 sineMode α n x dx = (1 − cos(π · αⁿ)) / (π · αⁿ)`. -/
+theorem integral_sineMode_pow {α : ℝ} (hα : α ≠ 0) (n : ℕ) :
+    ∫ x in (0:ℝ)..1, sineMode α n x =
+    (1 - Real.cos (Real.pi * α^n)) / (Real.pi * α^n) := by
+  have hpow : α^n ≠ 0 := pow_ne_zero n hα
+  unfold sineMode
+  exact integral_sine_pi_c hpow
+
 /-! ## Operator-norm-like bound: T_k as L¹ → L∞ -/
 
 /-- **Uniform bound on `(T_k f)(x)` in terms of `‖f‖_{L¹}`**:
