@@ -975,6 +975,87 @@ theorem summable_odd_kernel_term_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
       ≤ (1/a) * (1/a^2)^m * 1 := mul_le_mul_of_nonneg_left h_cos_le hpos.le
     _ = (1/a) * (1/a^2)^m := mul_one _
 
+/-- **★ V_P series even/odd split at α = √2 ★** (`a > 1`, axiom-free):
+
+      `Σ_k a^(-k)·cos(π·(√2)^k·2/3) = −a²/(2·(a²−1)) + (odd remainder)` -/
+theorem kernel_series_sqrt2_two_thirds_split {a : ℝ} (ha : 1 < a) :
+    (∑' k : ℕ, (a : ℝ)^(-(k : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^k * (2/3))) =
+    (-(a^2 / (2 * (a^2 - 1)))) +
+    (∑' m : ℕ, (a : ℝ)^(-(2*m+1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))) := by
+  set f : ℕ → ℝ := fun k => (a : ℝ)^(-(k : ℤ)) *
+    Real.cos (Real.pi * (Real.sqrt 2)^k * (2/3))
+  -- HasSum of even subseries to -a²/(2(a²-1))
+  have h_even_raw := hasSum_even_kernel_term_sqrt2_two_thirds ha
+  have h_even : HasSum (fun k => f (2 * k)) (-(a^2 / (2 * (a^2 - 1)))) := by
+    convert h_even_raw using 1
+  -- HasSum of odd subseries
+  have h_odd_summable := summable_odd_kernel_term_sqrt2_two_thirds ha
+  have h_odd_raw := h_odd_summable.hasSum
+  have h_odd : HasSum (fun k => f (2 * k + 1))
+      (∑' m : ℕ, (a : ℝ)^(-(2*m+1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))) := by
+    convert h_odd_raw using 1
+  -- Combine
+  have h_combined := HasSum.even_add_odd h_even h_odd
+  have h_tsum_eq : ∑' b : ℕ, f b =
+      -(a^2 / (2 * (a^2 - 1))) +
+      ∑' m : ℕ, (a : ℝ)^(-(2*m+1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3)) :=
+    h_combined.tsum_eq
+  exact h_tsum_eq
+
+/-- **★★ V_P KERNEL SUM BRACKETING at α = √2 ★★** (`a > 1`, axiom-free):
+
+      `−(a²+2a)/(2·(a²−1)) ≤ Σ_k a^(-k)·cos(π·(√2)^k·2/3)`
+      `Σ_k a^(-k)·cos(π·(√2)^k·2/3) ≤ −(a²−2a)/(2·(a²−1))`
+
+    Combines `kernel_series_sqrt2_two_thirds_split` (the V_P tsum
+    decomposition into exact even + transcendental odd) with
+    `abs_odd_subseries_sqrt2_two_thirds_le` (the bound on the odd
+    remainder).
+
+    For `a = 2`: V_P ∈ [-4/3, 0]. Level-1 spectrum at α=√2, a=2:
+    λ⁺^(1) ∈ [1/3, 1], λ⁻^(1) ∈ [1, 5/3]
+    (via `level1_spectrum_bracketing_from_V_P`).
+
+    **The polylog conjecture's "opaque transcendental kernel" at α=√2
+    is now a FULLY MECHANIZED EXPLICIT BRACKETED ALGEBRAIC INTERVAL.** -/
+theorem kernel_series_sqrt2_two_thirds_bracketing {a : ℝ} (ha : 1 < a) :
+    -((a^2 + 2*a) / (2 * (a^2 - 1))) ≤
+    (∑' k : ℕ, (a : ℝ)^(-(k : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^k * (2/3))) ∧
+    (∑' k : ℕ, (a : ℝ)^(-(k : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^k * (2/3))) ≤
+    -((a^2 - 2*a) / (2 * (a^2 - 1))) := by
+  have h_split := kernel_series_sqrt2_two_thirds_split ha
+  have h_odd_bound := abs_odd_subseries_sqrt2_two_thirds_le ha
+  set odd : ℝ := ∑' m : ℕ, (a : ℝ)^(-(2*m+1 : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m+1) * (2/3))
+  have h_odd_le : odd ≤ a/(a^2 - 1) := (abs_le.mp h_odd_bound).2
+  have h_odd_ge : -(a/(a^2 - 1)) ≤ odd := (abs_le.mp h_odd_bound).1
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_gt : (1 : ℝ) < a^2 := by nlinarith
+  have ha_sq_minus_one_pos : (0 : ℝ) < a^2 - 1 := by linarith
+  refine ⟨?_, ?_⟩
+  · rw [h_split]
+    have h_alg : -((a^2 + 2*a) / (2 * (a^2 - 1))) =
+                 -(a^2 / (2 * (a^2 - 1))) + (-(a/(a^2 - 1))) := by
+      have h_ne2 : (a^2 - 1 : ℝ) ≠ 0 := by linarith
+      field_simp
+      ring
+    rw [h_alg]
+    linarith
+  · rw [h_split]
+    have h_alg : -((a^2 - 2*a) / (2 * (a^2 - 1))) =
+                 -(a^2 / (2 * (a^2 - 1))) + a/(a^2 - 1) := by
+      have h_ne2 : (a^2 - 1 : ℝ) ≠ 0 := by linarith
+      field_simp
+      ring
+    rw [h_alg]
+    linarith
+
 /-! ## Documentation: full V_P bracketing pending HasSum.even_add_odd combination
 
 The technical pieces are all in place:
