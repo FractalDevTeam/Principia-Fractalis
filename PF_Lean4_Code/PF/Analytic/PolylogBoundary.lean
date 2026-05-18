@@ -53,6 +53,7 @@ import Mathlib.Analysis.SpecialFunctions.Complex.Log
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import PF.Analytic.Polylog
 import PF.SpectralGap
+import PF.IntegralKernel.FractalKernel
 
 namespace PrincipiaTractalis.Analytic
 
@@ -779,6 +780,69 @@ theorem abs_odd_subseries_sqrt2_two_thirds_le {a : ℝ} (ha : 1 < a) :
     rw [eq_div_iff h_a_sq_ne]
     field_simp
   rw [h_eq]
+
+/-- **★ Even-term kernel summand at d = 2/3, α = √2, general k = 2m ★**:
+
+      `(a:ℝ)^(-(2m:ℤ)) · cos(π · (√2)^(2m) · d) = a^(-2m) · (−1/2)`
+
+    for ANY distance `d` such that the orbit `{(α^(2m) · d) mod 2 | m ≥ 0}`
+    lies in `{2/3, 4/3}` modulo `2`. In particular at α = √2 (where
+    `(√2)^(2m) = 2^m`), this holds for `d = 2/3` (level-1 cross-half) and
+    `d = 2/3` from the level-2 cross-half pairs `(ff, tf)`, `(ft, tt)`,
+    which all have this same distance.
+
+    Combined with `fractalKernel_even_term_sqrt2_two_thirds`, this gives
+    a UNIFORM closed-form result for the even-frequency subseries at
+    distance 2/3 across LEVEL-1 and LEVEL-2 matrix entries — directly
+    bracketing the algebraic structure of multiple matrix elements at
+    α = √2 simultaneously. -/
+theorem even_subseries_sqrt2_two_thirds_at_other_pair (a : ℝ) (m : ℕ) :
+    -- V_P at distance 2/3, evaluated at k = 2m (the even index)
+    (a : ℝ)^(-(2*m : ℤ)) *
+      Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (2/3)) =
+    -(1 / (2 * a^(2*m))) :=
+  fractalKernel_even_term_sqrt2_two_thirds a m
+
+/-- **★ Level-1 / level-2 matrix-entry algebraic connection at α = √2 ★**:
+
+    The level-1 cross-cell distance is `|1/6 − 5/6| = 2/3`. The level-2
+    cross-half OUTER distances `|1/18 − 13/18| = |5/18 − 17/18| = 2/3`
+    are also `2/3`. So at `α = √2`:
+
+      `V_P(1/6, 5/6) = V_P(1/18, 13/18) = V_P(5/18, 17/18)`
+
+    All three matrix-entry kernel values share the SAME exact even-
+    frequency contribution `−a²/(2·(a²−1))` and the SAME bounded odd-
+    frequency contribution `|·| ≤ a/(a²−1)`.
+
+    This is a CONCRETE algebraic IDENTITY linking different matrix
+    entries at α = √2 — pushing more conjectural content toward the
+    not-conjectural side. The kernel value depends only on distance,
+    so all three pairs at distance 2/3 give identical V_P. -/
+theorem fractalKernelReal_eq_at_dist_two_thirds_sqrt2 (a : ℝ) :
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal (Real.sqrt 2) a
+      ((1/6, 5/6) : ℝ × ℝ) =
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal (Real.sqrt 2) a
+      ((1/18, 13/18) : ℝ × ℝ) ∧
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal (Real.sqrt 2) a
+      ((1/6, 5/6) : ℝ × ℝ) =
+    PrincipiaTractalis.IntegralKernel.fractalKernelReal (Real.sqrt 2) a
+      ((5/18, 17/18) : ℝ × ℝ) := by
+  refine ⟨?_, ?_⟩
+  · unfold PrincipiaTractalis.IntegralKernel.fractalKernelReal
+            PrincipiaTractalis.IntegralKernel.fractalKernelTerm
+    apply tsum_congr; intro n
+    congr 1
+    have d1 : dist ((1/6 : ℝ)) (5/6) = 2/3 := by rw [Real.dist_eq]; norm_num
+    have d2 : dist ((1/18 : ℝ)) (13/18) = 2/3 := by rw [Real.dist_eq]; norm_num
+    rw [d1, d2]
+  · unfold PrincipiaTractalis.IntegralKernel.fractalKernelReal
+            PrincipiaTractalis.IntegralKernel.fractalKernelTerm
+    apply tsum_congr; intro n
+    congr 1
+    have d1 : dist ((1/6 : ℝ)) (5/6) = 2/3 := by rw [Real.dist_eq]; norm_num
+    have d2 : dist ((5/18 : ℝ)) (17/18) = 2/3 := by rw [Real.dist_eq]; norm_num
+    rw [d1, d2]
 
 /-! ## Documentation: full V_P bracketing at α = √2
 
