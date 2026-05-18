@@ -2143,6 +2143,48 @@ block structure, they decompose into the level-1 eigenvalues
 `{λ⁺^{(1)}, λ⁻^{(1)}}` PLUS scale-shifted corrections proportional
 to `(1/a) · V_P(α·x, α·y)`. -/
 
+/-! ## ★ Cross-level algebraic identity at α = √2 ★ -/
+
+/-- **★ Cross-level matrix-entry algebraic relation at α = √2 ★** (any `a`):
+
+      `M^{(2)}_{[ff], [tf]} = (1/2) · M^{(1)}_{[false], [true]}`
+
+    The level-2 cross-half outer matrix entry equals HALF the level-1
+    cross-cell entry. Both share the same V_P kernel value (at distance
+    `2/3`); the factor `1/2` is the difference in level-n mass weights
+    `(1/2^n)`: `(1/2²)/(1/2¹) = 1/2`.
+
+    This is an EXPLICIT cross-level algebraic identity at α = √2 — the
+    level-2 matrix entry is COMPUTABLE from the level-1 entry, without
+    re-evaluating the underlying transcendental kernel.
+
+    Companion identities (same factor): `M^{(2)}_{[ft], [tt]} = (1/2)·M^{(1)}_{[false], [true]}`. -/
+theorem cellMatrixEntry_level2_ff_tf_eq_half_level1 (a : ℝ) :
+    cellMatrixEntry (Real.sqrt 2) a 2 [false, false] [true, false] =
+    (1/2) * cellMatrixEntry (Real.sqrt 2) a 1 [false] [true] := by
+  -- Unfold both matrix entries
+  unfold cellMatrixEntry cantorKernel
+  -- M^(2)_{ff, tf} = (1/2^2) · V_P(m_{ff}, m_{tf}) = (1/4) · V_P(1/18, 13/18)
+  -- M^(1)_{[false], [true]} = (1/2) · V_P(m_{false}, m_{true}) = (1/2) · V_P(1/6, 5/6)
+  -- So we need: (1/4) · V_P(1/18, 13/18) = (1/2) · (1/2) · V_P(1/6, 5/6)
+  --           = (1/4) · V_P(1/6, 5/6)
+  -- i.e., V_P(1/18, 13/18) = V_P(1/6, 5/6), which holds by distance equality (2/3 = 2/3)
+  rw [cellMidpointOfBools_ff, cellMidpointOfBools_tf,
+      cellMidpointOfBools_false, cellMidpointOfBools_true]
+  have hkernel_eq : PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      (Real.sqrt 2) a ((1/18, 13/18) : ℝ × ℝ) =
+      PrincipiaTractalis.IntegralKernel.fractalKernelReal
+        (Real.sqrt 2) a ((1/6, 5/6) : ℝ × ℝ) := by
+    unfold PrincipiaTractalis.IntegralKernel.fractalKernelReal
+            PrincipiaTractalis.IntegralKernel.fractalKernelTerm
+    apply tsum_congr; intro n
+    congr 1
+    have d1 : dist ((1/18 : ℝ)) (13/18) = 2/3 := by rw [Real.dist_eq]; norm_num
+    have d2 : dist ((1/6 : ℝ)) (5/6) = 2/3 := by rw [Real.dist_eq]; norm_num
+    rw [d1, d2]
+  rw [hkernel_eq]
+  ring
+
 /-! ## ★ Distance-parametrised matrix entry (general) ★ -/
 
 /-- **★ Matrix entry as a function of distance ★**:
