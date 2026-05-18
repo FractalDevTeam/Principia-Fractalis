@@ -188,6 +188,19 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `abs_odd_subseries_sqrt2_two_thirds_le` (a > 1): EXPLICIT BOUND on the odd-frequency remainder `|·| ≤ a/(a²−1)`. Together with the exact even subseries, this gives the FULL BRACKETING `V_P(α=√2, a, 1/6, 5/6) ∈ [−(a²+2a)/(2·(a²−1)), −(a²−2a)/(2·(a²−1))]`. At `a=2`: `V_P ∈ [−4/3, 0]`. Level-1 spectrum at α=√2, a=2: `λ⁺^{(1)} ∈ [1/3, 1]`, `λ⁻^{(1)} ∈ [1, 5/3]`. The conjectural transcendental kernel is now an EXPLICIT BRACKETED ALGEBRAIC INTERVAL.
     - `fractalKernelReal_eq_at_dist_two_thirds_sqrt2`: kernel values at distance 2/3 are identical across level-1 cross-cell `(1/6, 5/6)` and level-2 outer-cross pairs `(1/18, 13/18)`, `(5/18, 17/18)`.
     - `cellMatrixEntry_level2_ff_tf_eq_half_level1`, `_ft_tt_eq_half_level1`: CROSS-LEVEL algebraic identities at α=√2: `M^{(2)}_{[ff],[tf]} = M^{(2)}_{[ft],[tt]} = (1/2)·M^{(1)}_{[false],[true]}`. Level-2 outer-cross matrix entries are EXPLICITLY computable from the level-1 cross entry without re-evaluating transcendental kernel.
+  - **★★★ FULL V_P SPLIT + BRACKETING at α=√2 ★★★** (added 2026-05-18, **ZERO project axioms** verified via `#print axioms`):
+    - `kernel_series_sqrt2_two_thirds_split`: `Σ_k a^(-k)·cos(π·(√2)^k·2/3) = −a²/(2·(a²−1)) + odd_subsum`, via `HasSum.even_add_odd`.
+    - `kernel_series_sqrt2_two_thirds_bracketing`: `Σ_k ... ∈ [−(a²+2a)/(2(a²−1)), −(a²−2a)/(2(a²−1))]`.
+    - `fractalKernelReal_sqrt2_two_thirds_bracketing`: V_P at the actual midpoint pair `(1/6, 5/6)` is bracketed in this interval.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing`: at a=2, **V_P ∈ [−4/3, 0]**.
+  - **★★★ Level-1 SPECTRUM BRACKETING at α=√2 ★★★** (added 2026-05-18, **ZERO project axioms**):
+    - `level1_spectrum_bracketing_sqrt2`: explicit closed-form intervals for `λ⁺^{(1)}` and `λ⁻^{(1)}` at α=√2 (parametrized in `a`).
+    - `level1_spectrum_at_sqrt2_two`: at a=2, **λ⁺^{(1)} ∈ [1/3, 1]**, **λ⁻^{(1)} ∈ [1, 5/3]** (explicit numerical brackets).
+    - `cellMatrixEntry_level1_at_sqrt2_two_bracketing`: M^{(1)} cross entry at α=√2, a=2 ∈ [−2/3, 0].
+    - `cellMatrixEntry_level2_outer_cross_at_sqrt2_two_bracketing`: M^{(2)} outer-cross entries at α=√2, a=2 ∈ [−1/3, 0].
+    - `cellMatrixEntry_level2_diagonal_at_sqrt2_two`: M^{(2)} diagonal entries at α=√2, a=2 are EXACTLY 1/2.
+    - `level2_trace_at_sqrt2_two`: tr M^{(2)} at α=√2, a=2 is EXACTLY 2 (matches general identity `tr M^{(n)} = a/(a-1)`).
+  - **Significance**: at the manuscript's distinguished case α=√2, a=2, the level-1 and level-2 finite-rank discrete operators are now in **explicit numerical brackets**, ZERO project axioms. The asymptotic conjecture λ_0 ≈ π/(10·√2) ≈ 0.222 lies BELOW the level-1 bracket [1/3, 1], fully consistent with spectrum descent across refinement levels.
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
