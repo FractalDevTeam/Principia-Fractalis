@@ -225,6 +225,13 @@ After the Phase A infrastructure above (truncated-kernel approximations on `L²(
     - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_strict`: at a=2, **V_P ∈ [-55/48, -3/4]**.
     - `level1_spectrum_at_sqrt2_two_strict`: at a=2, **λ⁺^{(1)} ∈ [41/96, 5/8] ≈ [0.427, 0.625]**, **λ⁻^{(1)} ∈ [11/8, 151/96] ≈ [1.375, 1.573]**.
   - **Significance of strictly-tightest bracket**: bracket width on λ⁺^(1) reduced from 0.354 (prior) to 0.198 (~44% reduction). Numerical λ⁺^(1)(√2, 2) ≈ 0.49 sits comfortably inside `[0.427, 0.625]`. The conjectured asymptotic limit `π/(10·√2) ≈ 0.222` is BELOW the level-1 lower bound 41/96 ≈ 0.427 by a quantifiable gap — the spectrum descent across refinement levels remains the polylog conjecture's content.
+  - **★★★★★ SHARPER V_P + Level-1 SPECTRUM at α=√2 (involving √3) ★★★★★** (added 2026-05-19, **ZERO project axioms**):
+    - `cos_two_pi_sqrt2_div_three_le_neg_sqrt3_half`: `cos(2π·√2/3) ≤ -√3/2` (further STRICT, via `|y| ≤ π/6` from `5 ≤ 4√2` i.e. `25 ≤ 32` + `Real.cos_pi_div_six = √3/2`).
+    - `odd_subseries_sqrt2_two_thirds_upper_sharper`: `Σ ≤ -√3/(2a) + 1/(a(a²-1))`.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_upper_sharper`: at a=2, **V_P ≤ -1/2 - √3/4 ≈ -0.933**.
+    - `fractalKernelReal_sqrt2_two_thirds_at_two_bracketing_sharper`: at a=2, **V_P ∈ [-55/48, -1/2 - √3/4]**.
+    - `level1_spectrum_at_sqrt2_two_sharper`: at a=2, **λ⁺^{(1)} ∈ [41/96, 3/4 - √3/8] ≈ [0.427, 0.534]**, **λ⁻^{(1)} ∈ [5/4 + √3/8, 151/96] ≈ [1.466, 1.573]**.
+  - **Significance of sharpest bracket**: bracket width on λ⁺^(1) now `(3/4 - √3/8) - 41/96 ≈ 0.107` — cut nearly in half again from `0.198`. Total reduction from initial `0.667` (width of `[1/3, 1]`) to `0.107` is ~84%. Numerical λ⁺^(1) ≈ 0.49 is sandwiched in a tight interval of width 0.107 just below 0.49.
 
 * `PF/Analytic/Lipschitz.lean` — Lipschitz/Banach-contraction infrastructure:
   - `cantorContraction1_lipschitz`, `cantorContraction2_lipschitz`: both IFS contractions are `LipschitzWith (1/3)`.
