@@ -1121,6 +1121,46 @@ theorem integral_sineMode_pow {α : ℝ} (hα : α ≠ 0) (n : ℕ) :
   unfold sineMode
   exact integral_sine_pi_c hpow
 
+/-! ## Documentation: variational identity (proof deferred)
+
+For `c ≠ 0`, the double integral
+
+      `∫_0^1 ∫_0^1 cos(π · c · (x − y)) dx dy
+        = (sin(π·c)/(π·c))² + ((1 − cos(π·c))/(π·c))²
+        = (2 − 2 cos(π·c))/(π·c)²
+        = 4·sin²(π·c/2)/(π·c)²`
+
+is the Cauchy product of the cos and sin first moments via the
+cos-of-difference identity `cos(a − b) = cos a cos b + sin a sin b`.
+
+Foundational for variational eigenvalue computations: by the Mercer
+decomposition, the double integral of `V_P` is the term-by-term sum
+of these per-frequency contributions:
+
+      `⟨1, H_P^α · 1⟩_{L²[0,1]} = ∫_0^1 ∫_0^1 V_P(x,y) dx dy
+        = Σ_{n≥0} a^(-n) · 4·sin²(π·αⁿ/2)/(π·αⁿ)²`
+
+By the Rayleigh-Ritz variational principle, this gives an UPPER BOUND
+on the smallest eigenvalue `λ_0(H_P^α) ≤ ⟨1, H_P^α · 1⟩/⟨1, 1⟩`.
+
+Proof of the per-term identity reduces to:
+* The cos-subtraction identity (`Real.cos_sub`)
+* The first moments (`integral_cosine_pi_c`, `integral_sine_pi_c`)
+* Fubini / integral linearity (handled at the per-x level since the
+  integrand is continuous bounded on the bounded interval)
+* Algebraic expansion (the Cauchy product structure)
+
+Mechanizing the full term-by-term Fubini-style integration interchange
+requires careful handling of nested intervalIntegral evaluations,
+which mathlib's `intervalIntegral.integral_add` machinery doesn't
+always close automatically when the inner integrand has both
+position-dependent and position-independent factors. The cleanest
+path is via `MeasureTheory.integral_integral` on `volume.prod volume`
+on the box `Ioc 0 1 × Ioc 0 1`.
+-/
+
+/-! ## Operator-norm-like bound: T_k as L¹ → L∞ -/
+
 /-! ## Operator-norm-like bound: T_k as L¹ → L∞ -/
 
 /-- **Uniform bound on `(T_k f)(x)` in terms of `‖f‖_{L¹}`**:
