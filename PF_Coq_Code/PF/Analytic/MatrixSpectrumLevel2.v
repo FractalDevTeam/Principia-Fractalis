@@ -402,6 +402,41 @@ Proof.
   lra.
 Qed.
 
+(* ============================================================ *)
+(* Frobenius bound + spectral radius                             *)
+(* ============================================================ *)
+
+(** **Level-2 Frobenius bound** (a > 1):
+    ‖M^(2)‖_F² ≤ (a/(a-1))² (sum of squared eigenvalues bounded).
+
+    Algebraic proof: the full sum is (1/16)·(weighted V_d² sum), and
+    each V_d² ≤ d² where d = a/(a-1). Coefficients sum to 1, so total ≤ d². *)
+(** Helper lemma: |V| ≤ B → V² ≤ B². *)
+Lemma sq_le_of_abs_le (V B : R) (h : Rabs V <= B) : V^2 <= B^2.
+Proof.
+  assert (Hlow : - B <= V) by (apply neg_bound_of_abs_le; exact h).
+  assert (Hhigh : V <= B) by (apply pos_bound_of_abs_le; exact h).
+  assert (HB_nn : 0 <= B) by (apply Rle_trans with (Rabs V); [apply Rabs_pos | exact h]).
+  nra.
+Qed.
+
+Theorem level2_sumSq_le_level0 :
+    (lambdaSymPlusLevel2^2 + lambdaSymMinusLevel2^2) +
+    (lambdaAntiPlusLevel2^2 + lambdaAntiMinusLevel2^2) <=
+    (a / (a - 1))^2.
+Proof.
+  rewrite lambdaSymLevel2_sumSq, lambdaAntiLevel2_sumSq.
+  unfold level2SymA, level2SymC, level2SymOffdiag,
+         level2AntiA, level2AntiC, level2AntiOffdiag.
+  set (d := a / (a - 1)).
+  (* Each V² ≤ d² from |V| ≤ d *)
+  pose proof (sq_le_of_abs_le V_2_9 d V_2_9_bnd) as HV_2_9.
+  pose proof (sq_le_of_abs_le V_4_9 d V_4_9_bnd) as HV_4_9.
+  pose proof (sq_le_of_abs_le V_2_3 d V_2_3_bnd) as HV_2_3.
+  pose proof (sq_le_of_abs_le V_8_9 d V_8_9_bnd) as HV_8_9.
+  nra.
+Qed.
+
 End Level2Spectrum.
 
 (* ============================================================ *)
