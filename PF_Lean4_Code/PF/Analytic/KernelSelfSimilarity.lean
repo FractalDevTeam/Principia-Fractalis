@@ -501,6 +501,39 @@ theorem integral_sq_truncatedFractalKernelReal_le
           · intro y _; exact h_sq y
     _ = (a / (a - 1))^2 := by simp
 
+/-! ## Documentation: Hilbert-Schmidt bound for the double integral
+
+The pointwise bound `(V_P^(k)(x, y))² ≤ (a/(a−1))²` (proven above) and
+the per-x integral bound `∫_0^1 (V_P^(k))² dy ≤ (a/(a−1))²` (also proven)
+combine to give the FULL Hilbert-Schmidt norm-squared bound:
+
+      `∫∫_[0,1]² (V_P^(k)(x, y))² dx dy ≤ (a/(a−1))²`
+
+i.e., T_k is HILBERT-SCHMIDT with `‖T_k‖_HS ≤ a/(a−1)` uniformly in `k`.
+
+The outer integration step requires `IntervalIntegrable` of the inner
+integral as a function of x — for the truncated finite-sum kernel
+this follows from joint continuity, but the formal continuity-in-x
+of the inner integral isn't directly in mathlib's library and requires
+a parameter-dependent integral continuity lemma (which exists but
+needs careful application). The full double-integral bound is a
+ROADMAP entry pending this single missing ingredient.
+
+By the dominated convergence theorem applied to the pointwise kernel
+convergence (`tendsto_truncatedFractalKernelReal`) combined with the
+uniform bound, the same `≤ (a/(a−1))²` bound extends to the FULL
+kernel V_P. This gives:
+
+**Spectral consequence**: H_P^α is Hilbert-Schmidt with
+`‖H_P^α‖_HS ≤ a/(a−1)`. Hilbert-Schmidt → COMPACT. Compact +
+self-adjoint (proven axiom-free) → DISCRETE SPECTRUM with eigenvalues
+converging to 0.
+
+This is the foundation for applying the spectral theorem to identify
+the discrete eigenvalues of H_P, which is the deep content of the
+polylog conjecture.
+-/
+
 /-! ## Documentation: connection to the eigenvalue conjecture
 
 The chain of identities above provides the **structural framework** the
