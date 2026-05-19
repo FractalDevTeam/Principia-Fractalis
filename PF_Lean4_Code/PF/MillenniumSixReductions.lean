@@ -296,6 +296,27 @@ theorem Delta_fYM_bracket_4digit :
   rw [Delta_fYM_value]
   refine ⟨?_, ?_⟩ <;> norm_num
 
+/-- **`Λ_QCD` numerical bracket** (axiom-free): `197 < Λ_QCD < 198` MeV.
+    The defining value is `197.2`. -/
+theorem Lambda_QCD_bracket :
+    (197 : ℝ) < Lambda_QCD_MeV ∧ Lambda_QCD_MeV < 198 := by
+  unfold Lambda_QCD_MeV
+  refine ⟨?_, ?_⟩ <;> norm_num
+
+/-- **`ω_c_YM` numerical bracket** (axiom-free):
+    `2.131 < ω_c < 2.132`. The defining value is `2.13198462`. -/
+theorem omega_c_YM_bracket :
+    (2131 : ℝ)/1000 < omega_c_YM ∧ omega_c_YM < (2132 : ℝ)/1000 := by
+  unfold omega_c_YM
+  refine ⟨?_, ?_⟩ <;> norm_num
+
+/-- **`Λ_QCD ≠ ω_c` directly**: numerical values differ
+    (Λ_QCD = 197.2, ω_c = 2.13...). Useful to confirm the mass-gap
+    factorization Δ_fYM = Λ_QCD · ω_c isn't a tautology. -/
+theorem Lambda_QCD_ne_omega_c : Lambda_QCD_MeV ≠ omega_c_YM := by
+  unfold Lambda_QCD_MeV omega_c_YM
+  norm_num
+
 /-- **Ch 23 load-bearing hypothesis 1**: the fractal Yang-Mills
     Hamiltonian `H_fYM` at α = 2 has spectrum `{0} ∪ [Δ_fYM, ∞)`
     with `Δ_fYM = Λ_QCD · ω_c` where `ω_c` is the first positive
