@@ -1802,6 +1802,123 @@ theorem fractalKernelReal_at_alpha_two_d_odd_at_a_two (n : ℕ) :
   rw [fractalKernelReal_at_alpha_two_d_odd (by norm_num : (1:ℝ) < 2) n]
   norm_num
 
+/-! ## ★★★★ RESEARCH — GENERIC: V_P at α=2, d=(2n+1)/2 = (2-a)/(a(a-1)) ★★★★ -/
+
+/-- **★★★★ GENERAL half-odd-integer closed form** (a > 1, axiom-free):
+
+      `Σ_{k≥0} a^(-k) · cos(π · 2^k · (2n+1)/2) = (2-a)/(a(a-1))`
+
+    for **any natural number n** (so any distance `(2n+1)/2` = half
+    of any positive odd integer).
+
+    Structure:
+    * k=0: `cos(π·(2n+1)/2) = cos(nπ + π/2) = 0`
+      (vanishes for all n).
+    * k=1: `cos(π·(2n+1)) = -1` (same as the odd-integer-distance case).
+    * k ≥ 2: `cos(π·2^(k-1)·(2n+1)) = 1` since `2^(k-1)·(2n+1)` is a
+      natural number for k≥1 (actually for k≥1, 2^(k-1)·(2n+1) is even
+      times odd = even when k≥2, but we use cos_nat_mul_two_pi).
+
+    Wait — re-examine: π·2^k·(2n+1)/2 = π·2^(k-1)·(2n+1) for k≥1.
+    For k=1: π·(2n+1) — first checked, cos = -1.
+    For k≥2: π·2^(k-1)·(2n+1) = (2^(k-2)·(2n+1)) · 2π. cos = 1.
+
+    Sum: `0 + (-1/a) + Σ_{k≥2} (1/a)^k = -1/a + 1/(a(a-1)) = (2-a)/(a(a-1))`.
+
+    **At a=2**: value is 0 for ALL half-odd-integer distances.
+
+    Together with the odd-integer case, this gives an INFINITE FAMILY
+    of zero distances for V_P at the YM-class parameter (α, a) = (2, 2). -/
+theorem fractalKernelReal_at_alpha_two_d_half_odd {a : ℝ} (ha : 1 < a) (n : ℕ) :
+    (∑' k : ℕ, (a : ℝ)^(-(k:ℤ)) *
+        Real.cos (Real.pi * (2:ℝ)^k * ((2 * n + 1)/2))) =
+    (2 - a) / (a * (a - 1)) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have h_inv_lt : (1/a : ℝ) < 1 := by rw [div_lt_one ha_pos]; exact ha
+  have h_inv_nn : (0 : ℝ) ≤ 1/a := by positivity
+  have h_a_ne_one : a ≠ 1 := ne_of_gt ha
+  set f : ℕ → ℝ := fun k => (a : ℝ)^(-(k:ℤ)) *
+    Real.cos (Real.pi * (2:ℝ)^k * ((2 * n + 1)/2)) with hf_def
+  have h_summable : Summable f := by
+    apply Summable.of_norm_bounded (g := fun k : ℕ => (1/a)^k)
+    · exact summable_geometric_of_lt_one h_inv_nn h_inv_lt
+    intro k
+    simp only [hf_def, Real.norm_eq_abs, abs_mul]
+    have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(k:ℤ)) := zpow_pos ha_pos _
+    rw [abs_of_pos h_pow_pos]
+    have h_cos_abs : |Real.cos (Real.pi * (2:ℝ)^k * ((2 * n + 1)/2))| ≤ 1 :=
+      Real.abs_cos_le_one _
+    have h_pow_eq : (a : ℝ)^(-(k:ℤ)) = (1/a)^k := by
+      rw [show (-(k:ℤ)) = -((k:ℕ) : ℤ) from rfl]
+      rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+    rw [h_pow_eq]
+    have h_pos : (0 : ℝ) < (1/a : ℝ)^k := pow_pos (by positivity) k
+    calc (1/a : ℝ)^k * |Real.cos (Real.pi * (2:ℝ)^k * ((2 * n + 1)/2))|
+        ≤ (1/a : ℝ)^k * 1 := mul_le_mul_of_nonneg_left h_cos_abs h_pos.le
+      _ = (1/a : ℝ)^k := mul_one _
+  -- Split: ∑' f = (f 0 + f 1) + ∑' f (k+2)
+  have h_split_aux := h_summable.sum_add_tsum_nat_add 2
+  have h_range2 : (∑ i ∈ Finset.range 2, f i) = f 0 + f 1 := by
+    rw [Finset.sum_range_succ, Finset.sum_range_one]
+  rw [h_range2] at h_split_aux
+  -- f 0 = cos(π·(2n+1)/2) = 0
+  have h_f0 : f 0 = 0 := by
+    show (a : ℝ)^(-((0:ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^0 * ((2 * (n:ℝ) + 1)/2)) = 0
+    have h_exp : (-((0:ℕ) : ℤ)) = 0 := by push_cast
+    rw [h_exp, zpow_zero, pow_zero]
+    -- π · 1 · (2n+1)/2 = π/2 + n·π
+    have h_angle : Real.pi * 1 * ((2 * (n:ℝ) + 1)/2) = Real.pi/2 + (n:ℝ) * Real.pi := by ring
+    rw [h_angle]
+    -- cos(π/2 + nπ) = -sin(nπ) = 0
+    -- Use cos_add: cos(π/2 + nπ) = cos(π/2)cos(nπ) - sin(π/2)sin(nπ) = 0·X - 1·sin(nπ) = -sin(nπ)
+    rw [Real.cos_add, Real.cos_pi_div_two, Real.sin_pi_div_two]
+    -- (n : ℝ) * π = n * π so sin(n*π) = 0 by Real.sin_nat_mul_pi
+    rw [show Real.sin ((n:ℝ) * Real.pi) = 0 from Real.sin_nat_mul_pi _]
+    ring
+  -- f 1 = cos(π·(2n+1)) = -1 (same as odd integer case)
+  have h_f1 : f 1 = -1/a := by
+    show (a : ℝ)^(-((1:ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^1 * ((2 * (n:ℝ) + 1)/2)) = -1/a
+    rw [show (-((1:ℕ) : ℤ)) = -1 from rfl, zpow_neg_one]
+    have h_angle : Real.pi * (2:ℝ)^1 * ((2 * (n:ℝ) + 1)/2) =
+                   Real.pi + (n:ℝ) * (2 * Real.pi) := by ring
+    rw [h_angle, Real.cos_add_nat_mul_two_pi, Real.cos_pi]
+    field_simp
+  -- For k ≥ 0, f (k+2) = (1/a)^(k+2) using cos(π·2^(k+2)·(2n+1)/2) = cos((2^k·(2n+1))·2π) = 1
+  have h_term_shift : ∀ k : ℕ, f (k+2) = (1/a)^(k+2) := by
+    intro k
+    show (a : ℝ)^(-(((k+2):ℕ) : ℤ)) *
+         Real.cos (Real.pi * (2:ℝ)^(k+2) * ((2 * (n:ℝ) + 1)/2)) = (1/a)^(k+2)
+    have h_cos : Real.cos (Real.pi * (2:ℝ)^(k+2) * ((2 * (n:ℝ) + 1)/2)) = 1 := by
+      -- π · 2^(k+2) · (2n+1)/2 = π · 2^(k+1) · (2n+1) = (2^k · (2n+1)) · (2π)
+      have h_angle : Real.pi * (2:ℝ)^(k+2) * ((2 * (n:ℝ) + 1)/2)
+                   = ((2^k * (2*n + 1) : ℕ) : ℝ) * (2 * Real.pi) := by
+        push_cast
+        rw [show ((2:ℝ)^(k+2)) = 4 * (2:ℝ)^k from by rw [pow_add]; ring]
+        ring
+      rw [h_angle]
+      exact Real.cos_nat_mul_two_pi _
+    rw [h_cos, mul_one]
+    rw [show (-(((k+2):ℕ) : ℤ)) = -((k+2:ℕ) : ℤ) from rfl]
+    rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+  rw [← h_split_aux]
+  rw [h_f0, h_f1]
+  rw [tsum_congr h_term_shift]
+  have h_pow_rewrite : ∀ k : ℕ, ((1/a : ℝ))^(k+2) = (1/a)^2 * (1/a)^k := by
+    intro k; rw [pow_add]; ring
+  rw [tsum_congr h_pow_rewrite]
+  rw [tsum_mul_left]
+  rw [tsum_geometric_of_lt_one h_inv_nn h_inv_lt]
+  have h_a_sub_one_ne : a - 1 ≠ 0 := sub_ne_zero.mpr h_a_ne_one
+  field_simp
+  ring
+
+/-- **★★★★ GENERIC: V_P at (α, a, d) = (2, 2, (2n+1)/2) is EXACTLY 0** (axiom-free). -/
+theorem fractalKernelReal_at_alpha_two_d_half_odd_at_a_two (n : ℕ) :
+    (∑' k : ℕ, (2 : ℝ)^(-(k:ℤ)) *
+        Real.cos (Real.pi * (2:ℝ)^k * ((2 * n + 1)/2))) = 0 := by
+  rw [fractalKernelReal_at_alpha_two_d_half_odd (by norm_num : (1:ℝ) < 2) n]
+  norm_num
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
