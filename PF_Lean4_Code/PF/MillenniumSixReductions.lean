@@ -1637,4 +1637,65 @@ theorem epsilon_quantum_bracket_sharper :
   · -- 0.95 - sigma_c_arithmetic < 0.3421 ⟺ sigma_c_arithmetic > 0.6079 ✓
     linarith
 
+/-! ## 9-decimal certified bracket on λ_0_P_target
+
+We have a 3-decimal bracket (`lambda_0_P_target_bracket_sharp`) and a
+4-decimal bracket from sigma_c_arithmetic; here we expose the existing
+**9-decimal certified bracket** on `λ_0_P_target = π/(10√2)`
+established via `Real.pi_gt_d20`, `Real.pi_lt_d20`, and the 10-digit
+`sqrt2_in_interval_10digit` bounds in `PF/IntervalArithmetic.lean`. -/
+
+/-- **9-decimal certified bracket on λ_0_P_target**:
+    `0.222144146 < π/(10√2) < 0.222144147`. Uses `Real.pi_gt_d20`,
+    `Real.pi_lt_d20`, and the squared-bracket form of `√2 ∈ [1.4142135623, 1.4142135624]`.
+
+    This is the sharpest provable bracket modulo 20-digit π and 10-digit
+    √2 inputs (both axiom-free in mathlib). The manuscript's stated value
+    `π/(10√2) ≈ 0.2221441469079...` is contained in this bracket. -/
+theorem lambda_0_P_target_bracket_9digit :
+    (222144146 : ℝ)/(10^9) < lambda_0_P_target ∧
+    lambda_0_P_target < (222144147 : ℝ)/(10^9) := by
+  unfold lambda_0_P_target
+  -- Lower: π/(10√2) > 0.222144146
+  -- This is exactly PrincipiaTractalis.lambda_P_lower_certified after
+  -- unfolding pi_10 := π/10. We reproduce its argument here in the
+  -- direct π/(10·√2) form.
+  have hs_pos : 0 < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  have hs_ub : Real.sqrt 2 ≤ (1.4142135624 : ℝ) :=
+    PrincipiaTractalis.sqrt2_in_interval_10digit.2
+  have hs_lb : (1.4142135623 : ℝ) ≤ Real.sqrt 2 :=
+    PrincipiaTractalis.sqrt2_in_interval_10digit.1
+  have h_pi_lb : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  have h_pi_ub : Real.pi < (3.14159265358979323847 : ℝ) := Real.pi_lt_d20
+  have h_10sqrt2_pos : (0 : ℝ) < 10 * Real.sqrt 2 := by linarith
+  refine ⟨?_, ?_⟩
+  · rw [lt_div_iff₀ h_10sqrt2_pos]
+    -- Need: 222144146/10^9 · 10√2 < π
+    -- i.e., 222144146/10^8 · √2 < π
+    -- With √2 ≤ 1.4142135624:
+    -- 222144146/10^8 · 1.4142135624 = 2.22144146 · 1.4142135624
+    -- ≈ 3.14159265358..., compared to π > 3.14159265358979323846
+    have h1 : (222144146 : ℝ)/(10^9) * (10 * Real.sqrt 2)
+            ≤ 222144146/(10^9) * (10 * 1.4142135624) := by
+      apply mul_le_mul_of_nonneg_left
+      · linarith
+      · norm_num
+    have h2 : (222144146 : ℝ)/(10^9) * (10 * 1.4142135624)
+            < 3.14159265358979323846 := by norm_num
+    linarith
+  · rw [div_lt_iff₀ h_10sqrt2_pos]
+    -- Need: π < 222144147/10^9 · 10√2 = 222144147/10^8 · √2
+    -- With √2 ≥ 1.4142135623:
+    -- 222144147/10^8 · 1.4142135623 = 2.22144147 · 1.4142135623
+    -- ≈ 3.14159265500..., compared to π < 3.14159265358979323847
+    have h1 : Real.pi < (3.14159265358979323847 : ℝ) := h_pi_ub
+    have h2 : (3.14159265358979323847 : ℝ)
+            ≤ 222144147/(10^9) * (10 * 1.4142135623) := by norm_num
+    have h3 : (222144147 : ℝ)/(10^9) * (10 * 1.4142135623)
+            ≤ 222144147/(10^9) * (10 * Real.sqrt 2) := by
+      apply mul_le_mul_of_nonneg_left
+      · linarith
+      · norm_num
+    linarith
+
 end PrincipiaTractalis.MillenniumSix
