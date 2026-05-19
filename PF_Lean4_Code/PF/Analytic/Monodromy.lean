@@ -117,4 +117,193 @@ theorem polyLogSheet_eq_polyLog_of_Gamma_zero
   unfold polyLogSheet
   rw [polyLogMonodromyShift_at_Gamma_zero m hs z, add_zero]
 
+/-! ## Real-part rigidity at `s = 1` (Manuscript Ch 21, Lemma `lem:s1-rigidity`)
+
+For `s = 1`, the leading-order monodromy shift reduces to
+`polyLogMonodromyShift m 1 z = 2πi·m`, since
+`(log z)^(1-1) = (log z)^0 = 1` (by `Complex.cpow_zero`) and
+`Complex.Gamma 1 = 1`. This shift is purely imaginary, so its real part is
+zero, and the real part of `polyLogSheet m 1 z` is invariant under the
+monodromy index `m`.
+
+This is the **manuscript's `lem:s1-rigidity`**: at the integer weight `s = 1`,
+the sheet index cannot be detected through `Re Li_1`, so non-integer weights
+are needed to separate spectral parameters across operator classes. The lemma
+formally explains why the manuscript selects a non-integer effective weight
+`s* ≈ √2/2` for the polylog conjecture. -/
+
+/-- **Monodromy shift at `s = 1` is purely imaginary**: at the integer weight
+    `s = 1`, `polyLogMonodromyShift m 1 z = 2πi·m`. The `(log z)^0 = 1`
+    simplification and `Gamma 1 = 1` collapse the shift to a pure imaginary
+    multiple of `m`. -/
+theorem polyLogMonodromyShift_at_one (m : ℤ) (z : ℂ) :
+    polyLogMonodromyShift m 1 z = 2 * (Real.pi : ℂ) * I * (m : ℂ) := by
+  unfold polyLogMonodromyShift
+  have h_exp : (1 : ℂ) - 1 = 0 := by ring
+  rw [h_exp, Complex.cpow_zero, Complex.Gamma_one]
+  ring
+
+/-- **Real part of the `s = 1` monodromy shift is zero**: since the shift
+    equals `2πi·m`, its real part is `Re(2πi·m) = 0`. -/
+theorem polyLogMonodromyShift_re_at_one (m : ℤ) (z : ℂ) :
+    (polyLogMonodromyShift m 1 z).re = 0 := by
+  rw [polyLogMonodromyShift_at_one m z]
+  simp [Complex.mul_re, Complex.mul_im, Complex.I_re, Complex.I_im]
+
+/-- **Lemma `lem:s1-rigidity` (Manuscript Ch 21, line 610)**: For `s = 1`,
+    the real part of `polyLogSheet m 1 z` is independent of the sheet index
+    `m`, equalling `Re(polyLog 1 z)` for every `m : ℤ`.
+
+    *Proof.* `polyLogSheet m 1 z = polyLog 1 z + polyLogMonodromyShift m 1 z`.
+    Taking real parts and using `polyLogMonodromyShift_re_at_one` to discard
+    the (purely imaginary) shift yields the claim.
+
+    *Manuscript significance.* This rigidity result motivates the use of a
+    non-integer effective polylogarithm weight `s* = √2/2` (the half-Hausdorff
+    dimension of the P-class fractal substrate) in the spectral framework:
+    only at `s ∉ ℤ` does the monodromy increment carry a non-trivial real
+    part, allowing the spectral parameters `α_P`, `α_NP` to separate. -/
+theorem polyLogSheet_re_invariant_at_one (m : ℤ) (z : ℂ) :
+    (polyLogSheet m 1 z).re = (polyLog 1 z).re := by
+  unfold polyLogSheet
+  rw [Complex.add_re, polyLogMonodromyShift_re_at_one m z, add_zero]
+
+/-- **Sheet-difference rigidity at `s = 1`**: for any two sheet indices
+    `m, n : ℤ`, the real parts of `polyLogSheet m 1 z` and `polyLogSheet n 1 z`
+    agree exactly. This is the manuscript's claim that the principal-branch
+    real part `Re Li_1^{[0]}(z)` is unchanged after `m` applications of the
+    `M_0` monodromy generator. -/
+theorem polyLogSheet_re_eq_at_one (m n : ℤ) (z : ℂ) :
+    (polyLogSheet m 1 z).re = (polyLogSheet n 1 z).re := by
+  rw [polyLogSheet_re_invariant_at_one m z, polyLogSheet_re_invariant_at_one n z]
+
+/-! ## Nonlinearity in `m` at non-integer `s` (Manuscript Ch 21, `lem:nonlinearity-m`)
+
+The manuscript's `lem:nonlinearity-m` (Ch 21, line 707) asserts that for
+non-integer `s`, the full Jonquières leading term
+
+  `Γ(1-s) · (-log z - 2πi·m)^(s-1)`
+
+is **not** linear in the branch index `m`. The proof uses the binomial
+expansion of `(a + b·m)^(s-1)` with `a = -log z`, `b = -2πi`:
+
+  `(-log z - 2πi·m)^(s-1) = (-log z)^(s-1) · Σ_{j=0}^∞ C(s-1, j) · (2πi·m / log z)^j`
+
+The `j = 1` term gives the linear contribution `(s-1)·(2πi·m / log z)`.
+The `j ≥ 2` terms are nonlinear in `m`. The key observation is that the
+binomial coefficient `C(s-1, 2) = (s-1)(s-2)/2` is nonzero whenever
+`s ∉ {1, 2}`, so the `m²` term is genuinely present.
+
+We formalize the binomial-coefficient nonzero condition explicitly. This
+is the algebraic kernel of `lem:nonlinearity-m`: the source of the
+quadratic-in-`m` correction term is the binomial coefficient at `j = 2`,
+which vanishes precisely at the integers `s ∈ {1, 2}` and is nonzero
+elsewhere.
+
+In contrast, our leading-order `polyLogMonodromyShift` (the
+*first-order* Jonquières correction `2πim · (log z)^(s-1) / Γ(s)`) IS
+linear in `m` by construction. The nonlinearity emerges in the full
+sheet structure beyond the first-order shift. -/
+
+/-- **The second-order binomial coefficient `C(s-1, 2)`**. This is the
+    coefficient of the `m²` term in the binomial expansion of
+    `(-log z - 2πi·m)^(s-1)` (after factoring out the prefactor
+    `(-log z)^(s-1) · (2πi / log z)^2`). -/
+noncomputable def jonquieresSecondOrderBinomial (s : ℂ) : ℂ :=
+  (s - 1) * (s - 2) / 2
+
+/-- **`C(s-1, 2)` vanishes precisely at `s = 1` and `s = 2`**. The forward
+    direction of the manuscript's nonlinearity claim: the quadratic-in-`m`
+    coefficient is zero only at integer weights `s ∈ {1, 2}`. -/
+theorem jonquieresSecondOrderBinomial_eq_zero_iff (s : ℂ) :
+    jonquieresSecondOrderBinomial s = 0 ↔ s = 1 ∨ s = 2 := by
+  unfold jonquieresSecondOrderBinomial
+  rw [div_eq_zero_iff]
+  constructor
+  · rintro (h | h)
+    · rcases mul_eq_zero.mp h with h1 | h2
+      · left; linear_combination h1
+      · right; linear_combination h2
+    · exfalso; norm_num at h
+  · rintro (rfl | rfl) <;> · left; ring
+
+/-- **`C(s-1, 2) ≠ 0` for `s ∉ {1, 2}`**: the practical contrapositive form,
+    the direct witness of nonlinearity in `m` for non-integer or
+    non-trivial integer `s`. -/
+theorem jonquieresSecondOrderBinomial_ne_zero
+    {s : ℂ} (h1 : s ≠ 1) (h2 : s ≠ 2) :
+    jonquieresSecondOrderBinomial s ≠ 0 := by
+  intro h
+  rcases (jonquieresSecondOrderBinomial_eq_zero_iff s).mp h with h | h
+  · exact h1 h
+  · exact h2 h
+
+/-- **`C(s-1, 2) ≠ 0` for non-integer `s`** (the case relevant to the
+    manuscript's `s = s* = √2/2`, since `√2/2 ∉ ℤ`). This is the
+    sufficient condition for the manuscript's nonlinearity claim. -/
+theorem jonquieresSecondOrderBinomial_ne_zero_of_not_integer
+    {s : ℂ} (hs : ∀ n : ℤ, s ≠ (n : ℂ)) :
+    jonquieresSecondOrderBinomial s ≠ 0 := by
+  apply jonquieresSecondOrderBinomial_ne_zero
+  · exact_mod_cast hs 1
+  · exact_mod_cast hs 2
+
+/-- **Witness of nonlinearity at `s = √2/2`** (the manuscript's effective
+    polylog weight from Proposition `prop:spectral-scaling`, line 854):
+    `√2/2 ∉ {1, 2}`, so the `j = 2` binomial coefficient is nonzero, hence
+    the Jonquières leading term `(-log z - 2πi·m)^(s-1)` carries a
+    nontrivial quadratic-in-`m` correction at this weight.
+
+    This is the *algebraic certificate* that the manuscript's chosen
+    effective polylogarithm weight `s* = √2/2 ≈ 0.707` triggers the
+    nonlinearity-in-`m` regime, distinguishing it from the `s = 1`
+    rigidity established above. -/
+theorem jonquieresSecondOrderBinomial_ne_zero_at_sqrt2_div_two :
+    jonquieresSecondOrderBinomial ((Real.sqrt 2 / 2 : ℝ) : ℂ) ≠ 0 := by
+  apply jonquieresSecondOrderBinomial_ne_zero
+  · -- √2/2 ≠ 1 over ℂ: real part √2/2 < 1
+    intro h
+    have hre : (Real.sqrt 2 / 2 : ℝ) = 1 := by
+      have := congrArg Complex.re h
+      simpa using this
+    have h_sqrt2_lt_2 : Real.sqrt 2 < 2 := by
+      have : Real.sqrt 2 < Real.sqrt 4 := by
+        apply Real.sqrt_lt_sqrt
+        · norm_num
+        · norm_num
+      simpa [show (Real.sqrt 4 : ℝ) = 2 by
+        rw [show (4 : ℝ) = 2^2 by norm_num, Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 2)]]
+        using this
+    linarith
+  · -- √2/2 ≠ 2 over ℂ: real part √2/2 < 2
+    intro h
+    have hre : (Real.sqrt 2 / 2 : ℝ) = 2 := by
+      have := congrArg Complex.re h
+      simpa using this
+    have h_sqrt2_lt_4 : Real.sqrt 2 < 4 := by
+      have : Real.sqrt 2 < Real.sqrt 16 := by
+        apply Real.sqrt_lt_sqrt
+        · norm_num
+        · norm_num
+      simpa [show (Real.sqrt 16 : ℝ) = 4 by
+        rw [show (16 : ℝ) = 4^2 by norm_num, Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 4)]]
+        using this
+    linarith
+
+/-- **Leading-order monodromy shift IS linear in `m`** (contrast with the
+    full Jonquières expansion). For our `polyLogMonodromyShift`, which
+    encodes the first-order term `2πi·m · (log z)^(s-1) / Γ(s)`, scalar
+    multiplication by `m` extracts cleanly:
+    `polyLogMonodromyShift m s z = m · polyLogMonodromyShift 1 s z`.
+
+    This is the leading-order *linear* approximation; the manuscript's
+    `lem:nonlinearity-m` is the statement that the *full* sheet
+    polylog (with `(-log z - 2πi·m)^(s-1)` rather than `m · (log z)^(s-1)`)
+    has higher-order `m`-dependence beyond this leading approximation. -/
+theorem polyLogMonodromyShift_scalar_m (m : ℤ) (s z : ℂ) :
+    polyLogMonodromyShift m s z = (m : ℂ) * polyLogMonodromyShift 1 s z := by
+  unfold polyLogMonodromyShift
+  push_cast
+  ring
+
 end PrincipiaTractalis.Analytic
