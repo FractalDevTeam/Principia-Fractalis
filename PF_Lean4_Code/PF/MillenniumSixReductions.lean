@@ -698,6 +698,42 @@ theorem lambda_0_P_target_bracket :
     rw [div_lt_iff₀ h_10sqrt2_pos]
     nlinarith [h_pi_ub, h_sqrt2_lower]
 
+/-- **★★ SHARPER numerical bracket for λ_0**: `0.222 < λ_0 < 0.223`
+    (axiom-free, 3 decimal places).
+
+    Numerical: `λ_0 = π/(10·√2) ≈ 0.2221441469079`.
+
+    Uses:
+    * `Real.pi_gt_d4` (π > 3.1415) and `Real.pi_lt_d4` (π < 3.1416)
+    * `√2 ∈ [1.41421356, 1.41421357]` (squared-bracket, axiom-free) -/
+theorem lambda_0_P_target_bracket_sharp :
+    (222/1000 : ℝ) < lambda_0_P_target ∧ lambda_0_P_target < 223/1000 := by
+  unfold lambda_0_P_target
+  have h_pi_lb : (3.1415 : ℝ) < Real.pi := Real.pi_gt_d4
+  have h_pi_ub : Real.pi < (3.1416 : ℝ) := Real.pi_lt_d4
+  have h_sqrt2_lower : (1.41421356 : ℝ) ≤ Real.sqrt 2 := by
+    have h_sq : (1.41421356 : ℝ)^2 ≤ 2 := by norm_num
+    rw [show (1.41421356 : ℝ) = Real.sqrt ((1.41421356)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 1.41421356)).symm]
+    exact Real.sqrt_le_sqrt h_sq
+  have h_sqrt2_upper : Real.sqrt 2 ≤ (1.41421357 : ℝ) := by
+    have h_sq : (2 : ℝ) ≤ (1.41421357)^2 := by norm_num
+    rw [show (1.41421357 : ℝ) = Real.sqrt ((1.41421357)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 1.41421357)).symm]
+    exact Real.sqrt_le_sqrt h_sq
+  have h_10sqrt2_pos : (0 : ℝ) < 10 * Real.sqrt 2 := by
+    have : (0 : ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num)
+    linarith
+  refine ⟨?_, ?_⟩
+  · -- π/(10√2) > 0.222 ⟺ π > 0.222 · 10·√2 = 2.22·√2
+    -- With √2 ≤ 1.41421357: 2.22·1.41421357 ≈ 3.1396 < 3.1415 ≤ π ✓
+    rw [lt_div_iff₀ h_10sqrt2_pos]
+    nlinarith [h_pi_lb, h_sqrt2_upper]
+  · -- π/(10√2) < 0.223 ⟺ π < 0.223·10·√2 = 2.23·√2
+    -- With √2 ≥ 1.41421356: 2.23·1.41421356 ≈ 3.1537 > 3.1416 ≥ π ✓
+    rw [div_lt_iff₀ h_10sqrt2_pos]
+    nlinarith [h_pi_ub, h_sqrt2_lower]
+
 /-! ## ★★★ EXACT level-1 spectrum at α = 2 (Yang-Mills class) ★★★
 
 At α = α_YM = 2, the level-1 polylog kernel sum
