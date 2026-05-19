@@ -1,9 +1,15 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
-*As of **2026-05-17**: **1 verified axiom** in `PF/`. Build at **5652 jobs clean, 0 warnings, 0 sorries**. Headline dependencies (verified via `#print axioms`):*
+*As of **2026-05-18**: **1 verified axiom** in `PF/`. Build at **5736 jobs clean, 0 sorries**. Headline dependencies (verified via `#print axioms`):*
 - *`principia_fractalis_millennium_capstone` → 1 axiom (`alpha_class_polylog_eigenvalue_conjecture`)*
 - *`riemann_hypothesis_via_T3_sym_framework` → **0 project axioms** (depends ONLY on mathlib's `propext`, `Classical.choice`, `Quot.sound`; a 4-hypothesis conditional — see honest framing note)*
 - *`P_neq_NP_via_spectral_gap` → 1 axiom (same)*
+
+**2026-05-18 session additions (16 commits, master acd4a02):** ~1200 lines of axiom-free manuscript-content formalizations across Ch 21-25:
+- **Lemma s1-rigidity** (manuscript Ch 21 line 610) + **nonlinearity-m** + **cor:dim-gap** + **M_0 sheet incompatibility theorem** in PF/Analytic/Monodromy.lean, PF/Analytic/PolylogSpectrum.lean, PF/MillenniumSixReductions.lean.
+- **prop:spectral-scaling consistency** at d_H = d_s = √2, **golden-modulation algebraic equivalence**, **spectral gap closed form** Δ = π(4-√5)/(30√2), **Evidence 3 consciousness gap** (proved = dim-gap/10), **BPP/BQP/PSPACE separations**, **YM internal spectral ratios** √(8/3) and √3, **NS fractal vortex cascade convergence** (Σ(2/3)^n = 3), **9-decimal certified brackets** on both λ_P = π/(10√2) and λ_NP_closed = π/(10(φ+1/4)).
+- **Three manuscript-level formal discoveries**: M_0 monodromy cannot reach the manuscript's positive target π/(10√2) (Open Problem 2 narrowed to non-M_0 mechanisms); Evidence 3 is the dim-gap/10 (manuscript's "three independent lines of evidence" is at most two); **manuscript's stated φ/e ≈ 0.5963 is numerically incorrect** (correct ≈ 0.5952, formally certified via tight bracket).
+- **Cross-prover Coq mirror updated**: 14 new Coq theorems ported (consciousness ch_2(YM)=1, Δ_comp positivity, YM ratios √(8/3) and √3, golden-modulation algebra, spectral gap closed form, Δ_comp = closed-form gap, dim-gap conditional). PF_Coq_Code/PF/MillenniumSixReductions.v build clean with stdlib alone (18 total theorems now in the Coq mirror).
 
 **Honest framing**: the single axiom is the formal encoding of the manuscript's Ch 21 Conjecture (`conj:polylog-spectrum`) + Heuristic (`heur:branch-selection`) + Conjecture (`conj:golden-modulation`), backed by 10⁻¹⁰ numerical evidence but NOT proven. The 0-axiom RH theorem takes the **surjectivity of the spectral bijection onto ζ-zeros** as a hypothesis parameter, which the file itself describes as "the load-bearing conjecture of the entire RH program (det/trace-formula completion). This is the open mathematical problem." See `OPEN_PROBLEMS.md`, Problems 1–4.
 
