@@ -228,6 +228,15 @@ Proof.
   unfold epsilon_quantum. lra.
 Qed.
 
+(* NOTE: The detailed σ_c arithmetic bracket (analogous to the Lean
+   sigma_c_arithmetic_bracket: 3/5 < 6/π² < 61/100) requires the
+   π < 3.15 numerical bound. Coq's stdlib does not provide
+   PI bounds to sufficient precision without additional tactics
+   (Coquelicot's interval or a custom proof using PI_ineq).
+   The Lean version uses mathlib's Real.pi_gt_d2 and Real.pi_lt_d2
+   directly. Not yet mirrored here (would require a Coquelicot
+   dependency or custom precision-π proofs). *)
+
 (* ============================================================ *)
 (* ★★★ THE SIX-PROBLEM CONDITIONAL-REDUCTION CAPSTONE ★★★      *)
 (* ============================================================ *)
