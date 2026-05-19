@@ -1176,6 +1176,43 @@ theorem cos_product_pi_div_nine :
     exact h_sin_8pi_9
   linarith [h_combined]
 
+/-! ## ★★★ RESEARCH — Product-to-sum identity: cos(2π/9)·cos(4π/9) ★★★ -/
+
+/-- **★★ Product-to-sum: `cos(2π/9)·cos(4π/9) = (cos(2π/9) - 1/2)/2` ★★**
+    (axiom-free).
+
+    Via `two_mul_cos_mul_cos`:
+
+      `2·cos(2π/9)·cos(4π/9) = cos(2π/9 - 4π/9) + cos(2π/9 + 4π/9)`
+                              `= cos(-2π/9) + cos(6π/9)`
+                              `= cos(2π/9) + cos(2π/3)`
+                              `= cos(2π/9) - 1/2`.
+
+    Dividing by 2 gives the result.
+
+    This expresses the product of two of the cos(π/9)-family values
+    in terms of a single one — a reduction of transcendental
+    complexity. -/
+theorem cos_two_pi_div_nine_mul_cos_four_pi_div_nine :
+    Real.cos (2 * Real.pi / 9) * Real.cos (4 * Real.pi / 9) =
+    (Real.cos (2 * Real.pi / 9) - 1/2) / 2 := by
+  -- Multiply both sides by 2: 2·cos(2π/9)·cos(4π/9) = cos(2π/9) - 1/2
+  have h2 : 2 * Real.cos (2 * Real.pi / 9) * Real.cos (4 * Real.pi / 9)
+            = Real.cos (2 * Real.pi / 9 - 4 * Real.pi / 9) +
+              Real.cos (2 * Real.pi / 9 + 4 * Real.pi / 9) :=
+    Real.two_mul_cos_mul_cos _ _
+  -- Simplify the angles
+  have h_diff : (2 * Real.pi / 9 - 4 * Real.pi / 9 : ℝ) = -(2 * Real.pi / 9) := by ring
+  have h_sum : (2 * Real.pi / 9 + 4 * Real.pi / 9 : ℝ) = 2 * Real.pi / 3 := by ring
+  rw [h_diff, h_sum, Real.cos_neg] at h2
+  -- cos(2π/3) = -1/2
+  have h_cos_2pi3 : Real.cos (2 * Real.pi / 3) = -(1/2 : ℝ) := by
+    rw [show (2 * Real.pi / 3 : ℝ) = Real.pi - Real.pi / 3 from by ring]
+    rw [Real.cos_pi_sub, Real.cos_pi_div_three]
+  rw [h_cos_2pi3] at h2
+  -- h2: 2·cos(2π/9)·cos(4π/9) = cos(2π/9) + (-1/2) = cos(2π/9) - 1/2
+  linarith
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
