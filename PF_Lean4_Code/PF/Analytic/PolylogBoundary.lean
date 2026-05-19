@@ -1065,6 +1065,36 @@ theorem fractalKernelReal_at_alpha_two_d_one_at_a_two :
   rw [fractalKernelReal_at_alpha_two_d_one (by norm_num : (1:ℝ) < 2)]
   norm_num
 
+/-! ## ★★★ RESEARCH — Chebyshev cubic identity for cos(π/9) family ★★★ -/
+
+/-- **★★ Sum-to-product identity: `cos(2π/9) + cos(4π/9) = cos(π/9)` ★★**
+    (axiom-free).
+
+    Direct application of `Real.cos_add_cos`:
+    `cos A + cos B = 2 · cos((A+B)/2) · cos((A-B)/2)`.
+
+    With `A = 4π/9, B = 2π/9`:
+    `cos(4π/9) + cos(2π/9) = 2 · cos(3π/9) · cos(π/9)
+                           = 2 · cos(π/3) · cos(π/9)
+                           = 2 · (1/2) · cos(π/9)
+                           = cos(π/9)`.
+
+    This identity is the trig analog of Vieta's formula for the cubic
+    `8x³ - 6x - 1 = 0` whose roots are `cos(π/9), cos(5π/9), cos(7π/9)`
+    (so cos(π/9) - cos(2π/9) - cos(4π/9) = 0 also follows from
+    sum-of-roots = 0, since cos(5π/9) = -cos(4π/9), cos(7π/9) = -cos(2π/9)). -/
+theorem cos_two_pi_div_nine_add_cos_four_pi_div_nine :
+    Real.cos (2 * Real.pi / 9) + Real.cos (4 * Real.pi / 9) = Real.cos (Real.pi / 9) := by
+  rw [add_comm]
+  -- cos(4π/9) + cos(2π/9) = 2·cos((4π/9 + 2π/9)/2)·cos((4π/9 - 2π/9)/2)
+  --                       = 2·cos(3π/9)·cos(π/9) = 2·cos(π/3)·cos(π/9)
+  --                       = 2·(1/2)·cos(π/9) = cos(π/9)
+  rw [Real.cos_add_cos]
+  rw [show (4 * Real.pi / 9 + 2 * Real.pi / 9) / 2 = Real.pi / 3 from by ring]
+  rw [show (4 * Real.pi / 9 - 2 * Real.pi / 9) / 2 = Real.pi / 9 from by ring]
+  rw [Real.cos_pi_div_three]
+  ring
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
