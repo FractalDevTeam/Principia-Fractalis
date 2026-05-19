@@ -34,11 +34,61 @@ the conditional reductions are the formal architecture.
 -/
 
 import PF.TuringEncoding.AlphaEnum
+import PF.TuringEncoding.Basic
 import Mathlib.Topology.Basic
+import Mathlib.Analysis.SpecialFunctions.Complex.Log
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
 
 namespace PrincipiaTractalis.MillenniumSix
 
 open PrincipiaTractalis.TuringEncoding
+
+/-! ## Common mathematical infrastructure (used across Ch 23-25)
+
+The fractal-resonance framework uses the base-3 digital sum function
+`D(n) := digitalSum3 n` (already defined in `PF/TuringEncoding/Basic.lean`)
+as the core fractal invariant. The resonance series is
+
+  `R_f(α, β, n) := exp(iπα·D(n)) / n^β`
+
+with various (α, β) instantiations per problem:
+* Ch 21 (P-class):  uses α = √2 in spectral-gap construction
+* Ch 23 (YM):       α = 2, β = 1/ω (defines ρ(ω); zero at ω_c ≈ 2.132)
+* Ch 24 (BSD):      α = 3π/4 (phase factor in T_E operator)
+* Ch 25 (Hodge):    α = φ (phase factor in R_φ operator)
+
+For Ch 22 (NS), α = 3π/2 governs the emergence-point fractal structure
+in a different functional form. -/
+
+/-- **The fractal-resonance series term**:
+
+      `fractalResonanceTerm α β n := exp(iπα·D(n)) / n^β`
+
+    where `D(n) = digitalSum3 n` is the base-3 digital sum. -/
+noncomputable def fractalResonanceTerm (α β : ℝ) (n : ℕ) : ℂ :=
+  Complex.exp (Complex.I * Real.pi * α * (digitalSum3 n : ℝ)) /
+    (n : ℂ)^(β : ℂ)
+
+/-- **The fractal-resonance series** (formal sum):
+
+      `R_f(α, β) := Σ_{n≥1} exp(iπα·D(n)) / n^β`
+
+    Whether this series converges depends on β and the digit-sum
+    statistics. For ω-resonance (Ch 23), the parameter is β = 1/ω. -/
+noncomputable def fractalResonanceSeries (α β : ℝ) : ℂ :=
+  ∑' n : ℕ, if n = 0 then 0 else fractalResonanceTerm α β n
+
+/-- **The Ch 23 resonance coefficient**:
+
+      `ρ(ω) := Re[R_f(2, 1/ω)]`
+
+    The first zero `ω_c ≈ 2.132` of `ρ` determines the fractal
+    Yang-Mills mass gap `Δ_fYM = Λ_QCD · ω_c`. -/
+noncomputable def resonanceCoefficient (ω : ℝ) : ℝ :=
+  (fractalResonanceSeries 2 (1/ω)).re
+
+/-- **The base-3 digital sum is non-negative**. Axiom-free fact. -/
+theorem digitalSum3_nonneg (n : ℕ) : 0 ≤ digitalSum3 n := Nat.zero_le _
 
 /-! ## Ch 22 — Navier-Stokes Existence and Smoothness (α_NS = 3π/2) -/
 
@@ -99,12 +149,20 @@ def YangMillsExistenceAndMassGap : Prop :=
 
 /-- **Ch 23 load-bearing hypothesis 1**: the fractal Yang-Mills
     Hamiltonian `H_fYM` at α = 2 has spectrum `{0} ∪ [Δ_fYM, ∞)`
-    with `Δ_fYM = Λ_QCD · ω_c ≈ 420 MeV`.
+    with `Δ_fYM = Λ_QCD · ω_c` where `ω_c` is the first positive
+    zero of `resonanceCoefficient ω = Re[R_f(2, 1/ω)]`.
 
-    Manuscript reference: `thm:mass-gap-ym`. -/
+    Manuscript reference: `thm:mass-gap-ym` + `prop:resonance-zeros`.
+    Numerical: `ω_c ≈ 2.13198462`, `Δ_fYM ≈ 420.43 MeV` (using
+    `Λ_QCD = 197.2 MeV`).
+
+    The Prop captures: there exists a positive mass gap proportional
+    to the first zero of `ρ`. -/
 def fractalYMMassGap (α : ℝ) : Prop :=
   α = 2 →
-  ∃ (Δ_fYM : ℝ), 0 < Δ_fYM  -- placeholder for spectrum structure
+  ∃ (ω_c : ℝ), 0 < ω_c ∧ resonanceCoefficient ω_c = 0 ∧
+  -- Λ_QCD (in MeV) times the first resonance zero
+  ∃ (Δ_fYM : ℝ), 0 < Δ_fYM ∧ Δ_fYM = 197.2 * ω_c
 
 /-- **Ch 23 load-bearing hypothesis 2**: `conj:fym-su3` —
     `H_fYM` is unitarily equivalent to a quantization of continuum
@@ -122,8 +180,8 @@ theorem yang_mills_via_fractal_resonance
     (h1 : fractalYMMassGap (alpha_at_enum .YM))
     (_h2 : fractalYMRealizesContinuum (alpha_at_enum .YM)) :
     YangMillsExistenceAndMassGap := by
-  obtain ⟨Δ_fYM, h_pos⟩ := h1 alpha_at_enum_YM
-  exact ⟨Δ_fYM, h_pos, trivial⟩
+  obtain ⟨_ω_c, _h_ω_pos, _h_ω_zero, Δ_fYM, h_Δ_pos, _h_Δ_eq⟩ := h1 alpha_at_enum_YM
+  exact ⟨Δ_fYM, h_Δ_pos, trivial⟩
 
 /-! ## Ch 24 — Birch–Swinnerton-Dyer (α_BSD = 3π/4) -/
 
@@ -175,15 +233,45 @@ def HodgeConjecture : Prop :=
   ∀ (X : Unit), ∀ (rational_hodge_class : Unit),
     ∃ (algebraic_representation : Unit), True
 
+/-- **Ch 25 universal crystallization threshold**: σ_c = 0.95 = 19/20.
+    The framework's universal value across millennium-problem chapters,
+    neural correlates, and CMB anomaly studies. -/
+noncomputable def sigma_c : ℝ := 19/20
+
+/-- **The arithmetic part of σ_c**: `1/ζ(2) = 6/π²` ≈ 0.6079.
+    Mertens 1874 — asymptotic density of coprime integer pairs. -/
+noncomputable def sigma_c_arithmetic : ℝ := 6 / Real.pi^2
+
+/-- **The quantum residual**: `ε_quantum := σ_c - 6/π²` ≈ 0.3421.
+
+    Defined by construction; the manuscript's `rem:sigma-c-empirical`
+    explicitly states `ε_quantum` is the residual once σ_c is fixed at
+    the empirical universal value 0.95. -/
+noncomputable def epsilon_quantum : ℝ := sigma_c - sigma_c_arithmetic
+
+/-- **★★ Ch 25 EXACT identity** (`thm:critical-threshold`, axiom-free):
+
+      `σ_c = 6/π² + ε_quantum`
+
+    Tautological after `ε_quantum := σ_c - 6/π²`. The manuscript's
+    `rem:sigma-c-empirical` makes the epistemic status clear: the
+    decomposition is exact, but the value of σ_c itself (0.95) is
+    empirical pending first-principles derivation. -/
+theorem sigma_c_decomposition : sigma_c = sigma_c_arithmetic + epsilon_quantum := by
+  unfold epsilon_quantum
+  ring
+
 /-- **Ch 25 load-bearing hypothesis 1**: the rationality-Hodge-Galois
     concentration hypothesis: any class satisfying rationality + Hodge
-    condition + Galois equivariance has concentration `σ_R_φ ≥ 0.95`
+    condition + Galois equivariance has concentration `σ_R_φ ≥ σ_c`
     in the fractal resonance basis at α = φ.
 
-    Manuscript reference: `hyp:hodge-rhg-concentration`. -/
+    Manuscript reference: `hyp:hodge-rhg-concentration` (Proposition
+    in the manuscript, stated as a hypothesis pending derivation
+    from the three constraint sets). -/
 def fractalHodgeConcentration (α : ℝ) : Prop :=
   α = phi →
-  ∀ (hodge_class : Unit), True  -- placeholder for σ ≥ 0.95
+  ∀ (hodge_class : Unit), True  -- placeholder for σ ≥ σ_c
 
 /-- **Ch 25 load-bearing hypothesis 2**: `conj:crystallization-algebraicity`
     — any cohomology class with `σ_R_φ ≥ 0.95` (the consciousness
