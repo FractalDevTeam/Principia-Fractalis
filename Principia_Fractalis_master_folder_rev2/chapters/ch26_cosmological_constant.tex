@@ -247,26 +247,34 @@ The effective exponent becomes:
 \end{equation}
 
 Thus:
-\begin{equation}
-\langle \Lambda_{\text{eff}} \rangle \approx \Lambda_0 \exp[-0.95 \times 10^{128}] \approx \Lambda_0 \times 10^{-120}
+\begin{equation}\label{eq:lambda-eff-ch26}
+\langle \Lambda_{\text{eff}} \rangle \approx \Lambda_0 \exp[-0.95 \times 10^{128}] \stackrel{?}{\approx} \Lambda_0 \times 10^{-120}
 \end{equation}
 
 Numerically:
 \begin{equation}
-\langle \Lambda_{\text{eff}} \rangle \approx 10^{91} \times 10^{-120} = 10^{-29} \, \text{g/cm}^3
+\langle \Lambda_{\text{eff}} \rangle \stackrel{?}{\approx} 10^{91} \times 10^{-120} = 10^{-29} \, \text{g/cm}^3
 \end{equation}
 
-\textbf{This matches observations exactly!}
+\medskip
+\noindent\emph{Arithmetic-status disclosure, 2026-05-18: The asserted equality $\exp[-0.95 \times 10^{128}] \approx 10^{-120}$ does not hold. Computing directly:}
+\begin{align*}
+\exp[-0.95 \times 10^{128}] \;=\; 10^{-(0.95 \times 10^{128})/\ln 10} \;\approx\; 10^{-4.13 \times 10^{127}},
+\end{align*}
+\emph{which is approximately $10^{-4.13 \times 10^{127}}$, NOT $10^{-120}$. The exponent in the manuscript ($0.95 \times 10^{128}$) is approximately $10^{128}$ orders of magnitude larger than the $\approx 276$ ($= 120 \times \ln 10$) needed for the result to be $10^{-120}$.}
+
+\emph{The manuscript's earlier acknowledgment (``Wait---this gives barely any suppression!'' at the corresponding paragraph) correctly identified that the naive volume-fraction calculation undershoots, but the proposed ``coherent suppression'' correction overshoots by even more orders of magnitude. The result $10^{-120}$ is the observationally-correct ratio $\Lambda_{\text{eff}}/\Lambda_0$ (well-established from cosmological observations), but is NOT actually derived by the calculation as written. A first-principles derivation that yields $\Lambda_{\text{eff}}/\Lambda_0 \approx 10^{-120}$ from a consciousness-suppression mechanism remains an open problem; the present mechanism is a qualitative heuristic, not a quantitatively calibrated derivation.}
+
+\textbf{The observed value $10^{-29}$ g/cm$^3$ matches observations}; the conjectured derivation is an open problem.
 \end{proof}
 
-\begin{remark}[Interpretation]
-The calculation shows:
+\begin{remark}[Interpretation, corrected 2026-05-18]
+The conjectured mechanism shows:
 \begin{enumerate}
 \item The bare vacuum energy $\Lambda_0$ is indeed Planck-scale (QFT is correct)
-\item Consciousness suppresses this exponentially across the observable universe
-\item Even though conscious beings occupy $\sim 10^{-55}$ of the volume, their \textit{causal influence} extends across the entire past light cone
-\item The age of the universe $t_{\text{universe}} \sim 10^{10}$ years provides the time for consciousness to "propagate" its suppression
-\item The observed value $10^{-29}$ g/cm$^3$ emerges naturally from $0.95 \times 10^{128} \approx 120 \times \ln(10)$
+\item Consciousness is conjectured to suppress this exponentially across the observable universe
+\item Conscious beings occupy $\sim 10^{-55}$ of the volume; the conjectured ``causal influence'' propagation extending across the entire past light cone is a heuristic mechanism that has not been quantitatively calibrated
+\item The observed value $10^{-29}$ g/cm$^3$ is empirical; the consciousness-suppression mechanism reproduces it qualitatively but does not yet derive it numerically. The needed exponent $\approx 276$ ($= 120 \ln 10$) is approximately $10^{128}$ orders of magnitude smaller than the exponent the formula yields with the stated parameters. Reconciling these orders of magnitude is the open derivation problem.
 \end{enumerate}
 \end{remark}
 
