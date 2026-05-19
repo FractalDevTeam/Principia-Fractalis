@@ -1257,6 +1257,158 @@ theorem manuscript_sine_identity_both_sides_wrong :
       ≠ (5988854382 : ℝ)/(10^10) :=
   ⟨manuscript_sqrt5_identity_ne_5988, manuscript_sine_ratio_ne_5988⟩
 
+/-! ## Manuscript Ch 21 Spectral-Gap Analysis remark (line 467-469) — errors
+
+The manuscript's Remark "Spectral Gap Analysis" (after Theorem thm:spectral-gap)
+claims THREE numerical identities:
+
+(A) `λ_0(H_NP) = π(√5-1)/(30√2) ≈ 0.1330222423`
+(B) `Δ = π(4-√5)/(30√2) ≈ 0.0891219046`
+(C) These reproduce the empirical Δ.
+
+We formally certify:
+- (A) is incorrect: `π(√5-1)/(30√2) ≈ 0.0915`, not `0.1330`.
+- (B) is incorrect: `π(4-√5)/(30√2) ≈ 0.1306`, not `0.0891`.
+- (C) is therefore false: the closed-form Δ formula does NOT match the
+  empirical Δ_empirical ≈ 0.0891 (which comes from the empirical λ_NP ≈ 0.1330).
+
+Combined with the φ/e correction and sine-identity errors, this is the
+third major instance of manuscript closed-form formulas not matching the
+manuscript's own empirical values. -/
+
+/-- **Numerical bracket on `π(√5-1)/(30√2)`**: lies in `(0.091, 0.092)`,
+    NOT near the manuscript's stated `0.1330`. -/
+theorem manuscript_lambda_NP_golden_bracket :
+    (91 : ℝ)/1000 <
+      Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) ∧
+    Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) <
+      (92 : ℝ)/1000 := by
+  have h_pi_lb : (3141 : ℝ)/1000 < Real.pi := by linarith [Real.pi_gt_d4]
+  have h_pi_ub : Real.pi < (3142 : ℝ)/1000 := by linarith [Real.pi_lt_d4]
+  have h_sqrt5_lb : (2236 : ℝ)/1000 < Real.sqrt 5 := by
+    have h : Real.sqrt (((2236 : ℝ)/1000)^2) < Real.sqrt 5 := by
+      apply Real.sqrt_lt_sqrt
+      · positivity
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (2236 : ℝ)/1000)] at h
+  have h_sqrt5_ub : Real.sqrt 5 < (2237 : ℝ)/1000 := by
+    have h : Real.sqrt 5 < Real.sqrt (((2237 : ℝ)/1000)^2) := by
+      apply Real.sqrt_lt_sqrt
+      · norm_num
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (2237 : ℝ)/1000)] at h
+  have h_sqrt2_lb : (1414 : ℝ)/1000 < Real.sqrt 2 := by
+    have h : Real.sqrt (((1414 : ℝ)/1000)^2) < Real.sqrt 2 := by
+      apply Real.sqrt_lt_sqrt
+      · positivity
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (1414 : ℝ)/1000)] at h
+  have h_sqrt2_ub : Real.sqrt 2 < (1415 : ℝ)/1000 := by
+    have h : Real.sqrt 2 < Real.sqrt (((1415 : ℝ)/1000)^2) := by
+      apply Real.sqrt_lt_sqrt
+      · norm_num
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (1415 : ℝ)/1000)] at h
+  have h_denom_pos : (0 : ℝ) < 30 * Real.sqrt 2 := by
+    have : Real.sqrt 2 > 0 := Real.sqrt_pos.mpr (by norm_num)
+    linarith
+  have h_sqrt5_minus_one_pos : Real.sqrt 5 - 1 > 0 := by linarith
+  refine ⟨?_, ?_⟩
+  · -- 0.091 < π(√5-1)/(30√2)
+    -- numerator π(√5-1) > 3.141 · 1.236 ≈ 3.882
+    -- denominator 30·√2 < 30 · 1.415 = 42.45
+    -- ratio > 3.882/42.45 ≈ 0.0914
+    rw [lt_div_iff₀ h_denom_pos]
+    nlinarith [h_pi_lb, h_sqrt5_lb, h_sqrt2_ub, h_sqrt5_minus_one_pos]
+  · -- π(√5-1)/(30√2) < 0.092
+    -- numerator < 3.142 · 1.237 ≈ 3.887
+    -- denominator > 30 · 1.414 = 42.42
+    -- ratio < 3.887/42.42 ≈ 0.0916
+    rw [div_lt_iff₀ h_denom_pos]
+    nlinarith [h_pi_ub, h_sqrt5_ub, h_sqrt2_lb, h_sqrt5_minus_one_pos]
+
+/-- **`λ_NP_golden ≠ 0.1330`**: the manuscript's claim
+    `π(√5-1)/(30√2) ≈ 0.1330` is incorrect. The bracket above shows the
+    actual value is in `(0.091, 0.092)`. -/
+theorem manuscript_lambda_NP_golden_ne_1330 :
+    Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) ≠ (1330 : ℝ)/10000 := by
+  intro h
+  obtain ⟨_, h_ub⟩ := manuscript_lambda_NP_golden_bracket
+  rw [h] at h_ub
+  norm_num at h_ub
+
+/-- **Numerical bracket on `π(4-√5)/(30√2)`**: lies in `(0.130, 0.131)`,
+    NOT near the manuscript's stated `0.0891`. -/
+theorem manuscript_gap_golden_bracket :
+    (130 : ℝ)/1000 <
+      Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) ∧
+    Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) <
+      (131 : ℝ)/1000 := by
+  have h_pi_lb : (3141 : ℝ)/1000 < Real.pi := by linarith [Real.pi_gt_d4]
+  have h_pi_ub : Real.pi < (3142 : ℝ)/1000 := by linarith [Real.pi_lt_d4]
+  have h_sqrt5_lb : (2236 : ℝ)/1000 < Real.sqrt 5 := by
+    have h : Real.sqrt (((2236 : ℝ)/1000)^2) < Real.sqrt 5 := by
+      apply Real.sqrt_lt_sqrt
+      · positivity
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (2236 : ℝ)/1000)] at h
+  have h_sqrt5_ub : Real.sqrt 5 < (2237 : ℝ)/1000 := by
+    have h : Real.sqrt 5 < Real.sqrt (((2237 : ℝ)/1000)^2) := by
+      apply Real.sqrt_lt_sqrt
+      · norm_num
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (2237 : ℝ)/1000)] at h
+  have h_sqrt2_lb : (1414 : ℝ)/1000 < Real.sqrt 2 := by
+    have h : Real.sqrt (((1414 : ℝ)/1000)^2) < Real.sqrt 2 := by
+      apply Real.sqrt_lt_sqrt
+      · positivity
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (1414 : ℝ)/1000)] at h
+  have h_sqrt2_ub : Real.sqrt 2 < (1415 : ℝ)/1000 := by
+    have h : Real.sqrt 2 < Real.sqrt (((1415 : ℝ)/1000)^2) := by
+      apply Real.sqrt_lt_sqrt
+      · norm_num
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (1415 : ℝ)/1000)] at h
+  have h_denom_pos : (0 : ℝ) < 30 * Real.sqrt 2 := by
+    have : Real.sqrt 2 > 0 := Real.sqrt_pos.mpr (by norm_num)
+    linarith
+  have h_4_minus_sqrt5_pos : 4 - Real.sqrt 5 > 0 := by linarith
+  refine ⟨?_, ?_⟩
+  · -- 0.130 < π(4-√5)/(30√2)
+    -- π(4-√5) > 3.141·(4-2.237) > 3.141·1.763 ≈ 5.538
+    -- 30·√2 < 30·1.415 = 42.45
+    -- ratio > 5.538/42.45 ≈ 0.1304
+    rw [lt_div_iff₀ h_denom_pos]
+    nlinarith [h_pi_lb, h_sqrt5_ub, h_sqrt2_ub, h_4_minus_sqrt5_pos]
+  · -- π(4-√5)/(30√2) < 0.131
+    -- π(4-√5) < 3.142·(4-2.236) = 3.142·1.764 ≈ 5.542
+    -- 30·√2 > 30·1.414 = 42.42
+    -- ratio < 5.542/42.42 ≈ 0.1307
+    rw [div_lt_iff₀ h_denom_pos]
+    nlinarith [h_pi_ub, h_sqrt5_lb, h_sqrt2_lb, h_4_minus_sqrt5_pos]
+
+/-- **`Δ_golden ≠ 0.0891`**: the manuscript's claim
+    `π(4-√5)/(30√2) ≈ 0.0891` is incorrect. The bracket shows the actual
+    value is in `(0.130, 0.131)`. The empirical Δ_empirical = 0.0891 is
+    therefore NOT reproduced by the closed-form golden-modulation formula. -/
+theorem manuscript_gap_golden_ne_0891 :
+    Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) ≠ (891 : ℝ)/10000 := by
+  intro h
+  obtain ⟨h_lo, _⟩ := manuscript_gap_golden_bracket
+  rw [h] at h_lo
+  norm_num at h_lo
+
+/-- **Triple-error certificate for Spectral Gap Analysis remark**:
+    The manuscript's three claimed numerical values on lines 467-469
+    (`λ_NP_golden = 0.1330`, `Δ_golden = 0.0891`, and the implicit
+    consistency with empirical) are all formally certified to be wrong:
+    `λ_NP_golden ≈ 0.0915`, `Δ_golden ≈ 0.1306`. -/
+theorem manuscript_spectral_gap_analysis_triple_error :
+    Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) ≠ (1330 : ℝ)/10000 ∧
+    Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) ≠ (891 : ℝ)/10000 :=
+  ⟨manuscript_lambda_NP_golden_ne_1330, manuscript_gap_golden_ne_0891⟩
+
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
 If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
