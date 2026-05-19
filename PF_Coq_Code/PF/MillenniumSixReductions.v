@@ -274,6 +274,31 @@ Proof.
   apply ln_increasing; lra.
 Qed.
 
+(** **cantor_hausdorff_dim > 1/2** (Lean: cantor_hausdorff_dim_gt_half).
+
+    Proof: log 2 / log 3 > 1/2 ⟺ 2 log 2 > log 3 ⟺ log 4 > log 3,
+    which holds since 4 > 3 and log is strict mono. *)
+Theorem cantor_hausdorff_dim_gt_half : 1/2 < cantor_hausdorff_dim.
+Proof.
+  unfold cantor_hausdorff_dim.
+  assert (Hln3_pos : 0 < ln 3).
+  { rewrite <- ln_1. apply ln_increasing; lra. }
+  assert (Hln3_ne : ln 3 <> 0) by lra.
+  assert (H4_3 : ln 3 < ln 4).
+  { apply ln_increasing; lra. }
+  assert (H_ln4 : ln 4 = 2 * ln 2).
+  { replace 4 with (2 * 2) by lra.
+    rewrite ln_mult by lra. lra. }
+  assert (Hln2_pos : 0 < ln 2).
+  { rewrite <- ln_1. apply ln_increasing; lra. }
+  (* From H4_3 and H_ln4: ln 3 < 2 * ln 2, so ln 2 > ln 3 / 2.
+     Then ln 2 / ln 3 > 1/2 by direct manipulation. *)
+  assert (Hln2_gt : ln 2 > ln 3 / 2) by lra.
+  apply Rmult_lt_reg_r with (r := 2 * ln 3); [nra |].
+  field_simplify; [| exact Hln3_ne].
+  nra.
+Qed.
+
 (* ============================================================ *)
 (* Ch 21 — P-class target eigenvalue λ_0 = π/(10·√2)           *)
 (* ============================================================ *)
