@@ -1323,6 +1323,54 @@ theorem cos_four_pi_sqrt2_div_three_ge_half :
   rw [show (1/2 : ℝ) = Real.cos (Real.pi/3) from Real.cos_pi_div_three.symm]
   exact Real.cos_le_cos_of_nonneg_of_le_pi h_neg_z_pos h_pi3_le_pi h_neg_z_le
 
+/-! ## ★★★ SHARPER STRICT bound `cos(4π·√2/3) ≥ √2/2` ★★★ -/
+
+/-- **★★★ SHARPER bound `cos(4π·√2/3) ≥ √2/2` ★★★** (axiom-free):
+
+    Tighter than `≥ 1/2`. Same 2π-periodicity reduction, but tightens
+    the `|z|` bound from `π/3` to `π/4`.
+
+    `|z| ≤ π/4` ⟺ `8(3-2√2) ≤ 3` ⟺ `21 ≤ 16√2` ⟺ `441 ≤ 512` ✓.
+
+    Then `cos(|z|) ≥ cos(π/4) = √2/2`. -/
+theorem cos_four_pi_sqrt2_div_three_ge_sqrt2_half :
+    (Real.sqrt 2 / 2 : ℝ) ≤ Real.cos (4 * Real.pi * Real.sqrt 2 / 3) := by
+  have h_sqrt2_sq : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  -- √2 < 3/2
+  have h_sqrt2_upper : Real.sqrt 2 < 3/2 := by
+    rw [show ((3:ℝ)/2 : ℝ) = Real.sqrt ((3/2)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 3/2)).symm]
+    apply Real.sqrt_lt_sqrt
+    · norm_num
+    · norm_num
+  -- √2 > 21/16  (from 441 ≤ 512, i.e., (21/16)² = 441/256 < 2 = 512/256)
+  have h_sqrt2_lower : (21:ℝ)/16 < Real.sqrt 2 := by
+    rw [show ((21:ℝ)/16 : ℝ) = Real.sqrt ((21/16)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 21/16)).symm]
+    apply Real.sqrt_lt_sqrt
+    · positivity
+    · norm_num
+  -- Reduce 4π√2/3 by 2π
+  have h_cos_eq : Real.cos (4 * Real.pi * Real.sqrt 2 / 3) =
+                  Real.cos (4 * Real.pi * Real.sqrt 2 / 3 - 2 * Real.pi) := by
+    rw [Real.cos_sub_two_pi]
+  rw [h_cos_eq]
+  set z := 4 * Real.pi * Real.sqrt 2 / 3 - 2 * Real.pi
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_z_neg : z < 0 := by
+    show 4 * Real.pi * Real.sqrt 2 / 3 - 2 * Real.pi < 0
+    nlinarith [h_pi_pos, h_sqrt2_upper]
+  rw [show Real.cos z = Real.cos (-z) from (Real.cos_neg z).symm]
+  have h_neg_z_pos : (0 : ℝ) ≤ -z := by linarith
+  -- need -z ≤ π/4, i.e., 2π - 4π√2/3 ≤ π/4, i.e., 8/3 - 8√2/9·3 ≤ ... wait
+  -- 2π(3-2√2)/3 ≤ π/4 ⟺ 8(3-2√2) ≤ 3 ⟺ 21 ≤ 16√2 ⟺ √2 ≥ 21/16
+  have h_neg_z_le : -z ≤ Real.pi / 4 := by
+    show -(4 * Real.pi * Real.sqrt 2 / 3 - 2 * Real.pi) ≤ Real.pi / 4
+    nlinarith [h_pi_pos, h_sqrt2_lower]
+  have h_pi4_le_pi : Real.pi / 4 ≤ Real.pi := by linarith
+  rw [show (Real.sqrt 2 / 2 : ℝ) = Real.cos (Real.pi/4) from Real.cos_pi_div_four.symm]
+  exact Real.cos_le_cos_of_nonneg_of_le_pi h_neg_z_pos h_pi4_le_pi h_neg_z_le
+
 /-! ## ★★ STRICT cos bound at third odd-frequency angle ★★ -/
 
 /-- **★★ STRICT lower bound `cos(8π·√2/3) ≥ 1/2` ★★** (axiom-free):
