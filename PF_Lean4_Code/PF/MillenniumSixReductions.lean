@@ -881,4 +881,85 @@ theorem level1_spectrum_at_alpha_two_a_two :
   · show (1/2 : ℝ) * (2/((2:ℝ) - 1) - fractalKernelReal 2 2 ((1/6, 5/6) : ℝ × ℝ)) = 3/2
     rw [h_vp]; norm_num
 
+/-! ## Manuscript Ch 21, Corollary `cor:dim-gap` — Fractal-Dimension Separation
+
+The manuscript states two box-counting dimension claims (Theorems
+`thm:dim-p` and `thm:dim-np` of Ch 21):
+
+  `dim_frac(P)  = √2     ≈ 1.41421...`
+  `dim_frac(NP) = φ + 1/4 ≈ 1.86803...`
+
+with proof *sketches* (covering / Kolmogorov-complexity / certificate
+branching arguments) but no first-principles derivation. Per the
+manuscript's open-derivation catalog (Remark `rem:alpha-P-NP-derivation-status`),
+the closed-form value `φ + 1/4` is conjectural at the manuscript level
+even though the numerical value matches at high precision.
+
+The corollary `cor:dim-gap` is a strictly *algebraic* consequence:
+**given** the two stated values, their difference is strictly positive,
+yielding `(P, d_H) ≇ (NP, d_H)` as metric spaces (homeomorphisms preserve
+box-counting dimension; see Falconer 2003).
+
+We formalize it as a **dimension-conditional** theorem to keep the proof
+honest: the implication is unconditional, only the antecedent (the two
+specific dimensions) is conjectural. -/
+
+/-- **Corollary `cor:dim-gap` (Manuscript Ch 21, line 1068).** Given the
+    manuscript's claimed fractal dimensions `dimP = √2` and
+    `dimNP = φ + 1/4` (Theorems `thm:dim-p`, `thm:dim-np`), the dimension
+    gap `dimNP − dimP` is strictly positive, with explicit lower bound
+    `> 0.4` (the manuscript states `≈ 0.454`).
+
+    *Proof.* Substitute the assumed values and apply the proven inequality
+    `phi_plus_quarter_gt_sqrt2 : φ + 1/4 > √2` (axiom-free, from
+    `PF/IntervalArithmetic.lean`).
+
+    *Manuscript significance.* This metric-space separation is independent
+    of the spectral-gap separation `λ_0(H_P) ≠ λ_0(H_{NP})` (Conjecture
+    `conj:polylog-spectrum` + Heuristic `heur:branch-selection`), providing
+    a **second independent line of evidence** for `P ≠ NP` under the
+    manuscript's framework. -/
+theorem cor_dim_gap_positive_given_manuscript_values
+    (dimP dimNP : ℝ)
+    (hP : dimP = Real.sqrt 2)
+    (hNP : dimNP = PrincipiaTractalis.phi + 1/4) :
+    0 < dimNP - dimP := by
+  rw [hP, hNP]
+  have h : PrincipiaTractalis.phi + 1/4 > Real.sqrt 2 :=
+    PrincipiaTractalis.phi_plus_quarter_gt_sqrt2
+  linarith
+
+/-- **Refined `cor:dim-gap`**: the dimension gap exceeds `0.4`, matching
+    the manuscript's stated approximate value `0.454`. -/
+theorem cor_dim_gap_quantitative_given_manuscript_values
+    (dimP dimNP : ℝ)
+    (hP : dimP = Real.sqrt 2)
+    (hNP : dimNP = PrincipiaTractalis.phi + 1/4) :
+    dimNP - dimP > (4 : ℝ)/10 := by
+  rw [hP, hNP]
+  -- φ + 1/4 ≥ 1.6180339887 + 0.25 = 1.8680339887
+  -- √2 ≤ 1.41421357
+  -- gap ≥ 1.8680339887 - 1.41421357 ≈ 0.4538 > 0.4
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ PrincipiaTractalis.phi :=
+    PrincipiaTractalis.phi_in_interval_10digit.1
+  have h_sqrt2_ub : Real.sqrt 2 ≤ (1.41421357 : ℝ) :=
+    PrincipiaTractalis.sqrt2_upper
+  linarith
+
+/-- **Metric inequivalence of P and NP under the manuscript dimensions.**
+    Two metric spaces with distinct box-counting dimensions cannot be
+    homeomorphic (Falconer 2003, Cor 3.4); the strict dim-gap from
+    `cor_dim_gap_positive_given_manuscript_values` therefore implies
+    `(P, d_H)` and `(NP, d_H)` are not homeomorphic. We formalize this
+    as the cleanly-derivable inequality of dimensions. -/
+theorem dim_P_ne_dim_NP_given_manuscript_values
+    (dimP dimNP : ℝ)
+    (hP : dimP = Real.sqrt 2)
+    (hNP : dimNP = PrincipiaTractalis.phi + 1/4) :
+    dimP ≠ dimNP := by
+  intro h_eq
+  have h_gap : 0 < dimNP - dimP :=
+    cor_dim_gap_positive_given_manuscript_values dimP dimNP hP hNP
+  linarith
+
 end PrincipiaTractalis.MillenniumSix

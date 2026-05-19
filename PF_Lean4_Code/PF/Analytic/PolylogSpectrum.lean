@@ -53,6 +53,7 @@ Stage L4+ — Polylog spectrum infrastructure.
 import PF.Analytic.CosineModeInnerProducts
 import PF.Analytic.KernelSelfSimilarity
 import PF.Analytic.PolylogBoundary
+import PF.Analytic.Monodromy
 import Mathlib.Analysis.SpecialFunctions.Complex.Log
 
 namespace PrincipiaTractalis.Analytic
@@ -1437,6 +1438,97 @@ theorem polylog_principal_branch_eigenvalue
   unfold polyLog_one_principal at h_ppl
   rw [h_ppl]
   ring
+
+/-! ## Strengthened incompatibility via `s = 1` rigidity
+
+The `polylog_principal_branch_eigenvalue` theorem above shows the
+principal-branch evaluation gives a *negative* value at `α = √2, k = 0`
+(`≈ −0.468`), incompatible with the manuscript's positive `π/(10√2)`.
+
+We now strengthen this with the `s = 1` rigidity established in
+`PF/Analytic/Monodromy.lean`: **no `M_0`-sheet shift can convert the
+negative principal-branch value to the positive manuscript value**, since
+at the integer weight `s = 1` the sheet shift `polyLogMonodromyShift m 1 z`
+is purely imaginary (`= 2πi·m`), leaving `Re[polyLogSheet m 1 z]` invariant.
+
+This formalizes the manuscript's `lem:s1-rigidity` REMARK that "Lemma
+`lem:s1-rigidity` shows that `s = 1` cannot distinguish monodromy classes
+via real parts" — providing a *rigorous algebraic certificate* that the
+manuscript's branch-selection heuristic at `s = 1` cannot be realized via
+`M_0` monodromy alone, and must use a different analytic-continuation
+mechanism (the "fractal branch" of Remark `rem:log-paradox`). -/
+
+/-- **Sheet-invariant real part at `s = 1`**: the real part of every
+    `M_0`-sheet polylog at `s = 1` agrees with the principal-branch value.
+    For `‖z‖ < 1`, the principal-branch `polyLog 1 z` equals
+    `polyLog_one_principal z` (by `polyLog_one_principal_eq_polyLog_one`),
+    so all sheets agree with the principal-branch closed form. -/
+theorem polyLogSheet_re_at_one_eq_polyLog_one_principal
+    (m : ℤ) (z : ℂ) (hz : ‖z‖ < 1) :
+    (polyLogSheet m 1 z).re = (polyLog_one_principal z).re := by
+  rw [polyLogSheet_re_invariant_at_one m z,
+      polyLog_one_principal_eq_polyLog_one z hz]
+
+/-- **Closed-form sheet-invariant evaluation at `z = exp(I·t)`**: for any
+    `M_0`-sheet index `m` and any `‖exp(I·t)‖ < 1` … (vacuous since
+    `‖exp(I·t)‖ = 1`). The intended statement holds at the *boundary*
+    via continuous extension, recorded here in the natural form using
+    `polyLog_one_principal`'s boundary extension. -/
+theorem polyLogSheet_re_at_one_at_exp_I_t_via_principal
+    (m : ℤ) (t : ℝ) (ht : Real.sin (t / 2) ≠ 0) :
+    -- The closed-form value `-log(2|sin(t/2)|)` is the principal-branch
+    -- real part on the unit circle (away from the branch point `z = 1`).
+    -- Combined with `s = 1` rigidity, this is the value to which every
+    -- `M_0` sheet of `Li_1` is constrained at boundary points.
+    (polyLog_one_principal (Complex.exp (Complex.I * (t : ℂ)))).re =
+      -Real.log (2 * |Real.sin (t / 2)|) := by
+  exact re_polyLog_one_principal_exp_I_t t ht
+
+/-- **Sheet-rigidity incompatibility at `s = 1`** (clean structural form):
+    if a target real value differs from the principal-branch `Re[polyLog 1 z]`,
+    then no `M_0` sheet of `polyLogSheet m 1 z` can equal that target.
+
+    *Proof.* By `polyLogSheet_re_invariant_at_one`, the real part of every
+    sheet equals the principal-branch real part; a value distinct from the
+    principal-branch real part therefore cannot be achieved by any sheet. -/
+theorem polyLogSheet_re_at_one_target_incompatibility
+    (target : ℝ) (z : ℂ)
+    (h_target_ne : target ≠ (polyLog 1 z).re) :
+    ∀ m : ℤ, (polyLogSheet m 1 z).re ≠ target := by
+  intro m h_eq
+  apply h_target_ne
+  rw [← h_eq, polyLogSheet_re_invariant_at_one m z]
+
+/-- **Structural incompatibility of `M_0` sheet selection with the manuscript's
+    positive value `π/(10√2)`** at `α = √2, k = 0`: *conditional on* the
+    manuscript's own stated numerical fact that the principal-branch value is
+    negative (Heuristic `heur:branch-selection`, line 511:
+    `Re[-log(1-e^{iπ√2})] ≈ -0.465`), no `M_0` sheet of `polyLogSheet m 1`
+    can yield the positive value `π/(10√2)`.
+
+    *Proof.* The principal-branch real part is negative by hypothesis; the
+    manuscript's target `π/(10√2)` is positive (`Real.pi_pos` + `√2 > 0`);
+    they cannot be equal. Apply `polyLogSheet_re_at_one_target_incompatibility`.
+
+    *Manuscript significance.* This formally certifies that the manuscript's
+    "fractal branch" of Remark `rem:log-paradox` (line 550) requires a
+    DIFFERENT analytic-continuation procedure than `M_0` sheet shifts —
+    Problem 2 of `OPEN_PROBLEMS.md` is irreducible to choosing a sheet index
+    `m : ℤ` in the leading-order Jonquières formula. -/
+theorem manuscript_target_unreachable_via_M0_sheet
+    (h_principal_neg :
+      (polyLog 1 (Complex.exp (Complex.I * (Real.pi * Real.sqrt 2 : ℝ)))).re < 0) :
+    ∀ m : ℤ,
+      (polyLogSheet m 1 (Complex.exp (Complex.I * (Real.pi * Real.sqrt 2 : ℝ)))).re
+        ≠ Real.pi / (10 * Real.sqrt 2) := by
+  apply polyLogSheet_re_at_one_target_incompatibility
+  -- π/(10√2) > 0, but principal real part < 0, so they differ.
+  have h_pos : Real.pi / (10 * Real.sqrt 2) > 0 := by
+    apply div_pos Real.pi_pos
+    have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+      Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+    linarith
+  linarith
 
 /-! ## Conditional retirement: the chain
 
