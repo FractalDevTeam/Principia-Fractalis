@@ -288,6 +288,14 @@ theorem Delta_fYM_bracket : (420 : ℝ) < Delta_fYM_MeV ∧ Delta_fYM_MeV < 421 
   · norm_num
   · norm_num
 
+/-- **Δ_fYM 4-decimal bracket** (sharper, axiom-free):
+    `420.42 < Δ_fYM < 420.43`. Direct computation of
+    `197.2 · 2.13198462 = 420.42736...`. -/
+theorem Delta_fYM_bracket_4digit :
+    (42042 : ℝ)/100 < Delta_fYM_MeV ∧ Delta_fYM_MeV < (42043 : ℝ)/100 := by
+  rw [Delta_fYM_value]
+  refine ⟨?_, ?_⟩ <;> norm_num
+
 /-- **Ch 23 load-bearing hypothesis 1**: the fractal Yang-Mills
     Hamiltonian `H_fYM` at α = 2 has spectrum `{0} ∪ [Δ_fYM, ∞)`
     with `Δ_fYM = Λ_QCD · ω_c` where `ω_c` is the first positive
