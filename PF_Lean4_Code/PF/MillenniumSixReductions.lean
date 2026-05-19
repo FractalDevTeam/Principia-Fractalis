@@ -233,6 +233,53 @@ theorem cantor_hausdorff_dim_properly_fractal :
     (1 : ℝ)/2 < cantor_hausdorff_dim ∧ cantor_hausdorff_dim < 1 :=
   ⟨cantor_hausdorff_dim_gt_half, cantor_hausdorff_dim_lt_one⟩
 
+/-- **Sharper lower bound `cantor_hausdorff_dim > 3/5`**.
+
+    Proof: `log 2 / log 3 > 3/5 ⟺ 5 log 2 > 3 log 3 ⟺ log 32 > log 27`,
+    which holds since `32 > 27` and `log` is strictly monotone on
+    `(0, ∞)`. -/
+theorem cantor_hausdorff_dim_gt_three_fifths :
+    (3 : ℝ)/5 < cantor_hausdorff_dim := by
+  unfold cantor_hausdorff_dim
+  have h_log3_pos : 0 < Real.log 3 := Real.log_pos (by norm_num : (1:ℝ) < 3)
+  have h_lt : Real.log 27 < Real.log 32 :=
+    Real.log_lt_log (by norm_num : (0:ℝ) < 27) (by norm_num : (27:ℝ) < 32)
+  have h_log27 : Real.log 27 = 3 * Real.log 3 := by
+    rw [show (27 : ℝ) = 3^3 by norm_num, Real.log_pow]
+    ring
+  have h_log32 : Real.log 32 = 5 * Real.log 2 := by
+    rw [show (32 : ℝ) = 2^5 by norm_num, Real.log_pow]
+    ring
+  rw [lt_div_iff₀ h_log3_pos]
+  linarith [h_lt, h_log27, h_log32]
+
+/-- **Sharper upper bound `cantor_hausdorff_dim < 16/25`** (= 0.64).
+
+    Proof: `log 2 / log 3 < 16/25 ⟺ 25 log 2 < 16 log 3 ⟺ log 2^25 < log 3^16`,
+    which holds since `2^25 = 33,554,432 < 43,046,721 = 3^16` and `log`
+    is strictly monotone. -/
+theorem cantor_hausdorff_dim_lt_sixteen_twentyfifths :
+    cantor_hausdorff_dim < (16 : ℝ)/25 := by
+  unfold cantor_hausdorff_dim
+  have h_log3_pos : 0 < Real.log 3 := Real.log_pos (by norm_num : (1:ℝ) < 3)
+  have h_lt : Real.log (2^25 : ℝ) < Real.log (3^16 : ℝ) := by
+    apply Real.log_lt_log
+    · norm_num
+    · norm_num
+  have h_log2_25 : Real.log ((2:ℝ)^25) = 25 * Real.log 2 := by
+    rw [Real.log_pow]; ring
+  have h_log3_16 : Real.log ((3:ℝ)^16) = 16 * Real.log 3 := by
+    rw [Real.log_pow]; ring
+  rw [div_lt_iff₀ h_log3_pos]
+  linarith [h_lt, h_log2_25, h_log3_16]
+
+/-- **Sharp bracket `3/5 < cantor_hausdorff_dim < 16/25`** = `0.6 < dim_H < 0.64`,
+    matching the manuscript's stated value `log(2)/log(3) ≈ 0.6309`. -/
+theorem cantor_hausdorff_dim_bracket :
+    (3 : ℝ)/5 < cantor_hausdorff_dim ∧ cantor_hausdorff_dim < (16 : ℝ)/25 :=
+  ⟨cantor_hausdorff_dim_gt_three_fifths,
+   cantor_hausdorff_dim_lt_sixteen_twentyfifths⟩
+
 /-- **Ch 22 conditional reduction**:
 
     Given the fractal emergence-point hypothesis at α = 3π/2, the
