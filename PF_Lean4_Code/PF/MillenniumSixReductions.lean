@@ -1645,6 +1645,17 @@ We have a 3-decimal bracket (`lambda_0_P_target_bracket_sharp`) and a
 established via `Real.pi_gt_d20`, `Real.pi_lt_d20`, and the 10-digit
 `sqrt2_in_interval_10digit` bounds in `PF/IntervalArithmetic.lean`. -/
 
+/-! ## NP-class closed-form bracket (after the P-class bracket below) -/
+
+/-- **The NP-class closed-form value** `λ_NP_closed := π/(10(φ+1/4))`.
+    Distinct from the manuscript's empirical `λ_NP ≈ 0.1330` (which the
+    closed form does not match — see `rem:alpha-P-NP-derivation-status`
+    line 1153-1159). The closed form `π/(10(φ+1/4)) ≈ 0.168176418` is
+    the Lean-formalized form (cf. `lambda_0_NP_precise` in
+    `PF/IntervalArithmetic.lean`). -/
+noncomputable def lambda_0_NP_target_closed : ℝ :=
+  Real.pi / (10 * (PrincipiaTractalis.phi + 1/4))
+
 /-- **9-decimal certified bracket on λ_0_P_target**:
     `0.222144146 < π/(10√2) < 0.222144147`. Uses `Real.pi_gt_d20`,
     `Real.pi_lt_d20`, and the squared-bracket form of `√2 ∈ [1.4142135623, 1.4142135624]`.
@@ -1697,5 +1708,43 @@ theorem lambda_0_P_target_bracket_9digit :
       · linarith
       · norm_num
     linarith
+
+/-- **9-decimal bracket on `λ_NP_closed`**:
+    `0.168176418 < π/(10(φ+1/4)) < 0.168176419`. Mirrors the P-class
+    bracket; the manuscript's stated value
+    `λ_NP_closed = π/(10(φ+1/4)) ≈ 0.1681764182...`
+    (Ch 21 line 1156) is contained. -/
+theorem lambda_0_NP_target_closed_bracket_9digit :
+    (168176418 : ℝ)/(10^9) < lambda_0_NP_target_closed ∧
+    lambda_0_NP_target_closed < (168176419 : ℝ)/(10^9) := by
+  unfold lambda_0_NP_target_closed
+  have h_eq : PrincipiaTractalis.pi_10 / (PrincipiaTractalis.phi + 1/4) =
+              Real.pi / (10 * (PrincipiaTractalis.phi + 1/4)) := by
+    unfold PrincipiaTractalis.pi_10
+    field_simp
+  refine ⟨?_, ?_⟩
+  · rw [← h_eq]
+    have h := PrincipiaTractalis.lambda_NP_lower_certified
+    have hnorm : (168176418 : ℝ)/(10^9) = (0.168176418 : ℝ) := by norm_num
+    linarith
+  · rw [← h_eq]
+    have h := PrincipiaTractalis.lambda_NP_upper_certified
+    have hnorm : (168176419 : ℝ)/(10^9) = (0.168176419 : ℝ) := by norm_num
+    linarith
+
+/-- **Closed-form spectral gap bracket (9-decimal)**: from the 9-decimal
+    P-class and NP-class brackets,
+    `λ_P − λ_NP_closed ∈ (0.222144146 − 0.168176419, 0.222144147 − 0.168176418)
+     = (0.053967727, 0.053967729)`. -/
+theorem closed_form_gap_bracket_9digit :
+    (53967727 : ℝ)/(10^9) <
+      lambda_0_P_target - lambda_0_NP_target_closed ∧
+    lambda_0_P_target - lambda_0_NP_target_closed <
+      (53967729 : ℝ)/(10^9) := by
+  obtain ⟨h_P_lo, h_P_hi⟩ := lambda_0_P_target_bracket_9digit
+  obtain ⟨h_NP_lo, h_NP_hi⟩ := lambda_0_NP_target_closed_bracket_9digit
+  refine ⟨?_, ?_⟩
+  · linarith
+  · linarith
 
 end PrincipiaTractalis.MillenniumSix
