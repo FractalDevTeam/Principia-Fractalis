@@ -818,6 +818,142 @@ theorem even_subseries_sqrt2_one_third {a : ℝ} (ha : 1 < a) :
   field_simp
   ring
 
+/-! ## ★★ NEW exact closed form: even subseries at d = 1, α = √2 ★★ -/
+
+/-- **★ Per-term identity at α = √2, d = 1, k = 2m (m ≥ 1) ★**
+    (axiom-free):
+
+      `(a : ℝ)^(-(2m : ℤ)) · cos(π · (√2)^(2m) · 1) = 1/a^(2m)`
+      for `m ≥ 1`.
+
+    Angle: `π · 2^m`. For m≥1, `2^m` is an even integer ≥ 2, so
+    `cos(2^m · π) = cos(0) = 1`. -/
+theorem fractalKernel_even_term_sqrt2_one (a : ℝ) (m : ℕ) (hm : 1 ≤ m) :
+    (a : ℝ)^(-(2*m : ℤ)) *
+      Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * 1) =
+    1 / a^(2*m) := by
+  have hsqrt2_pow : (Real.sqrt 2 : ℝ)^(2*m) = (2:ℝ)^m := by
+    rw [pow_mul]
+    rw [Real.sq_sqrt (by norm_num : (2:ℝ) ≥ 0)]
+  rw [hsqrt2_pow]
+  rw [mul_one]
+  -- cos(π · 2^m) for m ≥ 1: 2^m is even (since m ≥ 1 means 2^m ≥ 2 = 2·1)
+  -- Write 2^m = 2 · 2^(m-1) and use cos(2k·π) = 1.
+  have h_cos_eq : Real.cos (Real.pi * (2:ℝ)^m) = 1 := by
+    have h2 : (2:ℝ)^m = 2 * (2:ℝ)^(m-1) := by
+      have : m = (m - 1) + 1 := (Nat.sub_add_cancel hm).symm
+      conv_lhs => rw [this, pow_succ]
+      ring
+    rw [h2]
+    -- Real.cos (π · 2 · 2^(m-1)) = cos(2π · 2^(m-1))
+    have h3 : Real.pi * (2 * (2:ℝ)^(m-1)) = 2 * Real.pi * (2:ℝ)^(m-1) := by ring
+    rw [h3]
+    -- cos(2π · n) = 1 for any natural n via induction
+    induction (m-1) with
+    | zero =>
+      simp [pow_zero, Real.cos_two_pi]
+    | succ k ih =>
+      have : (2:ℝ)^(k+1) = 2 * (2:ℝ)^k := by ring
+      rw [this]
+      rw [show 2 * Real.pi * (2 * (2:ℝ)^k) = 2 * Real.pi * (2:ℝ)^k + 2 * Real.pi * (2:ℝ)^k from by ring]
+      rw [Real.cos_add]
+      rw [ih]
+      simp
+      have h_sin_2pi : Real.sin (2 * Real.pi * (2:ℝ)^k) = 0 := by
+        -- sin(2π·n) = 0 from cos being 1
+        have : Real.cos (2 * Real.pi * (2:ℝ)^k)^2 + Real.sin (2 * Real.pi * (2:ℝ)^k)^2 = 1 :=
+          Real.cos_sq_add_sin_sq _
+        rw [ih] at this
+        nlinarith [sq_nonneg (Real.sin (2 * Real.pi * (2:ℝ)^k))]
+      rw [h_sin_2pi]
+  rw [h_cos_eq]
+  rw [show (-(2*m : ℤ)) = -((2*m : ℕ) : ℤ) from by push_cast; ring]
+  rw [zpow_neg, zpow_natCast]
+  field_simp
+
+/-- **★★ EXACT closed form: even subseries at d = 1, α = √2 ★★**
+    (`a > 1`, axiom-free):
+
+      `Σ_{m≥0} a^(-2m) · cos(π · (√2)^(2m) · 1) = -(a²-2)/(a²-1)`
+
+    Structure: m=0 gives `cos(π) = -1`; m≥1 gives `cos(2^m · π) = 1`.
+    Sum = -1 + Σ_{m≥1} (1/a²)^m = -1 + 1/(a²-1) = -(a²-2)/(a²-1).
+
+    At a=2: value is `-(4-2)/3 = -2/3`. -/
+theorem even_subseries_sqrt2_one {a : ℝ} (ha : 1 < a) :
+    (∑' m : ℕ, (a : ℝ)^(-(2*m : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * 1)) =
+    -((a : ℝ)^2 - 2) / (a^2 - 1) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_pos : (0 : ℝ) < a^2 := by positivity
+  have ha_sq_gt_one : (1 : ℝ) < a^2 := by nlinarith
+  have ha_sq_minus_one_pos : (0 : ℝ) < a^2 - 1 := by linarith
+  have h_inv_sq_lt : (1/a^2 : ℝ) < 1 := by rw [div_lt_one ha_sq_pos]; linarith
+  have h_inv_sq_nn : (0 : ℝ) ≤ 1/a^2 := by positivity
+  set f : ℕ → ℝ := fun m => (a : ℝ)^(-(2*m : ℤ)) *
+    Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * 1) with hf_def
+  have h_summable : Summable f := by
+    apply Summable.of_norm_bounded (g := fun m : ℕ => (1/a^2)^m)
+    · exact summable_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt
+    intro m
+    simp only [hf_def, Real.norm_eq_abs, abs_mul]
+    have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(2*m : ℤ)) := zpow_pos ha_pos _
+    rw [abs_of_pos h_pow_pos]
+    have h_cos_abs : |Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * 1)| ≤ 1 :=
+      Real.abs_cos_le_one _
+    have h_pow_eq : (a : ℝ)^(-(2*m : ℤ)) = (1/a^2)^m := by
+      rw [show (-(2*m : ℤ)) = -((2*m : ℕ) : ℤ) from by push_cast; ring]
+      rw [zpow_neg, zpow_natCast]
+      rw [show (2*m : ℕ) = 2 * m from by ring, pow_mul]
+      rw [div_pow, one_pow]
+      rw [← one_div]
+    rw [h_pow_eq]
+    have h_pos : (0 : ℝ) < (1/a^2 : ℝ)^m := pow_pos (by positivity) m
+    calc (1/a^2 : ℝ)^m * |Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * 1)|
+        ≤ (1/a^2 : ℝ)^m * 1 := mul_le_mul_of_nonneg_left h_cos_abs h_pos.le
+      _ = (1/a^2 : ℝ)^m := mul_one _
+  have h_split : (∑' m, f m) = f 0 + ∑' m, f (m+1) := h_summable.tsum_eq_zero_add
+  rw [h_split]
+  -- f 0 = a^0 · cos(π·1·1) = cos(π) = -1
+  have h_f0 : f 0 = -1 := by
+    show (a : ℝ)^(-(2 * ((0:ℕ) : ℤ))) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*0) * 1) = -1
+    have h_exp : (-(2 * ((0:ℕ) : ℤ))) = 0 := by push_cast
+    rw [h_exp, zpow_zero]
+    have h_sqrt : (Real.sqrt 2 : ℝ)^(2*0) = 1 := by norm_num
+    rw [h_sqrt]
+    rw [show Real.pi * 1 * 1 = Real.pi from by ring]
+    rw [Real.cos_pi]
+    ring
+  rw [h_f0]
+  -- For m ≥ 0, f (m+1) = 1/a^(2(m+1)) using m+1 ≥ 1
+  have h_term_shift : ∀ m : ℕ, f (m+1) = 1 / a^(2*(m+1)) := by
+    intro m
+    show (a : ℝ)^(-(2 * ((m+1) : ℕ) : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*(m+1)) * 1) =
+        1 / a^(2*(m+1))
+    exact fractalKernel_even_term_sqrt2_one a (m+1) (by omega)
+  rw [tsum_congr h_term_shift]
+  -- Σ_{m≥0} 1/a^(2(m+1)) = (1/a²) · Σ (1/a²)^m = (1/a²) · 1/(1-1/a²)
+  have h_pow_rewrite : ∀ m : ℕ,
+      1 / (a : ℝ)^(2*(m+1)) = (1/a^2) * (1/a^2)^m := by
+    intro m
+    have hp : (a : ℝ)^(2*(m+1)) = a^2 * (a^2)^m := by
+      rw [show 2*(m+1) = 2 + 2*m from by ring, pow_add, pow_mul]
+    rw [hp]
+    rw [div_pow, one_pow]
+    field_simp
+  rw [tsum_congr h_pow_rewrite]
+  rw [tsum_mul_left]
+  rw [tsum_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt]
+  -- Combine: -1 + (1/a²) · (1 - 1/a²)⁻¹ = -(a²-2)/(a²-1)
+  have h_ne_one : (1 - 1/a^2 : ℝ) ≠ 0 := by
+    intro h_eq
+    have : (a^2 : ℝ) = 1 := by field_simp at h_eq; linarith
+    nlinarith
+  field_simp
+  ring
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
