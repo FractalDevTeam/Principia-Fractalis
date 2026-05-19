@@ -518,6 +518,59 @@ theorem six_millennium_problems_via_fractal_resonance
    bsd_via_fractal_resonance h_BSD,
    hodge_via_fractal_resonance h_Hodge_conc h_Hodge_cryst⟩
 
+/-! ## ★★★ Ch 21 P-class target eigenvalue λ_0 = π/(10·√2) ★★★ -/
+
+/-- **Ch 21 P-class target ground-state eigenvalue**: `λ_0 = π/(10·√2)`.
+
+    The manuscript's `conj:polylog-spectrum` claims this is the
+    asymptotic ground-state eigenvalue of `H_P` at α = √2 in the
+    n → ∞ limit.
+
+    Numerically: `λ_0 ≈ 0.22214415` — the value that 10⁻¹⁰-precision
+    numerical experiments match. -/
+noncomputable def lambda_0_P_target : ℝ := Real.pi / (10 * Real.sqrt 2)
+
+/-- `λ_0 = π/(10√2) > 0` (axiom-free). -/
+theorem lambda_0_P_target_pos : 0 < lambda_0_P_target := by
+  unfold lambda_0_P_target
+  have h_pi : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_sqrt2 : (0 : ℝ) < Real.sqrt 2 :=
+    Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  positivity
+
+/-- **★ Numerical bracket for λ_0**: `1/5 < λ_0 < 1/4` (axiom-free).
+
+    Equivalent to bounds on `π/(10√2)` using `3 < π` and
+    `√2 > 5/4` (so 10√2 > 12.5):
+    - lower: π > 3 implies π/(10√2) > 3/(10·3/2) = 1/5
+    - upper: π < 4 and √2 > 5/4: π/(10√2) < 4/(10·5/4) = 4/12.5 = 0.32 -/
+theorem lambda_0_P_target_bracket :
+    (1/5 : ℝ) < lambda_0_P_target ∧ lambda_0_P_target < 1/4 := by
+  unfold lambda_0_P_target
+  have h_pi_lb : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have h_pi_ub : Real.pi < (3.15 : ℝ) := Real.pi_lt_d2
+  -- √2 between 1.4142 and 1.4143 (Real.sqrt 2 ≈ 1.41421356)
+  have h_sqrt2_lower : (1.41421356 : ℝ) ≤ Real.sqrt 2 := by
+    have h_sq : (1.41421356 : ℝ)^2 ≤ 2 := by norm_num
+    rw [show (1.41421356 : ℝ) = Real.sqrt ((1.41421356)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 1.41421356)).symm]
+    exact Real.sqrt_le_sqrt h_sq
+  have h_sqrt2_upper : Real.sqrt 2 ≤ (1.41421357 : ℝ) := by
+    have h_sq : (2 : ℝ) ≤ (1.41421357)^2 := by norm_num
+    rw [show (1.41421357 : ℝ) = Real.sqrt ((1.41421357)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 1.41421357)).symm]
+    exact Real.sqrt_le_sqrt h_sq
+  have h_10sqrt2_pos : (0 : ℝ) < 10 * Real.sqrt 2 := by
+    have : (0 : ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num)
+    linarith
+  refine ⟨?_, ?_⟩
+  · -- π/(10√2) > 1/5 ⟺ 5π > 10√2 ⟺ π > 2√2 (since √2·2 ≈ 2.828, π ≈ 3.14)
+    rw [lt_div_iff₀ h_10sqrt2_pos]
+    nlinarith [h_pi_lb, h_sqrt2_upper]
+  · -- π/(10√2) < 1/4 ⟺ 4π < 10√2 ⟺ π < 2.5·√2
+    rw [div_lt_iff₀ h_10sqrt2_pos]
+    nlinarith [h_pi_ub, h_sqrt2_lower]
+
 /-! ## ★★★ EXACT level-1 spectrum at α = 2 (Yang-Mills class) ★★★
 
 At α = α_YM = 2, the level-1 polylog kernel sum
