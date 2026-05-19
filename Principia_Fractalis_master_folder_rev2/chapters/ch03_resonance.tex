@@ -221,17 +221,20 @@ A value $\alpha_c$ is called a \textbf{resonance frequency} if $R_f(\alpha_c, s)
 \hline
 Riemann Hypothesis & $3/2$ & Half-step resonance \\
 P complexity class & $\sqrt{2} \approx 1.414$ & Diagonal of unit square \\
-NP complexity class & $\phi + 1/4 \approx 1.868$ & Golden ratio shift \\
+NP complexity class & $\varphi + 1/4 \approx 1.868$ & Golden ratio shift \\
 Yang-Mills mass gap & $2$ & Integer resonance \\
-Navier-Stokes regularity & $5/3 \approx 1.667$ & Kolmogorov scaling \\
-BSD Conjecture & $\phi + 1/3 \approx 1.951$ & Golden arithmetic \\
-Hodge Conjecture & $\pi/2 \approx 1.571$ & Quarter circle \\
+Navier-Stokes regularity & $3\pi/2 \approx 4.712$ & Three-quarter rotation \\
+BSD Conjecture & $3\pi/4 \approx 2.356$ & Three-eighth rotation \\
+Hodge Conjecture & $\varphi \approx 1.618$ & Golden ratio \\
 \hline
 \end{tabular}
-\caption{Sacred geometry resonance values of $R_f(\alpha, s)$}
+\caption{Canonical resonance values of $R_f(\alpha, s)$ per millennium problem. Values match the Per-Millennium $\alpha$-Dictionary (frontmatter) and are formally encoded in \texttt{PF\_Lean4\_Code/PF/TuringEncoding/AlphaEnum.lean}.}
 \label{tab:resonance-values}
 \end{table}
 \end{center}
+
+\medskip
+\noindent\emph{Numerical correction, 2026-05-18: Prior editions of this table listed NS as $5/3 \approx 1.667$, BSD as $\varphi + 1/3 \approx 1.951$, and Hodge as $\pi/2 \approx 1.571$. These values do not match the canonical $\alpha$-Dictionary defined in the frontmatter (NS: $3\pi/2$, BSD: $3\pi/4$, Hodge: $\varphi$) and used throughout Chapters~\ref{ch:navier-stokes}, \ref{ch:birch-swinnerton-dyer}, \ref{ch:hodge-conjecture} and the Lean~4 / Coq formalizations. The table has been updated to the canonical values to maintain consistency across the manuscript.}
 
 \begin{keyidea}[The Unification Principle]
 The central claim of the Fractal Resonance Framework is this:
