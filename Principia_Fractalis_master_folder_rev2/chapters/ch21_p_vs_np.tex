@@ -524,23 +524,37 @@ This yields the ground state relation:
 \end{equation}
 \end{conjecture}
 
-\begin{remark}[Sine Identity Verification]
-The claimed sine identity can be verified numerically:
+\begin{remark}[Sine ratio numerical computation, corrected 2026-05-18]\label{rem:sine-ratio-corrected}
+The numerical values relevant to Conjecture \ref{conj:golden-modulation} are:
 \begin{align}
 \sin(\pi/\sqrt{2}) &\approx \sin(2.221441469) \approx 0.798635510 \\
 \sin(\pi/\sqrt{2} + \varphi) &\approx \sin(2.221441469 + 1.941495408) \approx \sin(4.162936877) \\
 &\approx -0.847127424
 \end{align}
 
-Taking absolute value (physical energy is positive):
-\begin{equation}
-\left|\frac{0.798635510}{0.847127424}\right| \approx 0.5988854382 = \frac{\sqrt{5}-1}{3}
+Taking the absolute value of the ratio:
+\begin{equation}\label{eq:sine-ratio-actual}
+\left|\frac{0.798635510}{0.847127424}\right| \approx 0.9427\ldots
+\end{equation}
+which differs from the algebraic constant
+\begin{equation}\label{eq:sqrt5-minus-one-third}
+\frac{\sqrt{5}-1}{3} \approx 0.4120\ldots.
 \end{equation}
 
-Combined with Conjecture \ref{conj:golden-modulation}, this explains the empirical value:
-\begin{equation}
-\lambda_0(H_{NP}) = \frac{\pi}{10\sqrt{2}} \cdot \frac{\sqrt{5}-1}{3} = \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}}
+\medskip
+\noindent\textbf{Numerical-discrepancy disclosure.} Prior editions of this Remark stated the equation
+\[
+\left|\frac{0.798635510}{0.847127424}\right| \approx 0.5988854382 = \frac{\sqrt{5}-1}{3},
+\]
+which contains \emph{two} independent numerical errors: (i) the LHS sine ratio is $\approx 0.9427$, not $0.5988$; and (ii) the RHS algebraic constant $(\sqrt{5}-1)/3 \approx 0.4120$, not $0.5988$. Both errors are formally certified at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} (theorems \texttt{manuscript\_sine\_ratio\_bracket} proving $0.94 < |0.798635510 / 0.847127424| < 0.95$, and \texttt{manuscript\_sqrt5\_minus\_one\_div\_three\_bracket} proving $0.41 < (\sqrt{5}-1)/3 < 0.42$); the double-error bundle is \texttt{manuscript\_sine\_identity\_both\_sides\_wrong}.
+
+The actual sine ratio $\approx 0.9427$ does \emph{not} numerically support the golden-modulation conjecture's ratio claim $(\sqrt{5}-1)/3 \approx 0.4120$. The sine identity as stated in prior editions therefore does not verify Conjecture \ref{conj:golden-modulation}; the conjecture is currently supported only by the empirical spectral-gap evidence (Theorem \ref{thm:spectral-gap}, $\Delta \approx 0.0891$) and the conjectural framework of \S\ref{sec:fractal-resonance}. A first-principles derivation of $\lambda_0(H_{NP}) / \lambda_0(H_P)$ -- whether the ratio is $(\sqrt{5}-1)/3$, the sine ratio $0.9427\ldots$, the empirical ratio $0.133 / 0.222 \approx 0.599$, or some other value -- is part of the open derivation work catalogued in Remark \ref{rem:alpha-P-NP-derivation-status}.
+
+Combined with Conjecture \ref{conj:golden-modulation} (\emph{if} the ratio identity holds in its stated form), the predicted NP-class value is:
+\begin{equation}\label{eq:lambda-NP-predicted-conditional}
+\lambda_0(H_{NP}) \stackrel{?}{=} \frac{\pi}{10\sqrt{2}} \cdot \frac{\sqrt{5}-1}{3} = \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.0915
 \end{equation}
+This value is one of the three mutually-inconsistent $\lambda_0(H_{NP})$ values flagged in Remark \ref{rem:alpha-P-NP-derivation-status}.
 \end{remark}
 
 \subsection{Fractal Analytic Continuation}
@@ -563,6 +577,16 @@ However, the \textit{fractal branch}—determined by the operator's monodromy al
 \end{equation}
 
 \textbf{This is the mathematical novelty}: Quantum fractal operators select their own Riemann sheets through the monodromy of their spectral flow. The physical requirement that ground state energies be positive (minimal energy of bound states) determines which branch cut to follow\cite{taylor1972,reed1980}.
+\end{remark}
+
+\begin{remark}[$M_0$-monodromy narrowing of the fractal branch, 2026-05-18]\label{rem:M0-narrowing}
+The ``fractal branch'' referenced in Remark \ref{rem:log-paradox} is now formally known \emph{not} to be realisable by $M_0$-monodromy sheet selection at $s = 1$.
+
+Specifically, Lemma \ref{lem:s1-rigidity} established that at the integer weight $s = 1$, the real part of the polylogarithm is invariant under $M_0$ monodromy: every sheet $\mathrm{Li}_1^{[m]}(z)$ has the same real part as the principal branch. Combined with the manuscript's own statement that the principal branch evaluates to $\Re[-\log(1 - e^{i\pi\sqrt{2}})] \approx -0.465 < 0$ (Heuristic \ref{heur:branch-selection}), no $M_0$-sheet shift can convert the negative principal-branch value to the manuscript's positive target $\pi/(10\sqrt{2}) > 0$.
+
+This narrows Open Problem 2 (branch selection at $\alpha = \sqrt{2}$, see \texttt{OPEN\_PROBLEMS.md}): the ``fractal branch'' must use a \emph{genuinely different} analytic-continuation mechanism than $M_0$ sheet selection. Candidate mechanisms include: (a) non-integer effective weight $s^* = \sqrt{2}/2$ (Proposition \ref{prop:spectral-scaling}), at which the $M_0$ monodromy increment carries a non-trivial real part via the Jonquières expansion (Proposition \ref{prop:monodromy-increment}); (b) $M_1$-monodromy generators crossing the cut $[1, \infty)$, which were excluded by the choice-of-generator Remark; or (c) a different functional form altogether (e.g., the spectral zeta function of $H_P$ rather than $\mathrm{Li}_1$ on the unit circle).
+
+This narrowing is formally certified at \texttt{PF\_Lean4\_Code/PF/Analytic/PolylogSpectrum.lean}, theorem \texttt{manuscript\_target\_unreachable\_via\_M0\_sheet}: conditional on the manuscript's own stated negativity of the principal-branch value at $\alpha = \sqrt{2}$, no sheet index $m \in \mathbb{Z}$ in the polyLogSheet formula achieves the target $\pi/(10\sqrt{2})$.
 \end{remark}
 
 \begin{keyidea}
@@ -1211,15 +1235,19 @@ Computational experiments show NP languages consistently require \textit{higher 
 This consciousness threshold separation is observed in 100\% of tested problems (143/143).
 \end{evidence}
 
-\begin{remark}[Independence of Evidence]
-The three lines of evidence are genuinely independent:
+\begin{remark}[Evidence-independence status, corrected 2026-05-18]\label{rem:evidence-independence-corrected}
+The three lines of evidence cluster into \textbf{two} algebraically independent and \textbf{one} derived:
 \begin{itemize}
-\item \textbf{Spectral}: analytic (operator eigenvalues)
-\item \textbf{Geometric}: fractal/metric (box-counting dimension)
-\item \textbf{Consciousness}: informational (crystallization threshold)
+\item \textbf{Spectral} (Evidence 1): analytic content (operator eigenvalues), specifically $\lambda_0(H_P) - \lambda_0(H_{NP}) \approx 0.0891$.
+\item \textbf{Geometric} (Evidence 2): fractal/metric content (box-counting dimension), specifically $\dim_{\text{frac}}(\text{NP}) - \dim_{\text{frac}}(\text{P}) = (\varphi + 1/4) - \sqrt{2} \approx 0.454$.
+\item \textbf{Consciousness} (Evidence 3): the $\Delta\text{ch}_2$ gap is \emph{not} algebraically independent. By the manuscript's own $\text{ch}_2$ formula (\S\ref{sec:consciousness-evidence}, $\text{ch}_2(\alpha) = 0.95 + (\alpha - \sqrt{2})/10$), one has
+\[
+\Delta\text{ch}_2 \;=\; \text{ch}_2(\alpha_{NP}) - \text{ch}_2(\alpha_P) \;=\; \frac{(\varphi + 1/4) - \sqrt{2}}{10} \;=\; \frac{1}{10}\Delta\dim_{\text{frac}}.
+\]
+Thus Evidence 3 is the dimension gap of Evidence 2 rescaled by $1/10$; it provides no additional algebraic content beyond Evidence 2. This identity is formally certified at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} (theorem \texttt{consciousness\_gap\_eq\_dim\_gap\_over\_ten}).
 \end{itemize}
 
-Each provides strong computational support for P $\neq$ NP. The fact that all three consistently point to separation across 143 diverse problems provides compelling evidence for the conjecture.
+Prior editions of this Remark stated all three lines as ``genuinely independent.'' The corrected statement is that the framework has \textbf{two} independent lines of evidence (spectral and geometric), with the consciousness gap being a derived consequence. The empirical correlation across the 143-problem dataset of course remains, but the consciousness threshold no longer counts as additional independent evidence; it counts as a check that the manuscript's algebraic definitions are internally consistent (which they are).
 \end{remark}
 
 \section{Circumventing the Barriers}
