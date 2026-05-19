@@ -438,17 +438,26 @@ The extrapolated limit is:
 \end{equation}
 \end{experiment}
 
-\begin{observation}[Golden Ratio Emergence]\label{obs:golden-ratio}
-The ratio of ground state energies equals:
-\begin{equation}
-\frac{\lambda_0(H_{NP})}{\lambda_0(H_P)} = \frac{0.1330222423}{0.2221441469} \approx 0.5988854382 \approx \frac{\sqrt{5}-1}{3}
+\begin{observation}[Empirical ratio, corrected 2026-05-18]\label{obs:golden-ratio}
+The empirical ratio of ground state energies is:
+\begin{equation}\label{eq:empirical-ratio}
+\frac{\lambda_0(H_{NP})^{\text{emp}}}{\lambda_0(H_P)^{\text{emp}}} = \frac{0.1330222423}{0.2221441469} \approx 0.5988854382
 \end{equation}
 
-This implies the closed form:
-\begin{equation}
-\lambda_0(H_{NP}) = \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.1330222423419...
-\end{equation}
-again matching to within numerical precision.
+\medskip
+\noindent\textbf{Numerical-discrepancy disclosure.} Prior editions of this Observation stated that this empirical ratio $\approx 0.5988$ matches the algebraic constant $(\sqrt{5}-1)/3$, and concluded the closed form
+\[
+\lambda_0(H_{NP}) = \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.1330222423.
+\]
+Both assertions are numerically incorrect:
+\begin{itemize}
+\item $(\sqrt{5}-1)/3 \approx 0.4120$, \emph{not} $0.5988$. So the empirical ratio $0.5988$ does \emph{not} match $(\sqrt{5}-1)/3$. (Formally certified: \texttt{manuscript\_sqrt5\_minus\_one\_div\_three\_bracket} proves $0.41 < (\sqrt{5}-1)/3 < 0.42$.)
+\item $\pi(\sqrt{5}-1)/(30\sqrt{2}) \approx 0.0915$, \emph{not} $0.1330$. So the closed form does not match the empirical $\lambda_0(H_{NP}) \approx 0.1330$. (Formally certified: \texttt{manuscript\_lambda\_NP\_golden\_bracket} proves $0.091 < \pi(\sqrt{5}-1)/(30\sqrt{2}) < 0.092$.)
+\end{itemize}
+
+The empirical ratio $0.5988$ is therefore the unexplained measurement: no closed form in the framework currently reproduces it. The golden-modulation conjecture (Conjecture \ref{conj:golden-modulation}) predicts the ratio $(\sqrt{5}-1)/3 \approx 0.4120$, the Lean closed form $\lambda_0(H_{NP}) = \pi/(10(\varphi+1/4))$ predicts the ratio $\sqrt{2}/(\varphi+1/4) \approx 0.757$ -- neither matches $0.5988$.
+
+Resolution of this ratio discrepancy is part of the open derivation work catalogued in Remark \ref{rem:alpha-P-NP-derivation-status}. The empirical ratio $0.5988$ remains an authoritative spectral-truncation measurement; the closed-form predictions are conjectural attempts that currently fail to match.
 \end{observation}
 
 \subsection{The Irreducible Gap}
