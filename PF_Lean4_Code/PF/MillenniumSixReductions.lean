@@ -962,4 +962,79 @@ theorem dim_P_ne_dim_NP_given_manuscript_values
     cor_dim_gap_positive_given_manuscript_values dimP dimNP hP hNP
   linarith
 
+/-! ## Manuscript Ch 21, Conjecture `conj:golden-modulation` — Algebraic Structure
+
+The manuscript's golden-modulation conjecture (Ch 21, lines 514-525) asserts:
+
+  `λ_0(H_NP) / λ_0(H_P) = (√5 − 1) / 3`
+
+Combined with the P-class closed-form `λ_0(H_P) = π/(10√2)`, this gives
+the manuscript's predicted NP-class value:
+
+  `λ_0(H_NP) = π · (√5 − 1) / (30 · √2)`
+
+(line 542 of the manuscript). The manuscript's Remark
+`rem:alpha-P-NP-derivation-status` (line 1153) flags that this value
+`≈ 0.0915` is numerically **inconsistent** with both the empirical
+ground state `≈ 0.1330` and the Lean closed form `π/(10·(φ+1/4)) ≈ 0.1682`.
+
+We formalize the *algebraic equivalence* between the ratio form and the
+explicit closed form — pure algebra, independent of which (if any) of
+the three numerical claims is correct. -/
+
+/-- **Golden-modulation ratio ↔ closed-form equivalence**: the manuscript's
+    ratio identity `λ_NP/λ_P = (√5-1)/3` combined with the P-class formula
+    `λ_P = π/(10√2)` gives the explicit NP-class form
+    `λ_NP = π(√5-1)/(30√2)`. Pure algebra. -/
+theorem golden_modulation_ratio_to_closed_form :
+    (Real.pi / (10 * Real.sqrt 2)) * ((Real.sqrt 5 - 1) / 3) =
+      Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) := by
+  ring
+
+/-- **Reverse direction**: the explicit NP-class form
+    `π(√5-1)/(30√2)` divided by the P-class form `π/(10√2)` equals
+    `(√5-1)/3`, recovering the manuscript's ratio identity. -/
+theorem golden_modulation_closed_form_to_ratio :
+    Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) /
+      (Real.pi / (10 * Real.sqrt 2)) =
+        (Real.sqrt 5 - 1) / 3 := by
+  have h_pi_pos : Real.pi > 0 := Real.pi_pos
+  have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+    Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+  have h_denom_ne : Real.pi / (10 * Real.sqrt 2) ≠ 0 := by
+    apply div_ne_zero h_pi_pos.ne'
+    have : 10 * Real.sqrt 2 > 0 := by linarith
+    exact this.ne'
+  field_simp
+  ring
+
+/-- **Conditional NP-class value from golden modulation**: if the
+    P-class formula and the manuscript's ratio identity both hold, then
+    the manuscript's predicted NP-class value `π(√5-1)/(30√2)` follows
+    by algebra. -/
+theorem lambda_NP_from_golden_modulation
+    (lambda_NP lambda_P : ℝ)
+    (hP : lambda_P = Real.pi / (10 * Real.sqrt 2))
+    (h_ratio : lambda_NP = lambda_P * ((Real.sqrt 5 - 1) / 3)) :
+    lambda_NP = Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) := by
+  rw [h_ratio, hP, golden_modulation_ratio_to_closed_form]
+
+/-- **Manuscript's stated NP-value is positive**: the value
+    `π(√5-1)/(30√2)` predicted by golden modulation is strictly positive,
+    consistent with the physical requirement that ground-state energies
+    be positive (manuscript's branch-selection heuristic principle). -/
+theorem manuscript_lambda_NP_golden_positive :
+    Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) > 0 := by
+  apply div_pos
+  · apply mul_pos Real.pi_pos
+    have h_sqrt5_gt_one : Real.sqrt 5 > 1 := by
+      have h1 : Real.sqrt 1 < Real.sqrt 5 :=
+        Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+      simp at h1
+      exact h1
+    linarith
+  · have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+      Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+    linarith
+
 end PrincipiaTractalis.MillenniumSix
