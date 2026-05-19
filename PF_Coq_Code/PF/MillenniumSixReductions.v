@@ -191,6 +191,15 @@ Proof.
   apply Rmult_lt_0_compat; [exact Lambda_QCD_pos | exact omega_c_YM_pos].
 Qed.
 
+(** **Δ_fYM 4-decimal bracket** (Lean: Delta_fYM_bracket_4digit):
+    420.42 < Δ_fYM < 420.43. *)
+Theorem Delta_fYM_bracket_4digit :
+  420.42 < Delta_fYM_MeV /\ Delta_fYM_MeV < 420.43.
+Proof.
+  unfold Delta_fYM_MeV, Lambda_QCD_MeV, omega_c_YM.
+  split; lra.
+Qed.
+
 (** ★ Δ_fYM ≈ 420 MeV numerical bracket: 420 < Δ_fYM < 421
     (axiom-free; manuscript thm:mass-gap-ym). *)
 Theorem Delta_fYM_bracket : 420 < Delta_fYM_MeV /\ Delta_fYM_MeV < 421.
