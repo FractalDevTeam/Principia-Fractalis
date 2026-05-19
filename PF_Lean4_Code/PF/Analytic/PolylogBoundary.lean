@@ -699,6 +699,125 @@ theorem even_subseries_sqrt2_two_thirds {a : ℝ} (ha : 1 < a) :
     nlinarith
   field_simp
 
+/-! ## ★ NEW closed-form even subseries at α = √2 at distance 1/3 ★ -/
+
+/-- **★ Per-term identity at α = √2, d = 1/3, k = 2m (m ≥ 1) ★**
+    (axiom-free):
+
+      `(a : ℝ)^(-(2m : ℤ)) · cos(π · (√2)^(2m) · 1/3) = -1/(2·a^(2m))`
+      for `m ≥ 1`.
+
+    At `m = 0` the cos value is `+1/2` (cos(π/3) = 1/2), not -1/2.
+    For `m ≥ 1`, the angle `π·2^m/3` cycles between `2π/3` and `4π/3`
+    (both giving cos = -1/2) via `cos_two_pow_succ_pi_div_three`. -/
+theorem fractalKernel_even_term_sqrt2_one_third (a : ℝ) (m : ℕ) (hm : 1 ≤ m) :
+    (a : ℝ)^(-(2*m : ℤ)) *
+      Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (1/3)) =
+    -(1 / (2 * a^(2*m))) := by
+  have hsqrt2_pow : (Real.sqrt 2 : ℝ)^(2*m) = (2:ℝ)^m := by
+    rw [pow_mul]
+    rw [Real.sq_sqrt (by norm_num : (2:ℝ) ≥ 0)]
+  rw [hsqrt2_pow]
+  -- Angle: π · 2^m · (1/3) = π · 2^m / 3
+  have harg : Real.pi * (2:ℝ)^m * (1/3) = Real.pi * (2:ℝ)^m / 3 := by ring
+  rw [harg]
+  -- For m ≥ 1, write m = m' + 1 and use cos_two_pow_succ_pi_div_three
+  obtain ⟨m', rfl⟩ : ∃ m', m = m' + 1 := ⟨m - 1, (Nat.sub_add_cancel hm).symm⟩
+  -- π · 2^(m'+1) / 3 — exactly the cos_two_pow_succ_pi_div_three form
+  rw [cos_two_pow_succ_pi_div_three]
+  rw [show (-(2 * ((m'+1) : ℕ) : ℤ)) = -((2*(m'+1) : ℕ) : ℤ) from by push_cast; ring]
+  rw [zpow_neg, zpow_natCast]
+  field_simp
+
+/-- **★★ NEW exact closed form: even subseries at d = 1/3, α = √2 ★★**
+    (`a > 1`, axiom-free):
+
+      `Σ_{m≥0} a^(-2m) · cos(π · (√2)^(2m) · 1/3) = (a² - 2) / (2(a² - 1))`
+
+    Structure: m=0 term is `+1/2` (since cos(π/3) = 1/2); m ≥ 1 terms
+    follow the standard `-1/2` cycle via `cos_two_pow_succ_pi_div_three`.
+
+    Split: `Σ = (m=0 term) + Σ_{m≥1}` and use the standard geometric sum.
+    Closed form `(a² - 2)/(2(a²-1))`. At a=2: value is `1/3`. -/
+theorem even_subseries_sqrt2_one_third {a : ℝ} (ha : 1 < a) :
+    (∑' m : ℕ, (a : ℝ)^(-(2*m : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (1/3))) =
+    ((a : ℝ)^2 - 2) / (2 * (a^2 - 1)) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_sq_pos : (0 : ℝ) < a^2 := by positivity
+  have ha_sq_gt_one : (1 : ℝ) < a^2 := by nlinarith
+  have ha_sq_minus_one_pos : (0 : ℝ) < a^2 - 1 := by linarith
+  have h_inv_sq_lt : (1/a^2 : ℝ) < 1 := by rw [div_lt_one ha_sq_pos]; linarith
+  have h_inv_sq_nn : (0 : ℝ) ≤ 1/a^2 := by positivity
+  -- Sum is summable
+  set f : ℕ → ℝ := fun m => (a : ℝ)^(-(2*m : ℤ)) *
+    Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (1/3)) with hf_def
+  have h_summable : Summable f := by
+    apply Summable.of_norm_bounded (g := fun m : ℕ => (1/a^2)^m)
+    · exact summable_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt
+    intro m
+    simp only [hf_def, Real.norm_eq_abs, abs_mul]
+    have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(2*m : ℤ)) := zpow_pos ha_pos _
+    rw [abs_of_pos h_pow_pos]
+    have h_cos_abs : |Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (1/3))| ≤ 1 :=
+      Real.abs_cos_le_one _
+    have h_pow_eq : (a : ℝ)^(-(2*m : ℤ)) = (1/a^2)^m := by
+      rw [show (-(2*m : ℤ)) = -((2*m : ℕ) : ℤ) from by push_cast; ring]
+      rw [zpow_neg, zpow_natCast]
+      rw [show (2*m : ℕ) = 2 * m from by ring, pow_mul]
+      rw [div_pow, one_pow]
+      rw [← one_div]
+    rw [h_pow_eq]
+    have h_pos : (0 : ℝ) < (1/a^2 : ℝ)^m := pow_pos (by positivity) m
+    calc (1/a^2 : ℝ)^m * |Real.cos (Real.pi * (Real.sqrt 2)^(2*m) * (1/3))|
+        ≤ (1/a^2 : ℝ)^m * 1 := mul_le_mul_of_nonneg_left h_cos_abs h_pos.le
+      _ = (1/a^2 : ℝ)^m := mul_one _
+  -- Split: ∑' f = f 0 + ∑' f (m+1)
+  have h_split : (∑' m, f m) = f 0 + ∑' m, f (m+1) := h_summable.tsum_eq_zero_add
+  rw [h_split]
+  -- f 0 = a^0 · cos(π · 1 · 1/3) = 1 · cos(π/3) = 1/2
+  have h_f0 : f 0 = 1/2 := by
+    show (a : ℝ)^(-(2 * ((0:ℕ) : ℤ))) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*0) * (1/3)) = 1/2
+    have h_exp : (-(2 * ((0:ℕ) : ℤ))) = 0 := by push_cast
+    rw [h_exp, zpow_zero]
+    have h_sqrt : (Real.sqrt 2 : ℝ)^(2*0) = 1 := by norm_num
+    rw [h_sqrt]
+    rw [show Real.pi * 1 * (1/3) = Real.pi / 3 from by ring]
+    rw [Real.cos_pi_div_three]
+    ring
+  rw [h_f0]
+  -- For m ≥ 0, f (m+1) uses the (m+1) version: cos = -1/2 via the m ≥ 1 lemma
+  have h_term_shift : ∀ m : ℕ, f (m+1) = -(1 / (2 * a^(2*(m+1)))) := by
+    intro m
+    show (a : ℝ)^(-(2 * ((m+1) : ℕ) : ℤ)) *
+        Real.cos (Real.pi * (Real.sqrt 2)^(2*(m+1)) * (1/3)) =
+        -(1 / (2 * a^(2*(m+1))))
+    exact fractalKernel_even_term_sqrt2_one_third a (m+1) (by omega)
+  rw [tsum_congr h_term_shift]
+  -- Σ_{m≥0} -(1/(2·a^(2(m+1)))) = -(1/(2a²)) · Σ (1/a²)^m = -(1/(2a²)) · 1/(1-1/a²)
+  have h_pow_rewrite : ∀ m : ℕ,
+      -(1 / (2 * (a : ℝ)^(2*(m+1)))) = -(1/(2 * a^2)) * (1/a^2)^m := by
+    intro m
+    have hp : (a : ℝ)^(2*(m+1)) = a^2 * (a^2)^m := by
+      rw [show 2*(m+1) = 2 + 2*m from by ring, pow_add, pow_mul]
+    rw [hp]
+    rw [div_pow, one_pow]
+    field_simp
+  rw [tsum_congr h_pow_rewrite]
+  rw [tsum_mul_left]
+  rw [tsum_geometric_of_lt_one h_inv_sq_nn h_inv_sq_lt]
+  -- Combine: 1/2 + (-(1/(2a²)) · (1 - 1/a²)⁻¹) = (a² - 2)/(2(a²-1))
+  have h_ne_one : (1 - 1/a^2 : ℝ) ≠ 0 := by
+    intro h_eq
+    have : (a^2 : ℝ) = 1 := by
+      have := h_eq
+      field_simp at this
+      linarith
+    nlinarith
+  field_simp
+  ring
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
