@@ -461,21 +461,39 @@ There is an empirically measured spectral gap:
 validated across 143 computational problems with 100\% fractal coherence.
 \end{theorem}
 
-\begin{remark}[Spectral Gap Analysis]
-With both ground state energies now analytically derived, the spectral gap is:
+\begin{remark}[Spectral Gap Analysis, corrected 2026-05-18]\label{rem:spectral-gap-analysis-corrected}
+\textbf{Empirical values.} The empirically measured ground state energies and spectral gap are:
 \begin{align}
-\lambda_0(H_P) &= \frac{\pi}{10\sqrt{2}} \approx 0.2221441469 \\
-\lambda_0(H_{NP}) &= \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.1330222423 \\
-\Delta &= \frac{\pi}{10\sqrt{2}} - \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} = \frac{\pi(4-\sqrt{5})}{30\sqrt{2}} \approx 0.0891219046
+\lambda_0(H_P)^{\text{emp}}    &\approx 0.2221441469 \quad \text{(consistent with $\pi/(10\sqrt{2})$ to $10^{-10}$)} \\
+\lambda_0(H_{NP})^{\text{emp}} &\approx 0.1330222423 \quad \text{(from spectral truncation)} \\
+\Delta^{\text{emp}}             &= \lambda_0(H_P)^{\text{emp}} - \lambda_0(H_{NP})^{\text{emp}} \approx 0.0891219046
 \end{align}
 
-The operators achieve perfect fractal coherence at critical values:
+\textbf{Two candidate closed forms for $\lambda_0(H_{NP})$.} The manuscript catalogs (and Remark \ref{rem:alpha-P-NP-derivation-status} flags as mutually inconsistent):
+\begin{align}
+\lambda_0(H_{NP})^{\text{Lean}}   &:= \frac{\pi}{10(\varphi + 1/4)} \approx 0.1681764182 \quad \text{(formalized closed form)} \\
+\lambda_0(H_{NP})^{\text{golden}} &:= \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.0915 \quad \text{(golden-modulation prediction, Conj \ref{conj:golden-modulation})}
+\end{align}
+
+\textbf{Two candidate closed forms for $\Delta$.} Corresponding spectral gaps:
+\begin{align}
+\Delta^{\text{Lean}}   &= \frac{\pi}{10\sqrt{2}} - \frac{\pi}{10(\varphi+1/4)} \approx 0.0540 \\
+\Delta^{\text{golden}} &= \frac{\pi}{10\sqrt{2}} - \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} = \frac{\pi(4-\sqrt{5})}{30\sqrt{2}} \approx 0.1306
+\end{align}
+
+\medskip
+\noindent\textbf{Numerical-discrepancy disclosure.} Prior editions of this Remark stated $\lambda_0(H_{NP}) = \pi(\sqrt{5}-1)/(30\sqrt{2}) \approx 0.1330222423$ and $\Delta = \pi(4-\sqrt{5})/(30\sqrt{2}) \approx 0.0891219046$. Both numerical claims are incorrect: the formula $\pi(\sqrt{5}-1)/(30\sqrt{2})$ evaluates to $\approx 0.0915$, not $0.1330$; and $\pi(4-\sqrt{5})/(30\sqrt{2})$ evaluates to $\approx 0.1306$, not $0.0891$. These errors are formally certified at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}: theorem \texttt{manuscript\_lambda\_NP\_golden\_bracket} proves $0.091 < \pi(\sqrt{5}-1)/(30\sqrt{2}) < 0.092$, and \texttt{manuscript\_gap\_golden\_bracket} proves $0.130 < \pi(4-\sqrt{5})/(30\sqrt{2}) < 0.131$. The triple-error bundle is \texttt{manuscript\_spectral\_gap\_analysis\_triple\_error}.
+
+\textbf{What is actually true.} The empirical $\Delta^{\text{emp}} \approx 0.0891$ does NOT coincide with either of the two closed-form predictions $\Delta^{\text{Lean}} \approx 0.054$ or $\Delta^{\text{golden}} \approx 0.131$. The ratio $\Delta^{\text{emp}} / \Delta^{\text{Lean}} \approx 1.65$ and $\Delta^{\text{golden}} / \Delta^{\text{emp}} \approx 1.47$. This three-way inconsistency is the unresolved derivation problem at the heart of \S\ref{sec:fractal-resonance}, catalogued in Remark \ref{rem:alpha-P-NP-derivation-status}. The empirical value $0.0891$ is the authoritative spectral-truncation measurement; the two closed forms are conjectural attempts to match it, neither of which currently succeeds.
+
+\textbf{The critical-value structure is intact.} The operators achieve perfect fractal coherence at critical values:
 \begin{align}
 \alpha_P &= \sqrt{2} \approx 1.41421356237 \\
-\alpha_{NP} &= \phi + \frac{1}{4} \approx 1.86802398875
+\alpha_{NP} &= \varphi + \frac{1}{4} \approx 1.86803398875
 \end{align}
+(corrected: the previous edition had $\alpha_{NP} \approx 1.86802398875$ which is also slightly off — the actual value is $1.6180339887\ldots + 0.25 = 1.8680339887\ldots$, formally certified by \texttt{phi\_in\_interval\_10digit}).
 
-\textbf{Unified structure}: The ground states, spectral gap, and critical values all involve $\sqrt{2}$ (fractal dimension) and $\phi$ (golden ratio). This reveals P vs NP as a question about optimal information flow in fractal computational spaces—deterministic paths ($H_P$) versus nondeterministic certificate spaces ($H_{NP}$).
+\textbf{Unified structure}: The ground states, critical values, and \emph{empirical} spectral gap all involve $\sqrt{2}$ (fractal dimension) and $\varphi$ (golden ratio). The reduction of the empirical $\Delta \approx 0.0891$ to a single mutually-consistent closed form is an open derivation problem, not a settled identity.
 \end{remark}
 
 \begin{keyidea}
