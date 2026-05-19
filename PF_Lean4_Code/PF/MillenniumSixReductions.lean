@@ -444,6 +444,21 @@ theorem epsilon_quantum_pos : 0 < epsilon_quantum := by
   obtain ⟨_, h_upper⟩ := sigma_c_arithmetic_bracket
   linarith
 
+/-- **★ Ch 25 thm:low-rank — algebraic content** (axiom-free):
+
+      `1/(1 - σ_c) = 20` at `σ_c = 19/20 = 0.95`.
+
+    The manuscript's `thm:low-rank` claims that for any Hankel matrix
+    H arising from a Hodge class ξ with `σ(ξ) ≥ 0.95`, we have
+    `rank(H) ≤ 1/(1 - σ(ξ)) ≤ 20`.
+
+    The arithmetic identity `1/(1 - 19/20) = 20` is rigorously
+    provable here; the rank-bound CLAIM (`rank H ≤ 1/(1-σ)`) is
+    structural and depends on Hankel-matrix infrastructure not yet
+    formalized. The numerical bound `20` follows directly. -/
+theorem low_rank_bound_at_sigma_c : (1 : ℝ) / (1 - sigma_c) = 20 := by
+  unfold sigma_c; norm_num
+
 /-- **★★ ε_quantum BRACKET** (axiom-free): `0.34 < ε_quantum < 0.4`.
 
     Numerically `ε_quantum = 0.95 - 6/π² ≈ 0.342`. Follows from
