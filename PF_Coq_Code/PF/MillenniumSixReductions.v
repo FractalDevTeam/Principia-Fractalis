@@ -423,3 +423,66 @@ Proof.
   assert (H : sqrt 2 < phi + 1/4) by apply phi_plus_quarter_gt_sqrt2.
   lra.
 Qed.
+
+(* === Ch 21 conj:golden-modulation algebraic identity === *)
+
+(** **Golden-modulation ratio ↔ closed-form equivalence** (Lean:
+    golden_modulation_ratio_to_closed_form). Pure algebra. *)
+Theorem golden_modulation_ratio_to_closed_form :
+  (PI / (10 * sqrt 2)) * ((sqrt 5 - 1) / 3) =
+    PI * (sqrt 5 - 1) / (30 * sqrt 2).
+Proof.
+  assert (Hsqrt2_ne : sqrt 2 <> 0).
+  { apply Rgt_not_eq. apply sqrt_lt_R0. lra. }
+  field. exact Hsqrt2_ne.
+Qed.
+
+(* === Ch 21 line 469: spectral gap closed form === *)
+
+(** **Spectral gap closed form from golden modulation** (Lean:
+    spectral_gap_closed_form_golden_modulation). Pure algebra. *)
+Theorem spectral_gap_closed_form_golden_modulation :
+  PI / (10 * sqrt 2) - PI * (sqrt 5 - 1) / (30 * sqrt 2) =
+    PI * (4 - sqrt 5) / (30 * sqrt 2).
+Proof.
+  assert (Hsqrt2_ne : sqrt 2 <> 0).
+  { apply Rgt_not_eq. apply sqrt_lt_R0. lra. }
+  field. exact Hsqrt2_ne.
+Qed.
+
+(** **Spectral gap golden modulation positive** (Lean:
+    spectral_gap_golden_modulation_positive): √5 < 3 (squaring) gives
+    4 - √5 > 1 > 0, hence the whole expression is positive. *)
+Theorem spectral_gap_golden_modulation_positive :
+  PI * (4 - sqrt 5) / (30 * sqrt 2) > 0.
+Proof.
+  assert (Hsqrt5_pos : 0 <= sqrt 5) by apply sqrt_pos.
+  assert (H : sqrt 5 < 3).
+  { apply Rsqr_incrst_0; [| exact Hsqrt5_pos | lra].
+    rewrite Rsqr_sqrt by lra. unfold Rsqr. lra. }
+  apply Rdiv_lt_0_compat.
+  - apply Rmult_lt_0_compat; [exact PI_RGT_0 | lra].
+  - assert (H2 : 0 < sqrt 2) by (apply sqrt_lt_R0; lra).
+    lra.
+Qed.
+
+(* === Ch 23 thm:universal-factor: Δ_comp = closed-form gap === *)
+
+(** **Cross-chapter consistency** (Lean:
+    Delta_comp_eq_lambda_P_minus_lambda_NP_closed): the Ch 23 Δ_comp
+    formula equals the Ch 21 closed-form spectral gap. Pure algebra. *)
+Theorem Delta_comp_eq_lambda_P_minus_lambda_NP_closed :
+  Delta_comp =
+    PI / (10 * sqrt 2) - PI / (10 * (phi + 1/4)).
+Proof.
+  unfold Delta_comp.
+  assert (Hsqrt2_pos : 0 < sqrt 2) by (apply sqrt_lt_R0; lra).
+  assert (Hsqrt2_ne : sqrt 2 <> 0) by lra.
+  assert (Hphi_pos : 0 < phi + 1/4).
+  { unfold phi.
+    assert (0 <= sqrt 5) by apply sqrt_pos.
+    lra. }
+  assert (Hphi_ne : phi + 1/4 <> 0) by lra.
+  assert (Hphi4_ne : phi * 4 + 1 <> 0) by lra.
+  field. split; [exact Hphi4_ne | exact Hsqrt2_ne].
+Qed.
