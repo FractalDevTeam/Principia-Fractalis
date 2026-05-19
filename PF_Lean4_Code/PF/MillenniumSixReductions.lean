@@ -174,6 +174,40 @@ theorem cantorSet_subset_unit_interval : _root_.cantorSet ⊆ Set.Icc (0:ℝ) 1 
   rw [← h0]
   exact Set.mem_iInter.mp hx 0
 
+/-- **★ The Cantor-set Hausdorff dimension value** (axiom-free numerical):
+
+      `log 2 / log 3 ≈ 0.6309`.
+
+    The manuscript's Ch 22 `thm:emergence-fractal` claims the
+    emergence-point set 𝓔 has Hausdorff dimension exactly
+    `log 2 / log 3`. We define the constant and prove a numerical
+    bracket. The IDENTITY `dimH cantorSet = log 2 / log 3` is the
+    classical Cantor-Hausdorff theorem (Hutchinson 1981 / Falconer)
+    not yet in mathlib's `dimH` API. -/
+noncomputable def cantor_hausdorff_dim : ℝ := Real.log 2 / Real.log 3
+
+/-- `cantor_hausdorff_dim > 0` (axiom-free). -/
+theorem cantor_hausdorff_dim_pos : 0 < cantor_hausdorff_dim := by
+  unfold cantor_hausdorff_dim
+  have h_log2_pos : 0 < Real.log 2 := Real.log_pos (by norm_num : (1:ℝ) < 2)
+  have h_log3_pos : 0 < Real.log 3 := Real.log_pos (by norm_num : (1:ℝ) < 3)
+  exact div_pos h_log2_pos h_log3_pos
+
+/-- `cantor_hausdorff_dim < 1` (axiom-free).
+
+    The Cantor set is properly fractal: its Hausdorff dimension is
+    strictly less than 1 (the dimension of [0,1] ⊃ cantorSet). Direct
+    from `log 2 < log 3` (since `2 < 3` and `log` is strictly
+    monotonic on `(0, ∞)`). -/
+theorem cantor_hausdorff_dim_lt_one : cantor_hausdorff_dim < 1 := by
+  unfold cantor_hausdorff_dim
+  have h_log2_pos : 0 < Real.log 2 := Real.log_pos (by norm_num : (1:ℝ) < 2)
+  have h_log3_pos : 0 < Real.log 3 := Real.log_pos (by norm_num : (1:ℝ) < 3)
+  have h_lt : Real.log 2 < Real.log 3 :=
+    Real.log_lt_log (by norm_num : (0:ℝ) < 2) (by norm_num : (2:ℝ) < 3)
+  rw [div_lt_one h_log3_pos]
+  exact h_lt
+
 /-- **Ch 22 conditional reduction**:
 
     Given the fractal emergence-point hypothesis at α = 3π/2, the
