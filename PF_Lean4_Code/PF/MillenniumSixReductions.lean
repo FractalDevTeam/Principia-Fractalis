@@ -1037,4 +1037,58 @@ theorem manuscript_lambda_NP_golden_positive :
       Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
     linarith
 
+/-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
+
+If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
+NP-class form `λ_NP = π(√5-1)/(30√2)` both hold, the spectral gap
+`Δ = λ_P - λ_NP` simplifies algebraically to the manuscript's line-469
+form `Δ = π(4-√5)/(30√2)`. Pure algebra.
+
+(The manuscript notes elsewhere — Remark `rem:alpha-P-NP-derivation-status`,
+lines 1153-1159 — that this closed-form Δ ≈ 0.131 is numerically
+inconsistent with the empirical Δ ≈ 0.0891 and other closed forms.
+This is one of the manuscript's flagged open derivation problems;
+our algebraic identity is independent of that numerical resolution.) -/
+
+/-- **Spectral gap closed form from golden modulation**: pure-algebra
+    derivation of `Δ = π(4-√5)/(30√2)` from
+    `λ_P = π/(10√2)` and `λ_NP = π(√5-1)/(30√2)`. -/
+theorem spectral_gap_closed_form_golden_modulation :
+    Real.pi / (10 * Real.sqrt 2) - Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) =
+      Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) := by
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 :=
+    (Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)).ne'
+  field_simp
+  ring
+
+/-- **Spectral gap positivity under golden modulation**: the closed-form
+    gap `π(4-√5)/(30√2)` is strictly positive, since `√5 < 4`
+    (`√5 ≈ 2.236 < 4`). Required by the manuscript's framework: a
+    positive gap rules out `P = NP` under the spectrum-collapse argument. -/
+theorem spectral_gap_golden_modulation_positive :
+    Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) > 0 := by
+  apply div_pos
+  · apply mul_pos Real.pi_pos
+    have h_sqrt5_lt_3 : Real.sqrt 5 < 3 := by
+      have h1 : Real.sqrt 5 < Real.sqrt 9 :=
+        Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+      have h9 : Real.sqrt 9 = 3 := by
+        rw [show (9 : ℝ) = 3^2 by norm_num, Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 3)]
+      linarith
+    linarith
+  · have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+      Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+    linarith
+
+/-- **Conditional spectral gap formula**: given any candidate values
+    `lambda_P, lambda_NP` matching the manuscript's two closed forms,
+    their difference equals the manuscript's line-469 closed form. -/
+theorem spectral_gap_from_golden_modulation
+    (lambda_P lambda_NP gap : ℝ)
+    (hP : lambda_P = Real.pi / (10 * Real.sqrt 2))
+    (hNP : lambda_NP = Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2))
+    (h_gap : gap = lambda_P - lambda_NP) :
+    gap = Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) := by
+  rw [h_gap, hP, hNP, spectral_gap_closed_form_golden_modulation]
+
 end PrincipiaTractalis.MillenniumSix
