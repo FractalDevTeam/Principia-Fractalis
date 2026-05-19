@@ -1091,4 +1091,100 @@ theorem spectral_gap_from_golden_modulation
     gap = Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) := by
   rw [h_gap, hP, hNP, spectral_gap_closed_form_golden_modulation]
 
+/-! ## Manuscript Ch 21 Evidence 3: Consciousness-Crystallization Gap
+
+The manuscript's "Evidence 3 — Via Consciousness Crystallization" (Ch 21,
+lines 1195-1212) defines a `ch_2` consciousness threshold function of `α`:
+
+  `ch_2(α) = 0.95 + (α − √2) / 10`
+
+with the property that `ch_2(P) = ch_2(α_P = √2) = 0.95` and
+`ch_2(NP) = 0.95 + ((φ + 1/4) − √2)/10 ≈ 0.9954`.
+
+The Δch₂ ≈ 0.0054 gap is structurally identical to the dimension gap from
+`cor_dim_gap_*` divided by 10. This is the manuscript's "third independent
+line of evidence" for P ≠ NP, reducing algebraically to the same
+α-difference content already captured by the dim-gap. -/
+
+/-- **Consciousness threshold function** (manuscript Ch 21, line 1201):
+    `ch_2(α) := 0.95 + (α − √2)/10`. -/
+noncomputable def ch_2 (α : ℝ) : ℝ := 0.95 + (α - Real.sqrt 2) / 10
+
+/-- **P-class consciousness threshold** evaluates to 0.95 at α = √2. -/
+theorem ch_2_at_alpha_P : ch_2 (Real.sqrt 2) = 0.95 := by
+  unfold ch_2
+  ring
+
+/-- **NP-class consciousness threshold** at α_NP = φ + 1/4:
+    `ch_2(NP) = 0.95 + ((φ + 1/4) − √2)/10`. -/
+theorem ch_2_at_alpha_NP :
+    ch_2 (PrincipiaTractalis.phi + 1/4) =
+      0.95 + (PrincipiaTractalis.phi + 1/4 - Real.sqrt 2) / 10 := by
+  unfold ch_2
+  rfl
+
+/-- **Consciousness-threshold gap = dimension gap / 10**: under the
+    manuscript's stated dimensions `dim(P) = √2`, `dim(NP) = φ + 1/4`,
+    the Δch₂ gap is `(dim(NP) − dim(P))/10`. The third line of evidence
+    is *algebraically* the dimension gap rescaled by `1/10`. -/
+theorem consciousness_gap_eq_dim_gap_over_ten :
+    ch_2 (PrincipiaTractalis.phi + 1/4) - ch_2 (Real.sqrt 2) =
+      ((PrincipiaTractalis.phi + 1/4) - Real.sqrt 2) / 10 := by
+  unfold ch_2
+  ring
+
+/-- **Consciousness gap is positive**: `Δch₂ > 0` follows from
+    `φ + 1/4 > √2` (the already-proven `phi_plus_quarter_gt_sqrt2`). -/
+theorem consciousness_gap_positive :
+    ch_2 (PrincipiaTractalis.phi + 1/4) - ch_2 (Real.sqrt 2) > 0 := by
+  rw [consciousness_gap_eq_dim_gap_over_ten]
+  have h : PrincipiaTractalis.phi + 1/4 > Real.sqrt 2 :=
+    PrincipiaTractalis.phi_plus_quarter_gt_sqrt2
+  linarith
+
+/-! ## Manuscript Ch 21, Corollary `cor:predictions` — BPP prediction
+
+The manuscript's `cor:predictions` (Ch 21, lines 924-927) predicts for the
+randomized complexity class BPP (Bounded-error Probabilistic Polynomial):
+
+  `α_BPP = π/2`  (quarter-turn phase)
+  `λ_0(H_BPP) ≈ π/(12√2) ≈ 0.1851`
+
+We formalize the algebraic ratio λ_BPP / λ_P = 5/6 under the manuscript's
+two closed forms (pure algebra, independent of derivability). -/
+
+/-- **BPP / P closed-form ratio** under manuscript predictions:
+    `(π/(12√2)) / (π/(10√2)) = 5/6`. Pure algebra. -/
+theorem lambda_BPP_over_lambda_P :
+    (Real.pi / (12 * Real.sqrt 2)) / (Real.pi / (10 * Real.sqrt 2)) =
+      5 / 6 := by
+  have h_pi_pos : Real.pi > 0 := Real.pi_pos
+  have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+    Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+  have h_denom_ne : Real.pi / (10 * Real.sqrt 2) ≠ 0 := by
+    apply div_ne_zero h_pi_pos.ne'
+    have : 10 * Real.sqrt 2 > 0 := by linarith
+    exact this.ne'
+  field_simp
+  ring
+
+/-- **BPP closed form is positive**: `π/(12√2) > 0`. Required by the
+    branch-selection positivity principle for ground-state energies. -/
+theorem lambda_BPP_positive :
+    Real.pi / (12 * Real.sqrt 2) > 0 := by
+  apply div_pos Real.pi_pos
+  have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+    Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+  linarith
+
+/-- **BPP-P spectral gap closed form**: `λ_P − λ_BPP = π/(60√2)`.
+    Pure algebra: `π/(10√2) − π/(12√2) = π·(12 − 10)/(120√2) = π/(60√2)`. -/
+theorem lambda_P_minus_lambda_BPP :
+    Real.pi / (10 * Real.sqrt 2) - Real.pi / (12 * Real.sqrt 2) =
+      Real.pi / (60 * Real.sqrt 2) := by
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 :=
+    (Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)).ne'
+  field_simp
+  ring
+
 end PrincipiaTractalis.MillenniumSix
