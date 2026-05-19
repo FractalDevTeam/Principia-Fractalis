@@ -1463,6 +1463,128 @@ theorem cos_two_four_eight_pi_div_nine_sum :
   have h_sum := cos_two_pi_div_nine_add_cos_four_pi_div_nine
   linarith
 
+/-! ## ★★★ RESEARCH — FULL V_P at α = 2, distance d = 1/2: also EXACTLY 0 ★★★ -/
+
+/-- **★★★ FULL V_P at α = 2, distance d = 1/2 is EXACTLY 0** (a > 1, axiom-free).
+
+      `Σ_{k≥0} a^(-k) · cos(π · 2^k · (1/2)) = -(2 - a)/(2(a-1))`
+
+    Structure:
+    * k=0 term: `cos(π/2) = 0` — vanishes.
+    * k=1 term: `a^(-1) · cos(π) = -1/a`.
+    * k ≥ 2 terms: `cos(π · 2^(k-1)) = 1` (since `2^(k-1)` is even
+      integer for k ≥ 2). Geometric sum from k=2.
+
+    Specifically at a=2: `V_P = 0 + (-1/2) + Σ_{k≥2} (1/2)^k = -1/2 + 1/2 = 0`.
+
+    **This is the SECOND distance (after d=1) where V_P vanishes at the
+    YM-class parameter (α, a) = (2, 2)** — strengthening the pattern
+    that the polylog kernel has multiple exact zeros at this
+    distinguished point. -/
+theorem fractalKernelReal_at_alpha_two_d_half {a : ℝ} (ha : 1 < a) :
+    (∑' k : ℕ, (a : ℝ)^(-(k:ℤ)) *
+        Real.cos (Real.pi * (2:ℝ)^k * (1/2))) =
+    (2 - a) / (a * (a - 1)) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have h_inv_lt : (1/a : ℝ) < 1 := by rw [div_lt_one ha_pos]; exact ha
+  have h_inv_nn : (0 : ℝ) ≤ 1/a := by positivity
+  have h_a_ne_one : a ≠ 1 := ne_of_gt ha
+  set f : ℕ → ℝ := fun k => (a : ℝ)^(-(k:ℤ)) *
+    Real.cos (Real.pi * (2:ℝ)^k * (1/2)) with hf_def
+  have h_summable : Summable f := by
+    apply Summable.of_norm_bounded (g := fun k : ℕ => (1/a)^k)
+    · exact summable_geometric_of_lt_one h_inv_nn h_inv_lt
+    intro k
+    simp only [hf_def, Real.norm_eq_abs, abs_mul]
+    have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(k:ℤ)) := zpow_pos ha_pos _
+    rw [abs_of_pos h_pow_pos]
+    have h_cos_abs : |Real.cos (Real.pi * (2:ℝ)^k * (1/2))| ≤ 1 :=
+      Real.abs_cos_le_one _
+    have h_pow_eq : (a : ℝ)^(-(k:ℤ)) = (1/a)^k := by
+      rw [show (-(k:ℤ)) = -((k:ℕ) : ℤ) from rfl]
+      rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+    rw [h_pow_eq]
+    have h_pos : (0 : ℝ) < (1/a : ℝ)^k := pow_pos (by positivity) k
+    calc (1/a : ℝ)^k * |Real.cos (Real.pi * (2:ℝ)^k * (1/2))|
+        ≤ (1/a : ℝ)^k * 1 := mul_le_mul_of_nonneg_left h_cos_abs h_pos.le
+      _ = (1/a : ℝ)^k := mul_one _
+  -- Split: ∑' f = f 0 + f 1 + ∑' f (k+2)
+  have h_split_aux := h_summable.sum_add_tsum_nat_add 2
+  have h_range2 : (∑ i ∈ Finset.range 2, f i) = f 0 + f 1 := by
+    rw [Finset.sum_range_succ, Finset.sum_range_one]
+  rw [h_range2] at h_split_aux
+  -- f 0 = 0 since cos(π/2) = 0
+  have h_f0 : f 0 = 0 := by
+    show (a : ℝ)^(-((0:ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^0 * (1/2)) = 0
+    have h_exp : (-((0:ℕ) : ℤ)) = 0 := by push_cast
+    rw [h_exp, zpow_zero, pow_zero]
+    rw [show Real.pi * 1 * (1/2) = Real.pi / 2 from by ring]
+    rw [Real.cos_pi_div_two]; ring
+  -- f 1 = a^(-1) · cos(π) = -1/a
+  have h_f1 : f 1 = -1/a := by
+    show (a : ℝ)^(-((1:ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^1 * (1/2)) = -1/a
+    rw [show (-((1:ℕ) : ℤ)) = -1 from rfl, zpow_neg_one]
+    rw [show Real.pi * (2:ℝ)^1 * (1/2) = Real.pi from by ring]
+    rw [Real.cos_pi]
+    field_simp
+  -- For k ≥ 0, f (k+2) = a^(-(k+2)) · cos(π · 2^(k+1)) = a^(-(k+2)) · 1
+  -- (using cos(π · 2^(k+1)) = 1 since 2^(k+1) ≥ 2 is even integer)
+  have h_cos_2pi_pow : ∀ n : ℕ, Real.cos (2 * Real.pi * (2:ℝ)^n) = 1 := by
+    intro n
+    induction n with
+    | zero => simp [Real.cos_two_pi]
+    | succ n' ih =>
+      have h_split2 : 2 * Real.pi * (2:ℝ)^(n'+1) =
+                      2 * Real.pi * (2:ℝ)^n' + 2 * Real.pi * (2:ℝ)^n' := by
+        rw [pow_succ]; ring
+      rw [h_split2, Real.cos_add, ih]
+      have h_sin : Real.sin (2 * Real.pi * (2:ℝ)^n') = 0 := by
+        have h_id : Real.cos (2 * Real.pi * (2:ℝ)^n')^2 +
+                   Real.sin (2 * Real.pi * (2:ℝ)^n')^2 = 1 :=
+          Real.cos_sq_add_sin_sq _
+        rw [ih] at h_id
+        nlinarith [sq_nonneg (Real.sin (2 * Real.pi * (2:ℝ)^n'))]
+      rw [h_sin]; ring
+  have h_term_shift : ∀ k : ℕ, f (k+2) = (1/a)^(k+2) := by
+    intro k
+    show (a : ℝ)^(-(((k+2):ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^(k+2) * (1/2)) = (1/a)^(k+2)
+    have h_cos : Real.cos (Real.pi * (2:ℝ)^(k+2) * (1/2)) = 1 := by
+      -- π · 2^(k+2) · (1/2) = π · 2^(k+1) = 2π · 2^k
+      have h_angle : Real.pi * (2:ℝ)^(k+2) * (1/2) = 2 * Real.pi * (2:ℝ)^k := by
+        rw [show ((2:ℝ)^(k+2)) = 4 * (2:ℝ)^k from by rw [pow_add]; ring]
+        ring
+      rw [h_angle]
+      exact h_cos_2pi_pow k
+    rw [h_cos, mul_one]
+    rw [show (-(((k+2):ℕ) : ℤ)) = -(((k+2):ℕ) : ℤ) from rfl]
+    rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+  rw [← h_split_aux]
+  rw [h_f0, h_f1]
+  rw [tsum_congr h_term_shift]
+  -- Σ_{k≥0} (1/a)^(k+2) = (1/a²) · 1/(1-1/a)
+  have h_pow_rewrite : ∀ k : ℕ, ((1/a : ℝ))^(k+2) = (1/a)^2 * (1/a)^k := by
+    intro k; rw [pow_add]; ring
+  rw [tsum_congr h_pow_rewrite]
+  rw [tsum_mul_left]
+  rw [tsum_geometric_of_lt_one h_inv_nn h_inv_lt]
+  -- 0 + (-1/a) + (1/a²)·(1-1/a)⁻¹ = -(2-a)/(2(a-1))
+  have h_a_sub_one_ne : a - 1 ≠ 0 := sub_ne_zero.mpr h_a_ne_one
+  field_simp
+  ring
+
+/-- **★★★ V_P at (α, a, d) = (2, 2, 1/2) is EXACTLY 0** (axiom-free).
+
+    Direct: at a=2, `-(2-a)/(2(a-1)) = -0/(2) = 0`.
+
+    This is the SECOND distance (after d=1) where V_P vanishes at the
+    YM-class parameter point (α, a) = (2, 2). The pattern suggests
+    a structural zero locus of the polylog kernel at α=2, a=2. -/
+theorem fractalKernelReal_at_alpha_two_d_half_at_a_two :
+    (∑' k : ℕ, (2 : ℝ)^(-(k:ℤ)) *
+        Real.cos (Real.pi * (2:ℝ)^k * (1/2))) = 0 := by
+  rw [fractalKernelReal_at_alpha_two_d_half (by norm_num : (1:ℝ) < 2)]
+  norm_num
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
