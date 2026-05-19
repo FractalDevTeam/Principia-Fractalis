@@ -1165,6 +1165,98 @@ theorem manuscript_lambda_NP_golden_positive :
       Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
     linarith
 
+/-! ## Manuscript Ch 21, Remark "Sine Identity Verification" (line 537) —
+    arithmetic error certificate
+
+The manuscript's Remark following Conjecture `conj:golden-modulation` claims:
+
+  `|0.798635510 / 0.847127424| ≈ 0.5988854382 = (√5-1)/3`
+
+We formally certify TWO errors in this claim:
+
+(a) **Arithmetic error**: `0.798635510 / 0.847127424 ≈ 0.943`, NOT `0.599`.
+(b) **Algebraic error**: `(√5-1)/3 ≈ 0.412`, NOT `0.599`.
+
+Both are independent failures of the manuscript's stated numerical
+"verification" of `conj:golden-modulation`. Neither the LHS sine ratio
+nor the RHS algebraic constant equals 0.5988. The "verification"
+verifies nothing. -/
+
+/-- **Arithmetic-error (a)**: The ratio
+    `|0.798635510 / 0.847127424|` lies in `(0.94, 0.95)`, NOT near `0.599`.
+    Hence it does NOT equal `0.5988854382` as the manuscript claims. -/
+theorem manuscript_sine_ratio_bracket :
+    (94 : ℝ)/100 < |(798635510 : ℝ)/(10^9) / ((847127424 : ℝ)/(10^9))| ∧
+    |(798635510 : ℝ)/(10^9) / ((847127424 : ℝ)/(10^9))| < (95 : ℝ)/100 := by
+  have h_pos : (847127424 : ℝ)/(10^9) > 0 := by norm_num
+  have h_value : (798635510 : ℝ)/(10^9) / ((847127424 : ℝ)/(10^9)) > 0 :=
+    div_pos (by norm_num) h_pos
+  rw [abs_of_pos h_value]
+  constructor
+  · -- 0.94 < 0.798635510 / 0.847127424 ⟺ 0.94 · 0.847127424 < 0.798635510
+    -- ⟺ 0.79629977856 < 0.798635510 ✓
+    rw [lt_div_iff₀ h_pos]
+    norm_num
+  · -- 0.798635510 / 0.847127424 < 0.95 ⟺ 0.798635510 < 0.95 · 0.847127424
+    -- ⟺ 0.798635510 < 0.80477105... ✓
+    rw [div_lt_iff₀ h_pos]
+    norm_num
+
+/-- **Arithmetic-error (a) corollary**: The manuscript's claimed ratio
+    `0.5988854382` is INCORRECT. The actual value of the absolute ratio is
+    `> 0.94`, not `≈ 0.599`. -/
+theorem manuscript_sine_ratio_ne_5988 :
+    |(798635510 : ℝ)/(10^9) / ((847127424 : ℝ)/(10^9))|
+      ≠ (5988854382 : ℝ)/(10^10) := by
+  intro h
+  obtain ⟨h_lo, _⟩ := manuscript_sine_ratio_bracket
+  rw [h] at h_lo
+  norm_num at h_lo
+
+/-- **Algebraic-error (b)**: `(√5 - 1)/3` lies in `(0.41, 0.42)`, NOT near
+    `0.599`. So even setting aside the sine-ratio arithmetic error, the
+    manuscript's identification `... = (√5-1)/3` cannot equal `0.5988`. -/
+theorem manuscript_sqrt5_minus_one_div_three_bracket :
+    (41 : ℝ)/100 < (Real.sqrt 5 - 1)/3 ∧
+    (Real.sqrt 5 - 1)/3 < (42 : ℝ)/100 := by
+  have h_sqrt5_lb : (2236 : ℝ)/1000 < Real.sqrt 5 := by
+    have h : Real.sqrt ((2236 : ℝ)/1000 * ((2236 : ℝ)/1000)) < Real.sqrt 5 := by
+      apply Real.sqrt_lt_sqrt
+      · positivity
+      · norm_num
+    rwa [show (2236 : ℝ)/1000 * ((2236 : ℝ)/1000) = ((2236 : ℝ)/1000)^2 by ring,
+         Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (2236 : ℝ)/1000)] at h
+  have h_sqrt5_ub : Real.sqrt 5 < (2237 : ℝ)/1000 := by
+    have h : Real.sqrt 5 < Real.sqrt (((2237 : ℝ)/1000)^2) := by
+      apply Real.sqrt_lt_sqrt
+      · norm_num
+      · norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ (2237 : ℝ)/1000)] at h
+  refine ⟨?_, ?_⟩
+  · -- (√5 - 1)/3 > 0.41 ⟺ √5 > 1.41 · 3 - hmm, ⟺ √5 - 1 > 1.23 ⟺ √5 > 2.23 ✓
+    linarith
+  · -- (√5 - 1)/3 < 0.42 ⟺ √5 - 1 < 1.26 ⟺ √5 < 2.26 ✓
+    linarith
+
+/-- **Algebraic-error (b) corollary**: `(√5-1)/3 ≠ 0.5988854382`. -/
+theorem manuscript_sqrt5_identity_ne_5988 :
+    (Real.sqrt 5 - 1)/3 ≠ (5988854382 : ℝ)/(10^10) := by
+  intro h
+  obtain ⟨_, h_ub⟩ := manuscript_sqrt5_minus_one_div_three_bracket
+  rw [h] at h_ub
+  norm_num at h_ub
+
+/-- **Double-error certificate**: BOTH sides of the manuscript's claimed
+    identity `|sin(π/√2) / sin(π/√2 + φ)| ≈ 0.5988854382 = (√5-1)/3` differ
+    from `0.5988854382`. The actual numerical relationship is
+    `0.94... ≠ 0.41...`, not `0.599 = 0.599` — so the claim is doubly wrong
+    AND the two sides aren't even equal to each other. -/
+theorem manuscript_sine_identity_both_sides_wrong :
+    (Real.sqrt 5 - 1)/3 ≠ (5988854382 : ℝ)/(10^10) ∧
+    |(798635510 : ℝ)/(10^9) / ((847127424 : ℝ)/(10^9))|
+      ≠ (5988854382 : ℝ)/(10^10) :=
+  ⟨manuscript_sqrt5_identity_ne_5988, manuscript_sine_ratio_ne_5988⟩
+
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
 If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
