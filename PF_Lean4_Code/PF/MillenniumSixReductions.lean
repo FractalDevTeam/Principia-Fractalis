@@ -1587,6 +1587,7 @@ theorem ch07_coherence_arithmetic_error :
   rw [h] at h_lo
   norm_num at h_lo
 
+
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
 If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
