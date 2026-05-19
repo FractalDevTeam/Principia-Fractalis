@@ -1747,4 +1747,99 @@ theorem closed_form_gap_bracket_9digit :
   · linarith
   · linarith
 
+/-! ## Ch 23 YM glueball mass definitions (in MeV)
+
+The manuscript's `rem:lattice-comparison` (Ch 23, line 402) implies absolute
+mass values for the fractal-YM operator's internal glueball spectrum:
+
+  `m_{2++} := √(8/3) · Δ_fYM ≈ 1.633 · 420.43 ≈ 686.5 MeV`
+  `m_{0-+} := √3   · Δ_fYM ≈ 1.732 · 420.43 ≈ 728.5 MeV`
+
+These are predictions of the fractal Hamiltonian H_fYM, not of physical
+SU(3) lattice glueballs (the latter being m_{0++}^lat ≈ 1730 MeV — the
+factor-of-2.5 mismatch requires the conjectural conj:fym-su3 bridge,
+already formalized). -/
+
+/-- **Tensor-glueball mass in MeV** (fractal YM operator prediction):
+    `m_{2++} := √(8/3) · Δ_fYM`. -/
+noncomputable def ym_2pp_mass_MeV : ℝ := ym_2pp_ratio * Delta_fYM_MeV
+
+/-- **Pseudoscalar-glueball mass in MeV**: `m_{0-+} := √3 · Δ_fYM`. -/
+noncomputable def ym_0mp_mass_MeV : ℝ := ym_0mp_ratio * Delta_fYM_MeV
+
+/-- **`m_{2++}` is positive**: `√(8/3) > 0` and `Δ_fYM > 0` imply the
+    product is positive. -/
+theorem ym_2pp_mass_pos : 0 < ym_2pp_mass_MeV := by
+  unfold ym_2pp_mass_MeV
+  apply mul_pos
+  · have h := ym_2pp_ratio_gt_one; linarith
+  · exact Delta_fYM_pos
+
+/-- **`m_{0-+}` is positive**: `√3 > 0` and `Δ_fYM > 0`. -/
+theorem ym_0mp_mass_pos : 0 < ym_0mp_mass_MeV := by
+  unfold ym_0mp_mass_MeV
+  apply mul_pos
+  · have h := ym_0mp_ratio_gt_one; linarith
+  · exact Delta_fYM_pos
+
+/-- **`m_{2++}` exceeds `Δ_fYM`** (above the mass gap): since the ratio
+    `√(8/3) > 1`. -/
+theorem ym_2pp_mass_gt_Delta : ym_2pp_mass_MeV > Delta_fYM_MeV := by
+  unfold ym_2pp_mass_MeV
+  have h_ratio : ym_2pp_ratio > 1 := ym_2pp_ratio_gt_one
+  have h_Delta : 0 < Delta_fYM_MeV := Delta_fYM_pos
+  -- m_{2++} = ym_2pp_ratio · Δ > 1 · Δ = Δ
+  have : ym_2pp_ratio * Delta_fYM_MeV > 1 * Delta_fYM_MeV := by
+    apply (mul_lt_mul_right h_Delta).mpr h_ratio
+  linarith
+
+/-- **`m_{0-+}` exceeds `Δ_fYM`** (above the mass gap): since `√3 > 1`. -/
+theorem ym_0mp_mass_gt_Delta : ym_0mp_mass_MeV > Delta_fYM_MeV := by
+  unfold ym_0mp_mass_MeV
+  have h_ratio : ym_0mp_ratio > 1 := ym_0mp_ratio_gt_one
+  have h_Delta : 0 < Delta_fYM_MeV := Delta_fYM_pos
+  have : ym_0mp_ratio * Delta_fYM_MeV > 1 * Delta_fYM_MeV := by
+    apply (mul_lt_mul_right h_Delta).mpr h_ratio
+  linarith
+
+/-- **Mass ordering** `m_{2++} < m_{0-+}`: pseudoscalar is heavier than
+    tensor in the fractal-YM operator spectrum. Direct from
+    `√(8/3) < √3` and `Δ_fYM > 0`. -/
+theorem ym_2pp_mass_lt_ym_0mp_mass : ym_2pp_mass_MeV < ym_0mp_mass_MeV := by
+  unfold ym_2pp_mass_MeV ym_0mp_mass_MeV
+  have h_ratios : ym_2pp_ratio < ym_0mp_ratio := ym_2pp_lt_ym_0mp
+  have h_Delta : 0 < Delta_fYM_MeV := Delta_fYM_pos
+  exact (mul_lt_mul_right h_Delta).mpr h_ratios
+
+/-- **Numerical bracket on `m_{2++}` mass** (approximate):
+    `m_{2++} ∈ (685, 689)` MeV. Combines the 3-digit `ym_2pp_ratio` bracket
+    `1.632 < √(8/3) < 1.634` with the `Delta_fYM` bracket `420 < Δ < 421`. -/
+theorem ym_2pp_mass_bracket :
+    (685 : ℝ) < ym_2pp_mass_MeV ∧ ym_2pp_mass_MeV < 689 := by
+  unfold ym_2pp_mass_MeV
+  obtain ⟨h_r_lo, h_r_hi⟩ := ym_2pp_ratio_bracket
+  obtain ⟨h_D_lo, h_D_hi⟩ := Delta_fYM_bracket
+  have h_r_pos : 0 < ym_2pp_ratio := by
+    have := ym_2pp_ratio_gt_one; linarith
+  have h_D_pos : 0 < Delta_fYM_MeV := Delta_fYM_pos
+  refine ⟨?_, ?_⟩
+  · -- m_{2++} > 1.632 · 420 = 685.44
+    -- We use: ym_2pp_ratio > 1.632 and Delta > 420, both positive.
+    nlinarith
+  · -- m_{2++} < 1.634 · 421 = 687.914 < 689
+    nlinarith
+
+/-- **Numerical bracket on `m_{0-+}` mass**: `m_{0-+} ∈ (727, 730)` MeV. -/
+theorem ym_0mp_mass_bracket :
+    (727 : ℝ) < ym_0mp_mass_MeV ∧ ym_0mp_mass_MeV < 730 := by
+  unfold ym_0mp_mass_MeV
+  obtain ⟨h_r_lo, h_r_hi⟩ := ym_0mp_ratio_bracket
+  obtain ⟨h_D_lo, h_D_hi⟩ := Delta_fYM_bracket
+  have h_D_pos : 0 < Delta_fYM_MeV := Delta_fYM_pos
+  refine ⟨?_, ?_⟩
+  · -- m_{0-+} > 1.732 · 420 = 727.44
+    nlinarith
+  · -- m_{0-+} < 1.733 · 421 = 729.593 < 730
+    nlinarith
+
 end PrincipiaTractalis.MillenniumSix
