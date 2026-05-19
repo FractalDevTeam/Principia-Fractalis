@@ -396,14 +396,11 @@ Integrating from $\text{ch}_2 = 0.95$ (laminar) to $\text{ch}_2 \approx 0.60$ (f
 \end{equation}
 
 For fully developed turbulence at $\text{Re}_{\text{turb}} \sim 10^6$, solving gives:
-\begin{equation}
-\text{Re}_c^{\text{crit}} = 10^6 \exp\left(-\frac{10 \cdot 0.35}{\pi}\right) = 10^6 \cdot e^{-1.114} \approx 2.13 \times 10^5
+\begin{equation}\label{eq:re-c-crit-correct}
+\text{Re}_c^{\text{crit}} = 10^6 \exp\left(-\frac{10 \cdot 0.35}{\pi}\right) = 10^6 \cdot e^{-1.1141} \approx 3.28 \times 10^5
 \end{equation}
 
-Expressing in terms of $\omega_c = \pi/10$:
-\begin{equation}
-\text{Re}_c^{\text{crit}} = \frac{10}{\pi} \cdot \frac{\pi}{10} \cdot 10^5 = 2.13198 \times 10^5
-\end{equation}
+\noindent\emph{Numerical correction, 2026-05-18: Prior editions stated $\text{Re}_c^{\text{crit}} \approx 2.13 \times 10^5$, and gave a second derivation $(10/\pi)(\pi/10) \cdot 10^5 = 2.13198 \times 10^5$. Both are arithmetically incorrect: $e^{-1.1141} \approx 0.328$ gives $3.28 \times 10^5$, not $2.13 \times 10^5$; and $(10/\pi)(\pi/10) = 1$ exactly ($\pi$'s cancel), giving $10^5$, not $2.13198 \times 10^5$. The factor $2.13198$ appears to be a confusion with the Yang-Mills resonance zero $\omega_c = 2.13198462$ of Ch~\ref{ch:yang-mills}. Formally certified at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} theorems \texttt{ch10\_pi\_cancellation} and \texttt{ch10\_re\_c\_crit\_arithmetic\_error}.}
 \end{proof}
 
 This prediction is testable: pipe flow experiments show transition around $\text{Re} \sim 2 \times 10^3$ to $10^4$ depending on perturbations, but the consciousness-corrected value $\text{Re}_c^{\text{crit}}$ refers to the \emph{universal} threshold independent of geometry.
@@ -514,7 +511,7 @@ Nonlinearity & $(\mathbf{u} \cdot \nabla)\mathbf{u}$ & $[A_\mu, A_\nu]$ (self-in
 Singularity risk & Vortex stretching & Gluon self-coupling \\
 Consciousness term & $\partial C_{ij}/\partial x_j$ & $C_{\mu\nu}$ (gauge-covariant) \\
 Regularization constant & $\pi/10$ (viscosity enhancement) & $\pi/10$ (mass gap coefficient) \\
-Critical parameter & $\text{Re}_c = 2.13 \times 10^5$ & $\Lambda_{\text{QCD}} = 213 \text{ MeV}$ \\
+Critical parameter & $\text{Re}_c \approx 3.28 \times 10^5$ (corrected 2026-05-18, see eq.~\eqref{eq:re-c-crit-correct}) & $\Lambda_{\text{QCD}} = 197.2 \text{ MeV}$ (canonical PDG value used in Ch~\ref{ch:yang-mills}; prior $213$ was wrong) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -567,7 +564,7 @@ The hydrodynamic manifestations of the $\Phi$-field reveal a universal pattern: 
 \section{Exercises}
 
 \begin{enumerate}
-\item \textbf{[🟢 Estimation]} For water flowing in a pipe ($\nu = 10^{-6}$ m$^2$/s), estimate the consciousness length scale $\ell_c$ assuming $\text{ch}_2 = 0.90$. At what flow velocity $U$ would you reach the critical Reynolds number $\text{Re}_c = 2.13 \times 10^5$ for pipe diameter $D = 1$ cm?
+\item \textbf{[🟢 Estimation]} For water flowing in a pipe ($\nu = 10^{-6}$ m$^2$/s), estimate the consciousness length scale $\ell_c$ assuming $\text{ch}_2 = 0.90$. At what flow velocity $U$ would you reach the critical Reynolds number $\text{Re}_c \approx 3.28 \times 10^5$ for pipe diameter $D = 1$ cm? (Note: corrected from prior $2.13 \times 10^5$, see eq.~\eqref{eq:re-c-crit-correct}.)
 
 \item \textbf{[🟡 Derivation]} Derive the Enhanced Energy Inequality (Theorem \ref{thm:enhanced_energy}) from first principles, carefully tracking the boundary terms when integrating by parts.
 
