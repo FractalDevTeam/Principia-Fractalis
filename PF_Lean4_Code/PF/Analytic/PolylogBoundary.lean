@@ -1919,6 +1919,61 @@ theorem fractalKernelReal_at_alpha_two_d_half_odd_at_a_two (n : ℕ) :
   rw [fractalKernelReal_at_alpha_two_d_half_odd (by norm_num : (1:ℝ) < 2) n]
   norm_num
 
+/-! ## ★★★★ RESEARCH — Even sharper: cos(2π√2/3) ≤ -√(2+√2)/2 ★★★★ -/
+
+/-- **★★★★ SHARPEST cos(2π·√2/3) ≤ -cos(π/8) = -√(2+√2)/2 ★★★★**
+    (axiom-free).
+
+    Tighter than `≤ -√3/2`. Same `cos(π+y) = -cos(y)` reduction, but
+    now requires `|y| ≤ π/8` instead of `|y| ≤ π/6`.
+
+    `|y| ≤ π/8` ⟺ `8(3-2√2) ≤ 3` ⟺ `21 ≤ 16√2` ⟺ `441 ≤ 512` ✓.
+
+    Then `cos(|y|) ≥ cos(π/8) = √(2+√2)/2 ≈ 0.924`, so
+    `cos(2π√2/3) = -cos(y) ≤ -√(2+√2)/2 ≈ -0.924`.
+
+    This is significantly tighter than the previous `≤ -√3/2 ≈ -0.866`. -/
+theorem cos_two_pi_sqrt2_div_three_le_neg_cos_pi_div_eight :
+    Real.cos (2 * Real.pi * Real.sqrt 2 / 3) ≤ -(Real.sqrt (2 + Real.sqrt 2) / 2) := by
+  have h_sqrt2_sq : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  -- √2 < 3/2
+  have h_sqrt2_upper : Real.sqrt 2 < 3/2 := by
+    rw [show ((3:ℝ)/2 : ℝ) = Real.sqrt ((3/2)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 3/2)).symm]
+    apply Real.sqrt_lt_sqrt
+    · norm_num
+    · norm_num
+  -- √2 > 21/16 (since (21/16)² = 441/256 < 512/256 = 2)
+  have h_sqrt2_lower : (21:ℝ)/16 < Real.sqrt 2 := by
+    rw [show ((21:ℝ)/16 : ℝ) = Real.sqrt ((21/16)^2) from
+      (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 21/16)).symm]
+    apply Real.sqrt_lt_sqrt
+    · positivity
+    · norm_num
+  have h_2sqrt2_lt_3 : 2 * Real.sqrt 2 < 3 := by linarith
+  -- Decompose: cos(2π√2/3) = cos((2π√2/3 - π) + π) = -cos(2π√2/3 - π)
+  have h_decomp : 2 * Real.pi * Real.sqrt 2 / 3 =
+                  (2 * Real.pi * Real.sqrt 2 / 3 - Real.pi) + Real.pi := by
+    ring
+  rw [h_decomp, Real.cos_add_pi]
+  set y := 2 * Real.pi * Real.sqrt 2 / 3 - Real.pi
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_y_neg : y < 0 := by
+    show 2 * Real.pi * Real.sqrt 2 / 3 - Real.pi < 0
+    nlinarith [h_pi_pos, h_2sqrt2_lt_3]
+  rw [show Real.cos y = Real.cos (-y) from (Real.cos_neg y).symm]
+  have h_neg_y_pos : (0 : ℝ) ≤ -y := by linarith
+  have h_neg_y_le_pi_eight : -y ≤ Real.pi / 8 := by
+    show -(2 * Real.pi * Real.sqrt 2 / 3 - Real.pi) ≤ Real.pi / 8
+    -- π - 2π√2/3 ≤ π/8 ⟺ (7/8)π ≤ 2π√2/3 ⟺ 21 ≤ 16√2
+    nlinarith [h_pi_pos, h_sqrt2_lower]
+  have h_pi_eight_le_pi : Real.pi / 8 ≤ Real.pi := by linarith
+  have h_cos_ge : (Real.sqrt (2 + Real.sqrt 2) / 2 : ℝ) ≤ Real.cos (-y) := by
+    rw [show (Real.sqrt (2 + Real.sqrt 2) / 2 : ℝ) = Real.cos (Real.pi/8) from
+      Real.cos_pi_div_eight.symm]
+    exact Real.cos_le_cos_of_nonneg_of_le_pi h_neg_y_pos h_pi_eight_le_pi h_neg_y_le_pi_eight
+  linarith
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
