@@ -1541,4 +1541,56 @@ theorem ym_2pp_ratio_ne_lattice_ratio :
   rw [h] at h_ub
   norm_num at h_ub
 
+/-! ## Cross-chapter consistency: Ch 23 Δ_comp ↔ Ch 21 closed-form gap
+
+The manuscript's Ch 23 `thm:universal-factor` (line 496) gives the P vs NP
+dimensionless-coupling formula
+
+  `Δ_comp = (1/√2 − 1/(φ+1/4)) · π/10`
+
+The manuscript's Ch 21 closed forms give `λ_P = π/(10√2)` and
+`λ_NP_closed = π/(10(φ+1/4))` (the Lean-formalized `lambda_0_NP_precise`
+form), so their difference is
+
+  `λ_P − λ_NP_closed = π/(10√2) − π/(10(φ+1/4))
+                     = (π/10) · (1/√2 − 1/(φ+1/4))
+                     = Δ_comp`
+
+i.e., the Ch 23 "dimensionless coupling" form IS the Ch 21 closed-form
+spectral gap. We formalize this cross-chapter algebraic consistency. -/
+
+/-- **Cross-chapter consistency**: the Ch 23 Δ_comp formula equals the
+    Ch 21 closed-form spectral gap `λ_P − λ_NP_closed`. Pure algebra.
+
+    Manuscript significance: confirms the two chapter-level formulas
+    refer to the same algebraic quantity. The numerical mismatch with
+    the empirical gap Δ_empirical ≈ 0.0891 (manuscript line 1176) is
+    independent of this algebraic equivalence — it's a discrepancy
+    between the closed-form prediction (≈ 0.054) and the empirical
+    measurement (≈ 0.089), already flagged in
+    Remark rem:alpha-P-NP-derivation-status lines 1153-1159. -/
+theorem Delta_comp_eq_lambda_P_minus_lambda_NP_closed :
+    Delta_comp =
+      Real.pi / (10 * Real.sqrt 2) -
+      Real.pi / (10 * (PrincipiaTractalis.phi + 1/4)) := by
+  unfold Delta_comp
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 :=
+    (Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)).ne'
+  have h_phi_pos : (0 : ℝ) < PrincipiaTractalis.phi + 1/4 := by
+    have : 0 < PrincipiaTractalis.phi := by
+      unfold PrincipiaTractalis.phi
+      have : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+      linarith
+    linarith
+  field_simp
+
+/-- **Conditional form**: given any candidate values matching the Ch 21
+    closed forms, the gap computed from them equals the Ch 23 Δ_comp. -/
+theorem Delta_comp_eq_gap_from_closed_forms
+    (lambda_P lambda_NP : ℝ)
+    (hP : lambda_P = Real.pi / (10 * Real.sqrt 2))
+    (hNP_closed : lambda_NP = Real.pi / (10 * (PrincipiaTractalis.phi + 1/4))) :
+    Delta_comp = lambda_P - lambda_NP := by
+  rw [Delta_comp_eq_lambda_P_minus_lambda_NP_closed, hP, hNP_closed]
+
 end PrincipiaTractalis.MillenniumSix
