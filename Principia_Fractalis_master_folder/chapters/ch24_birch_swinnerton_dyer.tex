@@ -7,7 +7,7 @@ In this chapter, we address the Birch and Swinnerton-Dyer conjecture through fra
 \item Understand elliptic curves and the mystery of rational points
 \item State the BSD conjecture connecting algebra (rank) and analysis (L-function)
 \item Construct the fractal L-function at critical value $\alpha = 3\pi/4$
-\item Present the golden threshold $\varphi/e \approx 0.596$ where ranks emerge
+\item Present the golden threshold $\varphi/e \approx 0.595$ where ranks emerge
 \item Demonstrate spectral concentration: eigenvalue multiplicity equals rank
 \item Provide computational algorithms with complexity $O(N_E^{1/2+\varepsilon})$
 \item Connect to consciousness crystallization at arithmetic-geometric duality
@@ -285,7 +285,7 @@ for the statistical distribution of primes, yielding self-adjointness in the spe
 \begin{theorem}[Spectral Concentration]\label{thm:spectral-concentration-bsd}
 The eigenvalues of $\mathcal{T}_E$ concentrate at:
 \begin{equation}
-\lambda_* = \frac{\varphi}{e} = \frac{1 + \sqrt{5}}{2e} \approx 0.59634736...
+\lambda_* = \frac{\varphi}{e} = \frac{1 + \sqrt{5}}{2e} \approx 0.59524158...
 \end{equation}
 with multiplicity equal to $\rank E(\Q)$.
 \end{theorem}
@@ -296,7 +296,7 @@ Why $\varphi/e$?
 \begin{itemize}
 \item $\varphi = (1+\sqrt{5})/2$ = golden ratio = \textit{most irrational number}
 \item $e$ = Euler's constant = base of natural logarithm
-\item $\varphi/e \approx 0.596$ = threshold where:
+\item $\varphi/e \approx 0.595$ = threshold where:
   \begin{itemize}
   \item Below: algebraic (rational, periodic)
   \item Above: transcendental (irrational, chaotic)
@@ -481,7 +481,7 @@ The golden ratio $\varphi = (1+\sqrt{5})/2$ is the "most irrational" number in t
 
 This means $\varphi$ is maximally resistant to rational approximation—exactly the property needed to separate rational from irrational points.
 
-Divided by $e$ (the natural base), $\varphi/e \approx 0.596$ becomes the threshold where:
+Divided by $e$ (the natural base), $\varphi/e \approx 0.595$ becomes the threshold where:
 \begin{equation}
 \text{Rational} \xrightarrow{\varphi/e} \text{Transcendental}
 \end{equation}
@@ -511,7 +511,7 @@ Consider $E: y^2 = x^3 - x$ (congruent number curve $n=5$):
 \item \textbf{Generator}: $P = (-2, -4)$ (point of infinite order)
 \item \textbf{Classical rank}: $\rank E(\Q) = 1$
 \item \textbf{L-function}: $L(E, 1) = 0$, so $\ord_{s=1} L(E,s) = 1$ ✓
-\item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5963...$ ✓
+\item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5952...$ ✓
 \end{itemize}
 
 \subsection{Example 3: High Rank Curve}
@@ -531,7 +531,7 @@ We have presented computational evidence for the Birch and Swinnerton-Dyer conje
 
 \begin{itemize}
 \item \textbf{Framework}: Fractal L-function at $\alpha = 3\pi/4$ with base-3 digital sum
-\item \textbf{Golden Threshold}: Eigenvalue concentration at $\varphi/e \approx 0.596$
+\item \textbf{Golden Threshold}: Eigenvalue concentration at $\varphi/e \approx 0.595$
 \item \textbf{Rank Formula}: Multiplicity at threshold equals algebraic rank
 \item \textbf{Algorithm}: $O(N_E^{1/2+\varepsilon})$ complexity for rank computation
 \item \textbf{Validation}: 100\% success on tested curves (conductor $< 100{,}000$)

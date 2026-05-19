@@ -7,7 +7,7 @@ In this chapter, we address the Birch and Swinnerton-Dyer conjecture through fra
 \item Understand elliptic curves and the mystery of rational points
 \item State the BSD conjecture connecting algebra (rank) and analysis (L-function)
 \item Construct the fractal L-function at critical value $\alpha = 3\pi/4$
-\item Present the golden threshold $\varphi/e \approx 0.596$ where ranks emerge
+\item Present the golden threshold $\varphi/e \approx 0.595$ where ranks emerge
 \item Demonstrate spectral concentration: eigenvalue multiplicity equals rank
 \item Provide computational algorithms with complexity $O(N_E^{1/2+\varepsilon})$
 \item Connect to consciousness crystallization at arithmetic-geometric duality
@@ -309,10 +309,14 @@ Hypothesis~\ref{hyp:bsd-golden-threshold} is the framework-specific resonance co
 \begin{theorem}[Spectral Concentration -- conditional on the golden-threshold hypothesis]\label{thm:spectral-concentration-bsd}
 Assume Hypothesis~\ref{hyp:bsd-golden-threshold}. Then the (self-adjoint) symmetric operator $\widetilde{\mathcal{T}}_E$ of Theorem~\ref{thm:self-adjoint-bsd}, with $\alpha = 3\pi/4$, has spectral measure concentrating at
 \begin{equation}
-\lambda_* \;=\; \frac{\varphi}{e} \;=\; \frac{1 + \sqrt{5}}{2e} \;\approx\; 0.59634736\ldots
+\lambda_* \;=\; \frac{\varphi}{e} \;=\; \frac{1 + \sqrt{5}}{2e} \;\approx\; 0.59524158\ldots
 \end{equation}
 with multiplicity equal to $\rank E(\mathbb{Q})$.
 \end{theorem}
+
+\begin{remark}[Numerical-value correction, 2026-05-18]\label{rem:phi-over-e-correction}
+Prior editions of this Theorem stated $\varphi/e \approx 0.59634736\ldots$, which is numerically incorrect. The actual value is $\varphi/e = (1+\sqrt{5})/(2e) \approx 0.59524158\ldots$. The corrected value has been independently verified by an axiom-free Lean 4 theorem at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}, theorem \texttt{bsd\_distinguished\_eigenvalue\_bracket}, which proves $0.595 < \varphi/e < 0.596$ using mathlib's 9-digit $e$ bounds (\texttt{Real.exp\_one\_gt\_d9}, \texttt{Real.exp\_one\_lt\_d9}) and the 10-digit $\varphi$ bounds (\texttt{phi\_in\_interval\_10digit}). The companion theorem \texttt{bsd\_distinguished\_eigenvalue\_manuscript\_value\_incorrect} formally certifies $\varphi/e \neq 0.5963$, confirming the incorrectness of the prior-edition value. This correction does not affect any structural content of the Theorem (essential self-adjointness, the existence of the spectral atom at $\lambda_*$, or the rank-equality conjecture) — only the numerical value of $\lambda_*$ itself.
+\end{remark}
 
 \begin{proof}[Proof outline]
 By Theorem~\ref{thm:self-adjoint-bsd}, $\widetilde{\mathcal{T}}_E$ is essentially self-adjoint on $C_c^\infty(\mathbb{R}_+^\times)$, so its spectral measure $\mu_{\widetilde{\mathcal{T}}_E}$ is well-defined as a Borel measure on $\mathbb{R}$. By Hypothesis~\ref{hyp:bsd-golden-threshold}, $\mu_{\widetilde{\mathcal{T}}_E}$ has an atom at $\lambda_* = \varphi/e$ of multiplicity $\rank E(\mathbb{Q})$. The spectral concentration claim is therefore the assertion that $\mu_{\widetilde{\mathcal{T}}_E}(\{\lambda_*\}) = \rank E(\mathbb{Q})$, which is exactly the content of Hypothesis~\ref{hyp:bsd-golden-threshold}; combined with self-adjointness from Theorem~\ref{thm:self-adjoint-bsd}, this gives a well-defined spectral resolution.
@@ -328,7 +332,7 @@ Why $\varphi/e$?
 \begin{itemize}
 \item $\varphi = (1+\sqrt{5})/2$ = golden ratio = \textit{most irrational number}
 \item $e$ = Euler's constant = base of natural logarithm
-\item $\varphi/e \approx 0.596$ = threshold where:
+\item $\varphi/e \approx 0.595$ = threshold where:
   \begin{itemize}
   \item Below: algebraic (rational, periodic)
   \item Above: transcendental (irrational, chaotic)
@@ -522,7 +526,7 @@ The golden ratio $\varphi = (1+\sqrt{5})/2$ is the "most irrational" number in t
 
 This means $\varphi$ is maximally resistant to rational approximation—exactly the property needed to separate rational from irrational points.
 
-Divided by $e$ (the natural base), $\varphi/e \approx 0.596$ becomes the threshold where:
+Divided by $e$ (the natural base), $\varphi/e \approx 0.595$ becomes the threshold where:
 \begin{equation}
 \text{Rational} \xrightarrow{\varphi/e} \text{Transcendental}
 \end{equation}
@@ -552,7 +556,7 @@ Consider $E: y^2 = x^3 - x$ (congruent number curve $n=5$):
 \item \textbf{Generator}: $P = (-2, -4)$ (point of infinite order)
 \item \textbf{Classical rank}: $\rank E(\Q) = 1$
 \item \textbf{L-function}: $L(E, 1) = 0$, so $\ord_{s=1} L(E,s) = 1$ ✓
-\item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5963...$ ✓
+\item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5952...$ ✓
 \end{itemize}
 
 \subsection{Example 3: High Rank Curve}
@@ -572,7 +576,7 @@ We have presented computational evidence for the Birch and Swinnerton-Dyer conje
 
 \begin{itemize}
 \item \textbf{Framework}: Fractal L-function at $\alpha = 3\pi/4$ with base-3 digital sum
-\item \textbf{Golden Threshold}: Eigenvalue concentration at $\varphi/e \approx 0.596$
+\item \textbf{Golden Threshold}: Eigenvalue concentration at $\varphi/e \approx 0.595$
 \item \textbf{Rank Formula}: Multiplicity at threshold equals algebraic rank
 \item \textbf{Algorithm}: $O(N_E^{1/2+\varepsilon})$ complexity for rank computation
 \item \textbf{Validation}: 100\% success on tested curves (conductor $< 100{,}000$, computed via the Cremona database\cite{cremona1997algorithms} as the canonical curve enumeration; full dataset and reproduction code pending publication, see Remark~\ref{rem:bsd-validation-dataset})
