@@ -323,3 +323,103 @@ Proof.
   { exact (bsd_via_fractal_resonance H_BSD). }
   exact (hodge_via_fractal_resonance H_Hodge_conc H_Hodge_cryst).
 Qed.
+
+(* ============================================================ *)
+(* 2026-05-18 cross-prover parity: select Lean theorems ported  *)
+(* ============================================================ *)
+
+(* === Ch 21 Evidence 3 consciousness gap === *)
+
+(** **Yang-Mills consciousness threshold function** (Lean: ch_2_YM)
+    with α_base = 3/2: ch_2_YM(α) := 0.95 + (α - 3/2)/10. *)
+Definition ch_2_YM (alpha : R) : R := 0.95 + (alpha - 3/2) / 10.
+
+(** **ch_2(YM) = 1.0 at α = 2** (Lean: ch_2_YM_at_alpha_two). *)
+Theorem ch_2_YM_at_alpha_two : ch_2_YM 2 = 1.
+Proof. unfold ch_2_YM. lra. Qed.
+
+(** **ch_2(YM, 2) > 0.95** (Lean: ch_2_YM_at_alpha_two_above_threshold). *)
+Theorem ch_2_YM_at_alpha_two_above_threshold : ch_2_YM 2 > 0.95.
+Proof. rewrite ch_2_YM_at_alpha_two. lra. Qed.
+
+(* === Ch 23 thm:universal-factor: Δ_comp positivity === *)
+
+(** **The dimensionless coupling Δ_comp** (Lean: Delta_comp)
+    = (1/√2 - 1/(φ+1/4)) · π/10. *)
+Definition Delta_comp : R :=
+  (1 / sqrt 2 - 1 / (phi + 1/4)) * (PI / 10).
+
+(** **Δ_comp positivity** (Lean: Delta_comp_positive). Uses the
+    Coq-mirrored `phi_plus_quarter_gt_sqrt2` from PF/IntervalArithmetic.v. *)
+Theorem Delta_comp_positive : 0 < Delta_comp.
+Proof.
+  unfold Delta_comp.
+  assert (Hsqrt2_pos : 0 < sqrt 2) by (apply sqrt_lt_R0; lra).
+  assert (Hphi_pos : 0 < phi + 1/4).
+  { unfold phi.
+    assert (0 <= sqrt 5) by apply sqrt_pos.
+    lra. }
+  assert (Hgt : sqrt 2 < phi + 1/4) by apply phi_plus_quarter_gt_sqrt2.
+  assert (Hinv_lt : / (phi + 1/4) < / sqrt 2).
+  { apply Rinv_lt_contravar; [|exact Hgt].
+    apply Rmult_lt_0_compat; assumption. }
+  apply Rmult_lt_0_compat.
+  - assert (Heq1 : 1 / sqrt 2 = / sqrt 2) by (unfold Rdiv; lra).
+    assert (Heq2 : 1 / (phi + 1/4) = / (phi + 1/4)) by (unfold Rdiv; lra).
+    rewrite Heq1, Heq2. lra.
+  - apply Rdiv_lt_0_compat; [exact PI_RGT_0 | lra].
+Qed.
+
+(* === Ch 23 YM internal spectral ratios === *)
+
+(** **YM tensor-glueball ratio** (Lean: ym_2pp_ratio) = √(8/3). *)
+Definition ym_2pp_ratio : R := sqrt (8/3).
+
+(** **YM pseudoscalar / mass-gap ratio** (Lean: ym_0mp_ratio) = √3. *)
+Definition ym_0mp_ratio : R := sqrt 3.
+
+(** **ym_2pp_ratio > 1** (Lean: ym_2pp_ratio_gt_one). *)
+Theorem ym_2pp_ratio_gt_one : ym_2pp_ratio > 1.
+Proof.
+  unfold ym_2pp_ratio.
+  rewrite <- sqrt_1.
+  apply sqrt_lt_1; lra.
+Qed.
+
+(** **ym_0mp_ratio > 1** (Lean: ym_0mp_ratio_gt_one). *)
+Theorem ym_0mp_ratio_gt_one : ym_0mp_ratio > 1.
+Proof.
+  unfold ym_0mp_ratio.
+  rewrite <- sqrt_1.
+  apply sqrt_lt_1; lra.
+Qed.
+
+(** **Ordering: ym_2pp < ym_0mp** (Lean: ym_2pp_lt_ym_0mp). *)
+Theorem ym_2pp_lt_ym_0mp : ym_2pp_ratio < ym_0mp_ratio.
+Proof.
+  unfold ym_2pp_ratio, ym_0mp_ratio.
+  apply sqrt_lt_1; lra.
+Qed.
+
+(* === Ch 22 NS cascade convergence === *)
+
+(** **NS cascade convergence criterion** (Lean: ns_cascade_convergence_criterion):
+    Z/S = 2/3 < 1. Load-bearing condition for the geometric-series
+    convergence of fractional vortex energy. *)
+Theorem ns_cascade_convergence_criterion : 2/3 < 1.
+Proof. lra. Qed.
+
+(* === Ch 21 cor:dim-gap conditional separation === *)
+
+(** **Dimension gap positivity** (Lean: cor_dim_gap_positive_given_manuscript_values):
+    given dim_P = √2 and dim_NP = φ + 1/4, the dim_NP - dim_P > 0. *)
+Theorem cor_dim_gap_positive_given_manuscript_values
+  (dimP dimNP : R)
+  (hP : dimP = sqrt 2)
+  (hNP : dimNP = phi + 1/4) :
+  0 < dimNP - dimP.
+Proof.
+  rewrite hP, hNP.
+  assert (H : sqrt 2 < phi + 1/4) by apply phi_plus_quarter_gt_sqrt2.
+  lra.
+Qed.
