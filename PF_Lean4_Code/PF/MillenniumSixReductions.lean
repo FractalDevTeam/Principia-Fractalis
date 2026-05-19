@@ -210,6 +210,29 @@ theorem cantor_hausdorff_dim_lt_one : cantor_hausdorff_dim < 1 := by
   rw [div_lt_one h_log3_pos]
   exact h_lt
 
+/-- `cantor_hausdorff_dim > 1/2` (axiom-free).
+
+    Proof: `log 2 / log 3 > 1/2 ⟺ 2 log 2 > log 3 ⟺ log 4 > log 3`,
+    which holds by strict monotonicity of `log` and `4 > 3`. -/
+theorem cantor_hausdorff_dim_gt_half : (1 : ℝ)/2 < cantor_hausdorff_dim := by
+  unfold cantor_hausdorff_dim
+  have h_log3_pos : 0 < Real.log 3 := Real.log_pos (by norm_num : (1:ℝ) < 3)
+  have h_lt_43 : Real.log 3 < Real.log 4 :=
+    Real.log_lt_log (by norm_num : (0:ℝ) < 3) (by norm_num : (3:ℝ) < 4)
+  have h_log4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2^2 by norm_num, Real.log_pow]
+    ring
+  rw [lt_div_iff₀ h_log3_pos]
+  linarith [h_lt_43, h_log4]
+
+/-- **Cantor dim is properly fractal**: `1/2 < dim_H < 1`.
+    Strictly above the trivial Hausdorff line of segments (1/2 is
+    not a typical fractal dimension) and strictly below the
+    full-dimension line (1 = ambient line). -/
+theorem cantor_hausdorff_dim_properly_fractal :
+    (1 : ℝ)/2 < cantor_hausdorff_dim ∧ cantor_hausdorff_dim < 1 :=
+  ⟨cantor_hausdorff_dim_gt_half, cantor_hausdorff_dim_lt_one⟩
+
 /-- **Ch 22 conditional reduction**:
 
     Given the fractal emergence-point hypothesis at α = 3π/2, the
