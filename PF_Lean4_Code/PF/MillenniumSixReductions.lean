@@ -1842,4 +1842,76 @@ theorem ym_0mp_mass_bracket :
   · -- m_{0-+} < 1.733 · 421 = 729.593 < 730
     nlinarith
 
+/-! ## Ch 23 string-tension brackets + sqrt definition
+
+The manuscript's `thm:area-law` (Ch 23) states the string tension
+`σ = (440.21 MeV)²` and matches the lattice phenomenology
+`√σ ≈ 440 MeV`. We expose the algebraic structure. -/
+
+/-- **String tension square root** (MeV): √σ = 440.21. The manuscript's
+    direct value, by definition. -/
+noncomputable def string_tension_sqrt_MeV : ℝ := 440.21
+
+/-- **`(√σ)² = σ`** by definition: closing the loop on the
+    string_tension_MeV2 := (440.21)² definition. -/
+theorem string_tension_sqrt_squared :
+    string_tension_sqrt_MeV ^ 2 = string_tension_MeV2 := by
+  unfold string_tension_sqrt_MeV string_tension_MeV2
+  ring
+
+/-- **String tension positive**: `√σ > 0`. -/
+theorem string_tension_sqrt_pos : 0 < string_tension_sqrt_MeV := by
+  unfold string_tension_sqrt_MeV; norm_num
+
+/-- **String tension numerical bracket**:
+    `193,784 < σ < 193,785 MeV²` (matches `440.21² ≈ 193,784.844`). -/
+theorem string_tension_MeV2_bracket :
+    (193784 : ℝ) < string_tension_MeV2 ∧ string_tension_MeV2 < 193785 := by
+  unfold string_tension_MeV2
+  refine ⟨?_, ?_⟩ <;> norm_num
+
+/-- **Internal ratio `√σ / Δ_fYM`** (manuscript-internal prediction
+    relating string tension to mass gap). At the manuscript values
+    `√σ = 440.21 MeV`, `Δ_fYM = 197.2 · 2.13198462 ≈ 420.43 MeV`, we have
+    `√σ / Δ_fYM ≈ 1.047`. -/
+noncomputable def sigma_sqrt_over_Delta_fYM : ℝ :=
+  string_tension_sqrt_MeV / Delta_fYM_MeV
+
+/-- **`√σ > Δ_fYM`**: string tension exceeds the mass gap. -/
+theorem string_tension_sqrt_gt_Delta_fYM :
+    string_tension_sqrt_MeV > Delta_fYM_MeV := by
+  unfold string_tension_sqrt_MeV
+  have h := Delta_fYM_bracket
+  linarith
+
+/-- **`√σ / Δ_fYM > 1`**: the string-tension / mass-gap ratio exceeds 1.
+    Equivalently, the string tension energy scale lies above the
+    spectral mass gap. -/
+theorem sigma_sqrt_over_Delta_fYM_gt_one :
+    sigma_sqrt_over_Delta_fYM > 1 := by
+  unfold sigma_sqrt_over_Delta_fYM
+  have h_Delta_pos : 0 < Delta_fYM_MeV := Delta_fYM_pos
+  have h_gt : string_tension_sqrt_MeV > Delta_fYM_MeV :=
+    string_tension_sqrt_gt_Delta_fYM
+  rw [gt_iff_lt, lt_div_iff₀ h_Delta_pos]
+  linarith
+
+/-- **`√σ / Δ_fYM` bracket**: `1.04 < √σ/Δ_fYM < 1.05`. The manuscript's
+    implied ratio `440.21 / 420.43 ≈ 1.047`. -/
+theorem sigma_sqrt_over_Delta_fYM_bracket :
+    (104 : ℝ)/100 < sigma_sqrt_over_Delta_fYM ∧
+    sigma_sqrt_over_Delta_fYM < (105 : ℝ)/100 := by
+  unfold sigma_sqrt_over_Delta_fYM string_tension_sqrt_MeV
+  obtain ⟨h_D_lo, h_D_hi⟩ := Delta_fYM_bracket
+  have h_D_pos : 0 < Delta_fYM_MeV := Delta_fYM_pos
+  refine ⟨?_, ?_⟩
+  · -- 1.04 < 440.21 / Δ ⟺ 1.04 · Δ < 440.21
+    -- Δ < 421, so 1.04 · 421 = 437.84 < 440.21 ✓
+    rw [lt_div_iff₀ h_D_pos]
+    nlinarith
+  · -- 440.21 / Δ < 1.05 ⟺ 440.21 < 1.05 · Δ
+    -- Δ > 420, so 1.05 · 420 = 441.0 > 440.21 ✓
+    rw [div_lt_iff₀ h_D_pos]
+    nlinarith
+
 end PrincipiaTractalis.MillenniumSix
