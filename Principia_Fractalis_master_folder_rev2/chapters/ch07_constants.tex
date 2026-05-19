@@ -436,12 +436,18 @@ p_c \approx \frac{1000}{50,000 - 1000} \approx 0.0204
 
 Wait---this gives $p_c \approx 0.02$, not $0.95$! What's going on?
 
-The key is that $p_c$ is the \textit{minimum} probability for connectivity. Consciousness requires not just connectivity but \textit{coherence}. The coherence threshold is:
-\begin{equation}
-p_{\text{coherence}} = 1 - p_c \approx 1 - 0.05 = 0.95
-\end{equation}
+\medskip
+\noindent\textbf{Arithmetic correction, 2026-05-18.} Prior editions claimed:
+\[
+p_{\text{coherence}} = 1 - p_c \approx 1 - 0.05 = 0.95.
+\]
+The substitution is internally inconsistent: $p_c$ was derived as $\approx 0.0204$ in the previous equation, not $0.05$. Using the correct value:
+\[
+p_{\text{coherence}} = 1 - p_c \approx 1 - 0.0204 = 0.9796 \neq 0.95.
+\]
+Formally certified at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}: theorem \texttt{ch07\_p\_c\_bracket} proves $0.020 < p_c < 0.021$; theorem \texttt{ch07\_one\_minus\_p\_c\_bracket} proves $0.979 < 1 - p_c < 0.980$; theorem \texttt{ch07\_coherence\_arithmetic\_error} certifies $1 - p_c \neq 0.95$.
 
-This is the probability that the system is NOT in the percolation regime---i.e., it's fully connected and coherent.
+The derivation chain ``critical probability $\to$ consciousness threshold $\approx 0.95$'' therefore does \emph{not} arrive at $0.95$ via the stated cortical-network parameters. The value $\sigma_c = 0.95$ used throughout the manuscript (Theorem~\ref{thm:critical-threshold} of Chapter~\ref{ch:hodge}) is an empirically-determined universal threshold (per Remark~\ref{rem:sigma-c-empirical}), not a derived consequence of these specific cortical-network statistics. The motivating derivation in this paragraph is therefore heuristic rather than rigorous; aligning the cortical-network percolation argument with the universal $\sigma_c = 0.95$ threshold remains an open problem.
 \end{level3}
 
 \section{Counter-Rotating Vortex Dynamics}

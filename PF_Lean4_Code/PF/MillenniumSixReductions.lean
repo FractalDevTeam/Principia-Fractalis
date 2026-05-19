@@ -1547,6 +1547,46 @@ theorem ch_2_Hodge_ne_9612 :
   rw [h] at h_lo
   norm_num at h_lo
 
+/-! ## Ch 07 line 441 arithmetic error: p_coherence claim
+
+The Ch 07 derivation computes p_c = ⟨k⟩/(⟨k²⟩ - ⟨k⟩) ≈ 1000/49000 ≈ 0.0204
+(line 434, correct). Then line 441 claims:
+  p_coherence = 1 - p_c ≈ 1 - 0.05 = 0.95
+
+ERRORS:
+- p_c was computed as 0.0204, not 0.05 (uses wrong value in substitution)
+- 1 - 0.0204 = 0.9796, NOT 0.95
+- 1 - 0.05 = 0.95 (correct arithmetic, but using a value of p_c that
+  contradicts the derivation above) -/
+
+/-- **`p_c` from cortical-network parameters**: `1000/(50000-1000) = 1/49`. -/
+theorem ch07_p_c_value :
+    (1000 : ℝ)/(50000 - 1000) = 1/49 := by norm_num
+
+/-- **`p_c` ∈ (0.020, 0.021)**: matches manuscript's stated `≈ 0.0204`. -/
+theorem ch07_p_c_bracket :
+    (20 : ℝ)/1000 < (1000 : ℝ)/(50000 - 1000) ∧
+    (1000 : ℝ)/(50000 - 1000) < (21 : ℝ)/1000 := by
+  refine ⟨?_, ?_⟩ <;> norm_num
+
+/-- **`1 - p_c` from manuscript's stated `p_c ≈ 0.0204`**: gives `≈ 0.9796`,
+    NOT `0.95` as the manuscript line 441 claims. -/
+theorem ch07_one_minus_p_c_bracket :
+    (979 : ℝ)/1000 < (1 - (1000 : ℝ)/(50000 - 1000)) ∧
+    (1 - (1000 : ℝ)/(50000 - 1000)) < (980 : ℝ)/1000 := by
+  refine ⟨?_, ?_⟩ <;> norm_num
+
+/-- **`1 - p_c ≠ 0.95`**: with `p_c = 1/49`, `1 - 1/49 = 48/49 ≈ 0.9796`,
+    not `0.95`. The manuscript's line 441 computation `1 - 0.05 = 0.95`
+    uses a value of `p_c` (0.05) that contradicts the value derived
+    immediately above (0.0204). -/
+theorem ch07_coherence_arithmetic_error :
+    (1 - (1000 : ℝ)/(50000 - 1000)) ≠ (95 : ℝ)/100 := by
+  intro h
+  obtain ⟨h_lo, _⟩ := ch07_one_minus_p_c_bracket
+  rw [h] at h_lo
+  norm_num at h_lo
+
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
 If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
