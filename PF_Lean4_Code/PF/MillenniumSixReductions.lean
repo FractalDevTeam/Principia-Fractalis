@@ -35,6 +35,7 @@ the conditional reductions are the formal architecture.
 
 import PF.TuringEncoding.AlphaEnum
 import PF.TuringEncoding.Basic
+import PF.Analytic.PolylogBoundary
 import Mathlib.Topology.Basic
 import Mathlib.Analysis.SpecialFunctions.Complex.Log
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
@@ -43,6 +44,8 @@ import Mathlib.NumberTheory.ZetaValues
 namespace PrincipiaTractalis.MillenniumSix
 
 open PrincipiaTractalis.TuringEncoding
+open PrincipiaTractalis.IntegralKernel
+open PrincipiaTractalis.Analytic
 
 /-! ## Common mathematical infrastructure (used across Ch 23-25)
 
@@ -385,5 +388,97 @@ theorem six_millennium_problems_via_fractal_resonance
    yang_mills_via_fractal_resonance h_YM_gap h_YM_cont,
    bsd_via_fractal_resonance h_BSD,
    hodge_via_fractal_resonance h_Hodge_conc h_Hodge_cryst⟩
+
+/-! ## ★★★ EXACT level-1 spectrum at α = 2 (Yang-Mills class) ★★★
+
+At α = α_YM = 2, the level-1 polylog kernel sum
+
+  `V_P(α=2, a, 1/6, 5/6) = Σ_{k≥0} a^(-k) · cos(π · 2^k · 2/3)`
+
+simplifies COMPLETELY because every cos value is exactly `-1/2`
+(via the chapter-21 identity `cos_two_pow_succ_pi_div_three`).
+
+This gives an EXACT closed-form V_P (no transcendental residual!),
+and hence an EXACT level-1 spectrum at α = 2. The α = 2 case is the
+YM-class analog of the α = √2 case (Ch 21 P-class); the difference
+is that α = 2 has ALL terms collapsing to the same -1/2 cosine value
+(geometric series only), while α = √2 has the odd subseries remain
+genuinely transcendental.
+
+ZERO project axioms. -/
+
+/-- **★ V_P at α = 2: exact closed form** (axiom-free):
+
+      `V_P(α=2, a, 1/6, 5/6) = -a / (2(a-1))` for `a > 1`.
+
+    Direct from `cos_two_pow_succ_pi_div_three`: every cos term is
+    exactly -1/2, leaving a pure geometric sum. -/
+theorem fractalKernelReal_at_alpha_two
+    {a : ℝ} (ha : 1 < a) :
+    fractalKernelReal 2 a ((1/6, 5/6) : ℝ × ℝ) = -a / (2 * (a - 1)) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have ha_ne_one : a ≠ 1 := ne_of_gt ha
+  have h_inv_lt : (1/a : ℝ) < 1 := by rw [div_lt_one ha_pos]; exact ha
+  have h_inv_nn : (0 : ℝ) ≤ 1/a := by positivity
+  -- Unfold + use dist(1/6, 5/6) = 2/3
+  unfold fractalKernelReal fractalKernelTerm
+  -- Pointwise: each term equals (1/a)^k * (-1/2)
+  have h_term : ∀ k : ℕ, (a : ℝ)^(-(k:ℤ)) *
+      Real.cos (Real.pi * (2:ℝ)^k * dist ((1/6:ℝ)) (5/6)) =
+      (1/a)^k * (-1/2) := by
+    intro k
+    have hdist : dist ((1/6 : ℝ)) (5/6) = 2/3 := by rw [Real.dist_eq]; norm_num
+    rw [hdist]
+    -- cos(π · 2^k · 2/3) = cos(π · 2^(k+1) / 3) = -1/2
+    have h_angle : Real.pi * (2:ℝ)^k * (2/3) = Real.pi * (2:ℝ)^(k+1) / 3 := by
+      have : (2:ℝ)^(k+1) = 2 * (2:ℝ)^k := by ring
+      rw [this]; ring
+    rw [h_angle, cos_two_pow_succ_pi_div_three]
+    -- a^(-k) = (1/a)^k
+    have h_pow : (a : ℝ)^(-(k:ℤ)) = (1/a)^k := by
+      rw [show (-(k:ℤ)) = -((k:ℕ):ℤ) from rfl]
+      rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+    rw [h_pow]
+  -- Σ (1/a)^k · (-1/2) = (-1/2) · Σ (1/a)^k = (-1/2) · 1/(1-1/a) = -a/(2(a-1))
+  rw [show (fun n : ℕ => (a : ℝ)^(-(n:ℤ)) *
+        Real.cos (Real.pi * (2:ℝ)^n * dist ((1/6:ℝ)) (5/6)))
+        = (fun n : ℕ => (1/a)^n * (-1/2)) from funext h_term]
+  rw [show (fun n : ℕ => ((1/a : ℝ))^n * (-1/2))
+        = (fun n : ℕ => (-1/2 : ℝ) * (1/a)^n) from by funext n; ring]
+  rw [tsum_mul_left, tsum_geometric_of_lt_one h_inv_nn h_inv_lt]
+  -- (-1/2) * (1 - 1/a)⁻¹ = -a/(2(a-1))
+  have h_one_minus_ne : (1 - 1/a : ℝ) ≠ 0 := by
+    rw [show (1 - 1/a : ℝ) = (a-1)/a from by field_simp]
+    have h_ne1 : (a - 1 : ℝ) ≠ 0 := sub_ne_zero.mpr ha_ne_one
+    exact div_ne_zero h_ne1 (ne_of_gt ha_pos)
+  field_simp
+
+/-- **★★ EXACT Level-1 spectrum at α = 2, a = 2 (YM-class) ★★**
+    (axiom-free, exact values — no brackets needed!):
+
+      `λ⁺^(1)(α=2, a=2) = 1/2`     (exact)
+      `λ⁻^(1)(α=2, a=2) = 3/2`     (exact)
+
+    Computation at a=2: V_P = -2/(2·1) = -1. So
+    λ⁺ = (1/2)(2 + (-1)) = 1/2 and λ⁻ = (1/2)(2 - (-1)) = 3/2.
+
+    Contrast: at α=√2, a=2 we have V_P transcendental in
+    `[-211/192, -1/2-√3/4]` and the level-1 spectrum is bracketed but
+    not exact. At α = 2 (YM), the spectrum is exactly rational. -/
+theorem level1_spectrum_at_alpha_two_a_two :
+    fractalKernelReal 2 2 ((1/6, 5/6) : ℝ × ℝ) = -1 ∧
+    (1/2 : ℝ) * (2/((2:ℝ) - 1) +
+      fractalKernelReal 2 2 ((1/6, 5/6) : ℝ × ℝ)) = 1/2 ∧
+    (1/2 : ℝ) * (2/((2:ℝ) - 1) -
+      fractalKernelReal 2 2 ((1/6, 5/6) : ℝ × ℝ)) = 3/2 := by
+  have h_vp : fractalKernelReal 2 2 ((1/6, 5/6) : ℝ × ℝ) = -1 := by
+    rw [fractalKernelReal_at_alpha_two (by norm_num : (1:ℝ) < 2)]
+    norm_num
+  refine ⟨h_vp, ?_, ?_⟩
+  · -- Show the goal directly via h_vp substitution
+    show (1/2 : ℝ) * (2/((2:ℝ) - 1) + fractalKernelReal 2 2 ((1/6, 5/6) : ℝ × ℝ)) = 1/2
+    rw [h_vp]; norm_num
+  · show (1/2 : ℝ) * (2/((2:ℝ) - 1) - fractalKernelReal 2 2 ((1/6, 5/6) : ℝ × ℝ)) = 3/2
+    rw [h_vp]; norm_num
 
 end PrincipiaTractalis.MillenniumSix
