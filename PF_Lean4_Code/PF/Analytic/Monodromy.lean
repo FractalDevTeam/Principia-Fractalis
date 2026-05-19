@@ -306,4 +306,77 @@ theorem polyLogMonodromyShift_scalar_m (m : ℤ) (s z : ℂ) :
   push_cast
   ring
 
+/-! ## Spectral-scaling consistency (Manuscript Ch 21, `prop:spectral-scaling`)
+
+Proposition `prop:spectral-scaling` (Ch 21, line 811) gives three candidate
+values for the effective polylogarithm weight `s*`:
+
+  `s* ∈ {1/d_s, d_H/2, 1 - d_s/2}`
+
+(spectral / geometric / anomalous-diffusion regimes), where `d_H` is the
+Hausdorff dimension and `d_s` is the spectral dimension. The manuscript
+states (line 854) that for the P-class operator with `d_H = √2`, the
+geometric regime applies and `s* = d_H/2 = √2/2 ≈ 0.707`, with empirical
+evidence that `d_s = √2` (heat-trace exponent `β = √2`).
+
+We formalize the *consistency* of the manuscript's choice: at `d_H = √2`
+and `d_s = √2`, **both** the spectral regime `1/d_s` and the geometric
+regime `d_H/2` give the same value `√2/2`, and the anomalous-diffusion
+regime `1 - d_s/2` gives `1 - √2/2 ≈ 0.293`. -/
+
+/-- **Spectral and geometric regimes agree at `d_H = d_s = √2`**: both
+    `1/d_s` and `d_H/2` evaluate to `√2/2`. This is the algebraic
+    consistency of the manuscript's `prop:spectral-scaling` choice of
+    `s* = √2/2` at the P-class parameters. -/
+theorem spectral_scaling_consistency_at_sqrt2 :
+    (1 : ℝ) / Real.sqrt 2 = Real.sqrt 2 / 2 := by
+  have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+    Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+  have h_sqrt2_sq : Real.sqrt 2 * Real.sqrt 2 = 2 :=
+    Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 2)
+  field_simp
+  linarith
+
+/-- **The Walk-dimension relation**: `d_w = 2 d_H / d_s` is the
+    Einstein-Stokes relation for fractal random walks. At `d_H = d_s = √2`,
+    this gives `d_w = 2`, the Euclidean value. -/
+theorem walk_dimension_at_d_H_eq_d_s_sqrt2 :
+    2 * Real.sqrt 2 / Real.sqrt 2 = 2 := by
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 :=
+    Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0) |>.ne'
+  field_simp
+
+/-- **The anomalous-diffusion regime value at `d_s = √2`**: the third
+    candidate `1 - d_s/2` evaluates to `1 - √2/2`. This is **distinct**
+    from the geometric regime `√2/2`. -/
+theorem anomalous_regime_distinct_from_geometric_at_sqrt2 :
+    (1 : ℝ) - Real.sqrt 2 / 2 ≠ Real.sqrt 2 / 2 := by
+  intro h
+  -- If 1 - √2/2 = √2/2, then 1 = √2, but √2 < 2 and √2 > 1 from algebra.
+  have : Real.sqrt 2 = 1 := by linarith
+  have h_sqrt2_sq : Real.sqrt 2 * Real.sqrt 2 = 2 :=
+    Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 2)
+  rw [this] at h_sqrt2_sq
+  norm_num at h_sqrt2_sq
+
+/-- **Manuscript's selected value `s* = √2/2`** as a clean numerical fact:
+    it is positive, less than `1` (non-integer between `0` and `1`),
+    and distinct from the trivial integer weights `0, 1, 2`. -/
+theorem s_star_sqrt2_div_two_basic_properties :
+    (0 : ℝ) < Real.sqrt 2 / 2 ∧
+    Real.sqrt 2 / 2 < 1 ∧
+    Real.sqrt 2 / 2 ≠ 0 ∧
+    Real.sqrt 2 / 2 ≠ 1 ∧
+    Real.sqrt 2 / 2 ≠ 2 := by
+  have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+    Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+  have h_sqrt2_lt_2 : Real.sqrt 2 < 2 := by
+    have h : Real.sqrt 2 < Real.sqrt 4 := Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+    have h4 : Real.sqrt 4 = 2 := by
+      rw [show (4 : ℝ) = 2^2 by norm_num, Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 2)]
+    linarith
+  refine ⟨by positivity, by linarith, by positivity, ?_, ?_⟩
+  · intro h; linarith
+  · intro h; linarith
+
 end PrincipiaTractalis.Analytic
