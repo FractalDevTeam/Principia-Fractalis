@@ -616,11 +616,11 @@ The emergence of confinement from resonance zeros provides a new perspective: qu
 
 \item \textbf{(Resonance Zero)} Numerically compute $\rho(\omega)$ for $\omega \in [2.0, 2.3]$ using the first 1000 terms. Locate the zero near $\omega_c = 2.132$.
 
-\item \textbf{(Mass Gap)} Using $\hbar c = 197.3$ MeV·fm, $\omega_c = 2.13198462$, and $\pi/10 = 0.314159$, verify that $\Delta = 420.43$ MeV.
+\item \textbf{(Mass Gap)} Using $\Lambda_{\mathrm{QCD}} = 197.2$ MeV and $\omega_c = 2.13198462$, verify that $\Delta_{\mathrm{fYM}} = \Lambda_{\mathrm{QCD}} \cdot \omega_c = 420.43$ MeV (Theorem~\ref{thm:mass-gap-ym}). \emph{Note: prior editions of this exercise used the formula $\Delta = \hbar c \cdot \omega_c \cdot \pi/10$ with $\hbar c = 197.3$ MeV·fm; that formula gives $\approx 132.16$ MeV·fm and is dimensionally inconsistent with an energy gap, formally certified at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} theorem \texttt{old\_pi10\_formula\_ne\_42043}. The $\pi/10$ factor was removed from the mass-gap formula in this edition (Remark~\ref{rem:pi-10-removed-ym}).}
 
-\item \textbf{(String Tension)} Compute the string tension $\sigma = \Delta^2/(4\pi\hbar c)$ and express in units of GeV$^2$.
+\item \textbf{(String Tension)} Verify that the string tension $\sigma = \sqrt{\sigma}^2 = (440.21 \text{ MeV})^2 \approx 0.1937 \text{ GeV}^2$ (Theorem~\ref{thm:area-law}).
 
-\item \textbf{(Glueball Masses)} Compute $m_{2^{++}} = \sqrt{8/3} \cdot \Delta$ and compare with lattice predictions $m_{2^{++}} \approx 600-700$ MeV.
+\item \textbf{(Fractal-operator Glueball Mass)} Compute the fractal-operator's tensor-glueball mass $m_{2^{++}}^{\mathrm{fYM}} = \sqrt{8/3} \cdot \Delta_{\mathrm{fYM}} \approx 1.633 \cdot 420.43 \approx 687$ MeV (formally bracketed at $685 < m_{2^{++}}^{\mathrm{fYM}} < 689$ MeV: \texttt{ym\_2pp\_mass\_bracket}). Compare with the lattice physical $m_{2^{++}}^{\mathrm{lat}} \approx 2400$ MeV (Morningstar-Peardon 1999, line~575); the factor-of-3.5 discrepancy is the conj:fym-su3 bridge issue (Remark~\ref{rem:lattice-comparison}).
 
 \item \textbf{(Wilson Loop)} For a rectangular loop with area $A = 1 \text{ fm}^2$ and $\sigma = 0.193 \text{ GeV}^2$, compute $\langle W(C) \rangle \approx e^{-\sigma A}$.
 
