@@ -237,6 +237,61 @@ Qed.
    directly. Not yet mirrored here (would require a Coquelicot
    dependency or custom precision-π proofs). *)
 
+(** ★ Ch 25 thm:low-rank arithmetic anchor (axiom-free):
+       1/(1 - σ_c) = 20 at σ_c = 19/20.
+
+    The manuscript's thm:low-rank claim
+       rank(H) ≤ 1/(1 - σ(ξ)) ≤ 20 when σ(ξ) ≥ 0.95
+    has its arithmetic consequence captured exactly. *)
+Theorem low_rank_bound_at_sigma_c : 1 / (1 - sigma_c) = 20.
+Proof. unfold sigma_c. lra. Qed.
+
+(* ============================================================ *)
+(* Ch 22 — Cantor Hausdorff dimension log(2)/log(3)             *)
+(* ============================================================ *)
+
+(** Ch 22 Cantor Hausdorff dimension (axiom-free numerical): log 2 / log 3 ≈ 0.6309. *)
+Definition cantor_hausdorff_dim : R := ln 2 / ln 3.
+
+(** cantor_hausdorff_dim > 0 (axiom-free, from ln 2 > 0 and ln 3 > 0). *)
+Theorem cantor_hausdorff_dim_pos : 0 < cantor_hausdorff_dim.
+Proof.
+  unfold cantor_hausdorff_dim.
+  apply Rdiv_lt_0_compat.
+  - rewrite <- ln_1. apply ln_increasing; lra.
+  - rewrite <- ln_1. apply ln_increasing; lra.
+Qed.
+
+(** cantor_hausdorff_dim < 1 (axiom-free, from ln 2 < ln 3 by strict monotonicity). *)
+Theorem cantor_hausdorff_dim_lt_one : cantor_hausdorff_dim < 1.
+Proof.
+  unfold cantor_hausdorff_dim.
+  assert (Hln3 : 0 < ln 3).
+  { rewrite <- ln_1. apply ln_increasing; lra. }
+  apply Rmult_lt_reg_r with (r := ln 3); [exact Hln3 |].
+  rewrite Rmult_1_l.
+  unfold Rdiv. rewrite Rmult_assoc, Rinv_l, Rmult_1_r by lra.
+  apply ln_increasing; lra.
+Qed.
+
+(* ============================================================ *)
+(* Ch 21 — P-class target eigenvalue λ_0 = π/(10·√2)           *)
+(* ============================================================ *)
+
+(** Ch 21 P-class target: λ_0 = π/(10·√2) ≈ 0.2221
+    (manuscript conj:polylog-spectrum). *)
+Definition lambda_0_P_target : R := PI / (10 * sqrt 2).
+
+(** λ_0 > 0 (axiom-free). *)
+Theorem lambda_0_P_target_pos : 0 < lambda_0_P_target.
+Proof.
+  unfold lambda_0_P_target.
+  apply Rdiv_lt_0_compat.
+  - exact PI_RGT_0.
+  - apply Rmult_lt_0_compat; [lra |].
+    apply sqrt_lt_R0. lra.
+Qed.
+
 (* ============================================================ *)
 (* ★★★ THE SIX-PROBLEM CONDITIONAL-REDUCTION CAPSTONE ★★★      *)
 (* ============================================================ *)
