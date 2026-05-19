@@ -169,6 +169,18 @@ Proof. unfold Lambda_QCD_MeV. lra. Qed.
 Theorem omega_c_YM_pos : 0 < omega_c_YM.
 Proof. unfold omega_c_YM. lra. Qed.
 
+(** **Λ_QCD numerical bracket** (Lean: Lambda_QCD_bracket): 197 < Λ_QCD < 198. *)
+Theorem Lambda_QCD_bracket : 197 < Lambda_QCD_MeV /\ Lambda_QCD_MeV < 198.
+Proof. unfold Lambda_QCD_MeV. split; lra. Qed.
+
+(** **ω_c numerical bracket** (Lean: omega_c_YM_bracket): 2.131 < ω_c < 2.132. *)
+Theorem omega_c_YM_bracket : 2.131 < omega_c_YM /\ omega_c_YM < 2.132.
+Proof. unfold omega_c_YM. split; lra. Qed.
+
+(** **Λ_QCD ≠ ω_c** (Lean: Lambda_QCD_ne_omega_c). *)
+Theorem Lambda_QCD_ne_omega_c : Lambda_QCD_MeV <> omega_c_YM.
+Proof. unfold Lambda_QCD_MeV, omega_c_YM. lra. Qed.
+
 (** The fractal YM mass gap (numerical, MeV): Δ_fYM = Λ_QCD · ω_c ≈ 420.43. *)
 Definition Delta_fYM_MeV : R := Lambda_QCD_MeV * omega_c_YM.
 
