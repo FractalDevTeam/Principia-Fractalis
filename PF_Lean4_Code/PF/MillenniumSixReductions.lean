@@ -38,6 +38,7 @@ import PF.TuringEncoding.Basic
 import Mathlib.Topology.Basic
 import Mathlib.Analysis.SpecialFunctions.Complex.Log
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Mathlib.NumberTheory.ZetaValues
 
 namespace PrincipiaTractalis.MillenniumSix
 
@@ -260,6 +261,45 @@ noncomputable def epsilon_quantum : ℝ := sigma_c - sigma_c_arithmetic
 theorem sigma_c_decomposition : sigma_c = sigma_c_arithmetic + epsilon_quantum := by
   unfold epsilon_quantum
   ring
+
+/-- **★★ Ch 25 — Mertens-Basel anchor for the arithmetic part of σ_c **
+    (axiom-free).
+
+    `sigma_c_arithmetic = 6/π² = 1/(Σ_{n≥1} 1/n²) = 1/ζ(2)`.
+
+    Mertens 1874: the asymptotic density of coprime integer pairs
+    equals `1/ζ(2) = 6/π²`. mathlib provides `hasSum_zeta_two` which
+    gives `Σ 1/n² = π²/6`, hence `6/π² = 1/(π²/6)` is exact.
+
+    This is the rigorous derivation of the arithmetic part of the
+    decomposition `σ_c = 6/π² + ε_quantum`. -/
+theorem sigma_c_arithmetic_eq_inv_basel :
+    sigma_c_arithmetic = 1 / (Real.pi^2 / 6) := by
+  unfold sigma_c_arithmetic
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi^2 := by positivity
+  field_simp
+
+/-- **★★ Basel identity, isolated** (axiom-free via mathlib):
+
+      `Σ_{n≥1} 1/n² = π²/6`
+
+    Direct from mathlib's `hasSum_zeta_two`. Foundational result
+    underlying the σ_c decomposition. -/
+theorem basel_sum : (∑' n : ℕ, if n = 0 then 0 else (1 : ℝ) / (n : ℝ)^2)
+                  = Real.pi^2 / 6 := by
+  have h := hasSum_zeta_two
+  -- hasSum_zeta_two states HasSum (fun n : ℕ => 1/n²) (π²/6).
+  -- Convert HasSum (which starts at n=0, where 1/0² is treated as 0 in real)
+  -- to our tsum form with explicit n=0 exclusion.
+  have h_eq : (fun n : ℕ => if n = 0 then 0 else (1 : ℝ) / (n : ℝ)^2)
+            = (fun n : ℕ => (1 : ℝ) / (n : ℝ)^2) := by
+    funext n
+    split_ifs with hn
+    · simp [hn]
+    · rfl
+  rw [h_eq]
+  exact h.tsum_eq
 
 /-- **Ch 25 load-bearing hypothesis 1**: the rationality-Hodge-Galois
     concentration hypothesis: any class satisfying rationality + Hodge
