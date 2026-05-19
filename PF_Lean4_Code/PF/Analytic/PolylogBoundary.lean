@@ -1213,6 +1213,50 @@ theorem cos_two_pi_div_nine_mul_cos_four_pi_div_nine :
   -- h2: 2·cos(2π/9)·cos(4π/9) = cos(2π/9) + (-1/2) = cos(2π/9) - 1/2
   linarith
 
+/-! ## ★★★ RESEARCH — Chebyshev cubic: 8·cos³(2π/9) - 6·cos(2π/9) + 1 = 0 ★★★ -/
+
+/-- **★★ cos(2π/9) is a root of the Chebyshev cubic 8x³ - 6x + 1 = 0 ★★**
+    (axiom-free).
+
+    Direct from `Real.cos_three_mul`:
+    `cos(3·2π/9) = cos(2π/3) = -1/2`. And
+    `cos(3·2π/9) = 4·cos³(2π/9) - 3·cos(2π/9)`.
+    So `4·cos³(2π/9) - 3·cos(2π/9) = -1/2`,
+    equivalently `8·cos³(2π/9) - 6·cos(2π/9) + 1 = 0`. -/
+theorem cos_two_pi_div_nine_chebyshev :
+    8 * Real.cos (2 * Real.pi / 9) ^ 3 -
+    6 * Real.cos (2 * Real.pi / 9) + 1 = 0 := by
+  have h_three_mul : Real.cos (3 * (2 * Real.pi / 9)) =
+                     4 * Real.cos (2 * Real.pi / 9) ^ 3 -
+                     3 * Real.cos (2 * Real.pi / 9) :=
+    Real.cos_three_mul _
+  have h_angle : (3 * (2 * Real.pi / 9) : ℝ) = 2 * Real.pi / 3 := by ring
+  rw [h_angle] at h_three_mul
+  have h_cos_2pi3 : Real.cos (2 * Real.pi / 3) = -(1/2 : ℝ) := by
+    rw [show (2 * Real.pi / 3 : ℝ) = Real.pi - Real.pi / 3 from by ring]
+    rw [Real.cos_pi_sub, Real.cos_pi_div_three]
+  rw [h_cos_2pi3] at h_three_mul
+  linarith
+
+/-- **★★ cos(π/9) is a root of the Chebyshev cubic 8x³ - 6x - 1 = 0 ★★**
+    (axiom-free).
+
+    Same derivation: `cos(3·π/9) = cos(π/3) = 1/2`, and
+    `cos(3·π/9) = 4·cos³(π/9) - 3·cos(π/9)`.
+    So `4·cos³(π/9) - 3·cos(π/9) = 1/2`,
+    equivalently `8·cos³(π/9) - 6·cos(π/9) - 1 = 0`. -/
+theorem cos_pi_div_nine_chebyshev :
+    8 * Real.cos (Real.pi / 9) ^ 3 -
+    6 * Real.cos (Real.pi / 9) - 1 = 0 := by
+  have h_three_mul : Real.cos (3 * (Real.pi / 9)) =
+                     4 * Real.cos (Real.pi / 9) ^ 3 -
+                     3 * Real.cos (Real.pi / 9) :=
+    Real.cos_three_mul _
+  have h_angle : (3 * (Real.pi / 9) : ℝ) = Real.pi / 3 := by ring
+  rw [h_angle] at h_three_mul
+  rw [Real.cos_pi_div_three] at h_three_mul
+  linarith
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
