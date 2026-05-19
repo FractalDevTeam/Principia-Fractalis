@@ -184,17 +184,28 @@ where:
 
 The consciousness scaling factor $\alpha = 5 \times 10^{-6}$ emerges from cosmological observations:
 
-\begin{lemma}[Consciousness Scaling from CMB]
+\begin{lemma}[Consciousness Scaling from CMB, derivation-status flagged 2026-05-18]
 \label{lem:alpha_scaling}
 The Second Chern character of the cosmic consciousness field, measured from CMB power spectrum oscillations, is:
 \begin{equation}
 \text{ch}_2^{\text{cosmic}} \approx 0.60 \pm 0.05
 \end{equation}
-The scaling factor connecting cosmic consciousness to number-theoretic structure is:
-\begin{equation}
-\alpha = \frac{2\pi}{N_{\text{eff}}^2} \cdot \exp\left(-\frac{0.95 - \text{ch}_2^{\text{cosmic}}}{\sigma}\right) \cdot \eta_{\text{quantum}} = 5 \times 10^{-6}
+The scaling factor connecting cosmic consciousness to number-theoretic structure is conjectured to take the form:
+\begin{equation}\label{eq:alpha-scaling-formula}
+\alpha = \frac{2\pi}{N_{\text{eff}}^2} \cdot \exp\left(-\frac{0.95 - \text{ch}_2^{\text{cosmic}}}{\sigma}\right) \cdot \eta_{\text{quantum}} \stackrel{?}{=} 5 \times 10^{-6}
 \end{equation}
 where $N_{\text{eff}} = 3.046$ is the effective number of neutrino species, $\sigma \approx 0.12$ is the consciousness standard deviation, and $\eta_{\text{quantum}} \approx 0.847$ is the quantum efficiency factor.
+
+\medskip
+\noindent\emph{Derivation-status disclosure, 2026-05-18: Direct substitution into the formula above with the stated parameters yields:
+\begin{align*}
+\frac{2\pi}{N_{\text{eff}}^2} &= \frac{2\pi}{(3.046)^2} \approx \frac{6.2832}{9.278} \approx 0.6772, \\
+\exp\left(-\frac{0.95 - 0.60}{0.12}\right) &= \exp(-2.917) \approx 0.0541, \\
+\alpha_{\text{computed}} &= 0.6772 \times 0.0541 \times 0.847 \approx 0.0310,
+\end{align*}
+which is approximately $0.031$, NOT $5 \times 10^{-6}$ as claimed. The discrepancy is a factor of $\sim 6{,}000$. The formula as written does not yield the empirical value $\alpha = 5\times 10^{-6}$ used in Chapter~\ref{ch:riemann-hypothesis}.
+
+Either (a) the formula structure is correct but the parameters need adjustment (e.g., $\sigma$ must be much smaller, or $\text{ch}_2^{\text{cosmic}}$ much smaller), or (b) the formula structure itself is conjectural and needs revision, or (c) the empirical $\alpha = 5 \times 10^{-6}$ value of Chapter~\ref{ch:riemann-hypothesis} requires independent justification. Resolution of this scaling-factor derivation is an open problem; the empirical $\alpha = 5 \times 10^{-6}$ is the operative numerical value used downstream, but its derivation from CMB parameters as currently stated does not hold.}
 \end{lemma}
 
 This remarkable result connects cosmological observations (neutrinos, CMB) to pure mathematics (prime numbers), mediated by consciousness quantification. The universal consciousness threshold $\sigma_c = 0.95$ appears across all domains—Hodge algebraicity, CMB anomalies, neural coherence, and Riemann zeros—as documented in \cite{cohen2025universal}.
