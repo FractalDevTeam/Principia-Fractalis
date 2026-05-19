@@ -1472,6 +1472,40 @@ theorem both_candidate_ratios_miss_empirical :
   rw [h] at h_ub
   norm_num at h_ub
 
+/-! ## Ch 23 Exercise line 619 error: old π/10 formula
+
+The Ch 23 exercise at line 619 instructs:
+  "Using ℏc = 197.3 MeV·fm, ω_c = 2.13198462, and π/10 = 0.314159,
+   verify that Δ = 420.43 MeV."
+
+This uses the OLD formula Δ = ℏc · ω_c · π/10 that was EXPLICITLY
+REMOVED from the manuscript in this edition (Remark rem:pi-10-removed-ym,
+line 405-407). The actual product ℏc · ω_c · π/10 = 132.16 MeV·fm
+(dimensionally a length·energy product, not an energy), NOT 420.43 MeV.
+
+The CORRECT formula is Δ_fYM = Λ_QCD · ω_c = 197.2 · 2.13198462 = 420.43 MeV
+(captured by Delta_fYM_value theorem above).
+
+We certify both: -/
+
+/-- **Old-formula product `197.3 · 2.13198462 · 0.314159`** equals
+    approximately `132.16`, NOT `420.43`. Bracket: lies in (132, 133). -/
+theorem old_pi10_formula_bracket :
+    (132 : ℝ) <
+      (197.3 : ℝ) * (2.13198462 : ℝ) * (0.314159 : ℝ) ∧
+    (197.3 : ℝ) * (2.13198462 : ℝ) * (0.314159 : ℝ) <
+      133 := by
+  refine ⟨?_, ?_⟩ <;> norm_num
+
+/-- **Old-formula product ≠ 420.43**: the exercise's claim that
+    `ℏc · ω_c · π/10 = 420.43` is numerically wrong by a factor of ~3.2. -/
+theorem old_pi10_formula_ne_42043 :
+    (197.3 : ℝ) * (2.13198462 : ℝ) * (0.314159 : ℝ) ≠ (42043 : ℝ)/100 := by
+  intro h
+  obtain ⟨_, h_ub⟩ := old_pi10_formula_bracket
+  rw [h] at h_ub
+  norm_num at h_ub
+
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
 If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
