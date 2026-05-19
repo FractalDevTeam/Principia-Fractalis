@@ -1413,6 +1413,56 @@ theorem cos_sq_sum_pi_div_nine :
   -- h_sum : cos(2π/9) + cos(4π/9) = cos(π/9)
   linarith
 
+/-! ## ★★ cos(4π/9) Chebyshev cubic ★★ -/
+
+/-- **★★ cos(4π/9) is a root of the Chebyshev cubic 8x³ - 6x + 1 = 0 ★★**
+    (axiom-free).
+
+    Same cubic as `cos(2π/9)` (since `cos(3·4π/9) = cos(4π/3) = -1/2`).
+
+    Direct from `Real.cos_three_mul`:
+    `cos(3·4π/9) = cos(4π/3) = -1/2`. Also
+    `cos(3·4π/9) = 4·cos³(4π/9) - 3·cos(4π/9)`. So
+    `4·cos³(4π/9) - 3·cos(4π/9) = -1/2`,
+    equivalently `8·cos³(4π/9) - 6·cos(4π/9) + 1 = 0`. -/
+theorem cos_four_pi_div_nine_chebyshev :
+    8 * Real.cos (4 * Real.pi / 9) ^ 3 -
+    6 * Real.cos (4 * Real.pi / 9) + 1 = 0 := by
+  have h_three_mul : Real.cos (3 * (4 * Real.pi / 9)) =
+                     4 * Real.cos (4 * Real.pi / 9) ^ 3 -
+                     3 * Real.cos (4 * Real.pi / 9) :=
+    Real.cos_three_mul _
+  have h_angle : (3 * (4 * Real.pi / 9) : ℝ) = 4 * Real.pi / 3 := by ring
+  rw [h_angle] at h_three_mul
+  have h_cos_4pi3 : Real.cos (4 * Real.pi / 3) = -(1/2 : ℝ) := by
+    rw [show (4 * Real.pi / 3 : ℝ) = Real.pi / 3 + Real.pi from by ring]
+    rw [Real.cos_add_pi, Real.cos_pi_div_three]
+  rw [h_cos_4pi3] at h_three_mul
+  linarith
+
+/-! ## ★★ Vieta sum identity: cos(2π/9) + cos(4π/9) + cos(8π/9) = 0 ★★ -/
+
+/-- **★★ Sum identity from the alternate Chebyshev cubic** (axiom-free):
+
+      `cos(2π/9) + cos(4π/9) + cos(8π/9) = 0`
+
+    Vieta sum-of-roots for `8x³ - 6x + 1 = 0` (no x² term).
+
+    Equivalent (via `cos(8π/9) = -cos(π/9)`) to the sum identity
+    `cos(π/9) = cos(2π/9) + cos(4π/9)` proven earlier — but the
+    alternate form (with `+ cos(8π/9)` instead of `= cos(π/9)`)
+    is the more natural Vieta statement. -/
+theorem cos_two_four_eight_pi_div_nine_sum :
+    Real.cos (2 * Real.pi / 9) + Real.cos (4 * Real.pi / 9) +
+    Real.cos (8 * Real.pi / 9) = 0 := by
+  -- cos(8π/9) = -cos(π/9) and cos(π/9) = cos(2π/9) + cos(4π/9)
+  have h_cos_8pi9 : Real.cos (8 * Real.pi / 9) = - Real.cos (Real.pi / 9) := by
+    rw [show (8 * Real.pi / 9 : ℝ) = Real.pi - Real.pi / 9 from by ring]
+    rw [Real.cos_pi_sub]
+  rw [h_cos_8pi9]
+  have h_sum := cos_two_pi_div_nine_add_cos_four_pi_div_nine
+  linarith
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
