@@ -36,6 +36,7 @@ the conditional reductions are the formal architecture.
 import PF.TuringEncoding.AlphaEnum
 import PF.TuringEncoding.Basic
 import PF.Analytic.PolylogBoundary
+import PF.Analytic.SpectrumSqrt2
 import Mathlib.Topology.Instances.CantorSet
 import Mathlib.AlgebraicGeometry.EllipticCurve.Weierstrass
 import Mathlib.Topology.Basic
@@ -733,6 +734,60 @@ theorem lambda_0_P_target_bracket_sharp :
     -- With √2 ≥ 1.41421356: 2.23·1.41421356 ≈ 3.1537 > 3.1416 ≥ π ✓
     rw [div_lt_iff₀ h_10sqrt2_pos]
     nlinarith [h_pi_ub, h_sqrt2_lower]
+
+/-! ## ★★★★★ RESEARCH — STRICT spectrum descent theorem for polylog conjecture ★★★★★ -/
+
+/-- **★★★★★ STRICT spectrum descent: λ_0 conjectured < λ⁺^(1) proven ★★★★★**
+    (axiom-free).
+
+    The Ch 21 polylog conjecture asserts the asymptotic ground state of
+    `H_P` at α = √2, a = 2 equals `π/(10·√2)`. We have machine-checked:
+    * `lambda_0_P_target = π/(10·√2) < 223/1000` (`lambda_0_P_target_bracket_sharp`)
+    * `41/96 ≤ lambdaPlusLevel1_sqrt2 2` (`level1_spectrum_at_sqrt2_two_strict`)
+
+    Since `223/1000 < 41/96` (numerical: 0.223 < 0.4271), we obtain:
+
+      **`lambda_0_P_target < lambdaPlusLevel1_sqrt2 2`** (STRICT)
+
+    **Implication**: IF the polylog conjecture is correct, the spectrum of
+    the level-n discrete approximations `M^(n)` must STRICTLY DESCEND from
+    the level-1 ground state (≥ 0.427) to the asymptotic limit (< 0.223).
+
+    This is the **content of the spectrum-descent piece** of the polylog
+    conjecture — a quantitative gap that any proof of the conjecture must
+    establish via spectral convergence. The gap is at least
+    `41/96 - 223/1000 = (41·1000 - 223·96)/96000 = (41000 - 21408)/96000
+    = 19592/96000 ≈ 0.204`.
+
+    The asymptotic value 0.222 is ~46% smaller than the level-1 lower
+    bound 0.427 — a substantial descent that the polylog conjecture
+    requires across refinement levels. -/
+theorem polylog_conjecture_requires_strict_spectrum_descent :
+    lambda_0_P_target < lambdaPlusLevel1_sqrt2 2 := by
+  obtain ⟨_, h_upper⟩ := lambda_0_P_target_bracket_sharp
+  obtain ⟨h_level1_lower, _, _, _⟩ := level1_spectrum_at_sqrt2_two_strict
+  -- lambda_0_P_target < 223/1000 and 41/96 ≤ lambdaPlusLevel1_sqrt2 2
+  -- Need: 223/1000 ≤ 41/96 (axiom-free numerical fact)
+  have h_num : (223 : ℝ)/1000 ≤ 41/96 := by norm_num
+  linarith
+
+/-- **★★★★★ Quantitative spectrum descent gap** (axiom-free).
+
+    The strict descent has a QUANTIFIED minimum gap:
+
+      `lambdaPlusLevel1_sqrt2 2 - lambda_0_P_target ≥ (19592 : ℝ)/96000 ≈ 0.204`
+
+    i.e., the level-1 ground state is at least 0.204 above the conjectured
+    asymptotic. This is a CONCRETE measure of how much spectrum descent
+    the polylog conjecture requires. -/
+theorem polylog_descent_gap_quantified :
+    lambdaPlusLevel1_sqrt2 2 - lambda_0_P_target ≥ (19592 : ℝ)/96000 := by
+  obtain ⟨_, h_upper⟩ := lambda_0_P_target_bracket_sharp
+  obtain ⟨h_level1_lower, _, _, _⟩ := level1_spectrum_at_sqrt2_two_strict
+  -- λ⁺^(1) ≥ 41/96 and λ_0 < 223/1000
+  -- So λ⁺^(1) - λ_0 > 41/96 - 223/1000 = (41·1000 - 223·96)/96000 = 19592/96000
+  have h_num : (41 : ℝ)/96 - 223/1000 = 19592/96000 := by norm_num
+  linarith
 
 /-! ## ★★★ EXACT level-1 spectrum at α = 2 (Yang-Mills class) ★★★
 
