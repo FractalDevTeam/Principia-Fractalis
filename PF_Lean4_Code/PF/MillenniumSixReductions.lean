@@ -280,6 +280,35 @@ theorem cantor_hausdorff_dim_bracket :
   ⟨cantor_hausdorff_dim_gt_three_fifths,
    cantor_hausdorff_dim_lt_sixteen_twentyfifths⟩
 
+/-- **Even sharper lower bound `cantor_hausdorff_dim > 63/100`** (= 0.63).
+
+    Proof: `log 2 / log 3 > 63/100 ⟺ 100 log 2 > 63 log 3 ⟺ 2^100 > 3^63`.
+    Numerically `2^100 ≈ 1.267 × 10^30` vs `3^63 ≈ 1.144 × 10^30`. -/
+theorem cantor_hausdorff_dim_gt_63_100 :
+    (63 : ℝ)/100 < cantor_hausdorff_dim := by
+  unfold cantor_hausdorff_dim
+  have h_log3_pos : 0 < Real.log 3 := Real.log_pos (by norm_num : (1:ℝ) < 3)
+  have h_lt : Real.log ((3:ℝ)^63) < Real.log ((2:ℝ)^100) := by
+    apply Real.log_lt_log
+    · positivity
+    · -- 3^63 < 2^100
+      norm_num
+  have h_log3_63 : Real.log ((3:ℝ)^63) = 63 * Real.log 3 := by
+    rw [Real.log_pow]; ring
+  have h_log2_100 : Real.log ((2:ℝ)^100) = 100 * Real.log 2 := by
+    rw [Real.log_pow]; ring
+  rw [lt_div_iff₀ h_log3_pos]
+  linarith [h_lt, h_log3_63, h_log2_100]
+
+/-- **Sharper 2-decimal bracket on `cantor_hausdorff_dim`**:
+    `0.63 < log 2 / log 3 < 0.64`. Matches manuscript's `≈ 0.6309`
+    to 2 decimal places. -/
+theorem cantor_hausdorff_dim_bracket_sharp :
+    (63 : ℝ)/100 < cantor_hausdorff_dim ∧
+    cantor_hausdorff_dim < (16 : ℝ)/25 :=
+  ⟨cantor_hausdorff_dim_gt_63_100,
+   cantor_hausdorff_dim_lt_sixteen_twentyfifths⟩
+
 /-- **Ch 22 conditional reduction**:
 
     Given the fractal emergence-point hypothesis at α = 3π/2, the
