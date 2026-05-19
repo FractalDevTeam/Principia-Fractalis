@@ -1367,6 +1367,52 @@ theorem cos_two_pi_div_nine_lt_sqrt3_half :
   have h_lt : Real.pi / 6 < 2 * Real.pi / 9 := by linarith
   exact Real.cos_lt_cos_of_nonneg_of_le_pi h_pi_6_nn h_2pi_9_le_pi h_lt
 
+/-! ## ★★★ RESEARCH — Sum-of-squares Vieta identity ★★★ -/
+
+/-- **★★★ Sum of squares identity: `cos²(π/9) + cos²(2π/9) + cos²(4π/9) = 3/2` ★★★**
+    (axiom-free).
+
+    Derivation: use `cos²(θ) = (1 + cos(2θ))/2`:
+
+      `cos²(π/9) + cos²(2π/9) + cos²(4π/9)`
+        `= (3 + cos(2π/9) + cos(4π/9) + cos(8π/9))/2`
+        `= (3 + cos(2π/9) + cos(4π/9) - cos(π/9))/2`  [cos(π-x) = -cos(x)]
+        `= (3 + (cos(2π/9) + cos(4π/9)) - cos(π/9))/2`
+        `= (3 + cos(π/9) - cos(π/9))/2`  [sum identity]
+        `= 3/2`.
+
+    This is the Vieta sum-of-squares for the Chebyshev cubic
+    `8x³ - 6x - 1 = 0` (whose roots cos(π/9), cos(5π/9), cos(7π/9)
+    have sum 0 and pairwise product sum -3/4).
+
+    Combined with the previously-proven sum and product identities,
+    we now have ALL THREE Vieta-style identities (sum, sum of squares,
+    product) for the cos(π/9)-family — a complete algebraic
+    characterization equivalent to knowing the cubic 8x³ - 6x - 1 = 0. -/
+theorem cos_sq_sum_pi_div_nine :
+    Real.cos (Real.pi / 9) ^ 2 +
+    Real.cos (2 * Real.pi / 9) ^ 2 +
+    Real.cos (4 * Real.pi / 9) ^ 2 = 3/2 := by
+  -- cos²θ = (1 + cos(2θ))/2 via cos_two_mul: cos(2θ) = 2cos²θ - 1
+  have hcs : ∀ θ : ℝ, Real.cos θ ^ 2 = (1 + Real.cos (2*θ))/2 := by
+    intro θ
+    have := Real.cos_two_mul θ
+    linarith
+  rw [hcs (Real.pi/9), hcs (2*Real.pi/9), hcs (4*Real.pi/9)]
+  -- 2·(π/9) = 2π/9, 2·(2π/9) = 4π/9, 2·(4π/9) = 8π/9
+  rw [show (2 * (Real.pi/9) : ℝ) = 2 * Real.pi / 9 from by ring]
+  rw [show (2 * (2 * Real.pi/9) : ℝ) = 4 * Real.pi / 9 from by ring]
+  rw [show (2 * (4 * Real.pi/9) : ℝ) = 8 * Real.pi / 9 from by ring]
+  -- cos(8π/9) = -cos(π/9)  (cos(π - x) = -cos(x))
+  have h_cos_8pi9 : Real.cos (8 * Real.pi / 9) = - Real.cos (Real.pi / 9) := by
+    rw [show (8 * Real.pi / 9 : ℝ) = Real.pi - Real.pi / 9 from by ring]
+    rw [Real.cos_pi_sub]
+  rw [h_cos_8pi9]
+  -- Combine + use the sum identity cos(2π/9) + cos(4π/9) = cos(π/9)
+  have h_sum := cos_two_pi_div_nine_add_cos_four_pi_div_nine
+  -- h_sum : cos(2π/9) + cos(4π/9) = cos(π/9)
+  linarith
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
