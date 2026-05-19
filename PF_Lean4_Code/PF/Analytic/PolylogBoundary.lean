@@ -1257,6 +1257,58 @@ theorem cos_pi_div_nine_chebyshev :
   rw [Real.cos_pi_div_three] at h_three_mul
   linarith
 
+/-! ## ★★★ RESEARCH — Numerical brackets on cos(π/9), cos(2π/9), cos(4π/9) ★★★ -/
+
+/-- **★★ cos(π/9) > √3/2** (axiom-free numerical bracket).
+
+    Since `0 < π/9 < π/6 < π` and `cos` is strictly antitone on `[0, π]`:
+    `cos(π/9) > cos(π/6) = √3/2`.
+
+    Numerically: `cos(π/9) ≈ 0.940 > √3/2 ≈ 0.866`. -/
+theorem cos_pi_div_nine_gt_sqrt3_half :
+    Real.cos (Real.pi / 9) > Real.sqrt 3 / 2 := by
+  rw [show (Real.sqrt 3 / 2 : ℝ) = Real.cos (Real.pi / 6) from Real.cos_pi_div_six.symm]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  -- π/9 < π/6 ⟺ 6 < 9 ⟺ true
+  have h_9_pos : (0 : ℝ) < Real.pi / 9 := by linarith
+  have h_6_pos : (0 : ℝ) < Real.pi / 6 := by linarith
+  have h_lt : Real.pi / 9 < Real.pi / 6 := by linarith
+  have h_6_le_pi : Real.pi / 6 ≤ Real.pi := by linarith
+  -- cos is strictly antitone on [0, π]: x < y ⟹ cos x > cos y
+  exact Real.cos_lt_cos_of_nonneg_of_le_pi h_9_pos.le h_6_le_pi h_lt
+
+/-- **★★ cos(2π/9) > 1/2** (axiom-free numerical bracket).
+
+    Since `0 < 2π/9 < π/3` and `cos` is antitone:
+    `cos(2π/9) > cos(π/3) = 1/2`.
+
+    Numerically: `cos(2π/9) ≈ 0.766 > 1/2`. -/
+theorem cos_two_pi_div_nine_gt_half :
+    Real.cos (2 * Real.pi / 9) > 1/2 := by
+  rw [show (1/2 : ℝ) = Real.cos (Real.pi / 3) from Real.cos_pi_div_three.symm]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_2pi_9_pos : (0 : ℝ) < 2 * Real.pi / 9 := by linarith
+  have h_pi_3_pos : (0 : ℝ) < Real.pi / 3 := by linarith
+  have h_lt : 2 * Real.pi / 9 < Real.pi / 3 := by linarith
+  have h_pi_3_le_pi : Real.pi / 3 ≤ Real.pi := by linarith
+  exact Real.cos_lt_cos_of_nonneg_of_le_pi h_2pi_9_pos.le h_pi_3_le_pi h_lt
+
+/-- **★★ cos(4π/9) > 0** (axiom-free numerical bracket).
+
+    Since `0 < 4π/9 < π/2` (i.e., 4/9 < 1/2):
+    `cos(4π/9) > cos(π/2) = 0`.
+
+    Numerically: `cos(4π/9) ≈ 0.174 > 0`. -/
+theorem cos_four_pi_div_nine_pos :
+    Real.cos (4 * Real.pi / 9) > 0 := by
+  rw [show (0 : ℝ) = Real.cos (Real.pi / 2) from Real.cos_pi_div_two.symm]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_4pi_9_pos : (0 : ℝ) < 4 * Real.pi / 9 := by linarith
+  have h_pi_2_pos : (0 : ℝ) < Real.pi / 2 := by linarith
+  have h_lt : 4 * Real.pi / 9 < Real.pi / 2 := by linarith
+  have h_pi_2_le_pi : Real.pi / 2 ≤ Real.pi := by linarith
+  exact Real.cos_lt_cos_of_nonneg_of_le_pi h_4pi_9_pos.le h_pi_2_le_pi h_lt
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
