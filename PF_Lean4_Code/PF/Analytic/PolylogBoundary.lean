@@ -1095,6 +1095,87 @@ theorem cos_two_pi_div_nine_add_cos_four_pi_div_nine :
   rw [Real.cos_pi_div_three]
   ring
 
+/-! ## ★★★ RESEARCH — Vieta product identity for cos(π/9) family ★★★ -/
+
+/-- **★★ Product identity: `cos(π/9) · cos(2π/9) · cos(4π/9) = 1/8` ★★**
+    (axiom-free).
+
+    Famous Chebyshev product identity. Proof via repeated `Real.sin_two_mul`:
+
+      `8·sin(π/9)·cos(π/9)·cos(2π/9)·cos(4π/9)`
+        `= 4·sin(2π/9)·cos(2π/9)·cos(4π/9)`  (sin_two_mul at π/9)
+        `= 2·sin(4π/9)·cos(4π/9)`            (sin_two_mul at 2π/9)
+        `= sin(8π/9)`                         (sin_two_mul at 4π/9)
+        `= sin(π - π/9) = sin(π/9)`           (sin(π-x) = sin x)
+
+    Dividing both sides by `8·sin(π/9) ≠ 0` gives the result.
+
+    This is the Vieta product-of-roots formula for the Chebyshev cubic
+    `8x³ - 6x - 1 = 0` (product of roots = 1/8 by Vieta) after sign
+    cancellation between `cos(5π/9) = -cos(4π/9)` and `cos(7π/9) = -cos(2π/9)`. -/
+theorem cos_product_pi_div_nine :
+    Real.cos (Real.pi / 9) * Real.cos (2 * Real.pi / 9) *
+    Real.cos (4 * Real.pi / 9) = 1/8 := by
+  have h_sin_pi_div_nine_ne : Real.sin (Real.pi / 9) ≠ 0 := by
+    apply ne_of_gt
+    apply Real.sin_pos_of_pos_of_lt_pi
+    · have : (0 : ℝ) < Real.pi := Real.pi_pos
+      linarith
+    · have : (0 : ℝ) < Real.pi := Real.pi_pos
+      linarith
+  have h_8sin_ne : (8 * Real.sin (Real.pi / 9) : ℝ) ≠ 0 := by
+    intro h
+    have h8 : (8 : ℝ) ≠ 0 := by norm_num
+    have := mul_eq_zero.mp h
+    rcases this with h | h
+    · exact h8 h
+    · exact h_sin_pi_div_nine_ne h
+  -- Multiply both sides by 8·sin(π/9): goal becomes
+  --   8·sin(π/9)·cos(π/9)·cos(2π/9)·cos(4π/9) = sin(π/9)
+  -- (after multiplying RHS 1/8 by 8·sin(π/9))
+  apply mul_left_cancel₀ h_8sin_ne
+  rw [show (8 * Real.sin (Real.pi / 9) * (1/8) : ℝ) = Real.sin (Real.pi / 9) from by ring]
+  -- LHS: 8·sin(π/9)·cos(π/9)·cos(2π/9)·cos(4π/9)
+  -- Step 1: 2·sin(π/9)·cos(π/9) = sin(2π/9)
+  have h1 : Real.sin (2 * (Real.pi / 9)) =
+            2 * Real.sin (Real.pi / 9) * Real.cos (Real.pi / 9) :=
+    Real.sin_two_mul _
+  have h2 : Real.sin (2 * (2 * Real.pi / 9)) =
+            2 * Real.sin (2 * Real.pi / 9) * Real.cos (2 * Real.pi / 9) :=
+    Real.sin_two_mul _
+  have h3 : Real.sin (2 * (4 * Real.pi / 9)) =
+            2 * Real.sin (4 * Real.pi / 9) * Real.cos (4 * Real.pi / 9) :=
+    Real.sin_two_mul _
+  -- 2 · (π/9) = 2π/9
+  have he1 : (2 * (Real.pi / 9) : ℝ) = 2 * Real.pi / 9 := by ring
+  have he2 : (2 * (2 * Real.pi / 9) : ℝ) = 4 * Real.pi / 9 := by ring
+  have he3 : (2 * (4 * Real.pi / 9) : ℝ) = 8 * Real.pi / 9 := by ring
+  rw [he1] at h1
+  rw [he2] at h2
+  rw [he3] at h3
+  -- h1: sin(2π/9) = 2·sin(π/9)·cos(π/9)
+  -- h2: sin(4π/9) = 2·sin(2π/9)·cos(2π/9)
+  -- h3: sin(8π/9) = 2·sin(4π/9)·cos(4π/9)
+  -- Combine: sin(8π/9) = 8·sin(π/9)·cos(π/9)·cos(2π/9)·cos(4π/9)
+  have h_chain : Real.sin (8 * Real.pi / 9) =
+                 8 * Real.sin (Real.pi / 9) * Real.cos (Real.pi / 9) *
+                 Real.cos (2 * Real.pi / 9) * Real.cos (4 * Real.pi / 9) := by
+    rw [h3, h2, h1]; ring
+  -- sin(8π/9) = sin(π - π/9) = sin(π/9)
+  have h_sin_8pi_9 : Real.sin (8 * Real.pi / 9) = Real.sin (Real.pi / 9) := by
+    rw [show (8 * Real.pi / 9 : ℝ) = Real.pi - Real.pi / 9 from by ring]
+    exact Real.sin_pi_sub _
+  -- Combine: 8·sin(π/9)·cos·cos·cos = sin(8π/9) = sin(π/9)
+  have h_combined : 8 * Real.sin (Real.pi / 9) *
+      Real.cos (Real.pi / 9) * Real.cos (2 * Real.pi / 9) *
+      Real.cos (4 * Real.pi / 9) = Real.sin (Real.pi / 9) := by
+    -- LHS = sin(8π/9) by h_chain.symm
+    have := h_chain.symm
+    -- this : 8·sin·cos·cos·cos = sin(8π/9)
+    rw [this]
+    exact h_sin_8pi_9
+  linarith [h_combined]
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
