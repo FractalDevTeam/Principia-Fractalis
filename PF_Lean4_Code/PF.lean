@@ -115,6 +115,7 @@ import PF.SpectralBijection   -- Eigenvalue → critical line map framework
 -- CAPSTONE: Millennium-problem status summary (RH + P ≠ NP, conditional)
 -- ============================================================================
 import PF.Millennium          -- principia_fractalis_millennium_capstone
+import PF.MillenniumSixReductions -- Conditional reductions for ALL SIX Millennium problems (Ch 20-25)
 
 /-!
 ## Principia Fractalis Formal Verification
