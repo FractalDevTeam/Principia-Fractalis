@@ -1456,4 +1456,89 @@ theorem ns_cascade_dominates_crow_at_manuscript_chi :
     have h_pi_gt : Real.pi > 3 := Real.pi_gt_three
     linarith
 
+/-! ## Manuscript Ch 23, YM — Internal spectral ratios m/Δ_fYM
+
+The Yang-Mills chapter's Remark `rem:lattice-comparison` (Ch 23, line 402)
+states two internal spectral ratios for the fractal Yang-Mills operator:
+
+  `m_{2++} / Δ_fYM = √(8/3) ≈ 1.633`     (tensor glueball)
+  `m_{0-+} / Δ_fYM = √3   ≈ 1.732`        (pseudoscalar glueball)
+
+These are predictions about the operator H_fYM's discrete spectrum above
+the mass gap. We formalize their algebraic structure (positivity,
+distinctness, numerical brackets) — pure algebra independent of whether
+the lattice-QCD comparison is direct (Conjecture conj:fym-su3 separates
+the operator-spectrum from physical glueball masses). -/
+
+/-- **The tensor-glueball / mass-gap ratio**: `m_{2++} / Δ_fYM = √(8/3)`. -/
+noncomputable def ym_2pp_ratio : ℝ := Real.sqrt (8 / 3)
+
+/-- **The pseudoscalar / mass-gap ratio**: `m_{0-+} / Δ_fYM = √3`. -/
+noncomputable def ym_0mp_ratio : ℝ := Real.sqrt 3
+
+/-- **`m_{2++} / Δ_fYM > 1`**: the tensor glueball lies above the mass
+    gap, as required by physical ordering. Algebra: `8/3 > 1`. -/
+theorem ym_2pp_ratio_gt_one : ym_2pp_ratio > 1 := by
+  unfold ym_2pp_ratio
+  have h : Real.sqrt 1 < Real.sqrt (8/3) :=
+    Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+  rwa [Real.sqrt_one] at h
+
+/-- **`m_{0-+} / Δ_fYM > 1`**: the pseudoscalar glueball lies above the
+    mass gap. Algebra: `3 > 1`. -/
+theorem ym_0mp_ratio_gt_one : ym_0mp_ratio > 1 := by
+  unfold ym_0mp_ratio
+  have h : Real.sqrt 1 < Real.sqrt 3 :=
+    Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+  rwa [Real.sqrt_one] at h
+
+/-- **Spectral-ratio ordering**: `m_{2++}/Δ < m_{0-+}/Δ` since
+    `√(8/3) < √3` (because `8/3 < 3`). Tensor glueball lighter than
+    pseudoscalar (in the fractal operator's spectrum). -/
+theorem ym_2pp_lt_ym_0mp : ym_2pp_ratio < ym_0mp_ratio := by
+  unfold ym_2pp_ratio ym_0mp_ratio
+  exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+
+/-- **Numerical bracket on `√(8/3)`**: `1.632 < √(8/3) < 1.634`. -/
+theorem ym_2pp_ratio_bracket :
+    (1632 : ℝ)/1000 < ym_2pp_ratio ∧ ym_2pp_ratio < (1634 : ℝ)/1000 := by
+  unfold ym_2pp_ratio
+  refine ⟨?_, ?_⟩
+  · have h : Real.sqrt (1.632^2) < Real.sqrt (8/3) :=
+      Real.sqrt_lt_sqrt (by positivity) (by norm_num)
+    rw [Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 1.632)] at h
+    linarith
+  · have h : Real.sqrt (8/3) < Real.sqrt (1.634^2) :=
+      Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+    rw [Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 1.634)] at h
+    linarith
+
+/-- **Numerical bracket on `√3`**: `1.732 < √3 < 1.733`. -/
+theorem ym_0mp_ratio_bracket :
+    (1732 : ℝ)/1000 < ym_0mp_ratio ∧ ym_0mp_ratio < (1733 : ℝ)/1000 := by
+  unfold ym_0mp_ratio
+  refine ⟨?_, ?_⟩
+  · have h : Real.sqrt (1.732^2) < Real.sqrt 3 :=
+      Real.sqrt_lt_sqrt (by positivity) (by norm_num)
+    rw [Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 1.732)] at h
+    linarith
+  · have h : Real.sqrt 3 < Real.sqrt (1.733^2) :=
+      Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+    rw [Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 1.733)] at h
+    linarith
+
+/-- **`m_{2++}/Δ_fYM ≠ 4.1`** (formal certificate that the manuscript's
+    internal-spectrum prediction `√(8/3) ≈ 1.633` differs from the lattice
+    ratio `m_{0++}^lat / Δ_fYM ≈ 4.1` quoted in Remark `rem:lattice-comparison`,
+    line 402). The two are not equal — the manuscript's framework
+    predicts internal spectral ratios that do NOT match the lattice
+    physical-glueball spectrum without the conjectural `conj:fym-su3`
+    bridge (line 393). -/
+theorem ym_2pp_ratio_ne_lattice_ratio :
+    ym_2pp_ratio ≠ (41 : ℝ)/10 := by
+  intro h
+  obtain ⟨_, h_ub⟩ := ym_2pp_ratio_bracket
+  rw [h] at h_ub
+  norm_num at h_ub
+
 end PrincipiaTractalis.MillenniumSix
