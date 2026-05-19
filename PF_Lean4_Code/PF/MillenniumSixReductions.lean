@@ -1409,6 +1409,69 @@ theorem manuscript_spectral_gap_analysis_triple_error :
     Real.pi * (4 - Real.sqrt 5) / (30 * Real.sqrt 2) ≠ (891 : ℝ)/10000 :=
   ⟨manuscript_lambda_NP_golden_ne_1330, manuscript_gap_golden_ne_0891⟩
 
+/-! ## Lean closed-form ratio vs empirical ratio
+
+The empirical ratio `λ_NP/λ_P = 0.1330/0.2221 ≈ 0.5988`.
+
+The Lean closed-form ratio is
+  `λ_NP_Lean / λ_P = [π/(10(φ+1/4))] / [π/(10√2)] = √2 / (φ+1/4)`.
+
+We bracket this ratio numerically. Spoiler: `√2/(φ+1/4) ≈ 0.757`, also
+NOT matching the empirical `0.599`. -/
+
+/-- **Lean closed-form ratio `√2 / (φ + 1/4)`**: corresponds to the
+    ratio `λ_NP_Lean / λ_P` when `λ_P = π/(10√2)` and
+    `λ_NP_Lean = π/(10(φ+1/4))` — both factors of `π/10` cancel. -/
+noncomputable def lean_closed_form_ratio : ℝ :=
+  Real.sqrt 2 / (PrincipiaTractalis.phi + 1/4)
+
+/-- **`lean_closed_form_ratio ∈ (0.75, 0.76)`**: the Lean closed-form
+    ratio is approximately `0.757`, axiom-free. -/
+theorem lean_closed_form_ratio_bracket :
+    (75 : ℝ)/100 < lean_closed_form_ratio ∧
+    lean_closed_form_ratio < (76 : ℝ)/100 := by
+  unfold lean_closed_form_ratio
+  have h_phi_bounds := PrincipiaTractalis.phi_in_interval_10digit
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ PrincipiaTractalis.phi := h_phi_bounds.1
+  have h_phi_ub : PrincipiaTractalis.phi ≤ (1.6180339888 : ℝ) := h_phi_bounds.2
+  have h_sqrt2_lb : (1.41421356 : ℝ) ≤ Real.sqrt 2 :=
+    PrincipiaTractalis.sqrt2_lower
+  have h_sqrt2_ub : Real.sqrt 2 ≤ (1.41421357 : ℝ) :=
+    PrincipiaTractalis.sqrt2_upper
+  have h_denom_pos : (0 : ℝ) < PrincipiaTractalis.phi + 1/4 := by linarith
+  refine ⟨?_, ?_⟩
+  · -- 0.75 < √2 / (φ + 1/4) ⟺ 0.75 · (φ + 1/4) < √2
+    -- 0.75 · 1.86803398881 = 1.40103, and √2 ≥ 1.41421 > 1.40103 ✓
+    rw [lt_div_iff₀ h_denom_pos]
+    nlinarith
+  · -- √2 / (φ + 1/4) < 0.76 ⟺ √2 < 0.76 · (φ + 1/4)
+    -- 0.76 · 1.86803398880 = 1.41970, and √2 ≤ 1.41422 < 1.41970 ✓
+    rw [div_lt_iff₀ h_denom_pos]
+    nlinarith
+
+/-- **`lean_closed_form_ratio ≠ 0.5988`**: the Lean closed-form ratio is
+    NOT the manuscript's empirical ratio. So neither the golden-modulation
+    ratio `(√5-1)/3 ≈ 0.412` nor the Lean closed-form ratio
+    `√2/(φ+1/4) ≈ 0.757` matches the empirical `0.5988`. -/
+theorem lean_closed_form_ratio_ne_5988 :
+    lean_closed_form_ratio ≠ (5988 : ℝ)/10000 := by
+  intro h
+  obtain ⟨h_lo, _⟩ := lean_closed_form_ratio_bracket
+  rw [h] at h_lo
+  norm_num at h_lo
+
+/-- **Both candidate ratios miss the empirical**: `(√5-1)/3 ≈ 0.412` AND
+    `√2/(φ+1/4) ≈ 0.757`, both ≠ empirical `0.5988`. Bundle. -/
+theorem both_candidate_ratios_miss_empirical :
+    (Real.sqrt 5 - 1)/3 ≠ (5988 : ℝ)/10000 ∧
+    lean_closed_form_ratio ≠ (5988 : ℝ)/10000 := by
+  refine ⟨?_, lean_closed_form_ratio_ne_5988⟩
+  intro h
+  obtain ⟨_, h_ub⟩ := manuscript_sqrt5_minus_one_div_three_bracket
+  -- h : (√5-1)/3 = 5988/10000 = 0.5988, but bracket says < 42/100 = 0.42
+  rw [h] at h_ub
+  norm_num at h_ub
+
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
 If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
