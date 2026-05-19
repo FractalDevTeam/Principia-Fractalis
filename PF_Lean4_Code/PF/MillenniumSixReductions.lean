@@ -1187,4 +1187,68 @@ theorem lambda_P_minus_lambda_BPP :
   field_simp
   ring
 
+/-! ## Manuscript Ch 21, Section "Extension to Other Separations"
+
+The manuscript states two additional complexity-class separation claims
+beyond P ≠ NP:
+
+  * thm:bqp-vs-np (line 1294): dim_frac(BQP) = √3 < φ + 1/4 = dim_frac(NP)
+  * thm:pspace-vs-exp (line 1302): λ_0(H_PSPACE) − λ_0(H_EXP) = π/15 > 0
+
+We formalize the **strict inequality** content of each in conditional form
+(given the manuscript's claimed dimensions / gap values, the strict
+inequality follows by algebra). -/
+
+/-- **`√3 < φ + 1/4`**: the load-bearing inequality for `thm:bqp-vs-np`,
+    independent of complexity-class semantics. Proof: squaring both
+    positive sides, equivalent to `12 < 4·(φ + 1/4)² = 4φ² + 2φ + 1/4`.
+    Using `φ² = φ + 1` (golden ratio identity): RHS = 4φ + 4 + 2φ + 1/4
+    = 6φ + 17/4. Numerically `6φ + 17/4 ≈ 9.71 + 4.25 = 13.96 > 12`, but
+    we want a clean algebraic chain. -/
+theorem sqrt3_lt_phi_plus_quarter :
+    Real.sqrt 3 < PrincipiaTractalis.phi + 1/4 := by
+  -- Use the 8-digit bounds: √3 ≤ 1.7320509 and φ + 1/4 ≥ 1.6180339887 + 0.25 = 1.8680339887.
+  have h_sqrt3_ub : Real.sqrt 3 < 1.733 := by
+    have h : Real.sqrt 3 < Real.sqrt (1.733^2) := by
+      apply Real.sqrt_lt_sqrt (by norm_num)
+      norm_num
+    rwa [Real.sqrt_sq (by norm_num : (0 : ℝ) ≤ 1.733)] at h
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ PrincipiaTractalis.phi :=
+    PrincipiaTractalis.phi_in_interval_10digit.1
+  linarith
+
+/-- **BQP-NP dimension separation** (conditional form): given the
+    manuscript's stated `dim_BQP = √3` and `dim_NP = φ + 1/4`, the
+    inequality `dim_BQP < dim_NP` holds strictly. The corresponding
+    metric-space non-equivalence yields the manuscript's structural
+    BQP ≠ NP claim under the framework's box-counting hypothesis. -/
+theorem bqp_lt_np_dim_given_manuscript_values
+    (dimBQP dimNP : ℝ)
+    (hBQP : dimBQP = Real.sqrt 3)
+    (hNP : dimNP = PrincipiaTractalis.phi + 1/4) :
+    dimBQP < dimNP := by
+  rw [hBQP, hNP]
+  exact sqrt3_lt_phi_plus_quarter
+
+/-- **PSPACE-EXP gap positivity**: `π/15 > 0`, the load-bearing
+    positivity content of `thm:pspace-vs-exp`. -/
+theorem pspace_exp_gap_positive :
+    Real.pi / 15 > 0 := by
+  apply div_pos Real.pi_pos
+  norm_num
+
+/-- **PSPACE ≠ EXP via gap** (conditional form): given the manuscript's
+    claimed gap `λ_PSPACE − λ_EXP = π/15`, the strict gap implies the
+    ground-state energies differ, hence (under the framework's
+    spectrum-collapse argument) `PSPACE ≠ EXP`. -/
+theorem pspace_neq_exp_lambda_given_manuscript_value
+    (lambda_PSPACE lambda_EXP : ℝ)
+    (h_gap : lambda_PSPACE - lambda_EXP = Real.pi / 15) :
+    lambda_PSPACE ≠ lambda_EXP := by
+  intro h_eq
+  have : lambda_PSPACE - lambda_EXP = 0 := by linarith
+  rw [this] at h_gap
+  have : Real.pi / 15 > 0 := pspace_exp_gap_positive
+  linarith
+
 end PrincipiaTractalis.MillenniumSix
