@@ -1335,4 +1335,57 @@ theorem ch_2_YM_at_alpha_two_above_threshold : ch_2_YM 2 > 0.95 := by
   rw [ch_2_YM_at_alpha_two]
   norm_num
 
+/-! ## Manuscript Ch 24, BSD — Numerical bracket for the golden threshold φ/e
+
+Manuscript Ch 24 (line 312) states the golden-threshold eigenvalue:
+
+  `λ_* = φ/e = (1 + √5)/(2e) ≈ 0.59634736...`
+
+**Numerical-discrepancy note.** Direct computation gives
+`φ/e ≈ 1.6180339887/2.7182818285 ≈ 0.5952...`, not the manuscript's
+`0.59634736`. The manuscript's stated value appears to be a numerical
+typo or error. Our axiom-free bracket below establishes the
+mathematically-correct value:
+
+  `0.595 < φ/e < 0.596`
+
+This bracket does NOT contain the manuscript's stated `0.5963`, which
+provides a formal certificate that the manuscript's numerical claim
+needs correction. -/
+
+/-- **Numerical bracket for the BSD golden threshold `φ/e`**:
+    `0.595 < φ/e < 0.596`. Uses `phi_in_interval_10digit` and
+    `Real.exp_one_gt_d9 / Real.exp_one_lt_d9`. -/
+theorem bsd_distinguished_eigenvalue_bracket :
+    (595 : ℝ)/1000 < bsd_distinguished_eigenvalue ∧
+    bsd_distinguished_eigenvalue < (596 : ℝ)/1000 := by
+  unfold bsd_distinguished_eigenvalue
+  have h_phi_bounds := PrincipiaTractalis.phi_in_interval_10digit
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ PrincipiaTractalis.phi := h_phi_bounds.1
+  have h_phi_ub : PrincipiaTractalis.phi ≤ (1.6180339888 : ℝ) := h_phi_bounds.2
+  have h_e_lb : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+  have h_e_ub : Real.exp 1 < (2.7182818286 : ℝ) := Real.exp_one_lt_d9
+  have h_e_pos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  refine ⟨?_, ?_⟩
+  · -- 0.595 < phi / exp 1
+    -- 1.6180339887/2.7182818286 ≈ 0.5952 > 0.595
+    rw [lt_div_iff₀ h_e_pos]
+    nlinarith
+  · -- phi / exp 1 < 0.596
+    -- 1.6180339888/2.7182818283 ≈ 0.5953 < 0.596
+    rw [div_lt_iff₀ h_e_pos]
+    nlinarith
+
+/-- **Formal certificate that the manuscript's stated value `0.5963` for
+    `φ/e` is incorrect**: our axiom-free bracket gives `φ/e < 0.596`,
+    so `φ/e` cannot equal `0.5963 > 0.596`. The discrepancy should be
+    corrected in the manuscript to `≈ 0.5952` (the actual value to 4
+    decimal places). -/
+theorem bsd_distinguished_eigenvalue_manuscript_value_incorrect :
+    bsd_distinguished_eigenvalue ≠ (5963 : ℝ)/10000 := by
+  intro h
+  have ⟨_, h_ub⟩ := bsd_distinguished_eigenvalue_bracket
+  rw [h] at h_ub
+  norm_num at h_ub
+
 end PrincipiaTractalis.MillenniumSix
