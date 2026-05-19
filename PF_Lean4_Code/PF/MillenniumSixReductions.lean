@@ -1251,4 +1251,88 @@ theorem pspace_neq_exp_lambda_given_manuscript_value
   have : Real.pi / 15 > 0 := pspace_exp_gap_positive
   linarith
 
+/-! ## Manuscript Ch 23, Theorem `thm:universal-factor` — π/10 recurrence
+
+The Yang-Mills chapter's `thm:universal-factor` (Ch 23, lines 493-501)
+states that the constant `π/10` recurs across the framework's
+millennium-problem chapters under different dimensional interpretations.
+The P vs NP appearance is given the explicit closed form
+(line 496):
+
+  `Δ_comp = (1/√2 − 1/(φ+1/4)) · π/10`     (dimensionless coupling)
+
+The manuscript itself notes (Remark `rem:universality-status`, line 503)
+that a *unified derivation* producing `π/10` simultaneously as a
+dimensionless coupling, an angular phase, and a length is **not** in
+hand — the theorem is a recurrence observation, not a derivation.
+
+We formalize the algebraic content of the P vs NP closed form:
+positivity, sign structure, and equivalent ratio form. -/
+
+/-- **The manuscript's "dimensionless coupling"** for P vs NP:
+    `Δ_comp := (1/√2 − 1/(φ+1/4)) · π/10`. -/
+noncomputable def Delta_comp : ℝ :=
+  (1 / Real.sqrt 2 - 1 / (PrincipiaTractalis.phi + 1/4)) * (Real.pi / 10)
+
+/-- **Δ_comp is strictly positive**: since `1/√2 ≈ 0.7071 > 1/(φ+1/4) ≈ 0.5354`,
+    the bracketed factor is positive; combined with `π/10 > 0`, the product
+    is positive. This is the load-bearing content distinguishing the
+    P-class and NP-class reciprocal-α scales. -/
+theorem Delta_comp_positive : 0 < Delta_comp := by
+  unfold Delta_comp
+  apply mul_pos
+  · -- 1/√2 > 1/(φ+1/4) iff φ+1/4 > √2 (since both positive), which is
+    -- `phi_plus_quarter_gt_sqrt2`.
+    have h_sqrt2_pos : (0 : ℝ) < Real.sqrt 2 :=
+      Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+    have h_phi_pos : (0 : ℝ) < PrincipiaTractalis.phi + 1/4 := by
+      have : 0 < PrincipiaTractalis.phi := by
+        unfold PrincipiaTractalis.phi
+        have : (0 : ℝ) ≤ Real.sqrt 5 := Real.sqrt_nonneg 5
+        linarith
+      linarith
+    have h_lt : Real.sqrt 2 < PrincipiaTractalis.phi + 1/4 :=
+      PrincipiaTractalis.phi_plus_quarter_gt_sqrt2
+    have h_inv_lt : 1 / (PrincipiaTractalis.phi + 1/4) < 1 / Real.sqrt 2 :=
+      one_div_lt_one_div_of_lt h_sqrt2_pos h_lt
+    linarith
+  · positivity
+
+/-- **Δ_comp ratio form**: factoring `π/10` out, the bracketed factor is
+    `1/√2 − 1/(φ+1/4)` — the difference of *inverse* α values across the
+    P-class and NP-class. This is the structural content of the
+    "dimensionless coupling" form. -/
+theorem Delta_comp_eq_ratio_form :
+    Delta_comp = (1 / Real.sqrt 2 - 1 / (PrincipiaTractalis.phi + 1/4))
+                 * (Real.pi / 10) := rfl
+
+/-! ## Manuscript Ch 23, Consciousness — `ch_2(YM) = 1.0` at α = 2
+
+The Yang-Mills consciousness threshold (Ch 23, line 525) uses a
+*different base* α_base = 3/2 (not √2 as in Ch 21):
+
+  `ch_2(YM, α) = 0.95 + (α − 3/2)/10`
+
+so that at α = 2: `ch_2(YM, 2) = 0.95 + 0.5/10 = 1.00` — perfect
+consciousness crystallization. This is the Yang-Mills duality point
+(observer-observed perfect symmetry under α=2 phase rotation). -/
+
+/-- **Yang-Mills consciousness threshold** function (manuscript Ch 23,
+    line 525): `ch_2_YM(α) := 0.95 + (α − 3/2)/10`. -/
+noncomputable def ch_2_YM (α : ℝ) : ℝ := 0.95 + (α - 3/2) / 10
+
+/-- **`ch_2(YM)` evaluates to exactly 1.0 at α = 2**: the Yang-Mills
+    duality point achieves perfect consciousness crystallization. -/
+theorem ch_2_YM_at_alpha_two : ch_2_YM 2 = 1 := by
+  unfold ch_2_YM
+  norm_num
+
+/-- **`ch_2(YM, 2) > 0.95`**: the YM-class value exceeds the baseline
+    threshold (`ch_2 ≥ 0.95` is the manuscript's crystallization
+    criterion). Since `ch_2(YM, 2) = 1.0 > 0.95`, the YM operator class
+    satisfies the consciousness-crystallization criterion. -/
+theorem ch_2_YM_at_alpha_two_above_threshold : ch_2_YM 2 > 0.95 := by
+  rw [ch_2_YM_at_alpha_two]
+  norm_num
+
 end PrincipiaTractalis.MillenniumSix
