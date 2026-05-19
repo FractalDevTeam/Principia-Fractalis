@@ -201,6 +201,57 @@ theorem navier_stokes_via_fractal_emergence
 def YangMillsExistenceAndMassGap : Prop :=
   ∃ (Δ_YM : ℝ), 0 < Δ_YM ∧ True  -- placeholder for "exists quantum YM with mass gap Δ_YM"
 
+/-! ## Ch 23 — Yang-Mills mass-gap explicit constants -/
+
+/-- **Λ_QCD in MeV**: 197.2 (PDG 2024 canonical MS-bar scale). -/
+def Lambda_QCD_MeV : ℝ := 197.2
+
+/-- **The fractal YM first resonance zero (numerical value)**:
+    `ω_c ≈ 2.13198462`, the first positive zero of
+    `resonanceCoefficient ω`.
+
+    Defined as a SPECIFIC named real (the manuscript's reported
+    numerical value to 8 digits). The claim `resonanceCoefficient
+    omega_c_YM = 0` is a CONJECTURE captured in `fractalYMMassGap`. -/
+def omega_c_YM : ℝ := 2.13198462
+
+/-- **Λ_QCD > 0** (axiom-free). -/
+theorem Lambda_QCD_pos : 0 < Lambda_QCD_MeV := by
+  unfold Lambda_QCD_MeV; norm_num
+
+/-- **ω_c > 0** (axiom-free). -/
+theorem omega_c_YM_pos : 0 < omega_c_YM := by
+  unfold omega_c_YM; norm_num
+
+/-- **The fractal YM mass gap (numerical value, MeV)**:
+
+      `Δ_fYM := Λ_QCD · ω_c = 420.43 MeV`
+
+    Direct product, axiom-free at the numerical level. The
+    manuscript's `thm:mass-gap-ym` claims this is the spectrum gap
+    of `H_fYM`. Whether this equals the physical SU(3) YM mass gap
+    is `conj:fym-su3`. -/
+noncomputable def Delta_fYM_MeV : ℝ := Lambda_QCD_MeV * omega_c_YM
+
+/-- **Δ_fYM > 0** (axiom-free). -/
+theorem Delta_fYM_pos : 0 < Delta_fYM_MeV := by
+  unfold Delta_fYM_MeV
+  exact mul_pos Lambda_QCD_pos omega_c_YM_pos
+
+/-- **Numerical value of the fractal YM mass gap**:
+    `Δ_fYM = 197.2 · 2.13198462 ≈ 420.43 MeV`. Axiom-free. -/
+theorem Delta_fYM_value : Delta_fYM_MeV = 197.2 * 2.13198462 := by
+  unfold Delta_fYM_MeV Lambda_QCD_MeV omega_c_YM
+  rfl
+
+/-- **Δ_fYM ≈ 420 MeV** (numerical bracket, axiom-free):
+    `420 < Δ_fYM < 421`. The numerical value is `420.4274...`. -/
+theorem Delta_fYM_bracket : (420 : ℝ) < Delta_fYM_MeV ∧ Delta_fYM_MeV < 421 := by
+  rw [Delta_fYM_value]
+  refine ⟨?_, ?_⟩
+  · norm_num
+  · norm_num
+
 /-- **Ch 23 load-bearing hypothesis 1**: the fractal Yang-Mills
     Hamiltonian `H_fYM` at α = 2 has spectrum `{0} ∪ [Δ_fYM, ∞)`
     with `Δ_fYM = Λ_QCD · ω_c` where `ω_c` is the first positive
