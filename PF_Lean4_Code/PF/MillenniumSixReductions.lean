@@ -1587,6 +1587,29 @@ theorem ch07_coherence_arithmetic_error :
   rw [h] at h_lo
   norm_num at h_lo
 
+/-! ## Ch 10 line 405 arithmetic error: 10/π · π/10 · 10⁵
+
+Manuscript line 405:
+  Re_c^crit = (10/π) · (π/10) · 10⁵ = 2.13198 × 10⁵
+
+ERROR: (10/π) · (π/10) = 1, so the product equals 10⁵, NOT 2.13 × 10⁵.
+The π's cancel exactly. The factor 2.13198 appears to be a confusion
+with the Yang-Mills resonance zero ω_c = 2.13198462 (Ch 23). -/
+
+/-- **`(10/π) · (π/10) = 1`**: exact algebraic identity. -/
+theorem ch10_pi_cancellation : (10 / Real.pi) * (Real.pi / 10) = 1 := by
+  have h_pi_ne : Real.pi ≠ 0 := Real.pi_ne_zero
+  field_simp
+
+/-- **The manuscript's "= 2.13198 × 10⁵" is wrong**:
+    `(10/π) · (π/10) · 10⁵ = 10⁵`, not `2.13198 × 10⁵`. -/
+theorem ch10_re_c_crit_arithmetic_error :
+    (10 / Real.pi) * (Real.pi / 10) * (10^5 : ℝ) ≠ (213198 : ℝ) := by
+  rw [show (10 / Real.pi) * (Real.pi / 10) * (10^5 : ℝ)
+        = ((10 / Real.pi) * (Real.pi / 10)) * (10^5 : ℝ) by ring,
+      ch10_pi_cancellation, one_mul]
+  norm_num
+
 
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
