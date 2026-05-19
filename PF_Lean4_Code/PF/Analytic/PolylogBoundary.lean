@@ -1585,6 +1585,123 @@ theorem fractalKernelReal_at_alpha_two_d_half_at_a_two :
   rw [fractalKernelReal_at_alpha_two_d_half (by norm_num : (1:ℝ) < 2)]
   norm_num
 
+/-! ## ★★★ RESEARCH — V_P at α=2, d=3 (third zero of YM kernel) ★★★ -/
+
+/-- **★★★ FULL V_P at α = 2, distance d = 3 vanishes at a = 2** (axiom-free).
+
+      `Σ_{k≥0} a^(-k) · cos(π · 2^k · 3) = -(a-2)/(a-1)`
+
+    Same closed form as d=1: the polylog kernel takes the SAME value
+    `-(a-2)/(a-1)` at d=1 and d=3 (and indeed at any odd integer d).
+
+    Structure: angle is `π · 2^k · 3 = 3π · 2^k`.
+    * k=0: `cos(3π) = -1` (since 3π = π + 2π gives cos(π) = -1).
+    * k ≥ 1: `cos(3·2^k·π) = 1` (since 3·2^k is even integer for k≥1).
+
+    Sum: `-1 + Σ_{k≥1} (1/a)^k = -1 + 1/(a-1) = -(a-2)/(a-1)`.
+
+    **At a=2: V_P = 0 EXACTLY** — third distance (after d=1 and d=1/2)
+    where the YM-class polylog kernel vanishes. -/
+theorem fractalKernelReal_at_alpha_two_d_three {a : ℝ} (ha : 1 < a) :
+    (∑' k : ℕ, (a : ℝ)^(-(k:ℤ)) *
+        Real.cos (Real.pi * (2:ℝ)^k * 3)) =
+    -(a - 2) / (a - 1) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have h_inv_lt : (1/a : ℝ) < 1 := by rw [div_lt_one ha_pos]; exact ha
+  have h_inv_nn : (0 : ℝ) ≤ 1/a := by positivity
+  have h_a_ne_one : a ≠ 1 := ne_of_gt ha
+  set f : ℕ → ℝ := fun k => (a : ℝ)^(-(k:ℤ)) *
+    Real.cos (Real.pi * (2:ℝ)^k * 3) with hf_def
+  have h_summable : Summable f := by
+    apply Summable.of_norm_bounded (g := fun k : ℕ => (1/a)^k)
+    · exact summable_geometric_of_lt_one h_inv_nn h_inv_lt
+    intro k
+    simp only [hf_def, Real.norm_eq_abs, abs_mul]
+    have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(k:ℤ)) := zpow_pos ha_pos _
+    rw [abs_of_pos h_pow_pos]
+    have h_cos_abs : |Real.cos (Real.pi * (2:ℝ)^k * 3)| ≤ 1 :=
+      Real.abs_cos_le_one _
+    have h_pow_eq : (a : ℝ)^(-(k:ℤ)) = (1/a)^k := by
+      rw [show (-(k:ℤ)) = -((k:ℕ) : ℤ) from rfl]
+      rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+    rw [h_pow_eq]
+    have h_pos : (0 : ℝ) < (1/a : ℝ)^k := pow_pos (by positivity) k
+    calc (1/a : ℝ)^k * |Real.cos (Real.pi * (2:ℝ)^k * 3)|
+        ≤ (1/a : ℝ)^k * 1 := mul_le_mul_of_nonneg_left h_cos_abs h_pos.le
+      _ = (1/a : ℝ)^k := mul_one _
+  -- Split: ∑' f = f 0 + ∑' f (k+1)
+  have h_split : (∑' k, f k) = f 0 + ∑' k, f (k+1) := h_summable.tsum_eq_zero_add
+  rw [h_split]
+  -- f 0 = a^0 · cos(π · 1 · 3) = cos(3π) = -1
+  have h_f0 : f 0 = -1 := by
+    show (a : ℝ)^(-((0:ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^0 * 3) = -1
+    have h_exp : (-((0:ℕ) : ℤ)) = 0 := by push_cast
+    rw [h_exp, zpow_zero, pow_zero]
+    rw [show Real.pi * 1 * 3 = 3 * Real.pi from by ring]
+    -- cos(3π) = cos(π + 2π) = cos(π) = -1
+    rw [show (3 * Real.pi : ℝ) = Real.pi + 2 * Real.pi from by ring]
+    rw [Real.cos_add_two_pi, Real.cos_pi]; ring
+  rw [h_f0]
+  -- For k ≥ 0, f (k+1) = (1/a)^(k+1) using cos(π · 2^(k+1) · 3) = cos(6π · 2^k) = 1
+  -- Use h_cos_2pi_pow + scaling
+  have h_cos_2pi_pow : ∀ n : ℕ, Real.cos (2 * Real.pi * (2:ℝ)^n) = 1 := by
+    intro n
+    induction n with
+    | zero => simp [Real.cos_two_pi]
+    | succ n' ih =>
+      have h_split2 : 2 * Real.pi * (2:ℝ)^(n'+1) =
+                      2 * Real.pi * (2:ℝ)^n' + 2 * Real.pi * (2:ℝ)^n' := by
+        rw [pow_succ]; ring
+      rw [h_split2, Real.cos_add, ih]
+      have h_sin : Real.sin (2 * Real.pi * (2:ℝ)^n') = 0 := by
+        have h_id : Real.cos (2 * Real.pi * (2:ℝ)^n')^2 +
+                   Real.sin (2 * Real.pi * (2:ℝ)^n')^2 = 1 :=
+          Real.cos_sq_add_sin_sq _
+        rw [ih] at h_id
+        nlinarith [sq_nonneg (Real.sin (2 * Real.pi * (2:ℝ)^n'))]
+      rw [h_sin]; ring
+  -- Helper: cos(6π·2^n) = 1 for all n ≥ 0 (since 6π·2^n = 3 · 2π · 2^n)
+  have h_cos_6pi_pow : ∀ n : ℕ, Real.cos (6 * Real.pi * (2:ℝ)^n) = 1 := by
+    intro n
+    -- cos(6π·2^n) = cos(2π·2^n + 2π·2^n + 2π·2^n) — use addition formula thrice
+    -- Or simpler: cos(6π·2^n) = cos(2π·(3·2^n)) — but mathlib doesn't have arbitrary multiplier
+    -- Direct: 6π · 2^n = 2π · 2^n + 4π · 2^n; cos = cos(2π·2^n)·cos(4π·2^n) - sin·sin.
+    -- Alternative: 6π · 2^n = 2π · (3·2^n). Show cos(2π·m) = 1 for any natural m? Not in general.
+    -- Use 6π · 2^n = 4π · 2^n + 2π · 2^n. And cos(4π·2^n) = cos(2π·2^(n+1)) = 1 by h_cos_2pi_pow.
+    have h_rewrite : 6 * Real.pi * (2:ℝ)^n = 4 * Real.pi * (2:ℝ)^n + 2 * Real.pi * (2:ℝ)^n := by ring
+    rw [h_rewrite, Real.cos_add]
+    have h_4pi : 4 * Real.pi * (2:ℝ)^n = 2 * Real.pi * (2:ℝ)^(n+1) := by
+      rw [pow_succ]; ring
+    rw [h_4pi]
+    rw [h_cos_2pi_pow (n+1), h_cos_2pi_pow n]
+    have h_sin_2pi : Real.sin (2 * Real.pi * (2:ℝ)^n) = 0 := by
+      have h_id : Real.cos (2 * Real.pi * (2:ℝ)^n)^2 +
+                 Real.sin (2 * Real.pi * (2:ℝ)^n)^2 = 1 :=
+        Real.cos_sq_add_sin_sq _
+      rw [h_cos_2pi_pow n] at h_id
+      nlinarith [sq_nonneg (Real.sin (2 * Real.pi * (2:ℝ)^n))]
+    rw [h_sin_2pi]; ring
+  have h_term_eval : ∀ k : ℕ, f (k+1) = (1/a)^(k+1) := by
+    intro k
+    show (a : ℝ)^(-((k+1:ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^(k+1) * 3) = (1/a)^(k+1)
+    have h_cos : Real.cos (Real.pi * (2:ℝ)^(k+1) * 3) = 1 := by
+      have h_angle : Real.pi * (2:ℝ)^(k+1) * 3 = 6 * Real.pi * (2:ℝ)^k := by
+        rw [pow_succ]; ring
+      rw [h_angle]
+      exact h_cos_6pi_pow k
+    rw [h_cos, mul_one]
+    rw [show (-((k+1:ℕ) : ℤ)) = -((k+1:ℕ) : ℤ) from rfl]
+    rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+  rw [tsum_congr h_term_eval]
+  have h_pow_rewrite : ∀ k : ℕ, ((1/a : ℝ))^(k+1) = (1/a) * (1/a)^k := by
+    intro k; rw [pow_succ]; ring
+  rw [tsum_congr h_pow_rewrite]
+  rw [tsum_mul_left]
+  rw [tsum_geometric_of_lt_one h_inv_nn h_inv_lt]
+  have h_a_sub_one_ne : a - 1 ≠ 0 := sub_ne_zero.mpr h_a_ne_one
+  field_simp
+  ring
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
