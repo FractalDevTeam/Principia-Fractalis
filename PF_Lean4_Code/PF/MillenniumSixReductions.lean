@@ -1506,6 +1506,47 @@ theorem old_pi10_formula_ne_42043 :
   rw [h] at h_ub
   norm_num at h_ub
 
+/-! ## Ch 25 line 505 error: ch_2(Hodge) computation
+
+The Ch 25 line 505 states:
+  ch_2(Hodge) = 0.95 + (φ - 3/2)/10 = 0.95 + 0.118/10 ≈ 0.9612
+
+ERROR: `0.95 + 0.118/10 = 0.95 + 0.0118 = 0.9618`, NOT `0.9612`.
+
+The intermediate "0.118" itself is a rounding of `φ - 3/2 ≈ 0.1180`,
+which when divided by 10 gives `0.01180` (not 0.00120 as 0.9612 would
+imply). The correct value is `ch_2(Hodge) ≈ 0.9618`. -/
+
+/-- **Hodge consciousness threshold function**: `ch_2_Hodge(α) := 0.95 + (α - 3/2)/10`.
+    Manuscript Ch 25 line 505 uses α_base = 3/2 (same as YM in Ch 23). -/
+noncomputable def ch_2_Hodge (α : ℝ) : ℝ := 0.95 + (α - 3/2) / 10
+
+/-- **`ch_2(Hodge) at α = φ` formula**: by definition. -/
+theorem ch_2_Hodge_at_phi :
+    ch_2_Hodge PrincipiaTractalis.phi =
+      0.95 + (PrincipiaTractalis.phi - 3/2) / 10 := rfl
+
+/-- **`ch_2(Hodge)` numerical bracket**: `0.9618 < ch_2(Hodge) < 0.9619`,
+    NOT the manuscript's claimed `0.9612`. -/
+theorem ch_2_Hodge_bracket :
+    (9618 : ℝ)/10000 < ch_2_Hodge PrincipiaTractalis.phi ∧
+    ch_2_Hodge PrincipiaTractalis.phi < (9619 : ℝ)/10000 := by
+  unfold ch_2_Hodge
+  have h_phi_bounds := PrincipiaTractalis.phi_in_interval_10digit
+  -- phi ≈ 1.6180339887, so phi - 3/2 ≈ 0.1180339887
+  -- (phi - 3/2)/10 ≈ 0.01180339887
+  -- 0.95 + 0.01180339887 ≈ 0.96180339887
+  refine ⟨?_, ?_⟩ <;> linarith [h_phi_bounds.1, h_phi_bounds.2]
+
+/-- **`ch_2(Hodge) ≠ 0.9612`**: the manuscript's claim is incorrect.
+    Actual value is ≈ 0.9618. -/
+theorem ch_2_Hodge_ne_9612 :
+    ch_2_Hodge PrincipiaTractalis.phi ≠ (9612 : ℝ)/10000 := by
+  intro h
+  obtain ⟨h_lo, _⟩ := ch_2_Hodge_bracket
+  rw [h] at h_lo
+  norm_num at h_lo
+
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
 If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
