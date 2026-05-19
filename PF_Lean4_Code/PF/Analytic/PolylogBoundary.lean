@@ -954,6 +954,117 @@ theorem even_subseries_sqrt2_one {a : ℝ} (ha : 1 < a) :
   field_simp
   ring
 
+/-! ## ★★★ RESEARCH — EXACT V_P at α = 2 (YM-class), full series ★★★ -/
+
+/-- **★★ FULL V_P at α = 2, distance d = 1: exact closed form ★★**
+    (`a > 1`, axiom-free):
+
+      `Σ_{k≥0} a^(-k) · cos(π · 2^k · 1) = -(a-2)/(a-1)`
+
+    Structure: cos(π·2^k) = -1 for k=0 (giving cos(π)), and 1 for
+    k ≥ 1 (giving cos(2^k·π) = 1 since 2^k is even integer ≥ 2).
+
+    Sum: `-1 + Σ_{k≥1} (1/a)^k · 1 = -1 + (1/a)/(1-1/a) = -(a-2)/(a-1)`.
+
+    **At α = 2 (YM-class), a = 2: V_P = 0 EXACTLY**.
+
+    This is a remarkable structural result: at the YM-class parameter
+    `(α, a) = (2, 2)`, the polylog kernel vanishes at the unit-interval
+    boundary distance. -/
+theorem fractalKernelReal_at_alpha_two_d_one {a : ℝ} (ha : 1 < a) :
+    (∑' k : ℕ, (a : ℝ)^(-(k:ℤ)) *
+        Real.cos (Real.pi * (2:ℝ)^k * 1)) =
+    -(a - 2) / (a - 1) := by
+  have ha_pos : (0 : ℝ) < a := lt_trans zero_lt_one ha
+  have h_inv_lt : (1/a : ℝ) < 1 := by rw [div_lt_one ha_pos]; exact ha
+  have h_inv_nn : (0 : ℝ) ≤ 1/a := by positivity
+  have h_a_ne_one : a ≠ 1 := ne_of_gt ha
+  -- Define f k := a^(-k) · cos(π·2^k·1)
+  set f : ℕ → ℝ := fun k => (a : ℝ)^(-(k:ℤ)) *
+    Real.cos (Real.pi * (2:ℝ)^k * 1) with hf_def
+  -- Summability via |cos| ≤ 1 + geometric majorant
+  have h_summable : Summable f := by
+    apply Summable.of_norm_bounded (g := fun k : ℕ => (1/a)^k)
+    · exact summable_geometric_of_lt_one h_inv_nn h_inv_lt
+    intro k
+    simp only [hf_def, Real.norm_eq_abs, abs_mul]
+    have h_pow_pos : (0 : ℝ) < (a : ℝ)^(-(k:ℤ)) := zpow_pos ha_pos _
+    rw [abs_of_pos h_pow_pos]
+    have h_cos_abs : |Real.cos (Real.pi * (2:ℝ)^k * 1)| ≤ 1 :=
+      Real.abs_cos_le_one _
+    have h_pow_eq : (a : ℝ)^(-(k:ℤ)) = (1/a)^k := by
+      rw [show (-(k:ℤ)) = -((k:ℕ) : ℤ) from rfl]
+      rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+    rw [h_pow_eq]
+    have h_pos : (0 : ℝ) < (1/a : ℝ)^k := pow_pos (by positivity) k
+    calc (1/a : ℝ)^k * |Real.cos (Real.pi * (2:ℝ)^k * 1)|
+        ≤ (1/a : ℝ)^k * 1 := mul_le_mul_of_nonneg_left h_cos_abs h_pos.le
+      _ = (1/a : ℝ)^k := mul_one _
+  -- Split: ∑' f = f 0 + ∑' f (k+1)
+  have h_split : (∑' k, f k) = f 0 + ∑' k, f (k+1) := h_summable.tsum_eq_zero_add
+  rw [h_split]
+  -- f 0 = a^0 · cos(π · 1 · 1) = 1 · cos(π) = -1
+  have h_f0 : f 0 = -1 := by
+    show (a : ℝ)^(-((0:ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^0 * 1) = -1
+    simp [Real.cos_pi]
+  rw [h_f0]
+  -- For k ≥ 0, f (k+1) = a^(-(k+1)) · cos(π · 2^(k+1)) = a^(-(k+1)) (cos = 1)
+  -- Then Σ_{k≥0} a^(-(k+1)) = (1/a)/(1-1/a) = 1/(a-1)
+  -- Helper: cos(2π · 2^n) = 1 for all n ≥ 0, proven by induction.
+  have h_cos_2pi_pow : ∀ n : ℕ, Real.cos (2 * Real.pi * (2:ℝ)^n) = 1 := by
+    intro n
+    induction n with
+    | zero =>
+      simp [Real.cos_two_pi]
+    | succ n' ih =>
+      have h_split2 : 2 * Real.pi * (2:ℝ)^(n'+1) =
+                      2 * Real.pi * (2:ℝ)^n' + 2 * Real.pi * (2:ℝ)^n' := by
+        rw [pow_succ]; ring
+      rw [h_split2, Real.cos_add, ih]
+      have h_sin : Real.sin (2 * Real.pi * (2:ℝ)^n') = 0 := by
+        have h_id : Real.cos (2 * Real.pi * (2:ℝ)^n')^2 +
+                   Real.sin (2 * Real.pi * (2:ℝ)^n')^2 = 1 :=
+          Real.cos_sq_add_sin_sq _
+        rw [ih] at h_id
+        nlinarith [sq_nonneg (Real.sin (2 * Real.pi * (2:ℝ)^n'))]
+      rw [h_sin]
+      ring
+  have h_term_eval : ∀ k : ℕ, f (k+1) = (1/a)^(k+1) := by
+    intro k
+    show (a : ℝ)^(-((k+1:ℕ) : ℤ)) * Real.cos (Real.pi * (2:ℝ)^(k+1) * 1) = (1/a)^(k+1)
+    have h_cos : Real.cos (Real.pi * (2:ℝ)^(k+1) * 1) = 1 := by
+      rw [mul_one]
+      have h_eq : Real.pi * (2:ℝ)^(k+1) = 2 * Real.pi * (2:ℝ)^k := by
+        rw [pow_succ]; ring
+      rw [h_eq]
+      exact h_cos_2pi_pow k
+    rw [h_cos, mul_one]
+    rw [show (-((k+1 : ℕ) : ℤ)) = -((k+1 : ℕ) : ℤ) from rfl]
+    rw [zpow_neg, zpow_natCast, ← inv_pow, ← one_div]
+  rw [tsum_congr h_term_eval]
+  -- Σ_{k≥0} (1/a)^(k+1) = (1/a) · Σ (1/a)^k = (1/a)/(1-1/a) = 1/(a-1)
+  have h_pow_rewrite : ∀ k : ℕ, ((1/a : ℝ))^(k+1) = (1/a) * (1/a)^k := by
+    intro k; rw [pow_succ]; ring
+  rw [tsum_congr h_pow_rewrite]
+  rw [tsum_mul_left]
+  rw [tsum_geometric_of_lt_one h_inv_nn h_inv_lt]
+  -- Combine: -1 + (1/a)·(1-1/a)⁻¹ = -1 + 1/(a-1) = -(a-2)/(a-1)
+  have h_a_sub_one_ne : a - 1 ≠ 0 := sub_ne_zero.mpr h_a_ne_one
+  field_simp
+  ring
+
+/-- **★★★ V_P at α = 2, a = 2, d = 1: EXACTLY ZERO ★★★** (axiom-free).
+
+    Direct consequence of `fractalKernelReal_at_alpha_two_d_one`:
+    `-(a-2)/(a-1) = -0/1 = 0` at `a = 2`. A remarkable closed-form
+    result: at the Yang-Mills class parameter point (α, a) = (2, 2),
+    the polylog kernel vanishes exactly at the unit-interval distance. -/
+theorem fractalKernelReal_at_alpha_two_d_one_at_a_two :
+    (∑' k : ℕ, (2 : ℝ)^(-(k:ℤ)) *
+        Real.cos (Real.pi * (2:ℝ)^k * 1)) = 0 := by
+  rw [fractalKernelReal_at_alpha_two_d_one (by norm_num : (1:ℝ) < 2)]
+  norm_num
+
 /-! ## ★ Bounded transcendental remainder at α = √2 ★ -/
 
 /-- **★ Odd-frequency subseries absolute bound at α = √2 ★** (`a > 1`):
