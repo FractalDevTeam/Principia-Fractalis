@@ -250,6 +250,34 @@ theorem yang_mills_via_fractal_resonance
 def BSDConjecture : Prop :=
   ∀ (E : Unit), ∃ (rank_eq_ord : Unit), True
 
+/-- **Ch 24 distinguished BSD eigenvalue**: `φ/e ≈ 0.595`.
+    The manuscript's `conj:rank-equality-fractal` claims
+    `rank E(ℚ) = multiplicity of eigenvalue φ/e in Spec(T_E)`. -/
+noncomputable def bsd_distinguished_eigenvalue : ℝ := phi / Real.exp 1
+
+/-- `φ/e` is strictly positive (axiom-free). -/
+theorem bsd_distinguished_eigenvalue_pos : 0 < bsd_distinguished_eigenvalue := by
+  unfold bsd_distinguished_eigenvalue
+  have h_phi : (0 : ℝ) < phi := by
+    have h : (1.6180339887 : ℝ) ≤ phi := phi_in_interval_10digit.1
+    linarith
+  have h_e : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  exact div_pos h_phi h_e
+
+/-- `φ/e < 1` since `φ < e` (1.618 < 2.718) (axiom-free). -/
+theorem bsd_distinguished_eigenvalue_lt_one : bsd_distinguished_eigenvalue < 1 := by
+  unfold bsd_distinguished_eigenvalue
+  have h_phi_lt : phi < 2 := by
+    have h : phi ≤ (1.6180339888 : ℝ) := phi_in_interval_10digit.2
+    linarith
+  have h_e_gt : (2 : ℝ) < Real.exp 1 := by
+    -- e > 2: from Real.add_one_lt_exp at x=1 gives 1 + 1 < exp 1, i.e., 2 < exp 1
+    have h := Real.add_one_lt_exp (one_ne_zero : (1:ℝ) ≠ 0)
+    linarith
+  -- φ/e < 2/2 = 1
+  rw [div_lt_one (Real.exp_pos 1)]
+  linarith
+
 /-- **Ch 24 load-bearing hypothesis**: `conj:rank-equality-fractal` —
     `rank E(ℚ) = multiplicity of eigenvalue φ/e in Spec(T_E)`, where
     `T_E` is the symmetrized BSD spectral operator at α = 3π/4.
