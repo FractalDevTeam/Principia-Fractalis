@@ -285,13 +285,22 @@ The polylog conjecture for the FULL operator is now reduced to a finite-rank spe
 
 The principal branch gives `Re[-log(1-e^{iπ√2})] ≈ -0.465` (negative, hence unphysical). The fractal monodromy path is conjectured to select a higher Riemann sheet yielding the empirically observed positive value.
 
-**Current status.** The manuscript labels this `\begin{heuristic}` — a physical-reasoning argument backed by 10⁻¹⁰ numerical match, not a derivation. The selection rule itself is not characterized in terms of intrinsic operator-theoretic invariants.
+**Narrowing (2026-05-18).** The "fractal branch" is now formally known *not* to be `M_0`-monodromy sheet selection at `s = 1`. Lemma `lem:s1-rigidity` (manuscript Ch 21 line 610, formalized in `PF/Analytic/Monodromy.lean` as `polyLogSheet_re_invariant_at_one`) establishes that every `M_0` sheet of `Li_1(z)` has the same real part as the principal branch. Combined with the manuscript's own stated negativity of the principal-branch value, no sheet index `m ∈ ℤ` in the polyLogSheet formula achieves the manuscript's positive target `π/(10√2) > 0`. This is formally certified at `PF/Analytic/PolylogSpectrum.lean`, theorem `manuscript_target_unreachable_via_M0_sheet`.
 
-**Lean encoding.** Implicit in the value pinning component of `alpha_class_polylog_eigenvalue_conjecture`.
+The branch-selection mechanism must therefore use one of:
+- **(a)** non-integer effective weight `s* = √2/2` (per Proposition `prop:spectral-scaling`), at which the Jonquières expansion's leading term `Γ(1-s)·(-log z - 2πim)^(s-1)` carries non-trivial real-part dependence on `m` (formalized via `jonquieresSecondOrderBinomial_ne_zero_at_sqrt2_div_two` in `PF/Analytic/Monodromy.lean`)
+- **(b)** `M_1`-monodromy generators (crossing the branch cut `[1, ∞)`), which were excluded by the choice-of-generator Remark
+- **(c)** a different functional form than `Li_1` on the unit circle (e.g., the spectral zeta function `ζ_{H_P}(s) = Tr H_P^(-s)` or its Mellin transform)
+
+This narrowing is documented in the manuscript at Ch 21 Remark `rem:M0-narrowing` (added 2026-05-18, commit 7f46729).
+
+**Current status.** The manuscript labels this `\begin{heuristic}` — a physical-reasoning argument backed by 10⁻¹⁰ numerical match, not a derivation. The selection rule itself is not characterized in terms of intrinsic operator-theoretic invariants. The above narrowing eliminates the simplest candidate mechanism (`M_0` sheet index) and orients the open problem toward the three remaining candidates (a), (b), (c).
+
+**Lean encoding.** Implicit in the value pinning component of `alpha_class_polylog_eigenvalue_conjecture`. The narrowing is explicit at `manuscript_target_unreachable_via_M0_sheet`.
 
 **What a solution would deliver.** Together with Problems 1 and 3, completes the P-class side of the axiom retirement.
 
-**Difficulty estimate.** Requires Riemann-sheet selection theory for self-similar operators — there is no standard machinery for this in the operator-algebra literature.
+**Difficulty estimate.** Requires Riemann-sheet selection theory for self-similar operators — there is no standard machinery for this in the operator-algebra literature. The 2026-05-18 narrowing reduces the search space by ruling out the most natural-looking candidate (M_0 sheet index).
 
 ---
 
