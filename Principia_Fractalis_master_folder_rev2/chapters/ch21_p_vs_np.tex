@@ -1022,12 +1022,12 @@ For the self-adjoint fractal convolution operators $H_P$ and $H_{NP}$ with Hausd
 \lambda_0(H_{NP}) &= 0.1330222423 \pm 10^{-10}
 \end{align}
 
-These values are consistent with the closed forms:
+These values are partially consistent with closed-form candidates:
 \begin{align}
-\lambda_0(H_P) &\stackrel{?}{=} \frac{\pi}{10\sqrt{2}} \approx 0.2221441469079... \\
-\lambda_0(H_{NP}) &\stackrel{?}{=} \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.1330222423419...
+\lambda_0(H_P) &\stackrel{?}{=} \frac{\pi}{10\sqrt{2}} \approx 0.2221441469079... \quad \text{(matches empirical to $10^{-10}$)} \\
+\lambda_0(H_{NP}) &\stackrel{?}{=} \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.0915 \quad \text{(does NOT match empirical $0.1330$)}
 \end{align}
-matching to within numerical precision.
+\noindent\emph{Numerical correction, 2026-05-18: Prior editions claimed $\pi(\sqrt{5}-1)/(30\sqrt{2}) \approx 0.1330222423419$. The formula actually evaluates to $\approx 0.0915$ (formally certified: \texttt{manuscript\_lambda\_NP\_golden\_bracket}). The empirical $\lambda_0(H_{NP}) \approx 0.1330$ is NOT reproduced by this closed form; see Remark~\ref{rem:alpha-P-NP-derivation-status}.}
 \end{theorem}
 
 \begin{proof}
@@ -1559,10 +1559,10 @@ Through systematic numerical computation with convergence studies (Experiments \
 \Delta &= 0.0891219046 \pm 10^{-10}
 \end{align*}
 
-These values match closed form candidates to within numerical precision:
+These values match the P-class closed-form candidate to numerical precision, but the NP-class match fails:
 \begin{align*}
-\frac{\pi}{10\sqrt{2}} &\approx 0.2221441469079... \\
-\frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} &\approx 0.1330222423419...
+\frac{\pi}{10\sqrt{2}} &\approx 0.2221441469079... \quad \text{(matches empirical $\lambda_0(H_P) \approx 0.2221$)} \\
+\frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} &\approx 0.0915 \quad \text{(does NOT match empirical $\lambda_0(H_{NP}) \approx 0.1330$; corrected 2026-05-18 from prior $0.1330222423419$)}
 \end{align*}
 
 \subsection{Conjectural Framework}
