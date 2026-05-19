@@ -316,7 +316,13 @@ surjectivity : ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 →
 
 **Lean encoding.** Takes `surjectivity` as a **hypothesis parameter** of the theorem `riemann_hypothesis_via_T3_sym_framework`. The theorem proves: surjectivity ⇒ RH.
 
-**What a solution would deliver.** Combined with three engineering tracks (Phase A inner-product structure, compact-operator spectral theorem, non-degeneracy), an unconditional proof of the Riemann Hypothesis.
+**★★★ ENGINEERING TRACKS DISCHARGED (2026-05-19, commits f727998 + e09e571) ★★★.** ALL three Phase A inner-product hypotheses are now PROVED THEOREMS (axiom-free), discharging engineering Track 1 of the 4-track conditional reduction. The reduced theorem `riemann_hypothesis_via_T3_sym_framework_fully_discharged` (`PF/SpectralBijection.lean`) shows: **RH holds modulo only Track 2 (compact-operator spectral theorem witness for T₃^sym), Track 3 (non-degeneracy from Mayer 1991 numerical), and Track 4 (surjectivity = THIS problem)**. Discharged Phase A items:
+
+* `hsmul_left_LogWeightedL2`: `⟪a • f, g⟫ = (star a) * ⟪f, g⟫`
+* `hsmul_right_LogWeightedL2`: `⟪f, a • g⟫ = a * ⟪f, g⟫`
+* `hpos_def_LogWeightedL2`: `f ≠ 0 → ⟪f, f⟫ ≠ 0` (proven via `inner_self_eq_integral_normSq` + `MemLp.integrable_norm_pow` + `integral_eq_zero_iff_of_nonneg` + `Complex.normSq_eq_zero` + `Lp.eq_zero_iff_ae_eq_zero`)
+
+**What a solution would deliver.** Combined with the remaining engineering tracks (compact-operator spectral theorem hookup, non-degeneracy verification), an unconditional proof of the Riemann Hypothesis.
 
 **Difficulty estimate.** This is the open problem of the entire approach. Difficulty: comparable to RH itself.
 
