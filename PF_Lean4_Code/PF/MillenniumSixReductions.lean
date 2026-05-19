@@ -352,6 +352,20 @@ theorem bsd_via_fractal_resonance
   obtain ⟨witness, _⟩ := h alpha_at_enum_BSD E
   exact ⟨witness, trivial⟩
 
+/-! ## Ch 23 additional content: string tension (area law) -/
+
+/-- **String tension** (Ch 23 thm:area-law, in MeV²):
+    σ = (440.21 MeV)² ≈ 193,784.84 MeV². -/
+noncomputable def string_tension_MeV2 : ℝ := 440.21 * 440.21
+
+/-- String tension > 0 (axiom-free). -/
+theorem string_tension_pos : 0 < string_tension_MeV2 := by
+  unfold string_tension_MeV2; norm_num
+
+/-- The manuscript's string-tension value: σ = (440.21)² MeV². -/
+theorem string_tension_value : string_tension_MeV2 = 440.21 ^ 2 := by
+  unfold string_tension_MeV2; ring
+
 /-! ## Ch 25 — Hodge Conjecture (α_Hodge = φ) -/
 
 /-- **The Clay Hodge claim** (informal Prop encoding).
@@ -393,6 +407,56 @@ noncomputable def epsilon_quantum : ℝ := sigma_c - sigma_c_arithmetic
 theorem sigma_c_decomposition : sigma_c = sigma_c_arithmetic + epsilon_quantum := by
   unfold epsilon_quantum
   ring
+
+/-- **★★ σ_c arithmetic part numerical bracket** (axiom-free):
+    `3/5 < 6/π² < 61/100`.
+
+    Direct from `Real.pi_gt_d2` (π > 3.14, giving π² > 9.8596) and
+    `Real.pi_lt_d2` (π < 3.15, giving π² < 9.9225). Hence
+    6/9.9225 < 6/π² < 6/9.8596, which gives `≈ 0.6047 < 6/π² < 0.6086`. -/
+theorem sigma_c_arithmetic_bracket :
+    (3 / 5 : ℝ) < sigma_c_arithmetic ∧ sigma_c_arithmetic < 61/100 := by
+  unfold sigma_c_arithmetic
+  have h_pi_lower : (3.14 : ℝ) < Real.pi := Real.pi_gt_d2
+  have h_pi_upper : Real.pi < (3.15 : ℝ) := Real.pi_lt_d2
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi^2 := by positivity
+  have h_pi_sq_lt : Real.pi^2 < (3.15)^2 := by
+    have h_sq : Real.pi^2 = Real.pi * Real.pi := by ring
+    rw [h_sq]; nlinarith [h_pi_upper, h_pi_pos]
+  have h_pi_sq_gt : (3.14 : ℝ)^2 < Real.pi^2 := by
+    have h_sq : Real.pi^2 = Real.pi * Real.pi := by ring
+    rw [h_sq]; nlinarith [h_pi_lower, h_pi_pos]
+  refine ⟨?_, ?_⟩
+  · -- 3/5 < 6/π² ⟺ (3/5)·π² < 6 ⟺ π² < 10. We have π² < 9.9225 < 10.
+    rw [lt_div_iff₀ h_pi_sq_pos]
+    nlinarith [h_pi_sq_lt]
+  · -- 6/π² < 61/100 ⟺ 600 < 61·π² ⟺ π² > 600/61 ≈ 9.836. We have π² > 9.8596.
+    rw [div_lt_iff₀ h_pi_sq_pos]
+    nlinarith [h_pi_sq_gt]
+
+/-- **★ ε_quantum > 0** (axiom-free):
+
+    Since `σ_c = 19/20 = 0.95 > 0.61 > 6/π²` (the arithmetic part),
+    the residual `ε_quantum := σ_c - 6/π² > 0.34 > 0`. -/
+theorem epsilon_quantum_pos : 0 < epsilon_quantum := by
+  unfold epsilon_quantum sigma_c
+  obtain ⟨_, h_upper⟩ := sigma_c_arithmetic_bracket
+  linarith
+
+/-- **★★ ε_quantum BRACKET** (axiom-free): `0.34 < ε_quantum < 0.4`.
+
+    Numerically `ε_quantum = 0.95 - 6/π² ≈ 0.342`. Follows from
+    `sigma_c_arithmetic_bracket`. -/
+theorem epsilon_quantum_bracket :
+    (34/100 : ℝ) < epsilon_quantum ∧ epsilon_quantum < 4/10 := by
+  unfold epsilon_quantum sigma_c
+  obtain ⟨h_lo, h_hi⟩ := sigma_c_arithmetic_bracket
+  refine ⟨?_, ?_⟩
+  · -- 34/100 < 19/20 - sigma_c_arithmetic ⟺ sigma_c_arithmetic < 19/20 - 34/100 = 61/100
+    linarith
+  · -- 19/20 - sigma_c_arithmetic < 4/10 ⟺ sigma_c_arithmetic > 19/20 - 4/10 = 11/20
+    linarith
 
 /-- **★★ Ch 25 — Mertens-Basel anchor for the arithmetic part of σ_c **
     (axiom-free).
