@@ -4283,6 +4283,93 @@ theorem eight_state_energy_structure :
    spectral_gap_BSD_NS_eq_one_fifteenth,
    adjacent_gaps_total_eq_three_pi_minus_two_over_thirty⟩
 
+/-! ### ★★★ ARITHMETIC TAXONOMY OF GROUND-STATE PAIRS ★★★
+
+The 8 canonical α-values fall into three arithmetic categories:
+
+  * **Pure rational** (3 classes): α_Poincaré = 1, α_RH = 3/2, α_YM = 2
+    → λ_0 = π/(10·α) is a RATIONAL MULTIPLE OF π
+    → all pairwise gaps among these are RATIONAL MULTIPLES OF π
+
+  * **Rational multiple of π** (2 classes): α_NS = 3π/2, α_BSD = 3π/4
+    → λ_0 = π/(10·α) is RATIONAL (the π cancels)
+    → all pairwise gaps among these are RATIONAL
+
+  * **Other algebraic** (3 classes): α_P = √2, α_Hodge = φ, α_NP = φ + 1/4
+    → λ_0 is neither rational nor a rational multiple of π
+    → pairwise gaps are mixed
+
+The three "clean π-multiple" gaps among Poincaré, RH, YM:
+```
+Δ(Poincaré, RH) = π/10 − π/15 = π/30
+Δ(Poincaré, YM) = π/10 − π/20 = π/20
+Δ(RH, YM)       = π/15 − π/20 = π/60
+```
+
+The one "clean rational" gap among NS, BSD (already established):
+```
+Δ(BSD, NS) = 2/15 − 1/15 = 1/15
+```
+
+These four "structurally clean" gaps account for the framework's
+deepest arithmetic regularities. -/
+
+/-- Δ(Poincaré, RH) = π/30 — clean π-multiple gap. -/
+theorem spectral_gap_Poincare_RH_eq_pi_over_30 :
+    spectral_gap_canonical .Poincare .RH = Real.pi / 30 := by
+  unfold spectral_gap_canonical lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  -- Goal: Real.pi/10/1 - Real.pi/10/(3/2) = Real.pi/30
+  have h : Real.pi / 10 / 1 - Real.pi / 10 / (3 / 2 : ℝ) = Real.pi / 30 := by
+    field_simp; ring
+  exact h
+
+/-- Δ(Poincaré, YM) = π/20 — clean π-multiple gap. -/
+theorem spectral_gap_Poincare_YM_eq_pi_over_20 :
+    spectral_gap_canonical .Poincare .YM = Real.pi / 20 := by
+  unfold spectral_gap_canonical lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  -- Goal: Real.pi/10/1 - Real.pi/10/2 = Real.pi/20
+  have h : Real.pi / 10 / 1 - Real.pi / 10 / 2 = Real.pi / 20 := by
+    field_simp; ring
+  exact h
+
+/-- Δ(RH, YM) = π/60 — clean π-multiple gap. -/
+theorem spectral_gap_RH_YM_eq_pi_over_60 :
+    spectral_gap_canonical .RH .YM = Real.pi / 60 := by
+  unfold spectral_gap_canonical lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  -- Goal: Real.pi/10/(3/2) - Real.pi/10/2 = Real.pi/60
+  have h : Real.pi / 10 / (3/2 : ℝ) - Real.pi / 10 / 2 = Real.pi / 60 := by
+    field_simp; ring
+  exact h
+
+/-- The three Δ-identities among the rational-α classes form a consistent
+    triangle: Δ(Poincaré, RH) + Δ(RH, YM) = Δ(Poincaré, YM). -/
+theorem rational_alpha_triangle :
+    spectral_gap_canonical .Poincare .RH + spectral_gap_canonical .RH .YM =
+    spectral_gap_canonical .Poincare .YM := by
+  rw [spectral_gap_Poincare_RH_eq_pi_over_30,
+      spectral_gap_RH_YM_eq_pi_over_60,
+      spectral_gap_Poincare_YM_eq_pi_over_20]
+  ring
+
+/-! ### Bundle: the four "structurally clean" pairwise gaps -/
+
+/-- **★ The four structurally-clean Millennium pairwise gaps ★**
+
+    Three gaps among the rational-α classes (Poincaré, RH, YM):
+    pure π-multiples 1/30, 1/20, 1/60 of π. One gap among the
+    rational-multiple-of-π classes (BSD, NS): pure rational 1/15.
+
+    All four are EXACT closed-form gaps, not requiring brackets. -/
+theorem four_clean_pairwise_gaps :
+    spectral_gap_canonical .Poincare .RH = Real.pi / 30 ∧
+    spectral_gap_canonical .Poincare .YM = Real.pi / 20 ∧
+    spectral_gap_canonical .RH .YM = Real.pi / 60 ∧
+    spectral_gap_canonical .BSD .NS = 1 / 15 :=
+  ⟨spectral_gap_Poincare_RH_eq_pi_over_30,
+   spectral_gap_Poincare_YM_eq_pi_over_20,
+   spectral_gap_RH_YM_eq_pi_over_60,
+   spectral_gap_BSD_NS_eq_one_fifteenth⟩
+
 /-! ### Interpretation: one axiom, seven problems -/
 
 /-- **Meaning of the unification**: the framework's single project axiom
