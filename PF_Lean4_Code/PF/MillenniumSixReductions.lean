@@ -3852,6 +3852,226 @@ theorem all_eight_lambda_0_brackets :
     unfold PrincipiaTractalis.pi_10 at hNP_lo hNP_hi
     exact ⟨hNP_lo, hNP_hi⟩
 
+/-! ### ★★★ TOTAL ORDERING OF THE 8 GROUND STATES ★★★
+
+The polylog formula `λ_0(H_α) = π/(10·α)` is strictly decreasing in α
+(for α > 0). The canonical α-values for the 8 Millennium classes have a
+total order, which therefore induces a REVERSE total order on the 8
+canonical ground states. The energy hierarchy is:
+
+```
+α-ordering (increasing):
+  α_Poincare = 1 < √2 < 3/2 < φ < φ+1/4 < 2 < 3π/4 < 3π/2 = α_NS
+
+λ-ordering (decreasing — the energy hierarchy):
+  λ_Poincare > λ_P > λ_RH > λ_Hodge > λ_NP > λ_YM > λ_BSD > λ_NS
+```
+
+Numerical values (decreasing):
+```
+λ_0(Poincare) = π/10            ≈ 0.31416
+λ_0(P)        = π/(10√2)        ≈ 0.22214
+λ_0(RH)       = π/15            ≈ 0.20944
+λ_0(Hodge)    = π/(10φ)         ≈ 0.19416
+λ_0(NP)       = π/(10(φ+1/4))   ≈ 0.16818
+λ_0(YM)       = π/20            ≈ 0.15708
+λ_0(BSD)      = 2/15            ≈ 0.13333  (EXACT rational)
+λ_0(NS)       = 1/15            ≈ 0.06667  (EXACT rational)
+```
+
+Every pair has a determined sign of spectral gap, anchored by the
+universal monotonicity theorem below. -/
+
+/-- Helper: `pi_10 / x` is strictly antitone in `x` on (0, ∞). -/
+theorem lambda_0_canonical_antitone {α₁ α₂ : ℝ} (h₁ : 0 < α₁) (h₂ : α₁ < α₂) :
+    PrincipiaTractalis.pi_10 / α₂ < PrincipiaTractalis.pi_10 / α₁ := by
+  have hpi_pos : (0 : ℝ) < PrincipiaTractalis.pi_10 := by
+    unfold PrincipiaTractalis.pi_10
+    have := Real.pi_pos; positivity
+  have hα₂_pos : (0 : ℝ) < α₂ := lt_trans h₁ h₂
+  exact div_lt_div_of_pos_left hpi_pos h₁ h₂
+
+/-- Universal monotonicity: smaller α gives larger ground state. -/
+theorem lambda_0_strict_anti_in_alpha {c₁ c₂ : AlphaClass8}
+    (h : alpha_value c₁ < alpha_value c₂) :
+    lambda_0_canonical c₂ < lambda_0_canonical c₁ := by
+  unfold lambda_0_canonical
+  exact lambda_0_canonical_antitone (alpha_value_pos c₁) h
+
+/-! ### Seven α-inequalities establishing the canonical order -/
+
+/-- α_Poincare = 1 < √2 = α_P. -/
+theorem alpha_Poincare_lt_alpha_P :
+    alpha_value .Poincare < alpha_value .P := by
+  show (1 : ℝ) < Real.sqrt 2
+  have h_sq : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num : (0 : ℝ) ≤ 2)
+  have h_pos : (0 : ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
+  nlinarith [h_sq, h_pos]
+
+/-- α_P = √2 < 3/2 = α_RH. -/
+theorem alpha_P_lt_alpha_RH :
+    alpha_value .P < alpha_value .RH := by
+  show Real.sqrt 2 < (3 : ℝ) / 2
+  have h_ub : Real.sqrt 2 ≤ 1.4142135624 :=
+    PrincipiaTractalis.sqrt2_in_interval_10digit.2
+  linarith
+
+/-- α_RH = 3/2 < φ = α_Hodge. -/
+theorem alpha_RH_lt_alpha_Hodge :
+    alpha_value .RH < alpha_value .Hodge := by
+  show (3 : ℝ) / 2 < PrincipiaTractalis.phi
+  have h_lb : (1.6180339887 : ℝ) ≤ PrincipiaTractalis.phi :=
+    PrincipiaTractalis.phi_in_interval_10digit.1
+  linarith
+
+/-- α_Hodge = φ < φ + 1/4 = α_NP. -/
+theorem alpha_Hodge_lt_alpha_NP :
+    alpha_value .Hodge < alpha_value .NP := by
+  show PrincipiaTractalis.phi < PrincipiaTractalis.phi + 1/4
+  linarith
+
+/-- α_NP = φ + 1/4 < 2 = α_YM. -/
+theorem alpha_NP_lt_alpha_YM :
+    alpha_value .NP < alpha_value .YM := by
+  show PrincipiaTractalis.phi + 1/4 < (2 : ℝ)
+  have h_ub : PrincipiaTractalis.phi ≤ 1.6180339888 :=
+    PrincipiaTractalis.phi_in_interval_10digit.2
+  linarith
+
+/-- α_YM = 2 < 3π/4 = α_BSD. -/
+theorem alpha_YM_lt_alpha_BSD :
+    alpha_value .YM < alpha_value .BSD := by
+  show (2 : ℝ) < 3 * Real.pi / 4
+  -- 2 < 3π/4 ⟺ 8/3 < π. We have π > 3.14, so π > 8/3 ≈ 2.667.
+  have hpi : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  linarith
+
+/-- α_BSD = 3π/4 < 3π/2 = α_NS. -/
+theorem alpha_BSD_lt_alpha_NS :
+    alpha_value .BSD < alpha_value .NS := by
+  show 3 * Real.pi / 4 < 3 * Real.pi / 2
+  have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+  linarith
+
+/-! ### Seven derived λ-inequalities (the energy hierarchy) -/
+
+/-- λ_0(Poincare) > λ_0(P). -/
+theorem lambda_0_Poincare_gt_P :
+    lambda_0_canonical .P < lambda_0_canonical .Poincare :=
+  lambda_0_strict_anti_in_alpha alpha_Poincare_lt_alpha_P
+
+/-- λ_0(P) > λ_0(RH). -/
+theorem lambda_0_P_gt_RH :
+    lambda_0_canonical .RH < lambda_0_canonical .P :=
+  lambda_0_strict_anti_in_alpha alpha_P_lt_alpha_RH
+
+/-- λ_0(RH) > λ_0(Hodge). -/
+theorem lambda_0_RH_gt_Hodge :
+    lambda_0_canonical .Hodge < lambda_0_canonical .RH :=
+  lambda_0_strict_anti_in_alpha alpha_RH_lt_alpha_Hodge
+
+/-- λ_0(Hodge) > λ_0(NP). -/
+theorem lambda_0_Hodge_gt_NP :
+    lambda_0_canonical .NP < lambda_0_canonical .Hodge :=
+  lambda_0_strict_anti_in_alpha alpha_Hodge_lt_alpha_NP
+
+/-- λ_0(NP) > λ_0(YM). -/
+theorem lambda_0_NP_gt_YM :
+    lambda_0_canonical .YM < lambda_0_canonical .NP :=
+  lambda_0_strict_anti_in_alpha alpha_NP_lt_alpha_YM
+
+/-- λ_0(YM) > λ_0(BSD). -/
+theorem lambda_0_YM_gt_BSD :
+    lambda_0_canonical .BSD < lambda_0_canonical .YM :=
+  lambda_0_strict_anti_in_alpha alpha_YM_lt_alpha_BSD
+
+/-- λ_0(BSD) > λ_0(NS). -/
+theorem lambda_0_BSD_gt_NS :
+    lambda_0_canonical .NS < lambda_0_canonical .BSD :=
+  lambda_0_strict_anti_in_alpha alpha_BSD_lt_alpha_NS
+
+/-! ### THE TOTAL ORDERING THEOREM -/
+
+/-- **★★★ THE FULL ENERGY HIERARCHY ★★★**
+
+    The 8 canonical ground-state eigenvalues form a strict total order:
+    ```
+    λ_NS < λ_BSD < λ_YM < λ_NP < λ_Hodge < λ_RH < λ_P < λ_Poincare
+    ```
+
+    This is the FORMAL VERSION of the framework's claim that the
+    Millennium problems are arranged in a definite energy hierarchy
+    determined by their canonical α-values. The ordering is rigidly
+    determined: no rearrangement is possible without changing the
+    framework's canonical α-assignments.
+
+    Solved (top of hierarchy): Poincaré conjecture (Perelman 2003).
+    Unsolved (the 6 remaining): P/NP, RH, NS, YM, BSD, Hodge.
+
+    The ordering reveals a beautiful structural fact: the SOLVED
+    problem (Poincaré) has the HIGHEST ground state, and the
+    UNSOLVED problems descend in energy according to the geometric
+    complexity of their canonical α-values. -/
+theorem total_ordering_eight_ground_states :
+    lambda_0_canonical .NS < lambda_0_canonical .BSD ∧
+    lambda_0_canonical .BSD < lambda_0_canonical .YM ∧
+    lambda_0_canonical .YM < lambda_0_canonical .NP ∧
+    lambda_0_canonical .NP < lambda_0_canonical .Hodge ∧
+    lambda_0_canonical .Hodge < lambda_0_canonical .RH ∧
+    lambda_0_canonical .RH < lambda_0_canonical .P ∧
+    lambda_0_canonical .P < lambda_0_canonical .Poincare :=
+  ⟨lambda_0_BSD_gt_NS,
+   lambda_0_YM_gt_BSD,
+   lambda_0_NP_gt_YM,
+   lambda_0_Hodge_gt_NP,
+   lambda_0_RH_gt_Hodge,
+   lambda_0_P_gt_RH,
+   lambda_0_Poincare_gt_P⟩
+
+/-- Companion to the total ordering: the canonical α-values themselves
+    have the dual (reversed) order. -/
+theorem total_ordering_eight_alpha_values :
+    alpha_value .Poincare < alpha_value .P ∧
+    alpha_value .P < alpha_value .RH ∧
+    alpha_value .RH < alpha_value .Hodge ∧
+    alpha_value .Hodge < alpha_value .NP ∧
+    alpha_value .NP < alpha_value .YM ∧
+    alpha_value .YM < alpha_value .BSD ∧
+    alpha_value .BSD < alpha_value .NS :=
+  ⟨alpha_Poincare_lt_alpha_P,
+   alpha_P_lt_alpha_RH,
+   alpha_RH_lt_alpha_Hodge,
+   alpha_Hodge_lt_alpha_NP,
+   alpha_NP_lt_alpha_YM,
+   alpha_YM_lt_alpha_BSD,
+   alpha_BSD_lt_alpha_NS⟩
+
+/-- Bundle theorem: the dual orderings of α and λ_0, together with
+    the universal monotonicity. -/
+theorem millennium_energy_hierarchy_complete :
+    -- α-ordering (increasing)
+    (alpha_value .Poincare < alpha_value .P ∧
+     alpha_value .P < alpha_value .RH ∧
+     alpha_value .RH < alpha_value .Hodge ∧
+     alpha_value .Hodge < alpha_value .NP ∧
+     alpha_value .NP < alpha_value .YM ∧
+     alpha_value .YM < alpha_value .BSD ∧
+     alpha_value .BSD < alpha_value .NS) ∧
+    -- λ-ordering (decreasing — the energy hierarchy)
+    (lambda_0_canonical .NS < lambda_0_canonical .BSD ∧
+     lambda_0_canonical .BSD < lambda_0_canonical .YM ∧
+     lambda_0_canonical .YM < lambda_0_canonical .NP ∧
+     lambda_0_canonical .NP < lambda_0_canonical .Hodge ∧
+     lambda_0_canonical .Hodge < lambda_0_canonical .RH ∧
+     lambda_0_canonical .RH < lambda_0_canonical .P ∧
+     lambda_0_canonical .P < lambda_0_canonical .Poincare) ∧
+    -- The monotonicity link: smaller α ⇒ larger λ_0
+    (∀ {c₁ c₂ : AlphaClass8}, alpha_value c₁ < alpha_value c₂ →
+        lambda_0_canonical c₂ < lambda_0_canonical c₁) :=
+  ⟨total_ordering_eight_alpha_values,
+   total_ordering_eight_ground_states,
+   @lambda_0_strict_anti_in_alpha⟩
+
 /-! ### Interpretation: one axiom, seven problems -/
 
 /-- **Meaning of the unification**: the framework's single project axiom
