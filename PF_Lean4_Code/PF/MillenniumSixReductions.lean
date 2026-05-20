@@ -2635,4 +2635,25 @@ theorem lambda_NP_alt_sharper_than_golden :
   rw [abs_of_neg h_g_diff_neg]
   linarith
 
+/-- **STRUCTURAL OBSERVATION**: `(2 + √2 − φ)/3 = (2 + α_P − α_Hodge)/3`,
+    where `α_P = √2` (P-class, Ch 21) and `α_Hodge = φ` (Hodge, Ch 25).
+
+    The new closed-form candidate combines the canonical α values from
+    TWO DIFFERENT millennium-problem chapters: P-class (Ch 21) and
+    Hodge (Ch 25), shifted by integer 2 and normalized by base-3 (the
+    framework's emphasized self-similarity ratio). This cross-chapter
+    structural pattern is suggestive — it hints that the empirical
+    `λ_NP/λ_P` ratio may encode a relationship between the P-class
+    and Hodge-class spectral operators that the manuscript's stated
+    formulas do not capture.
+
+    This is NOT a derivation. But the structural alignment of the
+    framework-emphasized constants (P-dim, Hodge-α, integer 2, base 3)
+    in a formula that matches the empirical value to 4 decimals is
+    much stronger circumstantial evidence than (√5-1)/3, which uses
+    only the golden ratio and matches the empirical value off by ~30%. -/
+theorem alt_ratio_equals_cross_chapter_combination :
+    alt_ratio_candidate =
+      (2 + Real.sqrt 2 - PrincipiaTractalis.phi) / 3 := rfl
+
 end PrincipiaTractalis.MillenniumSix
