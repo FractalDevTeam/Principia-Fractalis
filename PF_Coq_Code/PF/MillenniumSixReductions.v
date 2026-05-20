@@ -779,3 +779,57 @@ Proof.
   split; [exact energy_range_width |
           exact adjacent_gaps_total_eq_three_pi_minus_two_over_thirty].
 Qed.
+
+(* ========================================================================
+   ARITHMETIC TAXONOMY: 4 STRUCTURALLY-CLEAN PAIRWISE GAPS (2026-05-20)
+   3 π-multiples among {Poincaré, RH, YM} + 1 rational among {BSD, NS}.
+   ======================================================================== *)
+
+(** Δ(Poincaré, RH) = π/30. *)
+Theorem spectral_gap_Poincare_RH_eq_pi_over_30 :
+  spectral_gap_canonical APoincare ARH = PI / 30.
+Proof.
+  unfold spectral_gap_canonical, lambda_0_canonical, alpha_value, pi_10.
+  field.
+Qed.
+
+(** Δ(Poincaré, YM) = π/20. *)
+Theorem spectral_gap_Poincare_YM_eq_pi_over_20 :
+  spectral_gap_canonical APoincare AYM = PI / 20.
+Proof.
+  unfold spectral_gap_canonical, lambda_0_canonical, alpha_value, pi_10.
+  field.
+Qed.
+
+(** Δ(RH, YM) = π/60. *)
+Theorem spectral_gap_RH_YM_eq_pi_over_60 :
+  spectral_gap_canonical ARH AYM = PI / 60.
+Proof.
+  unfold spectral_gap_canonical, lambda_0_canonical, alpha_value, pi_10.
+  field.
+Qed.
+
+(** Triangle identity for the rational-α classes. *)
+Theorem rational_alpha_triangle :
+  spectral_gap_canonical APoincare ARH + spectral_gap_canonical ARH AYM =
+  spectral_gap_canonical APoincare AYM.
+Proof.
+  rewrite spectral_gap_Poincare_RH_eq_pi_over_30.
+  rewrite spectral_gap_RH_YM_eq_pi_over_60.
+  rewrite spectral_gap_Poincare_YM_eq_pi_over_20.
+  field.
+Qed.
+
+(** The 4 structurally-clean pairwise gaps. *)
+Theorem four_clean_pairwise_gaps :
+  spectral_gap_canonical APoincare ARH = PI / 30 /\
+  spectral_gap_canonical APoincare AYM = PI / 20 /\
+  spectral_gap_canonical ARH AYM = PI / 60 /\
+  spectral_gap_canonical ABSD ANS = 1 / 15.
+Proof.
+  repeat split.
+  - exact spectral_gap_Poincare_RH_eq_pi_over_30.
+  - exact spectral_gap_Poincare_YM_eq_pi_over_20.
+  - exact spectral_gap_RH_YM_eq_pi_over_60.
+  - exact spectral_gap_BSD_NS_eq_one_fifteenth.
+Qed.
