@@ -107,18 +107,21 @@ Self-adjointness requires $\langle H_P f, g \rangle = \langle f, H_P g \rangle$ 
 
 \subsection{The Spectral Gap Theorem}
 
-\begin{theorem}[P $\neq$ NP via Spectral Gap]
+\begin{theorem}[P $\neq$ NP via Spectral Gap, corrected 2026-05-18]
 \label{thm:pvsnp_spectral}
 The ground state energies of $H_P$ and $H_{NP}$ satisfy:
 \begin{align}
 \lambda_0(H_P) &= \frac{\pi}{10\sqrt{2}} \approx 0.2221441469 \\
-\lambda_0(H_{NP}) &= \frac{\pi}{10\left(\varphi + \frac{1}{4}\right)} \approx 0.1330222423
+\lambda_0(H_{NP})^{\text{Lean closed-form}} &= \frac{\pi}{10\left(\varphi + \frac{1}{4}\right)} \approx 0.1681764182 \\
+\lambda_0(H_{NP})^{\text{empirical}} &\approx 0.1330222423 \quad \text{(from spectral truncation)}
 \end{align}
-The spectral gap is:
+\noindent\emph{Numerical correction: Prior editions stated $\pi/(10(\varphi+1/4)) \approx 0.1330$. The formula actually evaluates to $\approx 0.1682$ (formally certified: \texttt{lambda\_0\_NP\_target\_closed\_bracket\_9digit}). The empirical $\lambda_0(H_{NP}) \approx 0.1330$ does NOT match this closed form.}
+
+The empirical spectral gap is:
 \begin{equation}
-\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) = 0.0891219046 > 0
+\Delta^{\text{empirical}} = 0.2221441469 - 0.1330222423 = 0.0891219046 > 0
 \end{equation}
-Therefore, \textbf{P $\neq$ NP}.
+Conditional on the empirical $\lambda_0(H_{NP})$ measurement, \textbf{P $\neq$ NP}.
 \end{theorem}
 
 \begin{proof}[Proof Strategy]
