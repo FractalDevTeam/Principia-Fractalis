@@ -117,6 +117,13 @@ import PF.SpectralBijection   -- Eigenvalue → critical line map framework
 import PF.Millennium          -- principia_fractalis_millennium_capstone
 import PF.MillenniumSixReductions -- Conditional reductions for ALL SIX Millennium problems (Ch 20-25)
 
+-- ============================================================================
+-- Consciousness: Timeless Field T_∞ (ch04, ch06)
+-- ============================================================================
+import PF.Consciousness.TimelessField  -- T_∞ projective-limit skeleton + ch_2 ≥ 0.95 crystallization
+import PF.Consciousness.ChernCharacter  -- Second Chern character ch_2 + crystallization iff (Ch 06, 07, 21, 32)
+import PF.Consciousness.FractalResonance -- Ch 03 R_f(α, s): complex-s form, |Re s > 1| convergence, α=0 → ζ, 6-class bridge
+
 /-!
 ## Principia Fractalis Formal Verification
 

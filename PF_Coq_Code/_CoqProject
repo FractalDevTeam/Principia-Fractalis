@@ -12,4 +12,7 @@ PF/Analytic/MatrixSpectrum.v
 PF/Analytic/MatrixSpectrumLevel2.v
 PF/Analytic/LogZBookNeZero.v
 PF/Analytic/PolyLogSheaf.v
+PF/Analytic/PolyLogHankelRealization.v
+PF/Analytic/TsumHankelAgreement.v
+PF/Analytic/BookEvaluationManuscript.v
 PF/MillenniumSixReductions.v
