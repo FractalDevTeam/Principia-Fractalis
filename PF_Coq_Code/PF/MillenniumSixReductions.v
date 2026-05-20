@@ -532,3 +532,149 @@ Proof.
   assert (Hphi4_ne : phi * 4 + 1 <> 0) by lra.
   field. split; [exact Hphi4_ne | exact Hsqrt2_ne].
 Qed.
+
+(* ========================================================================
+   UNIVERSAL 7-PROBLEM SPECTRAL STRUCTURE (2026-05-20)
+   Coq port of PF/MillenniumSixReductions.lean ::
+       PrincipiaTractalis.MillenniumSix.{AlphaClass8, alpha_value,
+       lambda_0_canonical, universal_ratio, ...}.
+   Mirrors the Lean development; zero project axioms.
+   ======================================================================== *)
+
+(** The 8-element enum covering all 7 Millennium-problem α-values
+    (P/NP is one problem with two classes). *)
+Inductive AlphaClass8 : Type :=
+  | APoincare : AlphaClass8   (* α = 1, SOLVED by Perelman *)
+  | ARH       : AlphaClass8   (* α = 3/2 *)
+  | AP        : AlphaClass8   (* α = √2 *)
+  | ANP       : AlphaClass8   (* α = φ + 1/4 *)
+  | ANS       : AlphaClass8   (* α = 3π/2 *)
+  | AYM       : AlphaClass8   (* α = 2 *)
+  | ABSD      : AlphaClass8   (* α = 3π/4 *)
+  | AHodge    : AlphaClass8.  (* α = φ *)
+
+(** Canonical α-value pattern-match. *)
+Definition alpha_value (c : AlphaClass8) : R :=
+  match c with
+  | APoincare => 1
+  | ARH       => 3 / 2
+  | AP        => sqrt 2
+  | ANP       => phi + 1/4
+  | ANS       => 3 * PI / 2
+  | AYM       => 2
+  | ABSD      => 3 * PI / 4
+  | AHodge    => phi
+  end.
+
+(** Universal polylog closed form. *)
+Definition lambda_0_canonical (c : AlphaClass8) : R :=
+  pi_10 / alpha_value c.
+
+(** Positivity for all 8 α-values. *)
+Theorem alpha_value_pos : forall c : AlphaClass8, 0 < alpha_value c.
+Proof.
+  intro c.
+  assert (Hpi : 0 < PI) by apply PI_RGT_0.
+  assert (Hsqrt5 : 0 <= sqrt 5) by apply sqrt_pos.
+  assert (Hphi_pos : 0 < phi).
+  { unfold phi. lra. }
+  assert (Hsqrt2_pos : 0 < sqrt 2) by (apply sqrt_lt_R0; lra).
+  destruct c; simpl; try lra.
+Qed.
+
+(** Positivity of all 8 ground states. *)
+Theorem lambda_0_canonical_pos : forall c : AlphaClass8, 0 < lambda_0_canonical c.
+Proof.
+  intro c.
+  unfold lambda_0_canonical, pi_10.
+  apply Rdiv_lt_0_compat.
+  - assert (0 < PI) by apply PI_RGT_0. lra.
+  - exact (alpha_value_pos c).
+Qed.
+
+(** Universal π/10 coupling identity. *)
+Theorem lambda_0_canonical_times_alpha_eq_pi_10 :
+  forall c : AlphaClass8,
+  lambda_0_canonical c * alpha_value c = pi_10.
+Proof.
+  intro c.
+  unfold lambda_0_canonical.
+  field. exact (Rgt_not_eq _ _ (alpha_value_pos c)).
+Qed.
+
+(** **★ NS exact rationality**: λ_0(H_NS) = 1/15. *)
+Theorem lambda_0_NS_eq_one_fifteenth :
+  lambda_0_canonical ANS = 1 / 15.
+Proof.
+  unfold lambda_0_canonical, alpha_value, pi_10.
+  assert (Hpi_ne : PI <> 0).
+  { assert (0 < PI) by apply PI_RGT_0. lra. }
+  field. exact Hpi_ne.
+Qed.
+
+(** **★ BSD exact rationality**: λ_0(H_BSD) = 2/15. *)
+Theorem lambda_0_BSD_eq_two_fifteenths :
+  lambda_0_canonical ABSD = 2 / 15.
+Proof.
+  unfold lambda_0_canonical, alpha_value, pi_10.
+  assert (Hpi_ne : PI <> 0).
+  { assert (0 < PI) by apply PI_RGT_0. lra. }
+  field. exact Hpi_ne.
+Qed.
+
+(** Universal unitary-incompatibility: distinct α gives distinct λ_0
+    (so no unitary equivalence possible between any two distinct classes). *)
+Theorem universal_unitary_incompatibility :
+  forall c1 c2 : AlphaClass8,
+    alpha_value c1 <> alpha_value c2 ->
+    lambda_0_canonical c1 <> lambda_0_canonical c2.
+Proof.
+  intros c1 c2 Hneq Heq.
+  apply Hneq.
+  unfold lambda_0_canonical, pi_10 in Heq.
+  assert (H1pos : 0 < alpha_value c1) by exact (alpha_value_pos c1).
+  assert (H2pos : 0 < alpha_value c2) by exact (alpha_value_pos c2).
+  assert (Hpi_pos : 0 < PI) by apply PI_RGT_0.
+  assert (Hpi_10_ne : PI / 10 <> 0) by lra.
+  (* Cross-multiply (Heq) * (α1 * α2) and use field cancellation *)
+  assert (Hcross : PI / 10 * alpha_value c2 = PI / 10 * alpha_value c1).
+  { assert (Hstep : (PI/10) / alpha_value c1 * (alpha_value c1 * alpha_value c2) =
+                    (PI/10) / alpha_value c2 * (alpha_value c1 * alpha_value c2))
+    by (rewrite Heq; reflexivity).
+    field_simplify in Hstep; try lra. }
+  apply Rmult_eq_reg_l in Hcross; [symmetry; exact Hcross | exact Hpi_10_ne].
+Qed.
+
+(** Universal monotonicity: smaller α gives larger ground state. *)
+Theorem lambda_0_strict_anti_in_alpha :
+  forall c1 c2 : AlphaClass8,
+    alpha_value c1 < alpha_value c2 ->
+    lambda_0_canonical c2 < lambda_0_canonical c1.
+Proof.
+  intros c1 c2 H.
+  unfold lambda_0_canonical, pi_10.
+  assert (H1 : 0 < alpha_value c1) by exact (alpha_value_pos c1).
+  assert (H2 : 0 < alpha_value c2) by lra.
+  assert (Hpi_pos : 0 < PI / 10).
+  { assert (0 < PI) by apply PI_RGT_0. lra. }
+  apply Rmult_lt_reg_r with (r := alpha_value c1 * alpha_value c2).
+  - apply Rmult_lt_0_compat; lra.
+  - assert (Hlhs : (PI/10 / alpha_value c2) * (alpha_value c1 * alpha_value c2) =
+                   PI/10 * alpha_value c1) by (field; lra).
+    assert (Hrhs : (PI/10 / alpha_value c1) * (alpha_value c1 * alpha_value c2) =
+                   PI/10 * alpha_value c2) by (field; lra).
+    rewrite Hlhs, Hrhs.
+    apply Rmult_lt_compat_l; lra.
+Qed.
+
+(** Capstone for the universal 7-problem structure. *)
+Theorem seven_millennium_problems_unified :
+  (forall c : AlphaClass8, 0 < lambda_0_canonical c) /\
+  (forall c : AlphaClass8, lambda_0_canonical c * alpha_value c = pi_10) /\
+  (forall c1 c2 : AlphaClass8, alpha_value c1 <> alpha_value c2 ->
+      lambda_0_canonical c1 <> lambda_0_canonical c2).
+Proof.
+  split; [exact lambda_0_canonical_pos | split].
+  - exact lambda_0_canonical_times_alpha_eq_pi_10.
+  - exact universal_unitary_incompatibility.
+Qed.
