@@ -1,6 +1,50 @@
 # Critical Mathematical Derivation Analysis: alpha_NP = phi + 1/4
 
-> **2026-05-18 RESOLUTION STATUS UPDATE**
+> **2026-05-20 v3.3.1 RECONCILIATION UPDATE**
+>
+> This report identified two related concerns:
+> 1. **Numerical concern**: The closed form `π(√5−1)/(30√2)` was stated
+>    in the manuscript as "matching the empirical λ_NP", but actually
+>    evaluates to ≈ 0.0915 (not 0.1330 as claimed). → **CLOSED post-v3.3.1**:
+>    the manuscript's "empirical 0.1330" was itself a pre-v3.3.1 buggy-pipeline
+>    artifact. The certified empirical is `λ_0(H_NP) = 0.1681764182230`,
+>    which exactly matches the canonical Lean closed form `π/(10(φ+1/4))`
+>    to 10⁻¹⁰. The closed form `π(√5−1)/(30√2)` was a manuscript-text
+>    typo from an earlier draft; the framework's actual closed form has
+>    always been `π/(10(φ+1/4))` (Lean source `PF/SpectralGap.lean`
+>    theorem `lambda_0_NP_precise` since v3.3.1).
+> 2. **First-principles derivation concern**: The four enumerated derivation
+>    gaps (no explicit `G_NP(z)`, no first-principles solution of the
+>    reality condition for `α_NP`, no derivation of the additive `1/4`,
+>    no formal connection between certificate-tree branching and `φ`) →
+>    **REMAIN OPEN**. These are catalogued as Problem 1 (polylog spectrum)
+>    in `OPEN_PROBLEMS.md` and encoded in the axiom
+>    `alpha_class_polylog_eigenvalue_conjecture`.
+>
+> **Net effect of v3.3.1 propagation on this report:** The report's
+> headline numerical critique (the closed form doesn't match the
+> empirical) is resolved — there was no genuine numerical mismatch,
+> only a manuscript text propagation lag. The report's deeper
+> structural critique (the value `α_NP = φ + 1/4` is asserted, not
+> rigorously derived from first principles) remains valid and is the
+> substance of the open polylog spectral conjecture. The
+> "DERIVATION_ANALYSIS gaps" the manuscript catalogues in Ch 21 Remark
+> `rem:alpha-P-NP-derivation-status` continue to enumerate those four
+> open derivation steps; only the framing changes — they are no longer
+> entangled with an "empirical-vs-closed-form" reconciliation problem
+> because that problem doesn't exist.
+>
+> **2026-05-20 propagation of v3.3.1** through the rev2 master folder
+> (Ch 03, 07, 09, 19, 20, 21, 34, 35; appendices appH; frontmatter
+> notation and `rev2_formalization_status`; backmatter glossary and
+> appendix_lexicon) and through the Lean source (deprecation banner
+> on the alt-closed-form block at `PF/MillenniumSixReductions.lean`
+> line 2492) ensures the manuscript text now matches the canonical
+> Lean values and the arXiv submission `p_neq_np_spectral.tex` (Feb 2026).
+>
+> ---
+>
+> **2026-05-18 (superseded) status update preserved for record:**
 >
 > The derivation gaps identified in this 2025-11-30 audit have been
 > systematically catalogued as open problems in the manuscript (Ch 21
@@ -8,8 +52,10 @@
 > The associated numerical errors in the closed-form λ_NP claim
 > (π(√5-1)/(30√2) ≈ 0.1330 vs actual 0.0915) have been corrected with
 > explicit disclosures across Ch 09, Ch 21, and appH (2026-05-18 audit
-> cycle). The original audit content below remains as the canonical
-> record of what was/is open.
+> cycle). [**2026-05-20 update**: the "empirical 0.1330" being mismatched
+> was itself the bug; corrected empirical is 0.1682, matching closed form.]
+> The original audit content below remains as the canonical record of
+> what was/is open.
 
 ## Executive Summary
 

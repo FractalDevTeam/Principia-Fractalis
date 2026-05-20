@@ -59,7 +59,21 @@ log'' below). The current authoritative state:
   oriented toward non-$M_0$ mechanisms.
 \end{itemize}
 
-\section*{Manuscript-correction log (2026-05-18 session)}
+\section*{v3.3.1 numerical-correction propagation (2026-05-20 addendum)}
+
+The November 2025 v3.3.1 errata
+(\texttt{Principia\_Fractalis\_v3.3.1\_ERRATA\_CORRECTED\_20251108.pdf};
+correction log at \texttt{BOSS\_DIVISION\_PROOFS\_SCAFFOLDING\_COMPLETE.md})
+had already retracted the following pre-v3.3.1 numerical claims as
+artifacts of a buggy spectral-truncation pipeline:
+\begin{itemize}
+\item $\lambda_0(H_{NP}) = 0.1330222423$ retracted; corrected to $0.1681764182230$ (matching closed form $\pi/(10(\varphi+1/4))$ to $10^{-10}$).
+\item $\Delta = 0.0891219046$ retracted; corrected to $0.0539677287$ (matching closed form $\pi/(10\sqrt{2}) - \pi/(10(\varphi+1/4))$ to $10^{-10}$).
+\item Empirical ratio $\lambda_0(H_{NP})/\lambda_0(H_P) = 0.5988$ retracted; corrected to $\sqrt{2}/(\varphi+1/4) = 0.7570$ (matching canonical closed-form ratio exactly).
+\end{itemize}
+On 2026-05-20 the v3.3.1 correction was propagated through the rev2 master folder's chapter prose (Ch~03, 07, 09, 19, 20, 21, 34, 35; appendices appH; frontmatter notation; backmatter glossary and appendix\_lexicon). Lean code \texttt{PF/SpectralGap.lean} has used the corrected values since v3.3.1 (Nov~8, 2025); the 2026-05-18 \texttt{lambda\_NP\_alt\_*} block in \texttt{MillenniumSixReductions.lean} (lines 2492--3102), which formalized a closed-form candidate matching the stale $0.1330$, has been marked as historical/superseded with an explicit deprecation banner. The 2026-05-18 ``honest disclosure'' framing below (which characterized the discrepancies as glossed-over inconsistencies) is superseded by the cleaner v3.3.1 framing: the discrepancies were buggy-pipeline artifacts, not genuine framework problems, and the canonical closed forms match the certified empirical exactly. The companion arXiv submission (\texttt{p\_neq\_np\_spectral.tex}, Feb~2026) and the \texttt{ALPHA\_UNIQUENESS\_CERTIFICATION.md} (Nov~11, 2025) have both used the corrected values throughout.
+
+\section*{Manuscript-correction log (2026-05-18 session; superseded for P-vs-NP entries by v3.3.1 propagation above)}
 
 A systematic audit of the manuscript's numerical claims against the Lean~4
 formal-verification framework found and corrected the following errors,

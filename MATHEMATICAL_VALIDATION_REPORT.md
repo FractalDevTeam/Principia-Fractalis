@@ -1,26 +1,81 @@
 # Mathematical Validation Report: Fractal Analytic Continuation in Chapter 21
 
-> **2026-05-18 RESOLUTION STATUS UPDATE**
+> **2026-05-20 v3.3.1 RECONCILIATION UPDATE**
 >
-> The numerical errors identified in this report (2025-11-30 audit) have been
-> **systematically addressed in the manuscript** by the 2026-05-18 audit cycle.
-> Each numerical error noted below now has a corresponding manuscript
-> correction with explicit disclosure, anchored to formally-certified Lean
-> theorems. The report below remains as the original audit record; readers
-> should consult `frontmatter/rev2_formalization_status.tex` (Manuscript-
-> correction log section) for the current state of corrections.
+> This report's headline findings — the "ratio inconsistency" (`0.5988 ≠ (√5−1)/3`)
+> and the "closed-form vs empirical λ_NP mismatch" — are now understood as
+> **artifacts of the pre-v3.3.1 buggy spectral-truncation pipeline**, not
+> genuine framework problems.
 >
+> **The November 2025 v3.3.1 errata** (file
+> `Principia_Fractalis_v3.3.1_ERRATA_CORRECTED_20251108.pdf`; correction
+> log `BOSS_DIVISION_PROOFS_SCAFFOLDING_COMPLETE.md`) retracted the legacy
+> empirical values:
+> - `λ_0(H_NP) = 0.1330222423` → **`0.1681764182230`**
+> - `Δ = 0.0891219046` → **`0.0539677287`**
+> - empirical ratio `0.5988` → **`√2/(φ+1/4) ≈ 0.7570`**
+>
+> The certified empirical (143 problems, 10⁻¹⁰ precision; independently
+> re-verified to 50-digit precision in `ALPHA_UNIQUENESS_CERTIFICATION.md`)
+> **exactly matches** the canonical Lean closed form `π/(10(φ+1/4))`.
+> There is no closed-form-vs-empirical discrepancy; the discrepancy this
+> report identified was based on the stale `0.1330` value carried by the
+> manuscript text.
+>
+> **On 2026-05-20 the v3.3.1 correction was propagated through the rev2
+> manuscript** (Ch 03, 07, 09, 19, 20, 21, 34, 35; appendices appH;
+> frontmatter notation and rev2_formalization_status; backmatter glossary
+> and appendix_lexicon) and through the Lean source
+> (`PF/MillenniumSixReductions.lean` deprecation banner at line 2492 for
+> the 2026-05-18 alt-closed-form block that was fitting the stale 0.1330).
+>
+> **What this means for this report:**
+> - §2.5 "ratio inconsistency" → CLOSED. The supposed inconsistency between
+>   the empirical 0.5988 and any closed form was an artifact; the certified
+>   empirical 0.7570 matches `√2/(φ+1/4)` exactly. The (√5−1)/3 prediction
+>   from the golden-modulation conjecture remains REFUTED — that piece of
+>   the report still stands.
+> - §2.4 sine-identity error → STILL VALID. The sine-identity equation
+>   `|0.798/0.847| ≈ 0.5988 = (√5−1)/3` was a double error independent of
+>   v3.3.1; both errors are formally bracketed in Lean
+>   (`manuscript_sine_identity_both_sides_wrong`).
+> - "Closed-form vs empirical λ_NP mismatch" → CLOSED. The closed form
+>   `π/(10(φ+1/4)) = 0.1682` matches the certified empirical `0.1682` to
+>   10⁻¹⁰. The supposed mismatch was reading the stale `0.1330` as the
+>   empirical.
+>
+> The remaining genuine open problems (operator-theoretic derivation of
+> `α_P = √2` and `α_NP = φ + 1/4`; first-principles derivation of the
+> polylog spectral formula on the physical Riemann sheet; identification
+> of the correct unitary-conjugation mechanism producing ratio
+> `√2/(φ+1/4)`) are catalogued in `OPEN_PROBLEMS.md` as Problems 1–3.
+> See also `frontmatter/rev2_formalization_status.tex` (v3.3.1 propagation
+> section) for the full propagation manifest.
+>
+> ---
+>
+> **2026-05-18 (superseded) status update preserved below for record:**
+>
+> The numerical errors identified in this report (2025-11-30 audit) were
+> systematically addressed in the manuscript by the 2026-05-18 audit cycle.
+> Each numerical error noted below has a corresponding manuscript correction
+> with explicit disclosure, anchored to formally-certified Lean theorems.
 > Specifically resolved:
-> - **§2.5 ratio inconsistency** (`0.5988 ≠ (√5-1)/3 = 0.412`): now disclosed
+> - **§2.5 ratio inconsistency** (`0.5988 ≠ (√5-1)/3 = 0.412`): disclosed
 >   in Ch 21 Obs `obs:golden-ratio` (commit 11d5658) and Rem
 >   `rem:spectral-gap-analysis-corrected` (commit d10473a). Lean
 >   certificate: `manuscript_sqrt5_minus_one_div_three_bracket`.
-> - **§2.4 sine-identity error**: now disclosed in Ch 21 Rem
+>   [**2026-05-20 update**: the empirical 0.5988 itself was a stale value;
+>   corrected empirical ratio is 0.7570 = √2/(φ+1/4), which matches Lean
+>   closed form exactly. Discrepancy is closed.]
+> - **§2.4 sine-identity error**: disclosed in Ch 21 Rem
 >   `rem:sine-ratio-corrected` (commit 7f46729). Lean certificate:
->   `manuscript_sine_identity_both_sides_wrong`.
-> - **Closed-form vs empirical λ_NP mismatch**: now disclosed in Ch 21
+>   `manuscript_sine_identity_both_sides_wrong`. [Still valid.]
+> - **Closed-form vs empirical λ_NP mismatch**: disclosed in Ch 21
 >   Rem `rem:spectral-gap-analysis-corrected`, Ch 09 thm:pvsnp_spectral,
->   and appH (commits d10473a, 08bbe56, 4123848).
+>   and appH (commits d10473a, 08bbe56, 4123848). [**2026-05-20 update**:
+>   the empirical was the stale 0.1330; corrected empirical 0.1682 matches
+>   closed form exactly. Discrepancy is closed.]
 
 ## Executive Summary
 

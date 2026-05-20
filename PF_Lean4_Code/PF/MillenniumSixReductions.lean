@@ -2489,7 +2489,58 @@ theorem sigma_sqrt_over_Delta_fYM_bracket :
     rw [div_lt_iff₀ h_D_pos]
     nlinarith
 
-/-! ## NEW CLOSED-FORM CANDIDATE for λ_NP/λ_P ratio (2026-05-18)
+/-! ## ⚠️ HISTORICAL — SUPERSEDED BY v3.3.1 CORRECTION (2026-05-20 deprecation notice)
+
+The block of theorems below (lines ~2517 through ~3102, covering
+`alt_ratio_candidate`, `lambda_NP_alt_closed`, `Delta_alt_closed`,
+the surd/norm/ultra-clean/three-chapter/Frobenius-norm/hierarchical
+forms of the alt candidate) was developed on 2026-05-18 to match
+the manuscript's then-stated empirical value `λ_0(H_NP) ≈ 0.1330222423`
+and corresponding spectral gap `Δ ≈ 0.0891219046`.
+
+The November 2025 v3.3.1 errata (file
+`Principia_Fractalis_v3.3.1_ERRATA_CORRECTED_20251108.pdf`; correction
+log at `BOSS_DIVISION_PROOFS_SCAFFOLDING_COMPLETE.md`) had ALREADY
+retracted those values as artifacts of a pre-v3.3.1 buggy spectral-truncation
+pipeline. The correct certified empirical values are
+  λ_0(H_NP) = 0.1681764182295... (matches π/(10(φ+1/4)) to 10⁻¹⁰)
+  Δ        = 0.0539677286783... (matches π/(10√2) − π/(10(φ+1/4)) to 10⁻¹⁰)
+and the canonical closed form `λ_0(H_NP) = π/(10(φ+1/4))` (formalized in
+`PF/SpectralGap.lean` as `lambda_0_NP_precise`) matches the certified
+empirical exactly. The 2026-05-18 work below was therefore fitting a
+typographic artifact in the manuscript text rather than physics.
+
+The 2026-05-18 manuscript-correction pass propagating v3.3.1 through
+Ch 21 prose (commit pending, 2026-05-20) restored the canonical closed
+form `π/(10(φ+1/4))` as the chapter's only physical prediction. The
+manuscript no longer cites any of the `alt_*` / `_alt` theorems below.
+
+⚠️ STATUS OF THE BLOCK BELOW:
+  • The algebraic identities are mathematically VALID
+    (e.g. (2√2+√5)(2√2−√5) = 3 in ℚ(√2,√5) — `two_sqrt2_plus_sqrt5_norm`;
+    `alt_ratio = (α_YM + α_P − α_Hodge)/3` — `alt_ratio_three_chapter_form`;
+    `Δ_alt = π(φ²−√2)/(30√2)` — `Delta_alt_eq_phi_squared_form`;
+    etc.). They are retained as machine-checked Lean theorems about pure
+    algebra over ℚ(√2,√5,φ).
+  • The PHYSICAL INTERPRETATION of `lambda_NP_alt_closed` as "the candidate
+    closed form for λ_0(H_NP)" and of `Delta_alt_closed` as "the candidate
+    closed form for Δ" is RETRACTED. These quantities are NOT the framework's
+    predictions for the operator eigenvalues.
+  • `lambda_NP_alt_matches_empirical`, `lambda_NP_alt_sharper_than_golden`,
+    `Delta_alt_matches_empirical`, `Delta_alt_sharper_than_golden` proved
+    closeness to the legacy stale value `0.1330` / `0.0891`. They remain
+    arithmetically true (the alt candidate IS close to those stale numbers)
+    but the "matches empirical" claim no longer holds against the corrected
+    empirical `0.168` / `0.054`.
+
+Do NOT cite this block as a candidate closed-form for `λ_0(H_NP)`.
+The canonical closed form is `π/(10(φ+1/4))` (see `lambda_0_NP_precise`
+in `PF/SpectralGap.lean`).
+
+(End historical-deprecation banner; original development notes follow.)
+
+────────────────────────────────────────────────────────────────────────
+ORIGINAL 2026-05-18 NOTES (preserved for record):
 
 The author's 2025-11-30 MATHEMATICAL_VALIDATION_REPORT.md (§3) noted:
   "The empirical ratio 0.5988 is best approximated by:
@@ -2505,10 +2556,13 @@ that the implied λ_NP closed form
   `λ_NP_alt := π/(10√2) · (2+√2-φ)/3 = π(2+√2-φ)/(30√2)`
 matches the empirical λ_NP ≈ 0.1330 to ~4 decimal places.
 
+[NOTE 2026-05-20: the empirical "0.1330" cited above was the pre-v3.3.1
+stale value. The actual certified empirical is 0.168. See banner above.]
+
 This is NOT a first-principles derivation — it's a better
-numerical-coincidence candidate. But unlike the golden-modulation closed
-form which fails to match the empirical value, this candidate at least
-reproduces the empirical measurement.
+numerical-coincidence candidate. [NOTE 2026-05-20: now refuted as a
+"better" candidate; the canonical π/(10(φ+1/4)) matches the corrected
+empirical exactly.]
 
 The structural elements (2, √2, φ, /3) combine the manuscript's
 emphasized constants: integer scaling (2), P-class dimension (√2),

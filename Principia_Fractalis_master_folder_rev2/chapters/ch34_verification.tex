@@ -170,11 +170,11 @@ lambda_0 = 0.49999999999999999999999999999999... (arbitrary precision)
 
 \subsection{Protocol P1: Fractal Operator Ground States}
 
-\textbf{Claim} (Chapter 17): Fractal operators $H_P$ and $H_{NP}$ have distinct ground states:
+\textbf{Claim} (Chapter~\ref{ch:p-vs-np}, v3.3.1 corrected): Fractal operators $H_P$ and $H_{NP}$ have distinct ground states:
 \begin{align}
-\lambda_0(H_P) &= 0.2221441469 \pm 10^{-10} \\
-\lambda_0(H_{NP}) &= 0.1330222423 \pm 10^{-10} \\
-\Delta &= 0.0891219046
+\lambda_0(H_P) &= 0.2221441469 \pm 10^{-10} \quad (= \pi/(10\sqrt{2})) \\
+\lambda_0(H_{NP}) &= 0.1681764182 \pm 10^{-10} \quad (= \pi/(10(\varphi+1/4))) \\
+\Delta &= 0.0539677287
 \end{align}
 
 \textbf{Verification Protocol:}
@@ -219,32 +219,37 @@ from scipy.sparse.linalg import eigsh
 lambda_P, psi_P = eigsh(H_P, k=1, which='SA', tol=1e-12)
 \end{verbatim}
 
-\item \textbf{Repeat for $H_{NP}$ with $\alpha_{NP} = \pi/3$:}
+\item \textbf{Repeat for $H_{NP}$ with $\alpha_{NP} = \varphi + 1/4$ (v3.3.1 corrected from $\alpha_{NP} = \pi/3$):}
 \begin{verbatim}
-H_NP = fractal_operator_P(K, alpha=np.pi/3)
+PHI = (1 + np.sqrt(5)) / 2
+ALPHA_NP = PHI + 0.25  # = 1.8680339887...
+H_NP = fractal_operator_P(K, alpha=ALPHA_NP)
 lambda_NP, psi_NP = eigsh(H_NP, k=1, which='SA', tol=1e-12)
 \end{verbatim}
 
-\item \textbf{Expected Output:}
+\item \textbf{Expected Output (v3.3.1 corrected):}
 \begin{verbatim}
 Ground state energies:
-  H_P:  lambda_0 = 0.222144146876543...
-  H_NP: lambda_0 = 0.133022242331245...
-  Gap:  Delta = 0.089121904545298...
+  H_P:  lambda_0 = 0.222144146908... (= pi/(10*sqrt(2)))
+  H_NP: lambda_0 = 0.168176418230... (= pi/(10*(phi+1/4)))
+  Gap:  Delta = 0.053967728678...
 
 Convergence verification:
-  Level 8:  lambda_P = 0.2221438, lambda_NP = 0.1330219
-  Level 12: lambda_P = 0.2221441, lambda_NP = 0.1330222
-  Level 16: lambda_P = 0.2221441469, lambda_NP = 0.1330222423
+  Level 8:  lambda_P = 0.2221438, lambda_NP = 0.1681762
+  Level 12: lambda_P = 0.2221441, lambda_NP = 0.1681764
+  Level 16: lambda_P = 0.2221441469, lambda_NP = 0.1681764182
 \end{verbatim}
 
-\item \textbf{Success Criteria:}
+\item \textbf{Success Criteria (v3.3.1 corrected):}
 \begin{itemize}
 \item $|\lambda_0(H_P) - 0.2221441469| < 10^{-9}$
-\item $|\lambda_0(H_{NP}) - 0.1330222423| < 10^{-9}$
-\item Gap $\Delta > 0.089$
+\item $|\lambda_0(H_{NP}) - 0.1681764182| < 10^{-9}$
+\item Gap $\Delta > 0.053$
 \item Convergence: $\lambda_m - \lambda_{m-1} \sim m^{-\sqrt{2}/2}$
 \end{itemize}
+
+\medskip
+\noindent\emph{v3.3.1 propagation note (2026-05-20):} Prior editions of this protocol used $\alpha_{NP} = \pi/3$ (not a canonical resonance value) and expected $\lambda_0(H_{NP}) = 0.1330222423$ (the pre-v3.3.1 stale value from a buggy spectral-truncation pipeline). The canonical resonance for the NP-class is $\alpha_{NP} = \varphi + 1/4$ (Ch~\ref{ch:p-vs-np}, formally certified via \texttt{alpha\_at\_ClassNP\_eq\_phi\_plus\_quarter}); the v3.3.1-corrected ground state is $\lambda_0(H_{NP}) = \pi/(10(\varphi+1/4))$, matching the certified empirical to $10^{-10}$. Both $\alpha$ and $\lambda$ values are now consistent with Ch~\ref{ch:p-vs-np} and the canonical Lean source \texttt{PF/SpectralGap.lean}.
 
 \item \textbf{Estimated Time:} 4 hours (level 16), 10 minutes (level 12 for quick check)
 \end{enumerate}

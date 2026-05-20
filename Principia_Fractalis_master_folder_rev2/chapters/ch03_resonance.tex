@@ -272,16 +272,15 @@ This remarkable connection means that studying $R_f(3/2, s)$ is equivalent to st
 
 \begin{theorem}[Complexity Separation]\index{P vs NP!spectral gap}
 \label{thm:complexity-gap}
-The fractal resonance function at different complexity-related frequencies exhibits spectral gaps:
+The fractal resonance function at different complexity-related frequencies exhibits spectral gaps (v3.3.1 corrected, see Ch~\ref{ch:p-vs-np} for derivation):
 \begin{align}
-\text{At } \alpha = \sqrt{2}: \quad &\Delta_P = 0.0891219046 \\
-\text{At } \alpha = \phi + 1/4: \quad &\Delta_{NP} = 0.1337359842
+\lambda_0(H_P) = \pi/(10\sqrt{2}) &\approx 0.2221441469 \\
+\lambda_0(H_{NP}) = \pi/(10(\varphi + 1/4)) &\approx 0.1681764182 \\
+\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) &\approx 0.0539677287
 \end{align}
 
-The gap separation is:
-\begin{equation}
-\Delta_{NP} - \Delta_P = 0.0446140796
-\end{equation}
+\medskip
+\noindent\textbf{Numerical correction (v3.3.1 propagated 2026-05-20):} Prior editions cited $\Delta_P = 0.0891219046$ and $\Delta_{NP} = 0.1337359842$ as the P/NP gap pair; these were artifacts of the pre-v3.3.1 buggy spectral-truncation pipeline. The corrected canonical form is the single spectral gap $\Delta = \pi/(10\sqrt{2}) - \pi/(10(\varphi+1/4)) \approx 0.0539677287$ between the operators $H_P$ and $H_{NP}$, formally certified at \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean} (theorem \texttt{spectral\_gap\_value}).
 
 This irreducible gap provides evidence for $P \neq NP$.
 \end{theorem}

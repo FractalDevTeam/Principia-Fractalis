@@ -356,24 +356,28 @@ Asymptotic freedom predicts:
 \alpha_s(Q^2) = \frac{12\pi}{(33-2N_f)\ln(Q^2/\Lambda_{\text{QCD}}^2)}
 \end{equation}
 
-\begin{conjecture}[QCD Scale from Fractal Resonance]\label{conj:qcd-scale}
+\begin{conjecture}[QCD Scale from Fractal Resonance --- requires reformulation post-v3.3.1]\label{conj:qcd-scale}
 \begin{equation}
-\boxed{\Lambda_{\text{QCD}} = M_{\text{Planck}} \cdot \exp\left[ -\frac{\pi}{\Delta} \right]}
+\boxed{\Lambda_{\text{QCD}} \stackrel{?}{=} M_{\text{Planck}} \cdot \exp\left[ -\frac{\pi}{\Delta} \right]}
 \end{equation}
-where $\Delta = 0.0891\ldots$ is the universal fractal constant.
+where $\Delta$ was originally claimed as the P~vs~NP spectral gap.
 \end{conjecture}
 
-\textbf{Calculation}:
+\textbf{Historical calculation (stale Δ value, retracted)}:
 \begin{align}
-\Lambda_{\text{QCD}} &= 1.22 \times 10^{19} \, \text{GeV} \cdot \exp\left[ -\frac{3.1416}{0.0891} \right]\\
-&= 1.22 \times 10^{19} \, \text{GeV} \cdot \exp[-35.26]\\
-&\approx 1.22 \times 10^{19} \, \text{GeV} \cdot 2.9 \times 10^{-16}\\
+\Lambda_{\text{QCD}}^{\text{(stale)}} &= 1.22 \times 10^{19} \, \text{GeV} \cdot \exp\left[ -\frac{3.1416}{0.0891} \right]\\
+&\approx 1.22 \times 10^{19} \, \text{GeV} \cdot \exp[-35.26]\\
 &\approx 350 \, \text{MeV}
 \end{align}
 
-Observed value: $\Lambda_{\text{QCD}} \approx 200$--$400$ MeV. Excellent agreement!
+\medskip
+\noindent\textbf{v3.3.1 propagation status (2026-05-20).} This calculation used the pre-v3.3.1 stale spectral gap $\Delta \approx 0.0891$ which has been retracted. The v3.3.1-corrected P~vs~NP spectral gap is $\Delta = 0.0539677287$ (Ch~\ref{ch:p-vs-np}, Theorem~\ref{thm:spectral-gap}). Substituting the corrected value into the conjectured formula yields
+\[
+\Lambda_{\text{QCD}}^{\text{(corrected $\Delta$)}} = 1.22 \times 10^{19} \, \text{GeV} \cdot \exp\left[ -\frac{\pi}{0.0540} \right] \approx 1.22 \times 10^{19} \, \text{GeV} \cdot \exp[-58.18] \approx 6.6 \times 10^{-7} \, \text{GeV} = 660 \, \text{eV},
+\]
+which does NOT match the observed $\Lambda_{\text{QCD}} \approx 200$--$400$ MeV. The conjecture in its stated form is therefore REFUTED by the v3.3.1 corrected $\Delta$; the previous agreement was an artifact of the stale value. The conjectured connection between $\Lambda_{\text{QCD}}$ and the P/NP spectral gap requires reformulation (likely via a different fractal constant or a different functional form). This is recorded as an open problem; the Ch~\ref{ch:p-vs-np} canonical $\Delta = 0.054$ is the authoritative value.
 
-This is not a coincidence. The QCD scale is where fractal resonance becomes strong, leading to confinement.
+This is not a coincidence. The QCD scale is where fractal resonance becomes strong, leading to confinement~--- but the precise connection to the P/NP spectral gap (rather than some other fractal-resonance quantity) is open.
 
 \section{Unification of Forces}
 
@@ -424,7 +428,7 @@ Estimate the consciousness charge $Q_C$ for a solar-mass black hole assuming it 
 \end{exercise}
 
 \begin{exercise}
-Verify the calculation in Section 15.5.2: Show that $\Lambda_{\text{QCD}} \approx 350$ MeV using $\Delta = 0.0891$.
+(v3.3.1 historical exercise.) Verify that the legacy calculation in the QCD scale conjecture, $\Lambda_{\text{QCD}}^{\text{(stale)}} = M_{\text{Planck}} \cdot \exp[-\pi/\Delta]$ with the pre-v3.3.1 stale $\Delta = 0.0891$, yields $\Lambda_{\text{QCD}} \approx 350$~MeV (matching observation). Then verify that the v3.3.1-corrected $\Delta = 0.0540$ yields $\Lambda_{\text{QCD}} \approx 660$~eV (NOT matching observation), demonstrating that the conjecture in its stated form was an artifact of the stale value and requires reformulation.
 \end{exercise}
 
 \begin{exercise}
