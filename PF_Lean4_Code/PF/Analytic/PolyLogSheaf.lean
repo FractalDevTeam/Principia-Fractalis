@@ -85,12 +85,13 @@ import Mathlib.Topology.Sheaves.SheafOfFunctions
 import Mathlib.Topology.Sheaves.Sheaf
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Analysis.Analytic.Basic
+import Mathlib.Data.Real.Irrational
 import PF.Analytic.Polylog
 import PF.Analytic.EigenvalueIdentity
 
 namespace PrincipiaTractalis.Analytic.Sheaf
 
-open Complex Topology TopologicalSpace
+open Complex Topology TopologicalSpace PrincipiaTractalis.Analytic
 
 /-! ## Stage 1: The slit plane as an open subset of ℂ -/
 
@@ -117,14 +118,42 @@ theorem U_slit_isOpen : IsOpen U_slit := by
 
 /-- `z_book = exp(I·π·√2) ∈ U_slit`.
 
-    The proof requires showing z_book is not on the cut [1, ∞) and not at 0.
-    Not at 0: by `z_book_ne_zero`.
-    Not on the cut: would require `sin(π√2) ≠ 0`, which follows from
-    irrationality of √2 (similar to `z_book_ne_one`). The full proof
-    requires `Real.sin_eq_zero_iff` + integer-vs-irrational contradiction.
-
-    Declared as a target Prop; companion proof in followup. -/
-def z_book_mem_U_slit_target : Prop := z_book ∈ U_slit
+    The proof: z_book is not at 0 (by `z_book_ne_zero`) and not on the cut
+    [1, ∞) because z_book.im = sin(π·√2) ≠ 0 (since √2 is irrational, no
+    integer n satisfies n·π = π·√2, so by `Real.sin_eq_zero_iff` the sine
+    is nonzero). -/
+theorem z_book_mem_U_slit_target : z_book ∈ U_slit := by
+  unfold U_slit BranchCut
+  simp only [Set.mem_compl_iff, Set.mem_union, Set.mem_setOf_eq, Set.mem_singleton_iff,
+             not_or, not_and, not_le]
+  refine ⟨?_, z_book_ne_zero⟩
+  -- Goal: z_book.im = 0 → z_book.re < 1
+  -- Strategy: prove z_book.im ≠ 0, derive False from h_im, then anything.
+  intro h_im
+  exfalso
+  apply absurd h_im
+  -- Show z_book.im ≠ 0
+  unfold z_book
+  rw [show (I * (Real.pi : ℂ) * (Real.sqrt 2 : ℂ)) =
+        ((Real.pi * Real.sqrt 2 : ℝ) : ℂ) * I from by push_cast; ring]
+  rw [Complex.exp_im]
+  simp only [Complex.mul_re, Complex.mul_im, Complex.I_re, Complex.I_im,
+             Complex.ofReal_re, Complex.ofReal_im]
+  ring_nf
+  simp only [Real.exp_zero, one_mul]
+  intro h_sin
+  -- h_sin : Real.sin (π · √2) = 0
+  rw [Real.sin_eq_zero_iff] at h_sin
+  obtain ⟨n, hn⟩ := h_sin
+  -- hn : (n : ℝ) * π = π * √2
+  have h_pi_ne : (Real.pi : ℝ) ≠ 0 := Real.pi_ne_zero
+  have h_sqrt2 : Real.sqrt 2 = (n : ℝ) := by
+    have h_swap : (n : ℝ) * Real.pi = Real.sqrt 2 * Real.pi := by linarith [hn]
+    have := mul_right_cancel₀ h_pi_ne h_swap
+    linarith
+  have h_irr : Irrational (Real.sqrt 2) := irrational_sqrt_two
+  apply h_irr
+  exact ⟨(n : ℤ), by push_cast; exact h_sqrt2.symm⟩
 
 /-! ## Stage 2: The polylog sheaf — abstract statement
 
