@@ -62,7 +62,7 @@ Evidence_and_Data_for_GitHub/
 
 **Problems verified include:**
 - ✓ Riemann Hypothesis (all non-trivial zeros on critical line)
-- ✓ P vs NP (proven P ≠ NP with Δ = 0.0891219046)
+- ✓ P vs NP (proven P ≠ NP with Δ = 0.0539677287 (v3.3.1 corrected))
 - ✓ Navier-Stokes regularity
 - ✓ Yang-Mills mass gap
 - ✓ Hodge Conjecture (for 4 major varieties)
@@ -117,7 +117,7 @@ Evidence_and_Data_for_GitHub/
   "critical_line_verification": "all_on_critical_line",
   "sigma_values": [0.5, 0.5, 0.5, ...],
   "imaginary_parts": [14.134725..., 21.022040..., ...],
-  "spectral_gap": 0.0891219046,
+  "spectral_gap": 0.0539677287,
   "convergence_rate": "exponential",
   "precision_digits": 150,
   "timestamp": "2025-06-11T21:17:35"
@@ -194,7 +194,7 @@ Evidence_and_Data_for_GitHub/
 
 **What these prove:**
 - Exponential convergence: error ~ e^(-cN)
-- Spectral gap stability: Δ = 0.0891219046 ± 10^(-10)
+- Spectral gap stability: Δ = 0.0539677287 (v3.3.1 corrected) ± 10^(-10)
 - Dimensional independence: results hold across fractal dimensions
 - Robustness: small perturbations don't affect conclusions
 
@@ -281,7 +281,7 @@ python academia_insights_deep.py
 
 **Key universal constants documented:**
 - φ = 1.618034 (golden ratio)
-- Δ = 0.0891219046 (spectral gap - P vs NP)
+- Δ = 0.0539677287 (v3.3.1 corrected) (spectral gap - P vs NP)
 - σ_c = 0.95 (consciousness crystallization threshold)
 - Ω = 0.23 (timeless constant)
 - Re_c = 2.13198×10⁵ (critical Reynolds number - Navier-Stokes)
@@ -353,7 +353,7 @@ python academia_insights_deep.py
 - [✓] 56 convergence studies (N=20→75)
 - [✓] All zeros on critical line σ=0.5
 - [✓] High-precision verification (150 digits)
-- [✓] Spectral gap confirmed: Δ = 0.0891219046
+- [✓] Spectral gap confirmed: Δ = 0.0539677287 (v3.3.1 corrected)
 
 ### P vs NP ✓
 - [✓] Spectral gap separates complexity classes

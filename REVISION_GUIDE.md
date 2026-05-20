@@ -29,7 +29,7 @@ The 2026-04-26 verification pass found that with the operator and inner product 
 
 - §2.2: For Li_1, monodromy shifts are purely imaginary — cannot move the principal-branch real part from −0.465 to +0.222
 - §2.4: Sine identity is numerically false (0.933 vs claimed 0.412)
-- §2.5: Eigenvalue ratio inconsistent (empirical 0.5988 vs claimed (√5−1)/3 = 0.412)
+- §2.5: Eigenvalue ratio inconsistent (claimed (√5−1)/3 = 0.412 vs (legacy) empirical 0.5988) — **CLOSED by v3.3.1 (2026-05-20 propagation)**: the legacy 0.5988 empirical was a buggy-pipeline artifact; certified empirical ratio is √2/(φ+1/4) ≈ 0.7570, matching the canonical Lean closed form exactly. The (√5−1)/3 prediction remains REFUTED. See `MATHEMATICAL_VALIDATION_REPORT.md` v3.3.1 reconciliation header.
 
 **Recommended action**: Either adopt `Evidence_and_Data_for_GitHub/fractal_continuation_derivation.py`'s numerical fix (s ≈ 0.182, m = −1 in the Jonquières expansion) and revise the chapter accordingly, or demote Theorem 20.2 to a Conjecture.
 

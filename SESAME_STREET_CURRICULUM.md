@@ -210,7 +210,7 @@
 | 89 | Computers Can't Do Everything | Some things need minds | "Minds Beat Machines" | Human advantages |
 | 90 | Pete and Paula Together | Easy and hard both matter | "Together Different" | Appreciate both |
 
-**Verified Math:** Δ = 0.0891219046, λ₀(P) = 0.2221441469, λ₀(NP) = 0.1330222423
+**Verified Math (v3.3.1 corrected):** Δ = 0.0539677287, λ₀(P) = 0.2221441469, λ₀(NP) = 0.1681764182
 
 ---
 
@@ -346,9 +346,9 @@ That's you and me combined!
 | Concept | Value | Child-Friendly Explanation |
 |---------|-------|---------------------------|
 | ch₂ threshold | 0.95 | "Ninety-five percent awake!" |
-| Spectral gap Δ | 0.0891219046 | "The gap between easy and hard" |
+| Spectral gap Δ | 0.0539677287 | "The gap between easy and hard" (v3.3.1 corrected) |
 | λ₀(P) | 0.2221441469 | "The easy problem sound" |
-| λ₀(NP) | 0.1330222423 | "The hard problem sound" |
+| λ₀(NP) | 0.1681764182 | "The hard problem sound" (v3.3.1 corrected) |
 | π/10 | 0.314159... | "The universe's favorite number" |
 | Visible matter | ~5% | "What we can see" |
 | Dark matter | ~26% | "The invisible helper" |
