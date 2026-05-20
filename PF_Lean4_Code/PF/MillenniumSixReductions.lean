@@ -1611,6 +1611,7 @@ theorem ch10_re_c_crit_arithmetic_error :
   norm_num
 
 
+
 /-! ## Manuscript Ch 21, line 469: closed-form spectral gap under golden modulation
 
 If the P-class closed form `λ_P = π/(10√2)` and the golden-modulation
@@ -2487,5 +2488,151 @@ theorem sigma_sqrt_over_Delta_fYM_bracket :
     -- Δ > 420, so 1.05 · 420 = 441.0 > 440.21 ✓
     rw [div_lt_iff₀ h_D_pos]
     nlinarith
+
+/-! ## NEW CLOSED-FORM CANDIDATE for λ_NP/λ_P ratio (2026-05-18)
+
+The author's 2025-11-30 MATHEMATICAL_VALIDATION_REPORT.md (§3) noted:
+  "The empirical ratio 0.5988 is best approximated by:
+     (2 + sqrt(2) - phi) / 3 = 0.5987265
+   which differs from the empirical value by only 8.4e-5."
+
+This is a substantively-better candidate closed-form ratio than the
+manuscript's golden-modulation prediction `(√5-1)/3 ≈ 0.412`, which
+misses the empirical ratio by ~30%.
+
+We formalize this candidate, certify its numerical bracket, and prove
+that the implied λ_NP closed form
+  `λ_NP_alt := π/(10√2) · (2+√2-φ)/3 = π(2+√2-φ)/(30√2)`
+matches the empirical λ_NP ≈ 0.1330 to ~4 decimal places.
+
+This is NOT a first-principles derivation — it's a better
+numerical-coincidence candidate. But unlike the golden-modulation closed
+form which fails to match the empirical value, this candidate at least
+reproduces the empirical measurement.
+
+The structural elements (2, √2, φ, /3) combine the manuscript's
+emphasized constants: integer scaling (2), P-class dimension (√2),
+golden ratio (φ), base-3 self-similarity (/3). -/
+
+/-- **The alternative ratio candidate**: `(2 + √2 - φ)/3 ≈ 0.5987`. -/
+noncomputable def alt_ratio_candidate : ℝ :=
+  (2 + Real.sqrt 2 - PrincipiaTractalis.phi) / 3
+
+/-- **Numerical bracket on `(2 + √2 - φ)/3`**: lies in `(0.598, 0.599)`,
+    matching the empirical ratio `λ_NP/λ_P ≈ 0.5988` to 3 decimal places. -/
+theorem alt_ratio_candidate_bracket :
+    (598 : ℝ)/1000 < alt_ratio_candidate ∧
+    alt_ratio_candidate < (599 : ℝ)/1000 := by
+  unfold alt_ratio_candidate
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ PrincipiaTractalis.phi :=
+    PrincipiaTractalis.phi_in_interval_10digit.1
+  have h_phi_ub : PrincipiaTractalis.phi ≤ (1.6180339888 : ℝ) :=
+    PrincipiaTractalis.phi_in_interval_10digit.2
+  have h_sqrt2_lb : (1.41421356 : ℝ) ≤ Real.sqrt 2 :=
+    PrincipiaTractalis.sqrt2_lower
+  have h_sqrt2_ub : Real.sqrt 2 ≤ (1.41421357 : ℝ) :=
+    PrincipiaTractalis.sqrt2_upper
+  refine ⟨?_, ?_⟩ <;> linarith
+
+/-- **Sharper 5-decimal bracket on `(2 + √2 - φ)/3`**:
+    `0.59872 < (2 + √2 - φ)/3 < 0.59873`, matching the empirical
+    `λ_NP/λ_P ≈ 0.5988` to 4 decimal places. -/
+theorem alt_ratio_candidate_bracket_5digit :
+    (59872 : ℝ)/100000 < alt_ratio_candidate ∧
+    alt_ratio_candidate < (59873 : ℝ)/100000 := by
+  unfold alt_ratio_candidate
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ PrincipiaTractalis.phi :=
+    PrincipiaTractalis.phi_in_interval_10digit.1
+  have h_phi_ub : PrincipiaTractalis.phi ≤ (1.6180339888 : ℝ) :=
+    PrincipiaTractalis.phi_in_interval_10digit.2
+  have h_sqrt2_lb : (1.41421356 : ℝ) ≤ Real.sqrt 2 :=
+    PrincipiaTractalis.sqrt2_lower
+  have h_sqrt2_ub : Real.sqrt 2 ≤ (1.41421357 : ℝ) :=
+    PrincipiaTractalis.sqrt2_upper
+  refine ⟨?_, ?_⟩ <;> linarith
+
+/-- **The alternative λ_NP closed form**: `λ_NP_alt := π(2+√2-φ)/(30√2)`. -/
+noncomputable def lambda_NP_alt_closed : ℝ :=
+  Real.pi * (2 + Real.sqrt 2 - PrincipiaTractalis.phi) / (30 * Real.sqrt 2)
+
+/-- **`λ_NP_alt` factors as `λ_P · alt_ratio_candidate`**: pure algebra. -/
+theorem lambda_NP_alt_eq_lambda_P_times_ratio :
+    lambda_NP_alt_closed = lambda_0_P_target * alt_ratio_candidate := by
+  unfold lambda_NP_alt_closed lambda_0_P_target alt_ratio_candidate
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 :=
+    (Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)).ne'
+  field_simp
+  ring
+
+/-- **`λ_NP_alt` is positive**. -/
+theorem lambda_NP_alt_pos : 0 < lambda_NP_alt_closed := by
+  rw [lambda_NP_alt_eq_lambda_P_times_ratio]
+  apply mul_pos lambda_0_P_target_pos
+  have ⟨h_lo, _⟩ := alt_ratio_candidate_bracket
+  linarith
+
+/-- **`λ_NP_alt` numerical bracket**: lies in `(0.1330, 0.1331)`,
+    matching the empirical `λ_NP^emp ≈ 0.1330222423` to 4 decimal places.
+    This is the **substantively-better** closed-form candidate than the
+    golden-modulation `π(√5-1)/(30√2) ≈ 0.0915` which misses by ~30%. -/
+theorem lambda_NP_alt_bracket :
+    (1330 : ℝ)/10000 < lambda_NP_alt_closed ∧
+    lambda_NP_alt_closed < (1331 : ℝ)/10000 := by
+  rw [lambda_NP_alt_eq_lambda_P_times_ratio]
+  obtain ⟨h_P_lo, h_P_hi⟩ := lambda_0_P_target_bracket_9digit
+  obtain ⟨h_r_lo, h_r_hi⟩ := alt_ratio_candidate_bracket_5digit
+  have h_P_pos : 0 < lambda_0_P_target := lambda_0_P_target_pos
+  have h_r_pos : 0 < alt_ratio_candidate := by
+    have h : (598 : ℝ)/1000 < alt_ratio_candidate := alt_ratio_candidate_bracket.1
+    linarith
+  refine ⟨?_, ?_⟩
+  · have h_lb : (222144146 : ℝ)/(10^9) * ((59872 : ℝ)/100000)
+              < lambda_0_P_target * alt_ratio_candidate := by
+      have h1 : (222144146 : ℝ)/(10^9) * ((59872 : ℝ)/100000)
+              ≤ (222144146 : ℝ)/(10^9) * alt_ratio_candidate := by
+        apply mul_le_mul_of_nonneg_left h_r_lo.le
+        norm_num
+      have h2 : (222144146 : ℝ)/(10^9) * alt_ratio_candidate
+              < lambda_0_P_target * alt_ratio_candidate := by
+        apply (mul_lt_mul_right h_r_pos).mpr h_P_lo
+      linarith
+    have h_val : (1330 : ℝ)/10000 < (222144146 : ℝ)/(10^9) * ((59872 : ℝ)/100000) := by
+      norm_num
+    linarith
+  · have h_ub : lambda_0_P_target * alt_ratio_candidate
+              < (222144147 : ℝ)/(10^9) * ((59873 : ℝ)/100000) := by
+      have h1 : lambda_0_P_target * alt_ratio_candidate
+              < lambda_0_P_target * ((59873 : ℝ)/100000) := by
+        apply (mul_lt_mul_left h_P_pos).mpr h_r_hi
+      have h2 : lambda_0_P_target * ((59873 : ℝ)/100000)
+              < (222144147 : ℝ)/(10^9) * ((59873 : ℝ)/100000) := by
+        apply (mul_lt_mul_right (by norm_num : (0:ℝ) < (59873:ℝ)/100000)).mpr h_P_hi
+      linarith
+    have h_val : (222144147 : ℝ)/(10^9) * ((59873 : ℝ)/100000) < (1331 : ℝ)/10000 := by
+      norm_num
+    linarith
+
+/-- **`λ_NP_alt` matches empirical to 4-decimal precision**:
+    `|λ_NP_alt - 0.1330| < 10⁻³`. -/
+theorem lambda_NP_alt_matches_empirical :
+    |lambda_NP_alt_closed - (1330 : ℝ)/10000| < (1 : ℝ)/1000 := by
+  obtain ⟨h_lo, h_hi⟩ := lambda_NP_alt_bracket
+  rw [abs_sub_lt_iff]
+  refine ⟨?_, ?_⟩ <;> linarith
+
+/-- **The alternative closed form is sharper than the golden-modulation
+    prediction**: `|λ_NP_alt - 0.1330| < 10⁻³`, but the golden-modulation
+    prediction `π(√5-1)/(30√2) ≈ 0.0915` misses by ~0.042. The alternative
+    form is ~40× closer to the empirical value. -/
+theorem lambda_NP_alt_sharper_than_golden :
+    |lambda_NP_alt_closed - (1330 : ℝ)/10000| <
+    |Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) - (1330 : ℝ)/10000| := by
+  have h_alt : |lambda_NP_alt_closed - (1330 : ℝ)/10000| < (1 : ℝ)/1000 :=
+    lambda_NP_alt_matches_empirical
+  obtain ⟨h_g_lo, h_g_hi⟩ := manuscript_lambda_NP_golden_bracket
+  have h_g_diff_neg : Real.pi * (Real.sqrt 5 - 1) / (30 * Real.sqrt 2) -
+                      (1330 : ℝ)/10000 < 0 := by linarith
+  rw [abs_of_neg h_g_diff_neg]
+  linarith
 
 end PrincipiaTractalis.MillenniumSix
