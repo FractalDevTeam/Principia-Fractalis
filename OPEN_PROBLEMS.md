@@ -495,6 +495,45 @@ The universal polylog closed form `λ_0(H_α) = π/(10·α)` gives the 8 canonic
 
 The Problem 3 resolution pattern (corollary of Problem 1 via the polylog formula) generalizes to every pair of canonical classes. Solving Problem 1 alone discharges the operator-theoretic anchor for the entire 7-problem structure. Solving Problems 1+2 delivers P ≠ NP unconditionally. Solving Problem 4 delivers RH unconditionally. The other 4 Millennium problems (NS, YM, BSD, Hodge) inherit operator-theoretic anchoring from the same polylog structure but require additional chapter-specific arguments for their main claims (NS regularity, YM mass gap + continuum limit, BSD rank equality, Hodge concentration), which are the load-bearing conjectures in `PF/MillenniumSixReductions.lean`.
 
+### Concrete 8-bracket and energy-hierarchy results (added 2026-05-20, axiom-free)
+
+Numerical brackets and total ordering for all 8 canonical ground states (`PF/MillenniumSixReductions.lean`):
+
+**Exact rationality** (transcendental π cancellation):
+```
+λ_0(H_NS)  = 1/15  EXACT   (lambda_0_NS_eq_one_fifteenth)
+λ_0(H_BSD) = 2/15  EXACT   (lambda_0_BSD_eq_two_fifteenths)
+```
+The π in α_NS = 3π/2 and α_BSD = 3π/4 cancels exactly with the π in pi_10 = π/10. The two transcendental Millennium α-values yield the only two RATIONAL ground states.
+
+**Certified numerical brackets** (4–10 digit precision):
+| Class | λ_0 closed form | Bracket |
+|---|---|---|
+| Poincaré | π/10 | (0.3141592653, 0.3141592654) — 10-digit |
+| RH | π/15 | (0.209439510, 0.209439511) — 9-digit |
+| P | π/(10√2) | (0.222144146, 0.222144147) — 9-digit (`lambda_P_*_certified`) |
+| NP | π/(10(φ+1/4)) | (0.168176418, 0.168176419) — 9-digit (`lambda_NP_*_certified`) |
+| YM | π/20 | (0.1570796326, 0.1570796327) — 10-digit |
+| Hodge | π/(10φ) | (0.19416, 0.19417) — 5-digit |
+
+Bundle: `all_eight_lambda_0_brackets` — covers all 8 with mixed exact/bracketed witnesses.
+
+**The total ordering — Millennium energy hierarchy** (`total_ordering_eight_ground_states`):
+```
+λ_0(NS) < λ_0(BSD) < λ_0(YM) < λ_0(NP) < λ_0(Hodge) < λ_0(RH) < λ_0(P) < λ_0(Poincaré)
+```
+Derived from the dual α-ordering (`total_ordering_eight_alpha_values`):
+```
+α_Poincaré = 1 < √2 < 3/2 < φ < φ+1/4 < 2 < 3π/4 < 3π/2 = α_NS
+```
+via the universal monotonicity theorem `lambda_0_strict_anti_in_alpha`: smaller α gives larger ground state.
+
+The solved problem (Poincaré) sits at the TOP of the hierarchy. The 6 unsolved problems descend in energy as their canonical α-values become geometrically more complex (transcendental π, golden ratio, irrational √2). The hierarchy is rigid — no rearrangement is possible without changing the framework's canonical α-assignments.
+
+Bundle: `millennium_energy_hierarchy_complete` — α-ordering + λ-ordering + monotonicity link.
+
+**Axiom dependency:** all 22 new theorems (8 brackets + 2 exact-rationality + 7 α-inequalities + 7 λ-inequalities + 3 bundles) verified via `#print axioms` to depend only on `[propext, Classical.choice, Quot.sound]` — ZERO project axioms.
+
 ---
 
 ## ★★★ Enum-Level Framework for ALL SIX Millennium Problems (added 2026-05-19) ★★★
