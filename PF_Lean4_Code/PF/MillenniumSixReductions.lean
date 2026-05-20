@@ -2777,3 +2777,40 @@ theorem alt_ratio_in_terms_of_dim_gap
   rw [hP, hNP, alt_ratio_eq_3_4_minus_dim_gap]
 
 end PrincipiaTractalis.MillenniumSix
+
+/-! ## Cross-cutting structural identity for Δ_alt as well (2026-05-18)
+
+The gap `Δ_alt = λ_P - λ_NP_alt = λ_P · (1 - alt_ratio)`. Substituting
+`alt_ratio = 3/4 - dim_gap/3`:
+
+  Δ_alt = λ_P · (1 - (3/4 - dim_gap/3))
+        = λ_P · (1/4 + dim_gap/3)
+
+So **the spectral gap, like the spectral ratio, decomposes via the
+dim-gap**: starting from a base value `λ_P/4`, plus a dim_gap correction
+scaled by `λ_P/3`.
+
+This means the THREE framework quantities (dim-gap, consciousness-gap,
+spectral-gap, spectral-ratio) ALL decompose via the same single
+fundamental quantity `dim_gap = (φ+1/4) - √2`. -/
+
+namespace PrincipiaTractalis.MillenniumSix
+
+/-- **Δ_alt structural decomposition**:
+    `Δ_alt = λ_P · (1/4 + dim_gap/3)` where dim_gap = (φ+1/4) - √2. -/
+theorem Delta_alt_eq_lambda_P_times_4_plus_dim_gap :
+    Delta_alt_closed =
+      lambda_0_P_target *
+      (1/4 + ((PrincipiaTractalis.phi + 1/4) - Real.sqrt 2) / 3) := by
+  rw [Delta_alt_eq_lambda_P_minus_lambda_NP_alt,
+      lambda_NP_alt_eq_lambda_P_times_ratio,
+      alt_ratio_eq_3_4_minus_dim_gap]
+  ring
+
+/-- **Parameterized form**: Δ_alt = λ_P · (1/4 + (α_NP - α_P)/3). -/
+theorem Delta_alt_in_terms_of_dim_gap
+    (αP αNP : ℝ) (hP : αP = Real.sqrt 2) (hNP : αNP = PrincipiaTractalis.phi + 1/4) :
+    Delta_alt_closed = lambda_0_P_target * (1/4 + (αNP - αP) / 3) := by
+  rw [hP, hNP, Delta_alt_eq_lambda_P_times_4_plus_dim_gap]
+
+end PrincipiaTractalis.MillenniumSix
