@@ -2814,3 +2814,62 @@ theorem Delta_alt_in_terms_of_dim_gap
   rw [hP, hNP, Delta_alt_eq_lambda_P_times_4_plus_dim_gap]
 
 end PrincipiaTractalis.MillenniumSix
+
+/-! ## SURD-FORM SYMMETRY: λ_NP_alt and Δ_alt have symmetric numerators (2026-05-18)
+
+Expanding φ = (1+√5)/2, the new closed forms simplify to PURE-SURD
+expressions with striking symmetry:
+
+  alt_ratio    = (3 + 2√2 - √5)/6
+  λ_NP_alt     = π(3 + 2√2 - √5)/(60√2)
+  Δ_alt        = π(3 - 2√2 + √5)/(60√2)
+
+The numerators of λ_NP_alt and Δ_alt are SYMMETRIC under (√5 ↔ 2√2):
+the signs of the surd terms flip while the integer 3 stays.
+
+Their sum is `(3 + 2√2 - √5) + (3 - 2√2 + √5) = 6`, so:
+  λ_NP_alt + Δ_alt = π · 6 / (60√2) = π/(10√2) = λ_P ✓
+
+This is a consistency check (Δ = λ_P - λ_NP_alt by definition).
+The symmetry of the surd expressions reveals an underlying structure
+not visible in the φ-based forms. -/
+
+namespace PrincipiaTractalis.MillenniumSix
+
+/-- **Pure-surd form of alt_ratio**: `(2+√2-φ)/3 = (3 + 2√2 - √5)/6`. -/
+theorem alt_ratio_surd_form :
+    alt_ratio_candidate = (3 + 2 * Real.sqrt 2 - Real.sqrt 5) / 6 := by
+  unfold alt_ratio_candidate PrincipiaTractalis.phi
+  ring
+
+/-- **Pure-surd form of λ_NP_alt**: `π(3 + 2√2 - √5)/(60√2)`. -/
+theorem lambda_NP_alt_surd_form :
+    lambda_NP_alt_closed =
+      Real.pi * (3 + 2 * Real.sqrt 2 - Real.sqrt 5) / (60 * Real.sqrt 2) := by
+  unfold lambda_NP_alt_closed PrincipiaTractalis.phi
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 :=
+    (Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)).ne'
+  field_simp
+  ring
+
+/-- **Pure-surd form of Δ_alt**: `π(3 - 2√2 + √5)/(60√2)`.
+    The numerator `3 - 2√2 + √5` is the (√5 ↔ 2√2) SIGN-FLIP of the
+    `λ_NP_alt` numerator `3 + 2√2 - √5`. -/
+theorem Delta_alt_surd_form :
+    Delta_alt_closed =
+      Real.pi * (3 - 2 * Real.sqrt 2 + Real.sqrt 5) / (60 * Real.sqrt 2) := by
+  unfold Delta_alt_closed PrincipiaTractalis.phi
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 :=
+    (Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)).ne'
+  field_simp
+  ring
+
+/-- **Surd-form consistency check**: `λ_NP_alt + Δ_alt = λ_P` exactly.
+    The two surd-numerators `(3 + 2√2 - √5)` and `(3 - 2√2 + √5)` sum to
+    `6`, and `π · 6/(60√2) = π/(10√2) = λ_P`. -/
+theorem lambda_NP_alt_plus_Delta_alt_eq_lambda_P :
+    lambda_NP_alt_closed + Delta_alt_closed = lambda_0_P_target := by
+  rw [Delta_alt_eq_lambda_P_minus_lambda_NP_alt]
+  ring
+
+end PrincipiaTractalis.MillenniumSix
