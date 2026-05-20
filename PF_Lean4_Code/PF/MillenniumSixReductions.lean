@@ -2746,3 +2746,34 @@ theorem Delta_alt_sharper_than_golden :
                       (891 : ℝ)/10000 > 0 := by linarith
   rw [abs_of_pos h_g_diff_pos]
   linarith
+
+/-! ## STRUCTURAL REWRITE: `alt_ratio = 3/4 - dim_gap/3` (2026-05-18)
+
+A second structural rewrite of the new candidate ratio:
+
+  `(2 + √2 - φ)/3 = 3/4 - (α_NP - α_P)/3 = 3/4 - dim_gap/3`
+
+where `α_NP - α_P = (φ + 1/4) - √2 ≈ 0.4538` is the **dim-gap** from
+Ch 21 Cor `cor:dim-gap`.
+
+This is structurally illuminating: the alternative ratio is literally
+**3/4 minus the dim-gap rescaled by 1/3**. The same dim-gap that
+Evidence 2 of Ch 21 uses to separate P from NP at the metric-space
+level appears as the *correction term* in the spectral-ratio formula. -/
+
+/-- **The pure-algebra rewrite**:
+    `(2 + √2 - φ)/3 = 3/4 - ((φ + 1/4) - √2)/3`. -/
+theorem alt_ratio_eq_3_4_minus_dim_gap :
+    alt_ratio_candidate =
+      (3 : ℝ)/4 - ((PrincipiaTractalis.phi + 1/4) - Real.sqrt 2) / 3 := by
+  unfold alt_ratio_candidate
+  ring
+
+/-- **Alternative form using α_P, α_NP directly**: the alternative ratio
+    is `3/4 - (α_NP - α_P)/3`. Cross-cutting structural connection. -/
+theorem alt_ratio_in_terms_of_dim_gap
+    (αP αNP : ℝ) (hP : αP = Real.sqrt 2) (hNP : αNP = PrincipiaTractalis.phi + 1/4) :
+    alt_ratio_candidate = 3/4 - (αNP - αP) / 3 := by
+  rw [hP, hNP, alt_ratio_eq_3_4_minus_dim_gap]
+
+end PrincipiaTractalis.MillenniumSix
