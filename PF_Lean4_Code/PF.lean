@@ -124,6 +124,11 @@ import PF.Consciousness.TimelessField  -- T_∞ projective-limit skeleton + ch_2
 import PF.Consciousness.ChernCharacter  -- Second Chern character ch_2 + crystallization iff (Ch 06, 07, 21, 32)
 import PF.Consciousness.FractalResonance -- Ch 03 R_f(α, s): complex-s form, |Re s > 1| convergence, α=0 → ζ, 6-class bridge
 
+-- ============================================================================
+-- Empirical: 143-Problem Validation Framework (Ch 21 §"Universal Coherence")
+-- ============================================================================
+import PF.Empirical.HundredFortyThreeProblems  -- 143 problems, axiom-free coherence + closed-form-match capstone
+
 /-!
 ## Principia Fractalis Formal Verification
 
