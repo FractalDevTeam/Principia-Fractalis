@@ -4072,6 +4072,217 @@ theorem millennium_energy_hierarchy_complete :
    total_ordering_eight_ground_states,
    @lambda_0_strict_anti_in_alpha⟩
 
+/-! ### ★★★ EXACT RATIONAL Δ(BSD, NS) and the 8-state range ★★★
+
+Both `λ_0(BSD) = 2/15` and `λ_0(NS) = 1/15` are EXACT rationals, so
+their spectral gap is also rational:
+```
+Δ(BSD, NS) = λ_0(BSD) − λ_0(NS) = 2/15 − 1/15 = 1/15  (EXACT)
+```
+
+This is the ONLY pair of adjacent Millennium classes (in the energy
+hierarchy) with an EXACT rational gap. All other adjacent gaps involve
+π and/or φ and are transcendental/irrational.
+
+The full 8-state energy range:
+```
+infimum   = λ_0(NS)       = 1/15        ≈ 0.0667  (rational)
+supremum  = λ_0(Poincaré) = π/10        ≈ 0.3142  (transcendental)
+range     = π/10 − 1/15   = (3π − 2)/30 ≈ 0.2475
+```
+Every canonical ground state lies in `[1/15, π/10]`, with NS at the
+infimum and Poincaré at the supremum. -/
+
+/-- **EXACT rational gap** Δ(BSD, NS) = 1/15. -/
+theorem spectral_gap_BSD_NS_eq_one_fifteenth :
+    spectral_gap_canonical .BSD .NS = 1 / 15 := by
+  unfold spectral_gap_canonical
+  rw [lambda_0_BSD_eq_two_fifteenths, lambda_0_NS_eq_one_fifteenth]
+  norm_num
+
+/-- The full 8-state energy range: every canonical λ_0 lies in `[1/15, π/10]`. -/
+theorem lambda_0_canonical_in_range (c : AlphaClass8) :
+    (1 : ℝ)/15 ≤ lambda_0_canonical c ∧
+    lambda_0_canonical c ≤ PrincipiaTractalis.pi_10 := by
+  refine ⟨?_, ?_⟩
+  · -- Lower bound: λ_0(c) ≥ λ_0(NS) = 1/15 for all c
+    -- By the total ordering, NS has the smallest ground state
+    cases c
+    · -- Poincare: 1/15 ≤ π/10
+      show (1 : ℝ)/15 ≤ lambda_0_canonical .Poincare
+      have hPoincare_pos := lambda_0_Poincare_bracket.1
+      have : (0.3141592653 : ℝ) > 1/15 := by norm_num
+      linarith
+    · -- RH: 1/15 ≤ π/15
+      show (1 : ℝ)/15 ≤ lambda_0_canonical .RH
+      have hRH := lambda_0_RH_bracket.1
+      have : (0.209439510 : ℝ) > 1/15 := by norm_num
+      linarith
+    · -- P: 1/15 ≤ π/(10√2)
+      show (1 : ℝ)/15 ≤ lambda_0_canonical .P
+      have hP := all_eight_lambda_0_brackets.2.2.1.1
+      have : (0.222144146 : ℝ) > 1/15 := by norm_num
+      linarith
+    · -- NP: 1/15 ≤ π/(10(φ+1/4))
+      show (1 : ℝ)/15 ≤ lambda_0_canonical .NP
+      have hNP := all_eight_lambda_0_brackets.2.2.2.1.1
+      have : (0.168176418 : ℝ) > 1/15 := by norm_num
+      linarith
+    · -- NS: equality
+      show (1 : ℝ)/15 ≤ lambda_0_canonical .NS
+      rw [lambda_0_NS_eq_one_fifteenth]
+    · -- YM: 1/15 ≤ π/20
+      show (1 : ℝ)/15 ≤ lambda_0_canonical .YM
+      have hYM := lambda_0_YM_bracket.1
+      have : (0.1570796326 : ℝ) > 1/15 := by norm_num
+      linarith
+    · -- BSD: 1/15 ≤ 2/15
+      show (1 : ℝ)/15 ≤ lambda_0_canonical .BSD
+      rw [lambda_0_BSD_eq_two_fifteenths]; norm_num
+    · -- Hodge: 1/15 ≤ π/(10φ)
+      show (1 : ℝ)/15 ≤ lambda_0_canonical .Hodge
+      have hHodge := lambda_0_Hodge_bracket.1
+      have : (0.19416 : ℝ) > 1/15 := by norm_num
+      linarith
+  · -- Upper bound: λ_0(c) ≤ π/10 = pi_10 for all c
+    -- By the total ordering, Poincaré has the largest ground state
+    cases c
+    · -- Poincare: equality
+      show lambda_0_canonical .Poincare ≤ PrincipiaTractalis.pi_10
+      unfold lambda_0_canonical alpha_value
+      have : PrincipiaTractalis.pi_10 / 1 = PrincipiaTractalis.pi_10 := by ring
+      linarith
+    · -- RH: π/15 ≤ π/10
+      show lambda_0_canonical .RH ≤ PrincipiaTractalis.pi_10
+      have hRH := lambda_0_RH_bracket.2
+      have hpi_pos : PrincipiaTractalis.pi_10 > 0.3141592653 := by
+        have := lambda_0_Poincare_bracket.1
+        unfold lambda_0_canonical alpha_value at this
+        have h : PrincipiaTractalis.pi_10 / 1 = PrincipiaTractalis.pi_10 := by ring
+        linarith
+      linarith
+    · -- P: π/(10√2) ≤ π/10
+      show lambda_0_canonical .P ≤ PrincipiaTractalis.pi_10
+      have hP := all_eight_lambda_0_brackets.2.2.1.2
+      have hpi_pos : PrincipiaTractalis.pi_10 > 0.3141592653 := by
+        have := lambda_0_Poincare_bracket.1
+        unfold lambda_0_canonical alpha_value at this
+        have h : PrincipiaTractalis.pi_10 / 1 = PrincipiaTractalis.pi_10 := by ring
+        linarith
+      linarith
+    · -- NP: π/(10(φ+1/4)) ≤ π/10
+      show lambda_0_canonical .NP ≤ PrincipiaTractalis.pi_10
+      have hNP := all_eight_lambda_0_brackets.2.2.2.1.2
+      have hpi_pos : PrincipiaTractalis.pi_10 > 0.3141592653 := by
+        have := lambda_0_Poincare_bracket.1
+        unfold lambda_0_canonical alpha_value at this
+        have h : PrincipiaTractalis.pi_10 / 1 = PrincipiaTractalis.pi_10 := by ring
+        linarith
+      linarith
+    · -- NS: 1/15 ≤ π/10
+      show lambda_0_canonical .NS ≤ PrincipiaTractalis.pi_10
+      rw [lambda_0_NS_eq_one_fifteenth]
+      have hpi_pos : PrincipiaTractalis.pi_10 > 0.3141592653 := by
+        have := lambda_0_Poincare_bracket.1
+        unfold lambda_0_canonical alpha_value at this
+        have h : PrincipiaTractalis.pi_10 / 1 = PrincipiaTractalis.pi_10 := by ring
+        linarith
+      have : (1 : ℝ)/15 < 0.3141592653 := by norm_num
+      linarith
+    · -- YM: π/20 ≤ π/10
+      show lambda_0_canonical .YM ≤ PrincipiaTractalis.pi_10
+      have hYM := lambda_0_YM_bracket.2
+      have hpi_pos : PrincipiaTractalis.pi_10 > 0.3141592653 := by
+        have := lambda_0_Poincare_bracket.1
+        unfold lambda_0_canonical alpha_value at this
+        have h : PrincipiaTractalis.pi_10 / 1 = PrincipiaTractalis.pi_10 := by ring
+        linarith
+      linarith
+    · -- BSD: 2/15 ≤ π/10
+      show lambda_0_canonical .BSD ≤ PrincipiaTractalis.pi_10
+      rw [lambda_0_BSD_eq_two_fifteenths]
+      have hpi_pos : PrincipiaTractalis.pi_10 > 0.3141592653 := by
+        have := lambda_0_Poincare_bracket.1
+        unfold lambda_0_canonical alpha_value at this
+        have h : PrincipiaTractalis.pi_10 / 1 = PrincipiaTractalis.pi_10 := by ring
+        linarith
+      have : (2 : ℝ)/15 < 0.3141592653 := by norm_num
+      linarith
+    · -- Hodge: π/(10φ) ≤ π/10
+      show lambda_0_canonical .Hodge ≤ PrincipiaTractalis.pi_10
+      have hHodge := lambda_0_Hodge_bracket.2
+      have hpi_pos : PrincipiaTractalis.pi_10 > 0.3141592653 := by
+        have := lambda_0_Poincare_bracket.1
+        unfold lambda_0_canonical alpha_value at this
+        have h : PrincipiaTractalis.pi_10 / 1 = PrincipiaTractalis.pi_10 := by ring
+        linarith
+      linarith
+
+/-- The 8-state energy range is `(3π − 2)/30 = π/10 − 1/15 ≈ 0.2475`. -/
+theorem energy_range_width :
+    PrincipiaTractalis.pi_10 - lambda_0_canonical .NS = (3 * Real.pi - 2) / 30 := by
+  rw [lambda_0_NS_eq_one_fifteenth]
+  unfold PrincipiaTractalis.pi_10
+  ring
+
+/-! ### Telescoping sum: the 7 adjacent gaps total to λ_Poincaré − λ_NS -/
+
+/-- The 7 adjacent gaps in the energy hierarchy sum to the total range. -/
+theorem adjacent_gaps_telescope_sum :
+    (lambda_0_canonical .Poincare - lambda_0_canonical .P) +
+    (lambda_0_canonical .P - lambda_0_canonical .RH) +
+    (lambda_0_canonical .RH - lambda_0_canonical .Hodge) +
+    (lambda_0_canonical .Hodge - lambda_0_canonical .NP) +
+    (lambda_0_canonical .NP - lambda_0_canonical .YM) +
+    (lambda_0_canonical .YM - lambda_0_canonical .BSD) +
+    (lambda_0_canonical .BSD - lambda_0_canonical .NS) =
+    lambda_0_canonical .Poincare - lambda_0_canonical .NS := by
+  ring
+
+/-- The 7 adjacent gaps sum to `(3π − 2)/30 ≈ 0.2475`. -/
+theorem adjacent_gaps_total_eq_three_pi_minus_two_over_thirty :
+    (lambda_0_canonical .Poincare - lambda_0_canonical .P) +
+    (lambda_0_canonical .P - lambda_0_canonical .RH) +
+    (lambda_0_canonical .RH - lambda_0_canonical .Hodge) +
+    (lambda_0_canonical .Hodge - lambda_0_canonical .NP) +
+    (lambda_0_canonical .NP - lambda_0_canonical .YM) +
+    (lambda_0_canonical .YM - lambda_0_canonical .BSD) +
+    (lambda_0_canonical .BSD - lambda_0_canonical .NS) =
+    (3 * Real.pi - 2) / 30 := by
+  rw [adjacent_gaps_telescope_sum]
+  rw [lambda_0_NS_eq_one_fifteenth]
+  unfold lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  have : Real.pi / 10 / 1 = Real.pi / 10 := by ring
+  rw [this]
+  ring
+
+/-! ### Bundle: range + adjacent-gap + exact BSD-NS rational gap -/
+
+/-- **★ Complete 8-state energy structure ★**:
+    range, exact rational gap, telescoping sum identity. -/
+theorem eight_state_energy_structure :
+    -- (1) Range: all 8 ground states in [1/15, π/10]
+    (∀ c : AlphaClass8,
+        (1 : ℝ)/15 ≤ lambda_0_canonical c ∧
+        lambda_0_canonical c ≤ PrincipiaTractalis.pi_10) ∧
+    -- (2) Range width: (3π − 2)/30
+    (PrincipiaTractalis.pi_10 - lambda_0_canonical .NS = (3 * Real.pi - 2) / 30) ∧
+    -- (3) EXACT rational adjacent gap Δ(BSD, NS) = 1/15
+    (spectral_gap_canonical .BSD .NS = 1/15) ∧
+    -- (4) Telescoping sum of 7 adjacent gaps
+    ((lambda_0_canonical .Poincare - lambda_0_canonical .P) +
+     (lambda_0_canonical .P - lambda_0_canonical .RH) +
+     (lambda_0_canonical .RH - lambda_0_canonical .Hodge) +
+     (lambda_0_canonical .Hodge - lambda_0_canonical .NP) +
+     (lambda_0_canonical .NP - lambda_0_canonical .YM) +
+     (lambda_0_canonical .YM - lambda_0_canonical .BSD) +
+     (lambda_0_canonical .BSD - lambda_0_canonical .NS) =
+     (3 * Real.pi - 2) / 30) :=
+  ⟨lambda_0_canonical_in_range,
+   energy_range_width,
+   spectral_gap_BSD_NS_eq_one_fifteenth,
+   adjacent_gaps_total_eq_three_pi_minus_two_over_thirty⟩
+
 /-! ### Interpretation: one axiom, seven problems -/
 
 /-- **Meaning of the unification**: the framework's single project axiom
