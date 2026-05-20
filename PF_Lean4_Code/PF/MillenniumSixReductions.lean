@@ -3685,6 +3685,173 @@ theorem seven_millennium_problems_unified :
    @universal_unitary_incompatibility,
    @spectral_gap_canonical_ne_zero⟩
 
+/-! ### EXACT rational ground states for NS and BSD — transcendental π cancellation
+
+A striking structural observation: for the two Millennium classes with
+TRANSCENDENTAL canonical α-values (`α_NS = 3π/2` and `α_BSD = 3π/4`), the
+ground-state eigenvalue is EXACTLY RATIONAL because the π in the numerator
+`pi_10 = π/10` cancels with the π in the denominator:
+
+```
+λ_0(NS)  = (π/10) / (3π/2) = (π/10) · (2/(3π)) = 2/30 = 1/15  (exact)
+λ_0(BSD) = (π/10) / (3π/4) = (π/10) · (4/(3π)) = 4/30 = 2/15  (exact)
+```
+
+The NS ground state is `1/15 ≈ 0.0667` and the BSD ground state is
+`2/15 ≈ 0.1333` — both EXACT rationals, no transcendental content
+despite the π in their α-values. This is a real algebraic feature of
+the framework: the polylog formula `λ_0(H_α) = π/(10·α)` produces
+rational ground states precisely when α is a rational multiple of π. -/
+
+/-- **λ_0(NS) = 1/15 EXACTLY** (transcendental π cancellation). -/
+theorem lambda_0_NS_eq_one_fifteenth :
+    lambda_0_canonical .NS = 1 / 15 := by
+  unfold lambda_0_canonical PrincipiaTractalis.pi_10
+  show Real.pi / 10 / (3 * Real.pi / 2) = 1 / 15
+  have hpi : Real.pi ≠ 0 := ne_of_gt Real.pi_pos
+  field_simp
+  ring
+
+/-- **λ_0(BSD) = 2/15 EXACTLY** (transcendental π cancellation). -/
+theorem lambda_0_BSD_eq_two_fifteenths :
+    lambda_0_canonical .BSD = 2 / 15 := by
+  unfold lambda_0_canonical PrincipiaTractalis.pi_10
+  show Real.pi / 10 / (3 * Real.pi / 4) = 2 / 15
+  have hpi : Real.pi ≠ 0 := ne_of_gt Real.pi_pos
+  field_simp
+  ring
+
+/-- The NS and BSD ground states are both rational. -/
+theorem NS_BSD_ground_states_rational :
+    lambda_0_canonical .NS = 1 / 15 ∧
+    lambda_0_canonical .BSD = 2 / 15 ∧
+    -- The ratio λ_BSD / λ_NS = 2, an integer
+    lambda_0_canonical .BSD / lambda_0_canonical .NS = 2 :=
+  ⟨lambda_0_NS_eq_one_fifteenth,
+   lambda_0_BSD_eq_two_fifteenths,
+   by rw [lambda_0_NS_eq_one_fifteenth, lambda_0_BSD_eq_two_fifteenths]; norm_num⟩
+
+/-! ### Numerical brackets for the 6 transcendental/algebraic ground states -/
+
+/-- λ_0(Poincare) = π/10 bracket (10-digit). -/
+theorem lambda_0_Poincare_bracket :
+    (0.3141592653 : ℝ) < lambda_0_canonical .Poincare ∧
+    lambda_0_canonical .Poincare < (0.3141592654 : ℝ) := by
+  unfold lambda_0_canonical PrincipiaTractalis.pi_10
+  show (0.3141592653 : ℝ) < Real.pi / 10 / 1 ∧ Real.pi / 10 / 1 < (0.3141592654 : ℝ)
+  have hpi_lb : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  have hpi_ub : Real.pi < 3.14159265358979323847 := Real.pi_lt_d20
+  refine ⟨?_, ?_⟩
+  · show (0.3141592653 : ℝ) < Real.pi / 10 / 1
+    have : Real.pi / 10 / 1 = Real.pi / 10 := by ring
+    rw [this]; linarith
+  · show Real.pi / 10 / 1 < (0.3141592654 : ℝ)
+    have : Real.pi / 10 / 1 = Real.pi / 10 := by ring
+    rw [this]; linarith
+
+/-- λ_0(RH) = π/15 bracket (9-digit). -/
+theorem lambda_0_RH_bracket :
+    (0.209439510 : ℝ) < lambda_0_canonical .RH ∧
+    lambda_0_canonical .RH < (0.209439511 : ℝ) := by
+  unfold lambda_0_canonical PrincipiaTractalis.pi_10
+  show (0.209439510 : ℝ) < Real.pi / 10 / (3/2) ∧ Real.pi / 10 / (3/2) < (0.209439511 : ℝ)
+  have hpi_lb : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  have hpi_ub : Real.pi < 3.14159265358979323847 := Real.pi_lt_d20
+  -- pi/10 / (3/2) = pi/10 * 2/3 = 2π/30 = π/15
+  have h_simp : Real.pi / 10 / (3/2 : ℝ) = Real.pi / 15 := by ring
+  rw [h_simp]
+  refine ⟨?_, ?_⟩
+  · linarith
+  · linarith
+
+/-- λ_0(YM) = π/20 bracket (10-digit). -/
+theorem lambda_0_YM_bracket :
+    (0.1570796326 : ℝ) < lambda_0_canonical .YM ∧
+    lambda_0_canonical .YM < (0.1570796327 : ℝ) := by
+  unfold lambda_0_canonical PrincipiaTractalis.pi_10
+  show (0.1570796326 : ℝ) < Real.pi / 10 / 2 ∧ Real.pi / 10 / 2 < (0.1570796327 : ℝ)
+  have hpi_lb : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  have hpi_ub : Real.pi < 3.14159265358979323847 := Real.pi_lt_d20
+  -- pi/10 / 2 = pi/20
+  have h_simp : Real.pi / 10 / 2 = Real.pi / 20 := by ring
+  rw [h_simp]
+  refine ⟨?_, ?_⟩
+  · linarith
+  · linarith
+
+/-- λ_0(Hodge) = π/(10·φ) bracket (5-digit). -/
+theorem lambda_0_Hodge_bracket :
+    (0.19416 : ℝ) < lambda_0_canonical .Hodge ∧
+    lambda_0_canonical .Hodge < (0.19417 : ℝ) := by
+  unfold lambda_0_canonical PrincipiaTractalis.pi_10
+  show (0.19416 : ℝ) < Real.pi / 10 / PrincipiaTractalis.phi ∧
+       Real.pi / 10 / PrincipiaTractalis.phi < (0.19417 : ℝ)
+  have hpi_lb : (3.14159265358979323846 : ℝ) < Real.pi := Real.pi_gt_d20
+  have hpi_ub : Real.pi < 3.14159265358979323847 := Real.pi_lt_d20
+  have hphi_lb : (1.6180339887 : ℝ) ≤ PrincipiaTractalis.phi :=
+    PrincipiaTractalis.phi_in_interval_10digit.1
+  have hphi_ub : PrincipiaTractalis.phi ≤ (1.6180339888 : ℝ) :=
+    PrincipiaTractalis.phi_in_interval_10digit.2
+  have hphi_pos : (0 : ℝ) < PrincipiaTractalis.phi := by linarith
+  refine ⟨?_, ?_⟩
+  · -- 0.19416 < π/10 / φ requires π/10 > 0.19416 · φ
+    -- Worst case: φ ≤ 1.6180339888, so 0.19416 · 1.6180339888 ≈ 0.31410
+    -- π/10 > 0.31415, so OK
+    rw [lt_div_iff₀ hphi_pos]
+    nlinarith [hpi_lb, hphi_ub]
+  · -- π/10 / φ < 0.19417 requires π/10 < 0.19417 · φ
+    -- Worst case: φ ≥ 1.6180339887, so 0.19417 · 1.6180339887 ≈ 0.31412
+    -- π/10 < 0.31416, so this is tight; need to verify
+    rw [div_lt_iff₀ hphi_pos]
+    nlinarith [hpi_ub, hphi_lb]
+
+/-- **★ 8-bracket bundle theorem ★**: certified numerical brackets
+    for all 8 canonical ground-state eigenvalues. The NS and BSD entries
+    are EXACT rational identities (no bracket needed); the other 6
+    use π and/or φ brackets. -/
+theorem all_eight_lambda_0_brackets :
+    -- Poincaré: π/10
+    ((0.3141592653 : ℝ) < lambda_0_canonical .Poincare ∧
+     lambda_0_canonical .Poincare < (0.3141592654 : ℝ)) ∧
+    -- RH: π/15
+    ((0.209439510 : ℝ) < lambda_0_canonical .RH ∧
+     lambda_0_canonical .RH < (0.209439511 : ℝ)) ∧
+    -- P: π/(10√2)
+    ((0.222144146 : ℝ) < lambda_0_canonical .P ∧
+     lambda_0_canonical .P < (0.222144147 : ℝ)) ∧
+    -- NP: π/(10(φ+1/4))
+    ((0.168176418 : ℝ) < lambda_0_canonical .NP ∧
+     lambda_0_canonical .NP < (0.168176419 : ℝ)) ∧
+    -- NS: 1/15 EXACT
+    (lambda_0_canonical .NS = 1 / 15) ∧
+    -- YM: π/20
+    ((0.1570796326 : ℝ) < lambda_0_canonical .YM ∧
+     lambda_0_canonical .YM < (0.1570796327 : ℝ)) ∧
+    -- BSD: 2/15 EXACT
+    (lambda_0_canonical .BSD = 2 / 15) ∧
+    -- Hodge: π/(10φ)
+    ((0.19416 : ℝ) < lambda_0_canonical .Hodge ∧
+     lambda_0_canonical .Hodge < (0.19417 : ℝ)) := by
+  refine ⟨lambda_0_Poincare_bracket, lambda_0_RH_bracket, ?_, ?_,
+          lambda_0_NS_eq_one_fifteenth, lambda_0_YM_bracket,
+          lambda_0_BSD_eq_two_fifteenths, lambda_0_Hodge_bracket⟩
+  · -- P bracket from existing certified theorems
+    unfold lambda_0_canonical PrincipiaTractalis.pi_10
+    show (0.222144146 : ℝ) < Real.pi / 10 / Real.sqrt 2 ∧
+         Real.pi / 10 / Real.sqrt 2 < (0.222144147 : ℝ)
+    have hP_lo := PrincipiaTractalis.lambda_P_lower_certified
+    have hP_hi := PrincipiaTractalis.lambda_P_upper_certified
+    unfold PrincipiaTractalis.pi_10 at hP_lo hP_hi
+    exact ⟨hP_lo, hP_hi⟩
+  · -- NP bracket from existing certified theorems
+    unfold lambda_0_canonical PrincipiaTractalis.pi_10
+    show (0.168176418 : ℝ) < Real.pi / 10 / (PrincipiaTractalis.phi + 1/4) ∧
+         Real.pi / 10 / (PrincipiaTractalis.phi + 1/4) < (0.168176419 : ℝ)
+    have hNP_lo := PrincipiaTractalis.lambda_NP_lower_certified
+    have hNP_hi := PrincipiaTractalis.lambda_NP_upper_certified
+    unfold PrincipiaTractalis.pi_10 at hNP_lo hNP_hi
+    exact ⟨hNP_lo, hNP_hi⟩
+
 /-! ### Interpretation: one axiom, seven problems -/
 
 /-- **Meaning of the unification**: the framework's single project axiom
