@@ -3035,3 +3035,68 @@ theorem alt_ratio_three_chapter_form_explicit :
       (2 + Real.sqrt 2 - PrincipiaTractalis.phi) / 3 := rfl
 
 end PrincipiaTractalis.MillenniumSix
+
+/-! ## Complementary Δ form: Δ/λ_P = (α_Hodge² - α_P)/3 (2026-05-18)
+
+Just as `λ_NP/λ_P = (α_YM + α_P - α_Hodge)/3`, the gap ratio has a
+structurally-parallel form:
+
+  `Δ/λ_P = 1 - λ_NP/λ_P = 1 - (α_YM + α_P - α_Hodge)/3`
+        = `(3 - α_YM - α_P + α_Hodge)/3`
+        = `(1 - α_P + α_Hodge)/3`        [since α_YM = 2 so 3 - α_YM = 1]
+        = `(α_Hodge² - α_P)/3`            [since α_Hodge² = φ² = φ + 1 = 1 + α_Hodge]
+
+So both spectral quantities decompose cleanly in terms of canonical
+α-values:
+
+  λ_NP/λ_P = (α_YM + α_P - α_Hodge)/3
+  Δ/λ_P    = (α_Hodge² - α_P)/3
+
+Their structural distinction: λ_NP uses the SUM α_P + α_Hodge with
+α_YM correction, while Δ uses α_Hodge SQUARED with α_P subtraction. -/
+
+namespace PrincipiaTractalis.MillenniumSix
+
+/-- **Complementary cross-chapter form for Δ_alt/λ_P**:
+    `Δ_alt/λ_P = (α_Hodge² - α_P)/3`. -/
+theorem Delta_alt_ratio_three_chapter_form :
+    Delta_alt_closed / lambda_0_P_target =
+      (PrincipiaTractalis.phi^2 - Real.sqrt 2) / 3 := by
+  rw [Delta_alt_eq_phi_squared_form]
+  unfold lambda_0_P_target
+  have h_pi_pos : Real.pi > 0 := Real.pi_pos
+  have h_pi_ne : Real.pi ≠ 0 := h_pi_pos.ne'
+  have h_sqrt2_pos : Real.sqrt 2 > 0 :=
+    Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 := h_sqrt2_pos.ne'
+  field_simp
+  ring
+
+/-- **Parameterized form using α_Hodge = φ and α_P = √2**:
+    Δ_alt/λ_P = (α_Hodge² - α_P)/3. -/
+theorem Delta_alt_ratio_in_terms_of_alpha
+    (αP αHodge : ℝ)
+    (hP : αP = Real.sqrt 2)
+    (hHodge : αHodge = PrincipiaTractalis.phi) :
+    Delta_alt_closed / lambda_0_P_target = (αHodge^2 - αP) / 3 := by
+  rw [hP, hHodge, Delta_alt_ratio_three_chapter_form]
+
+/-- **Complementarity identity** (algebraic tautology that's
+    nonetheless structurally illuminating):
+    `(α_YM + α_P - α_Hodge)/3 + (α_Hodge² - α_P)/3 = 1`
+    iff `α_YM + α_Hodge² - α_Hodge = 3` iff `α_YM = 3 - α_Hodge² + α_Hodge`
+    = `3 - (α_Hodge + 1) + α_Hodge = 2` (using α_Hodge² = α_Hodge + 1).
+
+    So the specific value `α_YM = 2` is FORCED by the requirement that
+    the two cross-chapter forms be complementary (sum to 1). This is
+    a structural reason why α_YM = 2 appears in the NP-class formula. -/
+theorem alpha_YM_equals_two_from_complementarity :
+    (2 : ℝ) = 3 - PrincipiaTractalis.phi^2 + PrincipiaTractalis.phi := by
+  have h_phi_sq : PrincipiaTractalis.phi^2 = PrincipiaTractalis.phi + 1 := by
+    unfold PrincipiaTractalis.phi
+    have h5 : Real.sqrt 5 * Real.sqrt 5 = 5 := Real.mul_self_sqrt (by norm_num : (0:ℝ) ≤ 5)
+    field_simp
+    nlinarith [h5]
+  linarith [h_phi_sq]
+
+end PrincipiaTractalis.MillenniumSix
