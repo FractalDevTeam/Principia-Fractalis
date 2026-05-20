@@ -356,9 +356,9 @@ From **Chapter 3** (lines 219-234):
 | P complexity class | sqrt(2) ~ 1.414 | Diagonal of unit square |
 | NP complexity class | phi + 1/4 ~ 1.868 | Golden ratio shift |
 | Yang-Mills mass gap | 2 | Integer resonance |
-| Navier-Stokes regularity | 5/3 ~ 1.667 | Kolmogorov scaling |
-| BSD Conjecture | phi + 1/3 ~ 1.951 | Golden arithmetic |
-| Hodge Conjecture | pi/2 ~ 1.571 | Quarter circle |
+| Navier-Stokes regularity | 3pi/2 ~ 4.712 | Three-quarter rotation |
+| BSD Conjecture | 3pi/4 ~ 2.356 | Three-eighth rotation |
+| Hodge Conjecture | phi ~ 1.618 | Golden ratio |
 
 ## P vs NP Complete Calculation
 
