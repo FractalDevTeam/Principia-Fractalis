@@ -1,10 +1,34 @@
 # Mathematical Validation Report: Fractal Analytic Continuation in Chapter 21
 
+> **2026-05-18 RESOLUTION STATUS UPDATE**
+>
+> The numerical errors identified in this report (2025-11-30 audit) have been
+> **systematically addressed in the manuscript** by the 2026-05-18 audit cycle.
+> Each numerical error noted below now has a corresponding manuscript
+> correction with explicit disclosure, anchored to formally-certified Lean
+> theorems. The report below remains as the original audit record; readers
+> should consult `frontmatter/rev2_formalization_status.tex` (Manuscript-
+> correction log section) for the current state of corrections.
+>
+> Specifically resolved:
+> - **§2.5 ratio inconsistency** (`0.5988 ≠ (√5-1)/3 = 0.412`): now disclosed
+>   in Ch 21 Obs `obs:golden-ratio` (commit 11d5658) and Rem
+>   `rem:spectral-gap-analysis-corrected` (commit d10473a). Lean
+>   certificate: `manuscript_sqrt5_minus_one_div_three_bracket`.
+> - **§2.4 sine-identity error**: now disclosed in Ch 21 Rem
+>   `rem:sine-ratio-corrected` (commit 7f46729). Lean certificate:
+>   `manuscript_sine_identity_both_sides_wrong`.
+> - **Closed-form vs empirical λ_NP mismatch**: now disclosed in Ch 21
+>   Rem `rem:spectral-gap-analysis-corrected`, Ch 09 thm:pvsnp_spectral,
+>   and appH (commits d10473a, 08bbe56, 4123848).
+
 ## Executive Summary
 
 This report provides a rigorous mathematical analysis of the "fractal analytic continuation" framework introduced in Chapter 21 (P vs NP through Consciousness Computation) of *Principia Fractalis*.
 
-**Overall Assessment**: The framework contains several **critical mathematical errors** and **logical gaps** that prevent it from being a valid proof. While the numerical phenomenology is intriguing, the claimed derivations do not withstand scrutiny.
+**Overall Assessment** (2025-11-30): The framework contains several **critical mathematical errors** and **logical gaps** that prevent it from being a valid proof. While the numerical phenomenology is intriguing, the claimed derivations do not withstand scrutiny.
+
+**2026-05-18 Status**: The errors enumerated in this report have been propagated as corrections in the manuscript text (with explicit "Numerical correction" disclosures citing Lean theorems), so the manuscript is now honest about what it claims and what is conjectural. The structural framework is preserved; failed derivations are now explicitly flagged as open derivation problems.
 
 ---
 

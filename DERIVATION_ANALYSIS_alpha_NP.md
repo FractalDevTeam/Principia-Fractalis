@@ -1,10 +1,23 @@
 # Critical Mathematical Derivation Analysis: alpha_NP = phi + 1/4
 
+> **2026-05-18 RESOLUTION STATUS UPDATE**
+>
+> The derivation gaps identified in this 2025-11-30 audit have been
+> systematically catalogued as open problems in the manuscript (Ch 21
+> Remark `rem:alpha-P-NP-derivation-status` explicitly enumerates them).
+> The associated numerical errors in the closed-form λ_NP claim
+> (π(√5-1)/(30√2) ≈ 0.1330 vs actual 0.0915) have been corrected with
+> explicit disclosures across Ch 09, Ch 21, and appH (2026-05-18 audit
+> cycle). The original audit content below remains as the canonical
+> record of what was/is open.
+
 ## Executive Summary
 
-**FINDING: The claimed value alpha_NP = phi + 1/4 ~ 1.868 is ASSERTED but NOT RIGOROUSLY DERIVED in Principia Fractalis.**
+**FINDING (2025-11-30)**: The claimed value alpha_NP = phi + 1/4 ~ 1.868 is ASSERTED but NOT RIGOROUSLY DERIVED in Principia Fractalis.
 
 The book presents the value as emerging from "certificate branching structure" and "optimal packing" but the actual mathematical derivation connecting these concepts to the specific numerical value is incomplete. This analysis documents the claimed reasoning and identifies the precise gaps.
+
+**2026-05-18 status**: The four open derivation gaps below remain open. The manuscript now explicitly catalogues them in Ch 21 `rem:alpha-P-NP-derivation-status` as open derivation problems rather than glossing over them. Lean axiom `alpha_class_polylog_eigenvalue_conjecture` encodes the conjectural identification.
 
 ---
 
