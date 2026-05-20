@@ -320,7 +320,19 @@ where `U(φ)` implements a phase rotation by the golden angle `φ = (√5 − 1)
 
 and the closed-form `α_NP = φ + 1/4`.
 
-**Current status.** Numerical sine-ratio computation: 0.798635510 / 0.847127424 ≈ 0.5988854382 = (√5 − 1)/3. Match verified to 10⁻¹⁰ via the finite-dim ground-state computation `λ_0(H_NP) = 0.1330222423 ± 10⁻¹⁰`. The unitary-conjugation structural claim is not derived.
+**Current status (corrected 2026-05-18).** The manuscript's "Sine Identity Verification" remark previously claimed `0.798635510 / 0.847127424 ≈ 0.5988854382 = (√5 − 1)/3`. Both halves of this identity are formally certified WRONG by Lean theorems in `PF/MillenniumSixReductions.lean`:
+
+- `manuscript_sine_ratio_bracket`: `0.94 < |0.798635510 / 0.847127424| < 0.95` (actually ≈ 0.9427, not 0.5988)
+- `manuscript_sqrt5_minus_one_div_three_bracket`: `0.41 < (√5 − 1)/3 < 0.42` (actually ≈ 0.4120, not 0.5988)
+- `lean_closed_form_ratio_bracket`: `0.75 < √2/(φ+1/4) < 0.76` (the Lean closed-form ratio ≈ 0.757)
+
+So we have THREE candidate ratios for `λ_0(H_NP) / λ_0(H_P)`:
+- Empirical: 0.5988 (from `0.1330 / 0.2221`)
+- Golden-modulation prediction: `(√5−1)/3 ≈ 0.412` (DOES NOT match empirical)
+- Lean closed-form: `√2/(φ+1/4) ≈ 0.757` (DOES NOT match empirical)
+- Sine-ratio claim: ≈ 0.943 (DOES NOT match empirical)
+
+None of the three closed-form candidates reproduces the empirical 0.5988 ratio. The golden-modulation conjecture as stated is therefore numerically falsified by its own predictions. The unitary-conjugation structural claim is not derived; the numerical link is now an open problem rather than a verified identity.
 
 **Lean encoding.** NP-class component of `alpha_class_polylog_eigenvalue_conjecture` (the quadratic `16α² − 24α − 11 = 0`).
 
