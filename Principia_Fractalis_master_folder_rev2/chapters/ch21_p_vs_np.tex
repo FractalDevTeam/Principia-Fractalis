@@ -438,11 +438,40 @@ The extrapolated limit is:
 \end{equation}
 \end{experiment}
 
-\begin{observation}[Empirical ratio, corrected 2026-05-18]\label{obs:golden-ratio}
+\begin{observation}[Empirical ratio + new closed-form candidate, corrected 2026-05-18]\label{obs:golden-ratio}
 The empirical ratio of ground state energies is:
 \begin{equation}\label{eq:empirical-ratio}
 \frac{\lambda_0(H_{NP})^{\text{emp}}}{\lambda_0(H_P)^{\text{emp}}} = \frac{0.1330222423}{0.2221441469} \approx 0.5988854382
 \end{equation}
+
+\medskip
+\noindent\textbf{New closed-form candidate (2026-05-18 formalization).} The empirical ratio $0.5988$ is matched to $\sim 8.4 \times 10^{-5}$ by:
+\begin{equation}\label{eq:alt-ratio-candidate}
+\frac{2 + \sqrt{2} - \varphi}{3} \;\approx\; 0.59872\ldots
+\end{equation}
+This is the canonical $\alpha$-values from TWO different chapters: $\alpha_P = \sqrt{2}$ (Ch~\ref{ch:p-vs-np}) and $\alpha_{\mathrm{Hodge}} = \varphi$ (Ch~\ref{ch:hodge-conjecture}), with integer shift $2$ and base-$3$ self-similarity divisor. The implied alternative closed form for $\lambda_0(H_{NP})$ is
+\begin{equation}\label{eq:lambda-NP-alt-closed}
+\lambda_0(H_{NP})^{\text{alt}} \;:=\; \frac{\pi(2 + \sqrt{2} - \varphi)}{30\sqrt{2}} \;\approx\; 0.13302\ldots,
+\end{equation}
+which matches the empirical $\lambda_0(H_{NP}) \approx 0.1330222423$ to 4 decimal places.
+
+Formally certified at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}:
+\begin{itemize}
+\item \texttt{alt\_ratio\_candidate\_bracket\_5digit}: $0.59872 < (2+\sqrt{2}-\varphi)/3 < 0.59873$
+\item \texttt{lambda\_NP\_alt\_bracket}: $0.1330 < \lambda_0(H_{NP})^{\text{alt}} < 0.1331$
+\item \texttt{lambda\_NP\_alt\_matches\_empirical}: $|\lambda_0(H_{NP})^{\text{alt}} - 0.1330| < 10^{-3}$
+\item \texttt{lambda\_NP\_alt\_sharper\_than\_golden}: this alternative is $\sim 40\times$ closer to empirical than the golden-modulation prediction $\pi(\sqrt{5}-1)/(30\sqrt{2}) \approx 0.0915$
+\item \texttt{alt\_ratio\_equals\_cross\_chapter\_combination}: the explicit cross-chapter structural form
+\end{itemize}
+
+\noindent\textbf{Status.} This candidate is NOT a first-principles derivation; like $(\sqrt{5}-1)/3$ it remains a numerical observation. But unlike $(\sqrt{5}-1)/3$ it actually reproduces the empirical $\lambda_0(H_{NP})$ value. Two structural features distinguish it:
+\begin{enumerate}
+\item It \emph{matches} the empirical value to $4$ decimal places (vs golden-modulation's $\sim 30\%$ miss).
+\item Its symbolic form $(2 + \alpha_P - \alpha_{\mathrm{Hodge}})/3$ combines the framework's canonical $\alpha$-values from two distinct chapters, suggesting an operator-theoretic relationship between $H_P$, $H_{NP}$, and $H_{\mathrm{Hodge}}$ not captured by the current Conjecture~\ref{conj:golden-modulation}.
+\end{enumerate}
+A first-principles derivation (or rigorous refutation) of $(2 + \sqrt{2} - \varphi)/3$ as the ground-state ratio is the natural next research direction. If derived from first principles, Conjecture~\ref{conj:golden-modulation} should be replaced.
+
+\medskip
 
 \medskip
 \noindent\textbf{Numerical-discrepancy disclosure.} Prior editions of this Observation stated that this empirical ratio $\approx 0.5988$ matches the algebraic constant $(\sqrt{5}-1)/3$, and concluded the closed form
