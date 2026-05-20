@@ -6,6 +6,8 @@
 
 > **🎯 Problem 3 resolution (2026-05-20):** With v3.3.1 propagated, the narrowed Problem 3 ("derive the canonical ratio from operator theory") was investigated and **RESOLVED** as a corollary of Problem 1. The ratio `√2/(φ+1/4)` is a direct algebraic consequence of the polylog formula `λ_0(H_α) = π/(10·α)`; no separate operator-theoretic mechanism is required. The original unitary-conjugation Conjecture `H_NP = U(φ) H_P U†(φ)` is formally proven incompatible with the spectral gap (unitary conjugation would preserve spectrum). Resolution formalized in `PF/SpectralGap.lean` namespace `ProblemThreeResolution` with **zero project axioms**. Problems 1, 2, and 4 are unaffected.
 
+> **🎯 Problem 1 — Input #1 of 6 DISCHARGED (2026-05-20):** The polylog-route axiom retirement has been reduced (via 50+ Phase A modules + the new `AxiomRetirementWrapper.lean`) to SIX explicit inputs. The first one (`Complex.log z_book ≠ 0`) is now PROVEN unconditionally in `PF/Analytic/LogZBookNeZero.lean` via irrationality of √2. The maximally-sharp wrapper `axiom_content_FIVE_INPUTS` now takes only 5 inputs. See `PROOF_ROADMAP.md` for the exact state of each remaining input.
+
 This document enumerates the **open mathematical problems** that the Principia Fractalis framework has *isolated* — that is, the precisely-stated mathematical claims on which the framework's headline conditional reductions of Clay Millennium Problems depend.
 
 **Current status: THREE open problems remain (Problem 3 resolved 2026-05-20).** The framework provides:

@@ -442,3 +442,29 @@ If any of (1)-(9) fail, the work is NOT referee-proof and needs fixing. As of co
 ---
 
 *Generated 2026-05-20 as part of the referee-proofing pass. Update on every subsequent session that adds or modifies the formal content.*
+
+---
+
+## ADDENDUM (2026-05-20, after referee-proofing): Input #1 of axiom retirement DISCHARGED
+
+After commit `f0679e9` introduced the `axiom_content_END_TO_END` wrapper isolating the axiom's residual content to 6 explicit inputs, commit `ad1c669` DISCHARGED the first input unconditionally:
+
+**Input #1**: `Complex.log z_book ≠ 0` where `z_book = exp(I·π·√2)`.
+
+**Discharge**: `PF/Analytic/LogZBookNeZero.lean::log_z_book_ne_zero`
+- Proof: if `log z_book = 0`, then `z_book = exp(0) = 1`, hence `exp(I·π·√2) = 1`, hence `∃ n : ℤ` with `√2 = 2n`, contradicting `irrational_sqrt_two`.
+- Axiom dependency (verified via `#print axioms`): `[propext, Classical.choice, Quot.sound]` — zero project axioms.
+
+**New wrapper**: `axiom_content_FIVE_INPUTS` in `AxiomRetirementWrapper.lean` takes 5 inputs (was 6), with `log_z_book_ne_zero` folded in. Axiom dependency: `[propext, Classical.choice, Quot.sound]` only.
+
+**Companion document**: `PROOF_ROADMAP.md` (added commit `126b241`) documents the exact state of each remaining input.
+
+**Acceptance criteria re-verified**:
+- ☑ Lean builds cleanly (now 2751 jobs for the wrapper, 5736 total).
+- ☑ Coq mirror unchanged (cross-prover parity maintained for the universal-structure theorems).
+- ☑ `log_z_book_ne_zero` axiom-free (verified via `#print axioms`).
+- ☑ `axiom_content_FIVE_INPUTS` axiom-free (verified via `#print axioms`).
+
+**Updated commit log of this session**: `a685e9f` → `4eb3a6b` → `19117dd` → `2ca0df6` → `c01cb44` → `9fc5f1d` → `c6e1f08` → `348bafd` → `35fdebf` → `5b07095` → `498f985` → `b8a472e` → `36c0cd4` → `f0679e9` → `ad1c669` → `126b241` (16 commits).
+
+The framework's residual content has gone from 6 → 5 explicit inputs. The remaining 5 are documented in `PROOF_ROADMAP.md` with companion target files and difficulty estimates.
