@@ -2937,3 +2937,55 @@ theorem alt_ratio_norm_form :
   linarith [h2, h5]
 
 end PrincipiaTractalis.MillenniumSix
+
+/-! ## ULTRA-CLEAN FORM: τ = 2(α_P + α_Hodge) - 1 (2026-05-18)
+
+Since `√5 = 2φ - 1`, the algebraic integer `τ = 2√2 + √5` rewrites as:
+
+  `τ = 2√2 + (2φ - 1) = 2(√2 + φ) - 1 = 2(α_P + α_Hodge) - 1`
+
+This is structurally beautiful: τ is **exactly twice the sum of the
+P-class and Hodge canonical α values, minus 1**. The "minus 1" is the
+standard "subtract identity" pattern common in spectral theory.
+
+So the simplest closed form for the alternative ratio is:
+
+  `λ_NP/λ_P = (1 + 1/(2(α_P + α_Hodge) - 1)) / 2`
+
+This makes the cross-chapter connection explicit: the spectral ratio
+λ_NP/λ_P is determined by a simple function of α_P + α_Hodge.
+
+If an operator-theoretic argument can show that `2(α_P + α_Hodge) - 1`
+is a natural spectral quantity (e.g., diagonal trace, eigenvalue sum),
+this would CLOSE the loop on the open derivation problem. -/
+
+namespace PrincipiaTractalis.MillenniumSix
+
+/-- **The simplification identity**: `√5 = 2φ − 1` (golden-ratio property). -/
+theorem sqrt5_eq_two_phi_minus_one :
+    Real.sqrt 5 = 2 * PrincipiaTractalis.phi - 1 := by
+  unfold PrincipiaTractalis.phi
+  ring
+
+/-- **Ultra-clean form of τ**: `τ = 2√2 + √5 = 2(√2 + φ) − 1`
+    where the sum `√2 + φ = α_P + α_Hodge` combines the canonical
+    α-values from Ch 21 (P-class) and Ch 25 (Hodge). -/
+theorem tau_eq_two_alpha_sum_minus_one :
+    2 * Real.sqrt 2 + Real.sqrt 5 = 2 * (Real.sqrt 2 + PrincipiaTractalis.phi) - 1 := by
+  rw [sqrt5_eq_two_phi_minus_one]; ring
+
+/-- **The simplest closed form for the empirical ratio**:
+    `λ_NP/λ_P = (1 + 1/(2(α_P + α_Hodge) - 1))/2`
+    where α_P = √2 and α_Hodge = φ. -/
+theorem alt_ratio_ultra_clean :
+    alt_ratio_candidate =
+      (1 + 1 / (2 * (Real.sqrt 2 + PrincipiaTractalis.phi) - 1)) / 2 := by
+  rw [alt_ratio_norm_form, ← tau_eq_two_alpha_sum_minus_one]
+
+/-- **Parameterized ultra-clean form**: explicitly in terms of α_P, α_Hodge. -/
+theorem alt_ratio_in_terms_of_alpha_P_alpha_Hodge
+    (αP αHodge : ℝ) (hP : αP = Real.sqrt 2) (hHodge : αHodge = PrincipiaTractalis.phi) :
+    alt_ratio_candidate = (1 + 1 / (2 * (αP + αHodge) - 1)) / 2 := by
+  rw [hP, hHodge, alt_ratio_ultra_clean]
+
+end PrincipiaTractalis.MillenniumSix
