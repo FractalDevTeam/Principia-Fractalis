@@ -534,6 +534,42 @@ Bundle: `millennium_energy_hierarchy_complete` — α-ordering + λ-ordering + m
 
 **Axiom dependency:** all 22 new theorems (8 brackets + 2 exact-rationality + 7 α-inequalities + 7 λ-inequalities + 3 bundles) verified via `#print axioms` to depend only on `[propext, Classical.choice, Quot.sound]` — ZERO project axioms.
 
+### Arithmetic taxonomy of pairwise gaps (added 2026-05-20, axiom-free)
+
+The 8 canonical α-values fall into 3 arithmetic categories:
+
+| Category | Classes | Cardinality | λ_0 arithmetic |
+|---|---|---|---|
+| Pure rational α | Poincaré (1), RH (3/2), YM (2) | 3 | λ_0 = rational × π |
+| Rational multiple of π | NS (3π/2), BSD (3π/4) | 2 | λ_0 = rational |
+| Other algebraic | P (√2), Hodge (φ), NP (φ+1/4) | 3 | λ_0 mixed |
+
+This taxonomy produces exactly **10 EXACT closed-form pairwise gaps** in the framework (theorem `ten_exact_closed_form_gaps` in `PF/MillenniumSixReductions.lean`):
+
+**4 single-term gaps:**
+| Pair | Closed form |
+|---|---|
+| Δ(Poincaré, RH) | π/30 |
+| Δ(Poincaré, YM) | π/20 |
+| Δ(RH, YM) | π/60 |
+| Δ(BSD, NS) | 1/15 |
+
+The 3 π-multiple gaps form a triangle: `Δ(Poincaré, RH) + Δ(RH, YM) = Δ(Poincaré, YM)` (= π/30 + π/60 = π/20), formalized as `rational_alpha_triangle`.
+
+**6 two-term cross-class gaps (rational-α ↔ rational-π-α):**
+| Pair | Closed form |
+|---|---|
+| Δ(Poincaré, NS) | (3π − 2)/30 |
+| Δ(Poincaré, BSD) | (3π − 4)/30 |
+| Δ(RH, NS) | (π − 1)/15 |
+| Δ(RH, BSD) | (π − 2)/15 |
+| Δ(YM, NS) | (3π − 4)/60 |
+| Δ(YM, BSD) | (3π − 8)/60 |
+
+The remaining 18 pairwise gaps (those involving the algebraic-{P, Hodge, NP} class) have closed forms but mix algebraic terms with π and are not single-/two-term clean.
+
+**Axiom dependency:** all 13 cross-class theorems (4 single-term gaps + 6 two-term gaps + triangle identity + 2 capstones) depend only on `[propext, Classical.choice, Quot.sound]` — ZERO project axioms. Cross-prover Coq mirror at `PF_Coq_Code/PF/MillenniumSixReductions.v` covers the 4 single-term gaps + triangle + capstone.
+
 ---
 
 ## ★★★ Enum-Level Framework for ALL SIX Millennium Problems (added 2026-05-19) ★★★

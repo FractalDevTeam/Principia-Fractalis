@@ -4370,6 +4370,119 @@ theorem four_clean_pairwise_gaps :
    spectral_gap_RH_YM_eq_pi_over_60,
    spectral_gap_BSD_NS_eq_one_fifteenth⟩
 
+/-! ### CROSS-CLASS GAPS: rational-α ↔ rational-multiple-of-π α
+
+The 3 rational-α classes (Poincaré, RH, YM) crossed with the 2
+rational-multiple-of-π α classes (NS, BSD) give 6 cross-class gaps,
+all expressible as `(aπ + b)/c` for explicit integers (a, b, c):
+
+```
+Δ(Poincaré, NS) = π/10 − 1/15 = (3π − 2)/30
+Δ(Poincaré, BSD) = π/10 − 2/15 = (3π − 4)/30
+Δ(RH, NS)        = π/15 − 1/15 = (π − 1)/15
+Δ(RH, BSD)       = π/15 − 2/15 = (π − 2)/15
+Δ(YM, NS)        = π/20 − 1/15 = (3π − 4)/60
+Δ(YM, BSD)       = π/20 − 2/15 = (3π − 8)/60
+```
+Each of these has EXACT closed form (no brackets needed). All 6
+gaps are positive (the rational-α λ_0 dominates the rational-π λ_0,
+consistent with the energy hierarchy). -/
+
+/-- Δ(Poincaré, NS) = (3π − 2)/30. -/
+theorem spectral_gap_Poincare_NS_exact :
+    spectral_gap_canonical .Poincare .NS = (3 * Real.pi - 2) / 30 := by
+  unfold spectral_gap_canonical
+  rw [lambda_0_NS_eq_one_fifteenth]
+  unfold lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  have : Real.pi / 10 / 1 = Real.pi / 10 := by ring
+  rw [this]; ring
+
+/-- Δ(Poincaré, BSD) = (3π − 4)/30. -/
+theorem spectral_gap_Poincare_BSD_exact :
+    spectral_gap_canonical .Poincare .BSD = (3 * Real.pi - 4) / 30 := by
+  unfold spectral_gap_canonical
+  rw [lambda_0_BSD_eq_two_fifteenths]
+  unfold lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  have : Real.pi / 10 / 1 = Real.pi / 10 := by ring
+  rw [this]; ring
+
+/-- Δ(RH, NS) = (π − 1)/15. -/
+theorem spectral_gap_RH_NS_exact :
+    spectral_gap_canonical .RH .NS = (Real.pi - 1) / 15 := by
+  unfold spectral_gap_canonical
+  rw [lambda_0_NS_eq_one_fifteenth]
+  unfold lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  have h : Real.pi / 10 / (3/2 : ℝ) = Real.pi / 15 := by ring
+  rw [h]; ring
+
+/-- Δ(RH, BSD) = (π − 2)/15. -/
+theorem spectral_gap_RH_BSD_exact :
+    spectral_gap_canonical .RH .BSD = (Real.pi - 2) / 15 := by
+  unfold spectral_gap_canonical
+  rw [lambda_0_BSD_eq_two_fifteenths]
+  unfold lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  have h : Real.pi / 10 / (3/2 : ℝ) = Real.pi / 15 := by ring
+  rw [h]; ring
+
+/-- Δ(YM, NS) = (3π − 4)/60. -/
+theorem spectral_gap_YM_NS_exact :
+    spectral_gap_canonical .YM .NS = (3 * Real.pi - 4) / 60 := by
+  unfold spectral_gap_canonical
+  rw [lambda_0_NS_eq_one_fifteenth]
+  unfold lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  have h : Real.pi / 10 / 2 = Real.pi / 20 := by ring
+  rw [h]; ring
+
+/-- Δ(YM, BSD) = (3π − 8)/60. -/
+theorem spectral_gap_YM_BSD_exact :
+    spectral_gap_canonical .YM .BSD = (3 * Real.pi - 8) / 60 := by
+  unfold spectral_gap_canonical
+  rw [lambda_0_BSD_eq_two_fifteenths]
+  unfold lambda_0_canonical alpha_value PrincipiaTractalis.pi_10
+  have h : Real.pi / 10 / 2 = Real.pi / 20 := by ring
+  rw [h]; ring
+
+/-- All 6 cross-class gaps in closed form. -/
+theorem six_cross_class_gaps_exact :
+    spectral_gap_canonical .Poincare .NS = (3 * Real.pi - 2) / 30 ∧
+    spectral_gap_canonical .Poincare .BSD = (3 * Real.pi - 4) / 30 ∧
+    spectral_gap_canonical .RH .NS = (Real.pi - 1) / 15 ∧
+    spectral_gap_canonical .RH .BSD = (Real.pi - 2) / 15 ∧
+    spectral_gap_canonical .YM .NS = (3 * Real.pi - 4) / 60 ∧
+    spectral_gap_canonical .YM .BSD = (3 * Real.pi - 8) / 60 :=
+  ⟨spectral_gap_Poincare_NS_exact,
+   spectral_gap_Poincare_BSD_exact,
+   spectral_gap_RH_NS_exact,
+   spectral_gap_RH_BSD_exact,
+   spectral_gap_YM_NS_exact,
+   spectral_gap_YM_BSD_exact⟩
+
+/-- The 10 EXACT closed-form pairwise gaps in the Millennium framework:
+    4 single-term (3 π-multiples + 1 rational) + 6 two-term (aπ + b)/c. -/
+theorem ten_exact_closed_form_gaps :
+    -- The 4 single-term clean gaps (rational and π-multiples)
+    spectral_gap_canonical .Poincare .RH = Real.pi / 30 ∧
+    spectral_gap_canonical .Poincare .YM = Real.pi / 20 ∧
+    spectral_gap_canonical .RH .YM = Real.pi / 60 ∧
+    spectral_gap_canonical .BSD .NS = 1 / 15 ∧
+    -- The 6 two-term cross-class gaps
+    spectral_gap_canonical .Poincare .NS = (3 * Real.pi - 2) / 30 ∧
+    spectral_gap_canonical .Poincare .BSD = (3 * Real.pi - 4) / 30 ∧
+    spectral_gap_canonical .RH .NS = (Real.pi - 1) / 15 ∧
+    spectral_gap_canonical .RH .BSD = (Real.pi - 2) / 15 ∧
+    spectral_gap_canonical .YM .NS = (3 * Real.pi - 4) / 60 ∧
+    spectral_gap_canonical .YM .BSD = (3 * Real.pi - 8) / 60 :=
+  ⟨spectral_gap_Poincare_RH_eq_pi_over_30,
+   spectral_gap_Poincare_YM_eq_pi_over_20,
+   spectral_gap_RH_YM_eq_pi_over_60,
+   spectral_gap_BSD_NS_eq_one_fifteenth,
+   spectral_gap_Poincare_NS_exact,
+   spectral_gap_Poincare_BSD_exact,
+   spectral_gap_RH_NS_exact,
+   spectral_gap_RH_BSD_exact,
+   spectral_gap_YM_NS_exact,
+   spectral_gap_YM_BSD_exact⟩
+
 /-! ### Interpretation: one axiom, seven problems -/
 
 /-- **Meaning of the unification**: the framework's single project axiom
