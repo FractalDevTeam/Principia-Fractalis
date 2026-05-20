@@ -136,14 +136,16 @@ The deepest result: P and NP are characterized by **self-adjoint operators** H_P
 α_NP = φ + 1/4    ≈ 1.86803  (fractal dimension of NP)
 ```
 
-These values yield distinct ground state energies:
+These values yield distinct ground state energies (v3.3.1 corrected, 2025-11-08):
 ```
 λ₀(P)  = π/(10√2)           = 0.2221441469
-λ₀(NP) = π(√5−1)/(30√2)     = 0.1330222423
-Δ      = λ₀(P) − λ₀(NP)     = 0.0891219046 > 0
+λ₀(NP) = π/(10(φ + 1/4))    = 0.1681764182
+Δ      = λ₀(P) − λ₀(NP)     = 0.0539677287 > 0
 ```
 
 **The spectral gap is nonzero. Therefore P ≠ NP.**
+
+Both closed forms are formally certified at `PF_Lean4_Code/PF/SpectralGap.lean` and match the certified empirical to 10⁻¹⁰ (see `ALPHA_UNIQUENESS_CERTIFICATION.md`). Prior editions of this README cited `π(√5−1)/(30√2) ≈ 0.1330` as the NP-class closed form; that was a manuscript typo retracted by the v3.3.1 errata.
 
 ---
 

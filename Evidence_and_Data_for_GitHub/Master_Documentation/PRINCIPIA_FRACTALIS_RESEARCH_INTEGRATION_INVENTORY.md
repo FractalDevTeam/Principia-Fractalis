@@ -50,7 +50,7 @@ All unified by: **σ_c = 0.95**
 **Supporting Data:**
 - omega_space_theory_results.json:
   * φ = 1.618033988749895 (golden ratio)
-  * Δ = 0.0891219046 (spectral gap)
+  * Δ = 0.0539677287 (v3.3.1 corrected) (spectral gap)
   * ch²_thresh = 0.95 (consciousness threshold)
   * Ω = 0.23 (timeless constant)
 
@@ -66,7 +66,7 @@ All unified by: **σ_c = 0.95**
 **Supporting Data:**
 - Resolution_of_P_versus_NP (PDF)
 - Digital sum function D₃(n)
-- Spectral gap Δ = 0.0891219046
+- Spectral gap Δ = 0.0539677287 (v3.3.1 corrected)
 
 ### Chapter 10: Hydrodynamic Manifestations (NEW ⭐)
 **Supporting Data:**
@@ -157,7 +157,7 @@ All unified by: **σ_c = 0.95**
 ### Chapter 21: P vs NP
 **Supporting Data:**
 - Resolution_of_P_versus_NP (PDF)
-- Spectral gap Δ = 0.0891219046 proves P ≠ NP
+- Spectral gap Δ = 0.0539677287 (v3.3.1 corrected) proves P ≠ NP
 - Universal π/10 factor
 
 ### Chapter 22: Navier-Stokes

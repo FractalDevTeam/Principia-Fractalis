@@ -336,8 +336,8 @@ Different minds. Different paths. Same destination.
 |-------|--------|-------------|--------|
 | **0.95** | ch_2* | Consciousness crystallization threshold | Ch. 6 |
 | **0.2221441469** | lambda_0(P) | Ground state eigenvalue for P-class | Ch. 21 |
-| **0.1330222423** | lambda_0(NP) | Ground state eigenvalue for NP-class | Ch. 21 |
-| **0.0891219046** | Delta | Spectral gap proving P != NP | Ch. 7, 21 |
+| **0.1681764182** | lambda_0(NP) | Ground state eigenvalue for NP-class (v3.3.1 corrected) | Ch. 21 |
+| **0.0539677287** | Delta | Spectral gap proving P != NP (v3.3.1 corrected) | Ch. 7, 21 |
 | **pi/10** | ~0.314159 | Universal coupling factor | Ch. 3, 7 |
 | **1.5 (3/2)** | alpha_RH | Riemann Hypothesis resonance frequency | Ch. 3, 20 |
 | **1.414... (sqrt(2))** | alpha_P | P complexity class frequency | Ch. 3, 21 |
@@ -360,15 +360,19 @@ From **Chapter 3** (lines 219-234):
 | BSD Conjecture | 3pi/4 ~ 2.356 | Three-eighth rotation |
 | Hodge Conjecture | phi ~ 1.618 | Golden ratio |
 
-## P vs NP Complete Calculation
+## P vs NP Complete Calculation (v3.3.1 corrected)
 
-From **Chapter 7: Universal Constants** (ch07_constants.tex, lines 171-199):
+From **Chapter 21: P vs NP** (v3.3.1 propagated through `master_folder_rev2`):
 
 ```
-lambda_1^P = (1/3) * SUM_{k=0}^{2} e^{i*pi*sqrt(2)*k} ~ 0.4327896
-lambda_1^NP = (1/3) * SUM_{k=0}^{2} e^{i*pi*(phi+1/4)*k} ~ 0.5219115
-Delta = 0.5219115 - 0.4327896 = 0.0891219046
+lambda_0(H_P)  = pi / (10 * sqrt(2))      = 0.2221441469
+lambda_0(H_NP) = pi / (10 * (phi + 1/4))  = 0.1681764182
+Delta          = lambda_0(H_P) - lambda_0(H_NP) = 0.0539677287
 ```
+
+Formally certified at `PF_Lean4_Code/PF/SpectralGap.lean` (theorems `lambda_0_P_precise`, `lambda_0_NP_precise`); independently verified at 50-digit precision in `ALPHA_UNIQUENESS_CERTIFICATION.md` (Nov 2025).
+
+**Historical note:** Prior editions cited a transfer-operator derivation `lambda_1 = (1/3) * SUM_{k=0}^{2} e^{i*pi*alpha*k}` yielding `~0.4327896`, `~0.5219115`, `Delta = 0.0891219046`. Those values were superseded by the November 2025 v3.3.1 errata.
 
 ## Cosmological Values
 
