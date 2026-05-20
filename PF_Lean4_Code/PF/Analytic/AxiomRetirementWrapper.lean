@@ -41,6 +41,7 @@ import PF.Analytic.SStarBridge
 import PF.Analytic.BookEvaluationContinuity
 import PF.Analytic.LambdaZeroHPBookBounds
 import PF.Analytic.SpectralParameterBridge
+import PF.Analytic.LogZBookNeZero
 
 namespace PrincipiaTractalis.Analytic
 
@@ -183,6 +184,51 @@ theorem axiom_content_END_TO_END
       h_log_ne h_polylog_cont h_bracket_lower h_bracket_upper
   exact axiom_content_from_bookId_and_bridges
     h_bookId h_P_pos h_P_spec h_NP_pos h_NP_value
+
+/-! ## ★★★ AXIOM-CONTENT WITH h_log_ne DISCHARGED ★★★
+
+Input #1 (`Complex.log z_book ≠ 0`) is unconditionally PROVEN
+in `PF/Analytic/LogZBookNeZero.lean` via irrationality of √2.
+
+The end-to-end wrapper with `h_log_ne` discharged now takes only
+**FIVE** explicit inputs:
+
+1. ~~h_log_ne~~ — **DISCHARGED 2026-05-20** (`log_z_book_ne_zero`)
+2. `h_polylog_cont` — open analytic
+3. `h_bracket_lower` — numerical
+4. `h_bracket_upper` — numerical
+5. `h_P_spec` — operator-theoretic spectral bridge
+6. `h_NP_value` — manuscript identification
+
+Plus the two trivial positivity hypotheses (`h_P_pos`, `h_NP_pos`)
+which are auxiliary to the axiom statement itself.
+-/
+
+/-- **★ AXIOM-CONTENT WITH h_log_ne DISCHARGED (5 inputs) ★**
+
+    With `log_z_book_ne_zero` proven unconditionally, the residual
+    input count drops from 6 to 5. -/
+theorem axiom_content_FIVE_INPUTS
+    -- ANALYTIC INPUTS (2 — h_log_ne discharged via LogZBookNeZero):
+    (h_polylog_cont : ∀ s_re : ℝ, s_re ∈ Set.Icc (0.18 : ℝ) 0.19 →
+        ContinuousAt (fun s : ℂ => polyLog s z_book) (s_re : ℂ))
+    (h_bracket_lower : bookEvaluation 0.18 < (0.2221441468 : ℝ))
+    (h_bracket_upper : (0.222144147 : ℝ) < bookEvaluation 0.19)
+    -- SPECTRAL-BRIDGE INPUTS (2):
+    (h_P_pos : 0 < alpha_of_class ClassP)
+    (h_P_spec : ∃ lambdaHP : ℝ,
+        lambdaHP = Real.pi / (10 * alpha_of_class ClassP) ∧
+        lambdaHP = Real.pi / (10 * Real.sqrt 2))
+    -- NP-CLASS INPUT (1):
+    (h_NP_pos : 0 < alpha_of_class ClassNP)
+    (h_NP_value : alpha_of_class ClassNP = phi + 1/4) :
+    ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
+    (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0 ∧
+     0 < alpha_of_class ClassNP) :=
+  axiom_content_END_TO_END
+    log_z_book_ne_zero  -- ← Input #1, NOW PROVEN
+    h_polylog_cont h_bracket_lower h_bracket_upper
+    h_P_pos h_P_spec h_NP_pos h_NP_value
 
 /-! ## Documentation: the 6 inputs as the framework's residual content
 
