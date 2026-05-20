@@ -678,3 +678,104 @@ Proof.
   - exact lambda_0_canonical_times_alpha_eq_pi_10.
   - exact universal_unitary_incompatibility.
 Qed.
+
+(* ========================================================================
+   8-STATE ENERGY STRUCTURE — Coq port (2026-05-20)
+   Mirrors Lean Δ(BSD,NS) exact + range + telescoping sum theorems.
+   ======================================================================== *)
+
+(** Spectral gap between any two classes. *)
+Definition spectral_gap_canonical (c1 c2 : AlphaClass8) : R :=
+  lambda_0_canonical c1 - lambda_0_canonical c2.
+
+(** **EXACT rational gap** Δ(BSD, NS) = 1/15. *)
+Theorem spectral_gap_BSD_NS_eq_one_fifteenth :
+  spectral_gap_canonical ABSD ANS = 1 / 15.
+Proof.
+  unfold spectral_gap_canonical.
+  rewrite lambda_0_BSD_eq_two_fifteenths.
+  rewrite lambda_0_NS_eq_one_fifteenth.
+  lra.
+Qed.
+
+(** Range width: π/10 − 1/15 = (3π − 2)/30. *)
+Theorem energy_range_width :
+  pi_10 - lambda_0_canonical ANS = (3 * PI - 2) / 30.
+Proof.
+  rewrite lambda_0_NS_eq_one_fifteenth.
+  unfold pi_10.
+  field.
+Qed.
+
+(** Telescoping sum: the 7 adjacent gaps total to (3π−2)/30. *)
+Theorem adjacent_gaps_telescope_sum :
+  (lambda_0_canonical APoincare - lambda_0_canonical AP) +
+  (lambda_0_canonical AP - lambda_0_canonical ARH) +
+  (lambda_0_canonical ARH - lambda_0_canonical AHodge) +
+  (lambda_0_canonical AHodge - lambda_0_canonical ANP) +
+  (lambda_0_canonical ANP - lambda_0_canonical AYM) +
+  (lambda_0_canonical AYM - lambda_0_canonical ABSD) +
+  (lambda_0_canonical ABSD - lambda_0_canonical ANS) =
+  lambda_0_canonical APoincare - lambda_0_canonical ANS.
+Proof.
+  field.
+Qed.
+
+(** The 7 adjacent gaps sum to (3π − 2)/30. *)
+Theorem adjacent_gaps_total_eq_three_pi_minus_two_over_thirty :
+  (lambda_0_canonical APoincare - lambda_0_canonical AP) +
+  (lambda_0_canonical AP - lambda_0_canonical ARH) +
+  (lambda_0_canonical ARH - lambda_0_canonical AHodge) +
+  (lambda_0_canonical AHodge - lambda_0_canonical ANP) +
+  (lambda_0_canonical ANP - lambda_0_canonical AYM) +
+  (lambda_0_canonical AYM - lambda_0_canonical ABSD) +
+  (lambda_0_canonical ABSD - lambda_0_canonical ANS) =
+  (3 * PI - 2) / 30.
+Proof.
+  rewrite adjacent_gaps_telescope_sum.
+  rewrite lambda_0_NS_eq_one_fifteenth.
+  unfold lambda_0_canonical, alpha_value, pi_10.
+  field.
+Qed.
+
+(** Universal monotonicity in canonical form: smaller α ⇒ larger λ_0. *)
+Theorem lambda_0_Poincare_gt_P :
+  lambda_0_canonical AP < lambda_0_canonical APoincare.
+Proof.
+  apply lambda_0_strict_anti_in_alpha.
+  unfold alpha_value.
+  (* Goal: 1 < sqrt 2 *)
+  assert (H : (sqrt 2) * (sqrt 2) = 2)
+    by (apply sqrt_sqrt; lra).
+  assert (Hpos : 0 < sqrt 2) by (apply sqrt_lt_R0; lra).
+  nra.
+Qed.
+
+(** α_P = √2 < 3/2 = α_RH (using 1.414 < 1.5). *)
+Theorem alpha_P_lt_alpha_RH :
+  alpha_value AP < alpha_value ARH.
+Proof.
+  unfold alpha_value.
+  (* sqrt 2 < 3/2 ⟺ 2 < 9/4 ⟺ 8 < 9 *)
+  assert (H : (sqrt 2) * (sqrt 2) = 2) by (apply sqrt_sqrt; lra).
+  assert (Hpos : 0 < sqrt 2) by (apply sqrt_lt_R0; lra).
+  nra.
+Qed.
+
+(** Bundle: the 8-state energy structure. *)
+Theorem eight_state_energy_structure :
+  (spectral_gap_canonical ABSD ANS = 1 / 15) /\
+  (pi_10 - lambda_0_canonical ANS = (3 * PI - 2) / 30) /\
+  ((lambda_0_canonical APoincare - lambda_0_canonical AP) +
+   (lambda_0_canonical AP - lambda_0_canonical ARH) +
+   (lambda_0_canonical ARH - lambda_0_canonical AHodge) +
+   (lambda_0_canonical AHodge - lambda_0_canonical ANP) +
+   (lambda_0_canonical ANP - lambda_0_canonical AYM) +
+   (lambda_0_canonical AYM - lambda_0_canonical ABSD) +
+   (lambda_0_canonical ABSD - lambda_0_canonical ANS) =
+   (3 * PI - 2) / 30).
+Proof.
+  split; [exact spectral_gap_BSD_NS_eq_one_fifteenth |].
+  split; [exact energy_range_width |
+          exact adjacent_gaps_total_eq_three_pi_minus_two_over_thirty].
+Qed.
