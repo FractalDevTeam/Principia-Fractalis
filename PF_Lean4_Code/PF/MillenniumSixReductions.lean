@@ -2873,3 +2873,67 @@ theorem lambda_NP_alt_plus_Delta_alt_eq_lambda_P :
   ring
 
 end PrincipiaTractalis.MillenniumSix
+
+/-! ## NORM-FORM identity: (2√2 + √5)(2√2 - √5) = 3 (2026-05-18)
+
+In the field ℚ(√2, √5), the conjugate pair (2√2 ± √5) has norm:
+
+  (2√2 + √5)(2√2 - √5) = (2√2)² - (√5)² = 8 - 5 = 3
+
+This is a Frobenius-style norm identity. The integer 3 (= the divisor
+in alt_ratio = (...)/3, = base-3 self-similarity factor) appears here
+naturally as the norm of (2√2+√5) in ℚ(√2,√5).
+
+Consequence for alt_ratio:
+  alt_ratio = (3 + 2√2 - √5)/6
+            = (3 + 3/(2√2 + √5))/6        [using (2√2-√5) = 3/(2√2+√5)]
+            = (1 + 1/(2√2 + √5))/2
+
+So `alt_ratio = (1 + 1/(2√2+√5))/2`, a strikingly clean form: the
+ratio is the midpoint between 1/2 and 1/(2√2+√5) above 1/2 plus 1/2.
+
+This may be the most structurally meaningful form: the empirical
+λ_NP/λ_P ratio is expressible via the norm-3 element of ℚ(√2,√5). -/
+
+namespace PrincipiaTractalis.MillenniumSix
+
+/-- **The norm identity** in ℚ(√2,√5): `(2√2 + √5)(2√2 - √5) = 3`. -/
+theorem two_sqrt2_plus_sqrt5_norm :
+    (2 * Real.sqrt 2 + Real.sqrt 5) * (2 * Real.sqrt 2 - Real.sqrt 5) = 3 := by
+  have h2 : Real.sqrt 2 * Real.sqrt 2 = 2 :=
+    Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 2)
+  have h5 : Real.sqrt 5 * Real.sqrt 5 = 5 :=
+    Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 5)
+  nlinarith [h2, h5]
+
+/-- **`2√2 + √5 > 0`** (positivity of the norm element). -/
+theorem two_sqrt2_plus_sqrt5_pos : 2 * Real.sqrt 2 + Real.sqrt 5 > 0 := by
+  have h2 : Real.sqrt 2 > 0 := Real.sqrt_pos.mpr (by norm_num : (2 : ℝ) > 0)
+  have h5 : Real.sqrt 5 > 0 := Real.sqrt_pos.mpr (by norm_num : (5 : ℝ) > 0)
+  linarith
+
+/-- **Reciprocal form**: `2√2 - √5 = 3/(2√2 + √5)`. -/
+theorem two_sqrt2_minus_sqrt5_eq_three_over_sum :
+    2 * Real.sqrt 2 - Real.sqrt 5 = 3 / (2 * Real.sqrt 2 + Real.sqrt 5) := by
+  have h_pos : 2 * Real.sqrt 2 + Real.sqrt 5 > 0 := two_sqrt2_plus_sqrt5_pos
+  have h_norm : (2 * Real.sqrt 2 + Real.sqrt 5) * (2 * Real.sqrt 2 - Real.sqrt 5) = 3 :=
+    two_sqrt2_plus_sqrt5_norm
+  rw [eq_div_iff h_pos.ne']
+  linear_combination h_norm
+
+/-- **NORM-FORM CLOSED EXPRESSION**: `alt_ratio = (1 + 1/(2√2 + √5))/2`.
+
+    The simplest known closed-form representation: midpoint of 1/2 and
+    1/(2√2+√5). The element `2√2 + √5` has norm 3 in ℚ(√2,√5), which
+    matches the base-3 self-similarity factor of the framework. -/
+theorem alt_ratio_norm_form :
+    alt_ratio_candidate = (1 + 1 / (2 * Real.sqrt 2 + Real.sqrt 5)) / 2 := by
+  rw [alt_ratio_surd_form]
+  have h2 : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  have h5 : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h_pos : 2 * Real.sqrt 2 + Real.sqrt 5 > 0 := two_sqrt2_plus_sqrt5_pos
+  have h_ne : 2 * Real.sqrt 2 + Real.sqrt 5 ≠ 0 := h_pos.ne'
+  field_simp
+  linarith [h2, h5]
+
+end PrincipiaTractalis.MillenniumSix
