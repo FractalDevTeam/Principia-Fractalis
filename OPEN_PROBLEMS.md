@@ -1,6 +1,8 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-16. Companion to `AXIOM_AUDIT.md` and `PRISTINE_CERTIFICATION.md`.*
+*Last updated: 2026-05-20 (v3.3.1 propagation pass). Companion to `AXIOM_AUDIT.md` and `PRISTINE_CERTIFICATION.md`.*
+
+> **v3.3.1 propagation note (2026-05-20):** Problem 3 below has been updated to reflect the November 2025 v3.3.1 errata. The supposed "ratio discrepancy" between closed-form predictions and empirical measurements was an artifact of a pre-v3.3.1 buggy spectral-truncation pipeline (the legacy `λ_0(H_NP) ≈ 0.1330` and ratio `≈ 0.5988` values). The certified empirical `λ_0(H_NP) = 0.1681764182230` matches the canonical Lean closed form `π/(10(φ+1/4))` to 10⁻¹⁰, and the certified empirical ratio `√2/(φ+1/4) ≈ 0.7570` matches the closed-form ratio exactly. Problem 3 is therefore narrowed from "reconcile empirical with closed form" to "derive the canonical ratio `√2/(φ+1/4)` from operator theory." Problems 1, 2, and 4 are unaffected.
 
 This document enumerates the **open mathematical problems** that the Principia Fractalis framework has *isolated* — that is, the precisely-stated mathematical claims on which the framework's headline conditional reductions of Clay Millennium Problems depend.
 
@@ -306,13 +308,15 @@ This narrowing is documented in the manuscript at Ch 21 Remark `rem:M0-narrowing
 
 ## Problem 3 — Golden-Ratio Modulation Conjecture (Ch 21, `conj:golden-modulation`)
 
+> **⚠️ STATUS UPDATE (2026-05-20): The "ratio discrepancy" framing of this problem is CLOSED by v3.3.1 propagation. The remaining open question is reduced to operator-theoretic derivation of the canonical ratio `√2/(φ+1/4)`. See "v3.3.1 reconciliation" below.**
+
 **Statement.** The NP-class operator `H_NP` is related to `H_P` by a unitary transformation
 
 ```
 H_NP = U(φ) · H_P · U†(φ)
 ```
 
-where `U(φ)` implements a phase rotation by the golden angle `φ = (√5 − 1)π/2`. This is conjectured to yield the ground-state ratio
+where `U(φ)` implements a phase rotation by the golden angle `φ = (√5 − 1)π/2`. This was originally conjectured to yield the ground-state ratio
 
 ```
 λ_0(H_NP) / λ_0(H_P) = sin(π/√2) / sin(π/√2 + φ) = (√5 − 1)/3
@@ -320,36 +324,47 @@ where `U(φ)` implements a phase rotation by the golden angle `φ = (√5 − 1)
 
 and the closed-form `α_NP = φ + 1/4`.
 
-**Current status (corrected 2026-05-18).** The manuscript's "Sine Identity Verification" remark previously claimed `0.798635510 / 0.847127424 ≈ 0.5988854382 = (√5 − 1)/3`. Both halves of this identity are formally certified WRONG by Lean theorems in `PF/MillenniumSixReductions.lean`:
+---
 
-- `manuscript_sine_ratio_bracket`: `0.94 < |0.798635510 / 0.847127424| < 0.95` (actually ≈ 0.9427, not 0.5988)
-- `manuscript_sqrt5_minus_one_div_three_bracket`: `0.41 < (√5 − 1)/3 < 0.42` (actually ≈ 0.4120, not 0.5988)
-- `lean_closed_form_ratio_bracket`: `0.75 < √2/(φ+1/4) < 0.76` (the Lean closed-form ratio ≈ 0.757)
+### v3.3.1 reconciliation (2026-05-20)
 
-**Candidate ratios for `λ_0(H_NP) / λ_0(H_P)`** (empirical target ≈ 0.5988):
+**What we previously thought was the problem:** The empirical ratio `0.1330/0.2221 ≈ 0.5988` did not match any closed form. We had three candidates that all missed:
 
-| Closed form | Numerical value | Lean certificate | Matches empirical? |
+- `(√5−1)/3 ≈ 0.4120` (golden modulation): off by 0.187
+- `√2/(φ+1/4) ≈ 0.7570` (Lean closed form): off by 0.158
+- `sin(π/√2) / sin(π/√2+φ) ≈ 0.9427` (sine identity): off by 0.344
+
+And a fourth candidate `(2+√2−φ)/3 ≈ 0.5987` (formalized in 2026-05-18) that did match the empirical to 4 decimals.
+
+**What we now know:** The empirical value `0.1330222423` was a pre-v3.3.1 stale artifact of a buggy spectral-truncation pipeline. The November 2025 v3.3.1 errata (file `Principia_Fractalis_v3.3.1_ERRATA_CORRECTED_20251108.pdf`; correction log `BOSS_DIVISION_PROOFS_SCAFFOLDING_COMPLETE.md`) retracted that value. The certified empirical (143 problems, 10⁻¹⁰ precision, re-verified in `ALPHA_UNIQUENESS_CERTIFICATION.md` at 50-digit precision) is:
+
+```
+λ_0(H_NP) = 0.1681764182230  (matches π/(10(φ+1/4)) to 10⁻¹⁰)
+ratio     = √2/(φ+1/4) ≈ 0.7570  (matches Lean closed-form prediction exactly)
+```
+
+**Updated candidate table (post-v3.3.1):**
+
+| Closed form | Numerical value | Lean certificate | Matches certified empirical 0.7570? |
 |-------------|-----------------|------------------|---------------------|
-| Empirical (0.1330/0.2221) | 0.5988854382 | — | — (definition) |
-| `(√5−1)/3` (golden modulation) | ≈ 0.4120 | `manuscript_sqrt5_minus_one_div_three_bracket` | ❌ Off by 0.187 |
-| `√2/(φ+1/4)` (Lean closed-form) | ≈ 0.7570 | `lean_closed_form_ratio_bracket` | ❌ Off by 0.158 |
-| sine ratio (manuscript) | ≈ 0.9427 | `manuscript_sine_ratio_bracket` | ❌ Off by 0.344 |
-| **`(2+√2−φ)/3` (NEW candidate, 2026-05-18)** | **≈ 0.59873** | **`alt_ratio_candidate_bracket_5digit`** | **✅ Matches to 8.4×10⁻⁵** |
+| **`√2/(φ+1/4)` (Lean closed-form)** | **≈ 0.7570** | **`lean_closed_form_ratio_bracket`** | **✅ Matches to 10⁻¹⁰** |
+| `(√5−1)/3` (golden modulation) | ≈ 0.4120 | `manuscript_sqrt5_minus_one_div_three_bracket` | ❌ REFUTED |
+| sine ratio (manuscript) | ≈ 0.9427 | `manuscript_sine_ratio_bracket` | ❌ Not the framework's ratio |
+| `(2+√2−φ)/3` (2026-05-18 alt) | ≈ 0.5987 | `alt_ratio_candidate_bracket_5digit` | ❌ Fitted stale value 0.5988, not real ratio |
 
-The new closed-form candidate `(2+√2−φ)/3` matches the empirical ratio to ~4 decimal places — substantively better than ANY of the manuscript's stated candidates. The implied `λ_NP_alt := π(2+√2−φ)/(30√2) ≈ 0.1330` is bracketed in `lambda_NP_alt_bracket` (0.1330 < λ_NP_alt < 0.1331), formally proven to match the empirical `λ_NP ≈ 0.1330222423` to 4 decimal places.
+**Consequence:** The framework's canonical closed-form ratio `√2/(φ+1/4)` already matches the certified empirical exactly. There is no closed-form-vs-empirical discrepancy to resolve. The 2026-05-18 alt candidate `(2+√2−φ)/3` was fitting a typographic artifact and is no longer the relevant target (see deprecation banner in `PF/MillenniumSixReductions.lean` at line 2492 for the formalized historical record).
 
-This candidate is NOT a first-principles derivation — like (√5−1)/3 it's a numerical coincidence. But it has two structural advantages:
+**What remains open (the genuine Problem 3):**
 
-1. **It actually matches the empirical value** (unlike all three manuscript candidates).
-2. **Its symbolic structure combines all the framework's emphasized constants**: integer scaling (2), P-class fractal dimension (√2), golden ratio (φ), base-3 self-similarity (denominator 3).
+The golden-modulation Conjecture as ORIGINALLY STATED predicts ratio `(√5−1)/3`, which is REFUTED. The Conjecture in its current form is therefore wrong. The corrected open problem is:
 
-**Open question**: Does `(2+√2−φ)/3` admit a first-principles derivation from the operator-theoretic structure of `H_NP`? If yes, the golden-modulation conjecture should be REPLACED with this formula. The author's audit catalog (MATHEMATICAL_VALIDATION_REPORT.md §3, 2025-11-30) flagged this candidate as a numerical coincidence; the present formalization (2026-05-18) confirms the numerical match rigorously and elevates it to a candidate that deserves first-principles investigation. The unitary-conjugation structural claim of Conjecture~\ref{conj:golden-modulation} likely needs reformulation around this new candidate ratio.
+> **(Problem 3, restated post-v3.3.1.)** Identify the operator-theoretic mechanism that produces the canonical ratio `λ_0(H_NP)/λ_0(H_P) = √2/(φ+1/4)`. A reformulated unitary-conjugation Conjecture (different from `H_NP = U(φ) H_P U†(φ)`) is the natural target. The conjecture must be replaced; the canonical ratio is fixed.
 
 **Lean encoding.** NP-class component of `alpha_class_polylog_eigenvalue_conjecture` (the quadratic `16α² − 24α − 11 = 0`).
 
 **What a solution would deliver.** Combined with Problems 1 and 2, retires the project axiom unconditionally.
 
-**Difficulty estimate.** Requires explicit construction of the unitary `U(φ)` and verification of the conjugacy on the fractal-kernel operator — bounded but non-trivial.
+**Difficulty estimate.** Requires identification of a new operator-theoretic structure (likely a different unitary, possibly involving both `α_P = √2` and `α_NP = φ+1/4` rather than a single angle `φ`). The 2026-05-18 algebraic identity `(2+α_P−α_Hodge)/3` and the Frobenius-norm structure `(2√2+√5)(2√2−√5) = 3` in ℚ(√2,√5) (formalized in `PF/MillenniumSixReductions.lean`, deprecation-banner-flagged) remain valid algebraic curiosities that may hint at the structure of the correct mechanism, even though they targeted the wrong empirical value.
 
 ---
 

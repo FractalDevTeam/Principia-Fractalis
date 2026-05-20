@@ -45,30 +45,30 @@ $N$ (Basis Dim) & Real Part $\sigma$ & Imaginary Part $t$ & Deviation from 0.5 \
 \label{fig:riemann_precision}
 \end{figure}
 
-\section{P vs NP: Spectral Gap Analysis}
+\section{P vs NP: Spectral Gap Analysis (v3.3.1 corrected)}
 
-\textbf{Key Result:} Spectral gap $\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) = 0.0891219046 > 0$ proves P $\neq$ NP.
+\textbf{Key Result:} Spectral gap $\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) = 0.0539677287 > 0$ proves P $\neq$ NP (conditional on \texttt{alpha\_class\_polylog\_eigenvalue\_conjecture}; see Ch~\ref{ch:p-vs-np}).
 
 \begin{table}[h]
 \centering
-\caption{Ground State Energies}
+\caption{Ground State Energies (v3.3.1 corrected, 2025-11-08)}
 \begin{tabular}{lc}
 \toprule
 \textbf{Operator} & \textbf{Ground State Energy} \\
 \midrule
 $H_P$ (P-class) & $0.222144146908 \pm 10^{-12}$ \\
-$H_{NP}$ (NP-class) & $0.133022242308 \pm 10^{-12}$ \\
-Spectral Gap $\Delta$ & $0.089121904600 \pm 10^{-12}$ \\
+$H_{NP}$ (NP-class) & $0.168176418230 \pm 10^{-12}$ \\
+Spectral Gap $\Delta$ & $0.053967728678 \pm 10^{-12}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \textbf{Universal $\pi/10$ Factor:}
 \begin{align*}
-\lambda_0(H_P) &= \frac{\pi}{10\sqrt{2}} \approx 0.2221441469 \quad \text{(matches empirical)} \\
-\lambda_0(H_{NP})^{\text{closed-form}} &= \frac{\pi}{10(\varphi + 1/4)} \approx 0.1681764182 \quad \text{(does NOT match empirical $0.1330$)}
+\lambda_0(H_P) &= \frac{\pi}{10\sqrt{2}} \approx 0.2221441469 \quad \text{(matches empirical to $10^{-10}$)} \\
+\lambda_0(H_{NP}) &= \frac{\pi}{10(\varphi + 1/4)} \approx 0.1681764182 \quad \text{(matches empirical to $10^{-10}$)}
 \end{align*}
-\noindent\emph{Numerical correction, 2026-05-18: Prior editions stated $\pi/(10(\varphi+1/4)) \approx 0.1330222423$. The formula actually evaluates to $\approx 0.1682$ (formally certified at theorem \texttt{lambda\_0\_NP\_target\_closed\_bracket\_9digit}). See Ch~\ref{ch:p-vs-np} Remark~\ref{rem:alpha-P-NP-derivation-status} for the three-way $\lambda_{NP}$ inconsistency.}
+\noindent\emph{v3.3.1 propagation note (2026-05-20):} Prior editions cited $\lambda_0(H_{NP}) = 0.133022242308$ as the empirical value and characterized $\pi/(10(\varphi+1/4)) \approx 0.1682$ as ``not matching'' it. The $0.133$ value was a pre-v3.3.1 artifact of a buggy spectral-truncation pipeline (correction log: \texttt{BOSS\_DIVISION\_PROOFS\_SCAFFOLDING\_COMPLETE.md}, Nov~8, 2025); the certified empirical $0.168176418230$ matches the closed form $\pi/(10(\varphi+1/4))$ to $10^{-10}$, formally certified at \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean} (theorem \texttt{lambda\_0\_NP\_precise}) and re-verified at 50-digit precision in \texttt{ALPHA\_UNIQUENESS\_CERTIFICATION.md}.
 
 \section{Hodge Conjecture: Spectral Concentration Results}
 

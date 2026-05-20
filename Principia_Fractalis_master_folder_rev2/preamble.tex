@@ -175,16 +175,8 @@
   #1
 }
 
-% Red Box - Warning
-\newtcolorbox{warning}[1][]{
-  colback=warnred!5,
-  colframe=warnred,
-  fonttitle=\bfseries,
-  title=Warning,
-  breakable,
-  enhanced,
-  #1
-}
+% (Duplicate \newtcolorbox{warning} removed 2026-05-20 — first definition at line 143 is canonical.
+% Pre-existing collision was blocking pdflatex builds with "Command \warning already defined".)
 
 % Light Green Box - Intuitive Understanding
 \newtcolorbox{intuitive}[1][]{

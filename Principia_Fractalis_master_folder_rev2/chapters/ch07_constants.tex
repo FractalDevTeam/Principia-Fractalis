@@ -152,7 +152,7 @@ The $\pi/10$ factor has multiple physical meanings:
 \item \textbf{Probability Conservation}: Quantum mechanical probabilities remain normalized precisely because of the $\pi/10$ normalization factor in the resonance function.
 \end{enumerate}
 
-\section{The Spectral Gap $\Delta = 0.0891219046...$}
+\section{The Spectral Gap $\Delta = 0.0539677287\ldots$ (v3.3.1 corrected)}
 
 \subsection{P versus NP: The Energy Barrier}
 
@@ -165,38 +165,31 @@ Imagine two hikers climbing a mountain:
 \item \textbf{Hiker NP} can try all possible paths simultaneously in superposition (nondeterministic computation).
 \end{itemize}
 
-The spectral gap $\Delta = 0.0891$ is the \textit{minimum energy advantage} that Hiker NP has over Hiker P. It's the irreducible cost of quantum superposition---the price nature pays for parallel exploration of possibilities.
+The spectral gap $\Delta = 0.0540$ (v3.3.1 corrected) is the \textit{minimum energy advantage} that Hiker NP has over Hiker P. It's the irreducible cost of quantum superposition---the price nature pays for parallel exploration of possibilities.
 \end{intuitive}
 
-\begin{thm}[P vs NP Spectral Gap]\label{thm:p-np-gap}
-The spectral gap between deterministic and nondeterministic computation is:
+\begin{thm}[P vs NP Spectral Gap, v3.3.1 corrected]\label{thm:p-np-gap}
+The spectral gap between deterministic and nondeterministic computation is the difference between the ground-state eigenvalues of the operators $H_P$ and $H_{NP}$:
 \begin{equation}
-\boxed{\Delta = \lambda_1^{\mathbf{NP}} - \lambda_1^{\mathbf{P}} = 0.0891219046...}
+\boxed{\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) = \frac{\pi}{10\sqrt{2}} - \frac{\pi}{10(\varphi+1/4)} = 0.0539677287\ldots}
 \end{equation}
-where $\lambda_1$ denotes the first non-zero eigenvalue of the respective transfer operators.
+formally certified at \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean} (theorem \texttt{spectral\_gap\_value}). Full derivation in Ch~\ref{ch:p-vs-np}.
 \end{thm}
 
-\begin{level2}[Detailed Calculation]
-We compute the eigenvalues of transfer operators at critical resonance values.
-
-For the $\mathbf{P}$-class, we use $\alpha = \sqrt{2}$ (the diagonal resonance):
+\begin{level2}[Detailed Calculation, v3.3.1 corrected]
+The ground-state eigenvalues of $H_P$ and $H_{NP}$ at the canonical resonance values $\alpha_P = \sqrt{2}$ and $\alpha_{NP} = \varphi + 1/4$ are given by the polylog spectral formula on the physical Riemann sheet (Ch~\ref{ch:p-vs-np}, Conjecture \texttt{conj:polylog-spectrum}, Heuristic \texttt{heur:branch-selection}):
+\begin{align}
+\lambda_0(H_P) &= \frac{\pi}{10\sqrt{2}} = 0.2221441469079\ldots \\
+\lambda_0(H_{NP}) &= \frac{\pi}{10(\varphi+1/4)} = 0.1681764182295\ldots
+\end{align}
+yielding the gap
 \begin{equation}
-\lambda_1^{\mathbf{P}} = \frac{1}{3} \sum_{k=0}^{2} e^{i\pi\sqrt{2} k} = \frac{1 + e^{i\pi\sqrt{2}} + e^{2i\pi\sqrt{2}}}{3}
+\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) = 0.0539677286783\ldots
 \end{equation}
+These match the certified empirical measurements ($143$ problems, $10^{-10}$ precision) exactly; cf.\ \texttt{ALPHA\_UNIQUENESS\_CERTIFICATION.md} (Nov~2025).
 
-Numerically: $\lambda_1^{\mathbf{P}} \approx 0.4327896...$
-
-For the $\mathbf{NP}$-class, we use $\alpha = \phi + 1/4$ where $\phi$ is the golden ratio:
-\begin{equation}
-\lambda_1^{\mathbf{NP}} = \frac{1}{3} \sum_{k=0}^{2} e^{i\pi(\phi + 1/4) k}
-\end{equation}
-
-Numerically: $\lambda_1^{\mathbf{NP}} \approx 0.5219115...$
-
-The difference is:
-\begin{equation}
-\Delta = 0.5219115... - 0.4327896... = 0.0891219046...
-\end{equation}
+\medskip
+\noindent\textbf{Historical note (v3.3.1 propagation, 2026-05-20).} Prior editions presented an alternative transfer-operator derivation $\lambda_1 = (1/3)\sum_{k=0}^{2} e^{i\pi\alpha k}$ yielding $\lambda_1^{\mathbf{P}} \approx 0.4327896$, $\lambda_1^{\mathbf{NP}} \approx 0.5219115$, $\Delta = 0.0891219046$. Those values do not correspond to the operators $H_P, H_{NP}$ of Ch~\ref{ch:p-vs-np} (whose canonical ground-state eigenvalues are the $\pi/(10\alpha)$ closed forms above, matching certified empirical to $10^{-10}$). The earlier transfer-operator formula was an early derivation attempt whose connection to the canonical $H_P/H_{NP}$ operators was never rigorously established; the v3.3.1 errata superseded those values with the canonical pair shown above.
 
 This value is \textit{universal}---it does not depend on the specific problem in $\mathbf{NP}$, only on the fundamental structure of computation itself.
 \end{level2}

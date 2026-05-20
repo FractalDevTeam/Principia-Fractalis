@@ -203,15 +203,12 @@ def Rf(alpha, s, N=1000):
 \text{Zeros of } \zeta(s) \leftrightarrow \text{Eigenvalues of transfer operator } T_\infty
 \end{equation}
 
-\textbf{At $\alpha = \sqrt{2}$ (P complexity):}
-\begin{equation}
-\text{Spectral gap: } \Delta_P = 0.0891219046
-\end{equation}
-
-\textbf{At $\alpha = \phi + 1/4$ (NP complexity):}
-\begin{equation}
-\text{Spectral gap: } \Delta_{NP} = 0.1337359842
-\end{equation}
+\textbf{At canonical P/NP resonance values (v3.3.1 corrected):}
+\begin{align}
+\lambda_0(H_P) &= \pi/(10\sqrt{2}) \approx 0.2221441469 \quad \text{($\alpha = \sqrt{2}$)} \\
+\lambda_0(H_{NP}) &= \pi/(10(\varphi+1/4)) \approx 0.1681764182 \quad \text{($\alpha = \varphi + 1/4$)} \\
+\text{Spectral gap: } \Delta &= 0.0539677287
+\end{align}
 
 \textbf{Gap separation:} $\Delta_{NP} - \Delta_P = 0.0446140796$
 
