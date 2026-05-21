@@ -51,9 +51,8 @@ theorem polylogHankelTerm_eq_orig (s z : ℂ) (n : ℕ) (t : ℝ) :
       Complex.exp (-((n + 1 : ℕ) : ℂ) * (t : ℂ))) := by
   unfold polylogHankelTerm
   congr 2
-  rw [show ((Real.exp (-(((n + 1 : ℕ) : ℝ) * t)) : ℝ) : ℂ) =
-          Complex.exp (((-(((n + 1 : ℕ) : ℝ) * t)) : ℝ) : ℂ) from
-    (Complex.ofReal_exp _).symm]
+  -- ↑(Real.exp y) = Complex.exp ↑y, then normalize the argument cast
+  rw [Complex.ofReal_exp]
   congr 1
   push_cast
   ring

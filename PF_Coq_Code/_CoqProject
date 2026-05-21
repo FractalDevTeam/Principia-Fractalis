@@ -13,8 +13,12 @@ PF/Analytic/MatrixSpectrumLevel2.v
 PF/Analytic/LogZBookNeZero.v
 PF/Analytic/PolyLogSheaf.v
 PF/Analytic/PolyLogHankelRealization.v
+PF/Analytic/USlitSimplyConnected.v
+PF/Analytic/JonquieresIdentity.v
+PF/Analytic/PolyLogAnalyticExtension.v
 PF/Analytic/TsumHankelAgreement.v
 PF/Analytic/BookEvaluationManuscript.v
+PF/Empirical/HundredFortyThreeProblems.v
 PF/MillenniumSixReductions.v
 PF/Consciousness/ChernCharacter.v
 PF/Consciousness/TimelessField.v
