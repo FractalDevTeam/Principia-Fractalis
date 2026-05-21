@@ -1,8 +1,22 @@
 # Referee Audit — 2026-05-20 Session
 
+> **⚠ Snapshot note (superseded by later same-day milestone).** This
+> audit was written on 2026-05-20 **before** the subsequent same-day
+> cascade refactor (commit `72c0137`) that retired the last project
+> axiom. Below references to "5736 jobs" and "the single axiom" capture
+> the pre-`72c0137` 1-axiom state. After commit `72c0137`: build is
+> **5750 jobs clean, 0 project axioms**; `alpha_class_polylog_eigenvalue_conjecture`
+> is a `def PolylogEigenvalueConjecture : Prop` (not an axiom), taken
+> as an explicit hypothesis by every consumer. `#print axioms` on every
+> capstone returns only `[propext, Classical.choice, Quot.sound]`.
+> The audit's reproducibility commands and per-theorem verification
+> structure remain correct; only the headline state changed.
+> See `AXIOM_AUDIT.md`, `OPEN_PROBLEMS.md`, `PRISTINE_CERTIFICATION.md`
+> for the post-`72c0137` state.
+
 **Purpose**: Enable an independent referee to mechanically verify every claim made in this session's commits without trusting any prose. Every result has a named theorem, a verified axiom dependency, and a reproducibility command.
 
-**Scope**: Commits `a685e9f` through `b8a472e` (12 commits, 2026-05-20). This audit does NOT cover earlier work; refer to `AXIOM_AUDIT.md` and `PRISTINE_CERTIFICATION.md` for that.
+**Scope**: Commits `a685e9f` through `b8a472e` (12 commits, 2026-05-20, pre-`72c0137`). This audit does NOT cover earlier work; refer to `AXIOM_AUDIT.md` and `PRISTINE_CERTIFICATION.md` for that.
 
 ---
 
