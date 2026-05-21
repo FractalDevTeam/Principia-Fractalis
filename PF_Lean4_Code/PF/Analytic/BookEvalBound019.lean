@@ -42,7 +42,7 @@ open Complex
 
 /-- The norm of the polylog summand at `z_book` (unit-circle point), with
     real `s`, equals `1 / (n+1)^s`. -/
-theorem norm_polyLog_term_at_z_book (s : ℝ) (n : ℕ) :
+theorem norm_polyLog_term_at_z_book_real (s : ℝ) (n : ℕ) :
     ‖z_book ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ ((s : ℝ) : ℂ)‖ =
       1 / ((n + 1 : ℕ) : ℝ) ^ s := by
   rw [norm_div, norm_pow, norm_z_book, one_pow]
@@ -87,7 +87,7 @@ theorem not_summable_inv_succ_rpow {s : ℝ} (hs : s ≤ 1) :
     In a finite-dimensional normed space over ℝ (and ℂ is 2-dim over ℝ),
     `Summable f ↔ Summable (‖f ·‖)`. The norm equals `1/(n+1)^s`, which is
     not summable for `s ≤ 1` (divergent p-series). -/
-theorem not_summable_polyLog_term_at_z_book {s : ℝ} (hs : s ≤ 1) :
+theorem not_summable_polyLog_term_at_z_book_real {s : ℝ} (hs : s ≤ 1) :
     ¬ Summable (fun n : ℕ => z_book ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ ((s : ℝ) : ℂ)) := by
   intro hsum
   -- In ℂ (finite-dim over ℝ), Summable f → Summable (‖f ·‖).
@@ -97,7 +97,7 @@ theorem not_summable_polyLog_term_at_z_book {s : ℝ} (hs : s ≤ 1) :
   have h_eq : (fun n : ℕ => ‖z_book ^ (n + 1) / ((n + 1 : ℕ) : ℂ) ^ ((s : ℝ) : ℂ)‖) =
               (fun n : ℕ => 1 / ((n + 1 : ℕ) : ℝ) ^ s) := by
     funext n
-    exact norm_polyLog_term_at_z_book s n
+    exact norm_polyLog_term_at_z_book_real s n
   rw [h_eq] at hnorm
   exact not_summable_inv_succ_rpow hs hnorm
 
@@ -107,7 +107,7 @@ theorem not_summable_polyLog_term_at_z_book {s : ℝ} (hs : s ≤ 1) :
 theorem polyLog_at_z_book_eq_zero {s : ℝ} (hs : s ≤ 1) :
     polyLog ((s : ℝ) : ℂ) z_book = 0 := by
   unfold polyLog
-  exact tsum_eq_zero_of_not_summable (not_summable_polyLog_term_at_z_book hs)
+  exact tsum_eq_zero_of_not_summable (not_summable_polyLog_term_at_z_book_real hs)
 
 /-- **`bookEvaluation s` collapses to the monodromy-shift real part** for
     real `s ≤ 1`. -/
