@@ -73,6 +73,8 @@ import PF.Analytic.ZBookNeOne                     -- Stage L4 — z_book ≠ 1 v
 import PF.Analytic.PolyLogContinuity              -- Stage L4 — polylog termwise continuity + path to analytic continuation
 import PF.Analytic.PolyLogContinuityInDisc        -- Stage L4 — polylog continuity for |z| < 1 via Weierstrass M-test
 import PF.Analytic.PolyLogHankelIdentity          -- Stage L4 — polylog Hankel identity framework + continuity of target value
+import PF.Analytic.PolyLogContinuityAtZBook       -- Input #2 — polylog ContinuousAt at z_book on [0.18, 0.19] (formal-tsum discharge)
+import PF.Analytic.PolylogContInputDischarge      -- Input #2 — roadmap-canonical re-export `h_polylog_cont_proved` + audit
 import PF.Analytic.SpectralParameterBridge        -- Stage L4 — SPECTRAL BRIDGE: polylog identity → α_P = √2, α_NP = φ + 1/4
 import PF.Analytic.SpectralAnalysisFramework      -- Stage L4 — SPECTRAL ANALYSIS FRAMEWORK: full axiom-retirement chain
 import PF.Analytic.HPGeneralOperator              -- Stage L4 — H_P_at α: α-parameterized P-class operator with self-adjointness

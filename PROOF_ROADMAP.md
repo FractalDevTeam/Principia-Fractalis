@@ -1,12 +1,29 @@
 # Proof Roadmap — Discharging the Polylog Conjecture
 
-> **🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed).** The previously-axiomatic `alpha_class_polylog_eigenvalue_conjecture` has been refactored to a named Lean Proposition `PolylogEigenvalueConjecture : Prop` (and analogously on the Coq side), taken as an explicit hypothesis by every consumer. The roadmap below targets *discharging* this Proposition (and the related `OffDiscPatchData s`); there is no axiom to retire. The structural decomposition into inputs remains accurate as a plan for discharging the underlying mathematical content; only the framing has changed.
+> **🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed).** The previously-axiomatic `alpha_class_polylog_eigenvalue_conjecture` has been refactored to a named Lean Proposition `PolylogEigenvalueConjecture : Prop` (and analogously on the Coq side), taken as an explicit hypothesis by every consumer. The roadmap below targets *discharging* this Proposition (and the related `OffDiscPatchData s`); there is no axiom to retire.
 
-**Goal**: Prove `PolylogEigenvalueConjecture` (formerly the axiom `alpha_class_polylog_eigenvalue_conjecture`) unconditionally as a Lean theorem.
+> **⚠ STRUCTURAL FINDING (2026-05-21): the 5-inputs path documented below was structurally vacuous, not viable.** A four-agent investigation determined that the formal Lean `polyLog` (defined as a `tsum`) equals **zero** identically on `{Re s ≤ 1, |z| = 1, z ≠ 1}` due to mathlib's `tsum_eq_zero_of_not_summable` convention on non-summable series. Specifically: `polyLog s z_book = 0` for `s ∈ [0.18, 0.19]` in current Lean semantics. This means:
+> - **Input 2 (`h_polylog_cont`)** is satisfied **vacuously** — a constantly-zero function is trivially continuous (discharged literal-statement-faithful in `PF/Analytic/PolylogContInputDischarge.lean`, but does not capture manuscript content).
+> - **Input 3 (`h_bracket_lower : bookEvaluation 0.18 < 0.222`)** is **mathematically FALSE** in current Lean. With `polyLog s z_book = 0`, `bookEvaluation 0.18 ≈ 0.71`, not the manuscript's Jonquières-extended value ≈ 0.21. The wrapper's hypothesis cannot be discharged because it is false.
+> - **Input 4 (`h_bracket_upper`)** is true in current Lean but requires unbuilt interval-arithmetic infrastructure for `Real.Gamma`, `Real.rpow`, `Real.cos`, `Real.sin` at irrational arguments — multi-month effort independent of the polyLog gap.
+> - **Input 5 (`h_P_spec`)** is Category (c) multi-year (per `PF/Analytic/HPSpectralBridge.lean`); the obstruction is the deliberately `opaque alpha_of_class` — without a concrete definition or spectral analysis tying H_P's eigenvalues to `alpha_of_class ClassP`, no bounded assembly produces `alpha_of_class ClassP = √2`.
+>
+> **What was actually achieved in the 2026-05-21 investigation:**
+> 1. `PF/Analytic/PolylogContInputDischarge.lean` — Input 2 discharged literal-statement-faithful (vacuous in manuscript sense). Axiom-free.
+> 2. `PF/Analytic/BookEvalNumericalBounds.lean` — Inputs 3+4 reduced to two named Props (`BookEval018_ShiftBound`, `BookEval019_ShiftBound`) capturing the closed-form algebraic inequalities on the monodromy-shift real part (no infinite series, no opaque polyLog). Same discipline as the May 20 cascade refactor. Axiom-free.
+> 3. `PF/Analytic/OffDiscPatchDataConstruction.lean` — `OffDiscPatchData s` reduced to the single hypothesis `PolyLogMonodromyHypothesis s` via `offDiscPatchData_of_monodromy` (6 fields collapse to 1 hypothesis). Axiom-free.
+>
+> **What is now the real residual open work:**
+> - Define a manuscript-faithful `polyLog_continuation s z` function whose value on `|z| ≥ 1` equals the Jonquières/Hankel analytic continuation (not the divergent tsum). Then rewrite `axiom_content_FIVE_INPUTS` against `polyLog_continuation` instead of formal `polyLog`. This is multi-month classical-analysis formalization work.
+> - Discharge `PolyLogMonodromyHypothesis s` (the global single-function form) — equivalent to producing the Hankel-contour analytic continuation.
+> - Discharge the two `BookEval*_ShiftBound` named Props via rigorous interval arithmetic on Γ, rpow, cos, sin (independent classical-analysis infrastructure work).
+> - Input 5 (`h_P_spec` / `alpha_of_class ClassP = √2`) remains multi-year operator-theoretic content.
 
-**Strategy**: The 50+ modules of `PF/Analytic/` Phase A infrastructure reduce the Prop to FIVE explicit inputs (was six, one DISCHARGED 2026-05-20). The maximally-sharp end-to-end wrapper is `axiom_content_FIVE_INPUTS` in `PF/Analytic/AxiomRetirementWrapper.lean` (the file name now refers to historical context — there is no axiom; it is more accurately the "Prop-discharge end-to-end wrapper").
+**Goal**: Prove `PolylogEigenvalueConjecture` (formerly the axiom `alpha_class_polylog_eigenvalue_conjecture`) unconditionally as a Lean theorem. **The original 5-inputs decomposition does not provide a viable path; see the structural finding above.**
 
-**Current status (2026-05-20, post-zero-axiom milestone)**: 1 of 6 inputs DISCHARGED. 5 remain.
+**Strategy (revised)**: Build a manuscript-faithful `polyLog_continuation` function and a corresponding new wrapper. The 50+ modules of `PF/Analytic/` Phase A infrastructure that targeted the 5-inputs path remain valuable component pieces but do not assemble into a discharge without the polyLog-continuation upgrade.
+
+**Current status (2026-05-21)**: 5-inputs path retired as structurally vacuous; residual content sharpened to 4 named Props (2 closed-form ShiftBounds + PolyLogMonodromyHypothesis + Input 5's multi-year content). Build: 5758 jobs clean, 0 sorries, 0 project axioms.
 
 ---
 
