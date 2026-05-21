@@ -1,10 +1,16 @@
 (* Axiom-dependency audit for PF/TuringEncoding/Operators.v.
-   Each derived theorem should depend on:
-     * alpha_class_polylog_eigenvalue_conjecture  (the single project axiom)
+
+   POST 2026-05-20 CASCADE REFACTOR (mirror of Lean commit 72c0137):
+   the prior `Axiom alpha_class_polylog_eigenvalue_conjecture` has
+   been replaced by `Definition PolylogEigenvalueConjecture : Prop`,
+   threaded through each consumer as an explicit hypothesis. The
+   project now has ZERO `Axiom` declarations.
+
+   Each derived theorem should depend ONLY on:
      * Language, ClassP, ClassNP                (opaque parameters)
      * alpha_of_class                           (opaque parameter)
      * Coq stdlib classical foundation
-   Nothing else (no other project axioms). *)
+   Nothing else (no project axioms). *)
 
 Require Import PrincipiaTractalis.TuringEncoding.Operators.
 

@@ -34,8 +34,8 @@
 
 This work includes:
 - **801-page textbook** with three difficulty levels
-- **Formal verification** in two independent proof assistants (Lean 4 + Coq); canonical Lean library at 1 axiom, 0 sorries, 5626 jobs clean
-- **Mechanical conditional reductions** in Lean 4 of two Clay Millennium Prize Problems (P ≠ NP and the Riemann Hypothesis) to four sharply-stated mathematical conjectures (three with 10⁻¹⁰ numerical evidence) — see [OPEN_PROBLEMS.md](OPEN_PROBLEMS.md). These are not unconditional proofs; they are honest, referee-grade reductions that isolate exactly what would still have to be shown.
+- **Formal verification** in two independent proof assistants (Lean 4 + Coq); canonical Lean library at **0 project axioms**, 0 sorries, 5750 jobs clean (as of commit `72c0137`, 2026-05-20 — ZERO PROJECT AXIOMS milestone)
+- **Mechanical conditional reductions** in Lean 4 of all six Clay Millennium Prize Problems (P ≠ NP, Riemann Hypothesis, Navier–Stokes, Yang–Mills, BSD, Hodge) plus the consciousness-quantification chain, reduced to a small set of named, explicit Lean Propositions (the polylog eigenvalue conjecture, off-disc analytic-continuation data, spectral-bijection surjectivity for RH, etc.) — see [OPEN_PROBLEMS.md](OPEN_PROBLEMS.md). These are not unconditional proofs; they are honest, referee-grade reductions that isolate exactly what would still have to be shown — and now with **zero free-floating axioms**: every hypothesis is an explicit, inspectable, refactorable `Prop`.
 - **Testable predictions** — including the Quipu Superstructure (validated 2025)
 
 ## Why Support This Work?

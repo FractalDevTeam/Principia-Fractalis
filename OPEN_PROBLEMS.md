@@ -613,7 +613,7 @@ The compact-operator predicate framework is now in place; the residual content i
 | `PF/Analytic/HankelTermwiseInterchange.lean` | `ea6d3ef` | Type-mismatch fix |
 | Coq parity (4 files) | `ea6d3ef` | `HundredFortyThreeProblems.v`, `USlitSimplyConnected.v`, `JonquieresIdentity.v`, `PolyLogAnalyticExtension.v` |
 
-Build state: Lean 5750 jobs clean, Coq 24 modules clean, 0 sorries, 1 axiom unchanged. All major theorems axiom-free (verified).
+Build state (at the time of this session entry): Lean 5750 jobs clean, Coq 24 modules clean, 0 sorries, 1 axiom unchanged. *Superseded by the subsequent 2026-05-20 commit `72c0137` ZERO-AXIOM cascade refactor — see the top of this document.*
 
 ### Net status after this session
 
