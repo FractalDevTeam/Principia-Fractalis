@@ -300,17 +300,19 @@ lemma np_minus_p_requires_certificates :
     PROOF: Since λ₀ = π/(10α) and α_NP > α_P, we have:
     λ₀(H_P) = π/(10α_P) > π/(10α_NP) = λ₀(H_NP)
 -/
-theorem spectral_lambda_P_gt_lambda_NP : lambda_0_P > lambda_0_NP := by
+theorem spectral_lambda_P_gt_lambda_NP
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    lambda_0_P > lambda_0_NP := by
   -- After Stage 28, alpha_P/alpha_NP use alpha_of_class; bridge via canonical-values.
   have h_alpha : alpha_P < alpha_NP := by
-    rw [alpha_P_value_ascii, alpha_NP_value_ascii]
+    rw [alpha_P_value_ascii hpoly, alpha_NP_value_ascii hpoly]
     exact phi_plus_quarter_gt_sqrt2
   have h_pi : pi_10 > 0 := by
     unfold pi_10
     apply div_pos Real.pi_pos
     norm_num
   have h_ap : alpha_P > 0 := by
-    rw [alpha_P_value_ascii]
+    rw [alpha_P_value_ascii hpoly]
     exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
   have h_anp : alpha_NP > 0 := by
     calc alpha_NP > alpha_P := h_alpha
@@ -320,24 +322,26 @@ theorem spectral_lambda_P_gt_lambda_NP : lambda_0_P > lambda_0_NP := by
     apply one_div_lt_one_div_of_lt h_ap h_alpha
   -- Therefore π/(10α_P) > π/(10α_NP)
   show pi_10 / Real.sqrt 2 > pi_10 / (phi + 1/4)
-  rw [← alpha_P_value_ascii, ← alpha_NP_value_ascii]
+  rw [← alpha_P_value_ascii hpoly, ← alpha_NP_value_ascii hpoly]
   calc pi_10 / alpha_P
     = pi_10 * (1 / alpha_P) := by ring
     _ > pi_10 * (1 / alpha_NP) := by nlinarith [h_pi, h_inv]
     _ = pi_10 / alpha_NP := by ring
 
-lemma resonance_separation_implies_spectral_separation :
+lemma resonance_separation_implies_spectral_separation
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
     alpha_P < alpha_NP →
     lambda_0_P > lambda_0_NP := by
   intro h_alpha_sep
-  exact spectral_lambda_P_gt_lambda_NP
+  exact spectral_lambda_P_gt_lambda_NP hpoly
 
 /-- Corollary: Spectral gap is positive. -/
-lemma spectral_gap_from_resonance_separation :
+lemma spectral_gap_from_resonance_separation
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
     alpha_P < alpha_NP → Delta > 0 := by
   intro h_alpha_sep
   unfold Delta spectral_gap
-  have h_spec := resonance_separation_implies_spectral_separation h_alpha_sep
+  have h_spec := resonance_separation_implies_spectral_separation hpoly h_alpha_sep
   linarith
 
 -- ============================================================================
@@ -470,20 +474,22 @@ lemma spectral_gap_from_resonance_separation :
     But we PROVED α_P < α_NP, so Δ = 0 is impossible.
     Therefore the implication is vacuously true.
 -/
-theorem spectral_collapse_implies_complexity_collapse :
+theorem spectral_collapse_implies_complexity_collapse
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
   Delta = 0 → P_equals_NP_def := by
   intro h_zero
   -- Δ = 0 means λ₀(H_P) = λ₀(H_NP)
   unfold Delta spectral_gap at h_zero
   -- But we proved λ₀(H_P) > λ₀(H_NP)
-  have h_pos : lambda_0_P > lambda_0_NP := spectral_lambda_P_gt_lambda_NP
+  have h_pos : lambda_0_P > lambda_0_NP := spectral_lambda_P_gt_lambda_NP hpoly
   -- Contradiction: λ₀(H_P) = λ₀(H_NP) and λ₀(H_P) > λ₀(H_NP)
   exfalso
   linarith
 
-lemma zero_gap_implies_p_equals_np :
+lemma zero_gap_implies_p_equals_np
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
     Delta = 0 → P_equals_NP_def := by
-  exact spectral_collapse_implies_complexity_collapse
+  exact spectral_collapse_implies_complexity_collapse hpoly
 
 -- ============================================================================
 -- SUMMARY: Lemma Dependency Graph and Timeline

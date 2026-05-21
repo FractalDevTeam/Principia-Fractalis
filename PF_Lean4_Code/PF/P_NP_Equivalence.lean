@@ -146,7 +146,9 @@ theorem np_not_p_requires_certificate :
 
     Reference: Chapter 21, Sections 21.1-21.8, conclusion at ch21_p_vs_np.tex:1448-1537
 -/
-theorem spectral_gap_iff_P_neq_NP : Delta > 0 ↔ P_neq_NP_def := by
+theorem spectral_gap_iff_P_neq_NP
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    Delta > 0 ↔ P_neq_NP_def := by
   constructor
   · -- Forward direction: Δ > 0 → P ≠ NP
     intro h_gap_pos
@@ -184,7 +186,7 @@ theorem spectral_gap_iff_P_neq_NP : Delta > 0 ↔ P_neq_NP_def := by
     -- This is THE CRUX of the entire P vs NP proof
     -- Now using the PROVEN theorem from P_NP_Complete_Proof.lean
     have h_delta_zero : Δ = 0 := by
-      exact p_eq_np_iff_zero_gap.mp h_p_eq_np
+      exact (p_eq_np_iff_zero_gap hpoly).mp h_p_eq_np
     -- Show that Delta = Δ (both are spectral_gap)
     have h_delta_eq : Delta = Δ := by
       show spectral_gap = PrincipiaTractalis.Δ
@@ -193,7 +195,7 @@ theorem spectral_gap_iff_P_neq_NP : Delta > 0 ↔ P_neq_NP_def := by
          = PrincipiaTractalis.lambda_P - PrincipiaTractalis.lambda_NP
       show pi_10 / Real.sqrt 2 - pi_10 / (phi + 1/4)
          = pi_10 / PrincipiaTractalis.α_P - pi_10 / PrincipiaTractalis.α_NP
-      rw [PrincipiaTractalis.α_P_value, PrincipiaTractalis.α_NP_value]
+      rw [PrincipiaTractalis.α_P_value hpoly, PrincipiaTractalis.α_NP_value hpoly]
     -- Therefore Delta = 0
     have h_p_eq_np_forces_zero_gap : Delta = 0 := by
       rw [h_delta_eq]; exact h_delta_zero
@@ -214,7 +216,7 @@ theorem spectral_gap_iff_P_neq_NP : Delta > 0 ↔ P_neq_NP_def := by
       ⟨1, by norm_num⟩
     -- Certificate structure forces higher resonance frequency
     have alpha_sep : alpha_NP > alpha_P := by
-      exact certificate_forces_higher_frequency
+      exact certificate_forces_higher_frequency hpoly
     -- Higher resonance → higher ground state energy (for H_P vs H_NP)
     -- LEMMA 4: α_P = √2 < α_NP = φ+1/4 implies λ₀(H_P) > λ₀(H_NP) (PROVEN)
     -- Key insight: λ₀ = π/(10α), so smaller α → larger λ₀
@@ -257,8 +259,10 @@ theorem spectral_gap_iff_P_neq_NP : Delta > 0 ↔ P_neq_NP_def := by
     NOTE: This is the MAIN CLAIM of Chapter 21.
     However, the full proof requires formalizing all the lemmas above.
 -/
-theorem positive_gap_implies_separation : Delta > 0 → P_neq_NP_def := by
-  exact (spectral_gap_iff_P_neq_NP.mp)
+theorem positive_gap_implies_separation
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    Delta > 0 → P_neq_NP_def := by
+  exact (spectral_gap_iff_P_neq_NP hpoly).mp
 
 /-- Using numerical computation: Δ ≈ 0.05397 > 0. -/
 theorem numerical_gap_positive : Delta > 0 := by
@@ -275,7 +279,9 @@ theorem numerical_gap_positive : Delta > 0 := by
     Ch 21 content (specific resonance values from operator self-adjointness)
     enters via the single canonical_values axiom — exactly what the
     manuscript asserts. -/
-theorem P_neq_NP_via_spectral_gap : P_neq_NP_def := by
+theorem P_neq_NP_via_spectral_gap
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    P_neq_NP_def := by
   intro h_p_eq_np
   -- P_equals_NP_def : ∀ L, InClassNP L → InClassP L, i.e., ClassNP ⊆ ClassP.
   have h_NP_subset_P : TuringEncoding.ClassNP ⊆ TuringEncoding.ClassP :=
@@ -288,7 +294,7 @@ theorem P_neq_NP_via_spectral_gap : P_neq_NP_def := by
                   = TuringEncoding.alpha_of_class TuringEncoding.ClassNP := by
     rw [h_class_eq]
   -- But the canonical values are distinct.
-  exact TuringEncoding.alpha_class_distinct h_alpha_eq
+  exact TuringEncoding.alpha_class_distinct hpoly h_alpha_eq
 
 -- ============================================================================
 -- SECTION 4: Consciousness Field Integration
@@ -314,10 +320,12 @@ theorem P_neq_NP_via_spectral_gap : P_neq_NP_def := by
     Reference: Chapter 6, Section 6.3 (ch06_consciousness.tex:180-279)
                Chapter 21, Section 21.8 (ch21_p_vs_np.tex:1161-1175)
 -/
-theorem consciousness_prevents_collapse : ch2_P ≥ 0.95 → alpha_NP ≠ alpha_P := by
+theorem consciousness_prevents_collapse
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    ch2_P ≥ 0.95 → alpha_NP ≠ alpha_P := by
   intro h_threshold
   -- α_NP > α_P proven in TuringEncoding.lean
-  have h_sep := alpha_separation
+  have h_sep := alpha_separation hpoly
   linarith
 
 /-- The consciousness crystallization gap creates computational separation.
@@ -335,17 +343,18 @@ theorem consciousness_prevents_collapse : ch2_P ≥ 0.95 → alpha_NP ≠ alpha_
     NOTE: This makes explicit the book's central claim that
     "P ≠ NP is a consequence of consciousness threshold ch₂ = 0.95."
 -/
-theorem consciousness_gap_implies_complexity_separation :
+theorem consciousness_gap_implies_complexity_separation
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
     ch2_NP > ch2_P → P_neq_NP_def := by
   intro h_ch2_gap
   -- Consciousness gap creates resonance separation
   have alpha_gap : alpha_NP > alpha_P := by
-    exact alpha_separation
+    exact alpha_separation hpoly
   -- Resonance separation creates spectral gap
   have spectral_gap_pos : Delta > 0 := by
     exact numerical_gap_positive
   -- Spectral gap implies P ≠ NP
-  exact positive_gap_implies_separation spectral_gap_pos
+  exact positive_gap_implies_separation hpoly spectral_gap_pos
 
 /-- Consciousness crystallization is necessary for NP computation.
 
@@ -355,9 +364,11 @@ theorem consciousness_gap_implies_complexity_separation :
     This explains WHY consciousness is relevant to computation:
     Nondeterministic branching requires consciousness activation.
 -/
-theorem np_requires_crystallization : IsInNP (fun _ => 0) → ch2_NP ≥ 0.95 := by
+theorem np_requires_crystallization
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    IsInNP (fun _ => 0) → ch2_NP ≥ 0.95 := by
   intro h_np
-  exact np_requires_consciousness
+  exact np_requires_consciousness hpoly
 
 -- ============================================================================
 -- SECTION 5: Alternative Formulations
@@ -381,7 +392,9 @@ theorem np_requires_crystallization : IsInNP (fun _ => 0) → ch2_NP ≥ 0.95 :=
     - Same energy functionals → same resonance frequencies: α_P = α_NP
     - Therefore λ₀(H_P) = λ₀(H_NP), so Δ = 0
 -/
-theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
+theorem zero_gap_iff_P_equals_NP
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    Delta = 0 ↔ P_equals_NP_def := by
   constructor
   · -- Forward: Δ = 0 → P = NP
     intro h_zero
@@ -393,14 +406,14 @@ theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
     exfalso
     have h_pos : lambda_0_P > lambda_0_NP := by
       have h_alpha : alpha_P < alpha_NP := by
-        rw [alpha_P_value_ascii, alpha_NP_value_ascii]
+        rw [alpha_P_value_ascii hpoly, alpha_NP_value_ascii hpoly]
         exact phi_plus_quarter_gt_sqrt2
       have h_pi : pi_10 > 0 := by
         unfold pi_10
         apply div_pos Real.pi_pos
         norm_num
       have h_ap : alpha_P > 0 := by
-        rw [alpha_P_value_ascii]
+        rw [alpha_P_value_ascii hpoly]
         exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
       have h_anp : alpha_NP > 0 := by
         calc alpha_NP > alpha_P := h_alpha
@@ -408,7 +421,7 @@ theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
       have h_inv : (1 : ℝ) / alpha_NP < 1 / alpha_P := by
         apply one_div_lt_one_div_of_lt h_ap h_alpha
       show pi_10 / Real.sqrt 2 > pi_10 / (phi + 1/4)
-      rw [← alpha_P_value_ascii, ← alpha_NP_value_ascii]
+      rw [← alpha_P_value_ascii hpoly, ← alpha_NP_value_ascii hpoly]
       calc pi_10 / alpha_P
         = pi_10 * (1 / alpha_P) := by ring
         _ > pi_10 * (1 / alpha_NP) := by nlinarith [h_pi, h_inv]
@@ -417,7 +430,8 @@ theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
   · -- Reverse: P = NP → Δ = 0
     intro h_p_eq_np
     -- Use the proven theorem from P_NP_Complete_Proof.lean
-    have h_delta_zero_imported : PrincipiaTractalis.Δ = 0 := p_eq_np_iff_zero_gap.mp h_p_eq_np
+    have h_delta_zero_imported : PrincipiaTractalis.Δ = 0 :=
+      (p_eq_np_iff_zero_gap hpoly).mp h_p_eq_np
     -- Delta (from this file) and Δ (from P_NP_Complete_Proof) both equal spectral_gap
     unfold Delta spectral_gap
     -- spectral_gap = lambda_0_P - lambda_0_NP
@@ -430,10 +444,10 @@ theorem zero_gap_iff_P_equals_NP : Delta = 0 ↔ P_equals_NP_def := by
     -- So they're the same! lambda_0_P = lambda_P and lambda_0_NP = lambda_NP
     have h_same_P : lambda_0_P = PrincipiaTractalis.lambda_P := by
       show pi_10 / Real.sqrt 2 = pi_10 / PrincipiaTractalis.α_P
-      rw [PrincipiaTractalis.α_P_value]
+      rw [PrincipiaTractalis.α_P_value hpoly]
     have h_same_NP : lambda_0_NP = PrincipiaTractalis.lambda_NP := by
       show pi_10 / (phi + 1/4) = pi_10 / PrincipiaTractalis.α_NP
-      rw [PrincipiaTractalis.α_NP_value]
+      rw [PrincipiaTractalis.α_NP_value hpoly]
     calc lambda_0_P - lambda_0_NP
         = PrincipiaTractalis.lambda_P - PrincipiaTractalis.lambda_NP := by rw [h_same_P, h_same_NP]
       _ = PrincipiaTractalis.Δ := by unfold PrincipiaTractalis.Δ; rfl
