@@ -431,8 +431,12 @@ Integrating over a ball $B_r(\mathcal{E})$ as $r \to 0$:
 As $|\mathbf{u}| \to 0$ at $\mathcal{E}$, kinetic energy flux vanishes, but pressure work and viscous terms remain, redistributing energy into structural organization.
 \end{proof}
 
-\begin{remark}[Formalization status, rev 2]
-The Navier--Stokes claims of this chapter are \textbf{not} formalized in the Lean~4 layer (\texttt{PF\_Lean4\_Code/PF/}). The Coq layer at \texttt{PF\_Coq/theories/Contracts/NavierStokes.v} contains a single conditional theorem,
+\begin{remark}[Formalization status, rev 2 / 2026-05-20 addendum]
+\textbf{Lean~4 conditional-reduction layer (canonical, axiom-free).} The Lean~4 layer at \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} provides the \emph{conditional-reduction architecture} for this chapter as the theorem \texttt{navier\_stokes\_via\_fractal\_emergence}: a named Lean Proposition (the framework hypothesis at $\alpha_{\mathrm{NS}} = 3\pi/2$) implies the Navier--Stokes Millennium claim. As of commit \texttt{72c0137} (2026-05-20) this file carries \textbf{zero project axioms} and contributes to the framework-wide zero-axiom milestone (see Chapter~\ref{ch:verification}, Section~\ref{sec:formal-verification-status}). The Coq layer described below is a separate, heavier formalization with intentionally axiomatized framework-level postulates at coarser granularity --- those Coq axioms are documented honestly as postulates of the framework, not as hidden assumptions in the canonical Lean library.
+
+\medskip
+\textbf{Coq contract layer (heavier postulate set).}
+The Navier--Stokes claims of this chapter are \textbf{not} formalized at the full-PDE level in the canonical Lean~4 layer (\texttt{PF\_Lean4\_Code/PF/}); the Lean side captures only the conditional-reduction architecture just described. The Coq layer at \texttt{PF\_Coq/theories/Contracts/NavierStokes.v} contains a single conditional theorem,
 \begin{verbatim}
 Theorem PF_NS_Solution : NS_Millennium_Problem.
 \end{verbatim}

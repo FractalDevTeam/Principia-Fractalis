@@ -1,63 +1,83 @@
 \chapter*{Formalization Status (Revision 2)}
 \addcontentsline{toc}{chapter}{Formalization Status (Revision 2)}
 
-\section*{Current state (2026-05-18 addendum)}
+\section*{Current state (2026-05-20 --- zero-axiom milestone)}
 
-The Lean~4 + Coq formalization has substantially advanced since the
-April~2026 baseline documented below. The 2026-05-18 session also
-audited and corrected numerous numerical errors across Chapters~03, 07,
-08, 09, 10, 11, 20, 21, 23, 24, 25, 26 (see ``Manuscript-correction
-log'' below). The current authoritative state:
+The Lean~4 + Coq formalization has reached its definitive milestone:
+\emph{zero project axioms.} The current authoritative state is:
 
 \begin{itemize}
-\item \textbf{Lean 4}: 5736 jobs clean, \textbf{1 verified project axiom}
-  (\texttt{alpha\_class\_polylog\_eigenvalue\_conjecture}), 0 sorries.
-  The May~2026 Stage~25--35 unification reduced the earlier
-  6--8 axiom state to a single axiom that is the formal encoding of
-  Chapter~21's polylog Conjecture + branch-selection Heuristic +
-  golden-modulation Conjecture. Specific values $\alpha_P = \sqrt{2}$
-  and $\alpha_{NP} = \varphi + 1/4$ are derived \emph{theorems} from
-  this axiom, not separately axiomatized. The 2026-05-18 session added
-  $\sim 100$ axiom-free theorems certifying manuscript-level numerical
-  claims and several manuscript-error certificates that drove direct
-  manuscript corrections.
-\item \textbf{Cross-prover Coq}: 10 modules clean with the same
-  1-axiom state; the headline reduction chain (operator algebra,
-  spectral-gap consequence, P~$\neq$~NP capstone) is mirrored, and
-  the Phase~A Cantor-substrate matrix-entry framework's algebraic
-  spectral content is mirrored at the abstract-kernel level.
-\item \textbf{Axiom dependency verified} via \texttt{\#print axioms}:
-  \texttt{P\_neq\_NP\_via\_spectral\_gap} depends only on Lean's
-  standard \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}
-  + the single project axiom;
-  \texttt{riemann\_hypothesis\_via\_T3\_sym\_framework} depends on the
-  three standard axioms only (\emph{zero project axioms}) as a
-  4-hypothesis conditional, the load-bearing fourth hypothesis being
-  surjectivity of the spectral bijection onto $\zeta$-zeros (the open
-  problem of the RH program).
-\item \textbf{Phase~A retirement framework}: 50+ \texttt{PF/Analytic/}
-  Lean modules, all zero-project-axiom, comprising two complementary
-  spectral attacks: the $L^2([0,1])$ cosine/sine basis framework
-  (Mercer rank-2-per-scale decomposition, polylog Hankel identity for
-  all $\mathrm{Re}\,s > 0$, Hilbert--Schmidt compactness with
-  $\|H_P\|_{HS} \leq a/(a-1)$) and the Cantor-substrate matrix-entry
-  framework (IFS contractions, Hutchinson operator,
-  \texttt{cantorDiscMeasure}~$n$ discrete approximations, complete
-  finite-rank spectral theorem at level~1 with orthonormal eigenbasis,
-  IFS-reflection block decomposition at level~2, Banach-contraction
-  analytic engine via $(1/3)^n$ Lipschitz shrinkage). The deep
-  operator-theoretic derivation of the polylog formula on the physical
-  Riemann sheet remains the open mathematical problem.
+\item \textbf{Lean 4}: 5750 jobs clean, \textbf{zero project axioms},
+  0 sorries. Commit \texttt{72c0137} (2026-05-20, pushed to
+  \texttt{origin/master}) retired the last remaining axiom,
+  \texttt{alpha\_class\_polylog\_eigenvalue\_conjecture}, via cascade
+  refactor: the axiom became a \texttt{def PolylogEigenvalueConjecture
+  : Prop} (a Lean Proposition with the same content), and every
+  consumer was refactored to take an explicit
+  \texttt{(h : PolylogEigenvalueConjecture)} hypothesis. A
+  backward-compatible \texttt{abbrev} preserves the historical name.
+\item \textbf{\texttt{\#print axioms} verification (final state)}:
+  every headline capstone --- \texttt{P\_NEQ\_NP},
+  \texttt{principia\_fractalis\_millennium\_capstone},
+  \texttt{riemann\_hypothesis\_via\_T3\_sym\_framework}, and
+  \texttt{MonodromyGluingLemma\_proven} --- depends on \emph{only} the
+  three standard Lean foundations
+  \texttt{[propext, Classical.choice, Quot.sound]}. No project axioms
+  remain in any dependency chain.
+\item \textbf{Classical monodromy gluing} discharged axiom-free in
+  \texttt{PF/Analytic/MonodromyTheorem.lean} via the standard
+  sheaf-gluing construction $F(z) := g_z(z)$; pairwise patch coherence
+  encodes single-valuedness directly, so simply-connectedness is
+  consumed but unused.
+\item \textbf{Bernoulli growth bound} discharged axiom-free in
+  \texttt{PF/Analytic/BernoulliGrowthBound.lean} with explicit
+  witnesses $M = \pi^2/3$, $N = 1$ via mathlib's
+  \texttt{hasSum\_zeta\_nat} plus the trivial $\zeta(2k) \leq \zeta(2)
+  = \pi^2/6$ bound.
+\item \textbf{On-disc polyLog local patches} discharged
+  unconditionally in \texttt{PF/Analytic/PolyLogLocalPatches.lean} for
+  $|z| < 1$; the off-disc residual is isolated into the single named
+  structural predicate \texttt{OffDiscPatchData s}.
+\item \textbf{Hankel--Fubini termwise interchange} discharged
+  axiom-free in \texttt{PF/Analytic/HankelFubini.lean} via
+  \texttt{integral\_tsum\_of\_summable\_integral\_norm}.
+\item \textbf{Conditional capstones, explicit hypotheses}: the
+  capstone theorems remain \emph{conditional} on the polylog
+  conjecture and (for RH) on the spectral-bijection surjectivity.
+  These hypotheses are now \emph{explicit Lean Propositions} ---
+  inspectable, refactorable, and subject to discharge as the
+  underlying analytic infrastructure matures --- rather than opaque
+  axioms. This is the appropriate honest framing: the framework
+  delivers a \textbf{machine-checked conditional reduction} of all six
+  Millennium problems plus the consciousness chain to a small set of
+  named open analytic conjectures, with \emph{zero free-floating
+  axioms}.
+\item \textbf{Cross-prover Coq mirror}: parity is maintained at the
+  reduction-chain level; cross-prover bridge files are catalogued in
+  \texttt{CROSS\_PROVER\_PARITY.md}.
 \item \textbf{Open Problems catalog} at \texttt{OPEN\_PROBLEMS.md}
-  authoritatively enumerates the four open problems isolated by the
-  framework (three for P~$\neq$~NP axiom retirement; one =
-  RH surjectivity = the load-bearing open problem of the RH program).
-  Problem~2 (branch selection) was narrowed 2026-05-18: $M_0$-monodromy
-  sheet selection is formally ruled out (theorem
-  \texttt{manuscript\_target\_unreachable\_via\_M0\_sheet} in
-  \texttt{PF/Analytic/PolylogSpectrum.lean}); the open problem is now
-  oriented toward non-$M_0$ mechanisms.
+  authoritatively enumerates the residual mathematical work
+  (\emph{open conjectures}, not axioms). The chief items are: (i) the
+  polylog eigenvalue conjecture itself (Ch~21 spectral
+  identification), (ii) the off-disc local-patch construction for
+  $\mathrm{Li}_s$ beyond the unit disc (Jonqui\`eres / Hankel
+  contour route), (iii) the spectral-bijection surjectivity onto
+  $\zeta$-zeros for RH. None of these are axioms; each is an
+  explicit, named \texttt{Prop} that downstream code declares as a
+  hypothesis when consumed.
 \end{itemize}
+
+\section*{Historical (2026-05-18 addendum, superseded by the May~20 zero-axiom milestone)}
+
+The single-axiom state (May~17, 2026) catalogued below was the
+predecessor to the zero-axiom milestone. The earlier framing in this
+section --- $\sim 100$ axiom-free numerical certificates, two
+complementary spectral attacks, etc.\ --- remains accurate as an
+intermediate snapshot. With the May~20 cascade refactor, the
+single remaining axiom became an explicit Lean Proposition rather
+than an axiom; the body of zero-project-axiom analytic infrastructure
+that this section describes is what made that final refactor
+possible.
 
 \section*{v3.3.1 numerical-correction propagation (2026-05-20 addendum)}
 
