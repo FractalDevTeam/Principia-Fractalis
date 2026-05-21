@@ -237,17 +237,32 @@ opaque alpha_of_class : Set Language → ℝ
     See also: `OPEN_PROBLEMS.md`, `PF/TuringEncoding/AlphaEnum.lean`
     (axiom-free enum-level proof of the algebraic content),
     `PF/Analytic/SpectralParameterBridge.lean::alpha_class_polylog_eigenvalue_conjecture_content`
-    (conditional retirement modulo the manuscript inputs). -/
-axiom alpha_class_polylog_eigenvalue_conjecture :
+    (conditional retirement modulo the manuscript inputs).
+
+    **Refactor (2026-05-20)**: Previously declared as an `axiom`, now a
+    `def PolylogEigenvalueConjecture : Prop := ...`. All theorems that
+    previously consumed the axiom now take an explicit
+    `(h : PolylogEigenvalueConjecture)` parameter. The mathematical
+    content is unchanged — only the discharge mechanism: instead of
+    being a global axiom, it is a hypothesis that must be supplied
+    (eventually by a future operator-theoretic derivation, currently
+    by appealing to the Ch 21 manuscript inputs at the use site). -/
+def PolylogEigenvalueConjecture : Prop :=
     ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
     (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0 ∧
      0 < alpha_of_class ClassNP)
 
+/-- Backward-compatibility abbreviation for documentation references
+    to `alpha_class_polylog_eigenvalue_conjecture` as a Prop. -/
+abbrev alpha_class_polylog_eigenvalue_conjecture : Prop :=
+  PolylogEigenvalueConjecture
+
 /-- Canonical resonance value at ClassP, derived from the
     self-adjointness equation `α² = 2 ∧ α > 0` (which has unique
     positive solution `√2`). -/
-theorem alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2 := by
-  have ⟨⟨h_sq, h_pos⟩, _⟩ := alpha_class_polylog_eigenvalue_conjecture
+theorem alpha_at_ClassP_eq_sqrt2 (h : PolylogEigenvalueConjecture) :
+    alpha_of_class ClassP = Real.sqrt 2 := by
+  have ⟨⟨h_sq, h_pos⟩, _⟩ := h
   -- α > 0 and α² = 2 → α = √2 (uniqueness of positive square root)
   have h_sqrt_sq : Real.sqrt ((alpha_of_class ClassP)^2) = alpha_of_class ClassP :=
     Real.sqrt_sq (le_of_lt h_pos)
@@ -256,9 +271,9 @@ theorem alpha_at_ClassP_eq_sqrt2 : alpha_of_class ClassP = Real.sqrt 2 := by
 /-- Canonical resonance value at ClassNP, derived from the self-adjointness
     quadratic `16α² - 24α - 11 = 0 ∧ α > 0` (which has unique positive root
     `(3 + 2√5)/4 = φ + 1/4`). Stage 35 (2026-05-14). -/
-theorem alpha_at_ClassNP_eq_phi_plus_quarter :
+theorem alpha_at_ClassNP_eq_phi_plus_quarter (h : PolylogEigenvalueConjecture) :
     alpha_of_class ClassNP = phi + 1/4 := by
-  obtain ⟨_, ⟨h_quad, h_pos⟩⟩ := alpha_class_polylog_eigenvalue_conjecture
+  obtain ⟨_, ⟨h_quad, h_pos⟩⟩ := h
   set y := alpha_of_class ClassNP with hy_def
   -- The quadratic 16y² - 24y - 11 = 0 factors as 16(y - r₁)(y - r₂) = 0
   -- where r₁ = (3 + 2√5)/4 and r₂ = (3 - 2√5)/4.
@@ -310,28 +325,31 @@ theorem alpha_at_ClassNP_eq_phi_plus_quarter :
     ClassP vs ClassNP is sufficient (combined with the OCH structural
     theorem) to derive P ≠ NP, without needing the specific numerical
     values. Added Stage 32 (2026-05-14). -/
-theorem alpha_class_distinct : alpha_of_class ClassP ≠ alpha_of_class ClassNP := by
-  rw [alpha_at_ClassP_eq_sqrt2, alpha_at_ClassNP_eq_phi_plus_quarter]
-  intro h
-  -- h : Real.sqrt 2 = phi + 1/4, but phi_plus_quarter_gt_sqrt2 says φ+¼ > √2.
+theorem alpha_class_distinct (h : PolylogEigenvalueConjecture) :
+    alpha_of_class ClassP ≠ alpha_of_class ClassNP := by
+  rw [alpha_at_ClassP_eq_sqrt2 h, alpha_at_ClassNP_eq_phi_plus_quarter h]
+  intro heq
+  -- heq : Real.sqrt 2 = phi + 1/4, but phi_plus_quarter_gt_sqrt2 says φ+¼ > √2.
   linarith [phi_plus_quarter_gt_sqrt2]
 
-/-- Positivity of `alpha_of_class ClassP` — direct from the axiom's
+/-- Positivity of `alpha_of_class ClassP` — direct from the hypothesis's
     `0 < alpha_of_class ClassP` conjunct. -/
-theorem alpha_of_class_pos_at_ClassP : 0 < alpha_of_class ClassP :=
-  alpha_class_polylog_eigenvalue_conjecture.1.2
+theorem alpha_of_class_pos_at_ClassP (h : PolylogEigenvalueConjecture) :
+    0 < alpha_of_class ClassP :=
+  h.1.2
 
-/-- Positivity of `alpha_of_class ClassNP` — direct from the axiom's
+/-- Positivity of `alpha_of_class ClassNP` — direct from the hypothesis's
     `0 < alpha_of_class ClassNP` conjunct. -/
-theorem alpha_of_class_pos_at_ClassNP : 0 < alpha_of_class ClassNP :=
-  alpha_class_polylog_eigenvalue_conjecture.2.2
+theorem alpha_of_class_pos_at_ClassNP (h : PolylogEigenvalueConjecture) :
+    0 < alpha_of_class ClassNP :=
+  h.2.2
 
 /-- Resonance-parameter separation: `alpha_of_class ClassP < alpha_of_class ClassNP`.
     Derived from canonical values + `phi_plus_quarter_gt_sqrt2` (the numerical
     inequality `φ + ¼ > √2` proved axiom-free in `IntervalArithmetic`). -/
-theorem alpha_class_separation_lt :
+theorem alpha_class_separation_lt (h : PolylogEigenvalueConjecture) :
     alpha_of_class ClassP < alpha_of_class ClassNP := by
-  rw [alpha_at_ClassP_eq_sqrt2, alpha_at_ClassNP_eq_phi_plus_quarter]
+  rw [alpha_at_ClassP_eq_sqrt2 h, alpha_at_ClassNP_eq_phi_plus_quarter h]
   exact phi_plus_quarter_gt_sqrt2
 
 /-- Spectrum collapse under P = NP: equal ground energies follow from class
@@ -339,24 +357,25 @@ theorem alpha_class_separation_lt :
 
     Theorem (Stage 25, 2026-05-14) — was an axiom previously.
     Proof: `lambda_0_P = pi_10 / √2 = pi_10 / alpha_of_class ClassP`
-    (via `alpha_class_canonical_values.1`), similarly for `lambda_0_NP`;
+    (via the hypothesis), similarly for `lambda_0_NP`;
     then `ClassP = ClassNP` forces `alpha_of_class ClassP = alpha_of_class ClassNP`
     by `congrArg`, hence the ground energies coincide. -/
-theorem p_eq_np_spectrum_collapse (h : ClassP = ClassNP) :
+theorem p_eq_np_spectrum_collapse (hpoly : PolylogEigenvalueConjecture)
+    (h : ClassP = ClassNP) :
     lambda_0_P = lambda_0_NP := by
   show pi_10 / Real.sqrt 2 = pi_10 / (phi + 1/4)
-  rw [← alpha_at_ClassP_eq_sqrt2, ← alpha_at_ClassNP_eq_phi_plus_quarter, h]
+  rw [← alpha_at_ClassP_eq_sqrt2 hpoly, ← alpha_at_ClassNP_eq_phi_plus_quarter hpoly, h]
 
 /-- If P = NP, the operators would have the same ground state energy (contradiction) -/
-theorem P_eq_NP_implies_same_ground_energy :
-  ClassP = ClassNP → lambda_0_P = lambda_0_NP := by
-  exact p_eq_np_spectrum_collapse
+theorem P_eq_NP_implies_same_ground_energy (hpoly : PolylogEigenvalueConjecture) :
+  ClassP = ClassNP → lambda_0_P = lambda_0_NP :=
+  p_eq_np_spectrum_collapse hpoly
 
 /-- Main theorem: P ≠ NP follows from spectral gap -/
-theorem P_neq_NP_from_spectral_gap :
+theorem P_neq_NP_from_spectral_gap (hpoly : PolylogEigenvalueConjecture) :
   ClassP ≠ ClassNP := by
   intro h_eq
-  have h_same := P_eq_NP_implies_same_ground_energy h_eq
+  have h_same := P_eq_NP_implies_same_ground_energy hpoly h_eq
   have h_diff := operator_spectral_gap_positive
   linarith  -- Contradiction: λ₀_P - λ₀_NP > 0 but λ₀_P = λ₀_NP
 

@@ -77,12 +77,13 @@ open PrincipiaTractalis.TuringEncoding
     derived theorem `alpha_at_ClassP_eq_sqrt2`. The existential itself
     is therefore as strong as `alpha_class_polylog_eigenvalue_conjecture`
     — no stronger, no weaker. -/
-theorem hp_spectral_bridge_existential :
+theorem hp_spectral_bridge_existential
+    (h : PolylogEigenvalueConjecture) :
     ∃ lambdaHP : ℝ,
       lambdaHP = Real.pi / (10 * alpha_of_class ClassP) ∧
       lambdaHP = Real.pi / (10 * Real.sqrt 2) := by
   refine ⟨Real.pi / (10 * Real.sqrt 2), ?_, rfl⟩
-  rw [alpha_at_ClassP_eq_sqrt2]
+  rw [alpha_at_ClassP_eq_sqrt2 h]
 
 /-- **Same headline statement, but with the witness pinned to `lambda_0_P`**
     from `PF/SpectralGap.lean`.
@@ -91,11 +92,12 @@ theorem hp_spectral_bridge_existential :
     makes the bridge to the rest of the codebase explicit: the same
     real number that `SpectralGap.lean` uses as the P-class ground-state
     energy is the witness of the spectral-bridge existential. -/
-theorem hp_spectral_bridge_existential_witness_lambda_0_P :
+theorem hp_spectral_bridge_existential_witness_lambda_0_P
+    (h : PolylogEigenvalueConjecture) :
     lambda_0_P = Real.pi / (10 * alpha_of_class ClassP) ∧
     lambda_0_P = Real.pi / (10 * Real.sqrt 2) := by
   refine ⟨?_, ?_⟩
-  · rw [alpha_at_ClassP_eq_sqrt2]
+  · rw [alpha_at_ClassP_eq_sqrt2 h]
     unfold lambda_0_P pi_10
     ring
   · unfold lambda_0_P pi_10
@@ -181,23 +183,25 @@ theorem hp_spectral_bridge_existential_iff_alpha_eq_sqrt2
 
     This makes the bridge to the polylog-route framework
     (`EigenvalueIdentity.lean`, `BookEigenvalueIdentity`) explicit. -/
-theorem hp_spectral_bridge_existential_witness_lambda_zero_HP_book :
+theorem hp_spectral_bridge_existential_witness_lambda_zero_HP_book
+    (h : PolylogEigenvalueConjecture) :
     lambda_zero_HP_book = Real.pi / (10 * alpha_of_class ClassP) ∧
     lambda_zero_HP_book = Real.pi / (10 * Real.sqrt 2) := by
   have h_book : lambda_zero_HP_book = Real.pi / (10 * Real.sqrt 2) := rfl
   refine ⟨?_, h_book⟩
-  rw [alpha_at_ClassP_eq_sqrt2]
+  rw [alpha_at_ClassP_eq_sqrt2 h]
   exact h_book
 
 /-- **Equivalent existential form using `lambda_zero_HP_book`**. -/
-theorem hp_spectral_bridge_existential_via_lambda_zero_HP_book :
+theorem hp_spectral_bridge_existential_via_lambda_zero_HP_book
+    (h : PolylogEigenvalueConjecture) :
     ∃ lambdaHP : ℝ,
       lambdaHP = lambda_zero_HP_book ∧
       lambdaHP = Real.pi / (10 * alpha_of_class ClassP) ∧
       lambdaHP = Real.pi / (10 * Real.sqrt 2) := by
   refine ⟨lambda_zero_HP_book, rfl, ?_, ?_⟩
-  · exact hp_spectral_bridge_existential_witness_lambda_zero_HP_book.1
-  · exact hp_spectral_bridge_existential_witness_lambda_zero_HP_book.2
+  · exact (hp_spectral_bridge_existential_witness_lambda_zero_HP_book h).1
+  · exact (hp_spectral_bridge_existential_witness_lambda_zero_HP_book h).2
 
 /-! ## 5. The HPSpectralFormula form of the bridge -/
 
@@ -207,17 +211,19 @@ theorem hp_spectral_bridge_existential_via_lambda_zero_HP_book :
 
     Combines `alpha_at_ClassP_eq_sqrt2` with the definition of
     `HPSpectralFormula`. -/
-theorem HPSpectralFormula_alpha_P_pi_div_ten_sqrt2 :
+theorem HPSpectralFormula_alpha_P_pi_div_ten_sqrt2
+    (h : PolylogEigenvalueConjecture) :
     HPSpectralFormula (alpha_of_class ClassP) (Real.pi / (10 * Real.sqrt 2)) := by
   unfold HPSpectralFormula
-  rw [alpha_at_ClassP_eq_sqrt2]
+  rw [alpha_at_ClassP_eq_sqrt2 h]
 
 /-- **HPSpectralFormula witness as `lambda_zero_HP_book`**: the polylog
     target value satisfies the manuscript's eigenvalue formula at
     `α = alpha_of_class ClassP`. -/
-theorem HPSpectralFormula_alpha_P_lambda_zero_HP_book :
+theorem HPSpectralFormula_alpha_P_lambda_zero_HP_book
+    (h : PolylogEigenvalueConjecture) :
     HPSpectralFormula (alpha_of_class ClassP) lambda_zero_HP_book :=
-  HPSpectralFormula_alpha_P_pi_div_ten_sqrt2
+  HPSpectralFormula_alpha_P_pi_div_ten_sqrt2 h
 
 /-! ## 6. Sharp identification of the remaining operator-theoretic gap
 
@@ -284,14 +290,16 @@ required.
 
 /-! ## 7. Axiom-print verification helpers -/
 
-/-- Self-check theorem: `hp_spectral_bridge_existential` depends on
-    exactly one project axiom, namely `alpha_class_polylog_eigenvalue_conjecture`.
+/-- Self-check theorem: `hp_spectral_bridge_existential` now depends on
+    the `PolylogEigenvalueConjecture` hypothesis (post 2026-05-20 refactor,
+    when the axiom was downgraded to a `def : Prop`).
     (Verify via `#print axioms hp_spectral_bridge_existential`.) -/
-theorem hp_spectral_bridge_existential_axiom_check :
+theorem hp_spectral_bridge_existential_axiom_check
+    (h : PolylogEigenvalueConjecture) :
     (∃ lambdaHP : ℝ,
         lambdaHP = Real.pi / (10 * alpha_of_class ClassP) ∧
         lambdaHP = Real.pi / (10 * Real.sqrt 2)) :=
-  hp_spectral_bridge_existential
+  hp_spectral_bridge_existential h
 
 /-- Self-check theorem: the conditional form
     `hp_spectral_bridge_existential_of_alpha_eq_sqrt2` depends on **zero**

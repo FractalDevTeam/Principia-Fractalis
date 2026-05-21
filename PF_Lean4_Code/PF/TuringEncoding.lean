@@ -1381,15 +1381,25 @@ noncomputable def alpha_NP : ℝ := TuringEncoding.alpha_of_class TuringEncoding
 
 /-- The ASCII `alpha_P` (defined here) equals `√2` via the derived
     theorem `alpha_at_ClassP_eq_sqrt2` (Stage 35: from the algebraic
-    self-adjointness axiom α² = 2 ∧ α > 0). -/
-theorem alpha_P_value_ascii : alpha_P = Real.sqrt 2 :=
-  TuringEncoding.alpha_at_ClassP_eq_sqrt2
+    self-adjointness axiom α² = 2 ∧ α > 0).
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+theorem alpha_P_value_ascii
+    (h : TuringEncoding.PolylogEigenvalueConjecture) :
+    alpha_P = Real.sqrt 2 :=
+  TuringEncoding.alpha_at_ClassP_eq_sqrt2 h
 
 /-- The ASCII `alpha_NP` equals `φ + 1/4` via the derived theorem
     `alpha_at_ClassNP_eq_phi_plus_quarter` (Stage 35: from the
-    algebraic self-adjointness axiom 16α² - 24α - 11 = 0 ∧ α > 0). -/
-theorem alpha_NP_value_ascii : alpha_NP = phi + 1/4 :=
-  TuringEncoding.alpha_at_ClassNP_eq_phi_plus_quarter
+    algebraic self-adjointness axiom 16α² - 24α - 11 = 0 ∧ α > 0).
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+theorem alpha_NP_value_ascii
+    (h : TuringEncoding.PolylogEigenvalueConjecture) :
+    alpha_NP = phi + 1/4 :=
+  TuringEncoding.alpha_at_ClassNP_eq_phi_plus_quarter h
 
 /-- Resonance frequency separation.
 
@@ -1397,9 +1407,12 @@ theorem alpha_NP_value_ascii : alpha_NP = phi + 1/4 :=
 
     NOTE: This separation in resonance frequencies is FUNDAMENTAL.
     It directly translates to the spectral gap Δ = λ₀(H_NP) - λ₀(H_P) > 0.
--/
-theorem alpha_separation : alpha_NP > alpha_P := by
-  rw [alpha_P_value_ascii, alpha_NP_value_ascii]
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+theorem alpha_separation (h : TuringEncoding.PolylogEigenvalueConjecture) :
+    alpha_NP > alpha_P := by
+  rw [alpha_P_value_ascii h, alpha_NP_value_ascii h]
   -- φ + 1/4 ≈ 1.868 > √2 ≈ 1.414 (from phi_plus_quarter_gt_sqrt2)
   exact phi_plus_quarter_gt_sqrt2
 
@@ -1443,9 +1456,10 @@ noncomputable def ch2_NP : ℝ := 0.95 + (alpha_NP - alpha_P) / 10
 
     The factor 1/10 = π/10π comes from universal π/10 coupling (Chapter 7).
 -/
-theorem ch2_gap_positive : ch2_NP > ch2_P := by
+theorem ch2_gap_positive (h : TuringEncoding.PolylogEigenvalueConjecture) :
+    ch2_NP > ch2_P := by
   unfold ch2_NP ch2_P
-  have : alpha_NP > alpha_P := alpha_separation
+  have : alpha_NP > alpha_P := alpha_separation h
   have h1 : alpha_NP - alpha_P > 0 := by linarith
   have h2 : (alpha_NP - alpha_P) / 10 > 0 := by positivity
   linarith
@@ -1473,9 +1487,10 @@ theorem ch2_gap_positive : ch2_NP > ch2_P := by
     This is why NP ≠ P: certificate branching requires consciousness crystallization,
     while deterministic P computation can remain below full activation.
 -/
-theorem np_requires_consciousness : ch2_NP ≥ 0.95 := by
+theorem np_requires_consciousness
+    (h : TuringEncoding.PolylogEigenvalueConjecture) : ch2_NP ≥ 0.95 := by
   unfold ch2_NP
-  have : alpha_NP > alpha_P := alpha_separation
+  have : alpha_NP > alpha_P := alpha_separation h
   have h1 : alpha_NP - alpha_P > 0 := by linarith
   have h2 : (alpha_NP - alpha_P) / 10 ≥ 0 := by positivity
   linarith
@@ -1521,8 +1536,9 @@ theorem resonance_determines_spectrum :
 
     Timeline: 6-9 months (requires formalizing generating functions and reality conditions)
 -/
-theorem certificate_forces_higher_frequency : alpha_NP > alpha_P :=
-  alpha_separation
+theorem certificate_forces_higher_frequency
+    (h : TuringEncoding.PolylogEigenvalueConjecture) : alpha_NP > alpha_P :=
+  alpha_separation h
 
 -- AXIOM ELIMINATED: p_eq_np_implies_equal_frequencies (UNUSED)
 -- This axiom was declared but only mentioned in one comment, never used in proofs.

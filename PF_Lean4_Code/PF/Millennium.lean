@@ -116,6 +116,8 @@ namespace PrincipiaTractalis
     `PF/SpectralBijection.lean::riemann_hypothesis_via_T3_sym_framework`;
     `OPEN_PROBLEMS.md` at repository root. -/
 theorem principia_fractalis_millennium_capstone
+    -- The Polylog eigenvalue conjecture hypothesis (post 2026-05-20 refactor)
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture)
     -- Phase A inner-product hypotheses (free post-Phase-A)
     (hsmul_left : ∀ (a : ℂ) (f g : LogWeightedL2),
         ⟪a • f, g⟫ = (star a) * ⟪f, g⟫)
@@ -138,7 +140,7 @@ theorem principia_fractalis_millennium_capstone
     P_neq_NP_def ∧
     -- Conjunct (ii): The Riemann Hypothesis
     RiemannHypothesis := by
-  exact ⟨P_neq_NP_via_spectral_gap,
+  exact ⟨P_neq_NP_via_spectral_gap hpoly,
     riemann_hypothesis_via_T3_sym_framework
       hsmul_left hsmul_right hpos_def
       eigenvalues hev K hK hbound

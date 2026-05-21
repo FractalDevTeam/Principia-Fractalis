@@ -43,12 +43,20 @@ noncomputable def α_P : ℝ := TuringEncoding.alpha_of_class TuringEncoding.Cla
 noncomputable def α_NP : ℝ := TuringEncoding.alpha_of_class TuringEncoding.ClassNP
 
 /-- α_P equals √2 (Stage 35: derived from `alpha_at_ClassP_eq_sqrt2`,
-    which itself follows from the self-adjointness algebraic axiom). -/
-theorem α_P_value : α_P = Real.sqrt 2 := TuringEncoding.alpha_at_ClassP_eq_sqrt2
+    which itself follows from the self-adjointness algebraic axiom).
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+theorem α_P_value (h : TuringEncoding.PolylogEigenvalueConjecture) :
+    α_P = Real.sqrt 2 := TuringEncoding.alpha_at_ClassP_eq_sqrt2 h
 
 /-- α_NP equals φ + ¼ (Stage 35: derived from the NP-class quadratic
-    self-adjointness equation). -/
-theorem α_NP_value : α_NP = phi + 1/4 := TuringEncoding.alpha_at_ClassNP_eq_phi_plus_quarter
+    self-adjointness equation).
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+theorem α_NP_value (h : TuringEncoding.PolylogEigenvalueConjecture) :
+    α_NP = phi + 1/4 := TuringEncoding.alpha_at_ClassNP_eq_phi_plus_quarter h
 
 /-- Ground state energies from fractal resonance -/
 noncomputable def lambda_P : ℝ := pi_10 / α_P
@@ -150,11 +158,16 @@ theorem np_minus_p_needs_certificates :
 /-- Localα frequency separation using Greek letters.
     After Stages 25+28 (both unicode α_P/α_NP and ASCII alpha_P/alpha_NP
     share `alpha_of_class` as their underlying definition), `alpha_separation`
-    proves this directly by definitional equality. -/
-lemma alpha_sep_greek : α_NP > α_P := alpha_separation
+    proves this directly by definitional equality.
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+lemma alpha_sep_greek (h : TuringEncoding.PolylogEigenvalueConjecture) :
+    α_NP > α_P := alpha_separation h
 
 /-- Different frequencies give different ground states -/
-theorem frequency_determines_energy :
+theorem frequency_determines_energy
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
   α_NP ≠ α_P → lambda_NP ≠ lambda_P := by
   intro h_neq
   unfold lambda_NP lambda_P
@@ -169,11 +182,11 @@ theorem frequency_determines_energy :
   have h_alpha_eq : α_NP = α_P := by
     field_simp [ne_of_gt h_pi_pos] at h_eq
     have h1 : α_P > 0 := by
-      rw [α_P_value]
+      rw [α_P_value hpoly]
       exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
     have h2 : α_NP > 0 := by
       trans α_P
-      · exact alpha_sep_greek
+      · exact alpha_sep_greek hpoly
       · exact h1
     rw [div_eq_div_iff (ne_of_gt h2) (ne_of_gt h1)] at h_eq
     linarith
@@ -217,8 +230,12 @@ theorem all_in_p_operator_collapse : P_equals_NP_def → α_NP = α_P :=
     This REPLACES the axiom `p_eq_np_iff_zero_gap`.
 
     The heart of the P vs NP connection to spectral theory.
--/
-theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+theorem p_eq_np_iff_zero_gap
+    (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    P_equals_NP_def ↔ Δ = 0 := by
   constructor
 
   · -- Forward: P = NP → Δ = 0
@@ -242,18 +259,18 @@ theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
       -- Therefore π/(10α_NP) < π/(10α_P)
       -- So Δ = π/(10α_P) - π/(10α_NP) > 0
 
-      have h_alpha : α_NP > α_P := alpha_sep_greek
+      have h_alpha : α_NP > α_P := alpha_sep_greek hpoly
       have h_pi : pi_10 > 0 := by
         unfold pi_10
         apply div_pos Real.pi_pos
         norm_num
 
       have h_ap_pos : α_P > 0 := by
-        rw [α_P_value]
+        rw [α_P_value hpoly]
         exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
 
       have h_anp_pos : α_NP > 0 := by
-        calc α_NP > α_P := alpha_sep_greek
+        calc α_NP > α_P := alpha_sep_greek hpoly
           _ > 0 := h_ap_pos
 
       have h_inv : (1 : ℝ) / α_NP < 1 / α_P := by
@@ -277,18 +294,22 @@ theorem p_eq_np_iff_zero_gap : P_equals_NP_def ↔ Δ = 0 := by
 -- MAIN THEOREM: P ≠ NP
 -- ============================================================================
 
-/-- The spectral gap is positive (proven arithmetically) -/
-theorem gap_positive : Δ > 0 := by
+/-- The spectral gap is positive (proven arithmetically).
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+theorem gap_positive (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    Δ > 0 := by
   unfold Δ lambda_P lambda_NP
 
-  have h_alpha : α_NP > α_P := alpha_sep_greek
+  have h_alpha : α_NP > α_P := alpha_sep_greek hpoly
   have h_pi : pi_10 > 0 := by
     unfold pi_10
     apply div_pos Real.pi_pos
     norm_num
 
   have h_ap : α_P > 0 := by
-    rw [α_P_value]
+    rw [α_P_value hpoly]
     exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
 
   have h_anp : α_NP > 0 := by
@@ -313,16 +334,19 @@ theorem gap_positive : Δ > 0 := by
     1. Δ > 0 (proven arithmetically via alpha_separation)
     2. P = NP ↔ Δ = 0 (operator-theoretic equivalence)
     3. Therefore P ≠ NP (by contrapositive)
--/
-theorem P_NEQ_NP : P_neq_NP_def := by
+
+    Refactor 2026-05-20: now takes the `PolylogEigenvalueConjecture`
+    hypothesis explicitly. -/
+theorem P_NEQ_NP (hpoly : TuringEncoding.PolylogEigenvalueConjecture) :
+    P_neq_NP_def := by
   unfold P_neq_NP_def
   intro h_p_eq_np
 
   -- If P = NP, then Δ = 0
-  have h_zero : Δ = 0 := p_eq_np_iff_zero_gap.mp h_p_eq_np
+  have h_zero : Δ = 0 := (p_eq_np_iff_zero_gap hpoly).mp h_p_eq_np
 
   -- But Δ > 0
-  have h_pos : Δ > 0 := gap_positive
+  have h_pos : Δ > 0 := gap_positive hpoly
 
   -- Contradiction
   linarith
