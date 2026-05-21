@@ -1,10 +1,12 @@
-# Proof Roadmap — Retiring the Polylog Axiom
+# Proof Roadmap — Discharging the Polylog Conjecture
 
-**Goal**: Prove `alpha_class_polylog_eigenvalue_conjecture` unconditionally.
+> **🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed).** The previously-axiomatic `alpha_class_polylog_eigenvalue_conjecture` has been refactored to a named Lean Proposition `PolylogEigenvalueConjecture : Prop` (and analogously on the Coq side), taken as an explicit hypothesis by every consumer. The roadmap below targets *discharging* this Proposition (and the related `OffDiscPatchData s`); there is no axiom to retire. The structural decomposition into inputs remains accurate as a plan for discharging the underlying mathematical content; only the framing has changed.
 
-**Strategy**: The 50+ modules of `PF/Analytic/` Phase A infrastructure reduce the axiom to FIVE explicit inputs (was six, one DISCHARGED 2026-05-20). The maximally-sharp end-to-end wrapper is `axiom_content_FIVE_INPUTS` in `PF/Analytic/AxiomRetirementWrapper.lean`.
+**Goal**: Prove `PolylogEigenvalueConjecture` (formerly the axiom `alpha_class_polylog_eigenvalue_conjecture`) unconditionally as a Lean theorem.
 
-**Current status (2026-05-20)**: 1 of 6 inputs DISCHARGED. 5 remain.
+**Strategy**: The 50+ modules of `PF/Analytic/` Phase A infrastructure reduce the Prop to FIVE explicit inputs (was six, one DISCHARGED 2026-05-20). The maximally-sharp end-to-end wrapper is `axiom_content_FIVE_INPUTS` in `PF/Analytic/AxiomRetirementWrapper.lean` (the file name now refers to historical context — there is no axiom; it is more accurately the "Prop-discharge end-to-end wrapper").
+
+**Current status (2026-05-20, post-zero-axiom milestone)**: 1 of 6 inputs DISCHARGED. 5 remain.
 
 ---
 
@@ -175,9 +177,9 @@ A referee or collaborator reading this document can:
 3. See which existing modules attack which input.
 4. Estimate difficulty and scope for each.
 
-The framework is **not** "decades away from solving Millennium problems." The framework is **1 axiom away**, and that 1 axiom is **5 inputs away** (after 2026-05-20). Each input is a bounded mathematical deliverable with existing partial infrastructure.
+The framework is **not** "decades away from solving Millennium problems." The framework has **zero project axioms** as of 2026-05-20 (commit `72c0137`); the headline conjecture `PolylogEigenvalueConjecture` is a named Lean Proposition (not an axiom) that is **5 inputs away** from being discharged. Each input is a bounded mathematical deliverable with existing partial infrastructure.
 
-This is the actual state of the work. It is closer than it looks from outside, and farther than the "1 axiom" headline suggests. The 5 inputs are real, identified, and tractable in principle.
+This is the actual state of the work. It is closer than it looks from outside, and farther than the "zero axioms" headline alone suggests: capstones remain CONDITIONAL on the named Proposition, but every hypothesis is now an explicit, inspectable, refactorable `Prop` with no free-floating axioms anywhere in the framework. The 5 inputs are real, identified, and tractable in principle.
 
 ---
 
