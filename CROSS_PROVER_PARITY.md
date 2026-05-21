@@ -6,6 +6,35 @@
 > 2026-05-08) and `PRISTINE_CERTIFICATION.md` (current authoritative
 > per-prover state).
 
+## Cycle: 2026-05-20 (5th push) — Lean ZERO-AXIOM milestone (commit `72c0137`)
+
+**Lean side**: ZERO project axioms. `alpha_class_polylog_eigenvalue_conjecture`
+refactored from `axiom` to `def PolylogEigenvalueConjecture : Prop` and
+threaded as an explicit hypothesis through every consumer.
+`#print axioms` on `P_NEQ_NP`, `principia_fractalis_millennium_capstone`,
+`riemann_hypothesis_via_T3_sym_framework`, and `MonodromyGluingLemma_proven`
+returns only `[propext, Classical.choice, Quot.sound]`. Build: 5750 jobs
+clean, 0 sorries, 0 project axioms.
+
+**Coq side (as of this cycle entry)**: the analogous `Axiom alpha_class_polylog_eigenvalue_conjecture`
+at `PF_Coq_Code/PF/TuringEncoding/Operators.v:109` still exists at the
+time the previous parity report was written. A matching Coq cascade
+refactor (`Axiom` → `Definition : Prop`, hypothesis-threading
+downstream) is being executed; see subsequent cycle entries.
+
+**Parity status at structural level**: the Lean refactor changes the
+*declaration kind* (`axiom` → `def`), *not* the mathematical content.
+Both provers carry the same Prop with the same meaning; the strict
+improvement is that Lean now requires consumers to declare their
+dependence explicitly. Coq parity is closed once the analogous
+refactor lands on the Coq side.
+
+**Honest framing reminder**: zero project axioms does NOT mean the
+Millennium Problems are proven. Capstones remain CONDITIONAL on the
+named Lean Proposition `PolylogEigenvalueConjecture`. The framework
+is a machine-checked conditional reduction, not an unconditional
+proof.
+
 ## Cycle: 2026-05-20 (4th push) — Analytic + Empirical modules (4-file port)
 
 This cycle ports four additional Lean modules to Coq, completing the
