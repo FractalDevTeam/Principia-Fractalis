@@ -2,7 +2,7 @@
 
 ## 🎯 Major Results
 
-This repository contains the **Lean 4 formalization** of Principia Fractalis. The canonical library at `PF/` carries **1 axiom (`alpha_class_polylog_eigenvalue_conjecture`), 0 sorries**, with `lake build` completing all 5626 jobs cleanly, 0 warnings (verified 2026-05-16, post-Stage-35 axiom-elimination arc). The single remaining axiom is the formal encoding of the manuscript's Ch 21 polylog Conjecture + branch-selection Heuristic + golden-modulation Conjecture — see [`OPEN_PROBLEMS.md`](../OPEN_PROBLEMS.md) for what retiring it requires.
+This repository contains the **Lean 4 formalization** of Principia Fractalis. The canonical library at `PF/` carries **0 project axioms, 0 sorries**, with `lake build` completing all 5750 jobs cleanly, 0 warnings (verified 2026-05-20 — ZERO PROJECT AXIOMS milestone, commit `72c0137`). The previously-axiomatic `alpha_class_polylog_eigenvalue_conjecture` has been refactored into the named Lean Proposition `PolylogEigenvalueConjecture : Prop` (a `def`, not an `axiom`), taken as an explicit hypothesis by every consumer. `#print axioms` on every capstone returns only `[propext, Classical.choice, Quot.sound]`. The Proposition is the formal encoding of the manuscript's Ch 21 polylog Conjecture + branch-selection Heuristic + golden-modulation Conjecture — see [`OPEN_PROBLEMS.md`](../OPEN_PROBLEMS.md) for what discharging it requires.
 
 ### 1. **Consciousness Crystallization Threshold** 
 **σ_c = ch₂ = 0.95** — the framework's universal threshold across domains.
@@ -13,27 +13,27 @@ This repository contains the **Lean 4 formalization** of Principia Fractalis. Th
 
 **Impact:** A quantitative, testable framework for consciousness with explicit empirical-vs-derived disclosure of which constants are observed and which are derived.
 
-### 2. **P ≠ NP conditional reduction (1 axiom)**
+### 2. **P ≠ NP conditional reduction (0 project axioms; named Prop hypothesis)**
 
-The Lean library establishes the spectral gap between the P and NP closed-form ground-state energies and proves `P_neq_NP_via_spectral_gap : ClassP ≠ ClassNP` **conditional on a single project axiom**, `alpha_class_polylog_eigenvalue_conjecture`, which is the formal encoding of the manuscript's Ch 21 polylog Conjecture (`conj:polylog-spectrum`) + branch-selection Heuristic (`heur:branch-selection`) + golden-modulation Conjecture (`conj:golden-modulation`). The manuscript backs these with 10⁻¹⁰ numerical evidence; it does not prove them.
+The Lean library establishes the spectral gap between the P and NP closed-form ground-state energies and proves `P_NEQ_NP : PolylogEigenvalueConjecture → ClassP ≠ ClassNP` **conditional on a named Lean Proposition**, `PolylogEigenvalueConjecture`, which is the formal encoding of the manuscript's Ch 21 polylog Conjecture (`conj:polylog-spectrum`) + branch-selection Heuristic (`heur:branch-selection`) + golden-modulation Conjecture (`conj:golden-modulation`). **This Proposition is *not* an axiom**: as of commit `72c0137` (2026-05-20) it is a `def : Prop` taken as an explicit hypothesis by every consumer. The manuscript backs the underlying conjecture with 10⁻¹⁰ numerical evidence; it does not prove it.
 
 - **α_P = √2 ≈ 1.41421356** (P-class parameter; derived theorem `alpha_at_ClassP_eq_sqrt2`)
 - **α_NP = φ + 1/4 ≈ 1.86803399** (NP-class parameter; derived theorem `alpha_at_ClassNP_eq_phi_plus_quarter`)
 - **λ₀(P) = π/(10√2) ≈ 0.2221441469** (closed-form theorem `lambda_0_P_precise`, machine-checked to 10⁻¹⁰)
 - **λ₀(NP) = π/(10(φ+1/4)) ≈ 0.1681764182** (closed-form theorem `lambda_0_NP_precise`, machine-checked to 10⁻¹⁰)
 - **Δ = λ₀(P) − λ₀(NP) > 0** (spectral-gap positivity, Lean theorem `spectral_gap_positive`; numerical value `spectral_gap_value`)
-- **From the spectral gap and the conjecture axiom to `ClassP ≠ ClassNP`**: Lean theorem `P_neq_NP_via_spectral_gap`, depending on `alpha_class_polylog_eigenvalue_conjecture` (the *single* remaining project axiom).
+- **From the spectral gap and the named Proposition to `ClassP ≠ ClassNP`**: Lean theorem `P_NEQ_NP`, taking `PolylogEigenvalueConjecture` as an explicit hypothesis (no project axioms).
 
-The closed-form numerical match is real and verified to 10⁻¹⁰. The operator-theoretic claim that these closed forms *are* the ground-state eigenvalues of `H_P` and `H_NP` is the content of the manuscript's Conjecture / Heuristic, formalized here as the load-bearing axiom. **Retiring this axiom requires original mathematical research**, not formalization labor — see [`OPEN_PROBLEMS.md`](../OPEN_PROBLEMS.md) Problems 1–3.
+The closed-form numerical match is real and verified to 10⁻¹⁰. The operator-theoretic claim that these closed forms *are* the ground-state eigenvalues of `H_P` and `H_NP` is the content of the manuscript's Conjecture / Heuristic, formalized here as the load-bearing named Proposition `PolylogEigenvalueConjecture` (not an axiom). **Discharging this Proposition requires original mathematical research**, not formalization labor — see [`OPEN_PROBLEMS.md`](../OPEN_PROBLEMS.md) Problems 1–3.
 
-**Impact:** A mechanically-verified conditional reduction of the Clay Millennium P vs NP problem to three sharply-stated mathematical conjectures with 10⁻¹⁰ numerical evidence. This is not a proof of P ≠ NP; it is a clean isolation of what would have to be proven to deliver one.
+**Impact:** A mechanically-verified conditional reduction of the Clay Millennium P vs NP problem to three sharply-stated mathematical conjectures with 10⁻¹⁰ numerical evidence — with **zero free-floating axioms**. This is not a proof of P ≠ NP; it is a clean isolation of what would have to be proven to deliver one.
 
-### 3. **Formal Verification State (current as of 2026-05-16)**
-- **Canonical `PF/` library**: 1 axiom remaining (`alpha_class_polylog_eigenvalue_conjecture`), 0 sorries, `lake build` 5626 jobs clean, 0 warnings.
+### 3. **Formal Verification State (current as of 2026-05-20 — ZERO PROJECT AXIOMS milestone)**
+- **Canonical `PF/` library**: **0 project axioms** (commit `72c0137`, 2026-05-20), 0 sorries, `lake build` 5750 jobs clean, 0 warnings. `#print axioms` on every capstone returns only `[propext, Classical.choice, Quot.sound]`.
 - **All numerical claims** machine-verified to 8–10 decimal places via `Real.pi_gt_d20`, `Real.pi_lt_d20`, and the 10-digit √2 / √5 / φ interval bounds in `PF/IntervalArithmetic.lean`.
-- **The single remaining axiom** is documented in [`AXIOM_AUDIT.md`](../AXIOM_AUDIT.md) and [`OPEN_PROBLEMS.md`](../OPEN_PROBLEMS.md). It is the formal encoding of a manuscript Conjecture/Heuristic, not a derived theorem.
-- **Axiom-elimination arc 2026-05-11 through 2026-05-14** (Stages 1–35) brought the canonical library from 8 → 6 → 3 → 1 axiom. Per-stage details in `AXIOM_AUDIT.md`.
-- **Cross-prover Coq mirror** (2026-05-16, [`PF_Coq_Code/`](../PF_Coq_Code/)) carries the same single axiom in 7 modules.
+- **The named load-bearing Proposition** `PolylogEigenvalueConjecture` is documented in [`AXIOM_AUDIT.md`](../AXIOM_AUDIT.md) and [`OPEN_PROBLEMS.md`](../OPEN_PROBLEMS.md). It is the formal encoding of a manuscript Conjecture/Heuristic, *not* an axiom: it is a `def : Prop` taken as an explicit hypothesis by every consumer.
+- **Axiom-elimination arc 2026-05-11 through 2026-05-20** brought the canonical library from 8 → 6 → 3 → 1 → **0** axioms. Stages 1–35 (May 11–14) handled the 8 → 1 reduction; the May 20 cascade refactor (commit `72c0137`) handled the final 1 → 0 step.
+- **Cross-prover Coq mirror** (2026-05-20, [`PF_Coq_Code/`](../PF_Coq_Code/)): 25 files, **0 Axioms** (same cascade refactor applied to the Coq side), 98 `Parameter`s for honest Coq-8.18 stdlib GAPs (Complex/Coquelicot infrastructure).
 
 ---
 

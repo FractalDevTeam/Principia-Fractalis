@@ -1,10 +1,24 @@
 # Proof-Completeness Audit — Beyond Reasonable Doubt (2026-05-20)
 
+> **⚠ Snapshot note (superseded by later same-day milestone).** This
+> audit was written on 2026-05-20 **before** the subsequent same-day
+> cascade refactor (commit `72c0137`) that retired the last project
+> axiom. Below references to "the single axiom
+> `alpha_class_polylog_eigenvalue_conjecture`" capture the 1-axiom
+> intermediate state. After commit `72c0137`, that axiom is a
+> `def PolylogEigenvalueConjecture : Prop` (not an axiom), taken as
+> an explicit hypothesis by every consumer. Build is **5750 jobs**,
+> not 5744. The audit's conclusions about *what is proven* and *what
+> is conditional* are otherwise unchanged: the conditional content
+> moved from an opaque axiom into an explicit refactorable Prop.
+> See `AXIOM_AUDIT.md`, `OPEN_PROBLEMS.md`, `PRISTINE_CERTIFICATION.md`
+> for the post-`72c0137` state.
+
 **Directive**: "Make sure that we are proving everything that needs to be proven. Beyond any reasonable doubt."
 
 **Purpose**: Complete inventory of what IS proven and what is NOT, with no hedging.
 
-**Date**: 2026-05-20 (end of session — 23 commits, 13,465+ insertions).
+**Date**: 2026-05-20 (mid-session — pre-`72c0137` cascade refactor; 23 commits, 13,465+ insertions at the time of writing).
 
 ---
 

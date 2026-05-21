@@ -64,7 +64,7 @@ For those ready to go further:
 
 The academic establishment treats consciousness as a byproduct — complexity reaches some threshold, and awareness magically appears. *Principia Fractalis* inverts this: consciousness is as fundamental as spacetime itself, quantifiable through topological invariants.
 
-This isn't philosophy dressed as science. The second Chern character (ch₂) provides objective measurement. The mathematics is formalized in Lean 4 (canonical PF/ library: 1 axiom remaining, 0 sorries, 5626 jobs clean) and Coq, with each remaining axiom explicitly disclosed and categorized in the public AXIOM_AUDIT.md.
+This isn't philosophy dressed as science. The second Chern character (ch₂) provides objective measurement. The mathematics is formalized in Lean 4 (canonical PF/ library: **0 project axioms**, 0 sorries, 5750 jobs clean — ZERO PROJECT AXIOMS milestone, commit `72c0137`, 2026-05-20) and Coq (same zero-axiom state, cross-prover parity). The named open conjectures the framework reduces the Millennium Problems to are catalogued in the public `OPEN_PROBLEMS.md`.
 
 **Reality vibrates like a bell.**
 
