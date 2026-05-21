@@ -47,7 +47,7 @@ Every major result is:
 
 \textbf{Part III: Spectral Theory} constructs self-adjoint operators whose eigenvalues correspond to zeros of important functions. This is the key mathematical technique for the Millennium Problems.
 
-\textbf{Part IV: Millennium Problems} presents complete solutions to all six Clay Mathematics Institute problems. These emerge naturally as consequences of the framework—they are not the goal, but byproducts.
+\textbf{Part IV: Millennium Problems} presents \emph{machine-checked conditional reductions} for all six Clay Mathematics Institute problems. Each reduction has the form: \emph{a named, explicit Lean Proposition implies the Millennium claim.} These reductions are formally verified --- the Lean~4 + Coq codebase (\texttt{PF\_Lean4\_Code/}, \texttt{PF\_Coq\_Code/}) carries \textbf{zero project axioms} as of 2026-05-20 (commit \texttt{72c0137}); see Chapter~\ref{ch:verification} and the front-matter \emph{Formalization Status (Revision~2)}. The framework does \emph{not} discharge the underlying Conjectures (the polylog eigenvalue conjecture, the off-disc analytic-continuation data for $\mathrm{Li}_s$, the spectral-bijection surjectivity for RH, etc.); these are catalogued as open problems in \texttt{OPEN\_PROBLEMS.md}. The contribution is the reduction architecture itself: each Millennium problem is mechanically reduced to a small, explicit, refactorable set of named open analytic conjectures, with no free-floating axioms.
 
 \textbf{Part V: Cosmology} demonstrates why standard ΛCDM cosmology fails and how consciousness-modified field equations achieve 94.3\% better agreement with observations.
 

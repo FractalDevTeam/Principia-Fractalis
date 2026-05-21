@@ -123,7 +123,7 @@ The spectral gap is:
 \begin{equation}
 \Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) = \frac{\pi}{10\sqrt{2}} - \frac{\pi}{10(\varphi+1/4)} \approx 0.0539677287 > 0
 \end{equation}
-Therefore, conditional on the polylog spectral conjecture (Ch~\ref{ch:p-vs-np}, Conjecture \texttt{conj:polylog-spectrum}, axiomatized as \texttt{alpha\_class\_polylog\_eigenvalue\_conjecture}), \textbf{P $\neq$ NP}.
+Therefore, conditional on the polylog spectral conjecture (Ch~\ref{ch:p-vs-np}, Conjecture \texttt{conj:polylog-spectrum}, encoded as the named Lean Proposition \texttt{PolylogEigenvalueConjecture} --- a \texttt{def~:~Prop}, \emph{not} an axiom, as of commit \texttt{72c0137}, 2026-05-20; taken as an explicit hypothesis by every consumer), \textbf{P $\neq$ NP}.
 \end{theorem}
 
 \begin{proof}[Proof Strategy]

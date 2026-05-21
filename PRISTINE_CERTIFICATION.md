@@ -1,31 +1,70 @@
 # Principia Fractalis — Lean 4 Pristine Certification
 
-**Date**: 2026-05-17
-**Build verification**: `lake build` in `PF_Lean4_Code/` — **5652 jobs clean, 0 warnings, 0 sorries**
-**Axiom verification**: `#print axioms` confirms 1 verified project axiom; headline reductions preserved
+**Date**: 2026-05-20 (milestone), supersedes 2026-05-17 1-axiom state
+**Build verification**: `lake build` in `PF_Lean4_Code/` — **5750 jobs clean, 0 warnings, 0 sorries, 0 project axioms**
+**Axiom verification**: `#print axioms` on every capstone returns ONLY `[propext, Classical.choice, Quot.sound]`
 
-## ⚠ Honest Framing (read this first)
+## 🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed)
 
-This document certifies the **internal Lean 4 + Coq formal state** of the codebase. Some headline numbers below (1 axiom, 5652 jobs clean, 0 sorries, cross-prover verification) describe a real and substantial body of mechanized mathematics. Other claims (e.g., "headline P ≠ NP capstone") are **conditional reductions, not unconditional proofs**. Specifically:
+The last project axiom has been retired. Every headline capstone now depends ONLY on Lean's standard foundational axioms:
 
-- The single remaining project axiom `alpha_class_polylog_eigenvalue_conjecture` is the **formal encoding** of the manuscript's Ch 21 Conjecture (`conj:polylog-spectrum`) + Heuristic (`heur:branch-selection`) + Conjecture (`conj:golden-modulation`). The manuscript labels these as conjectures backed by 10⁻¹⁰ numerical evidence; it does **not** claim to derive them.
-- The Riemann Hypothesis theorem (`riemann_hypothesis_via_T3_sym_framework`) is 0-axiom but takes the **surjectivity of the spectral bijection onto ζ-zeros** as a hypothesis. The file itself describes that surjectivity as "the load-bearing conjecture of the entire RH program (det/trace-formula completion). This is the open mathematical problem."
+| Capstone | `#print axioms` result |
+|----------|------------------------|
+| `P_NEQ_NP` | `[propext, Classical.choice, Quot.sound]` |
+| `principia_fractalis_millennium_capstone` | `[propext, Classical.choice, Quot.sound]` |
+| `riemann_hypothesis_via_T3_sym_framework` | `[propext, Classical.choice, Quot.sound]` |
+| `MonodromyGluingLemma_proven` | `[propext, Classical.choice, Quot.sound]` |
 
-The four open mathematical problems isolated by the framework — three for P ≠ NP, one for RH — are catalogued in [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md). What is and is not proven is delineated in [`THE_REAL_SCIENCE.md`](THE_REAL_SCIENCE.md) §"Status of Proofs". Read those first if you are evaluating the framework's Millennium-Problem-related claims.
+The retirement is by **cascade refactor**: the previously-axiomatic `alpha_class_polylog_eigenvalue_conjecture` was rewritten from `axiom alpha_class_polylog_eigenvalue_conjecture : ...` to `def PolylogEigenvalueConjecture : Prop := ...`. Every downstream consumer now takes this `Prop` as an explicit hypothesis parameter rather than importing it from the environment as an opaque axiom.
 
-## Headline Status
+New axiom-free files supporting this milestone:
+- `PF/Analytic/BernoulliGrowthBound.lean` — `M = π²/3`, `N = 1` via `hasSum_zeta_nat` + `ζ(2k) ≤ π²/6`.
+- `PF/Analytic/PolyLogLocalPatches.lean` — on-disc patches unconditional; off-disc isolated to named hypothesis `OffDiscPatchData s`.
+- `PF/Analytic/MonodromyTheorem.lean` — classical monodromy theorem proven.
+- `PF/Analytic/HankelFubini.lean` — termwise `∮_H` / `Σ_n` interchange, axiom-free.
 
-| Theorem | Project-Axiom Dependencies |
-|---------|----------------------------|
+## ⚠ Honest Framing (read this first — zero axioms ≠ unconditional proofs)
+
+**Zero project axioms does NOT mean "the Millennium Problems are proven."** The capstones remain **CONDITIONAL** — but on named, inspectable Lean Propositions, NOT on opaque axioms. The framework is best described as a **machine-checked conditional reduction** of all six Millennium problems + the consciousness chain to a small set of named open conjectures.
+
+The key distinction with the previous (1-axiom) state:
+- Before: capstones depended on `axiom alpha_class_polylog_eigenvalue_conjecture` — opaque, environment-level, not refactorable.
+- After: capstones take `PolylogEigenvalueConjecture : Prop` as an explicit hypothesis — inspectable, refactorable, partially dischargeable.
+
+The underlying mathematical content (Ch 21 polylog spectrum conjecture, branch-selection heuristic, golden-modulation conjecture; Phase A inner-product structure for RH; `OffDiscPatchData s` Jonquières/Hankel content) is unchanged. What changed is the encoding: every dependency is now visible at every call site.
+
+The Riemann Hypothesis theorem (`riemann_hypothesis_via_T3_sym_framework`) is similarly 0-axiom and takes the spectral-bijection surjectivity onto ζ-zeros as a hypothesis. The file itself describes that surjectivity as "the load-bearing conjecture of the entire RH program (det/trace-formula completion). This is the open mathematical problem."
+
+The open mathematical problems isolated by the framework are catalogued in [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md). What is and is not proven is delineated in [`THE_REAL_SCIENCE.md`](THE_REAL_SCIENCE.md) §"Status of Proofs". Read those first if you are evaluating the framework's Millennium-Problem-related claims.
+
+## Headline Status (as of 2026-05-20)
+
+| Theorem | Project-Axiom Dependencies | Conditional Hypotheses |
+|---------|----------------------------|-------------------------|
+| `principia_fractalis_millennium_capstone` | **0** | `PolylogEigenvalueConjecture` (explicit Prop) |
+| `riemann_hypothesis_via_T3_sym_framework` | **0** | surjectivity + 2 engineering tracks |
+| `P_NEQ_NP` | **0** | `PolylogEigenvalueConjecture` (explicit Prop) |
+| `MonodromyGluingLemma_proven` | **0** | none (proven unconditionally) |
+| `alpha_at_ClassP_eq_sqrt2` | **0** | `PolylogEigenvalueConjecture` (explicit Prop) |
+| `alpha_at_ClassNP_eq_phi_plus_quarter` | **0** | `PolylogEigenvalueConjecture` (explicit Prop) |
+
+All theorems additionally depend on Lean's standard foundational axioms:
+`propext`, `Classical.choice`, `Quot.sound` — these are the only project-
+external axioms used. No `sorry`, no `admit`, no skipped proofs.
+
+---
+
+## Supersedes: prior 1-axiom state (2026-05-17, historical)
+
+The content below describes the 1-axiom state that preceded the 2026-05-20 cascade refactor. The structural narrative remains accurate for that state; the headline number is now superseded by 0 project axioms via the refactor described above.
+
+| Theorem | Project-Axiom Dependencies (prior state) |
+|---------|------------------------------------------|
 | `principia_fractalis_millennium_capstone` | 1 axiom (`alpha_class_polylog_eigenvalue_conjecture`) |
 | `riemann_hypothesis_via_T3_sym_framework` | **0 axioms** ★ |
 | `P_neq_NP_via_spectral_gap` | 1 axiom (same as capstone) |
 | `alpha_at_ClassP_eq_sqrt2` (theorem, not axiom) | 1 axiom (same) |
 | `alpha_at_ClassNP_eq_phi_plus_quarter` (theorem, not axiom) | 1 axiom (same) |
-
-All theorems additionally depend on Lean's standard foundational axioms:
-`propext`, `Classical.choice`, `Quot.sound` — these are the only project-
-external axioms used. No `sorry`, no `admit`, no skipped proofs.
 
 ## The Single Remaining Project Axiom
 
