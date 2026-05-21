@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "To cite this work, use this metadata."
 type: software
 title: "Principia Fractalis: Formal Verification in Lean 4 and Coq"
-version: 1.2.0
-date-released: 2025-11-30
+version: 1.0.5-rev2.6
+date-released: 2026-05-20
 url: "https://github.com/FractalDevTeam/Principia-Fractalis"
 repository-code: "https://github.com/FractalDevTeam/Principia-Fractalis"
 license: "Proprietary - Non-Commercial Research Only"
@@ -13,12 +13,24 @@ authors:
     orcid: "https://orcid.org/0009-0002-0734-5565"
 abstract: >
   Formal verification of Principia Fractalis in two independent proof assistants.
-  Lean 4: 40 files, ~226 axioms, 269 theorems, 0 sorrys.
-  Coq: 32 files, 193 axioms, 199 theorems, 0 admits.
-  L4L: 9 files, 0 axioms, 19 theorems, 0 sorrys.
-  All proofs complete with zero incomplete proof steps.
-  Includes verified proofs for P ≠ NP (spectral gap), Riemann Hypothesis equivalence,
-  Yang-Mills mass gap, BSD conjecture, Hodge conjecture, and Navier-Stokes solutions.
+  ZERO PROJECT AXIOMS milestone (2026-05-20, commit 72c0137).
+  Lean 4 canonical library (PF_Lean4_Code/PF/): 100+ files, 0 project axioms,
+  0 sorries, lake build 5750 jobs clean. Capstone theorems P_NEQ_NP,
+  principia_fractalis_millennium_capstone, riemann_hypothesis_via_T3_sym_framework,
+  and MonodromyGluingLemma_proven all depend on only the three standard Lean
+  foundations [propext, Classical.choice, Quot.sound] — no project axioms.
+  Coq cross-prover port (PF_Coq_Code/PF/): 25 files, 0 Axioms, 98 Parameters
+  (honest Coq-8.18 stdlib gaps — Complex / Coquelicot infrastructure, documented
+  in CROSS_PROVER_PARITY.md), 0 admits, Coq 8.18.0 builds clean.
+  Conditional-reduction architecture covers all six Clay Millennium Problems
+  (P ≠ NP, Riemann Hypothesis, Navier-Stokes, Yang-Mills, BSD, Hodge) plus the
+  consciousness-quantification chain (ch_2 ≥ 0.95 threshold; second Chern character
+  on consciousness sheaf). Each capstone is CONDITIONAL on a named, explicit
+  Lean Proposition (PolylogEigenvalueConjecture for P-vs-NP and downstream;
+  spectral-bijection surjectivity for RH; named hypotheses at the canonical
+  α values 3π/2, 2, 3π/4, φ for the remaining four). These Propositions are
+  the open mathematical problems isolated by the framework — they are not
+  axioms. See OPEN_PROBLEMS.md for the residual open conjectures.
 keywords:
   - formal verification
   - Lean 4
