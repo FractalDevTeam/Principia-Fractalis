@@ -47,6 +47,9 @@ import PF.Analytic.Polylog            -- Stage L4 — polylog foundation
 import PF.Analytic.Jonquieres         -- Stage L4 — Jonquières expansion foundation
 import PF.Analytic.JonquieresIdentity  -- Stage L4 — Jonquières identity (conditional reduction)
 import PF.Analytic.JonquieresZetaSeriesSummable  -- Stage L4 — ζ-series summability (conditional)
+import PF.Analytic.BernoulliGrowthBound          -- Stage L4-B — Bernoulli growth bound: |B_{2k}| ≤ (π²/3)·(2k)!/(2π)^(2k) discharged
+import PF.Analytic.JonquieresAnalyticity         -- Stage L13 — Jonquières analyticity: Γ-term unconditional + ζ-series named residual
+import PF.Analytic.JonquieresZetaAnalyticity     -- Stage L13 — ζ-series analyticity: discharge via uniform growth bridge
 import PF.Analytic.Monodromy          -- Stage L4 — Riemann sheet monodromy
 import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue identity (statement)
 import PF.Analytic.HankelContour       -- Stage L4 — Hankel contour foundation
