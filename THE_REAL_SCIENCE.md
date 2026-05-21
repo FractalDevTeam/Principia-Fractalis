@@ -9,6 +9,19 @@
 
 **Principia Fractalis delivers conditional reductions, not unconditional proofs, of the Millennium Problems it addresses.** The framework is rigorous; the conditional reductions are mechanized in Lean 4 + Coq with referee-grade discipline. But the public framing has sometimes conflated "rigorously reduced to a named conjecture" with "proven." This is the honest, separator-line distinction:
 
+### 🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed)
+
+As of 2026-05-20, the framework has **zero project axioms**. The last project axiom (`alpha_class_polylog_eigenvalue_conjecture`) was retired by a cascade refactor: it was rewritten from `axiom ...` to `def PolylogEigenvalueConjecture : Prop := ...`, and every downstream consumer now takes this `Prop` as an explicit hypothesis parameter.
+
+Verified via `#print axioms`: the capstones `P_NEQ_NP`, `principia_fractalis_millennium_capstone`, `riemann_hypothesis_via_T3_sym_framework`, and `MonodromyGluingLemma_proven` all return ONLY `[propext, Classical.choice, Quot.sound]`. Build: 5750 jobs clean, 0 sorries, 0 project axioms.
+
+**Honest framing: ZERO project axioms does NOT mean the Millennium Problems are proven.** The capstones remain **CONDITIONAL** on named Lean Propositions, NOT on opaque axioms. The key distinction:
+
+- Before (1-axiom state): capstones depended on `axiom alpha_class_polylog_eigenvalue_conjecture` — opaque, environment-level, not refactorable.
+- After (0-axiom state): capstones take `PolylogEigenvalueConjecture : Prop` as an explicit hypothesis — inspectable, refactorable, partially dischargeable at every call site.
+
+The framework is now best described as a **machine-checked conditional reduction** of all six Millennium problems + the consciousness chain to a small set of named open Lean Propositions. The underlying mathematical content (Ch 21 polylog spectrum conjecture, branch selection, golden modulation; RH surjectivity; `OffDiscPatchData s` Jonquières/Hankel) is unchanged.
+
 ### Genuinely proven, axiom-free, machine-checked in Lean 4
 
 - **Base-3 radix optimality** (`PF/RadixEconomy.lean`)
@@ -16,10 +29,16 @@
 - **Spectral-gap numerical value** `Δ = 0.0539677287 ± 10⁻⁸` (`spectral_gap_value`)
 - **10-digit-precision closed-form match** for the conjectured ground states `λ_0(H_P) = π/(10√2)` and `λ_0(H_NP) = π/(10(φ+¼))` (`lambda_0_P_precise`, `lambda_0_NP_precise`)
 - **Algebraic content of the α-value claims** at the inductive-enum level (`PF/TuringEncoding/AlphaEnum.lean`, mirrored axiom-free in Coq `AlphaEnum.v`)
+- **Classical monodromy theorem** on simply-connected domains (`PF/Analytic/MonodromyTheorem.lean::MonodromyGluingLemma_proven`, new 2026-05-20)
+- **Bernoulli growth bound** `M = π²/3`, `N = 1` via `hasSum_zeta_nat` + `ζ(2k) ≤ π²/6` (`PF/Analytic/BernoulliGrowthBound.lean`, new 2026-05-20)
+- **Hankel termwise interchange** `∮_H ⇄ Σ_n` axiom-free (`PF/Analytic/HankelFubini.lean`)
+- **On-disc PolyLog patches** unconditional (`PF/Analytic/PolyLogLocalPatches.lean`, new 2026-05-20)
 
-### Conditional reduction (1 axiom) — P ≠ NP
+### Conditional reduction (0 project axioms, named Prop hypothesis) — P ≠ NP
 
-`P_neq_NP_via_spectral_gap : ClassP ≠ ClassNP` is proven in Lean conditional on **one** project axiom, `alpha_class_polylog_eigenvalue_conjecture`. That axiom is the formal encoding of three things the manuscript itself labels Conjecture or Heuristic (Ch 21 `conj:polylog-spectrum`, `heur:branch-selection`, `conj:golden-modulation`). The manuscript backs these with 10⁻¹⁰ numerical agreement, **not** with a proof. **Retiring this axiom is original mathematical research that has not been done — by anyone, including the manuscript's author.**
+`P_NEQ_NP : ClassP ≠ ClassNP` is proven in Lean with **zero project axioms** and takes the named Proposition `PolylogEigenvalueConjecture` as an explicit hypothesis parameter. That Proposition is the formal encoding of three things the manuscript itself labels Conjecture or Heuristic (Ch 21 `conj:polylog-spectrum`, `heur:branch-selection`, `conj:golden-modulation`). The manuscript backs these with 10⁻¹⁰ numerical agreement, **not** with a proof. **Discharging this Proposition is original mathematical research that has not been done — by anyone, including the manuscript's author.**
+
+An additional explicit hypothesis `OffDiscPatchData s` (new 2026-05-20) isolates the Jonquières/Hankel off-disc analytic-continuation content as a single named Prop instead of leaving it diffuse.
 
 **Phase A retirement infrastructure** (as of 2026-05-17, multi-arc work):
 
