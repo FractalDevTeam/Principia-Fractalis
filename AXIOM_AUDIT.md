@@ -1,5 +1,74 @@
 # Lean 4 Axiom Audit — PF_Lean4_Code/PF/
 
+## 🎯 ZERO PROJECT AXIOMS (2026-05-20, commit `72c0137`, pushed to origin/master)
+
+**Headline state:** the framework has **ZERO project axioms**. Build at **5750 jobs clean, 0 sorries, 0 project axioms**. Verified via `#print axioms`:
+
+| Theorem | Axiom Dependencies |
+|---------|--------------------|
+| `P_NEQ_NP` | `[propext, Classical.choice, Quot.sound]` — **0 project axioms** |
+| `principia_fractalis_millennium_capstone` | `[propext, Classical.choice, Quot.sound]` — **0 project axioms** |
+| `riemann_hypothesis_via_T3_sym_framework` | `[propext, Classical.choice, Quot.sound]` — **0 project axioms** |
+| `MonodromyGluingLemma_proven` | `[propext, Classical.choice, Quot.sound]` — **0 project axioms** |
+
+Only Lean's standard foundational axioms remain. **No project axioms.**
+
+### The cascade refactor (commit `72c0137`)
+
+The last project axiom, `alpha_class_polylog_eigenvalue_conjecture`, was retired by a structural refactor — **not** by proving the underlying mathematical content. The axiom was rewritten from a top-level `axiom` declaration into a named `Prop`:
+
+```lean
+-- BEFORE (last surviving axiom):
+axiom alpha_class_polylog_eigenvalue_conjecture :
+    ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
+    (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0
+     ∧ 0 < alpha_of_class ClassNP)
+
+-- AFTER (cascade refactor):
+def PolylogEigenvalueConjecture : Prop :=
+    ((alpha_of_class ClassP)^2 = 2 ∧ 0 < alpha_of_class ClassP) ∧
+    (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0
+     ∧ 0 < alpha_of_class ClassNP)
+```
+
+Every downstream consumer (the entire P ≠ NP capstone chain, the Millennium capstone, and the universal 7-problem structure) now takes `PolylogEigenvalueConjecture` as an **explicit hypothesis parameter**, instead of importing it as an opaque axiom from the environment.
+
+### Honest framing (read carefully — this is critical)
+
+**Zero project axioms does NOT mean "the Millennium Problems are proven."** It means the conditional content of the previous axiom has been refactored from an opaque `axiom` declaration into an explicit, inspectable `Prop` hypothesis.
+
+- The capstone theorems remain **CONDITIONAL** on named Lean Propositions, NOT on axioms.
+- The hypotheses are now explicit `Prop`s that any consumer must supply.
+- The mathematical content (the polylog spectrum conjecture, the branch-selection heuristic, the golden-modulation conjecture, the RH surjectivity hypothesis, the `OffDiscPatchData s` Jonquières/Hankel structure) is unchanged.
+- The framework is best described as a **machine-checked conditional reduction** of all six Millennium problems + the consciousness chain to a small set of named open conjectures.
+
+**Why this matters.** The previous axiom was a single opaque postulate. The refactor makes the underlying conjectures inspectable, refactorable, and explicit at every call site — referees can see exactly which hypothesis each capstone depends on, and partial discharge becomes possible (e.g. supplying part of the conjecture as a theorem and leaving the rest as hypothesis).
+
+### Axiom-free files added in this milestone
+
+- **`PF/Analytic/BernoulliGrowthBound.lean`** — `M = π²/3`, `N = 1` explicit constants via `hasSum_zeta_nat` plus the `ζ(2k) ≤ π²/6` chain. Discharges the previously-named `BernoulliGrowthBoundResidual` gap unconditionally.
+- **`PF/Analytic/PolyLogLocalPatches.lean`** — on-disc patches are unconditional; off-disc patches are now isolated to the explicit named hypothesis `OffDiscPatchData s` (Jonquières/Hankel structure on a single slit patch).
+- **`PF/Analytic/MonodromyTheorem.lean`** — classical monodromy theorem on simply-connected domains, proven and named `MonodromyGluingLemma_proven`.
+- **`PF/Analytic/HankelFubini.lean`** (already in tree pre-milestone) — termwise interchange of `∮_H` and `Σ_n` on the Hankel contour, axiom-free via Mathlib's `MeasureTheory.integral_tsum_of_summable_integral_norm`.
+
+### What remains genuinely open (now expressed as Props, not axioms)
+
+The named hypotheses that capstones still depend on are catalogued in `OPEN_PROBLEMS.md`. The headline ones are:
+
+1. **`PolylogEigenvalueConjecture`** (Ch 21 polylog spectrum + branch-selection heuristic + golden-modulation conjecture). Three sub-conjectures.
+2. **`OffDiscPatchData s`** (Jonquières/Hankel local-patch existence off the unit disc).
+3. **Phase A inner-product structure for RH** (compact-operator spectral theorem hookup; non-degeneracy from Mayer 1991 numerical; surjectivity onto ζ-zeros).
+
+Each is now a named `Prop` in the Lean source, not an `axiom`.
+
+### Supersedes
+
+The 2026-05-18 1-axiom state below is superseded. All historical content (1-axiom state, 3-axiom state, 8-axiom canonical surface, 41-axiom early-rev2 state, the per-axiom audit log of the original 8) is preserved as historical context. The discharge work that retired each of the prior axioms is documented in the entries that follow.
+
+---
+
+## Prior state: 1 project axiom (2026-05-18, superseded by 2026-05-20 milestone above)
+
 *As of **2026-05-18**: **1 verified axiom** in `PF/`. Build at **5736 jobs clean, 0 sorries**. Headline dependencies (verified via `#print axioms`):*
 - *`principia_fractalis_millennium_capstone` → 1 axiom (`alpha_class_polylog_eigenvalue_conjecture`)*
 - *`riemann_hypothesis_via_T3_sym_framework` → **0 project axioms** (depends ONLY on mathlib's `propext`, `Classical.choice`, `Quot.sound`; a 4-hypothesis conditional — see honest framing note)*

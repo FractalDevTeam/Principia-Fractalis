@@ -1,8 +1,10 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-20 (latest session: Hankel Fubini PROVEN + H_P operator construction + JOINT P+NP wrapper, commit `ea6d3ef`). Companion to `AXIOM_AUDIT.md` and `PRISTINE_CERTIFICATION.md`.*
+*Last updated: 2026-05-20 (ZERO PROJECT AXIOMS milestone, commit `72c0137`, pushed to origin/master). Companion to `AXIOM_AUDIT.md` and `PRISTINE_CERTIFICATION.md`.*
 
-> **★ Hankel termwise interchange DISCHARGED (2026-05-20 latest, commit `ea6d3ef`):** `HankelFubini.tsum_integral_eq_integral_tsum` is now PROVEN axiom-free via Mathlib's `MeasureTheory.integral_tsum_of_summable_integral_norm`. This is the SECOND of the two atomic deliverables identified as load-bearing for the polylog axiom retirement. The termwise interchange of `∮_H` and `Σ_n` on the Hankel contour is mechanized. The residual content of the framework's polylog axiom is now ISOLATED to THREE NAMED CLASSICAL GAPS (each a standard textbook result that mathlib does not yet have): (a) **`MonodromyGluingLemma`** — classical monodromy theorem on simply-connected domains; (b) **`BernoulliGrowthBoundResidual`** — Bernoulli asymptotic `|B_{2m}| ≤ M·(2m)!/(2π)^{2m}` eventually; (c) operator-theoretic spectral identification (`H_P` ground state = `π/(10·√2)`), encoded as named hypotheses in `HPOperatorConstruction.lean`. See "Session 2026-05-20 (latest)" section below.
+> **🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed to origin/master).** The last project axiom, `alpha_class_polylog_eigenvalue_conjecture`, has been retired by a **cascade refactor**: the axiom was rewritten from `axiom alpha_class_polylog_eigenvalue_conjecture : ...` to `def PolylogEigenvalueConjecture : Prop := ...`. Every consumer (the P ≠ NP capstone chain, the Millennium capstone, the universal 7-problem structure) now takes this `Prop` as an explicit hypothesis parameter. Verified via `#print axioms`: `P_NEQ_NP`, `principia_fractalis_millennium_capstone`, `riemann_hypothesis_via_T3_sym_framework`, and `MonodromyGluingLemma_proven` all return only `[propext, Classical.choice, Quot.sound]`. Build: 5750 jobs clean, 0 sorries, 0 project axioms. New axiom-free files: `PF/Analytic/BernoulliGrowthBound.lean` (M=π²/3, N=1), `PF/Analytic/PolyLogLocalPatches.lean` (on-disc unconditional, off-disc isolated to `OffDiscPatchData s`), `PF/Analytic/MonodromyTheorem.lean`, `PF/Analytic/HankelFubini.lean`. **Honest framing: the framework is now best described as a machine-checked conditional reduction of all six Millennium problems + the consciousness chain to a small set of named open Lean Propositions, NOT an unconditional proof of the Millennium Problems.** The previously-listed open problems below remain mathematically open — they are now expressed as inspectable, refactorable `Prop`s instead of opaque axioms. The three P ≠ NP-side problems (1, 2, and historically 3) are now sub-conjectures of the single `Prop` named `PolylogEigenvalueConjecture`. Two new explicit named hypotheses join the catalog: `OffDiscPatchData s` (Jonquières/Hankel local-patch existence off the unit disc) and the Phase A inner-product structure for RH (compact-operator spectral theorem hookup + non-degeneracy from Mayer 1991 numerical + surjectivity onto ζ-zeros).
+
+> **★ Hankel termwise interchange DISCHARGED (2026-05-20 earlier, commit `ea6d3ef`):** `HankelFubini.tsum_integral_eq_integral_tsum` is now PROVEN axiom-free via Mathlib's `MeasureTheory.integral_tsum_of_summable_integral_norm`. This is the SECOND of the two atomic deliverables identified as load-bearing for the polylog axiom retirement. The termwise interchange of `∮_H` and `Σ_n` on the Hankel contour is mechanized. The residual content of the framework's polylog axiom is now ISOLATED to THREE NAMED CLASSICAL GAPS (each a standard textbook result that mathlib does not yet have): (a) **`MonodromyGluingLemma`** — classical monodromy theorem on simply-connected domains; (b) **`BernoulliGrowthBoundResidual`** — Bernoulli asymptotic `|B_{2m}| ≤ M·(2m)!/(2π)^{2m}` eventually; (c) operator-theoretic spectral identification (`H_P` ground state = `π/(10·√2)`), encoded as named hypotheses in `HPOperatorConstruction.lean`. (As of the 2026-05-20 commit `72c0137` ZERO-PROJECT-AXIOMS milestone above, (a) is now PROVEN as `MonodromyGluingLemma_proven` and (b) is DISCHARGED via `PF/Analytic/BernoulliGrowthBound.lean`. The residual content is concentrated in the named Prop `PolylogEigenvalueConjecture` + `OffDiscPatchData s`.) See "Session 2026-05-20 (latest)" section below.
 
 > **🎯 Load-bearing reduction (2026-05-20, continued):** After the six-input reduction earlier today, the sheaf reformulation (`PF/Analytic/PolyLogSheaf.lean`, commit `41142e1`) collapses the framework's residual content into a SINGLE atomic target. Together with the proven uniqueness half (`polyLog_extension_unique`, commit `ed821ec`), the framework's polylog axiom now reduces to ONE load-bearing open theorem: **`PolyLogAnalyticExtensionExists`** (existence of an analytic extension of `polyLog` from `|z| < 1` to the slit domain `U_slit`). Equivalent reductions: the Jonquières identity `polyLog = jonquieresExpansion`, or the Hankel termwise interchange via mathlib's `tsum_integral`. **As of the latest session below, the Hankel interchange reduction is now PROVEN; the remaining content is reduced to 3 named classical gaps.** See new "Session 2026-05-20 (latest)" section below.
 
@@ -16,14 +18,22 @@
 
 This document enumerates the **open mathematical problems** that the Principia Fractalis framework has *isolated* — that is, the precisely-stated mathematical claims on which the framework's headline conditional reductions of Clay Millennium Problems depend.
 
-**Current status: THREE open problems remain (Problem 3 resolved 2026-05-20).** The framework provides:
+**Current status (as of 2026-05-20, commit `72c0137`): ZERO project axioms, but multiple open Lean Propositions.**
 
-1. A mechanical reduction of two Millennium Problems (P ≠ NP and the Riemann Hypothesis) to three sharply-stated mathematical conjectures (was four; Problem 3 dissolved into Problem 1).
+After the 2026-05-20 cascade refactor, the previously-axiomatic content has been moved into explicit named `Prop`s. The framework now has zero free-floating axioms — but the underlying mathematical conjectures are unchanged, and capstones remain CONDITIONAL on those named Propositions. The framework provides:
+
+1. A **machine-checked conditional reduction** of all six Millennium Problems + the consciousness chain to a small set of named open Lean Propositions (no opaque axioms).
 2. Strong numerical evidence (10⁻¹⁰ precision finite-dimensional eigenvalue convergence) for the P ≠ NP-side conjectures.
 3. A complete Lean 4 + Coq cross-prover mechanization of the reduction chain.
 4. Zero proof of the underlying conjectures themselves.
 
-**Solving any one of the three remaining open problems below would constitute a major mathematical contribution. Solving Problems 1 + 2 would deliver a formal proof of P ≠ NP; solving Problem 4 would deliver a formal proof of the Riemann Hypothesis.**
+The catalog below restates the open problems against the post-refactor structure:
+
+- The **three P ≠ NP-side problems** (1, 2, and historically 3) are now sub-conjectures of the single Lean Proposition **`PolylogEigenvalueConjecture`** (polylog spectrum + branch selection + golden modulation). They are no longer "axiom-retirement" targets — they are content-discharge targets of an explicit Prop.
+- Two **new explicit named hypotheses** appear: **`OffDiscPatchData s`** (Jonquières/Hankel local-patch existence off the unit disc) and **Phase A inner-product structure for RH** (compact-operator spectral theorem hookup + Mayer 1991 non-degeneracy + surjectivity onto ζ-zeros).
+- **Problem 4** (RH spectral-bijection surjectivity) is unchanged as the load-bearing hypothesis of the RH capstone.
+
+**Solving any one of the open problems below would constitute a major mathematical contribution. Discharging `PolylogEigenvalueConjecture` (via Problems 1 + 2) plus `OffDiscPatchData s` would deliver a formal proof of P ≠ NP; discharging Problem 4 + the Phase A engineering tracks would deliver a formal proof of the Riemann Hypothesis.**
 
 ---
 
@@ -620,13 +630,36 @@ Routes (a) and (b) are independent alternative discharges of the analytic-extens
 
 ---
 
-## Summary
+## Summary (updated 2026-05-20 for ZERO PROJECT AXIOMS milestone, commit `72c0137`)
 
-| # | Problem | Manuscript label | Status | Solving retires |
+After the cascade refactor, the "axiom retirement" framing of the previous summary is obsolete — there are **zero project axioms**. The catalog now tracks open Lean `Prop`s that capstone theorems still take as explicit hypotheses.
+
+| # | Problem | Manuscript label | Status | Discharging this Prop discharges |
 |---|---|---|---|---|
-| 1 | Polylog eigenvalue formula for `H_P, H_NP` | `conj:polylog-spectrum` | **Reduced to 3 named classical mathlib-missing lemmas** (Hankel interchange PROVEN 2026-05-20 commit `ea6d3ef`; residual: `MonodromyGluingLemma`, `BernoulliGrowthBoundResidual`, `H_P` spectral identification) | Part of P≠NP axiom + universal 7-problem structure + consciousness predictions |
-| 2 | Ground-state branch selection | `heur:branch-selection` | Open (M₀ ruled out 2026-05-18) | Part of P≠NP axiom |
+| 1 | Polylog eigenvalue formula for `H_P, H_NP` | `conj:polylog-spectrum` | Open; isolated to `PolylogEigenvalueConjecture : Prop` (was axiom until 2026-05-20). Supporting infrastructure: Hankel interchange PROVEN (commit `ea6d3ef`), `MonodromyGluingLemma_proven` PROVEN (commit `72c0137`), `BernoulliGrowthBoundResidual` DISCHARGED via `BernoulliGrowthBound.lean` (commit `72c0137`). | Sub-conjecture of `PolylogEigenvalueConjecture` |
+| 2 | Ground-state branch selection | `heur:branch-selection` | Open (M₀ ruled out 2026-05-18) | Sub-conjecture of `PolylogEigenvalueConjecture` |
 | 3 | ~~Golden-ratio modulation `H_NP = U(φ)H_P U†`~~ | `conj:golden-modulation` | **✅ RESOLVED 2026-05-20** (corollary of Problem 1; unitary conjugation structurally impossible) | — |
+| 4 | Spectral-bijection surjectivity onto ζ-zeros | `rem:bijection-surjectivity` | Open (named Prop, not axiom) | Surjectivity hypothesis of RH theorem |
+| 5 | **`OffDiscPatchData s`** (Jonquières/Hankel local patches off unit disc) | new (added 2026-05-20) | Open; isolated by `PF/Analytic/PolyLogLocalPatches.lean`. On-disc patches are unconditional; off-disc patches are isolated to this single named hypothesis. | Off-disc analytic-continuation content of `polyLog` |
+| 6 | **Phase A inner-product structure for RH** (compact-operator spectral theorem hookup; Mayer 1991 non-degeneracy; surjectivity track 4) | new (split out 2026-05-20) | Open; three Phase A inner-product hypotheses already DISCHARGED (commits `f727998`, `e09e571`, `cd7a806`). Remaining: spectral-theorem hookup + non-degeneracy + surjectivity (= Problem 4). | RH capstone hypotheses |
+
+**Discharging this catalog.** Discharging `PolylogEigenvalueConjecture` (Problems 1+2) plus `OffDiscPatchData s` (Problem 5) upgrades the headline `P_NEQ_NP` capstone from a conditional reduction to an unconditional proof of P ≠ NP. Discharging Problem 4 plus the Phase A engineering tracks upgrades `riemann_hypothesis_via_T3_sym_framework` to an unconditional proof of the Riemann Hypothesis.
+
+**Honest framing.** ZERO project axioms ≠ Millennium Problems proven. The capstones remain CONDITIONAL on the named Propositions above. The cascade refactor made every dependency inspectable, refactorable, and partially dischargeable at every call site — that is the substantive improvement of commit `72c0137`, not an unconditional proof.
+
+---
+
+## Supersedes: prior 4-problem framing (pre-2026-05-20)
+
+The pre-2026-05-20 summary listed the same problems but framed them as "axiom retirement targets" for the single project axiom `alpha_class_polylog_eigenvalue_conjecture`. That axiom no longer exists — its content has been moved into the named Prop `PolylogEigenvalueConjecture`. The mathematical content of Problems 1, 2, and 4 is unchanged; the framing is now "discharging a named Prop" instead of "retiring an axiom."
+
+### Prior summary table (historical, pre-refactor)
+
+| # | Problem | Manuscript label | Status (pre-refactor) | Solving retires (pre-refactor) |
+|---|---|---|---|---|
+| 1 | Polylog eigenvalue formula for `H_P, H_NP` | `conj:polylog-spectrum` | Reduced to 3 named classical mathlib-missing lemmas | Part of P≠NP axiom + universal 7-problem structure + consciousness predictions |
+| 2 | Ground-state branch selection | `heur:branch-selection` | Open (M₀ ruled out 2026-05-18) | Part of P≠NP axiom |
+| 3 | ~~Golden-ratio modulation `H_NP = U(φ)H_P U†`~~ | `conj:golden-modulation` | ✅ RESOLVED 2026-05-20 | — |
 | 4 | Spectral-bijection surjectivity onto ζ-zeros | `rem:bijection-surjectivity` | Open | Surjectivity hypothesis of RH theorem |
 
 **The residual content (latest, after commit `ea6d3ef`).** After the 2026-05-20 latest session, the framework's residual content reduces to THREE NAMED CLASSICAL GAPS (each a standard textbook result not yet in mathlib):
