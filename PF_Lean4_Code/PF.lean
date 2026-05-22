@@ -50,6 +50,7 @@ import PF.Analytic.JonquieresZetaSeriesSummable  -- Stage L4 — ζ-series summa
 import PF.Analytic.BernoulliGrowthBound          -- Stage L4-B — Bernoulli growth bound: |B_{2k}| ≤ (π²/3)·(2k)!/(2π)^(2k) discharged
 import PF.Analytic.JonquieresAnalyticity         -- Stage L13 — Jonquières analyticity: Γ-term unconditional + ζ-series named residual
 import PF.Analytic.JonquieresZetaAnalyticity     -- Stage L13 — ζ-series analyticity: discharge via uniform growth bridge
+import PF.Analytic.JonquieresIdentityDischarge   -- Stage L14 — Jonquières identity SHARPER reduction via identity theorem (3 named gaps)
 import PF.Analytic.Monodromy          -- Stage L4 — Riemann sheet monodromy
 import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue identity (statement)
 import PF.Analytic.HankelContour       -- Stage L4 — Hankel contour foundation

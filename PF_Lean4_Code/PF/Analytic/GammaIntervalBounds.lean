@@ -522,23 +522,33 @@ def CosBookBracket : Prop :=
 def SinBookBracket : Prop :=
   (0.95 : ℝ) < Real.sin (0.41 * Real.pi) ∧ Real.sin (0.41 * Real.pi) < 0.97
 
-/-- **Residual rpow bracket**: `0.59 < β^(-0.81) < 0.61`.
+/-- **Residual rpow bracket** (CORRECTED 2026-05-21): `0.60 < β^(-0.81) < 0.62`.
 
-    True value ≈ 0.5970, where β = 2π - π√2 ≈ 1.840.
-    Requires `Real.log` bracket on `β` (achievable via mathlib's
-    `Real.log_lt_sub_one_of_pos` plus monotonicity from the β-bracket
-    above) AND `Real.exp` Taylor with remainder at the resulting
-    argument `≈ -0.494`. Mathlib provides
-    `Real.exp_bound`/`Real.add_one_le_exp` but not certified 3-digit
-    brackets at arbitrary reals. -/
+    The previous bracket `(0.59, 0.61)` was numerically FALSE on the
+    upper side: true value is `β^(-0.81) ≈ 0.61015`, exceeding `0.61`
+    by ~0.0002 (computed: `β = π(2-√2) ≈ 1.84030738`,
+    `log β ≈ 0.60992`, `-0.81 · log β ≈ -0.49404`,
+    `exp(-0.49404) ≈ 0.61015`). The previous "true value ≈ 0.5970"
+    comment was incorrect. The corrected bracket `(0.60, 0.62)` is
+    mathematically true with margin ~0.01 each side.
+
+    This corrected version is PROVEN axiom-free as
+    `rpowBookBracketProved` in `PF/Analytic/RpowBookBracket.lean`
+    via Stages A/B/C: Stage A brackets `log β ∈ (0.60, 0.62)` via
+    `Real.exp_bound'` upper Taylor + `Real.sum_le_exp_of_nonneg`
+    lower Taylor; Stage B chains the bracket through `· (-0.81)`;
+    Stage C brackets `exp(-0.5022)` and `exp(-0.486)` via reciprocal
+    of `exp(0.5022) < 5/3` and `exp(0.486) > 50/31`. -/
 def RpowBookBracket : Prop :=
-  (0.59 : ℝ) < Real.rpow beta_book (-0.81) ∧
-  Real.rpow beta_book (-0.81) < 0.61
+  (0.60 : ℝ) < Real.rpow beta_book (-0.81) ∧
+  Real.rpow beta_book (-0.81) < 0.62
 
 /-- **Composite residual bracket** for full `BookEval019_ShiftBound`
     discharge. Combining this with the four `Γ` brackets and the `β`
     brackets in this file would discharge `BookEval019_ShiftBound`
-    unconditionally. -/
+    unconditionally. As of 2026-05-21, `SinBookBracket` is PROVEN
+    in `TrigBookBrackets.lean` and `RpowBookBracket` is PROVEN
+    (corrected form) in `RpowBookBracket.lean`. -/
 def BookEval019_NumericalResidual : Prop :=
   SinBookBracket ∧ RpowBookBracket
 
