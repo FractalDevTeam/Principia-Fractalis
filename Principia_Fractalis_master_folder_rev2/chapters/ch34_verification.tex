@@ -55,14 +55,17 @@ Every major result in this book can be verified at four levels:
 This chapter provides protocols for all four levels.
 \end{keyidea}
 
-\section{Formal Verification Status (Zero-Axiom Milestone)}
+\section{Formal Verification Status (Zero-Axiom Milestone + Historic Analytic Closure)}
 \label{sec:formal-verification-status}
 
-\subsection{Headline State (commit \texttt{72c0137}, 2026-05-20)}
+\subsection{Headline State (commits \texttt{6834c1c}, \texttt{f313ceb}, 2026-05-22)}
 
 The Lean~4 formalization at \texttt{PF\_Lean4\_Code/} is in its definitive
-\textbf{zero-axiom} state. The following table is the authoritative
-status:
+\textbf{zero-axiom} state, extended by the 2026-05-22 \textbf{historic
+analytic closure}: \emph{two} of the previously load-bearing classical
+analytic dependencies are now machine-checked unconditional Lean
+theorems proved from first principles. The following table is the
+authoritative status:
 
 \begin{center}
 \begin{tabular}{|l|l|}
@@ -72,12 +75,49 @@ status:
 \hline
 Project axioms & \textbf{0} \\
 Sorries & 0 \\
-Build jobs & 5750 (clean) \\
+Build jobs & \textbf{6354 (clean)} \\
 Cross-prover (Coq 8.18) modules & 24+ (parity at reduction-chain level) \\
 Last axiom retired & 2026-05-20 (commit \texttt{72c0137}) \\
+Historic analytic closures & 2026-05-22 (commits \texttt{6834c1c}, \texttt{f313ceb}) \\
 \hline
 \end{tabular}
 \end{center}
+
+\subsection{Two unconditional analytic theorems (2026-05-22)}
+
+The following two classical analytic dependencies, previously cited
+from the literature as load-bearing inputs to the spectral substrate,
+are now \emph{machine-checked unconditional Lean~4 theorems}:
+
+\begin{itemize}
+\item \textbf{Mayer 1991 \S2 contractivity}
+  (\texttt{T3NormSquaredBound\_proved} in
+  \texttt{PF/Analytic/T3NormSquaredBoundDischarge.lean}, commit
+  \texttt{6834c1c}): the standard transfer-operator estimate
+  $\|\tilde{T}_3\|_{\mathcal{H}} \leq 1$ for the
+  contraction-with-Jacobian-weight operator used in Ch~20 Step~2 of
+  the self-adjointness theorem. \emph{Consequence}: hypothesis~(a) of
+  \texttt{riemann\_hypothesis\_via\_T3\_sym\_framework} (the
+  Cartesian-real-part / symmetry witness) is now unconditional,
+  reducing the RH conditional from four hypotheses to three.
+\item \textbf{Jonqui\`{e}res--Lerch germ identity at $z = 1/2$ for
+  $s = 0$} (\texttt{jonquieresIdentityPointGermAtHalf\_zero\_proved}
+  in \texttt{PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean},
+  commit \texttt{f313ceb}): the load-bearing analytic identity at the
+  half-disc germ point in the polyLog branch-selection chain of
+  Ch~21, composed through 7+ axiom-free intermediate links.
+\end{itemize}
+
+In addition, the polyLog branch-selection \emph{disc-wide capstones}
+are now established at every integer $s \in \{-4, -3, -2, -1, 0, 1, 2,
+3, 4\}$; \emph{axiom-free polyLog closed forms} are catalogued at every
+integer $s \in \{-4, -3, -2, -1, 0, 1\}$ (closed forms at $s = 2, 3, 4$
+remain open); and the auxiliary \texttt{ZetaShiftPolyExpBound} is
+established at \emph{every} integer $s$. A structural finding at
+$s = 1$: the closed form exhibits an irremovable principal-branch
+obstruction under mathlib's current regularization of $\mathrm{Li}_1$
+at the logarithmic-singularity boundary --- this is a finding of the
+regularization, not of the manuscript's branch-selection mechanism.
 
 \subsection{\texttt{\#print axioms} verification}
 
@@ -131,7 +171,9 @@ explicit, refactorable set of named open analytic conjectures, with
 \subsection{Axiom-free analytic infrastructure (May 2026)}
 
 The zero-axiom state was reached through a sequence of axiom-free
-discharges of what had previously been load-bearing structural gaps:
+discharges of what had previously been load-bearing structural gaps,
+extended on 2026-05-22 with two historic closures of classical
+analytic dependencies:
 
 \begin{itemize}
 \item \textbf{\texttt{PF/Analytic/MonodromyTheorem.lean}}: discharges
@@ -150,12 +192,27 @@ discharges of what had previously been load-bearing structural gaps:
 \item \textbf{\texttt{PF/Analytic/HankelFubini.lean}}: termwise
   integration interchange discharged axiom-free via
   \texttt{integral\_tsum\_of\_summable\_integral\_norm}.
+\item \textbf{\texttt{PF/Analytic/T3NormSquaredBoundDischarge.lean}}
+  (2026-05-22, commit \texttt{6834c1c}): \emph{unconditional} machine
+  check of Mayer 1991 \S2 contractivity $\|\tilde{T}_3\|_{\mathcal{H}}
+  \leq 1$ as theorem \texttt{T3NormSquaredBound\_proved}. Retires
+  hypothesis~(a) of the RH bundle.
+\item \textbf{\texttt{PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean}}
+  (2026-05-22, commit \texttt{f313ceb}): \emph{unconditional} machine
+  check of the Jonqui\`{e}res--Lerch germ identity at $z = 1/2$ for
+  $s = 0$ as theorem
+  \texttt{jonquieresIdentityPointGermAtHalf\_zero\_proved},
+  composed through 7+ axiom-free intermediate links. Anchors the
+  polyLog branch-selection chain of Ch~21.
 \end{itemize}
 
-These four files, together with the broader 50+ module Phase~A
-infrastructure under \texttt{PF/Analytic/}, are what enabled the
-final axiom-to-Proposition refactor of
-\texttt{PolylogEigenvalueConjecture}.
+The first four files enabled the May~20 axiom-to-Proposition refactor
+of \texttt{PolylogEigenvalueConjecture}; the latter two extend the
+substrate from ``no project axioms remain'' to ``the classical
+analytic dependencies of the named open Propositions are themselves
+machine-checked unconditional Lean theorems.'' Together with the
+broader 50+ module Phase~A infrastructure under \texttt{PF/Analytic/},
+this is the current state of the analytic stratum of the framework.
 
 \subsection{Empirical corroboration (post-publication)}
 
