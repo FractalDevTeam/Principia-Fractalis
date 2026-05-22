@@ -6,6 +6,121 @@
 > 2026-05-08) and `PRISTINE_CERTIFICATION.md` (current authoritative
 > per-prover state).
 
+## Cycle: 2026-05-22 — Lean substantially extended; Coq parity gap documented
+
+**Headline.** Since the 2026-05-20 5th-push lockstep (Lean commit
+`72c0137`, Coq cascade refactor of `Operators.v`), the Lean side has
+shipped a sequence of substantive **analytic discharges** on the RH
+Phase-A bundle. The Coq side remains pinned at the
+2026-05-20 5th-push state (24 Coq modules, ZERO `Axiom`
+declarations). This cycle does **not** add Coq files — it documents
+the parity gap honestly so downstream readers know which Lean
+content is *not yet* mirrored.
+
+### New Lean theorems since lockstep (load-bearing, RH-bundle-(a) chain)
+
+| Lean theorem | File | Coq mirror | Status |
+|---|---|---|---|
+| `T3SymCLMSymmetricWitness_proved_unconditional` | `PF/Analytic/T3AdjointDischarge.lean` | none | **GAP** — requires mathlib `→L[ℂ]`, `Lp`, `MeasureTheory` |
+| `T3LinearStructure_proved_unconditional` | `PF/Analytic/T3LinearStructureDischarge.lean` | none | **GAP** — same dependency stack |
+| `T3NormSquaredBound_proved` | `PF/Analytic/T3NormSquaredBoundDischarge.lean` | none | **GAP** |
+| `T3AdjointLinearStructure_add_proved` | `PF/Analytic/T3AdjointDischarge.lean` | none | **GAP** — uses `LogWeightedL2`, `μ_log`, if-cascade AE machinery |
+| `T3AdjointLinearStructure_smul_proved` | `PF/Analytic/T3AdjointDischarge.lean` | none | **GAP** |
+| `T3AdjointNormSquared_eq` (isometry) | `PF/Analytic/T3AdjointDischarge.lean` | none | **GAP** — requires Bochner integral on complex-valued L² |
+| `T3AdjointNormBound_proved` | `PF/Analytic/T3AdjointDischarge.lean` | none | **GAP** |
+| `T3AdjointLinearStructureFactored_proved` | `PF/Analytic/T3AdjointDischarge.lean` | none | **GAP** |
+| `logWeightedL2InnerBridge_proved` | `PF/Analytic/LogWeightedL2InnerBridgeDischarge.lean` | none | **GAP** — `⟪·,·⟫_ℂ` mathlib inner-product API |
+| `T3SymCLMSymmetricWitness_proved_from_linearStructure_only` | `PF/Analytic/LogWeightedL2InnerBridgeDischarge.lean` | none | **GAP** (downstream consumer) |
+| `ZetaShiftPolyExpBound s` at every integer `s ∈ ℤ` | `PF/Analytic/...` | none | **GAP** — uses mathlib `Complex.exp`, `Polynomial`, `Real.rpow` bounds |
+| polyLog closed forms at `s ∈ {-4, -3, -2, -1, 0, 1}` | `PF/Analytic/...` | partial (Hankel scaffolding in `PolyLogHankelRealization.v` is in place; closed-form values are NOT ported) | **GAP** — values land at the Coquelicot frontier |
+| Disc-wide capstones at `s ∈ {-4, ..., 4}` | `PF/Analytic/...` | none | **GAP** |
+
+### Named open Props introduced on the Lean side (RH bundle (a) sub-Props)
+
+These are *Prop declarations*, not theorems — they capture the
+remaining named gaps in bundle (a) at the sharpest possible
+formulation. They are the cleanest candidates for mechanical Coq
+port, but they reference mathlib's `→L[ℂ]`, `IsCompactOperator`,
+`IsSelfAdjoint`, `LinearMap.IsSymmetric`, `Filter.Tendsto`, and
+`InnerProductSpace ℂ` — none of which exist in Coq 8.18 stdlib.
+
+| Lean Prop | File | Mathematical content | Mechanical Coq port? |
+|---|---|---|---|
+| `T3SymMercerTail T` | `PF/Analytic/T3SymCompactApproxDischarge.lean` | `∃ S : ℕ → CLM, ∃ ε : ℕ → ℝ, (∀n, IsSelfAdjoint (S n)) ∧ (∀n, IsCompactOperator (S n)) ∧ (∀n, ‖T - S n‖ ≤ ε n) ∧ Tendsto ε atTop (𝓝 0)` | **NO** — every conjunct is a mathlib-specific predicate |
+| `CompactSelfAdjointNatEigenvalueWeylDecay H` | `PF/Analytic/T3SymEigenvalueExtractionDischarge.lean` | `∀ T : H →L[ℂ] H, IsCompactOperator T → T.IsSymmetric → ∃ λ : ℕ → ℝ, ∃ K > 0, (∀n, ∃ f ≠ 0, T f = (λ n : ℂ) • f) ∧ (∀n, |λ n| ≤ K/(n+1))` | **NO** — Hilbert-space eigenvector existence is not formulable without `→L[ℂ]` + `InnerProductSpace ℂ` |
+
+### Honest assessment of Coq parity feasibility
+
+**Under the current pin (Coq 8.18, stdlib only, no Coquelicot)**:
+
+1. **None of the new Lean analytic discharges can be mechanically
+   ported.** They reference, in load-bearing fashion:
+   * `MeasureTheory.Lp ℂ 2 μ_log` (Bochner L² over complex-valued
+     functions with the log-weighted measure on `(0,1)`);
+   * `→L[ℂ]` (continuous linear maps over ℂ);
+   * `IsCompactOperator`, `IsSelfAdjoint` (CLM API);
+   * `MeasureTheory.Measure.QuasiMeasurePreserving` (per-branch
+     AE propagation through `x ↦ 3x − k`);
+   * `MeasureTheory.integral_indicator`,
+     `MeasureTheory.integral_finset_sum`,
+     `MeasureTheory.ae_restrict_iff'`,
+     `Complex.normSq_mul`.
+   The Coq 8.18 stdlib provides none of these. The locally-installed
+   Coquelicot is binary-incompatible with this Coq 8.18 build chain
+   (see prior cycle notes on `LogZBookNeZero.v`).
+
+2. **Even the abstract named Prop declarations cannot be honestly
+   stated** without first introducing Parameter stubs for `→L[ℂ]`,
+   `IsCompactOperator`, etc., at which point the Coq "port" would be
+   a chain of Parameters with no mathematical content. The
+   project's policy of *no axiom-equivalent stubs in load-bearing
+   positions* (cf. the cascade refactor of
+   `alpha_class_polylog_eigenvalue_conjecture` from `Axiom` →
+   `Definition : Prop`) makes that approach unacceptable.
+
+3. **Closure path to parity** is unchanged from prior cycles:
+   either (a) add `coq-coquelicot` 3.4.x (last Coq-8.18-compatible
+   release) as a project dependency, then port the abstract
+   Hilbert-space + compact-operator Props directly; or (b) wait for
+   a future Coq-native compact-operator / spectral-theorem library.
+   Option (a) is the realistic path and is already documented as the
+   closure route for `LogZBookNeZero.v`, `TsumHankelAgreement.v`,
+   `PolyLogHankelRealization.v`,
+   `BookEvaluationManuscript.v`, and the `FractalResonance.v`
+   complex-stack Parameters.
+
+### What remains in lockstep (unchanged)
+
+* `Operators.v` cascade refactor (`PolylogEigenvalueConjecture` as
+  `Definition : Prop`, hypothesis-threaded downstream) — **PARITY
+  HELD**.
+* All 24 prior Coq modules — **CLEAN BUILD** under Coq 8.18.0, ZERO
+  `Axiom` declarations.
+* P ≠ NP capstone chain (algebraic, axiom-free both provers) —
+  **PARITY HELD**.
+* RH `T3_sym` reduction structural skeleton (the conditional shape:
+  Phase A bundle (a/b/c) ⇒ RH) — **STRUCTURALLY PARITY HELD** at
+  the Prop level via the Lean conditional-reduction architecture;
+  Coq does not carry the conditional-reduction theorem itself
+  because it cannot state the bundle Props.
+
+### Parity ledger after this cycle
+
+| Metric | Value |
+|---|---|
+| Coq modules | **24** (unchanged) |
+| Coq `Axiom` declarations | **0** (preserved) |
+| Lean theorems landed since 2026-05-20 lockstep | **13+ load-bearing** (table above) |
+| Lean theorems with Coq mirror this cycle | **0** (gap is documented, not closed) |
+| Documented Coquelicot-frontier gaps | **+13** (added to the cumulative list) |
+
+**Bottom line.** Lean is now substantially ahead on the RH Phase-A
+analytic content. The gap is real, scoped, and traceable to a
+single missing infrastructure piece (a Coq-8.18-compatible Complex
++ Hilbert-space + compact-operator stack). The Coq project's
+ZERO-`Axiom` policy is preserved by *not* porting these theorems
+through Parameter stubs — honesty over false parity.
+
 ## Cycle: 2026-05-20 (5th push) — Lean ZERO-AXIOM milestone (commit `72c0137`)
 
 **Lean side**: ZERO project axioms. `alpha_class_polylog_eigenvalue_conjecture`
