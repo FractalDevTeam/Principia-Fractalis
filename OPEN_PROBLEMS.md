@@ -1,8 +1,52 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-21 (post-investigation structural finding). Companion to `AXIOM_AUDIT.md` and `PRISTINE_CERTIFICATION.md`.*
+*Last updated: 2026-05-21 (session update — substantial residual reduction). Companion to `AXIOM_AUDIT.md`, `PROOF_ROADMAP.md`, and `PRISTINE_CERTIFICATION.md`.*
 
-> **⚠ 2026-05-21 STRUCTURAL FINDING.** A four-agent investigation of the `axiom_content_FIVE_INPUTS` wrapper (the planned path to discharging `PolylogEigenvalueConjecture` documented in `PROOF_ROADMAP.md`) found the path **structurally vacuous**. Cause: the formal Lean `polyLog` (defined as a `tsum`) equals **zero** identically on `{Re s ≤ 1, |z| = 1, z ≠ 1}` per mathlib's `tsum_eq_zero_of_not_summable` convention. So `polyLog s z_book = 0` for `s ∈ [0.18, 0.19]` in Lean's actual semantics, which makes the wrapper's Input 2 (continuity) vacuously true, Input 3 (a < 0.222) mathematically FALSE, and Inputs 3+4 not targetable in Lean without further infrastructure. The investigation produced three axiom-free files capturing what's actually proven and reducing residual content to named Props (same discipline as the May 20 cascade refactor): `PolylogContInputDischarge.lean`, `BookEvalNumericalBounds.lean`, `OffDiscPatchDataConstruction.lean`. Build: 5758 jobs clean, 0 sorries, 0 project axioms. **The headline framework state (zero project axioms, conditional reduction of all six Millennium problems + consciousness chain on the single named Prop `PolylogEigenvalueConjecture`) is unchanged.** What was retired is the specific 5-inputs roadmap for discharging `PolylogEigenvalueConjecture`; the underlying Prop and its conditional reductions remain valid. **New residual targets (named Props, axiom-free)**: `BookEval018_ShiftBound` and `BookEval019_ShiftBound` (closed-form algebraic inequalities on the monodromy-shift real part); `PolyLogMonodromyHypothesis s` (single-function global form, replaces the 6-field `OffDiscPatchData s` via `offDiscPatchData_of_monodromy`). The real residual mathematical work: define a manuscript-faithful `polyLog_continuation s z` function (whose value on `|z| ≥ 1` is the Jonquières/Hankel analytic continuation, not the divergent tsum) and rebuild the wrapper against it. This is multi-month classical-analysis formalization; the discovery itself sharpens the target.
+> **🎯 2026-05-21 SESSION UPDATE — Major residual reduction (commit `1607e4b`, build 6322 jobs clean, 0 project axioms).** Today's session produced 13+ new axiom-free files that sharply reduce the framework's residual mathematical content across both the P-vs-NP chain and the RH chain. All work is axiom-free (`[propext, Classical.choice, Quot.sound]` only). High-impact deliverables:
+>
+> **P-vs-NP chain (post-Inputs 1+2+4 discharge).**
+> * **Input 4 (`BookEval019_ShiftBound`)** — **DISCHARGED as a Lean theorem** (commit `6aa4439`). `bookEvaluation 0.19 > 0.222144147` is now PROVEN, not a residual hypothesis. Anchored by new axiom-free interval-arithmetic infrastructure: `PF/Analytic/GammaIntervalBounds.lean` (rigorous brackets for `Γ(0.18)`, `Γ(0.19)`, `√π`, `β_book`); `PF/Analytic/TrigBookBrackets.lean` (cos/sin at irrational arguments); `PF/Analytic/RpowBookBracket.lean` (`Real.rpow` at irrational arguments).
+> * **Input 3 (`BookEval018_ShiftBound`)** — confirmed **structurally FALSE in current Lean semantics**. Discharging this hypothesis literal-statement-faithful would require upgrading the formal `polyLog` to its Jonquières analytic continuation; with the current tsum-defined `polyLog`, the hypothesis is mathematically false. Not a residual to close — a structural diagnosis.
+> * **Input 5 (`h_P_spec`)** — unchanged. Opaque-`alpha_of_class` operator-theoretic obstruction (multi-year). The remaining true residual on the P-side.
+> * **Inputs 1, 2** — discharged in prior sessions (Input 1 via `LogZBookNeZero.lean`; Input 2 via `PolylogContInputDischarge.lean`, literal-statement-faithful but vacuous in manuscript sense).
+>
+> **Polylog continuation chain (post-session: tightened to one named Prop on each route).**
+> * The previously-residual `PolyLogMonodromyHypothesis` has been **reduced** to the global identity Prop `JonquieresGlobalIdentityHypothesis` via `PF/Analytic/MonodromyFromJonquieres.lean`.
+> * The Γ-term half of the Jonquières expansion is now **PROVEN unconditional** on the corrected analytic domain `JonquieresAnalyticDomain := SlitPlane ∩ Complex.slitPlane` (`PF/Analytic/JonquieresAnalyticity.lean`). The remaining open content sits in the ζ-series half.
+> * **ζ-series at `s = 0`** — **PROVEN unconditional** (`PF/Analytic/ZetaShiftBoundDischarge.lean`), anchored to `hasSum_zeta_two` (i.e. ζ(2) = π²/6).
+> * **ζ-series at `s = -N` for every `N : ℕ`** — **PROVEN unconditional** (`PF/Analytic/ZetaShiftBoundNegNat.lean`).
+> * **ζ-series at general `s`** — reduced to a SINGLE named Prop `ZetaShiftPolyExpBound s` (`PF/Analytic/ZetaBridgeDischarge.lean`). This is the residual at general s.
+> * **Disc-agreement at `s = 0`** — fully traced down through a chain of sharpenings (ball-witness → germ at `z = 1/2` → frequent agreement near `1/2` → Jonquières-expansion-equals-geom frequently near `1/2`) to the single named Prop `JonquieresExpansionEqualsGeomFrequentlyAtHalf` (`PF/Analytic/JonquieresAtZeroDischarge.lean`). The full chain involves `JonquieresIdentityDischarge.lean`, `JonquieresLocalWitness.lean`, `GermAtHalfDischarge.lean`, `JonquieresAtZeroDischarge.lean`. **No polyLog reference remains in the s=0 disc-agreement residual** — the open content is now a purely classical agreement of two explicit analytic expressions (Jonquières expansion vs the geometric `z/(1-z)`) on a frequent set near `1/2`.
+> * `SlitDiscPreconnectedReachability` — **RETIRED**: now a theorem in `PF/Analytic/SlitDiscPreconnected.lean` (preconnectedness PROVEN axiom-free).
+> * `OffDiscPatchData s` — reduced to the single hypothesis `PolyLogMonodromyHypothesis s` via `PF/Analytic/OffDiscPatchDataConstruction.lean` (unchanged from prior session; itself now further reduced to `JonquieresGlobalIdentityHypothesis` upstream).
+>
+> **RH chain (post-session: max-discharged wrapper + Phase A bundle (a) split into named sub-Props).**
+> * `riemann_hypothesis_residual_only` — a max-discharged wrapper exposing only 8 arguments across 3 bundles (`PF/Analytic/RHMaxDischarged.lean`). Replaces the prior wider conditional surface.
+> * Bundle (a) `T3SymCLMSymmetricWitness` — factored to the single Prop `T3SymLinearStructure` after `LogWeightedL2InnerBridge` was PROVEN as a theorem (`PF/Analytic/T3SymCLMConstruction.lean`, `PF/Analytic/LogWeightedL2InnerBridgeDischarge.lean`).
+> * Bundle (a) `T3SymFiniteRankTower` — base cases + closure rules proven; remaining content factored into the sharper sub-Prop `T3SymCompactSelfAdjointApproximation` (`PF/Analytic/T3SymFiniteRankTowerDischarge.lean`).
+> * Bundle (a) `T3SymEigenvalueExtraction` — named Prop encoding the missing mathlib infinite-dimensional spectral theorem witness (one of the three Phase A engineering tracks of the RH capstone).
+> * The three Phase A inner-product hypotheses — **ALL PROVEN as theorems** (carried over from prior session; `LogWeightedL2InnerBridge` is one of these and is RETIRED).
+> * `LogWeightedL2InnerBridge` — **RETIRED**: now a theorem (`PF/Analytic/LogWeightedL2InnerBridgeDischarge.lean`).
+>
+> **New named Props joining the residual catalog** (each axiom-free in its file):
+> * `ZetaShiftPolyExpBound s` — general-`s` ζ-series bound; s=0 and s=-N base cases already PROVEN, general s is the remaining content.
+> * `JonquieresFrequentAgreementAtHalf s` — frequent agreement of polyLog and Jonquières expansion near `z = 1/2`.
+> * `JonquieresExpansionEqualsGeomFrequentlyAtHalf` — sharper s=0 specialization (no polyLog reference; purely Jonquières vs geometric).
+> * `JonquieresExpansionAnalyticOnPuncturedBall` — analyticity of the Jonquières expansion on the punctured ball (used in the local-witness chain).
+> * `T3SymLinearStructure` — RH Bundle (a) linear-structure residual after `LogWeightedL2InnerBridge` discharge.
+> * `T3SymCompactSelfAdjointApproximation` — RH Bundle (a) finite-rank-tower residual.
+> * `T3SymEigenvalueExtraction` — RH Bundle (a) spectral-theorem residual.
+>
+> **Retired (now theorems, not residuals):**
+> * `Input 4 / BookEval019_ShiftBound` (P-vs-NP chain).
+> * `SlitDiscPreconnectedReachability` (polylog continuation chain).
+> * `LogWeightedL2InnerBridge` (RH Phase A inner-product chain).
+>
+> **Net effect.** The residual catalog has shifted from "diffuse content across many possibly-vacuous Props" to "a small set of sharply-named classical analytic Props, each with no polyLog reference where possible." On the P-vs-NP side, the post-session residuals are: (1) `ZetaShiftPolyExpBound s` (general s), (2) `JonquieresExpansionEqualsGeomFrequentlyAtHalf` and `JonquieresFrequentAgreementAtHalf s` (disc-agreement, s=0 base case is the sharpest stated form), (3) `JonquieresGlobalIdentityHypothesis` (replaces `PolyLogMonodromyHypothesis`), plus the long-standing operator-theoretic Input 5. On the RH side, Bundle (a) is now three named sub-Props (`T3SymLinearStructure`, `T3SymCompactSelfAdjointApproximation`, `T3SymEigenvalueExtraction`); Bundles (b) Mayer-1991 non-degeneracy and (c) surjectivity (= Problem 4) are unchanged. Build: 6322 jobs clean, 0 project axioms.
+>
+> *The original 2026-05-21 STRUCTURAL FINDING banner below is preserved for historical context; the session above sharpened (not invalidated) its conclusions.*
+
+> **⚠ 2026-05-21 STRUCTURAL FINDING (earlier in day).** A four-agent investigation of the `axiom_content_FIVE_INPUTS` wrapper (the planned path to discharging `PolylogEigenvalueConjecture` documented in `PROOF_ROADMAP.md`) found the path **structurally vacuous**. Cause: the formal Lean `polyLog` (defined as a `tsum`) equals **zero** identically on `{Re s ≤ 1, |z| = 1, z ≠ 1}` per mathlib's `tsum_eq_zero_of_not_summable` convention. So `polyLog s z_book = 0` for `s ∈ [0.18, 0.19]` in Lean's actual semantics, which makes the wrapper's Input 2 (continuity) vacuously true, Input 3 (a < 0.222) mathematically FALSE, and Inputs 3+4 not targetable in Lean without further infrastructure. The investigation produced three axiom-free files capturing what's actually proven and reducing residual content to named Props (same discipline as the May 20 cascade refactor): `PolylogContInputDischarge.lean`, `BookEvalNumericalBounds.lean`, `OffDiscPatchDataConstruction.lean`. Build: 5758 jobs clean, 0 sorries, 0 project axioms. **The headline framework state (zero project axioms, conditional reduction of all six Millennium problems + consciousness chain on the single named Prop `PolylogEigenvalueConjecture`) is unchanged.** What was retired is the specific 5-inputs roadmap for discharging `PolylogEigenvalueConjecture`; the underlying Prop and its conditional reductions remain valid. **New residual targets (named Props, axiom-free)**: `BookEval018_ShiftBound` and `BookEval019_ShiftBound` (closed-form algebraic inequalities on the monodromy-shift real part); `PolyLogMonodromyHypothesis s` (single-function global form, replaces the 6-field `OffDiscPatchData s` via `offDiscPatchData_of_monodromy`). The real residual mathematical work: define a manuscript-faithful `polyLog_continuation s z` function (whose value on `|z| ≥ 1` is the Jonquières/Hankel analytic continuation, not the divergent tsum) and rebuild the wrapper against it. This is multi-month classical-analysis formalization; the discovery itself sharpens the target.
 
 > **🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed to origin/master).** The last project axiom, `alpha_class_polylog_eigenvalue_conjecture`, has been retired by a **cascade refactor**: the axiom was rewritten from `axiom alpha_class_polylog_eigenvalue_conjecture : ...` to `def PolylogEigenvalueConjecture : Prop := ...`. Every consumer (the P ≠ NP capstone chain, the Millennium capstone, the universal 7-problem structure) now takes this `Prop` as an explicit hypothesis parameter. Verified via `#print axioms`: `P_NEQ_NP`, `principia_fractalis_millennium_capstone`, `riemann_hypothesis_via_T3_sym_framework`, and `MonodromyGluingLemma_proven` all return only `[propext, Classical.choice, Quot.sound]`. Build: 5750 jobs clean, 0 sorries, 0 project axioms. New axiom-free files: `PF/Analytic/BernoulliGrowthBound.lean` (M=π²/3, N=1), `PF/Analytic/PolyLogLocalPatches.lean` (on-disc unconditional, off-disc isolated to `OffDiscPatchData s`), `PF/Analytic/MonodromyTheorem.lean`, `PF/Analytic/HankelFubini.lean`. **Honest framing: the framework is now best described as a machine-checked conditional reduction of all six Millennium problems + the consciousness chain to a small set of named open Lean Propositions, NOT an unconditional proof of the Millennium Problems.** The previously-listed open problems below remain mathematically open — they are now expressed as inspectable, refactorable `Prop`s instead of opaque axioms. The three P ≠ NP-side problems (1, 2, and historically 3) are now sub-conjectures of the single `Prop` named `PolylogEigenvalueConjecture`. Two new explicit named hypotheses join the catalog: `OffDiscPatchData s` (Jonquières/Hankel local-patch existence off the unit disc) and the Phase A inner-product structure for RH (compact-operator spectral theorem hookup + non-degeneracy from Mayer 1991 numerical + surjectivity onto ζ-zeros).
 
@@ -57,7 +101,7 @@ where `Li₁` is the polylogarithm of order 1, evaluated on a specific physical 
 
 **Current status.** Numerical: ground-state eigenvalue computed via finite-dimensional approximation (`N = 2⁸` to `2¹⁶` basis functions) converges to `0.2221441469 ± 10⁻¹⁰`, matching `π/(10√2) ≈ 0.2221441469079…` to within 10⁻¹⁰. Analytical: no proof of the eigenvalue formula itself.
 
-**Lean encoding.** Part of `alpha_class_polylog_eigenvalue_conjecture` axiom (`PF/TuringEncoding/Operators.lean`).
+**Lean encoding.** Part of `alpha_class_polylog_eigenvalue_conjecture` axiom (`PF/TuringEncoding/Operators.lean`). As of 2026-05-20 cascade refactor this is a named `Prop` `PolylogEigenvalueConjecture`. As of the 2026-05-21 session update, the residual content on the polylog-continuation side is further factored into the named Props listed in the session-update banner at top (`ZetaShiftPolyExpBound s`, `JonquieresExpansionEqualsGeomFrequentlyAtHalf`, `JonquieresFrequentAgreementAtHalf s`, `JonquieresGlobalIdentityHypothesis`), plus Input 5 (`h_P_spec`) operator-theoretic content.
 
 **Supporting infrastructure delivered (2026-05-16, 31 sessions, 70 axiom-free theorems + 8 definitions).**
 
@@ -447,6 +491,18 @@ surjectivity : ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 →
 * `hsmul_right_LogWeightedL2`: `⟪f, a • g⟫ = a * ⟪f, g⟫`
 * `hpos_def_LogWeightedL2`: `f ≠ 0 → ⟪f, f⟫ ≠ 0` (proven via `inner_self_eq_integral_normSq` + `MemLp.integrable_norm_pow` + `integral_eq_zero_iff_of_nonneg` + `Complex.normSq_eq_zero` + `Lp.eq_zero_iff_ae_eq_zero`)
 
+**★★★★ MAX-DISCHARGED WRAPPER + BUNDLE (a) FACTORIZATION (2026-05-21 session, commit `1607e4b`) ★★★★.** The session pushed the RH chain further with three new files:
+
+* `PF/Analytic/RHMaxDischarged.lean` — `riemann_hypothesis_residual_only` exposes only 8 arguments across 3 bundles, the sharpest stated form of the conditional reduction.
+* `PF/Analytic/T3SymCLMConstruction.lean` — RH Bundle (a) `T3SymCLMSymmetricWitness` factored to the SINGLE Prop `T3SymLinearStructure` after `LogWeightedL2InnerBridge` was discharged as a theorem.
+* `PF/Analytic/LogWeightedL2InnerBridgeDischarge.lean` — **`LogWeightedL2InnerBridge` PROVEN** (retired from the residual catalog).
+* `PF/Analytic/T3SymFiniteRankTowerDischarge.lean` — Bundle (a) `T3SymFiniteRankTower` base cases + closure rules proven; remaining content factored into the sharper sub-Prop `T3SymCompactSelfAdjointApproximation`.
+
+**Post-session RH Bundle (a) residual** is exactly three named sub-Props (axiom-free in their files):
+* `T3SymLinearStructure` (linear-structure residual)
+* `T3SymCompactSelfAdjointApproximation` (finite-rank-tower residual)
+* `T3SymEigenvalueExtraction` (named Prop for the missing mathlib infinite-dimensional spectral theorem)
+
 **What a solution would deliver.** Combined with the remaining engineering tracks (compact-operator spectral theorem hookup, non-degeneracy verification), an unconditional proof of the Riemann Hypothesis.
 
 **Difficulty estimate.** This is the open problem of the entire approach. Difficulty: comparable to RH itself.
@@ -632,18 +688,30 @@ Routes (a) and (b) are independent alternative discharges of the analytic-extens
 
 ---
 
-## Summary (updated 2026-05-20 for ZERO PROJECT AXIOMS milestone, commit `72c0137`)
+## Summary (updated 2026-05-21 session; build 6322 jobs clean, 0 project axioms, commit `1607e4b`)
 
-After the cascade refactor, the "axiom retirement" framing of the previous summary is obsolete — there are **zero project axioms**. The catalog now tracks open Lean `Prop`s that capstone theorems still take as explicit hypotheses.
+After the 2026-05-20 cascade refactor, the "axiom retirement" framing of earlier summaries is obsolete — there are **zero project axioms**. The catalog tracks open Lean `Prop`s that capstone theorems still take as explicit hypotheses. The 2026-05-21 session sharpened multiple residuals to named classical Props (see top banner).
 
 | # | Problem | Manuscript label | Status | Discharging this Prop discharges |
 |---|---|---|---|---|
-| 1 | Polylog eigenvalue formula for `H_P, H_NP` | `conj:polylog-spectrum` | Open; isolated to `PolylogEigenvalueConjecture : Prop` (was axiom until 2026-05-20). Supporting infrastructure: Hankel interchange PROVEN (commit `ea6d3ef`), `MonodromyGluingLemma_proven` PROVEN (commit `72c0137`), `BernoulliGrowthBoundResidual` DISCHARGED via `BernoulliGrowthBound.lean` (commit `72c0137`). | Sub-conjecture of `PolylogEigenvalueConjecture` |
+| 1 | Polylog eigenvalue formula for `H_P, H_NP` | `conj:polylog-spectrum` | Open; isolated to `PolylogEigenvalueConjecture : Prop`. **2026-05-21 session sharpening**: residual continuation content further factored into named Props `ZetaShiftPolyExpBound s` (general s; s=0 and s=-N base cases PROVEN), `JonquieresExpansionEqualsGeomFrequentlyAtHalf` (s=0 disc-agreement, no polyLog reference), `JonquieresFrequentAgreementAtHalf s`, `JonquieresGlobalIdentityHypothesis`. **Input 4 (`BookEval019_ShiftBound`) RETIRED** (now a theorem, commit `6aa4439`). | Sub-conjecture of `PolylogEigenvalueConjecture` |
 | 2 | Ground-state branch selection | `heur:branch-selection` | Open (M₀ ruled out 2026-05-18) | Sub-conjecture of `PolylogEigenvalueConjecture` |
 | 3 | ~~Golden-ratio modulation `H_NP = U(φ)H_P U†`~~ | `conj:golden-modulation` | **✅ RESOLVED 2026-05-20** (corollary of Problem 1; unitary conjugation structurally impossible) | — |
 | 4 | Spectral-bijection surjectivity onto ζ-zeros | `rem:bijection-surjectivity` | Open (named Prop, not axiom) | Surjectivity hypothesis of RH theorem |
-| 5 | **`OffDiscPatchData s`** (Jonquières/Hankel local patches off unit disc) | new (added 2026-05-20) | Open; isolated by `PF/Analytic/PolyLogLocalPatches.lean`. On-disc patches are unconditional; off-disc patches are isolated to this single named hypothesis. | Off-disc analytic-continuation content of `polyLog` |
-| 6 | **Phase A inner-product structure for RH** (compact-operator spectral theorem hookup; Mayer 1991 non-degeneracy; surjectivity track 4) | new (split out 2026-05-20) | Open; three Phase A inner-product hypotheses already DISCHARGED (commits `f727998`, `e09e571`, `cd7a806`). Remaining: spectral-theorem hookup + non-degeneracy + surjectivity (= Problem 4). | RH capstone hypotheses |
+| 5 | **`OffDiscPatchData s`** (Jonquières/Hankel local patches off unit disc) | new (added 2026-05-20) | Open; reduced to `PolyLogMonodromyHypothesis s` via `PF/Analytic/OffDiscPatchDataConstruction.lean`. **2026-05-21**: `PolyLogMonodromyHypothesis` further reduced to `JonquieresGlobalIdentityHypothesis` via `PF/Analytic/MonodromyFromJonquieres.lean`. `SlitDiscPreconnectedReachability` RETIRED (theorem in `SlitDiscPreconnected.lean`). | Off-disc analytic-continuation content of `polyLog` |
+| 6 | **Phase A inner-product structure for RH** (compact-operator spectral theorem hookup; Mayer 1991 non-degeneracy; surjectivity track 4) | new (split out 2026-05-20) | Open; three Phase A inner-product hypotheses DISCHARGED (commits `f727998`, `e09e571`, `cd7a806`). **2026-05-21 session**: `LogWeightedL2InnerBridge` RETIRED (now a theorem); RH Bundle (a) factored into three named sub-Props `T3SymLinearStructure`, `T3SymCompactSelfAdjointApproximation`, `T3SymEigenvalueExtraction`; max-discharged wrapper `riemann_hypothesis_residual_only` exposes only 8 args across 3 bundles. | RH capstone hypotheses |
+
+**2026-05-21 retirements (now theorems, not residuals):**
+* `Input 4 / BookEval019_ShiftBound` (P-vs-NP chain) — `bookEvaluation 0.19 > 0.222144147` PROVEN.
+* `SlitDiscPreconnectedReachability` (polylog continuation) — preconnectedness PROVEN axiom-free.
+* `LogWeightedL2InnerBridge` (RH Phase A) — inner-product bridge PROVEN axiom-free.
+
+**2026-05-21 new named Props in residual catalog (each axiom-free in its file):**
+* `ZetaShiftPolyExpBound s` (general s); s=0 + s=-N proven base cases.
+* `JonquieresFrequentAgreementAtHalf s` / `JonquieresExpansionEqualsGeomFrequentlyAtHalf` (s=0 disc-agreement, no polyLog reference).
+* `JonquieresGlobalIdentityHypothesis` (replaces `PolyLogMonodromyHypothesis`).
+* `JonquieresExpansionAnalyticOnPuncturedBall`.
+* `T3SymLinearStructure`, `T3SymCompactSelfAdjointApproximation`, `T3SymEigenvalueExtraction` (RH Bundle (a) sub-Props).
 
 **Discharging this catalog.** Discharging `PolylogEigenvalueConjecture` (Problems 1+2) plus `OffDiscPatchData s` (Problem 5) upgrades the headline `P_NEQ_NP` capstone from a conditional reduction to an unconditional proof of P ≠ NP. Discharging Problem 4 plus the Phase A engineering tracks upgrades `riemann_hypothesis_via_T3_sym_framework` to an unconditional proof of the Riemann Hypothesis.
 

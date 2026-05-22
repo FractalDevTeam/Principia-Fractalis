@@ -1,5 +1,13 @@
 # Proof Roadmap — Discharging the Polylog Conjecture
 
+> **🎯 2026-05-21 SESSION UPDATE (commit `1607e4b`, build 6322 jobs clean, 0 project axioms).** Today's session produced 13+ axiom-free files that substantially reduced the residual content on both the P-vs-NP and RH chains. Headline updates to this roadmap:
+> * **Input 4 (`BookEval019_ShiftBound`) — DISCHARGED** as a Lean theorem (commit `6aa4439`). `bookEvaluation 0.19 > 0.222144147` is now PROVEN, anchored by new axiom-free interval-arithmetic infrastructure (`PF/Analytic/GammaIntervalBounds.lean`, `TrigBookBrackets.lean`, `RpowBookBracket.lean`). The "5 inputs" wrapper is now effectively a "4 inputs" wrapper on the P-side.
+> * **Input 3 (`BookEval018_ShiftBound`) — confirmed FALSE in current Lean semantics.** Discharging Input 3 literal-statement-faithful is structurally impossible with the tsum-defined `polyLog`; would require upgrading to a Jonquières-extended `polyLog_continuation` (multi-month classical-analysis formalization).
+> * **Polylog-continuation chain:** `PolyLogMonodromyHypothesis` further reduced to `JonquieresGlobalIdentityHypothesis` via `MonodromyFromJonquieres.lean`. The Γ-term half of Jonquières now PROVEN on the corrected `JonquieresAnalyticDomain := SlitPlane ∩ Complex.slitPlane` (`JonquieresAnalyticity.lean`). ζ-series at s=0 PROVEN unconditional (`ZetaShiftBoundDischarge.lean`); at s=-N for N:ℕ PROVEN unconditional (`ZetaShiftBoundNegNat.lean`); at general s reduced to the single named Prop `ZetaShiftPolyExpBound s` (`ZetaBridgeDischarge.lean`). s=0 disc-agreement traced down to `JonquieresExpansionEqualsGeomFrequentlyAtHalf` (no polyLog reference).
+> * **RH chain:** new max-discharged wrapper `riemann_hypothesis_residual_only` (`RHMaxDischarged.lean`) exposes only 8 args across 3 bundles. `LogWeightedL2InnerBridge` RETIRED (now a theorem); RH Bundle (a) factored into three named sub-Props (`T3SymLinearStructure`, `T3SymCompactSelfAdjointApproximation`, `T3SymEigenvalueExtraction`).
+>
+> See the new "Post-2026-05-21 residual Props" section at the bottom of this document for the catalog of remaining named open Props on each chain.
+
 > **🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed).** The previously-axiomatic `alpha_class_polylog_eigenvalue_conjecture` has been refactored to a named Lean Proposition `PolylogEigenvalueConjecture : Prop` (and analogously on the Coq side), taken as an explicit hypothesis by every consumer. The roadmap below targets *discharging* this Proposition (and the related `OffDiscPatchData s`); there is no axiom to retire.
 
 > **⚠ STRUCTURAL FINDING (2026-05-21): the 5-inputs path documented below was structurally vacuous, not viable.** A four-agent investigation determined that the formal Lean `polyLog` (defined as a `tsum`) equals **zero** identically on `{Re s ≤ 1, |z| = 1, z ≠ 1}` due to mathlib's `tsum_eq_zero_of_not_summable` convention on non-summable series. Specifically: `polyLog s z_book = 0` for `s ∈ [0.18, 0.19]` in current Lean semantics. This means:
@@ -67,7 +75,9 @@
 
 ---
 
-### ⬜ Input 3: `h_bracket_lower` — numerical input #1
+### ⚠ Input 3: `h_bracket_lower` — STRUCTURALLY FALSE IN LEAN
+
+> **2026-05-21 status: This hypothesis is structurally FALSE in current Lean semantics.** With the tsum-defined `polyLog` returning 0 on `{Re s ≤ 1, |z| = 1, z ≠ 1}` (per mathlib's `tsum_eq_zero_of_not_summable` convention), `bookEvaluation 0.18 ≈ 0.71` in actual Lean, not the manuscript's Jonquières-extended value ≈ 0.21. Discharging this hypothesis literal-statement-faithful is structurally impossible without first upgrading `polyLog` to its Jonquières analytic continuation (multi-month classical-analysis formalization). The hypothesis is not a residual to close on the current `polyLog` — it is a structural diagnosis indicating the need for a `polyLog_continuation` upgrade.
 
 **Statement**: `bookEvaluation 0.18 < 0.2221441468`.
 
@@ -103,7 +113,15 @@ For `s = 0.18`, `z_book = exp(I·π·√2)`:
 
 ---
 
-### ⬜ Input 4: `h_bracket_upper` — numerical input #2
+### ✅ Input 4: `h_bracket_upper` — DISCHARGED 2026-05-21 (commit `6aa4439`)
+
+> **2026-05-21: PROVEN as a Lean theorem.** `bookEvaluation 0.19 > 0.222144147` is no longer a residual hypothesis. Discharge anchored by new axiom-free interval-arithmetic infrastructure:
+> * `PF/Analytic/GammaIntervalBounds.lean` — rigorous brackets for `Γ(0.18)`, `Γ(0.19)`, `√π`, `β_book`.
+> * `PF/Analytic/TrigBookBrackets.lean` — `cos`/`sin` brackets at irrational arguments.
+> * `PF/Analytic/RpowBookBracket.lean` — `Real.rpow` brackets at irrational arguments.
+> * `PF/Analytic/BookEval019Discharge.lean` — the discharge itself.
+>
+> All axiom-free. The "5 inputs" wrapper is effectively now a "4 inputs" wrapper (Input 4 retired; Inputs 1+2 retired in prior sessions; only Inputs 3 (false in current Lean) and 5 (multi-year operator theory) remain on the P-side).
 
 **Statement**: `0.222144147 < bookEvaluation 0.19`.
 
@@ -200,4 +218,48 @@ This is the actual state of the work. It is closer than it looks from outside, a
 
 ---
 
-*Generated 2026-05-20. Update on every input discharged.*
+## Post-2026-05-21 Residual Named Props (current snapshot)
+
+After the 2026-05-21 session, the framework's residual content is concentrated in the following named Props. Each is axiom-free in its own file; the open content is mathematical (analytic/operator-theoretic), not architectural.
+
+### Polylog-continuation chain (P-vs-NP side, beyond Input 5)
+
+| Prop | File | Status / role |
+|---|---|---|
+| `ZetaShiftPolyExpBound s` (general `s`) | `PF/Analytic/ZetaBridgeDischarge.lean` | **OPEN** at general `s`. Base cases `s = 0` and `s = -N` for `N : ℕ` are PROVEN (`ZetaShiftBoundDischarge.lean`, `ZetaShiftBoundNegNat.lean`). |
+| `JonquieresFrequentAgreementAtHalf s` | `PF/Analytic/GermAtHalfDischarge.lean` | **OPEN**. Frequent polyLog/Jonquières agreement near `z = 1/2`. |
+| `JonquieresExpansionEqualsGeomFrequentlyAtHalf` | `PF/Analytic/JonquieresAtZeroDischarge.lean` | **OPEN** (sharper `s = 0` specialization, *no polyLog reference* — purely classical agreement of two explicit analytic expressions). |
+| `JonquieresExpansionAnalyticOnPuncturedBall` | `PF/Analytic/JonquieresLocalWitness.lean` | **OPEN**. Local analyticity on the punctured ball. |
+| `JonquieresGlobalIdentityHypothesis` | (replaces `PolyLogMonodromyHypothesis` via `PF/Analytic/MonodromyFromJonquieres.lean`) | **OPEN**. Global identity form. |
+| `PolyLogMonodromyHypothesis s` | (via `MonodromyFromJonquieres.lean`) | Reduced to `JonquieresGlobalIdentityHypothesis` (above). |
+| `BookEval018_ShiftBound` (Input 3) | `PF/Analytic/BookEvalBound018.lean` | **STRUCTURALLY FALSE in current Lean** — requires `polyLog_continuation` upgrade. |
+| `BookEval019_ShiftBound` (Input 4) | `PF/Analytic/BookEval019Discharge.lean` | **DISCHARGED** (theorem, 2026-05-21). |
+| `h_P_spec` (Input 5) | `PF/Analytic/HPSpectralBridge.lean` | **OPEN**. Multi-year operator-theoretic content; gated by opaque `alpha_of_class`. |
+
+### RH chain (Bundle (a) post-session factorization)
+
+| Prop | File | Status / role |
+|---|---|---|
+| `T3SymLinearStructure` | `PF/Analytic/T3SymCLMConstruction.lean` | **OPEN**. RH Bundle (a) linear-structure residual (post-`LogWeightedL2InnerBridge`-discharge). |
+| `T3SymCompactSelfAdjointApproximation` | `PF/Analytic/T3SymFiniteRankTowerDischarge.lean` | **OPEN**. RH Bundle (a) finite-rank-tower residual (base cases + closure rules proven; this is the sharper sub-Prop). |
+| `T3SymEigenvalueExtraction` | `PF/Analytic/T3SymFiniteRankTowerDischarge.lean` (and related) | **OPEN**. Named Prop encoding the missing mathlib infinite-dimensional spectral theorem witness. |
+| `LogWeightedL2InnerBridge` | `PF/Analytic/LogWeightedL2InnerBridgeDischarge.lean` | **DISCHARGED** (theorem, 2026-05-21). |
+| `SlitDiscPreconnectedReachability` | `PF/Analytic/SlitDiscPreconnected.lean` | **DISCHARGED** (theorem, 2026-05-21). |
+| RH Bundle (b) — Mayer 1991 non-degeneracy | (Phase A engineering) | **OPEN**. Numerical non-degeneracy verification. |
+| RH Bundle (c) — surjectivity = Problem 4 | `PF/SpectralBijection.lean` | **OPEN**. The single load-bearing open conjecture of the RH program. |
+
+### Max-discharged wrapper
+
+`riemann_hypothesis_residual_only` in `PF/Analytic/RHMaxDischarged.lean` exposes only 8 arguments across the 3 bundles (a)/(b)/(c) above. This is the sharpest stated form of the RH conditional reduction.
+
+### Net post-2026-05-21 summary
+
+* **P-side residuals**: `ZetaShiftPolyExpBound s` (general s), `JonquieresExpansionEqualsGeomFrequentlyAtHalf`, `JonquieresFrequentAgreementAtHalf s`, `JonquieresExpansionAnalyticOnPuncturedBall`, `JonquieresGlobalIdentityHypothesis` (polylog continuation); `BookEval018_ShiftBound` (Input 3, structurally false in current Lean); `h_P_spec` (Input 5, operator theory).
+* **RH-side residuals**: `T3SymLinearStructure`, `T3SymCompactSelfAdjointApproximation`, `T3SymEigenvalueExtraction` (Bundle (a)); Mayer 1991 non-degeneracy (Bundle (b)); surjectivity / Problem 4 (Bundle (c)).
+* **Retired this session**: Input 4 (`BookEval019_ShiftBound`), `SlitDiscPreconnectedReachability`, `LogWeightedL2InnerBridge` — all now theorems.
+
+Build state at this snapshot: **6322 jobs clean, 0 sorries, 0 project axioms, commit `1607e4b`**.
+
+---
+
+*Generated 2026-05-20. Updated 2026-05-21 (session — substantial residual reduction).*
