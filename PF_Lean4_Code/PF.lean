@@ -55,6 +55,7 @@ import PF.Analytic.ZetaShiftBoundDischarge        -- Stage L15 — unconditional
 import PF.Analytic.JonquieresIdentityDischarge   -- Stage L14 — Jonquières identity SHARPER reduction via identity theorem (3 named gaps)
 import PF.Analytic.JonquieresLocalWitness        -- Stage L15 — Jonquières local-witness GERM reduction at the explicit point z₀ = 1/2
 import PF.Analytic.GermAtHalfDischarge           -- Stage L16 — Germ-at-1/2 frequent-agreement reduction via local identity theorem
+import PF.Analytic.JonquieresAtZeroDischarge     -- Stage L17 — Frequent agreement at s = 0 via the geometric closed form polyLog_zero_exponent
 import PF.Analytic.Monodromy          -- Stage L4 — Riemann sheet monodromy
 import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue identity (statement)
 import PF.Analytic.HankelContour       -- Stage L4 — Hankel contour foundation
