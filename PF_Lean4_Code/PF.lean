@@ -65,6 +65,7 @@ import PF.Analytic.JonquieresAtNegTwoDischarge   -- Stage L20 — Frequent agree
 import PF.Analytic.JonquieresAtNegThreeDischarge -- Stage L21 — Frequent agreement at s = -3 via the Eulerian closed form polyLog_neg_three (z(1+4z+z²)/(1-z)^4)
 import PF.Analytic.JonquieresAtNegFourDischarge  -- Stage L22 — Frequent agreement at s = -4 via the Eulerian closed form polyLog_neg_four (z(1+11z+11z²+z³)/(1-z)^5)
 import PF.Analytic.PolyLogAnalyticAtHalfNegInt   -- Stage L21 — polyLog (-1) and polyLog (-2) analytic at z = 1/2 (bypasses 0 ≤ Re s); germ-equality reductions at s = -1, -2
+import PF.Analytic.PolyLogAnalyticOnBallNegInt   -- Stage L22 — polyLog (-N) analytic on FULL ball 0 1 for N ∈ {1,2,3,4}; full disc-agreement capstones at s ∈ {-1,-2,-3,-4}
 import PF.Analytic.Monodromy          -- Stage L4 — Riemann sheet monodromy
 import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue identity (statement)
 import PF.Analytic.HankelContour       -- Stage L4 — Hankel contour foundation
