@@ -58,6 +58,7 @@ import PF.Analytic.JonquieresIdentityDischarge   -- Stage L14 — Jonquières id
 import PF.Analytic.JonquieresLocalWitness        -- Stage L15 — Jonquières local-witness GERM reduction at the explicit point z₀ = 1/2
 import PF.Analytic.GermAtHalfDischarge           -- Stage L16 — Germ-at-1/2 frequent-agreement reduction via local identity theorem
 import PF.Analytic.JonquieresAtZeroDischarge     -- Stage L17 — Frequent agreement at s = 0 via the geometric closed form polyLog_zero_exponent
+import PF.Analytic.JonquieresAtZeroFinalDischarge -- Stage L18 — Final reduction at s = 0: chain closed modulo JonquieresIdentityPointGermAtHalf 0
 import PF.Analytic.JonquieresAtOneDischarge      -- Stage L18 — Frequent agreement at s = 1 via the Mercator closed form polyLog_one (-log(1-z))
 import PF.Analytic.JonquieresAtNegOneDischarge   -- Stage L19 — Frequent agreement at s = -1 via the rational closed form polyLog_neg_one (z/(1-z)^2)
 import PF.Analytic.JonquieresAtNegTwoDischarge   -- Stage L20 — Frequent agreement at s = -2 via the rational closed form polyLog_neg_two (z(1+z)/(1-z)^3)
