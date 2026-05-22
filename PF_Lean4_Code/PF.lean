@@ -62,6 +62,9 @@ import PF.Analytic.JonquieresAtZeroFinalDischarge -- Stage L18 — Final reducti
 import PF.Analytic.JonquieresAtOneDischarge      -- Stage L18 — Frequent agreement at s = 1 via the Mercator closed form polyLog_one (-log(1-z))
 import PF.Analytic.JonquieresAtNegOneDischarge   -- Stage L19 — Frequent agreement at s = -1 via the rational closed form polyLog_neg_one (z/(1-z)^2)
 import PF.Analytic.JonquieresAtNegTwoDischarge   -- Stage L20 — Frequent agreement at s = -2 via the rational closed form polyLog_neg_two (z(1+z)/(1-z)^3)
+import PF.Analytic.JonquieresAtNegThreeDischarge -- Stage L21 — Frequent agreement at s = -3 via the Eulerian closed form polyLog_neg_three (z(1+4z+z²)/(1-z)^4)
+import PF.Analytic.JonquieresAtNegFourDischarge  -- Stage L22 — Frequent agreement at s = -4 via the Eulerian closed form polyLog_neg_four (z(1+11z+11z²+z³)/(1-z)^5)
+import PF.Analytic.PolyLogAnalyticAtHalfNegInt   -- Stage L21 — polyLog (-1) and polyLog (-2) analytic at z = 1/2 (bypasses 0 ≤ Re s); germ-equality reductions at s = -1, -2
 import PF.Analytic.Monodromy          -- Stage L4 — Riemann sheet monodromy
 import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue identity (statement)
 import PF.Analytic.HankelContour       -- Stage L4 — Hankel contour foundation
