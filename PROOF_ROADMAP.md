@@ -1,5 +1,12 @@
 # Proof Roadmap — Discharging the Polylog Conjecture
 
+> **🎯 2026-05-22 SESSION UPDATE (build 6344 jobs clean, 0 sorries, 0 project axioms).** Today's session pushed both the RH chain and the polyLog continuation chain forward with ~14 additional axiom-free files. Headline updates to this roadmap:
+> * **RH Bundle (a) — substantially proven.** `T3SymCLMSymmetricWitness_proved_unconditional` (commit `d4aaa14`) makes the CLM/symmetry witness FULLY UNCONDITIONAL. `T3LinearStructure_proved_unconditional` (commit `6834c1c`) makes the contracting half FULLY UNCONDITIONAL. **`T3NormSquaredBound_proved` (commit `6834c1c`) PROVES Mayer 1991 §2 contractivity** as a Lean theorem — the substantive operator-theoretic content of Bundle (a). `T3SymFiniteRankTower` factored to the sharper named sub-Prop `T3SymMercerTail` (commit `52dab85`); `T3SymEigenvalueExtraction` factored to the generic `CompactSelfAdjointNatEigenvalueWeylDecay` (commit `fd77683`). Post-session Bundle (a) reduces to **two** named sub-Props.
+> * **polyLog continuation chain — extensive integer-s coverage.** `ZetaShiftPolyExpBound s` is now PROVEN at **every integer `s ∈ ℤ`** (commits `c7b3985`, `a60c3c5`, `71ab95f`), not just s=0 and s=-N base cases. polyLog rational closed forms PROVEN at every `s ∈ {-4, -3, -2, -1, 0, 1}` (commits `ce05694`, `fd77683`, `1607e4b`, `c9b5347`): Jonquières-type rational identities (e.g. `polyLog (-2) z = z(1+z)/(1-z)³`, etc.). `polyLog_analyticOnNhd_ball` lifted to `s ∈ {-4,...,-1}` via rational closed forms; disc-wide identity capstones `discAgreementReduced_at_neg_N_of_germ` wired at `N ∈ {1,2,3,4}`. All disc-agreement chains at `s ∈ {-4,...,0}` reduce to the single germ-at-`z=1/2` hypothesis.
+> * **Build state: 6344 jobs, 0 sorries, 0 project axioms.**
+>
+> See the updated "Post-2026-05-22 residual Props" section at the bottom; the 2026-05-21 banner below is retained as historical context.
+
 > **🎯 2026-05-21 SESSION UPDATE (commit `1607e4b`, build 6322 jobs clean, 0 project axioms).** Today's session produced 13+ axiom-free files that substantially reduced the residual content on both the P-vs-NP and RH chains. Headline updates to this roadmap:
 > * **Input 4 (`BookEval019_ShiftBound`) — DISCHARGED** as a Lean theorem (commit `6aa4439`). `bookEvaluation 0.19 > 0.222144147` is now PROVEN, anchored by new axiom-free interval-arithmetic infrastructure (`PF/Analytic/GammaIntervalBounds.lean`, `TrigBookBrackets.lean`, `RpowBookBracket.lean`). The "5 inputs" wrapper is now effectively a "4 inputs" wrapper on the P-side.
 > * **Input 3 (`BookEval018_ShiftBound`) — confirmed FALSE in current Lean semantics.** Discharging Input 3 literal-statement-faithful is structurally impossible with the tsum-defined `polyLog`; would require upgrading to a Jonquières-extended `polyLog_continuation` (multi-month classical-analysis formalization).
@@ -218,16 +225,20 @@ This is the actual state of the work. It is closer than it looks from outside, a
 
 ---
 
-## Post-2026-05-21 Residual Named Props (current snapshot)
+## Post-2026-05-22 Residual Named Props (current snapshot)
 
-After the 2026-05-21 session, the framework's residual content is concentrated in the following named Props. Each is axiom-free in its own file; the open content is mathematical (analytic/operator-theoretic), not architectural.
+After the 2026-05-22 session, the framework's residual content is concentrated in the following named Props. Each is axiom-free in its own file; the open content is mathematical (analytic/operator-theoretic), not architectural.
 
 ### Polylog-continuation chain (P-vs-NP side, beyond Input 5)
 
 | Prop | File | Status / role |
 |---|---|---|
-| `ZetaShiftPolyExpBound s` (general `s`) | `PF/Analytic/ZetaBridgeDischarge.lean` | **OPEN** at general `s`. Base cases `s = 0` and `s = -N` for `N : ℕ` are PROVEN (`ZetaShiftBoundDischarge.lean`, `ZetaShiftBoundNegNat.lean`). |
-| `JonquieresFrequentAgreementAtHalf s` | `PF/Analytic/GermAtHalfDischarge.lean` | **OPEN**. Frequent polyLog/Jonquières agreement near `z = 1/2`. |
+| `ZetaShiftPolyExpBound s` (every integer `s ∈ ℤ`) | `PF/Analytic/ZetaShiftBoundDischarge.lean` (s=0), `ZetaShiftBoundPosNat.lean` (s=N), `ZetaShiftBoundNegNat.lean` (s=-N) | **PROVEN at every integer `s ∈ ℤ` (2026-05-22)**. Commits `c7b3985`, `a60c3c5`, `71ab95f`. Open only at non-integer `s`. |
+| `polyLog (-N) z` rational closed forms (N ∈ {1,2,3,4}) | `PF/Analytic/JonquieresAtNegOneDischarge.lean`, `JonquieresAtNegTwoDischarge.lean`, `JonquieresAtNegThreeDischarge.lean`, `JonquieresAtNegFourDischarge.lean` | **PROVEN (2026-05-22)**. Jonquières-type rational identities for each `N`. |
+| `polyLog 0 z = z/(1-z)`, `polyLog 1 z = -log(1-z)` | `PF/Analytic/JonquieresAtZeroDischarge.lean`, `JonquieresAtOneDischarge.lean`, `JonquieresAtZeroFinalDischarge.lean` | **PROVEN (2026-05-22)**. |
+| `polyLog_analyticOnNhd_ball` for `s ∈ {-4,...,-1}` | `PF/Analytic/PolyLogAnalyticOnBallNegInt.lean`, `PolyLogAnalyticAtHalfNegInt.lean` | **PROVEN (2026-05-22, commit `a9404a9`)** via rational closed forms. |
+| `discAgreementReduced_at_neg_N_of_germ` for `N ∈ {1,2,3,4}` | (commit `a9404a9`) | **PROVEN (2026-05-22)**. Reduces full disc-agreement at each `s = -N` to one germ-at-`z=1/2` hypothesis. |
+| `JonquieresFrequentAgreementAtHalf s` | `PF/Analytic/GermAtHalfDischarge.lean` | **OPEN at general `s`**; structurally encoded as the single residual germ hypothesis. |
 | `JonquieresExpansionEqualsGeomFrequentlyAtHalf` | `PF/Analytic/JonquieresAtZeroDischarge.lean` | **OPEN** (sharper `s = 0` specialization, *no polyLog reference* — purely classical agreement of two explicit analytic expressions). |
 | `JonquieresExpansionAnalyticOnPuncturedBall` | `PF/Analytic/JonquieresLocalWitness.lean` | **OPEN**. Local analyticity on the punctured ball. |
 | `JonquieresGlobalIdentityHypothesis` | (replaces `PolyLogMonodromyHypothesis` via `PF/Analytic/MonodromyFromJonquieres.lean`) | **OPEN**. Global identity form. |
@@ -236,30 +247,37 @@ After the 2026-05-21 session, the framework's residual content is concentrated i
 | `BookEval019_ShiftBound` (Input 4) | `PF/Analytic/BookEval019Discharge.lean` | **DISCHARGED** (theorem, 2026-05-21). |
 | `h_P_spec` (Input 5) | `PF/Analytic/HPSpectralBridge.lean` | **OPEN**. Multi-year operator-theoretic content; gated by opaque `alpha_of_class`. |
 
-### RH chain (Bundle (a) post-session factorization)
+### RH chain (Bundle (a) post-2026-05-22 factorization)
 
 | Prop | File | Status / role |
 |---|---|---|
-| `T3SymLinearStructure` | `PF/Analytic/T3SymCLMConstruction.lean` | **OPEN**. RH Bundle (a) linear-structure residual (post-`LogWeightedL2InnerBridge`-discharge). |
-| `T3SymCompactSelfAdjointApproximation` | `PF/Analytic/T3SymFiniteRankTowerDischarge.lean` | **OPEN**. RH Bundle (a) finite-rank-tower residual (base cases + closure rules proven; this is the sharper sub-Prop). |
-| `T3SymEigenvalueExtraction` | `PF/Analytic/T3SymFiniteRankTowerDischarge.lean` (and related) | **OPEN**. Named Prop encoding the missing mathlib infinite-dimensional spectral theorem witness. |
-| `LogWeightedL2InnerBridge` | `PF/Analytic/LogWeightedL2InnerBridgeDischarge.lean` | **DISCHARGED** (theorem, 2026-05-21). |
+| `T3SymCLMSymmetricWitness_proved_unconditional` | `PF/Analytic/T3SymCompactWitness.lean` | **PROVEN unconditional (2026-05-22, commit `d4aaa14`)**. Bundle (a) CLM/symmetry witness FULLY UNCONDITIONAL. |
+| `T3LinearStructure_proved_unconditional` | `PF/Analytic/T3LinearStructureDischarge.lean` | **PROVEN unconditional (2026-05-22, commit `6834c1c`)**. Bundle (a) contracting half FULLY UNCONDITIONAL. Discharges prior `T3SymLinearStructure`. |
+| `T3NormSquaredBound_proved` | `PF/Analytic/T3NormSquaredBoundDischarge.lean` | **PROVEN (2026-05-22, commit `6834c1c`)**. **Mayer 1991 §2 contractivity** — the substantive operator-theoretic content of Bundle (a). |
+| `T3SymMercerTail` | `PF/Analytic/T3SymFiniteRankTowerDischarge.lean` | **OPEN**. Sharper named sub-Prop replacing the old `T3SymFiniteRankTower` (commit `52dab85`). Base cases + closure rules proven. |
+| `CompactSelfAdjointNatEigenvalueWeylDecay` | `PF/Analytic/T3SymEigenvalueExtractionDischarge.lean` | **OPEN**. Generic encoding of the missing mathlib infinite-dimensional spectral theorem witness (Weyl-decay form). Replaces the T3-specific `T3SymEigenvalueExtraction` (commit `fd77683`). |
+| `LogWeightedL2InnerBridge` | `PF/Analytic/LogWeightedL2InnerBridgeDischarge.lean` | **PROVEN axiom-free (2026-05-22, commit `fc7cdef`)**. |
 | `SlitDiscPreconnectedReachability` | `PF/Analytic/SlitDiscPreconnected.lean` | **DISCHARGED** (theorem, 2026-05-21). |
 | RH Bundle (b) — Mayer 1991 non-degeneracy | (Phase A engineering) | **OPEN**. Numerical non-degeneracy verification. |
 | RH Bundle (c) — surjectivity = Problem 4 | `PF/SpectralBijection.lean` | **OPEN**. The single load-bearing open conjecture of the RH program. |
 
 ### Max-discharged wrapper
 
-`riemann_hypothesis_residual_only` in `PF/Analytic/RHMaxDischarged.lean` exposes only 8 arguments across the 3 bundles (a)/(b)/(c) above. This is the sharpest stated form of the RH conditional reduction.
+`riemann_hypothesis_residual_only` in `PF/Analytic/RHMaxDischarged.lean` exposes only 8 arguments across the 3 bundles (a)/(b)/(c) above. This remains the sharpest stated form of the RH conditional reduction; post-2026-05-22, Bundle (a)'s contribution to those 8 args has shrunk to the two sub-Props `T3SymMercerTail` and `CompactSelfAdjointNatEigenvalueWeylDecay`.
 
-### Net post-2026-05-21 summary
+### Net post-2026-05-22 summary
 
-* **P-side residuals**: `ZetaShiftPolyExpBound s` (general s), `JonquieresExpansionEqualsGeomFrequentlyAtHalf`, `JonquieresFrequentAgreementAtHalf s`, `JonquieresExpansionAnalyticOnPuncturedBall`, `JonquieresGlobalIdentityHypothesis` (polylog continuation); `BookEval018_ShiftBound` (Input 3, structurally false in current Lean); `h_P_spec` (Input 5, operator theory).
-* **RH-side residuals**: `T3SymLinearStructure`, `T3SymCompactSelfAdjointApproximation`, `T3SymEigenvalueExtraction` (Bundle (a)); Mayer 1991 non-degeneracy (Bundle (b)); surjectivity / Problem 4 (Bundle (c)).
-* **Retired this session**: Input 4 (`BookEval019_ShiftBound`), `SlitDiscPreconnectedReachability`, `LogWeightedL2InnerBridge` — all now theorems.
+* **P-side residuals**: `JonquieresExpansionEqualsGeomFrequentlyAtHalf`, `JonquieresFrequentAgreementAtHalf s`, `JonquieresExpansionAnalyticOnPuncturedBall`, `JonquieresGlobalIdentityHypothesis` (polylog continuation, mostly at non-integer s); `BookEval018_ShiftBound` (Input 3, structurally false in current Lean); `h_P_spec` (Input 5, operator theory).
+* **RH-side residuals**: `T3SymMercerTail`, `CompactSelfAdjointNatEigenvalueWeylDecay` (Bundle (a) — two sharper sub-Props); Mayer 1991 non-degeneracy (Bundle (b)); surjectivity / Problem 4 (Bundle (c)).
+* **Retired this session (now theorems, not residuals)**:
+  - **Mayer 1991 §2 contractivity** → `T3NormSquaredBound_proved` (operator-theoretic core of Bundle (a)).
+  - `T3SymCLMSymmetricWitness` → unconditional theorem.
+  - `T3LinearStructure` → unconditional theorem.
+  - `ZetaShiftPolyExpBound s` at every integer `s ∈ ℤ`.
+  - polyLog rational closed forms at every `s ∈ {-4, -3, -2, -1, 0, 1}`.
 
-Build state at this snapshot: **6322 jobs clean, 0 sorries, 0 project axioms, commit `1607e4b`**.
+Build state at this snapshot: **6344 jobs clean, 0 sorries, 0 project axioms**.
 
 ---
 
-*Generated 2026-05-20. Updated 2026-05-21 (session — substantial residual reduction).*
+*Generated 2026-05-20. Updated 2026-05-21 (session — substantial residual reduction). Updated 2026-05-22 (session — RH bundle (a) substantially proven; polyLog integer-s closed forms mechanized).*
