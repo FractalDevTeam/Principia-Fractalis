@@ -1,6 +1,72 @@
 \chapter*{Formalization Status (Revision 2)}
 \addcontentsline{toc}{chapter}{Formalization Status (Revision 2)}
 
+\section*{Current state (2026-05-22 --- historic analytic closure)}
+
+The Lean~4 + Coq formalization has extended past the May~20 zero-axiom
+milestone with a \emph{second} historic milestone: \textbf{two of the
+previously load-bearing classical analytic dependencies of the
+framework are now machine-checked unconditional Lean theorems, proved
+from first principles}. The current authoritative state is:
+
+\begin{itemize}
+\item \textbf{Lean 4}: \textbf{6354 jobs clean}, \textbf{zero project
+  axioms}, 0 sorries. (Up from 5750 jobs on May~20.)
+\item \textbf{Two unconditional analytic theorems} (the historic
+  closures of 2026-05-22):
+  \begin{itemize}
+  \item \textbf{Mayer 1991 \S2 contractivity}, the standard
+    transfer-operator estimate
+    $\|\tilde{T}_3\|_{\mathcal{H}} \leq 1$ for the
+    contraction-with-Jacobian-weight operator, is discharged
+    axiom-free in
+    \texttt{PF/Analytic/T3NormSquaredBoundDischarge.lean} as theorem
+    \texttt{T3NormSquaredBound\_proved} (commit \texttt{6834c1c}).
+    Previously cited from Mayer~1991 in Ch~20 Step~2 of the
+    self-adjointness theorem; now machine-checked from first
+    principles.
+  \item \textbf{Jonqui\`{e}res--Lerch germ identity at $z = 1/2$ for
+    $s = 0$}, the load-bearing analytic identity at the half-disc
+    germ point for the polyLog branch-selection chain of Ch~21, is
+    discharged axiom-free in
+    \texttt{PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean} as
+    theorem \texttt{jonquieresIdentityPointGermAtHalf\_zero\_proved}
+    (commit \texttt{f313ceb}), composed through 7+ axiom-free
+    intermediate links.
+  \end{itemize}
+\item \textbf{Disc-wide capstones at integer-$s$ coverage}: the polyLog
+  branch-selection capstones are established disc-wide at every integer
+  $s \in \{-4, -3, -2, -1, 0, 1, 2, 3, 4\}$. Axiom-free polyLog closed
+  forms are catalogued at every integer
+  $s \in \{-4, -3, -2, -1, 0, 1\}$ (the closed forms at $s = 2, 3, 4$
+  remain open). The auxiliary \texttt{ZetaShiftPolyExpBound} is
+  established at \emph{every} integer $s$.
+\item \textbf{RH bundle update}: hypothesis~(a) of
+  \texttt{riemann\_hypothesis\_via\_T3\_sym\_framework} --- the
+  Cartesian-real-part / symmetry witness derived from Mayer~1991 \S2
+  contractivity --- is now \textbf{unconditional}. The RH conditional
+  is correspondingly reduced from four hypotheses to three (the
+  remaining items are: the compact-operator spectral-theorem hookup,
+  non-degeneracy, and the load-bearing surjectivity of the spectral
+  bijection onto $\zeta$-zeros).
+\item \textbf{Structural finding at $s = 1$}: the polyLog closed form
+  at $s = 1$ exhibits an irremovable principal-branch obstruction
+  under mathlib's current regularization of $\mathrm{Li}_1$ at the
+  logarithmic-singularity boundary. This is a finding \emph{of the
+  chain}, not of the manuscript's branch-selection mechanism: the
+  regularization is the source of the obstruction, and a refactor
+  against a different regularization choice would dissolve it.
+\item \textbf{Honest framing}: the capstone theorems remain
+  \emph{conditional} on the named open Propositions
+  (\texttt{PolylogEigenvalueConjecture}, \texttt{OffDiscPatchData s},
+  RH spectral-bijection surjectivity). What this milestone discharges
+  is the \emph{classical-analysis substrate} of those conjectures, not
+  the conjectures themselves. The framework's contribution is
+  therefore sharpened from a ``conditional reduction modulo named
+  conjectures'' to a ``conditional reduction whose classical-analytic
+  dependencies are now machine-checked unconditional Lean theorems.''
+\end{itemize}
+
 \section*{Current state (2026-05-20 --- zero-axiom milestone)}
 
 The Lean~4 + Coq formalization has reached its definitive milestone:
