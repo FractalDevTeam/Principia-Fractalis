@@ -1,6 +1,15 @@
 # Proof Roadmap — Discharging the Polylog Conjecture
 
-> **🎯 2026-05-22 SESSION UPDATE (build 6344 jobs clean, 0 sorries, 0 project axioms).** Today's session pushed both the RH chain and the polyLog continuation chain forward with ~14 additional axiom-free files. Headline updates to this roadmap:
+> **★★★★ 2026-05-22 HISTORIC — `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL (commit `f313ceb`; build 6352 jobs clean, 0 sorries, 0 project axioms).** The germ identity at `(s, z) = (0, 1/2)` is now a Lean theorem (`jonquieresIdentityPointGermAtHalf_zero_proved`) derived from first principles via the **analytic Cauchy product** `(Σ B_n v^n/n!) · (eᵛ − 1) = v` on the disc `|v| < 2π`. This is the **first fully unconditional discharge of a disc-of-convergence content at this depth** in the framework. Headline consequences for this roadmap:
+> * **The polyLog continuation chain at `s = 0` has its substantive Bernoulli content PROVEN.** The Bernoulli/germ side of the disc-agreement chain at `s = 0` no longer carries any open Prop.
+> * **Residual at `s = 0`** is now reduced to the **inner-disc analyticity gap** — `JonquieresExpansionAnalyticOnPuncturedBall 0` (and `SlitDiscPreconnectedReachability`, which is already a PROVEN theorem in `SlitDiscPreconnected.lean`). These are GEOMETRIC / analytic-continuation Props, conceptually separate from the Bernoulli/germ content closed by `f313ceb`.
+> * **Joins the framework's two load-bearing analytic theorems machine-checked from first principles** alongside Mayer 1991 §2 contractivity (`T3NormSquaredBound_proved`, commit `6834c1c`, earlier in the same 2026-05-22 session). These are the framework's two SUBSTANTIVE analytic theorems now PROVEN axiom-free from mathlib primitives.
+> * **Disc-wide capstone** `discAgreementReduced_at_zero_unconditional_on_bernoulli` (same file): under the remaining geometric hypothesis (`JonquieresExpansionAnalyticOnPuncturedBall 0`), the disc-wide Jonquières/polyLog identity holds at every `z ∈ JonquieresAnalyticDomain ∩ ball 0 1`, **UNCONDITIONALLY on the Bernoulli/germ side**.
+> * **Build state: 6352 jobs, 0 sorries, 0 project axioms.**
+>
+> Supporting discharges this session (all axiom-free, all 2026-05-22): `BernoulliCauchyCoefficientsEqualBernoulliDischarge.lean` (commit `5828223`), `BernoulliExpHasSumOnBallTwoPiDischarge.lean` (commit `beb054d`, Riemann removable singularity of `v/(eᵛ−1)`), `BernoulliExpHasSumAtNegLogNhdsHalfDischarge.lean` (commit `9e7dd0d`), `JonquieresExpansionEqualsGeomTendstoPartialAtHalfDischarge.lean` (commit `618a843`), `JonquieresExpansionEqualsGeomGermAtHalfClosure.lean` (commit `0ac7150`), `JonquieresGermAtHalfZeroSinglePoint.lean` (commit `d82dd17`), `JonquieresExpansionAnalyticOnPuncturedBallDischarge.lean` (commit `604284c`), `PolyLogAtPosIntDischarge.lean` (commit `820d703`), `BernoulliFnHasSumOnSomeBallDischarge.lean` (commit `f313ceb`, the historic one).
+
+> **🎯 2026-05-22 EARLIER SESSION UPDATE (build 6344 jobs clean, 0 sorries, 0 project axioms).** Earlier today's session pushed both the RH chain and the polyLog continuation chain forward with ~14 additional axiom-free files. Headline updates to this roadmap:
 > * **RH Bundle (a) — substantially proven.** `T3SymCLMSymmetricWitness_proved_unconditional` (commit `d4aaa14`) makes the CLM/symmetry witness FULLY UNCONDITIONAL. `T3LinearStructure_proved_unconditional` (commit `6834c1c`) makes the contracting half FULLY UNCONDITIONAL. **`T3NormSquaredBound_proved` (commit `6834c1c`) PROVES Mayer 1991 §2 contractivity** as a Lean theorem — the substantive operator-theoretic content of Bundle (a). `T3SymFiniteRankTower` factored to the sharper named sub-Prop `T3SymMercerTail` (commit `52dab85`); `T3SymEigenvalueExtraction` factored to the generic `CompactSelfAdjointNatEigenvalueWeylDecay` (commit `fd77683`). Post-session Bundle (a) reduces to **two** named sub-Props.
 > * **polyLog continuation chain — extensive integer-s coverage.** `ZetaShiftPolyExpBound s` is now PROVEN at **every integer `s ∈ ℤ`** (commits `c7b3985`, `a60c3c5`, `71ab95f`), not just s=0 and s=-N base cases. polyLog rational closed forms PROVEN at every `s ∈ {-4, -3, -2, -1, 0, 1}` (commits `ce05694`, `fd77683`, `1607e4b`, `c9b5347`): Jonquières-type rational identities (e.g. `polyLog (-2) z = z(1+z)/(1-z)³`, etc.). `polyLog_analyticOnNhd_ball` lifted to `s ∈ {-4,...,-1}` via rational closed forms; disc-wide identity capstones `discAgreementReduced_at_neg_N_of_germ` wired at `N ∈ {1,2,3,4}`. All disc-agreement chains at `s ∈ {-4,...,0}` reduce to the single germ-at-`z=1/2` hypothesis.
 > * **Build state: 6344 jobs, 0 sorries, 0 project axioms.**
@@ -225,22 +234,29 @@ This is the actual state of the work. It is closer than it looks from outside, a
 
 ---
 
-## Post-2026-05-22 Residual Named Props (current snapshot)
+## Post-2026-05-22 Residual Named Props (current snapshot, HISTORIC closure included)
 
-After the 2026-05-22 session, the framework's residual content is concentrated in the following named Props. Each is axiom-free in its own file; the open content is mathematical (analytic/operator-theoretic), not architectural.
+After the 2026-05-22 session arc culminating in commit `f313ceb`, the framework's residual content is concentrated in the following named Props. Each is axiom-free in its own file; the open content is mathematical (analytic/operator-theoretic), not architectural.
 
 ### Polylog-continuation chain (P-vs-NP side, beyond Input 5)
 
 | Prop | File | Status / role |
 |---|---|---|
+| **`JonquieresIdentityPointGermAtHalf 0`** | `PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean` | **★★★★ PROVEN UNCONDITIONAL (2026-05-22, commit `f313ceb`)**. THE HISTORIC CLOSURE — first fully unconditional discharge of disc-of-convergence content at this depth. Via analytic Cauchy product on `\|v\| < 2π`. |
+| `BernoulliFnHasSumOnSomeBall` | `PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean` | **PROVEN UNCONDITIONAL (2026-05-22, commit `f313ceb`)** with `R = π`. |
+| `BernoulliCauchyCoefficientsEqualBernoulli` | `PF/Analytic/BernoulliCauchyCoefficientsEqualBernoulliDischarge.lean` (+ closure via `f313ceb`) | **PROVEN UNCONDITIONAL (2026-05-22, commits `5828223` + `f313ceb`)**. |
+| `BernoulliExpHasSumOnBallTwoPi` | `PF/Analytic/BernoulliExpHasSumOnBallTwoPiDischarge.lean` | **PROVEN UNCONDITIONAL (2026-05-22, commit `beb054d`)** via Riemann removable singularity of `v/(eᵛ−1)`. |
+| `BernoulliExpHasSumAtNegLogNhdsHalf` | `PF/Analytic/BernoulliExpHasSumAtNegLogNhdsHalfDischarge.lean` | **PROVEN UNCONDITIONAL (2026-05-22, commit `9e7dd0d`)**. |
 | `ZetaShiftPolyExpBound s` (every integer `s ∈ ℤ`) | `PF/Analytic/ZetaShiftBoundDischarge.lean` (s=0), `ZetaShiftBoundPosNat.lean` (s=N), `ZetaShiftBoundNegNat.lean` (s=-N) | **PROVEN at every integer `s ∈ ℤ` (2026-05-22)**. Commits `c7b3985`, `a60c3c5`, `71ab95f`. Open only at non-integer `s`. |
 | `polyLog (-N) z` rational closed forms (N ∈ {1,2,3,4}) | `PF/Analytic/JonquieresAtNegOneDischarge.lean`, `JonquieresAtNegTwoDischarge.lean`, `JonquieresAtNegThreeDischarge.lean`, `JonquieresAtNegFourDischarge.lean` | **PROVEN (2026-05-22)**. Jonquières-type rational identities for each `N`. |
 | `polyLog 0 z = z/(1-z)`, `polyLog 1 z = -log(1-z)` | `PF/Analytic/JonquieresAtZeroDischarge.lean`, `JonquieresAtOneDischarge.lean`, `JonquieresAtZeroFinalDischarge.lean` | **PROVEN (2026-05-22)**. |
+| polyLog disc-wide capstones at `s ∈ {2, 3, 4}` + Basel | `PF/Analytic/PolyLogAtPosIntDischarge.lean` | **PROVEN (2026-05-22, commit `820d703`)**. |
 | `polyLog_analyticOnNhd_ball` for `s ∈ {-4,...,-1}` | `PF/Analytic/PolyLogAnalyticOnBallNegInt.lean`, `PolyLogAnalyticAtHalfNegInt.lean` | **PROVEN (2026-05-22, commit `a9404a9`)** via rational closed forms. |
 | `discAgreementReduced_at_neg_N_of_germ` for `N ∈ {1,2,3,4}` | (commit `a9404a9`) | **PROVEN (2026-05-22)**. Reduces full disc-agreement at each `s = -N` to one germ-at-`z=1/2` hypothesis. |
-| `JonquieresFrequentAgreementAtHalf s` | `PF/Analytic/GermAtHalfDischarge.lean` | **OPEN at general `s`**; structurally encoded as the single residual germ hypothesis. |
-| `JonquieresExpansionEqualsGeomFrequentlyAtHalf` | `PF/Analytic/JonquieresAtZeroDischarge.lean` | **OPEN** (sharper `s = 0` specialization, *no polyLog reference* — purely classical agreement of two explicit analytic expressions). |
-| `JonquieresExpansionAnalyticOnPuncturedBall` | `PF/Analytic/JonquieresLocalWitness.lean` | **OPEN**. Local analyticity on the punctured ball. |
+| `discAgreementReduced_at_zero_unconditional_on_bernoulli` | `PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean` | **PROVEN (2026-05-22, commit `f313ceb`)**. Disc-wide capstone at `s = 0`: under the inner-disc analyticity gap, the disc-wide Jonquières/polyLog identity holds UNCONDITIONALLY on the Bernoulli/germ side. |
+| `JonquieresFrequentAgreementAtHalf s` | `PF/Analytic/GermAtHalfDischarge.lean` | **OPEN at general `s`**; at `s = 0` superseded by `jonquieresIdentityPointGermAtHalf_zero_proved`. |
+| `JonquieresExpansionEqualsGeomFrequentlyAtHalf` | `PF/Analytic/JonquieresAtZeroDischarge.lean` | **SUPERSEDED at `s = 0`** by the historic discharge (commit `f313ceb`). |
+| `JonquieresExpansionAnalyticOnPuncturedBall s` (at `s = 0`) | `PF/Analytic/JonquieresLocalWitness.lean`, `JonquieresExpansionAnalyticOnPuncturedBallDischarge.lean` (commit `604284c`) | **OPEN at `s = 0` (inner-disc analyticity gap)**. The ONLY residual at `s = 0` after `f313ceb`: a purely geometric / analytic-continuation Prop, conceptually separate from the Bernoulli/germ content closed today. Achievable subdomain analyticity already PROVEN at every integer `s` via `604284c`. |
 | `JonquieresGlobalIdentityHypothesis` | (replaces `PolyLogMonodromyHypothesis` via `PF/Analytic/MonodromyFromJonquieres.lean`) | **OPEN**. Global identity form. |
 | `PolyLogMonodromyHypothesis s` | (via `MonodromyFromJonquieres.lean`) | Reduced to `JonquieresGlobalIdentityHypothesis` (above). |
 | `BookEval018_ShiftBound` (Input 3) | `PF/Analytic/BookEvalBound018.lean` | **STRUCTURALLY FALSE in current Lean** — requires `polyLog_continuation` upgrade. |
@@ -265,19 +281,22 @@ After the 2026-05-22 session, the framework's residual content is concentrated i
 
 `riemann_hypothesis_residual_only` in `PF/Analytic/RHMaxDischarged.lean` exposes only 8 arguments across the 3 bundles (a)/(b)/(c) above. This remains the sharpest stated form of the RH conditional reduction; post-2026-05-22, Bundle (a)'s contribution to those 8 args has shrunk to the two sub-Props `T3SymMercerTail` and `CompactSelfAdjointNatEigenvalueWeylDecay`.
 
-### Net post-2026-05-22 summary
+### Net post-2026-05-22 summary (HISTORIC closure included)
 
-* **P-side residuals**: `JonquieresExpansionEqualsGeomFrequentlyAtHalf`, `JonquieresFrequentAgreementAtHalf s`, `JonquieresExpansionAnalyticOnPuncturedBall`, `JonquieresGlobalIdentityHypothesis` (polylog continuation, mostly at non-integer s); `BookEval018_ShiftBound` (Input 3, structurally false in current Lean); `h_P_spec` (Input 5, operator theory).
+* **P-side residuals at `s = 0`**: only `JonquieresExpansionAnalyticOnPuncturedBall 0` (inner-disc analyticity gap, geometric/analytic-continuation content) — the substantive Bernoulli/germ content is PROVEN.
+* **P-side residuals at other s**: `JonquieresExpansionEqualsGeomFrequentlyAtHalf` and `JonquieresFrequentAgreementAtHalf s` (open at other s; superseded at `s = 0` by `f313ceb`), `JonquieresExpansionAnalyticOnPuncturedBall s` (other s), `JonquieresGlobalIdentityHypothesis` (polylog continuation, mostly at non-integer s); `BookEval018_ShiftBound` (Input 3, structurally false in current Lean); `h_P_spec` (Input 5, operator theory).
 * **RH-side residuals**: `T3SymMercerTail`, `CompactSelfAdjointNatEigenvalueWeylDecay` (Bundle (a) — two sharper sub-Props); Mayer 1991 non-degeneracy (Bundle (b)); surjectivity / Problem 4 (Bundle (c)).
-* **Retired this session (now theorems, not residuals)**:
+* **Retired this session arc (now theorems, not residuals)**:
+  - **★★★★ `JonquieresIdentityPointGermAtHalf 0`** — PROVEN UNCONDITIONAL (commit `f313ceb`, the historic one).
+  - `BernoulliFnHasSumOnSomeBall`, `BernoulliCauchyCoefficientsEqualBernoulli`, `BernoulliExpHasSumOnBallTwoPi`, `BernoulliExpHasSumAtNegLogNhdsHalf` — all PROVEN UNCONDITIONAL.
   - **Mayer 1991 §2 contractivity** → `T3NormSquaredBound_proved` (operator-theoretic core of Bundle (a)).
   - `T3SymCLMSymmetricWitness` → unconditional theorem.
   - `T3LinearStructure` → unconditional theorem.
   - `ZetaShiftPolyExpBound s` at every integer `s ∈ ℤ`.
   - polyLog rational closed forms at every `s ∈ {-4, -3, -2, -1, 0, 1}`.
 
-Build state at this snapshot: **6344 jobs clean, 0 sorries, 0 project axioms**.
+Build state at this snapshot: **6352 jobs clean, 0 sorries, 0 project axioms**.
 
 ---
 
-*Generated 2026-05-20. Updated 2026-05-21 (session — substantial residual reduction). Updated 2026-05-22 (session — RH bundle (a) substantially proven; polyLog integer-s closed forms mechanized).*
+*Generated 2026-05-20. Updated 2026-05-21 (session — substantial residual reduction). Updated 2026-05-22 (session arc — RH bundle (a) substantially proven; polyLog integer-s closed forms mechanized; HISTORIC closure of `JonquieresIdentityPointGermAtHalf 0` via analytic Cauchy product, commit `f313ceb`).*

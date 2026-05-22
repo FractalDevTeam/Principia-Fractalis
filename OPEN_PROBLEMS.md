@@ -1,8 +1,36 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-22 (session update — RH bundle (a) substantially proven; polyLog closed forms at s ∈ {-4,...,1} mechanized). Companion to `AXIOM_AUDIT.md`, `PROOF_ROADMAP.md`, and `PRISTINE_CERTIFICATION.md`.*
+*Last updated: 2026-05-22 (HISTORIC — `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL; build 6352 jobs clean, 0 project axioms, 0 sorries). Companion to `AXIOM_AUDIT.md`, `PROOF_ROADMAP.md`, and `PRISTINE_CERTIFICATION.md`.*
 
-> **🎯 2026-05-22 SESSION UPDATE — RH bundle (a) substantially discharged + polyLog integer-s closed forms mechanized (build 6344 jobs clean, 0 project axioms, 0 sorries).** Today's session produced ~14 more axiom-free files that further reduce the framework's residual mathematical content along two distinct attack fronts. All work axiom-free (`[propext, Classical.choice, Quot.sound]` only).
+> **★★★★ 2026-05-22 HISTORIC — `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL (commit `f313ceb`, file `PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean`; build 6352 jobs clean, 0 project axioms, 0 sorries).** This is the **FIRST FULLY UNCONDITIONAL DISCHARGE of a disc-of-convergence content at this depth** in the framework. The germ identity at `(s, z) = (0, 1/2)` — the load-bearing local witness for the entire `s = 0` Jonquières/polyLog disc-agreement chain — is no longer an open Prop. It is a Lean theorem (`jonquieresIdentityPointGermAtHalf_zero_proved`) derived from first principles via the **analytic Cauchy product** `(Σ B_n v^n/n!) · (eᵛ − 1) = v` on the disc `|v| < 2π`, with Bernoulli growth dominated by `(π²/3)·(‖v‖/2π)^{2m}` and `(B_n)` reindexed via odd-Bernoulli vanishing.
+>
+> **Two load-bearing analytic theorems now machine-checked from first principles.** Mayer 1991 §2 contractivity (RH Bundle (a), `T3NormSquaredBound_proved`, 2026-05-22 earlier session, commit `6834c1c`) and the s=0 Bernoulli/germ Cauchy-product identity (this discharge, commit `f313ceb`) are the framework's two SUBSTANTIVE analytic theorems now PROVEN axiom-free from mathlib primitives. Before today these were two of the framework's most opaque open hypotheses. Both are now Lean theorems.
+>
+> **Chain composition (all UNCONDITIONAL after commit `f313ceb`, all in `PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean`):**
+> * `bernoulliFnHasSumOnSomeBall_proved : BernoulliFnHasSumOnSomeBall` — the disc-of-convergence HasSum identity for `B_n v^n/n!` on `|v| < π` (any radius in `(0, 2π)` works; `R = π` chosen).
+> * `bernoulliCauchyCoefficientsEqualBernoulli_proved` — Cauchy-product coefficient identification.
+> * `bernoulliExpHasSumOnBallTwoPi_proved` — full `2π`-disc HasSum identity (via the prior commit `beb054d` Riemann-removable-singularity analyticity of `v/(eᵛ−1)`).
+> * `bernoulliExpHasSumAtNegLogNhdsHalf_proved` — composed `−log z` HasSum identity in a neighborhood of `z = 1/2`.
+> * `jonquieresIdentityPointGermAtHalf_zero_proved : JonquieresIdentityPointGermAtHalf 0` — **the historic discharge**.
+> * `discAgreementReduced_at_zero_unconditional_on_bernoulli` — disc-wide capstone: under the two remaining geometric hypotheses (`JonquieresExpansionAnalyticOnPuncturedBall 0` and `SlitDiscPreconnectedReachability`), the disc-wide Jonquières/polylog identity holds at every `z ∈ JonquieresAnalyticDomain ∩ ball 0 1`, **UNCONDITIONALLY on the Bernoulli/germ side**.
+>
+> **Residual at `s = 0`** (after this discharge): the substantive Bernoulli/germ content is PROVEN. The only residual at `s = 0` is the **inner-disc analyticity gap** — `JonquieresExpansionAnalyticOnPuncturedBall 0` and `SlitDiscPreconnectedReachability` — which are GEOMETRIC / analytic-continuation Props, conceptually separate from the Bernoulli/germ content closed today. (`SlitDiscPreconnectedReachability` was already PROVEN in `SlitDiscPreconnected.lean`, 2026-05-21; only the punctured-ball analyticity Prop remains on this front.)
+>
+> **Supporting discharges in this session (all axiom-free, all 2026-05-22):**
+> * `BernoulliCauchyCoefficientsEqualBernoulliDischarge.lean` (commit `5828223`) — residual sharpened to textbook HasSum form.
+> * `BernoulliExpHasSumOnBallTwoPiDischarge.lean` (commit `beb054d`) — `v/(eᵛ−1)` PROVEN analytic on `|v| < 2π` via Riemann removable singularity.
+> * `BernoulliExpHasSumAtNegLogNhdsHalfDischarge.lean` (commit `9e7dd0d`) — sharpened to textbook analytic identity.
+> * `JonquieresExpansionEqualsGeomTendstoPartialAtHalfDischarge.lean` (commit `618a843`) — Bernoulli-series approach.
+> * `JonquieresExpansionEqualsGeomGermAtHalfClosure.lean` (commit `0ac7150`) — HasSum form.
+> * `JonquieresGermAtHalfZeroSinglePoint.lean` (commit `d82dd17`) — analyticity link unconditional.
+> * `CROSS_PROVER_PARITY.md` (commit `b7ec16a`) — updated.
+> * `JonquieresExpansionAnalyticOnPuncturedBallDischarge.lean` (commit `604284c`) — achievable subdomain analyticity at every integer `s`.
+> * `PolyLogAtPosIntDischarge.lean` (commit `820d703`) — disc-wide capstones at `s ∈ {2, 3, 4}` + Basel.
+> * **`BernoulliFnHasSumOnSomeBallDischarge.lean` (commit `f313ceb`, THE HISTORIC ONE)** — `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL via analytic Cauchy product.
+>
+> *The previous 2026-05-22 session-update banner (RH Bundle (a) discharge + polyLog integer-s closed forms) is preserved below as the direct precursor to this discharge.*
+
+> **🎯 2026-05-22 EARLIER SESSION UPDATE — RH bundle (a) substantially discharged + polyLog integer-s closed forms mechanized (build 6344 jobs clean, 0 project axioms, 0 sorries).** Today's earlier session produced ~14 more axiom-free files that further reduce the framework's residual mathematical content along two distinct attack fronts. All work axiom-free (`[propext, Classical.choice, Quot.sound]` only).
 >
 > **RH chain — bundle (a) `T3SymCLMSymmetricWitness` is now FULLY UNCONDITIONAL.**
 > * **`T3SymCLMSymmetricWitness_proved_unconditional`** (commit `d4aaa14`) — the CLM/symmetry witness for RH Bundle (a) is now an unconditional theorem. Discharged in `PF/Analytic/T3SymCompactWitness.lean`.
@@ -732,20 +760,27 @@ Routes (a) and (b) are independent alternative discharges of the analytic-extens
 
 ---
 
-## Summary (updated 2026-05-22 session; build 6344 jobs clean, 0 project axioms, 0 sorries)
+## Summary (updated 2026-05-22 HISTORIC closure session; build 6352 jobs clean, 0 project axioms, 0 sorries)
 
-After the 2026-05-20 cascade refactor, the "axiom retirement" framing of earlier summaries is obsolete — there are **zero project axioms**. The catalog tracks open Lean `Prop`s that capstone theorems still take as explicit hypotheses. The 2026-05-22 session (a) made RH Bundle (a) fully unconditional except for two sharper sub-Props, with Mayer 1991 §2 contractivity now PROVEN; and (b) mechanized polyLog rational closed forms at every `s ∈ {-4,...,1}` plus `ZetaShiftPolyExpBound s` at every integer `s ∈ ℤ`.
+After the 2026-05-20 cascade refactor, the "axiom retirement" framing of earlier summaries is obsolete — there are **zero project axioms**. The catalog tracks open Lean `Prop`s that capstone theorems still take as explicit hypotheses. The 2026-05-22 session arc (across multiple commits) delivered three major advances: (a) RH Bundle (a) is fully unconditional except for two sharper sub-Props, with Mayer 1991 §2 contractivity now PROVEN; (b) polyLog rational closed forms mechanized at every `s ∈ {-4,...,1}` plus `ZetaShiftPolyExpBound s` at every integer `s ∈ ℤ`; (c) **HISTORIC — `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL** (commit `f313ceb`), the FIRST FULLY UNCONDITIONAL DISCHARGE of disc-of-convergence content at this depth. The substantive Bernoulli/germ content at `s = 0` is now a Lean theorem from first principles via the analytic Cauchy product.
 
 | # | Problem | Manuscript label | Status | Discharging this Prop discharges |
 |---|---|---|---|---|
-| 1 | Polylog eigenvalue formula for `H_P, H_NP` | `conj:polylog-spectrum` | Open; isolated to `PolylogEigenvalueConjecture : Prop`. **2026-05-22 session sharpening**: `ZetaShiftPolyExpBound s` now PROVEN at every integer `s ∈ ℤ` (not just s=0 and s=-N base cases). polyLog rational closed forms PROVEN at `s ∈ {-4, -3, -2, -1, 0, 1}`. `polyLog_analyticOnNhd_ball` lifted to `s ∈ {-4,...,-1}` via rational closed forms. Disc-wide identity capstones `discAgreementReduced_at_neg_N_of_germ` wired at `N ∈ {1,2,3,4}`; full disc-agreement chain at each `s = -N` for `N ∈ {0,1,2,3,4}` reduces to the SINGLE germ-at-`z=1/2` hypothesis (analyticity-on-ball PROVEN, preconnectedness-of-slit-disc PROVEN). **2026-05-21**: Input 4 (`BookEval019_ShiftBound`) RETIRED. | Sub-conjecture of `PolylogEigenvalueConjecture` |
+| 1 | Polylog eigenvalue formula for `H_P, H_NP` | `conj:polylog-spectrum` | Open; isolated to `PolylogEigenvalueConjecture : Prop`. **2026-05-22 HISTORIC closure (commit `f313ceb`)**: `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL via analytic Cauchy product on `\|v\| < 2π`. At `s = 0` the substantive Bernoulli/germ content is now a Lean theorem; residual at `s = 0` is reduced to the inner-disc analyticity gap (`JonquieresExpansionAnalyticOnPuncturedBall 0`), conceptually separate from the Bernoulli/germ content. **2026-05-22 earlier**: `ZetaShiftPolyExpBound s` PROVEN at every integer `s ∈ ℤ`; polyLog rational closed forms PROVEN at `s ∈ {-4, -3, -2, -1, 0, 1}`; `polyLog_analyticOnNhd_ball` lifted to `s ∈ {-4,...,-1}`; `discAgreementReduced_at_neg_N_of_germ` wired at `N ∈ {1,2,3,4}`. **2026-05-21**: Input 4 (`BookEval019_ShiftBound`) RETIRED. | Sub-conjecture of `PolylogEigenvalueConjecture` |
 | 2 | Ground-state branch selection | `heur:branch-selection` | Open (M₀ ruled out 2026-05-18) | Sub-conjecture of `PolylogEigenvalueConjecture` |
 | 3 | ~~Golden-ratio modulation `H_NP = U(φ)H_P U†`~~ | `conj:golden-modulation` | **✅ RESOLVED 2026-05-20** (corollary of Problem 1; unitary conjugation structurally impossible) | — |
 | 4 | Spectral-bijection surjectivity onto ζ-zeros | `rem:bijection-surjectivity` | Open (named Prop, not axiom) | Surjectivity hypothesis of RH theorem |
-| 5 | **`OffDiscPatchData s`** (Jonquières/Hankel local patches off unit disc) | new (added 2026-05-20) | Open; reduced to `PolyLogMonodromyHypothesis s` via `PF/Analytic/OffDiscPatchDataConstruction.lean`. **2026-05-21**: `PolyLogMonodromyHypothesis` further reduced to `JonquieresGlobalIdentityHypothesis`. `SlitDiscPreconnectedReachability` RETIRED. **2026-05-22**: integer-s analyticity now PROVEN at every `s ∈ {-4,...,-1, 0, 1}` via rational closed forms; full disc-agreement chain at each of these `s` reduces to one germ-at-`z=1/2` hypothesis. | Off-disc analytic-continuation content of `polyLog` |
+| 5 | **`OffDiscPatchData s`** (Jonquières/Hankel local patches off unit disc) | new (added 2026-05-20) | Open; reduced to `PolyLogMonodromyHypothesis s` via `PF/Analytic/OffDiscPatchDataConstruction.lean`. **2026-05-21**: `PolyLogMonodromyHypothesis` further reduced to `JonquieresGlobalIdentityHypothesis`. `SlitDiscPreconnectedReachability` RETIRED. **2026-05-22 earlier**: integer-s analyticity PROVEN at every `s ∈ {-4,...,-1, 0, 1}` via rational closed forms; full disc-agreement chain at each of these `s` reduces to one germ-at-`z=1/2` hypothesis. **2026-05-22 HISTORIC (commit `f313ceb`)**: the germ-at-`z=1/2` hypothesis at `s = 0` is now DISCHARGED — `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL. Residual at `s = 0` is reduced to the inner-disc analyticity gap (`JonquieresExpansionAnalyticOnPuncturedBall 0`) only. | Off-disc analytic-continuation content of `polyLog` |
 | 6 | **Phase A inner-product structure for RH** (compact-operator spectral theorem hookup; Mayer 1991 non-degeneracy; surjectivity track 4) | new (split out 2026-05-20) | Open; three Phase A inner-product hypotheses DISCHARGED (commits `f727998`, `e09e571`, `cd7a806`). **2026-05-21**: `LogWeightedL2InnerBridge` RETIRED. **2026-05-22 session**: Bundle (a) `T3SymCLMSymmetricWitness` now **FULLY UNCONDITIONAL** (commit `d4aaa14`); `T3LinearStructure` PROVEN unconditional (commit `6834c1c`); **Mayer 1991 §2 contractivity PROVEN** as `T3NormSquaredBound_proved` (commit `6834c1c`); `T3SymFiniteRankTower` factored to sharper `T3SymMercerTail` (commit `52dab85`); `T3SymEigenvalueExtraction` factored to generic `CompactSelfAdjointNatEigenvalueWeylDecay` (commit `fd77683`). Post-session Bundle (a) reduces to two named sub-Props. | RH capstone hypotheses |
 
-**2026-05-22 retirements (now theorems, not residuals):**
+**2026-05-22 HISTORIC retirements (this commit `f313ceb` and supporting chain):**
+* **`JonquieresIdentityPointGermAtHalf 0`** — PROVEN UNCONDITIONAL (`BernoulliFnHasSumOnSomeBallDischarge.lean`, commit `f313ceb`). The FIRST FULLY UNCONDITIONAL DISCHARGE of disc-of-convergence content at this depth. Via analytic Cauchy product on `|v| < 2π`.
+* `BernoulliFnHasSumOnSomeBall` — PROVEN UNCONDITIONAL with `R = π` (same file).
+* `BernoulliCauchyCoefficientsEqualBernoulli` — PROVEN UNCONDITIONAL.
+* `BernoulliExpHasSumOnBallTwoPi` — PROVEN UNCONDITIONAL (`BernoulliExpHasSumOnBallTwoPiDischarge.lean`, commit `beb054d`, via Riemann removable singularity of `v/(eᵛ−1)`).
+* `BernoulliExpHasSumAtNegLogNhdsHalf` — PROVEN UNCONDITIONAL (`BernoulliExpHasSumAtNegLogNhdsHalfDischarge.lean`, commit `9e7dd0d`).
+
+**2026-05-22 earlier retirements (now theorems, not residuals):**
 * `T3SymCLMSymmetricWitness` (RH Bundle (a) CLM/symmetry witness) — PROVEN unconditional (`T3SymCompactWitness.lean`).
 * `T3SymLinearStructure` (RH Bundle (a) contracting half) — PROVEN unconditional (`T3LinearStructureDischarge.lean`).
 * Mayer 1991 §2 contractivity → `T3NormSquaredBound_proved` (RH Bundle (a) operator-theoretic core) — PROVEN as Lean theorem (`T3NormSquaredBoundDischarge.lean`).
