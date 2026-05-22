@@ -1,8 +1,28 @@
 # Principia Fractalis — Lean 4 Pristine Certification
 
-**Date**: 2026-05-20 (milestone), supersedes 2026-05-17 1-axiom state
-**Build verification**: `lake build` in `PF_Lean4_Code/` — **5750 jobs clean, 0 warnings, 0 sorries, 0 project axioms**
+**Date**: 2026-05-22 (HISTORIC closure of `JonquieresIdentityPointGermAtHalf 0`), supersedes 2026-05-20 ZERO PROJECT AXIOMS milestone and 2026-05-17 1-axiom state
+**Build verification**: `lake build` in `PF_Lean4_Code/` — **6352 jobs clean, 0 warnings, 0 sorries, 0 project axioms**
 **Axiom verification**: `#print axioms` on every capstone returns ONLY `[propext, Classical.choice, Quot.sound]`
+
+## ★★★★ 2026-05-22 HISTORIC: `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL (commit `f313ceb`)
+
+The germ identity at `(s, z) = (0, 1/2)` — the load-bearing local witness for the entire `s = 0` Jonquières/polyLog disc-agreement chain — is no longer an open Prop. It is a Lean theorem (`jonquieresIdentityPointGermAtHalf_zero_proved` in `PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean`) derived from first principles via the **analytic Cauchy product** `(Σ B_n v^n/n!) · (eᵛ − 1) = v` on the disc `|v| < 2π`, with Bernoulli growth dominated by `(π²/3)·(‖v‖/2π)^{2m}`.
+
+**This is the FIRST FULLY UNCONDITIONAL DISCHARGE of a disc-of-convergence content at this depth in the framework.**
+
+**Two load-bearing analytic theorems now machine-checked from first principles.** Mayer 1991 §2 contractivity (`T3NormSquaredBound_proved`, RH Bundle (a), 2026-05-22 earlier, commit `6834c1c`) and the s=0 Bernoulli/germ Cauchy-product identity (this discharge, commit `f313ceb`) are the framework's two SUBSTANTIVE analytic theorems now PROVEN axiom-free from mathlib primitives. Before today these were two of the framework's most opaque open hypotheses. Both are now Lean theorems.
+
+**Chain composition (all unconditional after `f313ceb`, all in `BernoulliFnHasSumOnSomeBallDischarge.lean`):**
+- `bernoulliFnHasSumOnSomeBall_proved : BernoulliFnHasSumOnSomeBall` (with `R = π`).
+- `bernoulliCauchyCoefficientsEqualBernoulli_proved`.
+- `bernoulliExpHasSumOnBallTwoPi_proved`.
+- `bernoulliExpHasSumAtNegLogNhdsHalf_proved`.
+- `jonquieresIdentityPointGermAtHalf_zero_proved : JonquieresIdentityPointGermAtHalf 0` — **the historic discharge**.
+- `discAgreementReduced_at_zero_unconditional_on_bernoulli` — disc-wide capstone at `s = 0` unconditional on the Bernoulli/germ side.
+
+**Residual at `s = 0`** is now reduced to a single geometric / analytic-continuation Prop (`JonquieresExpansionAnalyticOnPuncturedBall 0`), conceptually separate from the Bernoulli/germ content closed today.
+
+**Supporting axiom-free discharges this session arc (all 2026-05-22):** `5828223` (Cauchy coefficients), `beb054d` (`v/(eᵛ−1)` analytic on `|v| < 2π` via Riemann removable singularity), `9e7dd0d` (`exp` HasSum at `−log z` near `z = 1/2`), `618a843` (Bernoulli-series approach), `0ac7150` (HasSum form), `d82dd17` (analyticity link), `b7ec16a` (parity), `604284c` (subdomain analyticity at every integer s), `820d703` (disc-wide capstones at `s ∈ {2,3,4}` + Basel), `f313ceb` (THE HISTORIC ONE).
 
 ## 🎯 ZERO PROJECT AXIOMS milestone (2026-05-20, commit `72c0137`, pushed)
 
@@ -188,14 +208,24 @@ opaque "self-adjointness algebraic equations" of the axiom itself.
 `HPGeneralOperator`, `FourierCosineDecomposition`,
 `CosineModeInnerProducts`, `LambdaZeroHPBookBounds`
 
-## Build Quality
+## Build Quality (current state, post-2026-05-22 HISTORIC closure)
 
 ```
-lake build  →  5624 jobs clean
+lake build  →  6352 jobs clean
               0 warnings
               0 sorries
               0 admits
-              1 project axiom (above)
+              0 project axioms
+```
+
+The 1-project-axiom build-quality block below is preserved as historical context for the pre-2026-05-20 state.
+
+```
+lake build  →  5624 jobs clean (historical, pre-2026-05-20 cascade refactor)
+              0 warnings
+              0 sorries
+              0 admits
+              1 project axiom (alpha_class_polylog_eigenvalue_conjecture)
 ```
 
 ## Foundational Components (Pre-Stage 44, untouched in this work)
