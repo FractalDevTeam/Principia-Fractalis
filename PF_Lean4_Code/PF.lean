@@ -73,6 +73,7 @@ import PF.Analytic.HankelUpperEdgeDCTUnified      -- Stage L4 — UPPER-EDGE DCT
 import PF.Analytic.HankelLowerEdgeDCTUnified      -- Stage L4 — LOWER-EDGE DCT UNIFIED + UNIFIED CAUCHY CAPSTONE
 import PF.Analytic.SStarBridge                    -- Stage L4 — s_star NUMERICAL BRIDGE: IVT-based existence framework
 import PF.Analytic.BookEvaluationContinuity       -- Stage L4 — bookEvaluation continuity: monodromy-shift component
+import PF.Analytic.BookEval019Discharge           -- Stage L4 — UNCONDITIONAL discharge of BookEval019_ShiftBound (axiom-free)
 import PF.Analytic.ZBookNeOne                     -- Stage L4 — z_book ≠ 1 via √2 irrationality + unconditional monodromy continuity
 import PF.Analytic.PolyLogContinuity              -- Stage L4 — polylog termwise continuity + path to analytic continuation
 import PF.Analytic.PolyLogContinuityInDisc        -- Stage L4 — polylog continuity for |z| < 1 via Weierstrass M-test
