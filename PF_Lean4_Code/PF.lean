@@ -67,6 +67,7 @@ import PF.Analytic.JonquieresAtNegFourDischarge  -- Stage L22 — Frequent agree
 import PF.Analytic.PolyLogAnalyticAtHalfNegInt   -- Stage L21 — polyLog (-1) and polyLog (-2) analytic at z = 1/2 (bypasses 0 ≤ Re s); germ-equality reductions at s = -1, -2
 import PF.Analytic.JonquieresGermAtHalfZeroSinglePoint  -- Stage L22 — polylog-free germ residual at (s, z) = (0, 1/2); unconditional analyticity + reduction theorems
 import PF.Analytic.JonquieresExpansionEqualsGeomGermAtHalfClosure  -- Stage L23 — closure-path reductions: HasSum / single-point sharpenings of the polylog-free germ residual at (0, 1/2)
+import PF.Analytic.JonquieresExpansionEqualsGeomTendstoPartialAtHalfDischarge  -- Stage L24 — Bernoulli generating-function discharge: analytic Bernoulli identity ⟹ partial-sum HasSum residual at (0, 1/2)
 import PF.Analytic.PolyLogAnalyticOnBallNegInt   -- Stage L22 — polyLog (-N) analytic on FULL ball 0 1 for N ∈ {1,2,3,4}; full disc-agreement capstones at s ∈ {-1,-2,-3,-4}
 import PF.Analytic.Monodromy          -- Stage L4 — Riemann sheet monodromy
 import PF.Analytic.EigenvalueIdentity  -- Stage L4 — book's final eigenvalue identity (statement)
