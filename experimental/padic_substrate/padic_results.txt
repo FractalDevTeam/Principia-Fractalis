@@ -1,0 +1,971 @@
+========================================================================
+p-adic substrate test for Principia Fractalis
+========================================================================
+
+########################################################################
+# Depth k = 4  (81 x 81 matrices)
+########################################################################
+
+=== alpha=1.414214, a=1.414214, target=pi/(10*alpha)=0.222144 (alpha=sqrt(2), a=sqrt(2)) ===
+
+--- A. ultrametric  alpha=sqrt(2), a=sqrt(2), k=4 ---
+  matrix size: 81, target: 0.222144
+  spectral range: [-0.081163, 0.411084]
+  top 20 |lambda|:
+     1: lambda = +0.41108364   |gap to target| = 0.188939
+     2: lambda = +0.41108364   |gap to target| = 0.188939
+     3: lambda = +0.26608472   |gap to target| = 0.043941
+     4: lambda = +0.26608472   |gap to target| = 0.043941
+     5: lambda = +0.26608472   |gap to target| = 0.043941
+     6: lambda = +0.26608472   |gap to target| = 0.043941
+     7: lambda = +0.26608472   |gap to target| = 0.043941
+     8: lambda = +0.26608472   |gap to target| = 0.043941
+     9: lambda = -0.08116309   |gap to target| = 0.140981
+    10: lambda = +0.04037372   |gap to target| = 0.181770
+    11: lambda = +0.04037372   |gap to target| = 0.181770
+    12: lambda = +0.04037372   |gap to target| = 0.181770
+    13: lambda = +0.04037372   |gap to target| = 0.181770
+    14: lambda = +0.04037372   |gap to target| = 0.181770
+    15: lambda = +0.04037372   |gap to target| = 0.181770
+    16: lambda = +0.04037372   |gap to target| = 0.181770
+    17: lambda = +0.04037372   |gap to target| = 0.181770
+    18: lambda = +0.04037372   |gap to target| = 0.181770
+    19: lambda = +0.04037372   |gap to target| = 0.181770
+    20: lambda = +0.04037372   |gap to target| = 0.181770
+  closest |lambda| to target: 0.26608472  (gap = 0.043941)
+
+--- B. log distance alpha=sqrt(2), a=sqrt(2), k=4 ---
+  matrix size: 81, target: 0.222144
+  spectral range: [-1.089068, 2.322788]
+  top 20 |lambda|:
+     1: lambda = +2.32278803   |gap to target| = 2.100644
+     2: lambda = -1.08906790   |gap to target| = 0.866924
+     3: lambda = -1.08906790   |gap to target| = 0.866924
+     4: lambda = +0.21229965   |gap to target| = 0.009844
+     5: lambda = +0.21229965   |gap to target| = 0.009844
+     6: lambda = +0.21229965   |gap to target| = 0.009844
+     7: lambda = +0.21229965   |gap to target| = 0.009844
+     8: lambda = +0.21229965   |gap to target| = 0.009844
+     9: lambda = +0.21229965   |gap to target| = 0.009844
+    10: lambda = +0.03601848   |gap to target| = 0.186126
+    11: lambda = +0.03601848   |gap to target| = 0.186126
+    12: lambda = +0.03601848   |gap to target| = 0.186126
+    13: lambda = +0.03601848   |gap to target| = 0.186126
+    14: lambda = +0.03601848   |gap to target| = 0.186126
+    15: lambda = +0.03601848   |gap to target| = 0.186126
+    16: lambda = +0.03601848   |gap to target| = 0.186126
+    17: lambda = +0.03601848   |gap to target| = 0.186126
+    18: lambda = +0.03601848   |gap to target| = 0.186126
+    19: lambda = +0.03601848   |gap to target| = 0.186126
+    20: lambda = +0.03601848   |gap to target| = 0.186126
+  closest |lambda| to target: 0.21229965  (gap = 0.009844)
+
+--- C. D3-phase     alpha=sqrt(2), a=sqrt(2), k=4 ---
+  matrix size: 81, target: 0.222144
+  spectral range: [-0.081163, 0.411084]
+  top 20 |lambda|:
+     1: lambda = +0.41108364   |gap to target| = 0.188939
+     2: lambda = +0.41108364   |gap to target| = 0.188939
+     3: lambda = +0.26608472   |gap to target| = 0.043941
+     4: lambda = +0.26608472   |gap to target| = 0.043941
+     5: lambda = +0.26608472   |gap to target| = 0.043941
+     6: lambda = +0.26608472   |gap to target| = 0.043941
+     7: lambda = +0.26608472   |gap to target| = 0.043941
+     8: lambda = +0.26608472   |gap to target| = 0.043941
+     9: lambda = -0.08116309   |gap to target| = 0.140981
+    10: lambda = +0.04037372   |gap to target| = 0.181770
+    11: lambda = +0.04037372   |gap to target| = 0.181770
+    12: lambda = +0.04037372   |gap to target| = 0.181770
+    13: lambda = +0.04037372   |gap to target| = 0.181770
+    14: lambda = +0.04037372   |gap to target| = 0.181770
+    15: lambda = +0.04037372   |gap to target| = 0.181770
+    16: lambda = +0.04037372   |gap to target| = 0.181770
+    17: lambda = +0.04037372   |gap to target| = 0.181770
+    18: lambda = +0.04037372   |gap to target| = 0.181770
+    19: lambda = +0.04037372   |gap to target| = 0.181770
+    20: lambda = +0.04037372   |gap to target| = 0.181770
+  closest |lambda| to target: 0.26608472  (gap = 0.043941)
+
+=== alpha=1.414214, a=3.000000, target=pi/(10*alpha)=0.222144 (alpha=sqrt(2), a=3 (base-3 ladder)) ===
+
+--- A. ultrametric  alpha=sqrt(2), a=3 (base-3 ladder), k=4 ---
+  matrix size: 81, target: 0.222144
+  spectral range: [-0.411710, 0.582157]
+  top 20 |lambda|:
+     1: lambda = +0.58215737   |gap to target| = 0.360013
+     2: lambda = +0.58215737   |gap to target| = 0.360013
+     3: lambda = -0.41170981   |gap to target| = 0.189566
+     4: lambda = +0.10581416   |gap to target| = 0.116330
+     5: lambda = +0.10581416   |gap to target| = 0.116330
+     6: lambda = +0.10581416   |gap to target| = 0.116330
+     7: lambda = +0.10581416   |gap to target| = 0.116330
+     8: lambda = +0.10581416   |gap to target| = 0.116330
+     9: lambda = +0.10581416   |gap to target| = 0.116330
+    10: lambda = +0.00552307   |gap to target| = 0.216621
+    11: lambda = +0.00552307   |gap to target| = 0.216621
+    12: lambda = +0.00552307   |gap to target| = 0.216621
+    13: lambda = +0.00552307   |gap to target| = 0.216621
+    14: lambda = +0.00552307   |gap to target| = 0.216621
+    15: lambda = +0.00552307   |gap to target| = 0.216621
+    16: lambda = +0.00552307   |gap to target| = 0.216621
+    17: lambda = +0.00552307   |gap to target| = 0.216621
+    18: lambda = +0.00552307   |gap to target| = 0.216621
+    19: lambda = +0.00552307   |gap to target| = 0.216621
+    20: lambda = +0.00552307   |gap to target| = 0.216621
+  closest |lambda| to target: 0.10581416  (gap = 0.116330)
+
+--- B. log distance alpha=sqrt(2), a=3 (base-3 ladder), k=4 ---
+  matrix size: 81, target: 0.222144
+  spectral range: [-0.654783, 0.845217]
+  top 20 |lambda|:
+     1: lambda = +0.84521687   |gap to target| = 0.623073
+     2: lambda = -0.65478313   |gap to target| = 0.432639
+     3: lambda = -0.65478313   |gap to target| = 0.432639
+     4: lambda = +0.17650593   |gap to target| = 0.045638
+     5: lambda = +0.17650593   |gap to target| = 0.045638
+     6: lambda = +0.17650593   |gap to target| = 0.045638
+     7: lambda = +0.17650593   |gap to target| = 0.045638
+     8: lambda = +0.17650593   |gap to target| = 0.045638
+     9: lambda = +0.17650593   |gap to target| = 0.045638
+    10: lambda = -0.02880836   |gap to target| = 0.193336
+    11: lambda = -0.02880836   |gap to target| = 0.193336
+    12: lambda = -0.02880836   |gap to target| = 0.193336
+    13: lambda = -0.02880836   |gap to target| = 0.193336
+    14: lambda = -0.02880836   |gap to target| = 0.193336
+    15: lambda = -0.02880836   |gap to target| = 0.193336
+    16: lambda = -0.02880836   |gap to target| = 0.193336
+    17: lambda = -0.02880836   |gap to target| = 0.193336
+    18: lambda = -0.02880836   |gap to target| = 0.193336
+    19: lambda = -0.02880836   |gap to target| = 0.193336
+    20: lambda = -0.02880836   |gap to target| = 0.193336
+  closest |lambda| to target: 0.17650593  (gap = 0.045638)
+
+--- C. D3-phase     alpha=sqrt(2), a=3 (base-3 ladder), k=4 ---
+  matrix size: 81, target: 0.222144
+  spectral range: [-0.411710, 0.582157]
+  top 20 |lambda|:
+     1: lambda = +0.58215737   |gap to target| = 0.360013
+     2: lambda = +0.58215737   |gap to target| = 0.360013
+     3: lambda = -0.41170981   |gap to target| = 0.189566
+     4: lambda = +0.10581416   |gap to target| = 0.116330
+     5: lambda = +0.10581416   |gap to target| = 0.116330
+     6: lambda = +0.10581416   |gap to target| = 0.116330
+     7: lambda = +0.10581416   |gap to target| = 0.116330
+     8: lambda = +0.10581416   |gap to target| = 0.116330
+     9: lambda = +0.10581416   |gap to target| = 0.116330
+    10: lambda = +0.00552307   |gap to target| = 0.216621
+    11: lambda = +0.00552307   |gap to target| = 0.216621
+    12: lambda = +0.00552307   |gap to target| = 0.216621
+    13: lambda = +0.00552307   |gap to target| = 0.216621
+    14: lambda = +0.00552307   |gap to target| = 0.216621
+    15: lambda = +0.00552307   |gap to target| = 0.216621
+    16: lambda = +0.00552307   |gap to target| = 0.216621
+    17: lambda = +0.00552307   |gap to target| = 0.216621
+    18: lambda = +0.00552307   |gap to target| = 0.216621
+    19: lambda = +0.00552307   |gap to target| = 0.216621
+    20: lambda = +0.00552307   |gap to target| = 0.216621
+  closest |lambda| to target: 0.10581416  (gap = 0.116330)
+
+=== alpha=1.500000, a=1.500000, target=pi/(10*alpha)=0.209440 (alpha=3/2, a=3/2) ===
+
+--- A. ultrametric  alpha=3/2, a=3/2, k=4 ---
+  matrix size: 81, target: 0.209440
+  spectral range: [-0.426744, 0.578196]
+  top 20 |lambda|:
+     1: lambda = +0.57819608   |gap to target| = 0.368757
+     2: lambda = +0.57819608   |gap to target| = 0.368757
+     3: lambda = -0.42674424   |gap to target| = 0.217305
+     4: lambda = +0.22621052   |gap to target| = 0.016771
+     5: lambda = +0.22621052   |gap to target| = 0.016771
+     6: lambda = +0.22621052   |gap to target| = 0.016771
+     7: lambda = +0.22621052   |gap to target| = 0.016771
+     8: lambda = +0.22621052   |gap to target| = 0.016771
+     9: lambda = +0.22621052   |gap to target| = 0.016771
+    10: lambda = +0.03401561   |gap to target| = 0.175424
+    11: lambda = +0.03401561   |gap to target| = 0.175424
+    12: lambda = +0.03401561   |gap to target| = 0.175424
+    13: lambda = +0.03401561   |gap to target| = 0.175424
+    14: lambda = +0.03401561   |gap to target| = 0.175424
+    15: lambda = +0.03401561   |gap to target| = 0.175424
+    16: lambda = +0.03401561   |gap to target| = 0.175424
+    17: lambda = +0.03401561   |gap to target| = 0.175424
+    18: lambda = +0.03401561   |gap to target| = 0.175424
+    19: lambda = +0.03401561   |gap to target| = 0.175424
+    20: lambda = +0.03401561   |gap to target| = 0.175424
+  closest |lambda| to target: 0.22621052  (gap = 0.016771)
+
+--- B. log distance alpha=3/2, a=3/2, k=4 ---
+  matrix size: 81, target: 0.209440
+  spectral range: [-1.210906, 1.788493]
+  top 20 |lambda|:
+     1: lambda = +1.78849287   |gap to target| = 1.579053
+     2: lambda = -1.21090568   |gap to target| = 1.001466
+     3: lambda = -1.21090568   |gap to target| = 1.001466
+     4: lambda = +0.12387395   |gap to target| = 0.085566
+     5: lambda = +0.12387395   |gap to target| = 0.085566
+     6: lambda = +0.12387395   |gap to target| = 0.085566
+     7: lambda = +0.12387395   |gap to target| = 0.085566
+     8: lambda = +0.12387395   |gap to target| = 0.085566
+     9: lambda = +0.12387395   |gap to target| = 0.085566
+    10: lambda = +0.05350938   |gap to target| = 0.155930
+    11: lambda = +0.05350938   |gap to target| = 0.155930
+    12: lambda = +0.05350938   |gap to target| = 0.155930
+    13: lambda = +0.05350938   |gap to target| = 0.155930
+    14: lambda = +0.05350938   |gap to target| = 0.155930
+    15: lambda = +0.05350938   |gap to target| = 0.155930
+    16: lambda = +0.05350938   |gap to target| = 0.155930
+    17: lambda = +0.05350938   |gap to target| = 0.155930
+    18: lambda = +0.05350938   |gap to target| = 0.155930
+    19: lambda = +0.05350938   |gap to target| = 0.155930
+    20: lambda = +0.05350938   |gap to target| = 0.155930
+  closest |lambda| to target: 0.12387395  (gap = 0.085566)
+
+--- C. D3-phase     alpha=3/2, a=3/2, k=4 ---
+  matrix size: 81, target: 0.209440
+  spectral range: [-0.426744, 0.578196]
+  top 20 |lambda|:
+     1: lambda = +0.57819608   |gap to target| = 0.368757
+     2: lambda = +0.57819608   |gap to target| = 0.368757
+     3: lambda = -0.42674424   |gap to target| = 0.217305
+     4: lambda = +0.22621052   |gap to target| = 0.016771
+     5: lambda = +0.22621052   |gap to target| = 0.016771
+     6: lambda = +0.22621052   |gap to target| = 0.016771
+     7: lambda = +0.22621052   |gap to target| = 0.016771
+     8: lambda = +0.22621052   |gap to target| = 0.016771
+     9: lambda = +0.22621052   |gap to target| = 0.016771
+    10: lambda = +0.03401561   |gap to target| = 0.175424
+    11: lambda = +0.03401561   |gap to target| = 0.175424
+    12: lambda = +0.03401561   |gap to target| = 0.175424
+    13: lambda = +0.03401561   |gap to target| = 0.175424
+    14: lambda = +0.03401561   |gap to target| = 0.175424
+    15: lambda = +0.03401561   |gap to target| = 0.175424
+    16: lambda = +0.03401561   |gap to target| = 0.175424
+    17: lambda = +0.03401561   |gap to target| = 0.175424
+    18: lambda = +0.03401561   |gap to target| = 0.175424
+    19: lambda = +0.03401561   |gap to target| = 0.175424
+    20: lambda = +0.03401561   |gap to target| = 0.175424
+  closest |lambda| to target: 0.22621052  (gap = 0.016771)
+
+=== alpha=1.500000, a=3.000000, target=pi/(10*alpha)=0.209440 (alpha=3/2, a=3) ===
+
+--- A. ultrametric  alpha=3/2, a=3, k=4 ---
+  matrix size: 81, target: 0.209440
+  spectral range: [-0.391465, 0.555879]
+  top 20 |lambda|:
+     1: lambda = +0.55587914   |gap to target| = 0.346440
+     2: lambda = +0.55587914   |gap to target| = 0.346440
+     3: lambda = -0.39146477   |gap to target| = 0.182025
+     4: lambda = +0.10844696   |gap to target| = 0.100993
+     5: lambda = +0.10844696   |gap to target| = 0.100993
+     6: lambda = +0.10844696   |gap to target| = 0.100993
+     7: lambda = +0.10844696   |gap to target| = 0.100993
+     8: lambda = +0.10844696   |gap to target| = 0.100993
+     9: lambda = +0.10844696   |gap to target| = 0.100993
+    10: lambda = +0.00627621   |gap to target| = 0.203163
+    11: lambda = +0.00627621   |gap to target| = 0.203163
+    12: lambda = +0.00627621   |gap to target| = 0.203163
+    13: lambda = +0.00627621   |gap to target| = 0.203163
+    14: lambda = +0.00627621   |gap to target| = 0.203163
+    15: lambda = +0.00627621   |gap to target| = 0.203163
+    16: lambda = +0.00627621   |gap to target| = 0.203163
+    17: lambda = +0.00627621   |gap to target| = 0.203163
+    18: lambda = +0.00627621   |gap to target| = 0.203163
+    19: lambda = +0.00627621   |gap to target| = 0.203163
+    20: lambda = +0.00627621   |gap to target| = 0.203163
+  closest |lambda| to target: 0.10844696  (gap = 0.100993)
+
+--- B. log distance alpha=3/2, a=3, k=4 ---
+  matrix size: 81, target: 0.209440
+  spectral range: [-0.670132, 0.829868]
+  top 20 |lambda|:
+     1: lambda = +0.82986822   |gap to target| = 0.620429
+     2: lambda = -0.67013178   |gap to target| = 0.460692
+     3: lambda = -0.67013178   |gap to target| = 0.460692
+     4: lambda = +0.14564953   |gap to target| = 0.063790
+     5: lambda = +0.14564953   |gap to target| = 0.063790
+     6: lambda = +0.14564953   |gap to target| = 0.063790
+     7: lambda = +0.14564953   |gap to target| = 0.063790
+     8: lambda = +0.14564953   |gap to target| = 0.063790
+     9: lambda = +0.14564953   |gap to target| = 0.063790
+    10: lambda = -0.03156939   |gap to target| = 0.177870
+    11: lambda = -0.03156939   |gap to target| = 0.177870
+    12: lambda = -0.03156939   |gap to target| = 0.177870
+    13: lambda = -0.03156939   |gap to target| = 0.177870
+    14: lambda = -0.03156939   |gap to target| = 0.177870
+    15: lambda = -0.03156939   |gap to target| = 0.177870
+    16: lambda = -0.03156939   |gap to target| = 0.177870
+    17: lambda = -0.03156939   |gap to target| = 0.177870
+    18: lambda = -0.03156939   |gap to target| = 0.177870
+    19: lambda = -0.03156939   |gap to target| = 0.177870
+    20: lambda = -0.03156939   |gap to target| = 0.177870
+  closest |lambda| to target: 0.14564953  (gap = 0.063790)
+
+--- C. D3-phase     alpha=3/2, a=3, k=4 ---
+  matrix size: 81, target: 0.209440
+  spectral range: [-0.391465, 0.555879]
+  top 20 |lambda|:
+     1: lambda = +0.55587914   |gap to target| = 0.346440
+     2: lambda = +0.55587914   |gap to target| = 0.346440
+     3: lambda = -0.39146477   |gap to target| = 0.182025
+     4: lambda = +0.10844696   |gap to target| = 0.100993
+     5: lambda = +0.10844696   |gap to target| = 0.100993
+     6: lambda = +0.10844696   |gap to target| = 0.100993
+     7: lambda = +0.10844696   |gap to target| = 0.100993
+     8: lambda = +0.10844696   |gap to target| = 0.100993
+     9: lambda = +0.10844696   |gap to target| = 0.100993
+    10: lambda = +0.00627621   |gap to target| = 0.203163
+    11: lambda = +0.00627621   |gap to target| = 0.203163
+    12: lambda = +0.00627621   |gap to target| = 0.203163
+    13: lambda = +0.00627621   |gap to target| = 0.203163
+    14: lambda = +0.00627621   |gap to target| = 0.203163
+    15: lambda = +0.00627621   |gap to target| = 0.203163
+    16: lambda = +0.00627621   |gap to target| = 0.203163
+    17: lambda = +0.00627621   |gap to target| = 0.203163
+    18: lambda = +0.00627621   |gap to target| = 0.203163
+    19: lambda = +0.00627621   |gap to target| = 0.203163
+    20: lambda = +0.00627621   |gap to target| = 0.203163
+  closest |lambda| to target: 0.10844696  (gap = 0.100993)
+
+=== alpha=2.000000, a=2.000000, target=pi/(10*alpha)=0.157080 (alpha=2, a=2) ===
+
+--- A. ultrametric  alpha=2, a=2, k=4 ---
+  matrix size: 81, target: 0.157080
+  spectral range: [0.003285, 0.163267]
+  top 20 |lambda|:
+     1: lambda = +0.16326708   |gap to target| = 0.006187
+     2: lambda = +0.16326708   |gap to target| = 0.006187
+     3: lambda = +0.16326660   |gap to target| = 0.006187
+     4: lambda = +0.16326660   |gap to target| = 0.006187
+     5: lambda = +0.16326660   |gap to target| = 0.006187
+     6: lambda = +0.16326660   |gap to target| = 0.006187
+     7: lambda = +0.16326660   |gap to target| = 0.006187
+     8: lambda = +0.16326660   |gap to target| = 0.006187
+     9: lambda = +0.16326613   |gap to target| = 0.006186
+    10: lambda = +0.01962171   |gap to target| = 0.137458
+    11: lambda = +0.01962171   |gap to target| = 0.137458
+    12: lambda = +0.01962171   |gap to target| = 0.137458
+    13: lambda = +0.01962171   |gap to target| = 0.137458
+    14: lambda = +0.01962171   |gap to target| = 0.137458
+    15: lambda = +0.01962171   |gap to target| = 0.137458
+    16: lambda = +0.01962171   |gap to target| = 0.137458
+    17: lambda = +0.01962171   |gap to target| = 0.137458
+    18: lambda = +0.01962171   |gap to target| = 0.137458
+    19: lambda = +0.01962171   |gap to target| = 0.137458
+    20: lambda = +0.01962171   |gap to target| = 0.137458
+  closest |lambda| to target: 0.16326613  (gap = 0.006186)
+
+--- B. log distance alpha=2, a=2, k=4 ---
+  matrix size: 81, target: 0.157080
+  spectral range: [-0.493827, 1.506172]
+  top 20 |lambda|:
+     1: lambda = +1.50617189   |gap to target| = 1.349092
+     2: lambda = -0.49382716   |gap to target| = 0.336748
+     3: lambda = -0.49382716   |gap to target| = 0.336748
+     4: lambda = +0.17283951   |gap to target| = 0.015760
+     5: lambda = +0.17283951   |gap to target| = 0.015760
+     6: lambda = +0.17283951   |gap to target| = 0.015760
+     7: lambda = +0.17283951   |gap to target| = 0.015760
+     8: lambda = +0.17283951   |gap to target| = 0.015760
+     9: lambda = +0.17283951   |gap to target| = 0.015760
+    10: lambda = -0.04938272   |gap to target| = 0.107697
+    11: lambda = -0.04938272   |gap to target| = 0.107697
+    12: lambda = -0.04938272   |gap to target| = 0.107697
+    13: lambda = -0.04938272   |gap to target| = 0.107697
+    14: lambda = -0.04938272   |gap to target| = 0.107697
+    15: lambda = -0.04938272   |gap to target| = 0.107697
+    16: lambda = -0.04938272   |gap to target| = 0.107697
+    17: lambda = -0.04938272   |gap to target| = 0.107697
+    18: lambda = -0.04938272   |gap to target| = 0.107697
+    19: lambda = -0.04938272   |gap to target| = 0.107697
+    20: lambda = -0.04938272   |gap to target| = 0.107697
+  closest |lambda| to target: 0.17283951  (gap = 0.015760)
+
+--- C. D3-phase     alpha=2, a=2, k=4 ---
+  matrix size: 81, target: 0.157080
+  spectral range: [0.003285, 0.163267]
+  top 20 |lambda|:
+     1: lambda = +0.16326708   |gap to target| = 0.006187
+     2: lambda = +0.16326708   |gap to target| = 0.006187
+     3: lambda = +0.16326660   |gap to target| = 0.006187
+     4: lambda = +0.16326660   |gap to target| = 0.006187
+     5: lambda = +0.16326660   |gap to target| = 0.006187
+     6: lambda = +0.16326660   |gap to target| = 0.006187
+     7: lambda = +0.16326660   |gap to target| = 0.006187
+     8: lambda = +0.16326660   |gap to target| = 0.006187
+     9: lambda = +0.16326613   |gap to target| = 0.006186
+    10: lambda = +0.01962171   |gap to target| = 0.137458
+    11: lambda = +0.01962171   |gap to target| = 0.137458
+    12: lambda = +0.01962171   |gap to target| = 0.137458
+    13: lambda = +0.01962171   |gap to target| = 0.137458
+    14: lambda = +0.01962171   |gap to target| = 0.137458
+    15: lambda = +0.01962171   |gap to target| = 0.137458
+    16: lambda = +0.01962171   |gap to target| = 0.137458
+    17: lambda = +0.01962171   |gap to target| = 0.137458
+    18: lambda = +0.01962171   |gap to target| = 0.137458
+    19: lambda = +0.01962171   |gap to target| = 0.137458
+    20: lambda = +0.01962171   |gap to target| = 0.137458
+  closest |lambda| to target: 0.16326613  (gap = 0.006186)
+
+=== alpha=2.000000, a=3.000000, target=pi/(10*alpha)=0.157080 (alpha=2, a=3) ===
+
+--- A. ultrametric  alpha=2, a=3, k=4 ---
+  matrix size: 81, target: 0.157080
+  spectral range: [-0.135840, 0.364160]
+  top 20 |lambda|:
+     1: lambda = +0.36415995   |gap to target| = 0.207080
+     2: lambda = +0.36415995   |gap to target| = 0.207080
+     3: lambda = -0.13584005   |gap to target| = 0.021240
+     4: lambda = +0.11415995   |gap to target| = 0.042920
+     5: lambda = +0.11415995   |gap to target| = 0.042920
+     6: lambda = +0.11415995   |gap to target| = 0.042920
+     7: lambda = +0.11415995   |gap to target| = 0.042920
+     8: lambda = +0.11415995   |gap to target| = 0.042920
+     9: lambda = +0.11415995   |gap to target| = 0.042920
+    10: lambda = +0.00985371   |gap to target| = 0.147226
+    11: lambda = +0.00985371   |gap to target| = 0.147226
+    12: lambda = +0.00985371   |gap to target| = 0.147226
+    13: lambda = +0.00985371   |gap to target| = 0.147226
+    14: lambda = +0.00985371   |gap to target| = 0.147226
+    15: lambda = +0.00985371   |gap to target| = 0.147226
+    16: lambda = +0.00985371   |gap to target| = 0.147226
+    17: lambda = +0.00985371   |gap to target| = 0.147226
+    18: lambda = +0.00985371   |gap to target| = 0.147226
+    19: lambda = +0.00985371   |gap to target| = 0.147226
+    20: lambda = +0.00985371   |gap to target| = 0.147226
+  closest |lambda| to target: 0.13584005  (gap = 0.021240)
+
+--- B. log distance alpha=2, a=3, k=4 ---
+  matrix size: 81, target: 0.157080
+  spectral range: [-0.493827, 1.006173]
+  top 20 |lambda|:
+     1: lambda = +1.00617284   |gap to target| = 0.849093
+     2: lambda = -0.49382716   |gap to target| = 0.336748
+     3: lambda = -0.49382716   |gap to target| = 0.336748
+     4: lambda = +0.17283951   |gap to target| = 0.015760
+     5: lambda = +0.17283951   |gap to target| = 0.015760
+     6: lambda = +0.17283951   |gap to target| = 0.015760
+     7: lambda = +0.17283951   |gap to target| = 0.015760
+     8: lambda = +0.17283951   |gap to target| = 0.015760
+     9: lambda = +0.17283951   |gap to target| = 0.015760
+    10: lambda = -0.04938272   |gap to target| = 0.107697
+    11: lambda = -0.04938272   |gap to target| = 0.107697
+    12: lambda = -0.04938272   |gap to target| = 0.107697
+    13: lambda = -0.04938272   |gap to target| = 0.107697
+    14: lambda = -0.04938272   |gap to target| = 0.107697
+    15: lambda = -0.04938272   |gap to target| = 0.107697
+    16: lambda = -0.04938272   |gap to target| = 0.107697
+    17: lambda = -0.04938272   |gap to target| = 0.107697
+    18: lambda = -0.04938272   |gap to target| = 0.107697
+    19: lambda = -0.04938272   |gap to target| = 0.107697
+    20: lambda = -0.04938272   |gap to target| = 0.107697
+  closest |lambda| to target: 0.17283951  (gap = 0.015760)
+
+--- C. D3-phase     alpha=2, a=3, k=4 ---
+  matrix size: 81, target: 0.157080
+  spectral range: [-0.135840, 0.364160]
+  top 20 |lambda|:
+     1: lambda = +0.36415995   |gap to target| = 0.207080
+     2: lambda = +0.36415995   |gap to target| = 0.207080
+     3: lambda = -0.13584005   |gap to target| = 0.021240
+     4: lambda = +0.11415995   |gap to target| = 0.042920
+     5: lambda = +0.11415995   |gap to target| = 0.042920
+     6: lambda = +0.11415995   |gap to target| = 0.042920
+     7: lambda = +0.11415995   |gap to target| = 0.042920
+     8: lambda = +0.11415995   |gap to target| = 0.042920
+     9: lambda = +0.11415995   |gap to target| = 0.042920
+    10: lambda = +0.00985371   |gap to target| = 0.147226
+    11: lambda = +0.00985371   |gap to target| = 0.147226
+    12: lambda = +0.00985371   |gap to target| = 0.147226
+    13: lambda = +0.00985371   |gap to target| = 0.147226
+    14: lambda = +0.00985371   |gap to target| = 0.147226
+    15: lambda = +0.00985371   |gap to target| = 0.147226
+    16: lambda = +0.00985371   |gap to target| = 0.147226
+    17: lambda = +0.00985371   |gap to target| = 0.147226
+    18: lambda = +0.00985371   |gap to target| = 0.147226
+    19: lambda = +0.00985371   |gap to target| = 0.147226
+    20: lambda = +0.00985371   |gap to target| = 0.147226
+  closest |lambda| to target: 0.13584005  (gap = 0.021240)
+
+########################################################################
+# Depth k = 5  (243 x 243 matrices)
+########################################################################
+
+=== alpha=1.414214, a=1.414214, target=pi/(10*alpha)=0.222144 (alpha=sqrt(2), a=sqrt(2)) ===
+
+--- A. ultrametric  alpha=sqrt(2), a=sqrt(2), k=5 ---
+  matrix size: 243, target: 0.222144
+  spectral range: [-0.082590, 0.409656]
+  top 20 |lambda|:
+     1: lambda = +0.40965634   |gap to target| = 0.187512
+     2: lambda = +0.40965634   |gap to target| = 0.187512
+     3: lambda = +0.26465741   |gap to target| = 0.042513
+     4: lambda = +0.26465741   |gap to target| = 0.042513
+     5: lambda = +0.26465741   |gap to target| = 0.042513
+     6: lambda = +0.26465741   |gap to target| = 0.042513
+     7: lambda = +0.26465741   |gap to target| = 0.042513
+     8: lambda = +0.26465741   |gap to target| = 0.042513
+     9: lambda = -0.08259040   |gap to target| = 0.139554
+    10: lambda = +0.03894642   |gap to target| = 0.183198
+    11: lambda = +0.03894642   |gap to target| = 0.183198
+    12: lambda = +0.03894642   |gap to target| = 0.183198
+    13: lambda = +0.03894642   |gap to target| = 0.183198
+    14: lambda = +0.03894642   |gap to target| = 0.183198
+    15: lambda = +0.03894642   |gap to target| = 0.183198
+    16: lambda = +0.03894642   |gap to target| = 0.183198
+    17: lambda = +0.03894642   |gap to target| = 0.183198
+    18: lambda = +0.03894642   |gap to target| = 0.183198
+    19: lambda = +0.03894642   |gap to target| = 0.183198
+    20: lambda = +0.03894642   |gap to target| = 0.183198
+  closest |lambda| to target: 0.26465741  (gap = 0.042513)
+
+--- B. log distance alpha=sqrt(2), a=sqrt(2), k=5 ---
+  matrix size: 243, target: 0.222144
+  spectral range: [-1.100656, 2.311200]
+  top 20 |lambda|:
+     1: lambda = +2.31120031   |gap to target| = 2.089056
+     2: lambda = -1.10065562   |gap to target| = 0.878511
+     3: lambda = -1.10065562   |gap to target| = 0.878511
+     4: lambda = +0.20071194   |gap to target| = 0.021432
+     5: lambda = +0.20071194   |gap to target| = 0.021432
+     6: lambda = +0.20071194   |gap to target| = 0.021432
+     7: lambda = +0.20071194   |gap to target| = 0.021432
+     8: lambda = +0.20071194   |gap to target| = 0.021432
+     9: lambda = +0.20071194   |gap to target| = 0.021432
+    10: lambda = +0.02443076   |gap to target| = 0.197713
+    11: lambda = +0.02443076   |gap to target| = 0.197713
+    12: lambda = +0.02443076   |gap to target| = 0.197713
+    13: lambda = +0.02443076   |gap to target| = 0.197713
+    14: lambda = +0.02443076   |gap to target| = 0.197713
+    15: lambda = +0.02443076   |gap to target| = 0.197713
+    16: lambda = +0.02443076   |gap to target| = 0.197713
+    17: lambda = +0.02443076   |gap to target| = 0.197713
+    18: lambda = +0.02443076   |gap to target| = 0.197713
+    19: lambda = +0.02443076   |gap to target| = 0.197713
+    20: lambda = +0.02443076   |gap to target| = 0.197713
+  closest |lambda| to target: 0.20071194  (gap = 0.021432)
+
+--- C. D3-phase     alpha=sqrt(2), a=sqrt(2), k=5 ---
+  matrix size: 243, target: 0.222144
+  spectral range: [-0.082590, 0.409656]
+  top 20 |lambda|:
+     1: lambda = +0.40965634   |gap to target| = 0.187512
+     2: lambda = +0.40965634   |gap to target| = 0.187512
+     3: lambda = +0.26465741   |gap to target| = 0.042513
+     4: lambda = +0.26465741   |gap to target| = 0.042513
+     5: lambda = +0.26465741   |gap to target| = 0.042513
+     6: lambda = +0.26465741   |gap to target| = 0.042513
+     7: lambda = +0.26465741   |gap to target| = 0.042513
+     8: lambda = +0.26465741   |gap to target| = 0.042513
+     9: lambda = -0.08259040   |gap to target| = 0.139554
+    10: lambda = +0.03894642   |gap to target| = 0.183198
+    11: lambda = +0.03894642   |gap to target| = 0.183198
+    12: lambda = +0.03894642   |gap to target| = 0.183198
+    13: lambda = +0.03894642   |gap to target| = 0.183198
+    14: lambda = +0.03894642   |gap to target| = 0.183198
+    15: lambda = +0.03894642   |gap to target| = 0.183198
+    16: lambda = +0.03894642   |gap to target| = 0.183198
+    17: lambda = +0.03894642   |gap to target| = 0.183198
+    18: lambda = +0.03894642   |gap to target| = 0.183198
+    19: lambda = +0.03894642   |gap to target| = 0.183198
+    20: lambda = +0.03894642   |gap to target| = 0.183198
+  closest |lambda| to target: 0.26465741  (gap = 0.042513)
+
+=== alpha=1.414214, a=3.000000, target=pi/(10*alpha)=0.222144 (alpha=sqrt(2), a=3 (base-3 ladder)) ===
+
+--- A. ultrametric  alpha=sqrt(2), a=3 (base-3 ladder), k=5 ---
+  matrix size: 243, target: 0.222144
+  spectral range: [-0.411728, 0.582139]
+  top 20 |lambda|:
+     1: lambda = +0.58213897   |gap to target| = 0.359995
+     2: lambda = +0.58213897   |gap to target| = 0.359995
+     3: lambda = -0.41172821   |gap to target| = 0.189584
+     4: lambda = +0.10579576   |gap to target| = 0.116348
+     5: lambda = +0.10579576   |gap to target| = 0.116348
+     6: lambda = +0.10579576   |gap to target| = 0.116348
+     7: lambda = +0.10579576   |gap to target| = 0.116348
+     8: lambda = +0.10579576   |gap to target| = 0.116348
+     9: lambda = +0.10579576   |gap to target| = 0.116348
+    10: lambda = +0.00550467   |gap to target| = 0.216639
+    11: lambda = +0.00550467   |gap to target| = 0.216639
+    12: lambda = +0.00550467   |gap to target| = 0.216639
+    13: lambda = +0.00550467   |gap to target| = 0.216639
+    14: lambda = +0.00550467   |gap to target| = 0.216639
+    15: lambda = +0.00550467   |gap to target| = 0.216639
+    16: lambda = +0.00550467   |gap to target| = 0.216639
+    17: lambda = +0.00550467   |gap to target| = 0.216639
+    18: lambda = +0.00550467   |gap to target| = 0.216639
+    19: lambda = +0.00550467   |gap to target| = 0.216639
+    20: lambda = +0.00550467   |gap to target| = 0.216639
+  closest |lambda| to target: 0.10579576  (gap = 0.116348)
+
+--- B. log distance alpha=sqrt(2), a=3 (base-3 ladder), k=5 ---
+  matrix size: 243, target: 0.222144
+  spectral range: [-0.656756, 0.843244]
+  top 20 |lambda|:
+     1: lambda = +0.84324405   |gap to target| = 0.621100
+     2: lambda = -0.65675595   |gap to target| = 0.434612
+     3: lambda = -0.65675595   |gap to target| = 0.434612
+     4: lambda = +0.17453311   |gap to target| = 0.047611
+     5: lambda = +0.17453311   |gap to target| = 0.047611
+     6: lambda = +0.17453311   |gap to target| = 0.047611
+     7: lambda = +0.17453311   |gap to target| = 0.047611
+     8: lambda = +0.17453311   |gap to target| = 0.047611
+     9: lambda = +0.17453311   |gap to target| = 0.047611
+    10: lambda = -0.03078119   |gap to target| = 0.191363
+    11: lambda = -0.03078119   |gap to target| = 0.191363
+    12: lambda = -0.03078119   |gap to target| = 0.191363
+    13: lambda = -0.03078119   |gap to target| = 0.191363
+    14: lambda = -0.03078119   |gap to target| = 0.191363
+    15: lambda = -0.03078119   |gap to target| = 0.191363
+    16: lambda = -0.03078119   |gap to target| = 0.191363
+    17: lambda = -0.03078119   |gap to target| = 0.191363
+    18: lambda = -0.03078119   |gap to target| = 0.191363
+    19: lambda = -0.03078119   |gap to target| = 0.191363
+    20: lambda = -0.03078119   |gap to target| = 0.191363
+  closest |lambda| to target: 0.17453311  (gap = 0.047611)
+
+--- C. D3-phase     alpha=sqrt(2), a=3 (base-3 ladder), k=5 ---
+  matrix size: 243, target: 0.222144
+  spectral range: [-0.411728, 0.582139]
+  top 20 |lambda|:
+     1: lambda = +0.58213897   |gap to target| = 0.359995
+     2: lambda = +0.58213897   |gap to target| = 0.359995
+     3: lambda = -0.41172821   |gap to target| = 0.189584
+     4: lambda = +0.10579576   |gap to target| = 0.116348
+     5: lambda = +0.10579576   |gap to target| = 0.116348
+     6: lambda = +0.10579576   |gap to target| = 0.116348
+     7: lambda = +0.10579576   |gap to target| = 0.116348
+     8: lambda = +0.10579576   |gap to target| = 0.116348
+     9: lambda = +0.10579576   |gap to target| = 0.116348
+    10: lambda = +0.00550467   |gap to target| = 0.216639
+    11: lambda = +0.00550467   |gap to target| = 0.216639
+    12: lambda = +0.00550467   |gap to target| = 0.216639
+    13: lambda = +0.00550467   |gap to target| = 0.216639
+    14: lambda = +0.00550467   |gap to target| = 0.216639
+    15: lambda = +0.00550467   |gap to target| = 0.216639
+    16: lambda = +0.00550467   |gap to target| = 0.216639
+    17: lambda = +0.00550467   |gap to target| = 0.216639
+    18: lambda = +0.00550467   |gap to target| = 0.216639
+    19: lambda = +0.00550467   |gap to target| = 0.216639
+    20: lambda = +0.00550467   |gap to target| = 0.216639
+  closest |lambda| to target: 0.10579576  (gap = 0.116348)
+
+=== alpha=1.500000, a=1.500000, target=pi/(10*alpha)=0.209440 (alpha=3/2, a=3/2) ===
+
+--- A. ultrametric  alpha=3/2, a=3/2, k=5 ---
+  matrix size: 243, target: 0.209440
+  spectral range: [-0.427936, 0.577005]
+  top 20 |lambda|:
+     1: lambda = +0.57700454   |gap to target| = 0.367565
+     2: lambda = +0.57700454   |gap to target| = 0.367565
+     3: lambda = -0.42793578   |gap to target| = 0.218496
+     4: lambda = +0.22501898   |gap to target| = 0.015579
+     5: lambda = +0.22501898   |gap to target| = 0.015579
+     6: lambda = +0.22501898   |gap to target| = 0.015579
+     7: lambda = +0.22501898   |gap to target| = 0.015579
+     8: lambda = +0.22501898   |gap to target| = 0.015579
+     9: lambda = +0.22501898   |gap to target| = 0.015579
+    10: lambda = +0.03282407   |gap to target| = 0.176615
+    11: lambda = +0.03282407   |gap to target| = 0.176615
+    12: lambda = +0.03282407   |gap to target| = 0.176615
+    13: lambda = +0.03282407   |gap to target| = 0.176615
+    14: lambda = +0.03282407   |gap to target| = 0.176615
+    15: lambda = +0.03282407   |gap to target| = 0.176615
+    16: lambda = +0.03282407   |gap to target| = 0.176615
+    17: lambda = +0.03282407   |gap to target| = 0.176615
+    18: lambda = +0.03282407   |gap to target| = 0.176615
+    19: lambda = +0.03282407   |gap to target| = 0.176615
+    20: lambda = +0.03282407   |gap to target| = 0.176615
+  closest |lambda| to target: 0.22501898  (gap = 0.015579)
+
+--- B. log distance alpha=3/2, a=3/2, k=5 ---
+  matrix size: 243, target: 0.209440
+  spectral range: [-1.223482, 1.775916]
+  top 20 |lambda|:
+     1: lambda = +1.77591623   |gap to target| = 1.566477
+     2: lambda = -1.22348231   |gap to target| = 1.014043
+     3: lambda = -1.22348231   |gap to target| = 1.014043
+     4: lambda = +0.11129731   |gap to target| = 0.098142
+     5: lambda = +0.11129731   |gap to target| = 0.098142
+     6: lambda = +0.11129731   |gap to target| = 0.098142
+     7: lambda = +0.11129731   |gap to target| = 0.098142
+     8: lambda = +0.11129731   |gap to target| = 0.098142
+     9: lambda = +0.11129731   |gap to target| = 0.098142
+    10: lambda = +0.04093275   |gap to target| = 0.168507
+    11: lambda = +0.04093275   |gap to target| = 0.168507
+    12: lambda = +0.04093275   |gap to target| = 0.168507
+    13: lambda = +0.04093275   |gap to target| = 0.168507
+    14: lambda = +0.04093275   |gap to target| = 0.168507
+    15: lambda = +0.04093275   |gap to target| = 0.168507
+    16: lambda = +0.04093275   |gap to target| = 0.168507
+    17: lambda = +0.04093275   |gap to target| = 0.168507
+    18: lambda = +0.04093275   |gap to target| = 0.168507
+    19: lambda = +0.04093275   |gap to target| = 0.168507
+    20: lambda = +0.04093275   |gap to target| = 0.168507
+  closest |lambda| to target: 0.11129731  (gap = 0.098142)
+
+--- C. D3-phase     alpha=3/2, a=3/2, k=5 ---
+  matrix size: 243, target: 0.209440
+  spectral range: [-0.427936, 0.577005]
+  top 20 |lambda|:
+     1: lambda = +0.57700454   |gap to target| = 0.367565
+     2: lambda = +0.57700454   |gap to target| = 0.367565
+     3: lambda = -0.42793578   |gap to target| = 0.218496
+     4: lambda = +0.22501898   |gap to target| = 0.015579
+     5: lambda = +0.22501898   |gap to target| = 0.015579
+     6: lambda = +0.22501898   |gap to target| = 0.015579
+     7: lambda = +0.22501898   |gap to target| = 0.015579
+     8: lambda = +0.22501898   |gap to target| = 0.015579
+     9: lambda = +0.22501898   |gap to target| = 0.015579
+    10: lambda = +0.03282407   |gap to target| = 0.176615
+    11: lambda = +0.03282407   |gap to target| = 0.176615
+    12: lambda = +0.03282407   |gap to target| = 0.176615
+    13: lambda = +0.03282407   |gap to target| = 0.176615
+    14: lambda = +0.03282407   |gap to target| = 0.176615
+    15: lambda = +0.03282407   |gap to target| = 0.176615
+    16: lambda = +0.03282407   |gap to target| = 0.176615
+    17: lambda = +0.03282407   |gap to target| = 0.176615
+    18: lambda = +0.03282407   |gap to target| = 0.176615
+    19: lambda = +0.03282407   |gap to target| = 0.176615
+    20: lambda = +0.03282407   |gap to target| = 0.176615
+  closest |lambda| to target: 0.22501898  (gap = 0.015579)
+
+=== alpha=1.500000, a=3.000000, target=pi/(10*alpha)=0.209440 (alpha=3/2, a=3) ===
+
+--- A. ultrametric  alpha=3/2, a=3, k=5 ---
+  matrix size: 243, target: 0.209440
+  spectral range: [-0.391488, 0.555856]
+  top 20 |lambda|:
+     1: lambda = +0.55585564   |gap to target| = 0.346416
+     2: lambda = +0.55585564   |gap to target| = 0.346416
+     3: lambda = -0.39148827   |gap to target| = 0.182049
+     4: lambda = +0.10842346   |gap to target| = 0.101016
+     5: lambda = +0.10842346   |gap to target| = 0.101016
+     6: lambda = +0.10842346   |gap to target| = 0.101016
+     7: lambda = +0.10842346   |gap to target| = 0.101016
+     8: lambda = +0.10842346   |gap to target| = 0.101016
+     9: lambda = +0.10842346   |gap to target| = 0.101016
+    10: lambda = +0.00625271   |gap to target| = 0.203187
+    11: lambda = +0.00625271   |gap to target| = 0.203187
+    12: lambda = +0.00625271   |gap to target| = 0.203187
+    13: lambda = +0.00625271   |gap to target| = 0.203187
+    14: lambda = +0.00625271   |gap to target| = 0.203187
+    15: lambda = +0.00625271   |gap to target| = 0.203187
+    16: lambda = +0.00625271   |gap to target| = 0.203187
+    17: lambda = +0.00625271   |gap to target| = 0.203187
+    18: lambda = +0.00625271   |gap to target| = 0.203187
+    19: lambda = +0.00625271   |gap to target| = 0.203187
+    20: lambda = +0.00625271   |gap to target| = 0.203187
+  closest |lambda| to target: 0.10842346  (gap = 0.101016)
+
+--- B. log distance alpha=3/2, a=3, k=5 ---
+  matrix size: 243, target: 0.209440
+  spectral range: [-0.672329, 0.827671]
+  top 20 |lambda|:
+     1: lambda = +0.82767099   |gap to target| = 0.618231
+     2: lambda = -0.67232901   |gap to target| = 0.462889
+     3: lambda = -0.67232901   |gap to target| = 0.462889
+     4: lambda = +0.14345230   |gap to target| = 0.065987
+     5: lambda = +0.14345230   |gap to target| = 0.065987
+     6: lambda = +0.14345230   |gap to target| = 0.065987
+     7: lambda = +0.14345230   |gap to target| = 0.065987
+     8: lambda = +0.14345230   |gap to target| = 0.065987
+     9: lambda = +0.14345230   |gap to target| = 0.065987
+    10: lambda = -0.03376662   |gap to target| = 0.175673
+    11: lambda = -0.03376662   |gap to target| = 0.175673
+    12: lambda = -0.03376662   |gap to target| = 0.175673
+    13: lambda = -0.03376662   |gap to target| = 0.175673
+    14: lambda = -0.03376662   |gap to target| = 0.175673
+    15: lambda = -0.03376662   |gap to target| = 0.175673
+    16: lambda = -0.03376662   |gap to target| = 0.175673
+    17: lambda = -0.03376662   |gap to target| = 0.175673
+    18: lambda = -0.03376662   |gap to target| = 0.175673
+    19: lambda = -0.03376662   |gap to target| = 0.175673
+    20: lambda = -0.03376662   |gap to target| = 0.175673
+  closest |lambda| to target: 0.14345230  (gap = 0.065987)
+
+--- C. D3-phase     alpha=3/2, a=3, k=5 ---
+  matrix size: 243, target: 0.209440
+  spectral range: [-0.391488, 0.555856]
+  top 20 |lambda|:
+     1: lambda = +0.55585564   |gap to target| = 0.346416
+     2: lambda = +0.55585564   |gap to target| = 0.346416
+     3: lambda = -0.39148827   |gap to target| = 0.182049
+     4: lambda = +0.10842346   |gap to target| = 0.101016
+     5: lambda = +0.10842346   |gap to target| = 0.101016
+     6: lambda = +0.10842346   |gap to target| = 0.101016
+     7: lambda = +0.10842346   |gap to target| = 0.101016
+     8: lambda = +0.10842346   |gap to target| = 0.101016
+     9: lambda = +0.10842346   |gap to target| = 0.101016
+    10: lambda = +0.00625271   |gap to target| = 0.203187
+    11: lambda = +0.00625271   |gap to target| = 0.203187
+    12: lambda = +0.00625271   |gap to target| = 0.203187
+    13: lambda = +0.00625271   |gap to target| = 0.203187
+    14: lambda = +0.00625271   |gap to target| = 0.203187
+    15: lambda = +0.00625271   |gap to target| = 0.203187
+    16: lambda = +0.00625271   |gap to target| = 0.203187
+    17: lambda = +0.00625271   |gap to target| = 0.203187
+    18: lambda = +0.00625271   |gap to target| = 0.203187
+    19: lambda = +0.00625271   |gap to target| = 0.203187
+    20: lambda = +0.00625271   |gap to target| = 0.203187
+  closest |lambda| to target: 0.10842346  (gap = 0.101016)
+
+=== alpha=2.000000, a=2.000000, target=pi/(10*alpha)=0.157080 (alpha=2, a=2) ===
+
+--- A. ultrametric  alpha=2, a=2, k=5 ---
+  matrix size: 243, target: 0.157080
+  spectral range: [0.000366, 0.162535]
+  top 20 |lambda|:
+     1: lambda = +0.16253535   |gap to target| = 0.005456
+     2: lambda = +0.16253535   |gap to target| = 0.005456
+     3: lambda = +0.16253488   |gap to target| = 0.005455
+     4: lambda = +0.16253488   |gap to target| = 0.005455
+     5: lambda = +0.16253488   |gap to target| = 0.005455
+     6: lambda = +0.16253488   |gap to target| = 0.005455
+     7: lambda = +0.16253488   |gap to target| = 0.005455
+     8: lambda = +0.16253488   |gap to target| = 0.005455
+     9: lambda = +0.16253440   |gap to target| = 0.005455
+    10: lambda = +0.01888998   |gap to target| = 0.138190
+    11: lambda = +0.01888998   |gap to target| = 0.138190
+    12: lambda = +0.01888998   |gap to target| = 0.138190
+    13: lambda = +0.01888998   |gap to target| = 0.138190
+    14: lambda = +0.01888998   |gap to target| = 0.138190
+    15: lambda = +0.01888998   |gap to target| = 0.138190
+    16: lambda = +0.01888998   |gap to target| = 0.138190
+    17: lambda = +0.01888998   |gap to target| = 0.138190
+    18: lambda = +0.01888998   |gap to target| = 0.138190
+    19: lambda = +0.01888998   |gap to target| = 0.138190
+    20: lambda = +0.01888998   |gap to target| = 0.138190
+  closest |lambda| to target: 0.16253440  (gap = 0.005455)
+
+--- B. log distance alpha=2, a=2, k=5 ---
+  matrix size: 243, target: 0.157080
+  spectral range: [-0.493827, 1.506172]
+  top 20 |lambda|:
+     1: lambda = +1.50617189   |gap to target| = 1.349092
+     2: lambda = -0.49382716   |gap to target| = 0.336748
+     3: lambda = -0.49382716   |gap to target| = 0.336748
+     4: lambda = +0.17283951   |gap to target| = 0.015760
+     5: lambda = +0.17283951   |gap to target| = 0.015760
+     6: lambda = +0.17283951   |gap to target| = 0.015760
+     7: lambda = +0.17283951   |gap to target| = 0.015760
+     8: lambda = +0.17283951   |gap to target| = 0.015760
+     9: lambda = +0.17283951   |gap to target| = 0.015760
+    10: lambda = -0.04938272   |gap to target| = 0.107697
+    11: lambda = -0.04938272   |gap to target| = 0.107697
+    12: lambda = -0.04938272   |gap to target| = 0.107697
+    13: lambda = -0.04938272   |gap to target| = 0.107697
+    14: lambda = -0.04938272   |gap to target| = 0.107697
+    15: lambda = -0.04938272   |gap to target| = 0.107697
+    16: lambda = -0.04938272   |gap to target| = 0.107697
+    17: lambda = -0.04938272   |gap to target| = 0.107697
+    18: lambda = -0.04938272   |gap to target| = 0.107697
+    19: lambda = -0.04938272   |gap to target| = 0.107697
+    20: lambda = -0.04938272   |gap to target| = 0.107697
+  closest |lambda| to target: 0.17283951  (gap = 0.015760)
+
+--- C. D3-phase     alpha=2, a=2, k=5 ---
+  matrix size: 243, target: 0.157080
+  spectral range: [0.000366, 0.162535]
+  top 20 |lambda|:
+     1: lambda = +0.16253535   |gap to target| = 0.005456
+     2: lambda = +0.16253535   |gap to target| = 0.005456
+     3: lambda = +0.16253488   |gap to target| = 0.005455
+     4: lambda = +0.16253488   |gap to target| = 0.005455
+     5: lambda = +0.16253488   |gap to target| = 0.005455
+     6: lambda = +0.16253488   |gap to target| = 0.005455
+     7: lambda = +0.16253488   |gap to target| = 0.005455
+     8: lambda = +0.16253488   |gap to target| = 0.005455
+     9: lambda = +0.16253440   |gap to target| = 0.005455
+    10: lambda = +0.01888998   |gap to target| = 0.138190
+    11: lambda = +0.01888998   |gap to target| = 0.138190
+    12: lambda = +0.01888998   |gap to target| = 0.138190
+    13: lambda = +0.01888998   |gap to target| = 0.138190
+    14: lambda = +0.01888998   |gap to target| = 0.138190
+    15: lambda = +0.01888998   |gap to target| = 0.138190
+    16: lambda = +0.01888998   |gap to target| = 0.138190
+    17: lambda = +0.01888998   |gap to target| = 0.138190
+    18: lambda = +0.01888998   |gap to target| = 0.138190
+    19: lambda = +0.01888998   |gap to target| = 0.138190
+    20: lambda = +0.01888998   |gap to target| = 0.138190
+  closest |lambda| to target: 0.16253440  (gap = 0.005455)
+
+=== alpha=2.000000, a=3.000000, target=pi/(10*alpha)=0.157080 (alpha=2, a=3) ===
+
+--- A. ultrametric  alpha=2, a=3, k=5 ---
+  matrix size: 243, target: 0.157080
+  spectral range: [-0.135948, 0.364052]
+  top 20 |lambda|:
+     1: lambda = +0.36405223   |gap to target| = 0.206973
+     2: lambda = +0.36405223   |gap to target| = 0.206973
+     3: lambda = -0.13594777   |gap to target| = 0.021132
+     4: lambda = +0.11405223   |gap to target| = 0.043027
+     5: lambda = +0.11405223   |gap to target| = 0.043027
+     6: lambda = +0.11405223   |gap to target| = 0.043027
+     7: lambda = +0.11405223   |gap to target| = 0.043027
+     8: lambda = +0.11405223   |gap to target| = 0.043027
+     9: lambda = +0.11405223   |gap to target| = 0.043027
+    10: lambda = +0.00974599   |gap to target| = 0.147334
+    11: lambda = +0.00974599   |gap to target| = 0.147334
+    12: lambda = +0.00974599   |gap to target| = 0.147334
+    13: lambda = +0.00974599   |gap to target| = 0.147334
+    14: lambda = +0.00974599   |gap to target| = 0.147334
+    15: lambda = +0.00974599   |gap to target| = 0.147334
+    16: lambda = +0.00974599   |gap to target| = 0.147334
+    17: lambda = +0.00974599   |gap to target| = 0.147334
+    18: lambda = +0.00974599   |gap to target| = 0.147334
+    19: lambda = +0.00974599   |gap to target| = 0.147334
+    20: lambda = +0.00974599   |gap to target| = 0.147334
+  closest |lambda| to target: 0.13594777  (gap = 0.021132)
+
+--- B. log distance alpha=2, a=3, k=5 ---
+  matrix size: 243, target: 0.157080
+  spectral range: [-0.493827, 1.006173]
+  top 20 |lambda|:
+     1: lambda = +1.00617284   |gap to target| = 0.849093
+     2: lambda = -0.49382716   |gap to target| = 0.336748
+     3: lambda = -0.49382716   |gap to target| = 0.336748
+     4: lambda = +0.17283951   |gap to target| = 0.015760
+     5: lambda = +0.17283951   |gap to target| = 0.015760
+     6: lambda = +0.17283951   |gap to target| = 0.015760
+     7: lambda = +0.17283951   |gap to target| = 0.015760
+     8: lambda = +0.17283951   |gap to target| = 0.015760
+     9: lambda = +0.17283951   |gap to target| = 0.015760
+    10: lambda = -0.04938272   |gap to target| = 0.107697
+    11: lambda = -0.04938272   |gap to target| = 0.107697
+    12: lambda = -0.04938272   |gap to target| = 0.107697
+    13: lambda = -0.04938272   |gap to target| = 0.107697
+    14: lambda = -0.04938272   |gap to target| = 0.107697
+    15: lambda = -0.04938272   |gap to target| = 0.107697
+    16: lambda = -0.04938272   |gap to target| = 0.107697
+    17: lambda = -0.04938272   |gap to target| = 0.107697
+    18: lambda = -0.04938272   |gap to target| = 0.107697
+    19: lambda = -0.04938272   |gap to target| = 0.107697
+    20: lambda = -0.04938272   |gap to target| = 0.107697
+  closest |lambda| to target: 0.17283951  (gap = 0.015760)
+
+--- C. D3-phase     alpha=2, a=3, k=5 ---
+  matrix size: 243, target: 0.157080
+  spectral range: [-0.135948, 0.364052]
+  top 20 |lambda|:
+     1: lambda = +0.36405223   |gap to target| = 0.206973
+     2: lambda = +0.36405223   |gap to target| = 0.206973
+     3: lambda = -0.13594777   |gap to target| = 0.021132
+     4: lambda = +0.11405223   |gap to target| = 0.043027
+     5: lambda = +0.11405223   |gap to target| = 0.043027
+     6: lambda = +0.11405223   |gap to target| = 0.043027
+     7: lambda = +0.11405223   |gap to target| = 0.043027
+     8: lambda = +0.11405223   |gap to target| = 0.043027
+     9: lambda = +0.11405223   |gap to target| = 0.043027
+    10: lambda = +0.00974599   |gap to target| = 0.147334
+    11: lambda = +0.00974599   |gap to target| = 0.147334
+    12: lambda = +0.00974599   |gap to target| = 0.147334
+    13: lambda = +0.00974599   |gap to target| = 0.147334
+    14: lambda = +0.00974599   |gap to target| = 0.147334
+    15: lambda = +0.00974599   |gap to target| = 0.147334
+    16: lambda = +0.00974599   |gap to target| = 0.147334
+    17: lambda = +0.00974599   |gap to target| = 0.147334
+    18: lambda = +0.00974599   |gap to target| = 0.147334
+    19: lambda = +0.00974599   |gap to target| = 0.147334
+    20: lambda = +0.00974599   |gap to target| = 0.147334
+  closest |lambda| to target: 0.13594777  (gap = 0.021132)

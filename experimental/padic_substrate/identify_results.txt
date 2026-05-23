@@ -1,0 +1,81 @@
+
+=== alpha=2.000000, a=2.000000, k=6 ===
+  pi/(10*alpha) target            = 0.1570796327
+  V_alpha(0) (= geom sum)         = 1.9999990463
+  geom 1/(1-1/a)                  = 2.0000000000
+  V_alpha(1)                      = -0.0000009537
+  V_alpha(1/3)                    = 0.0000004768
+  V_alpha(1/9)                    = 1.2928045444
+  V_alpha(1/27)                   = 1.7338864790
+  matrix size n = 3^6 = 729
+  largest lambda (PF eigenvector ~ uniform): 0.1624588982
+     compare to mean(H) * n = V_alpha(0)/n * n = V_alpha(0) (no)
+     actual mean diagonal:                     0.0027434829
+     V_alpha(0)/n = 0.0027434829
+     row-sum (= top eigenvalue for PF kernel): 0.1624579445
+  top 6 unique |lambda|:
+    0.1624588982    ratio to pi/(10a) = 1.034245
+    0.1624584213    ratio to pi/(10a) = 1.034242
+    0.1624579445    ratio to pi/(10a) = 1.034239
+    0.0188135249    ratio to pi/(10a) = 0.119771
+    0.0024771570    ratio to pi/(10a) = 0.015770
+    0.0002894067    ratio to pi/(10a) = 0.001842
+  closest |lambda| to target = 0.1624579445
+  ratio closest / target     = 1.0342393964
+  ratio target  / closest    = 0.9668941287
+  closest * 10 * alpha       = 3.2491588898    (target * 10*alpha = pi = 3.1415926536)
+  closest / V_alpha(1/3^5)        = 0.0823768693
+
+=== alpha=1.500000, a=1.500000, k=6 ===
+  pi/(10*alpha) target            = 0.2094395102
+  V_alpha(0) (= geom sum)         = 2.9993985427
+  geom 1/(1-1/a)                  = 3.0000000000
+  V_alpha(1)                      = -1.0049403253
+  V_alpha(1/3)                    = 0.0510163685
+  V_alpha(1/9)                    = 1.7807704951
+  V_alpha(1/27)                   = 2.5490888167
+  matrix size n = 3^6 = 729
+  largest lambda (PF eigenvector ~ uniform): 0.5768717512
+     compare to mean(H) * n = V_alpha(0)/n * n = V_alpha(0) (no)
+     actual mean diagonal:                     0.0041144013
+     V_alpha(0)/n = 0.0041144013
+     row-sum (= top eigenvalue for PF kernel): -0.4280685741
+  top 6 unique |lambda|:
+    0.5768717512    ratio to pi/(10a) = 2.754360
+    0.4280685741    ratio to pi/(10a) = 2.043877
+    0.2248861866    ratio to pi/(10a) = 1.073752
+    0.0326912837    ratio to pi/(10a) = 0.156089
+    0.0042350495    ratio to pi/(10a) = 0.020221
+    0.0004629781    ratio to pi/(10a) = 0.002211
+  closest |lambda| to target = 0.2248861866
+  ratio closest / target     = 1.0737524470
+  ratio target  / closest    = 0.9313133607
+  closest * 10 * alpha       = 3.3732927993    (target * 10*alpha = pi = 3.1415926536)
+  closest / V_alpha(1/3^5)        = 0.0762068723
+
+=== alpha=1.414214, a=1.414214, k=6 ===
+  pi/(10*alpha) target            = 0.2221441469
+  V_alpha(0) (= geom sum)         = 3.4118559319
+  geom 1/(1-1/a)                  = 3.4142135624
+  V_alpha(1)                      = -0.4922467354
+  V_alpha(1/3)                    = -0.0572499605
+  V_alpha(1/9)                    = 1.9741489918
+  V_alpha(1/27)                   = 2.8904313788
+  matrix size n = 3^6 = 729
+  largest lambda (PF eigenvector ~ uniform): 0.4095030874
+     compare to mean(H) * n = V_alpha(0)/n * n = V_alpha(0) (no)
+     actual mean diagonal:                     0.0046801865
+     V_alpha(0)/n = 0.0046801865
+     row-sum (= top eigenvalue for PF kernel): -0.0827436480
+  top 6 unique |lambda|:
+    0.4095030874    ratio to pi/(10a) = 1.843412
+    0.2645041625    ratio to pi/(10a) = 1.190687
+    0.0827436480    ratio to pi/(10a) = 0.372477
+    0.0387931678    ratio to pi/(10a) = 0.174631
+    0.0048567831    ratio to pi/(10a) = 0.021863
+    0.0005604027    ratio to pi/(10a) = 0.002523
+  closest |lambda| to target = 0.2645041625
+  ratio closest / target     = 1.1906870658
+  ratio target  / closest    = 0.8398512327
+  closest * 10 * alpha       = 3.7406537387    (target * 10*alpha = pi = 3.1415926536)
+  closest / V_alpha(1/3^5)        = 0.0788153963
