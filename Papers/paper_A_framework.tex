@@ -17,9 +17,8 @@
 
 \newcommand{\reals}{\mathbb{R}}
 \newcommand{\complexes}{\mathbb{C}}
-\newcommand{\zeta}{\zeta}
 \newcommand{\Hom}{\mathrm{Hom}}
-\newcommand{\Spec}{\mathrm{Spec}}
+\providecommand{\Spec}{\mathrm{Spec}}
 \newcommand{\PSLQ}{\mathrm{PSLQ}}
 
 \title{A Four-Element Basis for the Resonance Parameters of the\\
@@ -362,6 +361,48 @@ only instance coupling $\pi$ into the radical group.
 
 \subsection{$P$ versus $NP$}
 
+\subsubsection*{The Turing-machine encoding bridge}
+
+A central concern for Clay-acceptable proofs of $P \neq NP$ is the
+\emph{bridge} from the standard Turing-machine definitions of $P$ and
+$NP$ (Cook 1971~\cite{cook1971complexity}, Karp
+1972~\cite{karp1972reducibility}) to the framework's
+operator-spectral characterization. The Principia Fractalis
+formalization provides this bridge explicitly via a prime-power
+G\"odel numbering of Turing-machine configurations.
+
+In \texttt{PF/TuringEncoding/Basic.lean}, configurations of a Turing
+machine are encoded as natural numbers via the prime-power scheme:
+powers of $2$ encode the machine's state, powers of $3$ encode the
+head position, and higher primes encode the tape symbols. The
+encoding is the canonical G\"odel numbering adapted to interface with
+Mathlib's \texttt{Turing.TuringMachine} library (Mathlib's
+\texttt{Mathlib.Computability.TuringMachine}).
+
+In \texttt{PF/TuringEncoding/Complexity.lean}, the standard complexity
+classes are formalized via the standard definitions:
+\begin{itemize}
+\item \texttt{BinSymbol}: the binary alphabet $\{0, 1\}$;
+\item \texttt{BinString $:=$ List BinSymbol}: binary strings;
+\item \texttt{Language $:=$ Set BinString}: sets of binary strings,
+i.e., decision problems;
+\item Polynomial-time decidability via Mathlib's
+\texttt{Turing.TuringMachine} stepping;
+\item Classes $P$ and $NP$ defined as canonical sets of polynomially
+decidable / verifiable languages.
+\end{itemize}
+
+The encoding $\iota\colon \mathtt{Language} \to L^2(K, \mu)$ from
+discrete computation to the framework's continuous Hilbert space is
+the topic of \texttt{PF/TuringToOperator\_PROOFS.lean}. The connection
+between standard Cook--Karp $P$ vs $NP$ and the framework's spectral
+$\alpha$-classes runs through this encoding; closing the bridge
+formally is one component of the
+$\mathtt{MillenniumReductionSoundness}$ proposition
+(Section~\ref{sec:open-props}).
+
+\subsubsection*{The conditional $P \neq NP$ theorem}
+
 The Principia Fractalis $P$-vs-$NP$ reduction (Ch.~21 of
 \cite{cohen2025framework}) introduces operators $H_P$ and $H_{NP}$ with
 canonical parameters $\alpha_P = \sqrt{2}$ and $\alpha_{NP} = \varphi
@@ -655,6 +696,16 @@ SIAM Review \textbf{41} (1999), 236--266.
 H.R.P.~Ferguson and D.H.~Bailey,
 \emph{A polynomial time, numerically stable integer relation algorithm},
 RNR Technical Report RNR-91-032, 1992.
+
+\bibitem{cook1971complexity}
+S.~Cook,
+\emph{The complexity of theorem-proving procedures},
+Proc. 3rd ACM Symp. on Theory of Computing, 1971, pp. 151--158.
+
+\bibitem{karp1972reducibility}
+R.~Karp,
+\emph{Reducibility among combinatorial problems},
+in Complexity of Computer Computations, Plenum, 1972, pp. 85--103.
 
 \bibitem{cohen2025framework}
 P.~Cohen,
