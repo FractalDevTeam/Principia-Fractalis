@@ -599,7 +599,7 @@ quantization precision $0.01$.
 
 Independent spectral computations on the framework's transfer operators
 \cite{cohen2025scaling} produced the following emergent eigenvalues,
-not hardcoded as inputs:
+not hardcoded as inputs to those computations:
 \begin{center}
 \begin{tabular}{lll}
 Computed value & Predicted $\lambda_0$ & $|\Delta|$ \\ \hline
@@ -609,7 +609,58 @@ $0.21035$ & $\pi/15 = 0.20944$ & $0.0009$ \\
 \end{tabular}
 \end{center}
 All three agree with the predicted closed forms to three decimal
-places, providing emergent (non-input) numerical confirmation.
+places. We emphasise that these are outputs of the framework's own
+scaling-analysis pipeline; the provenance of the operator producing them
+is not pinned down in this paper, and they are \emph{not} eigenvalues
+of $H_\alpha$ on any of the standard substrates tested in
+Section~\ref{sec:spectral-substrate-test}.
+
+\subsection{Spectral-substrate refutation note}\label{sec:spectral-substrate-test}
+
+To stress-test the literal reading of the universal coupling
+$\lambda_0(\alpha) = \pi/(10\alpha)$ as a ground-state eigenvalue of
+$H_\alpha$ with kernel $V_\alpha(x,y) = \sum_{n\ge 0} a^{-n}
+\cos(\pi\alpha^n |x-y|)$, we computed numerical spectra of $H_\alpha$ on
+six natural substrates at $\alpha=\sqrt{2}$, with cross-checks at
+$\alpha=3/2$ and $\alpha=2$ (scripts in
+\texttt{experimental/eigenfunction\_attack/},
+\texttt{experimental/wavelet\_mercer/},
+\texttt{experimental/mellin\_test/},
+\texttt{experimental/toroidal\_test/}).
+
+\begin{center}
+\begin{tabular}{lll}
+Substrate & Closest eigenvalue to $\pi/(10\sqrt{2})$ & Relative gap \\ \hline
+$L^2([0,1])$ wavelet Gram (rank-2 Mercer)    & $0.17219$ & $22\%$ \\
+$L^2(\text{Cantor}, \mu_H)$ functional eq.   & $0.11173$ & $50\%$ \\
+$L^2(\text{Cantor})$ + Lebesgue (N=10)       & $0.20724$ & $7\%$ \\
+$L^2(\mathbb{R}_+, dx/x)$ Mellin + log dist. & spectrum is $2U\cdot a^{-k}$ ladder; no $\pi/10$ scale \\
+$M_{3^k}(\mathbb{C})$ GNS, three forms       & sequences diverge or oscillate \\
+$T^2 \times T^2$ geodesic-kernel Haar mean   & $+0.039$ (and $\alpha$-insensitive) & $82\%$ \\
+\end{tabular}
+\end{center}
+
+\textbf{Verdict.} The literal identification of $\pi/(10\alpha)$ as an
+eigenvalue of $H_\alpha$ on a standard Hilbert space is not supported
+by any of these six independent computations, including the toroidal
+substrate $T^2\times T^2$ which the framework's geometric content
+(\cite{cohen2025framework} Ch.~22, 23, 7, 8) most naturally identifies.
+Consequently the universal coupling, as a quantitative empirical claim,
+must be either
+(i) reformulated as a resolvent / regularised-trace / non-principal
+polylog-branch identity (this is the content of
+\texttt{OPEN\_PROBLEMS.md} Problem~2);
+(ii) accepted as a definitional target with no operator-spectral
+content; or
+(iii) shown to live on a substrate qualitatively different from the
+six tested above.
+
+The Lean encoding of the universal coupling as a hypothesis
+$\mathtt{PolylogEigenvalueConjecture\ :\ Prop}$, in place since
+\texttt{72c0137}, is the maximally honest framing under these results.
+The framework's algebraic content (four-basis decomposition, twenty-three
+cross-class identities) and empirical content (IBM hardware clusters)
+are independent of this finding and remain intact.
 
 \section{Formal Verification Architecture}
 
@@ -656,12 +707,17 @@ load-bearing two, or ($b$) bridge propositions
 that translate the framework's internal language to standard
 mathematical objects.
 
-We conjecture that a single operator-theoretic theorem,
+We had conjectured that a single operator-theoretic theorem,
 proving the universal coupling
-$\lambda_0(\alpha) = \pi/(10\alpha)$ as a spectral identity (not a
-definition) of $H_\alpha$, would discharge most of the placeholder
-propositions simultaneously. We propose this as the highest-priority
-target for future work.
+$\lambda_0(\alpha) = \pi/(10\alpha)$ as a literal eigenvalue identity
+of $H_\alpha$, would discharge most of the placeholder propositions
+simultaneously. The six-substrate refutation reported in
+Section~\ref{sec:spectral-substrate-test} closes that route on standard
+Hilbert spaces. The revised highest-priority target for future work is
+therefore the \emph{branch / resolvent reformulation} of the universal
+coupling: identifying the correct mathematical object whose principal
+value is $\pi/(10\alpha)$, in line with
+\texttt{OPEN\_PROBLEMS.md} Problem~2.
 
 \subsection{Honest limitations}
 
@@ -695,9 +751,12 @@ independent quantum-hardware data (Theorems~\ref{thm:p-cluster},
 \ref{thm:p-np-match}, \ref{thm:rh-cluster}).
 \item A formally verified conditional reduction in Lean and Coq, with
 zero project axioms.
-\item A clear strategic target: the universal-coupling spectral identity,
-the single theorem whose proof would substantially collapse the
-remaining open hypotheses.
+\item A clear strategic target: a branch / resolvent reformulation of
+the universal coupling $\lambda_0(\alpha)=\pi/(10\alpha)$, after the
+literal-eigenvalue reading was empirically refuted on six standard
+substrates (Section~\ref{sec:spectral-substrate-test}). The single
+theorem whose proof would substantially collapse the remaining open
+hypotheses is the correct reinterpretation of this coupling.
 \end{enumerate}
 
 \section*{Acknowledgments}
