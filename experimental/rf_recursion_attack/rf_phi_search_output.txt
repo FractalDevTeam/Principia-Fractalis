@@ -1,0 +1,61 @@
+==============================================================================
+Phi(alpha) := R_f(alpha, 1) / Li_1(e^{i*pi*alpha})  --  small-alpha Taylor
+==============================================================================
+
+Manuscript claim:  R_f(alpha, 1) = Li_1 * Phi(alpha) = pi*alpha/10 + O(alpha^2)
+                  ==>  Phi(alpha) = pi*alpha / (10 * Li_1) + ...
+                  ==>  for small alpha:  Li_1(e^{i*pi*alpha}) -> ?
+
+Behavior of Li_1(e^{i*pi*alpha}) at small alpha:
+  Li_1(e^{i*pi*alpha}) = -log(1 - e^{i*pi*alpha})
+  As alpha -> 0,  1 - e^{i*pi*alpha} ~ -i*pi*alpha
+  So Li_1 ~ -log(-i*pi*alpha) = -log(pi*alpha) + i*pi/2
+                              ~ -log(pi*alpha) (huge real magnitude)
+
+alpha         Phi(alpha)                                                  pi/(10) * (alpha) -- should match if R_f ~ pi*a/10          
+0.01          (3.8311 + 8.3954j)                                          (0.000755315 - 0.000339427j)                                
+0.05          (1.94779 + 2.30478j)                                        (0.00514273 - 0.00414371j)                                  
+0.1           (1.64074 + 1.29712j)                                        (0.0109008 - 0.0132625j)                                    
+0.2           (1.49258 + 0.730315j)                                       (0.0166982 - 0.0436057j)                                    
+0.5           (1.33868 + 0.395183j)                                       (-0.0738702 - 0.167403j)                                    
+1.0           (1.0 + 1.30769e-102j)                                       (-0.453236 - 9.37958e-103j)                                 
+1.414         (1.29205 - 0.359557j)                                       (-0.322934 + 0.452245j)                                     
+1.5           (1.33868 - 0.395183j)                                       (-0.221611 + 0.50221j)                                      
+1.9           (1.64074 - 1.29712j)                                        (0.207116 + 0.251988j)                                      
+
+==============================================================================
+Test SMALL-alpha leading behavior of R_f(alpha, 1) directly
+==============================================================================
+
+If R_f(alpha, 1) ~ c1 * alpha + c2 * alpha * log(alpha) + ...  what is c1?
+
+alpha       R_f(alpha, 1)                                   R_f / alpha                             R_f / (alpha * log(alpha))              
+0.001       (0.203571 + 349.721j)                           (203.571 + 349721.0j)                   (-29.4699 - 50627.2j)                   
+0.005       (0.203222 + 69.962j)                            (40.6443 + 13992.4j)                    (-7.67117 - 2640.92j)                   
+0.01        (0.202132 + 35.009j)                            (20.2132 + 3500.9j)                     (-4.38924 - 760.21j)                    
+0.05        (0.16821 + 7.17512j)                            (3.3642 + 143.502j)                     (-1.123 - 47.9023j)                     
+0.1         (0.0727462 + 3.82683j)                          (0.727462 + 38.2683j)                   (-0.315933 - 16.6197j)                  
+0.2         (-0.199498 + 2.22705j)                          (-0.997491 + 11.1352j)                  (0.619776 - 6.91871j)                   
+0.5         (-0.774328 + 0.914439j)                         (-1.54866 + 1.82888j)                   (2.23424 - 2.63851j)                    
+
+Observation: R_f(alpha,1) ~ -log(alpha) + i*pi/2 + ...  (the Li_1 leading term)
+There is no clean 'pi*alpha/10' or 'pi/(10*alpha)' leading order.
+
+==============================================================================
+CONCLUSION: try the manuscript's OWN form on its OWN terms
+==============================================================================
+
+Ch 3 Thm 'Polylog Evaluation':
+   R_f(alpha, 1) = Li_1(e^{i*pi*alpha}) * Phi(alpha) = pi*alpha/10 + O(alpha^2)
+
+This statement REQUIRES  Li_1(e^{i*pi*alpha}) * Phi(alpha)  to be FINITE and
+ANALYTIC near alpha = 0 with Taylor coefficient pi/10 in alpha.
+
+But  Li_1(e^{i*pi*alpha}) = -log(-i*pi*alpha + ...) BLOWS UP logarithmically
+at alpha = 0.   So for the product to be analytic and ~ pi*alpha/10, we'd need
+   Phi(alpha) = pi*alpha / (10 * Li_1(e^{i*pi*alpha}))
+which means Phi -> 0 as alpha -> 0 (logarithmically).   The MEASURED Phi(alpha)
+does NOT satisfy this — measured Phi tends to a finite nontrivial value.
+
+So the manuscript theorem as stated is internally inconsistent regardless of
+whether the leading order is pi*alpha/10 or pi/(10*alpha).
