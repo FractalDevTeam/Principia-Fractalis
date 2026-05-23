@@ -216,14 +216,14 @@ to four decimal places. The error is $|\Delta| = 3.4 \times 10^{-5}$.
 
 \subsection{Emergent eigenvalues matching predicted $\lambda_0$}
 
-\begin{theorem}[Emergent spectral eigenvalues]\label{thm:emergent-eigvals}
+\begin{theorem}[Emergent numerical values]\label{thm:emergent-eigvals}
 Independent spectral computations on the framework's transfer operators
-produce the following emergent eigenvalues, none of which are input
-parameters:
+produce the following emergent numerical values, none of which are
+input parameters of those computations:
 \begin{center}
 \begin{tabular}{llll}
 \toprule
-Computed eigenvalue & Predicted $\lambda_0$ & Match class & $|\Delta|$ \\
+Computed value & Predicted $\lambda_0$ & Match class & $|\Delta|$ \\
 \midrule
 $0.22374$ & $\pi/(10\sqrt{2}) = 0.22214$ & $\lambda_0(P)$ & $0.0016$ \\
 $0.22410$ & $\pi/(10\sqrt{2}) = 0.22214$ & $\lambda_0(P)$ & $0.0020$ \\
@@ -234,6 +234,29 @@ $0.21035$ & $\pi/15 = 0.20944$ & $\lambda_0(\mathrm{RH})$ & $0.0009$ \\
 All three agree with the framework's predicted closed forms to three
 decimal places.
 \end{theorem}
+
+\textbf{Important provenance note.} These three values come from the
+framework's own scaling-analysis pipeline
+(\cite{cohen2025scaling} JSON dataset). Independent diagonalisation of
+the integral operator $H_\alpha$ with kernel
+$V_\alpha(x,y)=\sum_{n\ge 0}a^{-n}\cos(\pi\alpha^n|x-y|)$ on the six
+standard substrates $L^2([0,1])$, $L^2(\text{Cantor},\mu_H)$,
+$L^2(\mathbb{R}_+, dx/x)$, $L^2(\mathbb{R}, du)$, $M_{3^k}(\mathbb{C})$
+GNS, and $T^2\times T^2$ geodesic-kernel (this work; scripts in
+\texttt{experimental/eigenfunction\_attack/},
+\texttt{experimental/wavelet\_mercer/},
+\texttt{experimental/mellin\_test/}, and
+\texttt{experimental/toroidal\_test/}) does \emph{not} reproduce
+$\pi/(10\alpha)$ as an eigenvalue at any $\alpha\in\{\sqrt{2}, 3/2,
+2\}$. The three values reported above are therefore outputs of a
+specific pipeline whose operator-theoretic provenance is not pinned
+down in this paper. They are real numerical artifacts (reproducible
+from the cited JSON), but it is incorrect to call them eigenvalues of
+$H_\alpha$ on a standard Hilbert space.
+
+The \emph{empirical} content of this paper --- the IBM hardware peak
+alpha clusters (Theorems~\ref{thm:p-cluster}, \ref{thm:p-np-exact}) ---
+is independent of this provenance issue and stands on its own.
 
 \subsection{Caveats}
 
@@ -265,12 +288,14 @@ $\alpha_P = \sqrt{2}$ is the single strongest emergent signal
 at $1.868 = \varphi + 1/4$ to four decimals, the empirical case for the
 framework's $\alpha$-value predictions is non-trivial.
 
-The emergent spectral eigenvalues are particularly noteworthy: the
-spectral-computation code does not hardcode $\pi/(10\sqrt{2})$ as an
-input, yet two computed eigenvalues sit within $0.002$ of this
-predicted value. This is the kind of independent numerical confirmation
-that distinguishes a genuine spectral framework from a pattern-matching
-exercise.
+The emergent numerical values reported in
+Theorem~\ref{thm:emergent-eigvals} sit within $0.002$ of the predicted
+closed forms and are not hardcoded inputs of the pipeline that produces
+them. However, as documented in the provenance note following that
+theorem, they should not be identified with eigenvalues of $H_\alpha$
+on standard Hilbert spaces, where direct diagonalisation refutes the
+literal claim. They constitute a real numerical regularity inside the
+framework's own pipeline whose operator-theoretic origin is open.
 
 \subsection{What would further strengthen the empirical case}
 
