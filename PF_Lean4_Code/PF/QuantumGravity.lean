@@ -236,6 +236,69 @@ theorem alpha_QG_ne_two : alpha_QG ≠ 2 := by
   have : (3 : ℝ) < 2 := by rw [← this]; exact Real.pi_gt_three
   linarith
 
+/-- `α_QG ≠ phi` (so QG ≠ Hodge). Since `phi² ≈ 2.618 < 2π ≈ 6.283`. -/
+theorem alpha_QG_ne_phi : alpha_QG ≠ phi := by
+  intro h
+  have h_sq : alpha_QG ^ 2 = phi^2 := by rw [h]
+  rw [alpha_QG_sq] at h_sq
+  -- phi ≤ 1.6180339888, so phi² ≤ 2.6181 < 6 < 2π.
+  have phi_ub : phi ≤ 1.6180339888 := phi_in_interval_10digit.2
+  have phi_lb : (1.6180339887 : ℝ) ≤ phi := phi_in_interval_10digit.1
+  have h_pi_gt : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have h_2pi_gt : (6 : ℝ) < 2 * Real.pi := by linarith
+  -- phi^2 ≤ 1.6180339888^2 ≈ 2.6181
+  have h_phi_sq_ub : phi^2 ≤ 2.62 := by nlinarith [phi_ub, phi_lb]
+  linarith
+
+/-- `α_QG ≠ phi + 1/4` (so QG ≠ NP). Since `(phi + 1/4)² ≈ 3.488 < 2π ≈ 6.283`. -/
+theorem alpha_QG_ne_phi_plus_quarter : alpha_QG ≠ phi + 1/4 := by
+  intro h
+  have h_sq : alpha_QG ^ 2 = (phi + 1/4)^2 := by rw [h]
+  rw [alpha_QG_sq] at h_sq
+  -- phi ≤ 1.6181, so phi + 1/4 ≤ 1.8681, and (phi+1/4)² ≤ 3.4898 < 6 < 2π.
+  have phi_ub : phi ≤ 1.6180339888 := phi_in_interval_10digit.2
+  have phi_lb : (1.6180339887 : ℝ) ≤ phi := phi_in_interval_10digit.1
+  have h_pi_gt : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have h_2pi_gt : (6 : ℝ) < 2 * Real.pi := by linarith
+  have h_expand_ub : (phi + 1/4)^2 ≤ 3.5 := by nlinarith [phi_ub, phi_lb]
+  linarith
+
+/-- `α_QG ≠ 3π/2` (so QG ≠ NS). Since `(3π/2)² = 9π²/4 ≈ 22.21 > 2π ≈ 6.283`. -/
+theorem alpha_QG_ne_three_pi_halves : alpha_QG ≠ 3 * Real.pi / 2 := by
+  intro h
+  have h_sq : alpha_QG ^ 2 = (3 * Real.pi / 2)^2 := by rw [h]
+  rw [alpha_QG_sq] at h_sq
+  -- 2π = 9π²/4 ⇒ 8 = 9π ⇒ π = 8/9 ≈ 0.889. But π > 3. Contradiction.
+  -- Equivalent: π² · 9/4 = 2π ⇒ 9π/4 = 2 ⇒ π = 8/9 < 1. Contradiction with π > 3.
+  have h_pi_gt : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  -- From h_sq: 2π = 9π²/4
+  have h_rearr : (9 : ℝ) * Real.pi * Real.pi = 8 * Real.pi := by nlinarith [h_sq]
+  -- Divide both sides by π (positive): 9π = 8 ⇒ π = 8/9 < 1 < 3 < π. Contradiction.
+  have h_pi_eq : (9 : ℝ) * Real.pi = 8 := by
+    have hne : Real.pi ≠ 0 := ne_of_gt h_pi_pos
+    have h_simp : 9 * Real.pi * Real.pi = (9 * Real.pi) * Real.pi := by ring
+    rw [h_simp] at h_rearr
+    have h_8 : 8 * Real.pi = 8 * Real.pi := by ring
+    -- 9π · π = 8 · π ⇒ 9π = 8 by cancellation (both sides have π ≠ 0)
+    nlinarith [h_rearr, h_pi_gt, h_pi_pos]
+  linarith
+
+/-- `α_QG ≠ 3π/4` (so QG ≠ BSD). Since `(3π/4)² = 9π²/16 ≈ 5.55 ≠ 2π ≈ 6.283`. -/
+theorem alpha_QG_ne_three_pi_quarter : alpha_QG ≠ 3 * Real.pi / 4 := by
+  intro h
+  have h_sq : alpha_QG ^ 2 = (3 * Real.pi / 4)^2 := by rw [h]
+  rw [alpha_QG_sq] at h_sq
+  -- 2π = 9π²/16 ⇒ 32 = 9π ⇒ π = 32/9 ≈ 3.556. But π < 3.15 (PI_lt_d2). Contradiction.
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_hi : Real.pi < (3.15 : ℝ) := Real.pi_lt_d2
+  -- From h_sq: 2π = 9π²/16  ⇒  9π² = 32π  ⇒  9π = 32  (dividing by π > 0)
+  have h_rearr : (9 : ℝ) * Real.pi * Real.pi = 32 * Real.pi := by nlinarith [h_sq]
+  -- π = 32/9 ≈ 3.556 — but π < 3.15. Contradiction.
+  have h_pi_eq : (9 : ℝ) * Real.pi = 32 := by
+    nlinarith [h_rearr, h_pi_pos, h_pi_hi]
+  linarith
+
 /-! ## Universal-formula instance: QG joins the family
 
     The universal closed form `λ_0(H_α) · α = π/10` is what unifies
