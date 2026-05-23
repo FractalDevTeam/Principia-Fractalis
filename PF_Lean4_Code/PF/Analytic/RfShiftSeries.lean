@@ -66,4 +66,96 @@ theorem shiftSeriesTerm_r_zero_summable (α : ℝ) (s : ℂ) :
 theorem norm_phaseFactor_eq_one (α : ℝ) (m : ℕ) :
     ‖phaseFactor α m‖ = 1 := norm_phaseFactor α m
 
+/-! ## Brick B: shift-series r ∈ {1,2} bound + summability
+
+    For r ∈ {1, 2} and m ≥ 1, the bracket `1/(3m+r)^s - 1/(3m)^s`
+    is bounded by triangle inequality:
+
+      `|1/(3m+r)^s - 1/(3m)^s| ≤ 1/(3m+r)^(Re s) + 1/(3m)^(Re s)
+                              ≤ 2/(3m)^(Re s)`.
+
+    Combined with `‖phaseFactor α m‖ = 1`:
+
+      `‖shiftSeriesTerm α s r m‖ ≤ 2/(3m)^(Re s)`.
+
+    For `Re(s) > 1`, this is summable by comparison with
+    `mathlib.Complex.summable_one_div_nat_cpow`. -/
+
+/-- **Triangle-inequality bound on a single shift-series term** for `r ∈ {1,2}`,
+    `m ≥ 1`, `0 < Re(s)`. -/
+theorem norm_shiftSeriesTerm_le_triangle
+    (α : ℝ) (s : ℂ) (r m : ℕ) (hm : m ≠ 0) :
+    ‖shiftSeriesTerm α s r m‖ ≤
+      ‖(1 : ℂ) / ((3 * m + r : ℕ) : ℂ)^s‖ + ‖(1 : ℂ) / ((3 * m : ℕ) : ℂ)^s‖ := by
+  unfold shiftSeriesTerm
+  rw [if_neg hm]
+  -- ‖phaseFactor · (a - b)‖ = ‖phaseFactor‖ · ‖a - b‖ = 1 · ‖a - b‖
+  rw [norm_mul, norm_phaseFactor]
+  rw [one_mul]
+  -- ‖a - b‖ ≤ ‖a‖ + ‖b‖ via triangle inequality
+  exact norm_sub_le _ _
+
+/-- **Summability of the shift-series for any `r` at `Re(s) > 1`**.
+
+    Triangle bound gives `‖shiftSeriesTerm α s r m‖ ≤ ‖1/(3m+r)^s‖ + ‖1/(3m)^s‖`.
+    Both terms summable in m via mathlib's `Complex.summable_one_div_nat_cpow`. -/
+theorem shiftSeriesTerm_summable_of_re_gt_one
+    (α : ℝ) {s : ℂ} (hs : 1 < s.re) (r : ℕ) :
+    Summable (shiftSeriesTerm α s r) := by
+  set_option maxHeartbeats 800000 in
+  -- Use Complex.summable_one_div_nat_cpow for the m = 3*· and 3*·+r families.
+  have h_zeta_summable :
+      Summable (fun m : ℕ => (1 : ℂ) / (m : ℂ)^s) :=
+    (Complex.summable_one_div_nat_cpow (p := s)).mpr hs
+  -- Compose: m ↦ 3*m is an injection, so (3*m) form is summable. Similarly (3*m+r).
+  -- Direct route: bound ‖shiftSeriesTerm α s r m‖ ≤ ‖1 / (m : ℂ)^s‖ · C for some C.
+  -- We need ‖1/(3m)^s‖ ≤ ‖1/m^s‖ which requires (3m)^(Re s) ≥ m^(Re s) i.e. Re s > 0.
+  -- The simplest path: use the index n ↦ 3*n and 3*n+r as injections.
+  apply Summable.of_norm_bounded (g := fun m : ℕ => 2 * ‖(1 : ℂ) / (m : ℂ)^s‖)
+  · exact (h_zeta_summable.norm).mul_left 2
+  intro m
+  by_cases hm : m = 0
+  · simp [shiftSeriesTerm, hm]
+  · -- m ≥ 1: triangle bound + monotonicity in the integer base
+    have h_tri := norm_shiftSeriesTerm_le_triangle α s r m hm
+    have hm_pos : 0 < m := Nat.pos_of_ne_zero hm
+    have h_3m_pos : 0 < 3 * m := by omega
+    have h_3m_plus_r_pos : 0 < 3 * m + r := by omega
+    -- Convert all norms to real expressions via Complex.norm_natCast_cpow_of_pos.
+    have h_re_pos : 0 < s.re := lt_trans zero_lt_one hs
+    have h_n_pos : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hm_pos
+    have h_3n_pos : (0 : ℝ) < (3 * m : ℝ) := by exact_mod_cast h_3m_pos
+    have h_3nr_pos : (0 : ℝ) < (3 * m + r : ℝ) := by exact_mod_cast h_3m_plus_r_pos
+    have h_norm_3m :
+        ‖(1 : ℂ) / ((3 * m : ℕ) : ℂ)^s‖ = 1 / (3 * m : ℝ)^s.re := by
+      rw [norm_div, norm_one, Complex.norm_natCast_cpow_of_pos h_3m_pos]
+      norm_cast
+    have h_norm_3mr :
+        ‖(1 : ℂ) / ((3 * m + r : ℕ) : ℂ)^s‖ = 1 / (3 * m + r : ℝ)^s.re := by
+      rw [norm_div, norm_one, Complex.norm_natCast_cpow_of_pos h_3m_plus_r_pos]
+      norm_cast
+    have h_norm_m :
+        ‖(1 : ℂ) / ((m : ℕ) : ℂ)^s‖ = 1 / (m : ℝ)^s.re := by
+      rw [norm_div, norm_one, Complex.norm_natCast_cpow_of_pos hm_pos]
+    rw [h_norm_3m, h_norm_3mr] at h_tri
+    rw [h_norm_m]
+    -- Monotonicity: 1/(3m)^(Re s) ≤ 1/m^(Re s) since 3m ≥ m and Re s > 0.
+    have h_3m_ge : (m : ℝ) ≤ (3 * m : ℝ) := by
+      push_cast; linarith
+    have h_3mr_ge : (m : ℝ) ≤ (3 * m + r : ℝ) := by
+      push_cast; have : (0:ℝ) ≤ (r:ℝ) := Nat.cast_nonneg r; linarith
+    have h_pow_3m : (m : ℝ)^s.re ≤ (3 * m : ℝ)^s.re :=
+      Real.rpow_le_rpow h_n_pos.le h_3m_ge h_re_pos.le
+    have h_pow_3mr : (m : ℝ)^s.re ≤ (3 * m + r : ℝ)^s.re :=
+      Real.rpow_le_rpow h_n_pos.le h_3mr_ge h_re_pos.le
+    have h_pow_m_pos : (0 : ℝ) < (m : ℝ)^s.re := Real.rpow_pos_of_pos h_n_pos _
+    have h_div_3m : 1 / (3 * m : ℝ)^s.re ≤ 1 / (m : ℝ)^s.re :=
+      one_div_le_one_div_of_le h_pow_m_pos h_pow_3m
+    have h_div_3mr : 1 / (3 * m + r : ℝ)^s.re ≤ 1 / (m : ℝ)^s.re :=
+      one_div_le_one_div_of_le h_pow_m_pos h_pow_3mr
+    -- ‖shiftSeriesTerm‖ ≤ 1/(3m+r)^Re s + 1/(3m)^Re s (from h_tri)
+    --                   ≤ 1/m^Re s + 1/m^Re s              (from h_div_*)
+    --                   = 2 · (1/m^Re s)
+    linarith [h_tri, h_div_3m, h_div_3mr]
+
 end PrincipiaTractalis.Analytic
