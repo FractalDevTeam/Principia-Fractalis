@@ -1,0 +1,295 @@
+
+=== alpha=sqrt2 (1.4142135624), k=4, target=0.2221441469 ===
+Building H (81x81) ...
+Diagonalising ...
+  spectrum range: [-37.788337, 37.692147]
+  smallest |lambda|: 0.038855
+  smallest positive: 0.038855   |.-target|: 1.832888e-01
+Resolvent grid: 401 x 201 = 80601 points
+  median|R| = 3.2335e+01, threshold = 3.2335e+04
+  poles found: 0
+  poles within 0.02 of target (0.22214414690791828+0j): 0
+  |R(target)| = 5.7971e+01
+Spectral zeta values (principal log):
+  zeta(s=+1.0) = +1.209520e+01 + -5.805742e-15i
+  zeta(s=+2.0) = +8.962753e+02 + +4.183386e-14i
+  zeta(s=+0.5) = +3.727680e+01 + -3.735442e+01i
+  zeta(s=-1.0) = +4.377780e-02 + +1.770484e-14i
+  log det(H) (sum of log lam) = +4.416334e+01 + +1.288053e+02i
+  exp(log det) modulus = 1.513198e+19
+  Is log det related to target 0.22214414690791828?  Re(log det)/N = 5.452264e-01
+  ratio log det / (pi/(10 alpha)) = 198.804887
+Critical-line sweep zeta(1/2 + i tau):
+  |zeta| min = 7.1359e-01 at tau=-6.10
+  |zeta| max = 1.7557e+14 at tau=10.00
+  zeta(1/2 + i*target=0.2221) = +3.7744e+01 + -7.0102e+01i  |.|=7.9617e+01
+  zeta(1/2 + i*1/target=4.5016) = -4.3049e+06 + +2.2635e+06i  |.|=4.8637e+06
+  zeta(1/2 + i*pi*target=0.6979) = +4.9752e+01 + -2.3721e+02i  |.|=2.4237e+02
+Regularised trace Tr log(H - z) near target:
+  z=+0.1721: Re=+4.4442e+01, Im=+1.3195e+02
+  z=+0.2121: Re=+4.2808e+01, Im=+1.3509e+02
+  z=+0.2221: Re=+4.3600e+01, Im=+1.3509e+02
+  z=+0.2321: Re=+4.3959e+01, Im=+1.3509e+02
+  z=+0.2721: Re=+4.4246e+01, Im=+1.3509e+02
+  z=target+0.01i: Re=+4.3755e+01, Im=-1.3465e+02
+  z=target+0.001i: Re=+4.3602e+01, Im=-1.3504e+02
+  z=target+0.0001i: Re=+4.3600e+01, Im=-1.3508e+02
+
+=== alpha=sqrt2 (1.4142135624), k=5, target=0.2221441469 ===
+Building H (243x243) ...
+Diagonalising ...
+  spectrum range: [-109.874303, 109.642195]
+  smallest |lambda|: 0.001534
+  smallest positive: 0.001534   |.-target|: 2.206097e-01
+Resolvent grid: 401 x 201 = 80601 points
+  median|R| = 8.6501e+01, threshold = 8.6501e+04
+  poles found: 0
+  poles within 0.02 of target (0.22214414690791828+0j): 0
+  |R(target)| = 4.9162e+02
+Spectral zeta values (principal log):
+  zeta(s=+1.0) = +7.298008e+02 + -2.933083e-14i
+  zeta(s=+2.0) = +4.498557e+05 + +1.486906e-12i
+  zeta(s=+0.5) = +1.508118e+02 + -1.203168e+02i
+  zeta(s=-1.0) = -4.286803e-02 + +7.177835e-14i
+  log det(H) (sum of log lam) = +1.325551e+02 + +3.801327e+02i
+  exp(log det) modulus = 3.697759e+57
+  Is log det related to target 0.22214414690791828?  Re(log det)/N = 5.454941e-01
+  ratio log det / (pi/(10 alpha)) = 596.707495
+Critical-line sweep zeta(1/2 + i tau):
+  |zeta| min = 7.7206e+00 at tau=-9.80
+  |zeta| max = 1.7640e+14 at tau=9.90
+  zeta(1/2 + i*target=0.2221) = +1.4630e+02 + -1.7792e+02i  |.|=2.3035e+02
+  zeta(1/2 + i*1/target=4.5016) = +2.9582e+06 + -2.2407e+07i  |.|=2.2601e+07
+  zeta(1/2 + i*pi*target=0.6979) = +2.0554e+02 + -5.2682e+02i  |.|=5.6550e+02
+Regularised trace Tr log(H - z) near target:
+  z=+0.1721: Re=+1.3876e+02, Im=+4.0212e+02
+  z=+0.2121: Re=+1.3515e+02, Im=+4.0527e+02
+  z=+0.2221: Re=+1.3461e+02, Im=+4.1155e+02
+  z=+0.2321: Re=+1.3796e+02, Im=+4.1469e+02
+  z=+0.2721: Re=+1.3937e+02, Im=+4.1783e+02
+  z=target+0.01i: Re=+1.3801e+02, Im=-4.1106e+02
+  z=target+0.001i: Re=+1.3481e+02, Im=-4.1174e+02
+  z=target+0.0001i: Re=+1.3461e+02, Im=-4.1157e+02
+
+=== alpha=3o2 (1.5000000000), k=4, target=0.2094395102 ===
+Building H (81x81) ...
+Diagonalising ...
+  spectrum range: [-28.543285, 27.592362]
+  smallest |lambda|: 0.150957
+  smallest positive: 0.150957   |.-target|: 5.848225e-02
+Resolvent grid: 401 x 201 = 80601 points
+  median|R| = 1.7679e+01, threshold = 1.7679e+04
+  poles found: 0
+  poles within 0.02 of target (0.20943951023931953+0j): 0
+  |R(target)| = 1.2189e+01
+Spectral zeta values (principal log):
+  zeta(s=+1.0) = +3.987383e+00 + -2.422099e-15i
+  zeta(s=+2.0) = +8.097859e+01 + +5.759245e-15i
+  zeta(s=+0.5) = +2.643937e+01 + -2.489546e+01i
+  zeta(s=-1.0) = +1.937500e+00 + +2.419892e-14i
+  log det(H) (sum of log lam) = +9.461345e+01 + +1.256637e+02i
+  exp(log det) modulus = 1.230551e+41
+  Is log det related to target 0.20943951023931953?  Re(log det)/N = 1.168067e+00
+  ratio log det / (pi/(10 alpha)) = 451.745951
+Critical-line sweep zeta(1/2 + i tau):
+  |zeta| min = 3.5689e-01 at tau=-8.30
+  |zeta| max = 1.3297e+14 at tau=10.00
+  zeta(1/2 + i*target=0.2094) = +1.8559e+01 + -4.9634e+01i  |.|=5.2990e+01
+  zeta(1/2 + i*1/target=4.7746) = -4.7489e+06 + -2.3657e+06i  |.|=5.3055e+06
+  zeta(1/2 + i*pi*target=0.6580) = -5.3021e+01 + -1.4908e+02i  |.|=1.5822e+02
+Regularised trace Tr log(H - z) near target:
+  z=+0.1594: Re=+9.1707e+01, Im=+1.2881e+02
+  z=+0.1994: Re=+9.3305e+01, Im=+1.2881e+02
+  z=+0.2094: Re=+9.3447e+01, Im=+1.2881e+02
+  z=+0.2194: Re=+9.3556e+01, Im=+1.2881e+02
+  z=+0.2594: Re=+9.3780e+01, Im=+1.2881e+02
+  z=target+0.01i: Re=+9.3463e+01, Im=-1.2868e+02
+  z=target+0.001i: Re=+9.3447e+01, Im=-1.2879e+02
+  z=target+0.0001i: Re=+9.3447e+01, Im=-1.2880e+02
+
+=== alpha=3o2 (1.5000000000), k=5, target=0.2094395102 ===
+Building H (243x243) ...
+Diagonalising ...
+  spectrum range: [-76.116036, 76.703966]
+  smallest |lambda|: 0.016879
+  smallest positive: 0.016879   |.-target|: 1.925608e-01
+Resolvent grid: 401 x 201 = 80601 points
+  median|R| = 3.8091e+01, threshold = 3.8091e+04
+  poles found: 0
+  poles within 0.02 of target (0.20943951023931953+0j): 0
+  |R(target)| = 1.3836e+01
+Spectral zeta values (principal log):
+  zeta(s=+1.0) = +5.913658e+01 + -7.944882e-15i
+  zeta(s=+2.0) = +3.933216e+03 + +5.756914e-14i
+  zeta(s=+0.5) = +7.758446e+01 + -6.925992e+01i
+  zeta(s=-1.0) = +0.000000e+00 + +1.134731e-13i
+  log det(H) (sum of log lam) = +3.572053e+02 + +3.801327e+02i
+  exp(log det) modulus = 1.356101e+155
+  Is log det related to target 0.20943951023931953?  Re(log det)/N = 1.469981e+00
+  ratio log det / (pi/(10 alpha)) = 1705.529690
+Critical-line sweep zeta(1/2 + i tau):
+  |zeta| min = 1.0160e+00 at tau=-8.80
+  |zeta| max = 5.7448e+14 at tau=10.00
+  zeta(1/2 + i*target=0.2094) = +5.3062e+01 + -1.3010e+02i  |.|=1.4051e+02
+  zeta(1/2 + i*1/target=4.7746) = +7.8710e+06 + +1.2541e+07i  |.|=1.4806e+07
+  zeta(1/2 + i*pi*target=0.6580) = -1.4338e+02 + -3.2047e+02i  |.|=3.5108e+02
+Regularised trace Tr log(H - z) near target:
+  z=+0.1594: Re=+3.5582e+02, Im=+3.8642e+02
+  z=+0.1994: Re=+3.5291e+02, Im=+3.8956e+02
+  z=+0.2094: Re=+3.5345e+02, Im=+3.8956e+02
+  z=+0.2194: Re=+3.5282e+02, Im=+3.8956e+02
+  z=+0.2594: Re=+3.5404e+02, Im=+3.9270e+02
+  z=target+0.01i: Re=+3.5383e+02, Im=-3.8966e+02
+  z=target+0.001i: Re=+3.5345e+02, Im=-3.8957e+02
+  z=target+0.0001i: Re=+3.5345e+02, Im=-3.8956e+02
+
+=== alpha=2 (2.0000000000), k=4, target=0.1570796327 ===
+Building H (81x81) ...
+Diagonalising ...
+  spectrum range: [-0.000000, 81.178866]
+  smallest |lambda|: 0.000000
+  smallest positive: 75.758634   |.-target|: 7.560155e+01
+Resolvent grid: 401 x 201 = 80601 points
+  median|R| = 6.7545e+01, threshold = 6.7545e+04
+  poles found: 1
+  poles within 0.02 of target (0.15707963267948966+0j): 0
+  |R(target)| = 4.9372e+02
+  closest pole to target: z=0.000000+0.000000j, |R|=2.1125e+16, |z-target|=1.5708e-01
+Spectral zeta values (principal log):
+  zeta(s=+1.0) = +2.551829e-02 + +0.000000e+00i
+  zeta(s=+2.0) = +3.259800e-04 + +0.000000e+00i
+  zeta(s=+0.5) = +2.258791e-01 + +0.000000e+00i
+  zeta(s=-1.0) = +1.569375e+02 + +0.000000e+00i
+  log det(H) (sum of log lam) = +8.724207e+00 + +0.000000e+00i
+  exp(log det) modulus = 6.150000e+03
+  Is log det related to target 0.15707963267948966?  Re(log det)/N = 1.077063e-01
+  ratio log det / (pi/(10 alpha)) = 55.540029
+Critical-line sweep zeta(1/2 + i tau):
+  |zeta| min = 2.1253e-01 at tau=-10.00
+  |zeta| max = 2.2588e-01 at tau=-0.00
+  zeta(1/2 + i*target=0.1571) = +1.7491e-01 + -1.4292e-01i  |.|=2.2588e-01
+  zeta(1/2 + i*1/target=6.3662) = -1.9258e-01 + -1.0726e-01i  |.|=2.2044e-01
+  zeta(1/2 + i*pi*target=0.4935) = -1.2406e-01 + -1.8872e-01i  |.|=2.2585e-01
+Regularised trace Tr log(H - z) near target:
+  z=+0.1071: Re=+8.7215e+00, Im=+0.0000e+00
+  z=+0.1471: Re=+8.7205e+00, Im=+0.0000e+00
+  z=+0.1571: Re=+8.7202e+00, Im=+0.0000e+00
+  z=+0.1671: Re=+8.7199e+00, Im=+0.0000e+00
+  z=+0.2071: Re=+8.7189e+00, Im=+0.0000e+00
+  z=target+0.01i: Re=+8.7202e+00, Im=-2.5570e-04
+  z=target+0.001i: Re=+8.7202e+00, Im=-2.5570e-05
+  z=target+0.0001i: Re=+8.7202e+00, Im=-2.5570e-06
+
+=== alpha=2 (2.0000000000), k=5, target=0.1570796327 ===
+Building H (243x243) ...
+Diagonalising ...
+  spectrum range: [-0.000000, 243.125498]
+  smallest |lambda|: 0.000000
+  smallest positive: 235.280752   |.-target|: 2.351237e+02
+Resolvent grid: 401 x 201 = 80601 points
+  median|R| = 2.0610e+02, threshold = 2.0610e+05
+  poles found: 1
+  poles within 0.02 of target (0.15707963267948966+0j): 0
+  |R(target)| = 1.5062e+03
+  closest pole to target: z=0.000000+0.000000j, |R|=9.6588e+16, |z-target|=1.5708e-01
+Spectral zeta values (principal log):
+  zeta(s=+1.0) = +8.363344e-03 + +0.000000e+00i
+  zeta(s=+2.0) = +3.498216e-05 + +0.000000e+00i
+  zeta(s=+0.5) = +1.293273e-01 + +0.000000e+00i
+  zeta(s=-1.0) = +4.784062e+02 + +0.000000e+00i
+  log det(H) (sum of log lam) = +1.095436e+01 + +0.000000e+00i
+  exp(log det) modulus = 5.720275e+04
+  Is log det related to target 0.15707963267948966?  Re(log det)/N = 4.507966e-02
+  ratio log det / (pi/(10 alpha)) = 69.737604
+Critical-line sweep zeta(1/2 + i tau):
+  |zeta| min = 1.2759e-01 at tau=-10.00
+  |zeta| max = 1.2933e-01 at tau=-0.00
+  zeta(1/2 + i*target=0.1571) = +8.4345e-02 + -9.8037e-02i  |.|=1.2933e-01
+  zeta(1/2 + i*1/target=6.3662) = -1.2248e-01 + +3.9290e-02i  |.|=1.2862e-01
+  zeta(1/2 + i*pi*target=0.4935) = -1.1707e-01 + -5.4941e-02i  |.|=1.2932e-01
+Regularised trace Tr log(H - z) near target:
+  z=+0.1071: Re=+1.0953e+01, Im=+0.0000e+00
+  z=+0.1471: Re=+1.0953e+01, Im=+0.0000e+00
+  z=+0.1571: Re=+1.0953e+01, Im=+0.0000e+00
+  z=+0.1671: Re=+1.0953e+01, Im=+0.0000e+00
+  z=+0.2071: Re=+1.0953e+01, Im=+0.0000e+00
+  z=target+0.01i: Re=+1.0953e+01, Im=-8.3688e-05
+  z=target+0.001i: Re=+1.0953e+01, Im=-8.3688e-06
+  z=target+0.0001i: Re=+1.0953e+01, Im=-8.3688e-07
+
+
+=== POLYLOG BRANCH TEST (mpmath) ===
+
+alpha = sqrt2 (1.4142135624), target pi/(10*alpha) = 0.2221441469
+  Li_2(sqrt2) principal      = (2.3281517284448445-1.088793045151801j)
+     |Re - target| = 2.106008e+00
+  Li_2(branch -2) = (2.3281517284448445-5.443965225759006j)
+     |Re - target| = 2.106008e+00
+     |Im - target| = 5.666109e+00
+  Li_2(branch -1) = (2.3281517284448445-3.266379135455403j)
+     |Re - target| = 2.106008e+00
+     |Im - target| = 3.488523e+00
+  Li_2(branch +1) = (2.3281517284448445+1.088793045151801j)
+     |Re - target| = 2.106008e+00
+     |Im - target| = 8.666489e-01
+  Li_2(branch +2) = (2.3281517284448445+3.266379135455403j)
+     |Re - target| = 2.106008e+00
+     |Im - target| = 3.044235e+00
+  Li_1(sqrt2) principal = (0.881373587019543-3.141592653589793j)  (note: alpha>1 means branch cut crossed)
+     |Re - target| = 6.592294e-01
+  Li_1(branch -1) = (0.881373587019543-9.42477796076938j)
+     |Im - target| = 9.646922e+00
+  Li_1(branch +1) = (0.881373587019543+3.141592653589793j)
+     |Im - target| = 2.919449e+00
+
+alpha = 3/2 (1.5000000000), target pi/(10*alpha) = 0.2094395102
+  Li_2(3/2) principal      = (2.37439527027248-1.2738062049196006j)
+     |Re - target| = 2.164956e+00
+  Li_2(branch -2) = (2.37439527027248-6.369031024598002j)
+     |Re - target| = 2.164956e+00
+     |Im - target| = 6.578471e+00
+  Li_2(branch -1) = (2.37439527027248-3.8214186147588016j)
+     |Re - target| = 2.164956e+00
+     |Im - target| = 4.030858e+00
+  Li_2(branch +1) = (2.37439527027248+1.2738062049196006j)
+     |Re - target| = 2.164956e+00
+     |Im - target| = 1.064367e+00
+  Li_2(branch +2) = (2.37439527027248+3.8214186147588016j)
+     |Re - target| = 2.164956e+00
+     |Im - target| = 3.611979e+00
+  Li_1(3/2) principal = (0.6931471805599453-3.141592653589793j)  (note: alpha>1 means branch cut crossed)
+     |Re - target| = 4.837077e-01
+  Li_1(branch -1) = (0.6931471805599453-9.42477796076938j)
+     |Im - target| = 9.634217e+00
+  Li_1(branch +1) = (0.6931471805599453+3.141592653589793j)
+     |Im - target| = 2.932153e+00
+
+alpha = 2 (2.0000000000), target pi/(10*alpha) = 0.1570796327
+  Li_2(2) principal      = (2.4674011002723395-2.177586090303602j)
+     |Re - target| = 2.310321e+00
+  Li_2(branch -2) = (2.4674011002723395-10.887930451518011j)
+     |Re - target| = 2.310321e+00
+     |Im - target| = 1.104501e+01
+  Li_2(branch -1) = (2.4674011002723395-6.532758270910806j)
+     |Re - target| = 2.310321e+00
+     |Im - target| = 6.689838e+00
+  Li_2(branch +1) = (2.4674011002723395+2.177586090303602j)
+     |Re - target| = 2.310321e+00
+     |Im - target| = 2.020506e+00
+  Li_2(branch +2) = (2.4674011002723395+6.532758270910806j)
+     |Re - target| = 2.310321e+00
+     |Im - target| = 6.375679e+00
+  Li_1(2) principal = -3.141592653589793j  (note: alpha>1 means branch cut crossed)
+     |Re - target| = 1.570796e-01
+  Li_1(branch -1) = -9.42477796076938j
+     |Im - target| = 9.581858e+00
+  Li_1(branch +1) = 3.141592653589793j
+     |Im - target| = 2.984513e+00
+
+=== SUMMARY ===
+alpha=sqrt2 k=4: target=0.222144, #poles>1000*med = 0, closest pole to target = n/a
+alpha=sqrt2 k=5: target=0.222144, #poles>1000*med = 0, closest pole to target = n/a
+alpha=3o2 k=4: target=0.209440, #poles>1000*med = 0, closest pole to target = n/a
+alpha=3o2 k=5: target=0.209440, #poles>1000*med = 0, closest pole to target = n/a
+alpha=2 k=4: target=0.157080, #poles>1000*med = 1, closest pole to target = (1.7763568394002505e-15+8.881784197001252e-16j)
+alpha=2 k=5: target=0.157080, #poles>1000*med = 1, closest pole to target = (1.7763568394002505e-15+8.881784197001252e-16j)
