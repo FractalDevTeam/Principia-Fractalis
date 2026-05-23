@@ -401,6 +401,69 @@ formally is one component of the
 $\mathtt{MillenniumReductionSoundness}$ proposition
 (Section~\ref{sec:open-props}).
 
+\subsubsection*{Executable Turing machine artifact}\label{subsubsec:turing-artifact}
+
+A separate companion repository~\cite{cohen2026turing} hosts a complete
+\emph{executable} realization of the framework's Turing-machine encoding
+in browser-deployable JavaScript with BigInt prime arithmetic. The
+artifact includes:
+
+\begin{itemize}
+\item \textbf{Five real Turing machines} executable in any modern
+browser: a Binary Incrementer, a Palindrome Checker, a 3-State Busy
+Beaver, a Unary Doubler, and a SAT Certificate Verifier.
+
+\item \textbf{Live BigInt prime-encoding} of every configuration: for
+each machine step, the configuration is encoded as the natural number
+\[
+\mathrm{encode}(C) \;=\; 2^{\mathrm{state}} \cdot 3^{\mathrm{head}} \cdot \prod_{j=0}^{|\mathrm{tape}|-1} p_{j+2}^{\,\mathrm{tape}[j]+1},
+\]
+where $p_k$ denotes the $k$th prime. The exponent $j+2$ (rather than the
+original $j+1$) was \emph{corrected during Lean~4 formalization}: the
+original $p_{j+1}$ collided with the prime-$3$ index used for the head
+position. This is a cross-validation between the formal proof and the
+running implementation: the Lean type checker caught a real bug in the
+informal encoding.
+
+\item \textbf{Live $D_3$ trajectory plotting}: as each machine
+executes, the base-$3$ digital sum $D_3(\mathrm{encode}(C_t))$ is
+computed step-by-step and rendered as a trajectory. This is
+\emph{oracle-independent}: it depends only on the machine's current
+configuration, not on any external input encoding.
+
+\item \textbf{$\mathrm{ch}_2$ coherence meter against threshold
+$0.95398$}: the framework's consciousness threshold (Ch.~6 of
+\cite{cohen2025framework}) is rendered live, with explicit color-coding
+of $P$-class behavior (below threshold) versus $NP$-class behavior
+(above threshold). The threshold value $0.95398$ is reported with five
+significant figures to match the manuscript's precision.
+
+\item \textbf{Spectral gap visualization} $\Delta = 0.0539677287 \pm
+10^{-8}$ for each executing machine, matching the framework's predicted
+$\lambda_0(H_P) - \lambda_0(H_{NP})$ to the IntervalArithmetic
+certified bracket.
+
+\item \textbf{$143$-Problem mode}: the visualization includes a mode
+displaying the IBM Quantum Verification dataset (Section~7) overlaid on
+the spectral framework, providing a visual cross-reference between the
+hardware results and the framework's predictions.
+\end{itemize}
+
+The executable artifact serves three roles:
+\begin{enumerate}
+\item It demonstrates that the framework's prime-power encoding is not
+merely a formalization device but a computable, deployable object.
+\item It provides an accessible visual proof for non-specialists who
+cannot read Lean source.
+\item It cross-validates the formalization: the encoding bug
+(\texttt{$p_{j+1}$} versus \texttt{$p_{j+2}$}) was caught by the Lean
+type checker and fixed in both the formal proof and the executable
+artifact simultaneously.
+\end{enumerate}
+
+The artifact is at \cite{cohen2026turing}; live demo at
+\url{https://fractaldevteam.github.io/turing/}.
+
 \subsubsection*{The conditional $P \neq NP$ theorem}
 
 The Principia Fractalis $P$-vs-$NP$ reduction (Ch.~21 of
@@ -706,6 +769,12 @@ Proc. 3rd ACM Symp. on Theory of Computing, 1971, pp. 151--158.
 R.~Karp,
 \emph{Reducibility among combinatorial problems},
 in Complexity of Computer Computations, Plenum, 1972, pp. 85--103.
+
+\bibitem{cohen2026turing}
+P.~Cohen,
+\emph{True Turing Machine with Live Spectral Encoding},
+Browser-deployable executable artifact, 2026.
+\url{https://github.com/FractalDevTeam/turing}.
 
 \bibitem{cohen2025framework}
 P.~Cohen,
