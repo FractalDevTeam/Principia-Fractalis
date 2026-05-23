@@ -1,0 +1,46 @@
+Convergence study: tracking closest |lambda| to pi/(10*alpha) as k grows.
+If the substrate genuinely realizes the conjecture, gap -> 0 as k -> infinity.
+If it saturates at some nonzero value, the eigenvalue is some OTHER quantity
+that just happens to lie near pi/(10*alpha) by coincidence.
+
+=== alpha=2.000000, a=2.000000, mode=ultrametric, phase=False, target=0.15707963 ===
+    k     n     closest |lambda|             gap    gap ratio
+    3    27         0.1698368085      0.01275718            -
+    4    81         0.1632661278      0.00618650       0.4849
+    5   243         0.1625344011      0.00545477       0.8817
+    6   729         0.1624579445      0.00537831       0.9860
+
+=== alpha=2.000000, a=2.000000, mode=ultrametric, phase=True, target=0.15707963 ===
+    k     n     closest |lambda|             gap    gap ratio
+    3    27         0.1698368085      0.01275718            -
+    4    81         0.1632661278      0.00618650       0.4849
+    5   243         0.1625344011      0.00545477       0.8817
+    6   729         0.1624579445      0.00537831       0.9860
+
+=== alpha=1.414214, a=1.414214, mode=log, phase=False, target=0.22214415 ===
+    k     n     closest |lambda|             gap    gap ratio
+    3    27         0.2843366111      0.06219246            -
+    4    81         0.2122996539      0.00984449       0.1583
+    5   243         0.2007119377      0.02143221       2.1771
+    6   729         0.1905020584      0.03164209       1.4764
+
+=== alpha=1.414214, a=1.414214, mode=ultrametric, phase=False, target=0.22214415 ===
+    k     n     closest |lambda|             gap    gap ratio
+    3    27         0.2789593999      0.05681525            -
+    4    81         0.2660847196      0.04394057       0.7734
+    5   243         0.2646574130      0.04251327       0.9675
+    6   729         0.2645041625      0.04236002       0.9964
+
+=== alpha=1.500000, a=1.500000, mode=ultrametric, phase=False, target=0.20943951 ===
+    k     n     closest |lambda|             gap    gap ratio
+    3    27         0.2373292751      0.02788976            -
+    4    81         0.2262105164      0.01677101       0.6013
+    5   243         0.2250189778      0.01557947       0.9290
+    6   729         0.2248861866      0.01544668       0.9915
+
+=== alpha=1.500000, a=1.500000, mode=ultrametric, phase=True, target=0.20943951 ===
+    k     n     closest |lambda|             gap    gap ratio
+    3    27         0.2373292751      0.02788976            -
+    4    81         0.2262105164      0.01677101       0.6013
+    5   243         0.2250189778      0.01557947       0.9290
+    6   729         0.2248861866      0.01544668       0.9915
