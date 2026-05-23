@@ -236,6 +236,26 @@ provides an unambiguous specification of what remains to be proved.
 This is the value of formalization for collaborative mathematics:
 the open questions are explicit, refactorable, and attackable.
 
+\subsection{Cross-validation against executable artifact}
+
+A companion executable artifact~\cite{cohen2026turing} hosts a complete
+browser-deployable realization of the framework's prime-power Turing
+encoding in BigInt JavaScript. The Lean formalization caught a bug in
+the original informal encoding: the original formula used
+$p_{j+1}$ as the prime base for tape symbol $j$, which collided with
+the prime-$3$ index used for the head position. The Lean type checker
+flagged the collision; the formal proof was updated to $p_{j+2}$, and
+the executable artifact was simultaneously corrected. This is an
+instance of formal verification catching a real bug that informal
+proof inspection had missed.
+
+The artifact ships with five executable Turing machines (Binary
+Incrementer, Palindrome Checker, 3-State Busy Beaver, Unary Doubler,
+SAT Certificate Verifier), live $D_3$ trajectory plotting, and an
+$\mathrm{ch}_2$ coherence meter visualizing the spectral framework
+in real time. See \cite{cohen2026turing} and the live demo at
+\url{https://fractaldevteam.github.io/turing/}.
+
 \subsection{What this formalization does NOT claim}
 
 The formalization is a \emph{conditional} reduction architecture. It
@@ -278,6 +298,12 @@ CPP 2020.
 C.~Paulin-Mohring,
 \emph{Introduction to the Calculus of Inductive Constructions},
 HAL Inria, 2014.
+
+\bibitem{cohen2026turing}
+P.~Cohen,
+\emph{True Turing Machine with Live Spectral Encoding},
+Browser-deployable executable artifact, 2026.
+\url{https://github.com/FractalDevTeam/turing}.
 \end{thebibliography}
 
 \end{document}
