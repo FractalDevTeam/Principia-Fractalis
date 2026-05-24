@@ -37,6 +37,7 @@ import PF.TuringEncoding     -- Turing machine encoding into operators
 import PF.TuringEncoding.DigitalSum  -- Stage L3 — digital sum lemmas
 import PF.TuringEncoding.ThetaSum    -- Stage L4 — truncated theta-sum
 import PF.TuringEncoding.AlphaCanonical  -- Stage L4 — axiom-free α algebraic identities
+import PF.TuringEncoding.AlphaRealizationNoGo  -- 2026-05-24 — Meta-theorem: concrete alpha_of_class realisation of canonical pair ⇔ ClassP ≠ ClassNP (P vs NP)
 import PF.TuringEncoding.AlphaEnum        -- Stage L4 — ENUM-LEVEL axiom-free parallel framework
 import PF.TuringEncoding.PhaseSum     -- Stage L4 — phase-weighted theta-sum + closed form
 
