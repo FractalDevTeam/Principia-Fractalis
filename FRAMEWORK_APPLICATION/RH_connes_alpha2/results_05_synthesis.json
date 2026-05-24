@@ -1,0 +1,8 @@
+{
+  "verdict": "FALSIFIED: alpha=2 anchor does not yield Connes-style RH spectral identification on truncated logarithmic L^2",
+  "ref_zero_spacing_var": 0.18307310563653492,
+  "bare_rms_at_L50": 52.5,
+  "best_modulated_rms_searched": 15.6,
+  "structural_finding": "Framework's R_f(2,s)=zeta(s) anchor + Mechanism 3 modulation does not inject the GLOBAL Euler/arithmetic structure needed for zeta zeros; LOCAL potential modulation cannot reproduce GLOBAL spectral irregularity",
+  "implication_for_framework": "RH discharge route via alpha-substrate change is BLOCKED; only Prop 2 (T_3^sym surjectivity, the load-bearing named open problem) remains the genuine path"
+}
