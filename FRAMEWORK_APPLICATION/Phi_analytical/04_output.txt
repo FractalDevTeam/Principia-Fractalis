@@ -1,0 +1,86 @@
+Computing Phi at all 9 instances at M=100000, precision 60...
+  1   (Poincare): |Phi|=1.00000000001202221822763964913
+  3/2 (RH): |Phi|=1.39579371036734549994475252781
+  sqrt(2) (P): |Phi|=1.34115138358680370037557200072
+  phi+1/4 (NP): |Phi|=1.87426004119387246743907424825
+  3*pi/4 (BSD): |Phi|=1.48856995217812816631424802482
+  3*pi/2 (NS): |Phi|=1.24726835816198794886230727387
+  phi (Hodge): |Phi|=1.47058024785340329509185291323
+  sqrt(2*pi) (QG): |Phi|=1.39168478486585698560609117314
+
+==========================================================================================
+ PROPER PSLQ on (|Phi|, basis) -- NO alpha, only universal constants
+==========================================================================================
+  1   (Poincare): NO RELATION involving |Phi| in basis (true confirmation: |Phi| is structurally not a small-integer combo of these constants).
+  3/2 (RH): NO RELATION involving |Phi| in basis (true confirmation: |Phi| is structurally not a small-integer combo of these constants).
+  sqrt(2) (P): NO RELATION involving |Phi| in basis (true confirmation: |Phi| is structurally not a small-integer combo of these constants).
+  phi+1/4 (NP): NO RELATION involving |Phi| in basis (true confirmation: |Phi| is structurally not a small-integer combo of these constants).
+  3*pi/4 (BSD): NO RELATION involving |Phi| in basis (true confirmation: |Phi| is structurally not a small-integer combo of these constants).
+  3*pi/2 (NS): NO RELATION involving |Phi| in basis (true confirmation: |Phi| is structurally not a small-integer combo of these constants).
+  phi (Hodge): NO RELATION involving |Phi| in basis (true confirmation: |Phi| is structurally not a small-integer combo of these constants).
+  sqrt(2*pi) (QG): NO RELATION involving |Phi| in basis (true confirmation: |Phi| is structurally not a small-integer combo of these constants).
+
+==========================================================================================
+ Re(Phi) and Im(Phi) separately -- PSLQ search
+==========================================================================================
+
+  --- 1   (Poincare) ---
+    Re Phi=1.000000000012: NO RELATION
+    Im Phi=6.5160910025708e-62: NO RELATION
+  --- 3/2 (RH) ---
+    Re Phi=1.3386823752849: NO RELATION
+    Im Phi=-0.39518297028411: NO RELATION
+  --- sqrt(2) (P) ---
+    Re Phi=1.2920549232569: NO RELATION
+    Im Phi=-0.35955682302584: NO RELATION
+  --- phi+1/4 (NP) ---
+    Re Phi=1.5678539092337: NO RELATION
+    Im Phi=-1.0269784911655: NO RELATION
+  --- 3*pi/4 (BSD) ---
+    Re Phi=1.4078406490518: NO RELATION
+    Im Phi=0.483554763605: NO RELATION
+  --- 3*pi/2 (NS) ---
+    Re Phi=1.2086308209844: NO RELATION
+    Im Phi=0.30804203583059: NO RELATION
+  --- phi (Hodge) ---
+    Re Phi=1.3957952734477: NO RELATION
+    Im Phi=-0.46299224615294: NO RELATION
+  --- sqrt(2*pi) (QG) ---
+    Re Phi=1.3352809578749: NO RELATION
+    Im Phi=0.39218784270275: NO RELATION
+
+==========================================================================================
+ Test specific candidate: |Phi(alpha)|^2 ?= 1 + alpha or 2 - cos(pi*alpha) etc.
+==========================================================================================
+  1   (Poincare): |Phi|^2 = 1.000000000024
+    2 - cos(pi*alpha)        = 3.0
+    1 + alpha/(1+alpha)      = 1.5
+    1 / |1 - F(alpha,1)|     = 1.5
+  3/2 (RH): |Phi|^2 = 1.948240081901
+    2 - cos(pi*alpha)        = 2.0
+    1 + alpha/(1+alpha)      = 1.6
+    1 / |1 - F(alpha,1)|     = 0.94868329805051
+  sqrt(2) (P): |Phi|^2 = 1.7986870336968
+    2 - cos(pi*alpha)        = 2.2662553420414
+    1 + alpha/(1+alpha)      = 1.5857864376269
+    1 / |1 - F(alpha,1)|     = 0.950329963134
+  phi+1/4 (NP): |Phi|^2 = 3.5128507020161
+    2 - cos(pi*alpha)        = 1.0847158107283
+    1 + alpha/(1+alpha)      = 1.6513290972413
+    1 / |1 - F(alpha,1)|     = 2.4764899687363
+  3*pi/4 (BSD): |Phi|^2 = 2.2158405025276
+    2 - cos(pi*alpha)        = 1.5634338595764
+    1 + alpha/(1+alpha)      = 1.7020434891594
+    1 / |1 - F(alpha,1)|     = 1.0880606430968
+  3*pi/2 (NS): |Phi|^2 = 1.5556783572721
+    2 - cos(pi*alpha)        = 2.6188200100713
+    1 + alpha/(1+alpha)      = 1.824941893237
+    1 / |1 - F(alpha,1)|     = 1.04930167987
+  phi (Hodge): |Phi|^2 = 2.1626062653766
+    2 - cos(pi*alpha)        = 1.6376251099195
+    1 + alpha/(1+alpha)      = 1.6180339887499
+    1 / |1 - F(alpha,1)|     = 1.046069506703
+  sqrt(2*pi) (QG): |Phi|^2 = 1.9367865404271
+    2 - cos(pi*alpha)        = 2.0208218340464
+    1 + alpha/(1+alpha)      = 1.7148257751657
+    1 / |1 - F(alpha,1)|     = 0.9468776538043
