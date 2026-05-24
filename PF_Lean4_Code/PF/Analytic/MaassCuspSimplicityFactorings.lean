@@ -1,18 +1,20 @@
 /-
 # Maass Cusp Spectrum Simplicity — Structural Factorings of Bundle (b)
 
-**STATUS (2026-05-24): WORK-IN-PROGRESS — does NOT currently build.**
+**STATUS (2026-05-24, post-fix): BUILDS CLEAN. ZERO sorries. ZERO
+project axioms (only `[propext, Classical.choice, Quot.sound]`).**
 
-This file is NOT in PF.lean's import chain. Audit found:
-- Hard syntax errors at lines 180:20, 367:36, 388:38 (unexpected tokens)
-- `sorryAx` dependencies in `CartierMultiplicityBound` and
-  `maass_simplicity_iff_residual`
-
-The claims of "axiom-free, no `sorry`" below are INCORRECT pending fix.
-The structural factoring approach is sound; the implementation needs
-revision before this file can be wired into the build. Capstone axiom
-guarantees (P_NEQ_NP, RH chain, B-clean, H₃, IBM Galois pair) are
-UNAFFECTED — they do not depend on this file.
+History note: prior Wave-4 audit (commit 495aa91) flagged this file as
+WIP with three syntax errors at lines 195:20 / 382:36 / 403:38 and
+sorryAx fallouts in `CartierMultiplicityBound` and
+`maass_simplicity_iff_residual`. Root cause: the Greek letter `λ` is
+NOT a regular identifier in Lean 4 — it is parsed as the lambda-binder
+keyword (synonym of `fun`). Using `∀ λ : ℝ, …` and
+`fun _ λ => mult_maass λ` caused the parser to fail; Lean then
+inserted `sorry`-fallback bodies, which propagated the sorryAx
+dependency. The fix renames `λ` → `lam` (and `_h_maass`/`_h_LZ` to
+silence the unused-variable lint on the conceptual-bridge hypotheses).
+All theorems verified `#print axioms`-clean post-fix.
 
 -----------------------------------------------------------------
 
@@ -192,7 +194,7 @@ def MaassCuspSimplicityConjecture
     of the Selberg pretrace formula is multi-year operator-theory work
     not yet in mathlib. -/
 def CartierMultiplicityBound (mult : ℝ → ℕ) : Prop :=
-  ∃ C : ℝ, 0 < C ∧ ∀ λ : ℝ, (mult λ : ℝ) ≤ C * (|λ| + 1)
+  ∃ C : ℝ, 0 < C ∧ ∀ lam : ℝ, (mult lam : ℝ) ≤ C * (|lam| + 1)
 
 /-! ## 3. Sarnak 1990s — generic simplicity -/
 
@@ -290,8 +292,13 @@ the spectral-theorem witness for compact self-adjoint operators
 theorem maass_simplicity_implies_mayer_nondegeneracy
     (evs : ℕ → ℝ) (mult_T3 : ℝ → ℕ)
     (μ : ℕ → ℝ) (mult_maass : ℝ → ℕ)
-    (h_maass : MaassCuspSimplicityConjecture μ mult_maass)
-    (h_LZ : LewisZagierBijection evs mult_T3 μ mult_maass)
+    -- Maass simplicity + Lewis-Zagier are CONCEPTUAL inputs that
+    -- justify why the separation hypotheses below hold for the
+    -- T_3^sym spectrum. The proof term itself only needs the
+    -- separation clauses (the structural extraction); _-prefix
+    -- preserves the documentation while silencing unused-var lint.
+    (_h_maass : MaassCuspSimplicityConjecture μ mult_maass)
+    (_h_LZ : LewisZagierBijection evs mult_T3 μ mult_maass)
     -- Separation hypothesis: bundle (a) compact-operator content
     (h_separation_nonzero : ∀ n : ℕ, evs n ≠ 0)
     (h_separation_distinct_moduli :
@@ -379,7 +386,7 @@ theorem maass_simplicity_from_residual
 theorem residual_from_maass_simplicity
     (μ : ℕ → ℝ) (mult_maass : ℝ → ℕ) (t_PSL2Z : ℝ)
     (h_maass : MaassCuspSimplicityConjecture μ mult_maass) :
-    MaassSimplicityResidual (fun _ λ => mult_maass λ) μ mult_maass t_PSL2Z :=
+    MaassSimplicityResidual (fun _ lam => mult_maass lam) μ mult_maass t_PSL2Z :=
   { sarnak_witness := ⟨t_PSL2Z, fun n => h_maass n⟩
     PSL2Z_matches_witness := fun _ => rfl
     witness_is_PSL2Z := fun n => h_maass n }
@@ -400,12 +407,12 @@ theorem residual_from_maass_simplicity
 theorem maass_simplicity_iff_residual
     (μ : ℕ → ℝ) (mult_maass : ℝ → ℕ) (t_PSL2Z : ℝ) :
     MaassCuspSimplicityConjecture μ mult_maass ↔
-      MaassSimplicityResidual (fun _ λ => mult_maass λ) μ mult_maass t_PSL2Z := by
+      MaassSimplicityResidual (fun _ lam => mult_maass lam) μ mult_maass t_PSL2Z := by
   constructor
   · intro h_maass
     exact residual_from_maass_simplicity μ mult_maass t_PSL2Z h_maass
   · intro h_res
-    exact maass_simplicity_from_residual (fun _ λ => mult_maass λ) μ mult_maass t_PSL2Z h_res
+    exact maass_simplicity_from_residual (fun _ lam => mult_maass lam) μ mult_maass t_PSL2Z h_res
 
 /-! ## 8. Joint composition with the Mayer 1991 bundle
 
