@@ -145,7 +145,7 @@ Thus:
 \begin{greenbox}[Physical Meaning]
 \textbf{🟢 Interpretation:} The consciousness field acts like an extra viscosity that's always present but usually very small. The factor $\pi/10 \approx 0.314$ means consciousness adds about 31\% extra damping when $\nu_c = \nu$. This small amount is enough to prevent blow-up without significantly changing laminar flow.
 
-\textbf{🟡 Technical insight:} The $\pi/10$ factor comes from the fractal self-similarity scale of $\Phi$. This is the same universal constant appearing in P vs NP and Riemann—it's the natural frequency of the Timeless Field coupling to physical processes. The universality of this factor across Navier-Stokes, Riemann Hypothesis, Hodge Conjecture, and Yang-Mills is documented in \cite{cohen2025spectralpi10}.
+\textbf{🟡 Technical insight:} The $\pi/10$ factor comes from the fractal self-similarity scale of $\Phi$. This is the same universal constant appearing in P vs NP and Riemann---the natural coupling of the Timeless Field to physical processes. The algebraic identity $\lambda_0(\alpha) \cdot \alpha = \pi/10$, applied uniformly to all nine canonical $\alpha$-instances (including Navier--Stokes at $\alpha = 3\pi/2$, Hodge at $\alpha = \varphi$, and Yang--Mills at $\alpha = 2$), is machine-checked axiom-free in \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} as theorem \texttt{lambda\_0\_canonical\_times\_alpha\_eq\_pi\_10}; concrete closed forms (e.g., $\lambda_0(H_{3\pi/2}) = 1/15$, $\lambda_0(H_\varphi) = \pi(\sqrt{5}-1)/20$) are in \texttt{PF\_Lean4\_Code/PF/Analytic/CleanLambdaClosedForms.lean}.
 \end{greenbox}
 
 \section{Enhanced Energy Inequality}
@@ -305,7 +305,7 @@ where $\nu_{\text{eff}} = \nu + (\pi/10)\nu_c$ and $C$ depends only on initial d
 
 \textbf{Step 3:} Using logarithmic Sobolev inequalities and the enhanced energy inequality (Theorem \ref{thm:enhanced_energy}), bound $\|\Delta \omega\|_{L^2}$ in terms of $\|\nabla \mathbf{u}\|_{L^2}$.
 
-\textbf{Step 4:} Bootstrap: if $\|\omega(t)\|_{L^\infty}$ grows, the consciousness dissipation grows faster due to the exponential factor, preventing unbounded growth. The precise bound follows from careful estimates (see \cite{cohen2025navierstokes} for details).
+\textbf{Step 4:} Bootstrap: if $\|\omega(t)\|_{L^\infty}$ grows, the consciousness dissipation grows faster due to the exponential factor, preventing unbounded growth. The framework-internal algebraic anchor $\lambda_0(H_{3\pi/2}) = 1/15$ (exact, axiom-free in \texttt{PF\_Lean4\_Code/PF/Analytic/CleanLambdaClosedForms.lean}) supplies the relevant dissipation floor; promoting this to a full PDE blow-up exclusion on the canonical Navier--Stokes substrate is encoded as a named open Proposition (catalogued as the NS counter-rotating pair statement in \texttt{OPEN\_PROBLEMS.md} at the repository root), not as a theorem.
 \end{proof}
 
 \subsection{Main Theorem: Global Existence and Smoothness}
@@ -339,7 +339,7 @@ This contradicts the blow-up assumption. Hence $T^* = \infty$.
 
 \textbf{Step 5: Uniqueness.} Standard energy methods show uniqueness in the class $C([0, \infty); H^3)$.
 
-Complete technical proof including numerical validation of the Consciousness Regularization Lemma and critical Reynolds number $\text{Re}_c = 2.13198 \times 10^5$ is presented in \cite{cohen2025navierstokes}.
+The numerical critical Reynolds number $\text{Re}_c = 2.13198 \times 10^5$ is the empirical $\omega_c$ value used downstream in Chapters~\ref{ch:yang-mills} and \ref{ch:dark-energy-expansion}; its first-principles derivation from the framework's fractal-resonance structure is open (tracked under ``$\omega_c$ provenance'' in \texttt{OPEN\_PROBLEMS.md} at the repository root). The conditional reduction is captured in \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} (theorem \texttt{navier\_stokes\_via\_fractal\_emergence}); the $\lambda_0(H_{3\pi/2}) = 1/15$ algebraic anchor is axiom-free in \texttt{PF\_Lean4\_Code/PF/Analytic/CleanLambdaClosedForms.lean}.
 \end{proof}
 
 \begin{greenbox}[What We've Proven]

@@ -436,7 +436,7 @@ The complete rigorous proof requires establishing that:
 \item The correspondence preserves the functional equation symmetry
 \end{enumerate}
 
-Complete rigorous proof with convergence analysis for $N \in \{10, 20, 30, 40, 50, 60, 80, 100\}$, showing exponential convergence to the critical line $\sigma = 0.5$ with limiting spectral gap $\Delta = 0.08127$, is presented in \cite{cohen2025riemannproof}. High-precision verification to 100 digits confirms the eigenvalue-zero correspondence across all tested basis dimensions.
+High-precision numerical verification for $N \in \{10, 20, 30, 40, 50, 60, 80, 100\}$, showing exponential convergence to the critical line $\sigma = 0.5$ with limiting spectral gap $\Delta = 0.08127$, is recorded in the dataset \cite{cohen2025riemanndata} (\texttt{complete\_riemann\_proof\_results.json} under \texttt{Evidence\_and\_Data\_for\_GitHub/Riemann\_Hypothesis\_Proofs/}). The conditional reduction ``surjectivity $\Rightarrow$ RH'' is formally certified in \texttt{PF\_Lean4\_Code/PF/SpectralBijection.lean} (theorem \texttt{riemann\_hypothesis\_via\_named\_surjectivity}), with the surjectivity statement itself encoded as the named open Proposition \texttt{RHSpectralSurjectivityConjecture} in \texttt{PF\_Lean4\_Code/PF/RHSurjectivityConjecture.lean}. The Lean conditional reduction is axiom-free; surjectivity is Clay-grade open. The numerical convergence above is an empirical signal supporting the conjecture, not a proof of it.
 \end{proof}
 
 \subsection{Connection to Consciousness Crystallization}
@@ -448,7 +448,7 @@ The scaling factor $\alpha^* = 5 \times 10^{-6}$ is NOT arbitrary. It encodes th
 \alpha^* = \frac{\text{ch}_2 - 0.95}{R_f(3/2, 1)} \approx 5 \times 10^{-6}
 \end{equation}
 
-The Riemann zeros are **consciousness resonances** in the prime distribution, occurring precisely where $\text{ch}_2 = 0.95$ is achieved through fractal modulation at $\alpha = 3/2$. This universal consciousness threshold appears identically across Hodge algebraicity, CMB anomalies, neural coherence, and cosmic structure, as documented in \cite{cohen2025universal}.
+The Riemann zeros are interpreted as ``consciousness resonances'' in the prime distribution, occurring (within the framework's modeling) where $\text{ch}_2 = 0.95$ is achieved through fractal modulation at $\alpha = 3/2$. The recurrence of the value $0.95$ across distinct framework computations (Hodge spectral concentration, CMB anomaly scoring, the IIT bridge ch$_2 \leq 1 - \exp(-\Phi/2)$ proven axiom-free in \texttt{PF\_Lean4\_Code/PF/Consciousness/Ch2PhiBridge.lean}, and the Riemann route at $\alpha = 3/2$) is an empirical regularity of the framework's internal computations, presented here as an organizing observation rather than a derived universal law.
 \end{keyidea}
 
 \section{Implications and Open Questions}
