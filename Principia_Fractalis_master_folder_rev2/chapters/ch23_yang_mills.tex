@@ -393,6 +393,18 @@ Computing: $\Lambda_{\mathrm{QCD}} \cdot \omega_c = 197.2 \times 2.13198462 = 42
 Theorem~\ref{thm:mass-gap-ym} establishes the mass gap of the \emph{fractal Yang--Mills operator} $H_{\mathrm{fYM}}$ — a well-defined mathematical object built from the base-3 fractal resonance structure of \S\ref{sec:fractal-resonance}. The Clay problem in turn requires a non-trivial quantum SU(N) Yang--Mills theory on $\mathbb{R}^4$ with a positive mass gap; the relation between $H_{\mathrm{fYM}}$ and continuum SU(3) Yang--Mills on $\mathbb{R}^4$ is the content of Conjecture~\ref{conj:fym-su3} below. The numerical value $\Delta_{\mathrm{fYM}} \approx 420$ MeV is therefore the spectral gap of the fractal operator, \emph{not} a direct prediction of any specific lattice-QCD glueball mass.
 \end{remark}
 
+\begin{theorem}[Level-1 YM Spectral Gap, axiom-free]\label{thm:level1-ym-gap}
+At the canonical YM parameters $\alpha = 2$ and $a = 2$, the level-1 spectrum of the fractal-YM polylog ladder is exactly
+\begin{equation}\label{eq:level1-ym-spectrum}
+\Spec^{(1)}(H_{\mathrm{fYM}}) = \left\{\tfrac{1}{2}, \tfrac{3}{2}\right\}, \qquad \Delta^{(1)} = \tfrac{3}{2} - \tfrac{1}{2} = 1 > 0.
+\end{equation}
+This is a Lean~4 theorem, formally certified \emph{axiom-free} (depending only on the standard foundations \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}) as \texttt{fractalYMLevel1SpectrumGap\_holds} together with the positivity certificate \texttt{fractalYMLevel1\_gap\_pos} in \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} (commit \texttt{9cc2a3d}, 2026-05-24, around line 1269 and line 1287 respectively).
+\end{theorem}
+
+\begin{remark}[Strict honest tightening of the conditional reduction]\label{rem:ym-level1-upgrade}
+Prior editions of the Lean conditional reduction (\texttt{yang\_mills\_via\_fractal\_resonance}) carried, as one of its hypothesis bundles, an \emph{existence-of-resonance-zero} Prop (the existence of an $\omega_c > 0$ with $\rho(\omega_c) = 0$). Theorem~\ref{thm:level1-ym-gap} \emph{discharges} that bundle at level~1: the algebraic spectrum is now explicitly known and the gap is exactly~$1$, not merely posited to exist. The upgraded Lean conditional reduction \texttt{yang\_mills\_via\_level1\_resonance\_gap} (\texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}, line~$\approx$1334, commit \texttt{9cc2a3d}) now consumes \emph{only} the genuinely open mathematical content \texttt{fractalYMLevel1LiftsToContinuum} — the level-$k \to \infty$ spectral-convergence of the polylog ladder at $\alpha = 2$ composed with Conjecture~\ref{conj:fym-su3}. Concretely, one open hypothesis has been converted into a proved theorem, leaving the continuum lift as the single remaining open piece, which is a strict-improvement upgrade over the prior multi-hypothesis form.
+\end{remark}
+
 \begin{conjecture}[Fractal Yang--Mills realises continuum SU(3) Yang--Mills]\label{conj:fym-su3}
 The fractal Yang--Mills Hamiltonian $H_{\mathrm{fYM}}$ is unitarily equivalent (after appropriate continuum/UV completion) to a quantisation of continuum SU(3) Yang--Mills on $\mathbb{R}^4$. Under this conjectural equivalence, the spectral gap $\Delta_{\mathrm{fYM}}$ corresponds to a physical Yang--Mills mass gap, settling the Clay problem in the affirmative.
 \end{conjecture}
