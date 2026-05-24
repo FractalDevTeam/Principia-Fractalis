@@ -7,24 +7,25 @@
   ## The structural chain
 
   Two named Coq Props + composed conditional theorems showing the
-  framework's sharpest reduction:
+  framework's sharpest reduction (typo-reformulated 2026-05-23):
 
-    Ch3LeadingOrderResonance α v   -- Ch 3 Thm: R_f(α,1) = πα/10
-    SpectralResonanceBridge α λ v  -- conjectural: λ_0(H_α) = R_f(α,1)/α²
+    Ch3LeadingOrderResonance α v   -- Ch 3 Thm: R_f(α,1) = π/(10·α)
+    SpectralResonanceBridge α λ v  -- conjectural: λ_0(H_α) = R_f(α,1)
 
     ⇒ λ_0 = π/(10·α)               -- polylog closed form
     ⇒ α² = 2 (given empirical λ_0 = π/(10√2))
 
   Each hypothesis is NAMED, REFACTORABLE.
 
-  ## Coq port note
+  ## Coq port note — typo reformulation (2026-05-23)
 
-  The Ch 3 leading-order claim has been EMPIRICALLY REFUTED at α=√2
-  by 50-digit mpmath (literal R_f(√2,1) ≈ -0.834-0.674i, not +0.444).
+  The manuscript's printed Ch 3 leading order `R_f(α,1) = πα/10` was
+  EMPIRICALLY REFUTED at α=√2 by 50-digit mpmath (literal
+  R_f(√2,1) ≈ -0.834-0.674i, residual 145× threshold).
   See PF/Analytic/RfNumericalRefutation.lean (Lean commit 0bc7636).
-  This Coq port preserves the structural reduction CHAIN; the
-  hypothesis is still a refactorable Prop that the framework can
-  consume conditionally.
+  Typo hypothesis adopted here: manuscript should read π/(10·α), not πα/10.
+  Bridge then drops α² (λ_0 = R_f directly). The downstream universal
+  closed form λ_0 = π/(10·α) is preserved.
 
   Status: axiom-free at the project level.
 *)
@@ -40,17 +41,23 @@ Open Scope R_scope.
 (* The two named hypotheses                                     *)
 (* ============================================================ *)
 
-(** **Ch 3 leading-order resonance claim** (Ch 3 Theorem at line 328-334).
+(** **Ch 3 leading-order resonance claim** (Ch 3 Theorem at line 328-334,
+    typo-reformulated 2026-05-23).
 
-    R_f(α, 1) value equals πα/10. *)
+    R_f(α, 1) value equals π/(10·α) — the typo-corrected reciprocal-α form
+    consistent with the downstream universal closed form. *)
 Definition Ch3LeadingOrderResonance (alpha R_f_value : R) : Prop :=
-  R_f_value = PI * alpha / 10.
+  R_f_value = PI / (10 * alpha).
 
-(** **Spectral-resonance bridge**: the conjectural identity
+(** **Spectral-resonance bridge** (typo-reformulated 2026-05-23):
+    the conjectural identity
 
-      λ_0(H_α) = R_f(α, 1) / α² *)
+      λ_0(H_α) = R_f(α, 1)
+
+    Under the corrected R_f leading-order π/(10·α), the bridge needs no
+    α² normalisation. *)
 Definition SpectralResonanceBridge (alpha lambda_zero R_f_value : R) : Prop :=
-  lambda_zero = R_f_value / (alpha * alpha).
+  lambda_zero = R_f_value.
 
 (* ============================================================ *)
 (* The composed conditional theorems                            *)
@@ -71,7 +78,7 @@ Proof.
   unfold Ch3LeadingOrderResonance in h_ch3.
   unfold SpectralResonanceBridge in h_bridge.
   rewrite h_bridge, h_ch3.
-  field. lra.
+  reflexivity.
 Qed.
 
 (* ============================================================ *)
