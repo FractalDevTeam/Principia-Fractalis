@@ -1,0 +1,586 @@
+{
+  "snr_sweep": {
+    "snr_20.0": {
+      "ch2": {
+        "binary_acc": 1.0,
+        "cohen_d": 24.9015322498401,
+        "best_thr": 0.4992270480074513,
+        "ncm_5class": 0.97,
+        "lda_5class": 0.97,
+        "lda_std": 0.06000000000000001,
+        "confusion": {
+          "conscious": {
+            "conscious": 19,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 1
+          },
+          "mcs": {
+            "conscious": 0,
+            "mcs": 20,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 0
+          },
+          "vegetative": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 20,
+            "coma": 0,
+            "locked-in": 0
+          },
+          "coma": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 20,
+            "locked-in": 0
+          },
+          "locked-in": {
+            "conscious": 2,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 18
+          }
+        },
+        "means": {
+          "conscious": 3.2240847412706835,
+          "mcs": 2.0406833404408884,
+          "vegetative": 0.42280748379183136,
+          "coma": 0.1302707168349092,
+          "locked-in": 3.114023409059453
+        }
+      },
+      "coherence": {
+        "binary_acc": 1.0,
+        "cohen_d": 53.973324119268455,
+        "best_thr": 0.05863960550012307,
+        "ncm_5class": 0.7,
+        "lda_5class": 0.67,
+        "lda_std": 0.05099019513592784,
+        "confusion": {
+          "conscious": {
+            "conscious": 17,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 3
+          },
+          "mcs": {
+            "conscious": 0,
+            "mcs": 20,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 0
+          },
+          "vegetative": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 9,
+            "coma": 11,
+            "locked-in": 0
+          },
+          "coma": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 11,
+            "coma": 9,
+            "locked-in": 0
+          },
+          "locked-in": {
+            "conscious": 5,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 15
+          }
+        },
+        "means": {
+          "conscious": 0.15939433598297442,
+          "mcs": 0.06264548694995606,
+          "vegetative": 0.05502122499008618,
+          "coma": 0.055206388522305284,
+          "locked-in": 0.1569984250090112
+        }
+      }
+    },
+    "snr_10.0": {
+      "ch2": {
+        "binary_acc": 1.0,
+        "cohen_d": 24.821507738021836,
+        "best_thr": 0.467753941746143,
+        "ncm_5class": 0.85,
+        "lda_5class": 0.85,
+        "lda_std": 0.07071067811865474,
+        "confusion": {
+          "conscious": {
+            "conscious": 14,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 6
+          },
+          "mcs": {
+            "conscious": 0,
+            "mcs": 20,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 0
+          },
+          "vegetative": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 20,
+            "coma": 0,
+            "locked-in": 0
+          },
+          "coma": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 20,
+            "locked-in": 0
+          },
+          "locked-in": {
+            "conscious": 9,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 11
+          }
+        },
+        "means": {
+          "conscious": 2.7809322461061075,
+          "mcs": 1.9330855057278569,
+          "vegetative": 0.39837912027529443,
+          "coma": 0.1331767574142145,
+          "locked-in": 2.7571317476099155
+        }
+      },
+      "coherence": {
+        "binary_acc": 1.0,
+        "cohen_d": 45.1477343709037,
+        "best_thr": 0.05988257602558943,
+        "ncm_5class": 0.71,
+        "lda_5class": 0.7,
+        "lda_std": 0.07745966692414832,
+        "confusion": {
+          "conscious": {
+            "conscious": 18,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 2
+          },
+          "mcs": {
+            "conscious": 0,
+            "mcs": 19,
+            "vegetative": 0,
+            "coma": 1,
+            "locked-in": 0
+          },
+          "vegetative": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 10,
+            "coma": 10,
+            "locked-in": 0
+          },
+          "coma": {
+            "conscious": 0,
+            "mcs": 2,
+            "vegetative": 9,
+            "coma": 9,
+            "locked-in": 0
+          },
+          "locked-in": {
+            "conscious": 5,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 15
+          }
+        },
+        "means": {
+          "conscious": 0.15716846220532882,
+          "mcs": 0.06146937486652017,
+          "vegetative": 0.055062286728245605,
+          "coma": 0.05554690514263673,
+          "locked-in": 0.1536625941137831
+        }
+      }
+    },
+    "snr_5.0": {
+      "ch2": {
+        "binary_acc": 1.0,
+        "cohen_d": 20.4663226050293,
+        "best_thr": 0.42625984629398983,
+        "ncm_5class": 0.94,
+        "lda_5class": 0.95,
+        "lda_std": 0.04472135954999579,
+        "confusion": {
+          "conscious": {
+            "conscious": 17,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 3
+          },
+          "mcs": {
+            "conscious": 0,
+            "mcs": 20,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 0
+          },
+          "vegetative": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 20,
+            "coma": 0,
+            "locked-in": 0
+          },
+          "coma": {
+            "conscious": 0,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 20,
+            "locked-in": 0
+          },
+          "locked-in": {
+            "conscious": 3,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 17
+          }
+        },
+        "means": {
+          "conscious": 2.127892923746081,
+          "mcs": 1.7257801728662567,
+          "vegetative": 0.36025945736674886,
+          "coma": 0.13155489860624153,
+          "locked-in": 2.2192152208667126
+        }
+      },
+      "coherence": {
+        "binary_acc": 1.0,
+        "cohen_d": 37.79131191273233,
+        "best_thr": 0.06044091635437289,
+        "ncm_5class": 0.74,
+        "lda_5class": 0.71,
+        "lda_std": 0.08602325267042626,
+        "confusion": {
+          "conscious": {
+            "conscious": 18,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 2
+          },
+          "mcs": {
+            "conscious": 0,
+            "mcs": 16,
+            "vegetative": 0,
+            "coma": 4,
+            "locked-in": 0
+          },
+          "vegetative": {
+            "conscious": 0,
+            "mcs": 3,
+            "vegetative": 12,
+            "coma": 5,
+            "locked-in": 0
+          },
+          "coma": {
+            "conscious": 0,
+            "mcs": 3,
+            "vegetative": 7,
+            "coma": 10,
+            "locked-in": 0
+          },
+          "locked-in": {
+            "conscious": 2,
+            "mcs": 0,
+            "vegetative": 0,
+            "coma": 0,
+            "locked-in": 18
+          }
+        },
+        "means": {
+          "conscious": 0.15186403068685145,
+          "mcs": 0.05949769929522528,
+          "vegetative": 0.05522156068460288,
+          "coma": 0.05574177930082049,
+          "locked-in": 0.14712172835797316
+        }
+      }
+    }
+  },
+  "baseline_coherence": {
+    "clean": {
+      "binary_acc": 1.0,
+      "cohen_d": 57.82113455045408,
+      "best_thr": 0.058989241341016005,
+      "ncm_5class": 0.66,
+      "lda_5class": 0.65,
+      "lda_std": 0.04472135954999579,
+      "confusion": {
+        "conscious": {
+          "conscious": 15,
+          "mcs": 0,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 5
+        },
+        "mcs": {
+          "conscious": 0,
+          "mcs": 20,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 0
+        },
+        "vegetative": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 9,
+          "coma": 11,
+          "locked-in": 0
+        },
+        "coma": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 13,
+          "coma": 7,
+          "locked-in": 0
+        },
+        "locked-in": {
+          "conscious": 5,
+          "mcs": 0,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 15
+        }
+      },
+      "means": {
+        "conscious": 0.15959747786310302,
+        "mcs": 0.06276511248225675,
+        "vegetative": 0.05503477272398395,
+        "coma": 0.05506436176666711,
+        "locked-in": 0.1573789308964199
+      }
+    }
+  },
+  "best_calibs": {
+    "BEST: phi+1/4, base=2": {
+      "binary_acc": 1.0,
+      "cohen_d": 25.238924356104278,
+      "best_thr": 0.5055294686209053,
+      "ncm_5class": 0.96,
+      "lda_5class": 0.96,
+      "lda_std": 0.03741657386773941,
+      "confusion": {
+        "conscious": {
+          "conscious": 17,
+          "mcs": 0,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 3
+        },
+        "mcs": {
+          "conscious": 0,
+          "mcs": 20,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 0
+        },
+        "vegetative": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 20,
+          "coma": 0,
+          "locked-in": 0
+        },
+        "coma": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 0,
+          "coma": 20,
+          "locked-in": 0
+        },
+        "locked-in": {
+          "conscious": 1,
+          "mcs": 0,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 19
+        }
+      },
+      "means": {
+        "conscious": 3.295012979607624,
+        "mcs": 2.0669968672994097,
+        "vegetative": 0.4249900401160236,
+        "coma": 0.1329986874124947,
+        "locked-in": 3.181962236928709
+      }
+    },
+    "alt:  phi, base=3": {
+      "binary_acc": 1.0,
+      "cohen_d": 5.776525553871886,
+      "best_thr": 0.160922165771483,
+      "ncm_5class": 0.7,
+      "lda_5class": 0.69,
+      "lda_std": 0.08000000000000002,
+      "confusion": {
+        "conscious": {
+          "conscious": 16,
+          "mcs": 0,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 4
+        },
+        "mcs": {
+          "conscious": 0,
+          "mcs": 15,
+          "vegetative": 4,
+          "coma": 0,
+          "locked-in": 1
+        },
+        "vegetative": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 11,
+          "coma": 9,
+          "locked-in": 0
+        },
+        "coma": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 8,
+          "coma": 12,
+          "locked-in": 0
+        },
+        "locked-in": {
+          "conscious": 3,
+          "mcs": 1,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 16
+        }
+      },
+      "means": {
+        "conscious": 0.34525883089613524,
+        "mcs": 0.19067912806541057,
+        "vegetative": 0.13157536025342606,
+        "coma": 0.12614432006316845,
+        "locked-in": 0.28354790483942016
+      }
+    },
+    "alt:  3/2 (RH), base=2": {
+      "binary_acc": 1.0,
+      "cohen_d": 3.307289959897659,
+      "best_thr": 0.15477409224598293,
+      "ncm_5class": 0.63,
+      "lda_5class": 0.56,
+      "lda_std": 0.037416573867739396,
+      "confusion": {
+        "conscious": {
+          "conscious": 17,
+          "mcs": 0,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 3
+        },
+        "mcs": {
+          "conscious": 1,
+          "mcs": 12,
+          "vegetative": 2,
+          "coma": 0,
+          "locked-in": 5
+        },
+        "vegetative": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 11,
+          "coma": 9,
+          "locked-in": 0
+        },
+        "coma": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 9,
+          "coma": 11,
+          "locked-in": 0
+        },
+        "locked-in": {
+          "conscious": 1,
+          "mcs": 7,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 12
+        }
+      },
+      "means": {
+        "conscious": 0.32799174047508295,
+        "mcs": 0.200705894746345,
+        "vegetative": 0.13307410559782426,
+        "coma": 0.1327897355311163,
+        "locked-in": 0.22994671974565734
+      }
+    },
+    "alt:  sqrt2 (P), base=2": {
+      "binary_acc": 0.95,
+      "cohen_d": 2.7250248759874305,
+      "best_thr": 0.14293070284216516,
+      "ncm_5class": 0.48,
+      "lda_5class": 0.48999999999999994,
+      "lda_std": 0.058309518948452994,
+      "confusion": {
+        "conscious": {
+          "conscious": 11,
+          "mcs": 2,
+          "vegetative": 0,
+          "coma": 0,
+          "locked-in": 7
+        },
+        "mcs": {
+          "conscious": 0,
+          "mcs": 5,
+          "vegetative": 0,
+          "coma": 8,
+          "locked-in": 7
+        },
+        "vegetative": {
+          "conscious": 0,
+          "mcs": 0,
+          "vegetative": 15,
+          "coma": 5,
+          "locked-in": 0
+        },
+        "coma": {
+          "conscious": 0,
+          "mcs": 3,
+          "vegetative": 6,
+          "coma": 11,
+          "locked-in": 0
+        },
+        "locked-in": {
+          "conscious": 8,
+          "mcs": 4,
+          "vegetative": 0,
+          "coma": 2,
+          "locked-in": 6
+        }
+      },
+      "means": {
+        "conscious": 0.20487872995481124,
+        "mcs": 0.1524729715796938,
+        "vegetative": 0.12123270865925737,
+        "coma": 0.1323230887026527,
+        "locked-in": 0.1775736259847715
+      }
+    }
+  }
+}
