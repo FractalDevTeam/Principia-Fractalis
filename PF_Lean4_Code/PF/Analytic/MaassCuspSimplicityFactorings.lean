@@ -1,6 +1,21 @@
 /-
 # Maass Cusp Spectrum Simplicity — Structural Factorings of Bundle (b)
 
+**STATUS (2026-05-24): WORK-IN-PROGRESS — does NOT currently build.**
+
+This file is NOT in PF.lean's import chain. Audit found:
+- Hard syntax errors at lines 180:20, 367:36, 388:38 (unexpected tokens)
+- `sorryAx` dependencies in `CartierMultiplicityBound` and
+  `maass_simplicity_iff_residual`
+
+The claims of "axiom-free, no `sorry`" below are INCORRECT pending fix.
+The structural factoring approach is sound; the implementation needs
+revision before this file can be wired into the build. Capstone axiom
+guarantees (P_NEQ_NP, RH chain, B-clean, H₃, IBM Galois pair) are
+UNAFFECTED — they do not depend on this file.
+
+-----------------------------------------------------------------
+
 This file factors the load-bearing `MayerNonDegeneracyConjecture`
 (`PF/Analytic/Mayer1991NonDegeneracyDischarge.lean:131`) into smaller
 named `Prop`s that isolate the residual **classical** open content
