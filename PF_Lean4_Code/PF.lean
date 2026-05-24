@@ -138,6 +138,8 @@ import PF.YangMillsMeasure    -- Full Yang-Mills measure via Minlos
 -- ============================================================================
 import PF.TransferOperator    -- Transfer operator T₃ and spectral properties
 import PF.SpectralBijection   -- Eigenvalue → critical line map framework
+import PF.RHSurjectivityConjecture           -- RH spectral surjectivity (load-bearing open Prop)
+import PF.RHSpectralSurjectivityFactorings   -- Mission Phase 2: structural factoring of RH surjectivity into RH ∧ on-line + continuous-preimage + dense-image forms
 
 -- ============================================================================
 -- CAPSTONE: Millennium-problem status summary (RH + P ≠ NP, conditional)

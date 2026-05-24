@@ -518,17 +518,38 @@ Theorem~20.2 currently leaves implicit.
 A detailed audit table (topic-by-topic axiom counts in Lean~4 vs Coq)
 is maintained at \texttt{PARITY\_REPORT.md} in the repository root.
 
-\section*{Author bibliography placeholders}\label{sec:cohen2025-bib-status}
-The bibliography contains approximately 18 entries beginning with
-the prefix \texttt{cohen2025*} (e.g., \texttt{cohen2025navierstokes},
-\texttt{cohen2025pvsnp}, \texttt{cohen2025universal}) marked
-\texttt{howpublished = \{Unpublished manuscript\}}. These are placeholder
-citations for the author's preprint series accompanying this
-manuscript. As individual papers from the series are uploaded to
-arXiv, the corresponding bibliography entries will be replaced with
-arXiv identifiers and DOIs in subsequent edits to
+\section*{Author bibliography: citation integrity status}\label{sec:cohen2025-bib-status}
+A 2026-05-24 citation integrity pass removed seven \texttt{cohen2025*}
+placeholder bibliography entries that pointed at non-existent companion
+preprints: \texttt{cohen2025pvsnp}, \texttt{cohen2025riemannproof},
+\texttt{cohen2025navierstokes}, \texttt{cohen2025hodgeproof},
+\texttt{cohen2025weinstein}, \texttt{cohen2025universal}, and
+\texttt{cohen2025spectralpi10}. Every \texttt{\textbackslash cite} call
+that previously named one of these entries has been rewritten to cite
+either (a) the corresponding axiom-free Lean theorem file in
+\texttt{PF\_Lean4\_Code/} (e.g., \texttt{PF/SpectralGap.lean},
+\texttt{PF/Millennium.lean}, \texttt{PF/SpectralBijection.lean},
+\texttt{PF/MillenniumSixReductions.lean},
+\texttt{PF/Analytic/CleanLambdaClosedForms.lean},
+\texttt{PF/Consciousness/Ch2PhiBridge.lean}), (b) the real JSON
+artefact datasets that do exist in the repository
+(\texttt{cohen2025hodgedata}, \texttt{cohen2025riemanndata}), or
+(c) the named open Propositions catalogued in
+\texttt{OPEN\_PROBLEMS.md} at the repository root.
+
+The remaining \texttt{cohen2025*} entries
+(\texttt{cohen2025software}, \texttt{cohen2025book},
+\texttt{cohen2025hodgedata}, \texttt{cohen2025riemanndata},
+\texttt{cohen2025xenon}, \texttt{cohen2025cnt},
+\texttt{cohen2025cosmology}, \texttt{cohen2025peixoto},
+\texttt{cohen2025omega}, \texttt{cohen2025grothendieck},
+\texttt{cohen2025technicalappendix}) either point at concrete data
+artefacts in this repository or are conventional preprint placeholders
+that are not load-bearing for the conditional reductions of
+Chapters~\ref{ch:p-vs-np}--\ref{ch:hodge}. As individual companion
+papers are uploaded to arXiv, the corresponding entries will be
+replaced with arXiv identifiers and DOIs in subsequent edits to
 \texttt{Principia\_Fractalis\_master\_folder\_rev2/bibliography.bib}.
-Until those uploads occur, the placeholder citations honestly mark
-the status as unpublished, matching the practice of academic monographs
-that cite forthcoming companion material.
+The manuscript no longer depends on any promissory citation for the
+load-bearing Millennium-problem claims.
 
