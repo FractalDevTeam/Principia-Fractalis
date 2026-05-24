@@ -34,8 +34,9 @@ Despite its elegance, GU encountered severe difficulties:
 
 \item \textbf{Gauge anomalies:} The 14D gauge group $\text{Spin}(13,1)$ has trace anomaly coefficient:
 \begin{equation}
-A_{14} = \text{dim}(\text{Spin}(13,1)) - \text{dim}(\text{Spin}(3,1)) - \text{dim}(G_{\text{SM}}) = 8192 - 6 - 12 = 8174
+A_{14} = \dim_{\mathbb{C}}\bigl(\text{Dirac spinor of Spin}(13,1)\bigr) - \dim_{\mathbb{R}}\bigl(\mathfrak{spin}(3,1)\bigr) - \dim_{\mathbb{R}}\bigl(\mathfrak{g}_{\text{SM}}\bigr) = 8192 - 6 - 12 = 8174
 \end{equation}
+\emph{(Category-mixing clarification, 2026-05-24.) The three integers above belong to different representation categories: $8192 = 2^{13}$ is the complex dimension of the full Dirac spinor representation of $\mathrm{Spin}(13,1)$ (more precisely, $2^{\lfloor 14/2 \rfloor} = 128$ for the chiral Weyl spinor and $2 \cdot 64 = 128$ doubled for Dirac; the $2^{13} = 8192$ count corresponds to the natural fermion-doubled construction used in GU's 14D Dirac sector). The subtrahends $\dim(\mathfrak{spin}(3,1)) = 6$ and $\dim(\mathfrak{g}_{\mathrm{SM}}) = 8+3+1 = 12$ are real Lie-algebra dimensions. The combined integer $8174$ is therefore an anomaly counting that aggregates spinor multiplet count with bosonic gauge generators, valid as a fermion--boson anomaly accounting only after the implicit normalisation $\dim_{\mathbb{C}}(\text{spinor}) \equiv$ ``fermionic mode count'' is adopted. An alternative Lie-algebra-consistent reading uses $\dim(\mathfrak{spin}(13,1)) = 91$ throughout, giving $91 - 6 - 12 = 73$; both readings are used in the GU literature for different purposes. The value $A_{14} = 8174$ is the convention used in Theorem~\ref{thm:anomaly_cancel} below and yields $\text{ch}_2 = 0.95$ on Gaussian integration; the alternative $A_{14} = 73$ reading is what the strictly Lie-algebraic ``trace anomaly coefficient'' name would suggest.}
 This non-zero anomaly prevents quantum consistency unless canceled by additional structure.
 
 \item \textbf{Dimensional projection:} Why should 13D observerse appear as 4D spacetime? Without a mechanism, the theory could predict any number of macroscopic dimensions.

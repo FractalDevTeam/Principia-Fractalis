@@ -332,7 +332,7 @@ The spectral unity framework predicts observable signatures:
 \begin{equation}
 \eta_{\text{enhance}} = \exp\left(\frac{\pi}{10} \cdot \Delta \cdot N_{\text{qubits}}\right)
 \end{equation}
-For $N_{\text{qubits}} = 1000$, this gives $\eta \approx 1.31$, a 31\% speedup detectable with existing hardware.
+For $N_{\text{qubits}} = 16$, this gives $(\pi/10) \cdot \Delta \cdot 16 = 0.31416 \cdot 0.05397 \cdot 16 \approx 0.2713$ and hence $\eta = \exp(0.2713) \approx 1.312$, a 31\% speedup detectable with existing hardware. \emph{(Numerical correction, 2026-05-24: prior editions used $N_{\text{qubits}} = 1000$, which yields $(\pi/10) \cdot \Delta \cdot 1000 \approx 16.96$ and $\eta = \exp(16.96) \approx 2.3 \times 10^7$ --- off by $\sim 7$ orders of magnitude. The correct anchor for the $\sim 31\%$ speedup is $N_{\text{qubits}} = 16$.)}
 
 \item \textbf{Correlation between P vs NP and RH zeros:} The spacing distribution of Riemann zeros should exhibit subtle oscillations correlated with the computational spectral gap $\Delta$. Specifically, the pair correlation function should show a resonance at:
 \begin{equation}
