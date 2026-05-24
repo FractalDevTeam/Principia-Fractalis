@@ -1,0 +1,78 @@
+{
+  "epsilons": [
+    0.5,
+    0.25,
+    0.125,
+    0.0625,
+    0.03125,
+    0.015625
+  ],
+  "rows": [
+    {
+      "eps": 0.5,
+      "core": 0.5,
+      "KE_isolated_local": 0.05378659675585789,
+      "KE_paired_local": 0.026467885362855693,
+      "Enstrophy_isolated": 0.6364287043119966,
+      "Enstrophy_paired": 0.49879241604873015,
+      "KE_ratio_p_over_iso": 0.492090724441923,
+      "Ens_ratio_p_over_iso": 0.78373651701952
+    },
+    {
+      "eps": 0.25,
+      "core": 0.25,
+      "KE_isolated_local": 0.05663831948227575,
+      "KE_paired_local": 0.02700906524469815,
+      "Enstrophy_isolated": 2.5450003941580217,
+      "Enstrophy_paired": 1.9972560161783206,
+      "KE_ratio_p_over_iso": 0.47686911426018386,
+      "Ens_ratio_p_over_iso": 0.7847763091758126
+    },
+    {
+      "eps": 0.125,
+      "core": 0.125,
+      "KE_isolated_local": 0.061977808389357174,
+      "KE_paired_local": 0.027966047686966772,
+      "Enstrophy_isolated": 10.165808493816193,
+      "Enstrophy_paired": 7.981763741912268,
+      "KE_ratio_p_over_iso": 0.45122679252029024,
+      "Ens_ratio_p_over_iso": 0.7851577911159286
+    },
+    {
+      "eps": 0.0625,
+      "core": 0.0625,
+      "KE_isolated_local": 0.07172354142939527,
+      "KE_paired_local": 0.02950021092545605,
+      "Enstrophy_isolated": 40.42742266018075,
+      "Enstrophy_paired": 31.629318792390592,
+      "KE_ratio_p_over_iso": 0.4113044383690408,
+      "Ens_ratio_p_over_iso": 0.7823728724498703
+    },
+    {
+      "eps": 0.03125,
+      "core": 0.03125,
+      "KE_isolated_local": 0.08812647367187798,
+      "KE_paired_local": 0.03145180301414012,
+      "Enstrophy_isolated": 158.01547283782455,
+      "Enstrophy_paired": 121.53099608428181,
+      "KE_ratio_p_over_iso": 0.3568939241940495,
+      "Ens_ratio_p_over_iso": 0.7691082012519893
+    },
+    {
+      "eps": 0.015625,
+      "core": 0.015625,
+      "KE_isolated_local": 0.114206780115486,
+      "KE_paired_local": 0.03331109473482406,
+      "Enstrophy_isolated": 578.4340571124371,
+      "Enstrophy_paired": 415.64954759819585,
+      "KE_ratio_p_over_iso": 0.29167353025047943,
+      "Ens_ratio_p_over_iso": 0.7185772388180821
+    }
+  ],
+  "KE_paired_scaling_exponent_p": -0.06842700249968825,
+  "effective_dissipation_2p": -0.1368540049993765,
+  "lambda_0_universal_NS": 0.06666666666666667,
+  "ratio_2p_over_lambda0": -2.0528100749906475,
+  "isolated_enstrophy_blows_up": true,
+  "paired_enstrophy_bounded": false
+}
