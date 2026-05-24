@@ -107,6 +107,7 @@ import PF.Analytic.CosineModeInnerProducts        -- Stage L4 — cosineMode/sin
 import PF.Analytic.PolylogSpectrum                -- Open Problem 1 — closed-form inner products + formal conjecture statement
 import PF.Analytic.KernelSelfSimilarity            -- Open Problem 1 — kernel self-similarity equation (structural lever)
 import PF.Analytic.PolylogBoundary                 -- Open Problem 1 — Li₁ on unit circle, principal-branch closed form
+import PF.Analytic.BCleanPhaseIdentity              -- 2026-05-24 — B-clean phase identity: π/(10α) = (1/5)(π/2 - Im R_f^princ(α)), replacing the eigenvalue interpretation refuted 2026-05-23
 import PF.Analytic.Dilation                        -- Open Problem 1 — dilation operator + scale shift on cosineMode/sineMode
 import PF.Analytic.LogCoord                        -- Open Problem 1 — log-coordinate bridge: dilation ↔ translation (Route A)
 import PF.Analytic.MellinMode                      -- Open Problem 1 — Mellin modes: translation eigenvectors (Route A, Step 1)
@@ -140,6 +141,7 @@ import PF.TransferOperator    -- Transfer operator T₃ and spectral properties
 import PF.SpectralBijection   -- Eigenvalue → critical line map framework
 import PF.RHSurjectivityConjecture           -- RH spectral surjectivity (load-bearing open Prop)
 import PF.RHSpectralSurjectivityFactorings   -- Mission Phase 2: structural factoring of RH surjectivity into RH ∧ on-line + continuous-preimage + dense-image forms
+import PF.RHSpectralSurjectivityTripleAttack -- Mission Phase 4: triple-attack factoring of on-line surjectivity via Hilbert-Pólya / Selberg / Connes
 
 -- ============================================================================
 -- CAPSTONE: Millennium-problem status summary (RH + P ≠ NP, conditional)
@@ -158,6 +160,16 @@ import PF.Consciousness.FractalResonance -- Ch 03 R_f(α, s): complex-s form, |R
 -- Empirical: 143-Problem Validation Framework (Ch 21 §"Universal Coherence")
 -- ============================================================================
 import PF.Empirical.HundredFortyThreeProblems  -- 143 problems, axiom-free coherence + closed-form-match capstone
+
+-- ============================================================================
+-- Icosahedral H₃ Coxeter origin of π/10 (2026-05-24)
+-- ============================================================================
+import PF.H3CoxeterOrigin  -- h(H₃)=10, sin(π/10)=1/(2φ), Q(√5)=Q(φ), IBM peaks = H₃ structural numbers
+
+-- ============================================================================
+-- 2026-05-24 IBM Empirical Peaks as a Galois Pair over ℚ(√5)
+-- ============================================================================
+import PF.IBMPeaksGaloisPair  -- α_RH=3/2, α_NP=φ+¼ joint Q(√5)-quadratic + 2×2 Hermitian realization
 
 /-!
 ## Principia Fractalis Formal Verification
