@@ -174,6 +174,7 @@ import PF.H3CoxeterOrigin  -- h(H₃)=10, sin(π/10)=1/(2φ), Q(√5)=Q(φ), IBM
 -- 2026-05-24 IBM Empirical Peaks as a Galois Pair over ℚ(√5)
 -- ============================================================================
 import PF.IBMPeaksGaloisPair  -- α_RH=3/2, α_NP=φ+¼ joint Q(√5)-quadratic + 2×2 Hermitian realization
+import PF.IBMHardwareStatisticalEvidence  -- 2026-05-24 — Statistical evidence: joint random-match probability ≤ 2·10⁻⁷ under uniform-noise baseline
 
 /-!
 ## Principia Fractalis Formal Verification
