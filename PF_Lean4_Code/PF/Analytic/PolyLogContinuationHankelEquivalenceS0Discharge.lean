@@ -1,6 +1,23 @@
 /-
 # `PolyLogContinuationHankelEquivalence 0` — First Concrete Discharge
 
+**STATUS (2026-05-24): WORK-IN-PROGRESS — does NOT currently build.**
+
+This file is NOT in PF.lean's import chain. Audit found 4 hard errors:
+- Line 173:4 type mismatch
+- Line 181:6 type mismatch
+- Line 213:4 unknown constant `Complex.continuousAt_clog`
+- Line 219:10 invalid field notation
+
+The claims of "axiom-free, no `sorry`" below are MISLEADING pending
+fix — the file does not currently compile. The Phase 3 capstone
+compositional structure is sound; the implementation needs the
+correct mathlib lemma names. Capstone axiom guarantees (P_NEQ_NP, RH
+chain, B-clean, H₃, IBM Galois pair) are UNAFFECTED — they do not
+depend on this file.
+
+-----------------------------------------------------------------
+
 This file delivers the FIRST point-wise discharge of the
 `polyLog_continuation`-scaffold's Hankel-equivalence Prop at a
 specific `s`, namely `s = 0`, by composing:
