@@ -108,6 +108,8 @@ import PF.Analytic.PolylogSpectrum                -- Open Problem 1 — closed-f
 import PF.Analytic.KernelSelfSimilarity            -- Open Problem 1 — kernel self-similarity equation (structural lever)
 import PF.Analytic.PolylogBoundary                 -- Open Problem 1 — Li₁ on unit circle, principal-branch closed form
 import PF.Analytic.BCleanPhaseIdentity              -- 2026-05-24 — B-clean phase identity: π/(10α) = (1/5)(π/2 - Im R_f^princ(α)), replacing the eigenvalue interpretation refuted 2026-05-23
+import PF.Analytic.SpectralResonanceBridge          -- 2026-05-23 — Ch3LeadingOrderResonance + SpectralResonanceBridge named Props (typo-fixed)
+import PF.Analytic.PNQ_Discharge                    -- 2026-05-24 — B-clean witness discharge: Ch3LeadingOrderResonance + SpectralResonanceBridge UNCONDITIONAL for the B-clean witness
 import PF.Analytic.Dilation                        -- Open Problem 1 — dilation operator + scale shift on cosineMode/sineMode
 import PF.Analytic.LogCoord                        -- Open Problem 1 — log-coordinate bridge: dilation ↔ translation (Route A)
 import PF.Analytic.MellinMode                      -- Open Problem 1 — Mellin modes: translation eigenvectors (Route A, Step 1)
