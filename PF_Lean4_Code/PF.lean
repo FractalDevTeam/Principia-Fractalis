@@ -176,6 +176,11 @@ import PF.H3CoxeterOrigin  -- h(H₃)=10, sin(π/10)=1/(2φ), Q(√5)=Q(φ), IBM
 import PF.IBMPeaksGaloisPair  -- α_RH=3/2, α_NP=φ+¼ joint Q(√5)-quadratic + 2×2 Hermitian realization
 import PF.IBMHardwareStatisticalEvidence  -- 2026-05-24 — Statistical evidence: joint random-match probability ≤ 2·10⁻⁷ under uniform-noise baseline
 
+-- ============================================================================
+-- 2026-05-24 Cross-Connection Capstone — evidence-by-accumulation
+-- ============================================================================
+import PF.CrossConnectionCapstone  -- 15+ axiom-free cross-field connections bundled into one structural Lean certificate
+
 /-!
 ## Principia Fractalis Formal Verification
 

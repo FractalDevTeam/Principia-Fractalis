@@ -321,7 +321,110 @@ ZERO project axioms. ZERO `sorry`. Builds against the same mathlib
 snapshot as `PF.Analytic.CompactSelfAdjointNatEigenvalueWeylDecayDischarge`.
 -/
 
-/-! ## 9. Axiom-freeness verification
+/-! ## 9. Mathlib-PR target statement + conditional-on-PR closer
+
+This section makes the mathlib gap fully explicit at the Lean level.
+
+The companion file `mathlib_pr_drafts/BanachAlaoglu_HilbertUnitBall.lean`
+records THREE precise mathlib statement targets (PR-1: sequential
+Banach-Alaoglu on Hilbert spaces, PR-2: compact-operator strong
+convergence from weak, PR-3: Rayleigh-supremum attainment for
+compact self-adjoint).
+
+PR-3 is the load-bearing one. Restated INTERNALLY here for
+type-compatibility with `RayleighSupremumAttainedUniversally`,
+WITHOUT importing the draft file (the draft uses the same statement
+under a Prop-typed `def`; here we use the existing `def
+RayleighSupremumAttainedUniversally` directly).
+
+The point of `RayleighSupremumAttainedUniversally_conditional_on_mathlib_PR`
+below is to record IN LEAN that once mathlib's PR-3 lands, the
+universal Prop becomes proven mechanically. -/
+
+/-- **Statement of the precise mathlib PR-3 lemma** — internal copy.
+
+    This Prop is **literally syntactically identical** to
+    `RayleighSupremumAttainedUniversally H` (modulo β-reduction
+    of the universally quantified `T`). It exists so that a
+    downstream proof of PR-3 ⟹ `RayleighSupremumAttainedUniversally`
+    can be stated as a `theorem` rather than as a Prop redefinition.
+
+    The mathlib statement would be:
+    ```
+    theorem IsCompactOperator.IsSymmetric.rayleighSupremum_attained
+        {H} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+        [CompleteSpace H] [Nontrivial H]
+        (T : H →L[ℂ] H) (hCompact : IsCompactOperator T)
+        (hSym : (T : H →ₗ[ℂ] H).IsSymmetric) :
+        ∃ x₀ : H, x₀ ≠ 0 ∧
+          IsMaxOn T.reApplyInnerSelf (Metric.sphere 0 ‖x₀‖) x₀
+    ``` -/
+def MathlibPR3_RayleighAttained
+    (H : Type*) [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    [CompleteSpace H] : Prop :=
+  ∀ (T : H →L[ℂ] H), IsCompactOperator T →
+    (T : H →ₗ[ℂ] H).IsSymmetric →
+    ∃ x₀ : H, x₀ ≠ 0 ∧
+      IsMaxOn T.reApplyInnerSelf (Metric.sphere (0 : H) ‖x₀‖) x₀
+
+/-- **★ Trivial reduction: `MathlibPR3_RayleighAttained` ⟺
+    `RayleighSupremumAttainedUniversally` ★**
+
+    These two Props are definitionally equal: `MathlibPR3_RayleighAttained`
+    is the explicit unfolded form of `RayleighSupremumAttainedUniversally`,
+    with `RayleighSupremumAttained T` inlined. Recording the
+    equivalence so the conditional closer can be stated cleanly. -/
+theorem rayleighSupremumAttainedUniversally_iff_mathlibPR3
+    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    [CompleteSpace H] :
+    RayleighSupremumAttainedUniversally H ↔ MathlibPR3_RayleighAttained H :=
+  Iff.rfl
+
+/-- **★★ Conditional-on-mathlib-PR closer ★★** — Once mathlib lands
+    PR-3 (Brezis Théorème VI.11 = `MathlibPR3_RayleighAttained`),
+    `RayleighSupremumAttainedUniversally H` becomes a proven theorem
+    via `rayleighSupremumAttainedUniversally_iff_mathlibPR3.mpr`, and
+    (W1) `CompactSelfAdjointDiscreteEigenvalueEnumeration H` becomes
+    proven via the composite
+    `compactSelfAdjointDiscreteEigenvalueEnumeration_of_rayleighUniversal`.
+
+    This theorem records the **end-to-end discharge composite**: given
+    mathlib's PR-3 as a hypothesis, (W1) holds on any complex Hilbert
+    space. NO `sorry`, NO project axiom. -/
+theorem compactSelfAdjointDiscreteEigenvalueEnumeration_of_mathlibPR3
+    {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H]
+    [CompleteSpace H]
+    (hPR3 : MathlibPR3_RayleighAttained H) :
+    CompactSelfAdjointDiscreteEigenvalueEnumeration H :=
+  compactSelfAdjointDiscreteEigenvalueEnumeration_of_rayleighUniversal
+    (rayleighSupremumAttainedUniversally_iff_mathlibPR3.mpr hPR3)
+
+/-- **LogWeightedL2-specialized: (W1) conditional on mathlib PR-3.** -/
+theorem compactSelfAdjointDiscreteEigenvalueEnumeration_LogWeightedL2_of_mathlibPR3
+    (hPR3 : MathlibPR3_RayleighAttained LogWeightedL2) :
+    CompactSelfAdjointDiscreteEigenvalueEnumeration LogWeightedL2 :=
+  compactSelfAdjointDiscreteEigenvalueEnumeration_of_mathlibPR3 hPR3
+
+/-! ## 10. Audit summary
+
+After this section, the (W1) bundle on `LogWeightedL2` reduces
+ALL THE WAY to a **single, precise, mathlib-PR-shaped statement**:
+
+  * `MathlibPR3_RayleighAttained LogWeightedL2` (defeq to
+    `RayleighSupremumAttainedUniversally LogWeightedL2`).
+
+The companion file `mathlib_pr_drafts/BanachAlaoglu_HilbertUnitBall.lean`
+states this as the **PR-3 target** and decomposes it into PR-1
+(sequential Banach-Alaoglu) + PR-2 (compact-operator weak ⟹
+strong) + bilinear-continuity (already in mathlib).
+
+The 2026-05-24 RH audit's "Banach-Alaoglu weak-sequential
+compactness of Hilbert unit ball" is captured by PR-1 in the draft
+file. Once mathlib's `Mathlib/Analysis/Normed/Module/WeakDual.lean`
+TODO is resolved (line 54: "Add the sequential Banach-Alaoglu
+theorem"), the entire chain unwinds mechanically. -/
+
+/-! ## 11. Axiom-freeness verification
 
 `#print axioms` certifies that every export above depends on ZERO
 project axioms — only mathlib's standard `propext`, `Classical.choice`,
@@ -336,5 +439,9 @@ project axioms — only mathlib's standard `propext`, `Classical.choice`,
 #print axioms compactSymmetricHasNonzeroEigenvector_of_rayleighUniversal
 #print axioms compactSelfAdjointDiscreteEigenvalueEnumeration_of_rayleighUniversal
 #print axioms compactSelfAdjointDiscreteEigenvalueEnumeration_LogWeightedL2_of_rayleigh
+#print axioms MathlibPR3_RayleighAttained
+#print axioms rayleighSupremumAttainedUniversally_iff_mathlibPR3
+#print axioms compactSelfAdjointDiscreteEigenvalueEnumeration_of_mathlibPR3
+#print axioms compactSelfAdjointDiscreteEigenvalueEnumeration_LogWeightedL2_of_mathlibPR3
 
 end PrincipiaTractalis
