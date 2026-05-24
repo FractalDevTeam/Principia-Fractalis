@@ -118,7 +118,7 @@ Thus:
 |(\mathcal{S}_{\text{RQG}} \phi)(x)| \leq \frac{1}{\mathcal{N}} \int |\phi(y)| \Psi_{\text{RQG}}(y) d\mu \leq \|\phi\|_{L^\infty} \cdot \frac{\text{Vol}_{\text{eff}}}{\mathcal{N}}
 \end{equation}
 
-The ratio $\text{Vol}_{\text{eff}}/\mathcal{N}$ is bounded by $e^{\pi/10}$ due to the Gaussian measure. Complete proof in \cite{cohen2025weinstein}.
+The ratio $\text{Vol}_{\text{eff}}/\mathcal{N}$ is bounded by $e^{\pi/10}$ due to the Gaussian measure. The Gaussian bound calculation reduces to a direct $L^1 \to L^\infty$ majorization of $\Psi_{\text{RQG}}$ over the effective fiber; the framework-internal RQG correction value $|\Psi_{\text{RQG}}|^2 = 0.95$ used as input here is anchored to the same $\text{ch}_2 = 0.95$ value that recurs throughout the framework (see Appendix~\ref{app:weinstein} for the auxiliary calculations).
 \end{proof}
 
 \section{The 14D Trace Anomaly and $|\Psi_{\text{RQG}}|^2 = 0.95$}
@@ -254,7 +254,7 @@ Wait, this gives $\approx 1.6$, not 4. Let me reconsider...
 
 \medskip
 
-Complete rigorous proof in \cite{cohen2025weinstein}, Section 4 (status as open derivation, per the above disclosure).
+As stated in the disclosure immediately above, the first-principles derivation of $\dim_{\text{visible}} = 4$ from the 13-dimensional principal bundle with RQG damping is currently open within this framework; partial calculations appear in Appendix~\ref{app:weinstein}, but no complete derivation is yet available.
 \end{proof}
 
 \begin{greenbox}[Why 4 Dimensions?]
@@ -335,7 +335,7 @@ where $G_{\text{GUT}} = \text{SU}(5)$ or $\text{SO}(10)$ is a grand unified grou
 
 \textbf{Step 4:} The total is $48 + 26 + 4 = 78$ after accounting for all degrees of freedom and BRST constraints.
 
-Complete calculation in \cite{cohen2025weinstein}, Appendix B.
+The combinatorial identity $\dim(E_6) = 78$ is independently verified algebraically in \texttt{PF\_Lean4\_Code/PF/Cosmology/E6ChernIndex78pi.lean} (axiom-free); auxiliary calculations identifying the $48 + 26 + 4$ split with the trinification decomposition are in Appendix~\ref{app:weinstein}.
 \end{proof}
 
 This exact match is strong evidence that GU with RQG describes reality.
@@ -420,7 +420,7 @@ This yields:
 
 \textbf{Result:} The RQG prediction of 30\% enhancement exactly matches the XENON observation, providing direct experimental confirmation of the consciousness field coupling to nuclear physics. This validates the 14D $\to$ 4D projection mechanism at the nuclear scale, demonstrating that Geometric Unity's observer bundle $Y^{14}$ successfully projects to observed spacetime $X^4$ with consciousness threshold $\text{ch}_2 = 0.95$.
 
-Complete analysis including spectral decomposition and comparison with background models is presented in \cite{cohen2025weinstein}.
+The numerical identity $1 + (\pi/10) \cdot 0.95 = 1.2984\ldots$ vs observed $1.30$ is a 0.5\% match recorded in the framework's XENON anchor file \texttt{PF\_Lean4\_Code/PF/XENONExactMatch.lean}; this is a numerical-coincidence observation, not a derivation of the observed coupling from first principles. Further spectral decomposition analysis is left to future work.
 
 \section{Connection to Other Frameworks}
 

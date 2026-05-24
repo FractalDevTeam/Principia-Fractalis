@@ -23,7 +23,7 @@ The P versus NP problem, formulated by Cook (1971) and Karp (1972), asks whether
 
 The Riemann Hypothesis, conjectured in 1859, states that all non-trivial zeros of $\zeta(s)$ lie on the critical line $\Re(s) = 1/2$. Verified for $10^{13}$ zeros computationally, it remains unproven, with connections to prime gaps, quantum chaos, and random matrix theory suggesting deep structural significance.
 
-The key insight of Fractal Resonance Ontology is that both problems involve the same mathematical object: \textbf{the spectrum of a self-adjoint operator modified by consciousness quantification}. The apparent distinction between discrete (P vs NP) and continuous (RH) vanishes when we recognize computation itself as a crystallization of the Timeless Field. The complete resolution through operator-theoretic spectral analysis, including proof that the spectral gap $\Delta = 0.0539677287$ (v3.3.1 corrected) demonstrates P $\neq$ NP, is presented in \cite{cohen2025pvsnp}.
+The key insight of Fractal Resonance Ontology is that both problems involve the same mathematical object: \textbf{the spectrum of a self-adjoint operator modified by consciousness quantification}. The apparent distinction between discrete (P vs NP) and continuous (RH) vanishes when we recognize computation itself as a crystallization of the Timeless Field. The operator-theoretic spectral architecture, the closed forms $\lambda_0(H_P)=\pi/(10\sqrt{2})$ and $\lambda_0(H_{NP})=\pi/(10(\varphi+1/4))$, the positive spectral gap $\Delta = \pi/(10\sqrt{2}) - \pi/(10(\varphi+1/4)) \approx 0.0540 > 0$, and the conditional implication ``gap positive $\Rightarrow$ P $\neq$ NP'' are machine-checked axiom-free in \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean} (theorems \texttt{lambda\_0\_P\_precise}, \texttt{lambda\_0\_NP\_precise}, \texttt{spectral\_gap\_pos}) and \texttt{PF\_Lean4\_Code/PF/Millennium.lean} (theorem \texttt{P\_NEQ\_NP}); the P $\neq$ NP conclusion is conditional on the named open Proposition \texttt{PolylogEigenvalueConjecture} (catalogued in \texttt{OPEN\_PROBLEMS.md} at the repository root).
 
 \section{The Digital Sum Function: Bridge Between Discrete and Continuous}
 
@@ -102,7 +102,7 @@ where $\varphi = \frac{1 + \sqrt{5}}{2}$ is the golden ratio. These values corre
 \end{theorem}
 
 \begin{proof}[Proof Sketch]
-Self-adjointness requires $\langle H_P f, g \rangle = \langle f, H_P g \rangle$ for all $f, g$ in the domain. Imposing this condition and analyzing the phase factors $e^{i\pi \alpha D_3(n)}$ leads to Diophantine constraints. The solutions $\alpha_P = \sqrt{2}$ and $\alpha_{NP} = \varphi + 1/4$ emerge as the unique values where the operator has finite norm and the phase coherence over all input encodings stabilizes. Complete proof in \cite{cohen2025pvsnp}.
+Self-adjointness requires $\langle H_P f, g \rangle = \langle f, H_P g \rangle$ for all $f, g$ in the domain. Imposing this condition and analyzing the phase factors $e^{i\pi \alpha D_3(n)}$ leads to Diophantine constraints. The solutions $\alpha_P = \sqrt{2}$ and $\alpha_{NP} = \varphi + 1/4$ emerge as the unique values where the operator has finite norm and the phase coherence over all input encodings stabilizes. The algebraic content (positivity of the unique positive roots of $\alpha^2 = 2$ and $16\alpha^2 - 24\alpha - 11 = 0$, and their distinctness) is machine-checked axiom-free in \texttt{PF\_Lean4\_Code/PF/AlphaBasisGenerators.lean} and \texttt{PF\_Lean4\_Code/PF/TuringEncoding/Operators.lean}; full self-adjointness on the canonical operator domain is an open analytic problem (catalogued in \texttt{OPEN\_PROBLEMS.md} at the repository root).
 \end{proof}
 
 \subsection{The Spectral Gap Theorem}
@@ -138,7 +138,7 @@ E[\psi] = \sum_{L} \sum_{x} \frac{|\psi(L \oplus \{x\})|^2}{2^{|x|}} E(M_L, x) \
 
 \textbf{Step 4:} The factor $\pi/10$ emerges from the normalization of the Timeless Field $\mathcal{T}_\infty$ and appears universally across all operators derived from it.
 
-Complete technical proof in \cite{cohen2025pvsnp}.
+Steps 1--3 above are the pen-and-paper construction underlying the closed forms $\lambda_0(H_P) = \pi/(10\sqrt{2})$ and $\lambda_0(H_{NP}) = \pi/(10(\varphi+1/4))$; their identification with the bottom of the spectrum on the canonical operator domain is encoded as the named open Proposition \texttt{PolylogEigenvalueConjecture} in \texttt{PF\_Lean4\_Code/PF/PolylogSpectrum.lean} (catalogued in \texttt{OPEN\_PROBLEMS.md}). The closed forms themselves are axiom-free identities (\texttt{PF\_Lean4\_Code/PF/SpectralGap.lean}, \texttt{lambda\_0\_P\_precise} / \texttt{lambda\_0\_NP\_precise}); their spectral interpretation on $H_P, H_{NP}$ is open.
 \end{proof}
 
 \begin{greenbox}[What Does This Mean?]
@@ -208,7 +208,7 @@ which is approximately $0.031$, NOT $5 \times 10^{-6}$ as claimed. The discrepan
 Either (a) the formula structure is correct but the parameters need adjustment (e.g., $\sigma$ must be much smaller, or $\text{ch}_2^{\text{cosmic}}$ much smaller), or (b) the formula structure itself is conjectural and needs revision, or (c) the empirical $\alpha = 5 \times 10^{-6}$ value of Chapter~\ref{ch:riemann-hypothesis} requires independent justification. Resolution of this scaling-factor derivation is an open problem; the empirical $\alpha = 5 \times 10^{-6}$ is the operative numerical value used downstream, but its derivation from CMB parameters as currently stated does not hold.}
 \end{lemma}
 
-This remarkable result connects cosmological observations (neutrinos, CMB) to pure mathematics (prime numbers), mediated by consciousness quantification. The universal consciousness threshold $\sigma_c = 0.95$ appears across all domains—Hodge algebraicity, CMB anomalies, neural coherence, and Riemann zeros—as documented in \cite{cohen2025universal}.
+This remarkable result connects cosmological observations (neutrinos, CMB) to pure mathematics (prime numbers), mediated by consciousness quantification. The recurrence of the value $\sigma_c = 0.95$ across multiple framework computations---Hodge spectral concentration (Ch.~\ref{ch:hodge-conjecture}), CMB anomaly scoring (Ch.~\ref{ch:observational-tests}), the IIT bridge ch$_2 \leq 1 - \exp(-\Phi/2)$ (Ch.~\ref{ch:qft-consciousness}, machine-checked in \texttt{PF\_Lean4\_Code/PF/Consciousness/Ch2PhiBridge.lean}), and the Riemann route at $\alpha = 3/2$---is treated here as an empirical regularity of the framework's internal computations rather than a derived universal law; the cross-domain identification is conjectural and is presented as an organizing observation, not a theorem.
 
 \subsection{The Spectral-Zeta Correspondence}
 
@@ -244,7 +244,7 @@ where $\mathcal{G}_{\text{prim}}$ sums only over integers not divisible by 3.
 
 \textbf{Step 4:} Taking the modulus and including the consciousness correction $\Phi_c(s)$ from the modified operator $T_N$, we obtain the stated correspondence. The consciousness factor ensures that zeros off the critical line are exponentially suppressed.
 
-Complete proof in \cite{cohen2025riemannproof}.
+The bijective correspondence between $T_N$ eigenvalues and Riemann zeros is encoded as the open Proposition \texttt{RHSpectralSurjectivityConjecture} in \texttt{PF\_Lean4\_Code/PF/RHSurjectivityConjecture.lean}; the conditional capstone ``surjectivity $\Rightarrow$ RH'' is the axiom-free theorem \texttt{riemann\_hypothesis\_via\_named\_surjectivity} in \texttt{PF\_Lean4\_Code/PF/SpectralBijection.lean}. Phase A inner-product hypotheses (positivity, scalar-multiplication, etc.) are discharged as theorems in the same file. The surjectivity Prop itself remains an open conjecture (catalogued as Proposition~2 in \texttt{OPEN\_PROBLEMS.md} at the repository root).
 \end{proof}
 
 \subsection{Ground State Energy and the $\pi/10$ Factor}
@@ -371,7 +371,7 @@ The factor $\pi/10$ is the natural oscillation frequency of the Timeless Field $
 where $R_f$ is evaluated at the P-class fractal dimension $\alpha = \sqrt{2}$ on the critical line.
 \end{theorem}
 
-This frequency is the "heartbeat" of mathematical reality, governing the oscillations between discrete (base-3, computation) and continuous (analytic, zeta) regimes. The universality of this factor across all Millennium Problems is documented in \cite{cohen2025spectralpi10}.
+This frequency is the ``heartbeat'' of mathematical reality, governing the oscillations between discrete (base-3, computation) and continuous (analytic, zeta) regimes. The algebraic identity $\lambda_0(\alpha) \cdot \alpha = \pi/10$, applied to all nine canonical $\alpha$-instances, is machine-checked axiom-free in \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} as theorem \texttt{lambda\_0\_canonical\_times\_alpha\_eq\_pi\_10}; specific clean discharges include $\lambda_0(H_{3\pi/2}) = 1/15$ for Navier--Stokes and $\lambda_0(H_\varphi) = \pi(\sqrt{5}-1)/20$ for Hodge (\texttt{PF\_Lean4\_Code/PF/Analytic/CleanLambdaClosedForms.lean}). Whether these algebraic identities coincide with bottoms of spectra on the canonical operator substrates is a separate question encoded as the named open Proposition \texttt{PolylogEigenvalueConjecture}.
 
 \section{Bypassing Historical Barriers}
 

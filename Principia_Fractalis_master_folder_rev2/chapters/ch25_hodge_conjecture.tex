@@ -454,7 +454,7 @@ Abelian 4-fold & 4 & 0.9544 & 240 cycles \\
 
 \textbf{Success rate}: 100\% of tested Hodge classes have $\sigma \geq 0.95$
 
-Complete numerical validation on 4 canonical varieties (Calabi-Yau threefold, K3 surface with $\rho=20$, Abelian surface, and complete intersection surface) confirms spectral concentration $\geq 0.95$ for all Hodge classes tested, with mean concentration $0.6310$ and maximum $0.9893$ for Calabi-Yau test cases. Detailed results including basis dimensions $N=30$, unified thresholds, and algebraic cycle extraction algorithms are presented in \cite{cohen2025hodgeproof}.
+Numerical exploration on 4 canonical varieties (Calabi-Yau threefold, K3 surface with $\rho=20$, Abelian surface, and complete intersection surface) reports spectral concentration $\geq 0.95$ for the tested $(p,p)$ Hodge classes, with mean concentration $0.6310$ and maximum $0.9893$ for Calabi-Yau test cases at basis dimension $N=30$. The raw numerical results are recorded in the dataset \cite{cohen2025hodgedata} (\texttt{hodge\_complete\_results\_20250614\_025444.json}). The conditional reduction ``framework hypothesis at $\alpha = \varphi$ $\Rightarrow$ Hodge'' is the axiom-free theorem \texttt{hodge\_via\_fractal\_resonance} in \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}; the algebraic anchor $\lambda_0(H_\varphi) = \pi(\sqrt{5}-1)/20$ is axiom-free in \texttt{PF\_Lean4\_Code/PF/Analytic/CleanLambdaClosedForms.lean}. The numerical $\sigma \geq 0.95$ observation on the four test varieties is an empirical signal supporting the conjecture, not a proof of the Hodge Conjecture; control experiments on randomly generated $(p,p)$ classes do \emph{not} cross 0.95 (0/2000 in the documented run), which is consistent with the framework's selectivity claim but does not establish algebraicity of arbitrary Hodge classes.
 
 \subsection{Example: Quintic Threefold}
 
@@ -502,7 +502,7 @@ A 2026-04-26 audit identified an internal $\alpha$-dictionary inconsistency: thi
 
 \subsection{Why Consciousness Bridges Topology and Algebra}
 
-From Chapter \ref{ch:consciousness}, consciousness crystallizes at ch$_2 \geq 0.95$. This universal threshold appears across all domains—Hodge algebraicity, Riemann zeros, CMB anomalies, neural coherence, and cosmic structure—demonstrating the fundamental unity of consciousness quantification, as documented in \cite{cohen2025universal}.
+From Chapter \ref{ch:consciousness}, consciousness crystallizes at ch$_2 \geq 0.95$. The recurrence of the value $0.95$ across distinct framework computations---Hodge spectral concentration (this chapter), Riemann-route ch$_2$-modulation (Ch.~\ref{ch:riemann-hypothesis}), CMB anomaly scoring (Ch.~\ref{ch:observational-tests}), the IIT bridge ch$_2 \leq 1 - \exp(-\Phi/2)$ (Ch.~\ref{ch:qft-consciousness}, machine-checked axiom-free in \texttt{PF\_Lean4\_Code/PF/Consciousness/Ch2PhiBridge.lean}), and the mass-ratio identity $m_C/M_{\text{Planck}} = \sqrt{1-0.95} = 1/(2\sqrt{5})$ (\texttt{PF\_Lean4\_Code/PF/Consciousness/Ch12MassIITBridge.lean})---is treated as a cross-domain organizing observation of framework-internal computations, not as a derived universal law.
 
 For Hodge at $\alpha = \varphi \approx 1.6180339887$:
 \begin{equation}\label{eq:ch2-hodge}
