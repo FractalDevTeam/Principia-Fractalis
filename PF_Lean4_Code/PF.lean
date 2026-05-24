@@ -146,6 +146,7 @@ import PF.SpectralBijection   -- Eigenvalue → critical line map framework
 import PF.RHSurjectivityConjecture           -- RH spectral surjectivity (load-bearing open Prop)
 import PF.RHSpectralSurjectivityFactorings   -- Mission Phase 2: structural factoring of RH surjectivity into RH ∧ on-line + continuous-preimage + dense-image forms
 import PF.RHSpectralSurjectivityTripleAttack -- Mission Phase 4: triple-attack factoring of on-line surjectivity via Hilbert-Pólya / Selberg / Connes
+import PF.Analytic.MaassCuspSimplicityFactorings -- Mission Phase 3: structural factoring of bundle (b) Mayer 1991 non-degeneracy via Maass-cusp simplicity + Cartier/Sarnak/Lewis-Zagier inputs (axiom-free, sorry-free post Wave-4 fix)
 
 -- ============================================================================
 -- CAPSTONE: Millennium-problem status summary (RH + P ≠ NP, conditional)
@@ -175,6 +176,7 @@ import PF.H3CoxeterOrigin  -- h(H₃)=10, sin(π/10)=1/(2φ), Q(√5)=Q(φ), IBM
 -- ============================================================================
 import PF.IBMPeaksGaloisPair  -- α_RH=3/2, α_NP=φ+¼ joint Q(√5)-quadratic + 2×2 Hermitian realization
 import PF.IBMHardwareStatisticalEvidence  -- 2026-05-24 — Statistical evidence: joint random-match probability ≤ 2·10⁻⁷ under uniform-noise baseline
+import PF.IBMHardware9WayEvidence  -- 2026-05-24 — 9-way extension: joint random-match probability ≤ 10⁻¹⁵ over all 9 framework α-instances
 
 -- ============================================================================
 -- 2026-05-24 Cross-Connection Capstone — evidence-by-accumulation
