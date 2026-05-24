@@ -325,13 +325,15 @@ This factor of $\pi/10$ appears in:
 
 \subsection{Polylogarithm Connection}
 
-\begin{theorem}[Polylogarithm Evaluation]\index{polylogarithm}
-At critical resonance values $\alpha_c$ and $s = 1$:
+\begin{proposition}[Polylogarithm Decomposition of $R_f$ at $s=1$]\index{polylogarithm}
+\label{prop:polylog-decomposition}
+At critical resonance values $\alpha_c$ and $s = 1$, the fractal resonance function admits the factored representation
 \begin{equation}
-R_f(\alpha, 1) = \text{Li}_1(e^{i\pi\alpha}) \cdot \Phi(\alpha) = \frac{\pi\alpha}{10} + O(\alpha^2)
+\label{eq:rf-polylog-decomposition}
+R_f(\alpha, 1) = \text{Li}_1(e^{i\pi\alpha}) \cdot \Phi(\alpha),
 \end{equation}
-where $\Phi(\alpha)$ is a correction factor encoding the fractal structure.
-\end{theorem}
+where $\Phi(\alpha)$ is a fractal correction factor encoding the non-uniform distribution of $D_3(n)$ values.
+\end{proposition}
 
 \begin{proof}[Proof Sketch]
 The polylogarithm of order 1 is:
@@ -344,8 +346,28 @@ For $z = e^{i\pi\alpha}$:
 \text{Li}_1(e^{i\pi\alpha}) = -\log(1 - e^{i\pi\alpha})
 \end{equation}
 
-The fractal correction $\Phi(\alpha)$ arises from the non-uniform distribution of $D_3(n)$ values. Detailed Fourier analysis (Chapter 4) shows that the leading term is $\pi\alpha/10$.
+The fractal correction $\Phi(\alpha)$ arises from the non-uniform distribution of $D_3(n)$ values under base-3 digital sums. Equation~\eqref{eq:rf-polylog-decomposition} is a definition of $\Phi$ via the ratio $R_f(\alpha,1)/\text{Li}_1(e^{i\pi\alpha})$ where the polylogarithm is non-vanishing.
 \end{proof}
+
+\medskip
+\noindent\textbf{Refutation of prior leading-order form (2026-05-24).} Prior editions of this section asserted the additional pointwise identity
+\begin{equation}
+\label{eq:refuted-rf-leading}
+R_f(\alpha, 1) \;\stackrel{?}{=}\; \frac{\pi\alpha}{10} + O(\alpha^2)
+\qquad (\text{\emph{refuted}}),
+\end{equation}
+as the leading-order resonance expansion. \emph{This claim is false in the stated form.} It has been refuted axiom-free in Lean~4 simultaneously at all nine canonical $\alpha$-instances of the framework ($\alpha \in \{1,\,3/2,\,\sqrt{2},\,\varphi+1/4,\,3\pi/4,\,3\pi/2,\,2,\,\varphi,\,\sqrt{2\pi}\}$) by the theorem \texttt{cascade\_attack\_headline\_refutation} in \texttt{PF\_Lean4\_Code/PF/Analytic/Phi}\-\texttt{CorrectionPerAlpha.lean}. Key witnesses:
+\begin{itemize}
+\item At $\alpha = 1$ (Poincaré), the proven axiom-free anchor gives $R_f(1,1) = -\log 2 \approx -0.693$, while $\pi\cdot 1/10 \approx 0.314$. The \emph{exact} residual $\pi/10 + \log 2$ is rigorously bracketed in $(1.00,\,1.02)$ (Lean theorem \texttt{cascade\_residual\_Poincare\_bracket}) — opposite signs, not a small correction.
+\item At $\alpha = 2$ (Yang--Mills), $R_f(2,s) = \zeta(s)$ has a pole at $s = 1$, while the proposed target $\pi/5$ is finite — structural mismatch.
+\item At the remaining seven $\alpha$-instances ($N=200{,}000$ terms, \texttt{mp.dps=80}), the residuals $\lvert R_f(\alpha,1) - \pi\alpha/10 \rvert$ all exceed $1$ in modulus, ranging from $1.445$ ($\alpha=\sqrt{2}$) to $3.635$ ($\alpha = \varphi+1/4$).
+\end{itemize}
+\emph{The $\pi/10$ factor IS load-bearing — but not as a point value of $R_f$.} Its correct mathematical home is the \emph{operator-side} ground-state identity
+\begin{equation}
+\label{eq:lambda0-operator}
+\lambda_0(H_\alpha) \;=\; \frac{\pi}{10\,\alpha},
+\end{equation}
+formally certified for $\alpha = \sqrt{2}$ (P-class) and $\alpha = \varphi + 1/4$ (NP-class) in \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean} (Theorem~\ref{thm:complexity-gap}, this chapter); these are the eigenvalues of the spectral operators $H_\alpha$, \emph{not} the series point-values $R_f(\alpha,1)$. The two quantities are structurally different: \eqref{eq:refuted-rf-leading} conflates them and is hereby retracted in its literal form. A first-principles derivation of an honest leading-order relation between $R_f(\alpha,1)$, $\text{Li}_1(e^{i\pi\alpha})$, and $\Phi(\alpha)$ remains an open problem (see \texttt{OPEN\_PROBLEMS.md}).
 
 \subsection{Physical Interpretation}
 
