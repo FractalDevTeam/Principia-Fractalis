@@ -1,0 +1,40 @@
+{
+  "test1_speed_of_gravity": {
+    "prediction_dc_over_c": 1.881068370962012e-43,
+    "observed_bound": 7e-16,
+    "status": "consistent (no observable signal predicted)"
+  },
+  "test2_NANOGrav": {
+    "Omega_GW_consc_estimate": 0.036033353837786664,
+    "Omega_GW_observed": 2.4e-08,
+    "closest_natural_match": "exp(-EXP_LAMBDA/15)",
+    "log10_distance_dex": 0.3825394608643368,
+    "status": "no clean prediction \u2014 natural matches all > 1 dex off OR fine-tuned"
+  },
+  "test3_polarizations": {
+    "Ch13_A_ratio_at_100Hz": 2.725098212747325e-21,
+    "framework_natural_(1-ch2)*pi/10": 0.015707963267948967,
+    "LIGO_sensitivity_O3": 0.02,
+    "status": "Ch 13 prediction far below detection; (1-ch_2)*pi/10 numerologically near sensitivity but no derivation"
+  },
+  "test4_ringdown": {
+    "predicted_shift": 2.1650218110325325e-126,
+    "observed_precision": 0.05,
+    "status": "consistent (no observable signal predicted)"
+  },
+  "test5_tensor_scalar": {
+    "BICEP_bound": 0.036,
+    "framework_prediction": "no deviation from standard inflation (ch_2=0 in early universe)",
+    "status": "no framework prediction \u2014 consciousness absent at primordial epoch"
+  },
+  "overall": {
+    "status": "GW-SILENT framework at current sensitivity",
+    "honest_assessment": "no clean win, no qualified win, no NANOGrav match; framework is consistent with GR on GW observables but predicts no distinguishing signal accessible now",
+    "future_probes": [
+      "LISA Delta c/c at 10^-3 Hz (still ~6 dex below sensitivity)",
+      "Einstein Telescope ringdown precision",
+      "SKA pulsar timing extended baseline"
+    ],
+    "negative_result": true
+  }
+}
