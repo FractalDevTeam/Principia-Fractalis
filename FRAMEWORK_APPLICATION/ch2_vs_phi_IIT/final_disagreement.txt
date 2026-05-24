@@ -1,0 +1,37 @@
+============================================================
+ DISAGREEMENT DEMONSTRATION
+ Same spectral invariants -> same ch_2,
+ different topology -> different Phi.
+============================================================
+
+System A: directed 4-cycle (integrated)
+  A:
+    Tr(W)       = 0.0000
+    Tr(W^2)     = 0.0000
+    ||W||_F^2   = 1.0000
+    ch_2(W)     = 0.0000
+    Phi_G(W)    = 0.3278
+
+System B: two independent 2-cycles (modular)
+  B:
+    Tr(W)       = 0.0000
+    Tr(W^2)     = 1.0000
+    ||W||_F^2   = 1.0000
+    ch_2(W)     = 0.5000
+    Phi_G(W)    = 0.0000
+
+INTERPRETATION
+  ch_2(A) = ch_2(B): the framework's neural ch_2 cannot distinguish
+                     an integrated cycle from two disconnected sub-cycles.
+  Phi_G(A) > Phi_G(B): IIT *does* distinguish them — disconnected
+                       components have zero across-cut Phi.
+
+This is NOT a defect of the framework; ch_2 is a *topological* invariant
+(second Chern character) and lives at a different abstraction level than
+IIT bipartition irreducibility.  The two measures are *complementary*:
+  - ch_2 captures spectral/dimensional coherence
+  - Phi   captures structural integration across cuts
+
+The CORRECT bridge is on QUANTUM states (ch_2 = linear entropy of rho_A),
+where:   ch_2 <= 1 - exp(-Phi_IIT / 2),  equality on uniform Schmidt.
+

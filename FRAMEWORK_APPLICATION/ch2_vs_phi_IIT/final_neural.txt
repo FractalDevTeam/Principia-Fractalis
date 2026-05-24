@@ -1,0 +1,85 @@
+========================================================================
+ ch_2 (Principia Fractalis)  vs  Phi (Tononi IIT, Gaussian proxy)
+========================================================================
+
+--- NEURAL SWEEP ---
+system                   n       ch_2      Phi_G
+cycle_C3                 3     0.0000     0.3200
+cycle_C4                 4     0.0000     0.3278
+cycle_C5                 5     0.0000     0.3298
+cycle_C6                 6     0.0000     0.3303
+cycle_C8                 8     0.0000     0.3304
+complete_K3              3     0.5000     0.2231
+complete_K4              4     0.5000     0.6544
+complete_K5              5     0.5000     0.3082
+complete_K6              6     0.5000     0.0000
+complete_K8              8     0.5000     0.0000
+disconnected_4           4     0.5000     0.0000
+disconnected_6           6     0.5000     0.0000
+disconnected_8           8     0.5000     0.0000
+identity_3               3    -1.0000     0.0000
+identity_5               5    -2.0000     0.0000
+identity_8               8    -3.5000     0.0000
+ER_n4_p0.2_s0            4     0.0000     0.0048
+ER_n4_p0.2_s1            4     0.0000     0.0000
+ER_n4_p0.2_s2            4     0.0000     0.0207
+ER_n4_p0.5_s0            4     0.0000     0.0114
+ER_n4_p0.5_s1            4     0.0000     0.0390
+ER_n4_p0.5_s2            4     0.0186     0.0783
+ER_n4_p0.8_s0            4     0.2964     0.0566
+ER_n4_p0.8_s1            4     0.0835     0.5075
+ER_n4_p0.8_s2            4    -0.0567     0.4885
+ER_n6_p0.2_s0            6    -0.0496     0.0000
+ER_n6_p0.2_s1            6     0.0000     0.0000
+ER_n6_p0.2_s2            6     0.0000     0.0000
+ER_n6_p0.5_s0            6     0.0094     0.1049
+ER_n6_p0.5_s1            6     0.0978     0.0716
+ER_n6_p0.5_s2            6    -0.0397     0.1011
+ER_n6_p0.8_s0            6     0.0801     0.0496
+ER_n6_p0.8_s1            6     0.0562     0.1002
+ER_n6_p0.8_s2            6    -0.2089     1.0119
+ER_n8_p0.2_s0            8    -0.0851     0.0927
+ER_n8_p0.2_s1            8     0.0226     0.0000
+ER_n8_p0.2_s2            8    -0.0087     0.0073
+ER_n8_p0.5_s0            8    -0.1877     0.1956
+ER_n8_p0.5_s1            8    -0.0835     0.2046
+ER_n8_p0.5_s2            8     0.0190     0.1382
+ER_n8_p0.8_s0            8    -0.0912     0.2304
+ER_n8_p0.8_s1            8    -0.1311     0.2309
+ER_n8_p0.8_s2            8     0.0038     0.3407
+
+Pearson  corr(ch_2, Phi_G) = 0.1257
+Spearman corr(ch_2, Phi_G) = -0.0735
+
+--- THRESHOLD ANALYSIS ---
+systems with ch_2 >= 0.95 : 0
+systems with ch_2  < 0.95 : 43 (max Phi_G = 1.0119)
+
+--- QUANTUM SWEEP (2x2 bipartite) ---
+state                        ch_2     I(A:B)
+bell_max_entangled         0.5000     1.3863
+product_00                 0.0000     0.0000
+werner_p0.0                0.5000     0.0000
+werner_p0.1                0.5000     0.0142
+werner_p0.2                0.5000     0.0541
+werner_p0.3                0.5000     0.1176
+werner_p0.4                0.5000     0.2038
+werner_p0.5                0.5000     0.3128
+werner_p0.6                0.5000     0.4458
+werner_p0.7                0.5000     0.6059
+werner_p0.8                0.5000     0.7988
+werner_p0.9                0.5000     1.0375
+werner_p1.0                0.5000     1.3863
+
+Pearson  corr(ch_2, I(A:B)) = 0.2863
+Spearman corr(ch_2, I(A:B)) = 0.9615
+
+--- TIMING (computational complexity) ---
+   n       ch_2 (s)      Phi_G (s)      ratio
+   4    7.33538e-06    0.000779857     106.31x
+   6    7.06855e-06     0.00546173     772.68x
+   8    8.06581e-06      0.0308712    3827.42x
+  10    7.90898e-06       0.127788   16157.39x
+  12    9.12677e-06       0.644588   70626.03x
+
+Results saved to /home/xluxx/Principia-Fractalis/FRAMEWORK_APPLICATION/ch2_vs_phi_IIT/results.json

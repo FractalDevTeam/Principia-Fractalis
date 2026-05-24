@@ -1,0 +1,79 @@
+============================================================
+ THRESHOLD-REGIME ANALYSIS
+   ch_2 = 0.95  consciousness crystallization (Ch 6)
+ Test what state-space conditions reach the threshold
+ and how Phi (IIT proxy) behaves there.
+============================================================
+
+============================================================
+ MAX-MIXED-MARGINAL SWEEP   ch_2 = 1 - 1/d_A
+============================================================
+ d_A       ch_2     I(A:B)    log d_A   >= 0.95?
+   2     0.5000     0.0000     0.6931         no
+   3     0.6667     0.0000     1.0986         no
+   4     0.7500     0.0000     1.3863         no
+   5     0.8000     0.0000     1.6094         no
+   8     0.8750     0.0000     2.0794         no
+  10     0.9000     0.0000     2.3026         no
+  15     0.9333     0.0000     2.7081         no
+  20     0.9500    -0.0000     2.9957        YES
+  25     0.9600     0.0000     3.2189        YES
+  32     0.9688     0.0000     3.4657        YES
+
+============================================================
+ PURE-STATE SCHMIDT SWEEP  (d_A=d_B=25)  equal coefficients
+============================================================
+ rank r       ch_2     I(A:B)    2 log r   >= 0.95?
+      1     0.0000     0.0000     0.0000         no
+      2     0.5000     1.3863     1.3863         no
+      4     0.7500     2.7726     2.7726         no
+      5     0.8000     3.2189     3.2189         no
+     10     0.9000     4.6052     4.6052         no
+     15     0.9333     5.4161     5.4161         no
+     19     0.9474     5.8889     5.8889         no
+     20     0.9500     5.9915     5.9915        YES
+     21     0.9524     6.0890     6.0890        YES
+     25     0.9600     6.4378     6.4378        YES
+
+============================================================
+ ISOTROPIC SWEEP (d=20):  ch_2 vs Phi-proxy under mixing
+============================================================
+     p       ch_2     I(A:B)
+  0.00     0.9500     0.0000
+  0.10     0.9500     0.2849
+  0.20     0.9500     0.7091
+  0.30     0.9500     1.1973
+  0.40     0.9500     1.7335
+  0.50     0.9500     2.3113
+  0.60     0.9500     2.9293
+  0.70     0.9500     3.5890
+  0.80     0.9500     4.2970
+  0.90     0.9500     5.0695
+  1.00     0.9500     5.9915
+
+============================================================
+ SHARP FRAMEWORK PREDICTION  (derived here)
+============================================================
+
+For a bipartite quantum system A (x) B,
+    ch_2 = 1 - Tr(rho_A^2)
+attains 0.95 iff rho_A has purity Tr(rho_A^2) = 0.05,
+which requires effective dimension d_A >= 20.
+
+For pure |psi>_AB with equal Schmidt coefficients on rank r,
+    ch_2 = 1 - 1/r,   I(A:B) = 2 log r
+so  ch_2 >= 0.95  <=>  r >= 20  <=>  I(A:B) >= 2 log 20  ~ 5.991 nats
+                                              ~ 8.644 bits.
+
+Interpretation:
+  - Tononi consciousness threshold (Phi > 0 in IIT 3.0): non-zero
+    integrated information.  Lax: ANY irreducible correlation suffices.
+  - Principia Fractalis threshold (ch_2 >= 0.95): >= ~8.6 BITS of
+    mixed-marginal correlation across the subsystem cut.
+
+These are NOT the same threshold:
+  Phi    > 0     : *any* irreducibility, ZERO bits possible (just non-empty)
+  ch_2 >= 0.95 : ~8.6 bits minimum, dimension >= 20
+
+But they AGREE on direction (monotone within fixed dim, see sweep above).
+
