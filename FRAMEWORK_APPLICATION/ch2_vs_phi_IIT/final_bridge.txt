@@ -1,0 +1,56 @@
+  #   r       ch_2     I(A:B)   1-e^(-I/2)        gap
+  0  30    0.93435    5.95904      0.94918  -1.48e-02
+  1  20    0.90756    5.20218      0.92581  -1.82e-02
+  2  19    0.92522    5.43700      0.93403  -8.81e-03
+  3  11    0.85145    4.14206      0.87394  -2.25e-02
+  4  31    0.93384    5.93595      0.94859  -1.47e-02
+  5  21    0.88588    5.05099      0.91998  -3.41e-02
+  6  30    0.94490    6.19954      0.95494  -1.00e-02
+  7  17    0.87821    4.71047      0.90513  -2.69e-02
+  8   7    0.59810    2.38445      0.69646  -9.84e-02
+  9   2    0.32108    1.00330      0.39447  -7.34e-02
+ 10   4    0.58699    2.17872      0.66357  -7.66e-02
+ 11   2    0.42455    1.23134      0.45972  -3.52e-02
+ 12   9    0.82859    3.75683      0.84717  -1.86e-02
+ 13   7    0.69099    3.03723      0.78099  -9.00e-02
+ 14  24    0.92434    5.56363      0.93807  -1.37e-02
+ 15  28    0.93610    5.95801      0.94916  -1.31e-02
+ 16  11    0.83093    3.97744      0.86313  -3.22e-02
+ 17  23    0.91894    5.43157      0.93385  -1.49e-02
+ 18  31    0.93483    5.99372      0.95006  -1.52e-02
+ 19  18    0.91166    5.18806      0.92528  -1.36e-02
+
+Uniform-spectrum check (should give gap = 0 exactly):
+r=  2  ch_2=0.500000  I=1.386294  lb=0.500000  gap=0.00e+00
+r=  5  ch_2=0.800000  I=3.218876  lb=0.800000  gap=-1.11e-16
+r= 10  ch_2=0.900000  I=4.605170  lb=0.900000  gap=-1.11e-16
+r= 20  ch_2=0.950000  I=5.991465  lb=0.950000  gap=0.00e+00
+r= 50  ch_2=0.980000  I=7.824046  lb=0.980000  gap=0.00e+00
+
+THEOREM (numerically verified above):
+  For any pure bipartite |psi>_AB :
+        ch_2  <=  1 - exp(- I(A:B) / 2)
+  Equality iff the Schmidt spectrum is uniform (rank-r flat).
+
+EXACT BIJECTION on UNIFORM ENTANGLEMENT
+  ch_2 = 1 - 1/r  <==>  I(A:B) = 2 log r
+  ch_2 = 1 - exp(-I(A:B)/2)    (closed form on the equality locus)
+
+PRACTICAL IMPLICATIONS
+  - The ch_2 = 0.95 crystallization threshold requires AT MINIMUM
+        I(A:B) >= -2 log(1 - 0.95) = -2 log 0.05  ~=  5.991 nats
+                                                 ~=  8.644 bits.
+    (This lower bound is the framework's *necessary* IIT-Phi
+     consciousness signature; sharper on uniform spectrum.)
+  - At fixed Phi, ch_2 MAXIMIZES on flat Schmidt spectrum; ch_2 < Phi-bound
+    detects non-flat (less coherent) entanglement.
+  - Tononi's Phi has NO upper bound from dimension; ch_2 IS dimension-
+    bounded at 1 - 1/d.  So:
+        Tononi Phi  : *amount* of correlation
+        ch_2        : *purity-deficit* / dimensional coherence
+    These are COMPLEMENTARY observables on the same Hilbert-space cut.
+
+This bound is a CLOSED-FORM BRIDGE between Principia Fractalis ch_2 and
+Tononi IIT Phi, valid for all pure-state cuts.  ch_2 = 0.95 is mapped
+to a sharp, dimensionful (>= 8.6 bits, dim >= 20) Phi threshold.
+
