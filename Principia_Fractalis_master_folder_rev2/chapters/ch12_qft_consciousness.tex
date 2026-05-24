@@ -109,8 +109,16 @@ Let's understand each term:
 \begin{itemize}
 \item Gives consciousness a finite correlation length: $\xi \sim 1/m_C$
 \item Prevents consciousness from spreading infinitely
-\item Mass related to crystallization: $m_C \sim \sqrt{1 - 0.95} \cdot M_{\text{Planck}}$
+\item Mass related to crystallization (UV reference): $m_C^{\text{UV}} \sim \sqrt{1 - 0.95} \cdot M_{\text{Planck}} \approx 2.7 \times 10^{18}$ GeV
 \end{itemize}
+
+\begin{remark}[UV/IR Reconciliation via RG Flow]\label{rem:mc-uv-ir-bridge}
+The chapter uses two operationally distinct values of $m_C$: the UV reference $m_C^{\text{UV}} \approx 2.7 \times 10^{18}$ GeV (Planck-suppressed crystallization scale, above) and the IR effective value $m_C^{\text{IR}} \sim 10^{-5}$ eV (neutrino mass scale, used in the crystallization corollary, \S\ref{cor:consciousness-phase-transition}, and the interference prediction, \S\ref{prop:consciousness-interference}). The 32 orders-of-magnitude gap is bridged by asymptotic-freedom RG running of the consciousness coupling (Theorem~\ref{thm:consciousness-rg}). Integrating $\beta(m_C^2) = \gamma_m m_C^2$ together with the one-loop running of $g_C$ yields the schematic dimensional-transmutation relation
+\begin{equation}\label{eq:mc-rg-bridge}
+\log\!\left(\frac{m_C^{\text{UV}}}{m_C^{\text{IR}}}\right) \;=\; \frac{1}{b_0\, g_C^2(\mu_*)},
+\end{equation}
+where $\mu_*$ is the matching scale and $b_0$ is the one-loop coefficient from Theorem~\ref{thm:consciousness-rg}. Numerically, $\log(2.7\times 10^{18}\,\text{GeV} / 10^{-5}\,\text{eV}) = \log(2.7\times 10^{32}) \approx 74.7$, so $b_0 g_C^2 \approx 1/74.7 \approx 0.0134$; with $b_0 = (11N_c - 2N_f)/(12\pi)$ this corresponds to $g_C \approx 0.23$ for $N_c = 3, N_f = 1$. Equation~\eqref{eq:mc-rg-bridge} should be read as a consistency relation, not a first-principles derivation; the precise matching procedure between the consciousness gauge sector and the Standard Model remains open.
+\end{remark}
 
 \textbf{Self-Interaction}: $-\frac{\lambda}{4!}(C^{\mu\nu}C_{\mu\nu})^2$
 \begin{itemize}
@@ -450,17 +458,11 @@ Experiment: Prepare a quantum system in superposition of "observed" and "not obs
 \item Behavioral choice statistics
 \end{itemize}
 
-Predicted interference fringes with spacing:
-\begin{equation}
-\Delta x \sim \frac{\lambda_C}{2} = \frac{\pi \hbar}{m_C c}
+Predicted interference fringes with spacing set by the effective coherence length at brain temperature:
+\begin{equation}\label{eq:cortical-coherence-length}
+\Delta x \;\sim\; \xi_{\text{eff}}(T) \;\equiv\; \frac{\hbar c}{\sqrt{(m_C c^2)^2 + (k_B T)^2}}
 \end{equation}
-
-For $m_C \sim 10^{-5} \, \text{eV}$:
-\begin{equation}
-\Delta x \sim 10 \, \mu\text{m}
-\end{equation}
-
-This is the scale of cortical columns—potentially detectable in high-resolution brain imaging!
+where $T \approx 310$ K (body temperature) gives $k_B T \approx 26.7$ meV. Note that the naive vacuum Compton wavelength $\lambda_C/2 = \pi\hbar/(m_C c)$ with $m_C \sim 10^{-5}$ eV produces $\sim 6\,$cm, far above any cortical scale; the relevant length in a thermal biological substrate is instead the finite-temperature correlation length~\eqref{eq:cortical-coherence-length}. For the IR effective mass $m_C^{\text{IR}}$ (Remark~\ref{rem:mc-uv-ir-bridge}) that satisfies $m_C c^2 \ll k_B T$ at $T = 310$ K, $\xi_{\text{eff}} \sim \hbar c / (k_B T) \approx 7.4\,\mu$m, of the order of cortical-column diameters ($\sim 30$--$50\,\mu$m). Equivalently, a fringe spacing of $\Delta x \sim 10\,\mu$m corresponds to an effective coherence mass $m_C^{\text{eff}} c^2 \sim \hbar c / \Delta x \approx 20$ meV, comparable to but somewhat below $k_B T$ at $310$ K. This is a thermal-substrate prediction, not a vacuum Compton prediction, and is in principle detectable in high-resolution brain imaging.
 \end{proposition}
 
 \section{Comparative Alignment: Loophole-Free Bell Tests and Fractal Resonance}
