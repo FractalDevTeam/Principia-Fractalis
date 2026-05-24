@@ -188,6 +188,11 @@ import PF.CrossConnectionCapstone  -- 15+ axiom-free cross-field connections bun
 -- ============================================================================
 import PF.UniversalAlphaOperatorFamily  -- HAlphaUniversal: one Lean structure unifying all 9 α-instances (P, NP, RH, NS, YM, BSD, Hodge, Poincaré, QG)
 
+-- ============================================================================
+-- 2026-05-24 Master Meta-Evidence Capstone — 4-axis referee-proof bundle
+-- ============================================================================
+import PF.MetaEvidenceCapstone  -- PrincipiaFractalisMetaEvidence: master capstone bundling (A) cross-connection certificate, (B) IBM probability bound 2·10⁻⁷, (C) α-realization no-go sharpness, (D) 6-Millennium typed anchors (YM/NS/BSD/Hodge)
+
 /-!
 ## Principia Fractalis Formal Verification
 
