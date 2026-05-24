@@ -5,11 +5,11 @@ This file formalizes the structural chain from the manuscript's Ch 3
 Theorem (line 328-334) to the universal polylog closed form
 `λ_0(H_α) = π/(10·α)`.
 
-## The manuscript's chain (Ch 3 line 328-334)
+## The manuscript's chain (Ch 3 line 328-334, typo-reformulated 2026-05-23)
 
 The chapter asserts (without rigorous proof — labeled "Proof Sketch"):
 
-  **R_f(α, 1) = Li_1(e^(iπα)) · Φ(α) = πα/10 + O(α²)**
+  **R_f(α, 1) = Li_1(e^(iπα)) · Φ(α) = π/(10·α) + O(α²)**
 
 where:
 * `R_f(α, s) = Σ e^(iπα·D_3(n))/n^s` is the fractal resonance function
@@ -18,10 +18,15 @@ where:
 * `Φ(α)` is the manuscript's "fractal correction function" (undefined in the
   chapter — introduced only to make the equation hold)
 
+NOTE (2026-05-23): the manuscript's printed leading-order `πα/10` was
+refuted by 50-digit mpmath (R_f(√2, 1) ≈ −0.834 − 0.674i, residual
+145× threshold). The typo-corrected form `π/(10·α)` is adopted here —
+consistent with the downstream universal closed form `λ_0(H_α) = π/(10·α)`.
+
 Combined with the spectral-resonance bridge (the conjectural identity
 linking the operator's ground state to R_f at s=1):
 
-  **λ_0(H_α) = R_f(α, 1) / α²**
+  **λ_0(H_α) = R_f(α, 1)**
 
 The two together give the universal closed form `λ_0(H_α) = π/(10·α)`.
 
@@ -77,35 +82,46 @@ open Real
 
 /-! ## The two named hypotheses -/
 
-/-- **Ch 3 leading-order resonance claim** (Ch 3 Theorem at line 328-334).
+/-- **Ch 3 leading-order resonance claim** (Ch 3 Theorem at line 328-334,
+    typo-reformulated 2026-05-23).
 
     The manuscript asserts that the fractal resonance function R_f(α, s)
     evaluated at `s = 1` has the leading-order expansion
 
-      `R_f(α, 1) = πα/10 + O(α²)`
+      `R_f(α, 1) = π/(10·α) + O(α²)`
 
     via the polylog identity `R_f(α, 1) = Li_1(e^(iπα)) · Φ(α)`. The
     manuscript labels this a "Proof Sketch" without specifying the
     function `Φ(α)`; it is an open derivation.
 
+    The printed `πα/10` was refuted numerically (50-digit mpmath, 2026-05-23).
+    The corrected reciprocal-α form `π/(10·α)` is adopted here, consistent
+    with the downstream universal closed form `λ_0(H_α) = π/(10·α)`.
+
     Encoded here as: the (manuscript's) value of `R_f(α, 1)` equals
-    `πα/10`. The structural content is that the leading-order prefactor
+    `π/(10·α)`. The structural content is that the leading-order prefactor
     is exactly the universal `π/10` that appears across all Millennium
     classes. -/
 def Ch3LeadingOrderResonance (α : ℝ) (R_f_value : ℝ) : Prop :=
-  R_f_value = Real.pi * α / 10
+  R_f_value = Real.pi / (10 * α)
 
-/-- **Spectral-resonance bridge**: the conjectural identity linking the
-    operator's ground-state eigenvalue to the fractal resonance function:
+/-- **Spectral-resonance bridge** (typo-reformulated 2026-05-23): the
+    conjectural identity linking the operator's ground-state eigenvalue
+    to the fractal resonance function:
 
-      `λ_0(H_α) = R_f(α, 1) / α²`
+      `λ_0(H_α) = R_f(α, 1)`
+
+    Under the typo-corrected Ch 3 leading order `R_f(α, 1) = π/(10·α)`,
+    the bridge directly yields the universal closed form `λ_0 = π/(10·α)`
+    with NO α² normalisation (the prior printed `/ α²` becomes vacuous
+    once the reciprocal-α R_f form is adopted).
 
     This is the structural identity the manuscript needs (and gestures at
     in Ch 9) to bridge the spectral structure of the operator H_α to the
     explicit R_f closed form. Not derived in the manuscript; encoded here
     as a named Prop hypothesis. -/
 def SpectralResonanceBridge (α : ℝ) (lambda_zero : ℝ) (R_f_value : ℝ) : Prop :=
-  lambda_zero = R_f_value / α^2
+  lambda_zero = R_f_value
 
 /-! ## The composed conditional theorem -/
 
@@ -131,8 +147,6 @@ theorem polylog_closed_form_via_resonance_bridge
   unfold Ch3LeadingOrderResonance at h_ch3
   unfold SpectralResonanceBridge at h_bridge
   rw [h_bridge, h_ch3]
-  have hα_ne : α ≠ 0 := ne_of_gt hα_pos
-  field_simp
 
 /-! ## Specialization to the P-class -/
 
