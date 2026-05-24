@@ -1,0 +1,22 @@
+{
+  "phase_obstruction_confirmed": true,
+  "tridiag_phases_irrelevant": "spectra of Z3, rand, trivial all identical for Hermitian tridiagonal",
+  "nnn_breaks_invariance": 1.0658141036401503e-14,
+  "nnn_z3_sse": 7588.078935265208,
+  "nnn_rand_sse_mean": 7587.819381522684,
+  "nnn_z3_top5": [
+    5.440434317088452,
+    8.955852760148947,
+    11.702311965796616,
+    14.03062851436035,
+    16.150631466814524
+  ],
+  "zeta_zeros_first5": [
+    14.134725141734695,
+    21.022039638771556,
+    25.01085758014569,
+    30.424876125859512,
+    32.93506158773919
+  ],
+  "z3_better_than_pct_of_random": 44.0
+}
