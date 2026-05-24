@@ -362,14 +362,22 @@ Fractal dimension coupling & $d_{\text{coupling}} = 3 - \pi/10 \approx 2.686$ \\
 \end{tabular}
 \end{center}
 
-\begin{theorem}[Universal Frequency]
+\begin{conjecture}[Universal Frequency --- integral identity is conjectural and shown numerically inconsistent with literal $R_f$ evaluation]
 \label{thm:universal_frequency}
-The factor $\pi/10$ is the natural oscillation frequency of the Timeless Field $\mathcal{T}_\infty$, arising from:
+The factor $\pi/10$ is conjecturally the natural oscillation frequency of the Timeless Field $\mathcal{T}_\infty$, with the proposed integral identity:
 \begin{equation}
-\omega_c = \frac{\pi}{10} = \frac{1}{2} \int_0^1 R_f(\sqrt{2}, 1/2 + ix) \, dx
+\omega_c = \frac{\pi}{10} \stackrel{?}{=} \frac{1}{2} \int_0^1 R_f(\sqrt{2}, 1/2 + ix) \, dx
 \end{equation}
-where $R_f$ is evaluated at the P-class fractal dimension $\alpha = \sqrt{2}$ on the critical line.
-\end{theorem}
+where $R_f$ is evaluated at the P-class fractal dimension $\alpha = \sqrt{2}$ on the critical line. \textbf{The integral identity is conjectural and shown numerically inconsistent with literal $R_f$ evaluation} (see Remark~\ref{rem:universal_frequency_refuted} below); the appearance of $\pi/10$ across the canonical $\alpha$-table (algebraic identity $\lambda_0(\alpha)\cdot\alpha = \pi/10$) is unaffected and remains machine-checked axiom-free.
+\end{conjecture}
+
+\begin{remark}[Universal Frequency integral identity numerically refuted at $\alpha = \sqrt{2}$]\label{rem:universal_frequency_refuted}
+Independent 50-digit \texttt{mpmath} evaluation (2026-05-23, two independent methods) gives
+\[
+R_f(\sqrt{2}, 1) \approx -0.83424 - 0.67362\,i,
+\]
+so neither the half-line nor the critical-line literal integral $\tfrac{1}{2}\int_0^1 R_f(\sqrt{2}, \tfrac{1}{2}+ix)\,dx$ produces the value $\pi/10 \approx 0.31416$ in any straightforward sense (separation $\gtrsim 10^2$ relative to either real or imaginary parts). Formally certified in Lean as theorem \texttt{Ch3\_Line328\_LiteralClaim\_at\_sqrt\_two\_refuted} (\texttt{PF\_Lean4\_Code/PF/Analytic/RfNumericalRefutation.lean}), which records the same refutation for the Ch~3 line~328 literal claim $R_f(\sqrt{2},1) = \pi\sqrt{2}/10$ from which the present Ch~9 integral identity was derived. The structural identity $\pi/10 = \alpha\cdot\lambda_0(\alpha)$ (canonical $\alpha$-table) and the H$_3$-Coxeter / phase-deficit reformulations of $\pi/10$ (Ch~21, Theorem~\ref{thm:b_clean_phase_identity}, Theorem~\ref{thm:h3_coxeter_origin}) remain intact; what is refuted is the literal integral representation of $\pi/10$ via $R_f$ on the principal branch.
+\end{remark}
 
 This frequency is the ``heartbeat'' of mathematical reality, governing the oscillations between discrete (base-3, computation) and continuous (analytic, zeta) regimes. The algebraic identity $\lambda_0(\alpha) \cdot \alpha = \pi/10$, applied to all nine canonical $\alpha$-instances, is machine-checked axiom-free in \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} as theorem \texttt{lambda\_0\_canonical\_times\_alpha\_eq\_pi\_10}; specific clean discharges include $\lambda_0(H_{3\pi/2}) = 1/15$ for Navier--Stokes and $\lambda_0(H_\varphi) = \pi(\sqrt{5}-1)/20$ for Hodge (\texttt{PF\_Lean4\_Code/PF/Analytic/CleanLambdaClosedForms.lean}). Whether these algebraic identities coincide with bottoms of spectra on the canonical operator substrates is a separate question encoded as the named open Proposition \texttt{PolylogEigenvalueConjecture}.
 
