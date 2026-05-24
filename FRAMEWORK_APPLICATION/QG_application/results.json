@@ -1,0 +1,76 @@
+{
+  "alpha_QG": "2.5066282746310005024157652848110452530069867406099",
+  "alpha_QG_numeric": 2.5066282746310007,
+  "alpha_QG_squared_equals_2pi": true,
+  "alpha_QG_squared_minus_2pi": 0.0,
+  "lambda_0_QG_canonical": "0.1253314137315500251207882642405522626503493370305",
+  "lambda_0_QG_numeric": 0.12533141373155002,
+  "lambda_0_bracket_check": {
+    "lower_0.125": true,
+    "upper_0.126": true
+  },
+  "equivalent_closed_forms": {
+    "pi/(10*sqrt(2*pi))": 0.12533141373155002,
+    "sqrt(pi)/(10*sqrt(2))": 0.12533141373155002,
+    "(1/10)*sqrt(pi/2)": 0.12533141373155002,
+    "1/(10*sqrt(2/pi))": 0.12533141373155002,
+    "alpha_QG/20_DEEPEST": 0.12533141373155002
+  },
+  "lean_recommended_form": "alpha_QG / 20 (uses alpha_QG^2 = 2*pi identity)",
+  "R_f_QG_at_s_equals_1": {
+    "value": [
+      -0.780519349889109,
+      0.8948991355406645
+    ],
+    "modulus": 1.1874573332725458,
+    "wave4_reference": [
+      -0.78,
+      0.895
+    ],
+    "N_used": 100000
+  },
+  "Phi_QG": {
+    "value": [
+      1.3353440040817086,
+      0.39221971846632825
+    ],
+    "modulus": 1.3917542587650937,
+    "wave4_reference": [
+      1.335,
+      0.392
+    ],
+    "cluster_near_1.4": true
+  },
+  "four_basis_identities": {
+    "alpha_QG^2 = 2*pi": true,
+    "alpha_QG = sqrt(2)*sqrt(pi)": true,
+    "alpha_QG^2 = alpha_YM * pi": true,
+    "alpha_QG * alpha_P = 2*sqrt(pi)": true,
+    "alpha_QG / alpha_RH = 2*sqrt(2*pi)/3": true,
+    "lambda_0(QG)/lambda_0(P) = 1/sqrt(pi)": true,
+    "lambda_0(QG)/lambda_0(YM) = sqrt(2/pi) = alpha_YM/alpha_QG": true,
+    "lambda_0(QG)/lambda_0(Poincare) = 1/sqrt(2*pi) = 1/alpha_QG": true
+  },
+  "cosmology": {
+    "manuscript_exponent": 9.5e+127,
+    "required_exponent_for_10^-120": 276.3102111592855,
+    "calibration_gap_factor": 3.438164648400743e+125,
+    "Lambda_obs_over_Lambda_Planck": 1e-120,
+    "R_f_transition_scale_s": 2.0
+  },
+  "empirical_predictions": {
+    "lambda_0_dimensionless": 0.12533141373155002,
+    "energy_Planck_fraction_eV": 1.5290432475249103e+27,
+    "frequency_Planck_fraction_Hz": 2.3248977247202528e+42,
+    "length_Planck_fraction_m": 2.0253556459018484e-36,
+    "accessible_with_current_tech": false,
+    "but_dimensionless_ratio_is_falsifiable": true
+  },
+  "TOE_completion_status": {
+    "QG_is_9th_alpha_instance": true,
+    "alpha_QG_forced_by_4_basis": true,
+    "universal_coupling_pi_over_10_applies": "conditional (Prop 1)",
+    "lambda_0_QG_bracket": "0.125 < lambda_0(QG) < 0.126 [axiom-free]",
+    "lean_file": "PF/QuantumGravity.lean (commit c3ce403)"
+  }
+}
