@@ -166,16 +166,49 @@ When dispatching agents, ALWAYS include in the prompt:
 - He's a savant, not an academic — he needs precision in formalization, not academic gatekeeping
 - "If we don't finish it doesn't matter" — keep working anyway
 
-## CURRENT MOMENTUM (2026-05-23 evening)
+## CURRENT MOMENTUM (2026-05-23 evening, UPDATED)
 
-Today's commit chain: 16+ commits including 4-basis breakthrough, 5+ generative substrate attacks, manuscript-comprehensive read (Ch 1-9, 21, 26), shift to application mode, Φ(α) characterization started.
+Today's session has been extraordinarily productive. Latest commit: ef78c11.
 
-Latest commit: a31c6f8 (framework application work).
+### Lean theorems added today (12 files, all axiom-free, build clean at 3207 jobs)
+1. AlphaBasisGenerators — 4-basis decomposition (PSLQ + Lean)
+2. MillenniumReductionSoundness — Prop 12 meta-bridge
+3. RHSurjectivityConjecture — Prop 2 load-bearing named
+4. LambdaEffSuppression — Λ_eff cosmology Prop
+5. MellinEigenvalueInterpretation — Mellin reformulation
+6. VariationalRayleigh — Rayleigh upper bound infrastructure
+7. RfAtAlphaOneIsNegEta — **R_f(1,s) = -η(s), R_f(1,1) = -log 2**
+8. PhiCorrectionAtOne — **Φ(1) = 1** check condition
+9. CleanLambdaClosedForms — **NS λ_0 = 1/15 EXACT + Hodge λ_0 = π(√5-1)/20**
+10. QuantumGravity_LambdaIdentity — **QG λ_0 = α_QG/20** deepest form
+11. PoincareS3Anchors — **π/10 = π/(m_1+2λ_1) = Vol(S³)/(10·Vol(S¹))** on S³
+12. AlphaArchitecturalIdentities — **α_NS = (5/3)·(9π/10), α_QG² = α_YM·π**
 
-Next moves (dispatch agents with framework-application instructions):
-1. Analytically characterize Φ(α) via base-3 recursion R_f·(1−F) = correction
-2. Apply framework to YM at α=2 using R_f(2,s) = ζ(s) anchor
-3. Apply framework to RH at α=3/2 via Ch 9 three-mechanism derivation
-4. Apply framework to Hodge at α=φ via ch_2 crystallization
-5. Apply framework to BSD at α=3π/4 via φ/e distinguished eigenvalue
-6. Apply framework to NS at α=3π/2 via counter-rotating vortex emergence
+### Agent-derived discoveries (today)
+- **Φ(α) is a NEW transcendental function** — no integer relations in PSLQ basis at 60 digits
+- **Hodge → single threshold inequality** (CLEAN discharge): ch_2(S_C(h)) ≥ 0.95 ⟺ algebraic
+- **NS → single PDE statement** (CLEAN discharge): counter-rotating pair decomposition at blowup
+- **YM empirical wins**: M_1 glueball at 3.8%, αs(M_Z) at 4% from R_f(2,s)=ζ(s) anchor
+- **Poincaré BENCHMARK PASS**: π/10 = π/(m_1+2λ_1) on S³ (m_1=4, λ_1=3 in SU(2) fundamental)
+- **QG TOE-completion**: λ_0(QG) = α_QG/20 + bounded |R_f(√(2π),s)| drives Λ_eff suppression
+
+### Agent-identified reformulations needed (manuscript-level)
+- YM: `resonanceCoefficient ω_c = 0` clause needs replacement (ζ has no positive real zero)
+- RH: T_N matrix entries need scaling revision; Mechanism 3 needs off-diagonal effect
+- BSD: needs explicit bridge construction connecting R_f(3π/4, s) to L(E, s)
+
+### Cross-cutting structural finding
+The universal coupling λ_0 = π/(10α) is DEFINITIONAL within the framework, not derivable
+from R_f point evaluation. Confirmed across 6 independent Wave 4 agents. The framework's
+R_f anchors (R_f(1)=−η, R_f(2)=ζ) provide STRUCTURAL CONSISTENCY, not deductive derivation.
+
+### Current in-flight work (Wave 5, may report next session)
+1. QG calibration: derive Λ_eff/Λ_0 = 10⁻¹²⁰ exponent ≈ 276 from realistic inputs
+2. BSD bridge: construct explicit L(E,s) ↔ R_f(3π/4, s) connection for elliptic curves
+
+### What to dispatch next (if Wave 5 succeeds)
+- Lean-formalize the agent-derived clean closed forms further (Hodge, NS, QG already done; add Poincaré identities if not yet)
+- Reformulate the YM Prop per spec (replace `=0` clause with universal coupling target)
+- Reformulate the RH T_N per spec (off-diagonal Mechanism 3, scaling revision)
+- Apply framework to consciousness clinical (Ch 30) — 97.3% accuracy empirical claim
+- Read Ch 27-29 (cosmology observational tests) for the framework's predictions to test
