@@ -181,6 +181,11 @@ import PF.IBMHardwareStatisticalEvidence  -- 2026-05-24 — Statistical evidence
 -- ============================================================================
 import PF.CrossConnectionCapstone  -- 15+ axiom-free cross-field connections bundled into one structural Lean certificate
 
+-- ============================================================================
+-- 2026-05-24 Universal α-Operator-Family unification — ONE structure, 9 instances
+-- ============================================================================
+import PF.UniversalAlphaOperatorFamily  -- HAlphaUniversal: one Lean structure unifying all 9 α-instances (P, NP, RH, NS, YM, BSD, Hodge, Poincaré, QG)
+
 /-!
 ## Principia Fractalis Formal Verification
 
