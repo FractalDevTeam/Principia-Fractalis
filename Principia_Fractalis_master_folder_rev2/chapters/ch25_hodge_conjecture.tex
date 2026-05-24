@@ -494,6 +494,27 @@ Theorem PF_Hodge_Conjecture : HodgeConjecture.
 whose proof is one line that applies the local axiom \texttt{Spectral\_to\_Hodge} to the local axiom \texttt{PF\_Hodge\_Spectral\_Condition}. The broader file declares approximately 19 framework-level axioms (Hodge decomposition, hard Lefschetz, self-adjointness of the Hodge operator, the rationality threshold, the spectral-equivalence direction, etc.). Each is a postulate of the Principia Fractalis framework, not a result derived from Coq's standard library. The \texttt{Theorem} keyword indicates only that the implication ``framework axioms $\Rightarrow$ Hodge Conjecture'' typechecks. Inside Coq, \texttt{Print Assumptions PF\_Hodge\_Conjecture.} returns the full dependency list. Eliminating any of these axioms would be a substantial algebraic-geometry contribution and is tracked as future work in \texttt{RESEARCH\_ROADMAP.md} at the repository root.
 \end{remark}
 
+\begin{theorem}[Hodge $\varphi$-Anchors, axiom-free]\label{thm:hodge-phi-anchors}
+The following six framework-internal anchors at the Hodge slice $\alpha = \varphi$ are simultaneously satisfied, packaged as the single axiom-free Lean~4 theorem \texttt{hodge\_phi\_unconditional\_anchors} in \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean} (commit \texttt{f597ecc}, 2026-05-24, around line~894):
+\begin{enumerate}
+\item $\alpha_{\mathrm{Hodge}} = \varphi$ (canonical $\alpha$-value of the Hodge class in the enum framework);
+\item $\alpha_{\mathrm{Hodge}} > 1/2$ (B-clean domain inclusion);
+\item $\dfrac{\pi}{10\,\varphi} \;=\; \dfrac{1}{5}\!\left(\dfrac{\pi}{2} - \Im \mathcal{R}_f^{\text{princ}}(\varphi)\right)$ (B-clean monodromy-phase identity at $\alpha = \varphi$, the referee-proof reformulation per the 2026-05-24 phase-deficit reformulation);
+\item $\sigma_c \;=\; \sigma_c^{\mathrm{arith}} + \varepsilon_{\mathrm{quantum}}$ (the Mertens-Basel + quantum-residual decomposition of Theorem~\ref{thm:critical-threshold});
+\item $\varepsilon_{\mathrm{quantum}} > 0$ (residual strictly positive);
+\item $1/(1 - \sigma_c) \;=\; 20$ (Hankel low-rank arithmetic at the framework's $\sigma_c = 19/20$ value).
+\end{enumerate}
+The theorem depends only on \texttt{propext}, \texttt{Classical.choice}, and \texttt{Quot.sound}; \emph{no} project axioms. Its components match the six-clause statement of \texttt{hodge\_phi\_unconditional\_anchors} verbatim, providing a single citable anchor bundle for the chapter's framework-internal arithmetic and analytic content.
+\end{theorem}
+
+\begin{remark}[Unit-typed $\to$ \texttt{HodgeAmbient} typed upgrade]\label{rem:hodge-typed-upgrade}
+Prior editions of \texttt{hodge\_via\_fractal\_resonance} quantified the Hodge Millennium claim Prop over \texttt{Unit} (a placeholder). Commit \texttt{f597ecc} (2026-05-24) replaces this with a typed Lean structure
+\begin{verbatim}
+structure HodgeAmbient where dim : Nat; p : Nat; betti : Nat
+\end{verbatim}
+(file \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}, line~$\approx$572), and the chapter's conditional reduction Prop \texttt{HodgeConjectureForAmbient} (line~$\approx$606) now quantifies over \texttt{HodgeAmbient} and a Hodge-class index, not over \texttt{Unit}. The full algebraic-cycle / Hodge-class encoding \texttt{HodgeAlgebraicRepresentation} (line~$\approx$591) remains a placeholder (\texttt{Prop := True}) pending the multi-year algebraic-geometry formalization (mathlib's algebraic cycles / Chow groups / Hodge decomposition), which is tracked in \texttt{RESEARCH\_ROADMAP.md}. The Wave~4 upgrade therefore tightens the conditional reduction's \emph{ambient} from a contentless placeholder to a structured Hodge-theoretic ambient, without overclaiming the algebraic-class encoding.
+\end{remark}
+
 \begin{remark}[Verification status of the $\alpha$-dictionary, pending unification]\label{rem:alpha-dictionary-status}
 A 2026-04-26 audit identified an internal $\alpha$-dictionary inconsistency: this chapter uses $\alpha = \varphi = (1+\sqrt{5})/2$ for the Hodge spectral operator $\mathcal{R}_\varphi$, while the author's 2492-line supplementary proof attempt at \texttt{Evidence\_and\_Data\_for\_GitHub/Hodge\_Conjecture\_Proofs/hodge\_complete\_1800\_lines.md} (line~335) uses $\alpha = \pi/2$ for the same nominal operator. These are two distinct operators with different spectra. The rev~2 manuscript's $\alpha = \varphi$ is the canonical convention going forward; the supplementary proof file is to be updated in a subsequent edit pass to match the canonical convention, or to document the divergence as two distinct constructions. The $\sigma_c = 0.95$ decomposition issue noted in the audit is resolved by Theorem~\ref{thm:critical-threshold} (above) as a notational decomposition fact and Remark~\ref{rem:sigma-c-empirical} which transparently states the empirical-vs-derived status of $\sigma_c$ and $\epsilon_{\mathrm{quantum}}$.
 \end{remark}

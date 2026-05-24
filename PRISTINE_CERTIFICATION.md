@@ -1,8 +1,56 @@
 # Principia Fractalis — Lean 4 Pristine Certification
 
-**Date**: 2026-05-22 (HISTORIC closure of `JonquieresIdentityPointGermAtHalf 0`), supersedes 2026-05-20 ZERO PROJECT AXIOMS milestone and 2026-05-17 1-axiom state
-**Build verification**: `lake build` in `PF_Lean4_Code/` — **6352 jobs clean, 0 warnings, 0 sorries, 0 project axioms**
+**Date**: 2026-05-24 (Wave 4 typed-Prop upgrades + `alpha_of_class` no-go verdict), supersedes 2026-05-22 (`JonquieresIdentityPointGermAtHalf 0` HISTORIC closure), 2026-05-20 ZERO PROJECT AXIOMS milestone, and 2026-05-17 1-axiom state
+**Build verification**: `lake build` in `PF_Lean4_Code/` — clean, 0 warnings, 0 sorries, 0 project axioms (post-2026-05-22 build counts ≥ 6352 jobs)
 **Axiom verification**: `#print axioms` on every capstone returns ONLY `[propext, Classical.choice, Quot.sound]`
+
+## 2026-05-24 — Wave 4: Status of Proofs (capstones + no-go meta-result)
+
+Seven capstones are now established **axiom-free** (each `#print axioms` returns `[propext, Classical.choice, Quot.sound]` only); two are new in Wave 4 (commits `9cc2a3d` and `f597ecc`), and a structural meta-result (Task 12) bounds further axiom-elimination on the α-side.
+
+| Capstone | File | Status | Open content |
+|---|---|---|---|
+| `P_NEQ_NP` | `PF/TuringEncoding/...` | axiom-free | takes `PolylogEigenvalueConjecture : Prop` (see no-go below) |
+| `principia_fractalis_millennium_capstone` | `PF/Millennium.lean` | axiom-free | same |
+| `riemann_hypothesis_via_T3_sym_framework` | `PF/RiemannHypothesis.lean` | axiom-free | spectral-bijection surjectivity + 2 engineering tracks |
+| `MonodromyGluingLemma_proven` | `PF/Analytic/MonodromyTheorem.lean` | axiom-free, unconditional | — |
+| `jonquieresIdentityPointGermAtHalf_zero_proved` | `PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean` | axiom-free, unconditional (2026-05-22) | — |
+| `fractalYMLevel1SpectrumGap_holds` (+ `fractalYMLevel1_gap_eq_one`, `fractalYMLevel1_gap_pos`) | `PF/MillenniumSixReductions.lean` (≈line 1269 / 1276 / 1287) | **NEW 2026-05-24, axiom-free, unconditional** (commit `9cc2a3d`) | level-1 spectrum at α = 2, a = 2 is exactly `{1/2, 3/2}`, gap = 1 |
+| `hodge_phi_unconditional_anchors` (6-clause) | `PF/MillenniumSixReductions.lean` (≈line 894) | **NEW 2026-05-24, axiom-free, unconditional** (commit `f597ecc`) | bundles `alpha_at_enum .Hodge = φ`, B-clean phase identity at α = φ, Mertens-Basel + ε_quantum decomposition, Hankel low-rank |
+
+The Wave 4 commits also upgrade two conditional reductions:
+- **Ch 23 (Yang-Mills)**: `yang_mills_via_level1_resonance_gap` (≈line 1334) consumes only the single open conjecture `fractalYMLevel1LiftsToContinuum` (≈line 1312); the prior existence-of-resonance-zero hypothesis is now a proved theorem at level 1.
+- **Ch 25 (Hodge)**: Unit-typed `HodgeConjectureForAmbient` upgraded to quantify over a typed `HodgeAmbient` structure (≈line 572) with `dim, p, betti` fields. The full algebraic-cycle encoding `HodgeAlgebraicRepresentation` (≈line 591) remains a placeholder (`Prop := True`) pending multi-year algebraic-geometry formalization.
+
+### The typed-Prop architecture for the six Millennium chapters (status)
+
+| Chapter | α | Typed ambient? | Unconditional anchors? | Open content |
+|---|---|---|---|---|
+| Ch 20 (RH) | — | mathlib spectral types | — | surjectivity (load-bearing) |
+| Ch 21 (P vs NP) | √2, φ+¼ | enum + opaque `alpha_of_class` | algebraic equations (axiom-free at enum) | `PolylogEigenvalueConjecture` (see no-go below) |
+| Ch 22 (NS) | 3π/2 | **Unit (pending)** | — | typed-Prop upgrade pending |
+| Ch 23 (YM) | 2 | level-1 spectrum is THEOREM | gap = 1 (axiom-free) | `fractalYMLevel1LiftsToContinuum` |
+| Ch 24 (BSD) | 3π/4 | partial (`WeierstrassCurve ℚ`) | `bsd_distinguished_eigenvalue = φ/e` | typed-Prop bundling pending |
+| Ch 25 (Hodge) | φ | `HodgeAmbient` (`dim, p, betti`) | 6-clause `hodge_phi_unconditional_anchors` | full algebraic-cycle encoding |
+
+Ch 22 and Ch 24 are the next candidates for the same typed-Prop pattern: replace `Unit` with a structured ambient, bundle existing axiom-free anchors into a `*_unconditional_anchors` capstone, then reformulate the conditional reduction to consume only the genuine open mathematical content.
+
+### Meta-result: `alpha_of_class` opacity no-go (Task 12, definitive)
+
+The opacity of `alpha_of_class : Set Language → ℝ` is **structurally load-bearing**, not a technical placeholder. Any concrete computable definition of `alpha_of_class` that simultaneously satisfies `PolylogEigenvalueConjecture` (i.e., `(α_P)² = 2 ∧ 16(α_NP)² − 24 α_NP − 11 = 0` with canonical values (√2, φ+¼)) and respects `ClassP = ClassNP → α_P = α_NP` (forced by `congrArg` on any concrete `Set Language → ℝ`) is equivalent to deciding P vs NP itself.
+
+**Cited evidence**:
+- `PF_Lean4_Code/PF/TuringEncoding/Operators.lean` lines 213–228 (docstring on the axiom's content);
+- `PF_Lean4_Code/PF/TuringEncoding/AlphaCanonical.lean` lines 21–26 (retirement path discussion);
+- `Principia_Fractalis_master_folder_rev2/chapters/ch21_p_vs_np.tex` line 21 (status paragraph: "the deep operator-theoretic derivation of the polylog formula on the physical Riemann sheet … remains genuinely open").
+
+**Consequence**: The framework is at its **sharpest honest reduction** of P vs NP. No further axiom-elimination on the α-side can sharpen it without either (a) circular trivialization or (b) settling P vs NP itself. The honest forward path for Ch 21 is the operator-theoretic derivation of the polylog spectrum on the physical Riemann sheet — the manuscript's own open content, not a Lean refactor. See [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md) and the memory note `principia_alpha_of_class_no_go_2026-05-24.md`.
+
+### WIP transparency
+
+Two `Analytic/...Discharge` files shipped in commit `d8de470` were broken; transparency headers were added in commit `495aa91` (2026-05-24) to warn downstream readers. The files are explicitly out of scope for Wave 4 and untouched by the Wave 4 commits.
+
+---
 
 ## ★★★★ 2026-05-22 HISTORIC: `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL (commit `f313ceb`)
 
