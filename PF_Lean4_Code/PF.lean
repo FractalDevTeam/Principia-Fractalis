@@ -178,6 +178,7 @@ import PF.RHViaH3PerelmanBridge  -- 2026-05-24 evening: H₃ × Perelman bridge 
 import PF.IBMPeaksGaloisPair  -- α_RH=3/2, α_NP=φ+¼ joint Q(√5)-quadratic + 2×2 Hermitian realization
 import PF.IBMHardwareStatisticalEvidence  -- 2026-05-24 — Statistical evidence: joint random-match probability ≤ 2·10⁻⁷ under uniform-noise baseline
 import PF.IBMHardware9WayEvidence  -- 2026-05-24 — 9-way extension: joint random-match probability ≤ 10⁻¹⁵ over all 9 framework α-instances
+import PF.EmpiricalClassification  -- 2026-05-24 — Structural form of the 143-problem CH₂ classification claim (6 categories, threshold σ_c = 6/π² + ε_quantum)
 
 -- ============================================================================
 -- 2026-05-24 Cross-Connection Capstone — evidence-by-accumulation
