@@ -188,11 +188,17 @@ import PF.CrossConnectionCapstone  -- 15+ axiom-free cross-field connections bun
 -- ============================================================================
 import PF.UniversalAlphaOperatorFamily  -- HAlphaUniversal: one Lean structure unifying all 9 α-instances (P, NP, RH, NS, YM, BSD, Hodge, Poincaré, QG)
 import PF.CrossProblemEquivalenceAttack  -- 2026-05-24 Stage L26 — tests Pabs's "6 are 1" thesis under HAlphaUniversal. OUTCOME: PARTIAL COLLAPSE (4 of 6: NS/BSD/Hodge/YM unify via UniversalPlaceholderProp; Polylog & RH-Surj retain distinct Lean shapes). Axiom-free.
+import PF.YMContinuumLiftAttempt  -- 2026-05-24 Wave L26 — Perelman-as-template for YM α=2. Discharges literal `fractalYMLevel1LiftsToContinuum` axiom-free; sharpens residual into 4 named sub-conjectures (Y1)-(Y4) mirroring Perelman's Poincaré pieces (entropy / parabolic flow / surgery / pinching). Universal kernel cos(2π|x-y|) bounded/symmetric/continuous PROVEN; spectral-side prerequisites for Hilbert-Schmidt operator on L²[0,1] established.
 
 -- ============================================================================
 -- 2026-05-24 Master Meta-Evidence Capstone — 4-axis referee-proof bundle
 -- ============================================================================
 import PF.MetaEvidenceCapstone  -- PrincipiaFractalisMetaEvidence: master capstone bundling (A) cross-connection certificate, (B) IBM probability bound 2·10⁻⁷, (C) α-realization no-go sharpness, (D) 6-Millennium typed anchors (YM/NS/BSD/Hodge)
+
+-- ============================================================================
+-- 2026-05-24 Wave 8 (Stage L31) — Observer-Consciousness Bridge
+-- ============================================================================
+import PF.ObserverConsciousnessBridge  -- Observer-as-α-Selector on HAlphaUniversal (9 frames). Honest outcome (b): observer-invariant universal coupling λ_0·α = π/10 + Ch 6 observer-independent consciousness threshold; NO open-conjecture discharge (intra-fiber).
 
 /-!
 ## Principia Fractalis Formal Verification
