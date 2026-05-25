@@ -201,6 +201,10 @@ import PF.YMContinuumLiftAttempt  -- 2026-05-24 Wave L26 — Perelman-as-templat
 -- 2026-05-24 Master Meta-Evidence Capstone — 4-axis referee-proof bundle
 -- ============================================================================
 import PF.MetaEvidenceCapstone  -- PrincipiaFractalisMetaEvidence: master capstone bundling (A) cross-connection certificate, (B) IBM probability bound 2·10⁻⁷, (C) α-realization no-go sharpness, (D) 6-Millennium typed anchors (YM/NS/BSD/Hodge)
+-- ============================================================================
+-- 2026-05-25 Master Cross-Millennium Unification — Wave 12 capstone
+-- ============================================================================
+import PF.MasterCrossMillenniumUnification  -- MasterCrossMillenniumUnification: meta_evidence + Waves8To11Additions (universal coupling, H₃ α-unification, CH₂=σ_c, NS base-3, base-3 load-bearing, P≠NP disjunctive, algebrization broken, observer-triviality-at-α=1)
 
 -- ============================================================================
 -- 2026-05-24 Wave 8 (Stage L31) — Observer-Consciousness Bridge
