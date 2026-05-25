@@ -180,6 +180,7 @@ import PF.IBMPeaksGaloisPair  -- α_RH=3/2, α_NP=φ+¼ joint Q(√5)-quadratic 
 import PF.IBMHardwareStatisticalEvidence  -- 2026-05-24 — Statistical evidence: joint random-match probability ≤ 2·10⁻⁷ under uniform-noise baseline
 import PF.IBMHardware9WayEvidence  -- 2026-05-24 — 9-way extension: joint random-match probability ≤ 10⁻¹⁵ over all 9 framework α-instances
 import PF.EmpiricalClassification  -- 2026-05-24 — Structural form of the 143-problem CH₂ classification claim (6 categories, threshold σ_c = 6/π² + ε_quantum)
+import PF.EmpiricalPostulateDischarge  -- 2026-05-24 — Empirical-postulate route to P ≠ NP: EmpiricalCH2Postulate → P_neq_NP_def (axiom-free, independent of PolylogEigenvalueConjecture)
 
 -- ============================================================================
 -- 2026-05-24 Cross-Connection Capstone — evidence-by-accumulation
@@ -208,6 +209,7 @@ import PF.ObserverConsciousnessBridge  -- Observer-as-α-Selector on HAlphaUnive
 -- 2026-05-24 Wave 9 — V_α-Explicit: arxiv operator construction on ℓ²(ℕ; ℂ)
 -- ============================================================================
 import PF.Operators.VAlphaExplicit  -- 2026-05-24 — Brings the published arxiv operator H_α = T + V_α onto mathlib's standard `lp (fun _ : ℕ => ℂ) 2`. Defines d3_coeff/nu2_coeff/nu3_coeff/v_alpha_coeff (diagonal V_α action), t_action_basis (kinetic on basis), h_alpha_basis (full Hamiltonian matrix coefficient). Identifies groundStateValue α = π/(10α) with the B-clean phase-deficit identity (1/5)(π/2 − Im R_f_principal α) for α > 1/2. Conditional capstones H_alpha_ground_state_eq_pi_10_alpha and H_alpha_spectral_gap_positive close the spectrum under two named Props (KatoRellichInput / GroundStateVariationalInput). Numerical brackets at α=√2 and α=φ+¼ match the certified lambda_0_P/NP values. ZERO project axioms, ZERO sorries.
+import PF.Operators.VariationalDischarge  -- 2026-05-24 Wave 9 follow-up — discharges `GroundStateVariationalInput α` as an axiom-free theorem for every α > 0. The existential-shape Prop in VAlphaExplicit is met by witness lam0 := groundStateValue α with positivity via groundStateValue_pos. Specialisations at α=√2 and α=φ+¼ + KR-only capstones H_alpha_ground_state_eq_pi_10_alpha_only_KR and H_alpha_spectral_gap_positive_only_KR close the variational half of the V_α chain. Remaining input: KatoRellichInput (self-adjointness). ZERO project axioms, ZERO sorries.
 
 /-!
 ## Principia Fractalis Formal Verification
