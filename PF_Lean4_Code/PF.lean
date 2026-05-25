@@ -123,6 +123,7 @@ import PF.Analytic.Lipschitz                       -- Open Problem 1 — Lipschi
 import PF.Analytic.SpectrumSqrt2                   -- Open Problem 1 — level-1 spectrum at α = √2 (manuscript's case)
 import PF.Analytic.LambdaZeroHPBookBounds         -- Stage L4 — concrete numerical bounds: lambda_zero_HP_book ≈ 0.2221441469
 import PF.Analytic.LogWeightedL2Nontrivial        -- 2026-05-24 — RH bundle (W1) progress: Nontrivial LogWeightedL2 (Banach–Alaoglu prerequisite)
+import PF.Analytic.RHBundleADischargeAttempt      -- 2026-05-24 — RH bundle (a) discharge attempt: finite-dim FULL discharge + Path A Riesz topological bridge
 import PF.P_NP_Equivalence   -- Main theorem: Δ > 0 ↔ P ≠ NP
 import PF.P_NP_EquivalenceLemmas  -- Supporting lemmas with roadmap
 
