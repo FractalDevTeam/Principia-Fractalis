@@ -204,6 +204,11 @@ import PF.MetaEvidenceCapstone  -- PrincipiaFractalisMetaEvidence: master capsto
 -- ============================================================================
 import PF.ObserverConsciousnessBridge  -- Observer-as-α-Selector on HAlphaUniversal (9 frames). Honest outcome (b): observer-invariant universal coupling λ_0·α = π/10 + Ch 6 observer-independent consciousness threshold; NO open-conjecture discharge (intra-fiber).
 
+-- ============================================================================
+-- 2026-05-24 Wave 9 — V_α-Explicit: arxiv operator construction on ℓ²(ℕ; ℂ)
+-- ============================================================================
+import PF.Operators.VAlphaExplicit  -- 2026-05-24 — Brings the published arxiv operator H_α = T + V_α onto mathlib's standard `lp (fun _ : ℕ => ℂ) 2`. Defines d3_coeff/nu2_coeff/nu3_coeff/v_alpha_coeff (diagonal V_α action), t_action_basis (kinetic on basis), h_alpha_basis (full Hamiltonian matrix coefficient). Identifies groundStateValue α = π/(10α) with the B-clean phase-deficit identity (1/5)(π/2 − Im R_f_principal α) for α > 1/2. Conditional capstones H_alpha_ground_state_eq_pi_10_alpha and H_alpha_spectral_gap_positive close the spectrum under two named Props (KatoRellichInput / GroundStateVariationalInput). Numerical brackets at α=√2 and α=φ+¼ match the certified lambda_0_P/NP values. ZERO project axioms, ZERO sorries.
+
 /-!
 ## Principia Fractalis Formal Verification
 
