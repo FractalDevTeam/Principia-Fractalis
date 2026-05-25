@@ -211,6 +211,11 @@ import PF.ObserverConsciousnessBridge  -- Observer-as-α-Selector on HAlphaUnive
 import PF.Operators.VAlphaExplicit  -- 2026-05-24 — Brings the published arxiv operator H_α = T + V_α onto mathlib's standard `lp (fun _ : ℕ => ℂ) 2`. Defines d3_coeff/nu2_coeff/nu3_coeff/v_alpha_coeff (diagonal V_α action), t_action_basis (kinetic on basis), h_alpha_basis (full Hamiltonian matrix coefficient). Identifies groundStateValue α = π/(10α) with the B-clean phase-deficit identity (1/5)(π/2 − Im R_f_principal α) for α > 1/2. Conditional capstones H_alpha_ground_state_eq_pi_10_alpha and H_alpha_spectral_gap_positive close the spectrum under two named Props (KatoRellichInput / GroundStateVariationalInput). Numerical brackets at α=√2 and α=φ+¼ match the certified lambda_0_P/NP values. ZERO project axioms, ZERO sorries.
 import PF.Operators.VariationalDischarge  -- 2026-05-24 Wave 9 follow-up — discharges `GroundStateVariationalInput α` as an axiom-free theorem for every α > 0. The existential-shape Prop in VAlphaExplicit is met by witness lam0 := groundStateValue α with positivity via groundStateValue_pos. Specialisations at α=√2 and α=φ+¼ + KR-only capstones H_alpha_ground_state_eq_pi_10_alpha_only_KR and H_alpha_spectral_gap_positive_only_KR close the variational half of the V_α chain. Remaining input: KatoRellichInput (self-adjointness). ZERO project axioms, ZERO sorries.
 
+-- ============================================================================
+-- 2026-05-24 Wave 10 — Conjunction-of-Evidence goal-line attempt
+-- ============================================================================
+import PF.ConjunctionOfEvidence  -- 2026-05-24 Wave 10 — Goal-line attempt at unconditional ClassP ≠ ClassNP via conjunction of (Galois-pair distinctness, V_α explicit operator, no-go IFF). OUTCOME (honest): conjunction REDUCES to the no-go IFF — the candidate bridge function `alpha_of_class_from_galois` satisfies the canonical pair IFF ClassP ≠ ClassNP. Sharpest formal statement obtainable axiom-free; does NOT pierce the no-go wall. Confirms framework's sharpness claim: PolylogEigenvalueConjecture is genuinely load-bearing.
+
 /-!
 ## Principia Fractalis Formal Verification
 
