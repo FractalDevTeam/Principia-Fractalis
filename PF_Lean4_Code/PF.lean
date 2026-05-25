@@ -184,6 +184,7 @@ import PF.EmpiricalClassification  -- 2026-05-24 — Structural form of the 143-
 -- 2026-05-24 Cross-Connection Capstone — evidence-by-accumulation
 -- ============================================================================
 import PF.CrossConnectionCapstone  -- 15+ axiom-free cross-field connections bundled into one structural Lean certificate
+import PF.CrossSubstrateConstants  -- 2026-05-24 — Cross-substrate constants: CH₂ (P/NP, arxiv) = σ_c (Hodge, Ch 25) — one constant, two domains
 
 -- ============================================================================
 -- 2026-05-24 Universal α-Operator-Family unification — ONE structure, 9 instances
