@@ -409,7 +409,11 @@ But at zeros:
 e^{-iHt/\hbar} |s_n\rangle = e^{-iE_n t/\hbar} |s_n\rangle
 \end{equation}
 These are stable, eternal conscious states.
+
+The load-bearing structural anchor (clause~5) is now in the Lean reduction chain for the Riemann Hypothesis; see the Formal Verification Status remark immediately below.
 \end{keyidea}
+
+\medskip\noindent\textbf{Formal verification status (2026-05-25).} The five-clause structure of Theorem~\ref{thm:consciousness-operator-properties} is formalised axiom-free in Lean~4 as named Propositions (\texttt{IsSelfAdjoint\_C}, \texttt{IsPositive\_C}, \texttt{IsUnbounded\_C}, \texttt{IsTraceClassOnFiniteRegions\_C}, \texttt{CommutatorVanishesAtRiemannZeros}) in \texttt{PF\_Lean4\_Code/PF/Consciousness/ConsciousnessOperatorC.lean} (commit \texttt{6303c02}). Clause~(5) --- the commutator-vanishes-iff-Riemann-zero claim --- is the \emph{load-bearing} structural anchor of the consciousness $\leftrightarrow$ RH connection. Its substantive form (against a substrate-level zero predicate, not the abstract placeholder) is the named open Proposition \texttt{CommutatorVanishesAtRHZeros}, consumed by the conditional reduction theorem \texttt{riemann\_hypothesis\_via\_consciousness\_bridge} in \texttt{PF\_Lean4\_Code/PF/Consciousness/ConsciousnessRHBridge.lean} (2026-05-25). That theorem reduces the Riemann Hypothesis to TWO named open Propositions: clause~(5) itself and the consciousness-route surjectivity conjecture \texttt{ConsciousnessStationaryStateCompleteness}. The reduction is axiom-free; \texttt{\#print axioms riemann\_hypothesis\_via\_consciousness\_bridge} returns only \texttt{[propext, Classical.choice, Quot.sound]}. The consciousness route is parallel to the manuscript's primary $T_3^{\mathrm{sym}}$ route (Chapter~\ref{ch:riemann-hypothesis}), which is conditional on a different load-bearing open Prop (\texttt{RHSpectralSurjectivityConjecture}); neither route discharges the other. Catalogued as Problems~5 and~6 in \texttt{OPEN\_PROBLEMS.md}.
 
 \section{Operator Norms and Consciousness Intensity}
 
