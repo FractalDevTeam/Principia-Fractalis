@@ -335,7 +335,7 @@ where $G_{\text{GUT}} = \text{SU}(5)$ or $\text{SO}(10)$ is a grand unified grou
 
 \textbf{Step 4:} The total is $48 + 26 + 4 = 78$ after accounting for all degrees of freedom and BRST constraints.
 
-The combinatorial identity $\dim(E_6) = 78$ is independently verified algebraically in \texttt{PF\_Lean4\_Code/PF/Cosmology/E6ChernIndex78pi.lean} (axiom-free); auxiliary calculations identifying the $48 + 26 + 4$ split with the trinification decomposition are in Appendix~\ref{app:weinstein}.
+The natural-number identities $24 + 54 = 78$ and $27 = 3^3$ are independently verified by \texttt{decide} in \texttt{PF\_Lean4\_Code/PF/Cosmology/E6ChernIndex78pi.lean} (axiom-free). Note: the Lean file only certifies the arithmetic; the \emph{physical} identification of the $48 + 26 + 4$ representation-counting split with $\dim(E_6) = 78$ (and with the trinification decomposition under SU(3)$^3 \subset E_6$) is a structural conjecture, not a machine-checked theorem — see Appendix~\ref{app:weinstein} for auxiliary calculations and Remark~\ref{rem:ch26-lean-status} for the parallel status statement in Chapter~\ref{ch:cosmological-constant}.
 \end{proof}
 
 This exact match is strong evidence that GU with RQG describes reality.
