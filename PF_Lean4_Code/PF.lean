@@ -170,6 +170,7 @@ import PF.Empirical.HundredFortyThreeProblems  -- 143 problems, axiom-free coher
 -- Icosahedral H₃ Coxeter origin of π/10 (2026-05-24)
 -- ============================================================================
 import PF.H3CoxeterOrigin  -- h(H₃)=10, sin(π/10)=1/(2φ), Q(√5)=Q(φ), IBM peaks = H₃ structural numbers
+import PF.RHViaH3PerelmanBridge  -- 2026-05-24 evening: H₃ × Perelman bridge — area identity Area(F_mod)·|H₃|/h = Area(S²) + unified hypothesis named
 
 -- ============================================================================
 -- 2026-05-24 IBM Empirical Peaks as a Galois Pair over ℚ(√5)
