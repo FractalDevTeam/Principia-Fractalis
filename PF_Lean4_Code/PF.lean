@@ -156,6 +156,7 @@ import PF.Analytic.MaassCuspSimplicityFactorings -- Mission Phase 3: structural 
 import PF.Millennium          -- principia_fractalis_millennium_capstone
 import PF.MillenniumSixReductions -- Conditional reductions for ALL SIX Millennium problems (Ch 20-25)
 import PF.NSBase3SelfSimilarity   -- 2026-05-24 — Cross-connection: Ch 22 NS no-blowup `Z<S` (Z=2, S=3) load-bearing cascade ↔ Wave 9 D_3 algebrization-barrier defeat; both inherit from base-3 self-similarity (axiom-free)
+import PF.NSCascadeCrowBound      -- 2026-05-25 — Axiom-free arithmetic of Ch 22 Step 4: cascade-vs-Crow dominance 2π/(3χ)·Re_0^(1+2log_3 2) > 1 for all Re_0 ≥ 1 (Crow threshold formalized)
 
 -- ============================================================================
 -- Consciousness: Timeless Field T_∞ (ch04, ch06)
@@ -235,6 +236,7 @@ import PF.ConjunctionOfEvidence  -- 2026-05-24 Wave 10 — Goal-line attempt at 
 -- 2026-05-24 Wave 13 — Hodge Crystallization H₃ Discharge
 -- ============================================================================
 import PF.HodgeCrystallizationH3Discharge  -- 2026-05-24 Wave 13 — Axiom-free discharge of `fractalHodgeCrystallization (alpha_at_enum .Hodge)` under Wave-4 typed HodgeAmbient + Wave-6 3-conjunct HodgeAlgebraicRepresentation. Witnesses: σ_c = 19/20 (Mertens-Basel anchored 6/π² < σ_c), rank_bound = 0 ≤ 20 = 2·h(H₃), λ = π/(10·φ) = π/(h(H₃)·α_Hodge_H3). Outcome (b): Lean Prop closes axiom-free; geometric Hodge content (algebraic-cycle witness) remains open.
+import PF.HodgeCurveDim1Substrate  -- 2026-05-25 — Hodge Path A: concrete dim=1 curve substrate. `HodgeCurveSubstrate` (Points, multiplicity), `lefschetz_one_one_at_dim_one`, `HodgeAlgebraicRepresentation_on_curve`, `hodge_dim_one_full_discharge`, worked instance `onePointDegreeOne_full_discharge`. Outcome (a) restricted to dim=1: divisor IS the algebraic 0-cycle witness, definitional Lefschetz (1,1) at dim=1.
 
 /-!
 ## Principia Fractalis Formal Verification
