@@ -137,7 +137,8 @@ theorem stdColumn_inner_stdBasisVec (α : ℝ) (n m : ℕ) :
       have h3 : ¬ (n - 1 = n) := by omega
       have h4 : ¬ (n + 1 = n ∨ n + 1 = n) := by omega
       rw [if_neg h2, if_neg h3, if_neg h4]
-      push_cast; ring
+      simp [RCLike.inner_apply, Complex.conj_ofNat, _root_.map_neg,
+            _root_.map_div₀, Complex.conj_ofReal]
     · -- m ≠ n: diagonal vanishes; kinetic only if |m - n| = 1.
       rw [if_neg h1]
       by_cases h2 : n + 1 = m
@@ -148,7 +149,8 @@ theorem stdColumn_inner_stdBasisVec (α : ℝ) (n m : ℕ) :
         -- RHS: t_action_basis n m = -1/2 (since n+1 = m).
         have hor : m + 1 = n ∨ n + 1 = m := Or.inr h2
         rw [if_pos hor, if_neg (fun heq => hn1 heq)]
-        push_cast; ring
+        simp [RCLike.inner_apply, Complex.conj_ofNat, _root_.map_neg,
+            _root_.map_div₀, Complex.conj_ofReal]
       · by_cases h3 : n - 1 = m
         · -- m = n-1 (so m+1 = n since n ≥ 1).
           have hn1 : ¬ (n = m) := h1
@@ -156,7 +158,8 @@ theorem stdColumn_inner_stdBasisVec (α : ℝ) (n m : ℕ) :
           have hm1 : m + 1 = n := by omega
           have hor : m + 1 = n ∨ n + 1 = m := Or.inl hm1
           rw [if_pos hor, if_neg hn1]
-          push_cast; ring
+          simp [RCLike.inner_apply, Complex.conj_ofNat, _root_.map_neg,
+                _root_.map_div₀, Complex.conj_ofReal]
         · -- m differs from n, n+1, n-1: everything vanishes.
           rw [if_neg h2, if_neg h3]
           have hor : ¬ (m + 1 = n ∨ n + 1 = m) := by
@@ -165,7 +168,8 @@ theorem stdColumn_inner_stdBasisVec (α : ℝ) (n m : ℕ) :
             · intro hm; apply h3; omega
             · intro hn'; exact h2 hn'
           rw [if_neg hor, if_neg h1]
-          push_cast; ring
+          simp [RCLike.inner_apply, Complex.conj_ofNat, _root_.map_neg,
+                _root_.map_div₀, Complex.conj_ofReal]
   · -- n = 0: backward kinetic term is absent.
     push_neg at hn
     have hn0 : n = 0 := Nat.le_zero.mp hn
@@ -183,7 +187,8 @@ theorem stdColumn_inner_stdBasisVec (α : ℝ) (n m : ℕ) :
       have h2 : ¬ (0 + 1 = 0) := by omega
       have h4 : ¬ (0 + 1 = 0 ∨ 0 + 1 = 0) := by omega
       rw [if_neg h2, if_neg h4]
-      push_cast; ring
+      simp [RCLike.inner_apply, Complex.conj_ofNat, _root_.map_neg,
+            _root_.map_div₀, Complex.conj_ofReal]
     · -- m ≠ 0: only n+1 = m could fire.
       rw [if_neg h1]
       by_cases h2 : (0 + 1 : ℕ) = m
@@ -191,13 +196,15 @@ theorem stdColumn_inner_stdBasisVec (α : ℝ) (n m : ℕ) :
         rw [if_pos h2]
         have hor : m + 1 = 0 ∨ 0 + 1 = m := Or.inr h2
         rw [if_pos hor, if_neg hn1]
-        push_cast; ring
+        simp [RCLike.inner_apply, Complex.conj_ofNat, _root_.map_neg,
+            _root_.map_div₀, Complex.conj_ofReal]
       · rw [if_neg h2]
         have hor : ¬ (m + 1 = 0 ∨ 0 + 1 = m) := by
           push_neg
           refine ⟨by omega, h2⟩
         rw [if_neg hor, if_neg h1]
-        push_cast; ring
+        simp [RCLike.inner_apply, Complex.conj_ofNat, _root_.map_neg,
+            _root_.map_div₀, Complex.conj_ofReal]
 
 /-- **Matrix-coefficient identity at the PMap level**:
 
@@ -257,96 +264,112 @@ theorem Halpha_PMap_adjoint_basis (α : ℝ) (n m : ℕ) :
   exact_mod_cast (h_alpha_basis_symm α n m)
 
 /-- **Full formal-adjointness**: `Halpha_PMap α` is its own formal
-    adjoint on the finite-support submodule. The proof reduces from the
-    basis case via `span_induction₂` and bilinearity of inner. -/
+    adjoint on the finite-support submodule.
+
+    Strategy: by `IsFormalAdjoint`'s definition we need
+    `⟪H x, y⟫ = ⟪x, H y⟫` for all `x, y ∈ H.domain`. We prove this by
+    a two-stage span induction:
+
+    * Inner: fix `y = stdBasisVec j`; induct on the membership proof of
+      `↑x ∈ span` to reduce to basis-vs-basis.
+    * Outer: induct on the membership proof of `↑y ∈ span` to reduce to
+      `y = stdBasisVec j` (which feeds the inner argument).
+
+    The basis-vs-basis case `Halpha_PMap_adjoint_basis` is the load-bearing
+    identity. -/
 theorem Halpha_PMap_isFormalAdjoint (α : ℝ) :
     (Halpha_PMap α).IsFormalAdjoint (Halpha_PMap α) := by
-  intro x y
-  -- Both x and y are subtype elements of the domain = span of basis.
-  obtain ⟨vx, hvx⟩ := x
-  obtain ⟨vy, hvy⟩ := y
-  -- `hvx`, `hvy` lie in `(Halpha_PMap α).domain = finSuppSubmod
-  --   = Submodule.span ℂ (range stdBasisVec)`.
-  change vx ∈ Submodule.span ℂ (Set.range stdBasisVec) at hvx
-  change vy ∈ Submodule.span ℂ (Set.range stdBasisVec) at hvy
-  -- Use `span_induction₂` with the predicate
-  --   P vx vy := ⟪H ⟨vx, hx⟩, vy⟫ = ⟪vx, H ⟨vy, hy⟩⟫.
-  -- Subtle point: span_induction₂'s predicate also depends on the membership
-  -- proofs, but as the equality is between inner products that depend only on
-  -- the underlying vectors and the PMap action (which uses proof-irrelevant
-  -- subtypes), we can absorb proofs.
-  --
-  -- We use a stronger predicate that doesn't depend on the membership proofs:
-  -- ∃ hx hy, ⟪H ⟨vx, hx⟩, vy⟫ = ⟪vx, H ⟨vy, hy⟩⟫.
-  suffices h : ∀ vx ∈ Submodule.span ℂ (Set.range stdBasisVec),
-              ∀ vy ∈ Submodule.span ℂ (Set.range stdBasisVec),
-              ∀ (hx : vx ∈ (Halpha_PMap α).domain)
-                (hy : vy ∈ (Halpha_PMap α).domain),
-              ⟪Halpha_PMap α ⟨vx, hx⟩, vy⟫_ℂ =
-                ⟪vx, Halpha_PMap α ⟨vy, hy⟩⟫_ℂ by
-    exact h vx hvx vy hvy hvx hvy
+  -- Stage 1: state the predicate as a quantifier over pairs of vectors with
+  -- explicit membership proofs.
+  suffices hcore :
+      ∀ (vx : EllTwoNat) (hvx : vx ∈ Submodule.span ℂ (Set.range stdBasisVec))
+        (vy : EllTwoNat) (hvy : vy ∈ Submodule.span ℂ (Set.range stdBasisVec))
+        (hx : vx ∈ (Halpha_PMap α).domain) (hy : vy ∈ (Halpha_PMap α).domain),
+        ⟪Halpha_PMap α ⟨vx, hx⟩, vy⟫_ℂ =
+          ⟪vx, Halpha_PMap α ⟨vy, hy⟩⟫_ℂ by
+    intro x y
+    obtain ⟨vx, hvx⟩ := x
+    obtain ⟨vy, hvy⟩ := y
+    change vx ∈ Submodule.span ℂ (Set.range stdBasisVec) at hvx
+    change vy ∈ Submodule.span ℂ (Set.range stdBasisVec) at hvy
+    exact hcore vx hvx vy hvy hvx hvy
+  -- Stage 2: prove the core. Inner induction on the y-side first.
   intro vx hvx vy hvy
+  -- Restate the goal as a predicate of vy (with the membership proof packaged).
+  suffices hy_pred :
+      ∀ (vy : EllTwoNat),
+        vy ∈ Submodule.span ℂ (Set.range stdBasisVec) →
+        ∀ (hx : vx ∈ (Halpha_PMap α).domain)
+          (hy : vy ∈ (Halpha_PMap α).domain),
+          ⟪Halpha_PMap α ⟨vx, hx⟩, vy⟫_ℂ =
+            ⟪vx, Halpha_PMap α ⟨vy, hy⟩⟫_ℂ from
+    hy_pred vy hvy
+  clear hvy vy
+  intro vy hvy
+  -- Induct on hvy (the y-membership).
   induction hvy using Submodule.span_induction with
   | mem z hz =>
-      -- z = stdBasisVec j for some j
       obtain ⟨j, rfl⟩ := hz
-      -- Now induct on vx
+      -- y = stdBasisVec j. We need ∀ hx hy, ⟪H ⟨vx, hx⟩, e_j⟫ = ⟪vx, H ⟨e_j, hy⟩⟫
+      -- Induct on the existing hvx (vx ∈ span).
       intro hx hy
+      revert hx
       induction hvx using Submodule.span_induction with
       | mem w hw =>
+          intro hx
           obtain ⟨i, rfl⟩ := hw
-          -- Use the basis-level identity.
-          have := Halpha_PMap_adjoint_basis α i j
-          -- Adjust the membership proofs (the action only depends on the
-          -- underlying vector, by `LinearPMap` extensionality on subtypes).
-          convert this <;> rfl
+          have hbase := Halpha_PMap_adjoint_basis α i j
+          convert hbase <;> rfl
       | zero =>
           intro hx
-          simp only [LinearPMap.map_zero, inner_zero_left, inner_zero_right]
+          -- ⟪H ⟨0, hx⟩, stdBasisVec j⟫ = ⟪0, H ⟨stdBasisVec j, hy⟩⟫
+          have hzero_eq : (⟨0, hx⟩ : (Halpha_PMap α).domain) = 0 := rfl
+          rw [hzero_eq, LinearPMap.map_zero]
+          simp
       | add a b ha hb iha ihb =>
           intro hxab
-          -- Use linearity: write ⟨a+b, hxab⟩ = ⟨a, ha⟩ + ⟨b, hb⟩ in domain.
-          have ha' : a ∈ (Halpha_PMap α).domain := ha
-          have hb' : b ∈ (Halpha_PMap α).domain := hb
+          have ha' : a ∈ (Halpha_PMap α).domain := by
+            rw [Halpha_PMap_domain]; exact ha
+          have hb' : b ∈ (Halpha_PMap α).domain := by
+            rw [Halpha_PMap_domain]; exact hb
           have hadd : (⟨a + b, hxab⟩ : (Halpha_PMap α).domain) =
               (⟨a, ha'⟩ : (Halpha_PMap α).domain) + ⟨b, hb'⟩ := rfl
           rw [hadd, LinearPMap.map_add, inner_add_left]
-          have iha' := iha ha'
-          have ihb' := ihb hb'
-          -- Adjust the H ⟨stdBasisVec j, _⟩ on the RHS:
-          rw [iha', ihb']
+          rw [iha ha', ihb hb']
           simp only [Submodule.coe_add, inner_add_left]
       | smul c a ha iha =>
           intro hxca
-          have ha' : a ∈ (Halpha_PMap α).domain := ha
+          have ha' : a ∈ (Halpha_PMap α).domain := by
+            rw [Halpha_PMap_domain]; exact ha
           have hsmul : (⟨c • a, hxca⟩ : (Halpha_PMap α).domain) =
               c • (⟨a, ha'⟩ : (Halpha_PMap α).domain) := rfl
           rw [hsmul, LinearPMap.map_smul, inner_smul_left]
-          have iha' := iha ha'
-          rw [iha']
+          rw [iha ha']
           simp only [Submodule.coe_smul_of_tower, inner_smul_left]
   | zero =>
-      intro hxz hyz
-      simp only [LinearPMap.map_zero, inner_zero_left, inner_zero_right]
-  | add a b ha hb iha ihb =>
-      intro hxz hyab
-      have ha' : a ∈ (Halpha_PMap α).domain := ha
-      have hb' : b ∈ (Halpha_PMap α).domain := hb
+      intro hx hyz
+      have hzero_eq : (⟨0, hyz⟩ : (Halpha_PMap α).domain) = 0 := rfl
+      rw [hzero_eq, LinearPMap.map_zero]
+      simp
+  | add a b _ _ iha ihb =>
+      intro hx hyab
+      have ha' : a ∈ (Halpha_PMap α).domain := by
+        rw [Halpha_PMap_domain]; assumption
+      have hb' : b ∈ (Halpha_PMap α).domain := by
+        rw [Halpha_PMap_domain]; assumption
       have hadd : (⟨a + b, hyab⟩ : (Halpha_PMap α).domain) =
           (⟨a, ha'⟩ : (Halpha_PMap α).domain) + ⟨b, hb'⟩ := rfl
       rw [hadd, LinearPMap.map_add, inner_add_right]
-      have iha' := iha hxz ha'
-      have ihb' := ihb hxz hb'
-      rw [iha', ihb']
+      rw [iha hx ha', ihb hx hb']
       simp only [Submodule.coe_add, inner_add_right]
-  | smul c a ha iha =>
-      intro hxz hyca
-      have ha' : a ∈ (Halpha_PMap α).domain := ha
+  | smul c a _ iha =>
+      intro hx hyca
+      have ha' : a ∈ (Halpha_PMap α).domain := by
+        rw [Halpha_PMap_domain]; assumption
       have hsmul : (⟨c • a, hyca⟩ : (Halpha_PMap α).domain) =
           c • (⟨a, ha'⟩ : (Halpha_PMap α).domain) := rfl
       rw [hsmul, LinearPMap.map_smul, inner_smul_right]
-      have iha' := iha hxz ha'
-      rw [iha']
+      rw [iha hx ha']
       simp only [Submodule.coe_smul_of_tower, inner_smul_right]
 
 /-! ## Section 4 — Full discharge: `KatoRellichInputPMap α` is a theorem -/

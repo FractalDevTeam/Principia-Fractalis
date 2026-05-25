@@ -104,6 +104,8 @@ import Mathlib.Tactic
 
 namespace PrincipiaTractalis.HodgeCrystallizationH3
 
+open Real
+open PrincipiaTractalis.TuringEncoding
 open PrincipiaTractalis.MillenniumSix
 open PrincipiaFractalis.H3CoxeterOrigin
 open PrincipiaFractalis.H3ExponentUnification
