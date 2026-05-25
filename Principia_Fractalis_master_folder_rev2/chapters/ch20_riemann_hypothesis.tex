@@ -455,12 +455,12 @@ The Riemann zeros are interpreted as ``consciousness resonances'' in the prime d
 
 \subsection{Resolution of the Riemann Hypothesis}
 
-\begin{corollary}[RH Resolution]\label{cor:rh-resolution}
-All non-trivial zeros of the Riemann zeta function lie on the critical line $\Real(s) = 1/2$.
+\begin{corollary}[Conditional RH Resolution]\label{cor:rh-resolution}
+Assume the spectral-bijection surjectivity conjecture (formalised as the named open Lean Proposition \texttt{RHSpectralSurjectivityConjecture} in \texttt{PF\_Lean4\_Code/PF/RHSurjectivityConjecture.lean}). Then all non-trivial zeros of the Riemann zeta function lie on the critical line $\Real(s) = 1/2$.
 \end{corollary}
 
 \begin{proof}
-Follows from Theorem \ref{thm:spectral-rigidity} and the 150-digit numerical verification of the eigenvalue-zero correspondence for $N = 20$. Completion requires extending to the $N \to \infty$ limit.
+Follows from Theorem~\ref{thm:spectral-rigidity} and the Lean conditional reduction \texttt{riemann\_hypothesis\_via\_named\_surjectivity} (\texttt{PF\_Lean4\_Code/PF/RHSurjectivityConjecture.lean}), which discharges RH from the surjectivity hypothesis axiom-free. The 150-digit numerical verification of the eigenvalue-zero correspondence for $N \in \{10, 20, 30, 40, 50, 60, 80, 100\}$ is empirical evidence supporting the conjecture, not a proof of it.
 \end{proof}
 
 \subsection{Prime Number Distribution}
@@ -490,7 +490,7 @@ This provides an **explicit** computation of prime distribution through consciou
 
 \section{Conclusion}
 
-We have presented a resolution of the Riemann Hypothesis through Fractal Resonance Mathematics:
+We have presented a \emph{conditional} resolution of the Riemann Hypothesis through Fractal Resonance Mathematics, reducing RH to a single named open conjecture (\texttt{RHSpectralSurjectivityConjecture}, formalised axiom-free in Lean~4):
 
 \begin{itemize}
 \item **Constructed** a self-adjoint operator $\tilde{T}_3$ whose eigenvalues correspond to Riemann zeros

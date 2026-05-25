@@ -336,9 +336,11 @@ The dimension $\log 2 / \log 3$ connects to the ternary (base-3) structure of re
 
 \subsection{Why Infinities Cannot Occur}
 
-\begin{theorem}[No Finite-Time Blowup]\label{thm:no-blowup}
-Solutions to the Navier-Stokes equations with smooth initial data cannot develop finite-time singularities.
+\begin{theorem}[No Finite-Time Blowup --- conditional on the fractal sub-vortex hierarchy + Crow-cascade dominance]\label{thm:no-blowup}
+Assume the fractal sub-vortex mechanism of Mechanism~\ref{mech:fractal-vortex} and the cascade-versus-Crow dominance estimate~\eqref{eq:no-blowup-cascade-vs-crow} (formalised as the named hypothesis bundle consumed by \texttt{navier\_stokes\_via\_fractal\_emergence} in \texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}). Then solutions to the Navier-Stokes equations with smooth initial data cannot develop finite-time singularities.
 \end{theorem}
+
+\medskip\noindent\emph{See Remarks~\ref{rem:ns-audit-resolution} and \ref{rem:ns-lean-status} for the formalisation-status disclosure and the Lean-side scope of this conditional reduction.}
 
 \begin{proof}
 We prove this through the vortex emergence mechanism.
@@ -441,6 +443,16 @@ The Navier--Stokes claims of this chapter are \textbf{not} formalized at the ful
 Theorem PF_NS_Solution : NS_Millennium_Problem.
 \end{verbatim}
 whose proof is one line that applies the local axiom \texttt{Spectral\_to\_NS} to the local axiom \texttt{PF\_NS\_Spectral\_Condition}. The broader file declares approximately 23 framework-level axioms (regularity hypotheses, Kolmogorov scaling, enstrophy-controls-smoothness, the spectral-equivalence direction, etc.). Each is a postulate of the Principia Fractalis framework, not a result derived from Coq's standard library. The \texttt{Theorem} keyword indicates only that the implication ``framework axioms $\Rightarrow$ NS Millennium Problem'' typechecks. Inside Coq, \texttt{Print Assumptions PF\_NS\_Solution.} returns the full dependency list. Eliminating any of these axioms would be a substantial PDE-analysis contribution and is tracked as future work in \texttt{RESEARCH\_ROADMAP.md} at the repository root.
+\end{remark}
+
+\begin{remark}[Lean encoding status, 2026-05-25]\label{rem:ns-lean-status}
+The Lean conditional reduction \texttt{navier\_stokes\_via\_fractal\_emergence} (\texttt{PF\_Lean4\_Code/PF/MillenniumSixReductions.lean}) currently has the placeholder conclusion type
+\[
+\texttt{NavierStokesGlobalSmoothness} \;:=\; \forall (\textit{smooth\_initial\_data} : \text{Unit}),\; \exists (\textit{global\_smooth\_solution} : \text{Unit}),\; \text{True}.
+\]
+\textbf{What this Lean theorem does prove}: the conditional-reduction architecture (Theorem~\ref{thm:no-blowup}) typechecks against the named hypothesis bundle, axiom-free. \textbf{What it does \emph{not} prove}: any Clay-grade PDE content. The \texttt{Unit}/\texttt{True} conclusion type carries no analytic information about the actual Navier-Stokes solution space. The substantive PDE content of the Clay problem is the open mathematical content of this chapter; the Lean encoding documents the framework's conditional architecture but does not formalise the PDE side.
+
+This disclosure follows the same close-the-loop discipline applied to the Ch~26 cosmological-constant remark (\texttt{rem:ch26-lean-status}, 2026-05-25); see also the audit log in the corresponding session memory.
 \end{remark}
 
 \begin{remark}[Resolution of the Topological Stability and No-Blowup audit findings]\label{rem:ns-audit-resolution}
