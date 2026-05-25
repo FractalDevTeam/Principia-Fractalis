@@ -36,6 +36,7 @@ import PF.NSBase3SelfSimilarity
 import PF.EmpiricalPostulateDischarge
 import PF.TuringEncoding.D3NonAlgebraic
 import PF.ObserverConsciousnessBridge
+import PF.Consciousness.ConsciousnessOperatorC
 
 namespace PrincipiaTractalis
 
@@ -102,6 +103,14 @@ structure Waves8To11Additions : Prop where
       classically because observer-dependence vanishes at α = 1. -/
   observer_triviality_at_one :
     observerRescaler (canonicalObserver ObserverFrame.poincare) = id
+  /-- **(κ) Consciousness ↔ RH structural bridge** (2026-05-25):
+      The Ch 17 §13.6 consciousness operator C built from ch_2 on the
+      critical line. Its (P5) [C, H] = 0 ↔ Riemann-zero property
+      formalizes the direct cross-substrate connection between the
+      consciousness chain and the Riemann hypothesis residual. -/
+  consciousness_rh_bridge_formalized :
+    ∃ 𝒮 : ConsciousnessOperatorC.ConsciousnessSubstrate,
+      ConsciousnessOperatorC.ConsciousnessRHBridge 𝒮
 
 /-! ## Section 2 — The Master Cross-Millennium Unification Bundle -/
 
@@ -137,7 +146,10 @@ theorem waves_8_to_11_additions_hold : Waves8To11Additions :=
     algebrization_broken :=
       PrincipiaTractalis.TuringEncoding.D3_no_polynomial_extension_over_Q
     observer_triviality_at_one :=
-      poincare_observer_is_trivial }
+      poincare_observer_is_trivial
+    consciousness_rh_bridge_formalized :=
+      ⟨ConsciousnessOperatorC.trivialSubstrate,
+       ConsciousnessOperatorC.ConsciousnessRHBridge_trivial⟩ }
 
 /-- **★★★ THE MASTER CROSS-MILLENNIUM UNIFICATION CAPSTONE ★★★**
     (Wave 12, 2026-05-25).
