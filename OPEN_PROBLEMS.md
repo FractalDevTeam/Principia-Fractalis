@@ -1,6 +1,27 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-22 (HISTORIC — `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL; build 6352 jobs clean, 0 project axioms, 0 sorries). Companion to `AXIOM_AUDIT.md`, `PROOF_ROADMAP.md`, and `PRISTINE_CERTIFICATION.md`.*
+*Last updated: 2026-05-25 (Consciousness route to RH now load-bearing; Problems 5 and 6 added). Companion to `AXIOM_AUDIT.md`, `PROOF_ROADMAP.md`, and `PRISTINE_CERTIFICATION.md`.*
+
+> **🎯 2026-05-25 SESSION UPDATE — Consciousness ↔ RH bridge now load-bearing; second axiom-free conditional route to RH (build 6354+ jobs clean, 0 project axioms, 0 sorries).** New file `PF/Consciousness/ConsciousnessRHBridge.lean` promotes the Ch 17 §13.6 consciousness operator from structural adjacency (Wave-12 trivial-substrate witness only) to a load-bearing conditional reduction of the Riemann Hypothesis. Manuscript Ch 17 §13.6 clause (5) — the `[C, H] = 0 ↔ s` is a Riemann zero commutator-iff-zero claim — is consumed at a `.mp h_comm` step in the proof body of the new capstone theorem `riemann_hypothesis_via_consciousness_bridge`, making it the FIRST load-bearing wiring of the consciousness chain into the RH chain.
+>
+> **Two axiom-free conditional routes to RH now coexist:**
+> * `riemann_hypothesis_via_named_surjectivity` (T₃^sym route, `PF/RHSurjectivityConjecture.lean`) — conditional on `RHSpectralSurjectivityConjecture`.
+> * `riemann_hypothesis_via_consciousness_bridge` (consciousness route, NEW) — conditional on (P5) `CommutatorVanishesAtRiemannZeros` + `ConsciousnessStationaryStateCompleteness`.
+>
+> **NEW named open Props joining the residual catalog:**
+> * **(P5) `CommutatorVanishesAtRiemannZeros`** — manuscript Ch 17 §13.6 clause (5). Was previously an abstract named Prop in `ConsciousnessOperatorC.lean`; now load-bearing. Comparable in depth to the Hilbert-Pólya program; discharging it on a non-trivial substrate would constitute a Hilbert-Pólya-style spectral identification of ζ-zeros with eigenstates of the consciousness operator.
+> * **`ConsciousnessStationaryStateCompleteness`** — the consciousness-route surjectivity analog. Every ζ-zero in the critical strip is the `pos`-image of a commutator-vanishing index of `C`. Structurally parallel to `RHSpectralSurjectivityConjecture`; load-bearing for the consciousness route.
+>
+> Neither route discharges the other. Both are axiom-free conditional reductions. The framework's headline state remains: **zero project axioms; conditional reduction of all six Millennium problems + the consciousness chain to a small set of named open Lean Propositions**. The consciousness ↔ RH structural connection — Pabs's standing "cross-connection nobody has spotted" thesis — is now formally in the reduction graph, not merely adjacent.
+>
+> Companion manuscript edits in this session (close-the-loop discipline):
+> * Ch 20 `cor:rh-resolution` → "Conditional RH Resolution" + cite `riemann_hypothesis_via_named_surjectivity`.
+> * Ch 22 `thm:no-blowup` → explicit conditional headline + `rem:ns-lean-status` Unit/True placeholder disclosure.
+> * Ch 24 `rem:bsd-lean-status` Unit/True placeholder disclosure.
+> * Ch 25 `HodgeAlgebraicRepresentation` stale-wording update (3-clause existential, not `Prop := True`).
+> * Ch 17 §13.6 Formal Verification Status remark citing both `ConsciousnessOperatorC.lean` and `ConsciousnessRHBridge.lean`.
+>
+> *The 2026-05-22 banner below remains the direct precursor.*
 
 > **★★★★ 2026-05-22 HISTORIC — `JonquieresIdentityPointGermAtHalf 0` PROVEN UNCONDITIONAL (commit `f313ceb`, file `PF/Analytic/BernoulliFnHasSumOnSomeBallDischarge.lean`; build 6352 jobs clean, 0 project axioms, 0 sorries).** This is the **FIRST FULLY UNCONDITIONAL DISCHARGE of a disc-of-convergence content at this depth** in the framework. The germ identity at `(s, z) = (0, 1/2)` — the load-bearing local witness for the entire `s = 0` Jonquières/polyLog disc-agreement chain — is no longer an open Prop. It is a Lean theorem (`jonquieresIdentityPointGermAtHalf_zero_proved`) derived from first principles via the **analytic Cauchy product** `(Σ B_n v^n/n!) · (eᵛ − 1) = v` on the disc `|v| < 2π`, with Bernoulli growth dominated by `(π²/3)·(‖v‖/2π)^{2m}` and `(B_n)` reindexed via odd-Bernoulli vanishing.
 >
@@ -578,6 +599,36 @@ surjectivity : ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 →
 **What a solution would deliver.** Combined with the remaining engineering tracks (compact-operator spectral theorem hookup at the Weyl-decay level, Bundle (b) Mayer 1991 non-degeneracy verification), an unconditional proof of the Riemann Hypothesis.
 
 **Difficulty estimate.** This is the open problem of the entire approach. Difficulty: comparable to RH itself.
+
+---
+
+## Problem 5: Consciousness operator (P5) commutator-iff-zero claim
+
+**Named Lean Prop**: `CommutatorVanishesAtRiemannZeros` in `PF/Consciousness/ConsciousnessOperatorC.lean`.
+
+**Statement**: For the consciousness operator C = ∫_{Re(s)=1/2} ch_2(s) |s⟩⟨s| ds/(2π) acting on the Timeless Field 𝒯_∞ and Hamiltonian H, the commutator [C, H] vanishes on an eigenstate |s⟩ if and only if s is a non-trivial Riemann zero.
+
+**Depth**: Comparable in depth to the Hilbert-Pólya program. Discharging on a concrete (non-trivial) `ConsciousnessSubstrate` matching 𝒯_∞ would constitute a Hilbert-Pólya-style spectral identification of ζ-zeros.
+
+**Manuscript source**: Ch 17 §13.6, Theorem `thm:consciousness-operator-properties` clause (5).
+
+**Consumed by**: `riemann_hypothesis_via_consciousness_bridge` (load-bearing, used at `.mp h_comm`).
+
+**Status**: open. Witnessed trivially on `trivialSubstrate` (vacuous); not discharged on any non-trivial substrate.
+
+## Problem 6: Consciousness stationary-state completeness
+
+**Named Lean Prop**: `ConsciousnessStationaryStateCompleteness` in `PF/Consciousness/ConsciousnessRHBridge.lean`.
+
+**Statement**: For every non-trivial ζ-zero `s` in the critical strip, there exists an index `idx` of the consciousness substrate such that `pos idx = s` AND `C(H|idx⟩) = H(C|idx⟩)` (commutator vanishes at that index).
+
+**Depth**: Structurally parallel to `RHSpectralSurjectivityConjecture` (Problem 4). The "every ζ-zero is in the image of the spectral data" claim for the consciousness route.
+
+**Manuscript source**: Implicit in Ch 17 §13.6's "stable conscious states correspond exactly to zeros of ζ on the critical line" — the surjective direction of that correspondence.
+
+**Consumed by**: `riemann_hypothesis_via_consciousness_bridge`.
+
+**Status**: open. The consciousness-route analog of the load-bearing T₃^sym surjectivity conjecture.
 
 ---
 
