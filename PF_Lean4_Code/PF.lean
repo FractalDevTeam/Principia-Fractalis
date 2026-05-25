@@ -154,6 +154,7 @@ import PF.Analytic.MaassCuspSimplicityFactorings -- Mission Phase 3: structural 
 -- ============================================================================
 import PF.Millennium          -- principia_fractalis_millennium_capstone
 import PF.MillenniumSixReductions -- Conditional reductions for ALL SIX Millennium problems (Ch 20-25)
+import PF.NSBase3SelfSimilarity   -- 2026-05-24 — Cross-connection: Ch 22 NS no-blowup `Z<S` (Z=2, S=3) load-bearing cascade ↔ Wave 9 D_3 algebrization-barrier defeat; both inherit from base-3 self-similarity (axiom-free)
 
 -- ============================================================================
 -- Consciousness: Timeless Field T_∞ (ch04, ch06)
@@ -171,6 +172,7 @@ import PF.Empirical.HundredFortyThreeProblems  -- 143 problems, axiom-free coher
 -- Icosahedral H₃ Coxeter origin of π/10 (2026-05-24)
 -- ============================================================================
 import PF.H3CoxeterOrigin  -- h(H₃)=10, sin(π/10)=1/(2φ), Q(√5)=Q(φ), IBM peaks = H₃ structural numbers
+import PF.H3ExponentUnification  -- 2026-05-24 — Cross-Millennium H₃ unification of α_Hodge=φ, α_NP=φ+1/gap, BSD-eig φ/e ∈ (5/9, 3/5)
 import PF.RHViaH3PerelmanBridge  -- 2026-05-24 evening: H₃ × Perelman bridge — area identity Area(F_mod)·|H₃|/h = Area(S²) + unified hypothesis named
 
 -- ============================================================================
