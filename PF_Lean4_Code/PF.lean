@@ -187,6 +187,7 @@ import PF.CrossConnectionCapstone  -- 15+ axiom-free cross-field connections bun
 -- 2026-05-24 Universal α-Operator-Family unification — ONE structure, 9 instances
 -- ============================================================================
 import PF.UniversalAlphaOperatorFamily  -- HAlphaUniversal: one Lean structure unifying all 9 α-instances (P, NP, RH, NS, YM, BSD, Hodge, Poincaré, QG)
+import PF.CrossProblemEquivalenceAttack  -- 2026-05-24 Stage L26 — tests Pabs's "6 are 1" thesis under HAlphaUniversal. OUTCOME: PARTIAL COLLAPSE (4 of 6: NS/BSD/Hodge/YM unify via UniversalPlaceholderProp; Polylog & RH-Surj retain distinct Lean shapes). Axiom-free.
 
 -- ============================================================================
 -- 2026-05-24 Master Meta-Evidence Capstone — 4-axis referee-proof bundle
