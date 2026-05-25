@@ -1049,3 +1049,22 @@ The four chapters carry substantial mathematical content that is not yet machine
 - **Ch 25 Hodge**: `thm:critical-threshold` (σ_c = 6/π² + ε_quantum decomposition), `thm:hodge-concentration` (Hodge classes have σ_R_φ ≥ 0.95), `conj:crystallization-algebraicity`. α = φ.
 
 Each chapter's load-bearing conjecture(s) constitute the analog of Problem 1's polylog conjecture or Problem 4's surjectivity hypothesis. Formalizing the conditional reductions for Ch 22-25 in Lean would mirror the existing `P_neq_NP_via_spectral_gap` and `riemann_hypothesis_via_T3_sym_framework` constructions.
+
+---
+
+## ★★★ Wave 14 + Transcendental Followup: 9-class α-table organized into FOUR substructures (added 2026-05-25) ★★★
+
+After commit `d79c363` (Wave 14, algebraic α's) and `PF/H3UnifiedMillenniumStructureTranscendental.lean` (transcendental followup, this commit), the 9 α-classes of the framework are organized into four axiom-free substructures (no single substrate covers all 9 — consistent with the 2026-05-23 Maass-vs-H₃ negative result):
+
+| Substructure | Classes | Structural law (axiom-free) |
+|---|---|---|
+| Q(√2) tower (Wave 14) | Poincaré=1, P=√2, YM=2 | α_C = (α_P)^k for k ∈ {0,1,2}; α_YM = H₃_gap/2 |
+| Q(φ) pair (Wave 14) | Hodge=φ, NP=φ+¼ | α_NP − α_Hodge = 1/H₃_gap = ¼ |
+| π-rational (this commit) | NS=3π/2, BSD=3π/4 | λ_0(α) = k/30 ∈ ℚ at α = 3π/k; λ_0(α_NS)+λ_0(α_BSD) = 1/5 (B-clean prefactor); λ_0(α_BSD) = 2·λ_0(α_NS) |
+| QG fixed-point (this commit) | QG=√(2π) | α_QG is the unique positive fixed point of α ↦ 2π/α = 20·λ_0(α); α_QG² = 2π |
+
+**Cross-link (pre-existing):** the IBM Galois pair `(α_RH=3/2, α_NP=φ+¼)` (commit `ace1a5b`, `PF/IBMPeaksGaloisPair.lean`) cross-couples the Q(φ) pair to the rational α_RH-peak, organizing α_RH outside both the algebraic Wave 14 substrates and the transcendental substructures of this commit. α_RH is rational, so does not lie in either of the two new transcendental substructures, but the IBM Galois pair structure is the pre-existing axiom-free organizing principle for it.
+
+**Honest scope**: this is NOT a discharge of any Millennium problem. It exposes the COUPLING SHAPES under which the manuscript's α-choices land in structured positions of the universal coupling `λ_0(α)·α = π/10`. The deeper question of WHY the manuscript's α-values fall into exactly these substructures remains open.
+
+**Residual gap (for future attack)**: a SINGLE ambient organizing principle covering all 9 α-classes (rather than 4 substructures plus a Galois cross-link) is the open structural question. Candidates not yet investigated: (a) Eisenstein/period structure for the π-rational + QG side, (b) Mellin-transform spectrum aligning all 9, (c) a richer (non-H₃) Coxeter substrate that could absorb the transcendental side.
