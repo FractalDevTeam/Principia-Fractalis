@@ -205,6 +205,10 @@ import PF.MetaEvidenceCapstone  -- PrincipiaFractalisMetaEvidence: master capsto
 -- 2026-05-25 Master Cross-Millennium Unification — Wave 12 capstone
 -- ============================================================================
 import PF.MasterCrossMillenniumUnification  -- MasterCrossMillenniumUnification: meta_evidence + Waves8To11Additions (universal coupling, H₃ α-unification, CH₂=σ_c, NS base-3, base-3 load-bearing, P≠NP disjunctive, algebrization broken, observer-triviality-at-α=1)
+-- ============================================================================
+-- 2026-05-25 Consciousness Operator C — Ch 17 §13.6 ↔ RH structural bridge
+-- ============================================================================
+import PF.Consciousness.ConsciousnessOperatorC  -- The Ch 17 §13.6 consciousness operator C = ∫ ch_2(s)|s⟩⟨s|ds/(2π). Structural Props for self-adjointness, positivity, unboundedness, trace-class. The (P5) commutator-iff-Riemann-zero bridge formalized as ConsciousnessRHBridge — the direct consciousness↔RH structural anchor.
 
 -- ============================================================================
 -- 2026-05-24 Wave 8 (Stage L31) — Observer-Consciousness Bridge
