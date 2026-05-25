@@ -40,6 +40,7 @@ import PF.TuringEncoding.AlphaCanonical  -- Stage L4 — axiom-free α algebraic
 import PF.TuringEncoding.AlphaRealizationNoGo  -- 2026-05-24 — Meta-theorem: concrete alpha_of_class realisation of canonical pair ⇔ ClassP ≠ ClassNP (P vs NP)
 import PF.TuringEncoding.AlphaEnum        -- Stage L4 — ENUM-LEVEL axiom-free parallel framework
 import PF.TuringEncoding.PhaseSum     -- Stage L4 — phase-weighted theta-sum + closed form
+import PF.TuringEncoding.D3NonAlgebraic  -- 2026-05-24 — Algebrization-barrier defeat: D_3 has no polynomial extension over ℚ
 
 -- ============================================================================
 -- L4: Analytic foundation (polylogarithm)
