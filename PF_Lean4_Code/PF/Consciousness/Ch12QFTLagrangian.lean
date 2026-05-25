@@ -43,6 +43,7 @@ Stage L33 — Ch 12 Lagrangian structural formalization.
 
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Analysis.Complex.ExponentialBounds
 import Mathlib.Tactic
 import PF.Consciousness.Ch12MassIITBridge
 
@@ -239,7 +240,7 @@ theorem log_mC_ratio_bracket :
         rw [h_e7]
         calc (Real.exp 1)^7
             < (2.7182818286 : ℝ)^7 := by
-              apply pow_lt_pow_left h_e_lt (le_of_lt (Real.exp_pos 1)) (by norm_num)
+              apply pow_lt_pow_left₀ h_e_lt (le_of_lt (Real.exp_pos 1)) (by norm_num)
           _ < 1097 := by norm_num
       -- e^70 = (e^7)^10 < 1097^10
       have h_e70 : Real.exp 70 = (Real.exp 7)^10 := by
@@ -248,12 +249,12 @@ theorem log_mC_ratio_bracket :
       have hpos : 0 < Real.exp 7 := Real.exp_pos 7
       calc (Real.exp 7)^10
           < (1097 : ℝ)^10 := by
-            apply pow_lt_pow_left he7 (le_of_lt hpos) (by norm_num)
+            apply pow_lt_pow_left₀ he7 (le_of_lt hpos) (by norm_num)
         _ < 2.7e32 := by norm_num
     -- log is strictly monotone, exp(70) < 2.7e32 ⟹ 70 < log(2.7e32)
-    have h_pos : (0 : ℝ) < 2.7e32 := by norm_num
-    have := (Real.log_lt_log_iff h_pos).mpr hexp
-    simpa [Real.log_exp] using this
+    have h_exp_pos : (0 : ℝ) < Real.exp 70 := Real.exp_pos 70
+    have h_log := Real.log_lt_log h_exp_pos hexp
+    simpa [Real.log_exp] using h_log
   · -- log(2.7e32) < 80, i.e. 2.7e32 < exp 80. e^80 = (e^10)^8, e^10 > 22026
     have he10 : (22026 : ℝ) < Real.exp 10 := by
       have h_e_gt : (2.7182818283 : ℝ) < Real.exp 1 := by
@@ -265,7 +266,7 @@ theorem log_mC_ratio_bracket :
       calc (22026 : ℝ)
           < (2.7182818283 : ℝ)^10 := by norm_num
         _ < (Real.exp 1)^10 := by
-            apply pow_lt_pow_left h_e_gt (by norm_num) (by norm_num)
+            apply pow_lt_pow_left₀ h_e_gt (by norm_num) (by norm_num)
     have he80 : (2.7e32 : ℝ) < Real.exp 80 := by
       have h_e80 : Real.exp 80 = (Real.exp 10)^8 := by
         rw [← Real.exp_nat_mul]; norm_num
@@ -274,10 +275,10 @@ theorem log_mC_ratio_bracket :
       calc (2.7e32 : ℝ)
           < (22026 : ℝ)^8 := by norm_num
         _ < (Real.exp 10)^8 := by
-            apply pow_lt_pow_left he10 (le_of_lt hpos) (by norm_num)
+            apply pow_lt_pow_left₀ he10 (le_of_lt hpos) (by norm_num)
     have h_pos : (0 : ℝ) < 2.7e32 := by norm_num
-    have := (Real.log_lt_log_iff h_pos).mpr he80
-    simpa [Real.log_exp] using this
+    have h_log := Real.log_lt_log h_pos he80
+    simpa [Real.log_exp] using h_log
 
 /-! ## §6. Lagrangian as a structural Prop -/
 
