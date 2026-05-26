@@ -1,6 +1,37 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-26 (Waves 17 + 18 narrowings landed across all 6 Millennium problems + Consciousness P5/P6. Build clean, 0 project axioms, 0 sorries. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1-6.)*
+*Last updated: 2026-05-26 (Waves 19 + 20 + 21 narrowings landed across P≠NP boundary, YM mass-gap mechanism triage, RH literal-H_BK closure, Hodge CY3/CY4 substrates, NS 3D BKM local-time, BSD 4-rank concordance, Ch 20 manuscript propagation, plus 4 new Lean files + Wave 19 Coq parity. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+
+> **2026-05-26 WAVES 19 + 20 + 21 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates Wave 19 + 20 + 21 narrowings landed across the Millennium problems, the YM mass-gap mechanism triage, and the RH literal-H_BK route. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.** The standing referee-proof bar holds: `AlphaRealizationNoGo` continues to gate any unconditional discharge of Problem 1 (now FORMALLY proven as a sharp obstruction); RH surjectivity remains open; the literal Berry–Keating H_BK route is now formally CLOSED; YM mass-gap residual collapses to a single named Prop `UniformLevelKConcentration`; Hodge dim=3 (2,2) and dim=4 (1,1)+(2,2)+(3,3) reach substrate level on CY3/CY4; NS 3D Clay-grade content gains a BKM local-time discharge on top of the single residual vortex-stretching Prop; BSD reaches 4-rank concordance.
+>
+> **1. Problem 1 (P≠NP) — UNCONDITIONAL sharp-obstruction boundary formally proven.**
+> * `a968642` — `PNPUnconditionalDischargeAttempt`: Wave 19 records the formal certificate that the Wave 18 attempt does NOT discharge P≠NP unconditionally; `AlphaRealizationNoGo` is reaffirmed as the sharp obstruction in-Lean. The Problem 1 boundary of what the framework can claim is now formally fixed.
+> * **Residual:** unchanged in content but now formally bounded; any unconditional P≠NP discharge must route through (or around) `AlphaRealizationNoGo`.
+>
+> **2. Yang–Mills mass-gap — mechanism triage closes 2 of 3 routes; residual collapses to ONE named Prop.**
+> * `fe0413c` — `YangMillsUniformGapViaRepulsion`: (M1) repulsion mechanism REFUTED for the uniform mass-gap; (M2) kernel-positivity mechanism REFUTED for the gap; (M3) spectral-concentration route ISOLATED as the surviving candidate.
+> * `408ce0a` — `YangMillsSpectralConcentrationAttempt`: M3 level 1 DISCHARGED axiom-free; level k ≥ 2 reduced to ONE named conjecture `UniformLevelKConcentration`. **YM mass-gap residual is now ONE Prop.**
+>
+> **3. Riemann Hypothesis — literal H_BK route formally REFUTED.**
+> * `9936deb` — Wave 16 follow-up: finite-truncation analysis shows strict descent of the literal Berry–Keating H_BK eigenvalue sequence vs ascent of the ζ-zero sequence. One RH attack route is now formally CLOSED; the load-bearing surjectivity content is unaffected.
+>
+> **4. Hodge (Problem 4 analog) — substrate level reached on CY3 (2,2) and CY4 (1,1)+(2,2)+(3,3).**
+> * `661fff6` — `HodgeCalabiYau3FoldDim22Substrate`: (2,2)-slice substrate-level discharge on a projective CY3.
+> * `8ee352a` — Hodge Path D: dim = 4 Calabi–Yau 4-fold substrate across (1,1) + (2,2) + (3,3). **4 Hodge dimensions are now substrate-discharged.**
+>
+> **5. Navier–Stokes 3D — BKM local-time discharge complements the single residual vortex-stretching Prop.**
+> * `0956d65` + `d280edb` — `NS3DLocalRegularityViaBKM` registered in `PF.lean`; Ch 22 close-the-loop. The 3D NS Clay-grade content now has a BKM local-time discharge sitting alongside the single residual `NS3DVortexStretchingObstruction` Prop from Wave 17.
+>
+> **6. BSD (Problem 4 analog) — 4-rank concordance.**
+> * `340bf03` — `BSDRankThreeCurveFramework`: 4-rank concordance via curve 5077a1 (rank 3), extending the rank-0/1/2 concordance to rank-0/1/2/3 under the shared eigenvalue bracket.
+>
+> **7. Manuscript propagation + Lean/Coq parity (Wave 21).**
+> * `0477cfd` — Ch 20 manuscript: Wave 16–19 RH-route Lean updates propagated.
+> * `45589cc` — Wave 20–21 batch: 4 new Lean files (Hodge mathlib bridges, Weierstrass → Substrate, NS3D BKM, Polylog Galois pair) + Wave 19 Coq parity port.
+>
+> **Drift discipline.** Zero new top-level Problems. Every narrowing files under an existing Problem 1–6 or under a Problem 4 analog (Hodge / NS / YM / BSD). The open-surface count strictly contracts under Waves 19 + 20 + 21.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
 
 > **🎯 2026-05-26 WAVES 17 + 18 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates all Wave 17 + 18 narrowings landed across the six Millennium problems and the two Consciousness Props (P5)/(P6). Each item below cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.** The standing referee-proof bar holds: `AlphaRealizationNoGo` continues to gate any unconditional discharge of Problem 1; RH surjectivity remains open; Clay-grade 3D NS PDE content remains gated to a single explicit Prop; (P5)/(P6) sharpen to "infinite-dim AND non-multiplicative".
 >
