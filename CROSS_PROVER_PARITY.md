@@ -6,6 +6,84 @@
 > 2026-05-08) and `PRISTINE_CERTIFICATION.md` (current authoritative
 > per-prover state).
 
+## Cycle: 2026-05-25 — Wave 23/24 Coq parity stubs landed
+
+**Headline.** Nine new Coq parity files added under
+`PF_Coq_Code/PF/Wave{23,24}/`, extending Wave 20-22 coverage to the
+Wave 23/24 Lean additions (NS3D local n in {3,4,5}, BSD rank-blind
+universal + rank-{4,5} extensions, YM affine-multiscale NEGATIVE +
+non-affine quadratic UNLOCK, polylog orthogonality bundle, two
+master capstones). These stubs typecheck and discharge what is
+reachable at Coq 8.18 stdlib level; un-ported prerequisites are
+explicit `Parameter` declarations.
+
+### New Coq files (55 modules total, was 46)
+
+| Coq file | Lean source mirrored | Wave | Coq scope |
+|---|---|---|---|
+| `PF/Wave23/NS3DLocalRegularityAtNEqThree.v` | `PF/NS3DLocalRegularityAtNEqThree.lean` | 23 | Extends Wave 21 (n<=2) to n=3 via 3D Lagrange identity. Re-uses Wave 21 abstract Euclidean stubs; n=3 Hadamard inequality is `Parameter`. Capstone `local_vortex_stretching_bound_at_n_le_three`. Pure Coq stdlib discharge of structural identity + dispatch. |
+| `PF/Wave23/BSDRankBlindUniversalConcordance.v` | `PF/BSDRankBlindUniversalConcordance.lean` | 23 | Rank-parametric BSDFrameworkInstance Record over abstract CurveQ. Four concrete LMFDB witnesses (32.a3/37a1/389a1/5077a1). Universal anchor + universal Galois-pair separation. Capstone `bsd_rank_blind_universal_concordance` + uniform export. Parameters: BSD eigenvalue + bracket + alpha_RH/NP separations. |
+| `PF/Wave23/YangMillsConcentrationViaMultiscaleAveraging.v` | `PF/YangMillsConcentrationViaMultiscaleAveraging.lean` | 23 | NEGATIVE narrowing: A_2=3/4; image computations 3/8+r and 9/8+r at k=2; residual solution sets {1/8,9/8} and {-5/8,3/8} are disjoint; generic-slope obstruction for A not in {0,1,-1}. `MultiscaleAveragingBlocked` Prop + capstone `YM_uniform_concentration_via_multiscale_averaging_blocked`. Pure real arithmetic, axiom-free at stdlib level. |
+| `PF/Wave23/PolylogResonanceOrthogonalityCapstone.v` | `PF/PolylogResonanceOrthogonalityCapstone.lean` | 23 | Single referee-citable orthogonality bundle: (R) resonance Prop, (B) algebraic-content<->eigenvalue conjecture bridge, (C) algebraic-content -> classes distinct, (X) spectral reading refuted. Parametric in alpha; capstone `polylog_resonance_pnp_orthogonality_citable` + specialisations at sqrt(2) and phi+1/4. Four orthogonality components are `Parameter`. |
+| `PF/Wave23/Wave21MasterCapstone.v` | `PF/Wave21MasterCapstone.lean` | 23 | META-AGGREGATION ONLY. 11 True-bodied provenness tags (PNP non-discharge, YM triage, Hodge CY3/CY4, NS3D BKM, BSD 4-rank, BK NEGATIVE, YM M3 level-1, Hodge mathlib bridges, Polylog Galois pair, manuscript Ch 20 propagation). Wave21MasterCapstone Record extending Wave18MasterCapstone (provenness anchor). |
+| `PF/Wave24/NS3DLocalRegularityAtNEqFourFive.v` | `PF/NS3DLocalRegularityAtNEqFourFive.lean` | 24 | Extends Wave 23 (n<=3) to n in {4,5} via 4D/5D diagonal Cauchy-Schwarz expansions (12 + 20 off-diagonal squares respectively). Hadamard inequalities at n=4 and n=5 are `Parameter`. Capstone `local_vortex_stretching_bound_at_n_le_five`. |
+| `PF/Wave24/BSDRankFourFiveFrameworks.v` | `PF/BSDRankFourFiveFrameworks.lean` | 24 | Extends Wave 23 to ranks 4 and 5 via LMFDB 234446.a1 and 19047851.a. Two new BSDFrameworkInstance witnesses, knownRankCurve6 dispatcher, 6-rank capstone `bsd_rank_six_universal_concordance` + uniform export + two-rank concordance. Concordance != discharge. |
+| `PF/Wave24/YangMillsNonAffineCoupledResidual.v` | `PF/YangMillsNonAffineCoupledResidual.lean` | 24 | POSITIVE non-affine UNLOCK: quadraticEigenvalueMap; difference identity 2*alpha+beta; two explicit witnesses (alpha=1, beta in {-2,-1}, gamma in {5/4,3/4}); underdetermined-family theorem at every alpha != 0; affine-collapse re-inheritance. Capstone `YM_non_affine_quadratic_cluster_fixing_unlocked`. Pure real arithmetic, axiom-free at stdlib level. |
+| `PF/Wave24/Wave22_23MasterCapstone.v` | `PF/Wave23MasterCapstone.lean` | 24 | META-AGGREGATION ONLY. 11 True-bodied provenness tags (YM kernel obstruction, NS3D n<=2 + n<=3, framework headline 19-field, cross-Millennium 11 invariants, YM multiscale NEGATIVE, BSD rank-blind, Ch 29 propagation, Coq parity stubs W20-22, OPEN_PROBLEMS banner, P5 orphan removal). Wave22_23MasterCapstone Record extending Wave21MasterCapstone. |
+
+### Parity coverage delta (incremental update)
+
+Wave 23-24 audit (2026-05-25): adds 9 PARITY-TRACKED entries
+covering the Wave 23/24 Lean additions.
+
+* **PARITY-TRACKED additions**: 9 new Coq files (5 in Wave 23,
+  4 in Wave 24) corresponding to Wave 23/24 Lean capstones.
+* **MATCHED**: unchanged.
+* **MISSING (no Coq counterpart)**: unchanged.
+
+### Build state
+
+* **Coq**: `make clean && make` succeeds (55 modules; was 46).
+  All nine new Wave 23/24 files compile cleanly under Coq 8.18.
+* `Admitted.` count in new files:
+  * `Wave23/NS3DLocalRegularityAtNEqThree.v`: 0 (structural identity
+    dispatch under abstract n=3 Hadamard `Parameter`).
+  * `Wave23/BSDRankBlindUniversalConcordance.v`: 0 (Record + concrete
+    instance discharge under parameterized brackets).
+  * `Wave23/YangMillsConcentrationViaMultiscaleAveraging.v`: 0
+    (pure real arithmetic at depth k=2).
+  * `Wave23/PolylogResonanceOrthogonalityCapstone.v`: 0 (orthogonality
+    bundle discharge under the four `Parameter` components).
+  * `Wave23/Wave21MasterCapstone.v`: 0 (META-AGGREGATION; all `I`).
+  * `Wave24/NS3DLocalRegularityAtNEqFourFive.v`: 0 (structural
+    identity dispatch under n=4 / n=5 Hadamard `Parameter`s).
+  * `Wave24/BSDRankFourFiveFrameworks.v`: 0 (two new instances +
+    capstone discharge inheriting Wave 23 Parameters).
+  * `Wave24/YangMillsNonAffineCoupledResidual.v`: 0 (pure real
+    arithmetic; two explicit witnesses + underdetermined family).
+  * `Wave24/Wave22_23MasterCapstone.v`: 0 (META-AGGREGATION; all `I`).
+* **Lean**: state unchanged this cycle.
+
+### Files NOT yet ported but referenced by new stubs
+
+* Lean `EuclideanSpace R (Fin n)` infrastructure for n in {3, 4, 5}
+  — Wave 23 / Wave 24 NS3D stubs use `Parameter` Hadamard
+  inequalities; underlying Cauchy-Schwarz / Lagrange identity
+  inequalities are not in Coq 8.18 stdlib.
+* Lean mathlib `WeierstrassCurve Q` — Wave 23 BSD stub uses abstract
+  `CurveQ : Type` parameter.
+* Lean Wave 17 spectral two-vector Rayleigh quotient + Hilbert-Schmidt
+  refutation machinery — Wave 23 polylog orthogonality stub uses
+  `Parameter` two-vector quotient + ground-state value + refutation
+  witness.
+
+### Honest scope of "PARITY-TRACKED" (unchanged criteria)
+
+See the 2026-05-26 Wave 15 entry below for the 6-point criteria.
+All 9 new files satisfy criteria 1-6.
+
+---
+
 ## Cycle: 2026-05-26 — Wave 20/21/22 Coq parity stubs landed
 
 **Headline.** Eight new Coq parity files added under
