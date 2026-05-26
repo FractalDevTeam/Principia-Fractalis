@@ -31,3 +31,8 @@ PF/Analytic/SpectralResonanceBridge.v
 PF/Wave15/H3Unified.v
 PF/Wave15/PerelmanBackward.v
 PF/Wave15/ConsciousnessRHBridge.v
+PF/Wave15/HodgeCurveDim1Substrate.v
+PF/Wave16/YangMillsLevelKSpectrum.v
+PF/Wave17/PolylogEigenvalueReformulated.v
+PF/Wave18/NS3DVortexStretchingObstruction.v
+PF/Wave18/CycleClassMapOnCurve.v

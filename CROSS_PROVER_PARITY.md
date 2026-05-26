@@ -6,6 +6,68 @@
 > 2026-05-08) and `PRISTINE_CERTIFICATION.md` (current authoritative
 > per-prover state).
 
+## Cycle: 2026-05-26 — Wave 16/17/18 Coq parity stubs landed
+
+**Headline.** Five new Coq parity files added under
+`PF_Coq_Code/PF/Wave{15,16,17,18}/`, extending Wave 15 coverage to
+the most strategically important Wave 16/17/18 Lean additions. Per
+`CROSS_PROVER_PARITY_AUDIT_2026-05-25.md`, these stubs typecheck and
+discharge what is reachable at Coq 8.18 stdlib level; un-ported
+prerequisites are explicitly `Admitted.` / `Parameter`.
+
+### New Coq files (38 modules total, was 33)
+
+| Coq file | Lean source mirrored | Wave | Coq scope |
+|---|---|---|---|
+| `PF/Wave15/HodgeCurveDim1Substrate.v` | `PF/HodgeCurveDim1Substrate.lean` | 15 | `HodgeCurveSubstrate` record, degree map, cohomology class (= Q via degree), Lefschetz (1,1) at dim=1 discharged (axiom-free over Coq stdlib). Algebraic-rep predicate Parameter from `MillenniumSixReductions.v` skeleton. Worked instance: one-point degree-1 substrate. |
+| `PF/Wave16/YangMillsLevelKSpectrum.v` | `PF/YangMillsLevel{2,3,4,5}Spectrum.lean` | 15-18 | Level-1 EXACT spectrum {1/2, 3/2}, trace=2, gap=1 discharged. Levels 2-5 trace-invariance Props as Parameters. Generic Cauchy-Schwarz Frobenius lower bound 4*(1/2)^k discharged via induction. Geometric decay rate theorem. Trace-doubling refuted at every k in {1..5}. |
+| `PF/Wave17/PolylogEigenvalueReformulated.v` | `PF/PolylogEigenvalueReformulated.lean` | 17 | Wave 17 honest restatement: `PolylogResonanceConjecture`, `PolylogAlgebraicContent`, `wave17_unified_honest_restatement` capstone signatures. B-clean phase identity and arxivHalpha spectral-reading refutation as Parameters. Algebraic-content <-> PolylogEigenvalueConjecture Iff discharged (reflexivity). |
+| `PF/Wave18/NS3DVortexStretchingObstruction.v` | `PF/NS3DVortexStretchingObstruction.lean` | 18 | `VortexStretching3D` operator + norm structure stubs, `VortexStretchingBoundedHypothesis` Prop, `BKM_3D_criterion_from_vortex_stretching_bound` conditional reduction, NS-3D Clay residual capstone. 2D-vs-3D gap explicit statement. EuclideanSpace + Matrix infrastructure parameterized. |
+| `PF/Wave18/CycleClassMapOnCurve.v` | `PF/AlgebraicGeometry/{MinimalChowGroup,CycleClassMapOnCurve}.lean` | 17-18 | Combined port of MinimalChowGroup API skeleton + CycleClassMapOnCurve concrete dim=1 instance. `HodgeConjectureChow` predicate, `CurveAmbient C` wrapper, `curve_cycle_class_map` = degree, surjectivity discharged via single-point exhibit. `HodgeConjecture_for_curves_via_ChowGroup` capstone proved at Coq stdlib level. |
+
+### Parity coverage delta (incremental update)
+
+Wave 15 audit (2026-05-26): 5/10 MATCHED + 4 PARITY-TRACKED + 3 MISSING.
+
+After this cycle:
+* **PARITY-TRACKED additions**: 5 new Coq files corresponding to
+  Wave 15-18 Lean capstones not previously in the 10-row table.
+* **MATCHED**: unchanged (5/10).
+* **MISSING (no Coq counterpart)**: unchanged at 3/10 (the deep
+  capstones requiring Coquelicot / Hilbert stack).
+
+### Build state
+
+* **Coq**: `make clean && make` succeeds (38 modules; was 33).
+  No errors. Five new files compile cleanly under Coq 8.18.
+* `Admitted.` count in new files:
+  * `HodgeCurveDim1Substrate.v`: 0 (uses Parameter for algebraic-rep anchor).
+  * `YangMillsLevelKSpectrum.v`: 1 (unified Level-1-to-5 capstone has `admit` for 4 Parameter-Prop trace-invariance clauses, then `Admitted.`).
+  * `PolylogEigenvalueReformulated.v`: 0 (uses Parameter for B-clean + spectral refutation).
+  * `NS3DVortexStretchingObstruction.v`: 1 (`BKM_3D_criterion_from_vortex_stretching_bound`).
+  * `CycleClassMapOnCurve.v`: 0 (all theorems proved at Coq stdlib level).
+* **Lean**: state unchanged this cycle.
+
+### Files NOT yet ported but referenced by new stubs
+
+* `PF/Analytic/BCleanPhaseIdentity.lean` — `R_f_principal`, B-clean
+  identity. `Wave17/PolylogEigenvalueReformulated.v` records as
+  Parameter `b_clean_phase_identity_coq`.
+* `PF/PolylogViaHilbertSchmidtCompactness.lean` — Wave 17
+  Hilbert-Schmidt machinery. Records as Parameter
+  `arxivHalpha_spectral_reading_refuted`.
+* `PF/Analytic/MatrixEntry.lean` — level-k matrix infrastructure.
+  Wave16 records level-k trace-invariance Props as Parameters.
+* `PF/NS2DGlobalRegularity.lean` — 2D vortex-stretching vanishing.
+  Records as Parameter `vortex_stretching_vanishes_2D`.
+
+### Honest scope of "PARITY-TRACKED" (unchanged criteria)
+
+See the 2026-05-26 Wave 15 entry above for the 6-point criteria.
+All 5 new files satisfy criteria 1-6.
+
+---
+
 ## Cycle: 2026-05-26 — Wave 15 Coq parity stubs landed
 
 **Headline.** Three new Wave 15 Coq parity files added under
