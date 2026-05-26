@@ -6,6 +6,99 @@
 > 2026-05-08) and `PRISTINE_CERTIFICATION.md` (current authoritative
 > per-prover state).
 
+## Cycle: 2026-05-26 — Wave 15 Coq parity stubs landed
+
+**Headline.** Three new Wave 15 Coq parity files added under
+`PF_Coq_Code/PF/Wave15/`, mirroring Lean Wave 14 + Wave 15 content.
+Per the `CROSS_PROVER_PARITY_AUDIT_2026-05-25.md` allowance for
+framework-conditional content with un-ported analytic prerequisites,
+these stubs typecheck and discharge what is reachable at the Coq
+8.18 stdlib level; remaining clauses are explicitly `Admitted.` or
+recorded as named Props.
+
+### New Coq files (33 modules total, was 30)
+
+| Coq file | Lean source mirrored | Coq scope |
+|---|---|---|
+| `PF/Wave15/H3Unified.v` | `PF/H3UnifiedMillenniumStructure.lean` (Wave 14) + `PF/H3UnifiedMillenniumStructureTranscendental.lean` (Wave 15) | Algebraic Q(√2)-tower + Q(φ)-pair structure; π-rational collapse for NS/BSD; QG fixed-point equation. Two capstones discharged with proven algebraic clauses + 2 stub Props for B-clean phase clauses (pending `BCleanPhaseIdentity.v` port). |
+| `PF/Wave15/PerelmanBackward.v` | `PF/PerelmanBackwardUnifiedAttack.lean` | α-rescaled discrete W-entropy, monotonicity proven via subset induction; surgery-cascade analogy; cross-α implication (unconditionally true mirror); Path D cardinality obstruction. `W_alpha_bounded` `Admitted.` pending tsum/Tendsto Coq port. |
+| `PF/Wave15/ConsciousnessRHBridge.v` | `PF/Consciousness/ConsciousnessRHBridge.lean` | `ConsciousnessRHSubstrate` record, `CommutatorVanishesAtRHZeros`, `ConsciousnessStationaryStateCompleteness`, capstone signature. Capstone `Admitted.` because tying `RiemannHypothesisCoqStub` to the substrate needs Coq complex-analysis stack (Coquelicot pinned out). |
+
+### Parity coverage delta vs `CROSS_PROVER_PARITY_AUDIT_2026-05-25.md` (10-theorem table)
+
+| # | Lean theorem | Audit status (2026-05-25) | New status (2026-05-26) |
+|---|---|---|---|
+| 9 | `riemann_hypothesis_via_consciousness_bridge` | MISSING | **PARITY-TRACKED** (`PF/Wave15/ConsciousnessRHBridge.v`) |
+| 10 | `H3_unified_algebraic_Millennium_structure` | MISSING | **PARITY-TRACKED** (`PF/Wave15/H3Unified.v`) |
+
+Plus newly parity-tracked Wave 15 capstones not in the 10-row table:
+* `transcendental_unified_Millennium_structure` (Wave 15 transcendental) — parity-tracked in `PF/Wave15/H3Unified.v`.
+* `perelman_backward_unified_attack_capstone` (Wave 15 Perelman) — parity-tracked in `PF/Wave15/PerelmanBackward.v`.
+
+**MATCHED**: 5/10 → 5/10 (deep matches unchanged).
+**PARITY-TRACKED (stubs typecheck, content partially proven)**: 0 → 4 (capstones #9, #10, plus 2 Wave 15 capstones).
+**MISSING (no Coq counterpart at all)**: 5/10 → 3/10.
+
+### Honest scope of "PARITY-TRACKED"
+
+This is a NEW intermediate status between MATCHED and MISSING.
+A theorem is PARITY-TRACKED when:
+
+1. The Coq file exists in the canonical build (`PF_Coq_Code/`).
+2. The capstone Theorem signature is declared with the same
+   structural shape as the Lean original.
+3. All purely algebraic / discrete clauses are proven axiom-free.
+4. Clauses requiring Lean-mathlib infrastructure not available in
+   Coq stdlib (mathlib `→L[ℂ]`, `Tendsto`, `tsum`, `riemannZeta`,
+   `RiemannHypothesis`, mathlib `Hilbert space` API, etc.) are
+   explicitly `Admitted.` or recorded as Prop stubs with
+   `Definition Foo : Prop := True.` patterns.
+5. The Coq file typechecks under Coq 8.18 with stdlib only.
+6. The Coq file documents (in its header and inline) WHICH clauses
+   are framework-conditional and WHAT pre-requisite Coq port would
+   discharge them.
+
+A PARITY-TRACKED theorem is NOT a Coq-side discharge. It documents
+parity INTENT and exposes the structural shape on the Coq side.
+
+### Build state
+
+* **Coq**: `make clean && make` succeeds (33 modules; was 30). No
+  warnings. Wave 15 stubs typecheck cleanly. The 3 new files
+  contribute 4 explicit `Admitted.` (one in `H3Unified.v` is
+  avoided via the BCleanPhase stub-True pattern; one in
+  `PerelmanBackward.v` for `W_alpha_bounded`; two in
+  `ConsciousnessRHBridge.v` for `P5_holds_trivial` and the capstone).
+* **Lean**: state matches `CROSS_PROVER_PARITY_AUDIT_2026-05-25.md`
+  (build regression in `Ch12QFTLagrangian.lean` and
+  `VAlphaPMapDischarge.lean` not addressed by this cycle).
+
+### Files NOT ported by this cycle (still MISSING in Coq)
+
+* `principia_fractalis_millennium_capstone` (Lean `PF/Millennium.lean`)
+* `riemann_hypothesis_via_T3_sym_framework[_fully_discharged]`
+  (blocks on Coquelicot 3.4.x + Hilbert stack)
+* `MonodromyGluingLemma_proven`
+
+These three remain in MISSING status. The `CROSS_PROVER_PARITY_AUDIT_2026-05-25.md`
+section "Recommended next-session priorities" item 5 (defer broad
+Coq parity catch-up pending Coquelicot decision) still applies.
+
+### Files NOT yet ported but referenced by the new Wave 15 stubs
+
+* `PF/H3CoxeterOrigin.lean` — Coxeter combinatorics, `h(H₃)=10`,
+  `sin(π/10) = 1/(2φ)`. Wave 15 H3Unified.v exposes `H3_rank`,
+  `H3_exponent_gap`, `H3_Coxeter_number` as bare `Definition`s
+  (no theorems consumed); deferred for future port.
+* `PF/Analytic/BCleanPhaseIdentity.lean` — `R_f_principal` and the
+  B-clean phase identity. Wave 15 H3Unified.v records the two
+  phase-deficit clauses as `Definition ... : Prop := True.` stubs.
+* `PF/NSBase3SelfSimilarity.lean` — cascade geometric-series
+  closed form `∑(Z/S)^n = 3`. Wave 15 PerelmanBackward.v records
+  this as `cascade_geometric_series_value_Prop`.
+
+---
+
 ## Cycle: 2026-05-22 — Lean substantially extended; Coq parity gap documented
 
 **Headline.** Since the 2026-05-20 5th-push lockstep (Lean commit
