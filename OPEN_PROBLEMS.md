@@ -1,6 +1,37 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-25 (Wave 12 REPAIR + UNIFIED BRIDGE: Wave 11 `KatoRellichInputPMap_proven` was previously broken with `sorryAx` dependencies — REPAIRED in this session. Build: 7214 jobs clean, 0 project axioms, 0 sorries.)*
+*Last updated: 2026-05-26 (Wave 16 batch landed: 14 new axiom-free Lean files attacking all 6 Millennium problems + Consciousness P5/P6 directly. Build: 7222 jobs clean, 0 project axioms, 0 sorries. **NET NARROWING, NOT WIDENING** — no new Problems 7+ added; sub-results tracked under existing Problems 1-6.)*
+
+> **🎯 2026-05-26 WAVE 16 SESSION UPDATE — 14-file batch (commit `6538bb4`), 2 files per Millennium problem.** Wave 16's parallel-agent dispatch landed 14 axiom-free Lean files (full build clean at 7222 jobs; capstones spot-checked `#print axioms` = `[propext, Classical.choice, Quot.sound]`). **Every file delivers structural progress on a conditional reduction; NONE discharges a Clay Millennium problem unconditionally.** The standing referee-proof bar holds: `AlphaRealizationNoGo` (PolylogEC ⇔ ClassP ≠ ClassNP) remains in force; RH surjectivity remains open; YM continuum lift remains conditional on Y1–Y4; NS Clay-grade PDE content remains gated by absent mathlib infrastructure; BSD per-curve content remains conditional; Hodge dim ≥ 2 remains gated by absent algebraic-cycles infrastructure; (P5)/(P6) remain open on full 𝒯_∞.
+>
+> **Wave 16 files by Millennium problem (honest scope per file):**
+> * **P vs NP → Problem 1:** `PolylogEigenvalueDischargeAttempt.lean` (V_α spectral identification attempt — honest about the `AlphaRealizationNoGo` block); `PNPDischargeViaEmpiricalCH2.lean` (composite empirical bound via 143-problem 10⁻⁴⁰ + IBM peak-α match — empirical, NOT a Clay discharge).
+> * **RH → Problem 4:** `RHSurjectivityFiniteN.lean` (finite-N surjectivity witness for first N known ζ-zeros — a concrete numerical theorem, NOT the load-bearing infinite surjectivity); `RHViaArxivVAlphaAt3Halves.lean` (Hilbert–Pólya-style identification using arxiv V_α at α=3/2 — conditional reduction, NOT unconditional).
+> * **Yang–Mills → Problem 4-equivalent track:** `YangMillsLevel3Spectrum.lean` (level-3 structural certificate extending Wave-15 level-2 commit `f71fb04` — structural ladder, NOT Clay mass-gap); `YangMillsPerelmanTemplateY1Y4Discharge.lean` (one of the four Y-pieces of the `YMContinuumLiftWitnessExists` template — partial, three Y-pieces remain).
+> * **Navier–Stokes → Problem 4-equivalent track:** `NSGlobalSmoothSmallReFiniteDimAnalog.lean` (small-Reynolds finite-dim analog — explicitly labeled NOT Clay-grade); `NSFiniteDimGalerkinGlobalExistence.lean` (Galerkin truncation global existence via mathlib ODE infrastructure — finite-dim only).
+> * **BSD → Problem 4-equivalent track:** `BSDRankZeroSpecificCurve.lean` (rank-0 CM curve y²=x³−x framework instance); `BSDRankOne37a1.lean` (rank-1 curve 37a1 framework instance — honest that BSD on 37a1 is the classical Gross–Zagier result, NOT reproven here).
+> * **Hodge → Problem 4-equivalent track:** Wave 15 prerequisite `HodgeCurveDim1Substrate.lean` (commit `db41ba0`, dim=1 curve substrate with concrete divisor witness); plus Wave 16 `HodgeK3Dim2Substrate.lean` (K3 surface dim=2 attempt) and `HodgeAbelianSurfaceDim2Substrate.lean` (abelian-surface dim=2, extending the dim=1 Lefschetz pattern). Dim ≥ 2 remains open on the substantive algebraic-cycles content.
+> * **Consciousness → Problems 5 + 6:** `ConsciousnessP5PermutationSubstrate.lean` (parametric permutation-substrate family characterizing when (P5) holds); `ConsciousnessP6InfiniteDimSubstrate.lean` (ℕ-indexed natural infinite-dim substrate — reduces (P6) to surjectivity, parallel to Problem 4).
+>
+> **Related companion commits (Wave 15 + cross-cutting, 2026-05-25):**
+> * `7975264` — Perelman backward unified attack (`PF/PerelmanBackwardUnifiedAttack.lean`, 4 paths, axiom-free). Banner below.
+> * `f71fb04` — `YangMillsLevel2Spectrum.lean` level-2 structural certificate at α=2, a=2 (precursor to Wave 16's level-3).
+> * `db41ba0` — Hodge Path A dim=1 curve substrate (precursor to Wave 16's dim=2 attempts).
+> * `80e5aa4` — H₃ Unified Transcendental Substrate (3-of-4 transcendental α organization; full banner below).
+> * `9b5e6ed` — P5/P6 narrowing witnesses (full banner below).
+>
+> **Per-Problem residual deltas after Wave 16 (narrowed, not widened):**
+> * **Problem 1** residual still on operator-theoretic side; `PolylogEigenvalueDischargeAttempt` documents the `AlphaRealizationNoGo` blocker formally; `PNPDischargeViaEmpiricalCH2` records the empirical-bound route as auxiliary evidence, not a formal discharge.
+> * **Problem 2** unchanged.
+> * **Problem 3** remains RESOLVED (2026-05-20).
+> * **Problem 4** narrows: RH surjectivity has a finite-N witness for the first N known ζ-zeros (`RHSurjectivityFiniteN`) and a second axiom-free conditional reduction via arxiv V_α at α=3/2 (`RHViaArxivVAlphaAt3Halves`). The load-bearing infinite-surjectivity conjecture is unchanged.
+> * **Problem 5** narrows further (Wave 16 + Wave 15): the parametric permutation-substrate family adds structure to the substrate-search task initiated by `ConsciousnessRHBridgeWitnesses.lean`. The substantive (P5) content on full 𝒯_∞ is unchanged.
+> * **Problem 6** narrows: ℕ-indexed natural infinite-dim substrate explicitly reduces (P6) to surjectivity (structurally parallel to Problem 4). The load-bearing surjectivity content is unchanged.
+> * **Cross-Millennium track (Problem 4 analog for YM, NS, BSD, Hodge):** each Millennium problem now has at least one explicit instance file (rank-0 BSD curve, dim=1 Hodge substrate, level-3 YM certificate, finite-dim Galerkin NS). None promotes to Clay-grade.
+>
+> **Drift discipline.** Wave 16 introduces NO new top-level Problems. Each new file is filed under an existing Problem 1–6. Pabs's drift signal — flagged when proposed new Problems would widen the catalog beyond the original 6 — was respected. Process note: the 18-agent parallel dispatch exhausted usage limit; future dispatches will be smaller (1–3 highest-leverage agents per session).
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
 
 > **🎯 2026-05-25 WAVE 12 SESSION UPDATE (REPAIR + UNIFIED BRIDGE) — All explicit-V_α theorems now genuinely axiom-free.** Wave 11's `KatoRellichInputPMap_proven` was shipped with structurally broken proofs that Lean's recovery mode silently relabelled with `sorryAx`. The full project build was failing. This session repaired both halves and added a unified bridge:
 >
