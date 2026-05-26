@@ -264,6 +264,7 @@ import PF.AlgebraicGeometry.CycleClassMapOnCurve  -- 2026-05-25 — Concrete `Cy
 -- ============================================================================
 import PF.BSDGaloisPairConcordance  -- 2026-05-25 Wave 17 (7df87a9) — rank-0 ↔ rank-1 concordance via shared φ/e bracket + Galois-pair separation. E_rank_zero (y²=x³−x, LMFDB 32.a3, Δ=64) + E_rank_one (y²+y=x³−x, LMFDB 37a1, Δ=37) bundled in bsd_rank_zero_and_one_concordance. Rank-blind at bracket level; rank lives in eigenvalue multiplicity. NOT a BSD discharge. ZERO project axioms.
 import PF.BSDRankTwoCurveFramework  -- 2026-05-25 Wave 18 — extends Wave 17 concordance to rank 2 via LMFDB 389a1 (y²+y=x³+x²−2x, smallest-conductor rank-2 curve, N=389). 3-rank capstone bsd_rank_zero_one_two_concordance certifies the φ/e bracket (0.595, 0.596) is rank-blind across ranks {0, 1, 2}. Rank-2 fact (Cremona / Buhler-Gross-Zagier 1985) recorded as manuscript-cited LABEL, NOT a Lean-side proof. NOT a BSD discharge. ZERO project axioms.
+import PF.BSDRankThreeCurveFramework  -- 2026-05-25 Wave 18 — extends 3-rank concordance to rank 3 via LMFDB 5077a1 (y²+y=x³−7x+6, smallest-conductor rank-3 curve, N=5077). 4-rank capstone bsd_rank_zero_one_two_three_concordance certifies the φ/e bracket (0.595, 0.596) is rank-blind across ranks {0, 1, 2, 3}. Rank-3 fact (Buhler-Gross-Zagier 1985) recorded as manuscript-cited LABEL, NOT a Lean-side proof. NOT a BSD discharge. ZERO project axioms.
 
 /-!
 ## Principia Fractalis Formal Verification
