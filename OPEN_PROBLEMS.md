@@ -1,6 +1,37 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-26 (Waves 22 + 23 narrowings landed across YM mass-gap affine-class closure, NS small-time discharge at n∈{0,1,2,3}, BSD 4-rank universal concordance, 12 cross-Millennium algebraic invariants, framework headline META, Wave 21+22 master capstone aggregation, Coq parity to 46 modules, Ch 29 empirical propagation, plus orphan cleanup. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+*Last updated: 2026-05-26 (Waves 24 + 25 narrowings landed across YM mass-gap quadratic-class unblock + bare-quadratic miss, NS small-time discharge extended to n∈{0..5} diagonal + n∈{0,1} off-diagonal BKM-form, BSD 6-rank universal concordance, polylog resonance 4-clause orthogonality bundle, Consciousness (P5) ℓ²(ℕ) substrate inhabitation, Wave 24 META capstone + framework headline, Coq parity to 55 modules. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+
+> **2026-05-26 WAVES 24 + 25 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates Wave 24 + 25 narrowings landed across the YM mass-gap mechanism triage (quadratic class), NS small-time content at additional orders + off-diagonal BKM form, BSD higher-rank concordance, polylog resonance orthogonality bundle, Consciousness (P5) substrate inhabitation, and framework-headline META aggregation. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.** Prior bars hold; affine-class YM closure (Wave 22) now flanked by quadratic-class algebraic unblock and a bare-quadratic-Gram miss.
+>
+> **1. Yang–Mills mass-gap — QUADRATIC class unblocked algebraically; bare quadratic-in-K Gram MISSES Wave 24 family.**
+> * `f706266` — Quadratic-class mechanism unblocked algebraically with cluster-fix witnesses `(1, -1, 3/4)`; the post-affine surviving family gains a first concrete entry point.
+> * `3fe9934` — `YangMillsQuadraticKernelMechanism`: the BARE quadratic-in-K Gram MISSES the Wave 24 family; the surviving viable form must be MIXED-ORDER `a·M² + b·M + c·I` with **nontrivial b, c** (i.e., a quadratic-only-in-K route is also blocked).
+> * **Residual:** YM mass-gap content collapses further — surviving mechanism is mixed-order quadratic with nontrivial b,c (or coupled-residual / non-affine routes from Wave 22).
+>
+> **2. Navier–Stokes 3D — small-time DIAGONAL discharge extended to n∈{0..5}; OFF-DIAGONAL substantive at n∈{0,1} in BKM form.**
+> * `b82e930` — Small-time diagonal Galerkin discharge extended to orders n ∈ {0, 1, 2, 3, 4, 5}. Six small-time diagonal orders now formally closed.
+> * `8bd8a73` — Off-diagonal `ω_j·∂_j u_i` (i≠j) cross-component vortex-stretching becomes substantive at n ∈ {0, 1} matching the BKM form `‖VS‖ ≤ K · ‖ω‖ · ‖∇u‖`.
+> * **Residual:** single `NS3DVortexStretchingObstruction` Prop unchanged in content but flanked by 6 diagonal orders + 2 off-diagonal orders in BKM form.
+>
+> **3. BSD (Problem 4 analog) — 6-rank UNIVERSAL concordance.**
+> * `d58f5ac` + `b85d981` — Universal 6-rank concordance across curves `32.a3`, `37a1`, `389a1`, `5077a1`, `234446a1`, `19047851a` (ranks 0/1/2/3/4/5+). Shared eigenvalue bracket now extends one rank further.
+>
+> **4. Polylog Resonance (Problem 1 algebraic content) — 4-clause orthogonality citable bundle.**
+> * `f860989` — Single citable 4-clause orthogonality bundle for `PolylogResonanceConjecture` consumers; downstream P≠NP chain pulls one symbol instead of four.
+>
+> **5. Consciousness (P5) — ℓ²(ℕ) substrate INHABITS the Hilbert–Pólya class.**
+> * `7463651` — `ConsciousnessLpNatSubstrate`: ℓ²(ℕ) is now a formal inhabitant of the Hilbert–Pólya class for (P5); the residual class is no longer empty of concrete witnesses.
+>
+> **6. Framework headline META + Wave 24 capstone + Coq parity.**
+> * `04b273c` — Wave 22 + 23 capstone META-aggregation.
+> * `8a7bf7e` — `Wave24MasterCapstone` META-aggregation for Wave 24.
+> * `2c642f4` — Framework headline single-citable META theorem (re-confirmed).
+> * `b366e90` — Coq parity extended to **55 modules**.
+>
+> **Drift discipline.** Zero new top-level Problems. Every narrowing files under an existing Problem 1–6 or under a Problem 4 analog (YM / NS / BSD). The open-surface count strictly contracts under Waves 24 + 25.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
 
 > **2026-05-26 WAVES 22 + 23 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates Wave 22 + 23 narrowings landed across the YM mass-gap mechanism triage, NS small-time content, BSD higher-rank concordance, cross-Millennium algebraic structure, and framework-headline META aggregation. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.** YM mass-gap surviving viable mechanisms now reduced to NON-AFFINE or coupled-residual only; NS small-time content discharged at four orders; BSD reaches 4-rank universal concordance; 12 algebraic invariants tie all six Millennium α's into one structural lattice.
 >
