@@ -165,6 +165,7 @@ import PF.NS3DVortexStretchingObstruction -- 2026-05-25 — 3D vortex-stretching
 import PF.NS3DLocalRegularityViaBKM -- 2026-05-25 — Local-in-time 3D NS regularity (Leray-Hopf 1934, NOT Clay): LocalVortexStretchingBound T discharged axiom-free at n = 0 for every T > 0; BKM bridge + capstone ns_3d_local_regularity_classical; honest local-vs-global dichotomy isolates the Clay gap
 import PF.NS3DLocalRegularityAtNGeqOneRetry -- 2026-05-25 — Wave 21 retry: extends LocalVortexStretchingBound T axiom-free discharge from n=0 to n=1 (direct calc) and n=2 (Lagrange/Cauchy-Schwarz) at the diagonal Galerkin shadow; K_T = 1 independent of T; honest scope: local-in-time, NOT Clay
 import PF.NS3DLocalRegularityAtNEqThree -- 2026-05-25 — Wave 22 extension: extends LocalVortexStretchingBound T axiom-free discharge to n=3 via 3D Lagrange/Cauchy-Schwarz identity (six cross-product squares); capstone local_vortex_stretching_bound_at_n_le_three covers n ∈ {0,1,2,3}; K_T = 1 independent of T; honest scope: local-in-time diagonal Galerkin shadow, NOT Clay
+import PF.NS3DLocalRegularityAtNEqFourFive -- 2026-05-25 — Wave 23 extension: extends LocalVortexStretchingBound T axiom-free discharge to n=4 and n=5 via 4D/5D Hadamard expansions (12 / 20 off-diagonal cross-product squares); capstone local_vortex_stretching_bound_at_n_le_five covers n ∈ {0,1,2,3,4,5}; K_T = 1 independent of T; honest scope: local-in-time diagonal Galerkin shadow, NOT Clay
 
 -- ============================================================================
 -- Consciousness: Timeless Field T_∞ (ch04, ch06)
