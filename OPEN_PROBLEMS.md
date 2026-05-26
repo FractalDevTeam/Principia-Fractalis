@@ -1,6 +1,33 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-26 (Wave 26 narrowings landed across YM mixed-order kernel calculus operator-level Sylvester realisation of Wave 24 cluster fix, NS off-diagonal vortex-stretching extended to n∈{0,1,2,3} matching BKM form with K_off=2, Hodge mathlib `WeierstrassCurve→Substrate` axiom-free bridge applied to 32a3 + 37a1, Ch 22 manuscript propagation. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+*Last updated: 2026-05-26 (Waves 27 + 28 narrowings landed across YM mass-gap canonical kernel arc triage (heat-kernel / resolvent / quantum-propagator REFUTED), cross-Millennium implication chains, NS off-diagonal extension n∈{0..5}, Hodge mathlib surface bridge, META capstones, Coq parity 64 modules. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+
+> **2026-05-26 WAVES 27 + 28 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates Wave 27 + 28 narrowings landed across the YM mass-gap canonical kernel arc, cross-Millennium implication chains, NS off-diagonal extension, Hodge mathlib surface bridge, META capstones, and Coq parity. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.**
+>
+> **1. Yang–Mills mass-gap — canonical kernel arc: 3 candidates REFUTED, surviving family narrowed.**
+> * `a666399` — Heat-kernel candidate `K_heat = exp(-t·M²)` REFUTED at operator-level vs Wave 24 mixed-order Sylvester triples.
+> * `7437ea3` — Resolvent candidate `K_resolvent = (M² + λI)⁻¹` REFUTED on the same family.
+> * `9df6ef4` — Quantum-propagator candidate `K_QP = (M² - iε)⁻¹` REFUTED on the same family.
+> * **Residual:** YM canonical kernel construction narrows to **mixed-order direct (`a2679aa` structural), partial fractions, Padé approximants, or contour integrals.** Three named candidate arcs are now closed.
+>
+> **2. Navier–Stokes 3D — off-diagonal extended to n ∈ {0..5} via cross-component Cauchy–Schwarz.**
+> * `7437ea3` (side-commit) — OFF-DIAGONAL `ω_j·∂_j u_i` (i≠j) extended to n ∈ {0, 1, 2, 3, 4, 5} via cross-component Cauchy–Schwarz; joins Wave 26 `bf796f3` n ∈ {0..3} BKM-form coverage.
+> * **Residual:** single `NS3DVortexStretchingObstruction` Prop unchanged; off-diagonal flanking content tightened by two further orders to full 6-order parity with the diagonal arc.
+>
+> **3. Hodge (Problem 3) — mathlib surface bridge `dim = 2` via pair-of-curves.**
+> * `4acf4b1` — Hodge mathlib surface bridge: `dim = 2` realised via pair-of-curves construction over the Wave 26 `WeierstrassCurve → HodgeSubstrate` axiom-free bridge.
+>
+> **4. Cross-Millennium implication chains formalised.**
+> * `e7f6576` — Cross-Millennium 5-chain dependency graph `P → YM → NS → BSD` with RH joining via linear combination. Formal implication graph now machine-checked.
+>
+> **5. Framework headline META + Coq parity.**
+> * `3955ef0` — `Wave27MasterCapstone` META-aggregation.
+> * `cce19f1` — `Wave26MasterCapstone` META-aggregation.
+> * `97858b0` — Coq parity extended to **64 modules**.
+>
+> **Drift discipline.** Zero new top-level Problems. Every narrowing files under an existing Problem 1–6 or under a Problem 4 analog (YM / NS / BSD / Hodge). The open-surface count strictly contracts under Waves 27 + 28.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
 
 > **2026-05-26 WAVE 26 CONSOLIDATED NARROWING — Per-Problem residual delta after the wave.** This banner aggregates Wave 26 narrowings landed across YM mixed-order kernel calculus, NS off-diagonal BKM-form extension, Hodge axiom-free mathlib substrate bridge, and Ch 22 manuscript propagation. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.**
 >
