@@ -93,7 +93,7 @@ import PF.HodgeCrystallizationH3Discharge
 import PF.HodgeCurveDim1Substrate
 import PF.TuringEncoding.AlphaEnum
 import Mathlib.Data.Matrix.Basic
-import Mathlib.Data.Matrix.Notation
+import Mathlib.LinearAlgebra.Matrix.Notation
 import Mathlib.LinearAlgebra.Matrix.Symmetric
 import Mathlib.Tactic
 
