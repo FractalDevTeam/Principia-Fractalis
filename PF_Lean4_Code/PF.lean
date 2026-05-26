@@ -199,6 +199,7 @@ import PF.PNPDischargeViaEmpiricalCH2  -- 2026-05-25 — Composite-empirical str
 -- ============================================================================
 import PF.CrossConnectionCapstone  -- 15+ axiom-free cross-field connections bundled into one structural Lean certificate
 import PF.CrossSubstrateConstants  -- 2026-05-24 — Cross-substrate constants: CH₂ (P/NP, arxiv) = σ_c (Hodge, Ch 25) — one constant, two domains
+import PF.CrossMillenniumSharedInvariants  -- 2026-05-25 — 11 axiom-free algebraic invariants linking the 9 α-instances (squares, ratios, mixed alg×transcendental). Honest scope: algebraic curiosities — NOT Millennium discharges. Capstone bundles ≥10 typed identities.
 
 -- ============================================================================
 -- 2026-05-24 Universal α-Operator-Family unification — ONE structure, 9 instances
