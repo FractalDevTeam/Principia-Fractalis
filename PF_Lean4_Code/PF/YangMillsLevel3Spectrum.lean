@@ -338,11 +338,14 @@ theorem fractalYMTraceInvariance_holds_at_low_k :
     simp
   · -- k = 1: 2^1 = 2, spectrum {1/2, 3/2}
     refine ⟨![1/2, 3/2], ?_⟩
+    show ∑ i : Fin 2, (![(1 : ℝ)/2, 3/2]) i = 2
     rw [Fin.sum_univ_two]
     simp [Matrix.cons_val_zero, Matrix.cons_val_one]; norm_num
   · -- k = 2: 2^2 = 4, witness via level2 trace = 2
     refine ⟨![lambdaSymPlusLevel2 2 2, lambdaSymMinusLevel2 2 2,
                lambdaAntiPlusLevel2 2 2, lambdaAntiMinusLevel2 2 2], ?_⟩
+    show ∑ i : Fin 4, (![lambdaSymPlusLevel2 2 2, lambdaSymMinusLevel2 2 2,
+                        lambdaAntiPlusLevel2 2 2, lambdaAntiMinusLevel2 2 2]) i = 2
     rw [Fin.sum_univ_four]
     simp [Matrix.cons_val_zero, Matrix.cons_val_one,
           Matrix.cons_val_fin_one, Matrix.head_cons,
@@ -390,9 +393,10 @@ theorem fractalYMTraceDoublingConjecture_inconsistent_with_level1 :
   -- Apply the conjecture at k = 1 with σ = ![1/2, 3/2]
   have h := hdouble 1 (![(1/2 : ℝ), 3/2])
   -- LHS = (1/2 + 3/2) = 2; RHS = 2 · 2¹ = 4.
-  rw [Fin.sum_univ_two] at h
-  simp [Matrix.cons_val_zero, Matrix.cons_val_one] at h
-  norm_num at h
+  have h' : ∑ i : Fin 2, (![(1/2 : ℝ), 3/2]) i = 2 * (2^1 : ℝ) := h
+  rw [Fin.sum_univ_two] at h'
+  simp [Matrix.cons_val_zero, Matrix.cons_val_one] at h'
+  norm_num at h'
 
 /-! ## Part 7 — Capstone: level-3 structural certificate at α = 2, a = 2
 
