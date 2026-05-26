@@ -1,6 +1,26 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-26 (Waves 24 + 25 narrowings landed across YM mass-gap quadratic-class unblock + bare-quadratic miss, NS small-time discharge extended to n∈{0..5} diagonal + n∈{0,1} off-diagonal BKM-form, BSD 6-rank universal concordance, polylog resonance 4-clause orthogonality bundle, Consciousness (P5) ℓ²(ℕ) substrate inhabitation, Wave 24 META capstone + framework headline, Coq parity to 55 modules. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+*Last updated: 2026-05-26 (Wave 26 narrowings landed across YM mixed-order kernel calculus operator-level Sylvester realisation of Wave 24 cluster fix, NS off-diagonal vortex-stretching extended to n∈{0,1,2,3} matching BKM form with K_off=2, Hodge mathlib `WeierstrassCurve→Substrate` axiom-free bridge applied to 32a3 + 37a1, Ch 22 manuscript propagation. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+
+> **2026-05-26 WAVE 26 CONSOLIDATED NARROWING — Per-Problem residual delta after the wave.** This banner aggregates Wave 26 narrowings landed across YM mixed-order kernel calculus, NS off-diagonal BKM-form extension, Hodge axiom-free mathlib substrate bridge, and Ch 22 manuscript propagation. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.**
+>
+> **1. Yang–Mills mass-gap — MIXED-ORDER kernel calculus operator-level REALISES Wave 24 cluster fix via Sylvester.**
+> * `a2679aa` — `YangMillsMixedOrderKernelCalculus`: mixed-order `K_mixed = a·M² + b·M + c·I` operator-level realises Wave 24 cluster fix via Sylvester. Both witnesses `(1, -2, 5/4)` and `(1, -1, 3/4)` PROVEN at operator level. ALL 4 cluster pairings in `{1/2, 3/2}²` covered.
+> * **Residual:** canonical kernel construction whose Sylvester triple lies in the 1-parameter family.
+>
+> **2. Navier–Stokes 3D — OFF-DIAGONAL vortex-stretching extended to n ∈ {0, 1, 2, 3} with K_off = 2.**
+> * `bf796f3` — `NS3DOffDiagonalAtNTwoThree`: extends OFF-DIAGONAL `ω_j·∂_j u_i` (i≠j) to n ∈ {2, 3}, joining Wave 25 n ∈ {0, 1} for full BKM-form coverage at n ∈ {0, 1, 2, 3} with `K_off = 2`. Capstone matches BKM hypothesis form.
+> * **Residual:** single `NS3DVortexStretchingObstruction` Prop unchanged; off-diagonal flanking content tightened by two further orders.
+>
+> **3. Hodge (Problem 3) — actual mathlib `WeierstrassCurve → Substrate` bridge AXIOM-FREE.**
+> * `4375e60` — `WeierstrassHodgeBridgeRetry`: real mathlib `WeierstrassCurve` → `HodgeSubstrate` axiom-free bridge; applied to curves `32a3` (Δ = 64) and `37a1` (Δ = 37). Wave 21 b8fab59 removal parse-safely restored.
+>
+> **4. Manuscript propagation.**
+> * `1f78569` — Ch 22: Wave 25 off-diagonal vortex-stretching update (cites `8bd8a73`).
+>
+> **Drift discipline.** Zero new top-level Problems. Every narrowing files under existing Problems 1–6. Open-surface count strictly contracts under Wave 26.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
 
 > **2026-05-26 WAVES 24 + 25 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates Wave 24 + 25 narrowings landed across the YM mass-gap mechanism triage (quadratic class), NS small-time content at additional orders + off-diagonal BKM form, BSD higher-rank concordance, polylog resonance orthogonality bundle, Consciousness (P5) substrate inhabitation, and framework-headline META aggregation. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.** Prior bars hold; affine-class YM closure (Wave 22) now flanked by quadratic-class algebraic unblock and a bare-quadratic-Gram miss.
 >
