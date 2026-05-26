@@ -149,7 +149,8 @@ Definition equallySpacedWitness (k : nat) (i : nat) : R :=
 Theorem equallySpacedWitness_smallest (k : nat) :
   equallySpacedWitness k 0 = 1 / (INR (Nat.pow 2 k)).
 Proof.
-  unfold equallySpacedWitness. simpl. f_equal. rewrite plus_INR. simpl. lra.
+  unfold equallySpacedWitness. rewrite plus_INR. simpl. field.
+  apply not_0_INR. apply Nat.pow_nonzero. discriminate.
 Qed.
 
 (** Equally-spaced witness — consecutive gap equals 1/2^k. *)
@@ -183,19 +184,18 @@ Theorem kernel_positivity_bounds_min_not_gap (k : nat) :
   exists (sigma : nat -> R) (c : R),
     0 < c /\
     (forall i : nat, (i < Nat.pow 2 k)%nat -> c <= sigma i) /\
-    (forall i : nat, (i + 1 < Nat.pow 2 k)%nat ->
-       sigma (i + 1) - sigma i = 1 / (INR (Nat.pow 2 k))).
+    (forall i : nat, ((i + 1)%nat < Nat.pow 2 k)%nat ->
+       sigma ((i + 1)%nat) - sigma i = 1 / (INR (Nat.pow 2 k))).
 Proof.
   exists (equallySpacedWitness k), (1 / (INR (Nat.pow 2 k))).
   assert (Hpos_pow : 0 < INR (Nat.pow 2 k)).
-  { apply lt_0_INR. apply Nat.lt_iff_add_1. exists (Nat.pow 2 k - 1)%nat.
-    rewrite Nat.sub_add; [ reflexivity |].
-    apply Nat.lt_le_incl. apply Nat.pow_pos. lia. }
+  { apply lt_0_INR.
+    induction k as [|k' IH]; simpl; lia. }
   split.
   - apply Rdiv_lt_0_compat; [ lra | exact Hpos_pow ].
   - split.
     + intros i _Hi. unfold equallySpacedWitness.
-      apply Rmult_le_compat_r.
+      unfold Rdiv. apply Rmult_le_compat_r.
       * apply Rlt_le. apply Rinv_0_lt_compat. exact Hpos_pow.
       * rewrite plus_INR. simpl. assert (Hii : 0 <= INR i) by apply pos_INR. lra.
     + intros i _Hi. apply equallySpacedWitness_consecutive_gap.
@@ -241,8 +241,16 @@ Theorem concentration_yields_uniform_gap
 Proof.
   destruct Hconc as [_Hall [[i [Hi_lt Hi]] [j [Hj_lt Hj]]]].
   exists i, j. split; [ exact Hi_lt | split; [ exact Hj_lt |] ].
-  apply Rabs_le in Hi. apply Rabs_le in Hj.
-  destruct Hi as [Hi1 Hi2]. destruct Hj as [Hj1 Hj2]. lra.
+  (* From Rabs (a) <= eps, derive -eps <= a <= eps via case on sign. *)
+  assert (Hi_bd : -epsilon <= sigma i - 1/2 <= epsilon).
+  { destruct (Rle_or_lt 0 (sigma i - 1/2)) as [Hge|Hlt].
+    - rewrite Rabs_pos_eq in Hi by exact Hge. lra.
+    - rewrite Rabs_left in Hi by exact Hlt. lra. }
+  assert (Hj_bd : -epsilon <= sigma j - 3/2 <= epsilon).
+  { destruct (Rle_or_lt 0 (sigma j - 3/2)) as [Hge|Hlt].
+    - rewrite Rabs_pos_eq in Hj by exact Hge. lra.
+    - rewrite Rabs_left in Hj by exact Hlt. lra. }
+  lra.
 Qed.
 
 (** ★★★ (M3 conditional capstone) Uniform mass gap from epsilon <= 1/4 ★★★
@@ -288,8 +296,8 @@ Theorem ym_uniform_gap_mechanism_triage :
      exists (sigma : nat -> R) (c : R),
        0 < c /\
        (forall i : nat, (i < Nat.pow 2 k)%nat -> c <= sigma i) /\
-       (forall i : nat, (i + 1 < Nat.pow 2 k)%nat ->
-          sigma (i + 1) - sigma i = 1 / (INR (Nat.pow 2 k)))) /\
+       (forall i : nat, ((i + 1)%nat < Nat.pow 2 k)%nat ->
+          sigma ((i + 1)%nat) - sigma i = 1 / (INR (Nat.pow 2 k)))) /\
   (* (M3 POSITIVE CONDITIONAL) concentration epsilon <= 1/4 ⟹ uniform gap 1/2 *)
   (forall (k : nat) (sigma : nat -> R),
      SpectrumConcentratesNearHalfAndThreeHalves k sigma (1/4) ->

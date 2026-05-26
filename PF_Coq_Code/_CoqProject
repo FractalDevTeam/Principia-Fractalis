@@ -36,3 +36,15 @@ PF/Wave16/YangMillsLevelKSpectrum.v
 PF/Wave17/PolylogEigenvalueReformulated.v
 PF/Wave18/NS3DVortexStretchingObstruction.v
 PF/Wave18/CycleClassMapOnCurve.v
+PF/Wave19/HodgeCY3Dim22.v
+PF/Wave19/NS3DLocalRegularityBKM.v
+PF/Wave19/PNPUnconditional.v
+PF/Wave19/YMUniformGapTriage.v
+PF/Wave20/YangMillsSpectralConcentrationAttempt.v
+PF/Wave20/BSDRankThreeCurveFramework.v
+PF/Wave20/HodgeDim4CY4Substrate.v
+PF/Wave20/RHViaBerryKeatingConcreteOperator.v
+PF/Wave21/NS3DLocalRegularityAtNGeqOneRetry.v
+PF/Wave22/CrossMillenniumSharedInvariants.v
+PF/Wave22/FrameworkHeadlineTheorem.v
+PF/Wave22/YangMillsUniformConcentrationViaKernelStructure.v

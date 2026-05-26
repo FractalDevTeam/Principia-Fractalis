@@ -195,7 +195,7 @@ Definition HodgeCY3Dim22Substrate_toHodgeAmbient
     (X : HodgeCY3Dim22Substrate) : HodgeAmbient.
 Proof.
   refine (mkHodgeAmbient 3 2 (h_two_two X) _ _).
-  - apply Nat.le_succ_of_le. apply Nat.le_succ_of_le. apply le_n.
+  - lia.
   - exact (h_two_two_pos X).
 Defined.
 
@@ -262,8 +262,7 @@ Definition quinticThreefoldDim22 : HodgeCY3Dim22Substrate.
 Proof.
   refine (mkHodgeCY3Dim22Substrate 1 _ _ (fun _ => 1%Z) (fun v => v 0%nat)).
   - apply le_n.
-  - apply Nat.le_succ_of_le. (* iterate to reach 20 *)
-    repeat (try apply Nat.le_succ_of_le; try apply le_n).
+  - lia.
 Defined.
 
 (** h^{2,2} of the quintic 3-fold is 1. *)
