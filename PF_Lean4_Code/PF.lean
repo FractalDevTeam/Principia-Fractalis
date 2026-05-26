@@ -148,6 +148,7 @@ import PF.SpectralBijection   -- Eigenvalue → critical line map framework
 import PF.RHSurjectivityConjecture           -- RH spectral surjectivity (load-bearing open Prop)
 import PF.RHSpectralSurjectivityFactorings   -- Mission Phase 2: structural factoring of RH surjectivity into RH ∧ on-line + continuous-preimage + dense-image forms
 import PF.RHSpectralSurjectivityTripleAttack -- Mission Phase 4: triple-attack factoring of on-line surjectivity via Hilbert-Pólya / Selberg / Connes
+import PF.RHSpectralDensityArgument          -- 2026-05-25 Wave 16 follow-up: DENSITY angle on RH surjectivity. Named Props EigenvalueTImageDense + FilteredDensityOnZetaZeros; filtered density ↔ on-line surjectivity; structural density-vs-surjectivity gap theorem `density_does_not_imply_surjectivity_record`; closure-membership gap formalized via `closure_membership_gap`; conditional RH `riemann_hypothesis_via_filtered_density`. ZERO project axioms, ZERO sorries.
 import PF.Analytic.MaassCuspSimplicityFactorings -- Mission Phase 3: structural factoring of bundle (b) Mayer 1991 non-degeneracy via Maass-cusp simplicity + Cartier/Sarnak/Lewis-Zagier inputs (axiom-free, sorry-free post Wave-4 fix)
 
 -- ============================================================================
