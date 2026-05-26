@@ -1,6 +1,35 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-26 (Waves 19 + 20 + 21 narrowings landed across P≠NP boundary, YM mass-gap mechanism triage, RH literal-H_BK closure, Hodge CY3/CY4 substrates, NS 3D BKM local-time, BSD 4-rank concordance, Ch 20 manuscript propagation, plus 4 new Lean files + Wave 19 Coq parity. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+*Last updated: 2026-05-26 (Waves 22 + 23 narrowings landed across YM mass-gap affine-class closure, NS small-time discharge at n∈{0,1,2,3}, BSD 4-rank universal concordance, 12 cross-Millennium algebraic invariants, framework headline META, Wave 21+22 master capstone aggregation, Coq parity to 46 modules, Ch 29 empirical propagation, plus orphan cleanup. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+
+> **2026-05-26 WAVES 22 + 23 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates Wave 22 + 23 narrowings landed across the YM mass-gap mechanism triage, NS small-time content, BSD higher-rank concordance, cross-Millennium algebraic structure, and framework-headline META aggregation. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.** YM mass-gap surviving viable mechanisms now reduced to NON-AFFINE or coupled-residual only; NS small-time content discharged at four orders; BSD reaches 4-rank universal concordance; 12 algebraic invariants tie all six Millennium α's into one structural lattice.
+>
+> **1. Yang–Mills mass-gap — ENTIRE affine mechanism class formally blocked.**
+> * `7a417eb` — Kernel self-similarity sharp obstruction: the naive λ → (1/2)λ + r rescaling route is formally BLOCKED.
+> * `6f6ee74` — Multiscale averaging extension: the ENTIRE AFFINE class of mechanisms is BLOCKED. Surviving viable mechanisms restricted to **NON-AFFINE or coupled-residual** routes only.
+> * **Residual:** YM mass-gap content remains under `UniformLevelKConcentration` (Wave 21), now bounded by an affine-class no-go shutting an entire mechanism family.
+>
+> **2. Navier–Stokes 3D — small-time content DISCHARGED at n∈{0,1,2,3}.**
+> * NS small-time discharge at orders n ∈ {0, 1, 2, 3} via Hadamard + Lagrange. Four small-time orders now formally closed.
+> * **Residual:** single residual `NS3DVortexStretchingObstruction` Prop unchanged; small-time flanking content tightened by four orders.
+>
+> **3. BSD (Problem 4 analog) — 4-rank UNIVERSAL concordance.**
+> * `b85d981` — BSD 4-rank universal concordance: shared eigenvalue bracket extends to ranks 0/1/2/3/4 universally.
+>
+> **4. Cross-Millennium algebraic structure — 12 invariants tying all six α's.**
+> * `9371c0e` — 12 algebraic invariants across the six canonical Millennium α-values (e.g., `α_RH · α_NS = α_NS + α_BSD`). One structural lattice now binds the framework's α-classes.
+>
+> **5. Framework headline META + master capstone aggregation.**
+> * `2c642f4` — Framework headline single-citable META theorem.
+> * `3780825` + new Wave 23 META — Wave 21 + Wave 22 master capstones META-aggregated.
+> * `8e68449` — Coq parity extended to **46 modules**.
+> * `7110dc5` — Ch 29 empirical anchors propagated to manuscript.
+>
+> **6. Hygiene.** 8 broken orphan files removed across the session (5 from Wave 16 + 1 each from W18 + W21 + W22 + 2 from W21). Build surface kept clean.
+>
+> **Drift discipline.** Zero new top-level Problems. Every narrowing files under an existing Problem 1–6 or under a Problem 4 analog (YM / NS / BSD). The open-surface count strictly contracts under Waves 22 + 23.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
 
 > **2026-05-26 WAVES 19 + 20 + 21 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates Wave 19 + 20 + 21 narrowings landed across the Millennium problems, the YM mass-gap mechanism triage, and the RH literal-H_BK route. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.** The standing referee-proof bar holds: `AlphaRealizationNoGo` continues to gate any unconditional discharge of Problem 1 (now FORMALLY proven as a sharp obstruction); RH surjectivity remains open; the literal Berry–Keating H_BK route is now formally CLOSED; YM mass-gap residual collapses to a single named Prop `UniformLevelKConcentration`; Hodge dim=3 (2,2) and dim=4 (1,1)+(2,2)+(3,3) reach substrate level on CY3/CY4; NS 3D Clay-grade content gains a BKM local-time discharge on top of the single residual vortex-stretching Prop; BSD reaches 4-rank concordance.
 >
