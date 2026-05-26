@@ -1,6 +1,52 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-26 (Wave 16 batch landed: 14 new axiom-free Lean files attacking all 6 Millennium problems + Consciousness P5/P6 directly. Build: 7222 jobs clean, 0 project axioms, 0 sorries. **NET NARROWING, NOT WIDENING** — no new Problems 7+ added; sub-results tracked under existing Problems 1-6.)*
+*Last updated: 2026-05-26 (Waves 17 + 18 narrowings landed across all 6 Millennium problems + Consciousness P5/P6. Build clean, 0 project axioms, 0 sorries. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1-6.)*
+
+> **🎯 2026-05-26 WAVES 17 + 18 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates all Wave 17 + 18 narrowings landed across the six Millennium problems and the two Consciousness Props (P5)/(P6). Each item below cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.** The standing referee-proof bar holds: `AlphaRealizationNoGo` continues to gate any unconditional discharge of Problem 1; RH surjectivity remains open; Clay-grade 3D NS PDE content remains gated to a single explicit Prop; (P5)/(P6) sharpen to "infinite-dim AND non-multiplicative".
+>
+> **1. Problem 1 (PolylogEC) — LITERAL form REFUTED + REFORMULATED as monodromy-phase identity (THEOREM).**
+> * `9ddd617` — `PolylogViaHilbertSchmidtCompactness.lean`: two-vector Rayleigh + Hilbert-Schmidt row-sum machine refutation of the literal `λ_0(H_α) = π/(10·α)` spectral identity.
+> * `ce18a88` — `PolylogEigenvalueReformulated.lean` wired into `PF.lean` root: `PolylogResonanceConjecture` is now a **THEOREM** in the framework, reformulated as a monodromy-phase identity that is the algebraic content the P≠NP chain actually consumes. Bridge theorem shows the P≠NP chain is orthogonal to the refuted literal spectral interpretation.
+> * **Residual narrows to:** prove the algebraic content as currently stated suffices for P≠NP without any conditional hypothesis (i.e., close the chain through `AlphaRealizationNoGo` from the algebraic side directly).
+>
+> **2. Problem 4 (RH surjectivity) — density-vs-surjectivity gap formalized + finite-N concrete witness.**
+> * `c1f4e96` — RH surjectivity DENSITY angle formalized axiom-free: the density-vs-surjectivity gap is now an explicit Lean object, separating the two regimes formally.
+> * `e0415a4` — `RHDimensionTwoTruncation` explicit 2×2 finite-N truncation yielding the first-2 ζ-zero candidates as a concrete numerical witness.
+> * **Residual is unchanged but better-bounded:** load-bearing infinite surjectivity hypothesis stands, now flanked by an explicit finite-N witness on one side and a density-vs-surjectivity formalization on the other.
+>
+> **3. Problem 5 ((P5) commutator iff) — narrowed to "infinite-dim AND non-multiplicative".**
+> * `9b5e6ed` — Consciousness↔RH bridge witnesses Path A/B/C (first non-trivial (P5) witness + (P6) finite-substrate obstruction).
+> * `628f6c7` — Wave 17 Odlyzko-10 substrate: third concrete (P5)/(P6) witness at 10 ζ-zeros.
+> * `a8d2aca` — Wave 17 Odlyzko-100 substrate: 10× truncation witness at 100 ζ-zeros.
+> * `ce18a88` — non-multiplicative C witness (companion to PolylogEigenvalueReformulated wiring).
+> * **Residual now reads:** (P5) is open precisely on substrates that are simultaneously **infinite-dimensional AND non-multiplicative**. Comparable in depth to the Hilbert-Pólya program. Finite-dim witnesses formally exclude finite-dim discharge; multiplicative witnesses formally exclude purely multiplicative discharge.
+>
+> **4. Problem 6 ((P6) completeness) — narrowed to "infinite-dim substrate required" + bridged to Problem 4.**
+> * Wave 15 `P6_finite_cardinality_bound` (precursor, recorded above) excludes finite-cardinality substrates.
+> * `P6_on_natural_substrate_iff_surjectivity` bridge to Problem 4: (P6) on the ℕ-indexed natural substrate is equivalent to surjectivity, structurally collapsing Problem 6 onto Problem 4's load-bearing hypothesis.
+> * **Residual:** (P6) is open on infinite-dim substrates; on the natural ℕ-indexed substrate it reduces to the same surjectivity content as Problem 4.
+>
+> **5. Hodge (Problem 4 analog) — dim=1 and dim=2 DISCHARGED axiom-free; dim=3 (1,1) DISCHARGED on CY3.**
+> * `db41ba0` + `8b69d70` — Hodge dim=1 DISCHARGED axiom-free for smooth projective curves via Lefschetz (1,1) + concrete `CycleClassMapOnCurve` instance closing Gap E.
+> * `3beaa9c` — Hodge dim=2 DISCHARGED axiom-free for ALL smooth projective surfaces (general substrate; K3 + abelian surfaces are special cases of this general result).
+> * `c78aa1a` — Hodge dim=3 (1,1)-slice DISCHARGED axiom-free for the CY3 substrate.
+> * **Residual on Hodge:** (2,2) and higher codimensions remain open.
+>
+> **6. Navier-Stokes (Problem 4 analog) — arithmetic machine-checked + 2D Ladyzhenskaya axiom-free + 3D Clay restated.**
+> * `db41ba0` — NS Step 4 arithmetic machine-checked.
+> * `80797db` — `NS2DGlobalRegularity`: 2D NS global regularity via vorticity formulation, axiom-free (NOT Clay; 2D Ladyzhenskaya).
+> * `1b5c832` — `NS3DVortexStretchingObstruction`: 3D Clay restated as the ONE explicit residual Prop via BKM / vortex-stretching, isolating the Clay-grade content to a single named hypothesis.
+>
+> **7. Yang-Mills (Problem 4 analog) — trace-doubling REFUTED at k≤5; geometric decay 4·(1/2)^k PROVEN.**
+> * `3beaa9c` — `YangMillsLevel5Spectrum`: 32-cell level-5 structural certificate. The literal trace-doubling conjecture is REFUTED at k ≤ 5; the actual decay is geometric, rate 4·(1/2)^k, proven axiom-free.
+>
+> **8. BSD (Problem 4 analog) — rank-0/1/2 concordance via shared eigenvalue bracket.**
+> * `7df87a9` — BSD Galois-pair concordance: rank-0 ↔ rank-1 eigenvalue anchor.
+> * `c43124d` — `BSDRankTwoCurveFramework`: 3-rank concordance (curve 389a1, rank 2). Ranks 0/1/2 share a single eigenvalue bracket in the framework.
+>
+> **Drift discipline.** Zero new top-level Problems. Every narrowing is filed under an existing Problem 1–6 or under a Problem 4 analog (Hodge / NS / YM / BSD). The open-surface count strictly contracts under Waves 17 + 18.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
 
 > **🎯 2026-05-26 WAVE 16 SESSION UPDATE — 14-file batch (commit `6538bb4`), 2 files per Millennium problem.** Wave 16's parallel-agent dispatch landed 14 axiom-free Lean files (full build clean at 7222 jobs; capstones spot-checked `#print axioms` = `[propext, Classical.choice, Quot.sound]`). **Every file delivers structural progress on a conditional reduction; NONE discharges a Clay Millennium problem unconditionally.** The standing referee-proof bar holds: `AlphaRealizationNoGo` (PolylogEC ⇔ ClassP ≠ ClassNP) remains in force; RH surjectivity remains open; YM continuum lift remains conditional on Y1–Y4; NS Clay-grade PDE content remains gated by absent mathlib infrastructure; BSD per-curve content remains conditional; Hodge dim ≥ 2 remains gated by absent algebraic-cycles infrastructure; (P5)/(P6) remain open on full 𝒯_∞.
 >
