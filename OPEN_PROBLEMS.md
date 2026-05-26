@@ -483,6 +483,33 @@ The polylog conjecture for the FULL operator is now reduced to a finite-rank spe
 
 **Difficulty estimate.** Multi-month to multi-year original operator-theory research. The supporting infrastructure above is now machine-checked and out of the way; future work attacks the substantive content directly.
 
+### 2026-05-26 sub-section — Wave 17 literal-spectral-reading refutation + reformulation
+
+**Status update (NOT a closure of Problem 1).** Wave 17 (commit `9ddd617`, `PF/PolylogViaHilbertSchmidtCompactness.lean`) delivered a referee-clean **axiom-free refutation** of the *literal spectral reading* of `PolylogEigenvalueConjecture` on the explicit arxiv operator `arxivHalpha α`:
+
+* **Refutation route.** The unit-norm two-vector superposition `ψ_{π/4} := (1/√2)·e₀ + (1/√2)·e₁` has Rayleigh quotient `⟨ψ_{π/4}, H_α ψ_{π/4}⟩ = π/(20·α) − 1/2`, which is **strictly negative** for every `α ≥ √2` (theorem `twoVecRayleigh_negative`). The manuscript's closed form `groundStateValue α = π/(10·α)` is **strictly positive**. By the variational principle, the ground-state eigenvalue of `arxivHalpha α` is at most the Rayleigh quotient, hence strictly negative — **strictly below** `π/(10·α)`. So the identification `λ₀(arxivHalpha α) = π/(10·α)` (the literal spectral reading) is **FALSE** for every `α ≥ √2` (capstone `arxivHalpha_spectral_reading_refuted`).
+
+* **What survives** (now packaged in `PF/PolylogEigenvalueReformulated.lean`, commit pending): the new named Prop `PolylogResonanceConjecture α` captures the **algebraic** content:
+  - `π/(10·α) > 0` for `α > 0`;
+  - `π/(10·α) = (1/5)·(π/2 − Im R_f_principal α)` for `α > 1/2` (the **B-clean monodromy phase identity**, axiom-free in `PF.Analytic.BCleanPhaseIdentity.b_clean_phase_identity`).
+  - This Prop is in fact a **THEOREM** (`polylog_resonance_holds`, axiom-free), not a hypothesis.
+
+* **The consistency theorem** (`polylog_resonance_consistent_with_refutation`): for every `α ≥ √2`, both the resonance Prop AND the spectral-reading refutation hold simultaneously, without contradiction. The two halves live on different sides of the operator-algebra vs. monodromy-phase divide.
+
+* **Bridge to the P ≠ NP chain** (`reformulation_preserves_PNP_chain`): the existing chain `PolylogEigenvalueConjecture → ClassP ≠ ClassNP` (`polylog_conjecture_implies_classes_distinct`, Wave 13) consumes the **algebraic** content (the two polynomial equations on `alpha_of_class`), reified in `PolylogAlgebraicContent`. The Wave 17 refutation is therefore **orthogonal** to the P ≠ NP reduction — the reduction does NOT depend on the spectral interpretation of `π/(10·α)`.
+
+* **Independent empirical anchors** (unaffected by the refutation):
+  - IBM hardware peak match at `α = 1.5` (RH) and `α = φ + ¼` (NP), independently confirmed (`PF.IBMHardware9WayEvidence`).
+  - Galois conjugacy of the two canonical α-values over `ℚ(√5)` (`PF.IBMPeaksGaloisPair`).
+
+* **Net effect on Problem 1.** Problem 1 is **NOT closed** by this work. The literal `PolylogEigenvalueConjecture` (as a polynomial-equation Prop on the opaque `alpha_of_class`) remains a named open hypothesis, and by `AlphaRealizationNoGo` any concrete unconditional discharge is logically equivalent to a proof of `ClassP ≠ ClassNP`. What is **sharpened**: the framework's surviving spectral content on the explicit operator is **the algebraic resonance value `π/(10·α)` as a monodromy phase deficit**, NOT a literal ground-state eigenvalue of `arxivHalpha`. Future work on Problem 1 should therefore target either (a) a different operator construction whose actual ground state is `π/(10·α)`, or (b) a non-spectral derivation of `PolylogAlgebraicContent` from first principles.
+
+* **Files (axiom-free, `[propext, Classical.choice, Quot.sound]` only):**
+  - `PF/PolylogViaHilbertSchmidtCompactness.lean` (the refutation, commit `9ddd617`).
+  - `PF/PolylogEigenvalueReformulated.lean` (the reformulation + bridge, new in this session).
+
+* **Honest framing.** This is a **refutation + reformulation**, not a discharge. The algebraic anchor (`π/(10·α)` as monodromy phase deficit) is preserved axiom-free; the literal spectral interpretation on `arxivHalpha` is what was wrong.
+
 ---
 
 ## Problem 2 — Ground-State Branch Selection Heuristic (Ch 21, `heur:branch-selection`)
