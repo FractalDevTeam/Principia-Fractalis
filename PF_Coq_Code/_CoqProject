@@ -57,3 +57,10 @@ PF/Wave24/NS3DLocalRegularityAtNEqFourFive.v
 PF/Wave24/BSDRankFourFiveFrameworks.v
 PF/Wave24/YangMillsNonAffineCoupledResidual.v
 PF/Wave24/Wave22_23MasterCapstone.v
+PF/Wave25/ConsciousnessLpNatSubstrate.v
+PF/Wave25/YangMillsQuadraticKernelMechanism.v
+PF/Wave25/NS3DOffDiagonalVortexStretching.v
+PF/Wave25/Wave24MasterCapstone.v
+PF/Wave26/NS3DOffDiagonalAtNTwoThree.v
+PF/Wave26/YangMillsMixedOrderKernelCalculus.v
+PF/Wave26/WeierstrassHodgeBridgeRetry.v
