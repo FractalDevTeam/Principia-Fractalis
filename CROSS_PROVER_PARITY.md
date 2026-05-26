@@ -6,6 +6,92 @@
 > 2026-05-08) and `PRISTINE_CERTIFICATION.md` (current authoritative
 > per-prover state).
 
+## Cycle: 2026-05-26 — Wave 20/21/22 Coq parity stubs landed
+
+**Headline.** Eight new Coq parity files added under
+`PF_Coq_Code/PF/Wave{20,21,22}/`, extending the Wave 19 coverage
+to the Wave 20-22 Lean additions. Per
+`CROSS_PROVER_PARITY_AUDIT_2026-05-25.md`, these stubs typecheck
+and discharge what is reachable at Coq 8.18 stdlib level;
+un-ported prerequisites are explicitly `Admitted.` / `Parameter`.
+
+### New Coq files (46 modules total, was 38)
+
+| Coq file | Lean source mirrored | Wave | Coq scope |
+|---|---|---|---|
+| `PF/Wave20/YangMillsSpectralConcentrationAttempt.v` | `PF/YangMillsSpectralConcentrationAttempt.lean` | 20 | Level-1 (M3) concentration discharged at Coq stdlib level (vacuous epsilon=0 + monotonicity); level-2 trace+Frobenius structural insufficiency via explicit `(0,0,2,2)` obstruction witness; `UniformLevelKConcentration` named Prop; conditional capstone via Wave 19 (M3). |
+| `PF/Wave20/BSDRankThreeCurveFramework.v` | `PF/BSDRankThreeCurveFramework.lean` | 20 | LMFDB 5077a1 rank-3 substrate anchor as Parameter; `alpha_BSD = phi/e` definition; ordering theorems `alpha_BSD < alpha_RH`, `alpha_BSD < alpha_NP` discharged under parameterized phi/e brackets; 4-rank concordance capstone. |
+| `PF/Wave20/HodgeDim4CY4Substrate.v` | `PF/HodgeDim4CY4Substrate.lean` | 20 | `HodgeCY4Substrate` Record with h^{1,1}, h^{2,2}, h^{3,3}, witnesses; Lefschetz (1,1) + algebraicity (2,2)/(3,3) via `Z.eq_decidable`; per-slice discharge capstones; quintic 4-fold worked instance. Framework predicates `HodgeAlgebraicRepresentation_CY4_dim{11,22,33}` as Parameters. |
+| `PF/Wave20/RHViaBerryKeatingConcreteOperator.v` | `PF/RHViaBerryKeatingConcreteOperator.lean` | 20 | NEGATIVE finding: `BK_N_diag k = INR k + 1/2`, strict-mono + constant-spacing discharged; explicit `BK_t_candidate_*` ≠ Odlyzko zeta-zero imaginary-parts (rational approximations); `BK_truncation_does_not_reproduce_zeta_zeros` capstone. Pure real arithmetic, axiom-free. |
+| `PF/Wave21/NS3DLocalRegularityAtNGeqOneRetry.v` | `PF/NS3DLocalRegularityAtNGeqOneRetry.lean` | 21 | Local vortex-stretching Hadamard-norm bound at n=1, n=2; structural identity `vortexStretching3D = triple Hadamard`; unified bound at n ∈ {1,2}. EuclideanSpace + Hadamard infrastructure as Parameters. |
+| `PF/Wave22/CrossMillenniumSharedInvariants.v` | `PF/CrossMillenniumSharedInvariants.lean` | 22 | 9 alpha-class constants (alpha_Poincare=1, alpha_P=sqrt 2, alpha_NP=phi+1/4, alpha_RH=3/2, alpha_NS=3pi/2, alpha_YM=2, alpha_BSD=3pi/4, alpha_Hodge=phi, alpha_QG=sqrt(2pi)); 11 axiom-free algebraic invariants; capstone bundle. Uses stdlib `PI`; `phi_sq_eq` as Parameter. |
+| `PF/Wave22/FrameworkHeadlineTheorem.v` | `PF/FrameworkHeadlineTheorem.lean` | 22 | `PrincipiaFractalisFrameworkHeadline` Record with 19 True-bodied fields (Wave 14-21 deliverables); META-AGGREGATION discharge via `I`. Mirrors Lean meta-aggregation. |
+| `PF/Wave22/YangMillsUniformConcentrationViaKernelStructure.v` | `PF/YangMillsUniformConcentrationViaKernelStructure.lean` | 22 | Sharp obstruction: bare self-similar contraction at cluster centres {1/2, 3/2} lacks strict slack; `ClusterSet` def; image-distance lemmas (1/4, 5/4, 1/4, 3/4); `InductiveStepBlocked` Prop; `bare_self_similarity_cannot_contract_cluster`; final verdict capstone. Pure real arithmetic. |
+
+### Parity coverage delta (incremental update)
+
+Wave 20-22 audit (2026-05-26): adds 8 PARITY-TRACKED entries covering
+the Wave 20-22 Lean capstones not previously in the parity table.
+
+* **PARITY-TRACKED additions**: 8 new Coq files (4 in Wave 20, 1 in
+  Wave 21, 3 in Wave 22) corresponding to Wave 20-22 Lean capstones.
+* **MATCHED**: unchanged (5/10).
+* **MISSING (no Coq counterpart)**: unchanged at 3/10.
+
+### Build state
+
+* **Coq**: `make clean && make` succeeds (46 modules; was 38, plus
+  4 Wave 19 files newly added to `_CoqProject` in this cycle).
+  No errors. Eight new Wave 20-22 files compile cleanly under Coq 8.18.
+* `Admitted.` count in new files:
+  * `YangMillsSpectralConcentrationAttempt.v`: 0 (all discharged at
+    Coq stdlib level; the level-1 vacuous-concentration case uses
+    pattern-match on `Fin 2`).
+  * `BSDRankThreeCurveFramework.v`: 0 (parameterized phi/e brackets
+    + `nra`/`lra` arithmetic discharge).
+  * `HodgeDim4CY4Substrate.v`: 3 (the three
+    `HodgeAlgebraicRepresentation_on_CY4_dim*` framework-discharge
+    Theorems pending `MillenniumSixReductions.v` extension).
+  * `RHViaBerryKeatingConcreteOperator.v`: 0 (pure real arithmetic).
+  * `NS3DLocalRegularityAtNGeqOneRetry.v`: 0 (the two local-bound
+    Theorems are discharged via `Parameter` Hadamard-norm bounds
+    + structural identity).
+  * `CrossMillenniumSharedInvariants.v`: 0 (lra/field discharge under
+    `phi_sq_eq` Parameter).
+  * `FrameworkHeadlineTheorem.v`: 0 (META-AGGREGATION; all `I`).
+  * `YangMillsUniformConcentrationViaKernelStructure.v`: 0 (pure real
+    arithmetic).
+* **Lean**: state unchanged this cycle.
+
+### Files NOT yet ported but referenced by new stubs
+
+* `PF/MillenniumSixReductions.lean` extensions for `HodgeAmbient` /
+  `HodgeAlgebraicRepresentation` at dim=4 — Wave 20
+  `HodgeDim4CY4Substrate.v` records as 3 Parameters.
+* Coq EuclideanSpace + inner-product / Cauchy-Schwarz at finite
+  ambient dim — Wave 21 `NS3DLocalRegularityAtNGeqOneRetry.v` records
+  the underlying Hadamard-norm bounds as Parameters.
+* Odlyzko zeta-zero imaginary parts at full precision — Wave 20
+  `RHViaBerryKeatingConcreteOperator.v` uses 3-decimal rational
+  approximations sufficient for the strict-inequality discharge.
+
+### Honest scope of "PARITY-TRACKED" (unchanged criteria)
+
+See the 2026-05-26 Wave 15 entry below for the 6-point criteria.
+All 8 new files satisfy criteria 1-6.
+
+### Wave 19 cleanup (also landed this cycle)
+
+* `PF/Wave19/{HodgeCY3Dim22,NS3DLocalRegularityBKM,PNPUnconditional,YMUniformGapTriage}.v`
+  added to `_CoqProject`. Two small Wave 19 build issues fixed
+  (`Nat.le_succ_of_le` → `lia`; `Rabs_le` direction → case-split
+  on sign; `f_equal` → `field`; `sigma (i + 1)` parse fix with
+  `%nat` coercion). These were latent issues from the prior Wave
+  19 patch that prevented `make` from succeeding when Wave 19 was
+  in the project file.
+
+---
+
 ## Cycle: 2026-05-26 — Wave 16/17/18 Coq parity stubs landed
 
 **Headline.** Five new Coq parity files added under
