@@ -214,6 +214,126 @@ machine-checked unconditional Lean theorems.'' Together with the
 broader 50+ module Phase~A infrastructure under \texttt{PF/Analytic/},
 this is the current state of the analytic stratum of the framework.
 
+\subsection{Wave 14--23 framework aggregation (2026-05-25/26)}
+\label{sec:wave14-23-aggregation}
+
+Subsequent to the 2026-05-22 historic-closure milestone, a sequence of
+roughly sixty axiom-free commits (Waves 14--23) extended the framework
+across all six Millennium routes, the consciousness$\leftrightarrow$RH
+bridge, and the cross-Millennium $\alpha$-invariant structure. Per
+\texttt{feedback\_referee\_proof\_bar.md} (2026-05-24): \emph{the
+framework itself is the headline; Millennium results are ancillary};
+bundling is \textbf{not} discharge. The following named Lean theorems
+are referee-citable aggregation points; none of them discharge any
+Millennium problem unconditionally, and the inventory below honestly
+records what each one is and is not.
+
+\begin{itemize}
+\item \textbf{\texttt{PF/FrameworkHeadlineTheorem.lean}}
+  (\texttt{principiaFractalisFrameworkHeadline\_holds},
+  commit \texttt{2c642f4}): SINGLE referee-citable
+  meta-aggregation of the Wave 14--21 axiom-free deliverables. Each
+  field is supplied by an existing axiom-free source theorem; no new
+  mathematical content. Does \emph{not} discharge RH, Hodge, BSD, YM,
+  NS, P\,$\neq$\,NP, or the consciousness$\leftrightarrow$RH bridge.
+\item \textbf{\texttt{PF/Wave21MasterCapstone.lean}}: meta-aggregation
+  of Waves 19--21 (NS 3D local regularity via BKM, YM uniform-gap
+  mechanism triage, YM concentration narrowing, Hodge CY4 three-slice
+  substrate, BSD rank-blind concordance).
+\item \textbf{\texttt{PF/Wave18MasterCapstone.lean}}: meta-aggregation
+  of Waves 12 and 15--18 (Perelman-backward unified attack, YM
+  level-2/3/4/5 spectra, BSD 3-rank concordance, RH dimension-2
+  truncation, NS3D Clay-residual isolation).
+\item \textbf{\texttt{PF/CrossMillenniumSharedInvariants.lean}}
+  (commit \texttt{9371c0e}): 11 axiom-free shared $\alpha$-invariants
+  plus capstone establishing exact algebraic identities across the
+  9-class $\alpha$ table (e.g.\ $\alpha_P^2 = \alpha_{YM}$,
+  $\alpha_{NS} = 2\alpha_{BSD} = \alpha_{YM}\alpha_{BSD}$,
+  $\alpha_{YM} = \alpha_{Poincar\'e} + 1$,
+  $\alpha_{Hodge}^2 = \alpha_{Hodge} + 1$,
+  $\alpha_{QG}^2 = 2\pi$).
+\item \textbf{\texttt{PF/Consciousness/ConsciousnessOperatorC.lean}}
+  (commit \texttt{6303c02}): formalises Ch~17 \S13.6 consciousness
+  operator $C = \int \mathrm{ch}_2(s)|s\rangle\langle s|\,ds/(2\pi)$
+  and the structural bridge property
+  \texttt{ConsciousnessRHBridge}, which states $[C,H]=0$ iff
+  the Riemann-zero set encodes the bridge. Witness theorems hold on
+  the trivial substrate; load-bearing infinite-dimensional substrate
+  remains open (catalogued in \texttt{OPEN\_PROBLEMS.md} as
+  Problems~5 and~6).
+\item \textbf{\texttt{PF/Consciousness/ConsciousnessRHBridge.lean}},
+  \texttt{ConsciousnessRHBridgeWitnesses.lean},
+  \texttt{ConsciousnessOdlyzko10Substrate.lean},
+  \texttt{ConsciousnessOdlyzko100Substrate.lean}: finite-dimensional
+  (P5) witnesses for the consciousness$\leftrightarrow$RH bridge on
+  Odlyzko-10 and Odlyzko-100 substrate classes; (P6)
+  infinite-dimensional non-multiplicative obstruction isolated.
+\item \textbf{\texttt{PF/H3UnifiedMillenniumStructure.lean}} and
+  \texttt{H3UnifiedMillenniumStructureTranscendental.lean}
+  (Wave~14): unified algebraic $H_3$ icosahedral substrate
+  organising the 5-class algebraic Millennium $\alpha$-values and
+  3-class transcendental $\alpha$-values, working backward from
+  Perelman's solved $\alpha = 1$ datum.
+\item \textbf{\texttt{PF/PolylogViaHilbertSchmidtCompactness.lean}}
+  (Wave 17, commit \texttt{9ddd617}): two-vector Rayleigh +
+  Hilbert--Schmidt row-sum refutation of the literal eigenvalue
+  identity $\lambda_0 = \pi/(10\alpha)$. The Ch~21 polylog conjecture
+  is reformulated as a monodromy phase identity
+  (\texttt{PF/Analytic/BCleanPhaseIdentity.lean}), not as a literal
+  spectral eigenvalue.
+\item \textbf{\texttt{PF/NS3DLocalRegularityViaBKM.lean}},
+  \texttt{NS3DLocalRegularityAtNGeqOneRetry.lean},
+  \texttt{NS3DVortexStretchingObstruction.lean} (Waves~16--22):
+  isolate the single PDE residual
+  (\texttt{LocalVortexStretchingBound} at $n=1,2,3$) for the Clay
+  3D Navier--Stokes problem; 2D global regularity is classical
+  (\texttt{NS2DGlobalRegularity.lean}, axiom-free, not a Clay claim).
+\item \textbf{\texttt{PF/YangMillsLevel2Spectrum.lean}} through
+  \texttt{YangMillsLevel5Spectrum.lean} (Waves~16--17):
+  structural level-$k$ certificates with explicit cell counts
+  ($4 \to 8 \to 16 \to 32$) and geometric decay rate.
+  \texttt{YangMillsUniformGapViaRepulsion.lean} closes mechanism
+  triage routes (M1) repulsion and (M2) kernel positivity;
+  \texttt{YangMillsSpectralConcentrationAttempt.lean} (commit
+  \texttt{408ce0a}) discharges (M3) at level~1 and identifies the
+  $k \geq 2$ obstruction;
+  \texttt{YangMillsConcentrationViaMultiscaleAveraging.lean} (commit
+  \texttt{6f6ee74}) NARROWS the averaged route;
+  \texttt{YangMillsUniformConcentrationViaKernelStructure.lean}
+  (commit \texttt{7a417eb}) records the M3 inductive-step
+  OBSTRUCTION via bare kernel self-similarity. \emph{None of these
+  discharge the YM mass gap;} they collectively narrow the surviving
+  uniform-mass-gap route.
+\item \textbf{\texttt{PF/HodgeCalabiYau3FoldDim22Substrate.lean}}
+  and \texttt{HodgeDim4CY4Substrate.lean} (Waves~17--20):
+  substrate-level $(p,q)$-slice discharges on projective CY3
+  ((2,2)-slice) and CY4 ((1,1)/(2,2)/(3,3)-slices). Substrate
+  witnesses, not full Hodge conjecture discharges.
+\item \textbf{\texttt{PF/BSDRankBlindUniversalConcordance.lean}}
+  (commit \texttt{b85d981}): rank-blind refactor via
+  \texttt{BSDFrameworkInstance E r}, providing concordance across
+  ranks $0$--$3$ via the eigenvalue anchor $\varphi/e$.
+\item \textbf{\texttt{PF/AlgebraicGeometry/CycleClassMapOnCurve.lean}}
+  (commit \texttt{8b69d70}): concrete \texttt{CycleClassMap}
+  instance closing the Hodge mathlib gap at $\dim = 1$.
+\item \textbf{\texttt{PF/Empirical/HundredFortyThreeProblems.lean}}
+  and \texttt{PF/IBMPeaksGaloisPair.lean}: 143-problem empirical
+  postulate capstone ($10^{-40}$ probability bound) and the
+  Galois-pair theorem $\alpha_{RH} = 3/2$, $\alpha_{NP} = \varphi +
+  1/4$ as conjugate roots of $4a^2 - (9+2\sqrt{5})a + (9+6\sqrt{5})/2$
+  over $\mathbb{Q}(\sqrt{5})$.
+\end{itemize}
+
+\paragraph{What remains open.} The Wave 14--23 deliverables tighten
+mechanism triage, isolate single named PDE/analytic residuals, and
+organise the framework's $\alpha$-structure --- they do \emph{not}
+discharge any of the open Millennium problems. The current state of
+the open problems is catalogued in \texttt{OPEN\_PROBLEMS.md};
+strategic narrowing banners (Waves~17, 18, 19+20+21) record the
+incremental reduction of each route. Coq parity for the Wave 14--22
+deliverables is maintained at the reduction-chain level
+(\texttt{PF\_Coq\_Code/}, commit \texttt{8e68449} and predecessors).
+
 \subsection{Empirical corroboration (post-publication)}
 
 Two stand-alone evidence dossiers complement the formal verification:
