@@ -6,6 +6,68 @@
 > 2026-05-08) and `PRISTINE_CERTIFICATION.md` (current authoritative
 > per-prover state).
 
+## Cycle: 2026-05-25 — Wave 25/26 Coq parity stubs landed
+
+**Headline.** Seven new Coq parity files added under
+`PF_Coq_Code/PF/Wave{25,26}/`, extending Wave 23/24 coverage to the
+Wave 25/26 Lean additions (LpNat substrate for the Hilbert-Polya
+residual class, off-diagonal NS3D vortex-stretching at n in {0,1}
+and n in {2,3}, YM bare quadratic-in-K Gram NEGATIVE narrow-out,
+YM mixed-order kernel calculus POSITIVE realisation of Wave 24,
+Weierstrass-Hodge bridge retry, Wave 24 master capstone). These
+stubs typecheck and discharge what is reachable at Coq 8.18 stdlib
+level; un-ported prerequisites (mathlib `WeierstrassCurve Q`,
+EuclideanSpace n=2/n=3 Hadamard) are encoded as existence Props on
+nonneg squared norms.
+
+### New Coq files (64 modules total, was 55)
+
+| Coq file | Lean source mirrored | Wave | Coq scope |
+|---|---|---|---|
+| `PF/Wave25/ConsciousnessLpNatSubstrate.v` | `PF/Consciousness/ConsciousnessLpNatSubstrate.lean` | 25 | LpNat substrate carrier S:=N + H:=N->R model + basis_e + shift-plus-diagonal C_op (n=0 |-> f 0, n+1 |-> f(n+1) + (1/2)*f n). Theorems C_op_e0_at_zero=1, C_op_e0_at_one=1/2, C_op_not_diagonal (no scalar c works), C_op_not_permutation (two nonzero coords), lpNatSubstrate_S_infinite, LpNatSpaceInfinite. P5_holds_LpNatSubstrate stated as OPEN conjecture via Parameter + classical-decidability Axiom. Mirrors Lean honest scope. |
+| `PF/Wave25/YangMillsQuadraticKernelMechanism.v` | `PF/YangMillsQuadraticKernelMechanism.lean` | 25 | NEGATIVE narrow-out: kernelGramQuadratic c lam := c*lam^2; difference 2c; bare c=1 (diff=2) and c=2 (diff=4) both miss cluster-fixing set {-1,0,1}. Generic constraint c in {-1/2, 0, 1/2} for cluster-fixing. Capstone `quadratic_kernel_mechanism_narrowed`. Pure real arithmetic, axiom-free at stdlib level. |
+| `PF/Wave25/NS3DOffDiagonalVortexStretching.v` | `PF/NS3DOffDiagonalVortexStretching.lean` | 25 | OffDiagonalGradient3DState 6-tuple Record with nonneg fields. hadamard_single_off_diag (w*g <= (w^2+g^2)/2) via Rsqr nonneg. LocalVortexStretchingBoundOffDiagonal n K_off existence-Prop. Discharges at n=0 and n=1 with K_off=2. Capstone `local_vortex_stretching_bound_off_diagonal_at_n_le_one`. Local-in-time Galerkin shadow, NOT a Clay discharge. |
+| `PF/Wave25/Wave24MasterCapstone.v` | `PF/Wave24MasterCapstone.lean` | 25 | META-AGGREGATION ONLY. 5 True-bodied provenness tags (YM non-affine quadratic UNLOCK, BSD rank-6 concordance, NS3D bound n<=5, polylog orthogonality, Ch 34 manuscript propagation). Wave24MasterCapstone Record extending Wave22_23MasterCapstone. |
+| `PF/Wave26/NS3DOffDiagonalAtNTwoThree.v` | `PF/NS3DOffDiagonalAtNTwoThree.lean` | 26 | Extends Wave 25 (n in {0,1}) to n in {2,3} via inherited existence-Prop. Capstone `local_vortex_stretching_bound_off_diagonal_at_n_le_three`. Combined diagonal+off-diagonal provenness tag at n in {0..3}. Local-in-time Galerkin shadow, NOT a Clay discharge. |
+| `PF/Wave26/YangMillsMixedOrderKernelCalculus.v` | `PF/YangMillsMixedOrderKernelCalculus.lean` | 26 | POSITIVE realisation: mixedOrderEigenvalueMap a b c lam := a*lam^2 + b*lam + c; difference 2a+b; both Wave 24 witnesses (1,-2,5/4) and (1,-1,3/4) reproduced. Non-bare witnesses (b!=0 AND c!=0). Capstone `mixed_order_kernel_realises_wave24`. Pure real arithmetic, axiom-free at stdlib level. |
+| `PF/Wave26/WeierstrassHodgeBridgeRetry.v` | `PF/AlgebraicGeometry/WeierstrassHodgeBridgeRetry.lean` | 26 | STRUCTURAL bridge: HodgeCurveSubstrate Record with delta_witness:Z + nat-indexed divisor; HodgeAlgebraicRepresentation 3-conjunct True-bodied Record. Two LMFDB witnesses: E_rank_zero (LMFDB 32.a3, Delta=64) and E_rank_one (LMFDB 37a1, Delta=37). Delta-nonzero by `lia`. Capstone `weierstrass_hodge_bridge_retry_capstone`. mathlib `WeierstrassCurve Q` not in Coq 8.18 stdlib; structural Record parity only. |
+
+### Parity coverage delta (incremental update)
+
+Wave 25-26 audit (2026-05-25): adds 7 PARITY-TRACKED entries
+covering the Wave 25/26 Lean additions.
+
+* **PARITY-TRACKED additions**: 7 new Coq files (4 in Wave 25,
+  3 in Wave 26) corresponding to Wave 25/26 Lean capstones.
+
+### Build state (post Wave 25/26 cycle)
+
+* **Coq**: `make clean && make` succeeds (64 modules; was 55).
+  All seven new Wave 25/26 files compile cleanly under Coq 8.18.
+* `Admitted.` count in new files: 0.
+* `Parameter` declarations in new files:
+  * `Wave25/ConsciousnessLpNatSubstrate.v`: 1 (`P5_holds_LpNatSubstrate`)
+    + 1 Axiom (classical-decidability marker). Mirrors the Lean
+    open-Prop status of P5 on the LpNat substrate. NOT a Lean
+    discharge claim — proving P5 here would BE Hilbert-Polya.
+* **Lean**: state unchanged this cycle.
+
+### Honest scope of the Wave 25/26 cycle
+
+* **POSITIVE results.** YM mixed-order kernel calculus (Wave 26)
+  realises the Wave 24 cluster-fix family with explicitly non-bare
+  witnesses; the LpNat substrate (Wave 25) inhabits the residual
+  Hilbert-Polya class for the consciousness<->RH bridge.
+* **NEGATIVE results.** YM bare quadratic-in-K Gram (Wave 25) is
+  narrowed-out — the cluster-fix family requires non-trivial linear
+  and constant terms.
+* **NOT discharged.** No Millennium problem is discharged this
+  cycle. NS3D off-diagonal bounds are local-in-time Galerkin
+  shadows; Hodge bridge is structural-only; P5 on LpNat is the
+  Hilbert-Polya problem itself.
+
+---
+
 ## Cycle: 2026-05-25 — Wave 23/24 Coq parity stubs landed
 
 **Headline.** Nine new Coq parity files added under
