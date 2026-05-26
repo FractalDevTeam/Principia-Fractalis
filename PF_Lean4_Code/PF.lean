@@ -163,7 +163,6 @@ import PF.NSCascadeCrowBound      -- 2026-05-25 — Axiom-free arithmetic of Ch 
 import PF.NS2DGlobalRegularity     -- 2026-05-25 — 2D NS global regularity (Ladyzhenskaya 1959, NOT Clay): vorticity L² non-increasing + 2D vortex-stretching vanishes in 2D (axiom-free); algebraic shadow of classical 2D theorem
 import PF.NS3DVortexStretchingObstruction -- 2026-05-25 — 3D vortex-stretching obstruction: structural non-vanishing counterexample (axiom-free) + VortexStretchingBoundedHypothesis isolates the ONE PDE Prop residual for Clay 3D NS; restates Clay problem in cleaner form (does NOT discharge)
 import PF.NS3DLocalRegularityViaBKM -- 2026-05-25 — Local-in-time 3D NS regularity (Leray-Hopf 1934, NOT Clay): LocalVortexStretchingBound T discharged axiom-free at n = 0 for every T > 0; BKM bridge + capstone ns_3d_local_regularity_classical; honest local-vs-global dichotomy isolates the Clay gap
-import PF.NS3DLocalRegularityAtNGeqOne -- 2026-05-25 — n ≥ 1 extension of Wave 19 local-bound discharge: Hadamard L² inequality + product-norm bound gives LocalVortexStretchingBound T n axiom-free for every n, every T > 0 with K_T = 1; capstone ns_3d_local_regularity_dim_le_K; Clay residual lives in diagonal-vs-full bilinear, NOT n = 0 vs n ≥ 1
 
 -- ============================================================================
 -- Consciousness: Timeless Field T_∞ (ch04, ch06)
