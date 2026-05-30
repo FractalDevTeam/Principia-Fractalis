@@ -1,6 +1,27 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-30 (Wave 30 — Padé [2/2] POSITIVE realisation with DOUBLE non-bridge to Wave 26 polynomial AND Wave 29 Padé [1/1]; two-pole discrete Stieltjes POSITIVE realisation at functional level — THIRD positive canonical functional family; pole-count stratification 0/1+/2 across Waves 26/29/30. **NET POSITIVE EXPANSION ON YM CANONICAL FUNCTIONAL-FORM LAYER** — no new top-level Problems; sub-results under Problem 1.)*
+*Last updated: 2026-05-30 (Wave 31 — FIRST partial-elimination result: operator-monotone / Loewner class refutes cross-swap pairing structurally via monotonicity (generic in `Monotone f`, inherits to entire operator-monotone class), realises pointwise strictly + both collapses degenerately; asymmetric Padé [1/2] and [2/1] POSITIVE multi-family realisation with multi-family non-bridge. **FIRST PARTIAL-ELIMINATION NARROW-OUT TYPE IN THE FRAMEWORK** — distinct from prior all-or-nothing patterns; no new top-level Problems.)*
+
+> **2026-05-30 WAVE 31 CONSOLIDATED — Per-Problem residual delta.** Wave 31 contributes a STRUCTURALLY NEW narrow-out TYPE (partial-elimination) and two POSITIVE multi-family realisations on the YM canonical-kernel functional-form layer + META capstone. **No new top-level Problems are introduced; the YM canonical-form taxonomy gains a partial-elimination structural axis.**
+>
+> **1. Yang–Mills mass-gap — FIRST partial-elimination + asymmetric Padé multi-family.**
+> * `d4b927b` — **★ Operator-monotone PARTIAL elimination ★** (FIRST partial-elimination result in the framework). The operator-monotone / Loewner / Pick / Nevanlinna-Herglotz class realises the 4 cluster pairings UNEVENLY under structural monotonicity:
+>   * `(1/2, 3/2)` pointwise → STRICTLY REALISABLE (identity `f(x) = x`)
+>   * `(1/2, 1/2)` and `(3/2, 3/2)` collapses → DEGENERATELY REALISABLE (constants only)
+>   * `(3/2, 1/2)` cross-swap → STRUCTURALLY REFUTED via `monotone_nondec_cannot_cross_swap_on_cluster`
+>   * The cross-swap refutation is generic in `Monotone f` and INHERITS to the entire operator-monotone / Loewner / Pick / Nevanlinna-Herglotz class without further specialisation. **First operator-level structural elimination** in the framework — distinct from prior all-or-nothing positive-realisation / Cayley-Hamilton-collapse patterns.
+> * `c70e76f` — Asymmetric Padé [1/2] + [2/1] POSITIVE multi-family realisation. BOTH families realise all 4 cluster pairings at explicit witnesses (8 total). Multi-family off-cluster non-bridge at λ = 100 against Wave 26 polynomial, Wave 29 Padé [1/1], Wave 30 Padé [2/2], AND between [1/2] and [2/1] themselves. Qualitatively distinct asymptotics: [1/2] bounded; [2/1] linearly divergent.
+> * **Residual**: structural-elimination axis now active. Surviving untested candidates include higher-order Padé `[m/n]` with `m + n ≥ 5`, continuous-measure Stieltjes (heavy Lean integration), contour-integral / Cauchy-formula, and other operator-level structural constraints (positivity-preserving, complete-positivity, von-Neumann-algebra-respecting, …). The OPERATOR-LEVEL canonical-origin question for ALL pairings remains open after Wave 31; the partial-elimination axis has eliminated one pairing for one class.
+>
+> **2. Framework headline META + PF.lean hygiene.**
+> * `974ed24` — `Wave31MasterCapstone` META-aggregation (3-clause `Wave31Additions` extending `Wave30MasterCapstone`).
+> * `6a737df` — PF.lean root-reachability registration of all 3 Wave 31 files.
+>
+> **Drift discipline.** Zero new top-level Problems. The partial-elimination axis is a structural finding under existing Problem 1 (Yang–Mills). Wave 31 introduces a new *kind* of narrow-out, not a new Problem.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
+
+
 
 > **2026-05-30 WAVE 30 CONSOLIDATED — Per-Problem residual delta after the wave.** Wave 30 contributes two POSITIVE realisations on the YM canonical-kernel functional-form layer + a META capstone. **No new top-level Problems are introduced; the YM canonical-form taxonomy gains two members.**
 >
