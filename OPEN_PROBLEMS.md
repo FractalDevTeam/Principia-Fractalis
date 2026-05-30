@@ -1,6 +1,28 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-30 (Wave 31 — FIRST partial-elimination result: operator-monotone / Loewner class refutes cross-swap pairing structurally via monotonicity (generic in `Monotone f`, inherits to entire operator-monotone class), realises pointwise strictly + both collapses degenerately; asymmetric Padé [1/2] and [2/1] POSITIVE multi-family realisation with multi-family non-bridge. **FIRST PARTIAL-ELIMINATION NARROW-OUT TYPE IN THE FRAMEWORK** — distinct from prior all-or-nothing patterns; no new top-level Problems.)*
+*Last updated: 2026-05-30 (Wave 32 — SHARP partial-elimination via strict operator-monotonicity (3 of 4 pairings refuted, only pointwise survives trivially) + ORTHOGONAL OFF-CLUSTER axis via midpoint-convexity (f(1) bounded per pairing at cluster spectral midpoint). The cluster-fix taxonomy now stratifies along TWO orthogonal structural axes. Constraint hierarchy positivity → monotone → strict-monotone → operator-monotone → strict-operator-monotone completed.)*
+
+> **2026-05-30 WAVE 32 CONSOLIDATED — Per-Problem residual delta.** Wave 32 sharpens Wave 31 to SHARP partial-elimination and introduces an ORTHOGONAL structural axis (off-cluster constraint). The cluster-fix taxonomy now stratifies along TWO axes.
+>
+> **1. Yang–Mills mass-gap — SHARP partial-elimination + orthogonal off-cluster axis.**
+> * `4c0021e` — **★ SHARP partial-elimination ★** via strict operator-monotonicity. Sharpens Wave 31 from partial-elimination to SHARP partial-elimination. Strict monotonicity refutes 3 of 4 cluster pairings:
+>   * `(1/2, 1/2)` collapse-low → NEWLY REFUTED via `StrictMono.injective`
+>   * `(3/2, 3/2)` collapse-high → NEWLY REFUTED via `StrictMono.injective`
+>   * `(3/2, 1/2)` cross-swap → REFUTED (inherited from Wave 31 d4b927b)
+>   * `(1/2, 3/2)` pointwise → STRICTLY REALISABLE (identity, structurally trivial)
+>   Completes the constraint hierarchy positivity → monotone → strict-monotone → operator-monotone → strict-operator-monotone.
+> * `206ff6a` — **★ Orthogonal OFF-CLUSTER structural axis ★** via midpoint-convexity. Genuinely NEW kind of structural finding — not an on-cluster (anti-)refutation but a bound at the cluster spectral midpoint `(1/2 + 3/2)/2 = 1`. For every midpoint-convex `f` realising a cluster pairing `(c₁, c₂)`, `f(1) ≤ (c₁ + c₂)/2`. All 4 pairings remain realisable; convexity bounds the off-cluster value rather than refuting any pairing. The cluster-fix taxonomy now stratifies along TWO orthogonal structural axes: on-cluster realisation × off-cluster bound.
+> * **Residual**: surviving untested candidates include FULL operator-convexity (Hansen-Pedersen representation, sharper than midpoint-convex), positivity-preserving and completely-positive constraints, continuous-measure Stieltjes (heavy Lean integration), higher-order Padé, and contour-integral / Cauchy-formula constructions. The OPERATOR-LEVEL canonical-origin question remains open after Wave 32; structural-axis stratification continues to expand.
+>
+> **2. Framework headline META.**
+> * `845ec56` — `Wave32MasterCapstone` META-aggregation (3-clause `Wave32Additions` extending `Wave31MasterCapstone`).
+> * `571f26e` — PF.lean root-reachability registration of all 3 Wave 32 files.
+>
+> **Drift discipline.** Zero new top-level Problems. Wave 32 refines and extends the partial-elimination taxonomy under existing Problem 1 (Yang–Mills). The SHARP-partial label is a structural sharpening; the orthogonal off-cluster axis is a structural extension.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
+
+
 
 > **2026-05-30 WAVE 31 CONSOLIDATED — Per-Problem residual delta.** Wave 31 contributes a STRUCTURALLY NEW narrow-out TYPE (partial-elimination) and two POSITIVE multi-family realisations on the YM canonical-kernel functional-form layer + META capstone. **No new top-level Problems are introduced; the YM canonical-form taxonomy gains a partial-elimination structural axis.**
 >
