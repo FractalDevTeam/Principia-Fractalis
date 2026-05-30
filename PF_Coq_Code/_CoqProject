@@ -86,3 +86,8 @@ PF/Wave32/YangMillsCanonicalStrictMonotoneKernel.v
 PF/Wave32/YangMillsCanonicalConvexKernel.v
 PF/Wave32/Wave31MasterCapstone.v
 PF/Wave32/Wave32MasterCapstone.v
+PF/Wave33/NS3DGlobalKTAttempt.v
+PF/Wave33/CycleClassMapAtCodim2Attempt.v
+PF/Wave34/Wave33MasterCapstone.v
+PF/Wave34/NS3DUniformHadamardDischargeAttempt.v
+PF/Wave34/Wave34MasterCapstone.v
