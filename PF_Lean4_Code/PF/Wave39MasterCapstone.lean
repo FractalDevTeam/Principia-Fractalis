@@ -146,16 +146,16 @@ theorem wave39_master_capstone_axiom_free : True := trivial
 /-! ## Section 4 — Companion citation theorems -/
 
 theorem cite_wave39_h3_consciousness_bridge :
-    @PrincipiaTractalis.h3_icosahedral_consciousness_operator_bridge_capstone =
-      @PrincipiaTractalis.h3_icosahedral_consciousness_operator_bridge_capstone := rfl
+    @PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone =
+      @PrincipiaTractalis.H3IcosahedralConsciousnessOperatorBridge.h3_icosahedral_consciousness_operator_bridge_capstone := rfl
 
 theorem cite_wave39_ym_pade_operator_instance :
     @PrincipiaTractalis.ym_canonical_pade_one_one_operator_level_instance_capstone =
       @PrincipiaTractalis.ym_canonical_pade_one_one_operator_level_instance_capstone := rfl
 
 theorem cite_wave39_bsd_rank_distinction :
-    @PrincipiaTractalis.bsd_rank_distinction_capstone =
-      @PrincipiaTractalis.bsd_rank_distinction_capstone := rfl
+    @PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone =
+      @PrincipiaTractalis.BSDRankDistinctionAttempt.bsd_rank_distinction_capstone := rfl
 
 /-! ## Section 5 — Axiom-freeness verification -/
 
