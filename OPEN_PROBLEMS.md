@@ -1,6 +1,28 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-30 (Wave 32 — SHARP partial-elimination via strict operator-monotonicity (3 of 4 pairings refuted, only pointwise survives trivially) + ORTHOGONAL OFF-CLUSTER axis via midpoint-convexity (f(1) bounded per pairing at cluster spectral midpoint). The cluster-fix taxonomy now stratifies along TWO orthogonal structural axes. Constraint hierarchy positivity → monotone → strict-monotone → operator-monotone → strict-operator-monotone completed.)*
+*Last updated: 2026-05-30 (Wave 33 STRATEGIC PIVOT — first serious attack on 3D NS K_T global frontier since Wave 21 (uniform K=2 at n∈{0..5}, named Prop UniformHadamardBoundAllN isolated, 3 layers from Clay) + first extension of Wave 18 codim-1 Chow-API content to codim ≥ 2 with explicit Voisin obstruction marker. After 5 waves of YM cluster-fix taxonomy expansion, pivot to two genuinely hard Clay frontiers. Both yield PARTIAL / STRUCTURAL results with named open Props / obstructions isolated.)*
+
+> **2026-05-30 WAVE 33 STRATEGIC PIVOT — Per-Problem residual delta.** After 5 waves of YM cluster-fix taxonomy maturation (Waves 28-32), Wave 33 PIVOTS to attack two genuinely hard Clay frontiers that had been dormant since Waves 18-21.
+>
+> **2. Navier-Stokes (Problem 2) — first serious global K_T attack since Wave 21.**
+> * `de44587` — **NS3DGlobalKTAttempt** PARTIAL / STRUCTURAL. 12-conjunct unconditional capstone `uniform_K2_at_n_le_five` establishing K = 2 shared across diagonal + off-diagonal at all n ∈ {0..5}, uniformly in T > 0. Named open Prop `UniformHadamardBoundAllN` isolated as the structural induction principle on n; conditional `global_K_T_galerkin_shadow_from_uniform_hadamard` discharges Galerkin-shadow K_T given the Prop. Capstone `ns_3d_global_K_T_partial`.
+> * **Honest distance from Clay**: 3 layers. Layer 1 = `UniformHadamardBoundAllN` (likely tractable via mathlib `EuclideanSpace.norm_sq_eq` + Cauchy-Schwarz one-liner). Layer 2 = lifting Galerkin shadow's diagonal+off-diagonal MODEL of `(ω·∇)u` to the full bilinear operator on Sobolev spaces (substantial mathlib gap). Layer 3 = actual Clay content (operator inequality on smooth NS solutions). Only layer 1 is structurally trivial.
+> * **Residual**: the Clay bar `VortexStretchingBoundedHypothesis` (T-independent, all-n, full-PDE-level operator inequality on `(ω·∇)u`) is NOT discharged. The framework-shadow Clay analog (finite-component Galerkin shadow) is sharpened to ONE named Prop.
+>
+> **3. Hodge (Problem 3) — first extension of codim-1 Chow-API to codim ≥ 2.**
+> * `2d78dd0` — **CycleClassMapAtCodim2Attempt** PARTIAL POSITIVE with explicit Voisin obstruction marker. Mirrors Wave 18 codim-1 pattern (commit `8b69d70` on curves) at codim 2: `CodimTwoAmbient X` + 5 typeclass instances (Subvariety, RatEquivGen, CohomologyClass, CycleClassMap, IsHodgeClass) on `HodgeCY3Dim22Substrate`. `basisIndicatorCycle X n` provides explicit codim-2 Chow preimage. Worked instance on `quinticThreefoldDim22`. Triple-layer bundle combines framework predicate + substrate algebraicity + codim-2 Chow API.
+> * **EXPLICIT obstruction**: `VoisinObstructionAtCodimTwoCY3 : Prop` documents the open geometric content per Voisin 2007. Bundled simultaneously as `hodge_codim_two_PARTIAL_with_Voisin_obstruction` for referee-readable positive + negative.
+> * **Residual**: the geometric codim ≥ 2 Hodge conjecture on smooth projective complex varieties of dim ≥ 4 remains OPEN. `IsHodgeClass` is trivialised to `True` on the substrate — precisely where the geometric content is out of scope.
+>
+> **4. Framework headline META.**
+> * `5088eff` — `Wave33MasterCapstone` META-aggregation (3-clause `Wave33Additions` extending `Wave32MasterCapstone`).
+> * `17d1a80` — PF.lean root-reachability registration of all 3 Wave 33 files.
+>
+> **Drift discipline.** Zero new top-level Problems. Wave 33 contributes structural-extension content to Problems 2 (NS) and 3 (Hodge) without claiming Clay-level discharges. Both deliverables include explicit named-Prop / obstruction markers for referee-readable scope.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
+
+
 
 > **2026-05-30 WAVE 32 CONSOLIDATED — Per-Problem residual delta.** Wave 32 sharpens Wave 31 to SHARP partial-elimination and introduces an ORTHOGONAL structural axis (off-cluster constraint). The cluster-fix taxonomy now stratifies along TWO axes.
 >
