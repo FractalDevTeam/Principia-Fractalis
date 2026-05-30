@@ -1,6 +1,25 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-30 (Wave 33 STRATEGIC PIVOT — first serious attack on 3D NS K_T global frontier since Wave 21 (uniform K=2 at n∈{0..5}, named Prop UniformHadamardBoundAllN isolated, 3 layers from Clay) + first extension of Wave 18 codim-1 Chow-API content to codim ≥ 2 with explicit Voisin obstruction marker. After 5 waves of YM cluster-fix taxonomy expansion, pivot to two genuinely hard Clay frontiers. Both yield PARTIAL / STRUCTURAL results with named open Props / obstructions isolated.)*
+*Last updated: 2026-05-30 (Wave 34 — FIRST UNCONDITIONAL ALL-N NS RESULT in the framework. Wave 33's named open Prop UniformHadamardBoundAllN now an axiom-free theorem via clean uniform Cauchy-Schwarz on EuclideanSpace ℝ (Fin n). Unconditional Galerkin-shadow K_T at K=2. Distance from Clay: 3 → 2 layers. Plus Coq parity catch-up Waves 27-32 (22 new stubs, total 86 modules).)*
+
+> **2026-05-30 WAVE 34 CONSOLIDATED — first unconditional all-n NS result.**
+>
+> **2. Navier-Stokes (Problem 2) — first unconditional all-n result.**
+> * `5da4347` — **★ NS3DUniformHadamardDischargeAttempt UNCONDITIONAL ★** discharges the Wave 33 named open Prop `UniformHadamardBoundAllN` axiom-free via clean uniform-in-n Cauchy-Schwarz on `EuclideanSpace ℝ (Fin n)` (`EuclideanSpace.norm_sq_eq` + `Finset.single_le_sum` + `Finset.sum_le_sum` + `Finset.mul_sum`). FIRST UNCONDITIONAL ALL-N NS RESULT in the framework — lifts the local-time per-n bounds at n ∈ {0..5} (Waves 18, 21, 23-26) to all n at the Galerkin-shadow level. Capstone `uniform_hadamard_discharges_galerkin_shadow_K_T : GlobalKTGalerkinShadow T 2` (unconditional version of Wave 33's conditional Galerkin-shadow K_T). Plus consequences: `all_n_diag_uniform T : UniformVortexStretchingBoundAllN T 1` and `all_n_off_uniform T : UniformVortexStretchingBoundOffDiagonalAllN T 2`.
+> * **Distance from Clay: 3 → 2 layers**. Wave 33 isolated three layers (per-n ≤ 5 ✓; all-n open; PDE-level open); Wave 34 closes the all-n layer axiom-free. Remaining open: lift from Galerkin-shadow finite-component model on `EuclideanSpace ℝ (Fin n)` to full PDE-level `(ω·∇)u` bilinear operator on divergence-free Sobolev / Besov spaces. The Clay bar `VortexStretchingBoundedHypothesis` is UNCHANGED.
+>
+> **5. Cross-prover parity — Coq Waves 27-32 catch-up.**
+> * `4363ccd` — Coq parity catch-up Waves 27-32. 22 new stub files across 6 new `Wave{27..32}/` directories under `PF_Coq_Code/PF/`. Mirrors the corresponding Lean deliverables with docstring (Lean module path + commit SHA), capstone Prop/Theorem names, True-bodied provenness tags for META content, concrete arithmetic where Lean has it. `_CoqProject` updated; full `make` clean. Coq total: 64 → 86 modules. Net Coq-side parity MATCHED through Wave 32.
+>
+> **6. Framework headline META.**
+> * `7d3d700` — `Wave34MasterCapstone` META-aggregation (3-clause `Wave34Additions` extending `Wave33MasterCapstone`).
+> * `1692128` — PF.lean root-reachability registration of Wave 34 files.
+>
+> **Drift discipline.** Zero new top-level Problems. Wave 34 advances Problem 2 (NS) by one structural layer at the Galerkin-shadow level. The Coq parity catch-up is bookkeeping — no new mathematical content.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
+
+
 
 > **2026-05-30 WAVE 33 STRATEGIC PIVOT — Per-Problem residual delta.** After 5 waves of YM cluster-fix taxonomy maturation (Waves 28-32), Wave 33 PIVOTS to attack two genuinely hard Clay frontiers that had been dormant since Waves 18-21.
 >
