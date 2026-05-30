@@ -334,6 +334,106 @@ incremental reduction of each route. Coq parity for the Wave 14--22
 deliverables is maintained at the reduction-chain level
 (\texttt{PF\_Coq\_Code/}, commit \texttt{8e68449} and predecessors).
 
+\subsection{Wave 29--37 framework aggregation (2026-05-30)}
+\label{subsec:wave29-37-aggregation}
+
+Nine additional wave-master capstone files extend the
+Wave 14--23 aggregation to cover the 2026-05-30 deliverables, each
+axiom-free (\texttt{\#print axioms} returns only \texttt{[propext,
+Classical.choice, Quot.sound]}):
+
+\begin{itemize}
+\item \texttt{PF\_Lean4\_Code/PF/Wave29MasterCapstone.lean} (commit
+  \texttt{bc14c48}, 2026-05-30): aggregates YM canonical Padé [1/1]
+  POSITIVE result \texttt{cite\_ym\_canonical\_pade\_one\_one\_realises}
+  (file \texttt{PF/YangMillsCanonicalPadeApproximantKernel.lean}, commit
+  \texttt{9f29cda}), YM canonical partial-fraction NARROWED-OUT
+  \texttt{cite\_ym\_canonical\_partial\_fraction\_narrow\_out} (file
+  \texttt{PF/YangMillsCanonicalPartialFractionKernel.lean}, commit
+  \texttt{4c0021e}), Hodge mathlib AbelianThreefold
+  $\to$ HodgeCalabiYau3FoldSubstrate bridge
+  \texttt{cite\_hodge\_mathlib\_abelian\_3fold\_bridge} (file
+  \texttt{PF/AlgebraicGeometry/MathlibAbelian3FoldHodgeBridge.lean},
+  commit \texttt{1192f3f}), and the 17-new-invariant cross-Millennium
+  extension \texttt{cite\_cross\_millennium\_more\_invariants}
+  (file \texttt{PF/CrossMillenniumMoreInvariants.lean}, commit
+  \texttt{bc14c48}).
+\item \texttt{PF\_Lean4\_Code/PF/Wave31MasterCapstone.lean} aggregates
+  the YM canonical operator-monotone PARTIAL elimination (file
+  \texttt{PF/YangMillsCanonicalOperatorMonotoneKernel.lean}, commit
+  \texttt{d4b927b}, 2026-05-30); \texttt{Wave32MasterCapstone.lean}
+  aggregates the YM canonical partial-fraction SHARP narrow-out
+  (commit \texttt{4c0021e}).
+\item \texttt{PF\_Lean4\_Code/PF/Wave33MasterCapstone.lean} (commit
+  \texttt{2d78dd0}, 2026-05-30): aggregates the NS 3D global $K_T$
+  PARTIAL bound \texttt{cite\_ns\_3d\_global\_K\_T\_partial} (file
+  \texttt{PF/NS3DGlobalKTAttempt.lean}, commit \texttt{de44587})
+  and the Hodge codim-$2$ cycle-class PARTIAL with explicit Voisin
+  obstruction \texttt{cite\_hodge\_codim\_two\_cycle\_class\_partial}
+  (file
+  \texttt{PF/AlgebraicGeometry/CycleClassMapAtCodim2Attempt.lean},
+  commit \texttt{2d78dd0}).
+\item \texttt{PF\_Lean4\_Code/PF/Wave34MasterCapstone.lean} (commit
+  \texttt{5da4347}, 2026-05-30): aggregates the
+  \texttt{UniformHadamardBoundAllN} discharge
+  \texttt{cite\_uniform\_hadamard\_bound\_all\_n\_discharged} and the
+  Galerkin-shadow unconditional $K_T$-bound
+  \texttt{cite\_unconditional\_galerkin\_shadow\_K\_T} (file
+  \texttt{PF/NS3DUniformHadamardDischargeAttempt.lean}, commit
+  \texttt{5da4347}), promoting the Wave~33 per-$n$ bound to uniform-in-$n$
+  form.
+\item \texttt{PF\_Lean4\_Code/PF/Wave35MasterCapstone.lean} (commit
+  \texttt{e1857f1}, 2026-05-30): aggregates the NS 3D layer-2 PDE lift
+  SCAFFOLD \texttt{cite\_ns\_3d\_layer2\_lift\_scaffold} (file
+  \texttt{PF/NS3DLayer2LiftAttempt.lean}, commit \texttt{e1857f1}) and
+  the consciousness $\leftrightarrow$ RH Wave~35 five-point substrate
+  witness \texttt{cite\_consciousness\_RH\_wave35\_fivepoint} (file
+  \texttt{PF/Consciousness/ConsciousnessRHBridgeWave35Witnesses.lean},
+  commit \texttt{56e67d2}).
+\item \texttt{PF\_Lean4\_Code/PF/Wave36\_37MasterCapstone.lean}
+  (commit \texttt{3c4feec}, 2026-05-30): aggregates the
+  consciousness $\leftrightarrow$ RH Wave~36 infinite Odlyzko substrate
+  \texttt{cite\_wave36\_infinite\_substrate} (file
+  \texttt{PF/Consciousness/ConsciousnessRHBridgeWave36InfiniteSubstrate.lean},
+  commit \texttt{bc827bf}), the Perelman-anchored $\alpha$-cascade
+  \texttt{cite\_wave37\_perelman\_cascade} (file
+  \texttt{PF/PerelmanAnchoredAlphaCascade.lean}, commit
+  \texttt{f5df49e}), the IBM empirical $\alpha$-table bridge
+  \texttt{cite\_wave37\_ibm\_bridge} (file
+  \texttt{PF/IBMEmpiricalAlphaTableBridge.lean}, commit
+  \texttt{67aa97a}), and the reverse cross-Millennium implication
+  chains \texttt{cite\_wave37\_reverse\_chains} (file
+  \texttt{PF/CrossMillenniumReverseChains.lean}, commit
+  \texttt{3c4feec}).
+\end{itemize}
+
+\paragraph{Clay-distance metric update (NS axis).} The cumulative
+effect on the NS 3D Clay-distance audit (counted in layers of
+abstraction between the framework's Galerkin shadow and the
+divergence-free Sobolev PDE substrate) is: Wave~25--26 closed
+the off-diagonal scope gap (layer~3 $\to$ layer~2); Wave~33--34
+closed the per-$n$ vs.\ uniform-in-$n$ gap (layer~2 unconditional on
+the Galerkin shadow); Wave~35 installs the layer-2 PDE-lift scaffold
+with the named open residual being the mathlib divergence-free
+Sobolev bilinear bridge (layer~2 $\to$ layer~1.5). None of these
+discharges the Clay 3D Navier--Stokes Millennium problem, which
+remains conditional on
+\texttt{NavierStokesGlobalSmoothness} and the layer-2 bilinear
+bridge.
+
+\paragraph{What remains open after Wave 29--37.} The same OPEN\_PROBLEMS.md
+catalogue applies, now augmented by: the layer-2 PDE divergence-free
+Sobolev bridge (Wave~35), the Hodge codim-$2$ Voisin obstruction
+(Wave~33), the YM continuum lift on the Padé [1/1] canonical kernel
+(Wave~29), and the consciousness-route P6 surjectivity / completeness
+on the infinite Odlyzko substrate (Wave~36, named in
+\texttt{P6\_obstruction\_lifts\_to\_zeroSet\_finiteness}). Coq parity
+for Wave 29--37 deliverables is not yet in the codebase; the Lean
+side is the authoritative verification stratum for these waves. The
+honest-scope tag throughout: structural narrowing, mechanism triage,
+substrate-level discharges, and shared-infrastructure bridges, not
+Millennium-grade discharges.
+
 \subsection{Empirical corroboration (post-publication)}
 
 Two stand-alone evidence dossiers complement the formal verification:
