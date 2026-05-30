@@ -1,6 +1,23 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-30 (Wave 29 narrowings landed across YM canonical kernel arc — fourth route NARROWED OUT (partial-fraction) + first POSITIVE realisation outside polynomial Sylvester family (Padé [1/1]) — plus dim=3 Hodge mathlib abelian-3-fold bridge and 17 new cross-Millennium α-invariants (28 total with Wave 22). **NET NARROWING + FIRST POSITIVE CANONICAL FUNCTIONAL FORM** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+*Last updated: 2026-05-30 (Wave 30 — Padé [2/2] POSITIVE realisation with DOUBLE non-bridge to Wave 26 polynomial AND Wave 29 Padé [1/1]; two-pole discrete Stieltjes POSITIVE realisation at functional level — THIRD positive canonical functional family; pole-count stratification 0/1+/2 across Waves 26/29/30. **NET POSITIVE EXPANSION ON YM CANONICAL FUNCTIONAL-FORM LAYER** — no new top-level Problems; sub-results under Problem 1.)*
+
+> **2026-05-30 WAVE 30 CONSOLIDATED — Per-Problem residual delta after the wave.** Wave 30 contributes two POSITIVE realisations on the YM canonical-kernel functional-form layer + a META capstone. **No new top-level Problems are introduced; the YM canonical-form taxonomy gains two members.**
+>
+> **1. Yang–Mills mass-gap — TWO new POSITIVE canonical functional forms.**
+> * `8ac2129` — **★ Padé [2/2] POSITIVE realisation ★** `φ(λ) = (a₀ + a₁·λ + a₂·λ²)/(b₀ + b₁·λ + b₂·λ²)` realises all 4 cluster pairings `(c₁,c₂) ∈ {1/2,3/2}²` at explicit degree-(2,2) witnesses (a₂ = b₂ = 1). DOUBLE structural non-bridge: off-cluster disagreement at λ = 100 against BOTH Wave 26 polynomial witnesses AND Wave 29 Padé [1/1] witnesses. Realisation expected by parameter counting (5 effective params, 2 eqs) — load-bearing content is the structural non-bridge confirming higher-order Padé routes do not collapse to lower-order ones.
+> * `5548199` — **★ Two-pole discrete Stieltjes POSITIVE realisation (FUNCTIONAL level) ★** `φ(λ) = α₁/(μ₁ − λ) + α₂/(μ₂ − λ) + β` realises all 4 cluster pairings at explicit witnesses (μ₁ = 0, μ₂ = 2, both poles off cluster). THIRD POSITIVE functional family alongside polynomial Sylvester (Wave 26) and Padé [1/1] (Wave 29). 4-way off-cluster disagreement at λ = 100. **CRUCIAL HONEST SCOPE**: at the OPERATOR level on the 2D cluster, `α₁·(μ₁I − M)⁻¹ + α₂·(μ₂I − M)⁻¹ + β·I` still falls under the Wave 29 partial-fraction NEGATIVE narrow-out (a00cad3) via Cayley–Hamilton — FUNCTIONAL-LEVEL realisation in `λ`, NOT an operator-level escape.
+> * **Pole-count stratification after Wave 30**: 0 poles (polynomial Sylvester, Wave 26) / 1+ poles (Padé family, Waves 29-30) / 2 poles (two-pole Stieltjes, Wave 30).
+> * **Residual**: surviving untested candidates are higher-order Padé `[m/n]` with `(m, n) ∉ {(1, 1), (2, 2)}` (e.g. asymmetric `[1/2]`, `[2/1]`, or `[3/3]`), continuous-measure Stieltjes (heavy Lean integration), contour-integral / Cauchy-formula constructions, operator-monotone / Loewner constructions. The OPERATOR-level canonical-origin question remains open after Wave 30; the functional-level catalogue grows.
+>
+> **2. Framework headline META.**
+> * `226e507` — `Wave30MasterCapstone` META-aggregation (3-clause `Wave30Additions` structure extending `Wave29MasterCapstone`). Per Wave 18/21/23/24/26/27/28/29 pattern.
+>
+> **Drift discipline.** Zero new top-level Problems. The two new POSITIVE realisations file under existing Problem 1 (Yang–Mills). The pole-count stratification is a structural finding on the functional-form taxonomy, not a Clay discharge. The functional-vs-operator-level distinction is documented explicitly in the Stieltjes file's honest-scope section.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
+
+
 
 > **2026-05-30 WAVE 29 CONSOLIDATED NARROWING — Per-Problem residual delta after the wave.** This banner aggregates Wave 29 narrowings landed across the YM mass-gap canonical kernel arc (partial-fraction NEGATIVE narrow-out + Padé [1/1] FIRST POSITIVE realisation), the Hodge mathlib abelian-3-fold bridge (dim=3 extension of Wave 28 surface bridge), and the cross-Millennium α-invariant expansion. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts on YM and the algebraic invariant scaffold extends.**
 >
