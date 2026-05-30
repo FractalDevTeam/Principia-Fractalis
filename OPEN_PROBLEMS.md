@@ -1,6 +1,29 @@
 # Open Mathematical Problems Isolated by Principia Fractalis
 
-*Last updated: 2026-05-26 (Waves 27 + 28 narrowings landed across YM mass-gap canonical kernel arc triage (heat-kernel / resolvent / quantum-propagator REFUTED), cross-Millennium implication chains, NS off-diagonal extension n∈{0..5}, Hodge mathlib surface bridge, META capstones, Coq parity 64 modules. **NET NARROWING, NOT WIDENING** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+*Last updated: 2026-05-30 (Wave 29 narrowings landed across YM canonical kernel arc — fourth route NARROWED OUT (partial-fraction) + first POSITIVE realisation outside polynomial Sylvester family (Padé [1/1]) — plus dim=3 Hodge mathlib abelian-3-fold bridge and 17 new cross-Millennium α-invariants (28 total with Wave 22). **NET NARROWING + FIRST POSITIVE CANONICAL FUNCTIONAL FORM** — no new top-level Problems added; sub-results tracked under existing Problems 1–6.)*
+
+> **2026-05-30 WAVE 29 CONSOLIDATED NARROWING — Per-Problem residual delta after the wave.** This banner aggregates Wave 29 narrowings landed across the YM mass-gap canonical kernel arc (partial-fraction NEGATIVE narrow-out + Padé [1/1] FIRST POSITIVE realisation), the Hodge mathlib abelian-3-fold bridge (dim=3 extension of Wave 28 surface bridge), and the cross-Millennium α-invariant expansion. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts on YM and the algebraic invariant scaffold extends.**
+>
+> **1. Yang–Mills mass-gap — fourth canonical-kernel route NARROWED OUT; FIRST POSITIVE canonical functional form realised.**
+> * `a00cad3` — Partial-fraction kernel `K = α·(M − μI)⁻¹ + β·I + γ·M` (general rational-function-of-M class) reduces via Cayley–Hamilton to the squared-resolvent form and exhaustively MISSES all 4 cluster pairings; `cayley_hamilton_forces_a_eq_zero_on_cluster` closes the whole rational-function-of-M class structurally. Fourth canonical route NARROWED OUT in the Wave 28 chain (heat-kernel `a666399`, resolvent `7437ea3`, quantum-propagator `9df6ef4`, partial-fraction `a00cad3`).
+> * `9f29cda` — **★ POSITIVE realisation ★** Padé [1/1] approximant `φ(λ) = (a₀ + a₁·λ)/(b₀ + b₁·λ)` UNLOCKS a new canonical YM cluster-fix mechanism OUTSIDE the Wave 26 polynomial Sylvester family. All 4 cluster pairings `(c₁,c₂) ∈ {1/2,3/2}²` realised at explicit parameter witnesses; structural non-bridge to Wave 26 confirmed via off-cluster disagreement at λ = 100 (Padé → 399.25/102 vs polynomial → 9900.75). First POSITIVE canonical operator-construction candidate found after 4 negative routes.
+> * **Residual:** YM canonical kernel construction narrows to **Stieltjes / dispersion-integral representations, higher-order Padé `[m/n]` with `(m, n) ≠ (1, 1)`, contour-integral / Cauchy-formula constructions, operator-monotone / Loewner constructions.** The polynomial Sylvester family (Wave 26) and Padé [1/1] family (Wave 29) are both intact as POSITIVE canonical mechanisms.
+>
+> **2. Hodge (Problem 3) — dim=3 mathlib abelian-3-fold bridge.**
+> * `1192f3f` — `MathlibAbelian3FoldHodgeBridge`: `Fin 3`-indexed bridge from mathlib `WeierstrassCurve ℚ` triple data `(E₁, E₂, E₃)` to the abstract abelian-3-fold `HodgeCalabiYau3FoldSubstrate` with `h^{1,1} = 3`. Two worked discharges: `E_rank_zero³` (CM cube) and `E32a3 × E37a1 × E389a1` (32.a3 × 37a1 × 389a1, ranks 0/1/2). Capstone `mathlib_grounded_dim_1_2_3_master_capstone` bundles dim = 1 + 2 + 3 transitively across 7 worked instances.
+> * **Residual:** STRUCTURAL only — Lefschetz (1,1) on abelian 3-folds (classical Appell–Humbert / Birkenhake–Lange / Mumford). (2,2)-content on abelian 3-folds, (2,2) on CY3-proper, and dim ≥ 4 codim ≥ 2 all OUT OF SCOPE. The codim ≥ 2 Hodge frontier is NOT touched.
+>
+> **3. Cross-Millennium α-invariant scaffold extended 11 → 28.**
+> * `bc14c48` — `CrossMillenniumMoreInvariants`: 17 new axiom-free α-invariants (7 reciprocals, 6 cubes / 4th-powers, 4 mixed algebraic × algebraic, 3 mixed algebraic × transcendental, 3 sums) + closure structure (`algebraic_sector_witnesses` showing {Poincaré, P, NP, RH, YM, Hodge} ⊂ ℚ[φ, √2]; transcendental sector ⊂ ℚ·π). 17-clause capstone `cross_millennium_more_invariants_capstone`.
+> * **Honest scope:** machine-precise algebraic constraints any α-redefinition must satisfy — NOT Millennium discharges. The 28-invariant scaffold tightens the rigidity of the 9-α table; it does not alter the conditional reduction status of any open Problem.
+>
+> **4. Framework headline META + housekeeping.**
+> * `e0a35f0` — `Wave29MasterCapstone` META-aggregation (5-clause `Wave29Additions` structure extending `Wave28MasterCapstone`). Per Wave 18/21/23/24/26/27/28 pattern.
+> * `0e660fa` — PF.lean root reachability hygiene: register prior Wave 28 `YangMillsCanonicalResolventKernel` (`7437ea3`) and `Wave28MasterCapstone` (`73d677e`) imports that the prior usage-capped session left unregistered. No mathematical content change.
+>
+> **Drift discipline.** Zero new top-level Problems. Every narrowing files under existing Problem 1 (Yang–Mills) or Problem 3 (Hodge). The new α-invariants are structural rigidity, not Problems. The open-surface count strictly contracts under Wave 29; the POSITIVE Padé [1/1] realisation is a new constructive datum at the Wave 26 cluster-fix layer, not a Clay discharge.
+>
+> *All prior session-update banners below remain in force as preceding-session context.*
 
 > **2026-05-26 WAVES 27 + 28 CONSOLIDATED NARROWING — Per-Problem residual delta after the cross-Wave batch.** This banner aggregates Wave 27 + 28 narrowings landed across the YM mass-gap canonical kernel arc, cross-Millennium implication chains, NS off-diagonal extension, Hodge mathlib surface bridge, META capstones, and Coq parity. Each item cites the specific commit SHA. **No new top-level Problems are introduced; the open surface contracts.**
 >
