@@ -1278,6 +1278,295 @@ Millennium-grade discharges. Wave~46C does NOT discharge the
 Yang--Mills mass gap; Wave~46D does NOT advance any underlying
 open content. RH, YM, P, NS, BSD, Hodge, NP all remain open.
 
+\subsection{Wave 47 framework aggregation (2026-05-30)}
+\label{subsec:wave47-aggregation}
+
+Eight further axiom-free Lean~4 files extend the Wave~29--46
+cross-Millennium structural skeleton by executing the framework's
+first PROP-LEVEL DIRECT ATTACKS on the Wave~46D open frontier
+across all six Millennium problems simultaneously. Each per-Prop
+file operates under a MANDATORY READ-FIRST mandate (manuscript
+chapters $+$ relevant Lean files) so that the attacks tap framework
+resources (substrate constructions, mathlib infrastructure,
+algebraic-web cross-connections) rather than re-deriving
+META-aggregations. All eight files axiom-free
+(\texttt{\#print axioms} returns only
+\texttt{[propext, Classical.choice, Quot.sound]} on each capstone):
+
+\begin{itemize}
+\item \textbf{Wave~47A: RH analytic pos-bijection substrate
+  re-engineering + cross-route collapse}
+  (\texttt{PF\_Lean4\_Code/PF/RHAnalyticPosBijectionAttempt.lean},
+  commit \texttt{e14011d}, 2026-05-30). Direct attack on the
+  Wave~45C open Prop \texttt{AnalyticPosBijectionToZetaZeros
+  wave38Substrate}. Section~1 records the literal-falsity
+  sharpening (the constant \texttt{pos38} forces every non-trivial
+  critical-strip $\zeta$-zero to equal $\langle 1/2, 0\rangle$,
+  strictly sharper than Wave~38A's $\leq 1$ cardinality bound).
+  Section~2 constructs \texttt{wave45CRigidSubstrate} reusing
+  Wave~38A's \texttt{base} (so the (P5) discharge
+  \texttt{P5\_holds\_wave45CRigid} transfers unchanged) with a
+  non-constant \texttt{pos} via \texttt{eigenvalueToZero} from
+  \texttt{PF/SpectralBijection.lean} landing on $\mathrm{Re} = 1/2$.
+  Section~3 proves the cross-route collapse:
+  \texttt{analyticPosBijection\_wave45C\_implies\_T3sym\_surjectivity}
+  shows the consciousness-route hypothesis on the bridge substrate
+  IMPLIES the $\widetilde{T}_3^{\mathrm{sym}}$-route
+  \texttt{RHSpectralSurjectivityConjecture}; reverse holds modulo
+  an explicit even-parity caveat. 8-clause capstone
+  \texttt{rh\_analytic\_pos\_bijection\_attempt\_capstone}.
+  \textasciitilde 625~lines, 0 project axioms; build clean 3243 jobs.
+  Cited in Ch~\ref{ch:riemann-hypothesis}
+  (\texttt{rem:rh-wave47a-lean}) and Ch~\ref{ch:operator-theory}
+  (\texttt{rem:consciousness-wave47a-lean}).
+\item \textbf{Wave~47B: YM continuum-lift OS-axiom skeleton +
+  Strong wrapper exposing the Wave~46C honest gap}
+  (\texttt{PF\_Lean4\_Code/PF/YMContinuumLiftAttemptWave47.lean},
+  commit \texttt{3ca4bc0}, 2026-05-30). Direct attack on the
+  Wave~46C open Prop \texttt{ContinuumLiftWithOSAxioms}. Part~A
+  exhibits the trivial witness of the underlying tiny record
+  \texttt{YMContinuumLiftWitness} ($\{\Delta_{\mathrm{cont}} := 1\}$)
+  --- the sharp honest finding that the Wave~46C ``single named
+  open hypothesis'' is a Lean Prop with a trivial inhabitant; the
+  genuine Clay content is NOT in the type but in the naming
+  convention. Part~B defines the content-bearing
+  \texttt{OSAxiomBundle $\Delta_{\mathrm{target}}$} with named Prop
+  carriers for (RP)~reflection positivity, (EI)~Euclidean
+  invariance, (SC)~spectral condition, (UV)~unique vacuum, and
+  $\Delta \geq \Delta_{\mathrm{target}}$, structure mirroring
+  Streater--Wightman~\S III. Part~C builds the strictly stronger
+  typed wrapper \texttt{ContinuumLiftWithOSAxiomsStrong} packaging
+  abstract continuum Hilbert space + \texttt{OSAxiomBundle 1} +
+  level-1 algebraic gap; axiom-free cascade
+  \texttt{yangMillsMassGap\_of\_continuumLiftWithOSAxiomsStrong}
+  reduces \texttt{YangMillsMassGap} to Strong-wrapper inhabitation.
+  Strong wrapper inhabitation requires four named mathlib
+  infrastructure items (Bochner-Minlos on nuclear spaces;
+  reflection structure on $\mathcal{S}(\mathbb{R}^4)$; Wightman
+  reconstruction; mass-gap propagation), each independently a
+  multi-week mathlib project. 6-clause capstone
+  \texttt{ym\_continuum\_lift\_attempt\_wave47\_capstone}.
+  \textasciitilde 548~lines, 0 project axioms; build clean 3234 jobs.
+  Cited in Ch~\ref{ch:yang-mills} (\texttt{rem:ym-wave47b-lean}).
+\item \textbf{Wave~47C: NS Sobolev / Leray-Hodge finite-rank
+  mathlib discharge}
+  (\texttt{PF\_Lean4\_Code/PF/NS3DMathlibSobolevDivFreeAttempt.lean},
+  commit \texttt{829a2ff}, 2026-05-30). Direct attack on Wave~35's
+  first Layer~2 open Prop \texttt{MathlibSobolevDivFreeAvailable}
+  via mathlib's
+  \texttt{Submodule.HasOrthogonalProjection} +
+  \texttt{Submodule.orthogonalProjection} +
+  \texttt{Submodule.norm\_orthogonalProjection\_apply\_le}
+  infrastructure on \texttt{EuclideanSpace $\mathbb{R}$ (Fin n)}.
+  New typed Prop \texttt{MathlibSobolevDivFreeFiniteRank n} is
+  UNCONDITIONALLY discharged at every Galerkin truncation level
+  $n$ (\texttt{mathlib\_sobolev\_div\_free\_finite\_rank\_holds}).
+  The Layer~2 Sobolev gap is SPLIT (via
+  \texttt{layer2\_sobolev\_div\_free\_split}) into discharged
+  finite-rank Galerkin-shadow half + precisely-scoped mathlib-open
+  PDE-torus half \texttt{MathlibPDESobolevDivFreeAtTorus}. Capstone
+  \texttt{ns\_3d\_mathlib\_sobolev\_div\_free\_attempt\_capstone}
+  records the mathlib-grounded narrowing status.
+  \textasciitilde 389~lines, 0 project axioms; build clean
+  (single-file via \texttt{lake env lean}). Cited in
+  Ch~\ref{ch:navier-stokes} (\texttt{rem:ns-wave47c-d-lean}).
+\item \textbf{Wave~47D: NS vortex-stretching bilinear two-stage
+  decomposition --- Clay distance 1.5 $\to$ 1.25 layers}
+  (\texttt{PF\_Lean4\_Code/PF/NS3DVortexStretchingBilinearAttempt.lean},
+  commit \texttt{fba48b0}, 2026-05-30). Direct attack on Wave~35's
+  second Layer~2 open Prop \texttt{VortexStretchingPDEBilinearBounded}.
+  The PDE-level bilinear bound factors as $K_{\mathrm{galerkin}}
+  \cdot K_{\mathrm{leray}}$, where $K_{\mathrm{leray}} \leq 1$ is
+  discharged unconditionally by mathlib's
+  \texttt{Submodule.orthogonalProjection\_norm\_le}
+  (\texttt{leray\_projection\_norm\_le\_one}) and
+  $K_{\mathrm{galerkin}} = 2$ is discharged by Wave~34's
+  \texttt{UniformHadamardBoundAllN}. The conditional bridge
+  \texttt{bilinear\_bound\_from\_galerkin\_density} reduces the
+  PDE-level bound at $K = 2$ to a SINGLE refined open Prop
+  \texttt{GalerkinDirectSumDensity} (concrete Plancherel +
+  Fourier-truncation-density content). Capstone
+  \texttt{ns\_3d\_vortex\_stretching\_bilinear\_attempt\_capstone}
+  records the two-factor narrowing.
+  \textasciitilde 424~lines, 0 project axioms; build clean 2680 jobs.
+  Cited in Ch~\ref{ch:navier-stokes} (\texttt{rem:ns-wave47c-d-lean}).
+\item \textbf{Wave~47E: Hodge codim-$2$ abelian-3-fold escape
+  from Voisin obstruction}
+  (\texttt{PF\_Lean4\_Code/PF/HodgeCodim2AbelianThreefoldEscapeAttempt.lean},
+  commit \texttt{df7dc29}, 2026-05-30). Targeted Mumford / Weil
+  bypass of Wave~33's \texttt{VoisinObstructionAtCodimTwoCY3} on
+  the abelian-3-fold subfamily. Constructs
+  \texttt{Abelian3FoldDim22Substrate} with
+  \texttt{Mumford\_algebraicity\_holds} certificate Prop; bridges
+  triples of \texttt{WeierstrassCurve $\mathbb{Q}$} via
+  \texttt{weierstrassTripleToAbelian3FoldDim22Substrate} at
+  Pontryagin-rank~$3$. Marker
+  \texttt{MumfordVoisinBypass\_on\_abelian\_3fold} records the
+  classical Mumford~1970 / Weil~1977 / Birkenhake--Lange Ch~17.5
+  algebraicity of Hodge classes on abelian varieties.
+  Cross-pollination \texttt{Voisin\_and\_Mumford\_bypass\_simultaneous}
+  certifies consistency (Voisin's general-position construction
+  uses Koll\'ar threefolds, which are NOT abelian). Two worked
+  LMFDB instances (CM cube $32.a3^3$ + mixed-rank $32.a3 \times
+  37a1 \times 389a1$). 5-conjunct capstone
+  \texttt{hodge\_codim\_2\_abelian\_threefold\_escape\_capstone}.
+  \textasciitilde 698~lines, 0 project axioms; build clean 3228 jobs.
+  Cited in Ch~\ref{ch:hodge-conjecture}
+  (\texttt{rem:hodge-wave47e-lean}).
+\item \textbf{Wave~47F: BSD first mathlib \texttt{LSeries}-grounded
+  skeleton + five-point gap manifest}
+  (\texttt{PF\_Lean4\_Code/PF/BSDLFunctionEvaluationAttempt.lean},
+  commit \texttt{669c0bc}, 2026-05-30). First PF file to import
+  \texttt{Mathlib.NumberTheory.LSeries.Basic}. Introduces
+  \texttt{aSeq\_E32a3 : $\mathbb{N} \to \mathbb{C}$} (placeholder
+  zero, since no mathlib API produces it from a
+  \texttt{WeierstrassCurve $\mathbb{Q}$}) and
+  \texttt{L\_E32a3\_complex\_at\_1 : $\mathbb{C}$} via
+  \texttt{LSeries aSeq\_E32a3 (1 : $\mathbb{C}$)}; bridge predicate
+  \texttt{LSeriesMatchesLMFDBAnchor} connects to the Wave~38B
+  real anchor $L_{E_{32.a3}\,\mathrm{at}\,1} = 65551/100000$.
+  The five-point gap manifest \texttt{MathlibGapManifest} enumerates
+  G1~no \texttt{WeierstrassCurve.frobeniusTrace}, G2~no
+  \texttt{WeierstrassCurve.conductor}, G3~no
+  \texttt{WeierstrassCurve.LSeriesCoeff}, G4~no
+  \texttt{WeierstrassCurve.LSeriesSummable} on $\mathrm{Re}\,s > 3/2$,
+  G5~no \texttt{WeierstrassCurve.LFunction} analytic-continuation
+  constructor (G5 would require modularity = Wiles~1995 +
+  BCDT~2001). Convenience export
+  \texttt{mathlib\_gap\_manifest\_exploded} for per-gap attack.
+  9-clause capstone \texttt{bsd\_L\_function\_evaluation\_attempt\_capstone}.
+  \textasciitilde 593~lines, 0 project axioms; build clean 2678 jobs.
+  Cited in Ch~\ref{ch:bsd-conjecture} (\texttt{rem:bsd-wave47f-lean}).
+\item \textbf{Wave~47G: PolylogEigenvalueConjecture attack via
+  empirical pin + half-decomposition + input documentation}
+  (\texttt{PF\_Lean4\_Code/PF/PolylogConjectureAttemptWave47.lean},
+  commit \texttt{e2ea16a}, 2026-05-30). Operates strictly within
+  the three avenues NOT closed by Wave~41B's
+  \texttt{alpha\_of\_class}-no-go. (W47-1)~Conditional discharge
+  under \texttt{EmpiricalAlphaIdentificationHypothesis}
+  ($\texttt{alpha\_of\_class ClassP} = \sqrt{2}$,
+  $\texttt{alpha\_of\_class ClassNP} = \varphi + 1/4$, the IBM /
+  Wave~14 Galois-pair canonical values): theorem
+  \texttt{wave47\_polylog\_discharge\_under\_empirical\_pin}.
+  (W47-2)~The pin is propositionally iff-equivalent to the full
+  conjecture (\texttt{empirical\_pin\_iff\_polylog\_conjecture}).
+  (W47-3)~Sharper orthogonal decomposition into halves
+  \texttt{polylog\_half\_P} and \texttt{polylog\_half\_NP}
+  (\texttt{polylog\_conjecture\_iff\_half\_decomposition}).
+  (W47-4)~Half orthogonality
+  (\texttt{polylog\_half\_orthogonality}): each half is
+  individually weaker at function-quantified level.
+  (W47-5)~\texttt{empirical\_pin\_implies\_P\_neq\_NP} +
+  \texttt{inputB\_RH\_pin\_insufficient} (pinning $\alpha_P = 3/2$
+  is close-but-insufficient since $9/4 \neq 2$). 5-clause capstone
+  \texttt{polylog\_conjecture\_attempt\_wave47\_capstone}.
+  \textasciitilde 446~lines, 12 theorems, 0 project axioms; build clean
+  3238 jobs. Cited in Ch~\ref{ch:p-vs-np}
+  (\texttt{rem:p-vs-np-wave47g-lean}).
+\item \textbf{Wave~47H: framework resource synthesis --- 10
+  unexploited manuscript resources from deep-read of 13 chapters}
+  (\texttt{PF\_Lean4\_Code/PF/FrameworkResourceSynthesisWave47.lean},
+  commit \texttt{fe84b4d}, 2026-05-30). INFORMATIONAL ONLY:
+  manuscript-level resource index for future per-Prop waves, with
+  Lean body as a trivial marker. Catalogues 10 insights:
+  (1)~Ch~11 14-D anomaly $A_{14} = 8174 \to \mathrm{ch}_2 = 0.95$;
+  (2)~Ch~22 base-3 self-similarity inequality $Z < S$;
+  (3)~Ch~21 generating function $G_N(z) = (1+z+z^2)^N$;
+  (4)~Ch~20 perturbation Lemma $\widetilde{T}_3$-imaginary-part;
+  (5)~Ch~24 BSD $\varphi/e$ arithmetic-geometric threshold;
+  (6)~Ch~22 helicity-singularity exponent $\alpha_h = 3 - d_H$;
+  (7)~Ch~23 YM first-zero $\omega_c = 2.13198462$;
+  (8)~Ch~25 Hodge $\alpha = \varphi$ $\varphi$-reciprocity sharper
+  than $\alpha_{NP} = \varphi + 1/4$;
+  (9)~Ch~04 / Ch~17 nuclear C*-algebra projective-limit $T_\infty$;
+  (10)~Ch~06 \v Cech-cohomology consciousness sheaf. Bundled in
+  \texttt{FrameworkResourceSynthesisWave47} structure. 602~lines,
+  0 project axioms.
+\end{itemize}
+
+\paragraph{META-aggregation: Wave 47 master capstone.} The Wave~47
+deliverables are aggregated in
+\texttt{PF\_Lean4\_Code/PF/Wave47MasterCapstone.lean} (commit
+\texttt{f114ede}, 2026-05-30, which also registers Wave~47 Lean
+imports in \texttt{PF.lean}). The aggregator extends
+\texttt{Wave46MasterCapstone} with the \texttt{Wave47Additions}
+structure (bundling 47A through 47H plus the Wave~46 master
+capstone aggregator marker); the Wave~47 master witness
+\texttt{principia\_fractalis\_wave47\_master\_capstone} composes
+the Wave~46 capstone witness with the Wave~47 additions,
+axiom-free. The aggregator is META-only: bundling $\neq$
+discharge.
+
+\paragraph{Open-frontier attack at PROP-level (Wave 47).} Wave~47
+is the first dispatch to execute PROP-LEVEL DIRECT ATTACKS on the
+Wave~46D open frontier across all six Millennium problems
+simultaneously, with each per-Prop agent operating under a
+MANDATORY READ-FIRST mandate (manuscript + Lean). The eight files
+exploit framework cross-connections rather than attacking each
+open Prop in isolation:
+\begin{itemize}
+\item \textbf{RH} (47A): consciousness $\leftrightarrow$
+  $\widetilde{T}_3^{\mathrm{sym}}$ cross-route collapse on the
+  Wave~45C single open Prop, bridging the framework's two parallel
+  RH routes via a single shared substrate.
+\item \textbf{YM} (47B): OS-axiom factoring of the Wave~46C
+  trivializable wrapper into Strong wrapper, moving the Clay-class
+  barrier from typed Lean to four named mathlib infrastructure
+  items.
+\item \textbf{NS} (47C+47D): mathlib finite-rank
+  \texttt{Submodule.orthogonalProjection} infrastructure
+  discharges half of Wave~35's first open Prop and the
+  Leray-projection factor of the second; refined Clay distance
+  1.5 $\to$ 1.25 layers.
+\item \textbf{Hodge} (47E): Mumford / Weil bypass on abelian-3-fold
+  subfamily; Voisin and Mumford bypasses coexist consistently.
+\item \textbf{BSD} (47F): first mathlib \texttt{LSeries} hook in
+  the PF stack; precise five-point gap manifest naming each
+  obstruction from \texttt{WeierstrassCurve $\mathbb{Q}$} to
+  $L(E, s)$.
+\item \textbf{P~vs~NP} (47G): three avenues NOT closed by the
+  Wave~41B no-go (empirical pin / half-decomposition / Input-B
+  documentation) attacked together in a single 5-clause capstone.
+\end{itemize}
+The structural reading: Wave~47 is the framework's most
+COMPREHENSIVE per-Prop attack to date, sharpening the open
+content along axes specific to each Millennium problem. The
+Wave~47 master capstone gives a single referee-citable handle
+for the entire wave; the per-chapter remarks expose the
+domain-specific structural narrowings (consciousness operator
+at RH load-bearing site, OS-axiom skeleton for YM, mathlib
+finite-rank for NS, Mumford bypass for Hodge, \texttt{LSeries}
+hook for BSD, three avenues for P~vs~NP).
+
+\paragraph{What remains open after Wave 47.} No new open
+residuals beyond those listed for Wave~29--37, Wave~40--42,
+Wave~43, Wave~44, Wave~45, and Wave~46. Each Wave~47 file's
+residual is precisely-scoped and named: 47A leaves
+\texttt{AnalyticPosBijectionToZetaZeros wave45CRigidSubstrate}
+(Hilbert--P\'olya-class) and \texttt{RHSpectralSurjectivityConjecture}
+as the joint open content; 47B leaves four named mathlib
+infrastructure items for OS-axiom-bundle inhabitation; 47C leaves
+\texttt{MathlibPDESobolevDivFreeAtTorus} (no $H^s(\mathbb{T}^3,
+\mathbb{R}^3)$ in mathlib master); 47D leaves
+\texttt{GalerkinDirectSumDensity} (refined open density Prop) and
+Layer~3 / Clay \texttt{VortexStretchingBoundedHypothesis}
+(unchanged); 47E leaves dim~$\geq 4$ general-position Voisin~2007
+unchanged (escape strictly to abelian-3-fold subfamily); 47F
+leaves the five-point mathlib gap manifest G1--G5 with G5
+(modularity = Wiles~1995) fundamentally open in mathlib; 47G is
+CONDITIONAL on the empirical pin and is propositionally
+equivalent to P~$\neq$~NP (consistent with Wave~41B no-go);
+47H is INFORMATIONAL only (manuscript-resource index, no Lean
+theorem content). Coq parity for Wave~47 deliverables remains
+TODO (consistent with the Wave~43--46 Coq parity TODO). The Lean
+side remains the authoritative verification stratum for these
+waves. The honest-scope tag throughout: Wave~47 is the framework's
+most COMPREHENSIVE per-Prop attack to date, but NONE of the eight
+files discharges any Clay-class Millennium problem; the master
+capstone is META-AGGREGATION ONLY (bundling $\neq$ discharge).
+RH, YM, P, NS, BSD, Hodge, NP all remain open at their
+respective named open Props.
+
 \subsection{Empirical corroboration (post-publication)}
 
 Two stand-alone evidence dossiers complement the formal verification:
