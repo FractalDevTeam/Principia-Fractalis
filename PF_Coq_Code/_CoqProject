@@ -115,3 +115,6 @@ PF/Wave41/Wave41MasterCapstone.v
 PF/Wave42/GaloisOrbitMillenniumDiscriminator.v
 PF/Wave42/StieltjesHodgeCodim2SpectralBridge.v
 PF/Wave42/Wave42MasterCapstone.v
+PF/Wave43/GaloisRigidConditionalDischarge.v
+PF/Wave43/StieltjesHodgeAbelian3FoldSpectralBridge.v
+PF/Wave43/Wave43MasterCapstone.v
