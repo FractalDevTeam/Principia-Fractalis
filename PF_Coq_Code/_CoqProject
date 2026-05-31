@@ -112,3 +112,6 @@ PF/Wave40/Wave40MasterCapstone.v
 PF/Wave41/CrossQuadraticFieldBridge.v
 PF/Wave41/AlphaOfClassNoGoSingleCitation.v
 PF/Wave41/Wave41MasterCapstone.v
+PF/Wave42/GaloisOrbitMillenniumDiscriminator.v
+PF/Wave42/StieltjesHodgeCodim2SpectralBridge.v
+PF/Wave42/Wave42MasterCapstone.v
