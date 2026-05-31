@@ -617,6 +617,149 @@ stratification, META binding-constraint bundling, calibrated
 structural prediction, and spectral-vocabulary cross-bridging
 --- not Millennium-grade discharges.
 
+\subsection{Wave 43 framework aggregation (2026-05-30)}
+\label{subsec:wave43-aggregation}
+
+Two additional axiom-free Lean~4 files complete the
+leverage-explicitation arc on top of Wave~42's path-of-least-resistance
+deliverables and extend the cross-Millennium spectral-bridge pattern
+to a second arity (\texttt{\#print axioms} returns only
+\texttt{[propext, Classical.choice, Quot.sound]} on each capstone):
+
+\begin{itemize}
+\item \textbf{Wave~43C: Galois-rigid conditional discharge ---
+  structural leverage points named}
+  (\texttt{PF\_Lean4\_Code/PF/GaloisRigidConditionalDischarge.lean},
+  commit \texttt{0bff7e3}, 2026-05-30). Wave~42A's
+  \texttt{IsGaloisRigid} predicate is repackaged as the
+  discharge-hypothesis form
+  \texttt{HasGaloisRigidQRealisation p $:=$ $\exists$ q $:$
+  $\mathbb{Q}$, alpha\_of p $=$ (q $:$ $\mathbb{R}$)}, with
+  axiom-free equivalence
+  \texttt{hasGaloisRigidQRealisation\_iff\_isGaloisRigid}. The three
+  rigid problems satisfy the hypothesis axiom-free at their canonical
+  $\mathbb{Q}$-values (\texttt{Poincare\_hasGaloisRigidQRealisation}
+  at $q = 1$, \texttt{RH\_hasGaloisRigidQRealisation} at $q = 3/2$,
+  \texttt{YM\_hasGaloisRigidQRealisation} at $q = 2$). Three
+  conditional reductions follow: (CR1) sector-level rigidity
+  $\Leftrightarrow$ $\mathbb{Q}$-realisation; (CR2) rigidity chains
+  into Wave~28 \texttt{Realises*} witness predicates for RH and YM
+  via \texttt{rh\_galois\_rigid\_implies\_realisesRH} and
+  \texttt{ym\_galois\_rigid\_implies\_realisesYM}; (CR3) cross-sector
+  cascade \texttt{ym\_galois\_rigid\_cascades\_to\_P\_realisation}
+  composes the YM Realises-chain with the Wave~37C
+  \texttt{reverse\_chain\_YM\_implies\_P\_realisation\_exists} to
+  yield: a Galois-rigid $\mathbb{Q}$-realisation of YM forces
+  existence of a P-realisation at $\sqrt{2}$. The companion
+  \texttt{ym\_galois\_rigid\_cascades\_full\_pair} packages the joint
+  $\{$YM, P$\}$-pair closure. All bundled in the 9-clause capstone
+  \texttt{galois\_rigid\_conditional\_discharge\_capstone}
+  (\textasciitilde 350~lines). Wave~43C is the formal expression of
+  the framework's structural leverage point: the rigid sector is the
+  LEVER, the twisted sector is the LOAD; the two sectors are coupled
+  by the algebraic-web closure, not independent. Conditional
+  end-to-end; CONSISTENT with the Wave~41B no-go (rigidity is
+  NECESSARY-NOT-SUFFICIENT). Cited in Ch~\ref{ch:p-vs-np}
+  (\texttt{rem:p-vs-np-wave43c-lean}), Ch~\ref{ch:yang-mills}
+  (\texttt{rem:ym-wave43c-lean}), Ch~\ref{ch:birch-swinnerton-dyer}
+  (\texttt{rem:bsd-wave43c-lean}), and
+  Ch~\ref{ch:observational-tests}
+  (\texttt{rem:ch29-wave43c-lean}).
+\item \textbf{Wave~43D: Stieltjes $\leftrightarrow$ Hodge
+  abelian-3-fold spectral bridge --- SECOND-ARITY cross-Millennium
+  spectral bridge}
+  (\texttt{PF\_Lean4\_Code/PF/StieltjesHodgeAbelian3FoldSpectralBridge.lean},
+  commit \texttt{480b7a2}, with namespace-fixup \texttt{bc54300},
+  2026-05-30). Extends Wave~42B (2-pole / dim~$=2$) to THREE-POINT
+  support, matching the Wave~29 abelian-3-fold Hodge substrate on
+  $E_1 \times E_2 \times E_3$ with $h^{1,1} = 3$. The three-pole
+  discrete Stieltjes form $\varphi_3(\lambda) = \alpha_1/(\mu_1 -
+  \lambda) + \alpha_2/(\mu_2 - \lambda) + \alpha_3/(\mu_3 - \lambda) +
+  \beta$ is realised as seven-field \texttt{SpectralMeasureSupport3}
+  $= (\mu_1, \mu_2, \mu_3, \alpha_1, \alpha_2, \alpha_3, \beta)$,
+  paired with three-field \texttt{HodgeThreeClassStructure} $=
+  (z_0, z_1, z_2 : \mathbb{Z})$. The shared invariant vocabulary
+  upgrades from Wave~42B's $(\mathrm{trace}, \mathrm{det})$ pair to
+  the THREE ELEMENTARY SYMMETRIC FUNCTIONS $(e_1, e_2, e_3)$
+  characterising the weight triple up to permutation. Bridge
+  translations preserve all three symmetric functions axiom-free
+  (\texttt{bridge\_preserves\_e1,~e2,~e3} and inverses); the
+  round-trip identity \texttt{bridge\_round\_trip\_three\_class}
+  closes the loop on integer weights; the substrate readout
+  \texttt{hodgeRank3SubstrateToThreeClass} extracts a three-class
+  from any \texttt{HodgeCalabiYau3FoldSubstrate} with $3 \leq h^{1,1}$.
+  Both Wave~29 LMFDB named instances (CM-cube and mixed-rank) lift
+  to the canonical \texttt{hodge\_three\_class\_one\_one\_one} $=
+  (1, 1, 1)$ with shared invariants $(e_1, e_2, e_3) = (3, 3, 1)$,
+  and descend to Stieltjes 3-pole measures with identical
+  symmetric-function invariants. All bundled in the 12-conjunct
+  capstone
+  \texttt{stieltjes\_hodge\_abelian\_3fold\_spectral\_bridge\_capstone}
+  (\textasciitilde 843~lines). Establishes the $n$-pole / dim~$=n$
+  cross-Millennium spectral-bridge PATTERN, now instantiated at
+  arities $2$ (Wave~42B, codim-$2$) and $3$ (Wave~43D, codim-$1$
+  abelian-3-fold). Cited in Ch~\ref{ch:yang-mills}
+  (\texttt{rem:ym-wave43d-lean}) and Ch~\ref{ch:hodge-conjecture}
+  (\texttt{rem:hodge-wave43d-lean}).
+\end{itemize}
+
+\paragraph{META-aggregation: Wave 43 master capstone.} The Wave~43
+deliverables are aggregated in
+\texttt{PF\_Lean4\_Code/PF/Wave43MasterCapstone.lean} (commit
+\texttt{dd43253}, 2026-05-30, with PF.lean registration at commit
+\texttt{433cacc}). The structure \texttt{Wave43Additions} bundles
+the two Wave~43 deliverables (43C, 43D) together with the Wave~42
+master-capstone aggregator pin (\texttt{e0dc380} + \texttt{15f2664});
+the structure \texttt{Wave43MasterCapstone} extends
+\texttt{Wave42MasterCapstone} with the Wave~43 additions; the witness
+\texttt{principia\_fractalis\_wave43\_master\_capstone} composes
+\texttt{principia\_fractalis\_wave42\_master\_capstone} with
+\texttt{wave43\_additions\_hold}, axiom-free. The two
+\texttt{cite\_wave43\_*} citation theorems pin each Wave~43 capstone
+by name --- deletion of either source capstone breaks compilation.
+The aggregator is META-only: bundling $\neq$ discharge.
+
+\paragraph{Cross-Millennium spectral-bridge $n$-arity pattern
+(Wave 42B + Wave 43D).} The cross-Millennium SPECTRAL-MEASURE axis
+catalogued under Wave 40--42 now spans TWO arities:
+\begin{itemize}
+\item ARITY~$2$ (Wave~42B, commit \texttt{09a4bc9}):
+  $\varphi_2(\lambda) = \alpha_1/(\mu_1 - \lambda) + \alpha_2/(\mu_2 -
+  \lambda) + \beta \leftrightarrow (z_0, z_1) \in \mathbb{Z}^2$,
+  shared invariants $(\mathrm{trace}, \mathrm{det})$, paired with the
+  Wave~33 codim-$2$ \texttt{HodgeCY3Dim22Substrate} ($h^{2,2} \geq 2$).
+\item ARITY~$3$ (Wave~43D, commit \texttt{480b7a2}):
+  $\varphi_3(\lambda) = \sum_{i=1}^{3} \alpha_i/(\mu_i - \lambda) +
+  \beta \leftrightarrow (z_0, z_1, z_2) \in \mathbb{Z}^3$,
+  shared invariants $(e_1, e_2, e_3)$ (three elementary symmetric
+  functions), paired with the Wave~29 abelian-3-fold substrate
+  ($h^{1,1} = 3$).
+\end{itemize}
+The pattern points toward a general $n$-pole / dim~$=n$ template:
+seven-field structure at arity $3$ generalises to a $(2n + 1)$-field
+structure at arity $n$ with the $n$ elementary symmetric functions
+$(e_1, \ldots, e_n)$ as canonical invariants. Wave~43D is the first
+concrete extension beyond arity~$2$.
+
+\paragraph{What remains open after Wave 43.} No new open residuals
+beyond those listed for Wave 29--37 and Wave 40--42. Wave~43C is a
+CONDITIONAL discharge arc (rigid-sector hypothesis chains into
+Wave~28 \texttt{Realises*} witnesses and cascades into the twisted
+sector via Wave~37C reverse chains); Wave~43D is a STRUCTURAL
+definitional vocabulary translation at the three-point
+spectral-support level (preserving the shared
+$(e_1, e_2, e_3)$ invariants under round-trip closure). Coq parity
+for Wave~43 deliverables remains TODO (Coq parity for Wave~42 was
+recorded as partial at the prior aggregation; Wave~43 is not yet
+mirrored in Coq). The Lean side remains the authoritative
+verification stratum for these waves. The honest-scope tag
+throughout: CONDITIONAL discharge arc with NECESSARY-NOT-SUFFICIENT
+leverage hypothesis, and STRUCTURAL spectral-vocabulary
+cross-bridging at the second arity --- not Millennium-grade
+discharges. Wave~43C does NOT discharge RH, YM, P, NS, or BSD;
+Wave~43D does NOT discharge the Yang--Mills mass gap or the Hodge
+Conjecture at dim~$\geq 2$.
+
 \subsection{Empirical corroboration (post-publication)}
 
 Two stand-alone evidence dossiers complement the formal verification:
