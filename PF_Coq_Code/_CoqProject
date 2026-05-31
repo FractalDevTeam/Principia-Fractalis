@@ -118,3 +118,6 @@ PF/Wave42/Wave42MasterCapstone.v
 PF/Wave43/GaloisRigidConditionalDischarge.v
 PF/Wave43/StieltjesHodgeAbelian3FoldSpectralBridge.v
 PF/Wave43/Wave43MasterCapstone.v
+PF/Wave44/FrameworkMetaArchitectureWave29To43.v
+PF/Wave44/StrictMonotoneGaloisRigidIdentityBridge.v
+PF/Wave44/Wave44MasterCapstone.v
