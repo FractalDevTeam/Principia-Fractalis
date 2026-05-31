@@ -760,6 +760,166 @@ discharges. Wave~43C does NOT discharge RH, YM, P, NS, or BSD;
 Wave~43D does NOT discharge the Yang--Mills mass gap or the Hodge
 Conjecture at dim~$\geq 2$.
 
+\subsection{Wave 44 framework aggregation (2026-05-30)}
+\label{subsec:wave44-aggregation}
+
+Two further axiom-free Lean~4 files complete the META-aggregation
+arc on top of Wave 43 by (i) compressing the complete Wave 29--43
+cross-Millennium structural skeleton into one referee-citable
+theorem, and (ii) recording a previously-uncatalogued cross-discipline
+convergence between two formally independent rigidity-narrowing
+procedures of the framework (\texttt{\#print axioms} returns only
+\texttt{[propext, Classical.choice, Quot.sound]} on each capstone):
+
+\begin{itemize}
+\item \textbf{Wave~44B: framework meta-architecture Wave 29--43 ---
+  ULTIMATE single-citation surface}
+  (\texttt{PF\_Lean4\_Code/PF/FrameworkMetaArchitectureWave29To43.lean},
+  commit \texttt{9f4b8c6}, 2026-05-30). The 12-field structure
+  \texttt{FrameworkMetaArchitecture} catalogues the complete Wave
+  29--43 cross-Millennium structural skeleton across four primary
+  axes (algebraic-invariants axis from Wave~22 $+$ Wave~29 with 28
+  $\alpha$-invariants; implication-chains axis from Wave~27 forward
+  $+$ Wave~37C reverse biconditional algebraic web; Galois-orbits
+  axis from Wave~41A $+$ Wave~42A $(\mathbb{Z}/2)^2$-action over
+  $\mathbb{Q}(\sqrt{2}, \sqrt{5})$; spectral-bridges axis from
+  Wave~42B $+$ Wave~43D $n$-pole / dim~$=n$ pattern at arities
+  $n = 2, 3$), six supporting connections (scale-coincidence from
+  Wave~40C; IBM empirical-formal bridge from Wave~37B; Perelman
+  cascade from Wave~37A; cross-quadratic compositum from Wave~41A;
+  Galois discriminator from Wave~42A; no-go single citation from
+  Wave~41B), and two conditional / leverage capstones (Galois-rigid
+  conditional discharge from Wave~43C; framework headline Wave 29
+  $\to$ 39 from Wave~40D). The capstone
+  \texttt{framework\_meta\_architecture\_capstone} bundles all 12
+  fields, axiom-free. Eleven load-bearing \texttt{cite\_*} theorems
+  pin each underlying capstone via \texttt{rfl}, so any rename or
+  signature change to an underlying capstone breaks this file's
+  compilation --- the citation surface is load-bearing.
+  \textasciitilde 410~lines, 12 fields, 11 cite theorems, 4
+  axiom-freeness witnesses. Combined with Wave~22's pre-Wave-29
+  \texttt{FrameworkHeadlineTheorem} and Wave~40D's
+  \texttt{framework\_headline\_wave\_29\_to\_39\_update\_capstone},
+  the framework now exposes THREE LAYERS of citation surface:
+  per-domain (Wave~22), per-arc (Wave~40D), and meta-architecture
+  (Wave~44B). Cited in Ch~\ref{ch:observational-tests}
+  (\texttt{rem:ch29-wave44b-lean}).
+\item \textbf{Wave~44D: strict-monotone $\leftrightarrow$
+  Galois-rigid identity bridge --- JOINT canonical witness across
+  two formally independent rigidity-narrowing procedures}
+  (\texttt{PF\_Lean4\_Code/PF/StrictMonotoneGaloisRigidIdentityBridge.lean},
+  commit \texttt{a6b75f8}, 2026-05-30). The identity function
+  $\lambda x : \mathbb{R}.\, x$ is formally established as the JOINT
+  canonical witness across (i)~Wave~32 strict operator-monotonicity
+  at the Wave~24 cluster fix $\{1/2, 3/2\}$ (functional analysis ---
+  refutes 3 of 4 cluster pairings, identity uniquely realises the
+  surviving pointwise pairing) and (ii)~Wave~42A Galois
+  $(\mathbb{Z}/2)^2$-action on $\mathbb{Q}(\sqrt{2}, \sqrt{5})$
+  (field theory --- the rigid sector \{Poincar\'e, RH, YM\} has
+  $\alpha$-values in $\mathbb{Q}$, fixed by every automorphism).
+  The 6-clause capstone
+  \texttt{strict\_monotone\_galois\_rigid\_identity\_bridge\_capstone}
+  packages: (1)~functional-rigidity side
+  (\texttt{StrictMono (fun x : $\mathbb{R}$ => x)} $+$ pointwise
+  realisation of the surviving cluster pairing); (2)~algebraic-
+  rigidity side (\texttt{InQ ((fun x : $\mathbb{R}$ => x) $\alpha_p$)}
+  for $p \in \{$Poincar\'e, RH, YM$\}$); (3)~coordinate-axis side
+  (\texttt{gal\_sqrt2}, \texttt{gal\_sqrt5}, \texttt{gal\_both} all
+  fix \texttt{coord\_alpha\_p} for each rigid $p$);
+  (4)~generic rigid-axis fixed-point statement on \texttt{CompElt};
+  (5)~sector preservation $\forall p, \texttt{IsGaloisRigid } p \to
+  \texttt{InQ ((fun x : $\mathbb{R}$ => x) (alpha\_of } p))$;
+  (6)~joint-witness biconditional
+  \texttt{strict\_monotone\_identity\_iff\_galois\_rigid\_pointwise\_witness}.
+  19 axiom-free theorems (3 YM-coordinate fixes depend only on
+  \texttt{[propext]}). \textasciitilde 441~lines. The two
+  formally independent rigidity-narrowing procedures arrive at the
+  SAME canonical witness via DIFFERENT mathematical structures
+  (functional analysis vs.\ field theory), with the joint
+  trivialisation landing on the rigid sector and EXPLICITLY NOT
+  extending to the twisted sector \{P, Hodge, NP\}. Cited in
+  Ch~\ref{ch:p-vs-np} (\texttt{rem:p-vs-np-wave44d-lean}),
+  Ch~\ref{ch:yang-mills} (\texttt{rem:ym-wave44d-lean}), and
+  Ch~\ref{ch:observational-tests} (\texttt{rem:ch29-wave44d-lean}).
+\end{itemize}
+
+\paragraph{META-aggregation: Wave 44 master capstone.} The Wave~44
+deliverables are aggregated in
+\texttt{PF\_Lean4\_Code/PF/Wave44MasterCapstone.lean} (commit
+\texttt{224fdb2}, 2026-05-30, which also registers Wave~44 Lean
+imports in \texttt{PF.lean}). The structure \texttt{Wave44Additions}
+bundles the two Wave~44 deliverables (44B, 44D) together with the
+Wave~43 master-capstone aggregator pin (\texttt{dd43253}); the
+structure \texttt{Wave44MasterCapstone} extends
+\texttt{Wave43MasterCapstone} with the Wave~44 additions; the
+witness \texttt{principia\_fractalis\_wave44\_master\_capstone}
+composes \texttt{principia\_fractalis\_wave43\_master\_capstone}
+with \texttt{wave44\_additions\_hold}, axiom-free. The two
+\texttt{cite\_wave44\_*} citation theorems pin each Wave~44 capstone
+by name --- deletion of either source capstone breaks compilation.
+The aggregator is META-only: bundling $\neq$ discharge.
+
+\paragraph{Three-layer citation surface (Wave 22 + Wave 40D + Wave 44B).}
+With Wave~44B in place, the framework now exposes a complete
+THREE-LAYER citation surface for the cross-Millennium structural
+content:
+\begin{itemize}
+\item LAYER~1 (per-domain, Wave~22, \texttt{FrameworkHeadlineTheorem}):
+  the pre-Wave-29 single-citable theorem covering the framework's
+  9-class $\alpha$-table and per-Millennium connection structure
+  established prior to the Wave 29--43 cross-Millennium development.
+\item LAYER~2 (per-arc, Wave~40D,
+  \texttt{framework\_headline\_wave\_29\_to\_39\_update\_capstone}):
+  the 11-wave-arc aggregator covering the Wave 29--39 master
+  capstones, established at the close of Wave~40 prior to the
+  Wave 41--43 extension.
+\item LAYER~3 (meta-architecture, Wave~44B,
+  \texttt{framework\_meta\_architecture\_capstone}): the OUTERMOST
+  layer covering all 12 fields of the Wave 29--43 structural
+  skeleton (4 primary axes $+$ 6 supporting connections $+$ 2
+  conditional / leverage), with 11 load-bearing \texttt{cite\_*}
+  theorems pinning each underlying capstone by name.
+\end{itemize}
+Any future paper, referee, or arxiv submission can choose the
+citation layer appropriate to scope: Layer~1 for pre-cross-Millennium
+content, Layer~2 for the early cross-Millennium arc, Layer~3 for
+the complete Wave 29--43 connection structure.
+
+\paragraph{Cross-discipline rigidity convergence (Wave 44D).}
+The Wave~44D bridge records a previously-uncatalogued substrate-level
+unification observation: the framework carries TWO formally
+independent rigidity-narrowing procedures --- (i)~Wave~32 strict
+operator-monotonicity at the Wave~24 cluster fix (functional
+analysis), and (ii)~Wave~42A Galois $(\mathbb{Z}/2)^2$-action on
+$\mathbb{Q}(\sqrt{2}, \sqrt{5})$ (field theory) --- and these two
+procedures CONVERGE on the SAME canonical witness (the identity
+function $\lambda x : \mathbb{R}.\, x$) on the rigid sector
+\{Poincar\'e, RH, YM\}. Wave~44D's sector-preservation clause
+$\forall p, \texttt{IsGaloisRigid } p \to \texttt{InQ ((fun x :
+$\mathbb{R}$ => x) (alpha\_of } p))$ formalises that the joint
+trivialisation lands on the rigid sector and EXPLICITLY does NOT
+extend to the twisted sector \{P, Hodge, NP\}. This is a
+vocabulary unification across mathematical disciplines (functional
+analysis $\leftrightarrow$ field theory), structurally trivial in
+both contexts; the bridge formalises the JOINT trivialisation.
+
+\paragraph{What remains open after Wave 44.} No new open residuals
+beyond those listed for Wave 29--37, Wave 40--42, and Wave 43.
+Wave~44B is META-AGGREGATION$^2$ (bundling$^2$ $\neq$ discharge);
+Wave~44D is a STRUCTURAL CORRESPONDENCE / vocabulary observation
+(structurally trivial in both rigidity contexts; the bridge
+formalises the JOINT trivialisation on the rigid axis). Coq parity
+for Wave~44 deliverables remains TODO (consistent with the Wave~43
+Coq parity TODO). The Lean side remains the authoritative
+verification stratum for these waves. The honest-scope tag
+throughout: ULTIMATE citation surface compression and SUBSTRATE-LEVEL
+cross-discipline rigidity-convergence observation --- not Millennium-
+grade discharges. Wave~44B does NOT discharge any Millennium
+problem (RH, YM, P, NS, BSD, Hodge, NP all remain open);
+Wave~44D does NOT discharge any Millennium problem (the identity
+is structurally trivial in both contexts and the joint
+trivialisation lands on the rigid axis only).
+
 \subsection{Empirical corroboration (post-publication)}
 
 Two stand-alone evidence dossiers complement the formal verification:
