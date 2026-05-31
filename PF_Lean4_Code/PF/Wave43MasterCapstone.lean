@@ -96,8 +96,8 @@ theorem cite_wave43_galois_rigid_conditional_discharge :
       @PrincipiaTractalis.GaloisRigidConditionalDischarge.galois_rigid_conditional_discharge_capstone := rfl
 
 theorem cite_wave43_stieltjes_hodge_abelian_3fold_spectral_bridge :
-    @PrincipiaTractalis.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone =
-      @PrincipiaTractalis.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone := rfl
+    @PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone =
+      @PrincipiaTractalis.StieltjesHodgeAbelian3FoldSpectralBridge.stieltjes_hodge_abelian_3fold_spectral_bridge_capstone := rfl
 
 #print axioms wave43_additions_hold
 #print axioms principia_fractalis_wave43_master_capstone

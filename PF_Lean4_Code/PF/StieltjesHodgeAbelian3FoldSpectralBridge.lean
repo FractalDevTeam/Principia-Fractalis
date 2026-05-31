@@ -94,6 +94,7 @@ import PF.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge
 import Mathlib.Tactic
 
 namespace PrincipiaTractalis
+namespace StieltjesHodgeAbelian3FoldSpectralBridge
 
 open PrincipiaTractalis.HodgeCalabiYau3Fold
 open PrincipiaTractalis.AlgebraicGeometry.MathlibAbelian3FoldHodgeBridge
@@ -357,7 +358,7 @@ theorem inverse_bridge_preserves_e3
 /-- **Round-trip identity on integer weights**: starting from a
     Hodge three-class structure, going to Stieltjes (with any chosen
     poles and tail) and back to Hodge recovers the original. -/
-theorem bridge_round_trip
+theorem bridge_round_trip_three_class
     (H : HodgeThreeClassStructure) :
     stieltjesToHodgeThreeClass H.z0 H.z1 H.z2 = H := by
   cases H
@@ -778,7 +779,7 @@ theorem stieltjes_hodge_abelian_3fold_spectral_bridge_capstone :
    inverse_bridge_preserves_e1,
    inverse_bridge_preserves_e2,
    inverse_bridge_preserves_e3,
-   bridge_round_trip,
+   bridge_round_trip_three_class,
    hodge_three_class_E32a3_cubed_eq_one_one_one,
    hodge_three_class_mixed_rank_eq_one_one_one,
    ⟨hodge_three_class_one_one_one_e1,
@@ -807,7 +808,7 @@ theorem stieltjes_hodge_abelian_3fold_spectral_bridge_capstone :
 #print axioms inverse_bridge_preserves_e1
 #print axioms inverse_bridge_preserves_e2
 #print axioms inverse_bridge_preserves_e3
-#print axioms bridge_round_trip
+#print axioms bridge_round_trip_three_class
 #print axioms hodgeRank3SubstrateToThreeClass_z0
 #print axioms hodgeRank3SubstrateToThreeClass_z1
 #print axioms hodgeRank3SubstrateToThreeClass_z2
@@ -838,4 +839,5 @@ theorem stieltjes_hodge_abelian_3fold_spectral_bridge_capstone :
 #print axioms hodge_three_class_mixed_rank_eq_one_one_one
 #print axioms stieltjes_hodge_abelian_3fold_spectral_bridge_capstone
 
+end StieltjesHodgeAbelian3FoldSpectralBridge
 end PrincipiaTractalis
