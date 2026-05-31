@@ -1095,6 +1095,189 @@ Wave~45C does NOT discharge the Riemann Hypothesis; Wave~45D
 does NOT re-prove Perelman's theorem. RH, YM, P, NS, BSD, Hodge,
 NP all remain open.
 
+\subsection{Wave 46 framework aggregation (2026-05-30)}
+\label{subsec:wave46-aggregation}
+
+Two further axiom-free Lean~4 files extend the Wave 29--45
+cross-Millennium structural skeleton by (i)~producing the
+STRUCTURAL TWIN of Wave~45C on the framework's other rigid-sector
+analytic Millennium problem (the Yang--Mills mass gap), completing
+the rigid-sector symmetry --- BOTH rigid-sector analytic Millennium
+problems are now reduced to EXACTLY ONE open analytic conjecture
+each with the Galois-rigidity premise discharged unconditionally;
+and (ii)~producing the META-COMPLEMENT to the Wave~44B framework
+meta-architecture single-citation surface --- a single-citation
+enumeration of the framework's exact OPEN content across all 6
+Millennium problems, with deletion-tracking via load-bearing
+\texttt{cite\_*} \texttt{rfl}-pins. Together with Wave~44B
+(which catalogues the PROVEN content), Wave~46D delivers the
+complete referee-citable characterisation of the framework's
+exact state --- what is done, what remains. Both files axiom-free
+(\texttt{\#print axioms} returns only
+\texttt{[propext, Classical.choice, Quot.sound]} on each capstone):
+
+\begin{itemize}
+\item \textbf{Wave~46C: YM mass gap conditional discharge via
+  Galois rigidity --- structural twin of Wave~45C on the other
+  rigid-sector analytic Millennium problem}
+  (\texttt{PF\_Lean4\_Code/PF/YMConditionalDischargeViaGaloisRigidity.lean},
+  commit \texttt{d420995}, 2026-05-30). The file defines the open
+  analytic Prop \texttt{ContinuumLiftWithOSAxioms} as definitionally
+  equal (via \texttt{continuumLiftWithOSAxioms\_iff\_witnessExists})
+  to the Wave~28/30 \texttt{YMContinuumLiftWitnessExists}, with the
+  renamed surface deliberately surfacing the Osterwalder--Schrader
+  axiom + continuum-lift reading required by the Clay statement.
+  The sharp conditional theorem \texttt{YM\_conditional\_via\_framework}
+  composes a 2-step chain: given (i)~\texttt{HasGaloisRigidQRealisation
+  .YM} (Wave~43C: $\alpha_{\mathrm{YM}} = 2 \in \mathbb{Q}$) and
+  (ii)~\texttt{ContinuumLiftWithOSAxioms} (the single remaining open
+  analytic content), \texttt{YangMillsMassGap} follows axiom-free.
+  TIGHTENED reduction
+  \texttt{YM\_conditional\_via\_framework\_reduced\_to\_one\_open}
+  consumes Wave~43C's \texttt{YM\_hasGaloisRigidQRealisation}
+  (re-exported as \texttt{ym\_galois\_rigid\_premise\_discharged})
+  to discharge the algebraic premise unconditionally, leaving
+  \texttt{ContinuumLiftWithOSAxioms} as the SOLE remaining open
+  analytic conjecture. The 6-clause capstone
+  \texttt{YM\_conditional\_discharge\_via\_galois\_rigidity\_capstone}
+  bundles the conditional theorem, the tightened reduction, the
+  equivalence \texttt{continuumLiftWithOSAxioms\_iff\_witnessExists},
+  the necessary-not-sufficient certificate
+  \texttt{ym\_galois\_rigid\_necessary\_not\_sufficient} (Wave~41B
+  no-go consistency), and four load-bearing cross-references
+  \texttt{cite\_wave30\_39C\_pade\_operator\_instance} /
+  \texttt{cite\_wave43C\_galois\_rigid\_YM} /
+  \texttt{cite\_wave26\_yang\_mills\_via\_resonance\_gap\_on\_cascade}
+  / \texttt{cite\_wave43C\_ym\_cascade\_to\_P}.
+  \textasciitilde 476~lines, 0 project axioms; build clean 3233 jobs.
+  Cited in Ch~\ref{ch:yang-mills} (\texttt{rem:ym-wave46c-lean}) and
+  Ch~\ref{ch:observational-tests} (\texttt{rem:ch29-wave46c-lean}).
+\item \textbf{Wave~46D: cross-Millennium open frontier inventory ---
+  META-complement to Wave~44B framework meta-architecture
+  single-citation surface}
+  (\texttt{PF\_Lean4\_Code/PF/CrossMillenniumOpenFrontierInventory.lean},
+  commit \texttt{4574996}, 2026-05-30). The 6-Prop structure
+  \texttt{Inventory} catalogues the open frontier of each Millennium
+  problem in the framework: (1)~\textbf{RH} ---
+  \texttt{AnalyticPosBijectionToZetaZeros wave38Substrate} (Wave~45C,
+  Hilbert--P\'olya-class) $+$
+  \texttt{RH\_conditional\_discharge\_via\_galois\_rigidity\_capstone};
+  (2)~\textbf{YM} --- \texttt{YMContinuumLiftWitnessExists} $+$
+  \texttt{PerelmanTemplateYM} (Y1~$\wedge$~Y2~$\wedge$~Y3~$\wedge$~Y4)
+  $+$ \texttt{YM\_hasGaloisRigidQRealisation} (Wave~43C discharged
+  premise; Wave~46C single-Prop reduction available as a fourth
+  citation); (3)~\textbf{NS} --- \texttt{MathlibSobolevDivFreeAvailable}
+  $+$ \texttt{VortexStretchingPDEBilinearBounded} (Wave~35; both
+  mathlib gaps precisely formalised); (4)~\textbf{Hodge} ---
+  \texttt{VoisinObstructionAtCodimTwoCY3} (Wave~33; explicit
+  obstruction at codim~$\geq 2$); (5)~\textbf{P~vs~NP} ---
+  \texttt{alpha\_of\_class\_no\_go\_single\_citation\_capstone}
+  (Wave~41B; the binding constraint --- discharge $\Leftrightarrow$
+  discharge of self-reference); (6)~\textbf{BSD} ---
+  \texttt{bsd\_rank\_distinction\_capstone} (Wave~39B; dual
+  discriminators O1/O2 closed, L-function evaluation unformalised
+  in mathlib). The capstone
+  \texttt{cross\_millennium\_open\_frontier\_inventory\_capstone}
+  bundles all 6 fields, axiom-free. 10 load-bearing \texttt{cite\_*}
+  theorems pin each underlying named open Prop / capstone via
+  \texttt{rfl} (\texttt{cite\_rh\_AnalyticPosBijectionToZetaZeros},
+  \texttt{cite\_rh\_conditional\_discharge\_via\_galois\_rigidity\_capstone},
+  \texttt{cite\_ym\_YMContinuumLiftWitnessExists},
+  \texttt{cite\_ym\_PerelmanTemplateYM},
+  \texttt{cite\_ym\_GaloisRigidQRealisation\_discharged},
+  \texttt{cite\_ns\_MathlibSobolevDivFreeAvailable},
+  \texttt{cite\_ns\_VortexStretchingPDEBilinearBounded},
+  \texttt{cite\_hodge\_VoisinObstructionAtCodimTwoCY3},
+  \texttt{cite\_pnp\_alpha\_of\_class\_no\_go\_single\_citation\_capstone},
+  \texttt{cite\_bsd\_rank\_distinction\_capstone}). Deletion / rename
+  / signature change of any cited source breaks compilation, making
+  the citation surface load-bearing.
+  \textasciitilde 344~lines, 10 cite theorems, 0 project axioms;
+  build clean 3352 jobs. Cited in
+  Ch~\ref{ch:observational-tests} (\texttt{rem:ch29-wave46d-lean}).
+\end{itemize}
+
+\paragraph{META-aggregation: Wave 46 master capstone.} The Wave~46
+deliverables are aggregated in
+\texttt{PF\_Lean4\_Code/PF/Wave46MasterCapstone.lean} (commit
+\texttt{f194be1}, 2026-05-30, which also registers Wave~46 Lean
+imports in \texttt{PF.lean}). The aggregator extends
+\texttt{Wave45MasterCapstone} with the Wave~46 additions (46C, 46D);
+the Wave~46 master witness composes the Wave~45 capstone witness
+with the Wave~46 additions, axiom-free. The aggregator is
+META-only: bundling $\neq$ discharge.
+
+\paragraph{Rigid-sector symmetry completed (Wave 46C).}
+With Wave~46C in place, the framework's two rigid-sector analytic
+Millennium problems (RH and YM) exhibit IDENTICAL structural
+shape: both are reduced, via parallel theorems, to EXACTLY ONE
+open analytic conjecture each, with the Galois-rigidity premise
+discharged UNCONDITIONALLY in both cases via Wave~43C. The
+explicit pair:
+\begin{itemize}
+\item \textbf{RH} (Wave~45C, \texttt{rem:rh-wave45c-lean} of
+  Ch~\ref{ch:riemann-hypothesis}) $\Leftarrow$
+  \texttt{AnalyticPosBijectionToZetaZeros wave38Substrate}
+  (Hilbert--P\'olya-class consciousness-route content).
+\item \textbf{YM mass gap} (Wave~46C,
+  \texttt{rem:ym-wave46c-lean} of Ch~\ref{ch:yang-mills})
+  $\Leftarrow$ \texttt{ContinuumLiftWithOSAxioms} (Clay-class
+  Osterwalder--Schrader axiomatisation + continuum-lift content).
+\end{itemize}
+This is the cleanest possible characterisation of the rigid-sector
+analytic Millennium frontier via the framework: on the rigid
+sector \{Poincar\'e, RH, YM\}, Poincar\'e is the SOLVED datum
+(Perelman 2003, Wave~45D calibration), and RH and YM are each
+reduced to ONE open analytic conjecture, parallel structural
+shape. The symmetry does NOT extend to the twisted sector \{P,
+Hodge, NP\}, where the Wave~41B no-go barrier blocks analogous
+reductions (the alpha-of-class self-reference constraint).
+
+\paragraph{Complete open-content citation surface (Wave 46D).}
+The Wave~46D inventory pairs with the Wave~44B framework
+meta-architecture (\texttt{subsec:wave44-aggregation},
+\texttt{rem:ch29-wave44b-lean} of
+Ch~\ref{ch:observational-tests}) to provide the complete
+referee-citable characterisation of the framework's exact state:
+Wave~44B catalogues what is PROVEN (the cross-Millennium
+structural skeleton); Wave~46D catalogues what is OPEN (the
+precise named gap per Millennium problem). Together, these two
+meta-aggregations characterise the framework's exact open
+frontier --- a single Wave~44B citation points at the framework's
+structural connection content; a single Wave~46D citation points
+at the framework's exact open content; the 10 load-bearing
+\texttt{cite\_*} pins of Wave~46D ensure deletion / rename /
+signature change of any underlying source breaks compilation.
+The pairing is intentional: the framework's full state is now
+referee-citable via exactly two meta-aggregations, one for each
+side of the proven / open dichotomy.
+
+\paragraph{What remains open after Wave 46.} No new open residuals
+beyond those listed for Wave 29--37, Wave 40--42, Wave 43,
+Wave 44, and Wave 45. Wave~46C is a CONDITIONAL reduction (the
+single remaining open premise \texttt{ContinuumLiftWithOSAxioms}
+is Clay-class Osterwalder--Schrader axiomatisation + continuum-lift
+content; the conditional theorem does NOT discharge the YM mass
+gap, and the target \texttt{YangMillsMassGap} is the Wave~22
+Unit-augmented typed placeholder, not the full Clay statement);
+Wave~46D is a META-AGGREGATION of OPEN content (bundling $\neq$
+discharge; each Millennium problem's named gap remains open at
+its respective Wave~33 / Wave~35 / Wave~39B / Wave~41B / Wave~43C
+/ Wave~45C / Wave~46C origin). Coq parity for Wave~46 deliverables
+remains TODO (consistent with the Wave~43--45 Coq parity TODO;
+the standing Wave~46 Coq catch-up bundle in commit \texttt{e9f3910}
+registers 3 stub files mirroring the Lean Wave~46 deliverables at
+parity-stub level, with full porting deferred). The Lean side
+remains the authoritative verification stratum for these waves.
+The honest-scope tag throughout: rigid-sector symmetry COMPLETED
+(both rigid-sector analytic Millennium problems now reduced to
+ONE open analytic conjecture each) and complete open-content
+citation surface DELIVERED (Wave~46D enumerates the exact
+framework open frontier in a single citable capstone) --- not
+Millennium-grade discharges. Wave~46C does NOT discharge the
+Yang--Mills mass gap; Wave~46D does NOT advance any underlying
+open content. RH, YM, P, NS, BSD, Hodge, NP all remain open.
+
 \subsection{Empirical corroboration (post-publication)}
 
 Two stand-alone evidence dossiers complement the formal verification:
