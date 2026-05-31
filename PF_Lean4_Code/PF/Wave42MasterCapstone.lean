@@ -127,8 +127,8 @@ theorem cite_wave42_galois_orbit_millennium_discriminator :
       @PrincipiaTractalis.GaloisOrbitMillenniumDiscriminator.galois_orbit_millennium_discriminator_capstone := rfl
 
 theorem cite_wave42_stieltjes_hodge_codim_2_spectral_bridge :
-    @PrincipiaTractalis.StieltjesHodgeCodim2SpectralBridge.stieltjes_hodge_codim_2_spectral_bridge_capstone =
-      @PrincipiaTractalis.StieltjesHodgeCodim2SpectralBridge.stieltjes_hodge_codim_2_spectral_bridge_capstone := rfl
+    @PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone =
+      @PrincipiaTractalis.stieltjes_hodge_codim_2_spectral_bridge_capstone := rfl
 
 /-! ## Section 5 — Axiom-freeness verification -/
 
