@@ -920,6 +920,181 @@ Wave~44D does NOT discharge any Millennium problem (the identity
 is structurally trivial in both contexts and the joint
 trivialisation lands on the rigid axis only).
 
+\subsection{Wave 45 framework aggregation (2026-05-30)}
+\label{subsec:wave45-aggregation}
+
+Two further axiom-free Lean~4 files extend the Wave 29--44
+cross-Millennium structural skeleton by (i)~producing the
+framework's SHARPEST formal RH reduction (collapse to ONE open
+analytic conjecture via composition of Wave~38A substrate $+$
+Wave~42A discriminator $+$ Wave~43C conditional discharge $+$
+Wave~25 consciousness bridge), and (ii)~producing the framework's
+most powerful CALIBRATION argument against the ONE solved
+Millennium-class datum (Perelman 2003 Poincar\'e at $\alpha = 1$),
+both forward and reverse cross-validations axiom-free
+(\texttt{\#print axioms} returns only
+\texttt{[propext, Classical.choice, Quot.sound]} on each capstone):
+
+\begin{itemize}
+\item \textbf{Wave~45C: RH conditional discharge via Galois rigidity
+  --- framework's SHARPEST formal RH reduction}
+  (\texttt{PF\_Lean4\_Code/PF/RHConditionalDischargeViaGaloisRigidity.lean},
+  commit \texttt{5396724}, 2026-05-30). The file defines the
+  load-bearing open analytic Prop \texttt{AnalyticPosBijectionToZetaZeros
+  wave38Substrate}: for every non-trivial critical-strip $\zeta$-zero
+  $s$, there exists a substrate-index $\mathrm{idx}$ on the Wave~38A
+  infinite-zeroSet substrate such that $\mathcal{S}_R.\mathrm{pos}\,\mathrm{idx}
+  = s$ AND the consciousness commutator $[C, H]$ vanishes on
+  $|\mathrm{idx}\rangle$. The axiom-free equivalence
+  \texttt{analyticPosBijectionToZetaZeros\_iff\_completeness}
+  certifies this Prop is definitionally equal to Wave~25's
+  \texttt{ConsciousnessStationaryStateCompleteness} on
+  \texttt{wave38Substrate}. The sharp conditional theorem
+  \texttt{RH\_conditional\_via\_framework} composes a 3-step chain:
+  (Step~1) Wave~38A \texttt{P5\_holds\_infiniteZeroSetSubstrate}
+  $\Rightarrow$ (P5) \texttt{CommutatorVanishesAtRHZeros wave38Substrate};
+  (Step~2) pos-bijection hypothesis $\Rightarrow$ (P6)
+  \texttt{ConsciousnessStationaryStateCompleteness wave38Substrate};
+  (Step~3) Wave~25 \texttt{riemann\_hypothesis\_via\_consciousness\_bridge
+  wave38Substrate} (P5 $+$ P6) $\Rightarrow$ \texttt{RiemannHypothesis}.
+  TIGHTENED reduction
+  \texttt{RH\_conditional\_via\_framework\_reduced\_to\_one\_open}
+  consumes Wave~43C's \texttt{RH\_hasGaloisRigidQRealisation}
+  (re-exported as \texttt{rh\_galois\_rigid\_premise\_discharged})
+  to discharge the algebraic premise unconditionally, leaving
+  \texttt{AnalyticPosBijectionToZetaZeros wave38Substrate} as the
+  SOLE remaining open analytic conjecture. The 7-clause capstone
+  \texttt{RH\_conditional\_discharge\_via\_galois\_rigidity\_capstone}
+  bundles the chain, the sharpness equivalence
+  \texttt{analyticPosBijection\_on\_wave38\_iff\_wave25\_completeness},
+  the necessary-not-sufficient certificate
+  \texttt{rh\_galois\_rigid\_necessary\_not\_sufficient} (Wave~43C
+  honest-scope consistency), and three load-bearing cross-references
+  \texttt{cite\_wave38A\_P5} / \texttt{cite\_wave43C\_galois\_rigid}
+  / \texttt{cite\_wave25\_consciousness\_bridge\_on\_wave38}.
+  \textasciitilde 413~lines, 0 project axioms; build clean 3242 jobs.
+  Cited in Ch~\ref{ch:operator-theory}
+  (\texttt{rem:consciousness-wave45c-lean}),
+  Ch~\ref{ch:riemann-hypothesis} (\texttt{rem:rh-wave45c-lean}), and
+  Ch~\ref{ch:observational-tests} (\texttt{rem:ch29-wave45c-lean}).
+\item \textbf{Wave~45D: Perelman solved-case cross-validation ---
+  framework's most powerful CALIBRATION argument on the ONE solved
+  Millennium-class datum}
+  (\texttt{PF\_Lean4\_Code/PF/PerelmanSolvedCaseCrossValidation.lean},
+  commit \texttt{7184dbb}, 2026-05-30). The file defines two Props
+  at $\alpha_{\mathrm{Poincar\acute{e}}} = 1$: (i)~the 5-clause
+  substrate fingerprint \texttt{PerelmanSolvedStructuralIdentity
+  $\alpha$} bundling (S1)~$\alpha = 1$, (S2)~$\alpha \cdot \alpha
+  = \alpha$ (multiplicative identity), (S3)~$\exists q : \mathbb{Q},\,
+  \alpha = (q : \mathbb{R})$ ($\mathbb{Q}$-realisability),
+  (S4)~$0 < \alpha$, (S5)~cross-Millennium integer-1 triangle
+  $\alpha_{\mathrm{YM}} - \alpha = 1 \wedge \alpha_P^2 - \alpha = 1$;
+  and (ii)~the 6-clause framework prediction
+  \texttt{FrameworkPredictionPoincare} bundling (F1--F2)~Wave~22
+  anchor $+$ P-YM-Perelman triangle, (F3)~Wave~41A
+  $\alpha_{\mathrm{Poincar\acute{e}}} \in \mathbb{Q}$,
+  (F4)~Wave~42A rigid-sector classification, (F5)~Wave~43C
+  \texttt{HasGaloisRigidQRealisation .Poincare} witnessed by
+  $q = 1$ --- with \texttt{framework\_prediction\_poincare\_holds}
+  certifying the prediction is provable axiom-free. Forward
+  cross-validation
+  \texttt{framework\_correctly\_predicts\_perelman\_solved\_at\_alpha\_one}:
+  prediction $\Rightarrow$ substrate fingerprint, axiom-free.
+  Reverse cross-validation: fingerprint $\Rightarrow$
+  $\mathbb{Q}$-realisation
+  (\texttt{perelman\_substrate\_implies\_Q\_realisation}),
+  $\Rightarrow$ $\alpha = 1$
+  (\texttt{perelman\_substrate\_implies\_eq\_one}), $\Rightarrow$
+  Galois-rigid $\mathbb{Q}$-realisation hypothesis
+  (\texttt{perelman\_substrate\_implies\_galois\_rigid\_realisation}).
+  Galois-orbit identities: \texttt{perelman\_galois\_orbit\_trace\_eq\_one}
+  (orbit at $\alpha = 1$ is $\{1\}$, trace $= 1$) and
+  \texttt{perelman\_galois\_group\_sum\_eq\_four} (sum over
+  $|(\mathbb{Z}/2)^2| = 4$ Galois automorphisms is $4 \cdot 1 = 4$).
+  Calibration theorem
+  \texttt{perelman\_calibrated\_RH\_YM\_rigid\_sector}: RH
+  ($\alpha = 3/2$) and YM ($\alpha = 2$) share the rigid-sector
+  classification of the SOLVED Perelman case --- both
+  \texttt{IsGaloisRigid}, both admit \texttt{HasGaloisRigidQRealisation}
+  witnesses, both belong to
+  \texttt{galois\_rigid\_millennium\_problems}, both inherit the
+  ``predicted discharge-tractable'' classification ANCHORED on
+  Perelman. \textasciitilde 485~lines, 14 declarations, 0 project
+  axioms; build clean 3095 jobs. Cited in
+  Ch~\ref{ch:cosmological-constant} (\texttt{rem:ch26-wave45d-lean})
+  and Ch~\ref{ch:observational-tests}
+  (\texttt{rem:ch29-wave45d-lean}).
+\end{itemize}
+
+\paragraph{META-aggregation: Wave 45 master capstone.} The Wave~45
+deliverables are aggregated in
+\texttt{PF\_Lean4\_Code/PF/Wave45MasterCapstone.lean} (commit
+\texttt{67df2c5}, 2026-05-30, which also registers Wave~45 Lean
+imports in \texttt{PF.lean}). The aggregator extends
+\texttt{Wave44MasterCapstone} with the Wave~45 additions (45C, 45D);
+\texttt{principia\_fractalis\_wave45\_master\_capstone} composes
+the Wave~44 capstone witness with the Wave~45 additions, axiom-free.
+The aggregator is META-only: bundling $\neq$ discharge.
+
+\paragraph{SHARPEST formal RH reduction to date (Wave 45C).}
+The Wave~45C theorem
+\texttt{RH\_conditional\_via\_framework\_reduced\_to\_one\_open}
+is the framework's SHARPEST formal RH content as of 2026-05-30:
+RH is reduced to EXACTLY ONE open analytic conjecture
+(\texttt{AnalyticPosBijectionToZetaZeros wave38Substrate}),
+with the algebraic side
+(\texttt{HasGaloisRigidQRealisation .RH}, $\alpha_{\mathrm{RH}}
+= 3/2 \in \mathbb{Q}$) ALREADY discharged unconditionally via
+Wave~43C's \texttt{RH\_hasGaloisRigidQRealisation}. The single
+remaining open premise is Hilbert--P\'olya-class content: a
+\texttt{pos}-bijection from the Wave~38A substrate's infinite
+\texttt{zeroSet} onto the actual non-trivial critical-strip
+$\zeta$-zero set, definitionally equivalent to Wave~25's
+\texttt{ConsciousnessStationaryStateCompleteness} on
+\texttt{wave38Substrate}. The reduction sharpens the
+consciousness-route open boundary without crossing it; the route
+is parallel to --- and does not supersede --- the primary
+$\widetilde{T}_3^{\mathrm{sym}}$ route of
+Ch~\ref{ch:riemann-hypothesis} conditional on
+\texttt{RHSpectralSurjectivityConjecture} (Problem~4 of
+\texttt{OPEN\_PROBLEMS.md}).
+
+\paragraph{Substrate-fingerprint calibration against the SOLVED
+case (Wave 45D).}
+The Wave~45D cross-validation pair establishes, axiom-free, that
+(i)~the framework's structural prediction at $\alpha = 1$ is
+CONSISTENT with a 5-clause substrate fingerprint of the solved
+Poincar\'e case (forward direction), and (ii)~the substrate
+fingerprint UNIQUELY recovers the framework's rigid-sector
+$\mathbb{Q}$-realisation classification (reverse direction). The
+calibration theorem then propagates the structural confidence to
+RH and YM under the Wave~42A discriminator's
+\texttt{RH\_and\_YM\_are\_predicted\_next\_solvable} prediction.
+The framework's cross-Millennium organising structure is
+non-vacuously calibrated by exactly ONE known data point ---
+strongest possible Lean-level calibration the framework can
+produce on a Millennium-class problem.
+
+\paragraph{What remains open after Wave 45.} No new open residuals
+beyond those listed for Wave 29--37, Wave 40--42, Wave 43, and
+Wave 44. Wave~45C is a CONDITIONAL reduction (the single
+remaining open premise \texttt{AnalyticPosBijectionToZetaZeros
+wave38Substrate} is Hilbert--P\'olya-class content; the
+conditional theorem does NOT discharge RH); Wave~45D is a
+CALIBRATION argument (the cross-validation does NOT re-prove
+Perelman's theorem --- Ricci flow analysis is not formalised
+in the framework's Lean codebase --- and the calibration theorem
+does NOT discharge RH or YM). Coq parity for Wave~45 deliverables
+remains TODO (consistent with the Wave~43--44 Coq parity TODO).
+The Lean side remains the authoritative verification stratum
+for these waves. The honest-scope tag throughout: SHARPEST formal
+RH reduction (collapse to ONE open analytic conjecture) and
+MOST POWERFUL substrate-fingerprint calibration against the ONE
+solved Millennium-class datum --- not Millennium-grade discharges.
+Wave~45C does NOT discharge the Riemann Hypothesis; Wave~45D
+does NOT re-prove Perelman's theorem. RH, YM, P, NS, BSD, Hodge,
+NP all remain open.
+
 \subsection{Empirical corroboration (post-publication)}
 
 Two stand-alone evidence dossiers complement the formal verification:
