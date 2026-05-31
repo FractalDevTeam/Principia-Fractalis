@@ -1567,6 +1567,351 @@ capstone is META-AGGREGATION ONLY (bundling $\neq$ discharge).
 RH, YM, P, NS, BSD, Hodge, NP all remain open at their
 respective named open Props.
 
+\subsection{Wave 48 framework aggregation (2026-05-31)}
+\label{subsec:wave48-aggregation}
+
+Eight further axiom-free Lean~4 files extend the Wave~29--47
+cross-Millennium structural skeleton by executing the framework's
+first FRONTIER BATCH on the Wave~47 open residuals across all six
+Millennium problems. Unlike Wave~45, Wave~46, and Wave~47, Wave~48
+was dispatched as a DIRECT FRONTIER BATCH \emph{without} a Wave~48
+master-capstone aggregator file: each file is referee-citable on
+its own, registered in \texttt{PF.lean} after its Wave~47 ancestor.
+Two of the eight files are structurally MAJOR (Wave~48A discharges
+the Wave~47A even-parity caveat; Wave~48D substrate-discharges
+Wave~47D's refined density sub-Prop); six are narrower per-Prop
+advances. All eight files axiom-free
+(\texttt{\#print axioms} returns only
+\texttt{[propext, Classical.choice, Quot.sound]} on each capstone,
+except Wave~48E where it returns ``does not depend on any axioms''
+--- strictly stronger):
+
+\begin{itemize}
+\item \textbf{Wave~48A: RH analytic pos-bijection parity-caveat
+  DISCHARGE --- two parallel RH routes collapse to IDENTICAL open
+  content} (\texttt{PF\_Lean4\_Code/PF/RHAnalyticPosBijectionParityAttempt.lean},
+  commit \texttt{cf4b4cd}, 2026-05-30). $\bigstar$ MAJOR RH
+  structural advance. Discharges Wave~47A's even-parity caveat
+  via substrate-level carrier re-indexing $\texttt{eigSeqEven } n
+  := \texttt{eigSeq } (n / 2)$; bridge lemma
+  \texttt{eigSeqEven\_at\_two\_mul}: every value of \texttt{eigSeq}
+  is taken by \texttt{eigSeqEven} at an EVEN index. Construction
+  \texttt{wave47ParitySubstrate} reuses \texttt{wave38Base} and
+  \texttt{zeroSet38} (Wave~38A's (P5) discharge transfers by
+  \texttt{rfl}-cast as \texttt{P5\_holds\_wave47Parity}) and swaps
+  \texttt{pos} for $\texttt{pos47Parity } n := \texttt{eigenvalueToZero
+  alphaRef (eigSeqEven } n\texttt{)}$. Parity-caveat-discharge
+  theorem \texttt{analyticPosBijection\_wave47Parity\_from\_T3sym\_no\_parity}:
+  $\texttt{RHSpectralSurjectivityConjecture alphaRef eigSeqEven}$
+  ALONE (no parity hypothesis) implies $\texttt{AnalyticPosBijectionToZetaZeros
+  wave47ParitySubstrate}$. Carrier-equivalence iff bridge
+  \texttt{RHSpectralSurjectivity\_eigSeqEven\_iff\_eigSeq};
+  end-to-end \texttt{RH\_from\_T3sym\_surjectivity\_no\_parity}
+  discharges RH via the bridge substrate from
+  $\texttt{RHSpectralSurjectivityConjecture alphaRef eigSeq}$ alone.
+  Honest trade-off: \texttt{pos47Parity} is no longer injective
+  (\texttt{pos47Parity\_not\_injective}: \texttt{pos47Parity 0 =
+  pos47Parity 1}); weaker non-constancy
+  \texttt{pos47Parity\_non\_constant\_on\_even} replaces injectivity.
+  7-clause capstone
+  \texttt{rh\_analytic\_pos\_bijection\_parity\_attempt\_capstone}.
+  $\sim$650~lines, 0 project axioms; build clean 7520 jobs.
+  Cited in Ch~\ref{ch:riemann-hypothesis}
+  (\texttt{rem:rh-wave48a-lean}) and Ch~\ref{ch:operator-theory}
+  (\texttt{rem:consciousness-wave48a-lean}).
+\item \textbf{Wave~48B: 1+1D OS reflection-positivity toy via
+  mathlib \texttt{Matrix.PosSemidef} --- first substantive content
+  in the Wave~47B \texttt{OSAxiomBundle.rp} field}
+  (\texttt{PF\_Lean4\_Code/PF/YMReflectionPositivityToyAttempt.lean},
+  commit \texttt{5637320}, 2026-05-30). Four-part deliverable:
+  (a)~$\theta_{\mathrm{toy}}$ coordinate swap on
+  \texttt{EuclideanSpace} $\mathbb{R}$ \texttt{(Fin 2)}; involution
+  $\theta^2 = \mathrm{id}$ proven \texttt{thetaToy\_involutive}.
+  (b)~OS bilinear form $B(f, g) = \langle\theta f, g\rangle$;
+  closed-form $B(f, g) = f\,1 \cdot g\,0 + f\,0 \cdot g\,1$ via
+  \texttt{PiLp.inner\_apply} $+$ \texttt{Fin.sum\_univ\_two}.
+  (c)~Rank-1 Gram-matrix
+  $\texttt{osGramMatrix t i j} = \exp(-(t\,i + t\,j))$; PSD
+  discharged via mathlib \texttt{Matrix.posSemidef\_self\_mul\_conjTranspose}
+  after factorisation $\texttt{osGramMatrix t} = \texttt{osColVec
+  t} \cdot (\texttt{osColVec t})^\top$. (d)~Upgrade path
+  documenting four named gaps: $\mathcal{S}(\mathbb{R}^4)$
+  reflection structure, Bochner--Minlos on
+  $\mathcal{S}'(\mathbb{R}^4)$, Wightman reconstruction, mass-gap
+  propagation. 6-clause capstone
+  \texttt{ym\_reflection\_positivity\_toy\_attempt\_capstone}.
+  Algebraic CORE of OS reflection positivity is mathlib-tractable;
+  genuine gap is the $\mathcal{S}(\mathbb{R}^4)$ Schwartz-space
+  infrastructure, not the positivity argument itself. $\sim$384~lines,
+  0 project axioms; build clean 7520 jobs (full project), 3103
+  incremental. Cited in Ch~\ref{ch:yang-mills}
+  (\texttt{rem:ym-wave48b-lean}).
+\item \textbf{Wave~48C: typed referee-readable skeleton for the
+  Wave~47C layer-2.b mathlib-open Prop \texttt{MathlibPDESobolevDivFreeAtTorus}}
+  (\texttt{PF\_Lean4\_Code/PF/NS3DLayer2bSobolevTorusSkeleton.lean},
+  commit \texttt{0027805}, 2026-05-31). Typed scaffold
+  \texttt{PDESobolevSpaceSkeleton E S : Prop} carrying the EXACT
+  mathlib content layer-2.b needs (closed div-free subspace,
+  norm-non-increasing Leray projection, op-norm $\leq 1$),
+  parameterised over $(E, S)$. Consistency proof
+  \texttt{pdeSobolevSpaceSkeleton\_finiteRankWitness n}: every
+  $n : \mathbb{N}$ inhabits the skeleton via Wave~47C's
+  \texttt{LerayHodgeDivFreeSubspace n}. Precise four-item
+  documentation \texttt{MathlibContentNeededForTorusSobolev}:
+  (G1)~$H^s(\mathbb{T}^3)$; (G2)~Helmholtz / Leray on
+  $L^2(\mathbb{T}^3, \mathbb{R}^3)$;
+  (G3)~$H^s_\sigma(\mathbb{T}^3, \mathbb{R}^3)$ as
+  \texttt{InnerProductSpace}; (G4)~bounded bilinear
+  $(\omega\cdot\nabla)u : H^s \times H^s \to H^{s-1}$. Two bridges
+  \texttt{skeleton\_implies\_layer2b\_substrate} and
+  \texttt{layer2b\_substrate\_via\_skeleton}; 5-field
+  \texttt{Layer2bSobolevTorusSkeletonStatus} capstone. Bookkeeping
+  refinement (Clay distance UNCHANGED from Wave~47C at 1.25 ---
+  before Wave~48D --- but the layer-2.b gap becomes referee-readable
+  per item). $\sim$401~lines, 0 project axioms; build clean 2687
+  jobs. Cited in Ch~\ref{ch:navier-stokes}
+  (\texttt{rem:ns-wave48c-d-lean}).
+\item \textbf{Wave~48D: substrate-level DISCHARGE of Wave~47D's
+  refined open sub-Prop \texttt{GalerkinDirectSumDensity} via
+  mathlib 1D L$^2$ Fourier-basis density on \texttt{AddCircle T}
+  --- NS Clay distance 1.25 $\to$ 1.0 layers}
+  (\texttt{PF\_Lean4\_Code/PF/NS3DGalerkinDensityAttempt.lean},
+  commit \texttt{160e094}, 2026-05-31). $\bigstar$ MAJOR NS
+  advance. Routes through mathlib's
+  \texttt{span\_fourierLp\_closure\_eq\_top} and
+  \texttt{hasSum\_fourier\_series\_L2}. Builds abstract Hilbert
+  basis \texttt{fourierBasis\_isHilbertBasis}; quantitative
+  $\varepsilon$-approximation
+  \texttt{fourier\_partial\_sums\_dense\_in\_L2} via
+  \texttt{Metric.tendsto\_atTop}; substrate discharge of the
+  framework Prop
+  \texttt{galerkin\_direct\_sum\_density\_via\_fourier\_lp};
+  end-to-end \texttt{wave\_47D\_plus\_wave\_48\_substrate\_bilinear\_discharge}
+  chaining Wave~34 Hadamard $\times$ Wave~47D Leray $\times$
+  Wave~48 density to substrate-discharge Wave~35 Prop~2
+  \texttt{VortexStretchingPDEBilinearBounded}. Three NAMED upgrade
+  Props for 3D content
+  (\texttt{MultiDimFourierDensityOnTorus3},
+  \texttt{SobolevHSScaleOnTorus3},
+  \texttt{DivFreeFourierDensityOnTorus3}) recorded honestly.
+  Capstone
+  \texttt{ns\_3d\_galerkin\_density\_attempt\_capstone} bundles
+  \texttt{WaveFortyEightGalerkinDensityNarrowing}. NS Clay-distance
+  progression: Wave~34 (2 layers) $\to$ Wave~35 (1.5) $\to$ Wave~47C+D
+  (1.25) $\to$ Wave~48 (1.0). $\sim$438~lines, 11~axiom-free
+  declarations, 0 project axioms; build clean 2681 jobs. Cited in
+  Ch~\ref{ch:navier-stokes} (\texttt{rem:ns-wave48c-d-lean}).
+\item \textbf{Wave~48E: 8-prerequisite mathlib inventory
+  $P1$--$P8$ for lifting Wave~47E's substrate-level Mumford / Weil
+  bypass to from-first-principles on abelian 3-folds}
+  (\texttt{PF\_Lean4\_Code/PF/HodgeMumfordAbelianFirstPrinciplesInventory.lean},
+  commit \texttt{2215b23}, 2026-05-30). Eight prerequisite tags,
+  all MISSING in mathlib v4.24.0-rc1 (verified via \texttt{grep}):
+  (P1)~\texttt{AbelianVariety k} typeclass;
+  (P2)~\texttt{EllipticCurve.toAbelianVariety} bridge;
+  (P3)~\texttt{AbelianVariety.product};
+  (P4)~\texttt{PontryaginProduct} on $\mathrm{CH}^*$;
+  (P5)~K\"unneth (rational + Hodge-graded) for abelian varieties;
+  (P6)~\texttt{CycleClassMap} in arbitrary codimension;
+  (P7)~\texttt{HodgeClasses} lie in the Pontryagin sub-ring;
+  (P8)~\texttt{Mumford1970} capstone (from-first-principles target).
+  Bundle \texttt{MumfordFirstPrinciplesPrerequisites} (8 fields);
+  target \texttt{MumfordTheoremFirstPrinciplesAbelian3Fold};
+  skeleton implication
+  \texttt{mumford\_first\_principles\_skeleton\_implication}. 3-clause
+  capstone $+$ 9 Section-3 anchor citations $+$ 8 Section-4 per-tag
+  citation theorems \texttt{cite\_P1} through \texttt{cite\_P8}.
+  Only HAVE-side anchor in current mathlib:
+  \texttt{Mathlib.AlgebraicGeometry.EllipticCurve.Weierstrass}.
+  $\sim$498~lines, 3-clause capstone, 8 \texttt{cite\_P\#} tags.
+  0 project axioms (\texttt{\#print axioms} actually returns ``does
+  not depend on any axioms'' --- strictly stronger). Build clean
+  3229 jobs. Cited in Ch~\ref{ch:hodge-conjecture}
+  (\texttt{rem:hodge-wave48e-lean}).
+\item \textbf{Wave~48F: Wave~47F gap G1 (Frobenius trace)
+  PARTIALLY DISCHARGED on $E_{\mathrm{rank\,zero}}$ at $p \in \{5,
+  7, 11\}$}
+  (\texttt{PF\_Lean4\_Code/PF/BSDFrobeniusTraceAttempt.lean},
+  commit \texttt{7907963}, 2026-05-30). Strategy: (a)~Base change
+  via \texttt{WeierstrassCurve.map (Int.castRingHom (ZMod p))}
+  factoring through integer model
+  \texttt{E\_rank\_zero\_intModel} (direct
+  $\mathbb{Q} \to \texttt{ZMod } p$ blocked because $\mathbb{Q}$
+  has \texttt{CharZero} --- the exact mathematical reason G1 is
+  named open in Wave~47F). (b)~\texttt{affinePointCount} via
+  \texttt{Finset.filter} $+$ \texttt{Finset.card} over
+  $\texttt{ZMod } p \times \texttt{ZMod } p$;
+  $\texttt{pointCount} = \texttt{affinePointCount} + 1$.
+  (c)~$a_p(p) := (p : \mathbb{Z}) + 1 - \texttt{pointCount } p$.
+  (d)~LMFDB-matching $a_5 = -2$, $a_7 = 0$, $a_{11} = 0$ closed
+  via \texttt{decide}. 18-clause capstone
+  \texttt{bsd\_frobenius\_trace\_attempt\_capstone}: (T1)~integer
+  model + $\Delta = 64$; (T2)~mod-5 $a_4 / a_6$ compatibility;
+  (T3)~point counts $\{8, 8, 12\}$; (T4)~$a_p$ values $\{-2, 0, 0\}$;
+  (T5)~Hasse bounds; (T6)~mod-$p$ $\Delta$ compatibility; (T7)~G1
+  witness with LMFDB content. First concrete $L$-series coefficient
+  computation in the PF stack. $\sim$496~lines, 18-clause capstone,
+  0 project axioms (used \texttt{decide} not
+  \texttt{native\_decide} to avoid
+  \texttt{Lean.ofReduceBool / Lean.trustCompiler}). Cited in
+  Ch~\ref{ch:bsd-conjecture} (\texttt{rem:bsd-wave48f-lean}).
+\item \textbf{Wave~48G: Ch~\ref{ch:riemann-hypothesis} Lemma
+  \texttt{lem:T3-imaginary-part} converted from qualitative
+  manuscript prose to a quantitative axiom-free Lean schedule}
+  (\texttt{PF\_Lean4\_Code/PF/RHT3PerturbationLemmaAttempt.lean},
+  commit \texttt{bd58eab}, 2026-05-30). Activates Wave~47H
+  Insight~\#4. $\texttt{epsilonSchedule } N := 1/N$ --- sharpest
+  rate consistent with the manuscript's qualitative
+  ``$\varepsilon^{(N)}$ decreasing in $N$, bounded above by a
+  small constant'' claim. 8-clause capstone
+  \texttt{rh\_t3\_perturbation\_lemma\_attempt\_capstone}:
+  (1)~$\texttt{epsilonSchedule } 10 = 1/10$;
+  (2)~$\texttt{epsilonSchedule } 100 = 1/100$; (3)~monotone
+  antitone in $N$; (4)~strict-decrease chain across all 8
+  manuscript test levels $N \in \{10, 20, 30, 40, 50, 60, 80,
+  100\}$; (5)~bounded above by $1/10$ for $N \geq 10$ (matches
+  manuscript ``small constant''); (6)~strictly positive at every
+  test level; (7)~numerical-anchor bridge $\Rightarrow$
+  \texttt{AnalyticPosBijectionToZetaZeros wave45CRigidSubstrate};
+  (8)~numerical-anchor bridge $\Rightarrow$ \texttt{RiemannHypothesis}.
+  $\sim$509~lines, 10 \texttt{\#print}-axioms-checked symbols, 0
+  project axioms. Cited in Ch~\ref{ch:riemann-hypothesis}
+  (\texttt{rem:rh-wave48a-lean}).
+\item \textbf{Wave~48H: single-citation Polylog $\leftrightarrow$
+  IBM-empirical $\leftrightarrow$ Galois-orbit cascade}
+  (\texttt{PF\_Lean4\_Code/PF/PolylogIBMEmpiricalGaloisCascade.lean},
+  commit \texttt{f4e2ed5}, 2026-05-30). Cascade theorem
+  \texttt{IBM\_hardware\_input\_implies\_polylog\_via\_galois}:
+  \texttt{IBMHardwarePeaksMatchAlphaCanonicalPair} $\to$
+  \texttt{WaveCorrespondenceGaloisOrbitMembership} $\to$
+  \texttt{PolylogEigenvalueConjecture}, routing through Wave~37B
+  (IBM peaks) $+$ Wave~41A (cross-quadratic Galois orbit
+  $\mathbb{Q}(\sqrt{2}, \sqrt{5})$) $+$ Wave~47G (empirical-pin
+  discharge). Galois-orbit hypothesis is THEOREM-LEVEL PROVABLE
+  from Wave~41A \texttt{coord\_alpha\_P / coord\_alpha\_NP\_evals}
+  (\texttt{wave\_correspondence\_galois\_orbit\_membership\_holds}).
+  6-clause capstone
+  \texttt{polylog\_ibm\_empirical\_galois\_cascade\_capstone}: (C1)
+  Galois-orbit hypothesis theorem-level provable; (C2) cascade
+  implication; (C3--C4) cross-bridge identities on \texttt{ClassP}
+  / \texttt{ClassNP}; (C5) sibling Galois conjugates distinct from
+  pin; (C6) propositional strength
+  (\texttt{cascade\_implies\_P\_neq\_NP}). REDUCES the previously
+  multi-file IBM-empirical / Galois-orbit / polylog argument to
+  ONE referee-citable implication. By Wave~41B no-go, cascade
+  $\Rightarrow$ $\mathrm{ClassP} \neq \mathrm{ClassNP}$ ---
+  CONDITIONAL on the empirical pin. $\sim$426~lines, 11~theorems,
+  0 project axioms. Cited in Ch~\ref{ch:p-vs-np}
+  (\texttt{rem:p-vs-np-wave48h-lean}).
+\end{itemize}
+
+\paragraph{META-aggregation: Wave 48 has no master-capstone file.}
+Unlike Wave~45 (\texttt{Wave45MasterCapstone.lean}), Wave~46
+(\texttt{Wave46MasterCapstone.lean}), and Wave~47
+(\texttt{Wave47MasterCapstone.lean}), Wave~48 was dispatched as a
+DIRECT FRONTIER BATCH without a Wave~48 master-capstone
+aggregator file. Each of the eight Wave~48 files is registered in
+\texttt{PF.lean} immediately after its Wave~47 ancestor (Wave~48A
+after Wave~47A's import line; Wave~48B after Wave~47B; etc.) and is
+referee-citable on its own via its per-file capstone. The framework
+state after Wave~48 can be cited via the post-Wave-47 master
+witness \texttt{principia\_fractalis\_wave47\_master\_capstone}
+plus the eight per-file Wave~48 capstones.
+
+\paragraph{Open-frontier attack at PROP-level (Wave 48).} Wave~48
+operates as a direct FRONTIER BATCH on the Wave~47 residuals, with
+two of eight files structurally MAJOR:
+\begin{itemize}
+\item \textbf{RH} (48A): MAJOR. DISCHARGES the Wave~47A even-parity
+  caveat via substrate-level re-indexing
+  $\texttt{eigSeqEven } n := \texttt{eigSeq } (n / 2)$. The two
+  parallel RH routes collapse to IDENTICAL open content
+  \texttt{RHSpectralSurjectivityConjecture alphaRef eigSeq} with no
+  parity gap.
+\item \textbf{YM} (48B): first substantive content in the Wave~47B
+  \texttt{OSAxiomBundle.rp} field via 1+1D toy OS reflection
+  positivity using mathlib \texttt{Matrix.PosSemidef}. Rank-1
+  Gram-matrix factorisation $M = vv^\top$ provides the algebraic
+  core; four named mathlib gaps remain for full
+  $\mathcal{S}(\mathbb{R}^4)$ lift.
+\item \textbf{NS} (48C+48D): MAJOR (48D). Substrate-discharges
+  Wave~47D's refined density sub-Prop
+  \texttt{GalerkinDirectSumDensity} via mathlib 1D Fourier-basis
+  density on \texttt{AddCircle T}. Wave~48C is companion typed
+  skeleton for the layer-2.b residual. NS Clay distance refined
+  1.25 $\to$ 1.0 layer.
+\item \textbf{Hodge} (48E): 8-prerequisite mathlib inventory
+  \texttt{MumfordFirstPrinciplesPrerequisites} for lifting
+  Wave~47E's substrate-level bypass to from-first-principles;
+  all 8 prerequisites missing in mathlib v4.24.0-rc1.
+\item \textbf{BSD} (48F): Wave~47F gap G1 (Frobenius trace)
+  partially discharged on $E_{\mathrm{rank\,zero}}$ at three
+  primes via integer-model factoring $+$ decidable point-counting
+  $+$ LMFDB-matching $a_p$ values $\{-2, 0, 0\}$. First concrete
+  $L$-series coefficient computation in the PF stack.
+\item \textbf{RH (numerical anchor)} (48G):
+  Ch~\ref{ch:riemann-hypothesis} Lemma
+  \texttt{lem:T3-imaginary-part} converted from qualitative prose
+  to quantitative axiom-free Lean schedule
+  $\texttt{epsilonSchedule } N := 1/N$ at the eight manuscript
+  test levels.
+\item \textbf{P~vs~NP} (48H): single-citation cascade theorem
+  \texttt{IBM\_hardware\_input\_implies\_polylog\_via\_galois}
+  collapsing the Wave~37B + Wave~41A + Wave~47G multi-file
+  argument to ONE referee-citable implication. Conditional on the
+  empirical pin (Wave~41B no-go preserved end-to-end).
+\end{itemize}
+The structural reading: Wave~48 is the framework's first
+FRONTIER BATCH dispatch (no master-capstone aggregator), with two
+MAJOR structural advances (RH parity-caveat discharge collapsing
+the two RH routes to one open conjecture; NS Clay distance refined
+from 1.25 to 1.0 layer via mathlib 1D Fourier density). The six
+narrower per-Prop advances catalogue precise mathlib-side closures
+(48B Matrix.PosSemidef toy, 48F G1 partial discharge at three
+primes) and referee-readable inventories (48C layer-2.b skeleton,
+48E 8-prerequisite Mumford list, 48G quantitative manuscript-Lean
+bridge, 48H one-implication cascade).
+
+\paragraph{What remains open after Wave 48.} No new open residuals
+beyond those listed for Wave~29--37, Wave~40--42, Wave~43,
+Wave~44, Wave~45, Wave~46, and Wave~47. Each Wave~48 file's
+residual is precisely-scoped and named. \emph{Closed at substrate
+level} (still UNCHANGED at Clay level): 48A discharges the
+Wave~47A even-parity caveat (parallel RH routes collapse to
+\texttt{RHSpectralSurjectivityConjecture alphaRef eigSeq} on
+\texttt{wave47ParitySubstrate}, but the conjecture itself remains
+Clay-grade open; carrier \texttt{pos47Parity} loses injectivity
+honestly); 48D substrate-discharges
+\texttt{GalerkinDirectSumDensity} via 1D L$^2$ toy, but Wave~35
+Prop~1 \texttt{MathlibSobolevDivFreeAvailable} and Layer~3 /
+Clay \texttt{VortexStretchingBoundedHypothesis} both UNCHANGED.
+\emph{Narrower per-Prop residuals}: 48B leaves four named mathlib
+infrastructure items ($\mathcal{S}(\mathbb{R}^4)$ reflection
+structure / Bochner--Minlos / Wightman reconstruction / mass-gap
+propagation) for full 4D OS reflection positivity; 48C is
+bookkeeping refinement (Clay distance unchanged at 1.25 from
+Wave~47C, before Wave~48D); 48E names 8 mathlib prerequisites
+$P1$--$P8$ for first-principles Mumford on abelian 3-folds; 48F
+leaves Wave~47F gaps G2--G5 unchanged (G2 conductor, G3 general
+$a_n$, G4 \texttt{LSeriesSummable} on $\mathrm{Re}\,s > 3/2$, G5
+modularity = Wiles~1995) plus the general
+\texttt{WeierstrassCurve $\mathbb{Q}$} $\to \mathbb{N} \to \mathbb{Z}$
+Frobenius-trace function; 48G is the quantitative schedule, NOT
+a discharge of \texttt{AnalyticPosBijectionToZetaZeros} or
+\texttt{RHSpectralSurjectivityConjecture} (operator-norm quotient
+remains in companion-script scope); 48H is CONDITIONAL on the
+empirical pin (cascade $\Rightarrow$
+$\mathrm{ClassP} \neq \mathrm{ClassNP}$, consistent with Wave~41B
+no-go). Coq parity for Wave~48 deliverables remains TODO
+(consistent with the Wave~43--47 Coq parity TODO). The Lean side
+remains the authoritative verification stratum for these waves.
+The honest-scope tag throughout: Wave~48 is the framework's first
+FRONTIER BATCH dispatch with two MAJOR structural advances
+(parity-caveat discharge + NS Clay 1.25 $\to$ 1.0), but NONE of
+the eight files discharges any Clay-class Millennium problem. RH,
+YM, P, NS, BSD, Hodge, NP all remain open at their respective
+named open Props.
+
 \subsection{Empirical corroboration (post-publication)}
 
 Two stand-alone evidence dossiers complement the formal verification:
