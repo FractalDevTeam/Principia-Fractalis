@@ -12,13 +12,16 @@ Encodes the framework's modified cosmological constant formula:
 ## The cosmological-constant problem
 
 Standard QFT predicts the vacuum energy density at the Planck scale:
-  ρ_Λ,Planck ~ M_Planck⁴ ~ 4.6 × 10^113 J/m³
+  ρ_Λ,Planck ~ M_Planck⁴ ~ 10⁹¹ g/cm³
 
 Observed (Planck 2018):
-  ρ_Λ,observed ~ 5.96 × 10⁻¹⁰ J/m³
+  ρ_Λ,observed ~ 10⁻²⁹ g/cm³
 
 Discrepancy: ~120 orders of magnitude. The "cosmological constant problem":
 why is the observed Λ so much smaller than the Planck-scale prediction?
+
+(Units: g/cm³, matching the manuscript Ch 26 convention and
+`LambdaEffCalibration.lean`.)
 
 ## The framework's resolution
 
@@ -27,10 +30,10 @@ The Principia Fractalis modified Einstein equation
 introduces a CONSCIOUSNESS SUPPRESSION exp[-∫ ch_2 · R_f(√(2π), |x|)]
 that exponentially damps the bare Λ_0 to the observed Λ_eff.
 
-For the suppression to bring Λ_0 ~ 10^113 down to Λ_obs ~ 10⁻¹⁰
+For the suppression to bring Λ_0 ~ 10⁹¹ g/cm³ down to Λ_obs ~ 10⁻²⁹ g/cm³
 (120 orders of magnitude), the integrand must satisfy
 
-  ∫ ch_2(C(x)) · R_f(√(2π), |x|) dx ≈ ln(10^120) ≈ 276.
+  ∫ ch_2(C(x)) · R_f(√(2π), |x|) dx ≈ ln(10^120) = 120·ln 10 ≈ 276.31.
 
 This is the framework's quantitative prediction for the consciousness-
 field integral over cosmological volumes.
@@ -38,7 +41,7 @@ field integral over cosmological volumes.
 ## What this file establishes
 
 1. The Λ_eff = Λ_0 · exp[-X] structural relation as a named Prop
-2. The required suppression X ≈ 276 as a named real constant
+2. The required suppression X = 120·ln 10 ≈ 276.31 as a named real constant
 3. The framework's prediction that ch_2-weighted ∫ R_f integral equals X
 4. The conditional theorem connecting all three
 
@@ -68,20 +71,22 @@ open Real
 /-! ## The cosmological-constant suppression constant -/
 
 /-- **Required suppression exponent** to bring Planck-scale Λ_0
-    (~10^113 J/m³) down to observed Λ_obs (~10⁻¹⁰ J/m³).
+    (~10⁹¹ g/cm³) down to observed Λ_obs (~10⁻²⁹ g/cm³).
 
-    Numerically: ln(10^123) ≈ 283 (using Planck-scale energy density
-    vs. observed cosmological constant in J/m³ units).
+    Numerically: `120 · ln 10 ≈ 276.31` (matching `LambdaEffCalibration.lean`
+    and the Ch 26 manuscript's g/cm³ unit convention; `Λ_0 ~ 10⁹¹ g/cm³`,
+    `Λ_obs ~ 10⁻²⁹ g/cm³`, ratio `10⁻¹²⁰`).
 
     The framework's prediction: the integral ∫ ch_2(C(x)) · R_f(√(2π), |x|) dx
     over cosmological volumes equals this constant. -/
-noncomputable def cosmological_suppression_required : ℝ := 283
+noncomputable def cosmological_suppression_required : ℝ := 120 * Real.log 10
 
 /-- The required suppression is positive (Λ_obs < Λ_Planck). -/
 theorem cosmological_suppression_required_pos :
     0 < cosmological_suppression_required := by
   unfold cosmological_suppression_required
-  norm_num
+  have h_log10_pos : 0 < Real.log 10 := Real.log_pos (by norm_num)
+  positivity
 
 /-! ## The Λ_eff structural relation -/
 
@@ -135,7 +140,7 @@ theorem LambdaEffSuppression_lt_iff
     the required suppression exponent.
 
     Formally:
-      X = ∫ ch_2(C(x)) · R_f(√(2π), |x|) d³x ≈ 283.
+      X = ∫ ch_2(C(x)) · R_f(√(2π), |x|) d³x = 120·ln 10 ≈ 276.31.
 
     The kernel uses α_QG = √(2π) — the framework's quantum-gravity
     resonance parameter from the 4-basis decomposition. -/
@@ -147,17 +152,16 @@ def ConsciousnessIntegralTarget (X_predicted : ℝ) : Prop :=
 /-- **★ Λ_CDM cosmological constant from consciousness integral ★**
 
     Conditional theorem: IF the consciousness-integral target holds
-    (∫ ch_2 · R_f(√(2π), |x|) = X_predicted = 283) AND Λ_eff is the
+    (∫ ch_2 · R_f(√(2π), |x|) = X_predicted = 120·ln 10) AND Λ_eff is the
     framework's exponential suppression of Λ_0 with this X, THEN
-    Λ_eff = Λ_0 · exp(-283).
+    Λ_eff = Λ_0 · exp(−120·ln 10) = Λ_0 · 10⁻¹²⁰.
 
-    For Λ_0 ~ 10^113 (Planck-scale bare value), this gives Λ_eff
-    of order 10^113 · exp(-283) ~ 10^113 · 10^(-123) ~ 10^(-10),
-    matching the observed cosmological constant to within order
-    of magnitude.
+    For Λ_0 ~ 10⁹¹ g/cm³ (Planck-scale bare value), this gives Λ_eff
+    of order 10⁹¹ · 10⁻¹²⁰ ~ 10⁻²⁹ g/cm³, matching the observed
+    cosmological constant to within order of magnitude.
 
     The framework's prediction is therefore consistent with observed
-    Λ when the consciousness-integral takes the value ~283.
+    Λ when the consciousness-integral takes the value 120·ln 10 ≈ 276.31.
     Tightening the integrand to match observed Λ to higher precision
     is the open research target. -/
 theorem lambda_eff_from_consciousness_integral
