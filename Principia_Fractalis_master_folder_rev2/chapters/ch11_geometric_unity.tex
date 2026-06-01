@@ -357,6 +357,10 @@ where $M_{\text{GU}} \approx 10^{16}$ GeV is the GU scale and $\text{ch}_2 = 0.9
 
 \textbf{Result:} The RQG prediction agrees with experiment within $1\sigma$, resolving the anomaly.
 
+\begin{remark}[Wave 55 audit — manuscript / Lean inconsistency at the GU mass scale; 2026-06-01]
+The displayed $\Delta a_\mu^{\text{RQG}}$ as written, with $M_{\text{GU}} \approx 10^{16}$ GeV, evaluates to $(\pi/10)\cdot(0.10566\text{ GeV}/10^{16}\text{ GeV})^2\cdot 0.95 \approx 3.33\times 10^{-35}$ — i.e.\ off from the asserted $(2.47\pm 0.12)\times 10^{-9}$ by roughly $10^{26}$. The companion Lean carrier \texttt{PF\_Lean4\_Code/PF/Consciousness/MuonG2Prediction.lean} (axiom-free; theorems \texttt{MuonG2FrameworkPrediction} and \texttt{muon\_g2\_framework\_witness}) instead uses the TeV-scale value $M_X^{\text{corrected}} = 1161$ GeV (\texttt{M\_X\_TeV\_corrected}), which is what actually produces an output in the Fermilab $10^{-9}$ range. The Wave 55 Geometric Unity / QFT-Consciousness audit (\texttt{MISSION\_INVENTORY/wave55\_geomQFT\_chapter\_audit.md}, \S4 Inconsistency 5) flags the $M_{\text{GU}} = 10^{16}$ GeV value above as \textbf{superseded by the corrected $M_X = 1161$ GeV scale} encoded in \texttt{MuonG2Prediction.lean}. The numerical match $(2.47\pm 0.12)\times 10^{-9}$ should be read as following from the Lean-anchored $M_X$, not from the displayed $M_{\text{GU}}$.
+\end{remark}
+
 \subsection{Hubble Tension}
 
 The Hubble constant measured locally ($H_0 = 73.04 \pm 1.04$ km/s/Mpc) disagrees with CMB-inferred value ($H_0 = 67.4 \pm 0.5$ km/s/Mpc). This "Hubble tension" is $4.4\sigma$ significant.
