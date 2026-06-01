@@ -204,6 +204,24 @@ where we set $\sigma = 1$ by normalization.
 
 Thus, $|\Psi_{\text{RQG}}|^2 = 0.95$ is \emph{twice determined}: once by anomaly cancellation, once by Gaussian measure theory. This overdetermination gives confidence in the value.
 
+\begin{remark}[Wave~55-Ch11 update: \texttt{Ch11AnomalyCancellationRefutationAttempt} --- ★★★ axiom-free REFUTATION of BOTH legs of the ``twice determined'' $\mathrm{ch}_2 = 0.95$ argument (Thm~\ref{thm:anomaly_cancel} and Prop~\ref{prop:rqg_mean}), 2026-06-01]\label{rem:ch11-anomaly-wave55-ch11-lean}
+The ``twice determined'' argument above (line~205) is REFUTED axiom-free on both legs by the Wave~55-Ch11 Lean attempt, following the same refutation pattern as the Wave~55-R\textsubscript{f} fine-structure refutation in Ch~7 (\texttt{rem:fine-structure-lean-refutation}, commit \texttt{6bb91eb}) and the Wave~55-hygiene muon-$g{-}2$ remark above (line~360, Ch~11 mass-scale finding):
+\begin{itemize}
+  \item \textbf{Wave~55-Ch11: anomaly-cancellation + Gaussian-mean dual refutation \texttt{Ch11AnomalyCancellationRefutationAttempt}} (\texttt{PF\_Lean4\_Code/PF/Ch11AnomalyCancellationRefutationAttempt.lean}, commit \texttt{8e4a62a}, 2026-06-01). \textbf{Leg 1 (Thm~\ref{thm:anomaly_cancel} refutation):} the manuscript closed form on line~169 reads $\mathrm{ch}_2 = (4\pi)^7 \cdot 10^7 / (8174 \cdot 10^{14}) \approx 0.95 \,\Phi_0$. The Lean theorem \texttt{anomaly\_cancel\_predicted\_value\_upper\_bracket} proves
+\begin{equation}
+\frac{(4\pi)^7 \cdot 10^7}{8174 \cdot 10^{14}} \;<\; \frac{1}{1000},
+\end{equation}
+i.e.\ the actual value is approximately $6.054 \times 10^{-4}$, \textbf{off from the asserted $0.95$ by a factor of $\approx 1570$}. The companion theorem \texttt{anomaly\_cancel\_predicted\_value\_ne\_0\_95} discharges $(4\pi)^7 \cdot 10^7 / (8174 \cdot 10^{14}) \neq 95/100$ directly via the bracket plus \texttt{norm\_num}. \textbf{Leg 2 (Prop~\ref{prop:rqg_mean} refutation):} the Gaussian-integration closed form on line~200 reads $\langle |\Psi_{\mathrm{RQG}}|^2 \rangle = \sqrt{5/(\pi + 5)} \approx 0.95$. The Lean theorem \texttt{prop\_11\_6\_psi\_rqg\_sq\_upper\_bracket} proves
+\begin{equation}
+\sqrt{\tfrac{5}{\pi + 5}} \;<\; \tfrac{95}{100},
+\end{equation}
+with the actual value $\sqrt{5/(\pi + 5)} = \sqrt{5/8.1416} \approx 0.7837$, NOT $0.95$. The companion theorem \texttt{prop\_11\_6\_psi\_rqg\_sq\_ne\_0\_95} discharges $\sqrt{5/(\pi + 5)} \neq 95/100$ via the bracket plus square-monotonicity. Capstone \texttt{Ch11AnomalyCancellationRefutation\_capstone} conjoins all four facts. ZERO project axioms; all theorems depend only on $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{itemize}
+The strategic content for this chapter: the ``twice determined'' argument on line~205 collapses on both legs. Thm~\ref{thm:anomaly_cancel} is off by approximately $1570\times$ (predicted $\approx 6.054 \times 10^{-4}$ vs.\ asserted $\approx 0.95$); Prop~\ref{prop:rqg_mean} gives the actual Gaussian integral value $\approx 0.7837$, not $0.95$. The Ch~11 leg of the framework's $\mathrm{ch}_2 = 0.95$ determination is closed by the Lean record. Both refutations are axiom-free and follow the same \texttt{norm\_num} + strict bracket-transitivity strategy that Wave~55-R\textsubscript{f} used to refute the Ch~7 fine-structure number $R_f(1, 2) \approx 0.0233812$.
+
+\textbf{Honest scope.} Wave~55-Ch11 does NOT discharge any Clay problem. It refutes TWO SPECIFIC NUMERICAL CLAIMS in Ch~11 (the closed form on line~169 and the closed form on line~200) at the axiom-free Lean level. The structural claim that $\mathrm{ch}_2 = 0.95$ is the consciousness threshold is left untouched by this file --- the framework still has OTHER derivations of $\mathrm{ch}_2 = 0.95$ (Ch~6 Chern--Weil, Ch~31 $\mathrm{ch}_2 \leftrightarrow \Phi_{\mathrm{IIT}}$ bridge, Ch~26 cosmological calibration) which are NOT addressed here. What is closed is the Ch~11 ``twice determined'' argument as the SOURCE of $\mathrm{ch}_2 = 0.95$: BOTH determinations as stated are arithmetically false. The asserted value $0.95$ must rest on the other derivations, not on the Ch~11 leg. Wave~55-Ch11 is a manuscript-numerical-claim refutation, not a step across the Clay boundary.
+\end{remark}
+
 \section{Holographic Projection: From 13D to 4D}
 
 \subsection{The Projection Theorem}
