@@ -118,7 +118,43 @@ theorem effective_dim_at_least_20 : 20 ≤ effective_dim_threshold_from_ch2_095 
 
 /-! ## The bridge as a structural Prop -/
 
-/-- **The ch_2 ↔ Φ bridge** (structural Prop).
+/-! ## ⚠ DEPRECATED — universal-scalar form is FALSIFIABLE ⚠
+
+    **★ 2026-05-31 Wave 55-Φ correction ★**
+
+    The `Ch2PhiBridge` Prop below is written in a UNIVERSAL form over
+    arbitrary real scalar pairs `(ch_2_val, Phi_val)` satisfying
+    `0 ≤ ch_2_val ≤ 1` and `0 ≤ Phi_val`. As a universal claim about
+    arbitrary scalars it is FALSE: pick `ch_2 = 1/2`, `Phi = 0`; then
+    `1 − exp(−0/2) = 0`, and BOTH disjuncts `1/2 ≤ 0` and `1/2 = 0`
+    fail.
+
+    The CORRECT formulation (the one the manuscript intends, and the
+    one actually discharged by the Jensen / weighted-AM-GM proof) is
+    the STATE-RELATIVISED form, where `ch_2_val` and `Phi_val` are
+    derived from the SAME Schmidt spectrum `p : Fin n → ℝ` of a
+    reduced density matrix `ρ_A`. That correct form lives in
+    `PF/Consciousness/Ch2PhiBridgeDischarge.lean` as:
+
+        `Ch2PhiBridgeState (n : ℕ) : Prop`
+
+    and is DISCHARGED axiom-free by
+    `ch2_phi_bridge_state_holds : ∀ n, Ch2PhiBridgeState n`.
+
+    The unsatisfiability of this universal form is itself recorded as
+    a theorem `ch2_phi_bridge_universal_form_unsatisfiable : ¬ Ch2PhiBridge`
+    in the discharge file.
+
+    **Downstream callers**: use `Ch2PhiBridgeState n` from
+    `Ch2PhiBridgeDischarge` for the discharged, true content. The
+    universal `Ch2PhiBridge` below is retained ONLY for backward
+    compatibility of existing imports and as the target of the
+    negative theorem `¬ Ch2PhiBridge`. Do NOT introduce new uses of
+    it as a positive hypothesis.
+-/
+
+/-- **The ch_2 ↔ Φ bridge** (structural Prop) — ⚠ DEPRECATED universal
+    form, see deprecation block above ⚠.
 
     For any pure bipartite quantum state |ψ⟩_AB with reduced density
     matrix ρ_A, the framework's ch_2(ψ) and Tononi's Φ_IIT(ψ) satisfy:
@@ -129,7 +165,14 @@ theorem effective_dim_at_least_20 : 20 ≤ effective_dim_threshold_from_ch2_095 
 
     This is the first closed-form bridge between the topological
     (Chern-Weil) and information-theoretic (Tononi) measures of
-    consciousness. -/
+    consciousness.
+
+    ⚠ As a UNIVERSAL claim over arbitrary scalar pairs this Prop is
+    FALSE — see the deprecation block above. The correct, discharged
+    form is `Ch2PhiBridgeState` in `Ch2PhiBridgeDischarge.lean`. -/
+@[deprecated "Use `Ch2PhiBridgeState n` from `PF.Consciousness.Ch2PhiBridgeDischarge` instead. \
+The universal-scalar form is FALSIFIABLE (counterexample: ch_2=1/2, Phi=0). \
+See `ch2_phi_bridge_universal_form_unsatisfiable : ¬ Ch2PhiBridge`." (since := "2026-05-31")]
 def Ch2PhiBridge : Prop :=
   ∀ (ch_2_val Phi_val : ℝ),
     0 ≤ ch_2_val → ch_2_val ≤ 1 →
