@@ -562,6 +562,25 @@ Multiplying by $\pi/10$:
 This is within 0.7\% of the experimental value $1/137.036$. The small discrepancy is due to renormalization group running---the value $1/137$ is measured at low energies, while our formula gives the high-energy (bare) value.
 \end{level2}
 
+\begin{remark}[Lean refutation of the numerical value $R_f(1,2) \approx 0.0233812$ --- flagged by Wave 55-R\textsubscript{f}]\label{rem:fine-structure-lean-refutation}
+The numerical claim $R_f(1,2) \approx 0.0233812$ stated in equation~\eqref{thm:fine-structure} above (manuscript line 554) is \textbf{inconsistent} with the axiom-free Lean theorem \texttt{RfAtAlphaOneIsNegEta} (file \texttt{PF/Consciousness/RfAtAlphaOneIsNegEta.lean}), which proves the closed form
+\begin{equation}
+R_f(1, s) = -\eta(s) \qquad \text{(axiom-free, all } s \text{ with } \operatorname{Re}(s) > 1\text{)},
+\end{equation}
+where $\eta(s) = \sum_{n=1}^\infty (-1)^{n-1}/n^s$ is the Dirichlet eta function. Specialising to $s=2$:
+\begin{equation}
+R_f(1, 2) \;=\; -\eta(2) \;=\; -\frac{\pi^2}{12} \;\approx\; -0.8225,
+\end{equation}
+which has the \textbf{opposite sign} and a magnitude approximately $35\times$ larger than the value $0.0233812$ used to derive $\alpha_{\text{EM}} \approx 1/136.1$ above.
+
+The refutation is registered as the axiom-free Lean theorem \texttt{R\_f\_one\_two\_ne\_manuscript\_value} inside the file \texttt{PF/RfIntegerAlphaDichotomy.lean} (Wave 55-R\textsubscript{f} commit \texttt{496193c}). That file additionally proves the full integer-$\alpha$ dichotomy: for every $k \in \mathbb{N}$,
+\begin{align}
+R_f(k, s) &= R_f(0, s) = \zeta(s) \qquad (k \text{ even}), \\
+R_f(k, s) &= R_f(1, s) = -\eta(s) \qquad (k \text{ odd}).
+\end{align}
+Hence the derivation of $\alpha_{\text{EM}}$ as stated in Theorem~\ref{thm:fine-structure} requires revision in a future revision of this manuscript: the right-hand side $R_f(1,2) \cdot (\pi/10)$ evaluates instead to $-\pi^3/120 \approx -0.258$, which does \emph{not} reproduce $1/137.036$. The structural claim that the fine-structure constant emerges from the framework is left open pending a corrected resonance evaluation (e.g.\ at a non-integer $\alpha$ where the parity collapse does not apply); the specific $R_f(1,2)$ route is closed by the Lean record.
+\end{remark}
+
 \subsection{Gravitational Constant $G$}
 
 The gravitational constant relates mass to spacetime curvature:
