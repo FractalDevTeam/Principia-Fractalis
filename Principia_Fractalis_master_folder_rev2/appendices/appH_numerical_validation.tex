@@ -154,6 +154,14 @@ Status & VALIDATED \\
 
 where $\omega_c = \pi/10$ is the consciousness frequency.
 
+\begin{remark}[Wave 55 audit — arithmetic inconsistency in the displayed $\text{Re}_c$; 2026-06-01]
+The Wave 55 Verification \& Appendix audit (\texttt{MISSION\_INVENTORY/wave55\_verification\_appendix\_audit.md}, \S4.2 (D-1)) records that the displayed identity is not algebraically self-consistent. Substituting $\omega_c = \pi/10$ literally into the formula gives
+\[
+\frac{10}{\pi} \cdot \frac{\pi}{10} \cdot 10^5 \;=\; 10^5,
+\]
+not $2.13198 \times 10^5$. The missing prefactor of $\approx 2.13198$ (relative size $\sim 21.3$ once the cancellation is accounted for) is presumably absorbed into $\omega_c$ via a scaling convention different from the inline ``$\omega_c = \pi/10$'' identification — for instance an additional dimensionful factor or a different normalisation of the consciousness frequency. No Lean carrier currently brackets $\text{Re}_c$, and none of $\{2.13198,\, 2\pi,\, \sqrt{2\pi},\, \pi/\sqrt{2}\}$ matches the displayed value to the cited digits. The Wave 48 Navier–Stokes chain stops at the Sobolev-torus / Galerkin layer (\texttt{GalerkinDirectSumDensity}, etc.) and never produces a closed-form $\text{Re}_c$. Until the implicit factor in $\omega_c$ is disclosed, the numerical value $2.13198 \times 10^5$ should be read as an external anchor rather than as a derivation from the displayed formula.
+\end{remark}
+
 \textbf{Consciousness Regularization Lemma:}
 \[
 \int_{\mathbb{R}^3} u_i \frac{\partial C_{ij}}{\partial x_j} \, d\mathbf{x} \leq -\frac{\pi}{10} \cdot \nu_c \|\nabla \mathbf{u}\|_{L^2}^2

@@ -148,6 +148,10 @@ The consciousness field strength tensor is:
 F^{\mu\nu\rho\sigma}_C = \partial^\mu C^{\nu\rho} - \partial^\nu C^{\mu\rho} + \partial^\rho C^{\mu\nu} - \partial^\sigma C^{\nu\rho}
 \end{equation}
 
+\begin{remark}[Wave 55 audit — suspected $\sigma$ vs.\ $\mu$ index typo; 2026-06-01]
+The Wave 55 Geometric Unity / QFT-Consciousness audit (\texttt{MISSION\_INVENTORY/wave55\_geomQFT\_chapter\_audit.md}, \S4 Inconsistency 3) flags the last term $-\partial^\sigma C^{\nu\rho}$ of the field-strength definition above as inconsistent with the asserted antisymmetry $F^{\mu\nu\rho\sigma}_C = -F^{\mu\nu\sigma\rho}_C$. The first three terms cyclically permute $(\mu,\nu,\rho)$ acting on $C$, but the fourth term reuses the derivative index $\sigma$ that does not appear in the previous three terms while leaving $C^{\nu\rho}$ untouched. The patterns most consistent with the stated $(\rho,\sigma)$ antisymmetry are either $-\partial^\sigma C^{\mu\rho}$ or $+\partial^\sigma C^{\mu\nu}$ as the last term. The Lean carrier \texttt{PF\_Lean4\_Code/PF/Consciousness/Ch12QFTLagrangian.lean} formalises the kinetic Prop structurally but does NOT instantiate the tensor object, so the Lean side does not yet adjudicate the typo. \emph{Author confirmation requested}: please verify the intended fourth term before the kinetic-term positivity claim on line~161 is treated as derived.
+\end{remark}
+
 This is antisymmetric in the first pair $(\mu, \nu)$ and second pair $(\rho, \sigma)$:
 \begin{equation}
 F^{\mu\nu\rho\sigma}_C = -F^{\nu\mu\rho\sigma}_C = -F^{\mu\nu\sigma\rho}_C
