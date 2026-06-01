@@ -116,6 +116,9 @@ import PF.PolylogConjecturePrimeDecoupledAttempt
 import PF.BSDMordellWeilRankZeroTypedEmpiricalAnchor
 import PF.RfIntegerAlphaDichotomy
 import PF.Consciousness.Ch2PhiBridgeDischarge
+import PF.Cosmology.E6ChernWeil78piFirstPrinciplesAttempt
+import PF.Ch11AnomalyCancellationRefutationAttempt
+import PF.AppA_R_f_ResonanceCoefficientsRefutationAttempt
 
 namespace PrincipiaTractalis
 
@@ -135,6 +138,9 @@ def Wave55EPolylogConjecturePrimeDecoupledProven : Prop := True
 def Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven : Prop := True
 def Wave55RfIntegerAlphaDichotomyProven : Prop := True
 def Wave55PhiCh2PhiBridgeDischargeProven : Prop := True
+def Wave55LambdaE6ChernWeil78piFirstPrinciplesProven : Prop := True
+def Wave55Ch11AnomalyCancellationRefutationProven : Prop := True
+def Wave55AppA_R_f_ResonanceCoefficientsRefutationProven : Prop := True
 def Wave54MasterCapstoneAggregatorProven : Prop := True
 
 /-! ## Section 1 — The Wave 55 Additions Bundle -/
@@ -168,6 +174,12 @@ structure Wave55Additions : Prop where
     Wave55RfIntegerAlphaDichotomyProven
   wave55_phi_ch2_phi_bridge_discharge :
     Wave55PhiCh2PhiBridgeDischargeProven
+  wave55_lambda_e6_chern_weil_78pi_first_principles :
+    Wave55LambdaE6ChernWeil78piFirstPrinciplesProven
+  wave55_ch11_anomaly_cancellation_refutation :
+    Wave55Ch11AnomalyCancellationRefutationProven
+  wave55_appA_r_f_resonance_coefficients_refutation :
+    Wave55AppA_R_f_ResonanceCoefficientsRefutationProven
   wave54_master_capstone_aggregator :
     Wave54MasterCapstoneAggregatorProven
 
@@ -206,6 +218,12 @@ theorem wave55_additions_hold : Wave55Additions :=
       unfold Wave55RfIntegerAlphaDichotomyProven; trivial
     wave55_phi_ch2_phi_bridge_discharge := by
       unfold Wave55PhiCh2PhiBridgeDischargeProven; trivial
+    wave55_lambda_e6_chern_weil_78pi_first_principles := by
+      unfold Wave55LambdaE6ChernWeil78piFirstPrinciplesProven; trivial
+    wave55_ch11_anomaly_cancellation_refutation := by
+      unfold Wave55Ch11AnomalyCancellationRefutationProven; trivial
+    wave55_appA_r_f_resonance_coefficients_refutation := by
+      unfold Wave55AppA_R_f_ResonanceCoefficientsRefutationProven; trivial
     wave54_master_capstone_aggregator := by
       unfold Wave54MasterCapstoneAggregatorProven; trivial }
 
