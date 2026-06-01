@@ -462,17 +462,13 @@ import PF.BSDRankFourFiveFrameworks  -- 2026-05-25 Wave 19 — extends 4-rank un
 -- 2026-05-31 Wave 55 — Cosmology stack de-orphaning (Ch 26 / 27 / 28 bridge)
 -- Previously all 6 files were ORPHANS: built standalone, never reached by PF.lean.
 -- Added to root build graph so #print axioms project-wide covers them.
--- NB: LambdaEffCalibration.lean is INTENTIONALLY EXCLUDED — it triple-shadows
--- `N_78pi`, `N_78pi_gt_245`, `N_78pi_lt_246` against E6ChernIndex78pi in the
--- same `PrincipiaTractalis.Cosmology` namespace, and the capstone explicitly
--- routes through E6ChernIndex78pi. LambdaEffCalibration still builds standalone
--- via `lake env lean PF/Cosmology/LambdaEffCalibration.lean`.
 -- ============================================================================
 import PF.Cosmology.E6ChernIndex78pi              -- Ch 26 conjectured N = 78π Chern-Weil index on T_∞ adjoint E_6 bundle; load-bearing hypothesis is a DEGENERATE existential (∃ N ∈ ℝ, N = 78π).
 import PF.Cosmology.E6CrossDomainAnchor           -- Ch 26 cross-domain anchor: integer 78 admits decompositions 24+54 (E_6 trinification) and 48+26+4 (SM fermion + gauge boson + Higgs DOF). PURE arithmetic; physics labels live only in comments.
 import PF.Cosmology.LambdaEffParameterFreeCapstone  -- Ch 26 end-to-end capstone: conjunction of rfl/ring/decide facts plus a degenerate existential — does NOT close the |78π·0.95·1.1875 − 120·log 10| < ε bracket in Lean.
 import PF.Cosmology.LambdaEffSuppression          -- Ch 26 modified-Friedmann bridge: Λ_eff = Λ_0 · exp(−X); LambdaEffSuppression_lt_iff is the strongest Cosmology theorem (genuine real-analysis). NB: uses X = 283 (J/m³ units) while LambdaEffCalibration uses X = 276.31 (g/cm³ units) — internal numerical inconsistency flagged in wave55_cosmology_276_vs_283_audit.md.
 import PF.Cosmology.LateTimeConsciousness        -- Ch 28 framework CMB null prediction ch_2(z=1100) < 10⁻⁴ + S4 forecast bounds (0.05, 0.03). Pure numerical-bound bookkeeping; "Planck 2018 confirmation" claim lives in English comment only.
+import PF.Cosmology.LambdaEffCalibration  -- 2026-06-01 Wave 55-Cosm namespace-fix completion — final Cosmology orphan now in root build graph after namespace move to PrincipiaTractalis.Cosmology.LambdaEffCalibration sub-namespace (was shadowed against E6ChernIndex78pi.lean).
 
 /-!
 ## Principia Fractalis Formal Verification
