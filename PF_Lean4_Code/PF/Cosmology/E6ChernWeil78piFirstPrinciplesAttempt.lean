@@ -81,7 +81,7 @@ import Mathlib.LinearAlgebra.Matrix.Trace
 import Mathlib.Tactic
 import PF.Cosmology.E6ChernIndex78pi
 
-namespace PrincipiaTractalis.Cosmology
+namespace PrincipiaTractalis.Cosmology.E6ChernWeil78piFirstPrinciples
 
 open Real
 
@@ -485,4 +485,4 @@ theorem wave55_lambda_first_principles_honest_scope_witness :
   refine ⟨rfl, ?_⟩
   intro _; trivial
 
-end PrincipiaTractalis.Cosmology
+end PrincipiaTractalis.Cosmology.E6ChernWeil78piFirstPrinciples
