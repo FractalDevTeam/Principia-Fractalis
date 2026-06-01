@@ -119,6 +119,8 @@ import PF.Consciousness.Ch2PhiBridgeDischarge
 import PF.Cosmology.E6ChernWeil78piFirstPrinciplesAttempt
 import PF.Ch11AnomalyCancellationRefutationAttempt
 import PF.AppA_R_f_ResonanceCoefficientsRefutationAttempt
+import PF.Ch19MassFormulaRefutationAttempt
+import PF.Analytic.PhiPSLQRelations
 
 namespace PrincipiaTractalis
 
@@ -141,6 +143,8 @@ def Wave55PhiCh2PhiBridgeDischargeProven : Prop := True
 def Wave55LambdaE6ChernWeil78piFirstPrinciplesProven : Prop := True
 def Wave55Ch11AnomalyCancellationRefutationProven : Prop := True
 def Wave55AppA_R_f_ResonanceCoefficientsRefutationProven : Prop := True
+def Wave55Ch19MassFormulaRefutationProven : Prop := True
+def Wave55PhiPSLQRelationsProven : Prop := True
 def Wave54MasterCapstoneAggregatorProven : Prop := True
 
 /-! ## Section 1 — The Wave 55 Additions Bundle -/
@@ -180,6 +184,10 @@ structure Wave55Additions : Prop where
     Wave55Ch11AnomalyCancellationRefutationProven
   wave55_appA_r_f_resonance_coefficients_refutation :
     Wave55AppA_R_f_ResonanceCoefficientsRefutationProven
+  wave55_ch19_mass_formula_refutation :
+    Wave55Ch19MassFormulaRefutationProven
+  wave55_phi_pslq_relations :
+    Wave55PhiPSLQRelationsProven
   wave54_master_capstone_aggregator :
     Wave54MasterCapstoneAggregatorProven
 
@@ -224,6 +232,10 @@ theorem wave55_additions_hold : Wave55Additions :=
       unfold Wave55Ch11AnomalyCancellationRefutationProven; trivial
     wave55_appA_r_f_resonance_coefficients_refutation := by
       unfold Wave55AppA_R_f_ResonanceCoefficientsRefutationProven; trivial
+    wave55_ch19_mass_formula_refutation := by
+      unfold Wave55Ch19MassFormulaRefutationProven; trivial
+    wave55_phi_pslq_relations := by
+      unfold Wave55PhiPSLQRelationsProven; trivial
     wave54_master_capstone_aggregator := by
       unfold Wave54MasterCapstoneAggregatorProven; trivial }
 
