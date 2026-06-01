@@ -64,7 +64,7 @@ import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Analysis.Real.Pi.Bounds
 import Mathlib.Tactic
 
-namespace PrincipiaTractalis.Cosmology
+namespace PrincipiaTractalis.Cosmology.LambdaEffCalibration
 
 open Real
 
@@ -160,4 +160,4 @@ theorem cosmological_constant_calibration_discharged :
     ne_of_gt (mul_pos h_ch2_pos h_Rf_pos)
   field_simp
 
-end PrincipiaTractalis.Cosmology
+end PrincipiaTractalis.Cosmology.LambdaEffCalibration
