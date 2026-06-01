@@ -449,6 +449,22 @@ import PF.BSDRankThreeCurveFramework  -- 2026-05-25 Wave 18 — extends 3-rank c
 import PF.BSDRankBlindUniversalConcordance  -- 2026-05-25 — Universal rank-blind refactor of the 4-rank BSD concordance stack. New `BSDFrameworkInstance E r` structure parametric in any `WeierstrassCurve ℚ` and any `r : ℕ`, carrying the manuscript-rank label + φ/e eigenvalue-anchor bracket + Galois-pair separation. Four concrete instances (`bsdInstance_rank_{zero,one,two,three}`) for LMFDB 32.a3 / 37a1 / 389a1 / 5077a1. Capstone `bsd_rank_blind_universal_concordance` certifies every rank `r ∈ Fin 4` admits a curve instance with uniform bracket + separation. Honest scope: framework eigenvalue-anchor consistency across arbitrary rank — NOT a BSD discharge. ZERO project axioms.
 import PF.BSDRankFourFiveFrameworks  -- 2026-05-25 Wave 19 — extends 4-rank universal concordance to ranks 4 and 5 via LMFDB 234446a1 (y²+y=x³−x²−79x+289, rank 4, N=234446) and 19047851a (y²+y=x³−79x+342, rank 5, N=19047851). New instances bsdInstance_rank_four / bsdInstance_rank_five extending BSDFrameworkInstance refactor. 6-rank dispatcher knownRankCurve6 : Fin 6 → WeierstrassCurve ℚ. Capstone bsd_rank_six_universal_concordance certifies every rank r ∈ Fin 6 admits a curve instance with uniform φ/e bracket + Galois-pair separation. Rank-4/5 facts (LMFDB / Cremona) recorded as manuscript-cited LABELS. Honest scope: framework eigenvalue-anchor consistency across ranks {0..5} — NOT a BSD discharge. ZERO project axioms.
 
+-- ============================================================================
+-- 2026-05-31 Wave 55 — Cosmology stack de-orphaning (Ch 26 / 27 / 28 bridge)
+-- Previously all 6 files were ORPHANS: built standalone, never reached by PF.lean.
+-- Added to root build graph so #print axioms project-wide covers them.
+-- NB: LambdaEffCalibration.lean is INTENTIONALLY EXCLUDED — it triple-shadows
+-- `N_78pi`, `N_78pi_gt_245`, `N_78pi_lt_246` against E6ChernIndex78pi in the
+-- same `PrincipiaTractalis.Cosmology` namespace, and the capstone explicitly
+-- routes through E6ChernIndex78pi. LambdaEffCalibration still builds standalone
+-- via `lake env lean PF/Cosmology/LambdaEffCalibration.lean`.
+-- ============================================================================
+import PF.Cosmology.E6ChernIndex78pi              -- Ch 26 conjectured N = 78π Chern-Weil index on T_∞ adjoint E_6 bundle; load-bearing hypothesis is a DEGENERATE existential (∃ N ∈ ℝ, N = 78π).
+import PF.Cosmology.E6CrossDomainAnchor           -- Ch 26 cross-domain anchor: integer 78 admits decompositions 24+54 (E_6 trinification) and 48+26+4 (SM fermion + gauge boson + Higgs DOF). PURE arithmetic; physics labels live only in comments.
+import PF.Cosmology.LambdaEffParameterFreeCapstone  -- Ch 26 end-to-end capstone: conjunction of rfl/ring/decide facts plus a degenerate existential — does NOT close the |78π·0.95·1.1875 − 120·log 10| < ε bracket in Lean.
+import PF.Cosmology.LambdaEffSuppression          -- Ch 26 modified-Friedmann bridge: Λ_eff = Λ_0 · exp(−X); LambdaEffSuppression_lt_iff is the strongest Cosmology theorem (genuine real-analysis). NB: uses X = 283 (J/m³ units) while LambdaEffCalibration uses X = 276.31 (g/cm³ units) — internal numerical inconsistency flagged in wave55_cosmology_276_vs_283_audit.md.
+import PF.Cosmology.LateTimeConsciousness        -- Ch 28 framework CMB null prediction ch_2(z=1100) < 10⁻⁴ + S4 forecast bounds (0.05, 0.03). Pure numerical-bound bookkeeping; "Planck 2018 confirmation" claim lives in English comment only.
+
 /-!
 ## Principia Fractalis Formal Verification
 
