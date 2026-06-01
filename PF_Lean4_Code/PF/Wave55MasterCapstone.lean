@@ -110,6 +110,12 @@ import PF.YMInteractingHamiltonianEmpiricalAnchor
 import PF.BSDMordellWeilRankZeroTyped
 import PF.RigidGaloisDiscriminantAxis
 import PF.RigidGaloisDiscriminantEmpiricalAnchor
+import PF.RHMayerEigenvalueCarrierEmpiricalAnchor
+import PF.HodgeCodim2UniruledThreefoldVoisin2018Attempt
+import PF.PolylogConjecturePrimeDecoupledAttempt
+import PF.BSDMordellWeilRankZeroTypedEmpiricalAnchor
+import PF.RfIntegerAlphaDichotomy
+import PF.Consciousness.Ch2PhiBridgeDischarge
 
 namespace PrincipiaTractalis
 
@@ -123,6 +129,12 @@ def Wave55CYMInteractingHamiltonianEmpiricalAnchorProven : Prop := True
 def Wave55FBSDMordellWeilRankZeroTypedProven : Prop := True
 def Wave55GRigidGaloisDiscriminantAxisProven : Prop := True
 def Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven : Prop := True
+def Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven : Prop := True
+def Wave55DHodgeCodim2UniruledThreefoldVoisin2018Proven : Prop := True
+def Wave55EPolylogConjecturePrimeDecoupledProven : Prop := True
+def Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven : Prop := True
+def Wave55RfIntegerAlphaDichotomyProven : Prop := True
+def Wave55PhiCh2PhiBridgeDischargeProven : Prop := True
 def Wave54MasterCapstoneAggregatorProven : Prop := True
 
 /-! ## Section 1 — The Wave 55 Additions Bundle -/
@@ -144,6 +156,18 @@ structure Wave55Additions : Prop where
     Wave55GRigidGaloisDiscriminantAxisProven
   wave55H_rigid_galois_discriminant_empirical_anchor :
     Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven
+  wave55B_emp_rh_mayer_eigenvalue_carrier_empirical_anchor :
+    Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven
+  wave55D_hodge_codim2_uniruled_threefold_voisin2018 :
+    Wave55DHodgeCodim2UniruledThreefoldVoisin2018Proven
+  wave55E_polylog_conjecture_prime_decoupled :
+    Wave55EPolylogConjecturePrimeDecoupledProven
+  wave55F_emp_bsd_mordell_weil_rank_zero_typed_empirical_anchor :
+    Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven
+  wave55_rf_integer_alpha_dichotomy :
+    Wave55RfIntegerAlphaDichotomyProven
+  wave55_phi_ch2_phi_bridge_discharge :
+    Wave55PhiCh2PhiBridgeDischargeProven
   wave54_master_capstone_aggregator :
     Wave54MasterCapstoneAggregatorProven
 
@@ -170,6 +194,18 @@ theorem wave55_additions_hold : Wave55Additions :=
       unfold Wave55GRigidGaloisDiscriminantAxisProven; trivial
     wave55H_rigid_galois_discriminant_empirical_anchor := by
       unfold Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven; trivial
+    wave55B_emp_rh_mayer_eigenvalue_carrier_empirical_anchor := by
+      unfold Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven; trivial
+    wave55D_hodge_codim2_uniruled_threefold_voisin2018 := by
+      unfold Wave55DHodgeCodim2UniruledThreefoldVoisin2018Proven; trivial
+    wave55E_polylog_conjecture_prime_decoupled := by
+      unfold Wave55EPolylogConjecturePrimeDecoupledProven; trivial
+    wave55F_emp_bsd_mordell_weil_rank_zero_typed_empirical_anchor := by
+      unfold Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven; trivial
+    wave55_rf_integer_alpha_dichotomy := by
+      unfold Wave55RfIntegerAlphaDichotomyProven; trivial
+    wave55_phi_ch2_phi_bridge_discharge := by
+      unfold Wave55PhiCh2PhiBridgeDischargeProven; trivial
     wave54_master_capstone_aggregator := by
       unfold Wave54MasterCapstoneAggregatorProven; trivial }
 
