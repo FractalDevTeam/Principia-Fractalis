@@ -302,11 +302,16 @@ def Ch2PhiBridgeState (n : ℕ) : Prop :=
 theorem ch2_phi_bridge_state_holds (n : ℕ) : Ch2PhiBridgeState n :=
   fun s => ch2_le_one_minus_exp_neg_phi_over_two s
 
+set_option linter.deprecated false in
 /-- **Honest record**: the original `Ch2PhiBridge` Prop is satisfied
     *whenever* both disjuncts are interpreted state-relatively, i.e.
     when the scalars come from a real Schmidt spectrum. The unrestricted
     universal form is unsatisfiable; we discharge the state-relative
-    form via `ch2_phi_bridge_state_holds`. -/
+    form via `ch2_phi_bridge_state_holds`.
+
+    Note: `Ch2PhiBridge` is marked `@[deprecated]` (2026-05-31, Wave 55-Φ);
+    its only legitimate uses are as the target of this negative theorem
+    and inside the Wave 55-Φ capstone below. -/
 theorem ch2_phi_bridge_universal_form_unsatisfiable :
     ¬ Ch2PhiBridge := by
   -- Witness: ch_2 = 1/2, Phi = 0. Both disjuncts fail.
@@ -351,6 +356,7 @@ def Ch2PhiBridgeContinuousSchmidt : Prop :=
 
 /-! ## ★ Wave 55-Φ Capstone ★ -/
 
+set_option linter.deprecated false in
 /-- **★ Wave 55-Φ: ch₂ ↔ Φ_IIT closed-form bridge ★**
 
     Bundle of the IIT-resonance bridge content proved unconditionally
