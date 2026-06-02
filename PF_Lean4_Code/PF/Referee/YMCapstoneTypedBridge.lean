@@ -41,6 +41,7 @@ literal Clay SU(3) statement.
 
 import PF.YMInteractingHamiltonianAttempt
 import PF.MillenniumSixReductions
+import PF.YMContinuumLiftAttempt
 import PF.Referee.StandardClayStatements
 
 namespace PF.Referee.YMCapstoneTypedBridge
@@ -96,12 +97,27 @@ theorem PF_YM_capstone_yields_Clay_YangMills_standard :
 
 /-! ## §3 — Named open frontier toward the literal Clay statement -/
 
-/-- **The single open Prop blocking continuum lift.** Per Wave 57's
-    YM cascade, `fractalYMLevel1LiftsToContinuum` is the
-    single-named-open Prop bridging the level-1 finite-dim result
-    to a continuum mass-gap statement. -/
+/-- **The genuine open frontier for continuum lift.**
+
+    Note: the literal Lean Prop `fractalYMLevel1LiftsToContinuum` is
+    ALREADY DISCHARGED axiom-free at `PF/YMContinuumLiftAttempt.lean`
+    line 95 (`fractalYMLevel1LiftsToContinuum_lean_literal`) — its
+    typed statement is `fractalYMLevel1SpectrumGap → ∃ Δ_YM > 0`,
+    discharged by witness `Δ_YM = 1`.
+
+    The GENUINE open frontier is the *stronger* typed version
+    `fractalYMLevel1LiftsToContinuumTyped`, which requires a
+    Hilbert-Schmidt compact-operator approximant plus a unitary
+    equivalence with continuum SU(3) YM. The bounded / symmetric /
+    finite-L² parts of the universal cos-kernel on [0,1] are
+    discharged unconditionally in
+    `PF/YMContinuumLiftAttempt.lean`; the unitary-equivalence with
+    continuum SU(3) YM remains the genuine residual.
+
+    For the Referee layer's frontier marker we name the typed
+    stronger version, which is the actual unresolved content. -/
 def YM_OpenFrontier : Prop :=
-  PrincipiaTractalis.MillenniumSix.fractalYMLevel1LiftsToContinuum
+  PrincipiaTractalis.fractalYMLevel1LiftsToContinuumTyped
 
 #check @PF_YMEncoding
 #check @PF_YM_capstone_yields_Clay_YangMills_standard
