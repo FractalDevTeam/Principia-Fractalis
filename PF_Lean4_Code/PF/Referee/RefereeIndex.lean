@@ -52,6 +52,7 @@ import PF.Referee.YMCapstoneTypedBridge
 import PF.Referee.BSDCapstoneTypedBridge
 import PF.Referee.HodgeCapstoneTypedBridge
 import PF.Consciousness.TimelessFieldConcreteMorphism
+import PF.Referee.PFUnifiedSubstrate
 
 namespace PF.Referee.RefereeIndex
 
@@ -101,6 +102,11 @@ structure RefereeLayerAtHEAD_05ac9b5 : Prop where
   /-- Ch 4 Timeless Field capstone is a theorem. -/
   timeless_field_capstone :
     PrincipiaTractalis.TimelessField.TimelessFieldExistenceClaim
+  /-- Structural unification: YM + BSD + Hodge typed Clay forms and
+      the full Ch 4 TF capstone hold simultaneously from one
+      concrete `pf_concrete_unified_substrate`. -/
+  unified_substrate_unification :
+    PF.Referee.PFUnifiedSubstrate.UnifiedSubstrateUnification
 
 /-- **★ THE REFEREE LAYER WITNESS AT HEAD 05ac9b5 ★**
     Bundles every Referee-layer theorem this codebase carries.
@@ -122,7 +128,9 @@ theorem refereeLayerAtHEAD_05ac9b5_realised : RefereeLayerAtHEAD_05ac9b5 :=
     hodge_K3_axis_typed_bridge :=
       PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeK3_capstone_yields_Clay_Hodge_standard
     timeless_field_capstone :=
-      PrincipiaTractalis.TimelessField.timelessFieldExistenceClaim_holds }
+      PrincipiaTractalis.TimelessField.timelessFieldExistenceClaim_holds
+    unified_substrate_unification :=
+      PF.Referee.PFUnifiedSubstrate.unifiedSubstrateUnification_holds }
 
 /-! ## Module count + commit anchor
 
