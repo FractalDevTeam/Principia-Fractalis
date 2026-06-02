@@ -106,6 +106,12 @@ remains open. Read this carefully before evaluating the framework.
   `∀ s, 0 < s.re → s.re < 1 → riemannZeta s = 0 → s.re = 1/2`.
 * **Conditional on**: 5 hypotheses including the open
   surjectivity Prop (the spectral-bijection onto ζ-zeros).
+* **Sub-frontier sharpened (HEAD 418a09f)**: `T3SymMercerTail` for
+  the specific T3_sym CLM now reduces to a single named
+  hypothesis `IsCompactOperator T3_sym.apply`, via
+  `T3SymMercerTail_of_compact_at_T3_sym_CLM` in
+  `PF/Analytic/T3SymMercerTailT3SymDischarge.lean`. The remaining
+  analytic content is Mayer 1991 §3 nuclear-class.
 * **Open frontier**: `RH_OpenFrontier` —
   surjectivity of the eigenvalue-to-ζ-zero map.
 * **What is NOT proved here**: RH itself. The surjectivity Prop is
@@ -150,10 +156,15 @@ remains open. Read this carefully before evaluating the framework.
   `!![1, 1/2; 1/2, 1]` is symmetric and positive-semidefinite (via
   the explicit SOS bilinear form), with smallest eigenvalue
   `1/2 > 0`. This is a REAL theorem under the finite-dim encoding.
-* **Open frontier**: `YM_OpenFrontier := fractalYMLevel1LiftsToContinuum`
-  plus the four Wave 47B Wightman/OS continuum gaps. Lifting the
-  finite-dim mass gap to continuum SU(3) on ℝ⁴ is the open Clay
-  mathematics.
+* **Open frontier (UPDATED HEAD 418a09f)**: the literal Lean Prop
+  `fractalYMLevel1LiftsToContinuum` is ALREADY DISCHARGED at
+  `PF/YMContinuumLiftAttempt.lean:95` (witness Δ_YM = 1). The
+  Referee `YM_OpenFrontier` now correctly names the stronger
+  `fractalYMLevel1LiftsToContinuumTyped` — the genuine residual
+  (Hilbert-Schmidt compact-operator approximant + unitary
+  equivalence with continuum SU(3)). Bounded / symmetric /
+  finite-L² parts of the universal cos-kernel are already
+  discharged unconditionally.
 
 ### BSD (Birch-Swinnerton-Dyer)
 
@@ -178,10 +189,21 @@ remains open. Read this carefully before evaluating the framework.
   same external label. The genuine PF content carried by
   `BSDFrameworkInstance` is the φ/e eigenvalue bracket + Galois-pair
   separation, NOT the rank itself.
-* **Open frontier**: `BSD_OpenFrontier` —
-  Wave 57 (A3)+(A4) Props
-  (`LSeriesAbsConvergenceForReSGreaterThanThreeHalves` ∧
-  `WilesModularityImpliesAnalyticContinuation`).
+* **(A3) UPGRADED (HEAD 418a09f)**:
+  `LSeriesAbsConvergenceForReSGreaterThanThreeHalves` is no longer
+  a `True`-shaped placeholder. The new file
+  `PF/BSD_LSeriesAbsConvergenceDischarge.lean` proves
+  `lSeriesSummable_of_hasseTower_on_open_halfplane` — under a Hasse-Weil
+  ε-tower bound `|f n| ≤ C_ε · n^(1/2+ε)`, absolute convergence of
+  the L-series holds on the strict open half-plane `Re s > 3/2`
+  via the mathlib lemma `LSeriesSummable_of_le_const_mul_rpow` plus
+  an internal ε-tower → ε := (Re s − 3/2)/2 linarith proof.
+  Axiom-free. Hasse bound encoded as hypothesis (Wave 47F G3
+  unchanged: mathlib has no `WeierstrassCurve.LSeries`).
+* **Open frontier (A4 only)**: `BSD_OpenFrontier` —
+  `WilesModularityImpliesAnalyticContinuation`. A3 is now an actual
+  theorem; A4 (Wiles 1995 modularity → analytic continuation
+  through Re(s) = 1) is the residual.
 
 ### Hodge
 
