@@ -495,6 +495,12 @@ import PF.Cosmology.LambdaEffSuppression          -- Ch 26 modified-Friedmann br
 import PF.Cosmology.LateTimeConsciousness        -- Ch 28 framework CMB null prediction ch_2(z=1100) < 10⁻⁴ + S4 forecast bounds (0.05, 0.03). Pure numerical-bound bookkeeping; "Planck 2018 confirmation" claim lives in English comment only.
 import PF.Cosmology.LambdaEffCalibration  -- 2026-06-01 Wave 55-Cosm namespace-fix completion — final Cosmology orphan now in root build graph after namespace move to PrincipiaTractalis.Cosmology.LambdaEffCalibration sub-namespace (was shadowed against E6ChernIndex78pi.lean).
 
+-- 2026-06-02 Referee Roadmap modules — implement the "Concrete Lean Targets" from MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md (HEAD anchor ee51039, Wave 57 master capstone). Pure inventory + standard-object contracts + audit; no new Clay-level claims.
+import PF.Referee.FrontierLedger  -- 2026-06-02 Pure inventory of the six unsolved Clay axes + Perelman anchor; cites existing capstone theorems and named open Props by exact Lean name. Zero new proofs. Implements roadmap step 1 "Freeze the canonical boundary."
+import PF.Referee.StandardClayStatements  -- 2026-06-02 Standard-object Clay contracts. Clay_RiemannHypothesis_Standard fully wired to mathlib's riemannZeta. Five other Clay statements parameterized over external encodings (StandardComplexityEncoding, StandardNS3DEncoding, StandardYMEncoding, StandardBSDEncoding, StandardHodgeEncoding). Implements roadmap Rule #1: no Prop := True on Clay-level paths.
+import PF.Referee.NoTrueOnClayPath  -- 2026-06-02 Audit module classifying every Prop := True declaration on or near a Clay-level proof path at HEAD ee51039 as ProvennessTag / ExternalAnchor / ParameterizedDelegated / HiddenSemanticContent. Theorem no_hidden_semantic_content certifies zero HiddenSemanticContent at this commit.
+import PF.Referee.CapstoneDependencyAudit  -- 2026-06-02 Diagnostic-only re-export of three top-level capstones (principia_fractalis_millennium_capstone, all_clay_via_soundness_and_capstones, principia_fractalis_wave57_master_capstone) with #print axioms commands per roadmap Submission Readiness Criterion item 6.
+
 /-!
 ## Principia Fractalis Formal Verification
 
