@@ -161,6 +161,45 @@ theorem PF_HodgeCY3Dim22_capstone_yields_Clay_Hodge_standard :
   intro X c
   exact (hodge_calabi_yau_3fold_dim22_full_discharge X c).1
 
+/-- Hodge encoding restricted to PF's CY4 substrate (dim 4),
+    (1,1)-slice projection. -/
+def PF_HodgeCY4At11Encoding :
+    PF.Referee.StandardClayStatements.StandardHodgeEncoding where
+  SmoothProjectiveComplexVariety := HodgeCY4Substrate
+  RationalHodgeClass _ := ℕ
+  isAlgebraic X c := HodgeAlgebraicRepresentation X.toHodgeAmbient11 c
+
+theorem PF_HodgeCY4At11_capstone_yields_Clay_Hodge_standard :
+    PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeCY4At11Encoding := by
+  intro X c
+  exact (hodge_CY4_full_discharge_at_11 X c).1
+
+/-- Hodge encoding restricted to PF's CY4 substrate (dim 4),
+    (2,2)-slice projection. -/
+def PF_HodgeCY4At22Encoding :
+    PF.Referee.StandardClayStatements.StandardHodgeEncoding where
+  SmoothProjectiveComplexVariety := HodgeCY4Substrate
+  RationalHodgeClass _ := ℕ
+  isAlgebraic X c := HodgeAlgebraicRepresentation X.toHodgeAmbient22 c
+
+theorem PF_HodgeCY4At22_capstone_yields_Clay_Hodge_standard :
+    PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeCY4At22Encoding := by
+  intro X c
+  exact (hodge_CY4_full_discharge_at_22 X c).1
+
+/-- Hodge encoding restricted to PF's CY4 substrate (dim 4),
+    (3,3)-slice projection. -/
+def PF_HodgeCY4At33Encoding :
+    PF.Referee.StandardClayStatements.StandardHodgeEncoding where
+  SmoothProjectiveComplexVariety := HodgeCY4Substrate
+  RationalHodgeClass _ := ℕ
+  isAlgebraic X c := HodgeAlgebraicRepresentation X.toHodgeAmbient33 c
+
+theorem PF_HodgeCY4At33_capstone_yields_Clay_Hodge_standard :
+    PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeCY4At33Encoding := by
+  intro X c
+  exact (hodge_CY4_full_discharge_at_33 X c).1
+
 /-! Note on omitted substrates: `HodgeCurveSubstrate` and
     `HodgeAbelianSurfaceSubstrate` live in `Type 1` (they carry
     `Type`-valued fields for `Points` / `torus_endomorphisms`), so
@@ -189,10 +228,16 @@ surface, CY3 (2,2)-slice) plus the original general-surface bridge. -/
 theorem PF_Hodge_multisubstrate_capstone :
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeK3Encoding ∧
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeEncoding ∧
-    PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeCY3Dim22Encoding :=
+    PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeCY3Dim22Encoding ∧
+    PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeCY4At11Encoding ∧
+    PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeCY4At22Encoding ∧
+    PF.Referee.StandardClayStatements.Clay_Hodge_Standard PF_HodgeCY4At33Encoding :=
   ⟨ PF_HodgeK3_capstone_yields_Clay_Hodge_standard
   , PF_Hodge_capstone_yields_Clay_Hodge_standard
-  , PF_HodgeCY3Dim22_capstone_yields_Clay_Hodge_standard ⟩
+  , PF_HodgeCY3Dim22_capstone_yields_Clay_Hodge_standard
+  , PF_HodgeCY4At11_capstone_yields_Clay_Hodge_standard
+  , PF_HodgeCY4At22_capstone_yields_Clay_Hodge_standard
+  , PF_HodgeCY4At33_capstone_yields_Clay_Hodge_standard ⟩
 
 #check @PF_HodgeEncoding
 #check @PF_Hodge_capstone_yields_Clay_Hodge_standard
