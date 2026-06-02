@@ -91,21 +91,39 @@ structure PFCompleteFramework : Prop where
     MillenniumReductionSoundness →
     (∀ c : ClayProblem, PFInternalCapstone c) →
     ∀ c : ClayProblem, ClayExternalStatement c
-  /-- The cross-Millennium algebraic invariants (11 invariants
-      including `α_RH · α_NS = α_NS + α_BSD`, `α_NS = α_YM · α_BSD`,
-      etc.). These are theorems, not numerical coincidences. -/
+  /-- The cross-Millennium algebraic invariants — ALL 11 from
+      `cross_millennium_shared_invariants_capstone`. These are
+      theorems, not numerical coincidences, and they bind the six
+      Clay axes to one another at the α-algebra level:
+      α_P² = α_YM, α_RH² = 9/4, α_QG² = 2π, α_Hodge² = α_Hodge + 1,
+      α_NS = 2·α_BSD, α_NS = α_YM·α_BSD, α_YM = α_Poincaré + 1,
+      α_RH·α_NS = α_NS + α_BSD, α_RH·α_YM = 3,
+      α_NP − α_Hodge = 1/4, α_QG² = α_YM·π. -/
   cross_millennium_invariants :
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_P ^ 2 =
       PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM ∧
+    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH ^ 2 = 9 / 4 ∧
+    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG ^ 2 =
+      2 * Real.pi ∧
+    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Hodge ^ 2 =
+      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Hodge + 1 ∧
+    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NS =
+      2 * PrincipiaTractalis.CrossMillenniumSharedInvariants.α_BSD ∧
+    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NS =
+      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM *
+      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_BSD ∧
+    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM =
+      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Poincare + 1 ∧
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH *
       PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NS =
       PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NS +
       PrincipiaTractalis.CrossMillenniumSharedInvariants.α_BSD ∧
-    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NS =
-      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM *
-      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_BSD ∧
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH *
-      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM = 3
+      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM = 3 ∧
+    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NP -
+      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Hodge = 1/4 ∧
+    PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG ^ 2 =
+      PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM * Real.pi
 
 /-- **★ THE COMPLETE FRAMEWORK SINGLE-CITATION THEOREM ★**
 
@@ -125,9 +143,16 @@ theorem pfCompleteFramework_realized : PFCompleteFramework where
   millennium_reduction_conditional := all_clay_via_soundness_and_capstones
   cross_millennium_invariants :=
     ⟨ PrincipiaTractalis.CrossMillenniumSharedInvariants.α_P_sq_eq_α_YM
-    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH_mul_NS_eq_NS_plus_BSD
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH_sq_eq_nine_fourths
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG_sq_eq_two_pi
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Hodge_sq_eq_self_plus_one
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NS_eq_two_α_BSD
     , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NS_eq_α_YM_mul_α_BSD
-    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH_mul_YM_eq_three ⟩
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM_eq_α_Poincare_plus_one
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH_mul_NS_eq_NS_plus_BSD
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH_mul_YM_eq_three
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NP_sub_Hodge_eq_quarter
+    , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG_sq_eq_α_YM_mul_pi ⟩
 
 #check @PFCompleteFramework
 #check @pfCompleteFramework_realized
