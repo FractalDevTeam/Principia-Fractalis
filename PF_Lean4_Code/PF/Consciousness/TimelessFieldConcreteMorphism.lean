@@ -64,6 +64,7 @@ here as its substrate.
 -/
 
 import PF.Consciousness.TimelessField
+import PF.Consciousness.TimelessFieldPartialTraceMorphism
 
 namespace PrincipiaTractalis
 namespace TimelessField
@@ -73,19 +74,14 @@ open scoped Classical
 /-! ## §1 — Concrete connecting morphism: trivial (zero) family -/
 
 /-- **Trivial connecting morphism for `k ∣ k'`.** Sends every operator
-    to the zero matrix. This is the minimal concrete instance that
-    satisfies `ProjectiveCompatibility` axiom-free at every level
-    pair.
+    to the zero matrix. This was the original minimal concrete instance
+    that satisfies `ProjectiveCompatibility` axiom-free at every level
+    pair, before the partial-trace morphism was landed
+    (2026-06-02, `TimelessFieldPartialTraceMorphism.lean`).
 
-    Note on choice: the manuscript (ch04 Def 4.5) uses a partial-trace
-    coarse-graining `Tr_{k+1,k'} ⊗ σ_m`. A top-left-block truncation
-    is *not* projective-compatible in the degenerate `k = 0`,
-    `ℓ > k > 0` corner case (the inner block of a sub-block extracts
-    fewer entries than the outer block can address). The honest
-    minimal instance is the zero family, which we use here. Promoting
-    this to the partial-trace morphism is downstream work and is not
-    blocked by anything in this file — both the file and downstream
-    consumers operate at the structural-skeleton level. -/
+    Kept here for historical reference and as a backstop. The canonical
+    `truncMorphism` below now points at `partialTraceMorphism` (the
+    genuine partial-trace coarse-graining from ch04 Def 4.5). -/
 noncomputable def zeroMorphism (k k' : ℕ) (_h : k ∣ k') :
     LevelMorphism k k' := fun _ => 0
 
@@ -96,15 +92,27 @@ theorem zeroMorphism_projective_compatible :
   intros j k ℓ _hjk _hkℓ _hjℓ a
   rfl
 
-/-- Alias used by the rest of the module so downstream theorem names
-    align with the manuscript label (the truncation-style morphism
-    will eventually replace this when partial-trace is formalised). -/
-noncomputable def truncMorphism : ∀ k k', k ∣ k' → LevelMorphism k k' :=
-  zeroMorphism
+/-- **`truncMorphism` is now the genuine partial-trace family**
+    `partialTraceMorphism` from
+    `PF.Consciousness.TimelessFieldPartialTraceMorphism`
+    (2026-06-02 upgrade). This is the canonical ch04 Def 4.5
+    partial-trace coarse-graining of the connecting morphisms in
+    `T_∞`'s projective system: for `k ≤ k'`, partial trace over the
+    last `k' - k` base-3 digits; for the degenerate `k > k'` (only
+    `k > 0, k' = 0` under `k ∣ k'`), the zero morphism.
 
+    `ProjectiveCompatibility` for `truncMorphism` therefore now
+    follows from `partialTraceMorphism_projective_compatible`
+    (proved axiom-free via `Fin.append_assoc` + `combineBlocks`
+    reindexing). -/
+noncomputable def truncMorphism : ∀ k k', k ∣ k' → LevelMorphism k k' :=
+  partialTraceMorphism
+
+/-- `ProjectiveCompatibility` for `truncMorphism` — now backed by
+    the genuine partial-trace proof. -/
 theorem truncMorphism_projective_compatible :
     ProjectiveCompatibility truncMorphism :=
-  zeroMorphism_projective_compatible
+  partialTraceMorphism_projective_compatible
 
 /-! ## §2 — A concrete element of the Timeless Field -/
 
@@ -118,7 +126,10 @@ theorem truncMorphism_projective_compatible :
 noncomputable def concreteTFElement :
     TimelessFieldElement truncMorphism where
   seq := fun _ => 0
-  compat := by intros; rfl
+  compat := by
+    intros k k' h
+    -- truncMorphism = partialTraceMorphism; partial trace of zero is zero.
+    exact partialTraceMorphism_zero k k' h
 
 /-! ## §3 — Discharge the four open Ch 4 propositions -/
 
