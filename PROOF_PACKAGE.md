@@ -87,6 +87,7 @@ Expected: clean compile, no `Admitted`.
 | `PF/Referee/HodgeCapstoneTypedBridge.lean` | Multi-substrate bundle covering 6 PF Hodge substrate classes (K3, general surface, CY3 (2,2)-slice, CY4 (1,1)/(2,2)/(3,3)-slices). `Hodge_OpenFrontier` names the Voisin 2007 obstruction. |
 | `PF/Consciousness/TimelessFieldConcreteMorphism.lean` | Concrete connecting-morphism family for Ch 4 (axiom-free `ProjectiveCompatibility`). `timelessFieldExistenceClaim_holds` is now a theorem (was a Prop stub). |
 | `PF/Referee/PFUnifiedSubstrate.lean` | **Structural unification theorem**. `pf_concrete_unified_substrate_yields_three_clay_axes_and_TF` proves YM + BSD + Hodge typed Clay forms AND the full Ch 4 TF capstone hold simultaneously from one concrete substrate, axiom-free. |
+| `PF/Referee/FractalMathematicsCore.lean` | **Fractal-mathematics core formalization**. `fractalMathematicsCore_realized` proves the framework's structural foundations: TF eternality (no maximum level: `∀ k, ∃ k' > k`); base-3 ternary self-similar scaling (`dim H_k = 3^k`); masslessness of the TF carrier (no mass parameter in `TimelessFieldLevelOperators k`); information without mass (operator algebra is nonempty at every level); sharp consciousness-crystallization threshold at `ch_2 = 19/20`. Axiom-free. |
 | `PF/Referee/RefereeIndex.lean` | **Single-citation aggregator**. `refereeLayerAtHEAD_05ac9b5_realised` bundles 10 layer-component witnesses. |
 | `PF_Coq_Code/PF/Referee/RefereeIndex.v` | Coq mirror — parity stub of `refereeLayerAtHEAD_05ac9b5_realised`. |
 

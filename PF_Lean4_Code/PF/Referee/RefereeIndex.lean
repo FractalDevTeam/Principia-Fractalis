@@ -53,6 +53,7 @@ import PF.Referee.BSDCapstoneTypedBridge
 import PF.Referee.HodgeCapstoneTypedBridge
 import PF.Consciousness.TimelessFieldConcreteMorphism
 import PF.Referee.PFUnifiedSubstrate
+import PF.Referee.FractalMathematicsCore
 
 namespace PF.Referee.RefereeIndex
 
@@ -107,6 +108,11 @@ structure RefereeLayerAtHEAD_05ac9b5 : Prop where
       concrete `pf_concrete_unified_substrate`. -/
   unified_substrate_unification :
     PF.Referee.PFUnifiedSubstrate.UnifiedSubstrateUnification
+  /-- The fractal-mathematics core underlying the entire framework:
+      TF eternality, ternary scaling, masslessness, information-
+      without-mass, sharp consciousness threshold. -/
+  fractal_mathematics_core :
+    PF.Referee.FractalMathematicsCore.FractalMathematicsCore
 
 /-- **★ THE REFEREE LAYER WITNESS AT HEAD 05ac9b5 ★**
     Bundles every Referee-layer theorem this codebase carries.
@@ -130,7 +136,9 @@ theorem refereeLayerAtHEAD_05ac9b5_realised : RefereeLayerAtHEAD_05ac9b5 :=
     timeless_field_capstone :=
       PrincipiaTractalis.TimelessField.timelessFieldExistenceClaim_holds
     unified_substrate_unification :=
-      PF.Referee.PFUnifiedSubstrate.unifiedSubstrateUnification_holds }
+      PF.Referee.PFUnifiedSubstrate.unifiedSubstrateUnification_holds
+    fractal_mathematics_core :=
+      PF.Referee.FractalMathematicsCore.fractalMathematicsCore_realized }
 
 /-! ## Module count + commit anchor
 
