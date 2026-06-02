@@ -37,6 +37,12 @@ Capstones audited (one per Clay axis, at HEAD ee51039):
 import PF.Millennium
 import PF.MillenniumReductionSoundness
 import PF.Wave57MasterCapstone
+import PF.Referee.RHCapstoneTypedBridge
+import PF.Referee.PNPCapstoneTypedBridge
+import PF.Referee.YMCapstoneTypedBridge
+import PF.Referee.BSDCapstoneTypedBridge
+import PF.Referee.HodgeCapstoneTypedBridge
+import PF.Consciousness.TimelessFieldConcreteMorphism
 
 namespace PF.Referee.CapstoneDependencyAudit
 
@@ -56,5 +62,21 @@ theorem capstoneAudit_isInspectionOnly_holds :
 #print axioms PrincipiaTractalis.principia_fractalis_millennium_capstone
 #print axioms PrincipiaTractalis.all_clay_via_soundness_and_capstones
 #print axioms PrincipiaTractalis.principia_fractalis_wave57_master_capstone
+
+/-! ## Per-typed-bridge axiom inspection (HEAD 96faade additions)
+
+The four genuine typed-bridge witnesses (YM finite-dim, BSD over Fin 6,
+Hodge multi-substrate, plus the RH/PNP retype-only bridges) and the
+Ch 4 Timeless Field capstone. Each is inspected for axiom dependencies. -/
+
+#check @PF.Referee.YMCapstoneTypedBridge.PF_YM_capstone_yields_Clay_YangMills_standard
+#check @PF.Referee.BSDCapstoneTypedBridge.PF_BSD_capstone_yields_Clay_BSD_standard
+#check @PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_multisubstrate_capstone
+#check @PrincipiaTractalis.TimelessField.timelessFieldExistenceClaim_holds
+
+#print axioms PF.Referee.YMCapstoneTypedBridge.PF_YM_capstone_yields_Clay_YangMills_standard
+#print axioms PF.Referee.BSDCapstoneTypedBridge.PF_BSD_capstone_yields_Clay_BSD_standard
+#print axioms PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_multisubstrate_capstone
+#print axioms PrincipiaTractalis.TimelessField.timelessFieldExistenceClaim_holds
 
 end PF.Referee.CapstoneDependencyAudit
