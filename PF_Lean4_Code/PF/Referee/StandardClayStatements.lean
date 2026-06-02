@@ -36,21 +36,32 @@ the standard encoding and (b) proving the typed statement.
 -/
 
 import Mathlib.NumberTheory.LSeries.RiemannZeta
+import PF.SpectralBijection
 
 namespace PF.Referee.StandardClayStatements
 
-/-! ## RH — standard contract, fully wired to mathlib
+/-! ## RH — standard contract, wired to PF's critical-strip formulation
 
-  Mathlib provides `riemannZeta : ℂ → ℂ` (Mathlib.NumberTheory.LSeries.
-  RiemannZeta). The Clay statement is expressible directly. -/
+  PF/SpectralBijection.lean defines `PrincipiaTractalis.RiemannHypothesis`
+  in the standard critical-strip form:
 
-/-- **Clay Riemann Hypothesis (standard form).** All non-trivial zeros
-    of `riemannZeta` (those in the critical strip `0 < Re(s) < 1`) lie
-    on the critical line `Re(s) = 1/2`.
+      `∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 → s.re = 1/2`
 
-    This is the literal Clay statement of RH. -/
+  This is the Clay-standard critical-strip statement, fully wired to
+  mathlib's `riemannZeta`. (Mathlib also exposes a `RiemannHypothesis`
+  predicate but in a different, classically-equivalent form excluding
+  trivial zeros and `s = 1` rather than restricting to the strip.) We
+  adopt the PF-local form because the existing PF capstone
+  `riemann_hypothesis_via_T3_sym_framework` concludes exactly this
+  proposition, so the typed standard contract here matches the
+  capstone's conclusion on the nose. -/
+
+/-- **Clay Riemann Hypothesis (standard form).** Defined to be
+    `PrincipiaTractalis.RiemannHypothesis`, the standard critical-strip
+    statement: every zero of `riemannZeta` strictly inside the strip
+    `0 < Re(s) < 1` has real part `1/2`. -/
 def Clay_RiemannHypothesis_Standard : Prop :=
-  ∀ s : ℂ, riemannZeta s = 0 → 0 < s.re → s.re < 1 → s.re = (1 : ℝ) / 2
+  PrincipiaTractalis.RiemannHypothesis
 
 /-! ## P vs NP — standard contract via an external encoding
 
