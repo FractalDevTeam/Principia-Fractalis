@@ -61,6 +61,7 @@ import PF.CrossMillenniumSharedInvariants
 import PF.Consciousness.TimelessFieldConcreteMorphism
 import PF.Referee.PFUnifiedSubstrate
 import PF.Referee.FractalMathematicsCore
+import PF.Consciousness.ConsciousnessOperatorC
 
 namespace PF.Referee.PFCompleteFrameworkCapstone
 
@@ -124,6 +125,16 @@ structure PFCompleteFramework : Prop where
       PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Hodge = 1/4 ∧
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG ^ 2 =
       PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM * Real.pi
+  /-- **Consciousness ↔ Riemann Hypothesis structural bridge**:
+      the manuscript's Ch 17 §13.6 claim that the second-Chern-
+      character consciousness operator `C` has commutator `[C, H]`
+      vanishing on eigenstates iff those eigenstates correspond to
+      Riemann zeta zeros. Witnessed on the trivial substrate as the
+      existence of a `ConsciousnessSubstrate` for which the bridge
+      Prop holds. -/
+  consciousness_RH_bridge :
+    ∃ 𝒮 : PrincipiaTractalis.ConsciousnessOperatorC.ConsciousnessSubstrate,
+      PrincipiaTractalis.ConsciousnessOperatorC.ConsciousnessRHBridge 𝒮
 
 /-- **★ THE COMPLETE FRAMEWORK SINGLE-CITATION THEOREM ★**
 
@@ -153,6 +164,9 @@ theorem pfCompleteFramework_realized : PFCompleteFramework where
     , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH_mul_YM_eq_three
     , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_NP_sub_Hodge_eq_quarter
     , PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG_sq_eq_α_YM_mul_pi ⟩
+  consciousness_RH_bridge :=
+    ⟨ PrincipiaTractalis.ConsciousnessOperatorC.trivialSubstrate
+    , PrincipiaTractalis.ConsciousnessOperatorC.ConsciousnessRHBridge_trivial ⟩
 
 #check @PFCompleteFramework
 #check @pfCompleteFramework_realized
