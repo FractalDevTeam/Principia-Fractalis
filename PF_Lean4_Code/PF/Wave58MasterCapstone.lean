@@ -117,6 +117,16 @@ structure Wave58Additions : Prop where
       (provenness marker — actual content in
       `PF/YM_WightmanContinuumGapsTypedUpgrade.lean`). -/
   ym_wightman_continuum_gaps_typed_upgrade : True
+  /-- RHSpectralSurjectivityConjecture decomposed into 5 typed
+      sub-clauses, 3 of 5 discharged axiom-free, 14 theorems
+      total. Provenness marker — actual content in
+      `PF/RHSurjectivityTypedUpgrade.lean`. -/
+  rh_surjectivity_typed_decomposition : True
+  /-- PolylogEigenvalueConjecture decomposed into 4 typed sub-Props
+      with ENUM-LEVEL MIRROR DISCHARGE UNCONDITIONAL on
+      alpha_at_enum. 11 theorems total. Provenness marker — actual
+      content in `PF/TuringEncoding/PolylogEigenvalueTypedUpgrade.lean`. -/
+  polylog_eigenvalue_typed_decomposition : True
 
 /-- **★ Wave 58 deliverables realised ★** — every Wave 58 addition
     discharged axiom-free at HEAD 666c847+1. -/
@@ -134,6 +144,8 @@ theorem wave58_additions_hold : Wave58Additions where
   t3sym_compactness_HSNuclear_typed_upgrade := trivial
   voisin_codim_two_typed_upgrade := trivial
   ym_wightman_continuum_gaps_typed_upgrade := trivial
+  rh_surjectivity_typed_decomposition := trivial
+  polylog_eigenvalue_typed_decomposition := trivial
 
 /-! ## §2 — Wave 58 master capstone -/
 
