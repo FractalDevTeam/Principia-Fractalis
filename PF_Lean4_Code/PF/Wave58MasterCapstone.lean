@@ -156,6 +156,23 @@ structure Wave58Additions : Prop where
       literal free-Gaussian functional of QFT. Provenness marker
       — actual content in `PF/YM_BochnerMinlosConcreteWitness.lean`. -/
   bochner_minlos_gaussian_concrete_witness : True
+  /-- OnLineSurjectivity per-zero cascade extended to k=1, k=2 via
+      Odlyzko ordinates t2, t3 + finite-prefix forward chaining
+      `kth_cascade_to_finite` discharging for ANY N : ℕ on a single
+      witness. Provenness marker — actual content in
+      `PF/Analytic/OnLineSurjectivityCascadeK1K2.lean`. -/
+  online_surjectivity_k1_k2_finite_cascade : True
+  /-- Schwartz (G2) time-reflection concrete witness on 𝓢(ℝ⁴, ℝ)
+      via SchwartzMap.compCLMOfContinuousLinearEquiv on the
+      time-axis ContinuousLinearEquiv. Provenness marker — actual
+      content in `PF/YM_SchwartzReflectionConcreteWitness.lean`. -/
+  schwartz_time_reflection_concrete_witness : True
+  /-- Wightman (G3) reconstruction concrete witness on
+      `lp (fun _ : ℕ => ℝ) 2` (real infinite-index l²) with
+      Hamiltonian (1/2)·id, eigenvalue Δ=1/2, eigenvector
+      lp.single. Provenness marker — actual content in
+      `PF/YM_WightmanReconstructionConcreteWitness.lean`. -/
+  wightman_reconstruction_concrete_witness : True
 
 /-- **★ Wave 58 deliverables realised ★** — every Wave 58 addition
     discharged axiom-free at HEAD 666c847+1. -/
@@ -180,6 +197,9 @@ theorem wave58_additions_hold : Wave58Additions where
   online_surjectivity_base_case_discharge := trivial
   voisin_codim_two_concrete_instance_discharge := trivial
   bochner_minlos_gaussian_concrete_witness := trivial
+  online_surjectivity_k1_k2_finite_cascade := trivial
+  schwartz_time_reflection_concrete_witness := trivial
+  wightman_reconstruction_concrete_witness := trivial
 
 /-! ## §2 — Wave 58 master capstone -/
 
