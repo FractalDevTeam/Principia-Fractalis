@@ -77,8 +77,24 @@ echo
 
 cd "$REPO_ROOT"
 
+echo "-- 6. Wave 58 attack discharges (HEAD 37ae17e+) --"
+echo "Eight attack agents landed axiom-free typed-content discharges:"
+echo "   * T3SymMercerTail              -> PF/Analytic/T3SymMercerTailT3SymDischarge.lean"
+echo "   * T3SymHilbertSchmidtNuclear    -> PF/Analytic/T3SymCompactnessAttempt.lean"
+echo "   * BSD (A3) L-series convergence -> PF/BSD_LSeriesAbsConvergenceDischarge.lean"
+echo "   * BSD (A4) Wiles modularity     -> PF/BSD_WilesModularityAnalyticContinuationDischarge.lean"
+echo "   * Jonquieres global identity IFF -> PF/Analytic/JonquieresGlobalIdentityDischarge.lean"
+echo "   * TF partial-trace morphism      -> PF/Consciousness/TimelessFieldPartialTraceMorphism.lean"
+echo "   * Voisin codim-2 typed upgrade   -> PF/AlgebraicGeometry/VoisinObstructionTypedUpgrade.lean"
+echo "   * YM Wightman 4 gaps typed       -> PF/YM_WightmanContinuumGapsTypedUpgrade.lean"
+echo "Wave 58 master aggregator: PF.principia_fractalis_wave58_master_capstone"
+echo "Deepest single-citation: PF.Referee.PFCompleteFrameworkCapstone.pfCompleteFramework_realized"
+echo
+
 echo "============================================================"
 echo "Audit complete."
 echo "Reference: PROOF_PACKAGE.md (this repo root)"
 echo "Single-citation theorem: PF.Referee.RefereeIndex.refereeLayerAtHEAD_05ac9b5_realised"
+echo "Deepest single-citation: PF.Referee.PFCompleteFrameworkCapstone.pfCompleteFramework_realized"
+echo "Wave 58 master: PrincipiaTractalis.principia_fractalis_wave58_master_capstone"
 echo "============================================================"
