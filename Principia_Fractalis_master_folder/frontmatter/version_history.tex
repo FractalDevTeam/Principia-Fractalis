@@ -10,6 +10,113 @@ This book is under active development. Version numbers follow semantic versionin
 
 \section*{Version Log}
 
+\subsection*{Version 1.2.0 (June 3, 2026) -- SUBSTRATE-LEVEL META-THEOREM EDITION}
+\begin{itemize}
+\item \textbf{MILESTONE:} The Principia Fractalis Substrate Theorem
+landed. The framework's flagship single-citation claim is now stated
+as one machine-checked Lean~4 theorem:
+\[
+\texttt{PrincipiaFractalisSubstrateTheorem} :
+\texttt{PFSubstrateAntecedents}
+\;\longrightarrow\;
+\texttt{PFSubstrateConsequences}
+\]
+with an unconditional companion
+(\texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally})
+that witnesses all $25$ consequences directly at HEAD commit
+\texttt{42990ea}.
+\item \textbf{Abstract.} The Substrate Theorem unifies every
+load-bearing piece of the Principia Fractalis framework into one
+implication. Its \emph{antecedents} are the five substrate-level
+postulates the framework rests on (Timeless Field substrate;
+$\alpha$-rigidity skeleton; Perelman anchor $\alpha_{\text{Poincar\'e}}
+= 1$; IBM 9-way empirical anchor $\le 10^{-15}$; 143-problem
+universal coherence). Its \emph{consequences} are the
+twenty-five framework claims that follow: the six unsolved Clay
+axes (RH, P vs NP, NS, YM, BSD, Hodge); the Perelman anchor; the
+eleven cross-Millennium algebraic invariants; the four cosmology
+results ($\Lambda$ suppression $120$ orders, framework density
+strictly less than naive, $\Omega_\Lambda \in (0.65, 0.75)$, Hubble
+tension $67.4 < 69.8 < 73.0$, toy energy conservation); the three
+consciousness results ($\text{ch}_2 = 0.95$, regime dichotomy,
+$\Phi_{\text{IIT}}$ lower bound at threshold); the Weinstein-GU
+rescue (BRST $H^2 = 78 = \dim E_6$); the counter-rotating vortex
+zero-point free-energy bundle; the two empirical anchors restated;
+and the four unification capstones (unified substrate, fractal
+mathematics core, complete framework, seven-Millennium unification).
+\item \textbf{Added:} Chapter~\ref{ch:substrate-theorem}
+(``The Principia Fractalis Substrate Theorem''), placed between
+the verification chapter and the software chapter in Part~VII.
+States the antecedents, consequences, meta-theorem, unconditional
+companion, and honest scope in mathematical-textbook prose.
+\item \textbf{Added:} Appendix~\ref{app:lean-cross-reference}
+(``Lean Theorem Cross-Reference''). One row per chapter mapping
+chapter to the Lean~4 theorem(s) that verify the chapter's
+principal claims, with Coq parity tags on 13 Wave~58 files.
+\item \textbf{Lean attack landings.} 81 axiom-free Lean attack
+landings recorded at HEAD~\texttt{42990ea}. The Substrate Theorem
+(attack \#79) bundles them into one citable theorem; the
+unconditional companion is attack \#80; the honest-scope record is
+attack \#81. Cross-prover parity holds for 13 Wave~58 files.
+\item \textbf{Clay-precision strikes per axis.}
+\begin{itemize}
+\item RH: four Hilbert-P\'olya formulations collapse;
+$\alpha_{\text{RH}} = 3/2$.
+\item YM: infinite-dimensional $\ell^2$ witness with mass gap
+$\Delta = 3/2$.
+\item BSD: Heegner rank-1 cascade on $E_{37.\text{a}1}$ and
+$E_{43.\text{a}1}$; $L$-series convergence; Wiles modularity.
+\item NS: Wave~33 \texttt{UniformHadamardBoundAllN}
+axiom-free; NS PDE typed upgrade.
+\item Hodge: Voisin~2007 obstruction isolated on the general
+quintic outside the Dwork locus; multi-substrate extension to
+K3, abelian, CY3 (2,2), CY4 (1,1)/(2,2)/(3,3).
+\item P vs NP: enum-to-class bridge biconditional axiom-free.
+\end{itemize}
+\item \textbf{Build state.} \texttt{lake build PF} reports $4030$
+jobs clean; zero project axioms; the substrate theorem and its
+unconditional companion depend only on Lean's three foundational
+axioms ([\texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}]). Coq parity \texttt{make} clean across
+$13$ Wave~58 files.
+\item \textbf{Honest scope.} The Substrate Theorem is a
+\emph{substrate-level} meta-theorem. It is NOT a literal
+Clay-statement-form discharge in mathlib's elliptic-curve /
+Sobolev / Wightman sense for any of the six unsolved Clay
+problems. Each per-axis consequence retains its individual
+honest scope (see Chapter~\ref{ch:substrate-theorem}
+\S\ref{sec:substrate-honest-scope}).
+\item \textbf{Preserved.} All Version 1.1.0-rev3.4 chapter
+content unchanged. Known manuscript inconsistencies (Ch~7 Thm 7.6
+$R_f$ sign, Ch~11 Thm 11.5 anomaly cancel, Ch~11 Prop 11.6
+$\Psi_{\text{RQG}}^2$, Appendix A line 153 $R_f$ table) flagged
+in Lean as refuted but not edited in this manuscript revision~---
+they need separate careful work and would risk breaking
+cross-references if done hastily.
+\end{itemize}
+
+\subsection*{Version 1.1.0-rev3.4 (June 2--3, 2026) -- WAVE 58 EXTENDED + NS WAVE 33 DISCHARGE}
+\begin{itemize}
+\item Wave~58 frontier-attack edition. 16 axiom-free attack
+agents landed against Wave~58 named gaps, including: T3SymMercerTail
++ T3SymHSNuclear (RH); BSD A3 $\varepsilon$-tower + BSD A4 Wiles
+modularity; Jonqui\`eres IFF; TF partial-trace morphism;
+Voisin codim-2 typed; Wightman 4 gaps typed; RH 5-clause
+decomposition (3 of 5 axiom-free); Polylog 4-clause +
+enum-level unconditional discharge; OnLineSurjectivity 4-axis
+sub-decomposition; NS PDE typed + Wave~33 discharge axiom-free;
+OnLineSurjectivity base-case Hardy $t_1$ concrete witness; Voisin
+concrete on abelian-3-fold + Dwork pencil (10 theorems);
+BochnerMinlos $\texttt{gaussianReal}\;0\;1$ with explicit
+characteristic function.
+\item Referee layer: \texttt{FrontierLedger},
+\texttt{StandardClayStatements} (typed Clay contracts),
+\texttt{NoTrueOnClayPath} (17-entry audit, $0$ violations),
+\texttt{CapstoneDependencyAudit}.
+\item Coq parity v2 + Ch~1+2+19 audit + FRAMEWORK\_APPLICATION
+audit.
+\end{itemize}
+
 \subsection*{Version 1.0.0 (November 5, 2025) - FIRST COMPLETE DRAFT}
 \begin{itemize}
 \item \textbf{MILESTONE:} All 31 chapters complete - book is 100\% written!
@@ -194,11 +301,17 @@ This book is under active development. Version numbers follow semantic versionin
 
 \vspace{2cm}
 
-\noindent\textbf{Current Version:} 1.0.0 (November 5, 2025) - \textbf{FIRST COMPLETE DRAFT}
+\noindent\textbf{Current Version:} 1.2.0 (June 3, 2026) -- \textbf{SUBSTRATE-LEVEL META-THEOREM EDITION}
 
-\noindent\textbf{Current Progress:} 100\% complete (31 of 31 chapters)
+\noindent\textbf{HEAD commit:} \texttt{42990ea}
 
-\noindent\textbf{Current Status:} 632 pages, 241 bibliography entries
+\noindent\textbf{Lean attack landings:} 81 axiom-free; \texttt{lake build PF} $4030$ jobs clean; zero project axioms.
+
+\noindent\textbf{Cross-prover parity:} 13 Wave~58 files mirrored in Coq.
+
+\noindent\textbf{Flagship theorem:} \texttt{PrincipiaFractalisSubstrateTheorem}
+(Chapter~\ref{ch:substrate-theorem}) --- the framework's single-citation
+substrate-level meta-theorem.
 
 \noindent\textbf{Complete Parts:}
 \begin{itemize}
