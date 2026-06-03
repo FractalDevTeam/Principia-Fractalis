@@ -148,11 +148,95 @@ theorem cross_millennium_derived_capstone
   , αP_sq_eq_αPoincare_plus_one
   , αRH_NS_relation_via_αYM ⟩
 
+/-! ## §7 — Rigidity theorem: the 11 invariants algebraically force α_YM, α_RH, α_Poincaré
+
+A "rigid" version of the invariants over an abstract α-system. Any
+real-valued tuple `(αP, αNP, αRH, αNS, αYM, αBSD, αHodge, αQG,
+αPoincare)` satisfying the relevant invariants algebraically forces
+`α_YM = 2`, `α_RH = 3/2`, and `α_Poincare = 1`. This is the
+framework's INTERNAL OVER-DETERMINATION: the chosen constants are
+not free parameters but algebraically forced. -/
+
+/-- An abstract α-system: a tuple of real values plus the
+    cross-Millennium algebraic invariants as hypotheses. We carry
+    only the invariants needed for the rigidity theorem. -/
+structure AbstractAlphaSystem where
+  αP : ℝ
+  αRH : ℝ
+  αNS : ℝ
+  αYM : ℝ
+  αBSD : ℝ
+  αQG : ℝ
+  αPoincare : ℝ
+  -- Invariant 3: α_QG² = 2π
+  inv_QG_sq_eq_2pi : αQG ^ 2 = 2 * Real.pi
+  -- Invariant 11: α_QG² = α_YM · π
+  inv_QG_sq_eq_YM_pi : αQG ^ 2 = αYM * Real.pi
+  -- Invariant 7: α_YM = α_Poincaré + 1
+  inv_YM_eq_Poincare_plus_one : αYM = αPoincare + 1
+  -- Invariant 9: α_RH · α_YM = 3
+  inv_RH_mul_YM_eq_three : αRH * αYM = 3
+
+/-- **★ RIGIDITY THEOREM: any abstract α-system satisfying the
+    relevant invariants forces α_YM = 2, α_Poincaré = 1, α_RH = 3/2.**
+
+    Three independent values are uniquely algebraically determined
+    by the system of invariants — they are not free parameters of
+    the framework but consequences of the algebraic skeleton. -/
+theorem alpha_system_rigidity (S : AbstractAlphaSystem) :
+    S.αYM = 2 ∧ S.αPoincare = 1 ∧ S.αRH = 3 / 2 := by
+  -- Step 1: α_QG² = 2π and α_QG² = α_YM · π give α_YM · π = 2π,
+  -- so (α_YM − 2) · π = 0; since π ≠ 0, α_YM = 2.
+  have h_pi_ne : Real.pi ≠ 0 := Real.pi_ne_zero
+  have h_YM_pi : S.αYM * Real.pi = 2 * Real.pi := by
+    rw [← S.inv_QG_sq_eq_YM_pi, S.inv_QG_sq_eq_2pi]
+  have h_YM : S.αYM = 2 := (mul_left_inj' h_pi_ne).mp h_YM_pi
+  -- Step 2: α_YM = α_Poincaré + 1 with α_YM = 2 gives α_Poincaré = 1.
+  have h_Poincare : S.αPoincare = 1 := by
+    have h := S.inv_YM_eq_Poincare_plus_one
+    rw [h_YM] at h
+    linarith
+  -- Step 3: α_RH · α_YM = 3 with α_YM = 2 gives α_RH = 3/2.
+  have h_RH : S.αRH = 3 / 2 := by
+    have h := S.inv_RH_mul_YM_eq_three
+    rw [h_YM] at h
+    linarith
+  exact ⟨h_YM, h_Poincare, h_RH⟩
+
+/-- **The framework's α-system satisfies the abstract invariants.**
+    Builds an `AbstractAlphaSystem` instance from the concrete
+    constants and verified invariants in
+    `PF.CrossMillenniumSharedInvariants`. -/
+noncomputable def framework_alpha_system : AbstractAlphaSystem where
+  αP := α_P
+  αRH := α_RH
+  αNS := α_NS
+  αYM := α_YM
+  αBSD := α_BSD
+  αQG := α_QG
+  αPoincare := α_Poincare
+  inv_QG_sq_eq_2pi := α_QG_sq_eq_two_pi
+  inv_QG_sq_eq_YM_pi := α_QG_sq_eq_α_YM_mul_pi
+  inv_YM_eq_Poincare_plus_one := α_YM_eq_α_Poincare_plus_one
+  inv_RH_mul_YM_eq_three := α_RH_mul_YM_eq_three
+
+/-- **The framework's chosen α-values match the algebraically-forced
+    rigidity values.** Verifies that `α_YM = 2`, `α_Poincare = 1`,
+    `α_RH = 3/2` for the concrete framework constants — they are
+    consistent with the rigidity theorem on the abstract system. -/
+theorem framework_alpha_values_match_rigidity :
+    α_YM = 2 ∧ α_Poincare = 1 ∧ α_RH = 3 / 2 :=
+  alpha_system_rigidity framework_alpha_system
+
 #check @αYM_eq_two_from_NS_relations
 #check @αRH_eq_three_halves_from_RH_NS_relations
 #check @αP_sq_eq_αPoincare_plus_one
 #check @αRH_NS_relation_via_αYM
 #check @αQG_sq_eq_α_YM_pi_unified
 #check @cross_millennium_derived_capstone
+#check @AbstractAlphaSystem
+#check @alpha_system_rigidity
+#check @framework_alpha_system
+#check @framework_alpha_values_match_rigidity
 
 end PF.CrossMillenniumDerivedConsequences
