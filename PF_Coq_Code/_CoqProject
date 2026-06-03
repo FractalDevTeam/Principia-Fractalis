@@ -144,5 +144,7 @@ PF/Wave58/Voisin2007GeneralQuinticPrecisionCoq.v
 PF/Wave58/BSDRankWitnessTypedUpgradeCoq.v
 PF/Wave58/HilbertPolyaIdentificationPreciseCoq.v
 PF/Wave58/FujitaKato1964LocalExistenceDischargeCoq.v
+PF/Wave58/LerayHopfGlobalExistenceBootstrapCoq.v
 PF/Wave58/PNPClassSeparationPrecisionBridgeCoq.v
+PF/Wave58/ContinuumHypothesisFrameworkAttackCoq.v
 PF/Referee/RefereeIndex.v
