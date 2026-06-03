@@ -225,17 +225,30 @@ remains open. Read this carefully before evaluating the framework.
 
 ### Chapter 4 Timeless Field
 
-* **Capstone**: `timelessFieldExistenceClaim_holds` is now an
-  unconditional Lean theorem (was a Prop stub).
-* **Concrete connecting morphism family**: `truncMorphism` (the
-  zero family — the minimal honest instance satisfying
-  `ProjectiveCompatibility` axiom-free at every level pair).
+* **Capstone**: `timelessFieldExistenceClaim_holds` is an
+  unconditional Lean theorem.
+* **Concrete connecting morphism family (UPGRADED HEAD 74c303e)**:
+  `truncMorphism := partialTraceMorphism` — the **genuine ch04
+  Definition 4.5 partial-trace coarse-graining**, built in
+  `PF/Consciousness/TimelessFieldPartialTraceMorphism.lean` (384
+  lines) via base-3 digit-block decomposition
+  `Fin (3^k) ≃ Fin k → Fin 3` (mathlib `finFunctionFinEquiv`).
+  For `k ≤ k'`: partial trace marginalising over the last `k' − k`
+  base-3 digits. For the degenerate `k > k'` case (only `k' = 0,
+  k > 0` under `k ∣ k'`): the zero morphism.
+  `partialTraceMorphism_projective_compatible` proved axiom-free
+  via `Fin.append_assoc` + `combineBlocks`
+  reindex over `(Fin (k−j) → Fin 3) × (Fin (ℓ−k) → Fin 3) ≃
+  (Fin (ℓ−j) → Fin 3)`.
 * **Discharged at skeleton level**: `NuclearStructure`,
-  `KTheoryOfTimelessField`, `SpacetimeEmergence`, `ForceUnification`.
-* **Open direction**: promote to operator-algebraic content —
-  the genuine partial-trace + scaling morphism of Definition 4.5;
-  Pimsner-Voiculescu K-theory; automorphism-quotient spacetime;
-  gauge subgroup unification.
+  `KTheoryOfTimelessField`, `SpacetimeEmergence`, `ForceUnification`
+  — all now backed by genuine partial-trace content, not the
+  vacuous zero-family compatibility.
+* **Open direction**: promote to nuclear C*-algebra projective
+  limit (Pimsner-Voiculescu K-theory); automorphism-quotient
+  spacetime; gauge subgroup unification. The BASE LAYER
+  (connecting morphism + projective compatibility) is now real
+  operator-algebraic content.
 
 ## Structural unification theorem
 
