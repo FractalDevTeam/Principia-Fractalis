@@ -147,4 +147,6 @@ PF/Wave58/FujitaKato1964LocalExistenceDischargeCoq.v
 PF/Wave58/LerayHopfGlobalExistenceBootstrapCoq.v
 PF/Wave58/PNPClassSeparationPrecisionBridgeCoq.v
 PF/Wave58/ContinuumHypothesisFrameworkAttackCoq.v
+PF/Wave58/WeinsteinGUResonantRescueCoq.v
+PF/Wave58/CounterRotatingVorticesZeroPointFreeEnergyCoq.v
 PF/Referee/RefereeIndex.v

@@ -86,7 +86,7 @@ From Stdlib Require Import Arith Nat Lia.
 From Stdlib Require Import Reals.
 From Stdlib Require Import Lra.
 
-From PrincipiaTractalis Require Import PF.Wave58.FujitaKato1964LocalExistenceDischargeCoq.
+Require Import PrincipiaTractalis.Wave58.FujitaKato1964LocalExistenceDischargeCoq.
 
 Open Scope R_scope.
 
@@ -546,7 +546,8 @@ Proof.
   - exact ns_local_to_global_at_zero.
   - exact fujita_kato_plus_bootstrap_implies_global.
   - intros h_thm h_boot h_smooth.
-    apply (fujita_kato_plus_bootstrap_and_smoothness_implies_NS_Solution
+    unfold TypedClayNSContent.
+    exact (fujita_kato_plus_bootstrap_and_smoothness_implies_NS_Solution
              h_thm h_boot h_smooth).
   - exact clay_ns_iff_smoothness_under_bootstrap.
   - exact clay_ns_isolated_to_leray_hopf_smoothness.
