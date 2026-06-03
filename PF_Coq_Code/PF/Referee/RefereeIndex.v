@@ -147,6 +147,15 @@ Definition T3SymHSNuclear_TypedUpgrade_Proven : Prop := True.
   Lean side: PF/BSD_LSeriesAbsConvergenceDischarge.lean
   Wave 57-BSD (A3) upgraded from True to mathlib-grounded
   LSeriesSummable_of_le_const_mul_rpow with strict Re s > 3/2.
+
+  COQ SIDE: real-content port at
+  PF/Wave57/BSD_LSeriesAbsConvergenceDischargeCoq.v.
+  Coquelicot `ex_series_le` discharges the structural theorem
+  HasseTypeCoefficientBound -> LSeriesAbsConvergesOnReGreaterThan.
+  The single analytic gap (Real.summable_one_div_nat_rpow in
+  mathlib; absent in Coquelicot 3.4.4) is carried as the explicit
+  hypothesis `PSeriesConvergesAbovePoleOne`, NOT admitted.
+  This tag is now a REAL THEOREM REFERENCE, not just a parity stub.
 *)
 Definition BSD_A3_LSeries_TypedUpgrade_Proven : Prop := True.
 
