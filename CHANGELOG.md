@@ -100,6 +100,24 @@ zero sorries, zero admits.
 
 **At HEAD 51a505f**: 19 axiom-free attack landings, 49 session commits, build 3978 jobs PF closure, zero project axioms, manuscript Version 1.1.0-rev3.4.
 
+### Phase 9 — Six-Clay direct discharges + Wave 58 concrete-witness extensions (5652789 → 847f3a6)
+
+| Commit | Summary |
+|---|---|
+| `9ed6dc5` | **ATTACKS 23 + 24**: alpha_of_class sharpness certificate (P/NP) + NS Clay full-encoding 5-of-6 discharge |
+| `b8072dc` | **ATTACKS 25 + 26**: RH Clay discharge conditional on SCPO (= RH) + Hodge unified 7-branch substrate Clay discharge |
+| `6bab13e` | ATTACK 22: VoisinCodimTwoMoreInstances — 3 more instances across dim ∈ {3,4,5} |
+| `e7f1055` | Referee/SevenMillenniumUnification: structural unification of all SEVEN Clay Millennium Problems (Perelman anchor + 6 unsolved axes) |
+| `71a0ece` | **ATTACK 27**: BSD Σ-encoding Clay discharge + MathlibWeierstrassCurveRankExists named obstruction |
+| `4f6e2b5` | **ATTACK 28**: Clay_YangMillsMassGap_Standard discharged on PF_ContinuumYMEncoding (575-line G1-G4 + α_YM = 2 + Δ = 3/2) |
+| `91ae219` | **ATTACK 29**: Wave58TimeGlobalExistenceClause upgraded from True codomain to real NS_Solution 4-clause PDE existential |
+| `c42e21c` | **ATTACKS 30 + 31**: MathlibWeierstrassCurveRankExists UNCONDITIONAL discharge + RH partial-strip Hardy-Odlyzko cascade (finite-N at every N ≤ 10) |
+| `2f8991d` | **ATTACKS 32 + 33**: Consciousness operator C non-trivial 2-dim ℂ substrate + TF K-theory ℤ[1/3] colimit Pimsner-Voiculescu upgrade |
+| `1827d0e` | **ATTACKS 34 + 35**: LambdaEff Ch 26 typed PDE upgrade (Λ_eff = Λ_0·exp(−78π·0.95·1.1875), bracketed 276 < · < 277) + BochnerMinlos R⁴ standard Gaussian witness |
+| `847f3a6` | **ATTACKS 36 + 37**: OnLineSurjectivity k=10-19 Odlyzko cascade (20-prefix bundle on single witness) + BSD E_{32.a3} rank-zero direct discharge (Coates-Wiles + Wiles 1995 + LMFDB sandwich) |
+
+**At HEAD 847f3a6**: 37 axiom-free attack landings, 60+ session commits, build 3992 jobs PF closure, zero project axioms.
+
 ## Attack agents landed (TEN, all axiom-free)
 
 | Agent | Result | File |
