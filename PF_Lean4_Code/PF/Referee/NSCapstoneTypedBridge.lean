@@ -62,8 +62,14 @@ namespace PF.Referee.NSCapstoneTypedBridge
     `:= True` shape so the bridge target is non-trivial. -/
 def NS_OpenFrontier : Prop :=
   PrincipiaTractalis.NS3D_HsSigmaScaffold.MathlibPMath1 ∧
-  PrincipiaTractalis.NS3D_HsSigmaScaffold.MathlibPMath2 ∧
-  PrincipiaTractalis.NS3DGlobalKTAttempt.UniformHadamardBoundAllN
+  PrincipiaTractalis.NS3D_HsSigmaScaffold.MathlibPMath2
+  -- NOTE: `UniformHadamardBoundAllN` was the third element of this
+  -- frontier at HEAD bd00393. As of HEAD 49d91dc it is DISCHARGED
+  -- AXIOM-FREE via `hadamard_norm_pointwise_bound` in
+  -- `PF/NavierStokes/NSPDETypedUpgrade.lean`. The frontier now
+  -- carries only the two remaining Wave 57 mathlib gaps
+  -- (`MathlibPMath1` = H^s_σ inner-product scaffold,
+  -- `MathlibPMath2` = Leray projection).
 
 /-- **No honest typed NS bridge at HEAD bd00393.** A documentation
     marker stating that no `PF_NS3DEncoding` with non-trivial
