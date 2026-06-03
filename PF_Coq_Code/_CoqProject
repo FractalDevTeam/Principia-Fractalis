@@ -150,4 +150,8 @@ PF/Wave58/ContinuumHypothesisFrameworkAttackCoq.v
 PF/Wave58/WeinsteinGUResonantRescueCoq.v
 PF/Wave58/CounterRotatingVorticesZeroPointFreeEnergyCoq.v
 PF/Wave58/NSSmoothnessProofAttemptViaAlphaRigidityCoq.v
+PF/Wave58/InverseGaloisProblemFrameworkAttackCoq.v
+PF/Wave58/CollatzConjectureFrameworkAttackCoq.v
+PF/Wave58/GoldbachConjectureFrameworkAttackCoq.v
+PF/Wave58/BealConjectureFrameworkAttackCoq.v
 PF/Referee/RefereeIndex.v
