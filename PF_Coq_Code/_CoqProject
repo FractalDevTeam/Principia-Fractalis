@@ -149,4 +149,5 @@ PF/Wave58/PNPClassSeparationPrecisionBridgeCoq.v
 PF/Wave58/ContinuumHypothesisFrameworkAttackCoq.v
 PF/Wave58/WeinsteinGUResonantRescueCoq.v
 PF/Wave58/CounterRotatingVorticesZeroPointFreeEnergyCoq.v
+PF/Wave58/NSSmoothnessProofAttemptViaAlphaRigidityCoq.v
 PF/Referee/RefereeIndex.v
