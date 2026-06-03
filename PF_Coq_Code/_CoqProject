@@ -141,4 +141,6 @@ PF/Wave58/TwinPrimeConjectureFrameworkAttackCoq.v
 PF/Wave58/LambdaCDMRebuttalEnergyConservationCoq.v
 PF/Wave58/YMContinuumMassGapInfDimWitnessCoq.v
 PF/Wave58/Voisin2007GeneralQuinticPrecisionCoq.v
+PF/Wave58/BSDRankWitnessTypedUpgradeCoq.v
+PF/Wave58/HilbertPolyaIdentificationPreciseCoq.v
 PF/Referee/RefereeIndex.v
