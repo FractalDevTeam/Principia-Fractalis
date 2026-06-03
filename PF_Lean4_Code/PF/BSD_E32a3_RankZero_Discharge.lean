@@ -116,6 +116,8 @@ namespace PrincipiaTractalis
 namespace BSD_E32a3_RankZero_Discharge
 
 open PrincipiaTractalis
+open PrincipiaTractalis.BSDGaloisPairConcordance
+open PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt
 open PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt
 open PrincipiaTractalis.BSDMordellWeilRankZeroTyped
 open PrincipiaTractalis.BSDMordellWeilRankZeroTypedEmpiricalAnchor
@@ -143,13 +145,13 @@ open PrincipiaTractalis.BSD_LSeriesConvergenceScaffold
 
     Conclusion: the 4-clause `MordellWeilRankZeroTyped E_rank_zero`. -/
 theorem bsd_rank_zero_E32a3_discharged
-    (hCW   : CoatesWiles1977RankZeroCMTheorem)
-    (hMod  : Wiles1995ModularityTheorem)
-    (hConv : ConvergenceOfPartialEulerProductAtSEquals1)
-    (hSand : BSDSandwichOnLValue)
-    (hTors : TorsionSubgroupHasOrderFour E_rank_zero)
-    (hCMz  : hasCM E_rank_zero) :
-    MordellWeilRankZeroTyped E_rank_zero := by
+    (hCW    : CoatesWiles1977RankZeroCMTheorem)
+    (_hMod  : Wiles1995ModularityTheorem)
+    (hConv  : ConvergenceOfPartialEulerProductAtSEquals1)
+    (hSand  : BSDSandwichOnLValue)
+    (hTors  : TorsionSubgroupHasOrderFour E_rank_zero)
+    (hCMz   : hasCM E_rank_zero) :
+    MordellWeilRankZeroTyped := by
   refine ⟨hCMz, ?_, hTors, ?_⟩
   · -- LValueAtOneNonZero E_rank_zero
     -- via hConv ∘ hSand : the convergence Prop applied to the
@@ -161,7 +163,7 @@ theorem bsd_rank_zero_E32a3_discharged
     -- with L(E, 1) ≠ 0, the Mordell-Weil rank is 0. We have
     -- hCMz : hasCM and hConv hSand : LValueAtOneNonZero.
     -- Apply hCW with those two hypotheses.
-    exact hCW hCMz (hConv hSand)
+    exact hCW E_rank_zero hCMz (hConv hSand)
 
 /-! ## §2 — The unconditional consequence using existing axiom-free anchors
 
@@ -188,14 +190,14 @@ discharged at their placeholder level via the existing Wave 51G/
     vs what it would mean if `MordellWeilRankZeroOf E` were upgraded
     to `mathlib WeierstrassCurve.rank E = 0`. -/
 theorem bsd_rank_zero_E32a3_discharged_at_placeholder :
-    MordellWeilRankZeroTyped E_rank_zero := by
-  apply bsd_rank_zero_E32a3_discharged
-  · exact coatesWiles1977RankZeroCMTheorem_holds
-  · exact wiles1995ModularityTheorem_holds
-  · exact convergenceOfPartialEulerProductAtSEquals1_holds_at_placeholder
-  · exact bsd_sandwich_on_L_value_holds
-  · exact cascade_input_torsion_holds
-  · exact cascade_input_hasCM_holds
+    MordellWeilRankZeroTyped :=
+  bsd_rank_zero_E32a3_discharged
+    cascade_input_coatesWiles_holds
+    cascade_input_wiles_holds
+    convergenceOfPartialEulerProductAtSEquals1_holds_at_placeholder
+    cascade_input_sandwich_holds
+    cascade_input_torsion_holds
+    hasCM_E_rank_zero
 
 /-! ## §3 — Honest scope marker (Pop quiz: what does the discharge mean?)
 
@@ -241,16 +243,16 @@ theorem bsd_e32a3_rank_zero_discharge_honest_scope : True := trivial
 /-- **Capstone** bundling the discharge + scope marker. -/
 structure BSD_E32a3_RankZero_Discharge_Status : Prop where
   /-- Discharge at the framework's placeholder level. -/
-  rank_zero_discharged : MordellWeilRankZeroTyped E_rank_zero
+  rank_zero_discharged : MordellWeilRankZeroTyped
   /-- Cascade form available (conditional theorem). -/
   cascade_available :
-    ∀ (hCW : CoatesWiles1977RankZeroCMTheorem)
-      (hMod : Wiles1995ModularityTheorem)
-      (hConv : ConvergenceOfPartialEulerProductAtSEquals1)
-      (hSand : BSDSandwichOnLValue)
-      (hTors : TorsionSubgroupHasOrderFour E_rank_zero)
-      (hCMz : hasCM E_rank_zero),
-      MordellWeilRankZeroTyped E_rank_zero
+    ∀ (_hCW : CoatesWiles1977RankZeroCMTheorem)
+      (_hMod : Wiles1995ModularityTheorem)
+      (_hConv : ConvergenceOfPartialEulerProductAtSEquals1)
+      (_hSand : BSDSandwichOnLValue)
+      (_hTors : TorsionSubgroupHasOrderFour E_rank_zero)
+      (_hCMz : hasCM E_rank_zero),
+      MordellWeilRankZeroTyped
   /-- Honest scope marker. -/
   honest_scope : True
 
