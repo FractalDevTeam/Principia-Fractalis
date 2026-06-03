@@ -579,7 +579,7 @@ structure RHProofAttemptMayerT3SymExplicitCapstone : Prop where
       Existence-shape (Prop) since the constructive data lives at
       `SpectralMatchAtN_succ`. -/
   inductive_step_exists :
-    ∀ {N : ℕ} (m : SpectralMatchAtN N) (t_new : ℝ) (h : 0 < t_new),
+    ∀ {N : ℕ} (_m : SpectralMatchAtN N) (t_new : ℝ) (_h : 0 < t_new),
       Nonempty (SpectralMatchAtN (N + 1))
   /-- (K7) Base case N = 30 admits an explicit construction.
       Existence-shape (Prop) since the constructive data lives at
