@@ -141,15 +141,28 @@ remains open. Read this carefully before evaluating the framework.
 
 ### Navier-Stokes
 
-* **Typed bridge**: NONE. The PF NS predicate
-  `NavierStokesGlobalSmoothPredicate` is currently `:= True`
-  upstream, so no honest typed bridge can be offered without
-  violating Non-Negotiable Rule #1.
-* **What this module supplies**: `NS_OpenFrontier` naming the
-  precise Wave 57 mathlib gaps (`MathlibPMath1` + `MathlibPMath2`)
-  plus Wave 33's `UniformHadamardBoundAllN`.
-* **Open frontier**: standard critical a priori estimate (BKM,
-  Prodi-Serrin, critical Sobolev/Besov) — open Clay mathematics.
+* **Typed bridge UPGRADED (HEAD 49d91dc)**: NEW
+  `NavierStokesGlobalSmoothPredicateTyped` in
+  `PF/NavierStokes/NSPDETypedUpgrade.lean` is a real
+  PDE-content typed predicate (5-clause bundle over Wave
+  33 + 35 + 47C + 55A + 57 substrate hypotheses, NOT `:= True`).
+  `PF_NS3DEncoding` uses mathlib `SchwartzMap (Fin 3 → ℝ)
+  (Fin 3 → ℝ)`. `PF_NS_capstone_yields_Clay_NavierStokes_standard`
+  provides a real typed witness discharging 4 of 5 bundle
+  clauses axiom-free.
+* **★ Wave 33 `UniformHadamardBoundAllN` DISCHARGED AXIOM-FREE
+  (HEAD 49d91dc)**: via `hadamard_norm_pointwise_bound`
+  (pointwise Cauchy-Schwarz + `Finset.sum_le_sum` +
+  `Real.sqrt_le_sqrt`). One of the three named open Props
+  in `NS_OpenFrontier` is now closed entirely. The frontier
+  shrinks from three to two.
+* **Open frontier (UPDATED HEAD a4530f6)**:
+  `NS_OpenFrontier := MathlibPMath1 ∧ MathlibPMath2`
+  (the two Wave 57 mathlib gaps — H^s_σ inner-product
+  scaffold + Leray projection — both at substrate level).
+  The fifth bundle clause `time_global_existence` requires
+  the genuine vector-valued Helmholtz decomposition + Kato/
+  Bourgain-Pavlović bilinear estimate at s > 5/2.
 
 ### Yang-Mills mass gap
 
