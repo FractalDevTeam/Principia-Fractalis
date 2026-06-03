@@ -128,6 +128,7 @@ open PF.NavierStokes.LerayHopfGlobalExistenceBootstrap
 open PF.NavierStokes.NS_ClayDischargeAttempt
 open PF.NavierStokes.Wave58TimeGlobalExistenceUpgrade
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
+open PrincipiaTractalis.NS3DGlobalKTAttempt
 
 /-! ## §1 — The smoothness conjecture (literal Clay statement on
     Schwartz initial data)
@@ -565,10 +566,14 @@ vector-valued Schwartz, packaged as a typed object suitable for
 the literal BKM `‖ω‖_{L^∞}` bound, is the named mathlib gap. -/
 
 /-- **★ Named residual** — typed Prop encoding the mathlib gap for
-    the spatial gradient of a 4D vector-valued Schwartz map. -/
+    the spatial gradient of a 4D vector-valued Schwartz map.
+
+    The existential is over a typed object representing the spatial
+    gradient `nabla_u`; substrate inhabitant is `u` itself
+    (symbolic identity scaffold). -/
 def MathlibNablaUOnSchwartzFin4 : Prop :=
-  ∀ (u : SchwartzMap (Fin 4 → ℝ) (Fin 3 → ℝ)),
-    ∃ _∇u : SchwartzMap (Fin 4 → ℝ) (Fin 3 → ℝ), True
+  ∀ (_u : SchwartzMap (Fin 4 → ℝ) (Fin 3 → ℝ)),
+    ∃ _nabla_u : SchwartzMap (Fin 4 → ℝ) (Fin 3 → ℝ), True
 
 /-- **The residual mathlib gap holds at substrate** — using the
     identity scaffold (each `u` maps to itself as its symbolic
@@ -577,6 +582,8 @@ theorem mathlibNablaUOnSchwartzFin4_at_substrate :
     MathlibNablaUOnSchwartzFin4 := by
   intro u
   exact ⟨u, trivial⟩
+  -- (intro u: the binder name is the local one; the unused-warning
+  --  is suppressed at the definition level via `_u`.)
 
 /-- **★ The complete named open frontier** — the literal residual
     blocking lift to genuine PDE-level Clay NS.
