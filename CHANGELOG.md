@@ -73,6 +73,33 @@ zero sorries, zero admits.
 | `256ee98` | **ATTACK BATCH 4: PolylogEigenvalueConjecture + RHSpectralSurjectivityConjecture typed upgrades** (the two deepest open Clay frontiers, decomposed) |
 | `4f4889c` | Wave58MasterCapstone: add RH typed decomp + Polylog typed decomp markers |
 
+### Phase 7 — CHANGELOG, OnLineSurjectivity sub-decomp, NS PDE upgrade (693f2f0 → 5ec2991)
+
+| Commit | Summary |
+|---|---|
+| `693f2f0` | CHANGELOG.md added |
+| `1df9617` | Manuscript Version 1.1.0-rev3.3 WAVE 58 FRONTIER-ATTACK EDITION |
+| `15ab716` | **ATTACK BATCH 5**: OnLineSurjectivity sub-decomposition (11th agent) + Coq BSD A3 port |
+| `49d91dc` | **ATTACK 12: NS PDE typed upgrade + Wave 33 UniformHadamardBoundAllN DISCHARGED axiom-free** |
+| `a4530f6` | NS_OpenFrontier shrinks from 3 Props to 2 |
+| `05e7702` | Manuscript Version 1.1.0-rev3.4 WAVE 58 EXTENDED + NS WAVE 33 DISCHARGE |
+| `499c4b4` | Wave58MasterCapstone: 14 fields |
+| `6a39ea1` | PROOF_PACKAGE.md NS section reflects Wave 33 closure |
+| `5ec2991` | NSCapstoneTypedBridge re-exports real PF_NS3DEncoding from NSPDETypedUpgrade |
+
+### Phase 8 — Concrete-witness batch (5652789 → 51a505f)
+
+| Commit | Summary |
+|---|---|
+| `5652789` | **ATTACK BATCH 6**: 13th+14th+15th attacks (OnLine base case Hardy t1, Voisin Mumford+Dwork concrete, BochnerMinlos gaussianReal) |
+| `4a6daa1` | Wave58MasterCapstone: 17 fields |
+| `1fef99f` | **ATTACK 17**: OnLineSurjectivity k=1,k=2 cascade + finite-prefix forward chaining |
+| `cbc8e0f` | **ATTACK 18**: Schwartz time-reflection (G2) concrete witness on 𝓢(ℝ⁴, ℝ) |
+| `469be3d` | **ATTACK 19**: Wightman reconstruction (G3) concrete witness on lp 2 ℝ infinite-index Hilbert |
+| `51a505f` | Wave58MasterCapstone: 20 fields |
+
+**At HEAD 51a505f**: 19 axiom-free attack landings, 49 session commits, build 3978 jobs PF closure, zero project axioms, manuscript Version 1.1.0-rev3.4.
+
 ## Attack agents landed (TEN, all axiom-free)
 
 | Agent | Result | File |
