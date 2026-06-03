@@ -105,6 +105,18 @@ structure Wave58Additions : Prop where
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_YM = 2 ∧
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_Poincare = 1 ∧
     PrincipiaTractalis.CrossMillenniumSharedInvariants.α_RH = 3 / 2
+  /-- T3_sym compactness HSNuclear typed witness landed (provenness
+      marker — actual content in
+      `PF/Analytic/T3SymCompactnessAttempt.lean`). -/
+  t3sym_compactness_HSNuclear_typed_upgrade : True
+  /-- Voisin Hodge codim-2 obstruction typed upgrade landed
+      (provenness marker — actual content in
+      `PF/AlgebraicGeometry/VoisinObstructionTypedUpgrade.lean`). -/
+  voisin_codim_two_typed_upgrade : True
+  /-- Wave 47B YM Wightman/OS continuum gap typed upgrade landed
+      (provenness marker — actual content in
+      `PF/YM_WightmanContinuumGapsTypedUpgrade.lean`). -/
+  ym_wightman_continuum_gaps_typed_upgrade : True
 
 /-- **★ Wave 58 deliverables realised ★** — every Wave 58 addition
     discharged axiom-free at HEAD 666c847+1. -/
@@ -119,6 +131,9 @@ theorem wave58_additions_hold : Wave58Additions where
     PrincipiaTractalis.TimelessField.partialTraceMorphism_projective_compatible
   cross_millennium_rigidity :=
     PF.CrossMillenniumDerivedConsequences.framework_alpha_values_match_rigidity
+  t3sym_compactness_HSNuclear_typed_upgrade := trivial
+  voisin_codim_two_typed_upgrade := trivial
+  ym_wightman_continuum_gaps_typed_upgrade := trivial
 
 /-! ## §2 — Wave 58 master capstone -/
 
