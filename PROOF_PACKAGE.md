@@ -110,8 +110,15 @@ remains open. Read this carefully before evaluating the framework.
   the specific T3_sym CLM now reduces to a single named
   hypothesis `IsCompactOperator T3_sym.apply`, via
   `T3SymMercerTail_of_compact_at_T3_sym_CLM` in
-  `PF/Analytic/T3SymMercerTailT3SymDischarge.lean`. The remaining
-  analytic content is Mayer 1991 §3 nuclear-class.
+  `PF/Analytic/T3SymMercerTailT3SymDischarge.lean`.
+* **Sub-frontier UPGRADED (HEAD 501f04d)**: the new
+  `T3SymHilbertSchmidtNuclearWitness` typed predicate in
+  `PF/Analytic/T3SymCompactnessAttempt.lean` encodes Mayer 1991 §3
+  nuclear-class content (finite-rank self-adjoint compact CLMs
+  converging in operator norm). Seven axiom-free theorems show this
+  witness yields `IsCompactOperator T3_sym.apply`, `T3SymMercerTail`,
+  and the (a0)+(a1) sub-bundle. The remaining content is the
+  WITNESS construction (Mayer's HS-kernel Mercer expansion).
 * **Open frontier**: `RH_OpenFrontier` —
   surjectivity of the eigenvalue-to-ζ-zero map.
 * **What is NOT proved here**: RH itself. The surjectivity Prop is
@@ -165,6 +172,20 @@ remains open. Read this carefully before evaluating the framework.
   equivalence with continuum SU(3)). Bounded / symmetric /
   finite-L² parts of the universal cos-kernel are already
   discharged unconditionally.
+* **Wightman gaps UPGRADED (HEAD 501f04d)**: the four Wave 47B
+  Wightman/OS continuum gap Props (`BochnerMinlosOnNuclearSpaces`,
+  `SchwartzReflectionStructure`, `WightmanReconstructionTheorem`,
+  `MassGapPropagationAcrossReconstruction`) were `Prop := True`
+  placeholders; the new
+  `PF/YM_WightmanContinuumGapsTypedUpgrade.lean` encodes them as
+  typed mathlib predicates. (G1) `∃ ProbabilityMeasure` on a
+  measurable carrier. (G2) `∃ continuous-linear involution on
+  𝓢(ℝ⁴, ℝ)` constructed via
+  `SchwartzMap.compCLMOfContinuousLinearEquiv ℝ (ContinuousLinearEquiv.neg ℝ)`.
+  (G3) `∃ complete real inner-product space H with continuous-linear
+  Hamiltonian H →L[ℝ] H`. (G4) `∃ Δ:ℝ, 0 < Δ ∧ 1 ≤ Δ` (Wave 55C
+  level-1 bound). `WightmanContinuumGapsTypedInput` bundle ⇒
+  `YangMillsMassGap`.
 
 ### BSD (Birch-Swinnerton-Dyer)
 
@@ -219,9 +240,17 @@ remains open. Read this carefully before evaluating the framework.
   one PF substrate type; `RationalHodgeClass := ℕ` (framework
   class_idx); `isAlgebraic := HodgeAlgebraicRepresentation` — a
   3-conjunct substrate predicate (NOT `:= True`).
-* **Open frontier**: `Hodge_OpenFrontier := VoisinObstructionAtCodimTwoCY3 ∧ Voisin2007_general_quintic_open_subprop`.
-  The general smooth-projective-complex-variety Clay statement at
-  codim ≥ 2 remains open.
+* **Open frontier UPGRADED (HEAD 7d6f1f5)**:
+  `VoisinObstructionAtCodimTwoCY3` and
+  `Voisin2007_general_quintic_open_subprop` were `Prop := True`
+  placeholders; the new
+  `PF/AlgebraicGeometry/VoisinObstructionTypedUpgrade.lean`
+  encodes them as typed predicates over
+  `SmoothProjectiveVarietyDimGeqThree` and `FermatQuinticConcrete`
+  asserting "every rational Hodge class at codim ≥ 2 admits an
+  algebraic cycle witness." A proof of either typed Prop on a
+  specific variety would close the conjecture on that variety.
+  The literal Voisin 2007 obstruction content is what remains.
 
 ### Chapter 4 Timeless Field
 
