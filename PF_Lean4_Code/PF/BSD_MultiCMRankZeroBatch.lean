@@ -526,39 +526,39 @@ theorem bsd_multi_CM_rank_zero_batch_honest_scope : True := trivial
 structure BSD_MultiCMRankZeroBatch_Status : Prop where
   /-- Single-curve cascade on E_{36.a1}. -/
   cascade_E_36a1 :
-    ∀ (hCW : CoatesWiles1977RankZeroCMTheorem)
-      (hMod : Wiles1995ModularityTheorem)
-      (hConv : ConvergenceOfPartialEulerProductAtSEquals1)
-      (hSand : BSDSandwichOnLValue)
-      (hTors : TorsionSubgroupHasOrderFour E_36a1)
-      (hCMz : hasCM E_36a1),
+    ∀ (_hCW : CoatesWiles1977RankZeroCMTheorem)
+      (_hMod : Wiles1995ModularityTheorem)
+      (_hConv : ConvergenceOfPartialEulerProductAtSEquals1)
+      (_hSand : BSDSandwichOnLValue)
+      (_hTors : TorsionSubgroupHasOrderFour E_36a1)
+      (_hCMz : hasCM E_36a1),
       MordellWeilRankZeroTyped_on E_36a1
   /-- Single-curve cascade on E_{49.a1}. -/
   cascade_E_49a1 :
-    ∀ (hCW : CoatesWiles1977RankZeroCMTheorem)
-      (hMod : Wiles1995ModularityTheorem)
-      (hConv : ConvergenceOfPartialEulerProductAtSEquals1)
-      (hSand : BSDSandwichOnLValue)
-      (hTors : TorsionSubgroupHasOrderFour E_49a1)
-      (hCMz : hasCM E_49a1),
+    ∀ (_hCW : CoatesWiles1977RankZeroCMTheorem)
+      (_hMod : Wiles1995ModularityTheorem)
+      (_hConv : ConvergenceOfPartialEulerProductAtSEquals1)
+      (_hSand : BSDSandwichOnLValue)
+      (_hTors : TorsionSubgroupHasOrderFour E_49a1)
+      (_hCMz : hasCM E_49a1),
       MordellWeilRankZeroTyped_on E_49a1
   /-- Single-curve cascade on E_{121.b1}. -/
   cascade_E_121b1 :
-    ∀ (hCW : CoatesWiles1977RankZeroCMTheorem)
-      (hMod : Wiles1995ModularityTheorem)
-      (hConv : ConvergenceOfPartialEulerProductAtSEquals1)
-      (hSand : BSDSandwichOnLValue)
-      (hTors : TorsionSubgroupHasOrderFour E_121b1)
-      (hCMz : hasCM E_121b1),
+    ∀ (_hCW : CoatesWiles1977RankZeroCMTheorem)
+      (_hMod : Wiles1995ModularityTheorem)
+      (_hConv : ConvergenceOfPartialEulerProductAtSEquals1)
+      (_hSand : BSDSandwichOnLValue)
+      (_hTors : TorsionSubgroupHasOrderFour E_121b1)
+      (_hCMz : hasCM E_121b1),
       MordellWeilRankZeroTyped_on E_121b1
   /-- Single-curve cascade on E_{144.a1}. -/
   cascade_E_144a1 :
-    ∀ (hCW : CoatesWiles1977RankZeroCMTheorem)
-      (hMod : Wiles1995ModularityTheorem)
-      (hConv : ConvergenceOfPartialEulerProductAtSEquals1)
-      (hSand : BSDSandwichOnLValue)
-      (hTors : TorsionSubgroupHasOrderFour E_144a1)
-      (hCMz : hasCM E_144a1),
+    ∀ (_hCW : CoatesWiles1977RankZeroCMTheorem)
+      (_hMod : Wiles1995ModularityTheorem)
+      (_hConv : ConvergenceOfPartialEulerProductAtSEquals1)
+      (_hSand : BSDSandwichOnLValue)
+      (_hTors : TorsionSubgroupHasOrderFour E_144a1)
+      (_hCMz : hasCM E_144a1),
       MordellWeilRankZeroTyped_on E_144a1
   /-- Auxiliary: torsion clauses on the four new curves are theorem-
       level provable axiom-free at the placeholder layer. -/
