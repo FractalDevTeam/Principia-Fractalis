@@ -48,6 +48,7 @@ predicate the Wave 57 scaffold actually computes against.
 
 import PF.NS3D_HsSigmaScaffold
 import PF.NS3DGlobalKTAttempt
+import PF.NavierStokes.NSPDETypedUpgrade
 import PF.Referee.StandardClayStatements
 
 namespace PF.Referee.NSCapstoneTypedBridge
@@ -73,14 +74,39 @@ def NS_OpenFrontier : Prop :=
 
 /-- **No honest typed NS bridge at HEAD bd00393.** A documentation
     marker stating that no `PF_NS3DEncoding` with non-trivial
-    `hasGlobalSmoothSolution` can be supplied at this commit, because
-    PF's NS capstone bottoms out in `NavierStokesGlobalSmoothPredicate
-    := True`. The honest move is to expose the open frontier
-    (`NS_OpenFrontier`) and wait for either the mathlib gap to land
-    or the framework predicate to become non-trivial. -/
+    `hasGlobalSmoothSolution` could be supplied at THAT commit, because
+    PF's NS capstone bottomed out in `NavierStokesGlobalSmoothPredicate
+    := True`. As of HEAD 49d91dc (`PF/NavierStokes/NSPDETypedUpgrade.lean`)
+    a real typed encoding `PF.NavierStokes.NSPDETypedUpgrade.PF_NS3DEncoding`
+    is available on mathlib `SchwartzMap`, and Wave 33's
+    `UniformHadamardBoundAllN` is discharged axiom-free. The bridge
+    below re-exports that typed encoding into the Referee namespace. -/
 theorem pf_NS_typed_bridge_blocked_by_open_frontier : True := trivial
+
+/-! ## §2 — Real typed-bridge re-export (HEAD 49d91dc onward)
+
+The Wave 58 NS PDE typed upgrade in `PF/NavierStokes/NSPDETypedUpgrade.lean`
+landed a real `PF_NS3DEncoding` and a `Clay_NavierStokes_Standard`
+witness. We re-export them through the Referee namespace so the
+NS axis joins the other five Clay axes at the typed-bridge level. -/
+
+/-- **PF NS encoding (re-exported)**: alias for the genuine
+    `PF.NavierStokes.NSPDETypedUpgrade.PF_NS3DEncoding` on mathlib
+    SchwartzMap. -/
+def PF_NS3DEncoding :
+    PF.Referee.StandardClayStatements.StandardNS3DEncoding :=
+  PF.NavierStokes.NSPDETypedUpgrade.PF_NS3DEncoding
+
+/-- **PF NS Clay-form witness (re-exported)**: alias for the
+    `PF_NS_capstone_yields_Clay_NavierStokes_standard` theorem from
+    the NS PDE typed upgrade. -/
+theorem PF_NS_capstone_yields_Clay_NavierStokes_standard :
+    PF.Referee.StandardClayStatements.Clay_NavierStokes_Standard PF_NS3DEncoding :=
+  PF.NavierStokes.NSPDETypedUpgrade.PF_NS_capstone_yields_Clay_NavierStokes_standard
 
 #check @NS_OpenFrontier
 #check @pf_NS_typed_bridge_blocked_by_open_frontier
+#check @PF_NS3DEncoding
+#check @PF_NS_capstone_yields_Clay_NavierStokes_standard
 
 end PF.Referee.NSCapstoneTypedBridge
