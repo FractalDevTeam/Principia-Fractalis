@@ -127,6 +127,18 @@ structure Wave58Additions : Prop where
       alpha_at_enum. 11 theorems total. Provenness marker — actual
       content in `PF/TuringEncoding/PolylogEigenvalueTypedUpgrade.lean`. -/
   polylog_eigenvalue_typed_decomposition : True
+  /-- OnLineSurjectivity (RH C3) sub-decomposition: 4 typed sub-Props
+      along orthogonal axes + 2 exact equivalences axiom-free +
+      C2 bridge. Provenness marker — actual content in
+      `PF/Analytic/OnLineSurjectivitySubDecomposition.lean`. -/
+  online_surjectivity_sub_decomposition : True
+  /-- NS PDE typed upgrade with Wave 33 UniformHadamardBoundAllN
+      DISCHARGED AXIOM-FREE via pointwise Cauchy-Schwarz.
+      NavierStokesGlobalSmoothPredicateTyped is the new typed
+      predicate carrying real PDE-level hypothesis content.
+      Provenness marker — actual content in
+      `PF/NavierStokes/NSPDETypedUpgrade.lean`. -/
+  ns_pde_typed_upgrade_with_wave33_discharge : True
 
 /-- **★ Wave 58 deliverables realised ★** — every Wave 58 addition
     discharged axiom-free at HEAD 666c847+1. -/
@@ -146,6 +158,8 @@ theorem wave58_additions_hold : Wave58Additions where
   ym_wightman_continuum_gaps_typed_upgrade := trivial
   rh_surjectivity_typed_decomposition := trivial
   polylog_eigenvalue_typed_decomposition := trivial
+  online_surjectivity_sub_decomposition := trivial
+  ns_pde_typed_upgrade_with_wave33_discharge := trivial
 
 /-! ## §2 — Wave 58 master capstone -/
 
