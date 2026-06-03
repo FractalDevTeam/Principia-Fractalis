@@ -139,4 +139,6 @@ PF/Wave47/Wave47MasterCapstone.v
 PF/Wave57/BSD_LSeriesAbsConvergenceDischargeCoq.v
 PF/Wave58/TwinPrimeConjectureFrameworkAttackCoq.v
 PF/Wave58/LambdaCDMRebuttalEnergyConservationCoq.v
+PF/Wave58/YMContinuumMassGapInfDimWitnessCoq.v
+PF/Wave58/Voisin2007GeneralQuinticPrecisionCoq.v
 PF/Referee/RefereeIndex.v
