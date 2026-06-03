@@ -178,7 +178,7 @@ theorem H_concrete_eigenvalue_zero :
   unfold H_concrete e_0 Matrix.mulVec
   fin_cases k
   all_goals simp [Matrix.cons_val_zero, Matrix.cons_val_one,
-                  Matrix.head_cons, dotProduct, Fin.sum_univ_three]
+                  dotProduct, Fin.sum_univ_three]
 
 /-- **Eigenvalue equation at `i = 1`**: `H_concrete · e_1 = 2 · e_1`. -/
 theorem H_concrete_eigenvalue_one :
@@ -187,7 +187,7 @@ theorem H_concrete_eigenvalue_one :
   unfold H_concrete e_1 Matrix.mulVec
   fin_cases k
   all_goals simp [Matrix.cons_val_zero, Matrix.cons_val_one,
-                  Matrix.head_cons, dotProduct, Fin.sum_univ_three]
+                  dotProduct, Fin.sum_univ_three]
 
 /-- **Eigenvalue equation at `i = 2`**: `H_concrete · e_2 = 3 · e_2`. -/
 theorem H_concrete_eigenvalue_two :
@@ -196,7 +196,7 @@ theorem H_concrete_eigenvalue_two :
   unfold H_concrete e_2 Matrix.mulVec
   fin_cases k
   all_goals simp [Matrix.cons_val_zero, Matrix.cons_val_one,
-                  Matrix.head_cons, dotProduct, Fin.sum_univ_three]
+                  dotProduct, Fin.sum_univ_three]
 
 /-- **★ The full spectral content ★** — each basis vector `e_i` is
     an eigenvector with eigenvalue `(i + 1 : ℝ)`. Literal finite-dim
@@ -268,6 +268,7 @@ theorem K_concrete_isSymm : K_concrete.IsSymm := by
 theorem K_concrete_trace : K_concrete.trace = 3 := by
   unfold K_concrete
   simp [Matrix.trace, Fin.sum_univ_three]
+  norm_num
 
 /-- **`K_concrete` has determinant 0** (singular, since rank 1 < 3).
     Anchors the "compact operators have eigenvalues accumulating at
@@ -288,7 +289,7 @@ theorem K_concrete_eigenvalue_three :
   unfold K_concrete v_ones Matrix.mulVec
   fin_cases k
   all_goals simp [Matrix.cons_val_zero, Matrix.cons_val_one,
-                  Matrix.head_cons, dotProduct, Fin.sum_univ_three]
+                  dotProduct, Fin.sum_univ_three]
   all_goals norm_num
 
 /-! ## §6 — Hilbert-Pólya conjecture analog
