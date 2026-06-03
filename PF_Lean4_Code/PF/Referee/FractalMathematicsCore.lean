@@ -60,6 +60,7 @@ The interpretive content lives in the manuscript (Chapters 4, 6,
 
 import PF.Consciousness.TimelessField
 import PF.Consciousness.TimelessFieldConcreteMorphism
+import PF.Consciousness.TimelessFieldPartialTraceMorphism
 import PF.RadixEconomy
 
 namespace PF.Referee.FractalMathematicsCore
@@ -198,8 +199,14 @@ structure FractalMathematicsCore : Prop where
   consciousness_threshold_sharp :
     ∃ above below : PrincipiaTractalis.SecondChernCharacter,
       CrystallizesConsciousness above ∧ ¬ CrystallizesConsciousness below
+  /-- The Ch 4 Timeless Field connecting morphism is the genuine
+      partial-trace coarse-graining (not the trivial zero family),
+      and its projective compatibility holds axiom-free. -/
+  tf_partial_trace_projective_compatibility :
+    PrincipiaTractalis.TimelessField.ProjectiveCompatibility
+      PrincipiaTractalis.TimelessField.partialTraceMorphism
 
-/-- **The fractal-mathematics core is realized at HEAD 2575d29.**
+/-- **The fractal-mathematics core is realized.**
     Each field discharges from an axiom-free theorem in this
     module or its dependencies. This is the Lean-side proof of the
     framework's fractal-mathematical underpinnings. -/
@@ -208,7 +215,9 @@ theorem fractalMathematicsCore_realized : FractalMathematicsCore :=
     tf_ternary_scaling := TFLevelDim_ternary
     tf_massless_carrier := TFLevelOperators_dependsOnlyOnLevel
     tf_information_present := TFLevelOperators_nonempty
-    consciousness_threshold_sharp := complexityThreshold_sharp }
+    consciousness_threshold_sharp := complexityThreshold_sharp
+    tf_partial_trace_projective_compatibility :=
+      PrincipiaTractalis.TimelessField.partialTraceMorphism_projective_compatible }
 
 #check @noMaximumLevel
 #check @TFLevelDim_ternary
