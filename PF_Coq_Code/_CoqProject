@@ -154,4 +154,5 @@ PF/Wave58/InverseGaloisProblemFrameworkAttackCoq.v
 PF/Wave58/CollatzConjectureFrameworkAttackCoq.v
 PF/Wave58/GoldbachConjectureFrameworkAttackCoq.v
 PF/Wave58/BealConjectureFrameworkAttackCoq.v
+PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v
 PF/Referee/RefereeIndex.v
