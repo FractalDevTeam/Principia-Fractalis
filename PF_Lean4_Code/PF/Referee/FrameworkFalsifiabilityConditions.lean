@@ -1,114 +1,24 @@
 /-
 # PF.Referee.FrameworkFalsifiabilityConditions
 
-**Date**: 2026-06-03
-**Status**: Axiom-free Lean 4 encoding of the framework's empirical
-falsifiability conditions.
-**Anchor**: `PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`
-(HEAD at 2026-06-03 Wave 58 follow-up cluster + Referee Layer).
+Encodes Popper-falsifiability for the empirically-falsifiable subset of
+`PFSubstrateAntecedents` (A2 α-rigidity, A4 IBM 9-way, A5 143-problem
+coherence). For each prediction, three pieces:
 
-## What this file does
+  * A typed `Prop` naming the empirical observation that would refute it.
+  * An axiom-free theorem composing the predicted value from existing
+    framework constants by exact Lean name.
+  * A bridge `Falsifier → ¬ FrameworkAntecedent`.
 
-The Principia Fractalis framework's substrate-level meta-theorem
-`PrincipiaFractalisSubstrateTheorem` rests on five antecedents
-`PFSubstrateAntecedents`:
+The eight falsifiers (F1-F8) and their experimental protocols (P1-P8)
+are listed inline in §1 and §5 below. The capstone
+`any_falsifier_refutes_antecedents` is the contrapositive aggregation.
 
-  (A1) Timeless Field substrate inhabited       [non-falsifiable, structural]
-  (A2) α-rigidity skeleton                       [EMPIRICALLY FALSIFIABLE]
-  (A3) Perelman α_Poincaré = 1                  [settled, Perelman 2003]
-  (A4) IBM 9-way empirical anchor ≤ 10⁻¹⁵       [EMPIRICALLY FALSIFIABLE]
-  (A5) 143-problem universal coherence          [EMPIRICALLY FALSIFIABLE]
-
-This module makes Karl Popper's empirical-falsifiability criterion
-**LITERAL** for every framework antecedent that is empirically
-falsifiable. For each empirically falsifiable consequence the
-framework predicts, we encode in Lean:
-
-  (F1) A typed `Prop` that names the specific EMPIRICAL OBSERVATION
-       which would refute the framework's prediction.
-  (F2) An axiom-free theorem showing the falsifier's NEGATION is what
-       the framework currently predicts (the values come from existing
-       framework files — composed by exact Lean name).
-  (F3) A bridge theorem `Falsifier → ¬ FrameworkAntecedent`.
-
-The capstone gives the contrapositive structural decomposition:
-
-  > If ANY of the 8 falsifiers were empirically established, then the
-  > substrate antecedents `PFSubstrateAntecedents` would be refuted,
-  > so the meta-theorem `PrincipiaFractalisSubstrateTheorem`'s premise
-  > would fail.
-
-This is the **operational meaning** of the framework's substrate
-claim: it is not vacuous; here are the precise experimental outcomes
-that would falsify it.
-
-## The 8 falsifiers
-
-  (F1) IBM_Ten_Way_Disagreement
-       — A 10-way IBM Quantum hardware run measuring α_RH disagreeing
-       from `3/2` beyond `10⁻¹⁵` would refute the α-rigidity skeleton.
-
-  (F2) FrameworkPredictsCH2_at_0_95_Falsifier
-       — A measurement of `ch_2` in any test system outside `[0.94, 0.96]`
-       refutes the framework's saturation prediction `ch_2 = 19/20 = 0.95`.
-
-  (F3) LambdaEffSuppression_Falsifier
-       — A measurement of `Λ_eff/Λ_0` differing from `exp(-78π·0.95·1.1875)`
-       by more than a threshold `ε > 0` falsifies the 120-orders prediction.
-
-  (F4) Hubble_Tension_Resolution_Falsifier
-       — Future high-precision Hubble measurements ruling out
-       `H_0 ∈ [67, 73] km/s/Mpc` refute the bracket prediction.
-
-  (F5) Hundred44Problem_Coherence_Falsifier
-       — A 144th independent computational test yielding
-       `α ∉ {√2, φ + 1/4}` refutes universal fractal coherence.
-
-  (F6) DarkEnergyDensity_Falsifier
-       — Future cosmology ruling out `Ω_Λ ∈ [0.65, 0.75]` falsifies
-       the framework's dark-energy density prediction.
-
-  (F7) BRSTH2_Falsifier
-       — Particle physics requiring BRST H² ≠ 78 falsifies the
-       Weinstein-GU rescue's dimension-counting.
-
-  (F8) MicroMacroScaleBridge_Falsifier
-       — `log(3^k_critical) ≠ 78π·0.95·1.1875` at any consistent
-       `k_critical` falsifies the micro-macro scale bridge.
-
-## Experimental / observational protocols (documented in §3)
-
-  (P1) IBM quantum hardware 10-way run on the standard α_RH benchmark
-  (P2) 144th computational test from a designated test-problem corpus
-  (P3) Λ_eff measurement (DESI / Euclid / LSST cosmological surveys)
-  (P4) H_0 measurement (next-generation CMB experiments)
-  (P5) Ω_Λ measurement (DESI BAO + Type Ia supernovae)
-  (P6) LHC ATLAS/CMS BRST H² constraints
-  (P7) Direct ch_2 measurement (EEG-based consciousness studies)
-  (P8) Algebraic consistency check log(3^k) ≈ 78π·0.95·1.1875
-
-## Honest scope
-
-This module makes the framework's empirical commitments **LITERAL**
-Lean propositions. It does NOT discharge any Clay Millennium Problem
-nor introduce new mathematical content beyond what already lives in
-`PrincipiaFractalisSubstrateTheorem`. What it adds is the **negative
-side**: the framework is now formally Popper-falsifiable in Lean.
-
-The framework currently predicts that none of the 8 falsifiers will
-ever be empirically established. Any future empirical disagreement
-on any of the 8 axes triggers `¬ PFSubstrateAntecedents`, which in
-turn lets the framework be discarded by the standard falsificationist
-criterion.
-
-## Build
-
-`lake build PF` clean. Zero project axioms — depends only on
-`[propext, Classical.choice, Quot.sound]` like every other Referee
-capstone.
-
-Author: Claude Opus 4.7 (1M context). 2026-06-03. Substrate-level
-empirical-falsifiability layer.
+Honest scope: this is the negative side of
+`PrincipiaFractalisSubstrateTheorem`. No new mathematical content; no
+Clay-Millennium discharge. The framework is now Popper-falsifiable in
+Lean: any future empirical disagreement on one of the eight axes
+triggers `¬ PFSubstrateAntecedents`.
 -/
 
 import PF.Referee.PrincipiaFractalisSubstrateTheorem
@@ -652,23 +562,15 @@ theorem any_falsifier_refutes_antecedents :
   · exact h7 hh
   · exact h8 hh
 
-/-! ## §5 — Experimental / observational protocol record (typed Props)
+/-! ## §5 — Experimental protocol record (ProvennessTag × 8)
 
-Each of the 8 falsifiers is paired with an EXPERIMENTAL PROTOCOL
-encoded as a typed `Prop`. The protocols are documented in the
-file's header (P1–P8) and recorded here as a structural bundle
-for referee citation.
+Each falsifier F1-F8 is paired with the experimental protocol P1-P8
+that could trigger it. Provenness-tag pattern (Rule #1): the `True`
+fields are documentation; content lives in the docstrings. -/
 
-Each protocol Prop is `True := trivial` — its content lives in
-the docstring. This is the "honest-scope-documentation" pattern
-used elsewhere in `PF/Referee/` (e.g.
-`PrincipiaFractalisSubstrateTheoremHonestScope`). -/
-
-/-- **Experimental-protocol record for the 8 falsifiers.**
-
-    Each field is a documentation tag (Prop := True) whose CONTENT
-    is the docstring describing the experimental setup required
-    to potentially trigger the corresponding falsifier. -/
+/-- Experimental-protocol record for the 8 falsifiers. Each field is
+    a ProvennessTag whose content is the experimental setup described
+    in its docstring. -/
 structure ExperimentalProtocols : Prop where
   /-- (P1) IBM Quantum hardware 10-way α_RH benchmark.
       Required: IBM Cairo/Brisbane/Kyoto backend; 10 independent
@@ -716,13 +618,9 @@ structure ExperimentalProtocols : Prop where
 theorem experimental_protocols_recorded : ExperimentalProtocols :=
   ⟨trivial, trivial, trivial, trivial, trivial, trivial, trivial, trivial⟩
 
-/-! ## §6 — Honest-scope marker
+/-! ## §6 — Honest-scope marker (ProvennessTag × 4) -/
 
-A typed-Prop record documenting precisely what this module
-establishes and what it does not. Same pattern as
-`PrincipiaFractalisSubstrateTheoremHonestScope`. -/
-
-/-- **Honest-scope record for the falsifiability module.** -/
+/-- Honest-scope record for this module (ProvennessTag fields). -/
 structure FrameworkFalsifiabilityHonestScope : Prop where
   /-- (S1) The 8 falsifiers are TYPED PROPS, not measured
       observations. They make Popper's falsifiability criterion

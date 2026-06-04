@@ -1,57 +1,29 @@
 /-
 # PF.Referee.PFCompleteFrameworkCapstone
 
-**Date**: 2026-06-02
-**Status**: the final single-citation point for the entire framework.
-**Anchor commit**: 69209a8.
+Final aggregator: one structure, one theorem, bundling every
+load-bearing single-citation claim the framework carries.
 
-## Purpose
+Fields:
+* `referee_layer` — Referee layer 11-field aggregator (FrontierLedger
+  + audits + per-axis typed bridges + structural unification).
+* `wave57_master` — pre-Referee Wave 57 master capstone.
+* `millennium_reduction_conditional` — twelfth-object conditional:
+  `MillenniumReductionSoundness ∧ (∀c, PFInternalCapstone c) →
+  ∀c, ClayExternalStatement c`.
+* `cross_millennium_invariants` — all 11 algebraic invariants.
+* `timeless_field` — Chapter 4 TF existence capstone.
+* `unified_substrate` — YM + BSD + Hodge + TF from one substrate.
+* `fractal_core` — fractal-mathematics operator-algebraic core.
 
-This module is the FINAL aggregator — one structure, one theorem,
-bundling EVERY load-bearing claim the framework currently carries.
-A referee can cite this single theorem name and reach, via its
-fields, every piece of evidence the framework supports at HEAD
-69209a8+1.
+`pfCompleteFramework_realized : PFCompleteFramework` is the deepest
+single-citation point in the framework.
 
-## What this module bundles
-
-* The Referee layer (`refereeLayerAtHEAD_05ac9b5_realised`,
-  11-field structure including the Frontier Ledger, NoTrueOnClayPath
-  audit, capstone-dependency audit, P/NP typed iff, NS frontier
-  marker, YM finite-dim Clay witness, BSD `rfl` Clay witness, Hodge
-  K3 typed bridge, Ch 4 TF capstone, structural unification,
-  fractal-mathematics core).
-* The pre-Referee Wave 57 master capstone
-  (`principia_fractalis_wave57_master_capstone`).
-* The conditional Millennium reduction soundness
-  (`all_clay_via_soundness_and_capstones`).
-* The cross-Millennium algebraic invariants capstone
-  (`cross_millennium_shared_invariants_capstone`, 11 invariants
-  including `α_RH · α_NS = α_NS + α_BSD`).
-* The full Chapter 4 Timeless Field capstone
-  (`timelessFieldExistenceClaim_holds`).
-* The structural unification across YM + BSD + Hodge + TF from
-  one substrate (`unifiedSubstrateUnification_holds`).
-* The fractal-mathematics core
-  (`fractalMathematicsCore_realized`).
-
-## Single-citation theorem
-
-`pfCompleteFramework_realized : PFCompleteFramework`
-
-This is the deepest single-name citation point in the framework. A
-referee writing "PF carries the following structural content
-machine-checked at HEAD <hash>" cites this one theorem and points
-at the field they want.
-
-## Honest scope (foregrounded)
-
-This module bundles existing theorems. It does NOT introduce new
-mathematical content. It does NOT discharge any Clay Millennium
-Problem. Every per-axis Clay path retains its existing honest scope
-(RH conditional on surjectivity, P/NP conditional on
-PolylogEigenvalueConjecture, NS frontier-only, YM finite-dim, BSD
-Fin-6-restricted, Hodge substrate-level, TF skeleton-level).
+Honest scope: bundles existing theorems. Not a Clay-Millennium
+discharge. Each per-axis path retains its individual honest scope
+(RH conditional on `surjectivity`; P/NP conditional on
+`PolylogEigenvalueConjecture`; NS frontier-only; YM finite-dim;
+BSD Fin-6-restricted; Hodge substrate-level; TF skeleton-level).
 -/
 
 import PF.Referee.RefereeIndex

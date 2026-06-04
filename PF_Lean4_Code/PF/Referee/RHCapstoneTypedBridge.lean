@@ -1,51 +1,20 @@
 /-
 # PF.Referee.RHCapstoneTypedBridge
 
-**Date**: 2026-06-02
-**Status**: typed-contract bridge for the RH axis. No new analytic content.
-**Anchor commit**: d23b465 (parent a2fb8d2 + ee51039).
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-"First Analytic Attack: RH" + "The Universal Proof Shape".
+Re-types the conclusion of `riemann_hypothesis_via_T3_sym_framework`
+(PF/SpectralBijection.lean) as `Clay_RiemannHypothesis_Standard`.
+The retype is definitional — `Clay_RiemannHypothesis_Standard`
+unfolds to `PrincipiaTractalis.RiemannHypothesis`, which is the
+existing capstone's conclusion on the nose.
 
-## Purpose
+Honest scope: not a discharge. The capstone's six hypotheses
+(Phase-A inner-product axioms; spectral eigenvalue data;
+bijection-injection; open `surjectivity` Prop) remain open. This
+bridge only standardises the conclusion shape so future surjectivity
+work targets the typed contract directly.
 
-The 2026-06-02 referee roadmap demands every Millennium proof go through:
-
-> PF canonical resonance/spectral structure
-> + problem-specific standard-object realization bridge
-> + standard Clay equivalence theorem
-> = standard Clay statement
-
-For the RH axis this chain is already CLOSED at the conclusion side:
-the pre-existing `riemann_hypothesis_via_T3_sym_framework`
-(PF/SpectralBijection.lean) concludes mathlib's `RiemannHypothesis`,
-which is exactly Clay's standard form of RH.
-
-After `PF.Referee.StandardClayStatements` re-aligned
-`Clay_RiemannHypothesis_Standard := RiemannHypothesis`, the existing
-PF capstone's conclusion **is literally** the typed standard Clay
-contract. This module makes that wiring explicit as a one-line
-theorem so a referee can cite a single name.
-
-## What this module produces
-
-* `PF_RH_capstone_yields_Clay_RH_standard` — explicit re-statement of
-  `riemann_hypothesis_via_T3_sym_framework` with the conclusion typed
-  as `Clay_RiemannHypothesis_Standard`. Proof is `id` (definitional
-  equality with mathlib's `RiemannHypothesis`).
-
-## Honest scope
-
-This module does NOT discharge RH. The existing capstone has six
-hypotheses (Phase-A inner-product axioms + spectral-theorem
-eigenvalue data + bijection-injection + the open
-`surjectivity` Prop) which remain open. This bridge merely retypes
-the *conclusion* so future surjectivity work targets the standard
-Clay contract directly.
-
-Roadmap "First Analytic Attack: RH" steps 1-4 (define Hilbert
-space + operator, prove Fredholm hypotheses, prove trace formula,
-derive spectral surjectivity) remain the genuine work.
+Source roadmap: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
+("First Analytic Attack: RH" + "The Universal Proof Shape").
 -/
 
 import PF.Millennium

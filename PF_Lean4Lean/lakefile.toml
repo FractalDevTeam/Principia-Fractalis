@@ -7,7 +7,7 @@ name = "PF_L4L"
 
 [[require]]
 name = "PF"
-path = "../PF_canonical/2_LEAN_SOURCE_CODE"
+path = "../PF_Lean4_Code"
 
 [[require]]
 name = "mathlib"

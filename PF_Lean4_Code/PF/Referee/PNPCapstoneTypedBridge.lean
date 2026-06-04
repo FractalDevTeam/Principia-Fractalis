@@ -1,51 +1,24 @@
 /-
 # PF.Referee.PNPCapstoneTypedBridge
 
-**Date**: 2026-06-02
-**Status**: typed-contract bridge for the P vs NP axis. No new analytic content.
-**Anchor commit**: 7ee849e (parent d23b465 + a2fb8d2 + ee51039).
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-"First Proof Attack: P vs NP" + "The Universal Proof Shape".
+Wires `P_neq_NP_via_spectral_gap` (PF/P_NP_Complete_Proof.lean) to the
+typed standard Clay contract `Clay_PvsNP_Standard`:
 
-## Purpose
-
-The 2026-06-02 referee roadmap names P vs NP as the flagship first
-target:
-
-> The best first target is P vs NP if the `alpha_of_class` semantics
-> can be made standard and noncircular.
-
-This module supplies the *wiring* between the existing PF capstone
-`P_neq_NP_via_spectral_gap` and the typed standard Clay contract
-`Clay_PvsNP_Standard`. The wiring is exact: this file constructs a
-concrete `StandardComplexityEncoding` (`PF_ComplexityEncoding`) from
-PF's Turing-machine-based `ClassP`/`ClassNP`, and shows that the PF
-capstone's conclusion `P_neq_NP_def` is **logically equivalent** to
-`Clay_PvsNP_Standard PF_ComplexityEncoding`.
-
-This does NOT close the `alpha_of_class` opacity gap that the Wave 57
-sharpness certificate identifies as Clay-equivalent. It makes the
-shape standard so future work targeting `alpha_of_class` produces the
-typed contract directly.
-
-## What this module produces
-
-* `PF_ComplexityEncoding : StandardComplexityEncoding` — the concrete
-  PF encoding built from `↥TuringEncoding.ClassP` / `↥TuringEncoding.ClassNP`
-  with the inclusion derived from `TuringEncoding.P_subset_NP`.
+* `PF_ComplexityEncoding : StandardComplexityEncoding` — concrete
+  encoding from `TuringEncoding.ClassP`/`ClassNP` with the natural
+  P ⊆ NP inclusion (Cook 1971, Theorem 2.1).
 * `pf_pneqnp_iff_clay_pneqnp_standard` — `P_neq_NP_def ↔
   Clay_PvsNP_Standard PF_ComplexityEncoding`.
-* `PF_PNP_capstone_yields_Clay_PvsNP_standard` — given the open
-  `PolylogEigenvalueConjecture`, `Clay_PvsNP_Standard PF_ComplexityEncoding`
-  holds.
+* `PF_PNP_capstone_yields_Clay_PvsNP_standard` — under the open
+  `PolylogEigenvalueConjecture`, the typed contract holds.
 
-## Honest scope
+Honest scope: not a P-vs-NP discharge. `PolylogEigenvalueConjecture`
+remains open; per Wave 57's sharpness certificate, closing it is
+equivalent to deciding P vs NP. No `alpha_of_class` content moves
+through the iff.
 
-This module does NOT discharge P vs NP. The hypothesis
-`PolylogEigenvalueConjecture` remains open and (per the Wave 57
-sharpness certificate) closing it is equivalent to closing P vs NP.
-The bridge only retypes the conclusion of the existing PF capstone to
-the typed Clay contract.
+Source roadmap: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
+("First Proof Attack: P vs NP" + "The Universal Proof Shape").
 -/
 
 import PF.P_NP_Complete_Proof

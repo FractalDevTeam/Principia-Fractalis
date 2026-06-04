@@ -1,52 +1,21 @@
 /-
 # PF.Referee.PFUnifiedSubstrate
 
-**Date**: 2026-06-02
-**Status**: structural unification theorem — turns the prose
-"everything connects" claim into a Lean theorem.
-**Anchor commit**: 6573f46.
+Single concrete `PFUnifiedSubstrate` carries every standard encoding
+the six Clay axes consume plus the Ch 4 Timeless Field connecting-
+morphism family. From this one substrate, three per-axis typed Clay
+forms (YM, BSD, Hodge) and the full Ch 4 capstone are simultaneously
+witnessed axiom-free.
 
-## Purpose
+Excluded from the unconditional clause: RH (typed contract is on
+mathlib `riemannZeta`, not on a PF encoding); P/NP (conditional on
+`PolylogEigenvalueConjecture`); NS (upstream predicate `:= True` at
+this commit, placeholder encoding only).
 
-Pabs's manuscript has claimed since Chapter 4 that the six Clay
-Millennium axes, the Timeless Field substrate, and the consciousness-
-crystallization threshold are not seven independent objects but one
-framework. The Referee Layer made this structurally inspectable but
-never asserted it as a single Lean theorem.
-
-This module asserts it as one theorem:
-
-> A single concrete `PFUnifiedSubstrate` carries every standard
-> encoding the six Clay axes consume AND the Ch 4 Timeless Field
-> connecting-morphism family. From this one substrate, four of the
-> six per-axis typed Clay forms (YM, BSD, Hodge) and the full Ch 4
-> capstone are simultaneously witnessed, axiom-free.
-
-Three Clay axes are deliberately *not* witnessed from this substrate
-alone: RH (typed contract is unconditional on mathlib `riemannZeta`,
-not on a PF encoding), P/NP (typed contract is conditional on
-`PolylogEigenvalueConjecture`, an open Prop), and NS (PF's NS
-predicate is currently `:= True` upstream). These are documented in
-the docstring but excluded from the unconditional clause.
-
-## What this module produces
-
-* `PFUnifiedSubstrate` — the unified-substrate structure bundling
-  the five external encodings + the TF connecting morphism family +
-  its projective compatibility.
-* `pf_concrete_unified_substrate` — a concrete instance built from
-  the existing `PF_*Encoding` instances and `truncMorphism`.
-* `pf_concrete_unified_substrate_yields_three_clay_axes_and_TF` —
-  the unification theorem.
-
-## Honest scope
-
-Each per-axis witness retains the honest scope from its source
-module: YM at finite-dim 2x2, BSD restricted to Fin 6 LMFDB curves,
-Hodge at the general-surface substrate, TF at skeleton level.
-Nothing in this module discharges a literal Clay statement. What is
-new is that all four are now witnessable from one common substrate
-in one theorem.
+Honest scope: each per-axis witness retains its source-module scope
+(YM finite-dim 2×2, BSD Fin 6 LMFDB, Hodge general-surface substrate,
+TF skeleton). Not a literal Clay-statement discharge. What is new:
+all four are witnessable from one common substrate in one theorem.
 -/
 
 import PF.Referee.StandardClayStatements

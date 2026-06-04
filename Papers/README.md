@@ -1,7 +1,22 @@
-# Papers — Phase 2 Submission Strategy
+# Papers — Submission Strategy and arXiv Preprint
 
-**Drafted**: 2026-05-23
-**Status**: Three papers in parallel, ready for review pass and submission.
+**Drafted**: 2026-05-23 · **Last updated**: 2026-06-03
+**Status**: Three journal-target papers plus the arXiv preprint draft, all referenced from the top-level [`README.md`](../README.md).
+
+## Files in this directory
+
+| File | Description |
+|---|---|
+| `paper_A_framework.{tex,pdf}` | **Paper A** — the headline framework paper (Annals / Inventiones / JAMS target). See "Paper A" below. |
+| `paper_B_formal_verification.{tex,pdf}` | **Paper B** — the formal verification paper (JAR / LMCS / ITP / CPP target). See "Paper B" below. |
+| `paper_C_empirical_quantum_signatures.{tex,pdf}` | **Paper C** — the IBM 143-problem empirical signatures paper (Foundations of Physics / Quantum Reports / PRX Quantum target). See "Paper C" below. |
+| `principia_fractalis_arxiv_preprint_v1.tex` | **arXiv preprint v1** — unified single-PDF preprint covering the framework, formalization architecture, and empirical evidence. Companion to the three journal-target papers. |
+
+LaTeX auxiliary files (`.aux`, `.log`, `.out`, `.toc`) are now ignored via the top-level `.gitignore`.
+
+---
+
+
 
 ## Paper A: The headline framework paper
 

@@ -1,42 +1,25 @@
 /-
 # PF.Referee.YMCapstoneTypedBridge
 
-**Date**: 2026-06-02
-**Status**: finite-dim typed bridge with honest-scope flagging.
-**Anchor commit**: bd00393.
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-"Current Frontier Ledger" → YangMills row.
+Wires Wave 55C's finite-dim YM mass-gap result to the typed Clay
+contract `Clay_YangMillsMassGap_Standard` under an explicitly toy
+encoding:
 
-## Purpose
+* `GaugeGroup := Unit` — finite-dim placeholder, NOT SU(N).
+* `QYM := Matrix (Fin 2) (Fin 2) ℝ` — Wave 55C carrier.
+* `satisfiesClayAxioms := IsSymm ∧ PosSemidef` — properties the
+  Wave 55C matrix `H = !![1, 1/2; 1/2, 1]` genuinely satisfies.
+* `massGap := 1/2` — smallest eigenvalue of `H`'s spectrum {1/2, 3/2}.
 
-PF has a genuinely axiom-free Yang-Mills mass-gap result at the
-*finite-dim level-1* level: Wave 55C's interacting 2x2 Hamiltonian
-H = !![1, 1/2; 1/2, 1] has spectrum {1/2, 3/2}, gap = 1, smallest
-eigenvalue (mass gap) = 1/2 > 0, with PSD established via SOS. This
-is the strongest non-toy PF YM content at HEAD bd00393.
+A real theorem under a restricted encoding — not a Rule #1 violation.
 
-This module wires that result to a typed `Clay_YangMillsMassGap_Standard`
-contract under an encoding that honestly reflects the finite-dim scope:
+Honest scope: not a Clay continuum SU(3) YM discharge on ℝ⁴. The
+genuine open frontier is `fractalYMLevel1LiftsToContinuumTyped`
+(unitary equivalence with continuum SU(3) YM) plus the four
+Wightman/OS gaps from `YM_WightmanReconstructionScaffold`.
 
-* `GaugeGroup := Unit` — finite-dim toy carrier, NOT genuine SU(N).
-* `QYM := Matrix (Fin 2) (Fin 2) ℝ` — the Wave 55C carrier.
-* `satisfiesClayAxioms := IsSymm ∧ PosSemidef` — what the Wave 55C
-  matrix actually satisfies (not `Prop := True`).
-* `massGap := (1/2 : ℝ)` — the smallest eigenvalue, the genuine
-  mass gap of the level-1 spectrum.
-
-The bridge is therefore a REAL theorem under a restricted encoding,
-not a Rule #1 violation. Honest scope: this does NOT discharge Clay
-continuum SU(3) YM on ℝ⁴.
-
-## Open frontier
-
-The named open Prop `fractalYMLevel1LiftsToContinuum` (per Wave 57's
-ledger) plus the four Wightman/OS gaps from
-`YM_WightmanReconstructionScaffold` (`BochnerMinlosOnNuclearSpaces`,
-`SchwartzReflectionStructure`, `WightmanReconstructionTheorem`,
-`MassGapPropagationAcrossReconstruction`) are what remain for the
-literal Clay SU(3) statement.
+Source roadmap: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
+("Current Frontier Ledger" → YangMills row).
 -/
 
 import PF.YMInteractingHamiltonianAttempt

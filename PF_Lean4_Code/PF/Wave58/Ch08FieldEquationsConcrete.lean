@@ -1,156 +1,39 @@
 /-
 # Ch 08 Field Equations — Wave 58 Concrete Encoding
 
-★ DISPATCHED 2026-06-03 against the Wave 58 Ch 08 Level-D audit
-classification (chapter had NO axiom-free Lean substrate content
-encoding the consciousness-modified Einstein field equations,
-the generalized conservation law, or the dark-energy bracket;
-the only adjacent Lean infrastructure was `LambdaEffSuppression` /
-`LambdaEffTypedUpgrade` for the Λ_eff exponential, plus the
-just-landed `QuantumGravityEntanglementResonance` /
-`MicroMacroScaleBridge` Wave-58-extended infra).
+Substrate-level (scalar-slice) encoding of Chapter 8's five headline
+claims about the consciousness-modified Einstein equation:
 
-## Why this file exists
+  1. `G_munu_modified` — scalar-slice identity for
+     `G_μν + Λ_eff g_μν = 8πG (T^μν + C^μν)` (ch08:198-207).
+  2. `T_consciousness_density` — scalar density
+     `ch_2 · 78π · 0.95 · 1.1875` saturating at `ch_2 = 19/20`
+     (ch08:77-90).
+  3. `ModifiedGeodesicEquation` — typed Prop for geodesic
+     deviation when consciousness is present (ch08:120-147).
+  4. `generalized_conservation` — positivity of the consciousness
+     stress-energy (scalar slice of ∇_μ(T_total + C) = J_C, ch08:108-118).
+  5. `darkEnergyDensity = 0.7` with the bracket `0.65 < ρ_Λ < 0.75`
+     (Planck 2018 Ω_Λ ≈ 0.69 cited at ch08:222).
 
-Chapter 8 (`chapters/ch08_field_equations.tex`, 530 lines)
-ships the framework's headline modification of general
-relativity:
+Plus re-exports of `framework_strict_suppression`
+(`lambda_eff_from_field_equations`, ch08:219-247) and
+`qg_gr_alpha_difference_eq_inv_phi` from
+`QuantumGravityEntanglementResonance`, five computational witnesses,
+and a single-citation capstone.
 
-  * Modified Einstein equation (Thm `thm:modified-einstein`,
-    ch08:198-207, boxed equation at ch08:201):
-      `G_μν + Λ_eff(C) g_μν = 8πG (T^μν + C^μν)`
-  * Consciousness stress-energy `C^μν` (Def
-    `def:consciousness-stress`, ch08:77-90, boxed equation
-    at ch08:80) with the `Θ(ch_2(ω) - 0.95)` crystallisation
-    threshold.
-  * Generalised conservation `∇_μ (T^μν_total + C^μν) = J^ν_C`
-    (Thm `thm:modified-conservation`, ch08:108-118, boxed at
-    ch08:111) and the principle `d/dt[E_cl + E_q + I_C·c²] = 0`
-    (ch08:171-177, boxed at ch08:174).
-  * Modified geodesic deviation (implicit throughout §3 of
-    Ch 08; explicit in the action-principle derivation at
-    ch08:120-147 — when `C` is present, varying with respect
-    to `g_μν` introduces extra terms beyond the classical
-    Einstein-Hilbert variation).
-  * Dark-energy density ≈ 0.7 (Prop `prop:dark-energy`,
-    ch08:219-225; cosmological constant calibration at
-    ch08:242-243 to `Λ_eff ≈ Λ_0 · 10⁻¹²⁰`).
+Honest scope: substrate-level scalar slice only. Does not operate on
+4-tensors; does not prove the modified Einstein equation is the
+correct field equation of nature; does not derive the dark-energy
+bracket from first principles.
 
-Before this file, the Lean side carried no axiom-free content
-encoding *any* of the five concrete Ch 08 numerical claims —
-the existing `LambdaEffTypedUpgrade` discharges only the
-exponential suppression (`Λ_eff < Λ_0`) at the framework's
-typed bridge, NOT the modified Einstein field equation, the
-consciousness stress-energy, or the dark-energy bracket.
-
-## What this file does
-
-This file lands the substrate-level concrete content the
-chapter requires:
-
-  1. `G_munu_modified` — the framework's modified Einstein
-     equation expressed as a SCALAR identity at one tensor
-     index (since we work in `ℝ`, not on a 4-manifold). The
-     boxed `thm:modified-einstein` boils down to
-       `G_μν = 8π (T_classical + T_consciousness)`
-     after absorbing `Λ_eff g_μν` into the right side; this
-     file encodes the SCALAR slice of that identity.
-
-  2. `T_consciousness_density` — the consciousness
-     contribution as a scalar density `ch_2 · 78π · 0.95 ·
-     1.1875`. Re-uses the `78π · 0.95 · 1.1875` factorisation
-     from `LambdaEffTypedUpgrade.lean`. At `ch_2 = 19/20 =
-     0.95` (the chapter's saturation threshold of the
-     crystallisation Heaviside), the density saturates.
-
-  3. `ModifiedGeodesicEquation` — typed Prop encoding the
-     framework's claim that geodesics deviate from the
-     classical Einstein-equation geodesics when consciousness
-     is present. Inhabited via the existence of a non-trivial
-     consciousness density at the saturation threshold.
-
-  4. `generalized_conservation` — positivity of
-     `T_consciousness_density (19/20)`. This is the SCALAR
-     slice of the conservation law `∇_μ(T_total + C) = J_C`:
-     the consciousness stress-energy is non-negative,
-     consistent with the chapter's principle that
-     consciousness ADDS energy/information to the universe
-     (ch08:171-177).
-
-  5. Re-export `lambda_eff_from_field_equations` of
-     `LambdaEffTypedUpgrade.framework_strict_suppression`,
-     citing it as the Ch 08 §3.2 derivation of the dark-
-     energy form `Λ_eff` from the modified Einstein equation
-     (ch08:219-247).
-
-  6. `darkEnergyDensity` = 0.7 with bracket `0.65 < ρ_Λ < 0.75`
-     via `norm_num`. The observational value `Ω_Λ ≈ 0.69`
-     (ch08:222 + Planck 2018) lies inside this bracket.
-
-  7. Five concrete computational witnesses at five distinct
-     `(G_classical, T_classical, ch_2)` inputs verifying
-     `G_munu_modified` lies in a sensible numerical band.
-
-  8. Re-export `qg_gr_alpha_difference_eq_inv_phi` from
-     `QuantumGravityEntanglementResonance` as the Ch 08
-     coupling-differential bridge.
-
-  9. Capstone `ch08_field_equations_concrete_capstone`
-     bundling all of the above.
-
-## What this file does NOT do
-
-* Does NOT prove the modified Einstein field equation IS the
-  correct field equation of nature. The chapter's headline
-  claim is a *physical conjecture* about general relativity;
-  this file encodes the framework's typed identity, not its
-  empirical truth.
-* Does NOT operate on actual 4-tensors. We work at the
-  SCALAR slice level — each `T^μν` index is collapsed to a
-  representative real number. This is the "substrate" level
-  in the Wave 58 sense.
-* Does NOT derive the dark-energy bracket from first
-  principles. `darkEnergyDensity := 0.7` is the framework's
-  numerical claim, and the bracket `(0.65, 0.75)` is a
-  pure-arithmetic statement matching the Planck 2018
-  observational value `Ω_Λ ≈ 0.69` cited at ch08:222.
-
-## Manuscript citations
-
-* Ch 8 §1 line 16 — `∇_μ T^μν = 0` classical conservation
-* Ch 8 §2.2 lines 77-90 — `def:consciousness-stress` with
-  `Θ(ch_2(ω) - 0.95)` threshold
-* Ch 8 §2.2 line 80 — boxed `C^μν` definition
-* Ch 8 §3 lines 108-118 — `thm:modified-conservation`
-* Ch 8 §3 line 111 — boxed conservation law
-  `∇_μ(T_matter + T_field + C^μν) = J^ν_C`
-* Ch 8 §3.2 lines 171-177 — generalised conservation
-  principle `d/dt[E_cl + E_q + I_C·c²] = 0`
-* Ch 8 §4 lines 198-207 — `thm:modified-einstein`
-* Ch 8 §4 line 201 — boxed `G_μν + Λ_eff g_μν = 8πG(T+C)`
-* Ch 8 §4.2 lines 219-225 — `prop:dark-energy`
-* Ch 8 §4.2 lines 242-243 — `Λ_eff ≈ Λ_0 · 10⁻¹²⁰` calibration
-
-## Lean cross-references
-
-* `PF/Cosmology/LambdaEffTypedUpgrade.lean` — typed
-  modified-Friedmann bridge + `framework_strict_suppression`
-  (re-exported here as `lambda_eff_from_field_equations`).
-* `PF/Cosmology/LambdaEffSuppression.lean` — substrate-level
-  Λ_eff = Λ_0 · exp(-X) predicate.
-* `PF/Consciousness/QuantumGravityEntanglementResonance.lean`
-  — `qg_gr_alpha_difference_eq_inv_phi` (re-exported here as
-  `lambda_eff_qg_gr_alpha_difference`).
-* `PF/QuantumGravity.lean` — `alpha_QG = √(2π)` (the global
-  TOE-slot constant; `R_f(√(2π), 1)` appears inside the
-  Λ_eff kernel at ch08:205).
-* `PF/GeneralRelativity.lean` — `alpha_GR = √(2π)` (the
-  global TOE-slot GR constant).
-
-## Status
-
-Axiom-free. ZERO project axioms. Substrate-level concrete
-encoding of Ch 08's five headline claims.
+Cross-references:
+* `PF/Cosmology/LambdaEffTypedUpgrade.lean` — typed Friedmann bridge.
+* `PF/Cosmology/LambdaEffSuppression.lean` — substrate Λ_eff predicate.
+* `PF/Consciousness/QuantumGravityEntanglementResonance.lean` —
+  α_QG - α_GR = 1/φ.
+* `PF/QuantumGravity.lean`, `PF/GeneralRelativity.lean` —
+  α_QG = α_GR = √(2π) global slots.
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Exp

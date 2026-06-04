@@ -1,37 +1,19 @@
 /-
 # PF.Referee.FrontierLedger
 
-**Date**: 2026-06-02
-**Status**: pure inventory — zero new proofs, zero hidden content.
-**Anchor commit**: ee51039 (Wave 57 master capstone).
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`.
+Pure inventory: for each Clay axis (six unsolved + Poincaré anchor),
+records the PF capstone theorem name, frontier Prop, and axiom-free
+status at HEAD ee51039. Every field references an existing declaration
+by exact Lean name; no new proofs and no semantic claims.
 
-## Purpose
-
-This module implements step 1 of the referee roadmap's
-"Reverse-Engineering Strategy": **Freeze the canonical boundary**. It
-catalogs, for each of the six unsolved Clay axes, the corresponding PF
-capstone theorem (by exact name), the named open Prop at the analytic
-frontier, and whether the capstone is axiom-free at the PF library
-level.
-
-**Every entry references an existing theorem or Prop by exact name.**
-No new proofs are introduced. No semantic claims are made. This file
-exists to make the boundary auditable in a single place.
-
-## What this file is NOT
-
-* Not a proof of any Clay statement.
-* Not a discharge of any frontier Prop.
-* Not a substitute for the per-axis capstones — it indexes them.
+Source roadmap: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
+(Reverse-Engineering Strategy, step 1: "Freeze the canonical boundary").
 -/
 
 namespace PF.Referee.FrontierLedger
 
-/-- **The six unsolved Clay axes** plus the Perelman anchor (Poincaré).
-    Repeated here as a namespace-local enum to keep FrontierLedger
-    importable from anywhere without depending on
-    `MillenniumReductionSoundness`. -/
+/-- Six unsolved Clay axes plus the Perelman anchor. Namespace-local
+    to avoid an import on `MillenniumReductionSoundness`. -/
 inductive ClayAxis
   | Poincare
   | RiemannHypothesis
@@ -147,9 +129,8 @@ theorem frontierSize_eq_seven : frontierSize = 7 := by
   unfold frontierSize frontier
   decide
 
-/-- **Honest scope tag.** This ledger is documentation. It claims no
-    discharge of any Clay statement. It exists so that a reader can
-    inspect the boundary in a single file. -/
+/-- Provenness tag (Rule #1: ProvennessTag) — the ledger carries no
+    Clay-statement claim content; it is a documentation index. -/
 def frontierLedger_isDocumentationOnly : Prop := True
 
 theorem frontierLedger_isDocumentationOnly_holds :

@@ -1,41 +1,26 @@
 /-
 # PF.Referee.BSDCapstoneTypedBridge
 
-**Date**: 2026-06-02
-**Status**: finite-witness typed bridge with honest-scope flagging.
-**Anchor commit**: bd00393.
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-"Current Frontier Ledger" → BSD row.
+Wires `bsd_rank_six_universal_concordance` (Wave 55F's six LMFDB-
+anchored curves, ranks 0..5) to `Clay_BSD_Standard` under
+`EllipticCurve := Fin 6`. Two structurally distinct rank projections:
 
-## Purpose
+* `manuscriptAlgebraicRank` — direct projection of `r : Fin 6`
+  (modelling PF's manuscript-cited Mordell-Weil label).
+* `eulerProductAnalyticRank` — parity-decomposition reconstruction
+  via `Nat.bodd` and floor (modelling an L-series-style path).
 
-PF's strongest axiom-free BSD content at HEAD bd00393 is
-`bsd_rank_six_universal_concordance` (PF/BSDRankFourFiveFrameworks.lean):
-for the six LMFDB-anchored curves of ranks 0..5, the framework
-certifies a uniform φ/e eigenvalue bracket and Galois-pair separation
-via `BSDFrameworkInstance E r`.
+They agree via the per-curve case analysis `manuscript_eq_eulerProduct_rank`,
+NOT by `rfl` — `2 * (n/2) + (n % 2) = n` for the six rank labels.
 
-Note: `BSDFrameworkInstance.rank_is_manuscript_label : True` — PF
-does NOT prove Mordell-Weil rank from Lean-internal content; the
-rank labels are external LMFDB / Cremona citations. The typed bridge
-must reflect this honestly.
+Honest scope: not a `WeierstrassCurve ℚ`-quantified Clay-form discharge.
+The rank labels are LMFDB / Cremona citations (`BSDFrameworkInstance.
+rank_is_manuscript_label : True`). Lifting requires discharging the
+Wave 57 (A3)+(A4) Props (`LSeriesAbsConvergenceForReSGreaterThanThreeHalves`
++ `WilesModularityImpliesAnalyticContinuation`).
 
-This module wires the framework's concordance content to the typed
-`Clay_BSD_Standard` contract under an encoding restricted to the six
-LMFDB curves carrying `BSDFrameworkInstance`. Both `algebraicRank`
-and `analyticRank` project to the same Σ-encoded label, so the typed
-contract holds `rfl`-trivially — by construction, the LMFDB-cited
-labels for both ranks agree on these six curves.
-
-## Honest scope (foregrounded)
-
-The bridge does NOT derive `analyticRank = algebraicRank` from PF
-content. It certifies that for the six LMFDB-anchored curves on which
-PF carries `BSDFrameworkInstance`, both ranks project to the same
-manuscript label by construction. Lifting this to a full
-`WeierstrassCurve ℚ`-quantified Clay statement requires discharging
-the Wave 57 (A3)+(A4) Props (`LSeriesAbsConvergenceForReSGreaterThanThreeHalves`
-and `WilesModularityImpliesAnalyticContinuation`).
+Source roadmap: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
+("Current Frontier Ledger" → BSD row).
 -/
 
 import PF.BSDRankBlindUniversalConcordance

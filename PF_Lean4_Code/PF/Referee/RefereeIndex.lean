@@ -1,43 +1,22 @@
 /-
 # PF.Referee.RefereeIndex
 
-**Date**: 2026-06-02
-**Status**: aggregator — single citation point for the Referee layer.
-**Anchor commit**: 05ac9b5.
+Single citation point for the Referee layer at HEAD 05ac9b5. Re-exports
+every Referee-namespace module plus the Ch 4 Timeless Field concrete
+morphism and the legacy `MillenniumReductionSoundness` capstone.
 
-## Purpose
+The aggregate `RefereeLayerAtHEAD_05ac9b5` is a Prop structure whose
+fields witness:
+  * the six standard Clay contracts in typed form,
+  * the Frontier Ledger documentation invariant,
+  * the NoTrueOnClayPath audit (zero violations),
+  * the Capstone Dependency Audit inspection invariant,
+  * the Ch 4 Timeless Field capstone discharge,
+  * the structural unification and fractal-mathematics core.
 
-The 2026-06-02 referee roadmap's Submission Readiness Criterion
-demands: "a reader can run one audit command and obtain ... capstone
-theorem list ... axiom list for every capstone ... status label."
-
-This module is the single citation point a referee uses to find the
-entire Referee layer. It re-exports every Referee-namespace module
-landed at HEAD 05ac9b5 + the Ch 4 Timeless Field concrete morphism +
-the legacy `MillenniumReductionSoundness` capstone. Nothing here is
-new content — everything is a re-export.
-
-## What this module exposes
-
-A single `structure RefereeLayerAtHEAD_05ac9b5` whose six fields
-witness:
-
-1. The six standard Clay contracts in typed form.
-2. The legacy `MillenniumReductionSoundness` and its typed counterpart.
-3. The Frontier Ledger.
-4. The NoTrueOnClayPath audit invariant.
-5. The Capstone Dependency Audit invariant.
-6. The Ch 4 Timeless Field capstone discharge.
-
-Plus a theorem
-`refereeLayerAtHEAD_05ac9b5_realised : RefereeLayerAtHEAD_05ac9b5`
-that exhibits the actual witnesses by name.
-
-## Honest scope
-
-This module proves nothing new. Every clause is a re-statement of a
-prior module's theorem or definition. The aggregate makes the
-Referee layer's content greppable from a single file.
+Honest scope: re-export only. Proves nothing new. Makes the Referee
+layer greppable from one file. Submission Readiness Criterion (roadmap
+`codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`) item #6.
 -/
 
 import PF.Referee.FrontierLedger

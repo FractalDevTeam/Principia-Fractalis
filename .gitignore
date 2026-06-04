@@ -19,11 +19,20 @@ lakefile.olean
 .coq-native/
 .lia.cache
 .nia.cache
-# Coq's _CoqProject auto-generated Makefiles
+# Coq's _CoqProject auto-generated Makefiles (legacy ARCHIVE/PF_Coq/ + current PF_Coq_Code/)
 PF_Coq/Makefile
 PF_Coq/Makefile.conf
 PF_Coq/Makefile.coq
 PF_Coq/Makefile.coq.conf
+ARCHIVE/PF_Coq/Makefile
+ARCHIVE/PF_Coq/Makefile.conf
+ARCHIVE/PF_Coq/Makefile.coq
+ARCHIVE/PF_Coq/Makefile.coq.conf
+PF_Coq_Code/Makefile
+PF_Coq_Code/Makefile.conf
+PF_Coq_Code/Makefile.conf.conf
+PF_Coq_Code/Makefile.coq
+PF_Coq_Code/Makefile.coq.conf
 
 # --- LaTeX (build byproducts) ---
 # (note: .aux is also covered by Coq pattern above, intentional overlap)
@@ -78,3 +87,14 @@ Thumbs.db
 tmp_pf_verify/
 verify_*.py
 /tmp_*/
+
+# --- FRAMEWORK_APPLICATION local data (not for git; reproduce from raw download script) ---
+FRAMEWORK_APPLICATION/Real_EEG_validation/raw_data/
+FRAMEWORK_APPLICATION/Real_EEG_validation/venv/
+FRAMEWORK_APPLICATION/Real_EEG_validation/results/
+
+# --- LaTeX additional auxiliary patterns (catch-all for paper directories) ---
+Papers/*.aux
+Papers/*.log
+Papers/*.out
+Papers/*.toc

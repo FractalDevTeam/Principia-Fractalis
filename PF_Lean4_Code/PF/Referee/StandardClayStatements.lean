@@ -1,38 +1,17 @@
 /-
 # PF.Referee.StandardClayStatements
 
-**Date**: 2026-06-02
-**Status**: standard-object contracts. **No `Prop := True` placeholders.**
-**Anchor commit**: ee51039 (Wave 57 master capstone).
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-section "The Twelfth Object" + Non-Negotiable Rule #1.
+Typed standard contracts for each Clay axis. **No `Prop := True`.**
 
-## Purpose
+Where mathlib provides the standard object (RH via `riemannZeta`), the
+contract is fully wired. Where it does not (P vs NP, NS, YM, BSD,
+Hodge), the contract is parameterised over an external encoding the
+framework user must supply, separating *what the Clay statement says*
+from *what mathlib currently formalises*. Discharging an axis requires
+both supplying the encoding and proving the typed statement.
 
-Referee Rule #1 (2026-06-02 roadmap):
-
-> No `def SomeClaim : Prop := True` may sit on a Clay-level proof path
-> unless it is explicitly tagged as a provenness tag and excluded from
-> claim content.
-
-The pre-existing `PF.MillenniumReductionSoundness` defines
-`ClayExternalStatement c := True` for every Clay axis. That is a
-provenness tag, **not** the standard Clay contract. This module supplies
-the **standard contracts** in their typed form.
-
-## Wiring policy
-
-* Where mathlib supplies the standard object (RiemannZeta), the
-  contract is **fully wired** to mathlib.
-* Where mathlib does NOT supply the standard object (P vs NP,
-  Navier-Stokes, Yang-Mills, BSD, Hodge), the contract is parameterized
-  over an **external encoding** the framework user must supply. The
-  contract is not `:= True`; it is a structural statement about that
-  encoding.
-
-This separates *what the Clay statement says* from *what mathlib
-currently formalises*. Discharging a Clay axis requires (a) supplying
-the standard encoding and (b) proving the typed statement.
+Source roadmap: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
+("The Twelfth Object" + Non-Negotiable Rule #1).
 -/
 
 import Mathlib.NumberTheory.LSeries.RiemannZeta
@@ -40,21 +19,15 @@ import PF.SpectralBijection
 
 namespace PF.Referee.StandardClayStatements
 
-/-! ## RH — standard contract, wired to PF's critical-strip formulation
+/-! ## §1 — RH (fully wired to mathlib's `riemannZeta`)
 
-  PF/SpectralBijection.lean defines `PrincipiaTractalis.RiemannHypothesis`
-  in the standard critical-strip form:
-
-      `∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 → s.re = 1/2`
-
-  This is the Clay-standard critical-strip statement, fully wired to
-  mathlib's `riemannZeta`. (Mathlib also exposes a `RiemannHypothesis`
-  predicate but in a different, classically-equivalent form excluding
-  trivial zeros and `s = 1` rather than restricting to the strip.) We
-  adopt the PF-local form because the existing PF capstone
-  `riemann_hypothesis_via_T3_sym_framework` concludes exactly this
-  proposition, so the typed standard contract here matches the
-  capstone's conclusion on the nose. -/
+  Clay-standard critical-strip form:
+  `∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 → s.re = 1/2`.
+  Defined as `PrincipiaTractalis.RiemannHypothesis` from
+  `PF/SpectralBijection.lean` so the typed contract matches the
+  conclusion of `riemann_hypothesis_via_T3_sym_framework` on the nose.
+  (Mathlib's own `RiemannHypothesis` predicate uses a different,
+  classically-equivalent excluded-zeros form.) -/
 
 /-- **Clay Riemann Hypothesis (standard form).** Defined to be
     `PrincipiaTractalis.RiemannHypothesis`, the standard critical-strip
@@ -63,11 +36,7 @@ namespace PF.Referee.StandardClayStatements
 def Clay_RiemannHypothesis_Standard : Prop :=
   PrincipiaTractalis.RiemannHypothesis
 
-/-! ## P vs NP — standard contract via an external encoding
-
-  Mathlib does not currently formalise Turing-machine complexity classes.
-  We state the Clay contract over an **external encoding** the user
-  supplies. -/
+/-! ## §2 — P vs NP (parameterised; mathlib lacks TM complexity classes) -/
 
 /-- An external encoding of the standard complexity classes P and NP.
     A discharge of `Clay_PvsNP_Standard` requires the framework user
@@ -86,11 +55,7 @@ structure StandardComplexityEncoding where
 def Clay_PvsNP_Standard (E : StandardComplexityEncoding) : Prop :=
   ¬ Function.Surjective E.inclusion
 
-/-! ## Navier-Stokes — standard contract via an external encoding
-
-  Mathlib has some PDE infrastructure but does NOT have the Clay
-  Navier-Stokes formulation in Schwartz / `H^s` form. We state the
-  contract over a `StandardNS3DEncoding`. -/
+/-! ## §3 — Navier-Stokes (parameterised; mathlib lacks Schwartz/H^s NS) -/
 
 /-- An external encoding of the standard Clay 3D Navier-Stokes setting:
     velocity field type, initial-data type, smoothness predicate, and
@@ -108,11 +73,7 @@ structure StandardNS3DEncoding where
 def Clay_NavierStokes_Standard (E : StandardNS3DEncoding) : Prop :=
   ∀ u0 : E.InitialData, E.isSchwartzDivFree u0 → E.hasGlobalSmoothSolution u0
 
-/-! ## Yang-Mills mass gap — standard contract via an external encoding
-
-  Mathlib does not formalise the Wightman/Osterwalder-Schrader axioms,
-  the continuum SU(N) measure, or QFT on ℝ⁴. The contract is over a
-  `StandardYMEncoding`. -/
+/-! ## §4 — Yang-Mills mass gap (parameterised; mathlib lacks Wightman/OS) -/
 
 /-- An external encoding of the standard Clay Yang-Mills setting on
     ℝ⁴ for a compact simple gauge group. -/
@@ -132,12 +93,7 @@ structure StandardYMEncoding where
 def Clay_YangMillsMassGap_Standard (E : StandardYMEncoding) : Prop :=
   ∃ T : E.QYM, E.satisfiesClayAxioms T ∧ E.massGap T > 0
 
-/-! ## BSD — standard contract via an external encoding
-
-  Mathlib has `WeierstrassCurve ℚ` and partial L-series infrastructure
-  but does NOT yet have full elliptic-curve L-functions with analytic
-  continuation, modularity, or Mordell-Weil rank. The contract is over
-  a `StandardBSDEncoding`. -/
+/-! ## §5 — BSD (parameterised; mathlib lacks full EC L-functions / MW rank) -/
 
 /-- An external encoding of the standard Clay BSD setting. -/
 structure StandardBSDEncoding where
@@ -153,12 +109,7 @@ structure StandardBSDEncoding where
 def Clay_BSD_Standard (E : StandardBSDEncoding) : Prop :=
   ∀ Ec : E.EllipticCurve, E.analyticRank Ec = E.algebraicRank Ec
 
-/-! ## Hodge — standard contract via an external encoding
-
-  Mathlib does not yet have smooth projective complex varieties,
-  Chow groups, the cycle-class map, or the Hodge decomposition in
-  the form Clay requires. The contract is over a
-  `StandardHodgeEncoding`. -/
+/-! ## §6 — Hodge (parameterised; mathlib lacks Chow / cycle-class / Hodge decomp) -/
 
 /-- An external encoding of the standard Clay Hodge setting. -/
 structure StandardHodgeEncoding where
@@ -176,16 +127,11 @@ def Clay_Hodge_Standard (E : StandardHodgeEncoding) : Prop :=
   ∀ (X : E.SmoothProjectiveComplexVariety) (c : E.RationalHodgeClass X),
     E.isAlgebraic X c
 
-/-! ## Audit guarantees -/
+/-! ## §7 — Rule #1 compliance marker -/
 
-/-- **Rule #1 compliance check.** None of the seven Clay-statement
-    definitions in this file are `Prop := True`. They are either
-    fully-wired typed propositions (RH) or typed predicates over an
-    external encoding (the other five).
-
-    This `theorem` does not have mathematical content; it is a
-    structural marker that this file complies with the 2026-06-02
-    referee roadmap's Non-Negotiable Rule #1. -/
+/-- Provenness tag (ProvennessTag): structural marker that this file
+    has no `Prop := True` Clay-statement definitions (the six contracts
+    above are either fully wired or parameterised over an encoding). -/
 theorem rule1_compliance : True := trivial
 
 #check @Clay_RiemannHypothesis_Standard

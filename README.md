@@ -188,6 +188,46 @@ lean --run PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean
 
 ---
 
+## Repository Structure (Post-Cleanup, 2026-06-03)
+
+The repository is organized around a **three-layer verification stack** (Lean 4 source → external Lean meta-checker → Coq cross-prover) plus the manuscript, papers, evidence, and applications. Superseded content has been moved to [`ARCHIVE/`](ARCHIVE/) with full git history preserved.
+
+| Path | Role |
+|---|---|
+| [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | **The book.** Manuscript Version 1.2.0, Substrate-Level Meta-Theorem Edition. |
+| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **Layer 1 — canonical Lean 4 source.** 4036 jobs clean, zero project axioms; 92 axiom-free attack landings. |
+| [`PF_Lean4Lean/`](PF_Lean4Lean/) | **Layer 2 — meta-level external kernel re-verification.** L4L source files for `rfl`-based agreement proofs between canonical Lean 4 expressions and an independent type-checker. See [`PF_Lean4Lean/README.md`](PF_Lean4Lean/README.md) for current status (gated on a documented refactor). |
+| [`PF_Coq_Code/`](PF_Coq_Code/) | **Layer 3 — independent cross-prover parity.** 18 Wave 58 Coq files mirroring the Lean substrate theorem and load-bearing capstones. |
+| [`Papers/`](Papers/) | **Papers.** `paper_A_framework`, `paper_B_formal_verification`, `paper_C_empirical_quantum_signatures`, plus `principia_fractalis_arxiv_preprint_v1`. See [`Papers/README.md`](Papers/README.md). |
+| [`Evidence_and_Data_for_GitHub/`](Evidence_and_Data_for_GitHub/) | **Empirical evidence.** IBM Quantum verification data, Hodge / Riemann numerical evidence, Master Documentation, Academic Impact Analytics, Python analysis scripts, scaling-convergence analysis. The supporting empirical record for the framework's predictions. |
+| [`FRAMEWORK_APPLICATION/`](FRAMEWORK_APPLICATION/) | **Applications.** EEG validation scaffolding, clinical-route artifacts, and other downstream applications of the framework. |
+| [`ARCHIVE/`](ARCHIVE/) | **Historical reference only.** Superseded manuscript revisions, prior-cycle audit documents, session inventories, and one-time tooling. Nothing here participates in the active build. See [`ARCHIVE/README.md`](ARCHIVE/README.md). |
+| [`tools/`](tools/) | Project tooling, including the axiom audit script (`tools/audit.sh`). |
+| [`docs/`](docs/) | Auxiliary documentation. |
+| [`experimental/`](experimental/) | Active investigative scratch (attack drafts, exploratory substrates). Not in the canonical build. |
+
+### Verification flow (referee-relevant)
+
+```
+PF_Lean4_Code/  (Layer 1: source)
+       |
+       v
+Lean 4 kernel   (type-checks Layer 1; produces .olean)
+       |
+       v
+PF_Lean4Lean/   (Layer 2: external re-verification; quarantined pending refactor)
+       |
+       v
+PF_Coq_Code/    (Layer 3: independent prover; 18 Wave 58 mirrors)
+```
+
+Layer 1 is the load-bearing claim: 4036 jobs clean, zero project axioms,
+flagship theorem depends only on Lean's three foundational axioms
+(`propext`, `Classical.choice`, `Quot.sound`). Layers 2 and 3 are
+independent confirmation paths.
+
+---
+
 ## Citation
 
 ```bibtex
