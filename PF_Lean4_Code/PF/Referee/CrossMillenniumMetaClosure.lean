@@ -495,6 +495,7 @@ Bundle everything into ONE single-citation theorem expressing the
 framework's substrate-level six-axis closure with full α-rigidity
 coupling. -/
 
+set_option linter.dupNamespace false in
 /-- **★★★ Substrate-level six-axis closure object ★★★** —
     composes Perelman calibration + the 11 cross-Millennium algebraic
     invariants + the six per-axis substrate-level closure attempts +
