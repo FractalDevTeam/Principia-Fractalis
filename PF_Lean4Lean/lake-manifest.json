@@ -16,7 +16,7 @@
    "name": "PF",
    "manifestFile": "lake-manifest.json",
    "inherited": false,
-   "dir": "../PF_canonical/2_LEAN_SOURCE_CODE",
+   "dir": "../PF_Lean4_Code",
    "configFile": "lakefile.toml"},
   {"url": "https://github.com/leanprover-community/plausible",
    "type": "git",

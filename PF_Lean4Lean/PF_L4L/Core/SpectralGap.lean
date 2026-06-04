@@ -35,4 +35,7 @@ noncomputable def spectralGapSpecPF : SpectralGapSpec :=
 @[simp] theorem spectralGapSpecPF_lambda0NP :
     spectralGapSpecPF.lambda0NP = lambda_0_NP := rfl
 
+-- Build-time L4L re-verification audit hook.
+#print axioms spectralGapSpecPF
+
 end PF_L4L.Core
