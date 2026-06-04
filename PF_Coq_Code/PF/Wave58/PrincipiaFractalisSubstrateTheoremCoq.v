@@ -82,10 +82,6 @@
   - `Stdlib.Lia`, `Stdlib.Lra` (linear arithmetic on nat/Z and reals)
   - Coquelicot 3.4.4 environment is shared with other Wave 58 ports
     but not required at the proof level for this file.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia Lra.
@@ -97,10 +93,7 @@ Open Scope R_scope.
     `PF.Referee.PrincipiaFractalisSubstrateTheorem`. *)
 Module PrincipiaFractalisSubstrateTheorem.
 
-(* ============================================================ *)
-(* Section 1: Substrate antecedents                              *)
-(*            (5 typed-Prop fields)                              *)
-(* ============================================================ *)
+(** ## §1 — Substrate antecedents (5 typed-Prop fields) *)
 
 (** **`PFSubstrateAntecedents`** — the five substrate-level
     postulates the entire framework rests on, mirroring the Lean
@@ -154,10 +147,7 @@ Proof.
   - exact I.
 Qed.
 
-(* ============================================================ *)
-(* Section 2: Substrate consequences                             *)
-(*            (25 typed-Prop fields organised by category)       *)
-(* ============================================================ *)
+(** ## §2 — Substrate consequences (25 typed-Prop fields organised by category) *)
 
 (** **`PFSubstrateConsequences`** — every major framework claim
     bundled into one Prop, mirroring the Lean
@@ -331,9 +321,7 @@ Proof.
   - exact I.  (* sevenMillenniumUnification *)
 Qed.
 
-(* ============================================================ *)
-(* Section 3: THE META-THEOREM (implication form)                *)
-(* ============================================================ *)
+(** ## §3 — THE META-THEOREM (implication form) *)
 
 (** **★★★ THE PRINCIPIA FRACTALIS SUBSTRATE THEOREM ★★★** —
     the framework's flagship single-citation claim.
@@ -365,9 +353,7 @@ Proof.
   exact pf_substrate_consequences_realised.
 Qed.
 
-(* ============================================================ *)
-(* Section 4: Unconditional companion                            *)
-(* ============================================================ *)
+(** ## §4 — Unconditional companion *)
 
 (** **★★★ THE SUBSTRATE CONSEQUENCES HOLD UNCONDITIONALLY ★★★**
 
@@ -386,9 +372,7 @@ Proof.
            pf_substrate_antecedents_realised).
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Honest-scope marker                                *)
-(* ============================================================ *)
+(** ## §5 — Honest-scope marker *)
 
 (** **Honest-scope record for the meta-theorem.** Four typed-Prop
     fields, each a PROVENNESS TAG documenting precisely what the
@@ -443,9 +427,7 @@ Proof.
   - exact I.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Capstone Record                                    *)
-(* ============================================================ *)
+(** ## §6 — Capstone Record *)
 
 (** **★ THE PRINCIPIA FRACTALIS SUBSTRATE CAPSTONE ★** — the
     framework's flagship single-citation bundle.
@@ -498,9 +480,7 @@ Proof.
   - exact principia_fractalis_substrate_theorem_honest_scope.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Coq-parity-only honest-scope marker                *)
-(* ============================================================ *)
+(** ## §7 — Coq-parity-only honest-scope marker *)
 
 (** **Coq-parity-only honest-scope marker.** This Coq module is
     a STRUCTURAL MIRROR of the Lean meta-theorem. It is NOT a
@@ -515,9 +495,7 @@ Proof. exact I. Qed.
 
 End PrincipiaFractalisSubstrateTheorem.
 
-(* ============================================================ *)
-(* Section 8: File-level honest scope commentary                 *)
-(* ============================================================ *)
+(** ## §8 — File-level honest scope commentary *)
 
 (*
   1. The five substrate antecedents (`PFSubstrateAntecedents`) are

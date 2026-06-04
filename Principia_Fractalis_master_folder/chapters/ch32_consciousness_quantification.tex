@@ -186,7 +186,7 @@ A clinically viable consciousness measurement must satisfy:
 
 \subsection{Preprocessing}
 
-\begin{algorithm}[Preprocessing Steps]\label{alg:preprocess}
+\begin{algorithm}[H]\caption{Preprocessing Steps}\label{alg:preprocess}
 \textbf{Input}: Raw EEG data (M channels, T samples)
 
 \textbf{Step 1: Re-reference}
@@ -233,7 +233,7 @@ EEG_final = ica.inverse_transform(sources.T).T
 
 \subsection{Frequency Band Decomposition}
 
-\begin{algorithm}[Bandpass Filtering]\label{alg:bands}
+\begin{algorithm}[H]\caption{Bandpass Filtering}\label{alg:bands}
 For each frequency band $b \in \{\delta, \theta, \alpha, \beta, \gamma\}$:
 
 \begin{lstlisting}[language=Python]
@@ -262,7 +262,7 @@ for name, signal in EEG_bands.items():
 
 \subsection{ch$_2$ Computation}
 
-\begin{algorithm}[Clinical ch$_2$ Calculation]\label{alg:ch2}
+\begin{algorithm}[H]\caption{Clinical ch$_2$ Calculation}\label{alg:ch2}
 \textbf{Step 1: Discretize power to integers}
 \begin{lstlisting}[language=Python]
 def digitize_power(power):

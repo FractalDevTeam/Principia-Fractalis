@@ -118,11 +118,8 @@ This is the second specific-curve rank-1 cascade in the framework
 same cited-literature reduction stack; the difference is the
 explicit curve and the explicit rational points.
 
-## Build
+## Dependencies
 
-ZERO project axioms. ZERO sorries. Pure typed construction.
-
-Depends on:
   * `PF.BSD_RankWitnessTypedUpgrade` — typed `RankCertificateTyped`,
     `RankWitnessTyped`, `LValueAtSEqualsOneVanishesAtOrder`,
     `SelmerRankEquals`.

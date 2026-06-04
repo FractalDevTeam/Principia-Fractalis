@@ -72,12 +72,6 @@ Schmidt-finite-dim track from a True-tag to TYPED CONTENT by:
     `Ch2PhiBridgeContinuousSchmidt` Prop in the discharge file and is
     **unchanged**.
 
-## Build
-
-`lake build PF`. Zero project axioms.
-
-Author: Pablo Cohen (formalization, Wave 58-Ch02 Schmidt typed lift)
-Date: 2026-06-03
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Exp

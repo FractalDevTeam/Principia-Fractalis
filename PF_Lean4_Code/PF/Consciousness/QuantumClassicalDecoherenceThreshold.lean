@@ -67,9 +67,6 @@ at which the quantum-to-classical transition (decoherence) occurs:
     middle). The framework's stronger empirical claim that all 143
     problems share `ch_2 = 19/20` exactly is NOT formalised here.
 
-ZERO project axioms. ZERO sorries.
-
-Author: Wave 58 (Quantum-to-classical decoherence threshold), 2026-06-03.
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Log.Basic

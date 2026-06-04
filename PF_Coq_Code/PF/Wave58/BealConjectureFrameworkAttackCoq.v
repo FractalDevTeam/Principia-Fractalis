@@ -84,10 +84,6 @@
 
   - `Stdlib.Arith`, `Stdlib.Nat`, `Lia` (nat arithmetic)
   - `Stdlib.Reals.Reals`, `Lra` (real-arithmetic alpha cascade)
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -101,9 +97,7 @@ Open Scope nat_scope.
     `PF.NumberTheory.BealConjectureFrameworkAttack`. *)
 Module BealConjectureFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 1: Boolean-decidable primality                        *)
-(* ============================================================ *)
+(** ## §1 — Boolean-decidable primality *)
 
 Fixpoint no_div_aux (n k : nat) : bool :=
   match k with
@@ -125,9 +119,7 @@ Definition is_prime (n : nat) : Prop := primeb n = true.
 Definition divides (p n : nat) : Prop :=
   0 < p /\ Nat.modulo n p = 0.
 
-(* ============================================================ *)
-(* Section 2: Literal Beal statement                             *)
-(* ============================================================ *)
+(** ## §2 — Literal Beal statement *)
 
 (** Beal Conjecture (literal form). For positive A, B, C and
     exponents x, y, z >= 3, if A^x + B^y = C^z, then A, B, C share
@@ -139,9 +131,7 @@ Definition BealConjecture : Prop :=
     Nat.pow A x + Nat.pow B y = Nat.pow C z ->
     exists p : nat, is_prime p /\ divides p A /\ divides p B /\ divides p C.
 
-(* ============================================================ *)
-(* Section 3: Wiles 1995 Fermat's Last Theorem (typed)           *)
-(* ============================================================ *)
+(** ## §3 — Wiles 1995 Fermat's Last Theorem (typed) *)
 
 (** Fermat's Last Theorem (Wiles 1995, Taylor-Wiles 1995).
     No positive integer solutions to A^n + B^n = C^n for n >= 3.
@@ -164,9 +154,7 @@ Definition Mihailescu2002Catalan : Prop :=
     Nat.pow x a = Nat.pow y b + 1 ->
     x = 3 /\ y = 2 /\ a = 2 /\ b = 3.
 
-(* ============================================================ *)
-(* Section 4: Five concrete Beal-compatible examples             *)
-(* ============================================================ *)
+(** ## §4 — Five concrete Beal-compatible examples *)
 
 (** Each example exhibits positive A, B, C and exponents x, y, z >= 3
     with A^x + B^y = C^z AND a common prime factor of A, B, C.
@@ -261,9 +249,7 @@ Proof.
   - exact beal_compatible_example_5.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Counterexample-search verification bound           *)
-(* ============================================================ *)
+(** ## §5 — Counterexample-search verification bound *)
 
 (** Beal verified up to bound `M`. Every triple A, B, C <= M with
     exponents x, y, z <= M and A^x + B^y = C^z admits a common
@@ -305,9 +291,7 @@ Proof.
   - exact heq.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Framework alpha-skeleton bridge                    *)
-(* ============================================================ *)
+(** ## §6 — Framework alpha-skeleton bridge *)
 
 Open Scope R_scope.
 
@@ -346,9 +330,7 @@ Proof. unfold alpha_Beal, alpha_Poincare, alpha_RH. lra. Qed.
 
 Close Scope R_scope.
 
-(* ============================================================ *)
-(* Section 7: Wiles-cascade composition                          *)
-(* ============================================================ *)
+(** ## §7 — Wiles-cascade composition *)
 
 (** Beal-modularity hypothesis (named open Prop). The modular-
     forms content needed to extend Wiles 1995 modularity from
@@ -437,9 +419,7 @@ Proof.
   discriminate.
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Named open Prop isolating the obstruction          *)
-(* ============================================================ *)
+(** ## §8 — Named open Prop isolating the obstruction *)
 
 (** Mathlib/Coq-level OPEN: Beal-modularity hypothesis. Alias. *)
 Definition MathlibBealHypothesis : Prop := BealModularityHypothesis.
@@ -448,9 +428,7 @@ Theorem MathlibBealHypothesis_iff_BealModularityHypothesis :
   MathlibBealHypothesis <-> BealModularityHypothesis.
 Proof. unfold MathlibBealHypothesis. tauto. Qed.
 
-(* ============================================================ *)
-(* Section 9: Honest scope marker                                *)
-(* ============================================================ *)
+(** ## §9 — Honest scope marker *)
 
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
@@ -462,9 +440,7 @@ Theorem honest_scope_marker :
   honest_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 10: Capstone Record                                   *)
-(* ============================================================ *)
+(** ## §10 — Capstone Record *)
 
 (** Beal framework-attack bundle. Aggregates:
     - 5 concrete Beal-compatible examples;
@@ -560,9 +536,7 @@ Definition beal_framework_attack_capstone : BealFrameworkAttack :=
 
 End BealConjectureFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 11: File-level honest-scope commentary                *)
-(* ============================================================ *)
+(** ## §11 — File-level honest-scope commentary *)
 
 (*
   1. Five concrete Beal-compatible triples (small-witness

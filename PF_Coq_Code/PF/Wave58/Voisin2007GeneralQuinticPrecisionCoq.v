@@ -79,10 +79,6 @@
   - Coquelicot is NOT required for this file at the proof level;
     only the build environment (Rocq 9.1 + Coquelicot 3.4.4) is
     shared with the other Wave 58 Coq ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Reals.
@@ -96,9 +92,7 @@ Module Voisin2007GeneralQuinticPrecision.
 
 Open Scope R_scope.
 
-(* ============================================================ *)
-(* Section 1: QuinticModuliLocus inductive (5 tags)              *)
-(* ============================================================ *)
+(** ## §1 — QuinticModuliLocus inductive (5 tags) *)
 
 (** **Moduli locus tag** — names the sub-locus of the moduli space
     of smooth quintic threefolds in P^4 that a given instance
@@ -129,9 +123,7 @@ Inductive QuinticModuliLocus : Type :=
   | family121
   | genericNonCM.
 
-(* ============================================================ *)
-(* Section 2: GeneralSmoothQuintic record                        *)
-(* ============================================================ *)
+(** ## §2 — GeneralSmoothQuintic record *)
 
 (** **General smooth quintic threefold in P^4** — structural carrier
     parameterising a smooth quintic CY3 by:
@@ -150,9 +142,7 @@ Record GeneralSmoothQuintic : Type := mkQuintic {
   equationLabel : nat
 }.
 
-(* ============================================================ *)
-(* Section 3: Five concrete instances                            *)
-(* ============================================================ *)
+(** ## §3 — Five concrete instances *)
 
 (** **The Fermat quintic at lam = 0** (Dwork pencil base point) as a
     `GeneralSmoothQuintic`. *)
@@ -190,9 +180,7 @@ Definition quintic121 : GeneralSmoothQuintic :=
    ; equationLabel := 4  (* "Quintic121_Schoen_Werner_singular_family" *)
   |}.
 
-(* ============================================================ *)
-(* Section 4: Voisin 2007 obstruction (typed Prop)               *)
-(* ============================================================ *)
+(** ## §4 — Voisin 2007 obstruction (typed Prop) *)
 
 (** **★ Voisin 2007 general codim-2 non-algebraicity (typed Prop) ★** —
     type-level encoding of the actual open content isolated by
@@ -216,9 +204,7 @@ Definition Voisin2007GeneralCodimTwoNonAlgebraic
     (X : GeneralSmoothQuintic) : Prop :=
   X.(moduliTag) = genericNonCM -> True.
 
-(* ============================================================ *)
-(* Section 5: VoisinAlgebraicSublocus characterization           *)
-(* ============================================================ *)
+(** ## §5 — VoisinAlgebraicSublocus characterization *)
 
 (** **Predicate: a moduli locus is in the Voisin-algebraic sublocus**.
 
@@ -234,9 +220,7 @@ Definition InVoisinAlgebraicSublocus (X : GeneralSmoothQuintic) : Prop :=
   | genericNonCM  => False
   end.
 
-(* ============================================================ *)
-(* Section 6: Five typed locus theorems                          *)
-(* ============================================================ *)
+(** ## §6 — Five typed locus theorems *)
 
 (** **(i) Fermat quintic (Dwork pencil at lam = 0) is in the
     Voisin-algebraic sublocus.** Picard rank 1 + hard Lefschetz. *)
@@ -274,9 +258,7 @@ Proof.
   simpl. intro h. exact h.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Discriminator theorem                              *)
-(* ============================================================ *)
+(** ## §7 — Discriminator theorem *)
 
 (** **★ Discriminator: general quintic outside the algebraic
     sublocus ★** — there EXISTS a `GeneralSmoothQuintic` whose
@@ -289,9 +271,7 @@ Proof.
   exact genericNonCMQuintic_outside_sublocus.
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Clay-gap isolation theorem (the load-bearing iff)  *)
-(* ============================================================ *)
+(** ## §8 — Clay-gap isolation theorem (the load-bearing iff) *)
 
 (** **★ HODGE CLAY GAP ISOLATED TO VOISIN 2007 ★** — the EXACT
     Clay-acceptance gap is the existence of a `GeneralSmoothQuintic`
@@ -326,9 +306,7 @@ Proof.
     exact (genericNonCMQuintic_outside_sublocus hUniv).
 Qed.
 
-(* ============================================================ *)
-(* Section 9: Honest scope marker                                *)
-(* ============================================================ *)
+(** ## §9 — Honest scope marker *)
 
 (** Honest-scope marker. This file is a structural Coq parity mirror
     of the Lean Wave 58-Hodge-Precision attack, NOT a discharge of
@@ -339,9 +317,7 @@ Theorem honest_scope_marker :
   honest_scope_voisin_precision_not_clay_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 10: Capstone Record                                   *)
-(* ============================================================ *)
+(** ## §10 — Capstone Record *)
 
 (** Voisin 2007 general-quintic precision capstone bundle.
     Aggregates:
@@ -401,9 +377,7 @@ Close Scope R_scope.
 
 End Voisin2007GeneralQuinticPrecision.
 
-(* ============================================================ *)
-(* Section 11: Honest scope (file-level commentary)              *)
-(* ============================================================ *)
+(** ## §11 — Honest scope (file-level commentary) *)
 
 (*
   1. `QuinticModuliLocus` inductive with five constructors mirroring

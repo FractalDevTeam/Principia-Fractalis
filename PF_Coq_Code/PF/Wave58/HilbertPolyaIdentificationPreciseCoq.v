@@ -76,13 +76,6 @@
 
   - `Stdlib.Reals.Reals` (real arithmetic placeholder)
   - `Stdlib.Arith.*`, `Stdlib.Nat.*`, `Lia` (for finite-N partial)
-  - Coquelicot is NOT required at the proof level for this file;
-    only the build environment (Rocq 9.1 + Coquelicot 3.4.4) is
-    shared with the existing Wave 58 Coq ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -94,10 +87,7 @@ Open Scope R_scope.
     `PrincipiaTractalis.HilbertPolyaIdentificationPrecise`. *)
 Module HilbertPolyaIdentificationPrecise.
 
-(* ============================================================ *)
-(* Section 1: Four published Hilbert-Polya formulations          *)
-(*            as typed Props                                     *)
-(* ============================================================ *)
+(** ## §1 — Four published Hilbert-Polya formulations as typed Props *)
 
 (** **`BerryKeatingHamiltonianHypothesis`** — Berry & Keating 1999.
 
@@ -164,9 +154,7 @@ Definition BostConnesKMSPhaseTransition : Prop := True.
     Hilbert-Pólya residual sitting between SCPO and RH. *)
 Definition PF_T3SymIsHilbertPolyaOperator : Prop := True.
 
-(* ============================================================ *)
-(* Section 2: Conjectural equivalence of the four formulations  *)
-(* ============================================================ *)
+(** ## §2 — Conjectural equivalence of the four formulations *)
 
 (** **`hilbert_polya_formulations_equivalent`** — the four typed
     Hilbert-Pólya Props are literally equivalent at this granularity.
@@ -190,9 +178,7 @@ Proof.
   repeat split; intros; exact I.
 Qed.
 
-(* ============================================================ *)
-(* Section 3: RH literal + StripCompletePositiveOracleExists    *)
-(* ============================================================ *)
+(** ## §3 — RH literal + StripCompletePositiveOracleExists *)
 
 (** **`RiemannHypothesis`** — the Clay-statement typed Prop
     (Coq-side mirror of `PrincipiaTractalis.RiemannHypothesis`
@@ -210,9 +196,7 @@ Definition RiemannHypothesis : Prop := True.
     Encoded as a typed-Prop stub at the Coq mirror granularity. *)
 Definition StripCompletePositiveOracleExists : Prop := True.
 
-(* ============================================================ *)
-(* Section 4: Hilbert-Polya program conjecture                  *)
-(* ============================================================ *)
+(** ## §4 — Hilbert-Polya program conjecture *)
 
 (** **`HilbertPolyaProgramConjecture`** — the PUBLISHED content of
     the Hilbert-Pólya conjecture: if a Hilbert-Pólya operator
@@ -224,9 +208,7 @@ Definition StripCompletePositiveOracleExists : Prop := True.
 Definition HilbertPolyaProgramConjecture : Prop :=
   PF_T3SymIsHilbertPolyaOperator -> RiemannHypothesis.
 
-(* ============================================================ *)
-(* Section 5: Bridge theorems (typed contracts)                 *)
-(* ============================================================ *)
+(** ## §5 — Bridge theorems (typed contracts) *)
 
 (** **★ Bridge: HP implies canonical SCPO ★** — Clay-precision
     structural contract.
@@ -256,9 +238,7 @@ Theorem hilbert_polya_implies_RH :
   PF_T3SymIsHilbertPolyaOperator -> RiemannHypothesis.
 Proof. intro _h. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 6: Finite-N partial Berry-Keating + reverse partial  *)
-(* ============================================================ *)
+(** ## §6 — Finite-N partial Berry-Keating + reverse partial *)
 
 (** **Partial Berry-Keating hypothesis at finite N** — the
     existential structural shadow of BK at prefix N.
@@ -287,9 +267,7 @@ Theorem canonical_SCPO_implies_hilbert_polya_partial :
   forall N : nat, BerryKeatingHamiltonianHypothesis_partial N.
 Proof. intros _h N. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 7: Composed Clay-precision content                   *)
-(* ============================================================ *)
+(** ## §7 — Composed Clay-precision content *)
 
 (** **★ Clay-precision composed bridge ★** — HP + HP-program
     discharge the canonical SCPO.
@@ -318,9 +296,7 @@ Proof.
   exact (h_prog h_HP).
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Honest scope marker                               *)
-(* ============================================================ *)
+(** ## §8 — Honest scope marker *)
 
 (** **Honest-scope record** — four-clause typed predicate
     documenting the file's contribution and limits.
@@ -371,9 +347,7 @@ Theorem honest_scope_marker :
   honest_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 9: Capstone Record                                   *)
-(* ============================================================ *)
+(** ## §9 — Capstone Record *)
 
 (** **★ Bundled Hilbert-Pólya identification precise capstone ★**
 
@@ -450,9 +424,7 @@ Qed.
 
 End HilbertPolyaIdentificationPrecise.
 
-(* ============================================================ *)
-(* Section 10: File-level honest scope commentary               *)
-(* ============================================================ *)
+(** ## §10 — File-level honest scope commentary *)
 
 (*
   1. The four published Hilbert-Pólya formulations

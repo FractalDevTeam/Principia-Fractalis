@@ -149,11 +149,8 @@ sequence).
     named open Prop, and at finite-dim N = 30 the spectral match is
     axiom-free explicit.
 
-## Build
+## Dependencies
 
-ZERO project axioms. ZERO sorries.
-
-Depends on:
   * `PF.Analytic.OnLineSurjectivityCascadeK20ToK29` —
     `eigenvalues_Odlyzko30`, `odlyzko30_oracle`,
     `odlyzko30_oracle_positive_on_prefix`,
@@ -178,9 +175,6 @@ Depends on:
   * `Mathlib.Data.Matrix.Basic` — `Matrix`, `Matrix.diagonal`,
     `Matrix.IsSymm`.
   * `Mathlib.LinearAlgebra.Matrix.Symmetric` — symmetric matrix theory.
-
-Author: Claude Opus 4.7. 2026-06-03. Wave 58 follow-up #8
-(RH proof attempt — explicit Mayer T3sym at N = 30).
 -/
 
 import PF.Analytic.OnLineSurjectivityCascadeK20ToK29

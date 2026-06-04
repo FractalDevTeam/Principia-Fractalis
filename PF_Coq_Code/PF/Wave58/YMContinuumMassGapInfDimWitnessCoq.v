@@ -66,10 +66,6 @@
   - Coquelicot is NOT required at the proof level for this file;
     only the build environment (Rocq 9.1 + Coquelicot 3.4.4) is
     shared with the existing Wave 58 ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -83,9 +79,7 @@ Open Scope R_scope.
     `PrincipiaTractalis.YM_ContinuumMassGapInfDimWitness`. *)
 Module YMContinuumMassGapInfDimWitness.
 
-(* ============================================================ *)
-(* Section 1: Sequence-based L2 carrier                          *)
-(* ============================================================ *)
+(** ## §1 — Sequence-based L2 carrier *)
 
 (** **Sequence-based L2 model.** Coq has no direct `lp 2 R`; we
     model the infinite-dim carrier via `nat -> R`. The genuine
@@ -100,9 +94,7 @@ Definition l2Norm (_v : L2Sequence) : R := 1.
     `l2Norm = 1`. *)
 Definition isUnitVector (v : L2Sequence) : Prop := l2Norm v = 1.
 
-(* ============================================================ *)
-(* Section 2: Concrete diagonal Hamiltonian (3/2)*id             *)
-(* ============================================================ *)
+(** ## §2 — Concrete diagonal Hamiltonian (3/2)*id *)
 
 (** **Concrete infinite-dim Hamiltonian** on `L2Sequence` —
     diagonal scalar multiplication by `3/2`.
@@ -120,9 +112,7 @@ Proof.
   intros v n. unfold H_infDim. reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 3: Concrete eigenvector                               *)
-(* ============================================================ *)
+(** ## §3 — Concrete eigenvector *)
 
 (** **The concrete unit vector** on `L2Sequence` — single-
     coordinate `1` at index `0`, zero elsewhere. *)
@@ -180,9 +170,7 @@ Proof.
   apply H_infDim_eigenvalue_three_halves.
 Qed.
 
-(* ============================================================ *)
-(* Section 4: Mass-gap typed predicate                            *)
-(* ============================================================ *)
+(** ## §4 — Mass-gap typed predicate *)
 
 (** **Continuum mass-gap inf-dim typed predicate** — existence of
     an infinite-dim carrier `H`, a Hamiltonian `Hamil : H -> H`,
@@ -211,9 +199,7 @@ Proof.
   - exists (H_infDim concreteUnitVectorInf). reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Spectrum-set predicate                              *)
-(* ============================================================ *)
+(** ## §5 — Spectrum-set predicate *)
 
 (** **Structural spectrum-set** of `H_infDim`: the set of real
     `lambda` for which there exists a nonzero `v` (i.e.
@@ -236,9 +222,7 @@ Proof.
   - intro n. apply H_infDim_eigenvalue_three_halves.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Discriminator vs Wave 55C 2x2 finite-dim            *)
-(* ============================================================ *)
+(** ## §6 — Discriminator vs Wave 55C 2x2 finite-dim *)
 
 (** **Discriminator** — the inf-dim sequence carrier admits a unit
     vector at EVERY index `n`, evidence of strictly richer
@@ -312,9 +296,7 @@ Proof.
   intro M. exists 0. intros _Hne. exact I.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Cascade to Wave 57 / 56 (named typed Props)        *)
-(* ============================================================ *)
+(** ## §7 — Cascade to Wave 57 / 56 (named typed Props) *)
 
 (** **Wave 57 typed (G4) `MassGapPropagationTypedStatement`** —
     Coq-side named typed Prop matching the Lean shape
@@ -376,9 +358,7 @@ Proof.
   exact ym_continuum_mass_gap_three_halves.
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Honest scope marker                                *)
-(* ============================================================ *)
+(** ## §8 — Honest scope marker *)
 
 (** **Honest-scope marker** — the Coq inf-dim sequence-model
     witness is NOT a Clay YM discharge.
@@ -436,9 +416,7 @@ Theorem honest_scope_marker :
   honest_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 9: Capstone Record                                    *)
-(* ============================================================ *)
+(** ## §9 — Capstone Record *)
 
 (** **★ Bundled YM continuum mass-gap inf-dim witness ★**
 
@@ -509,9 +487,7 @@ Qed.
 
 End YMContinuumMassGapInfDimWitness.
 
-(* ============================================================ *)
-(* Section 10: File-level honest scope commentary               *)
-(* ============================================================ *)
+(** ## §10 — File-level honest scope commentary *)
 
 (*
   1. Sequence-based L2 model `L2Sequence := nat -> R` is the Coq

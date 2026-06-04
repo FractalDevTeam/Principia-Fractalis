@@ -73,10 +73,6 @@
   - `Stdlib.Arith`, `Stdlib.Nat`, `Lia` (nat arithmetic, omega-style
     bounds)
   - `Stdlib.Reals.Reals`, `Lra` (real-arithmetic alpha bracket)
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -89,9 +85,7 @@ Open Scope nat_scope.
     `PF.NumberTheory.CollatzConjectureFrameworkAttack`. *)
 Module CollatzConjectureFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 1: Literal Collatz map                                *)
-(* ============================================================ *)
+(** ## §1 — Literal Collatz map *)
 
 (** Collatz step. `T(n) = n/2` if `n` even, `3n+1` if `n` odd. *)
 Definition collatzStep (n : nat) : nat :=
@@ -109,9 +103,7 @@ Proof. reflexivity. Qed.
 Theorem collatzStep_four : collatzStep 4 = 2.
 Proof. reflexivity. Qed.
 
-(* ============================================================ *)
-(* Section 2: Iterated Collatz                                   *)
-(* ============================================================ *)
+(** ## §2 — Iterated Collatz *)
 
 (** Iterated Collatz. `collatzIter k n` applies `collatzStep` k
     times starting from `n`. *)
@@ -128,9 +120,7 @@ Theorem collatzIter_succ (k n : nat) :
   collatzIter (S k) n = collatzStep (collatzIter k n).
 Proof. reflexivity. Qed.
 
-(* ============================================================ *)
-(* Section 3: Five concrete reaches-1 witnesses (axiom-free)     *)
-(* ============================================================ *)
+(** ## §3 — Five concrete reaches-1 witnesses (axiom-free) *)
 
 (** Each witness via `vm_compute; reflexivity` on the iterated
     Collatz map. Stopping times (OEIS A006577):
@@ -173,18 +163,14 @@ Proof.
   - exact collatz_reaches_one_27.
 Qed.
 
-(* ============================================================ *)
-(* Section 4: CollatzConjecture statement                        *)
-(* ============================================================ *)
+(** ## §4 — CollatzConjecture statement *)
 
 (** The Collatz Conjecture (literal form). For every positive
     natural `n`, there exists some `k` with `collatzIter k n = 1`. *)
 Definition CollatzConjecture : Prop :=
   forall n : nat, 0 < n -> exists k : nat, collatzIter k n = 1.
 
-(* ============================================================ *)
-(* Section 5: Framework alpha-skeleton bridge                    *)
-(* ============================================================ *)
+(** ## §5 — Framework alpha-skeleton bridge *)
 
 Open Scope R_scope.
 
@@ -226,9 +212,7 @@ Qed.
 
 Close Scope R_scope.
 
-(* ============================================================ *)
-(* Section 6: Framework 3^k substrate connection                 *)
-(* ============================================================ *)
+(** ## §6 — Framework 3^k substrate connection *)
 
 (** Cross-substrate witness predicate. A pair `(k, m)` where
     `m = 3^k`. *)
@@ -255,9 +239,7 @@ Theorem CollatzMatches3kSubstrate_holds :
   CollatzMatches3kSubstrate.
 Proof. exact cross_substrate_witness_exists. Qed.
 
-(* ============================================================ *)
-(* Section 7: Tao 2019 + Krasikov-Lagarias + Terras typed Props  *)
-(* ============================================================ *)
+(** ## §7 — Tao 2019 + Krasikov-Lagarias + Terras typed Props *)
 
 (** Tao 2019 -- "Almost all orbits of the Collatz map attain
     almost bounded values" (arXiv:1909.03562). For every
@@ -285,9 +267,7 @@ Definition Terras1976StoppingTimeDensityOne : Prop :=
       exists count : nat,
         (INR count >= (1 - eps) * INR N)%R.
 
-(* ============================================================ *)
-(* Section 8: Bounded-stopping-time bracket                      *)
-(* ============================================================ *)
+(** ## §8 — Bounded-stopping-time bracket *)
 
 (** Maximum concrete stopping time at n = 27. Within the 5
     concrete witnesses of §3, n = 27 achieves the longest
@@ -296,9 +276,7 @@ Theorem concrete_collatz_max_stopping_time_at_27 :
   collatzIter 111 27 = 1.
 Proof. exact collatz_reaches_one_27. Qed.
 
-(* ============================================================ *)
-(* Section 9: Named open Prop isolating the obstruction          *)
-(* ============================================================ *)
+(** ## §9 — Named open Prop isolating the obstruction *)
 
 (** Mathlib/Coq-level OPEN: Collatz Conjecture. Alias for
     `CollatzConjecture`. *)
@@ -308,9 +286,7 @@ Theorem MathlibCollatzConjecture_iff_CollatzConjecture :
   MathlibCollatzConjecture <-> CollatzConjecture.
 Proof. unfold MathlibCollatzConjecture. tauto. Qed.
 
-(* ============================================================ *)
-(* Section 10: Honest scope marker                               *)
-(* ============================================================ *)
+(** ## §10 — Honest scope marker *)
 
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
@@ -322,9 +298,7 @@ Theorem honest_scope_marker :
   honest_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 11: Capstone Record                                   *)
-(* ============================================================ *)
+(** ## §11 — Capstone Record *)
 
 (** Collatz framework-attack bundle. Aggregates:
     - 5 concrete reaches-1 witnesses (including n=27 at 111 steps);
@@ -396,9 +370,7 @@ Definition collatz_framework_attack_capstone
 
 End CollatzConjectureFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 12: File-level honest-scope commentary                *)
-(* ============================================================ *)
+(** ## §12 — File-level honest-scope commentary *)
 
 (*
   1. Five concrete reaches-1 witnesses for n in {3, 7, 9, 11, 27}

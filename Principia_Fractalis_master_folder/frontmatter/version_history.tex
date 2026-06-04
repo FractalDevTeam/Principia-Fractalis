@@ -10,6 +10,48 @@ This book is under active development. Version numbers follow semantic versionin
 
 \section*{Version Log}
 
+\subsection*{Version 1.2.1 (June 3, 2026) -- REVISION TWO: ANNOTATIONS + BIBLIOGRAPHY POLISH}
+\begin{itemize}
+\item \textbf{Manuscript corrections (Lean cross-check).} The four
+inconsistencies flagged by Wave~55 Lean refutations are now annotated
+\emph{in situ} via the new \texttt{\textbackslash manuscriptcorrection}
+footnote macro (defined in \texttt{preamble.tex}). Original prose is
+preserved verbatim; the corrected value and the corresponding Lean
+theorem name + commit hash + file path are recorded as a footnote
+beside each affected statement:
+  \begin{itemize}
+  \item Ch~7 \texttt{thm:fine-structure} -- $R_f(1,2)$ value
+  ($\approx 0.0234$ in the manuscript) corrected to
+  $-\pi^2/12\approx -0.8225$ per
+  \texttt{R\_f\_one\_two\_ne\_manuscript\_value}
+  (commit \texttt{496193c}): sign + $35\times$ magnitude.
+  \item Ch~11 \texttt{thm:anomaly\_cancel} -- predicted
+  $\text{ch}_2$ from the 14D anomaly route is
+  $\approx 6.05\times 10^{-4}\Phi_0$, NOT $0.95\,\Phi_0$, per
+  \texttt{anomaly\_cancel\_predicted\_value\_ne\_0\_95}
+  (commit \texttt{8e4a62a}): off by $\approx 1570\times$.
+  \item Ch~11 \texttt{prop:rqg\_mean} -- the Gaussian integral
+  evaluates to $\sqrt{5/(\pi+5)}\approx 0.7837$, NOT $0.95$, per
+  \texttt{prop\_11\_6\_psi\_rqg\_sq\_ne\_0\_95}
+  (commit \texttt{8e4a62a}).
+  \item Appendix~A line~153 ``Resonance Coefficients'' table --
+  sign / definition / source-citation discrepancies flagged via
+  \texttt{appA\_R\_f\_sqrt2\_target\_signconflict\_with\_framework\_alpha\_one}
+  and the missing-CSV finding (commit \texttt{edfeab8}).
+  \end{itemize}
+\item \textbf{Bibliography audit.} 366~\texttt{@}-entries surveyed.
+Zero ``missing'' citations (every \texttt{\textbackslash cite}~key
+has a bibliography entry); 90~orphan entries (defined but never
+cited) catalogued in \texttt{BIBLIOGRAPHY\_AUDIT\_V1.2.0.md} for
+future curation. URL/DOI syntax sampled; no malformed
+\texttt{doi=\{\}} entries detected on this pass.
+\item \textbf{Annotation polish.} \texttt{appa:resonance-data}
+label added to support the appendix-A correction footnote's
+\texttt{\textbackslash pageref}.
+\item \textbf{Preserved.} All Version 1.2.0 chapter content,
+substrate theorem, Lean attack landings, and build state.
+\end{itemize}
+
 \subsection*{Version 1.2.0 (June 3, 2026) -- SUBSTRATE-LEVEL META-THEOREM EDITION}
 \begin{itemize}
 \item \textbf{MILESTONE:} The Principia Fractalis Substrate Theorem
@@ -301,7 +343,7 @@ audit.
 
 \vspace{2cm}
 
-\noindent\textbf{Current Version:} 1.2.0 (June 3, 2026) -- \textbf{SUBSTRATE-LEVEL META-THEOREM EDITION}
+\noindent\textbf{Current Version:} 1.2.1 (June 3, 2026) -- \textbf{REVISION TWO: ANNOTATIONS + BIBLIOGRAPHY POLISH}
 
 \noindent\textbf{HEAD commit:} \texttt{42990ea}
 

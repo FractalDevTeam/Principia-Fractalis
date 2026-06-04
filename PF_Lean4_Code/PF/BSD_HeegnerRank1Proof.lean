@@ -129,11 +129,8 @@ A working mathematician would observe:
 * The cascade produces rank-1 on E_{37.a1} modulo cited literature
   theorems and the explicit point on the curve.
 
-## Build
+## Dependencies
 
-ZERO project axioms. ZERO sorries. Pure typed construction.
-
-Depends on:
   * `PF.BSD_RankWitnessTypedUpgrade` — typed `RankCertificateTyped`.
   * `PF.BSDGaloisPairConcordance` — for `E_rank_one`.
   * `PF.BSDWilesModularityAttempt` — for the modularity hypothesis

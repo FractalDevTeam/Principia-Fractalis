@@ -86,7 +86,6 @@ literal Clay-class `Literal_P_neq_NP` separation goes through the
 `EnumToClassSeparationBridge` (a referee-precision gap, axiom-free
 documented at `PF/TuringEncoding/PNPClassSeparationPrecisionBridge.lean`).
 
-Zero project axioms. Build clean under the PF closure.
 -/
 
 import PF.SpectralGap
