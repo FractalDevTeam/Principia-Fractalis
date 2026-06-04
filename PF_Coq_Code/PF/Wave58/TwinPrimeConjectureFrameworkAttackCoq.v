@@ -54,10 +54,6 @@
   - Coquelicot is NOT required for this file at the proof level;
     only the build environment (Rocq 9.1 + Coquelicot 3.4.4) is
     shared with the Wave 57-BSD port.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -71,9 +67,7 @@ Open Scope nat_scope.
     `PF.NumberTheory.TwinPrimeConjectureFrameworkAttack`. *)
 Module TwinPrimeConjectureFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 1: Boolean-decidable primality                        *)
-(* ============================================================ *)
+(** ## §1 — Boolean-decidable primality *)
 
 (** Trial-division check: no divisor of `n` in the range `[2, k]`. *)
 Fixpoint no_div_aux (n k : nat) : bool :=
@@ -94,9 +88,7 @@ Definition primeb (n : nat) : bool :=
 (** Prop-level primality, decidable by boolean reflection. *)
 Definition is_prime (n : nat) : Prop := primeb n = true.
 
-(* ============================================================ *)
-(* Section 2: Literal Twin Prime statement                       *)
-(* ============================================================ *)
+(** ## §2 — Literal Twin Prime statement *)
 
 (** Twin prime pair: `n` and `n + 2` are both prime. *)
 Definition TwinPrimePair (n : nat) : Prop :=
@@ -107,9 +99,7 @@ Definition TwinPrimePair (n : nat) : Prop :=
 Definition TwinPrimeConjecture : Prop :=
   forall N : nat, exists n : nat, N < n /\ TwinPrimePair n.
 
-(* ============================================================ *)
-(* Section 3: Five concrete twin-prime witnesses (axiom-free)    *)
-(* ============================================================ *)
+(** ## §3 — Five concrete twin-prime witnesses (axiom-free) *)
 
 (** Each pair (p, p+2) is decided by `vm_compute` / `reflexivity`
     on the boolean primality predicate. Honest scope: these certify
@@ -138,9 +128,7 @@ Proof.
   repeat split; reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 4: Bounded-distance and Brun (typed Props)            *)
-(* ============================================================ *)
+(** ## §4 — Bounded-distance and Brun (typed Props) *)
 
 (** Bounded prime gap of width `2k`. The `k = 1` case is the Twin
     Prime Conjecture. *)
@@ -172,9 +160,7 @@ Proof.
   - exact HBPG.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Real-arithmetic alpha-cascade bridge               *)
-(* ============================================================ *)
+(** ## §5 — Real-arithmetic alpha-cascade bridge *)
 
 Open Scope R_scope.
 
@@ -208,9 +194,7 @@ Proof.
   - unfold alpha_RH. reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Hardy-Littlewood typed Prop + constant             *)
-(* ============================================================ *)
+(** ## §6 — Hardy-Littlewood typed Prop + constant *)
 
 (** Hardy-Littlewood twin-prime constant (10-digit truncation
     `C_2 ~ 0.6601618158...`). *)
@@ -239,9 +223,7 @@ Proof. unfold brunConstant. lra. Qed.
 
 Close Scope R_scope.
 
-(* ============================================================ *)
-(* Section 7: Named open Prop isolating the obstruction          *)
-(* ============================================================ *)
+(** ## §7 — Named open Prop isolating the obstruction *)
 
 (** Mathlib/Coq-level OPEN: twin-prime infinitude. Alias for
     `TwinPrimeConjecture`. This is the single Prop the framework's
@@ -253,9 +235,7 @@ Theorem MathlibTwinPrimeInfinitude_iff_TwinPrimeConjecture :
   MathlibTwinPrimeInfinitude <-> TwinPrimeConjecture.
 Proof. unfold MathlibTwinPrimeInfinitude. tauto. Qed.
 
-(* ============================================================ *)
-(* Section 8: Honest scope marker                                *)
-(* ============================================================ *)
+(** ## §8 — Honest scope marker *)
 
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
@@ -267,9 +247,7 @@ Theorem honest_scope_marker :
   honest_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 9: Capstone Record                                    *)
-(* ============================================================ *)
+(** ## §9 — Capstone Record *)
 
 (** Twin-prime framework-attack bundle. Aggregates:
     - 5 concrete witnesses;
@@ -327,9 +305,7 @@ Definition twin_prime_framework_attack_capstone
 
 End TwinPrimeConjectureFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 10: Honest scope (file-level commentary)              *)
-(* ============================================================ *)
+(** ## §10 — Honest scope (file-level commentary) *)
 
 (*
   1. Five concrete twin-prime pairs (3,5), (5,7), (11,13), (17,19),

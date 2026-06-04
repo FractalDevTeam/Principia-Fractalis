@@ -93,11 +93,8 @@ respect to the conductor N; CM of E itself is not required.
 
 This is the THIRD specific-curve rank-1 cascade in the framework.
 
-## Build
+## Dependencies
 
-ZERO project axioms. ZERO sorries. Pure typed construction.
-
-Depends on:
   * `PF.BSD_RankWitnessTypedUpgrade` — typed certificate.
   * `PF.BSD_HeegnerRank1Proof` — encoded Gross-Zagier / Kolyvagin.
 -/

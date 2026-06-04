@@ -136,10 +136,6 @@
     - Coquelicot is NOT required at the proof level for this file; only
       the build environment (Rocq 9.1 + Coquelicot 3.4.4) is shared
       with the other Wave 58 Coq ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 Require Import Stdlib.Reals.Reals.
@@ -152,9 +148,7 @@ Module WeinsteinGUResonantRescue.
 
 Open Scope R_scope.
 
-(* ============================================================ *)
-(* Section 1: The RQG correction structure                       *)
-(* ============================================================ *)
+(** ## §1 — The RQG correction structure *)
 
 (** **The consciousness threshold `ch_2 = 0.95`** (Ch 6 derived,
     Ch 11 used as the RQG constraint per Prop. 11.6 / line 192). *)
@@ -198,9 +192,7 @@ Proof.
   unfold ch_2_threshold_GU. lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 2: BRST cohomology dimension claim                    *)
-(* ============================================================ *)
+(** ## §2 — BRST cohomology dimension claim *)
 
 (** **BRST H^2 dimension = 78** (Ch 11 Thm. 11.5 / line 305).
 
@@ -214,9 +206,7 @@ Proof. reflexivity. Qed.
 Theorem brst_H2_sm_decomposition : (78 = 48 + 26 + 4)%nat.
 Proof. lia. Qed.
 
-(* ============================================================ *)
-(* Section 3: Holographic projection 13D -> 4D                   *)
-(* ============================================================ *)
+(** ## §3 — Holographic projection 13D -> 4D *)
 
 (** **Holographic projection** `(nat -> R) -> (nat -> R)`.
 
@@ -268,9 +258,7 @@ Proof.
   destruct (Nat.ltb i 4); [ reflexivity | lra ].
 Qed.
 
-(* ============================================================ *)
-(* Section 4: Shiab operator regularization                      *)
-(* ============================================================ *)
+(** ## §4 — Shiab operator regularization *)
 
 (** **Shiab operator regularization** (Ch 11 Thm. 11.3 / line 100).
 
@@ -304,9 +292,7 @@ Proof.
   exact shiab_operator_regularized_holds.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Four experimental-prediction typed Props           *)
-(* ============================================================ *)
+(** ## §5 — Four experimental-prediction typed Props *)
 
 (** **Muon g-2 RQG prediction** (Ch 11 Section 6.1 / line 344).
     The framework predicts
@@ -346,9 +332,7 @@ Theorem cosmological_lithium_abundance_holds :
   CosmologicalLithiumAbundance.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 6: Capstone Record                                    *)
-(* ============================================================ *)
+(** ## §6 — Capstone Record *)
 
 (** **The Weinstein GU resonant rescue structure** — bundles the
     Ch 11 structural claims into a single citable record.
@@ -411,9 +395,7 @@ Definition weinstein_GU_rescued_capstone : WeinsteinGURescueBundle :=
    ; rqg_lt_one := rqg_amp_squared_lt_one rqgWitness
   |}.
 
-(* ============================================================ *)
-(* Section 7: Honest-scope marker                                *)
-(* ============================================================ *)
+(** ## §7 — Honest-scope marker *)
 
 (** Honest-scope marker. This file is a structural Coq parity mirror
     of the Lean Wave 58 Weinstein GU resonant rescue attack, NOT a
@@ -433,9 +415,7 @@ Close Scope R_scope.
 
 End WeinsteinGUResonantRescue.
 
-(* ============================================================ *)
-(* Section 8: File-level commentary                              *)
-(* ============================================================ *)
+(** ## §8 — File-level commentary *)
 
 (*
   1. `ResonantQuantumGeometryCorrection` Record carrying

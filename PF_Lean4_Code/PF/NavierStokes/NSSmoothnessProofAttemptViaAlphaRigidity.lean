@@ -99,12 +99,7 @@ framework's specific tools to ATTEMPT global smoothness:
 
 ## Status
 
-Axiom-free. Zero `axiom`, zero `sorry`, zero `admit`. The
-conditional implications are real; the named residual is
-precise.
-
-Author: Pablo Cohen (formalization, Wave 58-NS proof attempt)
-Date: 2026-06-03
+The conditional implications are real; the named residual is precise.
 -/
 
 import PF.NavierStokes.NSPDETypedUpgrade

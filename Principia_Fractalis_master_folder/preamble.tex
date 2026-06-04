@@ -47,6 +47,17 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{enumitem}
+% Register single-token enumerate label shortcuts used across the
+% manuscript: \begin{enumerate}[(i)], \begin{enumerate}[(a)], etc.
+% \SetEnumitemKey is the documented enumitem API for declaring
+% these aliases (cf.\ enumitem manual, §"Cloning the basic lists").
+\SetEnumitemKey{(i)}{label=(\roman*)}
+\SetEnumitemKey{(a)}{label=(\alph*)}
+\SetEnumitemKey{(A)}{label=(\Alph*)}
+\SetEnumitemKey{(I)}{label=(\Roman*)}
+\SetEnumitemKey{(1)}{label=(\arabic*)}
+\usepackage{longtable}  % multi-page tables: \endhead, \endfoot, etc.
+\usepackage{array}      % extended column specifiers
 
 % Code listings
 \usepackage{listings}
@@ -82,6 +93,107 @@
 \DeclareUnicodeCharacter{26A0}{[!]} % Warning sign
 \DeclareUnicodeCharacter{039B}{$\Lambda$} % Lambda
 \DeclareUnicodeCharacter{03A9}{$\Omega$} % Omega
+\DeclareUnicodeCharacter{2713}{\checkmark} % Heavy check mark (used in version_history)
+\DeclareUnicodeCharacter{FE0F}{} % Variation selector-16 (emoji presentation, render nothing)
+\DeclareUnicodeCharacter{1F4D6}{[BOOK]} % Open book emoji
+\DeclareUnicodeCharacter{1F52C}{[LAB]} % Microscope emoji
+\DeclareUnicodeCharacter{1F50D}{[SEARCH]} % Magnifying glass
+\DeclareUnicodeCharacter{1F4C8}{[CHART]} % Chart with upward trend
+\DeclareUnicodeCharacter{1F4C9}{[CHART]} % Chart with downward trend
+\DeclareUnicodeCharacter{1F4DD}{[NOTE]} % Memo / pencil
+\DeclareUnicodeCharacter{1F511}{[KEY]} % Key
+\DeclareUnicodeCharacter{1F4A1}{[IDEA]} % Light bulb
+% Box-drawing characters (used in ASCII art tables / tree diagrams)
+\DeclareUnicodeCharacter{2500}{-} % Horizontal line
+\DeclareUnicodeCharacter{2502}{|} % Vertical line
+\DeclareUnicodeCharacter{2514}{`} % Up-right corner
+\DeclareUnicodeCharacter{251C}{|-} % Tee right
+\DeclareUnicodeCharacter{2518}{'} % Up-left corner
+\DeclareUnicodeCharacter{250C}{,} % Down-right corner
+\DeclareUnicodeCharacter{2510}{.} % Down-left corner
+\DeclareUnicodeCharacter{252C}{T} % Tee down
+\DeclareUnicodeCharacter{2534}{T} % Tee up
+\DeclareUnicodeCharacter{253C}{+} % Cross
+% Block / shading
+\DeclareUnicodeCharacter{2588}{|} % Full block
+\DeclareUnicodeCharacter{2591}{.} % Light shade
+\DeclareUnicodeCharacter{2592}{:} % Medium shade
+\DeclareUnicodeCharacter{2593}{*} % Dark shade
+% Math operators / signs in plain text
+\DeclareUnicodeCharacter{2212}{-} % Minus sign (U+2212, NOT hyphen-minus)
+\DeclareUnicodeCharacter{2032}{$'$} % Prime
+\DeclareUnicodeCharacter{2033}{$''$} % Double prime
+\DeclareUnicodeCharacter{2248}{$\approx$} % approximately equal
+\DeclareUnicodeCharacter{2245}{$\cong$} % congruent
+\DeclareUnicodeCharacter{2026}{\ldots} % horizontal ellipsis
+% (U+2192 declared above as rightwards arrow)
+% Subscripts and superscripts
+\DeclareUnicodeCharacter{2080}{$_0$}
+\DeclareUnicodeCharacter{2081}{$_1$}
+\DeclareUnicodeCharacter{2082}{$_2$}
+\DeclareUnicodeCharacter{2083}{$_3$}
+\DeclareUnicodeCharacter{2084}{$_4$}
+\DeclareUnicodeCharacter{2085}{$_5$}
+\DeclareUnicodeCharacter{2086}{$_6$}
+\DeclareUnicodeCharacter{2087}{$_7$}
+\DeclareUnicodeCharacter{2088}{$_8$}
+\DeclareUnicodeCharacter{2089}{$_9$}
+\DeclareUnicodeCharacter{2070}{$^0$}
+\DeclareUnicodeCharacter{00B9}{$^1$}
+\DeclareUnicodeCharacter{00B2}{$^2$}
+\DeclareUnicodeCharacter{00B3}{$^3$}
+\DeclareUnicodeCharacter{2074}{$^4$}
+\DeclareUnicodeCharacter{2075}{$^5$}
+\DeclareUnicodeCharacter{2076}{$^6$}
+\DeclareUnicodeCharacter{2077}{$^7$}
+\DeclareUnicodeCharacter{2078}{$^8$}
+\DeclareUnicodeCharacter{2079}{$^9$}
+\DeclareUnicodeCharacter{2717}{\ensuremath{\times}} % Ballot X
+\DeclareUnicodeCharacter{2192}{$\to$} % Rightwards arrow
+\DeclareUnicodeCharacter{2190}{$\leftarrow$} % Leftwards arrow
+\DeclareUnicodeCharacter{2194}{$\leftrightarrow$} % Left-right arrow
+\DeclareUnicodeCharacter{2261}{$\equiv$} % identical to
+\DeclareUnicodeCharacter{2264}{$\leq$} % less or equal
+\DeclareUnicodeCharacter{2265}{$\geq$} % greater or equal
+\DeclareUnicodeCharacter{2260}{$\neq$} % not equal
+\DeclareUnicodeCharacter{00B1}{$\pm$} % plus-minus
+\DeclareUnicodeCharacter{00B5}{$\mu$} % micro / mu
+\DeclareUnicodeCharacter{00D7}{$\times$} % multiplication sign
+\DeclareUnicodeCharacter{00B0}{$^{\circ}$} % degree sign
+\DeclareUnicodeCharacter{2208}{$\in$} % element of
+\DeclareUnicodeCharacter{2209}{$\notin$} % not element of
+\DeclareUnicodeCharacter{2282}{$\subset$} % subset
+\DeclareUnicodeCharacter{2286}{$\subseteq$} % subset or equal
+\DeclareUnicodeCharacter{2229}{$\cap$} % intersection
+\DeclareUnicodeCharacter{222A}{$\cup$} % union
+\DeclareUnicodeCharacter{2205}{$\emptyset$} % empty set
+\DeclareUnicodeCharacter{221E}{$\infty$} % infinity
+\DeclareUnicodeCharacter{2200}{$\forall$} % for all
+\DeclareUnicodeCharacter{2203}{$\exists$} % exists
+\DeclareUnicodeCharacter{2202}{$\partial$} % partial derivative
+\DeclareUnicodeCharacter{2207}{$\nabla$} % nabla
+\DeclareUnicodeCharacter{2211}{$\sum$} % summation
+\DeclareUnicodeCharacter{220F}{$\prod$} % product
+\DeclareUnicodeCharacter{221A}{$\sqrt{}$} % square root sign
+\DeclareUnicodeCharacter{03B1}{$\alpha$} % alpha
+\DeclareUnicodeCharacter{03B2}{$\beta$} % beta
+\DeclareUnicodeCharacter{03B3}{$\gamma$} % gamma
+\DeclareUnicodeCharacter{03B4}{$\delta$} % delta
+\DeclareUnicodeCharacter{03B5}{$\varepsilon$} % epsilon
+\DeclareUnicodeCharacter{03B6}{$\zeta$} % zeta
+\DeclareUnicodeCharacter{03B7}{$\eta$} % eta
+\DeclareUnicodeCharacter{03B8}{$\theta$} % theta
+\DeclareUnicodeCharacter{03BB}{$\lambda$} % lambda (lowercase)
+\DeclareUnicodeCharacter{03C0}{$\pi$} % pi
+\DeclareUnicodeCharacter{03C3}{$\sigma$} % sigma
+\DeclareUnicodeCharacter{03C4}{$\tau$} % tau
+\DeclareUnicodeCharacter{03C6}{$\varphi$} % phi
+\DeclareUnicodeCharacter{03C8}{$\psi$} % psi
+\DeclareUnicodeCharacter{03C9}{$\omega$} % omega
+\DeclareUnicodeCharacter{0394}{$\Delta$} % Delta
+\DeclareUnicodeCharacter{03A3}{$\Sigma$} % Sigma
+\DeclareUnicodeCharacter{03A8}{$\Psi$} % Psi
+\DeclareUnicodeCharacter{03A6}{$\Phi$} % Phi
 
 % ============================================
 % COLOR DEFINITIONS
@@ -99,80 +211,87 @@
 % ============================================
 % CUSTOM ENVIRONMENTS - COLOR CODED BOXES
 % ============================================
+%
+% Note (V1.2.1): each box accepts a SINGLE optional argument that is
+% interpreted as a FREE-FORM TITLE STRING (appended to the box's
+% default title). Earlier revisions tried to forward the optional
+% argument as a pgfkey/value list, which caused hundreds of
+% "I do not know the key '/tcb/<title>'" errors whenever chapters
+% wrote things like \begin{definition}[Blue Boxes]. The current
+% definitions wrap the optional argument with title=, so call sites
+% that pass either free-form titles OR explicit "title={...}" forms
+% both work cleanly.
+
+% Helper: append optional descriptive title after the default box title
+\newcommand{\pf@boxtitle}[2]{\ifx\relax#1\relax #2\else #2: #1\fi}
 
 % Blue Box - Definitions
-\newtcolorbox{definition}[1][]{
+\newtcolorbox{definition}[1][\relax]{
   colback=defblue!5,
   colframe=defblue,
   fonttitle=\bfseries,
-  title=Definition,
+  title={\pf@boxtitle{#1}{Definition}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
   after skip=10pt plus 2pt,
-  #1
 }
 
 % Green Box - Theorems
-\newtcolorbox{theorem}[1][]{
+\newtcolorbox{theorem}[1][\relax]{
   colback=thmgreen!5,
   colframe=thmgreen,
   fonttitle=\bfseries,
-  title=Theorem,
+  title={\pf@boxtitle{#1}{Theorem}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
   after skip=10pt plus 2pt,
-  #1
 }
 
 % Yellow Box - Examples
-\newtcolorbox{example}[1][]{
+\newtcolorbox{example}[1][\relax]{
   colback=exampleyellow!10,
   colframe=exampleyellow!80!black,
   fonttitle=\bfseries,
-  title=Example,
+  title={\pf@boxtitle{#1}{Example}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
   after skip=10pt plus 2pt,
-  #1
 }
 
 % Red Box - Warnings
-\newtcolorbox{warning}[1][]{
+\newtcolorbox{warning}[1][\relax]{
   colback=warnred!5,
   colframe=warnred,
   fonttitle=\bfseries,
-  title=Warning,
+  title={\pf@boxtitle{#1}{Warning}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
   after skip=10pt plus 2pt,
-  #1
 }
 
 % Purple Box - Historical Context
-\newtcolorbox{historical}[1][]{
+\newtcolorbox{historical}[1][\relax]{
   colback=histpurple!5,
   colframe=histpurple,
   fonttitle=\bfseries,
-  title=Historical Context,
+  title={\pf@boxtitle{#1}{Historical Context}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
   after skip=10pt plus 2pt,
-  #1
 }
 
-\newtcolorbox{historicalnote}[1][]{
+\newtcolorbox{historicalnote}[1][\relax]{
   colback=histpurple!5,
   colframe=histpurple,
   fonttitle=\bfseries,
-  title=Historical Note,
+  title={\pf@boxtitle{#1}{Historical Note}},
   breakable,
   enhanced,
-  #1
 }
 
 % (Duplicate Red Box - Warning definition removed: was a verbatim
@@ -182,96 +301,192 @@
 %  definition with its before/after skip parameters intact.)
 
 % Light Green Box - Intuitive Understanding
-\newtcolorbox{intuitive}[1][]{
+\newtcolorbox{intuitive}[1][\relax]{
   colback=level1green!15,
   colframe=level1green!80!black,
   fonttitle=\bfseries,
-  title=Understanding Intuitively,
+  title={\pf@boxtitle{#1}{Understanding Intuitively}},
   breakable,
   enhanced,
-  #1
 }
 
 % Cyan Box - Key Ideas
-\newtcolorbox{keyidea}[1][]{
+\newtcolorbox{keyidea}[1][\relax]{
   colback=cyan!5,
   colframe=cyan!60!black,
   fonttitle=\bfseries,
-  title=Key Idea,
+  title={\pf@boxtitle{#1}{Key Idea}},
   breakable,
   enhanced,
-  #1
 }
 
 % Orange Box - Try It Yourself
-\newtcolorbox{tryit}[1][]{
+\newtcolorbox{tryit}[1][\relax]{
   colback=orange!10,
   colframe=orange!80!black,
   fonttitle=\bfseries,
-  title=Try It Yourself,
+  title={\pf@boxtitle{#1}{Try It Yourself}},
   breakable,
   enhanced,
-  #1
 }
 
 % Gray Box - Chapter Objectives
-\newtcolorbox{chapterobjectives}[1][]{
+\newtcolorbox{chapterobjectives}[1][\relax]{
   colback=gray!10,
   colframe=gray!70!black,
   fonttitle=\bfseries\Large,
-  title=Chapter Objectives,
+  title={\pf@boxtitle{#1}{Chapter Objectives}},
   breakable,
   enhanced,
-  #1
 }
 
 % Level Boxes
-\newtcolorbox{level1}[1][]{
+\newtcolorbox{level1}[1][\relax]{
   colback=level1green!10,
   colframe=level1green!80!black,
   fonttitle=\bfseries,
-  title=🟢 Level 1: Intuitive Understanding,
+  title={\pf@boxtitle{#1}{[L1] Level 1: Intuitive Understanding}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
   after skip=10pt plus 2pt,
-  #1
 }
 
-\newtcolorbox{level2}[1][]{
+\newtcolorbox{level2}[1][\relax]{
   colback=level2yellow!10,
   colframe=level2yellow!80!black,
   fonttitle=\bfseries,
-  title=🟡 Level 2: Technical Details,
+  title={\pf@boxtitle{#1}{[L2] Level 2: Technical Details}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
   after skip=10pt plus 2pt,
-  #1
 }
 
-\newtcolorbox{level3}[1][]{
+\newtcolorbox{level3}[1][\relax]{
   colback=level3red!10,
   colframe=level3red!80!black,
   fonttitle=\bfseries,
-  title=🔴 Level 3: Research \& Verification,
+  title={\pf@boxtitle{#1}{[L3] Level 3: Research \& Verification}},
   breakable,
   enhanced,
   before skip=10pt plus 2pt,
   after skip=10pt plus 2pt,
-  #1
 }
 
 % Advanced box (alias for level3 for backward compatibility)
-\newtcolorbox{advanced}[1][]{
+\newtcolorbox{advanced}[1][\relax]{
   colback=level3red!10,
   colframe=level3red!80!black,
   fonttitle=\bfseries,
-  title=🔴 Advanced Topic,
+  title={\pf@boxtitle{#1}{[L3] Advanced Topic}},
   breakable,
   enhanced,
-  #1
 }
+
+% Backward-compatibility aliases (V1.2.1):
+% Earlier chapters used `greenbox` (intended: theorem-style green box)
+% and `conjecture` (intended: a tcolorbox styled like a theorem but
+% labelled "Conjecture"). Neither was defined in the preamble, causing
+% hundreds of "Environment ... undefined" errors. Define them now as
+% aliases / siblings of the existing boxes.
+\newtcolorbox{greenbox}[1][\relax]{
+  colback=thmgreen!5,
+  colframe=thmgreen,
+  fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Note}},
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+}
+
+\newtcolorbox{conjecture}[1][\relax]{
+  colback=histpurple!5,
+  colframe=histpurple,
+  fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Conjecture}},
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+}
+
+% Protocol box - experimental / computational protocols
+\newtcolorbox{protocol}[1][\relax]{
+  colback=cyan!5,
+  colframe=cyan!60!black,
+  fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Protocol}},
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+}
+
+% Problem box - open problems
+\newtcolorbox{problem}[1][\relax]{
+  colback=orange!5,
+  colframe=orange!80!black,
+  fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Open Problem}},
+  breakable,
+  enhanced,
+  before skip=10pt plus 2pt,
+  after skip=10pt plus 2pt,
+}
+
+% V1.2.1 additions for additional environments referenced across
+% several chapters but never defined in the original preamble.
+% Each delegates to a tcolorbox styled like the closest semantic kin.
+\newtcolorbox{construction}[1][\relax]{
+  colback=defblue!5, colframe=defblue, fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Construction}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=10pt plus 2pt,
+}
+\newtcolorbox{comparison}[1][\relax]{
+  colback=gray!10, colframe=gray!70!black, fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Comparison}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=10pt plus 2pt,
+}
+\newtcolorbox{observation}[1][\relax]{
+  colback=cyan!5, colframe=cyan!60!black, fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Observation}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=10pt plus 2pt,
+}
+\newtcolorbox{chapterabstract}[1][\relax]{
+  colback=gray!5, colframe=gray!60!black, fonttitle=\bfseries\Large,
+  title={\pf@boxtitle{#1}{Chapter Abstract}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=15pt plus 2pt,
+}
+\newtcolorbox{experiment}[1][\relax]{
+  colback=orange!10, colframe=orange!80!black, fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Experiment}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=10pt plus 2pt,
+}
+\newtcolorbox{principle}[1][\relax]{
+  colback=defblue!5, colframe=defblue, fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Principle}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=10pt plus 2pt,
+}
+\newtcolorbox{mechanism}[1][\relax]{
+  colback=cyan!5, colframe=cyan!60!black, fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Mechanism}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=10pt plus 2pt,
+}
+\newtcolorbox{heuristic}[1][\relax]{
+  colback=exampleyellow!10, colframe=exampleyellow!80!black, fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Heuristic}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=10pt plus 2pt,
+}
+\newtcolorbox{evidence}[1][\relax]{
+  colback=thmgreen!5, colframe=thmgreen, fonttitle=\bfseries,
+  title={\pf@boxtitle{#1}{Evidence}}, breakable, enhanced,
+  before skip=10pt plus 2pt, after skip=10pt plus 2pt,
+}
+% `prop` is sometimes used in chapters as shorthand for proposition;
+% map it to the proposition theorem environment.
+\newenvironment{prop}[1][]{\begin{proposition}[#1]}{\end{proposition}}
 
 % ============================================
 % CUSTOM COMMANDS
@@ -293,6 +508,46 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
+
+% Principal-branch / multi-valued function operator names
+% (declared with \DeclareMathOperator so they typeset upright and
+% receive proper spacing in display + inline math).
+\DeclareMathOperator{\Log}{Log}     % principal complex logarithm
+\DeclareMathOperator{\Arg}{Arg}     % principal argument
+\DeclareMathOperator{\Li}{Li}       % polylogarithm
+\DeclareMathOperator{\Spec}{Spec}   % spectrum
+\DeclareMathOperator{\Tr}{Tr}       % trace
+\DeclareMathOperator{\sgn}{sgn}     % sign function
+\DeclareMathOperator{\rank}{rank}   % matrix rank
+\DeclareMathOperator{\diag}{diag}   % diagonal matrix
+% Arithmetic-geometry / BSD / Hodge notation used across Ch 24, 25, 21
+\DeclareMathOperator{\ord}{ord}     % order of vanishing
+\DeclareMathOperator{\im}{im}       % image
+\DeclareMathOperator{\Hdg}{Hdg}     % Hodge classes
+\DeclareMathOperator{\Alg}{Alg}     % algebraic classes
+\DeclareMathOperator{\Real}{Re}     % real part (long form)
+\DeclareMathOperator{\cl}{cl}       % cycle class map
+\DeclareMathOperator{\Reg}{Reg}     % regulator
+\DeclareMathOperator{\encode}{enc}  % encoding function (P vs NP chapter)
+\providecommand{\F}{\mathbb{F}}     % finite field
+\providecommand{\CH}{\mathrm{CH}}   % Chow group
+\providecommand{\Sha}{\text{\fontencoding{T2A}\selectfont\char88}} % Cyrillic Sha; falls back to "Sh" if font missing
+% Safer fallback: define \Sha as a styled "Sh" if Cyrillic not loaded
+\renewcommand{\Sha}{\mathrm{Sh}}
+\providecommand{\Ch}{\mathrm{Ch}}   % Chern character (when not the symbol)
+\providecommand{\ch}{\mathrm{ch}}   % Chern character (lowercase)
+\DeclareMathOperator{\Hol}{Hol}     % holonomy
+\providecommand{\SU}{\mathrm{SU}}   % special unitary group
+\providecommand{\SO}{\mathrm{SO}}   % special orthogonal group
+\providecommand{\GL}{\mathrm{GL}}   % general linear group
+\providecommand{\Sp}{\mathrm{Sp}}   % symplectic group
+\providecommand{\Spin}{\mathrm{Spin}}
+\providecommand{\TIME}{\mathrm{TIME}}
+\providecommand{\NTIME}{\mathrm{NTIME}}
+\providecommand{\SPACE}{\mathrm{SPACE}}
+\providecommand{\NSPACE}{\mathrm{NSPACE}}
+\providecommand{\BPP}{\mathrm{BPP}}
+\providecommand{\BQP}{\mathrm{BQP}}
 
 % Digital sum function
 \newcommand{\dthree}[1]{D_3(#1)}
@@ -415,5 +670,19 @@
 
 % Better table spacing
 \renewcommand{\arraystretch}{1.3}
+
+% ============================================
+% MANUSCRIPT CORRECTION ANNOTATION
+% ============================================
+%
+% \manuscriptcorrection{text} renders a footnote labelled
+% "Manuscript Correction (Lean cross-check)" used to flag
+% inconsistencies surfaced by Wave 55 Lean refutations.
+% The original prose is preserved verbatim above the footnote;
+% the correction is documented here so referees can audit
+% both the original claim and the corrected value side by side.
+\newcommand{\manuscriptcorrection}[1]{%
+  \footnote{\textbf{Manuscript Correction (Lean cross-check, Wave 55):} #1}%
+}
 
 % End of preamble

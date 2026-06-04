@@ -87,11 +87,8 @@ tautology. Future waves can tighten further by binding the rationals
 to actual mathlib `WeierstrassCurve.{Affine,Projective}.Point E`
 elements once that API is established for `WeierstrassCurve ℚ`.
 
-## Build
+## Dependencies
 
-ZERO project axioms. ZERO sorries. Pure typed construction.
-
-Depends on:
   * `PF.BSD_DirectDischargeAttempt` — for the legacy `RankCertificate`
     structure (we bridge to it).
   * `PF.BSDCoatesWilesRankZeroAttempt` — for `LValueAtOneNonZero`

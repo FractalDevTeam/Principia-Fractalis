@@ -53,9 +53,6 @@ Same as the other Heegner-rank-1 files in the framework: this is
 the rank=analytic-rank half on E_{61.a1} only, conditional on cited
 literature theorems. NOT a Clay discharge.
 
-## Build
-
-ZERO project axioms. ZERO sorries.
 -/
 
 import PF.BSD_RankWitnessTypedUpgrade

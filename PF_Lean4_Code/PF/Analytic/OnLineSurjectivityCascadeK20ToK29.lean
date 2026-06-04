@@ -92,11 +92,8 @@ by `norm_num`.
     sub-decomposition file parameterises over.
   * No new axioms. No new sorries.
 
-## Build
+## Dependencies
 
-ZERO project axioms. ZERO sorries.
-
-Depends on:
   * `PF.RHSurjectivityConjecture` — `ScalingParameter`,
     `eigenvalueToT`.
   * `PF.RHSurjectivityTypedUpgrade` — `t1_Hardy`.
@@ -111,8 +108,6 @@ Depends on:
     `t4_Odlyzko..t10_Odlyzko`, `t4_Odlyzko_pos..t10_Odlyzko_pos`.
   * `PF.Analytic.OnLineSurjectivityCascadeK10ToK19` —
     `t11_Odlyzko..t20_Odlyzko`, `t11_Odlyzko_pos..t20_Odlyzko_pos`.
-
-Author: Claude Opus 4.7. 2026-06-03. Wave 58 follow-up #6.
 -/
 
 import PF.RHSurjectivityConjecture

@@ -62,10 +62,6 @@
   - Coquelicot is NOT required at the proof level for this file;
     only the build environment (Rocq 9.1 + Coquelicot 3.4.4) is
     shared with the existing Wave 58 ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -78,9 +74,7 @@ Open Scope R_scope.
     `PrincipiaTractalis.BSD_RankWitnessTypedUpgrade`. *)
 Module BSDRankWitnessTypedUpgrade.
 
-(* ============================================================ *)
-(* Section 1: Carrier `WeierstrassCurveQ`                        *)
-(* ============================================================ *)
+(** ## §1 — Carrier `WeierstrassCurveQ` *)
 
 (** **Coefficient-record stand-in for `WeierstrassCurve Q`.**
     Coq lacks a strong elliptic-curve type with Mordell-Weil group
@@ -97,9 +91,7 @@ Record WeierstrassCurveQ : Type := mkWeierstrassCurveQ {
 Definition E_rank_zero : WeierstrassCurveQ :=
   mkWeierstrassCurveQ 0 (-4).
 
-(* ============================================================ *)
-(* Section 2: Typed `RankWitnessTyped` Prop                      *)
-(* ============================================================ *)
+(** ## §2 — Typed `RankWitnessTyped` Prop *)
 
 (** **★ TYPED RANK WITNESS ★** — replacement for the legacy
     `RankCertificate.rankWitness : True` field.
@@ -132,9 +124,7 @@ Proof.
   - intros i Hi. lia.
 Qed.
 
-(* ============================================================ *)
-(* Section 3: Typed `LValueAtSEqualsOneVanishesAtOrder` Prop    *)
-(* ============================================================ *)
+(** ## §3 — Typed `LValueAtSEqualsOneVanishesAtOrder` Prop *)
 
 (** **Coq-side LValueAtOneNonZero predicate** — named typed Prop
     mirroring the Lean Wave 51G LMFDB anchor
@@ -174,9 +164,7 @@ Theorem lValueAtSEqualsOneVanishesAtOrder_E_rank_zero_at_zero :
     LValueAtSEqualsOneVanishesAtOrder E_rank_zero 0.
 Proof. simpl. exact LValueAtOneNonZero_E_rank_zero. Qed.
 
-(* ============================================================ *)
-(* Section 4: Typed `SelmerRankEquals` Prop                      *)
-(* ============================================================ *)
+(** ## §4 — Typed `SelmerRankEquals` Prop *)
 
 (** **★ TYPED SELMER-RANK WITNESS ★** — replacement for the
     legacy `RankCertificate.wave57BSD_A4_witness : True` field.
@@ -201,9 +189,7 @@ Proof.
   - intros i Hi. lia.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Typed `RankCertificateTyped` Record               *)
-(* ============================================================ *)
+(** ## §5 — Typed `RankCertificateTyped` Record *)
 
 (** **★★★ TYPED Mordell-Weil rank certificate ★★★** — a non-
     `True`-tag replacement for the legacy `RankCertificate`.
@@ -241,9 +227,7 @@ Theorem rankCertificateTyped_rankWitness_is_typed
       (forall i : nat, (i < cert.(rct_r))%nat -> g i <> 0).
 Proof. exact cert.(rct_rankWitness). Qed.
 
-(* ============================================================ *)
-(* Section 6: Concrete inhabitation at E_rank_zero, r = 0       *)
-(* ============================================================ *)
+(** ## §6 — Concrete inhabitation at E_rank_zero, r = 0 *)
 
 (** **★ Typed rank-0 certificate on `E_rank_zero` ★** — the
     rank-0 LMFDB anchor lifted to the TYPED certificate
@@ -271,9 +255,7 @@ Proof.
   reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Structural separation (typed excludes True-tag)   *)
-(* ============================================================ *)
+(** ## §7 — Structural separation (typed excludes True-tag) *)
 
 (** **★ Structural separation theorem ★** — a typed certificate
     is STRICTLY STRONGER than a legacy True-tag certificate. We
@@ -290,9 +272,7 @@ Proof.
   exact (rankCertificateTyped_rankWitness_is_typed E cert).
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Legacy True-tag certificate + bridge              *)
-(* ============================================================ *)
+(** ## §8 — Legacy True-tag certificate + bridge *)
 
 (** **Legacy `True`-tag rank certificate** — Coq-side stand-in
     for the Lean `BSD_DirectDischargeAttempt.RankCertificate`
@@ -336,9 +316,7 @@ Proof.
   reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 9: Cascade-style rank-0 discharge skeleton            *)
-(* ============================================================ *)
+(** ## §9 — Cascade-style rank-0 discharge skeleton *)
 
 (** **Cascade-style rank-0 typed-certificate discharge** on
     `E_rank_zero`. Conditional on:
@@ -363,9 +341,7 @@ Proof.
   reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 10: Honest-scope marker                                *)
-(* ============================================================ *)
+(** ## §10 — Honest-scope marker *)
 
 (** **Honest-scope marker** — the Coq typed-rank-witness upgrade
     is NOT a Clay BSD discharge.
@@ -422,9 +398,7 @@ Theorem honest_scope_marker :
     honest_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 11: Capstone Record                                   *)
-(* ============================================================ *)
+(** ## §11 — Capstone Record *)
 
 (** **★ Bundled BSD rank-witness typed-upgrade capstone ★**
 
@@ -485,9 +459,7 @@ Qed.
 
 End BSDRankWitnessTypedUpgrade.
 
-(* ============================================================ *)
-(* Section 12: File-level honest scope commentary                *)
-(* ============================================================ *)
+(** ## §12 — File-level honest scope commentary *)
 
 (*
   1. Coefficient-record carrier `WeierstrassCurveQ` is the Coq

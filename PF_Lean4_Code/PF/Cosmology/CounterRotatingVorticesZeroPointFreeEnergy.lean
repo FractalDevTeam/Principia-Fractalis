@@ -94,7 +94,6 @@ composing Ch 10 vortex dynamics with Ch 26 zero-point suppression,
 in the Wave 58 style of `LambdaEffTypedUpgrade.lean` and
 `YM_MassGapPropagationConcreteWitness.lean`.
 
-ZERO project axioms.
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Exp

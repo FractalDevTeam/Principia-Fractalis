@@ -67,10 +67,6 @@
   composable brick alongside that file.
 
   Brings Coq Wave 58 to 12 of N.
-
-  ## Author
-
-  Claude Opus 4.7 (1M context), 2026-06-03.
 *)
 
 Require Import Stdlib.Reals.Reals.
@@ -81,9 +77,7 @@ Open Scope R_scope.
 (** Mirror Lean namespace `PrincipiaTractalis.Cosmology` (slice). *)
 Module CounterRotatingVortices.
 
-(* ============================================================ *)
-(* Section 1: Counter-rotating vortex pair                       *)
-(* ============================================================ *)
+(** ## §1 — Counter-rotating vortex pair *)
 
 (** **Counter-rotating vortex pair**. Two angular-velocity scalars
     `omega1, omega2 : R` with `omega1 + omega2 = 0`. *)
@@ -126,9 +120,7 @@ Theorem unitCounterRotating_omega2 :
   omega2 unitCounterRotating = -1.
 Proof. reflexivity. Qed.
 
-(* ============================================================ *)
-(* Section 2: Vortex energy density                              *)
-(* ============================================================ *)
+(** ## §2 — Vortex energy density *)
 
 (** **Vortex energy density** of a counter-rotating pair: the sum of
     squares of the two angular velocities. *)
@@ -183,9 +175,7 @@ Proof.
   ring.
 Qed.
 
-(* ============================================================ *)
-(* Section 3: Zero-point reservoir                               *)
-(* ============================================================ *)
+(** ## §3 — Zero-point reservoir *)
 
 (** **Framework suppression exponent** `X = 78 * PI * 0.95 * 1.1875`. *)
 Definition frameworkSuppressionExponent : R := 78 * PI * 0.95 * 1.1875.
@@ -247,9 +237,7 @@ Proof.
   apply exp_0.
 Qed.
 
-(* ============================================================ *)
-(* Section 4: Free-energy extractability                         *)
-(* ============================================================ *)
+(** ## §4 — Free-energy extractability *)
 
 (** **Pabs §4 verbatim**: Free-energy extractability -- a counter-rotating
     pair's energy density is dwarfed by the unsuppressed zero-point
@@ -284,9 +272,7 @@ Proof.
   lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Resonance amplification                            *)
-(* ============================================================ *)
+(** ## §5 — Resonance amplification *)
 
 (** **Pabs §5 verbatim**: Resonance amplification -- vortex energy
     density multiplied by the zero-point reservoir.
@@ -345,9 +331,7 @@ Proof.
   apply Rmult_1_r.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Consciousness-suppression bridge to Cosmology      *)
-(* ============================================================ *)
+(** ## §6 — Consciousness-suppression bridge to Cosmology *)
 
 (** **Bridge**: for any Planck-scale `Lambda_0 > 0`, the framework's
     cosmological suppression `Lambda_eff = Lambda_0 * exp(-X)` sends
@@ -382,9 +366,7 @@ Proof.
   apply exp_0.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Capstone Record                                    *)
-(* ============================================================ *)
+(** ## §7 — Capstone Record *)
 
 (** **★ Bundled counter-rotating-vortices free-energy structure ★**
 
@@ -466,9 +448,7 @@ Proof.
     exact I.
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Honest scope marker                                *)
-(* ============================================================ *)
+(** ## §8 — Honest scope marker *)
 
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 Counter-Rotating Vortices /
@@ -486,9 +466,7 @@ Proof. exact I. Qed.
 
 End CounterRotatingVortices.
 
-(* ============================================================ *)
-(* Section 9: File-level honest scope commentary                 *)
-(* ============================================================ *)
+(** ## §9 — File-level honest scope commentary *)
 
 (*
   1. `CounterRotatingVortexPair` Record (omega1, omega2, sum_zero).

@@ -50,10 +50,6 @@ the same typed bridge under different `Λ_0` unit choices.
 * `LambdaEffCalibration.lean` — 120·ln 10 g/cm³ exponent
 * Manuscript Ch 26 line 167 — modified Friedmann equation
 
-## Status
-
-Axiom-free. Concrete witness discharge of typed-content bridge.
-Stage L13b — typed-content upgrade.
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Exp

@@ -533,7 +533,7 @@ The fine structure constant emerges from fractal resonance:
 \begin{equation}
 \alpha_{\text{EM}} = R_f(1, 2) \cdot \frac{\pi}{10}
 \end{equation}
-where $R_f(1,2)$ is the resonance function evaluated at linear resonance ($\alpha=1$) and dimension $s=2$.
+where $R_f(1,2)$ is the resonance function evaluated at linear resonance ($\alpha=1$) and dimension $s=2$.\manuscriptcorrection{The Lean closed-form identity \texttt{R\_f\_odd\_eq\_neg\_eta} (file \texttt{PF/RfIntegerAlphaDichotomy.lean}, Wave~55, commit \texttt{496193c}) proves $R_f(1,s) = -\eta(s)$ for every $s\in\mathbb{C}$, where $\eta$ is the Dirichlet eta function. Specialising to $s=2$ gives $R_f(1,2) = -\eta(2) = -\pi^2/12 \approx -0.8225$ — \emph{negative} and roughly $35\times$ larger in magnitude than the heuristic value $\approx 0.02338$ reported below. The companion theorem \texttt{R\_f\_one\_two\_ne\_manuscript\_value} establishes the inequality axiom-free. The fine-structure identification on the displayed line therefore cannot hold with the literal definition of $R_f$ used elsewhere in the framework; recovering $\alpha_{\text{EM}}^{-1}\approx 137.036$ requires either a different definition of $R_f$ at $(\alpha=1,s=2)$ (e.g.\ a regularised or alternating variant) or a different combination of the two factors. The original numerical paragraph below is preserved verbatim for historical reference.}
 \end{thm}
 
 \begin{level2}[Numerical Verification]

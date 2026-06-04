@@ -81,10 +81,6 @@
   - Coquelicot is NOT required at the proof level for this file;
     only the build environment (Rocq 9.1 + Coquelicot 3.4.4) is
     shared with the existing Wave 58 Coq ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -98,9 +94,7 @@ Open Scope R_scope.
     `PrincipiaTractalis.PNPClassSeparationPrecisionBridge`. *)
 Module PNPClassSeparationPrecisionBridge.
 
-(* ============================================================ *)
-(* Section 1: Ad-hoc carrier encoding of complexity classes      *)
-(* ============================================================ *)
+(** ## §1 — Ad-hoc carrier encoding of complexity classes *)
 
 (** **`Input`** — abstract input carrier; only the size is recorded.
     Standard textbook encoding: a decision problem is L subseteq
@@ -173,9 +167,7 @@ Definition class_NP_typed (L : DecidableProblem) : Prop :=
          (isize cert <= c * Nat.pow ((isize x) + 1) c)%nat /\
          V.(v_verify) x cert).
 
-(* ============================================================ *)
-(* Section 2: The literal P /= NP statement                      *)
-(* ============================================================ *)
+(** ## §2 — The literal P /= NP statement *)
 
 (** **`Literal_P_neq_NP`** — THE LITERAL CLAY STATEMENT: there
     exists a decision problem `L` in NP that is not in P. Standard
@@ -189,9 +181,7 @@ Definition Literal_P_neq_NP : Prop :=
   exists L : DecidableProblem,
     class_NP_typed L /\ ~ class_P_typed L.
 
-(* ============================================================ *)
-(* Section 3: PF's enum-level discharge (typed reference)        *)
-(* ============================================================ *)
+(** ## §3 — PF's enum-level discharge (typed reference) *)
 
 (** **`PF_PolylogEnumDischarge`** — PF's 4-clause enum-level
     discharge at the polylog-eigenvalue substrate, encoded as a
@@ -212,9 +202,7 @@ Definition PF_PolylogEnumDischarge : Prop := True.
 Theorem pf_polylog_enum_discharge_holds : PF_PolylogEnumDischarge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 4: The precise gap -- EnumToClassSeparationBridge     *)
-(* ============================================================ *)
+(** ## §4 — The precise gap -- EnumToClassSeparationBridge *)
 
 (** **`EnumToClassSeparationBridge`** — THE PRECISE GAP: existence
     of a `DecidableProblem L` in NP but not in P, witnessed by the
@@ -239,9 +227,7 @@ Proof.
   split; intro H; exact H.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Cook 1971 -- Cook-Levin theorem (typed Prop)       *)
-(* ============================================================ *)
+(** ## §5 — Cook 1971 -- Cook-Levin theorem (typed Prop) *)
 
 (** **`CookLevinTheorem`** — Cook (1971): there exists a decision
     problem in NP that is NP-complete (every other NP problem
@@ -264,9 +250,7 @@ Definition CookLevinTheorem : Prop :=
             (isize (f x) <= c * Nat.pow ((isize x) + 1) c)%nat) /\
          (forall x : Input, L x <-> L_complete (f x))).
 
-(* ============================================================ *)
-(* Section 6: Ladner 1975 -- NP-intermediate (typed Prop)        *)
-(* ============================================================ *)
+(** ## §6 — Ladner 1975 -- NP-intermediate (typed Prop) *)
 
 (** **`LadnerIntermediate1975`** — Ladner (1975): if `P /= NP`,
     there exist NP-intermediate problems (NP, not in P, not
@@ -287,9 +271,7 @@ Definition LadnerIntermediate1975 : Prop :=
              (forall x : Input,
                 L_complete x <-> L_intermediate (f x))).
 
-(* ============================================================ *)
-(* Section 7: Razborov-Rudich 1997 -- natural-proofs barrier     *)
-(* ============================================================ *)
+(** ## §7 — Razborov-Rudich 1997 -- natural-proofs barrier *)
 
 (** **`RazborovRudichBarrier1997`** — Razborov & Rudich (1997):
     "natural" proofs of P /= NP collide with the existence of
@@ -305,9 +287,7 @@ Definition RazborovRudichBarrier1997 : Prop :=
   forall natural_property_witness : Prop,
     natural_property_witness -> True.
 
-(* ============================================================ *)
-(* Section 8: Aaronson-Wigderson 2009 -- algebrization barrier   *)
-(* ============================================================ *)
+(** ## §8 — Aaronson-Wigderson 2009 -- algebrization barrier *)
 
 (** **`AaronsonWigdersonBarrier2009`** — Aaronson & Wigderson
     (2009): "algebrizing" proof techniques (those that relativize
@@ -324,9 +304,7 @@ Definition AaronsonWigdersonBarrier2009 : Prop :=
   forall algebrizing_attack_certificate : Prop,
     algebrizing_attack_certificate -> True.
 
-(* ============================================================ *)
-(* Section 9: Framework alpha-cascade for the P-vs-NP axis       *)
-(* ============================================================ *)
+(** ## §9 — Framework alpha-cascade for the P-vs-NP axis *)
 
 (** **`alpha_Poincare`** — Poincaré α-value (= 1) from the
     cross-Millennium algebraic skeleton. Mirror of
@@ -396,9 +374,7 @@ Proof.
   - unfold alpha_RH. lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 10: The precise gap chain                             *)
-(* ============================================================ *)
+(** ## §10 — The precise gap chain *)
 
 (** **★ THE PRECISE GAP CHAIN ★** — PF's enum-level discharge plus
     the named `EnumToClassSeparationBridge` plus the Cook-Levin
@@ -420,9 +396,7 @@ Proof.
   exact hBridge.
 Qed.
 
-(* ============================================================ *)
-(* Section 11: Honest-scope marker                               *)
-(* ============================================================ *)
+(** ## §11 — Honest-scope marker *)
 
 (** **Honest-scope statement** — four-clause typed predicate
     documenting:
@@ -460,9 +434,7 @@ Theorem honest_scope_marker :
   honest_scope_coq_parity_only_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 12: Capstone Record                                   *)
-(* ============================================================ *)
+(** ## §12 — Capstone Record *)
 
 (** **★★ THE CLAY-PRECISION P-VS-NP CAPSTONE ★★** — single
     referee-citable bundled record.
@@ -528,9 +500,7 @@ Qed.
 
 End PNPClassSeparationPrecisionBridge.
 
-(* ============================================================ *)
-(* Section 13: File-level honest scope commentary               *)
-(* ============================================================ *)
+(** ## §13 — File-level honest scope commentary *)
 
 (*
   1. The ad-hoc carrier encoding of complexity classes

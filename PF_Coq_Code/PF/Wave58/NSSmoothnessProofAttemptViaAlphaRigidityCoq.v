@@ -108,10 +108,6 @@
   - `Lra` (trivial linear-arithmetic side conditions)
   - Build environment: Rocq 9.1 + Coquelicot 3.4.4 (Coquelicot
     not required at proof level for this file).
-
-  ## Author
-
-  Claude Opus 4.7 (1M context), 2026-06-03.
 *)
 
 From Stdlib Require Import Reals.
@@ -129,9 +125,7 @@ Module NSSmoothnessProofAttemptViaAlphaRigidity.
 Import FujitaKato1964LocalExistenceDischarge.
 Import LerayHopfGlobalExistenceBootstrap.
 
-(* ============================================================ *)
-(* Section 1: alpha-skeleton constants                            *)
-(* ============================================================ *)
+(** ## §1 — alpha-skeleton constants *)
 
 (** **`alpha_BSD`** — the framework's BSD scaling exponent. The
     Lean side defines `alpha_BSD := 3 * PI / 4`. *)
@@ -167,9 +161,7 @@ Proof.
   intro H. assert (Hp := alpha_BSD_pos). lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 2: alpha-rigidity Prop                                 *)
-(* ============================================================ *)
+(** ## §2 — alpha-rigidity Prop *)
 
 (** **★ `AlphaRigidityForNS`** — the framework's algebraic
     relation `alpha_NS = 2 * alpha_BSD`. *)
@@ -208,9 +200,7 @@ Proof.
   - exact alpha_rigidity_for_NS_axiom_free.
 Qed.
 
-(* ============================================================ *)
-(* Section 3: Wave 33 carrier on the Coq side                     *)
-(* ============================================================ *)
+(** ## §3 — Wave 33 carrier on the Coq side *)
 
 (** **`UniformHadamardBoundAllN`** — Wave 33 carrier. The Lean side
     discharges this axiom-free via Cauchy-Schwarz on
@@ -226,9 +216,7 @@ Theorem UniformHadamardBoundAllN_substrate_clause :
     UniformHadamardBoundAllN.
 Proof. intro _n. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 4: Galerkin K=2 axiom-free                             *)
-(* ============================================================ *)
+(** ## §4 — Galerkin K=2 axiom-free *)
 
 (** **`GalerkinUniformConvergence K`** — typed Prop encoding the
     framework's Galerkin K-truncated uniform-convergence carrier.
@@ -241,9 +229,7 @@ Theorem GalerkinUniformConvergence_K2_substrate :
     GalerkinUniformConvergence 2.
 Proof. unfold GalerkinUniformConvergence. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 5: Energy functional + Constantin-Foias bound         *)
-(* ============================================================ *)
+(** ## §5 — Energy functional + Constantin-Foias bound *)
 
 (** **`energyFunctional`** — symbolic stub matching the Lean
     `NSEnergyInequalityGalerkin.energyFunctional` (typed
@@ -290,9 +276,7 @@ Proof.
   exact (constantin_foias_dissipation_at_substrate u 0 t ht).
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Vorticity symbolic scaffold                         *)
-(* ============================================================ *)
+(** ## §6 — Vorticity symbolic scaffold *)
 
 (** **★ `vorticity`** — symbolic identity scaffold (the literal
     `omega := curl u` requires the spatial gradient `nabla u`, the
@@ -310,9 +294,7 @@ Theorem vorticity_zero :
     vorticity SchwartzSpacetimeMap_zero = SchwartzSpacetimeMap_zero.
 Proof. reflexivity. Qed.
 
-(* ============================================================ *)
-(* Section 7: Vorticity L^infinity bound (typed Prop)             *)
-(* ============================================================ *)
+(** ## §7 — Vorticity L^infinity bound (typed Prop) *)
 
 (** **★ `VorticityLInfinityBounded u`** — typed Prop encoding the
     BKM hypothesis at substrate. *)
@@ -330,9 +312,7 @@ Proof.
   intros _t _ht. rewrite vorticity_eq_id. lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Beale-Kato-Majda 1984 criterion (typed Prop)        *)
-(* ============================================================ *)
+(** ## §8 — Beale-Kato-Majda 1984 criterion (typed Prop) *)
 
 (** **★★ `BealeKataMajdaCriterion u u0`** — typed Prop encoding
     Beale-Kato-Majda 1984 (Comm. Math. Phys. 94 61-66): bounded
@@ -350,9 +330,7 @@ Proof.
   intros _h. exact ns_solution_zero.
 Qed.
 
-(* ============================================================ *)
-(* Section 9: Vorticity L^infinity bound via alpha-rigidity      *)
-(* ============================================================ *)
+(** ## §9 — Vorticity L^infinity bound via alpha-rigidity *)
 
 (** **★★★ `VorticityLInfinityBoundViaAlphaRigidity u`** — typed
     Prop composing alpha-rigidity + Wave 33 -> vorticity bound. *)
@@ -383,9 +361,7 @@ Proof.
   - exact UniformHadamardBoundAllN_substrate_clause.
 Qed.
 
-(* ============================================================ *)
-(* Section 10: NS3D Schwartz smoothness conjecture (typed)        *)
-(* ============================================================ *)
+(** ## §10 — NS3D Schwartz smoothness conjecture (typed) *)
 
 (** **★ `NS3DSchwartzSmoothnessConjecture`** — typed Prop equal
     (in this Coq encoding) to `TypedClayNSContent` from the
@@ -400,9 +376,7 @@ Theorem NS3DSchwartzSmoothnessConjecture_eq_typedClayNSContent :
     NS3DSchwartzSmoothnessConjecture = TypedClayNSContent.
 Proof. reflexivity. Qed.
 
-(* ============================================================ *)
-(* Section 11: Composite proof attempt                            *)
-(* ============================================================ *)
+(** ## §11 — Composite proof attempt *)
 
 (** **★★★ `ns3d_smoothness_via_alpha_rigidity_and_BKM`** — the
     framework's full BKM composition under named hypotheses. *)
@@ -425,9 +399,7 @@ Proof.
   exact (vorticity_L_infinity_bound_at_substrate u).
 Qed.
 
-(* ============================================================ *)
-(* Section 12: Substrate BKM hypothesis (sharp form)              *)
-(* ============================================================ *)
+(** ## §12 — Substrate BKM hypothesis (sharp form) *)
 
 (** **★ `SubstrateBKMHypothesisSharp`** — at substrate scope, BKM
     holds for every typed Schwartz solution candidate. *)
@@ -450,9 +422,7 @@ Proof.
   exact (smoothness_any u).
 Qed.
 
-(* ============================================================ *)
-(* Section 13: Composite axiom-free substrate discharge           *)
-(* ============================================================ *)
+(** ## §13 — Composite axiom-free substrate discharge *)
 
 (** **★★★ `ns_smoothness_composite_substrate_discharge`** — under
     `FujitaKato1964Theorem`, the framework's alpha-rigidity + Wave 33
@@ -482,9 +452,7 @@ Proof.
   exact ns_local_existence_discharged_at_zero_initial_data.
 Qed.
 
-(* ============================================================ *)
-(* Section 14: Bridges to existing Wave 58 infrastructure         *)
-(* ============================================================ *)
+(** ## §14 — Bridges to existing Wave 58 infrastructure *)
 
 (** **Bridge to `TypedClayNSContent`**. *)
 Theorem composite_implies_typedClayNSContent
@@ -492,9 +460,7 @@ Theorem composite_implies_typedClayNSContent
     TypedClayNSContent.
 Proof. exact (ns_smoothness_composite_substrate_discharge h_FK). Qed.
 
-(* ============================================================ *)
-(* Section 15: Named residual (mathlib nabla u gap)               *)
-(* ============================================================ *)
+(** ## §15 — Named residual (mathlib nabla u gap) *)
 
 (** **★ `MathlibNablaUOnSchwartzFin4`** — typed Prop encoding the
     mathlib gap for the spatial gradient `nabla u` of a 4D
@@ -535,9 +501,7 @@ Proof.
   exact h_smooth.
 Qed.
 
-(* ============================================================ *)
-(* Section 16: Capstone Record (15 fields)                        *)
-(* ============================================================ *)
+(** ## §16 — Capstone Record (15 fields) *)
 
 (** **Wave 58-NS smoothness proof attempt status**. *)
 Record NSSmoothnessProofAttemptStatus : Prop := {
@@ -646,9 +610,7 @@ Proof.
   - exact mathlibNablaUOnSchwartzFin4_at_substrate.
 Qed.
 
-(* ============================================================ *)
-(* Section 17: Honest-scope marker                                *)
-(* ============================================================ *)
+(** ## §17 — Honest-scope marker *)
 
 (** **Coq-parity-only honest-scope marker.** NOT a Clay discharge. *)
 Definition honest_scope_coq_parity_only_not_a_discharge : Prop := True.
@@ -659,9 +621,7 @@ Proof. exact I. Qed.
 
 End NSSmoothnessProofAttemptViaAlphaRigidity.
 
-(* ============================================================ *)
-(* Section 18: File-level honest scope commentary                *)
-(* ============================================================ *)
+(** ## §18 — File-level honest scope commentary *)
 
 (*
   1. `alpha_NS := 2 * alpha_BSD` (definitional alias on the Coq

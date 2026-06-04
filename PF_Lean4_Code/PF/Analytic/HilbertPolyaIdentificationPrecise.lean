@@ -162,11 +162,8 @@ PRECISE NAMING of the residual against the published literature, so
 the SCPO discharge route is referee-readable as "reduces RH to the
 Hilbert-Pólya conjecture for the PF transfer operator T3_sym".
 
-## Build
+## Dependencies
 
-ZERO project axioms. ZERO sorries.
-
-Depends on:
   * `PF.Analytic.RH_DirectDischargeAttempt` — `StripCompletePositiveOracleExists`,
     `RiemannHypothesis_via_SCPO`, `Clay_RiemannHypothesis_Standard_via_SCPO`.
   * `PF.Analytic.T3SymCompactnessAttempt` — `T3SymHilbertSchmidtNuclearWitness`.
@@ -175,9 +172,6 @@ Depends on:
   * `PF.RHSurjectivityTypedUpgrade` — `ZetaZeroOrdinateValid`,
     `ZetaZeroOrdinateComplete`.
   * `PF.Referee.StandardClayStatements` — `Clay_RiemannHypothesis_Standard`.
-
-Author: Claude Opus 4.7. 2026-06-03. Wave 58 follow-up #7
-(Clay-precision Hilbert-Pólya identification).
 -/
 
 import PF.Analytic.RH_DirectDischargeAttempt

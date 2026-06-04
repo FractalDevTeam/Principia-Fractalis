@@ -77,10 +77,6 @@
   - `Lra` / `Lia` (trivial side conditions)
   - Build environment: Rocq 9.1 + Coquelicot 3.4.4 (Coquelicot
     not required at proof level for this file).
-
-  ## Author
-
-  Claude Opus 4.7 (1M context), 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -93,9 +89,7 @@ Open Scope R_scope.
     `PF.NavierStokes.FujitaKato1964LocalExistenceDischarge`. *)
 Module FujitaKato1964LocalExistenceDischarge.
 
-(* ============================================================ *)
-(* Section 1: SchwartzMap opaque stub                            *)
-(* ============================================================ *)
+(** ## §1 — SchwartzMap opaque stub *)
 
 (** **SchwartzMap stub.** Coq has no SchwartzMap typeclass; we
     approximate via the bare function-space alias. The Lean side
@@ -118,9 +112,7 @@ Definition SchwartzSpacetimeMap : Type :=
 Definition SchwartzSpacetimeMap_zero : SchwartzSpacetimeMap :=
   SchwartzMap_zero.
 
-(* ============================================================ *)
-(* Section 2: NS3DSchwartzInitialData record                     *)
-(* ============================================================ *)
+(** ## §2 — NS3DSchwartzInitialData record *)
 
 (** **3D NS Schwartz initial data carrier.** The Lean side records
     a velocity field as a `SchwartzMap (Fin 3 -> R) (Fin 3 -> R)`
@@ -155,9 +147,7 @@ Theorem isDivFree_zero :
     isDivFree NS3DSchwartzInitialData_zero.
 Proof. unfold isDivFree, NS3DSchwartzInitialData_zero. simpl. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 3: NS_Solution 4-clause structural Prop               *)
-(* ============================================================ *)
+(** ## §3 — NS_Solution 4-clause structural Prop *)
 
 (** **Clause 1: initial-data match** — at time `t = 0` (i.e. the
     first time-coordinate of the spacetime input), the spacetime
@@ -196,9 +186,7 @@ Definition NS_Solution
   forwardTimeDomain u /\
   smoothness u.
 
-(* ============================================================ *)
-(* Section 4: Zero-data axiom-free discharges                    *)
-(* ============================================================ *)
+(** ## §4 — Zero-data axiom-free discharges *)
 
 (** **Clause 1 at zero** — both sides reduce to the zero vector. *)
 Theorem initialDataMatch_zero :
@@ -244,9 +232,7 @@ Proof.
   exact (smoothness_any SchwartzSpacetimeMap_zero).
 Qed.
 
-(* ============================================================ *)
-(* Section 5: FujitaKatoLocalSolution typed Prop                 *)
-(* ============================================================ *)
+(** ## §5 — FujitaKatoLocalSolution typed Prop *)
 
 (** **★ `FujitaKatoLocalSolution u0 T`** — typed Prop asserting
     the existence of a spacetime Schwartz map satisfying
@@ -274,9 +260,7 @@ Proof.
   exact ns_solution_zero.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Linearised NS local existence                      *)
-(* ============================================================ *)
+(** ## §6 — Linearised NS local existence *)
 
 (** **`LinearisedNSLocalSolution u0 T`** — typed Prop for the
     linearised NS (Stokes / heat-equation) local-existence
@@ -298,9 +282,7 @@ Proof.
   exact (fujitaKato_local_at_zero_initial_data T hT).
 Qed.
 
-(* ============================================================ *)
-(* Section 7: FujitaKato1964Theorem typed Prop                   *)
-(* ============================================================ *)
+(** ## §7 — FujitaKato1964Theorem typed Prop *)
 
 (** **★★★ `FujitaKato1964Theorem`** — the published Fujita-Kato
     1964 result encoded as a typed Prop (NOT a Coq-internal proof).
@@ -325,9 +307,7 @@ Proof.
   - apply fujitaKato_local_at_zero_initial_data. lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 8: FujitaKatoLocalExistenceHypothesis (Wave 58)       *)
-(* ============================================================ *)
+(** ## §8 — FujitaKatoLocalExistenceHypothesis (Wave 58) *)
 
 (** **`FujitaKatoLocalExistenceHypothesis`** — typed name for the
     Wave 58 named gap. *)
@@ -360,9 +340,7 @@ Proof.
   exact (h_fk u0 hu).
 Qed.
 
-(* ============================================================ *)
-(* Section 9: Bridges                                             *)
-(* ============================================================ *)
+(** ## §9 — Bridges *)
 
 (** **★★★ `fujitaKato1964_implies_existence_hypothesis`** — the
     published Fujita-Kato 1964 theorem (typed) implies the named
@@ -398,9 +376,7 @@ Proof.
   - exact (h_fk u0 hu).
 Qed.
 
-(* ============================================================ *)
-(* Section 10: Cross-bridge to Wave 58                            *)
-(* ============================================================ *)
+(** ## §10 — Cross-bridge to Wave 58 *)
 
 (** **★★ `ns_local_existence_discharged_at_zero_initial_data`** —
     structural AXIOM-FREE discharge of `exists u, NS_Solution u 0`
@@ -413,9 +389,7 @@ Proof.
   exists SchwartzSpacetimeMap_zero. exact ns_solution_zero.
 Qed.
 
-(* ============================================================ *)
-(* Section 11: Explicit local time bound                          *)
-(* ============================================================ *)
+(** ## §11 — Explicit local time bound *)
 
 (** **★ `FujitaKato1964ExplicitTimeBound`** — typed Prop encoding
     the Fujita-Kato 1964 explicit local-existence time bound
@@ -439,9 +413,7 @@ Proof.
   exact fujitaKato1964Theorem_at_zero_initial_data.
 Qed.
 
-(* ============================================================ *)
-(* Section 12: Honest-scope record + capstone                    *)
-(* ============================================================ *)
+(** ## §12 — Honest-scope record + capstone *)
 
 (** **Honest-scope record** — separates axiom-free content from
     typed-Prop named-residual content. *)
@@ -517,9 +489,7 @@ Proof. exact I. Qed.
 
 End FujitaKato1964LocalExistenceDischarge.
 
-(* ============================================================ *)
-(* Section 13: File-level honest scope commentary                *)
-(* ============================================================ *)
+(** ## §13 — File-level honest scope commentary *)
 
 (*
   1. `SchwartzMap X Y := X -> Y` is the opaque carrier; Coq has no

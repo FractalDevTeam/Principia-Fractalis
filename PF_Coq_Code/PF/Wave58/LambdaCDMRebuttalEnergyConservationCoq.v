@@ -68,10 +68,6 @@
   - Coquelicot is NOT required at the proof level for this file;
     only the build environment (Rocq 9.1 + Coquelicot 3.4.4) is
     shared with the Wave 57-BSD and Wave 58-TwinPrime ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 Require Import Stdlib.Reals.Reals.
@@ -84,9 +80,7 @@ Open Scope R_scope.
     `PrincipiaTractalis.Cosmology.LambdaCDMRebuttal`. *)
 Module LambdaCDMRebuttal.
 
-(* ============================================================ *)
-(* Section 1: Standard ΛCDM naive vs observed vacuum density    *)
-(* ============================================================ *)
+(** ## §1 — Standard ΛCDM naive vs observed vacuum density *)
 
 (** **Naive Planck-scale vacuum density** treated symbolically.
     Manuscript Ch 26 line 25/85: `ρ_QFT ~ M_Planck^4 ~ 10^91 g/cm^3`. *)
@@ -131,9 +125,7 @@ Proof.
   apply ln_Rpower.
 Qed.
 
-(* ============================================================ *)
-(* Section 2: Framework consciousness-suppressed density        *)
-(* ============================================================ *)
+(** ## §2 — Framework consciousness-suppressed density *)
 
 (** **Framework suppression exponent** at the typed-upgrade values
     `X = N · θ · ρ = 78π · 0.95 · 1.1875`.
@@ -183,9 +175,7 @@ Proof.
   - apply exp_pos.
 Qed.
 
-(* ============================================================ *)
-(* Section 3: 94.3% χ² beat (manuscript-cited numerics)          *)
-(* ============================================================ *)
+(** ## §3 — 94.3% χ² beat (manuscript-cited numerics) *)
 
 (** **Standard ΛCDM total χ²**. Manuscript Ch 27 line 398. *)
 Definition lambdaCDM_chi2 : R := 687.3.
@@ -220,9 +210,7 @@ Proof.
   unfold lambdaCDM_chi2, framework_chi2. lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 4: Hubble tension                                     *)
-(* ============================================================ *)
+(** ## §4 — Hubble tension *)
 
 (** **Local SH0ES H_0**. Manuscript Ch 27 line 270. *)
 Definition hubble_local_SH0ES : R := 73.0.
@@ -251,9 +239,7 @@ Proof.
   split; lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Energy-conservation toy identity                   *)
-(* ============================================================ *)
+(** ## §5 — Energy-conservation toy identity *)
 
 (** **Toy comoving volume growth law**: `V(t) = exp(t)`.
     Manuscript Ch 27 line 234 framing. *)
@@ -302,9 +288,7 @@ Proof.
   - rewrite <- exp_0. apply exp_increasing. lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Capstone Record                                    *)
-(* ============================================================ *)
+(** ## §6 — Capstone Record *)
 
 (** **★ Bundled ΛCDM full-rebuttal structure ★**
 
@@ -358,9 +342,7 @@ Proof.
   - exact I.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Honest scope marker                                *)
-(* ============================================================ *)
+(** ## §7 — Honest scope marker *)
 
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 ΛCDM rebuttal, NOT a discharge
@@ -379,9 +361,7 @@ Proof. exact I. Qed.
 
 End LambdaCDMRebuttal.
 
-(* ============================================================ *)
-(* Section 8: File-level honest scope commentary                 *)
-(* ============================================================ *)
+(** ## §8 — File-level honest scope commentary *)
 
 (*
   1. Naive vs observed vacuum density encoded via `Rpower 10 91` and

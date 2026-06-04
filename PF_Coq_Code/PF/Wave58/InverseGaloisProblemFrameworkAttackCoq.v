@@ -77,10 +77,6 @@
   - Coquelicot is NOT required at the proof level; only the build
     environment (Rocq 9.1 + Coquelicot 3.4.4) is shared with the
     existing Wave 58 Coq ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -91,9 +87,7 @@ From Stdlib Require Import Lra.
     `PF.NumberTheory.InverseGaloisProblemFrameworkAttack`. *)
 Module InverseGaloisProblemFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 1: Literal IGP statement                              *)
-(* ============================================================ *)
+(** ## §1 — Literal IGP statement *)
 
 (** Inverse Galois Problem -- structural form.
 
@@ -124,9 +118,7 @@ Proof.
   intro G. exists G. reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 2: Known solved cases (typed Props)                   *)
-(* ============================================================ *)
+(** ## §2 — Known solved cases (typed Props) *)
 
 (** Shafarevich 1954 -- every finite solvable group is a Galois
     group over Q. Published Mat. Sb. 1954. NAMED OPEN PROP at the
@@ -158,9 +150,7 @@ Proof.
   intro h. exact h.
 Qed.
 
-(* ============================================================ *)
-(* Section 3: Five concrete cyclic-group witnesses (axiom-free)  *)
-(* ============================================================ *)
+(** ## §3 — Five concrete cyclic-group witnesses (axiom-free) *)
 
 (** Cyclotomic realisation of Z/nZ as a Galois group over Q (typed).
 
@@ -203,9 +193,7 @@ Proof.
   - exact igp_cyclic_6.
 Qed.
 
-(* ============================================================ *)
-(* Section 4: Framework alpha-skeleton bridge                    *)
-(* ============================================================ *)
+(** ## §4 — Framework alpha-skeleton bridge *)
 
 Open Scope R_scope.
 
@@ -264,9 +252,7 @@ Qed.
 
 Close Scope R_scope.
 
-(* ============================================================ *)
-(* Section 5: Hilbert irreducibility theorem cross-reference     *)
-(* ============================================================ *)
+(** ## §5 — Hilbert irreducibility theorem cross-reference *)
 
 (** Hilbert irreducibility theorem (typed). Published Crelle's
     Journal 1892. For any irreducible `f in Q(t)[X]`, the
@@ -283,9 +269,7 @@ Proof.
   intros P hP. exists 0. exact (hP 0).
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Belyi-Matzat-Thompson rigidity                     *)
-(* ============================================================ *)
+(** ## §6 — Belyi-Matzat-Thompson rigidity *)
 
 (** Rigid groups are Galois groups over Q (typed).
     Belyi-Matzat-Thompson theorem. A finite group with a rigid
@@ -306,9 +290,7 @@ Proof.
   exact InverseGaloisProblemStructural_trivially_holds.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Framework Galois-discriminant axis bridge          *)
-(* ============================================================ *)
+(** ## §7 — Framework Galois-discriminant axis bridge *)
 
 (** Framework IGP via Galois-discriminant axis (typed bridge).
     Cross-references Wave 41A `CrossQuadraticFieldBridge` ((Z/2)^2
@@ -318,9 +300,7 @@ Qed.
 Theorem framework_igp_via_galois_discriminant : True.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 8: Remaining-cases gap                                *)
-(* ============================================================ *)
+(** ## §8 — Remaining-cases gap *)
 
 (** Remaining-cases IGP open Prop. Named published open content:
     IGP minus solvable, alternating, symmetric, and Mathieu is the
@@ -334,9 +314,7 @@ Theorem four_solved_classes_plus_remaining_imply_structural :
   InverseGaloisProblemStructural.
 Proof. intro h. exact h. Qed.
 
-(* ============================================================ *)
-(* Section 9: Named open Prop isolating the obstruction          *)
-(* ============================================================ *)
+(** ## §9 — Named open Prop isolating the obstruction *)
 
 (** Mathlib/Coq-level OPEN: Inverse Galois Problem. Alias for
     `InverseGaloisProblem_Mathlib`. *)
@@ -350,9 +328,7 @@ Proof.
   tauto.
 Qed.
 
-(* ============================================================ *)
-(* Section 10: Honest scope marker                               *)
-(* ============================================================ *)
+(** ## §10 — Honest scope marker *)
 
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
@@ -364,9 +340,7 @@ Theorem honest_scope_marker :
   honest_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 11: Capstone Record                                   *)
-(* ============================================================ *)
+(** ## §11 — Capstone Record *)
 
 (** IGP framework-attack bundle. Aggregates:
     - 5 concrete cyclic-group witnesses;
@@ -457,9 +431,7 @@ Definition inverse_galois_framework_attack_capstone
 
 End InverseGaloisProblemFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 12: File-level honest-scope commentary                *)
-(* ============================================================ *)
+(** ## §12 — File-level honest-scope commentary *)
 
 (*
   1. Five cyclic-group witnesses (Z/2..Z/6) discharged Coq-axiom-

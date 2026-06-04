@@ -104,7 +104,6 @@ The α-difference identity `α_QG − α_GR = 1/φ` is the only HARD
 arithmetic content; it is proved axiom-free by `field_simp` plus
 the standard `phi · phi = phi + 1` Fibonacci identity.
 
-ZERO project axioms.
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Pow.Real

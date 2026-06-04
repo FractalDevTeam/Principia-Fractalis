@@ -105,11 +105,6 @@ literal Mayer 1991 §3 spectrum:
      `MeasureTheory.Measure.sum`, but the choice of eigenvalue
      sequence is not in scope.
 
-## Status
-
-Axiom-free. `#print axioms` returns only
-`[propext, Classical.choice, Quot.sound]`. Zero `axiom`,
-zero `sorry`, zero `admit`.
 -/
 
 import PF.T3SymContinuousSpectralMeasureAttempt

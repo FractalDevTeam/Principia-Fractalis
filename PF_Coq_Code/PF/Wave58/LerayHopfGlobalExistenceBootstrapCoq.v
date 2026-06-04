@@ -76,10 +76,6 @@
     reuse.
   - Build environment: Rocq 9.1 + Coquelicot 3.4.4 (Coquelicot
     not required at proof level for this file).
-
-  ## Author
-
-  Claude Opus 4.7 (1M context), 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -97,9 +93,7 @@ Module LerayHopfGlobalExistenceBootstrap.
 (** Reuse carriers from the Fujita-Kato 1964 Coq port. *)
 Import FujitaKato1964LocalExistenceDischarge.
 
-(* ============================================================ *)
-(* Section 1: Energy-inequality clause (typed Prop)              *)
-(* ============================================================ *)
+(** ## §1 — Energy-inequality clause (typed Prop) *)
 
 (** **Typed energy-inequality clause** — named typed Prop encoding
     Leray's 1934 energy inequality at every `t >= 0`. The literal
@@ -126,9 +120,7 @@ Proof.
   - right. exact H.
 Qed.
 
-(* ============================================================ *)
-(* Section 2: Weak-form NS clause (typed Prop)                   *)
-(* ============================================================ *)
+(** ## §2 — Weak-form NS clause (typed Prop) *)
 
 (** **Typed weak-form NS clause** — named typed Prop encoding the
     distributional Navier-Stokes equation. Leray 1934 Section 17:
@@ -152,9 +144,7 @@ Theorem weakFormNSClause_any
     WeakFormNSClause u u0.
 Proof. unfold WeakFormNSClause. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 3: Leray 1934 weak-solution predicate                 *)
-(* ============================================================ *)
+(** ## §3 — Leray 1934 weak-solution predicate *)
 
 (** **★ `Leray1934WeakSolution u u0` ★** — typed predicate encoding
     Leray's 1934 weak-solution definition.
@@ -171,9 +161,7 @@ Definition Leray1934WeakSolution
   WeakFormNSClause u u0 /\
   initialDataMatch u u0.
 
-(* ============================================================ *)
-(* Section 4: Hopf 1951 generalisation                            *)
-(* ============================================================ *)
+(** ## §4 — Hopf 1951 generalisation *)
 
 (** **★ `Hopf1951WeakSolution u u0` ★** — typed predicate encoding
     Hopf's 1951 generalisation: weak solutions for arbitrary
@@ -187,9 +175,7 @@ Definition Hopf1951WeakSolution
     (u : SchwartzSpacetimeMap) (u0 : NS3DSchwartzInitialData) : Prop :=
   Leray1934WeakSolution u u0.
 
-(* ============================================================ *)
-(* Section 5: Concrete axiom-free witness at u0 = 0              *)
-(* ============================================================ *)
+(** ## §5 — Concrete axiom-free witness at u0 = 0 *)
 
 (** **★★ `leray_1934_weak_solution_at_zero` ★★** — the
     identically-zero spacetime Schwartz map is a Leray 1934 weak
@@ -231,9 +217,7 @@ Proof.
   unfold Hopf1951WeakSolution. exact leray_1934_weak_solution_at_zero.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Local-to-global bootstrap (typed Prop)             *)
-(* ============================================================ *)
+(** ## §6 — Local-to-global bootstrap (typed Prop) *)
 
 (** **★★★ `NS_LocalToGlobalBootstrap` ★★★** — typed Prop: for every
     Schwartz divergence-free initial datum `u0`, there exists a
@@ -263,9 +247,7 @@ Proof.
   exact leray_1934_weak_solution_at_zero.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Smoothness conjecture (the open Clay content)      *)
-(* ============================================================ *)
+(** ## §7 — Smoothness conjecture (the open Clay content) *)
 
 (** **★★★ `LerayHopfSmoothnessConjecture` ★★★** — typed Prop: every
     Leray-Hopf weak solution on Schwartz divergence-free initial
@@ -305,9 +287,7 @@ Proof.
   exact (smoothness_any u).
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Conditional bridges                                *)
-(* ============================================================ *)
+(** ## §8 — Conditional bridges *)
 
 (** **★★★ `fujita_kato_plus_bootstrap_implies_global` ★★★** — the
     composite of Fujita-Kato 1964 (local) and the local-to-global
@@ -349,9 +329,7 @@ Proof.
   exists u. exact (h_smooth u0 hu u h_weak).
 Qed.
 
-(* ============================================================ *)
-(* Section 9: Clay NS isolated to Leray-Hopf smoothness          *)
-(* ============================================================ *)
+(** ## §9 — Clay NS isolated to Leray-Hopf smoothness *)
 
 (** **`TypedClayNSContent`** — abstracts away from external
     `StandardNS3DEncoding` machinery. The CONTENT of Clay NS at
@@ -448,9 +426,7 @@ Proof.
   - intros h. split; [exact h_boot | exact h].
 Qed.
 
-(* ============================================================ *)
-(* Section 10: Honest-scope record + capstone                    *)
-(* ============================================================ *)
+(** ## §10 — Honest-scope record + capstone *)
 
 (** **Honest-scope record** — separates axiom-free content from
     typed-Prop named-residual content. *)
@@ -562,9 +538,7 @@ Proof. exact I. Qed.
 
 End LerayHopfGlobalExistenceBootstrap.
 
-(* ============================================================ *)
-(* Section 11: File-level honest scope commentary                *)
-(* ============================================================ *)
+(** ## §11 — File-level honest scope commentary *)
 
 (*
   1. Carriers (`SchwartzMap`, `SchwartzSpacetimeMap`,

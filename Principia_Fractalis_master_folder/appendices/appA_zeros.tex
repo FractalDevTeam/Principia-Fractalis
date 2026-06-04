@@ -150,7 +150,7 @@ Note the perfect periodicity: $S_3(n+9) = S_3(n)$ for all $n$.
 
 \section{Resonance Coefficients}
 
-Sacred geometry values $\alpha$ and their resonance with zero distribution:
+Sacred geometry values $\alpha$ and their resonance with zero distribution:\manuscriptcorrection{The table below uses a one-argument notation $R_f(\alpha)$, but the framework's resonance function (Ch~3, Def.~3.1) is two-argument $R_f(\alpha,s)$. No $s$-value, definition, or numerical method is specified for these entries. Furthermore, the framework's axiom-free closed forms (file \texttt{PF/RfIntegerAlphaDichotomy.lean}, Wave~55, commit \texttt{496193c}) give $R_f(1,s)=-\eta(s)$ (negative, magnitude $\approx 0.693$ at $s=1$) and $R_f(2,s)=\zeta(s)$ (with a pole at $s=1$); a 50-digit \texttt{mpmath} evaluation at $\alpha=\sqrt{2}$, $s=1$ returned the COMPLEX value $-0.83424 - 0.67362\,i$ (magnitude $\approx 1.07$). None of these match the positive real values in $[0.85,1.00)$ listed below. The companion theorem \texttt{appA\_R\_f\_sqrt2\_target\_signconflict\_with\_framework\_alpha\_one} (file \texttt{PF/AppA\_R\_f\_ResonanceCoefficientsRefutationAttempt.lean}) formalises the sign discrepancy at the $\alpha=\sqrt{2}$ anchor: a continuous interpolation cannot run from $-\log 2$ (at $\alpha=1$, integer-odd) to $+\infty$-class (at $\alpha=2$, integer-even with a pole at $s=1$) and produce all positive values in $[0.85,1.00)$ at intermediate irrational $\alpha$ without crossing zero, which the table fails to record. The file \texttt{resonance\_values.csv} referenced on line~\pageref{appa:resonance-data} below is also missing from the repository. The table is therefore retained for historical reference only; its numerical entries are NOT derived from any closed form available in the framework's Lean library.}
 
 \begin{table}[h]
 \centering
@@ -167,7 +167,8 @@ $\pi$ & 0.9234 & Circle ratio \\
 $2\pi$ & 0.8567 & Full circle \\
 \hline
 \end{tabular}
-\caption{Resonance between sacred geometry and zero distribution}
+\caption{Resonance between sacred geometry and zero distribution (see manuscript-correction footnote regarding sign / definition discrepancies)}
+\label{appa:resonance-data}
 \end{table}
 
 \section{Computational Details}

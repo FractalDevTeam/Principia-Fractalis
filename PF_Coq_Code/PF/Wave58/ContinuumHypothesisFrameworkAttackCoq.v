@@ -78,10 +78,6 @@
   - Coquelicot is NOT required at the proof level for this file;
     only the build environment (Rocq 9.1 + Coquelicot 3.4.4) is
     shared with the existing Wave 58 Coq ports.
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -90,9 +86,7 @@ From Stdlib Require Import Reals.
 (** Mirror Lean namespace `PrincipiaTractalis.SetTheoryCH`. *)
 Module ContinuumHypothesisFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 1: Cardinality definitions as typed Type / Prop      *)
-(* ============================================================ *)
+(** ## §1 — Cardinality definitions as typed Type / Prop *)
 
 (** Standin for `aleph_0`: the type `nat` is the canonical
     countably infinite type. Coq has no `Cardinal` type, so we
@@ -109,9 +103,7 @@ Definition continuum : Type := nat -> bool.
     for citation/structural purposes only. *)
 Definition aleph_1_marker : Prop := True.
 
-(* ============================================================ *)
-(* Section 2: The Continuum Hypothesis                          *)
-(* ============================================================ *)
+(** ## §2 — The Continuum Hypothesis *)
 
 (** **The Continuum Hypothesis (CH)**: literally `|R| = aleph_1`,
     i.e. the continuum `c = 2^(aleph_0)` equals the first
@@ -123,9 +115,7 @@ Definition aleph_1_marker : Prop := True.
     precluded by Cohen 1963 in any case. *)
 Definition ContinuumHypothesis : Prop := True.
 
-(* ============================================================ *)
-(* Section 3: Cohen-Goedel independence (external citation)      *)
-(* ============================================================ *)
+(** ## §3 — Cohen-Goedel independence (external citation) *)
 
 (** **Opaque stub for ZFC-provability of a Prop.** Cannot be
     defined inside Coq's type theory (Coq's type theory is
@@ -144,9 +134,7 @@ Definition CohenGoedelIndependence : Prop := True.
 Theorem cohen_goedel_independence_marker : CohenGoedelIndependence.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 4: Framework substrate is countable at every level    *)
-(* ============================================================ *)
+(** ## §4 — Framework substrate is countable at every level *)
 
 (** **Every microscopic level** `H_k = C^(3^k)` (Ch 04 Def 4.2)
     has underlying index set finite of size `3^k`. We encode
@@ -172,9 +160,7 @@ Proof.
   reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Framework colimit substrate                        *)
-(* ============================================================ *)
+(** ## §5 — Framework colimit substrate *)
 
 (** **Framework colimit substrate (microscopic)** -- stand-in
     for the directed colimit
@@ -205,9 +191,7 @@ Theorem ktheory_carrier_card_aleph_0_holds :
   ktheory_carrier_card_aleph_0.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 6: L^2(R) cardinality (macroscopic substrate)         *)
-(* ============================================================ *)
+(** ## §6 — L^2(R) cardinality (macroscopic substrate) *)
 
 (** **Stub Prop for `|L^2(R)| = c`**. The full statement
     requires the Coq counterpart of mathlib's `lp` infrastructure
@@ -233,9 +217,7 @@ Proof.
   reflexivity.
 Qed.
 
-(* ============================================================ *)
-(* Section 7: Framework prediction about CH                      *)
-(* ============================================================ *)
+(** ## §7 — Framework prediction about CH *)
 
 (** **Framework's CH prediction**: within the framework's
     natural substrate (microscopic = `aleph_0` colimit,
@@ -253,9 +235,7 @@ Theorem framework_predicts_ch_iff_continuum_hypothesis :
   FrameworkPredictsCH <-> ContinuumHypothesis.
 Proof. unfold FrameworkPredictsCH. tauto. Qed.
 
-(* ============================================================ *)
-(* Section 8: Micro-macro cardinality bridge                     *)
-(* ============================================================ *)
+(** ## §8 — Micro-macro cardinality bridge *)
 
 (** **Micro-macro cardinality bridge**: the framework's
     microscopic substrate (TF colimit) has cardinality
@@ -292,9 +272,7 @@ Proof.
          |}.
 Qed.
 
-(* ============================================================ *)
-(* Section 9: Capstone -- the framework's structural CH attack   *)
-(* ============================================================ *)
+(** ## §9 — Capstone -- the framework's structural CH attack *)
 
 (** **Continuum Hypothesis Framework Attack** -- bundles every
     component of this file into one citable structure.
@@ -338,9 +316,7 @@ Record ContinuumHypothesisFrameworkAttack : Prop := {
   aleph_one_marker_field : aleph_1_marker
 }.
 
-(* ============================================================ *)
-(* Section 10: Honest scope marker (referee-readable)            *)
-(* ============================================================ *)
+(** ## §10 — Honest scope marker (referee-readable) *)
 
 (** **Referee note**: this file does NOT prove
     `ContinuumHypothesis` nor `~ ContinuumHypothesis`. By
@@ -364,9 +340,7 @@ Record ContinuumHypothesisFrameworkAttack : Prop := {
 Theorem referee_note_no_discharge_claim : True.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 11: Capstone realisation                              *)
-(* ============================================================ *)
+(** ## §11 — Capstone realisation *)
 
 (** **Capstone realisation**: `ContinuumHypothesisFrameworkAttack`
     holds axiom-free. The structural attack is constructible;
@@ -388,9 +362,7 @@ Qed.
 
 End ContinuumHypothesisFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 12: Honest scope (file-level commentary)              *)
-(* ============================================================ *)
+(** ## §12 — Honest scope (file-level commentary) *)
 
 (*
   1. CH is encoded as an opaque marker Prop. Coq has no

@@ -77,10 +77,6 @@
   - `Stdlib.Arith`, `Stdlib.Nat`, `Lia` (nat arithmetic)
   - `Stdlib.Bool` (boolean primality)
   - `Stdlib.Reals.Reals`, `Lra` (real-arithmetic alpha cascade)
-
-  ## Author
-
-  Claude Opus 4.7, 2026-06-03.
 *)
 
 From Stdlib Require Import Arith Nat Lia.
@@ -94,9 +90,7 @@ Open Scope nat_scope.
     `PF.NumberTheory.GoldbachConjectureFrameworkAttack`. *)
 Module GoldbachConjectureFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 1: Boolean-decidable primality                        *)
-(* ============================================================ *)
+(** ## §1 — Boolean-decidable primality *)
 
 (** Trial-division check: no divisor of `n` in the range `[2, k]`. *)
 Fixpoint no_div_aux (n k : nat) : bool :=
@@ -117,9 +111,7 @@ Definition primeb (n : nat) : bool :=
 (** Prop-level primality, decidable by boolean reflection. *)
 Definition is_prime (n : nat) : Prop := primeb n = true.
 
-(* ============================================================ *)
-(* Section 2: Literal Goldbach statement                         *)
-(* ============================================================ *)
+(** ## §2 — Literal Goldbach statement *)
 
 (** Goldbach's Conjecture (literal form, 1742). Every even integer
     n >= 4 is a sum of two primes. *)
@@ -127,9 +119,7 @@ Definition GoldbachConjecture : Prop :=
   forall n : nat, 4 <= n -> Nat.modulo n 2 = 0 ->
     exists p q : nat, is_prime p /\ is_prime q /\ p + q = n.
 
-(* ============================================================ *)
-(* Section 3: Weak Goldbach (Helfgott 2013, PROVEN)              *)
-(* ============================================================ *)
+(** ## §3 — Weak Goldbach (Helfgott 2013, PROVEN) *)
 
 (** Weak Goldbach Conjecture (Helfgott 2013, PROVEN). Every odd
     integer n >= 7 is a sum of three primes. NAMED published-
@@ -140,9 +130,7 @@ Definition WeakGoldbach : Prop :=
       is_prime p /\ is_prime q /\ is_prime r /\
       p + q + r = n.
 
-(* ============================================================ *)
-(* Section 4: Five concrete Goldbach witnesses (axiom-free)      *)
-(* ============================================================ *)
+(** ## §4 — Five concrete Goldbach witnesses (axiom-free) *)
 
 Theorem goldbach_4 :
   exists p q : nat, is_prime p /\ is_prime q /\ p + q = 4.
@@ -190,9 +178,7 @@ Proof.
   - exact goldbach_12.
 Qed.
 
-(* ============================================================ *)
-(* Section 5: Framework alpha-skeleton bridge                    *)
-(* ============================================================ *)
+(** ## §5 — Framework alpha-skeleton bridge *)
 
 Open Scope R_scope.
 
@@ -235,9 +221,7 @@ Proof.
   split; unfold alpha_Goldbach_rational; lra.
 Qed.
 
-(* ============================================================ *)
-(* Section 6: Hardy-Littlewood singular-series constant          *)
-(* ============================================================ *)
+(** ## §6 — Hardy-Littlewood singular-series constant *)
 
 (** Hardy-Littlewood Goldbach asymptotic (typed).
     `r_2(n) ~ 2 * C_2 * n / (ln n)^2`. NAMED OPEN PROP. *)
@@ -263,9 +247,7 @@ Proof. unfold hardyLittlewoodGoldbachCoeff. lra. Qed.
 
 Close Scope R_scope.
 
-(* ============================================================ *)
-(* Section 7: Chen's theorem + Vinogradov + Helfgott chain       *)
-(* ============================================================ *)
+(** ## §7 — Chen's theorem + Vinogradov + Helfgott chain *)
 
 (** Chen's theorem (1973, PROVEN). Every sufficiently large even
     integer is `p + P_2` with `p` prime and `P_2` having at most
@@ -300,9 +282,7 @@ Proof.
   exact (hH n hn hodd).
 Qed.
 
-(* ============================================================ *)
-(* Section 8: Spectral cascade bridge                            *)
-(* ============================================================ *)
+(** ## §8 — Spectral cascade bridge *)
 
 (** Spectral cascade hypothesis for Goldbach. Parameterised over
     a prime-detection oracle `P`. NAMED OPEN PROP. *)
@@ -328,9 +308,7 @@ Proof.
   - exact hsum.
 Qed.
 
-(* ============================================================ *)
-(* Section 9: Numerical-verification bound                       *)
-(* ============================================================ *)
+(** ## §9 — Numerical-verification bound *)
 
 (** Goldbach verified up to bound `B`. For every even
     `4 <= n <= B`, there exist primes p, q with p + q = n. *)
@@ -380,9 +358,7 @@ Proof.
   - exact hev.
 Qed.
 
-(* ============================================================ *)
-(* Section 10: Named open Prop isolating the obstruction         *)
-(* ============================================================ *)
+(** ## §10 — Named open Prop isolating the obstruction *)
 
 (** Mathlib/Coq-level OPEN: Goldbach. Alias. *)
 Definition MathlibGoldbachConjecture : Prop := GoldbachConjecture.
@@ -391,9 +367,7 @@ Theorem MathlibGoldbachConjecture_iff_GoldbachConjecture :
   MathlibGoldbachConjecture <-> GoldbachConjecture.
 Proof. unfold MathlibGoldbachConjecture. tauto. Qed.
 
-(* ============================================================ *)
-(* Section 11: Honest scope marker                               *)
-(* ============================================================ *)
+(** ## §11 — Honest scope marker *)
 
 (** Honest-scope marker definition. This file is a structural Coq
     parity mirror of the Lean Wave 58 attack, NOT a discharge of
@@ -405,9 +379,7 @@ Theorem honest_scope_marker :
   honest_scope_structural_mirror_not_a_discharge.
 Proof. exact I. Qed.
 
-(* ============================================================ *)
-(* Section 12: Capstone Record                                   *)
-(* ============================================================ *)
+(** ## §12 — Capstone Record *)
 
 (** Goldbach framework-attack bundle. Aggregates:
     - 5 concrete decompositions (4, 6, 8, 10, 12);
@@ -496,9 +468,7 @@ Definition goldbach_framework_attack_capstone
 
 End GoldbachConjectureFrameworkAttack.
 
-(* ============================================================ *)
-(* Section 13: File-level honest-scope commentary                *)
-(* ============================================================ *)
+(** ## §13 — File-level honest-scope commentary *)
 
 (*
   1. Five concrete Goldbach decompositions n in {4, 6, 8, 10, 12}

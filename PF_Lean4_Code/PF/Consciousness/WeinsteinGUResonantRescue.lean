@@ -83,9 +83,6 @@ The structural claims encoded here:
       • The chapter's own `dim_visible = 4` derivation is flagged
         "open" in the manuscript and is NOT formalised.
 
-ZERO project axioms. ZERO sorries.
-
-Author: Wave 58 (Weinstein GU resonant rescue), 2026-06-03.
 -/
 
 import Mathlib.Analysis.Real.Pi.Bounds

@@ -67,10 +67,6 @@ values are manuscript-reported; the genuine Lean-internal content is:
 * Manuscript Ch 26 lines 7, 25, 75-110, 265 — the problem
 * Manuscript Ch 27 lines 12, 269-275, 386-411 — the rebuttal numerics
 
-## Status
-
-Wave 58 standard-bridge composition. Axiom-free; zero `sorry`. Honest
-scope explicit in capstone.
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Exp

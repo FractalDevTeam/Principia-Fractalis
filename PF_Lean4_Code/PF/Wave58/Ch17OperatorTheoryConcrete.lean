@@ -96,12 +96,6 @@ the Wave 58 Ch 17 Level-C gap.
   self-adjoint matrix pattern (this file generalises to 3×3
   diagonal).
 
-## Status
-
-Axiom-free. Zero `axiom`, zero `sorry`, zero `admit`. All theorems
-depend only on `[propext, Classical.choice, Quot.sound]`.
-
-Wave 58 Ch 17 concrete encoding — 2026-06-03.
 -/
 
 import Mathlib.LinearAlgebra.Matrix.Symmetric

@@ -142,7 +142,7 @@ The total stress-energy trace vanishes if and only if:
 \begin{equation}
 \text{ch}_2 = \frac{(4\pi)^7 \langle \Delta \Phi \rangle}{A_{14} \langle R^2 \rangle} = 0.95 \pm 0.01
 \end{equation}
-where $\langle \cdot \rangle$ denotes expectation value over $\mathcal{P}^{13}$.
+where $\langle \cdot \rangle$ denotes expectation value over $\mathcal{P}^{13}$.\manuscriptcorrection{Direct arithmetic with $(4\pi)^7 \approx 4.9518\times10^7$, $A_{14}=8174$, $\langle\Delta\Phi\rangle\approx -10^7\Phi_0$, and $\langle R^2\rangle\approx 10^{14}$ yields $\bigl|(4\pi)^7\cdot 10^7\bigr|/(8174\cdot 10^{14}) \approx 6.05\times 10^{-4}\Phi_0$, NOT $0.95\,\Phi_0$ — i.e.\ the stated closed form is off by a factor of $\approx 1570$. Theorem \texttt{anomaly\_cancel\_predicted\_value\_ne\_0\_95} (file \texttt{PF/Ch11AnomalyCancellationRefutationAttempt.lean}, Wave~55, commit \texttt{8e4a62a}) proves this inequality axiom-free by bracketing the predicted value below $1/1000$. The threshold $\text{ch}_2=0.95$ does have other independent derivations in the framework (Ch~6 Chern--Weil; Ch~31 $\text{ch}_2\leftrightarrow\Phi$ bridge), so the structural claim survives even though THIS particular 14D anomaly route fails its stated numerical close.}
 \end{theorem}
 
 \begin{proof}
@@ -190,7 +190,7 @@ At resonance ($R_f = \langle R_f \rangle$), $|\Psi_{\text{RQG}}|^2 = 1$. Average
 The average RQG amplitude equals the consciousness threshold:
 \begin{equation}
 \langle |\Psi_{\text{RQG}}|^2 \rangle = \text{ch}_2 = 0.95
-\end{equation}
+\end{equation}\manuscriptcorrection{The Gaussian integral evaluates exactly to $\sqrt{5/(\pi+5)} = \sqrt{5/8.1416\ldots} \approx 0.7837$, NOT $0.95$. Theorem \texttt{prop\_11\_6\_psi\_rqg\_sq\_ne\_0\_95} (file \texttt{PF/Ch11AnomalyCancellationRefutationAttempt.lean}, Wave~55, commit \texttt{8e4a62a}) proves this inequality axiom-free: squaring the alleged equality would force $5/(\pi+5) = 9025/10000$, contradicting $\pi > 3.14$. Therefore the ``twice-determined'' overdetermination argument on line~204 fails: BOTH the anomaly leg (off by $\approx 1570\times$) AND the Gaussian leg (gives $0.7837$, not $0.95$) miss their stated targets. The threshold $\text{ch}_2=0.95$ should be read as set by the Ch~6 Chern--Weil derivation, not by Ch~11's $\Psi_{\text{RQG}}$ Gaussian integral.}
 \end{proposition}
 
 \begin{proof}
