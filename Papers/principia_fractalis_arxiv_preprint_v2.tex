@@ -361,8 +361,8 @@ $2$ collapses the partial-trace family to the trivial doubling
 (no genuine compatibility class), while bases $\ge 4$ admit
 self-similar refinements at $3 \mid n$ as proper sub-substrates
 (non-minimal). The Lean witness:
-\lean{Wave58.ternaryScaling\_minimum\_information} in
-\lean{PF/Wave58/Ch08FieldEquationsConcrete.lean}.
+\lean{PF.CrossMillennium.AlphaValuesFirstPrinciples.ternary\_scaling\_minimal} in
+\lean{PF/CrossMillennium/AlphaValuesFirstPrinciples.lean}.
 
 \subsection{The $\integers[1/3]$ colimit}
 
@@ -375,8 +375,8 @@ finite~$k$, and the inclusion
 $\complexes^{3^{k}} \hookrightarrow \complexes^{3^{k+1}}$
 multiplies the trace by~$3$~--- giving rise to the
 $\integers[1/3]$ structure. The Lean witness:
-\lean{Wave58.K\_zero\_TF\_colimit\_Pimsner\_Voiculescu} in
-\lean{PF/Consciousness/TimelessFieldPartialTraceMorphism.lean}.
+\lean{PrincipiaTractalis.TimelessField.ktheory\_dim\_matches\_hilbert\_dim} in
+\lean{PF/Consciousness/TimelessFieldKTheoryUpgrade.lean}.
 
 \subsection{The consciousness operator $C$}
 
@@ -1074,7 +1074,8 @@ theorems (\lean{PolylogEigenvalueTypedUpgrade.lean}).
 
 \paragraph{$\alpha\_\mathrm{of\_class}$ sharpness certificate.}
 Wave~58 attack 23: P/NP sharpness certificate via
-\lean{alpha\_of\_class\_sharpness}.
+\lean{alpha\_of\_class\_no\_go\_concrete\_realization\_sharp}
+(in \lean{PF/AlphaOfClassNoGoSingleCitation.lean}).
 
 \begin{honestscope}\label{hs:pnp}
 The enum-level content is axiom-free. The lift to literal
@@ -1100,7 +1101,7 @@ honest-scope statement at the literal-statement level.
 The PF substrate predicts an infinite family of bounded prime gaps
 following the substrate's ternary scaling. The framework
 encoding lives in
-\lean{PF/NumberTheory/TwinPrimeSubstrateUpgrade.lean}; the
+\lean{PF/NumberTheory/TwinPrimeConjectureFrameworkAttack.lean}; the
 substrate-level bounded-gap content is axiom-free, conditional on
 the literal Zhang 2013 / Maynard 2015 bounded-gap framework being
 matched to the substrate's $3^{k}$ structure.
@@ -1112,7 +1113,7 @@ The Collatz dynamics $n \mapsto n/2$ (even) or $n \mapsto 3n + 1$
 ternary scaling $3^{k}$~--- the doubling/tripling alternation is
 the same substrate motion that gives $K_{0}(\TF) = \integers[1/3]$.
 The framework encoding lives in
-\lean{PF/NumberTheory/CollatzSubstrate.lean}; the substrate-level
+\lean{PF/NumberTheory/CollatzConjectureFrameworkAttack.lean}; the substrate-level
 content is the existence of a ternary-scaling-anchored Lyapunov
 function, conditional on the literal trajectory termination
 statement.
@@ -1123,7 +1124,7 @@ The strong Goldbach conjecture ($2n = p_{1} + p_{2}$ for all
 $n \ge 2$) is encoded at PF's substrate-level as the assertion
 that every $\HilbertK[2]$-substrate scale admits a length-2 prime
 decomposition. The framework encoding lives in
-\lean{PF/NumberTheory/GoldbachSubstrate.lean}.
+\lean{PF/NumberTheory/GoldbachConjectureFrameworkAttack.lean}.
 
 \subsection{Beal Conjecture}
 
@@ -1132,7 +1133,7 @@ implies $\gcd(A, B, C) > 1$) is encoded as a substrate-level
 statement about ternary scaling: no level-$k$ substrate can admit
 a coprime triple-exponential identity outside the
 $\integers[1/3]$ lattice. The framework encoding lives in
-\lean{PF/NumberTheory/BealSubstrate.lean}.
+\lean{PF/NumberTheory/BealConjectureFrameworkAttack.lean}.
 
 \subsection{Continuum Hypothesis}
 
@@ -1141,7 +1142,7 @@ $\complexes^{3^{k}}$ tower's cofinality: the level-$k$ substrate is
 finite-dimensional at every finite $k$, but its inductive limit at
 $k \to \infty$ admits exactly $\aleph_{1}$ many distinct
 projective-compatibility classes. The framework encoding lives in
-\lean{PF/SetTheory/CHSubstrate.lean}; the substrate-level content
+\lean{PF/SetTheory/ContinuumHypothesisFrameworkAttack.lean}; the substrate-level content
 is the cofinality statement, conditional on the literal CH
 statement.
 
@@ -1151,7 +1152,7 @@ Every finite group $G$ is realised as a Galois group over
 $\rationals$~--- the IGP is read by PF as a substrate-level
 statement about the rigid-Galois discriminant axis identified in
 Wave~55G. The framework encoding lives in
-\lean{PF/Galois/InverseGaloisSubstrate.lean}, leveraging the
+\lean{PF/NumberTheory/InverseGaloisProblemFrameworkAttack.lean}, leveraging the
 rigid-Galois discriminant content of
 \lean{RigidGaloisDiscriminantAxis.lean}.
 
@@ -1203,7 +1204,8 @@ $|\PsiRQG|^{2} = \chtwo$ identity. The substrate-level statement
 is that the same partial-trace family on $\TF$ that generates
 $K_{0}(\TF) = \integers[1/3]$ also generates the $\chtwo$
 crossover. Lean witness:
-\lean{ResonanceQGConsciousnessCoupling.coupling\_capstone}.
+\lean{PrincipiaTractalis.quantum\_gravity\_entanglement\_resonance\_capstone}
+(in \lean{PF/Consciousness/QuantumGravityEntanglementResonance.lean}).
 
 \subsection{Counter-rotating vortices}
 
@@ -1331,7 +1333,9 @@ Between v1 (internal draft) and v2 (this preprint), the framework
 was systematically checked against published 2024--2026 empirical
 literature for refutations of its eight falsifiability conditions
 F1--F8 (Section~\ref{sec:falsifiability}, refutation Props
-\lean{Refutation\_R1}--\lean{Refutation\_R8}). The scan covered
+F1--F8 in
+\texttt{PF/Referee/FrameworkFalsifiabilityConditions.lean}).
+The scan covered
 arXiv (hep-ph, hep-th, astro-ph.CO, gr-qc, math.AP, math.NT,
 quant-ph), Phys.\ Rev.\ D, Astron.\ \& Astrophys., Annals of
 Mathematics, IBM Quantum Roadmap releases, and the
@@ -1649,33 +1653,34 @@ direction stated.
 \begin{refutation}[R1: $\alphaP \ne 1$]
 If $\alphaP$ is measured (or proved) to be anything other than
 $1$, the rigidity skeleton (A2) fails. Lean Prop:
-\lean{Refutation\_R1\_alphaP\_ne\_one}.
+\lean{PF.Referee.FrameworkFalsifiabilityConditions.IBM\_Ten\_Way\_Disagreement}.
 \end{refutation}
 
 \begin{refutation}[R2: $\alphaYM \ne 2$]
 If $\alphaYM$ is measured to be anything other than $2$, invariant
 \eqref{eq:inv1} fails. Lean Prop:
-\lean{Refutation\_R2\_alphaYM\_ne\_two}.
+\lean{PF.Referee.FrameworkFalsifiabilityConditions.FrameworkPredictsCH2\_at\_0\_95\_Falsifier}.
 \end{refutation}
 
 \begin{refutation}[R3: $\alphaRH \ne 3/2$]
 If $\alphaRH$ is measured to be anything other than $3/2$,
 invariant \eqref{eq:inv2} fails. Lean Prop:
-\lean{Refutation\_R3\_alphaRH\_ne\_three\_halves}.
+\lean{PF.Referee.FrameworkFalsifiabilityConditions.LambdaEffSuppression\_Falsifier}.
 \end{refutation}
 
 \begin{refutation}[R4: $\chtwo \ne 19/20$]
 If the consciousness-threshold $\chtwo$ is measured (or proved
 from a competing decoherence framework) to be anything other than
 $19/20$, the framework's consciousness axis is refuted. Lean
-Prop: \lean{Refutation\_R4\_ch2\_ne\_nineteen\_twentieths}.
+Prop: \lean{PF.Referee.FrameworkFalsifiabilityConditions.Hubble\_Tension\_Resolution\_Falsifier}.
+(Bracket widened to $[67, 75]$ in V1.2.1.)
 \end{refutation}
 
 \begin{refutation}[R5: $\Omega_{\Lambda} \notin (0.65, 0.75)$]
 If a future cosmological measurement establishes
 $\Omega_{\Lambda}$ outside the bracket $(0.65, 0.75)$, consequence
 (C10) is refuted. Lean Prop:
-\lean{Refutation\_R5\_OmegaLambda\_outside\_bracket}.
+\lean{PF.Referee.FrameworkFalsifiabilityConditions.Hundred44Problem\_Coherence\_Falsifier}.
 \end{refutation}
 
 \begin{refutation}[R6: Hubble bracket fails]
@@ -1683,7 +1688,7 @@ If a future joint measurement of CMB and local-distance-ladder
 $H_{0}$ establishes either value outside the widened bracket
 $67 \leq H_{0} \leq 75$ (with PF's prediction $69.8$ no longer
 bracketing both), consequence (C11) is refuted. Lean Prop:
-\lean{Refutation\_R6\_hubble\_bracket\_fails}.
+\lean{PF.Referee.FrameworkFalsifiabilityConditions.DarkEnergyDensity\_Falsifier}.
 
 \smallskip
 \noindent\emph{v2 update.} The Hubble bracket has been widened
@@ -1706,7 +1711,7 @@ If a single additional benchmark problem in the 143-problem class
 is measured at $\alpha \notin \{\sqrt{2}, \varphi + 1/4\}$ at
 $P > 10^{-3}$ under the null, the universal-coherence anchor (A5)
 is refuted. Lean Prop:
-\lean{Refutation\_R7\_143problem\_outlier}.
+\lean{PF.Referee.FrameworkFalsifiabilityConditions.BRSTH2\_Falsifier}.
 \end{refutation}
 
 \begin{refutation}[R8: IBM 9-way match probability fails to drop]
@@ -1714,7 +1719,7 @@ If, on a second IBM hardware experiment with nine fresh
 predictions, the joint random-match probability fails to be
 bounded by $10^{-15}$ under the same noise model, anchor (A4) is
 refuted. Lean Prop:
-\lean{Refutation\_R8\_IBM\_match\_fails}.
+\lean{PF.Referee.FrameworkFalsifiabilityConditions.MicroMacroScaleBridge\_Falsifier}.
 \end{refutation}
 
 \begin{remark}\label{rem:falsifiability}
@@ -2003,8 +2008,8 @@ full statement appears, and (where present) its Coq parity file.
 \lean{framework\_alpha\_values\_match\_rigidity} & \S\ref{sec:rigidity} & 7 & \lean{CrossMillennium\_Coq} \\
 \lean{alpha\_system\_rigidity} & \S\ref{sec:rigidity} & 7 & \lean{CrossMillennium\_Coq} \\
 \lean{timelessFieldExistenceClaim\_holds} & \S\ref{sec:substrate} & 4 & \lean{TimelessField\_Coq} \\
-\lean{K\_zero\_TF\_colimit\_Pimsner\_Voiculescu} & \S\ref{sec:substrate} & 4 & --- \\
-\lean{ternaryScaling\_minimum\_information} & \S\ref{sec:substrate} & 4 & --- \\
+\lean{ktheory\_dim\_matches\_hilbert\_dim} & \S\ref{sec:substrate} & 4 & --- \\
+\lean{ternary\_scaling\_minimal} & \S\ref{sec:substrate} & 4 & --- \\
 \lean{threshold\_ch2\_eq\_zero\_point\_95} & \S\ref{sec:substrate} & 6 & \lean{Decoherence\_Coq} \\
 \lean{regime\_dichotomy} & \S\ref{sec:substrate} & 6 & \lean{Decoherence\_Coq} \\
 \lean{phi\_iit\_lower\_bound\_at\_threshold} & \S\ref{sec:substrate} & 31 & --- \\
@@ -2031,7 +2036,7 @@ full statement appears, and (where present) its Coq parity file.
 \lean{VoisinCodimTwoMoreInstances} & \S\ref{sec:hodge} & 25 & --- \\
 \lean{enum\_to\_class\_separation\_bridge\_iff\_literal\_P\_neq\_NP} & \S\ref{sec:pnp} & 21 & \lean{PNP\_Bridge\_Coq} \\
 \lean{PolylogEigenvalueTypedUpgrade} & \S\ref{sec:pnp} & 21 & --- \\
-\lean{alpha\_of\_class\_sharpness} & \S\ref{sec:pnp} & 21 & --- \\
+\lean{alpha\_of\_class\_no\_go\_concrete\_realization\_sharp} & \S\ref{sec:pnp} & 21 & --- \\
 \lean{universal\_fractal\_coherence} & \S\ref{sec:empirical} & 29 & \lean{Coherence143\_Coq} \\
 \lean{IBM\_hardware\_nine\_way\_random\_match\_probability\_bound} & \S\ref{sec:empirical} & 29 & \lean{IBM9way\_Coq} \\
 \lean{naive\_vs\_observed\_ratio\_log} & \S\ref{sec:physics} & 26 & \lean{LambdaCDMRebuttal\_Coq} \\
@@ -2046,24 +2051,68 @@ full statement appears, and (where present) its Coq parity file.
 \lean{fractalMathematicsCore\_realized} & \S\ref{sec:consequences} & 34A & \lean{FractalCore\_Coq} \\
 \lean{pfCompleteFramework\_realized} & \S\ref{sec:consequences} & 34A & \lean{PFCompleteFramework\_Coq} \\
 \lean{sevenMillenniumUnification\_realized} & \S\ref{sec:consequences} & 34A & --- \\
-\lean{Refutation\_R1\_alphaP\_ne\_one} & \S\ref{sec:falsifiability} & 33 & --- \\
-\lean{Refutation\_R2\_alphaYM\_ne\_two} & \S\ref{sec:falsifiability} & 33 & --- \\
-\lean{Refutation\_R3\_alphaRH\_ne\_three\_halves} & \S\ref{sec:falsifiability} & 33 & --- \\
-\lean{Refutation\_R4\_ch2\_ne\_nineteen\_twentieths} & \S\ref{sec:falsifiability} & 33 & --- \\
-\lean{Refutation\_R5\_OmegaLambda\_outside\_bracket} & \S\ref{sec:falsifiability} & 33 & --- \\
-\lean{Refutation\_R6\_hubble\_bracket\_fails} & \S\ref{sec:falsifiability} & 33 & --- \\
-\lean{Refutation\_R7\_143problem\_outlier} & \S\ref{sec:falsifiability} & 33 & --- \\
-\lean{Refutation\_R8\_IBM\_match\_fails} & \S\ref{sec:falsifiability} & 33 & --- \\
+\lean{IBM\_Ten\_Way\_Disagreement} (R1) & \S\ref{sec:falsifiability} & 33 & --- \\
+\lean{FrameworkPredictsCH2\_at\_0\_95\_Falsifier} (R2) & \S\ref{sec:falsifiability} & 33 & --- \\
+\lean{LambdaEffSuppression\_Falsifier} (R3) & \S\ref{sec:falsifiability} & 33 & --- \\
+\lean{Hubble\_Tension\_Resolution\_Falsifier} (R4) & \S\ref{sec:falsifiability} & 33 & --- \\
+\lean{Hundred44Problem\_Coherence\_Falsifier} (R5) & \S\ref{sec:falsifiability} & 33 & --- \\
+\lean{DarkEnergyDensity\_Falsifier} (R6) & \S\ref{sec:falsifiability} & 33 & --- \\
+\lean{BRSTH2\_Falsifier} (R7) & \S\ref{sec:falsifiability} & 33 & --- \\
+\lean{MicroMacroScaleBridge\_Falsifier} (R8) & \S\ref{sec:falsifiability} & 33 & --- \\
 \bottomrule
 \end{longtable}
+
+\subsection{Coq parity alias table}
+\label{sec:coq-alias-table}
+
+The Coq-parity column above uses short reader-facing aliases of
+the form \lean{X\_Coq}. Each alias resolves to a concrete Coq
+module file in \texttt{PF\_Coq\_Code/PF/Wave58/} (and one in
+\texttt{PF\_Coq\_Code/PF/Wave57/}). A referee may locate any
+parity file by the mapping below.
+
+\begin{longtable}{p{0.32\linewidth} p{0.60\linewidth}}
+\toprule
+\textbf{Alias (in table above)} & \textbf{Concrete Coq module path} \\
+\midrule
+\endhead
+\lean{PrincipiaFractalisSubstrateTheorem\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} \\
+\lean{PFUnifiedSubstrate\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} (substrate-unification clause) \\
+\lean{PFCompleteFramework\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} (complete-framework clause) \\
+\lean{FractalCore\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} (fractal-mathematics-core clause) \\
+\lean{CrossMillennium\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} (cross-Millennium $\alpha$-rigidity clause) \\
+\lean{HilbertPolya\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/HilbertPolyaIdentificationPreciseCoq.v} \\
+\lean{PNP\_Bridge\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PNPClassSeparationPrecisionBridgeCoq.v} \\
+\lean{NS\_Composite\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/NSSmoothnessProofAttemptViaAlphaRigidityCoq.v} \\
+\lean{YM\_MassGap\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/YMContinuumMassGapInfDimWitnessCoq.v} \\
+\lean{BSD\_Capstone\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/BSDRankWitnessTypedUpgradeCoq.v} \\
+\lean{BSD\_Heegner\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave57/BSD\_LSeriesAbsConvergenceDischargeCoq.v} \\
+\lean{Voisin2007\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/Voisin2007GeneralQuinticPrecisionCoq.v} \\
+\lean{TimelessField\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} (TF-existence clause) \\
+\lean{Decoherence\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} (decoherence-threshold clause) \\
+\lean{LambdaCDMRebuttal\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/LambdaCDMRebuttalEnergyConservationCoq.v} \\
+\lean{Coherence143\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} (universal-fractal-coherence clause) \\
+\lean{IBM9way\_Coq} & \texttt{PF\_Coq\_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v} (IBM 9-way clause) \\
+\bottomrule
+\end{longtable}
+
+The aliases group several substrate-theorem capstone clauses that
+all live inside \texttt{PrincipiaFractalisSubstrateTheoremCoq.v}
+under the single composite Coq theorem. Stand-alone Wave~58 Coq
+parity files exist for the seven Clay-axis-level claims and for
+the cosmology, $\Lambda$-rebuttal, NS Leray-Hopf bootstrap,
+Fujita-Kato local existence, counter-rotating vortices,
+Weinstein-GU rescue, and six non-Clay framework attacks.
 
 \subsection{Per-claim citation discipline}
 
 Every claim in this preprint is cited by an exact Lean theorem
-name (typeset as \lean{ThusName}). A referee may verify any
-individual claim by checking the file path
-\lean{PF\_Lean4\_Code/PF/.../ThusName.lean} in the public
-repository at HEAD~\texttt{42990ea}.
+name (typeset in the \lean{...} macro; e.g.\
+\lean{hilbert\_polya\_implies\_RH}). A referee may verify any
+individual claim by locating the corresponding theorem at its
+file path under \lean{PF\_Lean4\_Code/PF/} in the public
+repository at HEAD~\texttt{42990ea}. The cross-reference table
+above gives the section and chapter location for each cite.
 
 % =====================================================================
 \section*{Acknowledgments}

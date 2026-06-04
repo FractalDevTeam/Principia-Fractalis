@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.4)  4 JUN 2026 01:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.4)  4 JUN 2026 01:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1296,8 +1296,7 @@ LaTeX Font Info:    Trying to load font information for T1+lmr on input line 5.
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-No file main.aux.
+) (./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
@@ -1318,6 +1317,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 5.
 LaTeX Font Info:    ... okay on input line 5.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 5.
 LaTeX Font Info:    ... okay on input line 5.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1379,24 +1379,26 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
 \c@lstlisting=\count361
 Package hyperref Info: Link coloring ON on input line 5.
+(./main.out) (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
-(./frontmatter/title.tex
+ (./frontmatter/title.tex
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
 6.
- (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [1
 
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/
-dvips/lm/lm-ec.enc}]) (./frontmatter/copyright.tex
+dvips/lm/lm-ec.enc}])
+(./frontmatter/copyright.tex
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
 1.
-
-(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+ (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 4
@@ -1486,10 +1488,6 @@ cipiaFractalisSubstrateConsequences_holds_unconditionally\T1/lmr/m/n/10.95 )
  []
 
 
-LaTeX Warning: Reference `ch:substrate-theorem' on page v undefined on input li
-ne 89.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -1498,18 +1496,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [5]
-
-LaTeX Warning: Reference `app:lean-cross-reference' on page vi undefined on inp
-ut line 94.
-
-
-LaTeX Warning: Reference `ch:substrate-theorem' on page vi undefined on input l
-ine 129.
-
-
-LaTeX Warning: Reference `sec:substrate-honest-scope' on page vi undefined on i
-nput line 130.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1574,12 +1560,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[11]
-
-LaTeX Warning: Reference `ch:substrate-theorem' on page xii undefined on input 
-line 355.
-
-)
+[11])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -1889,26 +1870,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[48]
-No file main.toc.
-\tf@toc=\write6
-\openout6 = `main.toc'.
-
-[49
-
-]
-No file main.lof.
-\tf@lof=\write7
-\openout7 = `main.lof'.
-
-[50
-
-]
-No file main.lot.
-\tf@lot=\write8
-\openout8 = `main.lot'.
-
-[51
+[48] (./main.toc [49
 
 ]
 
@@ -1919,7 +1881,389 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[52
+[50]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[51]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[52]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[53]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[54]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[55]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[56]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[57]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[58]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[59]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[60]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[61]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[62]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[63]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[64]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[65]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[66]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[67]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[68]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[69]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[70]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[71]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[72]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[73]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[74]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[75]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[76]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[77]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[78]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[79]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[80]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[81]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[82]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[83]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[84])
+\tf@toc=\write6
+\openout6 = `main.toc'.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[85] (./main.lof [86
+
+]
+Underfull \vbox (badness 1237) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[87]
+Underfull \vbox (badness 6380) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[88])
+\tf@lof=\write7
+\openout7 = `main.lof'.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[89] (./main.lot [90
+
+])
+\tf@lot=\write8
+\openout8 = `main.lot'.
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[91]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[92
 
 ] [1
 
@@ -2335,13 +2679,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [12]
 
-LaTeX Warning: Reference `thm:d3-modular' on page 13 undefined on input line 44
-4.
-
-
-LaTeX Warning: Citation `glaisher1878' on page 13 undefined on input line 460.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -2350,20 +2687,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [13]
-
-LaTeX Warning: Citation `mandelbrot1982' on page 14 undefined on input line 470
-.
-
-
-LaTeX Warning: Citation `falconer2004' on page 14 undefined on input line 470.
-
-
-LaTeX Warning: Citation `koblitz1984' on page 14 undefined on input line 479.
-
-
-LaTeX Warning: Reference `thm:d3-self-similarity' on page 14 undefined on input
- line 492.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2410,12 +2733,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [16]
-
-LaTeX Warning: Citation `hardy1979' on page 17 undefined on input line 615.
-
-
-LaTeX Warning: Citation `apostol1976' on page 17 undefined on input line 615.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2504,12 +2821,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [19]
 
-LaTeX Warning: Citation `koblitz1984' on page 20 undefined on input line 796.
-
-
-LaTeX Warning: Citation `gouvea1997' on page 20 undefined on input line 796.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -2542,14 +2853,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <14.4> on input line 5.
 )
-
-LaTeX Warning: Citation `mandelbrot1982' on page 23 undefined on input line 941
-.
-
-
-LaTeX Warning: Citation `falconer2004' on page 23 undefined on input line 950.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -2581,13 +2884,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [25]
 
-LaTeX Warning: Citation `cantor1883' on page 26 undefined on input line 1051.
-
-
-LaTeX Warning: Citation `falconer2004' on page 26 undefined on input line 1059.
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -2596,14 +2892,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [26]
-
-LaTeX Warning: Citation `barnsley1988' on page 27 undefined on input line 1141.
-
-
-
-LaTeX Warning: Citation `hutchinson1981' on page 27 undefined on input line 114
-1.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2623,10 +2911,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [28]
 
-LaTeX Warning: Reference `thm:parity-rule' on page 29 undefined on input line 1
-217.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -2635,21 +2919,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [29]
-
-LaTeX Warning: Citation `knuth1997' on page 30 undefined on input line 1233.
-
-
-LaTeX Warning: Reference `thm:parity-rule' on page 30 undefined on input line 1
-250.
-
-
-LaTeX Warning: Reference `thm:digital-sum-modular' on page 30 undefined on inpu
-t line 1258.
-
-
-LaTeX Warning: Citation `crandall2005' on page 30 undefined on input line 1267.
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2660,17 +2929,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [30]
 
-LaTeX Warning: Reference `thm:parity-rule' on page 31 undefined on input line 1
-285.
-
-
-LaTeX Warning: Citation `crandall2005' on page 31 undefined on input line 1296.
-
-
-
-LaTeX Warning: Citation `apostol1976' on page 31 undefined on input line 1296.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -2679,9 +2937,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [31]
-
-LaTeX Warning: Citation `hardy1979' on page 32 undefined on input line 1334.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2701,10 +2956,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [33]
 
-LaTeX Warning: Reference `prop:parity-filter' on page 34 undefined on input lin
-e 1393.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -2723,13 +2974,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [35]
 Chapter 2.
-
-LaTeX Warning: Reference `ch:p-vs-np' on page 36 undefined on input line 14.
-
-
-LaTeX Warning: Reference `ch:riemann-hypothesis' on page 36 undefined on input 
-line 14.
-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -2775,10 +3019,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [40]
-
-LaTeX Warning: Reference `def:principal-log' on page 41 undefined on input line
- 217.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -2858,9 +3098,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 233.
 
 
-LaTeX Warning: Reference `ch:p-vs-np' on page 42 undefined on input line 248.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -2887,10 +3124,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [43]
 
-LaTeX Warning: Reference `lem:frac-nonlinear' on page 44 undefined on input lin
-e 322.
-
-
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 329.
 
@@ -2916,16 +3149,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [44]
 
-LaTeX Warning: Reference `ch:p-vs-np' on page 45 undefined on input line 350.
-
-
-LaTeX Warning: Reference `thm:morera' on page 45 undefined on input line 368.
-
-
-LaTeX Warning: Reference `cor:CIF-derivatives' on page 45 undefined on input li
-ne 368.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -2934,36 +3157,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [45]
-
-LaTeX Warning: Reference `ch:resonance' on page 46 undefined on input line 395.
-
-
-
-LaTeX Warning: Reference `ch:riemann-hypothesis' on page 46 undefined on input 
-line 396.
-
-
-LaTeX Warning: Reference `ch:p-vs-np' on page 46 undefined on input line 397.
-
-
-LaTeX Warning: Reference `lem:frac-nonlinear' on page 46 undefined on input lin
-e 397.
-
-
-LaTeX Warning: Reference `thm:Li-expansion' on page 46 undefined on input line 
-397.
-
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 46 undefined on input line 
-398.
-
-
-LaTeX Warning: Reference `ch:yang-mills' on page 46 undefined on input line 399
-.
-
-
-LaTeX Warning: Reference `lem:frac-nonlinear' on page 46 undefined on input lin
-e 419.
+Overfull \hbox (11.23808pt too wide) in paragraph at lines 397--398
+[]\T1/lmr/bx/n/10.95 Chapter [][]21[][]: \T1/lmr/m/n/10.95 Mon-odromy non-lin-e
+ar-ity (Lemma [][]2.7[][]), poly-log-a-rithm ex-pan-sions (The-o-rem [][]2.5.2[
+][]) 
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2973,20 +3171,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[46]
-
-LaTeX Warning: Reference `thm:Li-expansion' on page 47 undefined on input line 
-420.
-
-
-LaTeX Warning: Reference `cor:Li-monodromy' on page 47 undefined on input line 
-420.
-
-
-LaTeX Warning: Reference `lem:frac-nonlinear' on page 47 undefined on input lin
-e 432.
-
-) (./chapters/ch03_resonance.tex
+[46]) (./chapters/ch03_resonance.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -3030,30 +3215,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [51]
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 52 undefined on input line 
-231.
-
-
-LaTeX Warning: Reference `ch:birch-swinnerton-dyer' on page 52 undefined on inp
-ut line 231.
-
-
-LaTeX Warning: Reference `ch:hodge-conjecture' on page 52 undefined on input li
-ne 231.
-
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 52 undefined on input line 
-231.
-
-
-LaTeX Warning: Reference `ch:birch-swinnerton-dyer' on page 52 undefined on inp
-ut line 231.
-
-
-LaTeX Warning: Reference `ch:hodge-conjecture' on page 52 undefined on input li
-ne 231.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -3159,14 +3320,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [60]
 
-LaTeX Warning: Citation `connes_noncommutative_1994' on page 61 undefined on in
-put line 80.
-
-
-LaTeX Warning: Citation `takesaki_theory_2002' on page 61 undefined on input li
-ne 80.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3255,10 +3408,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [63]
 
-LaTeX Warning: Citation `takesaki_theory_2002' on page 64 undefined on input li
-ne 220.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3277,14 +3426,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [65]
 
-LaTeX Warning: Citation `takesaki_theory_2002' on page 66 undefined on input li
-ne 332.
-
-
-LaTeX Warning: Reference `sec:spacetime-emergence' on page 66 undefined on inpu
-t line 349.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3293,13 +3434,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [66]
-
-LaTeX Warning: Citation `brown_c_2008' on page 67 undefined on input line 371.
-
-
-LaTeX Warning: Citation `connes_noncommutative_1994' on page 67 undefined on in
-put line 371.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -3310,14 +3444,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [67]
 
-LaTeX Warning: Reference `thm:k-theory' on page 68 undefined on input line 413.
-
-
-
-LaTeX Warning: Citation `rordam_classification_2002' on page 68 undefined on in
-put line 414.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3326,10 +3452,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [68]
-
-LaTeX Warning: Citation `connes_noncommutative_1994' on page 69 undefined on in
-put line 479.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -3349,10 +3471,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [70]
 
-LaTeX Warning: Citation `takesaki_theory_2002' on page 71 undefined on input li
-ne 540.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3361,10 +3479,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [71]
-
-LaTeX Warning: Citation `susskind_world_1995' on page 72 undefined on input lin
-e 586.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -3384,10 +3498,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [73]
 
-LaTeX Warning: Reference `eq:field-evolution' on page 74 undefined on input lin
-e 672.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3397,10 +3507,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [74]
 
-LaTeX Warning: Reference `sec:construction' on page 75 undefined on input line 
-737.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3408,28 +3514,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[75]
-
-LaTeX Warning: Citation `takesaki_theory_2002' on page 76 undefined on input li
-ne 755.
-
-
-LaTeX Warning: Citation `connes_noncommutative_1994' on page 76 undefined on in
-put line 756.
-
-
-LaTeX Warning: Citation `rordam_classification_2002' on page 76 undefined on in
-put line 757.
-
-
-LaTeX Warning: Citation `susskind_world_1995' on page 76 undefined on input lin
-e 758.
-
-
-LaTeX Warning: Citation `haag_local_1996' on page 76 undefined on input line 75
-9.
-
-) (./chapters/ch05_peixoto.tex
+[75]) (./chapters/ch05_peixoto.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -3591,18 +3676,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-LaTeX Warning: Citation `kastrup2019world' on page 91 undefined on input line 4
-1.
-
-
-LaTeX Warning: Citation `kastrup2018analytic' on page 91 undefined on input lin
-e 41.
-
-
-LaTeX Warning: Citation `kastrup2019world' on page 91 undefined on input line 4
-4.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3690,22 +3763,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [97]
 
-LaTeX Warning: Reference `lem:alignment' on page 98 undefined on input line 338
-.
-
-
-LaTeX Warning: Reference `lem:alignment' on page 98 undefined on input line 346
-.
-
-
-LaTeX Warning: Reference `lem:hol-lock' on page 98 undefined on input line 356.
-
-
-
-LaTeX Warning: Reference `lem:hol-lock' on page 98 undefined on input line 364.
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3714,19 +3771,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [98]
-
-LaTeX Warning: Reference `lem:alignment' on page 99 undefined on input line 393
-.
-
-
-LaTeX Warning: Reference `lem:hol-lock' on page 99 undefined on input line 393.
-
-
-
-LaTeX Warning: Reference `lem:spec-gap' on page 99 undefined on input line 395.
-
-
-
 Overfull \hbox (39.00243pt too wide) in paragraph at lines 412--419
 []\T1/lmr/bx/n/10.95 Assemble den-sity and global in-vari-ant. $[]\OT1/lmr/m/n/
 10.95 (\OML/lmm/m/it/10.95 K\OT1/lmr/m/n/10.95 ) = [][](\OML/lmm/m/it/10.95 K\O
@@ -3780,17 +3824,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [102]
 
-LaTeX Warning: Citation `kastrup2019world' on page 103 undefined on input line 
-590.
-
-
-LaTeX Warning: Citation `chalmers1996' on page 103 undefined on input line 590.
-
-
-
-LaTeX Warning: Citation `tononi2004' on page 103 undefined on input line 590.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3829,11 +3862,6 @@ Chapter 7.
 [106
 
 ]
-
-LaTeX Warning: Reference `ch:consciousness' on page 107 undefined on input line
- 24.
-
-
 Overfull \hbox (16.90205pt too wide) in paragraph at lines 26--27
 []\T1/lmr/bx/n/10.95 Universal Struc-tures\T1/lmr/m/n/10.95 : Grothendieck soug
 ht struc-tures that ex-ist ``of math-e-mat-i-cal necessity''---
@@ -3862,14 +3890,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [107]
 
-LaTeX Warning: Reference `ch:riemann-hypothesis' on page 108 undefined on input
- line 69.
-
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 108 undefined on input line
- 69.
-
-
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 80.
 
@@ -3880,10 +3900,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 80.
-
-
-LaTeX Warning: Reference `ch:resonance' on page 108 undefined on input line 84.
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3925,9 +3941,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [110]
 
-LaTeX Warning: Reference `ch:p-vs-np' on page 111 undefined on input line 208.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -3947,44 +3960,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 222.
-
-
-LaTeX Warning: Reference `ch:resonance' on page 112 undefined on input line 234
-.
-
-
-LaTeX Warning: Reference `ch:resonance' on page 112 undefined on input line 235
-.
-
-
-LaTeX Warning: Reference `ch:p-vs-np' on page 112 undefined on input line 236.
-
-
-LaTeX Warning: Reference `ch:riemann-hypothesis' on page 112 undefined on input
- line 237.
-
-
-LaTeX Warning: Reference `ch:consciousness' on page 112 undefined on input line
- 238.
-
-
-LaTeX Warning: Reference `ch:p-vs-np' on page 112 undefined on input line 239.
-
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 112 undefined on input line
- 240.
-
-
-LaTeX Warning: Reference `ch:yang-mills' on page 112 undefined on input line 24
-1.
-
-
-LaTeX Warning: Reference `ch:yang-mills' on page 112 undefined on input line 24
-2.
-
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 112 undefined on input line
- 243.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4029,10 +4004,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 351.
 
 
-LaTeX Warning: Reference `ch:consciousness' on page 115 undefined on input line
- 355.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4041,10 +4012,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [115]
-
-LaTeX Warning: Reference `app:clinical' on page 116 undefined on input line 391
-.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -4067,14 +4034,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [117]
 
-LaTeX Warning: Reference `ch:navier-stokes' on page 118 undefined on input line
- 491.
-
-
-LaTeX Warning: Reference `ch:yang-mills' on page 118 undefined on input line 49
-1.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4083,22 +4042,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [118]
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 119 undefined on input line
- 499.
-
-
-LaTeX Warning: Reference `ch:yang-mills' on page 119 undefined on input line 50
-1.
-
-
-LaTeX Warning: Reference `ch:geometric_unity' on page 119 undefined on input li
-ne 503.
-
-
-LaTeX Warning: Reference `ch:consciousness' on page 119 undefined on input line
- 505.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 522.
@@ -4142,10 +4085,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [120]
 
-LaTeX Warning: Reference `ch:geometric_unity' on page 121 undefined on input li
-ne 579.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4154,10 +4093,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [121]
-
-LaTeX Warning: Reference `ch:timeless-field' on page 122 undefined on input lin
-e 629.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -4195,10 +4130,6 @@ If that doesn't work, type  X <return>  to quit.
 Overfull \hbox (18.5269pt too wide) in paragraph at lines 676--677
  [][] 
  []
-
-
-LaTeX Warning: Reference `app:clinical' on page 123 undefined on input line 694
-.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4242,14 +4173,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [126]
 
-LaTeX Warning: Citation `shechtman1984metallic' on page 127 undefined on input 
-line 846.
-
-
-LaTeX Warning: Citation `senechal1995quasicrystals' on page 127 undefined on in
-put line 846.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
 (fancyhdr)                \setlength{\headheight}{25.2232pt}.
@@ -4270,44 +4193,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ] (./chapters/ch08_field_equations.tex
 Chapter 8.
-
-LaTeX Warning: Citation `einstein1915' on page 130 undefined on input line 11.
-
-
-LaTeX Warning: Citation `misner1973' on page 130 undefined on input line 11.
-
-
-LaTeX Warning: Citation `wald1984' on page 130 undefined on input line 11.
-
 [130
 
 ]
-
-LaTeX Warning: Citation `vonneumann1932' on page 131 undefined on input line 38
-.
-
-
-LaTeX Warning: Citation `zurek2003' on page 131 undefined on input line 38.
-
-
-LaTeX Warning: Citation `ghirardi1986' on page 131 undefined on input line 38.
-
-
-LaTeX Warning: Citation `peebles2003' on page 131 undefined on input line 39.
-
-
-LaTeX Warning: Citation `planck2018' on page 131 undefined on input line 39.
-
-
-LaTeX Warning: Citation `hawking1974' on page 131 undefined on input line 41.
-
-
-LaTeX Warning: Citation `hawking1975' on page 131 undefined on input line 41.
-
-
-LaTeX Warning: Citation `bekenstein1973' on page 131 undefined on input line 41
-.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -4318,18 +4206,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [131]
 
-LaTeX Warning: Reference `ch:timeless-field' on page 132 undefined on input lin
-e 84.
-
-
-LaTeX Warning: Reference `ch:consciousness' on page 132 undefined on input line
- 86.
-
-
-LaTeX Warning: Reference `ch:resonance' on page 132 undefined on input line 87.
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4338,16 +4214,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [132]
-
-LaTeX Warning: Citation `misner1973' on page 133 undefined on input line 126.
-
-
-LaTeX Warning: Citation `wald1984' on page 133 undefined on input line 126.
-
-
-LaTeX Warning: Citation `carroll2004' on page 133 undefined on input line 126.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -4361,14 +4227,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [133]
 
-LaTeX Warning: Citation `einstein1905emc2' on page 134 undefined on input line 
-180.
-
-
-LaTeX Warning: Citation `einstein1905relativity' on page 134 undefined on input
- line 180.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4378,13 +4236,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [134]
 
-LaTeX Warning: Citation `weinberg1989' on page 135 undefined on input line 233.
-
-
-
-LaTeX Warning: Citation `peebles2003' on page 135 undefined on input line 233.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4393,10 +4244,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [135]
-
-LaTeX Warning: Reference `ch:constants' on page 136 undefined on input line 259
-.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -4416,44 +4263,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [137]
 
-LaTeX Warning: Citation `robertson1935' on page 138 undefined on input line 324
-.
-
-
-LaTeX Warning: Citation `walker1937' on page 138 undefined on input line 324.
-
-
-LaTeX Warning: Citation `friedmann1922' on page 138 undefined on input line 324
-.
-
-
-LaTeX Warning: Reference `thm:modified-einstein' on page 138 undefined on input
- line 335.
-
-
-LaTeX Warning: Reference `thm:modified-friedmann' on page 138 undefined on inpu
-t line 341.
-
-
-LaTeX Warning: Citation `guth1981' on page 138 undefined on input line 349.
-
-
-LaTeX Warning: Citation `linde1982' on page 138 undefined on input line 349.
-
-
-LaTeX Warning: Citation `guth1981' on page 138 undefined on input line 351.
-
-
-LaTeX Warning: Citation `albrecht1982' on page 138 undefined on input line 351.
-
-
-
-LaTeX Warning: Citation `carter1974' on page 138 undefined on input line 370.
-
-
-LaTeX Warning: Citation `barrow1986' on page 138 undefined on input line 370.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4463,27 +4272,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [138]
 
-LaTeX Warning: Citation `niebauer1995' on page 139 undefined on input line 389.
-
-
-
-LaTeX Warning: Citation `van_camp2017' on page 139 undefined on input line 389.
-
-
-
-LaTeX Warning: Citation `peters1999' on page 139 undefined on input line 389.
-
-
-LaTeX Warning: Citation `webb2001' on page 139 undefined on input line 401.
-
-
-LaTeX Warning: Citation `uzan2011' on page 139 undefined on input line 401.
-
-
-LaTeX Warning: Citation `rosenband2008' on page 139 undefined on input line 401
-.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4492,38 +4280,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [139]
-
-LaTeX Warning: Citation `planck2018' on page 140 undefined on input line 416.
-
-
-LaTeX Warning: Citation `wmap2013' on page 140 undefined on input line 416.
-
-
-LaTeX Warning: Citation `dewitt1967' on page 140 undefined on input line 429.
-
-
-LaTeX Warning: Citation `wheeler1968' on page 140 undefined on input line 429.
-
-
-LaTeX Warning: Citation `kiefer2012' on page 140 undefined on input line 429.
-
-
 Overfull \hbox (3.90561pt too wide) in paragraph at lines 432--433
 []\T1/lmr/bx/n/10.95 Theorem 8.12 \T1/lmr/m/n/10.95 (Com-plete Wheel-er-De-Witt
  Equa-tion)\T1/lmr/bx/n/10.95 . []\T1/lmr/m/it/10.95 The wave-func-tion of the 
 uni-verse $\OT1/lmr/m/n/10.95 	[\OML/lmm/m/it/10.95 g[]; ^^^; \OMS/lmsy/m/n/10.
 95 C\OT1/lmr/m/n/10.95 ]$
  []
-
-
-LaTeX Warning: Citation `higgs1964' on page 140 undefined on input line 448.
-
-
-LaTeX Warning: Citation `weinberg1995' on page 140 undefined on input line 448.
-
-
-
-LaTeX Warning: Citation `wheeler1983' on page 140 undefined on input line 472.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4560,10 +4322,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-LaTeX Warning: Citation `cohen2025pvsnp' on page 144 undefined on input line 26
-.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
 (fancyhdr)                \setlength{\headheight}{25.2232pt}.
@@ -4582,10 +4340,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [145]
 
-LaTeX Warning: Citation `cohen2025pvsnp' on page 146 undefined on input line 10
-5.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
 (fancyhdr)                \setlength{\headheight}{25.2232pt}.
@@ -4594,11 +4348,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [146]
-
-LaTeX Warning: Citation `cohen2025pvsnp' on page 147 undefined on input line 13
-9.
-
-
 Underfull \vbox (badness 4647) has occurred while \output is active []
 
 
@@ -4620,11 +4369,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [148]
-
-LaTeX Warning: Citation `cohen2025universal' on page 149 undefined on input lin
-e 198.
-
-
 Underfull \vbox (badness 7888) has occurred while \output is active []
 
 
@@ -4637,10 +4381,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [149]
-
-LaTeX Warning: Citation `cohen2025riemannproof' on page 150 undefined on input 
-line 234.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 237.
@@ -4722,10 +4462,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [153]
-
-LaTeX Warning: Citation `cohen2025spectralpi10' on page 154 undefined on input 
-line 360.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
@@ -4836,10 +4572,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 79.
 
 
-LaTeX Warning: Reference `eq:ns_consciousness' on page 161 undefined on input l
-ine 85.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4848,11 +4580,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [161]
-
-LaTeX Warning: Citation `cohen2025spectralpi10' on page 162 undefined on input 
-line 148.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -4865,18 +4592,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [162]
-
-LaTeX Warning: Reference `eq:ns_consciousness' on page 163 undefined on input l
-ine 165.
-
-
-LaTeX Warning: Reference `eq:ns_consciousness' on page 163 undefined on input l
-ine 173.
-
-
-LaTeX Warning: Reference `lem:consciousness_regularization' on page 163 undefin
-ed on input line 184.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -4917,30 +4632,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [165]
 
-LaTeX Warning: Reference `eq:ns_consciousness' on page 166 undefined on input l
-ine 291.
-
-
-LaTeX Warning: Reference `eq:vorticity_evolution' on page 166 undefined on inpu
-t line 299.
-
-
-LaTeX Warning: Reference `thm:enhanced_energy' on page 166 undefined on input l
-ine 306.
-
-
-LaTeX Warning: Citation `cohen2025navierstokes' on page 166 undefined on input 
-line 308.
-
-
-LaTeX Warning: Reference `eq:ns_consciousness' on page 166 undefined on input l
-ine 317.
-
-
-LaTeX Warning: Reference `thm:bkm_enhanced' on page 166 undefined on input line
- 325.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -4949,11 +4640,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [166]
-
-LaTeX Warning: Citation `cohen2025navierstokes' on page 167 undefined on input 
-line 342.
-
-
 Underfull \vbox (badness 3128) has occurred while \output is active []
 
 
@@ -4966,10 +4652,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [167]
-
-LaTeX Warning: Reference `ch:yang-mills' on page 168 undefined on input line 40
-3.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -4997,16 +4679,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [170]
-
-LaTeX Warning: Reference `eq:re-c-crit-correct' on page 171 undefined on input 
-line 514.
-
-
-LaTeX Warning: Reference `ch:yang-mills' on page 171 undefined on input line 51
-4.
-
-
-Overfull \hbox (313.61545pt too wide) in paragraph at lines 505--517
+Overfull \hbox (325.72151pt too wide) in paragraph at lines 505--517
  [] 
  []
 
@@ -5040,14 +4713,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [172]
-
-LaTeX Warning: Reference `eq:re-c-crit-correct' on page 173 undefined on input 
-line 567.
-
-
-LaTeX Warning: Reference `thm:enhanced_energy' on page 173 undefined on input l
-ine 569.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5091,10 +4756,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [177]
-
-LaTeX Warning: Citation `cohen2025weinstein' on page 178 undefined on input lin
-e 120.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 123.
@@ -5181,10 +4842,6 @@ at-tempted a ``cor-rected'' cal-cu-la-tion: $[][] \OT1/lmr/m/n/10.95 =
  []
 
 
-LaTeX Warning: Citation `cohen2025weinstein' on page 181 undefined on input lin
-e 247.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -5206,10 +4863,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [182]
-
-LaTeX Warning: Citation `cohen2025weinstein' on page 183 undefined on input lin
-e 328.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5237,11 +4890,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [185]
-
-LaTeX Warning: Citation `cohen2025weinstein' on page 186 undefined on input lin
-e 413.
-
-
 Overfull \hbox (10.19725pt too wide) in paragraph at lines 426--428
 \T1/lmr/m/it/10.95 with the 3 ex-tra GU di-men-sions cor-re-spond-ing to con-sc
 ious-ness field de-grees of free-dom: $\OT1/lmr/m/n/10.95 ([][]\OML/lmm/m/it/10
@@ -5297,14 +4945,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [187]
 
-LaTeX Warning: Citation `mallett2000laserring' on page 188 undefined on input l
-ine 522.
-
-
-LaTeX Warning: Citation `mallett2003timeloop' on page 188 undefined on input li
-ne 522.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
 (fancyhdr)                \setlength{\headheight}{25.2232pt}.
@@ -5323,32 +4963,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [189]
 Chapter 12.
-
-LaTeX Warning: Reference `ch:field-equations' on page 190 undefined on input li
-ne 11.
-
 [190
 
 ]
-
-LaTeX Warning: Citation `peskin1995' on page 191 undefined on input line 34.
-
-
-LaTeX Warning: Citation `weinberg1995' on page 191 undefined on input line 34.
-
-
-LaTeX Warning: Citation `peskin1995' on page 191 undefined on input line 35.
-
-
-LaTeX Warning: Citation `srednicki2007' on page 191 undefined on input line 35.
-
-
-
-LaTeX Warning: Citation `gross1973' on page 191 undefined on input line 36.
-
-
-LaTeX Warning: Citation `politzer1973' on page 191 undefined on input line 36.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5358,16 +4975,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [191]
-
-LaTeX Warning: Citation `jackson1999' on page 192 undefined on input line 104.
-
-
-LaTeX Warning: Citation `peskin1995' on page 192 undefined on input line 104.
-
-
-LaTeX Warning: Reference `ch:field-equations' on page 192 undefined on input li
-ne 133.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5399,20 +5006,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [194]
 
-LaTeX Warning: Citation `peskin1995' on page 195 undefined on input line 238.
-
-
-LaTeX Warning: Citation `weinberg1995' on page 195 undefined on input line 238.
-
-
-
-LaTeX Warning: Citation `gross1973' on page 195 undefined on input line 238.
-
-
-LaTeX Warning: Citation `politzer1973' on page 195 undefined on input line 238.
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -5421,12 +5014,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [195]
-
-LaTeX Warning: Citation `thooft1972' on page 196 undefined on input line 263.
-
-
-LaTeX Warning: Citation `collins1984' on page 196 undefined on input line 263.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5446,17 +5033,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [197]
 
-LaTeX Warning: Reference `ch:field-equations' on page 198 undefined on input li
-ne 342.
-
-
-LaTeX Warning: Citation `peskin1995' on page 198 undefined on input line 371.
-
-
-LaTeX Warning: Citation `weinberg1995' on page 198 undefined on input line 371.
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -5465,19 +5041,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [198]
-
-LaTeX Warning: Citation `peskin1995' on page 199 undefined on input line 407.
-
-
-LaTeX Warning: Citation `weinberg1995' on page 199 undefined on input line 407.
-
-
-
-LaTeX Warning: Citation `atlas2012' on page 199 undefined on input line 424.
-
-
-LaTeX Warning: Citation `cms2012' on page 199 undefined on input line 424.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5488,25 +5051,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [199]
 
-LaTeX Warning: Citation `atlas2012' on page 200 undefined on input line 438.
-
-
-LaTeX Warning: Citation `cms2012' on page 200 undefined on input line 438.
-
-
-LaTeX Warning: Citation `aad2015' on page 200 undefined on input line 438.
-
-
-LaTeX Warning: Citation `buzsaki2012' on page 200 undefined on input line 448.
-
-
-LaTeX Warning: Citation `logothetis2001' on page 200 undefined on input line 44
-9.
-
-
-LaTeX Warning: Citation `ogawa1990' on page 200 undefined on input line 449.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -5515,34 +5059,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [200]
-
-LaTeX Warning: Citation `bell1964' on page 201 undefined on input line 494.
-
-
-LaTeX Warning: Citation `hensen2015loophole' on page 201 undefined on input lin
-e 494.
-
-
-LaTeX Warning: Citation `shalm2015strong' on page 201 undefined on input line 4
-94.
-
-
-LaTeX Warning: Citation `aspect1982experimental' on page 201 undefined on input
- line 494.
-
-
-LaTeX Warning: Citation `casimir1948attraction' on page 201 undefined on input 
-line 524.
-
-
-LaTeX Warning: Citation `lamoreaux1997demonstration' on page 201 undefined on i
-nput line 524.
-
-
-LaTeX Warning: Citation `bressi2002measurement' on page 201 undefined on input 
-line 524.
-
-
 Underfull \vbox (badness 1152) has occurred while \output is active []
 
 
@@ -5555,12 +5071,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [201]
-
-LaTeX Warning: Citation `wilson1974' on page 202 undefined on input line 567.
-
-
-LaTeX Warning: Citation `creutz1980' on page 202 undefined on input line 567.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5581,10 +5091,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [203]
 Chapter 13.
 
-LaTeX Warning: Reference `ch:field-equations' on page 204 undefined on input li
-ne 5.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [204
@@ -5599,17 +5105,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [205]
-
-LaTeX Warning: Citation `schwarzschild1916' on page 206 undefined on input line
- 69.
-
-
-LaTeX Warning: Citation `misner1973' on page 206 undefined on input line 69.
-
-
-LaTeX Warning: Reference `ch:qft-consciousness' on page 206 undefined on input 
-line 89.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5629,22 +5124,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [207]
 
-LaTeX Warning: Citation `reissner1916' on page 208 undefined on input line 157.
-
-
-
-LaTeX Warning: Citation `nordstrom1918' on page 208 undefined on input line 157
-.
-
-
-LaTeX Warning: Citation `reissner1916' on page 208 undefined on input line 166.
-
-
-
-LaTeX Warning: Citation `nordstrom1918' on page 208 undefined on input line 166
-.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -5654,16 +5133,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [208]
 
-LaTeX Warning: Citation `hawking1974' on page 209 undefined on input line 198.
-
-
-LaTeX Warning: Citation `hawking1975' on page 209 undefined on input line 198.
-
-
-LaTeX Warning: Citation `bekenstein1973' on page 209 undefined on input line 19
-8.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -5672,17 +5141,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [209]
-
-LaTeX Warning: Citation `friedmann1922' on page 210 undefined on input line 227
-.
-
-
-LaTeX Warning: Citation `lemaitre1927' on page 210 undefined on input line 227.
-
-
-
-LaTeX Warning: Citation `misner1973' on page 210 undefined on input line 227.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5701,21 +5159,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [211]
-
-LaTeX Warning: Citation `abbott2016' on page 212 undefined on input line 338.
-
-
-LaTeX Warning: Citation `ligo2017' on page 212 undefined on input line 338.
-
-
-LaTeX Warning: Citation `lisa2017' on page 212 undefined on input line 338.
-
-
-LaTeX Warning: Citation `ligo2017' on page 212 undefined on input line 341.
-
-
-LaTeX Warning: Citation `abbott2016' on page 212 undefined on input line 341.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5775,19 +5218,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [214]
-
-LaTeX Warning: Reference `eq:friedmann1-consciousness' on page 215 undefined on
- input line 449.
-
-
-LaTeX Warning: Reference `eq:friedmann2-consciousness' on page 215 undefined on
- input line 449.
-
-
-LaTeX Warning: Reference `thm:consciousness-black-hole' on page 215 undefined o
-n input line 469.
-
-
 Underfull \vbox (badness 6510) has occurred while \output is active []
 
 
@@ -5826,10 +5256,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-LaTeX Warning: Reference `ch:field-equations' on page 219 undefined on input li
-ne 32.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -5853,12 +5279,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [220]
 
-LaTeX Warning: Citation `noether1918' on page 221 undefined on input line 104.
-
-
-LaTeX Warning: Citation `misner1973' on page 221 undefined on input line 104.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -5867,12 +5287,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [221]
-
-LaTeX Warning: Citation `yang1954' on page 222 undefined on input line 186.
-
-
-LaTeX Warning: Citation `peskin1995' on page 222 undefined on input line 186.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -5927,11 +5341,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [226]
-
-LaTeX Warning: Reference `ch:qft-consciousness' on page 227 undefined on input 
-line 356.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -5944,15 +5353,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [227]
-
-LaTeX Warning: Citation `goldstone1962' on page 228 undefined on input line 398
-.
-
-
-LaTeX Warning: Citation `weinberg1995' on page 228 undefined on input line 398.
-
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -6025,13 +5425,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-LaTeX Warning: Citation `baumgarte2010' on page 235 undefined on input line 41.
-
-
-
-LaTeX Warning: Citation `misner1973' on page 235 undefined on input line 41.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -6041,14 +5434,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [235]
 
-LaTeX Warning: Reference `eq:hamiltonian-constraint' on page 236 undefined on i
-nput line 99.
-
-
-LaTeX Warning: Reference `eq:momentum-constraint' on page 236 undefined on inpu
-t line 99.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -6057,20 +5442,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [236]
-
-LaTeX Warning: Citation `shibata1995' on page 237 undefined on input line 104.
-
-
-LaTeX Warning: Citation `baumgarte1999' on page 237 undefined on input line 104
-.
-
-
-LaTeX Warning: Citation `loffler2012' on page 237 undefined on input line 116.
-
-
-LaTeX Warning: Citation `baumgarte2010' on page 237 undefined on input line 116
-.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -6164,14 +5535,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [245]
 
-LaTeX Warning: Reference `eq:hamiltonian-constraint' on page 246 undefined on i
-nput line 497.
-
-
-LaTeX Warning: Reference `eq:momentum-constraint' on page 246 undefined on inpu
-t line 497.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -6201,11 +5564,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [248]
-
-LaTeX Warning: Citation `raissi_physics_2019' on page 249 undefined on input li
-ne 688.
-
-
 Underfull \vbox (badness 3849) has occurred while \output is active []
 
 
@@ -6291,13 +5649,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [258]
 
-LaTeX Warning: Citation `gelfand1943' on page 259 undefined on input line 270.
-
-
-LaTeX Warning: Citation `connes_noncommutative_1994' on page 259 undefined on i
-nput line 270.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -6306,10 +5657,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [259]
-
-LaTeX Warning: Reference `ch:timeless-field' on page 260 undefined on input lin
-e 323.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -6347,17 +5694,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [263]
 
-LaTeX Warning: Citation `takesaki1970' on page 264 undefined on input line 475.
-
-
-
-LaTeX Warning: Citation `takesaki_theory_2002' on page 264 undefined on input l
-ine 475.
-
-
-LaTeX Warning: Citation `atiyah1968' on page 264 undefined on input line 494.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -6382,13 +5718,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [266
 
 ]
-
-LaTeX Warning: Citation `reed1980' on page 267 undefined on input line 37.
-
-
-LaTeX Warning: Citation `rudin1976' on page 267 undefined on input line 37.
-
-
 Underfull \vbox (badness 1635) has occurred while \output is active []
 
 
@@ -6410,12 +5739,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [268]
-
-LaTeX Warning: Citation `reed1980' on page 269 undefined on input line 106.
-
-
-LaTeX Warning: Citation `rudin1976' on page 269 undefined on input line 106.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -6571,11 +5894,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [283]
-
-LaTeX Warning: Reference `ch:operator-theory' on page 284 undefined on input li
-ne 119.
-
-
 Underfull \vbox (badness 1033) has occurred while \output is active []
 
 
@@ -6844,15 +6162,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [289]
 
-LaTeX Warning: Citation `tononi2004' on page 290 undefined on input line 425.
-
-
-LaTeX Warning: Citation `tononi2016' on page 290 undefined on input line 425.
-
-
-LaTeX Warning: Citation `koch2016' on page 290 undefined on input line 425.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -6861,10 +6170,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [290]
-
-LaTeX Warning: Reference `thm:consciousness-prevents-decoherence' on page 291 u
-ndefined on input line 490.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -6899,15 +6204,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [294
 
 ]
-
-LaTeX Warning: Citation `kallen1952' on page 295 undefined on input line 50.
-
-
-LaTeX Warning: Citation `lehmann1954' on page 295 undefined on input line 50.
-
-
-LaTeX Warning: Citation `peskin1995' on page 295 undefined on input line 50.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -6960,10 +6256,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [299]
 
-LaTeX Warning: Reference `ch:spectral-measures' on page 300 undefined on input 
-line 236.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7000,18 +6292,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [303]
 
-LaTeX Warning: Reference `thm:kallen-lehmann' on page 304 undefined on input li
-ne 411.
-
-
-LaTeX Warning: Reference `conj:masses-from-zeros' on page 304 undefined on inpu
-t line 415.
-
-
-LaTeX Warning: Reference `thm:consciousness-cmb' on page 304 undefined on input
- line 431.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7039,16 +6319,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-LaTeX Warning: Citation `riemann1859' on page 308 undefined on input line 33.
-
-
-LaTeX Warning: Citation `edwards1974' on page 308 undefined on input line 59.
-
-
-LaTeX Warning: Citation `titchmarsh1986' on page 308 undefined on input line 59
-.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7057,27 +6327,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [308]
-
-LaTeX Warning: Citation `selberg1956' on page 309 undefined on input line 64.
-
-
-LaTeX Warning: Citation `montgomery1973' on page 309 undefined on input line 66
-.
-
-
-LaTeX Warning: Citation `odlyzko1987' on page 309 undefined on input line 66.
-
-
-LaTeX Warning: Citation `connes1998' on page 309 undefined on input line 68.
-
-
-LaTeX Warning: Reference `ch:timeless-field' on page 309 undefined on input lin
-e 77.
-
-
-LaTeX Warning: Reference `ch:consciousness' on page 309 undefined on input line
- 93.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 96.
@@ -7089,14 +6338,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 96.
-
-
-LaTeX Warning: Reference `ch:resonance' on page 309 undefined on input line 98.
-
-
-
-LaTeX Warning: Reference `ch:constants' on page 309 undefined on input line 105
-.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -7133,12 +6374,6 @@ Underfull \hbox (badness 1199) in paragraph at lines 206--207
  []
 
 
-LaTeX Warning: Citation `hilbert1900' on page 312 undefined on input line 221.
-
-
-LaTeX Warning: Citation `polya1927' on page 312 undefined on input line 221.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -7161,12 +6396,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [313]
 
-LaTeX Warning: Citation `reed1980' on page 314 undefined on input line 279.
-
-
-LaTeX Warning: Citation `rudin1976' on page 314 undefined on input line 279.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7185,9 +6414,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [315]
 
-LaTeX Warning: Citation `riemann1859' on page 316 undefined on input line 393.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7196,18 +6422,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [316]
-
-LaTeX Warning: Citation `cohen2025riemannproof' on page 317 undefined on input 
-line 416.
-
-
-LaTeX Warning: Citation `cohen2025universal' on page 317 undefined on input lin
-e 428.
-
-
-LaTeX Warning: Reference `thm:spectral-rigidity' on page 317 undefined on input
- line 440.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7240,14 +6454,6 @@ Chapter 21.
 
 ]
 
-LaTeX Warning: Citation `cook1971complexity' on page 321 undefined on input lin
-e 56.
-
-
-LaTeX Warning: Citation `arora2009computational' on page 321 undefined on input
- line 56.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7257,42 +6463,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [321]
 
-LaTeX Warning: Citation `cook1971complexity' on page 322 undefined on input lin
-e 62.
-
-
-LaTeX Warning: Citation `levin1973universal' on page 322 undefined on input lin
-e 62.
-
-
-LaTeX Warning: Citation `clay2000millennium' on page 322 undefined on input lin
-e 62.
-
-
-LaTeX Warning: Citation `aaronson2008algebrization' on page 322 undefined on in
-put line 67.
-
-
-LaTeX Warning: Citation `baker1975relativizations' on page 322 undefined on inp
-ut line 70.
-
-
-LaTeX Warning: Citation `razborov1997natural' on page 322 undefined on input li
-ne 72.
-
-
-LaTeX Warning: Citation `aaronson2008algebrization' on page 322 undefined on in
-put line 74.
-
-
-LaTeX Warning: Reference `ch:timeless-field' on page 322 undefined on input lin
-e 83.
-
-
-LaTeX Warning: Citation `li2008introduction' on page 322 undefined on input lin
-e 90.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7301,11 +6471,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [322]
-
-LaTeX Warning: Reference `ch:riemann-hypothesis' on page 323 undefined on input
- line 109.
-
-
 Underfull \vbox (badness 1874) has occurred while \output is active []
 
 
@@ -7328,10 +6493,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [324]
 
-LaTeX Warning: Reference `prop:comp-measure' on page 325 undefined on input lin
-e 192.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7353,14 +6514,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [326]
 
-LaTeX Warning: Citation `jacobi1829fundamenta' on page 327 undefined on input l
-ine 291.
-
-
-LaTeX Warning: Citation `dedekind1877schreiben' on page 327 undefined on input 
-line 293.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7369,23 +6522,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [327]
-
-LaTeX Warning: Citation `zagier1991polylogarithms' on page 328 undefined on inp
-ut line 294.
-
-
-LaTeX Warning: Reference `ch:constants' on page 328 undefined on input line 303
-.
-
-
 Overfull \hbox (2.24977pt too wide) in paragraph at lines 313--314
 \T1/lmr/m/n/10.95 We es-tab-lish the pre-cise math-e-mat-i-cal frame-work for f
 rac-tal con-vo-lu-tion op-er-a-tors with full measure-
  []
-
-
-LaTeX Warning: Citation `hutchinson1981fractals' on page 328 undefined on input
- line 322.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -7396,17 +6536,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [328]
-
-LaTeX Warning: Citation `reed1980' on page 329 undefined on input line 354.
-
-
-LaTeX Warning: Citation `gelfand1964generalized' on page 329 undefined on input
- line 361.
-
-
-LaTeX Warning: Citation `reed1980' on page 329 undefined on input line 363.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -7419,13 +6548,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [329]
-
-LaTeX Warning: Citation `reed1980' on page 330 undefined on input line 375.
-
-
-LaTeX Warning: Citation `strichartz2006differential' on page 330 undefined on i
-nput line 375.
-
 
 ! LaTeX Error: Not in outer par mode.
 
@@ -7479,14 +6601,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [330]
 
-LaTeX Warning: Reference `conj:golden-modulation' on page 331 undefined on inpu
-t line 463.
-
-
-LaTeX Warning: Reference `conj:golden-modulation' on page 331 undefined on inpu
-t line 463.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7498,10 +6612,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 Overfull \hbox (6.93219pt too wide) detected at line 471
 []
  []
-
-
-LaTeX Warning: Reference `eq:kernel-P' on page 332 undefined on input line 493.
-
 
 
 Underfull \hbox (badness 1694) in paragraph at lines 506--507
@@ -7530,10 +6640,6 @@ lmr/m/n/10.95 9427 []  []
  []
 
 
-LaTeX Warning: Reference `conj:golden-modulation' on page 333 undefined on inpu
-t line 535.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -7547,16 +6653,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [333]
 
-LaTeX Warning: Citation `taylor1972' on page 334 undefined on input line 560.
-
-
-LaTeX Warning: Citation `reed1980' on page 334 undefined on input line 560.
-
-
-Underfull \vbox (badness 2717) has occurred while \output is active []
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7565,10 +6661,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [334]
-
-LaTeX Warning: Reference `lem:s1-rigidity' on page 335 undefined on input line 
-624.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7579,10 +6671,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [335]
 
-LaTeX Warning: Citation `zagier1991polylogarithms' on page 336 undefined on inp
-ut line 644.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7591,18 +6679,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [336]
-
-LaTeX Warning: Reference `lem:polylog-ladder' on page 337 undefined on input li
-ne 670.
-
-
-LaTeX Warning: Citation `zagier1991polylogarithms' on page 337 undefined on inp
-ut line 689.
-
-
-LaTeX Warning: Reference `prop:monodromy-increment' on page 337 undefined on in
-put line 700.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7613,10 +6689,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [337]
 
-LaTeX Warning: Reference `lem:s1-rigidity' on page 338 undefined on input line 
-733.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7625,26 +6697,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [338]
-
-LaTeX Warning: Reference `prop:monodromy-increment' on page 339 undefined on in
-put line 754.
-
-
-LaTeX Warning: Reference `conj:polylog-spectrum' on page 339 undefined on input
- line 782.
-
-
-LaTeX Warning: Reference `prop:monodromy-increment' on page 339 undefined on in
-put line 784.
-
-
-LaTeX Warning: Reference `exp:hp-convergence' on page 339 undefined on input li
-ne 788.
-
-
-LaTeX Warning: Reference `exp:hnp-convergence' on page 339 undefined on input l
-ine 788.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7667,10 +6719,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 793.
 
 
-LaTeX Warning: Citation `lapidus2013fractal' on page 340 undefined on input lin
-e 824.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7679,18 +6727,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [340]
-
-LaTeX Warning: Reference `exp:hp-convergence' on page 341 undefined on input li
-ne 855.
-
-
-LaTeX Warning: Reference `exp:hnp-convergence' on page 341 undefined on input l
-ine 855.
-
-
-LaTeX Warning: Citation `rothenberg1971identification' on page 341 undefined on
- input line 882.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7709,15 +6745,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [342]
-
-LaTeX Warning: Reference `prop:quantized-shift' on page 343 undefined on input 
-line 943.
-
-
-LaTeX Warning: Reference `conj:golden-modulation' on page 343 undefined on inpu
-t line 945.
-
-
 Overfull \hbox (183.09703pt too wide) detected at line 973
 []
  []
@@ -7731,34 +6758,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [343]
-
-LaTeX Warning: Reference `exp:hp-convergence' on page 344 undefined on input li
-ne 978.
-
-
-LaTeX Warning: Reference `exp:hnp-convergence' on page 344 undefined on input l
-ine 978.
-
-
-LaTeX Warning: Reference `conj:polylog-spectrum' on page 344 undefined on input
- line 988.
-
-
-LaTeX Warning: Reference `conj:golden-modulation' on page 344 undefined on inpu
-t line 988.
-
-
-LaTeX Warning: Reference `conj:polylog-spectrum' on page 344 undefined on input
- line 991.
-
-
-LaTeX Warning: Reference `heur:branch-selection' on page 344 undefined on input
- line 992.
-
-
-LaTeX Warning: Reference `conj:golden-modulation' on page 344 undefined on inpu
-t line 993.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7799,14 +6798,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [346]
 
-LaTeX Warning: Citation `falconer2003fractal' on page 347 undefined on input li
-ne 1141.
-
-
-LaTeX Warning: Reference `ch:consciousness' on page 347 undefined on input line
- 1150.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7825,10 +6816,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [348]
 
-LaTeX Warning: Citation `razborov1997natural' on page 349 undefined on input li
-ne 1205.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7837,14 +6824,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [349]
-
-LaTeX Warning: Citation `cook1971complexity' on page 350 undefined on input lin
-e 1234.
-
-
-LaTeX Warning: Reference `thm:main-p-neq-np' on page 350 undefined on input lin
-e 1234.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7855,17 +6834,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [350]
 
-LaTeX Warning: Citation `connes1994' on page 351 undefined on input line 1272.
-
-
-LaTeX Warning: Citation `falconer2003fractal' on page 351 undefined on input li
-ne 1272.
-
-
-LaTeX Warning: Citation `ay2017information' on page 351 undefined on input line
- 1300.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7874,10 +6842,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [351]
-
-LaTeX Warning: Reference `ch:riemann-hypothesis' on page 352 undefined on input
- line 1331.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7888,17 +6852,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [352]
 
-LaTeX Warning: Citation `falconer2003fractal' on page 353 undefined on input li
-ne 1375.
-
-
-LaTeX Warning: Citation `knuth1997' on page 353 undefined on input line 1379.
-
-
-LaTeX Warning: Citation `douady1992phyllotaxis' on page 353 undefined on input 
-line 1381.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7907,9 +6860,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [353]
-
-LaTeX Warning: Citation `taylor1972' on page 354 undefined on input line 1396.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7920,20 +6870,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [354]
 
-LaTeX Warning: Citation `wilson1974confinement' on page 355 undefined on input 
-line 1416.
-
-
-LaTeX Warning: Citation `lisi2007' on page 355 undefined on input line 1418.
-
-
-LaTeX Warning: Citation `tononi2016' on page 355 undefined on input line 1420.
-
-
-LaTeX Warning: Citation `page1993information' on page 355 undefined on input li
-ne 1422.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -7942,42 +6878,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [355]
-
-LaTeX Warning: Reference `def:fractal-measure' on page 356 undefined on input l
-ine 1444.
-
-
-LaTeX Warning: Reference `def:fractal-convolution' on page 356 undefined on inp
-ut line 1445.
-
-
-LaTeX Warning: Reference `thm:spectral-properties' on page 356 undefined on inp
-ut line 1446.
-
-
-LaTeX Warning: Reference `thm:variational' on page 356 undefined on input line 
-1447.
-
-
-LaTeX Warning: Reference `exp:hp-convergence' on page 356 undefined on input li
-ne 1452.
-
-
-LaTeX Warning: Reference `exp:hnp-convergence' on page 356 undefined on input l
-ine 1452.
-
-
 Overfull \hbox (210.53351pt too wide) detected at line 1464
 []
  []
-
-
-LaTeX Warning: Reference `conj:polylog-spectrum' on page 356 undefined on input
- line 1468.
-
-
-LaTeX Warning: Reference `conj:golden-modulation' on page 356 undefined on inpu
-t line 1468.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -8001,30 +6904,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1488.
 
 
-LaTeX Warning: Reference `prob:monodromy' on page 357 undefined on input line 1
-506.
-
-
-LaTeX Warning: Reference `prob:exact-solvability' on page 357 undefined on inpu
-t line 1507.
-
-
-LaTeX Warning: Reference `prob:universality' on page 357 undefined on input lin
-e 1508.
-
-
-LaTeX Warning: Reference `prob:reproducibility' on page 357 undefined on input 
-line 1509.
-
-
-LaTeX Warning: Reference `prob:riemann-connection' on page 357 undefined on inp
-ut line 1510.
-
-
-LaTeX Warning: Reference `prob:yang-mills-connection' on page 357 undefined on 
-input line 1510.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8033,18 +6912,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [357]
-
-LaTeX Warning: Reference `def:config-encoding' on page 358 undefined on input l
-ine 1532.
-
-
-LaTeX Warning: Reference `thm:main-p-neq-np' on page 358 undefined on input lin
-e 1542.
-
-
-LaTeX Warning: Reference `thm:ground-states' on page 358 undefined on input lin
-e 1551.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8070,13 +6937,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [360
 
 ]
-
-LaTeX Warning: Citation `temam2001' on page 361 undefined on input line 36.
-
-
-LaTeX Warning: Citation `fefferman2000' on page 361 undefined on input line 36.
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8111,12 +6971,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [363]
 
-LaTeX Warning: Citation `moffatt1985' on page 364 undefined on input line 164.
-
-
-LaTeX Warning: Citation `ricca1992' on page 364 undefined on input line 178.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8125,20 +6979,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [364]
-
-LaTeX Warning: Citation `arnold1966' on page 365 undefined on input line 203.
-
-
-LaTeX Warning: Citation `holm1985' on page 365 undefined on input line 223.
-
-
-LaTeX Warning: Reference `ch:resonance' on page 365 undefined on input line 241
-.
-
-
-LaTeX Warning: Reference `ch:riemann-hypothesis' on page 365 undefined on input
- line 241.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8157,10 +6997,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [366]
-
-LaTeX Warning: Citation `majda2002' on page 367 undefined on input line 312.
-
-
 Underfull \vbox (badness 1354) has occurred while \output is active []
 
 
@@ -8183,22 +7019,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [368]
 
-LaTeX Warning: Reference `ch:consciousness' on page 369 undefined on input line
- 397.
-
-
-LaTeX Warning: Citation `wagshul2011' on page 369 undefined on input line 430.
-
-
-LaTeX Warning: Citation `tononi2016' on page 369 undefined on input line 430.
-
-
-LaTeX Warning: Citation `koch2016' on page 369 undefined on input line 430.
-
-
-LaTeX Warning: Citation `davies2004' on page 369 undefined on input line 436.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8207,16 +7027,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [369]
-
-LaTeX Warning: Citation `emanuel2003' on page 370 undefined on input line 444.
-
-
-LaTeX Warning: Citation `donnelly1991' on page 370 undefined on input line 454.
-
-
-
-LaTeX Warning: Citation `fetter2009' on page 370 undefined on input line 462.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8247,12 +7057,6 @@ he res-o-nance sin-gu-lar-ity spec-trum $\OML/lmm/m/it/10.95 f\OT1/lmr/m/n/10.9
 5 (\OML/lmm/m/it/10.95 []\OT1/lmr/m/n/10.95 )$ \T1/lmr/m/n/10.95 yields struct
 ure-
  []
-
-
-LaTeX Warning: Citation `frisch1995' on page 372 undefined on input line 551.
-
-
-LaTeX Warning: Citation `she1994' on page 372 undefined on input line 552.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -8289,18 +7093,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-LaTeX Warning: Citation `wightman1956quantum' on page 376 undefined on input li
-ne 41.
-
-
-LaTeX Warning: Citation `jaffe2006quantum' on page 376 undefined on input line 
-51.
-
-
-LaTeX Warning: Citation `yang1954conservation' on page 376 undefined on input l
-ine 55.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8309,26 +7101,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [376]
-
-LaTeX Warning: Citation `gross1973ultraviolet' on page 377 undefined on input l
-ine 58.
-
-
-LaTeX Warning: Citation `politzer1973reliable' on page 377 undefined on input l
-ine 58.
-
-
-LaTeX Warning: Citation `wilson1974confinement' on page 377 undefined on input 
-line 59.
-
-
-LaTeX Warning: Citation `creutz1980monte' on page 377 undefined on input line 6
-0.
-
-
-LaTeX Warning: Citation `glimm1987quantum' on page 377 undefined on input line 
-61.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 67.
@@ -8340,10 +7112,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 67.
-
-
-LaTeX Warning: Reference `ch:resonance' on page 377 undefined on input line 69.
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -8453,14 +7221,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [383]
 
-LaTeX Warning: Citation `morningstar1999glueball' on page 384 undefined on inpu
-t line 384.
-
-
-LaTeX Warning: Citation `chen2006glueball' on page 384 undefined on input line 
-384.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8500,10 +7260,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [386]
 
-LaTeX Warning: Reference `ch:consciousness' on page 387 undefined on input line
- 519.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8512,22 +7268,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [387]
-
-LaTeX Warning: Citation `morningstar1999glueball' on page 388 undefined on inpu
-t line 580.
-
-
-LaTeX Warning: Citation `chen2006glueball' on page 388 undefined on input line 
-580.
-
-
-LaTeX Warning: Citation `gross1973ultraviolet' on page 388 undefined on input l
-ine 585.
-
-
-LaTeX Warning: Citation `politzer1973reliable' on page 388 undefined on input l
-ine 585.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8568,11 +7308,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [392]
-
-LaTeX Warning: Citation `mordell1922rational' on page 393 undefined on input li
-ne 74.
-
-
 Underfull \vbox (badness 2538) has occurred while \output is active []
 
 
@@ -8586,14 +7321,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [393]
 
-LaTeX Warning: Citation `silverman1986arithmetic' on page 394 undefined on inpu
-t line 116.
-
-
-LaTeX Warning: Citation `wiles1995modular' on page 394 undefined on input line 
-124.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8602,14 +7329,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [394]
-
-LaTeX Warning: Citation `gross1986heegner' on page 395 undefined on input line 
-173.
-
-
-LaTeX Warning: Citation `kolyvagin1988finiteness' on page 395 undefined on inpu
-t line 173.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 186.
@@ -8667,18 +7386,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [398]
 
-LaTeX Warning: Citation `cremona1997algorithms' on page 399 undefined on input 
-line 336.
-
-
-LaTeX Warning: Reference `alg:fractal-rank' on page 399 undefined on input line
- 370.
-
-
-LaTeX Warning: Citation `schoof1985elliptic' on page 399 undefined on input lin
-e 380.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8697,10 +7404,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [400]
 
-LaTeX Warning: Reference `ch:consciousness' on page 401 undefined on input line
- 446.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8718,10 +7421,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [402]
-
-LaTeX Warning: Reference `alg:fractal-rank' on page 403 undefined on input line
- 523.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8852,14 +7551,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [414]
 
-LaTeX Warning: Reference `alg:cycle-extraction' on page 415 undefined on input 
-line 413.
-
-
-LaTeX Warning: Reference `alg:cycle-extraction' on page 415 undefined on input 
-line 417.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8868,12 +7559,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [415]
-
-LaTeX Warning: Citation `cohen2025hodgeproof' on page 416 undefined on input li
-ne 448.
-
-
-Underfull \vbox (badness 3281) has occurred while \output is active []
+Underfull \vbox (badness 3302) has occurred while \output is active []
 
 
 
@@ -8885,15 +7571,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [416]
-
-LaTeX Warning: Reference `ch:consciousness' on page 417 undefined on input line
- 480.
-
-
-LaTeX Warning: Citation `cohen2025universal' on page 417 undefined on input lin
-e 480.
-
-
 Overfull \hbox (70.75935pt too wide) in paragraph at lines 485--487
 \T1/lmr/m/it/10.95 cally in-cor-rect; $\OT1/lmr/m/n/10.95 0\OML/lmm/m/it/10.95 
 :\OT1/lmr/m/n/10.95 95 + 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 0118 = 0\OML/
@@ -8948,32 +7625,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ] (./chapters/ch26_cosmological_constant.tex
 Chapter 26.
 
-LaTeX Warning: Reference `ch:field-equations' on page 422 undefined on input li
-ne 15.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [422
 
 ]
-
-LaTeX Warning: Citation `einstein1917' on page 423 undefined on input line 51.
-
-
-LaTeX Warning: Citation `hubble1929' on page 423 undefined on input line 51.
-
-
-LaTeX Warning: Citation `riess1998' on page 423 undefined on input line 53.
-
-
-LaTeX Warning: Citation `perlmutter1999' on page 423 undefined on input line 53
-.
-
-
-LaTeX Warning: Citation `planck2018' on page 423 undefined on input line 65.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -8996,26 +7652,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [424]
 
-LaTeX Warning: Citation `wess1974' on page 425 undefined on input line 118.
-
-
-LaTeX Warning: Citation `nilles1984' on page 425 undefined on input line 118.
-
-
-LaTeX Warning: Citation `atlas2023' on page 425 undefined on input line 131.
-
-
-LaTeX Warning: Citation `cms2023' on page 425 undefined on input line 131.
-
-
-LaTeX Warning: Citation `weinberg1989' on page 425 undefined on input line 137.
-
-
-
-LaTeX Warning: Citation `vilenkin2006' on page 425 undefined on input line 137.
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9024,17 +7660,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [425]
-
-LaTeX Warning: Citation `sola2013' on page 426 undefined on input line 151.
-
-
-LaTeX Warning: Reference `ch:field-equations' on page 426 undefined on input li
-ne 160.
-
-
-LaTeX Warning: Reference `thm:modified-einstein' on page 426 undefined on input
- line 160.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9066,13 +7691,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [428]
 
-LaTeX Warning: Citation `zlatev1999' on page 429 undefined on input line 304.
-
-
-LaTeX Warning: Citation `steinhardt1999' on page 429 undefined on input line 30
-4.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9081,13 +7699,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [429]
-
-LaTeX Warning: Reference `alg:lambda-eff' on page 430 undefined on input line 3
-85.
-
-
-LaTeX Warning: Citation `planck2018' on page 430 undefined on input line 390.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9116,18 +7727,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [432]
 
-LaTeX Warning: Reference `ch:early-universe' on page 433 undefined on input lin
-e 473.
-
-
-LaTeX Warning: Reference `ch:constants' on page 433 undefined on input line 475
-.
-
-
-LaTeX Warning: Reference `ch:dark-energy-expansion' on page 433 undefined on in
-put line 495.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9136,14 +7735,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [433]
-
-LaTeX Warning: Reference `thm:cosmic-suppression' on page 434 undefined on inpu
-t line 506.
-
-
-LaTeX Warning: Reference `alg:lambda-eff' on page 434 undefined on input line 5
-14.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9164,21 +7755,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [435]
 Chapter 27.
 
-LaTeX Warning: Reference `ch:cosmological-constant' on page 436 undefined on in
-put line 5.
-
-
-LaTeX Warning: Citation `riess1998' on page 436 undefined on input line 21.
-
-
-LaTeX Warning: Citation `perlmutter1999' on page 436 undefined on input line 21
-.
-
-
-LaTeX Warning: Reference `ch:cosmological-constant' on page 436 undefined on in
-put line 25.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [436
@@ -9197,30 +7773,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 36.
 
 
-LaTeX Warning: Citation `peebles2003' on page 437 undefined on input line 39.
-
-
-LaTeX Warning: Citation `planck2018' on page 437 undefined on input line 39.
-
-
-LaTeX Warning: Citation `friedmann1922' on page 437 undefined on input line 46.
-
-
-
-LaTeX Warning: Citation `lemaitre1927' on page 437 undefined on input line 46.
-
-
-LaTeX Warning: Citation `robertson1935' on page 437 undefined on input line 46.
-
-
-
-LaTeX Warning: Citation `planck2018' on page 437 undefined on input line 54.
-
-
-LaTeX Warning: Citation `divalentino2021' on page 437 undefined on input line 6
-2.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -9233,15 +7785,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [437]
-
-LaTeX Warning: Reference `ch:field-equations' on page 438 undefined on input li
-ne 69.
-
-
-LaTeX Warning: Reference `thm:modified-einstein' on page 438 undefined on input
- line 69.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -9254,16 +7797,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [438]
-
-LaTeX Warning: Reference `eq:mf1' on page 439 undefined on input line 111.
-
-
-LaTeX Warning: Reference `eq:mf2' on page 439 undefined on input line 111.
-
-
-LaTeX Warning: Reference `ch:field-equations' on page 439 undefined on input li
-ne 130.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9295,10 +7828,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [441]
 
-LaTeX Warning: Citation `divalentino2021' on page 442 undefined on input line 2
-67.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9319,18 +7848,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [443]
-
-LaTeX Warning: Citation `suzuki2012' on page 444 undefined on input line 391.
-
-
-LaTeX Warning: Citation `scolnic2018' on page 444 undefined on input line 391.
-
-
-LaTeX Warning: Citation `sdss2018' on page 444 undefined on input line 392.
-
-
-LaTeX Warning: Citation `planck2018' on page 444 undefined on input line 393.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9440,10 +7957,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 480.
 
 
-LaTeX Warning: Citation `boehringer2025quipu' on page 445 undefined on input li
-ne 487.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -9512,18 +8025,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [447]
 
-LaTeX Warning: Citation `euclid2011' on page 448 undefined on input line 646.
-
-
-LaTeX Warning: Citation `lsst2009' on page 448 undefined on input line 648.
-
-
-LaTeX Warning: Citation `roman2015' on page 448 undefined on input line 650.
-
-
-LaTeX Warning: Citation `cmbs4' on page 448 undefined on input line 652.
-
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
@@ -9536,10 +8037,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [448]
 
-LaTeX Warning: Reference `ch:early-universe' on page 449 undefined on input lin
-e 689.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
 (fancyhdr)                \setlength{\headheight}{25.2232pt}.
@@ -9548,16 +8045,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [449]
-
-LaTeX Warning: Citation `everitt2011' on page 450 undefined on input line 720.
-
-
-LaTeX Warning: Citation `abbott2016gw' on page 450 undefined on input line 721.
-
-
-
-LaTeX Warning: Reference `eq:mf1' on page 450 undefined on input line 727.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9584,13 +8071,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [451]
 Chapter 28.
 
-LaTeX Warning: Reference `ch:numbers' on page 452 undefined on input line 16.
-
-
-LaTeX Warning: Reference `ch:field-equations' on page 452 undefined on input li
-ne 16.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [452
@@ -9607,12 +8087,6 @@ l.41 \begin{table}[h]
                      
 You've lost some text.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: Citation `guth1981' on page 453 undefined on input line 73.
-
-
-LaTeX Warning: Citation `linde1982' on page 453 undefined on input line 73.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -9637,13 +8111,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [454]
 
-LaTeX Warning: Citation `linde1982' on page 455 undefined on input line 150.
-
-
-LaTeX Warning: Citation `albrecht1982' on page 455 undefined on input line 150.
-
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9652,22 +8119,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [455]
-
-LaTeX Warning: Citation `planck2018' on page 456 undefined on input line 205.
-
-
-LaTeX Warning: Citation `wagoner1967' on page 456 undefined on input line 213.
-
-
-LaTeX Warning: Citation `burles2001' on page 456 undefined on input line 213.
-
-
-LaTeX Warning: Citation `cyburt2016' on page 456 undefined on input line 224.
-
-
-LaTeX Warning: Citation `planck2018' on page 456 undefined on input line 237.
-
-
 Underfull \vbox (badness 6927) has occurred while \output is active []
 
 
@@ -9681,9 +8132,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [456]
 
-LaTeX Warning: Citation `cyburt2016' on page 457 undefined on input line 248.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9692,18 +8140,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [457]
-
-LaTeX Warning: Citation `cyburt2016' on page 458 undefined on input line 274.
-
-
-LaTeX Warning: Citation `pitrou2018' on page 458 undefined on input line 274.
-
-
-LaTeX Warning: Citation `smoot1992' on page 458 undefined on input line 298.
-
-
-LaTeX Warning: Citation `bennett2003' on page 458 undefined on input line 298.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9714,31 +8150,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [458]
 
-LaTeX Warning: Citation `hu1996' on page 459 undefined on input line 314.
-
-
-LaTeX Warning: Citation `sunyaev1970' on page 459 undefined on input line 314.
-
-
-LaTeX Warning: Citation `planck2018' on page 459 undefined on input line 321.
-
-
-LaTeX Warning: Citation `planck2018' on page 459 undefined on input line 339.
-
-
-LaTeX Warning: Citation `sachs1967' on page 459 undefined on input line 349.
-
-
-LaTeX Warning: Citation `lewis2006' on page 459 undefined on input line 358.
-
-
-LaTeX Warning: Reference `ch:dark-energy-expansion' on page 459 undefined on in
-put line 358.
-
-
-LaTeX Warning: Citation `cmbs42019' on page 459 undefined on input line 367.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9747,26 +8158,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [459]
-
-LaTeX Warning: Citation `mukhanov2005' on page 460 undefined on input line 375.
-
-
-
-LaTeX Warning: Citation `guth1981' on page 460 undefined on input line 375.
-
-
 Overfull \hbox (2.43645pt too wide) in paragraph at lines 375--376
 []\T1/lmr/bx/n/10.95 Definition 28.7 \T1/lmr/m/n/10.95 (Pri-mor-dial Power Spec
 -trum)\T1/lmr/bx/n/10.95 . []\T1/lmr/m/n/10.95 Quan-tum fluc-tu-a-tions dur-ing
  in-fla-tion are stretched
  []
-
-
-LaTeX Warning: Citation `peebles1980' on page 460 undefined on input line 393.
-
-
-LaTeX Warning: Citation `dodelson2003' on page 460 undefined on input line 393.
-
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -9782,27 +8178,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [460]
 
-LaTeX Warning: Reference `ch:dark-energy-expansion' on page 461 undefined on in
-put line 416.
-
-
-LaTeX Warning: Reference `thm:growth-modified' on page 461 undefined on input l
-ine 416.
-
-
-LaTeX Warning: Citation `press1974' on page 461 undefined on input line 426.
-
-
-LaTeX Warning: Citation `sheth1999' on page 461 undefined on input line 426.
-
-
-LaTeX Warning: Citation `tinker2008' on page 461 undefined on input line 433.
-
-
-LaTeX Warning: Citation `pillepich2018' on page 461 undefined on input line 445
-.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9811,18 +8186,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [461]
-
-LaTeX Warning: Citation `white1978' on page 462 undefined on input line 453.
-
-
-LaTeX Warning: Citation `blumenthal1984' on page 462 undefined on input line 45
-3.
-
-
-LaTeX Warning: Citation `schechter1976' on page 462 undefined on input line 475
-.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -9836,13 +8199,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [462]
 
-LaTeX Warning: Citation `blanton2003' on page 463 undefined on input line 480.
-
-
-LaTeX Warning: Reference `ch:field-equations' on page 463 undefined on input li
-ne 520.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9851,22 +8207,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [463]
-
-LaTeX Warning: Citation `tononi2016' on page 464 undefined on input line 536.
-
-
-LaTeX Warning: Citation `roman2015' on page 464 undefined on input line 554.
-
-
-LaTeX Warning: Citation `lsst2009' on page 464 undefined on input line 561.
-
-
-LaTeX Warning: Citation `sdss2018' on page 464 undefined on input line 569.
-
-
-LaTeX Warning: Citation `desi2016' on page 464 undefined on input line 569.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -9898,10 +8238,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [466]
 
-LaTeX Warning: Reference `ch:observational-tests' on page 467 undefined on inpu
-t line 665.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9920,9 +8256,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [468]
 Chapter 29.
-
-LaTeX Warning: Citation `dyson1920' on page 469 undefined on input line 24.
-
 [469
 
 ]
@@ -9939,9 +8272,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 42.
 
 
-LaTeX Warning: Citation `planck2018' on page 470 undefined on input line 45.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9950,25 +8280,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [470]
-
-LaTeX Warning: Citation `planck2018' on page 471 undefined on input line 62.
-
-
-LaTeX Warning: Reference `ch:dark-energy-expansion' on page 471 undefined on in
-put line 85.
-
-
-LaTeX Warning: Reference `ch:dark-energy-expansion' on page 471 undefined on in
-put line 85.
-
-
-LaTeX Warning: Citation `riess1998' on page 471 undefined on input line 100.
-
-
-LaTeX Warning: Citation `perlmutter1999' on page 471 undefined on input line 10
-0.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -9981,9 +8292,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [471]
-
-LaTeX Warning: Citation `scolnic2018' on page 472 undefined on input line 125.
-
 ! Double superscript.
 <argument>  \chi ^2_{\text {SN}}^
                                  {\Lambda \text {CDM}} &= \sum _{i=1}^{580} ...
@@ -10025,20 +8333,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-LaTeX Warning: Citation `eisenstein2005' on page 473 undefined on input line 24
-7.
-
-
-LaTeX Warning: Citation `cole2005' on page 473 undefined on input line 247.
-
-
-LaTeX Warning: Citation `weinberg1972' on page 473 undefined on input line 249.
-
-
-
-LaTeX Warning: Citation `blake2011' on page 473 undefined on input line 249.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -10063,18 +8357,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [474]
-
-LaTeX Warning: Citation `sdss2018' on page 475 undefined on input line 262.
-
-
-LaTeX Warning: Citation `beutler2011' on page 475 undefined on input line 262.
-
-
-LaTeX Warning: Citation `ross2015' on page 475 undefined on input line 262.
-
-
-LaTeX Warning: Citation `alam2017' on page 475 undefined on input line 262.
-
 ! Double superscript.
 l.272 \chi^2_{\text{BAO}}^
                           {\Lambda\text{CDM}} = 18.9 \quad \text{for} \quad ...
@@ -10107,9 +8389,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: Citation `planck2018' on page 475 undefined on input line 318.
 
 
 Underfull \vbox (badness 1127) has occurred while \output is active []
@@ -10231,9 +8510,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [477]
 
-LaTeX Warning: Citation `kass1995' on page 478 undefined on input line 432.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10242,9 +8518,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [478]
-
-LaTeX Warning: Citation `lewis2000' on page 479 undefined on input line 446.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10255,28 +8528,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [479]
 
-LaTeX Warning: Reference `tab:sn-residuals' on page 480 undefined on input line
- 516.
-
-
-LaTeX Warning: Citation `scolnic2018' on page 480 undefined on input line 528.
-
-
-LaTeX Warning: Citation `scolnic2018' on page 480 undefined on input line 530.
-
-
-LaTeX Warning: Citation `seo2016' on page 480 undefined on input line 540.
-
-
-LaTeX Warning: Citation `beutler2017' on page 480 undefined on input line 542.
-
-
-LaTeX Warning: Citation `planck2018' on page 480 undefined on input line 550.
-
-
-LaTeX Warning: Citation `planck2018' on page 480 undefined on input line 552.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10285,10 +8536,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [480]
-
-LaTeX Warning: Citation `euclid2011' on page 481 undefined on input line 589.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -10301,18 +8548,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [481]
-
-LaTeX Warning: Citation `lsst2009' on page 482 undefined on input line 594.
-
-
-LaTeX Warning: Citation `roman2015' on page 482 undefined on input line 599.
-
-
-LaTeX Warning: Citation `cmbs42019' on page 482 undefined on input line 604.
-
-
-LaTeX Warning: Citation `ska2015' on page 482 undefined on input line 609.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10330,21 +8565,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[483]
-
-LaTeX Warning: Citation `lewis2000' on page 484 undefined on input line 678.
-
-
-LaTeX Warning: Citation `torrado2021' on page 484 undefined on input line 678.
-
-
-LaTeX Warning: Reference `tab:parameter-constraints' on page 484 undefined on i
-nput line 678.
-
-
-LaTeX Warning: Citation `handley2015' on page 484 undefined on input line 690.
-
-)
+[483])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10358,34 +8579,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ] (./chapters/ch30_clinical_consciousness.tex
 Chapter 30.
 
-LaTeX Warning: Citation `giacino2014' on page 486 undefined on input line 15.
-
-
-LaTeX Warning: Citation `schnakers2009' on page 486 undefined on input line 15.
-
-
-
-LaTeX Warning: Citation `monti2010' on page 486 undefined on input line 31.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [486
 
 ]
-
-LaTeX Warning: Citation `laureys2010' on page 487 undefined on input line 41.
-
-
-LaTeX Warning: Citation `giacino2002' on page 487 undefined on input line 43.
-
-
-LaTeX Warning: Citation `bruno2011' on page 487 undefined on input line 47.
-
-
-LaTeX Warning: Citation `schnakers2009' on page 487 undefined on input line 51.
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10395,12 +8593,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [487]
-
-LaTeX Warning: Citation `teasdale1974' on page 488 undefined on input line 81.
-
-
-LaTeX Warning: Citation `giacino2004' on page 488 undefined on input line 95.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10423,10 +8615,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 111.
 
 
-LaTeX Warning: Reference `ch:consciousness' on page 489 undefined on input line
- 115.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10436,9 +8624,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [489]
 
-LaTeX Warning: Reference `ch:p-vs-np' on page 490 undefined on input line 189.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10447,26 +8632,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [490]
-
-LaTeX Warning: Reference `ch:constants' on page 491 undefined on input line 203
-.
-
-
-LaTeX Warning: Reference `const:neural-digital-sum' on page 491 undefined on in
-put line 204.
-
-
-LaTeX Warning: Reference `ch:consciousness' on page 491 undefined on input line
- 214.
-
-
-LaTeX Warning: Citation `giacino2004' on page 491 undefined on input line 231.
-
-
-LaTeX Warning: Reference `def:clinical-ch2' on page 491 undefined on input line
- 233.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -10489,14 +8654,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [492]
 
-LaTeX Warning: Citation `schnakers2009' on page 493 undefined on input line 296
-.
-
-
-LaTeX Warning: Citation `edlow2021recovery' on page 493 undefined on input line
- 296.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10505,16 +8662,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [493]
-
-LaTeX Warning: Citation `schnakers2009' on page 494 undefined on input line 314
-.
-
-
-LaTeX Warning: Citation `edlow2021recovery' on page 494 undefined on input line
- 315.
-
-
-LaTeX Warning: Citation `monti2010' on page 494 undefined on input line 317.
+Overfull \hbox (0.88106pt too wide) in paragraph at lines 315--316
+[]\T1/lmr/m/n/10.95 Vegetative state (VS) mis-clas-si-fi-ca-tion: up to 40% are
+ ac-tu-ally min-i-mally con-scious (MCS) [[][]78[][]] 
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -10568,12 +8719,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [498]
 
-LaTeX Warning: Citation `owen2006' on page 499 undefined on input line 574.
-
-
-LaTeX Warning: Citation `laureys2004' on page 499 undefined on input line 596.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10582,19 +8727,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [499]
-
-LaTeX Warning: Citation `tononi2016' on page 500 undefined on input line 620.
-
-
-LaTeX Warning: Reference `ch:p-vs-np' on page 500 undefined on input line 635.
-
-
-LaTeX Warning: Citation `tononi2016' on page 500 undefined on input line 638.
-
-
-LaTeX Warning: Citation `engel2001' on page 500 undefined on input line 665.
-
-
 Underfull \vbox (badness 2189) has occurred while \output is active []
 
 
@@ -10667,10 +8799,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [503]
 
-LaTeX Warning: Reference `ch:consciousness' on page 504 undefined on input line
- 802.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10680,12 +8808,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [504]
 
-LaTeX Warning: Citation `gazit1995' on page 505 undefined on input line 842.
-
-
-LaTeX Warning: Citation `losa2009' on page 505 undefined on input line 843.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
 (fancyhdr)                \setlength{\headheight}{25.2232pt}.
@@ -10694,23 +8816,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [505]
-
-LaTeX Warning: Reference `thm:diagnostic-accuracy' on page 506 undefined on inp
-ut line 864.
-
-
-LaTeX Warning: Reference `fig:recovery-curve' on page 506 undefined on input li
-ne 866.
-
-
-LaTeX Warning: Reference `thm:band-coherence' on page 506 undefined on input li
-ne 868.
-
-
-LaTeX Warning: Reference `prop:trajectory' on page 506 undefined on input line 
-870.
-
-
 Overfull \hbox (21.0864pt too wide) in paragraph at lines 882--883
 []\T1/lmr/bx/n/10.95 (Multi-Modal In-te-gra-tion) \T1/lmr/m/n/10.95 Com-bine EE
 G-based ch$[]$ with fMRI con-nec-tiv-ity, PET metabolism,
@@ -10742,9 +8847,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-LaTeX Warning: Citation `tononi2016' on page 509 undefined on input line 40.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10762,17 +8864,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [510]
-
-LaTeX Warning: Citation `oizumi2014' on page 511 undefined on input line 119.
-
-
-LaTeX Warning: Citation `tononi2025iit' on page 511 undefined on input line 123
-.
-
-
-LaTeX Warning: Citation `oizumi2014' on page 511 undefined on input line 137.
-
-
 Underfull \vbox (badness 4479) has occurred while \output is active []
 
 
@@ -10786,19 +8877,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [511]
 
-LaTeX Warning: Citation `schiff2008' on page 512 undefined on input line 157.
-
-
-LaTeX Warning: Citation `laureys2004' on page 512 undefined on input line 159.
-
-
-LaTeX Warning: Citation `ward2011' on page 512 undefined on input line 170.
-
-
 LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: Citation `maier2010' on page 512 undefined on input line 220.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -10825,11 +8904,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [513]
-
-LaTeX Warning: Citation `mashour2024anesthesia' on page 514 undefined on input 
-line 267.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -10843,10 +8917,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [514]
 
-LaTeX Warning: Citation `schartner2015' on page 515 undefined on input line 303
-.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10856,12 +8926,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [515]
 
-LaTeX Warning: Citation `baars1988' on page 516 undefined on input line 353.
-
-
-LaTeX Warning: Citation `dehaene2001' on page 516 undefined on input line 353.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10870,13 +8934,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [516]
-
-LaTeX Warning: Citation `del2014' on page 517 undefined on input line 372.
-
-
-LaTeX Warning: Citation `boly2017' on page 517 undefined on input line 428.
-
-
 Underfull \vbox (badness 6859) has occurred while \output is active []
 
 
@@ -10889,10 +8946,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [517]
-
-LaTeX Warning: Citation `aru2020' on page 518 undefined on input line 439.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -10927,9 +8980,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [520]
 
-LaTeX Warning: Citation `tononi2016' on page 521 undefined on input line 570.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10947,19 +8997,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [522]
-
-LaTeX Warning: Citation `pener2009plasticity' on page 523 undefined on input li
-ne 651.
-
-
-LaTeX Warning: Citation `rogers2003mechanosensory' on page 523 undefined on inp
-ut line 651.
-
-
-LaTeX Warning: Citation `maeno2021behavioural' on page 523 undefined on input l
-ine 651.
-
-
 Overfull \hbox (3.22601pt too wide) in paragraph at lines 653--653
 |[]\T1/lmr/bx/n/14.4 Comparative Align-ment: High-Channel BMIs and Res-o-nance
  []
@@ -10974,18 +9011,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [523]
 
-LaTeX Warning: Citation `musk2019integrated' on page 524 undefined on input lin
-e 681.
-
-
-LaTeX Warning: Citation `shanechi2019brainmachine' on page 524 undefined on inp
-ut line 681.
-
-
-LaTeX Warning: Citation `willett2021highperformance' on page 524 undefined on i
-nput line 681.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -10995,34 +9020,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [524]
 
-LaTeX Warning: Citation `beggs2003neuronal' on page 525 undefined on input line
- 711.
-
-
-LaTeX Warning: Citation `bullmore2009complex' on page 525 undefined on input li
-ne 711.
-
-
-LaTeX Warning: Citation `singer1999neuronal' on page 525 undefined on input lin
-e 711.
-
-
-LaTeX Warning: Citation `logothetis2001neurophysiological' on page 525 undefine
-d on input line 711.
-
-
-LaTeX Warning: Reference `thm:iit-resonance' on page 525 undefined on input lin
-e 746.
-
-
-LaTeX Warning: Reference `thm:white-matter' on page 525 undefined on input line
- 750.
-
-
-LaTeX Warning: Reference `thm:anesthesia' on page 525 undefined on input line 7
-52.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -11031,10 +9028,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [525]
-
-LaTeX Warning: Reference `thm:optogenetics' on page 526 undefined on input line
- 754.
-
 ! Missing $ inserted.
 <inserted text> 
                 $
@@ -11042,10 +9035,6 @@ l.756 ... What minimum percentage increase in ch$_
                                                   2$ is required to cross co...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
-
-
-LaTeX Warning: Reference `thm:iit-resonance' on page 526 undefined on input lin
-e 766.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -11067,14 +9056,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [527]
 Chapter 32.
 
-LaTeX Warning: Reference `ch:clinical-consciousness' on page 528 undefined on i
-nput line 21.
-
-
-LaTeX Warning: Reference `ch:neuroscience-iit' on page 528 undefined on input l
-ine 21.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [528
@@ -11089,11 +9070,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [529]
-
-LaTeX Warning: Reference `app:software' on page 530 undefined on input line 96.
-
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -11529,18 +9505,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [546]
 
-LaTeX Warning: Reference `ch:neuroscience-iit' on page 547 undefined on input l
-ine 780.
-
-
-LaTeX Warning: Reference `ch:clinical-consciousness' on page 547 undefined on i
-nput line 791.
-
-
-LaTeX Warning: Reference `thm:normative' on page 547 undefined on input line 81
-1.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -11548,22 +9512,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[547]
-
-LaTeX Warning: Reference `thm:states' on page 548 undefined on input line 813.
-
-
-LaTeX Warning: Reference `thm:species' on page 548 undefined on input line 815.
-
-
-
-LaTeX Warning: Reference `alg:preprocess' on page 548 undefined on input line 8
-19.
-
-
-LaTeX Warning: Reference `alg:ch2' on page 548 undefined on input line 819.
-
-)
+[547])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11829,41 +9778,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [575]
 Chapter 35.
-
-LaTeX Warning: Reference `ch:numbers' on page 576 undefined on input line 6.
-
-
-LaTeX Warning: Reference `ch:hodge-conjecture' on page 576 undefined on input l
-ine 6.
-
-
-LaTeX Warning: Reference `ch:cosmological-constant' on page 576 undefined on in
-put line 7.
-
-
-LaTeX Warning: Reference `ch:observational-tests' on page 576 undefined on inpu
-t line 7.
-
-
-LaTeX Warning: Reference `ch:clinical-consciousness' on page 576 undefined on i
-nput line 8.
-
-
-LaTeX Warning: Reference `ch:consciousness-quantification' on page 576 undefine
-d on input line 8.
-
-
-LaTeX Warning: Reference `ch:verification' on page 576 undefined on input line 
-9.
-
 [576
 
 ]
-
-LaTeX Warning: Reference `sec:substrate-meta-theorem' on page 577 undefined on 
-input line 69.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 73--78
 \T1/lmr/m/n/10.95 which bun-dles all eighty-one land-ings into a sin-gle citabl
 e im-pli-ca-tion
@@ -11871,22 +9788,6 @@ e im-pli-ca-tion
 
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 79.
-
-LaTeX Warning: Reference `sec:substrate-antecedents' on page 577 undefined on i
-nput line 88.
-
-
-LaTeX Warning: Reference `sec:substrate-consequences' on page 577 undefined on 
-input line 89.
-
-
-LaTeX Warning: Reference `sec:substrate-meta-theorem' on page 577 undefined on 
-input line 91.
-
-
-LaTeX Warning: Reference `sec:substrate-honest-scope' on page 577 undefined on 
-input line 94.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11896,15 +9797,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [577]
-
-LaTeX Warning: Reference `ch:timeless-field' on page 578 undefined on input lin
-e 115.
-
-
-LaTeX Warning: Reference `ch:constants' on page 578 undefined on input line 134
-.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 145--149
 []\T1/lmr/m/n/10.95 Under any noise model sat-is-fy-ing the ex-plicit
  []
@@ -11930,18 +9822,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [578]
-
-LaTeX Warning: Reference `ch:timeless-field' on page 579 undefined on input lin
-e 178.
-
-
-LaTeX Warning: Reference `ch:constants' on page 579 undefined on input line 180
-.
-
-
-LaTeX Warning: Reference `sec:substrate-meta-theorem' on page 579 undefined on 
-input line 194.
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12002,19 +9882,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [580]
-
-LaTeX Warning: Reference `ch:cosmological-constant' on page 581 undefined on in
-put line 313.
-
-
 Overfull \hbox (3.12706pt too wide) in paragraph at lines 309--318
 \T1/lmtt/m/n/10.95 naive_vs_observed_ratio_log\T1/lmr/m/n/10.95 . A com-pan-ion
  the-o-rem (C9$[]$) \T1/lmtt/m/n/10.95 framework_density_lt_naive
  []
-
-
-LaTeX Warning: Reference `ch:dark-energy-expansion' on page 581 undefined on in
-put line 330.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -12025,15 +9896,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [581]
-
-LaTeX Warning: Reference `ch:neuroscience-iit' on page 582 undefined on input l
-ine 360.
-
-
-LaTeX Warning: Reference `app:weinstein' on page 582 undefined on input line 37
-1.
-
-
 Overfull \hbox (199.97977pt too wide) in paragraph at lines 384--387
 \T1/lmr/m/n/10.95 the counter-rotating vor-tex pair's zero-point free-energy co
 n-tent. Lean wit-ness: \T1/lmtt/m/n/10.95 counter_rotating_vortices_free_energy
@@ -12053,10 +9915,6 @@ Overfull \hbox (116.22845pt too wide) in paragraph at lines 400--404
 \OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 "[]\OT1/lmr/m/n/10.95 ) \OMS/lmsy/m/n/1
 0.95 ^^T
  []
-
-
-LaTeX Warning: Reference `ch:timeless-field' on page 582 undefined on input lin
-e 413.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -12085,14 +9943,6 @@ Overfull \hbox (54.62593pt too wide) detected at line 461
  []
 
 
-LaTeX Warning: Reference `def:pf-substrate-antecedents' on page 583 undefined o
-n input line 463.
-
-
-LaTeX Warning: Reference `sec:substrate-consequences' on page 583 undefined on 
-input line 465.
-
-
 Underfull \hbox (badness 6047) in paragraph at lines 467--470
 []\T1/lmr/bx/n/10.95 Lean source: \T1/lmtt/m/n/10.95 PF/Referee/PrincipiaFracta
 lisSubstrateTheorem.lean\T1/lmr/m/n/10.95 , the-o-rem
@@ -12118,14 +9968,6 @@ Overfull \hbox (53.5614pt too wide) detected at line 498
  []
 
 
-LaTeX Warning: Reference `sec:substrate-consequences' on page 584 undefined on 
-input line 500.
-
-
-LaTeX Warning: Reference `thm:pf-substrate-theorem' on page 584 undefined on in
-put line 507.
-
-
 Overfull \hbox (116.53127pt too wide) in paragraph at lines 504--509
 []\T1/lmr/bx/n/10.95 Lean source: \T1/lmr/m/n/10.95 same file as above, the-o-r
 em \T1/lmtt/m/n/10.95 PrincipiaFractalisSubstrateConsequences_holds_uncondition
@@ -12135,7 +9977,7 @@ ally\T1/lmr/m/n/10.95 ,
 
 Underfull \hbox (badness 10000) in paragraph at lines 504--509
 \T1/lmr/m/n/10.95 which is re-alised by ap-ply-ing the im-pli-ca-tion form of T
-he-o-rem [] to
+he-o-rem [][]35.4.1[][] to
  []
 
 
@@ -12201,24 +10043,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [586]
-
-LaTeX Warning: Reference `thm:pf-substrate-theorem' on page 587 undefined on in
-put line 656.
-
-
-LaTeX Warning: Reference `thm:pf-substrate-consequences-unconditional' on page 
-587 undefined on input line 660.
-
-
-Overfull \hbox (77.82254pt too wide) in paragraph at lines 655--663
-[]\T1/lmr/m/n/10.95 The meta-theorem (The-o-rem []) is the im-pli-ca-tion \T1/l
-mtt/m/n/10.95 PFSubstrateAntecedents$\OMS/lmsy/m/n/10.95 !$ \T1/lmtt/m/n/10.95 
-PFSubstrateConsequences\T1/lmr/m/n/10.95 .
+Overfull \hbox (93.91302pt too wide) in paragraph at lines 655--663
+[]\T1/lmr/m/n/10.95 The meta-theorem (The-o-rem [][]35.4.1[][]) is the im-pli-c
+a-tion \T1/lmtt/m/n/10.95 PFSubstrateAntecedents$\OMS/lmsy/m/n/10.95 !$ \T1/lmt
+t/m/n/10.95 PFSubstrateConsequences\T1/lmr/m/n/10.95 .
  []
-
-
-LaTeX Warning: Reference `app:lean-cross-reference' on page 587 undefined on in
-put line 673.
 
 ) (./chapters/ch35_software.tex
 
@@ -12598,10 +10427,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ]
 
-Package longtable Warning: Column widths have changed
-(longtable)                in table 1 on input line 67.
-
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
@@ -12615,10 +10440,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [617]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: Reference `appa:resonance-data' on page 618 undefined on input l
-ine 153.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -13186,9 +11007,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 95.
 
 
-LaTeX Warning: Citation `zalamea2012' on page 662 undefined on input line 124.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
 (fancyhdr)                \setlength{\headheight}{25.2232pt}.
@@ -13274,9 +11092,6 @@ Overfull \hbox (41.97229pt too wide) in paragraph at lines 266--267
  []
 
 
-LaTeX Warning: Citation `tononi2016' on page 666 undefined on input line 283.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
 (fancyhdr)                \setlength{\headheight}{25.2232pt}.
@@ -13352,8 +11167,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [671]
-<figures/millennium_problems/complete_riemann_analysis.png, id=7611, 1142.8296p
-t x 857.604pt>
+<figures/millennium_problems/complete_riemann_analysis.png, id=14261, 1142.8296
+pt x 857.604pt>
 File: figures/millennium_problems/complete_riemann_analysis.png Graphic file (t
 ype png)
 <use figures/millennium_problems/complete_riemann_analysis.png>
@@ -13364,8 +11179,8 @@ png  used on input line 36.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/millennium_problems/high_precision_verification.png, id=7613, 1084.05p
-t x 722.7pt>
+<figures/millennium_problems/high_precision_verification.png, id=14263, 1084.05
+pt x 722.7pt>
 File: figures/millennium_problems/high_precision_verification.png Graphic file 
 (type png)
 <use figures/millennium_problems/high_precision_verification.png>
@@ -13398,13 +11213,6 @@ LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10.95> not available
 (Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 71.
 
 
-LaTeX Warning: Reference `ch:p-vs-np' on page 674 undefined on input line 71.
-
-
-LaTeX Warning: Reference `rem:alpha-P-NP-derivation-status' on page 674 undefin
-ed on input line 71.
-
-
 Overfull \hbox (134.77382pt too wide) in paragraph at lines 70--72
 \T1/lmr/bx/it/10.95 The for-mula ac-tu-ally eval-u-ates to $\OMS/lmsy/m/n/10.95
  ^^Y \OT1/lmr/m/n/10.95 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 1682$ \T1/lmr/
@@ -13431,8 +11239,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [674 <./figures/millennium_problems/high_precision_verification.png>]
-<figures/millennium_problems/hodge_calabi_yau_validation.png, id=7638, 1076.341
-2pt x 713.5458pt>
+<figures/millennium_problems/hodge_calabi_yau_validation.png, id=14281, 1076.34
+12pt x 713.5458pt>
 File: figures/millennium_problems/hodge_calabi_yau_validation.png Graphic file 
 (type png)
 <use figures/millennium_problems/hodge_calabi_yau_validation.png>
@@ -13443,8 +11251,8 @@ n.png  used on input line 115.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/millennium_problems/hodge_enhanced_validation.png, id=7639, 975.8859pt
- x 2610.8742pt>
+<figures/millennium_problems/hodge_enhanced_validation.png, id=14282, 975.8859p
+t x 2610.8742pt>
 File: figures/millennium_problems/hodge_enhanced_validation.png Graphic file (t
 ype png)
 <use figures/millennium_problems/hodge_enhanced_validation.png>
@@ -13511,7 +11319,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 164.
 
-<figures/geometric_unity/xenon_fit.png, id=7662, 1003.5894pt x 422.2977pt>
+<figures/geometric_unity/xenon_fit.png, id=14298, 1003.5894pt x 422.2977pt>
 File: figures/geometric_unity/xenon_fit.png Graphic file (type png)
 <use figures/geometric_unity/xenon_fit.png>
 Package pdftex.def Info: figures/geometric_unity/xenon_fit.png  used on input l
@@ -13520,8 +11328,8 @@ ine 181.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/geometric_unity/bundle_structure.png, id=7663, 860.013pt x 569.9694pt>
-
+<figures/geometric_unity/bundle_structure.png, id=14299, 860.013pt x 569.9694pt
+>
 File: figures/geometric_unity/bundle_structure.png Graphic file (type png)
 <use figures/geometric_unity/bundle_structure.png>
 Package pdftex.def Info: figures/geometric_unity/bundle_structure.png  used on 
@@ -13533,8 +11341,8 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/omega_space/omega_space_crystallization.png, id=7664, 867.24pt x 867.2
-4pt>
+<figures/omega_space/omega_space_crystallization.png, id=14300, 867.24pt x 867.
+24pt>
 File: figures/omega_space/omega_space_crystallization.png Graphic file (type pn
 g)
 <use figures/omega_space/omega_space_crystallization.png>
@@ -13544,8 +11352,8 @@ sed on input line 214.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/omega_space/omega_boundary_analysis.png, id=7665, 873.0216pt x 655.729
-8pt>
+<figures/omega_space/omega_boundary_analysis.png, id=14301, 873.0216pt x 655.72
+98pt>
 File: figures/omega_space/omega_boundary_analysis.png Graphic file (type png)
 <use figures/omega_space/omega_boundary_analysis.png>
 Package pdftex.def Info: figures/omega_space/omega_boundary_analysis.png  used 
@@ -13560,7 +11368,7 @@ Overfull \hbox (5.13399pt too wide) in paragraph at lines 230--231
 ti-mal car-bon nan-otube (CNT)
  []
 
-<figures/geometric_unity/cnt_optimization.png, id=7666, 722.7pt x 433.62pt>
+<figures/geometric_unity/cnt_optimization.png, id=14302, 722.7pt x 433.62pt>
 File: figures/geometric_unity/cnt_optimization.png Graphic file (type png)
 <use figures/geometric_unity/cnt_optimization.png>
 Package pdftex.def Info: figures/geometric_unity/cnt_optimization.png  used on 
@@ -13569,8 +11377,8 @@ input line 236.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/geometric_unity/cnt_optimization_journal.png, id=7667, 867.24pt x 578.
-16pt>
+<figures/geometric_unity/cnt_optimization_journal.png, id=14303, 867.24pt x 578
+.16pt>
 File: figures/geometric_unity/cnt_optimization_journal.png Graphic file (type p
 ng)
 <use figures/geometric_unity/cnt_optimization_journal.png>
@@ -13580,8 +11388,8 @@ used on input line 245.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/omega_space/universe_crystallization_summary.png, id=7668, 827.2506pt 
-x 713.5458pt>
+<figures/omega_space/universe_crystallization_summary.png, id=14304, 827.2506pt
+ x 713.5458pt>
 File: figures/omega_space/universe_crystallization_summary.png Graphic file (ty
 pe png)
 <use figures/omega_space/universe_crystallization_summary.png>
@@ -13597,8 +11405,8 @@ Underfull \vbox (badness 2237) has occurred while \output is active []
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/omega_space/cmb_crystallization_analysis.png, id=7679, 714.9912pt x 71
-3.5458pt>
+<figures/omega_space/cmb_crystallization_analysis.png, id=14309, 714.9912pt x 7
+13.5458pt>
 File: figures/omega_space/cmb_crystallization_analysis.png Graphic file (type p
 ng)
 <use figures/omega_space/cmb_crystallization_analysis.png>
@@ -13629,8 +11437,8 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 297.
 
-<figures/omega_space/void_crystallization_analysis.png, id=7691, 859.5312pt x 3
-52.1958pt>
+<figures/omega_space/void_crystallization_analysis.png, id=14315, 859.5312pt x 
+352.1958pt>
 File: figures/omega_space/void_crystallization_analysis.png Graphic file (type 
 png)
 <use figures/omega_space/void_crystallization_analysis.png>
@@ -13661,7 +11469,8 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 314.
 
-<figures/omega_space/bec_omega_analysis.png, id=7700, 1149.093pt x 859.0494pt>
+<figures/omega_space/bec_omega_analysis.png, id=14321, 1149.093pt x 859.0494pt>
+
 File: figures/omega_space/bec_omega_analysis.png Graphic file (type png)
 <use figures/omega_space/bec_omega_analysis.png>
 Package pdftex.def Info: figures/omega_space/bec_omega_analysis.png  used on in
@@ -13758,8 +11567,8 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 329.
 
-<figures/consciousness/consciousness_detection_results.png, id=7752, 1293.633pt
- x 853.5087pt>
+<figures/consciousness/consciousness_detection_results.png, id=14364, 1293.633p
+t x 853.5087pt>
 File: figures/consciousness/consciousness_detection_results.png Graphic file (t
 ype png)
 <use figures/consciousness/consciousness_detection_results.png>
@@ -13769,8 +11578,8 @@ png  used on input line 335.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/theoretical/resonance_landscape.png, id=7753, 633.3261pt x 576.7146pt>
-
+<figures/theoretical/resonance_landscape.png, id=14365, 633.3261pt x 576.7146pt
+>
 File: figures/theoretical/resonance_landscape.png Graphic file (type png)
 <use figures/theoretical/resonance_landscape.png>
 Package pdftex.def Info: figures/theoretical/resonance_landscape.png  used on i
@@ -13779,7 +11588,7 @@ nput line 357.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/theoretical/vortex_structure.png, id=7754, 571.8966pt x 586.1097pt>
+<figures/theoretical/vortex_structure.png, id=14366, 571.8966pt x 586.1097pt>
 File: figures/theoretical/vortex_structure.png Graphic file (type png)
 <use figures/theoretical/vortex_structure.png>
 Package pdftex.def Info: figures/theoretical/vortex_structure.png  used on inpu
@@ -13831,22 +11640,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [694]) (./appendices/appI_lean_cross_reference.tex [695
 
 ]
-
-LaTeX Warning: Reference `ch:substrate-theorem' on page 696 undefined on input 
-line 30.
-
-
-LaTeX Warning: Reference `sec:substrate-honest-scope' on page 696 undefined on 
-input line 31.
-
-
-LaTeX Warning: Reference `ch:substrate-theorem' on page 696 undefined on input 
-line 32.
-
-
-LaTeX Warning: Reference `ch:numbers' on page 696 undefined on input line 46.
-
-
 Underfull \hbox (badness 4479) in paragraph at lines 47--48
 []|\T1/lmr/m/n/9 Base-3 arith-metic; digital-
  []
@@ -13868,9 +11661,6 @@ Overfull \hbox (26.38055pt too wide) in paragraph at lines 48--49
  []
 
 
-LaTeX Warning: Reference `ch:complex' on page 696 undefined on input line 50.
-
-
 Overfull \hbox (122.00836pt too wide) in paragraph at lines 52--53
 []|\T1/lmtt/m/n/9 PrincipiaTractalis.Consciousness.ch2_phi_bridge_state_holds\T
 1/lmr/m/n/9 ;
@@ -13886,10 +11676,6 @@ Overfull \hbox (63.40056pt too wide) in paragraph at lines 52--53
 \T1/lmr/m/n/9 (in \T1/lmtt/m/n/9 PF/Consciousness/Ch2PhiBridgeDischarge.lean\T1
 /lmr/m/n/9 ).| 
  []
-
-
-LaTeX Warning: Reference `ch:resonance' on page 696 undefined on input line 54.
-
 
 
 Underfull \hbox (badness 6876) in paragraph at lines 55--56
@@ -13918,10 +11704,6 @@ Overfull \hbox (26.38055pt too wide) in paragraph at lines 56--57
  []
 
 
-LaTeX Warning: Reference `ch:timeless-field' on page 696 undefined on input lin
-e 58.
-
-
 Overfull \hbox (145.63332pt too wide) in paragraph at lines 60--61
 []|\T1/lmtt/m/n/9 PrincipiaTractalis.TimelessField.ktheory_dim_matches_hilbert_
 dim\T1/lmr/m/n/9 ;
@@ -13934,13 +11716,6 @@ _compatible\T1/lmr/m/n/9 .|
  []
 
 
-LaTeX Warning: Reference `ch:peixoto' on page 696 undefined on input line 62.
-
-
-LaTeX Warning: Reference `ch:consciousness' on page 696 undefined on input line
- 66.
-
-
 Underfull \hbox (badness 1454) in paragraph at lines 67--68
 \T1/lmr/m/n/9 Chern char-ac-ter $[][]$; crys-
  []
@@ -13950,10 +11725,6 @@ Overfull \hbox (159.80829pt too wide) in paragraph at lines 68--69
 []|\T1/lmtt/m/n/9 QuantumClassicalDecoherenceThreshold.threshold_ch2_eq_zero_po
 int_95\T1/lmr/m/n/9 ;
  []
-
-
-LaTeX Warning: Reference `ch:constants' on page 696 undefined on input line 70.
-
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 71--72
@@ -13972,18 +11743,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 72--73
  []
 
 
-LaTeX Warning: Reference `ch:field-equations' on page 696 undefined on input li
-ne 74.
-
-
 Overfull \hbox (136.18333pt too wide) in paragraph at lines 76--77
 []|\T1/lmtt/m/n/9 Wave58.Ch08FieldEquationsConcrete.darkEnergyDensity_in_bracke
 t\T1/lmr/m/n/9 .| 
  []
-
-
-LaTeX Warning: Reference `ch:spectral_unity' on page 696 undefined on input lin
-e 78.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 80--81
@@ -14002,21 +11765,9 @@ Underfull \hbox (badness 2042) in paragraph at lines 80--81
  []
 
 
-LaTeX Warning: Reference `ch:hydrodynamic' on page 696 undefined on input line 
-82.
-
-
 Underfull \hbox (badness 1895) in paragraph at lines 83--84
 []|\T1/lmr/m/n/9 Hydrodynamic / NS back-
  []
-
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 696 undefined on input line
- 84.
-
-
-LaTeX Warning: Reference `ch:geometric_unity' on page 696 undefined on input li
-ne 86.
 
 
 Overfull \hbox (103.1084pt too wide) in paragraph at lines 88--89
@@ -14025,37 +11776,9 @@ r/m/n/9 ;
  []
 
 
-LaTeX Warning: Reference `ch:qft-consciousness' on page 696 undefined on input 
-line 90.
-
-
-LaTeX Warning: Reference `ch:consciousness-quantification' on page 696 undefine
-d on input line 92.
-
-
-LaTeX Warning: Reference `ch:solutions-dynamics' on page 696 undefined on input
- line 94.
-
-
-LaTeX Warning: Reference `ch:symmetries-conservation' on page 696 undefined on 
-input line 98.
-
-
-LaTeX Warning: Reference `ch:computational-methods' on page 696 undefined on in
-put line 102.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 103--104
 []|\T1/lmr/m/n/9 Computational meth-ods
  []
-
-
-LaTeX Warning: Reference `ch:spectral-foundations' on page 696 undefined on inp
-ut line 106.
-
-
-LaTeX Warning: Reference `ch:operator-theory' on page 696 undefined on input li
-ne 110.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 111--112
@@ -14066,14 +11789,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 111--112
 Underfull \hbox (badness 2302) in paragraph at lines 112--113
 []|\T1/lmtt/m/n/9 T3SymCompactnessAttempt \T1/lmr/m/n/9 (7 axiom-
  []
-
-
-LaTeX Warning: Reference `ch:spectral-measures' on page 696 undefined on input 
-line 114.
-
-
-LaTeX Warning: Reference `ch:physical-applications' on page 696 undefined on in
-put line 118.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -14090,11 +11805,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [697]
-
-LaTeX Warning: Reference `ch:riemann-hypothesis' on page 698 undefined on input
- line 141.
-
-
 Overfull \hbox (117.28337pt too wide) in paragraph at lines 143--144
 []|\T1/lmtt/m/n/9 HilbertPolyaIdentificationPrecise.hilbert_polya_implies_RH\T1
 /lmr/m/n/9 ;
@@ -14107,9 +11817,6 @@ ivalent\T1/lmr/m/n/9 .|
  []
 
 
-LaTeX Warning: Reference `ch:p-vs-np' on page 698 undefined on input line 145.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 146--147
 []|\T1/lmr/m/n/9 Enum-to-class sep-a-ra-tion
  []
@@ -14119,10 +11826,6 @@ Overfull \hbox (249.58311pt too wide) in paragraph at lines 147--148
 []|\T1/lmtt/m/n/9 PNPClassSeparationPrecisionBridge.enum_to_class_separation_br
 idge_iff_literal_P_neq_NP\T1/lmr/m/n/9 .| 
  []
-
-
-LaTeX Warning: Reference `ch:navier-stokes' on page 698 undefined on input line
- 149.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 150--151
@@ -14157,15 +11860,6 @@ rate_clause\T1/lmr/m/n/9 .|
  []
 
 
-LaTeX Warning: Reference `ch:yang-mills' on page 698 undefined on input line 15
-3.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 153--154
-[]|\T1/lmr/m/n/9 Ch []
- []
-
-
 Overfull \hbox (159.80829pt too wide) in paragraph at lines 155--156
 []|\T1/lmtt/m/n/9 YM_ContinuumMassGapInfDimWitness.ym_continuum_mass_gap_three_
 halves\T1/lmr/m/n/9 ;
@@ -14177,12 +11871,8 @@ Overfull \hbox (13.33357pt too wide) in paragraph at lines 155--156
  []
 
 
-LaTeX Warning: Reference `ch:birch-swinnerton-dyer' on page 698 undefined on in
-put line 157.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 157--158
-[]|\T1/lmr/m/n/9 Ch []
+[]|\T1/lmr/m/n/9 Ch [][]24[][]
  []
 
 
@@ -14209,12 +11899,8 @@ Overfull \hbox (70.03346pt too wide) in paragraph at lines 159--160
  []
 
 
-LaTeX Warning: Reference `ch:hodge-conjecture' on page 698 undefined on input l
-ine 161.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 161--162
-[]|\T1/lmr/m/n/9 Ch []
+[]|\T1/lmr/m/n/9 Ch [][]25[][]
  []
 
 
@@ -14244,10 +11930,6 @@ Overfull \hbox (18.05856pt too wide) in paragraph at lines 168--169
  []
 
 
-LaTeX Warning: Reference `ch:cosmological-constant' on page 698 undefined on in
-put line 187.
-
-
 Overfull \hbox (140.90833pt too wide) in paragraph at lines 189--190
 []|\T1/lmtt/m/n/9 LambdaCDMRebuttalEnergyConservation.naive_vs_observed_ratio_l
 og\T1/lmr/m/n/9 ;
@@ -14257,10 +11939,6 @@ og\T1/lmr/m/n/9 ;
 Underfull \hbox (badness 10000) in paragraph at lines 189--190
 \T1/lmtt/m/n/9 framework_density_lt_naive\T1/lmr/m/n/9 ;
  []
-
-
-LaTeX Warning: Reference `ch:dark-energy-expansion' on page 698 undefined on in
-put line 191.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 192--193
@@ -14274,35 +11952,15 @@ _local_and_cmb\T1/lmr/m/n/9 .|
  []
 
 
-LaTeX Warning: Reference `ch:early-universe' on page 698 undefined on input lin
-e 195.
-
-
-LaTeX Warning: Reference `ch:cosmological-constant' on page 698 undefined on in
-put line 197.
-
-
-LaTeX Warning: Reference `ch:observational-tests' on page 698 undefined on inpu
-t line 199.
-
-
 Overfull \hbox (136.18333pt too wide) in paragraph at lines 201--202
 []|\T1/lmtt/m/n/9 Wave58.Ch08FieldEquationsConcrete.darkEnergyDensity_in_bracke
 t\T1/lmr/m/n/9 .| 
  []
 
 
-LaTeX Warning: Reference `ch:clinical-consciousness' on page 698 undefined on i
-nput line 203.
-
-
 Underfull \hbox (badness 1609) in paragraph at lines 204--205
 []|\T1/lmr/m/n/9 Clinical EEG pro-to-cols for
  []
-
-
-LaTeX Warning: Reference `ch:neuroscience-iit' on page 698 undefined on input l
-ine 207.
 
 
 Overfull \hbox (169.25827pt too wide) in paragraph at lines 209--210
@@ -14311,18 +11969,10 @@ hreshold\T1/lmr/m/n/9 .|
  []
 
 
-LaTeX Warning: Reference `ch:consciousness-quantification' on page 698 undefine
-d on input line 211.
-
-
 Overfull \hbox (93.65842pt too wide) in paragraph at lines 213--214
 []|\T1/lmtt/m/n/9 QuantumClassicalDecoherenceThreshold.regime_dichotomy\T1/lmr/
 m/n/9 ;
  []
-
-
-LaTeX Warning: Reference `ch:numerical-methods' on page 698 undefined on input 
-line 215.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 216--217
@@ -14330,17 +11980,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 216--217
  []
 
 
-LaTeX Warning: Reference `ch:verification' on page 698 undefined on input line 
-219.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 220--221
 []|\T1/lmr/m/n/9 Computational ver-i-fi-ca-tion
  []
-
-
-LaTeX Warning: Reference `ch:substrate-theorem' on page 698 undefined on input 
-line 223.
 
 
 Underfull \hbox (badness 1629) in paragraph at lines 224--225
@@ -14360,10 +12002,6 @@ Overfull \hbox (131.45834pt too wide) in paragraph at lines 225--226
  []
 
 
-LaTeX Warning: Reference `ch:software' on page 698 undefined on input line 227.
-
-
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
@@ -14377,11 +12015,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [698
 
 ]
-
-LaTeX Warning: Reference `app:weinstein' on page 699 undefined on input line 24
-8.
-
-
 Underfull \hbox (badness 1565) in paragraph at lines 249--250
 []|\T1/lmr/m/n/9 Weinstein-GU res-o-nant res-
  []
@@ -14397,10 +12030,6 @@ Overfull \hbox (114.48976pt too wide) in paragraph at lines 250--251
 []|\T1/lmtt/m/n/9 WeinsteinGUResonantRescue.weinstein_GU_rescued_capstone\T1/lm
 r/m/n/9 ;
  []
-
-
-LaTeX Warning: Reference `app:lean-cross-reference' on page 699 undefined on in
-put line 252.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -14674,9 +12303,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[705])
-No file main.bbl.
-No file main.ind.
+[705]) (./main.bbl
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -14685,11 +12312,96 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[706] (./backmatter/author.tex [707
-
-] [708
+[706] [707
 
 ]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[708]
+
+! LaTeX Error: Unicode character Ф (U+0424)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 \newblock {\em Physics Physique Ф
+                                        изика}, 1(3):195--200, 1964.
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character и (U+0438)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 \newblock {\em Physics Physique Фи
+                                          зика}, 1(3):195--200, 1964.
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character з (U+0437)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 \newblock {\em Physics Physique Физ
+                                            ика}, 1(3):195--200, 1964.
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character и (U+0438)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 \newblock {\em Physics Physique Физи
+                                              ка}, 1(3):195--200, 1964.
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character к (U+043A)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 \newblock {\em Physics Physique Физик
+                                                а}, 1(3):195--200, 1964.
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character а (U+0430)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 \newblock {\em Physics Physique Физика
+                                                  }, 1(3):195--200, 1964.
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -14708,6 +12420,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [710]
+Underfull \hbox (badness 10000) in paragraph at lines 327--333
+[]\T1/lmr/bx/n/10.95 Pablo Co-hen.  Uni-ver-sal con-scious-ness thresh-old: $\O
+ML/lmm/m/it/10.95 ^^[[] \OT1/lmr/m/n/10.95 = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n
+/10.95 95$\T1/lmr/bx/n/10.95 .
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -14716,7 +12434,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[711])
+[711]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -14725,11 +12443,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[712] (./backmatter/epilogue.tex [713
+[712]
 
-] [714
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-]
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[713]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[714]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -14758,6 +12490,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [717]
 
+! LaTeX Error: Unicode character Ш (U+0428)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.800 ...lock Finiteness of $e(\mathbb{Q})$ and Ш
+                                                  $(e,\mathbb{Q})$ for a sub...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+Underfull \hbox (badness 3343) in paragraph at lines 829--833
+[]\T1/lmr/bx/n/10.95 Harry Lehmann.  �ber eigen-schaften von aus-bre-itungs-fun
+k-tio-nen und
+ []
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -14784,6 +12536,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [720]
+Underfull \hbox (badness 2158) in paragraph at lines 1019--1023
+[]\T1/lmr/bx/n/10.95 Emmy Noether.  In-vari-ante vari-a-tion-sprob-leme.  \T1/l
+mr/bx/it/10.95 Nachrichten von der
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -14792,7 +12549,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[721])
+[721]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -14803,28 +12560,207 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [722]
 
-Package longtable Warning: Table widths have changed. Rerun LaTeX.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-(./main.aux)
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[723]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[724]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[725]
+Underfull \hbox (badness 2644) in paragraph at lines 1440--1445
+[]\T1/lmr/bx/n/10.95 Giulio Tononi and Melanie Boly.  In-te-grated in-for-ma-ti
+on the-ory: A
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[726]
+Underfull \hbox (badness 1533) in paragraph at lines 1473--1478
+[]\T1/lmr/bx/n/10.95 John von Neu-mann.  \T1/lmr/bx/it/10.95 Math-e-ma-tis-che 
+Grund-la-gen der Quan-ten-mechanik\T1/lmr/bx/n/10.95 .
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[727]
+Underfull \hbox (badness 2626) in paragraph at lines 1534--1537
+[]\T1/lmr/bx/n/10.95 WFIRST-AFTA Sci-ence Def-i-ni-tion Team.  Wide-field In-fr
+aRed Sur-vey
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[728])
+No file main.ind.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[729] (./backmatter/author.tex [730
+
+] [731
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[732]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[733]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[734])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[735] (./backmatter/epilogue.tex [736
+
+] [737
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[738]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[739]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[740]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[741]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[742]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[743]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[744])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[745] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 5C13C5CE1E1E2224D59947DDB3F9654D;266701.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  E3AC2C5DA987AFD715F4D03C93A20591;266701.
  )
 (\end occurred inside a group at level 4)
 
@@ -14834,10 +12770,10 @@ Package rerunfilecheck Info: Checksums for `main.out':
 ### simple group (level 1) entered at line 258 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 57287 strings out of 476106
- 1260087 string characters out of 5793933
- 2220850 words of memory out of 5000000
- 72989 multiletter control sequences out of 15000+600000
+ 58965 strings out of 476106
+ 1288725 string characters out of 5793933
+ 2327936 words of memory out of 5000000
+ 74312 multiletter control sequences out of 15000+600000
  753007 words of font info for 175 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  89i,19n,96p,1699b,2231s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -14867,10 +12803,10 @@ c/lm/lmtt12.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb></usr/share/t
 exmf/fonts/type1/public/lm/lmtti10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (774 pages, 8833664 bytes).
+Output written on main.pdf (837 pages, 9154440 bytes).
 PDF statistics:
- 9231 PDF objects out of 10688 (max. 8388607)
- 8253 compressed objects within 83 object streams
- 5324 named destinations out of 6186 (max. 500000)
- 98 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16040 PDF objects out of 18468 (max. 8388607)
+ 14915 compressed objects within 150 object streams
+ 5664 named destinations out of 6186 (max. 500000)
+ 10554 words of extra memory for PDF output out of 12000 (max. 10000000)
 
