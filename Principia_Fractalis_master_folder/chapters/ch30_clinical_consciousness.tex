@@ -250,6 +250,18 @@ Breakdown by diagnostic group:
 \text{Positive Predictive Value} &= 97.4\% \\
 \text{Negative Predictive Value} &= 97.2\%
 \end{align}
+\empiricalclaim{Clinical cohort of 847 patients across disorders
+of consciousness (vegetative state, minimally conscious state,
+emergence from MCS, locked-in syndrome), 20-minute resting-state
+64-channel EEG, gold-standard CRS-R consensus over $\ge 5$
+sessions per patient with 6-month follow-up
+\cite{giacino2004,schnakers2009,edlow2021recovery}. Independent
+clinical validation is required. The Lean stack verifies only the
+arithmetic identity $\text{ch}_2 = 19/20 = 0.95$ (theorem
+\texttt{QuantumClassicalDecoherenceThreshold.threshold\_ch2\_eq\_zero\_point\_95})
+and the algebraic IIT bridge inequality (theorem
+\texttt{phi\_iit\_lower\_bound\_at\_threshold}); it does NOT
+verify diagnostic accuracy against clinical data.}
 \end{theorem}
 
 \begin{proof}[Empirical Validation]

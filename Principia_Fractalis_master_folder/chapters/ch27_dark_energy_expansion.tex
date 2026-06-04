@@ -408,7 +408,16 @@ Improvement:
 \boxed{\Delta \chi^2 = 687.3 - 354.2 = 333.1 \quad \text{(94.3\% better)}}
 \end{equation}
 
-with $p$-value $< 10^{-50}$ (overwhelming statistical significance).
+with $p$-value $< 10^{-50}$ (overwhelming statistical significance).%
+\empiricalclaim{Pantheon SNe Ia compilation (580 supernovae,
+\cite{suzuki2012,scolnic2018}); SDSS BAO compilation (13 BAO
+points $z=0.1$--$2.5$, \cite{sdss2018}); Planck 2018 CMB TT/TE/EE
+($\ell = 2$--$2500$, \cite{planck2018}). The Lean codebase verifies
+only the bracket inequality $0.65 < \Omega_\Lambda < 0.75$ (theorem
+\texttt{Wave58.Ch08FieldEquationsConcrete.darkEnergyDensity\_in\_bracket})
+and the Hubble bracket $67.4 < 69.8 < 73.0$ (theorem
+\texttt{hubble\_framework\_brackets\_local\_and\_cmb}); it does NOT
+verify the $\chi^2$ goodness-of-fit comparison itself.}
 \end{theorem}
 
 \begin{proof}[Computation]

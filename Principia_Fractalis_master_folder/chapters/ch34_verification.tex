@@ -603,6 +603,137 @@ Recommended hardware:
 \item GPU: Optional (can accelerate P1 by 10×)
 \end{itemize}
 
+\section{External-Kernel Re-Verification (Lean4Lean)}
+\label{sec:lean4lean-reverification}
+
+Beyond \texttt{lake build PF} (which uses the standard Lean~4
+elaborator + kernel), the framework's flagship single-citation
+theorem has been independently re-verified via the
+\texttt{PF\_Lean4Lean} package, which re-imports the load-bearing
+PF proofs into a separate Lean build context and re-checks
+their axiom footprint. The 2026-06-04 Lean4Lean audit
+(\texttt{REFEREE\_PROOF\_LEAN4LEAN\_AUDIT\_2026-06-04.md},
+HEAD~\texttt{1085d51}) records the following honest-scope
+partial-clean result:
+
+\begin{itemize}
+\item \textbf{Four \texttt{PF\_L4L} modules build clean} with
+$\texttt{\#print axioms}$ output exactly
+\texttt{[propext, Classical.choice, Quot.sound]} (i.e.\ Lean's
+three foundational axioms; no project-level axiom):
+\begin{enumerate}
+\item \texttt{PF\_L4L.Core.spectralGapSpecPF} ---
+re-verifies \texttt{PF.SpectralGap.spectral\_gap} and its
+positivity / value lemmas;
+\item \texttt{PF\_L4L.Ch21.pnpContractPF} ---
+re-verifies \texttt{PF.P\_NP\_Equivalence.P\_neq\_NP\_via\_spectral\_gap}
+(conditional on \texttt{PolylogEigenvalueConjecture}, as in the
+canonical statement);
+\item \texttt{PF\_L4L.Referee.flagshipReverified} ---
+re-verifies the framework's flagship single-citation theorem
+\texttt{PF.Referee.PrincipiaFractalisSubstrateTheorem};
+\item \texttt{PF\_L4L.Referee.flagshipConsequencesReverified} ---
+re-verifies the unconditional companion
+\texttt{PF.Referee.PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}.
+\end{enumerate}
+
+\item \textbf{Six of eight original L4L modules remain gated} on
+a documented architectural gap: the legacy L4L files in
+\texttt{PF\_L4L/Core/}, \texttt{PF\_L4L/Ch20/RH.lean},
+\texttt{PF\_L4L/Ch23/YM.lean}, \texttt{PF\_L4L/Ch24/BSD.lean}, and
+\texttt{PF\_L4L/Core/AxiomAudit.lean} were authored against a
+pre-2026-04-28 set of PF symbol names (e.g.\
+\texttt{PF.RH\_Equivalence}, \texttt{PF.YM\_Equivalence},
+\texttt{PF.BSD\_Equivalence}, \texttt{PF.Axioms},
+\texttt{PF.ConsciousnessCore}) that no longer exist at HEAD; their
+re-binding to the current PF API is a multi-day refactor deferred
+to future work. The gated modules are marked with explanatory
+comments in source; no \texttt{sorry} / \texttt{admit} is used.
+
+\item \textbf{Honest scope.} This is a \emph{partial third-prover
+certification}, not a full
+\emph{Mario Carneiro \texttt{lean4lean}} external-program
+drop-in re-check. What it does buy: the framework's flagship
+theorem and the P~vs~NP / spectral-gap content survive a separate
+build that re-imports them, with the axiom footprint
+\texttt{[propext, Classical.choice, Quot.sound]} preserved across
+the independent import. What it does \emph{not} buy: independent
+re-verification of the RH, YM, and BSD pillars via L4L (those
+remain gated on the API-drift refactor) or running the external
+\texttt{lean4lean} executable against the PF kernel output.
+\end{itemize}
+
+\section{Referee-Proof Certifications}
+\label{sec:referee-proof-certifications}
+
+The 2026-06-04 referee-proof pass produced five independent audit
+reports, all committed at the repository root for referee
+inspection. Each certifies a distinct aspect of the framework's
+machine-checked / cross-prover / cross-reference integrity. They
+are presented here as a single table for citation convenience:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|p{5cm}|p{2.0cm}|p{6.5cm}|}
+\hline
+\textbf{Audit} & \textbf{Verdict} & \textbf{Report (repository root)} \\
+\hline
+Lean kernel axiom audit &
+\textbf{CLEAN} &
+\texttt{REFEREE\_PROOF\_LEAN\_AXIOM\_AUDIT\_2026-06-04.md}.
+535 \texttt{.lean} files in closure; 0 project axioms; 0
+\texttt{sorry}; 0 \texttt{admit}; 4044 jobs clean. \\
+\hline
+Coq cross-prover axiom audit &
+\textbf{CLEAN} &
+\texttt{REFEREE\_PROOF\_COQ\_AXIOM\_AUDIT\_2026-06-04.md}.
+All 18 Wave~58 \texttt{.v} files build clean under Rocq~9.1.0;
+0 \texttt{Admitted}; 0 \texttt{admit}; every capstone's
+transitive axiom set is a subset of the Rocq Stdlib.Reals
+classical baseline. \\
+\hline
+Manuscript cover-to-cover review (V2.0.0) &
+\textbf{$8.7 \to 10$/10 after fixes} &
+\texttt{REFEREE\_PROOF\_REVIEW\_2026-06-04.md}. Initial review
+gave 8.7/10 with three actionable findings (cascade-prose
+tautology, empirical claims need scope markers, L4L mention).
+All three are addressed in the V2.0.0 release this chapter,
+Chapter~\ref{ch:substrate-theorem}, and the preamble's
+\texttt{\textbackslash empiricalclaim} macro encode the fixes. \\
+\hline
+Cross-reference completeness audit &
+\textbf{CLEAN AFTER FIXES} &
+\texttt{REFEREE\_PROOF\_CROSS\_REFERENCE\_AUDIT\_2026-06-04.md}
+(HEAD~\texttt{326f274}). Manuscript Appendix~I and the arXiv
+preprint had 42 broken Lean citations; all hard breakages have
+been fixed and the remaining wildcards/Coq-label nicknames are
+annotated. Bibliography 366 entries / 0 missing citations. \\
+\hline
+Lean4Lean partial-clean external re-verification &
+\textbf{PARTIAL CLEAN} &
+\texttt{REFEREE\_PROOF\_LEAN4LEAN\_AUDIT\_2026-06-04.md}
+(HEAD~\texttt{1085d51}). 4 \texttt{PF\_L4L} modules clean
+with \texttt{[propext, Classical.choice, Quot.sound]} only;
+6 of 8 legacy L4L modules gated on documented API-drift gap.
+Flagship \texttt{PrincipiaFractalisSubstrateTheorem}
+independently re-verified. \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{remark}[How to use the certification stack]
+A referee reproducing the framework's verification posture should
+proceed in three stages: (i) \texttt{lake build PF} clean at
+HEAD with the Lean kernel audit; (ii) \texttt{coqc} clean on the
+Coq parity stack under Rocq~9.1.0; (iii) \texttt{lake build} of
+\texttt{PF\_Lean4Lean} for the partial-clean external-kernel
+re-verification. The five audit reports above record the
+expected outputs, file-by-file, with exact \texttt{\#print
+axioms} / \texttt{Print Assumptions} lines included verbatim.
+Discrepancies should be reported to the framework author
+(\href{mailto:psolorzano@gmail.com}{\texttt{psolorzano@gmail.com}}).
+\end{remark}
+
 \section{Summary}
 \label{sec:summary-ch30}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.4)  4 JUN 2026 01:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.4)  4 JUN 2026 11:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -7848,6 +7848,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [443]
+Underfull \hbox (badness 1033) in paragraph at lines 420--420
+\T1/lmr/m/n/9 BAO com-pi-la-tion (13 BAO points $\OML/lmm/m/it/9 z \OT1/lmr/m/n
+/9 = 0\OML/lmm/m/it/9 :\OT1/lmr/m/n/9 1$\T1/lmr/m/n/9 --$\OT1/lmr/m/n/9 2\OML/l
+mm/m/it/9 :\OT1/lmr/m/n/9 5$\T1/lmr/m/n/9 , [[][]215[][]]); Planck 2018 CMB TT/
+TE/EE ($\OML/lmm/m/it/9 ` \OT1/lmr/m/n/9 = 2$\T1/lmr/m/n/9 --
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -7860,104 +7867,89 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ! Double superscript.
 <argument>  \chi ^2_{\text {SN}}^
                                  {\Lambda \text {CDM}} &= 563.8 \\ \chi ^2_{...
-l.427 \end{align}
+l.436 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument> ...}} &= 563.8 \\ \chi ^2_{\text {SN}}^
                                                   {\text {mod}} &= 289.7 \\ ...
-l.427 \end{align}
+l.436 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument>  \chi ^2_{\text {SN}}^
                                  {\Lambda \text {CDM}} &= 563.8 \\ \chi ^2_{...
-l.427 \end{align}
+l.436 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument> ...}} &= 563.8 \\ \chi ^2_{\text {SN}}^
                                                   {\text {mod}} &= 289.7 \\ ...
-l.427 \end{align}
+l.436 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument>  \chi ^2_{\text {BAO}}^
                                   {\Lambda \text {CDM}} &= 18.9 \\ \chi ^2_{...
-l.434 \end{align}
+l.443 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument> ...}} &= 18.9 \\ \chi ^2_{\text {BAO}}^
                                                   {\text {mod}} &= 11.3 \\ \...
-l.434 \end{align}
+l.443 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument>  \chi ^2_{\text {BAO}}^
                                   {\Lambda \text {CDM}} &= 18.9 \\ \chi ^2_{...
-l.434 \end{align}
+l.443 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument> ...}} &= 18.9 \\ \chi ^2_{\text {BAO}}^
                                                   {\text {mod}} &= 11.3 \\ \...
-l.434 \end{align}
+l.443 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument>  \chi ^2_{\text {CMB}}^
                                   {\Lambda \text {CDM}} &= 104.6 \\ \chi ^2_...
-l.441 \end{align}
+l.450 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument> ...} &= 104.6 \\ \chi ^2_{\text {CMB}}^
                                                   {\text {mod}} &= 53.2 \\ \...
-l.441 \end{align}
+l.450 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument>  \chi ^2_{\text {CMB}}^
                                   {\Lambda \text {CDM}} &= 104.6 \\ \chi ^2_...
-l.441 \end{align}
+l.450 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 ! Double superscript.
 <argument> ...} &= 104.6 \\ \chi ^2_{\text {CMB}}^
                                                   {\text {mod}} &= 53.2 \\ \...
-l.441 \end{align}
+l.450 \end{align}
                  
 I treat `x^1^2' essentially like `x^1{}^2'.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 480.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\Phi' on input line 480.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 480.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4168) has occurred while \output is active []
 
 
 
@@ -7971,15 +7963,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [445]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 550.
+(hyperref)                removing `math shift' on input line 489.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\Phi' on input line 550.
+(hyperref)                removing `\Phi' on input line 489.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 550.
+(hyperref)                removing `math shift' on input line 489.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 559.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\Phi' on input line 559.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 559.
+
+
+Underfull \vbox (badness 3471) has occurred while \output is active []
+
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -7990,7 +7998,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [446]
-Package pgfplots info on input line 608: fill between: activating layered graph
+Package pgfplots info on input line 617: fill between: activating layered graph
 ics
 \pgf@layerbox@axis background=\box116
 \pgf@layerboxsaved@axis background=\box117
@@ -8008,12 +8016,9 @@ ics
 \pgf@layerboxsaved@axis descriptions=\box129
 \pgf@layerbox@axis foreground=\box130
 \pgf@layerboxsaved@axis foreground=\box131
-Package pgfplots info on input line 608: Setting layers 'axis background,axis g
+Package pgfplots info on input line 617: Setting layers 'axis background,axis g
 rid,axis ticks,axis lines,axis tick labels,pre main,main,axis descriptions,axis
  foreground'...
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -8025,9 +8030,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [447]
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -8038,11 +8040,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [448]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 25.2232pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.2232pt}.
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 
-(fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [449]
 
@@ -8054,7 +8056,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [450]
-Overfull \hbox (28.41096pt too wide) in paragraph at lines 749--750
+Overfull \hbox (28.41096pt too wide) in paragraph at lines 758--759
 []\T1/lmr/bx/n/10.95 (Weak Lens-ing) \T1/lmr/m/n/10.95 Com-pute weak grav-i-ta-
 tional lens-ing sig-nals (shear, con-ver-gence) in consciousness-
  []
@@ -8662,7 +8664,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [493]
-Overfull \hbox (0.88106pt too wide) in paragraph at lines 315--316
+Overfull \hbox (0.88106pt too wide) in paragraph at lines 327--328
 []\T1/lmr/m/n/10.95 Vegetative state (VS) mis-clas-si-fi-ca-tion: up to 40% are
  ac-tu-ally min-i-mally con-scious (MCS) [[][]78[][]] 
  []
@@ -8676,8 +8678,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [494]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -8688,6 +8690,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [495]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8727,7 +8732,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [499]
-Underfull \vbox (badness 2189) has occurred while \output is active []
+Underfull \vbox (badness 7273) has occurred while \output is active []
 
 
 
@@ -8739,24 +8744,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [500]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.702 \end{keyidea}
-                   
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (95.01096pt too wide) in paragraph at lines 701--702
-[]\T1/lmr/bx/n/10.95 Borderline cases \T1/lmr/m/n/10.95 (0.50 < ch$[] \OML/lmm/
-m/it/10.95 < \OT1/lmr/m/n/10.95 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 95) : 
-\OML/lmm/m/it/10.95 Requirecarefulassessment; serialmeasurements; familyconsult
-ation:$ 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 7081) has occurred while \output is active []
 
 
 
@@ -8771,14 +8759,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.724 
-      
+l.714 \end{keyidea}
+                   
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Underfull \vbox (badness 2229) has occurred while \output is active []
-
+Overfull \hbox (95.01096pt too wide) in paragraph at lines 713--714
+[]\T1/lmr/bx/n/10.95 Borderline cases \T1/lmr/m/n/10.95 (0.50 < ch$[] \OML/lmm/
+m/it/10.95 < \OT1/lmr/m/n/10.95 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 95) : 
+\OML/lmm/m/it/10.95 Requirecarefulassessment; serialmeasurements; familyconsult
+ation:$ 
+ []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -8789,6 +8781,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [502]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.736 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8816,11 +8816,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
 [505]
-Overfull \hbox (21.0864pt too wide) in paragraph at lines 882--883
-[]\T1/lmr/bx/n/10.95 (Multi-Modal In-te-gra-tion) \T1/lmr/m/n/10.95 Com-bine EE
-G-based ch$[]$ with fMRI con-nec-tiv-ity, PET metabolism,
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -8829,7 +8824,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[506]) (./chapters/ch31_neuroscience_iit.tex
+[506]
+Overfull \hbox (21.0864pt too wide) in paragraph at lines 894--895
+[]\T1/lmr/bx/n/10.95 (Multi-Modal In-te-gra-tion) \T1/lmr/m/n/10.95 Com-bine EE
+G-based ch$[]$ with fMRI con-nec-tiv-ity, PET metabolism,
+ []
+
+) (./chapters/ch31_neuroscience_iit.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
@@ -9756,6 +9757,186 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [573]
+Overfull \hbox (22.52718pt too wide) in paragraph at lines 609--618
+\T1/lmr/m/n/10.95 ax-iom foot-print. The 2026-06-04 Lean4Lean au-dit (\T1/lmtt/
+m/n/10.95 REFEREE_PROOF_LEAN4LEAN_AUDIT_2026-06-04.md\T1/lmr/m/n/10.95 ,
+ []
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 620.
+
+Overfull \hbox (59.83809pt too wide) in paragraph at lines 620--625
+[]\T1/lmr/bx/n/10.95 Four \T1/lmtt/b/n/10.95 PF_L4L \T1/lmr/bx/n/10.95 mod-ules
+ build clean \T1/lmr/m/n/10.95 with $[]$ out-put ex-actly \T1/lmtt/m/n/10.95 [p
+ropext, Classical.choice,
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[574]
+Overfull \hbox (48.1172pt too wide) in paragraph at lines 628--632
+[]\T1/lmtt/m/n/10.95 PF_L4L.Ch21.pnpContractPF \T1/lmr/m/n/10.95 --- re-verifie
+s \T1/lmtt/m/n/10.95 PF.P_NP_Equivalence.P_neq_NP_via_spectral_gap
+ []
+
+
+Overfull \hbox (52.88065pt too wide) in paragraph at lines 635--638
+\T1/lmr/m/n/10.95 com-pan-ion \T1/lmtt/m/n/10.95 PF.Referee.PrincipiaFractalisS
+ubstrateConsequences_holds_unconditionally\T1/lmr/m/n/10.95 . 
+ []
+
+
+Overfull \hbox (66.14183pt too wide) in paragraph at lines 640--652
+\T1/lmr/m/n/10.95 legacy L4L files in \T1/lmtt/m/n/10.95 PF_L4L/Core/\T1/lmr/m/
+n/10.95 , \T1/lmtt/m/n/10.95 PF_L4L/Ch20/RH.lean\T1/lmr/m/n/10.95 , \T1/lmtt/m/
+n/10.95 PF_L4L/Ch23/YM.lean\T1/lmr/m/n/10.95 , \T1/lmtt/m/n/10.95 PF_L4L/Ch24/B
+SD.lean\T1/lmr/m/n/10.95 ,
+ []
+
+
+Overfull \hbox (5.47374pt too wide) in paragraph at lines 653--664
+[]\T1/lmr/bx/n/10.95 Honest scope. \T1/lmr/m/n/10.95 This is a \T1/lmr/m/it/10.
+95 par-tial third-prover cer-ti-fi-ca-tion\T1/lmr/m/n/10.95 , not a full \T1/lm
+r/m/it/10.95 Mario Carneiro \T1/lmtt/m/it/10.95 lean4lean
+ []
+
+
+Overfull \hbox (71.04301pt too wide) in paragraph at lines 683--686
+[]|\T1/lmtt/m/n/10.95 REFEREE_PROOF_LEAN_AXIOM_AUDIT_2026-06-04.md\T1/lmr/m/n/1
+0.95 .
+ []
+
+
+Overfull \hbox (65.29428pt too wide) in paragraph at lines 689--694
+[]|\T1/lmtt/m/n/10.95 REFEREE_PROOF_COQ_AXIOM_AUDIT_2026-06-04.md\T1/lmr/m/n/10
+.95 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 696--696
+[]|$\OT1/lmr/m/n/10.95 8\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 7 \OMS/lmsy/m/n
+/10.95 !
+ []
+
+
+Underfull \hbox (badness 7116) in paragraph at lines 696--696
+\OT1/lmr/m/n/10.95 10$\T1/lmr/bx/n/10.95 /10 af-
+ []
+
+
+Overfull \hbox (13.55568pt too wide) in paragraph at lines 697--703
+[]|\T1/lmtt/m/n/10.95 REFEREE_PROOF_REVIEW_2026-06-04.md\T1/lmr/m/n/10.95 .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 697--703
+\T1/lmr/m/n/10.95 ac-tion-able find-ings (cascade-prose
+ []
+
+
+Underfull \hbox (badness 1454) in paragraph at lines 697--703
+\T1/lmr/m/n/10.95 this chap-ter, Chap-ter [][]35[][], and the
+ []
+
+
+Underfull \hbox (badness 2961) in paragraph at lines 697--703
+\T1/lmr/m/n/10.95 pream-ble's \T1/lmtt/m/n/10.95 \empiricalclaim \T1/lmr/m/n/10
+.95 macro
+ []
+
+
+Underfull \hbox (badness 1168) in paragraph at lines 704--704
+[]|\T1/lmr/m/n/10.95 Cross-reference com-plete-ness
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 705--705
+[]|\T1/lmr/bx/n/10.95 CLEAN
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 705--705
+\T1/lmr/bx/n/10.95 AF-TER
+ []
+
+
+Overfull \hbox (96.74504pt too wide) in paragraph at lines 706--711
+[]|\T1/lmtt/m/n/10.95 REFEREE_PROOF_CROSS_REFERENCE_AUDIT_2026-06-04.md
+ []
+
+
+Underfull \hbox (badness 1178) in paragraph at lines 706--711
+\T1/lmr/m/n/10.95 42 bro-ken Lean ci-ta-tions; all hard
+ []
+
+
+Underfull \hbox (badness 1147) in paragraph at lines 706--711
+\T1/lmr/m/n/10.95 break-ages have been fixed and the
+ []
+
+
+Underfull \hbox (badness 2401) in paragraph at lines 706--711
+\T1/lmr/m/n/10.95 re-main-ing wildcards/Coq-label nick-
+ []
+
+
+Underfull \hbox (badness 1496) in paragraph at lines 712--712
+[]|\T1/lmr/m/n/10.95 Lean4Lean partial-clean ex-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 713--713
+[]|\T1/lmr/bx/n/10.95 PARTIAL
+ []
+
+
+Overfull \hbox (62.25264pt too wide) in paragraph at lines 714--720
+[]|\T1/lmtt/m/n/10.95 REFEREE_PROOF_LEAN4LEAN_AUDIT_2026-06-04.md
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 714--720
+\T1/lmr/m/n/10.95 (HEAD \T1/lmtt/m/n/10.95 1085d51\T1/lmr/m/n/10.95 ). 4 \T1/lm
+tt/m/n/10.95 PF_L4L
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 714--720
+\T1/lmr/m/n/10.95 mod-ules clean with \T1/lmtt/m/n/10.95 [propext,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 714--720
+\T1/lmtt/m/n/10.95 Classical.choice, Quot.sound]
+ []
+
+
+Underfull \hbox (badness 6032) in paragraph at lines 714--720
+\T1/lmr/m/n/10.95 only; 6 of 8 legacy L4L mod-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 714--720
+\T1/lmr/m/n/10.95 ules gated on doc-u-mented
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 714--720
+\T1/lmr/m/n/10.95 API-drift gap. Flag-ship
+ []
+
+
+Overfull \hbox (10.51404pt too wide) in paragraph at lines 714--720
+\T1/lmtt/m/n/10.95 PrincipiaFractalisSubstrateTheorem
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -9767,7 +9948,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[574]) (./chapters/ch34A_substrate_theorem.tex
+[575]
+Overfull \vbox (24.30455pt too high) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9776,9 +9960,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[575]
+[576]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[577]) (./chapters/ch34A_substrate_theorem.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[578]
 Chapter 35.
-[576
+[579
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 73--78
@@ -9786,8 +9988,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 73--78
 e im-pli-ca-tion
  []
 
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 79.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9796,7 +9996,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[577]
+[580]
 Underfull \hbox (badness 10000) in paragraph at lines 145--149
 []\T1/lmr/m/n/10.95 Under any noise model sat-is-fy-ing the ex-plicit
  []
@@ -9821,7 +10021,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[578]
+[581]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -9830,7 +10030,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[579]
+[582]
 Overfull \hbox (10.9784pt too wide) in paragraph at lines 221--231
 []\T1/lmr/m/n/10.95 The typed Clay-BSD state-ment is dis-charged on the Fin 6 L
 MFDB-
@@ -9881,8 +10081,121 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[580]
-Overfull \hbox (3.12706pt too wide) in paragraph at lines 309--318
+[583]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[584]
+Underfull \hbox (badness 10000) in paragraph at lines 331--346
+[]\T1/lmr/m/n/10.95 The \T1/lmr/m/it/10.95 constraint-satisfaction ob-ser-va-ti
+on \T1/lmr/m/n/10.95 is that PF's cho-sen $\OML/lmm/m/it/10.95 $\T1/lmr/m/n/10
+.95 -values
+ []
+
+
+Underfull \hbox (badness 1194) in paragraph at lines 331--346
+\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 []; []; []; []; []; []\OT1/lmr/m/
+n/10.95 ) = (1\OML/lmm/m/it/10.95 ; \OT1/lmr/m/n/10.95 3\OML/lmm/m/it/10.95 =\O
+T1/lmr/m/n/10.95 2\OML/lmm/m/it/10.95 ; \OT1/lmr/m/n/10.95 2\OML/lmm/m/it/10.95
+ ; \OT1/lmr/m/n/10.95 (3\OML/lmm/m/it/10.95 =\OT1/lmr/m/n/10.95 4)\OML/lmm/m/it
+/10.95 ^^Y; \OT1/lmr/m/n/10.95 (3\OML/lmm/m/it/10.95 =\OT1/lmr/m/n/10.95 2)\OML
+/lmm/m/it/10.95 ^^Y; \OT1/lmr/m/n/10.95 5\OML/lmm/m/it/10.95 =\OT1/lmr/m/n/10.9
+5 4)$ \T1/lmr/m/n/10.95 are \T1/lmr/m/it/10.95 in-ter-nally
+ []
+
+
+Underfull \hbox (badness 2111) in paragraph at lines 331--346
+\T1/lmr/m/it/10.95 con-sis-tent \T1/lmr/m/n/10.95 un-der the 11 cross-Millenniu
+m al-ge-braic in-vari-ants of �[][]35.3.3[][]. Equiv-
+ []
+
+
+Underfull \hbox (badness 3803) in paragraph at lines 331--346
+\T1/lmr/m/n/10.95 a-lently: the 11 in-vari-ants are si-mul-ta-ne-ously sat-is-f
+ied as real-arithmetic iden-ti-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 331--346
+\T1/lmtt/m/n/10.95 cross_millennium_meta_closure_capstone \T1/lmr/m/n/10.95 (9-
+field bun-dle com-pos-ing
+ []
+
+
+Underfull \hbox (badness 6995) in paragraph at lines 368--374
+[]\T1/lmr/m/n/10.95 Per-axis en-tail-ments: \T1/lmtt/m/n/10.95 entailment_from_
+a_Poincare\T1/lmr/m/n/10.95 , \T1/lmtt/m/n/10.95 entailment_from_a_RH\T1/lmr/m/
+n/10.95 ,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 368--374
+\T1/lmtt/m/n/10.95 entailment_from_a_YM\T1/lmr/m/n/10.95 , \T1/lmtt/m/n/10.95 e
+ntailment_from_a_PvNP\T1/lmr/m/n/10.95 , \T1/lmtt/m/n/10.95 entailment_from_a_N
+S\T1/lmr/m/n/10.95 ,
+ []
+
+
+Overfull \hbox (8.57591pt too wide) in paragraph at lines 378--382
+\T1/lmtt/m/n/10.95 cascade_parameterized_capstone \T1/lmr/m/n/10.95 (six-field 
+\T1/lmtt/m/n/10.95 CrossMillenniumCascadeParameterized
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 382--389
+[]\T1/lmr/m/n/10.95 Framework re-al-iza-tion: \T1/lmtt/m/n/10.95 framework_alph
+a_satisfies_invariants
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 382--389
+\T1/lmr/m/n/10.95 (the frame-work's hard-coded $\OML/lmm/m/it/10.95 $\T1/lmr/m
+/n/10.95 -values in-habit the pred-i-cate) and
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[585]
+Underfull \hbox (badness 1496) in paragraph at lines 453--458
+\T1/lmr/m/n/10.95 holds, where \T1/lmtt/m/n/10.95 framework_alpha \T1/lmr/m/n/1
+0.95 pack-ages the \T1/lmtt/m/n/10.95 CrossMillenniumSharedInvariants $\OML/lmm
+/m/it/10.95 $\T1/lmr/m/n/10.95 -
+ []
+
+
+Overfull \hbox (236.87114pt too wide) detected at line 466
+[] \OT1/lmr/m/n/10.95 : \OML/lmm/m/it/10.95 [] \OT1/lmr/m/n/10.95 = 1  =[]\OMS
+/lmsy/m/n/10.95 )  []\OML/lmm/m/it/10.95 [] \OT1/lmr/m/n/10.95 = 3\OML/lmm/m/i
+t/10.95 =\OT1/lmr/m/n/10.95 2  \OMS/lmsy/m/n/10.95 ^  \OML/lmm/m/it/10.95 [] \
+OT1/lmr/m/n/10.95 = 2  \OMS/lmsy/m/n/10.95 ^  \OML/lmm/m/it/10.95 [] \OT1/lmr/
+m/n/10.95 = (3\OML/lmm/m/it/10.95 =\OT1/lmr/m/n/10.95 4)\OML/lmm/m/it/10.95 ^^Y
+  \OMS/lmsy/m/n/10.95 ^  \OML/lmm/m/it/10.95 [] \OT1/lmr/m/n/10.95 = (3\OML/lm
+m/m/it/10.95 =\OT1/lmr/m/n/10.95 2)\OML/lmm/m/it/10.95 ^^Y  \OMS/lmsy/m/n/10.95
+ ^  \OML/lmm/m/it/10.95 [] \OT1/lmr/m/n/10.95 = 5\OML/lmm/m/it/10.95 =\OT1/lmr
+/m/n/10.95 4[]
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[586]
+Overfull \hbox (3.12706pt too wide) in paragraph at lines 481--490
 \T1/lmtt/m/n/10.95 naive_vs_observed_ratio_log\T1/lmr/m/n/10.95 . A com-pan-ion
  the-o-rem (C9$[]$) \T1/lmtt/m/n/10.95 framework_density_lt_naive
  []
@@ -9895,66 +10208,41 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[581]
-Overfull \hbox (199.97977pt too wide) in paragraph at lines 384--387
+[587]
+Overfull \hbox (199.97977pt too wide) in paragraph at lines 556--559
 \T1/lmr/m/n/10.95 the counter-rotating vor-tex pair's zero-point free-energy co
 n-tent. Lean wit-ness: \T1/lmtt/m/n/10.95 counter_rotating_vortices_free_energy
 _capstone\T1/lmr/m/n/10.95 . 
  []
 
 
-Overfull \hbox (92.24341pt too wide) in paragraph at lines 394--398
+Overfull \hbox (92.24341pt too wide) in paragraph at lines 566--570
 []\T1/lmr/m/n/10.95 Re-states (A5) as a con-se-quence: $\OMS/lmsy/m/n/10.95 8\O
 ML/lmm/m/it/10.95 p \OMS/lmsy/m/n/10.95 2 []\OML/lmm/m/it/10.95 ;  []\OT1/lmr/
 m/n/10.95 (\OML/lmm/m/it/10.95 p\OT1/lmr/m/n/10.95 ) \OMS/lmsy/m/n/10.95 2
  []
 
 
-Overfull \hbox (116.22845pt too wide) in paragraph at lines 400--404
+Overfull \hbox (116.22845pt too wide) in paragraph at lines 572--576
 []\T1/lmr/m/n/10.95 Re-states (A4) as a con-se-quence: $\OML/lmm/m/it/10.95 P[]
 \OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 "[]\OT1/lmr/m/n/10.95 ) \OMS/lmsy/m/n/1
 0.95 ^^T
  []
 
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[582]
-Overfull \hbox (1.28662pt too wide) in paragraph at lines 418--423
+Overfull \hbox (1.28662pt too wide) in paragraph at lines 590--595
 []\T1/lmr/m/n/10.95 The six-conjunct fractal-mathematics core: TF eter-nal-ity;
  ternary
  []
 
 
-Overfull \hbox (72.34854pt too wide) in paragraph at lines 425--431
+Overfull \hbox (72.34854pt too wide) in paragraph at lines 597--603
 \T1/lmr/m/n/10.95 Millennium in-vari-ants, and the Con-scious-ness $\OMS/lmsy/m
 /n/10.95 $$ \T1/lmr/m/n/10.95 RH bridge. Lean wit-ness: \T1/lmtt/m/n/10.95 PFCo
 mpleteFrameworkCapstone. 
  []
 
 
-Overfull \hbox (54.62593pt too wide) detected at line 461
-[] \OT1/lmr/m/n/10.95 : []  [][]\OMS/lmsy/m/n/10.95 !  []
- []
-
-
-Underfull \hbox (badness 6047) in paragraph at lines 467--470
-[]\T1/lmr/bx/n/10.95 Lean source: \T1/lmtt/m/n/10.95 PF/Referee/PrincipiaFracta
-lisSubstrateTheorem.lean\T1/lmr/m/n/10.95 , the-o-rem
- []
-
-
-Overfull \hbox (59.88808pt too wide) in paragraph at lines 473--482
-[]\T1/lmr/m/n/10.95 The im-pli-ca-tion is es-tab-lished by con-struct-ing the \
-T1/lmtt/m/n/10.95 PFSubstrateConsequences
- []
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -9962,33 +10250,40 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[583]
-Overfull \hbox (53.5614pt too wide) detected at line 498
+[588]
+Overfull \hbox (54.62593pt too wide) detected at line 633
+[] \OT1/lmr/m/n/10.95 : []  [][]\OMS/lmsy/m/n/10.95 !  []
+ []
+
+
+Underfull \hbox (badness 6047) in paragraph at lines 639--642
+[]\T1/lmr/bx/n/10.95 Lean source: \T1/lmtt/m/n/10.95 PF/Referee/PrincipiaFracta
+lisSubstrateTheorem.lean\T1/lmr/m/n/10.95 , the-o-rem
+ []
+
+
+Overfull \hbox (59.88808pt too wide) in paragraph at lines 645--654
+[]\T1/lmr/m/n/10.95 The im-pli-ca-tion is es-tab-lished by con-struct-ing the \
+T1/lmtt/m/n/10.95 PFSubstrateConsequences
+ []
+
+
+Overfull \hbox (53.5614pt too wide) detected at line 670
 [] \OT1/lmr/m/n/10.95 : []
  []
 
 
-Overfull \hbox (116.53127pt too wide) in paragraph at lines 504--509
+Overfull \hbox (116.53127pt too wide) in paragraph at lines 676--681
 []\T1/lmr/bx/n/10.95 Lean source: \T1/lmr/m/n/10.95 same file as above, the-o-r
 em \T1/lmtt/m/n/10.95 PrincipiaFractalisSubstrateConsequences_holds_uncondition
 ally\T1/lmr/m/n/10.95 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 504--509
+Underfull \hbox (badness 10000) in paragraph at lines 676--681
 \T1/lmr/m/n/10.95 which is re-alised by ap-ply-ing the im-pli-ca-tion form of T
 he-o-rem [][]35.4.1[][] to
  []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 541--544
-[]\T1/lmr/bx/n/10.95 RH \T1/lmr/m/n/10.95 (C1) --- con-di-tional on the open \T
-1/lmtt/m/n/10.95 surjectivity \T1/lmr/m/n/10.95 pred-i-cate in
- []
-
-
-Underfull \vbox (badness 5681) has occurred while \output is active []
-
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -9998,34 +10293,36 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[584]
-Overfull \hbox (156.85077pt too wide) in paragraph at lines 580--593
-[]\T1/lmr/m/it/10.95 Remark \T1/lmr/m/n/10.95 35.1 (The hon-est-s-cope record)\
+[589]
+Underfull \hbox (badness 10000) in paragraph at lines 713--716
+[]\T1/lmr/bx/n/10.95 RH \T1/lmr/m/n/10.95 (C1) --- con-di-tional on the open \T
+1/lmtt/m/n/10.95 surjectivity \T1/lmr/m/n/10.95 pred-i-cate in
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[590]
+Overfull \hbox (156.85077pt too wide) in paragraph at lines 752--765
+[]\T1/lmr/m/it/10.95 Remark \T1/lmr/m/n/10.95 35.2 (The hon-est-s-cope record)\
 T1/lmr/m/it/10.95 . []\T1/lmr/m/n/10.95 The Lean source also ex-ports a typed \
 T1/lmtt/m/n/10.95 PrincipiaFractalisSubstrateTheoremHonestScope
  []
 
 
-Overfull \hbox (108.29178pt too wide) in paragraph at lines 580--593
+Overfull \hbox (108.29178pt too wide) in paragraph at lines 752--765
 \T1/lmtt/m/n/10.95 framework_claim_is_substrate_determines_consequences\T1/lmr/
 m/n/10.95 ; \T1/lmtt/m/n/10.95 not_literal_Clay_discharge_substrate_level_only\
 T1/lmr/m/n/10.95 .
  []
 
 
-Underfull \vbox (badness 4927) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[585]
-Underfull \hbox (badness 5008) in paragraph at lines 619--623
+Underfull \hbox (badness 5008) in paragraph at lines 791--795
 \T1/lmr/m/n/10.95 The file's ter-mi-nal \T1/lmtt/m/n/10.95 #print axioms \T1/lm
 r/m/n/10.95 state-ments should out-put, for each of
  []
@@ -10042,8 +10339,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[586]
-Overfull \hbox (93.91302pt too wide) in paragraph at lines 655--663
+[591]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[592]
+Overfull \hbox (93.91302pt too wide) in paragraph at lines 827--835
 []\T1/lmr/m/n/10.95 The meta-theorem (The-o-rem [][]35.4.1[][]) is the im-pli-c
 a-tion \T1/lmtt/m/n/10.95 PFSubstrateAntecedents$\OMS/lmsy/m/n/10.95 !$ \T1/lmt
 t/m/n/10.95 PFSubstrateConsequences\T1/lmr/m/n/10.95 .
@@ -10058,74 +10364,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[587]
+[593]
 Chapter 36.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [588
+ [594
 
 ]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[589]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[590]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[591]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[592]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[593]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[594]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10144,6 +10390,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [596]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10153,12 +10402,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [597]
-Overfull \hbox (36.13353pt too wide) in paragraph at lines 418--418
-[]\T1/lmtt/m/n/10.95 print(f"  Classification: {'Mechanical' if ch2_untrained <
- 0.5 else 'Proto-conscious'}")[] 
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -10171,11 +10414,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [598]
-Overfull \hbox (30.3848pt too wide) in paragraph at lines 426--426
-[]\T1/lmtt/m/n/10.95 print(f"  Classification: {'Conscious' if ch2_trained >= 0
-.95 else 'Proto-conscious'}")[] 
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10221,6 +10459,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [603]
+Overfull \hbox (36.13353pt too wide) in paragraph at lines 418--418
+[]\T1/lmtt/m/n/10.95 print(f"  Classification: {'Mechanical' if ch2_untrained <
+ 0.5 else 'Proto-conscious'}")[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10230,6 +10477,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [604]
+Overfull \hbox (30.3848pt too wide) in paragraph at lines 426--426
+[]\T1/lmtt/m/n/10.95 print(f"  Classification: {'Conscious' if ch2_trained >= 0
+.95 else 'Proto-conscious'}")[] 
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10239,9 +10491,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [605]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10259,7 +10508,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[607])
+[607]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10268,7 +10517,64 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[608] (./backmatter/appendix_lexicon.tex
+[608]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[609]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[610]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[611]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[612]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[613])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[614] (./backmatter/appendix_lexicon.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 24.
@@ -10285,7 +10591,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 24.
 
-[609
+[615
 
 
 ]
@@ -10297,7 +10603,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[610]
+[616]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 84.
@@ -10318,7 +10624,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[611]
+[617]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 139.
@@ -10347,7 +10653,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[612]
+[618]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10356,7 +10662,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[613]
+[619]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 220.
@@ -10401,7 +10707,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[614]
+[620]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 263.
@@ -10423,68 +10729,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[615] [616
+[621] [622
 
 ]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[617]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[618]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[619]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[620]) (./appendices/appB_brst.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[621]
-Underfull \vbox (badness 1990) has occurred while \output is active []
-
- [622
-
-]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10494,6 +10744,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [623]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10520,7 +10776,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[626]
+[626]) (./appendices/appB_brst.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10530,15 +10786,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [627]
+Underfull \vbox (badness 1990) has occurred while \output is active []
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
+ [628
 
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[628]) (./appendices/appC_clinical.tex
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10548,6 +10800,60 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [629]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[630]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[631]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[632]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[633]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[634]) (./appendices/appC_clinical.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[635]
 ! Missing $ inserted.
 <inserted text> 
                 $
@@ -10603,7 +10909,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[630
+[636
 
 ]
 ! Missing $ inserted.
@@ -10705,7 +11011,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[631]
+[637]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10714,7 +11020,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[632]
+[638]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10723,7 +11029,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[633]
+[639]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10732,7 +11038,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[634]
+[640]
 
 ! LaTeX Error: Unicode character ∧ (U+2227)
                not set up for use with LaTeX.
@@ -10771,7 +11077,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[635]
+[641]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10780,7 +11086,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[636]
+[642]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10789,7 +11095,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[637]
+[643]
 Underfull \hbox (badness 10000) in paragraph at lines 372--373
 []|\T1/lmr/m/n/10.95 Re-record with re-lax-ation
  []
@@ -10802,7 +11108,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[638]
+[644]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10811,7 +11117,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[639]) (./appendices/appD_software.tex
+[645]) (./appendices/appD_software.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10820,7 +11126,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[640] [641
+[646] [647
 
 ]
 
@@ -10831,7 +11137,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[642]
+[648]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -10843,7 +11149,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[643]
+[649]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10852,7 +11158,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[644]) (./appendices/appE_weinstein.tex
+[650]) (./appendices/appE_weinstein.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10861,7 +11167,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[645] [646
+[651] [652
 
 ]
 
@@ -10872,7 +11178,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[647]
+[653]
 Overfull \hbox (14.27083pt too wide) in paragraph at lines 92--92
 |[]\T1/lmr/bx/n/14.4 Comparative Align-ment: Ro-ta-tional Frame-Dragging and Ti
 me-
@@ -10887,59 +11193,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[648] [649
+[654] [655
 
 ]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[650]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[651]) (./appendices/appG_notation.tex
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[652] [653
-
-]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[654]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[655]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10949,9 +11205,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [656]
-Missing character: There is no c in font msbm10!
-Missing character: There is no b in font msbm10!
-Missing character: There is no d in font msbm10!
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10960,7 +11213,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[657]) (./appendices/appendix_grothendieck.tex
+[657]) (./appendices/appG_notation.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10974,13 +11227,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 25.2232pt, for example:
-(fancyhdr)                \setlength{\headheight}{25.2232pt}.
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 
-(fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [660]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -10990,6 +11246,56 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [661]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[662]
+Missing character: There is no c in font msbm10!
+Missing character: There is no b in font msbm10!
+Missing character: There is no d in font msbm10!
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[663]) (./appendices/appendix_grothendieck.tex
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[664] [665
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 25.2232pt, for example:
+(fancyhdr)                \setlength{\headheight}{25.2232pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
+
+[666]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[667]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 95.
@@ -11014,7 +11320,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
-[662]
+[668]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11023,7 +11329,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[663]
+[669]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
@@ -11032,7 +11338,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
-[664]
+[670]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11041,7 +11347,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[665]
+[671]
 ! Missing $ inserted.
 <inserted text> 
                 $
@@ -11099,7 +11405,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
-[666]
+[672]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 288.
@@ -11120,7 +11426,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[667]
+[673]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
@@ -11129,7 +11435,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
-[668]
+[674]
 Overfull \hbox (16.17363pt too wide) in paragraph at lines 374--375
 []\T1/lmr/bx/n/10.95 Aesthetics: Tarkovsky's cin-ema, Gehry's ar-chi-tec-ture, 
 Kiefer's paint-ing as threshold-
@@ -11143,7 +11449,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[669]
+[675]
 Overfull \hbox (38.25409pt too wide) in paragraph at lines 424--425
 []\T1/lmr/bx/n/10.95 Grothendieck's mo-tives: Grothendieck con-jec-tured the ex
 -is-tence of "mo-tives"^^Vuniversal
@@ -11157,7 +11463,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
-[670]) (./appendices/appH_numerical_validation.tex
+[676]) (./appendices/appH_numerical_validation.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11166,8 +11472,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[671]
-<figures/millennium_problems/complete_riemann_analysis.png, id=14261, 1142.8296
+[677]
+<figures/millennium_problems/complete_riemann_analysis.png, id=14331, 1142.8296
 pt x 857.604pt>
 File: figures/millennium_problems/complete_riemann_analysis.png Graphic file (t
 ype png)
@@ -11179,7 +11485,7 @@ png  used on input line 36.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/millennium_problems/high_precision_verification.png, id=14263, 1084.05
+<figures/millennium_problems/high_precision_verification.png, id=14333, 1084.05
 pt x 722.7pt>
 File: figures/millennium_problems/high_precision_verification.png Graphic file 
 (type png)
@@ -11193,7 +11499,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 Underfull \vbox (badness 2903) has occurred while \output is active []
 
- [672
+ [678
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -11207,7 +11513,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[673 <./figures/millennium_problems/complete_riemann_analysis.png>]
+[679 <./figures/millennium_problems/complete_riemann_analysis.png>]
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10.95> not available
 (Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 71.
@@ -11238,8 +11544,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
-[674 <./figures/millennium_problems/high_precision_verification.png>]
-<figures/millennium_problems/hodge_calabi_yau_validation.png, id=14281, 1076.34
+[680 <./figures/millennium_problems/high_precision_verification.png>]
+<figures/millennium_problems/hodge_calabi_yau_validation.png, id=14352, 1076.34
 12pt x 713.5458pt>
 File: figures/millennium_problems/hodge_calabi_yau_validation.png Graphic file 
 (type png)
@@ -11251,7 +11557,7 @@ n.png  used on input line 115.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/millennium_problems/hodge_enhanced_validation.png, id=14282, 975.8859p
+<figures/millennium_problems/hodge_enhanced_validation.png, id=14353, 975.8859p
 t x 2610.8742pt>
 File: figures/millennium_problems/hodge_enhanced_validation.png Graphic file (t
 ype png)
@@ -11288,7 +11594,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[675]
+[681]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 25.2232pt, for example:
@@ -11297,7 +11603,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-13.2232pt}.
 
-[676 <./figures/millennium_problems/hodge_calabi_yau_validation.png>]
+[682 <./figures/millennium_problems/hodge_calabi_yau_validation.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11306,7 +11612,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[677 <./figures/millennium_problems/hodge_enhanced_validation.png>]
+[683 <./figures/millennium_problems/hodge_enhanced_validation.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 164.
@@ -11319,7 +11625,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 164.
 
-<figures/geometric_unity/xenon_fit.png, id=14298, 1003.5894pt x 422.2977pt>
+<figures/geometric_unity/xenon_fit.png, id=14369, 1003.5894pt x 422.2977pt>
 File: figures/geometric_unity/xenon_fit.png Graphic file (type png)
 <use figures/geometric_unity/xenon_fit.png>
 Package pdftex.def Info: figures/geometric_unity/xenon_fit.png  used on input l
@@ -11328,7 +11634,7 @@ ine 181.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/geometric_unity/bundle_structure.png, id=14299, 860.013pt x 569.9694pt
+<figures/geometric_unity/bundle_structure.png, id=14370, 860.013pt x 569.9694pt
 >
 File: figures/geometric_unity/bundle_structure.png Graphic file (type png)
 <use figures/geometric_unity/bundle_structure.png>
@@ -11341,7 +11647,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/omega_space/omega_space_crystallization.png, id=14300, 867.24pt x 867.
+<figures/omega_space/omega_space_crystallization.png, id=14371, 867.24pt x 867.
 24pt>
 File: figures/omega_space/omega_space_crystallization.png Graphic file (type pn
 g)
@@ -11352,7 +11658,7 @@ sed on input line 214.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/omega_space/omega_boundary_analysis.png, id=14301, 873.0216pt x 655.72
+<figures/omega_space/omega_boundary_analysis.png, id=14372, 873.0216pt x 655.72
 98pt>
 File: figures/omega_space/omega_boundary_analysis.png Graphic file (type png)
 <use figures/omega_space/omega_boundary_analysis.png>
@@ -11368,7 +11674,7 @@ Overfull \hbox (5.13399pt too wide) in paragraph at lines 230--231
 ti-mal car-bon nan-otube (CNT)
  []
 
-<figures/geometric_unity/cnt_optimization.png, id=14302, 722.7pt x 433.62pt>
+<figures/geometric_unity/cnt_optimization.png, id=14373, 722.7pt x 433.62pt>
 File: figures/geometric_unity/cnt_optimization.png Graphic file (type png)
 <use figures/geometric_unity/cnt_optimization.png>
 Package pdftex.def Info: figures/geometric_unity/cnt_optimization.png  used on 
@@ -11377,7 +11683,7 @@ input line 236.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/geometric_unity/cnt_optimization_journal.png, id=14303, 867.24pt x 578
+<figures/geometric_unity/cnt_optimization_journal.png, id=14374, 867.24pt x 578
 .16pt>
 File: figures/geometric_unity/cnt_optimization_journal.png Graphic file (type p
 ng)
@@ -11388,7 +11694,7 @@ used on input line 245.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/omega_space/universe_crystallization_summary.png, id=14304, 827.2506pt
+<figures/omega_space/universe_crystallization_summary.png, id=14375, 827.2506pt
  x 713.5458pt>
 File: figures/omega_space/universe_crystallization_summary.png Graphic file (ty
 pe png)
@@ -11399,13 +11705,13 @@ ng  used on input line 258.
 
 Underfull \vbox (badness 2237) has occurred while \output is active []
 
- [678
+ [684
 
 ]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/omega_space/cmb_crystallization_analysis.png, id=14309, 714.9912pt x 7
+<figures/omega_space/cmb_crystallization_analysis.png, id=14380, 714.9912pt x 7
 13.5458pt>
 File: figures/omega_space/cmb_crystallization_analysis.png Graphic file (type p
 ng)
@@ -11421,7 +11727,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[679 <./figures/geometric_unity/xenon_fit.png>]
+[685 <./figures/geometric_unity/xenon_fit.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -11437,7 +11743,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 297.
 
-<figures/omega_space/void_crystallization_analysis.png, id=14315, 859.5312pt x 
+<figures/omega_space/void_crystallization_analysis.png, id=14386, 859.5312pt x 
 352.1958pt>
 File: figures/omega_space/void_crystallization_analysis.png Graphic file (type 
 png)
@@ -11456,7 +11762,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[680 <./figures/geometric_unity/bundle_structure.png>]
+[686 <./figures/geometric_unity/bundle_structure.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 314.
@@ -11469,7 +11775,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 314.
 
-<figures/omega_space/bec_omega_analysis.png, id=14321, 1149.093pt x 859.0494pt>
+<figures/omega_space/bec_omega_analysis.png, id=14392, 1149.093pt x 859.0494pt>
 
 File: figures/omega_space/bec_omega_analysis.png Graphic file (type png)
 <use figures/omega_space/bec_omega_analysis.png>
@@ -11491,7 +11797,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[681 <./figures/omega_space/omega_space_crystallization.png>]
+[687 <./figures/omega_space/omega_space_crystallization.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11500,7 +11806,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[682 <./figures/omega_space/omega_boundary_analysis.png>]
+[688 <./figures/omega_space/omega_boundary_analysis.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11509,7 +11815,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[683 <./figures/geometric_unity/cnt_optimization.png>]
+[689 <./figures/geometric_unity/cnt_optimization.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11518,7 +11824,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[684 <./figures/geometric_unity/cnt_optimization_journal.png>]
+[690 <./figures/geometric_unity/cnt_optimization_journal.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11527,7 +11833,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[685 <./figures/omega_space/universe_crystallization_summary.png>]
+[691 <./figures/omega_space/universe_crystallization_summary.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11536,7 +11842,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[686 <./figures/omega_space/cmb_crystallization_analysis.png>]
+[692 <./figures/omega_space/cmb_crystallization_analysis.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11545,7 +11851,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[687 <./figures/omega_space/void_crystallization_analysis.png>]
+[693 <./figures/omega_space/void_crystallization_analysis.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11554,7 +11860,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[688 <./figures/omega_space/bec_omega_analysis.png>]
+[694 <./figures/omega_space/bec_omega_analysis.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 329.
@@ -11567,7 +11873,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 329.
 
-<figures/consciousness/consciousness_detection_results.png, id=14364, 1293.633p
+<figures/consciousness/consciousness_detection_results.png, id=14434, 1293.633p
 t x 853.5087pt>
 File: figures/consciousness/consciousness_detection_results.png Graphic file (t
 ype png)
@@ -11578,7 +11884,7 @@ png  used on input line 335.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/theoretical/resonance_landscape.png, id=14365, 633.3261pt x 576.7146pt
+<figures/theoretical/resonance_landscape.png, id=14435, 633.3261pt x 576.7146pt
 >
 File: figures/theoretical/resonance_landscape.png Graphic file (type png)
 <use figures/theoretical/resonance_landscape.png>
@@ -11588,13 +11894,13 @@ nput line 357.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/theoretical/vortex_structure.png, id=14366, 571.8966pt x 586.1097pt>
+<figures/theoretical/vortex_structure.png, id=14436, 571.8966pt x 586.1097pt>
 File: figures/theoretical/vortex_structure.png Graphic file (type png)
 <use figures/theoretical/vortex_structure.png>
 Package pdftex.def Info: figures/theoretical/vortex_structure.png  used on inpu
 t line 376.
 (pdftex.def)             Requested size: 446.26582pt x 457.36942pt.
-[689
+[695
 
 ]
 
@@ -11608,7 +11914,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[690 <./figures/consciousness/consciousness_detection_results.png>]
+[696 <./figures/consciousness/consciousness_detection_results.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11617,7 +11923,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[691 <./figures/theoretical/resonance_landscape.png>]
+[697 <./figures/theoretical/resonance_landscape.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -11626,7 +11932,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[692 <./figures/theoretical/vortex_structure.png>] [693
+[698 <./figures/theoretical/vortex_structure.png>] [699
 
 ]
 
@@ -11637,7 +11943,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[694]) (./appendices/appI_lean_cross_reference.tex [695
+[700]) (./appendices/appI_lean_cross_reference.tex [701
 
 ]
 Underfull \hbox (badness 4479) in paragraph at lines 47--48
@@ -11793,7 +12099,7 @@ Underfull \hbox (badness 2302) in paragraph at lines 112--113
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[696
+[702
 
 ]
 
@@ -11804,7 +12110,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[697]
+[703]
 Overfull \hbox (117.28337pt too wide) in paragraph at lines 143--144
 []|\T1/lmtt/m/n/9 HilbertPolyaIdentificationPrecise.hilbert_polya_implies_RH\T1
 /lmr/m/n/9 ;
@@ -12012,7 +12318,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[698
+[704
 
 ]
 Underfull \hbox (badness 1565) in paragraph at lines 249--250
@@ -12039,7 +12345,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[699])
+[705])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12048,7 +12354,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[700] (./backmatter/glossary.tex [701
+[706] (./backmatter/glossary.tex [707
 
 ]
 ! Missing $ inserted.
@@ -12113,7 +12419,7 @@ sconsciousnessasafundamentalaspectofspacetimegeometry; analogoustohowtheelectro
 magneticfieldtensor$\T1/lmr/bx/n/10.95 F$[]$
  []
 
-[702
+[708
 
 ]
 ! Missing $ inserted.
@@ -12159,7 +12465,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[703]
+[709]
 
 ! LaTeX Error: Unicode character ξ (U+03BE)
                not set up for use with LaTeX.
@@ -12243,7 +12549,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[704]
+[710]
 
 ! LaTeX Error: Unicode character 𝒯 (U+1D4AF)
                not set up for use with LaTeX.
@@ -12303,7 +12609,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[705]) (./main.bbl
+[711]) (./main.bbl
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12312,7 +12618,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[706] [707
+[712] [713
 
 ]
 
@@ -12323,7 +12629,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[708]
+[714]
 
 ! LaTeX Error: Unicode character Ф (U+0424)
                not set up for use with LaTeX.
@@ -12410,7 +12716,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[709]
+[715]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12419,7 +12725,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[710]
+[716]
 Underfull \hbox (badness 10000) in paragraph at lines 327--333
 []\T1/lmr/bx/n/10.95 Pablo Co-hen.  Uni-ver-sal con-scious-ness thresh-old: $\O
 ML/lmm/m/it/10.95 ^^[[] \OT1/lmr/m/n/10.95 = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n
@@ -12434,81 +12740,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[711]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[712]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[713]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[714]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[715]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[716]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
 [717]
-
-! LaTeX Error: Unicode character Ш (U+0428)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.800 ...lock Finiteness of $e(\mathbb{Q})$ and Ш
-                                                  $(e,\mathbb{Q})$ for a sub...
-
-You may provide a definition with
-\DeclareUnicodeCharacter 
-
-
-Underfull \hbox (badness 3343) in paragraph at lines 829--833
-[]\T1/lmr/bx/n/10.95 Harry Lehmann.  �ber eigen-schaften von aus-bre-itungs-fun
-k-tio-nen und
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12536,11 +12768,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [720]
-Underfull \hbox (badness 2158) in paragraph at lines 1019--1023
-[]\T1/lmr/bx/n/10.95 Emmy Noether.  In-vari-ante vari-a-tion-sprob-leme.  \T1/l
-mr/bx/it/10.95 Nachrichten von der
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12569,6 +12796,26 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [723]
 
+! LaTeX Error: Unicode character Ш (U+0428)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.800 ...lock Finiteness of $e(\mathbb{Q})$ and Ш
+                                                  $(e,\mathbb{Q})$ for a sub...
+
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+Underfull \hbox (badness 3343) in paragraph at lines 829--833
+[]\T1/lmr/bx/n/10.95 Harry Lehmann.  �ber eigen-schaften von aus-bre-itungs-fun
+k-tio-nen und
+ []
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -12586,6 +12833,65 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [725]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[726]
+Underfull \hbox (badness 2158) in paragraph at lines 1019--1023
+[]\T1/lmr/bx/n/10.95 Emmy Noether.  In-vari-ante vari-a-tion-sprob-leme.  \T1/l
+mr/bx/it/10.95 Nachrichten von der
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[727]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[728]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[729]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[730]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[731]
 Underfull \hbox (badness 2644) in paragraph at lines 1440--1445
 []\T1/lmr/bx/n/10.95 Giulio Tononi and Melanie Boly.  In-te-grated in-for-ma-ti
 on the-ory: A
@@ -12599,7 +12905,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[726]
+[732]
 Underfull \hbox (badness 1533) in paragraph at lines 1473--1478
 []\T1/lmr/bx/n/10.95 John von Neu-mann.  \T1/lmr/bx/it/10.95 Math-e-ma-tis-che 
 Grund-la-gen der Quan-ten-mechanik\T1/lmr/bx/n/10.95 .
@@ -12613,7 +12919,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[727]
+[733]
 Underfull \hbox (badness 2626) in paragraph at lines 1534--1537
 []\T1/lmr/bx/n/10.95 WFIRST-AFTA Sci-ence Def-i-ni-tion Team.  Wide-field In-fr
 aRed Sur-vey
@@ -12627,7 +12933,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[728])
+[734])
 No file main.ind.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -12637,47 +12943,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[729] (./backmatter/author.tex [730
-
-] [731
-
-]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[732]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[733]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[734])
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 13.59999pt, for example:
-(fancyhdr)                \setlength{\headheight}{13.59999pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
-
-[735] (./backmatter/epilogue.tex [736
+[735] (./backmatter/author.tex [736
 
 ] [737
 
@@ -12708,7 +12974,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[740]
+[740])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12717,7 +12983,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[741]
+[741] (./backmatter/epilogue.tex [742
+
+] [743
+
+]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12726,7 +12996,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[742]
+[744]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12735,7 +13005,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[743]
+[745]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12744,7 +13014,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[744])
+[746]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -12753,13 +13023,49 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[745] (./main.aux)
+[747]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[748]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[749]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[750])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[751] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 5C13C5CE1E1E2224D59947DDB3F9654D;266701.
+(rerunfilecheck)             Checksum: A422B4AC899355556930367680775262;267702.
 
  )
 (\end occurred inside a group at level 4)
@@ -12770,10 +13076,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 ### simple group (level 1) entered at line 258 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 58965 strings out of 476106
- 1288725 string characters out of 5793933
- 2327936 words of memory out of 5000000
- 74312 multiletter control sequences out of 15000+600000
+ 59015 strings out of 476106
+ 1289788 string characters out of 5793933
+ 2330385 words of memory out of 5000000
+ 74343 multiletter control sequences out of 15000+600000
  753007 words of font info for 175 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  89i,19n,96p,1699b,2231s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -12803,10 +13109,10 @@ c/lm/lmtt12.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb></usr/share/t
 exmf/fonts/type1/public/lm/lmtti10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (837 pages, 9154440 bytes).
+Output written on main.pdf (843 pages, 9181878 bytes).
 PDF statistics:
- 16040 PDF objects out of 18468 (max. 8388607)
- 14915 compressed objects within 150 object streams
- 5664 named destinations out of 6186 (max. 500000)
- 10554 words of extra memory for PDF output out of 12000 (max. 10000000)
+ 16114 PDF objects out of 18468 (max. 8388607)
+ 14983 compressed objects within 150 object streams
+ 5683 named destinations out of 6186 (max. 500000)
+ 10578 words of extra memory for PDF output out of 12000 (max. 10000000)
 
