@@ -3,12 +3,12 @@
 \contentsline {chapter}{Prologue}{xiv}{chapter*.3}%
 \contentsline {chapter}{Preface}{xviii}{chapter*.4}%
 \contentsline {chapter}{Preface}{xix}{chapter*.5}%
-\contentsline {chapter}{How to Use This Book}{xxiv}{chapter*.6}%
-\contentsline {chapter}{How to Use This Book}{xxv}{chapter*.7}%
-\contentsline {chapter}{Notation and Conventions}{xxxiv}{chapter*.8}%
-\contentsline {chapter}{Notation and Conventions}{xxxv}{chapter*.9}%
-\contentsline {chapter}{Acknowledgments}{xliii}{chapter*.10}%
-\contentsline {chapter}{Acknowledgments}{xliv}{chapter*.11}%
+\contentsline {chapter}{How to Use This Book}{xxiii}{chapter*.6}%
+\contentsline {chapter}{How to Use This Book}{xxiv}{chapter*.7}%
+\contentsline {chapter}{Notation and Conventions}{xxxiii}{chapter*.8}%
+\contentsline {chapter}{Notation and Conventions}{xxxiv}{chapter*.9}%
+\contentsline {chapter}{Acknowledgments}{xlii}{chapter*.10}%
+\contentsline {chapter}{Acknowledgments}{xliii}{chapter*.11}%
 \contentsline {part}{I\hspace {1em}Foundations}{1}{part.1}%
 \contentsline {chapter}{\numberline {1}Numbers and Base-3 Arithmetic}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Counting Systems Throughout History}{2}{section.1.1}%
@@ -1309,14 +1309,14 @@
 \contentsline {chapter}{Lean Theorem Cross-Reference}{696}{appendix*.29}%
 \contentsline {section}{\numberline {.91}Purpose}{696}{section.Alph0.91}%
 \contentsline {section}{\numberline {.92}Foundations and Field Equations (Part I -- Part III)}{696}{section.Alph0.92}%
-\contentsline {section}{\numberline {.93}Millennium Problems (Part IV)}{697}{section.Alph0.93}%
+\contentsline {section}{\numberline {.93}Millennium Problems (Part IV)}{698}{section.Alph0.93}%
 \contentsline {section}{\numberline {.94}Cosmology, Consciousness, and Computation (Parts V -- VII)}{698}{section.Alph0.94}%
 \contentsline {section}{\numberline {.95}Appendices}{699}{section.Alph0.95}%
 \contentsline {section}{\numberline {.96}Cross-Prover Parity}{699}{section.Alph0.96}%
 \contentsline {section}{\numberline {.97}Reproducing the Verification}{700}{section.Alph0.97}%
 \contentsline {chapter}{Glossary}{701}{appendix*.30}%
 \contentsline {chapter}{Glossary}{702}{appendix*.31}%
-\contentsline {chapter}{About the Author}{733}{appendix*.33}%
-\contentsline {chapter}{About the Author}{734}{appendix*.34}%
-\contentsline {chapter}{Epilogue}{739}{appendix*.35}%
-\contentsline {chapter}{Epilogue}{740}{appendix*.36}%
+\contentsline {chapter}{About the Author}{707}{appendix*.32}%
+\contentsline {chapter}{About the Author}{708}{appendix*.33}%
+\contentsline {chapter}{Epilogue}{713}{appendix*.34}%
+\contentsline {chapter}{Epilogue}{714}{appendix*.35}%
