@@ -1,50 +1,23 @@
 /-
 # PF.Referee.NoTrueOnClayPath
 
-**Date**: 2026-06-02
-**Status**: audit module. No proofs of Clay statements. No new claims.
-**Anchor commit**: ee51039.
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-Non-Negotiable Rule #1.
+Hand-audit at HEAD ee51039 of every `Prop := True` near a Clay-level
+proof path. Each entry is classified as ProvennessTag, ExternalAnchor,
+ParameterizedDelegated, or HiddenSemanticContent (a Rule #1 violation).
+The audit invariant `no_hidden_semantic_content` certifies zero
+violations at this commit.
 
-## Purpose
-
-The 2026-06-02 referee roadmap demands:
-
+Rule #1 (roadmap `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`):
 > No `def SomeClaim : Prop := True` may sit on a Clay-level proof path
-> unless it is explicitly tagged as a provenness tag and excluded from
-> claim content.
+> unless explicitly tagged as a provenness tag and excluded from claim
+> content.
 
-This file enumerates every `Prop := True` declaration that currently
-sits on or near a Clay-level proof path in the PF library, classifies
-each one as either a **provenness tag** (acceptable under Rule #1) or
-**hidden semantic content** (a violation), and documents the exclusion.
-
-## How this audit was constructed
-
-Hand-audit at HEAD `ee51039` of:
-
-* `PF/Wave57MasterCapstone.lean` — 9 `Prop := True` declarations
-* `PF/MillenniumReductionSoundness.lean` — 6 of 7 `ClayExternalStatement`
-  branches are `True`
-* `PF/HodgeAlgebraicRepresentation.lean` (referenced) — placeholder
-
-## Classification scheme
-
-A `Prop := True` is acceptable under Rule #1 if and only if:
-
-1. The name explicitly contains the word `Proven`, `Tag`, `Marker`,
-   `Anchor`, or `Provenness`.
-2. The declaration's docstring states it carries no claim content.
-3. No theorem on a Clay proof path consumes it as a hypothesis whose
-   content is then asserted as Clay-statement-level truth.
-
-Otherwise the `Prop := True` is **hidden semantic content** and the
-audit flags it as a violation requiring revision.
-
-The roadmap recommends the replacement pattern in
-`PF.Referee.StandardClayStatements`: replace `:= True` Clay-statement
-branches with parameterized predicates over an external encoding.
+A `Prop := True` qualifies as a non-violating tag iff (i) the name
+contains `Proven`/`Tag`/`Marker`/`Anchor`/`Provenness`, (ii) the
+docstring states it carries no claim content, and (iii) no Clay-path
+theorem consumes it as substantive hypothesis. The recommended
+replacement for substantive cases is the typed parameterised contract
+in `PF.Referee.StandardClayStatements`.
 -/
 
 namespace PF.Referee.NoTrueOnClayPath

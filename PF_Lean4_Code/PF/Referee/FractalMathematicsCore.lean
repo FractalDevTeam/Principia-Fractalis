@@ -1,61 +1,28 @@
 /-
 # PF.Referee.FractalMathematicsCore
 
-**Date**: 2026-06-02
-**Status**: structural formalization of the fractal-mathematics
-core underlying the Referee layer.
-**Anchor commit**: 2575d29.
+Explicit Lean encoding of the fractal-mathematical core that the
+Referee layer rests on implicitly. Formalises:
 
-## Purpose
-
-The Principia Fractalis framework is built on a specific
-fractal-mathematical core that the Lean Referee layer formalizes
-implicitly through the ternary Hilbert-space substrate
-`H_k = ℂ^(3^k)` and the Timeless Field projective system. This
-module makes the core EXPLICIT as Lean theorems and definitions,
-so a referee can read the philosophical content of the framework
-as machine-verified structural facts rather than free-floating prose.
-
-## What this module formalizes
-
-* **Eternality of the Timeless Field**: the TF level structure is
-  defined for every `k : ℕ`, with no minimum level (apart from the
-  base case `k = 0`) and no maximum level — `∀ k, ∃ k' > k, ...`.
-  This is the formal counterpart of "fractals have no beginning or
-  end by definition; they are eternal."
-* **Base-3 ternary self-similar scaling**: `dim H_k = 3^k` is
-  strictly monotone, and base-3 is the optimal radix (existing
-  theorem from `PF.RadixEconomy`).
-* **Masslessness of the TF carrier**: the Lean type
+* **Eternality of the TF**: TF levels defined for every `k : ℕ`,
+  no maximum level (`∀k, ∃k' > k, ...`).
+* **Base-3 self-similar scaling**: `dim H_k = 3^k` strictly monotone;
+  base-3 optimal-radix theorem from `PF.RadixEconomy`.
+* **Masslessness of the TF carrier**: the type
   `TimelessFieldLevelOperators k = Matrix (Fin (3^k)) (Fin (3^k)) ℂ`
-  has no mass parameter in its construction; this is a structural
-  fact about the type signature, not a physical claim.
-* **Information without mass**: the TF carrier supports nontrivial
-  operator-algebra content (matrix multiplication, trace, etc.)
-  while remaining mass-parameter-free.
-* **Consciousness as complexity threshold**: existing axiom-free
-  predicate `CrystallizesConsciousness ch2 := ch2.value ≥ 19/20`,
-  with `crystallization_witness_exists` from
-  `PF/Consciousness/TimelessField.lean` providing a concrete witness
-  at `ch_2 = 0.97`.
+  carries no mass parameter.
+* **Information without mass**: TF carrier supports non-trivial
+  operator-algebra content (multiplication, trace) while remaining
+  mass-parameter-free.
+* **Consciousness as complexity threshold**:
+  `CrystallizesConsciousness ch2 := ch2.value ≥ 19/20`, with the
+  existing `crystallization_witness_exists` witness at `ch_2 = 0.97`.
 
-## What this module does NOT claim
-
-This module does NOT prove:
-* that the Timeless Field IS the substrate of physical reality;
-* that the dark-energy / dark-matter 95% of existence is captured
-  by the TF carrier;
-* that energy can be "destroyed by removing complexity" as a
-  physical statement;
-* that the viewer is "always the center" in any operational sense
-  beyond the structural fact that every level admits identity
-  automorphisms;
-* that human-invented time is irrelevant to the framework's content.
-
-These are interpretive claims of the framework. This module
-formalizes the STRUCTURAL facts on which those interpretations rest.
-The interpretive content lives in the manuscript (Chapters 4, 6,
-26-28), not in the Lean.
+Honest scope: structural facts only. Does NOT claim that the TF is
+the substrate of physical reality, or that "energy can be destroyed
+by removing complexity" as a physical statement. The interpretive
+content lives in manuscript Chapters 4, 6, 26-28; this module formalises
+only the structural facts on which those interpretations rest.
 -/
 
 import PF.Consciousness.TimelessField

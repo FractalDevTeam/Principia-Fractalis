@@ -1,76 +1,32 @@
 /-
 # PF.CrossMillennium.AlphaValuesFirstPrinciples
 
-**Date**: 2026-06-03
-**Status**: axiom-free first-principles derivation of the framework α-values.
-**Anchor file**: `PF.CrossMillenniumSharedInvariants`
-         (concrete α-definitions α_Poincare = 1, α_RH = 3/2, α_YM = 2,
-          α_BSD = 3π/4, α_NS = 3π/2, α_P = √2, α_Hodge = φ, α_QG = √(2π))
-**Anchor file**: `PF.CrossMillenniumDerivedConsequences`
-         (rigidity theorem: the 11 invariants force α_YM=2, α_RH=3/2,
-          α_Poincare=1 from any AbstractAlphaSystem satisfying them)
-**Anchor file**: `PrincipiaTractalis.PNPClassSeparationPrecisionBridge`
-         (`alpha_PvsNP := 5/4` with skeleton-bracket bridge to α_RH)
+First-principles derivations of the framework α-values: each α is paired
+with its substrate-structural forcing reason and a typed theorem relating
+it to the other α's via norm_num/ring identities.
 
-## What this file does
+Substrate: `H_k = ℂ^(3^k)`. Ternary is forced as the minimum base
+admitting both binary choice (2 ≤ 3) and golden-ratio arithmetic
+(φ = (1+√5)/2 requires `5 = 3+2`, so base ≥ 3).
 
-The framework's α-values were historically GIVEN — asserted to match
-the analytic-content of each Millennium problem. This file strengthens
-the claim from "values asserted to match" to "values derived from the
-substrate structure". For each α we provide:
+| α-instance     | Value          | Forcing reason                              |
+|----------------|----------------|---------------------------------------------|
+| α_Poincare     | 1              | substrate identity / simply-connected anchor |
+| α_RH           | 3/2 = 1+1/2    | identity + critical-line position 1/2        |
+| α_YM           | 2 = 2·1        | gauge-symmetry Z/2 duality doubling          |
+| α_BSD          | 3π/4           | critical-strip deficit × π cyclic factor     |
+| α_NS           | 3π/2 = 2·α_BSD | vortex-stretching doubling                   |
+| α_PvNP         | 5/4 = 1+1/4    | polylog deficit                              |
 
-1. The substrate-structural FORCING reason (in doc-comment prose,
-   referee-readable).
-2. A typed THEOREM relating the α to other α-values via
-   substrate-grounded identities (norm_num / ring / rewrite-only).
+Cross-references:
+* `PF.CrossMillenniumSharedInvariants` — concrete α-definitions.
+* `PF.CrossMillenniumDerivedConsequences` — rigidity theorem: any
+  abstract system satisfying the 11 invariants algebraically forces
+  (α_YM, α_RH, α_Poincare) = (2, 3/2, 1).
+* `PrincipiaTractalis.PNPClassSeparationPrecisionBridge` — α_PvsNP = 5/4.
 
-The substrate is `H_k = ℂ^(3^k)` with ternary scaling — minimum-information
-base that admits both binary choice (2 ≤ 3) AND golden-ratio embedding
-(φ = (1+√5)/2 requires arithmetic on 5 = 3+2, so base must be ≥ 3).
-
-## Substrate-derived α-values
-
-| α-instance     | Value       | First-principles reason                                |
-|----------------|-------------|--------------------------------------------------------|
-| α_Poincare     | 1           | Substrate identity / simply-connected calibration      |
-| α_RH           | 3/2 = 1+1/2 | Substrate identity + critical-line position 1/2        |
-| α_YM           | 2 = 2·1     | Gauge-symmetry duality doubling of the identity α      |
-| α_BSD          | 3π/4        | 3/4 deficit from full critical strip × π cyclic factor |
-| α_NS           | 3π/2 = 2·α_BSD | Vortex-stretching doubling of α_BSD                 |
-| α_PvNP (=5/4)  | 1 + 1/4     | Polylog deficit 1/4 from the substrate identity        |
-
-## Cross-Millennium algebraic chain
-
-From the substrate-derived α-values, the chain
-   α_RH + alpha_PvNP = 3/2 + 5/4 = 11/4
-   α_RH · α_YM = 3/2 · 2 = 3
-emerges as a typed consequence — proved by `norm_num` from the
-substrate-derived definitions.
-
-## Honest scope
-
-* The α-values are FORCED by the substrate structure in the sense that
-  any redefinition breaking the chain produces a cascade of algebraic
-  inconsistencies (see `framework_alpha_values_match_rigidity` in
-  `CrossMillenniumDerivedConsequences`).
-* The "first principles" derivation is: ternary substrate + critical-line
-  geometry + cyclic-group factors + duality doubling.
-* This module does NOT discharge any Millennium problem. It strengthens
-  the framework's claim about its α-table from "asserted" to "forced".
-* The `α_NS = 2` form in early drafts is replaced by `α_NS = 2·α_BSD`
-  (the literal vortex doubling, the existing framework definition
-  α_NS = 3π/2 in `CrossMillenniumSharedInvariants`). The factor-of-2
-  is the substrate's vortex doubling; the π·3/4 base is α_BSD.
-
-## Cross-references
-
-* `PF.CrossMillenniumSharedInvariants` — concrete α-definitions
-* `PF.CrossMillenniumDerivedConsequences` — rigidity (any system
-  satisfying the 11 invariants algebraically forces (αYM, αRH, αPoincare)
-  = (2, 3/2, 1))
-* `PrincipiaTractalis.PNPClassSeparationPrecisionBridge` — α_PvsNP = 5/4
-
-ZERO project axioms.
+Honest scope: not a Millennium discharge. Strengthens the framework's
+α-table from "asserted" to "forced by substrate structure".
 -/
 
 import PF.CrossMillenniumSharedInvariants

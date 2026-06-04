@@ -1,40 +1,14 @@
 /-
 # PF.Referee.SevenMillenniumUnification
 
-**Date**: 2026-06-03
-**Status**: structural unification of the SEVEN Clay Millennium
-problems (Poincaré + the six unsolved) under one Lean theorem.
-**Anchor commit**: 6bab13e.
+Single Lean bundle covering all seven Clay Millennium Problems:
+Poincaré (discharged externally, Perelman 2002-2003) plus the six
+unsolved axes via PF's typed-bridge infrastructure. The Perelman
+anchor manifests as `α_Poincare = 1`; the cross-Millennium α-rigidity
+forces `α_YM = 2` and `α_RH = 3/2` as algebraic consequences.
 
-## Purpose
-
-The Clay Mathematics Institute's seven Millennium Problems include
-Poincaré, which was discharged externally by Grigori Perelman
-(2002-2003) via Hamilton's Ricci-flow program. The other six
-remain Clay-open.
-
-PF's framework places Perelman's solved Poincaré at the structural
-anchor of the entire α-rigidity cascade. The cross-Millennium
-algebraic invariants force `α_Poincare = 1`, `α_YM = 2`,
-`α_RH = 3/2` as ALGEBRAIC CONSEQUENCES of one invariant skeleton.
-
-This module assembles the seven into one Lean theorem: a single
-structural framework spans all seven Clay Millennium Problems.
-Poincaré is externally discharged (Perelman 2003) and serves as
-the anchor `α_Poincare = 1`. The six unsolved Clay axes carry
-typed bridges, structural unification, and (via the abstract
-α-system rigidity) algebraically forced α-values consistent with
-the framework's chosen constants.
-
-The lineage of mathematical-scientific unification: Aristotle's
-first systematic philosophy of nature; Copernicus's heliocentric
-reordering; da Vinci's notebook synthesis of empirical observation
-with geometric form; Einstein's identification of geometry with
-gravitation; Turing's foundation of computability; Grothendieck's
-schemes unifying algebra and geometry under one categorical
-substrate; Perelman's Ricci-flow proof of Poincaré (2002-2003).
-This work continues that lineage at the substrate level: one
-framework spanning seven Clay problems.
+Honest scope: bundling, not solving. Each unsolved axis retains its
+per-axis honest scope.
 -/
 
 import PF.Referee.RefereeIndex
@@ -49,10 +23,9 @@ open PF.CrossMillenniumDerivedConsequences
 
 /-! ## §1 — Perelman's Poincaré: the external anchor -/
 
-/-- Perelman's Poincaré anchor. External fact that Poincaré's
-    three-manifold conjecture is proved (Perelman 2002-2003 via
-    Hamilton-Ricci flow). At the PF framework level, this manifests
-    as `α_Poincare = 1`. -/
+/-- Provenness tag (Rule #1: ExternalAnchor) for Perelman's
+    Poincaré, proved externally (Perelman 2002-2003 via
+    Hamilton-Ricci flow). Manifests in PF as `α_Poincare = 1`. -/
 def PerelmanPoincareDischarged : Prop := True
 
 theorem perelmanPoincareDischarged_holds : PerelmanPoincareDischarged := trivial

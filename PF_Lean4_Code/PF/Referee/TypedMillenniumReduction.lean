@@ -1,49 +1,28 @@
 /-
 # PF.Referee.TypedMillenniumReduction
 
-**Date**: 2026-06-02
-**Status**: additive bridge — does not modify pre-existing files.
-**Anchor commit**: a2fb8d2 (parent ee51039).
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-"The Twelfth Object".
+Typed counterpart to `PF.MillenniumReductionSoundness`. The legacy
+module defines `ClayExternalStatement c := True` (a provenness tag);
+this module replaces those branches with the typed
+`Clay_*_Standard` contracts from `PF.Referee.StandardClayStatements`,
+parameterised over a bundle of the five external encodings.
 
-## Purpose
-
-The pre-existing `PF.MillenniumReductionSoundness` defines
-`ClayExternalStatement c := True` for every Clay axis. That is honest
-within its scope (a provenness tag) but it is NOT the typed standard
-Clay contract the 2026-06-02 roadmap demands.
-
-This module provides the **typed** counterpart that operates on the
-`Clay_*_Standard` contracts from `PF.Referee.StandardClayStatements`.
-It is additive: nothing in `PF.MillenniumReductionSoundness` or
-`PF.Wave57MasterCapstone` is touched.
-
-## What this module produces
-
-* `TypedClayExternalStatement` — a sum-typed standard Clay statement
-  parameterised over the five external encodings.
+Produces:
+* `TypedClayExternalStatement` — per-axis typed Clay-form proposition.
 * `MillenniumReductionSoundnessTyped` — the typed soundness Prop.
-* `all_clay_typed_via_soundness_and_capstones` — the typed analogue
-  of `all_clay_via_soundness_and_capstones`.
-* `typed_soundness_implies_legacy_soundness` — bridge to the original
-  `:= True` form: typed soundness is at least as strong as the legacy
-  soundness statement.
+* `all_clay_typed_via_soundness_and_capstones` — typed analogue of
+  `all_clay_via_soundness_and_capstones`.
+* `typed_soundness_implies_legacy_soundness` — bridge: typed soundness
+  is at least as strong as the legacy `:= True` form.
 
-## Honest scope
+Additive: nothing in `PF.MillenniumReductionSoundness` or
+`PF.Wave57MasterCapstone` is modified.
 
-This module does NOT discharge any Clay statement. It produces the
-*typed* form of the soundness Prop so future bridges can target it
-directly without going through `:= True` placeholders.
-
-The roadmap says (Section "The Twelfth Object"):
-
-> The key is that `RefereeContractsHold` must expand into named,
-> inspectable, problem-specific contracts. It must not contain `True`
-> placeholders, hidden semantic coercions, or opaque numerical
-> identifications.
-
-`TypedClayExternalStatement` is the named-and-inspectable form.
+Honest scope: not a Clay discharge. Produces the typed soundness
+shape so future bridges target it directly. Source roadmap
+`codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md` "The Twelfth Object":
+*RefereeContractsHold must expand into named, inspectable, problem-
+specific contracts; no True placeholders, no hidden coercions.*
 -/
 
 import PF.MillenniumReductionSoundness

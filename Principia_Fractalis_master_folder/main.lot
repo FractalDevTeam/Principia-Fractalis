@@ -1,7 +1,7 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Sacred geometry resonance values of $R_f(\alpha , s)$}}{52}{table.3.1}%
+\contentsline {table}{\numberline {3.1}{\ignorespaces Canonical resonance values of $R_f(\alpha , s)$ per millennium problem (corrected 2026-05-18 to match the Per-Millennium $\alpha $-Dictionary; prior NS=$5/3$, BSD=$\varphi +1/3$, Hodge=$\pi /2$ did not match the canonical values used in Ch~\ref {ch:navier-stokes}, Ch~\ref {ch:birch-swinnerton-dyer}, Ch~\ref {ch:hodge-conjecture}).}}{52}{table.3.1}%
 \contentsline {table}{\numberline {3.2}{\ignorespaces Numerical verification of $R_f$ at critical $\alpha $ values}}{56}{table.3.2}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
@@ -15,66 +15,73 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {14.1}{\ignorespaces Symmetries and their associated conserved quantities in consciousness-modified gravity.}}{230}{table.14.1}%
+\contentsline {table}{\numberline {14.1}{\ignorespaces Symmetries and their associated conserved quantities in consciousness-modified gravity.}}{231}{table.14.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {18.1}{\ignorespaces Predicted relationship between integrated information $\Phi $ and Second Chern character $\text {ch}_2$ for various consciousness states.}}{292}{table.18.1}%
+\contentsline {table}{\numberline {18.1}{\ignorespaces Predicted relationship between integrated information $\Phi $ and Second Chern character $\text {ch}_2$ for various consciousness states.}}{293}{table.18.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {21.1}{\ignorespaces Convergence of ground state energy for $H_P$ as approximation level increases}}{328}{table.21.1}%
-\contentsline {table}{\numberline {21.2}{\ignorespaces Convergence of ground state energy for $H_{NP}$ as approximation level increases}}{328}{table.21.2}%
+\contentsline {table}{\numberline {21.1}{\ignorespaces Convergence of ground state energy for $H_P$ as approximation level increases}}{329}{table.21.1}%
+\contentsline {table}{\numberline {21.2}{\ignorespaces Convergence of ground state energy for $H_{NP}$ as approximation level increases}}{329}{table.21.2}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {23.2}{\ignorespaces Comparison with lattice QCD calculations\cite {morningstar1999glueball,chen2006glueball}}}{385}{table.23.2}%
+\contentsline {table}{\numberline {23.2}{\ignorespaces Comparison with lattice QCD calculations\cite {morningstar1999glueball,chen2006glueball}}}{387}{table.23.2}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {25.1}{\ignorespaces Spectral concentration for Hodge classes on test varieties}}{413}{table.25.1}%
+\contentsline {table}{\numberline {25.1}{\ignorespaces Spectral concentration for Hodge classes on test varieties}}{415}{table.25.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {26.1}{\ignorespaces Sensitivity of $\rho _\Lambda $ to consciousness parameters}}{428}{table.26.1}%
+\contentsline {table}{\numberline {26.1}{\ignorespaces Sensitivity of $\rho _\Lambda $ to consciousness parameters}}{430}{table.26.1}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {27.1}{\ignorespaces Predicted cosmological parameters: consciousness-modified vs standard}}{446}{table.27.1}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {29.1}{\ignorespaces Residuals $\Delta \mu = \mu _{\text {obs}} - \mu _{\text {theory}}$ in redshift bins. Consciousness-modified model reduces systematic bias and scatter, especially at $z < 1$ where consciousness is active.}}{470}{table.29.1}%
-\contentsline {table}{\numberline {29.2}{\ignorespaces BAO measurements vs model predictions. Consciousness-modified cosmology provides better match, especially for $H(z)$ at low $z$ where Hubble tension resides.}}{473}{table.29.2}%
-\contentsline {table}{\numberline {29.3}{\ignorespaces Parameter constraints (68\% confidence intervals). Consciousness-modified model measured $f_{\mathcal {C}} = 0.082$ matches theoretical prediction $f_{\mathcal {C}} = 0.08$. Similarly $z_* = 0.48$ matches prediction $z_* = 0.5$.}}{476}{table.29.3}%
+\contentsline {table}{\numberline {27.1}{\ignorespaces Predicted cosmological parameters: consciousness-modified vs standard}}{448}{table.27.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {table}{\numberline {29.1}{\ignorespaces Residuals $\Delta \mu = \mu _{\text {obs}} - \mu _{\text {theory}}$ in redshift bins. Consciousness-modified model reduces systematic bias and scatter, especially at $z < 1$ where consciousness is active.}}{472}{table.29.1}%
+\contentsline {table}{\numberline {29.2}{\ignorespaces BAO measurements vs model predictions. Consciousness-modified cosmology provides better match, especially for $H(z)$ at low $z$ where Hubble tension resides.}}{475}{table.29.2}%
+\contentsline {table}{\numberline {29.3}{\ignorespaces Parameter constraints (68\% confidence intervals). Consciousness-modified model measured $f_{\mathcal {C}} = 0.082$ matches theoretical prediction $f_{\mathcal {C}} = 0.08$. Similarly $z_* = 0.48$ matches prediction $z_* = 0.5$.}}{478}{table.29.3}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1}{\ignorespaces Zero spacing statistics vs Gaussian Unitary Ensemble predictions}}{600}{table.Alph0.1}%
-\contentsline {table}{\numberline {2}{\ignorespaces Selected high-altitude zeros}}{600}{table.Alph0.2}%
-\contentsline {table}{\numberline {3}{\ignorespaces Base-3 digit sum pattern (repeats with period 9)}}{601}{table.Alph0.3}%
-\contentsline {table}{\numberline {4}{\ignorespaces Resonance between sacred geometry and zero distribution}}{602}{table.Alph0.4}%
-\contentsline {table}{\numberline {5}{\ignorespaces History of Riemann zero computations}}{602}{table.Alph0.5}%
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {6}{\ignorespaces Mass gap predictions vs measurements}}{609}{table.Alph0.6}%
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {7}{\ignorespaces ch$_2$ threshold interpretation guide}}{618}{table.Alph0.7}%
-\contentsline {table}{\numberline {8}{\ignorespaces Diagnostic performance (CRS-R = Coma Recovery Scale-Revised)}}{618}{table.Alph0.8}%
-\contentsline {table}{\numberline {9}{\ignorespaces Prognostic value at 72 hours post-cardiac arrest (CPC = Cerebral Performance Category)}}{619}{table.Alph0.9}%
-\contentsline {table}{\numberline {10}{\ignorespaces Troubleshooting guide}}{621}{table.Alph0.10}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {table}{\numberline {11}{\ignorespaces Geometric Unity: Standard vs Fractal}}{630}{table.Alph0.11}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {12}{\ignorespaces Convergence Analysis for Various Basis Dimensions}}{656}{table.Alph0.12}%
-\contentsline {table}{\numberline {13}{\ignorespaces Ground State Energies}}{657}{table.Alph0.13}%
-\contentsline {table}{\numberline {14}{\ignorespaces Calabi-Yau Validation Results}}{659}{table.Alph0.14}%
-\contentsline {table}{\numberline {15}{\ignorespaces K3 Surface Validation Results}}{659}{table.Alph0.15}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {16}{\ignorespaces Universal Constant $\sigma _c = 0.95$ Across All Domains}}{663}{table.Alph0.16}%
-\contentsline {table}{\numberline {17}{\ignorespaces CMB Crystallization Parameters}}{664}{table.Alph0.17}%
+\contentsline {table}{\numberline {1}{\ignorespaces Zero spacing statistics vs Gaussian Unitary Ensemble predictions}}{614}{table.Alph0.1}%
+\contentsline {table}{\numberline {2}{\ignorespaces Selected high-altitude zeros}}{614}{table.Alph0.2}%
+\contentsline {table}{\numberline {3}{\ignorespaces Base-3 digit sum pattern (repeats with period 9)}}{615}{table.Alph0.3}%
+\contentsline {table}{\numberline {4}{\ignorespaces Resonance between sacred geometry and zero distribution}}{616}{table.Alph0.4}%
+\contentsline {table}{\numberline {5}{\ignorespaces History of Riemann zero computations}}{616}{table.Alph0.5}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6}{\ignorespaces Mass gap predictions vs measurements}}{623}{table.Alph0.6}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7}{\ignorespaces ch$_2$ threshold interpretation guide}}{632}{table.Alph0.7}%
+\contentsline {table}{\numberline {8}{\ignorespaces Diagnostic performance (CRS-R = Coma Recovery Scale-Revised)}}{632}{table.Alph0.8}%
+\contentsline {table}{\numberline {9}{\ignorespaces Prognostic value at 72 hours post-cardiac arrest (CPC = Cerebral Performance Category)}}{633}{table.Alph0.9}%
+\contentsline {table}{\numberline {10}{\ignorespaces Troubleshooting guide}}{635}{table.Alph0.10}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {11}{\ignorespaces Geometric Unity: Standard vs Fractal}}{644}{table.Alph0.11}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {12}{\ignorespaces Convergence Analysis for Various Basis Dimensions}}{670}{table.Alph0.12}%
+\contentsline {table}{\numberline {13}{\ignorespaces Ground State Energies}}{671}{table.Alph0.13}%
+\contentsline {table}{\numberline {14}{\ignorespaces Calabi-Yau Validation Results}}{673}{table.Alph0.14}%
+\contentsline {table}{\numberline {15}{\ignorespaces K3 Surface Validation Results}}{674}{table.Alph0.15}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {16}{\ignorespaces Universal Constant $\sigma _c = 0.95$ Across All Domains}}{677}{table.Alph0.16}%
+\contentsline {table}{\numberline {17}{\ignorespaces CMB Crystallization Parameters}}{678}{table.Alph0.17}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {18}{\ignorespaces Foundations and Field Equations.}}{695}{table.Alph0.18}%
+\contentsline {table}{\numberline {19}{\ignorespaces Millennium Problems.}}{696}{table.Alph0.19}%
+\contentsline {table}{\numberline {20}{\ignorespaces Cosmology, Consciousness, and Computation.}}{697}{table.Alph0.20}%
+\contentsline {table}{\numberline {21}{\ignorespaces Appendices.}}{697}{table.Alph0.21}%
+\contentsline {table}{\numberline {22}{\ignorespaces Cross-prover parity at HEAD \texttt {42990ea}.}}{698}{table.Alph0.22}%

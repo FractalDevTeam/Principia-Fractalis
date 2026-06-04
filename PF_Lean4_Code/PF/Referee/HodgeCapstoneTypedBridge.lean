@@ -1,49 +1,24 @@
 /-
 # PF.Referee.HodgeCapstoneTypedBridge
 
-**Date**: 2026-06-02
-**Status**: dim-2 substrate-level typed bridge with honest-scope flagging.
-**Anchor commit**: bd00393.
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-"Current Frontier Ledger" → Hodge row + "First Algebraic-Geometry
-Attack: Hodge".
+Wires the dim-2 general-surface clause of
+`hodge_full_dim_one_and_dim_two_capstone` to `Clay_Hodge_Standard`
+under `SmoothProjectiveComplexVariety := HodgeGeneralSurfaceSubstrate`.
+The `isAlgebraic` predicate is PF's `HodgeAlgebraicRepresentation`, a
+genuine 3-conjunct substrate predicate over (σ, rank-bound, λ) from
+Wave 6 — NOT `Prop := True`.
 
-## Purpose
-
-PF's strongest axiom-free Hodge content at HEAD bd00393 spans curve,
-K3, abelian surface, general surface, CY3 (2,2)-slice, and CY4
-(1,1)/(2,2)/(3,3)-slices — all substrate-level. The cleanest single
-combined master is `hodge_full_dim_one_and_dim_two_capstone`
-(PF/HodgeGeneralSurfaceDim2Substrate.lean) which bundles
-curve + K3 + abelian + general surface, all under
-`HodgeAlgebraicRepresentation X.toHodgeAmbient class_idx`.
-
-Critically, `HodgeAlgebraicRepresentation` is NOT `Prop := True` at
-the substrate level — it is a genuine 3-conjunct existential
-predicate over framework-anchored constants (σ, rank-bound, λ from
-Wave 6).
-
-This module wires the dim-2 general-surface clause of
-`hodge_full_dim_one_and_dim_two_capstone` to a typed
-`Clay_Hodge_Standard` contract under an encoding restricted to PF's
-`HodgeGeneralSurfaceSubstrate` ambient. The bridge is a REAL theorem
-under a restricted encoding.
-
-## Honest scope (foregrounded)
-
-The encoding restricts `SmoothProjectiveComplexVariety` to PF's
-`HodgeGeneralSurfaceSubstrate` (smooth projective complex surfaces
-at the substrate level). The `isAlgebraic` predicate is PF's
-`HodgeAlgebraicRepresentation`, a real 3-conjunct substrate-level
-predicate — NOT the literal geometric algebraicity of cycles.
-
-The full Clay Hodge statement on arbitrary smooth projective complex
-varieties at codimension >= 2 remains open via the named Props
+Honest scope: substrate-level only. Not literal geometric algebraicity
+of cycles. The full Clay statement at codim ≥ 2 on arbitrary smooth
+projective varieties remains open via the named Props
 `VoisinObstructionAtCodimTwoCY3` (Wave 33) and
 `Voisin2007_general_quintic_open_subprop` (Wave 57). The Wave 57
-Dwork-pencil closure (axiom-free, substrate-level) is a polished
-partial result; this bridge does NOT extend it to general smooth
-quintic.
+Dwork-pencil closure is axiom-free but does not extend to general
+smooth quintic.
+
+Source roadmap: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
+("Current Frontier Ledger" → Hodge row + "First Algebraic-Geometry
+Attack: Hodge").
 -/
 
 import PF.HodgeCurveDim1Substrate

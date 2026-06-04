@@ -1,49 +1,27 @@
 /-
 # PF.Referee.NSCapstoneTypedBridge
 
-**Date**: 2026-06-02
-**Status**: open-frontier inventory + honest-scope marker.
-**Anchor commit**: bd00393.
-**Source roadmap**: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
-"Current Frontier Ledger" → NavierStokes row.
+Two-part bridge for the Navier-Stokes axis:
 
-## Purpose
+* `NS_OpenFrontier` — names the two Wave 57 mathlib gaps
+  (`MathlibPMath1` = H^s_σ inner-product scaffold; `MathlibPMath2` =
+  Leray projection) that the `NS3D_HsSigmaScaffold` factored through.
+  Wave 33's `UniformHadamardBoundAllN` is now discharged axiom-free at
+  HEAD 49d91dc (`hadamard_norm_pointwise_bound` in `NSPDETypedUpgrade`),
+  so the frontier shrunk from three gaps to two.
+* `PF_NS3DEncoding` + `PF_NS_capstone_yields_Clay_NavierStokes_standard`
+  — re-exports of the genuine typed encoding on mathlib `SchwartzMap`
+  from `PF.NavierStokes.NSPDETypedUpgrade` (HEAD 49d91dc).
 
-The PF Navier-Stokes capstone `navier_stokes_via_fractal_emergence_typed`
-(PF/MillenniumSixReductions.lean) concludes
-`NavierStokesGlobalSmoothness_typed` whose underlying predicate
-`NavierStokesGlobalSmoothPredicate A` is `Prop := True`. Per the
-NoTrueOnClayPath audit this is currently `ParameterizedDelegated`:
-it has no genuine PDE content at HEAD bd00393 and any typed bridge
-that wires `hasGlobalSmoothSolution := NavierStokesGlobalSmoothPredicate`
-would push `Prop := True` onto a Clay path — violating Rule #1.
+Honest scope: at HEAD bd00393 no typed bridge was offered because the
+NS capstone bottomed out at `NavierStokesGlobalSmoothPredicate := True`
+(Rule #1 violation if wired to `hasGlobalSmoothSolution`). Wave 58's
+NS PDE typed upgrade landed the real encoding, which we re-export.
+Not a literal Clay-form regularity discharge on Schwartz divergence-
+free initial data — that requires the two remaining mathlib gaps.
 
-Therefore this module does NOT construct a `PF_NS3DEncoding` and does
-NOT prove a typed Clay-form NS contract. Instead it does what the
-RH and PNP bridges did at the *frontier* level: it names the precise
-mathematical content that must land before any honest typed NS
-bridge can exist.
-
-## What this module produces
-
-* `NS_OpenFrontier` — Prop conjoining the two Wave 57-named mathlib
-  residuals (`MathlibPMath1`, `MathlibPMath2`) that the
-  `NS3D_HsSigmaScaffold` factored through, AND the Wave 33 named
-  open Prop `UniformHadamardBoundAllN`. Together these are the
-  mathlib-content gap blocking a genuine NS regularity result.
-* `pf_NS_typed_bridge_blocked_by_open_frontier` — a documentation
-  theorem explaining why no honest typed NS bridge is offered at
-  HEAD bd00393.
-
-## Honest scope (this is the bridge)
-
-The PF NS attack is at the *scaffold* level: Wave 57's H^s_σ scaffold
-+ Wave 33's Galerkin K=2 bound + Wave 55A's genuine convolution at
-one wave-vector. None of these is a Clay-form regularity result on
-divergence-free Schwartz initial data on ℝ³. The honest typed bridge
-must wait for either (a) the named mathlib gaps to land or
-(b) the framework to produce a non-`True` `hasGlobalSmoothSolution`
-predicate the Wave 57 scaffold actually computes against.
+Source roadmap: `codex/MILLENNIUM_REFEREE_ROADMAP_2026-06-02.md`
+("Current Frontier Ledger" → NavierStokes row).
 -/
 
 import PF.NS3D_HsSigmaScaffold
@@ -72,15 +50,12 @@ def NS_OpenFrontier : Prop :=
   -- (`MathlibPMath1` = H^s_σ inner-product scaffold,
   -- `MathlibPMath2` = Leray projection).
 
-/-- **No honest typed NS bridge at HEAD bd00393.** A documentation
-    marker stating that no `PF_NS3DEncoding` with non-trivial
-    `hasGlobalSmoothSolution` could be supplied at THAT commit, because
-    PF's NS capstone bottomed out in `NavierStokesGlobalSmoothPredicate
-    := True`. As of HEAD 49d91dc (`PF/NavierStokes/NSPDETypedUpgrade.lean`)
-    a real typed encoding `PF.NavierStokes.NSPDETypedUpgrade.PF_NS3DEncoding`
-    is available on mathlib `SchwartzMap`, and Wave 33's
-    `UniformHadamardBoundAllN` is discharged axiom-free. The bridge
-    below re-exports that typed encoding into the Referee namespace. -/
+/-- Provenness tag (ProvennessTag): documentation marker. At HEAD
+    bd00393 no typed NS bridge could be supplied because the NS capstone
+    bottomed out at `NavierStokesGlobalSmoothPredicate := True`. As of
+    HEAD 49d91dc a real typed encoding lives in
+    `PF.NavierStokes.NSPDETypedUpgrade`; the §2 block below re-exports
+    it into the Referee namespace. -/
 theorem pf_NS_typed_bridge_blocked_by_open_frontier : True := trivial
 
 /-! ## §2 — Real typed-bridge re-export (HEAD 49d91dc onward)
