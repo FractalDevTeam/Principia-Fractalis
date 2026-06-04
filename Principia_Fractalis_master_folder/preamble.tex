@@ -685,4 +685,24 @@
   \footnote{\textbf{Manuscript Correction (Lean cross-check, Wave 55):} #1}%
 }
 
+% ============================================
+% EMPIRICAL-CLAIM SCOPE MARKER
+% ============================================
+%
+% \empiricalclaim{citation/dataset detail} renders a footnote
+% explicitly marking the preceding numerical claim as an
+% empirical / observational result derived from the cited
+% dataset, NOT a Lean-formalized theorem. Used to separate
+% chapter-level statistical claims (goodness-of-fit, clinical
+% accuracy, p-values, etc.) from the project's machine-checked
+% Lean content. Added in response to the 2026-06-04 referee
+% review (MINOR severity finding: "chapter-level empirical
+% claims need explicit scope markers").
+\newcommand{\empiricalclaim}[1]{%
+  \footnote{\textbf{Empirical/observational claim:} this numerical
+  value is derived from the cited dataset, not from a Lean-internal
+  derivation. Independent reproduction from primary sources is
+  required for referee verification. Dataset / source: #1}%
+}
+
 % End of preamble

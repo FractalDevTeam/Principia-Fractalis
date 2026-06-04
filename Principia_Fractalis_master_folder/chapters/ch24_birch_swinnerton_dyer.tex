@@ -339,7 +339,17 @@ This formula has been verified for:
 \item Success rate: 100\% in tested cases
 \end{itemize}
 
-Statistical significance comparable to other millennium problem validations ($p < 10^{-40}$).
+Statistical significance comparable to other millennium problem validations ($p < 10^{-40}$).%
+\empiricalclaim{Cremona database \cite{cremona1997algorithms} of
+elliptic curves with conductor $N_E < 1000$; random sampling with
+$N_E < 100{,}000$. The Lean stack verifies the rank-blind
+concordance on the Fin\,6 LMFDB-restricted encoding plus the
+rank-1 Heegner cascade on $E_{37.\text{a}1}$ / $E_{43.\text{a}1}$
+(theorems \texttt{BSD\_HeegnerRank1Proof.bsd\_rank\_one\_E37a1\_via\_heegner\_and\_GZ\_K}
+and \texttt{BSD\_HeegnerRank1ProofE43a1.bsd\_rank\_one\_E43a1\_via\_heegner\_and\_GZ\_K},
+both conditional on Gross-Zagier and Kolyvagin); it does NOT
+verify the empirical 100\% success rate across the full Cremona
+sample.}
 \end{remark}
 
 \subsection{Algorithm}
