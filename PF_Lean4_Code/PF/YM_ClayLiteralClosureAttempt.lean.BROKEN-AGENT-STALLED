@@ -164,6 +164,11 @@ InnerProductSpace ℝ + CompleteSpace + FiniteDimensional` instances. -/
     `interactingHam.mulVec` API. -/
 abbrev H_Wightman : Type := EuclideanSpace ℝ (Fin 2)
 
+/-- **The Schwartz space `𝓢(ℝ⁴, ℝ)`** as a typed abbreviation — real-valued
+    Schwartz functions on Euclidean 4-space. This is the Wightman field
+    test-function space. -/
+abbrev SchwartzSpaceR4 : Type := SchwartzMap (EuclideanSpace ℝ (Fin 4)) ℝ
+
 noncomputable example : NormedAddCommGroup H_Wightman := inferInstance
 noncomputable example : InnerProductSpace ℝ H_Wightman := inferInstance
 example : CompleteSpace H_Wightman := inferInstance
@@ -220,7 +225,7 @@ theorem OS_eigvec_three_halves_ne_zero :
     OS_eigvec_three_halves ≠ 0 := by
   intro h
   have h0 : OS_eigvec_three_halves 0 = (0 : H_Wightman) 0 := by rw [h]
-  simp [OS_eigvec_three_halves, EuclideanSpace.zero_apply] at h0
+  simp [OS_eigvec_three_halves, PiLp.zero_apply] at h0
 
 /-- **★ The OS Hamiltonian has `3/2` as an eigenvalue ★** — the
     Wave 55C identity lifted to the CLM:
@@ -243,7 +248,7 @@ noncomputable def OS_eigvec_one_half : H_Wightman := ![1, -1]
 theorem OS_eigvec_one_half_ne_zero : OS_eigvec_one_half ≠ 0 := by
   intro h
   have h0 : OS_eigvec_one_half 0 = (0 : H_Wightman) 0 := by rw [h]
-  simp [OS_eigvec_one_half, EuclideanSpace.zero_apply] at h0
+  simp [OS_eigvec_one_half, PiLp.zero_apply] at h0
 
 theorem H_OS_Wightman_eigenvalue_one_half :
     H_OS_Wightman OS_eigvec_one_half =
@@ -281,7 +286,7 @@ theorem os_evaluation_points_distinct : os_x1 ≠ os_x2 := by
   intro h
   -- Apply the 0-th coordinate: LHS = 0, RHS = 1.
   have h0 : os_x1 0 = os_x2 0 := by rw [h]
-  simp [os_x1, os_x2, EuclideanSpace.zero_apply, EuclideanSpace.single_apply] at h0
+  simp [os_x1, os_x2, PiLp.zero_apply, PiLp.single_apply] at h0
 
 /-- **The OS embedding as a linear map** — `f ↦ ![f x₁, f x₂]`. This
     realises the Dirac-delta-based action of tempered distributions on
@@ -296,7 +301,7 @@ noncomputable def osEmbed : SchwartzSpaceR4 →ₗ[ℝ] H_Wightman where
     fin_cases i <;> simp [SchwartzMap.add_apply]
   map_smul' c f := by
     funext i
-    fin_cases i <;> simp [SchwartzMap.smul_apply, EuclideanSpace.smul_apply,
+    fin_cases i <;> simp [SchwartzMap.smul_apply, PiLp.smul_apply,
                           Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons]
 
 /-- **The OS embedding's first coordinate is `δ_{x₁}(f) = f x₁`**. -/
@@ -338,9 +343,9 @@ theorem osEmbed_symmetric_eq_smul_eigvec
   funext i
   fin_cases i
   · simp [osEmbed, OS_eigvec_three_halves,
-          EuclideanSpace.smul_apply, Matrix.cons_val_zero]
+          PiLp.smul_apply, Matrix.cons_val_zero]
   · simp [osEmbed, OS_eigvec_three_halves, hf_sym,
-          EuclideanSpace.smul_apply, Matrix.cons_val_one, Matrix.head_cons]
+          PiLp.smul_apply, Matrix.cons_val_one, Matrix.head_cons]
 
 /-- **★ THE LITERAL ACTION ★** — on a symmetric Schwartz function
     `f` with `f x₁ = f x₂`, the OS Hamiltonian acts on the embedded
