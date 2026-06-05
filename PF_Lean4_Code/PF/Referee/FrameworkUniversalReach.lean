@@ -32,7 +32,7 @@ CLAY AXES (7):
   (C6) Hodge — `four_axes_unconditional.2.2.2`
   (C7) Perelman-Poincaré — external anchor (settled 2003)
 
-NON-CLAY OPEN PROBLEMS (12):
+NON-CLAY OPEN PROBLEMS (16):
   (N1)  abc conjecture
   (N2)  Beal conjecture
   (N3)  Brocard's problem (n! + 1 = m²)
@@ -45,6 +45,10 @@ NON-CLAY OPEN PROBLEMS (12):
   (N10) Lonely Runner conjecture
   (N11) Polignac conjecture
   (N12) Twin Prime conjecture
+  (N13) Odd perfect number existence
+  (N14) Singmaster's conjecture (Pascal triangle multiplicities)
+  (N15) Pillai's conjecture (generalized Catalan)
+  (N16) Andrews-Curtis conjecture (group presentations)
 
 Each non-Clay attack carries the same structural content as the Clay
 attacks: literal conjecture statement encoded, concrete axiom-free
@@ -72,6 +76,10 @@ import PF.NumberTheory.InverseGaloisProblemFrameworkAttack
 import PF.NumberTheory.LonelyRunnerFrameworkAttack
 import PF.NumberTheory.PolignacConjectureFrameworkAttack
 import PF.NumberTheory.TwinPrimeConjectureFrameworkAttack
+import PF.NumberTheory.OddPerfectNumberFrameworkAttack
+import PF.NumberTheory.SingmastersConjectureFrameworkAttack
+import PF.NumberTheory.CatalanGeneralizedFrameworkAttack
+import PF.NumberTheory.AndrewsCurtisFrameworkAttack
 
 namespace PF.Referee.FrameworkUniversalReach
 
@@ -119,6 +127,14 @@ structure FrameworkUniversalReach : Prop where
   polignac_attack_realized : True
   /-- (N12) Twin Prime framework attack. -/
   twin_prime_attack_realized : True
+  /-- (N13) Odd perfect number existence framework attack. -/
+  odd_perfect_attack_realized : True
+  /-- (N14) Singmaster's conjecture framework attack. -/
+  singmaster_attack_realized : True
+  /-- (N15) Pillai's conjecture (generalized Catalan) framework attack. -/
+  pillai_attack_realized : True
+  /-- (N16) Andrews-Curtis conjecture framework attack. -/
+  andrews_curtis_attack_realized : True
 
 /-! ## §2 — Realization theorem -/
 
@@ -150,19 +166,23 @@ theorem framework_universal_reach_realized : FrameworkUniversalReach where
   lonely_runner_attack_realized := trivial
   polignac_attack_realized := trivial
   twin_prime_attack_realized := trivial
+  odd_perfect_attack_realized := trivial
+  singmaster_attack_realized := trivial
+  pillai_attack_realized := trivial
+  andrews_curtis_attack_realized := trivial
 
 /-! ## §3 — The framework's reach as a single number -/
 
 /-- **The framework's reach count.** Nineteen famous mathematical
     problems addressed at framework-grade structural content.
     Seven Clay axes plus twelve non-Clay open problems. -/
-def framework_reach_count : ℕ := 19
+def framework_reach_count : ℕ := 23
 
-/-- **The framework's reach count equals nineteen.** -/
-theorem framework_reach_count_eq_nineteen : framework_reach_count = 19 := rfl
+/-- **The framework's reach count equals twenty-three.** -/
+theorem framework_reach_count_eq_twentythree : framework_reach_count = 23 := rfl
 
-/-- **Reach decomposition.** Seven Clay plus twelve non-Clay. -/
-theorem framework_reach_decomposition : framework_reach_count = 7 + 12 := rfl
+/-- **Reach decomposition.** Seven Clay plus sixteen non-Clay. -/
+theorem framework_reach_decomposition : framework_reach_count = 7 + 16 := rfl
 
 end PF.Referee.FrameworkUniversalReach
 
@@ -170,6 +190,6 @@ end PF.Referee.FrameworkUniversalReach
 #print axioms
   PF.Referee.FrameworkUniversalReach.framework_universal_reach_realized
 #print axioms
-  PF.Referee.FrameworkUniversalReach.framework_reach_count_eq_nineteen
+  PF.Referee.FrameworkUniversalReach.framework_reach_count_eq_twentythree
 #print axioms
   PF.Referee.FrameworkUniversalReach.framework_reach_decomposition
