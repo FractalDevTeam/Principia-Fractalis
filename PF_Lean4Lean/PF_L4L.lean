@@ -25,6 +25,7 @@ GATED (currently un-buildable; see README.md "Architectural Gap" section):
 import PF_L4L.Core.SpectralGap
 import PF_L4L.Ch21.PNP
 import PF_L4L.Referee.FlagshipReverification
+import PF_L4L.Referee.V2AndMasterReverification
 
 -- Gated modules: kept in the source tree for the future PF-namespace
 -- refactor; they do NOT participate in the current build.
