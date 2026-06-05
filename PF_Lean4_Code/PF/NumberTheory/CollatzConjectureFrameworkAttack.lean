@@ -548,7 +548,7 @@ structure CollatzFrameworkAttack where
     encoded, concrete witnesses landed, α-bridge to existing
     skeleton, typed Props naming the precise published / open
     content. -/
-theorem collatz_framework_attack_capstone : CollatzFrameworkAttack where
+def collatz_framework_attack_capstone : CollatzFrameworkAttack where
   sanity_one_to_four := collatzStep_one
   twenty_witnesses := twenty_collatz_witnesses
   alpha_bracket := alpha_Collatz_in_bracket
