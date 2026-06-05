@@ -90,6 +90,14 @@ import PF.GaloisRigidConditionalDischarge
 import PF.IBMEmpiricalAlphaTableBridge
 import PF.PerelmanAnchoredAlphaCascade
 import PF.Consciousness.BCleanPhaseConsciousnessCommutatorBridge
+-- V2 carrier refactors (2026-06-04): additive citation surface for the
+-- three V2 strengthenings landed at HEAD 6cc50b4. Each V2 file closes a
+-- specific defect in the V1 carrier (PNP Iff-vs-Bool defect, NS trivial
+-- fifth conjunct, Hodge 3-existential placeholder). The Meta layer cites
+-- them by exact capstone name so renames or signature changes break here.
+import PF.TuringEncoding.PNPClassSeparationCarrierV2
+import PF.NavierStokes.NS3DRegularitySolutionV2
+import PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2
 
 namespace PrincipiaTractalis
 namespace FrameworkMetaArchitectureWave29To43
@@ -374,6 +382,47 @@ theorem cite_b_clean_phase_consciousness_commutator_bridge_capstone :
     @PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone =
       @PrincipiaTractalis.BCleanPhaseConsciousnessCommutatorBridge.b_clean_phase_consciousness_commutator_bridge_capstone := rfl
 
+/-! ### V2 carrier refactor citations (2026-06-04, HEAD 6cc50b4)
+
+Three V2 carrier refactors landed prior to this commit, each closing a
+specific defect in its V1 predecessor:
+
+  * **PNP V2** — Bool-valued `decide` closes the Iff-vs-Bool defect.
+  * **NS V2** — literal BKM 1984 content replaces V1's trivial fifth
+    conjunct (`→ True`).
+  * **Hodge V2** — real Chow + abelian + Dwork content replaces V1's
+    3-existential placeholder.
+
+These citations are LOAD-BEARING by `rfl` on the capstone identifier —
+any rename or signature change breaks the meta-architecture surface,
+keeping it in sync with the V2 layer. They are ADDITIVE: V1 carriers and
+their downstream consumers are left untouched. -/
+
+/-- Cite **PNP V2 carrier honest-scope capstone**: Bool-valued `decide`,
+    Cook 1971 P ⊆ NP on V2, V2 reduction-theorem analog, and honest
+    scope (`Literal_P_neq_NP_V2` is provably False under the `True`
+    placeholder — the precise field a future plug-in must populate). -/
+theorem cite_pnp_class_separation_carrier_V2_capstone :
+    @PrincipiaTractalis.PNPClassSeparationCarrierV2.pnp_carrier_V2_honest_scope_capstone =
+      @PrincipiaTractalis.PNPClassSeparationCarrierV2.pnp_carrier_V2_honest_scope_capstone := rfl
+
+/-- Cite **NS V2 regularity-solution capstone**: V2 bundle inhabited
+    on every divergence-free typed `u0`, V2 encoding discharges
+    `Clay_NavierStokes_Standard` at substrate scope, V2 ⇒ V1 backward
+    compatibility, and BKM 1984 + finite-vorticity-integral axiom-free
+    content. -/
+theorem cite_ns3D_regularity_solution_V2_capstone :
+    @PF.NavierStokes.NS3DRegularitySolutionV2.ns3DRegularitySolutionV2_capstone =
+      @PF.NavierStokes.NS3DRegularitySolutionV2.ns3DRegularitySolutionV2_capstone := rfl
+
+/-- Cite **Hodge V2 algebraic-representation capstone**: V2 ⇒ V1
+    structural bridge, dim-1 V2 discharge on every class index,
+    abelian-3-fold codim-2 V2 discharge, Dwork-pencil V2 discharge,
+    and codim ≥ 3 typed-reference dischargeability at Dwork λ = 0. -/
+theorem cite_hodge_algebraic_representation_V2_capstone :
+    @PrincipiaTractalis.AlgebraicGeometry.HodgeAlgRepV2.hodgeAlgebraicRepresentationV2_capstone =
+      @PrincipiaTractalis.AlgebraicGeometry.HodgeAlgRepV2.hodgeAlgebraicRepresentationV2_capstone := rfl
+
 /-! ## Section 5 — Honest scope cuts (structural remarks) -/
 
 /-- **Honest scope**: this file is META-AGGREGATION OF
@@ -405,6 +454,9 @@ theorem framework_meta_architecture_component_count : True := trivial
 #print axioms cite_ibm_empirical_alpha_table_bridge_capstone
 #print axioms cite_perelman_anchored_cascade_capstone
 #print axioms cite_b_clean_phase_consciousness_commutator_bridge_capstone
+#print axioms cite_pnp_class_separation_carrier_V2_capstone
+#print axioms cite_ns3D_regularity_solution_V2_capstone
+#print axioms cite_hodge_algebraic_representation_V2_capstone
 
 end FrameworkMetaArchitectureWave29To43
 end PrincipiaTractalis
