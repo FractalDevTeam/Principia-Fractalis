@@ -76,7 +76,7 @@ implication \texttt{PFSubstrateAntecedents} $\to$
 unconditional companion
 \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}.
 
-\textbf{Build state at HEAD commit \texttt{85d6bae}:}
+\textbf{Build state at HEAD commit \texttt{42990ea}:}
 $4030$ jobs clean under \texttt{lake build PF}; zero project
 axioms; the substrate theorem depends only on Lean's three
 foundational axioms \texttt{propext},
@@ -138,11 +138,8 @@ Chapter~\ref{ch:constants} (e.g.\ $\alpha_{\text{YM}}
 \item[\textnormal{(A3) Perelman anchor.}]
 $\alpha_{\text{Poincar\'e}} = 1$. Grigori Perelman's 2002--2003
 proof of the Poincar\'e conjecture (via Hamilton-Ricci flow)
-\cite{perelman2002entropy,perelman2003ricci,perelman2003finite},
-verified by Cao--Zhu 2006~\cite{caozhu2006}, Morgan--Tian
-2007~\cite{morgantian2007}, and Kleiner--Lott
-2008~\cite{kleinerlott2008}, fixes the rigidity skeleton's anchor
-value; the framework records this as a substrate-level postulate.
+fixes the rigidity skeleton's anchor value; the framework
+records this as a substrate-level postulate.
 
 \item[\textnormal{(A4) IBM 9-way empirical anchor.}]
 Under any noise model satisfying the explicit
@@ -187,7 +184,7 @@ inhabited by an existing axiom-free theorem in the project:
 \end{itemize}
 Consequently the antecedents are not merely postulated~--- they
 are themselves machine-verified, axiom-free, at HEAD commit
-\texttt{85d6bae}.
+\texttt{42990ea}.
 \end{theorem}
 
 \section{The Substrate Consequences}
@@ -230,7 +227,7 @@ and
 \texttt{BSD\_HeegnerRank1ProofE43a1.\\bsd\_rank\_one\_E43a1\_via\_heegner\_and\_GZ\_K}.
 Honest scope: conditional on Gross-Zagier + Kolyvagin
 (both classical, both cited; not formalized in mathlib at
-HEAD~\texttt{85d6bae}).
+HEAD~\texttt{42990ea}).
 
 \item[\textnormal{(C4) Navier-Stokes 3D smoothness.}]
 $\alpha_{\text{NS}} = 2 \alpha_{\text{BSD}}$, and the
@@ -673,7 +670,7 @@ The proposition
 \]
 holds. Equivalently: every consequence (C1)--(C25) of
 \S\ref{sec:substrate-consequences} is machine-verified,
-axiom-free, at HEAD commit \texttt{85d6bae}, without consuming
+axiom-free, at HEAD commit \texttt{42990ea}, without consuming
 the substrate antecedents.
 
 \textbf{Lean source:} same file as above, theorem
@@ -825,7 +822,7 @@ continuum discharge --- the literal continuum-limit existence on
 $\ell^2(\mathbb{R})$ with the four Wightman axioms remains the
 mathlib gap.
 
-\item \textbf{RH typed-bridge V2 (added in V2.1.1, HEAD \texttt{85d6bae}).}
+\item \textbf{RH typed-bridge V2 (added in V2.1.1, HEAD \texttt{700bb29}).}
 \texttt{PF.Referee.RHCapstoneTypedBridgeV2}. Sixth-axis V2 refactor.
 Reduces the V1 capstone's TWELVE-parameter signature to a
 TWO-parameter signature
@@ -848,7 +845,7 @@ RH depth; the encoding's \texttt{hev} field requires the
 compact-operator spectral theorem for $T_3^{\mathrm{sym}}$
 (mathlib gap unchanged). NOT a Clay discharge.
 
-\item \textbf{P vs NP carrier V3 (added in V2.1.1, HEAD \texttt{85d6bae}).}
+\item \textbf{P vs NP carrier V3 (added in V2.1.1, HEAD \texttt{700bb29}).}
 \texttt{PF.TuringEncoding.PNPClassSeparationCarrierV3}. Strict
 strengthening of P~vs~NP V2 above. Replaces the V2
 \texttt{computability~:~True} placeholder with a REAL constraint
@@ -878,7 +875,7 @@ Single citable \texttt{pnp\_carrier\_V3\_honest\_scope\_capstone}
 
 \noindent\textbf{What V2 changes about the substrate theorem.}
 The substrate theorem of Theorem~\ref{thm:pf-substrate-theorem} is
-preserved \emph{verbatim} at HEAD~\texttt{85d6bae}; V2 does NOT edit
+preserved \emph{verbatim} at HEAD~\texttt{42990ea}; V2 does NOT edit
 it. What V2 supplies is five \emph{stronger encodings} on which the
 per-axis consequences C1--C6 can be re-read: a referee who accepts a
 V2 encoding has accepted strictly more substrate content than under
@@ -890,122 +887,6 @@ V2 is NOT a Clay discharge. The six unsolved Clay axes remain
 unsolved. The honest scope of Section~\ref{sec:substrate-honest-scope}
 applies in full, with each per-axis gap now localised to its V2 named
 clause as recorded above.
-
-\subsection{Beyond Clay: substrate-level treatment of 16 non-Clay
-open problems}
-\label{sec:beyond-clay-reach}
-
-The substrate that yields the six Clay axes as coupled sub-stories
-also yields a structurally analogous joint treatment of sixteen
-\emph{non-Clay} open problems. The pattern is the same: each axis
-receives a framework-attack module in the Lean tree at the path
-\texttt{PF/NumberTheory/<problem>FrameworkAttack.lean}; the module
-exposes the literal published-conjecture encoding, concrete
-axiom-free witnesses on small cases, the
-$\alpha$-skeleton bridge, the framework's $3^{k}$ substrate match,
-and the named published partial results. All sixteen modules are
-indexed by a single record,
-\texttt{PF.Referee.FrameworkUniversalReach.}
-\texttt{framework\_universal\_reach\_realized}
-(\texttt{FrameworkUniversalReach.lean}, line~153 at
-HEAD~\texttt{85d6bae}), which bundles the sixteen non-Clay axes
-together with the seven Clay axes as a single citation point
-($23 = 7 + 16$).
-
-\medskip
-
-\noindent\textbf{Bundle-field discipline (load-bearing honest scope).}
-Of the 17 fields in the
-\texttt{FrameworkUniversalReach} record, \textbf{15 are typed as}
-$\mathtt{:\,True}$ (i.e.\ provenness tags carrying no mathematical
-content at the record-level aggregation; their substantive content
-lives in the per-axis framework-attack modules referenced by the
-record file header). The only two fields that carry non-trivial
-framework $\mathtt{Prop}$s at the record level are
-\texttt{brocard\_attack\_realized}~:~$\mathtt{BrocardFrameworkAttack}$
-and
-\texttt{hadwiger\_nelson\_attack\_realized}~:~$\mathtt{Hadwiger\\
-NelsonFrameworkAttack}$.
-The honest-scope reading is therefore: \emph{the record is a single
-citation point indexing the per-axis modules; only Brocard and
-Hadwiger--Nelson are bundled with non-trivial framework Props at the
-record level itself}. The companion paper
-\texttt{Papers/clay\_substrate\_reformulation\_v1.tex} \S6 records
-the same bundle-field discipline and is the model for the
-honest-scope reading; the present subsection mirrors that paper's
-prose at chapter level.
-
-\medskip
-
-\noindent\textbf{The sixteen non-Clay axes and their module paths.}
-In the order recorded in
-\texttt{PF.Referee.FrameworkUniversalReach}:
-
-\begin{center}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabular}{ll}
-\toprule
-\textbf{Non-Clay axis} & \textbf{Lean module path} \\
-\midrule
-abc conjecture &
-  \texttt{PF/NumberTheory/abcConjectureFrameworkAttack.lean} \\
-Beal conjecture &
-  \texttt{PF/NumberTheory/BealConjectureFrameworkAttack.lean} \\
-Brocard's problem &
-  \texttt{PF/NumberTheory/BrocardProblemFrameworkAttack.lean} \\
-Collatz conjecture &
-  \texttt{PF/NumberTheory/CollatzConjectureFrameworkAttack.lean} \\
-Erd\H{o}s discrepancy &
-  \texttt{PF/NumberTheory/ErdosDiscrepancyFrameworkAttack.lean} \\
-Erd\H{o}s--Straus &
-  \texttt{PF/NumberTheory/ErdosStraussFrameworkAttack.lean} \\
-Goldbach conjecture &
-  \texttt{PF/NumberTheory/GoldbachConjectureFrameworkAttack.lean} \\
-Hadwiger--Nelson &
-  \texttt{PF/NumberTheory/HadwigerNelsonFrameworkAttack.lean} \\
-Inverse Galois problem &
-  \texttt{PF/NumberTheory/InverseGaloisProblemFrameworkAttack.lean} \\
-Lonely Runner &
-  \texttt{PF/NumberTheory/LonelyRunnerFrameworkAttack.lean} \\
-Odd perfect numbers &
-  \texttt{PF/NumberTheory/OddPerfectNumberFrameworkAttack.lean} \\
-Polignac's conjecture &
-  \texttt{PF/NumberTheory/PolignacConjectureFrameworkAttack.lean} \\
-Twin Prime conjecture &
-  \texttt{PF/NumberTheory/TwinPrimeConjectureFrameworkAttack.lean} \\
-Singmaster's conjecture &
-  \texttt{PF/NumberTheory/SingmastersConjectureFrameworkAttack.lean} \\
-Pillai / generalised Catalan &
-  \texttt{PF/NumberTheory/CatalanGeneralizedFrameworkAttack.lean} \\
-Andrews--Curtis conjecture &
-  \texttt{PF/NumberTheory/AndrewsCurtisFrameworkAttack.lean} \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\medskip
-
-\noindent\textbf{Honest scope (foregrounded).}
-The substrate's reach across these sixteen non-Clay open problems
-is \emph{suggestive} --- it documents that the same framework
-machinery (the $\alpha$-skeleton, the $3^{k}$ substrate, the
-$\mathtt{*FrameworkAttack}$ module pattern) applies across a broad
-set of open problems, and that the framework's identification of
-each problem's substrate signature is internally consistent across
-the sixteen modules. \textbf{It is NOT a discharge of any of these
-sixteen problems at the literal published-mathematics tier.} The
-fourteen non-Clay axes that are \emph{not} Brocard or
-Hadwiger--Nelson are inhabited at the record level as
-$\mathtt{:\,True}$ placeholders; the substantive structural content
-lives in their per-axis modules, cited above by module path. The
-substrate-level reading of this subsection is the same as the
-honest-scope reading of the six Clay axes elsewhere in this
-chapter and at \S\ref{sec:substrate-honest-scope}: the framework
-exhibits a single substrate-level mechanism that applies across a
-wide span of open problems, and the framework's claim is that the
-mechanism is structurally illuminating, \emph{not} that the
-underlying problems are discharged at the tier their respective
-fields require for resolution.
 
 \section{Honest Scope}
 \label{sec:substrate-honest-scope}
@@ -1028,7 +909,7 @@ full Wightman QFT continuum.
 \item \textbf{BSD} (C3) --- $\text{Fin}\,6$ LMFDB-restricted
 concordance; rank-1 cascade on $E_{37.\text{a}1}$ conditional
 on Gross-Zagier and Kolyvagin (both cited, not formalised in
-mathlib at HEAD~\texttt{85d6bae}).
+mathlib at HEAD~\texttt{42990ea}).
 \item \textbf{NS} (C4) --- substrate-level composite axiom-free
 under Fujita-Kato hypothesis; lifting to the literal Clay
 statement requires the named $\nabla u$ mathlib gap.
@@ -1078,7 +959,7 @@ load-bearing content lives in their docstrings.
 \begin{level3}[Reproducing the Meta-Theorem from Source]
 The Principia Fractalis Substrate Theorem is independently
 verifiable by anyone with a Lean~4 toolchain. From a clean
-checkout of the repository at HEAD commit \texttt{85d6bae}:
+checkout of the repository at HEAD commit \texttt{42990ea}:
 \begin{enumerate}
 \item Build the entire \texttt{PF} module:
 \begin{verbatim}
@@ -1141,7 +1022,7 @@ The unconditional companion
 witnesses the consequences directly, without consuming the
 antecedents.
 \item Build state: $4030$ jobs clean, zero project axioms,
-HEAD commit \texttt{85d6bae}.
+HEAD commit \texttt{42990ea}.
 \item Honest scope: substrate-level meta-theorem, NOT a literal
 Clay-statement-form discharge for any of the six unsolved Clay
 problems. Each per-axis consequence retains its individual
@@ -1154,4 +1035,4 @@ Appendix~\ref{app:lean-cross-reference} (the Lean Theorem
 Cross-Reference). For the source of every theorem cited above,
 see the Lean file
 \texttt{PF/Referee/PrincipiaFractalisSubstrateTheorem.lean} at
-HEAD commit \texttt{85d6bae}.
+HEAD commit \texttt{42990ea}.
