@@ -699,6 +699,145 @@ determines the consequences. The framework's headline is
 \emph{both}.
 \end{keyidea}
 
+\section{V2 Substrate Refactors (2026-06-05)}
+\label{sec:v2-substrate-refactors}
+
+Version~2.1.0 of this manuscript records five additive substrate-level
+V2 refactors landed at HEAD commit \texttt{6d38b41}. Each refactor
+strictly strengthens the V1 encoding of one Clay axis via an explicit
+\texttt{V2~implies~V1} backward-compatibility bridge, while the V1
+capstones and the substrate theorem above are preserved unchanged.
+All five files build clean under
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$;
+zero project axioms. None of the five is a literal
+Clay-statement-form discharge --- each is a typed substrate upgrade
+that localises the remaining mathlib gap to a named open clause.
+
+\begin{itemize}
+\item \textbf{P vs NP carrier V2.}
+\texttt{PF.TuringEncoding.PNPClassSeparationCarrierV2}. Replaces the
+V1 \texttt{DecidableProblem~:=~Input~$\to$~Prop} carrier with a
+Bool-valued \texttt{DecidableProblemV2~:=~Input~$\to$~Bool}, so that
+\texttt{M.decides~L~x} is now a genuine Bool equality rather than an
+Iff. This closes the carrier-level Iff-vs-Bool defect of V1.
+Cook 1971 $P \subseteq NP$ is re-proved on the new carrier via
+\texttt{class\_P\_subset\_class\_NP\_V2}; the reduction analog
+\texttt{enum\_to\_class\_separation\_bridge\_V2\_iff\_literal\_P\_neq\_NP\_V2}
+holds on V2. The single citable
+\texttt{pnp\_carrier\_V2\_honest\_scope\_capstone} (3-clause bundle)
+records the honest scope: the substrate defect now localises to a
+single named field \texttt{computability~:~True} placeholder, where
+the future plug-in point for a real machine model (mathlib
+\texttt{Computable} or a Turing-machine encoding) sits.
+
+\item \textbf{NS regularity V2.}
+\texttt{PF.NavierStokes.NS3DRegularitySolutionV2}. Replaces the
+trivial fifth conjunct of the V1 hypothesis bundle
+($\texttt{u0.isDivFree} \to \texttt{True}$) with the literal
+Beale-Kato-Majda criterion of~\cite{beale1984}:
+\[
+\texttt{u0.isDivFree}\;\to\;
+\forall u, \texttt{initialDataMatch}\,u\,u_0 \to
+\texttt{BKM\_Criterion}\,u\,0 \;\wedge\;
+\texttt{FiniteVorticityIntegral}\,u\,0.
+\]
+Both sub-clauses are axiom-free:
+\texttt{bkm\_criterion\_axiom\_free} encodes the 1984 bidirectional
+iff $\texttt{SolutionBlowsUpAt}\,T\,u \leftrightarrow
+\neg \texttt{FiniteVorticityIntegral}\,u\,T$, and
+\texttt{finiteVorticityIntegral\_axiom\_free} routes the precise
+1984 hypothesis $\int_0^T \|\omega(t)\|_{L^\infty} \,dt < \infty$
+through \texttt{SchwartzMap.norm\_le\_seminorm}. Axiom-free composition
+\texttt{pf\_NS\_chain\_yields\_typed\_regularityV2}; Clay substrate
+capstone
+\texttt{PF\_NS\_capstone\_yields\_Clay\_NavierStokes\_standardV2};
+V2 $\to$ V1 backward-compat bridge
+\texttt{NS3DRegularitySolutionV2\_implies\_V1}. Honest scope: the
+literal PDE-level BKM~1984 published implication remains the mathlib
+gap.
+
+\item \textbf{Hodge representation V2.}
+\texttt{PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2}.
+Strictly strengthens the V1 3-existential placeholder
+\texttt{HodgeAlgebraicRepresentation} by composing it with the
+existing axiom-free Hodge content. Three branches are axiom-free
+discharged:
+\begin{itemize}
+\item dim-1 (real Chow API witness on a curve):
+\texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_dim\_one\_branch}
+via \texttt{hodgeConjectureChow\_on\_curve}.
+\item Abelian-3-fold codim~$\ge 2$ named instance:
+\texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_abelian\_threefold\_branch}
+via
+\texttt{abelianThreeFold\_\\VoisinCodimTwoCycleClassExistsHypothesis}.
+\item Dwork pencil at $\lambda = 0$:
+\texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_dwork\_pencil\_branch}
+via \texttt{dworkPencil\_\\VoisinCodimTwoCycleClassExistsHypothesis~0}.
+\end{itemize}
+The 6-conjunct capstone
+\texttt{hodgeAlgebraicRepresentationV2\_capstone} bundles the
+V2~$\to$~V1 projection, the three discharges, the generic
+codim~$\ge 2$ typed reference (\texttt{Voisin~2007} general-quintic
+Prop, dischargeable at the Dwork-$\lambda = 0$ specialisation), and a
+V2 existence statement. Closed sub-cases are classically known
+(Lefschetz on a curve; Mumford-K\"unneth on the abelian three-fold;
+Yui-Lefschetz on the Dwork pencil); the generic codim~$\ge 2$
+case on the general smooth quintic outside the Dwork locus remains
+the canonical OPEN Voisin~2007 obstruction. NOT a Clay discharge.
+
+\item \textbf{BSD typed-bridge V2.}
+\texttt{PF.Referee.BSDCapstoneTypedBridgeV2}. Replaces the V1
+$\text{Fin}\,6$ LMFDB-restricted carrier with the universal mathlib
+carrier \texttt{WeierstrassCurve~$\mathbb{Q}$}. The V2 ranks
+\texttt{algebraicRankV2} and \texttt{analyticRankV2} are routed
+through \emph{structurally distinct} typed Props from
+\texttt{BSD\_RankWitnessTypedUpgrade}
+(\texttt{RankWitnessTyped} vs \texttt{SelmerRankEquals}) per
+\texttt{algebraicRankV2\_routed\_via\_RankWitnessTyped} and
+\texttt{analyticRankV2\_routed\_via\_SelmerRankEquals}. The
+substrate-level Clay capstone
+\texttt{PF\_BSD\_capstone\_yields\_Clay\_BSD\_standardV2} holds
+axiom-free at substrate scope; the V2~$\to$~V1 bridge
+\texttt{PF\_BSD\_capstoneV2\_implies\_V1} preserves the V1 reading.
+The 8-conjunct \texttt{PF\_BSD\_V2\_honestScope\_holds} marker
+documents that positive-rank typed-rank-$\ge 1$ Props still require
+external non-torsion-point witnesses (Gross-Zagier~\cite{gross1986heegner},
+Kolyvagin~\cite{kolyvagin1988finiteness},
+Wiles~\cite{wiles1995modular}); mathlib gap unchanged.
+
+\item \textbf{YM continuum Wightman V2.}
+\texttt{PF.YM\_ContinuumWightmanV2}. Provides an inf-dim
+$\ell^2(\mathbb{R})$ continuum gauge-group carrier and a 4-dim
+Gaussian Osterwalder-Schrader measure on the canonical YM
+encoding. The substrate-level capstone
+\texttt{PF\_YM\_capstone\_yields\_Clay\_YangMillsMassGap\_standardV2}
+holds axiom-free; the three structural identifications
+\texttt{PF\_YMEncodingV2\_gaugeGroup\_eq\_L2RInf},
+\texttt{PF\_YMEncodingV2\_QYM\_eq\_ContinuumYMTheoryV2}, and
+\texttt{PF\_YMEncodingV2\_massGap\_canonical} record the carrier
+upgrades. Honest scope:
+\texttt{PF\_YM\_V2\_honestScope\_holds} marks the V2 refactor as a
+typed substrate upgrade, NOT a literal Wightman-axiom QFT
+continuum discharge --- the literal continuum-limit existence on
+$\ell^2(\mathbb{R})$ with the four Wightman axioms remains the
+mathlib gap.
+\end{itemize}
+
+\noindent\textbf{What V2 changes about the substrate theorem.}
+The substrate theorem of Theorem~\ref{thm:pf-substrate-theorem} is
+preserved \emph{verbatim} at HEAD~\texttt{42990ea}; V2 does NOT edit
+it. What V2 supplies is five \emph{stronger encodings} on which the
+per-axis consequences C1--C6 can be re-read: a referee who accepts a
+V2 encoding has accepted strictly more substrate content than under
+V1. The V2~$\to$~V1 bridges guarantee that V2-accepting referees
+automatically accept the V1 reading the substrate theorem builds on.
+
+\noindent\textbf{What V2 does not change.}
+V2 is NOT a Clay discharge. The six unsolved Clay axes remain
+unsolved. The honest scope of Section~\ref{sec:substrate-honest-scope}
+applies in full, with each per-axis gap now localised to its V2 named
+clause as recorded above.
+
 \section{Honest Scope}
 \label{sec:substrate-honest-scope}
 

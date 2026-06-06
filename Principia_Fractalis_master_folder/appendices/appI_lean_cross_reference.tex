@@ -146,22 +146,42 @@ Ch~\ref{ch:p-vs-np} (P vs NP)
 & Enum-to-class separation bridge $\leftrightarrow$ literal $P \ne NP$; $\alpha_{P\text{vs}NP} = 5/4$.
 & \texttt{PNPClassSeparationPrecisionBridge.enum\_to\_class\_separation\_bridge\_iff\_literal\_P\_neq\_NP}.
 & Y \\
+Ch~\ref{ch:p-vs-np} (P vs NP, \textbf{V2})
+& Bool-valued carrier refactor (V2.1.0); Iff-vs-Bool defect closed; Cook 1971 $P \subseteq NP$ on Bool carrier.
+& \texttt{PF.TuringEncoding.PNPClassSeparationCarrierV2.class\_P\_subset\_class\_NP\_V2}; \texttt{enum\_to\_class\_separation\_bridge\_V2\_iff\_literal\_P\_neq\_NP\_V2}; \texttt{pnp\_carrier\_V2\_honest\_scope\_capstone}.
+& --- \\
 Ch~\ref{ch:navier-stokes} (NS)
 & NS-3D substrate-level smoothness via $\alpha$-rigidity composite; Wave 33 \texttt{UniformHadamardBoundAllN} discharged.
 & \texttt{PF.NavierStokes.NSSmoothnessProofAttemptViaAlphaRigidity.ns\_smoothness\_composite\_substrate\_discharge}; \texttt{PF.NavierStokes.NSPDETypedUpgrade.UniformHadamardBoundAllN\_substrate\_clause}.
 & Y \\
+Ch~\ref{ch:navier-stokes} (NS, \textbf{V2})
+& Literal Beale-Kato-Majda 1984 fifth conjunct (V2.1.0); trivial \texttt{True} placeholder replaced.
+& \texttt{PF.NavierStokes.NS3DRegularitySolutionV2.pf\_NS\_chain\_yields\_typed\_regularityV2}; \texttt{PF\_NS\_capstone\_yields\_Clay\_NavierStokes\_standardV2}; \texttt{NS3DRegularitySolutionV2\_implies\_V1}.
+& --- \\
 Ch~\ref{ch:yang-mills} (YM)
 & Infinite-dim mass gap $\Delta = 3/2$ on $\ell^2$; $\alpha_{\text{YM}} = 2$.
 & \texttt{YM\_ContinuumMassGapInfDimWitness.ym\_continuum\_mass\_gap\_three\_halves}; \texttt{YM\_WightmanContinuumGapsTypedUpgrade}.
 & Y \\
+Ch~\ref{ch:yang-mills} (YM, \textbf{V2})
+& Inf-dim $\ell^2(\mathbb{R})$ continuum carrier + 4-dim Gaussian OS measure (V2.1.0).
+& \texttt{PF.YM\_ContinuumWightmanV2.PF\_YM\_capstone\_yields\_Clay\_YangMillsMassGap\_standardV2}; \texttt{PF\_YMEncodingV2\_gaugeGroup\_eq\_L2RInf}; \texttt{PF\_YMEncodingV2\_massGap\_canonical}.
+& --- \\
 Ch~\ref{ch:birch-swinnerton-dyer} (BSD)
 & Fin~6 LMFDB-restricted concordance + rank-1 Heegner cascade on $E_{37.\text{a}1}$ and $E_{43.\text{a}1}$.
 & \texttt{BSD\_HeegnerRank1Proof.bsd\_rank\_one\_E37a1\_via\_heegner\_and\_GZ\_K}; \texttt{BSD\_HeegnerRank1ProofE43a1.bsd\_rank\_one\_E43a1\_via\_heegner\_and\_GZ\_K}; \texttt{BSD\_LSeriesAbsConvergenceDischarge}; \texttt{BSD\_WilesModularityAnalyticContinuationDischarge}.
 & Y \\
+Ch~\ref{ch:birch-swinnerton-dyer} (BSD, \textbf{V2})
+& \texttt{WeierstrassCurve $\mathbb{Q}$} universal carrier replaces V1 $\text{Fin}\,6$ (V2.1.0); ranks routed through structurally distinct typed Props.
+& \texttt{PF.Referee.BSDCapstoneTypedBridgeV2.PF\_BSD\_capstone\_yields\_Clay\_BSD\_standardV2}; \texttt{algebraicRankV2\_routed\_via\_RankWitnessTyped}; \texttt{analyticRankV2\_routed\_via\_SelmerRankEquals}; \texttt{PF\_BSD\_capstoneV2\_implies\_V1}.
+& --- \\
 Ch~\ref{ch:hodge-conjecture} (Hodge)
 & General-surface substrate; multi-substrate extension; Voisin~2007 obstruction isolated.
 & \texttt{Voisin2007GeneralQuinticPrecision.hodge\_clay\_gap\_isolated\_to\_voisin\_2007}; \texttt{VoisinObstructionTypedUpgrade}.
 & Y \\
+Ch~\ref{ch:hodge-conjecture} (Hodge, \textbf{V2})
+& Strict V1 strengthening (V2.1.0); real Chow dim-1 + abelian-3-fold + Dwork pencil branches discharged.
+& \texttt{PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2.HodgeAlgebraicRepresentationV2\_holds\_on\_dim\_one\_branch}; \texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_abelian\_threefold\_branch}; \texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_dwork\_pencil\_branch}; \texttt{hodgeAlgebraicRepresentationV2\_capstone}; \texttt{HodgeAlgebraicRepresentationV2\_implies\_V1}.
+& --- \\
 \midrule
 \textit{(Perelman)}
 & $\alpha_{\text{Poincar\'e}} = 1$ (external anchor; Hamilton-Ricci flow).
