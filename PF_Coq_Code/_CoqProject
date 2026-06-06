@@ -160,8 +160,10 @@ PF/Wave58/UnifiedClayClosureLinkageCoq.v
 PF/Wave58/HadwigerNelsonFrameworkAttackCoq.v
 PF/Wave58/BrocardProblemFrameworkAttackCoq.v
 PF/Wave58/RHCapstoneTypedBridgeCoq.v
+PF/Wave58/RHCapstoneTypedBridgeV2Coq.v
 PF/Wave58/CrossMillenniumSharedInvariantsCoq.v
 PF/Wave58/PNPClassSeparationCarrierV2Coq.v
+PF/Wave58/PNPClassSeparationCarrierV3Coq.v
 PF/Wave58/NS3DRegularitySolutionV2Coq.v
 PF/Wave58/HodgeAlgebraicRepresentationV2Coq.v
 PF/Wave58/BSDCapstoneTypedBridgeV2Coq.v
