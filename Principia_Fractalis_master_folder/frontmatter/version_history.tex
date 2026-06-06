@@ -10,6 +10,88 @@ This book is under active development. Version numbers follow semantic versionin
 
 \section*{Version Log}
 
+\subsection*{Version 2.1.1 (June 5, 2026) -- RH V2 + PNP V3 STRENGTHENING}
+\begin{itemize}
+\item \textbf{HEAD commit:} \texttt{700bb29}.
+\item \textbf{Scope.} Two additive substrate-level refactors landed on
+top of the Version~2.1.0 V2 stack. Both refactors strictly
+strengthen their predecessors via explicit backward-compatibility
+bridges; the V2.1.0 V2 capstones and the substrate theorem are
+preserved unchanged. ZERO project axioms; both files build clean
+under $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+NOT a Clay discharge --- substrate-level typed-bridge upgrades only.
+\item \textbf{Refactors landed.}
+  \begin{itemize}
+  \item \textbf{RH V2 (sixth axis).}
+  \texttt{PF.Referee.RHCapstoneTypedBridgeV2.\\PF\_RH\_capstone\_yields\_Clay\_RH\_standardV2}
+  reduces V1's TWELVE-parameter signature
+  (three Phase~A inner-product hypotheses + eigenvalues + \texttt{hev}
+  + \texttt{K} + \texttt{hK} + \texttt{hbound} + $\alpha$ + \texttt{hne}
+  + \texttt{hdistinct} + \texttt{surjectivity}) to a TWO-parameter
+  signature (the \texttt{PF\_RHEncodingV2} structure bundling
+  \texttt{hev}, plus the residual \texttt{surjectivity} Prop).
+  Concrete discharges: $\alpha := \alpha_{\mathrm{star\_empirical}}$;
+  $K := 1$; \texttt{hK := one\_pos}; eigenvalues $:=$ \texttt{evV2}
+  (canonical $1/(n{+}1)$ decay); \texttt{hbound := evV2\_bound};
+  \texttt{hne := evV2\_ne\_zero}; \texttt{hdistinct := evV2\_distinct}
+  (strict anti-monotone via \texttt{Nat.cast\_injective}). The three
+  Phase~A inner-product hypotheses
+  (\texttt{hsmul\_left}, \texttt{hsmul\_right}, \texttt{hpos\_def})
+  are discharged via existing infrastructure
+  (\texttt{LogWeightedL2.inner\_smul\_\{left,right\}} and
+  \texttt{hpos\_def\_LogWeightedL2}). \textbf{9 of 10 V1 hypotheses
+  concretely discharged axiom-free}; only \texttt{hev} bundled in the
+  encoding; only \texttt{surjectivity} is exposed externally.
+  Backward-compat bridge:
+  \texttt{PF\_RH\_capstoneV2\_implies\_V1\_via\_pinned}. Honest scope:
+  the residual \texttt{surjectivity} Prop retains the full RH depth;
+  the encoding's \texttt{hev} field requires the compact-operator
+  spectral theorem for $T_3^{\mathrm{sym}}$ (mathlib gap unchanged).
+  \item \textbf{P vs NP V3.}
+  \texttt{PF.TuringEncoding.\\PNPClassSeparationCarrierV3}
+  (V3 of the V2 Bool-valued carrier) replaces the V2
+  \texttt{computability~:~True} placeholder with a REAL constraint
+  wired through \texttt{PF.TuringEncoding.Basic.TMConfig} and
+  \texttt{encodeConfig} (the manuscript Chapter~21~\S2 prime-power
+  G\"odel numbering, $2^{\mathrm{state}} \cdot 3^{\mathrm{headPos}}
+  \cdot \prod p_{j+1}^{\mathrm{symbol}+1}$).
+  \texttt{DeterministicMachineV3} carries a new
+  \texttt{encodeRun~:~Input~$\to$~TMConfig} field and a
+  \texttt{computability~:~$\forall$~x,~encodeConfig~(encodeRun~x)~>~0}
+  constraint (using \texttt{encodeConfig\_positive}, an axiom-free
+  TMConfig~$\to$~$\mathbb{N}^+$ map);
+  \texttt{NondeterministicMachineV3} mirrors on
+  \texttt{(input,~certificate)} pairs. The Cook~1971 inclusion
+  $P \subseteq NP$ is re-ported on V3 via
+  \texttt{class\_P\_subset\_class\_NP\_V3}; the reduction analog is
+  \texttt{enum\_to\_class\_separation\_bridge\_V3\_iff\_literal\_P\_neq\_NP\_V3}.
+  Honest scope: the TMConfig wiring closes the
+  \emph{structural-shape defect} (every machine now carries a
+  TM-config-valued run, not just an opaque \texttt{True}) but does NOT
+  close the \emph{universal-inhabitation defect} at the set level ---
+  the surviving defect localises to a SINGLE named missing axis
+  (absence of a constraint LINKING \texttt{decide} to \texttt{encodeRun},
+  e.g.\ ``\texttt{decide~x~=~true~$\leftrightarrow$~encodeRun~x}
+  reaches an accepting TM state''), which is the V4 refactor target.
+  Honest-scope capstone: \texttt{pnp\_carrier\_V3\_honest\_scope\_capstone}.
+  \end{itemize}
+\item \textbf{Build state.} \texttt{lake build PF} clean at HEAD
+\texttt{700bb29}; zero project axioms. Both refactors depend only on
+Lean's three foundational axioms.
+\item \textbf{Cross-references.} Chapter~\ref{ch:substrate-theorem}
+``V2 Substrate Refactors (2026-06-05)'' section extended to mention
+RH V2 and PNP V3. Appendix~\ref{app:lean-cross-reference} gains two
+new rows (RH V2 and PNP V3) in the Millennium Problems table.
+\item \textbf{Honest scope.} Neither refactor is a literal
+Clay-statement-form discharge. RH V2's \texttt{surjectivity} residual
+retains full RH depth; PNP V3's universal-inhabitation defect is
+preserved at the set level.
+\item \textbf{Preserved.} All Version~2.1.0 content unchanged. All
+five V2.1.0 refactors (P~vs~NP V2, NS V2, Hodge V2, BSD V2, YM V2)
+remain in force. RH V2 is the sixth axis V2 refactor; PNP V3 is an
+additive strengthening atop PNP V2.
+\end{itemize}
+
 \subsection*{Version 2.1.0 (June 5, 2026) -- SUBSTRATE V2 REFACTOR EDITION}
 \begin{itemize}
 \item \textbf{HEAD commit:} \texttt{6d38b41}.
@@ -463,9 +545,9 @@ audit.
 
 \vspace{2cm}
 
-\noindent\textbf{Current Version:} 2.1.0 (June 5, 2026) -- \textbf{SUBSTRATE V2 REFACTOR EDITION}
+\noindent\textbf{Current Version:} 2.1.1 (June 5, 2026) -- \textbf{RH V2 + PNP V3 STRENGTHENING}
 
-\noindent\textbf{HEAD commit:} \texttt{6d38b41}
+\noindent\textbf{HEAD commit:} \texttt{700bb29}
 
 \noindent\textbf{Lean attack landings:} 81 axiom-free; \texttt{lake build PF} $4030$ jobs clean; zero project axioms.
 

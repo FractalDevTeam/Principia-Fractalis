@@ -821,6 +821,56 @@ typed substrate upgrade, NOT a literal Wightman-axiom QFT
 continuum discharge --- the literal continuum-limit existence on
 $\ell^2(\mathbb{R})$ with the four Wightman axioms remains the
 mathlib gap.
+
+\item \textbf{RH typed-bridge V2 (added in V2.1.1, HEAD \texttt{700bb29}).}
+\texttt{PF.Referee.RHCapstoneTypedBridgeV2}. Sixth-axis V2 refactor.
+Reduces the V1 capstone's TWELVE-parameter signature to a
+TWO-parameter signature
+\texttt{PF\_RH\_capstone\_yields\_Clay\_RH\_standardV2}: the new
+\texttt{PF\_RHEncodingV2} structure bundles \texttt{hev}, and the
+only externally exposed datum is the residual \texttt{surjectivity}
+Prop. Nine of ten V1 hypotheses are concretely discharged
+axiom-free: $\alpha := \alpha_{\mathrm{star\_empirical}}$,
+$K := 1$, \texttt{hK := one\_pos}, eigenvalues $:= \texttt{evV2}$
+(canonical $1/(n{+}1)$ decay) with
+\texttt{evV2\_bound}, \texttt{evV2\_ne\_zero}, and
+\texttt{evV2\_distinct} (strict anti-monotone via
+\texttt{Nat.cast\_injective}); the three Phase~A inner-product
+hypotheses are discharged via existing infrastructure
+(\texttt{LogWeightedL2.inner\_smul\_\{left,right\}} and
+\texttt{hpos\_def\_LogWeightedL2}). V2~$\to$~V1 backward-compat
+bridge: \texttt{PF\_RH\_capstoneV2\_implies\_V1\_via\_pinned}.
+Honest scope: the \texttt{surjectivity} residual retains the full
+RH depth; the encoding's \texttt{hev} field requires the
+compact-operator spectral theorem for $T_3^{\mathrm{sym}}$
+(mathlib gap unchanged). NOT a Clay discharge.
+
+\item \textbf{P vs NP carrier V3 (added in V2.1.1, HEAD \texttt{700bb29}).}
+\texttt{PF.TuringEncoding.PNPClassSeparationCarrierV3}. Strict
+strengthening of P~vs~NP V2 above. Replaces the V2
+\texttt{computability~:~True} placeholder with a REAL constraint
+wired through \texttt{PF.TuringEncoding.Basic.TMConfig} and
+\texttt{encodeConfig} (the Chapter~\ref{ch:p-vs-np}~\S2 prime-power
+G\"odel numbering, $2^{\mathrm{state}} \cdot 3^{\mathrm{headPos}}
+\cdot \prod p_{j+1}^{\mathrm{symbol}+1}$).
+\texttt{DeterministicMachineV3} now carries an
+\texttt{encodeRun~:~Input~$\to$~TMConfig} field and the constraint
+\texttt{computability~:~$\forall$~x,~encodeConfig~(encodeRun~x)~>~0};
+\texttt{NondeterministicMachineV3} mirrors on
+\texttt{(input,~certificate)} pairs. Cook~1971 $P \subseteq NP$ is
+re-ported on V3 via \texttt{class\_P\_subset\_class\_NP\_V3}; the
+reduction analog is
+\texttt{enum\_to\_class\_separation\_bridge\_V3\_iff\_literal\_P\_neq\_NP\_V3}.
+Honest scope: the TMConfig wiring closes the \emph{structural-shape
+defect} (every machine now carries a TM-config-valued run rather
+than an opaque \texttt{True}) but does NOT close the
+\emph{universal-inhabitation defect} at the set level. The
+surviving defect localises to a SINGLE named missing axis ---
+absence of a constraint LINKING \texttt{decide} to \texttt{encodeRun}
+(e.g.\ ``\texttt{decide~x~=~true~$\leftrightarrow$~encodeRun~x}
+reaches accepting TM state'') --- which is the V4 refactor target.
+Single citable \texttt{pnp\_carrier\_V3\_honest\_scope\_capstone}
+3-clause bundle. NOT a Clay discharge.
 \end{itemize}
 
 \noindent\textbf{What V2 changes about the substrate theorem.}
