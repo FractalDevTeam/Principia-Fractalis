@@ -26,6 +26,7 @@ import PF_L4L.Core.SpectralGap
 import PF_L4L.Ch21.PNP
 import PF_L4L.Referee.FlagshipReverification
 import PF_L4L.Referee.V2AndMasterReverification
+import PF_L4L.Referee.ClayVerificationHarness
 
 -- Gated modules: kept in the source tree for the future PF-namespace
 -- refactor; they do NOT participate in the current build.
