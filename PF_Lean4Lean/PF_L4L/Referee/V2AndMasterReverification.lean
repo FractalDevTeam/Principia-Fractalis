@@ -42,6 +42,11 @@ import PF.TuringEncoding.PNPClassSeparationCarrierV2
 import PF.NavierStokes.NS3DRegularitySolutionV2
 import PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2
 import PF.Referee.ClayMasterTheorem
+-- Newest refactors (2026-06-04, HEAD 700bb29): RH V2 typed bridge and
+-- PNP V3 TMConfig-wired carrier — re-bound through the L4L package
+-- using the same Path C `def T_reverified := @T` pattern.
+import PF.Referee.RHCapstoneTypedBridgeV2
+import PF.TuringEncoding.PNPClassSeparationCarrierV3
 
 namespace PF_L4L.Referee
 
@@ -81,5 +86,25 @@ def clayMasterTheorem_reverified :=
   @PF.Referee.ClayMasterTheorem.PF_Clay_Master_Theorem
 
 #print axioms clayMasterTheorem_reverified
+
+/-! ## §5 — RH V2 typed bridge re-verification -/
+
+/-- L4L re-verification: RH V2 typed bridge
+    `PF_RH_capstone_yields_Clay_RH_standardV2`. Re-binds the canonical
+    theorem through the L4L package. -/
+def rhV2_capstone_reverified :=
+  @PF.Referee.RHCapstoneTypedBridgeV2.PF_RH_capstone_yields_Clay_RH_standardV2
+
+#print axioms rhV2_capstone_reverified
+
+/-! ## §6 — PNP V3 TMConfig-wired carrier re-verification -/
+
+/-- L4L re-verification: PNP V3 TMConfig-wired Cook 1971 P ⊆ NP carrier
+    `class_P_subset_class_NP_V3`. Re-binds the canonical theorem through
+    the L4L package. -/
+def pnpV3_class_P_subset_class_NP_reverified :=
+  @PrincipiaTractalis.PNPClassSeparationCarrierV3.class_P_subset_class_NP_V3
+
+#print axioms pnpV3_class_P_subset_class_NP_reverified
 
 end PF_L4L.Referee
