@@ -8,13 +8,14 @@
 %%
 %% Author : Pablo Cohen (Anthropic Claude Opus 4.7 collaboration)
 %% Date   : 2026-06-05
-%% Anchor : HEAD 576d5df, FractalDevTeam/Principia-Fractalis
+%% Anchor : HEAD 6d38b41, FractalDevTeam/Principia-Fractalis
 %%          lake build PF -> 8114 jobs clean, zero project axioms.
 %% ====================================================================
 
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
+\usepackage{cleveref}
 \usepackage{enumitem}
 \usepackage{booktabs}
 \usepackage{microtype}
@@ -81,7 +82,7 @@ discharges all six $\mathrm{Clay\_*\_Standard}$ contracts
 simultaneously on the framework's encodings.
 \end{enumerate}
 
-The Lean~4 development at HEAD \texttt{576d5df} of
+The Lean~4 development at HEAD \texttt{6d38b41} of
 \texttt{FractalDevTeam/Principia-Fractalis} builds clean at 8114 jobs
 with zero project axioms; every theorem depends only on
 $[\mathtt{propext},\,\mathtt{Classical.choice},\,\mathtt{Quot.sound}]$.
@@ -135,7 +136,7 @@ $\alpha$-skeleton is then forced by the eleven algebraic invariants,
 making the framework's specific numerical predictions a consequence
 of the substrate's structure rather than an arbitrary choice.
 
-This paper documents the Lean~4 formalization at HEAD \texttt{576d5df}
+This paper documents the Lean~4 formalization at HEAD \texttt{6d38b41}
 of \texttt{FractalDevTeam/Principia-Fractalis}, which delivers three
 load-bearing theorems aggregated into one Master Theorem.
 
@@ -593,7 +594,7 @@ empirically and the commitments hold.
 
 The framework's load-bearing structural theorems are mirrored in
 Coq for cross-prover independence. The Coq parity at HEAD
-\texttt{576d5df} covers 13 Wave 58 modules in
+\texttt{6d38b41} covers 13 Wave 58 modules in
 \texttt{PF\_Coq\_Code/PF/Wave58/}, including the substrate theorem,
 the Clay-standard contracts, the per-axis bridges, and the
 cross-Millennium invariants. Independent verification by an
@@ -644,7 +645,7 @@ monograph \cite{principia_book_v2}.
 \bibitem{principia_book_v2}
 Cohen, P. (2026). \emph{Principia Fractalis: A Substrate-Level
 Foundational Monograph}, Second Edition, V2.0.0. Self-published.
-HEAD \texttt{576d5df} of
+HEAD \texttt{6d38b41} of
 \url{https://github.com/FractalDevTeam/Principia-Fractalis}.
 
 \bibitem{rp_audit_v121}
