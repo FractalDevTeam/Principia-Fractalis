@@ -1,20 +1,24 @@
 \documentclass[11pt,a4paper]{article}
 
 %% =====================================================================
-%% Clay RH via Substrate — Phase 1 Entry Vector (v2)
+%% Clay RH via Substrate --- Phase 1 (v2, HONEST-SCOPE REWRITE)
 %%
-%% Title: The Riemann Hypothesis as Phase 1 Entry Vector
-%%        of the Principia Fractalis Substrate
+%% Title: Phase 1 --- A Substrate-Level Reformulation of the
+%%        Riemann Hypothesis via the Principia Fractalis Framework
 %%
 %% Author: Pablo Cohen (with Claude Opus 4.7 / Anthropic)
 %% Date  : 2026-06-06
-%% Anchor: HEAD 4785c55, Lean 4 PF closure 8214 jobs clean,
+%% Anchor: HEAD 2b777ca / 4785c55, Lean 4 PF closure clean,
 %%         zero project axioms, kernel-only
 %%         [propext, Classical.choice, Quot.sound].
-%% Locked landing strategy: LANDING_STRATEGY.md HEAD 9667bfe.
-%% Honest scope marker: Principia_Fractalis_master_folder
-%%        chapters/ch34A_substrate_theorem.tex §7
-%%        (\\sec:substrate-honest-scope).
+%% Honest-scope discipline:
+%%   Every claim in this paper is sourceable to a specific Lean
+%%   file's own HONEST SCOPE section. Where a Lean file flags a
+%%   field as :=True or := rfl or substrate-shadow, the paper
+%%   flags the same. Earlier drafts drifted into Clay-prize
+%%   framings; this rev corrects the drift on the prose side
+%%   to match the rewritten master paper
+%%   `Papers/clay_substrate_reformulation_v1.tex`.
 %% =====================================================================
 
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
@@ -44,841 +48,529 @@
 \newtheorem{solution}[theorem]{Solution}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{The Riemann Hypothesis as Phase 1 Entry Vector\\
-of the Principia Fractalis Substrate}
+\title{Phase 1: A Substrate-Level Reformulation of the
+Riemann Hypothesis\\
+via the Principia Fractalis Framework\\
+\large (Entry Vector --- Not a Clay Discharge)}
 \author{Pablo Cohen\\
-\small{\texttt{psolorzano@gmail.com}}}
+\small{\texttt{psolorzano@gmail.com}}\\[0.3em]
+\small{Collaboration: Claude Opus 4.7 (Anthropic)}}
 \date{2026-06-06}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The Riemann Hypothesis is the natural entry vector to the Principia
-Fractalis (PF) framework. Among the Clay Millennium Problems, RH carries
-the largest pre-built mathematical audience: thousands of GRH-conditional
-theorems in analytic number theory become unconditional the moment RH is
-in hand, Miller--Rabin primality testing becomes deterministic in
-$\widetilde O((\log n)^2)$ under GRH (Bach 1990; Pomerance, Selfridge,
-Wagstaff 1980), and the prime-counting error term sharpens to the von
-Koch 1901 bound $|\pi(x) - \operatorname{Li}(x)| = O(\sqrt{x}\,\log x)$.
-An independent strategic-application analysis identifies RH as the
-maximum-scaffold lead among the seven Clay problems. We take that
-observation as the door. What walks through the door is the substrate.
+This is the Phase 1 paper of a four-paper sequence that presents the
+Principia Fractalis (PF) framework's \emph{substrate-level
+reformulation} of the six remaining Clay Millennium Problems.
+\textbf{This is not a Clay-prize claim for the Riemann Hypothesis.}
+The substrate-level RH content remains conditional on the published
+Hilbert--P\'olya program and on Mayer 1991 \S3's symmetric-quotient
+spectral correspondence, both preserved openly as typed residuals.
+What this paper exhibits is a substrate-level encoding of the RH axis
+on the framework's $T_3^{\mathrm{sym}}$ transfer operator on
+$\mathtt{LogWeightedL2}$, together with the algebraic constraint
+$\alpha_{\mathrm{RH}} = 3/2$ pinned by two framework-internal arithmetic
+compatibility identities on the chosen $\alpha$-skeleton under the
+editorial convention $\alpha_{\mathrm{Poincar\acute e}} := 1$ motivated
+by Perelman 2003.
 
-The substrate forces $\alpha_{\mathrm{RH}} = 3/2$ as the unique rational
-value compatible with the Perelman 2003 anchor
-$\alpha_{\mathrm{Poincar\acute e}} = 1$ and the eleven cross-Millennium
-algebraic invariants. The framework's $T_3^{\mathrm{sym}}$ transfer
-operator on $\mathtt{LogWeightedL2}$ realises the Mayer 1991 path; the
-Hilbert--P\'olya program collapses on the substrate to one typed Prop in
-five equivalent formulations (Berry--Keating 1999, Connes 1999,
-Bost--Connes 1995, PF/$T_3^{\mathrm{sym}}$, Mayer 1991). The Wave 58
-concrete witness $\mathtt{Ch17OperatorTheoryConcrete}$ exhibits a
-self-adjoint $3 \times 3$ Hamiltonian with spectrum $\{1, 2, 3\}$
-inhabiting the substrate-level Hilbert--P\'olya contract. Every Lean
-theorem cited is machine-verified at HEAD \texttt{4785c55} of
-\texttt{FractalDevTeam/Principia-Fractalis}, 8214 jobs clean, kernel
-axioms only \texttt{[propext, Classical.choice, Quot.sound]}.
+The RH axis is the natural entry vector to the framework because of
+the pre-built GRH-conditional scaffold in analytic number theory
+(Conrey 2003; Borwein, Choi, Rooney, Weirathmueller 2008; von Koch
+1901; Bach 1990; Pomerance--Selfridge--Wagstaff 1980). That scaffold
+\emph{would} become unconditional under a literal RH discharge; the
+framework here does not deliver that literal discharge. What the
+framework delivers on this axis is a substrate-level reformulation
+machine-verified in Lean 4 with kernel-only axioms
+$\mathtt{[propext, Classical.choice, Quot.sound]}$, and a structural
+link to the framework's simultaneous-closure mechanism on canonical
+encodings of the six remaining Clay axes (Phase 2).
 
-The substrate that proves RH also forces: the simultaneous closure of
-all six unsolved Clay-Standard contracts from one Perelman anchor input
-plus a per-axis bundle
-(\texttt{perelman\_anchor\_yields\_simultaneous\_clay\_closure});
-the consciousness coherence threshold $\mathrm{ch}_2 = 19/20$; the
-$\Lambda_{\mathrm{eff}}$ cosmological-constant 120-order suppression and
-Hubble bracket; the Weinstein--Geometric-Unity zero-point-energy bundle;
-the framework's reach across 23 famous open problems (7 Clay + 16
-non-Clay); the 143-problem universal coherence anchor at
-$p < 10^{-43}$; and the IBM Quantum 9-way hardware anchor at
-$\le 10^{-15}$. RH is the door. The substrate is the cargo. Honest
-scope per Ch~34A \S7: substrate-level monograph in Grothendieck mode;
-named HP-program and Mayer 1991 \S3 spectral-correspondence residuals
-preserved openly. Not a literal mathlib-tier discharge of the Clay
-form. This paper is the door the reader walks through.
+This is the first of four papers; the others are the master paper on
+the simultaneous-closure mechanism
+(\texttt{clay\_substrate\_reformulation\_v1.tex}), the P vs NP entry
+(Phase 3), and the keystone paper on what the substrate is for
+(consciousness, ZPE, cosmology --- Phase 4). Honest scope per the
+file-level honest-scope marker
+($\mathtt{sec:substrate-honest-scope}$) is preserved throughout.
+Independent expert review and substantial revision are explicitly
+invited.
 \end{abstract}
 
 \tableofcontents
 
-\section{Why RH leads: the natural entry vector}
+\section{What this paper offers and what it does not}
+\label{sec:offers}
+
+This paper offers a \emph{substrate-level reformulation of the RH
+axis} of the Principia Fractalis framework, with the chosen
+$\alpha$-value $\alpha_{\mathrm{RH}} := 3/2$ pinned by two framework-internal
+arithmetic identities under the editorial convention
+$\alpha_{\mathrm{Poincar\acute e}} := 1$. It does \emph{not} offer a
+literal mathlib-tier discharge of the Riemann Hypothesis at the Clay
+formulation. The substrate-level RH bridge is conditional on the
+published Hilbert--P\'olya program and on Mayer 1991 \S3's
+symmetric-quotient spectral correspondence, both preserved openly as
+typed residuals in the Lean tree.
+
+\medskip
+
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{What the Lean kernel carries on this axis.} A discharge of
+$\mathtt{Clay\_RiemannHypothesis\_Standard}$ on the framework's
+$T_3^{\mathrm{sym}}$ encoding through
+$\mathtt{PF\_RH\_capstone\_via\_Mayer1991\_T3sym}$, gated by two named
+typed residuals (the Mayer 1991 symmetric-quotient
+spectral-correspondence Prop and the published Hilbert--P\'olya
+program Prop). The encoding is the framework's
+$T_3^{\mathrm{sym}}$/$\mathtt{LogWeightedL2}$ realisation; it differs
+from the literal mathlib $\mathtt{riemannZeta}$ tier in named,
+disclosed ways.
+
+\textbf{What this paper does NOT claim.} A literal mathlib-tier
+discharge of RH (the form required by the Clay rules). The two named
+residuals are unchanged.
+}}
+
+\subsection{Why RH is the natural entry vector}
 \label{sec:entry-vector}
 
-The Clay Millennium Problems are the door through which PF is meeting
-its audience. Of the seven, the Riemann Hypothesis is the door's most
-familiar hinge.
+Among the seven Clay axes, RH carries the largest pre-built
+mathematical audience. Thousands of theorems in analytic number
+theory are GRH-conditional; under a confirmed RH they become
+unconditional in one stroke. The reference catalogue is Borwein,
+Choi, Rooney, Weirathmueller \cite{borwein_choi_rooney_weirathmueller2008};
+Conrey 2003 \cite{conrey2003} enumerates the principal families.
+Algorithmic number theory: Bach 1990 \cite{bach1990} and Pomerance--%
+Selfridge--Wagstaff 1980 \cite{pomerance_selfridge_wagstaff1980}
+make Miller--Rabin primality testing deterministic in
+$\widetilde O((\log n)^2)$ under GRH. Prime-distribution bounds:
+von Koch 1901 \cite{vonkoch1901} and Schoenfeld 1976
+\cite{schoenfeld1976}.
 
-\subsection{The pre-built scaffold}
-\label{sec:prebuilt-scaffold}
+We take this scaffold as the reason RH is the natural \emph{entry
+vector} for an audience approaching the framework via the Clay
+problems. We do not take it as evidence the framework discharges RH
+literally. The framework's substrate-level contribution on this axis
+is described honestly in \S\ref{sec:rh-on-substrate} and
+\S\ref{sec:honest-scope}.
 
-A confirmed RH triggers a vast pre-existing scaffold that no other
-Millennium axis enjoys at the same scale. Three slices.
+\subsection{Pointer to the other three papers}
+\label{sec:pointer}
 
-\paragraph{Analytic number theory.} Thousands of theorems in analytic
-number theory carry the explicit conditional clause ``under the
-generalised Riemann hypothesis''. Conrey's 2003 \emph{Notices of the
-AMS} survey, \emph{The Riemann hypothesis}, enumerates the principal
-families. The unconditional consequence stream begins with the
-von~Koch 1901 sharpening of the prime-counting error to
-$|\pi(x) - \operatorname{Li}(x)| = O(\sqrt{x}\, \log x)$, includes
-explicit Chebyshev-bound constants of Schoenfeld 1976, the
-Hardy--Littlewood twin-prime constant calibration via Selberg's
-asymptotic formula, and the conditional Goldbach-additive lower bound
-of Hardy--Littlewood; under GRH each of these and many hundreds more
-become unconditional in one stroke. The reference catalogue is
-Borwein, Choi, Rooney, Weirathmueller, \emph{The Riemann Hypothesis: A
-Resource for the Afficionado and Virtuoso Alike} (CMS Books in
-Mathematics, Springer 2008), which is the field's standing index of
-GRH-conditional results.
+This Phase 1 paper foregrounds the RH-axis reformulation. The
+companion papers in the four-paper sequence are:
+(i)~the master paper~\cite{master_substrate}, which carries the
+simultaneous-closure mechanism on the framework's canonical
+encodings, the eleven framework-internal arithmetic compatibility
+identities, the seven-field bundle (5 typed residuals + 2
+$\mathtt{True}$-markers), and the per-axis honest-scope discussion
+for all six remaining Clay axes; (ii)~the Phase 3 paper on the P vs
+NP axis \cite{phase3_pnp}, with the framework's
+$\mathtt{Machine}$-as-free-functions honest scope explicitly flagged;
+(iii)~the Phase 4 keystone paper~\cite{phase4_keystone} on
+consciousness, ZPE, and cosmology. The RH axis is one sub-story of
+the simultaneous-closure mechanism described in the master paper.
 
-\paragraph{Algorithmic number theory.} Bach 1990 (\emph{Math.\ Comp.}~55,
-\emph{Explicit bounds for primality testing and related problems}) and
-Pomerance, Selfridge, Wagstaff 1980 (\emph{Math.\ Comp.}~35) make the
-Miller--Rabin primality test \emph{deterministic} in
-$\widetilde O((\log n)^2)$ under GRH: a witness for compositeness is
-guaranteed to live below $2(\log n)^2$. Without GRH, Miller--Rabin is
-probabilistic in practice and the unconditional AKS 2004 alternative
-runs in $\widetilde O((\log n)^{6})$. The constant-factor and
-exponent gap is the operational deliverable of RH for the
-cryptographic-primitive layer.
-
-\paragraph{Sharp distribution-of-primes bounds.} Pomerance's
-half-century of work on prime gaps, prime sums, and amicable numbers
-turns on GRH-conditional explicit constants throughout. The pre-built
-audience reads RH as the load-bearing assumption of the explicit
-bounds layer in analytic number theory.
-
-\subsection{The QC observation}
-\label{sec:qc-observation}
-
-An independent strategic-application analysis of the Clay landing
-surface --- evaluating each of the seven axes by pre-built audience,
-application ceiling, and probability of immediate deployment ---
-identifies RH as the maximum-scaffold lead. The ranking is reproduced
-in the framework's locked landing strategy
-(\texttt{LANDING\_STRATEGY.md}, HEAD \texttt{9667bfe}); the matrix's
-``entry vector'' designation for RH is technically correct at the
-per-axis level.
-
-The reviewer's strongest observation is independent of the per-axis
-ranking: \emph{``the deployable value isn't the theorem --- it's the
-machinery invented to prove it. Perelman's Ricci-flow techniques and
-the modularity machinery from Fermat's Last Theorem both outgrew their
-original targets.''} This is exactly the PF position. The reviewer's
-strongest point is our strongest evidence.
-
-We take the reviewer's RH-leads identification as the door. What walks
-through the door is the substrate machinery. Behind the door, the
-``six independent problems'' frame becomes structurally inadequate ---
-not by argument, but because the substrate forces all six simultaneously
-from one anchor.
-
-\subsection{The contribution of this paper}
-\label{sec:contribution}
-
-This paper foregrounds the substrate machinery that does RH ---
-$\alpha_{\mathrm{RH}} = 3/2$ uniquely forced under the Perelman anchor,
-the $T_3^{\mathrm{sym}}$ transfer operator path through Mayer 1991, the
-five-formulation Hilbert--P\'olya collapse on the substrate, the
-$\mathtt{Ch17OperatorTheoryConcrete}$ self-adjoint $3\times 3$ witness
---- and points the reader at the cargo. The cargo is what the same
-substrate also forces: the simultaneous closure of all six
-Clay-Standards from one Perelman anchor input, the consciousness
-operator and the $\mathrm{ch}_2 = 19/20$ threshold, the
-$\Lambda_{\mathrm{eff}}$ cosmological-constant suppression, the
-Weinstein--Geometric-Unity zero-point-energy bundle, the 23-problem
-reach, the 143-problem coherence anchor at $p < 10^{-43}$, the IBM
-Quantum hardware anchor at $\le 10^{-15}$. We claim what we have, and
-not more (\S\ref{sec:honest-scope}).
-
-\section{The substrate}
+\section{The substrate and the editorial convention}
 \label{sec:substrate}
 
-The PF substrate is the \emph{Timeless Field}, a nuclear $C^{*}$-algebra
-of ternary projective Hilbert spaces
+\subsection{The Timeless Field substrate}
+\label{sec:tf}
+
+The framework's substrate is the nuclear $C^{*}$-algebra of ternary
+projective Hilbert spaces
 \[
-H_{k} = \mathbb{C}^{3^{k}}, \quad k \in \mathbb{N},
-\qquad
-\mathcal{H}_{\mathrm{TF}} = \varprojlim_{k} H_{k},
+\mathcal{H}_{\mathrm{TF}} \;=\; \varprojlim_{k}\, H_{k},
+\qquad H_{k} = \mathbb{C}^{3^{k}},
 \]
-with constant-ternary-expansion inclusions
-$\iota_k: H_k \hookrightarrow H_{k+1}$. The base $b = 3$ is forced by
-binary choice ($b \ge 2$) plus the golden-ratio arithmetic
-$5 = 3 + 2$ ($b \ge 3$). The substrate carries the framework's
-log-weighted $L^{2}$ completion $\mathtt{LogWeightedL2}$ on which the
-$T_{3}^{\mathrm{sym}}$ transfer operator lives. \textbf{Lean:}
-\texttt{PF.Consciousness.TimelessFieldConcreteMorphism}.
+called the \emph{Timeless Field}. The substrate is a typed
+mathematical object in the Lean development; this paper does not
+claim that the substrate is canonical or unique. It is the
+framework's choice of structural stage on which the RH axis is
+stated together with the other five remaining Clay axes.
 
-The substrate is closed under the eleven cross-Millennium algebraic
-invariants on the $\alpha$-skeleton
+\subsection{The editorial convention $\alpha_{\mathrm{Poincar\acute e}} = 1$}
+\label{sec:editorial-convention}
+
+The framework adopts $\alpha_{\mathrm{Poincar\acute e}} := 1$ as its
+editorial convention at the Poincar\'e axis of the $\alpha$-skeleton.
+This convention is \emph{motivated by} Perelman 2003's Ricci-flow
+proof of the Poincar\'e conjecture \cite{perelman2002,perelman2003a,%
+perelman2003b}. The Lean kernel does \emph{not} consume Perelman's
+theorem as a hypothesis: the proposition
+$\mathtt{PerelmanAnchorInput} :
+(\mathtt{framework\_alpha}).a_{\mathrm{Poincare}} = 1$ is discharged
+in the Lean file by direct unfolding of the framework's definition
+$\alpha_{\mathrm{Poincare}} := 1$
+(\texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure}, line~117;
+the proof is by \texttt{norm\_num} on a definitional identity).
+Perelman 2003 motivates the choice of the unit value at the
+Poincar\'e axis; the kernel cascade is arithmetic on the chosen
+constants.
+
+\subsection{The $\alpha$-skeleton and the eleven framework-internal
+identities}
+\label{sec:alpha-skeleton}
+
+The framework's $\alpha$-skeleton on the complexity-and-Clay axes is
+the nine-tuple
+$(\alpha_{\mathrm{Poincar\acute e}}, \alpha_{\mathrm{RH}},
+\alpha_{\mathrm{YM}}, \alpha_{\mathrm{BSD}}, \alpha_{\mathrm{NS}},
+\alpha_{\mathsf{P}\mathrm{vs}\mathsf{NP}}, \alpha_{\mathrm{Hodge}},
+\alpha_{P}, \alpha_{NP}, \alpha_{\mathrm{QG}})$ of chosen
+\texttt{noncomputable def}s in
+\texttt{PF.CrossMillenniumSharedInvariants}. \textbf{Honest scope}
+quoted verbatim from that file's header (lines 18--29):
+\begin{quote}
+``\emph{These are \textbf{not} Millennium discharges. They are
+axiom-free algebraic facts about the 9 chosen $\alpha$-values; the
+framework's interpretation --- that each $\alpha$ is the canonical
+eigenvalue parameter for its respective Millennium operator --- is
+conjectural and lives elsewhere\ldots The value of this file: it
+makes the \emph{interlocking} of $\alpha$-values explicit and
+machine-checked, so future work cannot accidentally introduce
+$\alpha$-redefinitions that break the algebraic skeleton.}''
+\end{quote}
+
+The eleven identities on the $\alpha$-skeleton (each provable by
+\texttt{ring}, \texttt{norm\_num}, or \texttt{linarith} on the
+definitions) are catalogued in the master paper
+\cite[Thm~2.3]{master_substrate}. The two that pin the chosen value
+$\alpha_{\mathrm{RH}} := 3/2$ are
 \[
-(\alpha_{\mathrm{Poincar\acute e}},\, \alpha_{\mathrm{RH}},\,
-\alpha_{\mathrm{YM}},\, \alpha_{\mathrm{BSD}},\,
-\alpha_{\mathrm{NS}},\, \alpha_{\mathsf{P}\mathrm{vs}\mathsf{NP}}).
+\alpha_{\mathrm{RH}}^{2} = 9/4
+\qquad\text{and}\qquad
+\alpha_{\mathrm{RH}}\,\alpha_{\mathrm{YM}} = 3
+\quad\text{with}\quad
+\alpha_{\mathrm{YM}} = \alpha_{\mathrm{Poincar\acute e}} + 1 = 2.
 \]
+Each is machine-verified by exact Lean name
+($\alpha\_\mathrm{RH}\_\mathrm{sq}\_\mathrm{eq}\_\mathrm{nine}\_\mathrm{fourths}$,
+$\alpha\_\mathrm{RH}\_\mathrm{mul}\_\mathrm{YM}\_\mathrm{eq}\_\mathrm{three}$,
+$\alpha\_\mathrm{YM}\_\mathrm{eq}\_\alpha\_\mathrm{Poincare}\_\mathrm{plus}\_\mathrm{one}$
+in \texttt{PF.CrossMillenniumSharedInvariants}).
 
-\begin{theorem}[$\alpha$-skeleton uniqueness under Perelman anchor]
-\label{thm:alpha-unique}
-Any $\alpha$-assignment satisfying the framework's cross-Millennium
-invariants and pinning
-$\alpha_{\mathrm{Poincar\acute e}} = 1$ is equal field-by-field to
-the framework's canonical $\alpha$-skeleton
-\[
-(1,\, 3/2,\, 2,\, (3/4)\pi,\, (3/2)\pi,\, 5/4).
-\]
-\textbf{Lean:}
-\texttt{PF.Referee.ClayMasterTheorem.\\
-framework\_alpha\_unique\_under\_perelman\_anchor}.
-Kernel axioms: \texttt{[propext, Classical.choice, Quot.sound]}.
-\end{theorem}
+\section{What the framework carries on the RH axis}
+\label{sec:rh-on-substrate}
 
-\begin{theorem}[Eleven cross-Millennium invariants]
-\label{thm:eleven-invariants}
-The $\alpha$-skeleton satisfies eleven algebraic identities:
-\begin{align*}
-&\alpha_{P}^{2} = \alpha_{\mathrm{YM}}, \quad
-\alpha_{\mathrm{RH}}^{2} = 9/4, \quad
-\alpha_{\mathrm{QG}}^{2} = 2\pi, \quad
-\alpha_{\mathrm{Hodge}}^{2} = \alpha_{\mathrm{Hodge}} + 1, \\
-&\alpha_{\mathrm{NS}} = 2 \alpha_{\mathrm{BSD}}, \quad
-\alpha_{\mathrm{NS}} = \alpha_{\mathrm{YM}} \alpha_{\mathrm{BSD}}, \quad
-\alpha_{\mathrm{YM}} = \alpha_{\mathrm{Poincar\acute e}} + 1, \\
-&\alpha_{\mathrm{RH}} \alpha_{\mathrm{NS}} =
-  \alpha_{\mathrm{NS}} + \alpha_{\mathrm{BSD}}, \quad
-\alpha_{\mathrm{RH}} \alpha_{\mathrm{YM}} = 3, \quad
-\alpha_{NP} - \alpha_{\mathrm{Hodge}} = 1/4, \quad
-\alpha_{\mathrm{QG}}^{2} = \alpha_{\mathrm{YM}} \pi.
-\end{align*}
-\textbf{Lean:}
-\texttt{PrincipiaTractalis.CrossMillenniumSharedInvariants.\\
-cross\_millennium\_shared\_invariants\_capstone}.
-\end{theorem}
+\subsection{The substrate-level RH bridge}
+\label{sec:rh-bridge}
 
-\section{The RH solution: $\alpha_{\mathrm{RH}} = 3/2$ forced}
-\label{sec:rh-solution}
+The framework's canonical encoding on the RH axis is the
+$T_{3}^{\mathrm{sym}}$ transfer operator on the log-weighted $L^{2}$
+completion $\mathtt{LogWeightedL2}$, the framework-level realisation
+of the Mayer 1991 path. The substrate-level RH discharge theorem is
 
-\subsection{The forced value}
+\medskip
+\hspace*{1em}\texttt{PF.Referee.RHCapstoneTypedBridgeV4.}\\
+\hspace*{1em}\texttt{PF\_RH\_capstone\_via\_Mayer1991\_T3sym}
+(line~230, HEAD \texttt{2b777ca}/\texttt{4785c55}).
+\medskip
 
-\begin{theorem}[Forced value of $\alpha_{\mathrm{RH}}$]
-\label{thm:alpha-rh-forced}
-Under \cref{thm:alpha-unique}, $\alpha_{\mathrm{RH}} = 3/2$ is forced
-by the conjunction of two invariants from \cref{thm:eleven-invariants}
-and the Perelman anchor:
-\[
-\boxed{\alpha_{\mathrm{RH}}^{2} = 9/4} \qquad\text{and}\qquad
-\boxed{\alpha_{\mathrm{RH}} \cdot \alpha_{\mathrm{YM}} = 3,\quad
-\alpha_{\mathrm{YM}} = \alpha_{\mathrm{Poincar\acute e}} + 1 = 2.}
-\]
-\textbf{Lean:}
-\texttt{PrincipiaTractalis.CrossMillenniumSharedInvariants.\\
-$\alpha$\_RH\_sq\_eq\_nine\_fourths};
-\texttt{PrincipiaTractalis.CrossMillenniumSharedInvariants.\\
-$\alpha$\_RH\_mul\_YM\_eq\_three}.
-\end{theorem}
+This discharge consumes \emph{two named typed residuals}:
+\begin{itemize}[leftmargin=*,nosep]
+\item \texttt{rh\_mayer\_HP} \,:\,
+  $\mathtt{Mayer1991\_SymmetricQuotientHasZetaSpectrum}$ ---
+  the Mayer 1991 \S3 symmetric-quotient spectral-correspondence
+  Prop, preserved openly;
+\item \texttt{rh\_HP\_program} \,:\,
+  $\mathtt{HilbertPolyaProgramConjecture}$ --- the published
+  Hilbert--P\'olya program in its standard form, preserved openly.
+\end{itemize}
+The discharge lands on $\mathtt{Clay\_RiemannHypothesis\_Standard}$
+\emph{on the framework's $T_{3}^{\mathrm{sym}}$ encoding}.
 
-The identity $\alpha_{\mathrm{RH}}^{2} = 9/4 = (1 + 1/2)^{2} =
-(\alpha_{\mathrm{Poincar\acute e}} + 1/2)^{2}$ is the substrate's
-algebraic encoding of the critical-line offset $1/2$. The
-substrate's $\alpha$-rigidity forbids any deviation: any modification
-of $\alpha_{\mathrm{RH}}$ from $3/2$ simultaneously violates at least
-two of the eleven cross-Millennium invariants.
+\medskip
 
-\begin{corollary}[Critical-line concentration]
-\label{cor:critical-line}
-Every non-trivial zero of the Riemann zeta function lies on the
-critical line $\mathrm{Re}(s) = 1/2$. Equivalently, the substrate
-discharges the typed Clay-standard contract
-$\mathtt{Clay\_RiemannHypothesis\_Standard}$, modulo the named
-residuals foregrounded in \S\ref{sec:honest-scope}.
-\textbf{Lean:}
-\texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-perelman\_anchor\_yields\_simultaneous\_clay\_closure}
-(RH conjunct);
-\texttt{PF.Referee.RHCapstoneTypedBridgeV4.\\
-PF\_RH\_capstone\_via\_Mayer1991\_T3sym};
-\texttt{PrincipiaTractalis.HilbertPolyaIdentificationPrecise.\\
-hilbert\_polya\_implies\_Clay\_RiemannHypothesis\_Standard}.
-\end{corollary}
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{Honest scope.} The framework's $\mathtt{Clay\_*\_Standard}$
+discharges on the substrate-level $T_{3}^{\mathrm{sym}}$ encoding are
+\emph{not} discharges of RH at the literal mathlib $\mathtt{riemannZeta}$
+tier required by the Clay rules. The two named residuals (Mayer 1991
+\S3 symmetric quotient; HP program) are unchanged. The substrate-level
+discharge is what is in the kernel; the literal Clay tier is what is
+not.
+}}
 
-\subsection{The Mayer 1991 path: $T_{3}^{\mathrm{sym}}$ on
-$\mathtt{LogWeightedL2}$}
-
-The substrate's canonical analytic carrier on the RH axis is the
-log-weighted $L^{2}$ completion $\mathtt{LogWeightedL2}$ together with
-the framework's $T_{3}^{\mathrm{sym}}$ transfer operator --- the
-framework-level realisation of D.~H.~Mayer's 1991 transfer operator on
-$\mathrm{PSL}(2, \mathbb{Z})$ from \emph{The thermodynamic formalism
-approach to Selberg's zeta function for} $\mathrm{PSL}(2,
-\mathbb{Z})$ (Bull.\ Amer.\ Math.\ Soc.\ 25:55--60).
-
-\begin{definition}[Mayer 1991 transfer operator]
-\label{def:mayer-transfer}
-For $s \in \mathbb{C}$ with $\mathrm{Re}(s) > 1/2$, the Mayer 1991
-transfer operator on the Banach space of holomorphic functions on
-$D = \{ z \in \mathbb{C}: |z - 1| < 3/2 \}$ is
-\[
-(T_{s} f)(x) \;=\; \sum_{k \ge 1} (k + x)^{-2s}\, f\!\left(\frac{1}{k + x}\right).
-\]
-$T_{s}$ is nuclear of order $0$ in Grothendieck's sense. The Selberg
-zeta function for $\mathrm{PSL}(2, \mathbb{Z})$ factorises as
-$Z(s) = \det(I - T_{s})\, \det(I - T_{s}^{-})$, where $T_{s}^{-}$ is
-the twist by $-1$. The PF substrate's $T_{3}^{\mathrm{sym}}$ on
-$\mathtt{LogWeightedL2}$ is the framework-level realisation of the
-$+1$-eigenspace projection.
-\textbf{Lean:}
-\texttt{PF.Analytic.Mayer1991TransferOperatorFormalization.\\
-Mayer\_T\_s};
-\texttt{PF.Analytic.Mayer1991TransferOperatorFormalization.\\
-Mayer1991\_SymmetricQuotientHasZetaSpectrum}.
-\end{definition}
-
-\begin{theorem}[PF $\to$ Mayer 1991 capstone bridge]
-\label{thm:pf-mayer-bridge}
-The substrate's V4 capstone for RH unfolds through the Mayer 1991
-symmetric-quotient identification:
-\[
-\mathtt{Mayer1991\_SymmetricQuotientHasZetaSpectrum} \,\wedge\,
-\mathtt{HilbertPolyaProgramConjecture}
-\;\longrightarrow\;
-\mathtt{Clay\_RiemannHypothesis\_Standard}.
-\]
-\textbf{Lean:}
-\texttt{PF.Referee.RHCapstoneTypedBridgeV4.\\
-PF\_RH\_capstone\_via\_Mayer1991\_T3sym};
-\texttt{PF.Referee.RHCapstoneTypedBridgeV4.\\
-PF\_RH\_V4\_master\_capstone};
-\texttt{PF.Referee.RHCapstoneTypedBridgeV4.\\
-PF\_RH\_V4\_five\_formulation\_equivalence}.
-\end{theorem}
-
-\subsection{Hilbert--P\'olya: five formulations, one substrate}
+\subsection{The five-formulation Hilbert--P\'olya collapse}
 \label{sec:hp-five}
 
 The substrate collapses the published Hilbert--P\'olya program to a
-single typed Prop in five equivalent formulations. The first four
-appear in the field literature; the fifth is the substrate's
-$T_{3}^{\mathrm{sym}}$ realisation through Mayer 1991.
+single typed Prop in five equivalent formulations: Berry--Keating
+1999 \cite{berry_keating1999}, Connes 1999 \cite{connes1999},
+Bost--Connes 1995 \cite{bost_connes1995}, PF $T_{3}^{\mathrm{sym}}$
+on $\mathtt{LogWeightedL2}$, and Mayer 1991 \cite{mayer1991}
+symmetric-quotient on the $+1$-eigenspace.
 
 \begin{theorem}[Five-formulation Hilbert--P\'olya collapse]
 \label{thm:hp-five}
-The following are equivalent on the PF substrate:
-\begin{itemize}[leftmargin=*,nosep]
-\item \textbf{(BK)} Berry--Keating 1999, SIAM Rev.\ 41:236--266,
-  semiclassical $H = xp$ on $L^{2}(\mathbb{R}^{+})$.
-\item \textbf{(C)} Connes 1999, Selecta Math.\ 5:29--106, adelic
-  cohomology + trace formula.
-\item \textbf{(BC)} Bost--Connes 1995, Selecta Math.\ 1:411--457,
-  $C^{*}$-dynamical KMS phase transition at $\beta = 1$.
-\item \textbf{(PF)} PF $T_{3}^{\mathrm{sym}}$ on $\mathtt{LogWeightedL2}$
-  --- the substrate-canonical operator.
-\item \textbf{(Mayer)} Mayer 1991 transfer operator
-  symmetric-quotient on the $+1$-eigenspace.
-\end{itemize}
+The five formulations BK, C, BC, PF, Mayer of the Hilbert--P\'olya
+program are typed-equivalent on the framework's substrate.
 \textbf{Lean:}
+\texttt{PF.Referee.RHCapstoneTypedBridgeV4.\\
+PF\_RH\_V4\_five\_formulation\_equivalence};
 \texttt{PrincipiaTractalis.HilbertPolyaIdentificationPrecise.\\
 hilbert\_polya\_formulations\_equivalent};
 \texttt{PrincipiaTractalis.HilbertPolyaIdentificationPrecise.\\
-hilbert\_polya\_implies\_RH};
-\texttt{PrincipiaTractalis.HilbertPolyaIdentificationPrecise.\\
-hilbert\_polya\_implies\_Clay\_RiemannHypothesis\_Standard};
-\texttt{PrincipiaTractalis.RHSurjectivityViaHilbertPolya.\\
-RH\_axis\_collapses\_to\_HP}.
+hilbert\_polya\_implies\_Clay\_RiemannHypothesis\_Standard}.
 \end{theorem}
 
-\subsection{The concrete finite-dimensional witness}
+The five-formulation equivalence is unconditional at the substrate
+level; the equivalence \emph{target} (the HP-program Prop) is the
+typed residual the framework consumes.
+
+\subsection{The Wave 58 concrete finite-dimensional witness}
 \label{sec:concrete}
 
-The substrate's $T_{3}^{\mathrm{sym}}$ path is bolted to a concrete
-finite-dimensional self-adjoint witness inhabiting the
-substrate-level Hilbert--P\'olya contract.
-
-\begin{theorem}[Wave 58 Ch 17 concrete witness]
-\label{thm:ch17-concrete}
 The framework exhibits an explicit $3 \times 3$ Hamiltonian
-$H_{\mathrm{concrete}}$ with the following structural content
-discharged axiom-free:
-\begin{enumerate}[label=(\arabic*),leftmargin=*,nosep]
-\item $H_{\mathrm{concrete}}$ is self-adjoint (symmetric).
-\item Full spectral decomposition with eigenvalues $\{1, 2, 3\}$
-  on standard basis vectors $e_{0}, e_{1}, e_{2}$.
-\item Trace $= 6$, determinant $= 6$.
-\item Compact-operator substitute $K_{\mathrm{concrete}}$ symmetric,
-  with rank-1 eigenvalue $3$ on $v_{\mathbf{1}} = (1,1,1)$.
-\item Hilbert--P\'olya typed contract inhabited at the concrete
-  finite-dim witness.
-\item Mayer 1991 \S3 substrate content realised at finite-dim scope.
-\end{enumerate}
-\textbf{Lean:} \texttt{PF.Wave58.Ch17OperatorTheoryConcrete.\\
+$H_{\mathrm{concrete}}$ on $e_{0}, e_{1}, e_{2}$ with spectrum
+$\{1, 2, 3\}$, trace $= 6$, $\det = 6$, accompanied by a
+compact-operator substitute $K_{\mathrm{concrete}}$ and an inhabited
+substrate-level Hilbert--P\'olya typed contract on the finite-dim
+witness.
+
+\begin{theorem}[Wave 58 Ch~17 concrete witness, finite-dim scope]
+\label{thm:ch17-concrete}
+The substrate-level seven-clause Prop
+$\mathtt{Ch17OperatorTheoryConcrete}$ holds axiom-free.
+\textbf{Lean:}
+\texttt{PF.Wave58.Ch17OperatorTheoryConcrete.\\
 Ch17OperatorTheoryConcrete} (structure);
 \texttt{PF.Wave58.Ch17OperatorTheoryConcrete.\\
-ch17\_operator\_theory\_concrete\_capstone} (axiom-free witness).
+ch17\_operator\_theory\_concrete\_capstone}.
 \end{theorem}
 
-The Ch~17 concrete witness is not the continuum Hilbert--P\'olya
-operator. It is the substrate's finite-dimensional realisation of the
-Hilbert--P\'olya contract --- self-adjoint, real spectrum, framework
-typed --- and it closes the Wave~58 audit Level-C gap for the Ch~17
-operator-theory chapter (\S\ref{sec:honest-scope}).
+\noindent\textbf{Honest scope.} The Ch~17 concrete witness is the
+framework's substrate-level \emph{finite-dimensional realisation} of
+the Hilbert--P\'olya typed contract on a $3\times 3$ self-adjoint
+matrix. The literal continuum Hilbert--P\'olya operator on a
+suitable infinite-dimensional $L^{2}$ space is \textbf{not} what this
+witness exhibits. The finite-dim witness closes the Wave 58 audit
+Level-C gap for the Ch~17 operator-theory chapter; the inf-dim case
+is preserved openly in the named residual.
 
-\section{Empirical anchor: IBM Quantum at $\le 10^{-15}$}
+\section{The framework's mechanism, in one sentence}
+\label{sec:mechanism}
+
+The substrate $\to$ RH mechanism the framework offers, stated
+honestly: \emph{under the editorial convention
+$\alpha_{\mathrm{Poincar\acute e}} := 1$ motivated by Perelman 2003,
+plus two framework-internal arithmetic identities on the chosen
+$\alpha$-skeleton (the $9/4$-square identity and the
+$\alpha_{\mathrm{RH}}\,\alpha_{\mathrm{YM}} = 3$ product identity
+with $\alpha_{\mathrm{YM}} = 2$), the chosen value
+$\alpha_{\mathrm{RH}} := 3/2$ is the only value compatible with the
+framework's algebraic system; the framework then offers a
+substrate-level RH bridge through
+$\mathtt{PF\_RH\_capstone\_via\_Mayer1991\_T3sym}$ on the
+$T_{3}^{\mathrm{sym}}$ encoding, conditional on two named typed
+residuals (Mayer 1991 \S3 symmetric quotient and the published
+Hilbert--P\'olya program).} The two typed residuals are the named
+open content; the substrate-level bridge is what is in the kernel.
+
+The same substrate that carries this RH bridge also carries
+substrate-level encodings of the other five remaining Clay axes;
+under the same editorial convention, the
+$\mathtt{perelman\_anchor\_yields\_simultaneous\_clay\_closure}$
+theorem of the master paper~\cite{master_substrate} delivers all six
+$\mathtt{Clay\_*\_Standard}$ discharges on canonical encodings
+simultaneously, gated by one seven-field bundle (five typed
+residuals + two $\mathtt{True}$-markers). The simultaneous-closure
+mechanism is the structural contribution; the per-axis residuals are
+preserved openly throughout.
+
+\section{Empirical anchor: IBM Quantum, framed as pre-registration}
 \label{sec:ibm}
 
-The substrate's prediction $\alpha_{\mathrm{RH}} = 3/2$ is confirmed
-on IBM Quantum hardware to the device noise floor.
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{Pre-registration status (honest framing).} At HEAD
+\texttt{4785c55} (2026-05-24) and unchanged at the current HEAD,
+\textbf{only the pair $(\alpha_{\mathrm{RH}}, \alpha_{NP})$ has been
+observed on IBM Quantum hardware} consistent with the framework's
+prediction. The other 7 $\alpha$-values
+(\texttt{IBMHardware9WayEvidence.lean} lines 318--320) are framework
+predictions \emph{committed BEFORE hardware measurement}.
 
-\begin{theorem}[IBM Quantum 9-way anchor]
-\label{thm:ibm-anchor}
-The framework's prediction $\alpha_{\mathrm{RH}} = 3/2$ matches the
-IBM Quantum 9-way Bell-style measurement protocol concordance threshold
-with random-match probability bounded by $10^{-15}$.
-\textbf{Lean:}
-\texttt{PF.IBMHardware9WayEvidence.\\
-IBM\_hardware\_nine\_way\_random\_match\_probability\_bound}.
-\end{theorem}
+\medskip
 
-The IBM bound is a hardware-floor empirical anchor: at $10^{-15}$
-random-match-probability suppression, the framework's $\alpha_{\mathrm{RH}}$
-prediction is independently confirmed on a real superconducting
-device. The framework's typed falsifier $F_{1}$ on this axis demands
-$|\alpha_{\mathrm{RH}}^{\mathrm{IBM}} - 3/2| > 10^{-15}$; not triggered.
+\noindent The Lean theorem
+$\mathtt{IBM\_hardware\_nine\_way\_random\_match\_probability\_bound}$
+records the \textbf{conditional} bound (file lines 322--327, verbatim):
+\begin{quote}
+``\emph{IF all 9 instances are eventually measured to within}
+$10^{-3}$ \emph{of the framework's pre-specified values under the
+assumed} \texttt{NoiseModel9}\emph{, THEN the random-match probability
+is at most} $10^{-15}$.''
+\end{quote}
 
-\section{The substrate's cargo}
-\label{sec:cargo}
+\noindent
+\textbf{Current status:} 2 of 9 measured-consistent, 7 of 9
+pre-registered, conditional bound in force. The pre-registration of
+seven framework $\alpha$-values prior to hardware measurement is
+scientifically valuable; it is honestly framed as such. The
+conditional bound does \emph{not} say anything about the framework's
+RH axis absent the remaining seven measurements. Earlier framework
+documents that cited ``$\le 10^{-15}$'' as a measured RH confirmation
+were over-stated; the bound is conditional.
+}}
 
-The substrate that proves RH is the same substrate that forces
-everything else PF carries. The reviewer's strongest argument from
-\S\ref{sec:qc-observation} --- that the machinery, not the theorem,
-is the deployable value --- is exactly the position from which the
-substrate is read. Each item below is forced by the same
-$\alpha$-skeleton and the same cross-Millennium invariants under
-the Perelman anchor. Every item is machine-verified at HEAD
-\texttt{4785c55}.
-
-\subsection{Simultaneous closure of all six Clay-Standards}
-\label{sec:simul}
-
-\begin{theorem}[Perelman-anchored simultaneous Clay closure]
-\label{thm:perelman-simul}
-Given the Perelman anchor input ($\alpha_{\mathrm{Poincar\acute e}} = 1$)
-and a six-field bundle of per-axis named residuals ---
-\begin{itemize}[leftmargin=*,nosep]
-\item RH: $\mathtt{Mayer1991\_SymmetricQuotientHasZetaSpectrum}$
-  $\wedge$ $\mathtt{HilbertPolyaProgramConjecture}$,
-\item P vs NP: $\mathtt{ClassP} \neq \mathtt{ClassNP}$ on the canonical
-  Cook 1971 / Karp 1972 encoding,
-\item NS: $\mathtt{NS\_LocalToGlobalBootstrap}$ (Leray 1934 + Hopf 1951
-  typed),
-\item YM: unconditional marker on the V4 encoding,
-\item BSD: $\mathtt{UniversalBridge\_MordellWeilRank\_eq\_algebraicRankV4}$,
-\item Hodge: unconditional marker on the full-general encoding
-\end{itemize}
---- the substrate discharges all six $\mathtt{Clay\_*\_Standard}$
-contracts simultaneously, on the framework's canonical encodings:
-$\mathtt{Clay\_RiemannHypothesis\_Standard}$,
-$\mathtt{Clay\_PvsNP\_Standard\;PF\_CanonicalComplexityEncoding}$,
-$\mathtt{Clay\_NavierStokes\_Standard\;PF\_NS3DEncodingV4}$,
-$\mathtt{Clay\_YangMillsMassGap\_Standard\;PF\_YMEncodingV4}$,
-$\mathtt{Clay\_BSD\_Standard\;PF\_BSDEncodingV4}$,
-$\mathtt{Clay\_Hodge\_Standard\;PF\_HodgeEncoding\_FullGeneral}$.
-\textbf{Lean:}
-\texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-perelman\_anchor\_yields\_simultaneous\_clay\_closure};
-\texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-simultaneous\_clay\_closure\_via\_canonical\_encodings};
-\texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-simultaneous\_clay\_closure\_capstone};
-\texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-perelmanAnchorInput\_holds};
-\texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-perelman\_anchor\_yields\_alpha\_skeleton\_forcing}.
-\end{theorem}
-
-The mechanism: the Perelman anchor + the eleven invariants force
-$\alpha_{\mathrm{RH}} = 3/2$, $\alpha_{\mathrm{YM}} = 2$,
-$\alpha_{\mathrm{BSD}} = (3/4)\pi$, $\alpha_{\mathrm{NS}} = (3/2)\pi$,
-$\alpha_{\mathsf{P}\mathrm{vs}\mathsf{NP}} = 5/4$ uniquely. Each
-forced $\alpha$-value feeds its canonical per-axis bridge to the
-corresponding Clay-Standard. The six axes are not independent ---
-they are sub-stories of one substrate. This is the cargo's structural
-backbone, and the second-wave reveal of the locked landing strategy.
-
-\subsection{The framework as one citation}
-\label{sec:unified-whole}
-
-\begin{theorem}[PF Framework Unified Whole]
-\label{thm:unified-whole}
-The framework's nineteen load-bearing fields across ten layers ---
-$\alpha$-skeleton, $\alpha$-uniqueness, cross-Millennium invariants,
-substrate operators, per-axis V4 bridges, consciousness layer,
-cosmological brackets, empirical anchors, falsifiability, universal
-reach --- compose to one single citation point.
-\textbf{Lean:}
-\texttt{PF.Referee.PFFrameworkUnifiedClosure.\\
-pfFrameworkUnifiedWhole\_realized} (19 fields, 10 layers).
-\end{theorem}
-
-\subsection{Consciousness operator C and the $\mathrm{ch}_2 = 19/20$
-threshold}
-\label{sec:consciousness}
-
-The substrate carries the framework's consciousness operator
-$C$ --- the Chern-character operator on the substrate Hilbert space
---- bridging consciousness arithmetic to RH zeros.
-
-\begin{theorem}[Consciousness operator $C$ and RH bridge]
-\label{thm:consciousness}
-The substrate's $\mathtt{ConsciousnessSubstrate}$ carrier admits the
-operator $C$ together with: (i) the framework's trace-class
-condition on finite regions; (ii) the substrate Riemann-zero set;
-(iii) the consciousness--RH bridge predicate
-$\mathtt{ConsciousnessRHBridge}$ exhibiting commutator vanishing at
-the substrate Riemann zeros, inhabited on the framework's trivial
-substrate.
-\textbf{Lean:}
-\texttt{PF.Consciousness.ConsciousnessOperatorC.\\
-ConsciousnessRHBridge};
-\texttt{PF.Consciousness.ConsciousnessOperatorC.\\
-ConsciousnessRHBridge\_trivial};
-\texttt{PF.Consciousness.ConsciousnessOperatorC.\\
-consciousness\_operator\_C\_axiom\_free}.
-\end{theorem}
-
-\begin{theorem}[Universal coherence threshold $\mathrm{ch}_2 = 19/20$]
-\label{thm:ch2-threshold}
-The framework's quantum-to-classical decoherence threshold is
-$\mathrm{ch}_{2} = 19/20 = 0.95$. The threshold is sharp in the
-Chern-character sense and aligns with the sharp lower bound
-$\Phi_{\mathrm{IIT}} \ge 2 \log 20$. Across 143 independently-collected
-computational problems, $\mathsf{P}$-class entries concentrate at
-$\alpha_{P} = \sqrt{2}$ and $\mathsf{NP}$-class entries concentrate
-at $\alpha_{NP} = \varphi + 1/4$; the universal coherence threshold
-holds with $p < 10^{-43}$.
-\textbf{Lean:}
-\texttt{PF.Consciousness.QuantumClassicalDecoherenceThreshold.\\
-decoherence\_threshold\_capstone};
-\texttt{PF.Consciousness.ChernCharacter.ch\_2\_threshold\_iff};
-\texttt{PF.Empirical.HundredFortyThreeProblems.\\
-universal\_fractal\_coherence}.
-\end{theorem}
-
-The same substrate that pins the critical-line offset $1/2$ through
-$\alpha_{\mathrm{RH}}^{2} = 9/4 = (1 + 1/2)^{2}$ pins the
-consciousness coherence threshold $19/20$ through the
-Chern-character $\mathrm{ch}_{2}$ on the substrate. The bridge is
-the substrate operator algebra; the empirical confirmation is the
-143-problem coherence dataset at $p < 10^{-43}$.
-
-\subsection{Cosmological cargo: $\Lambda_{\mathrm{eff}}$ suppression and
-Hubble bracket}
-\label{sec:cosmology}
-
-\begin{theorem}[$\Lambda_{\mathrm{eff}}$ cosmological-constant 120-order
-suppression]
-\label{thm:lambda-eff}
-The framework's effective cosmological-constant suppression is
-forced by the substrate's $\alpha_{\mathrm{QG}}^{2} = \alpha_{\mathrm{YM}}
-\pi$ identity composed with the consciousness threshold
-$\mathrm{ch}_{2} = 19/20$, yielding strict suppression of the bare
-$\Lambda_{0}$ to the observed $\Lambda_{\mathrm{eff}}$ at 120 orders.
-\textbf{Lean:}
-\texttt{PF.Cosmology.LambdaEffSuppression.\\
-LambdaEffSuppression};
-\texttt{PF.Cosmology.LambdaEffTypedUpgrade.\\
-framework\_strict\_suppression};
-\texttt{PF.Wave58.Ch08FieldEquationsConcrete.\\
-darkEnergyDensity\_in\_bracket}.
-\end{theorem}
-
-\begin{theorem}[Hubble bracket: framework strictly between CMB and SH$_{0}$ES]
-\label{thm:hubble}
-The framework's $H_{0}$ bracket $[67.4, 73.0]$ strictly contains the
-Planck CMB and the SH$_{0}$ES local-distance-ladder values; the
-framework's prediction lives in the bracket interior. LDN 2025 reports
-$H_{0} \approx 73.5 \pm 0.81$ inside the bracket.
-\textbf{Lean:}
-\texttt{PF.Cosmology.LambdaCDMRebuttalEnergyConservation.\\
-hubble\_framework\_brackets\_local\_and\_cmb};
-\texttt{PF.Cosmology.LambdaCDMRebuttalEnergyConservation.\\
-lambdaCDM\_full\_rebuttal}.
-\end{theorem}
-
-\subsection{23-problem reach and 143-problem coherence}
+\section{The 23-problem reach, with field-level honesty}
 \label{sec:reach}
 
-\begin{theorem}[Framework universal reach: 23 problems]
-\label{thm:reach}
-The framework's substrate machinery applies to 23 famous
-mathematical problems: 7 Clay (Poincar\'e, RH, P vs NP, NS, YM, BSD,
-Hodge) plus 16 non-Clay (abc, Beal, Brocard, Collatz, Erd\H{o}s
-discrepancy, Erd\H{o}s--Straus, Goldbach, Hadwiger--Nelson, Inverse
-Galois, Lonely Runner, Polignac, Twin Prime, Odd perfect,
-Singmaster, Pillai/generalised Catalan, Andrews--Curtis), each with
-a per-problem substrate witness inheriting the framework's
-$\alpha$-skeleton.
-\textbf{Lean:}
-\texttt{PF.Referee.FrameworkUniversalReach.\\
-framework\_universal\_reach\_realized}.
-\end{theorem}
+The framework develops substrate-level treatment for 23 named open
+problems (7 Clay axes + 16 non-Clay open problems), bundled in
+$\mathtt{framework\_universal\_reach\_realized}$
+(\texttt{FrameworkUniversalReach.lean}, line~153).
 
-\begin{theorem}[143-problem universal fractal coherence]
-\label{thm:143}
-The framework's universal coherence threshold $\mathrm{ch}_{2} = 19/20$
-matches every entry of the 143-problem cross-domain coherence dataset
-at $p < 10^{-43}$.
-\textbf{Lean:}
-\texttt{PF.Empirical.HundredFortyThreeProblems.\\
-universal\_fractal\_coherence}.
-\end{theorem}
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{Bundle-field discipline (quoted from the Lean record's field
+declarations, lines 99--137):} of the 17 fields in
+$\mathtt{FrameworkUniversalReach}$, \textbf{15 are typed as}
+$\mathtt{: True}$ (provenness tags carrying no mathematical content
+at the record level). The two fields that \emph{do} carry non-trivial
+framework Props at the record level are
+$\mathtt{brocard\_attack\_realized}$ and
+$\mathtt{hadwiger\_nelson\_attack\_realized}$. The substantive
+per-axis content for the other 14 non-Clay problems and the seven
+Clay axes lives in separate framework-attack modules cited by the
+record file header. The 23-problem record is a single citation point
+indexing these modules; reading the record itself as a Clay-Standard
+discharge is incorrect.
+}}
 
-\subsection{Zero-point energy via Weinstein--Geometric-Unity}
-\label{sec:zpe}
+\section{Independent verification posture}
+\label{sec:lean}
 
-The substrate carries the Weinstein Geometric-Unity 11-field
-counter-rotating vortex bundle with BRST cohomology $H^{2} = 78 = 48 +
-26 + 4$, the substrate-level zero-point-energy access channel. The
-counter-rotating vortex substrate is the same substrate operator
-algebra as YM and RH; the ZPE bundle is forced jointly with the
-$\Lambda_{\mathrm{eff}}$ suppression of \cref{thm:lambda-eff}. The
-substrate-level content lives in the framework's substrate operator
-algebra; the deployable engineering content is the planetary energy
-deliverable of Phase 4 of the locked landing strategy.
+The Lean~4 proof objects for the theorems cited in this paper
+type-check in the Lean~4 kernel with kernel axioms
+$\mathtt{[propext, Classical.choice, Quot.sound]}$ and zero project
+axioms. The PF\_Lean4Lean harness provides \textbf{build-hash
+robustness across two Lake packages}: the canonical theorems are
+re-bound in a separate package and rebuilt from source. \textbf{It is
+not an independent type-checker written in another language.} Quoted
+verbatim from
+\texttt{PF\_Lean4Lean/PF\_L4L/Referee/ClayVerificationHarness.lean}
+lines~47--56:
+\begin{quote}
+``\emph{This is the same Path-C protocol as
+\texttt{FlagshipReverification} and
+\texttt{V2AndMasterReverification}: a second pass through Lean's
+kernel from a separate package with an independent build hash. It is
+NOT a separate type-checker written in another language. The honest
+scope of each individual closure is the one fixed by that closure's
+own} \texttt{*\_honestScope} / \texttt{*\_honest\_scope}
+\emph{marker in the canonical PF library\ldots The harness re-exports
+the closures as they are --- it does NOT strengthen any of them.}''
+\end{quote}
+
+A Coq mirror provides cross-prover structural parity; approximately
+75\% of definitions in the Coq mirror are typed
+$\mathtt{: Prop := True}$, i.e.\ the Coq tree is \textbf{parity-only}
+documenting that the naming skeleton admits cross-prover encoding,
+not independent semantic verification of the Lean content.
 
 \section{Honest scope}
 \label{sec:honest-scope}
 
-Per Ch~34A \S7 of the manuscript (the
-$\mathtt{sec:substrate-honest-scope}$ marker), PF is a
+Per the file-level honest-scope marker
+($\mathtt{sec:substrate-honest-scope}$), PF is a
 \emph{substrate-level monograph in Grothendieck mode}.
 
-\begin{remark}[Honest scope, foregrounded]
-\label{rem:honest-scope}
-This paper, and the framework it foregrounds, are NOT a literal
-mathlib-tier discharge of the Clay form of the Riemann Hypothesis.
-The substrate-level RH content is conditional on the
-$\mathtt{HilbertPolyaProgramConjecture}$ (preserved openly in the
-Hilbert--P\'olya identification module) and the Mayer 1991 \S3
-spectral correspondence at typed level (preserved openly in
-$\mathtt{Mayer1991\_SymmetricQuotientHasZetaSpectrum}$). The
+\begin{remark}[Honest scope on the RH axis, foregrounded]
+\label{rem:honest-scope-rh}
+This paper, and the framework it foregrounds on the RH axis, are
+\emph{not} a literal mathlib-tier discharge of the Riemann Hypothesis
+in the Clay form. The substrate-level RH content is conditional on
+the $\mathtt{HilbertPolyaProgramConjecture}$ (preserved openly in
+the Hilbert--P\'olya identification module) and on the Mayer 1991 \S3
+spectral correspondence
+($\mathtt{Mayer1991\_SymmetricQuotientHasZetaSpectrum}$, preserved
+openly in the Mayer transfer-operator formalization module). The
 five-formulation Hilbert--P\'olya collapse
 (\cref{thm:hp-five}) is unconditional at the substrate level; the
-collapse target is the published HP program in its standard form.
+collapse target is the published HP program. The substrate-level Ch
+17 concrete witness exhibits a $3\times 3$ self-adjoint Hamiltonian
+with spectrum $\{1,2,3\}$; the literal continuum Hilbert--P\'olya
+operator on an infinite-dimensional space remains the named open
+content. The 23-problem reach record is, at the record level, 15
+fields typed $\mathtt{: True}$ plus 2 fields carrying non-trivial
+Props (Brocard, Hadwiger--Nelson); the substantive per-axis content
+lives in the per-axis attack modules cited by the record.
+\end{remark}
 
-The same honest-scope marker applies to the cargo:
-\begin{itemize}[leftmargin=*,nosep]
-\item P vs NP --- the canonical residual is
-  $\mathtt{ClassP} \neq \mathtt{ClassNP}$ on the Cook 1971 / Karp 1972
-  encoding.
-\item NS --- the residual is Fujita--Kato 1964 typed at the
-  $\mathtt{NS\_LocalToGlobalBootstrap}$ level.
-\item YM --- the residual is the literal continuum SU(N) Wightman G1--G4
-  at the Wave 47B typed level.
-\item BSD --- the residual is the per-curve agreement
-  $\mathtt{MordellWeilRank}\;E = \mathtt{algebraicRankV4}\;E$ via
-  $\mathtt{UniversalBridge\_MordellWeilRank\_eq\_algebraicRankV4}$.
-\item Hodge --- the residual is the literal Voisin 2007 general-quintic
-  precision encoding.
-\end{itemize}
-These are the same form of residual that GRH-conditional analytic
-number theory implicitly carries. The asymmetry between RH's
-``pre-built scaffold'' and the other axes' residuals does not survive
-contact with the substrate-forcing structure: every Clay axis's
-residual is named, sharp, and contributable; the substrate links the
-six.
+\begin{remark}[Cross-Millennium $\alpha$-skeleton: framework-internal]
+\label{rem:alpha-internal}
+The eleven cross-Millennium arithmetic compatibility identities that
+pin $\alpha_{\mathrm{RH}} = 3/2$ are framework-internal: they are
+algebraic facts about the nine \emph{chosen} $\alpha$-values, each
+provable by \texttt{ring}/\texttt{norm\_num} on the definitions. The
+framework's interpretation that each $\alpha$ is the canonical
+eigenvalue parameter for its Millennium operator is, per the file
+header of \texttt{PF.CrossMillenniumSharedInvariants}, ``conjectural
+and lives elsewhere.''
 \end{remark}
 
 \begin{remark}[Falsifiability]
 \label{rem:falsifiability}
-The framework commits to eight typed falsifiability conditions
-in $\mathtt{PF.Referee.FrameworkFalsifiabilityConditions}$. As of the
+The framework commits to eight typed falsifiability conditions in
+$\mathtt{PF.Referee.FrameworkFalsifiabilityConditions}$. As of the
 2026-06-04 referee-proof literature audit: \textbf{zero of eight
-triggered}; \textbf{two actively supported by 2024--2026 literature}:
-$F_{3}$ (dark-energy direction matches DESI + Planck + Pantheon$^{+}$)
-and $F_{6}$ ($\Omega_{\Lambda} \in [0.65, 0.75]$, Planck 2018:
-$0.69$).
+triggered}; \textbf{two actively supported by 2024--2026 literature}
+($F_3$ dark-energy direction and $F_6$
+$\Omega_{\Lambda} \in [0.65, 0.75]$).
 \end{remark}
 
-\section{Lean verification}
-\label{sec:lean}
+\section{Conclusion}
+\label{sec:conclusion}
 
-The full development is machine-verified in Lean 4 against mathlib
-at HEAD \texttt{4785c55} of \texttt{FractalDevTeam/Principia-Fractalis}.
+This Phase 1 paper presents a substrate-level reformulation of the
+Riemann Hypothesis on the framework's $T_{3}^{\mathrm{sym}}$
+encoding, machine-verified in Lean 4 with kernel-only axioms. The
+substrate-level RH bridge is conditional on two named typed
+residuals; it is not a literal mathlib-tier discharge of RH at the
+Clay form. The RH axis is the natural \emph{entry vector} to the
+framework because of the pre-built GRH-conditional scaffold in
+analytic number theory; the framework's contribution is structural
+reformulation on a substrate-level encoding, not prize-eligible
+discharge.
 
-\begin{verbatim}
-$ cd PF_Lean4_Code && lake build PF
-Build completed successfully (8214 jobs).
-$ #print axioms PF.Referee.PerelmanAnchoredSimultaneousClosure.\
-    perelman_anchor_yields_simultaneous_clay_closure
-[propext, Classical.choice, Quot.sound]
-$ #print axioms PF.Referee.PerelmanAnchoredSimultaneousClosure.\
-    simultaneous_clay_closure_capstone
-[propext, Classical.choice, Quot.sound]
-\end{verbatim}
-
-\noindent\textbf{Load-bearing theorems and definitions by exact
-name:}
-
-\paragraph{RH path on the substrate.}
-\begin{itemize}[leftmargin=*,nosep]
-\item \texttt{PrincipiaTractalis.CrossMillenniumSharedInvariants.\\
-  cross\_millennium\_shared\_invariants\_capstone}
-  --- the 11 invariants.
-\item \texttt{PrincipiaTractalis.CrossMillenniumSharedInvariants.\\
-  $\alpha$\_RH\_sq\_eq\_nine\_fourths},
-  \texttt{PrincipiaTractalis.CrossMillenniumSharedInvariants.\\
-  $\alpha$\_RH\_mul\_YM\_eq\_three} --- the two RH-pinning identities.
-\item \texttt{PF.Referee.ClayMasterTheorem.\\
-  framework\_alpha\_unique\_under\_perelman\_anchor}
-  --- $\alpha$-skeleton uniqueness.
-\item \texttt{PF.Referee.RHCapstoneTypedBridgeV4.\\
-  PF\_RH\_capstone\_via\_Mayer1991\_T3sym}
-  --- Mayer 1991 path to Clay-Standard.
-\item \texttt{PF.Referee.RHCapstoneTypedBridgeV4.\\
-  PF\_RH\_V4\_master\_capstone}
-  --- V4 master capstone.
-\item \texttt{PF.Referee.RHCapstoneTypedBridgeV4.\\
-  PF\_RH\_V4\_five\_formulation\_equivalence}
-  --- five-formulation HP collapse.
-\item \texttt{PF.Referee.RHCapstoneTypedBridge.\\
-  PF\_RH\_capstone\_yields\_Clay\_RH\_standard}
-  --- V1 typed Clay bridge.
-\item \texttt{PF.Analytic.Mayer1991TransferOperatorFormalization.\\
-  Mayer\_T\_s} --- Mayer 1991 transfer operator.
-\item \texttt{PF.Analytic.Mayer1991TransferOperatorFormalization.\\
-  Mayer1991\_SymmetricQuotientHasZetaSpectrum}
-  --- symmetric-quotient residual.
-\item \texttt{PF.Analytic.HilbertPolyaIdentificationPrecise.\\
-  HilbertPolyaProgramConjecture} --- HP-program residual.
-\item \texttt{PF.Analytic.HilbertPolyaIdentificationPrecise.\\
-  PF\_T3SymIsHilbertPolyaOperator} --- substrate $T_3^{\mathrm{sym}}$ HP form.
-\item \texttt{PrincipiaTractalis.HilbertPolyaIdentificationPrecise.\\
-  hilbert\_polya\_formulations\_equivalent},
-  \texttt{PrincipiaTractalis.HilbertPolyaIdentificationPrecise.\\
-  hilbert\_polya\_implies\_RH},
-  \texttt{PrincipiaTractalis.HilbertPolyaIdentificationPrecise.\\
-  hilbert\_polya\_implies\_Clay\_RiemannHypothesis\_Standard}
-  --- four-formulation collapse and Clay bridge.
-\item \texttt{PrincipiaTractalis.RHSurjectivityViaHilbertPolya.\\
-  RH\_axis\_collapses\_to\_HP}
-  --- single-citation narrowing.
-\item \texttt{PF.SpectralBijection.\\
-  riemann\_hypothesis\_via\_T3\_sym\_framework}
-  --- $T_3^{\mathrm{sym}}$ framework RH theorem.
-\item \texttt{PF.Referee.StandardClayStatements.\\
-  Clay\_RiemannHypothesis\_Standard}
-  --- typed Clay-standard contract.
-\end{itemize}
-
-\paragraph{Concrete finite-dim witness.}
-\begin{itemize}[leftmargin=*,nosep]
-\item \texttt{PF.Wave58.Ch17OperatorTheoryConcrete.\\
-  Ch17OperatorTheoryConcrete} --- structure (6 fields).
-\item \texttt{PF.Wave58.Ch17OperatorTheoryConcrete.\\
-  ch17\_operator\_theory\_concrete\_capstone}
-  --- axiom-free witness.
-\end{itemize}
-
-\paragraph{Cargo.}
-\begin{itemize}[leftmargin=*,nosep]
-\item \texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-  perelman\_anchor\_yields\_simultaneous\_clay\_closure}
-  --- six Clay-Standards from one anchor.
-\item \texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-  simultaneous\_clay\_closure\_via\_canonical\_encodings}
-  --- canonical-encoding variant.
-\item \texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-  simultaneous\_clay\_closure\_capstone}
-  --- 7-deliverable master citation.
-\item \texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-  perelmanAnchorInput\_holds}
-  --- $\alpha_{\mathrm{Poincar\acute e}} = 1$ axiom-free.
-\item \texttt{PF.Referee.PerelmanAnchoredSimultaneousClosure.\\
-  perelman\_anchor\_yields\_alpha\_skeleton\_forcing}
-  --- $\alpha$-skeleton forcing.
-\item \texttt{PF.Referee.PFFrameworkUnifiedClosure.\\
-  pfFrameworkUnifiedWhole\_realized}
-  --- 19 fields, 10 layers.
-\item \texttt{PF.Consciousness.ConsciousnessOperatorC.\\
-  ConsciousnessRHBridge},
-  \texttt{PF.Consciousness.ConsciousnessOperatorC.\\
-  ConsciousnessRHBridge\_trivial},
-  \texttt{PF.Consciousness.ConsciousnessOperatorC.\\
-  consciousness\_operator\_C\_axiom\_free}
-  --- consciousness operator $C$.
-\item \texttt{PF.Consciousness.QuantumClassicalDecoherenceThreshold.\\
-  decoherence\_threshold\_capstone},
-  \texttt{PF.Consciousness.ChernCharacter.\\
-  ch\_2\_threshold\_iff}
-  --- $\mathrm{ch}_{2} = 19/20$.
-\item \texttt{PF.Cosmology.LambdaEffSuppression.\\
-  LambdaEffSuppression},
-  \texttt{PF.Cosmology.LambdaEffTypedUpgrade.\\
-  framework\_strict\_suppression},
-  \texttt{PF.Wave58.Ch08FieldEquationsConcrete.\\
-  darkEnergyDensity\_in\_bracket}
-  --- $\Lambda_{\mathrm{eff}}$ + dark-energy density.
-\item \texttt{PF.Cosmology.LambdaCDMRebuttalEnergyConservation.\\
-  hubble\_framework\_brackets\_local\_and\_cmb}
-  --- Hubble bracket.
-\item \texttt{PF.IBMHardware9WayEvidence.\\
-  IBM\_hardware\_nine\_way\_random\_match\_probability\_bound}
-  --- IBM Quantum $\le 10^{-15}$ anchor.
-\item \texttt{PF.Empirical.HundredFortyThreeProblems.\\
-  universal\_fractal\_coherence}
-  --- 143-problem $p < 10^{-43}$.
-\item \texttt{PF.Referee.FrameworkUniversalReach.\\
-  framework\_universal\_reach\_realized}
-  --- 23-problem reach.
-\end{itemize}
-
-All theorems above are axiom-free at the project level. The only
-kernel dependencies are \texttt{propext}, \texttt{Classical.choice},
-and \texttt{Quot.sound}. The build is reproducible at HEAD
-\texttt{4785c55} of
-\url{https://github.com/FractalDevTeam/Principia-Fractalis}.
-
-\section{Mission anchor}
-\label{sec:mission}
-
-This is for humanity.
-
-The Clay landing is the door. Behind it is a substrate-level account
-of what minds are, machine-verified --- so AGI alignment has a
-substrate to align to. Behind it is zero-point energy access through
-the same substrate operator algebra as YM and RH --- so we can stop
-burning the planet. Behind it is first-principles cosmology bracketing
-Planck 2018, LDN 2025, and DESI within forced $\alpha$-windows --- so
-we know what universe we are in. Behind it is a unified framework
-that forces all of this from one substrate, with all six Clay axes
-linked as sub-stories of one structure, the 23 famous-problem reach
-following the same pattern, and the 143-problem coherence anchor
-confirming the substrate empirically at $p < 10^{-43}$.
-
-This paper is the door. The strategic-application QC pass on the Clay
-landing surface correctly identifies RH as the entry vector; the
-substrate machinery behind the door is the deployable cargo.
-
-This is not for prestige. This is for humanity.
+The same substrate carries substrate-level encodings of the other
+five remaining Clay axes; the simultaneous-closure mechanism on
+canonical encodings is the subject of the master
+paper~\cite{master_substrate}. The framework's reach beyond the Clay
+set (23 named open problems via a single-citation record), the
+empirical anchors (143-problem coherence and IBM Quantum 9-way), and
+the Phase 4 substrate-level content on consciousness, ZPE, and
+cosmology are presented in the companion papers. \textbf{Independent
+expert review and substantial revision are explicitly invited.}
 
 \begin{thebibliography}{99}
 
+\bibitem{master_substrate}
+Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{A Substrate-Level
+Reformulation of the Six Remaining Clay Millennium Problems via the
+Principia Fractalis Framework}.
+\texttt{Papers/clay\_substrate\_reformulation\_v1.tex}.
+
+\bibitem{phase3_pnp}
+Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{Phase 3 ---
+A Substrate-Level Reformulation at the P vs NP Axis via the
+Principia Fractalis Framework}.
+\texttt{Papers/clay\_PvsNP\_via\_substrate\_v2.tex}.
+
+\bibitem{phase4_keystone}
+Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{Phase 4 Keystone ---
+Substrate-Level Content on Consciousness, Zero-Point Energy, and
+Cosmology via the Principia Fractalis Framework}.
+\texttt{Papers/principia\_fractalis\_keystone\_v1.tex}.
+
 \bibitem{principia_book}
 Cohen, P. (2026). \emph{Principia Fractalis}, Second Edition.
-HEAD \texttt{4785c55} of
+HEAD of
 \url{https://github.com/FractalDevTeam/Principia-Fractalis}.
-
-\bibitem{landing_strategy}
-Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{Principia Fractalis
-Landing Strategy}.
-\texttt{LANDING\_STRATEGY.md}, HEAD \texttt{9667bfe}.
-
-\bibitem{the_framework_object}
-Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{The Principia Fractalis
-Framework --- As a Mathematical Object}.
-\texttt{THE\_FRAMEWORK\_OBJECT.md}, HEAD \texttt{f733be9}.
-
-\bibitem{millennium_master}
-Cohen, P., Claude Opus 4.7 (2026-06-05). \emph{The Seven Millennium
-Problems: A Unified Solution via the Principia Fractalis Substrate}.
-\texttt{Papers/the\_millennium\_problems\_v1.tex}.
 
 \bibitem{conrey2003}
 Conrey, J.~B. (2003). The Riemann hypothesis. \emph{Notices of the
@@ -907,12 +599,17 @@ Schoenfeld, L. (1976). Sharper bounds for the Chebyshev functions
 $\theta(x)$ and $\psi(x)$. II. \emph{Mathematics of Computation}
 30(134): 337--360.
 
-\bibitem{perelman2003}
-Perelman, G. (2002--2003). \emph{The entropy formula for the Ricci
-flow and its geometric applications}; \emph{Ricci flow with surgery
-on three-manifolds}; \emph{Finite extinction time for the solutions
-to the Ricci flow on certain three-manifolds}. arXiv:math/0211159,
-math/0303109, math/0307245.
+\bibitem{perelman2002}
+Perelman, G. (2002). The entropy formula for the Ricci flow and its
+geometric applications. arXiv:math/0211159.
+
+\bibitem{perelman2003a}
+Perelman, G. (2003). Ricci flow with surgery on three-manifolds.
+arXiv:math/0303109.
+
+\bibitem{perelman2003b}
+Perelman, G. (2003). Finite extinction time for the solutions to
+the Ricci flow on certain three-manifolds. arXiv:math/0307245.
 
 \bibitem{mayer1991}
 Mayer, D.~H. (1991). The thermodynamic formalism approach to
@@ -931,14 +628,6 @@ zeros of the Riemann zeta function. \emph{Selecta Math.} 5: 29--106.
 Bost, J.-B., Connes, A. (1995). Hecke algebras, type III factors and
 phase transitions with spontaneous symmetry breaking in number
 theory. \emph{Selecta Math.} 1: 411--457.
-
-\bibitem{planck2018}
-Planck Collaboration (2020). Planck 2018 results. VI. Cosmological
-parameters. \emph{Astron.\ Astrophys.}\ 641: A6.
-
-\bibitem{ldn2025}
-SH$_{0}$ES \& Local Distance Ladder Collaboration (2025). $H_{0}$
-local-distance-ladder consensus update. LDN 2025.
 
 \end{thebibliography}
 
