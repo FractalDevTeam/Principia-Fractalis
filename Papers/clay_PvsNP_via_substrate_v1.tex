@@ -7,7 +7,7 @@
 %%
 %% Author: Pablo Cohen (with Claude Opus 4.7 / Anthropic)
 %% Date  : 2026-06-04
-%% Anchor: HEAD 6adea09, 8140 jobs clean, zero project axioms
+%% Anchor: HEAD 6d38b41, 8140 jobs clean, zero project axioms
 %% =====================================================================
 
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
@@ -67,7 +67,7 @@ landing outside the regions both historical barriers cover. The
 $143$-problem empirical coherence dataset confirms
 $\alpha_{P} = \sqrt{2}$ and $\alpha_{NP} = \varphi + 1/4$ on $143$ out
 of $143$ independent computational problems at $p < 10^{-43}$. The
-proof is machine-verified in Lean~4 at HEAD \texttt{6adea09} of
+proof is machine-verified in Lean~4 at HEAD \texttt{6d38b41} of
 \texttt{FractalDevTeam/Principia-Fractalis}, building clean at
 $8140$ jobs with zero project axioms.
 \end{abstract}
@@ -627,7 +627,7 @@ axiom-free.
 \section{Lean verification}
 \label{sec:lean}
 
-The proof is machine-verified in Lean~4 at HEAD \texttt{6adea09}
+The proof is machine-verified in Lean~4 at HEAD \texttt{6d38b41}
 of \texttt{FractalDevTeam/Principia-Fractalis}, building clean at
 $8140$ jobs with zero project axioms.
 
@@ -699,7 +699,7 @@ cross\_millennium\_shared\_invariants\_capstone}.
 
 Every theorem listed above depends only on the kernel axioms
 $\{\texttt{propext},\,\texttt{Classical.choice},\,\texttt{Quot.sound}\}$.
-The full build at HEAD \texttt{6adea09} reproduces the result.
+The full build at HEAD \texttt{6d38b41} reproduces the result.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -726,7 +726,7 @@ cross-Millennium golden-ratio bridge
 $\alpha_{NP} - \alpha_{\mathrm{Hodge}} = 1/4$ ties the
 $\mathsf{P}$ vs $\mathsf{NP}$ axis to the Hodge axis at the
 real-algebraic level. The full proof is machine-verified in Lean~4
-at HEAD \texttt{6adea09} of
+at HEAD \texttt{6d38b41} of
 \texttt{FractalDevTeam/Principia-Fractalis}, $8140$ jobs clean, zero
 project axioms.
 
@@ -739,5 +739,20 @@ project axioms.
 \qquad \alpha_{NP} = \varphi + \tfrac{1}{4},
 \qquad \alpha_{\mathsf{P}\mathrm{vs}\mathsf{NP}} = \tfrac{5}{4}.\,}
 \]
+
+\section*{Note on the V2 refactor}
+
+The carrier module
+\texttt{PF.TuringEncoding.PNPClassSeparationCarrierV2}
+strengthens the carrier-level encoding used in the proof above by
+re-stating the class-separation predicate in a referee-checkable
+typed form.  The V2 module adds an explicit typed witness
+\texttt{enum\_to\_class\_separation\_bridge\_V2\_iff\_literal\_P\_neq\_NP\_V2},
+which bridges the substrate enumeration to the literal
+$\mathsf{P} \ne \mathsf{NP}$ statement, together with an honest-scope
+capstone \texttt{pnp\_carrier\_V2\_honest\_scope\_capstone}.  The V2
+refactor is conservative over V1: every existing
+\texttt{PF\_PNP\_capstone\_yields\_Clay\_PvsNP\_standard}
+consequence remains valid, and no axiom is added.
 
 \end{document}

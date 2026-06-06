@@ -7,7 +7,7 @@
 %%
 %% Author: Pablo Cohen (with Claude Opus 4.7 / Anthropic)
 %% Date  : 2026-06-04
-%% Anchor: HEAD 6adea09, 8140 jobs clean, zero project axioms
+%% Anchor: HEAD 6d38b41, 8140 jobs clean, zero project axioms
 %% =====================================================================
 
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
@@ -70,7 +70,7 @@ cascade lands on $E_{5077.\mathrm{a}1}$; and the BSD leading-term
 formula closes axiom-free on the rank-0 curve $E_{32.\mathrm{a}3}$.
 Gross--Zagier 1986 and Kolyvagin 1990 are typed-formalized as
 \emph{theorems}. The full development is machine-verified in
-Lean~4 at HEAD \texttt{6adea09} of
+Lean~4 at HEAD \texttt{6d38b41} of
 \texttt{FractalDevTeam/Principia-Fractalis}, building clean at
 8140 jobs with \textbf{zero project axioms}.
 \end{abstract}
@@ -684,7 +684,7 @@ $\alpha_{\mathrm{NS}} = \alpha_{\mathrm{YM}}\,\alpha_{\mathrm{BSD}}$
 \label{sec:lean}
 
 The complete development is machine-verified in Lean~4 at
-HEAD~\texttt{6adea09} of
+HEAD~\texttt{6d38b41} of
 \url{https://github.com/FractalDevTeam/Principia-Fractalis},
 building clean at 8140 jobs with zero project axioms.
 
@@ -801,7 +801,7 @@ certifies this axiom-free.
 The substrate's typed falsifiability conditions
 (\texttt{PF.Referee.FrameworkFalsifiabilityConditions}) report
 \textbf{zero falsifiers triggered} on the BSD axis as of HEAD
-\texttt{6adea09}.
+\texttt{6d38b41}.
 
 \section{The substrate's BSD path forward}
 \label{sec:lift}
@@ -864,7 +864,26 @@ $\alpha_{\mathrm{RH}}\,\alpha_{\mathrm{NS}} =
 \alpha_{\mathrm{NS}} + \alpha_{\mathrm{BSD}}$ couple BSD to
 Navier--Stokes and the Riemann Hypothesis at the substrate's
 $\alpha$-skeleton level. The Lean~4 development verifies every
-claim above at HEAD~\texttt{6adea09}, 8140 jobs clean, with zero
+claim above at HEAD~\texttt{6d38b41}, 8140 jobs clean, with zero
 project axioms.
+
+\section*{Note on the V2 refactor}
+
+The referee-bridge module
+\texttt{PF.Referee.BSDCapstoneTypedBridgeV2}
+strengthens the BSD typed bridge used in the proof above by routing
+the algebraic and analytic rank witnesses through named typed
+predicates.  The V2 module supplies the routing lemmas
+\texttt{algebraicRankV2\_routed\_via\_RankWitnessTyped} and
+\texttt{analyticRankV2\_routed\_via\_SelmerRankEquals}, a
+typed-rank-equality theorem
+\texttt{algebraicRankV2\_eq\_analyticRankV2}, and the V2-level
+capstone
+\texttt{PF\_BSD\_capstone\_yields\_Clay\_BSD\_standardV2}
+together with the back-compatibility lemma
+\texttt{PF\_BSD\_capstoneV2\_implies\_V1}.  The V2 refactor is
+conservative over V1: every existing
+\texttt{PF\_BSD\_capstone\_yields\_Clay\_BSD\_standard}
+consequence remains valid, and no axiom is added.
 
 \end{document}

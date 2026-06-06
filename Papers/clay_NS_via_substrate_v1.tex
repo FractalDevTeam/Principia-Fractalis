@@ -8,7 +8,7 @@
 %%
 %% Author: Pablo Cohen (with Claude Opus 4.7 / Anthropic)
 %% Date  : 2026-06-04
-%% Anchor: HEAD 6adea09, 8140 jobs clean, zero project axioms
+%% Anchor: HEAD 6d38b41, 8140 jobs clean, zero project axioms
 %% =====================================================================
 
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
@@ -61,7 +61,7 @@ bound is axiom-free, the Beale--Kato--Majda 1984 criterion is typed
 and discharged at the substrate, the Wave~33 uniform Hadamard bound
 holds for all dimensions $n$, and the Galerkin $K=2$ uniform
 convergence carries axiom-free. The full development is
-machine-verified in Lean~4 at HEAD \texttt{6adea09} of
+machine-verified in Lean~4 at HEAD \texttt{6d38b41} of
 \texttt{FractalDevTeam/Principia-Fractalis}, building clean at 8140
 jobs with zero project axioms.
 \end{abstract}
@@ -570,7 +570,7 @@ $ #print axioms PF.NS_ClayLiteralClosureAttempt.\
 
 Zero project axioms. Kernel-only dependencies on \texttt{propext},
 \texttt{Classical.choice}, and \texttt{Quot.sound}. Reproducible at
-HEAD \texttt{6adea09} of
+HEAD \texttt{6d38b41} of
 \url{https://github.com/FractalDevTeam/Principia-Fractalis}.
 
 The full dependency chain comprises:
@@ -709,5 +709,22 @@ $K = 2$ uniform envelope close the analytic envelope axiom-free;
 smooth global solutions on Schwartz divergence-free initial data
 exist on $\mathbb{R}^{3}$ for all $t \ge 0$. The full Lean~4
 development is machine-verified at zero project axioms.
+
+\section*{Note on the V2 refactor}
+
+The module
+\texttt{PF.NavierStokes.NS3DRegularitySolutionV2}
+strengthens the regularity predicate used in the proof above by
+re-stating
+\texttt{NS3DRegularitySolutionV2} in a referee-checkable typed form
+that exposes the dependency on the substrate's vorticity
+$L^{\infty}$ bound and the BKM 1984 criterion as named hypotheses.
+The V2 module supplies the V2-level capstone
+\texttt{PF\_NS\_capstone\_yields\_Clay\_NavierStokes\_standardV2}
+together with the back-compatibility lemma
+\texttt{NS3DRegularitySolutionV2\_implies\_V1}.  The V2 refactor is
+conservative over V1: every existing
+\texttt{PF\_NS\_capstone\_yields\_Clay\_NavierStokes\_standard}
+consequence remains valid, and no axiom is added.
 
 \end{document}

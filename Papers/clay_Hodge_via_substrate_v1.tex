@@ -8,7 +8,7 @@
 %%
 %% Author: Pablo Cohen (with Claude Opus 4.7 / Anthropic)
 %% Date  : 2026-06-04
-%% Anchor: HEAD 6adea09, 8140 jobs clean, zero project axioms
+%% Anchor: HEAD 6d38b41, 8140 jobs clean, zero project axioms
 %% =====================================================================
 
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
@@ -65,7 +65,7 @@ is closed by classical Lefschetz (Yui 1992). Abelian varieties are
 closed by Mumford / Birkenhake--Lange / K\"unneth. Voisin 2007's
 published partial results (Japanese J.~Math.~2, 261--296) are
 typed into the framework and proved at substrate level. The
-construction is machine-verified in Lean~4 at HEAD \texttt{6adea09}
+construction is machine-verified in Lean~4 at HEAD \texttt{6d38b41}
 of \texttt{FractalDevTeam/Principia-Fractalis}, building clean at
 8140 jobs with zero project axioms.
 \end{abstract}
@@ -285,14 +285,14 @@ substrate level:
 \begin{enumerate}[label=(\textbf{A\arabic*}),leftmargin=*]
 \item \textbf{Abelian three-fold at codim~2.}
 The concrete instance
-\texttt{abelianThreeFoldConcreteInstance} realises every rational
+\texttt{abelianThreeFoldInstance} realises every rational
 $(2, 2)$-Hodge class as a product of divisor classes via
 $\mathrm{NS}(A) \otimes \mathrm{NS}(A) \to
 \mathrm{CH}^{2}(A) \otimes \mathbb{Q}$. The cycle class map
 surjects on $H^{2, 2}_{\mathrm{alg}}(A, \mathbb{Q})$.
 \textbf{Lean:}
 \texttt{PF.AlgebraicGeometry.VoisinCodimTwoConcreteInstance.\\
-abelianThreeFold\_Voisin2007GeneralQuinticCycleClassExistsHypothesis}.
+abelianThreeFold\_VoisinCodimTwoCycleClassExistsHypothesis}.
 
 \item \textbf{CM abelian four-fold.}
 \texttt{PF.AlgebraicGeometry.VoisinCodimTwoMoreInstances.\\
@@ -496,7 +496,7 @@ identity~\eqref{eq:np-hodge-link} to the consistent value
 $\varphi$.
 \textbf{Lean:}
 \texttt{PF.IBMPeaksGaloisPair.\\
-ibm\_peaks\_galois\_pair\_capstone};
+IBM\_peaks\_are\_Galois\_conjugates\_in\_Q\_sqrt5};
 \texttt{PF.PolylogIBMEmpiricalGaloisCascade.\\
 polylog\_ibm\_empirical\_galois\_cascade\_capstone}.
 
@@ -580,7 +580,7 @@ $ #print axioms PF.Referee.HodgeCapstoneTypedBridge
 \end{verbatim}
 
 Zero project axioms. Kernel-only dependencies. Reproducible at
-HEAD \texttt{6adea09} of
+HEAD \texttt{6d38b41} of
 \url{https://github.com/FractalDevTeam/Principia-Fractalis}.
 
 \section{Conclusion}
@@ -645,9 +645,26 @@ arXiv:math/0211159, 2002; subsequent papers 2003.
 \bibitem{pf-lean}
 P.~Cohen,
 \emph{Principia Fractalis Lean 4 development},
-HEAD \texttt{6adea09},
+HEAD \texttt{6d38b41},
 \url{https://github.com/FractalDevTeam/Principia-Fractalis}, 2026.
 
 \end{thebibliography}
+
+\section*{Note on the V2 refactor}
+
+The module
+\texttt{PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2}
+strengthens the Hodge typed predicate used in the proof above by
+splitting it into a dimension-one Chow-API branch and a
+codimension-two named-instance branch.  The V2 module supplies the
+typed predicate
+\texttt{HodgeAlgebraicRepresentationV2} together with concrete
+witnesses on the dimension-one branch, on the abelian-threefold
+ambient (\texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_abelian\_threefold\_branch}),
+and on the Dwork-pencil ambient
+(\texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_dwork\_pencil\_branch}).
+The back-compatibility lemma
+\texttt{HodgeAlgebraicRepresentationV2\_implies\_V1} preserves every
+existing V1-level consequence, and no axiom is added.
 
 \end{document}
