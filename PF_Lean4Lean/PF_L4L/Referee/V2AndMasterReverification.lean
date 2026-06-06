@@ -47,6 +47,24 @@ import PF.Referee.ClayMasterTheorem
 -- using the same Path C `def T_reverified := @T` pattern.
 import PF.Referee.RHCapstoneTypedBridgeV2
 import PF.TuringEncoding.PNPClassSeparationCarrierV3
+-- 2026-06-04 batch (HEAD f733be9): six V4 axis capstones, three paired
+-- closures, PNP canonical encoding, MordellWeilGroup infrastructure,
+-- and the PFFrameworkUnifiedClosure unified-whole inhabitant.  All
+-- re-bound through the identical Path C `def T_reverified := @T`
+-- pattern; the type is intentionally inferred so the L4L re-binding
+-- *is* the canonical theorem (no drift, no axiom growth).
+import PF.TuringEncoding.PNPClassSeparationCarrierV4
+import PF.NavierStokes.NS3DRegularitySolutionV4
+import PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV4
+import PF.Referee.BSDCapstoneTypedBridgeV4
+import PF.YM_ContinuumWightmanV4
+import PF.Referee.RHCapstoneTypedBridgeV4
+import PF.Referee.RHPvsNPPairedClosure
+import PF.Referee.NSYMPairedClosure
+import PF.Referee.BSDHodgePairedClosure
+import PF.Referee.PNPCanonicalEncoding
+import PF.AlgebraicGeometry.MordellWeilGroup
+import PF.Referee.PFFrameworkUnifiedClosure
 
 namespace PF_L4L.Referee
 
@@ -106,5 +124,109 @@ def pnpV3_class_P_subset_class_NP_reverified :=
   @PrincipiaTractalis.PNPClassSeparationCarrierV3.class_P_subset_class_NP_V3
 
 #print axioms pnpV3_class_P_subset_class_NP_reverified
+
+/-! ## §7 — V4 axis capstones (2026-06-04, HEAD f733be9) -/
+
+/-- L4L re-verification: PNP V4 honest-scope capstone, closing the V3
+    constant-trivial defect via `decide`↔`encodeRun` linking. -/
+def pnpV4_capstone_reverified :=
+  @PrincipiaTractalis.PNPClassSeparationCarrierV4.pnp_carrier_V4_honest_scope_capstone
+
+#print axioms pnpV4_capstone_reverified
+
+/-- L4L re-verification: NS V4 master capstone bundling Leray-Hopf
+    smoothness, BKM, Wave 33, and V3 typed-regularity. -/
+def nsV4_capstone_reverified :=
+  @PF.NavierStokes.NS3DRegularitySolutionV4.ns3DRegularitySolutionV4_capstone
+
+#print axioms nsV4_capstone_reverified
+
+/-- L4L re-verification: Hodge V4 15-conjunct capstone (V3
+    substrate-shadow residual refuted axiom-free; residual narrowed to
+    literal Chow H22 lift). -/
+def hodgeV4_capstone_reverified :=
+  @PrincipiaTractalis.AlgebraicGeometry.HodgeAlgRepV4.hodgeAlgebraicRepresentationV4_capstone
+
+#print axioms hodgeV4_capstone_reverified
+
+/-- L4L re-verification: BSD V4 typed-bridge into
+    `Clay_BSD_Standard PF_BSDEncodingV4` (17-curve discharged set +
+    Wave 57 + rank-blind universal concordance). -/
+def bsdV4_capstone_reverified :=
+  @PF.Referee.BSDCapstoneTypedBridgeV4.PF_BSD_capstone_yields_Clay_BSD_standardV4
+
+#print axioms bsdV4_capstone_reverified
+
+/-- L4L re-verification: YM V4 16-conjunct master capstone
+    (Wave 57-OSRP independent path + 12-clause Wightman + propagator
+    PSD/IsSymm + interacting Ham). -/
+def ymV4_capstone_reverified :=
+  @PrincipiaTractalis.YM_ContinuumWightmanV4.ym_continuum_wightman_v4_capstone
+
+#print axioms ymV4_capstone_reverified
+
+/-- L4L re-verification: RH V4 master capstone (Mayer 1991 as fifth
+    equivalent Hilbert-Polya formulation + partial discharges at
+    N∈{20,30,50}). -/
+def rhV4_master_capstone_reverified :=
+  @PF.Referee.RHCapstoneTypedBridgeV4.PF_RH_V4_master_capstone
+
+#print axioms rhV4_master_capstone_reverified
+
+/-! ## §8 — Paired closures (2026-06-04) -/
+
+/-- L4L re-verification: RH + P vs NP paired-closure capstone bundling
+    Hilbert-Polya, Berry-Keating, Connes, Bost-Connes routes; axiom-free
+    PNP algebraic content; named single residual. -/
+def rhPvNP_paired_closure_honest_scope_reverified :=
+  @PF.Referee.RHPvsNPPairedClosure.RH_PvNP_paired_honest_scope_holds
+
+#print axioms rhPvNP_paired_closure_honest_scope_reverified
+
+/-- L4L re-verification: NS + YM paired-closure capstone (NS Leray
+    bootstrap isolated to Fujita-Kato 1964; YM V4 Clay form). -/
+def nsYM_paired_closure_capstone_reverified :=
+  @PF.Referee.NSYMPairedClosure.ns_ym_paired_closure_capstone
+
+#print axioms nsYM_paired_closure_capstone_reverified
+
+/-- L4L re-verification: BSD + Hodge paired-closure capstone via
+    cross-Millennium algebraic-cycle invariant
+    (α_NP − α_Hodge = 1/4). -/
+def bsdHodge_paired_closure_capstone_reverified :=
+  @PF.Referee.BSDHodgePairedClosure.bsdHodgePairedClosure_capstone
+
+#print axioms bsdHodge_paired_closure_capstone_reverified
+
+/-! ## §9 — Infrastructure capstones (2026-06-04) -/
+
+/-- L4L re-verification: PNP canonical encoding theorem — the
+    Clay-statement on `PF_CanonicalComplexityEncoding` is iff
+    `ClassP ≠ ClassNP`, wiring the substrate bridge through the
+    framework's canonical Cook 1971 `ClassP`/`ClassNP`. -/
+def pnp_canonical_encoding_reverified :=
+  @PF.Referee.PNPCanonicalEncoding.Clay_PvsNP_Standard_at_canonical_iff_classes_distinct
+
+#print axioms pnp_canonical_encoding_reverified
+
+/-- L4L re-verification: MordellWeilGroup infrastructure capstone —
+    typed carrier + propositional bridges for BSD G3 mathlib gap. -/
+def mordellWeilGroup_infrastructure_capstone_reverified :=
+  @PF.AlgebraicGeometry.MordellWeilGroup.mordellWeilGroup_infrastructure_capstone
+
+#print axioms mordellWeilGroup_infrastructure_capstone_reverified
+
+/-! ## §10 — Unified-whole capstone (2026-06-04) -/
+
+/-- L4L re-verification: **the framework as one object in one
+    theorem** — `pfFrameworkUnifiedWhole_realized` inhabits the
+    `PFFrameworkUnifiedWhole` record bundling all six V4 axis
+    capstones, the Wave 57 master, the Ch 4 Timeless Field capstone,
+    the cross-Millennium invariants capstone, the framework
+    falsifiability capstone, and the substrate meta-theorem. -/
+def pfFrameworkUnifiedClosure_reverified :=
+  @PF.Referee.PFFrameworkUnifiedClosure.pfFrameworkUnifiedWhole_realized
+
+#print axioms pfFrameworkUnifiedClosure_reverified
 
 end PF_L4L.Referee
