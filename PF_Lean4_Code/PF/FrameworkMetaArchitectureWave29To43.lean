@@ -98,6 +98,12 @@ import PF.Consciousness.BCleanPhaseConsciousnessCommutatorBridge
 import PF.TuringEncoding.PNPClassSeparationCarrierV2
 import PF.NavierStokes.NS3DRegularitySolutionV2
 import PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2
+-- Newest refactors (2026-06-04, HEAD 700bb29): additive citation surface
+-- for the RH V2 typed bridge and the PNP V3 TMConfig-wired carrier. Each
+-- new V*/V3 file closes a specific defect or strengthens the prior
+-- V1/V2 carrier; cited here by exact name so renames break this surface.
+import PF.Referee.RHCapstoneTypedBridgeV2
+import PF.TuringEncoding.PNPClassSeparationCarrierV3
 
 namespace PrincipiaTractalis
 namespace FrameworkMetaArchitectureWave29To43
@@ -423,6 +429,36 @@ theorem cite_hodge_algebraic_representation_V2_capstone :
     @PrincipiaTractalis.AlgebraicGeometry.HodgeAlgRepV2.hodgeAlgebraicRepresentationV2_capstone =
       @PrincipiaTractalis.AlgebraicGeometry.HodgeAlgRepV2.hodgeAlgebraicRepresentationV2_capstone := rfl
 
+/-! ### Newest refactor citations (2026-06-04, HEAD 700bb29)
+
+Two further carrier strengthenings landed after the V2 wave:
+
+  * **RH V2 typed bridge** — `PF_RH_capstone_yields_Clay_RH_standardV2`
+    refactors the RH capstone-to-Clay path to take only the surjectivity
+    hypothesis externally.
+  * **PNP V3 TMConfig-wired carrier** — `class_P_subset_class_NP_V3`
+    upgrades the V2 Bool-decide carrier with a TMConfig-wired Cook 1971
+    P ⊆ NP statement.
+
+These citations are LOAD-BEARING by `rfl` on the capstone identifier —
+any rename or signature change breaks the meta-architecture surface,
+keeping it in sync with the newest refactor layer. They are ADDITIVE:
+V1/V2 carriers and their downstream consumers are left untouched. -/
+
+/-- Cite **RH V2 typed bridge capstone**: refactored RH-capstone-yields-
+    Clay-RH-standard pathway taking only the external surjectivity
+    hypothesis. -/
+theorem cite_rh_capstone_typed_bridge_V2_capstone :
+    @PF.Referee.RHCapstoneTypedBridgeV2.PF_RH_capstone_yields_Clay_RH_standardV2 =
+      @PF.Referee.RHCapstoneTypedBridgeV2.PF_RH_capstone_yields_Clay_RH_standardV2 := rfl
+
+/-- Cite **PNP V3 TMConfig-wired carrier**: Cook 1971 P ⊆ NP on the V3
+    TMConfig-wired class predicates, strengthening the V2 Bool-decide
+    carrier. -/
+theorem cite_pnp_class_separation_carrier_V3_capstone :
+    @PrincipiaTractalis.PNPClassSeparationCarrierV3.class_P_subset_class_NP_V3 =
+      @PrincipiaTractalis.PNPClassSeparationCarrierV3.class_P_subset_class_NP_V3 := rfl
+
 /-! ## Section 5 — Honest scope cuts (structural remarks) -/
 
 /-- **Honest scope**: this file is META-AGGREGATION OF
@@ -457,6 +493,8 @@ theorem framework_meta_architecture_component_count : True := trivial
 #print axioms cite_pnp_class_separation_carrier_V2_capstone
 #print axioms cite_ns3D_regularity_solution_V2_capstone
 #print axioms cite_hodge_algebraic_representation_V2_capstone
+#print axioms cite_rh_capstone_typed_bridge_V2_capstone
+#print axioms cite_pnp_class_separation_carrier_V3_capstone
 
 end FrameworkMetaArchitectureWave29To43
 end PrincipiaTractalis
