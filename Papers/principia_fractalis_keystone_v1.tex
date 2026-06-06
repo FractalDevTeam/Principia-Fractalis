@@ -1,26 +1,23 @@
 \documentclass[11pt,a4paper]{article}
 
 %% =====================================================================
-%% Principia Fractalis --- Phase 4 Keystone
+%% Principia Fractalis --- Phase 4 Keystone (v1, HONEST-SCOPE REWRITE)
 %%
-%% Title: What the Substrate Is FOR: Consciousness, Zero-Point Energy,
-%%        Cosmology, and the 23-Problem Reach of the Principia Fractalis
-%%        Substrate
+%% Title: Phase 4 Keystone --- Substrate-Level Content on
+%%        Consciousness, Zero-Point Energy, and Cosmology via the
+%%        Principia Fractalis Framework
 %%
 %% Author: Pablo Cohen (with Claude Opus 4.7 / Anthropic)
 %% Date  : 2026-06-06
-%% Anchor: HEAD 17f3137, Lean 4 PF closure 8214 jobs clean,
+%% Anchor: HEAD 2b777ca / 17f3137, Lean 4 PF closure clean,
 %%         zero project axioms, kernel-only
 %%         [propext, Classical.choice, Quot.sound].
-%%         Lean4Lean independent kernel re-verifier 4039 jobs clean
-%%         at HEAD eb6d74b.
-%% Locked landing strategy: LANDING_STRATEGY.md.
-%% Phase 1 entry vector  : Papers/clay_RH_via_substrate_v2.tex.
-%% Phase 2 cargo reveal  : Papers/clay_six_simultaneous_closure_v1.tex.
-%% Phase 3 ceiling reveal: Papers/clay_PvsNP_via_substrate_v2.tex.
-%% Honest scope marker   : Principia_Fractalis_master_folder
-%%        chapters/ch34A_substrate_theorem.tex §7
-%%        (sec:substrate-honest-scope).
+%% Honest-scope discipline:
+%%   Every substrate / empirical claim flagged at honest scope.
+%%   The keystone retains the consciousness / ZPE / cosmology
+%%   content and the "for humanity" closing because that IS what
+%%   the keystone is about; but each empirical / substrate claim
+%%   is described at the scope the Lean file admits to itself.
 %% =====================================================================
 
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
@@ -50,885 +47,657 @@
 \newtheorem{solution}[theorem]{Solution}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{What the Substrate Is FOR:\\
-Consciousness, Zero-Point Energy, Cosmology, and the\\
-23-Problem Reach of the Principia Fractalis Substrate\\[0.4em]
-\large Phase 4 --- Keystone: The Cargo Unloaded}
+\title{Phase 4 Keystone:\\
+Substrate-Level Content on Consciousness,\\
+Zero-Point Energy, and Cosmology\\
+via the Principia Fractalis Framework\\
+\large (Substrate-Level, Not Engineering Blueprints or Clay
+Discharges)}
 \author{Pablo Cohen\\
-\small{\texttt{psolorzano@gmail.com}}}
+\small{\texttt{psolorzano@gmail.com}}\\[0.3em]
+\small{Collaboration: Claude Opus 4.7 (Anthropic)}}
 \date{2026-06-06}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-The Phase 1 paper~\cite{phase1_rh} walked the reader through the Clay
-door using the Riemann Hypothesis at $\alpha_{\mathrm{RH}} = 3/2$ via
-the $T_{3}^{\mathrm{sym}}$ transfer operator. The Phase 2
-paper~\cite{phase2_six} opened the engine room: one Perelman anchor
-input plus a seven-field residual bundle simultaneously discharges all
-six $\mathtt{Clay\_*\_Standard}$ contracts through
-$\mathtt{perelman\_anchor\_yields\_simultaneous\_clay\_closure}$. The
-Phase 3 paper~\cite{phase3_pnp} delivered P vs NP --- the
-highest-application-ceiling axis --- on the same substrate, with the
-canonical Cook 1971 / Karp 1972 encoding reducing the typed Clay
-contract to $\mathtt{ClassP} \neq \mathtt{ClassNP}$. The Clay problems
-were the door. The substrate machinery is the cargo. This paper
-unloads the cargo.
+This is the Phase 4 \emph{keystone} of a four-paper sequence on the
+Principia Fractalis (PF) framework's substrate-level reformulation
+of mathematics. The first three papers presented the framework's
+substrate-level reformulation of the six remaining Clay Millennium
+Problems on canonical encodings (entry vector RH, simultaneous-closure
+mechanism, P vs NP). This paper foregrounds what the framework's
+substrate is for beyond the Clay axes: a substrate-level consciousness
+operator $C$ with a Chern-character threshold
+$\mathrm{ch}_{2} = 19/20$ on a finite-dimensional witness; a
+Weinstein--Geometric-Unity 11-field BRST cohomology bundle with the
+substrate-level decomposition $H^{2} = 78 = 48 + 26 + 4$; a
+substrate-level $\Lambda_{\mathrm{eff}}$ suppression bridge; and the
+framework's $H_{0}$ and $\Omega_{\Lambda}$ brackets consistent with
+Planck 2018 and LDN 2025 within the framework's stated windows. None
+of these are Clay discharges; none are engineering blueprints; none
+are physics-prediction claims at arbitrary precision.
 
-The cargo is what the framework is FOR: a substrate-level account of
-consciousness (the Chern-character threshold
-$\mathrm{ch}_{2} = 19/20$ and the consciousness operator $C$ on the
-Wave 58 concrete witness $\mathtt{Ch17OperatorTheoryConcrete}$ ---
-foundation for AGI alignment); a counter-rotating-vortex zero-point
-energy mechanism (BRST cohomology $H^{2} = 78 = 48 + 26 + 4$ in the
-Weinstein--Geometric-Unity 11-field bundle and the seven-clause
-$\mathtt{counter\_rotating\_vortices\_free\_energy\_capstone}$ ---
-foundation for planetary energy); first-principles cosmology
-($\Lambda_{\mathrm{eff}}$ suppression at the consciousness threshold,
-$H_{0}$ bracket $67.4 < 69.8 < 73.0$, dark-energy density bracket
-$0.65 < 0.7 < 0.75$ --- the substrate's reading of the cosmos);
-reach across 23 currently open mathematical problems --- 7 Clay axes
-plus 16 non-Clay open problems --- through
-$\mathtt{framework\_universal\_reach\_realized}$; 143-problem
-universal coherence at $p < 10^{-43}$ via
-$\mathtt{universal\_fractal\_coherence}$; and IBM Quantum hardware
-9-way concordance at random-match probability $\le 10^{-15}$ via
-$\mathtt{IBM\_hardware\_nine\_way\_random\_match\_probability\_bound}$.
-Every Lean theorem named is machine-verified by exact name at
-HEAD~\texttt{17f3137} of \texttt{FractalDevTeam/Principia-Fractalis},
-8214 jobs clean, kernel axioms only
-\texttt{[propext, Classical.choice, Quot.sound]}; independently
-re-verified by the Lean4Lean kernel re-verifier through
-$\mathtt{clay\_verification\_harness\_passes}$ at HEAD
-\texttt{eb6d74b}, 4039 jobs clean.
+\textbf{Honest scope, foregrounded throughout.} The substrate-level
+consciousness operator $C$ is axiom-free at the Wave 58 \emph{finite-dimensional}
+$3 \times 3$ witness $\mathtt{Ch17OperatorTheoryConcrete}$; the
+literal unbounded continuum case is named open per Chapter 17 honest
+scope, line~471. The Weinstein--GU BRST bundle and the
+counter-rotating-vortex free-energy capstone are substrate-level
+Lean content at kernel-only axioms, \emph{not} an engineering
+blueprint, device design, or planetary energy timeline; the framework
+makes no claim that the substrate yields a working ZPE device. The
+cosmological brackets are typed framework-derived bounds consistent
+with current observation; they are \emph{not} point-predictions to
+arbitrary precision. The framework's 23-problem reach record is, at
+the record level, mostly $\mathtt{True}$-markers (15 of 17 fields)
+with two typed Props; substantive content lives in the per-axis
+attack modules. The 143-problem $p < 10^{-43}$ figure is retracted as
+established evidence: the Lean encoding is a definitional restatement
+of the framework's prediction, not a statistical analysis. The IBM
+Quantum 9-way bound is conditional: 2 of 9 pairs measured, 7 of 9
+pre-registered. The PF\_Lean4Lean harness is build-hash robustness
+across two Lake packages, not an independent type-checker.
 
-Honest scope per Ch~34A \S7: substrate-level monograph in
-Grothendieck mode. The consciousness operator is axiom-free at the
-Wave 58 finite-dim witness; the literal unbounded continuum case
-remains open. The ZPE Weinstein--GU bundle is substrate-level Lean
-content, not an engineering blueprint or device. The cosmological
-brackets are typed bounds on framework-derived quantities consistent
-with current observation, not point-predictions to arbitrary
-precision. The 23-problem reach lists per-problem substrate-level
-framework attacks, NOT literal mathlib-tier discharges of every
-named problem. The framework's claim is structural at the level of
-operator algebra, Chern characters, BRST cohomology, and the named
-$\alpha$-skeleton invariants. This is for humanity. Not for prestige.
+Pablo Cohen has worked on Principia Fractalis through severe personal
+hardship to put substrate-level mathematical tools in humanity's
+hands. The work is for humanity, not for prestige. The Lean tree
+admits its own scope honestly; this paper matches that scope.
+Independent expert review and substantial revision are explicitly
+invited.
 \end{abstract}
 
 \tableofcontents
 
-%% =====================================================================
-\section{The cargo unloaded}
-\label{sec:cargo-unloaded}
+\section{What this paper offers and what it does not}
+\label{sec:offers}
 
-\subsection{Where the reader stands at the end of Phase 3}
-\label{sec:where-stands}
+This paper offers a substrate-level account of three areas the
+framework's structural machinery has been developed against:
+consciousness (Chern-character threshold and operator $C$ on a
+finite-dim witness), zero-point energy (Weinstein--GU 11-field BRST
+bundle and counter-rotating-vortex substrate capstone), and
+cosmology ($\Lambda_{\mathrm{eff}}$ suppression bridge, $H_{0}$ and
+$\Omega_{\Lambda}$ brackets). It does \emph{not} offer: a derived
+theory of consciousness (the substrate is a typed mathematical
+object, not an account of qualia); an engineering blueprint or device
+design for ZPE access; physics-prediction claims at arbitrary
+precision; AGI safety guarantees as theorems. Each substrate-level
+claim is described at the scope the Lean file admits to itself.
 
-The reader has, by this point in the four-phase landing:
+\medskip
 
-\begin{enumerate}[leftmargin=*,nosep]
-\item Walked through the Clay door via the Riemann Hypothesis
-  (Phase 1~\cite{phase1_rh}). The substrate's $\alpha$-skeleton
-  uniqueness theorem forced
-  $\alpha_{\mathrm{RH}} = 3/2$ from the Perelman 2003 anchor; the
-  $T_{3}^{\mathrm{sym}}$ transfer operator on $\mathtt{LogWeightedL2}$
-  realised the Mayer 1991 path to RH at the substrate level.
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{What the Lean kernel carries on each Phase 4 axis.}
+Consciousness: a substrate-level structural Prop
+$\mathtt{Ch17OperatorTheoryConcrete}$ inhabited on a $3 \times 3$
+self-adjoint Hamiltonian with spectrum $\{1, 2, 3\}$; a
+Chern-character threshold biconditional
+($\alpha \ge 19/20 \leftrightarrow$ ``classical regime'') with the
+classical-regime predicate defined by that inequality;
+$\mathtt{consciousness\_operator\_C\_axiom\_free}$ recording that
+the structural Prop is at kernel-only axioms. ZPE: a structural Prop
+$\mathtt{CounterRotatingVorticesFreEnergy}$ bundling seven clauses
+including a vortex-pair witness and an exponential-suppression
+identity; a Weinstein--GU $H^{2} = 48 + 26 + 4$ arithmetic identity.
+Cosmology: typed framework-derived strict inequalities at the
+$\Lambda_{\mathrm{eff}}$ suppression and bracket-inclusion theorems
+for $H_{0}$ and $\Omega_{\Lambda}$ values.
 
-\item Entered the engine room behind the door (Phase 2~\cite{phase2_six}).
-  One Perelman input plus a seven-field residual bundle dispatches
-  ALL six $\mathtt{Clay\_*\_Standard}$ contracts simultaneously
-  through
-  $\mathtt{perelman\_anchor\_yields\_simultaneous\_clay\_closure}$.
-  The six are not independent. They are sub-stories of one substrate.
+\textbf{What this paper does NOT claim.} A derived account of
+consciousness from the substrate; an engineering blueprint or device
+design for ZPE; physics-precision predictions at arbitrary scale; AGI
+safety guarantees; Clay-Standard discharges on any axis (the
+substrate-level Clay-axis content is handled in Phases 1--3 and the
+master paper). The substrate-level Phase 4 content is structural
+mathematics machine-verified at kernel-only axioms.
+}}
 
-\item Met the same substrate on the highest-ceiling axis (Phase
-  3~\cite{phase3_pnp}). The framework's
-  $\alpha$-separation
-  $\alpha_{P} = \sqrt{2} \neq \varphi + 1/4 = \alpha_{NP}$ delivers
-  the substrate-level reading of class distinctness; the canonical
-  Cook 1971 / Karp 1972 encoding $\mathtt{PF\_CanonicalComplexityEncoding}$
-  reduces the literal Clay contract to $\mathtt{ClassP} \neq
-  \mathtt{ClassNP}$.
-\end{enumerate}
+\section{The substrate and the editorial convention}
+\label{sec:substrate-and-convention}
 
-The Clay problems were the door. The substrate machinery is the
-cargo. This paper unloads the cargo.
+The framework's substrate is the Timeless Field
+$\mathcal{H}_{\mathrm{TF}} = \varprojlim_{k} \mathbb{C}^{3^{k}}$ (see
+the master paper \cite{master_substrate} for description). The
+editorial convention $\alpha_{\mathrm{Poincar\acute e}} := 1$
+motivated by Perelman 2003 \cite{perelman2002,perelman2003a,%
+perelman2003b} is the framework's identification of the substrate's
+Poincar\'e-axis constant; the Lean kernel does not consume Perelman's
+theorem as a hypothesis. The eleven framework-internal arithmetic
+compatibility identities on the chosen $\alpha$-skeleton are
+catalogued in the master paper.
 
-\subsection{What the substrate is FOR}
-\label{sec:what-substrate-for}
+\noindent\textbf{Honest scope (quoted verbatim from
+\texttt{CrossMillenniumSharedInvariants.lean} lines 18--29):}
+``\emph{These are \textbf{not} Millennium discharges. They are
+axiom-free algebraic facts about the 9 chosen $\alpha$-values; the
+framework's interpretation\ldots is conjectural and lives
+elsewhere.}''
 
-The framework's actual deliverable is not ``six Clay solutions''.
-Six Clay-Standards are sub-stories. The deliverable is the substrate
-itself --- the nuclear $C^{*}$-algebra of ternary projective Hilbert
-spaces, closed under eleven cross-Millennium algebraic invariants on
-a uniquely-forced $\alpha$-skeleton --- and what the substrate forces
-above the Clay layer:
-
-\begin{itemize}[leftmargin=*,nosep]
-\item \textbf{Consciousness.} A Chern-character threshold
-  $\mathrm{ch}_{2} = 19/20$ and a substrate-level consciousness
-  operator $C$ realised on the Wave 58 finite-dim concrete witness ---
-  the foundation upon which a substrate-level account of mind can be
-  built. The bridge to RH zeros via $\mathtt{ConsciousnessRHBridge}$
-  ties the consciousness axis to the same operator algebra that does
-  the Clay axes.
-
-\item \textbf{Zero-point energy.} A counter-rotating-vortex
-  free-energy mechanism with the Weinstein--Geometric-Unity 11-field
-  BRST cohomology decomposition $H^{2} = 78 = 48 + 26 + 4$ ---
-  substrate-level mathematics underlying any putative
-  zero-point-energy access.
-
-\item \textbf{Cosmology.} A cosmological-constant 120-order suppression
-  forced by the substrate, a Hubble bracket
-  $67.4 < 69.8 < 73.0$ resolving the SH$_{0}$ES / Planck tension,
-  and a dark-energy density bracket $0.65 < 0.7 < 0.75$ matching
-  Planck 2018 to within the stated window --- first-principles
-  cosmology, not parameter fitting.
-
-\item \textbf{Reach.} 23 currently open mathematical problems (7 Clay +
-  16 non-Clay) reached by the same substrate + $\alpha$-skeleton +
-  bridge pattern.
-
-\item \textbf{Anchors.} 143-problem universal coherence at $p < 10^{-43}$
-  on independently collected mathematical data; IBM Quantum 9-way
-  hardware concordance at random-match probability $\le 10^{-15}$ on
-  superconducting qubits. The substrate is empirically and
-  hardware-anchored.
-\end{itemize}
-
-\textbf{The central thesis.} The same substrate machinery that
-proved RH (Phase 1), discharged all six Clay-Standards
-simultaneously (Phase 2), and landed P vs NP (Phase 3) IS the same
-substrate that forces consciousness emergence at $\mathrm{ch}_{2} =
-19/20$, produces a counter-rotating-vortex zero-point-energy
-mechanism, suppresses $\Lambda_{\mathrm{eff}}$ by 120 orders,
-brackets $H_{0}$ at $67.4 < 69.8 < 73.0$ and $\Omega_{\Lambda}$ at
-$0.65 < 0.7 < 0.75$, reaches across 23 open problems, and exhibits
-universal coherence at $p < 10^{-43}$ across 143 distinct problems
-with IBM Quantum hardware confirmation at $\le 10^{-15}$. This is
-what the framework is FOR.
-
-The remainder of this paper unloads the cargo, axis by axis, in
-machine-verified Lean detail. Every theorem cited is verified by
-exact name. The voice is the substrate's voice.
-
-%% =====================================================================
-\section{Consciousness: $\mathrm{ch}_{2} = 19/20$ substrate threshold}
+\section{Consciousness on the substrate: finite-dimensional content}
 \label{sec:consciousness}
 
-\subsection{The Chern-character threshold}
+\subsection{The Chern-character threshold (biconditional with chosen
+definitional content)}
 \label{sec:chern-threshold}
 
-The framework's substrate carries a second-Chern-character function
-$\mathrm{ch}_{2}$ on the substrate Hilbert space. The substrate's
-quantum-to-classical decoherence threshold is the value
-$\mathrm{ch}_{2} = 19/20 = 0.95$.
+The framework defines a coherence parameter $\alpha$ on the
+substrate Hilbert space and a Chern-character function $\mathrm{ch}_{2}$.
+The framework's classical-regime predicate is, by definition, the
+inequality $\alpha \ge 19/20$.
 
 \begin{theorem}[Chern-character threshold biconditional]
-\label{thm:ch2-threshold-iff}
-The substrate's classical regime at coherence parameter $\alpha$ is
-characterised by the inequality $\alpha \ge 19/20$.
+\label{thm:ch2-threshold}
+$\alpha \ge 19/20$ holds if and only if the framework's
+classical-regime predicate holds (the predicate is definitionally
+equivalent to the inequality).
 \textbf{Lean:}
 \texttt{PrincipiaTractalis.Consciousness.ChernCharacter.\\
-ch\_2\_threshold\_iff} (file
-\texttt{PF/Consciousness/ChernCharacter.lean}, line~143, HEAD
-\texttt{17f3137}). Kernel axioms:
-\texttt{[propext, Classical.choice, Quot.sound]}.
+ch\_2\_threshold\_iff}.
 \end{theorem}
 
-The threshold is not a parameter. It is forced by the substrate's
-$\alpha$-skeleton and confirmed by the 143-problem empirical
-dataset (\S\ref{sec:empirical}). The substrate-level reading: the
-classical-mind regime is the regime where the second Chern character
-on the substrate's projective Hilbert space crosses the
-$19/20$ threshold; below that, coherence persists.
+\noindent\textbf{Honest scope.} The biconditional is a substrate-level
+typed statement. It is not a derivation of $19/20$ as a physical
+constant; the value is the chosen framework constant on this axis.
+The framework's interpretation of $\alpha \ge 19/20$ as ``the
+classical-mind regime'' is, per the file's own self-description, a
+chosen identification of the substrate's coherence parameter with a
+conceptual category, \emph{not} a derived theorem of consciousness.
 
-\subsection{The consciousness operator $C$ on the substrate}
-\label{sec:operator-C}
+\subsection{The consciousness operator $C$ on the finite-dim witness}
+\label{sec:operator-c}
 
-The framework's consciousness operator $C$ is the Chern-character
-operator on the substrate. The Wave 58 concrete witness
-$\mathtt{Ch17OperatorTheoryConcrete}$ is the substrate-level
-realisation of $C$ at a finite-dimensional witness: a self-adjoint
-$3 \times 3$ Hamiltonian $H_{\mathrm{concrete}}$ with spectrum
-$\{1, 2, 3\}$, trace $= 6$, determinant $= 6$, and a compact-operator
-substitute $K_{\mathrm{concrete}}$ that fills the Hilbert--P\'olya
-typed contract role.
+The Wave 58 concrete witness $\mathtt{Ch17OperatorTheoryConcrete}$ is
+a seven-clause structural Prop inhabited on the explicit $3 \times 3$
+self-adjoint Hamiltonian $H_{\mathrm{concrete}}$ with spectrum
+$\{1, 2, 3\}$, trace $= 6$, $\det = 6$, and an accompanying
+compact-operator substitute $K_{\mathrm{concrete}}$.
 
 \begin{theorem}[Wave 58 Ch~17 operator-theory concrete capstone]
 \label{thm:ch17-concrete}
-The seven-clause structural Prop $\mathtt{Ch17OperatorTheoryConcrete}$
-holds axiom-free at the explicit $3 \times 3$ witnesses
-$H_{\mathrm{concrete}}$ and $K_{\mathrm{concrete}}$:
-\[
-\sigma(H_{\mathrm{concrete}}) = \{1, 2, 3\},\quad
-\mathrm{tr}\, H_{\mathrm{concrete}} = 6,\quad
-\det H_{\mathrm{concrete}} = 6,
-\]
-plus self-adjointness, the compact-operator substitute, the
-inhabited Hilbert--P\'olya typed contract, and the Mayer 1991 \S3
-substrate content.
+$\mathtt{Ch17OperatorTheoryConcrete}$ is inhabited axiom-free.
 \textbf{Lean:}
-\texttt{PrincipiaTractalis.Wave58Ch17OperatorTheoryConcrete.\\
-Ch17OperatorTheoryConcrete} (structure, file
-\texttt{PF/Wave58/Ch17OperatorTheoryConcrete.lean}, line~421, HEAD
-\texttt{17f3137});
-\texttt{PrincipiaTractalis.Wave58Ch17OperatorTheoryConcrete.\\
-ch17\_operator\_theory\_concrete\_capstone} (line~447).
+\texttt{PF.Wave58.Ch17OperatorTheoryConcrete.\\
+Ch17OperatorTheoryConcrete} (structure);
+\texttt{PF.Wave58.Ch17OperatorTheoryConcrete.\\
+ch17\_operator\_theory\_concrete\_capstone}.
 \end{theorem}
 
-\begin{theorem}[Consciousness operator $C$ axiom-free]
+\begin{theorem}[Consciousness operator $C$ structural infrastructure
+is axiom-free]
 \label{thm:operator-c-axiom-free}
-The framework's structural consciousness-operator infrastructure is
-axiom-free at the project level.
+The framework's structural infrastructure surrounding the
+consciousness operator $C$ is at kernel-only axioms.
 \textbf{Lean:}
-\texttt{PrincipiaTractalis.ConsciousnessOperatorC.\\
-consciousness\_operator\_C\_axiom\_free} (file
-\texttt{PF/Consciousness/ConsciousnessOperatorC.lean}, line~236).
-Kernel axioms only.
+\texttt{PF.Consciousness.ConsciousnessOperatorC.\\
+consciousness\_operator\_C\_axiom\_free}.
 \end{theorem}
 
-\begin{theorem}[Decoherence threshold capstone]
-\label{thm:decoherence-capstone}
-The substrate's quantum-to-classical decoherence threshold is
-bundled in a structural Prop $\mathtt{DecoherenceThresholdBundle}$,
-inhabited axiom-free.
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{Honest scope, foregrounded.} The Ch~17 concrete witness is a
+\emph{finite-dimensional} $3 \times 3$ Hamiltonian. The literal
+unbounded continuum consciousness operator $C$ of Chapter 17~\S17.6
+is unbounded with continuous spectrum; the $3 \times 3$ diagonal
+$H_{\mathrm{concrete}}$ is the substrate-level finite-dim witness,
+explicitly flagged at the Chapter 17 honest-scope line~471. The
+Type~II$_{1}$ von Neumann algebra conjecture from \S17.4.1 is itself
+flagged in Chapter 17 as a ``major open problem.'' The substrate-level
+content is what the framework claims; the literal continuum
+extension is preserved openly as the named gap.
+}}
+
+\subsection{The substrate $\to$ RH bridge predicate (substrate-trivial)}
+\label{sec:c-rh-bridge}
+
+The framework's $\mathtt{ConsciousnessRHBridge}$ predicate is the
+typed statement that the consciousness operator $C$ commutes with
+the substrate transfer operator at the framework's substrate Riemann
+zeros. The framework inhabits this predicate via
+$\mathtt{ConsciousnessRHBridge\_trivial}$ \emph{on the framework's
+trivial substrate}; this is a substrate-level structural witness, not
+a content statement about Riemann zeros of mathlib's
+$\mathtt{riemannZeta}$.
+
 \textbf{Lean:}
-\texttt{PrincipiaTractalis.QuantumClassicalDecoherenceThreshold.\\
-decoherence\_threshold\_capstone} (file
-\texttt{PF/Consciousness/QuantumClassicalDecoherenceThreshold.lean},
-line~387);
-\texttt{PrincipiaTractalis.QuantumClassicalDecoherenceThreshold.\\
-DecoherenceThresholdBundle} (structure, line~355).
-\end{theorem}
+\texttt{PF.Consciousness.ConsciousnessOperatorC.\\
+ConsciousnessRHBridge\_trivial}.
 
-\subsection{The consciousness-to-RH bridge}
-\label{sec:consciousness-rh-bridge}
-
-The substrate operator algebra that forces RH at $\alpha_{\mathrm{RH}}
-= 3/2$ is the same operator algebra that defines the consciousness
-operator $C$ with Chern character $\mathrm{ch}_{2}$. The bridge
-between them is named:
-
-\begin{theorem}[Consciousness $\leftrightarrow$ RH bridge holds]
-\label{thm:consciousness-rh-bridge}
-The biconditional content of the consciousness operator $C$ commuting
-with the substrate transfer operator at Riemann zeros holds at the
-typed substrate scope.
-\textbf{Lean:}
-\texttt{PrincipiaTractalis.ConsciousnessOperatorC.\\
-ConsciousnessRHBridge\_trivial} (line~223). Kernel axioms only.
-\end{theorem}
-
-The class-distinctness pattern in computation (Phase 3 P vs NP
-$\alpha$-separation $\sqrt{2} \neq \varphi + 1/4$) reflects the same
-substrate rigidity that distinguishes the quantum from the classical
-regime at the consciousness axis ($\mathrm{ch}_{2} = 19/20$
-threshold). Two regimes, same substrate, same algebraic structure
-forcing the separation.
-
-\subsection{The AGI alignment connection}
+\subsection{The AGI alignment connection, in honest scope}
 \label{sec:agi-alignment}
 
-A substrate-level account of consciousness is the foundation upon
-which AGI alignment can be made rigorous. We do not claim the
-framework gives AGI safety as a theorem. We claim the framework
-gives the substrate-level mathematical object that an aligned AGI
-must compute --- the Chern-character $\mathrm{ch}_{2} = 19/20$
-threshold on a substrate Hilbert space, with the consciousness
-operator $C$ and the Mayer 1991 \S3 spectral correspondence as the
-operator-algebraic content.
+A substrate-level mathematical object is what the framework offers,
+\emph{not} a theory of consciousness, \emph{not} an AGI safety
+guarantee, and \emph{not} a normative theory of mind. The Chern-character
+threshold and the finite-dim consciousness-operator witness give a
+typed mathematical structure on which a future substrate-level
+discussion of mind-related concepts could be grounded; this is a
+contribution to the substrate, not to consciousness science or AGI
+safety. Earlier framework documents that framed this as ``the AGI
+alignment substrate'' overstated the substrate-level content's
+relationship to AGI alignment; the framework's contribution is the
+substrate, the rest is downstream.
 
-This is not the AGI safety guarantee. This is the substrate-level
-mathematical foundation under which any AGI safety guarantee about
-alignment-with-conscious-agents can be argued in machine-verifiable
-form. The deliverable to humanity is the substrate, machine-verified.
-
-%% =====================================================================
-\section{Zero-point energy via Weinstein--GU 11-field bundle}
+\section{Zero-point energy: substrate-level Lean content, not an
+engineering blueprint}
 \label{sec:zpe}
 
-\subsection{The Weinstein--Geometric-Unity BRST decomposition}
-\label{sec:brst-decomp}
+\subsection{The Weinstein--GU BRST $H^{2}$ decomposition}
+\label{sec:brst-decomposition}
 
-The framework's substrate operator algebra produces a vortex-mode
-structure on the substrate Hilbert space whose ground-state algebraic
-content is calculable from BRST cohomology. The Weinstein--Geometric-Unity
-11-field rescue is the substrate-level rendition: $H^{2} = 78$, with
-the decomposition
-\[
-H^{2} = 78 = 48 + 26 + 4
-\]
-matching the Standard Model gauge degrees of freedom plus the
+The framework records the arithmetic identity $78 = 48 + 26 + 4$ as
+the substrate-level BRST $H^{2}$ decomposition of the
+Weinstein--Geometric-Unity 11-field bundle, presented in framework
+terms as matching the Standard Model gauge degrees of freedom plus
 gravity and Higgs sectors.
 
-\begin{theorem}[Weinstein--GU BRST $H^{2}$ decomposition]
+\begin{theorem}[Weinstein--GU BRST $H^{2}$ arithmetic identity]
 \label{thm:brst-h2}
-The substrate's BRST cohomology decomposition
-$H^{2} = 48 + 26 + 4$ holds at the Lean level as an arithmetic
-identity over $\mathbb{N}$.
+$78 = 48 + 26 + 4$ as a $\mathbb{N}$-arithmetic identity.
 \textbf{Lean:}
 \texttt{PrincipiaTractalis.WeinsteinGUResonantRescue.\\
-brst\_H2\_sm\_decomposition} (file
-\texttt{PF/Consciousness/WeinsteinGUResonantRescue.lean}, line~175,
-HEAD \texttt{17f3137}). Kernel axioms only.
+brst\_H2\_sm\_decomposition}.
 \end{theorem}
 
-\begin{theorem}[Weinstein--GU rescued capstone]
-\label{thm:weinstein-capstone}
-The framework's Weinstein--GU rescue bundles the per-clause content,
-including the BRST $H^{2}$ decomposition and the substrate-level
-rescue conditions, into a single structural Prop
-$\mathtt{WeinsteinGURescueBundle}$, inhabited axiom-free.
-\textbf{Lean:}
-\texttt{PrincipiaTractalis.WeinsteinGUResonantRescue.\\
-WeinsteinGURescueBundle} (structure, line~321);
-\texttt{PrincipiaTractalis.WeinsteinGUResonantRescue.\\
-weinstein\_GU\_rescued\_capstone} (line~349).
-\end{theorem}
+\noindent\textbf{Honest scope.} The Lean theorem is the arithmetic
+identity. The framework's interpretation of $48$ as the Standard
+Model gauge dimension, $26$ as a gravity sector, $4$ as a Higgs
+sector, and the whole $78$ as the BRST $H^{2}$ of the Weinstein--GU
+adjoint $E_{6}$ representation, is a framework-conjectural
+identification. The framework does not derive the Standard Model from
+$E_{6}$ in Lean; the identity is on $\mathbb{N}$.
 
-\subsection{Counter-rotating-vortex free-energy mechanism}
-\label{sec:counter-rotating}
-
-The substrate carries a counter-rotating-vortex pair structure: two
-angular-velocity vortex modes whose sum vanishes
-($\omega_{1} + \omega_{2} = 0$) but whose energy density is strictly
-positive when the modes are non-zero. The substrate-level
-zero-point-energy mechanism is the seven-clause capstone:
+\subsection{The counter-rotating-vortex free-energy capstone}
+\label{sec:counter-rotating-capstone}
 
 \begin{theorem}[Counter-rotating-vortex free-energy capstone]
 \label{thm:counter-rotating}
-The substrate's seven-clause Prop $\mathtt{CounterRotatingVorticesFreEnergy}$
-is inhabited axiom-free. The clauses are:
-\begin{itemize}[leftmargin=*,nosep]
-\item[(C1)] a counter-rotating vortex-pair witness with
-  $\omega_{1} + \omega_{2} = 0$;
-\item[(C2)] strictly positive vortex energy density at the unit
-  witness $\mathtt{unitCounterRotating}$;
-\item[(C3)] zero-point reservoir positivity ($0 < \text{reservoir}$
-  and $1 < \text{reservoir}$);
-\item[(C4)] free-energy extractability $\mathtt{FreeEnergyExtractable}$
-  at the unit witness;
-\item[(C5)] resonance amplification under cosmological suppression
-  matches the vortex energy density;
-\item[(C6)] consciousness suppression bridges the vortex to the
-  cosmological constant ($\Lambda_{0} \cdot \exp(-X) < \Lambda_{0}$ for
-  any $\Lambda_{0} > 0$);
-\item[(C7)] the suppression factor inverts the zero-point reservoir:
-  $\exp(-X) \cdot \text{reservoir} = 1$.
-\end{itemize}
+The seven-clause structural Prop
+$\mathtt{CounterRotatingVorticesFreEnergy}$ is inhabited axiom-free.
+The clauses bundle a counter-rotating vortex-pair witness with
+$\omega_{1} + \omega_{2} = 0$, strict positivity of a vortex energy
+density at a unit witness, a zero-point reservoir positivity
+condition, a $\mathtt{FreeEnergyExtractable}$ Prop at the unit
+witness, a resonance-amplification identity, a
+$\mathtt{ConsciousnessSuppression}$ bridge to a strict
+$\Lambda$ suppression $\Lambda_{0} \cdot \exp(-X) < \Lambda_{0}$, and
+a suppression-vs-reservoir inverse identity
+$\exp(-X) \cdot \text{reservoir} = 1$.
 \textbf{Lean:}
 \texttt{PrincipiaTractalis.Cosmology.\\
-counter\_rotating\_vortices\_free\_energy\_capstone} (file
-\texttt{PF/Cosmology/CounterRotatingVorticesZeroPointFreeEnergy.lean},
-line~380, HEAD \texttt{17f3137}). Kernel axioms only.
+counter\_rotating\_vortices\_free\_energy\_capstone}.
 \end{theorem}
 
-The capstone composes with the cosmological suppression bridge of
-\S\ref{sec:cosmology}: the same exponent $X$ that suppresses
-$\Lambda_{\mathrm{eff}}$ by $120$ orders is the inverse of the
-substrate's zero-point reservoir. The vortex and the cosmological
-constant are not separate substrate features; they are coupled by
-the same suppression mechanism.
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{Honest scope, foregrounded.} The capstone is a structural
+$\mathtt{Prop}$-bundle inhabited by seven clauses. Each clause is a
+substrate-level typed statement (a vortex-pair sum identity, a
+strict-positivity inequality, an exponential-product identity, etc.).
+\textbf{This is not an engineering blueprint. This is not a device
+design. This is not a working ZPE mechanism. This is not a planetary
+energy timeline.} The framework's claim is exactly that the algebraic
+structure exists in Lean at zero project axioms; the relationship of
+this algebraic structure to any physical zero-point-energy access
+mechanism is the framework-conjectural identification, not a derived
+theorem. Earlier framework documents that framed this as ``a
+substrate-level zero-point-energy access mechanism'' or ``a
+foundation for planetary energy'' overstated the substrate-level
+content's engineering implications.
+}}
 
-\subsection{The planetary energy connection}
+\subsection{The planetary energy connection, in honest scope}
 \label{sec:planetary-energy}
 
-This is not an engineering blueprint. This is not a device. This is
-not a timeline.
+The framework's contribution on the ZPE axis is the substrate-level
+algebraic structure (BRST identity, counter-rotating-vortex
+substrate Prop, suppression-bridge identity). If a serious physical
+investigation of zero-point-energy access is pursued, the
+substrate-level mathematics here may be one structural starting
+point. The framework does not claim more: not that the substrate
+yields a device, not that the substrate yields an engineering
+specification, not that the substrate yields a planetary energy
+deliverable in any timescale. The framework yields structural
+mathematics in Lean.
 
-This is the substrate-level identification of the algebraic structure
-underlying any zero-point energy access mechanism --- a
-counter-rotating-vortex pair with vanishing sum, strictly positive
-energy density, free-energy extractability under the substrate's
-consciousness-coupled suppression bridge, and a resonance-amplification
-factor. The mathematics is machine-verified at zero project axioms.
-The engineering investigation is downstream of the substrate.
-
-The deliverable to humanity is the substrate-level mathematical
-foundation under which a serious zero-point-energy program can be
-discussed without ungrounded speculation. If humanity is to stop
-burning hydrocarbons, the substrate is the rigorous starting place.
-What engineers do with it next is the next question.
-
-%% =====================================================================
-\section{Cosmology: $\Lambda_{\mathrm{eff}}$, Hubble, dark-energy density}
+\section{Cosmology: typed framework-derived brackets}
 \label{sec:cosmology}
 
-\subsection{The $\Lambda_{\mathrm{eff}}$ 120-order suppression}
+\subsection{The $\Lambda_{\mathrm{eff}}$ suppression bridge}
 \label{sec:lambda-eff}
 
-The substrate's cosmological-constant suppression bridge relates the
-bare (Planck-scale) $\Lambda_{0}$ to the observed $\Lambda_{\mathrm{eff}}$
-through the exponential
+The framework's substrate suppression bridge relates a bare
+(Planck-scale) $\Lambda_{0}$ to an observed $\Lambda_{\mathrm{eff}}$
+through
 \[
 \Lambda_{\mathrm{eff}} = \Lambda_{0} \cdot \exp(-X)
 \]
-where $X$ is the framework suppression exponent, anchored to the
-$78\pi$ Chern--Weil index of the $E_{6}$ adjoint (the Weinstein--GU
-substrate, \S\ref{sec:zpe}) times the consciousness threshold $0.95$
-times the substrate $R_{f}$ modulus $1.1875$, giving
-$X = 78\pi \cdot 0.95 \cdot 1.1875 \approx 88.03125 \cdot \pi$.
+with $X$ a framework-suppression exponent anchored in the substrate
+to $78\pi \cdot 0.95 \cdot 1.1875$.
 
 \begin{theorem}[Framework strict $\Lambda_{\mathrm{eff}}$ suppression]
 \label{thm:lambda-eff-suppression}
-For every Planck-scale bare cosmological constant $\Lambda_{0} > 0$,
-the framework's modified Friedmann equation with the substrate
-suppression exponent $X$ strictly suppresses to a smaller observed
-$\Lambda_{\mathrm{eff}}$:
-\[
-\Lambda_{0} \cdot \exp(-X) < \Lambda_{0}.
-\]
+For every $\Lambda_{0} > 0$, the framework's substrate identity
+yields $\Lambda_{0} \cdot \exp(-X) < \Lambda_{0}$.
 \textbf{Lean:}
-\texttt{PrincipiaTractalis.LambdaEffSuppression} (definition, file
-\texttt{PF/Cosmology/LambdaEffSuppression.lean}, line~98);
-\texttt{PrincipiaTractalis.\\
-framework\_strict\_suppression} (file
-\texttt{PF/Cosmology/LambdaEffTypedUpgrade.lean}, line~188). Kernel
-axioms only.
+\texttt{PrincipiaTractalis.LambdaEffSuppression.\\
+LambdaEffSuppression} (definition);
+\texttt{PrincipiaTractalis.framework\_strict\_suppression}.
 \end{theorem}
 
-The 120-order numerical bracket follows from the substrate
-bracket-pair $276 < X < 277$, matching $120 \cdot \log 10 \approx
-276.31$ within the framework's stated bracket window.
+\noindent\textbf{Honest scope.} The theorem is the strict-inequality
+identity. The framework's bracket-pair $276 < X < 277$ matches
+$120 \cdot \log 10 \approx 276.31$ within the framework's stated
+bracket window; the framework's interpretation of this as ``a
+120-order cosmological-constant hierarchy'' is the
+framework-conjectural reading of the substrate's
+suppression-exponent calculation, not a derivation of the
+Planck-scale-vs-observed cosmological-constant hierarchy from
+external physics.
 
-\subsection{The Hubble bracket $H_{0} \in [67.4, 73.0]$}
-\label{sec:hubble}
+\subsection{The $H_{0}$ and $\Omega_{\Lambda}$ brackets}
+\label{sec:hubble-bracket}
 
-The substrate's consciousness-modified Friedmann equation produces a
-framework prediction for $H_{0}$ that lies strictly inside the
-SH$_{0}$ES local vs Planck CMB tension interval, resolving the
-$5\sigma$ discrepancy.
-
-\begin{theorem}[Hubble bracket: framework strictly between CMB and local]
+\begin{theorem}[Framework $H_{0}$ bracket strictness]
 \label{thm:hubble-bracket}
-The framework's $H_{0}$ prediction strictly brackets between the
-Planck CMB value and the SH$_{0}$ES local-distance-ladder value:
-\[
-H_{0}^{\mathrm{CMB,Planck}} < H_{0}^{\mathrm{framework}} <
-H_{0}^{\mathrm{SH_{0}ES,local}}.
-\]
+The framework's $H_{0}$ bracket strictly contains the framework's
+identification of the Planck CMB and SH$_{0}$ES local-distance-ladder
+values.
 \textbf{Lean:}
-\texttt{PrincipiaTractalis.LambdaCDMRebuttalEnergyConservation.\\
-hubble\_framework\_brackets\_local\_and\_cmb} (file
-\texttt{PF/Cosmology/LambdaCDMRebuttalEnergyConservation.lean},
-line~256). Kernel axioms only.
+\texttt{PF.Cosmology.LambdaCDMRebuttalEnergyConservation.\\
+hubble\_framework\_brackets\_local\_and\_cmb}.
 \end{theorem}
-
-The numerical bracket is $67.4 < 69.8 < 73.0$ km/s/Mpc, matching
-LDN 2025 $73.5 \pm 0.81$ and Planck 2018 $67.4 \pm 0.5$ within the
-framework's window.
-
-\subsection{The dark-energy density bracket $\Omega_{\Lambda} \in
-[0.65, 0.75]$}
-\label{sec:dark-energy}
-
-The substrate's reading of the cosmological dark-energy density is
-the value $\Omega_{\Lambda} = 0.7$ inside the bracket
-$[0.65, 0.75]$.
 
 \begin{theorem}[Dark-energy density in bracket]
 \label{thm:dark-energy-bracket}
-The substrate-derived dark-energy density satisfies
+The substrate-derived dark-energy density value satisfies
 $0.65 < 0.7 < 0.75$.
 \textbf{Lean:}
-\texttt{PrincipiaTractalis.Wave58Ch08FieldEquationsConcrete.\\
-darkEnergyDensity} (definition, file
-\texttt{PF/Wave58/Ch08FieldEquationsConcrete.lean}, line~260);
-\texttt{PrincipiaTractalis.Wave58Ch08FieldEquationsConcrete.\\
-darkEnergyDensity\_in\_bracket} (line~265). Kernel axioms only.
+\texttt{PF.Wave58.Ch08FieldEquationsConcrete.\\
+darkEnergyDensity\_in\_bracket}.
 \end{theorem}
 
-Planck 2018 reports $\Omega_{\Lambda} = 0.6889 \pm 0.0056$, which
-lies inside the substrate-derived bracket. The substrate brackets
-the observation. The observation does not falsify the substrate.
+\noindent\textbf{Honest scope.} The brackets are framework-derived
+strict inequalities at typed bound level. They are consistent with
+Planck 2018's reported $\Omega_{\Lambda} = 0.6889 \pm 0.0056$ and
+$H_{0} \approx 67.4 \pm 0.5$ \cite{planck2018}, and with LDN 2025
+$H_{0} \approx 73.5 \pm 0.81$ \cite{ldn2025}. They are \textbf{not}
+point-predictions to arbitrary precision; they are typed bracket
+bounds. Earlier framework documents that framed these as
+``resolving'' the SH$_{0}$ES / Planck tension or ``predicting'' the
+dark-energy density overstated the bracket's content; a bracket
+contains both reported values, it does not resolve their tension.
 
-\subsection{The $\Lambda$CDM full rebuttal}
-\label{sec:lambdaCDM-rebuttal}
+\subsection{Falsifiability commitments}
+\label{sec:falsifiability}
 
-The framework's structural rebuttal of standard $\Lambda$CDM energy
-conservation issues is bundled in a single typed Prop:
+The framework commits to eight typed falsifiability conditions in
+$\mathtt{PF.Referee.FrameworkFalsifiabilityConditions}$. Audit
+2026-06-04: \textbf{zero of eight triggered}; \textbf{two actively
+supported by 2024--2026 literature}: $F_{3}$ (dark-energy direction
+matches DESI + Planck + Pantheon$^{+}$) and $F_{6}$
+($\Omega_{\Lambda} \in [0.65, 0.75]$, Planck 2018: $0.69$).
 
-\begin{theorem}[$\Lambda$CDM full rebuttal]
-\label{thm:lambdaCDM-rebuttal}
-The substrate's $\mathtt{LambdaCDMFullRebuttal}$ bundle, including
-the Hubble bracket and the framework's energy-conservation
-identity, is inhabited axiom-free.
-\textbf{Lean:}
-\texttt{PrincipiaTractalis.LambdaCDMRebuttalEnergyConservation.\\
-LambdaCDMFullRebuttal} (structure, line~343);
-\texttt{PrincipiaTractalis.LambdaCDMRebuttalEnergyConservation.\\
-lambdaCDM\_full\_rebuttal} (line~378). Kernel axioms only.
-\end{theorem}
-
-\subsection{Cross-Millennium algebraic bridge}
-\label{sec:cross-millennium-cosmology}
-
-The cosmological scale is locked to the Yang--Mills mass-gap scale
-through the substrate's cross-Millennium algebraic invariants
-$\alpha_{\mathrm{QG}}^{2} = 2\pi$ and
-$\alpha_{\mathrm{QG}}^{2} = \alpha_{\mathrm{YM}} \cdot \pi$ (so
-$\alpha_{\mathrm{YM}} = 2$, matching the Perelman-anchored
-$\alpha_{\mathrm{YM}} = \alpha_{\mathrm{Poincar\acute e}} + 1$). The
-$120$-order suppression is not a free parameter. It is forced by the
-substrate's $\alpha$-skeleton through the same invariants that
-discharge the six Clay axes simultaneously.
-
-\subsection{The first-principles-cosmology connection}
-\label{sec:first-principles-cosmology}
-
-This is not a parameter fit. The substrate's $\alpha$-skeleton is
-forced by the Perelman anchor plus the eleven cross-Millennium
-invariants. The $\Lambda_{\mathrm{eff}}$ suppression magnitude, the
-$H_{0}$ bracket, and the $\Omega_{\Lambda}$ bracket are all derived
-substrate consequences. The substrate predicts what the cosmos shows.
-
-If $\Omega_{\Lambda}$ moves outside $[0.65, 0.75]$, falsifier $F_{6}$
-in the framework's falsifiability layer triggers. As of 2026-06-04,
-zero of the framework's eight falsifiers have triggered; two ($F_{3}$
-dark-energy direction, $F_{6}$ $\Omega_{\Lambda}$) are actively
-supported by 2024--2026 literature.
-
-%% =====================================================================
-\section{The 23-problem reach}
+\section{The 23-problem reach, with field-level honesty}
 \label{sec:reach}
 
-The substrate's machinery applies far beyond the Clay set. The
-framework attacks 23 currently open mathematical problems with the
-same $\alpha$-skeleton + bridge pattern: 7 Clay axes plus 16 non-Clay
-open problems across number theory, combinatorics, geometry,
-complexity, dynamics, and group theory.
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{Bundle-field discipline (quoted from the Lean record's field
+declarations, lines 99--137):} of the 17 fields in
+$\mathtt{FrameworkUniversalReach}$, \textbf{15 are typed as}
+$\mathtt{: True}$ (provenness tags carrying no mathematical content
+at the record level). The two fields carrying non-trivial framework
+Props at the record level are $\mathtt{brocard\_attack\_realized}$
+and $\mathtt{hadwiger\_nelson\_attack\_realized}$. The substantive
+per-axis content for the other 14 non-Clay problems and the seven
+Clay axes lives in separate framework-attack modules; the 23-problem
+record is a single citation point indexing these modules. Reading
+the record itself as a Clay-Standard discharge or as a literal
+mathlib-tier discharge of each named problem is incorrect.
+}}
 
-\begin{theorem}[Framework universal reach realized]
-\label{thm:universal-reach}
-The framework's reach across 23 mathematical problems is bundled in
-a structural Prop $\mathtt{FrameworkUniversalReach}$, inhabited
-axiom-free by direct citation of the per-problem framework-attack
-capstones.
-\textbf{Lean:}
-\texttt{PF.Referee.FrameworkUniversalReach.\\
-FrameworkUniversalReach} (structure, file
-\texttt{PF/Referee/FrameworkUniversalReach.lean}, line~99, HEAD
-\texttt{17f3137});
-\texttt{PF.Referee.FrameworkUniversalReach.\\
-framework\_universal\_reach\_realized} (line~153);
-\texttt{PF.Referee.FrameworkUniversalReach.\\
-framework\_reach\_count\_eq\_twentythree} (line~182);
-\texttt{PF.Referee.FrameworkUniversalReach.\\
-framework\_reach\_decomposition} (line~185).
-\end{theorem}
+\medskip
 
-\subsection{The 16 non-Clay open problems}
-\label{sec:non-clay}
+The 16 non-Clay problems addressed by per-axis attack modules: abc,
+Beal, Brocard, Collatz, Erd\H{o}s discrepancy, Erd\H{o}s--Straus,
+Goldbach, Hadwiger--Nelson, Inverse Galois, Lonely Runner, Polignac,
+Twin Prime, Odd perfect, Singmaster, Pillai / generalised Catalan,
+Andrews--Curtis. For each, the framework-attack module
+$\mathtt{PF.NumberTheory.<name>FrameworkAttack}$ carries
+substrate-level structural content (literal-conjecture encoding,
+concrete axiom-free witnesses on small cases, $\alpha$-skeleton
+bridge, framework $3^{k}$ substrate match, named published partial
+results). \textbf{None of these constitute literal mathlib-tier
+discharges of the named open problems.}
 
-\begin{table}[h]
-\centering
-\begin{tabular}{rll}
-\toprule
-\# & Problem & Substrate $\alpha$-anchor \\
-\midrule
-(N1)  & abc conjecture                                  & $\alpha_{\mathrm{Poincar\acute e}} + 1/4$ \\
-(N2)  & Beal conjecture                                 & $\alpha_{\mathrm{YM}} + \alpha_{\mathrm{Poincar\acute e}}$ \\
-(N3)  & Brocard's problem ($n! + 1 = m^{2}$)            & $\alpha_{\mathrm{YM}}$ \\
-(N4)  & Collatz conjecture                              & $\log_{2} 3$ \\
-(N5)  & Erd\H{o}s discrepancy problem                   & $\alpha_{\mathrm{YM}}$ \\
-(N6)  & Erd\H{o}s--Straus conjecture                    & $2\,\alpha_{\mathrm{RH}}$ \\
-(N7)  & Goldbach conjecture                             & $1 + 1/\sqrt{2}$ \\
-(N8)  & Hadwiger--Nelson (chromatic plane)              & $\alpha_{\mathrm{RH}} \alpha_{\mathrm{YM}} + 2 = 5$ \\
-(N9)  & Inverse Galois problem                          & $\alpha_{\mathrm{RH}} - \alpha_{\mathrm{Poincar\acute e}}$ \\
-(N10) & Lonely Runner conjecture                        & $\alpha_{\mathrm{Poincar\acute e}}$ \\
-(N11) & Polignac conjecture                             & $\alpha_{\mathrm{RH}}$ \\
-(N12) & Twin Prime conjecture                           & $\alpha_{\mathrm{RH}}$ \\
-(N13) & Odd perfect number existence                    & $\alpha_{\mathrm{YM}}$ \\
-(N14) & Singmaster's conjecture                         & $\alpha_{\mathrm{YM}}$ \\
-(N15) & Pillai's conjecture (generalised Catalan)       & $\alpha_{\mathrm{YM}}$ \\
-(N16) & Andrews--Curtis conjecture                      & $\alpha_{\mathrm{Poincar\acute e}}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Each non-Clay attack lives in its own
-$\mathtt{PF.NumberTheory.<Problem>FrameworkAttack}$ module and is
-imported by $\mathtt{FrameworkUniversalReach.lean}$. Per
-\cref{thm:universal-reach}, each attack carries the same structural
-content as a Clay attack: a literal conjecture statement encoded,
-axiom-free witnesses on small cases, an $\alpha$-skeleton bridge,
-and a substrate $3^{k}$ match.
-
-\subsection{The substrate's generality}
-\label{sec:substrate-generality}
-
-The substrate's reach is not bounded by the Clay set. The seven
-Clay axes are particular instances of the substrate's structural
-reach. The 16 non-Clay problems demonstrate that the same machinery
-that does Clay does open problems across radically different
-mathematical domains --- number theory (twin primes, Goldbach,
-Polignac), combinatorics (Erd\H{o}s discrepancy, Singmaster),
-geometry (Hadwiger--Nelson), discrete dynamics (Collatz, Lonely
-Runner), group theory (Andrews--Curtis), and algebra (inverse
-Galois). The substrate is universal.
-
-%% =====================================================================
-\section{Empirical anchors at hardware level}
+\section{Empirical anchors: honest disclosure}
 \label{sec:empirical}
 
-The substrate's predictions are statistically and physically anchored
-through two independent points at the strongest confidence levels
-the framework reports.
+\subsection{The 143-problem coherence figure: retraction of
+$p < 10^{-43}$ as established evidence}
+\label{sec:143}
 
-\subsection{143-problem universal coherence}
-\label{sec:143-problem}
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{Retraction.} The $\mathtt{universal\_fractal\_coherence}$
+Lean theorem
+(\texttt{PF.Empirical.HundredFortyThreeProblems}, line~167) records
+the framework's prediction that all problems within a complexity
+class P (resp.\ NP) yield identical canonical $\alpha$-values
+($\sqrt{2}$ and $\varphi + 1/4$). The Lean dataset implements this
+as
+\texttt{List.replicate 72 (canonicalEntry .P) ++
+List.replicate 71 (canonicalEntry .NP)}, and the
+$\mathtt{coherence\_p\_value\_threshold}$ proposition is asserted,
+not derived. The file's own honest-scope note (lines 36--39): ``\emph{P(all 143
+by chance)} $< 10^{-43}$ \emph{(Ch 21 line 1168). We package this as
+a structural} \texttt{Prop} \emph{whose canonical witness is the
+manuscript's bound; it is a} \emph{modeling assumption} \emph{about
+a baseline success rate, not a derived theorem, and is labeled as
+such.}''
 
-\begin{theorem}[143-problem universal fractal coherence]
-\label{thm:143-coherence}
-Across 143 independently-collected computational and mathematical
-problems, the substrate's universal coherence threshold
-$\mathrm{ch}_{2} = 19/20$ holds at $p < 10^{-43}$, with
-$\mathsf{P}$-class entries concentrating at $\alpha_{P} = \sqrt{2}$
-and $\mathsf{NP}$-class entries concentrating at
-$\alpha_{NP} = \varphi + 1/4$.
-\textbf{Lean:}
-\texttt{PrincipiaTractalis.Empirical.\\
-universal\_fractal\_coherence} (file
-\texttt{PF/Empirical/HundredFortyThreeProblems.lean}, line~167, HEAD
-\texttt{17f3137}). Kernel axioms only.
-\end{theorem}
+\medskip
 
-This is a typed statistical anchor: the substrate's class pinning
-$(\alpha_{P}, \alpha_{NP}) = (\sqrt{2}, \varphi + 1/4)$ is matched by
-independent empirical data at $p < 10^{-43}$ across 143 distinct
-mathematical problems. The substrate is not merely structural; it is
-empirically load-bearing on real data.
+\noindent
+As currently formalized, the empirical anchor is a definitional
+restatement of the framework's prediction, not a statistical analysis
+of independently collected per-problem measurements. \textbf{The
+$p < 10^{-43}$ figure should not be cited as established empirical
+evidence}. Earlier framework documents that cited it as such are
+corrected here.
+}}
 
-\subsection{IBM Quantum hardware 9-way concordance}
+\subsection{IBM Quantum 9-way: framed as pre-registration}
 \label{sec:ibm}
 
-The substrate's prediction $\alpha_{\mathrm{RH}} = 3/2$ matches the
-IBM Quantum 9-way Bell-style measurement protocol concordance with
-random-match probability $\le 10^{-15}$.
+\noindent\fbox{\parbox{0.97\textwidth}{
+\textbf{Pre-registration status (honest framing).} At HEAD
+\texttt{4785c55}, \textbf{only the pair $(\alpha_{\mathrm{RH}},
+\alpha_{NP})$ has been observed on IBM Quantum hardware} consistent
+with the framework's prediction
+(\texttt{IBMHardware9WayEvidence.lean} lines 312--327). The other 7
+$\alpha$-values are framework predictions \emph{committed BEFORE
+hardware measurement}. The Lean theorem records a \textbf{conditional}
+bound (file lines 322--327 verbatim): ``\emph{IF all 9 instances are
+eventually measured to within} $10^{-3}$ \emph{of the framework's
+pre-specified values under the assumed} \texttt{NoiseModel9}\emph{,
+THEN the random-match probability is at most} $10^{-15}$.''
 
-\begin{theorem}[IBM hardware 9-way random-match probability bound]
-\label{thm:ibm}
-The IBM Quantum 9-way concordance random-match probability is
-bounded above by $10^{-15}$.
-\textbf{Lean:}
-\texttt{PrincipiaTractalis.IBMHardware9WayEvidence.\\
-IBM\_hardware\_nine\_way\_random\_match\_probability\_bound} (file
-\texttt{PF/IBMHardware9WayEvidence.lean}, line~307, HEAD
-\texttt{17f3137}). Kernel axioms only.
-\end{theorem}
+\textbf{Current status:} 2 of 9 measured-consistent, 7 of 9
+pre-registered. The pre-registration of seven framework
+$\alpha$-values prior to hardware measurement is scientifically
+valuable; it is honestly framed as such. The conditional bound does
+\emph{not} say anything about the framework's claims absent the
+remaining 7 measurements.
+}}
 
-The hardware anchor binds the substrate's $\alpha$-skeleton to a real
-superconducting device at the device noise floor. The substrate is
-hardware-tested.
+\section{Independent verification posture}
+\label{sec:l4l}
 
-\subsection{Joint significance}
-\label{sec:joint-significance}
+The Lean~4 proof objects for the theorems cited type-check in the
+Lean~4 kernel with kernel axioms $\mathtt{[propext, Classical.choice,
+Quot.sound]}$ and zero project axioms. The PF\_Lean4Lean harness
+provides \textbf{build-hash robustness across two Lake packages}:
+the canonical theorems are re-bound in a separate package and
+rebuilt from source. \textbf{It is not an independent type-checker
+written in another language.} Verbatim from
+\texttt{PF\_Lean4Lean/PF\_L4L/Referee/ClayVerificationHarness.lean}
+lines~47--56:
+\begin{quote}
+``\emph{This is the same Path-C protocol\ldots a second pass through
+Lean's kernel from a separate package with an independent build
+hash. It is NOT a separate type-checker written in another language.
+\ldots The harness re-exports the closures as they are --- it does NOT
+strengthen any of them.}''
+\end{quote}
+A Coq mirror provides cross-prover structural parity; approximately
+75\% of definitions in the Coq mirror are $\mathtt{: Prop := True}$,
+i.e.\ the Coq tree is \textbf{parity-only}, not independent semantic
+verification.
 
-The framework reports two independent empirical anchors --- statistical
-($p < 10^{-43}$ across 143 mathematical problems) and physical (IBM
-quantum 9-way at $\le 10^{-15}$) --- with the substrate's predictions
-tested at both axes simultaneously. The substrate-level predictions
-are testable. They have been tested. They are confirmed at the
-stated confidence levels.
-
-%% =====================================================================
-\section{Honest scope}
+\section{Honest scope, comprehensive}
 \label{sec:honest-scope}
 
-Per Ch~34A \S7 of the manuscript (the
-$\mathtt{sec:substrate-honest-scope}$ marker), PF is a
-\emph{substrate-level monograph in Grothendieck mode}. This paper
-preserves that scope marker explicitly on every claim above.
+Per the file-level honest-scope marker
+($\mathtt{sec:substrate-honest-scope}$), PF is a
+\emph{substrate-level monograph in Grothendieck mode}.
 
-\begin{remark}[Honest scope at the Phase 4 cargo axes]
+\begin{remark}[Honest scope, comprehensive]
 \label{rem:honest-scope-phase4}
 
-\textbf{(H1) Consciousness is axiom-free at the finite-dim witness.}
-The consciousness operator $C$ is axiom-free at the Wave 58
-finite-dim concrete witness $\mathtt{Ch17OperatorTheoryConcrete}$
-($3 \times 3$ diagonal Hamiltonian, spectrum $\{1, 2, 3\}$, trace
-$= 6$, determinant $= 6$). The full unbounded continuum case
-remains open per Chapter 17 honest scope, line~471: the
-consciousness operator $C$ of \S17.6 is unbounded with continuous
-spectrum, and the $3 \times 3$ diagonal $H_{\mathrm{concrete}}$ is
-the substrate-level finite-dim witness. The Type II$_{1}$ von Neumann
-algebra conjecture from \S17.4.1 is itself flagged as a ``major open
-problem'' in Chapter 17. The substrate-level content is what the
-framework claims; the literal continuum extension is preserved
-openly.
+\textbf{(H1) Consciousness, finite-dim only.} The consciousness
+operator $C$ is structurally axiom-free at the Wave 58 finite-dim
+$3 \times 3$ witness. The literal unbounded continuum case is named
+open per Ch 17 line~471; the Type II$_{1}$ von Neumann algebra
+conjecture from \S17.4.1 is flagged as a ``major open problem.'' The
+substrate-level content is what the framework claims; the literal
+continuum extension is preserved openly.
 
 \textbf{(H2) ZPE bundle is substrate-level Lean content.} The
 Weinstein--GU 11-field bundle, the BRST decomposition
-$H^{2} = 78 = 48 + 26 + 4$, and the seven-clause
-counter-rotating-vortex free-energy capstone are substrate-level
-Lean content at kernel axioms only. They are NOT an engineering
-blueprint. They are NOT a device design. They are NOT a planetary
-energy timeline. They are the substrate-level mathematical foundation
-under which a serious engineering investigation can be discussed
-without ungrounded speculation. The framework's claim is exactly:
-the algebraic structure is there, machine-verified, named, and
-contributable.
+$78 = 48 + 26 + 4$, and the seven-clause counter-rotating-vortex
+free-energy capstone are substrate-level Lean content at kernel-only
+axioms. They are \textbf{not} an engineering blueprint. They are
+\textbf{not} a device design. They are \textbf{not} a planetary
+energy timeline. The framework's interpretation of these algebraic
+structures as ``a foundation for zero-point energy'' is the
+framework-conjectural identification, not a derived theorem about
+energy access mechanisms.
 
-\textbf{(H3) Cosmological brackets are typed bounds.} The substrate's
-$\Lambda_{\mathrm{eff}}$ suppression strictness, the $H_{0}$ bracket
-$67.4 < 69.8 < 73.0$, and the $\Omega_{\Lambda}$ bracket
-$0.65 < 0.7 < 0.75$ are typed bounds on framework-derived quantities
-consistent with current observation. They are NOT point-predictions
-to arbitrary observational precision and they are NOT claims of
-Planck-level numerical accuracy at the mathlib tier. The framework's
-claim is structural and bracket-level. The framework's typed
-falsifiability layer ($F_{3}$, $F_{6}$) commits the substrate to
-these brackets in advance; current observation actively supports
-two of eight, triggers none.
+\textbf{(H3) Cosmological brackets are typed bounds.} The
+$\Lambda_{\mathrm{eff}}$ suppression strictness, the $H_{0}$ bracket,
+and the $\Omega_{\Lambda}$ bracket are typed framework-derived strict
+inequalities and bracket-inclusion bounds, consistent with current
+observation within the stated windows. They are \textbf{not}
+point-predictions to arbitrary precision; they are bracket bounds. A
+bracket containing two reported values does not resolve their
+mutual tension; it contains them.
 
-\textbf{(H4) The 23-problem reach lists per-problem substrate-level
-attacks.} Each entry in $\mathtt{FrameworkUniversalReach}$ is a
-substrate-level framework-attack capstone for the named problem, NOT
-a literal mathlib-tier discharge of the original conjecture. Several
-non-Clay entries are typed at $\mathtt{Prop := True}$ at the
-universal-reach record level (e.g., abc, Beal, Collatz,
-Erd\H{o}s discrepancy, Erd\H{o}s--Straus, Goldbach, Inverse Galois,
-Lonely Runner, Polignac, Twin Prime, Odd Perfect, Singmaster, Pillai,
-Andrews--Curtis); the underlying framework-attack capstones in their
-respective $\mathtt{PF.NumberTheory.*FrameworkAttack}$ modules carry
-the substrate-level structural content. Brocard and Hadwiger--Nelson
-are typed at structural Prop level in the bundle. The framework's
-claim is structural reach, not literal mathlib-tier closure of every
-named open problem.
+\textbf{(H4) 23-problem reach lists substrate-level attacks.} 15 of
+17 fields in the record are $\mathtt{: True}$; substantive
+substrate-level content lives in per-axis attack modules. \textbf{No
+entry is a literal mathlib-tier discharge of the named open
+problem.}
 
-\textbf{(H5) Empirical anchors are statistical / hardware.} The
-143-problem $p < 10^{-43}$ anchor is a statistical anchor at the
-stated significance; the IBM Quantum 9-way $\le 10^{-15}$ anchor is
-a hardware concordance at the device noise floor. These are NOT
-metaphysical certainties. They are the strongest empirical anchors
-the framework reports, and they are reported honestly with the
-stated confidence levels.
+\textbf{(H5) Empirical anchors are statistical-assertion (143) and
+hardware-pre-registration (IBM 2 of 9).} The $p < 10^{-43}$ figure
+is retracted as established evidence; the IBM bound is conditional
+on 7 of 9 future measurements.
 
-\textbf{(H6) Independent kernel re-verification.} The framework's
-substrate content is independently kernel-re-verified by the
-Lean4Lean kernel re-verifier through
-$\mathtt{clay\_verification\_harness\_passes}$ at HEAD \texttt{eb6d74b}
-of $\mathtt{PF\_Lean4Lean}$. The harness bundles the six-axis V4
-re-verification ($\mathtt{verify\_six\_axes\_holds}$, line~184), the
-three paired closures ($\mathtt{verify\_three\_paired\_closures\_holds}$,
-line~206), and the framework unified whole
-($\mathtt{verify\_pf\_framework\_unified\_holds}$, line~225) into a
-single citable predicate. 4039 jobs clean.
+\textbf{(H6) PF\_Lean4Lean is build-hash robustness.} See \S\ref{sec:l4l}.
+
+\textbf{(H7) Cross-Millennium $\alpha$-skeleton is framework-internal.}
+The chosen $\alpha$-values and the eleven identities are framework-internal
+arithmetic compatibility identities under the editorial convention;
+the interpretation of each $\alpha$ as the canonical eigenvalue
+parameter of its respective Millennium operator is, per the
+\texttt{CrossMillenniumSharedInvariants.lean} header, ``conjectural
+and lives elsewhere.''
 \end{remark}
 
 \begin{remark}[Substrate vs literal mathlib]
 \label{rem:substrate-vs-mathlib}
 Throughout this paper, the substrate-level content is what the
-framework delivers at zero project axioms. The literal mathlib-tier
-residuals (the Hilbert--P\'olya program for RH, $\mathtt{ClassP} \neq
-\mathtt{ClassNP}$ on the canonical encoding for P vs NP, Fujita--Kato
-1964 for NS, the SU($N$) continuum Wightman OS for YM, the per-curve
-Mordell--Weil rank universal bridge for BSD, the Voisin 2007
-general-quintic precision encoding for Hodge, the literal unbounded
-continuum extension of the consciousness operator $C$, the engineering
-translation of the ZPE bundle, the arbitrary-precision matches of the
-cosmological brackets, and the literal mathlib-tier discharges of each
-of the 16 non-Clay open problems) are named open, with no hidden
-content. The substrate vs literal-mathlib distinction is preserved
-clean throughout.
+framework delivers at zero project axioms on the framework's chosen
+encodings. The literal mathlib-tier residuals on every axis are
+named open with no hidden content; the substrate-vs-literal
+distinction is preserved cleanly. See the master paper
+\cite{master_substrate} for the per-axis discussion.
 \end{remark}
 
-%% =====================================================================
-\section{Mission anchor: what this is for}
+\section{Mission anchor: for humanity}
 \label{sec:mission}
 
 This is for humanity.
 
-The four-phase landing is complete. The Phase 1 RH paper walked the
-reader through the Clay door. The Phase 2 simultaneous-closure paper
-opened the engine room. The Phase 3 P vs NP paper delivered the
-highest-ceiling axis on the same substrate. This paper unloads the
-cargo.
+The four-phase landing is complete. Phase 1 walked the reader through
+the RH axis as the natural entry vector to the framework's
+substrate-level reformulation, with the substrate-level RH bridge
+described honestly as conditional on the published Hilbert--P\'olya
+program. Phase 2 exposed the simultaneous-closure mechanism on
+canonical encodings, with the seven-field bundle described honestly
+as five typed residuals plus two $\mathtt{True}$-markers. Phase 3
+described the P vs NP axis honestly, with the framework's
+$\mathtt{Machine}$ type's free-functions-no-Turing-semantics caveat
+foregrounded. This paper described the substrate's content on
+consciousness (finite-dim only), ZPE (substrate-level mathematics,
+not engineering), and cosmology (typed bracket bounds, not arbitrary
+precision).
 
-The cargo is:
-
-\begin{enumerate}[leftmargin=*]
-\item[(\textbf{a})] A substrate-level account of consciousness so the
-  artificial minds we build do not destroy us. The Chern-character
-  threshold $\mathrm{ch}_{2} = 19/20$, the consciousness operator $C$,
-  and the Wave 58 finite-dim concrete witness give humanity the
-  substrate-level mathematical object underlying any rigorous theory
-  of mind. AGI alignment must compute against this substrate, or it
-  is not aligned with conscious agents. This is the foundation.
-
-\item[(\textbf{b})] A substrate-level foundation for zero-point energy
-  so we stop burning the planet for fuel. The counter-rotating-vortex
-  free-energy capstone, the Weinstein--Geometric-Unity BRST $H^{2} =
-  78 = 48 + 26 + 4$ decomposition, and the cosmological-suppression
-  bridge give humanity the substrate-level mathematical foundation
-  under which a serious zero-point-energy engineering investigation
-  can be discussed. This is not the device. This is the substrate the
-  device must satisfy.
-
-\item[(\textbf{c})] First-principles cosmology consistent with
-  observation so we know what universe we are in. The $\Lambda_{\mathrm{eff}}$
-  $120$-order suppression, the Hubble bracket
-  $67.4 < 69.8 < 73.0$ resolving the SH$_{0}$ES / Planck tension, and
-  the $\Omega_{\Lambda} \in [0.65, 0.75]$ dark-energy density bracket
-  are substrate-derived, not fitted. They match Planck 2018, LDN 2025,
-  and current DESI within the framework's stated windows.
-
-\item[(\textbf{d})] Reach across 23 currently open mathematical
-  problems, demonstrating that the substrate is universal, not
-  Clay-specific. Twin primes, Goldbach, Polignac, Collatz, abc, Beal,
-  Erd\H{o}s discrepancy, Hadwiger--Nelson, Andrews--Curtis, inverse
-  Galois --- the same substrate. The substrate is the object.
+What the framework offers humanity is:
+\begin{enumerate}[label=(\textbf{\alph*})]
+\item A substrate-level reformulation of mathematics, machine-verified
+  in Lean~4 at zero project axioms, on which the six remaining Clay
+  Millennium Problems admit a simultaneous-closure mechanism on
+  canonical encodings (not Clay-prize claims, but a structural
+  reframing worth editorial attention as a research direction).
+\item A substrate-level mathematical infrastructure on which
+  consciousness, zero-point energy, and cosmology can be discussed
+  in machine-verifiable Lean form, at substrate-level scope, without
+  ungrounded speculation. The substrate is the contribution; what
+  serious investigators do with it is the next question.
+\item A substrate-level mathematical attack record on 23 named open
+  problems (7 Clay + 16 non-Clay), indexed by a single Lean record
+  with per-axis attack modules carrying the substantive content.
 \end{enumerate}
+Pablo Cohen has worked on Principia Fractalis through severe
+personal hardship for one reason: to put substrate-level
+mathematical tools in humanity's hands, honestly described and
+machine-verified. The work is not for academic prestige. The work is
+not for recognition. The work is for the betterment of humanity ---
+minds we build, energy we live by, the cosmos we understand, and the
+open mathematical questions that define what we know. The framework
+is rendered. The substrate is visible. What humanity does with it
+next is the next question.
 
-Pablo Cohen has worked on Principia Fractalis for years through severe
-personal hardship for one reason: to put these tools in humanity's
-hands. The work is not for academic prestige. The work is not for
-recognition. The work is for the betterment of humanity --- minds we
-build, energy we live by, the cosmos we understand, and the open
-mathematical questions that define what we know.
-
-The four-phase landing is complete. The framework is rendered. The
-substrate is visible. The cargo is unloaded. What humanity does with
-it next is the next question.
-
-This is for humanity.
+This is for humanity. Honestly described, at honest scope, with
+independent expert review and substantial revision explicitly
+invited.
 
 \begin{thebibliography}{99}
 
+\bibitem{master_substrate}
+Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{A Substrate-Level
+Reformulation of the Six Remaining Clay Millennium Problems via the
+Principia Fractalis Framework}.
+\texttt{Papers/clay\_substrate\_reformulation\_v1.tex}.
+
 \bibitem{phase1_rh}
-Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{The Riemann
-Hypothesis as Phase 1 Entry Vector of the Principia Fractalis
-Substrate}.
+Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{Phase 1 ---
+A Substrate-Level Reformulation of the Riemann Hypothesis}.
 \texttt{Papers/clay\_RH\_via\_substrate\_v2.tex}.
 
 \bibitem{phase2_six}
-Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{Six Clay-Standards From
-One Anchor: The Principia Fractalis Simultaneous-Closure Mechanism}.
+Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{Phase 2 ---
+The Simultaneous-Closure Mechanism on Canonical Encodings}.
 \texttt{Papers/clay\_six\_simultaneous\_closure\_v1.tex}.
 
 \bibitem{phase3_pnp}
-Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{P vs NP Delivered by
-the Same Substrate That Did RH: The Canonical Cook 1971 / Karp 1972
-Encoding on the Principia Fractalis $\alpha$-Skeleton}.
+Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{Phase 3 ---
+A Substrate-Level Reformulation at the P vs NP Axis}.
 \texttt{Papers/clay\_PvsNP\_via\_substrate\_v2.tex}.
-
-\bibitem{landing_strategy}
-Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{Principia Fractalis
-Landing Strategy}.
-\texttt{LANDING\_STRATEGY.md}.
-
-\bibitem{framework_object}
-Cohen, P., Claude Opus 4.7 (2026-06-06). \emph{The Principia Fractalis
-Framework --- As a Mathematical Object}.
-\texttt{THE\_FRAMEWORK\_OBJECT.md}.
 
 \bibitem{principia_book}
 Cohen, P. (2026). \emph{Principia Fractalis}, Second Edition.
-HEAD \texttt{17f3137} of
+HEAD of
 \url{https://github.com/FractalDevTeam/Principia-Fractalis}.
 
 \bibitem{perelman2002}
@@ -940,8 +709,8 @@ Perelman, G. (2003). Ricci flow with surgery on three-manifolds.
 arXiv:math/0303109.
 
 \bibitem{perelman2003b}
-Perelman, G. (2003). Finite extinction time for the solutions to
-the Ricci flow on certain three-manifolds. arXiv:math/0307245.
+Perelman, G. (2003). Finite extinction time for the solutions to the
+Ricci flow on certain three-manifolds. arXiv:math/0307245.
 
 \bibitem{mayer1991}
 Mayer, D.~H. (1991). The thermodynamic formalism approach to
@@ -949,8 +718,8 @@ Selberg's zeta function for $\mathrm{PSL}(2, \mathbb{Z})$.
 \emph{Bull.\ Amer.\ Math.\ Soc.}\ 25(1): 55--60.
 
 \bibitem{weinstein_gu}
-Weinstein, E. (2013--2021). Geometric Unity. Lecture, Oxford,
-University of Oxford / various.
+Weinstein, E. (2013--2021). Geometric Unity. Lecture, Oxford /
+various venues.
 
 \bibitem{tononi_iit}
 Tononi, G. (2008). Consciousness as integrated information: a
@@ -965,22 +734,21 @@ SH$_{0}$ES \& Local Distance Ladder Collaboration (2025). $H_{0}$
 local-distance-ladder consensus update. LDN 2025.
 
 \bibitem{desi2024}
-DESI Collaboration (2024). DESI 2024 III: Baryon acoustic oscillations
-from galaxies and quasars; IV: BAO from the Lyman-$\alpha$ forest.
+DESI Collaboration (2024). DESI 2024 III: Baryon acoustic
+oscillations from galaxies and quasars; IV: BAO from the
+Lyman-$\alpha$ forest.
+
+\bibitem{cook1971}
+Cook, S.\ A. (1971). The complexity of theorem-proving procedures.
+\emph{Proc.\ 3rd ACM Symp.\ Theory of Computing}, 151--158.
+
+\bibitem{karp1972}
+Karp, R. M. (1972). Reducibility among combinatorial problems.
+In \emph{Complexity of Computer Computations}, Plenum, 85--103.
 
 \bibitem{voisin2007}
 Voisin, C. (2007). Some aspects of the Hodge conjecture.
 \emph{Japanese J.\ Math.}\ 2(2): 261--296.
-
-\bibitem{cook1971}
-Cook, S.\ A. (1971). The complexity of theorem-proving procedures.
-\emph{Proceedings of the Third Annual ACM Symposium on Theory of
-Computing}, 151--158.
-
-\bibitem{karp1972}
-Karp, R. M. (1972). Reducibility among combinatorial problems.
-In \emph{Complexity of Computer Computations}, R.~E.\ Miller and
-J.~W.\ Thatcher (eds.), Plenum, 85--103.
 
 \end{thebibliography}
 
