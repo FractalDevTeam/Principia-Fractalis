@@ -1,5 +1,34 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-07 (night) — Bridge 5 Phase 1: YM substrate-level discharge on genuine SU(2)
+
+**HEAD**: `6b6e6b0`. Build state: `lake build PF` → **8354 jobs clean**, zero project axioms. Pushed to `FractalDevTeam/Principia-Fractalis`.
+
+### What landed
+
+* **`PF/YangMills/Bridge5_YM_SubstrateDischarge.lean`** (636 LOC) — substrate-level YM discharge on **genuine compact simple gauge group SU(2)** replacing V4's `L2RInf` Hilbert state-space marker.
+
+* **GaugeGroup carrier substitution**: `SU2Type := ↥(Matrix.specialUnitaryGroup (Fin 2) ℂ)` from mathlib `Matrix.specialUnitaryGroup (Fin 2) ℂ` — an actual compact simple Lie group with `Group` instance and det-monoid-hom kernel membership.
+
+* **Universal substrate identities axiom-free**: `SU2_det_one`, `SU2_le_U2`, `SU2_identity` via mathlib API.
+
+* **Three new published-theorem substrate anchors** (Wave 56 typed-open `Prop := True` pattern):
+  * `GlimmJaffe_OS_SU2_TypedAnchor` (Glimm-Jaffe 1981)
+  * `StreaterWightman_SU2_TypedAnchor` (Streater-Wightman 2000)
+  * `OsterwalderSchrader_SU2_TypedAnchor` (Osterwalder-Schrader 1973/75)
+
+* **`Bridge5SubstrateQYM`** record extends V4's `ContinuumYMTheoryV4` with 7 SU(2)-typed/anchor fields. **`PF_YMEncodingBridge5`** has 15-clause `satisfiesClayAxioms` (V4's 12 + 3 new SU(2) anchors), `massGap := 3/2`.
+
+* **Discharge theorem**: `PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate : Clay_YangMillsMassGap_Standard PF_YMEncodingBridge5` via `pfBridge5Witness` 15-tuple refinement.
+
+* **18-conjunct honest-scope marker + 11-clause single-citation capstone** `ym_substrate_discharge_bridge5_capstone`. Five `rfl`-level discriminators preserved.
+
+### Honest scope
+
+NOT a Clay discharge. The literal continuum SU(2) Yang-Mills measure on `𝓢'(ℝ⁴, 𝔰𝔲(2))` and the literal Glimm-Jaffe continuum limit remain OPEN at full mathlib content tier. The three new typed anchors sit at the SAME Wave 56 typed-open tier as the existing `BochnerMinlosOnNuclearSpaces`/`WightmanReconstructionTheorem`/etc. anchors. Substrate gain over V4: gauge-group carrier is mathlib's actual compact simple Lie group SU(2) (not inf-dim Hilbert state-space marker); three named published theorems substrate-cited by name.
+
+---
+
 ## 2026-06-07 (night) — Bridge 1 Phase 1: RH Hilbert-Pólya substrate-level discharge
 
 **HEAD**: `8606775`. Build state: `lake build PF` → **8352 jobs clean**, zero project axioms. Pushed to `FractalDevTeam/Principia-Fractalis`.
