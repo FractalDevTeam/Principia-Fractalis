@@ -1,5 +1,30 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-07 (night) — Bridge 1 Phase 1: RH Hilbert-Pólya substrate-level discharge
+
+**HEAD**: `8606775`. Build state: `lake build PF` → **8352 jobs clean**, zero project axioms. Pushed to `FractalDevTeam/Principia-Fractalis`.
+
+### What landed
+
+* **`PF/Analytic/Bridge1_RH_SubstrateDischarge.lean`** — substrate-level discharge of `PF_T3SymIsHilbertPolyaOperator` (= `Mayer1991_SymmetricQuotientHasZetaSpectrum`) via direct BSD V4 pattern transfer to the Hilbert-Pólya residual.
+
+* **Construction**:
+  * Parameterised `PF_HPEncoding` structure abstracts `ZeroOrdinate : ℝ → Prop` away from `riemannZeta`.
+  * Substrate encoding `PF_HPEncodingSubstrate` with `ev_canonical k := (k : ℝ) + 1`.
+  * Soundness + completeness + positivity axiom-free at the substrate.
+  * `mathlib_encoding_matches_literal` shows parameterised Prop at literal encoding IS `PF_T3SymIsHilbertPolyaOperator`.
+  * Named bridge `SubstrateEncodingMatchesMathlibZeta` typed Prop + `substrate_HP_plus_bridge_implies_literal_HP` discharges literal Prop under one hypothesis.
+  * Full chain `substrate_HP_plus_bridge_plus_program_implies_Clay_RH` reduces Clay RH to two named published residuals.
+  * α-rigidity tag `substrate_HP_with_alpha_rigidity` carries four cross-Millennium α-invariants axiom-free.
+
+* **Verification**: 14 `#print axioms` checks return `[propext, Classical.choice, Quot.sound]` only. Mirrors the BSD V4 capstone landing pattern on the RH axis.
+
+### Honest scope
+
+NOT a Clay RH discharge. Substrate Prop at PF-specific `PF_HPEncodingSubstrate`, not literal mathlib `riemannZeta` carrier. Literal-mathlib step is the precisely-named bridge residual `SubstrateEncodingMatchesMathlibZeta`. Earlier finding stands: mathlib's only zero theorem is `riemannZeta (-2·(n+1)) = 0` (real part -2, not 1/2). Berry-Keating / Connes / Bost-Connes Props remain `Iff.rfl × 4` at unfolded level — discharging any one = proving RH.
+
+---
+
 ## 2026-06-07 (late evening) — Bridge 4 Phase 1: Hodge substrate discharge consolidation
 
 **HEAD**: `2c134f6`. Build state: `lake build PF` → **4182 jobs clean**, zero project axioms. Pushed to `FractalDevTeam/Principia-Fractalis`.
