@@ -178,4 +178,5 @@ PF/Wave58/OddPerfectNumberFrameworkAttackCoq.v
 PF/Wave58/SingmastersConjectureFrameworkAttackCoq.v
 PF/Wave58/CatalanGeneralizedFrameworkAttackCoq.v
 PF/Wave58/AndrewsCurtisFrameworkAttackCoq.v
+PF/Wave58/MordellWeilRankAgreement17V4ReadingsCoq.v
 PF/Referee/RefereeIndex.v
