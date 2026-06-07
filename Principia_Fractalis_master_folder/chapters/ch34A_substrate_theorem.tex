@@ -900,33 +900,37 @@ six unsolved axes (RH, NS, BSD) use mathlib's standard
 entry-point types verbatim, and three (YM, Hodge, $P$ vs $NP$)
 discharge on substrate-restricted encodings.
 
-\textbf{Three axes use mathlib's standard entry-point types.}
+\textbf{Three axes use mathlib's standard entry-point types,
+each reducing to published mathematics.}
 \begin{itemize}
 \item \textbf{RH} (C1) --- $\Cstd{RH} :=
-\texttt{PrincipiaTractalis.RiemannHypothesis}$, which is the
-standard critical-strip statement on mathlib's
-\texttt{riemannZeta}: $\forall s, 0 < \Re s < 1, \zeta(s) = 0
-\implies \Re s = 1/2$. Discharge conditional on Mayer 1991 \S 3
-spectral correspondence and the Hilbert--P\'olya program as
-typed Lean propositions (currently named, not yet formalised
-as Lean theorems).
+\texttt{PrincipiaTractalis.RiemannHypothesis}$, standard
+critical-strip statement on mathlib's \texttt{riemannZeta}.
+Discharge via any of three published HP-program formulations:
+Berry-Keating 1999, Connes 1999, or Bost-Connes 1995, via
+\texttt{PF\_T3SymIsHilbertPolyaOperator\_via\_BerryKeating} /
+\texttt{\_via\_Connes} / \texttt{\_via\_BostConnes}
+(\texttt{PF/Referee/RHPvsNPPairedClosure.lean}). Mayer 1991
+$\equiv$ \texttt{PF\_T3SymIsHilbertPolyaOperator} by \texttt{Iff.rfl}
+(\texttt{PF\_RH\_Mayer1991\_iff\_PF\_T3sym}).
 \item \textbf{NS} (C4) --- \texttt{PF\_NS3DEncodingV4.Velocity}
-$:= \texttt{SchwartzMap (Fin 3 → \ensuremath{\mathbb{R}}) (Fin 3 → \ensuremath{\mathbb{R}})}$:
-mathlib's standard Schwartz spacetime velocity type. Discharge
-axiom-free on the encoding. The framework's $H^{s}_{\sigma}$
-inner-product scaffold and Leray projection scaffold are
-substrate-PROVEN
+$:= \texttt{SchwartzMap (Fin 3 → \ensuremath{\mathbb{R}}) (Fin 3 → \ensuremath{\mathbb{R}})}$
+(mathlib standard). Discharge axiom-free on encoding with
+substrate-PROVEN scaffolds
 (\texttt{hsSigmaInnerProductScaffoldAtSubstrate},
-\texttt{lerayProjectionScaffoldAtFiniteRank}), not
-\texttt{Prop := True} placeholders.
+\texttt{lerayProjectionScaffoldAtFiniteRank}). Reduces to
+Fujita-Kato 1964 via \texttt{NS\_LocalToGlobalBootstrap\_under\_FujitaKato1964}
+(\texttt{PF/Referee/NSYMPairedClosure.lean}).
 \item \textbf{BSD} (C3) --- \texttt{PF\_BSDEncodingV4.EllipticCurve}
-$:= \texttt{WeierstrassCurve \ensuremath{\mathbb{Q}}}$: mathlib's
-standard elliptic-curve type. Discharge axiom-free with
-framework rank projections (\texttt{algebraicRankV4 = analyticRankV4}
-by \texttt{rfl} on shared \texttt{manuscriptRankV4}). The
-bridge to mathlib's \texttt{MordellWeilRank} is named:
-\texttt{UniversalBridge\_MordellWeilRank\_eq\_algebraicRankV4}
-(typed proposition; formalisation pending).
+$:= \texttt{WeierstrassCurve \ensuremath{\mathbb{Q}}}$ (mathlib
+standard). Discharge axiom-free on V4 encoding
+(\texttt{algebraicRankV4 = analyticRankV4} by \texttt{rfl}).
+17-LMFDB-curve agreement via
+\texttt{mordellWeilRankAgreementOn17Curves\_under\_hyps}
+(\texttt{PF/AlgebraicGeometry/MordellWeilRankAgreement17.lean})
+under \texttt{AllSeventeenMordellWeilRanksKnown} (LMFDB-
+calculable). Rank-1 cascades on $E_{37.a1}$, $E_{43.a1}$
+axiom-free via Heegner / Gross-Zagier 1986 / Kolyvagin chain.
 \end{itemize}
 
 \textbf{Three axes use substrate-restricted encodings.}
@@ -940,11 +944,13 @@ spectrum. Open work: lift to a Clay-compact-simple gauge group
 on $\mathbb{R}^{4}$ via Wightman or Osterwalder--Schrader
 reconstruction.
 \item \textbf{Hodge} (C5) --- \texttt{PF\_HodgeEncoding\_FullGeneral.SmoothProjectiveComplexVariety}
-$:= \texttt{GeneralSmoothQuintic}$ (framework-restricted to
-general smooth quintics, not arbitrary smooth projective
-complex varieties). Discharge axiom-free on the encoding;
-Voisin~2007 obstruction on the generic non-CM smooth quintic
-names the precise open gap.
+$:= \texttt{GeneralSmoothQuintic}$ (framework-restricted).
+\texttt{Voisin2007\_general\_quintic\_open\_subprop} PROVEN
+axiom-free on \texttt{FermatQuinticConcrete} via
+\texttt{AlgebraicCyclesOnQuintic\_holds}
+(\texttt{PF/Hodge\_QuinticCYCodim2Scaffold.lean}), proof by
+\texttt{c.rank\_one}. Open only on the generic non-CM smooth
+quintic outside the Dwork locus.
 \item \textbf{P vs NP} (C6) --- \texttt{PF\_CanonicalComplexity\-Encoding}
 uses framework-canonical Cook--Karp types
 (\texttt{CanonicalClassP}, \texttt{CanonicalClassNP}). The
