@@ -179,4 +179,8 @@ PF/Wave58/SingmastersConjectureFrameworkAttackCoq.v
 PF/Wave58/CatalanGeneralizedFrameworkAttackCoq.v
 PF/Wave58/AndrewsCurtisFrameworkAttackCoq.v
 PF/Wave58/MordellWeilRankAgreement17V4ReadingsCoq.v
+PF/Wave58/Bridge1_RH_SubstrateDischargeCoq.v
+PF/Wave58/Bridge2_NS_FujitaKato1964SubstrateDischargeCoq.v
+PF/Wave58/Bridge4_Hodge_SubstrateDischargeCoq.v
+PF/Wave58/Bridge5_YM_SU2_SubstrateDischargeCoq.v
 PF/Referee/RefereeIndex.v
