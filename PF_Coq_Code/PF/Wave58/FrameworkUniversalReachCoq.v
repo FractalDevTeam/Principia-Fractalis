@@ -17,11 +17,12 @@
   At 2026-06-07 the Lean side (HEAD c96531a) wires every one of the
   16 non-Clay slots to its real `XxxFrameworkAttack` capstone (no
   more `:= True` placeholders). The Coq side here mirrors the
-  STRUCTURE of that record. The per-attack Coq mirror files exist
-  for 7 of the 16 non-Clay attacks (Brocard, Hadwiger-Nelson,
-  Goldbach, Collatz, Twin Prime, Inverse Galois, Beal); the other
-  9 are tracked as Coq-side TODO (the Lean side has them; the Coq
-  mirror is a future port).
+  STRUCTURE of that record. **As of 2026-06-07 Coq parity is COMPLETE
+  for all 16 non-Clay attacks**: per-attack Coq mirror files exist
+  for Brocard, Hadwiger-Nelson, Goldbach, Collatz, Twin Prime,
+  Inverse Galois, Beal, abc, Erdős discrepancy, Erdős-Straus,
+  Lonely Runner, Polignac, Odd Perfect, Singmaster, Pillai (Catalan
+  generalized), and Andrews-Curtis.
 
   Mirrored Lean theorems:
     - `framework_universal_reach_realized` (the 17-field record)
@@ -178,12 +179,13 @@ End FrameworkUniversalReach.
      16 non-Clay slots to a real `XxxFrameworkAttack` capstone;
      the Coq side here mirrors the outer record shape.
 
-  2. Per-attack Coq mirror files exist for 7 of the 16 non-Clay
-     attacks: Brocard (N3), Collatz (N4), Goldbach (N7),
-     Hadwiger-Nelson (N8), Inverse Galois (N9), Twin Prime (N12),
-     Beal (N2). The other 9 non-Clay attacks (abc, Erdos discrepancy,
-     Erdos-Straus, Lonely Runner, Polignac, odd perfect, Singmaster,
-     Pillai, Andrews-Curtis) are tracked as Coq-side TODO.
+  2. Per-attack Coq mirror files exist for ALL 16 of 16 non-Clay
+     attacks (Coq parity catch-up completed 2026-06-07): abc (N1),
+     Beal (N2), Brocard (N3), Collatz (N4), Erdos discrepancy (N5),
+     Erdos-Straus (N6), Goldbach (N7), Hadwiger-Nelson (N8),
+     Inverse Galois (N9), Lonely Runner (N10), Polignac (N11),
+     Twin Prime (N12), Odd Perfect (N13), Singmaster (N14),
+     Pillai (N15), Andrews-Curtis (N16).
 
   3. NOT a Clay discharge. NOT a discharge of any non-Clay open
      problem. Same veracity standard as the Lean source:
