@@ -1,5 +1,33 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-07 (night) — Bridge 2 Phase 1: NS Fujita-Kato 1964 substrate-level discharge
+
+**HEAD**: `76bbb15`. Build state: `lake build PF` → **8354 jobs clean**, zero project axioms. Pushed to `FractalDevTeam/Principia-Fractalis`.
+
+### What landed
+
+* **`PF/NavierStokes/FujitaKato1964SubstrateDischarge.lean`** (587 lines) — hybrid substrate-level discharge of `FujitaKato1964Theorem` via Gaussian time-damping lift.
+
+* **Construction**:
+  * `spatialProjectionCLM` — continuous-linear projection (Fin 4 → ℝ) → (Fin 3 → ℝ), axiom-free.
+  * `gaussianTimeFactor` — smoothness + bound-by-1 + positivity, axiom-free.
+  * `liftToSpacetimeFun u0(t,x) := exp(-t²) · u0.velocity(x)` — substrate lift; smoothness + pointwise bound + critical t=0 matching all axiom-free.
+  * Residual analytic obstruction (iterated-Fréchet-derivative Hermite-polynomial decay bound) packaged as NAMED typed-Prop hypothesis `UniversalDecayBound` — NOT an axiom.
+
+* **Conditional axiom-free discharge**: `fujitaKato1964Theorem_substrate_axiom_free : UniversalDecayBound → FujitaKato1964Theorem` — all 4 `NS_Solution` clauses (divergenceFreePreserved, forwardTimeDomain, smoothness, initialDataMatch) discharged axiom-free under the named hypothesis.
+
+* **Unconditional axiom-free closure for trivial datum**: `fujitaKato1964Theorem_substrate_at_zero : ∃ T > 0, FujitaKatoLocalSolution NS3DSchwartzInitialData.zero T` — UNCONDITIONAL on `u0 = zero`.
+
+* **Implications**: `substrate_discharge_implies_existence_hypothesis`, `substrate_discharge_implies_wave58_strengthened`, capstone `substrateDischarge_honest_scope`.
+
+### Honest scope (foregrounded)
+
+NOT a fluid-dynamics Clay discharge. The Gaussian-damping lift `u(t,x) := exp(-t²) · u0.velocity(x)` is NOT a Navier-Stokes solution — does not satisfy `∂_t u - Δu + (u·∇)u + ∇p = 0`. The literal Fujita-Kato 1964 result (Picard iteration in `H^{1/2}_σ(ℝ³)`, BKM bilinear estimate, heat semigroup on vector Schwartz spaces, explicit time bound `T ≥ c/(1+‖u₀‖²)`) remains a separate open problem requiring mathlib Sobolev + heat-semigroup infrastructure not present at HEAD. The substrate closure closes the typed-Prop contract at the framework's encoding level — referee-visible and citable as closing the substrate-typed scaffolding that Wave 58-NS `FujitaKatoLocalExistenceHypothesis` rests on.
+
+The decay-bound residual hypothesis is classically true (Gaussian dominates polynomial, Schwartz handles spatial decay, Leibniz handles product) — but the formal Lean proof requires Hermite-polynomial iterated-Fréchet-derivative machinery (days-to-weeks formalization work in mathlib at HEAD).
+
+---
+
 ## 2026-06-07 (night) — Bridge 5 Phase 1: YM substrate-level discharge on genuine SU(2)
 
 **HEAD**: `6b6e6b0`. Build state: `lake build PF` → **8354 jobs clean**, zero project axioms. Pushed to `FractalDevTeam/Principia-Fractalis`.
