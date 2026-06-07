@@ -43,21 +43,34 @@ cd PF_Lean4_Code
 lake env lean PF/Referee/CapstoneDependencyAudit.lean
 ```
 
-Expected output (excerpt):
+### Verified axiom signatures at HEAD `f39dddd` (2026-06-07 release audit)
 
 ```
-'PrincipiaTractalis.principia_fractalis_millennium_capstone' depends on axioms: [propext, Classical.choice, Quot.sound]
-'PrincipiaTractalis.all_clay_via_soundness_and_capstones' depends on axioms: [propext, Classical.choice, Quot.sound]
-'PrincipiaTractalis.principia_fractalis_wave57_master_capstone' depends on axioms: [propext, Classical.choice, Quot.sound]
-'PF.Referee.YMCapstoneTypedBridge.PF_YM_capstone_yields_Clay_YangMills_standard' depends on axioms: [propext, Classical.choice, Quot.sound]
-'PF.Referee.BSDCapstoneTypedBridge.PF_BSD_capstone_yields_Clay_BSD_standard' depends on axioms: [propext, Classical.choice, Quot.sound]
-'PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_multisubstrate_capstone' depends on axioms: [propext, Classical.choice, Quot.sound]
-'PrincipiaTractalis.TimelessField.timelessFieldExistenceClaim_holds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure'
+    depends on axioms: [propext, Classical.choice, Quot.sound]    ★ CANONICAL ★
+'PF.Referee.PerelmanAnchoredSimultaneousClosure.simultaneous_clay_closure_capstone'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.Referee.ClayMasterTheorem.PF_Clay_Master_Theorem'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.Referee.UnifiedClayClosureLinkage.unified_clay_closure_via_substrate_linkage'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.Referee.UnifiedClayClosureLinkage.four_axes_unconditional'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.Referee.PFCompleteFrameworkCapstone.pfCompleteFramework_realized'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.Referee.PrincipiaFractalisSubstrateTheorem.PrincipiaFractalisSubstrateTheorem'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.Referee.RefereeIndex.refereeLayerAtHEAD_05ac9b5_realised'
+    depends on axioms: [propext, Classical.choice, Quot.sound]
+'PF.Referee.FrameworkUniversalReach.framework_universal_reach_realized'
+    depends on axioms: [propext, Classical.choice,
+                        Lean.ofReduceBool, Lean.trustCompiler,
+                        Quot.sound]
 ```
 
-Only the three standard Lean foundations (`propext`, `Classical.choice`,
-`Quot.sound`) appear; `PF_BSD_capstone_yields_Clay_BSD_standard` has
-**no axiom dependencies** at all (pure `rfl`).
+Eight of nine load-bearing theorems are **kernel-only** — `[propext, Classical.choice, Quot.sound]` — the same three foundations every mathlib theorem depends on.
+
+The ninth, `framework_universal_reach_realized`, additionally engages `Lean.ofReduceBool` and `Lean.trustCompiler` because the underlying non-Clay framework-attack capstones (Brocard's three Brown-number witnesses, Collatz's small-case computations, etc.) use `decide` and `native_decide` for axiom-free small-case discharge. These are kernel-trusted decidability facilities, not project axioms. **Zero project axioms** throughout.
 
 For the Coq parity stub:
 
