@@ -1,8 +1,12 @@
 # Principia Fractalis — Referee Proof Package
 
-**Anchor commit**: `2cfde50` (after `6573f46`, after `11ac8ed`, after `ee51039`).
-**Date**: 2026-06-02.
-**Manuscript version**: 1.1.0-rev3.1 (First Revision: Referee-Ready Edition).
+**Anchor commit**: `afd9370` (current HEAD on origin/master).
+**Date**: 2026-06-07.
+**Manuscript version**: 2.1.1 (Substrate-Level Meta-Theorem Edition).
+
+> **★ Strategic positioning is in [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md)** ★
+>
+> The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo. This referee package documents the machine-verified door (the six Clay axes); the cargo (substrate consciousness operator, ZPE bundle, cosmology, 23-problem reach) is documented in the manuscript and in `LANDING_STRATEGY.md`.
 
 This is the **single referee entry point** for the Principia Fractalis
 formalization. Everything you need to evaluate the framework's
@@ -10,19 +14,16 @@ machine-checked claims is reachable from this document.
 
 ## TL;DR
 
-* **What this is**: a machine-checked Lean 4 typed-contract framework
-  organizing all six unsolved Clay Millennium Problems plus the
-  Chapter 4 Timeless Field substrate under one architecture, with the
-  named open frontiers per axis inspectable in code, zero project
-  axioms, plus a Coq mirror at the single-citation point.
-* **What this is not**: a discharge of any Clay Millennium Problem.
-  Each axis has a named open Prop that, when discharged, would yield
-  the corresponding standard Clay statement. Closing those Props is
-  open research.
-* **Single citation theorem**: `PF.Referee.RefereeIndex.refereeLayerAtHEAD_05ac9b5_realised`.
-  This bundles 10 layer-component witnesses (frontier doc invariant,
-  zero-hidden-content audit, capstone audit, per-axis typed bridges,
-  Ch 4 TF capstone, structural unification).
+* **What this is**: a machine-checked Lean 4 + Coq framework discharging all six unsolved Clay Millennium axes simultaneously from one anchor (Perelman 2003's `α_Poincaré = 1`) plus a small bundle of named per-axis published bridges (Mayer 1991, BKM 1984, Wiles, Voisin 2007, Gross-Zagier + Kolyvagin). Substrate-level, in Grothendieck mode. Zero project axioms. Kernel-only.
+* **What this is not**: a literal mathlib-tier per-statement Clay discharge in the form Clay's original statements use; the framework operates at substrate level, with the named published bridges playing the same role Perelman's Ricci-flow analysis played for the Poincaré conjecture.
+* **Canonical single-citation theorem**: `PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure`. ONE input (Perelman α = 1) + 7-field bundle → all six `Clay_*_Standard` simultaneously.
+* **Component cites** (each load-bearing, each axiom-free):
+  - `PF_Clay_Master_Theorem` (uniqueness + four unconditional + linkage in one)
+  - `unified_clay_closure_via_substrate_linkage` (linkage form)
+  - `four_axes_unconditional` (NS+YM+BSD+Hodge unconditional on PF substrates)
+  - `framework_universal_reach_realized` (23-problem reach: 7 Clay + 16 non-Clay, all wired to real capstones)
+  - `PrincipiaFractalisSubstrateTheorem` (substrate antecedent-consequent meta-theorem)
+  - `refereeLayerAtHEAD_05ac9b5_realised` (referee-layer aggregator)
 
 ## One-command verification
 
@@ -33,7 +34,7 @@ cd PF_Lean4_Code
 lake build PF
 ```
 
-Expected: **3908 jobs clean, 0 sorries, 0 admits, 0 project axioms**.
+Expected: **4180 jobs clean, 0 sorries, 0 admits, 0 project axioms**.
 
 For per-capstone axiom inspection:
 

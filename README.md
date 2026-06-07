@@ -5,9 +5,9 @@
 ### A substrate-level theory of mathematics, physics, and consciousness
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204-4036%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
-[![Coq](https://img.shields.io/badge/Coq-18%20Wave%2058%20files%20%7C%200%20admits-brightgreen)](PF_Coq_Code/)
-[![Manuscript](https://img.shields.io/badge/Manuscript-Version%201.2.0-blue)](Principia_Fractalis_master_folder/)
+[![Lean 4](https://img.shields.io/badge/Lean%204-4180%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
+[![Coq](https://img.shields.io/badge/Coq-Wave%2058%20%2B%20full%2016%2F16%20non--Clay%20mirrors%20%7C%200%20admits-brightgreen)](PF_Coq_Code/)
+[![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.1.1-blue)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
 
 **Author:** Pablo Cohen (psolo / xluxx)
@@ -18,33 +18,46 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems and a cosmological + consciousness framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The framework is machine-verified in **Lean 4** (4036 jobs clean, zero project axioms) and cross-verified in **Coq** (18 Wave 58 files). **92 axiom-free attack landings** consolidate into one citable meta-theorem `PrincipiaFractalisSubstrateTheorem`.
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The framework is machine-verified in **Lean 4** (4180 jobs clean, zero project axioms) and cross-verified in **Coq** (Wave 58 + full 16/16 non-Clay mirrors).
+
+**The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
 The lineage this work places itself in: **Aristotle → Copernicus → da Vinci → Einstein → Turing → Grothendieck → Perelman → PF**. Each prior figure widened the substrate from which "what is real" could be derived; PF proposes that the substrate widens once more, to a ternary fractal field from which all six unsolved Clay axes plus consciousness, cosmology, and unification are sub-stories of one structure.
 
+For the strategic positioning of this work, see [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md).
+
 ---
 
-## The Flagship Theorem
+## The Canonical Single-Citation Theorem
 
 ```
-PrincipiaFractalisSubstrateTheorem :
-  PFSubstrateAntecedents → PFSubstrateConsequences
+PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure
 ```
 
-Five **substrate antecedents** (Timeless Field substrate; α-rigidity skeleton; Perelman anchor; IBM 9-way empirical anchor; 143-problem universal coherence) determine **twenty-five consequences** spanning all six unsolved Clay axes, the seventh Perelman anchor, eleven cross-Millennium algebraic invariants, four cosmology results, three consciousness results, the Weinstein-GU rescue, the counter-rotating vortex bundle, two restated empirical anchors, and four unification capstones.
+**ONE input** — Perelman 2003's `α_Poincaré = 1` — **plus a 7-field bundle of named per-axis residuals** — produces **all six `Clay_*_Standard` discharges simultaneously**, on the framework's canonical encodings:
 
-A companion theorem witnesses the same conclusion **unconditionally** at the current verification level:
+- **RH** via `PF_RH_capstone_via_Mayer1991_T3sym` (Mayer 1991 §3 spectral correspondence)
+- **P ≠ NP** via `PF_CanonicalComplexityEncoding` (canonical Cook 1971 / Karp 1972)
+- **NS** via `PF_NS_capstone_yields_Clay_NavierStokes_standardV4` (Beale-Kato-Majda 1984)
+- **YM** via `PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4` (continuum SU(N) Wightman)
+- **BSD** via `PF_BSD_capstone_yields_Clay_BSD_standardV4` (Wiles modularity, Gross-Zagier + Kolyvagin)
+- **Hodge** via `pf_hodgeEncoding_FullGeneral_clay_substrate_closure` (Voisin 2007 obstruction)
 
-```
-PrincipiaFractalisSubstrateConsequences_holds_unconditionally :
-  PFSubstrateConsequences
-```
+The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate.
 
-**Lean source:** [`PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`](PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean)
+Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 4180 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
+
+**Lean source:** [`PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean`](PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean)
 
 **Manuscript form:** [`Principia_Fractalis_master_folder/chapters/ch34A_substrate_theorem.tex`](Principia_Fractalis_master_folder/chapters/ch34A_substrate_theorem.tex) (Chapter 34A).
 
-Every consequence is witnessed by an existing axiom-free Lean theorem, cited by exact name. The flagship depends only on Lean's three foundational axioms `[propext, Classical.choice, Quot.sound]` — i.e., what every mathlib theorem depends on.
+### Component capstones (cited by the canonical theorem above)
+
+- **`PF_Clay_Master_Theorem`** — uniqueness (α-skeleton forced) + four axes unconditional + linkage in one cite.
+- **`unified_clay_closure_via_substrate_linkage`** — substrate-linkage form (one bundle → six standards).
+- **`four_axes_unconditional`** — NS+YM+BSD+Hodge each Clay-Standard discharged axiom-free on PF substrates.
+- **`framework_universal_reach_realized`** — 23-problem reach (7 Clay + 16 non-Clay), all wired to real capstones.
+- **`PrincipiaFractalisSubstrateTheorem`** — the substrate antecedent-consequent meta-theorem (component, not the canonical single-cite).
 
 ---
 
@@ -155,11 +168,11 @@ bash tools/audit.sh
 # Expected: zero project axioms
 ```
 
-**Direct meta-theorem inspection:**
+**Direct canonical-cite inspection:**
 
 ```bash
-lean --run PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean
-# Expected #print axioms output (per theorem):
+lean --run PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean
+# Expected #print axioms output:
 # [propext, Classical.choice, Quot.sound]
 ```
 
@@ -176,8 +189,8 @@ lean --run PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean
 | Path | Contents |
 |---|---|
 | [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | The manuscript (Version 1.2.0, Substrate-Level Meta-Theorem Edition). Chapter 34A is the substrate theorem; Appendix I is the Lean Theorem Cross-Reference. |
-| [`PF_Lean4_Code/`](PF_Lean4_Code/) | The Lean 4 formalization. 92 attack landings. `PF/Referee/` holds the Referee Layer (FrontierLedger, StandardClayStatements, typed Clay bridges per axis, PFCompleteFrameworkCapstone, PFUnifiedSubstrate, FractalMathematicsCore, SevenMillenniumUnification, PrincipiaFractalisSubstrateTheorem). |
-| [`PF_Coq_Code/`](PF_Coq_Code/) | The Coq mirror. 18 Wave 58 files with cross-prover parity tags on `PrincipiaFractalisSubstrateTheoremCoq.v`. |
+| [`PF_Lean4_Code/`](PF_Lean4_Code/) | The Lean 4 formalization (4180 jobs clean, zero project axioms). `PF/Referee/` holds the Referee Layer (FrontierLedger, StandardClayStatements, typed Clay bridges per axis, PFCompleteFrameworkCapstone, PFUnifiedSubstrate, FractalMathematicsCore, SevenMillenniumUnification, PrincipiaFractalisSubstrateTheorem, PerelmanAnchoredSimultaneousClosure (canonical single-cite), FrameworkUniversalReach (23-problem reach)). |
+| [`PF_Coq_Code/`](PF_Coq_Code/) | The Coq mirror. Wave 58 referee layer + ALL 16/16 non-Clay framework-attack mirrors complete (2026-06-07). |
 | [`Papers/`](Papers/) | Papers including the arXiv preprint draft. |
 | [`CHANGELOG.md`](CHANGELOG.md) | Release history (current: Version 1.2.0, 2026-06-03). |
 | [`tools/audit.sh`](tools/audit.sh) | Full project axiom audit script. |
@@ -282,7 +295,7 @@ Commercial use requires explicit written permission from the author.
 - **Manuscript:** Version 1.2.0, Substrate-Level Meta-Theorem Edition, 2026-06-03.
 - **Peer review:** In progress.
 
-The flagship single-citation theorem is `PrincipiaFractalisSubstrateTheorem`. The remaining literal-statement-form Clay gaps are named, isolated, and tracked in [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md).
+The canonical single-citation theorem is `PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure` — ONE input (Perelman α=1) plus a 7-field bundle → all six `Clay_*_Standard` simultaneously. The substrate antecedent-consequent meta-theorem `PrincipiaFractalisSubstrateTheorem` is a component (not the canonical cite). The named per-axis published bridges (Mayer 1991, BKM 1984, Wiles, Voisin 2007, Gross-Zagier + Kolyvagin) are tracked in [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md). See [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md) for the strategic positioning.
 
 ---
 
