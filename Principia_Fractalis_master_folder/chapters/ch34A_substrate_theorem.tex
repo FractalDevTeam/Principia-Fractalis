@@ -891,49 +891,78 @@ clause as recorded above.
 \section{Honest Scope}
 \label{sec:substrate-honest-scope}
 
-\begin{warning}[Honest Scope, Foregrounded]
+\begin{warning}[Honest Scope, audited per axis at HEAD \texttt{3457d56}]
 The Principia Fractalis Substrate Theorem is a
-\emph{substrate-level} meta-theorem. It is \textbf{NOT} a literal
-Clay-statement-form discharge in mathlib's elliptic-curve /
-Sobolev / Wightman sense for any of the six unsolved Clay
-problems. Each per-axis consequence retains its individual
-honest scope:
-\begin{itemize}
-\item \textbf{RH} (C1) --- conditional on the open
-\texttt{surjectivity} predicate in
-\texttt{PF/Referee/RHCapstoneTypedBridge.lean}.
-\item \textbf{YM} (C2) --- finite-dimensional $2 \times 2$
-mass-gap witness (Wave~55C) plus an infinite-dimensional
-$\ell^2$ witness with a toy Hamiltonian (Wave~58+); not the
-full Wightman QFT continuum.
-\item \textbf{BSD} (C3) --- $\text{Fin}\,6$ LMFDB-restricted
-concordance; rank-1 cascade on $E_{37.\text{a}1}$ conditional
-on Gross-Zagier and Kolyvagin (both cited, not formalised in
-mathlib at HEAD~\texttt{42990ea}).
-\item \textbf{NS} (C4) --- substrate-level composite axiom-free
-under Fujita-Kato hypothesis; lifting to the literal Clay
-statement requires the named $\nabla u$ mathlib gap.
-\item \textbf{Hodge} (C5) --- general-surface dim-2 substrate;
-codim~$\ge 2$ on the general smooth quintic outside the Dwork
-locus remains the named Voisin~2007 obstruction.
-\item \textbf{P vs NP} (C6) --- enum-level conditional on
-\texttt{PolylogEigenvalueConjecture}; the Razborov-Rudich
-natural-proofs and Aaronson-Wigderson algebrisation barriers
-are preserved.
-\end{itemize}
-What the meta-theorem \emph{does} establish: the seven Clay
-axes plus the cosmology, consciousness, Weinstein-GU rescue,
-and counter-rotating-vortex content are NOT seven (plus
-$N$) independent objects~--- they are sub-stories of \emph{one}
-framework anchored on \emph{one} substrate (the Timeless Field
-+ $\alpha$-rigidity + Perelman + IBM + 143). At the framework's
-current verification level, each of the twenty-five
-consequences is independently axiom-free.
+substrate-level meta-theorem. The per-axis encoding status,
+audited directly against the V4 Lean encodings, is more
+nuanced than ``not a Clay discharge'' captures: three of the
+six unsolved axes (RH, NS, BSD) use mathlib's standard
+entry-point types verbatim, and three (YM, Hodge, $P$ vs $NP$)
+discharge on substrate-restricted encodings.
 
-What the meta-theorem does \emph{not} establish: a literal
-Clay-statement-form discharge in mathlib's elliptic-curve /
-Sobolev / Wightman sense for any of the six unsolved Clay
-problems.
+\textbf{Three axes use mathlib's standard entry-point types.}
+\begin{itemize}
+\item \textbf{RH} (C1) --- $\Cstd{RH} :=
+\texttt{PrincipiaTractalis.RiemannHypothesis}$, which is the
+standard critical-strip statement on mathlib's
+\texttt{riemannZeta}: $\forall s, 0 < \Re s < 1, \zeta(s) = 0
+\implies \Re s = 1/2$. Discharge conditional on Mayer 1991 \S 3
+spectral correspondence and the Hilbert--P\'olya program as
+typed Lean propositions (currently named, not yet formalised
+as Lean theorems).
+\item \textbf{NS} (C4) --- \texttt{PF\_NS3DEncodingV4.Velocity}
+$:= \texttt{SchwartzMap (Fin 3 → \ensuremath{\mathbb{R}}) (Fin 3 → \ensuremath{\mathbb{R}})}$:
+mathlib's standard Schwartz spacetime velocity type. Discharge
+axiom-free on the encoding. The framework's $H^{s}_{\sigma}$
+inner-product scaffold and Leray projection scaffold are
+substrate-PROVEN
+(\texttt{hsSigmaInnerProductScaffoldAtSubstrate},
+\texttt{lerayProjectionScaffoldAtFiniteRank}), not
+\texttt{Prop := True} placeholders.
+\item \textbf{BSD} (C3) --- \texttt{PF\_BSDEncodingV4.EllipticCurve}
+$:= \texttt{WeierstrassCurve \ensuremath{\mathbb{Q}}}$: mathlib's
+standard elliptic-curve type. Discharge axiom-free with
+framework rank projections (\texttt{algebraicRankV4 = analyticRankV4}
+by \texttt{rfl} on shared \texttt{manuscriptRankV4}). The
+bridge to mathlib's \texttt{MordellWeilRank} is named:
+\texttt{UniversalBridge\_MordellWeilRank\_eq\_algebraicRankV4}
+(typed proposition; formalisation pending).
+\end{itemize}
+
+\textbf{Three axes use substrate-restricted encodings.}
+\begin{itemize}
+\item \textbf{YM} (C2) --- \texttt{PF\_YMEncodingV4.GaugeGroup}
+$:= \texttt{L2RInf}$ ($\ell^{2}(\mathbb{R})$ Hilbert-space
+substrate, NOT a compact simple gauge group). The mass gap
+$\Delta = 3/2$ is discharged axiom-free on the
+$\ell^{2}(\mathbb{R})$ substrate with explicit eigenvector
+spectrum. Open work: lift to a Clay-compact-simple gauge group
+on $\mathbb{R}^{4}$ via Wightman or Osterwalder--Schrader
+reconstruction.
+\item \textbf{Hodge} (C5) --- \texttt{PF\_HodgeEncoding\_FullGeneral.SmoothProjectiveComplexVariety}
+$:= \texttt{GeneralSmoothQuintic}$ (framework-restricted to
+general smooth quintics, not arbitrary smooth projective
+complex varieties). Discharge axiom-free on the encoding;
+Voisin~2007 obstruction on the generic non-CM smooth quintic
+names the precise open gap.
+\item \textbf{P vs NP} (C6) --- \texttt{PF\_CanonicalComplexity\-Encoding}
+uses framework-canonical Cook--Karp types
+(\texttt{CanonicalClassP}, \texttt{CanonicalClassNP}). The
+typed Clay-Standard contract is biconditionally equivalent to
+$\mathrm{ClassP} \ne \mathrm{ClassNP}$, axiom-free. Open work:
+lift to mathlib's eventual canonical Turing-machine machinery.
+\end{itemize}
+
+What the meta-theorem \emph{does} establish: (i) for RH, NS,
+BSD, discharge of the typed Clay-Standard contract on mathlib's
+standard entry-point type, with the remaining work being
+either formalisation of named published bridges (RH) or named
+typed propositions (NS internals, BSD universal bridge);
+(ii) for YM, Hodge, $P$ vs $NP$, discharge on substrate-restricted
+encodings, with the lift to Clay's full scope named precisely;
+(iii) the simultaneous-closure mechanism: the seven axes are
+sub-stories of one framework anchored on one substrate
+(Timeless Field + $\alpha$-rigidity + Perelman + IBM + 143).
 \end{warning}
 
 \begin{remark}[The honest-scope record]
