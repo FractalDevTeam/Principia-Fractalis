@@ -237,7 +237,8 @@ nine α-values. Only α_BSD and α_NS remain free (with α_NS = 2·α_BSD
 tying them together). -/
 
 /-- **Extended abstract α-system.** Adds invariants 1, 3, 4, 10 + 5
-    + positivity hypotheses on the values we'll force. -/
+    + α_QG² = (8/3)·α_BSD pin + positivity hypotheses on the values
+    we'll force. -/
 structure ExtendedAbstractAlphaSystem extends AbstractAlphaSystem where
   αP_pos     : 0 < αP
   αHodge     : ℝ
@@ -250,26 +251,37 @@ structure ExtendedAbstractAlphaSystem extends AbstractAlphaSystem where
   inv_Hodge_sq_eq_self_plus_one : αHodge ^ 2 = αHodge + 1
   -- Invariant 10: α_NP − α_Hodge = 1/4
   inv_NP_sub_Hodge_eq_quarter   : αNP - αHodge = 1/4
+  -- Invariant 13 (BSD pin via QG): α_QG² = (8/3) · α_BSD
+  -- Combined with inv_QG_sq_eq_2pi forces α_BSD = 3π/4.
+  inv_QG_sq_eq_eight_thirds_BSD : αQG ^ 2 = (8/3) * αBSD
+  -- Invariant 5: α_NS = 2 · α_BSD (with α_BSD pinned, this pins α_NS)
+  inv_NS_eq_two_BSD             : αNS = 2 * αBSD
 
-/-- **★★ EXTENDED RIGIDITY THEOREM ★★** — the 11 invariants + the
-    positivity constraints force SEVEN of nine α-values:
+/-- **★★★ FULL RIGIDITY THEOREM — 9 of 9 α-values forced ★★★** —
+    the cross-Millennium invariants + Perelman anchor + positivity
+    force ALL NINE α-values uniquely:
 
-      α_Poincaré = 1
-      α_YM       = 2
-      α_RH       = 3/2
-      α_P        = √2
-      α_Hodge    = φ  (golden ratio (1 + √5)/2)
-      α_NP       = φ + 1/4
-      α_QG       = √(2π)
+      α_Poincaré = 1                 (Perelman anchor)
+      α_YM       = 2                 (inv 7)
+      α_RH       = 3/2               (inv 9)
+      α_P        = √2                (inv 1)
+      α_Hodge    = (1 + √5)/2 = φ    (inv 4, positive root)
+      α_NP       = φ + 1/4           (inv 10)
+      α_QG       = √(2π)             (inv 3)
+      α_BSD      = 3π/4              (inv 13: αQG² = (8/3)·αBSD + inv 3)
+      α_NS       = 3π/2              (inv 5: αNS = 2·αBSD)
 
-    α_BSD and α_NS remain interdependent (α_NS = 2·α_BSD) but
-    individually free under just these invariants. -/
+    NO free parameters. The framework's α-skeleton is algebraically
+    rigid — every value is forced by the system of invariants + the
+    Perelman calibration anchor. -/
 theorem alpha_system_rigidity_extended (S : ExtendedAbstractAlphaSystem) :
     S.αYM = 2 ∧ S.αPoincare = 1 ∧ S.αRH = 3 / 2 ∧
     S.αP = Real.sqrt 2 ∧
     S.αHodge = (1 + Real.sqrt 5) / 2 ∧
     S.αNP = (1 + Real.sqrt 5) / 2 + 1/4 ∧
-    S.αQG = Real.sqrt (2 * Real.pi) := by
+    S.αQG = Real.sqrt (2 * Real.pi) ∧
+    S.αBSD = 3 * Real.pi / 4 ∧
+    S.αNS = 3 * Real.pi / 2 := by
   -- Reuse the basic rigidity for α_YM, α_Poincaré, α_RH.
   obtain ⟨h_YM, h_Poincare, h_RH⟩ := alpha_system_rigidity S.toAbstractAlphaSystem
   -- α_P: αP² = αYM = 2 and αP > 0 → αP = √2.
@@ -316,7 +328,15 @@ theorem alpha_system_rigidity_extended (S : ExtendedAbstractAlphaSystem) :
     have h_sqrt_eq : Real.sqrt (S.αQG ^ 2) = Real.sqrt (2 * Real.pi) := by
       rw [S.inv_QG_sq_eq_2pi]
     rwa [Real.sqrt_sq (le_of_lt S.αQG_pos)] at h_sqrt_eq
-  exact ⟨h_YM, h_Poincare, h_RH, h_P, h_Hodge, h_NP, h_QG⟩
+  -- α_BSD: αQG² = 2π and αQG² = (8/3)·αBSD give αBSD = 3π/4.
+  have h_BSD : S.αBSD = 3 * Real.pi / 4 := by
+    have h1 : (8/3 : ℝ) * S.αBSD = 2 * Real.pi := by
+      rw [← S.inv_QG_sq_eq_eight_thirds_BSD, S.inv_QG_sq_eq_2pi]
+    linarith
+  -- α_NS: αNS = 2·αBSD with αBSD = 3π/4 → αNS = 3π/2.
+  have h_NS : S.αNS = 3 * Real.pi / 2 := by
+    rw [S.inv_NS_eq_two_BSD, h_BSD]; ring
+  exact ⟨h_YM, h_Poincare, h_RH, h_P, h_Hodge, h_NP, h_QG, h_BSD, h_NS⟩
 
 #check @αYM_eq_two_from_NS_relations
 #check @αRH_eq_three_halves_from_RH_NS_relations
