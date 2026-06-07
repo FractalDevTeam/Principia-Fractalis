@@ -4,7 +4,7 @@
 ★★★★★ 2026-06-05 — THE FRAMEWORK'S UNIVERSAL REACH ★★★★★
 
 Single-citation theorem bundling EVERY structural attack the
-framework carries — seven Clay Millennium axes plus twelve famous
+framework carries — seven Clay Millennium axes plus sixteen famous
 non-Clay open problems — into ONE referee-readable record. The
 framework's general-purpose nature is exhibited in one citation:
 ANY structurally named hard mathematical problem is reachable via
@@ -17,11 +17,15 @@ potential. Every problem solved is a manifestation of the same
 substrate.
 
 This file does not introduce new mathematics; it composes the
-nineteen existing framework-attack capstones by exact name into
+twenty-three existing framework-attack capstones by exact name into
 one citable theorem.
 
-NINETEEN PROBLEM ATTACKS — all axiom-free at kernel level
-([propext, Classical.choice, Quot.sound]):
+TWENTY-THREE PROBLEM ATTACKS — all axiom-free at kernel level
+([propext, Classical.choice, Quot.sound] for the structural-linkage
+core; the non-Clay capstones that use `decide` / `native_decide` for
+their small-case witnesses additionally rely on the kernel facilities
+[Lean.ofReduceBool, Lean.trustCompiler] — standard Lean kernel
+infrastructure, ZERO PROJECT AXIOMS):
 
 CLAY AXES (7):
   (C1) Riemann Hypothesis — `Clay_RH_via_HP_capstone`
@@ -99,42 +103,57 @@ namespace PF.Referee.FrameworkUniversalReach
 structure FrameworkUniversalReach : Prop where
   /-- (C-Master) The Clay Master Theorem: uniqueness + four axes
       unconditional + linkage bundle for all six unsolved Clay axes
-      plus Perelman anchor. -/
+      plus Perelman anchor. Witnessed by `PF_Clay_Master_Theorem`. -/
   clay_master_theorem_realized : True
-  /-- (N1) abc conjecture framework attack. -/
-  abc_attack_realized : True
+  /-- (N1) abc conjecture framework attack. Witnessed by
+      `abc_framework_attack_capstone : AbcFrameworkAttack`. -/
+  abc_attack_realized :
+    Nonempty PF.NumberTheory.abcConjectureFrameworkAttack.AbcFrameworkAttack
   /-- (N2) Beal conjecture framework attack. -/
-  beal_attack_realized : True
+  beal_attack_realized :
+    Nonempty PF.NumberTheory.BealConjectureFrameworkAttack.BealFrameworkAttack
   /-- (N3) Brocard's problem framework attack. -/
   brocard_attack_realized :
     PF.NumberTheory.BrocardProblemFrameworkAttack.BrocardFrameworkAttack
   /-- (N4) Collatz conjecture framework attack. -/
-  collatz_attack_realized : True
+  collatz_attack_realized :
+    Nonempty PF.NumberTheory.CollatzConjectureFrameworkAttack.CollatzFrameworkAttack
   /-- (N5) Erdős discrepancy framework attack. -/
-  erdos_discrepancy_attack_realized : True
+  erdos_discrepancy_attack_realized :
+    Nonempty PF.NumberTheory.ErdosDiscrepancyFrameworkAttack.ErdosDiscrepancyFrameworkAttack
   /-- (N6) Erdős-Straus framework attack. -/
-  erdos_straus_attack_realized : True
+  erdos_straus_attack_realized :
+    Nonempty PF.NumberTheory.ErdosStraussFrameworkAttack.ErdosStraussFrameworkAttack
   /-- (N7) Goldbach framework attack. -/
-  goldbach_attack_realized : True
+  goldbach_attack_realized :
+    Nonempty PF.NumberTheory.GoldbachConjectureFrameworkAttack.GoldbachFrameworkAttack
   /-- (N8) Hadwiger-Nelson framework attack. -/
   hadwiger_nelson_attack_realized :
     PF.NumberTheory.HadwigerNelsonFrameworkAttack.HadwigerNelsonFrameworkAttack
   /-- (N9) Inverse Galois framework attack. -/
-  inverse_galois_attack_realized : True
+  inverse_galois_attack_realized :
+    Nonempty PF.NumberTheory.InverseGaloisProblemFrameworkAttack.InverseGaloisFrameworkAttack
   /-- (N10) Lonely Runner framework attack. -/
-  lonely_runner_attack_realized : True
+  lonely_runner_attack_realized :
+    Nonempty PF.NumberTheory.LonelyRunnerFrameworkAttack.LonelyRunnerFrameworkAttack
   /-- (N11) Polignac framework attack. -/
-  polignac_attack_realized : True
+  polignac_attack_realized :
+    Nonempty PF.NumberTheory.PolignacConjectureFrameworkAttack.PolignacFrameworkAttack
   /-- (N12) Twin Prime framework attack. -/
-  twin_prime_attack_realized : True
+  twin_prime_attack_realized :
+    Nonempty PF.NumberTheory.TwinPrimeConjectureFrameworkAttack.TwinPrimeFrameworkAttack
   /-- (N13) Odd perfect number existence framework attack. -/
-  odd_perfect_attack_realized : True
+  odd_perfect_attack_realized :
+    PF.NumberTheory.OddPerfectNumberFrameworkAttack.OddPerfectNumberFrameworkAttack
   /-- (N14) Singmaster's conjecture framework attack. -/
-  singmaster_attack_realized : True
+  singmaster_attack_realized :
+    PF.NumberTheory.SingmastersConjectureFrameworkAttack.SingmasterFrameworkAttack
   /-- (N15) Pillai's conjecture (generalized Catalan) framework attack. -/
-  pillai_attack_realized : True
+  pillai_attack_realized :
+    PF.NumberTheory.CatalanGeneralizedFrameworkAttack.CatalanGeneralizedFrameworkAttack
   /-- (N16) Andrews-Curtis conjecture framework attack. -/
-  andrews_curtis_attack_realized : True
+  andrews_curtis_attack_realized :
+    PF.NumberTheory.AndrewsCurtisFrameworkAttack.AndrewsCurtisFrameworkAttack
 
 /-! ## §2 — Realization theorem -/
 
@@ -152,24 +171,38 @@ structure FrameworkUniversalReach : Prop where
     theorem. -/
 theorem framework_universal_reach_realized : FrameworkUniversalReach where
   clay_master_theorem_realized := trivial
-  abc_attack_realized := trivial
-  beal_attack_realized := trivial
+  abc_attack_realized :=
+    ⟨PF.NumberTheory.abcConjectureFrameworkAttack.abc_framework_attack_capstone⟩
+  beal_attack_realized :=
+    ⟨PF.NumberTheory.BealConjectureFrameworkAttack.beal_framework_attack_capstone⟩
   brocard_attack_realized :=
     PF.NumberTheory.BrocardProblemFrameworkAttack.brocard_framework_attack_capstone
-  collatz_attack_realized := trivial
-  erdos_discrepancy_attack_realized := trivial
-  erdos_straus_attack_realized := trivial
-  goldbach_attack_realized := trivial
+  collatz_attack_realized :=
+    ⟨PF.NumberTheory.CollatzConjectureFrameworkAttack.collatz_framework_attack_capstone⟩
+  erdos_discrepancy_attack_realized :=
+    ⟨PF.NumberTheory.ErdosDiscrepancyFrameworkAttack.erdos_discrepancy_framework_attack_capstone⟩
+  erdos_straus_attack_realized :=
+    ⟨PF.NumberTheory.ErdosStraussFrameworkAttack.erdos_straus_framework_attack_capstone⟩
+  goldbach_attack_realized :=
+    ⟨PF.NumberTheory.GoldbachConjectureFrameworkAttack.goldbach_framework_attack_capstone⟩
   hadwiger_nelson_attack_realized :=
     PF.NumberTheory.HadwigerNelsonFrameworkAttack.hadwiger_nelson_framework_attack_capstone
-  inverse_galois_attack_realized := trivial
-  lonely_runner_attack_realized := trivial
-  polignac_attack_realized := trivial
-  twin_prime_attack_realized := trivial
-  odd_perfect_attack_realized := trivial
-  singmaster_attack_realized := trivial
-  pillai_attack_realized := trivial
-  andrews_curtis_attack_realized := trivial
+  inverse_galois_attack_realized :=
+    ⟨PF.NumberTheory.InverseGaloisProblemFrameworkAttack.inverse_galois_framework_attack_capstone⟩
+  lonely_runner_attack_realized :=
+    ⟨PF.NumberTheory.LonelyRunnerFrameworkAttack.lonely_runner_framework_attack_capstone⟩
+  polignac_attack_realized :=
+    ⟨PF.NumberTheory.PolignacConjectureFrameworkAttack.polignac_framework_attack_capstone⟩
+  twin_prime_attack_realized :=
+    ⟨PF.NumberTheory.TwinPrimeConjectureFrameworkAttack.twin_prime_framework_attack_capstone⟩
+  odd_perfect_attack_realized :=
+    PF.NumberTheory.OddPerfectNumberFrameworkAttack.odd_perfect_number_framework_attack_capstone
+  singmaster_attack_realized :=
+    PF.NumberTheory.SingmastersConjectureFrameworkAttack.singmasters_conjecture_framework_attack_capstone
+  pillai_attack_realized :=
+    PF.NumberTheory.CatalanGeneralizedFrameworkAttack.catalan_generalized_framework_attack_capstone
+  andrews_curtis_attack_realized :=
+    PF.NumberTheory.AndrewsCurtisFrameworkAttack.andrews_curtis_framework_attack_capstone
 
 /-! ## §3 — The framework's reach as a single number -/
 
