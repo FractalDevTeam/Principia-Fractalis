@@ -38,6 +38,7 @@ Millennium statements on the framework's substrate encodings.
 -/
 
 import PF.Referee.RHCapstoneTypedBridge
+import PF.Referee.RHCapstoneTypedBridgeV2
 import PF.Referee.PNPCapstoneTypedBridge
 import PF.Referee.NSCapstoneTypedBridge
 import PF.Referee.YMCapstoneTypedBridge
@@ -56,38 +57,51 @@ The bundle contains the RH parametric data + RH residual `surjectivity`
 + the P vs NP residual `PolylogEigenvalueConjecture`. The other four
 axes are unconditional on their `PF_*Encoding` substrates. -/
 
-/-- **★ THE CLAY-CLOSURE BUNDLE ★** — ONE structure whose discharge
-    closes all six unsolved Clay Millennium axes on the framework's
-    substrate encodings.
+/-- **★ THE CLAY-CLOSURE BUNDLE (V2-TIGHTENED) ★** — ONE structure
+    whose discharge closes all six unsolved Clay Millennium axes on
+    the framework's substrate encodings.
+
+    Three fields total (down from the V1 form's twelve). The ten V1
+    fields that were inner-product / eigenvalue-shape / scaling-pin
+    parameters are now ALL axiom-free discharged inside
+    `PF_RH_capstone_yields_Clay_RH_standardV2`:
+
+      * Inner-product Phase A axioms → `hsmul_left/right_LogWeightedL2`,
+        `hpos_def_LogWeightedL2` (`PF.SpectralBijection`).
+      * Eigenvalue sequence → `evV2 n := 1/(n+1)` (concrete).
+      * Bound / non-vanishing / distinctness → `evV2_bound`,
+        `evV2_ne_zero`, `evV2_distinct` (mechanical).
+      * Scaling parameter → `α_star_empirical` (concrete).
+      * K constant → `1`, with `one_pos`.
 
     Fields:
-      * (RH) Ten hypotheses for the existing
-        `PF_RH_capstone_yields_Clay_RH_standard`: inner-product axioms,
-        eigenvalue sequence with bound + distinctness + nonzero, scaling
-        parameter, and the open `surjectivity` Prop.
-      * (P vs NP) The `PolylogEigenvalueConjecture` open Prop.
+      * (RH) `rh_encoding : PF_RHEncodingV2` bundling the single
+        content-bearing parameter `hev` (compact-operator spectral
+        theorem for `T3_sym`).
+      * (RH) `rh_surjectivity` — the genuine RH residual at the
+        pinned witnesses (concrete `evV2` + `α_star_empirical`).
+      * (P vs NP) `pvsnp_polylog` — the named
+        `PolylogEigenvalueConjecture` residual.
 
     The other four axes (NS, YM, BSD, Hodge) require no hypothesis on
     their `PF_*Encoding` substrates per the existing referee bridges. -/
 structure ClayClosureBundle where
-  /-- RH inner-product axioms on `LogWeightedL2`. -/
-  rh_smul_left  : ∀ (a : ℂ) (f g : LogWeightedL2), ⟪a • f, g⟫ = (star a) * ⟪f, g⟫
-  rh_smul_right : ∀ (a : ℂ) (f g : LogWeightedL2), ⟪f, a • g⟫ = a * ⟪f, g⟫
-  rh_pos_def    : ∀ f : LogWeightedL2, f ≠ 0 → ⟪f, f⟫ ≠ 0
-  /-- RH eigenvalue sequence for `T3_sym.apply`. -/
-  rh_eigenvalues : ℕ → ℝ
-  rh_isEigenvalue : ∀ n : ℕ, IsEigenvalue T3_sym.apply ((rh_eigenvalues n : ℂ))
-  rh_K : ℝ
-  rh_K_pos : rh_K > 0
-  rh_bound : ∀ n : ℕ, |rh_eigenvalues n| ≤ rh_K / ((n : ℝ) + 1)
-  rh_alpha : ScalingParameter
-  rh_ne : ∀ n, rh_eigenvalues n ≠ 0
-  rh_distinct : ∀ n m, n ≠ m → |rh_eigenvalues n| ≠ |rh_eigenvalues m|
-  /-- The RH residual: surjectivity of the eigenvalue-to-zero map onto
-      the non-trivial ζ-zeros. -/
+  /-- **RH spectral-theorem witness, bundled** — the V2 encoding
+      contains the single content-bearing field `hev` asserting that
+      `evV2 n = 1/(n+1)` is an actual eigenvalue of `T3_sym.apply`
+      for every `n`. Mathlib gap: compact-operator spectral theorem
+      for `T3_sym`. Supplied by caller. -/
+  rh_encoding : PF.Referee.RHCapstoneTypedBridgeV2.PF_RHEncodingV2
+  /-- **The RH residual: surjectivity at the pinned V2 witnesses.**
+      The genuine open RH content: every non-trivial ζ-zero is hit
+      by the canonical eigenvalue-to-zero map at `α_star_empirical`
+      and `evV2`. This is the load-bearing RH residual. -/
   rh_surjectivity : ∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 →
-      ∃ n : ℕ, eigenvalueToZero rh_alpha (rh_eigenvalues n) = s
-  /-- The P vs NP residual: the polylog eigenvalue conjecture. -/
+      ∃ n : ℕ,
+        eigenvalueToZero
+          PrincipiaTractalis.α_star_empirical
+          (PF.Referee.RHCapstoneTypedBridgeV2.evV2 n) = s
+  /-- **The P vs NP residual: the polylog eigenvalue conjecture.** -/
   pvsnp_polylog : TuringEncoding.PolylogEigenvalueConjecture
 
 /-! ## §2 — The linkage theorem -/
@@ -104,8 +118,9 @@ structure ClayClosureBundle where
     six-axis discharge.
 
     Proof: composition of the six per-axis bridges. NS, YM, BSD, Hodge
-    are UNCONDITIONALLY axiom-free on their `PF_*Encoding`s. RH needs the
-    ten bundle fields. P vs NP needs the polylog conjecture. -/
+    are UNCONDITIONALLY axiom-free on their `PF_*Encoding`s. RH needs
+    the V2 bundle's two fields (encoding + surjectivity). P vs NP
+    needs the polylog conjecture. -/
 theorem unified_clay_closure_via_substrate_linkage (h : ClayClosureBundle) :
     PF.Referee.StandardClayStatements.Clay_RiemannHypothesis_Standard ∧
     PF.Referee.StandardClayStatements.Clay_PvsNP_Standard
@@ -119,11 +134,9 @@ theorem unified_clay_closure_via_substrate_linkage (h : ClayClosureBundle) :
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard
       PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
-  · -- RH: 10 bundle fields → Clay_RiemannHypothesis_Standard
-    exact PF.Referee.RHCapstoneTypedBridge.PF_RH_capstone_yields_Clay_RH_standard
-      h.rh_smul_left h.rh_smul_right h.rh_pos_def
-      h.rh_eigenvalues h.rh_isEigenvalue h.rh_K h.rh_K_pos h.rh_bound
-      h.rh_alpha h.rh_ne h.rh_distinct h.rh_surjectivity
+  · -- RH (V2-tightened): encoding + surjectivity → Clay_RiemannHypothesis_Standard
+    exact PF.Referee.RHCapstoneTypedBridgeV2.PF_RH_capstone_yields_Clay_RH_standardV2
+      h.rh_encoding h.rh_surjectivity
   · -- P vs NP: polylog conjecture → Clay_PvsNP_Standard
     exact PF.Referee.PNPCapstoneTypedBridge.PF_PNP_capstone_yields_Clay_PvsNP_standard
       h.pvsnp_polylog
