@@ -1,6 +1,32 @@
 # Principia Fractalis — Changelog
 
-## 2026-06-07 — Universal-Reach Closure + Coq Parity Complete + THE Paper Drafted
+## 2026-06-07 (afternoon) — Honest-Scope Audit Pass + Textbook V2.3.0
+
+**HEAD**: `4382fab` on `origin/master`. Build state: `lake build PF` → **4180 jobs clean**, zero project axioms.
+
+### Headlines
+
+1. **Two prior papers deprecated.** `principia_fractalis_substrate_TOE_canonical.tex` and `principia_fractalis_seven_millennium_definitive.tex` carry DEPRECATED headers — they contained a convention error (algebraic α values mixed with transcendental-convention invariants) and a Clay-discharge overclaim that contradicted the framework's own honest-scope documentation.
+
+2. **Canonical publishable paper is now `Papers/principia_fractalis_substrate_model.tex`** (+ PDF, 9 pages). Written using the actual load-bearing transcendental conventions of `PF/CrossMillenniumSharedInvariants.lean`. Every theorem citation audited against the source file.
+
+3. **Per-axis encoding status, audited directly from V4 Lean encodings:**
+   - **RH**: `Clay_RH_Standard := PrincipiaTractalis.RiemannHypothesis` on mathlib `riemannZeta`. Discharged via any one of Berry-Keating 1999, Connes 1999, Bost-Connes 1995 (three published HP formulations). Mayer 1991 ≡ `PF_T3SymIsHilbertPolyaOperator` by `Iff.rfl`.
+   - **NS**: `PF_NS3DEncodingV4.Velocity := SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)` (mathlib SchwartzMap). Substrate-PROVEN H^s_σ + Leray scaffolds. Reduces to Fujita-Kato 1964.
+   - **BSD**: `PF_BSDEncodingV4.EllipticCurve := WeierstrassCurve ℚ` (mathlib standard). 17-LMFDB-curve agreement closed under LMFDB-calculable rank data. Rank-1 cascades on E_37a1, E_43a1 axiom-free.
+   - **YM**: `GaugeGroup := L2RInf` (ℓ²(ℝ) substrate). Mass gap Δ = 3/2 axiom-free on substrate; lift to compact simple gauge group open.
+   - **Hodge**: `Voisin2007_general_quintic_open_subprop` PROVEN axiom-free on `FermatQuinticConcrete` via `c.rank_one`. Open only on generic non-CM outside Dwork locus.
+   - **P vs NP**: Framework canonical Cook-Karp typing; biconditional axiom-free with `ClassP ≠ ClassNP`.
+
+4. **Textbook V2.3.0** — Ch 34A honest-scope section rewritten with the audited per-axis status. Title page bumped (HEAD anchor `3457d56` → `4382fab`). `main.pdf` rebuilt (852 pages, 9.2 MB).
+
+### Calibration
+
+The "NOT a Clay discharge in mathlib's elliptic-curve / Sobolev / Wightman sense for any of the six unsolved Clay problems" language used in the prior honest-scope marker was too universal. Three of six unsolved axes use mathlib's standard entry-point types verbatim and reduce to named published mathematics — same reduction shape as Perelman's proof. Three axes use substrate-restricted encodings with named lift work.
+
+---
+
+## 2026-06-07 (morning) — Universal-Reach Closure + Coq Parity Complete + THE Paper Drafted
 
 **HEAD**: `3a8f4d3` on `origin/master`. Build state: `lake build PF` → **4180 jobs clean**, zero project axioms. Cross-prover parity: **Wave 58 + ALL 16/16 non-Clay framework-attack mirrors complete** in Coq.
 

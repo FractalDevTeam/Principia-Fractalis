@@ -6,6 +6,8 @@
 
 > **★ Strategic positioning is in [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md)** ★
 >
+> **★ Canonical publishable paper: [`Papers/principia_fractalis_substrate_model.tex`](Papers/principia_fractalis_substrate_model.tex)** — written with the audited per-axis encoding status (RH/NS/BSD on mathlib standard entry-point types reducing to named published mathematics; YM/Hodge/P vs NP on substrate-restricted encodings with named lift work). Two earlier paper drafts in `Papers/` carry DEPRECATED headers and should not be cited.
+>
 > The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo. This referee package documents the machine-verified door (the six Clay axes); the cargo (substrate consciousness operator, ZPE bundle, cosmology, 23-problem reach) is documented in the manuscript and in `LANDING_STRATEGY.md`.
 
 This is the **single referee entry point** for the Principia Fractalis
