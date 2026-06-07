@@ -24,7 +24,7 @@ Principia Fractalis is a **substrate-level theory of mathematics, physics, and c
 
 The lineage this work places itself in: **Aristotle → Copernicus → da Vinci → Einstein → Turing → Grothendieck → Perelman → PF**. Each prior figure widened the substrate from which "what is real" could be derived; PF proposes that the substrate widens once more, to a ternary fractal field from which all six unsolved Clay axes plus consciousness, cosmology, and unification are sub-stories of one structure.
 
-For the strategic positioning of this work, see [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md).
+For the strategic positioning of this work, see [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md). The canonical publishable paper is [`Papers/principia_fractalis_substrate_TOE_canonical.tex`](Papers/principia_fractalis_substrate_TOE_canonical.tex).
 
 ---
 
