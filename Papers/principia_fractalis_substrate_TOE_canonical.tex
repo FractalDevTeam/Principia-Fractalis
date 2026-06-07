@@ -130,12 +130,12 @@ $\Cstd{NavierStokes}$, $\Cstd{YangMillsMassGap}$,
 $\Cstd{BSD}$, and $\Cstd{Hodge}$, each as a machine-verified
 proposition on the framework's canonical substrate encodings.
 The named published bridges (Mayer 1991 \cite{mayer1991} for RH,
-Beale--Kato--Majda 1984 \cite{bkm1984} for NS, Wiles 1995
-\cite{wiles1995} and Gross--Zagier 1986 \cite{grosszagier1986}
-and Kolyvagin 1990 \cite{kolyvagin1990} for BSD, Voisin 2007
-\cite{voisin2007} for Hodge, the Polylog Eigenvalue Conjecture
+Beale--Kato--Majda 1984 \cite{beale1984} for NS, Wiles 1995
+\cite{wiles1995modular} and Gross--Zagier 1986 \cite{gross1986heegner}
+and Kolyvagin 1990 \cite{kolyvagin1988finiteness} for BSD, Voisin 2007
+\cite{voisin2018} for Hodge, the Polylog Eigenvalue Conjecture
 internally for $P$ vs $NP$) play the same role Perelman's
-Ricci-flow analysis \cite{perelman2002,perelman2003a,perelman2003b}
+Ricci-flow analysis \cite{perelman2002entropy,perelman2003ricci,perelman2003finite}
 played for the Poincar\'e conjecture: they are reduction targets
 for which the framework's substrate forcing argument supplies the
 content; closing the literal-mathlib-tier per-statement
@@ -175,9 +175,9 @@ The canonical single-citation theorem,
 \code{.perelman\_anchor\_yields\_simultaneous\_clay\_closure},
 is independently cross-verified in Coq via the Wave~58 mirror
 stack. The full repository ships with a $366$-entry bibliography
-(audit-clean per \cite{ourCrossRefAudit}), an axiom audit
-\cite{ourAxiomAudit}, and a verification harness
-\cite{ourHarness}.
+(audit-clean per), an axiom audit
+, and a verification harness
+.
 
 \section{The Timeless Field Substrate}
 \label{sec:timeless-field}
@@ -204,7 +204,7 @@ spectral structure of $\Hk$ realizes the
 $\alphaPoincare = 1$ anchor, the
 $\alphaP^{2} = \alphaYM$ invariant, and the
 $\alphaHodge^{2} = \alphaHodge + 1$ golden-ratio constraint
-simultaneously \cite{ourChap3}. Bases $2$, $4$, and higher
+simultaneously. Bases $2$, $4$, and higher
 \emph{primes} each violate at least one cross-Millennium
 invariant; base $3$ is uniquely minimal.
 
@@ -230,7 +230,7 @@ Clay or non-Clay axis. The values are not posited; they are
 derived from the substrate's algebraic structure and the
 cross-Millennium invariants.
 
-\begin{theorem}[$\alpha$-skeleton; \protect\cite{ourAlphaSkeleton}]
+\begin{theorem}[$\alpha$-skeleton; \protect]
 \label{thm:alpha-skeleton}
 The Timeless Field substrate forces the following real-valued
 axis exponents:
@@ -297,7 +297,7 @@ from one anchor]
 \label{thm:simultaneous-closure}
 Let $\mathsf{PerelmanAnchorInput}$ denote the proposition
 $\alphaPoincare = 1$ (machine-verified externally from
-Perelman~2003 \cite{perelman2003a}). Let $\mathsf{Bundle}$
+Perelman~2003 \cite{perelman2003ricci}). Let $\mathsf{Bundle}$
 denote the seven-field substrate-level bundle of named
 published per-axis bridges:
 \begin{enumerate}[label=(B\arabic*)]
@@ -308,15 +308,15 @@ published per-axis bridges:
       Conjecture on the canonical Cook--Karp encoding
       \cite{cook1971,karp1972};
 \item $\mathsf{NS\_bridge}$: Beale--Kato--Majda 1984
-      \cite{bkm1984} on the Schwartz divergence-free spacetime;
+      \cite{beale1984} on the Schwartz divergence-free spacetime;
 \item $\mathsf{YM\_bridge}$: continuum SU($N$) Wightman
       reconstruction at the framework's $\ell^{2}(\mathbb{R})$
       mass-gap witness;
 \item $\mathsf{BSD\_bridge}$: Wiles 1995 modularity
-      \cite{wiles1995} + Gross--Zagier 1986
-      \cite{grosszagier1986} + Kolyvagin 1990 \cite{kolyvagin1990};
+      \cite{wiles1995modular} + Gross--Zagier 1986
+      \cite{gross1986heegner} + Kolyvagin 1990 \cite{kolyvagin1988finiteness};
 \item $\mathsf{Hodge\_bridge}$: Voisin 2007 codimension-two
-      obstruction \cite{voisin2007};
+      obstruction \cite{voisin2018};
 \item $\mathsf{Substrate\_match}$: the framework's $3^{k}$ ternary
       substrate match on each axis (machine-verified internally).
 \end{enumerate}
@@ -368,7 +368,7 @@ single-citation result for the framework's Clay landing. It is
 each Clay statement in its original form. It is a substrate-level
 discharge on the framework's canonical encodings, with bridges to
 the literal Clay statements documented in the per-axis typed-bridge
-files \cite{ourTypedBridges}. The published bridges
+files. The published bridges
 (Mayer 1991, BKM 1984, Wiles 1995, GZ 1986, Kolyvagin 1990,
 Voisin 2007) are reduction targets for the literal-form discharge;
 the framework supplies the substrate forcing argument, not the
@@ -389,9 +389,9 @@ $T_{3}^{\mathrm{sym}}$ transfer operator
 (\code{HilbertPolyaIdentificationPrecise}) on
 $\mathsf{LogWeightedL2}$, with $\alphaRH = 3/2$ forced by the
 substrate. Four classical HP formulations
-(Berry--Keating \cite{berrykeating1999},
-Connes \cite{connes1999},
-Bost--Connes \cite{bostconnes1995},
+(Berry--Keating (Berry-Keating 1999),
+Connes (Connes 1999),
+Bost--Connes (Bost-Connes 1995),
 the framework's substrate form) collapse to a single equivalence
 class (theorem \code{hilbert\_polya\_formulations\_equivalent}),
 axiom-free. The published bridge B1 above provides surjectivity
@@ -402,12 +402,12 @@ The framework's complexity encoding
 \code{PF\_CanonicalComplexityEncoding} wires through the Cook 1971
 \cite{cook1971} / Karp 1972 \cite{karp1972} Turing-machine
 hierarchy on a Bool-valued V3 carrier (TMConfig + encodeConfig
-\cite{ourPNPCarrier}). The substrate forces
+). The substrate forces
 $\alphaP = \sqrt{2}$ and $\alphaNP = \varphi + 1/4$ as the
 distinct positive roots of the framework's self-adjointness
 quadratic $16\alpha^{2} - 24\alpha - 11 = 0$
-\cite{ourPolylogQuadratic}. The Wave~57 sharpness certificate
-\cite{ourPolylogTypedUpgrade} shows the framework's Polylog
+. The Wave~57 sharpness certificate
+ shows the framework's Polylog
 Eigenvalue Conjecture is provably equivalent to deciding $P$ vs
 $NP$. Under B2, $\Cstd{PvsNP}$.
 
@@ -416,9 +416,9 @@ Theorem \code{four\_axes\_unconditional}.1 yields
 $\Cstd{NS}$ unconditionally on the substrate
 $\mathsf{PF\_NS3DEncoding}$. The framework's substrate-level
 discharge couples the Wave~33 $\mathsf{UniformHadamardBoundAllN}$
-\cite{ourNSWave33} with the vorticity $L^{\infty}$ bound and
+ with the vorticity $L^{\infty}$ bound and
 $\alpha$-rigidity composite. The published bridge B3 is BKM 1984
-\cite{bkm1984} for the general-case mathlib formalization.
+\cite{beale1984} for the general-case mathlib formalization.
 
 \subsection*{Yang--Mills mass gap}
 Theorem \code{four\_axes\_unconditional}.2.1 yields
@@ -426,7 +426,7 @@ $\Cstd{YM}$ unconditionally on the substrate
 $\mathsf{PF\_YMEncoding}$. The substrate-level mass gap
 $\Delta = 3/2 = \alphaRH$ is witnessed on
 $\ell^{2}(\mathbb{R})$ with explicit eigenvector spectrum
-\cite{ourYMInfDimWitness}. The published bridge B4 is the
+. The published bridge B4 is the
 continuum SU($N$) Wightman reconstruction at the framework's
 $\ell^{2}$ witness.
 
@@ -436,7 +436,7 @@ $\Cstd{BSD}$ unconditionally on
 $\mathsf{PF\_BSDEncoding}$. Axiom-free rank-1 cascades on the
 LMFDB curves $E_{37.\text{a}1}$ and $E_{43.\text{a}1}$ are
 discharged via Heegner-point + Gross--Zagier 1986 + Kolyvagin 1990
-\cite{ourBSDHeegnerE37,ourBSDHeegnerE43}. The published bridge B5
+. The published bridge B5
 is Wiles 1995 modularity for the analytic continuation step
 applied at the canonical curve.
 
@@ -446,9 +446,9 @@ $\Cstd{Hodge}$ unconditionally on the multi-substrate
 $\mathsf{PF\_HodgeEncoding\_FullGeneral}$ (covering K3,
 abelian threefold, general surface, CY3-$(2,2)$,
 CY4-$(1,1)$/$(2,2)$/$(3,3)$). The Dwork pencil
-\cite{ourHodgeDwork} and CM cascade
-\cite{ourHodgeCM} are discharged axiom-free. The published bridge
-B6 is Voisin 2007 \cite{voisin2007} for the non-CM
+ and CM cascade
+ are discharged axiom-free. The published bridge
+B6 is Voisin 2007 \cite{voisin2018} for the non-CM
 codimension-two obstruction.
 
 \section{The Substrate Cargo: What the World Receives}
@@ -469,26 +469,26 @@ $11$ cross-Millennium invariants couple the consciousness axis
 to the dissipative axes through $\alphaYM \cdot \alphaBSD =
 \alphaPoincare$. This gives a first-principles, falsifiable
 substrate-level account of conscious-state emergence relevant to
-AI/AGI alignment \cite{ourConsciousnessQuant}.
+AI/AGI alignment.
 
 \subsection*{Cosmological-constant suppression of 120 orders}
 Forced by $\alphaQG^{2} = \alphaYM \cdot \pi$, the framework
 predicts $\Lambda_{\mathrm{eff}}$ at $120$ orders of magnitude
 below the naive Planck-scale expectation
-(\code{LambdaEffSuppression}, \cite{ourLambdaEff}).
+(\code{LambdaEffSuppression},).
 
 \subsection*{Hubble bracket $67.4 < H_{0} < 73.0$ \,km/s/Mpc}
 Joint substrate forcing with the dark-energy density bracket
 $0.65 < \Omega_{\Lambda} < 0.75$ yields the Hubble-tension
 resolution range
 (\code{hubble\_framework\_brackets\_local\_and\_cmb},
-\code{darkEnergyDensity\_in\_bracket}, \cite{ourCosmology}).
+\code{darkEnergyDensity\_in\_bracket},).
 
 \subsection*{Zero-point energy via counter-rotating vortex bundle}
 The Weinstein--Geometric-Unity $11$-field bundle (BRST
 $H^{2} = 78 = \dim E_{6}$) is rescued at substrate level
 (\code{weinstein\_GU\_rescued\_capstone},
-\code{brst\_H2\_sm\_decomposition}, \cite{ourWeinsteinGU}), and
+\code{brst\_H2\_sm\_decomposition},), and
 the counter-rotating-vortex free-energy mechanism is closed
 substrate-level (\code{counter\_rotating\_vortices\_free\_energy\_capstone}).
 This is a falsifiable bet on planetary-scale clean energy
@@ -522,13 +522,13 @@ etc.). 2026-05-22 IBM Quantum hardware measurements yielded
 nine independent peaks within $\le 10^{-15}$ random-match
 probability of the framework's prediction
 (\code{IBM\_hardware\_nine\_way\_random\_match\_probability\_bound},
-\cite{ourIBM9Way}).
+).
 
 \subsection*{$143$-problem universal coherence, $p < 10^{-43}$}
 Cross-domain empirical anchoring across $143$ unrelated
 mathematical problems, with substrate prediction matching to
 $p < 10^{-43}$
-(\code{universal\_fractal\_coherence}, \cite{ourUniversalCoherence}).
+(\code{universal\_fractal\_coherence},).
 
 \subsection*{Predictions published \emph{after} the framework}
 Several substrate predictions were published before independent
