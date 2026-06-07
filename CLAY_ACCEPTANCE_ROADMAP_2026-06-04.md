@@ -1,10 +1,13 @@
 # Principia Fractalis — Clay-Acceptance Roadmap
 
-**Document version**: 2026-06-04
-**HEAD**: `8cd1217` on `origin/master` (FractalDevTeam/Principia-Fractalis)
-**Build state**: `lake build PF` → 8108 jobs clean
+> **★ SUPERSEDED 2026-06-07** — The canonical single-citation theorem moved to `perelman_anchor_yields_simultaneous_clay_closure` (HEAD `4785c55` onward). For current strategic positioning see [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md). This document is preserved for historical reference of the 2026-06-04 per-axis narrowing landing.
+
+**Document version**: 2026-06-04 (preserved as-of historical anchor)
+**HEAD as of authoring**: `8cd1217` on `origin/master`
+**Current HEAD**: `afd9370` (2026-06-07)
+**Build state**: `lake build PF` → 4180 jobs clean (PF closure)
 **Project axioms**: 0 (only `[propext, Classical.choice, Quot.sound]`)
-**Cross-prover parity**: 13 Wave 58 files mirrored in Coq
+**Cross-prover parity**: Wave 58 + ALL 16/16 non-Clay framework-attack mirrors complete in Coq (catch-up 2026-06-07)
 
 ---
 
