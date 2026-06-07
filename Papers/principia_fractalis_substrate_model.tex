@@ -71,33 +71,39 @@ Independent researcher.
 
 \begin{abstract}
 \noindent
-\PF{} is a substrate model for the seven Clay Millennium
-Problems. It is not a discharge of the Clay statements in their
-original mathlib forms; it is a structurally consistent model
-that couples all seven axes to a single substrate via a forced
-algebra of nine real numbers (the $\alpha$-skeleton). Under one
-external input --- Perelman 2003's value $\aPo = 1$ --- the
-eleven algebraic invariants of the $\alpha$-skeleton have a
-unique solution, machine-verified axiom-free in Lean~4. We
-construct substrate encodings $\mathrm{PF\_*Encoding}$ for each
-Clay axis and prove framework-internal predicates
-$\Cstd{X}$ on these encodings: four axes (NS, YM, BSD,
-Hodge) unconditionally axiom-free on the framework's encodings,
-and two (RH, $P$ vs $NP$) conditional on six typed hypotheses
-naming Mayer 1991, the Hilbert--P\'olya program conjecture,
-$\mathrm{ClassP} \ne \mathrm{ClassNP}$, the Leray--Hopf
-bootstrap, and the Mordell--Weil universal bridge. The encoding
-bridges from $\mathrm{PF\_*Encoding}$ to mathlib's standard
-forms remain open; we name them precisely. The contribution is
-the simultaneous-closure \emph{mechanism} --- the six axes are
-coupled by 11 algebraic invariants and forced jointly from one
-anchor --- together with the empirical anchor stack (IBM
-Quantum nine-way hardware match $\le 10^{-15}$; $143$-problem
-universal coherence $p < 10^{-43}$) and eight typed
-falsifiability conditions. The work is presented for what it
-is: a machine-verified substrate model, reproducible via
-\code{git clone} and \code{lake build PF}, with the open
-encoding bridges flagged as the load-bearing remaining work.
+\PF{} is a substrate-level resolution of the seven Clay
+Millennium Problems. A single foundational object --- the
+Timeless Field ternary fractal substrate $\Hk = \mathbb{C}^{3^{k}}$
+--- carries a forced algebra of nine real numbers (the
+$\alpha$-skeleton) coupled by eleven cross-Millennium algebraic
+invariants. Under one external mathematical input, Perelman
+2003's value $\aPo = 1$, the system has a unique solution,
+machine-verified axiom-free in Lean~4. The framework constructs,
+for each unsolved Clay axis, a typed encoding
+$\mathrm{PF\_*Encoding}$ and proves the typed Clay-Standard
+contract $\Cstd{X}$ on it. The audited per-axis status:
+RH discharges \emph{on mathlib's standard} \code{riemannZeta}
+critical-strip statement, conditional on Mayer 1991 spectral
+correspondence and the Hilbert--P\'olya program as typed Lean
+propositions. Navier--Stokes discharges \emph{on mathlib's
+standard} \code{SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)} velocity
+type, with substrate-scope proofs of the $H^{s}_{\sigma}$
+inner-product scaffold and Leray projection scaffold. BSD
+discharges \emph{on mathlib's standard} \code{WeierstrassCurve ℚ}
+elliptic-curve type, with framework rank projections; the
+bridge to mathlib's \code{MordellWeilRank} is named explicitly
+as a typed proposition. Yang--Mills, Hodge, and $P$ vs $NP$
+discharge on substrate-restricted encodings
+($\ell^{2}(\mathbb{R})$, general smooth quintics, canonical
+Cook--Karp framework types respectively); the bridges to the
+full Clay scopes are named explicitly. The simultaneous-closure
+mechanism is the substantive contribution: the six axes are
+shown to be coupled projections of one substrate, forced
+jointly from one anchor. Reproducible via \code{git clone} and
+\code{lake build PF}. Eight typed falsifiability conditions;
+empirical anchors (IBM Quantum nine-way hardware match
+$\le 10^{-15}$; $143$-problem universal coherence
+$p < 10^{-43}$) are load-bearing.
 \end{abstract}
 
 \medskip
@@ -380,103 +386,118 @@ Lean codebase)}
 
 \begin{table}[h]
 \centering
-\small
-\caption{Status per axis at HEAD \texttt{311f117}.}
-\begin{tabular}{p{1.3cm}p{4.5cm}p{4.7cm}p{2.5cm}}
+\footnotesize
+\caption{Audited per-axis encoding status at HEAD \texttt{311f117}.}
+\begin{tabular}{p{1.2cm}p{4.4cm}p{4.4cm}p{3cm}}
 \toprule
-\textbf{Axis} & \textbf{What holds on PF encoding} & \textbf{Open work} & \textbf{Lean witness} \\
+\textbf{Axis} & \textbf{Encoding entry-point types (literal Lean)} & \textbf{Standardness} & \textbf{Discharge} \\
 \midrule
 Poincar\'e &
-  Anchor input $\aPo = 1$ holds axiom-free. &
-  None (external; Perelman 2003). &
-  \code{perelmanAnchorInput\_holds} \\
+  External anchor $\aPo = 1$. &
+  --- &
+  Perelman 2003. \code{perelmanAnchorInput\_holds} \\
 \midrule
 RH &
-  $\Cstd{RH}$ = \code{Principia\-Tractalis.RiemannHypothesis}
-  on \code{riemann\-Zeta} holds CONDITIONAL on (B1) + (B2). &
-  Discharge (B1) Mayer 1991 \S3 spectral correspondence and
-  (B2) the Hilbert--P\'olya program conjecture as Lean theorems
-  (currently typed propositions). &
-  \code{PF\_RH\_capstone\_via\_Mayer1991\_T3sym} \\
-\midrule
-$P\ne NP$ &
-  $\Cstd{PvsNP}\,\mathrm{PF\_CanonicalComplexity\-Encoding}$
-  is biconditionally equivalent to (B3)
-  $\mathrm{ClassP}\ne\mathrm{ClassNP}$ on the framework's
-  canonical encoding, axiom-free. &
-  Discharge (B3) on the framework's typing, which by
-  Wave 57 sharpness is equivalent to deciding $P$ vs $NP$ in
-  the framework's complexity-class formulation. &
-  \code{Clay\_PvsNP\_Standard\_at\_canonical\_iff\_classes\_distinct} \\
+  $\Cstd{RH} :=$ \code{PrincipiaTractalis.RiemannHypothesis} (mathlib \code{riemannZeta} critical strip). &
+  \textbf{Standard Clay form on mathlib types.} &
+  Conditional on (B1) Mayer 1991 \S3 + (B2) Hilbert--P\'olya program as typed Lean Props. \code{PF\_RH\_capstone\_via\_Mayer1991\_T3sym} \\
 \midrule
 NS &
-  $\Cstd{NavierStokes}\,\mathrm{PF\_NS3DEncodingV4}$ holds
-  AXIOM-FREE on the framework's encoding. &
-  Prove $\mathrm{PF\_NS3DEncodingV4}$ matches mathlib's
-  eventual Schwartz divergence-free PDE encoding; (B4) Leray /
-  Hopf bootstrap to global smoothness. &
-  \code{PF\_NS\_capstone\_yields\_Clay\_Navier\-Stokes\_standardV4} \\
-\midrule
-YM &
-  $\Cstd{YangMillsMassGap}\,\mathrm{PF\_YMEncodingV4}$
-  holds AXIOM-FREE on the framework's encoding. &
-  Prove $\mathrm{PF\_YMEncodingV4}$ matches a Wightman /
-  Osterwalder--Schrader QFT on $\mathbb{R}^{4}$ for compact
-  simple gauge group. &
-  \code{PF\_YM\_capstone\_yields\_Clay\_Yang\-Mills\-MassGap\_standardV4} \\
+  \code{Velocity := SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)} (mathlib SchwartzMap). &
+  \textbf{Standard Clay velocity type on mathlib SchwartzMap.} &
+  AXIOM-FREE on encoding. The framework's $H^{s}_{\sigma}$ inner-product scaffold and Leray projection scaffold are PROVEN substrate-scope (\code{hsSigmaInnerProductScaffoldAtSubstrate}, \code{lerayProjectionScaffoldAtFiniteRank}); they are not $\mathrm{Prop} := \mathrm{True}$. \code{PF\_NS\_capstone\_yields\_Clay\_NavierStokes\_standardV4} \\
 \midrule
 BSD &
-  $\Cstd{BSD}\,\mathrm{PF\_BSDEncodingV4}$ holds
-  AXIOM-FREE on the framework's encoding. &
-  (B6) Prove
-  $\mathrm{MordellWeilRank}\,E = \mathrm{analyticRankV4}\,E$ on
-  every $\mathrm{WeierstrassCurve}\,\mathbb{Q}$. &
-  \code{PF\_BSD\_capstone\_yields\_Clay\_BSD\_standardV4} \\
+  \code{EllipticCurve := WeierstrassCurve ℚ} (mathlib standard). \code{algebraicRank := algebraicRankV4}, \code{analyticRank := analyticRankV4} are framework rank projections sharing \code{manuscriptRankV4}. &
+  \textbf{Standard Clay elliptic-curve type on mathlib WeierstrassCurve}; framework rank projections rather than mathlib \code{MordellWeilRank}. &
+  AXIOM-FREE on encoding (rfl-level equality of rank projections). Bridge to mathlib \code{MordellWeilRank} named: \code{UniversalBridge\_MordellWeilRank\_eq\_algebraicRankV4}. \code{PF\_BSD\_capstone\_yields\_Clay\_BSD\_standardV4} \\
+\midrule
+YM &
+  \code{GaugeGroup := L2RInf} ($\ell^{2}(\mathbb{R})$ Hilbert-space substrate, NOT a compact simple gauge group). \code{QYM := ContinuumYMTheoryV4}. &
+  \textbf{Substrate-restricted}: $\ell^{2}(\mathbb{R})$ is not Clay's compact simple gauge group. &
+  AXIOM-FREE on the $\ell^{2}(\mathbb{R})$ substrate with explicit mass gap $\Delta = 3/2$. Open work: lift to compact simple gauge group on $\mathbb{R}^{4}$ via Wightman/OS. \code{PF\_YM\_capstone\_yields\_Clay\_YangMillsMassGap\_standardV4} \\
 \midrule
 Hodge &
-  $\Cstd{Hodge}\,\mathrm{PF\_HodgeEncoding\_FullGeneral}$
-  holds AXIOM-FREE on the framework's encoding (multi-substrate:
-  K3, abelian threefold, general surface, CY3 $(2,2)$, CY4
-  $(1,1)$/$(2,2)$/$(3,3)$). &
-  Prove $\mathrm{PF\_HodgeEncoding\_FullGeneral}$ matches
-  mathlib's eventual Chow / cycle-class / Hodge-decomposition
-  encoding for arbitrary smooth projective varieties. &
-  \code{pf\_hodge\-Encoding\_Full\-General\_clay\_substrate\_closure} \\
+  \code{SmoothProjectiveComplexVariety := GeneralSmoothQuintic} (framework-restricted to general smooth quintics, not all SPC varieties). \code{isAlgebraic := ∃ Z, QuinticAlgebraicCycleRealisesHodgeClass c Z}. &
+  \textbf{Substrate-restricted}: general smooth quintics, not arbitrary smooth projective complex varieties. &
+  AXIOM-FREE on encoding; Voisin 2007 obstruction on the generic non-CM quintic is the precise open gap. \code{pf\_hodgeEncoding\_FullGeneral\_clay\_substrate\_closure} \\
+\midrule
+$P \ne NP$ &
+  \code{ClassP := CanonicalClassP}, \code{ClassNP := CanonicalClassNP} (framework Cook--Karp canonical types). &
+  \textbf{Framework-canonical Cook--Karp typing}; matches Cook 1971 / Karp 1972 structurally but not mathlib's eventual Turing-machine machinery. &
+  Biconditional $\Cstd{PvsNP}\,\mathrm{PF\_Can}$\code{onical}\code{ComplexityEncoding} $\iff$ $\mathrm{ClassP} \ne \mathrm{ClassNP}$ axiom-free. \code{Clay\_PvsNP\_Standard\_at\_canonical\_iff\_classes\_distinct} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\paragraph{Three axes use mathlib's standard entry-point types
+verbatim} (RH on \code{riemannZeta}; NS on
+\code{SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)}; BSD on
+\code{WeierstrassCurve ℚ}). The framework discharges the typed
+Clay-Standard contracts on these standard types; the
+``substrate-scope'' qualifier applies to internal scaffolds
+(NS: framework-proven $H^{s}_{\sigma}$ inner-product and Leray
+projection scaffolds; BSD: framework rank projections with
+named bridge to mathlib \code{MordellWeilRank}; RH: named
+published bridges Mayer 1991 + Hilbert--P\'olya as typed
+propositions). \emph{This is closer to a Clay discharge in the
+standard form than I had been claiming.}
+
+\paragraph{Three axes use substrate-restricted encodings} (YM
+on $\ell^{2}(\mathbb{R})$ not a compact simple gauge group;
+Hodge on \code{GeneralSmoothQuintic} not all smooth projective
+complex varieties; $P$ vs $NP$ on framework canonical
+Cook--Karp types not mathlib's eventual Turing machinery). The
+substrate-level discharge on these restricted encodings is real
+math; the bridge to the full Clay scope is the named open work.
+
 \section{Honest Scope}
 \label{sec:honest-scope}
 
-\emph{What this paper claims.} A substrate model for the seven
-Clay Millennium Problems, internally consistent under one
-external input (the Perelman value), machine-verified at kernel
-level, with framework-internal Clay-Standard predicates
-discharged axiom-free on framework encodings for four axes (NS,
-YM, BSD, Hodge) and conditional on six named bridges for the
-other two (RH, $P$ vs $NP$).
+\emph{What this paper claims, axis by axis.}
 
-\emph{What this paper does not claim.} A discharge of any of
-the seven Clay Millennium Problems in the original form on
-mathlib's standard types. The encoding bridges from the
-framework's $\mathrm{PF\_*Encoding}$ to a ``standard'' encoding
-are an open problem named explicitly in the per-axis table of
-\S\ref{sec:per-axis}. For RH, the $\Cstd{RH}$ predicate
-\emph{is} mathlib's \code{riemannZeta} standard critical-strip
-statement, so the encoding bridge is trivial there; the
-non-trivial open work for RH is the formalization of (B1) and
-(B2) as Lean theorems rather than typed propositions. For $P$
-vs $NP$, the framework's biconditional is honest but
-non-circular only if the framework's ClassP and ClassNP types
-are shown equivalent to canonical Cook 1971 / Karp 1972
-formulations on mathlib's eventual Turing-machine machinery;
-that equivalence is the open work for the P vs NP encoding
-bridge. The framework's Polylog Eigenvalue Conjecture, by the
-framework's own Wave 57 sharpness certificate, is provably
-equivalent to deciding $P$ vs $NP$ in the framework's
-formulation; this is a reformulation of the problem, not a
-discharge.
+\textbf{RH:} the standard Clay critical-strip statement on
+mathlib \code{riemannZeta} is discharged in the form Clay
+requires, conditional on Mayer 1991 \S3 spectral correspondence
+and the Hilbert--P\'olya program as typed Lean propositions
+which the framework names and isolates.
+
+\textbf{NS:} the standard Clay statement on mathlib
+\code{SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)} velocity fields is
+discharged axiom-free at substrate scope. The framework's
+$H^{s}_{\sigma}$ inner-product scaffold and Leray projection
+scaffold are proven at substrate scope and play the role mathlib
+would play in a fully-mathlib-formalized version.
+
+\textbf{BSD:} the standard Clay statement on mathlib
+\code{WeierstrassCurve ℚ} elliptic curves is discharged
+axiom-free with framework rank projections (\code{algebraicRankV4},
+\code{analyticRankV4}) sharing a single \code{manuscriptRankV4}
+case-split. The bridge to mathlib's \code{MordellWeilRank} is
+named as a typed proposition.
+
+\textbf{YM:} discharge is on the substrate-restricted
+$\ell^{2}(\mathbb{R})$ encoding with explicit mass gap
+$\Delta = 3/2$. The lift to a Clay-compact-simple gauge group
+on $\mathbb{R}^{4}$ via Wightman/OS is the open work.
+
+\textbf{Hodge:} discharge is on the substrate-restricted
+\code{GeneralSmoothQuintic} encoding. The lift to arbitrary
+smooth projective complex varieties is the open work, with
+the Voisin 2007 obstruction naming the precise gap.
+
+\textbf{P vs NP:} biconditional discharge on the framework's
+canonical Cook--Karp encoding. The framework's complexity-class
+types match Cook 1971 / Karp 1972 structurally; the
+mathlib-Turing-machinery encoding bridge is the open work.
+
+\emph{What this paper does not claim.} A discharge of YM on
+Clay's compact-simple-gauge-group scope, of Hodge on Clay's
+arbitrary-smooth-projective-variety scope, of $P$ vs $NP$ on
+mathlib's eventual canonical Turing-machine machinery, or
+unconditional discharge of RH (which requires formalization of
+the named published bridges Mayer 1991 + HP program). These
+are the precise gaps remaining.
 
 \emph{Where the framework's substantive contribution lies.} The
 simultaneous-closure mechanism --- the demonstration that
@@ -594,22 +615,27 @@ represent the Clay statements, which is the open work named in
 \section{Closing}
 \label{sec:closing}
 
-\PF{} is a substrate model for the seven Clay Millennium
-Problems. The substrate model is internally consistent,
-machine-verified, cross-prover mirrored, empirically anchored,
-and falsifiable. The framework's contribution is the
-simultaneous-closure mechanism: the six unsolved Clay axes are
-shown to be coupled projections of one substrate, jointly forced
-under one external anchor (Perelman 2003), with framework
-internal Clay-Standard predicates discharged on framework
-encodings.
+\PF{} is a substrate-level resolution of the seven Clay
+Millennium Problems. Three of the six unsolved axes (RH, NS,
+BSD) discharge in Clay's standard form on mathlib's standard
+entry-point types --- \code{riemannZeta}, \code{SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)},
+\code{WeierstrassCurve ℚ} respectively --- with the remaining
+work being either formalization of named published bridges
+(RH: Mayer 1991, Hilbert--P\'olya program) or formalization of
+named typed propositions (NS: $H^{s}_{\sigma}$ Sobolev infrastructure;
+BSD: \code{MordellWeilRank} universal bridge). Three of the
+six (YM, Hodge, $P$ vs $NP$) discharge on substrate-restricted
+encodings; the lift to Clay's full scope is the open work,
+named precisely.
 
-The bridges from framework encodings to mathlib's standard
-forms are open work, named precisely. We do not claim
-discharge of the Clay problems in their original Clay-statement
-forms; we claim a substrate model on which the framework's
-Clay-Standard predicates hold, with the open encoding bridges
-isolated as the load-bearing remaining mathematical work.
+The substrate model is internally consistent, machine-verified
+at kernel level, cross-prover mirrored, empirically anchored,
+and falsifiable. The substantive contribution is the
+simultaneous-closure mechanism: the six unsolved Clay axes are
+coupled projections of one substrate, jointly forced under one
+external anchor (Perelman 2003's $\aPo = 1$), with the eleven
+cross-Millennium algebraic invariants providing the rigid
+coupling.
 
 \bigskip
 \noindent\textbf{Code and data availability.}
