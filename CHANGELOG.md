@@ -1,5 +1,31 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-07 (evening) — Bridge 3 Phase 1: V4-readings 6/17 → 17/17 axiom-free
+
+**HEAD**: `afa14d7` (Lean) + this commit (Coq parity). Build state: `lake build PF` → **4181 jobs clean**, zero project axioms.
+
+### What landed
+
+* **`PF/AlgebraicGeometry/MordellWeilRankAgreement17_V4Readings.lean`** (476 lines, 11 new axiom-free per-curve V4 reading theorems): `algebraicRankV4_E_43a1` through `algebraicRankV4_E_rank_three` (9 rank-1 Heegner cohort + E_389a1 rank-2 + E_5077a1 rank-3). Each proof: `unfold algebraicRankV4 manuscriptRankV4`, then for every preceding curve in the case-split show inequality via `congrArg WeierstrassCurve.aᵢ` + `simp only [E_X, E_Y] at this` + `norm_num at this` (to close 1 = -1 over ℚ contradictions where simp can't close directly), then `rw [if_neg ..., if_pos rfl]`.
+
+* **Capstone**: `allSeventeenV4ReadingsKnown_axiom_free : AllSeventeenV4ReadingsKnown`. Bundles all 17 V4 readings axiom-free. Raises §2 count from 6/17 → **17/17**. Axioms: `[propext, Classical.choice, Quot.sound]` — kernel-only.
+
+* **Coq parity**: `PF_Coq_Code/PF/Wave58/MordellWeilRankAgreement17V4ReadingsCoq.v` mirrors the 17-tuple structure with the `allSeventeenV4ReadingsKnown_axiom_free` capstone. Per-curve inequality proofs live in Lean only; Coq side is structural-shape parity.
+
+### Bridge work investigations (parallel agents)
+
+Three parallel agents investigated Bridges 1, 2, 3 substantively. Findings recorded in `principia_bridge_work_2026-06-07.md` memory file:
+
+* **Bridge 1 (RH HP-program)**: DROPPED as a discharge target. Berry-Keating, Connes, Bost-Connes hypotheses are LITERALLY THE SAME Lean Prop (`Iff.rfl × 4`). Each unfolds to "enumeration of on-line ζ-zeros exists" = RH itself. Discharging any one = proving RH.
+* **Bridge 2 (Fujita-Kato NS)**: Most tractable substantive bridge. 7 existing files (~2400 lines) are substrate scaffolds. Path forward: dense-Schwartz minimalism. 5-7 months full-time mathlib-fluent / 18-24 months part-time / 9-15 months community.
+* **Bridge 3 (BSD LMFDB)**: Phase 1 cleanup landed today. Literal `MordellWeilRankIs` (i.e., `Module.rank ℤ E.toAffine.Point = n`) remains blocked on mathlib MW infrastructure.
+
+### Honest scope
+
+This is typed-residual cleanup. The `MordellWeilRankIs E n` residuals (literal `Module.rank` discharge) remain typed published-theorem hypotheses (Coates-Wiles, Gross-Zagier, Kolyvagin, BSZ 2014). mathlib lacks Mordell-Weil rank infrastructure; literal discharge is blocked.
+
+---
+
 ## 2026-06-07 (afternoon) — Honest-Scope Audit Pass + Textbook V2.3.0
 
 **HEAD**: `4382fab` on `origin/master`. Build state: `lake build PF` → **4180 jobs clean**, zero project axioms.
