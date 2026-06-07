@@ -169,4 +169,13 @@ PF/Wave58/HodgeAlgebraicRepresentationV2Coq.v
 PF/Wave58/BSDCapstoneTypedBridgeV2Coq.v
 PF/Wave58/YMContinuumWightmanV2Coq.v
 PF/Wave58/FrameworkUniversalReachCoq.v
+PF/Wave58/abcConjectureFrameworkAttackCoq.v
+PF/Wave58/ErdosDiscrepancyFrameworkAttackCoq.v
+PF/Wave58/ErdosStraussFrameworkAttackCoq.v
+PF/Wave58/LonelyRunnerFrameworkAttackCoq.v
+PF/Wave58/PolignacConjectureFrameworkAttackCoq.v
+PF/Wave58/OddPerfectNumberFrameworkAttackCoq.v
+PF/Wave58/SingmastersConjectureFrameworkAttackCoq.v
+PF/Wave58/CatalanGeneralizedFrameworkAttackCoq.v
+PF/Wave58/AndrewsCurtisFrameworkAttackCoq.v
 PF/Referee/RefereeIndex.v

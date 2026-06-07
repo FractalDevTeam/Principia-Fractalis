@@ -1165,12 +1165,17 @@ These are FUTURE-WORK PROPOSITIONS on the Lean side too.
   `PF/Wave58/FrameworkUniversalReachCoq.v` — structural-shape parity
   with the 17-field record (1 Clay Master + 16 non-Clay), `framework_reach_count`
   = 23, `framework_reach_decomposition` = 7 + 16. Per-attack Coq mirrors
-  exist for 7 of 16 non-Clay (Brocard, Hadwiger-Nelson, Goldbach,
-  Collatz, Twin Prime, Inverse Galois, Beal). The other 9 (abc, Erdős
-  discrepancy, Erdős-Straus, Lonely Runner, Polignac, odd perfect,
-  Singmaster, Pillai, Andrews-Curtis) are Lean-only at present;
-  tracked as Coq-side TODO. Added to `_CoqProject`. Build environment:
-  Rocq 9.1.0 (existing project standard).
+  exist for **ALL 16 of 16 non-Clay attacks** (catch-up completed
+  same day): abc, Beal, Brocard, Collatz, Erdős discrepancy,
+  Erdős-Straus, Goldbach, Hadwiger-Nelson, Inverse Galois, Lonely
+  Runner, Polignac, Twin Prime, Odd Perfect, Singmaster, Pillai
+  (Catalan generalized), Andrews-Curtis. The 9 newly-added files
+  (abc, Erdős discrepancy, Erdős-Straus, Lonely Runner, Polignac,
+  Odd Perfect, Singmaster, Pillai, Andrews-Curtis) follow the
+  existing Brocard/Hadwiger-Nelson pattern (literal conjecture
+  statement + alpha-bridge identities + capstone Record + honest-
+  scope marker). All 10 new files added to `_CoqProject`. Build
+  environment: Rocq 9.1.0 (existing project standard).
 * 2026-05-20 (3rd push) — Consciousness modules (Chern character +
   Millennium connection). See files:
   `PF_Coq_Code/PF/Consciousness/ChernCharacter.v` (new),
