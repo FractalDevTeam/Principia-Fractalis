@@ -1157,6 +1157,20 @@ These are FUTURE-WORK PROPOSITIONS on the Lean side too.
 
 ## Cycle history
 
+* **2026-06-07 — `FrameworkUniversalReachCoq.v` Wave 58 catch-up.**
+  Lean side at HEAD `c96531a` upgraded `framework_universal_reach_realized`
+  to wire all 16 non-Clay slots to their real `XxxFrameworkAttack`
+  capstones (closing the 14-Prop-:=-True dismissal vector identified
+  in the 2026-06-04 cross-reference audit). Coq mirror landed as
+  `PF/Wave58/FrameworkUniversalReachCoq.v` — structural-shape parity
+  with the 17-field record (1 Clay Master + 16 non-Clay), `framework_reach_count`
+  = 23, `framework_reach_decomposition` = 7 + 16. Per-attack Coq mirrors
+  exist for 7 of 16 non-Clay (Brocard, Hadwiger-Nelson, Goldbach,
+  Collatz, Twin Prime, Inverse Galois, Beal). The other 9 (abc, Erdős
+  discrepancy, Erdős-Straus, Lonely Runner, Polignac, odd perfect,
+  Singmaster, Pillai, Andrews-Curtis) are Lean-only at present;
+  tracked as Coq-side TODO. Added to `_CoqProject`. Build environment:
+  Rocq 9.1.0 (existing project standard).
 * 2026-05-20 (3rd push) — Consciousness modules (Chern character +
   Millennium connection). See files:
   `PF_Coq_Code/PF/Consciousness/ChernCharacter.v` (new),
