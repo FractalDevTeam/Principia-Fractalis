@@ -1,5 +1,32 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-07 (late evening) — Bridge 4 Phase 1: Hodge substrate discharge consolidation
+
+**HEAD**: `2c134f6`. Build state: `lake build PF` → **4182 jobs clean**, zero project axioms. Pushed to `FractalDevTeam/Principia-Fractalis`.
+
+### What landed
+
+* **`PF/AlgebraicGeometry/Bridge4_Hodge_SubstrateDischarge.lean`** (345 lines) — single citable consolidation of the substrate-level Voisin 2007 discharge that was already dispersed across `Hodge_ClayLiteralClosureAttempt`, `Voisin2007GeneralQuinticPrecision`, `HodgeAlgebraicRepresentationV4`, `Voisin2007PartialFormalization`. Mirrors Bridge 3's V4-readings consolidation pattern for the Hodge axis.
+
+* **Capstone**: `bridge4_hodge_substrate_discharge_capstone` — 6-conjunct bundle:
+  * (B4.1) `∀ X : GeneralSmoothQuintic, ¬ Voisin2007GeneralCodimTwoNonAlgebraic X` — universal axiom-free refutation across all five moduli loci.
+  * (B4.2) `Clay_Hodge_Standard PF_HodgeEncoding_FullGeneral` — substrate-level Clay closure.
+  * (B4.3) Gap iff isolated to typed Voisin obstruction Prop.
+  * (B4.4) `¬ HodgeV3_GenericNonCMQuintic_Residual` — V3 named residual refuted at substrate.
+  * R1+R2+R3 Voisin 2007 published-partial combined status.
+
+* **Five named-instance refutations** one per Voisin moduli locus: `bridge4_substrate_refutation_at_{fermat_quintic, dwork_pencil_generic, schoen_quintic, quintic121, generic_non_cm_quintic}`.
+
+### Bridge 6 (P vs NP): no-go finding
+
+Parallel substrate-discharge agent confirmed: the proposed α-rigidity discharge of `ClassP ≠ ClassNP` (exploiting α_P = √2 ≠ α_NP = φ + 1/4) is provably equivalent to deciding P vs NP itself. The framework's own meta-barrier theorem `alpha_realization_canonical_pair_iff_classes_distinct` proves any concrete α-realization on the canonical pair is biconditionally `ClassP ≠ ClassNP`. `alpha_of_class : Set Language → ℝ` is `opaque` at `Operators.lean:178`. Structural floor reached; no file landed (correct decision — avoids speculative writing).
+
+### Honest scope
+
+Bridge 4 = consolidation/citability, not new mathematics. The literal mathlib lift gap `LiftSubstrateToLiteralChowH22` — requiring (G1) higher-rank `H^{2,2}` model + (G2) literal Chow cycle-class map + (G3) surjectivity at codim 2 on generic non-CM smooth quintic outside Schoen+121+CM+Dwork pencil — is UNCHANGED. The literal geometric Voisin 2007 question remains Fields-medal-grade open.
+
+---
+
 ## 2026-06-07 (evening) — Bridge 3 Phase 1: V4-readings 6/17 → 17/17 axiom-free
 
 **HEAD**: `afa14d7` (Lean) + this commit (Coq parity). Build state: `lake build PF` → **4181 jobs clean**, zero project axioms.
