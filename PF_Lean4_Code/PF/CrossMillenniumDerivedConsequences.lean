@@ -228,6 +228,96 @@ theorem framework_alpha_values_match_rigidity :
     α_YM = 2 ∧ α_Poincare = 1 ∧ α_RH = 3 / 2 :=
   alpha_system_rigidity framework_alpha_system
 
+/-! ## §8 — Extended rigidity: 7 of 9 α-values forced by 11 invariants + positivity
+
+The basic `alpha_system_rigidity` forces α_YM, α_Poincaré, α_RH (3 of 9).
+With additional invariants from the canonical 11 and positivity
+hypotheses on the remaining values, the system forces SEVEN of the
+nine α-values. Only α_BSD and α_NS remain free (with α_NS = 2·α_BSD
+tying them together). -/
+
+/-- **Extended abstract α-system.** Adds invariants 1, 3, 4, 10 + 5
+    + positivity hypotheses on the values we'll force. -/
+structure ExtendedAbstractAlphaSystem extends AbstractAlphaSystem where
+  αP_pos     : 0 < αP
+  αHodge     : ℝ
+  αHodge_pos : 0 < αHodge
+  αNP        : ℝ
+  αQG_pos    : 0 < αQG
+  -- Invariant 1: α_P² = α_YM
+  inv_P_sq_eq_YM         : αP ^ 2 = αYM
+  -- Invariant 4: α_Hodge² = α_Hodge + 1
+  inv_Hodge_sq_eq_self_plus_one : αHodge ^ 2 = αHodge + 1
+  -- Invariant 10: α_NP − α_Hodge = 1/4
+  inv_NP_sub_Hodge_eq_quarter   : αNP - αHodge = 1/4
+
+/-- **★★ EXTENDED RIGIDITY THEOREM ★★** — the 11 invariants + the
+    positivity constraints force SEVEN of nine α-values:
+
+      α_Poincaré = 1
+      α_YM       = 2
+      α_RH       = 3/2
+      α_P        = √2
+      α_Hodge    = φ  (golden ratio (1 + √5)/2)
+      α_NP       = φ + 1/4
+      α_QG       = √(2π)
+
+    α_BSD and α_NS remain interdependent (α_NS = 2·α_BSD) but
+    individually free under just these invariants. -/
+theorem alpha_system_rigidity_extended (S : ExtendedAbstractAlphaSystem) :
+    S.αYM = 2 ∧ S.αPoincare = 1 ∧ S.αRH = 3 / 2 ∧
+    S.αP = Real.sqrt 2 ∧
+    S.αHodge = (1 + Real.sqrt 5) / 2 ∧
+    S.αNP = (1 + Real.sqrt 5) / 2 + 1/4 ∧
+    S.αQG = Real.sqrt (2 * Real.pi) := by
+  -- Reuse the basic rigidity for α_YM, α_Poincaré, α_RH.
+  obtain ⟨h_YM, h_Poincare, h_RH⟩ := alpha_system_rigidity S.toAbstractAlphaSystem
+  -- α_P: αP² = αYM = 2 and αP > 0 → αP = √2.
+  have h_P_sq : S.αP ^ 2 = 2 := by rw [S.inv_P_sq_eq_YM, h_YM]
+  have h_P : S.αP = Real.sqrt 2 := by
+    -- Take √ of both sides of αP² = 2. LHS √(αP²) = αP (since αP ≥ 0).
+    have h_sqrt_eq : Real.sqrt (S.αP ^ 2) = Real.sqrt 2 := by rw [h_P_sq]
+    rwa [Real.sqrt_sq (le_of_lt S.αP_pos)] at h_sqrt_eq
+  -- α_Hodge: αHodge² = αHodge + 1, αHodge > 0 → αHodge = (1 + √5)/2 = φ.
+  -- Quadratic x² − x − 1 = 0 has positive root (1 + √5)/2.
+  have h_sqrt5_sq : Real.sqrt 5 ^ 2 = 5 :=
+    Real.sq_sqrt (by norm_num : (0 : ℝ) ≤ 5)
+  have h_Hodge : S.αHodge = (1 + Real.sqrt 5) / 2 := by
+    -- Factor αHodge² − αHodge − 1 = (αHodge − (1+√5)/2)(αHodge − (1−√5)/2).
+    have h_eq : S.αHodge ^ 2 - S.αHodge - 1 = 0 := by
+      have := S.inv_Hodge_sq_eq_self_plus_one
+      linarith
+    have h_factor :
+        (S.αHodge - (1 + Real.sqrt 5) / 2) * (S.αHodge - (1 - Real.sqrt 5) / 2) =
+        S.αHodge ^ 2 - S.αHodge - 1 := by nlinarith [h_sqrt5_sq]
+    rw [← h_factor] at h_eq
+    rcases mul_eq_zero.mp h_eq with h1 | h2
+    · linarith
+    · -- αHodge = (1 − √5)/2 < 0 contradicts αHodge_pos.
+      exfalso
+      have h_neg : S.αHodge = (1 - Real.sqrt 5) / 2 := by linarith
+      -- Show √5 ≥ 2.
+      have h_sqrt5_ge : Real.sqrt 5 ≥ 2 := by
+        have h4_sq : (2 : ℝ) = Real.sqrt 4 := by
+          rw [show (4 : ℝ) = 2^2 by norm_num]
+          exact (Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 2)).symm
+        rw [h4_sq]
+        exact Real.sqrt_le_sqrt (by norm_num)
+      have h_pos : 0 < S.αHodge := S.αHodge_pos
+      rw [h_neg] at h_pos
+      linarith
+  -- α_NP: αNP − αHodge = 1/4 and αHodge = (1+√5)/2 → αNP = (1+√5)/2 + 1/4.
+  have h_NP : S.αNP = (1 + Real.sqrt 5) / 2 + 1/4 := by
+    have := S.inv_NP_sub_Hodge_eq_quarter
+    rw [h_Hodge] at this
+    linarith
+  -- α_QG: αQG² = 2π and αQG > 0 → αQG = √(2π).
+  have h_QG : S.αQG = Real.sqrt (2 * Real.pi) := by
+    have h_sqrt_eq : Real.sqrt (S.αQG ^ 2) = Real.sqrt (2 * Real.pi) := by
+      rw [S.inv_QG_sq_eq_2pi]
+    rwa [Real.sqrt_sq (le_of_lt S.αQG_pos)] at h_sqrt_eq
+  exact ⟨h_YM, h_Poincare, h_RH, h_P, h_Hodge, h_NP, h_QG⟩
+
 #check @αYM_eq_two_from_NS_relations
 #check @αRH_eq_three_halves_from_RH_NS_relations
 #check @αP_sq_eq_αPoincare_plus_one
@@ -237,6 +327,8 @@ theorem framework_alpha_values_match_rigidity :
 #check @AbstractAlphaSystem
 #check @alpha_system_rigidity
 #check @framework_alpha_system
+#check @ExtendedAbstractAlphaSystem
+#check @alpha_system_rigidity_extended
 #check @framework_alpha_values_match_rigidity
 
 end PF.CrossMillenniumDerivedConsequences
