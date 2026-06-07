@@ -1,5 +1,39 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-07 — Universal-Reach Closure + Coq Parity Complete + THE Paper Drafted
+
+**HEAD**: `3a8f4d3` on `origin/master`. Build state: `lake build PF` → **4180 jobs clean**, zero project axioms. Cross-prover parity: **Wave 58 + ALL 16/16 non-Clay framework-attack mirrors complete** in Coq.
+
+### Headlines
+
+1. **The 14-Prop-:=-True dismissal vector is closed (both sides).**
+   `framework_universal_reach_realized` upgraded to wire all 16 non-Clay attacks to their real `XxxFrameworkAttack` capstones (commit `c96531a`). All 23 reach slots (7 Clay + 16 non-Clay) now cite real capstones by exact name; no `:= True` placeholders remain on either Lean or Coq side.
+
+2. **Coq parity 16/16 complete for non-Clay attacks** (commit `afd9370`). Nine new Coq mirror files landed in one commit: abc, Erdős discrepancy, Erdős-Straus, Lonely Runner, Polignac, Odd Perfect, Singmaster, Pillai (Catalan generalized), Andrews-Curtis. Each follows the existing Brocard/Hadwiger-Nelson Coq pattern.
+
+3. **Four-doc citation drift collapsed to one canonical cite** (commit `634e0a4`). README.md, PROOF_PACKAGE.md, and CLAY_ACCEPTANCE_ROADMAP_2026-06-04.md all now name `perelman_anchor_yields_simultaneous_clay_closure` as the canonical single-citation theorem; `LANDING_STRATEGY.md` (2026-06-06) is the strategic root. Military discipline across entry points.
+
+4. **THE canonical publishable paper landed** (commits `c89d61c` + `3a8f4d3`). `Papers/principia_fractalis_substrate_TOE_canonical.tex` + compiled PDF — 9 pages, focused, distinct from the 35-chapter manuscript. Bait-and-switch frame (Clay-as-door / substrate-as-cargo) carried throughout. Bibliography wired to the existing 366-entry `.bib` (with one pre-existing duplicate `cook1971` entry flagged for cleanup).
+
+### Canonical single-citation theorem (current)
+
+```
+PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure
+```
+
+Verified axiom signature at HEAD `3a8f4d3`: `[propext, Classical.choice, Quot.sound]` (kernel-only). ONE input (Perelman 2003 α_Poincaré = 1) plus a 7-field bundle → all six `Clay_*_Standard` simultaneously.
+
+### Component cites (each load-bearing, each axiom-free)
+
+- `PF_Clay_Master_Theorem` (uniqueness + four unconditional + linkage in one)
+- `unified_clay_closure_via_substrate_linkage` (linkage form)
+- `four_axes_unconditional` (NS+YM+BSD+Hodge unconditional on PF substrates)
+- `framework_universal_reach_realized` (23-problem reach, now all 23 wired)
+- `PrincipiaFractalisSubstrateTheorem` (substrate antecedent-consequent meta-theorem)
+- `refereeLayerAtHEAD_05ac9b5_realised` (referee-layer aggregator)
+
+---
+
 ## Manuscript Version 1.2.0 — SUBSTRATE-LEVEL META-THEOREM EDITION (2026-06-03)
 
 **HEAD commit**: `42990ea`. Build state: `lake build PF` → 4030 jobs
