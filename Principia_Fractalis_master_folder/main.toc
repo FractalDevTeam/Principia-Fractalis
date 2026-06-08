@@ -1,14 +1,14 @@
 \contentsline {chapter}{Version History}{v}{chapter*.1}%
-\contentsline {chapter}{Prologue}{xviii}{chapter*.2}%
-\contentsline {chapter}{Prologue}{xix}{chapter*.3}%
-\contentsline {chapter}{Preface}{xxiii}{chapter*.4}%
-\contentsline {chapter}{Preface}{xxiv}{chapter*.5}%
-\contentsline {chapter}{How to Use This Book}{xxviii}{chapter*.6}%
-\contentsline {chapter}{How to Use This Book}{xxix}{chapter*.7}%
-\contentsline {chapter}{Notation and Conventions}{xxxviii}{chapter*.8}%
-\contentsline {chapter}{Notation and Conventions}{xxxix}{chapter*.9}%
-\contentsline {chapter}{Acknowledgments}{xlvii}{chapter*.10}%
-\contentsline {chapter}{Acknowledgments}{xlviii}{chapter*.11}%
+\contentsline {chapter}{Prologue}{xix}{chapter*.2}%
+\contentsline {chapter}{Prologue}{xx}{chapter*.3}%
+\contentsline {chapter}{Preface}{xxiv}{chapter*.4}%
+\contentsline {chapter}{Preface}{xxv}{chapter*.5}%
+\contentsline {chapter}{How to Use This Book}{xxix}{chapter*.6}%
+\contentsline {chapter}{How to Use This Book}{xxx}{chapter*.7}%
+\contentsline {chapter}{Notation and Conventions}{xxxix}{chapter*.8}%
+\contentsline {chapter}{Notation and Conventions}{xl}{chapter*.9}%
+\contentsline {chapter}{Acknowledgments}{xlviii}{chapter*.10}%
+\contentsline {chapter}{Acknowledgments}{xlix}{chapter*.11}%
 \contentsline {part}{I\hspace {1em}Foundations}{1}{part.1}%
 \contentsline {chapter}{\numberline {1}Numbers and Base-3 Arithmetic}{2}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Counting Systems Throughout History}{2}{section.1.1}%
@@ -1351,7 +1351,7 @@
 \contentsline {paragraph}{Repository governance.}{720}{section.Alph0.104}%
 \contentsline {chapter}{Glossary}{721}{appendix*.31}%
 \contentsline {chapter}{Glossary}{722}{appendix*.32}%
-\contentsline {chapter}{About the Author}{751}{appendix*.34}%
-\contentsline {chapter}{About the Author}{752}{appendix*.35}%
-\contentsline {chapter}{Epilogue}{757}{appendix*.36}%
-\contentsline {chapter}{Epilogue}{758}{appendix*.37}%
+\contentsline {chapter}{About the Author}{727}{appendix*.33}%
+\contentsline {chapter}{About the Author}{728}{appendix*.34}%
+\contentsline {chapter}{Epilogue}{733}{appendix*.35}%
+\contentsline {chapter}{Epilogue}{734}{appendix*.36}%
