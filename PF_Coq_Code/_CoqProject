@@ -183,4 +183,5 @@ PF/Wave58/Bridge1_RH_SubstrateDischargeCoq.v
 PF/Wave58/Bridge2_NS_FujitaKato1964SubstrateDischargeCoq.v
 PF/Wave58/Bridge4_Hodge_SubstrateDischargeCoq.v
 PF/Wave58/Bridge5_YM_SU2_SubstrateDischargeCoq.v
+PF/Wave58/HeadlineEncodingUpgrade2026_06_07Coq.v
 PF/Referee/RefereeIndex.v
