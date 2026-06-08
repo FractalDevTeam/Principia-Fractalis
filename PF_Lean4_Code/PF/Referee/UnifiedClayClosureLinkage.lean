@@ -46,6 +46,8 @@ import PF.Referee.BSDCapstoneTypedBridge
 import PF.Referee.HodgeCapstoneTypedBridge
 import PF.Referee.StandardClayStatements
 import PF.SpectralBijection
+import PF.YangMills.Bridge5_YM_SubstrateDischarge
+import PF.NavierStokes.NSPDETypedUpgradeV2
 
 namespace PF.Referee.UnifiedClayClosureLinkage
 
@@ -126,9 +128,9 @@ theorem unified_clay_closure_via_substrate_linkage (h : ClayClosureBundle) :
     PF.Referee.StandardClayStatements.Clay_PvsNP_Standard
       PF.Referee.PNPCapstoneTypedBridge.PF_ComplexityEncoding ∧
     PF.Referee.StandardClayStatements.Clay_NavierStokes_Standard
-      PF.Referee.NSCapstoneTypedBridge.PF_NS3DEncoding ∧
+      PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 ∧
     PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
-      PF.Referee.YMCapstoneTypedBridge.PF_YMEncoding ∧
+      PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
     PF.Referee.StandardClayStatements.Clay_BSD_Standard
       PF.Referee.BSDCapstoneTypedBridge.PF_BSDEncoding ∧
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard
@@ -140,10 +142,14 @@ theorem unified_clay_closure_via_substrate_linkage (h : ClayClosureBundle) :
   · -- P vs NP: polylog conjecture → Clay_PvsNP_Standard
     exact PF.Referee.PNPCapstoneTypedBridge.PF_PNP_capstone_yields_Clay_PvsNP_standard
       h.pvsnp_polylog
-  · -- NS: unconditional
-    exact PF.Referee.NSCapstoneTypedBridge.PF_NS_capstone_yields_Clay_NavierStokes_standard
-  · -- YM: unconditional
-    exact PF.Referee.YMCapstoneTypedBridge.PF_YM_capstone_yields_Clay_YangMills_standard
+  · -- NS (UPGRADED to V2): hasGlobalSmoothSolution u0 now includes
+    -- a per-u0 spacetime-lift existence conjunct (∃ u : ℝ → SchwartzMap,
+    -- u 0 = u0.velocity) in addition to the four mathlib-gap conjuncts.
+    -- Discharged via the constant-in-time witness fun _ => u0.velocity.
+    exact PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS_capstone_yields_Clay_NavierStokes_standard_V2
+  · -- YM (UPGRADED to Bridge5 SU(2)): unconditional. GaugeGroup is now
+    -- mathlib's Matrix.specialUnitaryGroup (Fin 2) ℂ, not Unit.
+    exact PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate
   · -- BSD: unconditional
     exact PF.Referee.BSDCapstoneTypedBridge.PF_BSD_capstone_yields_Clay_BSD_standard
   · -- Hodge: unconditional
@@ -159,15 +165,15 @@ theorem unified_clay_closure_via_substrate_linkage (h : ClayClosureBundle) :
     residuals. -/
 theorem four_axes_unconditional :
     PF.Referee.StandardClayStatements.Clay_NavierStokes_Standard
-      PF.Referee.NSCapstoneTypedBridge.PF_NS3DEncoding ∧
+      PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 ∧
     PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
-      PF.Referee.YMCapstoneTypedBridge.PF_YMEncoding ∧
+      PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
     PF.Referee.StandardClayStatements.Clay_BSD_Standard
       PF.Referee.BSDCapstoneTypedBridge.PF_BSDEncoding ∧
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard
       PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding :=
-  ⟨ PF.Referee.NSCapstoneTypedBridge.PF_NS_capstone_yields_Clay_NavierStokes_standard
-  , PF.Referee.YMCapstoneTypedBridge.PF_YM_capstone_yields_Clay_YangMills_standard
+  ⟨ PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS_capstone_yields_Clay_NavierStokes_standard_V2
+  , PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate
   , PF.Referee.BSDCapstoneTypedBridge.PF_BSD_capstone_yields_Clay_BSD_standard
   , PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_capstone_yields_Clay_Hodge_standard ⟩
 
