@@ -1,0 +1,150 @@
+\documentclass[11pt,letterpaper,openany]{book}
+
+\input{preamble}
+
+\begin{document}
+
+% Front Matter
+\frontmatter
+
+% Title and Copyright
+\input{frontmatter/title}
+\input{frontmatter/copyright}
+\input{frontmatter/version_history}
+
+% Revision 2 formalization status
+\input{frontmatter/rev2_formalization_status}
+
+% Revision 1 (June 2, 2026): Referee-Ready Edition status
+\input{frontmatter/rev3_referee_layer_status}
+
+% Prologue and Preface
+\chapter*{Prologue: The Ocean and the Snowflake}
+\addcontentsline{toc}{chapter}{Prologue}
+\input{frontmatter/prologue}
+
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+\input{frontmatter/preface}
+
+% How to Use This Book
+\chapter*{How to Use This Book}
+\addcontentsline{toc}{chapter}{How to Use This Book}
+\input{frontmatter/howto}
+
+% Notation and Conventions
+\chapter*{Notation and Conventions}
+\addcontentsline{toc}{chapter}{Notation and Conventions}
+\input{frontmatter/notation}
+
+% Per-Millennium alpha-Dictionary
+\input{frontmatter/alpha_dictionary}
+
+% Acknowledgments
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+\input{frontmatter/acknowledgments}
+
+% Tables of Contents
+\tableofcontents
+\listoffigures
+\listoftables
+
+% Main Content
+\mainmatter
+
+% PART I: FOUNDATIONS
+\part{Foundations}
+\input{chapters/ch01_numbers}
+\input{chapters/ch02_complex}
+\input{chapters/ch03_resonance}
+\input{chapters/ch04_timeless_field}
+\input{chapters/ch05_peixoto}
+\input{chapters/ch06_consciousness}
+\input{chapters/ch07_constants}
+
+% PART II: FIELD EQUATIONS
+\part{Field Equations}
+\input{chapters/ch08_field_equations}
+\input{chapters/ch09_spectral_unity}
+\input{chapters/ch10_hydrodynamic}
+\input{chapters/ch11_geometric_unity}
+\input{chapters/ch12_qft_consciousness}
+\input{chapters/ch13_solutions_dynamics}
+\input{chapters/ch14_symmetries_conservation}
+\input{chapters/ch15_computational_methods}
+
+% PART III: SPECTRAL THEORY
+\part{Spectral Theory}
+\input{chapters/ch16_spectral_foundations}
+\input{chapters/ch17_operator_theory}
+\input{chapters/ch18_spectral_measures}
+\input{chapters/ch19_physical_applications}
+
+% PART IV: MILLENNIUM PROBLEMS
+\part{Millennium Problems}
+\input{chapters/ch20_riemann_hypothesis}
+\input{chapters/ch21_p_vs_np}
+\input{chapters/ch22_navier_stokes}
+\input{chapters/ch23_yang_mills}
+\input{chapters/ch24_birch_swinnerton_dyer}
+\input{chapters/ch25_hodge_conjecture}
+
+% PART V: COSMOLOGY
+\part{Cosmology}
+\input{chapters/ch26_cosmological_constant}
+\input{chapters/ch27_dark_energy_expansion}
+\input{chapters/ch28_early_universe}
+\input{chapters/ch29_observational_tests}
+
+% PART VI: CONSCIOUSNESS
+\part{Consciousness}
+\input{chapters/ch30_clinical_consciousness}
+\input{chapters/ch31_neuroscience_iit}
+\input{chapters/ch32_consciousness_quantification}
+
+% PART VII: COMPUTATION
+\part{Computation}
+\input{chapters/ch33_numerical_methods}
+\input{chapters/ch34_verification}
+\input{chapters/ch35_software}
+
+% Back Matter
+\backmatter
+
+% Appendices
+\appendix
+\input{backmatter/appendix_lexicon}
+\input{appendices/appA_zeros}
+\input{appendices/appB_brst}
+\input{appendices/appC_clinical}
+\input{appendices/appD_software}
+\input{appendices/appE_weinstein}
+\input{appendices/appF_solutions}
+\input{appendices/appG_notation}
+\input{appendices/appendix_grothendieck}
+\input{appendices/appH_numerical_validation}
+
+% Glossary
+\chapter*{Glossary}
+\addcontentsline{toc}{chapter}{Glossary}
+\input{backmatter/glossary}
+
+% Bibliography
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+% Index
+\printindex
+
+% About the Author
+\chapter*{About the Author}
+\addcontentsline{toc}{chapter}{About the Author}
+\input{backmatter/author}
+
+% Epilogue
+\chapter*{Epilogue: The Ocean Still Calls}
+\addcontentsline{toc}{chapter}{Epilogue}
+\input{backmatter/epilogue}
+
+\end{document}

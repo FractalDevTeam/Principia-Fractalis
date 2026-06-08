@@ -1,0 +1,65 @@
+\chapter*{The Per-Millennium $\alpha$-Dictionary}
+\addcontentsline{toc}{chapter}{The Per-Millennium $\alpha$-Dictionary}
+\label{ch:alpha-dictionary}
+
+The Fractal Resonance Function
+\begin{equation}\label{eq:alpha-dict-Rf-def}
+\mathcal{R}_f(\alpha, s) \;=\; \sum_{n=1}^{\infty} \frac{e^{i\pi\alpha\, D(n)}}{n^{s}}
+\end{equation}
+introduced in Chapter~\ref{ch:resonance} (where $D(n)$ is the base-$3$ digital sum of $n$) is parameterised by a real number $\alpha$. Each of the millennium-problem chapters in Part~IV fixes $\alpha$ to a specific canonical value at which the corresponding spectral operator acquires the spectral or self-adjointness property required by the chapter's main theorem. The values are not interchangeable: each represents the unique point at which one specific physical or mathematical structure crystallises out of the resonance.
+
+This appendix establishes the canonical convention used throughout the rev~2 manuscript and the Lean~4, Coq, and Lean4Lean formalizations. Where a supplementary file uses a different value (the Hodge supplementary proof attempt at \texttt{Evidence\_and\_Data\_for\_GitHub/Hodge\_Conjecture\_Proofs/hodge\_complete\_1800\_lines.md} uses $\alpha = \pi/2$ rather than the canonical $\alpha = \varphi$), the divergence is documented in the relevant chapter's verification-status remark and is to be reconciled in the next supplementary-file revision pass.
+
+\section*{Canonical $\alpha$-values per millennium problem}
+
+\renewcommand{\arraystretch}{1.3}
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Chapter} & \textbf{Problem} & \textbf{Canonical $\alpha$} & \textbf{Numerical value} \\
+\midrule
+\ref{ch:riemann-hypothesis} & Riemann Hypothesis & $\alpha_{\mathrm{RH}} = 3/2$ & $1.500000\ldots$ \\
+\ref{ch:p-vs-np} & P vs NP (P side) & $\alpha_P = \sqrt{2}$ & $1.414213\ldots$ \\
+\ref{ch:p-vs-np} & P vs NP (NP side) & $\alpha_{NP} = \varphi + \tfrac{1}{4}$ & $1.868034\ldots$ \\
+\ref{ch:navier-stokes} & Navier--Stokes & $\alpha_{\mathrm{NS}} = 3\pi/2$ & $4.712389\ldots$ \\
+\ref{ch:yang-mills} & Yang--Mills & $\alpha_{\mathrm{YM}} = 2$ & $2.000000\ldots$ \\
+\ref{ch:birch-swinnerton-dyer} & Birch--Swinnerton-Dyer & $\alpha_{\mathrm{BSD}} = 3\pi/4$ & $2.356194\ldots$ \\
+\ref{ch:hodge-conjecture} & Hodge Conjecture & $\alpha_{\mathrm{Hodge}} = \varphi = \tfrac{1+\sqrt 5}{2}$ & $1.618034\ldots$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Per-chapter binding}
+
+Each chapter's main theorem fixes $\alpha$ to its canonical value at the point of operator definition. The following references are authoritative:
+
+\begin{itemize}
+\item \textbf{Ch~\ref{ch:riemann-hypothesis} (RH)}: $\alpha_{\mathrm{RH}} = 3/2$ binds at the resonance setup of the chapter and at the spectral-bijection theorem.
+
+\item \textbf{Ch~\ref{ch:p-vs-np} (P vs NP)}: $\alpha_P = \sqrt 2$ for the P-class spectral operator $H_P$; $\alpha_{NP} = \varphi + 1/4$ for the NP-class spectral operator $H_{NP}$. The phase-sum self-adjointness condition (Chapter~\ref{ch:p-vs-np}, generating-function derivation in equation~\eqref{eq:gen-fn-finite}) holds at exactly these two parameter values among the spectrum-relevant $(1, 2)$ interval.
+
+\item \textbf{Ch~\ref{ch:navier-stokes} (NS)}: $\alpha_{\mathrm{NS}} = 3\pi/2$ at the chapter introduction binds the helicity / vortex-emergence resonance angle. In the post-rev-2 fractal-cascade derivation (Theorem~\ref{thm:topological-stability}), the Reynolds-number-dependent damping bound is independent of $\alpha$ at leading order; the canonical value $3\pi/2$ enters when computing the spectral concentration that drives the no-blowup chain. The earlier rev~2 expressions $\alpha = 3 - d_H$ (line~$\sim 175$) and $\alpha = \sqrt 2$ (line~$\sim 585$) are subsidiary parameter labels for the helicity-Hausdorff and flatness-plateau analyses respectively, and are not to be confused with the canonical resonance parameter $\alpha_{\mathrm{NS}}$ above; this is a notational distinction tightened in the rev~3 cycle (REVISION\_GUIDE.md, ``Ch~22 internal $\alpha$ multiplicity'').
+
+\item \textbf{Ch~\ref{ch:yang-mills} (YM)}: $\alpha_{\mathrm{YM}} = 2$ at the gauge-duality resonance; the operator $\mathcal{T}_E$ on the resonance L-function reduces to the Yang--Mills mass-gap calculation of Theorem~\ref{thm:mass-gap-ym} at this value. The mass gap formula
+\(
+\Delta_{\mathrm{fYM}} = \Lambda_{\mathrm{QCD}} \cdot \omega_c
+\)
+of the post-rev-2 edition (commit~\texttt{db98d2c}) is independent of $\alpha$ once the operator is fixed to $\alpha = 2$.
+
+\item \textbf{Ch~\ref{ch:birch-swinnerton-dyer} (BSD)}: $\alpha_{\mathrm{BSD}} = 3\pi/4$ at the spectral-operator definition $\widetilde{\mathcal{T}}_E$ on $L^2(\mathbb{R}_+^\times, dx/x)$ (Definition~\ref{def:spectral-operator-bsd}, Theorem~\ref{thm:self-adjoint-bsd}). At $\alpha = 3\pi/4$, the spectral measure of $\widetilde{\mathcal{T}}_E$ concentrates at $\varphi/e$, with multiplicity equal to $\rank E(\mathbb{Q})$ (Conjecture~\ref{conj:rank-equality-fractal}).
+
+\item \textbf{Ch~\ref{ch:hodge-conjecture} (Hodge)}: $\alpha_{\mathrm{Hodge}} = \varphi$ at the operator $\mathcal{R}_\varphi$ (Theorem~\ref{thm:hodge-concentration}). The supplementary 2492-line proof attempt at \texttt{Evidence\_and\_Data\_for\_GitHub/Hodge\_Conjecture\_Proofs/hodge\_complete\_1800\_lines.md} (line~335) uses $\alpha = \pi/2$ for the same nominal operator; this is a divergent supplementary-file convention pending reconciliation (Remark~\ref{rem:alpha-dictionary-status}). The canonical convention for the published manuscript and all formalisations is $\alpha = \varphi$.
+\end{itemize}
+
+\section*{Cross-reference protocol}
+
+When a chapter or supplementary file introduces an operator parameterised by $\alpha$, it must state the canonical value at the point of definition and reference this dictionary. The Lean~4 source (\texttt{PF\_Lean4\_Code/PF/Constants.lean}, when added) and Coq source (\texttt{PF\_Coq/theories/Constants.v}) are to expose the canonical $\alpha$-values as named constants matching the table above.
+
+\section*{Status}
+
+The dictionary above is canonical for rev~2 with the post-V01 corrections (commit history through \texttt{b66fc45}, 2026-04-27). Open reconciliation items:
+\begin{enumerate}
+\item Ch~22 (NS): tighten internal use of $\alpha$ across helicity, flatness, and resonance contexts; the canonical $\alpha_{\mathrm{NS}} = 3\pi/2$ should be the primary reference, with subsidiary parameters renamed (e.g., $\beta_{\mathrm{NS}}$, $\gamma_{\mathrm{NS}}$) where they currently shadow the symbol $\alpha$. Tracked as a separate task in REVISION\_GUIDE.md.
+\item Hodge supplementary: align \texttt{hodge\_complete\_1800\_lines.md} either by changing its operator to $\alpha = \varphi$, or by re-labelling its operator $\mathcal{R}_{\pi/2}$ (a distinct construction) with appropriate documentation.
+\item Universal $\pi/10$ factor (separate task in \texttt{REVISION\_GUIDE.md}): the recurrences of $\pi/10$ across Ch~21, Ch~22, and the historical Ch~23 statement (now retired in commit~\texttt{db98d2c}) are not all on the same dimensional footing and are not part of this $\alpha$-dictionary; see Theorem~\ref{thm:universal-factor} (Ch~23) and Remark~\ref{rem:universality-status}.
+\end{enumerate}
