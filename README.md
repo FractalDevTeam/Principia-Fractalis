@@ -204,19 +204,19 @@ Four canonical folders + standard repo + governance + archive:
 | [`CHANGELOG.md`](CHANGELOG.md) | Release history. |
 | [`LICENSE`](LICENSE) | Non-Commercial Research License. |
 | [`CITATION.cff`](CITATION.cff) | Citation metadata. |
-| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines. |
-| [`SECURITY.md`](SECURITY.md) | Security policy. |
-| [`SUPPORT.md`](SUPPORT.md) | Support channels. |
+| [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md) | Contribution guidelines. |
+| [`.github/SECURITY.md`](.github/SECURITY.md) | Security policy. |
+| [`.github/SUPPORT.md`](.github/SUPPORT.md) | Support channels. |
 
 ### Governance + current usable docs
 
 | Path | Role |
 |---|---|
-| [`PUBLISHING_GATE.md`](PUBLISHING_GATE.md) | Publishing-decision rule (Pabs-vetted multi-model stress-test required). |
-| [`FRAMEWORK_FIRST.md`](FRAMEWORK_FIRST.md) | Anti-fragmentation rule: framework is the headline, Clay axes are downstream. |
-| [`SESSION_START_PROTOCOL.md`](SESSION_START_PROTOCOL.md) | Mandatory verification gate before claiming anything is "ready". |
-| [`REFEREE_QUICKSTART.md`](REFEREE_QUICKSTART.md) | 10-minute independent-verification guide. |
-| [`CLAY_PER_AXIS_CITATION_CARDS.md`](CLAY_PER_AXIS_CITATION_CARDS.md) | Per-Clay-axis citation card with exact Lean theorem names and reproducible verify commands. |
+| [`docs/REFEREE_QUICKSTART.md`](docs/REFEREE_QUICKSTART.md) | 10-minute independent-verification guide. |
+| [`docs/CLAY_PER_AXIS_CITATION_CARDS.md`](docs/CLAY_PER_AXIS_CITATION_CARDS.md) | Per-Clay-axis citation card with exact Lean theorem names and reproducible verify commands. |
+| [`docs/governance/PUBLISHING_GATE.md`](docs/governance/PUBLISHING_GATE.md) | Publishing-decision rule (multi-model stress-test required before external release). |
+| [`docs/governance/FRAMEWORK_FIRST.md`](docs/governance/FRAMEWORK_FIRST.md) | Anti-fragmentation rule: framework is the headline, Clay axes are downstream. |
+| [`docs/governance/SESSION_START_PROTOCOL.md`](docs/governance/SESSION_START_PROTOCOL.md) | Mandatory verification gate before claiming anything is "ready". |
 
 ### Archive
 
@@ -280,7 +280,7 @@ See [`CITATION.cff`](CITATION.cff) for machine-readable metadata.
 - Academia.edu: [Pablo Cohen @ Berklee](https://berklee.academia.edu/PabloCohen)
 - GitHub issues: for mathematical questions and bug reports
 
-This work represents years of independent research with **zero institutional funding**. See [`SUPPORT.md`](SUPPORT.md) for ways to support continued work.
+This work represents years of independent research with **zero institutional funding**. See [`.github/SUPPORT.md`](.github/SUPPORT.md) for ways to support continued work.
 
 ---
 
