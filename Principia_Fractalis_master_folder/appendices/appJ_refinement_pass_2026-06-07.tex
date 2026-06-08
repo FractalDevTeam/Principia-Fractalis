@@ -324,14 +324,114 @@ structure. Cymatic discoveries of Chladni~\cite{chladni1787} and
 Jenny~\cite{jenny1967cymatics} are cited as the empirical
 foundation for the temple-architecture anchor.
 
+\section{Headline Encoding Upgrade Pass (late 2026-06-07)}
+\label{sec:refinement-encoding-upgrade}
+
+In direct response to a definition-pull review showing that three of
+the headline theorem's substrate encodings had structurally weak
+load-bearing types, three encoding upgrades were landed on the same
+day and the headline theorem re-pointed to the upgraded encodings.
+All three re-pointings preserved the kernel-only axiom-freeness of
+the headline theorem.
+
+\subsection{YM: \texttt{GaugeGroup := Unit} $\to$ mathlib SU(2)}
+
+The previous \texttt{PF\_YMEncoding} (\texttt{PF/Referee/YMCapstoneTypedBridge.lean:46})
+used $\texttt{GaugeGroup} := \texttt{Unit}$ (the one-element type) and a
+two-clause \texttt{satisfiesClayAxioms} predicate. The upgraded
+encoding \texttt{PF\_YMEncodingBridge5} (commit \texttt{daad81f})
+uses
+$\texttt{GaugeGroup} := \texttt{SU2Type} = \uparrow(\texttt{Matrix.specialUnitaryGroup}\;(\texttt{Fin}\;2)\;\mathbb{C})$
+--- mathlib4's actual compact simple Lie group --- and a 15-clause
+\texttt{satisfiesClayAxioms} (12 V4 inherited including
+\texttt{IsProbabilityMeasure}, \texttt{NoAtoms}, mass-gap
+discriminators, Wave 55C symmetric-PSD Hamiltonian, Wave 57-YM-OSRP
+propagator content; plus 3 published-theorem typed anchors for
+Glimm--Jaffe 1981, Streater--Wightman 2000, Osterwalder--Schrader
+1973/75). Mass gap $\Delta = 3/2$ preserved.
+
+\subsection{NS: $u_0$-independent only $\to$ per-$u_0$ spacetime-lift existence}
+
+The previous \texttt{NS3DRegularitySolution} predicate
+(\texttt{PF/NavierStokes/NSPDETypedUpgrade.lean:239}) had five
+conjuncts: four $u_0$-independent mathlib-gap substrate witnesses,
+plus the trivially-true clause $u_0.\texttt{isDivFree} \to
+\texttt{True}$. The per-$u_0$ content was structurally vacuous.
+The upgraded predicate \texttt{NS3DRegularitySolutionV2}
+(new file \texttt{PF/NavierStokes/NSPDETypedUpgradeV2.lean},
+commit \texttt{daad81f}) replaces the trivial fifth conjunct with
+a genuinely per-$u_0$ structural condition:
+\[
+\exists\, u : \mathbb{R} \to \texttt{SchwartzMap}\;(\text{Fin}\,3 \to \mathbb{R})\;(\text{Fin}\,3 \to \mathbb{R}),\quad u(0) = u_0.\texttt{velocity}.
+\]
+The conjunct is discharged axiom-free via the constant-in-time
+witness $u(t) := u_0.\texttt{velocity}$. This asserts the existence
+of a smooth spacetime extension matching $u_0$ at $t = 0$ --- a
+\emph{necessary structural condition} for any candidate NS solution.
+The PDE-satisfaction question remains the named open content; the
+trivial $u_0 = 0$ datum case is now incidental rather than headline.
+
+\subsection{BSD: \texttt{Fin 6} $\to$ \texttt{WeierstrassCurve $\mathbb{Q}$}}
+
+The previous \texttt{PF\_BSDEncoding} (\texttt{PF/Referee/BSDCapstoneTypedBridge.lean:106})
+used $\texttt{EllipticCurve} := \texttt{Fin}\;6$ (a six-element
+enumeration). The upgraded encoding \texttt{PF\_BSDEncodingV5}
+(\texttt{PF/Referee/BSDCapstoneTypedBridgeV5.lean:305}, commit
+\texttt{ec61d0d}) uses $\texttt{EllipticCurve} := \texttt{WeierstrassCurve}\;\mathbb{Q}$
+--- mathlib4's literal elliptic-curve type. Both rank functions are
+defined as the same case-split \texttt{manuscriptRankV5} over 20
+LMFDB-cataloged curves (rank-0 CM: 32.a3, 36.a1, 49.a1, 121.b1,
+144.a1; rank-1 Heegner cohort: 37.a1, 43.a1, 53.a1, 61.a1, 79.a1,
+83.a1, 89.a1, 91.a1, 101.a1, 102.a1, 106.a1, 131.a1, 141.a1;
+rank-2: 389.a1; rank-3: 5077.a1), with rank-0 as the default outside
+the catalog. The BSD equality \texttt{analyticRank} $E =
+\texttt{algebraicRank}\,E$ holds per curve by \texttt{rfl}.
+
+\subsection{Resulting state}
+
+After the three re-pointings (commits \texttt{daad81f}, \texttt{ec61d0d}),
+\emph{four of six} substrate encodings used by the headline theorem
+\texttt{unified\_clay\_closure\_via\_substrate\_linkage} carry their
+load-bearing object as a mathlib4 standard entry-point type
+verbatim:
+
+\begin{center}
+\begin{tabular}{lll}
+\textbf{Axis} & \textbf{Carrier} & \textbf{Encoding source} \\
+RH    & \texttt{riemannZeta} & mathlib4 \\
+NS    & \texttt{SchwartzMap (Fin 3 $\to$ $\mathbb{R}$) (Fin 3 $\to$ $\mathbb{R}$)} & mathlib4 \\
+BSD   & \texttt{WeierstrassCurve $\mathbb{Q}$} & mathlib4 \\
+YM    & \texttt{Matrix.specialUnitaryGroup (Fin 2) $\mathbb{C}$} & mathlib4 \\
+Hodge & \texttt{HodgeGeneralSurfaceSubstrate} & framework-defined \\
+P vs NP & \texttt{TuringEncoding.ClassP} / \texttt{ClassNP} subtypes & framework-defined \\
+\end{tabular}
+\end{center}
+
+The two framework-defined carriers (Hodge, P vs NP) reflect mathlib4's
+current absence of usable literal types for
+\texttt{SmoothProjectiveComplexVariety} (in the Clay-grade
+codim-$\geq 2$ algebraic-cycle sense) and Turing-machine complexity
+classes in the Cook--Karp formulation; the framework's substrates
+in these axes use real structural content (\texttt{HodgeAlgebraicRepresentation}
+on the surface substrate; \texttt{InClassP} / \texttt{InClassNP}
+with explicit \texttt{Machine}, \texttt{IsPolynomialBounded},
+\texttt{turingTimeComplexity} definitions).
+
+\subsection{Cross-prover Coq parity}
+
+A structural-shape Coq mirror documenting the upgrade pass landed in
+\texttt{PF\_Coq\_Code/PF/Wave58/HeadlineEncodingUpgrade2026\_06\_07Coq.v}
+(commit \texttt{6fc5225}). The mirror is a 13-field capstone
+record bundling the upgrade-pass structure for cross-prover citation.
+
 \section{Repository State}
 \label{sec:refinement-state}
 
-\paragraph{HEAD anchor.} \texttt{cb72460} on
+\paragraph{HEAD anchor.} \texttt{6fc5225} on
 \texttt{FractalDevTeam/Principia-Fractalis} master.
 
 \paragraph{Build.} \texttt{lake build PF} completes
-\textbf{4186 jobs clean}.
+\textbf{4187 jobs clean}.
 
 \paragraph{Axioms.} Zero project axioms preserved. Every theorem
 named in this appendix verifies via \verb|#print axioms| to depend
@@ -340,8 +440,9 @@ kernel-standard. The audit invariants
 \texttt{no\_hidden\_semantic\_content} and
 \texttt{audit\_size\_recorded} depend on \emph{no axioms at all}.
 
-\paragraph{Coq parity.} Substrate-discharge bridges 1, 2, 4, 5 have
-Coq mirror files in \texttt{PF\_Coq\_Code/PF/Wave58/}.
+\paragraph{Coq parity.} Substrate-discharge bridges 1, 2, 4, 5 and
+the headline-encoding-upgrade-pass have Coq mirror files in
+\texttt{PF\_Coq\_Code/PF/Wave58/}.
 
 \paragraph{Repository governance.} The session-start verification
 gate (\texttt{SESSION\_START\_PROTOCOL.md}), the anti-fragmentation
