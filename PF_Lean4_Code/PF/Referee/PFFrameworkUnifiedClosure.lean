@@ -161,16 +161,16 @@ structure PFFrameworkUnifiedWhole : Prop where
      (∀ a : AlphaAssignment,
         SatisfiesInvariants a → a.a_Poincare = 1 → a = framework_alpha)) ∧
     -- (M2) FOUR AXES UNCONDITIONAL.
-    (Clay_NavierStokes_Standard PF_NS3DEncoding ∧
-     Clay_YangMillsMassGap_Standard PF_YMEncoding ∧
+    (Clay_NavierStokes_Standard PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 ∧
+     Clay_YangMillsMassGap_Standard PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
      Clay_BSD_Standard PF_BSDEncoding ∧
      Clay_Hodge_Standard PF_HodgeEncoding) ∧
     -- (M3) LINKAGE: bundle → all six Clay-Standards.
     (∀ _h : ClayClosureBundle,
         Clay_RiemannHypothesis_Standard ∧
         Clay_PvsNP_Standard PF_ComplexityEncoding ∧
-        Clay_NavierStokes_Standard PF_NS3DEncoding ∧
-        Clay_YangMillsMassGap_Standard PF_YMEncoding ∧
+        Clay_NavierStokes_Standard PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 ∧
+        Clay_YangMillsMassGap_Standard PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
         Clay_BSD_Standard PF_BSDEncoding ∧
         Clay_Hodge_Standard PF_HodgeEncoding)
   /-- (L3a) **Clay V4 — P vs NP**: V4 carrier honest-scope capstone

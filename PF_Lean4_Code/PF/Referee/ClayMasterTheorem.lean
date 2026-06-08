@@ -155,9 +155,9 @@ theorem PF_Clay_Master_Theorem :
         SatisfiesInvariants a → a.a_Poincare = 1 → a = framework_alpha)) ∧
     -- (M2) FOUR AXES UNCONDITIONAL.
     (PF.Referee.StandardClayStatements.Clay_NavierStokes_Standard
-        PF.Referee.NSCapstoneTypedBridge.PF_NS3DEncoding ∧
+        PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 ∧
      PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
-        PF.Referee.YMCapstoneTypedBridge.PF_YMEncoding ∧
+        PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
      PF.Referee.StandardClayStatements.Clay_BSD_Standard
         PF.Referee.BSDCapstoneTypedBridge.PF_BSDEncoding ∧
      PF.Referee.StandardClayStatements.Clay_Hodge_Standard
@@ -168,9 +168,9 @@ theorem PF_Clay_Master_Theorem :
         PF.Referee.StandardClayStatements.Clay_PvsNP_Standard
           PF.Referee.PNPCapstoneTypedBridge.PF_ComplexityEncoding ∧
         PF.Referee.StandardClayStatements.Clay_NavierStokes_Standard
-          PF.Referee.NSCapstoneTypedBridge.PF_NS3DEncoding ∧
+          PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 ∧
         PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
-          PF.Referee.YMCapstoneTypedBridge.PF_YMEncoding ∧
+          PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
         PF.Referee.StandardClayStatements.Clay_BSD_Standard
           PF.Referee.BSDCapstoneTypedBridge.PF_BSDEncoding ∧
         PF.Referee.StandardClayStatements.Clay_Hodge_Standard
