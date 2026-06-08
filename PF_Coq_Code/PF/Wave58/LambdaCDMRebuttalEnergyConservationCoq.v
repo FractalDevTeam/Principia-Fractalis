@@ -70,9 +70,9 @@
     shared with the Wave 57-BSD and Wave 58-TwinPrime ports.
 *)
 
-Require Import Stdlib.Reals.Reals.
-Require Import Stdlib.Reals.Rpower.
-From Stdlib Require Import Lra.
+Require Import Reals.Reals.
+Require Import Reals.Rpower.
+From Coq Require Import Lra.
 
 Open Scope R_scope.
 

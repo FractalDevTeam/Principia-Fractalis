@@ -58,7 +58,7 @@
   - `Stdlib.Arith` (nat arithmetic for `framework_reach_count`)
 *)
 
-From Stdlib Require Import Arith.
+From Coq Require Import Arith.
 
 (** Mirror Lean namespace `PF.Referee.FrameworkUniversalReach`. *)
 Module FrameworkUniversalReach.

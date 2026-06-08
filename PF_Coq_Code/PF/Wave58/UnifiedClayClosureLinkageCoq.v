@@ -45,7 +45,7 @@
   - `Stdlib.Reals.Reals` (real-number arithmetic placeholder)
 *)
 
-From Stdlib Require Import Reals.
+From Coq Require Import Reals.
 
 Open Scope R_scope.
 

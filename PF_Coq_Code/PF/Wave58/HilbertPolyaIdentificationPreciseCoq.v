@@ -78,8 +78,8 @@
   - `Stdlib.Arith.*`, `Stdlib.Nat.*`, `Lia` (for finite-N partial)
 *)
 
-From Stdlib Require Import Arith Nat Lia.
-From Stdlib Require Import Reals.
+From Coq Require Import Arith Nat Lia.
+From Coq Require Import Reals.
 
 Open Scope R_scope.
 

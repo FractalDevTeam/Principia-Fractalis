@@ -110,8 +110,8 @@
     not required at proof level for this file).
 *)
 
-From Stdlib Require Import Reals.
-From Stdlib Require Import Lra.
+From Coq Require Import Reals.
+From Coq Require Import Lra.
 
 Require Import PrincipiaTractalis.Wave58.FujitaKato1964LocalExistenceDischargeCoq.
 Require Import PrincipiaTractalis.Wave58.LerayHopfGlobalExistenceBootstrapCoq.

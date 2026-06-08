@@ -6,8 +6,8 @@
   solution in positive integers. Verified n <= 10^14 (Salez, Yamagishi).
 *)
 
-From Stdlib Require Import Arith Lia.
-From Stdlib Require Import Reals Lra.
+From Coq Require Import Arith Lia.
+From Coq Require Import Reals Lra.
 
 Module ErdosStraussFrameworkAttack.
 
@@ -31,7 +31,7 @@ Theorem erdos_straus_witness_2 :
 Proof.
   exists 1, 2, 2.
   repeat split; try lia.
-  unfold ErdosStraussEquation; lia.
+  all: try (unfold ErdosStraussEquation; lia).
 Qed.
 
 (** ## §3 -- Framework alpha-skeleton bridge *)

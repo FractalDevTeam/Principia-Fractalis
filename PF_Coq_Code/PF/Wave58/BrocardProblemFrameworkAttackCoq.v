@@ -55,10 +55,10 @@
   - `Stdlib.Reals.Reals`, `Lra` (real alpha cascade)
 *)
 
-From Stdlib Require Import Arith Nat Lia.
-From Stdlib Require Import Arith.Factorial.
-From Stdlib Require Import ZArith.
-From Stdlib Require Import Reals Lra.
+From Coq Require Import Arith Nat Lia.
+From Coq Require Import Arith.Factorial.
+From Coq Require Import ZArith.
+From Coq Require Import Reals Lra.
 
 (** Mirror Lean namespace
     `PF.NumberTheory.BrocardProblemFrameworkAttack`. *)

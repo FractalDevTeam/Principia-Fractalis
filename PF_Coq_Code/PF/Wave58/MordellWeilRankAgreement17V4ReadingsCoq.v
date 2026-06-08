@@ -28,7 +28,7 @@
   - Stdlib.Arith (nat arithmetic for rank values)
 *)
 
-From Stdlib Require Import Arith.
+From Coq Require Import Arith.
 
 (** Mirror Lean namespace `PF.AlgebraicGeometry.MordellWeilRankAgreement17`. *)
 Module MordellWeilRankAgreement17V4Readings.

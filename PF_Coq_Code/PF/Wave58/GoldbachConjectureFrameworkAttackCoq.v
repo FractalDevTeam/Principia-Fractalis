@@ -79,10 +79,10 @@
   - `Stdlib.Reals.Reals`, `Lra` (real-arithmetic alpha cascade)
 *)
 
-From Stdlib Require Import Arith Nat Lia.
-From Stdlib Require Import Bool.
-From Stdlib Require Import Reals.
-From Stdlib Require Import Lra.
+From Coq Require Import Arith Nat Lia.
+From Coq Require Import Bool.
+From Coq Require Import Reals.
+From Coq Require Import Lra.
 
 Open Scope nat_scope.
 

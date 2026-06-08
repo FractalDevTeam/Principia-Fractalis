@@ -6,8 +6,8 @@
   Odd case: no example known; OEIS A005820 verified N > 10^1500.
 *)
 
-From Stdlib Require Import Arith Lia.
-From Stdlib Require Import Reals Lra.
+From Coq Require Import Arith Lia.
+From Coq Require Import Reals Lra.
 
 Module OddPerfectNumberFrameworkAttack.
 
