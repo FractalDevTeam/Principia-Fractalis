@@ -159,7 +159,7 @@ theorem PF_Clay_Master_Theorem :
      PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
         PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
      PF.Referee.StandardClayStatements.Clay_BSD_Standard
-        PF.Referee.BSDCapstoneTypedBridge.PF_BSDEncoding ∧
+        PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
      PF.Referee.StandardClayStatements.Clay_Hodge_Standard
         PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding) ∧
     -- (M3) LINKAGE: bundle → all six Clay-Standards.
@@ -172,7 +172,7 @@ theorem PF_Clay_Master_Theorem :
         PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
           PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
         PF.Referee.StandardClayStatements.Clay_BSD_Standard
-          PF.Referee.BSDCapstoneTypedBridge.PF_BSDEncoding ∧
+          PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
         PF.Referee.StandardClayStatements.Clay_Hodge_Standard
           PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding) :=
   ⟨framework_alpha_existence_and_uniqueness,
