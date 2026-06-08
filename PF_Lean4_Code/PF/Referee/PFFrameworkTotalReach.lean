@@ -38,6 +38,9 @@ import PF.CrossMillenniumMoreInvariants
 import PF.Substrate.VedicCymaticBridge
 import PF.NumberTheory.SmaleProblemsFrameworkAttack
 import PF.IBMPeaksGaloisPair
+import PF.Consciousness.QuantumClassicalDecoherenceThreshold
+import PF.Consciousness.RfAtAlphaTwoIsZeta
+import PF.Consciousness.RfAtAlphaOneIsNegEta
 
 namespace PF.Referee.PFFrameworkTotalReach
 
@@ -114,10 +117,11 @@ Two additional pillars at strict kernel-only axiom standard:
        are the two conjugate roots of one explicit quadratic over
        `ℚ(√5)`, formalized in `IBMPeaksGaloisPair.P_vanishes_on_IBM_peaks`. -/
 
-/-- **★★ THE EXTENDED TOTAL-REACH (T2)–(T8)** — bundles seven pillars
+/-- **★★ THE EXTENDED TOTAL-REACH (T2)–(T10)** — bundles nine pillars
     at strict kernel-only axiom standard. Adds T7 (17 More invariants
-    over-determining the α-skeleton) and T8 (IBM Galois pair) to the
-    five-pillar TotalReach. -/
+    over-determining the α-skeleton), T8 (IBM Galois pair), T9
+    (consciousness chern character = decoherence threshold), and T10
+    (fractal resonance at α=2 equals at α=0). -/
 theorem PF_Framework_TotalReach_T2_to_T8 :
     -- T2 through T5 (inherited from PF_Framework_TotalReach)
     (TimelessFieldExistenceClaim ∧
@@ -184,10 +188,19 @@ theorem PF_Framework_TotalReach_T2_to_T8 :
     (PrincipiaTractalis.IBMPeaksGaloisPair.P
         PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = 0 ∧
      PrincipiaTractalis.IBMPeaksGaloisPair.P
-        PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP = 0) :=
+        PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP = 0) ∧
+    -- T9: Consciousness chern character at α=√2 = decoherence threshold
+    PrincipiaTractalis.Consciousness.ch_2 (Real.sqrt 2) =
+      PrincipiaTractalis.QuantumClassicalDecoherenceThreshold.threshold_ch2 ∧
+    -- T10: Fractal resonance at α=2 equals at α=0 (zeta-like)
+    (∀ s : ℂ,
+       PrincipiaTractalis.Consciousness.fractalResonance 2 s =
+       PrincipiaTractalis.Consciousness.fractalResonance 0 s) :=
   ⟨PF_Framework_TotalReach,
    PrincipiaTractalis.CrossMillenniumMoreInvariants.cross_millennium_more_invariants_capstone,
-   PrincipiaTractalis.IBMPeaksGaloisPair.P_vanishes_on_IBM_peaks⟩
+   PrincipiaTractalis.IBMPeaksGaloisPair.P_vanishes_on_IBM_peaks,
+   PrincipiaTractalis.QuantumClassicalDecoherenceThreshold.chern_character_at_sqrt2_eq_threshold,
+   PrincipiaTractalis.Consciousness.fractalResonance_alpha_two_eq_alpha_zero⟩
 
 end PF.Referee.PFFrameworkTotalReach
 
