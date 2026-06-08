@@ -1318,9 +1318,40 @@
 \contentsline {section}{\numberline {.95}Appendices}{709}{section.Alph0.95}%
 \contentsline {section}{\numberline {.96}Cross-Prover Parity}{710}{section.Alph0.96}%
 \contentsline {section}{\numberline {.97}Reproducing the Verification}{710}{section.Alph0.97}%
-\contentsline {chapter}{Glossary}{712}{appendix*.30}%
-\contentsline {chapter}{Glossary}{713}{appendix*.31}%
-\contentsline {chapter}{About the Author}{741}{appendix*.33}%
-\contentsline {chapter}{About the Author}{742}{appendix*.34}%
-\contentsline {chapter}{Epilogue}{747}{appendix*.35}%
-\contentsline {chapter}{Epilogue}{748}{appendix*.36}%
+\contentsline {chapter}{Refinement Pass --- 2026-06-07 (HEAD \texttt {cb72460})}{712}{appendix*.30}%
+\contentsline {section}{\numberline {.98}Substrate-Level Discharges of the Six Clay-Path Bridges}{712}{section.Alph0.98}%
+\contentsline {subsection}{\numberline {.98.1}Bridge 1 --- Riemann Hypothesis via Hilbert--P\'olya substrate}{712}{subsection.Alph0.98.1}%
+\contentsline {paragraph}{Construction.}{712}{subsection.Alph0.98.1}%
+\contentsline {paragraph}{Mathematician-readable statement.}{712}{subsection.Alph0.98.1}%
+\contentsline {paragraph}{Axiom check.}{713}{subsection.Alph0.98.1}%
+\contentsline {subsection}{\numberline {.98.2}Bridge 2 --- Navier--Stokes via Fujita--Kato 1964 substrate}{713}{subsection.Alph0.98.2}%
+\contentsline {paragraph}{Honest scope.}{713}{subsection.Alph0.98.2}%
+\contentsline {subsection}{\numberline {.98.3}Bridge 4 --- Hodge non-CM quintic substrate consolidation}{713}{subsection.Alph0.98.3}%
+\contentsline {paragraph}{Honest scope.}{714}{subsection.Alph0.98.3}%
+\contentsline {subsection}{\numberline {.98.4}Bridge 5 --- Yang--Mills on genuine $SU(2)$}{714}{subsection.Alph0.98.4}%
+\contentsline {paragraph}{Honest scope.}{714}{subsection.Alph0.98.4}%
+\contentsline {subsection}{\numberline {.98.5}Bridge 6 --- P vs NP no-go (structural floor)}{714}{subsection.Alph0.98.5}%
+\contentsline {section}{\numberline {.99}Headline Theorem Refinement}{715}{section.Alph0.99}%
+\contentsline {subsection}{\numberline {.99.1}Bundle tightening: 12 fields $\to $ 3 fields}{715}{subsection.Alph0.99.1}%
+\contentsline {subsection}{\numberline {.99.2}Extended audit: 17 $\to $ 37 classified declarations}{715}{subsection.Alph0.99.2}%
+\contentsline {section}{\numberline {.100}Full Rigidity: Nine of Nine $\alpha $-Values Forced}{716}{section.Alph0.100}%
+\contentsline {section}{\numberline {.101}Smale's 18 Problems --- Framework-Level Structural Attack}{716}{section.Alph0.101}%
+\contentsline {section}{\numberline {.102}Side B Absorption --- Vedic--Cymatic--Substrate Bridge}{717}{section.Alph0.102}%
+\contentsline {section}{\numberline {.103}Headline Encoding Upgrade Pass (late 2026-06-07)}{717}{section.Alph0.103}%
+\contentsline {subsection}{\numberline {.103.1}YM: \texttt {GaugeGroup := Unit} $\to $ mathlib SU(2)}{718}{subsection.Alph0.103.1}%
+\contentsline {subsection}{\numberline {.103.2}NS: $u_0$-independent only $\to $ per-$u_0$ spacetime-lift existence}{718}{subsection.Alph0.103.2}%
+\contentsline {subsection}{\numberline {.103.3}BSD: \texttt {Fin 6} $\to $ \texttt {WeierstrassCurve $\mathbb {Q}$}}{718}{subsection.Alph0.103.3}%
+\contentsline {subsection}{\numberline {.103.4}Resulting state}{719}{subsection.Alph0.103.4}%
+\contentsline {subsection}{\numberline {.103.5}Cross-prover Coq parity}{719}{subsection.Alph0.103.5}%
+\contentsline {section}{\numberline {.104}Repository State}{719}{section.Alph0.104}%
+\contentsline {paragraph}{HEAD anchor.}{719}{section.Alph0.104}%
+\contentsline {paragraph}{Build.}{719}{section.Alph0.104}%
+\contentsline {paragraph}{Axioms.}{720}{section.Alph0.104}%
+\contentsline {paragraph}{Coq parity.}{720}{section.Alph0.104}%
+\contentsline {paragraph}{Repository governance.}{720}{section.Alph0.104}%
+\contentsline {chapter}{Glossary}{721}{appendix*.31}%
+\contentsline {chapter}{Glossary}{722}{appendix*.32}%
+\contentsline {chapter}{About the Author}{751}{appendix*.34}%
+\contentsline {chapter}{About the Author}{752}{appendix*.35}%
+\contentsline {chapter}{Epilogue}{757}{appendix*.36}%
+\contentsline {chapter}{Epilogue}{758}{appendix*.37}%
