@@ -184,58 +184,65 @@ lean --run PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean
 
 ---
 
-## Repository Map
+## Repository Map (Post-Cleanup 2026-06-08)
 
-| Path | Contents |
-|---|---|
-| [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | The manuscript (Version 1.2.0, Substrate-Level Meta-Theorem Edition). Chapter 34A is the substrate theorem; Appendix I is the Lean Theorem Cross-Reference. |
-| [`PF_Lean4_Code/`](PF_Lean4_Code/) | The Lean 4 formalization (4187 jobs clean, zero project axioms). `PF/Referee/` holds the Referee Layer (FrontierLedger, StandardClayStatements, typed Clay bridges per axis, PFCompleteFrameworkCapstone, PFUnifiedSubstrate, FractalMathematicsCore, SevenMillenniumUnification, PrincipiaFractalisSubstrateTheorem, PerelmanAnchoredSimultaneousClosure (canonical single-cite), FrameworkUniversalReach (23-problem reach)). |
-| [`PF_Coq_Code/`](PF_Coq_Code/) | The Coq mirror. Wave 58 referee layer + ALL 16/16 non-Clay framework-attack mirrors complete (2026-06-07). |
-| [`Papers/`](Papers/) | Papers including the arXiv preprint draft. |
-| [`CHANGELOG.md`](CHANGELOG.md) | Release history (current: Version 1.2.0, 2026-06-03). |
-| [`tools/audit.sh`](tools/audit.sh) | Full project axiom audit script. |
-| [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md) | The catalogue of named open Propositions isolated by the framework. |
-| [`AXIOM_AUDIT.md`](AXIOM_AUDIT.md) | Per-axiom historical and current audit trail. |
-| [`PROOF_PACKAGE.md`](PROOF_PACKAGE.md) | The referee-facing proof package: every load-bearing theorem cited by exact Lean name. |
-| [`LICENSE`](LICENSE) | Non-Commercial Research License. |
-
----
-
-## Repository Structure (Post-Cleanup, 2026-06-03)
-
-The repository is organized around a **three-layer verification stack** (Lean 4 source → external Lean meta-checker → Coq cross-prover) plus the manuscript, papers, evidence, and applications. Superseded content has been moved to [`ARCHIVE/`](ARCHIVE/) with full git history preserved.
+Four canonical folders + standard repo + governance + archive:
 
 | Path | Role |
 |---|---|
-| [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | **The book.** Manuscript Version 1.2.0, Substrate-Level Meta-Theorem Edition. |
-| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **Layer 1 — canonical Lean 4 source.** 4036 jobs clean, zero project axioms; 92 axiom-free attack landings. |
-| [`PF_Lean4Lean/`](PF_Lean4Lean/) | **Layer 2 — meta-level external kernel re-verification.** L4L source files for `rfl`-based agreement proofs between canonical Lean 4 expressions and an independent type-checker. See [`PF_Lean4Lean/README.md`](PF_Lean4Lean/README.md) for current status (gated on a documented refactor). |
-| [`PF_Coq_Code/`](PF_Coq_Code/) | **Layer 3 — independent cross-prover parity.** 18 Wave 58 Coq files mirroring the Lean substrate theorem and load-bearing capstones. |
-| [`Papers/`](Papers/) | **Papers.** `paper_A_framework`, `paper_B_formal_verification`, `paper_C_empirical_quantum_signatures`, plus `principia_fractalis_arxiv_preprint_v1`. See [`Papers/README.md`](Papers/README.md). |
-| [`Evidence_and_Data_for_GitHub/`](Evidence_and_Data_for_GitHub/) | **Empirical evidence.** IBM Quantum verification data, Hodge / Riemann numerical evidence, Master Documentation, Academic Impact Analytics, Python analysis scripts, scaling-convergence analysis. The supporting empirical record for the framework's predictions. |
-| [`FRAMEWORK_APPLICATION/`](FRAMEWORK_APPLICATION/) | **Applications.** EEG validation scaffolding, clinical-route artifacts, and other downstream applications of the framework. |
-| [`ARCHIVE/`](ARCHIVE/) | **Historical reference only.** Superseded manuscript revisions, prior-cycle audit documents, session inventories, and one-time tooling. Nothing here participates in the active build. See [`ARCHIVE/README.md`](ARCHIVE/README.md). |
-| [`tools/`](tools/) | Project tooling, including the axiom audit script (`tools/audit.sh`). |
-| [`docs/`](docs/) | Auxiliary documentation. |
-| [`experimental/`](experimental/) | Active investigative scratch (attack drafts, exploratory substrates). Not in the canonical build. |
+| [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | **THE BOOK.** Version 2.5.0, 840 pages. `main.tex` + chapters + appendices + `main.pdf`. Chapter 34A is the substrate theorem; Appendix I is the Lean cross-reference; Appendix J documents the 2026-06-07 refinement pass. |
+| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **THE LEAN 4 FRAMEWORK.** Main formalization. `lake build PF`: 4187 jobs clean. `lake build`: 8360 jobs clean. Zero project axioms. `PF/Referee/` holds the Clay-standard layer; `PF/Substrate/`, `PF/Consciousness/`, `PF/NavierStokes/`, `PF/YangMills/`, `PF/AlgebraicGeometry/` etc. hold per-axis content. |
+| [`PF_Lean4Lean/`](PF_Lean4Lean/) | **THE META LAYER.** External Lean 4 kernel re-verifier ("Lean for Lean"). Cross-checks the main framework's kernel acceptances against an independent implementation. |
+| [`PF_Coq_Code/`](PF_Coq_Code/) | **THE COQ CROSS-PROVER.** 184/184 files in `_CoqProject` build clean. Wave 58 referee layer + 16/16 non-Clay framework-attack mirrors + headline-encoding-upgrade mirror. |
+| [`Papers/`](Papers/) | Current papers. |
 
-### Verification flow (referee-relevant)
+### Standard repo files
+
+| Path | Role |
+|---|---|
+| [`README.md`](README.md) | This file (the wiki). |
+| [`CHANGELOG.md`](CHANGELOG.md) | Release history. |
+| [`LICENSE`](LICENSE) | Non-Commercial Research License. |
+| [`CITATION.cff`](CITATION.cff) | Citation metadata. |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines. |
+| [`SECURITY.md`](SECURITY.md) | Security policy. |
+| [`SUPPORT.md`](SUPPORT.md) | Support channels. |
+
+### Governance + current usable docs
+
+| Path | Role |
+|---|---|
+| [`PUBLISHING_GATE.md`](PUBLISHING_GATE.md) | Publishing-decision rule (Pabs-vetted multi-model stress-test required). |
+| [`FRAMEWORK_FIRST.md`](FRAMEWORK_FIRST.md) | Anti-fragmentation rule: framework is the headline, Clay axes are downstream. |
+| [`SESSION_START_PROTOCOL.md`](SESSION_START_PROTOCOL.md) | Mandatory verification gate before claiming anything is "ready". |
+| [`REFEREE_QUICKSTART.md`](REFEREE_QUICKSTART.md) | 10-minute independent-verification guide. |
+| [`CLAY_PER_AXIS_CITATION_CARDS.md`](CLAY_PER_AXIS_CITATION_CARDS.md) | Per-Clay-axis citation card with exact Lean theorem names and reproducible verify commands. |
+
+### Archive
+
+| Path | Role |
+|---|---|
+| [`ARCHIVE/`](ARCHIVE/) | Superseded docs and content, organized by date of archiving. `2026-06-08-cleanup/` contains the 25 root docs + 5 dirs (~411MB) archived in the GitHub structure cleanup. |
+
+---
+
+### Verification flow
 
 ```
-PF_Lean4_Code/  (Layer 1: source)
+PF_Lean4_Code/  (Layer 1: canonical Lean 4 source — 4187 jobs clean)
        |
        v
 Lean 4 kernel   (type-checks Layer 1; produces .olean)
        |
        v
-PF_Lean4Lean/   (Layer 2: external re-verification; quarantined pending refactor)
+PF_Lean4Lean/   (Layer 2: external Lean kernel re-verifier)
        |
        v
-PF_Coq_Code/    (Layer 3: independent prover; 18 Wave 58 mirrors)
+PF_Coq_Code/    (Layer 3: independent Coq cross-prover — 184/184 clean)
 ```
 
-Layer 1 is the load-bearing claim: 4036 jobs clean, zero project axioms,
-flagship theorem depends only on Lean's three foundational axioms
+Layer 1 is the load-bearing claim: 4187 jobs clean, zero project axioms,
+all citable theorems depend only on Lean's three foundational axioms
 (`propext`, `Classical.choice`, `Quot.sound`). Layers 2 and 3 are
 independent confirmation paths.
 
@@ -249,10 +256,10 @@ independent confirmation paths.
   title     = {Principia Fractalis: A Substrate-Level Theory of
                Mathematics, Physics, and Consciousness},
   year      = {2026},
-  edition   = {Version 1.2.0 (Substrate-Level Meta-Theorem Edition)},
-  note      = {Machine-verified in Lean 4 (4036 jobs clean, zero
-               project axioms) and cross-verified in Coq (18 Wave 58
-               files). Flagship: PrincipiaFractalisSubstrateTheorem.
+  edition   = {Version 2.5.0 (Headline Encoding Upgrade + Ten-Pillar Total Reach)},
+  note      = {Machine-verified in Lean 4 (4187 jobs clean, zero
+               project axioms) and cross-verified in Coq (184/184 files).
+               Citable: PF_FourPillar_SuperCapstone, PF_Framework_TotalReach.
                ORCID: 0009-0002-0734-5565},
   url       = {https://github.com/FractalDevTeam/Principia-Fractalis}
 }
