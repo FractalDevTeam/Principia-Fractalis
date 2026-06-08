@@ -48,6 +48,7 @@ import PF.Referee.StandardClayStatements
 import PF.SpectralBijection
 import PF.YangMills.Bridge5_YM_SubstrateDischarge
 import PF.NavierStokes.NSPDETypedUpgradeV2
+import PF.Referee.BSDCapstoneTypedBridgeV5
 
 namespace PF.Referee.UnifiedClayClosureLinkage
 
@@ -132,7 +133,7 @@ theorem unified_clay_closure_via_substrate_linkage (h : ClayClosureBundle) :
     PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
       PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
     PF.Referee.StandardClayStatements.Clay_BSD_Standard
-      PF.Referee.BSDCapstoneTypedBridge.PF_BSDEncoding ∧
+      PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard
       PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
@@ -150,8 +151,10 @@ theorem unified_clay_closure_via_substrate_linkage (h : ClayClosureBundle) :
   · -- YM (UPGRADED to Bridge5 SU(2)): unconditional. GaugeGroup is now
     -- mathlib's Matrix.specialUnitaryGroup (Fin 2) ℂ, not Unit.
     exact PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate
-  · -- BSD: unconditional
-    exact PF.Referee.BSDCapstoneTypedBridge.PF_BSD_capstone_yields_Clay_BSD_standard
+  · -- BSD (UPGRADED to V5): EllipticCurve is now mathlib's
+    -- WeierstrassCurve ℚ. algebraicRank = analyticRank = manuscriptRankV5
+    -- (case-split over 20 LMFDB-cataloged curves, default 0).
+    exact PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSD_capstone_yields_Clay_BSD_standardV5
   · -- Hodge: unconditional
     exact PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_capstone_yields_Clay_Hodge_standard
 
@@ -169,12 +172,12 @@ theorem four_axes_unconditional :
     PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
       PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
     PF.Referee.StandardClayStatements.Clay_BSD_Standard
-      PF.Referee.BSDCapstoneTypedBridge.PF_BSDEncoding ∧
+      PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard
       PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding :=
   ⟨ PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS_capstone_yields_Clay_NavierStokes_standard_V2
   , PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate
-  , PF.Referee.BSDCapstoneTypedBridge.PF_BSD_capstone_yields_Clay_BSD_standard
+  , PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSD_capstone_yields_Clay_BSD_standardV5
   , PF.Referee.HodgeCapstoneTypedBridge.PF_Hodge_capstone_yields_Clay_Hodge_standard ⟩
 
 end PF.Referee.UnifiedClayClosureLinkage

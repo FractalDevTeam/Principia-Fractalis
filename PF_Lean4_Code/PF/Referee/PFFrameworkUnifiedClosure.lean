@@ -163,7 +163,7 @@ structure PFFrameworkUnifiedWhole : Prop where
     -- (M2) FOUR AXES UNCONDITIONAL.
     (Clay_NavierStokes_Standard PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 ∧
      Clay_YangMillsMassGap_Standard PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
-     Clay_BSD_Standard PF_BSDEncoding ∧
+     Clay_BSD_Standard PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
      Clay_Hodge_Standard PF_HodgeEncoding) ∧
     -- (M3) LINKAGE: bundle → all six Clay-Standards.
     (∀ _h : ClayClosureBundle,
@@ -171,7 +171,7 @@ structure PFFrameworkUnifiedWhole : Prop where
         Clay_PvsNP_Standard PF_ComplexityEncoding ∧
         Clay_NavierStokes_Standard PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 ∧
         Clay_YangMillsMassGap_Standard PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 ∧
-        Clay_BSD_Standard PF_BSDEncoding ∧
+        Clay_BSD_Standard PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
         Clay_Hodge_Standard PF_HodgeEncoding)
   /-- (L3a) **Clay V4 — P vs NP**: V4 carrier honest-scope capstone
       (Cook 1971 P ⊆ NP on V4; reduction theorem analog;
