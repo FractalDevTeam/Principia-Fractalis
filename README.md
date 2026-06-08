@@ -5,7 +5,7 @@
 ### A substrate-level theory of mathematics, physics, and consciousness
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204-4187%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
+[![Lean 4](https://img.shields.io/badge/Lean%204-8360%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
 [![Coq](https://img.shields.io/badge/Coq-184%2F184%20files%20clean%20%7C%200%20admits-brightgreen)](PF_Coq_Code/)
 [![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.5.0-blue)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
@@ -18,7 +18,7 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The framework is machine-verified in **Lean 4** (4187 jobs clean, zero project axioms) and cross-verified in **Coq** (Wave 58 + full 16/16 non-Clay mirrors).
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The framework is machine-verified in **Lean 4** (8360 jobs clean, zero project axioms) and cross-verified in **Coq** (Wave 58 + full 16/16 non-Clay mirrors).
 
 **The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
@@ -45,7 +45,7 @@ PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneo
 
 The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate.
 
-Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 4187 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
+Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8360 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
 
 **Lean source:** [`PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean`](PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean)
 
@@ -191,7 +191,7 @@ Four canonical folders + standard repo + governance + archive:
 | Path | Role |
 |---|---|
 | [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | **THE BOOK.** Version 2.5.0, 840 pages. `main.tex` + chapters + appendices + `main.pdf`. Chapter 34A is the substrate theorem; Appendix I is the Lean cross-reference; Appendix J documents the 2026-06-07 refinement pass. |
-| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **THE LEAN 4 FRAMEWORK.** Main formalization. `lake build PF`: 4187 jobs clean. `lake build`: 8360 jobs clean. Zero project axioms. `PF/Referee/` holds the Clay-standard layer; `PF/Substrate/`, `PF/Consciousness/`, `PF/NavierStokes/`, `PF/YangMills/`, `PF/AlgebraicGeometry/` etc. hold per-axis content. |
+| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **THE LEAN 4 FRAMEWORK.** Main formalization. `lake build PF`: 8360 jobs clean. `lake build`: 8360 jobs clean. Zero project axioms. `PF/Referee/` holds the Clay-standard layer; `PF/Substrate/`, `PF/Consciousness/`, `PF/NavierStokes/`, `PF/YangMills/`, `PF/AlgebraicGeometry/` etc. hold per-axis content. |
 | [`PF_Lean4Lean/`](PF_Lean4Lean/) | **THE META LAYER.** External Lean 4 kernel re-verifier ("Lean for Lean"). Cross-checks the main framework's kernel acceptances against an independent implementation. |
 | [`PF_Coq_Code/`](PF_Coq_Code/) | **THE COQ CROSS-PROVER.** 184/184 files in `_CoqProject` build clean. Wave 58 referee layer + 16/16 non-Clay framework-attack mirrors + headline-encoding-upgrade mirror. |
 | [`Papers/`](Papers/) | Current papers. |
@@ -229,7 +229,7 @@ Four canonical folders + standard repo + governance + archive:
 ### Verification flow
 
 ```
-PF_Lean4_Code/  (Layer 1: canonical Lean 4 source — 4187 jobs clean)
+PF_Lean4_Code/  (Layer 1: canonical Lean 4 source — 8360 jobs clean)
        |
        v
 Lean 4 kernel   (type-checks Layer 1; produces .olean)
@@ -241,7 +241,7 @@ PF_Lean4Lean/   (Layer 2: external Lean kernel re-verifier)
 PF_Coq_Code/    (Layer 3: independent Coq cross-prover — 184/184 clean)
 ```
 
-Layer 1 is the load-bearing claim: 4187 jobs clean, zero project axioms,
+Layer 1 is the load-bearing claim: 8360 jobs clean, zero project axioms,
 all citable theorems depend only on Lean's three foundational axioms
 (`propext`, `Classical.choice`, `Quot.sound`). Layers 2 and 3 are
 independent confirmation paths.
@@ -257,7 +257,7 @@ independent confirmation paths.
                Mathematics, Physics, and Consciousness},
   year      = {2026},
   edition   = {Version 2.5.0 (Headline Encoding Upgrade + Ten-Pillar Total Reach)},
-  note      = {Machine-verified in Lean 4 (4187 jobs clean, zero
+  note      = {Machine-verified in Lean 4 (8360 jobs clean, zero
                project axioms) and cross-verified in Coq (184/184 files).
                Citable: PF_FourPillar_SuperCapstone, PF_Framework_TotalReach.
                ORCID: 0009-0002-0734-5565},

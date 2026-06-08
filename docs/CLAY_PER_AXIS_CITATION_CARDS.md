@@ -1,6 +1,6 @@
 # Principia Fractalis — Per-Axis Clay Citation Cards
 
-**HEAD anchor**: `8e8cd0d`. **Lean build**: 4187 jobs clean. **Coq build**: 184/184 files clean.
+**HEAD anchor**: `8e8cd0d`. **Lean build**: 8360 jobs clean. **Coq build**: 184/184 files clean.
 
 Each card below is a single-axis presentation of what Principia Fractalis proves
 about the corresponding Clay Millennium Problem at the substrate level, with the
@@ -18,7 +18,7 @@ the same set used by all of `mathlib4` classical mathematics. **Zero project axi
 git clone https://github.com/FractalDevTeam/Principia-Fractalis
 cd Principia-Fractalis/PF_Lean4_Code
 lake build PF
-# Expected: Build completed successfully (4187 jobs).
+# Expected: Build completed successfully (8360 jobs).
 ```
 
 To verify any card below, paste its `lake env lean` command after the build succeeds.
