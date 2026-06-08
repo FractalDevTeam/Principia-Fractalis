@@ -5,9 +5,9 @@
 ### A substrate-level theory of mathematics, physics, and consciousness
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204-4180%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
-[![Coq](https://img.shields.io/badge/Coq-Wave%2058%20%2B%20full%2016%2F16%20non--Clay%20mirrors%20%7C%200%20admits-brightgreen)](PF_Coq_Code/)
-[![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.1.1-blue)](Principia_Fractalis_master_folder/)
+[![Lean 4](https://img.shields.io/badge/Lean%204-4187%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
+[![Coq](https://img.shields.io/badge/Coq-184%2F184%20files%20clean%20%7C%200%20admits-brightgreen)](PF_Coq_Code/)
+[![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.5.0-blue)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
 
 **Author:** Pablo Cohen (psolo / xluxx)
@@ -18,7 +18,7 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The framework is machine-verified in **Lean 4** (4180 jobs clean, zero project axioms) and cross-verified in **Coq** (Wave 58 + full 16/16 non-Clay mirrors).
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The framework is machine-verified in **Lean 4** (4187 jobs clean, zero project axioms) and cross-verified in **Coq** (Wave 58 + full 16/16 non-Clay mirrors).
 
 **The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
@@ -45,7 +45,7 @@ PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneo
 
 The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate.
 
-Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 4180 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
+Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 4187 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
 
 **Lean source:** [`PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean`](PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean)
 
@@ -90,8 +90,8 @@ Bundled in `CrossMillenniumSharedInvariants`. The α-values are **not** algebrai
 
 ```
 α_YM = 2          α_RH = 3/2          α_Poincaré = 1   (consistent with Perelman 2003)
-α_Hodge = φ       α_BSD = 1           α_NS = 2
-α_NP = φ + 1/4    α_P = √2            α_QG² = 2π
+α_Hodge = φ       α_BSD = 3π/4        α_NS = 3π/2
+α_NP = φ + 1/4    α_P = √2            α_QG = √(2π)
 ```
 
 Witness: `framework_alpha_values_match_rigidity` (and the abstract rigidity capstone `alpha_system_rigidity` in `CrossMillenniumDerivedConsequences`).
@@ -189,7 +189,7 @@ lean --run PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean
 | Path | Contents |
 |---|---|
 | [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | The manuscript (Version 1.2.0, Substrate-Level Meta-Theorem Edition). Chapter 34A is the substrate theorem; Appendix I is the Lean Theorem Cross-Reference. |
-| [`PF_Lean4_Code/`](PF_Lean4_Code/) | The Lean 4 formalization (4180 jobs clean, zero project axioms). `PF/Referee/` holds the Referee Layer (FrontierLedger, StandardClayStatements, typed Clay bridges per axis, PFCompleteFrameworkCapstone, PFUnifiedSubstrate, FractalMathematicsCore, SevenMillenniumUnification, PrincipiaFractalisSubstrateTheorem, PerelmanAnchoredSimultaneousClosure (canonical single-cite), FrameworkUniversalReach (23-problem reach)). |
+| [`PF_Lean4_Code/`](PF_Lean4_Code/) | The Lean 4 formalization (4187 jobs clean, zero project axioms). `PF/Referee/` holds the Referee Layer (FrontierLedger, StandardClayStatements, typed Clay bridges per axis, PFCompleteFrameworkCapstone, PFUnifiedSubstrate, FractalMathematicsCore, SevenMillenniumUnification, PrincipiaFractalisSubstrateTheorem, PerelmanAnchoredSimultaneousClosure (canonical single-cite), FrameworkUniversalReach (23-problem reach)). |
 | [`PF_Coq_Code/`](PF_Coq_Code/) | The Coq mirror. Wave 58 referee layer + ALL 16/16 non-Clay framework-attack mirrors complete (2026-06-07). |
 | [`Papers/`](Papers/) | Papers including the arXiv preprint draft. |
 | [`CHANGELOG.md`](CHANGELOG.md) | Release history (current: Version 1.2.0, 2026-06-03). |
