@@ -98,3 +98,19 @@ Papers/*.aux
 Papers/*.log
 Papers/*.out
 Papers/*.toc
+Papers/*.bbl
+Papers/*.blg
+Papers/*.fls
+Papers/*.fdb_latexmk
+Papers/*.synctex.gz
+
+# --- LaTeX master folder auxiliary patterns ---
+Principia_Fractalis_master_folder/*.aux
+Principia_Fractalis_master_folder/*.idx
+Principia_Fractalis_master_folder/*.lof
+Principia_Fractalis_master_folder/*.log
+Principia_Fractalis_master_folder/*.lot
+Principia_Fractalis_master_folder/*.out
+Principia_Fractalis_master_folder/*.toc
+Principia_Fractalis_master_folder/*.bbl
+Principia_Fractalis_master_folder/*.blg
