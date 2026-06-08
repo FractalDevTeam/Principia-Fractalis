@@ -29,7 +29,7 @@ cd Principia-Fractalis/PF_Lean4_Code
 lake build PF
 ```
 
-**Expected output**: `Build completed successfully (4187 jobs).`
+**Expected output**: `Build completed successfully (8360 jobs).`
 or similar. Every Lean file in the project compiles; the kernel
 accepts every proof.
 

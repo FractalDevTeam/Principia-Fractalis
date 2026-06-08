@@ -53,7 +53,7 @@ The book is organized into seven parts plus extensive appendices:
 
 ## Companion artifacts
 
-- `../PF_Lean4_Code/` — Lean 4 formalization (4187 jobs clean, zero project axioms)
+- `../PF_Lean4_Code/` — Lean 4 formalization (8360 jobs clean, zero project axioms)
 - `../PF_Coq_Code/` — Coq cross-prover layer (184/184 files clean)
 - `../PF_Lean4Lean/` — External Lean kernel re-verifier
 - `../Papers/` — Three current papers (canonical substrate model, six-as-one, ten-pillars)

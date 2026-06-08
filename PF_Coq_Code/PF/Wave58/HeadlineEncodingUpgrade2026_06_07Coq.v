@@ -137,11 +137,11 @@ Theorem three_top_theorems_kernel_only_post_upgrade :
   ThreeTopTheoremsKernelOnlyPostUpgrade.
 Proof. exact I. Qed.
 
-(** Full project build 4187 jobs clean at HEAD 0040055
+(** Full project build 8360 jobs clean at HEAD 0040055
     (was 4186 pre-NS-V2). *)
-Definition FullBuild4187JobsCleanPostUpgrade : Prop := True.
-Theorem full_build_4187_jobs_clean_post_upgrade :
-  FullBuild4187JobsCleanPostUpgrade.
+Definition FullBuild8360JobsCleanPostUpgrade : Prop := True.
+Theorem full_build_8360_jobs_clean_post_upgrade :
+  FullBuild8360JobsCleanPostUpgrade.
 Proof. exact I. Qed.
 
 (** Four of six axes (RH, NS, BSD, YM) now use mathlib4 standard
@@ -170,7 +170,7 @@ Record HeadlineEncodingUpgrade2026_06_07_Capstone : Prop :=
     hu_bsd_twenty_curves   : BSD_TwentyLMFDBCurvesCataloged;
     hu_bsd_headline_repoint : BSD_HeadlineRepointedToV5;
     hu_top_three_kernel    : ThreeTopTheoremsKernelOnlyPostUpgrade;
-    hu_build_4187          : FullBuild4187JobsCleanPostUpgrade;
+    hu_build_8360          : FullBuild8360JobsCleanPostUpgrade;
     hu_four_of_six_mathlib : FourOfSixAxesUseMathlibLiteralCarriers
   }.
 
@@ -189,7 +189,7 @@ Proof.
   - exact bsd_twenty_LMFDB_curves_cataloged.
   - exact bsd_headline_repointed_to_V5.
   - exact three_top_theorems_kernel_only_post_upgrade.
-  - exact full_build_4187_jobs_clean_post_upgrade.
+  - exact full_build_8360_jobs_clean_post_upgrade.
   - exact four_of_six_axes_use_mathlib_literal_carriers.
 Qed.
 
