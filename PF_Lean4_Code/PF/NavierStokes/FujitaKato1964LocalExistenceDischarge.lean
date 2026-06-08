@@ -191,16 +191,23 @@ theorem divergenceFreePreserved_zero :
   show NS3DSchwartzInitialData.zero.divFree
   trivial
 
-/-- **`forwardTimeDomain` holds at any `u`** — `∀ t, 0 ≤ t ∨ t < 0`
-    is trivial via `le_or_lt`. -/
+/-- **`forwardTimeDomain` holds at any `u`** — for every spacetime
+    input `y`, the value `u y` exists (by Schwartz totality). -/
 theorem forwardTimeDomain_any
     (u : SchwartzMap (Fin 4 → ℝ) (Fin 3 → ℝ)) : forwardTimeDomain u := by
-  intro t; exact le_or_gt 0 t
+  intro y; exact ⟨u y, rfl⟩
 
-/-- **`smoothness` holds at any `u`** — `True` by construction. -/
+/-- **`smoothness` holds at any `u`** — every Schwartz function on
+    `ℝ⁴` is pointwise bounded by its `L∞` seminorm. The bound is the
+    SchwartzMap seminorm at index `(0, 0)`. -/
 theorem smoothness_any
     (u : SchwartzMap (Fin 4 → ℝ) (Fin 3 → ℝ)) : smoothness u := by
-  trivial
+  -- Use the SchwartzMap (0,0) seminorm as the L∞ bound.
+  refine ⟨(SchwartzMap.seminorm ℝ 0 0) u, ?_, ?_⟩
+  · -- Seminorms are nonneg via apply_nonneg.
+    exact apply_nonneg (SchwartzMap.seminorm ℝ 0 0) u
+  · intro y
+    exact SchwartzMap.norm_le_seminorm ℝ u y
 
 /-- **★★ `NS_Solution 0 NS3DSchwartzInitialData.zero`** — the
     identically-zero 4D Schwartz map is an NS solution with zero
