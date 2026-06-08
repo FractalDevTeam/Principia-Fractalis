@@ -84,8 +84,8 @@
     but not required at the proof level for this file.
 *)
 
-From Stdlib Require Import Arith Nat Lia Lra.
-From Stdlib Require Import Reals.
+From Coq Require Import Arith Nat Lia Lra.
+From Coq Require Import Reals.
 
 Open Scope R_scope.
 

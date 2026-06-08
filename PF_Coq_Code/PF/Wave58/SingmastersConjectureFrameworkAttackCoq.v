@@ -6,8 +6,8 @@
   (best current bound: O(log log n / log log log n)).
 *)
 
-From Stdlib Require Import Arith Lia.
-From Stdlib Require Import Reals Lra.
+From Coq Require Import Arith Lia.
+From Coq Require Import Reals Lra.
 
 Module SingmastersConjectureFrameworkAttack.
 

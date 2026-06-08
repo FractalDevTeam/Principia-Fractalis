@@ -5,8 +5,8 @@
   Wills 1967, Cusick 1973. Verified for k <= 7 runners.
 *)
 
-From Stdlib Require Import Arith Lia.
-From Stdlib Require Import Reals Lra.
+From Coq Require Import Arith Lia.
+From Coq Require Import Reals Lra.
 
 Module LonelyRunnerFrameworkAttack.
 

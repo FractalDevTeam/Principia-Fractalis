@@ -56,8 +56,8 @@
   - `Stdlib.Arith.PeanoNat`, `Lia`
 *)
 
-From Stdlib Require Import PeanoNat Lia.
-From Stdlib Require Import Classical.
+From Coq Require Import PeanoNat Lia.
+From Coq Require Import Classical.
 
 (** Mirror Lean namespace `PrincipiaTractalis.PNPClassSeparationCarrierV2`. *)
 Module PNPClassSeparationCarrierV2.

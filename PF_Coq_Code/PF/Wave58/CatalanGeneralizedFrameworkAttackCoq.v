@@ -7,8 +7,8 @@
   every k >= 1, finitely many (a, b, x, y) with a^x - b^y = k.
 *)
 
-From Stdlib Require Import Arith Lia.
-From Stdlib Require Import Reals Lra.
+From Coq Require Import Arith Lia.
+From Coq Require Import Reals Lra.
 
 Module CatalanGeneralizedFrameworkAttack.
 

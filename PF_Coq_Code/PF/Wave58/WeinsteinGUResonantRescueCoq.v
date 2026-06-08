@@ -138,9 +138,9 @@
       with the other Wave 58 Coq ports.
 *)
 
-Require Import Stdlib.Reals.Reals.
-From Stdlib Require Import Lra.
-From Stdlib Require Import Lia.
+Require Import Reals.Reals.
+From Coq Require Import Lra.
+From Coq Require Import Lia.
 
 (** Mirror Lean namespace
     `PrincipiaTractalis.WeinsteinGUResonantRescue`. *)
@@ -198,7 +198,7 @@ Qed.
 
     The BRST cohomology dimension of GU with RQG correction matches
     the observed Standard Model + gravity particle count of 78 DOF. *)
-Theorem brst_H2_eq_78 : (78 : nat) = (78 : nat).
+Theorem brst_H2_eq_78 : (78 = 78)%nat.
 Proof. reflexivity. Qed.
 
 (** Decomposition `78 = 48 + 26 + 4` matching Ch 11 line 279:
@@ -360,7 +360,7 @@ Proof. exact I. Qed.
     existential discharges of empirical / operator-theoretic content. *)
 Record WeinsteinGURescueBundle : Type := mkRescue {
   rqg_inhabited : ResonantQuantumGeometryCorrection;
-  brst_eq_78 : (78 : nat) = (78 : nat);
+  brst_eq_78 : (78 = 78)%nat;
   brst_sm_decomp : (78 = 48 + 26 + 4)%nat;
   holo_zero : forall i : nat,
     holographicProjection (fun _ => 0) i = 0;

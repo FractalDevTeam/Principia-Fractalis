@@ -79,9 +79,9 @@
     existing Wave 58 Coq ports.
 *)
 
-From Stdlib Require Import Arith Nat Lia.
-From Stdlib Require Import Reals.
-From Stdlib Require Import Lra.
+From Coq Require Import Arith Nat Lia.
+From Coq Require Import Reals.
+From Coq Require Import Lra.
 
 (** Mirror Lean namespace
     `PF.NumberTheory.InverseGaloisProblemFrameworkAttack`. *)

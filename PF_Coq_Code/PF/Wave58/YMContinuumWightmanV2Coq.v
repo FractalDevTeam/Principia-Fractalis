@@ -63,7 +63,7 @@
   - `Stdlib.Reals.Reals`, `Lra`
 *)
 
-From Stdlib Require Import Reals Lra.
+From Coq Require Import Reals Lra.
 
 Open Scope R_scope.
 

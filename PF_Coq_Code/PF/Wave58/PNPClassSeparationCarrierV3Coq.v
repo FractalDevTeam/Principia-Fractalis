@@ -67,8 +67,8 @@
   - `Stdlib.Logic.Classical`
 *)
 
-From Stdlib Require Import PeanoNat Lia List.
-From Stdlib Require Import Classical.
+From Coq Require Import PeanoNat Lia List.
+From Coq Require Import Classical.
 
 (** Mirror Lean namespace `PrincipiaTractalis.PNPClassSeparationCarrierV3`. *)
 Module PNPClassSeparationCarrierV3.

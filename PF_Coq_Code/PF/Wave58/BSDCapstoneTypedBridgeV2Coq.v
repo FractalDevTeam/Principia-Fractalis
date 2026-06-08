@@ -57,7 +57,7 @@
   - `Stdlib.Arith.PeanoNat`
 *)
 
-From Stdlib Require Import Reals PeanoNat.
+From Coq Require Import Reals PeanoNat.
 
 Open Scope R_scope.
 

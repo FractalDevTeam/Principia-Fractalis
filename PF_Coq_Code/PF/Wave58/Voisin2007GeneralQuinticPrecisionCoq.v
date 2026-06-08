@@ -81,9 +81,9 @@
     shared with the other Wave 58 Coq ports.
 *)
 
-From Stdlib Require Import Reals.
-From Stdlib Require Import List.
-From Stdlib Require Import String.
+From Coq Require Import Reals.
+From Coq Require Import List.
+From Coq Require Import String.
 Import ListNotations.
 
 (** Mirror Lean namespace

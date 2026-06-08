@@ -55,9 +55,9 @@
   - `Stdlib.Reals.Reals`, `Lra` (real alpha cascade)
 *)
 
-From Stdlib Require Import Arith Nat Lia.
-From Stdlib Require Import Reals.
-From Stdlib Require Import Lra.
+From Coq Require Import Arith Nat Lia.
+From Coq Require Import Reals.
+From Coq Require Import Lra.
 
 (** Mirror Lean namespace
     `PF.NumberTheory.HadwigerNelsonFrameworkAttack`. *)

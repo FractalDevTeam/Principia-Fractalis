@@ -80,8 +80,8 @@
     shared with the existing Wave 58 Coq ports.
 *)
 
-From Stdlib Require Import Arith Nat Lia.
-From Stdlib Require Import Reals.
+From Coq Require Import Arith Nat Lia.
+From Coq Require Import Reals.
 
 (** Mirror Lean namespace `PrincipiaTractalis.SetTheoryCH`. *)
 Module ContinuumHypothesisFrameworkAttack.

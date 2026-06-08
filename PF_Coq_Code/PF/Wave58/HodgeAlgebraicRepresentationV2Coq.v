@@ -62,7 +62,7 @@
   - `Stdlib.Arith.PeanoNat`, `Lia`
 *)
 
-From Stdlib Require Import PeanoNat Lia.
+From Coq Require Import PeanoNat Lia.
 
 (** Mirror Lean namespace
     `PrincipiaTractalis.AlgebraicGeometry.HodgeAlgRepV2`. *)

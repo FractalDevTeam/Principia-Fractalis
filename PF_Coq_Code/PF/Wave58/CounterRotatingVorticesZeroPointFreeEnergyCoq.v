@@ -69,8 +69,8 @@
   Brings Coq Wave 58 to 12 of N.
 *)
 
-Require Import Stdlib.Reals.Reals.
-From Stdlib Require Import Lra.
+Require Import Reals.Reals.
+From Coq Require Import Lra.
 
 Open Scope R_scope.
 

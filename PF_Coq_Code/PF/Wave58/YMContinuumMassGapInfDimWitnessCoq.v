@@ -68,10 +68,10 @@
     shared with the existing Wave 58 ports.
 *)
 
-From Stdlib Require Import Arith Nat Lia.
-From Stdlib Require Import Reals.
-From Stdlib Require Import Lra.
-From Stdlib Require Import FunctionalExtensionality.
+From Coq Require Import Arith Nat Lia.
+From Coq Require Import Reals.
+From Coq Require Import Lra.
+From Coq Require Import FunctionalExtensionality.
 
 Open Scope R_scope.
 
