@@ -78,11 +78,27 @@
 \usepackage{makeidx}
 \makeindex
 
-% Fonts and Unicode support
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
+% Fonts and Unicode support -- engine-aware.
+% pdflatex: needs inputenc (utf8) + fontenc (T1) + \DeclareUnicodeCharacter
+%   declarations to map UTF-8 source chars (×, α, π, ✓, emoji etc.) to
+%   LaTeX commands.
+% lualatex / xelatex: read UTF-8 natively via fontspec; \DeclareUnicodeCharacter
+%   from inputenc is not applicable and errors out. We therefore guard the
+%   inputenc + declaration block behind \ifPDFTeX.
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\else
+  % lualatex / xelatex path: fontspec replaces fontenc+inputenc.
+  \usepackage{fontspec}
+  \usepackage{unicode-math}
+\fi
 
+% The \DeclareUnicodeCharacter calls below are pdflatex-only.
+% Under lualatex/xelatex they would error; wrap entire block in \ifPDFTeX.
+\ifPDFTeX
 % Define emoji replacements for pdflatex
 \DeclareUnicodeCharacter{1F7E2}{[L1]} % Green circle
 \DeclareUnicodeCharacter{1F7E1}{[L2]} % Yellow circle
@@ -91,9 +107,17 @@
 \DeclareUnicodeCharacter{1F4CA}{[GRAPH]} % Bar chart
 \DeclareUnicodeCharacter{1F3AF}{[TARGET]} % Target
 \DeclareUnicodeCharacter{26A0}{[!]} % Warning sign
-\DeclareUnicodeCharacter{039B}{$\Lambda$} % Lambda
-\DeclareUnicodeCharacter{03A9}{$\Omega$} % Omega
+\DeclareUnicodeCharacter{039B}{\ensuremath{\Lambda}} % Lambda
+\DeclareUnicodeCharacter{03A9}{\ensuremath{\Omega}} % Omega
 \DeclareUnicodeCharacter{2713}{\checkmark} % Heavy check mark (used in version_history)
+\DeclareUnicodeCharacter{2714}{\checkmark} % Heavy check mark variant
+\DeclareUnicodeCharacter{2718}{\ensuremath{\times}} % Heavy ballot X (✘)
+\DeclareUnicodeCharacter{2715}{\ensuremath{\times}} % Multiplication X (✕)
+\DeclareUnicodeCharacter{2716}{\ensuremath{\times}} % Heavy multiplication X (✖)
+% CJK characters that appear in chapter prose -- map to romanized fallback so
+% pdflatex doesn't require CJK fonts. The romanization is approximate.
+\DeclareUnicodeCharacter{87BA}{[luo]}    % 螺 (spiral, first char of 螺旋)
+\DeclareUnicodeCharacter{65CB}{[xuan]}   % 旋 (spiral, second char of 螺旋)
 \DeclareUnicodeCharacter{FE0F}{} % Variation selector-16 (emoji presentation, render nothing)
 \DeclareUnicodeCharacter{1F4D6}{[BOOK]} % Open book emoji
 \DeclareUnicodeCharacter{1F52C}{[LAB]} % Microscope emoji
@@ -121,79 +145,83 @@
 \DeclareUnicodeCharacter{2593}{*} % Dark shade
 % Math operators / signs in plain text
 \DeclareUnicodeCharacter{2212}{-} % Minus sign (U+2212, NOT hyphen-minus)
-\DeclareUnicodeCharacter{2032}{$'$} % Prime
-\DeclareUnicodeCharacter{2033}{$''$} % Double prime
-\DeclareUnicodeCharacter{2248}{$\approx$} % approximately equal
-\DeclareUnicodeCharacter{2245}{$\cong$} % congruent
+\DeclareUnicodeCharacter{2032}{\ensuremath{{}^\prime}} % Prime
+\DeclareUnicodeCharacter{2033}{\ensuremath{{}^{\prime\prime}}} % Double prime
+\DeclareUnicodeCharacter{2248}{\ensuremath{\approx}} % approximately equal
+\DeclareUnicodeCharacter{2245}{\ensuremath{\cong}} % congruent
 \DeclareUnicodeCharacter{2026}{\ldots} % horizontal ellipsis
 % (U+2192 declared above as rightwards arrow)
 % Subscripts and superscripts
-\DeclareUnicodeCharacter{2080}{$_0$}
-\DeclareUnicodeCharacter{2081}{$_1$}
-\DeclareUnicodeCharacter{2082}{$_2$}
-\DeclareUnicodeCharacter{2083}{$_3$}
-\DeclareUnicodeCharacter{2084}{$_4$}
-\DeclareUnicodeCharacter{2085}{$_5$}
-\DeclareUnicodeCharacter{2086}{$_6$}
-\DeclareUnicodeCharacter{2087}{$_7$}
-\DeclareUnicodeCharacter{2088}{$_8$}
-\DeclareUnicodeCharacter{2089}{$_9$}
-\DeclareUnicodeCharacter{2070}{$^0$}
-\DeclareUnicodeCharacter{00B9}{$^1$}
-\DeclareUnicodeCharacter{00B2}{$^2$}
-\DeclareUnicodeCharacter{00B3}{$^3$}
-\DeclareUnicodeCharacter{2074}{$^4$}
-\DeclareUnicodeCharacter{2075}{$^5$}
-\DeclareUnicodeCharacter{2076}{$^6$}
-\DeclareUnicodeCharacter{2077}{$^7$}
-\DeclareUnicodeCharacter{2078}{$^8$}
-\DeclareUnicodeCharacter{2079}{$^9$}
+% Subscripts and superscripts (\ensuremath so they're safe in either mode)
+\DeclareUnicodeCharacter{2080}{\ensuremath{{}_0}}
+\DeclareUnicodeCharacter{2081}{\ensuremath{{}_1}}
+\DeclareUnicodeCharacter{2082}{\ensuremath{{}_2}}
+\DeclareUnicodeCharacter{2083}{\ensuremath{{}_3}}
+\DeclareUnicodeCharacter{2084}{\ensuremath{{}_4}}
+\DeclareUnicodeCharacter{2085}{\ensuremath{{}_5}}
+\DeclareUnicodeCharacter{2086}{\ensuremath{{}_6}}
+\DeclareUnicodeCharacter{2087}{\ensuremath{{}_7}}
+\DeclareUnicodeCharacter{2088}{\ensuremath{{}_8}}
+\DeclareUnicodeCharacter{2089}{\ensuremath{{}_9}}
+\DeclareUnicodeCharacter{2070}{\ensuremath{{}^0}}
+\DeclareUnicodeCharacter{00B9}{\ensuremath{{}^1}}
+\DeclareUnicodeCharacter{00B2}{\ensuremath{{}^2}}
+\DeclareUnicodeCharacter{00B3}{\ensuremath{{}^3}}
+\DeclareUnicodeCharacter{2074}{\ensuremath{{}^4}}
+\DeclareUnicodeCharacter{2075}{\ensuremath{{}^5}}
+\DeclareUnicodeCharacter{2076}{\ensuremath{{}^6}}
+\DeclareUnicodeCharacter{2077}{\ensuremath{{}^7}}
+\DeclareUnicodeCharacter{2078}{\ensuremath{{}^8}}
+\DeclareUnicodeCharacter{2079}{\ensuremath{{}^9}}
+% Operators and binary signs (\ensuremath so they work in math context too)
 \DeclareUnicodeCharacter{2717}{\ensuremath{\times}} % Ballot X
-\DeclareUnicodeCharacter{2192}{$\to$} % Rightwards arrow
-\DeclareUnicodeCharacter{2190}{$\leftarrow$} % Leftwards arrow
-\DeclareUnicodeCharacter{2194}{$\leftrightarrow$} % Left-right arrow
-\DeclareUnicodeCharacter{2261}{$\equiv$} % identical to
-\DeclareUnicodeCharacter{2264}{$\leq$} % less or equal
-\DeclareUnicodeCharacter{2265}{$\geq$} % greater or equal
-\DeclareUnicodeCharacter{2260}{$\neq$} % not equal
-\DeclareUnicodeCharacter{00B1}{$\pm$} % plus-minus
-\DeclareUnicodeCharacter{00B5}{$\mu$} % micro / mu
-\DeclareUnicodeCharacter{00D7}{$\times$} % multiplication sign
-\DeclareUnicodeCharacter{00B0}{$^{\circ}$} % degree sign
-\DeclareUnicodeCharacter{2208}{$\in$} % element of
-\DeclareUnicodeCharacter{2209}{$\notin$} % not element of
-\DeclareUnicodeCharacter{2282}{$\subset$} % subset
-\DeclareUnicodeCharacter{2286}{$\subseteq$} % subset or equal
-\DeclareUnicodeCharacter{2229}{$\cap$} % intersection
-\DeclareUnicodeCharacter{222A}{$\cup$} % union
-\DeclareUnicodeCharacter{2205}{$\emptyset$} % empty set
-\DeclareUnicodeCharacter{221E}{$\infty$} % infinity
-\DeclareUnicodeCharacter{2200}{$\forall$} % for all
-\DeclareUnicodeCharacter{2203}{$\exists$} % exists
-\DeclareUnicodeCharacter{2202}{$\partial$} % partial derivative
-\DeclareUnicodeCharacter{2207}{$\nabla$} % nabla
-\DeclareUnicodeCharacter{2211}{$\sum$} % summation
-\DeclareUnicodeCharacter{220F}{$\prod$} % product
-\DeclareUnicodeCharacter{221A}{$\sqrt{}$} % square root sign
-\DeclareUnicodeCharacter{03B1}{$\alpha$} % alpha
-\DeclareUnicodeCharacter{03B2}{$\beta$} % beta
-\DeclareUnicodeCharacter{03B3}{$\gamma$} % gamma
-\DeclareUnicodeCharacter{03B4}{$\delta$} % delta
-\DeclareUnicodeCharacter{03B5}{$\varepsilon$} % epsilon
-\DeclareUnicodeCharacter{03B6}{$\zeta$} % zeta
-\DeclareUnicodeCharacter{03B7}{$\eta$} % eta
-\DeclareUnicodeCharacter{03B8}{$\theta$} % theta
-\DeclareUnicodeCharacter{03BB}{$\lambda$} % lambda (lowercase)
-\DeclareUnicodeCharacter{03C0}{$\pi$} % pi
-\DeclareUnicodeCharacter{03C3}{$\sigma$} % sigma
-\DeclareUnicodeCharacter{03C4}{$\tau$} % tau
-\DeclareUnicodeCharacter{03C6}{$\varphi$} % phi
-\DeclareUnicodeCharacter{03C8}{$\psi$} % psi
-\DeclareUnicodeCharacter{03C9}{$\omega$} % omega
-\DeclareUnicodeCharacter{0394}{$\Delta$} % Delta
-\DeclareUnicodeCharacter{03A3}{$\Sigma$} % Sigma
-\DeclareUnicodeCharacter{03A8}{$\Psi$} % Psi
-\DeclareUnicodeCharacter{03A6}{$\Phi$} % Phi
+\DeclareUnicodeCharacter{2192}{\ensuremath{\to}} % Rightwards arrow
+\DeclareUnicodeCharacter{2190}{\ensuremath{\leftarrow}} % Leftwards arrow
+\DeclareUnicodeCharacter{2194}{\ensuremath{\leftrightarrow}} % Left-right arrow
+\DeclareUnicodeCharacter{2261}{\ensuremath{\equiv}} % identical to
+\DeclareUnicodeCharacter{2264}{\ensuremath{\leq}} % less or equal
+\DeclareUnicodeCharacter{2265}{\ensuremath{\geq}} % greater or equal
+\DeclareUnicodeCharacter{2260}{\ensuremath{\neq}} % not equal
+\DeclareUnicodeCharacter{00B1}{\ensuremath{\pm}} % plus-minus
+\DeclareUnicodeCharacter{00B5}{\ensuremath{\mu}} % micro / mu
+\DeclareUnicodeCharacter{00D7}{\ensuremath{\times}} % multiplication sign
+\DeclareUnicodeCharacter{00B0}{\ensuremath{{}^{\circ}}} % degree sign
+\DeclareUnicodeCharacter{2208}{\ensuremath{\in}} % element of
+\DeclareUnicodeCharacter{2209}{\ensuremath{\notin}} % not element of
+\DeclareUnicodeCharacter{2282}{\ensuremath{\subset}} % subset
+\DeclareUnicodeCharacter{2286}{\ensuremath{\subseteq}} % subset or equal
+\DeclareUnicodeCharacter{2229}{\ensuremath{\cap}} % intersection
+\DeclareUnicodeCharacter{222A}{\ensuremath{\cup}} % union
+\DeclareUnicodeCharacter{2205}{\ensuremath{\emptyset}} % empty set
+\DeclareUnicodeCharacter{221E}{\ensuremath{\infty}} % infinity
+\DeclareUnicodeCharacter{2200}{\ensuremath{\forall}} % for all
+\DeclareUnicodeCharacter{2203}{\ensuremath{\exists}} % exists
+\DeclareUnicodeCharacter{2202}{\ensuremath{\partial}} % partial derivative
+\DeclareUnicodeCharacter{2207}{\ensuremath{\nabla}} % nabla
+\DeclareUnicodeCharacter{2211}{\ensuremath{\sum}} % summation
+\DeclareUnicodeCharacter{220F}{\ensuremath{\prod}} % product
+\DeclareUnicodeCharacter{221A}{\ensuremath{\sqrt{}}} % square root sign
+% Greek letters (\ensuremath so they work inline in body text AND in math)
+\DeclareUnicodeCharacter{03B1}{\ensuremath{\alpha}} % alpha
+\DeclareUnicodeCharacter{03B2}{\ensuremath{\beta}} % beta
+\DeclareUnicodeCharacter{03B3}{\ensuremath{\gamma}} % gamma
+\DeclareUnicodeCharacter{03B4}{\ensuremath{\delta}} % delta
+\DeclareUnicodeCharacter{03B5}{\ensuremath{\varepsilon}} % epsilon
+\DeclareUnicodeCharacter{03B6}{\ensuremath{\zeta}} % zeta
+\DeclareUnicodeCharacter{03B7}{\ensuremath{\eta}} % eta
+\DeclareUnicodeCharacter{03B8}{\ensuremath{\theta}} % theta
+\DeclareUnicodeCharacter{03BB}{\ensuremath{\lambda}} % lambda (lowercase)
+\DeclareUnicodeCharacter{03C0}{\ensuremath{\pi}} % pi
+\DeclareUnicodeCharacter{03C3}{\ensuremath{\sigma}} % sigma
+\DeclareUnicodeCharacter{03C4}{\ensuremath{\tau}} % tau
+\DeclareUnicodeCharacter{03C6}{\ensuremath{\varphi}} % phi
+\DeclareUnicodeCharacter{03C8}{\ensuremath{\psi}} % psi
+\DeclareUnicodeCharacter{03C9}{\ensuremath{\omega}} % omega
+\DeclareUnicodeCharacter{0394}{\ensuremath{\Delta}} % Delta
+\DeclareUnicodeCharacter{03A3}{\ensuremath{\Sigma}} % Sigma
+\DeclareUnicodeCharacter{03A8}{\ensuremath{\Psi}} % Psi
+\DeclareUnicodeCharacter{03A6}{\ensuremath{\Phi}} % Phi
+\fi % end \ifPDFTeX guard around all \DeclareUnicodeCharacter calls
 
 % ============================================
 % COLOR DEFINITIONS
