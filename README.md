@@ -63,17 +63,23 @@ Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8360 jobs clean in
 
 ## What Is Verified (Axiom-Free)
 
-### All six Clay axes have direct Clay-precision strikes
+### Substrate-level strikes on all six Clay axes
 
-| Axis | Strike | Lean witness |
-|---|---|---|
-| **RH** | Four Hilbert-Pólya formulations (Berry-Keating, Connes, Bost-Connes, PF T3_sym) collapse; α_RH = 3/2 algebraically forced. | `hilbert_polya_formulations_equivalent`, `hilbert_polya_implies_RH` |
-| **YM** | Infinite-dim ℓ² mass-gap witness Δ = 3/2; Wightman 4 gaps typed. | `ym_continuum_mass_gap_three_halves` |
-| **BSD** | Heegner rank-1 cascade on E_{37.a1} + E_{43.a1}; L-series convergence (A3); Wiles modularity (A4). | `bsd_rank_one_E37a1_via_heegner_and_GZ_K` |
-| **NS** | Wave 33 `UniformHadamardBoundAllN` discharged axiom-free; NS PDE typed; substrate composite at trivial datum. | `ns_smoothness_composite_substrate_discharge` |
-| **Hodge** | Voisin 2007 obstruction isolated on general quintic outside Dwork locus; multi-substrate K3 / abelian / CY3 (2,2) / CY4 (1,1)/(2,2)/(3,3). | `hodge_clay_gap_isolated_to_voisin_2007` |
-| **P vs NP** | `enum_to_class_separation_bridge_iff_literal_P_neq_NP` axiom-free; PolylogEigenvalueConjecture decomposed into 4 sub-Props with enum-level unconditional discharge. | `enum_to_class_separation_bridge_iff_literal_P_neq_NP` |
-| **Poincaré** | α_Poincaré = 1 anchored to Perelman 2002–2003 (Hamilton-Ricci flow); second projection of `framework_alpha_values_match_rigidity`. | `framework_alpha_values_match_rigidity` |
+Each row below is a Lean-verified strike at the **substrate level** -- the
+PF-internal algebraic / structural form of the axis. Each row also has a
+**named literal-statement-form residual** documented in the gap table below
+("What Is NOT Discharged"); read that table alongside this one. None of the
+six entries below is a literal-form Clay discharge.
+
+| Axis | Substrate-level strike | Lean witness | Literal-form residual |
+|---|---|---|---|
+| **RH** | Four Hilbert-Pólya formulations (Berry-Keating, Connes, Bost-Connes, PF T3_sym) collapse; α_RH = 3/2 algebraically forced. | `hilbert_polya_formulations_equivalent`, `hilbert_polya_implies_RH` | spectral-bijection surjectivity onto ζ-zeros (see gaps table) |
+| **YM** | Infinite-dim ℓ² mass-gap witness Δ = 3/2; Wightman 4 gaps typed. | `ym_continuum_mass_gap_three_halves` | continuum OS-Wightman gauge field theory (see gaps table) |
+| **BSD** | Heegner rank-1 cascade on E_{37.a1} + E_{43.a1}; L-series convergence (A3); Wiles modularity (A4). | `bsd_rank_one_E37a1_via_heegner_and_GZ_K` | Gross-Zagier + Kolyvagin cited not formalized; rank ≥ 2 + leading term (see gaps table) |
+| **NS** | Wave 33 `UniformHadamardBoundAllN` discharged axiom-free; NS PDE typed; substrate composite at trivial datum. | `ns_smoothness_composite_substrate_discharge` | literal Leray-Hopf smoothness on ℝ³ (see gaps table) |
+| **Hodge** | Voisin 2007 obstruction isolated on general quintic outside Dwork locus; multi-substrate K3 / abelian / CY3 (2,2) / CY4 (1,1)/(2,2)/(3,3). | `hodge_clay_gap_isolated_to_voisin_2007` | codim ≥ 2 on general smooth quintic outside Dwork locus (see gaps table) |
+| **P vs NP** | `enum_to_class_separation_bridge_iff_literal_P_neq_NP` axiom-free; PolylogEigenvalueConjecture decomposed into 4 sub-Props with enum-level unconditional discharge. | `enum_to_class_separation_bridge_iff_literal_P_neq_NP` | `PolylogEigenvalueConjecture` undischarged; EnumToClassSeparationBridge to literal P ≠ NP (see gaps table) |
+| **Poincaré** | α_Poincaré = 1 anchored to Perelman 2002–2003 (Hamilton-Ricci flow); second projection of `framework_alpha_values_match_rigidity`. | `framework_alpha_values_match_rigidity` | none -- Perelman 2002-2003 is settled |
 
 ### 11 cross-Millennium algebraic invariants (simultaneously)
 
@@ -99,8 +105,8 @@ Witness: `framework_alpha_values_match_rigidity` (and the abstract rigidity caps
 ### Empirical anchors
 
 - **Perelman 2002–2003** — α_Poincaré = 1 (Hamilton-Ricci flow; the only Clay problem already solved).
-- **IBM 9-way hardware** — joint random-match probability ≤ 10⁻¹⁵ across nine IBM Quantum hardware predictions (`IBM_hardware_nine_way_random_match_probability_bound`).
-- **143-problem coherence** — every problem in the 143-problem empirical dataset has measured α ∈ {√2, φ + 1/4} (`universal_fractal_coherence`).
+- **IBM 9-way hardware** — joint random-match probability `≤ 10⁻¹⁵` is a typed Lean proposition (`IBM_hardware_nine_way_random_match_probability_bound`) at the precision the substrate predicts. Note: 10⁻¹⁵ is below current IBM gate-fidelity (~10⁻³ to 10⁻⁴); the operationally-testable falsifier is the Heron-class softer variant (`IBM_Ten_Way_Disagreement_HeronClass_Softer`, threshold 10⁻³) in `PF/Referee/FrameworkFalsifiabilityConditions.lean`.
+- **143-problem coherence** — `universal_fractal_coherence` is a Lean **structural** theorem about the manuscript's coherence claim. The Lean encoding represents the 143-problem dataset via `List.replicate` with `alphaMeasured := canonicalAlpha`, so the capstone holds by definitional unfolding. **The substantive empirical content (raw computed α-values per problem, 150-digit precision certificates, hardware runs) lives in the project's data layer outside Lean**; see the honest-scope marker at the top of `PF/Empirical/HundredFortyThreeProblems.lean`.
 
 ### Cosmology
 

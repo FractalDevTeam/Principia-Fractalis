@@ -1,5 +1,32 @@
 # PF_Lean4Lean — Meta-Verification Layer
 
+## Name disambiguation (read first)
+
+The directory is named **PF_Lean4Lean** but, as of 2026-06-09, this lake
+package does **not** depend on Mario Carneiro's external
+[`digama0/lean4lean`](https://github.com/digama0/lean4lean) kernel
+re-checker. See `lakefile.toml`: the only declared dependencies are the
+local path `../PF_Lean4_Code` and mathlib4.
+
+What this package **does** today: re-imports canonical PF theorems into a
+separate lake package and confirms via build-time `#print axioms` that the
+re-imported theorems depend only on Lean's three foundational kernel axioms
+(`propext`, `Classical.choice`, `Quot.sound`). This is real but **weaker
+than external-kernel re-verification**.
+
+What it does **not** do today: run an independent kernel checker against the
+produced `.olean` files. That is documented as Open Work #1 in
+`L4L_ARCHITECTURAL_DECISION.md` and would require adding `digama0/lean4lean`
+as a dependency and running `lean4lean check` over the build output.
+
+Bottom line: the current README label "external-import re-verification" is
+accurate; the name "Lean4Lean" is **aspirational** with respect to the
+external-kernel-checker form. Three of nine contract modules build clean;
+six are GATED on an unresolved architectural gap (see "Architectural Gap"
+below).
+
+---
+
 **Status (2026-06-04):** PARTIAL BUILD CLEAN — flagship theorem
 `PF.Referee.PrincipiaFractalisSubstrateTheorem` is re-verified as an
 independent-package import with `[propext, Classical.choice, Quot.sound]`-only

@@ -1,5 +1,33 @@
 /-
-# 143-Problem Empirical Validation Framework — Formalized
+# 143-Problem Coherence Structure — Lean-Internal Formalization
+# (Honest-scope marker — read this section before citing this file)
+
+**Scope**: this module is a **structural / type-level** formalization of the
+manuscript's coherence claim. It is **NOT** a record of independent empirical
+measurements, and the capstone `empirical_validation_capstone` is
+**true-by-construction** in this Lean development:
+
+- The dataset is built via `List.replicate 72 (canonicalEntry .P)` and
+  `List.replicate 71 (canonicalEntry .NP)` (143 entries total).
+- For every entry, `alphaMeasured := canonicalAlpha c`, i.e. each "measured"
+  α-value is **defined** to equal the canonical α-value for its class label.
+- Consequently `universal_fractal_coherence` and `match_canonical_closed_form`
+  hold uniformly across the entire list **by definitional unfolding**, not
+  because anything has been independently measured here.
+
+This is the right behaviour for a Lean encoding of "the manuscript asserts
+uniform coherence across 143 problems": the formalization captures the
+*shape* of the claim. The **substantive empirical content** -- raw computed
+α-values for actual test problems, 150-digit precision certificates per
+problem, IBM Quantum hardware runs, the 847-patient clinical cohort -- lives
+in the project's separate data layer (`4_DATA_AND_EVIDENCE/`), in Python
+scripts, and in cited external references. None of that is in Lean.
+
+A peer-review reader should treat this file as: "if the 143 problems do
+exhibit uniform α-coherence per the manuscript's measurements, then the
+two capstones hold automatically." It does **not** prove the antecedent.
+
+# Original module documentation follows
 
 This module formalizes the manuscript's claim (Ch 21 §"Empirical Validation: The
 143-Problem Framework", lines 1137–1171 of `master_folder_rev2/chapters/

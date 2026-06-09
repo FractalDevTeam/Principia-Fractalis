@@ -222,7 +222,11 @@
 % that pass either free-form titles OR explicit "title={...}" forms
 % both work cleanly.
 
-% Helper: append optional descriptive title after the default box title
+% Helper: append optional descriptive title after the default box title.
+% `@` in command names is normally non-letter; the \makeatletter/\makeatother
+% block makes it a letter for the duration of these definitions and their
+% downstream usage inside the \newtcolorbox bodies below.
+\makeatletter
 \newcommand{\pf@boxtitle}[2]{\ifx\relax#1\relax #2\else #2: #1\fi}
 
 % Blue Box - Definitions
@@ -484,6 +488,7 @@
   title={\pf@boxtitle{#1}{Evidence}}, breakable, enhanced,
   before skip=10pt plus 2pt, after skip=10pt plus 2pt,
 }
+\makeatother
 % `prop` is sometimes used in chapters as shorthand for proposition;
 % map it to the proposition theorem environment.
 \newenvironment{prop}[1][]{\begin{proposition}[#1]}{\end{proposition}}
@@ -509,26 +514,34 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 
-% Principal-branch / multi-valued function operator names
-% (declared with \DeclareMathOperator so they typeset upright and
-% receive proper spacing in display + inline math).
-\DeclareMathOperator{\Log}{Log}     % principal complex logarithm
-\DeclareMathOperator{\Arg}{Arg}     % principal argument
-\DeclareMathOperator{\Li}{Li}       % polylogarithm
-\DeclareMathOperator{\Spec}{Spec}   % spectrum
-\DeclareMathOperator{\Tr}{Tr}       % trace
-\DeclareMathOperator{\sgn}{sgn}     % sign function
-\DeclareMathOperator{\rank}{rank}   % matrix rank
-\DeclareMathOperator{\diag}{diag}   % diagonal matrix
+% Principal-branch / multi-valued function operator names.
+% Several of these (e.g. \Tr, \rank, \diag, \im, \Real) are also provided
+% by the `physics` package, `amsmath`, or `mathtools` -- using plain
+% \DeclareMathOperator would error with "Command \X already defined".
+% \pfDeclareOp installs the operator robustly: if already defined it
+% renews; otherwise it declares fresh. Both paths typeset upright with
+% proper math spacing via \operatorname.
+\newcommand{\pfDeclareOp}[2]{%
+  \expandafter\providecommand\csname #1\endcsname{}%
+  \expandafter\renewcommand\csname #1\endcsname{\operatorname{#2}}%
+}
+\pfDeclareOp{Log}{Log}      % principal complex logarithm
+\pfDeclareOp{Arg}{Arg}      % principal argument
+\pfDeclareOp{Li}{Li}        % polylogarithm
+\pfDeclareOp{Spec}{Spec}    % spectrum
+\pfDeclareOp{Tr}{Tr}        % trace (also from physics package)
+\pfDeclareOp{sgn}{sgn}      % sign function
+\pfDeclareOp{rank}{rank}    % matrix rank
+\pfDeclareOp{diag}{diag}    % diagonal matrix
 % Arithmetic-geometry / BSD / Hodge notation used across Ch 24, 25, 21
-\DeclareMathOperator{\ord}{ord}     % order of vanishing
-\DeclareMathOperator{\im}{im}       % image
-\DeclareMathOperator{\Hdg}{Hdg}     % Hodge classes
-\DeclareMathOperator{\Alg}{Alg}     % algebraic classes
-\DeclareMathOperator{\Real}{Re}     % real part (long form)
-\DeclareMathOperator{\cl}{cl}       % cycle class map
-\DeclareMathOperator{\Reg}{Reg}     % regulator
-\DeclareMathOperator{\encode}{enc}  % encoding function (P vs NP chapter)
+\pfDeclareOp{ord}{ord}      % order of vanishing
+\pfDeclareOp{im}{im}        % image
+\pfDeclareOp{Hdg}{Hdg}      % Hodge classes
+\pfDeclareOp{Alg}{Alg}      % algebraic classes
+\pfDeclareOp{Real}{Re}      % real part (long form)
+\pfDeclareOp{cl}{cl}        % cycle class map
+\pfDeclareOp{Reg}{Reg}      % regulator
+\pfDeclareOp{encode}{enc}   % encoding function (P vs NP chapter)
 \providecommand{\F}{\mathbb{F}}     % finite field
 \providecommand{\CH}{\mathrm{CH}}   % Chow group
 \providecommand{\Sha}{\text{\fontencoding{T2A}\selectfont\char88}} % Cyrillic Sha; falls back to "Sh" if font missing
@@ -536,7 +549,7 @@
 \renewcommand{\Sha}{\mathrm{Sh}}
 \providecommand{\Ch}{\mathrm{Ch}}   % Chern character (when not the symbol)
 \providecommand{\ch}{\mathrm{ch}}   % Chern character (lowercase)
-\DeclareMathOperator{\Hol}{Hol}     % holonomy
+\pfDeclareOp{Hol}{Hol}      % holonomy
 \providecommand{\SU}{\mathrm{SU}}   % special unitary group
 \providecommand{\SO}{\mathrm{SO}}   % special orthogonal group
 \providecommand{\GL}{\mathrm{GL}}   % general linear group

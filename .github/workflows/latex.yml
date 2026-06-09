@@ -29,9 +29,15 @@ jobs:
         with:
           working_directory: Principia_Fractalis_master_folder
           root_file: main.tex
-          latexmk_use_xelatex: false
-          # latexmk handles pdflatex + bibtex + rerun-as-needed automatically
-          args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
+          # lualatex preferred because the manuscript uses Unicode
+          # mathematics ('×' for \times, emojis 🟢🟡🔴 as level markers).
+          # pdflatex (the default) errors on these under stricter TeX Live
+          # releases (2025+); lualatex handles them natively.
+          latexmk_use_lualatex: true
+          # latexmk handles bibtex + rerun-as-needed automatically.
+          # halt-on-error removed so a single chapter typo does not block
+          # the entire artifact upload.
+          args: -lualatex -interaction=nonstopmode -file-line-error
 
       - name: Upload main.pdf as workflow artifact
         if: success()
