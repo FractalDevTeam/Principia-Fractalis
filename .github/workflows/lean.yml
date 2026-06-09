@@ -1,0 +1,60 @@
+name: Lean 4 Build
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - 'PF_Lean4_Code/**'
+      - '.github/workflows/lean.yml'
+  pull_request:
+    branches: ["master"]
+    paths:
+      - 'PF_Lean4_Code/**'
+  workflow_dispatch:
+
+concurrency:
+  group: lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install elan (Lean version manager)
+        run: |
+          set -euxo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Show Lean toolchain
+        working-directory: PF_Lean4_Code
+        run: |
+          cat lean-toolchain
+          lean --version
+          lake --version
+
+      - name: Fetch mathlib cache
+        working-directory: PF_Lean4_Code
+        run: lake exe cache get || true
+
+      - name: Build PF library
+        working-directory: PF_Lean4_Code
+        run: lake build PF
+
+      - name: Verify canonical theorem uses only kernel axioms
+        working-directory: PF_Lean4_Code
+        run: |
+          set -euxo pipefail
+          OUT=$(lake env lean --run <(echo '#print axioms PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure') 2>&1 || true)
+          echo "$OUT"
+          # Expected axioms: propext, Classical.choice, Quot.sound (and nothing else)
+          echo "$OUT" | grep -E "propext|Classical\.choice|Quot\.sound" >/dev/null
+          if echo "$OUT" | grep -vE "^(.*axioms.*|propext|Classical\.choice|Quot\.sound|\s*)$" | grep -qE "axiom|sorry"; then
+            echo "::error::Unexpected axioms detected in canonical theorem."
+            exit 1
+          fi

@@ -1,0 +1,59 @@
+name: Coq Build
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - 'PF_Coq_Code/**'
+      - '.github/workflows/coq.yml'
+  pull_request:
+    branches: ["master"]
+    paths:
+      - 'PF_Coq_Code/**'
+  workflow_dispatch:
+
+concurrency:
+  group: coq-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up OCaml + opam
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: '4.14.x'
+
+      - name: Install Rocq (Coq) and Coquelicot
+        run: |
+          set -euxo pipefail
+          opam update
+          opam install -y rocq-prover.9.1.0 coq-coquelicot.3.4.4 || \
+            opam install -y coq.8.20.0 coq-coquelicot.3.4.4
+
+      - name: Show toolchain
+        run: |
+          eval $(opam env)
+          coqc --version
+          coqtop --version || true
+
+      - name: Build all .v files listed in _CoqProject
+        working-directory: PF_Coq_Code
+        run: |
+          set -euxo pipefail
+          eval $(opam env)
+          coq_makefile -f _CoqProject -o CoqMakefile
+          make -j -f CoqMakefile
+
+      - name: Report file count vs _CoqProject manifest
+        working-directory: PF_Coq_Code
+        run: |
+          MANIFEST=$(grep -cE '^[A-Za-z]' _CoqProject || true)
+          ACTUAL=$(find . -name '*.vo' | wc -l)
+          echo "Active in _CoqProject (non-comment lines): ~$MANIFEST"
+          echo "Compiled .vo files: $ACTUAL"
