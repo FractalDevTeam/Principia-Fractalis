@@ -153,7 +153,19 @@ theorem phi_gt_16 : phi > (1.6 : ℝ) := by
 /-- π/(10√2) lower bound (9 decimal places)
     NOTE: These require axioms about π's numerical value.
     Lean's norm_num doesn't automatically compute π to arbitrary precision.
-    We provide the computational structure; actual π bounds need external certification. -/
+    We provide the computational structure; actual π bounds need external certification.
+
+    TODO (audit-2026-06-09): replace these two axioms with theorems derived from
+    `Mathlib.Analysis.SpecialFunctions.Trigonometric.Bounds`. Candidate proof:
+        theorem pi_lower_bound : Real.pi > (3.141592653 : ℝ) := by
+          have := Real.pi_gt_d20  -- π > 3.14159265358979323846
+          linarith
+        theorem pi_upper_bound : Real.pi < (3.141592654 : ℝ) := by
+          have := Real.pi_lt_d20  -- π < 3.14159265358979323847
+          linarith
+    Verify exact lemma names against the pinned mathlib (v4.24.0-rc1) before
+    committing; if `pi_gt_d20`/`pi_lt_d20` are not present, fall back to
+    `Real.pi_gt_3141592` / `Real.pi_lt_3141593` + a tighter interval. -/
 axiom pi_lower_bound : Real.pi > (3.141592653 : ℝ)
 axiom pi_upper_bound : Real.pi < (3.141592654 : ℝ)
 

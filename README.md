@@ -153,7 +153,7 @@ git clone https://github.com/FractalDevTeam/Principia-Fractalis
 cd Principia-Fractalis/PF_Lean4_Code
 lake exe cache get
 lake build PF
-# Expected: Build completed successfully (4036+ jobs), zero project axioms
+# Expected: Build completed successfully (8360 jobs), zero project axioms
 
 cd ../PF_Coq_Code
 eval $(opam env)  # Rocq 9.1 + Coquelicot 3.4.4
@@ -297,9 +297,9 @@ Commercial use requires explicit written permission from the author.
 **Active development.**
 
 - **Framework substrate-level theorem:** Complete at Version 1.2.0 (HEAD `42990ea`, 2026-06-03).
-- **Lean 4 build state:** 4036 jobs clean, zero project axioms, zero sorries.
+- **Lean 4 build state:** 8360 jobs clean, zero project axioms, zero sorries.
 - **Cross-prover parity:** 18 Wave 58 files mirrored in Coq, with the substrate theorem itself mirrored at `PF_Coq_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v`.
-- **Manuscript:** Version 1.2.0, Substrate-Level Meta-Theorem Edition, 2026-06-03.
+- **Manuscript:** Version 2.5.0 (Headline Encoding Upgrade + Ten-Pillar Total Reach), 2026-06-07.
 - **Peer review:** In progress.
 
 The canonical single-citation theorem is `PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure` — ONE input (Perelman α=1) plus a 7-field bundle → all six `Clay_*_Standard` simultaneously. The substrate antecedent-consequent meta-theorem `PrincipiaFractalisSubstrateTheorem` is a component (not the canonical cite). The named per-axis published bridges (Mayer 1991, BKM 1984, Wiles, Voisin 2007, Gross-Zagier + Kolyvagin) are tracked in [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md). See [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md) for the strategic positioning.
