@@ -152,8 +152,8 @@ The framework's contribution is the **substrate-level architecture**: 25 framewo
 git clone https://github.com/FractalDevTeam/Principia-Fractalis
 cd Principia-Fractalis/PF_Lean4_Code
 lake exe cache get
-lake build PF
-# Expected: Build completed successfully (4036+ jobs), zero project axioms
+lake build
+# Expected: Build completed successfully (8360 jobs), zero project axioms
 
 cd ../PF_Coq_Code
 eval $(opam env)  # Rocq 9.1 + Coquelicot 3.4.4
@@ -191,7 +191,7 @@ Four canonical folders + standard repo + governance + archive:
 | Path | Role |
 |---|---|
 | [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | **THE BOOK.** Version 2.5.0, 840 pages. `main.tex` + chapters + appendices + `main.pdf`. Chapter 34A is the substrate theorem; Appendix I is the Lean cross-reference; Appendix J documents the 2026-06-07 refinement pass. |
-| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **THE LEAN 4 FRAMEWORK.** Main formalization. `lake build PF`: 8360 jobs clean. `lake build`: 8360 jobs clean. Zero project axioms. `PF/Referee/` holds the Clay-standard layer; `PF/Substrate/`, `PF/Consciousness/`, `PF/NavierStokes/`, `PF/YangMills/`, `PF/AlgebraicGeometry/` etc. hold per-axis content. |
+| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **THE LEAN 4 FRAMEWORK.** Main formalization. `lake build` (default target): 8360 jobs clean. `lake build PF` (PF subtarget): 4187 jobs clean. Zero project axioms. `PF/Referee/` holds the Clay-standard layer; `PF/Substrate/`, `PF/Consciousness/`, `PF/NavierStokes/`, `PF/YangMills/`, `PF/AlgebraicGeometry/` etc. hold per-axis content. |
 | [`PF_Lean4Lean/`](PF_Lean4Lean/) | **THE META LAYER.** External Lean 4 kernel re-verifier ("Lean for Lean"). Cross-checks the main framework's kernel acceptances against an independent implementation. |
 | [`PF_Coq_Code/`](PF_Coq_Code/) | **THE COQ CROSS-PROVER.** 184/184 files in `_CoqProject` build clean. Wave 58 referee layer + 16/16 non-Clay framework-attack mirrors + headline-encoding-upgrade mirror. |
 | [`Papers/`](Papers/) | Current papers. |

@@ -26,7 +26,7 @@ cd Principia-Fractalis/PF_Lean4_Code
 ## 1. Build the entire project (one command, ~10 minutes first run)
 
 ```bash
-lake build PF
+lake build
 ```
 
 **Expected output**: `Build completed successfully (8360 jobs).`

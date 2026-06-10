@@ -17,7 +17,7 @@ the same set used by all of `mathlib4` classical mathematics. **Zero project axi
 ```bash
 git clone https://github.com/FractalDevTeam/Principia-Fractalis
 cd Principia-Fractalis/PF_Lean4_Code
-lake build PF
+lake build
 # Expected: Build completed successfully (8360 jobs).
 ```
 
