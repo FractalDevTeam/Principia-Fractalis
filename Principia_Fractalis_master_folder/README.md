@@ -23,7 +23,7 @@ backmatter/               — Glossary, About the Author, Epilogue,
                             Appendix Lexicon
 figures/                  — Figure source files (TikZ / images)
 
-main.pdf                  — Built output (840 pages, 9.2 MB)
+main.pdf                  — Built output (864 pages, 9.25 MB)
 NOTICE.md                 — Copyright notice
 ```
 
