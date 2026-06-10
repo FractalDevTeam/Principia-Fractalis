@@ -157,6 +157,8 @@ PF/Wave58/BealConjectureFrameworkAttackCoq.v
 PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v
 PF/Wave58/ClayMasterTheoremCoq.v
 PF/Wave58/UnifiedClayClosureLinkageCoq.v
+PF/Wave58/PerelmanAnchoredSimultaneousClosureCoq.v
+PF/Wave58/PFFrameworkTotalReachCoq.v
 PF/Wave58/HadwigerNelsonFrameworkAttackCoq.v
 PF/Wave58/BrocardProblemFrameworkAttackCoq.v
 PF/Wave58/RHCapstoneTypedBridgeCoq.v
