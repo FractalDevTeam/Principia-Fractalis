@@ -1,5 +1,22 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-11 — 143-problem coherence forced parametrically + ultimate master capstone (NEW MATHEMATICS)
+
+**HEAD prior**: `6940add`. **Build**: 8460 jobs clean.
+
+Two pieces:
+
+1. `PF/Referee/MinimalRigidityForces143ProblemCoherence.lean` — the framework's empirical `universal_fractal_coherence` theorem (every problem in the 143-problem dataset has measured α ∈ {√2, φ+1/4}) extends to hold PARAMETRICALLY under substrate-rigidity. The empirical 143-problem claim is a downstream consequence of substrate-rigidity, not an independent postulate.
+
+2. `SubstrateRigidityMasterCapstone.lean` extended with `substrate_rigidity_ultimate_master_capstone` — 9-clause super-citable theorem consolidating tonight's entire substrate-rigidity work. Master capstone hierarchy:
+   - `substrate_rigidity_master_capstone` (4 clauses M1-M4).
+   - `substrate_rigidity_extended_master_capstone` (5 clauses M1-M5).
+   - `substrate_rigidity_ultimate_master_capstone` (M6 spectral gap + M7 H₃ geometry + M8 H₃ Coxeter number + M9 cosmological Λ).
+
+Session totals: 18 substantive new Lean files, build 8360 → 8460 (+100 jobs), all kernel-only.
+
+---
+
 ## 2026-06-11 — Cosmological Λ 120-orders suppression forced (NEW MATHEMATICS)
 
 **HEAD prior**: `9d812d2`. **Build**: 8458 jobs clean.
