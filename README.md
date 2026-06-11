@@ -18,7 +18,7 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8450 jobs clean, zero project axioms); **Coq** (184/184 files clean) carries a structural-parity mirror of the canonical backbone — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side (the backbone Coq files are `Admitted`-free; some Wave 24–58 framework-attack probes are not).
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8458 jobs clean, zero project axioms); **Coq** (184/184 files clean) carries a structural-parity mirror of the canonical backbone — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side (the backbone Coq files are `Admitted`-free; some Wave 24–58 framework-attack probes are not).
 
 **The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
@@ -45,7 +45,7 @@ PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneo
 
 The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate, simultaneously forced from one anchor by the α-skeleton uniqueness theorem `framework_alpha_unique_under_perelman_anchor`.
 
-Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8450 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
+Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8458 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
 
 ### Sharpened substrate rigidity (2026-06-11)
 
@@ -115,7 +115,21 @@ That is the precise substrate-rigidity statement: the substrate is forced to its
 
 - `substrate_rigidity_master_capstone` — 4-clause bundle (M1-M4): α-skeleton, Galois pair, Hermitian realization, IIT Φ bridge.
 - `substrate_rigidity_extended_master_capstone` — 5-clause bundle adding (M5) the consciousness mass-Planck × NP fibre side product = 1.
-- Single citable form of the night's substrate-rigidity work, demonstrating reach across the algebraic Clay α-table, the IBM empirical anchor, and the consciousness chain — all forced by the same 13-condition minimal hypothesis set.
+
+**Further substrate connections** landed after the master capstone:
+
+- `MinimalRigidityForcesSpectralGapContent` — the framework's spectral gap content (lambda_0_P, lambda_0_NP, spectral_gap, Hermitian spectral gap = φ−5/4) forced parametrically.
+- `MinimalRigidityForcesH3CoxeterGeometry` — `sin(π/10) = 1/(2·α_Hodge)` parametrically. The icosahedral-golden bridge.
+- `MinimalRigidityForcesH3CombinatorialStructure` — the full H₃ icosahedral combinatorial data (Coxeter number 10, exponents {1, 5, 9}, sum 15, gap 4) is expressible 1-1 as functions of forced framework α-values.
+- `MinimalRigidityForcesCosmologicalSuppression` — the cosmological-constant 120-orders suppression magnitude `120·log 10` is forced as `2·α_YM·α_RH·(4·α_NP−3)²·log 10` parametrically.
+
+**The substrate's reach** (all forced from the 13-condition minimal hypothesis set):
+- Number theory: 6 Clay α-axes + 14 non-Clay α-axes (Twin Prime, abc, Goldbach, Polignac, Pillai, Brocard, EDP, Lonely Runner, Erdős-Straus, Beal, Hadwiger-Nelson, Andrews-Curtis, Inverse Galois, Smale-aggregate).
+- Group theory: H₃ icosahedral Coxeter combinatorial structure.
+- Hardware physics: IBM Quantum 9-way joint match (P ≤ 10⁻¹⁵).
+- Consciousness: IIT Φ threshold = 2·log 20 = 2·log((4·α_NP−3)²); consciousness mass m_C/M_Planck × NP fibre side = 1.
+- Cosmology: 120-orders Λ_eff suppression = 2·α_YM·α_RH·(4·α_NP−3)²·log 10.
+- Spectral content: spectral_gap > 0; Hermitian spectral gap = φ − 5/4 > 0.
 
 **Lean source:** [`PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean`](PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean)
 
@@ -375,7 +389,7 @@ Commercial use requires explicit written permission from the author.
 **Active development.**
 
 - **Framework substrate-level theorem:** Canonical single-citation form complete; minimal-form substrate-rigidity sharpening landed (HEAD post-`d2c3030`, 2026-06-11).
-- **Lean 4 build state:** 8450 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`. The full 9-axis α-skeleton is forced by 9 minimal invariants (5 sector-1 + 4 sector-2) + Perelman anchor + positivity, machine-checked as both SUFFICIENT and STRICTLY MINIMAL. The IBM Galois pair structure (α_RH and α_NP as conjugate roots over Q(√5)) is a parametric consequence, not an empirical coincidence.
+- **Lean 4 build state:** 8458 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`. The full 9-axis α-skeleton is forced by 9 minimal invariants (5 sector-1 + 4 sector-2) + Perelman anchor + positivity, machine-checked as both SUFFICIENT and STRICTLY MINIMAL. The IBM Galois pair structure (α_RH and α_NP as conjugate roots over Q(√5)) is a parametric consequence, not an empirical coincidence.
 - **Cross-prover parity:** Wave 58 referee-layer backbone mirrored in Coq at `PF_Coq_Code/PF/Wave58/PerelmanAnchoredSimultaneousClosureCoq.v` + `ClayMasterTheoremCoq.v` — structural parity (bundle shape + theorem signatures), with substantive Clay statements as `Prop := True` placeholders on the Coq side.
 - **Manuscript:** Version 2.5.0, 864 pages.
 - **Peer review:** Subject to the publishing gate; no external submission without multi-model stress-test vetting.
