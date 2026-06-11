@@ -108,6 +108,7 @@ import PF.Referee.MinimalRigidityForcesNonClayAlphas
 import PF.Referee.MinimalRigidityForcesNonClayAlphasExtended
 import PF.Referee.MinimalRigidityForcesNonClayAlphasFinal
 import PF.Referee.MinimalRigidityForcesIITPhiThreshold
+import PF.Referee.MinimalRigidityForcesConsciousnessMassBridge
 
 namespace PF.Referee.SubstrateRigidityMasterCapstone
 
@@ -118,6 +119,7 @@ open PF.Referee.MinimalSubstrateRigidityUnified
 open PF.Referee.MinimalRigidityForcesIBMGaloisPair
 open PF.Referee.MinimalRigidityForcesHermitianRealization
 open PF.Referee.MinimalRigidityForcesIITPhiThreshold
+open PF.Referee.MinimalRigidityForcesConsciousnessMassBridge
 
 /-- **★★★★★★★★ THE MASTER SUBSTRATE-RIGIDITY CAPSTONE ★★★★★★★★** —
     `substrate_rigidity_master_capstone`.
@@ -207,7 +209,78 @@ theorem substrate_rigidity_master_capstone
     exact unified_minimal_forces_iit_phi_threshold_in_alpha_NP_terms
             u hM h_P h_P_pos h_Hodge_pos h_QG_pos Phi h_iit
 
+/-- **★★★★★★★★ THE EXTENDED MASTER SUBSTRATE-RIGIDITY CAPSTONE ★★★★★★★★** —
+    `substrate_rigidity_extended_master_capstone`.
+
+    Extends the master capstone above with a fifth deliverable:
+
+      (M5) Consciousness mass-Planck ratio meets NP fibre side
+           length at unity: under minimal-rigidity,
+           `m_C_over_M_Planck · (4·α_NP − 3) = 1`.
+
+    Together with (M1)-(M4), the extended capstone shows:
+      * The full 9-axis α-skeleton uniquely.
+      * The IBM Galois pair structure over Q(√5).
+      * The 2×2 Hermitian realization.
+      * The IIT Φ threshold = 2·log 20 = 2·log((4·α_NP − 3)²).
+      * The consciousness mass-Planck ratio = 1/(4·α_NP − 3).
+
+    Two formal connections from the algebraic substrate to the
+    consciousness chain, both via the same NP fibre value `(4·α_NP − 3)`.
+    The substrate-rigidity reach is unified across the framework's
+    Clay α-table, IBM empirical anchor, and consciousness chain. -/
+theorem substrate_rigidity_extended_master_capstone
+    (u : UnifiedAlphaAssignment)
+    (hM : UnifiedMinimalInvariants u)
+    (h_P : u.sector1.a_Poincare = 1)
+    (h_P_pos : 0 < u.sector2.a_P)
+    (h_Hodge_pos : 0 < u.sector2.a_Hodge)
+    (h_QG_pos : 0 < u.sector2.a_QG) :
+    -- (M1)-(M4): the prior master capstone.
+    (u.sector1.a_Poincare = 1 ∧
+     u.sector1.a_RH = 3/2 ∧
+     u.sector1.a_YM = 2 ∧
+     u.sector1.a_BSD = (3/4) * Real.pi ∧
+     u.sector1.a_NS = (3/2) * Real.pi ∧
+     u.sector1.a_PvNP = 5/4 ∧
+     u.sector2.a_P = Real.sqrt 2 ∧
+     u.sector2.a_Hodge = (1 + Real.sqrt 5) / 2 ∧
+     u.sector2.a_NP = (1 + Real.sqrt 5) / 2 + 1/4 ∧
+     u.sector2.a_QG = Real.sqrt (2 * Real.pi)) ∧
+    (PrincipiaTractalis.IBMPeaksGaloisPair.P u.sector1.a_RH = 0 ∧
+     PrincipiaTractalis.IBMPeaksGaloisPair.P u.sector2.a_NP = 0 ∧
+     (4 * u.sector1.a_RH - 3) ^ 2 = 9 ∧
+     (4 * u.sector2.a_NP - 3) ^ 2 = 20 ∧
+     u.sector1.a_RH ≠ u.sector2.a_NP) ∧
+    ((H_pair u.sector1.a_RH u.sector2.a_NP).IsHermitian ∧
+     (H_pair u.sector1.a_RH u.sector2.a_NP).HasEigenvalue u.sector1.a_RH ∧
+     (H_pair u.sector1.a_RH u.sector2.a_NP).HasEigenvalue u.sector2.a_NP ∧
+     (H_pair u.sector1.a_RH u.sector2.a_NP).a12
+       = (4 * PrincipiaTractalis.phi - 5) / 8) ∧
+    (∀ Phi : ℝ,
+       (19 : ℝ) / 20 ≤ 1 - Real.exp (-Phi / 2) →
+       2 * Real.log ((4 * u.sector2.a_NP - 3) ^ 2) ≤ Phi) ∧
+    -- (M5): NEW — consciousness mass × NP fibre side = 1.
+    (PrincipiaTractalis.Consciousness.m_C_over_M_Planck
+      * (4 * u.sector2.a_NP - 3) = 1) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · exact unified_alpha_skeleton_forced_by_minimal_invariants
+            u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  · obtain ⟨h1, h2, h3, h4, _, _, h5⟩ :=
+      unified_minimal_forces_IBM_Galois_pair_structure
+        u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+    exact ⟨h1, h2, h3, h4, h5⟩
+  · exact unified_minimal_forces_Hermitian_realization
+            u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  · intro Phi h_iit
+    exact unified_minimal_forces_iit_phi_threshold_in_alpha_NP_terms
+            u hM h_P h_P_pos h_Hodge_pos h_QG_pos Phi h_iit
+  · exact unified_minimal_forces_consciousness_mass_NP_fibre_product_one
+            u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+
 end PF.Referee.SubstrateRigidityMasterCapstone
 
 #print axioms
   PF.Referee.SubstrateRigidityMasterCapstone.substrate_rigidity_master_capstone
+#print axioms
+  PF.Referee.SubstrateRigidityMasterCapstone.substrate_rigidity_extended_master_capstone
