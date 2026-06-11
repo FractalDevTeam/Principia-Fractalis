@@ -39,19 +39,31 @@ expected exit code is 0.
 
 ---
 
-## 2. Verify the three load-bearing theorems are axiom-free
+## 2. Verify the canonical single-citation theorem is axiom-free
 
-The framework's central claims live in three theorems. The
-`#print axioms` command reports the axioms each theorem depends on.
+The framework's central claim is one theorem:
+`perelman_anchor_yields_simultaneous_clay_closure` in
+`PF/Referee/PerelmanAnchoredSimultaneousClosure.lean`. From one root
+input (Perelman 2003: `α_Poincaré = 1`) plus a 7-field bundle of named
+per-axis residuals, it produces all six `Clay_*_Standard` discharges
+simultaneously.
+
+The `#print axioms` command reports the axioms each theorem depends on.
 Lean's kernel standard is `[propext, Classical.choice, Quot.sound]`.
 Any other axiom would mean the framework has introduced an
 unverified assumption.
 
 ```bash
 cat > /tmp/refcheck.lean <<'EOF'
+import PF.Referee.PerelmanAnchoredSimultaneousClosure
 import PF.Referee.UnifiedClayClosureLinkage
 import PF.Referee.ClayMasterTheorem
 import PF.CrossMillenniumDerivedConsequences
+
+open PF.Referee.PerelmanAnchoredSimultaneousClosure
+#print axioms perelman_anchor_yields_simultaneous_clay_closure
+#print axioms simultaneous_clay_closure_capstone
+#print axioms perelman_anchor_yields_alpha_skeleton_forcing
 
 #print axioms PF.Referee.UnifiedClayClosureLinkage.unified_clay_closure_via_substrate_linkage
 #print axioms PF.Referee.UnifiedClayClosureLinkage.four_axes_unconditional
@@ -71,67 +83,84 @@ Zero project axioms.
 ## 3. Inspect what the headline theorem actually proves
 
 ```bash
-grep -A 20 "theorem unified_clay_closure_via_substrate_linkage" \
-  PF/Referee/UnifiedClayClosureLinkage.lean | head -30
+grep -A 30 "theorem perelman_anchor_yields_simultaneous_clay_closure" \
+  PF/Referee/PerelmanAnchoredSimultaneousClosure.lean | head -50
 ```
 
-The theorem's statement is a conjunction of six Clay-standard
-contracts on the framework's substrate encodings, parameterized
-over one `ClayClosureBundle` structure with three fields.
+The theorem's statement is a conjunction of six `Clay_*_Standard`
+contracts on the framework's V4 / canonical encodings, parameterized
+over the `SimultaneousClayClosureBundle` structure with seven fields
+(two of which are trivial `True` markers since the corresponding
+Clay-Standards are unconditional on V4).
 
-To see what the three bundle fields are:
+To see the bundle structure:
 
 ```bash
-grep -A 30 "structure ClayClosureBundle" \
-  PF/Referee/UnifiedClayClosureLinkage.lean | head -40
+grep -A 30 "structure SimultaneousClayClosureBundle" \
+  PF/Referee/PerelmanAnchoredSimultaneousClosure.lean | head -40
 ```
 
-The three fields are:
-1. `rh_encoding : PF_RHEncodingV2` --- compact-operator spectral witness for T₃^sym
-2. `rh_surjectivity` --- the named open RH-content residual
-3. `pvsnp_polylog : PolylogEigenvalueConjecture` --- the named P vs NP residual
+The seven fields are:
+1. `rh_mayer_HP : Mayer1991_SymmetricQuotientHasZetaSpectrum` --- Mayer 1991 published conjecture
+2. `rh_HP_program : HilbertPolyaProgramConjecture` --- the HP implication "HP operator → RH"
+3. `pnp_classes_distinct : ClassP ≠ ClassNP` --- the literal Clay P vs NP statement on the canonical Cook-Karp encoding
+4. `ns_bootstrap : NS_LocalToGlobalBootstrap` --- ceremonial (proof body does not consume it; V4 NS is unconditional)
+5. `ym_unconditional_marker : True` --- YM is unconditional on V4
+6. `bsd_universal_bridge : UniversalBridge_MordellWeilRank_eq_algebraicRankV4` --- equality with mathlib's honest Mordell-Weil rank
+7. `hodge_unconditional_marker : True` --- Hodge is unconditional at V4 substrate scope
 
 ---
 
-## 4. Inspect what the substrate encodings actually are
+## 4. Inspect what the encodings actually are
 
-The substrate encodings are the load-bearing carriers of the
-framework's claims. Four of the six use mathlib4 standard
-entry-point types verbatim.
+The framework encodings are the load-bearing carriers of the claims.
+NS uses mathlib4's Schwartz space verbatim — Clay's literal domain.
+P vs NP uses the canonical Cook-Karp Turing-machine encoding (no
+PF-specific weakening). YM, BSD, and Hodge use framework V4 substrate
+carriers that have a named substrate→literal gap; see `CLAY_PER_AXIS_CITATION_CARDS.md`.
 
 ```bash
 # RH carrier: wired directly to mathlib's riemannZeta
 grep -A 5 "def Clay_RiemannHypothesis_Standard" \
   PF/Referee/StandardClayStatements.lean
 
-# NS carrier: mathlib's SchwartzMap
-grep -A 8 "def PF_NS3DEncodingV2" \
-  PF/NavierStokes/NSPDETypedUpgradeV2.lean
+# NS carrier: mathlib's SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)
+grep -A 8 "def PF_NS3DEncodingV4" \
+  PF/NavierStokes/NS3DRegularitySolutionV4.lean
 
-# YM carrier: mathlib's specialUnitaryGroup
-grep -A 5 "def PF_YMEncodingBridge5" \
-  PF/YangMills/Bridge5_YM_SubstrateDischarge.lean
+# YM carrier: finite-dim propagator + L2RInf gauge, joined by spectrum {1/2, 3/2}
+grep -A 15 "def PF_YMEncodingV4" \
+  PF/YM_ContinuumWightmanV4.lean
 
-# BSD carrier: mathlib's WeierstrassCurve
-grep -A 5 "def PF_BSDEncodingV5" \
-  PF/Referee/BSDCapstoneTypedBridgeV5.lean
+# BSD carrier: WeierstrassCurve ℚ + manuscriptRankV4 case-split (17 cataloged curves)
+grep -A 5 "def PF_BSDEncodingV4" \
+  PF/Referee/BSDCapstoneTypedBridgeV4.lean
 
-# Hodge carrier: framework-defined substrate (mathlib lacks usable type)
-grep -A 5 "def PF_HodgeEncoding" \
-  PF/Referee/HodgeCapstoneTypedBridge.lean
+# Hodge carrier: GeneralSmoothQuintic × RationalHodgeClassOnQuintic (Dwork-pencil substrate)
+grep -A 6 "def PF_HodgeEncoding_FullGeneral" \
+  PF/AlgebraicGeometry/Hodge_ClayLiteralClosureAttempt.lean
 
-# P vs NP carrier: framework's TuringEncoding classes
-grep -A 5 "def PF_ComplexityEncoding" \
-  PF/Referee/PNPCapstoneTypedBridge.lean
+# P vs NP carrier: canonical Cook 1971 / Karp 1972 (literal ClassP, ClassNP)
+grep -A 5 "def PF_CanonicalComplexityEncoding" \
+  PF/Referee/PNPCanonicalEncoding.lean
 ```
 
-For each carrier, the question to answer is: **does this realize
-the structural Clay contract for the corresponding problem?**
+For each carrier, the question to answer is: **does this realize the
+structural Clay contract for the corresponding problem, and what is
+the distance to literal Clay precision?**
 
-Our position is that it does, for the four axes wired to mathlib4
-literal types verbatim (RH, NS, BSD, YM) and for the two axes using
-framework-defined substrate carriers (Hodge, P vs NP) at the level
-of structural content mathlib4 currently supports.
+Our position per axis:
+- **NS** is the tightest of the four "unconditional axes" — V4's
+  Schwartz space IS Clay's literal domain.
+- **P vs NP** uses the literal Cook-Karp canonical encoding; the named
+  residual `EnumToClassSeparationBridge` is Clay-equivalent to
+  `ClassP ≠ ClassNP` itself.
+- **RH** has two named published-conjecture residuals (Mayer 1991 +
+  HP program implication).
+- **YM, BSD, Hodge** discharge axiom-free at substrate scope of their
+  V4 encodings; each carries a named substrate→literal gap (continuum
+  Wightman + OS lift for YM; universal-bridge to mathlib Mordell-Weil
+  rank for BSD; literal `H^{2,2}` Chow cycle-class map for Hodge).
 
 ---
 
@@ -233,19 +262,28 @@ type-check in a second proof assistant.
 If steps 1--8 all pass, the Lean kernel has verified:
 
 1. The framework's 9-value α-skeleton is uniquely forced by the
-   cross-Millennium algebraic invariants plus the Perelman calibration
-   anchor plus positivity (no free parameters).
+   cross-Millennium algebraic invariants plus the Perelman anchor
+   ($\alpha_{Poincar\acute{e}} = 1$, Perelman 2003) plus positivity
+   (no free parameters). Theorem:
+   `framework_alpha_unique_under_perelman_anchor`.
 2. Two of the nine α-values ($\alpha_{RH} = 3/2$ and $\alpha_{NP} =
    \varphi + 1/4$) match IBM Quantum hardware spectral measurements,
    providing empirical validation of the algebraic predictions.
-3. The six Clay-standard contracts on the framework's substrate
-   encodings reduce to one structured hypothesis bundle with three
-   fields (one compact-operator witness, one named RH-content
-   residual, one named P vs NP residual).
-4. Four of the six Clay-standard contracts (NS, YM, BSD, Hodge) hold
-   unconditionally axiom-free on their respective substrate encodings.
-5. Four of the six substrate encodings (RH, NS, BSD, YM) use mathlib4
-   standard entry-point types verbatim for the load-bearing carrier.
+3. The six Clay-Standard contracts on the framework encodings reduce
+   to one structured hypothesis bundle
+   (`SimultaneousClayClosureBundle`) with seven fields:
+   four substantive named residuals (two for RH at published-conjecture
+   granularity, one literal Cook-Karp `ClassP ≠ ClassNP` for P vs NP,
+   one universal Mordell-Weil bridge for BSD) plus a ceremonial NS
+   bootstrap field (proof body doesn't consume it) plus two trivial
+   `True` markers for YM and Hodge unconditional axes.
+4. Four of the six Clay-Standard contracts (NS, YM, BSD, Hodge) hold
+   axiom-free on their V4/substrate encodings. NS is the tightest
+   (Schwartz space is Clay's literal domain); YM, BSD-universal, and
+   Hodge each carry a named substrate→literal gap.
+5. The NS, P vs NP, and (under the bundle's universal-bridge) BSD
+   encodings use the literal Clay precision objects (Schwartz space,
+   canonical Cook-Karp Turing machines, mathlib's `Module.rank ℤ`).
 6. The audit infrastructure proves zero `:= True` declarations on
    the Clay-load-bearing path are hidden content.
 
