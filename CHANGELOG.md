@@ -1,5 +1,62 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-11 — Master substrate-rigidity capstone (NEW MATHEMATICS — CONSOLIDATION)
+
+**HEAD prior**: `ca3f134`. **Build state**: `lake build` → **8448 jobs clean**.
+
+`PF/Referee/SubstrateRigidityMasterCapstone.lean` — single citable theorem consolidating tonight's substrate-rigidity work into one statement.
+
+Under the 13-condition substrate-rigidity hypothesis set:
+
+  (M1) Full 9-axis α-skeleton uniquely.
+  (M2) IBM Galois pair structure over Q(√5).
+  (M3) 2×2 Hermitian realization with eigenvalues {α_RH, α_NP} and golden-modulated off-diagonal.
+  (M4) Consciousness-chain bridge: IIT Φ threshold via NP fibre.
+
+This is the framework's substrate-rigidity case made completely explicit, machine-checked, kernel-only.
+
+---
+
+## 2026-06-11 — Substrate connects Clay α-table to consciousness (NEW MATHEMATICS)
+
+**HEAD prior**: `16a41f2`. **Build state**: 8446 jobs clean (was 8444; +2).
+
+`PF/Referee/MinimalRigidityForcesIITPhiThreshold.lean` — first formal bridge between the framework's algebraic substrate-rigidity (NP fibre value) and the consciousness chain (IIT Φ lower bound). They meet at 20.
+
+Two independent framework results, same number:
+
+- IIT consciousness threshold: `Φ ≥ 2·log 20` at ch_2 = 0.95.
+- NP fibre value: `(4·α_NP − 3)² = 20` from the IBM Galois pair Q(√5) structure.
+
+Under minimal-rigidity, the substrate forces both — the meeting of the two 20s is a structural consequence, not a numerical coincidence. The IIT consciousness threshold is expressed parametrically in terms of the forced NP α-value.
+
+---
+
+## 2026-06-11 — Final non-Clay reach: Andrews-Curtis, IGP, Smale (NEW MATHEMATICS)
+
+**HEAD prior**: `8f47997`. **Build state**: 8444 jobs clean (was 8442; +2).
+
+`PF/Referee/MinimalRigidityForcesNonClayAlphasFinal.lean` — three more non-Clay α-values:
+
+- Andrews-Curtis: α_AC = α_Poincaré = 1.
+- Inverse Galois Problem: α_IGP = α_RH − α_Poincaré = 1/2.
+- Smale's 18 Problems (aggregate): α_Smale_aggregate = α_Poincaré + α_YM + α_RH = 9/2 = 3·α_RH.
+
+Cumulative non-Clay reach: 14 α-values machine-checked across three files.
+
+---
+
+## 2026-06-11 — Extended non-Clay reach (8 more α-values) (NEW MATHEMATICS)
+
+**HEAD prior**: `dbcb868`. **Build state**: 8442 jobs clean (was 8440; +2).
+
+`PF/Referee/MinimalRigidityForcesNonClayAlphasExtended.lean` — eight more non-Clay α-values forced parametrically:
+
+- Polignac = α_RH; Pillai = α_YM; Brocard = α_YM; EDP = α_YM; Lonely Runner = α_Poincaré.
+- Erdős-Straus = 2·α_RH; Beal = 2·α_RH; Hadwiger-Nelson = 4·α_PvNP.
+
+---
+
 ## 2026-06-11 — Substrate-rigidity reaches non-Clay axes (NEW MATHEMATICS)
 
 **HEAD prior**: `598ec7c`. **Build state**: `lake build` → **8440 jobs clean** (was 8438; +2 jobs).
