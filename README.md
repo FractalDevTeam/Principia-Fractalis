@@ -6,7 +6,7 @@
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
 [![Lean 4](https://img.shields.io/badge/Lean%204-8360%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
-[![Coq](https://img.shields.io/badge/Coq-184%2F184%20files%20clean%20%7C%200%20admits-brightgreen)](PF_Coq_Code/)
+[![Coq](https://img.shields.io/badge/Coq-184%2F184%20files%20clean%20%7C%20structural--parity%20mirror-brightgreen)](PF_Coq_Code/)
 [![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.5.0-blue)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
 
@@ -18,7 +18,7 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The framework is machine-verified in **Lean 4** (8360 jobs clean, zero project axioms) and cross-verified in **Coq** (Wave 58 + full 16/16 non-Clay mirrors).
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8360 jobs clean, zero project axioms); **Coq** (184/184 files clean) carries a structural-parity mirror of the canonical backbone — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side (the backbone Coq files are `Admitted`-free; some Wave 24–58 framework-attack probes are not).
 
 **The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
@@ -34,16 +34,16 @@ For the strategic positioning of this work, see [`LANDING_STRATEGY.md`](LANDING_
 PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure
 ```
 
-**ONE input** — Perelman 2003's `α_Poincaré = 1` — **plus a 7-field bundle of named per-axis residuals** — produces **all six `Clay_*_Standard` discharges simultaneously**, on the framework's canonical encodings:
+**ONE input** — Perelman 2003's `α_Poincaré = 1` — **plus a 7-field bundle of named per-axis residuals** — produces **all six `Clay_*_Standard` discharges simultaneously**, each on a precisely-stated framework encoding (canonical or V4 substrate):
 
-- **RH** via `PF_RH_capstone_via_Mayer1991_T3sym` (Mayer 1991 §3 spectral correspondence)
-- **P ≠ NP** via `PF_CanonicalComplexityEncoding` (canonical Cook 1971 / Karp 1972)
-- **NS** via `PF_NS_capstone_yields_Clay_NavierStokes_standardV4` (Beale-Kato-Majda 1984)
-- **YM** via `PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4` (continuum SU(N) Wightman)
-- **BSD** via `PF_BSD_capstone_yields_Clay_BSD_standardV4` (Wiles modularity, Gross-Zagier + Kolyvagin)
-- **Hodge** via `pf_hodgeEncoding_FullGeneral_clay_substrate_closure` (Voisin 2007 obstruction)
+- **RH** via `PF_RH_capstone_via_Mayer1991_T3sym` consuming the two bundle residuals `Mayer1991_SymmetricQuotientHasZetaSpectrum` (Mayer 1991, Bull. AMS 25:55–60) + `HilbertPolyaProgramConjecture` (Berry-Keating / Connes / Bost-Connes)
+- **P ≠ NP** via `Clay_PvsNP_Standard_at_canonical_iff_classes_distinct` on `PF_CanonicalComplexityEncoding` (Cook 1971 / Karp 1972 binary-alphabet polynomial-time deciders + polynomial-size certificates); residual = literal `ClassP ≠ ClassNP`
+- **NS** via `PF_NS_capstone_yields_Clay_NavierStokes_standardV4` on `SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)` Schwartz divergence-free initial data, unconditional via the V4 chain (BKM 1984 + Leray 1934 + Hopf 1951 typed bootstrap + Wave 33 `UniformHadamardBoundAllN`)
+- **YM** via `PF_YM_capstone_yields_Clay_YangMillsMassGap_standardV4` on a finite-dim propagator + `L2RInf` gauge V4 carrier with mass gap Δ = 3/2 (substrate scope; continuum SU(N) Wightman + Osterwalder-Schrader lift remains the named gap to literal precision)
+- **BSD** via `PF_BSD_capstone_yields_Clay_BSD_standardV4` on the V4 case-split carrier (`manuscriptRankV4` projection with 17 per-curve discharges via Heegner / Coates-Wiles / BSZ / Kolyvagin); the universal-curve content lives in the bundle's `UniversalBridge_MordellWeilRank_eq_algebraicRankV4` residual (equality with mathlib's honest `Module.rank ℤ (RationalPoint E)`)
+- **Hodge** via `pf_hodgeEncoding_FullGeneral_clay_substrate_closure` at substrate scope of `GeneralSmoothQuintic` × `RationalHodgeClassOnQuintic`; Voisin 2007 obstruction isolated, with the literal `H^{2,2}(X_5, ℚ)` × Chow cycle-class map lift remaining the named gap
 
-The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate.
+The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate, simultaneously forced from one anchor by the α-skeleton uniqueness theorem `framework_alpha_unique_under_perelman_anchor`.
 
 Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8360 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
 
@@ -55,7 +55,7 @@ Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8360 jobs clean in
 
 - **`PF_Clay_Master_Theorem`** — uniqueness (α-skeleton forced) + four axes unconditional + linkage in one cite.
 - **`unified_clay_closure_via_substrate_linkage`** — substrate-linkage form (one bundle → six standards).
-- **`four_axes_unconditional`** — NS+YM+BSD+Hodge each Clay-Standard discharged axiom-free on PF substrates.
+- **`four_axes_unconditional`** — NS, YM, BSD, Hodge each Clay-Standard discharged axiom-free **on their V4/substrate encodings**. Substrate-scope, not literal-mathlib Clay precision; see the per-axis encoding notes above. NS is the tightest (Schwartz divergence-free is Clay's literal domain); YM/BSD-universal/Hodge each carry a named substrate→literal gap that lives in the bundle or in named conjectures.
 - **`framework_universal_reach_realized`** — 23-problem reach (7 Clay + 16 non-Clay), all wired to real capstones.
 - **`PrincipiaFractalisSubstrateTheorem`** — the substrate antecedent-consequent meta-theorem (component, not the canonical single-cite).
 
@@ -63,7 +63,9 @@ Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8360 jobs clean in
 
 ## What Is Verified (Axiom-Free)
 
-### All six Clay axes have direct Clay-precision strikes
+### All six Clay axes have framework-precision strikes
+
+The strikes below hold at the framework's encoding precision (substrate / V4 / canonical Cook-Karp). Each axis is also reduced to specifically named published bridges — see "What Is NOT Discharged" below for the literal-mathlib gap per axis.
 
 | Axis | Strike | Lean witness |
 |---|---|---|
@@ -131,14 +133,14 @@ Twin Prime, Collatz, Goldbach, Beal, Continuum Hypothesis, and the Inverse Galoi
 
 This is a **substrate-level** meta-theorem. It is **NOT** a literal Clay-statement-form discharge in mathlib's elliptic-curve / Sobolev / Wightman / Hodge / Turing-machine sense for any of the six unsolved Clay problems. Each axis retains a named open obstruction:
 
-| Axis | Remaining literal-statement-form gap |
-|---|---|
-| **RH** | Conditional on the open `surjectivity` Prop in `PF/Referee/RHCapstoneTypedBridge.lean` — the spectral-bijection surjectivity onto ζ-zeros (literal **Hilbert-Pólya**). |
-| **YM** | The ℓ² mass-gap witness is on a toy Hamiltonian, not the full **OS-Wightman QFT continuum**. |
-| **BSD** | Fin 6 LMFDB concordance and the rank-1 cascade are conditional on Gross-Zagier + Kolyvagin (cited, not mathlib-formalized) and do not cover **rank ≥ 2 with the leading-term formula**. |
-| **NS** | The substrate composite is axiom-free under Fujita-Kato; the literal Clay statement requires the named `∇u` mathlib gap (literal **Leray-Hopf smoothness**). |
-| **Hodge** | General-surface dim-2 substrate; codim ≥ 2 on the general smooth quintic outside the Dwork locus remains the named **Voisin 2007** obstruction. |
-| **P vs NP** | Enum-level conditional on `PolylogEigenvalueConjecture`; the **EnumToClassSeparationBridge** is the bridge required to lift enum-level separation to literal `P ≠ NP`. Razborov-Rudich and Aaronson-Wigderson barriers preserved. |
+| Axis | Encoding in V4/canonical | Named residual + literal-statement-form gap |
+|---|---|---|
+| **RH** | V4 bridge via `PF_RH_capstone_via_Mayer1991_T3sym` | Two bundle residuals at published-conjecture granularity: `Mayer1991_SymmetricQuotientHasZetaSpectrum` (Mayer 1991, Bull. AMS 25:55–60) + `HilbertPolyaProgramConjecture` (the published HP implication "if a HP operator for ζ exists, RH holds"). Three named analytic sub-gaps isolated in `RH_Wave56DirectDischargeAttempt.lean` (G1 Mayer N→∞ injectivity, G2 Hardy band, G3 measure-to-pointwise). |
+| **YM** | V4 carrier: finite-dim `Fin 2 → ℝ` propagator + `L2RInf` gauge, joined by shared spectrum {1/2, 3/2}; mass gap Δ = 3/2 axiom-free | Continuum 4D SU(N) Wightman + Osterwalder-Schrader reconstruction at full infinite-dim is the named lift; the V4 result is at substrate scope. |
+| **BSD** | V4 case-split carrier `manuscriptRankV4` with 17 per-curve discharges (Heegner / Coates-Wiles / BSZ / Kolyvagin) | Bundle residual `UniversalBridge_MordellWeilRank_eq_algebraicRankV4` — equality with mathlib's honest `Module.rank ℤ (RationalPoint E)` on every `WeierstrassCurve ℚ`. Universal rank ≥ 2 outside the 17-curve set is the named gap. |
+| **NS** | V4 chain unconditional on `SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)` Schwartz div-free initial data via BKM 1984 + Leray-Hopf typed bootstrap + Wave 33 `UniformHadamardBoundAllN` | Bundle's `ns_bootstrap` field is ceremonial (proof body doesn't consume it). Gap from V4-typed Schwartz solutions to full literal-mathlib Clay smoothness statement remains the lift. |
+| **Hodge** | V4 substrate scope: `GeneralSmoothQuintic` × `RationalHodgeClassOnQuintic (dworkPencilConcrete 0)` (rank-1 substrate shadow) | Literal `H^{2,2}(X_5, ℚ)` with mathlib Chow cycle-class map + geometric Voisin 2007 lift remains the named gap. Voisin 2007 obstruction isolated to substrate scope; not to literal cycle-class precision. |
+| **P vs NP** | `Clay_PvsNP_Standard PF_CanonicalComplexityEncoding ↔ ClassP ≠ ClassNP` **fully proven**, no axioms; encoding is literal Cook 1971 / Karp 1972 | Named residual `EnumToClassSeparationBridge ↔ Literal_P_neq_NP` — Clay-equivalent to P ≠ NP itself. Razborov-Rudich and Aaronson-Wigderson barriers preserved. |
 
 These are the literal Clay-statement-form gaps. The framework provides the **substrate-level** derivation; literal-statement-form discharge requires either new mathematics or years of mathlib formalization work in elliptic-curve / Sobolev / Wightman / Hodge / Turing-machine theory.
 
@@ -193,7 +195,7 @@ Four canonical folders + standard repo + governance + archive:
 | [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | **THE BOOK.** Version 2.5.0, 864 pages. `main.tex` + chapters + appendices + `main.pdf`. Chapter 34A is the substrate theorem; Appendix I is the Lean cross-reference; Appendix J documents the 2026-06-07 refinement pass. |
 | [`PF_Lean4_Code/`](PF_Lean4_Code/) | **THE LEAN 4 FRAMEWORK.** Main formalization. `lake build` (default target): 8360 jobs clean. `lake build PF` (PF subtarget): 4187 jobs clean. Zero project axioms. `PF/Referee/` holds the Clay-standard layer; `PF/Substrate/`, `PF/Consciousness/`, `PF/NavierStokes/`, `PF/YangMills/`, `PF/AlgebraicGeometry/` etc. hold per-axis content. |
 | [`PF_Lean4Lean/`](PF_Lean4Lean/) | **THE META LAYER.** External Lean 4 kernel re-verifier ("Lean for Lean"). Cross-checks the main framework's kernel acceptances against an independent implementation. |
-| [`PF_Coq_Code/`](PF_Coq_Code/) | **THE COQ CROSS-PROVER.** 184/184 files in `_CoqProject` build clean. Wave 58 referee layer + 16/16 non-Clay framework-attack mirrors + headline-encoding-upgrade mirror. |
+| [`PF_Coq_Code/`](PF_Coq_Code/) | **THE COQ STRUCTURAL-PARITY MIRROR.** 184/184 files in `_CoqProject` build clean. Wave 58 referee-layer backbone (`PerelmanAnchoredSimultaneousClosureCoq.v`, `ClayMasterTheoremCoq.v`) is `Admitted`-free with same bundle shape and theorem signatures as Lean — but substantive Clay statements are `Prop := True` placeholders on the Coq side; the load-bearing mathlib content lives in Lean. Some Wave 24–58 framework-attack probes (Continuum Hypothesis, Collatz, etc.) contain `Admitted` markers and are not part of the backbone. |
 | [`Papers/`](Papers/) | Current papers. |
 
 ### Standard repo files
@@ -238,13 +240,18 @@ Lean 4 kernel   (type-checks Layer 1; produces .olean)
 PF_Lean4Lean/   (Layer 2: external Lean kernel re-verifier)
        |
        v
-PF_Coq_Code/    (Layer 3: independent Coq cross-prover — 184/184 clean)
+PF_Coq_Code/    (Layer 3: structural-parity Coq mirror — 184/184 clean,
+                 backbone Admitted-free; same bundle shape and theorem
+                 signatures as Lean, but substantive Clay statements are
+                 `Prop := True` placeholders — content parity lives in Lean)
 ```
 
 Layer 1 is the load-bearing claim: 8360 jobs clean, zero project axioms,
 all citable theorems depend only on Lean's three foundational axioms
-(`propext`, `Classical.choice`, `Quot.sound`). Layers 2 and 3 are
-independent confirmation paths.
+(`propext`, `Classical.choice`, `Quot.sound`). Layer 2 is an independent
+kernel re-check of Layer 1. Layer 3 is a structural mirror confirming
+the bundle and theorem signatures compile in a second prover; it is
+not a second independent content verification.
 
 ---
 
@@ -258,7 +265,8 @@ independent confirmation paths.
   year      = {2026},
   edition   = {Version 2.5.0 (Headline Encoding Upgrade + Ten-Pillar Total Reach)},
   note      = {Machine-verified in Lean 4 (8360 jobs clean, zero
-               project axioms) and cross-verified in Coq (184/184 files).
+               project axioms); Coq (184/184 files) carries a
+               structural-parity backbone mirror.
                Citable: PF_FourPillar_SuperCapstone, PF_Framework_TotalReach.
                ORCID: 0009-0002-0734-5565},
   url       = {https://github.com/FractalDevTeam/Principia-Fractalis}
@@ -296,11 +304,11 @@ Commercial use requires explicit written permission from the author.
 
 **Active development.**
 
-- **Framework substrate-level theorem:** Complete at Version 1.2.0 (HEAD `42990ea`, 2026-06-03).
-- **Lean 4 build state:** 4036 jobs clean, zero project axioms, zero sorries.
-- **Cross-prover parity:** 18 Wave 58 files mirrored in Coq, with the substrate theorem itself mirrored at `PF_Coq_Code/PF/Wave58/PrincipiaFractalisSubstrateTheoremCoq.v`.
-- **Manuscript:** Version 1.2.0, Substrate-Level Meta-Theorem Edition, 2026-06-03.
-- **Peer review:** In progress.
+- **Framework substrate-level theorem:** Canonical single-citation form complete (HEAD `13181c0`, 2026-06-11).
+- **Lean 4 build state:** 8360 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`.
+- **Cross-prover parity:** Wave 58 referee-layer backbone mirrored in Coq at `PF_Coq_Code/PF/Wave58/PerelmanAnchoredSimultaneousClosureCoq.v` + `ClayMasterTheoremCoq.v` — structural parity (bundle shape + theorem signatures), with substantive Clay statements as `Prop := True` placeholders on the Coq side.
+- **Manuscript:** Version 2.5.0, 864 pages.
+- **Peer review:** Subject to the publishing gate; no external submission without multi-model stress-test vetting.
 
 The canonical single-citation theorem is `PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneous_clay_closure` — ONE input (Perelman α=1) plus a 7-field bundle → all six `Clay_*_Standard` simultaneously. The substrate antecedent-consequent meta-theorem `PrincipiaFractalisSubstrateTheorem` is a component (not the canonical cite). The named per-axis published bridges (Mayer 1991, BKM 1984, Wiles, Voisin 2007, Gross-Zagier + Kolyvagin) are tracked in [`OPEN_PROBLEMS.md`](OPEN_PROBLEMS.md). See [`LANDING_STRATEGY.md`](LANDING_STRATEGY.md) for the strategic positioning.
 

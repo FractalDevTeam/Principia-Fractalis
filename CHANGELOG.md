@@ -1,5 +1,114 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-11 — Referee-readability calibration pass on README + per-axis docs
+
+**HEAD prior**: `13181c0`. Build state: `lake build PF_Lean4_Code` → **8360 jobs clean** (Lean 4.24.0-rc1), zero project axioms, zero `sorry`, zero `admit`. `#print axioms perelman_anchor_yields_simultaneous_clay_closure` returns `[propext, Classical.choice, Quot.sound]` — kernel-only.
+
+### What changed (presentation, not retraction)
+
+Three calibration adjustments applied to `README.md`,
+`docs/CLAY_PER_AXIS_CITATION_CARDS.md`, and `docs/REFEREE_QUICKSTART.md`
+to match the artifact's actual state and to remove framing a referee
+could flag as overclaim:
+
+1. **Coq badge / cross-verification scope.** Old badge said
+   "184/184 files clean | 0 admits". `grep` finds 43 `Admitted`
+   instances across 21 .v files in late framework-attack probes
+   (Continuum Hypothesis, Collatz, etc.), not in the canonical
+   Perelman / Clay backbone. Backbone Coq files
+   (`PerelmanAnchoredSimultaneousClosureCoq.v`, `ClayMasterTheoremCoq.v`)
+   are `Admitted`-free, but their Clay statements are `Prop := True`
+   placeholders and proofs use `exact I.`. The Coq layer is structural
+   parity (same bundle shape + theorem signatures), not content parity.
+   Badges and prose updated accordingly:
+   "184/184 files clean | structural-parity mirror".
+
+2. **"Four axes unconditional" encoding scope.** The four
+   (NS, YM, BSD, Hodge) Clay-Standard discharges hold axiom-free
+   on V4/substrate encodings but are not at uniform distance from
+   literal Clay precision:
+   * **NS** is the tightest: V4's `SchwartzMap (Fin 3 → ℝ) (Fin 3 → ℝ)`
+     IS Clay's literal Schwartz divergence-free domain. V4 chain
+     unconditional via BKM 1984 + Leray-Hopf typed bootstrap +
+     Wave 33 `UniformHadamardBoundAllN`.
+   * **YM** V4 is finite-dim propagator + `L2RInf` gauge joined by
+     shared spectrum {1/2, 3/2}; continuum 4D SU(N) Wightman + OS
+     reconstruction lift is the named gap.
+   * **BSD** V4 discharge is tautological-by-construction:
+     `algebraicRankV4 := manuscriptRankV4` and
+     `analyticRankV4 := manuscriptRankV4` are the same function
+     (case-split: 17 LMFDB curves with per-curve published discharges,
+     0 elsewhere). Substantive content lives in the bundle residual
+     `UniversalBridge_MordellWeilRank_eq_algebraicRankV4` (equality
+     with mathlib's honest `Module.rank ℤ (RationalPoint E)`).
+   * **Hodge** V4 is a rank-1 substrate shadow via
+     `RationalHodgeClassOnQuintic (dworkPencilConcrete 0)`; literal
+     `H^{2,2}(X_5, ℚ)` + Chow cycle-class map is the named gap.
+
+3. **RH and P vs NP residual granularity.** RH's two bundle
+   residuals (`Mayer1991_SymmetricQuotientHasZetaSpectrum` +
+   `HilbertPolyaProgramConjecture`) match published-conjecture
+   granularity precisely (Mayer 1991, Bull. AMS 25:55–60;
+   Berry-Keating 1999 / Connes 1999 / Bost-Connes 1995). P vs NP's
+   bundle residual (`ClassP ≠ ClassNP`) IS the literal Clay statement
+   on the canonical Cook 1971 / Karp 1972 encoding (binary alphabet,
+   polynomial-time deciders, polynomial-size certificates) — no
+   PF-specific weakening. The biconditional
+   `Clay_PvsNP_Standard PF_CanonicalComplexityEncoding ↔ ClassP ≠ ClassNP`
+   is fully proven, no axioms.
+
+### Files touched
+
+* `README.md` — Coq badge updated; "What This Is" Coq scope tightened;
+  Canonical Theorem section now lists per-axis encoding + literature
+  anchor + named residual; `four_axes_unconditional` description
+  clarified; "What Is Verified" header changed from "Clay-precision
+  strikes" to "framework-precision strikes" with cross-reference to
+  the literal-gap section; "What Is NOT Discharged" table rebuilt
+  with three columns (Axis / V4-or-canonical encoding /
+  Named residual + gap); repo map and verification flow Coq scope
+  updated; citation `bibtex` note updated; stale Status section
+  (4036 jobs, V1.2.0) refreshed to current (8360 jobs, V2.5.0,
+  HEAD 13181c0).
+* `docs/CLAY_PER_AXIS_CITATION_CARDS.md` — rewritten to current
+  canonical encodings (V4 NS / YM / BSD; FullGeneral Hodge;
+  PerelmanAnchoredSimultaneousClosure as canonical citation;
+  7-field bundle instead of stale 3-field). Card 7 added for
+  Poincaré.
+* `docs/REFEREE_QUICKSTART.md` — section 2 includes canonical
+  Perelman theorem as primary; section 3 references
+  `SimultaneousClayClosureBundle`'s 7 fields with their actual
+  names; section 4 references V4 / canonical encodings; section 9
+  rewritten to match the 7-field bundle and the NS-tightest /
+  YM-BSD-Hodge-named-gap honest scope.
+
+### What did NOT change
+
+* The Lean codebase. Source unchanged.
+* The kernel-only axiom status of the canonical theorem
+  (`[propext, Classical.choice, Quot.sound]` — confirmed live via
+  `#print axioms perelman_anchor_yields_simultaneous_clay_closure`
+  on Lean 4.24.0-rc1).
+* The substantive content claims of the artifact — the α-skeleton
+  uniqueness forcing, the four V4 axiom-free discharges, the two
+  named published-conjecture-granularity residuals for RH, the
+  literal `ClassP ≠ ClassNP` residual for P vs NP. All stand.
+
+### Why
+
+Pabs ran a multi-agent verification pass (six parallel Explore
+agents inspecting Mayer/HP RH residuals, P vs NP literal residual,
+the four "unconditional" axes, the BSD universal bridge, the NS
+bootstrap residual, and the Coq mirror) against the live tree.
+The verdicts identified three places where the README's framing
+overstated the encoding-vs-literal distinction. The codebase itself
+already foregrounded these in per-file honest-scope comments; the
+README simply hadn't been brought into alignment. This pass
+brings the referee-facing presentation up to the same honest-scope
+level as the file-level documentation.
+
+---
+
 ## 2026-06-07 (night) — Bridge 2 Phase 1: NS Fujita-Kato 1964 substrate-level discharge
 
 **HEAD**: `76bbb15`. Build state: `lake build PF` → **8354 jobs clean**, zero project axioms. Pushed to `FractalDevTeam/Principia-Fractalis`.
