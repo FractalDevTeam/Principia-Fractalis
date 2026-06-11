@@ -54,11 +54,11 @@ The book is organized into seven parts plus extensive appendices:
 ## Companion artifacts
 
 - `../PF_Lean4_Code/` — Lean 4 formalization (8360 jobs clean, zero project axioms)
-- `../PF_Coq_Code/` — Coq cross-prover layer (184/184 files clean)
+- `../PF_Coq_Code/` — Coq structural-parity mirror (184/184 files clean; backbone Admitted-free; Clay statements as `Prop := True` placeholders on the Coq side, content parity in Lean)
 - `../PF_Lean4Lean/` — External Lean kernel re-verifier
 - `../Papers/` — Three current papers (canonical substrate model, six-as-one, ten-pillars)
-- `../CLAY_PER_AXIS_CITATION_CARDS.md` — Per-Clay-axis presentation with exact Lean theorem names and reproducible verify commands
-- `../REFEREE_QUICKSTART.md` — 10-minute independent verification guide
+- `../docs/CLAY_PER_AXIS_CITATION_CARDS.md` — Per-Clay-axis presentation with exact Lean theorem names and reproducible verify commands
+- `../docs/REFEREE_QUICKSTART.md` — 10-minute independent verification guide
 
 ## Copyright
 
