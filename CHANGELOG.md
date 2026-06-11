@@ -1,5 +1,59 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-11 — Minimal substrate-rigidity theorem (NEW MATHEMATICS)
+
+**HEAD prior**: `d2c3030`. **Build state**: `lake build` → **8424 jobs clean** (was 8360; +64 jobs), zero project axioms, zero `sorry`, zero `admit`. All new theorems depend only on `[propext, Classical.choice, Quot.sound]` — kernel-only.
+
+### What landed
+
+A new file `PF/Referee/MinimalSubstrateRigidity.lean` (227 lines) machine-checking the sharper form of substrate rigidity for the framework's 6-axis sector-1 α-skeleton.
+
+* **New structure** `MinimalSatisfiesInvariants` — the 5 load-bearing cross-Millennium invariants on the sector-1 α-skeleton:
+  - `inv_RH_Poincare`    : `α_RH = α_Poincaré + 1/2`
+  - `inv_YM_Poincare`    : `α_YM = α_Poincaré + 1`
+  - `inv_BSD`            : `α_BSD = (3/4) · π`
+  - `inv_NS_BSD`         : `α_NS = 2 · α_BSD`
+  - `inv_PvNP_Poincare`  : `α_PvNP − α_Poincaré = 1/4`
+
+* **Two derivation theorems** (the redundant sector-1 invariants are now machine-checked as consequences, not assumptions):
+  - `inv_RH_YM_prod_derived` : `MinimalSatisfiesInvariants a ∧ a.a_Poincare = 1 → a.a_RH * a.a_YM = 3`
+  - `inv_NS_YM_BSD_derived` : `MinimalSatisfiesInvariants a ∧ a.a_Poincare = 1 → a.a_NS = a.a_YM * a.a_BSD`
+
+* **Promotion theorem** `satisfiesInvariants_of_minimal_plus_anchor` — given `MinimalSatisfiesInvariants a` plus `a.a_Poincare = 1`, the full sector-1 `SatisfiesInvariants a` holds. Formal certification that the framework's "7 sector-1 algebraic constraints" content is actually carried by 5 constraints plus the anchor.
+
+* **Sharper uniqueness theorem** `framework_alpha_unique_under_perelman_anchor_minimal` — any `AlphaAssignment` satisfying ONLY the five minimal invariants AND pinning the Perelman anchor `a_Poincare = 1` is forced to equal `framework_alpha`. Strict sharpening of the existing `framework_alpha_unique_under_perelman_anchor` (which had consumed 7 sector-1 invariants).
+
+* **Witness** `framework_alpha_satisfies_minimal_invariants` and combined existence + minimal-uniqueness statement `framework_alpha_minimal_existence_and_uniqueness`.
+
+### Why this matters for substrate rigidity
+
+The framework's substrate-rigidity claim is now machine-checked at a sharper bar than the manuscript's "11 algebraic constraints" framing implies. For the sector-1 six-axis subset {Poincaré, RH, YM, BSD, NS, P vs NP}, the precise mathematical content is:
+
+> **5 algebraic constraints + 1 anchor → 6 α-values uniquely**, with 2 of the prior sector-1 invariants becoming derived theorems.
+
+The framework's α-skeleton lives on a 1-dimensional subspace of a 5-codimension algebraic constraint set in ℝ⁶, intersected by the Perelman anchor at a single point. The 7→5 reduction in the assumption budget is a strict sharpening of the rigidity claim — exactly the kind of structural simplification that strengthens the substrate-as-TOE thesis (the substrate is rigider than apparent).
+
+### Verification
+
+```bash
+cd PF_Lean4_Code
+lake build  # 8424 jobs clean
+echo 'import PF.Referee.MinimalSubstrateRigidity
+#print axioms PF.Referee.MinimalSubstrateRigidity.framework_alpha_unique_under_perelman_anchor_minimal
+#print axioms PF.Referee.MinimalSubstrateRigidity.inv_RH_YM_prod_derived
+#print axioms PF.Referee.MinimalSubstrateRigidity.inv_NS_YM_BSD_derived' > /tmp/v.lean
+lake env lean /tmp/v.lean
+# Expected: each line ends in [propext, Classical.choice, Quot.sound]
+```
+
+### Honest scope
+
+This is NOT a Clay discharge — it sharpens the SUBSTRATE-RIGIDITY claim of the framework, not the discharges of any Clay-Standard predicate. The Clay residuals (Mayer 1991 + HP program for RH; literal `ClassP ≠ ClassNP` for P vs NP; universal Mordell-Weil bridge for BSD; continuum Wightman + OS for YM; Chow cycle-class map for Hodge) are unchanged. What changes is the sharpness of the algebraic claim that the framework's α-values are forced.
+
+This is sector-1 (the 6-axis subset). The sector-2 invariants on `α_P`, `α_Hodge`, `α_NP`, `α_QG` are handled separately and are not part of this minimal-form theorem (those would be a follow-on).
+
+---
+
 ## 2026-06-11 — Referee-readability calibration pass on README + per-axis docs
 
 **HEAD prior**: `13181c0`. Build state: `lake build PF_Lean4_Code` → **8360 jobs clean** (Lean 4.24.0-rc1), zero project axioms, zero `sorry`, zero `admit`. `#print axioms perelman_anchor_yields_simultaneous_clay_closure` returns `[propext, Classical.choice, Quot.sound]` — kernel-only.

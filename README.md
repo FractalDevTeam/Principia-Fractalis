@@ -5,7 +5,7 @@
 ### A substrate-level theory of mathematics, physics, and consciousness
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204-8360%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
+[![Lean 4](https://img.shields.io/badge/Lean%204-8424%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
 [![Coq](https://img.shields.io/badge/Coq-184%2F184%20files%20clean%20%7C%20structural--parity%20mirror-brightgreen)](PF_Coq_Code/)
 [![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.5.0-blue)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
@@ -18,7 +18,7 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8360 jobs clean, zero project axioms); **Coq** (184/184 files clean) carries a structural-parity mirror of the canonical backbone — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side (the backbone Coq files are `Admitted`-free; some Wave 24–58 framework-attack probes are not).
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8424 jobs clean, zero project axioms); **Coq** (184/184 files clean) carries a structural-parity mirror of the canonical backbone — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side (the backbone Coq files are `Admitted`-free; some Wave 24–58 framework-attack probes are not).
 
 **The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
@@ -45,7 +45,19 @@ PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneo
 
 The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate, simultaneously forced from one anchor by the α-skeleton uniqueness theorem `framework_alpha_unique_under_perelman_anchor`.
 
-Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8360 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
+Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8424 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
+
+### Sharpened substrate rigidity (2026-06-11)
+
+The α-skeleton uniqueness is even sharper than the manuscript's "11 algebraic constraints" indicates. For the sector-1 six-axis subset {Poincaré, RH, YM, BSD, NS, P vs NP}, **only FIVE invariants + the Perelman anchor are load-bearing**; the remaining sector-1 invariants are derived theorems, not independent constraints. Machine-checked in `PF/Referee/MinimalSubstrateRigidity.lean`:
+
+- `MinimalSatisfiesInvariants` — the structure with the 5 load-bearing invariants only (`inv_RH_Poincare`, `inv_YM_Poincare`, `inv_BSD`, `inv_NS_BSD`, `inv_PvNP_Poincare`).
+- `inv_RH_YM_prod_derived` — proves `α_RH · α_YM = 3` from the minimal set + Perelman anchor, axiom-free.
+- `inv_NS_YM_BSD_derived` — proves `α_NS = α_YM · α_BSD` from the minimal set + Perelman anchor, axiom-free.
+- `satisfiesInvariants_of_minimal_plus_anchor` — promotes a minimal bundle + anchor to the full `SatisfiesInvariants`.
+- `framework_alpha_unique_under_perelman_anchor_minimal` — the sharper uniqueness theorem: 5 invariants + anchor → unique 6-axis α-skeleton.
+
+The framework's α-skeleton lives on a 1-dimensional subspace of a 5-codimension constraint set, intersected by the Perelman anchor at a single point. That is the precise substrate-rigidity statement.
 
 **Lean source:** [`PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean`](PF_Lean4_Code/PF/Referee/PerelmanAnchoredSimultaneousClosure.lean)
 
@@ -304,8 +316,8 @@ Commercial use requires explicit written permission from the author.
 
 **Active development.**
 
-- **Framework substrate-level theorem:** Canonical single-citation form complete (HEAD `13181c0`, 2026-06-11).
-- **Lean 4 build state:** 8360 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`.
+- **Framework substrate-level theorem:** Canonical single-citation form complete; minimal-form substrate-rigidity sharpening landed (HEAD post-`d2c3030`, 2026-06-11).
+- **Lean 4 build state:** 8424 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`. The 6-axis α-skeleton is forced by 5 invariants + Perelman anchor (sharpening of the prior 7-invariant form).
 - **Cross-prover parity:** Wave 58 referee-layer backbone mirrored in Coq at `PF_Coq_Code/PF/Wave58/PerelmanAnchoredSimultaneousClosureCoq.v` + `ClayMasterTheoremCoq.v` — structural parity (bundle shape + theorem signatures), with substantive Clay statements as `Prop := True` placeholders on the Coq side.
 - **Manuscript:** Version 2.5.0, 864 pages.
 - **Peer review:** Subject to the publishing gate; no external submission without multi-model stress-test vetting.
