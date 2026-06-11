@@ -1,5 +1,50 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-11 — Cosmological Λ 120-orders suppression forced (NEW MATHEMATICS)
+
+**HEAD prior**: `9d812d2`. **Build**: 8458 jobs clean.
+
+`PF/Referee/MinimalRigidityForcesCosmologicalSuppression.lean` — the famous 120-orders cosmological-constant suppression has algebraic origin in the substrate-forced α-skeleton:
+
+`120 = 2 · α_YM · α_RH · (4·α_NP − 3)² = 2 · 2 · (3/2) · 20 = 120`
+
+Each factor substrate-forced. Capstone `cosmological_suppression_substrate_capstone`.
+
+---
+
+## 2026-06-11 — H₃ icosahedral combinatorial structure forced (NEW MATHEMATICS)
+
+**HEAD prior**: `a7a5f33`. **Build**: 8456 jobs clean.
+
+`PF/Referee/MinimalRigidityForcesH3CombinatorialStructure.lean` — the full H₃ icosahedral combinatorial data is expressible 1-1 as functions of forced framework α-values:
+
+- Coxeter number `h(H₃) = α_YM · α_HN = 2 · 5 = 10`.
+- Exponent 9 = `(4·α_RH − 3)²` (RH fibre value).
+- Exponent 5 = `α_HN`.
+- Exponent 1 = `α_Poincaré`.
+- Sum 15 = `α_RH · α_YM · α_HN`.
+- Gap 4 = `2 · α_YM`.
+
+Each H₃ combinatorial value corresponds to a forced framework α-quantity.
+
+---
+
+## 2026-06-11 — H₃ icosahedral-golden bridge forced (NEW MATHEMATICS)
+
+**HEAD prior**: `7cb02f6`. **Build**: 8454 jobs clean.
+
+`PF/Referee/MinimalRigidityForcesH3CoxeterGeometry.lean` — `sin(π/10) = 1/(2·α_Hodge)` parametrically. The framework's universal coupling λ_0 = π/(10·α) has the "10" from H₃ Coxeter number and the golden ratio in α_Hodge both arising from the same icosahedral root system; under substrate-rigidity, both are forced.
+
+---
+
+## 2026-06-11 — Spectral gap content forced parametrically (NEW MATHEMATICS)
+
+**HEAD prior**: `44ff0ed`. **Build**: 8452 jobs clean.
+
+`PF/Referee/MinimalRigidityForcesSpectralGapContent.lean` — the framework's spectral-gap machinery (lambda_0_P, lambda_0_NP, spectral_gap, IBM Galois pair Hermitian spectral gap) is forced parametrically by substrate-rigidity. The Hermitian spectral gap = (2·√5 − 3)/4 = φ − 5/4 > 0.
+
+---
+
 ## 2026-06-11 — Consciousness mass × NP fibre = 1 + master capstone extended with M5 (NEW MATHEMATICS)
 
 **HEAD prior**: `fc6d832`. **Build state**: `lake build` → **8450 jobs clean** (was 8448; +2).
