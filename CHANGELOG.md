@@ -1,5 +1,72 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-11 — Sector-2 minimal substrate-rigidity theorem (NEW MATHEMATICS, follow-on)
+
+**HEAD prior**: `30c596a`. **Build state**: `lake build` → **8426 jobs clean** (was 8424; +2 jobs), zero project axioms, zero `sorry`, zero `admit`. All new theorems depend only on `[propext, Classical.choice, Quot.sound]` — kernel-only.
+
+### What landed
+
+`PF/Referee/MinimalSubstrateRigiditySector2.lean` (231 lines) — companion to the sector-1 minimal-rigidity theorem of the previous commit. Handles the sector-2 α-axes `{α_P, α_Hodge, α_NP, α_QG}` and the 5 sector-2 invariants.
+
+* **New structure** `MinimalSector2Invariants` — parameterised over the sector-1 anchor `a_YM`, carrying the 4 load-bearing sector-2 invariants:
+  - `inv_P_sq_YM`        : `α_P² = α_YM`
+  - `inv_Hodge_quad`     : `α_Hodge² = α_Hodge + 1` (golden-ratio quadratic)
+  - `inv_NP_minus_Hodge` : `α_NP − α_Hodge = 1/4`
+  - `inv_QG_sq_two_pi`   : `α_QG² = 2π`
+
+* **Derivation theorem** `inv_α_QG_sq_eq_α_YM_mul_pi_derived` — proves the 5th sector-2 invariant `α_QG² = α_YM · π` from the minimal set + `a_YM = 2`. The proof is two rewrites: from `α_QG² = 2π` and `a_YM = 2` we substitute to get `α_QG² = a_YM · π`. So this invariant is a derived theorem, not an independent constraint.
+
+* **Sqrt-uniqueness theorems**:
+  - `a_P_eq_sqrt_two` — from `α_P² = α_YM = 2` plus positivity, `α_P = √2`.
+  - `a_QG_eq_sqrt_two_pi` — from `α_QG² = 2π` plus positivity, `α_QG = √(2π)`.
+
+* **Golden-ratio forcing** `a_Hodge_eq_phi` — from `α_Hodge² = α_Hodge + 1` plus positivity, `α_Hodge = (1 + √5)/2 = φ`. Proof: complete the square to get `(2·α_Hodge − 1)² = 5`, factor as `(2·α_Hodge − 1 − √5)(2·α_Hodge − 1 + √5) = 0`, then positivity rules out the branch `2·α_Hodge − 1 = −√5` (since √5 > 1 implies `(1 − √5)/2 < 0`).
+
+* **Offset corollary** `a_NP_eq_phi_plus_quarter` — `α_NP = φ + 1/4` by composing with `α_NP − α_Hodge = 1/4`.
+
+* **Capstone** `sector2_minimal_rigidity_capstone` — 5-clause statement: under `MinimalSector2Invariants` + `a_YM = 2` + positivity on `α_P`, `α_Hodge`, `α_QG`, the four sector-2 α-values are forced to their framework defaults, AND the redundant 5th invariant holds as a theorem.
+
+### Combined with sector 1
+
+The full substrate-rigidity story is now machine-checked end-to-end:
+
+> **5 sector-1 invariants + 4 sector-2 invariants + Perelman anchor (`a_Poincare = 1`) + positivity → all 9 framework α-values uniquely.**
+
+The manuscript's "11 cross-Millennium algebraic invariants" framing is therefore a **9-load-bearing + 2-derived** split:
+- Sector 1: 5 load-bearing (inv_RH_Poincare, inv_YM_Poincare, inv_BSD, inv_NS_BSD, inv_PvNP_Poincare); 2 derived (inv_RH_YM_prod, inv_NS_YM_BSD).
+- Sector 2: 4 load-bearing (inv_P_sq_YM, inv_Hodge_quad, inv_NP_minus_Hodge, inv_QG_sq_two_pi); 1 derived (inv_QG_sq_α_YM_mul_pi).
+
+The α-skeleton lives on a **0-dimensional algebraic-arithmetic variety** (a single point) cut out by 9 algebraic constraints in ℝ¹⁰, with positivity selecting the right branch on the two square-root forced values (α_P, α_Hodge — and thereby α_QG, α_NP by composition).
+
+### Why this matters for substrate rigidity
+
+The two-sector reduction sharpens the framework's substrate-rigidity claim by 2 invariants in the assumption budget — a sharp algebraic statement about the framework that:
+
+1. **Strengthens the rigidity claim for referees.** "9 algebraic constraints + 1 anchor force 9 values uniquely" is sharper than "11 constraints ensure rigidity." A Clay mathematician evaluating the substrate-as-TOE thesis can verify the 9-invariant bound directly via `#print axioms`.
+
+2. **Foregrounds the role of positivity in the irrational sector.** The square-root and golden-ratio forcing both require a positivity hypothesis to select the right branch from a degree-2 algebraic equation. This is a non-trivial structural fact about the framework: the substrate's α-values are not all rational, but the irrational ones are forced by quadratic invariants + positivity.
+
+### Verification
+
+```bash
+cd PF_Lean4_Code
+lake build  # 8426 jobs clean
+echo 'import PF.Referee.MinimalSubstrateRigiditySector2
+#print axioms PF.Referee.MinimalSubstrateRigiditySector2.sector2_minimal_rigidity_capstone
+#print axioms PF.Referee.MinimalSubstrateRigiditySector2.inv_α_QG_sq_eq_α_YM_mul_pi_derived
+#print axioms PF.Referee.MinimalSubstrateRigiditySector2.a_Hodge_eq_phi' > /tmp/v.lean
+lake env lean /tmp/v.lean
+# Expected: each line ends in [propext, Classical.choice, Quot.sound]
+```
+
+### Honest scope
+
+This is NOT a Clay discharge — it sharpens the substrate-rigidity claim of the framework, not the discharges of any Clay-Standard predicate. The Clay residuals are unchanged. The advance is a clean two-invariant reduction in the framework's algebraic assumption budget.
+
+The sector-2 file does NOT modify `AlphaAssignment` (the sector-1 generic carrier); instead it introduces a parallel `Sector2Assignment` and parameterises over `a_YM`. The two sectors compose via the sector-1 output `a_YM = 2` becoming the sector-2 input.
+
+---
+
 ## 2026-06-11 — Minimal substrate-rigidity theorem (NEW MATHEMATICS)
 
 **HEAD prior**: `d2c3030`. **Build state**: `lake build` → **8424 jobs clean** (was 8360; +64 jobs), zero project axioms, zero `sorry`, zero `admit`. All new theorems depend only on `[propext, Classical.choice, Quot.sound]` — kernel-only.
