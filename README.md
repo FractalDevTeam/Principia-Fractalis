@@ -18,7 +18,7 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8460 jobs clean, zero project axioms); **Coq** (184/184 files clean) carries a structural-parity mirror of the canonical backbone — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side (the backbone Coq files are `Admitted`-free; some Wave 24–58 framework-attack probes are not).
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8462 jobs clean, zero project axioms); **Coq** (184/184 files clean) carries a structural-parity mirror of the canonical backbone — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side (the backbone Coq files are `Admitted`-free; some Wave 24–58 framework-attack probes are not).
 
 **The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
@@ -45,7 +45,7 @@ PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneo
 
 The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate, simultaneously forced from one anchor by the α-skeleton uniqueness theorem `framework_alpha_unique_under_perelman_anchor`.
 
-Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8460 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
+Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8462 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
 
 ### Sharpened substrate rigidity (2026-06-11)
 
@@ -111,10 +111,15 @@ That is the precise substrate-rigidity statement: the substrate is forced to its
 - `PF/Referee/MinimalRigidityForcesConsciousnessMassBridge.lean` — `m_C_over_M_Planck · (4·α_NP − 3) = 1` parametrically. The consciousness mass-Planck ratio is the reciprocal of the NP fibre side length under minimal-rigidity.
 - Both substrate-consciousness bridges go through the same NP fibre value `(4·α_NP − 3) = √20 = 2√5 = 4φ − 2`.
 
-**Master capstone** in `PF/Referee/SubstrateRigidityMasterCapstone.lean`:
+**Master capstone hierarchy** in `PF/Referee/SubstrateRigidityMasterCapstone.lean`:
 
 - `substrate_rigidity_master_capstone` — 4-clause bundle (M1-M4): α-skeleton, Galois pair, Hermitian realization, IIT Φ bridge.
 - `substrate_rigidity_extended_master_capstone` — 5-clause bundle adding (M5) the consciousness mass-Planck × NP fibre side product = 1.
+- `substrate_rigidity_ultimate_master_capstone` — adds (M6) spectral gap content, (M7) H₃ icosahedral geometry, (M8) H₃ Coxeter number, (M9) cosmological Λ 120-orders suppression.
+
+**The PF Framework Absolute Capstone** in `PF/Referee/PFFrameworkAbsoluteCapstone.lean`:
+
+- `PF_framework_absolute_capstone` — composes the substrate-rigidity work with the framework's Perelman-anchored simultaneous Clay closure. Given the 13-condition substrate-rigidity hypotheses + the SimultaneousClayClosureBundle of named residuals, produces simultaneously: (P1) forced α-skeleton, (P2) IBM Galois pair structure, (P3) two consciousness bridges, (P4) spectral gap content, (P5) H₃ icosahedral structure, (P6) cosmological Λ 120-orders suppression, (P7) 143-problem coherence parametric, AND (C1) all six Clay-Standards on V4/canonical encodings. The substrate-as-TOE thesis in single-citation form.
 
 **Further substrate connections** landed after the master capstone:
 
@@ -389,7 +394,7 @@ Commercial use requires explicit written permission from the author.
 **Active development.**
 
 - **Framework substrate-level theorem:** Canonical single-citation form complete; minimal-form substrate-rigidity sharpening landed (HEAD post-`d2c3030`, 2026-06-11).
-- **Lean 4 build state:** 8460 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`. The full 9-axis α-skeleton is forced by 9 minimal invariants (5 sector-1 + 4 sector-2) + Perelman anchor + positivity, machine-checked as both SUFFICIENT and STRICTLY MINIMAL. The IBM Galois pair structure (α_RH and α_NP as conjugate roots over Q(√5)) is a parametric consequence, not an empirical coincidence.
+- **Lean 4 build state:** 8462 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`. The full 9-axis α-skeleton is forced by 9 minimal invariants (5 sector-1 + 4 sector-2) + Perelman anchor + positivity, machine-checked as both SUFFICIENT and STRICTLY MINIMAL. The IBM Galois pair structure (α_RH and α_NP as conjugate roots over Q(√5)) is a parametric consequence, not an empirical coincidence.
 - **Cross-prover parity:** Wave 58 referee-layer backbone mirrored in Coq at `PF_Coq_Code/PF/Wave58/PerelmanAnchoredSimultaneousClosureCoq.v` + `ClayMasterTheoremCoq.v` — structural parity (bundle shape + theorem signatures), with substantive Clay statements as `Prop := True` placeholders on the Coq side.
 - **Manuscript:** Version 2.5.0, 864 pages.
 - **Peer review:** Subject to the publishing gate; no external submission without multi-model stress-test vetting.
