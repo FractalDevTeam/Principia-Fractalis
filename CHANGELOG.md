@@ -1,5 +1,19 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-11 — Consciousness mass × NP fibre = 1 + master capstone extended with M5 (NEW MATHEMATICS)
+
+**HEAD prior**: `fc6d832`. **Build state**: `lake build` → **8450 jobs clean** (was 8448; +2).
+
+Two pieces:
+
+1. `PF/Referee/MinimalRigidityForcesConsciousnessMassBridge.lean` — second formal bridge between substrate-rigidity and consciousness. The framework's `m_C_over_M_Planck = √(1 − 0.95) = 1/√20` and the NP fibre side `4·α_NP − 3 = √20` (forced under minimal-rigidity) multiply to exactly 1. The consciousness mass-Planck ratio is the reciprocal of the NP fibre side length parametrically.
+
+2. `PF/Referee/SubstrateRigidityMasterCapstone.lean` extended with `substrate_rigidity_extended_master_capstone` (M5): bundles the four prior master-capstone clauses with the new consciousness mass bridge.
+
+Both substrate-consciousness bridges go through the same NP fibre value `(4·α_NP − 3) = √20 = 2√5 = 4φ − 2`. Two consciousness-chain constants (IIT Φ threshold + m_C/M_Planck) are downstream consequences of the same forced NP α-value.
+
+---
+
 ## 2026-06-11 — Master substrate-rigidity capstone (NEW MATHEMATICS — CONSOLIDATION)
 
 **HEAD prior**: `ca3f134`. **Build state**: `lake build` → **8448 jobs clean**.
