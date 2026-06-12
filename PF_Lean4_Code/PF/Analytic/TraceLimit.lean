@@ -39,6 +39,7 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-12.
 -/
 
 import PF.Analytic.PolylogSpectrum
+import PF.Analytic.MatrixEntry
 
 namespace PrincipiaTractalis.Analytic
 
@@ -123,25 +124,53 @@ theorem tendsto_trace_truncatedOperator
   rw [h_eq_fun]
   exact tendsto_geometric_sum_zpow_neg a ha
 
-/-! ## §3 — Closed-form full-operator trace via convergence -/
+/-! ## §3 — Full-operator trace closed form -/
 
-/-- **Full-operator trace via limit**: the trace of `H_P` equals
-    `a/(a − 1)` as the limit of finite truncation traces.
+/-- **Full-operator trace closed form**: for `a > 1`, the integral of
+    the full kernel diagonal over `[0, 1]` equals `a/(a − 1)`.
 
-    For `a > 1` and any `α ≥ 0`, the diagonal `V_P(x, x) = a/(a − 1)`
-    is constant in `x` (by `fractalKernelReal_diagonal`), so the
-    integral of the full kernel diagonal over `[0, 1]` is `a/(a − 1)`.
-    This file's contribution is showing this value is the LIMIT of the
-    truncation traces, completing the spectral sum-rule statement. -/
-theorem fractalKernelReal_diagonal_integral_eq_limit_trace
+    Direct from `fractalKernelReal_diagonal` (the diagonal `V_P(x, x)`
+    is independent of `x`, equal to `a/(a − 1)`) integrated over
+    `[0, 1]`. -/
+theorem fractalKernelReal_diagonal_integral
     (α a : ℝ) (ha : 1 < a) :
-    (a / (a - 1) : ℝ)
-    = ⨆ (h : Tendsto (fun k : ℕ =>
-        ∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
-          α a k ((x, x) : ℝ × ℝ))
-        atTop (𝓝 (a / (a - 1)))), (a / (a - 1) : ℝ) := by
-  have h_tendsto := tendsto_trace_truncatedOperator α a ha
-  simp [h_tendsto]
+    (∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      α a ((x, x) : ℝ × ℝ))
+    = a / (a - 1) := by
+  have h_diag : (fun x : ℝ => PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      α a ((x, x) : ℝ × ℝ))
+      = (fun _ : ℝ => a / (a - 1)) := by
+    funext x
+    exact fractalKernelReal_diagonal ha x
+  rw [h_diag, intervalIntegral.integral_const]
+  simp
+
+/-- **Spectral sum-rule closure**: the full-operator trace
+    `∫₀¹ V_P(x, x) dx` equals `a / (a − 1)`, which equals the limit of
+    the truncated-operator traces as `k → ∞`.
+
+    Combines the diagonal closed form `V_P(x, x) = a / (a − 1)` with
+    the trace limit `Tr(T_k) → a/(a − 1)`. Rigorous trace-level
+    statement of the spectral sum-rule:
+
+      `Σ_{k ≥ 0} λ_k(H_P) = Tr(H_P) = a/(a − 1)`
+
+    is a NECESSARY CONDITION on any candidate eigenvalue sequence for
+    `H_P`. -/
+theorem fractalKernelReal_full_trace_eq_limit
+    (α a : ℝ) (ha : 1 < a) :
+    (∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.fractalKernelReal
+      α a ((x, x) : ℝ × ℝ))
+    = a / (a - 1) ∧
+    Tendsto (fun k : ℕ =>
+      ∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
+        α a k ((x, x) : ℝ × ℝ))
+      atTop (𝓝 (∫ x in (0:ℝ)..1,
+        PrincipiaTractalis.IntegralKernel.fractalKernelReal α a ((x, x) : ℝ × ℝ))) := by
+  have h_diag_int := fractalKernelReal_diagonal_integral α a ha
+  refine ⟨h_diag_int, ?_⟩
+  rw [h_diag_int]
+  exact tendsto_trace_truncatedOperator α a ha
 
 /-! ## §4 — Capstone -/
 
@@ -174,9 +203,13 @@ theorem trace_truncatedOperator_limit_capstone
     (Tendsto (fun k : ℕ =>
       ∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.truncatedFractalKernelReal
         α a k ((x, x) : ℝ × ℝ))
-      atTop (𝓝 (a / (a - 1)))) :=
+      atTop (𝓝 (a / (a - 1)))) ∧
+    -- (T3) Full-operator trace = limit of truncated traces (closed form).
+    ((∫ x in (0:ℝ)..1, PrincipiaTractalis.IntegralKernel.fractalKernelReal
+        α a ((x, x) : ℝ × ℝ)) = a / (a - 1)) :=
   ⟨tendsto_geometric_sum_zpow_neg a ha,
-   tendsto_trace_truncatedOperator α a ha⟩
+   tendsto_trace_truncatedOperator α a ha,
+   fractalKernelReal_diagonal_integral α a ha⟩
 
 end PrincipiaTractalis.Analytic
 
