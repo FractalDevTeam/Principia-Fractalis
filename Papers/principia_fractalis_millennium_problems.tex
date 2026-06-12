@@ -818,17 +818,23 @@ The framework discharges $\Cstd{RH}$ on mathlib's standard
 transfer-operator spectral correspondence
 (\code{riemann\_hypothesis\_via\_T3\_sym\_framework\_fully\_discharged}).
 The positive-definiteness step is fully discharged
-(\code{hpos\_def\_LogWeightedL2}). Two named residuals consumed by
+(\code{hpos\_def\_LogWeightedL2}). Three named residuals consumed by
 the discharge:
 \begin{itemize}
-\item \textbf{(F)} The compactness / spectral-theorem hookup of
-  $T_{3}^{\mathrm{sym}}$ on
-  \code{LogWeightedL2} \cite{mayer1991thermodynamic}: formalization
-  lift of a published mathematical result to mathlib precision.
-\item \textbf{(M)} The surjectivity of the eigenvalue-to-zero map
-  (\code{RH\_OpenFrontier}): \emph{this is an open conjecture in
-  number theory}; discharging it would be a new positive result on
-  the Hilbert-P\'olya program \cite{berry1999riemann, connes1996formule}.
+\item \textbf{(F)} \code{Mayer1991\_NuclearOnBanachSpace}: the
+  framework's encoding of Mayer 1991's published nuclearity result
+  for $T_{s}$ on the relevant Banach space \cite{mayer1991thermodynamic}.
+  Type~\textbf{(F)} — formalization of an established published theorem.
+\item \textbf{(M)} \code{Mayer1991\_SymmetricQuotientHasZetaSpectrum}:
+  the framework's source file explicitly documents this as ``the
+  Hilbert--P\'olya hypothesis for the Mayer transfer operator. NOT a
+  Mayer 1991 published theorem; this is the OPEN content that
+  completion would close RH.''
+  Type~\textbf{(M)} — open mathematical conjecture equivalent to RH.
+\item \textbf{(M)} \code{RH\_OpenFrontier}: the surjectivity of the
+  eigenvalue-to-zero map onto the non-trivial $\zeta$-zeros.
+  Type~\textbf{(M)} — open conjecture in the Hilbert--P\'olya program
+  \cite{berry1999riemann, connes1996formule}.
 \end{itemize}
 
 \subsection{$P$ versus $NP$}
@@ -864,10 +870,12 @@ substrate-restricted encoding ($\ell^{2}(\mathbb{R})$ gauge V4 carrier)
 with mass gap $\Delta = 3/2$. The lift to continuum SU($N$):
 \begin{itemize}
 \item \textbf{(M)} The Osterwalder--Schrader / Wightman reconstruction
-  of continuum SU($N$) Yang--Mills theory
-  \cite{wightman1956, osterwalder1973}: \emph{open mathematics, deep
-  open problem in constructive quantum field theory}; this is the
-  Clay-stated mass-gap problem at its literal precision tier.
+  applied to non-abelian SU($N$) Yang--Mills theory
+  \cite{wightman1956, osterwalder1973}: the Osterwalder--Schrader
+  axiomatic framework is published, but verifying that a Schwinger
+  function family for non-abelian gauge theory satisfies the OS axioms
+  is precisely the Clay-stated mass-gap problem at its literal
+  precision tier. This is genuinely open constructive QFT mathematics.
 \end{itemize}
 
 \subsection{Birch--Swinnerton-Dyer}
@@ -887,12 +895,19 @@ incorporated as a typed Lean discharge). The named residual:
 \subsection{Hodge conjecture}
 The framework discharges $\Cstd{Hodge}$ at substrate scope of
 \code{GeneralSmoothQuintic} $\times$ \code{RationalHodgeClassOnQuintic}.
-The named residual:
+The named residual is mixed:
 \begin{itemize}
-\item \textbf{(M)} The lift to the literal $H^{2,2}(X_{5}, \mathbb{Q})
-  \times$ Chow cycle-class map: the Voisin 2007 \cite{voisin2007hodge}
-  obstruction is isolated by the framework but \emph{not discharged}.
-  The literal Hodge conjecture at full precision is open mathematics.
+\item \textbf{(F)} For Hodge classes on abelian varieties (Mumford 1970,
+  Weil 1977), the result is published; the framework's source file
+  $\code{HodgeMumfordAbelianFirstPrinciplesInventory.lean}$ documents
+  this as a mathlib formalization gap (~$8$ named prerequisites
+  missing from mathlib). Type~\textbf{(F)} — established math,
+  formalization pending.
+\item \textbf{(M)} For the LITERAL Hodge conjecture on general smooth
+  projective varieties at the $H^{2,2}(X_{5}, \mathbb{Q}) \times$ Chow
+  cycle-class map: the Voisin 2007 \cite{voisin2007hodge} obstruction
+  is isolated by the framework but \emph{not discharged}. The general
+  Hodge conjecture is open mathematics.
 \end{itemize}
 
 \subsection{Poincar\'e (solved)}
@@ -905,16 +920,27 @@ axis with a publicly accepted full-mathlib-tier proof.
 \label{rem:honest-perax}
 At the framework's typed-encoding tier, the substrate model is
 rigorous and the discharge of the typed $\Cstd{X}$ predicate on the
-encoding is machine-verified for each axis. At the literal Clay-statement
-mathlib precision tier, four of the six unsolved axes have residual
-content that is genuinely open mathematics (Type~\textbf{(M)} gaps:
-RH surjectivity, $P$ vs $NP$, YM continuum reconstruction, Hodge
-literal H${}^{2,2}$ lift), and two have residual content that is
-formalization (Type~\textbf{(F)} gaps: NS Sobolev/Leray
-infrastructure, BSD universal Mordell-Weil bridge). The
-Type~\textbf{(M)} gaps are the conventional open mathematical content
-of the corresponding Clay problems. Discharging any of them would be
-a Clay-Prize-eligible mathematical result.
+encoding is machine-verified for each axis. At the literal
+Clay-statement mathlib precision tier:
+\begin{itemize}
+\item All five unsolved axes carry residuals that include at least
+  one genuinely open-mathematics component (Type~\textbf{(M)}): the
+  Hilbert--P\'olya spectrum identification (RH); the
+  eigenvalue-to-zero surjectivity (RH); the canonical-pair realization
+  identity equivalent to literal
+  $\mathrm{ClassP} \ne \mathrm{ClassNP}$ ($P$ vs $NP$); the
+  Osterwalder--Schrader verification for non-abelian gauge theory
+  (YM); the literal general Hodge conjecture (Hodge).
+\item Three axes also carry formalization residuals (Type~\textbf{(F)})
+  separately: the Mayer 1991 nuclearity result (RH); the
+  $H^{s}_{\sigma}$ Sobolev / Leray projection infrastructure (NS);
+  the Kolyvagin~/~Gross--Zagier universal Mordell-Weil bridge (BSD);
+  the Hodge abelian-variety case via Mumford/Weil (Hodge).
+\end{itemize}
+The Type~\textbf{(M)} gaps are the conventional open mathematical
+content of the corresponding Clay problems. Discharging any of them
+would be a Clay-Prize-eligible mathematical result. \emph{This paper
+does not claim to discharge any Type~\textbf{(M)} residual}.
 
 Per the framework-first principle of \S\ref{subsec:framework-first},
 the substrate is the headline: we present one substrate model and
@@ -925,8 +951,10 @@ discharge) on the framework's encodings via
 $\code{unified\_clay\_closure\_via\_substrate\_linkage}$. The
 substrate-level closure is what the paper offers and defends. The
 literal Clay-statement-form discharge at the maximal mathlib tier is
-where Type~\textbf{(M)} gaps live and these are not closed.
-\end{honest>
+where the Type~\textbf{(M)} gaps live; these are the same open
+conjectures that the Clay Mathematics Institute identified, and they
+are not closed by this paper.
+\end{honest}
 
 % =====================================================================
 \section{The Substrate Model Beyond the Clay Door}
