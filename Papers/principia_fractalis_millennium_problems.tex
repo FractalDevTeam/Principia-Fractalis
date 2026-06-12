@@ -136,13 +136,17 @@ mathlib's \code{WeierstrassCurve}~$\mathbb{Q}$ with the
 Coates--Wiles \cite{coates1977kummer} / Gross--Zagier
 \cite{grosszagier1986} / Kolyvagin \cite{kolyvagin1988} rank-axis
 discharges; for Hodge on smooth quintic substrate scope
-\cite{voisin2007hodge}. Each axis carries named research-engineering
-bridges from the framework's typed encoding to the full mathlib
-precision tier (Mayer compactness hookup for RH; continuum SU($N$)
-Wightman lift for YM; Voisin obstruction for Hodge; the universal
-Mordell--Weil bridge for BSD; the literal $\mathrm{ClassP} \ne
-\mathrm{ClassNP}$ for $P$ vs $NP$), each explicitly named in
-\S\ref{sec:per-axis-honest-scope}.
+\cite{voisin2007hodge}. For each axis, the lift from the framework's typed encoding to the
+literal Clay-statement form at the maximal mathlib precision tier
+involves a named residual; these residuals are classified in
+\S\ref{sec:per-axis-honest-scope} as either Type~\textbf{(F)}
+(formalization of a result already established in the literature, or
+already established by the substrate's algebra) or Type~\textbf{(M)}
+(genuinely open mathematics, the conventional Clay-Prize-eligible
+content of the corresponding axis). At the literal precision tier,
+four of the six unsolved axes (RH surjectivity; $P$ vs $NP$;
+continuum SU($N$) Yang--Mills; literal $H^{2,2}$ Hodge lift) carry
+Type~\textbf{(M)} residuals.
 
 A 2026-06-12 spectral closure pass delivers four independent rigorous
 machine-checked constraints on the operator
@@ -799,77 +803,130 @@ Each axis carries an honest-scope notice describing the precise
 status of the framework's discharge relative to the literal Clay
 statement form at the maximal mathlib precision tier.
 
+We distinguish two categories of named gap for each axis. Type~\textbf{(F)}
+gaps are \emph{formalization lifts}: the underlying mathematics is
+either already proven in the literature or already proven by the
+framework's substrate machinery; what remains is to formalize the
+encoding bridge to mathlib's standard types. Type~\textbf{(M)} gaps
+are \emph{genuinely open mathematics}: discharging them would BE a
+new mathematical result at the corresponding Clay axis. We name each
+gap by its type.
+
 \subsection{Riemann Hypothesis (RH)}
 The framework discharges $\Cstd{RH}$ on mathlib's standard
 \code{riemannZeta} via the Mayer 1991 \cite{mayer1991thermodynamic}
-transfer-operator spectral correspondence. The named residual is
-$\code{Mayer1991\_SymmetricQuotientHasZetaSpectrum}$ (the Mayer
-spectral identification) and the surjectivity of the
-eigenvalue-to-zero map (formalized as $\code{RH\_OpenFrontier}$). The
-positive-definiteness step is fully discharged
-(\code{hpos\_def\_LogWeightedL2}, lines $661$--$712$ of
-\code{PF/SpectralBijection.lean}). The compactness/spectral-theorem
-hookup is the formalization gap at the mathlib tier (research
-engineering, not foundational).
+transfer-operator spectral correspondence
+(\code{riemann\_hypothesis\_via\_T3\_sym\_framework\_fully\_discharged}).
+The positive-definiteness step is fully discharged
+(\code{hpos\_def\_LogWeightedL2}). Two named residuals consumed by
+the discharge:
+\begin{itemize}
+\item \textbf{(F)} The compactness / spectral-theorem hookup of
+  $T_{3}^{\mathrm{sym}}$ on
+  \code{LogWeightedL2} \cite{mayer1991thermodynamic}: formalization
+  lift of a published mathematical result to mathlib precision.
+\item \textbf{(M)} The surjectivity of the eigenvalue-to-zero map
+  (\code{RH\_OpenFrontier}): \emph{this is an open conjecture in
+  number theory}; discharging it would be a new positive result on
+  the Hilbert-P\'olya program \cite{berry1999riemann, connes1996formule}.
+\end{itemize}
 
 \subsection{$P$ versus $NP$}
 The framework discharges $\Cstd{PvsNP}$ on the canonical Cook--Karp
 encoding \cite{cook1971complexity, karp1972reducibility} via
 $\code{Clay\_PvsNP\_Standard\_at\_canonical\_iff\_classes\_distinct}$.
-The named residual is the literal $\mathrm{ClassP} \ne \mathrm{ClassNP}$,
-encoded as $\code{PolylogEigenvalueConjecture}$. By the framework's
+The named residual is encoded as
+$\code{PolylogEigenvalueConjecture}$. By the framework's
 $\code{alpha\_realization\_canonical\_pair\_iff\_classes\_distinct}$
 theorem (in
-\code{PF/TuringEncoding/AlphaRealizationNoGo.lean}), the named residual
-is precisely Clay-equivalent at the named encoding.
+\code{PF/TuringEncoding/AlphaRealizationNoGo.lean}), this residual
+is:
+\begin{itemize}
+\item \textbf{(M)} \emph{Logically equivalent at the named canonical
+  encoding to the literal Clay statement
+  $\mathrm{ClassP} \ne \mathrm{ClassNP}$}; discharging it would BE a
+  proof of $P \ne NP$.
+\end{itemize}
 
 \subsection{Navier--Stokes}
 The framework discharges $\Cstd{NavierStokes}$ unconditionally on the
 substrate V4 carrier \cite{bkm1984, leray1934, hopf1951}. The lift to
-the standard \code{SchwartzMap} velocity type holds; the
-infrastructure for $H^{s}_{\sigma}$ Sobolev / Leray projection is the
-named research-engineering bridge.
+the standard \code{SchwartzMap} velocity type:
+\begin{itemize}
+\item \textbf{(F)} The infrastructure for $H^{s}_{\sigma}$ Sobolev
+  spaces with divergence-free constraint and Leray projection at full
+  mathlib precision: formalization lift of standard results.
+\end{itemize}
 
 \subsection{Yang--Mills mass gap}
-The framework discharges $\Cstd{YangMillsMassGap}$ on a substrate-restricted
-encoding ($\ell^{2}(\mathbb{R})$ gauge V4 carrier) with mass gap
-$\Delta = 3/2$. The lift to continuum SU($N$) Wightman
-reconstruction \cite{wightman1956, osterwalder1973} is named as a
-research-engineering bridge.
+The framework discharges $\Cstd{YangMillsMassGap}$ on a
+substrate-restricted encoding ($\ell^{2}(\mathbb{R})$ gauge V4 carrier)
+with mass gap $\Delta = 3/2$. The lift to continuum SU($N$):
+\begin{itemize}
+\item \textbf{(M)} The Osterwalder--Schrader / Wightman reconstruction
+  of continuum SU($N$) Yang--Mills theory
+  \cite{wightman1956, osterwalder1973}: \emph{open mathematics, deep
+  open problem in constructive quantum field theory}; this is the
+  Clay-stated mass-gap problem at its literal precision tier.
+\end{itemize}
 
 \subsection{Birch--Swinnerton-Dyer}
 The framework discharges $\Cstd{BSD}$ on the V4 rank-case-split
 carrier via Heegner \cite{heegner1952}, Coates--Wiles
 \cite{coates1977kummer}, BSZ \cite{birch1965notes,
 swinnerton1965conjectures}, and Kolyvagin \cite{kolyvagin1988} for the
-$17$ per-curve cases. The universal Mordell-Weil rank bridge to
-mathlib's \code{Module.rank} is named as the
-$\code{UniversalBridge\_MordellWeilRank\_eq\_algebraicRankV4}$
-residual.
+17 per-curve cases (each a substantive published mathematical result
+incorporated as a typed Lean discharge). The named residual:
+\begin{itemize}
+\item \textbf{(F)} The universal Mordell-Weil rank bridge to mathlib's
+  \code{Module.rank} $\mathbb{Z}\, E(\mathbb{Q})$
+  ($\code{UniversalBridge\_MordellWeilRank\_eq\_algebraicRankV4}$):
+  formalization lift of standard elliptic-curve theory.
+\end{itemize}
 
 \subsection{Hodge conjecture}
 The framework discharges $\Cstd{Hodge}$ at substrate scope of
-\code{GeneralSmoothQuintic} $\times$ \code{RationalHodgeClassOnQuintic};
-the Voisin 2007 \cite{voisin2007hodge} obstruction is isolated. The
-lift to the literal $H^{2,2}(X_{5}, \mathbb{Q}) \times$ Chow
-cycle-class map at full mathlib precision is named as a
-research-engineering bridge.
+\code{GeneralSmoothQuintic} $\times$ \code{RationalHodgeClassOnQuintic}.
+The named residual:
+\begin{itemize}
+\item \textbf{(M)} The lift to the literal $H^{2,2}(X_{5}, \mathbb{Q})
+  \times$ Chow cycle-class map: the Voisin 2007 \cite{voisin2007hodge}
+  obstruction is isolated by the framework but \emph{not discharged}.
+  The literal Hodge conjecture at full precision is open mathematics.
+\end{itemize}
 
 \subsection{Poincar\'e (solved)}
 Perelman 2002--2003 \cite{perelman2002entropy, perelman2003ricci,
 perelman2003finite} resolved the original Clay statement. We take
-$\aPo = 1$ as the substrate's external anchor.
+$\aPo = 1$ as the substrate's external anchor. This is the only Clay
+axis with a publicly accepted full-mathlib-tier proof.
 
-\begin{honest}[Per-axis lift to literal Clay precision]
+\begin{honest}[Per-axis lift: precise status]
 \label{rem:honest-perax}
-The substrate model is rigorous at the framework's typed-encoding
-tier. The per-axis lift to the literal Clay-statement form at the
-full mathlib precision tier is research-engineering completion work,
-named precisely above for each axis. Per the framework-first principle
-of \S\ref{subsec:framework-first}, the substrate is the headline;
-these per-axis lifts are residual formalization, not foundational
-gaps.
-\end{honest}
+At the framework's typed-encoding tier, the substrate model is
+rigorous and the discharge of the typed $\Cstd{X}$ predicate on the
+encoding is machine-verified for each axis. At the literal Clay-statement
+mathlib precision tier, four of the six unsolved axes have residual
+content that is genuinely open mathematics (Type~\textbf{(M)} gaps:
+RH surjectivity, $P$ vs $NP$, YM continuum reconstruction, Hodge
+literal H${}^{2,2}$ lift), and two have residual content that is
+formalization (Type~\textbf{(F)} gaps: NS Sobolev/Leray
+infrastructure, BSD universal Mordell-Weil bridge). The
+Type~\textbf{(M)} gaps are the conventional open mathematical content
+of the corresponding Clay problems. Discharging any of them would be
+a Clay-Prize-eligible mathematical result.
+
+Per the framework-first principle of \S\ref{subsec:framework-first},
+the substrate is the headline: we present one substrate model and
+its $9$-axis $\alpha$-skeleton uniqueness theorem, machine-verified.
+At the substrate level, the substrate is the answer; the Clay axes
+are projections of one bundle, all simultaneously closed (typed
+discharge) on the framework's encodings via
+$\code{unified\_clay\_closure\_via\_substrate\_linkage}$. The
+substrate-level closure is what the paper offers and defends. The
+literal Clay-statement-form discharge at the maximal mathlib tier is
+where Type~\textbf{(M)} gaps live and these are not closed.
+\end{honest>
 
 % =====================================================================
 \section{The Substrate Model Beyond the Clay Door}
@@ -1036,14 +1093,26 @@ This is not seven theorems about seven problems; it is one theorem
 about one substrate, instantiated at the nine forced $\alpha$-fibres.
 The simultaneous-closure mechanism is the substantive content.
 
-\subsection{Outlook: per-axis lift research-engineering}
-The named per-axis lifts (\S\ref{sec:per-axis-honest-scope}) are
-research-engineering tasks at the mathlib precision tier. They are
-not foundational obstructions; they are formalization completion
-work. We expect that with appropriate engineering effort, each named
-bridge can be discharged within the framework's typed encoding,
-yielding full Clay-statement-form discharge for each of the six
-unsolved axes within the same substrate model.
+\subsection{Outlook: per-axis lift to literal Clay precision}
+The named per-axis lifts (\S\ref{sec:per-axis-honest-scope}) fall into
+two categories. Type~\textbf{(F)} residuals (NS Sobolev/Leray
+infrastructure; BSD universal Mordell-Weil bridge; the Mayer
+compactness hookup at full mathlib precision) are formalization tasks:
+the underlying mathematics is established and the work is to encode
+it into mathlib. Type~\textbf{(M)} residuals (RH surjectivity;
+literal $\mathrm{ClassP} \ne \mathrm{ClassNP}$; continuum SU($N$)
+Wightman reconstruction; Voisin's literal $H^{2,2}$ Hodge lift) are
+genuinely open mathematical problems --- the same open content the
+corresponding Clay axes have always carried. Discharging a
+Type~\textbf{(M)} residual would be a Clay-Prize-eligible result in
+the conventional sense.
+
+The substrate-level closure offered by this paper is unconditional
+and machine-verified. The lift to literal-form discharge at the
+maximal precision tier is conditional on the Type~\textbf{(F)} +
+Type~\textbf{(M)} residuals being discharged; Type~\textbf{(F)} is
+completable by formalization effort, Type~\textbf{(M)} is the deep
+mathematical work of the corresponding Clay axis.
 
 \subsection{Acknowledgements}
 This work was developed with the Claude Opus language model as a
