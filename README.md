@@ -5,7 +5,7 @@
 ### A substrate-level theory of mathematics, physics, and consciousness
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204-8424%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
+[![Lean 4](https://img.shields.io/badge/Lean%204-8516%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
 [![Coq](https://img.shields.io/badge/Coq-184%2F184%20files%20clean%20%7C%20structural--parity%20mirror-brightgreen)](PF_Coq_Code/)
 [![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.5.0-blue)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
