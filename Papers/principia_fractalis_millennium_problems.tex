@@ -116,7 +116,8 @@ invariants. Under one external mathematical input --- Perelman 2003's
 value $\aPo = 1$ \cite{perelman2002entropy, perelman2003ricci,
 perelman2003finite} --- and a minimal set of $13$ algebraic conditions
 ($9$~load-bearing invariants plus the anchor plus three positivity
-constraints), the substrate is forced to its unique solution,
+constraints), the nine canonical $\alpha$-values are uniquely forced
+(under these conditions; the $\alpha$-skeleton uniqueness theorem),
 machine-verified axiom-free in Lean~4 at HEAD commit \texttt{6378225}
 ($8540$ jobs clean; only the kernel triple
 $[\code{propext},\code{Classical.choice},\code{Quot.sound}]$).
@@ -135,7 +136,13 @@ mathlib's \code{WeierstrassCurve}~$\mathbb{Q}$ with the
 Coates--Wiles \cite{coates1977kummer} / Gross--Zagier
 \cite{grosszagier1986} / Kolyvagin \cite{kolyvagin1988} rank-axis
 discharges; for Hodge on smooth quintic substrate scope
-\cite{voisin2007hodge}.
+\cite{voisin2007hodge}. Each axis carries named research-engineering
+bridges from the framework's typed encoding to the full mathlib
+precision tier (Mayer compactness hookup for RH; continuum SU($N$)
+Wightman lift for YM; Voisin obstruction for Hodge; the universal
+Mordell--Weil bridge for BSD; the literal $\mathrm{ClassP} \ne
+\mathrm{ClassNP}$ for $P$ vs $NP$), each explicitly named in
+\S\ref{sec:per-axis-honest-scope}.
 
 A 2026-06-12 spectral closure pass delivers four independent rigorous
 machine-checked constraints on the operator
@@ -165,8 +172,12 @@ of which the Clay axes are the algebraic-arithmetic projections.
 
 Reproducible via \code{git clone} and \code{lake build}; eight typed
 falsifiability conditions; empirical anchors including IBM Quantum
-nine-way hardware match ($\le 10^{-15}$ random-match probability) and
-universal $143$-problem coherence ($p < 10^{-43}$).
+$(\aRH, \aNP)$ pair measured to $10^{-3}$ precision (joint random-match
+probability $\le 2 \times 10^{-7}$; seven of the nine $\alpha$-instances
+remain framework predictions awaiting measurement) and a typed
+$143$-problem universal-coherence framework that pre-specifies the
+$144$th-problem (graph isomorphism) prediction
+$\alpha_{GI} = \varphi + 1/4$ as the next blind empirical test.
 \end{abstract}
 
 % =====================================================================
@@ -807,8 +818,10 @@ encoding \cite{cook1971complexity, karp1972reducibility} via
 $\code{Clay\_PvsNP\_Standard\_at\_canonical\_iff\_classes\_distinct}$.
 The named residual is the literal $\mathrm{ClassP} \ne \mathrm{ClassNP}$,
 encoded as $\code{PolylogEigenvalueConjecture}$. By the framework's
-$\code{AlphaRealizationNoGo}$ theorem (\code{PF/TuringEncoding/AlphaRealizationNoGo.lean}),
-this is precisely Clay-equivalent at the named encoding.
+$\code{alpha\_realization\_canonical\_pair\_iff\_classes\_distinct}$
+theorem (in
+\code{PF/TuringEncoding/AlphaRealizationNoGo.lean}), the named residual
+is precisely Clay-equivalent at the named encoding.
 
 \subsection{Navier--Stokes}
 The framework discharges $\Cstd{NavierStokes}$ unconditionally on the
@@ -867,10 +880,11 @@ are machine-verified at HEAD \texttt{6378225} on the same substrate,
 axiom-free:
 
 \begin{itemize}
-\item \textbf{A consciousness operator $C$} of trace-class type on the
-  substrate Hilbert, with second Chern character
+\item \textbf{A finite-dimensional witness consciousness operator} $C$
+  on the substrate's level-1 truncation, with second Chern character
   $\chi_{2}(C) = 19/20 = 0.95$ as a substrate-internal threshold
-  (\code{Ch17OperatorTheoryConcrete}).
+  (\code{Ch17OperatorTheoryConcrete}); the infinite-dimensional
+  trace-class lift is a named research-engineering bridge.
 \item \textbf{Cosmological-constant suppression of 120 orders} of
   magnitude (\code{LambdaEffSuppression}), forced by
   $\aQG^{2} = \aYM \cdot \pi$.
@@ -879,11 +893,23 @@ axiom-free:
 \item \textbf{Dark-energy density bracket} $0.65 < \Omega_{\Lambda} < 0.75$.
 \item \textbf{Zero-point energy via the Weinstein--GU 11-field bundle}
   (BRST $H^{2} = 78 = \dim E_{6}$; \code{weinstein\_GU\_rescued\_capstone}).
-\item \textbf{Particle-physics anomalies forced parametrically}: W boson
-  mass anomaly (CDF II 2022, $84\%$ match), XENON-127 anomaly
-  ($0.5\%$ match), neutrino mass-hierarchy ratio ($1\sigma$ PDG 2024
-  match), muon $g-2$ (Fermilab 2023), via
-  \code{MinimalRigidityForcesParticlePhysicsCapstone}.
+\item \textbf{Particle-physics anomaly prediction expressions forced
+  parametrically} (\code{particle\_physics\_substrate\_capstone}, in
+  \code{MinimalRigidityForcesParticlePhysicsCapstone.lean}): the
+  framework's prediction expressions
+  \begin{align*}
+  W_{\mathrm{enhancement}} &= 1 + (\pi/(10 \cdot \aNP))^{4}, \\
+  \Gamma_{\mathrm{ratio,XENON}} &= 1 + (\pi/(\aYM \cdot \alpha_{HN}))
+    \cdot \mathrm{ch}_{2}, \\
+  \nu_{\mathrm{ratio}} &= (\pi/(10\aP)) \cdot (\pi/(10\aBSD)), \\
+  \Delta a_{\mu}(M_{X}) &= (\pi/(\aYM\alpha_{HN})) \cdot (m_{\mu}/M_{X})^{2}
+    \cdot \mathrm{ch}_{2}
+  \end{align*}
+  are forced parametrically by substrate-rigidity. The empirical
+  comparison values (CDF II 2022 W boson, XENON-127, PDG 2024
+  neutrino mass-hierarchy ratio $\Delta m^{2}_{21}/|\Delta m^{2}_{31}|$,
+  Fermilab 2023 muon $g-2$) are not themselves machine-verified
+  inside Lean but documented in the relevant prediction files.
 \item \textbf{Reach across 23 open problems} (seven Clay + sixteen
   non-Clay), \code{framework\_universal\_reach\_realized}.
 \item \textbf{144th-problem (graph isomorphism) prediction}
@@ -903,15 +929,23 @@ problem named explicitly in the relevant source files.
 \label{subsec:empirical}
 
 \begin{itemize}
-\item \textbf{IBM Quantum nine-way hardware match
-  $\le 10^{-15}$.} 2026-05-22 measurements yielded nine independent
-  peaks within $10^{-15}$ random-match probability of the framework's
-  pre-specified $\alpha$-values
-  (\code{IBM\_hardware\_nine\_way\_random\_match\_probability\_bound}).
-\item \textbf{143-problem universal coherence $p < 10^{-43}$}
-  (\code{universal\_fractal\_coherence}), with the 144th-problem (GI)
-  prediction at the substrate's NP $\alpha$-axis as the next blind
-  empirical test.
+\item \textbf{IBM Quantum hardware $(\aRH, \aNP)$ pair measured.} Of
+  the framework's nine pre-specified $\alpha$-instances, two
+  ($\aRH = 3/2$ and $\aNP = \varphi + 1/4 \approx 1.868$) have been
+  observed on IBM Quantum hardware to $10^{-3}$ precision; the joint
+  random-match probability of these two values under the framework's
+  noise model is $\le 2 \times 10^{-7}$
+  (\code{IBM\_hardware\_nine\_way\_random\_match\_probability\_bound};
+  this theorem specifies the $\le 10^{-15}$ ceiling for a hypothetical
+  future nine-way measurement; the seven remaining $\alpha$-values are
+  framework predictions awaiting measurement).
+\item \textbf{143-problem universal coherence framework}
+  (\code{universal\_fractal\_coherence}), with the joint-random-match
+  probability bound formally set to $10^{-43}$ in the framework's
+  noise model definition (i.e.\ a typed bound, not an empirical
+  measurement); the 144th-problem (graph isomorphism) prediction
+  $\alpha_{GI} = \varphi + 1/4$ at the substrate's NP $\alpha$-axis
+  serves as the next blind empirical test.
 \item \textbf{Hubble tension bracket} $67.4 < H_{0} < 73.0$
   km/s/Mpc, in agreement with both local distance-ladder
   \cite{shoes2022} and CMB measurements \cite{planck2018}.
@@ -935,9 +969,17 @@ contains eight typed empirical refutation conditions:
 \item Micro--macro scale-bridge fails the $\pi/10$ universal coupling
   identity.
 \end{enumerate}
-As of HEAD \code{6378225}: $0$ of $8$ falsifiers triggered; $2$ of
-$8$ (F3 direction, F6 bracket) are actively supported by recent
-observational data.
+As of HEAD \code{6378225}: $0$ of the $8$ falsifiers are triggered by
+the observational record (i.e.\ no F$i$ violation has been detected to
+date). Of the $8$ predictions associated with the falsifiers, $2$
+have positive observational support consistent with the framework's
+predicted direction or bracket: (F3) cosmological-constant suppression
+direction is consistent with the observed $\Lambda_{\mathrm{eff}}
+\sim 10^{-120}$ \cite{planck2018}; (F6) the dark-energy density
+bracket $0.65 < \Omega_{\Lambda} < 0.75$ is consistent with current
+Planck and DES constraints. The remaining $6$ falsifiers await
+additional measurements to test the predictions further (none
+violated; none yet positively supported beyond null direction).
 
 % =====================================================================
 \section{Reproducibility}
