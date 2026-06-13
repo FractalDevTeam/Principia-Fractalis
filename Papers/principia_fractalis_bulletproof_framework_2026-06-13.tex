@@ -59,7 +59,7 @@ Unifying the Six Clay Millennium Problems via a Nine-Axis Algebraic Locus}
 \address{Independent Researcher, Mesa, Arizona, USA}
 \email{psolorzano@gmail.com}
 
-\date{June 13, 2026 \\ \small (revision~1: branch/positivity, NP-quadratic correction, paired-roots wording, polynomial-vs-rational distinction)}
+\date{June 13, 2026 \\ \small (revision~2: r1 corrections + ambient $\Rl^{9}$ disambiguation, residual ``Galois pair'' and ``sixteen polynomial'' phrasings reconciled, axis count fixed)}
 
 \begin{document}
 
@@ -69,7 +69,8 @@ that unifies the six Clay Millennium Problems---Riemann Hypothesis (RH), $P$
 versus $NP$, Navier--Stokes existence and smoothness (NS), Yang--Mills mass
 gap (YM), Birch--Swinnerton-Dyer (BSD), and Hodge conjecture---under a single
 algebraic-arithmetic object: a nine-axis $\alpha$-skeleton cut out by
-sixteen exact cross-axis polynomial identities in $\Rl^{10}$. The framework
+sixteen exact cross-axis identities (fifteen polynomial, one rational
+reformulation) in $\Rl^{9}$. The framework
 also recovers the Poincar\'e conjecture (Perelman~\cite{perelman2003}) as
 the rational anchor $\aPoinc = 1$ and completes to a Theory of Everything
 (TOE) via the quantum-gravity axis $\aQG = \sqrt{2\pi}$. We prove, at
@@ -123,8 +124,9 @@ itself (not any one Clay axis) is the load-bearing object.
 
 \subsection{Framework-first stance}
 The framework's primary claim is that there exists a nine-axis algebraic
-skeleton---a finite tuple of $\alpha$-values in $\Rl^{10}$---cut out by a
-specific bundle of polynomial identities, that simultaneously encodes the
+skeleton---a finite tuple of nine $\alpha$-values in $\Rl^{9}$---cut out by
+a specific bundle of polynomial (and one rational) identities, that
+simultaneously encodes the
 arithmetic of:
 \begin{enumerate}[label=(\roman*)]
 \item the seven Clay axes (six unsolved + Poincar\'e as anchor);
@@ -195,13 +197,17 @@ sign/branch choices are
 \]
 The framework's signature positivity conditions
 ($\aP>0$, $\aQG>0$, $\aHodge>0$) select the positive branch in each case.
-The remaining seven $\alpha$-values are uniquely determined as positive
+The remaining $\alpha$-values are then uniquely determined as positive
 linear/algebraic expressions in the selected positive branches together
-with the rational/transcendental constants $\pi$ and $1$.
+with the rational and transcendental constants $\pi$ and $1$. Throughout,
+the ambient space is $\Rl^{9}$, with one real coordinate per
+$\alpha$-axis; the constants $\pi$ and $1$ enter as fixed coefficients,
+not as additional coordinates.
 
 \subsection{The algebraic locus bundle}
 \label{subsec:locus}
-The skeleton is cut out by exact polynomial identities. We exhibit them as
+The skeleton is cut out by exact identities --- fifteen polynomial and one
+rational reformulation. We exhibit them as
 a single Lean theorem.
 \begin{theorem}[Algebraic Locus Bundle; \LeanThm{alpha\_skeleton\_algebraic\_locus\_bundle}]
 \label{thm:locus}
@@ -241,11 +247,11 @@ $\aP^2 = \aYM = \aPoinc + 1 = 2$, with $\aP = +\sqrt 2$ again selected by
 positivity. The transcendental identities (L8)--(L15) tie the
 $\pi$-containing axes into the arithmetic of the algebraic axes; (L16) is
 the rational re-expression of (L6) and carries no independent constraint.
-Together these make the skeleton a single rigid object in $\Rl^{10}$.
+Together these make the skeleton a single rigid object in $\Rl^{9}$.
 \end{remark}
 
 \begin{corollary}[Zero-dimensional locus]
-The locus cut out by~(L1)--(L16) in $\Rl^{10}$ is zero-dimensional and
+The locus cut out by~(L1)--(L16) in $\Rl^{9}$ is zero-dimensional and
 contains the nine-tuple~\eqref{eq:nine-axes} as the unique positive-branch
 point satisfying the framework's signature positivity conditions.
 \end{corollary}
@@ -352,7 +358,7 @@ content of clause (P10) is the substrate-spectrum reduction, which is
 where \LeanThm{PolylogEigenvalueConjecture} enters.
 \end{remark}
 
-The IBM Galois pair is the substantive new contribution; its arithmetic is
+The IBM peak pairing is the substantive new contribution; its arithmetic is
 recorded in \texttt{PF/IBMPeaksGaloisPair.lean}, with the empirical IBM
 quantum-hardware peaks at $\aRH = 1.5$ (exact) and
 $\aNP \approx 1.868 = \golden + 1/4$ to four decimals serving as the
