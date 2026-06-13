@@ -77,12 +77,25 @@ theorem pnp_axis_framework_level_millennium_answer :
     -- (P5) BICONDITIONAL: Δ > 0 ↔ P ≠ NP under PolylogEigenvalueConjecture
     --      (sharper than P4 — both directions, not just one)
     (∀ (_ : TuringEncoding.PolylogEigenvalueConjecture),
-       Delta > 0 ↔ P_neq_NP_def) :=
+       Delta > 0 ↔ P_neq_NP_def) ∧
+    -- (P6) Spectral separation existence: there exists Δ > 0 with
+    --      Δ = lambda_0_P - lambda_0_NP AND |Δ - 0.0539677287| < 1e-8
+    (∃ Δ : ℝ, Δ > 0 ∧
+       Δ = lambda_0_P - lambda_0_NP ∧
+       |Δ - 0.0539677287| < 1e-8) ∧
+    -- (P7) Unitary conjugation structurally incompatible with the
+    --      spectral gap: lambda_0_P = lambda_0_NP is REFUTED
+    (∀ (_eq_ratio : lambda_0_P = lambda_0_NP), False) ∧
+    -- (P8) lambda_0_P explicit numerical anchor
+    (|lambda_0_P - 0.2221441469| < 1e-10) :=
   ⟨spectral_gap_value,
    spectral_gap_positive,
    P_neq_NP,
    P_neq_NP_via_spectral_gap,
-   fun hpoly => spectral_gap_iff_P_neq_NP hpoly⟩
+   fun hpoly => spectral_gap_iff_P_neq_NP hpoly,
+   pvsnp_spectral_separation,
+   PrincipiaTractalis.ProblemThreeResolution.unitary_conjugation_incompatible_with_spectral_gap,
+   lambda_0_P_approx⟩
 
 end PrincipiaTractalis.PNP_FrameworkMillenniumAnswer
 
