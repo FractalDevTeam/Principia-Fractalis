@@ -22,6 +22,8 @@ import PF.Hodge_FrameworkMillenniumAnswer
 import PF.Poincare_FrameworkMillenniumAnswer
 import PF.Empirical_FrameworkMillenniumEvidence
 import PF.TheoreticalPhysics_FrameworkBundle
+import PF.RH_SubstrateBulletproofClosure
+import PF.PNP_SubstrateBulletproofClosure
 
 namespace PF_L4L.Core.FrameworkMillenniumMaster
 
@@ -57,6 +59,12 @@ noncomputable def empirical_evidence_bundle_reverified :=
 noncomputable def theoretical_physics_bundle_reverified :=
   PrincipiaTractalis.TheoreticalPhysics_FrameworkBundle.framework_theoretical_physics_support_bundle
 
+noncomputable def RH_bulletproof_substrate_closure_reverified :=
+  PrincipiaTractalis.RH_SubstrateBulletproofClosure.RH_bulletproof_substrate_closure
+
+noncomputable def PNP_bulletproof_substrate_closure_reverified :=
+  PrincipiaTractalis.PNP_SubstrateBulletproofClosure.PNP_bulletproof_substrate_closure
+
 /-! ## §2 — Axiom audit hooks
 
 Each meta-verification alias should print only
@@ -72,5 +80,7 @@ Each meta-verification alias should print only
 #print axioms poincare_axis_answer_reverified
 #print axioms empirical_evidence_bundle_reverified
 #print axioms theoretical_physics_bundle_reverified
+#print axioms RH_bulletproof_substrate_closure_reverified
+#print axioms PNP_bulletproof_substrate_closure_reverified
 
 end PF_L4L.Core.FrameworkMillenniumMaster
