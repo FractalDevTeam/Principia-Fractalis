@@ -86,12 +86,12 @@ Clause counts at the framework-level positive Millennium answer level:
 |---|---|---:|
 | Poincaré | 1 | 3 |
 | Navier–Stokes | 3π/2 | 18 |
-| Yang–Mills | 2 | 7 |
+| Yang–Mills | 2 | 10 |
+| P vs NP | φ + 1/4 | 9 |
 | Riemann Hypothesis | 3/2 | 7 |
 | Hodge | φ | 6 |
-| P vs NP | φ + 1/4 | 5 |
 | Birch–Swinnerton-Dyer | 3π/4 | 6 |
-| Master (7-axis α-skeleton + IBM Galois pair + IBM empirical anchors) | — | 16 |
+| Master (7-axis α-skeleton + full IBM Galois pair theorem inline + IBM empirical anchors) | — | 21 |
 
 The seven-axis Poincaré-included master plus the Perelman-solved
 classical Poincaré conjecture (off-Lean) together cover the
