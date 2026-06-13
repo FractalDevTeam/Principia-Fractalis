@@ -89,7 +89,7 @@ Clause counts at the framework-level positive Millennium answer level:
 | Yang–Mills | 2 | 10 |
 | P vs NP | φ + 1/4 | 9 |
 | Riemann Hypothesis | 3/2 | 7 |
-| Hodge | φ | 6 |
+| Hodge | φ | 7 |
 | Birch–Swinnerton-Dyer | 3π/4 | 6 |
 | Master (7-axis α-skeleton + full IBM Galois pair theorem inline + IBM empirical anchors) | — | 21 |
 
