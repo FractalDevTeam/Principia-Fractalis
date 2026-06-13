@@ -19,11 +19,15 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-13.
 -/
 
 import PF.CrossMillenniumSharedInvariants
+import PF.HodgeAbelianSurfaceDim2Substrate
+import PF.MillenniumSixReductions
 
 namespace PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
 
 open PrincipiaTractalis
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
+open PrincipiaTractalis.HodgeAbelianSurfaceDim2
+open PrincipiaTractalis.MillenniumSix
 
 /-! ## §1 — The framework-level Hodge Millennium answer -/
 
@@ -50,8 +54,17 @@ theorem hodge_axis_framework_level_millennium_answer :
     -- (H2) golden-ratio defining identity
     (α_Hodge ^ 2 = α_Hodge + 1) ∧
     -- (H3) positivity
-    (0 < α_Hodge) := by
-  refine ⟨?_, ?_, ?_⟩
+    (0 < α_Hodge) ∧
+    -- (H4) Hodge conjecture holds restricted to abelian surfaces
+    (∀ (A : HodgeAbelianSurfaceSubstrate) (class_idx : ℕ),
+      HodgeAlgebraicRepresentation A.toHodgeAmbient class_idx) ∧
+    -- (H5) Augmented abelian-surface discharge with explicit
+    --      algebraic-cycle witness via Rosati / Appell-Humbert
+    (∀ (A : HodgeAbelianSurfaceSubstrate) (class_idx : ℕ),
+      HodgeAlgebraicRepresentation A.toHodgeAmbient class_idx ∧
+      ∃ Z : A.torus_endomorphisms → ℚ,
+        (∑ e, Z e * A.intersection_form e e) = A.cohomologyClass) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
   · rfl
   · exact α_Hodge_sq_eq_self_plus_one
   · unfold α_Hodge phi
@@ -60,6 +73,8 @@ theorem hodge_axis_framework_level_millennium_answer :
       rw [h5]
       apply Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
     linarith
+  · exact HodgeConjecture_restricted_to_abelian_surfaces
+  · exact hodge_abelian_surface_full_discharge
 
 end PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
 
