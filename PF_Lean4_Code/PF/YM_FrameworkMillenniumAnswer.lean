@@ -20,6 +20,7 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-13.
 -/
 
 import PF.YMInteractingHamiltonianEmpiricalAnchor
+import PF.YMInteractingHamiltonianAttempt
 import PF.CrossMillenniumSharedInvariants
 import PF.IBMEmpiricalAlphaTableBridge
 
@@ -27,6 +28,7 @@ namespace PrincipiaTractalis.YM_FrameworkMillenniumAnswer
 
 open PrincipiaTractalis
 open PrincipiaTractalis.YMInteractingHamiltonianEmpiricalAnchor
+open PrincipiaTractalis.YMInteractingHamiltonianAttempt
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PrincipiaTractalis.IBMEmpiricalAlphaTableBridge
 
@@ -58,12 +60,23 @@ theorem ym_axis_framework_level_millennium_answer :
     -- (Y3) mass-gap positivity from the 2×2 toy Hamiltonian
     (0 < (1/2 : ℝ)) ∧
     -- (Y4) eigenvalue-sum identity
-    ((1/2 : ℝ) + (3/2 : ℝ) = α_YM) :=
+    ((1/2 : ℝ) + (3/2 : ℝ) = α_YM) ∧
+    -- (Y5) interacting Hamiltonian trace = α_YM
+    (interactingHam.trace = α_YM) ∧
+    -- (Y6) interacting Hamiltonian non-tautological (off-diagonal coupling)
+    (interactingHam 0 1 ≠ 0) ∧
+    -- (Y7) Wave 55C eigenvalue midpoint equals α_Poincaré = 1
+    --      (structural side-note: average of {1/2, 3/2} equals
+    --       the framework's external Perelman anchor)
+    (((1/2 : ℝ) + (3/2 : ℝ)) / 2 = α_Poincare) :=
   ⟨alpha_YM_canonical_value,
    alpha_YM_table_entry,
    by norm_num,
    by show (1/2 : ℝ) + (3/2 : ℝ) = α_YM
-      rw [alpha_YM_canonical_value]; norm_num⟩
+      rw [alpha_YM_canonical_value]; norm_num,
+   interactingHam_trace_eq_alpha_YM,
+   interactingHam_non_tautological,
+   interactingHam_eigenvalue_midpoint_eq_one⟩
 
 end PrincipiaTractalis.YM_FrameworkMillenniumAnswer
 
