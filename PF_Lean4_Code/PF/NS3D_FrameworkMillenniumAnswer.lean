@@ -56,6 +56,7 @@ import PF.NS3D_NonlinearScaling
 import PF.NS3D_GalerkinTruncation
 import PF.NS3D_SupportedSubmodule
 import PF.NS3D_HeatExpFormula
+import PF.NS3D_HeatLerayCommutation
 
 namespace PrincipiaTractalis.NS3D_ConcreteDivFreeVelocityField
 
@@ -152,7 +153,21 @@ theorem ns_axis_framework_level_millennium_answer :
     -- (N5) explicit per-mode exponential decay formula
     (∀ t : ℝ, ∀ c : (Fin 3 → ℤ) → (Fin 3 → ℂ), ∀ k : Fin 3 → ℤ,
       vecL2NormSq (heatSemigroup t c k)
-        = Real.exp (-(2 * t * kNormSqReal k)) * vecL2NormSq (c k)) :=
+        = Real.exp (-(2 * t * kNormSqReal k)) * vecL2NormSq (c k)) ∧
+    -- (N6) Galerkin truncation commutes with the diagonal NS operators
+    (∀ S : Finset (Fin 3 → ℤ), ∀ c : (Fin 3 → ℤ) → (Fin 3 → ℂ),
+      galerkinTrunc S (stokesOp c) = stokesOp (galerkinTrunc S c)) ∧
+    (∀ S : Finset (Fin 3 → ℤ), ∀ t : ℝ, ∀ c : (Fin 3 → ℤ) → (Fin 3 → ℂ),
+      galerkinTrunc S (heatSemigroup t c) = heatSemigroup t (galerkinTrunc S c)) ∧
+    -- (N6) heat semigroup commutes with Leray and Stokes
+    (∀ t : ℝ, ∀ c : (Fin 3 → ℤ) → (Fin 3 → ℂ),
+      heatSemigroup t (lerayProject c) = lerayProject (heatSemigroup t c)) ∧
+    (∀ t : ℝ, ∀ c : (Fin 3 → ℤ) → (Fin 3 → ℂ),
+      heatSemigroup t (stokesOp c) = stokesOp (heatSemigroup t c)) ∧
+    -- (N6) multiplier-level differential generator
+    (∀ t : ℝ, ∀ k : Fin 3 → ℤ,
+      HasDerivAt (fun s => heatMultiplier s k)
+        (-(kNormSqReal k) * heatMultiplier t k) t) :=
   ⟨⟨⟨ConcreteDivFreeVelocityField.zero⟩,
     ⟨ConcreteDivFreeVelocityField.nontrivial_witness,
      nontrivial_witness_is_nonzero⟩⟩,
@@ -167,7 +182,12 @@ theorem ns_axis_framework_level_millennium_answer :
    hasDerivAt_heatSemigroup_apply,
    fun c s S t => hasDerivAt_hsNormSqVecOnL2_heatSemigroup t c s S,
    fun c s S => antitone_hsNormSqVecOnL2_heatSemigroup c s S,
-   vecL2NormSq_heatSemigroup_exp_formula⟩
+   vecL2NormSq_heatSemigroup_exp_formula,
+   galerkinTrunc_commutes_stokesOp,
+   fun S t c => galerkinTrunc_commutes_heatSemigroup S t c,
+   heatSemigroup_lerayProject_comm,
+   heatSemigroup_stokes_comm,
+   hasDerivAt_heatMultiplier⟩
 
 end PrincipiaTractalis.NS3D_ConcreteDivFreeVelocityField
 
