@@ -83,8 +83,11 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     (α_BSD = 3 * Real.pi / 4) ∧
     (α_YM = 2) ∧
     (α_Hodge = phi) ∧
+    -- α_Poincare (the EXTERNAL ANCHOR)
+    (α_Poincare = 1) ∧
     -- α positivity
     (0 < α_NS) ∧ (0 < α_BSD) ∧ (0 < α_YM) ∧ (0 < α_Hodge) ∧
+    (0 < α_Poincare) ∧
     -- Cross-axis algebraic identities binding the skeleton
     (α_NS = 2 * α_BSD) ∧
     (α_Hodge ^ 2 = α_Hodge + 1) ∧
@@ -105,7 +108,7 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     (alphaTable 2 = PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH ∧
        PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = ibm_peak_RH) ∧
     (|ibm_peak_PNP - alphaTable 4| ≤ (1 : ℝ) / 10000) := by
-  refine ⟨rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨rfl, rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · unfold α_NS
     have hpi : 0 < Real.pi := Real.pi_pos
     positivity
@@ -119,6 +122,7 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
       rw [h5]
       apply Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
     linarith
+  · unfold α_Poincare; norm_num
   · exact α_NS_eq_two_α_BSD
   · exact α_Hodge_sq_eq_self_plus_one
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).1
