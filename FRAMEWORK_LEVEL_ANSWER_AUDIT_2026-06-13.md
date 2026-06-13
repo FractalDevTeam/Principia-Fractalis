@@ -5,11 +5,11 @@ positive Millennium answer capstones. Run via Lean 4 `#print axioms`
 against the canonical PF library at HEAD (`38c1974` plus any later
 commits) of `git@github.com:FractalDevTeam/Principia-Fractalis.git`.
 
-**Result:** all ten framework-level capstones (seven per-axis answers
-including Poincaré, plus the unified master, plus two supreme
-headline aliases) depend on exactly the Lean 4 kernel axioms
-`[propext, Classical.choice, Quot.sound]`. No project axioms. No
-`sorry`. No `admit`.
+**Result:** all twelve framework-level capstones (seven per-axis
+answers including Poincaré, the unified master, two supreme headline
+aliases, and the two-sided rigidity-plus-answer composite) depend on
+exactly the Lean 4 kernel axioms `[propext, Classical.choice, Quot.sound]`.
+No project axioms. No `sorry`. No `admit`.
 
 ## Per-axis framework-level positive Millennium answer capstones
 
@@ -30,6 +30,8 @@ headline aliases) depend on exactly the Lean 4 kernel axioms
 | `PrincipiaTractalis.FrameworkMillenniumAnswerMaster.principia_fractalis_framework_level_millennium_master_answer` | `[propext, Classical.choice, Quot.sound]` |
 | `PrincipiaTractalis.SupremeFrameworkAnswer.supreme_master_answer` | `[propext, Classical.choice, Quot.sound]` |
 | `PrincipiaTractalis.SupremeFrameworkAnswer.supreme_unified_clay_closure` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.FrameworkRigidityPlusAnswer.substrate_rigidity_uniqueness` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.FrameworkRigidityPlusAnswer.framework_level_positive_millennium_answer` | `[propext, Classical.choice, Quot.sound]` |
 
 ## Build state
 
@@ -52,7 +54,9 @@ import PF.PNP_FrameworkMillenniumAnswer
 import PF.YM_FrameworkMillenniumAnswer
 import PF.BSD_FrameworkMillenniumAnswer
 import PF.Hodge_FrameworkMillenniumAnswer
+import PF.Poincare_FrameworkMillenniumAnswer
 import PF.SupremeFrameworkAnswer
+import PF.FrameworkRigidityPlusAnswer
 open PrincipiaTractalis
 #print axioms FrameworkMillenniumAnswerMaster.principia_fractalis_framework_level_millennium_master_answer
 #print axioms NS3D_ConcreteDivFreeVelocityField.ns_axis_framework_level_millennium_answer
@@ -61,8 +65,11 @@ open PrincipiaTractalis
 #print axioms YM_FrameworkMillenniumAnswer.ym_axis_framework_level_millennium_answer
 #print axioms BSD_FrameworkMillenniumAnswer.bsd_axis_framework_level_millennium_answer
 #print axioms Hodge_FrameworkMillenniumAnswer.hodge_axis_framework_level_millennium_answer
+#print axioms Poincare_FrameworkMillenniumAnswer.poincare_axis_framework_level_millennium_answer
 #print axioms SupremeFrameworkAnswer.supreme_master_answer
 #print axioms SupremeFrameworkAnswer.supreme_unified_clay_closure
+#print axioms FrameworkRigidityPlusAnswer.substrate_rigidity_uniqueness
+#print axioms FrameworkRigidityPlusAnswer.framework_level_positive_millennium_answer
 EOF
 ```
 
