@@ -21,6 +21,7 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-13.
 
 import PF.YMInteractingHamiltonianEmpiricalAnchor
 import PF.YMInteractingHamiltonianAttempt
+import PF.YM_BochnerMinlosR4Witness
 import PF.CrossMillenniumSharedInvariants
 import PF.IBMEmpiricalAlphaTableBridge
 
@@ -29,6 +30,7 @@ namespace PrincipiaTractalis.YM_FrameworkMillenniumAnswer
 open PrincipiaTractalis
 open PrincipiaTractalis.YMInteractingHamiltonianEmpiricalAnchor
 open PrincipiaTractalis.YMInteractingHamiltonianAttempt
+open PrincipiaTractalis.YM_BochnerMinlosR4Witness
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PrincipiaTractalis.IBMEmpiricalAlphaTableBridge
 
@@ -68,7 +70,15 @@ theorem ym_axis_framework_level_millennium_answer :
     -- (Y7) Wave 55C eigenvalue midpoint equals α_Poincaré = 1
     --      (structural side-note: average of {1/2, 3/2} equals
     --       the framework's external Perelman anchor)
-    (((1/2 : ℝ) + (3/2 : ℝ)) / 2 = α_Poincare) :=
+    (((1/2 : ℝ) + (3/2 : ℝ)) / 2 = α_Poincare) ∧
+    -- (Y8) Bochner-Minlos R^4 typed statement holds (Gaussian
+    --      witness on the Schwartz dual — the YM substrate
+    --      foundation for Wave 57/58 reconstruction)
+    (BochnerMinlosR4TypedStatement) ∧
+    -- (Y9) Standard Gaussian on R^4 is a probability measure
+    --      with no atoms (concrete realization)
+    (MeasureTheory.IsProbabilityMeasure standardGaussianR4) ∧
+    (MeasureTheory.NoAtoms standardGaussianR4) :=
   ⟨alpha_YM_canonical_value,
    alpha_YM_table_entry,
    by norm_num,
@@ -76,7 +86,10 @@ theorem ym_axis_framework_level_millennium_answer :
       rw [alpha_YM_canonical_value]; norm_num,
    interactingHam_trace_eq_alpha_YM,
    interactingHam_non_tautological,
-   interactingHam_eigenvalue_midpoint_eq_one⟩
+   interactingHam_eigenvalue_midpoint_eq_one,
+   bochnerMinlos_R4_gaussian_witness,
+   standardGaussianR4_isProbabilityMeasure,
+   standardGaussianR4_noAtoms⟩
 
 end PrincipiaTractalis.YM_FrameworkMillenniumAnswer
 
