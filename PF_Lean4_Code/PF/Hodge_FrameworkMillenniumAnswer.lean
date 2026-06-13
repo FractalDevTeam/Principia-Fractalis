@@ -20,6 +20,7 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-13.
 
 import PF.CrossMillenniumSharedInvariants
 import PF.HodgeAbelianSurfaceDim2Substrate
+import PF.HodgeCurveDim1Substrate
 import PF.MillenniumSixReductions
 
 namespace PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
@@ -27,6 +28,7 @@ namespace PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
 open PrincipiaTractalis
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PrincipiaTractalis.HodgeAbelianSurfaceDim2
+open PrincipiaTractalis.HodgeCurveDim1
 open PrincipiaTractalis.MillenniumSix
 
 /-! ## §1 — The framework-level Hodge Millennium answer -/
@@ -63,8 +65,14 @@ theorem hodge_axis_framework_level_millennium_answer :
     (∀ (A : HodgeAbelianSurfaceSubstrate) (class_idx : ℕ),
       HodgeAlgebraicRepresentation A.toHodgeAmbient class_idx ∧
       ∃ Z : A.torus_endomorphisms → ℚ,
-        (∑ e, Z e * A.intersection_form e e) = A.cohomologyClass) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+        (∑ e, Z e * A.intersection_form e e) = A.cohomologyClass) ∧
+    -- (H6) Dim-1 (smooth projective curve) Hodge discharge with
+    --      explicit algebraic-cycle witness (the divisor itself)
+    (∀ (C : HodgeCurveSubstrate) (class_idx : ℕ),
+      HodgeAlgebraicRepresentation C.toHodgeAmbient class_idx ∧
+      ∃ Z : C.Points → ℤ,
+        ((∑ p, Z p : ℤ) : ℚ) = C.cohomologyClass) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   · rfl
   · exact α_Hodge_sq_eq_self_plus_one
   · unfold α_Hodge phi
@@ -75,6 +83,7 @@ theorem hodge_axis_framework_level_millennium_answer :
     linarith
   · exact HodgeConjecture_restricted_to_abelian_surfaces
   · exact hodge_abelian_surface_full_discharge
+  · exact hodge_dim_one_full_discharge
 
 end PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
 
