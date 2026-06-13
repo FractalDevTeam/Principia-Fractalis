@@ -36,8 +36,11 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-13.
 
 import PF.SpectralGap
 import PF.P_NP_Equivalence
+import PF.PolylogIBMEmpiricalPinDischarge
 
 namespace PrincipiaTractalis.PNP_FrameworkMillenniumAnswer
+
+open PrincipiaTractalis.PolylogIBMEmpiricalPinDischarge
 
 /-! ## §1 — The framework-level P vs NP Millennium answer -/
 
@@ -87,7 +90,14 @@ theorem pnp_axis_framework_level_millennium_answer :
     --      spectral gap: lambda_0_P = lambda_0_NP is REFUTED
     (∀ (_eq_ratio : lambda_0_P = lambda_0_NP), False) ∧
     -- (P8) lambda_0_P explicit numerical anchor
-    (|lambda_0_P - 0.2221441469| < 1e-10) :=
+    (|lambda_0_P - 0.2221441469| < 1e-10) ∧
+    -- (P9) IBM empirical pin discharge: NP-quadratic + IBM bracket
+    --      force f(ClassNP) = φ + 1/4 (the framework's alpha_NP)
+    (∀ {f : Set TuringEncoding.Language → ℝ},
+       (16 * (f TuringEncoding.ClassNP) ^ 2
+          - 24 * (f TuringEncoding.ClassNP) - 11 = 0) →
+       IBMNPBracketCompatible f →
+       f TuringEncoding.ClassNP = phi + 1/4) :=
   ⟨spectral_gap_value,
    spectral_gap_positive,
    P_neq_NP,
@@ -95,7 +105,9 @@ theorem pnp_axis_framework_level_millennium_answer :
    fun hpoly => spectral_gap_iff_P_neq_NP hpoly,
    pvsnp_spectral_separation,
    PrincipiaTractalis.ProblemThreeResolution.unitary_conjugation_incompatible_with_spectral_gap,
-   lambda_0_P_approx⟩
+   lambda_0_P_approx,
+   fun {f} h_quad h_ibm =>
+     NP_quadratic_and_IBM_bracket_force_phi_plus_quarter h_quad h_ibm⟩
 
 end PrincipiaTractalis.PNP_FrameworkMillenniumAnswer
 
