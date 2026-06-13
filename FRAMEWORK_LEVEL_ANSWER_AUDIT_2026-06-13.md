@@ -90,7 +90,7 @@ Clause counts at the framework-level positive Millennium answer level:
 | P vs NP | φ + 1/4 | 9 |
 | Riemann Hypothesis | 3/2 | 10 |
 | Hodge | φ | 8 |
-| Birch–Swinnerton-Dyer | 3π/4 | 6 |
+| Birch–Swinnerton-Dyer | 3π/4 | 8 |
 | Master (7-axis α-skeleton + full IBM Galois pair theorem inline + IBM empirical anchors) | — | 21 |
 
 The seven-axis Poincaré-included master plus the Perelman-solved
