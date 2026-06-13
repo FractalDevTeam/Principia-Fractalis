@@ -22,6 +22,8 @@ import PF.CrossMillenniumSharedInvariants
 import PF.BSD_E32a3_RankZero_Discharge
 import PF.BSDMordellWeilRankZeroTyped
 import PF.BSDCoatesWilesRankZeroAttempt
+import PF.BSDWilesModularityAttempt
+import PF.BSD_Wave56RankZeroActualDischargeAttempt
 
 namespace PrincipiaTractalis.BSD_FrameworkMillenniumAnswer
 
@@ -30,6 +32,8 @@ open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PrincipiaTractalis.BSD_E32a3_RankZero_Discharge
 open PrincipiaTractalis.BSDMordellWeilRankZeroTyped
 open PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt
+open PrincipiaTractalis.BSDWilesModularityAttempt
+open PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt
 
 /-! ## §1 — The framework-level BSD Millennium answer -/
 
@@ -57,13 +61,27 @@ theorem bsd_axis_framework_level_millennium_answer :
     -- (B2) cross-axis identity α_NS = 2·α_BSD
     (α_NS = 2 * α_BSD) ∧
     -- (B3) α_BSD positivity
-    (0 < α_BSD) := by
-  refine ⟨?_, ?_, ?_⟩
+    (0 < α_BSD) ∧
+    -- (B4) Rank-zero BSD discharged from literature inputs:
+    --      Coates-Wiles 1977 + Wiles 1995 + convergence of partial
+    --      Euler product at s=1 + BSD sandwich on L-value + LMFDB
+    --      torsion datum + CM by Z[i] → MordellWeilRankZeroTyped
+    --      on E_rank_zero (LMFDB 32.a3).
+    (CoatesWiles1977RankZeroCMTheorem →
+     Wiles1995ModularityTheorem →
+     ConvergenceOfPartialEulerProductAtSEquals1 →
+     BSDSandwichOnLValue →
+     TorsionSubgroupHasOrderFour BSDGaloisPairConcordance.E_rank_zero →
+     hasCM BSDGaloisPairConcordance.E_rank_zero →
+     MordellWeilRankZeroTyped) := by
+  refine ⟨?_, ?_, ?_, ?_⟩
   · rfl
   · exact α_NS_eq_two_α_BSD
   · unfold α_BSD
     have hpi : 0 < Real.pi := Real.pi_pos
     positivity
+  · intro hCW hMod hConv hSand hTors hCM
+    exact bsd_rank_zero_E32a3_discharged hCW hMod hConv hSand hTors hCM
 
 end PrincipiaTractalis.BSD_FrameworkMillenniumAnswer
 
