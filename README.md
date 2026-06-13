@@ -71,6 +71,14 @@ The unified master capstone is now **16-clause** covering the full 7-axis α-ske
 
 Each per-axis capstone and the master are independently re-verified at the **PF_L4L meta-verification (third-certification) layer** via `PF_L4L/Core/FrameworkMillenniumMaster.lean`, with all re-verification aliases depending only on `[propext, Classical.choice, Quot.sound]`.
 
+#### Entry points for a referee
+
+- **One-line headline:** `PF.FrameworkRigidityPlusAnswer.substrate_rigidity_uniqueness` (forces the α-skeleton uniquely) and `PF.FrameworkRigidityPlusAnswer.framework_level_positive_millennium_answer` (the forced α-skeleton positively satisfies the 16-clause master).
+- **Master capstone:** `PF.FrameworkMillenniumAnswerMaster.principia_fractalis_framework_level_millennium_master_answer`.
+- **Per-axis:** the seven `<axis>_axis_framework_level_millennium_answer` theorems listed in the table above.
+- **Independent re-verification (L4L third certification layer):** `PF_L4L.Core.FrameworkMillenniumMaster`.
+- **Audit certificate:** [`FRAMEWORK_LEVEL_ANSWER_AUDIT_2026-06-13.md`](FRAMEWORK_LEVEL_ANSWER_AUDIT_2026-06-13.md) — twelve-capstone `#print axioms` audit with reproduction instructions.
+
 ### Sharpened substrate rigidity (2026-06-11)
 
 The α-skeleton uniqueness is sharper than the manuscript's "11 algebraic constraints" framing indicates. For the full 9-axis α-skeleton, **only 9 invariants + the Perelman anchor + positivity are load-bearing**; the remaining 2 manuscript invariants are derived theorems. The 9-load-bearing set splits cleanly across two sectors.
