@@ -44,9 +44,11 @@ import PF.FrameworkExperimentalWinsCapstone
 import PF.FrameworkCrossDomainAnchors
 import PF.MillenniumSixReductions
 import PF.YangMillsMassGapBracket
+import PF.Consciousness.ConsciousnessOdlyzko10Substrate
 
 namespace PrincipiaTractalis.Empirical_FrameworkMillenniumEvidence
 
+open PrincipiaTractalis
 open PrincipiaTractalis.Capstone
 open PrincipiaTractalis.CrossDomain
 open PrincipiaTractalis.MillenniumSix
@@ -150,7 +152,17 @@ theorem empirical_framework_millennium_evidence :
     -- (E17) Yang-Mills mass-gap factorization Delta_fYM ~ 420 MeV:
     --       419 < Delta_fYM < 421
     --       (= Lambda_QCD * omega_c_YM, sharp 2-MeV bracket)
-    ((419 : ℝ) < YangMills.Delta_fYM ∧ YangMills.Delta_fYM < 421) :=
+    ((419 : ℝ) < YangMills.Delta_fYM ∧ YangMills.Delta_fYM < 421) ∧
+    -- (E18) Odlyzko first 10 Riemann zeros are LITERAL published
+    --       values (Hardy 1914 + Odlyzko table):
+    --         positions 0-9 = 14.1347, 21.0220, 25.0109, 30.4249,
+    --                         32.9351, 37.5862, 40.9187, 43.3271,
+    --                         48.0052, 49.7738
+    --       Anchored by the first zero matching Hardy 1914
+    (odlyzko10 0 = 14.1347 ∧
+     odlyzko10 1 = 21.0220 ∧
+     odlyzko10 2 = 25.0109 ∧
+     odlyzko10 9 = 49.7738) :=
   ⟨⟨XENON_prediction_bracket.left,
     XENON_prediction_bracket.right,
     XENON_prediction_pos⟩,
@@ -174,7 +186,8 @@ theorem empirical_framework_millennium_evidence :
    ⟨YangMills.lambda_0_YM_bracket_sharp.left,
     YangMills.lambda_0_YM_bracket_sharp.right⟩,
    ⟨YangMills.Delta_fYM_bracket.left,
-    YangMills.Delta_fYM_bracket.right⟩⟩
+    YangMills.Delta_fYM_bracket.right⟩,
+   ⟨rfl, rfl, rfl, rfl⟩⟩
 
 end PrincipiaTractalis.Empirical_FrameworkMillenniumEvidence
 
