@@ -121,8 +121,18 @@ theorem rh_axis_framework_level_millennium_answer :
       RHSpectralSurjectivityConjecture α eigenvalues → RiemannHypothesis) ∧
     -- (R6) Wave 55B Mayer N=20 carrier injective + strictly anti-monotone
     (Function.Injective eigSeqMayer) ∧
-    (StrictAnti eigSeqMayerN20) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    (StrictAnti eigSeqMayerN20) ∧
+    -- (R7) Hardy 1914 anchor properties (the first non-trivial
+    --      Riemann zero's imaginary part t ≈ 14.135):
+    --      positivity, bracket 14 < t < 15, and irrational-vs-natural
+    --      distinction
+    (0 < PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.hardy1914) ∧
+    (14 < PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.hardy1914
+       ∧ PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.hardy1914 < 15) ∧
+    (∀ m : ℕ,
+      PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.hardy1914
+        ≠ (m : ℝ)) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.alphaCanonical_value
   · exact PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.alphaCanonical_pos
   · intro t ht
@@ -134,6 +144,9 @@ theorem rh_axis_framework_level_millennium_answer :
     exact riemann_hypothesis_via_named_surjectivity α eigenvalues h_surj
   · exact eigSeqMayer_injective
   · exact eigSeqMayerN20_strictAnti
+  · exact PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.hardy1914_pos
+  · exact PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.hardy1914_between_14_and_15
+  · exact PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.hardy1914_not_natural
 
 end PrincipiaTractalis.RH_FrameworkMillenniumAnswer
 
