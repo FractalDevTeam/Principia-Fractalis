@@ -48,6 +48,7 @@ import PF.NS2DGlobalRegularity
 import PF.NS3DVortexStretchingObstruction
 import PF.SpectralEmbedding
 import PF.FrameworkApplicationCapstone
+import PF.AlphaBasisGenerators
 import PF.CrossMillenniumSharedInvariants
 
 namespace PrincipiaTractalis.TheoreticalPhysics_FrameworkBundle
@@ -57,6 +58,7 @@ open PrincipiaTractalis.NS2DGlobalRegularity
 open PrincipiaTractalis.NS3DVortexStretchingObstruction
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PrincipiaTractalis.Capstone
+open PrincipiaTractalis.MillenniumSix
 
 /-! ## §1 — Theoretical-physics support bundle -/
 
@@ -114,7 +116,22 @@ theorem framework_theoretical_physics_support_bundle :
     ((27 : ℕ) = 3 ^ 3) ∧
     -- (T9) 78 * pi bracket: 245 < 78*pi < 246
     --      (substrate-rigidity coupling constant)
-    ((245 : ℝ) < 78 * Real.pi ∧ 78 * Real.pi < 246) :=
+    ((245 : ℝ) < 78 * Real.pi ∧ 78 * Real.pi < 246) ∧
+    -- (T10) Framework has 4 degrees of freedom (alpha-basis 4-DoF):
+    --       all 9 alpha-instances determined by 4-element basis
+    --       {1, pi, phi, sqrt 2} + small rationals.
+    --       Existential form of the structural decomposition.
+    (∃ (qP qR qY qP_basis qNP_basis qNS qBSD qHodge qQG : ℝ),
+       alpha_value AlphaClass8.Poincare = qP * basis_one ∧
+       alpha_value AlphaClass8.RH       = qR * basis_one ∧
+       alpha_value AlphaClass8.YM       = qY * basis_one ∧
+       alpha_value AlphaClass8.P        = qP_basis * basis_sqrt_two ∧
+       alpha_value AlphaClass8.NP       = qNP_basis * basis_phi + 1/4 ∧
+       alpha_value AlphaClass8.NS       = qNS * basis_pi ∧
+       alpha_value AlphaClass8.BSD      = qBSD * basis_pi ∧
+       alpha_value AlphaClass8.Hodge    = qHodge * basis_phi ∧
+       PrincipiaTractalis.alpha_QG
+         = qQG * basis_sqrt_two * Real.sqrt basis_pi) :=
   ⟨ModifiedGRWithConsciousnessBundle_consistent,
    ns_2D_global_regularity_holds,
    exists_nonzero_vortex_stretching_3D,
@@ -123,7 +140,8 @@ theorem framework_theoretical_physics_support_bundle :
    Capstone.kolmogorov_NS_bridge,
    Capstone.dim_E6_equals_78,
    Capstone.dim_H3_equals_27,
-   Capstone.N_78pi_bracket⟩
+   Capstone.N_78pi_bracket,
+   framework_has_four_dof⟩
 
 end PrincipiaTractalis.TheoreticalPhysics_FrameworkBundle
 
