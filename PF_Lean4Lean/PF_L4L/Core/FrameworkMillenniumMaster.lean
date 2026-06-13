@@ -25,6 +25,9 @@ import PF.TheoreticalPhysics_FrameworkBundle
 import PF.RH_SubstrateBulletproofClosure
 import PF.PNP_SubstrateBulletproofClosure
 import PF.NS_SubstrateBulletproofClosure
+import PF.YM_SubstrateBulletproofClosure
+import PF.BSD_SubstrateBulletproofClosure
+import PF.Hodge_SubstrateBulletproofClosure
 
 namespace PF_L4L.Core.FrameworkMillenniumMaster
 
@@ -69,6 +72,15 @@ noncomputable def PNP_bulletproof_substrate_closure_reverified :=
 noncomputable def NS_bulletproof_substrate_closure_reverified :=
   PrincipiaTractalis.NS_SubstrateBulletproofClosure.NS_bulletproof_substrate_closure
 
+noncomputable def YM_bulletproof_substrate_closure_reverified :=
+  PrincipiaTractalis.YM_SubstrateBulletproofClosure.YM_bulletproof_substrate_closure
+
+noncomputable def BSD_bulletproof_substrate_closure_reverified :=
+  PrincipiaTractalis.BSD_SubstrateBulletproofClosure.BSD_bulletproof_substrate_closure
+
+noncomputable def Hodge_bulletproof_substrate_closure_reverified :=
+  PrincipiaTractalis.Hodge_SubstrateBulletproofClosure.Hodge_bulletproof_substrate_closure
+
 /-! ## §2 — Axiom audit hooks
 
 Each meta-verification alias should print only
@@ -87,5 +99,8 @@ Each meta-verification alias should print only
 #print axioms RH_bulletproof_substrate_closure_reverified
 #print axioms PNP_bulletproof_substrate_closure_reverified
 #print axioms NS_bulletproof_substrate_closure_reverified
+#print axioms YM_bulletproof_substrate_closure_reverified
+#print axioms BSD_bulletproof_substrate_closure_reverified
+#print axioms Hodge_bulletproof_substrate_closure_reverified
 
 end PF_L4L.Core.FrameworkMillenniumMaster
