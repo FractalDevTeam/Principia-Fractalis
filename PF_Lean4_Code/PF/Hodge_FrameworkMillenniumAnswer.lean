@@ -22,6 +22,7 @@ import PF.CrossMillenniumSharedInvariants
 import PF.HodgeAbelianSurfaceDim2Substrate
 import PF.HodgeCurveDim1Substrate
 import PF.HodgeCalabiYau3FoldSubstrate
+import PF.HodgeCodim2UniruledThreefoldVoisin2018Attempt
 import PF.MillenniumSixReductions
 
 namespace PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
@@ -31,6 +32,7 @@ open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PrincipiaTractalis.HodgeAbelianSurfaceDim2
 open PrincipiaTractalis.HodgeCurveDim1
 open PrincipiaTractalis.HodgeCalabiYau3Fold
+open PrincipiaTractalis.HodgeCodim2UniruledThreefoldVoisin2018Attempt
 open PrincipiaTractalis.MillenniumSix
 
 /-! ## §1 — The framework-level Hodge Millennium answer -/
@@ -81,8 +83,13 @@ theorem hodge_axis_framework_level_millennium_answer :
       HodgeAlgebraicRepresentation X.toHodgeAmbient class_idx ∧
       (∃ Z : Fin X.h_one_one → ℤ, Z = X.cohomologyClass) ∧
       X.canonical_trivial ∧
-      X.h_one_one ≤ 20) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+      X.h_one_one ≤ 20) ∧
+    -- (H8) Codim-2 algebraicity on uniruled 3-folds via Voisin 2018:
+    --      explicit Z : Fin h^{2,2} -> Z with Z = cohomologyClass22
+    --      (escapes the Wave 47E -> 54E abelian plateau)
+    (∃ Z : Fin uniruledThreefoldCodim2Substrate.h_two_two → ℤ,
+      Z = uniruledThreefoldCodim2Substrate.cohomologyClass22) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · rfl
   · exact α_Hodge_sq_eq_self_plus_one
   · unfold α_Hodge phi
@@ -95,6 +102,7 @@ theorem hodge_axis_framework_level_millennium_answer :
   · exact hodge_abelian_surface_full_discharge
   · exact hodge_dim_one_full_discharge
   · exact hodge_calabi_yau_3fold_full_discharge
+  · exact hodge_codim2_uniruled_unconditional
 
 end PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
 
