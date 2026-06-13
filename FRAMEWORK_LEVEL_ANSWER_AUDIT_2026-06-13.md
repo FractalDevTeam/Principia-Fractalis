@@ -32,11 +32,37 @@ No project axioms. No `sorry`. No `admit`.
 | `PrincipiaTractalis.SupremeFrameworkAnswer.supreme_unified_clay_closure` | `[propext, Classical.choice, Quot.sound]` |
 | `PrincipiaTractalis.FrameworkRigidityPlusAnswer.substrate_rigidity_uniqueness` | `[propext, Classical.choice, Quot.sound]` |
 | `PrincipiaTractalis.FrameworkRigidityPlusAnswer.framework_level_positive_millennium_answer` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Empirical_FrameworkMillenniumEvidence.empirical_framework_millennium_evidence` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.TheoreticalPhysics_FrameworkBundle.framework_theoretical_physics_support_bundle` | `[propext, Classical.choice, Quot.sound]` |
+
+## Cross-domain anchor bundles (2026-06-13)
+
+In addition to the twelve framework-level positive Millennium
+answer capstones above, two cross-domain anchor bundles have been
+landed today as axiom-free Lean theorems bundling external
+empirical evidence and theoretical-physics machinery:
+
+- **`empirical_framework_millennium_evidence` (17-clause)** —
+  XENON-127, Hubble tension, lattice QCD glueball, π/10 cross-
+  domain, ch₂ = 0.95, α_NP IBM, Λ_QCD = 197.2 MeV, ω_c YM cutoff,
+  Λ_QCD ≠ ω_c non-tautology, π/10 spectral SU(2) form, π/10 Hopf
+  volumetric form, Φ-threshold = 2·log 20 IIT 4.0, Φ positivity,
+  IIT effective dim 20, M_1 glueball sharp 1770-1780 MeV, λ₀(YM)
+  sharp 0.156-0.158, Δ_fYM sharp 419-421 MeV.
+
+- **`framework_theoretical_physics_support_bundle` (10-clause)** —
+  Modified GR with consciousness (Lambda-CDM rebuttal / Weinberg-
+  anthropic alternative), classical 2D NS global regularity, 3D
+  vortex stretching does not vanish, α_QG² = 2π TOE identity,
+  LHC W/Z boson masses match (W ≈ 80.4 GeV, Z ≈ 91.2 GeV), Kolmogorov
+  K41 −5/3 turbulence law bridge, E6 dim = 78, H3 dim = 27 = 3³,
+  78π bracket, framework 4-DoF basis {1, π, φ, √2} structural
+  decomposition.
 
 ## Build state
 
-- `PF_Lean4_Code/`: full `PF` library — **4315 jobs clean**.
-- `PF_Lean4Lean/`: meta-verification layer (`PF_L4L`) — **4084 jobs clean**.
+- `PF_Lean4_Code/`: full `PF` library — **4322 jobs clean**.
+- `PF_Lean4Lean/`: meta-verification layer (`PF_L4L`) — **4085 jobs clean**.
 - L4L re-verification of the framework-level master and each per-axis
   answer is in `PF_Lean4Lean/PF_L4L/Core/FrameworkMillenniumMaster.lean`,
   with aliases also depending on kernel-only axioms.
