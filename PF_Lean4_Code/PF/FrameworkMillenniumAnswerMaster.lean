@@ -38,11 +38,13 @@ import PF.YM_FrameworkMillenniumAnswer
 import PF.BSD_FrameworkMillenniumAnswer
 import PF.Hodge_FrameworkMillenniumAnswer
 import PF.IBMPeaksGaloisPair
+import PF.IBMEmpiricalAlphaTableBridge
 
 namespace PrincipiaTractalis.FrameworkMillenniumAnswerMaster
 
 open PrincipiaTractalis
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
+open PrincipiaTractalis.IBMEmpiricalAlphaTableBridge
 
 /-! ## §1 — The unified framework-level Millennium master answer -/
 
@@ -92,8 +94,12 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     (PrincipiaTractalis.IBMPeaksGaloisPair.P
        PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = 0) ∧
     (PrincipiaTractalis.IBMPeaksGaloisPair.P
-       PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP = 0) := by
-  refine ⟨rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+       PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP = 0) ∧
+    -- IBM Quantum hardware empirical anchors (RH-class and P/NP-class)
+    (alphaTable 2 = PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH ∧
+       PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = ibm_peak_RH) ∧
+    (|ibm_peak_PNP - alphaTable 4| ≤ (1 : ℝ) / 10000) := by
+  refine ⟨rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · unfold α_NS
     have hpi : 0 < Real.pi := Real.pi_pos
     positivity
@@ -111,6 +117,8 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
   · exact α_Hodge_sq_eq_self_plus_one
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).1
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.1
+  · exact alphaTable_RH_matches_ibm
+  · exact alphaTable_NP_close_to_ibm
 
 end PrincipiaTractalis.FrameworkMillenniumAnswerMaster
 
