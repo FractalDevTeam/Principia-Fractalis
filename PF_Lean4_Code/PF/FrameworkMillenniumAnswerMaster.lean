@@ -39,12 +39,14 @@ import PF.BSD_FrameworkMillenniumAnswer
 import PF.Hodge_FrameworkMillenniumAnswer
 import PF.IBMPeaksGaloisPair
 import PF.IBMEmpiricalAlphaTableBridge
+import PF.NSYMBSDTranscendentalRatioBridge
 
 namespace PrincipiaTractalis.FrameworkMillenniumAnswerMaster
 
 open PrincipiaTractalis
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PrincipiaTractalis.IBMEmpiricalAlphaTableBridge
+open PrincipiaTractalis.NSYMBSDTranscendentalRatioBridge
 
 /-! ## §1 — The unified framework-level Millennium master answer -/
 
@@ -91,6 +93,9 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     -- Cross-axis algebraic identities binding the skeleton
     (α_NS = 2 * α_BSD) ∧
     (α_Hodge ^ 2 = α_Hodge + 1) ∧
+    -- Cross-axis ratio identity: alpha_NS / alpha_YM = alpha_BSD
+    -- (3 pi / 2) / 2 = 3 pi / 4 — transcendental-axis ratio bridge
+    (α_NS / α_YM = α_BSD) ∧
     -- IBM Galois pair: alpha_RH and alpha_NP are conjugate roots
     -- of a single Q(sqrt 5) quadratic, with positive discriminant
     -- and distinct real roots.
@@ -119,7 +124,7 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     (alphaTable 2 = PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH ∧
        PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = ibm_peak_RH) ∧
     (|ibm_peak_PNP - alphaTable 4| ≤ (1 : ℝ) / 10000) := by
-  refine ⟨rfl, rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨rfl, rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · unfold α_NS
     have hpi : 0 < Real.pi := Real.pi_pos
     positivity
@@ -136,6 +141,7 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
   · unfold α_Poincare; norm_num
   · exact α_NS_eq_two_α_BSD
   · exact α_Hodge_sq_eq_self_plus_one
+  · exact α_NS_div_α_YM_eq_α_BSD
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).1
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.1
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.2.2.2.2.1
