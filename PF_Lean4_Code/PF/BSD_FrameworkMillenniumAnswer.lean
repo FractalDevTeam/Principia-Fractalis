@@ -24,6 +24,7 @@ import PF.BSDMordellWeilRankZeroTyped
 import PF.BSDCoatesWilesRankZeroAttempt
 import PF.BSDWilesModularityAttempt
 import PF.BSD_Wave56RankZeroActualDischargeAttempt
+import PF.BSDLPartialEvaluationAttempt
 
 namespace PrincipiaTractalis.BSD_FrameworkMillenniumAnswer
 
@@ -34,6 +35,7 @@ open PrincipiaTractalis.BSDMordellWeilRankZeroTyped
 open PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt
 open PrincipiaTractalis.BSDWilesModularityAttempt
 open PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt
+open PrincipiaTractalis.BSDLPartialEvaluationAttempt
 
 /-! ## §1 — The framework-level BSD Millennium answer -/
 
@@ -73,8 +75,14 @@ theorem bsd_axis_framework_level_millennium_answer :
      BSDSandwichOnLValue →
      TorsionSubgroupHasOrderFour BSDGaloisPairConcordance.E_rank_zero →
      hasCM BSDGaloisPairConcordance.E_rank_zero →
-     MordellWeilRankZeroTyped) := by
-  refine ⟨?_, ?_, ?_, ?_⟩
+     MordellWeilRankZeroTyped) ∧
+    -- (B5) L-partial Euler product evaluation: positive rational value
+    --      for E_rank_zero (LMFDB 32.a3) at s = 1 across primes p <= 31
+    (0 < L_partial_E32a3_at_1) ∧
+    -- (B5) Numerical bracket: 553/1000 < L_partial(E32a3, 1) < 554/1000
+    ((553 : ℚ) / 1000 < L_partial_E32a3_at_1 ∧
+     L_partial_E32a3_at_1 < (554 : ℚ) / 1000) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   · rfl
   · exact α_NS_eq_two_α_BSD
   · unfold α_BSD
@@ -82,6 +90,8 @@ theorem bsd_axis_framework_level_millennium_answer :
     positivity
   · intro hCW hMod hConv hSand hTors hCM
     exact bsd_rank_zero_E32a3_discharged hCW hMod hConv hSand hTors hCM
+  · exact L_partial_E32a3_at_1_pos
+  · exact L_partial_bracket_rat
 
 end PrincipiaTractalis.BSD_FrameworkMillenniumAnswer
 
