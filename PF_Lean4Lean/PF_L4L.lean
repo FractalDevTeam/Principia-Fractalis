@@ -24,6 +24,7 @@ GATED (currently un-buildable; see README.md "Architectural Gap" section):
 -- Reachable modules: actively re-verify portions of PF_Lean4_Code/PF/
 import PF_L4L.Core.SpectralGap
 import PF_L4L.Core.NS3D                         -- 2026-06-13 NS Sobolev/Leray substrate-closure re-verification (27 advances).
+import PF_L4L.Core.FrameworkMillenniumMaster    -- 2026-06-13 Six-axis framework-level Millennium master answer re-verification.
 import PF_L4L.Ch21.PNP
 import PF_L4L.Referee.FlagshipReverification
 import PF_L4L.Referee.V2AndMasterReverification
