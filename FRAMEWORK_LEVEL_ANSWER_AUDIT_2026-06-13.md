@@ -77,10 +77,17 @@ Clause counts at the framework-level positive Millennium answer level:
 | Navier–Stokes | 3π/2 | 18 |
 | Yang–Mills | 2 | 7 |
 | Riemann Hypothesis | 3/2 | 7 |
-| Hodge | φ | 5 |
+| Hodge | φ | 6 |
 | P vs NP | φ + 1/4 | 5 |
-| Birch–Swinnerton-Dyer | 3π/4 | 4 |
+| Birch–Swinnerton-Dyer | 3π/4 | 6 |
 | Master (alpha-skeleton + IBM Galois pair + IBM empirical anchors) | — | 12 |
 
 Plus, off-Lean:
 - Poincaré (α = 1) — solved by Perelman 2003.
+
+### Re-audit confirmation
+
+The audit run reproduced at HEAD `4a3cce6` (BSD strengthened with
+L-partial Euler product clauses) confirms all nine capstones still
+depend on exactly `[propext, Classical.choice, Quot.sound]`. No new
+project axioms introduced by the strengthening sequence.
