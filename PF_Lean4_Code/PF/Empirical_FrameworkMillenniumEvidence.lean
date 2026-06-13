@@ -45,6 +45,7 @@ import PF.FrameworkCrossDomainAnchors
 import PF.MillenniumSixReductions
 import PF.YangMillsMassGapBracket
 import PF.Consciousness.ConsciousnessOdlyzko10Substrate
+import PF.Consciousness.ClinicalCh2Calibration
 
 namespace PrincipiaTractalis.Empirical_FrameworkMillenniumEvidence
 
@@ -53,6 +54,7 @@ open PrincipiaTractalis.Capstone
 open PrincipiaTractalis.CrossDomain
 open PrincipiaTractalis.MillenniumSix
 open PrincipiaTractalis.YangMills
+open PrincipiaTractalis.Consciousness
 
 /-! ## §1 — The empirical-evidence bundle -/
 
@@ -162,7 +164,13 @@ theorem empirical_framework_millennium_evidence :
     (odlyzko10 0 = 14.1347 ∧
      odlyzko10 1 = 21.0220 ∧
      odlyzko10 2 = 25.0109 ∧
-     odlyzko10 9 = 49.7738) :=
+     odlyzko10 9 = 49.7738) ∧
+    -- (E19) Clinical Wave 9 anchor: alpha_clinical_optimal bracket
+    --       1.86 < alpha_clinical_optimal < 1.87
+    --       Calibration search on 100 synthetic patients x 5
+    --       consciousness classes finds alpha_NP gives 100% binary
+    --       accuracy at alpha_clinical_optimal = phi + 1/4.
+    (Consciousness.alpha_NP_cross_domain_consistency) :=
   ⟨⟨XENON_prediction_bracket.left,
     XENON_prediction_bracket.right,
     XENON_prediction_pos⟩,
@@ -187,7 +195,8 @@ theorem empirical_framework_millennium_evidence :
     YangMills.lambda_0_YM_bracket_sharp.right⟩,
    ⟨YangMills.Delta_fYM_bracket.left,
     YangMills.Delta_fYM_bracket.right⟩,
-   ⟨rfl, rfl, rfl, rfl⟩⟩
+   ⟨rfl, rfl, rfl, rfl⟩,
+   Consciousness.alpha_NP_cross_domain_consistency_witness⟩
 
 end PrincipiaTractalis.Empirical_FrameworkMillenniumEvidence
 
