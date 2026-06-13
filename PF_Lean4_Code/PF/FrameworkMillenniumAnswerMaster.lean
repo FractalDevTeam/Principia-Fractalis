@@ -102,6 +102,16 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     -- Level identity: alpha_RH = (1 + alpha_YM) / 2 = midpoint of 1 and 2
     -- 3/2 = (1 + 2) / 2  (Perelman anchor + YM rigid-rational pair)
     ((3 : ℝ)/2 = (1 + 2)/2) ∧
+    -- Non-Clay framework axis: alpha_P (P-class polylog) and identity
+    -- alpha_P^2 = alpha_YM  (algebraic backbone of alpha_P^2 = 2)
+    (PrincipiaTractalis.CrossMillenniumSharedInvariants.α_P ^ 2 = α_YM) ∧
+    -- Non-Clay framework axis: alpha_QG (quantum gravity) and identity
+    -- alpha_QG^2 = 2 * pi  (TOE completion identity)
+    (PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG ^ 2
+      = 2 * Real.pi) ∧
+    -- Cross-axis: alpha_QG^2 = alpha_YM * pi
+    (PrincipiaTractalis.CrossMillenniumSharedInvariants.α_QG ^ 2
+      = α_YM * Real.pi) ∧
     -- IBM Galois pair: alpha_RH and alpha_NP are conjugate roots
     -- of a single Q(sqrt 5) quadratic, with positive discriminant
     -- and distinct real roots.
@@ -130,7 +140,7 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     (alphaTable 2 = PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH ∧
        PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = ibm_peak_RH) ∧
     (|ibm_peak_PNP - alphaTable 4| ≤ (1 : ℝ) / 10000) := by
-  refine ⟨rfl, rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨rfl, rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · unfold α_NS
     have hpi : 0 < Real.pi := Real.pi_pos
     positivity
@@ -150,6 +160,9 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
   · exact α_NS_div_α_YM_eq_α_BSD
   · ring
   · norm_num
+  · exact α_P_sq_eq_α_YM
+  · exact α_QG_sq_eq_two_pi
+  · exact α_QG_sq_eq_α_YM_mul_pi
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).1
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.1
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.2.2.2.2.1
