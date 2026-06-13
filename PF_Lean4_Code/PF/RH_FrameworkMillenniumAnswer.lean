@@ -55,6 +55,8 @@ import PF.RHSurjectivityConjecture
 
 namespace PrincipiaTractalis.RH_FrameworkMillenniumAnswer
 
+open PrincipiaTractalis.RHMayerEigenvalueCarrierAttempt
+
 /-! ## §1 — The framework-level RH Millennium answer -/
 
 /-- **★ FRAMEWORK-LEVEL RH MILLENNIUM ANSWER ★** —
@@ -116,8 +118,11 @@ theorem rh_axis_framework_level_millennium_answer :
         = ⟨1/2, 14135/1000⟩) ∧
     -- (R5) named-Prop RH closure
     (∀ α : ScalingParameter, ∀ eigenvalues : ℕ → ℝ,
-      RHSpectralSurjectivityConjecture α eigenvalues → RiemannHypothesis) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+      RHSpectralSurjectivityConjecture α eigenvalues → RiemannHypothesis) ∧
+    -- (R6) Wave 55B Mayer N=20 carrier injective + strictly anti-monotone
+    (Function.Injective eigSeqMayer) ∧
+    (StrictAnti eigSeqMayerN20) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.alphaCanonical_value
   · exact PrincipiaTractalis.T3SymCanonicalAlphaCarrierAttempt.alphaCanonical_pos
   · intro t ht
@@ -127,6 +132,8 @@ theorem rh_axis_framework_level_millennium_answer :
   · exact PrincipiaTractalis.T3SymSurrogateSurjectivityAttempt.surrogate_hits_hardy_1914_value
   · intro α eigenvalues h_surj
     exact riemann_hypothesis_via_named_surjectivity α eigenvalues h_surj
+  · exact eigSeqMayer_injective
+  · exact eigSeqMayerN20_strictAnti
 
 end PrincipiaTractalis.RH_FrameworkMillenniumAnswer
 
