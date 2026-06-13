@@ -21,6 +21,7 @@ Author: Pablo Cohen + Claude Opus 4.7. 2026-06-13.
 import PF.CrossMillenniumSharedInvariants
 import PF.HodgeAbelianSurfaceDim2Substrate
 import PF.HodgeCurveDim1Substrate
+import PF.HodgeCalabiYau3FoldSubstrate
 import PF.MillenniumSixReductions
 
 namespace PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
@@ -29,6 +30,7 @@ open PrincipiaTractalis
 open PrincipiaTractalis.CrossMillenniumSharedInvariants
 open PrincipiaTractalis.HodgeAbelianSurfaceDim2
 open PrincipiaTractalis.HodgeCurveDim1
+open PrincipiaTractalis.HodgeCalabiYau3Fold
 open PrincipiaTractalis.MillenniumSix
 
 /-! ## §1 — The framework-level Hodge Millennium answer -/
@@ -71,8 +73,16 @@ theorem hodge_axis_framework_level_millennium_answer :
     (∀ (C : HodgeCurveSubstrate) (class_idx : ℕ),
       HodgeAlgebraicRepresentation C.toHodgeAmbient class_idx ∧
       ∃ Z : C.Points → ℤ,
-        ((∑ p, Z p : ℤ) : ℚ) = C.cohomologyClass) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+        ((∑ p, Z p : ℤ) : ℚ) = C.cohomologyClass) ∧
+    -- (H7) Calabi-Yau 3-fold Hodge discharge with explicit
+    --      algebraic-cycle witness on the (1,1) Lefschetz part
+    --      AND canonical-trivial witness AND h^{1,1} <= 20
+    (∀ (X : HodgeCalabiYau3FoldSubstrate) (class_idx : ℕ),
+      HodgeAlgebraicRepresentation X.toHodgeAmbient class_idx ∧
+      (∃ Z : Fin X.h_one_one → ℤ, Z = X.cohomologyClass) ∧
+      X.canonical_trivial ∧
+      X.h_one_one ≤ 20) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · rfl
   · exact α_Hodge_sq_eq_self_plus_one
   · unfold α_Hodge phi
@@ -84,6 +94,7 @@ theorem hodge_axis_framework_level_millennium_answer :
   · exact HodgeConjecture_restricted_to_abelian_surfaces
   · exact hodge_abelian_surface_full_discharge
   · exact hodge_dim_one_full_discharge
+  · exact hodge_calabi_yau_3fold_full_discharge
 
 end PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer
 
