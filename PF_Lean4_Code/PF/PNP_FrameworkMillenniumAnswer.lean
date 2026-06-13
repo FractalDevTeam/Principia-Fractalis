@@ -73,11 +73,16 @@ theorem pnp_axis_framework_level_millennium_answer :
     -- (P3) P ≠ NP via spectral separation
     (spectral_gap ≠ 0) ∧
     -- (P4) named-Prop P ≠ NP closure
-    (TuringEncoding.PolylogEigenvalueConjecture → P_neq_NP_def) :=
+    (TuringEncoding.PolylogEigenvalueConjecture → P_neq_NP_def) ∧
+    -- (P5) BICONDITIONAL: Δ > 0 ↔ P ≠ NP under PolylogEigenvalueConjecture
+    --      (sharper than P4 — both directions, not just one)
+    (∀ (_ : TuringEncoding.PolylogEigenvalueConjecture),
+       Delta > 0 ↔ P_neq_NP_def) :=
   ⟨spectral_gap_value,
    spectral_gap_positive,
    P_neq_NP,
-   P_neq_NP_via_spectral_gap⟩
+   P_neq_NP_via_spectral_gap,
+   fun hpoly => spectral_gap_iff_P_neq_NP hpoly⟩
 
 end PrincipiaTractalis.PNP_FrameworkMillenniumAnswer
 
