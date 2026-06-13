@@ -37,6 +37,7 @@ import PF.PNP_FrameworkMillenniumAnswer
 import PF.YM_FrameworkMillenniumAnswer
 import PF.BSD_FrameworkMillenniumAnswer
 import PF.Hodge_FrameworkMillenniumAnswer
+import PF.IBMPeaksGaloisPair
 
 namespace PrincipiaTractalis.FrameworkMillenniumAnswerMaster
 
@@ -84,8 +85,15 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     (0 < α_NS) ∧ (0 < α_BSD) ∧ (0 < α_YM) ∧ (0 < α_Hodge) ∧
     -- Cross-axis algebraic identities binding the skeleton
     (α_NS = 2 * α_BSD) ∧
-    (α_Hodge ^ 2 = α_Hodge + 1) := by
-  refine ⟨rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    (α_Hodge ^ 2 = α_Hodge + 1) ∧
+    -- IBM Galois pair: alpha_RH and alpha_NP are conjugate roots
+    -- of a single Q(sqrt 5) quadratic, with positive discriminant
+    -- and distinct real roots.
+    (PrincipiaTractalis.IBMPeaksGaloisPair.P
+       PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = 0) ∧
+    (PrincipiaTractalis.IBMPeaksGaloisPair.P
+       PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP = 0) := by
+  refine ⟨rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · unfold α_NS
     have hpi : 0 < Real.pi := Real.pi_pos
     positivity
@@ -101,6 +109,8 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
     linarith
   · exact α_NS_eq_two_α_BSD
   · exact α_Hodge_sq_eq_self_plus_one
+  · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).1
+  · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.1
 
 end PrincipiaTractalis.FrameworkMillenniumAnswerMaster
 
