@@ -5,9 +5,11 @@ positive Millennium answer capstones. Run via Lean 4 `#print axioms`
 against the canonical PF library at HEAD (`38c1974` plus any later
 commits) of `git@github.com:FractalDevTeam/Principia-Fractalis.git`.
 
-**Result:** all nine framework-level capstones depend on exactly the
-Lean 4 kernel axioms `[propext, Classical.choice, Quot.sound]`. No
-project axioms. No `sorry`. No `admit`.
+**Result:** all ten framework-level capstones (seven per-axis answers
+including Poincaré, plus the unified master, plus two supreme
+headline aliases) depend on exactly the Lean 4 kernel axioms
+`[propext, Classical.choice, Quot.sound]`. No project axioms. No
+`sorry`. No `admit`.
 
 ## Per-axis framework-level positive Millennium answer capstones
 
@@ -19,6 +21,7 @@ project axioms. No `sorry`. No `admit`.
 | `PrincipiaTractalis.YM_FrameworkMillenniumAnswer.ym_axis_framework_level_millennium_answer` | `[propext, Classical.choice, Quot.sound]` |
 | `PrincipiaTractalis.BSD_FrameworkMillenniumAnswer.bsd_axis_framework_level_millennium_answer` | `[propext, Classical.choice, Quot.sound]` |
 | `PrincipiaTractalis.Hodge_FrameworkMillenniumAnswer.hodge_axis_framework_level_millennium_answer` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Poincare_FrameworkMillenniumAnswer.poincare_axis_framework_level_millennium_answer` | `[propext, Classical.choice, Quot.sound]` |
 
 ## Master and supreme headline capstones
 
@@ -74,16 +77,18 @@ Clause counts at the framework-level positive Millennium answer level:
 
 | Axis | α | Clauses |
 |---|---|---:|
+| Poincaré | 1 | 3 |
 | Navier–Stokes | 3π/2 | 18 |
 | Yang–Mills | 2 | 7 |
 | Riemann Hypothesis | 3/2 | 7 |
 | Hodge | φ | 6 |
 | P vs NP | φ + 1/4 | 5 |
 | Birch–Swinnerton-Dyer | 3π/4 | 6 |
-| Master (alpha-skeleton + IBM Galois pair + IBM empirical anchors) | — | 12 |
+| Master (7-axis α-skeleton + IBM Galois pair + IBM empirical anchors) | — | 16 |
 
-Plus, off-Lean:
-- Poincaré (α = 1) — solved by Perelman 2003.
+The seven-axis Poincaré-included master plus the Perelman-solved
+classical Poincaré conjecture (off-Lean) together cover the
+complete Clay Millennium Problems set as the framework defines it.
 
 ### Re-audit confirmation
 
