@@ -25,6 +25,7 @@ import PF.BSDCoatesWilesRankZeroAttempt
 import PF.BSDWilesModularityAttempt
 import PF.BSD_Wave56RankZeroActualDischargeAttempt
 import PF.BSDLPartialEvaluationAttempt
+import PF.BSDLPartialEvaluationExtendedAttempt
 
 namespace PrincipiaTractalis.BSD_FrameworkMillenniumAnswer
 
@@ -36,6 +37,7 @@ open PrincipiaTractalis.BSDCoatesWilesRankZeroAttempt
 open PrincipiaTractalis.BSDWilesModularityAttempt
 open PrincipiaTractalis.BSD_Wave56RankZeroActualDischargeAttempt
 open PrincipiaTractalis.BSDLPartialEvaluationAttempt
+open PrincipiaTractalis.BSDLPartialEvaluationExtendedAttempt
 
 /-! ## §1 — The framework-level BSD Millennium answer -/
 
@@ -81,8 +83,12 @@ theorem bsd_axis_framework_level_millennium_answer :
     (0 < L_partial_E32a3_at_1) ∧
     -- (B5) Numerical bracket: 553/1000 < L_partial(E32a3, 1) < 554/1000
     ((553 : ℚ) / 1000 < L_partial_E32a3_at_1 ∧
-     L_partial_E32a3_at_1 < (554 : ℚ) / 1000) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+     L_partial_E32a3_at_1 < (554 : ℚ) / 1000) ∧
+    -- (B6) Extended L-partial (primes p <= 97) positivity
+    (0 < L_partial_E32a3_at_1_extended) ∧
+    -- (B6) Extended L-partial nonzero
+    (L_partial_E32a3_at_1_extended ≠ 0) := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · rfl
   · exact α_NS_eq_two_α_BSD
   · unfold α_BSD
@@ -92,6 +98,8 @@ theorem bsd_axis_framework_level_millennium_answer :
     exact bsd_rank_zero_E32a3_discharged hCW hMod hConv hSand hTors hCM
   · exact L_partial_E32a3_at_1_pos
   · exact L_partial_bracket_rat
+  · exact L_partial_E32a3_at_1_extended_pos
+  · exact L_partial_E32a3_at_1_extended_ne_zero
 
 end PrincipiaTractalis.BSD_FrameworkMillenniumAnswer
 
