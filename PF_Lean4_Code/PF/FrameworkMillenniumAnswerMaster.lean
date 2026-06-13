@@ -104,11 +104,22 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
        ≠ PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP) ∧
     -- IBM Galois pair: positive discriminant in Q(sqrt 5)
     ((2 * Real.sqrt 5 - 3) ^ 2 > 0) ∧
+    -- IBM Galois pair: equivalent fibre form on RH side
+    ((4 * PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH - 3) ^ 2 = 9) ∧
+    -- IBM Galois pair: equivalent fibre form on NP side
+    ((4 * PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP - 3) ^ 2 = 20) ∧
+    -- IBM Galois pair: explicit 2x2 Hermitian realization with both
+    -- peaks in the spectrum
+    (PrincipiaTractalis.IBMPeaksGaloisPair.H_IBM.IsHermitian) ∧
+    (PrincipiaTractalis.IBMPeaksGaloisPair.H_IBM.HasEigenvalue
+      PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH) ∧
+    (PrincipiaTractalis.IBMPeaksGaloisPair.H_IBM.HasEigenvalue
+      PrincipiaTractalis.IBMPeaksGaloisPair.alpha_NP) ∧
     -- IBM Quantum hardware empirical anchors (RH-class and P/NP-class)
     (alphaTable 2 = PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH ∧
        PrincipiaTractalis.IBMPeaksGaloisPair.alpha_RH = ibm_peak_RH) ∧
     (|ibm_peak_PNP - alphaTable 4| ≤ (1 : ℝ) / 10000) := by
-  refine ⟨rfl, rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨rfl, rfl, rfl, rfl, rfl, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · unfold α_NS
     have hpi : 0 < Real.pi := Real.pi_pos
     positivity
@@ -129,6 +140,16 @@ theorem principia_fractalis_framework_level_millennium_master_answer :
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.1
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.2.2.2.2.1
   · exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.2.2.2.1
+  · -- (4 a_RH - 3)^2 = 9
+    exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.1
+  · -- (4 a_NP - 3)^2 = 20
+    exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.2.1
+  · -- H_IBM.IsHermitian
+    exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.2.2.2.2.2.1
+  · -- H_IBM.HasEigenvalue alpha_RH
+    exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.2.2.2.2.2.2.1
+  · -- H_IBM.HasEigenvalue alpha_NP
+    exact (PrincipiaTractalis.IBMPeaksGaloisPair.IBM_peaks_are_Galois_conjugates_in_Q_sqrt5).2.2.2.2.2.2.2.2.2
   · exact alphaTable_RH_matches_ibm
   · exact alphaTable_NP_close_to_ibm
 
