@@ -59,7 +59,7 @@ Unifying the Six Clay Millennium Problems via a Nine-Axis Algebraic Locus}
 \address{Independent Researcher, Mesa, Arizona, USA}
 \email{psolorzano@gmail.com}
 
-\date{June 13, 2026}
+\date{June 13, 2026 \\ \small (revision~1: branch/positivity, NP-quadratic correction, paired-roots wording, polynomial-vs-rational distinction)}
 
 \begin{document}
 
@@ -170,7 +170,7 @@ certificate (Section~\ref{sec:certification}).
 \section{The nine-axis $\alpha$-skeleton}
 \label{sec:skeleton}
 
-\subsection{Canonical values}
+\subsection{Canonical values and branch/positivity gates}
 The framework's nine $\alpha$-axes take the following canonical values, all
 formally verified:
 \begin{equation}
@@ -184,6 +184,20 @@ formally verified:
 Here $\golden = (1+\sqrt 5)/2$ is the golden ratio. The Poincar\'e axis
 $\aPoinc = 1$ serves as the rational anchor; its corresponding conjecture
 is settled \cite{perelman2003,hamilton1982,morgan2007}.
+
+\paragraph{Branch and positivity gates.} The quadratic clauses (L1), (L3),
+and (L4) below admit two real roots each; before positivity is imposed the
+sign/branch choices are
+\[
+\aP \in \{+\sqrt 2,\ -\sqrt 2\},\qquad
+\aQG \in \{+\sqrt{2\pi},\ -\sqrt{2\pi}\},\qquad
+\aHodge \in \bigl\{\golden,\ -1/\golden\bigr\}.
+\]
+The framework's signature positivity conditions
+($\aP>0$, $\aQG>0$, $\aHodge>0$) select the positive branch in each case.
+The remaining seven $\alpha$-values are uniquely determined as positive
+linear/algebraic expressions in the selected positive branches together
+with the rational/transcendental constants $\pi$ and $1$.
 
 \subsection{The algebraic locus bundle}
 \label{subsec:locus}
@@ -209,22 +223,25 @@ sixteen exact identities:
 \aQG^2 &= \aYM \cdot \pi,                               \tag{L13} \\
 \aQG^2 &= \tfrac{4}{3}\,\aNS,                           \tag{L14} \\
 \aQG^2 &= \tfrac{8}{3}\,\aBSD,                          \tag{L15} \\
-\aNS / \aYM &= \aBSD.                                   \tag{L16}
+\aNS / \aYM &= \aBSD \quad (\text{rational reformulation of (L6) on } \aYM \neq 0). \tag{L16}
 \end{align}
-Each identity is an exact equality in $\Rl$. The bundle has zero project
-axioms; the Lean kernel audit returns only $\{\mathsf{propext},
+Identities (L1)--(L15) are polynomial equalities in $\Rl$; (L16) is the
+rational reformulation of (L6) valid on the open set $\aYM \neq 0$, and
+becomes a polynomial equality on multiplication by $\aYM$. The bundle has
+zero project axioms; the Lean kernel audit returns only $\{\mathsf{propext},
 \mathsf{Classical.choice}, \mathsf{Quot.sound}\}$.
 \end{theorem}
 
 \begin{remark}
-The sixteen identities are not independent: (L5)+(L6) imply $\aYM = 2$;
-(L4) is the defining quadratic of $\golden$ and forces $\aHodge \in
-\{\golden, -1/\golden\}$, with the positive branch selected by the
-framework's positivity constraint; (L1)+(L7)+(L10) together fix
-$\aP = \sqrt{2}$ via $\aP^2 = \aYM = \aPoinc + 1 = 2$. The transcendental
-identities (L8)--(L16) tie the $\pi$-containing axes into the rational
-arithmetic of the algebraic axes, making the skeleton a single rigid
-object in $\Rl^{10}$.
+The sixteen clauses are not independent. (L5)+(L6) imply $\aYM = 2$
+(provided $\aBSD \neq 0$); (L4) is the defining quadratic of $\golden$ and
+forces $\aHodge \in \{\golden, -1/\golden\}$, with the positive branch
+selected by the framework's positivity gate; (L1)+(L7)+(L10) together fix
+$\aP^2 = \aYM = \aPoinc + 1 = 2$, with $\aP = +\sqrt 2$ again selected by
+positivity. The transcendental identities (L8)--(L15) tie the
+$\pi$-containing axes into the arithmetic of the algebraic axes; (L16) is
+the rational re-expression of (L6) and carries no independent constraint.
+Together these make the skeleton a single rigid object in $\Rl^{10}$.
 \end{remark}
 
 \begin{corollary}[Zero-dimensional locus]
@@ -303,12 +320,17 @@ The $P$ vs $NP$ axis closure asserts:
 \item (P1) $\aP^2 = 2 = \aYM$ (cross-axis bridge);
 \item (P2) Unconditional spectral-gap positivity $\Delta > 0$;
 \item (P3) Unitary-conjugation incompatibility;
-\item (P4) NP quadratic $16\aNP^2 - 24\aNP + (\golden^2 - 1) = 0$ with
-positive branch;
+\item (P4) NP quadratic $16\aNP^2 - 24\aNP - 11 = 0$ with positive
+branch (equivalently $(4\aNP - 3)^2 = 20$);
 \item (P5) IBM bracket on $\aNP$;
-\item (P6) IBM Galois pair: $\aRH = 3/2$ and $\aNP = \golden + 1/4$ are
-conjugate roots of $4a^2 - (9 + 2\sqrt{5})a + (9 + 6\sqrt{5})/2$ over
-$\Qr(\sqrt 5)$;
+\item (P6) IBM peak pairing: $\aRH = 3/2$ and $\aNP = \golden + 1/4$ are
+the positive roots of the common $\Qr(\sqrt 5)$-quadratic packet
+$\{16a^2 - 24a = 0,\ 16a^2 - 24a - 11 = 0\}$, equivalently the two
+positive solutions of $(4a-3)^2 \in \{9, 20\}$. We do \emph{not} claim
+these are Galois conjugates of each other --- both already lie in
+$\Qr(\sqrt 5)$, and the nontrivial element of $\mathrm{Gal}(\Qr(\sqrt 5)/\Qr)$
+sends $\golden + 1/4 = (3+2\sqrt 5)/4$ to $(3-2\sqrt 5)/4 \neq 3/2$. The
+content is the joint $\Qr(\sqrt 5)$ arithmetic, not a Galois conjugacy;
 \item (P7) Hermitian $2\times 2$ realization with off-diagonal
 $d = (4\golden - 5)/8$;
 \item (P8) $(4a-3)^2 \in \{9, 20\}$;
@@ -318,6 +340,17 @@ $d = (4\golden - 5)/8$;
 Verified axiom-free in Lean~4 modulo
 \LeanThm{PolylogEigenvalueConjecture}.
 \end{theorem}
+
+\begin{remark}[Spectral gap value]
+The framework spectral gap is
+\[
+\Delta = \aNP - \aP = \golden + \tfrac{1}{4} - \sqrt 2
+       \approx 1.86803 - 1.41421 = 0.45382 > 0.
+\]
+Positivity is unconditional and elementary (clause P2); the load-bearing
+content of clause (P10) is the substrate-spectrum reduction, which is
+where \LeanThm{PolylogEigenvalueConjecture} enters.
+\end{remark}
 
 The IBM Galois pair is the substantive new contribution; its arithmetic is
 recorded in \texttt{PF/IBMPeaksGaloisPair.lean}, with the empirical IBM
@@ -358,6 +391,16 @@ $-5/3$ exponent of the inertial-range energy spectrum is built into the
 canonical value $\aNS = 3\pi/2$ via the identity $5/3 \cdot 9\pi/10 =
 3\pi/2$.
 
+\begin{remark}[Scope of the K41 bridge]
+The identity $\tfrac{5}{3} \cdot \tfrac{9\pi}{10} = \tfrac{3\pi}{2}$ is an
+arithmetic anchor / normalization: it ties the canonical
+$\aNS$ to Kolmogorov's exponent, but does not by itself prove 3D global
+regularity. The regularity content sits in clause (N4)
+(\LeanThm{NavierStokesGlobalSmoothness} on the fractal-emergence
+substrate); the K41 bridge is the cross-domain dimensional consistency
+check that the substrate respects the inertial-range scaling.
+\end{remark}
+
 \section{Yang--Mills mass gap: $\aYM = 2$}
 \label{sec:ym}
 
@@ -392,6 +435,18 @@ Verified axiom-free in Lean~4 on the framework's rank-2 OS-RP substrate.
 The lattice QCD glueball-mass bracket~\cite{morningstar1999,chen2006} is the
 key external anchor.
 
+\begin{remark}[YM bracket conversion]
+The three sharp brackets (Y7)--(Y9) are tied by the substrate's mass-scale
+identification: $\lambda_0(YM) = \pi/(10 \aYM) = \pi/20$ (numerical value
+in $[0.156, 0.158]$), and the YM mass gap and glueball mass are read off
+via the substrate scaling $\Delta_{fYM} = \Lambda_{\mathrm{QCD}} \cdot
+\lambda_0(YM) \cdot c_{YM}$ for a substrate-fixed conversion constant
+$c_{YM}$, with $M_1 / \Delta_{fYM} \approx 4.22$ matching the
+ratio $1775/420$ at midpoint. The three bracket clauses are jointly
+consistent on the substrate; the conversion is internal and does not, by
+itself, derive lattice-QCD numerics.
+\end{remark}
+
 \section{Birch--Swinnerton-Dyer: $\aBSD = 3\pi/4$}
 \label{sec:bsd}
 
@@ -423,6 +478,14 @@ $p \le 97$ is positive;
 Verified axiom-free in Lean~4.
 \end{theorem}
 
+\begin{remark}[Scope of the BSD closure]
+Clauses (B3)--(B6) are statements about the rank-zero curve $E_{32a3}$ as a
+concrete substrate witness, not about universal BSD. The closure provides
+positivity and a sharp two-sided rational bracket on the truncated Euler
+product at $s=1$; full BSD for arbitrary elliptic curves over $\Qr$
+remains conditional on the literal Clay statement.
+\end{remark}
+
 \section{Hodge conjecture: $\aHodge = \golden$}
 \label{sec:hodge}
 
@@ -452,6 +515,16 @@ Voisin~2018, \emph{unconditional} on the concrete substrate.
 \end{enumerate}
 Verified axiom-free in Lean~4.
 \end{theorem}
+
+\begin{remark}[Scope of the Hodge closure]
+Clauses (HB3)--(HB6) discharge the Hodge conjecture in four explicit
+special cases (smooth projective curves, abelian surfaces, Calabi--Yau
+3-folds with $h^{1,1} \le 20$, and codim-2 classes on uniruled 3-folds via
+Voisin~2018). They do \emph{not} establish full Hodge on arbitrary smooth
+projective complex varieties, and the substrate definitions used herein
+encode the four special cases by construction. The framework's claim is
+substrate-scope coherence with these special cases, not universal Hodge.
+\end{remark}
 
 \section{Quantum-gravity completion: $\aQG = \sqrt{2\pi}$}
 \label{sec:qg}
