@@ -28,6 +28,10 @@ import PF.NS_SubstrateBulletproofClosure
 import PF.YM_SubstrateBulletproofClosure
 import PF.BSD_SubstrateBulletproofClosure
 import PF.Hodge_SubstrateBulletproofClosure
+import PF.AlphaSkeletonAlgebraicLocusBundle
+import PF.Referee.MinimalSubstrateRigidityUnified
+import PF.SupremeFrameworkAnswer
+import PF.FrameworkRigidityPlusAnswer
 
 namespace PF_L4L.Core.FrameworkMillenniumMaster
 
@@ -81,6 +85,24 @@ noncomputable def BSD_bulletproof_substrate_closure_reverified :=
 noncomputable def Hodge_bulletproof_substrate_closure_reverified :=
   PrincipiaTractalis.Hodge_SubstrateBulletproofClosure.Hodge_bulletproof_substrate_closure
 
+noncomputable def alpha_skeleton_algebraic_locus_bundle_reverified :=
+  PrincipiaTractalis.AlphaSkeletonAlgebraicLocusBundle.alpha_skeleton_algebraic_locus_bundle
+
+noncomputable def unified_minimal_substrate_rigidity_capstone_reverified :=
+  PF.Referee.MinimalSubstrateRigidityUnified.unified_minimal_substrate_rigidity_capstone
+
+noncomputable def supreme_master_answer_reverified :=
+  PrincipiaTractalis.SupremeFrameworkAnswer.supreme_master_answer
+
+noncomputable def supreme_unified_clay_closure_reverified :=
+  PrincipiaTractalis.SupremeFrameworkAnswer.supreme_unified_clay_closure
+
+noncomputable def framework_rigidity_substrate_uniqueness_reverified :=
+  PrincipiaTractalis.FrameworkRigidityPlusAnswer.substrate_rigidity_uniqueness
+
+noncomputable def framework_level_positive_millennium_answer_reverified :=
+  PrincipiaTractalis.FrameworkRigidityPlusAnswer.framework_level_positive_millennium_answer
+
 /-! ## §2 — Axiom audit hooks
 
 Each meta-verification alias should print only
@@ -102,5 +124,11 @@ Each meta-verification alias should print only
 #print axioms YM_bulletproof_substrate_closure_reverified
 #print axioms BSD_bulletproof_substrate_closure_reverified
 #print axioms Hodge_bulletproof_substrate_closure_reverified
+#print axioms alpha_skeleton_algebraic_locus_bundle_reverified
+#print axioms unified_minimal_substrate_rigidity_capstone_reverified
+#print axioms supreme_master_answer_reverified
+#print axioms supreme_unified_clay_closure_reverified
+#print axioms framework_rigidity_substrate_uniqueness_reverified
+#print axioms framework_level_positive_millennium_answer_reverified
 
 end PF_L4L.Core.FrameworkMillenniumMaster
