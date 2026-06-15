@@ -241,3 +241,10 @@ PF/NS3D_EvolutionRHSCoq.v
 PF/NS3D_GalerkinTruncationCoq.v
 PF/NS3D_Wave51BFullClosureCoq.v
 PF/NS3D_Wave51BResidualClosedCoq.v
+
+# 2026-06-15 r2 — Referee-layer capstones (Coq mirror parity)
+PF/Referee/FrameworkFalsifiabilityConditionsCoq.v
+PF/Referee/SubstrateRigidityMasterCapstoneCoq.v
+PF/Referee/PFFrameworkAbsoluteCapstoneCoq.v
+PF/Referee/CrossMillenniumMetaClosureCoq.v
+PF/Referee/CrossMillenniumCascadeParameterizedCoq.v
