@@ -983,6 +983,81 @@ theorem α_P_seventh_bracket :
   · -- 8·α_P < 11.32 ⟺ α_P < 1.415 ⟺ α_P² < 2.002225 ✓
     nlinarith [h_sq, h_pos]
 
+/-! ### Numerical brackets on α_QG powers -/
+
+/-- **α_QG bracket**: 2.5 < α_QG < 2.51. Numerical ≈ 2.5066. -/
+theorem α_QG_bracket :
+    (2.5 : ℝ) < α_QG ∧ α_QG < (2.51 : ℝ) := by
+  have h_sq : α_QG ^ 2 = 2 * Real.pi := α_QG_sq_eq_two_pi
+  have h_pos : (0 : ℝ) < α_QG := by
+    unfold α_QG; exact Real.sqrt_pos.mpr (by have := Real.pi_pos; linarith)
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  refine ⟨?_, ?_⟩
+  · -- 2.5 < α_QG ⟺ 6.25 < α_QG² = 2π ⟺ π > 3.125 ✓
+    nlinarith [h_sq, h_pos, h_pi_gt]
+  · -- α_QG < 2.51 ⟺ α_QG² < 6.3001 ⟺ 2π < 6.3001 ⟺ π < 3.15005 ✓
+    nlinarith [h_sq, h_pos, h_pi_lt]
+
+/-- **α_QG² bracket**: 6.28 < α_QG² < 6.29. Numerical ≈ 6.2832 = 2π. -/
+theorem α_QG_sq_bracket :
+    (6.28 : ℝ) < α_QG ^ 2 ∧ α_QG ^ 2 < (6.29 : ℝ) := by
+  rw [α_QG_sq_eq_two_pi]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_QG⁴ bracket**: 39.4 < α_QG⁴ < 39.5. Numerical ≈ 39.4784 = 4π². -/
+theorem α_QG_fourth_bracket :
+    (39.4 : ℝ) < α_QG ^ 4 ∧ α_QG ^ 4 < (39.5 : ℝ) := by
+  rw [α_QG_fourth]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  refine ⟨?_, ?_⟩
+  · nlinarith [h_pi_gt]
+  · nlinarith [h_pi_lt]
+
+/-- **α_QG⁶ bracket**: 248 < α_QG⁶ < 249. Numerical ≈ 248.05 = 8π³. -/
+theorem α_QG_sixth_bracket :
+    (248 : ℝ) < α_QG ^ 6 ∧ α_QG ^ 6 < (249 : ℝ) := by
+  rw [α_QG_sixth]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  refine ⟨?_, ?_⟩
+  · nlinarith [h_pi_gt, sq_nonneg Real.pi]
+  · nlinarith [h_pi_lt, sq_nonneg Real.pi]
+
+/-- **α_QG⁸ bracket**: 1558 < α_QG⁸ < 1559. Numerical ≈ 1558.55 = 16π⁴.
+    Proven via explicit π² and π⁴ brackets. -/
+theorem α_QG_eighth_bracket :
+    (1558 : ℝ) < α_QG ^ 8 ∧ α_QG ^ 8 < (1559 : ℝ) := by
+  rw [α_QG_eighth]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  -- π² brackets: 3.14159² = 9.86958..., 3.14160² = 9.86965...
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by nlinarith [h_pi_lt, h_pi_pos]
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi ^ 2 := by positivity
+  -- π⁴ brackets via π² squared
+  have h_pi4_eq : Real.pi ^ 4 = (Real.pi ^ 2) ^ 2 := by ring
+  rw [h_pi4_eq]
+  refine ⟨?_, ?_⟩
+  · -- 1558 < 16·(π²)² ⟺ (π²)² > 97.375 ⟺ π² > 9.868 ✓
+    nlinarith [h_pi_sq_gt, h_pi_sq_pos]
+  · -- 16·(π²)² < 1559 ⟺ (π²)² < 97.4375 ⟺ π² < 9.871 ✓
+    nlinarith [h_pi_sq_lt, h_pi_sq_pos]
+
 /-! ### Numerical brackets on Hodge powers -/
 
 /-- **α_Hodge² bracket**: 2.61 < α_Hodge² < 2.62. Numerical ≈ 2.6180. -/
