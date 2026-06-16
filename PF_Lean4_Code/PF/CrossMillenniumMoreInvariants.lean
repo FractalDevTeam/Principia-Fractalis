@@ -919,6 +919,35 @@ theorem log_prod_α_P_α_QG :
     Real.log α_P + Real.log α_QG = Real.log 2 + Real.log Real.pi / 2 := by
   rw [log_α_P_eq_half_log_two, log_α_QG_eq_half_log_2_add_log_pi]; ring
 
+/-! ### Numerical brackets on log-2-derived α-logs -/
+
+/-- **`log α_YM ∈ (0.6931471803, 0.6931471808)`** — directly from
+    mathlib's `Real.log_two_gt_d9` / `Real.log_two_lt_d9`. -/
+theorem log_α_YM_bracket :
+    (0.6931471803 : ℝ) < Real.log α_YM ∧
+    Real.log α_YM < (0.6931471808 : ℝ) := by
+  rw [log_α_YM_eq_log_two]
+  exact ⟨Real.log_two_gt_d9, Real.log_two_lt_d9⟩
+
+/-- **`log α_P ∈ (0.34657359015, 0.34657359040)`** — half of log 2. -/
+theorem log_α_P_bracket :
+    (0.34657359015 : ℝ) < Real.log α_P ∧
+    Real.log α_P < (0.34657359040 : ℝ) := by
+  rw [log_α_P_eq_half_log_two]
+  refine ⟨?_, ?_⟩
+  · have := Real.log_two_gt_d9; linarith
+  · have := Real.log_two_lt_d9; linarith
+
+/-- **`log(1/α_YM) ∈ (−0.6931471808, −0.6931471803)`** — sign-flipped
+    log 2 bracket. -/
+theorem log_one_div_α_YM_bracket :
+    (-0.6931471808 : ℝ) < Real.log (1 / α_YM) ∧
+    Real.log (1 / α_YM) < (-0.6931471803 : ℝ) := by
+  rw [log_one_div_α_YM]
+  refine ⟨?_, ?_⟩
+  · have := Real.log_two_lt_d9; linarith
+  · have := Real.log_two_gt_d9; linarith
+
 /-! ### Bundle: full logarithmic layer of the α-skeleton -/
 
 /-- **★ α-SKELETON LOGARITHMIC LAYER ★** — every α-instance with a
