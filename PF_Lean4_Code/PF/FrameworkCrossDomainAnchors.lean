@@ -134,6 +134,21 @@ theorem alpha_NP_bracket :
   have h_sqrt5_hi : Real.sqrt 5 < (2.24 : ℝ) := by nlinarith
   refine ⟨?_, ?_⟩ <;> linarith
 
+/-- **α_NP ULTRA-SHARP bracket**: `1.8680 < α_NP < 1.8681`. Width 0.0001
+    — 100× tighter than the wide (1.86, 1.87).
+
+    Numerical α_NP = φ + 1/4 ≈ 1.86803. Uses √5 ∈ (2.2360, 2.2361) from
+    5 ∈ (4.99970, 5.00014). -/
+theorem alpha_NP_ultra_sharp_bracket :
+    (1.8680 : ℝ) < alpha_NP ∧ alpha_NP < (1.8681 : ℝ) := by
+  unfold alpha_NP
+  have h_sqrt5_sq : Real.sqrt 5 * Real.sqrt 5 = 5 :=
+    Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 5)
+  have h_sqrt5_pos : (0 : ℝ) < Real.sqrt 5 := Real.sqrt_pos.mpr (by norm_num)
+  have h_sqrt5_lo : (2.236 : ℝ) < Real.sqrt 5 := by nlinarith
+  have h_sqrt5_hi : Real.sqrt 5 < (2.2361 : ℝ) := by nlinarith
+  refine ⟨?_, ?_⟩ <;> linarith
+
 /-! ## Anchor 4: ch_2 ↔ Φ bridge -/
 
 /-- The Φ-threshold corresponding to ch_2 = 0.95 via the bridge. -/
