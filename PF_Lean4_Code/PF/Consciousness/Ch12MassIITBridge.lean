@@ -225,4 +225,46 @@ theorem ch12_qft_mass_iit_bridge_capstone :
   · exact m_C_over_M_Planck_pos
   · exact consciousness_color_trinification_asymp_free
 
+/-! ## §X — Derived m_C/M_Planck closed-form identities -/
+
+/-- **`(m_C/M_Planck)² = 1/20`** — squared form. -/
+theorem mass_ratio_sq : m_C_over_M_Planck ^ 2 = 1 / 20 := by
+  rw [mass_ratio_eq_inv_two_sqrt_five]
+  have h5 : Real.sqrt 5 * Real.sqrt 5 = 5 := Real.mul_self_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have hsqrt5_pos : (0 : ℝ) < Real.sqrt 5 := sqrt_five_pos_Ch12
+  field_simp
+  nlinarith [h5]
+
+/-- **`20 · (m_C/M_Planck)² = 1`** — cleared-denominator form. -/
+theorem twenty_mass_ratio_sq_eq_one : 20 * m_C_over_M_Planck ^ 2 = 1 := by
+  rw [mass_ratio_sq]; ring
+
+/-- **`m_C/M_Planck · √20 = 1`** — the Galois pair product = 1 identity. -/
+theorem mass_ratio_mul_sqrt_twenty_eq_one :
+    m_C_over_M_Planck * Real.sqrt 20 = 1 := by
+  rw [mass_ratio_eq_inv_two_sqrt_five]
+  have h_sqrt5_pos : (0 : ℝ) < Real.sqrt 5 := sqrt_five_pos_Ch12
+  have h_sqrt5_ne : Real.sqrt 5 ≠ 0 := ne_of_gt h_sqrt5_pos
+  have h20_eq : (20 : ℝ) = 4 * 5 := by norm_num
+  have h_sqrt_20 : Real.sqrt 20 = 2 * Real.sqrt 5 := by
+    rw [h20_eq, Real.sqrt_mul (by norm_num : (0:ℝ) ≤ 4)]
+    have : Real.sqrt 4 = 2 := by
+      have : Real.sqrt (2^2) = 2 := Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 2)
+      convert this using 1; norm_num
+    rw [this]
+  rw [h_sqrt_20]; field_simp
+
+/-- **`4 · (m_C/M_Planck)² = 1/5`** — alternative form. -/
+theorem four_mass_ratio_sq : 4 * m_C_over_M_Planck ^ 2 = 1 / 5 := by
+  rw [mass_ratio_sq]; ring
+
+/-- **`m_C/M_Planck · (4φ − 2) = 1`** — golden-ratio form of the
+    Galois pair product = 1. -/
+theorem mass_ratio_mul_four_phi_minus_two_eq_one :
+    m_C_over_M_Planck * (4 * phi_Ch12 - 2) = 1 := by
+  rw [mass_ratio_eq_inv_four_phi_minus_two]
+  have h := four_phi_minus_two_pos_Ch12
+  have h_ne : (4 * phi_Ch12 - 2) ≠ 0 := ne_of_gt h
+  field_simp
+
 end PrincipiaTractalis.Consciousness
