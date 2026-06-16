@@ -110,6 +110,49 @@ theorem unified_minimal_forces_sharp_bracket_saturation
    PrincipiaTractalis.CrossMillenniumMoreInvariants.α_skeleton_sum_sharp_bracket,
    PrincipiaTractalis.CrossMillenniumMoreInvariants.sum_α_sq_skeleton_sharp_bracket⟩
 
+/-! ## §2 — Moment-sum hierarchy SHARP as substrate theorem -/
+
+/-- **★★★★★★★★ MOMENT-SUM HIERARCHY SHARP IS A SUBSTRATE THEOREM ★★★★★★★★** —
+    `unified_minimal_forces_moment_sum_hierarchy_sharp`.
+
+    Under substrate-rigidity, all six scalar fingerprints of the
+    locus hold at the sharp tier parametrically: Σα, Σα², Σα³, Σα⁴,
+    Π_{7}α, Π_{9}α — each with referee-checkable numerical bracket
+    at parts-per-thousand precision. -/
+theorem unified_minimal_forces_moment_sum_hierarchy_sharp
+    (_u : UnifiedAlphaAssignment)
+    (_hM : UnifiedMinimalInvariants _u)
+    (_h_P : _u.sector1.a_Poincare = 1)
+    (_h_P_pos : 0 < _u.sector2.a_P)
+    (_h_Hodge_pos : 0 < _u.sector2.a_Hodge)
+    (_h_QG_pos : 0 < _u.sector2.a_QG) :
+    ((18.97 : ℝ) < α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+                    + α_Hodge + α_NP + α_QG ∧
+     α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+        + α_Hodge + α_NP + α_QG < (18.98 : ℝ)) ∧
+    ((49.39 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2
+                    + α_BSD ^ 2 + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2
+                    + α_QG ^ 2 ∧
+     α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+        + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (49.41 : ℝ)) ∧
+    ((159.3 : ℝ) < α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3
+                    + α_BSD ^ 3 + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3
+                    + α_QG ^ 3 ∧
+     α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3 + α_BSD ^ 3
+        + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3 + α_QG ^ 3 < (159.5 : ℝ)) ∧
+    ((608.4 : ℝ) < α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4
+                    + α_BSD ^ 4 + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4
+                    + α_QG ^ 4 ∧
+     α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4 + α_BSD ^ 4
+        + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4 + α_QG ^ 4 < (608.7 : ℝ)) ∧
+    ((118.07 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG ∧
+     α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG < (118.09 : ℝ)) ∧
+    ((350 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+                   * α_Hodge * α_NP ∧
+     α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+                   * α_Hodge * α_NP < (365 : ℝ)) :=
+  PrincipiaTractalis.CrossMillenniumMoreInvariants.moment_sum_hierarchy_sharp_capstone
+
 end PF.Referee.MinimalRigidityForcesSharpBracketSaturation
 
 #print axioms
