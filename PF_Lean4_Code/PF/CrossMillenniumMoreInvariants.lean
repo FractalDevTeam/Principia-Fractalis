@@ -1736,6 +1736,58 @@ theorem prod_α_skeleton_elementary_bracket :
     -- π² < 3.14160² < 9.870, √π < 1.78 → π²·√π < 17.569 < 17.629
     nlinarith [h_pi_lt, h_sqrt_pi_lt, sq_nonneg Real.pi]
 
+/-! ### ★ Full 9-instance squared-sum closed form ★ -/
+
+/-- **★ FULL 9-INSTANCE SQUARED-SUM CLOSED FORM ★** —
+    `Σ_i α_i² = (5/2)·α_Hodge + (45π² + 32π + 181) / 16`.
+
+    Component breakdown (using each axis's squared closed form):
+      1 + 2 + 9/4 + 4 + 9π²/16 + 9π²/4 + (α_Hodge+1) + ((3/2)α_Hodge+17/16) + 2π
+    Rationals: 1 + 2 + 9/4 + 4 + 1 + 17/16 = 181/16
+    α_Hodge:   1 + 3/2 = 5/2
+    π:         2
+    π²:        9/16 + 9/4 = 45/16
+
+    Result: (5/2)·α_Hodge + 2π + (45/16)·π² + 181/16. -/
+theorem sum_α_sq_skeleton_all_nine :
+    α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+      + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2
+    = (5/2) * α_Hodge + 2 * Real.pi
+      + (45/16) * Real.pi ^ 2 + 181/16 := by
+  have h_Poincare : α_Poincare ^ 2 = 1 := α_Poincare_sq_eq_one
+  have h_P : α_P ^ 2 = 2 := by
+    rw [α_P_sq_eq_α_YM]; unfold α_YM; rfl
+  have h_RH : α_RH ^ 2 = 9/4 := α_RH_sq_eq_nine_fourths
+  have h_YM : α_YM ^ 2 = 4 := α_YM_sq_eq_four
+  have h_BSD : α_BSD ^ 2 = 9 * Real.pi ^ 2 / 16 := α_BSD_sq_eq
+  have h_NS : α_NS ^ 2 = 9 * Real.pi ^ 2 / 4 := α_NS_sq_eq
+  have h_Hodge : α_Hodge ^ 2 = α_Hodge + 1 := α_Hodge_sq_eq_self_plus_one
+  have h_NP : α_NP ^ 2 = (3/2) * α_Hodge + 17/16 := α_NP_sq
+  have h_QG : α_QG ^ 2 = 2 * Real.pi := α_QG_sq_eq_two_pi
+  rw [h_Poincare, h_P, h_RH, h_YM, h_BSD, h_NS, h_Hodge, h_NP, h_QG]
+  ring
+
+/-- **Squared-sum numerical bracket**: `Σ α_i² ∈ (49, 50)`.
+    Numerical ≈ 49.40. -/
+theorem sum_α_sq_skeleton_bracket :
+    (49 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+                + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 ∧
+    α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+      + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (50 : ℝ) := by
+  rw [sum_α_sq_skeleton_all_nine]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  refine ⟨?_, ?_⟩
+  · nlinarith [h_pi_gt, h_phi_lb, sq_nonneg Real.pi]
+  · nlinarith [h_pi_lt, h_phi_ub, sq_nonneg Real.pi, h_pi_pos]
+
 /-! ### ★ Full 9-product closed form ★ -/
 
 /-- **★ FULL 9-PRODUCT CLOSED FORM ★** —
