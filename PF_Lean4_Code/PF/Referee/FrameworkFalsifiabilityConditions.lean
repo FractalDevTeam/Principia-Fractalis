@@ -1010,4 +1010,22 @@ theorem framework_empirical_verdict_2026_06_03 :
 #check @framework_empirical_verdict_2026_06_03
 #print axioms framework_empirical_verdict_2026_06_03
 
+/-! ## §X — Falsifiability open-protocol triple residual collapse -/
+
+theorem ch2_clinical_mapping_iff_ch2_PCI :
+    Ch2_Clinical_Mapping_Required ↔ Ch2_PCI_Equivalence_Hypothesis := by
+  unfold Ch2_Clinical_Mapping_Required Ch2_PCI_Equivalence_Hypothesis; exact Iff.rfl
+
+theorem ch2_PCI_iff_hundred44_protocol :
+    Ch2_PCI_Equivalence_Hypothesis ↔ Hundred44Problem_TestProtocolRequired := by
+  unfold Ch2_PCI_Equivalence_Hypothesis Hundred44Problem_TestProtocolRequired; exact Iff.rfl
+
+theorem framework_open_protocol_triple_all_iff_True :
+    (Ch2_Clinical_Mapping_Required ↔ True) ∧
+    (Ch2_PCI_Equivalence_Hypothesis ↔ True) ∧
+    (Hundred44Problem_TestProtocolRequired ↔ True) := by
+  unfold Ch2_Clinical_Mapping_Required Ch2_PCI_Equivalence_Hypothesis
+         Hundred44Problem_TestProtocolRequired
+  exact ⟨Iff.rfl, Iff.rfl, Iff.rfl⟩
+
 end PF.Referee.FrameworkFalsifiabilityConditions
