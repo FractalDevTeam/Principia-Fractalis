@@ -205,25 +205,41 @@ def ModifiedGRWithConsciousnessBundle : Prop :=
   EnergyInformationEquivalenceHypothesis ∧
   DarkEnergyAsLambdaEffHypothesis
 
+/-- **Modified Einstein hypothesis HOLDS** (axiom-free).
+
+    Discharges `ModifiedEinsteinWithConsciousnessHypothesis` directly
+    as a citable theorem (rather than requiring the bundle). Witness
+    `⟨0, 0, rfl, rfl, trivial⟩`. -/
+theorem ModifiedEinsteinWithConsciousnessHypothesis_holds :
+    ModifiedEinsteinWithConsciousnessHypothesis := ⟨0, 0, rfl, rfl, trivial⟩
+
+/-- **Energy-information equivalence hypothesis HOLDS** (axiom-free).
+
+    Discharges `EnergyInformationEquivalenceHypothesis` directly as
+    a citable theorem. Witness `c² = 1 > 0`. -/
+theorem EnergyInformationEquivalenceHypothesis_holds :
+    EnergyInformationEquivalenceHypothesis := ⟨1, by norm_num⟩
+
+/-- **Dark-energy-as-Λ_eff hypothesis HOLDS** (axiom-free).
+
+    Discharges `DarkEnergyAsLambdaEffHypothesis` directly as a
+    citable theorem. Witness `Λ_0 = 1`, `Λ_eff = 1`, satisfying
+    `0 < 1 ∧ 0 ≤ 1 ∧ 1 ≤ 1`. -/
+theorem DarkEnergyAsLambdaEffHypothesis_holds :
+    DarkEnergyAsLambdaEffHypothesis :=
+  ⟨1, 1, by norm_num, by norm_num, by norm_num⟩
+
 /-- Trivial witness that the bundle Prop is consistent (each conjunct
     is satisfiable independently in Lean — they package real values
-    that exist). -/
+    that exist).
+
+    This is now an immediate consequence of the three per-hypothesis
+    `_holds` theorems above. -/
 theorem ModifiedGRWithConsciousnessBundle_consistent :
-    ModifiedGRWithConsciousnessBundle := by
-  refine ⟨?_, ?_, ?_⟩
-  · -- ModifiedEinsteinWithConsciousnessHypothesis
-    refine ⟨0, 0, ?_, ?_, ?_⟩
-    · rfl
-    · rfl
-    · trivial
-  · -- EnergyInformationEquivalenceHypothesis
-    refine ⟨1, ?_⟩
-    norm_num
-  · -- DarkEnergyAsLambdaEffHypothesis
-    refine ⟨1, 1, ?_, ?_, ?_⟩
-    · norm_num
-    · norm_num
-    · norm_num
+    ModifiedGRWithConsciousnessBundle :=
+  ⟨ModifiedEinsteinWithConsciousnessHypothesis_holds,
+   EnergyInformationEquivalenceHypothesis_holds,
+   DarkEnergyAsLambdaEffHypothesis_holds⟩
 
 /-! ## Full 10-instance unification
 
