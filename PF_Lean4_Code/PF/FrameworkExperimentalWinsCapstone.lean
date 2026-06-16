@@ -138,6 +138,38 @@ theorem XENON_prediction_bracket :
   · have := Real.pi_gt_d6; linarith
   · have := Real.pi_lt_d6; linarith
 
+/-- **M_1 glueball closed-form**: `M_1 = (2 · 14.134725 · 197.2) / π`
+    (since dividing by π/2 = multiplying by 2/π).
+
+    `2 · 14.134725 · 197.2 = 5574.737 MeV` so `M_1 = 5574.737/π MeV`. -/
+theorem M_1_glueball_closed_form :
+    M_1_glueball = (2 * 14.134725 * 197.2) / Real.pi := by
+  unfold M_1_glueball
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  field_simp
+
+/-- **M_1 glueball numerical bracket**: `1770 < M_1 < 1780 MeV`.
+
+    Lattice QCD measurement: 1710 MeV. Framework prediction sits within
+    ~3.8% of lattice value. The bracket uses `π ∈ (3.14159, 3.14160)`. -/
+theorem M_1_glueball_bracket :
+    (1770 : ℝ) < M_1_glueball ∧ M_1_glueball < (1780 : ℝ) := by
+  rw [M_1_glueball_closed_form]
+  have h_lower : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_upper : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  refine ⟨?_, ?_⟩
+  · -- 1770 < 5574.7376600 / π ⟺ 1770 · π < 5574.7376600
+    -- 1770 · 3.14160 = 5560.6320, and 5560.6320 < 5574.7376600 ✓
+    rw [lt_div_iff₀ h_pi_pos]
+    nlinarith [h_upper]
+  · -- 5574.7376600 / π < 1780 ⟺ 5574.7376600 < 1780 · π
+    -- 1780 · 3.14159 = 5592.0302, and 5574.7376600 < 5592.0302 ✓
+    rw [div_lt_iff₀ h_pi_pos]
+    nlinarith [h_lower]
+
 /-! ## The capstone -/
 
 /-- **★ FRAMEWORK EXPERIMENTAL WINS CAPSTONE ★**
