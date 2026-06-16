@@ -1995,6 +1995,85 @@ theorem sum_α_cubed_skeleton_all_nine :
   rw [h_Poincare, h_P, h_RH, h_YM, h_BSD, h_NS, h_Hodge, h_NP, h_QG]
   ring
 
+/-- **Σ α³ numerical bracket**: `(159, 160)`. Numerical ≈ 159.5. -/
+theorem sum_α_cubed_bracket :
+    (159 : ℝ) < α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3
+                  + α_BSD ^ 3 + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3
+                  + α_QG ^ 3 ∧
+    α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3 + α_BSD ^ 3
+      + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3 + α_QG ^ 3 < (160 : ℝ) := by
+  rw [sum_α_cubed_skeleton_all_nine]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  -- π³ bracket via π²·π
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by
+    nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by
+    nlinarith [h_pi_lt, h_pi_pos]
+  have h_pi_cu_eq : Real.pi ^ 3 = Real.pi ^ 2 * Real.pi := by ring
+  have h_pi_cu_gt : (30.99 : ℝ) < Real.pi ^ 3 := by
+    rw [h_pi_cu_eq]
+    nlinarith [h_pi_sq_gt, h_pi_gt, h_pi_pos]
+  have h_pi_cu_lt : Real.pi ^ 3 < (31.01 : ℝ) := by
+    rw [h_pi_cu_eq]
+    nlinarith [h_pi_sq_lt, h_pi_lt, h_pi_pos]
+  -- α_Hodge bracket
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  -- α_P bracket
+  have h_P_sq : α_P ^ 2 = 2 := by
+    unfold α_P; exact Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  have h_P_pos : (0 : ℝ) < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num)
+  have h_P_gt : (1.41 : ℝ) < α_P := by nlinarith [h_P_sq, h_P_pos]
+  have h_P_lt : α_P < (1.42 : ℝ) := by nlinarith [h_P_sq, h_P_pos]
+  -- α_QG bracket
+  have h_QG_sq : α_QG ^ 2 = 2 * Real.pi := α_QG_sq_eq_two_pi
+  have h_QG_pos : (0 : ℝ) < α_QG := by
+    unfold α_QG; exact Real.sqrt_pos.mpr (by linarith)
+  have h_QG_gt : (2.5 : ℝ) < α_QG := by nlinarith [h_QG_sq, h_QG_pos, h_pi_gt]
+  have h_QG_lt : α_QG < (2.51 : ℝ) := by nlinarith [h_QG_sq, h_QG_pos, h_pi_lt]
+  refine ⟨?_, ?_⟩
+  · nlinarith [h_pi_gt, h_pi_cu_gt, h_phi_lb, h_P_gt, h_QG_gt, h_pi_pos, h_QG_pos]
+  · nlinarith [h_pi_lt, h_pi_cu_lt, h_phi_ub, h_P_lt, h_QG_lt, h_pi_pos, h_QG_pos]
+
+/-- **Σ α⁴ numerical bracket**: `(608, 610)`. Numerical ≈ 608.5. -/
+theorem sum_α_fourth_bracket :
+    (608 : ℝ) < α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4
+                  + α_BSD ^ 4 + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4
+                  + α_QG ^ 4 ∧
+    α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4 + α_BSD ^ 4
+      + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4 + α_QG ^ 4 < (610 : ℝ) := by
+  rw [sum_α_fourth_skeleton_all_nine]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by
+    nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by
+    nlinarith [h_pi_lt, h_pi_pos]
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi ^ 2 := by positivity
+  -- π⁴ via (π²)²
+  have h_pi4_eq : Real.pi ^ 4 = (Real.pi ^ 2) ^ 2 := by ring
+  have h_pi4_gt : (97.40 : ℝ) < Real.pi ^ 4 := by
+    rw [h_pi4_eq]; nlinarith [h_pi_sq_gt, h_pi_sq_pos]
+  have h_pi4_lt : Real.pi ^ 4 < (97.42 : ℝ) := by
+    rw [h_pi4_eq]; nlinarith [h_pi_sq_lt, h_pi_sq_pos]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  refine ⟨?_, ?_⟩
+  · nlinarith [h_pi_sq_gt, h_pi4_gt, h_phi_lb, h_pi_sq_pos]
+  · nlinarith [h_pi_sq_lt, h_pi4_lt, h_phi_ub, h_pi_sq_pos]
+
 /-! ### ★ Full 9-instance squared-sum closed form ★ -/
 
 /-- **★ FULL 9-INSTANCE SQUARED-SUM CLOSED FORM ★** —
