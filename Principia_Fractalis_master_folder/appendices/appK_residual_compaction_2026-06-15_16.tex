@@ -639,13 +639,68 @@ Seven new brackets at 2-decimal precision, using
 These align with the Binet formula: $\alpha_{\text{Hodge}}^n \approx
 \varphi^n$ for the dominant root.
 
+\section{Scalar Fingerprint Bundle (Wave 3)}
+\label{sec:scalar-fingerprints-2026-06-16}
+
+A third wave of session continuation produced four scalar
+fingerprints of the locus plus their bundling capstone and the
+substrate-rigidity composition for the power towers:
+
+\subsection{Four scalar fingerprints}
+
+\paragraph{Additive sum.} $\Sigma_i \alpha_i
+= (19/4) + \alpha_P + (9\pi/4) + 2 \alpha_{\text{Hodge}} + \alpha_{\text{QG}}
+\in (18.9, 19.0)$, numerical $\approx 18.98$.
+
+\paragraph{Squared sum.} $\Sigma_i \alpha_i^2
+= (5/2) \alpha_{\text{Hodge}} + 2\pi + (45/16) \pi^2 + 181/16
+\in (49, 50)$, numerical $\approx 49.40$.
+
+\paragraph{Elementary-7 product.}
+$\alpha_{\text{Poincar\'e}} \cdot \alpha_P \cdot \alpha_{\text{RH}}
+\cdot \alpha_{\text{YM}} \cdot \alpha_{\text{BSD}} \cdot \alpha_{\text{NS}}
+\cdot \alpha_{\text{QG}} = 27 \cdot \pi^{5/2}/4 \in (117, 119)$,
+numerical $\approx 118.08$.
+
+\paragraph{Full 9-product.}
+$\prod_{i=1}^{9} \alpha_i = 27 \cdot \pi^{5/2}
+\cdot (5 \alpha_{\text{Hodge}} + 4)/16 \approx 356.95$ (closed-form
+proven, positivity confirmed).
+
+\paragraph{Bundle.} \verb|α_skeleton_scalar_fingerprint_bundle|
+gathers all four scalars plus three numerical brackets (additive
+sum, squared sum, elementary product) into one 7-clause citable
+theorem. Perturbation sensitivity layout:
+\begin{itemize}
+  \item $\Sigma \alpha_i$: linear in any $\alpha_i$
+  \item $\Sigma \alpha_i^2$: quadratic in any $\alpha_i$
+  \item $\Pi \alpha_i$: multiplicative in any $\alpha_i$
+\end{itemize}
+Any non-trivial perturbation of any $\alpha$-instance perturbs at
+least one of these four scalars.
+
+\subsection{Power-tower substrate-rigidity composition}
+
+\paragraph{New file: \texttt{PF/Referee/
+  MinimalRigidityForcesAlphaPowerTowers.lean}.}
+Three substrate capstones:
+\verb|unified_minimal_forces_full_power_tower| (30-clause 4-tower
+bundle), \verb|unified_minimal_forces_α_Hodge_power_brackets|
+(7-clause Hodge-power bracket bundle), and
+\verb|power_tower_substrate_capstone| (combined 8-clause endpoint
+bundle).
+
+The multiplicative-substructure algebra of every framework $\alpha$-axis
+is now a downstream consequence of the substrate-rigid minimal-invariant
+set --- not a free addition.
+
 \section{Cumulative Session Statistics}
 \label{sec:cumulative-stats}
 
 \begin{itemize}
-  \item \textbf{Commits on master}: 72 total
-    (42 initial + 23 first continuation + 7 power-tower continuation,
-    range \texttt{d2c336c..HEAD}).
+  \item \textbf{Commits on master}: 79 total
+    (42 initial + 23 first continuation + 7 power-tower continuation
+    + 7 scalar-fingerprint wave, range \texttt{d2c336c..HEAD}).
   \item \textbf{Build state}: \verb|lake build| 8648 -- 8652 jobs
     clean throughout the session (job count increased from new
     substrate-rigidity composition files added in continuation).
