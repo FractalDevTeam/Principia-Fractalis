@@ -939,6 +939,50 @@ theorem α_NP_Q_phi_tower :
   unfold α_NP α_Hodge
   ring
 
+/-! ### Numerical brackets on α_P odd powers (√2-valued) -/
+
+/-- **α_P³ bracket**: 2.82 < α_P³ < 2.83. Numerical ≈ 2.8284 = 2√2. -/
+theorem α_P_cubed_bracket :
+    (2.82 : ℝ) < α_P ^ 3 ∧ α_P ^ 3 < (2.83 : ℝ) := by
+  rw [α_P_cubed]
+  have h_sq : α_P ^ 2 = 2 := by
+    unfold α_P; exact Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  have h_pos : (0 : ℝ) < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num)
+  refine ⟨?_, ?_⟩
+  · -- 2.82 < 2·α_P ⟺ α_P > 1.41 ⟺ α_P² > 1.41² = 1.9881 ✓ since α_P² = 2
+    nlinarith [h_sq, h_pos]
+  · -- 2·α_P < 2.83 ⟺ α_P < 1.415 ⟺ α_P² < 1.415² = 2.002225 ✓
+    nlinarith [h_sq, h_pos]
+
+/-- **α_P⁵ bracket**: 5.65 < α_P⁵ < 5.66. Numerical ≈ 5.6569 = 4√2. -/
+theorem α_P_fifth_bracket :
+    (5.65 : ℝ) < α_P ^ 5 ∧ α_P ^ 5 < (5.66 : ℝ) := by
+  rw [α_P_fifth]
+  have h_sq : α_P ^ 2 = 2 := by
+    unfold α_P; exact Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  have h_pos : (0 : ℝ) < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num)
+  refine ⟨?_, ?_⟩
+  · -- 5.65 < 4·α_P ⟺ α_P > 1.4125 ⟺ α_P² > 1.99515 ✓
+    nlinarith [h_sq, h_pos]
+  · -- 4·α_P < 5.66 ⟺ α_P < 1.415 ⟺ α_P² < 2.002225 ✓
+    nlinarith [h_sq, h_pos]
+
+/-- **α_P⁷ bracket**: 11.31 < α_P⁷ < 11.32. Numerical ≈ 11.3137 = 8√2. -/
+theorem α_P_seventh_bracket :
+    (11.31 : ℝ) < α_P ^ 7 ∧ α_P ^ 7 < (11.32 : ℝ) := by
+  rw [α_P_seventh]
+  have h_sq : α_P ^ 2 = 2 := by
+    unfold α_P; exact Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  have h_pos : (0 : ℝ) < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num)
+  refine ⟨?_, ?_⟩
+  · -- 11.31 < 8·α_P ⟺ α_P > 1.41375 ⟺ α_P² > 1.99868 ✓
+    nlinarith [h_sq, h_pos]
+  · -- 8·α_P < 11.32 ⟺ α_P < 1.415 ⟺ α_P² < 2.002225 ✓
+    nlinarith [h_sq, h_pos]
+
 /-! ### Numerical brackets on Hodge powers -/
 
 /-- **α_Hodge² bracket**: 2.61 < α_Hodge² < 2.62. Numerical ≈ 2.6180. -/
