@@ -694,6 +694,29 @@ theorem α_NP_cubed_bracket :
 theorem α_NP_fourth_chained :
     α_NP ^ 4 = α_NP * α_NP ^ 3 := by ring
 
+/-- **`α_NP⁴ = (87/16)·α_Hodge + 865/256`** — full closed form via φ-Fibonacci.
+    Derivation: α_NP⁴ = (α_NP²)² = ((3/2)φ + 17/16)² expands and reduces
+    using φ² = φ + 1 to (87/16)·φ + 865/256. -/
+theorem α_NP_fourth :
+    α_NP ^ 4 = (87/16) * α_Hodge + 865/256 := by
+  unfold α_NP α_Hodge
+  have h := phi_sq_eq
+  nlinarith [h]
+
+/-- **α_NP⁴ numerical bracket**: `12.17 < α_NP⁴ < 12.18`. Closed form
+    `(87/16)·φ + 865/256` with `phi_in_interval_10digit` gives a numerical
+    value of `≈ 12.1770`. -/
+theorem α_NP_fourth_bracket :
+    (12.17 : ℝ) < α_NP ^ 4 ∧ α_NP ^ 4 < (12.18 : ℝ) := by
+  rw [α_NP_fourth]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  refine ⟨?_, ?_⟩
+  · nlinarith [h_phi_lb]
+  · nlinarith [h_phi_ub]
+
 /-- **`α_NP · α_Hodge` chained form via α_Hodge_mul_α_NP**:
     `α_NP · α_Hodge = α_Hodge · α_NP = (5/4)·α_Hodge + 1`. -/
 theorem α_NP_mul_α_Hodge :
