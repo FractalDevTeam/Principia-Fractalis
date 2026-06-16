@@ -1147,6 +1147,50 @@ theorem α_Hodge_eighth_bracket :
     unfold α_Hodge; exact phi_in_interval_10digit.2
   exact ⟨by linarith, by linarith⟩
 
+/-! ### ★ Power-bracket bundle ★ -/
+
+/-- **★ α-SKELETON POWER BRACKET BUNDLE ★** — single citable theorem
+    combining the numerical brackets on the four irrational-α power
+    towers. Twenty brackets at 2-decimal precision.
+
+    Hodge powers k = 2...8 (7 brackets, Fibonacci structure)
+    NP powers k = 3, 4, 5, 6 (4 brackets)
+    P odd powers k = 3, 5, 7 (3 brackets, 2^⌊k/2⌋·√2 family)
+    QG powers k = 1, 2, 3, 4, 6, 8 (6 brackets) -/
+theorem α_skeleton_power_bracket_bundle :
+    -- Hodge tower (7-clause)
+    ((2.61 : ℝ) < α_Hodge ^ 2 ∧ α_Hodge ^ 2 < (2.62 : ℝ)) ∧
+    ((4.23 : ℝ) < α_Hodge ^ 3 ∧ α_Hodge ^ 3 < (4.24 : ℝ)) ∧
+    ((6.85 : ℝ) < α_Hodge ^ 4 ∧ α_Hodge ^ 4 < (6.86 : ℝ)) ∧
+    ((11.09 : ℝ) < α_Hodge ^ 5 ∧ α_Hodge ^ 5 < (11.10 : ℝ)) ∧
+    ((17.94 : ℝ) < α_Hodge ^ 6 ∧ α_Hodge ^ 6 < (17.95 : ℝ)) ∧
+    ((29.03 : ℝ) < α_Hodge ^ 7 ∧ α_Hodge ^ 7 < (29.04 : ℝ)) ∧
+    ((46.97 : ℝ) < α_Hodge ^ 8 ∧ α_Hodge ^ 8 < (46.99 : ℝ)) ∧
+    -- NP tower (4-clause)
+    ((6.51 : ℝ) < α_NP ^ 3 ∧ α_NP ^ 3 < (6.53 : ℝ)) ∧
+    ((12.17 : ℝ) < α_NP ^ 4 ∧ α_NP ^ 4 < (12.18 : ℝ)) ∧
+    ((22.7 : ℝ) < α_NP ^ 5 ∧ α_NP ^ 5 < (22.8 : ℝ)) ∧
+    ((42.4 : ℝ) < α_NP ^ 6 ∧ α_NP ^ 6 < (42.6 : ℝ)) ∧
+    -- P odd-power tower (3-clause)
+    ((2.82 : ℝ) < α_P ^ 3 ∧ α_P ^ 3 < (2.83 : ℝ)) ∧
+    ((5.65 : ℝ) < α_P ^ 5 ∧ α_P ^ 5 < (5.66 : ℝ)) ∧
+    ((11.31 : ℝ) < α_P ^ 7 ∧ α_P ^ 7 < (11.32 : ℝ)) ∧
+    -- QG tower (6-clause)
+    ((2.5 : ℝ) < α_QG ∧ α_QG < (2.51 : ℝ)) ∧
+    ((6.28 : ℝ) < α_QG ^ 2 ∧ α_QG ^ 2 < (6.29 : ℝ)) ∧
+    ((15.7 : ℝ) < α_QG ^ 3 ∧ α_QG ^ 3 < (15.8 : ℝ)) ∧
+    ((39.4 : ℝ) < α_QG ^ 4 ∧ α_QG ^ 4 < (39.5 : ℝ)) ∧
+    ((248 : ℝ) < α_QG ^ 6 ∧ α_QG ^ 6 < (249 : ℝ)) ∧
+    ((1558 : ℝ) < α_QG ^ 8 ∧ α_QG ^ 8 < (1559 : ℝ)) :=
+  ⟨α_Hodge_sq_bracket, α_Hodge_cubed_bracket, α_Hodge_fourth_bracket,
+   α_Hodge_fifth_bracket, α_Hodge_sixth_bracket, α_Hodge_seventh_bracket,
+   α_Hodge_eighth_bracket,
+   α_NP_cubed_bracket, α_NP_fourth_bracket,
+   α_NP_fifth_bracket, α_NP_sixth_bracket,
+   α_P_cubed_bracket, α_P_fifth_bracket, α_P_seventh_bracket,
+   α_QG_bracket, α_QG_sq_bracket, α_QG_cubed_bracket,
+   α_QG_fourth_bracket, α_QG_sixth_bracket, α_QG_eighth_bracket⟩
+
 /-! ### ★ Full power-tower capstone ★ -/
 
 /-- **★ FULL POWER-TOWER CAPSTONE ★** — single citable bundle covering
