@@ -907,15 +907,55 @@ $\Pi_{9} \alpha$  & $(300, 400)$            & 100 \\
 \hline
 \end{tabular}
 
+\section{Wave 7: Moment-Sum Hierarchy Sharp Saturation}
+\label{sec:wave7-2026-06-16}
+
+A seventh wave brought every scalar fingerprint of the locus into the
+sharp tier and extended the sharp-bracket substrate composition to
+include the moment-sum hierarchy.
+
+\subsection{Moment-sum hierarchy SHARP capstone}
+
+\verb|moment_sum_hierarchy_sharp_capstone|: all six scalar
+fingerprints bundled into one citable theorem at the sharp tier:
+
+\begin{tabular}{|l|c|c|}
+\hline
+Fingerprint & Sharp bracket & Width \\
+\hline
+$\Sigma \alpha$  & $(18.97, 18.98)$        & 0.01 \\
+$\Sigma \alpha^2$ & $(49.39, 49.41)$        & 0.02 \\
+$\Sigma \alpha^3$ & $(159.3, 159.5)$        & 0.2  \\
+$\Sigma \alpha^4$ & $(608.4, 608.7)$        & 0.3  \\
+$\Pi_{7} \alpha$  & $(118.07, 118.09)$      & 0.02 \\
+$\Pi_{9} \alpha$  & $(350, 365)$            & 15   \\
+\hline
+\end{tabular}
+
+The bilinear cross-term $2\pi \alpha_{\text{QG}}$ in $\Sigma \alpha^3$
+required \verb|mul_le_mul| 2-stage staging since nlinarith defeats at
+4-factor product depth. Same staging technique used for $\Pi_{9}
+\alpha_i = 27 \pi^2 \sqrt{\pi} (5\alpha_{\text{Hodge}} + 4)/16$:
+factor as $c \cdot t$ where $c = 27 \pi^2 \sqrt{\pi}/16 \in
+(29.51, 29.53)$ and $t = 5\alpha_{\text{Hodge}} + 4 \in (12.090, 12.091)$.
+
+\subsection{Moment-sum hierarchy SHARP as substrate theorem}
+
+\verb|unified_minimal_forces_moment_sum_hierarchy_sharp|: 6-clause
+bundle of all the sharp moment-product brackets parametric under
+substrate-rigidity. Composes the def-level capstone under unified-
+minimal threading. Single citable substrate-rigid theorem for the
+referee-saturation of the moment-product layer.
+
 \section{Cumulative Session Statistics}
 \label{sec:cumulative-stats}
 
 \begin{itemize}
-  \item \textbf{Commits on master}: 100 total
+  \item \textbf{Commits on master}: 106 total
     (42 initial + 23 first continuation + 7 power-tower continuation
     + 7 scalar-fingerprint wave + 3 meta-capstone wave
-    + 14 bracket-sharpening wave + 4 sharp-bracket-saturation wave,
-    range \texttt{d2c336c..HEAD}).
+    + 14 bracket-sharpening wave + 4 sharp-bracket-saturation wave
+    + 6 moment-sum-sharp-saturation wave, range \texttt{d2c336c..HEAD}).
   \item \textbf{Build state}: \verb|lake build| 8648 -- 8652 jobs
     clean throughout the session (job count increased from new
     substrate-rigidity composition files added in continuation).
