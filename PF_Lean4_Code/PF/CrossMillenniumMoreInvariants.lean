@@ -606,11 +606,10 @@ theorem cross_millennium_more_invariants_structural_remark :
 theorem α_Poincare_mul_α_RH_mul_α_YM : α_Poincare * α_RH * α_YM = 3 := by
   unfold α_Poincare α_RH α_YM; ring
 
-/-- **`α_NS · α_BSD · α_RH = 27π² / 16 · (3/2) = 81π² / 32`** —
-    wait, simpler: α_NS · α_BSD = 9π²/8 (existing), times α_RH = 3/2:
-    81π²/16. Cleaner: `α_NS · α_BSD · α_RH = 81π²/16`. -/
+/-- **`α_NS · α_BSD · α_RH = 27π² / 16`** —
+    (3π/2)·(3π/4)·(3/2) = 27π²/16. -/
 theorem α_NS_mul_α_BSD_mul_α_RH :
-    α_NS * α_BSD * α_RH = 81 * Real.pi ^ 2 / 16 := by
+    α_NS * α_BSD * α_RH = 27 * Real.pi ^ 2 / 16 := by
   unfold α_NS α_BSD α_RH; ring
 
 /-- **`α_QG² · α_RH = 3π`** — QG² and rational triple. -/
