@@ -275,4 +275,64 @@ theorem H3_icosahedral_origin_capstone :
           alpha_NP_eq_phi_plus_inv_gap⟩
   decide
 
+/-! ## §X — Derived H₃ ↔ α-skeleton identities -/
+
+/-- **`4·sin(π/10) = √5 − 1`** — direct rearrangement of `sin_pi_div_ten`. -/
+theorem four_sin_pi_div_ten_eq_sqrt5_sub_one :
+    4 * Real.sin (Real.pi / 10) = Real.sqrt 5 - 1 := by
+  rw [sin_pi_div_ten]; ring
+
+/-- **`2·sin(π/10) = φ − 1`** — equivalently `2·sin(π/10) = 1/φ`,
+    since `1/φ = φ − 1` by the golden quadratic. -/
+theorem two_sin_pi_div_ten_eq_phi_sub_one :
+    2 * Real.sin (Real.pi / 10) = goldenRatio - 1 := by
+  rw [sin_pi_div_ten]
+  unfold goldenRatio
+  ring
+
+/-- **`sin²(π/10) = (3 − √5)/8`** — squared form (used in the proof of
+    `sin_pi_div_ten`; exposed here as a directly-citable theorem). -/
+theorem sin_pi_div_ten_sq :
+    (Real.sin (Real.pi / 10))^2 = (3 - Real.sqrt 5) / 8 := by
+  rw [sin_pi_div_ten]
+  have h5 : Real.sqrt 5 * Real.sqrt 5 = 5 :=
+    Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 5)
+  field_simp
+  nlinarith [h5]
+
+/-- **`8·sin²(π/10) = 3 − √5`** — cleared-denominator form. -/
+theorem eight_sin_pi_div_ten_sq :
+    8 * (Real.sin (Real.pi / 10))^2 = 3 - Real.sqrt 5 := by
+  rw [sin_pi_div_ten_sq]; ring
+
+/-- **`16·sin²(π/10) = 2·(3 − √5) = 6 − 2√5`** — doubled-squared form. -/
+theorem sixteen_sin_pi_div_ten_sq :
+    16 * (Real.sin (Real.pi / 10))^2 = 6 - 2 * Real.sqrt 5 := by
+  rw [sin_pi_div_ten_sq]; ring
+
+/-- **`(4·sin(π/10))² = 6 − 2√5`** — chained product-of-squares form. -/
+theorem four_sin_pi_div_ten_sq :
+    (4 * Real.sin (Real.pi / 10))^2 = 6 - 2 * Real.sqrt 5 := by
+  rw [four_sin_pi_div_ten_eq_sqrt5_sub_one]
+  have h5 : Real.sqrt 5 * Real.sqrt 5 = 5 :=
+    Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 5)
+  nlinarith [h5]
+
+/-- **H₃ Coxeter number × sin(π/10) = 10·(√5-1)/4 = (5√5-5)/2** —
+    structural identity tying the Coxeter number to the icosahedral
+    sin half-argument. -/
+theorem h3_coxeter_mul_sin_pi_div_ten :
+    (H3_Coxeter_number : ℝ) * Real.sin (Real.pi / 10) = (5 * Real.sqrt 5 - 5) / 2 := by
+  unfold H3_Coxeter_number
+  rw [sin_pi_div_ten]
+  push_cast; ring
+
+/-- **H₃ exponent sum × sin(π/10) = 15·(√5-1)/4** — structural identity
+    tying the exponent sum {1, 5, 9} = 15 to the sin half-argument. -/
+theorem h3_exponent_sum_mul_sin_pi_div_ten :
+    (H3_exponent_sum : ℝ) * Real.sin (Real.pi / 10) = 15 * (Real.sqrt 5 - 1) / 4 := by
+  unfold H3_exponent_sum
+  rw [sin_pi_div_ten]
+  push_cast; ring
+
 end PrincipiaFractalis.H3CoxeterOrigin
