@@ -88,6 +88,24 @@ theorem cosmological_suppression_required_pos :
   have h_log10_pos : 0 < Real.log 10 := Real.log_pos (by norm_num)
   positivity
 
+/-- **`120·log 10 = log (10^120)`** — closed-form for the suppression
+    constant via log_pow. -/
+theorem cosmological_suppression_required_eq_log_pow :
+    cosmological_suppression_required = Real.log (10 ^ 120) := by
+  unfold cosmological_suppression_required
+  rw [Real.log_pow]
+  ring
+
+/-- **`exp(-X) = 1 / 10^120`** at the cosmological suppression value:
+    the 120-orders Λ_eff/Λ_0 ratio comes out exact. -/
+theorem exp_neg_cosmological_suppression_eq_ten_pow_neg_120 :
+    Real.exp (-cosmological_suppression_required) = 1 / (10 : ℝ) ^ 120 := by
+  rw [cosmological_suppression_required_eq_log_pow]
+  have h10pow_pos : (0 : ℝ) < (10 : ℝ) ^ 120 := by positivity
+  rw [Real.exp_neg, Real.exp_log h10pow_pos]
+  ring
+
+
 /-! ## The Λ_eff structural relation -/
 
 /-- **Λ_eff = Λ_0 · exp(−X)** structural identity.
@@ -172,5 +190,20 @@ theorem lambda_eff_from_consciousness_integral
   unfold ConsciousnessIntegralTarget at h_target
   unfold LambdaEffSuppression at h_supp
   rw [h_supp, h_target]
+
+/-- **The Λ_eff/Λ_0 ratio is exactly 10⁻¹²⁰** (the cosmological-constant
+    problem's "120 orders of magnitude" expressed as a precise theorem).
+
+    Given `Lambda_0` and `Lambda_eff` related by the framework's
+    consciousness suppression at the required exponent, the ratio
+    `Lambda_eff / Lambda_0 = 10⁻¹²⁰`. -/
+theorem lambda_eff_lambda_0_ratio_eq_ten_pow_neg_120
+    (Lambda_0 Lambda_eff : ℝ) (h_Lambda_0_pos : 0 < Lambda_0)
+    (h_supp : LambdaEffSuppression Lambda_0 Lambda_eff cosmological_suppression_required) :
+    Lambda_eff / Lambda_0 = 1 / (10 : ℝ) ^ 120 := by
+  unfold LambdaEffSuppression at h_supp
+  rw [h_supp]
+  rw [exp_neg_cosmological_suppression_eq_ten_pow_neg_120]
+  field_simp
 
 end PrincipiaTractalis.Cosmology
