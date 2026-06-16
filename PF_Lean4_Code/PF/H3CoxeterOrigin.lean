@@ -335,4 +335,79 @@ theorem h3_exponent_sum_mul_sin_pi_div_ten :
   rw [sin_pi_div_ten]
   push_cast; ring
 
+/-- **Complementary-angle identity**: `cos(2π/5) = sin(π/10)`. The
+    angle `2π/5 = π/2 − 3π/10`... wait, `π/2 − 2π/5 = π/10`, so
+    `cos(2π/5) = sin(π/2 − 2π/5) = sin(π/10)`. -/
+theorem cos_two_pi_div_five_eq_sin_pi_div_ten :
+    Real.cos (2 * Real.pi / 5) = Real.sin (Real.pi / 10) := by
+  have h_eq : Real.pi / 2 - 2 * Real.pi / 5 = Real.pi / 10 := by ring
+  rw [← h_eq, Real.sin_pi_div_two_sub]
+
+/-- **cos(2π/5) = (√5-1)/4** — direct from complementary identity. -/
+theorem cos_two_pi_div_five :
+    Real.cos (2 * Real.pi / 5) = (Real.sqrt 5 - 1) / 4 := by
+  rw [cos_two_pi_div_five_eq_sin_pi_div_ten, sin_pi_div_ten]
+
+/-- **cos(2π/5) = 1/(2φ)** — golden ratio form. -/
+theorem cos_two_pi_div_five_eq_inv_two_phi :
+    Real.cos (2 * Real.pi / 5) = 1 / (2 * goldenRatio) := by
+  rw [cos_two_pi_div_five_eq_sin_pi_div_ten, sin_pi_div_ten_eq_inv_two_phi]
+
+/-- **2·cos(2π/5) = φ − 1 = 1/φ** — clean cross-form. -/
+theorem two_cos_two_pi_div_five_eq_phi_sub_one :
+    2 * Real.cos (2 * Real.pi / 5) = goldenRatio - 1 := by
+  rw [cos_two_pi_div_five_eq_sin_pi_div_ten, two_sin_pi_div_ten_eq_phi_sub_one]
+
+/-- **4·cos(2π/5) = √5 − 1** — cleared-denominator form. -/
+theorem four_cos_two_pi_div_five_eq_sqrt5_sub_one :
+    4 * Real.cos (2 * Real.pi / 5) = Real.sqrt 5 - 1 := by
+  rw [cos_two_pi_div_five_eq_sin_pi_div_ten, four_sin_pi_div_ten_eq_sqrt5_sub_one]
+
+/-- **`cos(π/5) = φ/2`** — direct corollary of mathlib's
+    `Real.cos_pi_div_five : cos(π/5) = (1 + √5)/4` and `φ = (1+√5)/2`. -/
+theorem cos_pi_div_five_eq_phi_half :
+    Real.cos (Real.pi / 5) = goldenRatio / 2 := by
+  rw [Real.cos_pi_div_five]
+  unfold goldenRatio
+  ring
+
+/-- **`2·cos(π/5) = φ`** — cleared-denominator form. -/
+theorem two_cos_pi_div_five_eq_phi :
+    2 * Real.cos (Real.pi / 5) = goldenRatio := by
+  rw [cos_pi_div_five_eq_phi_half]; ring
+
+/-- **`cos(π/5) + cos(2π/5) = √5/2`** — sum identity:
+    `φ/2 + (φ-1)/2 = (2φ-1)/2 = √5/2` since `2φ-1 = √5`. -/
+theorem cos_pi_5_plus_cos_two_pi_5_eq_sqrt5_half :
+    Real.cos (Real.pi / 5) + Real.cos (2 * Real.pi / 5) = Real.sqrt 5 / 2 := by
+  rw [cos_pi_div_five_eq_phi_half, cos_two_pi_div_five_eq_inv_two_phi]
+  -- Goal: φ/2 + 1/(2·φ) = √5/2
+  -- Use sqrt5_in_Qphi : √5 = 2φ - 1
+  have h := sqrt5_in_Qphi
+  have h_phi_pos : (0 : ℝ) < goldenRatio := by
+    unfold goldenRatio
+    have h5_pos : (0 : ℝ) < Real.sqrt 5 := Real.sqrt_pos.mpr (by norm_num)
+    nlinarith [h5_pos]
+  have h_quad : goldenRatio ^ 2 = goldenRatio + 1 := by
+    unfold goldenRatio
+    have h5 : Real.sqrt 5 * Real.sqrt 5 = 5 :=
+      Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 5)
+    field_simp
+    nlinarith [h5]
+  have h_phi_ne : goldenRatio ≠ 0 := ne_of_gt h_phi_pos
+  rw [h]; field_simp
+  nlinarith [h_quad]
+
+/-- **`cos(π/5) · cos(2π/5) = 1/4`** — product identity:
+    `φ/2 · 1/(2φ) = 1/(4)`. -/
+theorem cos_pi_5_mul_cos_two_pi_5_eq_quarter :
+    Real.cos (Real.pi / 5) * Real.cos (2 * Real.pi / 5) = 1/4 := by
+  rw [cos_pi_div_five_eq_phi_half, cos_two_pi_div_five_eq_inv_two_phi]
+  have h_phi_pos : (0 : ℝ) < goldenRatio := by
+    unfold goldenRatio
+    have h5_pos : (0 : ℝ) < Real.sqrt 5 := Real.sqrt_pos.mpr (by norm_num)
+    nlinarith [h5_pos]
+  have h_phi_ne : goldenRatio ≠ 0 := ne_of_gt h_phi_pos
+  field_simp; ring
+
 end PrincipiaFractalis.H3CoxeterOrigin
