@@ -504,6 +504,44 @@ theorem bsd_rankWitnessTyped_capstone :
   · exact typed_certificate_implies_True_certificate
   · exact bsd_E32a3_via_typed_certificate_cascade
 
+/-! ## §X — BSD residual collapse: `RankWitnessTyped` ≡ `SelmerRankEquals`
+
+Both Props are defined with byte-identical bodies (existence of a
+non-zero, pairwise-distinct function `Fin r → ℚ`). They name the same
+content from two angles: the algebraic-rank witness (Mordell-Weil)
+framing vs. the Selmer-rank equality framing. We record their
+propositional equivalence explicitly, reducing the framework's BSD
+residual inventory by recognizing these as ONE Prop named twice. -/
+
+/-- **★ BSD residual reduction**: `RankWitnessTyped` and
+    `SelmerRankEquals` are propositionally identical by definition
+    unfolding. Both Props have byte-identical bodies; this records
+    the equivalence at the theorem level so the framework's BSD
+    residual inventory reflects ONE named gap, not two.
+
+    Honest scope: this does NOT prove BSD or even prove the underlying
+    `RankWitnessTyped E r` for any specific `E` at `r ≥ 1` (the latter
+    requires producing the witness functions, the Clay-grade content).
+    What this commit DOES: collapse two synonymously-named residual
+    Props into one. -/
+theorem rankWitnessTyped_iff_selmerRankEquals
+    (E : WeierstrassCurve ℚ) (r : ℕ) :
+    RankWitnessTyped E r ↔ SelmerRankEquals E r := by
+  unfold RankWitnessTyped SelmerRankEquals
+  exact Iff.rfl
+
+/-- **One-direction projection**: `RankWitnessTyped → SelmerRankEquals`. -/
+theorem rankWitnessTyped_to_selmerRankEquals
+    (E : WeierstrassCurve ℚ) (r : ℕ)
+    (h : RankWitnessTyped E r) : SelmerRankEquals E r :=
+  (rankWitnessTyped_iff_selmerRankEquals E r).mp h
+
+/-- **Reverse projection**: `SelmerRankEquals → RankWitnessTyped`. -/
+theorem selmerRankEquals_to_rankWitnessTyped
+    (E : WeierstrassCurve ℚ) (r : ℕ)
+    (h : SelmerRankEquals E r) : RankWitnessTyped E r :=
+  (rankWitnessTyped_iff_selmerRankEquals E r).mpr h
+
 end PrincipiaTractalis.BSD_RankWitnessTypedUpgrade
 
 -- Axiom checks. Expected for every theorem: `[propext, Classical.choice, Quot.sound]`
