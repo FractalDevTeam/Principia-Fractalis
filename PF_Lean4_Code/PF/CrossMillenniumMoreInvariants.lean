@@ -632,5 +632,34 @@ theorem α_NS_sq_add_α_BSD_sq_add_α_QG_sq :
     α_NS ^ 2 + α_BSD ^ 2 + α_QG ^ 2 = 45 * Real.pi ^ 2 / 16 + 2 * Real.pi := by
   rw [α_NS_sq, α_BSD_sq, α_QG_sq_eq_two_pi]; ring
 
+/-- **`(α_NS - α_BSD)² = α_BSD²`** — L5 (α_NS = 2·α_BSD) consequence. -/
+theorem α_NS_minus_α_BSD_sq : (α_NS - α_BSD) ^ 2 = α_BSD ^ 2 := by
+  unfold α_NS α_BSD; ring
+
+/-- **`α_NS² · α_QG² = 9π³/2`** — NS²-QG² product. -/
+theorem α_NS_sq_mul_α_QG_sq :
+    α_NS ^ 2 * α_QG ^ 2 = 9 * Real.pi ^ 3 / 2 := by
+  rw [α_NS_sq, α_QG_sq_eq_two_pi]; ring
+
+/-- **`α_BSD² · α_QG² = 9π³/8`** — BSD²-QG² product. -/
+theorem α_BSD_sq_mul_α_QG_sq :
+    α_BSD ^ 2 * α_QG ^ 2 = 9 * Real.pi ^ 3 / 8 := by
+  rw [α_BSD_sq, α_QG_sq_eq_two_pi]; ring
+
+/-- **`α_YM² · α_QG² = 8π`** — YM²-QG² product, clean π-rational. -/
+theorem α_YM_sq_mul_α_QG_sq :
+    α_YM ^ 2 * α_QG ^ 2 = 8 * Real.pi := by
+  rw [α_YM_sq, α_QG_sq_eq_two_pi]; ring
+
+/-- **`α_RH² · α_QG² = 9π/2`** — RH²-QG² product. -/
+theorem α_RH_sq_mul_α_QG_sq :
+    α_RH ^ 2 * α_QG ^ 2 = 9 * Real.pi / 2 := by
+  rw [α_RH_sq_eq_nine_fourths, α_QG_sq_eq_two_pi]; ring
+
+/-- **`α_P² · α_QG² = 4π`** — P²-QG² product (= α_YM² since α_P² = α_YM). -/
+theorem α_P_sq_mul_α_QG_sq :
+    α_P ^ 2 * α_QG ^ 2 = 4 * Real.pi := by
+  rw [α_P_sq_eq_α_YM, α_QG_sq_eq_two_pi]; unfold α_YM; ring
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
