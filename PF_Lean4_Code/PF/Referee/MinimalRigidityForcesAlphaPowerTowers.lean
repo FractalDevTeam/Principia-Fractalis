@@ -12,9 +12,9 @@ parity-graded power-tower capstones over the four non-rational/non-π
   3. α_P     Q(√2) parity tower (8-clause) — doubling ladder
   4. α_QG    Q(π, α_QG) parity tower (8-clause) — π-graded ladder
 
-Plus a `full_power_tower_capstone` bundling all four (30-clause).
+Plus a `tower_of_power_capstone` bundling all four (30-clause).
 
-This file LIFTS the full power-tower capstone parametrically under
+This file LIFTS the Tower of Power capstone parametrically under
 substrate-rigidity.
 
 ## What this file establishes
@@ -40,8 +40,10 @@ open PF.Referee.MinimalSubstrateRigidityUnified
 
 /-! ## §1 — Power towers parametric under substrate-rigidity -/
 
-/-- **★★★★★★ FULL POWER TOWER CAPSTONE IS A SUBSTRATE THEOREM ★★★★★★** —
-    `unified_minimal_forces_full_power_tower`.
+/-- **★★★★★★ TOWER OF POWER CAPSTONE IS A SUBSTRATE THEOREM ★★★★★★** —
+    (Homage: Tower of Power, Oakland funk/soul band — the disciplined
+     groove that keeps every framework α-axis in algebraic lockstep.)
+    `unified_minimal_forces_tower_of_power`.
 
     Under the substrate-rigidity hypothesis set, all four α-skeleton
     power towers (α_Hodge Fibonacci, α_NP Q(φ), α_P Q(√2), α_QG
@@ -50,7 +52,7 @@ open PF.Referee.MinimalSubstrateRigidityUnified
     The multiplicative-substructure algebra of the framework's
     α-skeleton is a downstream consequence of the same minimal
     hypothesis set that forces the skeleton — not a free addition. -/
-theorem unified_minimal_forces_full_power_tower
+theorem unified_minimal_forces_tower_of_power
     (_u : UnifiedAlphaAssignment)
     (_hM : UnifiedMinimalInvariants _u)
     (_h_P : _u.sector1.a_Poincare = 1)
@@ -91,7 +93,7 @@ theorem unified_minimal_forces_full_power_tower
      α_QG ^ 6 = 8 * Real.pi ^ 3 ∧
      α_QG ^ 7 = 8 * Real.pi ^ 3 * α_QG ∧
      α_QG ^ 8 = 16 * Real.pi ^ 4) :=
-  PrincipiaTractalis.CrossMillenniumMoreInvariants.full_power_tower_capstone
+  PrincipiaTractalis.CrossMillenniumMoreInvariants.tower_of_power_capstone
 
 /-! ## §2 — Hodge-power brackets parametric -/
 
@@ -123,10 +125,10 @@ theorem unified_minimal_forces_α_Hodge_power_brackets
 /-! ## §3 — Power-tower substrate capstone -/
 
 /-- **★★★★★★★ POWER-TOWER SUBSTRATE CAPSTONE ★★★★★★★** —
-    `power_tower_substrate_capstone`. Single citable theorem
+    `tower_of_power_substrate_capstone`. Single citable theorem
     combining the four-tower bundle with the seven Hodge-power
     brackets under substrate-rigid threading. -/
-theorem power_tower_substrate_capstone
+theorem tower_of_power_substrate_capstone
     (u : UnifiedAlphaAssignment)
     (hM : UnifiedMinimalInvariants u)
     (h_P : u.sector1.a_Poincare = 1)
@@ -142,7 +144,7 @@ theorem power_tower_substrate_capstone
     -- (B) Selected Hodge-power brackets (endpoints)
     ((2.61 : ℝ) < α_Hodge ^ 2 ∧ α_Hodge ^ 2 < (2.62 : ℝ)) ∧
     ((46.97 : ℝ) < α_Hodge ^ 8 ∧ α_Hodge ^ 8 < (46.99 : ℝ)) := by
-  have h_full := unified_minimal_forces_full_power_tower
+  have h_full := unified_minimal_forces_tower_of_power
       u hM h_P h_P_pos h_Hodge_pos h_QG_pos
   have h_bracket := unified_minimal_forces_α_Hodge_power_brackets
       u hM h_P h_P_pos h_Hodge_pos h_QG_pos
@@ -157,8 +159,8 @@ theorem power_tower_substrate_capstone
 end PF.Referee.MinimalRigidityForcesAlphaPowerTowers
 
 #print axioms
-  PF.Referee.MinimalRigidityForcesAlphaPowerTowers.unified_minimal_forces_full_power_tower
+  PF.Referee.MinimalRigidityForcesAlphaPowerTowers.unified_minimal_forces_tower_of_power
 #print axioms
   PF.Referee.MinimalRigidityForcesAlphaPowerTowers.unified_minimal_forces_α_Hodge_power_brackets
 #print axioms
-  PF.Referee.MinimalRigidityForcesAlphaPowerTowers.power_tower_substrate_capstone
+  PF.Referee.MinimalRigidityForcesAlphaPowerTowers.tower_of_power_substrate_capstone
