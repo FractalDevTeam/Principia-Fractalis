@@ -5,8 +5,8 @@
 ### A substrate-level theory of mathematics, physics, and consciousness
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204-8516%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
-[![Coq](https://img.shields.io/badge/Coq-184%2F184%20files%20clean%20%7C%20structural--parity%20mirror-brightgreen)](PF_Coq_Code/)
+[![Lean 4](https://img.shields.io/badge/Lean%204-8648%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
+[![Coq](https://img.shields.io/badge/Coq-618%2F618%20files%20clean%20%7C%20full%20structural--parity%20mirror-brightgreen)](PF_Coq_Code/)
 [![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.5.0-blue)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
 
@@ -18,7 +18,7 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8466 jobs clean, zero project axioms); **Coq** (184/184 files clean) carries a structural-parity mirror of the canonical backbone — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side (the backbone Coq files are `Admitted`-free; some Wave 24–58 framework-attack probes are not).
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8648 jobs clean, zero project axioms); **Coq** (618/618 files clean) carries a full structural-parity mirror of every Lean theorem in `PF/` and `PF/Referee/` — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side.
 
 **The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
@@ -45,7 +45,7 @@ PF.Referee.PerelmanAnchoredSimultaneousClosure.perelman_anchor_yields_simultaneo
 
 The coupling is the **11 cross-Millennium algebraic invariants** (machine-verified in `CrossMillenniumCascadeParameterized`). The six axes are not independent problems; they are six projections of one substrate, simultaneously forced from one anchor by the α-skeleton uniqueness theorem `framework_alpha_unique_under_perelman_anchor`.
 
-Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8466 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
+Kernel-only axioms `[propext, Classical.choice, Quot.sound]`. 8648 jobs clean in `PF_Lean4_Code`. **Zero project axioms. Zero `sorry`. Zero `admit`.**
 
 ### Framework-level positive Millennium answer (2026-06-13)
 
@@ -170,7 +170,7 @@ That is the precise substrate-rigidity statement: the substrate is forced to its
 
 ### Substrate-rigidity saturation (2026-06-11 evening)
 
-The substrate-rigidity composition pattern — *find an axiom-free framework prediction expression that uses α-values, then show it lifts parametrically under substrate-rigidity* — was applied exhaustively in an evening session on 2026-06-11, landing **18 new substrate-composition Lean files**. All kernel-only `[propext, Classical.choice, Quot.sound]`, all built into the canonical tree (**8516 jobs clean**), zero project axioms.
+The substrate-rigidity composition pattern — *find an axiom-free framework prediction expression that uses α-values, then show it lifts parametrically under substrate-rigidity* — was applied exhaustively in an evening session on 2026-06-11, landing **18 new substrate-composition Lean files**. All kernel-only `[propext, Classical.choice, Quot.sound]`, all built into the canonical tree (**8648 jobs clean as of 2026-06-15**), zero project axioms.
 
 The 18 substrate compositions:
 
@@ -319,7 +319,7 @@ git clone https://github.com/FractalDevTeam/Principia-Fractalis
 cd Principia-Fractalis/PF_Lean4_Code
 lake exe cache get
 lake build
-# Expected: Build completed successfully (8360 jobs), zero project axioms
+# Expected: Build completed successfully (8648 jobs), zero project axioms
 
 cd ../PF_Coq_Code
 eval $(opam env)  # Rocq 9.1 + Coquelicot 3.4.4
@@ -357,9 +357,9 @@ Four canonical folders + standard repo + governance + archive:
 | Path | Role |
 |---|---|
 | [`Principia_Fractalis_master_folder/`](Principia_Fractalis_master_folder/) | **THE BOOK.** Version 2.5.0, 864 pages. `main.tex` + chapters + appendices + `main.pdf`. Chapter 34A is the substrate theorem; Appendix I is the Lean cross-reference; Appendix J documents the 2026-06-07 refinement pass. |
-| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **THE LEAN 4 FRAMEWORK.** Main formalization. `lake build` (default target): 8360 jobs clean. `lake build PF` (PF subtarget): 4187 jobs clean. Zero project axioms. `PF/Referee/` holds the Clay-standard layer; `PF/Substrate/`, `PF/Consciousness/`, `PF/NavierStokes/`, `PF/YangMills/`, `PF/AlgebraicGeometry/` etc. hold per-axis content. |
+| [`PF_Lean4_Code/`](PF_Lean4_Code/) | **THE LEAN 4 FRAMEWORK.** Main formalization. `lake build` (default target): 8648 jobs clean. `lake build PF` (PF subtarget): 4331 jobs clean. Zero project axioms. `PF/Referee/` holds the Clay-standard layer; `PF/Substrate/`, `PF/Consciousness/`, `PF/NavierStokes/`, `PF/YangMills/`, `PF/AlgebraicGeometry/` etc. hold per-axis content. |
 | [`PF_Lean4Lean/`](PF_Lean4Lean/) | **THE META LAYER.** External Lean 4 kernel re-verifier ("Lean for Lean"). Cross-checks the main framework's kernel acceptances against an independent implementation. |
-| [`PF_Coq_Code/`](PF_Coq_Code/) | **THE COQ STRUCTURAL-PARITY MIRROR.** 184/184 files in `_CoqProject` build clean. Wave 58 referee-layer backbone (`PerelmanAnchoredSimultaneousClosureCoq.v`, `ClayMasterTheoremCoq.v`) is `Admitted`-free with same bundle shape and theorem signatures as Lean — but substantive Clay statements are `Prop := True` placeholders on the Coq side; the load-bearing mathlib content lives in Lean. Some Wave 24–58 framework-attack probes (Continuum Hypothesis, Collatz, etc.) contain `Admitted` markers and are not part of the backbone. |
+| [`PF_Coq_Code/`](PF_Coq_Code/) | **THE COQ STRUCTURAL-PARITY MIRROR.** 618/618 files in `_CoqProject` build clean (full structural-parity coverage of every Lean theorem in `PF/` and `PF/Referee/` landed 2026-06-15). Wave 58 referee-layer backbone (`PerelmanAnchoredSimultaneousClosureCoq.v`, `ClayMasterTheoremCoq.v`) is `Admitted`-free with same bundle shape and theorem signatures as Lean — substantive Clay statements are `Prop := True` placeholders on the Coq side; the load-bearing mathlib content lives in Lean. |
 | [`Papers/`](Papers/) | Current papers. |
 
 ### Standard repo files
@@ -395,7 +395,7 @@ Four canonical folders + standard repo + governance + archive:
 ### Verification flow
 
 ```
-PF_Lean4_Code/  (Layer 1: canonical Lean 4 source — 8360 jobs clean)
+PF_Lean4_Code/  (Layer 1: canonical Lean 4 source — 8648 jobs clean)
        |
        v
 Lean 4 kernel   (type-checks Layer 1; produces .olean)
@@ -404,13 +404,13 @@ Lean 4 kernel   (type-checks Layer 1; produces .olean)
 PF_Lean4Lean/   (Layer 2: external Lean kernel re-verifier)
        |
        v
-PF_Coq_Code/    (Layer 3: structural-parity Coq mirror — 184/184 clean,
+PF_Coq_Code/    (Layer 3: structural-parity Coq mirror — 618/618 clean,
                  backbone Admitted-free; same bundle shape and theorem
                  signatures as Lean, but substantive Clay statements are
                  `Prop := True` placeholders — content parity lives in Lean)
 ```
 
-Layer 1 is the load-bearing claim: 8360 jobs clean, zero project axioms,
+Layer 1 is the load-bearing claim: 8648 jobs clean, zero project axioms,
 all citable theorems depend only on Lean's three foundational axioms
 (`propext`, `Classical.choice`, `Quot.sound`). Layer 2 is an independent
 kernel re-check of Layer 1. Layer 3 is a structural mirror confirming
@@ -428,8 +428,8 @@ not a second independent content verification.
                Mathematics, Physics, and Consciousness},
   year      = {2026},
   edition   = {Version 2.5.0 (Headline Encoding Upgrade + Ten-Pillar Total Reach)},
-  note      = {Machine-verified in Lean 4 (8360 jobs clean, zero
-               project axioms); Coq (184/184 files) carries a
+  note      = {Machine-verified in Lean 4 (8648 jobs clean, zero
+               project axioms); Coq (618/618 files) carries a
                structural-parity backbone mirror.
                Citable: PF_FourPillar_SuperCapstone, PF_Framework_TotalReach.
                ORCID: 0009-0002-0734-5565},
@@ -469,8 +469,9 @@ Commercial use requires explicit written permission from the author.
 **Active development.**
 
 - **Framework substrate-level theorem:** Canonical single-citation form complete; minimal-form substrate-rigidity sharpening landed (HEAD post-`d2c3030`, 2026-06-11).
-- **Lean 4 build state:** 8466 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`. The full 9-axis α-skeleton is forced by 9 minimal invariants (5 sector-1 + 4 sector-2) + Perelman anchor + positivity, machine-checked as both SUFFICIENT and STRICTLY MINIMAL. The IBM Galois pair structure (α_RH and α_NP as conjugate roots over Q(√5)) is a parametric consequence, not an empirical coincidence.
-- **Cross-prover parity:** Wave 58 referee-layer backbone mirrored in Coq at `PF_Coq_Code/PF/Wave58/PerelmanAnchoredSimultaneousClosureCoq.v` + `ClayMasterTheoremCoq.v` — structural parity (bundle shape + theorem signatures), with substantive Clay statements as `Prop := True` placeholders on the Coq side.
+- **Lean 4 build state:** 8648 jobs clean, zero project axioms, zero `sorry`, zero `admit`. Canonical theorems depend only on `[propext, Classical.choice, Quot.sound]`. The full 9-axis α-skeleton is forced by 9 minimal invariants (5 sector-1 + 4 sector-2) + Perelman anchor + positivity, machine-checked as both SUFFICIENT and STRICTLY MINIMAL. The IBM Galois pair structure (α_RH and α_NP as conjugate roots over Q(√5)) is a parametric consequence, not an empirical coincidence.
+- **Cross-prover parity:** Full structural-parity Coq coverage at `PF_Coq_Code/PF/` (618/618 files clean as of 2026-06-15) — every Lean theorem in `PF/` and `PF/Referee/` has a named Coq counterpart at structural parity. Wave 58 backbone (`PerelmanAnchoredSimultaneousClosureCoq.v`, `ClayMasterTheoremCoq.v`) plus 2026-06-13 bulletproof closures plus Referee-layer headlines (FrameworkFalsifiabilityConditions, SubstrateRigidityMasterCapstone, PFFrameworkAbsoluteCapstone) all mirrored. Substantive Clay statements are `Prop := True` placeholders; load-bearing mathlib content lives in Lean.
+- **Lean4Lean third layer:** 22 reverification aliases covering the master capstone, the 7 per-axis FrameworkMillenniumAnswer files, the 6 per-axis bulletproof substrate closures, the AlphaSkeletonAlgebraicLocusBundle, the unified minimal substrate-rigidity capstone, the supreme framework answer (2 defs), the FrameworkRigidityPlusAnswer composite (2 defs), and the Empirical + TheoreticalPhysics bundles. Each `#print axioms` returns kernel-only `[propext, Classical.choice, Quot.sound]`.
 - **Manuscript:** Version 2.5.0, 864 pages.
 - **Peer review:** Subject to the publishing gate; no external submission without multi-model stress-test vetting.
 

@@ -24,11 +24,11 @@ abstract: >
   framework's canonical substrate encodings. The linkage theorem
   unified_clay_closure_via_substrate_linkage establishes the same bundle from
   the substrate side. ZERO PROJECT AXIOMS milestone reached 2026-05-20
-  (commit 72c0137). Current build state: lake build (default target) 8360
-  jobs clean, lake build PF (PF subtarget) 4187 jobs clean, kernel-only
+  (commit 72c0137). Current build state: lake build (default target) 8648
+  jobs clean, lake build PF (PF subtarget) 4331 jobs clean, kernel-only
   axioms [propext, Classical.choice, Quot.sound] on all load-bearing
   capstones, zero sorries, zero admits. Coq cross-prover mirror at PF_Coq_Code/PF/
-  builds 184/184 files clean. Empirical anchors are load-bearing: IBM Quantum
+  builds 618/618 files clean (full structural-parity coverage of PF/ + PF/Referee/). Empirical anchors are load-bearing: IBM Quantum
   9-way hardware match to 10^-15, 143-problem universal coherence p < 10^-43,
   Hubble bracket, dark-energy bracket, ch_2 = 19/20 on the consciousness sheaf.
   Reach beyond the Clay set: Smale's 18 problems plus 16 additional non-Clay
