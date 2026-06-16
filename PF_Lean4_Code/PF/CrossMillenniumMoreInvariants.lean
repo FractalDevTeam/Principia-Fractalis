@@ -939,6 +939,78 @@ theorem α_NP_Q_phi_tower :
   unfold α_NP α_Hodge
   ring
 
+/-! ### Numerical brackets on Hodge powers -/
+
+/-- **α_Hodge² bracket**: 2.61 < α_Hodge² < 2.62. Numerical ≈ 2.6180. -/
+theorem α_Hodge_sq_bracket :
+    (2.61 : ℝ) < α_Hodge ^ 2 ∧ α_Hodge ^ 2 < (2.62 : ℝ) := by
+  rw [α_Hodge_sq_eq_self_plus_one]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge³ bracket**: 4.23 < α_Hodge³ < 4.24. Numerical ≈ 4.2361. -/
+theorem α_Hodge_cubed_bracket :
+    (4.23 : ℝ) < α_Hodge ^ 3 ∧ α_Hodge ^ 3 < (4.24 : ℝ) := by
+  rw [α_Hodge_cubed]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge⁴ bracket**: 6.85 < α_Hodge⁴ < 6.86. Numerical ≈ 6.8541. -/
+theorem α_Hodge_fourth_bracket :
+    (6.85 : ℝ) < α_Hodge ^ 4 ∧ α_Hodge ^ 4 < (6.86 : ℝ) := by
+  rw [α_Hodge_fourth]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge⁵ bracket**: 11.09 < α_Hodge⁵ < 11.10. Numerical ≈ 11.0902. -/
+theorem α_Hodge_fifth_bracket :
+    (11.09 : ℝ) < α_Hodge ^ 5 ∧ α_Hodge ^ 5 < (11.10 : ℝ) := by
+  rw [α_Hodge_fifth]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge⁶ bracket**: 17.94 < α_Hodge⁶ < 17.95. Numerical ≈ 17.9443. -/
+theorem α_Hodge_sixth_bracket :
+    (17.94 : ℝ) < α_Hodge ^ 6 ∧ α_Hodge ^ 6 < (17.95 : ℝ) := by
+  rw [α_Hodge_sixth]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge⁷ bracket**: 29.03 < α_Hodge⁷ < 29.04. Numerical ≈ 29.0344. -/
+theorem α_Hodge_seventh_bracket :
+    (29.03 : ℝ) < α_Hodge ^ 7 ∧ α_Hodge ^ 7 < (29.04 : ℝ) := by
+  rw [α_Hodge_seventh]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge⁸ bracket**: 46.97 < α_Hodge⁸ < 46.99. Numerical ≈ 46.9787. -/
+theorem α_Hodge_eighth_bracket :
+    (46.97 : ℝ) < α_Hodge ^ 8 ∧ α_Hodge ^ 8 < (46.99 : ℝ) := by
+  rw [α_Hodge_eighth]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
 /-! ### ★ Full power-tower capstone ★ -/
 
 /-- **★ FULL POWER-TOWER CAPSTONE ★** — single citable bundle covering
