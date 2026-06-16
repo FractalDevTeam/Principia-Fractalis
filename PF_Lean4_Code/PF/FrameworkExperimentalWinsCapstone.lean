@@ -164,6 +164,18 @@ theorem XENON_prediction_sharp_bracket :
   · have := Real.pi_gt_d6; nlinarith
   · have := Real.pi_lt_d6; nlinarith
 
+/-- **XENON prediction ULTRA-SHARP bracket**: `1.2984 < prediction < 1.2985`
+    — width 0.0001, 10× tighter than the sharp bracket.
+
+    Numerical: 1 + 0.095·π ≈ 1.29845. Observation: 1.30 (0.155% relative
+    error → matches to <0.2% as stated in the wave 14 chapter 11 results). -/
+theorem XENON_prediction_ultra_sharp_bracket :
+    (1.2984 : ℝ) < XENON_prediction ∧ XENON_prediction < (1.2985 : ℝ) := by
+  unfold XENON_prediction
+  refine ⟨?_, ?_⟩
+  · have := Real.pi_gt_d6; nlinarith
+  · have := Real.pi_lt_d6; nlinarith
+
 /-- **M_1 glueball SHARPER bracket**: `1774 < M_1 < 1775 MeV` — closer
     to numerical 1774.48 MeV. Lattice 1710 MeV → framework prediction sits
     ~3.74% above lattice. Uses `π ∈ (3.141592, 3.141593)`. -/
