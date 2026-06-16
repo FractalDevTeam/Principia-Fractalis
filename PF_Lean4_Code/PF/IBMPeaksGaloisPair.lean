@@ -399,6 +399,24 @@ theorem IBM_peaks_NP_gt_RH : alpha_RH < alpha_NP := by
     nlinarith [this, h_sqrt_pos]
   linarith
 
+/-- **Galois-pair gap SHARP bracket**: `0.367 < α_NP − α_RH < 0.369`.
+    Width 0.002 — 5× tighter than the wide bracket.
+
+    Numerical (2·√5 − 3)/4 ≈ 0.3680. Uses √5 ∈ (2.234, 2.238)
+    from 5 ∈ (4.991, 5.009). -/
+theorem IBM_peaks_gap_sharp_bracket :
+    (0.367 : ℝ) < alpha_NP - alpha_RH ∧
+    alpha_NP - alpha_RH < (0.369 : ℝ) := by
+  rw [IBM_peaks_diff_sqrt5_form]
+  have h_sq : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h_sqrt5_pos : (0 : ℝ) < Real.sqrt 5 :=
+    Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+  refine ⟨?_, ?_⟩
+  · -- 0.367 < (2√5 − 3)/4 ⟺ 1.468 + 3 < 2√5 ⟺ √5 > 2.234 ⟺ 5 > 4.99070
+    nlinarith [h_sq, h_sqrt5_pos]
+  · -- (2√5 − 3)/4 < 0.369 ⟺ 2√5 < 4.476 ⟺ √5 < 2.238 ⟺ 5 < 5.00860
+    nlinarith [h_sq, h_sqrt5_pos]
+
 /-- **Galois-pair gap numerical bracket**: `0.36 < α_NP − α_RH < 0.37`.
 
     Numerical: (2·√5 − 3)/4 ≈ (4.472 − 3)/4 ≈ 0.3680. The bracket uses
