@@ -329,4 +329,74 @@ theorem IBM_peaks_are_Galois_conjugates_in_Q_sqrt5 :
    IBM_peaks_distinct,
    H_IBM_isHermitian, H_IBM_has_eigenvalue_RH, H_IBM_has_eigenvalue_NP⟩
 
+/-! ## Section 9 — Vieta sum / product identities on the IBM peaks -/
+
+/-- **Vieta sum**: `α_RH + α_NP = 7/4 + φ` (closed-form root sum of P). -/
+theorem IBM_peaks_sum : alpha_RH + alpha_NP = 7/4 + phi := by
+  unfold alpha_RH alpha_NP; ring
+
+/-- **Vieta sum in √5 form**: `α_RH + α_NP = (9 + 2√5) / 4` via `2φ − 1 = √5`. -/
+theorem IBM_peaks_sum_sqrt5_form :
+    alpha_RH + alpha_NP = (9 + 2 * Real.sqrt 5) / 4 := by
+  rw [IBM_peaks_sum]
+  have h := two_phi_sub_one_eq_sqrt5
+  linarith
+
+/-- **Vieta product**: `α_RH · α_NP = 3φ/2 + 3/8`. -/
+theorem IBM_peaks_product : alpha_RH * alpha_NP = 3 * phi / 2 + 3/8 := by
+  unfold alpha_RH alpha_NP; ring
+
+/-- **Vieta product in √5 form**: `α_RH · α_NP = (9 + 6√5) / 8`. -/
+theorem IBM_peaks_product_sqrt5_form :
+    alpha_RH * alpha_NP = (9 + 6 * Real.sqrt 5) / 8 := by
+  rw [IBM_peaks_product]
+  have h := two_phi_sub_one_eq_sqrt5
+  linarith
+
+/-- **Fibre values**: `4·α_RH − 3 = 3`. Direct from α_RH = 3/2. -/
+theorem RH_fibre_value : 4 * alpha_RH - 3 = 3 := by
+  unfold alpha_RH; ring
+
+/-- **Fibre values**: `4·α_NP − 3 = 2√5`. Via `2φ − 1 = √5`. -/
+theorem NP_fibre_value : 4 * alpha_NP - 3 = 2 * Real.sqrt 5 := by
+  unfold alpha_NP
+  have h := two_phi_sub_one_eq_sqrt5
+  linarith
+
+/-- **Fibre sum**: `(4·α_RH − 3) + (4·α_NP − 3) = 3 + 2√5`. -/
+theorem fibre_sum :
+    (4 * alpha_RH - 3) + (4 * alpha_NP - 3) = 3 + 2 * Real.sqrt 5 := by
+  rw [RH_fibre_value, NP_fibre_value]
+
+/-- **Fibre product**: `(4·α_RH − 3) · (4·α_NP − 3) = 6√5`.
+    The product of fibre values is a clean Q(√5)-irrational. -/
+theorem fibre_product :
+    (4 * alpha_RH - 3) * (4 * alpha_NP - 3) = 6 * Real.sqrt 5 := by
+  rw [RH_fibre_value, NP_fibre_value]; ring
+
+/-- **Fibre-product squared**: `((4·α_RH − 3)·(4·α_NP − 3))² = 180`.
+    The fibre product, squared, is a clean rational (= 36·5). -/
+theorem fibre_product_squared :
+    ((4 * alpha_RH - 3) * (4 * alpha_NP - 3)) ^ 2 = 180 := by
+  rw [fibre_product]
+  have h5_sq : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  nlinarith [h5_sq]
+
+/-- **α_NP − α_RH = φ − 5/4 = (2√5 − 3)/4**: the Galois-pair separation. -/
+theorem IBM_peaks_diff_sqrt5_form :
+    alpha_NP - alpha_RH = (2 * Real.sqrt 5 - 3) / 4 := by
+  unfold alpha_RH alpha_NP
+  have h := two_phi_sub_one_eq_sqrt5
+  linarith
+
+/-- **Galois-pair separation positivity**: `α_NP > α_RH` since `2√5 > 3`
+    (5 > 9/4). -/
+theorem IBM_peaks_NP_gt_RH : alpha_RH < alpha_NP := by
+  have h := IBM_peaks_diff_sqrt5_form
+  have h5_lb : (3 : ℝ) / 2 < Real.sqrt 5 := by
+    have : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+    have h_sqrt_pos : (0 : ℝ) < Real.sqrt 5 := Real.sqrt_pos.mpr (by norm_num)
+    nlinarith [this, h_sqrt_pos]
+  linarith
+
 end PrincipiaTractalis.IBMPeaksGaloisPair
