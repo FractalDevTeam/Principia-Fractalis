@@ -670,6 +670,26 @@ theorem α_NP_cubed :
   have h := phi_sq_eq
   nlinarith [h]
 
+/-- **`α_NP³ numerical bracket`**: `6.51 < α_NP³ < 6.53`. Closed form
+    `(47/16)·φ + 113/64` with `phi_in_interval_10digit` gives a numerical
+    value of `≈ 6.5186`. -/
+theorem α_NP_cubed_bracket :
+    (6.51 : ℝ) < α_NP ^ 3 ∧ α_NP ^ 3 < (6.53 : ℝ) := by
+  rw [α_NP_cubed]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  refine ⟨?_, ?_⟩
+  · -- 6.51 < (47/16)·φ + 113/64
+    --      ⟺ (47/16)·φ > 6.51 − 113/64 = (6.51·64 − 113)/64 = 303.64/64 ≈ 4.7444
+    -- φ > 4.7444 · 16/47 = 75.9/47 = 1.6145, OK from φ ≥ 1.618...
+    nlinarith [h_phi_lb]
+  · -- (47/16)·φ + 113/64 < 6.53
+    --      ⟺ (47/16)·φ < 6.53 − 113/64 = 304.92/64 ≈ 4.7644
+    -- φ < 4.7644 · 16/47 ≈ 1.6213, OK from φ ≤ 1.618...
+    nlinarith [h_phi_ub]
+
 /-- **`α_NP_fourth_form`**: `α_NP⁴ = (47/16)·(α_Hodge·α_NP) + (113/64)·α_NP`. -/
 theorem α_NP_fourth_chained :
     α_NP ^ 4 = α_NP * α_NP ^ 3 := by ring
