@@ -1058,6 +1058,23 @@ theorem α_QG_eighth_bracket :
   · -- 16·(π²)² < 1559 ⟺ (π²)² < 97.4375 ⟺ π² < 9.871 ✓
     nlinarith [h_pi_sq_lt, h_pi_sq_pos]
 
+/-! ### α_QG odd-power brackets (π·α_QG family) -/
+
+/-- **α_QG³ bracket**: 15.7 < α_QG³ < 15.8. Numerical ≈ 15.7496. -/
+theorem α_QG_cubed_bracket :
+    (15.7 : ℝ) < α_QG ^ 3 ∧ α_QG ^ 3 < (15.8 : ℝ) := by
+  rw [α_QG_cubed_early]
+  obtain ⟨h_α_QG_gt, h_α_QG_lt⟩ := α_QG_bracket
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_α_QG_pos : (0 : ℝ) < α_QG := by linarith
+  refine ⟨?_, ?_⟩
+  · nlinarith [h_pi_gt, h_α_QG_gt, h_pi_pos, h_α_QG_pos]
+  · nlinarith [h_pi_lt, h_α_QG_lt, h_pi_pos, h_α_QG_pos]
+
 /-! ### Numerical brackets on Hodge powers -/
 
 /-- **α_Hodge² bracket**: 2.61 < α_Hodge² < 2.62. Numerical ≈ 2.6180. -/
