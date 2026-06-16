@@ -2843,7 +2843,41 @@ theorem bsd_distinguished_eigenvalue_manuscript_value_incorrect :
   intro h
   have ⟨_, h_ub⟩ := bsd_distinguished_eigenvalue_bracket
   rw [h] at h_ub
-  norm_num at h_ub
+  linarith
+
+/-! ## §X — Derived φ/e identities -/
+
+/-- **`e · (φ/e) = φ`** — multiplying the BSD distinguished eigenvalue
+    by `e` recovers φ. -/
+theorem e_mul_bsd_distinguished_eigenvalue :
+    Real.exp 1 * bsd_distinguished_eigenvalue = phi := by
+  unfold bsd_distinguished_eigenvalue
+  have h_e_pos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have h_e_ne : Real.exp 1 ≠ 0 := ne_of_gt h_e_pos
+  field_simp
+
+/-- **`(φ/e) · e² = φ · e`** — scaling identity. -/
+theorem bsd_distinguished_eigenvalue_mul_e_sq :
+    bsd_distinguished_eigenvalue * (Real.exp 1) ^ 2 = phi * Real.exp 1 := by
+  unfold bsd_distinguished_eigenvalue
+  have h_e_pos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have h_e_ne : Real.exp 1 ≠ 0 := ne_of_gt h_e_pos
+  field_simp
+
+/-- **`(φ/e)² = (φ+1)/e²`** — squared form using the golden quadratic
+    `φ² = φ + 1`. -/
+theorem bsd_distinguished_eigenvalue_sq :
+    bsd_distinguished_eigenvalue ^ 2 = (phi + 1) / (Real.exp 1) ^ 2 := by
+  unfold bsd_distinguished_eigenvalue
+  have h_e_pos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have h_e_ne : Real.exp 1 ≠ 0 := ne_of_gt h_e_pos
+  have h_phi_sq : phi ^ 2 = phi + 1 := by
+    unfold phi
+    have h5 : Real.sqrt 5 * Real.sqrt 5 = 5 :=
+      Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 5)
+    field_simp
+    nlinarith [h5]
+  rw [div_pow, ← h_phi_sq]
 
 /-! ## Manuscript Ch 22, NS — Fractal vortex cascade convergence criterion
 
