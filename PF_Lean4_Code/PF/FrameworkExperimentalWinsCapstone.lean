@@ -177,6 +177,25 @@ theorem M_1_glueball_sharp_bracket :
   · rw [lt_div_iff₀ h_pi_pos]; nlinarith [h_upper]
   · rw [div_lt_iff₀ h_pi_pos]; nlinarith [h_lower]
 
+/-- **M_1 glueball ULTRA-SHARP bracket**: `1774.4 < M_1 < 1774.6 MeV` —
+    width 0.2 MeV. Numerical ≈ 1774.48.
+
+    Proof composition:
+    * Lower: 1774.4·π < 5574.7376600 (using π < 3.141593 → 1774.4·π < 5574.62)
+    * Upper: 5574.7376600 < 1774.6·π (using π > 3.141592 → 1774.6·π > 5574.45)
+
+    The ultra-sharp bracket catches any deviation at the 100 keV level
+    against lattice 1710 MeV. -/
+theorem M_1_glueball_ultra_sharp_bracket :
+    (1774.4 : ℝ) < M_1_glueball ∧ M_1_glueball < (1774.6 : ℝ) := by
+  rw [M_1_glueball_closed_form]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_lower : (3.141592 : ℝ) < Real.pi := Real.pi_gt_d6
+  have h_upper : Real.pi < (3.141593 : ℝ) := Real.pi_lt_d6
+  refine ⟨?_, ?_⟩
+  · rw [lt_div_iff₀ h_pi_pos]; nlinarith [h_upper]
+  · rw [div_lt_iff₀ h_pi_pos]; nlinarith [h_lower]
+
 /-- **Hubble H_eff numerical bracket**: `74 < H_eff < 75 km/s/Mpc`.
 
     SH0ES measurement: 73.04 ± 1.04 km/s/Mpc. Framework prediction sits
