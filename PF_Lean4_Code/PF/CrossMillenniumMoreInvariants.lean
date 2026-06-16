@@ -1839,6 +1839,63 @@ theorem prod_α_skeleton_all_nine_pos :
     linarith
   positivity
 
+/-! ### ★ Scalar fingerprint bundle ★ -/
+
+/-- **★★ α-SKELETON SCALAR-FINGERPRINT BUNDLE ★★** — single citable
+    theorem combining the FOUR scalar fingerprints of the locus:
+
+    1. Additive sum Σ α_i = (19/4) + α_P + (9π/4) + 2·α_Hodge + α_QG
+    2. Squared sum Σ α_i² = (5/2)·α_Hodge + 2π + (45/16)·π² + 181/16
+    3. Elementary product Π_{7} α_i = 27·π^(5/2)/4
+    4. Full product Π_{9} α_i = 27·π^(5/2)·(5·α_Hodge + 4)/16
+
+    Plus numerical brackets on the additive sum (18.9, 19.0), squared
+    sum (49, 50), and elementary product (117, 119).
+
+    These four scalar invariants encode complementary perturbation
+    sensitivity: the additive sum captures linear perturbations of
+    any α; the squared sum captures quadratic; the products capture
+    multiplicative. Any non-trivial perturbation of any α-instance
+    perturbs at least one of these four scalars. -/
+theorem α_skeleton_scalar_fingerprint_bundle :
+    -- (S1) Additive sum closed form
+    (α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+       + α_Hodge + α_NP + α_QG
+     = (19/4) + α_P + (9 * Real.pi / 4) + 2 * α_Hodge + α_QG) ∧
+    -- (S2) Squared sum closed form
+    (α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+       + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2
+     = (5/2) * α_Hodge + 2 * Real.pi
+       + (45/16) * Real.pi ^ 2 + 181/16) ∧
+    -- (P1) Elementary-7 product closed form
+    (α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+     = 27 * Real.pi ^ 2 * Real.sqrt Real.pi / 4) ∧
+    -- (P2) Full 9-product closed form
+    (α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+        * α_Hodge * α_NP
+     = 27 * Real.pi ^ 2 * Real.sqrt Real.pi * (5 * α_Hodge + 4) / 16) ∧
+    -- (B1) Additive sum bracket
+    ((18.9 : ℝ) < α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+                    + α_Hodge + α_NP + α_QG ∧
+     α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+        + α_Hodge + α_NP + α_QG < (19.0 : ℝ)) ∧
+    -- (B2) Squared sum bracket
+    ((49 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2
+                  + α_BSD ^ 2 + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2
+                  + α_QG ^ 2 ∧
+     α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+        + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (50 : ℝ)) ∧
+    -- (B3) Elementary product bracket
+    ((117 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG ∧
+     α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG < (119 : ℝ)) :=
+  ⟨α_skeleton_sum_closed_form,
+   sum_α_sq_skeleton_all_nine,
+   prod_α_skeleton_elementary,
+   prod_α_skeleton_all_nine,
+   α_skeleton_sum_bracket,
+   sum_α_sq_skeleton_bracket,
+   prod_α_skeleton_elementary_bracket⟩
+
 /-! ### ★ Fundamental constants extracted from the α-skeleton ★ -/
 
 /-- **`π = α_QG² / α_YM`** — the universal transcendental π is downstream
