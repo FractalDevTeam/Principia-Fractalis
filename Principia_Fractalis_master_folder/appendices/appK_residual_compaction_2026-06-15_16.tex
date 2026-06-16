@@ -694,13 +694,65 @@ The multiplicative-substructure algebra of every framework $\alpha$-axis
 is now a downstream consequence of the substrate-rigid minimal-invariant
 set --- not a free addition.
 
+\section{End-to-End Substrate-Rigidity Meta-Capstone}
+\label{sec:meta-capstone-2026-06-16}
+
+\paragraph{Final wave 4 contribution.} A new top-level
+\texttt{PF/Referee/SubstrateRigidityEndToEndMetaCapstone.lean} provides
+a single citable theorem
+\verb|substrate_rigidity_end_to_end_meta_capstone| composing endpoint
+clauses from all five session-continuation substrate composition files.
+The meta-capstone is a 12-clause theorem covering:
+
+\begin{itemize}
+  \item (A) Master capstone endpoints:
+    $\alpha_{\text{QG}}^2 = 2\pi$,
+    $\alpha_{\text{Hodge}}^2 = \alpha_{\text{Hodge}} + 1$,
+    $\alpha_{\text{NP}}^2 = (3/2) \alpha_{\text{Hodge}} + 17/16$
+  \item (B) Fundamental constants extracted:
+    $\pi = \alpha_{\text{QG}}^2 / \alpha_{\text{YM}}$,
+    $\sqrt{5} = 2 \alpha_{\text{Hodge}} - 1$
+  \item (C) Power-tower endpoints:
+    $\alpha_{\text{Hodge}}^8 = 21 \alpha_{\text{Hodge}} + 13$,
+    $\alpha_{\text{QG}}^8 = 16 \pi^4$
+  \item (D) Experimental wins:
+    $\Gamma/\Gamma_{\text{SM}} \in (1.298, 1.299)$,
+    $H_{\text{eff}} \in (74, 75)$
+  \item (E) Scalar fingerprint:
+    additive sum closed form
+\end{itemize}
+
+Each clause is destructured from its source composition file via thin
+pass-through. The substrate's reach is end-to-end: from the
+unified-minimal hypothesis set, every clause holds parametrically and
+the framework's complete content over the 9-axis $\alpha$-skeleton is
+a downstream consequence.
+
+\paragraph{Six new substrate-rigidity composition files} (5 from this
+session continuation + the meta-capstone) cover:
+\begin{enumerate}
+  \item \texttt{MinimalRigidityForcesAlphaSkeletonLogLayer}
+    (log layer, 3 capstones)
+  \item \texttt{MinimalRigidityForcesFrameworkExperimentalWins}
+    (XENON/Hubble/M$_1$, 4 capstones)
+  \item \texttt{MinimalRigidityForcesAlphaSkeletonMasterCapstone}
+    (45-clause master, 3 capstones)
+  \item \texttt{MinimalRigidityForcesAlphaPowerTowers}
+    (30-clause 4-tower bundle, 3 capstones)
+  \item \texttt{MinimalRigidityForcesScalarFingerprints}
+    (7-clause fingerprint bundle, 1 capstone)
+  \item \texttt{SubstrateRigidityEndToEndMetaCapstone}
+    (12-clause meta-capstone, 2 capstones)
+\end{enumerate}
+
 \section{Cumulative Session Statistics}
 \label{sec:cumulative-stats}
 
 \begin{itemize}
-  \item \textbf{Commits on master}: 79 total
+  \item \textbf{Commits on master}: 82 total
     (42 initial + 23 first continuation + 7 power-tower continuation
-    + 7 scalar-fingerprint wave, range \texttt{d2c336c..HEAD}).
+    + 7 scalar-fingerprint wave + 3 meta-capstone wave,
+    range \texttt{d2c336c..HEAD}).
   \item \textbf{Build state}: \verb|lake build| 8648 -- 8652 jobs
     clean throughout the session (job count increased from new
     substrate-rigidity composition files added in continuation).
