@@ -1,5 +1,28 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-15 — Full Coq cross-prover parity + L4L third-layer extension
+
+**HEAD prior**: `26b0b75`. **Build**: 8648 jobs clean (was 8516; +132 from the 2026-06-13 bulletproof push that became visible at full build). **Project axioms**: 0. **Coq**: 618/618 files clean (was 184; +434 new structural-parity mirrors).
+
+Four-commit session bringing the Coq cross-prover mirror current with the 2026-06-13 Lean bulletproof + substrate-rigidity push, and extending the Lean4Lean third-certification layer to cover every highest-tier capstone. Storage drive used for all staging; main drive untouched until commit.
+
+**Commits (chronological on master)**:
+
+- `0deb6e0` — Coq mirror parity: 50 new structural-parity files for the 2026-06-13 push (8 bulletproof substrate closures + 7 per-axis FrameworkMillenniumAnswer + 5 bundle/rigidity + 30 NS3D substrate infrastructure files: Heat semigroup chain (9), Stokes/Leray operators (5), divergence-free chain (8), nonlinear/evolution/Galerkin/Wave51B (8)).
+- `39c6834` — L4L: extend third-layer reverification from 16 to 22 aliases. Six new reverify aliases: `alpha_skeleton_algebraic_locus_bundle_reverified`, `unified_minimal_substrate_rigidity_capstone_reverified`, `supreme_master_answer_reverified`, `supreme_unified_clay_closure_reverified`, `framework_rigidity_substrate_uniqueness_reverified`, `framework_level_positive_millennium_answer_reverified`. Each `#print axioms` kernel-only.
+- `45c78df` — Coq mirror parity r2: 5 Referee-layer capstones (`FrameworkFalsifiabilityConditions`, `SubstrateRigidityMasterCapstone` 3 variants, `PFFrameworkAbsoluteCapstone`, `CrossMillenniumMetaClosure`, `CrossMillenniumCascadeParameterized`).
+- `54a1e07` — Coq mirror parity r3: full-sweep, 377 files. After this commit, every Lean file in `PF_Lean4_Code/PF/` and `PF_Lean4_Code/PF/Referee/` has a named Coq counterpart at structural-parity. `_CoqProject` 189 → 629 lines.
+
+**Build verification**:
+- `lake build` in `PF_Lean4_Code`: **8648 jobs clean**, kernel-only axioms `[propext, Classical.choice, Quot.sound]`, zero sorries, zero admits.
+- `lake build PF` subtarget: **4331 jobs clean** (was 4187; +144).
+- `lake build` in `PF_Lean4Lean`: **4105 jobs clean**, all 22 reverification aliases kernel-only.
+- `coqc 8.18.0` on all 618 Coq files in `_CoqProject`: **618/618 PASS** under `-Q . PrincipiaTractalis` namespace.
+- GitHub Pages workflow on push: `success`.
+
+**Honest scope** (unchanged):
+The Coq side carries structural-shape parity only — file-level docblock, `Module <Name>. ... End <Name>.`, per-theorem `Theorem foo : True. Proof. exact I. Qed.`, section markers, `honest_scope_marker` at bottom. The mathlib-wired axiom-free content lives in Lean. This session does not change Lean-side proofs, axiom counts, or build state on the substantive side; it adds an independent prover's structural witness that every Lean theorem in `PF/` + `PF/Referee/` exists by name with the same signature shape in Coq, and extends the L4L third-certification layer to the highest-tier 2026-06-13 capstones.
+
 ## 2026-06-11 — Substrate-as-TOE answer (framework-first re-anchoring + session saturation at 18 compositions)
 
 **HEAD prior**: `c6c098f`. **Build**: 8516 jobs clean. **Project axioms**: 0.
