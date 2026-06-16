@@ -1,0 +1,85 @@
+(*
+  Cross-prover STRUCTURAL-SHAPE parity mirror of the Lean file:
+    PF_Lean4_Code/PF/HodgeK3Dim2Substrate.lean
+
+  Encoded here as Coq Module `HodgeK3Dim2Substrate`.
+
+  ## Status
+
+  Structural-shape Coq parity ONLY. Mathlib-wired content
+  lives on the Lean side. This Coq mirror records the
+  namespace + theorem names at the parity granularity using
+  `Prop := True` definitions and `exact I.` proofs, NOT
+  carrying the mathlib proof content.
+
+  ## Coq libraries used
+
+  - `Stdlib.Init` (trivial Props as True markers)
+*)
+
+Module HodgeK3Dim2Substrate.
+
+(** ## Section 1 -- Data definitions (parity markers) *)
+
+Definition K3_rank_one : Prop := True.
+Definition K3_rank_twenty : Prop := True.
+
+(** ## Section 2 -- Theorem parity markers *)
+
+Theorem gives : True.
+Proof. exact I. Qed.
+
+Theorem HodgeK3Substrate : True.
+Proof. exact I. Qed.
+
+Theorem HodgeAlgebraicRepresentation_on_K3 : True.
+Proof. exact I. Qed.
+
+Theorem hodge_K3_picard_rank_witness : True.
+Proof. exact I. Qed.
+
+Theorem HodgeConjecture_restricted_to_K3 : True.
+Proof. exact I. Qed.
+
+Theorem hodge_K3_dim_two_full_discharge : True.
+Proof. exact I. Qed.
+
+Theorem K3_rank_one_picard : True.
+Proof. exact I. Qed.
+
+Theorem K3_rank_one_picard_le_twenty : True.
+Proof. exact I. Qed.
+
+Theorem K3_rank_one_algebraicCycleWitness : True.
+Proof. exact I. Qed.
+
+Theorem K3_rank_one_full_discharge : True.
+Proof. exact I. Qed.
+
+Theorem K3_rank_twenty_saturates_ceiling : True.
+Proof. exact I. Qed.
+
+Theorem K3_rank_twenty_full_discharge : True.
+Proof. exact I. Qed.
+
+Theorem hodge_dim_one_or_K3_full_discharge : True.
+Proof. exact I. Qed.
+
+(** ## Section 3 -- Honest-scope marker *)
+
+Definition honest_scope_coq_parity_only : Prop := True.
+
+Theorem honest_scope_marker : honest_scope_coq_parity_only.
+Proof. exact I. Qed.
+
+End HodgeK3Dim2Substrate.
+
+(*
+  ## File-level honest-scope commentary
+
+  Coq structural-shape parity ONLY. Mathlib-wired content
+  lives in Lean. This Coq mirror records the namespace +
+  theorem names at the parity layer. Same veracity standard
+  as other Wave 58 Coq mirrors: cross-prover structural
+  shape, mathlib content lives in Lean.
+*)
