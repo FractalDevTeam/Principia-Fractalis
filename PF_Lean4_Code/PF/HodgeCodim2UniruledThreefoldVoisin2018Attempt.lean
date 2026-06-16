@@ -731,4 +731,19 @@ Hodge stack and the first non-CM / non-abelian substrate at codim
 ≥ 2 since the Wave 18 dim-1 / dim-2 classical Lefschetz discharges.
 -/
 
+/-! ## §X — HodgeCodim2 uniruled-triple residual collapse -/
+
+theorem uniruled_is_uniruled_iff_VoisinHodge (X : UniruledThreefoldCodim2Substrate) :
+    UniruledThreefoldCodim2Substrate.is_uniruled X ↔ VoisinHodgeKnownCase2018 X := by
+  unfold UniruledThreefoldCodim2Substrate.is_uniruled VoisinHodgeKnownCase2018
+  exact Iff.rfl
+
+theorem uniruled_three_props_all_iff_True (X : UniruledThreefoldCodim2Substrate) :
+    (UniruledThreefoldCodim2Substrate.is_uniruled X ↔ True) ∧
+    (VoisinHodgeKnownCase2018 X ↔ True) ∧
+    (uniruled_NOT_abelian_marker X ↔ True) := by
+  unfold UniruledThreefoldCodim2Substrate.is_uniruled VoisinHodgeKnownCase2018
+         uniruled_NOT_abelian_marker
+  exact ⟨Iff.rfl, Iff.rfl, Iff.rfl⟩
+
 end PrincipiaTractalis.HodgeCodim2UniruledThreefoldVoisin2018Attempt

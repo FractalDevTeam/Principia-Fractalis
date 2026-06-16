@@ -804,5 +804,28 @@ into a codim-2 Hodge cascade.
 #print axioms wave56_quintic_codim2_capstone
 #print axioms wave56_quintic_codim2_with_cross_pollination
 
+/-! ## §X — Wave 56 Quintic 4-marker collapse: all 4 markers ≡ True -/
+
+theorem quintic_NOT_abelian_iff_NOT_uniruled (X : QuinticCYThreefoldCodim2Substrate) :
+    quintic_NOT_abelian_marker X ↔ quintic_NOT_uniruled_marker X := by
+  unfold quintic_NOT_abelian_marker quintic_NOT_uniruled_marker; exact Iff.rfl
+
+theorem quintic_NOT_uniruled_iff_NOT_CM (X : QuinticCYThreefoldCodim2Substrate) :
+    quintic_NOT_uniruled_marker X ↔ quintic_NOT_CM_marker X := by
+  unfold quintic_NOT_uniruled_marker quintic_NOT_CM_marker; exact Iff.rfl
+
+theorem quintic_NOT_CM_iff_is_calabi_yau (X : QuinticCYThreefoldCodim2Substrate) :
+    quintic_NOT_CM_marker X ↔ quintic_is_calabi_yau_marker X := by
+  unfold quintic_NOT_CM_marker quintic_is_calabi_yau_marker; exact Iff.rfl
+
+theorem quintic_four_markers_all_iff_True (X : QuinticCYThreefoldCodim2Substrate) :
+    (quintic_NOT_abelian_marker X ↔ True) ∧
+    (quintic_NOT_uniruled_marker X ↔ True) ∧
+    (quintic_NOT_CM_marker X ↔ True) ∧
+    (quintic_is_calabi_yau_marker X ↔ True) := by
+  unfold quintic_NOT_abelian_marker quintic_NOT_uniruled_marker
+         quintic_NOT_CM_marker quintic_is_calabi_yau_marker
+  exact ⟨Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl⟩
+
 end Hodge_Wave56CYThreefoldAttempt
 end PrincipiaTractalis
