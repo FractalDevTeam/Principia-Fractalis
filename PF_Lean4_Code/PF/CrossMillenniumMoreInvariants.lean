@@ -1162,6 +1162,93 @@ theorem α_Hodge_eighth_ultra_sharp_bracket :
   · -- 21·φ + 13 < 46.9788 ⟺ φ < 33.9788/21 = 1.61803...
     linarith
 
+/-- **α_Hodge⁷ ULTRA-SHARP bracket**: 29.0344 < α_Hodge⁷ < 29.0345. -/
+theorem α_Hodge_seventh_ultra_sharp_bracket :
+    (29.0344 : ℝ) < α_Hodge ^ 7 ∧ α_Hodge ^ 7 < (29.0345 : ℝ) := by
+  rw [α_Hodge_seventh]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge⁶ ULTRA-SHARP bracket**: 17.9442 < α_Hodge⁶ < 17.9443. -/
+theorem α_Hodge_sixth_ultra_sharp_bracket :
+    (17.9442 : ℝ) < α_Hodge ^ 6 ∧ α_Hodge ^ 6 < (17.9443 : ℝ) := by
+  rw [α_Hodge_sixth]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge⁵ ULTRA-SHARP bracket**: 11.0901 < α_Hodge⁵ < 11.0902. -/
+theorem α_Hodge_fifth_ultra_sharp_bracket :
+    (11.0901 : ℝ) < α_Hodge ^ 5 ∧ α_Hodge ^ 5 < (11.0902 : ℝ) := by
+  rw [α_Hodge_fifth]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge⁴ ULTRA-SHARP bracket**: 6.8541 < α_Hodge⁴ < 6.8542.
+    Numerical 3·φ + 2 ≈ 6.85410. -/
+theorem α_Hodge_fourth_ultra_sharp_bracket :
+    (6.8541 : ℝ) < α_Hodge ^ 4 ∧ α_Hodge ^ 4 < (6.8542 : ℝ) := by
+  rw [α_Hodge_fourth]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge³ ULTRA-SHARP bracket**: 4.2360 < α_Hodge³ < 4.2361. -/
+theorem α_Hodge_cubed_ultra_sharp_bracket :
+    (4.2360 : ℝ) < α_Hodge ^ 3 ∧ α_Hodge ^ 3 < (4.2361 : ℝ) := by
+  rw [α_Hodge_cubed]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **α_Hodge² ULTRA-SHARP bracket**: 2.6180 < α_Hodge² < 2.6181. -/
+theorem α_Hodge_sq_ultra_sharp_bracket :
+    (2.6180 : ℝ) < α_Hodge ^ 2 ∧ α_Hodge ^ 2 < (2.6181 : ℝ) := by
+  rw [α_Hodge_sq_eq_self_plus_one]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
+/-- **★ α_Hodge POWER TOWER ULTRA-SHARP BRACKETS ★** — 7-clause bundle
+    of α_Hodge^k brackets at 4-decimal precision, k = 2..8. Each width
+    0.0001. Numerical values inside their brackets:
+
+      α_Hodge² ≈ 2.6180,  α_Hodge³ ≈ 4.2361
+      α_Hodge⁴ ≈ 6.8541,  α_Hodge⁵ ≈ 11.0902
+      α_Hodge⁶ ≈ 17.9443, α_Hodge⁷ ≈ 29.0344
+      α_Hodge⁸ ≈ 46.9787
+
+    Any perturbation of φ at 10⁻⁵ level visible. -/
+theorem α_Hodge_power_tower_ultra_sharp_bundle :
+    ((2.6180 : ℝ) < α_Hodge ^ 2 ∧ α_Hodge ^ 2 < (2.6181 : ℝ)) ∧
+    ((4.2360 : ℝ) < α_Hodge ^ 3 ∧ α_Hodge ^ 3 < (4.2361 : ℝ)) ∧
+    ((6.8541 : ℝ) < α_Hodge ^ 4 ∧ α_Hodge ^ 4 < (6.8542 : ℝ)) ∧
+    ((11.0901 : ℝ) < α_Hodge ^ 5 ∧ α_Hodge ^ 5 < (11.0902 : ℝ)) ∧
+    ((17.9442 : ℝ) < α_Hodge ^ 6 ∧ α_Hodge ^ 6 < (17.9443 : ℝ)) ∧
+    ((29.0344 : ℝ) < α_Hodge ^ 7 ∧ α_Hodge ^ 7 < (29.0345 : ℝ)) ∧
+    ((46.9787 : ℝ) < α_Hodge ^ 8 ∧ α_Hodge ^ 8 < (46.9788 : ℝ)) :=
+  ⟨α_Hodge_sq_ultra_sharp_bracket,
+   α_Hodge_cubed_ultra_sharp_bracket,
+   α_Hodge_fourth_ultra_sharp_bracket,
+   α_Hodge_fifth_ultra_sharp_bracket,
+   α_Hodge_sixth_ultra_sharp_bracket,
+   α_Hodge_seventh_ultra_sharp_bracket,
+   α_Hodge_eighth_ultra_sharp_bracket⟩
+
 /-! ### ★ Power-bracket bundle ★ -/
 
 /-- **★ α-SKELETON POWER BRACKET BUNDLE ★** — single citable theorem
