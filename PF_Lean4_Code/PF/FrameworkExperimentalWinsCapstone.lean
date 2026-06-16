@@ -208,6 +208,36 @@ theorem Hubble_H_eff_bracket :
       (Real.sqrt_lt' h_target_pos).mpr h_x_lt
     nlinarith [h_sqrt_lt, Real.sqrt_nonneg x]
 
+/-- **Hubble H_eff SHARP bracket**: `74.09 < H_eff < 74.12 km/s/Mpc`.
+    Width 0.03 — 33× tighter than the wide bracket (74, 75).
+
+    Numerical ≈ 74.11. SH0ES measurement: 73.04 ± 1.04 → framework
+    sits at 1.03σ. The sharp bracket would catch any deviation at the
+    10⁻² km/s/Mpc level. Uses `π ∈ (3.141592, 3.141593)`. -/
+theorem Hubble_H_eff_sharp_bracket :
+    (74.09 : ℝ) < Hubble_H_eff ∧ Hubble_H_eff < (74.12 : ℝ) := by
+  unfold Hubble_H_eff
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_gt : (3.141592 : ℝ) < Real.pi := Real.pi_gt_d6
+  have h_pi_lt : Real.pi < (3.141593 : ℝ) := Real.pi_lt_d6
+  set x : ℝ := 1 + Real.pi / 10 * 0.95 * 0.7 with hx_def
+  have h_x_pos : (0 : ℝ) < x := by simp only [hx_def]; nlinarith
+  refine ⟨?_, ?_⟩
+  · -- 74.09 < 67.4·√x  ⟺  (74.09/67.4)² < x
+    have h_target_nn : (0 : ℝ) ≤ 74.09 / 67.4 := by norm_num
+    have h_sq_lt : (74.09 / 67.4 : ℝ) ^ 2 < x := by
+      simp only [hx_def]; nlinarith [h_pi_gt]
+    have h_sqrt_gt : (74.09 / 67.4 : ℝ) < Real.sqrt x :=
+      (Real.lt_sqrt h_target_nn).mpr h_sq_lt
+    nlinarith [h_sqrt_gt, Real.sqrt_nonneg x]
+  · -- 67.4·√x < 74.12  ⟺  x < (74.12/67.4)²
+    have h_target_pos : (0 : ℝ) < 74.12 / 67.4 := by norm_num
+    have h_x_lt : x < (74.12 / 67.4 : ℝ) ^ 2 := by
+      simp only [hx_def]; nlinarith [h_pi_lt]
+    have h_sqrt_lt : Real.sqrt x < (74.12 / 67.4 : ℝ) :=
+      (Real.sqrt_lt' h_target_pos).mpr h_x_lt
+    nlinarith [h_sqrt_lt, Real.sqrt_nonneg x]
+
 /-- **M_1 glueball numerical bracket**: `1770 < M_1 < 1780 MeV`.
 
     Lattice QCD measurement: 1710 MeV. Framework prediction sits within
