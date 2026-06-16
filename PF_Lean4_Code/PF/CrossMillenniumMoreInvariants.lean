@@ -820,6 +820,98 @@ theorem α_NP_sixth_bracket :
     unfold α_Hodge; exact phi_in_interval_10digit.2
   exact ⟨by nlinarith [h_phi_lb], by nlinarith [h_phi_ub]⟩
 
+/-! ### α_P Q(√2)-tower (parity bigraded) -/
+
+/-- **`α_P⁵ = 4·α_P`**. -/
+theorem α_P_fifth : α_P ^ 5 = 4 * α_P := by
+  have h : α_P ^ 5 = (α_P ^ 2) ^ 2 * α_P := by ring
+  rw [h, α_P_sq_eq_α_YM]; unfold α_YM; ring
+
+/-- **`α_P⁶ = 8`**. -/
+theorem α_P_sixth : α_P ^ 6 = 8 := by
+  have h : α_P ^ 6 = (α_P ^ 2) ^ 3 := by ring
+  rw [h, α_P_sq_eq_α_YM]; unfold α_YM; ring
+
+/-- **`α_P⁷ = 8·α_P`**. -/
+theorem α_P_seventh : α_P ^ 7 = 8 * α_P := by
+  have h : α_P ^ 7 = (α_P ^ 2) ^ 3 * α_P := by ring
+  rw [h, α_P_sq_eq_α_YM]; unfold α_YM; ring
+
+/-- **`α_P⁸ = 16`**. -/
+theorem α_P_eighth : α_P ^ 8 = 16 := by
+  have h : α_P ^ 8 = (α_P ^ 2) ^ 4 := by ring
+  rw [h, α_P_sq_eq_α_YM]; unfold α_YM; ring
+
+/-- **★ α_P Q(√2)-TOWER ★** — parity-bigraded tower of `α_P^k`:
+    even powers in Q (pure rationals), odd powers in Q · α_P.
+
+    | k | α_P^k     |
+    |---|-----------|
+    | 1 | α_P       |
+    | 2 | 2         |
+    | 3 | 2·α_P     |
+    | 4 | 4         |
+    | 5 | 4·α_P     |
+    | 6 | 8         |
+    | 7 | 8·α_P     |
+    | 8 | 16        |
+
+    The coefficient sequence is `2^⌊k/2⌋`. -/
+theorem α_P_Q_sqrt2_tower :
+    α_P ^ 1 = α_P ∧
+    α_P ^ 2 = 2 ∧
+    α_P ^ 3 = 2 * α_P ∧
+    α_P ^ 4 = 4 ∧
+    α_P ^ 5 = 4 * α_P ∧
+    α_P ^ 6 = 8 ∧
+    α_P ^ 7 = 8 * α_P ∧
+    α_P ^ 8 = 16 := by
+  refine ⟨pow_one _, ?_, α_P_cubed, α_P_fourth, α_P_fifth, α_P_sixth,
+          α_P_seventh, α_P_eighth⟩
+  rw [α_P_sq_eq_α_YM]; unfold α_YM; rfl
+
+/-! ### α_QG Q(π,√(2π))-tower (parity bigraded) -/
+
+/-- **`α_QG³ = 2π·α_QG`** — self-similar cube. -/
+theorem α_QG_cubed_early : α_QG ^ 3 = 2 * Real.pi * α_QG := by
+  have h : α_QG ^ 3 = α_QG ^ 2 * α_QG := by ring
+  rw [h, α_QG_sq_eq_two_pi]
+
+/-- **`α_QG⁵ = 4π²·α_QG`**. -/
+theorem α_QG_fifth : α_QG ^ 5 = 4 * Real.pi ^ 2 * α_QG := by
+  have h : α_QG ^ 5 = (α_QG ^ 2) ^ 2 * α_QG := by ring
+  rw [h, α_QG_sq_eq_two_pi]; ring
+
+/-- **`α_QG⁷ = 8π³·α_QG`**. -/
+theorem α_QG_seventh : α_QG ^ 7 = 8 * Real.pi ^ 3 * α_QG := by
+  have h : α_QG ^ 7 = (α_QG ^ 2) ^ 3 * α_QG := by ring
+  rw [h, α_QG_sq_eq_two_pi]; ring
+
+/-- **★ α_QG Q(π,α_QG)-TOWER ★** — parity-bigraded tower of `α_QG^k`:
+    even powers in Q[π], odd powers in Q[π]·α_QG.
+
+    | k | α_QG^k       |
+    |---|--------------|
+    | 1 | α_QG         |
+    | 2 | 2π           |
+    | 3 | 2π·α_QG      |
+    | 4 | 4π²          |
+    | 5 | 4π²·α_QG     |
+    | 6 | 8π³          |
+    | 7 | 8π³·α_QG     |
+    | 8 | 16π⁴         | -/
+theorem α_QG_Q_pi_alpha_QG_tower :
+    α_QG ^ 1 = α_QG ∧
+    α_QG ^ 2 = 2 * Real.pi ∧
+    α_QG ^ 3 = 2 * Real.pi * α_QG ∧
+    α_QG ^ 4 = 4 * Real.pi ^ 2 ∧
+    α_QG ^ 5 = 4 * Real.pi ^ 2 * α_QG ∧
+    α_QG ^ 6 = 8 * Real.pi ^ 3 ∧
+    α_QG ^ 7 = 8 * Real.pi ^ 3 * α_QG ∧
+    α_QG ^ 8 = 16 * Real.pi ^ 4 :=
+  ⟨pow_one _, α_QG_sq_eq_two_pi, α_QG_cubed_early, α_QG_fourth,
+   α_QG_fifth, α_QG_sixth, α_QG_seventh, α_QG_eighth⟩
+
 /-- **★ α_NP Q(φ)-TOWER ★** — 6-clause bundle of `α_NP^k` closed
     forms for `k ∈ {1, ..., 6}`, each in the Q(α_Hodge) basis:
 
