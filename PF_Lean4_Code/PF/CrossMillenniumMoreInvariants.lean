@@ -245,6 +245,64 @@ theorem α_NS_mul_α_BSD : α_NS * α_BSD = 9 * Real.pi ^ 2 / 8 := by
 theorem α_QG_sq_mul_α_RH_sq : α_QG ^ 2 * α_RH ^ 2 = 9 * Real.pi / 2 := by
   rw [α_QG_sq_eq_two_pi, α_RH_sq_eq_nine_fourths]; ring
 
+/-! ## Section 2d — Higher powers of rational α + α_NP cross products -/
+
+/-- **`α_P⁴ = 4`**: (α_P²)² = α_YM² = 4. -/
+theorem α_P_fourth : α_P ^ 4 = 4 := by
+  have h := α_P_sq_eq_α_YM
+  have : α_P ^ 4 = (α_P ^ 2) ^ 2 := by ring
+  rw [this, h]; unfold α_YM; ring
+
+/-- **`α_YM² = 4`**: direct from α_YM = 2. -/
+theorem α_YM_sq : α_YM ^ 2 = 4 := by
+  unfold α_YM; ring
+
+/-- **`α_YM⁴ = 16`**: direct from α_YM = 2. -/
+theorem α_YM_fourth : α_YM ^ 4 = 16 := by
+  unfold α_YM; ring
+
+/-- **`α_RH⁴ = 81/16`**: (α_RH²)² = (9/4)² = 81/16. -/
+theorem α_RH_fourth : α_RH ^ 4 = 81 / 16 := by
+  unfold α_RH; ring
+
+/-- **`α_NP · α_YM = 2·α_Hodge + 1/2`**: (φ + 1/4)·2 = 2φ + 1/2. -/
+theorem α_NP_mul_α_YM : α_NP * α_YM = 2 * α_Hodge + 1/2 := by
+  unfold α_NP α_YM α_Hodge; ring
+
+/-- **`α_NP - α_Poincare = α_Hodge - 3/4`**: relating the φ-axis to anchor. -/
+theorem α_NP_sub_α_Poincare : α_NP - α_Poincare = α_Hodge - 3/4 := by
+  unfold α_NP α_Poincare α_Hodge; ring
+
+/-- **`α_P_cubed_alt`**: α_P³ = α_P · α_YM (alternative form using L1). -/
+theorem α_P_cubed_eq_α_P_mul_α_YM : α_P ^ 3 = α_P * α_YM := by
+  have h := α_P_sq_eq_α_YM
+  have : α_P ^ 3 = α_P * α_P ^ 2 := by ring
+  rw [this, h]
+
+/-- **`α_NS · α_YM = 3π`**: NS-class times YM cleanly. -/
+theorem α_NS_mul_α_YM : α_NS * α_YM = 3 * Real.pi := by
+  unfold α_NS α_YM; ring
+
+/-- **`α_BSD · α_YM = 3π/2 = α_NS`**: BSD·YM recovers NS. -/
+theorem α_BSD_mul_α_YM_eq_α_NS : α_BSD * α_YM = α_NS := by
+  unfold α_BSD α_YM α_NS; ring
+
+/-! ## Section 2e — Quartic-grade master invariants on the locus -/
+
+/-- **`α_P⁴ = α_YM²`**: a quartic identity reflecting α_P² = α_YM. -/
+theorem α_P_fourth_eq_α_YM_sq : α_P ^ 4 = α_YM ^ 2 := by
+  rw [α_P_fourth, α_YM_sq]
+
+/-- **`α_NS² = α_YM² · α_BSD²`**: squared form of α_NS = α_YM·α_BSD (L6). -/
+theorem α_NS_sq_eq_α_YM_sq_mul_α_BSD_sq :
+    α_NS ^ 2 = α_YM ^ 2 * α_BSD ^ 2 := by
+  rw [α_NS_sq, α_YM_sq, α_BSD_sq]; ring
+
+/-- **`α_RH² + α_BSD² = 9/4 + 9π²/16`**: locus diagonal sum. -/
+theorem α_RH_sq_add_α_BSD_sq :
+    α_RH ^ 2 + α_BSD ^ 2 = 9/4 + 9 * Real.pi ^ 2 / 16 := by
+  rw [α_RH_sq_eq_nine_fourths, α_BSD_sq]
+
 /-! ## Section 3 — Mixed-product invariants (algebraic × algebraic) -/
 
 /-- **`α_P · α_RH = (3/2) · α_P`**: trivial scalar factor, recorded
