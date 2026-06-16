@@ -1339,6 +1339,71 @@ theorem α_skeleton_log_layer :
   · exact log_α_QG_eq_half_log_2_add_log_pi
   · exact log_α_Hodge_eq_log_phi
 
+/-! ### ★ Elementary product closed form ★ -/
+
+/-- **★ ELEMENTARY 7-PRODUCT CLOSED FORM ★** —
+    `Π_{i ∈ elementary 7} α_i = 27 · π^(5/2) / 4`.
+
+    Direct computation:
+      1 · 2 · (3/2) · (3π/4) · (3π/2) · √2 · √(2π)
+        = 3 · (9π²/8) · √2 · √(2π)
+        = (27π²/8) · √(2 · 2π)   (Real.sqrt_mul)
+        = (27π²/8) · √(4π)
+        = (27π²/8) · 2·√π
+        = 27 π² √π / 4
+        = 27 π^(5/2) / 4. -/
+theorem prod_α_skeleton_elementary :
+    α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+    = 27 * Real.pi ^ 2 * Real.sqrt Real.pi / 4 := by
+  unfold α_Poincare α_P α_RH α_YM α_BSD α_NS α_QG
+  have h_2_nn : (0 : ℝ) ≤ 2 := by norm_num
+  have h_pi_nn : (0 : ℝ) ≤ Real.pi := Real.pi_pos.le
+  have h_sqrt_combine : Real.sqrt 2 * Real.sqrt (2 * Real.pi)
+                       = 2 * Real.sqrt Real.pi := by
+    rw [← Real.sqrt_mul h_2_nn]
+    have h_eq : (2 : ℝ) * (2 * Real.pi) = 4 * Real.pi := by ring
+    rw [h_eq]
+    have h_4_eq : (4 : ℝ) = 2 ^ 2 := by norm_num
+    rw [h_4_eq, Real.sqrt_mul (by positivity), Real.sqrt_sq h_2_nn]
+  -- Now goal: 1 · √2 · (3/2) · 2 · (3π/4) · (3π/2) · √(2π) = 27 π² √π / 4
+  -- Rearrange so √2 · √(2π) is adjacent.
+  have h_target :
+      1 * Real.sqrt 2 * (3/2) * 2 * (3 * Real.pi / 4) * (3 * Real.pi / 2)
+        * Real.sqrt (2 * Real.pi)
+      = (27 * Real.pi ^ 2 / 8) * (Real.sqrt 2 * Real.sqrt (2 * Real.pi)) := by
+    ring
+  rw [h_target, h_sqrt_combine]
+  ring
+
+/-- **Elementary product numerical bracket**: `Π α_* ∈ (117, 119)`.
+    Closed form $27\pi^{5/2}/4 \approx 118.08$. Uses
+    $\pi \in (3.14159, 3.14160)$ + bracket on $\sqrt{\pi}$. -/
+theorem prod_α_skeleton_elementary_bracket :
+    (117 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG ∧
+    α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG < (119 : ℝ) := by
+  rw [prod_α_skeleton_elementary]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_sqrt_pi_sq : Real.sqrt Real.pi ^ 2 = Real.pi :=
+    Real.sq_sqrt h_pi_pos.le
+  have h_sqrt_pi_pos : (0 : ℝ) < Real.sqrt Real.pi :=
+    Real.sqrt_pos.mpr h_pi_pos
+  -- √π ∈ (1.77, 1.78): 1.77² = 3.1329 < π, 1.78² = 3.1684 > π
+  have h_sqrt_pi_gt : (1.77 : ℝ) < Real.sqrt Real.pi := by
+    nlinarith [h_sqrt_pi_sq, h_sqrt_pi_pos, h_pi_gt]
+  have h_sqrt_pi_lt : Real.sqrt Real.pi < (1.78 : ℝ) := by
+    nlinarith [h_sqrt_pi_sq, h_sqrt_pi_pos, h_pi_lt]
+  refine ⟨?_, ?_⟩
+  · -- 117 < 27·π²·√π/4 ⟺ 468 < 27·π²·√π ⟺ π²·√π > 17.333
+    -- π² > 3.14159² > 9.869, √π > 1.77 → π²·√π > 17.469 > 17.333
+    nlinarith [h_pi_gt, h_sqrt_pi_gt, sq_nonneg Real.pi]
+  · -- 27·π²·√π/4 < 119 ⟺ 27·π²·√π < 476 ⟺ π²·√π < 17.629
+    -- π² < 3.14160² < 9.870, √π < 1.78 → π²·√π < 17.569 < 17.629
+    nlinarith [h_pi_lt, h_sqrt_pi_lt, sq_nonneg Real.pi]
+
 /-! ### ★ Fundamental constants extracted from the α-skeleton ★ -/
 
 /-- **`π = α_QG² / α_YM`** — the universal transcendental π is downstream
