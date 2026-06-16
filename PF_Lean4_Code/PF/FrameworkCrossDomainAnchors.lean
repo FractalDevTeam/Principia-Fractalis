@@ -86,6 +86,24 @@ theorem pi_10_bracket :
   · have := Real.pi_gt_d6; linarith
   · have := Real.pi_lt_d6; linarith
 
+/-- **`10·pi_10 = π`** — the defining identity reversed: `10·(π/10) = π`. -/
+theorem ten_mul_pi_10_eq_pi : 10 * pi_10 = Real.pi := by
+  unfold pi_10; ring
+
+/-- **`pi_10² = π²/100`** — squared form. -/
+theorem pi_10_sq : pi_10 ^ 2 = Real.pi ^ 2 / 100 := by
+  unfold pi_10; ring
+
+/-- **`pi_10 · 10 · pi_10 = π · pi_10`** — chained product identity. -/
+theorem pi_10_mul_ten_mul_pi_10 :
+    pi_10 * (10 * pi_10) = Real.pi * pi_10 := by
+  rw [ten_mul_pi_10_eq_pi]; ring
+
+/-- **`pi_10 · α_QG² = π·pi_10·2 = π²/5`** — pi_10 × QG² closed form.
+    α_QG² = 2π so π·pi_10·2 = 2π·(π/10) = π²/5. -/
+theorem pi_10_mul_two_pi : pi_10 * (2 * Real.pi) = Real.pi ^ 2 / 5 := by
+  unfold pi_10; ring
+
 /-! ## Anchor 2: ch_2 = 0.95 consciousness threshold -/
 
 /-- The framework's consciousness crystallization threshold. -/
