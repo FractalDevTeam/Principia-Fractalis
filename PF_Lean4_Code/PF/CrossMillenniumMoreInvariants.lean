@@ -135,6 +135,64 @@ theorem α_QG_fourth : α_QG ^ 4 = 4 * Real.pi ^ 2 := by
   have : α_QG ^ 4 = (α_QG ^ 2) ^ 2 := by ring
   rw [this, h2]; ring
 
+/-! ## Section 2b — Fibonacci ladder on the golden Hodge α
+
+    The golden-ratio identity α_Hodge² = α_Hodge + 1 forces
+    α_Hodge^n = F_n · α_Hodge + F_{n-1} where F_n is the nth Fibonacci
+    number. We record powers 5..8 explicitly, extending the existing
+    α_Hodge_{cubed, fourth} chain. Each `_holds` via nlinarith from
+    the quadratic identity. -/
+
+/-- **`α_Hodge⁵ = 5·φ + 3`** (F_5 = 5, F_4 = 3).
+    Proof: φ^5 = φ · φ^4 = φ(3φ+2) = 3φ² + 2φ = 3(φ+1) + 2φ = 5φ + 3. -/
+theorem α_Hodge_fifth : α_Hodge ^ 5 = 5 * α_Hodge + 3 := by
+  have h4 := α_Hodge_fourth
+  have hsq := α_Hodge_sq_eq_self_plus_one
+  have step : α_Hodge ^ 5 = α_Hodge * α_Hodge ^ 4 := by ring
+  rw [step, h4]
+  nlinarith [hsq]
+
+/-- **`α_Hodge⁶ = 8·φ + 5`** (F_6 = 8, F_5 = 5).
+    Proof: φ^6 = φ² · φ^4 = (φ+1)(3φ+2) = 3φ²+5φ+2 = 3(φ+1)+5φ+2 = 8φ+5. -/
+theorem α_Hodge_sixth : α_Hodge ^ 6 = 8 * α_Hodge + 5 := by
+  have h4 := α_Hodge_fourth
+  have hsq := α_Hodge_sq_eq_self_plus_one
+  have step : α_Hodge ^ 6 = α_Hodge ^ 2 * α_Hodge ^ 4 := by ring
+  rw [step, h4]
+  nlinarith [hsq]
+
+/-- **`α_Hodge⁷ = 13·φ + 8`** (F_7 = 13, F_6 = 8).
+    Proof: φ^7 = φ^3 · φ^4 = (2φ+1)(3φ+2) = 6φ²+7φ+2 = 6(φ+1)+7φ+2 = 13φ+8. -/
+theorem α_Hodge_seventh : α_Hodge ^ 7 = 13 * α_Hodge + 8 := by
+  have h3 := α_Hodge_cubed
+  have h4 := α_Hodge_fourth
+  have hsq := α_Hodge_sq_eq_self_plus_one
+  have step : α_Hodge ^ 7 = α_Hodge ^ 3 * α_Hodge ^ 4 := by ring
+  rw [step, h3, h4]
+  nlinarith [hsq]
+
+/-- **`α_Hodge⁸ = 21·φ + 13`** (F_8 = 21, F_7 = 13).
+    Proof via α_Hodge⁴: (3φ+2)² = 9φ²+12φ+4 = 9(φ+1)+12φ+4 = 21φ+13. -/
+theorem α_Hodge_eighth : α_Hodge ^ 8 = 21 * α_Hodge + 13 := by
+  have h4 := α_Hodge_fourth
+  have hsq := α_Hodge_sq_eq_self_plus_one
+  have step : α_Hodge ^ 8 = (α_Hodge ^ 4) ^ 2 := by ring
+  rw [step, h4]
+  nlinarith [hsq]
+
+/-- **General Fibonacci-ladder structure at level 8 (capstone)**.
+
+    Records the Fibonacci recursion `α_Hodge^{n+2} = α_Hodge^{n+1} +
+    α_Hodge^n` at the n=5,6 instance: `α_Hodge^7 = α_Hodge^6 + α_Hodge^5`.
+
+    This is the structural witness that the α_Hodge powers obey the
+    Fibonacci recurrence — a direct algebraic consequence of the
+    defining quadratic α_Hodge² = α_Hodge + 1. -/
+theorem α_Hodge_fibonacci_recurrence_at_5 :
+    α_Hodge ^ 7 = α_Hodge ^ 6 + α_Hodge ^ 5 := by
+  rw [α_Hodge_seventh, α_Hodge_sixth, α_Hodge_fifth]
+  ring
+
 /-! ## Section 3 — Mixed-product invariants (algebraic × algebraic) -/
 
 /-- **`α_P · α_RH = (3/2) · α_P`**: trivial scalar factor, recorded
