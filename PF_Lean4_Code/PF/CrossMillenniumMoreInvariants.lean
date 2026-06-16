@@ -681,5 +681,23 @@ theorem α_NP_mul_α_Hodge :
   rw [mul_comm]
   exact α_Hodge_mul_α_NP
 
+/-! ## Section 2k — α_QG logarithmic identities -/
+
+/-- **`2·log α_QG = log(2π)`** — from α_QG² = 2π. -/
+theorem two_log_α_QG_eq_log_two_pi :
+    2 * Real.log α_QG = Real.log (2 * Real.pi) := by
+  have h_log_sq : Real.log (α_QG ^ 2) = 2 * Real.log α_QG := by
+    rw [Real.log_pow]; push_cast; ring
+  rw [← h_log_sq, α_QG_sq_eq_two_pi]
+
+/-- **`log α_QG = (log 2 + log π) / 2`** — clean decomposition. -/
+theorem log_α_QG_eq_half_log_2_add_log_pi :
+    Real.log α_QG = (Real.log 2 + Real.log Real.pi) / 2 := by
+  have h := two_log_α_QG_eq_log_two_pi
+  have h_log_2pi : Real.log (2 * Real.pi) = Real.log 2 + Real.log Real.pi := by
+    have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+    exact Real.log_mul (by norm_num : (2 : ℝ) ≠ 0) (ne_of_gt h_pi_pos)
+  linarith [h_log_2pi]
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
