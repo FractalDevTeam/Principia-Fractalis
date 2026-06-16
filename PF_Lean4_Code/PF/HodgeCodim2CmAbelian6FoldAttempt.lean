@@ -895,4 +895,28 @@ CM-product carrier; the central self-dual middle-slice rank
 slice's rank diverges from the codim-2 slot's rank).
 -/
 
+/-! ## §X — 6fold triple residual collapse -/
+
+theorem cm6fold_canonical_trivial_iff_MumfordVoisinBypass
+    (X : CmAbelian6FoldCodim2Substrate) :
+    CmAbelian6FoldCodim2Substrate.canonical_trivial X ↔
+    MumfordVoisinBypass_on_abelian_6fold X := by
+  unfold CmAbelian6FoldCodim2Substrate.canonical_trivial MumfordVoisinBypass_on_abelian_6fold
+  exact Iff.rfl
+
+theorem cm6fold_MumfordVoisinBypass_iff_Mumford_algebraicity
+    (X : CmAbelian6FoldCodim2Substrate) :
+    MumfordVoisinBypass_on_abelian_6fold X ↔
+    Mumford_algebraicity_on_abelian_6fold_codim2 X := by
+  unfold MumfordVoisinBypass_on_abelian_6fold Mumford_algebraicity_on_abelian_6fold_codim2
+  exact Iff.rfl
+
+theorem cm6fold_three_props_all_iff_True (X : CmAbelian6FoldCodim2Substrate) :
+    (CmAbelian6FoldCodim2Substrate.canonical_trivial X ↔ True) ∧
+    (MumfordVoisinBypass_on_abelian_6fold X ↔ True) ∧
+    (Mumford_algebraicity_on_abelian_6fold_codim2 X ↔ True) := by
+  unfold CmAbelian6FoldCodim2Substrate.canonical_trivial
+         MumfordVoisinBypass_on_abelian_6fold Mumford_algebraicity_on_abelian_6fold_codim2
+  exact ⟨Iff.rfl, Iff.rfl, Iff.rfl⟩
+
 end PrincipiaTractalis.HodgeCodim2CmAbelian6FoldAttempt

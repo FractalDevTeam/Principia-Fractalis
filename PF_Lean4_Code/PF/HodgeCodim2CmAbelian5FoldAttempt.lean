@@ -798,4 +798,28 @@ CM-product carrier; the dim-5 Poincaré pairing `h^{3,3} = h^{2,2}`
 codim-2 / codim-3 slots had different ranks).
 -/
 
+/-! ## §X — 5fold triple residual collapse -/
+
+theorem cm5fold_canonical_trivial_iff_MumfordVoisinBypass
+    (X : CmAbelian5FoldCodim2Substrate) :
+    CmAbelian5FoldCodim2Substrate.canonical_trivial X ↔
+    MumfordVoisinBypass_on_abelian_5fold X := by
+  unfold CmAbelian5FoldCodim2Substrate.canonical_trivial MumfordVoisinBypass_on_abelian_5fold
+  exact Iff.rfl
+
+theorem cm5fold_MumfordVoisinBypass_iff_Mumford_algebraicity
+    (X : CmAbelian5FoldCodim2Substrate) :
+    MumfordVoisinBypass_on_abelian_5fold X ↔
+    Mumford_algebraicity_on_abelian_5fold_codim2 X := by
+  unfold MumfordVoisinBypass_on_abelian_5fold Mumford_algebraicity_on_abelian_5fold_codim2
+  exact Iff.rfl
+
+theorem cm5fold_three_props_all_iff_True (X : CmAbelian5FoldCodim2Substrate) :
+    (CmAbelian5FoldCodim2Substrate.canonical_trivial X ↔ True) ∧
+    (MumfordVoisinBypass_on_abelian_5fold X ↔ True) ∧
+    (Mumford_algebraicity_on_abelian_5fold_codim2 X ↔ True) := by
+  unfold CmAbelian5FoldCodim2Substrate.canonical_trivial
+         MumfordVoisinBypass_on_abelian_5fold Mumford_algebraicity_on_abelian_5fold_codim2
+  exact ⟨Iff.rfl, Iff.rfl, Iff.rfl⟩
+
 end PrincipiaTractalis.HodgeCodim2CmAbelian5FoldAttempt
