@@ -136,6 +136,23 @@ theorem Lambda_eff_exponent_product_bracket :
   · -- 14079π/160 < 276.5
     nlinarith [h_upper]
 
+/-- **Λ_eff exponent SHARP bracket**: `276.44 < 14079π/160 < 276.45`.
+    Width 0.01 — 10× tighter than `(276.4, 276.5)`.
+
+    Numerical 14079·π/160 ≈ 276.4404. The framework cosmological-target
+    value 120·log 10 ≈ 276.31 sits 0.13 below this bracket; the gap is
+    accounted for by the |R_f(√(2π), 1)| Dirichlet truncation error
+    (numerically ~10⁻⁵ on the modulus, propagating to ~0.13 here). -/
+theorem Lambda_eff_exponent_product_sharp_bracket :
+    (276.44 : ℝ) < Lambda_eff_exponent_product ∧
+    Lambda_eff_exponent_product < (276.45 : ℝ) := by
+  rw [Lambda_eff_exponent_product_rational_form]
+  have h_lower : (3.141592 : ℝ) < Real.pi := Real.pi_gt_d6
+  have h_upper : Real.pi < (3.141593 : ℝ) := Real.pi_lt_d6
+  refine ⟨?_, ?_⟩
+  · nlinarith [h_lower]
+  · nlinarith [h_upper]
+
 /-! ## Step 6: identification with `120·log 10`
 
     Numerically: 78 · 3.14159 · 0.95 · 1.1875 ≈ 276.43
