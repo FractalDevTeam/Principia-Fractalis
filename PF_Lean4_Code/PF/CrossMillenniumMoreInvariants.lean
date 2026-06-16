@@ -717,6 +717,43 @@ theorem α_NP_fourth_bracket :
   · nlinarith [h_phi_lb]
   · nlinarith [h_phi_ub]
 
+/-- **`1/α_NP = (8·√5 − 12)/11`** — reciprocal closed form witnessing
+    the Q(√5) structure of α_NP.
+
+    Derivation: 1/(φ + 1/4) = 4/(4φ + 1) = 4/(3 + 2√5) (since 4φ + 1
+    = 2 + 2√5 + 1 = 3 + 2√5). Rationalize by (3 − 2√5):
+    = 4(3 − 2√5)/((3)² − (2√5)²) = 4(3 − 2√5)/(9 − 20) = 4(2√5 − 3)/11. -/
+theorem one_div_α_NP_closed_form :
+    1 / α_NP = (8 * Real.sqrt 5 - 12) / 11 := by
+  have h_sqrt5_sq : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h_sqrt5_pos : (0 : ℝ) < Real.sqrt 5 :=
+    Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+  have h_sqrt5_gt : (2 : ℝ) < Real.sqrt 5 := by nlinarith [h_sqrt5_sq, h_sqrt5_pos]
+  have h_α_NP_pos : (0 : ℝ) < α_NP := by
+    unfold α_NP phi; linarith
+  have h_α_NP_ne : α_NP ≠ 0 := h_α_NP_pos.ne'
+  -- Verify directly: α_NP · (8√5 − 12) = 11
+  -- Then divide by 11·α_NP.
+  have h_product : α_NP * (8 * Real.sqrt 5 - 12) = 11 := by
+    unfold α_NP phi
+    nlinarith [h_sqrt5_sq, h_sqrt5_pos]
+  field_simp
+  linarith [h_product]
+
+/-- **`1/α_NP numerical bracket`**: `0.535 < 1/α_NP < 0.536`. Closed form
+    `(8√5 − 12)/11` with √5 ∈ [2.2360, 2.2361] gives `≈ 0.5354`. -/
+theorem one_div_α_NP_bracket :
+    (0.535 : ℝ) < 1 / α_NP ∧ 1 / α_NP < (0.536 : ℝ) := by
+  rw [one_div_α_NP_closed_form]
+  have h_sqrt5_sq : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h_sqrt5_pos : (0 : ℝ) < Real.sqrt 5 :=
+    Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+  refine ⟨?_, ?_⟩
+  · -- 0.535·11 = 5.885 < 8√5 − 12 ⟺ 17.885 < 8√5 ⟺ √5 > 2.2356 ⟺ 5 > 4.998...
+    nlinarith [h_sqrt5_sq, h_sqrt5_pos]
+  · -- 8√5 − 12 < 0.536·11 = 5.896 ⟺ 8√5 < 17.896 ⟺ √5 < 2.237 ⟺ 5 < 5.004...
+    nlinarith [h_sqrt5_sq, h_sqrt5_pos]
+
 /-- **`α_NP · α_Hodge` chained form via α_Hodge_mul_α_NP**:
     `α_NP · α_Hodge = α_Hodge · α_NP = (5/4)·α_Hodge + 1`. -/
 theorem α_NP_mul_α_Hodge :
