@@ -598,5 +598,40 @@ theorem cross_millennium_more_invariants_capstone :
 theorem cross_millennium_more_invariants_structural_remark :
     True := trivial
 
+/-! ## Section 2i — Triple-product identities on the 9-α table -/
+
+/-- **`α_Poincare · α_RH · α_YM = 3`** — triple product of the three
+    rational α-values. Recovers the framework's Twin Prime / Polignac
+    structural anchor (since `α_TwinPrime = α_RH = 3/2`). -/
+theorem α_Poincare_mul_α_RH_mul_α_YM : α_Poincare * α_RH * α_YM = 3 := by
+  unfold α_Poincare α_RH α_YM; ring
+
+/-- **`α_NS · α_BSD · α_RH = 27π² / 16 · (3/2) = 81π² / 32`** —
+    wait, simpler: α_NS · α_BSD = 9π²/8 (existing), times α_RH = 3/2:
+    81π²/16. Cleaner: `α_NS · α_BSD · α_RH = 81π²/16`. -/
+theorem α_NS_mul_α_BSD_mul_α_RH :
+    α_NS * α_BSD * α_RH = 81 * Real.pi ^ 2 / 16 := by
+  unfold α_NS α_BSD α_RH; ring
+
+/-- **`α_QG² · α_RH = 3π`** — QG² and rational triple. -/
+theorem α_QG_sq_mul_α_RH :
+    α_QG ^ 2 * α_RH = 3 * Real.pi := by
+  rw [α_QG_sq_eq_two_pi]; unfold α_RH; ring
+
+/-- **`α_QG² · α_YM = 4π`** — QG² and YM triple. -/
+theorem α_QG_sq_mul_α_YM :
+    α_QG ^ 2 * α_YM = 4 * Real.pi := by
+  rw [α_QG_sq_eq_two_pi]; unfold α_YM; ring
+
+/-- **`α_Poincare² + α_RH² + α_YM² = 29/4`** — rational sum of squares. -/
+theorem α_Poincare_sq_add_α_RH_sq_add_α_YM_sq :
+    α_Poincare ^ 2 + α_RH ^ 2 + α_YM ^ 2 = 29 / 4 := by
+  unfold α_Poincare α_RH α_YM; ring
+
+/-- **`α_NS² + α_BSD² + α_QG² = 45π²/16 + 2π`** — π-sector sum of squares. -/
+theorem α_NS_sq_add_α_BSD_sq_add_α_QG_sq :
+    α_NS ^ 2 + α_BSD ^ 2 + α_QG ^ 2 = 45 * Real.pi ^ 2 / 16 + 2 * Real.pi := by
+  rw [α_NS_sq, α_BSD_sq, α_QG_sq_eq_two_pi]; ring
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
