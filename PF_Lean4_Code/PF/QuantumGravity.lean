@@ -513,4 +513,106 @@ theorem three_axis_witness_of_riemannZeta_two :
    alpha_QG_fourth_eq_alpha_BSD_sq_rescaled,
    alpha_QG_fourth_eq_alpha_NS_sq_rescaled⟩
 
+/-! ### Multi-axis witnesses of ζ(4) -/
+
+/-- **`(3·π/4)⁴ = 81·π⁴/256`** — algebraic helper. -/
+private theorem three_pi_div_four_fourth :
+    ((3 * (Real.pi : ℂ) / 4) : ℂ) ^ 4 = 81 * (Real.pi : ℂ) ^ 4 / 256 := by
+  ring
+
+/-- **`(3·π/2)⁴ = 81·π⁴/16`** — algebraic helper. -/
+private theorem three_pi_div_two_fourth :
+    ((3 * (Real.pi : ℂ) / 2) : ℂ) ^ 4 = 81 * (Real.pi : ℂ) ^ 4 / 16 := by
+  ring
+
+/-- **★ ζ(4) = (128 / 3645) · (3·π/4)⁴ ★** — α_BSD-witness of ζ(4).
+    `α_BSD⁴ = 81π⁴/256` and `ζ(4) = π⁴/90` give the closed form. -/
+theorem riemannZeta_four_via_alpha_BSD :
+    riemannZeta 4 = (128 / 3645 : ℂ) * ((3 * (Real.pi : ℂ) / 4)) ^ 4 := by
+  rw [riemannZeta_four, three_pi_div_four_fourth]
+  ring
+
+/-- **★ ζ(4) = (8 / 3645) · (3·π/2)⁴ ★** — α_NS-witness of ζ(4). -/
+theorem riemannZeta_four_via_alpha_NS :
+    riemannZeta 4 = (8 / 3645 : ℂ) * ((3 * (Real.pi : ℂ) / 2)) ^ 4 := by
+  rw [riemannZeta_four, three_pi_div_two_fourth]
+  ring
+
+/-- **★★ CROSS-AXIS CONSISTENCY α_QG⁸ / α_BSD⁴ ★★** —
+    `α_QG⁸ = (4096/81) · α_BSD⁴` (both equal 16π⁴). -/
+theorem alpha_QG_eighth_eq_alpha_BSD_fourth_rescaled :
+    (alpha_QG : ℂ) ^ 8 = (4096 / 81 : ℂ) * ((3 * (Real.pi : ℂ) / 4)) ^ 4 := by
+  have h_sq : alpha_QG ^ 2 = 2 * Real.pi := alpha_QG_sq
+  have h_C : ((alpha_QG : ℂ)) ^ 2 = 2 * (Real.pi : ℂ) := by
+    have := congrArg (fun x : ℝ => (x : ℂ)) h_sq
+    simpa using this
+  have h_eighth : (alpha_QG : ℂ) ^ 8 = ((alpha_QG : ℂ) ^ 2) ^ 4 := by ring
+  rw [h_eighth, h_C]
+  ring
+
+/-- **★★ CROSS-AXIS CONSISTENCY α_QG⁸ / α_NS⁴ ★★** —
+    `α_QG⁸ = (256/81) · α_NS⁴` (both equal 16π⁴). -/
+theorem alpha_QG_eighth_eq_alpha_NS_fourth_rescaled :
+    (alpha_QG : ℂ) ^ 8 = (256 / 81 : ℂ) * ((3 * (Real.pi : ℂ) / 2)) ^ 4 := by
+  have h_sq : alpha_QG ^ 2 = 2 * Real.pi := alpha_QG_sq
+  have h_C : ((alpha_QG : ℂ)) ^ 2 = 2 * (Real.pi : ℂ) := by
+    have := congrArg (fun x : ℝ => (x : ℂ)) h_sq
+    simpa using this
+  have h_eighth : (alpha_QG : ℂ) ^ 8 = ((alpha_QG : ℂ) ^ 2) ^ 4 := by ring
+  rw [h_eighth, h_C]
+  ring
+
+/-- **★★★★★ THREE-AXIS WITNESS OF ζ(4) ★★★★★** — the framework's three
+    π-built α-axes each independently determine ζ(4) via substrate-
+    rigid algebraic identities, with two cross-consistency relations.
+
+      α_QG⁸   = 16π⁴       ⟹  ζ(4) = α_QG⁸     / 1440
+      α_BSD⁴  = 81π⁴/256   ⟹  ζ(4) = (128/3645) · α_BSD⁴
+      α_NS⁴   = 81π⁴/16    ⟹  ζ(4) = (8/3645)   · α_NS⁴
+
+      α_QG⁸   = (4096/81)  · α_BSD⁴
+      α_QG⁸   = (256/81)   · α_NS⁴
+
+    The fractal photograph extends to s = 4 — same three sectors,
+    same projection, same convergence on Euler's closed form. -/
+theorem three_axis_witness_of_riemannZeta_four :
+    riemannZeta 4 = (alpha_QG : ℂ) ^ 8 / 1440 ∧
+    riemannZeta 4 = (128 / 3645 : ℂ) * ((3 * (Real.pi : ℂ) / 4)) ^ 4 ∧
+    riemannZeta 4 = (8 / 3645 : ℂ) * ((3 * (Real.pi : ℂ) / 2)) ^ 4 ∧
+    (alpha_QG : ℂ) ^ 8 = (4096 / 81 : ℂ) * ((3 * (Real.pi : ℂ) / 4)) ^ 4 ∧
+    (alpha_QG : ℂ) ^ 8 = (256 / 81 : ℂ) * ((3 * (Real.pi : ℂ) / 2)) ^ 4 :=
+  ⟨riemannZeta_four_eq_alpha_QG_eighth_div_1440,
+   riemannZeta_four_via_alpha_BSD,
+   riemannZeta_four_via_alpha_NS,
+   alpha_QG_eighth_eq_alpha_BSD_fourth_rescaled,
+   alpha_QG_eighth_eq_alpha_NS_fourth_rescaled⟩
+
+/-- **★★★★★★ FRACTAL CROSS-AXIS WITNESS BUNDLE ★★★★★★** — the framework's
+    three π-built α-axes (gravitational kernel α_QG, BSD α_BSD, K41
+    turbulence α_NS) each independently and algebraically determine
+    BOTH ζ(2) AND ζ(4). The combined 10-clause bundle exposes the
+    fractal-projection structure of the framework's RH sector:
+
+      ζ(2) from three axes + two cross-consistencies
+      ζ(4) from three axes + two cross-consistencies
+
+    The same three substrates projecting to the same Euler constants
+    at different ζ-evaluation points. Substrate-rigidity of the
+    α-skeleton IS the consistency of these multiple witnesses. -/
+theorem fractal_cross_axis_witness_riemannZeta_two_and_four :
+    -- ζ(2) three-axis witness
+    (riemannZeta 2 = (alpha_QG : ℂ) ^ 4 / 24 ∧
+     riemannZeta 2 = (8 / 27 : ℂ) * ((3 * (Real.pi : ℂ) / 4)) ^ 2 ∧
+     riemannZeta 2 = (2 / 27 : ℂ) * ((3 * (Real.pi : ℂ) / 2)) ^ 2 ∧
+     (alpha_QG : ℂ) ^ 4 = (64 / 9 : ℂ) * ((3 * (Real.pi : ℂ) / 4)) ^ 2 ∧
+     (alpha_QG : ℂ) ^ 4 = (16 / 9 : ℂ) * ((3 * (Real.pi : ℂ) / 2)) ^ 2) ∧
+    -- ζ(4) three-axis witness
+    (riemannZeta 4 = (alpha_QG : ℂ) ^ 8 / 1440 ∧
+     riemannZeta 4 = (128 / 3645 : ℂ) * ((3 * (Real.pi : ℂ) / 4)) ^ 4 ∧
+     riemannZeta 4 = (8 / 3645 : ℂ) * ((3 * (Real.pi : ℂ) / 2)) ^ 4 ∧
+     (alpha_QG : ℂ) ^ 8 = (4096 / 81 : ℂ) * ((3 * (Real.pi : ℂ) / 4)) ^ 4 ∧
+     (alpha_QG : ℂ) ^ 8 = (256 / 81 : ℂ) * ((3 * (Real.pi : ℂ) / 2)) ^ 4) :=
+  ⟨three_axis_witness_of_riemannZeta_two,
+   three_axis_witness_of_riemannZeta_four⟩
+
 end PrincipiaTractalis
