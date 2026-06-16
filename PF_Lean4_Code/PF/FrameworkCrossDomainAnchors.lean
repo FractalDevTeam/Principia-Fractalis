@@ -174,6 +174,52 @@ theorem Phi_threshold_log_prime_factorization :
   rw [Real.log_pow, Real.log_pow]
   push_cast; ring
 
+/-- **`Phi_threshold = 2·log 4 + log 25`** — log-power-grouping
+    factorization (alternative form). -/
+theorem Phi_threshold_log_power_grouping :
+    Phi_threshold = 2 * Real.log 4 + Real.log 25 := by
+  rw [Phi_threshold_log_prime_factorization]
+  have h_log_4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 from by norm_num, Real.log_pow]; push_cast; ring
+  have h_log_25 : Real.log 25 = 2 * Real.log 5 := by
+    rw [show (25 : ℝ) = 5 ^ 2 from by norm_num, Real.log_pow]; push_cast; ring
+  rw [h_log_4, h_log_25]; ring
+
+/-- **`Phi_threshold = log(16) + log(25)`** — direct prime-power log form. -/
+theorem Phi_threshold_eq_log_16_plus_log_25 :
+    Phi_threshold = Real.log 16 + Real.log 25 := by
+  rw [Phi_threshold_eq_log_400]
+  have h400 : (400 : ℝ) = 16 * 25 := by norm_num
+  rw [h400, Real.log_mul (by norm_num : (16 : ℝ) ≠ 0) (by norm_num : (25 : ℝ) ≠ 0)]
+
+/-- **`exp(Phi_threshold/2) = 20`** — half-exponential identity:
+    exp(Φ_threshold/2) saturates at exactly 20. -/
+theorem exp_half_Phi_threshold_eq_20 :
+    Real.exp (Phi_threshold / 2) = 20 := by
+  unfold Phi_threshold
+  have h_eq : 2 * Real.log 20 / 2 = Real.log 20 := by ring
+  rw [h_eq]
+  exact Real.exp_log (by norm_num : (0 : ℝ) < 20)
+
+/-- **`(1 − exp(−Phi_threshold/2))·20 = 19`** — the IIT saturation
+    identity: (1 − e^{−Φ/2}) at the threshold value equals 19/20 = ch_2.
+    This is the framework's structural bridge between ch_2 = 0.95 and
+    Phi = 2·log 20: solving 0.95 = 1 − e^{−Φ/2} gives Φ = 2·log 20. -/
+theorem iit_saturation_at_threshold :
+    (1 - Real.exp (-Phi_threshold / 2)) = 19 / 20 := by
+  have h_neg : -Phi_threshold / 2 = -(Phi_threshold / 2) := by ring
+  rw [h_neg, Real.exp_neg, exp_half_Phi_threshold_eq_20]
+  norm_num
+
+/-- **`(exp(Phi_threshold/4))² = 20`** — squared form of the quarter-
+    exponential identity. -/
+theorem exp_quarter_Phi_threshold_sq_eq_20 :
+    (Real.exp (Phi_threshold / 4)) ^ 2 = 20 := by
+  have h : Real.exp (Phi_threshold / 4) ^ 2 = Real.exp (Phi_threshold / 4 + Phi_threshold / 4) := by
+    rw [Real.exp_add]; ring
+  have h_sum : Phi_threshold / 4 + Phi_threshold / 4 = Phi_threshold / 2 := by ring
+  rw [h, h_sum, exp_half_Phi_threshold_eq_20]
+
 /-- Effective dimension threshold from ch_2 = 0.95. -/
 def effective_dim_threshold : ℕ := 20
 
