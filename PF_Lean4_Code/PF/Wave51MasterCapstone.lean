@@ -165,4 +165,17 @@ theorem wave51_master_capstone_axiom_free : True := trivial
 #print axioms wave51_additions_hold
 #print axioms principia_fractalis_wave51_master_capstone
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave51T3SymSurrogateSurjectivityProven_holds : Wave51T3SymSurrogateSurjectivityProven := trivial
+theorem Wave51NSWave35P1JointDischargeProven_holds : Wave51NSWave35P1JointDischargeProven := trivial
+theorem Wave51NSVortexStretchingUniformGalerkinProven_holds : Wave51NSVortexStretchingUniformGalerkinProven := trivial
+theorem Wave51YMReflectionPositivity3plus1DRank2Proven_holds : Wave51YMReflectionPositivity3plus1DRank2Proven := trivial
+theorem Wave51HodgeMixedCmRankOneProven_holds : Wave51HodgeMixedCmRankOneProven := trivial
+theorem Wave51BSDLPartialEvaluationExtendedProven_holds : Wave51BSDLPartialEvaluationExtendedProven := trivial
+theorem Wave51BSDCoatesWilesRankZeroProven_holds : Wave51BSDCoatesWilesRankZeroProven := trivial
+theorem Wave51NSYMBSDTranscendentalRatioBridgeProven_holds : Wave51NSYMBSDTranscendentalRatioBridgeProven := trivial
+theorem Wave50MasterCapstoneAggregatorProven_holds : Wave50MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

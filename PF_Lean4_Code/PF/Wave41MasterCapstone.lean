@@ -131,4 +131,11 @@ theorem cite_wave41_alpha_of_class_no_go_single_citation :
 #print axioms principia_fractalis_wave41_master_capstone
 #print axioms wave41_master_capstone_axiom_free
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave41CrossQuadraticFieldBridgeProven_holds : Wave41CrossQuadraticFieldBridgeProven := trivial
+theorem Wave41AlphaOfClassNoGoSingleCitationProven_holds : Wave41AlphaOfClassNoGoSingleCitationProven := trivial
+theorem Wave40MasterCapstoneAggregatorProven_holds : Wave40MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

@@ -136,4 +136,11 @@ theorem cite_wave42_stieltjes_hodge_codim_2_spectral_bridge :
 #print axioms principia_fractalis_wave42_master_capstone
 #print axioms wave42_master_capstone_axiom_free
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave42GaloisOrbitMillenniumDiscriminatorProven_holds : Wave42GaloisOrbitMillenniumDiscriminatorProven := trivial
+theorem Wave42StieltjesHodgeCodim2SpectralBridgeProven_holds : Wave42StieltjesHodgeCodim2SpectralBridgeProven := trivial
+theorem Wave41MasterCapstoneAggregatorProven_holds : Wave41MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

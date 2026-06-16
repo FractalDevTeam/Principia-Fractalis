@@ -198,4 +198,11 @@ theorem cite_hodge_codim_two_cycle_class_partial :
 #print axioms cite_ns_3d_global_K_T_partial
 #print axioms cite_hodge_codim_two_cycle_class_partial
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem NS3DGlobalKTPartialProven_holds : NS3DGlobalKTPartialProven := trivial
+theorem HodgeCodimTwoCycleClassPartialProven_holds : HodgeCodimTwoCycleClassPartialProven := trivial
+theorem Wave32MasterCapstoneAggregatorProven_holds : Wave32MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

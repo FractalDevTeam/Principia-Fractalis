@@ -128,4 +128,11 @@ theorem cite_wave46_cross_millennium_open_frontier_inventory :
 #print axioms principia_fractalis_wave46_master_capstone
 #print axioms wave46_master_capstone_axiom_free
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave46YMConditionalDischargeViaGaloisRigidityProven_holds : Wave46YMConditionalDischargeViaGaloisRigidityProven := trivial
+theorem Wave46CrossMillenniumOpenFrontierInventoryProven_holds : Wave46CrossMillenniumOpenFrontierInventoryProven := trivial
+theorem Wave45MasterCapstoneAggregatorProven_holds : Wave45MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

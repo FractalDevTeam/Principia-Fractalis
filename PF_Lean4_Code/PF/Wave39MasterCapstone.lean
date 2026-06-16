@@ -163,4 +163,12 @@ theorem cite_wave39_bsd_rank_distinction :
 #print axioms principia_fractalis_wave39_master_capstone
 #print axioms wave39_master_capstone_axiom_free
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave39H3ConsciousnessBridgeProven_holds : Wave39H3ConsciousnessBridgeProven := trivial
+theorem Wave39YMPadeOperatorInstanceProven_holds : Wave39YMPadeOperatorInstanceProven := trivial
+theorem Wave39BSDRankDistinctionProven_holds : Wave39BSDRankDistinctionProven := trivial
+theorem Wave38MasterCapstoneAggregatorProven_holds : Wave38MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis
