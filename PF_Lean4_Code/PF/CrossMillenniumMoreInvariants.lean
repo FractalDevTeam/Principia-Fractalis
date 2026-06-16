@@ -2214,6 +2214,62 @@ theorem sum_α_cubed_bracket :
   · nlinarith [h_pi_gt, h_pi_cu_gt, h_phi_lb, h_P_gt, h_QG_gt, h_pi_pos, h_QG_pos]
   · nlinarith [h_pi_lt, h_pi_cu_lt, h_phi_ub, h_P_lt, h_QG_lt, h_pi_pos, h_QG_pos]
 
+/-- **Σ α³ SHARP bracket**: `159.3 < Σ α_i³ < 159.5`. Width 0.2 — 5×
+    tighter than (159, 160). Numerical ≈ 159.44.
+
+    Σ α_i³ = 969/64 + (79/16)·α_Hodge + (243/64)·π³ + 2·α_P + 2π·α_QG.
+
+    Proof staging:
+      π³  ∈ (30.99, 31.01) via π²·π
+      2π·α_QG ∈ (15.748, 15.752) via mul_le_mul on (2π) and α_QG. -/
+theorem sum_α_cubed_sharp_bracket :
+    (159.3 : ℝ) < α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3
+                    + α_BSD ^ 3 + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3
+                    + α_QG ^ 3 ∧
+    α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3 + α_BSD ^ 3
+      + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3 + α_QG ^ 3 < (159.5 : ℝ) := by
+  rw [sum_α_cubed_skeleton_all_nine]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by nlinarith [h_pi_lt, h_pi_pos]
+  have h_pi_cu_eq : Real.pi ^ 3 = Real.pi ^ 2 * Real.pi := by ring
+  have h_pi_cu_gt : (30.99 : ℝ) < Real.pi ^ 3 := by
+    rw [h_pi_cu_eq]; nlinarith [h_pi_sq_gt, h_pi_gt, h_pi_pos]
+  have h_pi_cu_lt : Real.pi ^ 3 < (31.01 : ℝ) := by
+    rw [h_pi_cu_eq]; nlinarith [h_pi_sq_lt, h_pi_lt, h_pi_pos]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  have h_P_sq : α_P ^ 2 = 2 := by
+    unfold α_P; exact Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  have h_P_pos : (0 : ℝ) < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num)
+  have h_P_gt : (1.4142 : ℝ) < α_P := by nlinarith [h_P_sq, h_P_pos]
+  have h_P_lt : α_P < (1.4143 : ℝ) := by nlinarith [h_P_sq, h_P_pos]
+  have h_QG_sq : α_QG ^ 2 = 2 * Real.pi := α_QG_sq_eq_two_pi
+  have h_QG_pos : (0 : ℝ) < α_QG := by
+    unfold α_QG; exact Real.sqrt_pos.mpr (by linarith)
+  have h_QG_gt : (2.5066 : ℝ) < α_QG := by nlinarith [h_QG_sq, h_QG_pos, h_pi_gt]
+  have h_QG_lt : α_QG < (2.5067 : ℝ) := by nlinarith [h_QG_sq, h_QG_pos, h_pi_lt]
+  -- Stage 2π·α_QG via mul_le_mul. 2π ∈ (6.28318, 6.28320).
+  have h_2pi_gt : (6.28318 : ℝ) < 2 * Real.pi := by linarith
+  have h_2pi_lt : 2 * Real.pi < (6.28320 : ℝ) := by linarith
+  have h_2pi_pos : (0 : ℝ) < 2 * Real.pi := by linarith
+  -- 2π·α_QG lower: 6.28318·2.5066 = 15.7491
+  have h_qg_prod_lb : (6.28318 : ℝ) * 2.5066 ≤ 2 * Real.pi * α_QG := by
+    apply mul_le_mul h_2pi_gt.le h_QG_gt.le (by norm_num) h_2pi_pos.le
+  -- 2π·α_QG upper: 6.28320·2.5067 = 15.7506
+  have h_qg_prod_ub : 2 * Real.pi * α_QG ≤ (6.28320 : ℝ) * 2.5067 := by
+    apply mul_le_mul h_2pi_lt.le h_QG_lt.le h_QG_pos.le (by norm_num)
+  refine ⟨?_, ?_⟩
+  · linarith [h_pi_cu_gt, h_phi_lb, h_P_gt, h_qg_prod_lb]
+  · linarith [h_pi_cu_lt, h_phi_ub, h_P_lt, h_qg_prod_ub]
+
 /-- **Σ α⁴ numerical bracket**: `(608, 610)`. Numerical ≈ 608.5. -/
 theorem sum_α_fourth_bracket :
     (608 : ℝ) < α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4
