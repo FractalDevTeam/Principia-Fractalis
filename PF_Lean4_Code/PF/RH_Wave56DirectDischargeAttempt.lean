@@ -315,6 +315,68 @@ theorem rh_shortest_chain_discharges_riemann_hypothesis
   riemann_hypothesis_via_named_surjectivity α eigenvalues
     (rh_shortest_chain_discharges_surjectivity α eigenvalues h_chain)
 
+/-! ## §3b — Propositional equivalence of the three named gaps
+
+The three named gaps G1, G2, G3 have STRUCTURALLY IDENTICAL Prop
+bodies — each is the carrier-surjectivity claim re-anchored to a
+different framing (Mayer N→∞, Hardy band, continuous concentration).
+We record their propositional equivalence explicitly, and reduce
+the shortest-chain from 3-clause conjunction to ONE Clay-grade gap. -/
+
+/-- **G1 ↔ G2** — the Mayer N→∞ injectivity gap and the Hardy band
+    extension gap are propositionally identical, by definition unfolding. -/
+theorem G1_iff_G2 (α : ScalingParameter) (eigenvalues : ℕ → ℝ) :
+    MayerInjectivityExtendsToInfinity α eigenvalues ↔
+    HardyBandMatchesActualZeta α eigenvalues := by
+  unfold MayerInjectivityExtendsToInfinity HardyBandMatchesActualZeta
+  exact Iff.rfl
+
+/-- **G2 ↔ G3** — the Hardy band extension gap and the continuous
+    pointwise concentration gap are propositionally identical. -/
+theorem G2_iff_G3 (α : ScalingParameter) (eigenvalues : ℕ → ℝ) :
+    HardyBandMatchesActualZeta α eigenvalues ↔
+    ContinuousSpectralConcentrationOnFullZetaSet α eigenvalues := by
+  unfold HardyBandMatchesActualZeta ContinuousSpectralConcentrationOnFullZetaSet
+  exact Iff.rfl
+
+/-- **G1 ↔ G3** — Mayer N→∞ and continuous concentration are also
+    propositionally identical (transitivity of G1 ↔ G2 ↔ G3). -/
+theorem G1_iff_G3 (α : ScalingParameter) (eigenvalues : ℕ → ℝ) :
+    MayerInjectivityExtendsToInfinity α eigenvalues ↔
+    ContinuousSpectralConcentrationOnFullZetaSet α eigenvalues :=
+  (G1_iff_G2 α eigenvalues).trans (G2_iff_G3 α eigenvalues)
+
+/-- **★★★ RH RESIDUAL REDUCTION: 3-clause → 1-clause ★★★**
+    `RHShortestChain ↔ G1` — the three named gaps collapse to ONE
+    Clay-grade gap (the carrier-surjectivity claim).
+
+    Honest scope: the Wave 56 file names three gaps because they come
+    from three DIFFERENT framings (Wave 55B Mayer N→∞, Wave 54A Hardy
+    discrete-Dirac, Wave 53A continuous-measure). At the Prop level
+    they are the SAME content. This reduces the framework's named-RH-residual
+    inventory from a 3-clause conjunction to a single 1-clause carrier-
+    surjectivity gap. -/
+theorem RHShortestChain_iff_G1 (α : ScalingParameter) (eigenvalues : ℕ → ℝ) :
+    RHShortestChain α eigenvalues ↔
+    MayerInjectivityExtendsToInfinity α eigenvalues := by
+  unfold RHShortestChain
+  constructor
+  · intro ⟨h1, _, _⟩; exact h1
+  · intro h1
+    refine ⟨h1, ?_, ?_⟩
+    · exact (G1_iff_G2 α eigenvalues).mp h1
+    · exact (G1_iff_G3 α eigenvalues).mp h1
+
+/-- **One-line corollary**: under the framework's RH machinery, the
+    minimal-content RH residual is `MayerInjectivityExtendsToInfinity α e`
+    — a SINGLE Clay-grade Prop, not three. -/
+theorem rh_one_clause_residual_implies_riemann_hypothesis
+    (α : ScalingParameter) (eigenvalues : ℕ → ℝ)
+    (h_G1 : MayerInjectivityExtendsToInfinity α eigenvalues) :
+    RiemannHypothesis :=
+  rh_shortest_chain_discharges_riemann_hypothesis α eigenvalues
+    ((RHShortestChain_iff_G1 α eigenvalues).mpr h_G1)
+
 /-! ## §4 — Wave 55 anchor imports
 
 We import each of the six Wave 55 RH anchors as a theorem-level
