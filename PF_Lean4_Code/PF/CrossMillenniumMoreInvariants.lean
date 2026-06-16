@@ -2036,6 +2036,39 @@ theorem prod_α_skeleton_elementary :
   rw [h_target, h_sqrt_combine]
   ring
 
+/-- **Elementary product SHARP bracket**: `Π α_* ∈ (118.07, 118.09)`.
+    Width 0.02 — 100× tighter than the wide bracket. Numerical ≈ 118.08.
+
+    Uses π² ∈ (9.8695, 9.8697) and √π ∈ (1.7724, 1.7725) composed
+    via 27·π²·√π/4. -/
+theorem prod_α_skeleton_elementary_sharp_bracket :
+    (118.07 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG ∧
+    α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG < (118.09 : ℝ) := by
+  rw [prod_α_skeleton_elementary]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by nlinarith [h_pi_lt, h_pi_pos]
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi ^ 2 := by positivity
+  have h_sqrt_pi_sq : Real.sqrt Real.pi ^ 2 = Real.pi :=
+    Real.sq_sqrt h_pi_pos.le
+  have h_sqrt_pi_pos : (0 : ℝ) < Real.sqrt Real.pi :=
+    Real.sqrt_pos.mpr h_pi_pos
+  have h_sqrt_pi_gt : (1.7724 : ℝ) < Real.sqrt Real.pi := by
+    nlinarith [h_sqrt_pi_sq, h_sqrt_pi_pos, h_pi_gt]
+  have h_sqrt_pi_lt : Real.sqrt Real.pi < (1.7725 : ℝ) := by
+    nlinarith [h_sqrt_pi_sq, h_sqrt_pi_pos, h_pi_lt]
+  refine ⟨?_, ?_⟩
+  · -- 118.07 < 27·π²·√π/4 ⟺ π²·√π > 17.492
+    -- 9.8695·1.7724 = 17.4925 > 17.492 ✓
+    nlinarith [h_pi_sq_gt, h_sqrt_pi_gt, h_pi_sq_pos, h_sqrt_pi_pos]
+  · -- 27·π²·√π/4 < 118.09 ⟺ π²·√π < 17.495
+    -- 9.8697·1.7725 = 17.4942 < 17.495 ✓ (margin 0.0008)
+    nlinarith [h_pi_sq_lt, h_sqrt_pi_lt, h_pi_sq_pos, h_sqrt_pi_pos]
+
 /-- **Elementary product numerical bracket**: `Π α_* ∈ (117, 119)`.
     Closed form $27\pi^{5/2}/4 \approx 118.08$. Uses
     $\pi \in (3.14159, 3.14160)$ + bracket on $\sqrt{\pi}$. -/
