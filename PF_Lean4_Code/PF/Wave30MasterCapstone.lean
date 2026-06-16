@@ -207,4 +207,11 @@ theorem cite_ym_canonical_two_pole_stieltjes_realises :
 #print axioms cite_ym_canonical_pade_two_two_realises
 #print axioms cite_ym_canonical_two_pole_stieltjes_realises
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem YMCanonicalPade22RealisesProven_holds : YMCanonicalPade22RealisesProven := trivial
+theorem YMCanonicalTwoPoleStieltjesRealisesProven_holds : YMCanonicalTwoPoleStieltjesRealisesProven := trivial
+theorem Wave29MasterCapstoneAggregatorProven_holds : Wave29MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

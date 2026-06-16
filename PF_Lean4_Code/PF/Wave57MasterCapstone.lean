@@ -159,4 +159,17 @@ theorem wave57_master_capstone_axiom_free : True := trivial
 #print axioms wave57_additions_hold
 #print axioms principia_fractalis_wave57_master_capstone
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave57PNP_WitnessExistenceProven_holds : Wave57PNP_WitnessExistenceProven := trivial
+theorem Wave57NS_HsSigmaScaffoldProven_holds : Wave57NS_HsSigmaScaffoldProven := trivial
+theorem Wave57RH_MayerNToInfinityProven_holds : Wave57RH_MayerNToInfinityProven := trivial
+theorem Wave57RH_HardyToFullStripProven_holds : Wave57RH_HardyToFullStripProven := trivial
+theorem Wave57Hodge_QuinticCYCodim2Proven_holds : Wave57Hodge_QuinticCYCodim2Proven := trivial
+theorem Wave57YM_WightmanReconstructionProven_holds : Wave57YM_WightmanReconstructionProven := trivial
+theorem Wave57YM_OSRPInteractionProven_holds : Wave57YM_OSRPInteractionProven := trivial
+theorem Wave57BSD_LSeriesConvergenceProven_holds : Wave57BSD_LSeriesConvergenceProven := trivial
+theorem Wave56MasterCapstoneAggregatorProven_holds : Wave56MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

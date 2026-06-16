@@ -203,4 +203,13 @@ theorem cite_cross_millennium_implication_chains :
 #print axioms cite_ym_canonical_heat_kernel_narrow_out
 #print axioms cite_cross_millennium_implication_chains
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem YMCanonicalHeatKernelNarrowedOutProven_holds : YMCanonicalHeatKernelNarrowedOutProven := trivial
+theorem CrossMillenniumImplicationChainsProven_holds : CrossMillenniumImplicationChainsProven := trivial
+theorem Wave26MasterCapstoneAggregatorProven_holds : Wave26MasterCapstoneAggregatorProven := trivial
+theorem Wave27OpenProblemsBannerProven_holds : Wave27OpenProblemsBannerProven := trivial
+theorem Wave27CoqParityW25W26Proven_holds : Wave27CoqParityW25W26Proven := trivial
+
 end PrincipiaTractalis

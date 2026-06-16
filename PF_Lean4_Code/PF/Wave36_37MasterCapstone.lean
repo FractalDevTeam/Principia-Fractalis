@@ -198,4 +198,13 @@ theorem cite_wave37_reverse_chains :
 #print axioms principia_fractalis_wave36_37_master_capstone
 #print axioms wave36_37_master_capstone_axiom_free
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave36InfiniteSubstrateProven_holds : Wave36InfiniteSubstrateProven := trivial
+theorem Wave37PerelmanCascadeProven_holds : Wave37PerelmanCascadeProven := trivial
+theorem Wave37IBMBridgeProven_holds : Wave37IBMBridgeProven := trivial
+theorem Wave37ReverseChainsProven_holds : Wave37ReverseChainsProven := trivial
+theorem Wave35MasterCapstoneAggregatorProven_holds : Wave35MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

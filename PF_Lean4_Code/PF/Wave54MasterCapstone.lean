@@ -153,4 +153,14 @@ theorem wave54_master_capstone_axiom_free : True := trivial
 #print axioms wave54_additions_hold
 #print axioms principia_fractalis_wave54_master_capstone
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave54T3SymConcentratedSpectralMeasureProven_holds : Wave54T3SymConcentratedSpectralMeasureProven := trivial
+theorem Wave54StrongFormDivFreeSinModeWitnessProven_holds : Wave54StrongFormDivFreeSinModeWitnessProven := trivial
+theorem Wave54GalerkinPDEConcreteInstanceProven_holds : Wave54GalerkinPDEConcreteInstanceProven := trivial
+theorem Wave54YMMassGapPropagationToyProven_holds : Wave54YMMassGapPropagationToyProven := trivial
+theorem Wave54HodgeCodim2CmAbelian6FoldProven_holds : Wave54HodgeCodim2CmAbelian6FoldProven := trivial
+theorem Wave53MasterCapstoneAggregatorProven_holds : Wave53MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

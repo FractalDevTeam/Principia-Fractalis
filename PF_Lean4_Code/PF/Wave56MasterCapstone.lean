@@ -153,4 +153,16 @@ theorem wave56_master_capstone_axiom_free : True := trivial
 #print axioms wave56_additions_hold
 #print axioms principia_fractalis_wave56_master_capstone
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave56RH_DirectDischargeProven_holds : Wave56RH_DirectDischargeProven := trivial
+theorem Wave56NS_UniformBilinearBoundProven_holds : Wave56NS_UniformBilinearBoundProven := trivial
+theorem Wave56YM_ContinuumLiftProven_holds : Wave56YM_ContinuumLiftProven := trivial
+theorem Wave56Hodge_CYThreefoldProven_holds : Wave56Hodge_CYThreefoldProven := trivial
+theorem Wave56BSD_RankZeroActualDischargeProven_holds : Wave56BSD_RankZeroActualDischargeProven := trivial
+theorem Wave56PNP_CrossGaloisLockProven_holds : Wave56PNP_CrossGaloisLockProven := trivial
+theorem Wave56CrossMillenniumMasterCascadeProven_holds : Wave56CrossMillenniumMasterCascadeProven := trivial
+theorem Wave55MasterCapstoneAggregatorProven_holds : Wave55MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

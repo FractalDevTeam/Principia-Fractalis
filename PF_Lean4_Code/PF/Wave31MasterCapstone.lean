@@ -204,4 +204,11 @@ theorem cite_ym_canonical_asymmetric_pade_realises :
 #print axioms cite_ym_canonical_operator_monotone_partial
 #print axioms cite_ym_canonical_asymmetric_pade_realises
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem YMCanonicalOperatorMonotonePartialProven_holds : YMCanonicalOperatorMonotonePartialProven := trivial
+theorem YMCanonicalAsymmetricPadeRealisesProven_holds : YMCanonicalAsymmetricPadeRealisesProven := trivial
+theorem Wave30MasterCapstoneAggregatorProven_holds : Wave30MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

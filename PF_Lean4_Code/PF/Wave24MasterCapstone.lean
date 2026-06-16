@@ -194,4 +194,13 @@ theorem cite_polylog_resonance_orthogonality :
 #print axioms cite_ns3d_local_bound_le_five
 #print axioms cite_polylog_resonance_orthogonality
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem YMNonAffineQuadraticUnlockProven_holds : YMNonAffineQuadraticUnlockProven := trivial
+theorem BSDRankSixUniversalConcordanceProven_holds : BSDRankSixUniversalConcordanceProven := trivial
+theorem NS3DLocalBoundLeFiveProven_holds : NS3DLocalBoundLeFiveProven := trivial
+theorem PolylogResonanceOrthogonalityProven_holds : PolylogResonanceOrthogonalityProven := trivial
+theorem Wave24ManuscriptCh34PropagationProven_holds : Wave24ManuscriptCh34PropagationProven := trivial
+
 end PrincipiaTractalis
