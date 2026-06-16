@@ -148,6 +148,13 @@ theorem M_1_glueball_closed_form :
   have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
   field_simp
 
+/-- **Hubble closed-form** rewritten: `H_eff = 67.4 · √(1 + 0.0665·π)`. -/
+theorem Hubble_H_eff_closed_form :
+    Hubble_H_eff = 67.4 * Real.sqrt (1 + 0.0665 * Real.pi) := by
+  unfold Hubble_H_eff
+  have : (Real.pi / 10) * 0.95 * 0.7 = 0.0665 * Real.pi := by ring
+  rw [this]
+
 /-- **M_1 glueball numerical bracket**: `1770 < M_1 < 1780 MeV`.
 
     Lattice QCD measurement: 1710 MeV. Framework prediction sits within
