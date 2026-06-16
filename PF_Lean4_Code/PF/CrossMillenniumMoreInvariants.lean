@@ -2302,6 +2302,39 @@ theorem sum_α_fourth_bracket :
   · nlinarith [h_pi_sq_gt, h_pi4_gt, h_phi_lb, h_pi_sq_pos]
   · nlinarith [h_pi_sq_lt, h_pi4_lt, h_phi_ub, h_pi_sq_pos]
 
+/-- **Σ α⁴ SHARP bracket**: `608.4 < Σ α_i⁴ < 608.7`. Width 0.3 — 6×
+    tighter than (608, 610). Numerical ≈ 608.5.
+
+    Σ α_i⁴ = 8049/256 + (135/16)·α_Hodge + 4·π² + (1377/256)·π⁴.
+    Additive structure with no bilinear cross-terms; pure linarith. -/
+theorem sum_α_fourth_sharp_bracket :
+    (608.4 : ℝ) < α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4
+                    + α_BSD ^ 4 + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4
+                    + α_QG ^ 4 ∧
+    α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4 + α_BSD ^ 4
+      + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4 + α_QG ^ 4 < (608.7 : ℝ) := by
+  rw [sum_α_fourth_skeleton_all_nine]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by nlinarith [h_pi_lt, h_pi_pos]
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi ^ 2 := by positivity
+  have h_pi4_eq : Real.pi ^ 4 = (Real.pi ^ 2) ^ 2 := by ring
+  have h_pi4_gt : (97.40 : ℝ) < Real.pi ^ 4 := by
+    rw [h_pi4_eq]; nlinarith [h_pi_sq_gt, h_pi_sq_pos]
+  have h_pi4_lt : Real.pi ^ 4 < (97.42 : ℝ) := by
+    rw [h_pi4_eq]; nlinarith [h_pi_sq_lt, h_pi_sq_pos]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  refine ⟨?_, ?_⟩
+  · linarith [h_pi_sq_gt, h_pi4_gt, h_phi_lb]
+  · linarith [h_pi_sq_lt, h_pi4_lt, h_phi_ub]
+
 /-! ### ★ Full 9-instance squared-sum closed form ★ -/
 
 /-- **★ FULL 9-INSTANCE SQUARED-SUM CLOSED FORM ★** —
