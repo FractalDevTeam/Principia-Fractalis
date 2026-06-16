@@ -394,17 +394,182 @@ Session total substrate-rigidity composition files: \textbf{4} new
 (\texttt{IITSaturationIdentity}, \texttt{AlphaSkeletonExtendedLocus},
 \texttt{LambdaEffExponentProduct}, \texttt{M1Glueball}).
 
+\section{Session Continuation 2026-06-16:
+  $\alpha$-Skeleton Master-Layer Build-Up}
+\label{sec:session-continuation-2026-06-16}
+
+The session 2026-06-15 / 2026-06-16 continued with an intensive
+build-up of the $\alpha$-skeleton's algebraic content into a
+\emph{master layer capstone} bundle, plus parametric lift of the
+logarithmic layer under substrate-rigidity. Twenty-three additional
+commits landed on master, all built clean (8650--8652 jobs) and
+kernel-only.
+
+\subsection{$\alpha$-Skeleton Multiplicative-Closure Quartet}
+
+For every framework $\alpha$-instance, the closed-form $1/\alpha_i$,
+$\alpha_i^2$, $\alpha_i^3$, $\alpha_i^4$ is recorded as a one-clause
+theorem, bundled into four 9-clause layer capstones:
+
+\begin{align*}
+1/\alpha_{\text{Poincar\'e}} &= 1
+& \alpha_{\text{Poincar\'e}}^2 &= 1 \\
+1/\alpha_P &= \alpha_P / 2
+& \alpha_P^2 &= 2 \\
+1/\alpha_{\text{RH}} &= 2/3
+& \alpha_{\text{RH}}^2 &= 9/4 \\
+1/\alpha_{\text{YM}} &= 1/2
+& \alpha_{\text{YM}}^2 &= 4 \\
+1/\alpha_{\text{BSD}} &= 4/(3\pi)
+& \alpha_{\text{BSD}}^2 &= 9\pi^2/16 \\
+1/\alpha_{\text{NS}} &= 2/(3\pi)
+& \alpha_{\text{NS}}^2 &= 9\pi^2/4 \\
+1/\alpha_{\text{Hodge}} &= \alpha_{\text{Hodge}} - 1
+& \alpha_{\text{Hodge}}^2 &= \alpha_{\text{Hodge}} + 1 \\
+1/\alpha_{\text{NP}} &= (8\sqrt{5} - 12)/11
+& \alpha_{\text{NP}}^2 &= (3/2)\alpha_{\text{Hodge}} + 17/16 \\
+1/\alpha_{\text{QG}} &= \alpha_{\text{QG}}/(2\pi)
+& \alpha_{\text{QG}}^2 &= 2\pi
+\end{align*}
+
+Cubes and fourth powers follow the same pattern; bundled as
+\verb|α_skeleton_full_cubes_layer| (9-clause) and
+\verb|α_skeleton_full_fourth_power_layer| (9-clause). The locus is
+closed under inversion, squaring, cubing, and 4th-power within
+$\mathbb{Q}(\pi, \alpha_{\text{Hodge}}, \alpha_P, \alpha_{\text{QG}})$
+--- four layer capstones, axiom-free.
+
+\subsection{$\alpha$-Skeleton Logarithmic Layer}
+
+Each elementary-form $\alpha$-instance has $\log \alpha_i$ decomposed
+in the basis $\{\log 2, \log 3, \log \pi, \log \varphi\}$:
+
+\begin{align*}
+\log \alpha_{\text{Poincar\'e}} &= 0 \\
+\log \alpha_{\text{YM}} &= \log 2 \\
+\log \alpha_P &= (\log 2)/2 \\
+\log \alpha_{\text{RH}} &= \log 3 - \log 2 \\
+\log \alpha_{\text{BSD}} &= \log 3 + \log \pi - \log 4 \\
+\log \alpha_{\text{NS}} &= \log 3 + \log \pi - \log 2 \\
+\log \alpha_{\text{QG}} &= (\log 2 + \log \pi)/2 \\
+\log \alpha_{\text{Hodge}} &= \log \varphi
+\end{align*}
+
+Bundled as \verb|α_skeleton_log_layer| (8-clause). Plus the
+\emph{scalar log-sum fingerprint}:
+\[
+\sum_{i \in \text{elementary 7}} \log \alpha_i
+  = -2\log 2 + 3\log 3 + \frac{5}{2}\log \pi,
+\]
+equivalent (after exponentiation) to
+$\prod_i \alpha_i = 27\pi^{5/2}/4$. The polynomial-locus identities
+lift losslessly into log-space.
+
+\subsection{Substrate-Rigidity Composition: Log Layer Parametric}
+
+\paragraph{New file: \texttt{PF/Referee/
+  MinimalRigidityForcesAlphaSkeletonLogLayer.lean}.}
+Under the substrate-rigidity hypothesis set (UnifiedAlphaAssignment
+with UnifiedMinimalInvariants and four positivity hypotheses), all
+seven log-decomposition equalities hold parametrically. Three
+capstones:
+\verb|alpha_skeleton_log_layer_substrate_forced| (7-clause per-instance),
+\verb|log_sum_scalar_fingerprint_substrate_forced| (scalar
+fingerprint), and
+\verb|alpha_log_layer_substrate_capstone| (combined).
+
+The log-additive layer is a downstream consequence of the same
+substrate-rigidity hypothesis set that forces the polynomial
+$\alpha$-skeleton --- it is not a free addition.
+
+\subsection{Substrate-Rigidity Composition: Experimental Wins Parametric}
+
+\paragraph{New file: \texttt{PF/Referee/
+  MinimalRigidityForcesFrameworkExperimentalWins.lean}.}
+Three numerical brackets (XENON, Hubble, $M_1$ glueball) bundled under
+substrate-rigid threading. Capstone
+\verb|experimental_wins_substrate_capstone| (3-clause):
+\begin{align*}
+\Gamma/\Gamma_{\text{SM}} &\in (1.298, 1.299)
+  &\text{matches obs $1.30$ to } 0.2\% \\
+H_{\text{eff}} &\in (74, 75) \text{ km/s/Mpc}
+  &1\sigma \text{ to SH0ES } 73.04 \pm 1.04 \\
+M_1 &\in (1774, 1775) \text{ MeV}
+  &3.74\% \text{ above lattice } 1710
+\end{align*}
+
+\subsection{Sharper Empirical Brackets}
+
+Five new or sharpened numerical brackets:
+\begin{itemize}
+  \item XENON sharpened from $(1.29, 1.30)$ to
+    $(1.298, 1.299)$ via $\pi$-precision $d_6$
+  \item $M_1$ glueball sharpened from $(1770, 1780)$ to
+    $(1774, 1775)$ via $\pi$-precision $d_6$
+  \item Hubble $H_{\text{eff}} \in (74, 75)$ km/s/Mpc (NEW, via
+    \verb|Real.lt_sqrt| + \verb|Real.sqrt_lt'|)
+  \item IBM Galois-pair gap $\alpha_{\text{NP}} - \alpha_{\text{RH}}
+    \in (0.36, 0.37)$
+  \item $\alpha$-skeleton additive sum
+    $\in (18.9, 19.0)$ via $\pi$, $\sqrt{2}$, $\varphi$, $\sqrt{2\pi}$
+    brackets
+\end{itemize}
+
+Plus per-instance log brackets on $\log \alpha_{\text{YM}}$,
+$\log \alpha_P$, $\log(1/\alpha_{\text{YM}})$ at 9-digit precision
+via mathlib \verb|Real.log_two_gt_d9| / \verb|Real.log_two_lt_d9|.
+
+\subsection{Master Layer Capstone}
+
+The six layer capstones (reciprocals, squares, cubes, 4th powers,
+logs, additive sum) bundle into a single citable theorem
+\verb|α_skeleton_master_layer_capstone| --- a 6-bundle, 45-clause
+super-capstone for the framework's algebraic content. Any perturbation
+of any single $\alpha$-value cascades simultaneously into at least
+five of these layers; the sixth (additive sum) is perturbation-complete
+by construction.
+
+\subsection{Fundamental Constants Extracted from $\alpha$-Skeleton}
+
+Six-clause bundle
+\verb|fundamental_constants_extracted_from_α_skeleton| showing every
+irrational/transcendental of the locus is downstream of the
+$\alpha$-skeleton itself:
+\begin{align*}
+\pi &= \alpha_{\text{QG}}^2 / \alpha_{\text{YM}} \\
+\sqrt{2} &= \alpha_P \\
+\varphi &= \alpha_{\text{Hodge}} \\
+\sqrt{2\pi} &= \alpha_{\text{QG}} \\
+\sqrt{5} &= 2 \alpha_{\text{Hodge}} - 1 \\
+\log \pi &= 2 \log \alpha_{\text{QG}} - \log \alpha_{\text{YM}}
+\end{align*}
+
+The locus is fully self-contained: it recovers all of its own
+transcendental dependencies.
+
 \section{Cumulative Session Statistics}
 \label{sec:cumulative-stats}
 
 \begin{itemize}
-  \item \textbf{Commits on master}: 42 (range \texttt{d2c336c..HEAD}).
-  \item \textbf{Build state}: \verb|lake build| 8648 jobs clean
-    throughout the session.
-  \item \textbf{New theorems}: $\sim$390 across 42 commits.
+  \item \textbf{Commits on master}: 65 total
+    (42 initial + 23 continuation, range \texttt{d2c336c..HEAD}).
+  \item \textbf{Build state}: \verb|lake build| 8648 -- 8652 jobs
+    clean throughout the session (job count increased from new
+    substrate-rigidity composition files added in continuation).
+  \item \textbf{New theorems}: $\sim$460 across 65 commits.
   \item \textbf{Structural residual reductions}: 17 across all six
     Clay axes.
-  \item \textbf{Substrate-rigidity composition files}: 4 new.
+  \item \textbf{Substrate-rigidity composition files}: 6 new
+    (4 initial + 2 continuation:
+    \texttt{MinimalRigidityForcesAlphaSkeletonLogLayer},
+    \texttt{MinimalRigidityForcesFrameworkExperimentalWins}).
+  \item \textbf{Layer capstones}: 6 new full-skeleton layer bundles
+    (reciprocals, squares, cubes, 4th-powers, logs, additive sum),
+    composed into one 45-clause master capstone.
+  \item \textbf{Fundamental constants extraction}: 6-clause bundle
+    establishing locus self-containment.
+  \item \textbf{Sharpened/new numerical brackets}: 5 (Hubble, sharper
+    XENON, sharper $M_1$, IBM Galois gap, $\alpha$-skeleton sum).
   \item \textbf{Algebraic identity bundle}: extended from 16 clauses
     to 29 simultaneous identities, forced parametrically under
     substrate-rigidity.
