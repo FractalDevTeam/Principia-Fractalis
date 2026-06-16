@@ -1365,6 +1365,13 @@ theorem sqrt_2pi_extracted_from_α_skeleton :
     Real.sqrt (2 * Real.pi) = α_QG := by
   unfold α_QG; rfl
 
+/-- **`√5 = 2·α_Hodge − 1`** — extracting √5 from the α-skeleton via
+    α_Hodge = φ = (1+√5)/2. -/
+theorem sqrt5_extracted_from_α_skeleton :
+    Real.sqrt 5 = 2 * α_Hodge - 1 := by
+  unfold α_Hodge phi
+  ring
+
 /-- **`log π = 2·log α_QG − log α_YM`** — log-space π extraction. -/
 theorem log_pi_extracted_from_α_skeleton :
     Real.log Real.pi = 2 * Real.log α_QG - Real.log α_YM := by
@@ -1393,11 +1400,13 @@ theorem fundamental_constants_extracted_from_α_skeleton :
     Real.sqrt 2 = α_P ∧
     phi = α_Hodge ∧
     Real.sqrt (2 * Real.pi) = α_QG ∧
+    Real.sqrt 5 = 2 * α_Hodge - 1 ∧
     Real.log Real.pi = 2 * Real.log α_QG - Real.log α_YM :=
   ⟨pi_extracted_from_α_skeleton,
    sqrt2_extracted_from_α_skeleton,
    phi_extracted_from_α_skeleton,
    sqrt_2pi_extracted_from_α_skeleton,
+   sqrt5_extracted_from_α_skeleton,
    log_pi_extracted_from_α_skeleton⟩
 
 /-! ## Section 2M — α-SKELETON MASTER LAYER CAPSTONE -/
