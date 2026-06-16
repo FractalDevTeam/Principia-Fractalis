@@ -939,6 +939,67 @@ theorem α_NP_Q_phi_tower :
   unfold α_NP α_Hodge
   ring
 
+/-! ### ★ Full power-tower capstone ★ -/
+
+/-- **★ FULL POWER-TOWER CAPSTONE ★** — single citable bundle covering
+    the four multiplicative-substructure towers of the framework's
+    non-rational/non-π α-instances:
+
+    1. α_Hodge Q(φ)-tower with Fibonacci coefficients (8-clause)
+    2. α_NP   Q(φ)-tower with (5/4)-recurrence (6-clause)
+    3. α_P    Q(√2)-tower parity-bigraded (8-clause)
+    4. α_QG   Q(π, α_QG)-tower parity-bigraded (8-clause)
+
+    Total: 30 closed-form power identities. Each tower exposes the
+    distinct multiplicative algebra of its axis:
+
+    - φ-tower:   Fibonacci recurrence (Q[α_Hodge])
+    - α_NP:      affine recurrence in Q[α_Hodge]
+    - √2-tower:  doubling-up parity ladder (Q[α_P])
+    - α_QG:      π-graded parity ladder (Q[π][α_QG])
+
+    The framework's four irrationals {φ, φ+1/4, √2, √(2π)} all
+    expose distinct algebraic-tower structures. -/
+theorem full_power_tower_capstone :
+    -- Tower 1: α_Hodge Fibonacci
+    (α_Hodge ^ 1 = α_Hodge ∧
+     α_Hodge ^ 2 = 1 * α_Hodge + 1 ∧
+     α_Hodge ^ 3 = 2 * α_Hodge + 1 ∧
+     α_Hodge ^ 4 = 3 * α_Hodge + 2 ∧
+     α_Hodge ^ 5 = 5 * α_Hodge + 3 ∧
+     α_Hodge ^ 6 = 8 * α_Hodge + 5 ∧
+     α_Hodge ^ 7 = 13 * α_Hodge + 8 ∧
+     α_Hodge ^ 8 = 21 * α_Hodge + 13) ∧
+    -- Tower 2: α_NP Q(φ)
+    (α_NP ^ 1 = α_Hodge + 1/4 ∧
+     α_NP ^ 2 = (3/2) * α_Hodge + 17/16 ∧
+     α_NP ^ 3 = (47/16) * α_Hodge + 113/64 ∧
+     α_NP ^ 4 = (87/16) * α_Hodge + 865/256 ∧
+     α_NP ^ 5 = (2605/256) * α_Hodge + 6433/1024 ∧
+     α_NP ^ 6 = (9729/512) * α_Hodge + 48113/4096) ∧
+    -- Tower 3: α_P Q(√2)
+    (α_P ^ 1 = α_P ∧
+     α_P ^ 2 = 2 ∧
+     α_P ^ 3 = 2 * α_P ∧
+     α_P ^ 4 = 4 ∧
+     α_P ^ 5 = 4 * α_P ∧
+     α_P ^ 6 = 8 ∧
+     α_P ^ 7 = 8 * α_P ∧
+     α_P ^ 8 = 16) ∧
+    -- Tower 4: α_QG Q(π, α_QG)
+    (α_QG ^ 1 = α_QG ∧
+     α_QG ^ 2 = 2 * Real.pi ∧
+     α_QG ^ 3 = 2 * Real.pi * α_QG ∧
+     α_QG ^ 4 = 4 * Real.pi ^ 2 ∧
+     α_QG ^ 5 = 4 * Real.pi ^ 2 * α_QG ∧
+     α_QG ^ 6 = 8 * Real.pi ^ 3 ∧
+     α_QG ^ 7 = 8 * Real.pi ^ 3 * α_QG ∧
+     α_QG ^ 8 = 16 * Real.pi ^ 4) :=
+  ⟨α_Hodge_fibonacci_tower,
+   α_NP_Q_phi_tower,
+   α_P_Q_sqrt2_tower,
+   α_QG_Q_pi_alpha_QG_tower⟩
+
 /-- **`1/α_Hodge = α_Hodge − 1`** — the canonical golden-ratio reciprocal
     identity, instantiated on the framework's Hodge α-value.
 
