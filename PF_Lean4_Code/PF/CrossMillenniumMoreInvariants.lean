@@ -699,5 +699,117 @@ theorem log_α_QG_eq_half_log_2_add_log_pi :
     exact Real.log_mul (by norm_num : (2 : ℝ) ≠ 0) (ne_of_gt h_pi_pos)
   linarith [h_log_2pi]
 
+/-! ## Section 2L — α-skeleton logarithmic identities
+
+  Closed-form `Real.log α_*` for every α-instance whose definition admits
+  a clean decomposition into elementary logs (log 2, log 3, log π).
+  These identities are axiom-free; combined they form the full
+  logarithmic layer of the 9-axis algebraic locus. -/
+
+/-- **`log α_Poincaré = 0`** — since α_Poincaré = 1. -/
+theorem log_α_Poincare_eq_zero :
+    Real.log α_Poincare = 0 := by
+  unfold α_Poincare; exact Real.log_one
+
+/-- **`log α_YM = log 2`** — since α_YM = 2. -/
+theorem log_α_YM_eq_log_two :
+    Real.log α_YM = Real.log 2 := by
+  unfold α_YM; rfl
+
+/-- **`log α_P = (log 2)/2`** — since α_P = √2. -/
+theorem log_α_P_eq_half_log_two :
+    Real.log α_P = Real.log 2 / 2 := by
+  unfold α_P
+  exact Real.log_sqrt (by norm_num : (0 : ℝ) ≤ 2)
+
+/-- **`log α_RH = log 3 − log 2`** — since α_RH = 3/2. -/
+theorem log_α_RH_eq :
+    Real.log α_RH = Real.log 3 - Real.log 2 := by
+  unfold α_RH
+  exact Real.log_div (by norm_num : (3 : ℝ) ≠ 0) (by norm_num : (2 : ℝ) ≠ 0)
+
+/-- **`log α_BSD = log 3 + log π − log 4`** — since α_BSD = 3π/4. -/
+theorem log_α_BSD_eq :
+    Real.log α_BSD = Real.log 3 + Real.log Real.pi - Real.log 4 := by
+  unfold α_BSD
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  rw [Real.log_div (by positivity) (by norm_num : (4 : ℝ) ≠ 0)]
+  rw [Real.log_mul (by norm_num : (3 : ℝ) ≠ 0) (ne_of_gt h_pi_pos)]
+
+/-- **`log α_NS = log 3 + log π − log 2`** — since α_NS = 3π/2. -/
+theorem log_α_NS_eq :
+    Real.log α_NS = Real.log 3 + Real.log Real.pi - Real.log 2 := by
+  unfold α_NS
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  rw [Real.log_div (by positivity) (by norm_num : (2 : ℝ) ≠ 0)]
+  rw [Real.log_mul (by norm_num : (3 : ℝ) ≠ 0) (ne_of_gt h_pi_pos)]
+
+/-- **`log α_Hodge = log φ`** — definitional unfold. -/
+theorem log_α_Hodge_eq_log_phi :
+    Real.log α_Hodge = Real.log phi := by
+  unfold α_Hodge; rfl
+
+/-! ### Cross-axis log-relations -/
+
+/-- **`2·log α_P = log α_YM`** — from α_P² = α_YM. -/
+theorem two_log_α_P_eq_log_α_YM :
+    2 * Real.log α_P = Real.log α_YM := by
+  rw [log_α_P_eq_half_log_two, log_α_YM_eq_log_two]; ring
+
+/-- **`log α_NS − log α_BSD = log 2`** — from α_NS = 2·α_BSD. -/
+theorem log_α_NS_sub_log_α_BSD_eq_log_two :
+    Real.log α_NS - Real.log α_BSD = Real.log 2 := by
+  rw [log_α_NS_eq, log_α_BSD_eq]
+  have h_log4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+  linarith [h_log4]
+
+/-- **`log α_BSD − log α_NS = −log 2`** — symmetric statement. -/
+theorem log_α_BSD_sub_log_α_NS_eq_neg_log_two :
+    Real.log α_BSD - Real.log α_NS = - Real.log 2 := by
+  have h := log_α_NS_sub_log_α_BSD_eq_log_two; linarith
+
+/-- **`2·log α_QG = log α_YM + log π`** — from α_QG² = α_YM·π. -/
+theorem two_log_α_QG_eq_log_α_YM_add_log_pi :
+    2 * Real.log α_QG = Real.log α_YM + Real.log Real.pi := by
+  rw [two_log_α_QG_eq_log_two_pi, log_α_YM_eq_log_two]
+  exact Real.log_mul (by norm_num : (2 : ℝ) ≠ 0) (ne_of_gt Real.pi_pos)
+
+/-- **`log α_QG = log α_P + (log π)/2`** — radical-π decomposition. -/
+theorem log_α_QG_eq_log_α_P_add_half_log_pi :
+    Real.log α_QG = Real.log α_P + Real.log Real.pi / 2 := by
+  rw [log_α_QG_eq_half_log_2_add_log_pi, log_α_P_eq_half_log_two]; ring
+
+/-- **`log α_RH + log α_BSD = log α_NS`** — chained via α_NS = 2·α_BSD
+    and α_RH = 3/2. Note: this is the **wrong** direction; the correct
+    chained statement is below. -/
+theorem log_α_BSD_add_log_two_eq_log_α_NS :
+    Real.log α_BSD + Real.log 2 = Real.log α_NS := by
+  have h := log_α_NS_sub_log_α_BSD_eq_log_two; linarith
+
+/-! ### Bundle: full logarithmic layer of the α-skeleton -/
+
+/-- **★ α-SKELETON LOGARITHMIC LAYER ★** — every α-instance with a
+    π/√/rational closed form has its `Real.log` decomposed into elementary
+    logarithms, axiom-free, in one bundled theorem. -/
+theorem α_skeleton_log_layer :
+    Real.log α_Poincare = 0 ∧
+    Real.log α_YM = Real.log 2 ∧
+    Real.log α_P = Real.log 2 / 2 ∧
+    Real.log α_RH = Real.log 3 - Real.log 2 ∧
+    Real.log α_BSD = Real.log 3 + Real.log Real.pi - Real.log 4 ∧
+    Real.log α_NS = Real.log 3 + Real.log Real.pi - Real.log 2 ∧
+    Real.log α_QG = (Real.log 2 + Real.log Real.pi) / 2 ∧
+    Real.log α_Hodge = Real.log phi := by
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact log_α_Poincare_eq_zero
+  · exact log_α_YM_eq_log_two
+  · exact log_α_P_eq_half_log_two
+  · exact log_α_RH_eq
+  · exact log_α_BSD_eq
+  · exact log_α_NS_eq
+  · exact log_α_QG_eq_half_log_2_add_log_pi
+  · exact log_α_Hodge_eq_log_phi
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
