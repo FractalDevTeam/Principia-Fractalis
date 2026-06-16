@@ -100,6 +100,42 @@ theorem Lambda_eff_exponent_product_formula :
   unfold Lambda_eff_exponent_product N_78pi consciousness_threshold_capstone Rf_QG_unit_modulus_capstone
   ring
 
+/-- **Closed-form rational**: the Λ_eff exponent product
+    factors as `(14079 / 160) · π` since
+    `78 · (19/20) · (19/16) = 78 · 361/320 = 14079/160`.
+
+    With `0.95 = 19/20` and `1.1875 = 19/16` (the Dirichlet-truncated
+    Rf modulus), the product collapses to the rational fraction
+    14079/160 multiplied by π. -/
+theorem Lambda_eff_exponent_product_rational_form :
+    Lambda_eff_exponent_product = 14079 * Real.pi / 160 := by
+  rw [Lambda_eff_exponent_product_formula]
+  ring
+
+/-- **Λ_eff exponent product is positive**. -/
+theorem Lambda_eff_exponent_product_pos :
+    0 < Lambda_eff_exponent_product := by
+  rw [Lambda_eff_exponent_product_rational_form]
+  have hpi : 0 < Real.pi := Real.pi_pos
+  positivity
+
+/-- **Numerical bracket**: 276.4 < Λ_eff_exponent_product < 276.5
+    (using `π ∈ (3.14159, 3.14160)`). The framework target is `120 log 10 ≈ 276.31`,
+    so this product is within ~0.04% of the cosmological requirement. -/
+theorem Lambda_eff_exponent_product_bracket :
+    (276.4 : ℝ) < Lambda_eff_exponent_product ∧
+    Lambda_eff_exponent_product < (276.5 : ℝ) := by
+  rw [Lambda_eff_exponent_product_rational_form]
+  have h_lower : (3.14159 : ℝ) < Real.pi := by
+    have h := Real.pi_gt_d6; linarith
+  have h_upper : Real.pi < (3.14160 : ℝ) := by
+    have h := Real.pi_lt_d6; linarith
+  refine ⟨?_, ?_⟩
+  · -- 276.4 < 14079π/160
+    nlinarith [h_lower]
+  · -- 14079π/160 < 276.5
+    nlinarith [h_upper]
+
 /-! ## Step 6: identification with `120·log 10`
 
     Numerically: 78 · 3.14159 · 0.95 · 1.1875 ≈ 276.43
