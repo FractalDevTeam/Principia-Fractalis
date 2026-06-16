@@ -199,6 +199,37 @@ theorem α_Hodge_fibonacci_recurrence_at_6 :
   rw [α_Hodge_eighth, α_Hodge_seventh, α_Hodge_sixth]
   ring
 
+/-- **★ α_HODGE POWER TOWER: FIBONACCI STRUCTURE ★** —
+    8-clause bundle revealing the Fibonacci-coefficient structure of
+    the φ-tower:
+
+    | n | α_Hodge^n          | (F_n, F_{n-1}) |
+    |---|--------------------|----------------|
+    | 1 | α_Hodge            | (1, 0)         |
+    | 2 | 1·α_Hodge + 1      | (1, 1)         |
+    | 3 | 2·α_Hodge + 1      | (2, 1)         |
+    | 4 | 3·α_Hodge + 2      | (3, 2)         |
+    | 5 | 5·α_Hodge + 3      | (5, 3)         |
+    | 6 | 8·α_Hodge + 5      | (8, 5)         |
+    | 7 | 13·α_Hodge + 8     | (13, 8)        |
+    | 8 | 21·α_Hodge + 13    | (21, 13)       |
+
+    The Fibonacci numbers F_n = F_{n−1} + F_{n−2} emerge as the
+    coefficients of α_Hodge^n in the Q(α_Hodge) basis representation. -/
+theorem α_Hodge_fibonacci_tower :
+    α_Hodge ^ 1 = α_Hodge ∧
+    α_Hodge ^ 2 = 1 * α_Hodge + 1 ∧
+    α_Hodge ^ 3 = 2 * α_Hodge + 1 ∧
+    α_Hodge ^ 4 = 3 * α_Hodge + 2 ∧
+    α_Hodge ^ 5 = 5 * α_Hodge + 3 ∧
+    α_Hodge ^ 6 = 8 * α_Hodge + 5 ∧
+    α_Hodge ^ 7 = 13 * α_Hodge + 8 ∧
+    α_Hodge ^ 8 = 21 * α_Hodge + 13 := by
+  refine ⟨?_, ?_, α_Hodge_cubed, α_Hodge_fourth, α_Hodge_fifth,
+          α_Hodge_sixth, α_Hodge_seventh, α_Hodge_eighth⟩
+  · ring
+  · rw [α_Hodge_sq_eq_self_plus_one]; ring
+
 /-! ## Section 2c — π-built α extensions: higher powers of α_QG, α_NS, α_BSD
 
     The π-built α-values (α_QG = √(2π), α_NS = 3π/2, α_BSD = 3π/4)
