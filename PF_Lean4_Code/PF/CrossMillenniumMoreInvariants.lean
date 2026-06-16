@@ -661,5 +661,25 @@ theorem α_P_sq_mul_α_QG_sq :
     α_P ^ 2 * α_QG ^ 2 = 4 * Real.pi := by
   rw [α_P_sq_eq_α_YM, α_QG_sq_eq_two_pi]; unfold α_YM; ring
 
+/-! ## Section 2j — Higher powers of α_NP -/
+
+/-- **`α_NP³ = (47/16)·α_Hodge + 113/64`** — extending α_NP² to cube. -/
+theorem α_NP_cubed :
+    α_NP ^ 3 = (47/16) * α_Hodge + 113/64 := by
+  unfold α_NP α_Hodge
+  have h := phi_sq_eq
+  nlinarith [h]
+
+/-- **`α_NP_fourth_form`**: `α_NP⁴ = (47/16)·(α_Hodge·α_NP) + (113/64)·α_NP`. -/
+theorem α_NP_fourth_chained :
+    α_NP ^ 4 = α_NP * α_NP ^ 3 := by ring
+
+/-- **`α_NP · α_Hodge` chained form via α_Hodge_mul_α_NP**:
+    `α_NP · α_Hodge = α_Hodge · α_NP = (5/4)·α_Hodge + 1`. -/
+theorem α_NP_mul_α_Hodge :
+    α_NP * α_Hodge = (5/4) * α_Hodge + 1 := by
+  rw [mul_comm]
+  exact α_Hodge_mul_α_NP
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
