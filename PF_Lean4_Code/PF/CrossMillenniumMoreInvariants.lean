@@ -848,6 +848,24 @@ theorem α_skeleton_full_squares_layer :
     have h := phi_sq_eq
     nlinarith [h]
 
+/-! ### ★ Scalar fingerprint: full 9-instance additive sum ★ -/
+
+/-- **★ α-SKELETON FULL 9-INSTANCE SUM ★** — the additive scalar
+    fingerprint of the locus:
+
+    Σ_i α_i = α_Poincaré + α_P + α_RH + α_YM + α_BSD + α_NS
+            + α_Hodge + α_NP + α_QG
+            = (19/4) + α_P + (9π/4) + 2·α_Hodge + α_QG
+
+    Closed form in Q(π, α_P, α_Hodge, α_QG). Any perturbation of any
+    single α perturbs this scalar. -/
+theorem α_skeleton_sum_closed_form :
+    α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+      + α_Hodge + α_NP + α_QG
+    = (19/4) + α_P + (9 * Real.pi / 4) + 2 * α_Hodge + α_QG := by
+  unfold α_Poincare α_RH α_YM α_BSD α_NS α_NP α_Hodge
+  ring
+
 /-! ### ★ Capstone: full 9-instance 4th-power layer ★ -/
 
 /-- **`α_Poincaré⁴ = 1`**. -/
