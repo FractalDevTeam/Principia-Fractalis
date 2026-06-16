@@ -841,14 +841,81 @@ $F_n \varphi + F_{n-1}$ composed with the 10-digit
 \verb|phi_in_interval_10digit|; any perturbation of $\varphi$ at
 $10^{-5}$ level is visible in at least one of the seven brackets.
 
+\section{Wave 6: Sharp-Bracket Substrate Saturation}
+\label{sec:wave6-2026-06-16}
+
+A sixth and final wave landed the substrate-rigidity composition for
+the entire sharp-bracket layer and a sharpened elementary-7 product
+bracket:
+
+\subsection{Sharp-bracket referee-saturation substrate theorem}
+
+\paragraph{New file: \texttt{PF/Referee/
+  MinimalRigidityForcesSharpBracketSaturation.lean}.}
+Single citable theorem
+\verb|unified_minimal_forces_sharp_bracket_saturation| composing 8
+substrate-rigid clauses, one per sharp/ultra-sharp bracket:
+
+\begin{itemize}
+  \item (S1) XENON $\Gamma/\Gamma_{\text{SM}} \in (1.2984, 1.2985)$
+  \item (S2) Hubble $H_{\text{eff}} \in (74.09, 74.12)$
+  \item (S3) $M_1$ glueball $\in (1774.4, 1774.6)$
+  \item (S4) IBM Galois gap $\in (0.367, 0.369)$
+  \item (S5) $\Lambda_{\text{eff}}$ exponent product $\in (276.44, 276.45)$
+  \item (S6) P discriminant $\in (2.16, 2.17)$
+  \item (S7) $\Sigma \alpha \in (18.97, 18.98)$
+  \item (S8) $\Sigma \alpha^2 \in (49.39, 49.41)$
+\end{itemize}
+
+Under the substrate-rigidity hypothesis set, every sharp bracket
+holds parametrically. The substrate's reach is now at the
+referee-saturated precision regime — any plausible perturbation of
+any $\alpha$-instance at parts-per-thousand level breaks at least
+one bracket endpoint.
+
+Seven substrate-rigidity composition files this session:
+\begin{enumerate}
+  \item \texttt{AlphaSkeletonLogLayer}
+  \item \texttt{FrameworkExperimentalWins}
+  \item \texttt{AlphaSkeletonMasterCapstone}
+  \item \texttt{AlphaPowerTowers}
+  \item \texttt{ScalarFingerprints}
+  \item \texttt{SubstrateRigidityEndToEndMetaCapstone}
+  \item \texttt{SharpBracketSaturation} (this wave)
+\end{enumerate}
+
+\subsection{Elementary 7-product sharp bracket}
+
+\verb|prod_α_skeleton_elementary_sharp_bracket|: $\Pi_{7} \alpha_i
+\in (118.07, 118.09)$, width 0.02 — $100\times$ tighter than the prior
+$(117, 119)$. Numerical $27 \pi^{5/2}/4 \approx 118.080$.
+
+Components composed via \texttt{nlinarith}:
+$\pi^2 \in (9.8695, 9.8697)$, $\sqrt{\pi} \in (1.7724, 1.7725)$.
+
+Six scalar fingerprints now have brackets:
+\begin{tabular}{|l|c|c|}
+\hline
+Scalar & Bracket & Width \\
+\hline
+$\Sigma \alpha$  & $(18.97, 18.98)$        & 0.01 \\
+$\Sigma \alpha^2$ & $(49.39, 49.41)$        & 0.02 \\
+$\Sigma \alpha^3$ & $(159, 160)$            & 1 \\
+$\Sigma \alpha^4$ & $(608, 610)$            & 2 \\
+$\Pi_{7} \alpha$  & $(118.07, 118.09)$      & 0.02 (SHARP) \\
+$\Pi_{9} \alpha$  & $(300, 400)$            & 100 \\
+\hline
+\end{tabular}
+
 \section{Cumulative Session Statistics}
 \label{sec:cumulative-stats}
 
 \begin{itemize}
-  \item \textbf{Commits on master}: 96 total
+  \item \textbf{Commits on master}: 100 total
     (42 initial + 23 first continuation + 7 power-tower continuation
     + 7 scalar-fingerprint wave + 3 meta-capstone wave
-    + 14 bracket-sharpening wave, range \texttt{d2c336c..HEAD}).
+    + 14 bracket-sharpening wave + 4 sharp-bracket-saturation wave,
+    range \texttt{d2c336c..HEAD}).
   \item \textbf{Build state}: \verb|lake build| 8648 -- 8652 jobs
     clean throughout the session (job count increased from new
     substrate-rigidity composition files added in continuation).
