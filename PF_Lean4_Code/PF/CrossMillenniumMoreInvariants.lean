@@ -2402,6 +2402,70 @@ theorem prod_α_skeleton_all_nine_bracket :
                h_pi_sq_pos, h_sqrt_pi_pos, h_t_pos,
                mul_pos h_pi_sq_pos h_sqrt_pi_pos]
 
+/-- **Full 9-product SHARP bracket**: `Π α_i ∈ (350, 365)`.
+    Width 15 — 7× tighter than (300, 400). Numerical ≈ 356.95.
+
+    Proof via 2-stage product bracketing:
+      c = 27·π²·√π/16 ∈ (29.51, 29.52)
+      t = 5·α_Hodge + 4 ∈ (12.090, 12.091)
+      Π_{9} = c·t ∈ (29.51·12.090, 29.52·12.091) = (356.78, 356.94). -/
+theorem prod_α_skeleton_all_nine_sharp_bracket :
+    (350 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+                  * α_Hodge * α_NP ∧
+    α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+                  * α_Hodge * α_NP < (365 : ℝ) := by
+  rw [prod_α_skeleton_all_nine]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by nlinarith [h_pi_lt, h_pi_pos]
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi ^ 2 := by positivity
+  have h_sqrt_pi_sq : Real.sqrt Real.pi ^ 2 = Real.pi :=
+    Real.sq_sqrt h_pi_pos.le
+  have h_sqrt_pi_pos : (0 : ℝ) < Real.sqrt Real.pi :=
+    Real.sqrt_pos.mpr h_pi_pos
+  have h_sqrt_pi_gt : (1.7724 : ℝ) < Real.sqrt Real.pi := by
+    nlinarith [h_sqrt_pi_sq, h_sqrt_pi_pos, h_pi_gt]
+  have h_sqrt_pi_lt : Real.sqrt Real.pi < (1.7725 : ℝ) := by
+    nlinarith [h_sqrt_pi_sq, h_sqrt_pi_pos, h_pi_lt]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  -- Stage 1: bound c = 27·π²·√π/16 ∈ (29.51, 29.52)
+  have h_c_gt : (29.51 : ℝ) < 27 * Real.pi ^ 2 * Real.sqrt Real.pi / 16 := by
+    nlinarith [h_pi_sq_gt, h_sqrt_pi_gt, h_pi_sq_pos, h_sqrt_pi_pos]
+  have h_c_lt : 27 * Real.pi ^ 2 * Real.sqrt Real.pi / 16 < (29.53 : ℝ) := by
+    nlinarith [h_pi_sq_lt, h_sqrt_pi_lt, h_pi_sq_pos, h_sqrt_pi_pos]
+  have h_c_pos : (0 : ℝ) < 27 * Real.pi ^ 2 * Real.sqrt Real.pi / 16 := by
+    positivity
+  -- Stage 2: bound t = 5·α_Hodge + 4 ∈ (12.090, 12.091)
+  have h_t_gt : (12.090 : ℝ) < 5 * α_Hodge + 4 := by linarith
+  have h_t_lt : 5 * α_Hodge + 4 < (12.091 : ℝ) := by linarith
+  have h_t_pos : (0 : ℝ) < 5 * α_Hodge + 4 := by linarith
+  -- Stage 3: c·t bracket via mul_lt_mul
+  -- Need to rewrite goal as c·t
+  have h_eq : 27 * Real.pi ^ 2 * Real.sqrt Real.pi * (5 * α_Hodge + 4) / 16
+            = (27 * Real.pi ^ 2 * Real.sqrt Real.pi / 16) * (5 * α_Hodge + 4) := by
+    ring
+  rw [h_eq]
+  refine ⟨?_, ?_⟩
+  · -- 350 < c·t. Use c > 29.51 and t > 12.090:
+    -- 29.51 · 12.090 = 356.78 > 350
+    have h_prod_lb : (29.51 : ℝ) * 12.090 ≤
+        (27 * Real.pi ^ 2 * Real.sqrt Real.pi / 16) * (5 * α_Hodge + 4) := by
+      apply mul_le_mul h_c_gt.le h_t_gt.le (by norm_num) h_c_pos.le
+    linarith [h_prod_lb]
+  · -- c·t < 365. Use c < 29.53 and t < 12.091:
+    -- 29.53 · 12.091 = 357.05 < 365
+    have h_prod_ub : (27 * Real.pi ^ 2 * Real.sqrt Real.pi / 16) * (5 * α_Hodge + 4)
+        ≤ (29.53 : ℝ) * 12.091 := by
+      apply mul_le_mul h_c_lt.le h_t_lt.le h_t_pos.le (by norm_num)
+    linarith [h_prod_ub]
+
 /-- **Full 9-product positivity**: the full 9-product is positive,
     since each α-instance is positive. -/
 theorem prod_α_skeleton_all_nine_pos :
