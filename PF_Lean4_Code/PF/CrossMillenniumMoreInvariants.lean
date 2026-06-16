@@ -193,6 +193,58 @@ theorem α_Hodge_fibonacci_recurrence_at_5 :
   rw [α_Hodge_seventh, α_Hodge_sixth, α_Hodge_fifth]
   ring
 
+/-- **Fibonacci recurrence at level 6**: `α_Hodge^8 = α_Hodge^7 + α_Hodge^6`. -/
+theorem α_Hodge_fibonacci_recurrence_at_6 :
+    α_Hodge ^ 8 = α_Hodge ^ 7 + α_Hodge ^ 6 := by
+  rw [α_Hodge_eighth, α_Hodge_seventh, α_Hodge_sixth]
+  ring
+
+/-! ## Section 2c — π-built α extensions: higher powers of α_QG, α_NS, α_BSD
+
+    The π-built α-values (α_QG = √(2π), α_NS = 3π/2, α_BSD = 3π/4)
+    have clean closed-form powers via the defining identities. We
+    record selected even powers for cross-reference. -/
+
+/-- **`α_QG⁶ = 8·π³`**: (√(2π))⁶ = (2π)³ = 8π³. -/
+theorem α_QG_sixth : α_QG ^ 6 = 8 * Real.pi ^ 3 := by
+  have h2 := α_QG_sq_eq_two_pi
+  have : α_QG ^ 6 = (α_QG ^ 2) ^ 3 := by ring
+  rw [this, h2]; ring
+
+/-- **`α_QG⁸ = 16·π⁴`**: (√(2π))⁸ = (2π)⁴ = 16π⁴. -/
+theorem α_QG_eighth : α_QG ^ 8 = 16 * Real.pi ^ 4 := by
+  have h2 := α_QG_sq_eq_two_pi
+  have : α_QG ^ 8 = (α_QG ^ 2) ^ 4 := by ring
+  rw [this, h2]; ring
+
+/-- **`α_NS² = 9π²/4`**: direct from α_NS = 3π/2. -/
+theorem α_NS_sq : α_NS ^ 2 = 9 * Real.pi ^ 2 / 4 := by
+  unfold α_NS; ring
+
+/-- **`α_NS³ = 27π³/8`**: direct from α_NS = 3π/2. -/
+theorem α_NS_cubed : α_NS ^ 3 = 27 * Real.pi ^ 3 / 8 := by
+  unfold α_NS; ring
+
+/-- **`α_BSD² = 9π²/16`**: direct from α_BSD = 3π/4. -/
+theorem α_BSD_sq : α_BSD ^ 2 = 9 * Real.pi ^ 2 / 16 := by
+  unfold α_BSD; ring
+
+/-- **`α_BSD³ = 27π³/64`**: direct from α_BSD = 3π/4. -/
+theorem α_BSD_cubed : α_BSD ^ 3 = 27 * Real.pi ^ 3 / 64 := by
+  unfold α_BSD; ring
+
+/-- **`α_NS² = 4·α_BSD²`** — the L5 identity α_NS = 2·α_BSD squared. -/
+theorem α_NS_sq_eq_four_α_BSD_sq : α_NS ^ 2 = 4 * α_BSD ^ 2 := by
+  rw [α_NS_sq, α_BSD_sq]; ring
+
+/-- **`α_NS · α_BSD = 9π²/8`**: cross-product cleaned. -/
+theorem α_NS_mul_α_BSD : α_NS * α_BSD = 9 * Real.pi ^ 2 / 8 := by
+  unfold α_NS α_BSD; ring
+
+/-- **`α_QG² · α_RH² = 9π/2`**: product of π-built × rational squared. -/
+theorem α_QG_sq_mul_α_RH_sq : α_QG ^ 2 * α_RH ^ 2 = 9 * Real.pi / 2 := by
+  rw [α_QG_sq_eq_two_pi, α_RH_sq_eq_nine_fourths]; ring
+
 /-! ## Section 3 — Mixed-product invariants (algebraic × algebraic) -/
 
 /-- **`α_P · α_RH = (3/2) · α_P`**: trivial scalar factor, recorded
