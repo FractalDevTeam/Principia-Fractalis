@@ -740,6 +740,34 @@ theorem one_div_α_NP_closed_form :
   field_simp
   linarith [h_product]
 
+/-- **`1/α_Hodge = α_Hodge − 1`** — the canonical golden-ratio reciprocal
+    identity, instantiated on the framework's Hodge α-value.
+
+    Derivation: φ² = φ + 1 ⟹ φ·(φ − 1) = 1 ⟹ 1/φ = φ − 1. -/
+theorem one_div_α_Hodge_eq :
+    1 / α_Hodge = α_Hodge - 1 := by
+  have h_phi_pos : (0 : ℝ) < α_Hodge := by
+    unfold α_Hodge phi
+    have h_sqrt5_pos : (0 : ℝ) < Real.sqrt 5 :=
+      Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+    linarith
+  have h_phi_ne : α_Hodge ≠ 0 := h_phi_pos.ne'
+  have h_sq : α_Hodge ^ 2 = α_Hodge + 1 := by
+    unfold α_Hodge; exact phi_sq_eq
+  field_simp
+  nlinarith [h_sq]
+
+/-- **`1/α_Hodge numerical bracket`**: `0.618 < 1/α_Hodge < 0.619`. Closed
+    form `α_Hodge − 1` with `phi_in_interval_10digit` gives `≈ 0.6180`. -/
+theorem one_div_α_Hodge_bracket :
+    (0.618 : ℝ) < 1 / α_Hodge ∧ 1 / α_Hodge < (0.619 : ℝ) := by
+  rw [one_div_α_Hodge_eq]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by linarith, by linarith⟩
+
 /-- **`1/α_NP numerical bracket`**: `0.535 < 1/α_NP < 0.536`. Closed form
     `(8√5 − 12)/11` with √5 ∈ [2.2360, 2.2361] gives `≈ 0.5354`. -/
 theorem one_div_α_NP_bracket :
