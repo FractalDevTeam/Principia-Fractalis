@@ -887,6 +887,38 @@ theorem α_skeleton_log_basis_form :
   · rw [log_α_QG_eq_half_log_2_add_log_pi]; ring
   · exact log_α_Hodge_eq_log_phi
 
+/-! ### Sum-of-logs scalar fingerprint -/
+
+/-- **★ ELEMENTARY-SKELETON LOG-SUM ★** — the scalar
+    `Σ log α_*` over the seven elementary-form instances equals
+    `−2·log 2 + 3·log 3 + (5/2)·log π` in closed form. Equivalently
+    (after exp): the product of these seven α-instances equals
+    `27·π^(5/2) / 4`. -/
+theorem sum_log_α_skeleton_elementary :
+    Real.log α_Poincare + Real.log α_YM + Real.log α_RH + Real.log α_BSD
+      + Real.log α_NS + Real.log α_P + Real.log α_QG
+    = -2 * Real.log 2 + 3 * Real.log 3 + (5/2) * Real.log Real.pi := by
+  rw [log_α_Poincare_eq_zero, log_α_YM_eq_log_two, log_α_RH_eq, log_α_BSD_eq,
+      log_α_NS_eq, log_α_P_eq_half_log_two, log_α_QG_eq_half_log_2_add_log_pi]
+  have h_log4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+  linarith [h_log4]
+
+/-- **`log(α_RH · α_BSD · α_NS) = 3·log 3 + 2·log π − 4·log 2`** —
+    product of the three rational/π-built non-Poincaré instances. -/
+theorem log_prod_rh_bsd_ns_eq :
+    Real.log α_RH + Real.log α_BSD + Real.log α_NS
+    = 3 * Real.log 3 + 2 * Real.log Real.pi - 4 * Real.log 2 := by
+  rw [log_α_RH_eq, log_α_BSD_eq, log_α_NS_eq]
+  have h_log4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+  linarith [h_log4]
+
+/-- **`log(α_P · α_QG) = log 2 + (log π)/2`** — radical-pair product. -/
+theorem log_prod_α_P_α_QG :
+    Real.log α_P + Real.log α_QG = Real.log 2 + Real.log Real.pi / 2 := by
+  rw [log_α_P_eq_half_log_two, log_α_QG_eq_half_log_2_add_log_pi]; ring
+
 /-! ### Bundle: full logarithmic layer of the α-skeleton -/
 
 /-- **★ α-SKELETON LOGARITHMIC LAYER ★** — every α-instance with a
