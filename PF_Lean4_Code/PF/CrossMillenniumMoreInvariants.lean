@@ -1147,6 +1147,21 @@ theorem α_Hodge_eighth_bracket :
     unfold α_Hodge; exact phi_in_interval_10digit.2
   exact ⟨by linarith, by linarith⟩
 
+/-- **α_Hodge⁸ ULTRA-SHARP bracket**: 46.9787 < α_Hodge⁸ < 46.9788.
+    Width 0.0001 — 200× tighter than the wide bracket. -/
+theorem α_Hodge_eighth_ultra_sharp_bracket :
+    (46.9787 : ℝ) < α_Hodge ^ 8 ∧ α_Hodge ^ 8 < (46.9788 : ℝ) := by
+  rw [α_Hodge_eighth]
+  have h_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  refine ⟨?_, ?_⟩
+  · -- 46.9787 < 21·φ + 13 ⟺ φ > 33.9787/21 = 1.61803...
+    linarith
+  · -- 21·φ + 13 < 46.9788 ⟺ φ < 33.9788/21 = 1.61803...
+    linarith
+
 /-! ### ★ Power-bracket bundle ★ -/
 
 /-- **★ α-SKELETON POWER BRACKET BUNDLE ★** — single citable theorem
