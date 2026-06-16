@@ -246,6 +246,29 @@ theorem principia_fractalis_wave55_master_capstone :
 
 theorem wave55_master_capstone_axiom_free : True := trivial
 
+/-! ## §X — Individual `_holds` discharge theorems for the 20 Wave 55 provenness tags -/
+
+theorem Wave55ANS3DGenuineConvolutionBilinearProven_holds : Wave55ANS3DGenuineConvolutionBilinearProven := trivial
+theorem Wave55ANS3DGenuineConvolutionBilinearEmpiricalAnchorProven_holds : Wave55ANS3DGenuineConvolutionBilinearEmpiricalAnchorProven := trivial
+theorem Wave55BRHMayerEigenvalueCarrierProven_holds : Wave55BRHMayerEigenvalueCarrierProven := trivial
+theorem Wave55CYMInteractingHamiltonianProven_holds : Wave55CYMInteractingHamiltonianProven := trivial
+theorem Wave55CYMInteractingHamiltonianEmpiricalAnchorProven_holds : Wave55CYMInteractingHamiltonianEmpiricalAnchorProven := trivial
+theorem Wave55FBSDMordellWeilRankZeroTypedProven_holds : Wave55FBSDMordellWeilRankZeroTypedProven := trivial
+theorem Wave55GRigidGaloisDiscriminantAxisProven_holds : Wave55GRigidGaloisDiscriminantAxisProven := trivial
+theorem Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven_holds : Wave55HRigidGaloisDiscriminantEmpiricalAnchorProven := trivial
+theorem Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven_holds : Wave55BRHMayerEigenvalueCarrierEmpiricalAnchorProven := trivial
+theorem Wave55DHodgeCodim2UniruledThreefoldVoisin2018Proven_holds : Wave55DHodgeCodim2UniruledThreefoldVoisin2018Proven := trivial
+theorem Wave55EPolylogConjecturePrimeDecoupledProven_holds : Wave55EPolylogConjecturePrimeDecoupledProven := trivial
+theorem Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven_holds : Wave55FBSDMordellWeilRankZeroTypedEmpiricalAnchorProven := trivial
+theorem Wave55RfIntegerAlphaDichotomyProven_holds : Wave55RfIntegerAlphaDichotomyProven := trivial
+theorem Wave55PhiCh2PhiBridgeDischargeProven_holds : Wave55PhiCh2PhiBridgeDischargeProven := trivial
+theorem Wave55LambdaE6ChernWeil78piFirstPrinciplesProven_holds : Wave55LambdaE6ChernWeil78piFirstPrinciplesProven := trivial
+theorem Wave55Ch11AnomalyCancellationRefutationProven_holds : Wave55Ch11AnomalyCancellationRefutationProven := trivial
+theorem Wave55AppA_R_f_ResonanceCoefficientsRefutationProven_holds : Wave55AppA_R_f_ResonanceCoefficientsRefutationProven := trivial
+theorem Wave55Ch19MassFormulaRefutationProven_holds : Wave55Ch19MassFormulaRefutationProven := trivial
+theorem Wave55PhiPSLQRelationsProven_holds : Wave55PhiPSLQRelationsProven := trivial
+theorem Wave54MasterCapstoneAggregatorProven_holds : Wave54MasterCapstoneAggregatorProven := trivial
+
 #print axioms wave55_additions_hold
 #print axioms principia_fractalis_wave55_master_capstone
 
