@@ -1994,6 +1994,50 @@ theorem prod_α_skeleton_all_nine :
           rw [h_elem, h_Hodge_NP]
     _ = 27 * Real.pi ^ 2 * Real.sqrt Real.pi * (5 * α_Hodge + 4) / 16 := by ring
 
+/-- **Full 9-product numerical bracket**: `Π α_i ∈ (300, 400)`.
+    Numerical ≈ 356.95. Wide bracket for nlinarith tractability. -/
+theorem prod_α_skeleton_all_nine_bracket :
+    (300 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+                 * α_Hodge * α_NP ∧
+    α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+                 * α_Hodge * α_NP < (400 : ℝ) := by
+  rw [prod_α_skeleton_all_nine]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by
+    nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by
+    nlinarith [h_pi_lt, h_pi_pos]
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi ^ 2 := by positivity
+  have h_sqrt_pi_sq : Real.sqrt Real.pi ^ 2 = Real.pi :=
+    Real.sq_sqrt h_pi_pos.le
+  have h_sqrt_pi_pos : (0 : ℝ) < Real.sqrt Real.pi :=
+    Real.sqrt_pos.mpr h_pi_pos
+  have h_sqrt_pi_gt : (1.77 : ℝ) < Real.sqrt Real.pi := by
+    nlinarith [h_sqrt_pi_sq, h_sqrt_pi_pos, h_pi_gt]
+  have h_sqrt_pi_lt : Real.sqrt Real.pi < (1.78 : ℝ) := by
+    nlinarith [h_sqrt_pi_sq, h_sqrt_pi_pos, h_pi_lt]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  -- Set t = 5·α_Hodge + 4, so t ∈ (12.09, 12.10)
+  have h_t_gt : (12.09 : ℝ) < 5 * α_Hodge + 4 := by linarith
+  have h_t_lt : 5 * α_Hodge + 4 < (12.10 : ℝ) := by linarith
+  have h_t_pos : (0 : ℝ) < 5 * α_Hodge + 4 := by linarith
+  refine ⟨?_, ?_⟩
+  · -- 300 < 27·π²·√π·(5φ+4)/16 — products of positive lower bounds
+    nlinarith [h_pi_sq_gt, h_sqrt_pi_gt, h_t_gt,
+               h_pi_sq_pos, h_sqrt_pi_pos, h_t_pos,
+               mul_pos h_pi_sq_pos h_sqrt_pi_pos]
+  · -- 27·π²·√π·(5φ+4)/16 < 400
+    nlinarith [h_pi_sq_lt, h_sqrt_pi_lt, h_t_lt,
+               h_pi_sq_pos, h_sqrt_pi_pos, h_t_pos,
+               mul_pos h_pi_sq_pos h_sqrt_pi_pos]
+
 /-- **Full 9-product positivity**: the full 9-product is positive,
     since each α-instance is positive. -/
 theorem prod_α_skeleton_all_nine_pos :
