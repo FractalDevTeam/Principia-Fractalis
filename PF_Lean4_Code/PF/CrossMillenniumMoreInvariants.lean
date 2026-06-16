@@ -1339,5 +1339,86 @@ theorem α_skeleton_log_layer :
   · exact log_α_QG_eq_half_log_2_add_log_pi
   · exact log_α_Hodge_eq_log_phi
 
+/-! ## Section 2M — α-SKELETON MASTER LAYER CAPSTONE -/
+
+/-- **★★★ α-SKELETON MASTER LAYER CAPSTONE ★★★** —
+    `α_skeleton_master_layer_capstone`.
+
+    Single citable theorem bundling the six layer capstones over the
+    9-axis algebraic locus. Each clause is itself an n-tuple over all
+    9 (or 7 elementary) α-instances; the combined theorem encodes the
+    full algebraic content of the locus at the level of:
+
+    1. Reciprocals — 9-clause (locus closed under inversion)
+    2. Squares — 9-clause (locus closed under squaring)
+    3. Cubes — 9-clause (locus closed under cubing)
+    4. 4th-powers — 9-clause (locus closed under 4th power)
+    5. Logarithms — 8-clause (elementary-form decomposition)
+    6. Additive sum — 1-clause (scalar fingerprint)
+
+    Total: 45 algebraic content clauses bundled. Any perturbation of
+    any single α-value cascades into at least 5 of these layers
+    simultaneously (the 6th — Σ α — captures EVERY perturbation). -/
+theorem α_skeleton_master_layer_capstone :
+    -- Layer 1: Reciprocals
+    (1 / α_Poincare = 1 ∧
+     1 / α_P = α_P / 2 ∧
+     1 / α_RH = 2 / 3 ∧
+     1 / α_YM = 1 / 2 ∧
+     1 / α_BSD = 4 / (3 * Real.pi) ∧
+     1 / α_NS = 2 / (3 * Real.pi) ∧
+     1 / α_Hodge = α_Hodge - 1 ∧
+     1 / α_NP = (8 * Real.sqrt 5 - 12) / 11 ∧
+     1 / α_QG = α_QG / (2 * Real.pi)) ∧
+    -- Layer 2: Squares
+    (α_Poincare ^ 2 = 1 ∧
+     α_P ^ 2 = 2 ∧
+     α_RH ^ 2 = 9 / 4 ∧
+     α_YM ^ 2 = 4 ∧
+     α_BSD ^ 2 = 9 * Real.pi ^ 2 / 16 ∧
+     α_NS ^ 2 = 9 * Real.pi ^ 2 / 4 ∧
+     α_Hodge ^ 2 = α_Hodge + 1 ∧
+     α_NP ^ 2 = (3/2) * α_Hodge + 17/16 ∧
+     α_QG ^ 2 = 2 * Real.pi) ∧
+    -- Layer 3: Cubes
+    (α_Poincare ^ 3 = 1 ∧
+     α_P ^ 3 = 2 * α_P ∧
+     α_RH ^ 3 = 27 / 8 ∧
+     α_YM ^ 3 = 8 ∧
+     α_BSD ^ 3 = 27 * Real.pi ^ 3 / 64 ∧
+     α_NS ^ 3 = 27 * Real.pi ^ 3 / 8 ∧
+     α_Hodge ^ 3 = 2 * α_Hodge + 1 ∧
+     α_NP ^ 3 = (47/16) * α_Hodge + 113/64 ∧
+     α_QG ^ 3 = 2 * Real.pi * α_QG) ∧
+    -- Layer 4: 4th powers
+    (α_Poincare ^ 4 = 1 ∧
+     α_P ^ 4 = 4 ∧
+     α_RH ^ 4 = 81 / 16 ∧
+     α_YM ^ 4 = 16 ∧
+     α_BSD ^ 4 = 81 * Real.pi ^ 4 / 256 ∧
+     α_NS ^ 4 = 81 * Real.pi ^ 4 / 16 ∧
+     α_Hodge ^ 4 = 3 * α_Hodge + 2 ∧
+     α_NP ^ 4 = (87/16) * α_Hodge + 865/256 ∧
+     α_QG ^ 4 = 4 * Real.pi ^ 2) ∧
+    -- Layer 5: Logs
+    (Real.log α_Poincare = 0 ∧
+     Real.log α_YM = Real.log 2 ∧
+     Real.log α_P = Real.log 2 / 2 ∧
+     Real.log α_RH = Real.log 3 - Real.log 2 ∧
+     Real.log α_BSD = Real.log 3 + Real.log Real.pi - Real.log 4 ∧
+     Real.log α_NS = Real.log 3 + Real.log Real.pi - Real.log 2 ∧
+     Real.log α_QG = (Real.log 2 + Real.log Real.pi) / 2 ∧
+     Real.log α_Hodge = Real.log phi) ∧
+    -- Layer 6: Additive sum scalar
+    (α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+       + α_Hodge + α_NP + α_QG
+     = (19/4) + α_P + (9 * Real.pi / 4) + 2 * α_Hodge + α_QG) :=
+  ⟨α_skeleton_full_reciprocal_layer,
+   α_skeleton_full_squares_layer,
+   α_skeleton_full_cubes_layer,
+   α_skeleton_full_fourth_power_layer,
+   α_skeleton_log_layer,
+   α_skeleton_sum_closed_form⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
