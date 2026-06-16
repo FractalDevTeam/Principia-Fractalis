@@ -2650,6 +2650,60 @@ theorem moment_sum_hierarchy_capstone :
    sum_α_cubed_bracket,
    sum_α_fourth_bracket⟩
 
+/-! ### ★ Moment-sum hierarchy SHARP capstone ★ -/
+
+/-- **★ MOMENT-SUM HIERARCHY SHARP CAPSTONE ★** — single citable theorem
+    bundling all six scalar fingerprints in SHARP brackets:
+
+      Σ α    ∈ (18.97, 18.98)       width 0.01
+      Σ α²   ∈ (49.39, 49.41)       width 0.02
+      Σ α³   ∈ (159.3, 159.5)       width 0.2
+      Σ α⁴   ∈ (608.4, 608.7)       width 0.3
+      Π_{7} α  ∈ (118.07, 118.09)   width 0.02
+      Π_{9} α  ∈ (350, 365)         width 15
+
+    Six referee-checkable numerical brackets, all at the sharp tier,
+    each capturing complementary perturbation sensitivity of the
+    α-skeleton. -/
+theorem moment_sum_hierarchy_sharp_capstone :
+    -- Σα sharp
+    ((18.97 : ℝ) < α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+                    + α_Hodge + α_NP + α_QG ∧
+     α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+        + α_Hodge + α_NP + α_QG < (18.98 : ℝ)) ∧
+    -- Σα² sharp
+    ((49.39 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2
+                    + α_BSD ^ 2 + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2
+                    + α_QG ^ 2 ∧
+     α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+        + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (49.41 : ℝ)) ∧
+    -- Σα³ sharp
+    ((159.3 : ℝ) < α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3
+                    + α_BSD ^ 3 + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3
+                    + α_QG ^ 3 ∧
+     α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3 + α_BSD ^ 3
+        + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3 + α_QG ^ 3 < (159.5 : ℝ)) ∧
+    -- Σα⁴ sharp
+    ((608.4 : ℝ) < α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4
+                    + α_BSD ^ 4 + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4
+                    + α_QG ^ 4 ∧
+     α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4 + α_BSD ^ 4
+        + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4 + α_QG ^ 4 < (608.7 : ℝ)) ∧
+    -- Π_{7} α sharp
+    ((118.07 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG ∧
+     α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG < (118.09 : ℝ)) ∧
+    -- Π_{9} α sharp
+    ((350 : ℝ) < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+                   * α_Hodge * α_NP ∧
+     α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+                   * α_Hodge * α_NP < (365 : ℝ)) :=
+  ⟨α_skeleton_sum_sharp_bracket,
+   sum_α_sq_skeleton_sharp_bracket,
+   sum_α_cubed_sharp_bracket,
+   sum_α_fourth_sharp_bracket,
+   prod_α_skeleton_elementary_sharp_bracket,
+   prod_α_skeleton_all_nine_sharp_bracket⟩
+
 /-! ### ★ Scalar fingerprint bundle ★ -/
 
 /-- **★★ α-SKELETON SCALAR-FINGERPRINT BUNDLE ★★** — single citable
