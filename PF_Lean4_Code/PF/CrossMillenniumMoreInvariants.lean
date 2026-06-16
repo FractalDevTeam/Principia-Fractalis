@@ -795,6 +795,59 @@ theorem one_div_α_QG_eq :
   field_simp
   linarith [h_sq]
 
+/-! ### ★ Capstone: full 9-instance squares layer ★ -/
+
+/-- **`α_Poincaré² = 1`**. -/
+theorem α_Poincare_sq_eq_one : α_Poincare ^ 2 = 1 := by
+  unfold α_Poincare; norm_num
+
+/-- **`α_YM² = 4`**. -/
+theorem α_YM_sq_eq_four : α_YM ^ 2 = 4 := by
+  unfold α_YM; norm_num
+
+/-- **`α_BSD² = 9·π²/16`**. -/
+theorem α_BSD_sq_eq : α_BSD ^ 2 = 9 * Real.pi ^ 2 / 16 := by
+  unfold α_BSD; ring
+
+/-- **`α_NS² = 9·π²/4`**. -/
+theorem α_NS_sq_eq : α_NS ^ 2 = 9 * Real.pi ^ 2 / 4 := by
+  unfold α_NS; ring
+
+/-- **★ α-SKELETON FULL SQUARES LAYER ★** — every framework α-instance's
+    square is in closed form within Q(π, α_Hodge) algebra:
+
+    | α-instance | α²                            |
+    |------------|-------------------------------|
+    | α_Poincaré | 1                             |
+    | α_P        | 2  (= α_YM)                   |
+    | α_RH       | 9/4                           |
+    | α_YM       | 4                             |
+    | α_BSD      | 9π²/16                        |
+    | α_NS       | 9π²/4                         |
+    | α_Hodge    | α_Hodge + 1   (φ-Fibonacci)   |
+    | α_NP       | (3/2)·α_Hodge + 17/16         |
+    | α_QG       | 2π   (= α_YM·π)               | -/
+theorem α_skeleton_full_squares_layer :
+    α_Poincare ^ 2 = 1 ∧
+    α_P ^ 2 = 2 ∧
+    α_RH ^ 2 = 9 / 4 ∧
+    α_YM ^ 2 = 4 ∧
+    α_BSD ^ 2 = 9 * Real.pi ^ 2 / 16 ∧
+    α_NS ^ 2 = 9 * Real.pi ^ 2 / 4 ∧
+    α_Hodge ^ 2 = α_Hodge + 1 ∧
+    α_NP ^ 2 = (3/2) * α_Hodge + 17/16 ∧
+    α_QG ^ 2 = 2 * Real.pi := by
+  refine ⟨α_Poincare_sq_eq_one, ?_, α_RH_sq_eq_nine_fourths,
+          α_YM_sq_eq_four, α_BSD_sq_eq, α_NS_sq_eq,
+          α_Hodge_sq_eq_self_plus_one, ?_, α_QG_sq_eq_two_pi⟩
+  · -- α_P² = 2
+    have h := α_P_sq_eq_α_YM
+    rw [h, show α_YM = (2 : ℝ) from rfl]
+  · -- α_NP² = (3/2)·α_Hodge + 17/16
+    unfold α_NP α_Hodge
+    have h := phi_sq_eq
+    nlinarith [h]
+
 /-! ### ★ Capstone: full 9-instance reciprocal layer ★ -/
 
 /-- **★ α-SKELETON FULL RECIPROCAL LAYER ★** — every framework α-instance
