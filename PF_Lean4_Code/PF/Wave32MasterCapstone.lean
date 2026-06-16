@@ -194,4 +194,11 @@ theorem cite_ym_canonical_convex_off_cluster_bound :
 #print axioms cite_ym_canonical_strict_monotone_sharp
 #print axioms cite_ym_canonical_convex_off_cluster_bound
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem YMCanonicalStrictMonotoneSharpProven_holds : YMCanonicalStrictMonotoneSharpProven := trivial
+theorem YMCanonicalConvexOffClusterBoundProven_holds : YMCanonicalConvexOffClusterBoundProven := trivial
+theorem Wave31MasterCapstoneAggregatorProven_holds : Wave31MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

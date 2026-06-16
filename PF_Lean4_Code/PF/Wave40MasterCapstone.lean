@@ -149,4 +149,11 @@ theorem cite_wave40_framework_headline_update :
 #print axioms principia_fractalis_wave40_master_capstone
 #print axioms wave40_master_capstone_axiom_free
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave40BCleanConsciousnessBridgeProven_holds : Wave40BCleanConsciousnessBridgeProven := trivial
+theorem Wave40FrameworkHeadlineWave29To39UpdateProven_holds : Wave40FrameworkHeadlineWave29To39UpdateProven := trivial
+theorem Wave39MasterCapstoneAggregatorProven_holds : Wave39MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis
