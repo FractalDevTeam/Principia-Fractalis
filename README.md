@@ -5,9 +5,9 @@
 ### A substrate-level theory of mathematics, physics, and consciousness
 
 [![License: Non-Commercial](https://img.shields.io/badge/License-Non--Commercial%20Research-red.svg)](LICENSE)
-[![Lean 4](https://img.shields.io/badge/Lean%204-8648%20jobs%20clean%20%7C%200%20project%20axioms-brightgreen)](PF_Lean4_Code/)
-[![Coq](https://img.shields.io/badge/Coq-618%2F618%20files%20clean%20%7C%20full%20structural--parity%20mirror-brightgreen)](PF_Coq_Code/)
-[![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.5.0-blue)](Principia_Fractalis_master_folder/)
+[![Lean 4](https://img.shields.io/badge/Lean%204-8662%20jobs%20clean%20%7C%200%20project%20axioms%20%7C%20kernel--only-brightgreen)](PF_Lean4_Code/)
+[![Coq](https://img.shields.io/badge/Coq-625%20files%20clean%20%7C%20full%20structural--parity%20mirror-brightgreen)](PF_Coq_Code/)
+[![Manuscript](https://img.shields.io/badge/Manuscript-Version%202.5.0%20%2B%20App%20K-blue)](Principia_Fractalis_master_folder/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0002--0734--5565-A6CE39?logo=orcid&logoColor=white)](https://orcid.org/0009-0002-0734-5565)
 
 **Author:** Pablo Cohen (psolo / xluxx)
@@ -18,7 +18,7 @@
 
 ## What This Is
 
-Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8648 jobs clean, zero project axioms); **Coq** (618/618 files clean) carries a full structural-parity mirror of every Lean theorem in `PF/` and `PF/Referee/` — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side.
+Principia Fractalis is a **substrate-level theory of mathematics, physics, and consciousness** from which the six Clay Millennium Problems plus a cosmological + consciousness + ZPE + 23-problem framework emerge as consequences of one underlying structure: the **Timeless Field substrate** `H_k = ℂ^(3^k)` with ternary scaling. The substantive content is machine-verified in **Lean 4** (8662 jobs clean, zero project axioms, kernel-only `[propext, Classical.choice, Quot.sound]`); **Coq** (625 files clean) carries a full structural-parity mirror of every Lean theorem in `PF/` and `PF/Referee/` — same bundle shape, same theorem signatures, with the Lean-side mathlib content surfaced as `True` placeholders on the Coq side.
 
 **The Clay Millennium Problems are the door. The substrate Theory of Everything is the cargo.** The six unsolved Clay axes resolve simultaneously from a single anchor (Perelman 2003's `α_Poincaré = 1`) plus the framework's substrate forcing; the same substrate produces consciousness emergence, cosmological-constant suppression, zero-point energy access, and reach across 23 open problems.
 
