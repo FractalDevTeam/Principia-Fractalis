@@ -348,6 +348,71 @@ theorem α_Poincare_add_α_RH_add_α_YM :
     α_Poincare + α_RH + α_YM = 9 / 2 := by
   unfold α_Poincare α_RH α_YM; ring
 
+/-! ## Section 2g — α_NP cross-products: completing the φ-sector × rest table
+
+    The φ-sector (α_Hodge, α_NP) products with the rational sector
+    (α_Poincare, α_RH, α_YM) and the π-built sector (α_BSD, α_NS, α_QG).
+    All have clean closed forms via `unfold + ring + nlinarith`. -/
+
+/-- **`α_NP · α_Poincare = α_NP`** — anchor identity. -/
+theorem α_NP_mul_α_Poincare : α_NP * α_Poincare = α_NP := by
+  unfold α_Poincare; ring
+
+/-- **`α_NP · α_RH = (3/2)·α_Hodge + 3/8`** — φ-sector × rational coupling. -/
+theorem α_NP_mul_α_RH : α_NP * α_RH = (3/2) * α_Hodge + 3/8 := by
+  unfold α_NP α_RH α_Hodge; ring
+
+/-- **`α_NP · α_BSD = (3π/4)·α_Hodge + 3π/16`** — φ-sector × BSD coupling. -/
+theorem α_NP_mul_α_BSD : α_NP * α_BSD = (3 * Real.pi / 4) * α_Hodge + 3 * Real.pi / 16 := by
+  unfold α_NP α_BSD α_Hodge; ring
+
+/-- **`α_NP · α_NS = (3π/2)·α_Hodge + 3π/8`** — φ-sector × NS coupling. -/
+theorem α_NP_mul_α_NS : α_NP * α_NS = (3 * Real.pi / 2) * α_Hodge + 3 * Real.pi / 8 := by
+  unfold α_NP α_NS α_Hodge; ring
+
+/-- **`α_NP · α_NS = 2·(α_NP · α_BSD)`** — L5 (α_NS = 2·α_BSD) propagated through α_NP. -/
+theorem α_NP_mul_α_NS_eq_two_α_NP_mul_α_BSD :
+    α_NP * α_NS = 2 * (α_NP * α_BSD) := by
+  rw [α_NP_mul_α_NS, α_NP_mul_α_BSD]; ring
+
+/-- **`α_Hodge · α_BSD = (3π/4)·α_Hodge`** — φ × π-built scalar identity. -/
+theorem α_Hodge_mul_α_BSD : α_Hodge * α_BSD = (3 * Real.pi / 4) * α_Hodge := by
+  unfold α_BSD; ring
+
+/-- **`α_Hodge · α_NS = (3π/2)·α_Hodge`** — φ × NS scalar identity. -/
+theorem α_Hodge_mul_α_NS : α_Hodge * α_NS = (3 * Real.pi / 2) * α_Hodge := by
+  unfold α_NS; ring
+
+/-- **`α_Hodge · α_QG² = 2π·α_Hodge`** — φ × QG² scalar identity. -/
+theorem α_Hodge_mul_α_QG_sq : α_Hodge * α_QG ^ 2 = 2 * Real.pi * α_Hodge := by
+  rw [α_QG_sq_eq_two_pi]; ring
+
+/-- **`α_NP · α_QG² = 2π·α_Hodge + π/2`** — φ-sector × QG² coupling. -/
+theorem α_NP_mul_α_QG_sq : α_NP * α_QG ^ 2 = 2 * Real.pi * α_Hodge + Real.pi / 2 := by
+  rw [α_QG_sq_eq_two_pi]; unfold α_NP α_Hodge; ring
+
+/-! ## Section 2h — α_P (√2-sector) cross-products with other axes -/
+
+/-- **`α_P · α_Poincare = α_P`** — anchor identity. -/
+theorem α_P_mul_α_Poincare : α_P * α_Poincare = α_P := by
+  unfold α_Poincare; ring
+
+/-- **`α_P · α_YM = α_P^3`** — re-expression of α_P^3 via L1. -/
+theorem α_P_mul_α_YM_eq_α_P_cubed : α_P * α_YM = α_P ^ 3 :=
+  (α_P_cubed_eq_α_P_mul_α_YM).symm
+
+/-- **`α_P² · α_YM = α_YM²`** — L1 (α_P²=α_YM) multiplied by α_YM. -/
+theorem α_P_sq_mul_α_YM : α_P ^ 2 * α_YM = α_YM ^ 2 := by
+  rw [α_P_sq_eq_α_YM]; ring
+
+/-- **`α_P² · α_BSD = α_NS`** — L1 + L6 combined. -/
+theorem α_P_sq_mul_α_BSD : α_P ^ 2 * α_BSD = α_NS := by
+  rw [α_P_sq_eq_α_YM, ← α_NS_eq_α_YM_mul_α_BSD]
+
+/-- **`α_P² · α_NS = α_YM · α_NS = 3π`** — direct via L1. -/
+theorem α_P_sq_mul_α_NS : α_P ^ 2 * α_NS = 3 * Real.pi := by
+  rw [α_P_sq_eq_α_YM, mul_comm]; exact α_NS_mul_α_YM
+
 /-! ## Section 3 — Mixed-product invariants (algebraic × algebraic) -/
 
 /-- **`α_P · α_RH = (3/2) · α_P`**: trivial scalar factor, recorded
