@@ -1736,6 +1736,57 @@ theorem prod_α_skeleton_elementary_bracket :
     -- π² < 3.14160² < 9.870, √π < 1.78 → π²·√π < 17.569 < 17.629
     nlinarith [h_pi_lt, h_sqrt_pi_lt, sq_nonneg Real.pi]
 
+/-! ### ★ Full 9-product closed form ★ -/
+
+/-- **★ FULL 9-PRODUCT CLOSED FORM ★** —
+    `Π_{all 9} α_i = 27 · π^(5/2) · (5·α_Hodge + 4) / 16`.
+
+    Derivation: elementary-7 product (`27·π^(5/2)/4`) times
+    α_Hodge · α_NP = α_Hodge · (α_Hodge + 1/4) = α_Hodge² + α_Hodge/4
+    = (α_Hodge + 1) + α_Hodge/4 = (5/4)·α_Hodge + 1 = (5·α_Hodge + 4)/4
+    via φ² = φ + 1.
+
+    Total: (27·π^(5/2)/4) · (5·α_Hodge + 4)/4 = 27·π^(5/2)·(5·α_Hodge+4)/16. -/
+theorem prod_α_skeleton_all_nine :
+    α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+      * α_Hodge * α_NP
+    = 27 * Real.pi ^ 2 * Real.sqrt Real.pi * (5 * α_Hodge + 4) / 16 := by
+  have h_elem : α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+              = 27 * Real.pi ^ 2 * Real.sqrt Real.pi / 4 :=
+    prod_α_skeleton_elementary
+  have h_Hodge_NP : α_Hodge * α_NP = (5/4) * α_Hodge + 1 := α_Hodge_mul_α_NP
+  calc α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG * α_Hodge * α_NP
+      = (α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG)
+        * (α_Hodge * α_NP) := by ring
+    _ = (27 * Real.pi ^ 2 * Real.sqrt Real.pi / 4) * ((5/4) * α_Hodge + 1) := by
+          rw [h_elem, h_Hodge_NP]
+    _ = 27 * Real.pi ^ 2 * Real.sqrt Real.pi * (5 * α_Hodge + 4) / 16 := by ring
+
+/-- **Full 9-product positivity**: the full 9-product is positive,
+    since each α-instance is positive. -/
+theorem prod_α_skeleton_all_nine_pos :
+    0 < α_Poincare * α_P * α_RH * α_YM * α_BSD * α_NS * α_QG
+        * α_Hodge * α_NP := by
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_Poincare_pos : (0 : ℝ) < α_Poincare := by unfold α_Poincare; norm_num
+  have h_P_pos : (0 : ℝ) < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num)
+  have h_RH_pos : (0 : ℝ) < α_RH := by unfold α_RH; norm_num
+  have h_YM_pos : (0 : ℝ) < α_YM := by unfold α_YM; norm_num
+  have h_BSD_pos : (0 : ℝ) < α_BSD := by unfold α_BSD; positivity
+  have h_NS_pos : (0 : ℝ) < α_NS := by unfold α_NS; positivity
+  have h_QG_pos : (0 : ℝ) < α_QG := by
+    unfold α_QG; exact Real.sqrt_pos.mpr (by linarith)
+  have h_Hodge_pos : (0 : ℝ) < α_Hodge := by
+    unfold α_Hodge phi
+    have := Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+    linarith
+  have h_NP_pos : (0 : ℝ) < α_NP := by
+    unfold α_NP phi
+    have := Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+    linarith
+  positivity
+
 /-! ### ★ Fundamental constants extracted from the α-skeleton ★ -/
 
 /-- **`π = α_QG² / α_YM`** — the universal transcendental π is downstream
