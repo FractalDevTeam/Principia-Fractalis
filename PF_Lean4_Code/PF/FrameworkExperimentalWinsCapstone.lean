@@ -155,6 +155,28 @@ theorem Hubble_H_eff_closed_form :
   have : (Real.pi / 10) * 0.95 * 0.7 = 0.0665 * Real.pi := by ring
   rw [this]
 
+/-- **XENON prediction SHARPER bracket**: `1.298 < prediction < 1.299` —
+    matches observation 1.30 within 0.2% relative error. Uses `π ∈ (3.141592, 3.141593)`. -/
+theorem XENON_prediction_sharp_bracket :
+    (1.298 : ℝ) < XENON_prediction ∧ XENON_prediction < (1.299 : ℝ) := by
+  unfold XENON_prediction
+  refine ⟨?_, ?_⟩
+  · have := Real.pi_gt_d6; nlinarith
+  · have := Real.pi_lt_d6; nlinarith
+
+/-- **M_1 glueball SHARPER bracket**: `1774 < M_1 < 1775 MeV` — closer
+    to numerical 1774.48 MeV. Lattice 1710 MeV → framework prediction sits
+    ~3.74% above lattice. Uses `π ∈ (3.141592, 3.141593)`. -/
+theorem M_1_glueball_sharp_bracket :
+    (1774 : ℝ) < M_1_glueball ∧ M_1_glueball < (1775 : ℝ) := by
+  rw [M_1_glueball_closed_form]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_lower : (3.141592 : ℝ) < Real.pi := Real.pi_gt_d6
+  have h_upper : Real.pi < (3.141593 : ℝ) := Real.pi_lt_d6
+  refine ⟨?_, ?_⟩
+  · rw [lt_div_iff₀ h_pi_pos]; nlinarith [h_upper]
+  · rw [div_lt_iff₀ h_pi_pos]; nlinarith [h_lower]
+
 /-- **Hubble H_eff numerical bracket**: `74 < H_eff < 75 km/s/Mpc`.
 
     SH0ES measurement: 73.04 ± 1.04 km/s/Mpc. Framework prediction sits
