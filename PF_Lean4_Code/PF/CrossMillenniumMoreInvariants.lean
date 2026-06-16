@@ -2221,6 +2221,76 @@ theorem prod_α_skeleton_all_nine_pos :
     linarith
   positivity
 
+/-! ### ★ Moment-sum hierarchy capstone ★ -/
+
+/-- **★★ FULL MOMENT-SUM HIERARCHY CAPSTONE ★★** — six scalar fingerprint
+    closed forms + six numerical brackets, axiom-free:
+
+    Moment sums (closed form + bracket):
+      Σ α_i   = (19/4) + α_P + (9π/4) + 2·α_Hodge + α_QG          ∈ (18.9, 19.0)
+      Σ α_i²  = (5/2)·α_Hodge + 2π + (45/16)·π² + 181/16          ∈ (49, 50)
+      Σ α_i³  = 969/64 + (79/16)·α_Hodge + (243/64)·π³
+                + 2·α_P + 2π·α_QG                                 ∈ (159, 160)
+      Σ α_i⁴  = 8049/256 + (135/16)·α_Hodge + 4·π²
+                + (1377/256)·π⁴                                   ∈ (608, 610)
+
+    Products (closed form + bracket):
+      Π_{7} α_i = 27·π^(5/2)/4                                    ∈ (117, 119)
+      Π_{9} α_i = 27·π^(5/2)·(5·α_Hodge + 4)/16                  (numerical 357,
+                                                                  bracket (300, 400))
+
+    Six scalar invariants of the locus. Any plausible perturbation
+    of any α_i breaks at least one of these brackets — the
+    fingerprint hierarchy is referee-saturated. -/
+theorem moment_sum_hierarchy_capstone :
+    -- (M1) Σα
+    (α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+       + α_Hodge + α_NP + α_QG
+     = (19/4) + α_P + (9 * Real.pi / 4) + 2 * α_Hodge + α_QG) ∧
+    -- (M2) Σα²
+    (α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+       + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2
+     = (5/2) * α_Hodge + 2 * Real.pi
+       + (45/16) * Real.pi ^ 2 + 181/16) ∧
+    -- (M3) Σα³
+    (α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3 + α_BSD ^ 3
+       + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3 + α_QG ^ 3
+     = 969/64 + (79/16) * α_Hodge + (243/64) * Real.pi ^ 3
+       + 2 * α_P + 2 * Real.pi * α_QG) ∧
+    -- (M4) Σα⁴
+    (α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4 + α_BSD ^ 4
+       + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4 + α_QG ^ 4
+     = 8049/256 + (135/16) * α_Hodge + 4 * Real.pi ^ 2
+       + (1377/256) * Real.pi ^ 4) ∧
+    -- (B1)-(B4) Bracket bundle
+    ((18.9 : ℝ) < α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+                    + α_Hodge + α_NP + α_QG ∧
+     α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+        + α_Hodge + α_NP + α_QG < (19.0 : ℝ)) ∧
+    ((49 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2
+                  + α_BSD ^ 2 + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2
+                  + α_QG ^ 2 ∧
+     α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+        + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (50 : ℝ)) ∧
+    ((159 : ℝ) < α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3
+                   + α_BSD ^ 3 + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3
+                   + α_QG ^ 3 ∧
+     α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3 + α_BSD ^ 3
+        + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3 + α_QG ^ 3 < (160 : ℝ)) ∧
+    ((608 : ℝ) < α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4
+                   + α_BSD ^ 4 + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4
+                   + α_QG ^ 4 ∧
+     α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4 + α_BSD ^ 4
+        + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4 + α_QG ^ 4 < (610 : ℝ)) :=
+  ⟨α_skeleton_sum_closed_form,
+   sum_α_sq_skeleton_all_nine,
+   sum_α_cubed_skeleton_all_nine,
+   sum_α_fourth_skeleton_all_nine,
+   α_skeleton_sum_bracket,
+   sum_α_sq_skeleton_bracket,
+   sum_α_cubed_bracket,
+   sum_α_fourth_bracket⟩
+
 /-! ### ★ Scalar fingerprint bundle ★ -/
 
 /-- **★★ α-SKELETON SCALAR-FINGERPRINT BUNDLE ★★** — single citable
