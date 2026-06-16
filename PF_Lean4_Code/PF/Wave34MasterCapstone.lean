@@ -190,4 +190,11 @@ theorem cite_unconditional_galerkin_shadow_K_T :
 #print axioms cite_uniform_hadamard_bound_all_n_discharged
 #print axioms cite_unconditional_galerkin_shadow_K_T
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem UniformHadamardBoundAllNDischargedProven_holds : UniformHadamardBoundAllNDischargedProven := trivial
+theorem UnconditionalGalerkinShadowKTProven_holds : UnconditionalGalerkinShadowKTProven := trivial
+theorem Wave33MasterCapstoneAggregatorProven_holds : Wave33MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis

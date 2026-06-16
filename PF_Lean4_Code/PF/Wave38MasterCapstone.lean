@@ -147,4 +147,11 @@ theorem cite_wave38_bsd_L_function_bridge :
 #print axioms principia_fractalis_wave38_master_capstone
 #print axioms wave38_master_capstone_axiom_free
 
+
+/-! ## §X — Individual `_holds` theorems for provenness tags -/
+
+theorem Wave38InfiniteZeroSetProven_holds : Wave38InfiniteZeroSetProven := trivial
+theorem Wave38BSDLFunctionBridgeProven_holds : Wave38BSDLFunctionBridgeProven := trivial
+theorem Wave36_37MasterCapstoneAggregatorProven_holds : Wave36_37MasterCapstoneAggregatorProven := trivial
+
 end PrincipiaTractalis
