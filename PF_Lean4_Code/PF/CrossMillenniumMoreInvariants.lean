@@ -820,6 +820,33 @@ theorem α_NP_sixth_bracket :
     unfold α_Hodge; exact phi_in_interval_10digit.2
   exact ⟨by nlinarith [h_phi_lb], by nlinarith [h_phi_ub]⟩
 
+/-- **★ α_NP Q(φ)-TOWER ★** — 6-clause bundle of `α_NP^k` closed
+    forms for `k ∈ {1, ..., 6}`, each in the Q(α_Hodge) basis:
+
+    | k | α_NP^k                                              |
+    |---|-----------------------------------------------------|
+    | 1 | α_Hodge + 1/4                                       |
+    | 2 | (3/2)·α_Hodge + 17/16                               |
+    | 3 | (47/16)·α_Hodge + 113/64                            |
+    | 4 | (87/16)·α_Hodge + 865/256                           |
+    | 5 | (2605/256)·α_Hodge + 6433/1024                      |
+    | 6 | (9729/512)·α_Hodge + 48113/4096                     |
+
+    The (a_k, b_k) coefficient pair satisfies the linear recurrence
+      a_{k+1} = (5/4)·a_k + b_k
+      b_{k+1} = a_k + (1/4)·b_k
+    seeded by (a_1, b_1) = (1, 1/4). -/
+theorem α_NP_Q_phi_tower :
+    α_NP ^ 1 = α_Hodge + 1/4 ∧
+    α_NP ^ 2 = (3/2) * α_Hodge + 17/16 ∧
+    α_NP ^ 3 = (47/16) * α_Hodge + 113/64 ∧
+    α_NP ^ 4 = (87/16) * α_Hodge + 865/256 ∧
+    α_NP ^ 5 = (2605/256) * α_Hodge + 6433/1024 ∧
+    α_NP ^ 6 = (9729/512) * α_Hodge + 48113/4096 := by
+  refine ⟨?_, α_NP_sq, α_NP_cubed, α_NP_fourth, α_NP_fifth, α_NP_sixth⟩
+  unfold α_NP α_Hodge
+  ring
+
 /-- **`1/α_Hodge = α_Hodge − 1`** — the canonical golden-ratio reciprocal
     identity, instantiated on the framework's Hodge α-value.
 
