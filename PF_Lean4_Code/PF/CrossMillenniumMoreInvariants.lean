@@ -848,6 +848,47 @@ theorem α_skeleton_full_squares_layer :
     have h := phi_sq_eq
     nlinarith [h]
 
+/-! ### ★ Capstone: full 9-instance 4th-power layer ★ -/
+
+/-- **`α_Poincaré⁴ = 1`**. -/
+theorem α_Poincare_fourth : α_Poincare ^ 4 = 1 := by
+  unfold α_Poincare; norm_num
+
+/-- **`α_BSD⁴ = 81·π⁴/256`**. -/
+theorem α_BSD_fourth : α_BSD ^ 4 = 81 * Real.pi ^ 4 / 256 := by
+  unfold α_BSD; ring
+
+/-- **`α_NS⁴ = 81·π⁴/16`**. -/
+theorem α_NS_fourth : α_NS ^ 4 = 81 * Real.pi ^ 4 / 16 := by
+  unfold α_NS; ring
+
+/-- **★ α-SKELETON FULL 4TH-POWER LAYER ★** — every framework α-instance's
+    4th power is in closed form within Q(π, α_Hodge):
+
+    | α-instance | α⁴                                  |
+    |------------|-------------------------------------|
+    | α_Poincaré | 1                                   |
+    | α_P        | 4                                   |
+    | α_RH       | 81/16                               |
+    | α_YM       | 16                                  |
+    | α_BSD      | 81π⁴/256                            |
+    | α_NS       | 81π⁴/16                             |
+    | α_Hodge    | 3·α_Hodge + 2     (φ-Fibonacci F₅·φ + F₄) |
+    | α_NP       | (87/16)·α_Hodge + 865/256           |
+    | α_QG       | 4π²                                 | -/
+theorem α_skeleton_full_fourth_power_layer :
+    α_Poincare ^ 4 = 1 ∧
+    α_P ^ 4 = 4 ∧
+    α_RH ^ 4 = 81 / 16 ∧
+    α_YM ^ 4 = 16 ∧
+    α_BSD ^ 4 = 81 * Real.pi ^ 4 / 256 ∧
+    α_NS ^ 4 = 81 * Real.pi ^ 4 / 16 ∧
+    α_Hodge ^ 4 = 3 * α_Hodge + 2 ∧
+    α_NP ^ 4 = (87/16) * α_Hodge + 865/256 ∧
+    α_QG ^ 4 = 4 * Real.pi ^ 2 :=
+  ⟨α_Poincare_fourth, α_P_fourth, α_RH_fourth, α_YM_fourth,
+   α_BSD_fourth, α_NS_fourth, α_Hodge_fourth, α_NP_fourth, α_QG_fourth⟩
+
 /-! ### ★ Capstone: full 9-instance cubes layer ★ -/
 
 /-- **`α_Poincaré³ = 1`**. -/
