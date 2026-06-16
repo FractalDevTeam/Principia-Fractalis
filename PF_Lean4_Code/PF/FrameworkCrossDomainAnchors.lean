@@ -130,6 +130,32 @@ theorem Phi_threshold_pos : 0 < Phi_threshold := by
   have h_log_pos : 0 < Real.log 20 := Real.log_pos (by norm_num : (1 : ℝ) < 20)
   linarith
 
+/-- **`Phi_threshold = log 400`** — closed-form via `2·log 20 = log 20² = log 400`. -/
+theorem Phi_threshold_eq_log_400 : Phi_threshold = Real.log 400 := by
+  unfold Phi_threshold
+  have h : Real.log (20 ^ 2) = 2 * Real.log 20 := by
+    rw [Real.log_pow]; push_cast; ring
+  have h400 : (400 : ℝ) = 20 ^ 2 := by norm_num
+  rw [h400, h]
+
+/-- **`exp(Phi_threshold) = 400`** — exponential of the IIT threshold
+    equals the integrated-information saturation value 400. -/
+theorem exp_Phi_threshold_eq_400 :
+    Real.exp Phi_threshold = 400 := by
+  rw [Phi_threshold_eq_log_400]
+  exact Real.exp_log (by norm_num : (0 : ℝ) < 400)
+
+/-- **`Phi_threshold = 4·log 2 + 2·log 5`** — log-prime factorization
+    via 400 = 16·25 = 2⁴·5². -/
+theorem Phi_threshold_log_prime_factorization :
+    Phi_threshold = 4 * Real.log 2 + 2 * Real.log 5 := by
+  rw [Phi_threshold_eq_log_400]
+  have h400 : (400 : ℝ) = (2 ^ 4) * (5 ^ 2) := by norm_num
+  rw [h400]
+  rw [Real.log_mul (by norm_num : (2 : ℝ)^4 ≠ 0) (by norm_num : (5 : ℝ)^2 ≠ 0)]
+  rw [Real.log_pow, Real.log_pow]
+  push_cast; ring
+
 /-- Effective dimension threshold from ch_2 = 0.95. -/
 def effective_dim_threshold : ℕ := 20
 
