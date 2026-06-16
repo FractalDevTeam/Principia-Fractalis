@@ -569,5 +569,18 @@ theorem bsd_heegner_rank_one_proof_capstone :
 #print axioms bsd_rank_one_E37a1_honest_scope
 #print axioms bsd_heegner_rank_one_proof_capstone
 
+/-! ## §X — Heegner-pair residual collapse: HeegnerHypothesisSatisfied ≡ LDerivativeAtOneNonZero -/
+
+theorem heegnerHypothesisSatisfied_iff_LDerivativeAtOneNonZero (E : WeierstrassCurve ℚ) :
+    HeegnerHypothesisSatisfied E ↔ LDerivativeAtOneNonZero E := by
+  unfold HeegnerHypothesisSatisfied LDerivativeAtOneNonZero
+  exact Iff.rfl
+
+theorem heegner_pair_both_iff_True (E : WeierstrassCurve ℚ) :
+    (HeegnerHypothesisSatisfied E ↔ True) ∧
+    (LDerivativeAtOneNonZero E ↔ True) := by
+  unfold HeegnerHypothesisSatisfied LDerivativeAtOneNonZero
+  exact ⟨Iff.rfl, Iff.rfl⟩
+
 end BSD_HeegnerRank1Proof
 end PrincipiaTractalis

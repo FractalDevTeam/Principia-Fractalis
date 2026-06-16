@@ -495,4 +495,54 @@ substrate-level bypass remains the strongest framework content on
 this frontier.
 -/
 
+/-! ## §X — Mumford 9-prerequisite residual collapse: P1 ≡ ... ≡ P8 ≡ MumfordTheorem
+
+All nine named Props (P1...P8 + MumfordTheoremFirstPrinciplesAbelian3Fold)
+have body `True`. The 9-clause inventory collapses to one equivalence
+class at kernel-only axioms. -/
+
+theorem mumford_P1_iff_P2 : P1_AbelianVariety_typeclass ↔ P2_EllipticCurve_to_AbelianVariety := by
+  unfold P1_AbelianVariety_typeclass P2_EllipticCurve_to_AbelianVariety; exact Iff.rfl
+
+theorem mumford_P2_iff_P3 : P2_EllipticCurve_to_AbelianVariety ↔ P3_AbelianVariety_product := by
+  unfold P2_EllipticCurve_to_AbelianVariety P3_AbelianVariety_product; exact Iff.rfl
+
+theorem mumford_P3_iff_P4 : P3_AbelianVariety_product ↔ P4_PontryaginProduct_on_Chow := by
+  unfold P3_AbelianVariety_product P4_PontryaginProduct_on_Chow; exact Iff.rfl
+
+theorem mumford_P4_iff_P5 : P4_PontryaginProduct_on_Chow ↔ P5_Kunneth_for_AbelianVariety := by
+  unfold P4_PontryaginProduct_on_Chow P5_Kunneth_for_AbelianVariety; exact Iff.rfl
+
+theorem mumford_P5_iff_P6 : P5_Kunneth_for_AbelianVariety ↔ P6_CycleClassMap_in_arbitrary_codim := by
+  unfold P5_Kunneth_for_AbelianVariety P6_CycleClassMap_in_arbitrary_codim; exact Iff.rfl
+
+theorem mumford_P6_iff_P7 : P6_CycleClassMap_in_arbitrary_codim ↔ P7_HodgeClasses_Pontryagin_decomposition := by
+  unfold P6_CycleClassMap_in_arbitrary_codim P7_HodgeClasses_Pontryagin_decomposition; exact Iff.rfl
+
+theorem mumford_P7_iff_P8 : P7_HodgeClasses_Pontryagin_decomposition ↔ P8_Mumford1970_capstone := by
+  unfold P7_HodgeClasses_Pontryagin_decomposition P8_Mumford1970_capstone; exact Iff.rfl
+
+theorem mumford_P8_iff_MumfordTheorem :
+    P8_Mumford1970_capstone ↔ MumfordTheoremFirstPrinciplesAbelian3Fold := by
+  unfold P8_Mumford1970_capstone MumfordTheoremFirstPrinciplesAbelian3Fold; exact Iff.rfl
+
+/-- **★ Mumford 9-Prop residual reduction**: all 9 named Props
+    (P1...P8 + MumfordTheorem) are propositionally equivalent to True. -/
+theorem mumford_nine_props_all_iff_True :
+    (P1_AbelianVariety_typeclass ↔ True) ∧
+    (P2_EllipticCurve_to_AbelianVariety ↔ True) ∧
+    (P3_AbelianVariety_product ↔ True) ∧
+    (P4_PontryaginProduct_on_Chow ↔ True) ∧
+    (P5_Kunneth_for_AbelianVariety ↔ True) ∧
+    (P6_CycleClassMap_in_arbitrary_codim ↔ True) ∧
+    (P7_HodgeClasses_Pontryagin_decomposition ↔ True) ∧
+    (P8_Mumford1970_capstone ↔ True) ∧
+    (MumfordTheoremFirstPrinciplesAbelian3Fold ↔ True) := by
+  unfold P1_AbelianVariety_typeclass P2_EllipticCurve_to_AbelianVariety
+         P3_AbelianVariety_product P4_PontryaginProduct_on_Chow
+         P5_Kunneth_for_AbelianVariety P6_CycleClassMap_in_arbitrary_codim
+         P7_HodgeClasses_Pontryagin_decomposition P8_Mumford1970_capstone
+         MumfordTheoremFirstPrinciplesAbelian3Fold
+  exact ⟨Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl, Iff.rfl⟩
+
 end PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory
