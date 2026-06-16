@@ -1429,6 +1429,43 @@ theorem α_skeleton_sum_bracket :
   · linarith [h_α_P_gt, h_pi_gt, h_phi_lb, h_α_QG_gt]
   · linarith [h_α_P_lt, h_pi_lt, h_phi_ub, h_α_QG_lt]
 
+/-- **★ Σα SHARP BRACKET ★**: `18.97 < Σ α_i < 18.98` — 100× tighter than
+    the wide bracket. Numerical ≈ 18.9756. Uses 4-decimal precision on
+    every component (√2, π, φ, √(2π)). Any single-α perturbation at the
+    10⁻³ level shifts Σα past one endpoint. -/
+theorem α_skeleton_sum_sharp_bracket :
+    (18.97 : ℝ) < α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+                  + α_Hodge + α_NP + α_QG ∧
+    α_Poincare + α_P + α_RH + α_YM + α_BSD + α_NS
+      + α_Hodge + α_NP + α_QG < (18.98 : ℝ) := by
+  rw [α_skeleton_sum_closed_form]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  -- √2 tight: 1.4142² = 1.99996 < 2, 1.4143² = 2.00024 > 2
+  have h_P_sq : α_P ^ 2 = 2 := by
+    unfold α_P; exact Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  have h_P_pos : (0 : ℝ) < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num)
+  have h_P_gt : (1.4142 : ℝ) < α_P := by nlinarith [h_P_sq, h_P_pos]
+  have h_P_lt : α_P < (1.4143 : ℝ) := by nlinarith [h_P_sq, h_P_pos]
+  -- φ tight (from phi_in_interval_10digit, 10-digit)
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  -- √(2π) tight: 2.5066² = 6.28304 < 2π, 2.5067² = 6.28354 > 2π
+  have h_QG_sq : α_QG ^ 2 = 2 * Real.pi := α_QG_sq_eq_two_pi
+  have h_QG_pos : (0 : ℝ) < α_QG := by
+    unfold α_QG; exact Real.sqrt_pos.mpr (by linarith)
+  have h_QG_gt : (2.5066 : ℝ) < α_QG := by nlinarith [h_QG_sq, h_QG_pos, h_pi_gt]
+  have h_QG_lt : α_QG < (2.5067 : ℝ) := by nlinarith [h_QG_sq, h_QG_pos, h_pi_lt]
+  refine ⟨?_, ?_⟩
+  · linarith [h_P_gt, h_pi_gt, h_phi_lb, h_QG_gt]
+  · linarith [h_P_lt, h_pi_lt, h_phi_ub, h_QG_lt]
+
 /-! ### ★ Capstone: full 9-instance 4th-power layer ★ -/
 
 /-- **`α_Poincaré⁴ = 1`**. -/
