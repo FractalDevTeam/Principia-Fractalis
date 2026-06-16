@@ -1926,6 +1926,75 @@ theorem prod_α_skeleton_elementary_bracket :
     -- π² < 3.14160² < 9.870, √π < 1.78 → π²·√π < 17.569 < 17.629
     nlinarith [h_pi_lt, h_sqrt_pi_lt, sq_nonneg Real.pi]
 
+/-! ### ★ Full 9-instance 4th-power-sum closed form ★ -/
+
+/-- **★ FULL 9-INSTANCE 4TH-POWER-SUM CLOSED FORM ★** —
+    `Σ_i α_i⁴ = 8049/256 + (135/16)·α_Hodge + 4·π² + (1377/256)·π⁴`.
+
+    Component breakdown (from the 4th-power layer capstone):
+      Rationals: 1 + 4 + 81/16 + 16 + 2 + 865/256 = 8049/256
+      α_Hodge:   3 + 87/16 = 135/16
+      π²:        4 (from α_QG⁴ = 4π²)
+      π⁴:        81/256 + 81/16 = 1377/256
+
+    Numerical ≈ 608.5. -/
+theorem sum_α_fourth_skeleton_all_nine :
+    α_Poincare ^ 4 + α_P ^ 4 + α_RH ^ 4 + α_YM ^ 4 + α_BSD ^ 4
+      + α_NS ^ 4 + α_Hodge ^ 4 + α_NP ^ 4 + α_QG ^ 4
+    = 8049/256 + (135/16) * α_Hodge + 4 * Real.pi ^ 2
+      + (1377/256) * Real.pi ^ 4 := by
+  have h_Poincare : α_Poincare ^ 4 = 1 := α_Poincare_fourth
+  have h_P : α_P ^ 4 = 4 := α_P_fourth
+  have h_RH : α_RH ^ 4 = 81/16 := α_RH_fourth
+  have h_YM : α_YM ^ 4 = 16 := α_YM_fourth
+  have h_BSD : α_BSD ^ 4 = 81 * Real.pi ^ 4 / 256 := α_BSD_fourth
+  have h_NS : α_NS ^ 4 = 81 * Real.pi ^ 4 / 16 := α_NS_fourth
+  have h_Hodge : α_Hodge ^ 4 = 3 * α_Hodge + 2 := α_Hodge_fourth
+  have h_NP : α_NP ^ 4 = (87/16) * α_Hodge + 865/256 := α_NP_fourth
+  have h_QG : α_QG ^ 4 = 4 * Real.pi ^ 2 := α_QG_fourth
+  rw [h_Poincare, h_P, h_RH, h_YM, h_BSD, h_NS, h_Hodge, h_NP, h_QG]
+  ring
+
+/-! ### ★ Full 9-instance cubed-sum closed form ★ -/
+
+/-- **★ FULL 9-INSTANCE CUBED-SUM CLOSED FORM ★** —
+    `Σ_i α_i³ = 969/64 + (79/16)·α_Hodge + (243/64)·π³
+                + 2·α_P + 2π·α_QG`.
+
+    Component breakdown:
+      α_Poincaré³ = 1                       (rational)
+      α_P³        = 2·α_P                   (irrational α_P-term)
+      α_RH³       = 27/8                    (rational)
+      α_YM³       = 8                       (rational)
+      α_BSD³      = 27π³/64                 (π³-term)
+      α_NS³       = 27π³/8                  (π³-term)
+      α_Hodge³    = 2·α_Hodge + 1           (α_Hodge-affine)
+      α_NP³       = (47/16)·α_Hodge + 113/64 (α_Hodge-affine)
+      α_QG³       = 2π·α_QG                 (irrational α_QG-term)
+
+    Rational constants:   1 + 27/8 + 8 + 1 + 113/64 = 969/64
+    α_Hodge coefficient:  2 + 47/16 = 79/16
+    π³ coefficient:       27/64 + 27/8 = 243/64
+    α_P coefficient:      2
+    π·α_QG coefficient:   2  (∼ 2π·α_QG term)
+-/
+theorem sum_α_cubed_skeleton_all_nine :
+    α_Poincare ^ 3 + α_P ^ 3 + α_RH ^ 3 + α_YM ^ 3 + α_BSD ^ 3
+      + α_NS ^ 3 + α_Hodge ^ 3 + α_NP ^ 3 + α_QG ^ 3
+    = 969/64 + (79/16) * α_Hodge + (243/64) * Real.pi ^ 3
+      + 2 * α_P + 2 * Real.pi * α_QG := by
+  have h_Poincare : α_Poincare ^ 3 = 1 := α_Poincare_cubed
+  have h_P : α_P ^ 3 = 2 * α_P := α_P_cubed
+  have h_RH : α_RH ^ 3 = 27/8 := α_RH_cubed
+  have h_YM : α_YM ^ 3 = 8 := α_YM_cubed
+  have h_BSD : α_BSD ^ 3 = 27 * Real.pi ^ 3 / 64 := α_BSD_cubed
+  have h_NS : α_NS ^ 3 = 27 * Real.pi ^ 3 / 8 := α_NS_cubed
+  have h_Hodge : α_Hodge ^ 3 = 2 * α_Hodge + 1 := α_Hodge_cubed
+  have h_NP : α_NP ^ 3 = (47/16) * α_Hodge + 113/64 := α_NP_cubed
+  have h_QG : α_QG ^ 3 = 2 * Real.pi * α_QG := α_QG_cubed_early
+  rw [h_Poincare, h_P, h_RH, h_YM, h_BSD, h_NS, h_Hodge, h_NP, h_QG]
+  ring
+
 /-! ### ★ Full 9-instance squared-sum closed form ★ -/
 
 /-- **★ FULL 9-INSTANCE SQUARED-SUM CLOSED FORM ★** —
