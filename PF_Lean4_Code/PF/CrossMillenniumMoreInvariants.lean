@@ -2163,6 +2163,40 @@ theorem sum_α_sq_skeleton_bracket :
   · nlinarith [h_pi_gt, h_phi_lb, sq_nonneg Real.pi]
   · nlinarith [h_pi_lt, h_phi_ub, sq_nonneg Real.pi, h_pi_pos]
 
+/-- **★ Σα² SHARP BRACKET ★**: `49.39 < Σ α_i² < 49.41` — 50× tighter
+    than the wide bracket. Numerical ≈ 49.395.
+
+    Component breakdown of `(5/2)·α_Hodge + 2π + (45/16)·π² + 181/16`:
+      181/16        = 11.3125              (exact)
+      (5/2)·α_Hodge ∈ (4.045, 4.046)        (φ ∈ [1.6180339887, ...8])
+      2π            ∈ (6.28318, 6.28320)   (π_d6)
+      (45/16)·π²    ∈ (27.7580, 27.7586)   (π² ∈ (9.8695, 9.8697))
+
+    Bracket width 0.02 vs prior 1.0. -/
+theorem sum_α_sq_skeleton_sharp_bracket :
+    (49.39 : ℝ) < α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2
+                    + α_BSD ^ 2 + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2
+                    + α_QG ^ 2 ∧
+    α_Poincare ^ 2 + α_P ^ 2 + α_RH ^ 2 + α_YM ^ 2 + α_BSD ^ 2
+      + α_NS ^ 2 + α_Hodge ^ 2 + α_NP ^ 2 + α_QG ^ 2 < (49.41 : ℝ) := by
+  rw [sum_α_sq_skeleton_all_nine]
+  have h_pi_gt : (3.14159 : ℝ) < Real.pi := by
+    have := Real.pi_gt_d6; linarith
+  have h_pi_lt : Real.pi < (3.14160 : ℝ) := by
+    have := Real.pi_lt_d6; linarith
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_sq_gt : (9.8695 : ℝ) < Real.pi ^ 2 := by
+    nlinarith [h_pi_gt, h_pi_pos]
+  have h_pi_sq_lt : Real.pi ^ 2 < (9.8697 : ℝ) := by
+    nlinarith [h_pi_lt, h_pi_pos]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  refine ⟨?_, ?_⟩
+  · linarith [h_pi_gt, h_pi_sq_gt, h_phi_lb]
+  · linarith [h_pi_lt, h_pi_sq_lt, h_phi_ub]
+
 /-! ### ★ Full 9-product closed form ★ -/
 
 /-- **★ FULL 9-PRODUCT CLOSED FORM ★** —
