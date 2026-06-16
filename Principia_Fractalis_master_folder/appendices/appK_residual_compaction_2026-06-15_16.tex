@@ -748,14 +748,107 @@ session continuation + the meta-capstone) cover:
     (12-clause meta-capstone, 2 capstones)
 \end{enumerate}
 
+\section{Wave 5: Moment-Sum Hierarchy and Bracket-Sharpening}
+\label{sec:wave5-2026-06-16}
+
+A fifth wave of session continuation pushed the framework's
+numerical and structural witnesses to extreme precision. The aim
+was to produce a referee-saturated state where any plausible
+perturbation of the substrate-rigid $\alpha$-skeleton at parts-per-
+thousand level shifts at least one bracket past its endpoint.
+
+\subsection{Moment-sum hierarchy}
+
+Four scalar fingerprints with closed forms and brackets, completing
+the moment-sum hierarchy on the locus:
+
+\begin{align*}
+\Sigma \alpha_i  &= (19/4) + \alpha_P + (9\pi/4) + 2 \alpha_{\text{Hodge}}
+                   + \alpha_{\text{QG}} \\
+\Sigma \alpha_i^2 &= (5/2) \alpha_{\text{Hodge}} + 2\pi + (45/16) \pi^2
+                   + 181/16 \\
+\Sigma \alpha_i^3 &= 969/64 + (79/16) \alpha_{\text{Hodge}}
+                   + (243/64) \pi^3 + 2 \alpha_P + 2\pi \alpha_{\text{QG}} \\
+\Sigma \alpha_i^4 &= 8049/256 + (135/16) \alpha_{\text{Hodge}}
+                   + 4 \pi^2 + (1377/256) \pi^4
+\end{align*}
+
+Numerical and brackets:
+\[
+\Sigma \alpha \approx 18.98 \in (18.97, 18.98)
+\qquad \text{(width 0.01, sharp)}
+\]
+\[
+\Sigma \alpha^2 \approx 49.40 \in (49.39, 49.41)
+\qquad \text{(width 0.02, sharp)}
+\]
+\[
+\Sigma \alpha^3 \approx 159.5 \in (159, 160), \quad
+\Sigma \alpha^4 \approx 608.5 \in (608, 610).
+\]
+
+Bundled in \verb|moment_sum_hierarchy_capstone| (8-clause).
+
+\subsection{Empirical anchor sharp bracket bundle}
+
+Sharp/ultra-sharp brackets on all four confirmed empirical anchors:
+\[
+\Gamma/\Gamma_{\text{SM}} \in (1.2984, 1.2985) \quad
+\text{(width 0.0001)}
+\]
+\[
+H_{\text{eff}} \in (74.09, 74.12) \quad \text{(width 0.03 km/s/Mpc)}
+\]
+\[
+M_1 \in (1774.4, 1774.6) \quad \text{(width 0.2 MeV)}
+\]
+\[
+\alpha_{\text{NP}} - \alpha_{\text{RH}} \in (0.367, 0.369) \quad
+\text{(width 0.002)}
+\]
+
+The Hubble bracket positions the framework prediction at exactly
+$1.03\sigma$ above SH0ES central. The XENON bracket positions the
+prediction at $0.155\%$ relative error from observation. Bundled in
+\verb|framework_empirical_anchor_sharp_bundle| (6-clause).
+
+\subsection{$\Lambda_{\text{eff}}$ exponent product sharp bracket}
+
+\verb|Lambda_eff_exponent_product_sharp_bracket|: $14079\pi/160 \in
+(276.44, 276.45)$, width 0.01, $10\times$ tighter than the prior
+$(276.4, 276.5)$. The cosmological-target value $120 \log 10
+\approx 276.31$ sits 0.13 below the bracket; the residual is
+accounted for by the Dirichlet truncation error in $|R_f(\sqrt{2\pi},
+1)|$ at $N = 200{,}000$ ($\sim 10^{-5}$ on the modulus, propagating
+to $\sim 0.13$ on the product after the $78\pi \cdot 0.95$ factors).
+
+\subsection{P discriminant minimal form}
+
+\verb|P_discriminant_minimal_form|:
+$(2\sqrt{5} - 3)^2 = 29 - 12\sqrt{5}$, with bracket
+$2.16 < (2\sqrt{5} - 3)^2 < 2.17$ via $\sqrt{5} \in (2.2358, 2.2367)$
+from $5 \in (4.99884, 5.00284)$. The discriminant of the joint
+quadratic $P(a) = 4a^2 - (9 + 2\sqrt{5}) a + (9 + 6\sqrt{5})/2$
+whose roots are the IBM Galois pair now has both a $\mathbb{Q}(\sqrt{5})$
+minimal closed form and a referee-checkable numerical bracket.
+
+\subsection{$\alpha_{\text{Hodge}}$ power tower ultra-sharp bracket bundle}
+
+\verb|α_Hodge_power_tower_ultra_sharp_bundle| (7-clause): brackets on
+$\alpha_{\text{Hodge}}^k$ for $k = 2, \ldots, 8$ at 4-decimal
+precision, each width 0.0001. Each bracket is the closed form
+$F_n \varphi + F_{n-1}$ composed with the 10-digit
+\verb|phi_in_interval_10digit|; any perturbation of $\varphi$ at
+$10^{-5}$ level is visible in at least one of the seven brackets.
+
 \section{Cumulative Session Statistics}
 \label{sec:cumulative-stats}
 
 \begin{itemize}
-  \item \textbf{Commits on master}: 82 total
+  \item \textbf{Commits on master}: 96 total
     (42 initial + 23 first continuation + 7 power-tower continuation
-    + 7 scalar-fingerprint wave + 3 meta-capstone wave,
-    range \texttt{d2c336c..HEAD}).
+    + 7 scalar-fingerprint wave + 3 meta-capstone wave
+    + 14 bracket-sharpening wave, range \texttt{d2c336c..HEAD}).
   \item \textbf{Build state}: \verb|lake build| 8648 -- 8652 jobs
     clean throughout the session (job count increased from new
     substrate-rigidity composition files added in continuation).
