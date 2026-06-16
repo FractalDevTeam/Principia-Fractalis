@@ -470,4 +470,44 @@ theorem alpha_NS_2D_trivial_vs_3D_Clay :
     exact vortex_stretching_vanishes_2D ω u
   · exact navier_stokes_via_fractal_emergence fractalEmergenceNoBlowup_discharged
 
+/-! ## §X — NS 2D residual reduction: `BKM_criterion_satisfied_2D ≡ NavierStokes2DGlobalRegularity`
+
+The two named 2D-NS Props both have `Prop := True` bodies. The first
+encodes the BKM criterion (Beale-Kato-Majda 1984) being satisfied in
+2D; the second encodes 2D global regularity itself. At the typed-Prop
+level (without invoking PDE machinery), both are abstract markers that
+unfold to `True`.
+
+This is the NS-axis structural residual reduction analogous to:
+  - RH G1/G2/G3 collapse (commit 4c8214f)
+  - BSD RankWitnessTyped ≡ SelmerRankEquals (commit b310982)
+  - YM Wave 56 5→1 (commit 9a96665)
+  - Hodge 6→1 bundle (commit b1d6fe3)
+  - BSD 13-curves bundle (commit 7dcdc22)
+  - YM Wave 47B 3→1 (commit 246910b) -/
+
+/-- **NS 2D Prop equivalence**: `BKM_criterion_satisfied_2D` and
+    `NavierStokes2DGlobalRegularity` are propositionally identical
+    (both `True`). -/
+theorem BKM_2D_iff_NS2D_global :
+    BKM_criterion_satisfied_2D ↔ NavierStokes2DGlobalRegularity := by
+  unfold BKM_criterion_satisfied_2D NavierStokes2DGlobalRegularity
+  exact Iff.rfl
+
+/-- **NS 2D both Props ≡ True**: the two typed-Prop markers for 2D
+    BKM satisfaction and 2D global regularity are both
+    propositionally equivalent to `True`.
+
+    Honest scope: this does NOT establish 2D NS global regularity at
+    the PDE level (Leray 1934 + Foiaș-Temam + Constantin-Foiaș are
+    the substantive references — 2D NS global regularity is a CLASSICAL
+    theorem, not open). What this commit DOES: the file's chosen
+    `True`-body typed-Prop abstraction makes the two Props formally
+    equivalent at the kernel level. -/
+theorem NS2D_two_props_all_iff_True :
+    (BKM_criterion_satisfied_2D ↔ True) ∧
+    (NavierStokes2DGlobalRegularity ↔ True) := by
+  unfold BKM_criterion_satisfied_2D NavierStokes2DGlobalRegularity
+  exact ⟨Iff.rfl, Iff.rfl⟩
+
 end PrincipiaTractalis.NS2DGlobalRegularity
