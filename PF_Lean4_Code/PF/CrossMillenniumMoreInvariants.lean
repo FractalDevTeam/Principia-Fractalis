@@ -782,6 +782,73 @@ theorem one_div_α_NP_bracket :
   · -- 8√5 − 12 < 0.536·11 = 5.896 ⟺ 8√5 < 17.896 ⟺ √5 < 2.237 ⟺ 5 < 5.004...
     nlinarith [h_sqrt5_sq, h_sqrt5_pos]
 
+/-- **`1/α_QG = α_QG / (2π)`** — self-similar reciprocal of √(2π).
+    Since α_QG² = 2π, dividing both sides by α_QG·(2π) gives the identity. -/
+theorem one_div_α_QG_eq :
+    1 / α_QG = α_QG / (2 * Real.pi) := by
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_α_QG_pos : (0 : ℝ) < α_QG := by
+    unfold α_QG
+    exact Real.sqrt_pos.mpr (by linarith)
+  have h_2pi_pos : (0 : ℝ) < 2 * Real.pi := by linarith
+  have h_sq := α_QG_sq_eq_two_pi
+  field_simp
+  linarith [h_sq]
+
+/-! ### ★ Capstone: full 9-instance reciprocal layer ★ -/
+
+/-- **★ α-SKELETON FULL RECIPROCAL LAYER ★** — every framework α-instance
+    has a clean closed-form reciprocal, simultaneously:
+
+    | α-instance | 1/α                       |
+    |------------|---------------------------|
+    | α_Poincaré | 1                         |
+    | α_P        | α_P / 2                   |  (since α_P² = 2)
+    | α_RH       | 2/3                       |
+    | α_YM       | 1/2                       |
+    | α_BSD      | 4 / (3π)                  |
+    | α_NS       | 2 / (3π)                  |
+    | α_Hodge    | α_Hodge − 1               |  (golden ratio property)
+    | α_NP       | (8·√5 − 12) / 11          |  (Q(√5) reciprocal)
+    | α_QG       | α_QG / (2π)               |  (self-similar)
+
+    All 9 reciprocals expressed in the Q(π, √2, √5, φ) ring; the locus is
+    closed under inversion within the same algebraic ring. -/
+theorem α_skeleton_full_reciprocal_layer :
+    1 / α_Poincare = 1 ∧
+    1 / α_P = α_P / 2 ∧
+    1 / α_RH = 2 / 3 ∧
+    1 / α_YM = 1 / 2 ∧
+    1 / α_BSD = 4 / (3 * Real.pi) ∧
+    1 / α_NS = 2 / (3 * Real.pi) ∧
+    1 / α_Hodge = α_Hodge - 1 ∧
+    1 / α_NP = (8 * Real.sqrt 5 - 12) / 11 ∧
+    1 / α_QG = α_QG / (2 * Real.pi) := by
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_ne : Real.pi ≠ 0 := h_pi_pos.ne'
+  have h_sqrt2_sq : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  have h_sqrt2_pos : (0 : ℝ) < Real.sqrt 2 :=
+    Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · unfold α_Poincare; norm_num
+  · -- 1/√2 = √2/2
+    unfold α_P
+    field_simp
+    nlinarith [h_sqrt2_sq, h_sqrt2_pos]
+  · -- 1/(3/2) = 2/3
+    unfold α_RH; norm_num
+  · -- 1/2 = 1/2
+    unfold α_YM; norm_num
+  · -- 1/(3π/4) = 4/(3π)
+    unfold α_BSD
+    field_simp
+  · -- 1/(3π/2) = 2/(3π)
+    unfold α_NS
+    field_simp
+  · exact one_div_α_Hodge_eq
+  · exact one_div_α_NP_closed_form
+  · exact one_div_α_QG_eq
+
 /-- **`α_NP · α_Hodge` chained form via α_Hodge_mul_α_NP**:
     `α_NP · α_Hodge = α_Hodge · α_NP = (5/4)·α_Hodge + 1`. -/
 theorem α_NP_mul_α_Hodge :
