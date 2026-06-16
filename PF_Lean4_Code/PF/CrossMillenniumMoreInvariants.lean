@@ -303,6 +303,51 @@ theorem α_RH_sq_add_α_BSD_sq :
     α_RH ^ 2 + α_BSD ^ 2 = 9/4 + 9 * Real.pi ^ 2 / 16 := by
   rw [α_RH_sq_eq_nine_fourths, α_BSD_sq]
 
+/-! ## Section 2f — Symmetric and antisymmetric closures on the locus -/
+
+/-- **`α_NS² - α_BSD² = 27π²/16`** — difference of squares form. -/
+theorem α_NS_sq_sub_α_BSD_sq :
+    α_NS ^ 2 - α_BSD ^ 2 = 27 * Real.pi ^ 2 / 16 := by
+  rw [α_NS_sq, α_BSD_sq]; ring
+
+/-- **`α_NS² + α_BSD² = 45π²/16`** — sum of π-built squared. -/
+theorem α_NS_sq_add_α_BSD_sq :
+    α_NS ^ 2 + α_BSD ^ 2 = 45 * Real.pi ^ 2 / 16 := by
+  rw [α_NS_sq, α_BSD_sq]; ring
+
+/-- **`α_QG² · α_BSD = 3π²/2`** — QG^2 × BSD product. -/
+theorem α_QG_sq_mul_α_BSD : α_QG ^ 2 * α_BSD = 3 * Real.pi ^ 2 / 2 := by
+  rw [α_QG_sq_eq_two_pi]; unfold α_BSD; ring
+
+/-- **`α_QG² · α_NS = 3π²`** — QG^2 × NS product. -/
+theorem α_QG_sq_mul_α_NS : α_QG ^ 2 * α_NS = 3 * Real.pi ^ 2 := by
+  rw [α_QG_sq_eq_two_pi]; unfold α_NS; ring
+
+/-- **`α_YM² + α_RH² = 25/4`** — rational diagonal: 4 + 9/4 = 25/4. -/
+theorem α_YM_sq_add_α_RH_sq : α_YM ^ 2 + α_RH ^ 2 = 25 / 4 := by
+  rw [α_YM_sq, α_RH_sq_eq_nine_fourths]; ring
+
+/-- **`(α_YM + α_RH) · (α_YM - α_RH) = 7/4`** — diff-of-squares factored. -/
+theorem α_YM_plus_RH_mul_minus_RH : (α_YM + α_RH) * (α_YM - α_RH) = 7/4 := by
+  unfold α_YM α_RH; ring
+
+/-- **`α_P² + α_RH² = 17/4`** — √2 + rational squared sum. -/
+theorem α_P_sq_add_α_RH_sq : α_P ^ 2 + α_RH ^ 2 = 17 / 4 := by
+  rw [α_P_sq_eq_α_YM, α_RH_sq_eq_nine_fourths]; unfold α_YM; ring
+
+/-- **`α_Hodge² + α_NP² = (5/2)·α_Hodge + 33/16`** — φ-axis squared sum. -/
+theorem α_Hodge_sq_add_α_NP_sq :
+    α_Hodge ^ 2 + α_NP ^ 2 = (5/2) * α_Hodge + 33/16 := by
+  unfold α_NP α_Hodge
+  have h := phi_sq_eq
+  nlinarith [h]
+
+/-- **`α_Poincare + α_RH + α_YM = 9/2`** — rational locus row sum.
+    Recovers the framework's Smale-aggregate target. -/
+theorem α_Poincare_add_α_RH_add_α_YM :
+    α_Poincare + α_RH + α_YM = 9 / 2 := by
+  unfold α_Poincare α_RH α_YM; ring
+
 /-! ## Section 3 — Mixed-product invariants (algebraic × algebraic) -/
 
 /-- **`α_P · α_RH = (3/2) · α_P`**: trivial scalar factor, recorded
