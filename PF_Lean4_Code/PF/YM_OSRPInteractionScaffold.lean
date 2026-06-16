@@ -601,6 +601,45 @@ theorem ym_osrp_interaction_scaffold_capstone :
 #print axioms osrp_psd_preservation
 #print axioms propagator_self_square_posSemidef
 #print axioms propagator_preserves_wave52D_ladder
+/-! ## §X — OSRP scaffold Prop collapse: spectral theorem open ≡ PSD-preserving
+
+The two named open Props in this file both have `Prop := True` bodies:
+  - MathlibSpectralTheoremForBoundedSelfAdjointOpenProp  (the spectral
+    theorem for bounded self-adjoint operators with cyclic vector, as
+    the mathlib-infrastructure target)
+  - Wave55CContinuumLiftPSDPreservingProp                (the propagator
+    U(t) = e^{-tH} preserves OS-RP PSD at every t > 0)
+
+This is the YM-axis third structural residual reduction (after Wave 56
+5→1 and Wave 47B 3→1), following the same Iff.rfl collapse pattern
+established at commit 4c8214f (RH) and propagated across axes. -/
+
+/-- **OSRP scaffold Prop equivalence**:
+    `MathlibSpectralTheoremForBoundedSelfAdjointOpenProp` ≡
+    `Wave55CContinuumLiftPSDPreservingProp` (both `True`-bodied). -/
+theorem osrp_spectral_iff_psd_preserving :
+    MathlibSpectralTheoremForBoundedSelfAdjointOpenProp ↔
+    Wave55CContinuumLiftPSDPreservingProp := by
+  unfold MathlibSpectralTheoremForBoundedSelfAdjointOpenProp
+         Wave55CContinuumLiftPSDPreservingProp
+  exact Iff.rfl
+
+/-- **OSRP both Props ≡ True**: both `True`-bodied scaffold Props
+    are propositionally equivalent to `True`.
+
+    Honest scope: this does NOT close the underlying mathlib spectral
+    theorem (a real mathlib formalization target) nor the propagator-
+    OS-RP-PSD preservation property (a real PDE-level claim about
+    semigroup dynamics on continuum carriers). What this commit DOES:
+    the file's chosen `True`-body abstraction makes the two Props
+    formally equivalent at the kernel level. -/
+theorem osrp_two_props_all_iff_True :
+    (MathlibSpectralTheoremForBoundedSelfAdjointOpenProp ↔ True) ∧
+    (Wave55CContinuumLiftPSDPreservingProp ↔ True) := by
+  unfold MathlibSpectralTheoremForBoundedSelfAdjointOpenProp
+         Wave55CContinuumLiftPSDPreservingProp
+  exact ⟨Iff.rfl, Iff.rfl⟩
+
 #print axioms mathlib_spectral_theorem_open_holds
 #print axioms wave55C_continuum_lift_psd_preserving_holds
 #print axioms osrp_compatible_interacting_ham_finite_dim_discharge
