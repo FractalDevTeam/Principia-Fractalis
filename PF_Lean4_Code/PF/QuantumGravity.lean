@@ -368,4 +368,46 @@ theorem alpha_QG_zeta_two_cross_axis_bridge :
   ⟨riemannZeta_two_eq_alpha_QG_fourth_div_24,
    alpha_QG_fourth_eq_24_zeta_two⟩
 
+/-- **★★★ ζ(4) = α_QG⁸ / 1440 ★★★** — cross-axis bridge at s = 4
+    using `ζ(4) = π⁴/90` (Euler) + `α_QG⁸ = 16 π⁴`. -/
+theorem riemannZeta_four_eq_alpha_QG_eighth_div_1440 :
+    riemannZeta 4 = (alpha_QG : ℂ) ^ 8 / 1440 := by
+  rw [riemannZeta_four]
+  have h_sq : alpha_QG ^ 2 = 2 * Real.pi := alpha_QG_sq
+  have h_alpha_QG_real_to_C : ((alpha_QG : ℂ)) ^ 2 = 2 * (Real.pi : ℂ) := by
+    have := congrArg (fun x : ℝ => (x : ℂ)) h_sq
+    simpa using this
+  have h_alpha_QG_eighth : (alpha_QG : ℂ) ^ 8
+      = ((alpha_QG : ℂ) ^ 2) ^ 4 := by ring
+  rw [h_alpha_QG_eighth, h_alpha_QG_real_to_C]
+  ring
+
+/-- **★ α_QG⁸ closed form via ζ(4) ★**. -/
+theorem alpha_QG_eighth_eq_1440_zeta_four :
+    (alpha_QG : ℂ) ^ 8 = 1440 * riemannZeta 4 := by
+  have h := riemannZeta_four_eq_alpha_QG_eighth_div_1440
+  rw [h]; ring
+
+/-- **★★★ α_QG ↔ ζ(2k) CROSS-AXIS HIERARCHY ★★★** — single citable
+    theorem documenting the algebraic bridge between the framework's
+    QG α-value α_QG and the Riemann zeta function at even positive
+    integers k = 1, 2:
+
+      ζ(2) = α_QG⁴  / 24
+      ζ(4) = α_QG⁸  / 1440
+
+    The pattern continues: ζ(2k) involves α_QG^(4k) divided by a
+    rational constant. The framework's QG sector (substrate-rigid
+    α_QG = √(2π)) algebraically determines the RH sector's
+    even-integer ζ-values up to rational constants. -/
+theorem alpha_QG_zeta_hierarchy_cross_axis_bridge :
+    riemannZeta 2 = (alpha_QG : ℂ) ^ 4 / 24 ∧
+    riemannZeta 4 = (alpha_QG : ℂ) ^ 8 / 1440 ∧
+    (alpha_QG : ℂ) ^ 4 = 24 * riemannZeta 2 ∧
+    (alpha_QG : ℂ) ^ 8 = 1440 * riemannZeta 4 :=
+  ⟨riemannZeta_two_eq_alpha_QG_fourth_div_24,
+   riemannZeta_four_eq_alpha_QG_eighth_div_1440,
+   alpha_QG_fourth_eq_24_zeta_two,
+   alpha_QG_eighth_eq_1440_zeta_four⟩
+
 end PrincipiaTractalis
