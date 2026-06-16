@@ -399,4 +399,21 @@ theorem IBM_peaks_NP_gt_RH : alpha_RH < alpha_NP := by
     nlinarith [this, h_sqrt_pos]
   linarith
 
+/-- **Galois-pair gap numerical bracket**: `0.36 < α_NP − α_RH < 0.37`.
+
+    Numerical: (2·√5 − 3)/4 ≈ (4.472 − 3)/4 ≈ 0.3680. The bracket uses
+    √5 ∈ (2.22, 2.24) (from 5 ∈ (4.9284, 5.0176)). -/
+theorem IBM_peaks_gap_bracket :
+    (0.36 : ℝ) < alpha_NP - alpha_RH ∧
+    alpha_NP - alpha_RH < (0.37 : ℝ) := by
+  rw [IBM_peaks_diff_sqrt5_form]
+  have h_sq : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h_sqrt5_pos : (0 : ℝ) < Real.sqrt 5 :=
+    Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+  refine ⟨?_, ?_⟩
+  · -- 0.36 < (2√5 − 3)/4 ⟺ 1.44 + 3 < 2√5 ⟺ √5 > 2.22 ⟺ 5 > 4.9284
+    nlinarith [h_sq, h_sqrt5_pos]
+  · -- (2√5 − 3)/4 < 0.37 ⟺ 2√5 < 4.48 ⟺ √5 < 2.24 ⟺ 5 < 5.0176
+    nlinarith [h_sq, h_sqrt5_pos]
+
 end PrincipiaTractalis.IBMPeaksGaloisPair
