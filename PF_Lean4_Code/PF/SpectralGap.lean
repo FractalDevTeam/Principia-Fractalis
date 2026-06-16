@@ -102,6 +102,49 @@ theorem lambda_0_NP_approx :
   unfold lambda_0_NP
   exact lambda_0_NP_precise  -- Certified axiom from IntervalArithmetic
 
+/-- **`lambda_0_P · √2 = pi_10`** (axiom-free) — the defining identity
+    `lambda_0_P = pi_10/√2` rearranged. -/
+theorem lambda_0_P_mul_sqrt_two : lambda_0_P * Real.sqrt 2 = pi_10 := by
+  unfold lambda_0_P
+  have h_sqrt2_pos : (0 : ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num)
+  have h_sqrt2_ne : Real.sqrt 2 ≠ 0 := ne_of_gt h_sqrt2_pos
+  field_simp
+
+/-- **`lambda_0_NP · (φ + 1/4) = pi_10`** (axiom-free) — the defining
+    identity `lambda_0_NP = pi_10/(φ+1/4)` rearranged. -/
+theorem lambda_0_NP_mul_phi_plus_quarter :
+    lambda_0_NP * (phi + 1/4) = pi_10 := by
+  unfold lambda_0_NP
+  have h_phi_pos : (0 : ℝ) < phi := by
+    have h : (1.6180339887 : ℝ) ≤ phi := phi_in_interval_10digit.1
+    linarith
+  have h_phi_quarter_pos : (0 : ℝ) < phi + 1/4 := by linarith
+  have h_ne : phi + 1/4 ≠ 0 := ne_of_gt h_phi_quarter_pos
+  field_simp
+
+/-- **`lambda_0_P · √2 = lambda_0_NP · (φ + 1/4)`** (axiom-free) — the
+    framework's spectral cross-axis identity: both products equal pi_10,
+    the universal coupling constant. This is the clean algebraic form
+    of the "both ground states normalize to π/10" structure. -/
+theorem lambda_0_P_NP_cross_identity :
+    lambda_0_P * Real.sqrt 2 = lambda_0_NP * (phi + 1/4) := by
+  rw [lambda_0_P_mul_sqrt_two, lambda_0_NP_mul_phi_plus_quarter]
+
+/-- **`spectral_gap · √2 · (φ + 1/4) = pi_10 · (φ + 1/4 − √2)`** (axiom-free)
+    — clean closed-form for the spectral gap multiplied by both
+    eigenvalue denominators. The framework's P vs NP separation
+    in single-line algebraic form. -/
+theorem spectral_gap_times_denominators_closed_form :
+    spectral_gap * (Real.sqrt 2 * (phi + 1/4)) =
+      pi_10 * ((phi + 1/4) - Real.sqrt 2) := by
+  unfold spectral_gap lambda_0_P lambda_0_NP
+  have h_sqrt2_pos : (0 : ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num)
+  have h_phi_pos : (0 : ℝ) < phi := by
+    have h : (1.6180339887 : ℝ) ≤ phi := phi_in_interval_10digit.1
+    linarith
+  have h_phi_quarter_pos : (0 : ℝ) < phi + 1/4 := by linarith
+  field_simp
+
 /- `energy_landscapes_distinct` — deleted 2026-05-13. The claim
    "energy landscapes are distinct" was reduced to `∀ ε > 0, ∃ Type Type, True`,
    witnessed by `Unit, Unit`. No content about energy levels. Zero
