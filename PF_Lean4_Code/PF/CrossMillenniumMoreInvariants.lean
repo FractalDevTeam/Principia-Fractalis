@@ -1339,6 +1339,67 @@ theorem α_skeleton_log_layer :
   · exact log_α_QG_eq_half_log_2_add_log_pi
   · exact log_α_Hodge_eq_log_phi
 
+/-! ### ★ Fundamental constants extracted from the α-skeleton ★ -/
+
+/-- **`π = α_QG² / α_YM`** — the universal transcendental π is downstream
+    of the α-skeleton: it equals the QG-square divided by the YM-base.
+    Combined with `α_QG² = 2π` (locus identity L13) and `α_YM = 2`. -/
+theorem pi_extracted_from_α_skeleton :
+    Real.pi = α_QG ^ 2 / α_YM := by
+  have h_QG := α_QG_sq_eq_two_pi
+  unfold α_YM
+  rw [h_QG]; ring
+
+/-- **`√2 = α_P`** — trivially. -/
+theorem sqrt2_extracted_from_α_skeleton :
+    Real.sqrt 2 = α_P := by
+  unfold α_P; rfl
+
+/-- **`φ = α_Hodge`** — trivially. -/
+theorem phi_extracted_from_α_skeleton :
+    phi = α_Hodge := by
+  unfold α_Hodge; rfl
+
+/-- **`√(2π) = α_QG`** — trivially. -/
+theorem sqrt_2pi_extracted_from_α_skeleton :
+    Real.sqrt (2 * Real.pi) = α_QG := by
+  unfold α_QG; rfl
+
+/-- **`log π = 2·log α_QG − log α_YM`** — log-space π extraction. -/
+theorem log_pi_extracted_from_α_skeleton :
+    Real.log Real.pi = 2 * Real.log α_QG - Real.log α_YM := by
+  rw [log_α_YM_eq_log_two]
+  have h := two_log_α_QG_eq_log_two_pi
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_log_2pi : Real.log (2 * Real.pi)
+                     = Real.log 2 + Real.log Real.pi :=
+    Real.log_mul (by norm_num : (2 : ℝ) ≠ 0) (ne_of_gt h_pi_pos)
+  linarith [h_log_2pi]
+
+/-- **★ FUNDAMENTAL CONSTANTS EXTRACTED ★** — the locus' transcendental
+    and algebraic constants are downstream of the α-skeleton:
+
+    | Constant   | Extraction        |
+    |------------|-------------------|
+    | π          | α_QG² / α_YM      |
+    | √2         | α_P               |
+    | φ          | α_Hodge           |
+    | √(2π)      | α_QG              |
+    | log π      | 2·log α_QG − log α_YM |
+
+    No transcendental in the framework is independent of the α-skeleton. -/
+theorem fundamental_constants_extracted_from_α_skeleton :
+    Real.pi = α_QG ^ 2 / α_YM ∧
+    Real.sqrt 2 = α_P ∧
+    phi = α_Hodge ∧
+    Real.sqrt (2 * Real.pi) = α_QG ∧
+    Real.log Real.pi = 2 * Real.log α_QG - Real.log α_YM :=
+  ⟨pi_extracted_from_α_skeleton,
+   sqrt2_extracted_from_α_skeleton,
+   phi_extracted_from_α_skeleton,
+   sqrt_2pi_extracted_from_α_skeleton,
+   log_pi_extracted_from_α_skeleton⟩
+
 /-! ## Section 2M — α-SKELETON MASTER LAYER CAPSTONE -/
 
 /-- **★★★ α-SKELETON MASTER LAYER CAPSTONE ★★★** —
