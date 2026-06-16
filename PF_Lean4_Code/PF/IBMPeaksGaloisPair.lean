@@ -191,6 +191,27 @@ theorem P_discriminant_pos : (2 * Real.sqrt 5 - 3) ^ 2 > 0 := by
   have h_pos : 2 * Real.sqrt 5 - 3 > 0 := by linarith
   positivity
 
+/-- **P discriminant alternate closed form**: `(2√5 − 3)² = 29 − 12·√5`. -/
+theorem P_discriminant_minimal_form :
+    (2 * Real.sqrt 5 - 3) ^ 2 = 29 - 12 * Real.sqrt 5 := by
+  have h5 : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  nlinarith [h5]
+
+/-- **P discriminant numerical bracket**: `2.16 < (2√5 − 3)² < 2.17`.
+    Numerical ≈ 2.167. Uses √5 ∈ (2.2358, 2.2367). -/
+theorem P_discriminant_bracket :
+    (2.16 : ℝ) < (2 * Real.sqrt 5 - 3) ^ 2 ∧
+    (2 * Real.sqrt 5 - 3) ^ 2 < (2.17 : ℝ) := by
+  rw [P_discriminant_minimal_form]
+  have h5 : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h5_pos : (0 : ℝ) < Real.sqrt 5 :=
+    Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 5)
+  refine ⟨?_, ?_⟩
+  · -- 2.16 < 29 − 12√5 ⟺ 12√5 < 26.84 ⟺ √5 < 2.2367 ⟺ 5 < 5.00284
+    nlinarith [h5, h5_pos]
+  · -- 29 − 12√5 < 2.17 ⟺ 12√5 > 26.83 ⟺ √5 > 2.2358 ⟺ 5 > 4.99884
+    nlinarith [h5, h5_pos]
+
 /-! ## Section 6 — IBM peaks distinct (necessary for a 2×2 Hermitian realization) -/
 
 /-- The IBM peaks are distinct: `α_RH ≠ α_NP`.
