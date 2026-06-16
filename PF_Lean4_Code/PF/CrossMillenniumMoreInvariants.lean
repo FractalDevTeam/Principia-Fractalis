@@ -787,6 +787,106 @@ theorem log_α_BSD_add_log_two_eq_log_α_NS :
     Real.log α_BSD + Real.log 2 = Real.log α_NS := by
   have h := log_α_NS_sub_log_α_BSD_eq_log_two; linarith
 
+/-! ### Locus identities lifted into log-space -/
+
+/-- **`log α_NS = log α_YM + log α_BSD`** — log-form of locus identity L6
+    (α_NS = α_YM · α_BSD). -/
+theorem log_α_NS_eq_log_α_YM_add_log_α_BSD :
+    Real.log α_NS = Real.log α_YM + Real.log α_BSD := by
+  rw [log_α_YM_eq_log_two, log_α_BSD_eq, log_α_NS_eq]
+  have h_log4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+  linarith [h_log4]
+
+/-- **`log α_RH = log 3 − log α_YM`** — log-form of α_RH = 3/α_YM
+    (since α_YM = 2 and α_RH = 3/2). -/
+theorem log_α_RH_eq_log_three_sub_log_α_YM :
+    Real.log α_RH = Real.log 3 - Real.log α_YM := by
+  rw [log_α_YM_eq_log_two, log_α_RH_eq]
+
+/-- **`log α_BSD = log α_NS − log α_YM`** — symmetric companion. -/
+theorem log_α_BSD_eq_log_α_NS_sub_log_α_YM :
+    Real.log α_BSD = Real.log α_NS - Real.log α_YM := by
+  have h := log_α_NS_eq_log_α_YM_add_log_α_BSD; linarith
+
+/-- **`log α_QG + log α_QG = log α_YM + log π`** — log-form of L13
+    (α_QG² = α_YM · π). -/
+theorem log_α_QG_add_log_α_QG_eq_log_α_YM_add_log_pi :
+    Real.log α_QG + Real.log α_QG = Real.log α_YM + Real.log Real.pi := by
+  have h := two_log_α_QG_eq_log_α_YM_add_log_pi; linarith
+
+/-- **`log α_NS = log 3 + log α_BSD − log 2`** — combining L5 (α_NS = 2·α_BSD)
+    with α_RH = 3/2 alignment. -/
+theorem log_α_NS_eq_log_three_add_log_α_BSD_sub_log_two :
+    Real.log α_NS = Real.log α_BSD + Real.log 2 := by
+  have h := log_α_NS_sub_log_α_BSD_eq_log_two; linarith
+
+/-- **`log α_BSD + log α_RH = log α_NS − log 2 + log 3 − log 2`** —
+    composite three-term identity isolating the (log 3, log 2, log π) basis. -/
+theorem log_α_RH_add_log_α_BSD_eq :
+    Real.log α_RH + Real.log α_BSD =
+      2 * Real.log 3 + Real.log Real.pi - 3 * Real.log 2 := by
+  rw [log_α_RH_eq, log_α_BSD_eq]
+  have h_log4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+  linarith [h_log4]
+
+/-! ### Reciprocal log identities -/
+
+/-- **`log (1/α_P) = −(log 2)/2`**. -/
+theorem log_one_div_α_P :
+    Real.log (1 / α_P) = - (Real.log 2 / 2) := by
+  rw [Real.log_div one_ne_zero (by unfold α_P; exact (Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)).ne'),
+      Real.log_one, log_α_P_eq_half_log_two]; ring
+
+/-- **`log (1/α_YM) = −log 2`**. -/
+theorem log_one_div_α_YM :
+    Real.log (1 / α_YM) = - Real.log 2 := by
+  rw [Real.log_div one_ne_zero (by unfold α_YM; norm_num),
+      Real.log_one, log_α_YM_eq_log_two]; ring
+
+/-- **`log (1/α_RH) = log 2 − log 3`**. -/
+theorem log_one_div_α_RH :
+    Real.log (1 / α_RH) = Real.log 2 - Real.log 3 := by
+  rw [Real.log_div one_ne_zero (by unfold α_RH; norm_num),
+      Real.log_one, log_α_RH_eq]; ring
+
+/-- **`log (1/α_QG) = −(log 2 + log π)/2`**. -/
+theorem log_one_div_α_QG :
+    Real.log (1 / α_QG) = - (Real.log 2 + Real.log Real.pi) / 2 := by
+  have h_qg_pos : (0 : ℝ) < α_QG := by
+    unfold α_QG; exact Real.sqrt_pos.mpr (by have := Real.pi_pos; nlinarith)
+  rw [Real.log_div one_ne_zero h_qg_pos.ne',
+      Real.log_one, log_α_QG_eq_half_log_2_add_log_pi]; ring
+
+/-! ### Skeleton log-basis fingerprint -/
+
+/-- **`α-SKELETON LOG-BASIS CLOSED FORM`** — every elementary-form
+    α-instance has its log expressed in the four-element basis
+    `{log 2, log 3, log π, log φ}`. The 5 π-built/rational α's land in
+    `Span_ℤ{log 2, log 3, log π}`; α_P, α_QG add half-coefficients.
+    α_Poincaré contributes 0; α_Hodge contributes log φ. -/
+theorem α_skeleton_log_basis_form :
+    Real.log α_Poincare = 0 ∧
+    Real.log α_YM   = 1 * Real.log 2 + 0 * Real.log 3 + 0 * Real.log Real.pi ∧
+    Real.log α_RH   = (-1) * Real.log 2 + 1 * Real.log 3 + 0 * Real.log Real.pi ∧
+    Real.log α_BSD  = (-2) * Real.log 2 + 1 * Real.log 3 + 1 * Real.log Real.pi ∧
+    Real.log α_NS   = (-1) * Real.log 2 + 1 * Real.log 3 + 1 * Real.log Real.pi ∧
+    Real.log α_P    = (1/2) * Real.log 2 ∧
+    Real.log α_QG   = (1/2) * Real.log 2 + (1/2) * Real.log Real.pi ∧
+    Real.log α_Hodge = Real.log phi := by
+  have h_log4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact log_α_Poincare_eq_zero
+  · rw [log_α_YM_eq_log_two]; ring
+  · rw [log_α_RH_eq]; ring
+  · rw [log_α_BSD_eq]; linarith [h_log4]
+  · rw [log_α_NS_eq]; ring
+  · rw [log_α_P_eq_half_log_two]; ring
+  · rw [log_α_QG_eq_half_log_2_add_log_pi]; ring
+  · exact log_α_Hodge_eq_log_phi
+
 /-! ### Bundle: full logarithmic layer of the α-skeleton -/
 
 /-- **★ α-SKELETON LOGARITHMIC LAYER ★** — every α-instance with a
