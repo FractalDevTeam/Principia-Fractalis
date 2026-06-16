@@ -848,6 +848,45 @@ theorem α_skeleton_full_squares_layer :
     have h := phi_sq_eq
     nlinarith [h]
 
+/-! ### ★ Capstone: full 9-instance cubes layer ★ -/
+
+/-- **`α_Poincaré³ = 1`**. -/
+theorem α_Poincare_cubed : α_Poincare ^ 3 = 1 := by
+  unfold α_Poincare; norm_num
+
+/-- **`α_QG³ = 2π·α_QG`** — self-similar cube (α_QG² = 2π gives a factor). -/
+theorem α_QG_cubed : α_QG ^ 3 = 2 * Real.pi * α_QG := by
+  have h := α_QG_sq_eq_two_pi
+  have : α_QG ^ 3 = α_QG ^ 2 * α_QG := by ring
+  rw [this, h]
+
+/-- **★ α-SKELETON FULL CUBES LAYER ★** — every framework α-instance's
+    cube is in closed form within Q(π, α_Hodge, α_P, α_QG):
+
+    | α-instance | α³                                  |
+    |------------|-------------------------------------|
+    | α_Poincaré | 1                                   |
+    | α_P        | 2·α_P                               |
+    | α_RH       | 27/8                                |
+    | α_YM       | 8                                   |
+    | α_BSD      | 27π³/64                             |
+    | α_NS       | 27π³/8                              |
+    | α_Hodge    | 2·α_Hodge + 1     (φ-Fibonacci)      |
+    | α_NP       | (47/16)·α_Hodge + 113/64            |
+    | α_QG       | 2π·α_QG           (self-similar)    | -/
+theorem α_skeleton_full_cubes_layer :
+    α_Poincare ^ 3 = 1 ∧
+    α_P ^ 3 = 2 * α_P ∧
+    α_RH ^ 3 = 27 / 8 ∧
+    α_YM ^ 3 = 8 ∧
+    α_BSD ^ 3 = 27 * Real.pi ^ 3 / 64 ∧
+    α_NS ^ 3 = 27 * Real.pi ^ 3 / 8 ∧
+    α_Hodge ^ 3 = 2 * α_Hodge + 1 ∧
+    α_NP ^ 3 = (47/16) * α_Hodge + 113/64 ∧
+    α_QG ^ 3 = 2 * Real.pi * α_QG :=
+  ⟨α_Poincare_cubed, α_P_cubed, α_RH_cubed, α_YM_cubed,
+   α_BSD_cubed, α_NS_cubed, α_Hodge_cubed, α_NP_cubed, α_QG_cubed⟩
+
 /-! ### ★ Capstone: full 9-instance reciprocal layer ★ -/
 
 /-- **★ α-SKELETON FULL RECIPROCAL LAYER ★** — every framework α-instance
