@@ -740,6 +740,55 @@ theorem one_div_α_NP_closed_form :
   field_simp
   linarith [h_product]
 
+/-- **`α_NP⁵ = (2605/256)·α_Hodge + 6433/1024`** — fifth power via
+    φ-Fibonacci chain.
+
+    Derivation: α_NP⁵ = α_NP · α_NP⁴
+      = (φ + 1/4)·((87/16)·φ + 865/256)
+      = (87/16)·φ² + (865/256 + 87/64)·φ + 865/1024
+      = (87/16)·(φ + 1) + (865/256 + 87/64)·φ + 865/1024    (φ² = φ + 1)
+      = (87/16 + 865/256 + 87/64)·φ + (87/16 + 865/1024)
+      = (2605/256)·φ + 6433/1024. -/
+theorem α_NP_fifth :
+    α_NP ^ 5 = (2605/256) * α_Hodge + 6433/1024 := by
+  have h_split : α_NP ^ 5 = α_NP ^ 2 * α_NP ^ 3 := by ring
+  rw [h_split, α_NP_sq, α_NP_cubed]
+  have h_Hodge : α_Hodge ^ 2 = α_Hodge + 1 := by unfold α_Hodge; exact phi_sq_eq
+  nlinarith [h_Hodge]
+
+/-- **α_NP⁵ numerical bracket**: `22.7 < α_NP⁵ < 22.8`. Closed form
+    with `phi_in_interval_10digit` gives `≈ 22.7470`. -/
+theorem α_NP_fifth_bracket :
+    (22.7 : ℝ) < α_NP ^ 5 ∧ α_NP ^ 5 < (22.8 : ℝ) := by
+  rw [α_NP_fifth]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by nlinarith [h_phi_lb], by nlinarith [h_phi_ub]⟩
+
+/-- **`α_NP⁶ = (9729/512)·α_Hodge + 48113/4096`** — sixth power via
+    α_NP² · α_NP⁴ composition. -/
+theorem α_NP_sixth :
+    α_NP ^ 6 = (9729/512) * α_Hodge + 48113/4096 := by
+  have h_split : α_NP ^ 6 = α_NP ^ 2 * α_NP ^ 4 := by ring
+  rw [h_split, α_NP_sq, α_NP_fourth]
+  ring_nf
+  have h := phi_sq_eq
+  have h_Hodge : α_Hodge ^ 2 = α_Hodge + 1 := by unfold α_Hodge; exact h
+  nlinarith [h_Hodge]
+
+/-- **α_NP⁶ numerical bracket**: `42.4 < α_NP⁶ < 42.6`. Closed form
+    with `phi_in_interval_10digit` gives `≈ 42.4921`. -/
+theorem α_NP_sixth_bracket :
+    (42.4 : ℝ) < α_NP ^ 6 ∧ α_NP ^ 6 < (42.6 : ℝ) := by
+  rw [α_NP_sixth]
+  have h_phi_lb : (1.6180339887 : ℝ) ≤ α_Hodge := by
+    unfold α_Hodge; exact phi_in_interval_10digit.1
+  have h_phi_ub : α_Hodge ≤ (1.6180339888 : ℝ) := by
+    unfold α_Hodge; exact phi_in_interval_10digit.2
+  exact ⟨by nlinarith [h_phi_lb], by nlinarith [h_phi_ub]⟩
+
 /-- **`1/α_Hodge = α_Hodge − 1`** — the canonical golden-ratio reciprocal
     identity, instantiated on the framework's Hodge α-value.
 
