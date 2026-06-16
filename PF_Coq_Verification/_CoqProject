@@ -1,0 +1,11 @@
+-Q theories PF_Coq
+
+theories/Core/AxiomAudit.v
+theories/Core/Zeta.v
+theories/Core/Resonance.v
+theories/Core/SpectralGap.v
+theories/Contracts/RH.v
+theories/Contracts/PNP.v
+theories/Contracts/YM.v
+theories/Contracts/BSD.v
+theories/PF_Verification.v

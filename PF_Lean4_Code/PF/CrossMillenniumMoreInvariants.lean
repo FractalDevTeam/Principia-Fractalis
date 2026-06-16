@@ -1191,11 +1191,21 @@ theorem α_skeleton_power_bracket_bundle :
    α_QG_bracket, α_QG_sq_bracket, α_QG_cubed_bracket,
    α_QG_fourth_bracket, α_QG_sixth_bracket, α_QG_eighth_bracket⟩
 
-/-! ### ★ Full power-tower capstone ★ -/
+/-! ### ★ Tower of Power capstone ★
 
-/-- **★ FULL POWER-TOWER CAPSTONE ★** — single citable bundle covering
+  Homage to Tower of Power, the funk/soul horn section behind
+  "What Is Hip?", "Soul With a Capital S", and countless others. The
+  capstone bundles the framework's four α-axis multiplicative-substructure
+  towers into a single citable theorem; the name honours an Oakland
+  institution whose rhythm-section discipline mirrors the algebraic
+  discipline required to keep nine simultaneous polynomial identities
+  in lockstep. -/
+
+/-- **★ TOWER OF POWER CAPSTONE ★** — single citable bundle covering
     the four multiplicative-substructure towers of the framework's
-    non-rational/non-π α-instances:
+    non-rational/non-π α-instances. Named in homage to Tower of Power,
+    the Oakland funk/soul band — the disciplined groove that keeps
+    nine algebraic identities in simultaneous lockstep:
 
     1. α_Hodge Q(φ)-tower with Fibonacci coefficients (8-clause)
     2. α_NP   Q(φ)-tower with (5/4)-recurrence (6-clause)
@@ -1212,7 +1222,7 @@ theorem α_skeleton_power_bracket_bundle :
 
     The framework's four irrationals {φ, φ+1/4, √2, √(2π)} all
     expose distinct algebraic-tower structures. -/
-theorem full_power_tower_capstone :
+theorem tower_of_power_capstone :
     -- Tower 1: α_Hodge Fibonacci
     (α_Hodge ^ 1 = α_Hodge ∧
      α_Hodge ^ 2 = 1 * α_Hodge + 1 ∧

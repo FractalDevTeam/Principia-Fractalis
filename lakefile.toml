@@ -1,0 +1,16 @@
+name = "PF"
+version = "0.1.0"
+defaultTargets = ["pf"]
+
+[[lean_lib]]
+name = "PF"
+
+[[lean_exe]]
+name = "pf"
+root = "Main"
+
+# Mathlib dependency for formal verification
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.24.0-rc1"  # Compatible with Lean 4.24.0

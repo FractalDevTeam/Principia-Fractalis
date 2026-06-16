@@ -71,7 +71,7 @@ theorem substrate_rigidity_end_to_end_meta_capstone
     PF.Referee.MinimalRigidityForcesAlphaSkeletonMasterCapstone.unified_minimal_forces_fundamental_constants_extracted
       u hM h_P h_P_pos h_Hodge_pos h_QG_pos
   have h_tower :=
-    PF.Referee.MinimalRigidityForcesAlphaPowerTowers.unified_minimal_forces_full_power_tower
+    PF.Referee.MinimalRigidityForcesAlphaPowerTowers.unified_minimal_forces_tower_of_power
       u hM h_P h_P_pos h_Hodge_pos h_QG_pos
   have h_exp :=
     PF.Referee.MinimalRigidityForcesFrameworkExperimentalWins.experimental_wins_substrate_capstone
