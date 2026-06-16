@@ -682,6 +682,34 @@ theorem sigma_c_decomposition : sigma_c = sigma_c_arithmetic + epsilon_quantum :
   unfold epsilon_quantum
   ring
 
+/-- **`ε_quantum = 19/20 − 6/π²`** — closed-form for the quantum
+    residual in terms of sigma_c and sigma_c_arithmetic. -/
+theorem epsilon_quantum_closed_form :
+    epsilon_quantum = 19/20 - 6 / Real.pi ^ 2 := by
+  unfold epsilon_quantum sigma_c sigma_c_arithmetic
+  ring
+
+/-- **`20·π² · ε_quantum = 19·π² − 120`** — cleared-denominator form. -/
+theorem twenty_pi_sq_mul_epsilon_quantum :
+    20 * Real.pi ^ 2 * epsilon_quantum = 19 * Real.pi ^ 2 - 120 := by
+  rw [epsilon_quantum_closed_form]
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi ^ 2 := by positivity
+  have h_pi_sq_ne : Real.pi ^ 2 ≠ 0 := ne_of_gt h_pi_sq_pos
+  field_simp
+  ring
+
+/-- **`20·(σ_c − σ_c_arithmetic) = 19 − 120/π²`** — algebraic
+    transformation of the decomposition. -/
+theorem twenty_sigma_c_minus_arithmetic :
+    20 * (sigma_c - sigma_c_arithmetic) = 19 - 120 / Real.pi ^ 2 := by
+  unfold sigma_c sigma_c_arithmetic
+  have h_pi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h_pi_sq_pos : (0 : ℝ) < Real.pi ^ 2 := by positivity
+  have h_pi_sq_ne : Real.pi ^ 2 ≠ 0 := ne_of_gt h_pi_sq_pos
+  field_simp
+  ring
+
 /-- **★★ σ_c arithmetic part numerical bracket** (axiom-free):
     `3/5 < 6/π² < 61/100`.
 
