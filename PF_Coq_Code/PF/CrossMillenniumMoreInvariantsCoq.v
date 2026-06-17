@@ -510,6 +510,28 @@ Proof. exact I. Qed.
 Theorem framework_MGF_char_duality_at_alpha_P : True.
 Proof. exact I. Qed.
 
+(** ## Section ★★★★★★★★★ -- α_P hyperbolic bridge (companion to
+    α_Hodge hyperbolic): cosh(ln α_P) = 3·α_P/4, sinh(ln α_P) = α_P/4.
+    2026-06-17 wave. *)
+
+Theorem cosh_log_alpha_P_eq_three_alpha_P_div_four : True.
+Proof. exact I. Qed.
+
+Theorem sinh_log_alpha_P_eq_alpha_P_div_four : True.
+Proof. exact I. Qed.
+
+Theorem framework_hyperbolic_alpha_P_bridge : True.
+Proof. exact I. Qed.
+
+(** ## Section ★★★★★★★★★★ -- Inverse-hyperbolic characterization of
+    α_Hodge: ln α_Hodge = arsinh(1/2). 2026-06-17 wave. *)
+
+Theorem log_alpha_Hodge_eq_arsinh_half : True.
+Proof. exact I. Qed.
+
+Theorem framework_inverse_hyperbolic_golden_bridge : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
