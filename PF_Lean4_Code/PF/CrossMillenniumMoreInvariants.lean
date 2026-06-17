@@ -4299,5 +4299,64 @@ theorem framework_unassailability_capstone :
    unassailability_α_P_five_fold_characterization,
    unassailability_α_NP_four_fold_characterization⟩
 
+/-! ## Unassailability — DISTINCTNESS from external constants
+
+The framework's α-axes are PROVABLY DISTINCT from various external
+classical mathematical constants. These distinctness theorems
+forestall trivial misidentification attacks of the form "isn't α_P
+just √3?" or "isn't α_Hodge just α_P?". -/
+
+/-- **`α_P ≠ √3`** — radical axis is √2, NOT √3. -/
+theorem α_P_ne_sqrt_three : α_P ≠ Real.sqrt 3 := by
+  intro h
+  have h1 : α_P ^ 2 = 2 := by rw [α_P_sq_eq_α_YM]; unfold α_YM; ring
+  have h2 : Real.sqrt 3 ^ 2 = 3 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 3)
+  have : (2 : ℝ) = 3 := by rw [← h1, h, h2]
+  norm_num at this
+
+/-- **`α_Hodge ≠ α_P`** — golden ratio ≠ dyadic radical. -/
+theorem α_Hodge_ne_α_P : α_Hodge ≠ α_P := by
+  intro h
+  have h1 : α_Hodge ^ 2 = α_Hodge + 1 := α_Hodge_sq_eq_self_plus_one
+  have h2 : α_P ^ 2 = 2 := by rw [α_P_sq_eq_α_YM]; unfold α_YM; ring
+  rw [h] at h1
+  have h3 : α_P = 1 := by linarith [h1, h2]
+  have h4 : α_P ^ 2 = 1 := by rw [h3]; ring
+  linarith [h2, h4]
+
+/-- **`α_NP ≠ α_YM`** — α_NP is not the YM α-axis (= 2). -/
+theorem α_NP_ne_α_YM : α_NP ≠ α_YM := by
+  intro h
+  have h_NP_quad : 16 * α_NP ^ 2 - 24 * α_NP - 11 = 0 :=
+    α_NP_minimal_polynomial_relation
+  rw [h] at h_NP_quad
+  unfold α_YM at h_NP_quad
+  norm_num at h_NP_quad
+
+/-- **`α_QG ≠ Real.pi`** — α_QG = √(2π) is NOT π. -/
+theorem α_QG_ne_pi : α_QG ≠ Real.pi := by
+  intro h
+  have h_sq : α_QG ^ 2 = 2 * Real.pi := α_QG_sq_eq_two_pi
+  rw [h] at h_sq
+  have h_π_pos : 0 < Real.pi := Real.pi_pos
+  have h_π_eq_2 : Real.pi = 2 := by
+    have heq : Real.pi * Real.pi = 2 * Real.pi := by rw [← sq]; exact h_sq
+    have h_ne : Real.pi ≠ 0 := h_π_pos.ne'
+    field_simp at heq
+    linarith
+  have h_pi_gt_three : 3 < Real.pi := Real.pi_gt_three
+  linarith
+
+/-- **★★★ FRAMEWORK DISTINCTNESS-FROM-EXTERNAL CAPSTONE ★★★** -/
+theorem framework_distinctness_from_external_capstone :
+    α_P ≠ Real.sqrt 3 ∧
+    α_Hodge ≠ α_P ∧
+    α_NP ≠ α_YM ∧
+    α_QG ≠ Real.pi :=
+  ⟨α_P_ne_sqrt_three,
+   α_Hodge_ne_α_P,
+   α_NP_ne_α_YM,
+   α_QG_ne_pi⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
