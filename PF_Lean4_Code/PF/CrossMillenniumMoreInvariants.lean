@@ -47,6 +47,7 @@ import Mathlib.Data.Real.Sqrt
 import Mathlib.Tactic
 import Mathlib.Data.Real.GoldenRatio
 import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
 import PF.IntervalArithmetic
 import PF.TuringEncoding.AlphaCanonical
 import PF.CrossMillenniumSharedInvariants
@@ -231,6 +232,35 @@ theorem α_Hodge_fibonacci_tower :
           α_Hodge_sixth, α_Hodge_seventh, α_Hodge_eighth⟩
   · ring
   · rw [α_Hodge_sq_eq_self_plus_one]; ring
+
+/-! ### Bridge to pentagonal trigonometric anchors
+
+The framework's α_Hodge = φ = (1+√5)/2 sits at the cosine of the
+fundamental pentagonal angle π/5 (36°), at HALF-SCALE:
+  cos(π/5) = (1+√5)/4 = α_Hodge / 2
+
+The pentagonal symmetry (5-fold rotational) and the framework's φ-axis
+are the same algebraic object viewed through different geometric
+perspectives. -/
+
+/-- **`cos(π/5) = α_Hodge / 2`** — pentagonal-symmetry / α_Hodge bridge.
+
+    mathlib's `Real.cos_pi_div_five = (1 + √5)/4`. Combined with the
+    framework's `α_Hodge = (1 + √5)/2 = phi`, we get
+    `cos(π/5) = α_Hodge / 2` — the pentagonal cosine at 36° is exactly
+    half the framework's Hodge α-axis. -/
+theorem cos_pi_div_five_eq_α_Hodge_div_two :
+    Real.cos (Real.pi / 5) = α_Hodge / 2 := by
+  rw [Real.cos_pi_div_five]
+  unfold α_Hodge phi
+  ring
+
+/-- **`α_Hodge = 2 · cos(π/5)`** — inverted form. The framework's Hodge
+    α-axis is exactly twice the pentagonal cosine, fixing the
+    icosahedral 5-fold symmetry as the geometric anchor of α_Hodge. -/
+theorem α_Hodge_eq_two_cos_pi_div_five :
+    α_Hodge = 2 * Real.cos (Real.pi / 5) := by
+  rw [cos_pi_div_five_eq_α_Hodge_div_two]; ring
 
 /-! ### Bridge to mathlib's `Real.goldenRatio` -/
 
