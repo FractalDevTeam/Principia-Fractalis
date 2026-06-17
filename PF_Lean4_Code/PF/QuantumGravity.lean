@@ -1100,4 +1100,103 @@ theorem fractal_alpha_QG_dimensional_hierarchy :
    unit_ball_volume_six_dim_via_alpha_QG,
    unit_ball_volume_eight_dim_via_alpha_QG⟩
 
+/-! ## Section 14 — Gamma reflection at quartic, sextic, cubic rational s
+
+Euler's reflection `Γ(s)·Γ(1−s) = π / sin(π·s)` at the four fundamental
+rational points `s ∈ {1/2, 1/3, 1/4, 1/6}` (the unit-interval analogs
+of the unit-circle symmetries cos(π/k) for `k ∈ {2,3,4,6}`).
+
+Each rational reflection projects onto a distinct framework axis:
+
+  s = 1/2  →  π          =  α_QG² / 2     (already Section 12)
+  s = 1/6  →  2π         =  α_QG²         (sextic = full circle radian)
+  s = 1/4  →  π · √2     =  π · α_P       (quartic = dyadic radical)
+  s = 1/3  →  2π / √3                      (cubic = third unit-circle anchor)
+-/
+
+/-- **`Γ(1/4) · Γ(3/4) = π · √2`** — Euler's reflection at s = 1/4.
+    Since `α_P = √2`, this reads `Γ(1/4)·Γ(3/4) = π · α_P` in framework
+    form.
+
+    Classical: π / sin(π/4) = π / (√2/2) = 2π/√2 = π·√2.
+    Geometric: the 4-fold (dyadic) symmetry of the unit interval
+    anchors the Gamma function to the framework's radical axis α_P. -/
+theorem Gamma_one_quarter_mul_three_quarter_eq_pi_sqrt_two :
+    Real.Gamma (1/4) * Real.Gamma (3/4) = Real.pi * Real.sqrt 2 := by
+  have h_refl := Real.Gamma_mul_Gamma_one_sub (1/4 : ℝ)
+  rw [show (1 - 1/4 : ℝ) = 3/4 from by norm_num] at h_refl
+  rw [show Real.pi * (1/4 : ℝ) = Real.pi / 4 from by ring,
+      Real.sin_pi_div_four] at h_refl
+  rw [h_refl]
+  have h_sqrt2_pos : (0:ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num)
+  have h_sqrt2_sq : Real.sqrt 2 * Real.sqrt 2 = 2 :=
+    Real.mul_self_sqrt (by norm_num : (0:ℝ) ≤ 2)
+  field_simp
+  nlinarith [h_sqrt2_sq, Real.pi_pos, h_sqrt2_pos]
+
+/-- **`Γ(1/6) · Γ(5/6) = α_QG²`** — Euler's reflection at s = 1/6.
+    The 6-fold (hexagonal / sextic) symmetry of the unit interval
+    delivers EXACTLY the framework's substrate-rigid identity
+    `α_QG² = 2π`.
+
+    Classical: π / sin(π/6) = π / (1/2) = 2π.
+    Framework: α_QG² = 2π by definition.
+    Therefore Γ(1/6)·Γ(5/6) = α_QG². -/
+theorem Gamma_one_sixth_mul_five_sixth_eq_alpha_QG_sq :
+    Real.Gamma (1/6) * Real.Gamma (5/6) = alpha_QG ^ 2 := by
+  have h_refl := Real.Gamma_mul_Gamma_one_sub (1/6 : ℝ)
+  rw [show (1 - 1/6 : ℝ) = 5/6 from by norm_num] at h_refl
+  rw [show Real.pi * (1/6 : ℝ) = Real.pi / 6 from by ring,
+      Real.sin_pi_div_six] at h_refl
+  rw [h_refl, alpha_QG_sq]
+  ring
+
+/-- **`Γ(1/3) · Γ(2/3) = 2π / √3`** — Euler's reflection at s = 1/3.
+    The 3-fold (cubic) symmetry of the unit interval gives a unit-
+    circle anchor `√3 = 2·sin(π/3)` that sits OUTSIDE the framework's
+    nine α-axes. It is the natural "would-have-been" tenth axis at
+    cubic symmetry — the framework's α-skeleton does NOT include √3
+    as a primary axis, exposing a clean asymmetry between the
+    framework's chosen substrates (dyadic + sextic + golden) and the
+    cubic radical. -/
+theorem Gamma_one_third_mul_two_third_eq_two_pi_div_sqrt_three :
+    Real.Gamma (1/3) * Real.Gamma (2/3) = 2 * Real.pi / Real.sqrt 3 := by
+  have h_refl := Real.Gamma_mul_Gamma_one_sub (1/3 : ℝ)
+  rw [show (1 - 1/3 : ℝ) = 2/3 from by norm_num] at h_refl
+  rw [show Real.pi * (1/3 : ℝ) = Real.pi / 3 from by ring,
+      Real.sin_pi_div_three] at h_refl
+  rw [h_refl]
+  have h_sqrt3_pos : (0:ℝ) < Real.sqrt 3 := Real.sqrt_pos.mpr (by norm_num)
+  field_simp
+
+/-- **★★★ FRACTAL GAMMA-REFLECTION HIERARCHY ★★★** — single citable
+    theorem documenting that the framework's α_QG axis IS the
+    Gamma-reflection value of the unit interval at TWO distinct
+    rational symmetries (binary and sextic), and that α_P appears as
+    the quartic reflection. The cubic reflection (s = 1/3) names the
+    one rational symmetry the framework's nine α-axes do NOT cover —
+    a clean honest-scope marker.
+
+      s = 1/2  (binary):    Γ(1/2)² = α_QG² / 2
+      s = 1/3  (cubic):     Γ(1/3)·Γ(2/3) = 2π / √3  [outside α-skeleton]
+      s = 1/4  (quartic):   Γ(1/4)·Γ(3/4) = π · α_P  (α_P = √2)
+      s = 1/6  (sextic):    Γ(1/6)·Γ(5/6) = α_QG²
+
+    Fractal interpretation: the Gamma reflection is a substrate
+    projector onto the unit-circle's chord lengths at each rational
+    rotational order. The framework's α_QG axis appears TWICE in this
+    projection (at the binary and sextic orders) because 2π is the
+    full circle and π is the half circle — same fractal at half
+    granularity. The cubic projection sits outside, naming a clean
+    extension target if a cubic axis is later required. -/
+theorem fractal_gamma_reflection_hierarchy :
+    Real.Gamma (1/2) * Real.Gamma (1/2) = alpha_QG ^ 2 / 2 ∧
+    Real.Gamma (1/3) * Real.Gamma (2/3) = 2 * Real.pi / Real.sqrt 3 ∧
+    Real.Gamma (1/4) * Real.Gamma (3/4) = Real.pi * Real.sqrt 2 ∧
+    Real.Gamma (1/6) * Real.Gamma (5/6) = alpha_QG ^ 2 :=
+  ⟨Gamma_one_half_sq_eq_alpha_QG_sq_div_two,
+   Gamma_one_third_mul_two_third_eq_two_pi_div_sqrt_three,
+   Gamma_one_quarter_mul_three_quarter_eq_pi_sqrt_two,
+   Gamma_one_sixth_mul_five_sixth_eq_alpha_QG_sq⟩
+
 end PrincipiaTractalis
