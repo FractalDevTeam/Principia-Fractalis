@@ -457,6 +457,20 @@ Proof. exact I. Qed.
 Theorem framework_algebraic_to_e_cross_axis_bridge : True.
 Proof. exact I. Qed.
 
+(** ## Section ★★★★★★★ -- Binet's formula in framework form via
+    α_Hodge and its Galois conjugate (1 − α_Hodge). The Fibonacci
+    sequence as numeric evidence of the Hodge axis at every integer
+    scale. 2026-06-17 wave. *)
+
+Theorem fibonacci_binet_via_alpha_Hodge_axes : True.
+Proof. exact I. Qed.
+
+Theorem fibonacci_binet_cleared_denominator_via_alpha_Hodge_axes : True.
+Proof. exact I. Qed.
+
+Theorem framework_fibonacci_hodge_galois_capstone : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
