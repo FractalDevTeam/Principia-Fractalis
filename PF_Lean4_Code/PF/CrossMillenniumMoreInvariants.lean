@@ -3865,5 +3865,50 @@ theorem framework_inverse_hyperbolic_golden_bridge :
     Real.log α_Hodge = Real.arsinh (1 / 2) :=
   log_α_Hodge_eq_arsinh_half
 
+/-! ## Section ★★★★★★★★★★★ — Golden geometric series identity
+
+The geometric series of `1/α_Hodge` SUMS EXACTLY to α_Hodge²:
+
+  ∑_{n=0}^∞  (1/α_Hodge)^n  =  α_Hodge²
+
+Derivation: classical geometric series gives `1/(1 − x)` for `|x|<1`;
+with `x = 1/α_Hodge`, `1 − 1/α_Hodge = (α_Hodge − 1)/α_Hodge =
+(1/α_Hodge)/α_Hodge = 1/α_Hodge²` (using golden deficit
+α_Hodge − 1 = 1/α_Hodge). So `(1 − 1/α_Hodge)⁻¹ = α_Hodge²`.
+
+Fractal interpretation: the geometric series of α_Hodge's reciprocal
+"closes" onto α_Hodge². The substrate self-similarity at the
+LIMIT-of-infinite-iterates level.
+-/
+
+/-- **★★★ `∑_{n=0}^∞ (1/α_Hodge)^n = α_Hodge²` ★★★** — the geometric
+    series of the Hodge axis's reciprocal sums EXACTLY to α_Hodge².
+    Uses mathlib's `hasSum_geometric_of_lt_one` with `1/α_Hodge < 1`. -/
+theorem geometric_series_α_Hodge_recip_eq_α_Hodge_sq :
+    ∑' n : ℕ, (1 / α_Hodge) ^ n = α_Hodge ^ 2 := by
+  have h_α_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi; unfold phi; positivity
+  have h_α_gt_one : 1 < α_Hodge := by
+    show (1:ℝ) < phi; unfold phi
+    have h5 : 1 < Real.sqrt 5 := by
+      have h1 : (1:ℝ) = Real.sqrt 1 := (Real.sqrt_one).symm
+      rw [h1]
+      exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+    linarith
+  have h_inv_nonneg : 0 ≤ 1 / α_Hodge := by positivity
+  have h_inv_lt_one : 1 / α_Hodge < 1 := by
+    rw [div_lt_one h_α_pos]; exact h_α_gt_one
+  have h_has_sum := hasSum_geometric_of_lt_one h_inv_nonneg h_inv_lt_one
+  rw [h_has_sum.tsum_eq]
+  have h_sq : α_Hodge ^ 2 = α_Hodge + 1 := α_Hodge_sq_eq_self_plus_one
+  rw [show (1 - 1 / α_Hodge : ℝ) = (α_Hodge - 1) / α_Hodge from by
+        field_simp]
+  rw [inv_div]
+  have h_deficit : α_Hodge - 1 = 1 / α_Hodge := by
+    have h := α_Hodge_self_conjugation_deficit
+    linarith
+  rw [h_deficit]
+  field_simp
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis

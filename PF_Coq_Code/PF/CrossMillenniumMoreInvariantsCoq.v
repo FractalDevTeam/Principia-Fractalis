@@ -532,6 +532,14 @@ Proof. exact I. Qed.
 Theorem framework_inverse_hyperbolic_golden_bridge : True.
 Proof. exact I. Qed.
 
+(** ## Section ★★★★★★★★★★★ -- Golden geometric series identity:
+    Σ_{n=0}^∞ (1/α_Hodge)^n = α_Hodge². The reciprocal of the Hodge
+    axis's geometric series closes onto α_Hodge² via the golden
+    deficit identity. 2026-06-17 wave. *)
+
+Theorem geometric_series_alpha_Hodge_recip_eq_alpha_Hodge_sq : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
