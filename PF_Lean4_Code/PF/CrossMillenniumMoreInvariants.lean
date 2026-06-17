@@ -48,6 +48,7 @@ import Mathlib.Tactic
 import Mathlib.Data.Real.GoldenRatio
 import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.SpecialFunctions.Arsinh
 import PF.IntervalArithmetic
 import PF.TuringEncoding.AlphaCanonical
 import PF.CrossMillenniumSharedInvariants
@@ -3782,6 +3783,87 @@ theorem framework_MGF_char_duality_at_α_P :
   ⟨standard_normal_MGF_at_α_P_eq_e,
    standard_normal_char_at_α_P_eq_inv_e,
    standard_normal_MGF_times_char_at_α_P_eq_one⟩
+
+/-! ## Section ★★★★★★★★★ — α_P hyperbolic bridge
+                              (companion to α_Hodge hyperbolic)
+
+The framework's algebraic radical axis α_P = √2 projects onto the
+hyperbolic axis via x ↦ ln x, mirroring the α_Hodge bridge:
+
+  cosh(ln α_P)  =  (α_P + 1/α_P) / 2  =  (√2 + 1/√2)/2  =  3·α_P / 4
+  sinh(ln α_P)  =  (α_P − 1/α_P) / 2  =  (√2 − 1/√2)/2  =  α_P / 4
+
+Pythagorean check: (3α_P/4)² − (α_P/4)² = (9α_P²−α_P²)/16 = 8α_P²/16 = α_P²/2 = 1 ✓
+(using α_P² = 2).
+
+This gives a CLEAN coupled structure: the hyperbolic projections of
+both algebraic α-axes (α_P and α_Hodge) are RATIONAL MULTIPLES of
+the axes themselves (or of √5 in the α_Hodge case).
+-/
+
+/-- **`cosh(ln α_P) = 3·α_P / 4`** — hyperbolic-cosine identity for α_P. -/
+theorem cosh_log_α_P_eq_three_α_P_div_four :
+    Real.cosh (Real.log α_P) = 3 * α_P / 4 := by
+  have hα_pos : 0 < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  have h_exp : Real.exp (Real.log α_P) = α_P := Real.exp_log hα_pos
+  have h_sq : α_P ^ 2 = 2 := by rw [α_P_sq_eq_α_YM]; unfold α_YM; ring
+  rw [Real.cosh_eq, h_exp, Real.exp_neg, h_exp]
+  field_simp
+  nlinarith [h_sq, hα_pos]
+
+/-- **`sinh(ln α_P) = α_P / 4`** — hyperbolic-sine identity for α_P. -/
+theorem sinh_log_α_P_eq_α_P_div_four :
+    Real.sinh (Real.log α_P) = α_P / 4 := by
+  have hα_pos : 0 < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  have h_exp : Real.exp (Real.log α_P) = α_P := Real.exp_log hα_pos
+  have h_sq : α_P ^ 2 = 2 := by rw [α_P_sq_eq_α_YM]; unfold α_YM; ring
+  rw [Real.sinh_eq, h_exp, Real.exp_neg, h_exp]
+  field_simp
+  nlinarith [h_sq, hα_pos]
+
+/-- **★★★ α_P HYPERBOLIC BRIDGE CAPSTONE ★★★** -/
+theorem framework_hyperbolic_α_P_bridge :
+    Real.cosh (Real.log α_P) = 3 * α_P / 4 ∧
+    Real.sinh (Real.log α_P) = α_P / 4 :=
+  ⟨cosh_log_α_P_eq_three_α_P_div_four,
+   sinh_log_α_P_eq_α_P_div_four⟩
+
+/-! ## Section ★★★★★★★★★★ — INVERSE-hyperbolic characterizations
+                                of α_Hodge
+
+The hyperbolic identities `cosh(ln α_Hodge) = √5/2` and
+`sinh(ln α_Hodge) = 1/2` INVERT to give:
+
+  ln α_Hodge  =  arcsinh(1/2)     (sin-1 characterization)
+  ln α_Hodge  =  arccosh(√5/2)    (cos-1 characterization, for ln α_Hodge ≥ 0)
+
+These are clean identifying equations for ln α_Hodge through the
+inverse hyperbolic functions. Together they assert: ln α_Hodge is
+the unique positive real whose sinh = 1/2 AND whose cosh = √5/2.
+-/
+
+/-- **`ln α_Hodge = arcsinh(1/2)`** — log of the Hodge axis = inverse
+    hyperbolic sine of 1/2. Direct from sinh(ln α_Hodge) = 1/2 via the
+    sinh ∘ arcsinh = id property.
+
+    arcsinh(1/2) = ln(1/2 + √(5/4)) = ln((1+√5)/2) = ln φ. -/
+theorem log_α_Hodge_eq_arsinh_half :
+    Real.log α_Hodge = Real.arsinh (1 / 2) := by
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi; unfold phi; positivity
+  rw [show (1/2 : ℝ) = Real.sinh (Real.log α_Hodge) from
+        sinh_log_α_Hodge_eq_half.symm]
+  exact (Real.arsinh_sinh (Real.log α_Hodge)).symm
+
+/-- **★★★ INVERSE-HYPERBOLIC GOLDEN BRIDGE ★★★** — log of α_Hodge IS
+    the inverse hyperbolic sine of 1/2. The framework's Hodge axis
+    can be RECONSTRUCTED purely from a single inverse-hyperbolic
+    identity. -/
+theorem framework_inverse_hyperbolic_golden_bridge :
+    Real.log α_Hodge = Real.arsinh (1 / 2) :=
+  log_α_Hodge_eq_arsinh_half
 
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
