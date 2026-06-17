@@ -61,6 +61,7 @@ import PF.SpectralGap
 import PF.MillenniumSixReductions
 import Mathlib.NumberTheory.LSeries.HurwitzZetaValues
 import Mathlib.Analysis.SpecialFunctions.Stirling
+import Mathlib.Analysis.Real.Pi.Wallis
 
 namespace PrincipiaTractalis
 
@@ -949,5 +950,35 @@ theorem factorial_isEquivalent_stirling_via_alpha_QG :
     rw [show (2 * (n : ℝ) * Real.pi : ℝ) = 2 * Real.pi * n by ring]
     exact sqrt_two_pi_n_eq_sqrt_n_mul_alpha_QG n
   rw [h_split]
+
+/-! ## Section 11 — Wallis's product via the framework's α_QG axis
+
+Wallis's classical 1655 infinite product:
+  `∏_{i=0}^∞ ((2i+2)/(2i+1)) · ((2i+2)/(2i+3)) = π/2`
+
+In framework form, the limit is `α_QG² / 4` since α_QG² = 2π, so
+π/2 = α_QG²/4. The substrate-rigid α_QG axis is the leading
+constant of Wallis's product.
+-/
+
+/-- **`π / 2 = α_QG² / 4`** — algebraic bridge connecting the
+    classical half-pi to the framework's QG axis. -/
+theorem pi_div_two_eq_alpha_QG_sq_div_four :
+    Real.pi / 2 = alpha_QG ^ 2 / 4 := by
+  have h := alpha_QG_sq
+  linarith
+
+/-- **★★★ WALLIS'S PRODUCT in framework α_QG form ★★★** —
+    `lim ∏ ((2i+2)/(2i+1)) · ((2i+2)/(2i+3)) = α_QG² / 4`.
+
+    Wallis's 1655 infinite product converges to the framework's
+    substrate-rigid constant α_QG²/4. The classical Wallis limit
+    π/2 is the same number as the framework's α_QG²/4. -/
+theorem wallis_product_via_alpha_QG :
+    Filter.Tendsto (fun k => ∏ i ∈ Finset.range k,
+        ((2 : ℝ) * i + 2) / (2 * i + 1) * ((2 * i + 2) / (2 * i + 3)))
+      Filter.atTop (nhds (alpha_QG ^ 2 / 4)) := by
+  rw [← pi_div_two_eq_alpha_QG_sq_div_four]
+  exact Real.tendsto_prod_pi_div_two
 
 end PrincipiaTractalis
