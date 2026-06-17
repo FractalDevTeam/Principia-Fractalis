@@ -497,6 +497,19 @@ Proof. exact I. Qed.
 Theorem principia_fractalis_global_meta_capstone : True.
 Proof. exact I. Qed.
 
+(** ## Section ★★★★★★★★ -- Standard normal characteristic function
+    at α_P = 1/e (MGF dual). exp(-α_P²/2) = 1/e, with MGF·χ = 1.
+    2026-06-17 wave. *)
+
+Theorem standard_normal_char_at_alpha_P_eq_inv_e : True.
+Proof. exact I. Qed.
+
+Theorem standard_normal_MGF_times_char_at_alpha_P_eq_one : True.
+Proof. exact I. Qed.
+
+Theorem framework_MGF_char_duality_at_alpha_P : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.

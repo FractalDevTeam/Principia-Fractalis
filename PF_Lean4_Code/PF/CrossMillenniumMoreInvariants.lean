@@ -3746,5 +3746,42 @@ theorem principia_fractalis_global_meta_capstone :
    cosh_log_α_Hodge_eq_sqrt5_div_two,
    sinh_log_α_Hodge_eq_half⟩
 
+/-! ## Section ★★★★★★★★ — Standard normal CHARACTERISTIC function
+                            at α_P = 1/e (MGF dual)
+
+The standard normal characteristic function is `χ_X(t) = exp(−t²/2)`.
+Evaluated at the framework's α_P axis:
+
+  χ_{N(0,1)}(α_P) = exp(−α_P²/2) = exp(−1) = 1/e
+
+This is the EXACT DUAL of the MGF identity `exp(α_P²/2) = e`
+(Section ★★★★★★). Together they witness MGF·χ |_{α_P} = 1.
+-/
+
+/-- **★★★ `exp(−α_P²/2) = 1/e` ★★★** — standard-normal characteristic
+    function at α_P equals e⁻¹. Dual to `standard_normal_MGF_at_α_P_eq_e`. -/
+theorem standard_normal_char_at_α_P_eq_inv_e :
+    Real.exp (-(α_P ^ 2 / 2)) = (Real.exp 1)⁻¹ := by
+  rw [α_P_sq_eq_α_YM]
+  unfold α_YM
+  rw [show -((2 : ℝ) / 2) = -1 from by norm_num, Real.exp_neg]
+
+/-- **`MGF · χ at α_P = 1`** — MGF/characteristic-function duality
+    at α_P. -/
+theorem standard_normal_MGF_times_char_at_α_P_eq_one :
+    Real.exp (α_P ^ 2 / 2) * Real.exp (-(α_P ^ 2 / 2)) = 1 := by
+  rw [← Real.exp_add]
+  ring_nf
+  exact Real.exp_zero
+
+/-- **★★★ MGF/CHARACTERISTIC DUALITY at α_P CAPSTONE ★★★** -/
+theorem framework_MGF_char_duality_at_α_P :
+    Real.exp (α_P ^ 2 / 2) = Real.exp 1 ∧
+    Real.exp (-(α_P ^ 2 / 2)) = (Real.exp 1)⁻¹ ∧
+    Real.exp (α_P ^ 2 / 2) * Real.exp (-(α_P ^ 2 / 2)) = 1 :=
+  ⟨standard_normal_MGF_at_α_P_eq_e,
+   standard_normal_char_at_α_P_eq_inv_e,
+   standard_normal_MGF_times_char_at_α_P_eq_one⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
