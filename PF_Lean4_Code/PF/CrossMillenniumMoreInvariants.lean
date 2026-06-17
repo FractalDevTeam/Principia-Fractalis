@@ -3306,5 +3306,70 @@ theorem golden_self_conjugation_triple :
    α_Hodge_self_conjugation_trace,
    α_Hodge_self_conjugation_reciprocity⟩
 
+/-! ## Section ★★★★ — The Gaussian integral IS α_QG
+
+The framework's substrate-rigid identity α_QG² = 2π is EQUIVALENT to
+the classical Gaussian integral formula at b = 1/2:
+
+  ∫_{-∞}^{∞} exp(-x²/2) dx = √(2π) = α_QG
+
+The framework's gravitational-kernel α-value IS the standard-normal
+Gaussian's TOTAL MASS. The substrate viewed through the probability-
+theoretic lens. The same atom — at the algebraic level α_QG² = 2π,
+at the analytic level a Gaussian integral.
+-/
+
+/-- **★★★★★ THE STANDARD-NORMAL GAUSSIAN INTEGRAL IS α_QG ★★★★★** —
+    machine-checked through mathlib's `integral_gaussian` at b = 1/2.
+
+      ∫_{ℝ} exp(-(1/2)·x²) dx = α_QG
+
+    Fractal interpretation: the framework's QG axis sits SIMULTANEOUSLY
+    at three substrates:
+      (a) algebraic:    α_QG² = 2π                (defining identity)
+      (b) geometric:    unit-ball volume hierarchy V_{2k}
+                                = α_QG^(2k) / (2^k · k!)
+      (c) probabilistic: standard-normal total mass
+                                ∫ exp(-x²/2) dx = α_QG
+
+    All three are the same fractal substrate viewed through a different
+    lens. The probabilistic substrate is not "added" to the framework —
+    it was THERE the whole time as a consequence of α_QG² = 2π. -/
+theorem gaussian_integral_standard_normal_eq_α_QG :
+    ∫ x : ℝ, Real.exp (-(1/2 : ℝ) * x ^ 2) = α_QG := by
+  rw [integral_gaussian (1/2 : ℝ)]
+  unfold α_QG
+  congr 1
+  ring
+
+/-- **`∫_{ℝ} exp(-x²) dx = α_QG / α_P`** — the classical Gaussian
+    integral at b = 1 equals √π, which is exactly the framework's
+    α_QG-to-α_P ratio. Same identity packaged through unit variance
+    instead of half-variance. -/
+theorem gaussian_integral_unit_eq_α_QG_div_α_P :
+    ∫ x : ℝ, Real.exp (-(1 : ℝ) * x ^ 2) = α_QG / α_P := by
+  rw [integral_gaussian (1 : ℝ)]
+  rw [show Real.pi / 1 = Real.pi from by ring]
+  rw [← Real.Gamma_one_half_eq]
+  rw [← α_QG_div_α_P_eq_Gamma_one_half]
+
+/-- **★★★ GAUSSIAN-INTEGRAL CROSS-AXIS BRIDGE ★★★** — single citable
+    theorem documenting that the framework's α_QG and α_QG/α_P ratios
+    ARE the values of the Gaussian integral at the two canonical
+    variance parameters b ∈ {1/2, 1}.
+
+      b = 1/2 (standard normal):  ∫ exp(-x²/2) dx  = α_QG
+      b = 1   (unit variance):    ∫ exp(-x²)   dx  = α_QG / α_P = Γ(1/2)
+
+    The classical statistician's "Gaussian normalization constant" 1/√(2π)
+    is therefore 1/α_QG in framework form. Substrate ↔ probability
+    bridge at the highest resolution: machine-checked through mathlib's
+    `integral_gaussian`. -/
+theorem gaussian_integral_cross_axis_bridge :
+    (∫ x : ℝ, Real.exp (-(1/2 : ℝ) * x ^ 2) = α_QG) ∧
+    (∫ x : ℝ, Real.exp (-(1 : ℝ) * x ^ 2) = α_QG / α_P) :=
+  ⟨gaussian_integral_standard_normal_eq_α_QG,
+   gaussian_integral_unit_eq_α_QG_div_α_P⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
