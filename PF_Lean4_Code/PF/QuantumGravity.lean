@@ -836,4 +836,63 @@ theorem trigonometric_three_axis_witness :
    sin_three_pi_div_two_eq_neg_one,
    cos_three_pi_div_two_eq_zero⟩
 
+/-! ## Section 9 — Euler's identity via the framework's α_QG axis
+
+The classical Euler identity `e^(iπ) + 1 = 0` is, in the framework's
+naming, the assertion that `exp(i · α_QG² / 2) = -1`. The substrate-
+rigid identity α_QG² = 2π relocates the canonical constant π to
+α_QG² / 2; Euler's identity becomes a statement directly about the
+framework's gravitational kernel α-value.
+-/
+
+/-- **★★★ EULER'S IDENTITY in framework α_QG form ★★★** —
+    `exp(i · (α_QG² / 2)) = -1`.
+
+    The framework's substrate-rigid identity α_QG² = 2π forces
+    α_QG²/2 = π, so Euler's identity exp(i·π) = -1 becomes
+    exp(i·(α_QG²/2)) = -1 directly — the most famous equation in
+    mathematics rewritten in the framework's substrate naming. -/
+theorem euler_identity_via_alpha_QG :
+    Complex.exp (Complex.I * ((alpha_QG : ℂ) ^ 2 / 2)) = -1 := by
+  have h_sq : alpha_QG ^ 2 = 2 * Real.pi := alpha_QG_sq
+  have h_C : ((alpha_QG : ℂ)) ^ 2 = 2 * (Real.pi : ℂ) := by
+    have := congrArg (fun x : ℝ => (x : ℂ)) h_sq
+    simpa using this
+  rw [h_C]
+  have : Complex.I * (2 * (Real.pi : ℂ) / 2) = Complex.I * (Real.pi : ℂ) := by
+    ring
+  rw [this, show Complex.I * (Real.pi : ℂ) = (Real.pi : ℂ) * Complex.I by ring]
+  exact Complex.exp_pi_mul_I
+
+/-- **`exp(i · α_QG²) = 1`** — the framework's QG α² is the FUNDAMENTAL
+    period of the complex exponential. Equivalent to Euler's identity
+    squared: `(exp(iπ))² = exp(2iπ) = 1`. -/
+theorem complex_exp_alpha_QG_sq_eq_one :
+    Complex.exp (Complex.I * (alpha_QG : ℂ) ^ 2) = 1 := by
+  have h := euler_identity_via_alpha_QG
+  have h_eq : Complex.I * (alpha_QG : ℂ) ^ 2 = 2 * (Complex.I * ((alpha_QG : ℂ) ^ 2 / 2)) := by
+    ring
+  rw [h_eq, show (2 : ℂ) * (Complex.I * ((alpha_QG : ℂ) ^ 2 / 2)) =
+    Complex.I * ((alpha_QG : ℂ) ^ 2 / 2) + Complex.I * ((alpha_QG : ℂ) ^ 2 / 2) by ring,
+      Complex.exp_add, h]
+  ring
+
+/-- **★★★★★★★★★ EULER/QG IDENTITY BUNDLE ★★★★★★★★★** —
+    single citable theorem witnessing that Euler's identity and the
+    fundamental complex-exponential period both project onto the
+    framework's QG axis through substrate-rigidity:
+
+      exp(i · α_QG²/2) = -1     (Euler's identity, classical π = α_QG²/2)
+      exp(i · α_QG²)   =  1     (fundamental period 2π = α_QG²)
+
+    The two most-cited identities of complex exponentials —
+    Euler's identity and the period — are framework consequences via
+    the substrate-rigid identity α_QG² = 2π. The same single
+    substrate-rigid identity births BOTH classical statements. -/
+theorem euler_QG_identity_bundle :
+    Complex.exp (Complex.I * ((alpha_QG : ℂ) ^ 2 / 2)) = -1 ∧
+    Complex.exp (Complex.I * (alpha_QG : ℂ) ^ 2) = 1 :=
+  ⟨euler_identity_via_alpha_QG,
+   complex_exp_alpha_QG_sq_eq_one⟩
+
 end PrincipiaTractalis
