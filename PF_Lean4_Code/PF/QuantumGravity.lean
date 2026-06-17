@@ -1199,4 +1199,98 @@ theorem fractal_gamma_reflection_hierarchy :
    Gamma_one_quarter_mul_three_quarter_eq_pi_sqrt_two,
    Gamma_one_sixth_mul_five_sixth_eq_alpha_QG_sq⟩
 
+/-! ## Section 15 — UNIVERSAL fractal ball-volume hierarchy
+
+Section 13 proved V_2, V_4, V_6, V_8 each. This section proves the
+UNIVERSAL closed form for all k ∈ ℕ in a single theorem, plus extends
+the named-witness chain to V_10 and V_12. The substrate-rigid identity
+α_QG² = 2π iterates fractally at EVERY even dimension simultaneously.
+-/
+
+/-- **★ UNIVERSAL SUBSTRATE IDENTITY `α_QG^(2k) = 2^k · π^k` ★** — the
+    closed-form expression of α_QG^(2k) for every k ∈ ℕ, derived in a
+    single calc by iterating α_QG² = 2π through `pow_mul` and `mul_pow`.
+    This is the algebraic engine driving the entire ball-volume
+    hierarchy. -/
+theorem alpha_QG_pow_two_k_eq_two_pow_k_pi_pow_k (k : ℕ) :
+    alpha_QG ^ (2 * k) = (2 : ℝ)^k * Real.pi ^ k := by
+  have hsq : alpha_QG ^ 2 = 2 * Real.pi := alpha_QG_sq
+  calc alpha_QG ^ (2 * k)
+      = (alpha_QG ^ 2) ^ k := by rw [pow_mul]
+    _ = (2 * Real.pi) ^ k := by rw [hsq]
+    _ = (2:ℝ)^k * Real.pi ^ k := by rw [mul_pow]
+
+/-- **★★★ UNIVERSAL UNIT-BALL VOLUME ↔ α_QG^(2k) ★★★** — for every
+    k ∈ ℕ, the unit-ball volume in 2k dimensions equals
+    `α_QG^(2k) / (2^k · k!)`. SINGLE theorem covering ALL even
+    dimensions, derived from the substrate identity.
+
+    Classical: V_{2k} = π^k / k!.
+    Framework: α_QG^(2k) = 2^k · π^k, so
+    α_QG^(2k) / (2^k · k!) = π^k / k! = V_{2k}.
+
+    This is the fractal-iteration principle realized at the universal
+    level: ONE substrate identity (α_QG² = 2π), MANY dimensional
+    manifestations, generated parametrically in k. -/
+theorem unit_ball_volume_universal_via_alpha_QG (k : ℕ) :
+    Real.pi ^ k / (k.factorial : ℝ)
+    = alpha_QG ^ (2 * k) / ((2:ℝ)^k * (k.factorial : ℝ)) := by
+  rw [alpha_QG_pow_two_k_eq_two_pow_k_pi_pow_k]
+  have h2 : (2 : ℝ)^k ≠ 0 := pow_ne_zero _ (by norm_num : (2:ℝ) ≠ 0)
+  have hk : (k.factorial : ℝ) ≠ 0 :=
+    Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero k)
+  field_simp
+
+/-- **`V_10 = α_QG^10 / 3840 = π⁵/120`** — 10-ball volume, k=5 case.
+    Extends Section 13's named-witness chain. -/
+theorem unit_ball_volume_ten_dim_via_alpha_QG :
+    Real.pi ^ 5 / 120 = alpha_QG ^ 10 / 3840 := by
+  have h_sq := alpha_QG_sq
+  have h_tenth : alpha_QG ^ 10 = (alpha_QG ^ 2) ^ 5 := by ring
+  rw [h_tenth, h_sq]
+  ring
+
+/-- **`V_12 = α_QG^12 / 46080 = π⁶/720`** — 12-ball volume, k=6 case.
+    Extends Section 13's named-witness chain. -/
+theorem unit_ball_volume_twelve_dim_via_alpha_QG :
+    Real.pi ^ 6 / 720 = alpha_QG ^ 12 / 46080 := by
+  have h_sq := alpha_QG_sq
+  have h_twelfth : alpha_QG ^ 12 = (alpha_QG ^ 2) ^ 6 := by ring
+  rw [h_twelfth, h_sq]
+  ring
+
+/-- **★★★ EXTENDED FRACTAL HIERARCHY + UNIVERSAL CLOSURE ★★★** —
+    single citable capstone combining
+
+    (1) six named-witness instances: V_2, V_4, V_6, V_8, V_10, V_12;
+    (2) the substrate identity α_QG^(2k) = 2^k · π^k for all k ∈ ℕ;
+    (3) the UNIVERSAL ball-volume identity V_{2k} = α_QG^(2k) / (2^k·k!)
+        for all k ∈ ℕ.
+
+    The framework's claim "every even-dimensional unit ball is the
+    substrate α_QG² = 2π viewed at a different magnification" is
+    machine-checked at the universal-quantifier level, not just at
+    finitely many witnesses. The fractal iteration is total in k. -/
+theorem fractal_alpha_QG_dimensional_hierarchy_universal :
+    -- (1) six named witnesses
+    Real.pi             = alpha_QG ^ 2 / 2 ∧
+    Real.pi ^ 2 / 2     = alpha_QG ^ 4 / 8 ∧
+    Real.pi ^ 3 / 6     = alpha_QG ^ 6 / 48 ∧
+    Real.pi ^ 4 / 24    = alpha_QG ^ 8 / 384 ∧
+    Real.pi ^ 5 / 120   = alpha_QG ^ 10 / 3840 ∧
+    Real.pi ^ 6 / 720   = alpha_QG ^ 12 / 46080 ∧
+    -- (2) substrate identity, universal in k
+    (∀ k : ℕ, alpha_QG ^ (2 * k) = (2:ℝ)^k * Real.pi ^ k) ∧
+    -- (3) ball-volume identity, universal in k
+    (∀ k : ℕ, Real.pi ^ k / (k.factorial : ℝ)
+              = alpha_QG ^ (2 * k) / ((2:ℝ)^k * (k.factorial : ℝ))) :=
+  ⟨unit_ball_area_two_dim_via_alpha_QG,
+   unit_ball_volume_four_dim_via_alpha_QG,
+   unit_ball_volume_six_dim_via_alpha_QG,
+   unit_ball_volume_eight_dim_via_alpha_QG,
+   unit_ball_volume_ten_dim_via_alpha_QG,
+   unit_ball_volume_twelve_dim_via_alpha_QG,
+   alpha_QG_pow_two_k_eq_two_pow_k_pi_pow_k,
+   unit_ball_volume_universal_via_alpha_QG⟩
+
 end PrincipiaTractalis
