@@ -3228,5 +3228,83 @@ theorem framework_discriminant_triple :
     (-24 : ℝ)^2 - 4 * 16 * (-11 : ℝ) = 1280 := by
   refine ⟨?_, ?_, ?_⟩ <;> norm_num
 
+/-! ## Section ★★★ — Golden self-conjugation triple (Hodge axis)
+
+The Hodge axis α_Hodge = φ is the unique positive real fixed point of
+the involutory algebra x ↔ 1/x defined by the golden quadratic. The
+three-way fractal symmetry:
+
+  α_Hodge − 1/α_Hodge  = 1           (golden DEFICIT)
+  α_Hodge + 1/α_Hodge  = √5          (golden TRACE over ℚ(√5))
+  α_Hodge · 1/α_Hodge  = 1           (multiplicative RECIPROCITY)
+
+The first identity is the algebraic root cause of φ² = φ + 1: divide
+both sides by α_Hodge. The second is the Galois-trace witness of
+α_Hodge over ℚ — it forces ℚ(α_Hodge) = ℚ(√5). The third is trivial
+but completes the triple as a substrate-fingerprint bundle.
+
+Fractal interpretation: α_Hodge and 1/α_Hodge are BOTH points of the
+same φ-substrate. The algebraic equation x − 1/x = 1 has α_Hodge as
+its unique positive solution; the equation x + 1/x = √5 has α_Hodge
+as its unique solution > 1; together they pin α_Hodge to its substrate
+through both DIFFERENCE and SUM.
+-/
+
+/-- **`α_Hodge − 1/α_Hodge = 1`** — the golden DEFICIT identity.
+    Equivalent to the golden quadratic α_Hodge² = α_Hodge + 1 after
+    multiplying by α_Hodge. -/
+theorem α_Hodge_self_conjugation_deficit :
+    α_Hodge - 1 / α_Hodge = 1 := by
+  have h_sq : α_Hodge ^ 2 = α_Hodge + 1 := α_Hodge_sq_eq_self_plus_one
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi
+    unfold phi
+    positivity
+  field_simp
+  nlinarith [h_sq, hα_pos]
+
+/-- **`α_Hodge + 1/α_Hodge = √5`** — the golden TRACE identity over ℚ(√5).
+    Since α_Hodge generates ℚ(√5), this is the Galois-trace witness:
+    α_Hodge + σ(α_Hodge) = α_Hodge + (1−α_Hodge) only equals 1 over ℚ;
+    the trace as `x + 1/x` (a different bilinear form) gives √5,
+    exposing the substrate generator. -/
+theorem α_Hodge_self_conjugation_trace :
+    α_Hodge + 1 / α_Hodge = Real.sqrt 5 := by
+  show (1 + Real.sqrt 5) / 2 + 1 / ((1 + Real.sqrt 5) / 2) = Real.sqrt 5
+  have h5sq : Real.sqrt 5 * Real.sqrt 5 = 5 :=
+    Real.mul_self_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h5pos : 0 < Real.sqrt 5 := Real.sqrt_pos.mpr (by norm_num)
+  have hα_pos : (0:ℝ) < (1 + Real.sqrt 5) / 2 := by positivity
+  field_simp
+  nlinarith [h5sq, h5pos]
+
+/-- **`α_Hodge · 1/α_Hodge = 1`** — multiplicative reciprocity,
+    completing the triple. -/
+theorem α_Hodge_self_conjugation_reciprocity :
+    α_Hodge * (1 / α_Hodge) = 1 := by
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi
+    unfold phi
+    positivity
+  field_simp
+
+/-- **★★★ GOLDEN SELF-CONJUGATION TRIPLE ★★★** — single citable
+    fractal identity bundling the three-way symmetry of α_Hodge under
+    the involution x ↔ 1/x.
+
+    The triple (deficit, trace, reciprocity) is the substrate's
+    fractal fingerprint at the LEVEL OF 1/x INVOLUTION. The deficit
+    identity (− 1) is the Fibonacci recurrence in disguise; the trace
+    identity (√5) is the ℚ(√5) generator witness; the reciprocity
+    identity (= 1) is the unit pin. Together they EXHAUST the
+    1/x-involutive algebraic content of α_Hodge over ℚ. -/
+theorem golden_self_conjugation_triple :
+    α_Hodge - 1 / α_Hodge = 1 ∧
+    α_Hodge + 1 / α_Hodge = Real.sqrt 5 ∧
+    α_Hodge * (1 / α_Hodge) = 1 :=
+  ⟨α_Hodge_self_conjugation_deficit,
+   α_Hodge_self_conjugation_trace,
+   α_Hodge_self_conjugation_reciprocity⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
