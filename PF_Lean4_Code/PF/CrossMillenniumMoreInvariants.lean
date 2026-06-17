@@ -46,6 +46,7 @@ import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Data.Real.Sqrt
 import Mathlib.Tactic
 import Mathlib.Data.Real.GoldenRatio
+import Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
 import PF.IntervalArithmetic
 import PF.TuringEncoding.AlphaCanonical
 import PF.CrossMillenniumSharedInvariants
@@ -732,6 +733,34 @@ theorem α_P_mul_α_QG_eq_two_sqrt_pi :
   have h2 : Real.sqrt 2 * Real.sqrt 2 = 2 :=
     Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 2)
   rw [← mul_assoc, h2]
+
+/-- **`α_P · α_QG = 2 · Γ(1/2)`** — cross-axis bridge to the Gamma
+    function at the half-integer. Combines the radical-axis identity
+    `α_P · α_QG = 2·√π` with mathlib's `Real.Gamma_one_half_eq` which
+    states `Γ(1/2) = √π`.
+
+    The framework's two radical α-axes (algebraic α_P = √2 and
+    gravitational α_QG = √(2π)) algebraically determine the Gamma
+    function value at 1/2 — Γ(1/2) is the *implicit substrate
+    constant* hidden between α_P and α_QG. -/
+theorem α_P_mul_α_QG_eq_two_Gamma_one_half :
+    α_P * α_QG = 2 * Real.Gamma (1 / 2) := by
+  rw [α_P_mul_α_QG_eq_two_sqrt_pi, ← Real.Gamma_one_half_eq]
+
+/-- **`α_QG / α_P = √π = Γ(1/2)`** — the Gaussian-integral constant
+    appears directly as the ratio of the two framework radical
+    α-axes.
+
+    The classical Gaussian integral
+    `∫₋∞^∞ e^(-x²) dx = √π = Γ(1/2)` is therefore the framework's
+    α_QG-to-α_P ratio.  -/
+theorem α_QG_div_α_P_eq_Gamma_one_half :
+    α_QG / α_P = Real.Gamma (1 / 2) := by
+  rw [α_QG_eq_α_P_mul_sqrt_pi, Real.Gamma_one_half_eq]
+  have h_α_P_pos : (0 : ℝ) < α_P := by
+    unfold α_P
+    exact Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)
+  field_simp
 
 /-- **`α_P² · α_QG² = 4π`** — P²-QG² product (= α_YM² since α_P² = α_YM). -/
 theorem α_P_sq_mul_α_QG_sq :
