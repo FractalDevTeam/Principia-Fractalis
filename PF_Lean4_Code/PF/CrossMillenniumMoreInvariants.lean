@@ -4080,5 +4080,84 @@ theorem principia_fractalis_global_meta_capstone_v3 :
    geometric_series_α_Hodge_recip_eq_α_Hodge_sq,
    geometric_series_α_Hodge_sq_recip_eq_α_Hodge⟩
 
+/-! ## Section ★★★★★★★★★★★★★ — 5th roots of unity sum identities
+
+The five 5th roots of unity in ℂ are at angles 2πk/5 for k = 0,…,4.
+Their REAL parts sum to 0:
+
+  1 + 2·cos(2π/5) + 2·cos(4π/5)  =  0
+
+In framework form, since cos(2π/5) = 1/(2·α_Hodge) (decagonal mirror)
+and cos(4π/5) = −α_Hodge/2 (pentagonal complement), this becomes
+
+  cos(2π/5) + cos(4π/5)  =  1/(2·α_Hodge) − α_Hodge/2
+                         =  (1 − α_Hodge²)/(2·α_Hodge)
+                         =  −α_Hodge/(2·α_Hodge)         (golden quadratic)
+                         =  −1/2
+
+and equivalently
+
+  cos(π/5) − cos(2π/5)  =  α_Hodge/2 − 1/(2·α_Hodge)
+                        =  (α_Hodge² − 1)/(2·α_Hodge)    (golden quadratic)
+                        =  1/2
+
+These are the FIVE-FOLD substrate's roots-of-unity fingerprints,
+expressing the SUM and DIFFERENCE structure of pentagonal/decagonal
+cosines through the framework's α_Hodge axis exclusively.
+-/
+
+/-- **`cos(4π/5) = −α_Hodge / 2`** — pentagonal complement via
+    cos(π − x) = −cos(x). Direct: 4π/5 = π − π/5. -/
+theorem cos_four_pi_div_five_eq_neg_α_Hodge_div_two :
+    Real.cos (4 * Real.pi / 5) = -α_Hodge / 2 := by
+  rw [show (4 * Real.pi / 5 : ℝ) = Real.pi - Real.pi / 5 from by ring,
+      Real.cos_pi_sub, cos_pi_div_five_eq_α_Hodge_div_two]
+  ring
+
+/-- **`cos(2π/5) + cos(4π/5) = −1/2`** — sum of nontrivial real parts
+    of the 5th roots of unity equals −1/2. -/
+theorem cos_two_plus_four_pi_div_five_eq_neg_half :
+    Real.cos (2 * Real.pi / 5) + Real.cos (4 * Real.pi / 5) = -1/2 := by
+  rw [cos_two_pi_div_five_eq_one_div_two_α_Hodge,
+      cos_four_pi_div_five_eq_neg_α_Hodge_div_two]
+  have h_sq : α_Hodge ^ 2 = α_Hodge + 1 := α_Hodge_sq_eq_self_plus_one
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi; unfold phi; positivity
+  field_simp
+  nlinarith [h_sq, hα_pos]
+
+/-- **`cos(π/5) − cos(2π/5) = 1/2`** — the difference of the two
+    fundamental pentagonal cosines via the golden quadratic. -/
+theorem cos_pi_div_five_sub_cos_two_pi_div_five_eq_half :
+    Real.cos (Real.pi / 5) - Real.cos (2 * Real.pi / 5) = 1/2 := by
+  rw [cos_pi_div_five_eq_α_Hodge_div_two,
+      cos_two_pi_div_five_eq_one_div_two_α_Hodge]
+  have h_sq : α_Hodge ^ 2 = α_Hodge + 1 := α_Hodge_sq_eq_self_plus_one
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi; unfold phi; positivity
+  field_simp
+  nlinarith [h_sq, hα_pos]
+
+/-- **`1 + 2·cos(2π/5) + 2·cos(4π/5) = 0`** — the FULL 5th roots of
+    unity sum identity (sum of real parts = 0). -/
+theorem five_roots_of_unity_real_sum_eq_zero :
+    1 + 2 * Real.cos (2 * Real.pi / 5) + 2 * Real.cos (4 * Real.pi / 5) = 0 := by
+  have h := cos_two_plus_four_pi_div_five_eq_neg_half
+  linarith
+
+/-- **★★★ PENTAGONAL FIFTH ROOTS OF UNITY CAPSTONE ★★★** — single
+    citable theorem bundling the four pentagonal roots-of-unity sum
+    identities, all derived from cos(π/5) = α_Hodge/2,
+    cos(2π/5) = 1/(2·α_Hodge), and the golden quadratic. -/
+theorem framework_fifth_roots_of_unity_capstone :
+    Real.cos (4 * Real.pi / 5) = -α_Hodge / 2 ∧
+    Real.cos (2 * Real.pi / 5) + Real.cos (4 * Real.pi / 5) = -1/2 ∧
+    Real.cos (Real.pi / 5) - Real.cos (2 * Real.pi / 5) = 1/2 ∧
+    1 + 2 * Real.cos (2 * Real.pi / 5) + 2 * Real.cos (4 * Real.pi / 5) = 0 :=
+  ⟨cos_four_pi_div_five_eq_neg_α_Hodge_div_two,
+   cos_two_plus_four_pi_div_five_eq_neg_half,
+   cos_pi_div_five_sub_cos_two_pi_div_five_eq_half,
+   five_roots_of_unity_real_sum_eq_zero⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis

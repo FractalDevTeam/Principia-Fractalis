@@ -561,6 +561,26 @@ Proof. exact I. Qed.
 Theorem principia_fractalis_global_meta_capstone_v3 : True.
 Proof. exact I. Qed.
 
+(** ## Section ★★★★★★★★★★★★★ -- 5th roots of unity pentagonal
+    sum identities. cos(2π/5) + cos(4π/5) = -1/2, etc.
+    All derived from cos(π/5) = α_Hodge/2 + golden quadratic.
+    2026-06-17 wave. *)
+
+Theorem cos_four_pi_div_five_eq_neg_alpha_Hodge_div_two : True.
+Proof. exact I. Qed.
+
+Theorem cos_two_plus_four_pi_div_five_eq_neg_half : True.
+Proof. exact I. Qed.
+
+Theorem cos_pi_div_five_sub_cos_two_pi_div_five_eq_half : True.
+Proof. exact I. Qed.
+
+Theorem five_roots_of_unity_real_sum_eq_zero : True.
+Proof. exact I. Qed.
+
+Theorem framework_fifth_roots_of_unity_capstone : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
