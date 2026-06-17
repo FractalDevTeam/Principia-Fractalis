@@ -312,6 +312,76 @@ theorem fractal_geometric_anchoring_of_alpha_axes :
    cos_pi_div_four_eq_one_div_α_P,
    sin_pi_div_four_eq_one_div_α_P⟩
 
+/-- **`sin(π/10) = 1 / (2 · α_Hodge)`** — the DECAGONAL mirror of the
+    pentagonal cosine identity.
+
+    Classical: sin(π/10) = (√5 − 1)/4.
+    Framework: 1/(2·α_Hodge) = 1/(1+√5) = (√5−1)/4.
+    Therefore sin(π/10) = 1/(2·α_Hodge).
+
+    Geometric interpretation: where `cos(π/5) = α_Hodge / 2` anchors the
+    framework's Hodge axis to 5-fold (pentagonal / icosahedral H₃) rotational
+    symmetry, this identity anchors it to 10-fold (decagonal) symmetry —
+    the SAME fractal projection observed at twice the rotational
+    granularity. The reciprocal `1 / α_Hodge = α_Hodge − 1` (the golden
+    quadratic) is the algebraic engine; the half-angle formula is the
+    geometric engine. They agree. -/
+theorem sin_pi_div_ten_eq_one_div_two_α_Hodge :
+    Real.sin (Real.pi / 10) = 1 / (2 * α_Hodge) := by
+  have hpi_eq : Real.pi / 10 = (Real.pi / 5) / 2 := by ring
+  have h0 : (0 : ℝ) ≤ Real.pi / 5 := by positivity
+  have h1 : Real.pi / 5 ≤ 2 * Real.pi := by
+    have hp : 0 < Real.pi := Real.pi_pos
+    linarith
+  rw [hpi_eq, Real.sin_half_eq_sqrt h0 h1, Real.cos_pi_div_five]
+  unfold α_Hodge
+  have h5sq : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5)
+  have h5pos : 0 < Real.sqrt 5 := Real.sqrt_pos.mpr (by norm_num)
+  have hRHS_nonneg : (0:ℝ) ≤ 1 / (2 * ((1 + Real.sqrt 5) / 2)) := by positivity
+  have hRHS_sq : (1 / (2 * ((1 + Real.sqrt 5) / 2))) ^ 2 =
+                 (1 - (1 + Real.sqrt 5) / 4) / 2 := by
+    field_simp
+    nlinarith [h5sq, h5pos]
+  rw [← hRHS_sq]
+  exact Real.sqrt_sq hRHS_nonneg
+
+/-- **`cos(2π/5) = 1 / (2 · α_Hodge)`** — the same value, viewed as
+    `cos(π/2 − π/10)` instead of `sin(π/10)`.
+
+    The 72° cosine and the 18° sine are two unit-circle projections of
+    the same algebraic atom `1/(1+√5) = (√5−1)/4`. -/
+theorem cos_two_pi_div_five_eq_one_div_two_α_Hodge :
+    Real.cos (2 * Real.pi / 5) = 1 / (2 * α_Hodge) := by
+  have h : 2 * Real.pi / 5 = Real.pi / 2 - Real.pi / 10 := by ring
+  rw [h, Real.cos_pi_div_two_sub, sin_pi_div_ten_eq_one_div_two_α_Hodge]
+
+/-- **★★★ DECAGONAL CAPSTONE — pentagonal ↔ decagonal duality ★★★** —
+    the framework's α_Hodge axis is simultaneously the pentagonal
+    cosine (×2) and the decagonal cosecant (×2⁻¹) of the unit circle.
+
+    Pentagon (5-fold, π/5 symmetry):    cos(π/5)   = α_Hodge / 2
+    Decagon  (10-fold, π/10 symmetry):  sin(π/10)  = 1 / (2·α_Hodge)
+    Equivalently:                       cos(2π/5)  = 1 / (2·α_Hodge)
+
+    The product `cos(π/5) · sin(π/10) = 1/4` is the geometric witness
+    of the golden-quadratic reciprocity `α_Hodge · (1/α_Hodge) = 1`,
+    realized at the level of unit-circle chord lengths. -/
+theorem fractal_pentagon_decagon_duality :
+    Real.cos (Real.pi / 5) = α_Hodge / 2 ∧
+    Real.sin (Real.pi / 10) = 1 / (2 * α_Hodge) ∧
+    Real.cos (2 * Real.pi / 5) = 1 / (2 * α_Hodge) ∧
+    Real.cos (Real.pi / 5) * Real.sin (Real.pi / 10) = 1 / 4 := by
+  refine ⟨cos_pi_div_five_eq_α_Hodge_div_two,
+          sin_pi_div_ten_eq_one_div_two_α_Hodge,
+          cos_two_pi_div_five_eq_one_div_two_α_Hodge, ?_⟩
+  rw [cos_pi_div_five_eq_α_Hodge_div_two, sin_pi_div_ten_eq_one_div_two_α_Hodge]
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi
+    unfold phi
+    positivity
+  field_simp
+  ring
+
 /-! ### Bridge to mathlib's `Real.goldenRatio` -/
 
 /-- **`α_Hodge = Real.goldenRatio`** — definitional bridge between the
