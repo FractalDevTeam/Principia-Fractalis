@@ -715,6 +715,24 @@ theorem α_RH_sq_mul_α_QG_sq :
     α_RH ^ 2 * α_QG ^ 2 = 9 * Real.pi / 2 := by
   rw [α_RH_sq_eq_nine_fourths, α_QG_sq_eq_two_pi]; ring
 
+/-- **`α_QG = α_P · √π`** — un-squared identity connecting two irrational
+    α-axes through √π:  √(2π) = √2 · √π. -/
+theorem α_QG_eq_α_P_mul_sqrt_pi :
+    α_QG = α_P * Real.sqrt Real.pi := by
+  unfold α_QG α_P
+  rw [show (2 * Real.pi : ℝ) = 2 * Real.pi from rfl,
+      Real.sqrt_mul (by norm_num : (0 : ℝ) ≤ 2) Real.pi]
+
+/-- **`α_P · α_QG = 2 · √π`** — product of the two radical α-axes
+    collapses to the simplest π-radical closed form. -/
+theorem α_P_mul_α_QG_eq_two_sqrt_pi :
+    α_P * α_QG = 2 * Real.sqrt Real.pi := by
+  rw [α_QG_eq_α_P_mul_sqrt_pi]
+  unfold α_P
+  have h2 : Real.sqrt 2 * Real.sqrt 2 = 2 :=
+    Real.mul_self_sqrt (by norm_num : (0 : ℝ) ≤ 2)
+  rw [← mul_assoc, h2]
+
 /-- **`α_P² · α_QG² = 4π`** — P²-QG² product (= α_YM² since α_P² = α_YM). -/
 theorem α_P_sq_mul_α_QG_sq :
     α_P ^ 2 * α_QG ^ 2 = 4 * Real.pi := by
