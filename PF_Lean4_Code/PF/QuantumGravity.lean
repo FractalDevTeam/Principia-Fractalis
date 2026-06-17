@@ -1293,4 +1293,130 @@ theorem fractal_alpha_QG_dimensional_hierarchy_universal :
    alpha_QG_pow_two_k_eq_two_pow_k_pi_pow_k,
    unit_ball_volume_universal_via_alpha_QG⟩
 
+/-! ## Section 16 — Surface-area hierarchy of odd-dim unit spheres
+                     (boundary-companion to Section 15 ball volumes)
+
+For each k ∈ ℕ_{≥1}, the surface area of the unit (2k−1)-sphere
+(the boundary of the unit 2k-ball) is:
+
+  S_{2k−1}  =  2 π^k / (k−1)!  =  α_QG^(2k) / (2^(k−1) · (k−1)!)
+
+This is the companion hierarchy to V_{2k} = α_QG^(2k) / (2^k · k!).
+The two are linked by the S/V DUALITY:
+
+  S_{2k−1}  =  2k · V_{2k}
+
+(boundary derivative of the unit-ball volume function, equivalent
+to the calculus identity dV/dr|_{r=1} = S).
+
+  k=1:  S_1 = α_QG²       (unit circle circumference, = 2π)
+  k=2:  S_3 = α_QG⁴ / 2   (unit 3-sphere area)
+  k=3:  S_5 = α_QG⁶ / 8
+  k=4:  S_7 = α_QG⁸ / 48
+
+The ENTIRE odd-dim unit-sphere surface-area hierarchy is fixed by
+the substrate-rigid identity α_QG² = 2π — the same fractal projected
+through the surface-area lens.
+-/
+
+/-- **`S_1 = α_QG² = 2π`** — unit-circle circumference = boundary of disk.
+    The framework's QG-squared identity 2π is LITERALLY the
+    circumference of the unit circle. -/
+theorem unit_one_sphere_surface_via_alpha_QG :
+    2 * Real.pi = alpha_QG ^ 2 :=
+  alpha_QG_sq.symm
+
+/-- **`S_3 = α_QG⁴ / 2 = 2π²`** — unit 3-sphere surface area
+    (boundary of unit 4-ball). -/
+theorem unit_three_sphere_surface_via_alpha_QG :
+    2 * Real.pi ^ 2 = alpha_QG ^ 4 / 2 := by
+  have h_sq := alpha_QG_sq
+  have h_fourth : alpha_QG ^ 4 = (alpha_QG ^ 2) ^ 2 := by ring
+  rw [h_fourth, h_sq]
+  ring
+
+/-- **`S_5 = α_QG⁶ / 8 = π³`** — unit 5-sphere surface area. -/
+theorem unit_five_sphere_surface_via_alpha_QG :
+    Real.pi ^ 3 = alpha_QG ^ 6 / 8 := by
+  have h_sq := alpha_QG_sq
+  have h_sixth : alpha_QG ^ 6 = (alpha_QG ^ 2) ^ 3 := by ring
+  rw [h_sixth, h_sq]
+  ring
+
+/-- **`S_7 = α_QG⁸ / 48 = π⁴/3`** — unit 7-sphere surface area. -/
+theorem unit_seven_sphere_surface_via_alpha_QG :
+    Real.pi ^ 4 / 3 = alpha_QG ^ 8 / 48 := by
+  have h_sq := alpha_QG_sq
+  have h_eighth : alpha_QG ^ 8 = (alpha_QG ^ 2) ^ 4 := by ring
+  rw [h_eighth, h_sq]
+  ring
+
+/-- **★ UNIVERSAL SURFACE-AREA IDENTITY ★** — for every k ≥ 1, the
+    surface area of the unit (2k−1)-sphere equals
+    `α_QG^(2k) / (2^(k−1) · (k−1)!)`.
+
+    Classical: S_{2k−1} = 2π^k / (k−1)!.
+    Framework: derived from α_QG^(2k) = 2^k · π^k. -/
+theorem unit_odd_sphere_surface_universal_via_alpha_QG (k : ℕ) (hk : k ≥ 1) :
+    2 * Real.pi ^ k / ((k - 1).factorial : ℝ)
+    = alpha_QG ^ (2 * k) / ((2:ℝ)^(k-1) * ((k - 1).factorial : ℝ)) := by
+  rw [alpha_QG_pow_two_k_eq_two_pow_k_pi_pow_k]
+  rcases k with _ | k
+  · omega
+  · simp only [Nat.succ_sub_one]
+    have h2_k : (2 : ℝ)^k ≠ 0 := pow_ne_zero _ (by norm_num : (2:ℝ) ≠ 0)
+    have hfact : ((k).factorial : ℝ) ≠ 0 :=
+      Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero k)
+    have h_pow_succ : (2 : ℝ)^(k+1) = 2 * (2:ℝ)^k := by
+      rw [pow_succ]; ring
+    rw [h_pow_succ]
+    field_simp
+
+/-- **`S/V DUALITY`: `S_{2k−1} = 2k · V_{2k}`** — boundary derivative
+    of the unit-ball volume, equivalent to dV/dr|_{r=1} = S. -/
+theorem sphere_ball_duality_via_alpha_QG (k : ℕ) (hk : k ≥ 1) :
+    2 * Real.pi ^ k / ((k - 1).factorial : ℝ)
+    = 2 * (k : ℝ) * (Real.pi ^ k / (k.factorial : ℝ)) := by
+  rcases k with _ | k
+  · omega
+  · simp only [Nat.succ_sub_one]
+    have hfact_succ : (((k + 1) : ℕ).factorial : ℝ)
+                    = ((k : ℝ) + 1) * (k.factorial : ℝ) := by
+      rw [Nat.factorial_succ]
+      push_cast
+      ring
+    have hfact_ne : (k.factorial : ℝ) ≠ 0 :=
+      Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero k)
+    rw [hfact_succ]
+    push_cast
+    field_simp
+
+/-- **★★★ FRACTAL SURFACE-AREA + S/V DUALITY CAPSTONE ★★★** — single
+    citable theorem bundling four named odd-sphere witnesses, the
+    universal surface-area identity ∀ k ≥ 1, and the S/V duality
+    identity ∀ k ≥ 1.
+
+    The framework's α_QG axis controls the ENTIRE odd-dim sphere
+    surface-area hierarchy AND its volumetric dual, parametrically in k. -/
+theorem fractal_alpha_QG_sphere_hierarchy :
+    -- (1) four named witnesses
+    2 * Real.pi      = alpha_QG ^ 2 ∧
+    2 * Real.pi ^ 2  = alpha_QG ^ 4 / 2 ∧
+    Real.pi ^ 3      = alpha_QG ^ 6 / 8 ∧
+    Real.pi ^ 4 / 3  = alpha_QG ^ 8 / 48 ∧
+    -- (2) universal surface-area identity
+    (∀ k : ℕ, k ≥ 1 →
+       2 * Real.pi ^ k / ((k - 1).factorial : ℝ)
+       = alpha_QG ^ (2 * k) / ((2:ℝ)^(k-1) * ((k - 1).factorial : ℝ))) ∧
+    -- (3) S/V duality, universal in k ≥ 1
+    (∀ k : ℕ, k ≥ 1 →
+       2 * Real.pi ^ k / ((k - 1).factorial : ℝ)
+       = 2 * (k : ℝ) * (Real.pi ^ k / (k.factorial : ℝ))) :=
+  ⟨unit_one_sphere_surface_via_alpha_QG,
+   unit_three_sphere_surface_via_alpha_QG,
+   unit_five_sphere_surface_via_alpha_QG,
+   unit_seven_sphere_surface_via_alpha_QG,
+   unit_odd_sphere_surface_universal_via_alpha_QG,
+   sphere_ball_duality_via_alpha_QG⟩
+
 end PrincipiaTractalis

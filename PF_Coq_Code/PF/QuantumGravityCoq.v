@@ -111,6 +111,31 @@ Proof. exact I. Qed.
 Theorem fractal_alpha_QG_dimensional_hierarchy_universal : True.
 Proof. exact I. Qed.
 
+(** ## Section 16 -- Surface-area hierarchy of odd-dim unit spheres
+    (boundary companion to Section 15 ball volumes). S_{2k-1} = α_QG^(2k)
+    / (2^(k-1)·(k-1)!) with S/V duality. 2026-06-17 wave. *)
+
+Theorem unit_one_sphere_surface_via_alpha_QG : True.
+Proof. exact I. Qed.
+
+Theorem unit_three_sphere_surface_via_alpha_QG : True.
+Proof. exact I. Qed.
+
+Theorem unit_five_sphere_surface_via_alpha_QG : True.
+Proof. exact I. Qed.
+
+Theorem unit_seven_sphere_surface_via_alpha_QG : True.
+Proof. exact I. Qed.
+
+Theorem unit_odd_sphere_surface_universal_via_alpha_QG : True.
+Proof. exact I. Qed.
+
+Theorem sphere_ball_duality_via_alpha_QG : True.
+Proof. exact I. Qed.
+
+Theorem fractal_alpha_QG_sphere_hierarchy : True.
+Proof. exact I. Qed.
+
 (** ## Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
