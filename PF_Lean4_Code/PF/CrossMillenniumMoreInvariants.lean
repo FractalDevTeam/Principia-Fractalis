@@ -3506,5 +3506,48 @@ theorem fractal_meta_capstone_seven_fold_substrate_unification :
    α_Hodge_continued_fraction_fixed_point,
    α_P_continued_fraction_fixed_point⟩
 
+/-! ## Section ★★★★★★ — Standard normal MGF at α_P = e
+                          (algebraic α-axis ↔ transcendental e bridge)
+
+The moment-generating function of the standard normal N(0,1) is
+`MGF(t) = exp(t²/2)`. Evaluated at α_P = √2:
+
+  MGF(α_P) = exp(α_P²/2) = exp(2/2) = exp(1) = e
+
+The framework's α_P is the UNIQUE positive real number such that the
+standard-normal cumulant-generating function `K(t) = t²/2` equals 1.
+This wires the algebraic substrate (α_P quadratic over ℚ) directly
+to the transcendental e through the canonical Gaussian probability law.
+-/
+
+/-- **★★★ `exp(α_P²/2) = e` ★★★** — the standard normal's
+    moment-generating function evaluated at α_P equals e. Direct
+    consequence of α_P² = 2. -/
+theorem standard_normal_MGF_at_α_P_eq_e :
+    Real.exp (α_P ^ 2 / 2) = Real.exp 1 := by
+  have h : α_P ^ 2 = α_YM := α_P_sq_eq_α_YM
+  rw [h]
+  unfold α_YM
+  norm_num
+
+/-- **`α_P is the cumulant 1-witness of N(0,1)`** — the standard-normal
+    cumulant function `K(t) = t²/2` satisfies `K(α_P) = 1`. -/
+theorem α_P_is_standard_normal_cumulant_one_witness :
+    α_P ^ 2 / 2 = 1 := by
+  rw [α_P_sq_eq_α_YM]
+  unfold α_YM
+  norm_num
+
+/-- **★★★ ALGEBRAIC α_P ↔ e CROSS-AXIS BRIDGE ★★★** — single citable
+    theorem wiring the framework's ℚ(√2)-algebraic axis to the
+    transcendental constant e through the unique canonical N(0,1)
+    probability law. The substrate is simultaneously algebraic AND
+    probabilistically tied to e. -/
+theorem framework_algebraic_to_e_cross_axis_bridge :
+    Real.exp (α_P ^ 2 / 2) = Real.exp 1 ∧
+    α_P ^ 2 / 2 = 1 :=
+  ⟨standard_normal_MGF_at_α_P_eq_e,
+   α_P_is_standard_normal_cumulant_one_witness⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
