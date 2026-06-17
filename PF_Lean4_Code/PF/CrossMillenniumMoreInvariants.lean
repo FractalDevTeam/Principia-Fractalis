@@ -409,6 +409,63 @@ theorem α_Hodge_pow_universal_fibonacci_form (n : ℕ) :
   have h := Real.goldenRatio_mul_fib_succ_add_fib n
   linarith
 
+/-- **★★★ BINET'S FORMULA in framework form ★★★** — the Fibonacci
+    sequence's closed form expressed in the framework's algebraic
+    Hodge axes:
+
+      F_n = (α_Hodge^n − (1 − α_Hodge)^n) / √5    ∀ n : ℕ
+
+    Where `1 − α_Hodge = ψ` is the Galois conjugate of α_Hodge over ℚ.
+    Binet's formula is the explicit Fibonacci closed form via the two
+    Galois roots of α_Hodge² − α_Hodge − 1 = 0. The framework's axis
+    α_Hodge IS the dominant root; its conjugate is the secondary root.
+
+    Fractal interpretation: every Fibonacci number is a difference of
+    two α-axis powers, scaled by √5 (the discriminant radical of the
+    α_Hodge minimal polynomial). The Fibonacci sequence is the
+    NUMERIC EVIDENCE of the framework's Hodge axis through every
+    integer scale.
+
+    Uses mathlib's `Real.coe_fib_eq` Binet formula. -/
+theorem fibonacci_binet_via_α_Hodge_axes (n : ℕ) :
+    (Nat.fib n : ℝ) = (α_Hodge ^ n - (1 - α_Hodge) ^ n) / Real.sqrt 5 := by
+  have h_conj : (1 - α_Hodge : ℝ) = Real.goldenConj := by
+    rw [α_Hodge_eq_goldenRatio]
+    unfold Real.goldenConj Real.goldenRatio
+    ring
+  rw [h_conj, α_Hodge_eq_goldenRatio]
+  exact Real.coe_fib_eq n
+
+/-- **`F_n · √5 = α_Hodge^n − (1 − α_Hodge)^n`** — Binet's formula
+    cleared of the denominator. Same content as
+    `fibonacci_binet_via_α_Hodge_axes`, formulated as an equality
+    without division (and therefore without `√5 ≠ 0` side conditions).
+    Useful for downstream rewriting. -/
+theorem fibonacci_binet_cleared_denominator_via_α_Hodge_axes (n : ℕ) :
+    (Nat.fib n : ℝ) * Real.sqrt 5 = α_Hodge ^ n - (1 - α_Hodge) ^ n := by
+  have h := fibonacci_binet_via_α_Hodge_axes n
+  have h5_pos : (0 : ℝ) < Real.sqrt 5 := Real.sqrt_pos.mpr (by norm_num)
+  field_simp at h
+  linarith
+
+/-- **★★★ FIBONACCI–HODGE GALOIS CAPSTONE ★★★** — single citable
+    theorem bundling the universal-N Fibonacci tower for α_Hodge powers
+    AND Binet's formula (the dual closed-form for Fibonacci numbers
+    via the two Galois roots).
+
+    Together they assert: the framework's α_Hodge axis controls BOTH
+    directions of the Fibonacci–Hodge correspondence at universal-n,
+    machine-checked through mathlib's `goldenRatio_mul_fib_succ_add_fib`
+    and `coe_fib_eq` respectively. The Hodge axis's Galois-conjugate
+    pair (α_Hodge, 1 − α_Hodge) generates the entire Fibonacci sequence
+    by linear difference of integer powers. -/
+theorem framework_fibonacci_hodge_galois_capstone :
+    (∀ n : ℕ, α_Hodge ^ (n + 1) = Nat.fib (n + 1) * α_Hodge + Nat.fib n) ∧
+    (∀ n : ℕ, (Nat.fib n : ℝ)
+              = (α_Hodge ^ n - (1 - α_Hodge) ^ n) / Real.sqrt 5) :=
+  ⟨α_Hodge_pow_universal_fibonacci_form,
+   fibonacci_binet_via_α_Hodge_axes⟩
+
 /-! ## Section 2c — π-built α extensions: higher powers of α_QG, α_NS, α_BSD
 
     The π-built α-values (α_QG = √(2π), α_NS = 3π/2, α_BSD = 3π/4)
