@@ -3606,5 +3606,70 @@ theorem framework_algebraic_to_e_cross_axis_bridge :
   ⟨standard_normal_MGF_at_α_P_eq_e,
    α_P_is_standard_normal_cumulant_one_witness⟩
 
+/-! ## Section ★★★★★★★ — Hyperbolic–algebraic bridge:
+                          cosh(ln α_Hodge) = √5/2  ∧  sinh(ln α_Hodge) = 1/2
+
+The framework's golden self-conjugation triple (deficit + trace +
+reciprocity) projects onto the hyperbolic axis via the change of
+variable `x ↦ ln x`. Specifically:
+
+  cosh(ln α_Hodge)  =  (α_Hodge + 1/α_Hodge) / 2  =  √5 / 2     (TRACE)
+  sinh(ln α_Hodge)  =  (α_Hodge − 1/α_Hodge) / 2  =  1 / 2      (DEFICIT)
+
+The check `cosh² − sinh² = 1` becomes `5/4 − 1/4 = 1` — automatic.
+
+The framework's Hodge axis α_Hodge IS the unique positive real number
+whose hyperbolic-cosine of its log equals √5/2 AND whose hyperbolic-
+sine of its log equals 1/2. This is the SUBSTRATE'S hyperbolic
+fingerprint — a fourth-level fractal projection (algebraic ↔
+multiplicative ↔ exponential ↔ hyperbolic).
+-/
+
+/-- **`cosh(ln α_Hodge) = √5 / 2`** — golden TRACE identity projected
+    onto the hyperbolic axis. Equivalent to the golden self-conjugation
+    trace `α_Hodge + 1/α_Hodge = √5` after `(x + x⁻¹)/2` framing
+    (which is the definition of cosh ∘ ln). -/
+theorem cosh_log_α_Hodge_eq_sqrt5_div_two :
+    Real.cosh (Real.log α_Hodge) = Real.sqrt 5 / 2 := by
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi
+    unfold phi
+    positivity
+  have h_exp : Real.exp (Real.log α_Hodge) = α_Hodge := Real.exp_log hα_pos
+  have h_trace_inv : α_Hodge + α_Hodge⁻¹ = Real.sqrt 5 := by
+    have h := α_Hodge_self_conjugation_trace
+    rwa [one_div] at h
+  rw [Real.cosh_eq, h_exp, Real.exp_neg, h_exp, h_trace_inv]
+
+/-- **`sinh(ln α_Hodge) = 1 / 2`** — golden DEFICIT identity projected
+    onto the hyperbolic axis. Equivalent to the golden self-conjugation
+    deficit `α_Hodge − 1/α_Hodge = 1` after `(x − x⁻¹)/2` framing
+    (which is the definition of sinh ∘ ln). -/
+theorem sinh_log_α_Hodge_eq_half :
+    Real.sinh (Real.log α_Hodge) = 1 / 2 := by
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi
+    unfold phi
+    positivity
+  have h_exp : Real.exp (Real.log α_Hodge) = α_Hodge := Real.exp_log hα_pos
+  have h_deficit_inv : α_Hodge - α_Hodge⁻¹ = 1 := by
+    have h := α_Hodge_self_conjugation_deficit
+    rwa [one_div] at h
+  rw [Real.sinh_eq, h_exp, Real.exp_neg, h_exp, h_deficit_inv]
+
+/-- **★★★ HYPERBOLIC–ALGEBRAIC GOLDEN BRIDGE ★★★** — single citable
+    theorem bundling the hyperbolic-cosine TRACE identity and the
+    hyperbolic-sine DEFICIT identity for α_Hodge.
+
+    Together they assert: the substrate's golden self-conjugation
+    triple is SIMULTANEOUSLY a hyperbolic identity, with the
+    Pythagorean check `cosh² − sinh² = 1` becoming `5/4 − 1/4 = 1`
+    automatically. -/
+theorem framework_hyperbolic_golden_bridge :
+    Real.cosh (Real.log α_Hodge) = Real.sqrt 5 / 2 ∧
+    Real.sinh (Real.log α_Hodge) = 1 / 2 :=
+  ⟨cosh_log_α_Hodge_eq_sqrt5_div_two,
+   sinh_log_α_Hodge_eq_half⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
