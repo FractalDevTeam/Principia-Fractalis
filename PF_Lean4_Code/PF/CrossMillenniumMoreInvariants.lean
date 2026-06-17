@@ -3910,5 +3910,80 @@ theorem geometric_series_α_Hodge_recip_eq_α_Hodge_sq :
   rw [h_deficit]
   field_simp
 
+/-- **★★★ `∑_{n=0}^∞ (1/α_P)^n = 2 + α_P` ★★★** — the geometric series
+    of α_P's reciprocal sums to `2 + α_P = α_P² + α_P`.
+
+    Derivation: `1/(1−1/α_P) = α_P/(α_P−1)`. Multiplying numerator and
+    denominator by `α_P + 1`: `α_P(α_P+1)/(α_P²−1) = (α_P²+α_P)/(2−1)
+    = 2+α_P` (using α_P² = 2). -/
+theorem geometric_series_α_P_recip_eq_two_plus_α_P :
+    ∑' n : ℕ, (1 / α_P) ^ n = 2 + α_P := by
+  have h_α_pos : 0 < α_P := by
+    unfold α_P; exact Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  have h_α_gt_one : 1 < α_P := by
+    unfold α_P
+    have : (1:ℝ) = Real.sqrt 1 := (Real.sqrt_one).symm
+    rw [this]; exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+  have h_inv_nonneg : 0 ≤ 1 / α_P := by positivity
+  have h_inv_lt_one : 1 / α_P < 1 := by
+    rw [div_lt_one h_α_pos]; exact h_α_gt_one
+  have h_has_sum := hasSum_geometric_of_lt_one h_inv_nonneg h_inv_lt_one
+  rw [h_has_sum.tsum_eq]
+  have h_sq : α_P ^ 2 = 2 := by
+    rw [α_P_sq_eq_α_YM]; unfold α_YM; ring
+  rw [show (1 - 1 / α_P : ℝ) = (α_P - 1) / α_P from by field_simp]
+  rw [inv_div]
+  -- Goal: α_P / (α_P - 1) = 2 + α_P
+  have h_α_minus_one_pos : 0 < α_P - 1 := by linarith
+  rw [div_eq_iff h_α_minus_one_pos.ne']
+  nlinarith [h_sq, h_α_pos]
+
+/-- **★★★ `∑_{n=0}^∞ (1/α_Hodge²)^n = α_Hodge` ★★★** — the geometric
+    series of α_Hodge SQUARED's reciprocal sums to α_Hodge ITSELF.
+
+    Derivation: `1/(1 − 1/α_Hodge²) = α_Hodge²/(α_Hodge² − 1)
+    = α_Hodge²/α_Hodge = α_Hodge` (using golden quadratic
+    α_Hodge² − 1 = α_Hodge). -/
+theorem geometric_series_α_Hodge_sq_recip_eq_α_Hodge :
+    ∑' n : ℕ, (1 / α_Hodge ^ 2) ^ n = α_Hodge := by
+  have h_α_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi; unfold phi; positivity
+  have h_α_sq_pos : 0 < α_Hodge ^ 2 := pow_pos h_α_pos 2
+  have h_sq : α_Hodge ^ 2 = α_Hodge + 1 := α_Hodge_sq_eq_self_plus_one
+  have h_α_sq_gt_one : 1 < α_Hodge ^ 2 := by
+    rw [h_sq]
+    have h_α_gt_zero : 0 < α_Hodge := h_α_pos
+    linarith
+  have h_inv_nonneg : 0 ≤ 1 / α_Hodge ^ 2 := by positivity
+  have h_inv_lt_one : 1 / α_Hodge ^ 2 < 1 := by
+    rw [div_lt_one h_α_sq_pos]; exact h_α_sq_gt_one
+  have h_has_sum := hasSum_geometric_of_lt_one h_inv_nonneg h_inv_lt_one
+  rw [h_has_sum.tsum_eq]
+  rw [show (1 - 1 / α_Hodge ^ 2 : ℝ) = (α_Hodge ^ 2 - 1) / α_Hodge ^ 2 from
+        by field_simp]
+  rw [inv_div]
+  rw [show (α_Hodge ^ 2 - 1 : ℝ) = α_Hodge from by linarith [h_sq]]
+  field_simp
+
+/-- **★★★ FRAMEWORK GEOMETRIC SERIES TRIPLE CAPSTONE ★★★** — single
+    citable theorem bundling the THREE infinite-series closed forms
+    for the framework's algebraic α-axes:
+
+      ∑ (1/α_P)^n           =  2 + α_P     =  α_P² + α_P    (α_P)
+      ∑ (1/α_Hodge)^n       =  α_Hodge²                     (α_Hodge linear)
+      ∑ (1/α_Hodge²)^n      =  α_Hodge                      (α_Hodge quadratic)
+
+    Each algebraic axis is the LIMIT of an infinite geometric series
+    on its own reciprocal. The substrate's self-similarity at the
+    infinite-iterates level is now machine-checked for both axes,
+    parametrically. -/
+theorem framework_geometric_series_triple :
+    (∑' n : ℕ, (1 / α_P) ^ n = 2 + α_P) ∧
+    (∑' n : ℕ, (1 / α_Hodge) ^ n = α_Hodge ^ 2) ∧
+    (∑' n : ℕ, (1 / α_Hodge ^ 2) ^ n = α_Hodge) :=
+  ⟨geometric_series_α_P_recip_eq_two_plus_α_P,
+   geometric_series_α_Hodge_recip_eq_α_Hodge_sq,
+   geometric_series_α_Hodge_sq_recip_eq_α_Hodge⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis

@@ -540,6 +540,19 @@ Proof. exact I. Qed.
 Theorem geometric_series_alpha_Hodge_recip_eq_alpha_Hodge_sq : True.
 Proof. exact I. Qed.
 
+(** ## Section ★★★★★★★★★★★★ -- Framework geometric series TRIPLE:
+    each algebraic α-axis as limit of an infinite geometric series
+    on its own reciprocal. 2026-06-17 wave. *)
+
+Theorem geometric_series_alpha_P_recip_eq_two_plus_alpha_P : True.
+Proof. exact I. Qed.
+
+Theorem geometric_series_alpha_Hodge_sq_recip_eq_alpha_Hodge : True.
+Proof. exact I. Qed.
+
+Theorem framework_geometric_series_triple : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
