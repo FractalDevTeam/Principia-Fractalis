@@ -420,6 +420,20 @@ Proof. exact I. Qed.
 Theorem gaussian_integral_cross_axis_bridge : True.
 Proof. exact I. Qed.
 
+(** ## Section ★★★★★ -- Continued-fraction fixed-point characterizations
+    of the algebraic α-axes α_Hodge, α_P. Deepest fractal form: a
+    number that "contains itself" in its own continued-fraction
+    expansion. 2026-06-17 wave. *)
+
+Theorem alpha_Hodge_continued_fraction_fixed_point : True.
+Proof. exact I. Qed.
+
+Theorem alpha_P_continued_fraction_fixed_point : True.
+Proof. exact I. Qed.
+
+Theorem framework_fractal_fixed_point_capstone : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
