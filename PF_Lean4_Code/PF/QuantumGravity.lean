@@ -62,6 +62,7 @@ import PF.MillenniumSixReductions
 import Mathlib.NumberTheory.LSeries.HurwitzZetaValues
 import Mathlib.Analysis.SpecialFunctions.Stirling
 import Mathlib.Analysis.Real.Pi.Wallis
+import Mathlib.Analysis.SpecialFunctions.Gamma.Beta
 
 namespace PrincipiaTractalis
 
@@ -980,5 +981,49 @@ theorem wallis_product_via_alpha_QG :
       Filter.atTop (nhds (alpha_QG ^ 2 / 4)) := by
   rw [← pi_div_two_eq_alpha_QG_sq_div_four]
   exact Real.tendsto_prod_pi_div_two
+
+/-! ## Section 12 — Euler's reflection formula via the framework's α_QG axis
+
+Euler's classical reflection formula for the Gamma function:
+  `Γ(s) · Γ(1 − s) = π / sin(π·s)`
+
+At s = 1/2, this gives `Γ(1/2)² = π / sin(π/2) = π`. In framework form,
+the substrate-rigid identity α_QG² = 2π gives `Γ(1/2)² = α_QG² / 2`.
+-/
+
+/-- **`Γ(1/2)² = α_QG² / 2`** — Euler's reflection formula at s = 1/2
+    in framework form.
+
+    Classical: Γ(1/2) · Γ(1 − 1/2) = π / sin(π/2) = π / 1 = π.
+    Framework: same identity, expressed through α_QG² = 2π. -/
+theorem Gamma_one_half_sq_eq_alpha_QG_sq_div_two :
+    Real.Gamma (1/2) * Real.Gamma (1/2) = alpha_QG ^ 2 / 2 := by
+  have h_refl : Real.Gamma (1/2) * Real.Gamma (1 - 1/2)
+              = Real.pi / Real.sin (Real.pi * (1/2)) :=
+    Real.Gamma_mul_Gamma_one_sub (1/2 : ℝ)
+  have h_simp : (1 - 1/2 : ℝ) = 1/2 := by norm_num
+  rw [h_simp] at h_refl
+  have h_sin : Real.sin (Real.pi * (1/2)) = 1 := by
+    rw [show Real.pi * (1/2) = Real.pi / 2 from by ring]
+    exact Real.sin_pi_div_two
+  rw [h_sin] at h_refl
+  rw [h_refl]
+  have h_qg_sq : alpha_QG ^ 2 = 2 * Real.pi := alpha_QG_sq
+  linarith
+
+/-- **★★ EULER'S REFLECTION FORMULA at s=1/2 in α_QG form ★★** —
+    `Γ(1/2)² = α_QG² / 2`.
+
+    Combined with the earlier identity `α_QG / α_P = Γ(1/2)`, this is
+    a CONSISTENCY check: `(α_QG/α_P)² = α_QG²/α_P² = α_QG²/2` (since
+    α_P² = 2), matching Γ(1/2)² = α_QG²/2.
+
+    The framework's substrate-rigid identities and Euler's reflection
+    formula at the half-integer give the SAME number through different
+    classical formulations. -/
+theorem euler_reflection_one_half_via_alpha_QG :
+    Real.Gamma (1/2) * Real.Gamma (1 - 1/2) = alpha_QG ^ 2 / 2 := by
+  rw [show (1 - 1/2 : ℝ) = 1/2 from by norm_num]
+  exact Gamma_one_half_sq_eq_alpha_QG_sq_div_two
 
 end PrincipiaTractalis
