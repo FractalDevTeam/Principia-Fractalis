@@ -45,6 +45,7 @@ Axiom-free. Pure algebra on `Real.pi`, `Real.sqrt`, and `phi`.
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Mathlib.Data.Real.Sqrt
 import Mathlib.Tactic
+import Mathlib.Data.Real.GoldenRatio
 import PF.IntervalArithmetic
 import PF.TuringEncoding.AlphaCanonical
 import PF.CrossMillenniumSharedInvariants
@@ -229,6 +230,33 @@ theorem α_Hodge_fibonacci_tower :
           α_Hodge_sixth, α_Hodge_seventh, α_Hodge_eighth⟩
   · ring
   · rw [α_Hodge_sq_eq_self_plus_one]; ring
+
+/-! ### Bridge to mathlib's `Real.goldenRatio` -/
+
+/-- **`α_Hodge = Real.goldenRatio`** — definitional bridge between the
+    framework's Hodge α-value and mathlib's golden ratio. -/
+theorem α_Hodge_eq_goldenRatio :
+    α_Hodge = Real.goldenRatio := by
+  unfold α_Hodge phi Real.goldenRatio
+  rfl
+
+/-- **★★★ FRAMEWORK α_HODGE FIBONACCI TOWER ↔ MATHLIB UNIVERSAL-N ★★★** —
+    the framework's algebraic Fibonacci tower for α_Hodge^k at fixed
+    k = 2, ..., 8 extends UNIVERSALLY to all k ≥ 1 via mathlib's
+    `Real.goldenRatio_mul_fib_succ_add_fib`:
+
+      ∀ n : ℕ,  α_Hodge^(n+1) = Nat.fib(n+1) · α_Hodge + Nat.fib(n)
+
+    The framework's structurally-proven 8-clause Fibonacci tower
+    (lines 219–228 above) is the n = 0, 1, 2, ..., 7 instantiation of
+    this universal statement. Mathlib's `goldenRatio_mul_fib_succ_add_fib`
+    extends it to ALL n : ℕ, giving the framework's Hodge α-axis
+    closed-form expression at every positive integer power. -/
+theorem α_Hodge_pow_universal_fibonacci_form (n : ℕ) :
+    α_Hodge ^ (n + 1) = Nat.fib (n + 1) * α_Hodge + Nat.fib n := by
+  rw [α_Hodge_eq_goldenRatio]
+  have h := Real.goldenRatio_mul_fib_succ_add_fib n
+  linarith
 
 /-! ## Section 2c — π-built α extensions: higher powers of α_QG, α_NS, α_BSD
 
