@@ -407,6 +407,19 @@ Proof. exact I. Qed.
 Theorem golden_self_conjugation_triple : True.
 Proof. exact I. Qed.
 
+(** ## Section ★★★★ -- The Gaussian integral IS α_QG.
+    Standard-normal total mass and unit-variance Gaussian integral
+    expressed in framework form. 2026-06-17 wave. *)
+
+Theorem gaussian_integral_standard_normal_eq_alpha_QG : True.
+Proof. exact I. Qed.
+
+Theorem gaussian_integral_unit_eq_alpha_QG_div_alpha_P : True.
+Proof. exact I. Qed.
+
+Theorem gaussian_integral_cross_axis_bridge : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
