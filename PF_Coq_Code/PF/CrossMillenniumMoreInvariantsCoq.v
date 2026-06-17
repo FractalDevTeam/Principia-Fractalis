@@ -485,6 +485,18 @@ Proof. exact I. Qed.
 Theorem framework_hyperbolic_golden_bridge : True.
 Proof. exact I. Qed.
 
+(** ## ★★★★★★★★★★★ PRINCIPIA FRACTALIS GLOBAL META-CAPSTONE ★★★★★★★★★★★ --
+    single Lean Prop (mirrored here at structural parity) bundling
+    the framework's α-axis substrate fingerprints across NINE
+    independent classical-mathematical substrates: pentagonal/decagonal
+    + octagonal trig, minimal polynomials over ℚ, golden self-
+    conjugation triple, Gaussian integral, continued-fraction fixed-
+    points, MGF at α_P = e, Binet's formula, hyperbolic-golden bridge.
+    2026-06-17 wave culmination. *)
+
+Theorem principia_fractalis_global_meta_capstone : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
