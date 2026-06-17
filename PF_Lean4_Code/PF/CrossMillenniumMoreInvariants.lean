@@ -3371,5 +3371,73 @@ theorem gaussian_integral_cross_axis_bridge :
   ⟨gaussian_integral_standard_normal_eq_α_QG,
    gaussian_integral_unit_eq_α_QG_div_α_P⟩
 
+/-! ## Section ★★★★★ — Continued-fraction fixed-point characterizations
+                         of the algebraic α-axes (deepest fractal form)
+
+A continued-fraction fixed point is the SELF-SIMILAR SIGNATURE of a
+number. The algebraic α-axes α_Hodge, α_P each satisfy a self-
+referential equation of the form `x = f(x)` where f is a Möbius
+involution-like map; the α-axis is the unique positive solution.
+
+  α_Hodge = 1 + 1/α_Hodge        ⇔  golden recurrence [1; 1, 1, …]
+  α_P     = 1 + 1/(1 + α_P)      ⇔  silver recurrence [1; 2, 2, …]
+
+These are the deepest fractal characterizations of φ and √2: the
+numbers literally ARE their own continued-fraction recursions at the
+fixed point. The substrate's self-similarity manifests as algebraic
+self-reference.
+-/
+
+/-- **`α_Hodge = 1 + 1/α_Hodge`** — the golden continued-fraction
+    fixed-point identity. `φ = [1; 1, 1, 1, …]` realized algebraically.
+
+    Derivation: divide the golden quadratic α_Hodge² = α_Hodge + 1 by
+    α_Hodge (positive). This is the SELF-SIMILAR signature of α_Hodge:
+    the only number that, when reciprocated and adding 1, yields itself. -/
+theorem α_Hodge_continued_fraction_fixed_point :
+    α_Hodge = 1 + 1 / α_Hodge := by
+  have h_sq : α_Hodge ^ 2 = α_Hodge + 1 := α_Hodge_sq_eq_self_plus_one
+  have hα_pos : 0 < α_Hodge := by
+    show (0:ℝ) < phi
+    unfold phi
+    positivity
+  field_simp
+  nlinarith [h_sq, hα_pos]
+
+/-- **`α_P = 1 + 1/(1 + α_P)`** — the silver continued-fraction
+    fixed-point identity. `√2 = [1; 2, 2, 2, …]` realized algebraically
+    as a Möbius fixed point of x ↦ 1 + 1/(1+x).
+
+    Derivation: from α_P² = 2 we get α_P² − 1 = 1 = (α_P−1)(α_P+1),
+    so α_P − 1 = 1/(α_P+1), i.e., α_P = 1 + 1/(1+α_P). -/
+theorem α_P_continued_fraction_fixed_point :
+    α_P = 1 + 1 / (1 + α_P) := by
+  have h_sq : α_P ^ 2 = α_YM := α_P_sq_eq_α_YM
+  have h2 : α_P ^ 2 = 2 := by rw [h_sq]; unfold α_YM; ring
+  have hα_pos : 0 < α_P := by
+    unfold α_P
+    exact Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)
+  have h_one_plus_pos : 0 < 1 + α_P := by linarith
+  field_simp
+  nlinarith [h2, hα_pos]
+
+/-- **★★★ CONTINUED-FRACTION FIXED-POINT CAPSTONE ★★★** — single
+    citable theorem bundling the self-similar Möbius fixed-point
+    identities for the framework's two ℚ-quadratic algebraic axes.
+
+    Fractal interpretation: α_Hodge and α_P are NOT just roots of
+    quadratic polynomials — they are FIXED POINTS of self-referential
+    algebraic maps. The fractal-self-similarity (a number that
+    "contains itself" in its own continued-fraction expansion) is
+    the deepest manifestation of the substrate's invariance under
+    the map x ↦ f(x). These fixed-point identities are EQUIVALENT
+    to the minimal polynomials but expose the FRACTAL CHARACTER
+    rather than the algebraic equation. -/
+theorem framework_fractal_fixed_point_capstone :
+    α_Hodge = 1 + 1 / α_Hodge ∧
+    α_P = 1 + 1 / (1 + α_P) :=
+  ⟨α_Hodge_continued_fraction_fixed_point,
+   α_P_continued_fraction_fixed_point⟩
+
 end CrossMillenniumMoreInvariants
 end PrincipiaTractalis
