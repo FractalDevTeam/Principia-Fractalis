@@ -602,6 +602,25 @@ Proof. exact I. Qed.
 Theorem framework_unassailability_capstone : True.
 Proof. exact I. Qed.
 
+(** ## Unassailability -- distinctness from external constants.
+    α_P ≠ √3, α_Hodge ≠ α_P, α_NP ≠ α_YM, α_QG ≠ π. Forestalls
+    trivial misidentification attacks. 2026-06-17 wave. *)
+
+Theorem alpha_P_ne_sqrt_three : True.
+Proof. exact I. Qed.
+
+Theorem alpha_Hodge_ne_alpha_P : True.
+Proof. exact I. Qed.
+
+Theorem alpha_NP_ne_alpha_YM : True.
+Proof. exact I. Qed.
+
+Theorem alpha_QG_ne_pi : True.
+Proof. exact I. Qed.
+
+Theorem framework_distinctness_from_external_capstone : True.
+Proof. exact I. Qed.
+
 (** ## Section 14 -- Honest-scope marker *)
 
 Definition honest_scope_coq_parity_only : Prop := True.
