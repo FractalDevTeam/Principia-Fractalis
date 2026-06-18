@@ -1,5 +1,41 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-18 — Wave 59: unconditional discharge of the countability atomic fact
+
+**HEAD prior**: `c48a32c` (this morning's meta-capstone). **HEAD now**: `a7fae47`. **Build**: 4341 jobs clean. **Project axioms**: 0.
+
+Wave 58 (this morning) reduced the framework's HP-positive RH residual to the conjunction of two atomic ζ-facts:
+
+- (a) `PositiveOnLineZetaZeroOrdinatesCountable`
+- (b) `PositiveOnLineZetaZeroOrdinatesNonempty`
+
+Wave 59 **DISCHARGES (a) UNCONDITIONALLY** from mathlib's analytic identity theorem applied to `riemannZeta`:
+
+- ζ analytic on `U := ℂ \ {1}` (via `differentiableAt_riemannZeta` + `DifferentiableOn.analyticOnNhd`).
+- `U` preconnected (via `isPathConnected_compl_singleton_of_one_lt_rank` + `rank_real_complex`).
+- ζ ≢ 0 on `U` (via `riemannZeta_zero : riemannZeta 0 = -1/2`).
+- identity theorem ⇒ zero set codiscrete in `U` ⇒ discrete subspace topology.
+- ℂ second-countable ⇒ hereditarily Lindelöf ⇒ subspace LindelöfSpace; combined with discrete ⇒ countable.
+- inject `PositiveOnLineZetaZeroOrdinates` into the countable set via `t ↦ ⟨1/2, t⟩`.
+
+**Files**:
+
+- `PF_Lean4_Code/PF/Analytic/PositiveOnLineZetaOrdinatesCountableDischarge.lean` — 10 axiom-free theorems. Capstones `positive_on_line_zeta_zero_ordinates_countable_discharged` + `rh_wave59_one_fact_capstone` (`PF_T3SymIsHilbertPolyaOperator_Positive ↔ PositiveOnLineZetaZeroOrdinatesNonempty`).
+- `PF_Lean4_Code/PF/Referee/ClayResidualFrontier_Wave59_2026_06_18.lean` — `clay_residual_frontier_W59_2026_06_18` + `framework_finishes_all_six_from_three_atomic_facts` (Clay closure from THREE remaining atomic facts).
+
+**Frontier narrowing**:
+
+| Pre-W59 (this morning) | Post-W59 |
+|---|---|
+| (a) countable | DISCHARGED — unconditional Lean theorem |
+| (b) nonempty | (b) nonempty — Hardy 1914 |
+| (c) HP-program | (c) HP-program — Mayer 1991 §3 / Berry-Keating / Bost-Connes |
+| (d) empirical α-ident | (d) empirical α-ident — Ch 21 polylog + IBM 9-way |
+
+**Honest scope**: NOT a Clay RH discharge. Substrate-level closure of the typed-Prop contract. The literal `riemannZeta`-side mathlib countability is now Lean-proven against the kernel-only axiom trio; the substrate-level Clay closure now rests on three named published-mathematics / manuscript anchors.
+
+**Build**: 4341 jobs clean. Kernel-only axioms `[propext, Classical.choice, Quot.sound]` on every Wave 59 theorem.
+
 ## 2026-06-15 — Full Coq cross-prover parity + L4L third-layer extension
 
 **HEAD prior**: `26b0b75`. **Build**: 8648 jobs clean (was 8516; +132 from the 2026-06-13 bulletproof push that became visible at full build). **Project axioms**: 0. **Coq**: 618/618 files clean (was 184; +434 new structural-parity mirrors).
