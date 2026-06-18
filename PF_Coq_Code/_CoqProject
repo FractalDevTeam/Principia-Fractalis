@@ -634,3 +634,13 @@ PF/Referee/MinimalRigidityForcesAlphaPowerTowersCoq.v
 PF/Referee/MinimalRigidityForcesScalarFingerprintsCoq.v
 PF/Referee/SubstrateRigidityEndToEndMetaCapstoneCoq.v
 PF/Referee/MinimalRigidityForcesSharpBracketSaturationCoq.v
+
+PF/Analytic/HilbertPolyaPositiveImageRigidityCoq.v
+PF/Analytic/HilbertPolyaPositiveReductionToCountabilityCoq.v
+PF/Analytic/PositiveOnLineZetaOrdinatesCountableDischargeCoq.v
+PF/Analytic/Hardy1914_NonemptyZetaOnLineZeros_AnchorCoq.v
+PF/Analytic/HilbertPolyaProgram_Substrate_AnchorsCoq.v
+PF/Empirical/EmpiricalAlphaIdent_Substrate_AnchorsCoq.v
+PF/Referee/ClayResidualFrontierMetaCapstone_2026_06_18Coq.v
+PF/Referee/ClayResidualFrontier_Wave59_2026_06_18Coq.v
+PF/Referee/UnassailableClayClosure_2026_06_18Coq.v
