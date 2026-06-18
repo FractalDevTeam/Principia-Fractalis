@@ -150,6 +150,19 @@ def ZetaZeroOrdinateValid (oracle : ℕ → ℝ) : Prop :=
 def ZetaZeroOrdinateComplete (oracle : ℕ → ℝ) : Prop :=
   ∀ t : ℝ, riemannZeta ⟨1/2, t⟩ = 0 → ∃ k : ℕ, oracle k = t
 
+/-- **Positive-only variant** — the oracle hits every POSITIVE on-line
+    ζ-zero `t > 0`. This is the conjugate-symmetry-compatible form:
+    ζ has `ζ(1/2 − it) = conj(ζ(1/2 + it))`, so on-line zeros come in
+    `±t` pairs, and a positive oracle can only target one side.
+    Conventional ζ-zero indexing (LMFDB et al.) lists only the
+    upper-half-plane representatives `t_1 < t_2 < …` — exactly what
+    this captures. The original `ZetaZeroOrdinateComplete` plus the
+    standard positivity-on-oracle clause is structurally uninhabitable
+    (positive oracle cannot hit negative `t`); the positive-only
+    variant resolves that conjugate-symmetry inhabitability gap. -/
+def ZetaZeroOrdinateCompletePositive (oracle : ℕ → ℝ) : Prop :=
+  ∀ t : ℝ, 0 < t → riemannZeta ⟨1/2, t⟩ = 0 → ∃ k : ℕ, oracle k = t
+
 /-! ## §2 — SD1: Per-zero (LMFDB-indexed) sub-decomposition -/
 
 /-- **(SD1) `KthZetaZeroInEigenvalueImage`** — for a fixed `k`, the k-th
