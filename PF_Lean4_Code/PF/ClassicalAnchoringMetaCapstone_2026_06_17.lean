@@ -42,24 +42,40 @@ citation/import gathering the day's classical-anchoring bundles:
 - AlphaRationalDecompositionBundle: α_RH(α_RH-1) = 3/4 = α_BSD/π
 - AlphaGeometricSeriesBundle: ∑ 1/α_YM^n = α_YM
 
+## Post-meta extensions (added same day)
+- AlphaExponentialDecayIntegralBundle: ∫(log α,∞) e^(-x) dx = 1/α
+- AlphaHarmonicTwoBundle: H₂ = α_Poincaré + 1/α_YM = α_RH
+- AlphaFiveFourthsUnifiedBundle: many α-axis expressions for 5/4
+- AlphaArctanStrassnitzkyBundle: arctan(1/2)+arctan(1/3) = α_BSD/3
+- AlphaMachinFormulaBundle: 4·arctan(1/5)−arctan(1/239) = α_BSD/3
+- AlphaMachinLikePiFormulasBundle: all four 17-18C π/4 arctan formulas
+- AlphaBernoulliFrameworkBundle: B₀ = α_Poincaré, B₁ = -α_Poincaré/α_YM
+
 ZERO project axioms across the bundle — kernel-only `[propext,
 Classical.choice, Quot.sound]`.
 -/
 
+import PF.AlphaArctanStrassnitzkyBundle
 import PF.AlphaArctanSumPiBundle
 import PF.AlphaBaselSumBundle
+import PF.AlphaBernoulliFrameworkBundle
 import PF.AlphaBSDIntegralBundle
 import PF.AlphaComplexUnitAlgebraBundle
+import PF.AlphaExponentialDecayIntegralBundle
+import PF.AlphaFiveFourthsUnifiedBundle
 import PF.AlphaFourAxisLinearIdentitiesBundle
 import PF.AlphaGammaFunctionAxisAnchorBundle
 import PF.AlphaGaussianIntegralBundle
 import PF.AlphaGelfondSchneiderBundle
 import PF.AlphaGeometricSeriesBundle
+import PF.AlphaHarmonicTwoBundle
 import PF.AlphaHodgePowerFibonacciRecursionBundle
 import PF.AlphaHodgeSqrtFiveBundle
 import PF.AlphaInverseTrigAxisAnchorBundle
 import PF.AlphaLeibnizIntegralBundle
 import PF.AlphaLeibnizSeriesBundle
+import PF.AlphaMachinFormulaBundle
+import PF.AlphaMachinLikePiFormulasBundle
 import PF.AlphaParityComplexExponentialBundle
 import PF.AlphaRationalDecompositionBundle
 import PF.AlphaSelfInvolutionBundle
@@ -76,7 +92,7 @@ namespace ClassicalAnchoringMetaCapstone_2026_06_17
 /-! ## §1 — Single-citation meta-capstone -/
 
 /-- **★★★★★ THE CLASSICAL-MATH ANCHORING META-CAPSTONE ★★★★★** —
-    single import point for all 23 classical-anchoring bundles built
+    single import point for all 30 classical-anchoring bundles built
     on 2026-06-17.
 
     Each bundle reduces to algebraic relations on the framework's α-axes
