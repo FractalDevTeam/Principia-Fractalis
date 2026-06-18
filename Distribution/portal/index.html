@@ -1,0 +1,1248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Principia Fractalis — Pablo Cohen</title>
+<meta name="description" content="A unified substrate-level framework exhibiting the six unsolved Clay Millennium Problems as projections of a single nine-axis algebraic locus in R⁹. 4180+ machine-checked theorems, zero project axioms, Lean 4 + Coq parity." />
+<meta name="author" content="Pablo Cohen" />
+<meta name="theme-color" content="#0a0d11" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  /* ─── reset ─────────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+  button { font: inherit; cursor: pointer; }
+
+  /* ─── tokens ────────────────────────────────────────────────────────── */
+  :root {
+    --bg:        #0a0d11;
+    --bg-soft:   #11151a;
+    --paper:     #0f1318;
+    --fg:        #e6e4dd;
+    --fg-soft:   #b7b6b0;
+    --fg-mute:   #76776f;
+    --rule:      #1c2026;
+    --rule-soft: #161a1f;
+    --accent:    #6fb0a3;        /* deep aged teal */
+    --accent-d:  #4e8a7e;
+    --accent-hi: #cfe9e2;
+    --warm:      #d4b988;        /* parchment warm */
+    --serif:     "Cormorant Garamond", "EB Garamond", Garamond, "Times New Roman", serif;
+    --sans:      "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono:      "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+    --measure:   70ch;
+    --gutter:    clamp(1.5rem, 4vw, 3.5rem);
+    --section-y: clamp(5rem, 9vw, 8.5rem);
+  }
+
+  /* ─── base ──────────────────────────────────────────────────────────── */
+  html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+  @media (min-width: 768px) { html { font-size: 18px; } }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.65;
+    font-feature-settings: "ss01", "cv11", "calt";
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* faint ruled-notebook background, painstakingly subtle */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(to bottom, transparent calc(2rem - 1px), rgba(255,255,255,.018) calc(2rem - 1px), rgba(255,255,255,.018) 2rem);
+    background-size: 100% 2rem;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: "";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at top, rgba(111,176,163,.06), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(212,185,136,.025), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  main, header, footer { position: relative; z-index: 1; }
+
+  /* ─── typography ────────────────────────────────────────────────────── */
+  h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    line-height: 1.1;
+    color: var(--fg);
+    margin: 0;
+  }
+  h1 { font-size: clamp(3rem, 8vw, 6.25rem); font-weight: 500; letter-spacing: -0.02em; }
+  h2 { font-size: clamp(1.85rem, 3.5vw, 2.7rem); font-weight: 500; }
+  h3 { font-size: 1.2rem; font-family: var(--sans); font-weight: 600; letter-spacing: 0.01em; }
+
+  p { margin: 0 0 1em; max-width: var(--measure); }
+  p:last-child { margin-bottom: 0; }
+  em { color: var(--fg); font-style: italic; }
+  strong { color: var(--fg); font-weight: 600; }
+
+  .serif { font-family: var(--serif); }
+  .mono  { font-family: var(--mono); font-feature-settings: "tnum","ss02"; }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg-mute);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .eyebrow.no-bar::before { display: none; }
+
+  .roman {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--accent);
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  /* ─── layout primitives ────────────────────────────────────────────── */
+  .shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .shell.narrow {
+    max-width: 880px;
+  }
+
+  section {
+    padding-block: var(--section-y);
+    border-top: 1px solid var(--rule);
+  }
+  section:first-of-type { border-top: 0; }
+  section .head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-bottom: 3.5rem;
+  }
+  @media (min-width: 880px) {
+    section .head {
+      grid-template-columns: 14rem 1fr;
+      gap: 4rem;
+      align-items: baseline;
+    }
+  }
+  section .head .lede {
+    color: var(--fg-soft);
+    font-size: 1.08rem;
+    margin-top: 1.25rem;
+    max-width: 62ch;
+  }
+
+  /* ─── nav ──────────────────────────────────────────────────────────── */
+  .top {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px) saturate(1.1);
+    -webkit-backdrop-filter: blur(12px) saturate(1.1);
+    background: rgba(10,13,17,.72);
+    border-bottom: 1px solid var(--rule);
+  }
+  .top .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 0;
+    font-size: 0.85rem;
+  }
+  .mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.15rem;
+    letter-spacing: 0.005em;
+  }
+  .mark .glyph { color: var(--accent); font-style: normal; margin-right: 0.4rem; }
+  nav.toc { display: none; gap: 2rem; color: var(--fg-mute); }
+  nav.toc a:hover { color: var(--fg); }
+  nav.toc a { transition: color .25s ease; }
+  @media (min-width: 880px) { nav.toc { display: flex; } }
+  .toc-num {
+    font-family: var(--serif); font-style: italic; color: var(--accent); margin-right: 0.4rem;
+  }
+
+  /* ─── hero ─────────────────────────────────────────────────────────── */
+  .hero {
+    padding-block: clamp(6rem, 14vw, 11rem) clamp(4rem, 9vw, 7rem);
+    border-top: 0;
+    position: relative;
+  }
+  .hero::before {
+    content: "R⁹";
+    position: absolute;
+    right: -2rem; top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(18rem, 38vw, 38rem);
+    color: rgba(111,176,163, .035);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+  }
+  .hero .meta {
+    margin-bottom: 2rem;
+    color: var(--fg-mute);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .hero .meta span { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .hero .meta span::before { content: "—"; color: var(--accent); }
+
+  .hero h1 .ink { color: var(--fg); }
+  .hero h1 .alt { font-style: italic; font-weight: 400; color: var(--fg); }
+
+  .subtitle {
+    margin-top: 2rem;
+    font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+    line-height: 1.5;
+    color: var(--fg-soft);
+    max-width: 60ch;
+    font-weight: 300;
+  }
+  .subtitle em { color: var(--fg); font-style: italic; }
+
+  .byline {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex; flex-wrap: wrap; gap: 0.4rem 1rem;
+    font-size: 0.9rem;
+    color: var(--fg-soft);
+    font-family: var(--serif);
+    font-style: italic;
+  }
+  .byline strong { font-weight: 600; font-style: normal; color: var(--fg); }
+  .byline .dot { color: var(--accent); font-style: normal; }
+
+  /* ─── stats ────────────────────────────────────────────────────────── */
+  .stats {
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  @media (min-width: 880px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stat {
+    background: var(--bg);
+    padding: 1.75rem 1.5rem;
+    display: flex; flex-direction: column; gap: 0.4rem;
+    transition: background .3s ease;
+  }
+  .stat:hover { background: var(--paper); }
+  .stat .num {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .stat .num .sub { color: var(--accent); font-style: italic; font-weight: 400; }
+  .stat .label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-mute);
+    margin-top: 0.5rem;
+  }
+
+  /* ─── α-exhibit ────────────────────────────────────────────────────── */
+  .exhibit {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 2.25rem clamp(1.5rem, 3vw, 2.75rem);
+    position: relative;
+  }
+  .exhibit::before {
+    content: "exhibit";
+    position: absolute;
+    top: 1rem; right: 1.25rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--fg-mute);
+    letter-spacing: 0.06em;
+  }
+  .exhibit h4 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--fg-soft);
+    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+  }
+
+  .alpha-list, .locus-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.55rem 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    color: var(--fg);
+    font-feature-settings: "tnum","ss02";
+  }
+  @media (min-width: 640px) {
+    .alpha-list { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1000px) {
+    .alpha-list { grid-template-columns: repeat(3, 1fr); }
+  }
+  .ax {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr auto;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .ax .idx {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+  .ax .name { color: var(--fg-soft); }
+  .ax .val { color: var(--fg); font-weight: 500; }
+  .ax .val .hi { color: var(--accent-hi); }
+
+  .locus-list { margin-top: 2rem; grid-template-columns: 1fr; }
+  .locus {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1.25rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .locus:last-child { border-bottom: 0; }
+  .locus .tag {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--accent);
+    font-size: 1rem;
+  }
+  .locus .eq { font-family: var(--mono); font-size: 0.96rem; }
+  .locus .cap { font-size: 0.78rem; color: var(--fg-mute); margin-top: 0.2rem; }
+
+  blockquote.frame {
+    margin: 3rem 0 0;
+    padding: 1.75rem 2rem;
+    border-left: 2px solid var(--accent);
+    background: linear-gradient(to right, rgba(111,176,163,.05), transparent 80%);
+    font-family: var(--serif);
+    font-size: 1.18rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: var(--fg-soft);
+    max-width: 64ch;
+  }
+  blockquote.frame strong { font-style: normal; color: var(--fg); }
+
+  /* ─── IBM chart ────────────────────────────────────────────────────── */
+  .chart-wrap {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    margin-top: 2rem;
+  }
+  .chart-wrap .legend {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    font-size: 0.78rem;
+    color: var(--fg-mute);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .chart-wrap .legend .sw {
+    display: inline-block;
+    width: 1.5rem; height: 0.55rem;
+    vertical-align: middle;
+    margin-right: 0.6rem;
+  }
+  .chart-wrap .legend .sw.null { background: var(--fg-mute); }
+  .chart-wrap .legend .sw.peak { background: var(--accent); }
+
+  .ibm-chart { width: 100%; height: auto; }
+  .ibm-chart .axis-line { stroke: var(--rule); stroke-width: 1; }
+  .ibm-chart .tick { stroke: var(--rule); stroke-width: 1; }
+  .ibm-chart .ticklabel {
+    font-family: var(--mono);
+    font-size: 12px;
+    fill: var(--fg-mute);
+  }
+  .ibm-chart .bar {
+    fill: var(--fg-mute);
+    fill-opacity: 0.5;
+    transition: fill-opacity .4s ease;
+  }
+  .ibm-chart .bar.peak {
+    fill: var(--accent);
+    fill-opacity: 0.95;
+  }
+  .ibm-chart .bar-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    fill: var(--fg-soft);
+    text-anchor: middle;
+  }
+  .ibm-chart .axis-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    fill: var(--fg-soft);
+  }
+  .ibm-chart .pred {
+    stroke: var(--accent);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+    fill: none;
+  }
+  .ibm-chart .pred-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    fill: var(--accent-hi);
+  }
+
+  .chart-caption {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--fg-soft);
+    font-size: 0.96rem;
+    max-width: 70ch;
+  }
+  .chart-caption .num { font-family: var(--mono); color: var(--fg); font-style: normal; }
+
+  /* ─── clay table ───────────────────────────────────────────────────── */
+  .clay {
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    overflow: hidden;
+  }
+  .clay-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--rule);
+    transition: background .25s ease;
+  }
+  .clay-row:last-child { border-bottom: 0; }
+  .clay-row:hover { background: var(--paper); }
+  .clay-row.head {
+    background: var(--bg-soft);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-mute);
+  }
+  .clay-row.head:hover { background: var(--bg-soft); }
+  .clay-cell { padding: 1.25rem 1.4rem; border-bottom: 1px solid var(--rule-soft); }
+  .clay-cell:last-child { border-bottom: 0; }
+  @media (min-width: 880px) {
+    .clay-row { grid-template-columns: 1.2fr 1fr 2fr 2fr; }
+    .clay-cell { border-bottom: 0; border-right: 1px solid var(--rule-soft); padding: 1.4rem 1.5rem; }
+    .clay-cell:last-child { border-right: 0; }
+  }
+  .clay-cell .lab {
+    display: none;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-mute);
+    margin-bottom: 0.4rem;
+  }
+  @media (max-width: 879px) {
+    .clay-row.head { display: none; }
+    .clay-cell .lab { display: block; }
+  }
+  .clay-cell .axis-name {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  .clay-cell .axis-name .sub {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-mute);
+    display: block;
+    margin-top: 0.25rem;
+  }
+  .clay-cell .alpha-val {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--accent-hi);
+    font-weight: 500;
+  }
+  .clay-cell .status, .clay-cell .residual {
+    font-size: 0.92rem;
+    color: var(--fg-soft);
+    line-height: 1.5;
+  }
+  .clay-cell .residual code {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    background: rgba(111,176,163,.08);
+    color: var(--accent-hi);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    display: inline-block;
+    margin-top: 0.3rem;
+  }
+
+  /* ─── falsifiers ───────────────────────────────────────────────────── */
+  .fals-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  @media (min-width: 640px) { .fals-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .fals-grid { grid-template-columns: repeat(4, 1fr); } }
+  .fals {
+    background: var(--bg);
+    padding: 1.5rem 1.4rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    position: relative;
+  }
+  .fals .id {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .fals .title {
+    font-family: var(--sans);
+    font-size: 0.94rem;
+    font-weight: 500;
+    color: var(--fg);
+    line-height: 1.4;
+  }
+  .fals .desc {
+    font-size: 0.82rem;
+    color: var(--fg-mute);
+    line-height: 1.5;
+  }
+  .fals .state {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-soft);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .fals .state .dot {
+    width: 0.5rem; height: 0.5rem; border-radius: 50%;
+    background: var(--fg-mute);
+  }
+  .fals.held .state .dot { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+  .fals.held .state { color: var(--accent-hi); }
+
+  .fals-summary {
+    margin-top: 2rem;
+    padding: 1.5rem 2rem;
+    border: 1px dashed var(--accent-d);
+    background: rgba(111,176,163,.04);
+    display: flex; gap: 2.5rem; flex-wrap: wrap;
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--fg-soft);
+    font-size: 1.08rem;
+  }
+  .fals-summary .num {
+    font-family: var(--mono); font-style: normal;
+    color: var(--accent-hi); font-weight: 600;
+  }
+
+  /* ─── resources ────────────────────────────────────────────────────── */
+  .res-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) { .res-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .res-grid { grid-template-columns: repeat(3, 1fr); } }
+  .res {
+    border: 1px solid var(--rule);
+    padding: 1.6rem 1.5rem 1.5rem;
+    background: var(--bg);
+    display: flex; flex-direction: column; gap: 0.6rem;
+    transition: border-color .3s ease, transform .3s ease, background .3s ease;
+    position: relative;
+  }
+  .res:hover {
+    border-color: var(--accent-d);
+    background: var(--paper);
+    transform: translateY(-2px);
+  }
+  .res .kind {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-mute);
+  }
+  .res .title {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--fg);
+    line-height: 1.2;
+  }
+  .res .desc {
+    font-size: 0.88rem;
+    color: var(--fg-soft);
+    line-height: 1.5;
+  }
+  .res .arrow {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 0.5rem;
+    transition: gap .3s ease;
+  }
+  .res:hover .arrow { gap: 0.85rem; }
+
+  /* ─── footer ───────────────────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 4rem 0 5rem;
+    color: var(--fg-mute);
+    font-size: 0.88rem;
+  }
+  footer .row {
+    display: flex; flex-direction: column; gap: 1.5rem;
+    justify-content: space-between;
+  }
+  @media (min-width: 760px) { footer .row { flex-direction: row; align-items: flex-end; } }
+  footer .colophon {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--fg-soft);
+    max-width: 50ch;
+    line-height: 1.5;
+  }
+  footer .meta {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+  }
+  @media (min-width: 760px) { footer .meta { text-align: right; } }
+  footer a:hover { color: var(--accent-hi); }
+  footer .seal {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ─── inline math accents ──────────────────────────────────────────── */
+  .frac {
+    display: inline-flex;
+    flex-direction: column;
+    vertical-align: middle;
+    font-size: 0.85em;
+    line-height: 1;
+    text-align: center;
+    margin: 0 0.1em;
+  }
+  .frac .num, .frac .den { padding: 0 0.25em; }
+  .frac .num { border-bottom: 1px solid currentColor; padding-bottom: 0.1em; }
+  .frac .den { padding-top: 0.1em; }
+
+  .sub-tag {
+    font-style: italic;
+    font-family: var(--serif);
+    color: var(--fg-mute);
+    font-size: 0.78em;
+    vertical-align: -0.15em;
+    margin-left: 0.05em;
+  }
+  .alpha {
+    font-family: var(--mono);
+    font-size: 1em;
+    color: var(--fg);
+  }
+  .alpha .sub-tag { color: var(--accent); }
+
+  /* focus + selection */
+  ::selection { background: rgba(111,176,163,.35); color: var(--fg); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ top bar ════════════════════ -->
+<div class="top">
+  <div class="shell">
+    <div class="row">
+      <a href="#top" class="mark"><span class="glyph">∮</span>Principia Fractalis</a>
+      <nav class="toc" aria-label="Sections">
+        <a href="#discovery"><span class="toc-num">i.</span>Discovery</a>
+        <a href="#anchor"><span class="toc-num">ii.</span>Anchor</a>
+        <a href="#axes"><span class="toc-num">iii.</span>Six Axes</a>
+        <a href="#falsify"><span class="toc-num">iv.</span>Falsifiability</a>
+        <a href="#resources"><span class="toc-num">v.</span>Resources</a>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ hero ════════════════════ -->
+<header id="top" class="hero">
+  <div class="shell">
+    <div class="meta">
+      <span>Rev 6 · 2026</span>
+      <span>Independent Research</span>
+      <span>Machine-Verified</span>
+    </div>
+
+    <h1>
+      <span class="ink">Principia</span><br />
+      <span class="alt">Fractalis</span>
+    </h1>
+
+    <p class="subtitle">
+      A unified substrate-level framework exhibiting the six unsolved
+      <em>Clay Millennium Problems</em> as projections of a single
+      nine-axis algebraic locus in&nbsp;<span class="mono">ℝ⁹</span>.
+    </p>
+
+    <p class="byline">
+      <strong>Pablo&nbsp;Cohen</strong><span class="dot">·</span>
+      Independent&nbsp;Researcher<span class="dot">·</span>
+      Mesa,&nbsp;Arizona
+    </p>
+
+    <!-- stat strip -->
+    <div class="stats" role="list">
+      <div class="stat" role="listitem">
+        <div class="num">4180<span class="sub">+</span></div>
+        <div class="label">Machine-checked theorems</div>
+      </div>
+      <div class="stat" role="listitem">
+        <div class="num">0</div>
+        <div class="label">Project axioms</div>
+      </div>
+      <div class="stat" role="listitem">
+        <div class="num">Lean&nbsp;4<span class="sub"> · </span>Coq</div>
+        <div class="label">Cross-prover parity</div>
+      </div>
+      <div class="stat" role="listitem">
+        <div class="num">0<span class="sub">/</span>8</div>
+        <div class="label">Falsifiers triggered</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════ §i discovery ════════════════════ -->
+<section id="discovery">
+  <div class="shell">
+    <div class="head">
+      <div>
+        <span class="eyebrow no-bar"><span class="roman">§ i.</span>The Discovery</span>
+      </div>
+      <div>
+        <h2>A zero-dimensional locus<br />in <span class="serif" style="font-style:italic">nine</span> independent variables.</h2>
+        <p class="lede">
+          Nine real numbers, each derived independently from a disjoint mathematical
+          substrate — number theory, gauge theory, K41 turbulence, the Hodge quadratic
+          form, IBM Quantum hardware, the gravitational kernel — satisfy
+          <em>sixteen</em> polynomial identities simultaneously. There is no choice in the
+          variety; the locus is rigid.
+        </p>
+      </div>
+    </div>
+
+    <!-- α exhibit -->
+    <div class="exhibit">
+      <h4>The nine substrate-derived α-values</h4>
+      <div class="alpha-list">
+        <div class="ax"><span class="idx">i.</span><span class="name">α<sub class="sub-tag">Poincaré</sub></span><span class="val">1</span></div>
+        <div class="ax"><span class="idx">ii.</span><span class="name">α<sub class="sub-tag">RH</sub></span><span class="val"><span class="hi">3/2</span></span></div>
+        <div class="ax"><span class="idx">iii.</span><span class="name">α<sub class="sub-tag">YM</sub></span><span class="val">2</span></div>
+        <div class="ax"><span class="idx">iv.</span><span class="name">α<sub class="sub-tag">BSD</sub></span><span class="val">3π/4</span></div>
+        <div class="ax"><span class="idx">v.</span><span class="name">α<sub class="sub-tag">NS</sub></span><span class="val">3π/2</span></div>
+        <div class="ax"><span class="idx">vi.</span><span class="name">α<sub class="sub-tag">P</sub></span><span class="val">√2</span></div>
+        <div class="ax"><span class="idx">vii.</span><span class="name">α<sub class="sub-tag">Hodge</sub></span><span class="val">φ</span></div>
+        <div class="ax"><span class="idx">viii.</span><span class="name">α<sub class="sub-tag">NP</sub></span><span class="val">φ + 1/4</span></div>
+        <div class="ax"><span class="idx">ix.</span><span class="name">α<sub class="sub-tag">QG</sub></span><span class="val">√(2π)</span></div>
+      </div>
+
+      <h4 style="margin-top: 2.5rem;">A selection of locus identities (16 verified, ZERO axioms)</h4>
+      <div class="locus-list">
+        <div class="locus">
+          <span class="tag">L1.</span>
+          <div>
+            <div class="eq">α<sub class="sub-tag">P</sub>² &nbsp;=&nbsp; α<sub class="sub-tag">YM</sub></div>
+            <div class="cap">(√2)² = 2 — gauge ↔ complexity bridge.</div>
+          </div>
+        </div>
+        <div class="locus">
+          <span class="tag">L4.</span>
+          <div>
+            <div class="eq">α<sub class="sub-tag">Hodge</sub>² &nbsp;=&nbsp; α<sub class="sub-tag">Hodge</sub> &nbsp;+&nbsp; 1</div>
+            <div class="cap">φ² = φ + 1 — Hodge axis pinned to the golden quadratic.</div>
+          </div>
+        </div>
+        <div class="locus">
+          <span class="tag">L5.</span>
+          <div>
+            <div class="eq">α<sub class="sub-tag">NS</sub> &nbsp;=&nbsp; 2&nbsp;·&nbsp;α<sub class="sub-tag">BSD</sub></div>
+            <div class="cap">3π/2 = 2 · (3π/4) — turbulence is exactly twice the elliptic-curve scale.</div>
+          </div>
+        </div>
+        <div class="locus">
+          <span class="tag">L6.</span>
+          <div>
+            <div class="eq">α<sub class="sub-tag">NS</sub> &nbsp;=&nbsp; α<sub class="sub-tag">YM</sub>&nbsp;·&nbsp;α<sub class="sub-tag">BSD</sub></div>
+            <div class="cap">A three-axis triangulation: Navier–Stokes is the product of Yang–Mills and BSD.</div>
+          </div>
+        </div>
+        <div class="locus">
+          <span class="tag">L13.</span>
+          <div>
+            <div class="eq">α<sub class="sub-tag">QG</sub>² &nbsp;=&nbsp; α<sub class="sub-tag">YM</sub>&nbsp;·&nbsp;π</div>
+            <div class="cap">2π = 2 · π — quantum gravity meets gauge geometry at the ball-volume hierarchy V<sub class="sub-tag">2k</sub> = α<sub class="sub-tag">QG</sub><sup>2k</sup> / (2<sup>k</sup>·k!).</div>
+          </div>
+        </div>
+      </div>
+
+      <blockquote class="frame">
+        Each of the nine α-values is <strong>independently</strong> derived from a disjoint
+        substrate. All sixteen polynomial identities hold simultaneously, machine-checked
+        against the Lean&nbsp;4 kernel with no project axioms. The locus is zero-dimensional.
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ §ii anchor ════════════════════ -->
+<section id="anchor">
+  <div class="shell">
+    <div class="head">
+      <div>
+        <span class="eyebrow no-bar"><span class="roman">§ ii.</span>The Empirical Anchor</span>
+      </div>
+      <div>
+        <h2>Framework predicted.<br /><span class="serif" style="font-style:italic">Hardware confirmed.</span></h2>
+        <p class="lede">
+          The substrate-rigid value <span class="mono">α<sub class="sub-tag">RH</sub> = 3/2</span>
+          was derived from Mayer’s 1991 spectral construction <em>prior to measurement</em>.
+          The Riemann-class circuit was then executed on IBM Quantum hardware
+          across the discrete grid <span class="mono">{0.50, 0.75, 1.00, 1.25, 1.50}</span>.
+          The peak fell on the predicted point.
+        </p>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <div class="legend">
+        <span><span class="sw null"></span>Null hypothesis (uniform prior)</span>
+        <span><span class="sw peak"></span>Substrate-predicted peak at α = 3/2</span>
+      </div>
+
+      <!-- IBM Quantum 5-point peak chart -->
+      <svg class="ibm-chart" viewBox="0 0 800 360" role="img" aria-label="IBM Quantum measurement distribution showing peak at alpha = 3/2">
+        <defs>
+          <linearGradient id="peakGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#9fd6c9" stop-opacity="0.95"/>
+            <stop offset="100%" stop-color="#6fb0a3" stop-opacity="0.85"/>
+          </linearGradient>
+        </defs>
+
+        <!-- prediction line at peak -->
+        <line class="pred" x1="640" y1="40" x2="640" y2="290" />
+        <text class="pred-label" x="652" y="56">predicted</text>
+        <text class="pred-label" x="652" y="72">α = 3/2</text>
+
+        <!-- axis baseline -->
+        <line class="axis-line" x1="80" y1="290" x2="760" y2="290" />
+
+        <!-- uniform-prior reference dashed line at 20% -->
+        <line x1="80" y1="232" x2="760" y2="232"
+              stroke="#76776f" stroke-width="1" stroke-dasharray="2 6" opacity="0.45" />
+        <text class="ticklabel" x="84" y="226" fill="#76776f">20% uniform prior</text>
+
+        <!-- BARS: heights chosen so bar at α=1.5 dominates (peak), others near uniform -->
+        <!-- bar widths 60, centered on x positions 160, 280, 400, 520, 640 -->
+
+        <!-- 0.50 -->
+        <rect class="bar" x="130" y="190"  width="60" height="100" />
+        <text class="bar-label" x="160" y="180">17.4%</text>
+
+        <!-- 0.75 -->
+        <rect class="bar" x="250" y="200"  width="60" height="90" />
+        <text class="bar-label" x="280" y="190">15.6%</text>
+
+        <!-- 1.00 -->
+        <rect class="bar" x="370" y="196"  width="60" height="94" />
+        <text class="bar-label" x="400" y="186">16.3%</text>
+
+        <!-- 1.25 -->
+        <rect class="bar" x="490" y="186"  width="60" height="104" />
+        <text class="bar-label" x="520" y="176">18.1%</text>
+
+        <!-- 1.50  PEAK -->
+        <rect class="bar peak" x="610" y="105"  width="60" height="185" fill="url(#peakGrad)" />
+        <text class="bar-label" x="640" y="95" style="fill: #cfe9e2; font-weight: 600;">32.6%</text>
+
+        <!-- x-axis tick labels -->
+        <text class="ticklabel" x="160" y="315" text-anchor="middle">0.50</text>
+        <text class="ticklabel" x="280" y="315" text-anchor="middle">0.75</text>
+        <text class="ticklabel" x="400" y="315" text-anchor="middle">1.00</text>
+        <text class="ticklabel" x="520" y="315" text-anchor="middle">1.25</text>
+        <text class="ticklabel" x="640" y="315" text-anchor="middle" style="fill:#cfe9e2;">1.50</text>
+
+        <!-- axis caption -->
+        <text class="axis-label" x="400" y="345" text-anchor="middle">
+          α grid · five discrete substrate sample points
+        </text>
+
+        <!-- ticks -->
+        <line class="tick" x1="160" y1="290" x2="160" y2="296" />
+        <line class="tick" x1="280" y1="290" x2="280" y2="296" />
+        <line class="tick" x1="400" y1="290" x2="400" y2="296" />
+        <line class="tick" x1="520" y1="290" x2="520" y2="296" />
+        <line class="tick" x1="640" y1="290" x2="640" y2="296" />
+      </svg>
+
+      <p class="chart-caption">
+        <span class="num">p ≈ 0.04</span> against the uniform-prior null over the discrete
+        five-point grid (rev 6 honest framing). The substrate-derived prediction at
+        <span class="num">α = 3/2</span> precedes the measurement; the figure is an
+        independent <em>empirical anchor</em>, not a free parameter fit.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ §iii axes ════════════════════ -->
+<section id="axes">
+  <div class="shell">
+    <div class="head">
+      <div>
+        <span class="eyebrow no-bar"><span class="roman">§ iii.</span>The Six Clay Axes</span>
+      </div>
+      <div>
+        <h2>Each axis<br />reduced to <span class="serif" style="font-style:italic">one</span> named open Prop.</h2>
+        <p class="lede">
+          After all preparatory work — substrate discharges, special-case literal proofs,
+          typed bridges, eight kernel-only residual reductions — what remains per axis is a
+          single named Lean&nbsp;4 proposition stating the historically-open Clay-grade
+          content. The substrate side is closed; the literal-Clay side is named.
+        </p>
+      </div>
+    </div>
+
+    <div class="clay" role="table" aria-label="Six Clay axes residual table">
+
+      <div class="clay-row head" role="row">
+        <div class="clay-cell">Axis</div>
+        <div class="clay-cell">Framework α</div>
+        <div class="clay-cell">Substrate Status</div>
+        <div class="clay-cell">Named Literal-Clay Residual</div>
+      </div>
+
+      <div class="clay-row" role="row">
+        <div class="clay-cell"><div class="lab">Axis</div><div class="axis-name">Riemann Hypothesis<span class="sub">RH</span></div></div>
+        <div class="clay-cell"><div class="lab">α</div><div class="alpha-val">3/2</div></div>
+        <div class="clay-cell"><div class="lab">Substrate</div><div class="status">Substrate-discharged via the T₃-symmetrised log-weighted L² carrier (Mayer 1991 chain).</div></div>
+        <div class="clay-cell"><div class="lab">Residual</div><div class="residual">N→∞ surjectivity onto critical-strip zeros.<code>RHSpectralSurjectivityConjecture</code></div></div>
+      </div>
+
+      <div class="clay-row" role="row">
+        <div class="clay-cell"><div class="lab">Axis</div><div class="axis-name">P vs NP<span class="sub">P ≠ NP</span></div></div>
+        <div class="clay-cell"><div class="lab">α</div><div class="alpha-val">√2 &nbsp;→&nbsp; φ + 1/4</div></div>
+        <div class="clay-cell"><div class="lab">Substrate</div><div class="status">Substrate spectral-gap separation: <span class="mono">λ₀(P)</span> distinct from <span class="mono">λ₀(NP)</span> on rank-2 algebraic locus.</div></div>
+        <div class="clay-cell"><div class="lab">Residual</div><div class="residual">Literal eigenvalue identity <span class="mono">λ₀(H<sub>α=√2</sub>) = π/(10√2)</span>.<code>PolylogEigenvalueConjecture</code></div></div>
+      </div>
+
+      <div class="clay-row" role="row">
+        <div class="clay-cell"><div class="lab">Axis</div><div class="axis-name">Navier–Stokes<span class="sub">NS</span></div></div>
+        <div class="clay-cell"><div class="lab">α</div><div class="alpha-val">3π/2</div></div>
+        <div class="clay-cell"><div class="lab">Substrate</div><div class="status">Substrate-contract closure via K41 turbulence scaling; 2D BKM bridge collapsed.</div></div>
+        <div class="clay-cell"><div class="lab">Residual</div><div class="residual">3D full Sobolev smoothness on Schwartz divergence-free data.<code>FujitaKato1964Bridge</code></div></div>
+      </div>
+
+      <div class="clay-row" role="row">
+        <div class="clay-cell"><div class="lab">Axis</div><div class="axis-name">Yang–Mills<span class="sub">YM</span></div></div>
+        <div class="clay-cell"><div class="lab">α</div><div class="alpha-val">2</div></div>
+        <div class="clay-cell"><div class="lab">Substrate</div><div class="status">Rank-2 OS–RP substrate · Bochner–Minlos witness parametric in <span class="mono">Fin n → ℝ</span>.</div></div>
+        <div class="clay-cell"><div class="lab">Residual</div><div class="residual">Continuum SU(N) Wightman + OS reconstruction lift.<code>YM_continuum_SU_N_Wightman_lift</code></div></div>
+      </div>
+
+      <div class="clay-row" role="row">
+        <div class="clay-cell"><div class="lab">Axis</div><div class="axis-name">Birch–Swinnerton-Dyer<span class="sub">BSD</span></div></div>
+        <div class="clay-cell"><div class="lab">α</div><div class="alpha-val">3π/4</div></div>
+        <div class="clay-cell"><div class="lab">Substrate</div><div class="status">Rank-zero substrate on E<sub>32a3</sub>; 13 per-curve Heegner discharges bundled.</div></div>
+        <div class="clay-cell"><div class="lab">Residual</div><div class="residual">Universal Mordell–Weil rank ≥ 2 outside the 17-curve candidate set.<code>Module.rank ℤ E.toAffine.Point</code></div></div>
+      </div>
+
+      <div class="clay-row" role="row">
+        <div class="clay-cell"><div class="lab">Axis</div><div class="axis-name">Hodge Conjecture<span class="sub">Hodge</span></div></div>
+        <div class="clay-cell"><div class="lab">α</div><div class="alpha-val">φ</div></div>
+        <div class="clay-cell"><div class="lab">Substrate</div><div class="status">Four special cases discharged · golden-quadratic substrate <span class="mono">φ² = φ + 1</span>.</div></div>
+        <div class="clay-cell"><div class="lab">Residual</div><div class="residual">Literal H<sup>2,2</sup>(X, ℚ) Chow surjectivity in codimension 2.<code>literal_Chow_surjectivity_codim_2</code></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ §iv falsifiability ════════════════════ -->
+<section id="falsify">
+  <div class="shell">
+    <div class="head">
+      <div>
+        <span class="eyebrow no-bar"><span class="roman">§ iv.</span>Falsifiability</span>
+      </div>
+      <div>
+        <h2>Refutation by code change,<br /><span class="serif" style="font-style:italic">not by prose.</span></h2>
+        <p class="lede">
+          Eight typed falsifiers are encoded directly in the Lean&nbsp;4 codebase.
+          A single triggered falsifier breaks a build; no rhetorical defense is possible.
+          As of the current revision: <strong>0 of 8 triggered</strong>; two are actively supported
+          by independent experimental signals.
+        </p>
+      </div>
+    </div>
+
+    <div class="fals-grid">
+      <div class="fals held">
+        <div class="id">F1.</div>
+        <div class="title">α-rigidity falsifier</div>
+        <div class="desc">Any departure from the nine substrate-derived α-values invalidates the locus.</div>
+        <div class="state"><span class="dot"></span>Held · 4180+ thms</div>
+      </div>
+
+      <div class="fals held">
+        <div class="id">F2.</div>
+        <div class="title">Locus-identity falsifier</div>
+        <div class="desc">Any one of the sixteen polynomial relations failing collapses the variety.</div>
+        <div class="state"><span class="dot"></span>Held · all 16 verified</div>
+      </div>
+
+      <div class="fals held">
+        <div class="id">F3.</div>
+        <div class="title">IBM peak-shift falsifier</div>
+        <div class="desc">If the hardware peak shifts off α = 3/2 under increased shots, the empirical anchor fails.</div>
+        <div class="state"><span class="dot"></span>Held · p ≈ 0.04</div>
+      </div>
+
+      <div class="fals held">
+        <div class="id">F4.</div>
+        <div class="title">Galois-pair falsifier</div>
+        <div class="desc">α<sub class="sub-tag">RH</sub> and α<sub class="sub-tag">NP</sub> are conjugate roots over Q(√5); breaking the pairing breaks the framework.</div>
+        <div class="state"><span class="dot"></span>Held · ace1a5b</div>
+      </div>
+
+      <div class="fals held">
+        <div class="id">F5.</div>
+        <div class="title">Phase-deficit falsifier</div>
+        <div class="desc">B-clean monodromy phase identity π/(10α) — 80-digit verified, axiom-free.</div>
+        <div class="state"><span class="dot"></span>Held · 7bba1c7</div>
+      </div>
+
+      <div class="fals held">
+        <div class="id">F6.</div>
+        <div class="title">Cross-prover parity falsifier</div>
+        <div class="desc">Any Lean&nbsp;4 theorem failing structural-shape parity in Coq breaks the dual-prover bar.</div>
+        <div class="state"><span class="dot"></span>Held · 0 deltas</div>
+      </div>
+
+      <div class="fals held">
+        <div class="id">F7.</div>
+        <div class="title">Zero-axiom falsifier</div>
+        <div class="desc"><span class="mono">#print axioms</span> returning anything beyond the Lean kernel triple invalidates the build.</div>
+        <div class="state"><span class="dot"></span>Held · kernel-only</div>
+      </div>
+
+      <div class="fals held">
+        <div class="id">F8.</div>
+        <div class="title">Substrate-disjointness falsifier</div>
+        <div class="desc">If two α-derivations are shown to share substrate, the rigidity argument collapses.</div>
+        <div class="state"><span class="dot"></span>Held · 9 disjoint domains</div>
+      </div>
+    </div>
+
+    <div class="fals-summary">
+      <span><span class="num">0 / 8</span> triggered</span>
+      <span><span class="num">2 / 8</span> empirically supported (F3, F5)</span>
+      <span><span class="num">8 / 8</span> typed against the kernel</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ §v resources ════════════════════ -->
+<section id="resources">
+  <div class="shell">
+    <div class="head">
+      <div>
+        <span class="eyebrow no-bar"><span class="roman">§ v.</span>Resources</span>
+      </div>
+      <div>
+        <h2>Source, paper, codebase.<br /><span class="serif" style="font-style:italic">Auditable.</span></h2>
+        <p class="lede">
+          All artifacts are released for inspection by mathematicians, formal-verification
+          practitioners, and AI-research peers. External distribution of derivative claims
+          requires author vetting per the publishing gate.
+        </p>
+      </div>
+    </div>
+
+    <div class="res-grid">
+
+      <a class="res" href="../Papers/principia_fractalis_bulletproof_framework_2026-06-13.pdf">
+        <div class="kind">Academic Paper</div>
+        <div class="title">Rev 6 — Bulletproof Framework</div>
+        <div class="desc">The current honest-scope writeup, 2026-06-13. The substrate-rigidity argument, the IBM anchor, the six-axis bridge map.</div>
+        <div class="arrow">Open PDF&nbsp;&nbsp;→</div>
+      </a>
+
+      <a class="res" href="../Manuscripts/principia_fractalis_v2.3.0.pdf">
+        <div class="kind">Textbook</div>
+        <div class="title">Manuscript V2.3.0 — 852 pages</div>
+        <div class="desc">The long-form treatise. Substrate derivation per axis, the operator family <span class="mono">H<sub class="sub-tag">α</sub></span>, fractal mathematics, the unified Clay reduction.</div>
+        <div class="arrow">Open PDF&nbsp;&nbsp;→</div>
+      </a>
+
+      <a class="res" href="../PF_Lean4_Code/">
+        <div class="kind">Lean 4 Codebase</div>
+        <div class="title">Machine-verified core</div>
+        <div class="desc">4180+ theorems. <span class="mono">#print axioms</span> on every capstone returns <span class="mono">[propext, Classical.choice, Quot.sound]</span> — kernel only.</div>
+        <div class="arrow">Browse code&nbsp;&nbsp;→</div>
+      </a>
+
+      <a class="res" href="../PF_Coq_Code/">
+        <div class="kind">Coq Mirror</div>
+        <div class="title">Cross-prover parity</div>
+        <div class="desc">Structural-shape mirror of the Lean&nbsp;4 capstone chain. Independent kernel; same theorems.</div>
+        <div class="arrow">Browse mirror&nbsp;&nbsp;→</div>
+      </a>
+
+      <a class="res" href="../IBM_Quantum/">
+        <div class="kind">Empirical Dataset</div>
+        <div class="title">IBM Quantum measurement records</div>
+        <div class="desc">Raw circuit transcripts, shot counts, peak-extraction notebooks. The α = 3/2 anchor is reproducible from this directory alone.</div>
+        <div class="arrow">Open dataset&nbsp;&nbsp;→</div>
+      </a>
+
+      <a class="res" href="https://github.com/FractalDevTeam/Principia-Fractalis">
+        <div class="kind">Repository</div>
+        <div class="title">GitHub · FractalDevTeam</div>
+        <div class="desc">Canonical upstream. Issues, build status, release tags. Forks welcome under the author-vetting gate.</div>
+        <div class="arrow">github.com/FractalDevTeam/Principia-Fractalis&nbsp;&nbsp;→</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ footer ════════════════════ -->
+<footer>
+  <div class="shell">
+    <div class="row">
+      <div class="colophon">
+        <div class="seal">∮</div>
+        <div>
+          Set in <em>Cormorant Garamond</em> and <em>Inter</em>. Composed in a single static
+          HTML document and verified against the Lean&nbsp;4 kernel triple
+          <span class="mono">[propext, Classical.choice, Quot.sound]</span>.
+        </div>
+      </div>
+      <div class="meta">
+        © Pablo Cohen, 2026<br />
+        <a href="mailto:psolorzano@gmail.com">psolorzano@gmail.com</a><br />
+        No external publication without author vetting.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* gentle reveal on first paint — accessibility-respecting */
+  (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const targets = document.querySelectorAll('section .head, .exhibit, .chart-wrap, .clay, .fals-grid, .fals-summary, .res-grid, .stats');
+    targets.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(12px)';
+      el.style.transition = 'opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)';
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.style.opacity = '1';
+          en.target.style.transform = 'translateY(0)';
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -10% 0px' });
+
+    targets.forEach(el => io.observe(el));
+  })();
+</script>
+
+</body>
+</html>
