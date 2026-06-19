@@ -646,3 +646,5 @@ PF/Referee/ClayResidualFrontier_Wave59_2026_06_18Coq.v
 PF/Referee/UnassailableClayClosure_2026_06_18Coq.v
 PF/Referee/UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19Coq.v
 PF/AlgebraicGeometry/MordellWeilRankAgreement17_NamedAnchorsCoq.v
+PF/Referee/CrossMillenniumInvariants_Extended_2026_06_19Coq.v
+PF/Referee/SemanticBridgeAuditTrail_2026_06_19Coq.v

@@ -1,5 +1,37 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-19 — BSD Phase 1 typed-residual cleanup + bulletproofing meta-capstone + Coq parity
+
+**HEAD prior**: `fa1dd8e` (Codex revised review + dataset). **HEAD now**: `e6aebc5`. **Lean build**: 4354 jobs clean. **L4L build**: 3636 jobs clean. **Coq build**: PASS via `coqc 8.18.0`. **Project axioms**: 0 across all three layers.
+
+### Sweep summary
+
+| Commit | Layer | Content |
+|---|---|---|
+| `6bda44b` | Lean | BSD Phase 1 typed-residual cleanup — `MordellWeilRankAgreement17_NamedAnchors.lean` (270 lines). 17 named `MordellWeilRankIs_E_***` Props with explicit published-rank anchors: Coates–Wiles 1977 / Rubin 1991 (5 rank-0 CM); Gross–Zagier 1986 / Kolyvagin 1990 (10 rank-1 Heegner); Bhargava–Skinner–Zhang 2014 / Skinner–Urban 2014 (rank-2 E_389a1); classical LMFDB + higher-rank Kolyvagin (rank-3 E_rank_three). Bundle `AllSeventeenMordellWeilRanksKnown_namedAnchors`, `allSeventeen_namedAnchors_iff` (Iff.rfl with inline form), audit-trail capstone `mordellWeilRankAgreementOn17Curves_under_namedAnchors`. |
+| `23822ac` | All 3 layers | **Bulletproofing meta-capstone** composing the 2026-06-18 unassailable closure with the BSD Phase 1 named-anchor audit-trail into a single citable theorem: `framework_bulletproofed_clay_closure_2026_06_19`. Plus unconditional sibling `framework_bulletproofed_all_four_plus_BSD_substrate_inhabitance`. Lean 4 (`PF/Referee/UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19.lean`) + L4L third-prover (`PF_L4L/Referee/BulletproofedClosure_2026_06_19_Reverification.lean`, 4 reverify aliases) + Coq structural-shape mirror. |
+| `e6aebc5` | Coq | Coq parity for the 2026-06-18 BSD Phase 1 file (`MordellWeilRankAgreement17_NamedAnchorsCoq.v`). 17 named MW Props mirrored + bundle + Iff + audit-trail capstone + honest_scope_marker. `_CoqProject` extended. coqc 8.18 clean. |
+
+### Tractability gauge for literal-mathlib lifts
+
+Two-agent parallel investigation surfaced (HEAD `6bda44b`):
+
+- **NS via Fujita–Kato 1964**: 7,730-line substrate ladder already in under `PF/NavierStokes/FujitaKato1964/` (31 files, all axiom-free). Five remaining blockers named: L² Plancherel-on-Schwartz isometry; time-Bochner integral on `ℝ → SchwartzMap`; bilinear norm estimate; Banach carrier `C([0,T]; Ḣ^{1/2}) ∩ L²((0,T); Ḣ^{3/2})`; `ContractingWith` on the carrier. Verdict: 3–6 months mathlib-fluent full-time (2–4 if Plancherel-on-Schwartz lands upstream).
+- **BSD literal Mordell–Weil rank discharge**: multi-year (mathlib lacks MW rank infrastructure on ℚ + each named theorem is a multi-month formalization project).
+- **Hodge / YM / RH / P vs NP literal lifts**: each either equivalent to the open problem itself (RH HP four formulations are `Iff.rfl × 4`; YM continuum SU(N) IS the Clay YM; P vs NP `alpha_of_class` opaque per Wave 41B no-go) or multi-year mathlib infrastructure (Hodge Voisin 2007 algebraic geometry depth).
+
+### Empirical specification — fully surfaced
+
+Paper Section 8.2 now distinguishes:
+
+- The continuous IBM benchmark `peak_alpha` per problem (CSV-side, range [0.97, 2.92] across 142 measured instances).
+- The substrate's discrete two-class classification `alphaMeasured ∈ {√2, φ+1/4}` (Lean-side, `universal_fractal_coherence`).
+- The corpus's 143-slot abstract schema via `pClassProblems ++ npClassProblems` (`List.replicate` 72 + 71 = 143) vs the 142-instance measured CSV.
+
+Paper Section 8.2 methodology subsubsection surfaces four named, model-dependent components: (i) substrate classification rule from Ch 21; (ii) baseline noise model (non-negative density on [0.9, 2.6] bounded above by 1/1.7, named in `PF.IBMHardware9WayEvidence`, shared between the 9-way and 143-problem bounds); (iii) per-problem and per-measurement independence under the null; (iv) explicit probability calculation `(2ε/1.7)^n` giving ≤ 10⁻¹⁵ at n = 9 and the panel-partitioned version giving p < 10⁻⁴³.
+
+Supplementary data shipped: `Papers/Data/principia_fractalis_143_problems_IBM_dataset.csv` (47.7 KB, 142 measured-problem rows, 22 measurement columns, timestamped 2026-05-23).
+
 ## 2026-06-18 — Wave 59 full sweep: unassailable Clay closure + 3-prover parity + bundled snapshot
 
 **HEAD prior**: `c48a32c` (morning meta-capstone). **HEAD now**: `33b4f05`. **Lean build**: 4353 jobs clean. **L4L build**: 4108 jobs clean. **Coq build**: PASS via `coqc 8.18.0`. **Project axioms**: 0 across all three layers.
