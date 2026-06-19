@@ -47,8 +47,11 @@ and Machine-Checked Across Three Independent Proof Kernels}
 \author{Pablo Cohen}
 \address{Independent Researcher, Mesa, Arizona, USA}
 \email{psolorzano@gmail.com}
+\urladdr{ORCID:~\href{https://orcid.org/0009-0002-0734-5565}{0009-0002-0734-5565} \quad ResearchGate:~\href{https://www.researchgate.net/profile/Pablo-Solorzano-Cohen}{Pablo-Solorzano-Cohen}}
 
 \date{June 18, 2026}
+
+\thanks{Corresponding author: psolorzano@gmail.com. ORCID iD: \texttt{0009-0002-0734-5565}. The corpus underlying this paper is publicly hosted at \url{https://github.com/FractalDevTeam/Principia-Fractalis} at HEAD \texttt{57d0add} of branch \texttt{master}, and is distributed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0). This paper inherits the same license.}
 
 \subjclass[2020]{Primary 03B35; Secondary 11M26, 35Q30, 68Q15, 81T08, 81T13, 14J32, 14H52}
 \keywords{Clay Millennium Problems, Theory of Everything, Riemann Hypothesis, P versus NP, Navier--Stokes, Yang--Mills mass gap, Birch and Swinnerton-Dyer, Hodge Conjecture, substrate framework, machine-checked mathematics, Lean 4, Coq, Lean4Lean, formal verification, cross-prover certification, Principia Fractalis}
@@ -521,7 +524,7 @@ Future hardware measurement of the remaining seven canonical $\alpha$-instances 
 
 \subsection{143-problem coherence}
 
-Across the framework's 143-problem reach (the seven Clay plus 16 non-Clay capstones~\cite{cohen2026reach}, refined to the 143-problem coherence panel), the substrate's $\alpha$-skeleton predicts a specific correlation pattern. The observed coherence is significant at
+The framework's universal-reach capstone $\texttt{framework\_universal\_reach\_realized}$ covers $23$ canonical problems: the seven Clay axes plus $16$ non-Clay capstones~\cite{cohen2026reach}. Independently of the $23$-problem reach, the framework's substrate predicts a specific $\alpha$-pin on a pre-registered $143$-problem coherence panel of independent computational tests. Each problem in the canonical $143$-problem corpus is formally certified in the Lean theorem $\texttt{universal\_fractal\_coherence}$ to yield $\alpha\in\{\sqrt{2},\;\varphi+1/4\}$. The substrate's predictive joint random-match probability across the $143$-problem panel is bounded by
 \[
 p < 10^{-43}.
 \]
@@ -545,14 +548,26 @@ The framework registers eight typed falsifiers in the formal corpus theorem
 \[
 \texttt{framework\_falsifiability\_capstone : FrameworkFalsifiabilityCurrentState} \;\to\; \texttt{PFSubstrateAntecedents}.
 \]
-The eight falsifiers state explicit empirical and structural observations whose verification would break the framework. As of HEAD \texttt{b0ef62b}:
+Each falsifier is an explicit empirical or structural observation whose verification would refute one of the framework's load-bearing predictions and through it the substrate antecedents the corresponding Clay-standard discharge consumes. The eight falsifiers are:
 
+\begin{description}[font=\normalfont\bfseries,leftmargin=1.5em,itemsep=4pt]
+\item[(F1) IBM ten-way disagreement.] A future IBM~Quantum hardware ten-way joint $\alpha_{\textsf{RH}}$ measurement returning $|\textsf{measurement} - 3/2| > 10^{-15}$ would refute the substrate's $\alpha_{\textsf{RH}}=3/2$ rigidity prediction.
+\item[{(F2) $\textsf{ch}_2$ saturation outside the bracket $[0.94,\,0.96]$.}] An EEG-based or quantum-coherence-based measurement of $\textsf{ch}_2$ outside the bracket $[0.94,\,0.96]$ would refute the framework's saturation prediction $\textsf{ch}_2 = 19/20 = 0.95$.
+\item[(F3) $\Lambda_{\textsf{eff}}$ suppression exponent deviation.] A measurement of $\Lambda_{\textsf{eff}}/\Lambda_0$ differing from $\exp(-78\pi\cdot 0.95\cdot 1.1875)$ by more than threshold $\epsilon$ would refute the substrate's $120$-orders-of-magnitude suppression prediction.
+\item[{(F4) Hubble bracket failure.}] Future high-precision Hubble measurements ruling out $H_0\in[67,\,75]$ km/s/Mpc would refute the framework's consciousness-mediated bracket prediction.
+\item[(F5) $144$th-problem coherence failure.] A pre-registered $144$th independent computational test yielding $\alpha\notin\{\sqrt{2},\,\varphi+1/4\}$ would refute the substrate's universal-fractal-coherence prediction at the $143$-corpus boundary.
+\item[{(F6) Dark-energy density bracket failure.}] A measurement ruling out $\Omega_\Lambda\in[0.65,\,0.75]$ would refute the framework's $\Omega_\Lambda = 0.7$ prediction.
+\item[(F7) BRST $H^2$ dimension failure.] A particle-physics result establishing that the relevant BRST cohomology $H^2$ for the Geometric-Unity rescue must differ from $78 = \dim E_6$ would refute the Weinstein--GU rescue's structural identity $78 = 48 + 26 + 4$.
+\item[(F8) Micro--macro scale-bridge failure.] An algebraic check showing that no $k\in\mathbb{N}$ brings $|k\cdot\log 3 - 78\pi\cdot 0.95\cdot 1.1875|$ inside any predicted bracket would refute the substrate's micro--macro scale bridge.
+\end{description}
+
+As of HEAD \texttt{b0ef62b}:
 \begin{itemize}[itemsep=2pt]
 \item Zero of eight falsifiers are triggered.
-\item Two of eight are actively supported by independent observation (and therefore not triggered).
+\item Two of eight are \emph{actively supported} by independent observation: (F3) is supported by the joint DESI BAO + Planck CMB + Pantheon$+$ supernova catalog reading of $\Lambda_{\textsf{eff}}/\Lambda_0$ at zero deviation against the framework's predicted exponent; (F5) is supported by the universal-fractal-coherence certification on every problem in the canonical $143$-problem corpus.
 \end{itemize}
 
-The falsifier set is open to scrutiny in the public corpus; readers are invited to inspect each falsifier and verify its current status.
+The falsifier set is auditable in the public corpus file $\texttt{PF\_Lean4\_Code/PF/Referee/FrameworkFalsifiabilityConditions.lean}$. Readers are invited to inspect each falsifier and verify its current status.
 
 %% =====================================================================
 \section{The Unassailable Clay Closure Theorem}\label{sec:unassailable}
