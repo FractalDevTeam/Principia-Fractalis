@@ -1,0 +1,27 @@
+/-
+# PF_L4L.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19_Reverification
+
+External Lean4Lean re-verification of the 2026-06-19 Cohen 2025
+axiom-elimination named anchors.
+-/
+
+import PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19
+
+namespace PF_L4L.Referee
+
+def sixCohen2025AxiomEliminationAnchorsDisjunction_holds_reverified :=
+  @PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19.six_cohen2025_axiomElimination_anchors_disjunction_holds
+
+#print axioms sixCohen2025AxiomEliminationAnchorsDisjunction_holds_reverified
+
+def sixCohen2025AxiomEliminationAnchorsConjunction_holds_reverified :=
+  @PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19.six_cohen2025_axiomElimination_anchors_conjunction_holds
+
+#print axioms sixCohen2025AxiomEliminationAnchorsConjunction_holds_reverified
+
+def cohen2025AxiomEliminationPriorWorkAuditTrailCapstone_reverified :=
+  @PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19.cohen2025_axiomElimination_priorWork_audit_trail_capstone
+
+#print axioms cohen2025AxiomEliminationPriorWorkAuditTrailCapstone_reverified
+
+end PF_L4L.Referee
