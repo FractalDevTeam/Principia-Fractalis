@@ -644,3 +644,4 @@ PF/Empirical/EmpiricalAlphaIdent_Substrate_AnchorsCoq.v
 PF/Referee/ClayResidualFrontierMetaCapstone_2026_06_18Coq.v
 PF/Referee/ClayResidualFrontier_Wave59_2026_06_18Coq.v
 PF/Referee/UnassailableClayClosure_2026_06_18Coq.v
+PF/Referee/UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19Coq.v
