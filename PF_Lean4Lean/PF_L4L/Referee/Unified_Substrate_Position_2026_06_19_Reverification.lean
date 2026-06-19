@@ -1,0 +1,22 @@
+/-
+# PF_L4L.Referee.Unified_Substrate_Position_2026_06_19_Reverification
+
+External Lean4Lean re-verification of the 2026-06-19 unified
+substrate position capstone.
+-/
+
+import PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19
+
+namespace PF_L4L.Referee
+
+def principiaFractalisUnifiedSubstratePosition_unconditional_reverified :=
+  @PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19.principia_fractalis_unified_substrate_position_2026_06_19_unconditional
+
+#print axioms principiaFractalisUnifiedSubstratePosition_unconditional_reverified
+
+def principiaFractalisUnifiedSubstratePosition_2026_06_19_reverified :=
+  @PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19.principia_fractalis_unified_substrate_position_2026_06_19
+
+#print axioms principiaFractalisUnifiedSubstratePosition_2026_06_19_reverified
+
+end PF_L4L.Referee
