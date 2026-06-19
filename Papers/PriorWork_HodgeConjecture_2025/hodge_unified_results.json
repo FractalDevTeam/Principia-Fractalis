@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-06-13T18:27:36.421531",
+  "framework": "Unified Hodge Validation",
+  "spectral_threshold": 0.95,
+  "results": [
+    {
+      "variety": "Calabi-Yau Threefold (Quintic)",
+      "dimension": 3,
+      "hodge_numbers": {
+        

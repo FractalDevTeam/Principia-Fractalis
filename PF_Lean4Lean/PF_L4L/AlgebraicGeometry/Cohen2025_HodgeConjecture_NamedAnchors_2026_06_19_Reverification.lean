@@ -1,0 +1,30 @@
+/-
+# PF_L4L.AlgebraicGeometry.Cohen2025_HodgeConjecture_NamedAnchors_2026_06_19_Reverification
+
+External Lean4Lean re-verification of the 2026-06-19 Cohen 2025
+Hodge-conjecture prior-work named anchors. Cites Pabs's 2025
+1800-line manuscript "Complete Proof of the Hodge Conjecture via
+Consciousness Crystallization, Fractal Resonance, and Spectral
+Concentration" (Pablo Cohen).
+-/
+
+import PF.AlgebraicGeometry.Cohen2025_HodgeConjecture_NamedAnchors_2026_06_19
+
+namespace PF_L4L.AlgebraicGeometry
+
+def sixCohen2025HodgeAnchorsDisjunction_holds_reverified :=
+  @PF.AlgebraicGeometry.Cohen2025_HodgeConjecture_NamedAnchors_2026_06_19.six_cohen2025_hodge_anchors_disjunction_holds
+
+#print axioms sixCohen2025HodgeAnchorsDisjunction_holds_reverified
+
+def sixCohen2025HodgeAnchorsConjunction_holds_reverified :=
+  @PF.AlgebraicGeometry.Cohen2025_HodgeConjecture_NamedAnchors_2026_06_19.six_cohen2025_hodge_anchors_conjunction_holds
+
+#print axioms sixCohen2025HodgeAnchorsConjunction_holds_reverified
+
+def cohen2025HodgePriorWorkAuditTrailCapstone_reverified :=
+  @PF.AlgebraicGeometry.Cohen2025_HodgeConjecture_NamedAnchors_2026_06_19.cohen2025_hodge_priorWork_audit_trail_capstone
+
+#print axioms cohen2025HodgePriorWorkAuditTrailCapstone_reverified
+
+end PF_L4L.AlgebraicGeometry
