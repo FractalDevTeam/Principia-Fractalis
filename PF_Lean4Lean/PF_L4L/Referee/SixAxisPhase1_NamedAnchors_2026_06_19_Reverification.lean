@@ -1,0 +1,35 @@
+/-
+# PF_L4L.Referee.SixAxisPhase1_NamedAnchors_2026_06_19_Reverification
+
+External Lean4Lean re-verification of the 2026-06-19 six-axis
+Phase 1 named-anchor master capstone plus the RH and PNP Phase 1
+files.
+-/
+
+import PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19
+import PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19
+import PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19
+
+namespace PF_L4L.Referee
+
+def rhPhase1NamedAnchorsAuditTrailCapstone_reverified :=
+  @PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19.rh_phase1_named_anchors_audit_trail_capstone
+
+#print axioms rhPhase1NamedAnchorsAuditTrailCapstone_reverified
+
+def pnpPhase1NamedAnchorsAuditTrailCapstone_reverified :=
+  @PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19.pnp_phase1_named_anchors_audit_trail_capstone
+
+#print axioms pnpPhase1NamedAnchorsAuditTrailCapstone_reverified
+
+def fiveAxisPhase1NamedAnchorsMasterCapstone_reverified :=
+  @PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19.five_axis_phase1_named_anchors_master_capstone
+
+#print axioms fiveAxisPhase1NamedAnchorsMasterCapstone_reverified
+
+def sixAxisPhase1NamedAnchorsMasterCapstone_reverified :=
+  @PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19.six_axis_phase1_named_anchors_master_capstone
+
+#print axioms sixAxisPhase1NamedAnchorsMasterCapstone_reverified
+
+end PF_L4L.Referee
