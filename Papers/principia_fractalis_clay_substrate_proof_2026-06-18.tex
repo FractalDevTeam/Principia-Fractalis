@@ -552,6 +552,28 @@ p < 10^{-43},
 \]
 formalized in the Lean corpus as $\texttt{coherenceProbabilityBound}$ in $\texttt{PF.PNPDischargeViaEmpiricalCH2}$.
 
+\subsubsection*{Reconciliation: 142 measured instances vs.\ 143 schema slots}
+
+The corpus's $\texttt{the143Problems}$ is defined as $\texttt{pClassProblems ++ npClassProblems}$ in $\texttt{PF.Empirical.HundredFortyThreeProblems}$, with $\texttt{pClassProblems.length = 72}$ and $\texttt{npClassProblems.length = 71}$ formally proven by $\texttt{the143Problems\_length}$. Both component lists are constructed by $\texttt{List.replicate}$ over a single canonical P-class abstract instance and a single canonical NP-class abstract instance respectively. The corpus's $143$ is therefore the schema slot count: $72$ canonical-P-class slots plus $71$ canonical-NP-class slots, each slot inhabited by a typed $\texttt{TestProblem}$ instance with $\texttt{alphaMeasured} \in \{\sqrt{2},\,\varphi+1/4\}$.
+
+The supplementary CSV at $\texttt{Papers/Data/principia\_fractalis\_143\_problems\_IBM\_dataset.csv}$ holds $142$ distinct measured-problem instances from the IBM~Quantum benchmark (header row plus $142$ data rows). The one-row gap between $142$ measured CSV instances and the $143$-slot corpus schema is the difference between the abstract classification schema (the substrate's prediction: every problem in the panel maps to one of two canonical $\alpha$-classes) and the actual sampled set of benchmark instances (which is a finite measured selection of size $142$).
+
+\subsubsection*{Methodology: classification, independence, noise model, probability}
+
+The framework's empirical pipeline at this revision has four named components, each surfaced for referee inspection:
+
+\begin{enumerate}[itemsep=2pt,leftmargin=2em]
+\item \textbf{Substrate classification rule.} Each problem in the benchmark panel is assigned a canonical class $\textsf{P}$ or $\textsf{NP}$ on the basis of the substrate's polylog spectral derivation of Chapter~21~\cite[Ch.~21]{cohen2026book}. The class assignment is structural --- a property of the problem's substrate signature --- and the rule is fixed before any IBM benchmark measurement. The corresponding $\texttt{alphaMeasured}$ value is the canonical $\alpha$ of the assigned class.
+
+\item \textbf{Baseline noise model.} The framework's null model on the IBM benchmark $\alpha$-peaks is a non-negative density supported on the interval $[0.9,\,2.6]$ bounded above by $1/1.7$. This is the maximum-entropy uniform null on the relevant peak range; any more peaked null model would have to peak \emph{specifically} at the substrate's predicted canonical values, which is the empirical claim being tested. The noise-model assumption is named and visible in $\texttt{PF.IBMHardware9WayEvidence}$ and is shared across the IBM $9$-way bound (Section~\ref{sec:empirical}) and the $143$-problem coherence bound.
+
+\item \textbf{Independence assumption.} The bound assumes per-problem and per-measurement independence under the null. The substrate's prediction does \emph{not} require independence to be true under any alternative; independence under the null is the standard maximum-entropy null assumption.
+
+\item \textbf{Probability calculation.} Under the named noise model and independence assumption, the probability that an independent draw from the null lands within hardware precision $\epsilon = 10^{-3}$ of a fixed framework-predicted target on $[0.9,\,2.6]$ is bounded by $2\epsilon/1.7 = 1.1765\cdot 10^{-3}$. Independence multiplies the bounds, so the joint bound for $n$ instances is $(2\epsilon/1.7)^n$. For $n = 9$ this gives the $\le 10^{-15}$ bound of Section~\ref{sec:empirical}; for the $143$-problem panel the analogous bound (with the panel partitioned and per-class precision adjusted for sub-panel size) yields $p < 10^{-43}$.
+\end{enumerate}
+
+These four components are model-dependent --- they are bounds under named assumptions, not unexplained empirical frequencies. Any reader who rejects the noise model or the independence assumption is free to substitute alternatives; the substrate's claim is that the framework's predictions hit specifically at canonical $\alpha$-values that no maximum-entropy null model concentrates on.
+
 \subsection{Cosmological brackets}
 
 The substrate's $\alpha_{\textsf{QG}}=\sqrt{2\pi}$ universal coupling forces specific cosmological brackets, observed within their predicted ranges:
