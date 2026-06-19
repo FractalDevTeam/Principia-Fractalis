@@ -19,6 +19,10 @@ lakefile.olean
 .coq-native/
 .lia.cache
 .nia.cache
+.nra.cache
+PF_Coq_Code/.Makefile.d
+PF_Coq_Code/.Makefile.conf.d
+PF_Coq_Code/.CoqMakefile.d
 # Coq's _CoqProject auto-generated Makefiles (legacy ARCHIVE/PF_Coq/ + current PF_Coq_Code/)
 PF_Coq/Makefile
 PF_Coq/Makefile.conf
