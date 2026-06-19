@@ -1,0 +1,57 @@
+{
+  "timestamp": "2025-06-12T09:35:02.526204",
+  "theoretical_scaling": {
+    "logarithmic_measure": {
+      "epsilon": 1e-12,
+      "missing_measure": 55.262042231857095,
+      "exponential_scaling": 1e+24
+    },
+    "basis_normalization": {
+      "N": 20,
+      "theoretical": 1.423525086834354,
+      "computed": 8.799777550564775,
+      "factor": 2.9664419007566583
+    },
+    "discretization": {
+      "N": 20,
+      "correction_factor": 1.127,
+      "relative_error": 0.127
+    },
+    "complete_scaling": {
+      "theoretical": 0.00636215711906873,
+      "empirical": 5e-06,
+      "ratio": 1272.4314238137458
+    }
+  },
+  "convergence_analysis": {
+    "scaling_convergence": {
+      "N_values": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        80,
+        100
+      ],
+      "scaling_factors": [
+        0.00035962317016391567,
+        0.00636215711906873,
+        0.016611544039105218,
+        0.02685313787571943,
+        0.03582668876464568,
+        0.04342170771670954,
+        0.055221945894304104,
+        0.06379263568276727
+      ],
+      "limit": 0.08126700914373787,
+      "model_coefficients": [
+        0.08126700914373787,
+        -2.419505651741132,
+        16.185160251444312
+      ]
+    }
+  },
+  "quantum_connections": "See detailed analysis above"
+}
