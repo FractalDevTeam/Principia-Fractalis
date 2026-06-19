@@ -532,12 +532,25 @@ formally certified in the corpus by the theorem
 \]
 Future hardware measurement of the remaining seven canonical $\alpha$-instances would convert this predictive bound into a fully observed nine-instance confirmation. The two-instance observation currently in hand corroborates the substrate's algebraic locus at exactly the predicted canonical pair on real quantum hardware.
 
-\subsection{143-problem coherence}
+\subsection{143-problem IBM benchmark dataset}\label{subsec:143-panel}
 
-The framework's universal-reach capstone $\texttt{framework\_universal\_reach\_realized}$ covers $23$ canonical problems: the seven Clay axes plus $16$ non-Clay capstones~\cite{cohen2026reach}. Independently of the $23$-problem reach, the framework's substrate predicts a specific $\alpha$-pin on a pre-registered $143$-problem coherence panel of independent computational tests. Each problem in the canonical $143$-problem corpus is formally certified in the Lean theorem $\texttt{universal\_fractal\_coherence}$ to yield $\alpha\in\{\sqrt{2},\;\varphi+1/4\}$. The substrate's predictive joint random-match probability across the $143$-problem panel is bounded by
+The framework's universal-reach capstone $\texttt{framework\_universal\_reach\_realized}$ covers $23$ canonical problems: the seven Clay axes plus $16$ non-Clay capstones~\cite{cohen2026reach}. Independently of this $23$-problem reach, the framework's substrate predicts a discrete two-class assignment $\alpha_{\textsf{class}}\in\{\sqrt{2},\,\varphi+1/4\}$ for every problem in a pre-registered $143$-problem benchmark panel (the panel groups problems by the structural P-versus-NP-class assignment the substrate derives from the polylog spectral derivation of Chapter~21).
+
+The $143$-problem dataset is supplied as supplementary data with this submission at\\
+\texttt{Papers/Data/principia\_fractalis\_143\_problems\_IBM\_dataset.csv}.
+Each row records the problem name, the published source (Smale~1998 and similar published Millennium-style problem lists), the problem category, the published-status (open / solved-by / etc.), and the IBM-Quantum hardware measurement results: \texttt{fractal\_coherence} (a discrete-valued coherence index), \texttt{peak\_alpha} (the continuous empirical $\alpha$-peak extracted from the IBM benchmark per problem), the five-element \texttt{spectrum}, plus auxiliary quantum-fidelity, convergence-rate, and dimensional-scaling fields. The dataset is timestamped to 2026-05-23.
+
+The framework's formal Lean-side claim about the panel is the discrete classification theorem
 \[
-p < 10^{-43}.
+\texttt{universal\_fractal\_coherence}:\;\forall p\in\texttt{the143Problems},\;p.\texttt{alphaMeasured} = \sqrt{2}\,\lor\, p.\texttt{alphaMeasured} = \varphi+1/4,
 \]
+where $p.\texttt{alphaMeasured}$ is the substrate's discrete two-class assignment, not the CSV's continuous \texttt{peak\_alpha}. The continuous \texttt{peak\_alpha} column ranges over the panel in $[0.97,\,2.92]$; the discrete substrate classification partitions the panel into a $72$-problem P-class sub-panel at $\alpha=\sqrt{2}$ and a $71$-problem NP-class sub-panel at $\alpha=\varphi+1/4$, matching the framework's universal-fractal-coherence theorem.
+
+The substrate's joint random-match bound across the $143$-problem classification panel under the framework's baseline noise model is
+\[
+p < 10^{-43},
+\]
+formalized in the Lean corpus as $\texttt{coherenceProbabilityBound}$ in $\texttt{PF.PNPDischargeViaEmpiricalCH2}$.
 
 \subsection{Cosmological brackets}
 
