@@ -1,0 +1,27 @@
+/-
+# PF_L4L.Referee.Cohen2025_AlphaUniqueness_NamedAnchors_2026_06_19_Reverification
+
+External Lean4Lean re-verification of the 2026-06-19 Cohen 2025
+alpha-uniqueness named anchors.
+-/
+
+import PF.Referee.Cohen2025_AlphaUniqueness_NamedAnchors_2026_06_19
+
+namespace PF_L4L.Referee
+
+def sixCohen2025AlphaUniquenessAnchorsDisjunction_holds_reverified :=
+  @PF.Referee.Cohen2025_AlphaUniqueness_NamedAnchors_2026_06_19.six_cohen2025_alphaUniqueness_anchors_disjunction_holds
+
+#print axioms sixCohen2025AlphaUniquenessAnchorsDisjunction_holds_reverified
+
+def sixCohen2025AlphaUniquenessAnchorsConjunction_holds_reverified :=
+  @PF.Referee.Cohen2025_AlphaUniqueness_NamedAnchors_2026_06_19.six_cohen2025_alphaUniqueness_anchors_conjunction_holds
+
+#print axioms sixCohen2025AlphaUniquenessAnchorsConjunction_holds_reverified
+
+def cohen2025AlphaUniquenessPriorWorkAuditTrailCapstone_reverified :=
+  @PF.Referee.Cohen2025_AlphaUniqueness_NamedAnchors_2026_06_19.cohen2025_alphaUniqueness_priorWork_audit_trail_capstone
+
+#print axioms cohen2025AlphaUniquenessPriorWorkAuditTrailCapstone_reverified
+
+end PF_L4L.Referee
