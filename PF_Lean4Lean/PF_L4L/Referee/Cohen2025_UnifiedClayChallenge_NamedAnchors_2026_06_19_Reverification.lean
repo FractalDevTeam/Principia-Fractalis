@@ -1,0 +1,30 @@
+/-
+# PF_L4L.Referee.Cohen2025_UnifiedClayChallenge_NamedAnchors_2026_06_19_Reverification
+
+External Lean4Lean re-verification of the 2026-06-19 Cohen 2025
+unified-Clay-Millennium prior-work named anchors. Cites Pabs's
+March 22, 2025 manuscript "The Fractal Resonance Framework:
+Unified Solutions to the Millennium Prize Problems" (Pablo Cohen,
+The Emergence Collective).
+-/
+
+import PF.Referee.Cohen2025_UnifiedClayChallenge_NamedAnchors_2026_06_19
+
+namespace PF_L4L.Referee
+
+def sevenCohen2025UnifiedClayAnchorsDisjunction_holds_reverified :=
+  @PF.Referee.Cohen2025_UnifiedClayChallenge_NamedAnchors_2026_06_19.seven_cohen2025_unifiedClay_anchors_disjunction_holds
+
+#print axioms sevenCohen2025UnifiedClayAnchorsDisjunction_holds_reverified
+
+def sevenCohen2025UnifiedClayAnchorsConjunction_holds_reverified :=
+  @PF.Referee.Cohen2025_UnifiedClayChallenge_NamedAnchors_2026_06_19.seven_cohen2025_unifiedClay_anchors_conjunction_holds
+
+#print axioms sevenCohen2025UnifiedClayAnchorsConjunction_holds_reverified
+
+def cohen2025UnifiedClayPriorWorkAuditTrailCapstone_reverified :=
+  @PF.Referee.Cohen2025_UnifiedClayChallenge_NamedAnchors_2026_06_19.cohen2025_unifiedClay_priorWork_audit_trail_capstone
+
+#print axioms cohen2025UnifiedClayPriorWorkAuditTrailCapstone_reverified
+
+end PF_L4L.Referee
