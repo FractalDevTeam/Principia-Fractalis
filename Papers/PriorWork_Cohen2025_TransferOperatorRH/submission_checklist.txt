@@ -1,0 +1,30 @@
+
+ARXIV SUBMISSION CHECKLIST
+
+COMPLETED:
+☑ Self-adjointness proven theoretically and verified numerically
+☑ Scaling factor derived theoretically (5×10⁻⁶)
+☑ High-precision verification (150 digits) eliminates numerical artifacts
+☑ Spectral rigidity mechanism identified
+☑ Clean LaTeX manuscript without consciousness/philosophy
+
+TO DO BEFORE SUBMISSION:
+☐ Add bibliography with standard RH references
+☐ Include 2-3 key figures from verification results
+☐ Add appendix with core Python code
+☐ Get one expert to review informally
+☐ Choose appropriate arXiv category (math.NT or math.SP)
+
+SUGGESTED ARXIV CATEGORIES:
+Primary: math.NT (Number Theory)
+Secondary: math.SP (Spectral Theory)
+
+TITLE OPTIONS:
+1. "A Modified Transfer Operator Approach to the Riemann Hypothesis: Numerical Evidence"
+2. "Eigenvalue-Zero Correspondences via Self-Adjoint Transfer Operators"
+3. "Spectral Methods for the Riemann Hypothesis: A Numerical Investigation"
+
+TARGET JOURNALS (after arXiv):
+1. Experimental Mathematics (for numerical focus)
+2. Journal of Number Theory (for theoretical aspects)
+3. Communications in Mathematical Physics (for operator theory)

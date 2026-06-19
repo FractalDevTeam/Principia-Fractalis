@@ -1,0 +1,27 @@
+/-
+# PF_L4L.Referee.Cohen2025_RH_NamedAnchors_2026_06_19_Reverification
+
+External Lean4Lean re-verification of the 2026-06-19 Cohen 2025
+transfer-operator RH named anchors.
+-/
+
+import PF.Analytic.Cohen2025_TransferOperator_RH_NamedAnchors_2026_06_19
+
+namespace PF_L4L.Referee
+
+def sixCohen2025RHAnchorsDisjunction_holds_reverified :=
+  @PF.Analytic.Cohen2025_TransferOperator_RH_NamedAnchors_2026_06_19.six_cohen2025_rh_anchors_disjunction_holds
+
+#print axioms sixCohen2025RHAnchorsDisjunction_holds_reverified
+
+def sixCohen2025RHAnchorsConjunction_holds_reverified :=
+  @PF.Analytic.Cohen2025_TransferOperator_RH_NamedAnchors_2026_06_19.six_cohen2025_rh_anchors_conjunction_holds
+
+#print axioms sixCohen2025RHAnchorsConjunction_holds_reverified
+
+def cohen2025RHPriorWorkAuditTrailCapstone_reverified :=
+  @PF.Analytic.Cohen2025_TransferOperator_RH_NamedAnchors_2026_06_19.cohen2025_rh_priorWork_audit_trail_capstone
+
+#print axioms cohen2025RHPriorWorkAuditTrailCapstone_reverified
+
+end PF_L4L.Referee

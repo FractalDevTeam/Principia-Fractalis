@@ -1,0 +1,83 @@
+{
+  "N": 20,
+  "timestamp": "2025-06-11T23:06:43.332288",
+  "eigenvalues": {
+    "count": 20,
+    "all_real": true,
+    "condition_number": 10686.983840344907,
+    "raw_range": [
+      10040.67296648336,
+      107304509.73898667
+    ]
+  },
+  "scaling_analysis": {
+    "scale_0.001": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_0.01": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_0.1": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_0.5": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_1.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_10.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_50.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_100.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_130.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_150.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_200.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_500.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    },
+    "scale_1000.0": {
+      "correspondence_count": 0,
+      "best_distance": null,
+      "average_distance": null
+    }
+  },
+  "best_correspondences": [],
+  "optimal_scaling": null,
+  "optimal_correspondence_count": 0
+}
