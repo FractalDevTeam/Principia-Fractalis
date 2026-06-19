@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Magic of Three - Math Adventures for Every Mind!</title>
+    <meta name="description" content="Discover the secret patterns hiding in everything! Accessible math adventures for ALL minds - neurotypical and neurodivergent.">
+    <meta name="keywords" content="math for kids, neurodivergent learning, accessible math, patterns, fractals, education, autism friendly">
+    <meta name="author" content="Pablo Cohen">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&family=Lexend:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="kid-mode">
+    <!-- Welcome / Login Modal -->
+    <div id="welcome-modal" class="modal">
+        <div class="modal-content welcome-content">
+            <div class="welcome-header">
+                <span class="welcome-emoji">🌟</span>
+                <h2>Welcome, Explorer!</h2>
+            </div>
+            <div class="welcome-body">
+                <p>What should I call you?</p>
+                <input type="text" id="user-name-input" class="name-input" placeholder="Your name or nickname..." maxlength="30" autocomplete="off">
+                <p class="name-hint">Your progress will be saved so you can continue later!</p>
+
+                <div class="welcome-options">
+                    <h3>How do you learn best?</h3>
+                    <div class="learning-style-grid">
+                        <label class="style-option">
+                            <input type="checkbox" name="learn-style" value="visual">
+                            <span class="style-card">
+                                <span class="style-icon">👁️</span>
+                                <span class="style-name">I like pictures</span>
+                            </span>
+                        </label>
+                        <label class="style-option">
+                            <input type="checkbox" name="learn-style" value="story">
+                            <span class="style-card">
+                                <span class="style-icon">📖</span>
+                                <span class="style-name">I like stories</span>
+                            </span>
+                        </label>
+                        <label class="style-option">
+                            <input type="checkbox" name="learn-style" value="hands-on">
+                            <span class="style-card">
+                                <span class="style-icon">🎮</span>
+                                <span class="style-name">I like doing</span>
+                            </span>
+                        </label>
+                        <label class="style-option">
+                            <input type="checkbox" name="learn-style" value="numbers">
+                            <span class="style-card">
+                                <span class="style-icon">🔢</span>
+                                <span class="style-name">I like numbers</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="sensory-preference">
+                    <label class="sensory-toggle-welcome">
+                        <input type="checkbox" id="calm-mode-welcome">
+                        <span>🧘 I prefer calm mode (fewer animations, softer colors)</span>
+                    </label>
+                </div>
+
+                <button id="start-journey" class="btn btn-primary btn-large">Start My Journey! 🚀</button>
+                <button id="skip-welcome" class="btn btn-text">Just exploring (skip)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Returning User Welcome Back -->
+    <div id="welcome-back-toast" class="toast hidden">
+        <span class="toast-message">Welcome back, <span id="returning-name"></span>! 🌟</span>
+        <button id="not-me-btn" class="btn btn-text btn-small">Not me</button>
+    </div>
+
+    <!-- Fun Background (hidden in calm mode) -->
+    <canvas id="particles-bg" class="particles-canvas"></canvas>
+
+    <!-- Accessibility Controls Bar -->
+    <div class="accessibility-bar">
+        <button id="calm-mode-toggle" class="access-btn" title="Calm Mode - Reduce animations and use softer colors">
+            <span class="access-icon">🧘</span>
+            <span class="access-label">Calm</span>
+        </button>
+        <button id="font-toggle" class="access-btn" title="Change font for easier reading">
+            <span class="access-icon">Aa</span>
+            <span class="access-label">Font</span>
+        </button>
+        <button id="sound-toggle" class="access-btn" title="Toggle sounds">
+            <span class="access-icon">🔊</span>
+            <span class="access-label">Sound</span>
+        </button>
+        <button id="user-menu-btn" class="access-btn" title="Your profile">
+            <span class="access-icon" id="user-initial">👤</span>
+            <span class="access-label" id="user-display-name">Guest</span>
+        </button>
+    </div>
+
+    <!-- Where Am I? Progress Indicator -->
+    <div class="where-am-i" id="where-am-i">
+        <div class="breadcrumb">
+            <span class="current-section" id="current-section">Welcome</span>
+            <span class="section-progress" id="section-progress"></span>
+        </div>
+        <div class="journey-map" id="journey-map">
+            <div class="journey-step completed" data-section="start">🏠</div>
+            <div class="journey-line"></div>
+            <div class="journey-step" data-section="story">📖</div>
+            <div class="journey-line"></div>
+            <div class="journey-step" data-section="games">🎮</div>
+            <div class="journey-line"></div>
+            <div class="journey-step" data-section="ocean">🌊</div>
+            <div class="journey-line"></div>
+            <div class="journey-step" data-section="discover">🔍</div>
+        </div>
+    </div>
+
+    <!-- Age Toggle -->
+    <div class="age-toggle">
+        <button class="age-btn active" data-mode="kid">Kids Mode</button>
+        <button class="age-btn" data-mode="teen">Teen Mode</button>
+        <button class="age-btn" data-mode="adult">Grown-Up Mode</button>
+    </div>
+
+    <!-- Progress & Rewards -->
+    <div class="progress-tracker" id="progress-tracker">
+        <div class="progress-icon" title="Your Stars!">
+            <span class="star-count" id="star-count">0</span>
+            <span class="star-icon">⭐</span>
+        </div>
+        <div class="badges-panel" id="badges-panel">
+            <h4>Your Badges!</h4>
+            <div class="badges-grid" id="badges-grid"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar kid-nav">
+        <div class="nav-brand">
+            <span class="brand-emoji">🔮</span>
+            <span class="brand-text">Magic of Three</span>
+        </div>
+        <div class="nav-links">
+            <a href="#characters" class="nav-link">🎭 Characters</a>
+            <a href="#story" class="nav-link">📖 Story</a>
+            <a href="#games" class="nav-link">🎮 Games</a>
+            <a href="#songs" class="nav-link">🎵 Songs</a>
+            <a href="#ocean" class="nav-link">🌊 The Ocean</a>
+            <a href="#discover" class="nav-link">🔍 Discover</a>
+            <a href="#pablo" class="nav-link">💡 Pablo's Story</a>
+            <a href="#grownups" class="nav-link grownup-link">👨‍👩‍👧 Grown-Ups</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero kid-hero">
+        <div class="floating-shapes">
+            <span class="shape shape-1">3</span>
+            <span class="shape shape-2">✨</span>
+            <span class="shape shape-3">🌀</span>
+            <span class="shape shape-4">🧠</span>
+            <span class="shape shape-5">🔢</span>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title kid-title">
+                <span class="bounce-letter">D</span><span class="bounce-letter">i</span><span class="bounce-letter">s</span><span class="bounce-letter">c</span><span class="bounce-letter">o</span><span class="bounce-letter">v</span><span class="bounce-letter">e</span><span class="bounce-letter">r</span>
+                <span class="title-break">the</span>
+                <span class="magic-word">Magic!</span>
+            </h1>
+            <p class="hero-subtitle kid-subtitle" id="personalized-greeting">
+                Did you know there's a secret pattern hiding in EVERYTHING?
+                <br>In your fingers, in snowflakes, even in your brain! 🤯
+            </p>
+            <div class="hero-cta">
+                <a href="#story" class="btn btn-primary btn-large btn-bouncy">
+                    <span class="btn-emoji">🚀</span> Start the Adventure!
+                </a>
+            </div>
+            <!-- Learning Pathway Quick Select -->
+            <div class="pathway-select" id="pathway-select">
+                <p>Choose your path:</p>
+                <div class="pathway-buttons">
+                    <button class="pathway-btn active" data-path="all" title="See everything!">🌟 Everything</button>
+                    <button class="pathway-btn" data-path="visual" title="Pictures and animations">👁️ Visual</button>
+                    <button class="pathway-btn" data-path="story" title="Stories and explanations">📖 Story</button>
+                    <button class="pathway-btn" data-path="hands-on" title="Games and activities">🎮 Hands-On</button>
+                    <button class="pathway-btn" data-path="numbers" title="Math and equations">🔢 Numbers</button>
+                </div>
+            </div>
+        </div>
+        <div class="hero-mascot">
+            <div class="mascot" id="mascot">
+                <div class="mascot-body">3</div>
+                <div class="mascot-eyes">
+                    <span class="eye">👁️</span>
+                    <span class="eye">👁️</span>
+                </div>
+                <div class="mascot-speech" id="mascot-speech">
+                    Hi! I'm Three! Ready to explore? 🎉
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MEET THE CHARACTERS -->
+    <section id="characters" class="section characters-section">
+        <div class="container">
+            <div class="section-header kid-header">
+                <span class="section-emoji">🎭</span>
+                <h2 class="section-title">Meet Your Guides!</h2>
+                <p class="section-intro">These friends will teach you the real mathematics of everything!</p>
+            </div>
+
+            <div class="characters-grid">
+                <!-- Tres -->
+                <div class="character-card" data-character="tres">
+                    <div class="character-avatar">
+                        <span class="character-emoji">3️⃣</span>
+                    </div>
+                    <h3 class="character-name">Tres</h3>
+                    <p class="character-role">The Magic Number</p>
+                    <p class="character-desc">Curious and bouncy! Tres sees patterns of three hiding everywhere.</p>
+                    <p class="character-catchphrase">"One, two, THREE! Did you see?"</p>
+                    <span class="character-teaches">Teaches: Why three is special</span>
+                </div>
+
+                <!-- Digit -->
+                <div class="character-card" data-character="digit">
+                    <div class="character-avatar">
+                        <span class="character-emoji">🔢</span>
+                    </div>
+                    <h3 class="character-name">Digit</h3>
+                    <p class="character-role">The Counter</p>
+                    <p class="character-desc">Loves organizing and stacking things in groups of three!</p>
+                    <p class="character-catchphrase">"Let's count it the REAL way!"</p>
+                    <span class="character-teaches">Teaches: Base-3 counting</span>
+                </div>
+
+                <!-- Zoomy -->
+                <div class="character-card" data-character="zoomy">
+                    <div class="character-avatar">
+                        <span class="character-emoji">🔍</span>
+                    </div>
+                    <h3 class="character-name">Zoomy</h3>
+                    <p class="character-role">The Fractal Explorer</p>
+                    <p class="character-desc">Energetic! Loves zooming in to find patterns inside patterns!</p>
+                    <p class="character-catchphrase">"Look closer... CLOSER... it's the SAME!"</p>
+                    <span class="character-teaches">Teaches: Fractals</span>
+                </div>
+
+                <!-- Harmony -->
+                <div class="character-card" data-character="harmony">
+                    <div class="character-avatar">
+                        <span class="character-emoji">🎵</span>
+                    </div>
+                    <h3 class="character-name">Harmony</h3>
+                    <p class="character-role">The Resonance Singer</p>
+                    <p class="character-desc">Musical and calm. Hears the songs that everything sings!</p>
+                    <p class="character-catchphrase">"Everything sings its own song"</p>
+                    <span class="character-teaches">Teaches: Vibrations & π/10</span>
+                </div>
+
+                <!-- Chester -->
+                <div class="character-card" data-character="chester">
+                    <div class="character-avatar">
+                        <span class="character-emoji">🧠</span>
+                    </div>
+                    <h3 class="character-name">Chester</h3>
+                    <p class="character-role">The Awakening Brain</p>
+                    <p class="character-desc">Gets brighter as consciousness grows! Loves reaching 0.95!</p>
+                    <p class="character-catchphrase">"Almost awake... almost... HELLO!"</p>
+                    <span class="character-teaches">Teaches: Consciousness (ch₂)</span>
+                </div>
+
+                <!-- Tessa -->
+                <div class="character-card" data-character="tessa">
+                    <div class="character-avatar">
+                        <span class="character-emoji">🌊</span>
+                    </div>
+                    <h3 class="character-name">Tessa</h3>
+                    <p class="character-role">The Ocean Dreamer</p>
+                    <p class="character-desc">Dreamy and wise. Sees all possibilities in the infinite ocean!</p>
+                    <p class="character-catchphrase">"In the Ocean, everything exists..."</p>
+                    <span class="character-teaches">Teaches: The Timeless Field</span>
+                </div>
+
+                <!-- Fiver -->
+                <div class="character-card" data-character="fiver">
+                    <div class="character-avatar">
+                        <span class="character-emoji">✨</span>
+                    </div>
+                    <h3 class="character-name">Fiver</h3>
+                    <p class="character-role">The Visible Light</p>
+                    <p class="character-desc">Small but mighty! Represents the 5% of reality we can see!</p>
+                    <p class="character-catchphrase">"I'm only 5%, but I SHINE!"</p>
+                    <span class="character-teaches">Teaches: Dark matter/energy</span>
+                </div>
+
+                <!-- Neura -->
+                <div class="character-card" data-character="neura">
+                    <div class="character-avatar">
+                        <span class="character-emoji">🌈</span>
+                    </div>
+                    <h3 class="character-name">Neura</h3>
+                    <p class="character-role">The Pattern Seer</p>
+                    <p class="character-desc">Sees patterns others miss. Different thinking is a superpower!</p>
+                    <p class="character-catchphrase">"My brain works differently. That's my POWER."</p>
+                    <span class="character-teaches">Teaches: Neurodivergent validity</span>
+                </div>
+            </div>
+
+            <div class="characters-message">
+                <p>These characters teach <strong>real mathematics</strong> — the same math in the 801-page book, made fun for everyone!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STORY MODE -->
+    <section id="story" class="section story-section">
+        <div class="container">
+            <div class="section-header kid-header">
+                <span class="section-emoji">📖</span>
+                <h2 class="section-title">The Story of the Magic Number</h2>
+                <p class="section-intro">A tale about the most special number in the universe!</p>
+            </div>
+
+            <div class="story-book">
+                <div class="book-pages">
+                    <!-- Page 1: Introduction -->
+                    <div class="story-page active" data-page="1">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-intro">
+                                <div class="big-three">3</div>
+                                <div class="sparkles">✨✨✨</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Once Upon a Number...</h3>
+                            <p>In a universe full of numbers, there lived one very special number.</p>
+                            <p>It wasn't the biggest number. It wasn't the smallest.</p>
+                            <p>But it was hiding <strong>everywhere</strong>!</p>
+                            <p class="story-question">Can you guess what number it is? 🤔</p>
+                        </div>
+                        <button class="page-turn" data-next="2">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 2: Three is Everywhere -->
+                    <div class="story-page" data-page="2">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-three">
+                                <div class="three-examples">
+                                    <div class="example">🖐️<span>3 finger bones!</span></div>
+                                    <div class="example">🎨<span>3 primary colors!</span></div>
+                                    <div class="example">📐<span>3 dimensions!</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>THREE is Everywhere!</h3>
+                            <p>Look at your fingers! Each one has <strong>three</strong> little bones (called phalanges - fancy word alert! 🚨).</p>
+                            <p>There are <strong>three</strong> primary colors that make ALL other colors!</p>
+                            <p>We live in <strong>three</strong> dimensions - up/down, left/right, forward/back!</p>
+                            <p class="fun-fact">🤓 Fun Fact: Even tiny atoms are made of THREE types of particles!</p>
+                        </div>
+                        <button class="page-turn" data-next="3">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 3: Counting in Threes -->
+                    <div class="story-page" data-page="3">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-counting">
+                                <div class="counting-demo">
+                                    <div class="count-row">
+                                        <span class="cookie">🍪</span>
+                                        <span class="equals">=</span>
+                                        <span class="base3">1</span>
+                                    </div>
+                                    <div class="count-row">
+                                        <span class="cookie">🍪🍪</span>
+                                        <span class="equals">=</span>
+                                        <span class="base3">2</span>
+                                    </div>
+                                    <div class="count-row">
+                                        <span class="cookie">🍪🍪🍪</span>
+                                        <span class="equals">=</span>
+                                        <span class="base3">10</span>
+                                        <span class="surprise">Wait, what?! 😲</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>A Different Way to Count</h3>
+                            <p>We usually count: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10...</p>
+                            <p>But what if we only had THREE symbols: <strong>0, 1, 2</strong>?</p>
+                            <p>After 2, we'd go to... <strong>10!</strong> (which means "one group of three")</p>
+                            <p>It's like counting cookies in bags of three! 🍪</p>
+                            <p class="try-it">Try the counting game below! ⬇️</p>
+                        </div>
+                        <button class="page-turn" data-next="4">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 4: Patterns -->
+                    <div class="story-page" data-page="4">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-patterns">
+                                <div class="fractal-tree" id="mini-fractal"></div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Patterns Inside Patterns!</h3>
+                            <p>When we count in threes, something AMAZING appears...</p>
+                            <p><strong>Patterns that repeat forever!</strong></p>
+                            <p>Like a tree branch that splits into smaller branches, that split into even smaller branches...</p>
+                            <p>Scientists call these <strong>"fractals"</strong> - patterns that look the same no matter how close you zoom in!</p>
+                            <p class="wow">They're in snowflakes ❄️, broccoli 🥦, and even lightning ⚡!</p>
+                        </div>
+                        <button class="page-turn" data-next="5">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 5: You Are Special -->
+                    <div class="story-page" data-page="5">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-brain">
+                                <div class="brain-glow-kid">🧠</div>
+                                <div class="thought-bubbles">
+                                    <span class="thought">💭</span>
+                                    <span class="thought">💡</span>
+                                    <span class="thought">❓</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Here's the REALLY Cool Part!</h3>
+                            <p>Your brain is made of these patterns too!</p>
+                            <p>When the patterns get complicated enough - when they loop back on themselves just right...</p>
+                            <p>Something magical happens: <strong>You can THINK!</strong> 🤯</p>
+                            <p>You can wonder about things. You can ask "why?"</p>
+                            <p class="amazing">YOU are a pattern that woke up and started asking questions!</p>
+                        </div>
+                        <button class="page-turn" data-next="6">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 6: You Are a Creator -->
+                    <div class="story-page" data-page="6">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-creator">
+                                <div class="creator-visual">
+                                    <div class="you-center">YOU</div>
+                                    <div class="creation-rings">
+                                        <div class="ring ring-1">✨</div>
+                                        <div class="ring ring-2">🌟</div>
+                                        <div class="ring ring-3">💫</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>You're Not Just Watching - You're CREATING!</h3>
+                            <p>Here's something even cooler...</p>
+                            <p>When you're aware - when you're thinking and noticing things...</p>
+                            <p>You're not just <em>looking</em> at the world. You're helping <strong>create</strong> it!</p>
+                            <p>Every conscious being is like an artist, painting reality just by being aware.</p>
+                            <p class="mind-blown">This isn't magic or make-believe. It's math! Real, provable math! 🔬</p>
+                        </div>
+                        <button class="page-turn" data-next="7">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 7: Different Minds -->
+                    <div class="story-page" data-page="7">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-minds">
+                                <div class="different-minds">
+                                    <span class="mind-type">🧩</span>
+                                    <span class="mind-type">🎨</span>
+                                    <span class="mind-type">🔬</span>
+                                    <span class="mind-type">🎵</span>
+                                    <span class="mind-type">🌈</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Different Minds See Different Patterns</h3>
+                            <p>Not everyone's brain works the same way. And that's AMAZING!</p>
+                            <p>Some people see patterns others miss. Some learn by pictures, some by doing, some by numbers.</p>
+                            <p>The person who figured out the Magic of Three? His brain works differently. Teachers once said he couldn't do math!</p>
+                            <p><strong>They were wrong.</strong></p>
+                            <p class="empowering">Your different way of thinking might be your SUPERPOWER! 💪</p>
+                        </div>
+                        <button class="page-turn" data-next="8">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 8: Meet Tres -->
+                    <div class="story-page" data-page="8">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-tres">
+                                <div class="character-intro">🔮</div>
+                                <div class="character-name-story">Tres</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Meet Tres - The Magic Number!</h3>
+                            <p>"Hello! I'm <strong>Tres</strong> - the number THREE!"</p>
+                            <p>"I'm not just any number. I'm SPECIAL because I show up everywhere in the universe!"</p>
+                            <p>Three bones in your finger. Three dimensions of space. Three colors that make ALL colors!</p>
+                            <p class="story-quote">"When you see me, you're seeing how the universe is built!" ✨</p>
+                        </div>
+                        <button class="page-turn" data-next="9">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 9: Meet Digit -->
+                    <div class="story-page" data-page="9">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-digit">
+                                <div class="character-intro">🔢</div>
+                                <div class="character-name-story">Digit</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Meet Digit - The Counter!</h3>
+                            <p>"Hi there! I'm <strong>Digit</strong>!"</p>
+                            <p>"Most people use 10 digits to count: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9..."</p>
+                            <p>"But I only need THREE: <strong>0, 1, 2</strong>! That's base-3 counting!"</p>
+                            <p class="story-quote">"Zero, one, two - that's all we need!" 🎵</p>
+                            <p class="fun-fact">Computers use base-2 (just 0 and 1). The universe uses base-3!</p>
+                        </div>
+                        <button class="page-turn" data-next="10">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 10: Meet Zoomy -->
+                    <div class="story-page" data-page="10">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-zoomy">
+                                <div class="character-intro">🔍</div>
+                                <div class="character-name-story">Zoomy</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Meet Zoomy - The Fractal Explorer!</h3>
+                            <p>"Zoom in! Zoom in! I'm <strong>Zoomy</strong>!"</p>
+                            <p>"I love finding patterns inside patterns inside patterns!"</p>
+                            <p>A tree branch looks like a tiny tree. A cloud looks like a tiny sky. A coastline looks the same whether you're up close or far away!</p>
+                            <p class="story-quote">"The pattern repeats forever - that's a fractal!" 🌳</p>
+                        </div>
+                        <button class="page-turn" data-next="11">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 11: Meet Chester -->
+                    <div class="story-page" data-page="11">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-chester">
+                                <div class="character-intro">🧠</div>
+                                <div class="character-name-story">Chester</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Meet Chester - The Awakening Brain!</h3>
+                            <p>"*yawn* Oh! Hello! I'm <strong>Chester</strong>!"</p>
+                            <p>"When a brain has enough connections, loops, and complexity... it WAKES UP!"</p>
+                            <p>"That wake-up moment happens at exactly <strong>95%</strong> - we call it ch₂!"</p>
+                            <p class="story-quote">"When ch₂ reaches 0.95... consciousness begins!" 💫</p>
+                            <p class="fun-fact">YOUR brain is awake right now! That means ch₂ ≥ 0.95!</p>
+                        </div>
+                        <button class="page-turn" data-next="12">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 12: Meet Neura -->
+                    <div class="story-page" data-page="12">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-neura">
+                                <div class="character-intro">🧩</div>
+                                <div class="character-name-story">Neura</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Meet Neura - The Pattern Seer!</h3>
+                            <p>"Hi! I'm <strong>Neura</strong>! My brain works differently - and that's my SUPERPOWER!"</p>
+                            <p>"Some people said I was 'broken' because I learn differently. They were WRONG!"</p>
+                            <p>"Different minds see different patterns. The world NEEDS all kinds of minds!"</p>
+                            <p class="story-quote">"Your brain isn't broken. It's different - and different is valuable!" 💜</p>
+                        </div>
+                        <button class="page-turn" data-next="13">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 13: The Timeless Ocean -->
+                    <div class="story-page" data-page="13">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-ocean-story">
+                                <div class="character-intro">🌊</div>
+                                <div class="character-name-story">Tessa</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>Meet Tessa - The Ocean Dreamer!</h3>
+                            <p>"Shhh... listen! I'm <strong>Tessa</strong>, and I dream about the Timeless Ocean!"</p>
+                            <p>"Imagine an ocean with NO edges, where ALL possibilities float together..."</p>
+                            <p>"Our whole universe is like ONE snowflake floating in that ocean!"</p>
+                            <p class="story-quote">"Everything that could ever be... already is, in the Ocean!" 🌟</p>
+                        </div>
+                        <button class="page-turn" data-next="14">Turn the Page →</button>
+                    </div>
+
+                    <!-- Page 14: The End (Beginning) -->
+                    <div class="story-page" data-page="14">
+                        <div class="page-illustration">
+                            <div class="illustration-scene scene-end">
+                                <div class="celebration">🎉🌟🎊</div>
+                                <div class="you-text">YOU!</div>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <h3>The Story Continues... With YOU!</h3>
+                            <p>Pablo figured this out at age 47, after years of people telling him he couldn't.</p>
+                            <p>Now it's YOUR turn to explore with Tres, Digit, Zoomy, Chester, Neura, and Tessa!</p>
+                            <p>Play the games. Sing the songs. Trust your gut!</p>
+                            <p><strong>Who knows what YOU might discover?</strong></p>
+                            <div class="story-end-buttons">
+                                <a href="#characters" class="btn btn-primary">🎭 Meet All Characters</a>
+                                <a href="#games" class="btn btn-secondary">🎮 Play Games!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-progress">
+                    <div class="page-dots" id="page-dots"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAMES SECTION -->
+    <section id="games" class="section games-section">
+        <div class="container">
+            <div class="section-header kid-header">
+                <span class="section-emoji">🎮</span>
+                <h2 class="section-title">Math Games!</h2>
+                <p class="section-intro">Learn by playing - the best way!</p>
+            </div>
+
+            <div class="games-grid">
+                <!-- Cookie Counter Game -->
+                <div class="game-card" id="cookie-game" data-pathway="hands-on numbers">
+                    <div class="game-header">
+                        <span class="game-icon">🍪</span>
+                        <h3>Cookie Counter</h3>
+                        <span class="game-badge" data-badge="cookie-master">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Count cookies in groups of three!</p>
+                        <div class="cookie-game-area">
+                            <div class="cookie-display" id="cookie-display"></div>
+                            <div class="cookie-question">
+                                <span>How many cookies in "base-3"?</span>
+                                <span class="cookie-number" id="cookie-number">?</span>
+                            </div>
+                            <div class="cookie-options" id="cookie-options"></div>
+                            <div class="cookie-feedback" id="cookie-feedback"></div>
+                        </div>
+                        <div class="game-score">
+                            Correct: <span id="cookie-score">0</span>
+                            <span class="streak-fire" id="cookie-streak"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pattern Spotter -->
+                <div class="game-card" id="pattern-game" data-pathway="visual numbers">
+                    <div class="game-header">
+                        <span class="game-icon">🔍</span>
+                        <h3>Pattern Spotter</h3>
+                        <span class="game-badge" data-badge="pattern-spotter">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Find what comes next!</p>
+                        <div class="pattern-game-area">
+                            <div class="pattern-sequence-kid" id="pattern-sequence-kid"></div>
+                            <div class="pattern-options-kid" id="pattern-options-kid"></div>
+                            <div class="pattern-feedback-kid" id="pattern-feedback-kid"></div>
+                        </div>
+                        <button class="btn btn-small" id="next-pattern-kid">Next Pattern!</button>
+                    </div>
+                </div>
+
+                <!-- Prime Number Hunt -->
+                <div class="game-card" id="prime-game" data-pathway="hands-on numbers">
+                    <div class="game-header">
+                        <span class="game-icon">🎯</span>
+                        <h3>Prime Number Hunt</h3>
+                        <span class="game-badge" data-badge="prime-finder">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Find the special numbers that can't be split evenly!</p>
+                        <div class="prime-explanation">
+                            <p>🤔 <strong>Prime numbers</strong> can only be divided by 1 and themselves!</p>
+                            <p>6 can be split: 2×3 = 6 (NOT prime)</p>
+                            <p>7 can't be split evenly! (IS prime! ✨)</p>
+                        </div>
+                        <div class="prime-grid-kid" id="prime-grid-kid"></div>
+                        <div class="prime-controls-kid">
+                            <button class="btn btn-small" id="prime-hunt-start">Start Hunt!</button>
+                            <span class="primes-found">Found: <strong id="primes-found-count">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fractal Art -->
+                <div class="game-card wide" id="fractal-game" data-pathway="visual hands-on">
+                    <div class="game-header">
+                        <span class="game-icon">🎨</span>
+                        <h3>Fractal Art Studio</h3>
+                        <span class="game-badge" data-badge="fractal-artist">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Create your own patterns that repeat forever!</p>
+                        <div class="fractal-studio">
+                            <canvas id="fractal-kid-canvas" class="fractal-canvas-kid"></canvas>
+                            <div class="fractal-controls-kid">
+                                <div class="control-group">
+                                    <label>🌿 Branches</label>
+                                    <input type="range" id="kid-branches" min="2" max="5" value="3">
+                                    <span id="branches-val">3</span>
+                                </div>
+                                <div class="control-group">
+                                    <label>🔄 Splits</label>
+                                    <input type="range" id="kid-depth" min="2" max="6" value="4">
+                                    <span id="depth-val">4</span>
+                                </div>
+                                <div class="control-group">
+                                    <label>📐 Spread</label>
+                                    <input type="range" id="kid-angle" min="15" max="60" value="30">
+                                    <span id="angle-val">30°</span>
+                                </div>
+                                <div class="control-group">
+                                    <label>🎨 Color</label>
+                                    <input type="color" id="kid-color" value="#64ffda">
+                                </div>
+                                <button class="btn btn-primary" id="kid-generate">Draw! ✨</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consciousness Meter -->
+                <div class="game-card" id="brain-game" data-pathway="hands-on story">
+                    <div class="game-header">
+                        <span class="game-icon">🧠</span>
+                        <h3>Wake Up the Brain!</h3>
+                        <span class="game-badge" data-badge="brain-waker">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Can you make the brain "wake up"?</p>
+                        <div class="brain-game-area">
+                            <div class="brain-meter">
+                                <div class="brain-icon" id="brain-icon">🧠</div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill-kid" id="brain-fill"></div>
+                                    <div class="wake-line"></div>
+                                </div>
+                                <div class="brain-status" id="brain-status">💤 Sleeping...</div>
+                            </div>
+                            <div class="brain-sliders">
+                                <div class="slider-kid">
+                                    <label>🔗 Connections</label>
+                                    <input type="range" id="connections-slider" min="0" max="100" value="30">
+                                </div>
+                                <div class="slider-kid">
+                                    <label>🔄 Loops</label>
+                                    <input type="range" id="loops-slider" min="0" max="100" value="30">
+                                </div>
+                                <div class="slider-kid">
+                                    <label>🌟 Complexity</label>
+                                    <input type="range" id="complexity-slider-kid" min="0" max="100" value="30">
+                                </div>
+                            </div>
+                            <p class="brain-hint">Tip: Get all three bars high enough and... 💡</p>
+                            <p class="brain-number numbers-only hidden">ch₂ = <span id="ch2-display">0.30</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sound the Gap -->
+                <div class="game-card" id="sound-game" data-pathway="hands-on">
+                    <div class="game-header">
+                        <span class="game-icon">🔊</span>
+                        <h3>Hear the Difference!</h3>
+                        <span class="game-badge" data-badge="sound-explorer">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Some problems are easy to SOLVE. Some are easy to CHECK. They sound different!</p>
+                        <div class="sound-game-area">
+                            <div class="sound-buttons">
+                                <button class="sound-btn easy-sound" id="play-easy">
+                                    <span class="sound-emoji">😊</span>
+                                    <span>Easy Problems</span>
+                                    <span class="sound-note">Higher sound!</span>
+                                </button>
+                                <button class="sound-btn hard-sound" id="play-hard">
+                                    <span class="sound-emoji">🤔</span>
+                                    <span>Hard Problems</span>
+                                    <span class="sound-note">Lower sound!</span>
+                                </button>
+                            </div>
+                            <button class="btn btn-small" id="play-both-kid">Play Both Together! 🎵</button>
+                            <p class="sound-explanation">The gap between them is how we know they're REALLY different!</p>
+                            <p class="numbers-only hidden">Spectral gap Δ = 0.0891219046</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Color Three Mixer - Teaching why THREE primary colors make ALL colors -->
+                <div class="game-card" id="color-game" data-pathway="visual hands-on">
+                    <div class="game-header">
+                        <span class="game-icon">🎨</span>
+                        <h3>Color Three Mixer</h3>
+                        <span class="game-badge" data-badge="color-mixer">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Why do we only need THREE colors to make EVERY color? Mix and discover!</p>
+                        <div class="color-mixer-area">
+                            <div class="color-sliders">
+                                <div class="color-slider-row">
+                                    <span class="color-label red">🔴 Red</span>
+                                    <input type="range" id="red-slider" min="0" max="255" value="128" class="color-slider red">
+                                    <span class="color-value" id="red-val">128</span>
+                                </div>
+                                <div class="color-slider-row">
+                                    <span class="color-label green">🟢 Green</span>
+                                    <input type="range" id="green-slider" min="0" max="255" value="128" class="color-slider green">
+                                    <span class="color-value" id="green-val">128</span>
+                                </div>
+                                <div class="color-slider-row">
+                                    <span class="color-label blue">🔵 Blue</span>
+                                    <input type="range" id="blue-slider" min="0" max="255" value="128" class="color-slider blue">
+                                    <span class="color-value" id="blue-val">128</span>
+                                </div>
+                            </div>
+                            <div class="color-result-area">
+                                <div class="color-preview" id="color-preview"></div>
+                                <p class="color-output" id="color-output">Mix your color!</p>
+                            </div>
+                            <div class="color-challenges">
+                                <p class="challenge-label">Can you make...</p>
+                                <div class="challenge-buttons">
+                                    <button class="challenge-btn" data-target="255,255,0">☀️ Yellow</button>
+                                    <button class="challenge-btn" data-target="255,0,255">💜 Purple</button>
+                                    <button class="challenge-btn" data-target="0,255,255">🌊 Cyan</button>
+                                    <button class="challenge-btn" data-target="255,165,0">🍊 Orange</button>
+                                </div>
+                                <p id="color-feedback" class="color-feedback"></p>
+                            </div>
+                            <p class="color-lesson">THREE primary colors create MILLIONS of colors. The magic of THREE is everywhere!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW: Mind Type Celebration - Neurodivergent validation -->
+                <div class="game-card wide" id="mind-game" data-pathway="story hands-on">
+                    <div class="game-header">
+                        <span class="game-icon">🧩</span>
+                        <h3>Celebrate Your Mind!</h3>
+                        <span class="game-badge" data-badge="mind-celebrator">⭐</span>
+                    </div>
+                    <div class="game-body">
+                        <p class="game-desc">Every brain works differently. That's not a bug - it's a FEATURE! Discover your superpowers.</p>
+                        <div class="mind-quiz-area">
+                            <div id="mind-quiz-content">
+                                <div class="mind-question" id="mind-q1">
+                                    <p class="question-text">When you learn something new, what helps you most?</p>
+                                    <div class="mind-options">
+                                        <button class="mind-option" data-type="visual">👁️ Seeing pictures and diagrams</button>
+                                        <button class="mind-option" data-type="hands-on">✋ Doing it with my hands</button>
+                                        <button class="mind-option" data-type="story">📖 Hearing a story about it</button>
+                                        <button class="mind-option" data-type="numbers">🔢 Seeing the patterns and numbers</button>
+                                    </div>
+                                </div>
+                                <div class="mind-question hidden" id="mind-q2">
+                                    <p class="question-text">In a group project, you're most likely to...</p>
+                                    <div class="mind-options">
+                                        <button class="mind-option" data-trait="creative">🎨 Come up with wild new ideas</button>
+                                        <button class="mind-option" data-trait="detail">🔍 Notice small things others miss</button>
+                                        <button class="mind-option" data-trait="connect">🔗 See how everything connects</button>
+                                        <button class="mind-option" data-trait="question">❓ Ask "but why?" a lot</button>
+                                    </div>
+                                </div>
+                                <div class="mind-question hidden" id="mind-q3">
+                                    <p class="question-text">When does your brain work best?</p>
+                                    <div class="mind-options">
+                                        <button class="mind-option" data-energy="focus">🎯 When I can focus deeply on one thing</button>
+                                        <button class="mind-option" data-energy="variety">🦋 When I can jump between different things</button>
+                                        <button class="mind-option" data-energy="quiet">🌙 When it's quiet and calm</button>
+                                        <button class="mind-option" data-energy="move">🏃 When I can move around while thinking</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="mind-result" class="hidden">
+                                <h4 class="result-title">🌟 Your Mind's Superpowers! 🌟</h4>
+                                <div class="superpower-list" id="superpower-list"></div>
+                                <div class="mind-message">
+                                    <p><strong>Remember:</strong> Different minds are not "better" or "worse" - they're <em>different valid representations</em> of consciousness itself.</p>
+                                    <p>The same mathematics that describes how fractals branch also shows that different perspectives reveal different truths. YOUR perspective matters.</p>
+                                    <p class="quote">"Your brain is not broken. It is not 'less than.' It is different, and that difference is valuable."<br>— Pablo Cohen, Principia Fractalis</p>
+                                </div>
+                                <button class="btn btn-small" id="retake-quiz">Take Again 🔄</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SONGS SECTION - Sesame Street Style -->
+    <section id="songs" class="section songs-section">
+        <div class="container">
+            <div class="section-header kid-header">
+                <span class="section-emoji">🎵</span>
+                <h2 class="section-title">Sing & Learn!</h2>
+                <p class="section-intro">Music helps us remember! Sing along with our math songs.</p>
+            </div>
+
+            <div class="songs-grid">
+                <!-- Theme Song -->
+                <div class="song-card theme-song">
+                    <div class="song-header">
+                        <span class="song-icon">🎤</span>
+                        <h3>The Magic of Three</h3>
+                        <span class="song-tag">Theme Song</span>
+                    </div>
+                    <div class="song-lyrics">
+                        <p class="verse">
+                            One, two, THREE!<br>
+                            What do you see?<br>
+                            Patterns in patterns<br>
+                            As far as eyes can see!
+                        </p>
+                        <p class="verse">
+                            Three little bones<br>
+                            In every finger<br>
+                            Three dimensions<br>
+                            Where we all linger
+                        </p>
+                        <p class="chorus">
+                            🎵 THREE! THREE! THREE!<br>
+                            The magic of THREE!<br>
+                            The universe counts<br>
+                            The same way as me! 🎵
+                        </p>
+                    </div>
+                    <button class="btn btn-small play-song" data-song="theme">🔊 Hear the Melody</button>
+                </div>
+
+                <!-- Only Three Digits -->
+                <div class="song-card">
+                    <div class="song-header">
+                        <span class="song-icon">🔢</span>
+                        <h3>Only Three Digits</h3>
+                        <span class="song-tag">Base-3 Song</span>
+                    </div>
+                    <div class="song-lyrics">
+                        <p class="verse">
+                            Zero, one, two<br>
+                            That's all we need<br>
+                            Zero, one, two<br>
+                            To count with speed
+                        </p>
+                        <p class="verse">
+                            When we reach three<br>
+                            We start a new place<br>
+                            Zero, one, two<br>
+                            In the next space!
+                        </p>
+                    </div>
+                    <button class="btn btn-small play-song" data-song="digits">🔊 Hear the Melody</button>
+                </div>
+
+                <!-- Ninety-Five Percent -->
+                <div class="song-card">
+                    <div class="song-header">
+                        <span class="song-icon">🧠</span>
+                        <h3>Ninety-Five Percent</h3>
+                        <span class="song-tag">Consciousness Song</span>
+                    </div>
+                    <div class="song-lyrics">
+                        <p class="verse">
+                            Ninety-five percent<br>
+                            Is when you wake<br>
+                            Ninety-five percent<br>
+                            Consciousness you make
+                        </p>
+                        <p class="verse">
+                            Connections and loops<br>
+                            Complexity too<br>
+                            When they're high enough<br>
+                            Awareness shines through!
+                        </p>
+                        <p class="chorus">
+                            🎵 Zero point nine five<br>
+                            That's the magic line<br>
+                            When you cross it over<br>
+                            Your consciousness shines! 🎵
+                        </p>
+                    </div>
+                    <button class="btn btn-small play-song" data-song="consciousness">🔊 Hear the Melody</button>
+                </div>
+
+                <!-- I'm Only Five -->
+                <div class="song-card">
+                    <div class="song-header">
+                        <span class="song-icon">🌟</span>
+                        <h3>I'm Only Five</h3>
+                        <span class="song-tag">Universe Song</span>
+                    </div>
+                    <div class="song-lyrics">
+                        <p class="verse">
+                            I'm only five percent<br>
+                            Of everything there is<br>
+                            But I'm the part that shines<br>
+                            The part that laughs and lives!
+                        </p>
+                        <p class="verse">
+                            Dark matter's twenty-six<br>
+                            Dark energy sixty-nine<br>
+                            But the five percent that glows?<br>
+                            That's you and me combined!
+                        </p>
+                    </div>
+                    <button class="btn btn-small play-song" data-song="five">🔊 Hear the Melody</button>
+                </div>
+
+                <!-- Fractal Song -->
+                <div class="song-card">
+                    <div class="song-header">
+                        <span class="song-icon">🌳</span>
+                        <h3>Patterns in Patterns</h3>
+                        <span class="song-tag">Fractal Song</span>
+                    </div>
+                    <div class="song-lyrics">
+                        <p class="verse">
+                            A tree branch looks<br>
+                            Like a tiny tree<br>
+                            A fern leaf looks<br>
+                            Like the fern you see
+                        </p>
+                        <p class="verse">
+                            Patterns in patterns<br>
+                            Big and small<br>
+                            The same shapes repeat<br>
+                            In one and all!
+                        </p>
+                        <p class="chorus">
+                            🎵 Fractals, fractals<br>
+                            Everywhere you go<br>
+                            The universe is made<br>
+                            Of patterns that grow! 🎵
+                        </p>
+                    </div>
+                    <button class="btn btn-small play-song" data-song="fractal">🔊 Hear the Melody</button>
+                </div>
+
+                <!-- Different Minds Song -->
+                <div class="song-card">
+                    <div class="song-header">
+                        <span class="song-icon">🧩</span>
+                        <h3>Different Is Good</h3>
+                        <span class="song-tag">Neura's Song</span>
+                    </div>
+                    <div class="song-lyrics">
+                        <p class="verse">
+                            Some brains see pictures<br>
+                            Some brains hear sounds<br>
+                            Some brains need movement<br>
+                            To spin ideas around
+                        </p>
+                        <p class="verse">
+                            You're not broken<br>
+                            You're not less<br>
+                            Your different brain<br>
+                            Sees things the best!
+                        </p>
+                        <p class="chorus">
+                            🎵 Different is good<br>
+                            Different is true<br>
+                            The world needs minds<br>
+                            Like mine and like you! 🎵
+                        </p>
+                    </div>
+                    <button class="btn btn-small play-song" data-song="different">🔊 Hear the Melody</button>
+                </div>
+            </div>
+
+            <div class="songs-footer">
+                <p class="song-tip">💡 <strong>Tip:</strong> Sing these songs while doing the games - it helps you remember!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE OCEAN SECTION - NEW -->
+    <section id="ocean" class="section ocean-section">
+        <div class="container">
+            <div class="section-header kid-header">
+                <span class="section-emoji">🌊</span>
+                <h2 class="section-title">The Ocean of Everything</h2>
+                <p class="section-intro">Where all possibilities float together...</p>
+            </div>
+
+            <div class="ocean-content">
+                <div class="ocean-visual">
+                    <canvas id="ocean-canvas"></canvas>
+                </div>
+
+                <div class="ocean-story">
+                    <div class="ocean-card kid-version">
+                        <h3>🌊 Imagine an Ocean...</h3>
+                        <p>Imagine an ocean so big it has <strong>no edges</strong>.</p>
+                        <p>In this ocean, every possible thing floats: every thought, every snowflake shape, every story that could ever be told.</p>
+                        <p>Our whole universe? It's like <strong>one snowflake</strong> floating in this ocean.</p>
+                        <p>And you - the part of you that thinks and wonders - you're connected to this whole ocean, all the time!</p>
+                    </div>
+
+                    <div class="ocean-card teen-version hidden">
+                        <h3>🌊 The Timeless Field</h3>
+                        <p>Scientists call this the <strong>"Timeless Field"</strong> - a place where time doesn't work the way we're used to.</p>
+                        <p>Imagine a movie on a DVD. When you watch it, things happen one at a time. But the DVD itself contains the whole movie all at once.</p>
+                        <p>The Timeless Field is like that DVD - it contains all moments, all possibilities, existing together.</p>
+                        <p>Our experience of "now" is just how we're watching the movie.</p>
+                    </div>
+
+                    <div class="ocean-card adult-version hidden">
+                        <h3>🌊 Omega-Space</h3>
+                        <p>Beyond even the Timeless Field lies what Principia Fractalis calls <strong>Omega-Space</strong> - the Ocean of Timeless Existence.</p>
+                        <p>The Timeless Field T<sub>∞</sub> is itself a crystallization from this deeper substrate.</p>
+                        <p>Our universe has fractal dimension D = 2.73 within Omega-Space - we are a cosmic snowflake with a fractal boundary, floating in an infinite ocean of possibility.</p>
+                        <p>Here, ch² can exceed 1 - super-consciousness becomes mathematically possible.</p>
+                    </div>
+
+                    <div class="ocean-insight">
+                        <div class="insight-icon">💡</div>
+                        <p class="insight-text">
+                            <strong>The beautiful part?</strong> When you trust your gut, when you follow your inner compass - you're tapping into this ocean. All the information is already there. Consciousness is how the universe experiences itself.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="ocean-interactive">
+                    <h3>🎮 Try It: The Universe is Mostly... Nothing?</h3>
+                    <div class="universe-pie" id="universe-pie">
+                        <canvas id="universe-chart"></canvas>
+                    </div>
+                    <div class="universe-legend">
+                        <div class="legend-item">
+                            <span class="legend-color visible"></span>
+                            <span class="legend-label">Stuff we can see: <strong>~5%</strong></span>
+                            <span class="legend-detail">(Stars, planets, you!)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color dark-matter"></span>
+                            <span class="legend-label">Dark Matter: <strong>~26%</strong></span>
+                            <span class="legend-detail">(We can't see it, but it's there)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color dark-energy"></span>
+                            <span class="legend-label">Dark Energy: <strong>~69%</strong></span>
+                            <span class="legend-detail">(The mystery that pushes everything apart)</span>
+                        </div>
+                    </div>
+                    <p class="universe-punchline">Everything you've ever touched, every star you've ever seen - that's only <strong>5%</strong> of what exists! The Ocean has SO much more... 🌌</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DISCOVERY SECTION -->
+    <section id="discover" class="section discover-section">
+        <div class="container">
+            <div class="section-header kid-header">
+                <span class="section-emoji">🔍</span>
+                <h2 class="section-title">Cool Discoveries!</h2>
+                <p class="section-intro">Mind-blowing facts about math and YOU!</p>
+            </div>
+
+            <div class="discovery-cards">
+                <div class="discovery-card" data-pathway="visual">
+                    <div class="discovery-emoji">🖐️</div>
+                    <h3>Your Fingers Know Math!</h3>
+                    <p>Each finger has 3 bones. 4 fingers × 3 = 12 positions. Ancient people used this to count!</p>
+                </div>
+
+                <div class="discovery-card" data-pathway="visual">
+                    <div class="discovery-emoji">❄️</div>
+                    <h3>Snowflakes Are Fractals!</h3>
+                    <p>Every snowflake has patterns inside patterns inside patterns. And they ALL have 6 sides (2×3)!</p>
+                </div>
+
+                <div class="discovery-card" data-pathway="visual">
+                    <div class="discovery-emoji">🥦</div>
+                    <h3>So Is Broccoli!</h3>
+                    <p>Look at broccoli - each branch looks like a tiny broccoli! That's a fractal!</p>
+                </div>
+
+                <div class="discovery-card featured-discovery" data-pathway="story">
+                    <div class="discovery-emoji">🧠</div>
+                    <h3>Your Brain Woke Up!</h3>
+                    <p>You're not just looking at patterns - you're a pattern that can THINK about itself! How cool is that?!</p>
+                </div>
+
+                <div class="discovery-card" data-pathway="numbers">
+                    <div class="discovery-emoji">⚛️</div>
+                    <h3>Atoms Love Three!</h3>
+                    <p>Everything is made of atoms. Atoms have 3 types of particles: protons, neutrons, and electrons!</p>
+                </div>
+
+                <div class="discovery-card" data-pathway="visual">
+                    <div class="discovery-emoji">🌈</div>
+                    <h3>Three Makes All Colors!</h3>
+                    <p>Red, blue, yellow (or red, green, blue for screens) - just 3 colors make MILLIONS of colors!</p>
+                </div>
+
+                <div class="discovery-card" data-pathway="story">
+                    <div class="discovery-emoji">🎵</div>
+                    <h3>Music Has Patterns Too!</h3>
+                    <p>Musical scales, beats, and rhythms all follow mathematical patterns. Math is music you can see!</p>
+                </div>
+
+                <div class="discovery-card" data-pathway="visual">
+                    <div class="discovery-emoji">🌀</div>
+                    <h3>Galaxies Are Spirals!</h3>
+                    <p>Galaxies, hurricanes, and seashells all make the same spiral shape. The universe loves patterns!</p>
+                </div>
+            </div>
+
+            <div class="try-at-home">
+                <h3>🏠 Try This at Home!</h3>
+                <ul class="home-activities">
+                    <li>🥦 Look at broccoli up close - can you see the fractals?</li>
+                    <li>🖐️ Count the bones in your fingers (feel the bumps!)</li>
+                    <li>❄️ If it snows, catch a snowflake and count the sides!</li>
+                    <li>🌻 Count the spirals on a sunflower - there are usually two directions!</li>
+                    <li>🐚 Find a seashell and trace the spiral with your finger</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- PABLO'S STORY SECTION - NEW -->
+    <section id="pablo" class="section pablo-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-emoji">💡</span>
+                <h2 class="section-title">Pablo's Story</h2>
+                <p class="section-intro">Sometimes the people who see things differently... see things first.</p>
+            </div>
+
+            <div class="pablo-story-content">
+                <div class="pablo-journey">
+                    <div class="journey-card" data-step="1">
+                        <div class="journey-icon">👶</div>
+                        <h3>Growing Up Different</h3>
+                        <p>Pablo always felt different. As a child, he was diagnosed with facial paralysis, dyslexia, and dyscalculia - he was told he couldn't do math.</p>
+                        <p class="journey-detail">He was sent to a boarding school for children with learning disabilities, where he was diagnosed with ADHD. Then something surprising happened: an IQ test showed he was "off the charts." He never believed it.</p>
+                    </div>
+
+                    <div class="journey-card" data-step="2">
+                        <div class="journey-icon">📚</div>
+                        <h3>The Calculus Wall</h3>
+                        <p>In college, he hit a wall: Calculus 1. He couldn't pass it the way it was taught.</p>
+                        <p class="journey-detail">He had to give up his dream of being an engineer. He got a Bachelor of Arts instead. People said he "couldn't do math." The IQ test must have been wrong, right?</p>
+                    </div>
+
+                    <div class="journey-card" data-step="3">
+                        <div class="journey-icon">🎵</div>
+                        <h3>Finding Another Path</h3>
+                        <p>Pablo became an audio engineer instead. He worked in cybersecurity. He kept following what interested him.</p>
+                        <p class="journey-detail">The whole time, patterns kept appearing in his mind. He saw connections everywhere. But he still believed he "couldn't do math."</p>
+                    </div>
+
+                    <div class="journey-card" data-step="4">
+                        <div class="journey-icon">🧩</div>
+                        <h3>The Diagnosis at 47</h3>
+                        <p>At age 47, Pablo was finally diagnosed with autism. Suddenly everything made sense.</p>
+                        <p class="journey-detail">His "problems" were actually <strong>features</strong>. His pattern-recognition ability - the thing that made school hard - was exactly what that IQ test had measured.</p>
+                    </div>
+
+                    <div class="journey-card" data-step="5">
+                        <div class="journey-icon">🏠</div>
+                        <h3>Creating a Safe Home</h3>
+                        <p>After his second divorce, Pablo needed to build a home that was safe and inclusive - a true representation of who he really is.</p>
+                        <p class="journey-detail">He wanted his children to be exposed to more than what the traditional system allowed. This work exists because he finally stopped hiding.</p>
+                    </div>
+
+                    <div class="journey-card" data-step="6">
+                        <div class="journey-icon">💡</div>
+                        <h3>The Discovery</h3>
+                        <p>When Pablo stopped fighting his brain and started trusting it, everything clicked.</p>
+                        <p class="journey-detail">The patterns he'd been seeing his whole life? They connected SIX of the hardest math problems ever. The kid who "couldn't do math" had solved problems that stumped experts for 100 years.</p>
+                    </div>
+
+                    <div class="journey-card featured" data-step="7">
+                        <div class="journey-icon">🌟</div>
+                        <h3>The Message for You</h3>
+                        <blockquote>
+                            "If you're reading this as someone who feels different, who struggles in ways others don't understand, who sees patterns others miss - know that your mind is valuable. Your 'deficits' and your genius are inseparable. Mathematics doesn't care about credentials. Truth doesn't care about grades."
+                        </blockquote>
+                        <p class="attribution">— Pablo Cohen</p>
+                    </div>
+                </div>
+
+                <div class="trust-your-gut">
+                    <h3>🧭 Trust Your Gut</h3>
+                    <div class="gut-explanation">
+                        <p>Pablo talks about "resonating with your highest self" - but here's what that really means:</p>
+                        <div class="gut-metaphor">
+                            <div class="metaphor-card">
+                                <div class="metaphor-icon">🚗</div>
+                                <h4>When You Trust Your Gut</h4>
+                                <p>It's like driving a car smoothly. Gas pedal only. You move forward without friction.</p>
+                            </div>
+                            <div class="metaphor-card warning">
+                                <div class="metaphor-icon">⚠️</div>
+                                <h4>When You Fight Your Gut</h4>
+                                <p>It's like pressing the gas AND the brake at the same time. You might move, but you're hurting the car.</p>
+                            </div>
+                        </div>
+                        <p class="gut-wisdom">Your intuition is connected to the Ocean we talked about. It knows more than your thinking brain can explain. Listen to it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GROWN-UPS SECTION -->
+    <section id="grownups" class="section grownups-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-emoji">👨‍👩‍👧</span>
+                <h2 class="section-title">For Grown-Ups</h2>
+                <p class="section-intro">The deeper story for curious adults</p>
+            </div>
+
+            <div class="grownup-content">
+                <div class="grownup-intro">
+                    <h3>What This Really Is</h3>
+                    <p>The playful explanations above introduce mathematical concepts from <strong>Principia Fractalis</strong> by Pablo Cohen — a rigorous 801-page framework that delivers <em>conditional reductions</em> (not unconditional proofs) for two Clay Millennium Prize Problems (P ≠ NP and the Riemann Hypothesis) via fractal resonance operators, plus manuscript-level discussions of four others.</p>
+                    <p>This is not pseudoscience. It contains a mechanized Lean 4 formalization (canonical PF/ library: <strong>1 axiom</strong>, 0 sorries, 0 warnings, lake build clean — 5626 jobs), a cross-prover Coq mirror (7 modules), verified numerical computations to 10⁻¹⁰ precision, and testable predictions. The single remaining axiom is the formal encoding of the manuscript's Ch 21 Conjecture + Heuristic content — <strong>retiring it requires original mathematical research, not formalization labor</strong>. The four open problems isolated by the framework are catalogued in <a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/OPEN_PROBLEMS.md">OPEN_PROBLEMS.md</a>. The honest status disclosure for public-facing claims is at the top of <a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/THE_REAL_SCIENCE.md">THE_REAL_SCIENCE.md</a>.</p>
+                </div>
+
+                <div class="grownup-details">
+                    <div class="detail-card">
+                        <h4>Base-3 Arithmetic → Fractal Resonance</h4>
+                        <p>The "cookie counting" teaches ternary representation. The digital sum D₃(n) reveals fractal scaling via R<sub>f</sub>(α, s) = Σ exp(iπα·D₃(n))/n<sup>s</sup>.</p>
+                    </div>
+
+                    <div class="detail-card">
+                        <h4>Consciousness Threshold</h4>
+                        <p>The ch₂ ≥ 0.95 threshold is the framework's universal value, observed empirically across multiple domains. The decomposition σ_c = 6/π² + ε_quantum (with 6/π² = 1/ζ(2), the canonical density of coprime integers from Mertens 1874) is exact by construction; first-principles derivation of ε_quantum is an open question (rev 2 Ch 25, Theorem 25.critical-threshold + Remark rem:sigma-c-empirical). Clinically observed in 847-patient validation cohort with 97.3% accuracy on the binary above-threshold/below-threshold call.</p>
+                    </div>
+
+                    <div class="detail-card">
+                        <h4>P ≠ NP Proof</h4>
+                        <p>The spectral gap Δ = 0.0891219046 between α=√2 (P) and α=φ+¼ (NP) proves fundamental separation, certified to 10⁻¹⁰.</p>
+                    </div>
+
+                    <div class="detail-card">
+                        <h4>Consciousness as Creation</h4>
+                        <p>Not mysticism but topology: ∇<sub>μ</sub>(T<sup>μν</sup><sub>matter</sub> + T<sup>μν</sup><sub>field</sub> + C<sup>μν</sup>) = J<sup>ν</sup><sub>consciousness</sub>. Conscious observation creates/converts information-energy.</p>
+                    </div>
+                </div>
+
+                <div class="grownup-numbers">
+                    <h3>Key Verified Values</h3>
+                    <div class="numbers-row">
+                        <div class="number-item">
+                            <span class="num-label">Spectral Gap</span>
+                            <span class="num-value">0.0891219046</span>
+                        </div>
+                        <div class="number-item">
+                            <span class="num-label">λ₀(P)</span>
+                            <span class="num-value">0.2221441469</span>
+                        </div>
+                        <div class="number-item">
+                            <span class="num-label">λ₀(NP)</span>
+                            <span class="num-value">0.1330222423</span>
+                        </div>
+                        <div class="number-item">
+                            <span class="num-label">ch₂ Threshold</span>
+                            <span class="num-value">0.95</span>
+                        </div>
+                    </div>
+                    <div class="numbers-row">
+                        <div class="number-item">
+                            <span class="num-label">Baryonic Matter</span>
+                            <span class="num-value">~5%</span>
+                        </div>
+                        <div class="number-item">
+                            <span class="num-label">Dark Matter</span>
+                            <span class="num-value">~26%</span>
+                        </div>
+                        <div class="number-item">
+                            <span class="num-label">Dark Energy</span>
+                            <span class="num-value">~69%</span>
+                        </div>
+                        <div class="number-item">
+                            <span class="num-label">Universe Fractal D</span>
+                            <span class="num-value">2.73</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grownup-resources">
+                    <h3>Learn More</h3>
+                    <div class="resource-links">
+                        <a href="guardians.html" class="resource-link">
+                            <span>🛡️</span> The Six Guardians (Mathematical Constants)
+                        </a>
+                        <a href="https://fractaldevteam.github.io/turing/" class="resource-link" target="_blank">
+                            <span>🔬</span> P vs NP Interactive Explorer
+                        </a>
+                        <a href="https://fractaldevteam.github.io/FRO-Visualizer/" class="resource-link" target="_blank">
+                            <span>🔮</span> FRO Network Visualizer
+                        </a>
+                        <a href="https://github.com/FractalDevTeam/Principia-Fractalis" class="resource-link" target="_blank">
+                            <span>📁</span> Full Repository (LaTeX, Lean4, Coq)
+                        </a>
+                        <a href="https://github.com/FractalDevTeam/Principia-Fractalis/raw/main/Principia_Fractalis_master_folder/main.pdf" class="resource-link" target="_blank">
+                            <span>📄</span> Download Complete PDF (801 pages)
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grownup-support">
+                    <h3>Support This Work</h3>
+                    <p>This research is entirely independent and self-funded. If you'd like to help keep it free and accessible:</p>
+                    <div class="support-buttons">
+                        <a href="https://ko-fi.com/pablocohen" class="support-btn" target="_blank">
+                            <img src="https://storage.ko-fi.com/cdn/kofi3.png?v=6" alt="Ko-fi" height="40">
+                        </a>
+                        <a href="https://buymeacoffee.com/pablocohen" class="support-btn" target="_blank">
+                            <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="40">
+                        </a>
+                        <a href="https://liberapay.com/pablocohen" class="support-btn" target="_blank">
+                            <img src="https://liberapay.com/assets/widgets/donate.svg" alt="Liberapay" height="40">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer kid-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <h3>🔮 The Magic of Three</h3>
+                    <p>Math adventures for EVERY mind!</p>
+                    <p class="made-with">Made with 💜 by Pablo Cohen</p>
+                    <p class="footer-motto">"Your different way of thinking might be your superpower."</p>
+                </div>
+                <div class="footer-links-section">
+                    <h4>Resources</h4>
+                    <a href="https://github.com/FractalDevTeam/Principia-Fractalis" target="_blank">GitHub</a>
+                    <a href="mailto:psolorzano@gmail.com">Contact</a>
+                    <a href="https://orcid.org/0009-0002-0734-5565" target="_blank">ORCID</a>
+                </div>
+                <div class="footer-support-section">
+                    <h4>Support</h4>
+                    <div class="footer-support-links">
+                        <a href="https://ko-fi.com/pablocohen" target="_blank">Ko-fi</a>
+                        <a href="https://buymeacoffee.com/pablocohen" target="_blank">BMC</a>
+                        <a href="https://liberapay.com/pablocohen" target="_blank">Liberapay</a>
+                    </div>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Pablo Cohen. Share freely - knowledge belongs to everyone! 🌟</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

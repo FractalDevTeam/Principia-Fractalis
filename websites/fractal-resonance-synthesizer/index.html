@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractal Resonance Synthesizer - Pablo Cohen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            cursor: none;
+        }
+        
+        #canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        .hud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #00ffff;
+            animation: pulse 3s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #ff00ff;
+            pointer-events: auto;
+            max-width: 320px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+        }
+        
+        .control-group {
+            margin-bottom: 18px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ffff;
+            font-size: 12px;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 8px;
+            height: 6px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            border-radius: 3px;
+            outline: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]:hover {
+            opacity: 1;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle, #fff, #00ffff);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            -webkit-appearance: none;
+        }
+        
+        select, button {
+            width: 100%;
+            background: rgba(17, 17, 17, 0.9);
+            color: #fff;
+            border: 2px solid #666;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover, select:hover {
+            background: rgba(34, 34, 34, 0.9);
+            border-color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        .equation {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 13px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #ffff00;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 25px rgba(255, 255, 0, 0.3);
+        }
+        
+        .stats {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #00ff00;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 0.8;
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            }
+            50% { 
+                opacity: 1.0;
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        #fullscreenBtn {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ffffff;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 25px;
+            font-family: inherit;
+            font-size: 11px;
+            pointer-events: auto;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        #fullscreenBtn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+        
+        .value-display {
+            color: #ffff00;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 255, 0, 0.5);
+        }
+        
+        .mode-indicator {
+            position: absolute;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 16px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #ff00ff;
+            border-radius: 20px;
+            font-size: 10px;
+            color: #ff00ff;
+            backdrop-filter: blur(5px);
+            animation: modeGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes modeGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.6); }
+        }
+        
+        .keyboard {
+            position: absolute;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff00ff;
+            border-radius: 15px;
+            pointer-events: auto;
+            backdrop-filter: blur(10px);
+        }
+        
+        .key {
+            width: 35px;
+            height: 90px;
+            background: linear-gradient(180deg, #fff, #ddd);
+            border: 1px solid #333;
+            border-radius: 0 0 5px 5px;
+            cursor: pointer;
+            transition: all 0.1s;
+            position: relative;
+        }
+        
+        .key.black {
+            width: 24px;
+            height: 55px;
+            background: linear-gradient(180deg, #333, #111);
+            margin: 0 -12px;
+            z-index: 1;
+        }
+        
+        .key:active, .key.active {
+            background: linear-gradient(180deg, #00ffff, #008888);
+            transform: translateY(2px);
+        }
+        
+        .key.black:active, .key.black.active {
+            background: linear-gradient(180deg, #ff00ff, #880088);
+        }
+        
+        .waveform-display {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            width: 300px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .spectrum-display {
+            position: absolute;
+            top: 210px;
+            left: 20px;
+            width: 300px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #ff00ff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        #errorMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <div class="hud">
+        <div class="title">
+            <div style="color: #00ffff;">FRACTAL RESONANCE SYNTHESIZER</div>
+            <div style="color: #ffff00; margin-top: 5px; font-size: 12px;">Φ_audio = ∑ζ(½+iγₙ) ⊗ C_QC</div>
+            <div style="color: #ff00ff; margin-top: 3px; font-size: 10px;">Pablo Cohen - Principia Fractalis</div>
+        </div>
+        
+        <div class="mode-indicator" id="modeIndicator">RIEMANN ZETA HARMONICS</div>
+        
+        <button id="fullscreenBtn">⚡ ENTER FULL IMMERSION ⚡</button>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>🎹 Synthesis Mode</label>
+                <select id="synthMode">
+                    <option value="zeta">Riemann Zeta Harmonics</option>
+                    <option value="spectralGap">Spectral Gap Resonance</option>
+                    <option value="golden">Golden Ratio Cascade</option>
+                    <option value="consciousness">Consciousness Field Φ</option>
+                    <option value="fractal">Fractal Existence</option>
+                    <option value="unified">Unified T∞ Field</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label>🔥 Field Coupling α: <span class="value-display" id="alphaValue">1.618</span></label>
+                <input type="range" id="alpha" min="0.5" max="3" step="0.001" value="1.618">
+            </div>
+            
+            <div class="control-group">
+                <label>⚡ Spectral Gap Δ: <span class="value-display" id="deltaValue">0.089</span></label>
+                <input type="range" id="delta" min="0.001" max="0.5" step="0.001" value="0.089">
+            </div>
+            
+            <div class="control-group">
+                <label>🌀 Zeta Depth (zeros): <span class="value-display" id="depthValue">8</span></label>
+                <input type="range" id="depth" min="1" max="20" step="1" value="8">
+            </div>
+            
+            <div class="control-group">
+                <label>🧠 Consciousness C_QC: <span class="value-display" id="cqcValue">0.5</span></label>
+                <input type="range" id="cqc" min="0" max="1" step="0.01" value="0.5">
+            </div>
+            
+            <div class="control-group">
+                <label>🔊 Master Volume: <span class="value-display" id="volumeValue">0.5</span></label>
+                <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+            </div>
+            
+            <div class="control-group">
+                <button id="playBtn">▶ INITIATE FIELD (A=440Hz)</button>
+                <button id="resetBtn">♻️ Reset to Φ State</button>
+            </div>
+        </div>
+        
+        <div class="waveform-display">
+            <canvas id="waveformCanvas"></canvas>
+        </div>
+        
+        <div class="spectrum-display">
+            <canvas id="spectrumCanvas"></canvas>
+        </div>
+        
+        <div class="keyboard" id="keyboard"></div>
+        
+        <div class="equation">
+            <div style="color: #ffff00; margin-bottom: 8px;">🧮 Current Synthesis Equation:</div>
+            <div id="equationDisplay" style="color: #fff; font-size: 12px;">Φ(t) = ∑ₙ ζ(½+iγₙ) · e^(2πift)</div>
+            <div style="color: #00ffff; font-size: 10px; margin-top: 8px;">
+                First 50 Riemann zeta zeros driving harmonic generation
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div>🎵 Frequency: <span class="value-display" id="freqDisplay">440.00</span> Hz</div>
+            <div>📊 Harmonics: <span class="value-display" id="harmonicCount">0</span></div>
+            <div>⚡ Field Energy: <span class="value-display" id="fieldEnergy">0.000</span></div>
+            <div>🔢 ζ Real: <span class="value-display" id="zetaReal">0.000</span></div>
+            <div>🔢 ζ Imag: <span class="value-display" id="zetaImag">0.000</span></div>
+        </div>
+    </div>
+    
+    <div id="errorMessage" class="hidden"></div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════════
+        // FRACTAL RESONANCE SYNTHESIZER
+        // Principia Fractalis Audio Engine - Pablo Cohen
+        // ═══════════════════════════════════════════════════════════════
+        
+        const PHI = 1.6180339887498949;
+        const PI = Math.PI;
+        const TAU = 2 * PI;
+        
+        // First 50 nontrivial zeros of Riemann zeta (imaginary parts γₙ)
+        const RIEMANN_ZEROS = [
+            14.134725, 21.022040, 25.010858, 30.424876, 32.935062,
+            37.586178, 40.918720, 43.327073, 48.005151, 49.773832,
+            52.970321, 56.446248, 59.347044, 60.831779, 65.112544,
+            67.079811, 69.546402, 72.067158, 75.704691, 77.144840,
+            79.337375, 82.910381, 84.735493, 87.425275, 88.809111,
+            92.491899, 94.651344, 95.870634, 98.831194, 101.317851,
+            103.725538, 105.446623, 107.168611, 111.029536, 111.874659,
+            114.320220, 116.226680, 118.790782, 121.370125, 122.946829,
+            124.256819, 127.516683, 129.578704, 131.087688, 133.497737,
+            134.756509, 138.116042, 139.736209, 141.123707, 143.111846
+        ];
+        
+        // ═══════════════════════════════════════════════════════════════
+        // WEBGL BACKGROUND VISUALIZATION
+        // ═══════════════════════════════════════════════════════════════
+        
+        const canvas = document.getElementById('canvas');
+        const gl = canvas.getContext('webgl2') || canvas.getContext('webgl');
+        
+        if (!gl) {
+            document.getElementById('errorMessage').textContent = 'WebGL not supported';
+            document.getElementById('errorMessage').classList.remove('hidden');
+        }
+        
+        const vertexShaderSource = `
+            attribute vec2 a_position;
+            varying vec2 v_uv;
+            void main() {
+                v_uv = a_position * 0.5 + 0.5;
+                gl_Position = vec4(a_position, 0.0, 1.0);
+            }
+        `;
+        
+        const fragmentShaderSource = `
+            precision mediump float;
+            
+            uniform float u_time;
+            uniform vec2 u_resolution;
+            uniform float u_audioLevel;
+            uniform float u_alpha;
+            uniform float u_delta;
+            uniform float u_cqc;
+            uniform int u_mode;
+            
+            varying vec2 v_uv;
+            
+            #define PI 3.14159265359
+            #define TAU 6.28318530718
+            #define PHI 1.61803398875
+            
+            vec2 cmul(vec2 a, vec2 b) {
+                return vec2(a.x*b.x - a.y*b.y, a.x*b.y + a.y*b.x);
+            }
+            
+            vec3 palette(float t, float audio) {
+                vec3 a = vec3(0.5);
+                vec3 b = vec3(0.5);
+                vec3 c = vec3(1.0);
+                vec3 d = vec3(0.0, 0.33, 0.67);
+                d += audio * vec3(0.2, 0.1, 0.3);
+                return a + b * cos(TAU * (c * t + d));
+            }
+            
+            float zetaPattern(vec2 p, float t, float delta) {
+                float sum = 0.0;
+                for (int n = 1; n <= 15; n++) {
+                    float nf = float(n);
+                    float gamma = 14.134725 + nf * 6.0;
+                    float phase = gamma * 0.1 + t;
+                    sum += sin(p.x * gamma * 0.05 + phase) * 
+                           cos(p.y * gamma * 0.05 - phase) * 
+                           exp(-delta * nf) / nf;
+                }
+                return sum;
+            }
+            
+            void main() {
+                vec2 uv = v_uv;
+                vec2 p = (uv - 0.5) * 2.0;
+                p.x *= u_resolution.x / u_resolution.y;
+                
+                float t = u_time * 0.5;
+                float audio = u_audioLevel;
+                
+                float pattern = 0.0;
+                
+                if (u_mode == 0) {
+                    pattern = zetaPattern(p * 3.0, t, u_delta);
+                } else if (u_mode == 1) {
+                    float r = length(p);
+                    float a = atan(p.y, p.x);
+                    pattern = sin(r * 10.0 - t * 2.0) * cos(a * 5.0 + t);
+                    pattern *= step(u_delta, mod(r, 0.3));
+                } else if (u_mode == 2) {
+                    float r = length(p);
+                    float a = atan(p.y, p.x);
+                    float spiral = log(r + 0.1) * PHI - a;
+                    pattern = sin(spiral * 5.0 + t * 2.0);
+                } else if (u_mode == 3) {
+                    pattern = sin(p.x * 5.0 + t) * cos(p.y * 5.0 - t);
+                    pattern += sin(length(p) * 8.0 - t * 3.0) * u_cqc;
+                } else if (u_mode == 4) {
+                    vec2 z = p * 2.0;
+                    for (int i = 0; i < 8; i++) {
+                        z = abs(z) / dot(z, z) - vec2(u_alpha - 1.0, u_delta * 2.0);
+                    }
+                    pattern = length(z) * 0.3;
+                } else {
+                    pattern = zetaPattern(p * 2.0, t, u_delta);
+                    float r = length(p);
+                    float spiral = log(r + 0.1) * PHI - atan(p.y, p.x);
+                    pattern += sin(spiral * 3.0 + t) * u_cqc * 0.5;
+                }
+                
+                pattern += audio * sin(length(p) * 20.0 - t * 5.0) * 0.5;
+                
+                vec3 col = palette(pattern * 0.5 + t * 0.1, audio);
+                col *= 0.3 + pattern * 0.3;
+                
+                float vig = 1.0 - length(uv - 0.5) * 0.8;
+                col *= vig;
+                
+                gl_FragColor = vec4(col, 1.0);
+            }
+        `;
+        
+        function createShader(gl, type, source) {
+            const shader = gl.createShader(type);
+            gl.shaderSource(shader, source);
+            gl.compileShader(shader);
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                console.error(gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+            return shader;
+        }
+        
+        function createProgram(gl, vs, fs) {
+            const program = gl.createProgram();
+            gl.attachShader(program, vs);
+            gl.attachShader(program, fs);
+            gl.linkProgram(program);
+            if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                console.error(gl.getProgramInfoLog(program));
+                return null;
+            }
+            return program;
+        }
+        
+        const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+        const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+        const program = createProgram(gl, vertexShader, fragmentShader);
+        
+        const positionBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+        
+        const locations = {
+            position: gl.getAttribLocation(program, 'a_position'),
+            time: gl.getUniformLocation(program, 'u_time'),
+            resolution: gl.getUniformLocation(program, 'u_resolution'),
+            audioLevel: gl.getUniformLocation(program, 'u_audioLevel'),
+            alpha: gl.getUniformLocation(program, 'u_alpha'),
+            delta: gl.getUniformLocation(program, 'u_delta'),
+            cqc: gl.getUniformLocation(program, 'u_cqc'),
+            mode: gl.getUniformLocation(program, 'u_mode')
+        };
+        
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // ═══════════════════════════════════════════════════════════════
+        // AUDIO ENGINE
+        // ═══════════════════════════════════════════════════════════════
+        
+        let audioCtx = null;
+        let masterGain = null;
+        let analyser = null;
+        let activeOscillators = [];
+        let activeGains = [];
+        let globalAudioLevel = 0;
+        let isPlaying = false;
+        
+        const state = {
+            alpha: PHI,
+            delta: 0.089,
+            depth: 8,
+            cqc: 0.5,
+            volume: 0.5,
+            mode: 'zeta',
+            currentFreq: 440
+        };
+        
+        const modeNames = {
+            zeta: 'RIEMANN ZETA HARMONICS',
+            spectralGap: 'SPECTRAL GAP RESONANCE',
+            golden: 'GOLDEN RATIO CASCADE',
+            consciousness: 'CONSCIOUSNESS FIELD Φ',
+            fractal: 'FRACTAL EXISTENCE',
+            unified: 'UNIFIED T∞ FIELD'
+        };
+        
+        const modeIndices = { zeta: 0, spectralGap: 1, golden: 2, consciousness: 3, fractal: 4, unified: 5 };
+        
+        function initAudio() {
+            if (audioCtx) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioCtx.createGain();
+            masterGain.gain.value = state.volume;
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 2048;
+            masterGain.connect(analyser);
+            analyser.connect(audioCtx.destination);
+        }
+        
+        class Complex {
+            constructor(re, im) { this.re = re; this.im = im; }
+            abs() { return Math.sqrt(this.re * this.re + this.im * this.im); }
+            arg() { return Math.atan2(this.im, this.re); }
+            exp() {
+                const r = Math.exp(this.re);
+                return new Complex(r * Math.cos(this.im), r * Math.sin(this.im));
+            }
+        }
+        
+        function riemannZeta(s, terms = 30) {
+            let sum = new Complex(0, 0);
+            for (let n = 1; n <= terms; n++) {
+                const logN = Math.log(n);
+                const phase = -s.im * logN;
+                const mag = Math.pow(n, -s.re);
+                sum.re += mag * Math.cos(phase);
+                sum.im += mag * Math.sin(phase);
+            }
+            const gapFactor = Math.exp(-state.delta * s.im * s.im / 1000);
+            return new Complex(sum.re * gapFactor, sum.im * gapFactor);
+        }
+        
+        function generateZetaHarmonics(baseFreq) {
+            const harmonics = [];
+            for (let i = 0; i < state.depth && i < RIEMANN_ZEROS.length; i++) {
+                const gamma = RIEMANN_ZEROS[i];
+                const s = new Complex(0.5, gamma);
+                const zeta = riemannZeta(s);
+                const freq = baseFreq * (1 + gamma / RIEMANN_ZEROS[0]);
+                const gapMod = Math.exp(-state.delta * (gamma - 14.134725) / 10);
+                const amp = (1 / (i + 1)) * state.cqc * gapMod;
+                const phase = zeta.arg() + state.alpha * gamma / 100;
+                if (freq > 20 && freq < 20000) harmonics.push({ freq, amp, phase, gamma });
+            }
+            return harmonics;
+        }
+        
+        function generateGoldenCascade(baseFreq) {
+            const harmonics = [];
+            for (let i = 0; i < state.depth; i++) {
+                const phiPower = Math.pow(PHI, i - state.depth / 2);
+                const freq = baseFreq * phiPower;
+                const amp = Math.pow(1 / PHI, Math.abs(i - state.depth / 2)) * state.cqc;
+                const phase = i * TAU / (PHI * PHI) * state.alpha;
+                if (freq > 20 && freq < 20000) harmonics.push({ freq, amp, phase, gamma: phiPower });
+            }
+            return harmonics;
+        }
+        
+        function generateSpectralGap(baseFreq) {
+            const harmonics = [];
+            const gapPos = Math.max(2, Math.floor(1 / state.delta));
+            for (let i = 1; i <= state.depth; i++) {
+                if (i % gapPos !== 0) {
+                    const freq = baseFreq * i;
+                    const distFromGap = Math.min(i % gapPos, gapPos - (i % gapPos));
+                    const amp = (distFromGap / gapPos) * Math.exp(-state.delta * i) * state.cqc / i;
+                    const phase = i * state.delta * TAU * state.alpha;
+                    if (freq > 20 && freq < 20000) harmonics.push({ freq, amp, phase, gamma: distFromGap });
+                }
+            }
+            return harmonics;
+        }
+        
+        function generateConsciousnessField(baseFreq) {
+            const harmonics = [];
+            for (let i = 0; i < state.depth; i++) {
+                const cS = Math.exp(-state.cqc * i) * Math.cos(i * state.alpha);
+                const freq = baseFreq * (1 + cS * PHI);
+                const amp = Math.abs(cS) * state.cqc;
+                const phase = Math.atan2(Math.sin(i * state.alpha), cS);
+                if (freq > 20 && freq < 20000 && amp > 0.001) harmonics.push({ freq, amp, phase, gamma: cS });
+            }
+            return harmonics;
+        }
+        
+        function generateFractal(baseFreq) {
+            const harmonics = [];
+            function recurse(freq, amp, level, phase) {
+                if (level > state.depth || amp < 0.001 || freq < 20 || freq > 20000) return;
+                harmonics.push({ freq, amp, phase, gamma: level });
+                const br = 1 + 1 / PHI;
+                recurse(freq * br, amp / PHI, level + 1, phase + state.alpha);
+                recurse(freq / br, amp / PHI * state.cqc, level + 1, phase - state.alpha);
+            }
+            recurse(baseFreq, state.cqc, 0, 0);
+            return harmonics;
+        }
+        
+        function generateUnifiedField(baseFreq) {
+            const harmonics = [];
+            for (let i = 0; i < state.depth && i < RIEMANN_ZEROS.length; i++) {
+                const gamma = RIEMANN_ZEROS[i];
+                const zetaContrib = Math.exp(-state.delta * Math.abs(gamma - 14.134725) / 10);
+                const phiContrib = Math.pow(PHI, -i / 3);
+                const consciousnessContrib = state.cqc * Math.cos(i * state.alpha);
+                const freq = baseFreq * (gamma / 14.134725) * Math.pow(PHI, state.alpha - 1);
+                const amp = zetaContrib * phiContrib * Math.abs(consciousnessContrib);
+                const phase = gamma * state.delta + i * TAU / PHI;
+                if (freq > 20 && freq < 20000 && amp > 0.001) harmonics.push({ freq, amp, phase, gamma });
+            }
+            return harmonics;
+        }
+        
+        function playNote(freq) {
+            if (!audioCtx) initAudio();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            state.currentFreq = freq;
+            stopNote();
+            
+            let harmonics;
+            switch (state.mode) {
+                case 'zeta': harmonics = generateZetaHarmonics(freq); break;
+                case 'spectralGap': harmonics = generateSpectralGap(freq); break;
+                case 'golden': harmonics = generateGoldenCascade(freq); break;
+                case 'consciousness': harmonics = generateConsciousnessField(freq); break;
+                case 'fractal': harmonics = generateFractal(freq); break;
+                case 'unified': harmonics = generateUnifiedField(freq); break;
+                default: harmonics = generateZetaHarmonics(freq);
+            }
+            
+            const now = audioCtx.currentTime;
+            harmonics.forEach(h => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                const real = new Float32Array([0, 1, 0.5, 0.25, 0.125]);
+                const imag = new Float32Array([0, 0, 0, 0, 0]);
+                osc.setPeriodicWave(audioCtx.createPeriodicWave(real, imag));
+                
+                osc.frequency.value = h.freq;
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(h.amp * state.volume, now + 0.05);
+                gain.gain.exponentialRampToValueAtTime(h.amp * state.volume * 0.7, now + 0.15);
+                
+                osc.connect(gain);
+                gain.connect(masterGain);
+                osc.start(now);
+                
+                activeOscillators.push(osc);
+                activeGains.push(gain);
+            });
+            
+            updateStats(harmonics);
+        }
+        
+        function stopNote() {
+            const now = audioCtx ? audioCtx.currentTime : 0;
+            activeGains.forEach(g => {
+                try { g.gain.exponentialRampToValueAtTime(0.001, now + 0.2); } catch(e) {}
+            });
+            setTimeout(() => {
+                activeOscillators.forEach(o => { try { o.stop(); } catch(e) {} });
+                activeOscillators = [];
+                activeGains = [];
+            }, 250);
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // UI & VISUALIZATION
+        // ═══════════════════════════════════════════════════════════════
+        
+        const waveCanvas = document.getElementById('waveformCanvas');
+        const specCanvas = document.getElementById('spectrumCanvas');
+        const waveCtx = waveCanvas.getContext('2d');
+        const specCtx = specCanvas.getContext('2d');
+        
+        function setupAnalyserCanvases() {
+            waveCanvas.width = 300; waveCanvas.height = 80;
+            specCanvas.width = 300; specCanvas.height = 80;
+        }
+        setupAnalyserCanvases();
+        
+        function drawWaveform() {
+            if (!analyser) return;
+            const data = new Float32Array(analyser.fftSize);
+            analyser.getFloatTimeDomainData(data);
+            
+            waveCtx.fillStyle = 'rgba(0,0,0,0.3)';
+            waveCtx.fillRect(0, 0, 300, 80);
+            waveCtx.strokeStyle = '#00ffff';
+            waveCtx.lineWidth = 1.5;
+            waveCtx.beginPath();
+            
+            const slice = 300 / data.length;
+            let x = 0;
+            for (let i = 0; i < data.length; i++) {
+                const y = (data[i] + 1) / 2 * 80;
+                i === 0 ? waveCtx.moveTo(x, y) : waveCtx.lineTo(x, y);
+                x += slice;
+            }
+            waveCtx.stroke();
+        }
+        
+        function drawSpectrum() {
+            if (!analyser) return;
+            const data = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(data);
+            
+            let sum = 0;
+            for (let i = 0; i < data.length; i++) sum += data[i];
+            globalAudioLevel = sum / data.length / 255;
+            
+            specCtx.fillStyle = 'rgba(0,0,0,0.3)';
+            specCtx.fillRect(0, 0, 300, 80);
+            
+            const barW = 300 / 64;
+            for (let i = 0; i < 64; i++) {
+                const h = (data[i * 4] / 255) * 80;
+                const hue = (i / 64) * 300;
+                specCtx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+                specCtx.fillRect(i * barW, 80 - h, barW - 1, h);
+            }
+        }
+        
+        function createKeyboard() {
+            const keyboard = document.getElementById('keyboard');
+            const notes = [
+                { note: 'C', freq: 261.63, black: false },
+                { note: 'C#', freq: 277.18, black: true },
+                { note: 'D', freq: 293.66, black: false },
+                { note: 'D#', freq: 311.13, black: true },
+                { note: 'E', freq: 329.63, black: false },
+                { note: 'F', freq: 349.23, black: false },
+                { note: 'F#', freq: 369.99, black: true },
+                { note: 'G', freq: 392.00, black: false },
+                { note: 'G#', freq: 415.30, black: true },
+                { note: 'A', freq: 440.00, black: false },
+                { note: 'A#', freq: 466.16, black: true },
+                { note: 'B', freq: 493.88, black: false },
+                { note: 'C2', freq: 523.25, black: false }
+            ];
+            
+            notes.forEach(n => {
+                const key = document.createElement('div');
+                key.className = 'key' + (n.black ? ' black' : '');
+                key.addEventListener('mousedown', () => { key.classList.add('active'); playNote(n.freq); });
+                key.addEventListener('mouseup', () => { key.classList.remove('active'); stopNote(); });
+                key.addEventListener('mouseleave', () => key.classList.remove('active'));
+                keyboard.appendChild(key);
+            });
+        }
+        createKeyboard();
+        
+        function updateStats(harmonics) {
+            document.getElementById('freqDisplay').textContent = state.currentFreq.toFixed(2);
+            document.getElementById('harmonicCount').textContent = harmonics ? harmonics.length : 0;
+            if (harmonics && harmonics.length > 0) {
+                const s = new Complex(0.5, RIEMANN_ZEROS[0]);
+                const z = riemannZeta(s);
+                document.getElementById('zetaReal').textContent = z.re.toFixed(3);
+                document.getElementById('zetaImag').textContent = z.im.toFixed(3);
+                const energy = harmonics.reduce((s, h) => s + h.amp * h.amp, 0);
+                document.getElementById('fieldEnergy').textContent = energy.toFixed(3);
+            }
+        }
+        
+        function updateEquation() {
+            const eqs = {
+                zeta: 'Φ(t) = ∑ₙ ζ(½+iγₙ) · e^(2πift)',
+                spectralGap: 'S(f) = ∑_{n∉Gap(Δ)} aₙ · e^(2πinft)',
+                golden: 'Φ_φ(t) = ∑ₙ φ^(-|n|) · e^(2πi·f·φⁿ·t)',
+                consciousness: 'Φ = ∑_s c_s|s⟩ ⊗ C_QC',
+                fractal: 'F(t) = F(t/φ) + F(t·φ) · C_QC',
+                unified: 'T_∞(t) = ζ(s) ⊗ Φ ⊗ C_QC(α,Δ)'
+            };
+            document.getElementById('equationDisplay').textContent = eqs[state.mode] || eqs.zeta;
+            document.getElementById('modeIndicator').textContent = modeNames[state.mode];
+        }
+        
+        function updateDisplays() {
+            document.getElementById('alphaValue').textContent = state.alpha.toFixed(3);
+            document.getElementById('deltaValue').textContent = state.delta.toFixed(3);
+            document.getElementById('depthValue').textContent = state.depth;
+            document.getElementById('cqcValue').textContent = state.cqc.toFixed(2);
+            document.getElementById('volumeValue').textContent = state.volume.toFixed(2);
+        }
+        
+        document.getElementById('synthMode').addEventListener('change', e => {
+            state.mode = e.target.value;
+            updateEquation();
+            if (isPlaying) playNote(state.currentFreq);
+        });
+        
+        document.getElementById('alpha').addEventListener('input', e => {
+            state.alpha = parseFloat(e.target.value);
+            updateDisplays();
+            if (isPlaying) playNote(state.currentFreq);
+        });
+        
+        document.getElementById('delta').addEventListener('input', e => {
+            state.delta = parseFloat(e.target.value);
+            updateDisplays();
+            if (isPlaying) playNote(state.currentFreq);
+        });
+        
+        document.getElementById('depth').addEventListener('input', e => {
+            state.depth = parseInt(e.target.value);
+            updateDisplays();
+            if (isPlaying) playNote(state.currentFreq);
+        });
+        
+        document.getElementById('cqc').addEventListener('input', e => {
+            state.cqc = parseFloat(e.target.value);
+            updateDisplays();
+            if (isPlaying) playNote(state.currentFreq);
+        });
+        
+        document.getElementById('volume').addEventListener('input', e => {
+            state.volume = parseFloat(e.target.value);
+            if (masterGain) masterGain.gain.value = state.volume;
+            updateDisplays();
+        });
+        
+        document.getElementById('playBtn').addEventListener('click', () => {
+            if (!isPlaying) {
+                isPlaying = true;
+                document.getElementById('playBtn').textContent = '◼ COLLAPSE FIELD';
+                playNote(440);
+            } else {
+                isPlaying = false;
+                document.getElementById('playBtn').textContent = '▶ INITIATE FIELD (A=440Hz)';
+                stopNote();
+            }
+        });
+        
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            state.alpha = PHI; state.delta = 0.089; state.depth = 8; state.cqc = 0.5; state.volume = 0.5;
+            state.mode = 'zeta';
+            document.getElementById('alpha').value = PHI;
+            document.getElementById('delta').value = 0.089;
+            document.getElementById('depth').value = 8;
+            document.getElementById('cqc').value = 0.5;
+            document.getElementById('volume').value = 0.5;
+            document.getElementById('synthMode').value = 'zeta';
+            if (masterGain) masterGain.gain.value = 0.5;
+            updateDisplays();
+            updateEquation();
+        });
+        
+        document.getElementById('fullscreenBtn').addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                document.getElementById('fullscreenBtn').textContent = '🌟 EXIT IMMERSION 🌟';
+            } else {
+                document.exitFullscreen();
+                document.getElementById('fullscreenBtn').textContent = '⚡ ENTER FULL IMMERSION ⚡';
+            }
+        });
+        
+        const keyMap = {
+            'KeyA': 261.63, 'KeyW': 277.18, 'KeyS': 293.66, 'KeyE': 311.13,
+            'KeyD': 329.63, 'KeyF': 349.23, 'KeyT': 369.99, 'KeyG': 392.00,
+            'KeyY': 415.30, 'KeyH': 440.00, 'KeyU': 466.16, 'KeyJ': 493.88, 'KeyK': 523.25
+        };
+        
+        document.addEventListener('keydown', e => {
+            if (keyMap[e.code] && !e.repeat) playNote(keyMap[e.code]);
+            if (e.code === 'Space') { e.preventDefault(); document.getElementById('playBtn').click(); }
+        });
+        document.addEventListener('keyup', e => { if (keyMap[e.code]) stopNote(); });
+        
+        let cursorTimeout;
+        document.addEventListener('mousemove', () => {
+            document.body.style.cursor = 'default';
+            clearTimeout(cursorTimeout);
+            cursorTimeout = setTimeout(() => document.body.style.cursor = 'none', 3000);
+        });
+        
+        // ═══════════════════════════════════════════════════════════════
+        // RENDER LOOP
+        // ═══════════════════════════════════════════════════════════════
+        
+        const startTime = Date.now();
+        
+        function render() {
+            const t = (Date.now() - startTime) / 1000;
+            
+            drawWaveform();
+            drawSpectrum();
+            
+            gl.clearColor(0, 0, 0, 1);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+            gl.useProgram(program);
+            
+            gl.uniform1f(locations.time, t);
+            gl.uniform2f(locations.resolution, canvas.width, canvas.height);
+            gl.uniform1f(locations.audioLevel, globalAudioLevel);
+            gl.uniform1f(locations.alpha, state.alpha);
+            gl.uniform1f(locations.delta, state.delta);
+            gl.uniform1f(locations.cqc, state.cqc);
+            gl.uniform1i(locations.mode, modeIndices[state.mode] || 0);
+            
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.enableVertexAttribArray(locations.position);
+            gl.vertexAttribPointer(locations.position, 2, gl.FLOAT, false, 0, 0);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            
+            requestAnimationFrame(render);
+        }
+        
+        updateDisplays();
+        updateEquation();
+        render();
+    </script>
+</body>
+</html>
