@@ -1,6 +1,6 @@
 # Principia Fractalis — Per-Axis Clay Citation Cards
 
-**HEAD anchor**: latest. **Lean build**: completes successfully (job count grows with the corpus; ~6,000 jobs at HEAD `31f0d4b`; Lean 4.24.0-rc1; verified directly via `lake build`). **Coq build**: declaration-level structural-shape parity (the load-bearing mathematical content lives on the Lean side).
+**HEAD anchor**: latest. **Lean build**: **8,710 jobs clean at HEAD `df0bd7e`** (Lean 4.24.0-rc1; verified directly tonight via `lake build`; the count rises with each commit). **Coq build**: declaration-level structural-shape parity (the load-bearing mathematical content lives on the Lean side).
 
 Each card below is a single-axis presentation of what Principia Fractalis
 proves about the corresponding Clay Millennium Problem at the framework's
@@ -26,7 +26,7 @@ classical mathematics. **Zero project axioms.**
 git clone https://github.com/FractalDevTeam/Principia-Fractalis
 cd Principia-Fractalis/PF_Lean4_Code
 lake build
-# Expected: Build completed successfully (N jobs; ~6,000 at HEAD 31f0d4b).
+# Expected: Build completed successfully (8,710 jobs at HEAD df0bd7e).
 ```
 
 To verify any card below, paste its `lake env lean` command after the

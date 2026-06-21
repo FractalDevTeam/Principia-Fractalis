@@ -30,10 +30,10 @@ lake build
 ```
 
 **Expected output**: `Build completed successfully (N jobs).` where N is
-the current full-build job count (the corpus has grown since this
-quickstart was first authored — at HEAD `31f0d4b` the count is
-approximately 6,000 jobs and rising). Every Lean file in the project
-compiles; the kernel accepts every proof.
+the current full-build job count. The corpus has grown since this
+quickstart was first authored — at HEAD `df0bd7e` the count is **8,710
+jobs**, verified directly tonight, and rising with each commit. Every
+Lean file in the project compiles; the kernel accepts every proof.
 
 If you see ANY `error:` line, the framework is broken at the
 referenced commit and the rest of this document is moot. The
