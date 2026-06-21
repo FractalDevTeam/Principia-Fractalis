@@ -1,0 +1,68 @@
+==============================================================================
+144TH-PROBLEM GRAPH ISOMORPHISM RUN — Principia Fractalis forward prediction
+Pipeline: extended QUATUM_TUNED_IBM.ipynb (FractalResonanceFramework + AerSimulator)
+Date: 2026-06-21T20:24:45.562128Z
+==============================================================================
+
+Framework-predicted α values:
+  α_P  = √2     = 1.4142135624
+  α_NP = φ+1/4  = 1.8680339887
+Pre-registered acceptance criterion: |α_obs − α_predicted| ≤ 10⁻⁴ on canonical run
+
+STAGE 1: Coarse alpha sweep [1.0, 2.5] at 10⁻² resolution
+------------------------------------------------------------------------------
+  Coarse peak_alpha: 1.0000  (coherence: 0.301455)
+  Δ(√2):     0.414214
+  Δ(φ+1/4):  0.868034
+
+STAGE 2: Precision-enhanced sweep at 10⁻⁵ resolution (around coarse peak)
+------------------------------------------------------------------------------
+  Fine peak_alpha: 1.0000000000  (coherence: 0.3014547265)
+  Δ(√2):     0.4142135624
+  Δ(φ+1/4):  0.8680339887
+  Pre-registered tolerance: 10⁻⁴ = 0.0001
+  Closest canonical: α_P=√2; Δ = 0.4142135624
+  VERDICT (pure-coherence sweep): FAIL
+
+STAGE 3: Ten independent GI instances on Qiskit AerSimulator (5-qubit)
+------------------------------------------------------------------------------
+  Instance generation: random_regular_graph(degree=3, n=8) under seeded RNG
+  Per instance: G1 + isomorphic relabeling G2; both run through the framework's circuit
+
+  Seed  0: fid(G1)=0.0391  fid(G2)=0.0449  |Δ|=0.0059  t=0.01s
+  Seed  1: fid(G1)=0.0469  fid(G2)=0.0430  |Δ|=0.0039  t=0.00s
+  Seed  2: fid(G1)=0.0410  fid(G2)=0.0400  |Δ|=0.0010  t=0.00s
+  Seed  3: fid(G1)=0.0439  fid(G2)=0.0439  |Δ|=0.0000  t=0.00s
+  Seed  4: fid(G1)=0.0391  fid(G2)=0.0439  |Δ|=0.0049  t=0.00s
+  Seed  5: fid(G1)=0.0430  fid(G2)=0.0391  |Δ|=0.0039  t=0.00s
+  Seed  6: fid(G1)=0.0430  fid(G2)=0.0430  |Δ|=0.0000  t=0.01s
+  Seed  7: fid(G1)=0.0420  fid(G2)=0.0420  |Δ|=0.0000  t=0.00s
+  Seed  8: fid(G1)=0.0430  fid(G2)=0.0420  |Δ|=0.0010  t=0.00s
+  Seed  9: fid(G1)=0.0420  fid(G2)=0.0410  |Δ|=0.0010  t=0.00s
+
+  10-instance mean fid(G1):  0.042285
+  10-instance mean fid(G2):  0.042285
+  10-instance mean |Δ|:      0.002148  (low |Δ| = isomorphism preserved by circuit)
+
+STAGE 4: Synthesis
+==============================================================================
+Framework coherence-sweep peak_alpha:           1.0000000000
+  Δ from α_P=√2:                                0.4142135624
+  Δ from α_NP=φ+1/4:                            0.8680339887
+  Pre-registered 10⁻⁴ verdict (coherence):      FAIL
+
+Aer-simulation 10-instance GI fidelity (G1):    0.042285
+Aer-simulation 10-instance GI fidelity (G2):    0.042285
+  Isomorphism-preservation |Δ|:                 0.002148
+
+Interpretation:
+  - The framework's coherence-sweep peak is purely analytic — it depends only on
+    the fractal_resonance_function structure, not on any GI-specific input.
+  - The Aer-simulation GI fidelity is the quantum-circuit measurement on
+    GI-derived inputs; it does not directly produce peak_alpha.
+  - The existing CSV's peak_alpha=1.41 for GI was obtained by a post-processing
+    step (likely a per-problem alpha-fit) not visible in QUATUM_TUNED_IBM.ipynb.
+    Without that post-processing pipeline source, this run cannot directly
+    reproduce the CSV's peak_alpha methodology.
+
+Run complete at 2026-06-21T20:24:47.391768Z
