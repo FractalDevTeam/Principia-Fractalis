@@ -72,7 +72,7 @@ Four named project axioms total across the active corpus:
 | `Mayer1991_Cohen2025_substrate_HP_program_citation` | `HilbertPolyaProgramConjecture_Positive := PF_T3SymIsHilbertPolyaOperator_Positive → RiemannHypothesis` | Published open conjecture (Mayer 1991 / Berry–Keating 1999 / Connes 1999 / Bost–Connes 1995) |
 | `Mayer1991_Cohen2025_T3_sym_spectral_data_substrate_citation` | Operator-spectrum existential | Substrate-internal-content packaging |
 
-No orphan axioms, no `sorry`, no hidden axioms via `opaque`. See [`docs/CLAY_PER_AXIS_CITATION_CARDS.md`](../docs/CLAY_PER_AXIS_CITATION_CARDS.md) for the detailed inventory and per-theorem axiom-set verification.
+No orphan axioms, no `sorry`, no hidden axioms via `opaque`. See [`docs/CLAY_PER_AXIS_CITATION_CARDS.md`](../docs/CLAY_PER_AXIS_CITATION_CARDS.md) for the detailed per-axis inventory and per-theorem axiom-set verification, and [`docs/AUDIT_FINDINGS_AND_RESPONSES.md`](../docs/AUDIT_FINDINGS_AND_RESPONSES.md) for pre-loaded responses to every attack pattern external adversarial vetting has surfaced against the corpus.
 
 ---
 
