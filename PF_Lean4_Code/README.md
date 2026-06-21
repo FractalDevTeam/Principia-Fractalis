@@ -36,7 +36,7 @@ Lean 4, mathlib4 v4.24.0-rc1. From this directory:
 lake build PF
 ```
 
-Expected: ~6000 jobs clean, kernel-only axiom-set on every load-bearing theorem. First build takes 30–60 minutes including mathlib compilation.
+Expected: ~8,700 jobs clean (verified directly tonight at HEAD; the count rises with each commit), kernel-only axiom-set on every load-bearing theorem. First build takes 30–60 minutes including mathlib compilation.
 
 Independent kernel re-elaboration is in the sibling [`../PF_Lean4Lean/`](../PF_Lean4Lean/) package (separate `lakefile.toml`, separate package hash). This re-elaborates the same proof terms through Lean's production kernel under a different package configuration. It is **not** Mario Carneiro's external [`lean4lean`](https://github.com/digama0/lean4lean) Rust kernel re-implementation tool, which would constitute a second proof-checker entirely; running that tool on the corpus's `.olean` files is a forward-runnable extension of this work.
 
