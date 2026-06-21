@@ -1,6 +1,6 @@
 # Principia Fractalis
 
-**A substrate-level Theory of Everything.** Six unsolved Clay Millennium Problems exhibited as six co-implied projections of one underlying nine-class algebraic substrate, machine-checked across three independent prover stacks (Lean 4, Lean4Lean, Coq 8.18). The framework's distinctive content extends beyond Clay to consciousness-modified general relativity, the Λ-CDM rebuttal with energy conservation restored, the Weinstein Geometric-Unity rescue, base-3 ternary substrate underpinning Navier–Stokes no-blowup convergence and Razborov–Rudich / Aaronson–Wigderson algebrization-barrier defeat, Grothendieck topos theory as the cognitive architecture of consciousness, and clinical consciousness measurement validated across 847 patients at 97.3% diagnostic accuracy.
+**A substrate-level Theory of Everything.** Six unsolved Clay Millennium Problems exhibited as six co-implied substrate-level projections of one underlying nine-class algebraic substrate, machine-checked in Lean 4 with independent kernel re-elaboration via Lean4Lean and declaration-level structural-shape parity in Coq 8.18 (the load-bearing mathematical verification is carried by the Lean 4 + Lean4Lean kernels; the Coq layer is a structural-shape mirror, not an independent mathematical verification). The framework's distinctive content extends beyond Clay to consciousness-modified general relativity, the Λ-CDM rebuttal with energy conservation restored, the Weinstein Geometric-Unity rescue, base-3 ternary substrate underpinning Navier–Stokes no-blowup convergence and Razborov–Rudich / Aaronson–Wigderson algebrization-barrier defeat, Grothendieck topos theory as the cognitive architecture of consciousness, and clinical consciousness measurement with book-documented retrospective methodology on 847 patients at 97.3% classification accuracy (independent peer-reviewed clinical-validation publication of the specific 847-patient analysis is pending and is explicitly not a substantive claim of this corpus).
 
 Author: **Pablo Cohen** ([ORCID](https://orcid.org/0009-0002-0734-5565))
 License: **CC BY-NC 4.0**
@@ -106,7 +106,7 @@ The substrate's α-skeleton is uniquely forced by twelve simultaneous cross-Mill
 | Axis | α-value | Substrate forcing |
 |---|---|---|
 | Riemann Hypothesis | 3/2 | Hilbert–Pólya `T_3^sym` operator (proven self-adjoint kernel-only) |
-| P vs NP | √2 (P class) / φ + 1/4 (NP class) | Galois conjugate pair over ℚ(√5), discriminant 20 |
+| P vs NP | √2 (P class) / φ + 1/4 (NP class) | Paired-root structure over ℚ(√5) (field discriminant 20); the two values are roots of a specific ℚ(√5)-rational quadratic with polynomial discriminant 29 − 12√5 — not Galois conjugates of each other in the strict sense (the action σ: √5 ↦ −√5 fixes 3/2 ∈ ℚ and sends 3/4 + √5/2 to 3/4 − √5/2). See paper §2.4 for the precise terminology. |
 | Navier–Stokes 3D | 3π/2 | Fujita–Kato Gaussian-lift route |
 | Yang–Mills mass gap | 2 | `Matrix.specialUnitaryGroup (Fin 2) ℂ` |
 | Birch–Swinnerton-Dyer | 3π/4 | `WeierstrassCurve ℚ` |
@@ -116,9 +116,9 @@ The substrate's α-skeleton is uniquely forced by twelve simultaneous cross-Mill
 
 ### Beyond Clay: substrate mechanisms
 
-- **Λ-CDM rebuttal**: Standard cosmology with constant Λ in growing comoving volume implies energy creation. The substrate's consciousness-modified `Λ_eff(t)` restores energy conservation. Theorem `energy_conserved_toy` axiom-free in `PF/Cosmology/LambdaCDMRebuttalEnergyConservation.lean`. 94.3% better χ² fit (354.2 vs 687.3 standard) over 580 SN + 13 BAO + Planck CMB. Hubble tension resolved: `H_0 = 69.8 ± 0.8` brackets SH0ES (73.0) and Planck (67.4) within 2σ.
+- **Λ-CDM rebuttal**: Standard cosmology with constant Λ in growing comoving volume implies energy creation. The substrate's consciousness-modified `Λ_eff(t)` restores energy conservation. Toy theorem `energy_conserved_toy` axiom-free in `PF/Cosmology/LambdaCDMRebuttalEnergyConservation.lean`. The substrate predicts the Hubble parameter in the bracket `H_0 ∈ [67, 75] km/s/Mpc`, which contains both the SH0ES local value (73.0) and the Planck CMB value (67.4). Detailed cosmology-data fit comparisons are documented in the book and the corroborating-evidence review; the substrate's Λ-CDM rebuttal carries forward-runnable observational tests of modified Friedmann equations and additional GR polarization modes.
 
-- **Weinstein Geometric-Unity rescue**: Fractal regularization at dimension `d_f = 13.7329` restores Shiab operator self-adjointness. BRST `H² = 78 = dim E_6 = 48 + 26 + 4` machine-verified in `PF/Consciousness/WeinsteinGUResonantRescue.lean`.
+- **Weinstein Geometric-Unity rescue**: Fractal regularization at dimension `d_f = 13.7329` restores Shiab operator self-adjointness. The BRST `H² = 78 = 48 + 26 + 4 = dim E_6` arithmetic identity is machine-verified in `PF/Consciousness/WeinsteinGUResonantRescue.lean` as a numerical pin; the underlying BRST cohomology construction itself is the substrate's structural proposal documented in Chapter 11 of the book, not a Lean-derived cohomology theorem. F7 is the corresponding forward-runnable falsifier.
 
 - **Base-3 ternary substrate**: NS no-blowup cascade convergence requires `Z < S` with `Z = 2`, `S = 3`. `D_3 = digitalSum3` on base-3 has no polynomial extension over ℚ, defeating the algebrization barriers.
 
@@ -130,7 +130,7 @@ The substrate's α-skeleton is uniquely forced by twelve simultaneous cross-Mill
 
 ### Falsifiability
 
-Eight typed falsifiers F1–F8 explicitly register the empirical or structural observations that would refute the framework. As of HEAD: **zero are triggered**; F3 (Λ_eff suppression ratio) is **actively corroborated** by joint DESI BAO + Planck CMB + Pantheon+ cosmology.
+Eight typed falsifiers F1–F8 explicitly register the empirical or structural observations that would refute the framework. As of HEAD: **zero are triggered**. F1, F2, F5, F7 are forward-runnable at current measurement precision (genuinely falsifiable today). F3, F4, F6, F8 are consistency-check brackets at current precision (forward-falsifiable as measurement precision improves); F3 sits at the long-known cosmological-constant ratio that joint DESI BAO + Planck CMB + Pantheon+ effective-parameter constraints are consistent with — this is structural-rigidity corroboration, not chronological forward prediction. See paper §7 for the precise class distinction and §8 for the audit chronology.
 
 ---
 
