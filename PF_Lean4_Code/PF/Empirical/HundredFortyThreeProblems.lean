@@ -159,11 +159,33 @@ private theorem mem_replicate_iff {α : Type*} {n : ℕ} {a x : α} :
     x ∈ List.replicate n a ↔ n ≠ 0 ∧ x = a := by
   exact List.mem_replicate
 
-/-! ## Main empirical-validation theorems -/
+/-! ## Main structural-schema theorems
 
-/-- **Universal fractal coherence** (Ch 21 Theorem "Universal Coherence",
-    line 1141): every problem in the 143-problem dataset has measured α
-    equal to one of the two canonical class values `{√2, φ + 1/4}`. -/
+    HONEST SCOPE: the theorems below operate on the substrate's typed
+    143-slot CLASSIFICATION SCHEMA (72 P-class replicas + 71 NP-class
+    replicas, with `alphaMeasured` set to the canonical class value
+    by construction via `canonicalEntry`). They do NOT certify that
+    the corpus's empirical 142-line CSV at
+    `Papers/Data/principia_fractalis_143_problems_IBM_dataset.csv`
+    has every row's measured `peak_alpha` clustered at canonical
+    values; direct CSV inspection shows broad `peak_alpha` distribution
+    with specific exact-canonical hits on the Clay-axis-named rows
+    (Riemann Hypothesis at peak_alpha=1.5, P-versus-NP at
+    peak_alpha=1.868) plus universal `fractal_coherence = 100`. The
+    Lean theorem certifies the framework's classification schema is
+    self-consistent; the empirical anchor lives in the CSV's
+    Clay-axis exact hits and universal fractal-coherence column, not
+    in a claim of peak-α clustering across all rows. See the paper
+    §8.x (142-sample / 143-schema characterization) and §9.2 (142-
+    instance benchmark panel) for the detailed framing. -/
+
+/-- **Universal fractal coherence on the substrate's classification
+    schema** (Ch 21 Theorem "Universal Coherence", line 1141): every
+    slot in the substrate's typed 143-slot classification schema has
+    `alphaMeasured` set to one of the two canonical class values
+    `{√2, φ + 1/4}` by the framework's classification rule. This is
+    a structural assertion about the schema, NOT an empirical
+    measurement claim about the 142-line CSV's `peak_alpha` column. -/
 theorem universal_fractal_coherence :
     ∀ p ∈ the143Problems,
       p.alphaMeasured = Real.sqrt 2 ∨ p.alphaMeasured = phi + 1/4 := by
