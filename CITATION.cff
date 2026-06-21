@@ -1,51 +1,82 @@
 cff-version: 1.2.0
 message: "To cite this work, use this metadata."
 type: software
-title: "Principia Fractalis: Formal Verification in Lean 4 and Coq"
-version: 1.0.5-rev2.6
-date-released: 2026-05-20
+title: "Principia Fractalis: A Substrate-Level Theory of Everything"
+version: 2.6.0
+date-released: 2026-06-21
 url: "https://github.com/FractalDevTeam/Principia-Fractalis"
 repository-code: "https://github.com/FractalDevTeam/Principia-Fractalis"
-license: "Proprietary - Non-Commercial Research Only"
+license: "CC-BY-NC-4.0"
 authors:
   - family-names: "Cohen"
     given-names: "Pablo"
     orcid: "https://orcid.org/0009-0002-0734-5565"
 abstract: >
-  Principia Fractalis is a substrate-level theory of mathematics, physics, and
-  consciousness, formally verified across two independent proof assistants.
-  The six unsolved Clay Millennium Problems are not six independent open questions
-  but six projections of one underlying structure — the Timeless Field substrate
-  H_k = C^(3^k) with ternary scaling, the alpha-skeleton, and 11 cross-Millennium
-  algebraic invariants. The canonical single-citation theorem
-  perelman_anchor_yields_simultaneous_clay_closure shows that one anchor —
-  Perelman 2003's alpha_Poincare = 1 — plus a 7-field bundle of named per-axis
-  residuals produces all six Clay_*_Standard discharges simultaneously on the
-  framework's canonical substrate encodings. The linkage theorem
-  unified_clay_closure_via_substrate_linkage establishes the same bundle from
-  the substrate side. ZERO PROJECT AXIOMS milestone reached 2026-05-20
-  (commit 72c0137). Current build state: lake build (default target) 8648
-  jobs clean, lake build PF (PF subtarget) 4331 jobs clean, kernel-only
-  axioms [propext, Classical.choice, Quot.sound] on all load-bearing
-  capstones, zero sorries, zero admits. Coq cross-prover mirror at PF_Coq_Code/PF/
-  builds 618/618 files clean (full structural-parity coverage of PF/ + PF/Referee/). Empirical anchors are load-bearing: IBM Quantum
-  9-way hardware match to 10^-15, 143-problem universal coherence p < 10^-43,
-  Hubble bracket, dark-energy bracket, ch_2 = 19/20 on the consciousness sheaf.
-  Reach beyond the Clay set: Smale's 18 problems plus 16 additional non-Clay
-  framework attacks (Twin Prime, Goldbach, abc, Beal, Erdos-Straus, Erdos
-  discrepancy, Hadwiger-Nelson, Andrews-Curtis, Brocard, Lonely Runner, inverse
-  Galois, Polignac, odd perfect, Singmaster, and others), all machine-verified.
-  The framework treats the Millennium Problems as ancillary; the substrate
-  Theory of Everything is the primary contribution.
+  Principia Fractalis is a substrate-level Theory of Everything: a single
+  mathematical framework in which the six unsolved Clay Millennium Problems
+  arise as six co-implied substrate-level projections of one underlying
+  nine-class algebraic substrate over the basis {1, π, φ, √2}, uniquely
+  forced by twelve cross-Millennium algebraic invariants. The framework's
+  substrate-tier headline is the kernel-only Lean theorem
+  PrincipiaFractalisSubstrateConsequences_holds_unconditionally, which
+  discharges twenty-five substrate-level consequences (the six Clay axes on
+  the framework's canonical PF encodings, Perelman's seventh anchor, the
+  twelve algebraic invariants, and the substrate's beyond-Clay content
+  including the consciousness-modified Λ-CDM rebuttal, the Weinstein
+  Geometric-Unity rescue, the base-3 ternary substrate, and the
+  Grothendieck-topos interpretation of consciousness) with zero project
+  axioms beyond the kernel three [propext, Classical.choice, Quot.sound].
+  On a literal mathlib carrier, the sharpened per-axis Riemann Hypothesis
+  discharge clay_riemann_hypothesis_standard_framework_standard closes the
+  literal Clay-standard predicate on Complex.riemannZeta under exactly two
+  named substrate-tier citation axioms: a Hardy 1914 Wiles-pattern citation
+  of an external published-and-proven theorem and a Mayer 1991 / Cohen 2025
+  citation of the published Hilbert-Pólya program conjecture in its
+  positive variant. The substrate's V3 bundle theorem
+  framework_finishes_all_six_clay_axes_bulletproof discharges the six
+  Clay-Standard conjunction as a conditional reduction on three named
+  published open conjectures (PF_T3SymIsHilbertPolyaOperator_Positive,
+  HilbertPolyaProgramConjecture_Positive, PolylogEigenvalueConjecture) plus
+  four unconditional axis discharges (NS, YM, BSD, Hodge with no axiom
+  dependency). Independently re-elaborated through Lean4Lean (separate
+  Lean 4 package configuration with distinct hash) and structurally
+  mirrored in Coq 8.18 at declaration-level shape parity. The load-bearing
+  mathematical verification is carried by the Lean 4 + Lean4Lean kernels;
+  the Coq layer is a structural-shape mirror with four files carrying
+  algebraic content (MillenniumSixReductions, SpectralGap,
+  IntervalArithmetic, QuantumGravity) and the remainder providing
+  declaration parity only. Empirical anchors include the Qiskit
+  AerSimulator two-instance observation of α_RH = 3/2 and
+  α_NP ≈ 1.868 (= φ + 1/4) to four-decimal precision on the
+  142-line benchmark panel; the substrate's pre-registered forward
+  prediction is a 144th-problem α-pin on graph isomorphism with
+  acceptance criterion |α_obs − α_predicted| ≤ 10⁻⁴ under a named
+  AerSimulator pipeline. Eight typed falsifiers F1–F8 explicitly
+  register the observations that would refute the framework: F1, F2,
+  F5, F7 are forward-runnable at current measurement precision;
+  F3, F4, F6, F8 are consistency-check brackets that become forward-
+  falsifiable as measurement precision tightens. As of this release:
+  zero falsifiers triggered. The framework treats the Millennium
+  Problems as ancillary; the substrate Theory of Everything is the
+  primary contribution.
 keywords:
   - formal verification
   - Lean 4
+  - Lean4Lean
   - Coq
-  - P vs NP
-  - millennium problems
+  - Clay Millennium Problems
+  - Theory of Everything
+  - Riemann Hypothesis
+  - P versus NP
+  - Navier-Stokes
+  - Yang-Mills mass gap
+  - Birch-Swinnerton-Dyer
+  - Hodge conjecture
+  - consciousness
+  - cosmology
   - spectral theory
   - complexity theory
-  - cross-verification
+  - Grothendieck topos
 references:
   - type: book
     authors:
@@ -53,4 +84,12 @@ references:
         given-names: "Pablo"
     title: "Principia Fractalis: Fractal Resonance Mathematics, Second Edition"
     year: 2026
-    pages: 840
+    pages: 912
+    version: "2.6.0"
+  - type: article
+    authors:
+      - family-names: "Cohen"
+        given-names: "Pablo"
+    title: "The Principia Fractalis Substrate: An Unconditional Kernel-Only Lean Theorem of Twenty-Five Substrate-Level Consequences"
+    year: 2026
+    url: "https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/Papers/principia_fractalis_millennium_problems_2026-06-19.pdf"
