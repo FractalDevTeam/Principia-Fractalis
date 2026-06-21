@@ -33,7 +33,7 @@ in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports t
 | `PF_Lean4Lean/` | Lean4Lean independent kernel re-verification (separate package configuration + hash) |
 | `PF_Coq_Code/` | Coq 8.18 cross-prover structural-shape parity (629+ files) |
 | `websites/` | Four public-facing companion sites (see below) |
-| `docs/` | Documentation including referee quickstart |
+| `docs/` | Documentation including [referee quickstart](docs/REFEREE_QUICKSTART.md), [per-axis citation cards](docs/CLAY_PER_AXIS_CITATION_CARDS.md), and [pre-loaded responses to common audit attacks](docs/AUDIT_FINDINGS_AND_RESPONSES.md) |
 | `ARCHIVE/` | Preserved historical development trees (do not delete) |
 
 ---
