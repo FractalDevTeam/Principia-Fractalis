@@ -29,9 +29,11 @@ cd Principia-Fractalis/PF_Lean4_Code
 lake build
 ```
 
-**Expected output**: `Build completed successfully (8360 jobs).`
-or similar. Every Lean file in the project compiles; the kernel
-accepts every proof.
+**Expected output**: `Build completed successfully (N jobs).` where N is
+the current full-build job count (the corpus has grown since this
+quickstart was first authored — at HEAD `31f0d4b` the count is
+approximately 6,000 jobs and rising). Every Lean file in the project
+compiles; the kernel accepts every proof.
 
 If you see ANY `error:` line, the framework is broken at the
 referenced commit and the rest of this document is moot. The
@@ -307,20 +309,18 @@ question distinct from what the Lean kernel has verified.
 
 ## Repository navigation
 
-- `Papers/principia_fractalis_six_as_one.tex` --- companion paper
-- `Principia_Fractalis_master_folder/` --- textbook source (LaTeX)
-- `PF_Lean4_Code/PF/Referee/` --- the typed Clay-standard contracts
-  and load-bearing capstones
-- `PF_Lean4_Code/PF/CrossMillenniumSharedInvariants.lean` --- the 11
-  algebraic invariants
-- `PF_Lean4_Code/PF/CrossMillenniumDerivedConsequences.lean` --- the
-  rigidity theorem and empirical-validation theorem
-- `PF_Coq_Code/PF/Wave58/` --- Coq parity mirrors
-- `FRAMEWORK_FIRST.md` --- statement of what the framework actually is
-- `SESSION_START_PROTOCOL.md` --- internal collaboration protocol
-- `PUBLISHING_GATE.md` --- statement of how publication decisions
-  are made
+- `Papers/principia_fractalis_millennium_problems_2026-06-19.{tex,pdf}` --- the current Millennium Problems exhibition paper
+- `Principia_Fractalis_master_folder/` --- textbook source (LaTeX, V2.6.0, 912 pages)
+- `PF_Lean4_Code/PF/Referee/` --- the typed Clay-standard contracts and load-bearing capstones
+- `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean` --- the substrate-tier headline `PrincipiaFractalisSubstrateConsequences_holds_unconditionally` (25-field bundle, kernel-only)
+- `PF_Lean4_Code/PF/CrossMillenniumSharedInvariants.lean` --- the 12 algebraic invariants (note: the corpus has eleven cross-Millennium invariants here plus the `α_QG² = (8/3)·α_BSD` QG–BSD pin elsewhere, twelve total per the paper)
+- `PF_Lean4_Code/PF/CrossMillenniumDerivedConsequences.lean` --- the rigidity theorem and empirical-validation theorem
+- `PF_Coq_Code/PF/Wave58/` --- Coq parity mirrors (declaration-level structural-shape parity; not load-bearing for the mathematical content)
 - `CHANGELOG.md` --- per-commit narrative of substantive landings
+
+## Related headline routes
+
+This quickstart documents the **Perelman-anchored route**: from `α_Poincaré = 1` (Perelman 2003) + the 7-field `SimultaneousClayClosureBundle`, all six Clay-Standard discharges follow simultaneously. The companion paper additionally documents the **substrate-tier route**: `PrincipiaFractalisSubstrateConsequences_holds_unconditionally` (kernel-only, 25-field Prop) and the **V3 bulletproof route**: `framework_finishes_all_six_clay_axes_bulletproof` under the 3-field `ClayClosureBundleBulletproof` (conditional reduction on three named published open conjectures + four unconditional axis discharges). All three routes coexist in the corpus and verify; per-axis citation cards at `docs/CLAY_PER_AXIS_CITATION_CARDS.md` map between them. The current paper's sharpened per-axis literal-mathlib-form discharge is `clay_riemann_hypothesis_standard_framework_standard` on `Complex.riemannZeta` (conditional on Hardy 1914 + the published Hilbert--Pólya program conjecture).
 
 ---
 

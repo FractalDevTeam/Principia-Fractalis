@@ -24,7 +24,7 @@ clay_riemann_hypothesis_standard_framework_standard :
     Clay_RiemannHypothesis_Standard
 ```
 
-in [`PF/Analytic/RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.lean`](PF/Analytic/RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.lean), conditional on exactly two named substrate-tier citation axioms: Hardy 1914 (Wiles-pattern citation of an external published-and-proven theorem) plus the Mayer 1991 / Cohen 2025 citation of the published Hilbert–Pólya program conjecture (open mathematics). See [`AXIOM_AUDIT.md`](../AXIOM_AUDIT.md) and the paper for the precise axiom-set characterization.
+in [`PF/Analytic/RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.lean`](PF/Analytic/RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.lean), conditional on exactly two named substrate-tier citation axioms: Hardy 1914 (Wiles-pattern citation of an external published-and-proven theorem) plus the Mayer 1991 / Cohen 2025 citation of the published Hilbert–Pólya program conjecture (open mathematics). See [`docs/CLAY_PER_AXIS_CITATION_CARDS.md`](../docs/CLAY_PER_AXIS_CITATION_CARDS.md) and the paper for the precise axiom-set characterization.
 
 ---
 
@@ -72,7 +72,7 @@ Four named project axioms total across the active corpus:
 | `Mayer1991_Cohen2025_substrate_HP_program_citation` | `HilbertPolyaProgramConjecture_Positive := PF_T3SymIsHilbertPolyaOperator_Positive → RiemannHypothesis` | Published open conjecture (Mayer 1991 / Berry–Keating 1999 / Connes 1999 / Bost–Connes 1995) |
 | `Mayer1991_Cohen2025_T3_sym_spectral_data_substrate_citation` | Operator-spectrum existential | Substrate-internal-content packaging |
 
-No orphan axioms, no `sorry`, no hidden axioms via `opaque`. See [`AXIOM_AUDIT.md`](../AXIOM_AUDIT.md) for the detailed inventory and per-theorem axiom-set verification.
+No orphan axioms, no `sorry`, no hidden axioms via `opaque`. See [`docs/CLAY_PER_AXIS_CITATION_CARDS.md`](../docs/CLAY_PER_AXIS_CITATION_CARDS.md) for the detailed inventory and per-theorem axiom-set verification.
 
 ---
 
