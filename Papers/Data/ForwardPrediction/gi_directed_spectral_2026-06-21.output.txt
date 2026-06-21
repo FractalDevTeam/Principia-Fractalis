@@ -1,0 +1,54 @@
+/tmp/gi_directed_spectral.py:99: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"Date: {datetime.utcnow().isoformat()}Z")
+/tmp/gi_directed_spectral.py:169: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  print(f"Run complete at {datetime.utcnow().isoformat()}Z")
+==============================================================================
+GI DIRECTED SPECTRAL MEASUREMENT — 144th-problem deeper run
+Date: 2026-06-21T20:41:21.933692Z
+==============================================================================
+
+Framework's stated NP-class prediction for GI (book Ch 34A):
+  α_GI = φ + 1/4 = 1.8680339887
+Substrate's exposure: does the GI Laplacian spectrum, encoded through
+the substrate-resonance machinery, peak at α ≈ φ+1/4?
+
+Coarse alpha-sweep over [1.0, 2.5] at 10^-3 resolution:
+------------------------------------------------------------------------------
+  Seed  0: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  1: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  2: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  3: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  4: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  5: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  6: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  7: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  8: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+  Seed  9: G1 peak_α=1.0000  G2 peak_α=1.0000  |Δ|=0.0000  closer-to: P-class (Δ_NP=0.8680, Δ_P=0.4142)
+
+==============================================================================
+SUMMARY
+==============================================================================
+10-instance G1 mean peak_α:        1.000000
+10-instance G2 mean peak_α:        1.000000
+G1-vs-G2 mean |Δ| (isomorphism):   0.000000
+  (low |Δ| = substrate-resonance machinery is isomorphism-invariant)
+
+Framework's NP-class prediction:    α_NP = 1.868034
+Framework's P-class prediction:     α_P  = 1.414214
+10-instance mean Δ from α_NP=φ+1/4:  0.868034
+10-instance mean Δ from α_P=√2:      0.414214
+
+VERDICT: AT THIS PRECISION/METHOD: peak_α does not land within 10⁻⁴ of either canonical value (closer: P-class, Δ=0.4142)
+
+Honest interpretation:
+  - This is the framework's substrate-resonance machinery applied DIRECTLY to
+    the GI graph Laplacian spectrum — not a blind α-sweep, but an actual
+    encoding of GI's structure into the substrate's coherence function.
+  - If the peak lands at φ+1/4 (NP-class), the book's classification is
+    structurally corroborated.
+  - If it lands at √2 (P-class), the framework would need to update its
+    classification (or the CSV's existing GI=1.41 reflects the right class).
+  - If it lands elsewhere, the framework's binary-classification rule may
+    not be the natural prediction for GI under this measurement approach.
+
+Run complete at 2026-06-21T20:41:32.633654Z
