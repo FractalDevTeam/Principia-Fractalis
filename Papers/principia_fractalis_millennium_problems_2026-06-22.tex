@@ -610,7 +610,7 @@ The substrate's bundle closure is documented across three layers, with the load-
 
 \subsection{Lean~4 core}
 
-The Lean~4 corpus contains $4{,}360+$ build jobs that complete cleanly under $\texttt{lake build}$ with $\texttt{leanprover/lean4}$ v\texttt{4.24.0-rc1} and $\texttt{mathlib4}$ v\texttt{4.24.0-rc1}~\cite{moura-ullrich2021,mathlib2020}. Every theorem in the bundle closure chain reports kernel-only axioms:
+The Lean~4 corpus contains $8{,}710$ build jobs that complete cleanly under $\texttt{lake build}$ with $\texttt{leanprover/lean4}$ v\texttt{4.24.0-rc1} and $\texttt{mathlib4}$ v\texttt{4.24.0-rc1}~\cite{moura-ullrich2021,mathlib2020}. Every theorem in the bundle closure chain reports kernel-only axioms:
 \[
 \texttt{\#print axioms} \;\Longrightarrow\; [\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}],
 \]
@@ -1113,7 +1113,7 @@ The substrate is falsifiable in the strict Popperian sense. The framework regist
 
 The combined product factors as $78\pi \cdot (19/20) \cdot (19/16) = (14079\pi)/160 \approx 276.44$, machine-bracketed in $\texttt{PF/Cosmology/LambdaEffParameterFreeCapstone.lean}$ (theorems \texttt{Lambda\_eff\_exponent\_product\_rational\_form} and \texttt{Lambda\_eff\_exponent\_product\_sharp\_bracket}). The required exponent $120 \log 10 \approx 276.31$ matches this to $0.047\%$, with the residual gap absorbed by the $R_f$ Dirichlet-truncation precision; a tighter $|R_f(\sqrt{2\pi}, 1)|$ closes the gap exactly. \textbf{No parameter is fitted to $10^{-120}$:} 78 is forced by Lie theory and the substrate's base-3 ternary trinification, 0.95 is forced by the consciousness Chern--Weil threshold of Chapter~6, and 1.1875 is a numerical truncation of a substrate-internal operator-modulus at a substrate-forced coupling. The chance that three substrate-internal constants from three different chapters multiply to produce $120 \log 10$ to $0.047\%$ accuracy is the F3 substrate-rigidity content.
 
-\textbf{As of HEAD \texttt{af610b1}: zero of eight falsifiers are triggered.}
+\textbf{As of HEAD \texttt{1608e87}: zero of eight falsifiers are triggered.}
 
 \textbf{Falsifier-class distinction (honest characterization at current measurement precision).} The eight falsifiers divide into two classes by their forward-runnability under current measurement precision:
 \begin{itemize}[itemsep=2pt,leftmargin=2em]
