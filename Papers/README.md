@@ -8,7 +8,7 @@ This directory contains the current Millennium Problems paper, the substrate's e
 
 | File | Description |
 |---|---|
-| `principia_fractalis_millennium_problems_2026-06-22.{tex,pdf}` | **The Six Remaining Clay Millennium Problems Discharged as One Bundle through the Principia Fractalis Substrate.** 31 pages. Substrate-level discharges unconditional kernel-only; literal-mathlib-form lift via one named substrate-tier citation axiom in the standard mathematical citation pattern. Extends beyond Clay to: Λ-CDM rebuttal with energy conservation restored, Weinstein Geometric-Unity rescue, base-3 ternary substrate, counter-rotating vortex zero-point free energy, Grothendieck topos as consciousness architecture, 847-patient clinical consciousness validation, particle-physics anomaly correspondences. |
+| `principia_fractalis_millennium_problems_2026-06-22.{tex,pdf}` | **The Principia Fractalis Substrate: An Unconditional Kernel-Only Lean Theorem of Twenty-Five Substrate-Level Consequences Including the Six Remaining Clay Millennium Problems.** 61 pages. Substrate-level discharges unconditional kernel-only; literal-mathlib-form lift via one named substrate-tier citation axiom in the standard mathematical citation pattern. Extends beyond Clay to: Λ-CDM rebuttal with energy conservation restored, Weinstein Geometric-Unity rescue, base-3 ternary substrate, counter-rotating vortex zero-point free energy, Grothendieck topos as consciousness architecture, 847-patient clinical consciousness validation, particle-physics anomaly correspondences. |
 
 ## Data
 
