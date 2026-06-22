@@ -13,7 +13,7 @@
 ### Files changed this commit
 
 - New: `Papers/principia_fractalis_millennium_problems_2026-06-22.tex` (copy of prior + header / title-page date updated)
-- New: `Papers/principia_fractalis_millennium_problems_2026-06-22.pdf` (56 pages)
+- New: `Papers/principia_fractalis_millennium_problems_2026-06-22.pdf` (61 pages)
 - Updated cross-refs in: CITATION.cff, README.md, Papers/README.md, PF_Lean4_Code/README.md, docs/REFEREE_QUICKSTART.md
 - Preserved (frozen prior revision): `Papers/principia_fractalis_millennium_problems_2026-06-21.{tex,pdf}`
 
