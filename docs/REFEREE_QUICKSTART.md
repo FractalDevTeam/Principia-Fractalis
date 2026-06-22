@@ -309,7 +309,7 @@ question distinct from what the Lean kernel has verified.
 
 ## Repository navigation
 
-- `Papers/principia_fractalis_millennium_problems_2026-06-19.{tex,pdf}` --- the current Millennium Problems exhibition paper
+- `Papers/principia_fractalis_millennium_problems_2026-06-21.{tex,pdf}` --- the current Millennium Problems exhibition paper
 - `Principia_Fractalis_master_folder/` --- textbook source (LaTeX, V2.6.0, 912 pages)
 - `PF_Lean4_Code/PF/Referee/` --- the typed Clay-standard contracts and load-bearing capstones
 - `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean` --- the substrate-tier headline `PrincipiaFractalisSubstrateConsequences_holds_unconditionally` (25-field bundle, kernel-only)
