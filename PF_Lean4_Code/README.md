@@ -1,6 +1,6 @@
 # PF_Lean4_Code — Lean 4 verification of Principia Fractalis
 
-This directory contains the Lean 4 formalization of the Principia Fractalis substrate-level Theory of Everything. The canonical entry point is the project root README at [`../README.md`](../README.md). The Millennium Problems exhibition paper is at [`../Papers/principia_fractalis_millennium_problems_2026-06-19.pdf`](../Papers/principia_fractalis_millennium_problems_2026-06-19.pdf).
+This directory contains the Lean 4 formalization of the Principia Fractalis substrate-level Theory of Everything. The canonical entry point is the project root README at [`../README.md`](../README.md). The Millennium Problems exhibition paper is at [`../Papers/principia_fractalis_millennium_problems_2026-06-21.pdf`](../Papers/principia_fractalis_millennium_problems_2026-06-21.pdf).
 
 This file documents only the Lean-side build, layout, and headline theorems. For the substrate's full reach (consciousness, cosmology, Geometric Unity, etc.), see the book at `../Principia_Fractalis_master_folder/main.pdf` (V2.6.0).
 
