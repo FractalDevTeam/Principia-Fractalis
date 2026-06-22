@@ -8,7 +8,7 @@ This directory contains the current Millennium Problems paper, the substrate's e
 
 | File | Description |
 |---|---|
-| `principia_fractalis_millennium_problems_2026-06-21.{tex,pdf}` | **The Six Remaining Clay Millennium Problems Discharged as One Bundle through the Principia Fractalis Substrate.** 31 pages. Substrate-level discharges unconditional kernel-only; literal-mathlib-form lift via one named substrate-tier citation axiom in the standard mathematical citation pattern. Extends beyond Clay to: Λ-CDM rebuttal with energy conservation restored, Weinstein Geometric-Unity rescue, base-3 ternary substrate, counter-rotating vortex zero-point free energy, Grothendieck topos as consciousness architecture, 847-patient clinical consciousness validation, particle-physics anomaly correspondences. |
+| `principia_fractalis_millennium_problems_2026-06-22.{tex,pdf}` | **The Six Remaining Clay Millennium Problems Discharged as One Bundle through the Principia Fractalis Substrate.** 31 pages. Substrate-level discharges unconditional kernel-only; literal-mathlib-form lift via one named substrate-tier citation axiom in the standard mathematical citation pattern. Extends beyond Clay to: Λ-CDM rebuttal with energy conservation restored, Weinstein Geometric-Unity rescue, base-3 ternary substrate, counter-rotating vortex zero-point free energy, Grothendieck topos as consciousness architecture, 847-patient clinical consciousness validation, particle-physics anomaly correspondences. |
 
 ## Data
 
@@ -35,8 +35,8 @@ The author's accumulated prior-work record across seven manuscripts and certific
 
 ```bash
 cd Papers/
-pdflatex principia_fractalis_millennium_problems_2026-06-21.tex
-pdflatex principia_fractalis_millennium_problems_2026-06-21.tex   # for cross-references
+pdflatex principia_fractalis_millennium_problems_2026-06-22.tex
+pdflatex principia_fractalis_millennium_problems_2026-06-22.tex   # for cross-references
 ```
 
 LaTeX auxiliary files (`.aux`, `.log`, `.out`, `.toc`, `.bbl`, `.blg`) are ignored via the top-level `.gitignore` — only `.tex` source and `.pdf` outputs are tracked.

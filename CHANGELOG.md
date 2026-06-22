@@ -1,5 +1,22 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-22 — Versioning fix: each substantive revision day = new dated filename (prior revisions preserved, not overwritten)
+
+**HEAD prior**: `985dbbe`. **Issue surfaced by Pabs**: prior workflow kept the same filename `principia_fractalis_millennium_problems_2026-06-21.{tex,pdf}` across substantive revisions and just overwrote, making PDF copies in the user's folder ambiguous (which one is which version?). **Fix**: forward going, each substantive-revision-day gets a new dated filename. Today's revision becomes `principia_fractalis_millennium_problems_2026-06-22.{tex,pdf}`; the `2026-06-21` files remain frozen in the tree as the prior revision rather than being overwritten.
+
+### Versioning rule going forward
+
+- Each calendar day with substantive revisions = one new filename `principia_fractalis_millennium_problems_YYYY-MM-DD.{tex,pdf}`
+- Prior-revision files stay in the tree (preserved, not overwritten)
+- Cross-references in CITATION.cff / READMEs / docs always point at the CURRENT revision; historical references in CHANGELOG entries preserve the historical filename they referenced at the time
+
+### Files changed this commit
+
+- New: `Papers/principia_fractalis_millennium_problems_2026-06-22.tex` (copy of prior + header / title-page date updated)
+- New: `Papers/principia_fractalis_millennium_problems_2026-06-22.pdf` (56 pages)
+- Updated cross-refs in: CITATION.cff, README.md, Papers/README.md, PF_Lean4_Code/README.md, docs/REFEREE_QUICKSTART.md
+- Preserved (frozen prior revision): `Papers/principia_fractalis_millennium_problems_2026-06-21.{tex,pdf}`
+
 ## 2026-06-21 (afternoon-evening) — DeepSeek vetting + insatiable-strengthening pass on every flagged soft spot
 
 **HEAD prior**: `cfd26fc`. **HEAD now**: `cb24272` (paper at `principia_fractalis_millennium_problems_2026-06-21.{tex,pdf}`, 53 pages, paper title-page date June 21, 2026).
