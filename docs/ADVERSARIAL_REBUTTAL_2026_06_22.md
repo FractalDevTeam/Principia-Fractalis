@@ -1,7 +1,7 @@
 # Adversarial Rebuttal — Pre-loaded Response to the 2026-06-22 Critique
 
 **Document date**: 2026-06-22
-**Paper at HEAD**: `Papers/principia_fractalis_millennium_problems_2026-06-22.{tex,pdf}` (61 pages)
+**Paper at HEAD**: `Papers/principia_fractalis_millennium_problems_2026-06-23.{tex,pdf}` (65 pages)
 **Commit at HEAD**: `91ae254` on `origin/master`
 
 ## Purpose

@@ -1,5 +1,33 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-23 (afternoon) — Daily filename rollover (06-22 → 06-23) + reproducibility-appendix grep-recipe tightening
+
+**HEAD prior**: `07ad4d6`. **HEAD now**: this commit. Subsequent commits today landed on top of `07ad4d6`:
+
+- `da71cbf` — Hostile-referee paper pass: close 3 \bibitem self-cite bugs + abstract quote-mine + typo in headline match.
+- `5ebd5fd` — Bait-paper perfection pass: 5-agent hostile-referee parallel attack + consolidation.
+- `56cfa4c` — Reproducibility appendix §A.4: tighten axiom-grep recipe to filter docstring false-positives.
+- This commit — Daily filename rollover.
+
+### Filename rollover (06-22 → 06-23)
+
+**Issue surfaced by Pabs**: the paper file was still named `principia_fractalis_millennium_problems_2026-06-22.{tex,pdf}` after multiple substantive 06-23 revisions. The daily-rollover convention established in `2026-06-22 #5` (each substantive-revision-day gets a new dated filename) was not honored on 06-23. Holding up a yesterday-dated filename while calling it the active artifact undermines trust in everything else being reported.
+
+**Fix**:
+- `git mv` paper: `2026-06-22.tex` → `2026-06-23.tex`, `2026-06-22.pdf` → `2026-06-23.pdf`.
+- Updated internal date line in the `.tex`: `\date{June 22, 2026}` → `\date{June 23, 2026}`. Title-page filename comment + date comment updated. "Prior revision" reference rolled forward to `2026-06-22.{tex,pdf}` (which now becomes the frozen prior).
+- Updated cross-references in `README.md`, `Papers/README.md`, `PF_Lean4_Code/README.md`, `docs/REFEREE_QUICKSTART.md`, `docs/ADVERSARIAL_REBUTTAL_2026_06_22.md` to the new filename.
+- `Papers/README.md` and `docs/ADVERSARIAL_REBUTTAL_2026_06_22.md` page count updated from 61 → 65 (today's hostile-referee and grep-recipe passes added 4 pages).
+- Inline `(2026-06-22)` parentheticals in the paper's prose body are **not** rolled — those are historical markers documenting when specific paragraphs were revised, not stale filename references.
+- The Lean module `PF.AxiomCheck_2026_06_22` is **not** renamed in this pass — Lean module identifiers are separate-scope from paper filenames; rolling it is invasive (touches import paths) and not required for the paper's referee handoff.
+- PDF rebuilt cleanly (65 pages); paper builds via `pdflatex principia_fractalis_millennium_problems_2026-06-23.tex` ×2.
+
+### Earlier 06-23 work (covered in subsequent section)
+
+The "Page-by-page formatting pass" section below documents the morning's `07c00fd`/`07ad4d6` work. The hostile-referee passes (`da71cbf`, `5ebd5fd`) and the grep-recipe fix (`56cfa4c`) landed on top; full per-commit detail in the git log.
+
+---
+
 ## 2026-06-23 — Page-by-page formatting pass (book 912→913 pp + Clay paper 64 pp): 6-agent parallel sweep + B1-B5 cleanup
 
 **HEAD prior**: `e8eacd3`. **HEAD now**: `07ad4d6`. Two commits today:
