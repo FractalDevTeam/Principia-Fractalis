@@ -170,7 +170,7 @@ Each item is structured as: **(Attack)** the critique phrased the way a hostile 
 
 **(Attack)** 38 pages, heavy notation, dense theorem statements, beyond-Clay scope including consciousness and cosmology. No journal will referee this.
 
-**(Response)** The paper is the substrate's tactical exhibition; the book (V2.6.0, 912 pages) is the substrate's primary exposition. The paper exists to make a hostile referee read past page 1 to where the substrate's actual scope lives. Length and density are calibrated to preempt the dismissal patterns a hostile referee would otherwise reach for. The corpus's full machine verification means anyone with Lean 4 installed can verify the load-bearing claims in ~10 minutes via `docs/REFEREE_QUICKSTART.md`, independent of journal referee bottlenecks.
+**(Response)** The paper is the substrate's tactical exhibition; the book (V2.6.1, 915 pages) is the substrate's primary exposition. The paper exists to make a hostile referee read past page 1 to where the substrate's actual scope lives. Length and density are calibrated to preempt the dismissal patterns a hostile referee would otherwise reach for. The corpus's full machine verification means anyone with Lean 4 installed can verify the load-bearing claims in ~10 minutes via `docs/REFEREE_QUICKSTART.md`, independent of journal referee bottlenecks.
 
 **(Where to look)** `docs/REFEREE_QUICKSTART.md`; the book at `Principia_Fractalis_master_folder/main.pdf`.
 
