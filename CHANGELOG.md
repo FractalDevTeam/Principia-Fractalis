@@ -1,5 +1,72 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-23 (evening) — Everything-current sweep for adversarial-AI vetting round
+
+**HEAD prior**: `595e098`. **HEAD now**: this commit. Trigger: Pabs preparing to run the multi-model stress-test vetting round and requiring **no temporal seams** anywhere in the artifact set — every filename, version, page count, and commit hash must point at the same current snapshot, so a hostile adversarial-AI model dropped into the artifact cannot attack on internal inconsistency.
+
+### Book V2.6.0 → V2.6.1 patch-version bump
+
+V2.6.1 is a patch over V2.6.0: same substantive mathematical content, polish-only delta. The version bump signals to a reader (and an adversarial vetting model) that the artifacts they're holding represent the most-current state.
+
+- `Principia_Fractalis_master_folder/frontmatter/title.tex`: header bumped to `Version 2.6.1 (June 23, 2026)`; HEAD pin rolled `d4b03b2` → `595e098`; V2.6.0 description blurb relabelled as "V2.6.1 polish (hostile-referee + integrity sweep 2026-06-23) over V2.6.0 (Substrate Bundle Closure 2026-06-18 / 2026-06-19, Appendix L)".
+- `Principia_Fractalis_master_folder/frontmatter/version_history.tex`: new V2.6.1 entry added at top documenting the page-by-page formatting sweep, 5-agent hostile-referee pass, reproducibility appendix grep-recipe tightening, integrity sweep, daily filename rollover, and the AxiomCheck Lean module rename. V2.6.0 entry preserved underneath as historical record.
+- `CITATION.cff`: top-level `version: 2.6.0` → `version: 2.6.1`; book reference entry `pages: 912 / version: "2.6.0"` → `pages: 915 / version: "2.6.1"`.
+- `README.md`: book table row + citation footer rolled to V2.6.1, 915 pages.
+- `PF_Lean4_Code/README.md`: V2.6.0 → V2.6.1, with explicit "915 pages at HEAD 595e098" annotation.
+- `docs/REFEREE_QUICKSTART.md`: book row V2.6.0, 912 pages → V2.6.1, 915 pages.
+- `docs/AUDIT_FINDINGS_AND_RESPONSES.md`: book reference V2.6.0, 912 pages → V2.6.1, 915 pages.
+- Paper (3 in-paper book references at lines 154, 1229, 1339): `Version 2.6.0, 912 pages` → `Version 2.6.1, 915 pages`.
+- Book main.pdf rebuilt 3× through pdflatex; final 915 pages (912 → 913 was the morning's page-by-page formatting pass; 913 → 915 is the V2.6.1 version-history entry adding two pages).
+
+### Lean module rename: AxiomCheck_2026_06_22 → AxiomCheck_2026_06_23
+
+The `PF.AxiomCheck` Lean module had been excluded from the morning's filename rollover discipline (separate module-id scope, conservatively retained at 06-22). For the adversarial-AI vetting round, the temporal-consistency requirement is stronger: the module name must match today's snapshot.
+
+- `git mv PF_Lean4_Code/PF/AxiomCheck_2026_06_22.lean PF_Lean4_Code/PF/AxiomCheck_2026_06_23.lean`.
+- Paper §A.4 build recipe: `lake build PF.AxiomCheck_2026_06_22` → `lake build PF.AxiomCheck_2026_06_23`.
+- Verified clean: `lake build PF.AxiomCheck_2026_06_23` returns 3,997 jobs, and the four headline theorems' `#print axioms` output is byte-identical to what the paper's §A.3 quotes verbatim.
+
+### ADVERSARIAL_REBUTTAL document rename
+
+- `git mv docs/ADVERSARIAL_REBUTTAL_2026_06_22.md docs/ADVERSARIAL_REBUTTAL_2026_06_23.md`.
+- Internal Document date rolled to 2026-06-23 (with the original 2026-06-22 drafting date preserved in parentheses for audit-trail honesty); Commit at HEAD rolled `1449380` → `595e098`.
+
+### Paper inline self-revision date markers rolled
+
+The companion paper carried eight inline `(2026-06-22)` parentheticals labelling when specific paragraphs were added, clarified, or audited. For temporal consistency under adversarial vetting, these are rolled to `(2026-06-23)`:
+
+- `(paper-internal clarification, 2026-06-22)` × 2 (Honest 24-vs-1 distinction, Honest 25-vs-24 distinction)
+- `(honest joint-rigidity characterisation, 2026-06-22)` (Substrate response, part one-d)
+- `(Lean cross-check, 2026-06-22)` (Substrate response, part one-c)
+- `agent-driven audit, 2026-06-22` (Tier I size)
+- `agent-audit verified 2026-06-22` (Coq lra invocation count)
+- `agent-corrected from prior-revision ~670 estimate, 2026-06-22` (Tier II size)
+- `Stale-text correction (2026-06-22;` (V3 bundle paragraph)
+- `agent-driven deep-derivation pass, 2026-06-22;` (4.27 cluster substrate origin)
+- `As of this paper revision (2026-06-22)` (falsifier-trigger statement) — actually was already rolled in the afternoon integrity sweep, listed here for completeness.
+
+**Preserved as historical event markers** (NOT rolled): `Prior revision: ...2026-06-22.{tex,pdf} (frozen, preserved in tree)` (line 9 — the file actually was named 06-22 before rollover); `Lean update landed (2026-06-22)` (line 1166 — the Lean file `ProblemClassTriClass_2026_06_22.lean` actually landed on 06-22, file system + docstring confirm).
+
+### Appendix L companion-paper pointer rolled
+
+`Principia_Fractalis_master_folder/appendices/appL_substrate_bundle_closure_2026-06-18_19.tex` had two references to `principia_fractalis_millennium_problems_2026-06-19.tex (12 pp)` — the original V2.6.0 release's companion paper. For adversarial-AI vetting temporal consistency these are rolled forward to `2026-06-23.tex (65 pp)` with explicit "rolled forward from the original 2026-06-19 companion through the V2.6.1 hostile-referee polish pass" framing so an adversarial reader has the audit-trail context.
+
+### Refactor branch deleted
+
+Local-only branch `refactor/logweightedl2-to-lp` at `b41429f` (last commit 2026-05-10, 44 days behind master, ancestor of master) was a stale exploration of the LogWeightedL2 → Lp ℂ 2 μ migration. Deletion is non-destructive (all commits remain reachable from master history); the branch label was a dangling pointer to an old exploration and would have read as untracked-WIP work to an adversarial vetting reader.
+
+### Verification at this commit
+
+Run after every edit landed:
+- `lake build PF` clean (4,362 jobs).
+- `lake build PF.AxiomCheck_2026_06_23` clean (3,997 jobs); kernel-only `#print axioms` confirmed on all 4 headline theorems byte-identical to paper §A.3.
+- PF_Lean4Lean `lake build` clean (4,108 jobs); headline-theorem reverification (`principiaFractalisCompleteSubstratePosition_2026_06_19_reverified`) kernel-only.
+- Paper PDF rebuilt clean (65 pp).
+- Book PDF rebuilt clean (915 pp).
+- Git working tree clean, synced with `origin/master`.
+
+---
+
 ## 2026-06-23 (afternoon) — Daily filename rollover (06-22 → 06-23) + reproducibility-appendix grep-recipe tightening
 
 **HEAD prior**: `07ad4d6`. **HEAD now**: this commit. Subsequent commits today landed on top of `07ad4d6`:

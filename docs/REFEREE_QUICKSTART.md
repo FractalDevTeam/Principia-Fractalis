@@ -310,7 +310,7 @@ question distinct from what the Lean kernel has verified.
 ## Repository navigation
 
 - `Papers/principia_fractalis_millennium_problems_2026-06-23.{tex,pdf}` --- the current Millennium Problems exhibition paper
-- `Principia_Fractalis_master_folder/` --- textbook source (LaTeX, V2.6.0, 912 pages)
+- `Principia_Fractalis_master_folder/` --- textbook source (LaTeX, V2.6.1, 915 pages)
 - `PF_Lean4_Code/PF/Referee/` --- the typed Clay-standard contracts and load-bearing capstones
 - `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean` --- the substrate-tier headline `PrincipiaFractalisSubstrateConsequences_holds_unconditionally` (25-field bundle, kernel-only)
 - `PF_Lean4_Code/PF/CrossMillenniumSharedInvariants.lean` --- the 12 algebraic invariants (note: the corpus has eleven cross-Millennium invariants here plus the `α_QG² = (8/3)·α_BSD` QG–BSD pin elsewhere, twelve total per the paper)

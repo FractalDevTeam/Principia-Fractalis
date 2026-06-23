@@ -16,6 +16,54 @@ This book is under active development. Version numbers follow semantic versionin
 
 \section*{Version Log}
 
+\subsection*{Version 2.6.1 (June 23, 2026) -- HOSTILE-REFEREE POLISH + INTEGRITY SWEEP + DAILY ROLLOVER}
+\begin{itemize}
+\item \textbf{HEAD commit:} \texttt{595e098} (this PDF rebuilt at this commit).
+\item \textbf{Scope.} Single-day intensive polish pass on the V2.6.0 substrate
+bundle closure, with no new mathematical content: page-by-page
+formatting sweep across the book (912~$\to$~913 pp) and the
+companion paper, eliminating a class of silent pdflatex rendering
+corruption (4~missing convergence-study tables in Ch~21/23/28,
+broken Ch~1 math equations from Unicode \texttt{$\times$}/\texttt{$\div$}
+closing math mode, 32~illegal double-superscripts on Ch~29
+$\Lambda$CDM-rebuttal pages, Ch~32 8-channel EEG figure TikZ
+breakage, glossary mash-up of 12~raw Unicode symbols on
+pp.~766--770, stray Ch~5 Chinese characters, Ch~7 ellipse-node
+errors, Ch~23 missing figure); 5-agent hostile-referee parallel
+attack on the companion paper closing three \texttt{\textbackslash bibitem}
+self-cite bugs, abstract quote-mine, and headline-match typo;
+reproducibility appendix \S A.4 axiom-grep recipe tightened to
+filter docstring false-positives (returns 4 declarations, not 7
+prose matches); full integrity sweep correcting four stale
+references (\texttt{CITATION.cff} \texttt{date-released} + article
+URL; book \texttt{title.tex} + \texttt{version\_history.tex}
+companion-paper filename + page count; \texttt{docs/}
+\texttt{ADVERSARIAL\_REBUTTAL}'s \texttt{Commit at HEAD} hash; paper
+job-count claim \texttt{8,710}~$\to$~the true \texttt{4,362} PF +
+\texttt{4,108} PF\_Lean4Lean = \texttt{8,470} combined); daily
+filename rollover convention now applied also to the Lean
+\texttt{PF.AxiomCheck} module and the \texttt{ADVERSARIAL\_REBUTTAL}
+document; refactor branch \texttt{refactor/logweightedl2-to-lp}
+deleted (ancestor of master, 44~days behind, fully subsumed).
+\item \textbf{Verified live at HEAD \texttt{595e098}.}
+\texttt{lake build PF} clean at \texttt{4{,}362} jobs;
+\texttt{PF\_Lean4Lean lake build} clean at \texttt{4{,}108} jobs
+(\texttt{8{,}470} combined kernel re-elaborations); Coq Tier-I
+named files all present with zero \texttt{Axiom} declarations;
+\texttt{PF.AxiomCheck\_2026\_06\_23} produces the four headline
+theorems' \texttt{\#print axioms} output that the companion paper's
+\S A.3 quotes verbatim.
+\item \textbf{Build state.} Zero project axioms preserved across all
+edits. Kernel-only \texttt{[propext, Classical.choice, Quot.sound]}
+on the substrate-tier headline theorem.
+\item \textbf{Companion paper.}
+\texttt{Papers/principia\_fractalis\_millennium\_problems\_2026-06-23.tex}
+(65~pp, today-dated; supersedes the prior \texttt{2026-06-22.tex}
+iteration, which is frozen in the tree as the prior revision; both
+descend from the V2.6.0 release's original \texttt{2026-06-19.tex}
+companion paper).
+\end{itemize}
+
 \subsection*{Version 2.6.0 (June 19, 2026) -- SUBSTRATE BUNDLE CLOSURE + APPENDIX L}
 \begin{itemize}
 \item \textbf{HEAD commit:} \texttt{d4b03b2} (this PDF rebuilt at this commit).

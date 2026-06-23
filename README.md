@@ -25,7 +25,7 @@ in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports t
 
 | Path | Content |
 |---|---|
-| `Principia_Fractalis_master_folder/` | The book *Principia Fractalis* (LaTeX source + `main.pdf`, V2.6.0, 912 pages) |
+| `Principia_Fractalis_master_folder/` | The book *Principia Fractalis* (LaTeX source + `main.pdf`, V2.6.1, 915 pages) |
 | `Papers/principia_fractalis_millennium_problems_2026-06-23.{tex,pdf}` | The Millennium Problems exhibition paper |
 | `Papers/Data/principia_fractalis_143_problems_IBM_dataset.csv` | The 143-problem panel data |
 | `Papers/PriorWork_*/` | Seven Pabs-authored prior-work manuscripts (substrate-tier named anchors) |
@@ -138,7 +138,7 @@ Eight typed falsifiers F1–F8 explicitly register the empirical or structural o
 
 See [`CITATION.cff`](CITATION.cff). Suggested citation:
 
-> Cohen, P. (2026). *Principia Fractalis: A Substrate-Level Theory of Everything*. Version 2.6.0. Available at <https://github.com/FractalDevTeam/Principia-Fractalis>.
+> Cohen, P. (2026). *Principia Fractalis: A Substrate-Level Theory of Everything*. Version 2.6.1. Available at <https://github.com/FractalDevTeam/Principia-Fractalis>.
 
 ---
 

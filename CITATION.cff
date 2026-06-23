@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "To cite this work, use this metadata."
 type: software
 title: "Principia Fractalis: A Substrate-Level Theory of Everything"
-version: 2.6.0
+version: 2.6.1
 date-released: 2026-06-23
 url: "https://github.com/FractalDevTeam/Principia-Fractalis"
 repository-code: "https://github.com/FractalDevTeam/Principia-Fractalis"
@@ -84,8 +84,8 @@ references:
         given-names: "Pablo"
     title: "Principia Fractalis: Fractal Resonance Mathematics, Second Edition"
     year: 2026
-    pages: 912
-    version: "2.6.0"
+    pages: 915
+    version: "2.6.1"
   - type: article
     authors:
       - family-names: "Cohen"
