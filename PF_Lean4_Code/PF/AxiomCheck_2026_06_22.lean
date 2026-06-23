@@ -1,0 +1,16 @@
+import PF.Referee.PrincipiaFractalisSubstrateTheorem
+import PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19
+import PF.Referee.V3SubstrateForcedDischargeBulletproof
+import PF.Referee.CrossMillenniumInvariants_Extended_2026_06_19
+
+/-!
+# Axiom-set verification for the substrate-tier headline + 3 satellite theorems
+
+Produces `#print axioms` output for the four theorems the paper's
+reproducibility appendix cites.
+-/
+
+#print axioms PF.Referee.PrincipiaFractalisSubstrateTheorem.PrincipiaFractalisSubstrateConsequences_holds_unconditionally
+#print axioms PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.clay_riemann_hypothesis_standard_framework_standard
+#print axioms PF.Referee.V3SubstrateForcedDischargeBulletproof.framework_finishes_all_six_clay_axes_bulletproof
+#print axioms PF.Referee.CrossMillenniumInvariants_Extended_2026_06_19.framework_alpha_skeleton_over_determined_capstone
