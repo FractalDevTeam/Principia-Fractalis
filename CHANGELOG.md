@@ -1,5 +1,100 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-23 — Page-by-page formatting pass (book 912→913 pp + Clay paper 64 pp): 6-agent parallel sweep + B1-B5 cleanup
+
+**HEAD prior**: `e8eacd3`. **HEAD now**: `07ad4d6`. Two commits today:
+
+- `07c00fd` — Main 6-agent parallel formatting sweep (paper + book frontmatter + Ch 1-7 + Ch 8-19 + Ch 20-25 + Ch 26-35 + backmatter/appendices) + B1 main.tex `\appendix`-before-`\backmatter` fix
+- `07ad4d6` — B2 bibliography (missing entries + Cyrillic + dedup) + B3 preamble one-liners + B4 stale content + B5 consistency sweep (hyperref bookmark wraps + φ/\varphi harmonization + ✓ → \checkmark + duplicate TOC entries removed)
+
+### Silent-rendering corruption eliminated (referee-visible)
+
+The pass caught a class of rendering bugs where pdflatex was silently emitting broken output:
+
+- **4 convergence-study tables were missing from the PDF** — `\begin{table}[h]` wrapped inside tcolorbox environments triggered "Not in outer par mode" errors that silently erased the table content. Affected: Ch21 (H_P p.329, H_NP p.329), Ch23 (regularization comparison p.378), Ch28 (cosmic-timeline p.~451). The 10⁻¹⁰-precision convergence evidence the spectral-gap argument rests on is now in print.
+- **Ch1 broken math equations on pp.3-6** — Unicode `×`/`÷` inside `$...$` was closing math mode early. Equations like `11011_2 = 1×16+1×8+...` rendered broken on the **first content pages** of the book. Fixed via `\times`/`\div`.
+- **Ch29 chi-squared corruption pp.470-478** — 32 illegal `\chi^2_{X}^{Y}` double-superscripts brace-wrapped. Core ΛCDM-rebuttal pages.
+- **Ch32 8-channel EEG figure p.~534** — broken TikZ `\foreach` syntax (parenthesized tuples where `x/y` pairs expected) causing 7 cascading errors + 200+ missing-character warnings. Fixed.
+- **Glossary mash-up pp.766-770** — 12 raw Unicode symbols (`ch₂`, `Λ`, `Ω`, `Φ`, `𝒯_∞`, `T^μν`, `R_f`, etc.) inside `\textbf{...}` were rendering as concatenated math italics. All wrapped in `$...$`.
+- **Ch5 stray Chinese characters `螺旋`** triggering `LaTeX Error: Unicode character U+87BA / U+65CB`. Removed.
+- **Ch7 broken TikZ ellipse nodes** (missing `align=center` for `\\` line-breaks) throwing `Something's wrong—perhaps a missing \item`. Fixed.
+- **`\verb` crossing line break** in appJ (illegal). Fixed.
+- **Ch23 missing figure** (`fig23_2_spectral_embedding.png` not in repo) was rendering as draft-mode placeholder rectangle. Suppressed with `% TODO` marker.
+
+### Structural fixes
+
+- **B1 main.tex**: moved `\appendix` BEFORE `\backmatter`. Previously every appendix rendered as `APPENDIX .` (blank letter) with runaway section numbers like `.122.6 Hodge Conjecture`. Now appendices A through R render with proper letter prefixes and section numbering (e.g. `R.5.1 Riemann Hypothesis --- 8 Anchors`).
+- **First makeindex run ever** — `\printindex` was called from main.tex L134 but `main.ind` had never been generated. Index now exists in the PDF.
+- **Duplicate TOC entries fixed**: glossary, author, epilogue each had `\chapter*{}` + `\addcontentsline{}` declared in BOTH main.tex AND their `.tex` file. Removed from the input files (main.tex stays authoritative).
+
+### Markdown bold rendering as literal asterisks fixed
+
+Ch20 (36 instances pp.307-312), author.tex (Personal Philosophy section), epilogue.tex (pp.802-807). All `**bold**` → `\textbf{bold}`.
+
+### Wrong running headers fixed
+
+Glossary / Author / Epilogue pages were inheriting `BIBLIOGRAPHY` running header. Added `\markboth{...}{...}` to all three.
+
+### B2 bibliography (bibliography.bib)
+
+- Added 3 missing entries (resolving 4 undefined `\cite{}` calls in appK): `hardy1914`, `grosszagier1986`, `kolyvagin1990`.
+- Transliterated Cyrillic that pdflatex was silently stripping: `bell1964` (Физика → Fizika), `kolyvagin1988finiteness` (Ш → Sha).
+- Removed 7 duplicate entries after unifying `.tex \cite{}` calls to the more descriptive canonical key: `wilson1974`, `creutz1980`, `politzer1973`, `yang1954`, `hutchinson1981`, `lewis2006`, `logothetis2001`.
+
+### B3 preamble (preamble.tex, 2 lines)
+
+- `\setlength{\headheight}{14pt}` — silences fancyhdr warnings (required ≥13.6pt).
+- `\DeclareUnicodeCharacter{00F7}{$\div$}` — global ÷ fallback matching the existing × decl.
+
+### B4 stale content
+
+- `backmatter/author.tex`: "The Villages, Florida" → "Mesa, Arizona".
+- `backmatter/epilogue.tex`: "The Villages, Florida" + "November 2025" → "Mesa, Arizona" + "June 2026".
+
+### B5 consistency sweep
+
+- ch24: 6 raw Unicode `✓` → `$\checkmark$` (matches ch25 convention).
+- ch21: 18 `\phi` → `\varphi` for golden-ratio uses (preserving Hilbert-vector `\phi` on line 358). Matches ch24/ch25 convention.
+- ~68 `\texorpdfstring{}{}` insertions across 19 chapter+appendix files via dispatched agent — fixed 226 of 248 hyperref bookmark warnings.
+
+### Paper (Papers/principia_fractalis_millennium_problems_2026-06-22.tex)
+
+- 4 Overfull \hbox eliminated via `\lt{}` seqsplit on long Lean identifiers (lines 525, 529, 531, 533, 156, 819).
+- 1 oversize display equation refactored to two-line `align*` (line 816-819).
+- Page 10 inventory paragraph wraps cleanly.
+- Cross-references rerun resolved.
+- 64 pp, build clean.
+
+### Final warning counts (book main.log)
+
+| Metric | Start (HEAD `e8eacd3`) | End (HEAD `07ad4d6`) |
+|---|---|---|
+| Book pages | 912 | 913 |
+| Undefined References | nonzero | **0** |
+| Undefined Citations | 4 | **0** |
+| Unicode-missing errors | many | **0** |
+| Hyperref PDF-string token | 248 | **22** (91% reduction) |
+| fancyhdr warnings | 45 | 28 (partial; chapter-reset cases) |
+| LaTeX Warnings | 44 | 40 |
+| Overfull \hbox | 226 | 225 (residual cosmetic) |
+| Overfull \vbox | 2 | 2 |
+| Underfull \hbox/\vbox | cosmetic | cosmetic |
+
+### Build verification
+
+- Lean: `lake build PF` — 4362 jobs clean, kernel-only axioms (`[propext, Classical.choice, Quot.sound]`). Zero regression.
+- Book: `pdflatex + bibtex + makeindex + pdflatex × 2` — 913 pp, all hard errors gone.
+- Paper: `pdflatex × 2` — 64 pp, label rerun resolved.
+
+### Storage snapshot
+
+Refreshed to `/Storage 2TB/home/xluxx/Principia-Fractalis-pristine-2026-06-23/` (17 GB hardlinked vs prior 2026-06-22 snapshot).
+
+### Files changed
+
+- Commit `07c00fd`: 42 files, 449 insertions, 400 deletions.
+- Commit `07ad4d6`: 29 files, 176 insertions, 192 deletions.
+
 ## 2026-06-22 — Versioning fix: each substantive revision day = new dated filename (prior revisions preserved, not overwritten)
 
 **HEAD prior**: `985dbbe`. **Issue surfaced by Pabs**: prior workflow kept the same filename `principia_fractalis_millennium_problems_2026-06-21.{tex,pdf}` across substantive revisions and just overwrote, making PDF copies in the user's folder ambiguous (which one is which version?). **Fix**: forward going, each substantive-revision-day gets a new dated filename. Today's revision becomes `principia_fractalis_millennium_problems_2026-06-22.{tex,pdf}`; the `2026-06-21` files remain frozen in the tree as the prior revision rather than being overwritten.
