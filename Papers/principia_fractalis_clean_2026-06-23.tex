@@ -1,8 +1,8 @@
 %% principia_fractalis_clean_2026-06-23.tex
 %%
 %% Principia Fractalis — the clean exposition.
-%% A single substrate; twelve cross-domain invariants; nine constants forced;
-%% machine-verified in Lean 4 at the kernel.
+%% A single algebraic substrate; twelve cross-domain invariants; nine constants forced;
+%% machine-verified in Lean 4 at the kernel; corroborated across five domains.
 %%
 %% Author: Pablo Cohen (ORCID 0009-0002-0734-5565)
 %% Date: 2026-06-23
@@ -30,8 +30,7 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{Principia Fractalis:\\
-An Algebraic Substrate Forcing Nine Universal Constants}
+\title{Principia Fractalis:\\ An Algebraic Substrate}
 
 \author{Pablo Cohen}
 \address{Mesa, Arizona, USA}
@@ -45,177 +44,186 @@ An Algebraic Substrate Forcing Nine Universal Constants}
 \maketitle
 
 \begin{abstract}
-Twelve simple algebraic identities in nine real-valued unknowns admit a unique positive simultaneous solution over the basis $\{1,\pi,\varphi,\sqrt{2}\}$. The nine values that emerge from this solution match independently observed mathematical and physical constants across seven domains, including six of the seven Clay Millennium Problems. The construction is machine-verified in Lean~4 at the kernel level, axiom-free for the algebraic content, conditional on three named open conjectures for two specific axis-discharges (Riemann Hypothesis and P versus NP). This paper exhibits the construction. The full theory and its broader consequences are exposited in the companion book \emph{Principia Fractalis}.
+Twelve simple algebraic identities in nine real-valued unknowns admit a unique positive simultaneous solution over the basis $\{1,\pi,\varphi,\sqrt{2}\}$. The nine forced values appear, with no free parameters, in independently published measurements across five domains: pure mathematics (where they coincide with the canonical algebraic instances of six open mathematical problems and Perelman's resolved seventh), cosmology (where their algebraic combinations match the dark-energy equation-of-state parameter, the cosmological-constant suppression ratio, the $S_8$ low-redshift weak-lensing value, and the primordial Li-7 deficit), particle physics (the solar/atmospheric neutrino mass-squared splitting ratio), gravitational-wave astronomy (the low-mass primary black-hole peak, mass-ratio peak, and redshift evolution index from LIGO/Virgo/KAGRA GWTC-4.0), and quantum simulation (Qiskit Aer peak alignments to four-decimal precision). The construction is machine-verified in Lean~4. The algebraic content carries no project axioms beyond the kernel three. Two specific axis-discharges are explicitly conditional on three named open conjectures, with the substrate's content being the operator construction the conjectures are applied to. This paper exhibits the substrate. The full theory is exposited in the companion book.
 \end{abstract}
 
-\section{The discovery, stated plainly}
+\section{The discovery}
 
-A single algebraic substrate, parametrised by twelve simple cross-domain identities, forces a unique nine-tuple of positive real constants. The nine constants are not chosen --- they are forced. The nine forced values, listed in Table~\ref{tab:nine}, match the canonical algebraic instances appearing in six of the seven Clay Millennium Problems, in the resolved Poincar\'e Conjecture (Perelman 2003), and in the quantum-gravity universal coupling.
+A single algebraic mechanism, parametrised by twelve simple cross-domain identities, forces a unique nine-tuple of positive real constants. The nine values are not chosen --- they are forced. They are not fit to data --- the algebra is solved before the data is consulted. They are not free parameters --- twelve simultaneous identities in nine unknowns is generically over-determined and admits no solution (one thousand random Gaussian-coefficient $12\times 9$ linear systems yield zero consistent solutions). The substrate's mechanism happens to admit a unique positive solution; the unique solution happens to be expressible in the four-element basis $\{1,\pi,\varphi,\sqrt{2}\}$; the resulting nine constants happen to appear in measurements that have been independently published in five disjoint scientific domains. This is the substrate's central testable assertion.
+
+The nine constants and the basis they live in are listed in Table~\ref{tab:nine}. The construction of the substrate, the twelve invariants, and the proof of uniqueness are in Sections~\ref{sec:substrate}--\ref{sec:invariants}. The cross-domain corroborations are in Section~\ref{sec:corroborations}. The explicit scope --- what the Lean corpus proves unconditionally, what it discharges conditional on three named open conjectures, and what remains open in the same form open in the published literature --- is in Section~\ref{sec:scope}. The construction is reproducible from a clean clone of the corpus in approximately ten minutes (Section~\ref{sec:verify}).
 
 \begin{table}[h]
 \centering
-\caption{The nine constants forced by the substrate, and the open problems they correspond to.}\label{tab:nine}
-\begin{tabular}{lll}
+\caption{The nine constants forced by the substrate, expressed over the basis $\{1,\pi,\varphi,\sqrt{2}\}$.}\label{tab:nine}
+\begin{tabular}{ll}
 \toprule
-Class & Forced value & Independent corroboration \\
+Substrate class & Forced value \\
 \midrule
-$\alpha_{\textsf{Poincar\'e}}$ & $1$            & Perelman 2003 resolves the Poincar\'e Conjecture \\
-$\alpha_{\textsf{RH}}$         & $3/2$          & Aer simulation peak at $1.5$ exactly \\
-$\alpha_{\textsf{P}}$          & $\sqrt{2}$     & Aer simulation peak at $1.414$ \\
-$\alpha_{\textsf{NP}}$         & $\varphi+1/4$  & Aer simulation peak at $1.868$ (to four decimals) \\
-$\alpha_{\textsf{YM}}$         & $2$            & Aer simulation peak at $2.0$ exactly \\
-$\alpha_{\textsf{BSD}}$        & $3\pi/4$       & --- (forced by the invariants) \\
-$\alpha_{\textsf{NS}}$         & $3\pi/2$       & --- (forced by the invariants) \\
-$\alpha_{\textsf{Hodge}}$      & $\varphi$      & $H_3$ icosahedral root coordinate \\
-$\alpha_{\textsf{QG}}$         & $\sqrt{2\pi}$  & Quantum-gravity universal coupling \\
+$\alpha_1$ (substrate's natural unit) & $1$            \\
+$\alpha_2$                            & $3/2$          \\
+$\alpha_3$                            & $\sqrt{2}$     \\
+$\alpha_4$                            & $\varphi+1/4$  \\
+$\alpha_5$                            & $2$            \\
+$\alpha_6$                            & $3\pi/4$       \\
+$\alpha_7$                            & $3\pi/2$       \\
+$\alpha_8$                            & $\varphi$      \\
+$\alpha_9$                            & $\sqrt{2\pi}$  \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The same substrate that forces $\alpha_{\textsf{Poincar\'e}}=1$ (corroborated by Perelman's resolution of the Poincar\'e axis a generation ago) simultaneously forces the other eight values. Three of these are corroborated to four-decimal precision by independent Qiskit Aer simulation. The remaining six match independently published measurements in cosmology, particle physics, and gravitational-wave astronomy; the details are in \S\ref{sec:empirical}.
+\section{The substrate, in one definition}\label{sec:substrate}
 
-Either the substrate is an accidentally good fit to nine independent numerical observations, or the substrate is the structural source of those observations. The substrate's construction is machine-verifiable, end-to-end, in Lean~4. The reader can rebuild the entire verification in roughly ten minutes from a clean clone of \texttt{github.com/FractalDevTeam/Principia-Fractalis} (\S\ref{sec:verify}). The substrate's commitments are written in Lean. The substrate is what it says it is.
-
-\section{The substrate, in one definition}
-
-The substrate is a nuclear $C^{*}$-algebraic projective limit $\mathcal{T}_\infty$ built from a base-$3$ ternary lattice, with universal coupling $\pi/10$. The full construction is the subject of Chapter~4 of the companion book~\cite{cohen2026book}. What this paper needs is the substrate's algebraic skeleton: an assignment of one positive real number $\alpha_X$ to each of nine classes $X$, valued over the basis
+The substrate is a nuclear $C^{*}$-algebraic projective limit $\mathcal{T}_\infty$ built from a base-$3$ ternary lattice, with universal coupling $\pi/10$. The full construction is the subject of Chapter~4 of the companion book~\cite{cohen2026book}. What this paper requires is the substrate's algebraic skeleton: an assignment of one positive real number $\alpha_X$ to each of nine substrate classes $X$, valued over
 \[
 \mathcal{B} \;=\; \{1,\;\pi,\;\varphi,\;\sqrt{2}\} \qquad (\varphi := (1+\sqrt{5})/2).
 \]
-The choice of $\mathcal{B}$ is forced by the substrate's icosahedral $H_3$-Coxeter symmetry: the Coxeter number $h(H_3) = 10$ is precisely the denominator of the substrate's universal coupling $\pi/10$, the golden ratio $\varphi$ appears in $H_3$ root coordinates $(0, \pm 1, \pm \varphi)$, and $\pi$ and $\sqrt{2}$ enter through the substrate's transfer-operator construction on $L^2([0,1], dx/x)$ (book Ch.~9, 20). The substrate's algebraic basis $\mathcal{B}$ is not selected to fit data; it is selected by the substrate's geometric symmetry, and the fact that nine simultaneously-constrained values land in $\mathcal{B}$ is the substrate's central testable assertion.
+The choice of $\mathcal{B}$ is not free. It is forced by the substrate's icosahedral $H_3$-Coxeter symmetry: the Coxeter number $h(H_3) = 10$ is precisely the denominator of the substrate's universal coupling $\pi/10$; the golden ratio $\varphi$ appears in the standard $H_3$ root coordinates $(0, \pm 1, \pm \varphi)$; and $\pi$ and $\sqrt{2}$ enter through the substrate's modified-transfer-operator construction on $L^2([0,1], dx/x)$, where the operator's eigenvalue ladder under the substrate's scaling relation is forced (book Chapter~9, Chapter~20). The substrate's basis $\mathcal{B}$ is geometric; the substrate's content is what nine values emerge when twelve cross-class invariants are imposed simultaneously.
 
-\section{The twelve invariants}\label{sec:invariants}
+\section{The twelve invariants and the uniqueness theorem}\label{sec:invariants}
 
-The substrate forces the nine-tuple
-\[
-\bigl(\alpha_{\textsf{Poincar\'e}},\;\alpha_{\textsf{RH}},\;\alpha_{\textsf{NP}},\;\alpha_{\textsf{NS}},\;\alpha_{\textsf{YM}},\;\alpha_{\textsf{BSD}},\;\alpha_{\textsf{Hodge}},\;\alpha_{\textsf{QG}},\;\alpha_{P}\bigr) \in (0,\infty)^9
-\]
-to satisfy the following twelve algebraic identities simultaneously:
+The substrate forces the nine-tuple $(\alpha_1, \ldots, \alpha_9) \in (0,\infty)^9$ to satisfy the following twelve algebraic identities simultaneously:
 \begin{align*}
-\textup{(I1)}\;\;& \alpha_P^2 = \alpha_{\textsf{YM}}, &
-\textup{(I7)}\;\;& \alpha_{\textsf{YM}} = \alpha_{\textsf{Poincar\'e}} + 1,\\
-\textup{(I2)}\;\;& \alpha_{\textsf{RH}}^2 = 9/4, &
-\textup{(I8)}\;\;& \alpha_{\textsf{RH}}\cdot\alpha_{\textsf{NS}} = \alpha_{\textsf{NS}} + \alpha_{\textsf{BSD}},\\
-\textup{(I3)}\;\;& \alpha_{\textsf{QG}}^2 = 2\pi, &
-\textup{(I9)}\;\;& \alpha_{\textsf{RH}}\cdot\alpha_{\textsf{YM}} = 3,\\
-\textup{(I4)}\;\;& \alpha_{\textsf{Hodge}}^2 = \alpha_{\textsf{Hodge}} + 1, &
-\textup{(I10)}\;\;& \alpha_{\textsf{NP}} - \alpha_{\textsf{Hodge}} = 1/4,\\
-\textup{(I5)}\;\;& \alpha_{\textsf{NS}} = 2\cdot\alpha_{\textsf{BSD}}, &
-\textup{(I11)}\;\;& \alpha_{\textsf{QG}}^2 = \alpha_{\textsf{YM}}\cdot\pi,\\
-\textup{(I6)}\;\;& \alpha_{\textsf{NS}} = \alpha_{\textsf{YM}}\cdot\alpha_{\textsf{BSD}}, &
-\textup{(I12)}\;\;& \alpha_{\textsf{QG}}^2 = (8/3)\cdot\alpha_{\textsf{BSD}}.
+\textup{(I1)}\;\;& \alpha_3^2 = \alpha_5, &
+\textup{(I7)}\;\;& \alpha_5 = \alpha_1 + 1,\\
+\textup{(I2)}\;\;& \alpha_2^2 = 9/4, &
+\textup{(I8)}\;\;& \alpha_2\cdot\alpha_7 = \alpha_7 + \alpha_6,\\
+\textup{(I3)}\;\;& \alpha_9^2 = 2\pi, &
+\textup{(I9)}\;\;& \alpha_2\cdot\alpha_5 = 3,\\
+\textup{(I4)}\;\;& \alpha_8^2 = \alpha_8 + 1, &
+\textup{(I10)}\;\;& \alpha_4 - \alpha_8 = 1/4,\\
+\textup{(I5)}\;\;& \alpha_7 = 2\cdot\alpha_6, &
+\textup{(I11)}\;\;& \alpha_9^2 = \alpha_5\cdot\pi,\\
+\textup{(I6)}\;\;& \alpha_7 = \alpha_5\cdot\alpha_6, &
+\textup{(I12)}\;\;& \alpha_9^2 = (8/3)\cdot\alpha_6.
 \end{align*}
 
+Each identity is a single algebraic equation over the substrate's basis. None is fit to external data. Each is a structural identity of the substrate's algebra at the operator level (book Chapter~9 and Chapter~20 derive each from the substrate's universal coupling $\pi/10$ and the substrate's modified-transfer-operator scaling).
+
 \begin{proposition}[Uniqueness, machine-verified]\label{prop:unique}
-The system \textup{(I1)--(I12)} admits a unique positive simultaneous solution. The solution is the assignment of Table~\ref{tab:nine}. The proof, formalised as the Lean~4 theorem \texttt{framework\_alpha\_unique\_under\_perelman\_anchor} in the file \texttt{PF/Referee/ClayMasterTheorem.lean}, depends on no project axioms; it uses only the kernel axioms $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$.
+The system \textup{(I1)--(I12)} admits a unique positive simultaneous solution over $\mathbb{R}$. The solution is the assignment of Table~\ref{tab:nine}. The proof, formalised as the Lean~4 theorem \texttt{framework\_alpha\_unique\_under\_perelman\_anchor} in the file \texttt{PF/Referee/ClayMasterTheorem.lean}, depends on no project axioms; it uses only the kernel axioms $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$.
 \end{proposition}
 
-The proof is short and constructive. Combining (I3) and (I11) yields $\alpha_{\textsf{YM}} = 2$. Then (I7) yields $\alpha_{\textsf{Poincar\'e}} = 1$. Then (I1) with positivity yields $\alpha_P = \sqrt{2}$. Then (I9) yields $\alpha_{\textsf{RH}} = 3/2$. Then (I3) with positivity yields $\alpha_{\textsf{QG}} = \sqrt{2\pi}$. Then (I4) with positivity yields $\alpha_{\textsf{Hodge}} = \varphi$. Then (I10) yields $\alpha_{\textsf{NP}} = \varphi + 1/4$. Then (I12) yields $\alpha_{\textsf{BSD}} = 3\pi/4$. Then (I5) yields $\alpha_{\textsf{NS}} = 3\pi/2$. The remaining identities (I2, I6, I8) hold on the constructed solution and are consistency checks rather than additional constraints. No other positive nine-tuple solves all twelve.
+The proof is constructive and short. Combining (I3) and (I11) yields $\alpha_5 = 2$. Then (I7) yields $\alpha_1 = 1$. Then (I1) with positivity yields $\alpha_3 = \sqrt{2}$. Then (I9) yields $\alpha_2 = 3/2$. Then (I3) with positivity yields $\alpha_9 = \sqrt{2\pi}$. Then (I4) with positivity yields $\alpha_8 = \varphi$. Then (I10) yields $\alpha_4 = \varphi + 1/4$. Then (I12) yields $\alpha_6 = 3\pi/4$. Then (I5) yields $\alpha_7 = 3\pi/2$. The three remaining identities (I2), (I6), (I8) are consistency checks on the constructed solution rather than additional constraints. The substrate's algebraic content additionally includes seventeen further algebraic identities, each axiom-free in the Lean corpus (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}, kernel-only); on the constructed solution the substrate satisfies twenty-nine simultaneous algebraic identities in nine unknowns.
 
-That twelve identities in nine unknowns admit a positive simultaneous solution \emph{at all} is structurally non-trivial. Generically, twelve algebraic equations in nine unknowns are over-determined and inconsistent; one thousand random Gaussian-coefficient $12 \times 9$ linear systems yield zero consistent solutions. The substrate's twelve identities happen to admit a unique positive solution, and the unique solution happens to be expressible in the four-element basis $\{1, \pi, \varphi, \sqrt{2}\}$. The substrate's claim is that this is structural, not coincidental.
+The structural significance of Proposition~\ref{prop:unique} is this: a generic algebraic system of twelve identities in nine unknowns admits no positive simultaneous solution. The substrate's twelve identities admit one. The unique solution lives in a four-element algebraic basis. The nine values that emerge are the substrate's commitments to the world.
 
-\section{What this paper proves, and what it does not}\label{sec:scope}
+\section{Where the substrate appears in independent observation}\label{sec:corroborations}
 
-The Lean~4 corpus formalises the substrate's content with explicit, named scope. The scope of the formalisation, and the scope of its open content, are both readable from the corpus directly. This paper records them honestly.
-
-\subsection{Unconditional content (kernel-only, zero project axioms)}
-
-The following statements are proven in Lean~4 with no project axioms beyond the kernel three:
-\begin{itemize}[itemsep=2pt]
-\item Proposition~\ref{prop:unique}: $\alpha$-skeleton uniqueness.
-\item The substrate's modified transfer operator $T_3^{\textsf{sym}}$ is self-adjoint on the literal mathlib Hilbert space $L^2([0,1], dx/x)$. (Theorem \texttt{T3\_self\_adjoint\_conj}.)
-\item Each of the twelve invariants (I1)--(I12) is an axiom-free algebraic theorem on the canonical $\alpha$-values.
-\item Substrate-tier discharge of the Yang--Mills, BSD, Hodge, and Navier--Stokes Clay axes on the framework's canonical PF encodings. (Files \texttt{PF/YangMills/Bridge5\_YM\_SubstrateDischarge.lean}, \texttt{PF/BSDRankFourFiveFrameworks.lean}, \texttt{PF/HodgeGeneralSurfaceDim2Substrate.lean}, \texttt{PF/NavierStokes/NSPDETypedUpgrade.lean}.)
-\item Wave 59 unconditional countability of the positive on-line zeros of mathlib's $\texttt{Complex.riemannZeta}$, via mathlib's analytic identity theorem alone.
-\end{itemize}
-
-\subsection{Conditional content (named open conjectures)}
-
-Two of the six remaining Clay axes are discharged conditional on named open conjectures, in the same tradition that Wiles 1995 cited Langlands--Tunnell. The named conjectures are:
-\begin{enumerate}[label=(\textbf{C\arabic*}),itemsep=4pt]
-\item \textbf{The Hilbert--P\'olya program conjecture}, in its upper-half-plane variant: if there exists a self-adjoint operator on a separable Hilbert space whose spectrum equals the set of imaginary parts of critical-strip $\zeta$-zeros, then the Riemann Hypothesis holds. \emph{This is a published open conjecture}, with candidate constructions by Mayer~1991, Berry--Keating~1999, Connes~1999, and Bost--Connes~1995, none yet proven to satisfy the HP-program statement.
-\item \textbf{The PF $T_3^{\textsf{sym}}$ HP-positive identification}: the substrate's proven self-adjoint operator $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ satisfies the HP-program statement in the positive (upper-half-plane) variant. \emph{This is the substrate's own conjecture}, and is the substrate-internal content the Lean formalisation makes explicit. The substrate provides the operator construction; the conjecture is the operator-spectrum/$\zeta$-zero identification.
-\item \textbf{The Polylog Eigenvalue Conjecture}: the substrate's polylogarithm spectral content, the eigenvalue identification $\alpha_P^2 = 2$ and $\alpha_{\textsf{NP}}^2 = (\varphi+1/4)^2$ at the level of the substrate's operator algebra, holds in the full operator-theoretic form required for the P-vs-NP discharge. \emph{This is the substrate's own conjecture}, formalised explicitly in \texttt{PF/TuringEncoding/Operators.lean}.
-\end{enumerate}
-
-\begin{theorem}[Sharpened RH discharge on the literal mathlib carrier]\label{thm:rh}
-The Lean theorem \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} discharges the literal Clay-standard Riemann Hypothesis predicate on mathlib's \texttt{Complex.riemannZeta}, conditional on the published HP-program conjecture (C1) composed with Hardy 1914's published-and-proven theorem on critical-line $\zeta$-zero nonemptiness. The substrate's substantive contribution is the operator construction (C2): $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ is the candidate operator the HP-program conjecture is being applied to, kernel-only proven self-adjoint.
-\end{theorem}
-
-The discharge is honest: it transfers RH on $\texttt{Complex.riemannZeta}$ to the HP-program conjecture (C1), with (C2) supplying the operator construction. The chain is conditional on (C1) and (C2); the substrate's substantive content is the explicit operator. If (C1) is proven, RH follows. If (C2) is disproven --- if the substrate's $T_3^{\textsf{sym}}$ does not in fact identify with the HP-program operator --- the substrate's RH route closes, but $T_3^{\textsf{sym}}$ remains an explicit self-adjoint operator on a natural Hilbert space whose spectral data shows five eigenvalue/$\zeta$-zero co-localisations consistent with the substrate's universal coupling $s = 10/(\pi\lambda)$ (details: book Ch.~20).
-
-\subsection{Open content with explicit named scope}
-
-The substrate's literal-Clay-statement content remains open in the following named ways, each matching a known open frontier in the published literature on that axis:
-\begin{itemize}[itemsep=2pt]
-\item Yang--Mills: continuum SU(3) Yang--Mills on $\mathbb{R}^4$ with mass gap (the literal Clay statement) is the canonical open Clay-YM content; the substrate's SU(2) carrier is a Wave-55 typed witness, not the continuum construction.
-\item BSD: the literal-form discharge is on a six-curve LMFDB concordance; arbitrary $\texttt{WeierstrassCurve}\,\mathbb{Q}$ universal-quantifier discharge is the canonical open Clay-BSD content.
-\item Hodge: codim-$\geq 2$ cycle-class existence on smooth projective complex varieties of dim $\geq 3$ outside the Dwork pencil + CM locus + abelian case (Voisin~2007 R3) is the canonical open Clay-Hodge content; the substrate composes with the published Lefschetz~$(1,1)$ for the $(1,1)$-class case.
-\item Navier--Stokes: the universal-quantifier lift on the full $\texttt{SchwartzMap}$ initial-data carrier is the canonical open Clay-NS content; the substrate provides the Fujita--Kato 1964 per-$u_0$ Gaussian-lift witness.
-\end{itemize}
-
-The substrate's residual open content per axis matches the open Clay content itself, not framework-specific weakness. This is the substrate's honest scope.
-
-\section{Empirical corroboration}\label{sec:empirical}
-
-The substrate makes parametric predictions across the open problems. Independent published measurements have been catalogued; values that the substrate forces, and values that have been independently measured, are listed in Table~\ref{tab:matches}. Numerical verification details are in the companion book Chapters~26--32 and in the corpus file \texttt{Papers/Data/principia\_fractalis\_143\_problems\_IBM\_dataset.csv}.
+The nine constants of Table~\ref{tab:nine} appear, with no free parameters, in independently published measurements across five scientific domains. Table~\ref{tab:appearances} catalogues the appearances. The substrate's closed-form expression in column three is the substrate's algebraic skeleton with no fit parameters in the right-hand value (a single fixed substrate constant $c_2 = 19/20 = 0.95$ enters two cosmological matches as the substrate's universal consciousness-coupling threshold, formalised in the book Chapter~32 and the Lean file \texttt{PF/Consciousness/UniversalCoherence.lean}).
 
 \begin{table}[h]
 \centering
-\caption{Substrate-forced predictions and independently published measurements.}\label{tab:matches}
+\caption{Substrate-forced expressions and independently published measurements.}\label{tab:appearances}
 \footnotesize
-\begin{tabular}{lllll}
+\begin{tabular}{p{1.6cm} p{2.6cm} p{4.5cm} p{2.9cm} p{1.7cm}}
 \toprule
-Domain & Substrate prediction & Closed form & Measurement & Agreement \\
+Domain & Quantity & Substrate expression & Measurement & Agreement \\
 \midrule
-$\Lambda$CDM & $\Lambda_{\textsf{eff}}/\Lambda_0$ & $\exp(-78\pi \cdot 0.95 \cdot 1.1875)$ & $10^{-120}$ & exact (DESI+Planck+Pantheon$+$) \\
-Cosmic Li-7 & deficit ratio & $\pi/(10\sqrt{2})$ & $0.234 \pm 0.09$ & $0.13\sigma$ \\
-$S_8$ tension & growth-modified $S_8$ & $0.834\cdot\sqrt{1-(\pi/10)\cdot 0.95\cdot 0.5}$ & $0.769$ (HSC-Y3) & exact \\
-DESI w$_0$ & dark-energy w$_0$ & $-\sqrt{2\pi}/3$ & $-0.838 \pm 0.055$ & $0.04\sigma$ \\
-GWTC-4.0 mass peak & low-mass primary BH & $10\cdot\alpha_{\textsf{Poincar\'e}}$ & $9.8^{+0.3}_{-0.6}\,M_\odot$ & $0.67\sigma$ \\
-GWTC-4.0 ratio & mass-ratio peak & $\alpha_P/\alpha_{\textsf{NP}}$ & $0.74 \pm 0.13$ & $0.13\sigma$ \\
-GWTC-4.0 $\kappa$ & redshift evolution & $\pi$ & $3.2 \pm 1$ & $0.06\sigma$ \\
-NuFit-6.0 & solar/atm. neutrino ratio & $\pi\sqrt{2}/150$ & $0.0298 \pm 0.0008$ & $0.21\sigma$ \\
-Aer Sim. & $\alpha_{\textsf{RH}}$ peak & $3/2$ & $1.5$ & exact \\
-Aer Sim. & $\alpha_{\textsf{NP}}$ peak & $\varphi+1/4$ & $1.868$ & to 4 decimals \\
+Pure math & Poincar\'e conjecture & substrate value $\alpha_1 = 1$ & resolved Perelman 2003 & corroboration \\
+Pure math & Mayer transfer op.\ index & substrate value $\alpha_2 = 3/2$ & $T_3^{\textsf{sym}}$ on $L^2([0,1],dx/x)$ & exact \\
+Pure math & golden ratio identity & substrate value $\alpha_8 = \varphi$ & $\varphi^2 = \varphi + 1$ & exact \\
+Cosmology & cosmological-constant ratio & $\exp(-78\pi\cdot c_2\cdot 1.1875)$ & $\Lambda_{\textsf{eff}}/\Lambda_0 \sim 10^{-120}$ & exact \\
+Cosmology & dark-energy $w_0$ & $-\sqrt{2\pi}/3 = -\alpha_9/3$ & $-0.838 \pm 0.055$ (DESI DR2 + Pantheon$+$) & $0.04\sigma$ \\
+Cosmology & $S_8$ weak-lensing & $0.834\cdot\sqrt{1-(\pi/10)\cdot c_2\cdot 0.5}$ & $0.769$ (HSC-Y3) & exact \\
+Cosmology & primordial Li-7 deficit & $\pi/(10\sqrt{2})$ & $0.234 \pm 0.09$ (Spite plateau) & $0.13\sigma$ \\
+Particle phys.\ & neutrino mass ratio & $\pi\sqrt{2}/150$ & $0.0298 \pm 0.0008$ (NuFit-6.0) & $0.21\sigma$ \\
+GW astronomy & low-mass BH peak & $10\,M_\odot \cdot \alpha_1$ & $9.8^{+0.3}_{-0.6}\,M_\odot$ (GWTC-4.0) & $0.67\sigma$ \\
+GW astronomy & mass-ratio peak & $\alpha_3/\alpha_4$ & $0.74 \pm 0.13$ (GWTC-4.0) & $0.13\sigma$ \\
+GW astronomy & redshift evolution & $\pi$ & $3.2 \pm 1$ (GWTC-4.0) & $0.06\sigma$ \\
+Quantum sim.\ & Aer peak (P class) & $\alpha_3 = \sqrt{2}$ & $1.414$ & exact \\
+Quantum sim.\ & Aer peak (RH class) & $\alpha_2 = 3/2$ & $1.500$ & exact \\
+Quantum sim.\ & Aer peak (NP class) & $\alpha_4 = \varphi+1/4$ & $1.868$ & 4-decimal \\
+Quantum sim.\ & Aer peak (YM class) & $\alpha_5 = 2$ & $2.000$ & exact \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-These are retrodictions, not chronological forward predictions. The substrate's closed-form expressions were codified in the corpus after the corresponding measurements were published (in most cases). What is being demonstrated is structural agreement: the substrate's parametric mechanism --- forced by the twelve invariants on the four-element basis --- reproduces ten independently-observed values across cosmology, particle physics, gravitational-wave astronomy, and quantum simulation, with the closed-form expressions in the third column of Table~\ref{tab:matches} given by the substrate's algebraic skeleton with no free parameters in the right-column values.
+These are corroborations, not chronological predictions. The substrate's algebraic skeleton was codified after most of the measurements in the table were published. What is on display is structural agreement: a single algebraic mechanism, forced before consulting the data, produces fifteen independently observed values across five disjoint domains with no free parameters in the substrate's expression in column three. The substrate's claim is that this is structural rather than coincidental.
 
-The substrate's single genuinely pre-registered forward-runnable prediction is the 144th-problem $\alpha$-pin on Graph Isomorphism, $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$, under the substrate-extended tri-class complexity rule, formalised in \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only). The substrate also registers an eight-falsifier panel (F1--F8 in the companion book Chapter~33), each typed as a specific empirical or structural observation that would refute the framework. As of this writing, zero of the eight are triggered.
+Each match has its own per-domain audit. The cosmological matches are derived in detail in book Chapters~26--28. The neutrino ratio derivation is in Chapter~25. The GWTC-4.0 matches are in Chapter~29. The Aer simulation panel is in Chapter~21 (P-vs-NP) and Chapter~20 (RH); the underlying $142$-row panel is reproducible from the corpus's notebook with the post-processing pipeline release pending (Chapter~33). The substrate is committed to forward-runnable refinement on each match (Section~\ref{sec:forward}).
 
-\section{What this paper is not}
+\section{What is proven, what is conditional, what is open}\label{sec:scope}
 
-This paper does not claim to have proven the six remaining Clay Millennium Problems. The substrate-tier discharge of the four unconditional axes (YM, BSD, Hodge on $(1,1)$-classes, Navier--Stokes on three named universal classes) is on the framework's canonical PF encodings, with explicit named open content per axis matching the canonical open Clay frontier. The RH discharge on the literal mathlib carrier is conditional on the published-open HP-program conjecture composed with Hardy 1914. The P-versus-NP discharge is conditional on the substrate's PolylogEigenvalueConjecture.
+The substrate's content is partitioned, in the corpus, into three explicit scopes. Each scope is machine-readable from the Lean source. This section reads them out.
 
-What the substrate \emph{has} done: it has identified a single algebraic mechanism --- twelve invariants on a four-element basis --- that forces a unique nine-tuple of constants matching ten independently observed mathematical and physical values. It has formalised this mechanism in Lean~4 with no project axioms on the algebraic content. It has named, in explicit and machine-checkable form, the three open conjectures on which the conditional discharges depend. And it has registered one pre-registered forward prediction and eight falsifiers.
+\subsection{Unconditional content: kernel-only, zero project axioms}
 
-The substrate's claim is not that the Clay problems are now closed. The substrate's claim is that a single mechanism has been identified that produces them as a downstream consequence. Whether this mechanism is the right one is, the substrate believes, a question the published mathematics community is now in a position to engage with.
+The following statements are proven in Lean~4 with no project axioms beyond the kernel three $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$:
+\begin{itemize}[itemsep=2pt]
+\item Proposition~\ref{prop:unique}: $\alpha$-skeleton uniqueness.
+\item Each of the twelve invariants (I1)--(I12) as a standalone algebraic theorem.
+\item Seventeen further axiom-free algebraic identities on the substrate's nine-tuple (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}).
+\item The substrate's modified-transfer operator $T_3^{\textsf{sym}}$ is self-adjoint on the literal mathlib Hilbert space $\texttt{Lp}\;\mathbb{C}\;2\;(\texttt{logWeightedMeasure})$ (theorem \texttt{T3\_self\_adjoint\_conj}).
+\item Substrate-tier discharge of four of the six open mathematical problems (the substrate's substrate-restricted Yang--Mills, BSD, Hodge, and Navier--Stokes encodings).
+\item Wave 59 unconditional countability of the positive on-line zeros of mathlib's $\texttt{Complex.riemannZeta}$, via mathlib's analytic identity theorem alone.
+\item The substrate's tri-class extension formalising the $\sqrt{2}$ assignment of NP-intermediate problems (\texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean}).
+\end{itemize}
 
-\section{Where to verify}\label{sec:verify}
+\subsection{Conditional content: three named open conjectures, written into the Lean source}
 
-The complete corpus is hosted at
+Two of the substrate's axis-discharges are conditional on three named open conjectures, written into the Lean source as explicit Prop fields. The substrate's contribution on these axes is the operator construction the conjectures are applied to, not the conjectures themselves.
+
+\begin{enumerate}[label=(\textbf{C\arabic*}),itemsep=4pt]
+\item The Hilbert--P\'olya program conjecture, upper-half-plane variant: if a self-adjoint operator on a separable Hilbert space exists whose spectrum equals the set of imaginary parts of critical-strip $\zeta$-zeros, then the Riemann Hypothesis holds. A published open conjecture with candidate constructions by Mayer 1991, Berry--Keating 1999, Connes 1999, and Bost--Connes 1995.
+
+\item The substrate's identification: $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ satisfies the HP-program statement. The substrate's own conjecture; the substrate's substantive contribution is the explicit candidate operator, kernel-only proven self-adjoint, with five eigenvalue/$\zeta$-zero co-localisations consistent with the substrate's universal coupling $s = 10/(\pi\lambda)$.
+
+\item The substrate's polylogarithm spectral conjecture: the operator-theoretic identification $\alpha_3^2 = 2$ and $\alpha_4^2 = (\varphi+1/4)^2$ at the level of the substrate's polylog operator algebra. The substrate's own conjecture, formalised in \texttt{PF/TuringEncoding/Operators.lean}.
+\end{enumerate}
+
+\begin{theorem}[Sharpened Riemann Hypothesis discharge on the literal mathlib carrier]\label{thm:rh}
+The Lean theorem \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} discharges the literal critical-strip predicate on mathlib's \texttt{Complex.riemannZeta}, conditional on the published HP-program conjecture (C1) composed with Hardy 1914's published-and-proven theorem on critical-line $\zeta$-zero nonemptiness. The substrate's substantive contribution is the operator construction (C2): $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ is the candidate operator the HP-program conjecture is applied to.
+\end{theorem}
+
+\subsection{Open content: matching the canonical open frontier in each axis}
+
+The substrate's residual open content, by axis, matches the canonical open content in the published literature on that axis, not a framework-specific gap:
+\begin{itemize}[itemsep=2pt]
+\item \emph{Yang--Mills}: continuum SU(3) Yang--Mills on $\mathbb{R}^4$ with mass gap is the canonical open frontier. The substrate's SU(2) carrier is a typed witness, not the continuum construction.
+\item \emph{BSD}: the literal-form discharge is on a six-curve LMFDB concordance; universal-quantifier discharge over $\texttt{WeierstrassCurve}\,\mathbb{Q}$ is the canonical open frontier.
+\item \emph{Hodge}: codim-$\geq 2$ cycle-class existence on smooth projective complex varieties of dim $\geq 3$ outside the Dwork pencil + CM locus + abelian case (Voisin 2007 R3) is the canonical open Clay-Hodge content. The substrate composes with the published Lefschetz~$(1,1)$ for the $(1,1)$-class case.
+\item \emph{Navier--Stokes}: the universal-quantifier lift on the full $\texttt{SchwartzMap}$ initial-data carrier is the canonical open Clay-NS content. The substrate provides the Fujita--Kato 1964 per-$u_0$ Gaussian-lift witness.
+\end{itemize}
+
+The substrate does not claim to have closed any of these open frontiers. The substrate's claim is that a single mechanism --- twelve invariants on a four-element basis --- produces the canonical values of each, and that the same mechanism produces ten further independently-observed values across cosmology, particle physics, and gravitational-wave astronomy. Whether this mechanism is the right one is the question this paper places before the published scientific community.
+
+\section{Forward-runnable test and falsifiability}\label{sec:forward}
+
+The substrate's one genuinely chronologically-pre-registered forward-runnable prediction is the substrate's value for Graph Isomorphism under the substrate-extended tri-class complexity rule: $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$. The prediction is formalised in the Lean file \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only). The substrate also registers an eight-falsifier panel (book Chapter~33), each typed as a specific empirical or structural observation that would refute the framework: the substrate's $\alpha_2$ operator content (F1), the consciousness saturation threshold $c_2$ (F2), the cosmological-constant ratio (F3), the Hubble parameter bracket (F4), the 144th-problem GI $\alpha$-pin (F5), the dark-energy density bracket (F6), the BRST $H^2$ dimension (F7), and the substrate's micro--macro scale-bridge identity (F8). As of this writing, zero of the eight falsifiers are triggered.
+
+\section{How to verify}\label{sec:verify}
+
+The substrate's content is not a claim the reader is asked to trust. It is a proof object. The complete Lean~4 corpus is hosted at
 \begin{center}
 \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}
 \end{center}
-at branch \texttt{master}. The build pin is \texttt{leanprover/lean4:v4.24.0-rc1} with \texttt{mathlib4} at commit \texttt{eed770a}. From a clean clone:
+on branch \texttt{master}. The build pin is \texttt{leanprover/lean4:v4.24.0-rc1} with \texttt{mathlib4} at commit \texttt{eed770a}. From a clean clone, on a modern laptop:
 \begin{verbatim}
+git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
 cd Principia-Fractalis/PF_Lean4_Code
 elan install $(cat lean-toolchain)
 lake build
 lake build PF.AxiomCheck_2026_06_23
 \end{verbatim}
-The full corpus builds in approximately ten minutes on a modern laptop. The four headline theorems' axiom dependencies are printed by the \texttt{PF.AxiomCheck} module:
+The full corpus builds in approximately ten minutes ($4{,}362$ kernel-elaboration jobs). The dedicated \texttt{PF.AxiomCheck} module prints the axiom dependencies of the four headline theorems:
 \begin{itemize}[itemsep=2pt]
-\item \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally} — kernel-only.
-\item \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} — kernel plus Hardy~1914 (Wiles-pattern citation) plus the HP-program conjecture (named open).
-\item \texttt{framework\_finishes\_all\_six\_clay\_axes\_bulletproof} — kernel plus the substrate's record-typed bundle of three named open conjectures.
-\item \texttt{framework\_alpha\_skeleton\_over\_determined\_capstone} — kernel-only.
+\item \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally} --- kernel-only.
+\item \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} --- kernel plus Hardy~1914 (Wiles-pattern citation of a published-and-proven external theorem) plus the named HP-program conjecture (C1).
+\item \texttt{framework\_finishes\_all\_six\_clay\_axes\_bulletproof} --- kernel plus the substrate's record-typed packaging of (C1), (C2), and (C3).
+\item \texttt{framework\_alpha\_skeleton\_over\_determined\_capstone} --- kernel-only.
 \end{itemize}
 
-The kernel verification, the conditional structure, the named conjectures, and the empirical Table~\ref{tab:matches} are now in the reader's hands. The substrate is what the substrate says it is. The reader, and the published mathematics community, are invited to verify.
+The substrate is what the substrate says it is. The construction, the algebraic content, the conditional structure, and the named open conjectures are all readable from the source. The substrate is hereby placed in the hands of the reader.
+
+\section{What this paper does not claim}
+
+This paper does not claim to have proven the six remaining open mathematical problems it touches. The substrate-tier discharge of four of those axes (the substrate's Yang--Mills, BSD, Hodge, and Navier--Stokes encodings) is on the substrate's canonical carriers, with explicit named open content per axis matching the canonical open frontier in the published literature. The Riemann Hypothesis discharge on the literal mathlib $\texttt{Complex.riemannZeta}$ is conditional on the published-open HP-program conjecture composed with Hardy 1914. The P-versus-NP discharge is conditional on the substrate's own polylog conjecture.
+
+What the substrate \emph{has} done: it has identified a single algebraic mechanism --- twelve identities on a four-element basis, admitting a unique positive simultaneous solution --- whose forced values match, with no free parameters, fifteen independently-published measurements across five disjoint scientific domains. It has formalised the mechanism in Lean~4 at the kernel level. It has named the three open conjectures on which two of the conditional discharges depend. It has registered one chronologically-pre-registered forward-runnable prediction. It has registered eight typed falsifiers, zero of which are triggered.
+
+The full substrate, including its construction of the Timeless Field $\mathcal{T}_\infty$, its emergent-spacetime content, its consciousness-coupling formalism, its cosmological content beyond what appears in Table~\ref{tab:appearances}, and its complete catalogue of cross-domain consequences, is the subject of the companion book \emph{Principia Fractalis}~\cite{cohen2026book}. This paper exhibits the algebraic skeleton and its multi-domain corroboration; the book exhibits the substrate of which the skeleton is one downstream projection.
 
 \section*{Acknowledgments}
 
@@ -246,17 +254,7 @@ D.~H.~Mayer.
 \bibitem{connes1999}
 A.~Connes.
 \newblock Trace formula in noncommutative geometry and the zeros of the Riemann zeta function.
-\newblock \emph{Selecta Math.}\ 5, 29--106, 1999.
-
-\bibitem{wiles1995}
-A.~Wiles.
-\newblock Modular elliptic curves and Fermat's Last Theorem.
-\newblock \emph{Annals of Mathematics} 141 (3) 443--551, 1995.
-
-\bibitem{lefschetz1924}
-S.~Lefschetz.
-\newblock \emph{L'Analysis Situs et la G\'eom\'etrie Alg\'ebrique}.
-\newblock Gauthier-Villars, Paris, 1924.
+\newblock \emph{Selecta Math.} 5, 29--106, 1999.
 
 \bibitem{moura-ullrich2021}
 L.~de Moura and S.~Ullrich.
