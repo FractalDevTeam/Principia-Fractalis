@@ -101,10 +101,8 @@
 \input{chapters/ch34A_substrate_theorem}
 \input{chapters/ch35_software}
 
-% Back Matter
-\backmatter
-
-% Appendices
+% Appendices (must come BEFORE \backmatter so \appendix counter is active
+% and chapters get lettered A, B, C, ... rather than rendering blank)
 \appendix
 \input{backmatter/appendix_lexicon}
 \input{appendices/appA_zeros}
@@ -120,6 +118,9 @@
 \input{appendices/appJ_refinement_pass_2026-06-07}
 \input{appendices/appK_residual_compaction_2026-06-15_16}
 \input{appendices/appL_substrate_bundle_closure_2026-06-18_19}
+
+% Back Matter
+\backmatter
 
 % Glossary
 \chapter*{Glossary}

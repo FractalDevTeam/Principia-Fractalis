@@ -1,6 +1,12 @@
 \chapter*{Version History}
 \addcontentsline{toc}{chapter}{Version History}
 
+% Version-history entries contain many long \texttt{} identifiers (file paths,
+% Lean theorem names) that would otherwise cause Overfull \hbox warnings;
+% relax line-breaking tolerance for this front-matter chapter only.
+\begingroup
+\sloppy
+
 This book is under active development. Version numbers follow semantic versioning for manuscripts:
 \begin{itemize}
 \item \textbf{0.x.y} = Draft/Development (content incomplete)
@@ -687,3 +693,5 @@ original Version~1.0.0 complete-manuscript milestone.}
 \noindent\textbf{Milestone Achievement:} Version 1.0.0 - \textbf{COMPLETE MANUSCRIPT}. All 31 chapters written, all mathematical frameworks established, all major results proven or verified computationally, all software documented. This first complete draft of Principia Fractalis represents a unified mathematical framework spanning number theory, quantum field theory, spectral analysis, cosmology, consciousness, and computational verification. Ready for comprehensive review, peer feedback, and refinement toward publication.
 
 \noindent\textbf{Next Steps:} Peer review, mathematical verification by domain experts, refinement based on feedback, preparation for publication (target: Version 2.0.0)
+
+\endgroup

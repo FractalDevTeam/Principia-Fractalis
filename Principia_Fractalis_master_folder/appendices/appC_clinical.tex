@@ -13,7 +13,7 @@ Patients eligible for consciousness assessment:
 \item Stable hemodynamics (MAP $> 65$ mmHg without vasopressors)
 \item No active seizures or status epilepticus
 \item Sedation off for $\geq 12$ hours (if applicable)
-\item Body temperature $36-38°$C
+\item Body temperature 36--38$^\circ$C
 \end{itemize}
 
 \subsection{Exclusion Criteria}
@@ -40,10 +40,10 @@ Patients not suitable for assessment:
 
 \textbf{Patient Positioning:}
 \begin{enumerate}
-\item Supine position, head elevated 30°
+\item Supine position, head elevated 30$^\circ$
 \item Eyes closed (natural state, no forced closure)
 \item Quiet environment (noise $< 50$ dB)
-\item Room temperature $22-24°$C
+\item Room temperature 22--24$^\circ$C
 \item No active medical interventions during recording
 \end{enumerate}
 
@@ -213,7 +213,7 @@ def compute_ch2(W):
         return 0.0  # Degenerate case
 
     # Simplified ch_2 formula (see Chapter 6)
-    # ch_2 = (1/8π²) Tr(F ∧ F)
+    # ch_2 = (1/8 pi^2) Tr(F ^ F)
     # where F is curvature 2-form
 
     # Discrete approximation:
@@ -223,7 +223,7 @@ def compute_ch2(W):
             if i != j:
                 F[i,j] = (Lambda[i] - Lambda[j]) / (1 + Lambda[i] * Lambda[j])
 
-    # Trace of F ∧ F
+    # Trace of F ^ F
     ch2_raw = np.trace(F @ F) / (8 * np.pi**2)
 
     # Normalize to [0, 1]
@@ -383,7 +383,7 @@ Flat spectrum & Electrode malfunction & Check impedances, re-prep \\
 \subsection{Standard Report Format}
 
 \begin{verbatim}
-CONSCIOUSNESS ASSESSMENT REPORT (ch₂ Method)
+CONSCIOUSNESS ASSESSMENT REPORT (ch_2 Method)
 
 Patient: [ID]
 Date: [Date/Time]
@@ -395,7 +395,7 @@ TECHNICAL QUALITY:
   Signal quality: [Good/Fair/Poor]
 
 RESULTS:
-  Second Chern Character (ch₂): [value]
+  Second Chern Character (ch_2): [value]
   95% Confidence Interval: [range]
 
 INTERPRETATION:

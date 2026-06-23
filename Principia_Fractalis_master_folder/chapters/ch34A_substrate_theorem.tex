@@ -68,13 +68,13 @@ cosmology, consciousness, Weinstein-GU rescue, and counter-rotating
 vortex content. The meta-theorem of
 \S\ref{sec:substrate-meta-theorem} is the file
 \begin{center}
-\texttt{PF/Referee/PrincipiaFractalisSubstrateTheorem.lean}
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem.\allowbreak{}lean}
 \end{center}
 which bundles all eighty-one landings into a single citable
 implication \texttt{PFSubstrateAntecedents} $\to$
 \texttt{PFSubstrateConsequences} and (separately) into the
 unconditional companion
-\texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}.
+\texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Consequences\_\allowbreak{}holds\_\allowbreak{}unconditionally}.
 
 \textbf{Build state at HEAD commit \texttt{42990ea}:}
 $4030$ jobs clean under \texttt{lake build PF}; zero project
@@ -117,7 +117,7 @@ $C^*$-algebra $\mathcal{A}_{\text{TF}}$ with its
 $K$-theoretic content and its partial-trace family of
 projective compatibilities) is realised. Formally:
 \[
-\texttt{PrincipiaTractalis.TimelessField.TimelessFieldExistenceClaim}.
+\texttt{Principia\allowbreak{}Tractalis.\allowbreak{}TimelessField.\allowbreak{}Timeless\allowbreak{}Field\allowbreak{}Existence\allowbreak{}Claim}.
 \]
 
 \item[\textnormal{(A2) $\alpha$-rigidity skeleton.}]
@@ -168,18 +168,18 @@ appear.
 \label{thm:pf-substrate-antecedents-realised}
 The Lean theorem
 \[
-\texttt{pfSubstrateAntecedents\_realised} :
+\texttt{pf\allowbreak{}Substrate\allowbreak{}Antecedents\_\allowbreak{}realised} :
 \texttt{PFSubstrateAntecedents}
 \]
 witnesses \texttt{PFSubstrateAntecedents}. Each field is
 inhabited by an existing axiom-free theorem in the project:
 \begin{itemize}
-\item (A1) by \texttt{timelessFieldExistenceClaim\_holds}
+\item (A1) by \texttt{timeless\allowbreak{}Field\allowbreak{}Existence\allowbreak{}Claim\_\allowbreak{}holds}
 (Chapter~\ref{ch:timeless-field});
-\item (A2) by \texttt{framework\_alpha\_values\_match\_rigidity}
+\item (A2) by \texttt{framework\_\allowbreak{}alpha\_\allowbreak{}values\_\allowbreak{}match\_\allowbreak{}rigidity}
 (Chapter~\ref{ch:constants});
 \item (A3) by the second projection of (A2);
-\item (A4) by \texttt{IBM\_hardware\_nine\_way\_random\_match\_probability\_bound};
+\item (A4) by \texttt{IBM\_\allowbreak{}hardware\_\allowbreak{}nine\_\allowbreak{}way\_\allowbreak{}random\_\allowbreak{}match\_\allowbreak{}probability\_\allowbreak{}bound};
 \item (A5) by \texttt{universal\_fractal\_coherence}.
 \end{itemize}
 Consequently the antecedents are not merely postulated~--- they
@@ -205,15 +205,15 @@ $\alpha_{\text{RH}} = 3/2$, and the four Hilbert-P\'olya
 formulations~--- Berry-Keating; Connes' adelic; Bost-Connes;
 the framework's $T_3^{\text{sym}}$~--- collapse to one at the
 mathlib-API granularity. Lean witness:
-\texttt{HilbertPolyaIdentificationPrecise.\\hilbert\_polya\_implies\_RH}.
+\texttt{Hilbert\allowbreak{}Polya\allowbreak{}Identification\allowbreak{}Precise.hilbert\_\allowbreak{}polya\_\allowbreak{}implies\_\allowbreak{}RH}.
 Honest scope: conditional on the open \texttt{surjectivity}
-predicate in \texttt{PF/Referee/RHCapstoneTypedBridge.lean}.
+predicate in \texttt{PF/\allowbreak{}Referee/\allowbreak{}RHCapstone\allowbreak{}Typed\allowbreak{}Bridge.\allowbreak{}lean}.
 
 \item[\textnormal{(C2) Yang--Mills mass gap.}]
 $\alpha_{\text{YM}} = 2$, and an infinite-dimensional
 Hilbert-space mass-gap witness $\Delta = 3/2$ holds on
 $\ell^2(\mathbb{R})$. Lean witness:
-\texttt{YM\_ContinuumMassGapInfDimWitness.\\ym\_continuum\_mass\_gap\_three\_halves}.
+\texttt{YM\_\allowbreak{}Continuum\allowbreak{}Mass\allowbreak{}Gap\allowbreak{}Inf\allowbreak{}Dim\allowbreak{}Witness.ym\_\allowbreak{}continuum\_\allowbreak{}mass\_\allowbreak{}gap\_\allowbreak{}three\_\allowbreak{}halves}.
 Honest scope: the witness is on a toy Hamiltonian on
 $\ell^2$, not on the full Wightman QFT continuum.
 
@@ -222,9 +222,9 @@ The typed Clay-BSD statement is discharged on the Fin~6
 LMFDB-restricted encoding (rank-blind concordance across six
 curves) and the rank-one cascade is discharged on
 $E_{37.\text{a}1}$. Lean witnesses:
-\texttt{BSD\_HeegnerRank1Proof.\\bsd\_rank\_one\_E37a1\_via\_heegner\_and\_GZ\_K}
+\texttt{BSD\_\allowbreak{}HeegnerRank1Proof.bsd\_\allowbreak{}rank\_\allowbreak{}one\_\allowbreak{}E37a1\_\allowbreak{}via\_\allowbreak{}heegner\_\allowbreak{}and\_\allowbreak{}GZ\_\allowbreak{}K}
 and
-\texttt{BSD\_HeegnerRank1ProofE43a1.\\bsd\_rank\_one\_E43a1\_via\_heegner\_and\_GZ\_K}.
+\texttt{BSD\_\allowbreak{}HeegnerRank1ProofE43a1.bsd\_\allowbreak{}rank\_\allowbreak{}one\_\allowbreak{}E43a1\_\allowbreak{}via\_\allowbreak{}heegner\_\allowbreak{}and\_\allowbreak{}GZ\_\allowbreak{}K}.
 Honest scope: conditional on Gross-Zagier + Kolyvagin
 (both classical, both cited; not formalized in mathlib at
 HEAD~\texttt{42990ea}).
@@ -233,7 +233,7 @@ HEAD~\texttt{42990ea}).
 $\alpha_{\text{NS}} = 2 \alpha_{\text{BSD}}$, and the
 substrate-level NS-3D smoothness composite discharge holds
 on the trivial datum (Wave~58 cascade). Lean witness:
-\texttt{NSSmoothnessProofAttemptViaAlphaRigidity.\\ns\_smoothness\_composite\_substrate\_discharge}.
+\texttt{NSSmoothness\allowbreak{}Proof\allowbreak{}Attempt\allowbreak{}Via\allowbreak{}Alpha\allowbreak{}Rigidity.ns\_\allowbreak{}smoothness\_\allowbreak{}composite\_\allowbreak{}substrate\_\allowbreak{}discharge}.
 Honest scope: lifting to literal Clay requires the named
 $\nabla u$ mathlib gap; substrate composite is axiom-free
 under Fujita-Kato hypothesis.
@@ -243,7 +243,7 @@ The typed Clay-Hodge statement is discharged on the
 general-surface substrate encoding (with multi-substrate
 extension to K3, abelian, CY3 (2,2), CY4 (1,1)/(2,2)/(3,3)
 slices). Lean witness:
-\texttt{Voisin2007GeneralQuinticPrecision.\\hodge\_clay\_gap\_isolated\_to\_voisin\_2007}.
+\texttt{Voisin2007General\allowbreak{}Quintic\allowbreak{}Precision.hodge\_\allowbreak{}clay\_\allowbreak{}gap\_\allowbreak{}isolated\_\allowbreak{}to\_\allowbreak{}voisin\_\allowbreak{}2007}.
 Honest scope: codim~$\ge 2$ on the general smooth quintic
 outside the Dwork locus remains the named Voisin~2007
 obstruction.
@@ -253,7 +253,7 @@ $\alpha_{P\text{vs}NP} = 5/4$, and the enum-to-class bridge
 biconditional holds:
 $\texttt{EnumToClassSeparationBridge} \leftrightarrow
 \texttt{Literal\_P\_neq\_NP}$. Lean witness:
-\texttt{PNPClassSeparationPrecisionBridge.\\enum\_to\_class\_separation\_bridge\_iff\_literal\_P\_neq\_NP}.
+\texttt{PNPClass\allowbreak{}Separation\allowbreak{}Precision\allowbreak{}Bridge.enum\_\allowbreak{}to\_\allowbreak{}class\_\allowbreak{}separation\_\allowbreak{}bridge\_\allowbreak{}iff\_\allowbreak{}literal\_\allowbreak{}P\_\allowbreak{}neq\_\allowbreak{}NP}.
 Honest scope: enum-level; Razborov-Rudich and
 Aaronson-Wigderson barriers preserved.
 \end{description}
@@ -266,7 +266,7 @@ Aaronson-Wigderson barriers preserved.
 $\alpha_{\text{Poincar\'e}} = 1$. This is the
 rigidity-skeleton-anchored value, with Perelman 2002--2003
 the external discharge. Lean witness: the second projection
-of \texttt{framework\_alpha\_values\_match\_rigidity}.
+of \texttt{framework\_\allowbreak{}alpha\_\allowbreak{}values\_\allowbreak{}match\_\allowbreak{}rigidity}.
 \end{description}
 
 \subsection{Group III: Cross-Millennium Algebraic Invariants (C8)}
@@ -297,7 +297,7 @@ because the framework's structural content is that the
 $\alpha$-values are \emph{not} algebraically independent; the
 cross-Millennium invariants make that interdependence
 machine-checkable. Lean witness:
-\texttt{CrossMillenniumSharedInvariants} (eleven exported
+\texttt{Cross\allowbreak{}Millennium\allowbreak{}Shared\allowbreak{}Invariants} (eleven exported
 identities).
 \end{description}
 
@@ -314,7 +314,7 @@ the older meta-closure file's per-axis entailments
 (\texttt{entailment\_from\_RH}, $\ldots$,
 \texttt{entailment\_from\_Perelman}) are not literally deductive
 implications at the Lean level: the framework's $\alpha$-values
-in \texttt{CrossMillenniumSharedInvariants} are concrete
+in \texttt{Cross\allowbreak{}Millennium\allowbreak{}Shared\allowbreak{}Invariants} are concrete
 \texttt{def}s (e.g.\ \texttt{\(\alpha\)\_RH := 3/2}), so a
 hypothesis ``$\alpha_{\text{RH}} = 3/2$'' is \texttt{rfl}-style and
 the proof discharges it with \texttt{intro \_h} followed by
@@ -338,8 +338,8 @@ consistent} under the 11 cross-Millennium algebraic invariants of
 the 11 invariants are simultaneously satisfied as real-arithmetic
 identities on these specific \texttt{def}s. Load-bearing Lean
 witnesses (re-exported by name in
-\texttt{PF/Referee/CrossMillenniumMetaClosure.lean}):
-\texttt{CrossMillenniumMetaClosure.\\cross\_millennium\_meta\_closure\_capstone}
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}Meta\allowbreak{}Closure.\allowbreak{}lean}):
+\texttt{Cross\allowbreak{}Millennium\allowbreak{}Meta\allowbreak{}Closure.cross\_\allowbreak{}millennium\_\allowbreak{}meta\_\allowbreak{}closure\_\allowbreak{}capstone}
 (9-field bundle composing \texttt{framework\_axis\_cascade},
 six per-axis entailments, $\alpha$-skeleton coupling, and the
 Perelman-forces-all cascade).
@@ -359,30 +359,30 @@ have the entire framework $\alpha$-skeleton whenever \emph{any
 one} of $\{a_{\text{Poincar\'e}}, a_{\text{RH}}, a_{\text{YM}},
 a_{\text{NS}}, a_{P\text{vs}NP}\}$ is pinned to its framework value.
 Load-bearing Lean witnesses (in
-\texttt{PF/Referee/CrossMillenniumCascadeParameterized.lean}):
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}Cascade\allowbreak{}Parameterized.\allowbreak{}lean}):
 \begin{itemize}
 \item Generic carrier:
-\texttt{PF.Referee.CrossMillenniumCascadeParameterized.\\AlphaAssignment}.
+\texttt{PF.\allowbreak{}Referee.\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}Cascade\allowbreak{}Parameterized.Alpha\allowbreak{}Assignment}.
 \item Invariant predicate:
-\texttt{PF.Referee.CrossMillenniumCascadeParameterized.\\SatisfiesInvariants}.
+\texttt{PF.\allowbreak{}Referee.\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}Cascade\allowbreak{}Parameterized.Satisfies\allowbreak{}Invariants}.
 \item Per-axis entailments: \texttt{entailment\_from\_a\_Poincare},
 \texttt{entailment\_from\_a\_RH}, \texttt{entailment\_from\_a\_YM},
 \texttt{entailment\_from\_a\_PvNP},
 \texttt{entailment\_from\_a\_NS},
-\texttt{entailment\_from\_a\_BSD\_and\_a\_Poincare} (six theorems,
+\texttt{entailment\_\allowbreak{}from\_\allowbreak{}a\_\allowbreak{}BSD\_\allowbreak{}and\_\allowbreak{}a\_\allowbreak{}Poincare} (six theorems,
 all axiom-free).
 \item BSD as constitutive free parameter:
 \texttt{BSD\_is\_constitutive} (the framework's
 $\alpha_{\text{BSD}} = (3/4)\pi$ is encoded as a clause of the
 invariant system itself, not a derivation from other $\alpha$-values).
 \item Bundled cascade capstone:
-\texttt{PF.Referee.CrossMillenniumCascadeParameterized.\\cascade\_parameterized\_capstone}
-(six-field \texttt{CrossMillenniumCascadeParameterized}
+\texttt{PF.\allowbreak{}Referee.\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}Cascade\allowbreak{}Parameterized.cascade\_\allowbreak{}parameterized\_\allowbreak{}capstone}
+(six-field \texttt{Cross\allowbreak{}Millennium\allowbreak{}Cascade\allowbreak{}Parameterized}
 structure).
 \item Framework realization:
-\texttt{framework\_alpha\_satisfies\_invariants} (the framework's
+\texttt{framework\_\allowbreak{}alpha\_\allowbreak{}satisfies\_\allowbreak{}invariants} (the framework's
 hard-coded $\alpha$-values inhabit the predicate) and
-\texttt{framework\_cascade\_from\_perelman\_anchor} (the
+\texttt{framework\_\allowbreak{}cascade\_\allowbreak{}from\_\allowbreak{}perelman\_\allowbreak{}anchor} (the
 parameterized cascade specialized at the framework's
 $\alpha$-assignment, forcing the entire skeleton from
 $\alpha_{\text{Poincar\'e}} = 1$).
@@ -409,9 +409,9 @@ alone does \emph{not} force the remaining skeleton; the remaining
 five axes do (E-Poincar\'e, E-RH, E-YM, E-PvNP, E-NS each
 \emph{individually} pin the entire framework $\alpha$-skeleton).
 This asymmetry is recorded by the explicit theorem
-\texttt{PF.Referee.CrossMillenniumCascadeParameterized.\\BSD\_is\_constitutive}
+\texttt{PF.\allowbreak{}Referee.\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}Cascade\allowbreak{}Parameterized.BSD\_\allowbreak{}is\_\allowbreak{}constitutive}
 and the conjoint entailment
-\texttt{entailment\_from\_a\_BSD\_and\_a\_Poincare}, which
+\texttt{entailment\_\allowbreak{}from\_\allowbreak{}a\_\allowbreak{}BSD\_\allowbreak{}and\_\allowbreak{}a\_\allowbreak{}Poincare}, which
 documents that \emph{both} $\alpha_{\text{BSD}}$ and one
 additional pinning axis are needed to force the rest from the
 BSD anchor.
@@ -439,7 +439,7 @@ deductive: the $\alpha$-skeleton is forced by the invariant
 system together with \emph{any} of five pinning hypotheses. The
 manuscript's claim that ``closing one axis forces the others'' is
 the View~2 reading, witnessed by
-\texttt{cascade\_parameterized\_capstone}.
+\texttt{cascade\_\allowbreak{}parameterized\_\allowbreak{}capstone}.
 \end{keyidea}
 
 \begin{theorem}[The Parameterized Cascade Specializes to the
@@ -448,29 +448,25 @@ Framework]
 The framework's hard-coded $\alpha$-assignment is one realization
 of the invariant system:
 \[
-\texttt{framework\_alpha\_satisfies\_invariants} :
-\texttt{SatisfiesInvariants framework\_alpha}
+\texttt{framework\_\allowbreak{}alpha\_\allowbreak{}satisfies\_\allowbreak{}invariants} :
+\texttt{Satisfies\allowbreak{}Invariants framework\_\allowbreak{}alpha}
 \]
 holds, where \texttt{framework\_alpha} packages the
-\texttt{CrossMillenniumSharedInvariants}
+\texttt{Cross\allowbreak{}Millennium\allowbreak{}Shared\allowbreak{}Invariants}
 $\alpha$-definitions as an \texttt{AlphaAssignment}. Consequently,
 the framework's cascade
-\[
-\texttt{framework\_cascade\_from\_perelman\_anchor}:
-\alpha_{\text{Poincar\'e}} = 1 \;\Longrightarrow\;
-\bigl(\alpha_{\text{RH}} = 3/2 \;\wedge\;
-\alpha_{\text{YM}} = 2 \;\wedge\;
-\alpha_{\text{BSD}} = (3/4)\pi \;\wedge\;
-\alpha_{\text{NS}} = (3/2)\pi \;\wedge\;
-\alpha_{P\text{vs}NP} = 5/4\bigr)
-\]
+\begin{align*}
+&\texttt{framework\_\allowbreak{}cascade\_\allowbreak{}from\_\allowbreak{}perelman\_\allowbreak{}anchor}: \\
+&\quad \alpha_{\text{Poincar\'e}} = 1 \;\Longrightarrow\; \bigl(\alpha_{\text{RH}} = 3/2 \;\wedge\; \alpha_{\text{YM}} = 2 \\
+&\quad \;\wedge\; \alpha_{\text{BSD}} = (3/4)\pi \;\wedge\; \alpha_{\text{NS}} = (3/2)\pi \;\wedge\; \alpha_{P\text{vs}NP} = 5/4\bigr)
+\end{align*}
 is the parameterized cascade specialized to the framework's
 specific $\alpha$-assignment. It is genuinely deductive (the
 hypothesis is rewritten through the invariants), not a
 \texttt{rfl}-based unfold.
 
 \textbf{Lean source:}
-\texttt{PF/Referee/CrossMillenniumCascadeParameterized.lean}.
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}Cascade\allowbreak{}Parameterized.\allowbreak{}lean}.
 \end{theorem}
 
 \subsection{Group IV: Cosmology (C9--C12)}
@@ -483,7 +479,7 @@ $\log(\rho_{\Lambda,\text{naive}} / \rho_{\Lambda,\text{observed}})
 constant is suppressed by exactly $120$ orders of magnitude
 relative to the naive vacuum-energy estimate of standard QFT
 (Chapter~\ref{ch:cosmological-constant}). Lean witness:
-\texttt{LambdaCDMRebuttalEnergyConservation.\\naive\_vs\_observed\_ratio\_log}.
+\texttt{Lambda\allowbreak{}CDMRebuttal\allowbreak{}Energy\allowbreak{}Conservation.naive\_\allowbreak{}vs\_\allowbreak{}observed\_\allowbreak{}ratio\_\allowbreak{}log}.
 A companion theorem (C9$'$)
 \texttt{framework\_density\_lt\_naive} asserts strict inequality
 $\rho_{\Lambda,\text{framework}} < \rho_{\Lambda,\text{naive}}$.
@@ -500,7 +496,7 @@ $H_0^{\text{Planck CMB}} = 67.4 \;<\; H_0^{\text{framework}}
 both the CMB and the local measurement, providing a
 quantitative resolution of the Hubble tension
 (Chapter~\ref{ch:dark-energy-expansion}). Lean witness:
-\texttt{hubble\_framework\_brackets\_local\_and\_cmb}.
+\texttt{hubble\_\allowbreak{}framework\_\allowbreak{}brackets\_\allowbreak{}local\_\allowbreak{}and\_\allowbreak{}cmb}.
 
 \item[\textnormal{(C12) Toy energy-conservation product identity.}]
 For every time $t$,
@@ -518,7 +514,7 @@ joint energy-like quantity. Lean witness:
 \item[\textnormal{(C13) Decoherence threshold $\text{ch}_2 = 19/20 = 0.95$.}]
 The second Chern character at the crystallisation threshold is
 \emph{exactly} $19/20$. Lean witness:
-\texttt{QuantumClassicalDecoherenceThreshold.\\threshold\_ch2\_eq\_zero\_point\_95}.
+\texttt{Quantum\allowbreak{}Classical\allowbreak{}Decoherence\allowbreak{}Threshold.threshold\_\allowbreak{}ch2\_\allowbreak{}eq\_\allowbreak{}zero\_\allowbreak{}point\_\allowbreak{}95}.
 
 \item[\textnormal{(C14) Decoherence regime dichotomy.}]
 For every $\text{ch}_2 \in \mathbb{R}$, either the state is
@@ -542,7 +538,7 @@ $|\Psi_{\text{RQG}}|^2 = \text{ch}_2 = 0.95$, the holographic
 projection $\mathbb{R}^{13} \to \mathbb{R}^4$, and the rest
 of the Geometric Unity rescue (Appendix~\ref{app:weinstein}).
 Lean witness:
-\texttt{WeinsteinGUResonantRescue.\\weinstein\_GU\_rescued\_capstone}.
+\texttt{Weinstein\allowbreak{}GUResonant\allowbreak{}Rescue.weinstein\_\allowbreak{}GU\_\allowbreak{}rescued\_\allowbreak{}capstone}.
 
 \item[\textnormal{(C17) BRST $H^2 = 78 = 48 + 26 + 4 = \dim E_6$.}]
 The structural identity used in the Weinstein-GU rescue.
@@ -555,7 +551,7 @@ The structural identity used in the Weinstein-GU rescue.
 \item[\textnormal{(C18) Counter-rotating vortex pair zero-point free energy.}]
 A seven-clause typed bundle encoding the counter-rotating
 vortex pair's zero-point free-energy content. Lean witness:
-\texttt{counter\_rotating\_vortices\_free\_energy\_capstone}.
+\texttt{counter\_\allowbreak{}rotating\_\allowbreak{}vortices\_\allowbreak{}free\_\allowbreak{}energy\_\allowbreak{}capstone}.
 \end{description}
 
 \subsection{Group VIII: Empirical Anchors (C20--C21)}
@@ -572,7 +568,7 @@ Re-states (A5) as a consequence: $\forall p \in
 Re-states (A4) as a consequence:
 $P_{\text{joint random match}}(\varepsilon_{9,\text{hardware}})
 \le 10^{-15}$. Lean witness:
-\texttt{IBM\_hardware\_nine\_way\_random\_match\_probability\_bound}.
+\texttt{IBM\_\allowbreak{}hardware\_\allowbreak{}nine\_\allowbreak{}way\_\allowbreak{}random\_\allowbreak{}match\_\allowbreak{}probability\_\allowbreak{}bound}.
 \end{description}
 
 \subsection{Group IX: Cross-Prover-Verified Unification (C22--C25)}
@@ -591,7 +587,7 @@ The six-conjunct fractal-mathematics core: TF eternality;
 ternary scaling $3^k$; masslessness; information presence;
 sharp consciousness threshold; TF partial-trace projective
 compatibility. Lean witness:
-\texttt{FractalMathematicsCore.\\fractalMathematicsCore\_realized}.
+\texttt{Fractal\allowbreak{}Mathematics\allowbreak{}Core.fractal\allowbreak{}Mathematics\allowbreak{}Core\_\allowbreak{}realized}.
 
 \item[\textnormal{(C24) Complete-framework bundle.}]
 Every load-bearing single-citation theorem the framework
@@ -599,14 +595,14 @@ carries: the Referee layer, the Wave~57 master, the
 conditional Millennium reduction, the cross-Millennium
 invariants, and the Consciousness $\leftrightarrow$ RH
 bridge. Lean witness:
-\texttt{PFCompleteFrameworkCapstone.\\pfCompleteFramework\_realized}.
+\texttt{PFComplete\allowbreak{}Framework\allowbreak{}Capstone.pf\allowbreak{}Complete\allowbreak{}Framework\_\allowbreak{}realized}.
 
 \item[\textnormal{(C25) Seven-Millennium unification.}]
 Poincar\'e (Perelman) plus the six unsolved Clay axes plus
 the unified substrate plus the fractal-mathematics core plus
 the algebraically-forced $\alpha$-skeleton, all bundled.
 Lean witness:
-\texttt{SevenMillenniumUnification.\\sevenMillenniumUnification\_realized}.
+\texttt{Seven\allowbreak{}Millennium\allowbreak{}Unification.seven\allowbreak{}Millennium\allowbreak{}Unification\_\allowbreak{}realized}.
 \end{description}
 
 \section{The Meta-Theorem}
@@ -626,7 +622,7 @@ expresses the framework's current verification level.
 \index{substrate theorem!Principia Fractalis}
 The implication
 \[
-\texttt{PrincipiaFractalisSubstrateTheorem} :
+\texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem} :
 \texttt{PFSubstrateAntecedents}
 \;\longrightarrow\;
 \texttt{PFSubstrateConsequences}
@@ -637,8 +633,8 @@ twenty-five consequences (C1)--(C25) of
 \S\ref{sec:substrate-consequences}.
 
 \textbf{Lean source:}
-\texttt{PF/Referee/PrincipiaFractalisSubstrateTheorem.lean},
-theorem \texttt{PrincipiaFractalisSubstrateTheorem}.
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem.\allowbreak{}lean},
+theorem \texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem}.
 \end{theorem}
 
 \begin{proof}[Sketch (formal proof is in Lean)]
@@ -646,7 +642,7 @@ The implication is established by constructing the
 \texttt{PFSubstrateConsequences} record field-by-field. Each
 field is inhabited by an existing axiom-free theorem in the
 project, cited by exact Lean name (the full citation list is
-in the Lean source's \texttt{by intro \_h\_antecedents; exact
+in the Lean source's \texttt{by intro \_\allowbreak{}h\_\allowbreak{}antecedents; exact
 \{ \dots \}} block). In particular, the antecedents are not
 \emph{consumed} during the construction~--- they are passed
 in as a record and discarded as \texttt{\_h\_antecedents},
@@ -665,7 +661,7 @@ verification level.
 \index{Principia Fractalis Substrate Theorem!unconditional companion}
 The proposition
 \[
-\texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally} :
+\texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Consequences\_\allowbreak{}holds\_\allowbreak{}unconditionally} :
 \texttt{PFSubstrateConsequences}
 \]
 holds. Equivalently: every consequence (C1)--(C25) of
@@ -674,10 +670,10 @@ axiom-free, at HEAD commit \texttt{42990ea}, without consuming
 the substrate antecedents.
 
 \textbf{Lean source:} same file as above, theorem
-\texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally},
+\texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Consequences\_\allowbreak{}holds\_\allowbreak{}unconditionally},
 which is realised by applying the implication form of
 Theorem~\ref{thm:pf-substrate-theorem} to
-\texttt{pfSubstrateAntecedents\_realised}.
+\texttt{pf\allowbreak{}Substrate\allowbreak{}Antecedents\_\allowbreak{}realised}.
 \end{theorem}
 
 \begin{keyidea}[What the Two Forms Mean Together]
@@ -715,23 +711,23 @@ that localises the remaining mathlib gap to a named open clause.
 
 \begin{itemize}
 \item \textbf{P vs NP carrier V2.}
-\texttt{PF.TuringEncoding.PNPClassSeparationCarrierV2}. Replaces the
-V1 \texttt{DecidableProblem~:=~Input~$\to$~Prop} carrier with a
-Bool-valued \texttt{DecidableProblemV2~:=~Input~$\to$~Bool}, so that
+\texttt{PF.\allowbreak{}Turing\allowbreak{}Encoding.\allowbreak{}PNPClass\allowbreak{}Separation\allowbreak{}Carrier\allowbreak{}V2}. Replaces the
+V1 \texttt{Decidable\allowbreak{}Problem~:=~Input~$\to$~Prop} carrier with a
+Bool-valued \texttt{Decidable\allowbreak{}Problem\allowbreak{}V2~:=~Input~$\to$~Bool}, so that
 \texttt{M.decides~L~x} is now a genuine Bool equality rather than an
 Iff. This closes the carrier-level Iff-vs-Bool defect of V1.
 Cook 1971 $P \subseteq NP$ is re-proved on the new carrier via
-\texttt{class\_P\_subset\_class\_NP\_V2}; the reduction analog
-\texttt{enum\_to\_class\_separation\_bridge\_V2\_iff\_literal\_P\_neq\_NP\_V2}
+\texttt{class\_\allowbreak{}P\_\allowbreak{}subset\_\allowbreak{}class\_\allowbreak{}NP\_\allowbreak{}V2}; the reduction analog
+\texttt{enum\_\allowbreak{}to\_\allowbreak{}class\_\allowbreak{}separation\_\allowbreak{}bridge\_\allowbreak{}V2\_\allowbreak{}iff\_\allowbreak{}literal\_\allowbreak{}P\_\allowbreak{}neq\_\allowbreak{}NP\_\allowbreak{}V2}
 holds on V2. The single citable
-\texttt{pnp\_carrier\_V2\_honest\_scope\_capstone} (3-clause bundle)
+\texttt{pnp\_\allowbreak{}carrier\_\allowbreak{}V2\_\allowbreak{}honest\_\allowbreak{}scope\_\allowbreak{}capstone} (3-clause bundle)
 records the honest scope: the substrate defect now localises to a
 single named field \texttt{computability~:~True} placeholder, where
 the future plug-in point for a real machine model (mathlib
 \texttt{Computable} or a Turing-machine encoding) sits.
 
 \item \textbf{NS regularity V2.}
-\texttt{PF.NavierStokes.NS3DRegularitySolutionV2}. Replaces the
+\texttt{PF.\allowbreak{}NavierStokes.\allowbreak{}NS3DRegularity\allowbreak{}Solution\allowbreak{}V2}. Replaces the
 trivial fifth conjunct of the V1 hypothesis bundle
 ($\texttt{u0.isDivFree} \to \texttt{True}$) with the literal
 Beale-Kato-Majda criterion of~\cite{beale1984}:
@@ -745,37 +741,37 @@ Both sub-clauses are axiom-free:
 \texttt{bkm\_criterion\_axiom\_free} encodes the 1984 bidirectional
 iff $\texttt{SolutionBlowsUpAt}\,T\,u \leftrightarrow
 \neg \texttt{FiniteVorticityIntegral}\,u\,T$, and
-\texttt{finiteVorticityIntegral\_axiom\_free} routes the precise
+\texttt{finite\allowbreak{}Vorticity\allowbreak{}Integral\_\allowbreak{}axiom\_\allowbreak{}free} routes the precise
 1984 hypothesis $\int_0^T \|\omega(t)\|_{L^\infty} \,dt < \infty$
-through \texttt{SchwartzMap.norm\_le\_seminorm}. Axiom-free composition
-\texttt{pf\_NS\_chain\_yields\_typed\_regularityV2}; Clay substrate
+through \texttt{SchwartzMap.\allowbreak{}norm\_\allowbreak{}le\_\allowbreak{}seminorm}. Axiom-free composition
+\texttt{pf\_\allowbreak{}NS\_\allowbreak{}chain\_\allowbreak{}yields\_\allowbreak{}typed\_\allowbreak{}regularityV2}; Clay substrate
 capstone
-\texttt{PF\_NS\_capstone\_yields\_Clay\_NavierStokes\_standardV2};
+\texttt{PF\_\allowbreak{}NS\_\allowbreak{}capstone\_\allowbreak{}yields\_\allowbreak{}Clay\_\allowbreak{}NavierStokes\_\allowbreak{}standardV2};
 V2 $\to$ V1 backward-compat bridge
-\texttt{NS3DRegularitySolutionV2\_implies\_V1}. Honest scope: the
+\texttt{NS3DRegularity\allowbreak{}Solution\allowbreak{}V2\_\allowbreak{}implies\_\allowbreak{}V1}. Honest scope: the
 literal PDE-level BKM~1984 published implication remains the mathlib
 gap.
 
 \item \textbf{Hodge representation V2.}
-\texttt{PF.AlgebraicGeometry.HodgeAlgebraicRepresentationV2}.
+\texttt{PF.\allowbreak{}Algebraic\allowbreak{}Geometry.\allowbreak{}Hodge\allowbreak{}Algebraic\allowbreak{}Representation\allowbreak{}V2}.
 Strictly strengthens the V1 3-existential placeholder
 \texttt{HodgeAlgebraicRepresentation} by composing it with the
 existing axiom-free Hodge content. Three branches are axiom-free
 discharged:
 \begin{itemize}
 \item dim-1 (real Chow API witness on a curve):
-\texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_dim\_one\_branch}
-via \texttt{hodgeConjectureChow\_on\_curve}.
+\texttt{Hodge\allowbreak{}Algebraic\allowbreak{}Representation\allowbreak{}V2\_\allowbreak{}holds\_\allowbreak{}on\_\allowbreak{}dim\_\allowbreak{}one\_\allowbreak{}branch}
+via \texttt{hodge\allowbreak{}Conjecture\allowbreak{}Chow\_\allowbreak{}on\_\allowbreak{}curve}.
 \item Abelian-3-fold codim~$\ge 2$ named instance:
-\texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_abelian\_threefold\_branch}
+\texttt{Hodge\allowbreak{}Algebraic\allowbreak{}Representation\allowbreak{}V2\_\allowbreak{}holds\_\allowbreak{}on\_\allowbreak{}abelian\_\allowbreak{}threefold\_\allowbreak{}branch}
 via
 \texttt{abelianThreeFold\_\\VoisinCodimTwoCycleClassExistsHypothesis}.
 \item Dwork pencil at $\lambda = 0$:
-\texttt{HodgeAlgebraicRepresentationV2\_holds\_on\_dwork\_pencil\_branch}
+\texttt{Hodge\allowbreak{}Algebraic\allowbreak{}Representation\allowbreak{}V2\_\allowbreak{}holds\_\allowbreak{}on\_\allowbreak{}dwork\_\allowbreak{}pencil\_\allowbreak{}branch}
 via \texttt{dworkPencil\_\\VoisinCodimTwoCycleClassExistsHypothesis~0}.
 \end{itemize}
 The 6-conjunct capstone
-\texttt{hodgeAlgebraicRepresentationV2\_capstone} bundles the
+\texttt{hodge\allowbreak{}Algebraic\allowbreak{}Representation\allowbreak{}V2\_\allowbreak{}capstone} bundles the
 V2~$\to$~V1 projection, the three discharges, the generic
 codim~$\ge 2$ typed reference (\texttt{Voisin~2007} general-quintic
 Prop, dischargeable at the Dwork-$\lambda = 0$ specialisation), and a
@@ -786,20 +782,20 @@ case on the general smooth quintic outside the Dwork locus remains
 the canonical OPEN Voisin~2007 obstruction. NOT a Clay discharge.
 
 \item \textbf{BSD typed-bridge V2.}
-\texttt{PF.Referee.BSDCapstoneTypedBridgeV2}. Replaces the V1
+\texttt{PF.\allowbreak{}Referee.\allowbreak{}BSDCapstone\allowbreak{}Typed\allowbreak{}Bridge\allowbreak{}V2}. Replaces the V1
 $\text{Fin}\,6$ LMFDB-restricted carrier with the universal mathlib
 carrier \texttt{WeierstrassCurve~$\mathbb{Q}$}. The V2 ranks
 \texttt{algebraicRankV2} and \texttt{analyticRankV2} are routed
 through \emph{structurally distinct} typed Props from
 \texttt{BSD\_RankWitnessTypedUpgrade}
 (\texttt{RankWitnessTyped} vs \texttt{SelmerRankEquals}) per
-\texttt{algebraicRankV2\_routed\_via\_RankWitnessTyped} and
-\texttt{analyticRankV2\_routed\_via\_SelmerRankEquals}. The
+\texttt{algebraic\allowbreak{}Rank\allowbreak{}V2\_\allowbreak{}routed\_\allowbreak{}via\_\allowbreak{}Rank\allowbreak{}Witness\allowbreak{}Typed} and
+\texttt{analyticRankV2\_\allowbreak{}routed\_\allowbreak{}via\_\allowbreak{}Selmer\allowbreak{}Rank\allowbreak{}Equals}. The
 substrate-level Clay capstone
-\texttt{PF\_BSD\_capstone\_yields\_Clay\_BSD\_standardV2} holds
+\texttt{PF\_\allowbreak{}BSD\_\allowbreak{}capstone\_\allowbreak{}yields\_\allowbreak{}Clay\_\allowbreak{}BSD\_\allowbreak{}standardV2} holds
 axiom-free at substrate scope; the V2~$\to$~V1 bridge
-\texttt{PF\_BSD\_capstoneV2\_implies\_V1} preserves the V1 reading.
-The 8-conjunct \texttt{PF\_BSD\_V2\_honestScope\_holds} marker
+\texttt{PF\_\allowbreak{}BSD\_\allowbreak{}capstoneV2\_\allowbreak{}implies\_\allowbreak{}V1} preserves the V1 reading.
+The 8-conjunct \texttt{PF\_\allowbreak{}BSD\_\allowbreak{}V2\_\allowbreak{}honestScope\_\allowbreak{}holds} marker
 documents that positive-rank typed-rank-$\ge 1$ Props still require
 external non-torsion-point witnesses (Gross-Zagier~\cite{gross1986heegner},
 Kolyvagin~\cite{kolyvagin1988finiteness},
@@ -810,23 +806,23 @@ Wiles~\cite{wiles1995modular}); mathlib gap unchanged.
 $\ell^2(\mathbb{R})$ continuum gauge-group carrier and a 4-dim
 Gaussian Osterwalder-Schrader measure on the canonical YM
 encoding. The substrate-level capstone
-\texttt{PF\_YM\_capstone\_yields\_Clay\_YangMillsMassGap\_standardV2}
+\texttt{PF\_\allowbreak{}YM\_\allowbreak{}capstone\_\allowbreak{}yields\_\allowbreak{}Clay\_\allowbreak{}Yang\allowbreak{}Mills\allowbreak{}Mass\allowbreak{}Gap\_\allowbreak{}standardV2}
 holds axiom-free; the three structural identifications
-\texttt{PF\_YMEncodingV2\_gaugeGroup\_eq\_L2RInf},
-\texttt{PF\_YMEncodingV2\_QYM\_eq\_ContinuumYMTheoryV2}, and
-\texttt{PF\_YMEncodingV2\_massGap\_canonical} record the carrier
+\texttt{PF\_\allowbreak{}YMEncodingV2\_\allowbreak{}gaugeGroup\_\allowbreak{}eq\_\allowbreak{}L2RInf},
+\texttt{PF\_\allowbreak{}YMEncodingV2\_\allowbreak{}QYM\_\allowbreak{}eq\_\allowbreak{}Continuum\allowbreak{}YMTheory\allowbreak{}V2}, and
+\texttt{PF\_\allowbreak{}YMEncodingV2\_\allowbreak{}massGap\_\allowbreak{}canonical} record the carrier
 upgrades. Honest scope:
-\texttt{PF\_YM\_V2\_honestScope\_holds} marks the V2 refactor as a
+\texttt{PF\_\allowbreak{}YM\_\allowbreak{}V2\_\allowbreak{}honestScope\_\allowbreak{}holds} marks the V2 refactor as a
 typed substrate upgrade, NOT a literal Wightman-axiom QFT
 continuum discharge --- the literal continuum-limit existence on
 $\ell^2(\mathbb{R})$ with the four Wightman axioms remains the
 mathlib gap.
 
 \item \textbf{RH typed-bridge V2 (added in V2.1.1, HEAD \texttt{700bb29}).}
-\texttt{PF.Referee.RHCapstoneTypedBridgeV2}. Sixth-axis V2 refactor.
+\texttt{PF.\allowbreak{}Referee.\allowbreak{}RHCapstone\allowbreak{}Typed\allowbreak{}Bridge\allowbreak{}V2}. Sixth-axis V2 refactor.
 Reduces the V1 capstone's TWELVE-parameter signature to a
 TWO-parameter signature
-\texttt{PF\_RH\_capstone\_yields\_Clay\_RH\_standardV2}: the new
+\texttt{PF\_\allowbreak{}RH\_\allowbreak{}capstone\_\allowbreak{}yields\_\allowbreak{}Clay\_\allowbreak{}RH\_\allowbreak{}standardV2}: the new
 \texttt{PF\_RHEncodingV2} structure bundles \texttt{hev}, and the
 only externally exposed datum is the residual \texttt{surjectivity}
 Prop. Nine of ten V1 hypotheses are concretely discharged
@@ -837,19 +833,19 @@ $K := 1$, \texttt{hK := one\_pos}, eigenvalues $:= \texttt{evV2}$
 \texttt{evV2\_distinct} (strict anti-monotone via
 \texttt{Nat.cast\_injective}); the three Phase~A inner-product
 hypotheses are discharged via existing infrastructure
-(\texttt{LogWeightedL2.inner\_smul\_\{left,right\}} and
+(\texttt{LogWeightedL2.\allowbreak{}inner\_\allowbreak{}smul\_\allowbreak{}\{left,right\}} and
 \texttt{hpos\_def\_LogWeightedL2}). V2~$\to$~V1 backward-compat
-bridge: \texttt{PF\_RH\_capstoneV2\_implies\_V1\_via\_pinned}.
+bridge: \texttt{PF\_\allowbreak{}RH\_\allowbreak{}capstoneV2\_\allowbreak{}implies\_\allowbreak{}V1\_\allowbreak{}via\_\allowbreak{}pinned}.
 Honest scope: the \texttt{surjectivity} residual retains the full
 RH depth; the encoding's \texttt{hev} field requires the
 compact-operator spectral theorem for $T_3^{\mathrm{sym}}$
 (mathlib gap unchanged). NOT a Clay discharge.
 
 \item \textbf{P vs NP carrier V3 (added in V2.1.1, HEAD \texttt{700bb29}).}
-\texttt{PF.TuringEncoding.PNPClassSeparationCarrierV3}. Strict
+\texttt{PF.\allowbreak{}Turing\allowbreak{}Encoding.\allowbreak{}PNPClass\allowbreak{}Separation\allowbreak{}Carrier\allowbreak{}V3}. Strict
 strengthening of P~vs~NP V2 above. Replaces the V2
 \texttt{computability~:~True} placeholder with a REAL constraint
-wired through \texttt{PF.TuringEncoding.Basic.TMConfig} and
+wired through \texttt{PF.\allowbreak{}Turing\allowbreak{}Encoding.\allowbreak{}Basic.\allowbreak{}TMConfig} and
 \texttt{encodeConfig} (the Chapter~\ref{ch:p-vs-np}~\S2 prime-power
 G\"odel numbering, $2^{\mathrm{state}} \cdot 3^{\mathrm{headPos}}
 \cdot \prod p_{j+1}^{\mathrm{symbol}+1}$).
@@ -858,9 +854,9 @@ G\"odel numbering, $2^{\mathrm{state}} \cdot 3^{\mathrm{headPos}}
 \texttt{computability~:~$\forall$~x,~encodeConfig~(encodeRun~x)~>~0};
 \texttt{NondeterministicMachineV3} mirrors on
 \texttt{(input,~certificate)} pairs. Cook~1971 $P \subseteq NP$ is
-re-ported on V3 via \texttt{class\_P\_subset\_class\_NP\_V3}; the
+re-ported on V3 via \texttt{class\_\allowbreak{}P\_\allowbreak{}subset\_\allowbreak{}class\_\allowbreak{}NP\_\allowbreak{}V3}; the
 reduction analog is
-\texttt{enum\_to\_class\_separation\_bridge\_V3\_iff\_literal\_P\_neq\_NP\_V3}.
+\texttt{enum\_\allowbreak{}to\_\allowbreak{}class\_\allowbreak{}separation\_\allowbreak{}bridge\_\allowbreak{}V3\_\allowbreak{}iff\_\allowbreak{}literal\_\allowbreak{}P\_\allowbreak{}neq\_\allowbreak{}NP\_\allowbreak{}V3}.
 Honest scope: the TMConfig wiring closes the \emph{structural-shape
 defect} (every machine now carries a TM-config-valued run rather
 than an opaque \texttt{True}) but does NOT close the
@@ -869,7 +865,7 @@ surviving defect localises to a SINGLE named missing axis ---
 absence of a constraint LINKING \texttt{decide} to \texttt{encodeRun}
 (e.g.\ ``\texttt{decide~x~=~true~$\leftrightarrow$~encodeRun~x}
 reaches accepting TM state'') --- which is the V4 refactor target.
-Single citable \texttt{pnp\_carrier\_V3\_honest\_scope\_capstone}
+Single citable \texttt{pnp\_\allowbreak{}carrier\_\allowbreak{}V3\_\allowbreak{}honest\_\allowbreak{}scope\_\allowbreak{}capstone}
 3-clause bundle. NOT a Clay discharge.
 \end{itemize}
 
@@ -904,14 +900,14 @@ This section records the formal certification of that sharper
 rigidity statement, landed at HEAD~\texttt{883ed58}. Three companion
 Lean files implement the chain:
 \begin{itemize}
-\item \texttt{PF.Referee.MinimalSubstrateRigidity} --- sector~1
+\item \texttt{PF.\allowbreak{}Referee.\allowbreak{}Minimal\allowbreak{}Substrate\allowbreak{}Rigidity} --- sector~1
 (the six-axis subset \{Poincar\'e, RH, YM, BSD, NS, $P$~vs~$NP$\}),
 showing that 5~of~7 sector-1 invariants are load-bearing.
-\item \texttt{PF.Referee.MinimalSubstrateRigiditySector2} --- the
+\item \texttt{PF.\allowbreak{}Referee.\allowbreak{}Minimal\allowbreak{}Substrate\allowbreak{}Rigidity\allowbreak{}Sector2} --- the
 extension to \{$\alpha_P$, $\alpha_{\text{Hodge}}$, $\alpha_{NP}$,
 $\alpha_{\text{QG}}$\}, showing that 4~of~5 sector-2 invariants are
 load-bearing.
-\item \texttt{PF.Referee.MinimalSubstrateRigidityUnified} --- the
+\item \texttt{PF.\allowbreak{}Referee.\allowbreak{}Minimal\allowbreak{}Substrate\allowbreak{}Rigidity\allowbreak{}Unified} --- the
 single citable capstone composing both sectors.
 \end{itemize}
 
@@ -968,17 +964,17 @@ a = \left(1,\, \tfrac{3}{2},\, 2,\, \tfrac{3\pi}{4},\, \tfrac{3\pi}{2},\,
 
 \begin{proof}[Proof (machine-checked, kernel-only axioms)]
 By the Lean theorem
-\texttt{unified\_alpha\_skeleton\_forced\_by\_minimal\_invariants} in
-\texttt{PF/Referee/MinimalSubstrateRigidityUnified.lean}. The proof
+\texttt{unified\_\allowbreak{}alpha\_\allowbreak{}skeleton\_\allowbreak{}forced\_\allowbreak{}by\_\allowbreak{}minimal\_\allowbreak{}invariants} in
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Substrate\allowbreak{}Rigidity\allowbreak{}Unified.\allowbreak{}lean}. The proof
 splits across the two sectors:
 \begin{itemize}
 \item Sector~1 is closed by
-\texttt{framework\_alpha\_unique\_under\_perelman\_anchor\_minimal}
+\texttt{framework\_\allowbreak{}alpha\_\allowbreak{}unique\_\allowbreak{}under\_\allowbreak{}perelman\_\allowbreak{}anchor\_\allowbreak{}minimal}
 which derives $\alpha_{YM} = 2$ from~(M2) and the anchor, then forces
 the remaining sector-1 values via the parameterised cascade
 (\texttt{entailment\_from\_a\_Poincare}).
 \item Sector~2 is closed by
-\texttt{sector2\_minimal\_rigidity\_capstone}. The square-root
+\texttt{sector2\_\allowbreak{}minimal\_\allowbreak{}rigidity\_\allowbreak{}capstone}. The square-root
 forced values $\alpha_{P} = \sqrt{2}$ and $\alpha_{QG} = \sqrt{2\pi}$
 follow from~(M6) and~(M9) plus positivity via Mathlib's
 \texttt{Real.sqrt\_sq}. The golden-ratio forced value
@@ -1009,7 +1005,7 @@ Section~\ref{sec:substrate-antecedents} (formerly counted among the
 \item $\alpha_{NS} = \alpha_{YM} \cdot \alpha_{BSD}$
 \hfill\textnormal{(Lean: \texttt{inv\_NS\_YM\_BSD\_derived})}
 \item $\alpha_{QG}^{2} = \alpha_{YM} \cdot \pi$
-\hfill\textnormal{(Lean: \texttt{inv\_$\alpha$\_QG\_sq\_eq\_$\alpha$\_YM\_mul\_pi\_derived})}
+\hfill\textnormal{(Lean: \texttt{inv\_\allowbreak{}$\alpha$\_\allowbreak{}QG\_\allowbreak{}sq\_\allowbreak{}eq\_\allowbreak{}$\alpha$\_\allowbreak{}YM\_\allowbreak{}mul\_\allowbreak{}pi\_\allowbreak{}derived})}
 \end{enumerate}
 \end{theorem}
 
@@ -1043,7 +1039,7 @@ rigidity (fewer free constraints) than the prior framing indicates.
 
 \item \textbf{Single-citation form.} The substrate-rigidity claim is
 now one Lean theorem
-(\texttt{unified\_minimal\_substrate\_rigidity\_capstone}) that a
+(\texttt{unified\_\allowbreak{}minimal\_\allowbreak{}substrate\_\allowbreak{}rigidity\_\allowbreak{}capstone}) that a
 referee can verify in one \texttt{\#print axioms} command. The
 expected return is the three kernel-standard axioms only.
 
@@ -1067,7 +1063,7 @@ The minimal-rigidity result of
 Theorem~\ref{thm:minimal-substrate-rigidity} is sufficient: 9
 invariants + anchor + positivity force the $\alpha$-skeleton. The
 companion file
-\texttt{PF/Referee/MinimalSubstrateRigidityIndependence.lean}
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Substrate\allowbreak{}Rigidity\allowbreak{}Independence.\allowbreak{}lean}
 establishes the converse direction:
 
 \begin{theorem}[Strict minimality of the 9-invariant set]
@@ -1083,7 +1079,7 @@ Therefore no minimal invariant is derivable from the other eight.
 
 \begin{proof}[Proof (machine-checked, kernel-only axioms)]
 By the Lean theorem
-\texttt{minimal\_invariants\_are\_strictly\_independent}. The
+\texttt{minimal\_\allowbreak{}invariants\_\allowbreak{}are\_\allowbreak{}strictly\_\allowbreak{}independent}. The
 counter-example construction takes a small numerical perturbation of
 the framework's $\alpha$-assignment in the direction of the
 targeted invariant:
@@ -1126,7 +1122,7 @@ possible at the substrate-rigidity bar of this chapter.
 \label{subsec:ibm-galois-substrate}
 
 The framework's IBM Galois pair theorem
-(\texttt{PF.IBMPeaksGaloisPair.IBM\_peaks\_are\_Galois\_conjugates\_in\_Q\_sqrt5},
+(\texttt{PF.\allowbreak{}IBMPeaks\allowbreak{}Galois\allowbreak{}Pair.\allowbreak{}IBM\_\allowbreak{}peaks\_\allowbreak{}are\_\allowbreak{}Galois\_\allowbreak{}conjugates\_\allowbreak{}in\_\allowbreak{}Q\_\allowbreak{}sqrt5},
 2026-05-24) showed that the two IBM-Quantum hardware-measured
 $\alpha$-peaks $\alpha_{RH} = 3/2$ and $\alpha_{NP} = \varphi + 1/4$
 are conjugate roots of the explicit $\mathbb{Q}(\sqrt{5})$-quadratic
@@ -1138,7 +1134,7 @@ $(2\sqrt{5} - 3)^{2} > 0$, and a $2 \times 2$ Hermitian realization
 with golden-modulated off-diagonal $d = (4\varphi - 5)/8$.
 
 The companion file
-\texttt{PF/Referee/MinimalRigidityForcesIBMGaloisPair.lean} elevates
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}IBMGalois\allowbreak{}Pair.\allowbreak{}lean} elevates
 this theorem from a property of the framework's CONCRETE
 $\alpha$-values to a PARAMETRIC theorem on any unified
 $\alpha$-assignment satisfying the minimal-rigidity hypotheses:
@@ -1164,9 +1160,9 @@ irrational forced values, the IBM Galois pair structure holds:
 
 \begin{proof}[Proof (machine-checked, kernel-only axioms)]
 By the Lean theorem
-\texttt{unified\_minimal\_forces\_IBM\_Galois\_pair\_structure}.
+\texttt{unified\_\allowbreak{}minimal\_\allowbreak{}forces\_\allowbreak{}IBM\_\allowbreak{}Galois\_\allowbreak{}pair\_\allowbreak{}structure}.
 The argument composes
-\texttt{unified\_alpha\_skeleton\_forced\_by\_minimal\_invariants}
+\texttt{unified\_\allowbreak{}alpha\_\allowbreak{}skeleton\_\allowbreak{}forced\_\allowbreak{}by\_\allowbreak{}minimal\_\allowbreak{}invariants}
 (which forces $\alpha_{RH} = 3/2$ and $\alpha_{NP} = \varphi + 1/4$
 under the minimal hypotheses) with the existing
 \texttt{IBMPeaksGaloisPair} theorems on the forced concrete values.
@@ -1199,7 +1195,7 @@ the same minimal substrate hypotheses that force the $\alpha$-skeleton.
 The framework's substrate-rigidity extends beyond the six Clay axes +
 Perelman + QG to non-Clay open problems via $\alpha$-cascade bridges.
 Three companion files
-(\texttt{PF/Referee/MinimalRigidityForcesNonClayAlphas*.lean})
+(\texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Non\allowbreak{}Clay\allowbreak{}Alphas*.\allowbreak{}lean})
 machine-check that fourteen non-Clay $\alpha$-values are forced
 parametrically under the same minimal-rigidity hypotheses that force
 the Clay $\alpha$-skeleton:
@@ -1252,8 +1248,8 @@ threshold and the framework's NP fibre value meet at the same number
 
 \begin{itemize}
 \item \textbf{IIT consciousness threshold}. In
-\texttt{PF.Consciousness.QuantumClassicalDecoherence\-Threshold}, the
-theorem \texttt{phi\_iit\_lower\_bound\_at\_threshold} establishes
+\texttt{PF.\allowbreak{}Consciousness.\allowbreak{}Quantum\allowbreak{}Classical\allowbreak{}Decoherence\-Threshold}, the
+theorem \texttt{phi\_\allowbreak{}iit\_\allowbreak{}lower\_\allowbreak{}bound\_\allowbreak{}at\_\allowbreak{}threshold} establishes
 that given the framework's quantum-classical decoherence inequality
 $19/20 \le 1 - \exp(-\Phi/2)$ at the consciousness threshold
 $ch_{2} = 19/20 = 0.95$, the integrated information satisfies
@@ -1279,7 +1275,7 @@ $19/20 \le 1 - \exp(-\Phi/2)$, the integrated information satisfies
 
 \begin{proof}[Proof (machine-checked, kernel-only axioms)]
 By the Lean theorem
-\texttt{unified\_minimal\_forces\_iit\_phi\_threshold\_in\_alpha\_NP\_terms}.
+\texttt{unified\_\allowbreak{}minimal\_\allowbreak{}forces\_\allowbreak{}iit\_\allowbreak{}phi\_\allowbreak{}threshold\_\allowbreak{}in\_\allowbreak{}alpha\_\allowbreak{}NP\_\allowbreak{}terms}.
 The composition: the IIT lower bound gives $\Phi \ge 2 \cdot \log 20$;
 minimal-rigidity forces $(4 \cdot \alpha_{NP} - 3)^{2} = 20$;
 substitute.
@@ -1299,7 +1295,7 @@ The four subsections above
 (\ref{subsec:minimal-invariants}, \ref{subsec:strict-minimality},
 \ref{subsec:ibm-galois-substrate}, \ref{subsec:non-clay-alpha-reach},
 \ref{subsec:consciousness-bridge}) compose into a single citable
-master theorem in \texttt{PF/Referee/SubstrateRigidityMasterCapstone.lean}:
+master theorem in \texttt{PF/\allowbreak{}Referee/\allowbreak{}Substrate\allowbreak{}Rigidity\allowbreak{}Master\allowbreak{}Capstone.\allowbreak{}lean}:
 
 \begin{theorem}[Master substrate-rigidity capstone]
 \label{thm:master-capstone}
@@ -1325,16 +1321,16 @@ remaining conditions but breaks uniqueness.
 
 \begin{proof}[Proof (machine-checked, kernel-only axioms)]
 By the Lean theorem
-\texttt{substrate\_rigidity\_master\_capstone}, composing
-\texttt{unified\_alpha\_skeleton\_forced\_by\_minimal\_invariants}
+\texttt{substrate\_\allowbreak{}rigidity\_\allowbreak{}master\_\allowbreak{}capstone}, composing
+\texttt{unified\_\allowbreak{}alpha\_\allowbreak{}skeleton\_\allowbreak{}forced\_\allowbreak{}by\_\allowbreak{}minimal\_\allowbreak{}invariants}
 (M1),
-\texttt{unified\_minimal\_forces\_IBM\_Galois\_pair\_structure} (M2),
-\texttt{unified\_minimal\_forces\_Hermitian\_realization} (M3), and
-\texttt{unified\_minimal\_forces\_iit\_phi\_threshold\_in\_alpha\_NP\_terms} (M4).
+\texttt{unified\_\allowbreak{}minimal\_\allowbreak{}forces\_\allowbreak{}IBM\_\allowbreak{}Galois\_\allowbreak{}pair\_\allowbreak{}structure} (M2),
+\texttt{unified\_\allowbreak{}minimal\_\allowbreak{}forces\_\allowbreak{}Hermitian\_\allowbreak{}realization} (M3), and
+\texttt{unified\_\allowbreak{}minimal\_\allowbreak{}forces\_\allowbreak{}iit\_\allowbreak{}phi\_\allowbreak{}threshold\_\allowbreak{}in\_\allowbreak{}alpha\_\allowbreak{}NP\_\allowbreak{}terms} (M4).
 Strict minimality is established by
-\texttt{minimal\_invariants\_are\_strictly\_independent},
-\texttt{positivity\_hypotheses\_are\_strictly\_necessary}, and
-\texttt{perelman\_anchor\_is\_strictly\_necessary}.
+\texttt{minimal\_\allowbreak{}invariants\_\allowbreak{}are\_\allowbreak{}strictly\_\allowbreak{}independent},
+\texttt{positivity\_\allowbreak{}hypotheses\_\allowbreak{}are\_\allowbreak{}strictly\_\allowbreak{}necessary}, and
+\texttt{perelman\_\allowbreak{}anchor\_\allowbreak{}is\_\allowbreak{}strictly\_\allowbreak{}necessary}.
 \end{proof}
 
 \subsection{Substrate forces spectral gap, $H_3$ icosahedral geometry, cosmological $\Lambda$ suppression}
@@ -1343,7 +1339,7 @@ Strict minimality is established by
 The master capstone of
 Theorem~\ref{thm:master-capstone} extends to FIVE additional
 substrate-rigidity forcings (clauses M6--M9 in
-\texttt{substrate\_rigidity\_ultimate\_master\_capstone}), demonstrating
+\texttt{substrate\_\allowbreak{}rigidity\_\allowbreak{}ultimate\_\allowbreak{}master\_\allowbreak{}capstone}), demonstrating
 substrate reach across spectral content, root-system geometry, and
 cosmology.
 
@@ -1391,18 +1387,18 @@ $120 \cdot \ln 10$ is expressible parametrically:
 
 \begin{proof}[Proof (machine-checked, kernel-only axioms)]
 By the Lean theorem
-\texttt{substrate\_rigidity\_ultimate\_master\_capstone}. Each clause
+\texttt{substrate\_\allowbreak{}rigidity\_\allowbreak{}ultimate\_\allowbreak{}master\_\allowbreak{}capstone}. Each clause
 composes the unified $\alpha$-skeleton forcing with:
 \begin{itemize}
 \setlength{\itemsep}{0pt}
-\item (M6): \texttt{unified\_minimal\_forces\_spectral\_gap\_content\_capstone}
-in \texttt{PF/Referee/MinimalRigidityForcesSpectralGapContent.lean}.
-\item (M7): \texttt{unified\_minimal\_forces\_sin\_pi\_div\_ten\_eq\_inv\_two\_a\_Hodge}
-in \texttt{PF/Referee/MinimalRigidityForcesH3CoxeterGeometry.lean}.
-\item (M8): \texttt{unified\_minimal\_forces\_H3\_combinatorial\_structure\_capstone}
-in \texttt{PF/Referee/MinimalRigidityForcesH3CombinatorialStructure.lean}.
-\item (M9): \texttt{cosmological\_suppression\_substrate\_capstone}
-in \texttt{PF/Referee/MinimalRigidityForcesCosmologicalSuppression.lean}.
+\item (M6): \texttt{unified\_\allowbreak{}minimal\_\allowbreak{}forces\_\allowbreak{}spectral\_\allowbreak{}gap\_\allowbreak{}content\_\allowbreak{}capstone}
+in \texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Spectral\allowbreak{}Gap\allowbreak{}Content.\allowbreak{}lean}.
+\item (M7): \texttt{unified\_\allowbreak{}minimal\_\allowbreak{}forces\_\allowbreak{}sin\_\allowbreak{}pi\_\allowbreak{}div\_\allowbreak{}ten\_\allowbreak{}eq\_\allowbreak{}inv\_\allowbreak{}two\_\allowbreak{}a\_\allowbreak{}Hodge}
+in \texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}H3Coxeter\allowbreak{}Geometry.\allowbreak{}lean}.
+\item (M8): \texttt{unified\_\allowbreak{}minimal\_\allowbreak{}forces\_\allowbreak{}H3\_\allowbreak{}combinatorial\_\allowbreak{}structure\_\allowbreak{}capstone}
+in \texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}H3Combinatorial\allowbreak{}Structure.\allowbreak{}lean}.
+\item (M9): \texttt{cosmological\_\allowbreak{}suppression\_\allowbreak{}substrate\_\allowbreak{}capstone}
+in \texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Cosmological\allowbreak{}Suppression.\allowbreak{}lean}.
 \end{itemize}
 \end{proof}
 
@@ -1410,7 +1406,7 @@ in \texttt{PF/Referee/MinimalRigidityForcesCosmologicalSuppression.lean}.
 \label{subsec:perelman-w-entropy-scaling}
 
 The framework's
-\texttt{PF/PerelmanBackwardUnifiedAttack.lean} proves AXIOM-FREE that
+\texttt{PF/\allowbreak{}Perelman\allowbreak{}Backward\allowbreak{}Unified\allowbreak{}Attack.\allowbreak{}lean} proves AXIOM-FREE that
 the W-entropy monotone functional (the foundation of Perelman's
 Ricci-flow proof of Poincaré at $\alpha = 1$) transports
 unconditionally to every $\alpha$-instance:
@@ -1422,7 +1418,7 @@ unconditionally to every $\alpha$-instance:
 \item $W_\alpha(N) \le \alpha \cdot 3$ (cascade ceiling)
 (\texttt{W\_alpha\_bounded}).
 \item $W_\alpha$ converges to $\alpha \cdot 3$ as $N \to \infty$
-(\texttt{W\_alpha\_limit\_eq\_alpha\_times\_three}).
+(\texttt{W\_\allowbreak{}alpha\_\allowbreak{}limit\_\allowbreak{}eq\_\allowbreak{}alpha\_\allowbreak{}times\_\allowbreak{}three}).
 \end{itemize}
 
 Combined with substrate-rigidity, the W-entropy machinery becomes
@@ -1462,13 +1458,13 @@ parametrically.
 
 \begin{proof}[Proof (machine-checked, kernel-only axioms)]
 By the Lean theorem
-\texttt{perelman\_w\_entropy\_substrate\_scaling\_capstone}
+\texttt{perelman\_\allowbreak{}w\_\allowbreak{}entropy\_\allowbreak{}substrate\_\allowbreak{}scaling\_\allowbreak{}capstone}
 in
-\texttt{PF/Referee/MinimalRigidityForcesPerelmanWEntropyScaling.lean}.
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Perelman\allowbreak{}WEntropy\allowbreak{}Scaling.\allowbreak{}lean}.
 The proof composes \texttt{W\_alpha\_monotone} and
 \texttt{W\_alpha\_tsum\_value} (existing framework, axiom-free for
 all $\alpha \ge 0$) with the substrate-rigidity forced $\alpha$-values
-from \texttt{unified\_alpha\_skeleton\_forced\_by\_minimal\_invariants}.
+from \texttt{unified\_\allowbreak{}alpha\_\allowbreak{}skeleton\_\allowbreak{}forced\_\allowbreak{}by\_\allowbreak{}minimal\_\allowbreak{}invariants}.
 \end{proof}
 
 \textbf{Why this matters for the substrate-as-TOE thesis.} This is
@@ -1547,31 +1543,31 @@ discharge on substrate-restricted encodings.
 each reducing to published mathematics.}
 \begin{itemize}
 \item \textbf{RH} (C1) --- $\Cstd{RH} :=
-\texttt{PrincipiaTractalis.RiemannHypothesis}$, standard
+\texttt{Principia\allowbreak{}Tractalis.\allowbreak{}Riemann\allowbreak{}Hypothesis}$, standard
 critical-strip statement on mathlib's \texttt{riemannZeta}.
 Discharge via any of three published HP-program formulations:
 Berry-Keating 1999, Connes 1999, or Bost-Connes 1995, via
-\texttt{PF\_T3SymIsHilbertPolyaOperator\_via\_BerryKeating} /
+\texttt{PF\_\allowbreak{}T3Sym\allowbreak{}Is\allowbreak{}Hilbert\allowbreak{}Polya\allowbreak{}Operator\_\allowbreak{}via\_\allowbreak{}BerryKeating} /
 \texttt{\_via\_Connes} / \texttt{\_via\_BostConnes}
-(\texttt{PF/Referee/RHPvsNPPairedClosure.lean}). Mayer 1991
-$\equiv$ \texttt{PF\_T3SymIsHilbertPolyaOperator} by \texttt{Iff.rfl}
-(\texttt{PF\_RH\_Mayer1991\_iff\_PF\_T3sym}).
+(\texttt{PF/\allowbreak{}Referee/\allowbreak{}RHPvs\allowbreak{}NPPaired\allowbreak{}Closure.\allowbreak{}lean}). Mayer 1991
+$\equiv$ \texttt{PF\_\allowbreak{}T3Sym\allowbreak{}Is\allowbreak{}Hilbert\allowbreak{}Polya\allowbreak{}Operator} by \texttt{Iff.rfl}
+(\texttt{PF\_\allowbreak{}RH\_\allowbreak{}Mayer1991\_\allowbreak{}iff\_\allowbreak{}PF\_\allowbreak{}T3sym}).
 \item \textbf{NS} (C4) --- \texttt{PF\_NS3DEncodingV4.Velocity}
 $:= \texttt{SchwartzMap (Fin 3 → \ensuremath{\mathbb{R}}) (Fin 3 → \ensuremath{\mathbb{R}})}$
 (mathlib standard). Discharge axiom-free on encoding with
 substrate-PROVEN scaffolds
-(\texttt{hsSigmaInnerProductScaffoldAtSubstrate},
-\texttt{lerayProjectionScaffoldAtFiniteRank}). Reduces to
-Fujita-Kato 1964 via \texttt{NS\_LocalToGlobalBootstrap\_under\_FujitaKato1964}
-(\texttt{PF/Referee/NSYMPairedClosure.lean}).
-\item \textbf{BSD} (C3) --- \texttt{PF\_BSDEncodingV4.EllipticCurve}
+(\texttt{hs\allowbreak{}Sigma\allowbreak{}Inner\allowbreak{}Product\allowbreak{}Scaffold\allowbreak{}At\allowbreak{}Substrate},
+\texttt{leray\allowbreak{}Projection\allowbreak{}Scaffold\allowbreak{}At\allowbreak{}Finite\allowbreak{}Rank}). Reduces to
+Fujita-Kato 1964 via \texttt{NS\_\allowbreak{}Local\allowbreak{}To\allowbreak{}Global\allowbreak{}Bootstrap\_\allowbreak{}under\_\allowbreak{}FujitaKato1964}
+(\texttt{PF/\allowbreak{}Referee/\allowbreak{}NSYMPaired\allowbreak{}Closure.\allowbreak{}lean}).
+\item \textbf{BSD} (C3) --- \texttt{PF\_\allowbreak{}BSDEncodingV4.\allowbreak{}EllipticCurve}
 $:= \texttt{WeierstrassCurve \ensuremath{\mathbb{Q}}}$ (mathlib
 standard). Discharge axiom-free on V4 encoding
-(\texttt{algebraicRankV4 = analyticRankV4} by \texttt{rfl}).
+(\texttt{algebraic\allowbreak{}Rank\allowbreak{}V4 = analyticRankV4} by \texttt{rfl}).
 17-LMFDB-curve agreement via
-\texttt{mordellWeilRankAgreementOn17Curves\_under\_hyps}
-(\texttt{PF/AlgebraicGeometry/MordellWeilRankAgreement17.lean})
-under \texttt{AllSeventeenMordellWeilRanksKnown} (LMFDB-
+\texttt{mordell\allowbreak{}Weil\allowbreak{}Rank\allowbreak{}Agreement\allowbreak{}On17Curves\_\allowbreak{}under\_\allowbreak{}hyps}
+(\texttt{PF/\allowbreak{}Algebraic\allowbreak{}Geometry/\allowbreak{}Mordell\allowbreak{}Weil\allowbreak{}Rank\allowbreak{}Agreement17.\allowbreak{}lean})
+under \texttt{All\allowbreak{}Seventeen\allowbreak{}Mordell\allowbreak{}Weil\allowbreak{}Ranks\allowbreak{}Known} (LMFDB-
 calculable). Rank-1 cascades on $E_{37.a1}$, $E_{43.a1}$
 axiom-free via Heegner / Gross-Zagier 1986 / Kolyvagin chain.
 \end{itemize}
@@ -1586,15 +1582,15 @@ $\ell^{2}(\mathbb{R})$ substrate with explicit eigenvector
 spectrum. Open work: lift to a Clay-compact-simple gauge group
 on $\mathbb{R}^{4}$ via Wightman or Osterwalder--Schrader
 reconstruction.
-\item \textbf{Hodge} (C5) --- \texttt{PF\_HodgeEncoding\_FullGeneral.SmoothProjectiveComplexVariety}
+\item \textbf{Hodge} (C5) --- \texttt{PF\_\allowbreak{}HodgeEncoding\_\allowbreak{}FullGeneral.\allowbreak{}Smooth\allowbreak{}Projective\allowbreak{}Complex\allowbreak{}Variety}
 $:= \texttt{GeneralSmoothQuintic}$ (framework-restricted).
-\texttt{Voisin2007\_general\_quintic\_open\_subprop} PROVEN
+\texttt{Voisin2007\_\allowbreak{}general\_\allowbreak{}quintic\_\allowbreak{}open\_\allowbreak{}subprop} PROVEN
 axiom-free on \texttt{FermatQuinticConcrete} via
-\texttt{AlgebraicCyclesOnQuintic\_holds}
-(\texttt{PF/Hodge\_QuinticCYCodim2Scaffold.lean}), proof by
+\texttt{Algebraic\allowbreak{}Cycles\allowbreak{}On\allowbreak{}Quintic\_\allowbreak{}holds}
+(\texttt{PF/\allowbreak{}Hodge\_\allowbreak{}Quintic\allowbreak{}CYCodim2Scaffold.\allowbreak{}lean}), proof by
 \texttt{c.rank\_one}. Open only on the generic non-CM smooth
 quintic outside the Dwork locus.
-\item \textbf{P vs NP} (C6) --- \texttt{PF\_CanonicalComplexity\-Encoding}
+\item \textbf{P vs NP} (C6) --- \texttt{PF\_\allowbreak{}Canonical\allowbreak{}Complexity\-Encoding}
 uses framework-canonical Cook--Karp types
 (\texttt{CanonicalClassP}, \texttt{CanonicalClassNP}). The
 typed Clay-Standard contract is biconditionally equivalent to
@@ -1617,15 +1613,15 @@ sub-stories of one framework anchored on one substrate
 \begin{remark}[The honest-scope record]
 \label{rem:pf-substrate-honest-scope-record}
 The Lean source also exports a typed
-\texttt{PrincipiaFractalisSubstrateTheoremHonestScope}
+\texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem\allowbreak{}Honest\allowbreak{}Scope}
 record~--- four \texttt{True}-valued fields whose docstrings
 document the honest-scope content above. The record is
 inhabited by
-\texttt{principiaFractalisSubstrateTheorem\_honest\_scope}, and
-the four fields are: \texttt{substrate\_level\_machine\_verified};
-\texttt{consequences\_compose\_existing\_landings};
-\texttt{framework\_claim\_is\_substrate\_determines\_consequences};
-\texttt{not\_literal\_Clay\_discharge\_substrate\_level\_only}.
+\texttt{principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem\_\allowbreak{}honest\_\allowbreak{}scope}, and
+the four fields are: \texttt{substrate\_\allowbreak{}level\_\allowbreak{}machine\_\allowbreak{}verified};
+\texttt{consequences\_\allowbreak{}compose\_\allowbreak{}existing\_\allowbreak{}landings};
+\texttt{framework\_\allowbreak{}claim\_\allowbreak{}is\_\allowbreak{}substrate\_\allowbreak{}determines\_\allowbreak{}consequences};
+\texttt{not\_\allowbreak{}literal\_\allowbreak{}Clay\_\allowbreak{}discharge\_\allowbreak{}substrate\_\allowbreak{}level\_\allowbreak{}only}.
 These four fields are \emph{provenness tags} (Rule~\#1
 compliant: documentation, not Clay-path claim content); their
 load-bearing content lives in their docstrings.
@@ -1645,7 +1641,7 @@ canonical tree (\texttt{8516} jobs clean), zero project axioms.
 The eighteen substrate compositions, in order:
 
 \begin{enumerate}
-\item \texttt{MinimalRigidityForcesParticlePhysicsCapstone} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Particle\allowbreak{}Physics\allowbreak{}Capstone} ---
 single-citation bundle of the four particle-physics substrate
 connections: W boson mass anomaly (CDF II 2022, 84\% match),
 XENON-127 anomaly (0.5\% match), neutrino mass hierarchy ratio
@@ -1653,7 +1649,7 @@ XENON-127 anomaly (0.5\% match), neutrino mass hierarchy ratio
 mechanism). Each prediction equals a parametric expression in the
 substrate-forced $\alpha$-values plus the universal coupling.
 
-\item \texttt{MinimalRigidityForcesCrossDomainExperimentalWins} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Cross\allowbreak{}Domain\allowbreak{}Experimental\allowbreak{}Wins} ---
 Hubble tension resolution $H_\mathrm{eff} = 67.4\sqrt{1 +
 (\pi/(\alpha_{YM}\alpha_{HN}))\cdot 0.95\cdot 0.7} \approx 74.11$
 km/s/Mpc (matches SH0ES within $1.03\sigma$) and M$_1$ glueball
@@ -1661,58 +1657,58 @@ mass $14.134725 \cdot 197.2 \cdot \alpha_{YM}/\pi \approx 1774$ MeV
 (vs lattice 1710, 3.8\% error). Both parametric under
 substrate-rigidity.
 
-\item \texttt{MinimalRigidityForcesQCMaxSpeedup} --- the framework's
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}QCMax\allowbreak{}Speedup} --- the framework's
 maximum quantum-computer speedup gap
 $\Delta_{QC} = \pi/(10\alpha_P) - \pi/(10\alpha_{NP}) \approx 0.054$,
 giving $1/\Delta_{QC} \approx 18.5\times$ (testable on IBM cloud
 $\le 127$ qubits via Shor scan; corrects manuscript Ch~7 line~203
 propagation error).
 
-\item \texttt{MinimalRigidityForcesConsciousnessQuantification} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Consciousness\allowbreak{}Quantification} ---
 the Chern-character $\mathrm{ch}_2$ crystallization at seven Clay
 axes parametric: $\mathrm{ch}_2(u.\mathrm{sector2}.a_P) = 0.95$
 exactly at the threshold anchor, $\mathrm{ch}_2 > 0.95$ at the six
 other crystallizing axes (RH, YM, BSD, NS, NP, Hodge), strict
 monotonicity, and the threshold iff $\alpha \ge \sqrt{2}$.
 
-\item \texttt{SubstrateRigidityCrossDomainSuperCapstone} ---
+\item \texttt{Substrate\allowbreak{}Rigidity\allowbreak{}Cross\allowbreak{}Domain\allowbreak{}Super\allowbreak{}Capstone} ---
 single-citation theorem composing (1)--(4) under one set of
 13-condition substrate-rigidity hypotheses.
 
-\item \texttt{MinimalRigidityForcesAlphaArchitecturalIdentities} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Alpha\allowbreak{}Architectural\allowbreak{}Identities} ---
 the two architectural identities tying the 9-$\alpha$ architecture
 together: Kolmogorov-NS bridge
 $\alpha_{NS} = (5/3) \cdot (9\pi/10)$ and QG-YM identity
 $\alpha_{QG}^2 = \alpha_{YM}\cdot\pi$. Both parametric.
 
-\item \texttt{MinimalRigidityForcesCrossMillenniumSharedInvariants}
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}Shared\allowbreak{}Invariants}
 --- the 11-clause typed bundle of baseline algebraic invariants
 relating the 9 $\alpha$-instances, all lifted parametrically.
 
-\item \texttt{MinimalRigidityForcesGraphIsomorphismPrediction} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Graph\allowbreak{}Isomorphism\allowbreak{}Prediction} ---
 the framework's prediction for the 144th problem (graph
 isomorphism, GI) $\alpha_{GI} = \phi + 1/4 = u.\mathrm{sector2}.a_{NP}$,
 forced parametrically. This is the next blind empirical test.
 
-\item \texttt{MinimalRigidityForcesAlphaBasisDecomposition} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Alpha\allowbreak{}Basis\allowbreak{}Decomposition} ---
 the 9 substrate-forced $\alpha$-values expressed over the
 4-element minimal basis $\{1, \pi, \phi, \sqrt{2}\}$.
 
-\item \texttt{MinimalRigidityForcesPiRationalSubstructure} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Pi\allowbreak{}Rational\allowbreak{}Substructure} ---
 $\pi$-rationalization at NS and BSD:
 $\pi/(10\alpha_{NS}) = 1/15$, $\pi/(10\alpha_{BSD}) = 2/15$,
 $1/15 + 2/15 = 1/5$ (the B-clean prefactor!), all parametric.
 
-\item \texttt{MinimalRigidityForcesHodgeGroundStateClean} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Hodge\allowbreak{}Ground\allowbreak{}State\allowbreak{}Clean} ---
 golden-ratio rationalization
 $\pi/(10\alpha_{Hodge}) = \pi(\sqrt{5}-1)/20$ via $Q(\sqrt{5})$
 algebra at the substrate-forced golden-ratio axis.
 
-\item \texttt{MinimalRigidityForcesBSDDistinguishedEigenvalue} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}BSDDistinguished\allowbreak{}Eigenvalue} ---
 the Ch~24 distinguished BSD eigenvalue
 $\phi/e = u.\mathrm{sector2}.a_{Hodge}/e \approx 0.595$ parametric.
 
-\item \texttt{MinimalRigidityForcesPerelmanAnchoredCascade} ---
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Perelman\allowbreak{}Anchored\allowbreak{}Cascade} ---
 8-clause typed bundle tethering every framework $\alpha$-value
 back to the Perelman anchor $\alpha_{Poincar\acute{e}} = 1$
 through an algebraic identity (Hodge $\phi$-reciprocity, AP
@@ -1720,31 +1716,31 @@ common difference, P-YM triangle, Hodge square closure,
 QG-Perelman bridge, NS reach, triangulation distance). The
 cascade breaks pointwise if the Perelman anchor is removed.
 
-\item \texttt{MinimalRigidityForcesH3UnifiedAlgebraicStructure}
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}H3Unified\allowbreak{}Algebraic\allowbreak{}Structure}
 --- the H$_3$-unified algebraic Millennium structure organizing
 5 algebraic $\alpha$-values into the $Q(\sqrt{2})$-tower (rank
 3, matches H$_3$ rank) at positions $\{0, 1, 2\}$ plus the
 $Q(\phi)$-pair (separation $1/H_3\text{-gap}$).
 
-\item \texttt{MinimalRigidityForcesCrossMillenniumMoreInvariants}
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Cross\allowbreak{}Millennium\allowbreak{}More\allowbreak{}Invariants}
 --- the 17 extended algebraic invariants (5 reciprocals,
 6 higher powers including Hodge Fibonacci, 4 mixed products,
 2 sums), bringing total substrate-forced algebraic constraints
 on the 9 $\alpha$-table to 28.
 
-\item \texttt{MinimalRigidityForcesPolylogResonanceAtGaloisPair}
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Polylog\allowbreak{}Resonance\allowbreak{}At\allowbreak{}Galois\allowbreak{}Pair}
 --- B-clean phase identities at the IBM Galois pair $(\alpha_{RH},
 \alpha_{NP})$ parametric: universal rectangle
 $\alpha \cdot (\pi/2 - \Im R_f^{\mathrm{principal}}(\alpha))
 = \pi/2$ at both fibres.
 
-\item \texttt{MinimalRigidityForcesBSDConcordance} --- rank-blind
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}BSDConcordance} --- rank-blind
 BSD concordance: the $\phi/e$ eigenvalue is strictly $\alpha$-axis
 separated from both IBM Galois-pair peaks at the substrate level
 (BSD eigenvalue $< \alpha_{RH}$, $< \alpha_{NP}$, and distinct
 from both).
 
-\item \texttt{MinimalRigidityForcesIBMSearchRange} --- 8 of the
+\item \texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}IBMSearch\allowbreak{}Range} --- 8 of the
 9 substrate-forced $\alpha$-values lie in the IBM hardware noise
 support $(0.9, 2.6)$, with $\alpha_{NS} = 3\pi/2 \approx 4.71$ as
 the structural outlier outside the bracket.
@@ -1793,8 +1789,8 @@ $13$ minimal conditions plus the Perelman anchor force the
 $9$-axis $\alpha$-skeleton uniquely, and downstream the entire
 cross-domain content parametrically.
 \item Per the substrate's
-\texttt{unified\_clay\_closure\_via\_substrate\_linkage}
-(Lean: \texttt{PF/Referee/UnifiedClayClosureLinkage.lean}), the
+\texttt{unified\_\allowbreak{}clay\_\allowbreak{}closure\_\allowbreak{}via\_\allowbreak{}substrate\_\allowbreak{}linkage}
+(Lean: \texttt{PF/\allowbreak{}Referee/\allowbreak{}Unified\allowbreak{}Clay\allowbreak{}Closure\allowbreak{}Linkage.\allowbreak{}lean}), the
 six Clay axes reduce to one bundle on framework substrates.
 \item The substrate is the answer. The Clay projections follow.
 \end{enumerate}
@@ -1807,7 +1803,7 @@ hypothesis set with $\alpha_{Poincar\acute{e}} = 1$ as anchor,
 and forces parametrically:
 \begin{enumerate}
 \item the $9$-axis $\alpha$-skeleton uniquely
-(\texttt{unified\_alpha\_skeleton\_forced\_by\_minimal\_invariants});
+(\texttt{unified\_\allowbreak{}alpha\_\allowbreak{}skeleton\_\allowbreak{}forced\_\allowbreak{}by\_\allowbreak{}minimal\_\allowbreak{}invariants});
 \item the $28$ algebraic invariants on the $9$ $\alpha$-table
 ($11$ baseline $+$ $17$ extended);
 \item the $8$-clause Perelman-anchored cascade tethering every
@@ -1832,7 +1828,7 @@ graph-isomorphism prediction;
 \item the BSD distinguished eigenvalue $\phi/e$ plus rank-blind
 rank-$0$/rank-$1$ concordance;
 \item the IBM hardware $8$-in-search-range bracket plus NS outlier;
-\item via \texttt{unified\_clay\_closure\_via\_substrate\_linkage},
+\item via \texttt{unified\_\allowbreak{}clay\_\allowbreak{}closure\_\allowbreak{}via\_\allowbreak{}substrate\_\allowbreak{}linkage},
 \emph{all six Clay axes as one bundle}.
 \end{enumerate}
 \end{theorem}
@@ -1847,9 +1843,9 @@ $\alpha$-values; the substrate-rigidity composition theorems
 prediction expression parametrically by substituting the forced
 $\alpha$-values into the framework's existing axiom-free identity.
 The Perelman-anchored cascade
-(\texttt{MinimalRigidityForcesPerelmanAnchoredCascade}) tethers
+(\texttt{Minimal\allowbreak{}Rigidity\allowbreak{}Forces\allowbreak{}Perelman\allowbreak{}Anchored\allowbreak{}Cascade}) tethers
 every clause back to $\alpha_{Poincar\acute{e}} = 1$, and
-\texttt{unified\_clay\_closure\_via\_substrate\_linkage} reduces
+\texttt{unified\_\allowbreak{}clay\_\allowbreak{}closure\_\allowbreak{}via\_\allowbreak{}substrate\_\allowbreak{}linkage} reduces
 the six Clay axes to one bundle on framework substrates.
 \end{proof}
 
@@ -1861,7 +1857,7 @@ Cook--Karp / Mayer-1991 / Voisin-2007 / continuum-SU($N$) tier
 is the residual mathlib formalization work, not a foundational
 gap in the substrate. The six Clay axes follow from the substrate
 \emph{by construction} via
-\texttt{unified\_clay\_closure\_via\_substrate\_linkage}; what
+\texttt{unified\_\allowbreak{}clay\_\allowbreak{}closure\_\allowbreak{}via\_\allowbreak{}substrate\_\allowbreak{}linkage}; what
 remains is to instantiate the per-axis named published bridges
 at the mathlib type level. The framework is not seven attacks
 on seven problems; it is one substrate from which the seven
@@ -1893,9 +1889,9 @@ bash tools/audit.sh
 lean --run PF/Referee/PrincipiaFractalisSubstrateTheorem.lean
 \end{verbatim}
 The file's terminal \texttt{\#print axioms} statements should
-output, for each of \texttt{pfSubstrateAntecedents\_realised},
-\texttt{PrincipiaFractalisSubstrateTheorem}, and
-\texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}:
+output, for each of \texttt{pf\allowbreak{}Substrate\allowbreak{}Antecedents\_\allowbreak{}realised},
+\texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem}, and
+\texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Consequences\_\allowbreak{}holds\_\allowbreak{}unconditionally}:
 \begin{verbatim}
 [propext, Classical.choice, Quot.sound]
 \end{verbatim}
@@ -1959,7 +1955,7 @@ discharge at the literal Cook--Karp / Mayer-1991 / Voisin-2007 /
 continuum-SU($N$) tier is residual mathlib formalization, not a
 foundational gap in the substrate. The six Clay axes follow from
 the substrate \emph{by construction} via
-\texttt{unified\_clay\_closure\_via\_substrate\_linkage}.
+\texttt{unified\_\allowbreak{}clay\_\allowbreak{}closure\_\allowbreak{}via\_\allowbreak{}substrate\_\allowbreak{}linkage}.
 \end{itemize}
 
 \noindent For the complete catalogue of which Lean theorems
@@ -1967,5 +1963,5 @@ verify which chapter's principal claims, see
 Appendix~\ref{app:lean-cross-reference} (the Lean Theorem
 Cross-Reference). For the source of every theorem cited above,
 see the Lean file
-\texttt{PF/Referee/PrincipiaFractalisSubstrateTheorem.lean} at
+\texttt{PF/\allowbreak{}Referee/\allowbreak{}Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem.\allowbreak{}lean} at
 HEAD commit \texttt{42990ea}.

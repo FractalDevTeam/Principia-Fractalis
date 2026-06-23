@@ -1,6 +1,11 @@
 \chapter*{Preface}
 \addcontentsline{toc}{chapter}{Preface}
 
+% Relax line-breaking tolerance for the preface to absorb a few mild
+% overfull-hbox warnings on em-dashed prose without altering content.
+\begingroup
+\sloppy
+
 This book represents the culmination of intensive work beginning in September 2024, with the first written mathematical documents appearing in May 2025. It presents a mathematical framework that unifies seemingly disparate areas of mathematics and physics through the lens of fractal resonance.
 
 \section*{How This Work Came to Be}
@@ -97,3 +102,5 @@ Welcome to the adventure.
 \textit{The Villages, Florida}\\
 \textit{November 2025}
 \end{flushright}
+
+\endgroup
