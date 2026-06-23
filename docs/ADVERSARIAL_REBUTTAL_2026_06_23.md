@@ -2,7 +2,7 @@
 
 **Document date**: 2026-06-23 (revision pass; originally drafted 2026-06-22)
 **Paper at HEAD**: `Papers/principia_fractalis_millennium_problems_2026-06-23.{tex,pdf}` (65 pages)
-**Commit at HEAD**: `595e098` on `origin/master`
+**Authored at commit**: `6e37bab` on `origin/master` (this document's most recent revision pass; later commits on master may be newer — check `git log` for the live HEAD).
 
 ## Purpose
 
