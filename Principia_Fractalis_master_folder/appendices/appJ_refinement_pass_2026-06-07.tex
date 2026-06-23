@@ -6,7 +6,7 @@
 % commit in the FractalDevTeam/Principia-Fractalis repository.
 % =====================================================================
 
-\chapter{Refinement Pass --- 2026-06-07 (HEAD \texttt{cb72460})}
+\chapter{Refinement Pass --- 2026-06-07 (HEAD \texorpdfstring{\texttt{cb72460}}{cb72460})}
 \label{app:refinement-2026-06-07}
 
 This appendix records the substantive machine-verified refinement
@@ -181,7 +181,7 @@ content addition).
 \section{Headline Theorem Refinement}
 \label{sec:refinement-headline}
 
-\subsection{Bundle tightening: 12 fields $\to$ 3 fields}
+\subsection{Bundle tightening: 12 fields \texorpdfstring{$\to$}{->} 3 fields}
 
 The headline theorem \texttt{unified\_clay\_closure\_via\_substrate\_linkage}
 (commit \texttt{dbec188}) takes a single structure
@@ -209,7 +209,7 @@ one \texttt{rh\_surjectivity} (the genuine RH residual at pinned
 witnesses), and one \texttt{pvsnp\_polylog} (the
 \texttt{PolylogEigenvalueConjecture} P vs NP residual).
 
-\subsection{Extended audit: 17 $\to$ 37 classified declarations}
+\subsection{Extended audit: 17 \texorpdfstring{$\to$}{->} 37 classified declarations}
 
 File: \texttt{PF/Referee/NoTrueOnClayPath.lean} (commit \texttt{a6e2344}).
 
@@ -222,7 +222,7 @@ invariant \texttt{no\_hidden\_semantic\_content} certifies zero
 violations) and depends on \emph{no axioms at all} --- it is
 established by full \texttt{decide} evaluation at typecheck time.
 
-\section{Full Rigidity: Nine of Nine $\alpha$-Values Forced}
+\section{Full Rigidity: Nine of Nine \texorpdfstring{$\alpha$}{alpha}-Values Forced}
 \label{sec:refinement-rigidity}
 
 File: \texttt{PF/CrossMillenniumDerivedConsequences.lean}
@@ -335,7 +335,7 @@ day and the headline theorem re-pointed to the upgraded encodings.
 All three re-pointings preserved the kernel-only axiom-freeness of
 the headline theorem.
 
-\subsection{YM: \texttt{GaugeGroup := Unit} $\to$ mathlib SU(2)}
+\subsection{YM: \texorpdfstring{\texttt{GaugeGroup := Unit} $\to$}{GaugeGroup := Unit ->} mathlib SU(2)}
 
 The previous \texttt{PF\_YMEncoding} (\texttt{PF/Referee/YMCapstoneTypedBridge.lean:46})
 used $\texttt{GaugeGroup} := \texttt{Unit}$ (the one-element type) and a
@@ -351,7 +351,7 @@ propagator content; plus 3 published-theorem typed anchors for
 Glimm--Jaffe 1981, Streater--Wightman 2000, Osterwalder--Schrader
 1973/75). Mass gap $\Delta = 3/2$ preserved.
 
-\subsection{NS: $u_0$-independent only $\to$ per-$u_0$ spacetime-lift existence}
+\subsection{NS: \texorpdfstring{$u_0$}{u\_0}-independent only \texorpdfstring{$\to$}{->} per-\texorpdfstring{$u_0$}{u\_0} spacetime-lift existence}
 
 The previous \texttt{NS3DRegularitySolution} predicate
 (\texttt{PF/NavierStokes/NSPDETypedUpgrade.lean:239}) had five
@@ -372,7 +372,7 @@ of a smooth spacetime extension matching $u_0$ at $t = 0$ --- a
 The PDE-satisfaction question remains the named open content; the
 trivial $u_0 = 0$ datum case is now incidental rather than headline.
 
-\subsection{BSD: \texttt{Fin 6} $\to$ \texttt{WeierstrassCurve $\mathbb{Q}$}}
+\subsection{BSD: \texorpdfstring{\texttt{Fin 6} $\to$ \texttt{WeierstrassCurve $\mathbb{Q}$}}{Fin 6 -> WeierstrassCurve Q}}
 
 The previous \texttt{PF\_BSDEncoding} (\texttt{PF/Referee/BSDCapstoneTypedBridge.lean:106})
 used $\texttt{EllipticCurve} := \texttt{Fin}\;6$ (a six-element
