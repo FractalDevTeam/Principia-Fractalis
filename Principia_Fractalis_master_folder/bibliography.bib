@@ -123,6 +123,16 @@
   note = {Revised by D. R. Heath-Brown}
 }
 
+@article{hardy1914,
+  author = {Hardy, G. H.},
+  title = {Sur les z{\'e}ros de la fonction $\zeta(s)$ de {Riemann}},
+  journal = {Comptes Rendus de l'Acad{\'e}mie des Sciences de Paris},
+  volume = {158},
+  year = {1914},
+  pages = {1012--1014},
+  note = {Proof that infinitely many zeros of $\zeta(s)$ lie on the critical line $\Re(s) = 1/2$}
+}
+
 @article{montgomery1973,
   author = {Montgomery, Hugh L.},
   title = {The pair correlation of zeros of the zeta function},
@@ -646,17 +656,6 @@
 % MILLENNIUM PROBLEMS
 % ============================================
 
-@article{yang1954,
-  author = {Yang, Chen-Ning and Mills, Robert L.},
-  title = {Conservation of Isotopic Spin and Isotopic Gauge Invariance},
-  journal = {Physical Review},
-  volume = {96},
-  number = {1},
-  year = {1954},
-  pages = {191--195},
-  doi = {10.1103/PhysRev.96.191}
-}
-
 @article{cook1971,
   author = {Cook, Stephen A.},
   title = {The complexity of theorem-proving procedures},
@@ -862,14 +861,42 @@
   title = {Heegner Points and Derivatives of L-Series},
   journal = {Inventiones Mathematicae},
   volume = {84},
+  number = {2},
   year = {1986},
   pages = {225--320},
   doi = {10.1007/BF01388809}
 }
 
+@article{grosszagier1986,
+  author = {Gross, Benedict H. and Zagier, Don B.},
+  title = {Heegner Points and Derivatives of {L}-Series},
+  journal = {Inventiones Mathematicae},
+  volume = {84},
+  number = {2},
+  year = {1986},
+  pages = {225--320},
+  doi = {10.1007/BF01388809},
+  note = {The Gross--Zagier theorem; cf.~\cite{gross1986heegner}}
+}
+
+@incollection{kolyvagin1990,
+  author = {Kolyvagin, Victor A.},
+  title = {Euler Systems},
+  booktitle = {The {Grothendieck} {Festschrift}, {V}olume {II}},
+  editor = {Cartier, Pierre and Illusie, Luc and Katz, Nicholas M. and Laumon, G{\'e}rard and Manin, Yuri I. and Ribet, Kenneth A.},
+  series = {Progress in Mathematics},
+  volume = {87},
+  publisher = {Birkh{\"a}user Boston},
+  address = {Boston, MA},
+  year = {1990},
+  pages = {435--483},
+  isbn = {0-8176-3428-2},
+  doi = {10.1007/978-0-8176-4575-5_11}
+}
+
 @article{kolyvagin1988finiteness,
   author = {Kolyvagin, Victor A.},
-  title = {Finiteness of $E(\mathbb{Q})$ and Ш$(E,\mathbb{Q})$ for a Subclass of Weil Curves},
+  title = {Finiteness of $E(\mathbb{Q})$ and Sha$(E,\mathbb{Q})$ for a Subclass of Weil Curves},
   journal = {Izvestiya Akademii Nauk SSSR. Seriya Matematicheskaya},
   volume = {52},
   number = {3},
@@ -957,17 +984,6 @@
   publisher = {Academic Press},
   year = {1988},
   isbn = {0-12-079061-0}
-}
-
-@article{hutchinson1981,
-  author = {Hutchinson, John E.},
-  title = {Fractals and self-similarity},
-  journal = {Indiana University Mathematics Journal},
-  volume = {30},
-  number = {5},
-  year = {1981},
-  pages = {713--747},
-  doi = {10.1512/iumj.1981.30.30055}
 }
 
 % ============================================
@@ -1088,26 +1104,6 @@
   isbn = {0-521-31177-2}
 }
 
-@article{wilson1974,
-  author = {Wilson, Kenneth G.},
-  title = {Confinement of quarks},
-  journal = {Physical Review D},
-  volume = {10},
-  year = {1974},
-  pages = {2445--2459},
-  doi = {10.1103/PhysRevD.10.2445}
-}
-
-@article{creutz1980,
-  author = {Creutz, Michael},
-  title = {Monte Carlo Study of Quantized SU(2) Gauge Theory},
-  journal = {Physical Review D},
-  volume = {21},
-  year = {1980},
-  pages = {2308--2315},
-  doi = {10.1103/PhysRevD.21.2308}
-}
-
 @article{gross1973,
   author = {Gross, David J. and Wilczek, Frank},
   title = {Ultraviolet Behavior of Non-Abelian Gauge Theories},
@@ -1116,16 +1112,6 @@
   year = {1973},
   pages = {1343--1346},
   doi = {10.1103/PhysRevLett.30.1343}
-}
-
-@article{politzer1973,
-  author = {Politzer, H. David},
-  title = {Reliable Perturbative Results for Strong Interactions?},
-  journal = {Physical Review Letters},
-  volume = {30},
-  year = {1973},
-  pages = {1346--1349},
-  doi = {10.1103/PhysRevLett.30.1346}
 }
 
 @article{kallen1952,
@@ -1184,16 +1170,6 @@
 % ============================================
 % NEUROSCIENCE & BRAIN IMAGING
 % ============================================
-
-@article{logothetis2001,
-  author = {Logothetis, Nikos K. and Pauls, Jon and Augath, Mark and Trinath, Torsten and Oeltermann, Axel},
-  title = {Neurophysiological investigation of the basis of the fMRI signal},
-  journal = {Nature},
-  volume = {412},
-  year = {2001},
-  pages = {150--157},
-  doi = {10.1038/35084005}
-}
 
 @article{buzsaki2012,
   author = {Buzs{\'a}ki, Gy{\"o}rgy and Anastassiou, Costas A. and Koch, Christof},
@@ -1428,11 +1404,14 @@
   doi = {10.1103/PhysRevLett.13.508}
 }
 
+% Duplicate of yang1954 -- both cite-keys present in chapters; kept identical
+% for stable bbl rendering. To dedupe in PDF, unify the .tex \cite calls.
 @article{yang1954conservation,
-  author = {Yang, Chen Ning and Mills, Robert L.},
+  author = {Yang, Chen-Ning and Mills, Robert L.},
   title = {Conservation of Isotopic Spin and Isotopic Gauge Invariance},
   journal = {Physical Review},
   volume = {96},
+  number = {1},
   year = {1954},
   pages = {191--195},
   doi = {10.1103/PhysRev.96.191}
@@ -1448,6 +1427,8 @@
   doi = {10.1103/PhysRevLett.30.1343}
 }
 
+% Duplicate of politzer1973 -- both cite-keys present in chapters; kept identical
+% for stable bbl rendering. To dedupe in PDF, unify the .tex \cite calls.
 @article{politzer1973reliable,
   author = {Politzer, H. David},
   title = {Reliable Perturbative Results for Strong Interactions?},
@@ -1458,6 +1439,8 @@
   doi = {10.1103/PhysRevLett.30.1346}
 }
 
+% Duplicate of wilson1974 -- both cite-keys present in chapters; kept identical
+% for stable bbl rendering. To dedupe in PDF, unify the .tex \cite calls.
 @article{wilson1974confinement,
   author = {Wilson, Kenneth G.},
   title = {Confinement of Quarks},
@@ -1478,6 +1461,8 @@
   doi = {10.1103/PhysRevD.11.395}
 }
 
+% Duplicate of creutz1980 -- both cite-keys present in chapters; kept identical
+% for stable bbl rendering. To dedupe in PDF, unify the .tex \cite calls.
 @article{creutz1980monte,
   author = {Creutz, Michael},
   title = {Monte Carlo Study of Quantized SU(2) Gauge Theory},
@@ -2180,16 +2165,9 @@
   doi = {10.1086/148982}
 }
 
-@article{lewis2006,
-  author = {Lewis, Antony and Bridle, Sarah},
-  title = {{Cosmological parameters from CMB and other data: A Monte Carlo approach}},
-  journal = {Physical Review D},
-  volume = {66},
-  year = {2002},
-  pages = {103511},
-  doi = {10.1103/PhysRevD.66.103511}
-}
-
+% Duplicate of lewis2000 -- both cite-keys present in chapters (the actual paper
+% is PRD 66, 103511, year 2002; the key suffix is misleading). Kept identical
+% for stable bbl rendering. To dedupe in PDF, unify the .tex \cite calls.
 @misc{cmbs4,
   author = {{CMB-S4 Collaboration}},
   title = {{CMB-S4 Science Book, First Edition}},
@@ -2910,6 +2888,8 @@
 % FRACTAL GEOMETRY AND ANALYSIS
 % ============================================
 
+% Duplicate of hutchinson1981 -- both cite-keys present in chapters; kept identical
+% for stable bbl rendering. To dedupe in PDF, unify the .tex \cite calls.
 @article{hutchinson1981fractals,
   author = {Hutchinson, John E.},
   title = {Fractals and self-similarity},
@@ -3578,7 +3558,7 @@
 @article{bell1964,
   author  = {Bell, John S.},
   title   = {On the {Einstein Podolsky Rosen} Paradox},
-  journal = {Physics Physique Физика},
+  journal = {Physics Physique Fizika},
   year    = {1964},
   volume  = {1},
   number  = {3},
@@ -3735,6 +3715,8 @@
   note    = {Neural binding through gamma synchrony}
 }
 
+% Duplicate of logothetis2001 -- both cite-keys present in chapters; kept identical
+% for stable bbl rendering. To dedupe in PDF, unify the .tex \cite calls.
 @article{logothetis2001neurophysiological,
   author  = {Logothetis, Nikos K. and Pauls, Jon and Augath, Mark and Trinath, Torsten and Oeltermann, Axel},
   title   = {Neurophysiological Investigation of the Basis of the {fMRI} Signal},
@@ -3984,12 +3966,15 @@
   year = {2007}
 }
 
+% Companion to glimm1987quantum (2nd ed., 1987). This entry records the
+% 1st edition (1981). Audit flagged as "different editions" -- preserved.
 @book{glimmjaffe1981,
   author = {Glimm, James and Jaffe, Arthur},
-  title = {Quantum Physics: {A} Functional Integral Point of View},
+  title = {Quantum Physics: A Functional Integral Point of View},
   publisher = {Springer-Verlag},
-  edition = {Second},
-  year = {1981}
+  edition = {1st},
+  year = {1981},
+  isbn = {0-387-90562-6}
 }
 
 @book{streaterwightman2000,

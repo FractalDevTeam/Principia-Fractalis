@@ -10,7 +10,7 @@ In this chapter, we provide \textbf{rigorous mathematical foundations and comput
 \item \textbf{Empirical findings}: $\lambda_0(H_P) = 0.2221441469 \pm 10^{-10}$ and $\lambda_0(H_{NP}) = 0.1330222423 \pm 10^{-10}$
 \item Present conjectures connecting these values to closed forms: $\frac{\pi}{10\sqrt{2}}$ and $\frac{\pi(\sqrt{5}-1)}{30\sqrt{2}}$
 \item Introduce \textbf{fractal analytic continuation} as a conjectural framework for branch selection
-\item Show fractal dimension separation: $\dim_{\text{frac}}(P) = \sqrt{2} < \phi + 1/4 = \dim_{\text{frac}}(NP)$
+\item Show fractal dimension separation: $\dim_{\text{frac}}(P) = \sqrt{2} < \varphi + 1/4 = \dim_{\text{frac}}(NP)$
 \item Validate framework across 143 problems (100\% empirical coherence)
 \end{itemize}
 
@@ -275,9 +275,9 @@ For self-adjointness $\langle L_1 | H_P | L_2 \rangle = \overline{\langle L_2 | 
 The self-adjointness condition is satisfied precisely at:
 \begin{itemize}
 \item For P: $\boxed{\alpha_P = \sqrt{2}}$
-\item For NP: $\boxed{\alpha_{NP} = \phi + \frac{1}{4} = \frac{1+\sqrt{5}}{2} + \frac{1}{4} \approx 1.868}$
+\item For NP: $\boxed{\alpha_{NP} = \varphi + \frac{1}{4} = \frac{1+\sqrt{5}}{2} + \frac{1}{4} \approx 1.868}$
 \end{itemize}
-where $\phi = (1+\sqrt{5})/2$ is the golden ratio.
+where $\varphi = (1+\sqrt{5})/2$ is the golden ratio.
 \end{theorem}
 
 \begin{proof}[Proof sketch]
@@ -294,14 +294,14 @@ Evaluating at $z = e^{i\pi\alpha}$ and requiring reality involves:
 \item Analytic number theory at transcendental points\cite{zagier1991polylogarithms}
 \end{enumerate}
 
-The complete proof shows that reality occurs at $\alpha_P = \sqrt{2}$ (for P) and $\alpha_{NP} = \phi + 1/4$ (for NP), and these are the \textit{only} values in $(1, 2)$ where self-adjointness holds.
+The complete proof shows that reality occurs at $\alpha_P = \sqrt{2}$ (for P) and $\alpha_{NP} = \varphi + 1/4$ (for NP), and these are the \textit{only} values in $(1, 2)$ where self-adjointness holds.
 \end{proof}
 
 \begin{level3}[Connection to Consciousness]
 These critical values are not arbitrary:
 \begin{itemize}
 \item $\sqrt{2}$ appears in Chapter \ref{ch:constants} as a universal consciousness parameter
-\item $\phi + 1/4$ combines the golden ratio (optimal packing, Fibonacci growth) with the $1/4$ correction from quantum mechanics (Casimir energy, entanglement entropy)
+\item $\varphi + 1/4$ combines the golden ratio (optimal packing, Fibonacci growth) with the $1/4$ correction from quantum mechanics (Casimir energy, entanglement entropy)
 \item The values encode the \textit{fractal dimension} of computational consciousness in $\mathcal{T}_\infty$
 \end{itemize}
 \end{level3}
@@ -469,12 +469,12 @@ With both ground state energies now analytically derived, the spectral gap is:
 The operators achieve perfect fractal coherence at critical values:
 \begin{align}
 \alpha_P &= \sqrt{2} \approx 1.41421356237 \\
-\alpha_{NP} &= \phi + \frac{1}{4} \approx 1.86803398875
+\alpha_{NP} &= \varphi + \frac{1}{4} \approx 1.86803398875
 \end{align}
 
 \noindent\emph{Corrected 2026-05-18: prior $\alpha_{NP} \approx 1.86802398875$ was off in the 5th decimal.}
 
-\textbf{Unified structure}: The ground states, spectral gap, and critical values all involve $\sqrt{2}$ (fractal dimension) and $\phi$ (golden ratio). This reveals P vs NP as a question about optimal information flow in fractal computational spaces—deterministic paths ($H_P$) versus nondeterministic certificate spaces ($H_{NP}$).
+\textbf{Unified structure}: The ground states, spectral gap, and critical values all involve $\sqrt{2}$ (fractal dimension) and $\varphi$ (golden ratio). This reveals P vs NP as a question about optimal information flow in fractal computational spaces—deterministic paths ($H_P$) versus nondeterministic certificate spaces ($H_{NP}$).
 \end{remark}
 
 \begin{keyidea}
@@ -603,7 +603,7 @@ Throughout this section, we work exclusively with the \textbf{$M_0$ generator} (
 All monodromy indices $m \in \mathbb{Z}$ refer to iterations of $M_0$: the branch $\mathrm{Li}_s^{[m]}(z)$ is obtained by applying $M_0$ exactly $m$ times to the principal branch.
 \end{remark}
 
-\subsubsection{Real-Part Rigidity at $s=1$}
+\subsubsection{Real-Part Rigidity at \texorpdfstring{$s=1$}{s=1}}
 
 We first establish a cornerstone result explaining why non-integer weight is necessary.
 
@@ -795,7 +795,7 @@ This proposition explains the convergence behavior observed in Experiments \ref{
 The prefactor $B$ depends on the normalization of the fractal measure and can be determined from the slope of $\log|\Delta \tilde\lambda_0|$ versus $\log m$ plots.
 \end{remark}
 
-\subsection{Spectral Exponents and the Choice of $s^*$}
+\subsection{Spectral Exponents and the Choice of \texorpdfstring{$s^*$}{s*}}
 
 A crucial question remains: what determines the effective polylogarithm weight $s^*$? We now connect it to fractal spectral dimensions.
 
@@ -893,7 +893,7 @@ must be locally injective, which holds if and only if the Jacobian has full rank
 For our specific operators:
 \begin{align*}
 \frac{\partial \lambda_0(H_P)}{\partial s^*} &= B \cdot \frac{\partial}{\partial s^*}\Re[\mathrm{Li}_{s^*}(e^{i\pi\sqrt{2}})] \neq 0 \\
-\frac{\partial \lambda_0(H_{NP})}{\partial \alpha} &= B \cdot \frac{\partial}{\partial \alpha}\Re[\mathrm{Li}_{s^*}(e^{i\pi\alpha})]|_{\alpha=\phi+1/4} \neq 0 \\
+\frac{\partial \lambda_0(H_{NP})}{\partial \alpha} &= B \cdot \frac{\partial}{\partial \alpha}\Re[\mathrm{Li}_{s^*}(e^{i\pi\alpha})]|_{\alpha=\varphi+1/4} \neq 0 \\
 \frac{\partial \lambda_0(H_{\text{BPP}})}{\partial B} &= \Re[\mathrm{Li}_{s^*}(e^{i\pi\alpha_{\text{BPP}}})] \neq 0
 \end{align*}
 
@@ -1035,7 +1035,7 @@ The box-counting dimension of $(\text{P}, d_H)$ is:
 \begin{theorem}[Fractal Dimension of NP]\label{thm:dim-np}
 The box-counting dimension of $(\text{NP}, d_H)$ is:
 \begin{equation}
-\boxed{\dim_{\text{frac}}(\text{NP}) = \phi + \frac{1}{4}}
+\boxed{\dim_{\text{frac}}(\text{NP}) = \varphi + \frac{1}{4}}
 \end{equation}
 \end{theorem}
 
@@ -1059,23 +1059,23 @@ This is a manifestation of the self-similarity of deterministic computation.
 \begin{proof}[Proof sketch for NP]
 For NP:
 \begin{itemize}
-\item Certificate branching creates additional structure: each certificate bit adds $\log \phi$ to the dimension
+\item Certificate branching creates additional structure: each certificate bit adds $\log \varphi$ to the dimension
 \item Verification overhead adds $1/4$ correction
-\item Covering analysis: $N(\epsilon) \sim \epsilon^{-(\phi + 1/4)}$
+\item Covering analysis: $N(\epsilon) \sim \epsilon^{-(\varphi + 1/4)}$
 \end{itemize}
 
-The golden ratio appears because optimal certificate trees follow Fibonacci growth patterns—the same reason $\phi$ appears in optimal packing and search algorithms.
+The golden ratio appears because optimal certificate trees follow Fibonacci growth patterns—the same reason $\varphi$ appears in optimal packing and search algorithms.
 \end{proof}
 
 \begin{corollary}[Dimension Gap]\label{cor:dim-gap}
 \begin{equation}
-\dim_{\text{frac}}(\text{NP}) - \dim_{\text{frac}}(\text{P}) = (\phi + 1/4) - \sqrt{2} \approx 0.454 > 0
+\dim_{\text{frac}}(\text{NP}) - \dim_{\text{frac}}(\text{P}) = (\varphi + 1/4) - \sqrt{2} \approx 0.454 > 0
 \end{equation}
 \end{corollary}
 
 This geometric separation is independent of the spectral gap, providing a second proof that P $\neq$ NP.
 
-\section{Computational Evidence: P $\neq$ NP}
+\section{Computational Evidence: \texorpdfstring{P $\neq$ NP}{P != NP}}
 
 \subsection{Empirical Validation: The 143-Problem Framework}
 
@@ -1089,7 +1089,7 @@ Across 143 diverse computational problems spanning multiple domains (optimizatio
 with critical values consistently measured as:
 \begin{align}
 \alpha_P &= \sqrt{2} \approx 1.41421356 \\
-\alpha_{NP} &= \phi + \frac{1}{4} \approx 1.86803399
+\alpha_{NP} &= \varphi + \frac{1}{4} \approx 1.86803399
 \end{align}
 \end{theorem}
 
@@ -1099,7 +1099,7 @@ Think of this as a physics experiment: we measured 143 different physical system
 \textbf{Key empirical findings}:
 \begin{itemize}
 \item P-class problems consistently resonate at $\alpha = \sqrt{2}$
-\item NP-class problems consistently resonate at $\alpha = \phi + 1/4$
+\item NP-class problems consistently resonate at $\alpha = \varphi + 1/4$
 \item The spectral gap $\Delta = 0.0891$ appears in all measurements
 \item No overlap: P and NP form distinct resonance clusters
 \end{itemize}
@@ -1147,7 +1147,7 @@ If P = NP, then as metric spaces we would expect:
 
 Homeomorphic metric spaces have equal fractal dimensions\cite{falconer2003fractal}. However, computational analysis shows:
 \begin{equation}
-\dim_{\text{frac}}(\text{P}) = \sqrt{2} \approx 1.414 < \phi + 1/4 \approx 1.868 = \dim_{\text{frac}}(\text{NP})
+\dim_{\text{frac}}(\text{P}) = \sqrt{2} \approx 1.414 < \varphi + 1/4 \approx 1.868 = \dim_{\text{frac}}(\text{NP})
 \end{equation}
 
 This geometric separation (Δdim ≈ 0.454) is consistently observed across all 143 problems.
@@ -1161,9 +1161,9 @@ For P at critical value $\alpha_P = \sqrt{2}$:
 \text{ch}_2(\text{P}) = 0.95 + \frac{\sqrt{2} - \sqrt{2}}{10} = 0.95
 \end{equation}
 
-For NP at critical value $\alpha_{NP} = \phi + 1/4$:
+For NP at critical value $\alpha_{NP} = \varphi + 1/4$:
 \begin{equation}
-\text{ch}_2(\text{NP}) = 0.95 + \frac{(\phi + 1/4) - \sqrt{2}}{10} \approx 0.9954
+\text{ch}_2(\text{NP}) = 0.95 + \frac{(\varphi + 1/4) - \sqrt{2}}{10} \approx 0.9954
 \end{equation}
 
 Computational experiments show NP languages consistently require \textit{higher consciousness threshold} (Δch₂ ≈ 0.0054) than P languages—the certificate structure demands greater crystallization in $\mathcal{T}_\infty$.
@@ -1490,17 +1490,17 @@ The \textbf{Principia Fractalis Conjectures} (Conjectures \ref{conj:polylog-spec
 \begin{itemize}
 \item \textbf{100\% Fractal Coherence}: All 143 problems achieve $\chi_P = \chi_{NP} = 1.0000$
 \item \textbf{Spectral Gap Universality}: Measured $\Delta = 0.0891219046$ consistent across all problem types
-\item \textbf{Fractal Dimension Separation}: $\sqrt{2} < \phi + 1/4$ validated geometrically
+\item \textbf{Fractal Dimension Separation}: $\sqrt{2} < \varphi + 1/4$ validated geometrically
 \item \textbf{Consciousness Thresholds}: Certificate branching requires $\Delta\chi^2 \approx 0.0054$ crystallization gap
 \end{itemize}
 
-\subsection{Why the Evidence Suggests P $\neq$ NP}
+\subsection{Why the Evidence Suggests \texorpdfstring{P $\neq$ NP}{P != NP}}
 
 The framework provides four independent lines of evidence for separation:
 
 \begin{enumerate}
 \item \textbf{Spectral}: Irreducible energy gap $\Delta > 0$ between ground states
-\item \textbf{Geometric}: Fractal dimension separation $d_H(P) = \sqrt{2} \neq \phi + 1/4 = d_H(NP)$
+\item \textbf{Geometric}: Fractal dimension separation $d_H(P) = \sqrt{2} \neq \varphi + 1/4 = d_H(NP)$
 \item \textbf{Topological}: Different monodromy paths on Riemann surface (conjectured)
 \item \textbf{Physical}: Golden ratio encodes non-perturbative certificate structure
 \end{enumerate}
@@ -1540,7 +1540,7 @@ This framework, once rigorously established, could provide a foundation for quan
 
 \item \textbf{(Configuration Encoding)} For a 2-state Turing machine with alphabet $\{0,1,\sqcup\}$, encode the configuration $(q_1, 0110, 2)$ (state $q_1$, tape "0110", head at position 2) using Definition \ref{def:config-encoding}.
 
-\item \textbf{(Critical Values)} Verify numerically that $\alpha_P = \sqrt{2} \approx 1.414$ and $\alpha_{NP} = \phi + 1/4 \approx 1.868$.
+\item \textbf{(Critical Values)} Verify numerically that $\alpha_P = \sqrt{2} \approx 1.414$ and $\alpha_{NP} = \varphi + 1/4 \approx 1.868$.
 
 \item \textbf{(Spectral Gap)} Compute the spectral gap $\Delta$ to 10-digit precision and verify it equals $0.0891219046$.
 
@@ -1550,7 +1550,7 @@ This framework, once rigorously established, could provide a foundation for quan
 
 \item \textbf{(Consciousness Threshold)} Compute ch$_2$(P) and ch$_2$(NP) using the formula from Proof 3 of Theorem \ref{thm:main-p-neq-np}.
 
-\item \textbf{(Certificate Structure)} For SAT with $n$ variables, how many potential certificates exist? How does this relate to the $\phi$ term in $\alpha_{NP}$?
+\item \textbf{(Certificate Structure)} For SAT with $n$ variables, how many potential certificates exist? How does this relate to the $\varphi$ term in $\alpha_{NP}$?
 
 \end{enumerate}
 
