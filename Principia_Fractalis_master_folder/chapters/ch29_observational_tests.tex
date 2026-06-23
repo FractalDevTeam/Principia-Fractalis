@@ -128,14 +128,14 @@ After quality cuts (removing peculiar velocities, host galaxy corrections), we u
 
 \textbf{Standard $\Lambda$CDM}:
 \begin{align}
-\chi^2_{\text{SN}}^{\Lambda\text{CDM}} &= \sum_{i=1}^{580} \frac{[\mu_i^{\text{obs}} - \mu_i^{\Lambda\text{CDM}}(z_i)]^2}{\sigma_{\mu,i}^2} \\
+{\chi^2_{\text{SN}}}^{\Lambda\text{CDM}} &= \sum_{i=1}^{580} \frac{[\mu_i^{\text{obs}} - \mu_i^{\Lambda\text{CDM}}(z_i)]^2}{\sigma_{\mu,i}^2} \\
 &= 563.8 \quad \text{for} \quad N_{\text{dof}} = 580 - 6 = 574 \\
 \chi^2 / N_{\text{dof}} &= 0.982
 \end{align}
 
 \textbf{Consciousness-modified}:
 \begin{align}
-\chi^2_{\text{SN}}^{\text{mod}} &= \sum_{i=1}^{580} \frac{[\mu_i^{\text{obs}} - \mu_i^{\text{mod}}(z_i)]^2}{\sigma_{\mu,i}^2} \\
+{\chi^2_{\text{SN}}}^{\text{mod}} &= \sum_{i=1}^{580} \frac{[\mu_i^{\text{obs}} - \mu_i^{\text{mod}}(z_i)]^2}{\sigma_{\mu,i}^2} \\
 &= 289.7 \quad \text{for} \quad N_{\text{dof}} = 580 - 8 = 572 \\
 \chi^2 / N_{\text{dof}} &= 0.507
 \end{align}
@@ -269,12 +269,12 @@ We use 13 BAO measurements from multiple surveys\cite{sdss2018,beutler2011,ross2
 
 \textbf{Standard $\Lambda$CDM}:
 \begin{equation}
-\chi^2_{\text{BAO}}^{\Lambda\text{CDM}} = 18.9 \quad \text{for} \quad N_{\text{dof}} = 13 - 6 = 7
+{\chi^2_{\text{BAO}}}^{\Lambda\text{CDM}} = 18.9 \quad \text{for} \quad N_{\text{dof}} = 13 - 6 = 7
 \end{equation}
 
 \textbf{Consciousness-modified}:
 \begin{equation}
-\chi^2_{\text{BAO}}^{\text{mod}} = 11.3 \quad \text{for} \quad N_{\text{dof}} = 13 - 8 = 5
+{\chi^2_{\text{BAO}}}^{\text{mod}} = 11.3 \quad \text{for} \quad N_{\text{dof}} = 13 - 8 = 5
 \end{equation}
 
 \textbf{Improvement}:
@@ -340,8 +340,8 @@ Both standard $\Lambda$CDM and consciousness-modified models predict \textit{ide
 
 \textbf{Test}: Fit primary CMB alone.
 \begin{align}
-\chi^2_{\text{CMB,primary}}^{\Lambda\text{CDM}} &= 46.2 \quad (N_{\text{dof}} = 52) \\
-\chi^2_{\text{CMB,primary}}^{\text{mod}} &= 46.3 \quad (N_{\text{dof}} = 50)
+{\chi^2_{\text{CMB,primary}}}^{\Lambda\text{CDM}} &= 46.2 \quad (N_{\text{dof}} = 52) \\
+{\chi^2_{\text{CMB,primary}}}^{\text{mod}} &= 46.3 \quad (N_{\text{dof}} = 50)
 \end{align}
 
 No improvement—as expected! This confirms ch$_2(z \gg 1) = 0$.
@@ -364,15 +364,15 @@ Predicted: $A_{\text{lens}} = 1.03 \pm 0.02$ (vs 1.00 in standard model).
 
 \textbf{Combined late-time $\chi^2$}:
 \begin{align}
-\chi^2_{\text{CMB,late}}^{\Lambda\text{CDM}} &= 58.4 \quad (\text{ISW} + \text{lensing}) \\
-\chi^2_{\text{CMB,late}}^{\text{mod}} &= 6.9 \\
+{\chi^2_{\text{CMB,late}}}^{\Lambda\text{CDM}} &= 58.4 \quad (\text{ISW} + \text{lensing}) \\
+{\chi^2_{\text{CMB,late}}}^{\text{mod}} &= 6.9 \\
 \Delta \chi^2_{\text{CMB,late}} &= 51.4
 \end{align}
 
 \textbf{Total CMB}:
 \begin{align}
-\chi^2_{\text{CMB,total}}^{\Lambda\text{CDM}} &= 46.2 + 58.4 = 104.6 \\
-\chi^2_{\text{CMB,total}}^{\text{mod}} &= 46.3 + 6.9 = 53.2 \\
+{\chi^2_{\text{CMB,total}}}^{\Lambda\text{CDM}} &= 46.2 + 58.4 = 104.6 \\
+{\chi^2_{\text{CMB,total}}}^{\text{mod}} &= 46.3 + 6.9 = 53.2 \\
 \boxed{\Delta \chi^2_{\text{CMB}} = 104.6 - 53.2 = 51.4}
 \end{align}
 \end{theorem}
@@ -419,7 +419,7 @@ Planck 2018 CMB \cite{planck2018}; $\chi^2_{\Lambda\text{CDM}}
 across 588 d.o.f. The Lean stack does NOT verify the
 $\chi^2$-improvement number; it verifies only the dark-energy
 density bracket (theorem
-\texttt{Wave58.Ch08FieldEquationsConcrete.darkEnergyDensity\_in\_bracket}).
+\texttt{Wave58.\allowbreak{}Ch08Field\allowbreak{}Equations\allowbreak{}Concrete.\allowbreak{}dark\allowbreak{}Energy\allowbreak{}Density\_\allowbreak{}in\_\allowbreak{}bracket}).
 Referees seeking to reproduce the 94.3\% figure must rerun the
 $\chi^2$ analysis against the primary catalogs.}
 \end{theorem}

@@ -382,8 +382,7 @@ Using finite-dimensional approximations with increasingly fine resolution, we co
 \begin{experiment}[Convergence Study for $H_P$]\label{exp:hp-convergence}
 Using finite approximations with $N = 2^n$ basis functions for $n = 8$ to $16$, we observe convergence to a limiting value:
 
-\begin{table}[h]
-\centering
+\begin{center}
 \begin{tabular}{c|c|c}
 Approximation Level $n$ & $\lambda_0^{(n)}$ & Relative Error \\
 \hline
@@ -393,8 +392,10 @@ Approximation Level $n$ & $\lambda_0^{(n)}$ & Relative Error \\
 14 & 0.2221441469 & $< 10^{-10}$ \\
 16 & 0.2221441469 & $< 10^{-10}$ \\
 \end{tabular}
-\caption{Convergence of ground state energy for $H_P$ as approximation level increases}
-\end{table}
+
+\smallskip
+\textit{Convergence of ground state energy for $H_P$ as approximation level increases.}
+\end{center}
 
 The extrapolated limit is:
 \begin{equation}
@@ -413,8 +414,7 @@ to within numerical precision ($< 10^{-10}$). This suggests an exact analytical 
 \begin{experiment}[Convergence Study for $H_{NP}$]\label{exp:hnp-convergence}
 Similarly, for $H_{NP}$ we obtain:
 
-\begin{table}[h]
-\centering
+\begin{center}
 \begin{tabular}{c|c|c}
 Approximation Level $n$ & $\lambda_0^{(n)}$ & Relative Error \\
 \hline
@@ -424,8 +424,10 @@ Approximation Level $n$ & $\lambda_0^{(n)}$ & Relative Error \\
 14 & 0.1330222423 & $< 10^{-10}$ \\
 16 & 0.1330222423 & $< 10^{-10}$ \\
 \end{tabular}
-\caption{Convergence of ground state energy for $H_{NP}$ as approximation level increases}
-\end{table}
+
+\smallskip
+\textit{Convergence of ground state energy for $H_{NP}$ as approximation level increases.}
+\end{center}
 
 The extrapolated limit is:
 \begin{equation}
@@ -467,8 +469,10 @@ With both ground state energies now analytically derived, the spectral gap is:
 The operators achieve perfect fractal coherence at critical values:
 \begin{align}
 \alpha_P &= \sqrt{2} \approx 1.41421356237 \\
-\alpha_{NP} &= \phi + \frac{1}{4} \approx 1.86803398875 \quad \text{(corrected 2026-05-18; prior $1.86802398875$ was off in 5th decimal)}
+\alpha_{NP} &= \phi + \frac{1}{4} \approx 1.86803398875
 \end{align}
+
+\noindent\emph{Corrected 2026-05-18: prior $\alpha_{NP} \approx 1.86802398875$ was off in the 5th decimal.}
 
 \textbf{Unified structure}: The ground states, spectral gap, and critical values all involve $\sqrt{2}$ (fractal dimension) and $\phi$ (golden ratio). This reveals P vs NP as a question about optimal information flow in fractal computational spaces—deterministic paths ($H_P$) versus nondeterministic certificate spaces ($H_{NP}$).
 \end{remark}
@@ -529,8 +533,9 @@ The claimed sine identity can be verified numerically:
 
 Taking absolute value (physical energy is positive):
 \begin{equation}
-\left|\frac{0.798635510}{0.847127424}\right| \approx 0.9427\ldots \quad \text{(corrected 2026-05-18; prior $0.5988$ was wrong, and $(\sqrt{5}-1)/3 \approx 0.4120$ also $\neq 0.5988$)}
+\left|\frac{0.798635510}{0.847127424}\right| \approx 0.9427\ldots
 \end{equation}
+\noindent\emph{Corrected 2026-05-18: prior $0.5988$ was wrong, and $(\sqrt{5}-1)/3 \approx 0.4120$ also $\neq 0.5988$.}
 
 Combined with Conjecture \ref{conj:golden-modulation}, this explains the empirical value:
 \begin{equation}
@@ -968,10 +973,12 @@ For the self-adjoint fractal convolution operators $H_P$ and $H_{NP}$ with Hausd
 
 These values are consistent with the closed forms:
 \begin{align}
-\lambda_0(H_P) &\stackrel{?}{=} \frac{\pi}{10\sqrt{2}} \approx 0.2221441469079... \\
-\lambda_0(H_{NP}) &\stackrel{?}{=} \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.0915 \quad \text{(corrected 2026-05-18; prior $0.1330222423419$ was wrong; does NOT match empirical $\approx 0.1330$)}
+\lambda_0(H_P) &\stackrel{?}{=} \frac{\pi}{10\sqrt{2}} \approx 0.2221441469079\ldots \\
+\lambda_0(H_{NP}) &\stackrel{?}{=} \frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} \approx 0.0915
 \end{align}
 matching to within numerical precision.
+
+\noindent\emph{Corrected 2026-05-18: prior $0.1330222423419$ was arithmetically wrong; the closed form does NOT match the empirical $\lambda_0(H_{NP}) \approx 0.1330$.}
 \end{theorem}
 
 \begin{proof}
@@ -1459,9 +1466,11 @@ Through systematic numerical computation with convergence studies (Experiments \
 
 These values match closed form candidates to within numerical precision:
 \begin{align*}
-\frac{\pi}{10\sqrt{2}} &\approx 0.2221441469079... \\
-\frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} &\approx 0.0915 \quad \text{(corrected 2026-05-18; prior $0.1330222423419$ was arithmetically wrong; does NOT match empirical $\lambda_0(H_{NP}) \approx 0.1330$)}
+\frac{\pi}{10\sqrt{2}} &\approx 0.2221441469079\ldots \\
+\frac{\pi(\sqrt{5}-1)}{30\sqrt{2}} &\approx 0.0915
 \end{align*}
+
+\noindent\emph{Corrected 2026-05-18: prior $0.1330222423419$ was arithmetically wrong; the closed form does NOT match the empirical $\lambda_0(H_{NP}) \approx 0.1330$.}
 
 \subsection{Conjectural Framework}
 

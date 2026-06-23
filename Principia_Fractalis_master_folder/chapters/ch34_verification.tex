@@ -556,7 +556,7 @@ if __name__ == "__main__":
 All code and data available at:
 
 \begin{center}
-\texttt{https://github.com/pcohen/principia-fractalis}
+\texttt{https:/\allowbreak{}/\allowbreak{}github.\allowbreak{}com/\allowbreak{}pcohen/\allowbreak{}principia-fractalis}
 \end{center}
 
 Repository structure:
@@ -612,29 +612,29 @@ theorem has been independently re-verified via the
 \texttt{PF\_Lean4Lean} package, which re-imports the load-bearing
 PF proofs into a separate Lean build context and re-checks
 their axiom footprint. The 2026-06-04 Lean4Lean audit
-(\texttt{REFEREE\_PROOF\_LEAN4LEAN\_AUDIT\_2026-06-04.md},
+(\texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}LEAN4LEAN\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md},
 HEAD~\texttt{1085d51}) records the following honest-scope
 partial-clean result:
 
 \begin{itemize}
 \item \textbf{Four \texttt{PF\_L4L} modules build clean} with
 $\texttt{\#print axioms}$ output exactly
-\texttt{[propext, Classical.choice, Quot.sound]} (i.e.\ Lean's
+\texttt{[propext, Classical.\allowbreak{}choice, Quot.\allowbreak{}sound]} (i.e.\ Lean's
 three foundational axioms; no project-level axiom):
 \begin{enumerate}
-\item \texttt{PF\_L4L.Core.spectralGapSpecPF} ---
+\item \texttt{PF\_\allowbreak{}L4L.\allowbreak{}Core.\allowbreak{}spectral\allowbreak{}Gap\allowbreak{}Spec\allowbreak{}PF} ---
 re-verifies \texttt{PF.SpectralGap.spectral\_gap} and its
 positivity / value lemmas;
 \item \texttt{PF\_L4L.Ch21.pnpContractPF} ---
-re-verifies \texttt{PF.P\_NP\_Equivalence.P\_neq\_NP\_via\_spectral\_gap}
+re-verifies \texttt{PF.\allowbreak{}P\_\allowbreak{}NP\_\allowbreak{}Equivalence.\allowbreak{}P\_\allowbreak{}neq\_\allowbreak{}NP\_\allowbreak{}via\_\allowbreak{}spectral\_\allowbreak{}gap}
 (conditional on \texttt{PolylogEigenvalueConjecture}, as in the
 canonical statement);
-\item \texttt{PF\_L4L.Referee.flagshipReverified} ---
+\item \texttt{PF\_\allowbreak{}L4L.\allowbreak{}Referee.\allowbreak{}flagship\allowbreak{}Reverified} ---
 re-verifies the framework's flagship single-citation theorem
-\texttt{PF.Referee.PrincipiaFractalisSubstrateTheorem};
-\item \texttt{PF\_L4L.Referee.flagshipConsequencesReverified} ---
+\texttt{PF.\allowbreak{}Referee.\allowbreak{}Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem};
+\item \texttt{PF\_\allowbreak{}L4L.\allowbreak{}Referee.\allowbreak{}flagship\allowbreak{}Consequences\allowbreak{}Reverified} ---
 re-verifies the unconditional companion
-\texttt{PF.Referee.PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}.
+\texttt{PF.\allowbreak{}Referee.\allowbreak{}Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Consequences\_\allowbreak{}holds\_\allowbreak{}unconditionally}.
 \end{enumerate}
 
 \item \textbf{Six of eight original L4L modules remain gated} on
@@ -656,7 +656,7 @@ certification}, not a full
 drop-in re-check. What it does buy: the framework's flagship
 theorem and the P~vs~NP / spectral-gap content survive a separate
 build that re-imports them, with the axiom footprint
-\texttt{[propext, Classical.choice, Quot.sound]} preserved across
+\texttt{[propext, Classical.\allowbreak{}choice, Quot.\allowbreak{}sound]} preserved across
 the independent import. What it does \emph{not} buy: independent
 re-verification of the RH, YM, and BSD pillars via L4L (those
 remain gated on the API-drift refactor) or running the external
@@ -680,13 +680,13 @@ are presented here as a single table for citation convenience:
 \hline
 Lean kernel axiom audit &
 \textbf{CLEAN} &
-\texttt{REFEREE\_PROOF\_LEAN\_AXIOM\_AUDIT\_2026-06-04.md}.
+\texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}LEAN\_\allowbreak{}AXIOM\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md}.
 535 \texttt{.lean} files in closure; 0 project axioms; 0
 \texttt{sorry}; 0 \texttt{admit}; 4044 jobs clean. \\
 \hline
 Coq cross-prover axiom audit &
 \textbf{CLEAN} &
-\texttt{REFEREE\_PROOF\_COQ\_AXIOM\_AUDIT\_2026-06-04.md}.
+\texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}COQ\_\allowbreak{}AXIOM\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md}.
 All 18 Wave~58 \texttt{.v} files build clean under Rocq~9.1.0;
 0 \texttt{Admitted}; 0 \texttt{admit}; every capstone's
 transitive axiom set is a subset of the Rocq Stdlib.Reals
@@ -694,7 +694,7 @@ classical baseline. \\
 \hline
 Manuscript cover-to-cover review (V2.0.0) &
 \textbf{$8.7 \to 10$/10 after fixes} &
-\texttt{REFEREE\_PROOF\_REVIEW\_2026-06-04.md}. Initial review
+\texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}REVIEW\_\allowbreak{}2026-06-04.\allowbreak{}md}. Initial review
 gave 8.7/10 with three actionable findings (cascade-prose
 tautology, empirical claims need scope markers, L4L mention).
 All three are addressed in the V2.0.0 release this chapter,
@@ -703,7 +703,7 @@ Chapter~\ref{ch:substrate-theorem}, and the preamble's
 \hline
 Cross-reference completeness audit &
 \textbf{CLEAN AFTER FIXES} &
-\texttt{REFEREE\_PROOF\_CROSS\_REFERENCE\_AUDIT\_2026-06-04.md}
+\texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}CROSS\_\allowbreak{}REFERENCE\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md}
 (HEAD~\texttt{326f274}). Manuscript Appendix~I and the arXiv
 preprint had 42 broken Lean citations; all hard breakages have
 been fixed and the remaining wildcards/Coq-label nicknames are
@@ -711,11 +711,11 @@ annotated. Bibliography 366 entries / 0 missing citations. \\
 \hline
 Lean4Lean partial-clean external re-verification &
 \textbf{PARTIAL CLEAN} &
-\texttt{REFEREE\_PROOF\_LEAN4LEAN\_AUDIT\_2026-06-04.md}
+\texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}LEAN4LEAN\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md}
 (HEAD~\texttt{1085d51}). 4 \texttt{PF\_L4L} modules clean
-with \texttt{[propext, Classical.choice, Quot.sound]} only;
+with \texttt{[propext, Classical.\allowbreak{}choice, Quot.\allowbreak{}sound]} only;
 6 of 8 legacy L4L modules gated on documented API-drift gap.
-Flagship \texttt{PrincipiaFractalisSubstrateTheorem}
+Flagship \texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem}
 independently re-verified. \\
 \hline
 \end{tabular}
