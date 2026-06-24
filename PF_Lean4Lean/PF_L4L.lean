@@ -29,6 +29,10 @@ import PF_L4L.Ch21.PNP
 import PF_L4L.Referee.FlagshipReverification
 import PF_L4L.Referee.V2AndMasterReverification
 import PF_L4L.Referee.ClayVerificationHarness
+-- 2026-06-24 Wave 59 — three forward Lean steps reverified
+import PF_L4L.Empirical.PolylogEigenvalueConjectureDecomposition_2026_06_24_Reverification
+import PF_L4L.Empirical.GIForwardPredictionProtocol_2026_06_24_Reverification
+import PF_L4L.Empirical.SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24_Reverification
 
 -- Gated modules: kept in the source tree for the future PF-namespace
 -- refactor; they do NOT participate in the current build.
