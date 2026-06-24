@@ -1,5 +1,48 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (one-command verification) — `verify.sh` at the repo root + §7 incantation simplified
+
+**HEAD prior**: `7e058f2`. **HEAD now**: this commit.
+
+The paper's "verifiable from a clean clone in approximately ten minutes" claim was carrying its own verification recipe across five command-line steps (clone, cd, elan install, lake build, lake build PF.AxiomCheck). Even a sympathetic reader might skip the verification. Replacing it with one command — `./verify.sh` — makes the verification concrete in a way prose cannot.
+
+### `verify.sh` at the repo root
+
+New file. Bash script, ~120 lines, executable. Does:
+
+1. Locates `PF_Lean4_Code/` from script location (works regardless of `cd`).
+2. Installs `elan` if not present.
+3. Installs the Lean toolchain pinned in `PF_Lean4_Code/lean-toolchain`.
+4. `lake build PF` — the load-bearing target (4,368 jobs at HEAD; ~10 minutes on first run).
+5. `lake build PF.AxiomCheck_2026_06_23` — runs `#print axioms` on the four headline theorems.
+6. Verdict logic: parses the axiom output; PASS if every theorem reports only `[propext, Classical.choice, Quot.sound]` plus the four named conditional hypotheses; FAIL with a precise diagnostic listing any unexpected project axiom.
+
+Exit codes: 0 = clean PASS, 1 = build failure, 2 = unexpected axiom dependency detected.
+
+Header documents what the script does NOT do: prose validation, Layer 3 numerical checks, the IBM Quantum forward-prediction run, HEAD pinning (the script builds whatever is currently checked out).
+
+### Paper §7 simplified
+
+§7 now shows a three-line invocation:
+
+```
+git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
+cd Principia-Fractalis
+./verify.sh
+```
+
+followed by an explicit list of what `verify.sh` does internally (toolchain pin install, build, axiom check, verdict logic, exit codes). The five-line variant the paper was carrying is now redundant; one command does the same work and signals concrete intent — a hostile reader who runs it gets a deterministic verdict.
+
+### Top-level README updated
+
+Added a "One-command verification" section pointing at `verify.sh` ahead of the manual `lake build PF` instructions. The manual route is preserved for readers who want to walk through the build manually.
+
+### Build
+
+Paper: 14 pp, clean compile after two `pdflatex` passes.
+
+---
+
 ## 2026-06-24 (§1 section map + formal citations for Babai/Schöning/Goldwasser–Sipser/Bourbaki)
 
 **HEAD prior**: `b23c4a8`. **HEAD now**: this commit.

@@ -558,12 +558,10 @@ The substrate's content is not a claim the reader is asked to trust. It is a pro
 on branch \texttt{master}. The build pin is \texttt{leanprover/lean4:v4.24.0-rc1} with \texttt{mathlib4} at commit \texttt{eed770a}. From a clean clone, on a modern laptop:
 \begin{verbatim}
 git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
-cd Principia-Fractalis/PF_Lean4_Code
-elan install $(cat lean-toolchain)
-lake build
-lake build PF.AxiomCheck_2026_06_23
+cd Principia-Fractalis
+./verify.sh
 \end{verbatim}
-The full corpus builds in approximately ten minutes ($4{,}368$ kernel-elaboration jobs at HEAD). The dedicated \texttt{PF.AxiomCheck} module prints the axiom dependencies of the four headline theorems:
+The script (a) installs the Lean toolchain pinned in \texttt{lean-toolchain}; (b) builds the \texttt{PF} target ($4{,}368$ kernel-elaboration jobs at HEAD, $\sim 10$ minutes on first run); (c) runs \texttt{\#print axioms} on the four headline theorems; (d) exits 0 if every axiom output matches the expected $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$ plus the four named conditional hypotheses, and exits nonzero with a precise diagnostic if any unexpected project axiom is detected. The full corpus builds in approximately ten minutes. The dedicated \texttt{PF.AxiomCheck} module prints the axiom dependencies of the four headline theorems:
 \begin{itemize}[itemsep=2pt]
 \item \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally} --- kernel-only.
 \item \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} --- kernel plus Hardy~1914 (Wiles-pattern citation of a published-and-proven external theorem) plus the named HP-program conjecture (C1).
