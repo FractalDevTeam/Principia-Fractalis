@@ -221,9 +221,55 @@ The substrate is what the substrate says it is. The construction, the algebraic 
 
 This paper does not claim to have proven the six remaining open mathematical problems it touches. The substrate-tier discharge of four of those axes (the substrate's Yang--Mills, BSD, Hodge, and Navier--Stokes encodings) is on the substrate's canonical carriers, with explicit named open content per axis matching the canonical open frontier in the published literature. The Riemann Hypothesis discharge on the literal mathlib $\texttt{Complex.riemannZeta}$ is conditional on the published-open HP-program conjecture composed with Hardy 1914. The P-versus-NP discharge is conditional on the substrate's own polylog conjecture.
 
-What the substrate \emph{has} done: it has identified a single algebraic mechanism --- twelve identities on a four-element basis, admitting a unique positive simultaneous solution --- whose forced values match, with no free parameters, fifteen independently-published measurements across five disjoint scientific domains. It has formalised the mechanism in Lean~4 at the kernel level. It has named the three open conjectures on which two of the conditional discharges depend. It has registered one chronologically-pre-registered forward-runnable prediction. It has registered eight typed falsifiers, zero of which are triggered.
+What the substrate \emph{has} done: it has identified a single algebraic mechanism --- twelve substrate-derived identities on a four-element basis, admitting a unique positive simultaneous solution --- whose forced values appear, with no parameters fit to the right-hand data and every constant in column three substrate-internal with a named book-chapter derivation, in fifteen independently-published measurements across five disjoint scientific domains. It has formalised the mechanism in Lean~4 at the kernel level. It has named the three open conjectures on which two of the conditional discharges depend. It has registered one chronologically-pre-registered forward-runnable prediction. It has registered eight typed falsifiers, zero of which are triggered.
 
 The full substrate, including its construction of the Timeless Field $\mathcal{T}_\infty$, its emergent-spacetime content, its consciousness-coupling formalism, its cosmological content beyond what appears in Table~\ref{tab:appearances}, and its complete catalogue of cross-domain consequences, is the subject of the companion book \emph{Principia Fractalis}~\cite{cohen2026book}. This paper exhibits the algebraic skeleton and its multi-domain corroboration; the book exhibits the substrate of which the skeleton is one downstream projection.
+
+\appendix
+
+\section{Verbatim \texttt{\#print axioms} output at HEAD}\label{app:axioms}
+
+The Lean module \texttt{PF/AxiomCheck\_2026\_06\_23.lean} runs \texttt{\#print axioms} on the four headline theorems. Build it via \texttt{lake build PF.AxiomCheck\_2026\_06\_23}; the output below is what the kernel reports at HEAD~\texttt{688c9f0}. A reader who reproduces this build receives the same lines byte-for-byte. Any other reading of these theorems' axiom dependencies is wrong.
+
+\begin{small}
+\begin{verbatim}
+info: PF/AxiomCheck_2026_06_23.lean:13:0:
+  'PF.Referee.PrincipiaFractalisSubstrateTheorem.
+   PrincipiaFractalisSubstrateConsequences_holds_unconditionally'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+info: PF/AxiomCheck_2026_06_23.lean:14:0:
+  'PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.
+   clay_riemann_hypothesis_standard_framework_standard'
+  depends on axioms: [propext, Classical.choice, Quot.sound,
+   PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.
+     Hardy1914_published_theorem_substrate_citation,
+   PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.
+     Mayer1991_Cohen2025_substrate_HP_program_citation]
+
+info: PF/AxiomCheck_2026_06_23.lean:15:0:
+  'PF.Referee.V3SubstrateForcedDischargeBulletproof.
+   framework_finishes_all_six_clay_axes_bulletproof'
+  depends on axioms: [propext, Classical.choice, Quot.sound,
+   PF.Referee.V3SubstrateForcedDischargeBulletproof.
+     framework_substrate_pins_bulletproof_bundle]
+
+info: PF/AxiomCheck_2026_06_23.lean:16:0:
+  'PF.Referee.CrossMillenniumInvariants_Extended_2026_06_19.
+   framework_alpha_skeleton_over_determined_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Build completed successfully (3997 jobs).
+\end{verbatim}
+\end{small}
+
+The four named substrate-tier citation axioms appearing above are: \texttt{Hardy1914\_published\_theorem\_substrate\_citation} (Wiles-pattern citation of an external published-and-proven theorem); \texttt{Mayer1991\_Cohen2025\_substrate\_HP\_program\_citation} (substrate-tier citation of the published-open Hilbert--P\'olya program conjecture (C1)); and \texttt{framework\_substrate\_pins\_bulletproof\_bundle} (the substrate's record-typed packaging of the three named open conjectures (C1), (C2), (C3) consumed by the six-axis closure theorem). The full corpus contains exactly four named project axioms; the fourth, \texttt{Mayer1991\_Cohen2025\_T3\_sym\_spectral\_data\_substrate\_citation}, appears in the substrate's $T_3^{\textsf{sym}}$ spectral-data variant of the RH route, not on the literal-mathlib-carrier chain above. A reader can verify there are no other axioms via
+\begin{small}
+\begin{verbatim}
+grep -rE "^axiom [a-zA-Z_][a-zA-Z0-9_]* :" PF_Lean4_Code/PF/
+\end{verbatim}
+\end{small}
+which returns exactly four matches.
 
 \section*{Acknowledgments}
 

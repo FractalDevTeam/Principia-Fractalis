@@ -1,0 +1,16 @@
+info: PF/AxiomCheck_2026_06_23.lean:13:0: 'PF.Referee.PrincipiaFractalisSubstrateTheorem.PrincipiaFractalisSubstrateConsequences_holds_unconditionally' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AxiomCheck_2026_06_23.lean:14:0: 'PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.clay_riemann_hypothesis_standard_framework_standard' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.Hardy1914_published_theorem_substrate_citation,
+ PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.Mayer1991_Cohen2025_substrate_HP_program_citation]
+info: PF/AxiomCheck_2026_06_23.lean:15:0: 'PF.Referee.V3SubstrateForcedDischargeBulletproof.framework_finishes_all_six_clay_axes_bulletproof' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ PF.Referee.V3SubstrateForcedDischargeBulletproof.framework_substrate_pins_bulletproof_bundle]
+info: PF/AxiomCheck_2026_06_23.lean:16:0: 'PF.Referee.CrossMillenniumInvariants_Extended_2026_06_19.framework_alpha_skeleton_over_determined_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Build completed successfully (3997 jobs).
