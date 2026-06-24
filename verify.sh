@@ -47,7 +47,16 @@ fi
 cd "${LEAN_DIR}"
 
 echo "[1/4] Selecting Lean toolchain pinned in PF_Lean4_Code/lean-toolchain..."
-"${HOME}/.elan/bin/elan" toolchain install "$(cat lean-toolchain)" >/dev/null
+TOOLCHAIN="$(cat lean-toolchain)"
+# elan exits nonzero on "already installed" — that's a success condition, not failure.
+if "${HOME}/.elan/bin/elan" toolchain install "${TOOLCHAIN}" 2>&1 | grep -qE "already installed|installed:"; then
+  echo "        ${TOOLCHAIN} ready."
+elif "${HOME}/.elan/bin/elan" toolchain list 2>&1 | grep -qF "${TOOLCHAIN}"; then
+  echo "        ${TOOLCHAIN} already present."
+else
+  echo "FATAL: could not install Lean toolchain ${TOOLCHAIN}." >&2
+  exit 1
+fi
 
 # --- Build PF target ---------------------------------------------------
 echo "[2/4] Building PF target (lake build PF). This takes ~10 minutes on first run."
