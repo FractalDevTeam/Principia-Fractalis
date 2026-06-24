@@ -1,5 +1,33 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 — Faithfulness pass on the clean paper + precise Lean-file citations
+
+**HEAD prior**: `f93fe10`. **HEAD now**: this commit.
+
+Pabs asked directly: *"Are you faithful to the book?"* Honest answer was no. A book-chapter citation audit found 5 of 12 specific-chapter citations pointed to chapters that do not contain the claimed content (Ch 25 for neutrino, Ch 29 for GWTC-4.0, Ch 33 for F1–F8 falsifier panel, Ch 28 for the Li-7 substrate-side identification, Ch 21/20 for Qiskit Aer content). A follow-up corpus sweep then found the actual locations of those substrate-side derivations:
+
+- **NuFit neutrino ratio** π√2/150: kernel-only proven in `PF/Referee/MinimalRigidityForcesNeutrinoRatio.lean` as substrate-rigid product of two ground-state eigenvalues.
+- **CC suppression** 78π·c_2·1.1875 ↔ Λ_eff^exp = 14079π/160: proven in book Appendix K (lines 246–259) and `PF/Cosmology/MinimalRigidityForcesLambdaEffExponentProduct.lean`.
+- **Li-7 substrate eigenvalue** λ_0^(P) = π/(10√2) ≈ 0.222: kernel-only formalised in `PF/PolylogViaHilbertSchmidtCompactness.lean` and bracketed in `PF/SpectralGap.lean`.
+- **F1–F8 falsifier panel** typed registration: `PF/Referee/FrameworkRealClaim_2026_06_17.lean` (declared as eight typed observations; per-falsifier substrate-algebraic expressions pending consolidation).
+- **GWTC-4.0 empirical anchors**: `PF/Empirical/EmpiricalAnchors_NamedSources_2026_06_19.lean`; substrate-side closed forms (10·α_Poincaré M_⊙, α_3/α_4, κ=π) are direct α-skeleton compositions verifiable at 60-digit precision.
+- **w_0 = -√(2π)/3 and S_8 modulation closed forms**: not yet in dedicated derivation files; substrate-algebraic compositions verifiable directly, consolidation pending.
+
+Paper citations updated to point at the actual Lean files where derivations live and at Appendix K for the CC-ratio exponent. Per-row audit in §4 is now a bulleted list with file:line precision rather than chapter range hand-waves. F1–F8 panel citation moved from "(book Chapter 33)" — which does not contain the panel — to `PF/Referee/FrameworkRealClaim_2026_06_17.lean` where the panel is typed-registered.
+
+### Book title-page anchor roll
+
+`Principia_Fractalis_master_folder/frontmatter/title.tex`: Anchor commit pin rolled `8088f71` → `a487af5` (this faithfulness-fix commit). Recursion-safe phrasing preserved ("Anchor commit X" not "HEAD commit X"; later commits on master may be newer).
+
+### Verification at this commit
+
+- `lake build PF` clean at HEAD (4,362 jobs).
+- `lake build PF.AxiomCheck_2026_06_23` clean (3,997 jobs).
+- 4 headline theorems' `#print axioms` output unchanged at HEAD; baked verbatim into clean-paper Appendix A.
+- Every newly-cited Lean file verified to exist and contain the cited substrate-side derivation.
+
+---
+
 ## 2026-06-23 (late evening) — Clean exposition paper landed + title-page anchor roll
 
 **HEAD prior**: `8088f71`. **HEAD now**: this commit.
