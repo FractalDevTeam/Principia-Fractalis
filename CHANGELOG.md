@@ -1,5 +1,35 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (figures) — four explanatory figures added to clean paper; 10 pp → 12 pp
+
+**HEAD prior**: `d3b9f2a`. **HEAD now**: this commit.
+
+The clean paper was carrying its content in dense prose; four key results — the constructive cascade of Proposition 1.1, the universal coupling on nine instances, the Qiskit Aer hardware peaks, and the look-elsewhere honest disclosure — are easier to read and harder to dismiss as figures. None of the figures introduces new content; each visualises an existing kernel-only theorem or reproducible-script output.
+
+### Figures added
+
+- **Figure~1 (§3, cascade)**: TikZ DAG of the constructive proof of Proposition 1.1. Three stages of derivation: (I3)∧(I11)/(I3)/(I4) → α_5, α_9, α_8; then five further identities applied to those three values → α_1, α_3, α_2, α_6, α_4; then (I5) on α_6 → α_7. Identities (I2), (I6), (I8) tagged as consistency checks on the constructed solution. Citation: `framework_alpha_unique_under_perelman_anchor` in `PF/Referee/ClayMasterTheorem.lean`.
+
+- **Figure~2 (§3, universal coupling)**: pgfplots scatter of all nine substrate classes on the line y = π/10. Nine α-instances of the single `HAlphaUniversal` structure, every inhabitant satisfying λ_0·α = π/10 by kernel-only theorem. Citation: `all_9_framework_operators_share_universal_HAlpha_structure` in `PF/UniversalAlphaOperatorFamily.lean:386`.
+
+- **Figure~3 (§4, IBM peaks)**: pgfplots scatter of substrate-predicted α-values against Qiskit Aer simulator spectral peaks for the four substrate-operator classes (P, RH, NP, YM). Identity-line plot; all four points sit on y = x: three exact, one to four decimals. Source: `QUATUM_TUNED_IBM.ipynb` in the corpus.
+
+- **Figure~4 (§4.subsec:lookelsewhere, honest disclosure)**: pgfplots horizontal bar chart of substrate-natural expression counts in the same 0.5σ band as each Table~2 row. Neutrino row highlighted in substrate-orange at 1-of-130 — the survivor. Other rows in gray at 3–21. Reproducible from `Papers/Methods/look_elsewhere_substrate_natural.py`.
+
+### Tone
+
+Figure captions describe what the figure shows, what the data source is, and (where relevant) what it does not claim. No promotional framing. The figures explain; the prose is unchanged in substance.
+
+### Side fix
+
+§6's "load-bearing forward prediction" paragraph still referenced the retracted `p ≈ 10⁻⁷` single-throw calculation as if it stood. Updated to reflect the corrected best-of-N null + substrate-natural-prior outcome, with the neutrino row's 1-of-130 survivor status carried forward.
+
+### Build
+
+Paper: 10 pp → 12 pp. Compiles clean. No undefined references after the second pdflatex pass. TikZ + pgfplots loaded; xcolor palette restricted to substrateorange (RGB 215,95,30), leanblue (RGB 30,90,165), substrategray (120,120,120), substratelight (240,240,235). Reproducibility unchanged: same two-pass `pdflatex` incantation as before, all figures self-contained in the .tex source, no external image dependencies.
+
+---
+
 ## 2026-06-24 (daily filename rollover) — clean paper `06-23.{tex,pdf}` (8 pp) → `06-24.{tex,pdf}` (10 pp)
 
 **HEAD prior**: `47a3907`. **HEAD now**: this commit.
