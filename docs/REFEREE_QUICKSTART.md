@@ -314,7 +314,7 @@ question distinct from what the Lean kernel has verified.
 
 ## Repository navigation
 
-- `Papers/principia_fractalis_millennium_problems_2026-06-23.{tex,pdf}` --- the current Millennium Problems exhibition paper
+- `Papers/principia_fractalis_clean_2026-06-23.{tex,pdf}` --- the substrate's exposition paper (8 pp). The longer hostile-referee-defended exhibition paper has been retired to `ARCHIVE/2026-06-24-bait-paper-retired/`.
 - `Principia_Fractalis_master_folder/` --- textbook source (LaTeX, V2.6.1, 915 pages)
 - `PF_Lean4_Code/PF/Referee/` --- the typed Clay-standard contracts and load-bearing capstones
 - `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean` --- the substrate-tier headline `PrincipiaFractalisSubstrateConsequences_holds_unconditionally` (25-field bundle, kernel-only)

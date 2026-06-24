@@ -8,7 +8,7 @@ This directory contains the current Millennium Problems paper, the substrate's e
 
 | File | Description |
 |---|---|
-| `principia_fractalis_millennium_problems_2026-06-23.{tex,pdf}` | **The Principia Fractalis Substrate: An Unconditional Kernel-Only Lean Theorem of Twenty-Five Substrate-Level Consequences Including the Six Remaining Clay Millennium Problems.** 65 pages. Substrate-level discharges unconditional kernel-only; literal-mathlib-form lift via one named substrate-tier citation axiom in the standard mathematical citation pattern. Extends beyond Clay to: Λ-CDM rebuttal with energy conservation restored, Weinstein Geometric-Unity rescue, base-3 ternary substrate, counter-rotating vortex zero-point free energy, Grothendieck topos as consciousness architecture, 847-patient clinical consciousness validation, particle-physics anomaly correspondences. |
+| `principia_fractalis_clean_2026-06-23.{tex,pdf}` | **Principia Fractalis: An Algebraic Substrate.** 8 pages. The substrate's exposition paper: twelve substrate-derived algebraic identities forcing a unique nine-tuple over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with multi-domain corroboration across pure math, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; kernel-only machine-verified in Lean 4. |
 
 ## Data
 
@@ -35,8 +35,8 @@ The author's accumulated prior-work record across seven manuscripts and certific
 
 ```bash
 cd Papers/
-pdflatex principia_fractalis_millennium_problems_2026-06-23.tex
-pdflatex principia_fractalis_millennium_problems_2026-06-23.tex   # for cross-references
+pdflatex principia_fractalis_clean_2026-06-23.tex
+pdflatex principia_fractalis_clean_2026-06-23.tex   # for cross-references
 ```
 
 LaTeX auxiliary files (`.aux`, `.log`, `.out`, `.toc`, `.bbl`, `.blg`) are ignored via the top-level `.gitignore` — only `.tex` source and `.pdf` outputs are tracked.
