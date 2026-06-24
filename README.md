@@ -40,7 +40,15 @@ in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports t
 
 ## Building from source
 
-### Lean 4 verification
+### One-command verification
+
+```bash
+./verify.sh
+```
+
+Replays the substrate's load-bearing kernel-only theorems and prints the `#print axioms` output to confirm the paper's "kernel-only, zero project axioms" claim. Exits 0 on success, nonzero with a precise diagnostic if any unexpected project axiom is detected. Takes ~10 minutes on first run (`PF_Lean4_Code/` build), ~30 seconds on subsequent runs (caches the Lean elaboration).
+
+### Lean 4 verification (manual)
 
 ```bash
 cd PF_Lean4_Code
