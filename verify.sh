@@ -75,7 +75,8 @@ fi
 # --- Axiom check on the headline theorems ------------------------------
 echo "[3/4] Running #print axioms on the headline theorems..."
 AXIOM_LOG="$(mktemp)"
-"${HOME}/.elan/bin/lake" env lake build PF.AxiomCheck_2026_06_23 2>&1 | tee "${AXIOM_LOG}" >/dev/null || true
+"${HOME}/.elan/bin/lake" env lake build PF.AxiomCheck_2026_06_23 2>&1 | tee    "${AXIOM_LOG}" >/dev/null || true
+"${HOME}/.elan/bin/lake" env lake build PF.AxiomCheck_Lambda_2026_06_24 2>&1 | tee -a "${AXIOM_LOG}" >/dev/null || true
 
 # --- Verdict -----------------------------------------------------------
 echo "[4/4] Verdict:"
