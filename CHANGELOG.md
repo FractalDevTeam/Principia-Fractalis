@@ -1,5 +1,37 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (Lean4Lean re-elaboration parity) — Three reverification files for today's new content; PF_L4L 4108 → 4114 jobs
+
+**HEAD prior**: `e90bf35`. **HEAD now**: this commit.
+
+Today's three new Lean files are now independently re-elaborated under the separate Lean4Lean package configuration. Three-prover (Lean 4 + Lean4Lean + Coq 8.18) declaration parity now complete for all of today's content.
+
+### New Lean4Lean files
+
+- `PF_L4L/Empirical/PolylogEigenvalueConjectureDecomposition_2026_06_24_Reverification.lean` — re-elaborates the 5 sub-claim Prop definitions, the conjunction-iff bridge theorem, and the implies-distinctness theorem. Each `#print axioms` output: `[propext, Classical.choice, Quot.sound]`.
+- `PF_L4L/Empirical/GIForwardPredictionProtocol_2026_06_24_Reverification.lean` — re-elaborates `canonicalGIProtocol` (noncomputable, mirroring the Lean side), the `GIPredictionFalsified` and `GIPredictionCorroborated` Props, the `GIPredictionExclusiveAlternative` theorem, and the `GIPredictionPredates_2026_06_24` chronological marker. Axiom report kernel-only.
+- `PF_L4L/Empirical/SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24_Reverification.lean` — re-elaborates the kernel-only structural identity `(π/10/√2)·(π/10/(3π/4)) = π√2/150`. Axiom report kernel-only.
+
+### Pattern
+
+Each file follows the existing Lean4Lean pattern: `import PF.<module>` from the canonical `PF_Lean4_Code/` library, alias each load-bearing definition through `@PF.<...>.thm_name`, then `#print axioms` on the aliased definition to force the independent Lean4Lean kernel to elaborate the chain. Output matches the canonical Lean 4 build's axiom report bit-for-bit, providing guard against per-package elaboration drift.
+
+### Build
+
+PF_L4L target: 4,108 → 4,114 jobs (+6 from the new reverification entries). Clean.
+
+### Three-prover parity status for today's content
+
+| Lean 4 | Lean4Lean | Coq |
+|---|---|---|
+| `PolylogEigenvalueConjectureDecomposition_2026_06_24.lean` | `PolylogEigenvalueConjectureDecomposition_2026_06_24_Reverification.lean` | `PolylogEigenvalueConjectureDecomposition_2026_06_24_Coq.v` |
+| `GIForwardPredictionProtocol_2026_06_24.lean` | `GIForwardPredictionProtocol_2026_06_24_Reverification.lean` | `GIForwardPredictionProtocol_2026_06_24_Coq.v` |
+| `SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24.lean` | `SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24_Reverification.lean` | `SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24_Coq.v` |
+
+Three-prover parity is the corpus's standing policy: load-bearing content lives in Lean 4; Lean4Lean independently re-elaborates with a separate package hash; Coq mirrors declaration shapes.
+
+---
+
 ## 2026-06-24 (Coq cross-prover parity) — Three Coq mirror files for today's new Lean content
 
 **HEAD prior**: `993d5fa`. **HEAD now**: this commit.
