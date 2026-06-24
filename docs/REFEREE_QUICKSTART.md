@@ -30,10 +30,15 @@ lake build
 ```
 
 **Expected output**: `Build completed successfully (N jobs).` where N is
-the current full-build job count. The corpus has grown since this
-quickstart was first authored — at HEAD `df0bd7e` the count is **8,710
-jobs**, verified directly tonight, and rising with each commit. Every
-Lean file in the project compiles; the kernel accepts every proof.
+the current full-build job count. The corpus's `lake build PF` count at
+anchor commit `8901280` (current at the time of this quickstart's most
+recent revision) is **4,362 jobs**; the corpus's full historical job
+count peaked at **8,710 jobs** at HEAD `df0bd7e` and has consolidated
+since with the substrate-tier refactoring of mid-2026-06. The current
+job count is what `lake build` reports at `origin/master` HEAD; the
+exact integer may vary by ±a few hundred jobs between revisions as the
+substrate's typed-Prop layer is consolidated. Every Lean file in the
+project compiles; the kernel accepts every proof.
 
 If you see ANY `error:` line, the framework is broken at the
 referenced commit and the rest of this document is moot. The
