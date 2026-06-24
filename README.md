@@ -1,5 +1,7 @@
 # Principia Fractalis
 
+[![Verify (Lean 4 kernel-only axiom check)](https://github.com/FractalDevTeam/Principia-Fractalis/actions/workflows/verify.yml/badge.svg?branch=master)](https://github.com/FractalDevTeam/Principia-Fractalis/actions/workflows/verify.yml)
+
 **A substrate-level Theory of Everything.** Six unsolved Clay Millennium Problems exhibited as six co-implied substrate-level projections of one underlying nine-class algebraic substrate, machine-checked in Lean 4 with independent kernel re-elaboration via Lean4Lean and declaration-level structural-shape parity in Coq 8.18 (the load-bearing mathematical verification is carried by the Lean 4 + Lean4Lean kernels; the Coq layer is a structural-shape mirror, not an independent mathematical verification). The framework's distinctive content extends beyond Clay to consciousness-modified general relativity, the Λ-CDM rebuttal with energy conservation restored, the Weinstein Geometric-Unity rescue, base-3 ternary substrate underpinning Navier–Stokes no-blowup convergence and Razborov–Rudich / Aaronson–Wigderson algebrization-barrier defeat, Grothendieck topos theory as the cognitive architecture of consciousness, and clinical consciousness measurement with book-documented retrospective methodology on 847 patients at 97.3% classification accuracy (independent peer-reviewed clinical-validation publication of the specific 847-patient analysis is pending and is explicitly not a substantive claim of this corpus).
 
 Author: **Pablo Cohen** ([ORCID](https://orcid.org/0009-0002-0734-5565))
