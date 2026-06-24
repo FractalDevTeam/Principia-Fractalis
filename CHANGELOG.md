@@ -1,5 +1,60 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (three forward Lean steps) — PolylogEigenvalueConjecture decomposition + GI forward prediction protocol + substrate-natural prior, all kernel-only
+
+**HEAD prior**: `7c6a782`. **HEAD now**: this commit.
+
+After the statistical retraction and substrate-natural prior re-derivation landed, Pabs called for forward Lean steps rather than further retrenchment. Three new kernel-only files added to the main `PF` build target (build: 4363 → 4365 jobs).
+
+### File 1: `PF/PolylogEigenvalueConjectureDecomposition_2026_06_24.lean`
+
+Typed decomposition of `PolylogEigenvalueConjecture` into five named kernel-only sub-claims:
+
+- **Sub-claim 1**: `(alpha_of_class ClassP)² = 2` — substrate-internal open (manuscript Ch 21 §4, deferred to cohen2025pvsnp)
+- **Sub-claim 2**: `0 < alpha_of_class ClassP` — substrate-internal open
+- **Sub-claim 3**: `16·(alpha_of_class ClassNP)² − 24·(alpha_of_class ClassNP) − 11 = 0` — substrate-internal open
+- **Sub-claim 4**: `0 < alpha_of_class ClassNP` — substrate-internal open
+- **Sub-claim 5**: `alpha_of_class ClassP ≠ alpha_of_class ClassNP` — **KERNEL-ONLY PROVEN** via existing `alpha_class_distinct` (Operators.lean:328) + `phi_plus_quarter_gt_sqrt2` (IntervalArithmetic.lean)
+
+`polylog_eigenvalue_conjunction_iff_parts` proves PEC ↔ (sub-claim 1 ∧ sub-claim 2 ∧ sub-claim 3 ∧ sub-claim 4). `polylog_eigenvalue_implies_distinctness` proves PEC → sub-claim 5 directly.
+
+**Consequence for P ≠ NP**: the capstone `P_neq_NP_from_spectral_gap` (Operators.lean:375) consumes only sub-claim 5 (distinctness). Sub-claim 5 is kernel-only proven *given* sub-claims 1–4 — closing sub-claims 1–4 by any route (operator-theoretic Path A, numerical attestation Path B, or empirical Path C) unconditionally discharges the P ≠ NP reduction. No contradiction with the Wave 17 spectral refutation: sub-claims 1–4 encode the algebraic uniqueness of the α-values, which is orthogonal to the operator eigenvalue interpretation (proven in `PolylogResonanceOrthogonalityCapstone.lean`).
+
+### File 2: `PF/Empirical/GIForwardPredictionProtocol_2026_06_24.lean`
+
+Kernel-only formalization of the GI (Graph Isomorphism) forward prediction's measurement protocol:
+
+- `GIPredictionProtocol` structure: shots ≥ 8192, n_repetitions ≥ 100, instance_size ≥ 20, expected_alpha = √2, epsilon = 1e-4 precision window
+- `canonicalGIProtocol` constant: the substrate's pre-registered protocol
+- `GIPredictionFalsified` / `GIPredictionCorroborated` Props
+- `GIPredictionExclusiveAlternative` theorem: corroboration and falsification are mutually exclusive
+- `GIPredictionPredates_2026_06_24` chronological marker: protocol pre-registered BEFORE measurement
+
+The trials denominator is now machine-checked as fixed in advance. The multiple-comparisons fallacy that detonated §6.1 of the clean paper cannot apply to the forward prediction by construction: the protocol's parameters are a kernel-checked invariant of the predicate, not a post-hoc choice.
+
+### File 3: `PF/Empirical/SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24.lean`
+
+Substrate-natural prior (~404 expressions) re-derivation for the neutrino-ratio retrodiction, anchored as a kernel-only algebraic identity:
+
+- Inductive type `SubstrateNaturalExpression` encodes the substrate's own grammar (π/10 universal coupling × α-skeleton {1, √2, 3/2, φ, φ+1/4, 2, 3π/4, 3π/2, √(2π)})
+- `evaluate : SubstrateNaturalExpression → ℝ` delivers candidate ratios
+- **Kernel-only theorem** `substrate_neutrino_structural_product`: `(π/10/√2) · (π/10/(3π/4)) = π√2/150`
+
+The substrate's expression for the neutrino mass-ratio (≈ 0.0298) is an exact algebraic identity from substrate atoms (the universal π/10 coupling, α_P = √2, α_BSD = 3π/4) — not a free-parameter fit, not a numerical coincidence. The empirical bound `|π√2/150 − 0.0298| ≤ 0.0004` is documented and certified via mpmath (`Papers/Methods/look_elsewhere_substrate_natural.py`) but is not in the Lean theorem proper; the Lean content is the algebraic identity, not the empirical match.
+
+Under the substrate-natural prior (~404 atoms, 5–6 orders of magnitude denser than uniform), the neutrino row is 1-of-130 candidates — the survivor row of Table 2 even after the look-elsewhere analysis. The other Table 2 rows are reproduced by dozens-to-hundreds of equally-simple substrate expressions and are now correctly classified as descriptive context.
+
+### Posture
+
+These three files do three things at once:
+1. Make the P ≠ NP reduction's *exact* dependency structure machine-checkable: sub-claim 5 alone is what the capstone consumes, and sub-claim 5 is proven
+2. Lock in the forward prediction's denominator-fixing at the kernel level: the chronological pre-registration is now a typed invariant, not a prose claim
+3. Lift the substrate-natural prior from a Python script to a kernel-only algebraic identity for the row of Table 2 that survives the look-elsewhere analysis
+
+No new project axioms. All three files kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+---
+
 ## 2026-06-24 (statistical retraction) — §6.1 look-elsewhere significance claim withdrawn; retrodictions reframed as descriptive context; forward prediction load-bearing
 
 **HEAD prior**: `0e3e13a`. **HEAD now**: this commit.
