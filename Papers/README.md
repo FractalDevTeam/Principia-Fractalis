@@ -8,7 +8,7 @@ This directory contains the current Millennium Problems paper, the substrate's e
 
 | File | Description |
 |---|---|
-| `principia_fractalis_clean_2026-06-23.{tex,pdf}` | **Principia Fractalis: An Algebraic Substrate.** 8 pages. The substrate's exposition paper: twelve substrate-derived algebraic identities forcing a unique nine-tuple over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with multi-domain corroboration across pure math, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; kernel-only machine-verified in Lean 4. |
+| `principia_fractalis_clean_2026-06-24.{tex,pdf}` | **Principia Fractalis: An Algebraic Substrate.** 10 pages. The substrate's exposition paper: twelve substrate-derived algebraic identities forcing a unique nine-tuple over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with multi-domain corroboration across pure math, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; kernel-only machine-verified in Lean 4. |
 
 ## Data
 
@@ -35,8 +35,8 @@ The author's accumulated prior-work record across seven manuscripts and certific
 
 ```bash
 cd Papers/
-pdflatex principia_fractalis_clean_2026-06-23.tex
-pdflatex principia_fractalis_clean_2026-06-23.tex   # for cross-references
+pdflatex principia_fractalis_clean_2026-06-24.tex
+pdflatex principia_fractalis_clean_2026-06-24.tex   # for cross-references
 ```
 
 LaTeX auxiliary files (`.aux`, `.log`, `.out`, `.toc`, `.bbl`, `.blg`) are ignored via the top-level `.gitignore` — only `.tex` source and `.pdf` outputs are tracked.
