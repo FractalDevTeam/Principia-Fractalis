@@ -21,6 +21,15 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
 \usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc,shapes.geometric,fit,backgrounds,decorations.pathreplacing}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{xcolor}
+\definecolor{substrateorange}{RGB}{215,95,30}
+\definecolor{leanblue}{RGB}{30,90,165}
+\definecolor{substrategray}{RGB}{120,120,120}
+\definecolor{substratelight}{RGB}{240,240,235}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
@@ -37,7 +46,7 @@
 \email{psolorzano@gmail.com}
 \urladdr{ORCID:~\href{https://orcid.org/0009-0002-0734-5565}{0009-0002-0734-5565}}
 
-\date{June 23, 2026}
+\date{June 24, 2026}
 
 \begin{document}
 
@@ -105,11 +114,100 @@ Each identity is a single algebraic equation over the substrate's basis. None is
 The system \textup{(I1)--(I12)} admits a unique positive simultaneous solution over $\mathbb{R}$. The solution is the assignment of Table~\ref{tab:nine}. The proof, formalised as the Lean~4 theorem \texttt{framework\_alpha\_unique\_under\_perelman\_anchor} in the file \texttt{PF/Referee/ClayMasterTheorem.lean}, depends on no project axioms; it uses only the kernel axioms $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$.
 \end{proposition}
 
-The proof is constructive and short. Combining (I3) and (I11) yields $\alpha_5 = 2$. Then (I7) yields $\alpha_1 = 1$. Then (I1) with positivity yields $\alpha_3 = \sqrt{2}$. Then (I9) yields $\alpha_2 = 3/2$. Then (I3) with positivity yields $\alpha_9 = \sqrt{2\pi}$. Then (I4) with positivity yields $\alpha_8 = \varphi$. Then (I10) yields $\alpha_4 = \varphi + 1/4$. Then (I12) yields $\alpha_6 = 3\pi/4$. Then (I5) yields $\alpha_7 = 3\pi/2$. The three remaining identities (I2), (I6), (I8) are consistency checks on the constructed solution rather than additional constraints. The substrate's algebraic content additionally includes seventeen further algebraic identities, each axiom-free in the Lean corpus (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}, kernel-only); on the constructed solution the substrate satisfies twenty-nine simultaneous algebraic identities in nine unknowns.
+The proof is constructive and short. Combining (I3) and (I11) yields $\alpha_5 = 2$. Then (I7) yields $\alpha_1 = 1$. Then (I1) with positivity yields $\alpha_3 = \sqrt{2}$. Then (I9) yields $\alpha_2 = 3/2$. Then (I3) with positivity yields $\alpha_9 = \sqrt{2\pi}$. Then (I4) with positivity yields $\alpha_8 = \varphi$. Then (I10) yields $\alpha_4 = \varphi + 1/4$. Then (I12) yields $\alpha_6 = 3\pi/4$. Then (I5) yields $\alpha_7 = 3\pi/2$. The three remaining identities (I2), (I6), (I8) are consistency checks on the constructed solution rather than additional constraints. The substrate's algebraic content additionally includes seventeen further algebraic identities, each axiom-free in the Lean corpus (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}, kernel-only); on the constructed solution the substrate satisfies twenty-nine simultaneous algebraic identities in nine unknowns. Figure~\ref{fig:cascade} visualises the cascade.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  >={Stealth[length=2mm,width=2mm]},
+  alpha/.style={draw=substrateorange,line width=0.7pt,fill=substratelight,rounded corners=2pt,inner sep=3pt,font=\small,minimum height=6mm},
+  src/.style={draw=substrategray,line width=0.4pt,fill=white,rounded corners=2pt,inner sep=2.5pt,font=\scriptsize},
+  ar/.style={->,>=Stealth,line width=0.4pt,substrategray},
+  arn/.style={->,>=Stealth,line width=0.4pt,leanblue},
+  edgelabel/.style={font=\scriptsize\itshape,inner sep=1pt,fill=white}
+]
+% Stage 1 sources (top row)
+\node[src] (s1) at (0,0)    {(I3)$\wedge$(I11)};
+\node[src] (s2) at (3.6,0)  {(I3)};
+\node[src] (s3) at (7.2,0)  {(I4)};
+
+% Stage 1 alphas (second row)
+\node[alpha] (a5) at (0,-1.1)   {$\alpha_5 = 2$};
+\node[alpha] (a9) at (3.6,-1.1) {$\alpha_9 = \sqrt{2\pi}$};
+\node[alpha] (a8) at (7.2,-1.1) {$\alpha_8 = \varphi$};
+
+\draw[ar] (s1) -- (a5);
+\draw[ar] (s2) -- (a9);
+\draw[ar] (s3) -- (a8);
+
+% Stage 2 alphas (third row)
+\node[alpha] (a1) at (-1.6,-2.7)  {$\alpha_1 = 1$};
+\node[alpha] (a3) at (0,-2.7)     {$\alpha_3 = \sqrt{2}$};
+\node[alpha] (a2) at (1.6,-2.7)   {$\alpha_2 = \tfrac{3}{2}$};
+\node[alpha] (a6) at (3.6,-2.7)   {$\alpha_6 = \tfrac{3\pi}{4}$};
+\node[alpha] (a4) at (7.2,-2.7)   {$\alpha_4 = \varphi + \tfrac{1}{4}$};
+
+\draw[arn] (a5) to[bend right=10] node[edgelabel,pos=0.55,left=1pt] {(I7)} (a1);
+\draw[arn] (a5) -- node[edgelabel,right=1pt] {(I1),$+$} (a3);
+\draw[arn] (a5) to[bend left=10] node[edgelabel,pos=0.55,right=1pt] {(I9)} (a2);
+\draw[arn] (a9) -- node[edgelabel,right=1pt] {(I12)} (a6);
+\draw[arn] (a8) -- node[edgelabel,right=1pt] {(I10)} (a4);
+
+% Stage 3 alpha (bottom)
+\node[alpha] (a7) at (3.6,-4.1)   {$\alpha_7 = \tfrac{3\pi}{2}$};
+\draw[arn] (a6) -- node[edgelabel,right=1pt] {(I5)} (a7);
+
+% Consistency checks tag
+\node[src,align=center,fill=substratelight!50] (chk) at (-1.6,-4.1) {(I2),(I6),(I8)\\verified};
+\end{tikzpicture}
+\caption{Constructive cascade of Proposition~\ref{prop:unique}. Top row: three substrate identities (or, for $\alpha_5$, the pair (I3)$\wedge$(I11)) yield three $\alpha$-values directly. Middle row: those three values, substituted into five further identities, yield five more $\alpha$-values. Bottom row: $\alpha_6$ substituted into (I5) yields $\alpha_7$. The remaining three identities (I2), (I6), (I8) are consistency checks satisfied by the constructed solution rather than additional constraints. The cascade is deterministic; no branching or auxiliary assumption enters at any step. Kernel-only Lean~4 verification: \texttt{framework\_alpha\_unique\_under\_perelman\_anchor} in \texttt{PF/Referee/ClayMasterTheorem.lean}.}
+\label{fig:cascade}
+\end{figure}
 
 The structural significance of Proposition~\ref{prop:unique} is this: the substrate's algebra derives twelve cross-class identities from a single source (the substrate's universal coupling $\pi/10$ and its modified-transfer-operator scaling), and these twelve admit a unique positive simultaneous solution expressible in the four-element basis $\{1, \pi, \varphi, \sqrt{2}\}$. Combined with the seventeen further axiom-free algebraic identities (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}, kernel-only), the substrate's nine-tuple simultaneously satisfies twenty-nine substrate-derived algebraic identities over the four-element basis. The nine values that emerge are the substrate's commitments to the world.
 
-\paragraph{Supreme receipt.} The substrate's headline structural claim --- \emph{nine $\alpha$-values, each uniquely forced, all inhabitants of one universal operator family with one closed-form coupling} --- is packaged as a single citable Lean~4 theorem \texttt{$\alpha$\_skeleton\_supreme\_receipt} in the file \texttt{PF/AlphaSkeletonSupremeReceipt\_2026\_06\_24.lean}. The theorem conjoins two existing kernel-only capstones: (A) \texttt{all\_nine\_axis\_uniqueness\_capstone} in \texttt{PF/AllNineAxisUniquenessBundle.lean:70} establishes the uniqueness of each of the nine $\alpha$-axes (five definitional, four as the unique positive root of the substrate's algebraic equation: $\alpha_8=\varphi$ for $x^2=x+1$, $\alpha_3=\sqrt{2}$ for $x^2=2$, $\alpha_4=\varphi+1/4$ for $16x^2-24x-11=0$, $\alpha_9=\sqrt{2\pi}$ for $x^2=2\pi$); and (B) \texttt{all\_9\_framework\_operators\_share\_universal\_HAlpha\_structure} in \texttt{PF/UniversalAlphaOperatorFamily.lean:386} establishes that all nine $\alpha$-instances live as inhabitants of the same \texttt{HAlphaUniversal} structure, every inhabitant has positive $\alpha$, and every inhabitant satisfies the universal coupling identity $\lambda_0 \cdot \alpha = \pi/10$. The supreme-receipt file ends with a visible \texttt{\#print axioms} invocation: on a clean clone, \texttt{lake build PF} prints \texttt{[propext, Classical.choice, Quot.sound]} to stdout for the receipt. No project axioms enter at any point in the chain.
+\paragraph{Supreme receipt.} The substrate's headline structural claim --- \emph{nine $\alpha$-values, each uniquely forced, all inhabitants of one universal operator family with one closed-form coupling} --- is packaged as a single citable Lean~4 theorem \texttt{$\alpha$\_skeleton\_supreme\_receipt} in the file \texttt{PF/AlphaSkeletonSupremeReceipt\_2026\_06\_24.lean}. The theorem conjoins two existing kernel-only capstones: (A) \texttt{all\_nine\_axis\_uniqueness\_capstone} in \texttt{PF/AllNineAxisUniquenessBundle.lean:70} establishes the uniqueness of each of the nine $\alpha$-axes (five definitional, four as the unique positive root of the substrate's algebraic equation: $\alpha_8=\varphi$ for $x^2=x+1$, $\alpha_3=\sqrt{2}$ for $x^2=2$, $\alpha_4=\varphi+1/4$ for $16x^2-24x-11=0$, $\alpha_9=\sqrt{2\pi}$ for $x^2=2\pi$); and (B) \texttt{all\_9\_framework\_operators\_share\_universal\_HAlpha\_structure} in \texttt{PF/UniversalAlphaOperatorFamily.lean:386} establishes that all nine $\alpha$-instances live as inhabitants of the same \texttt{HAlphaUniversal} structure, every inhabitant has positive $\alpha$, and every inhabitant satisfies the universal coupling identity $\lambda_0 \cdot \alpha = \pi/10$. The supreme-receipt file ends with a visible \texttt{\#print axioms} invocation: on a clean clone, \texttt{lake build PF} prints \texttt{[propext, Classical.choice, Quot.sound]} to stdout for the receipt. No project axioms enter at any point in the chain. Figure~\ref{fig:coupling} shows the nine instances on the universal-coupling line.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.92\linewidth,height=5.2cm,
+  xlabel={substrate class (with forced $\alpha$-value)},
+  ylabel={$\lambda_0 \cdot \alpha$},
+  ymin=0.29, ymax=0.34,
+  xtick={1,2,3,4,5,6,7,8,9},
+  xticklabels={
+    {Poincar\'e\\$\alpha\!=\!1$},
+    {RH\\$\alpha\!=\!3/2$},
+    {P\\$\alpha\!=\!\sqrt{2}$},
+    {Hodge\\$\alpha\!=\!\varphi$},
+    {NP\\$\alpha\!=\!\varphi\!+\!\tfrac{1}{4}$},
+    {YM\\$\alpha\!=\!2$},
+    {BSD\\$\alpha\!=\!\tfrac{3\pi}{4}$},
+    {NS\\$\alpha\!=\!\tfrac{3\pi}{2}$},
+    {QG\\$\alpha\!=\!\sqrt{2\pi}$}
+  },
+  x tick label style={font=\scriptsize,align=center,rotate=0},
+  y tick label style={font=\scriptsize},
+  ylabel style={font=\small},
+  xlabel style={font=\small,yshift=-12pt},
+  grid=major,
+  grid style={gray!20,line width=0.3pt},
+  axis line style={substrategray,line width=0.5pt},
+  enlarge x limits=0.05
+]
+% Reference line at pi/10
+\addplot[domain=0.5:9.5,dashed,line width=0.5pt,leanblue]{0.31415926535};
+% 9 instances all at exactly pi/10
+\addplot[only marks,mark=*,mark size=2.5pt,mark options={fill=substrateorange,draw=substrateorange}]
+  coordinates {(1,0.31415926535) (2,0.31415926535) (3,0.31415926535) (4,0.31415926535) (5,0.31415926535) (6,0.31415926535) (7,0.31415926535) (8,0.31415926535) (9,0.31415926535)};
+\node[font=\scriptsize,leanblue,anchor=west] at (axis cs:6.7,0.319) {$\pi/10 \approx 0.31416$};
+\end{axis}
+\end{tikzpicture}
+\caption{Universal coupling $\lambda_0 \cdot \alpha = \pi/10$ on all nine substrate classes. Each of the nine $\alpha$-values realises a distinct inhabitant of the single \texttt{HAlphaUniversal} operator structure (\texttt{PF/UniversalAlphaOperatorFamily.lean}); the kernel-only theorem \texttt{all\_9\_framework\_operators\_share\_universal\_\\HAlpha\_structure} (line 386) certifies that every inhabitant satisfies $\lambda_0 \cdot \alpha = \pi/10$ exactly. The nine points are plotted at the certified value; the dashed horizontal line is the universal coupling constant $\pi/10$. The visualisation is a direct rendering of the theorem's conclusion: one operator family, nine instances, one closed form.}
+\label{fig:coupling}
+\end{figure}
 
 \section{Where the substrate appears in independent observation}\label{sec:corroborations}
 
@@ -144,6 +242,45 @@ Subst.\ operator & Aer peak (YM class) & $\alpha_5 = 2$ & $2.000$ & exact \\
 \end{tabular}
 \end{table}
 
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.78\linewidth,height=6.0cm,
+  xlabel={substrate prediction $\alpha$},
+  ylabel={Aer spectral peak (measured)},
+  xmin=1.35, xmax=2.1, ymin=1.35, ymax=2.1,
+  xtick={1.414,1.500,1.868,2.000},
+  xticklabels={$\sqrt{2}$,$3/2$,$\varphi\!+\!\tfrac{1}{4}$,$2$},
+  ytick={1.414,1.500,1.868,2.000},
+  yticklabels={$1.414$,$1.500$,$1.868$,$2.000$},
+  xlabel style={font=\small},
+  ylabel style={font=\small},
+  x tick label style={font=\scriptsize},
+  y tick label style={font=\scriptsize},
+  grid=major,
+  grid style={gray!20,line width=0.3pt},
+  axis line style={substrategray,line width=0.5pt},
+  legend style={font=\scriptsize,at={(0.02,0.98)},anchor=north west,draw=substrategray,fill=white}
+]
+% Identity line: prediction = measurement
+\addplot[domain=1.35:2.1,dashed,line width=0.5pt,leanblue]{x};
+\addlegendentry{$y = x$ (perfect agreement)}
+% Four measured peaks
+\addplot[only marks,mark=*,mark size=3pt,mark options={fill=substrateorange,draw=substrateorange}]
+  coordinates {(1.414,1.414) (1.500,1.500) (1.868,1.868) (2.000,2.000)};
+\addlegendentry{Aer-measured peaks (P, RH, NP, YM)}
+% Labels for each point
+\node[font=\scriptsize,anchor=south east] at (axis cs:1.414,1.414) {P};
+\node[font=\scriptsize,anchor=south east] at (axis cs:1.500,1.500) {RH};
+\node[font=\scriptsize,anchor=south east] at (axis cs:1.868,1.868) {NP};
+\node[font=\scriptsize,anchor=south east] at (axis cs:2.000,2.000) {YM};
+\end{axis}
+\end{tikzpicture}
+\caption{Substrate-predicted $\alpha$-values against Qiskit Aer simulator spectral peaks for the four substrate-operator classes. The dashed line is the perfect-agreement diagonal $y = x$. Three of the four predictions ($\alpha_3 = \sqrt{2}$, $\alpha_2 = 3/2$, $\alpha_5 = 2$) match the measured Aer peak exactly; the fourth ($\alpha_4 = \varphi + 1/4 \approx 1.86803$) matches to four decimals (Aer-measured $1.868$). The substrate's algebraic skeleton was codified before the Aer runs; the matches are independent operator-level verifications, not free-parameter fits. Source: Qiskit Aer simulator outputs, notebook \texttt{QUATUM\_TUNED\_IBM.ipynb} in the corpus.}
+\label{fig:ibmpeaks}
+\end{figure}
+
 These are retrodictions, not chronological predictions, and the look-elsewhere analysis of \S\ref{subsec:lookelsewhere} establishes that they are not statistical evidence under any honest null on the substrate's own grammar. What Table~\ref{tab:appearances} \emph{does} display is descriptive context: the substrate's algebraic mechanism, codified before consulting these specific measurements, produces values in the same numerical neighbourhood as a set of independently published measurements across multiple domains, with column-three expressions composed entirely of substrate-internal constants. That property is interesting as exposition of how the substrate's $H_3$-Coxeter basis and nine forced $\alpha$-values populate the same numerical landscape as observed physical quantities, but it is not, on its own, statistical evidence that the substrate is the right unification. The substrate's evidential case for the empirical content rests on the chronologically-pre-registered forward prediction of \S\ref{sec:forward}, not on this retrodiction table.
 
 Per-row audit, located precisely:
@@ -174,7 +311,46 @@ Achieving K hits out of seven is what noise produces under exhaustive search on 
 
 \paragraph{Two further corrections to the test scope.} The S$_8$ row in Table~\ref{tab:appearances} multiplies a fixed empirical Planck-CMB-anchored input $S_8^{\textsf{CMB}} = 0.834$ by a substrate modulation factor; it is not a free closed-form match in the look-elsewhere sense, and should not enter a dimensionless enumeration test. The low-mass GW BH peak row is the substrate-side expression $10\,M_\odot \cdot \alpha_1$, which is dimensionful and likewise outside the dimensionless test's scope; either entry must be excluded from any look-elsewhere analysis or treated with the corresponding category-error caveat. Of the remaining five Table-\ref{tab:appearances} rows that do qualify as look-elsewhere candidates, four (dark-energy $w_0$, GW mass-ratio peak, GW redshift index, Li-7 deficit) sit in bands with hundreds-to-thousands of equally-simple expressions fitting equally well; the Li-7 row in particular is the tell --- the substrate's $\pi/(10\sqrt{2})$ misses the measurement at $1.6\sigma$, worse than thousands of arbitrary expressions in the same grammar. The neutrino mass-ratio row is the one with any teeth (only $\sim 100$ expressions within its tight $\pm 0.0008$ band; substrate's $\pi\sqrt{2}/150$ is one of them), but its expression reuses the substrate's own $\alpha$-pieces and therefore is not independent of the construction.
 
-\paragraph{Substrate-natural prior test.} The natural follow-up objection is that the uniform-grammar best-of-$N$ null is too generous: the substrate does not predict ``any expression in a uniform grammar,'' it predicts a structurally-forced set built from the nine $\alpha$-values, the universal coupling $\pi/10$, ratios, products, and small-integer divisors. The substrate runs that test directly. Restricting the enumeration to the substrate-natural prior (the 9 $\alpha$-values, ratios $\alpha_i/\alpha_j$, products $\alpha_i \cdot \alpha_j$, universal-coupling combinations $(\pi/10)/\alpha_i$, two-factor compositions of the previous, divisor/multiplier by small substrate-counting integers $\{1, 2, 3, 4, 10\}$, squares and inverses) yields $|G_{\textsf{substrate}}| = 404$ distinct positive expressions --- three orders of magnitude tighter than the uniform-grammar enumeration. Per-observable in-band counts within $0.5\sigma$: $w_0$: 3 of 345; Li-7: 21 of 307; \emph{neutrino mass ratio: 1 of 130}; GW mass-ratio peak: 15 of 323; GW redshift index: 13 of 375. Best-of-$N$ rates $q_i \approx 0.5\text{--}0.8$, $\lambda \approx 4.6$, $\Pr[K \geq 4 \mid \lambda \approx 4.6] \approx 0.67$. Conclusion: even under the substrate's own structural prior, the table as a whole is consistent with noise. The reproducible script is at \texttt{Papers/Methods/look\_elsewhere\_substrate\_natural.py}.
+\paragraph{Substrate-natural prior test.} The natural follow-up objection is that the uniform-grammar best-of-$N$ null is too generous: the substrate does not predict ``any expression in a uniform grammar,'' it predicts a structurally-forced set built from the nine $\alpha$-values, the universal coupling $\pi/10$, ratios, products, and small-integer divisors. The substrate runs that test directly. Restricting the enumeration to the substrate-natural prior (the 9 $\alpha$-values, ratios $\alpha_i/\alpha_j$, products $\alpha_i \cdot \alpha_j$, universal-coupling combinations $(\pi/10)/\alpha_i$, two-factor compositions of the previous, divisor/multiplier by small substrate-counting integers $\{1, 2, 3, 4, 10\}$, squares and inverses) yields $|G_{\textsf{substrate}}| = 404$ distinct positive expressions --- three orders of magnitude tighter than the uniform-grammar enumeration. Per-observable in-band counts within $0.5\sigma$: $w_0$: 3 of 345; Li-7: 21 of 307; \emph{neutrino mass ratio: 1 of 130}; GW mass-ratio peak: 15 of 323; GW redshift index: 13 of 375. Best-of-$N$ rates $q_i \approx 0.5\text{--}0.8$, $\lambda \approx 4.6$, $\Pr[K \geq 4 \mid \lambda \approx 4.6] \approx 0.67$. Conclusion: even under the substrate's own structural prior, the table as a whole is consistent with noise. Figure~\ref{fig:lookelsewhere} displays the per-row in-band counts. The reproducible script is at \texttt{Papers/Methods/look\_elsewhere\_substrate\_natural.py}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.86\linewidth,height=4.8cm,
+  xbar,
+  xlabel={substrate-natural expressions in the same $0.5\sigma$ band as the substrate's prediction},
+  xmin=0, xmax=400,
+  ytick={1,2,3,4,5},
+  yticklabels={
+    {neutrino ($\pi\sqrt{2}/150$)},
+    {$w_0$ ($-\sqrt{2\pi}/3$)},
+    {GW redshift ($\pi$)},
+    {GW mass-ratio ($\sqrt{2}/(\varphi\!+\!\tfrac{1}{4})$)},
+    {Li-7 ($\pi/(10\sqrt{2})$)}
+  },
+  y tick label style={font=\scriptsize},
+  x tick label style={font=\scriptsize},
+  xlabel style={font=\scriptsize},
+  enlarge y limits=0.18,
+  axis line style={substrategray,line width=0.5pt},
+  grid=major,
+  grid style={gray!20,line width=0.3pt},
+  nodes near coords,
+  nodes near coords align={horizontal},
+  nodes near coords style={font=\scriptsize,/pgf/number format/.cd,fixed,precision=0},
+  bar width=4.5mm
+]
+\addplot[draw=substrategray,fill=substrategray!40]
+  coordinates {(1,1) (3,2) (13,3) (15,4) (21,5)};
+% Highlight neutrino row in orange
+\addplot[draw=substrateorange,fill=substrateorange,line width=0.6pt]
+  coordinates {(1,1)};
+\end{axis}
+\end{tikzpicture}
+\caption{Look-elsewhere disclosure under the substrate-natural prior (404 distinct positive expressions). Each bar is the count of substrate-natural expressions within $0.5\sigma$ of the published measurement for that Table~\ref{tab:appearances} row. The neutrino mass-ratio row (orange, top) admits only one substrate-natural expression in the $0.5\sigma$ band of the NuFit-6.0 measurement, and that one is the substrate's structurally-forced $\pi\sqrt{2}/150 = (\pi/(10\alpha_3))\cdot(\pi/(10\alpha_6))$. The other four rows admit 3--21 equally-simple substrate-natural expressions and are consistent with noise under the look-elsewhere analysis. The figure is the substrate's own diagnostic of which Table~\ref{tab:appearances} rows carry evidential weight after the multiple-comparisons correction; reproducible from \texttt{Papers/Methods/look\_elsewhere\_substrate\_natural.py}.}
+\label{fig:lookelsewhere}
+\end{figure}
 
 \paragraph{One row survives.} The neutrino mass-ratio row is qualitatively different from the other four under the substrate-natural prior: only \textbf{1 of 130} in-band substrate-natural expressions falls within $0.5\sigma$ of the NuFit-6.0 measurement, and that one is the substrate's structurally-forced $\pi\sqrt{2}/150 = (\pi/(10\alpha_3)) \cdot (\pi/(10\alpha_6))$ --- the composition of two universal-coupling factors at the substrate's $\alpha_P$ and $\alpha_{\textsf{BSD}}$ values. The substrate's prediction sits at $0.23\sigma$ off the measurement on a band whose uncertainty $\pm 0.0008$ is the tightest of any row in Table~\ref{tab:appearances}. \emph{This single row carries real information}: under the substrate's own structural prior, 129 of 130 candidate expressions in the appropriate band do not fit, and the one that does is the substrate's structurally-natural product of its two universal-coupling factors at named substrate constants. The neutrino row is the one row where the substrate's empirical case has weight beyond mere descriptive context.
 
@@ -227,7 +403,7 @@ The substrate does not claim to have closed any of these open frontiers. The sub
 
 \section{Forward-runnable test and falsifiability}\label{sec:forward}
 
-\paragraph{Why the forward prediction is the load-bearing empirical content.} The Table~\ref{tab:appearances} corroborations of \S\ref{sec:corroborations} are retrodictions: the substrate's algebraic skeleton was codified after most of the measurements were published. The look-elsewhere test of \S\ref{subsec:lookelsewhere} addresses the trials-count question against the substrate's own fixed grammar and returns $p \approx 10^{-7}$, but a retrodictive analysis can never carry the same evidential weight as a chronologically-pre-registered forward prediction, because for a forward prediction the trials denominator is fixed in advance --- no expression-search room remains after the registration. The substrate's empirical case ultimately rests on the forward prediction below.
+\paragraph{Why the forward prediction is the load-bearing empirical content.} The Table~\ref{tab:appearances} corroborations of \S\ref{sec:corroborations} are retrodictions: the substrate's algebraic skeleton was codified after most of the measurements were published. The look-elsewhere test of \S\ref{subsec:lookelsewhere} addresses the trials-count question under both the uniform-grammar best-of-$N$ null (the table as a whole is consistent with noise; the single-throw $p \approx 10^{-7}$ calculation from an earlier revision is withdrawn there) and the tighter substrate-natural prior of $\sim$\,400 expressions (under which the neutrino mass-ratio row survives at 1-of-130 while the rest of the table remains consistent with noise). The Table~\ref{tab:appearances} retrodictions do not carry the same evidential weight as the chronologically-pre-registered forward prediction below, because for a forward prediction the trials denominator is fixed in advance --- no expression-search room remains after the registration. The substrate's empirical case rests on the forward prediction.
 
 \paragraph{The forward prediction.} The substrate's chronologically-pre-registered forward-runnable prediction is the substrate's value for Graph Isomorphism under the substrate-extended tri-class complexity rule:
 \[
