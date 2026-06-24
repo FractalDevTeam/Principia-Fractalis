@@ -60,7 +60,7 @@ Twelve substrate-derived algebraic identities in nine real-valued unknowns admit
 
 A single algebraic mechanism, parametrised by twelve substrate-derived cross-class identities, forces a unique nine-tuple of positive real constants. The nine values are not chosen --- they are forced by the substrate's universal coupling $\pi/10$ and its modified-transfer-operator scaling. The algebra is solved before the data is consulted. The substrate's twelve identities admit a unique positive simultaneous solution; the unique solution is expressible in the four-element basis $\{1,\pi,\varphi,\sqrt{2}\}$ (the substrate's icosahedral $H_3$-Coxeter basis); the resulting nine constants appear in measurements that have been independently published in five disjoint scientific domains. This is the substrate's central testable assertion.
 
-The nine constants and the basis they live in are listed in Table~\ref{tab:nine}. The construction of the substrate, the twelve invariants, and the proof of uniqueness are in Sections~\ref{sec:substrate}--\ref{sec:invariants}. The cross-domain corroborations are in Section~\ref{sec:corroborations}. The explicit scope --- what the Lean corpus proves unconditionally, what it discharges conditional on three named open conjectures, and what remains open in the same form open in the published literature --- is in Section~\ref{sec:scope}. The construction is reproducible from a clean clone of the corpus in approximately ten minutes (Section~\ref{sec:verify}).
+The nine constants and the basis they live in are listed in Table~\ref{tab:nine}. The construction of the substrate, the twelve invariants, and the proof of uniqueness are in Sections~\ref{sec:substrate}--\ref{sec:invariants}. The cross-domain numerical correspondences and the substrate's own look-elsewhere analysis disposing of them as multi-row evidence are in Section~\ref{sec:corroborations}. The explicit scope --- what the Lean corpus proves unconditionally, what it discharges conditional on three named open conjectures, and what remains open in the same form open in the published literature --- is in Section~\ref{sec:scope}. The substrate's chronologically-pre-registered forward-runnable prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$, and the eight-falsifier panel, are in Section~\ref{sec:forward}; these carry the substrate's evidential weight. The construction is reproducible from a clean clone of the corpus in approximately ten minutes (Section~\ref{sec:verify}).
 
 \begin{table}[h]
 \centering
@@ -88,7 +88,7 @@ The substrate is a nuclear $C^{*}$-algebraic projective limit $\mathcal{T}_\inft
 \[
 \mathcal{B} \;=\; \{1,\;\pi,\;\varphi,\;\sqrt{2}\} \qquad (\varphi := (1+\sqrt{5})/2).
 \]
-The basis $\mathcal{B}$ is anchored by the substrate's icosahedral $H_3$-Coxeter symmetry: the Coxeter number $h(H_3) = 10$ is precisely the denominator of the substrate's universal coupling $\pi/10$; the golden ratio $\varphi$ appears in the standard $H_3$ root coordinates $(0, \pm 1, \pm \varphi)$; and $\pi$ and $\sqrt{2}$ enter through the substrate's modified-transfer-operator construction on $L^2([0,1], dx/x)$. The transfer-operator construction is defined in Chapter~20 of the companion book; the Lean formalisation lives in \texttt{PF/TransferOperator.lean} where $T_3^{\textsf{sym}}$ self-adjointness on $L^2([0,1], dx/x)$ is kernel-only proven. The substrate's basis $\mathcal{B}$ is geometric; the substrate's content is what nine values emerge when twelve cross-class invariants are imposed simultaneously. Figure~\ref{fig:h3anchor} fixes the geometric anchor.
+The basis $\mathcal{B}$ is anchored by the substrate's icosahedral $H_3$-Coxeter symmetry: the Coxeter number $h(H_3) = 10$~\cite{bourbaki1968} is precisely the denominator of the substrate's universal coupling $\pi/10$; the golden ratio $\varphi$ appears in the standard $H_3$ root coordinates $(0, \pm 1, \pm \varphi)$; and $\pi$ and $\sqrt{2}$ enter through the substrate's modified-transfer-operator construction on $L^2([0,1], dx/x)$. The transfer-operator construction is defined in Chapter~20 of the companion book; the Lean formalisation lives in \texttt{PF/TransferOperator.lean} where $T_3^{\textsf{sym}}$ self-adjointness on $L^2([0,1], dx/x)$ is kernel-only proven. The substrate's basis $\mathcal{B}$ is geometric; the substrate's content is what nine values emerge when twelve cross-class invariants are imposed simultaneously. Figure~\ref{fig:h3anchor} fixes the geometric anchor.
 
 \begin{figure}[h]
 \centering
@@ -481,7 +481,7 @@ The substrate does not claim to have closed any of these open frontiers. The sub
 \[
 \boxed{\;\alpha_{\textsf{GI}} \;=\; \sqrt{2} \quad\textrm{to}\quad 10^{-4}.\;}
 \]
-The tri-class extension itself was formalised on 2026-06-22 after the substrate's prior binary $\{P, NP\}$ rule was found to be over-restrictive for NP-intermediate problems such as Graph Isomorphism (Babai 2016 quasi-polynomial; Sch\"oning 1988 GI $\in$ low hierarchy of NP; Goldwasser--Sipser 1986 GI $\in$ coNP); the substrate's tri-class strengthening matches the complexity-theoretic literature consensus that NP-intermediate problems are nearer to P than to NP-complete, and the substrate-natural collapse to the P-end value $\alpha_3 = \sqrt{2}$ is then forced. The prediction is formalised in the Lean file \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only). The substrate commits the prediction to public record at this paper's deposition; any subsequent measurement of $\alpha_{\textsf{GI}}$ that does not fall within $[\sqrt{2} - 10^{-4},\,\sqrt{2} + 10^{-4}]$ refutes the substrate's tri-class extension. \emph{This is the empirical claim with the trials denominator fixed in advance, and therefore the empirical claim with real evidential weight.} Figure~\ref{fig:timeline} displays the pre-registration timeline.
+The tri-class extension itself was formalised on 2026-06-22 after the substrate's prior binary $\{P, NP\}$ rule was found to be over-restrictive for NP-intermediate problems such as Graph Isomorphism (Babai 2016~\cite{babai2016} quasi-polynomial; Sch\"oning 1988~\cite{schoning1988} GI $\in$ low hierarchy of NP; Goldwasser--Sipser 1986~\cite{goldwasser1986} GI $\in$ coAM); the substrate's tri-class strengthening matches the complexity-theoretic literature consensus that NP-intermediate problems are nearer to P than to NP-complete, and the substrate-natural collapse to the P-end value $\alpha_3 = \sqrt{2}$ is then forced. The prediction is formalised in the Lean file \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only). The substrate commits the prediction to public record at this paper's deposition; any subsequent measurement of $\alpha_{\textsf{GI}}$ that does not fall within $[\sqrt{2} - 10^{-4},\,\sqrt{2} + 10^{-4}]$ refutes the substrate's tri-class extension. \emph{This is the empirical claim with the trials denominator fixed in advance, and therefore the empirical claim with real evidential weight.} Figure~\ref{fig:timeline} displays the pre-registration timeline.
 
 \begin{figure}[h]
 \centering
@@ -691,6 +691,28 @@ A.~Connes.
 L.~de Moura and S.~Ullrich.
 \newblock The Lean 4 theorem prover and programming language.
 \newblock In \emph{Automated Deduction --- CADE 28}, Springer, 2021.
+
+\bibitem{bourbaki1968}
+N.~Bourbaki.
+\newblock \emph{Groupes et alg\`ebres de Lie, Chapitres 4--6}.
+\newblock Hermann, Paris, 1968.
+\newblock Coxeter number $h(H_3) = 10$ tabulated in Ch.\,VI, \S 4.10.
+
+\bibitem{babai2016}
+L.~Babai.
+\newblock Graph isomorphism in quasipolynomial time.
+\newblock In \emph{Proc.\ 48th ACM Symp.\ Theory of Computing (STOC)}, 684--697, 2016.
+\newblock arXiv:1512.03547.
+
+\bibitem{schoning1988}
+U.~Sch\"oning.
+\newblock Graph isomorphism is in the low hierarchy.
+\newblock \emph{J.\ Comput.\ Syst.\ Sci.} 37 (3) 312--323, 1988.
+
+\bibitem{goldwasser1986}
+S.~Goldwasser and M.~Sipser.
+\newblock Private coins versus public coins in interactive proof systems.
+\newblock In \emph{Proc.\ 18th ACM Symp.\ Theory of Computing (STOC)}, 59--68, 1986.
 
 \end{thebibliography}
 

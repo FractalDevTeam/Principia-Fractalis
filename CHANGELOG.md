@@ -1,5 +1,32 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (§1 section map + formal citations for Babai/Schöning/Goldwasser–Sipser/Bourbaki)
+
+**HEAD prior**: `b23c4a8`. **HEAD now**: this commit.
+
+Two more substance polish moves.
+
+### §1 section map surfaces §6
+
+The paper's §1 section-map sentence routed the reader through §2–§5 + §7, but never mentioned §6 — which is the load-bearing empirical content (the forward prediction). A reader navigating from §1 alone would never reach the prediction. Section map now explicitly routes to §6: *"The substrate's chronologically-pre-registered forward-runnable prediction α_GI = √2 to 10⁻⁴, and the eight-falsifier panel, are in §6; these carry the substrate's evidential weight."*
+
+### Formal citations added
+
+§6's prose mentioned Babai 2016, Schöning 1988, and Goldwasser–Sipser 1986 by author–year only, without `\cite{}`. §2 asserted `h(H_3) = 10` without citation. A hostile reviewer notices uncited references. Four new bibliography entries added with proper `\cite{}` invocations in the prose:
+
+- `bourbaki1968` — Bourbaki, *Groupes et algèbres de Lie, Chapitres 4–6*, 1968. The standard tabulation of Coxeter numbers including `h(H_3) = 10` (Ch.\,VI, §4.10).
+- `babai2016` — Babai, "Graph isomorphism in quasipolynomial time", STOC 2016 (arXiv:1512.03547).
+- `schoning1988` — Schöning, "Graph isomorphism is in the low hierarchy", JCSS 37(3):312–323, 1988.
+- `goldwasser1986` — Goldwasser and Sipser, "Private coins versus public coins in interactive proof systems", STOC 1986.
+
+(Goldwasser–Sipser puts GI in coAM via the public-coin AM protocol for graph non-isomorphism; §6 previously said "GI ∈ coNP" which is a weaker statement than what Goldwasser–Sipser actually proved. Corrected to "GI ∈ coAM".)
+
+### Build
+
+Paper: 14 pp, clean after three `pdflatex` passes (third pass resolves the new citations).
+
+---
+
 ## 2026-06-24 (abstract + §8 tone alignment + appendix HEAD pin)
 
 **HEAD prior**: `dbd3083`. **HEAD now**: this commit.
