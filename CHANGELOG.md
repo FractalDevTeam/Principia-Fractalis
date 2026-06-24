@@ -1,5 +1,39 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (abstract + §8 tone alignment + appendix HEAD pin)
+
+**HEAD prior**: `dbd3083`. **HEAD now**: this commit.
+
+Three small substance moves to bring the paper's text into alignment with the structure that landed across today's earlier commits.
+
+### Abstract rewritten
+
+The prior abstract was one dense paragraph that listed cosmology measurements before machine verification, buried the kernel-only-axioms claim, and never mentioned the forward prediction or the look-elsewhere analysis. After today's commits the load-bearing structure has shifted: the forward prediction is the empirical claim with real weight, and the multi-domain retrodictions are descriptive context. The abstract now reflects that. New structure:
+
+1. Twelve identities → unique nine-tuple over `{1, π, φ, √2}`.
+2. Geometric anchor: `π/10 = π/h(H_3)`.
+3. Machine verification: kernel-only, zero project axioms, on the load-bearing theorems.
+4. Forward prediction: `α_GI = √2` to `10⁻⁴`, pre-registered before measurement.
+5. Multi-domain retrodictions appear; the look-elsewhere analysis (§4) shows they are descriptive context, with the neutrino mass-ratio row as the 1-of-130 survivor.
+6. Conditional discharges honestly stated.
+7. Book pointer.
+
+Each sentence does specific work; nothing is filler.
+
+### §8 ("What this paper does not claim") aligned with §4 look-elsewhere
+
+§8 previously stated the substrate "has identified ... forced values [that] appear in fifteen independently-published measurements" without acknowledging the look-elsewhere conclusion landed in §4. That was a real seam — a hostile reader comparing §4 and §8 would catch the inconsistency. §8 now mirrors §4's honest framing: the table-as-a-whole is consistent with noise under both nulls; the neutrino mass-ratio row survives at 1-of-130 under the substrate-natural prior; the forward prediction is the load-bearing empirical content with the denominator fixed in advance.
+
+### Appendix A HEAD pin updated
+
+Appendix A's `#print axioms` reproducibility pin was at HEAD `8901280` — many commits behind. Updated to HEAD `dbd3083` (the head immediately before this commit, at which 4,368 PF jobs were confirmed to replay clean). The appendix still explicitly acknowledges drift: "later commits on master may be newer, but the four headline theorems and their axiom dependencies are stable across the substrate's bundle-closure regime."
+
+### Build
+
+Paper: 14 pp, clean compile after two `pdflatex` passes. No new figures, no structural changes — just substance alignment with the structure landed by today's earlier commits.
+
+---
+
 ## 2026-06-24 (forward-prediction timeline) — §6 pre-registration timeline figure; 13 pp → 14 pp
 
 **HEAD prior**: `75255c6`. **HEAD now**: this commit.
