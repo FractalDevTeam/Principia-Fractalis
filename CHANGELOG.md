@@ -1,5 +1,56 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (statistical retraction) — §6.1 look-elsewhere significance claim withdrawn; retrodictions reframed as descriptive context; forward prediction load-bearing
+
+**HEAD prior**: `0e3e13a`. **HEAD now**: this commit.
+
+An external critic ran the substrate's own look-elsewhere test script (`Papers/Methods/look_elsewhere_test.py`) and identified a fundamental statistical error in §6.1 of the clean paper. The prior revision claimed *"joint p = 1.58×10⁻⁷, structure not noise"* across the Table 2 retrodictions. That claim is wrong by ~7 orders of magnitude and is withdrawn this commit.
+
+### The error
+
+The prior revision computed per-observable null hit-rates as `p_i = (count within Nσ) / (total expressions in band)` — the probability that a single randomly-drawn expression lands in the band. It then set `λ = Σ p_i = 0.227` and computed `Pr[K≥6 | λ=0.227] = 1.58×10⁻⁷`. That model assumes seven random-dart throws, one per observable.
+
+The actual procedure (and the procedure a hostile referee re-running this script would use) is best-of-N search: enumerate ~10⁵ expressions, then keep the closest one to each measurement. Under this procedure the per-observable null rate is `q_i = 1 - (1 - p_i)^N_band`, which is essentially 1 whenever `p_i · N_band ≫ 1`. With per-observable counts in the hundreds to thousands within 0.5σ, `p_i · N_band ≫ 1` for every Table 2 observable, the corrected `λ ≈ 7`, and `Pr[K≥6 | λ=7] ≈ 0.55` — exactly what noise produces.
+
+The single-throw model rates the rarity of a *pre-committed guess*; the substrate's Table 2 procedure produces a *post-hoc selected* match. Applying the pre-committed-guess rarity to a post-hoc selection is the very multiple-comparisons fallacy the section was designed to address, re-imported into the analysis itself.
+
+### What the paper now says
+
+§4.subsec:lookelsewhere has been rewritten:
+- Section title changed from *"Look-elsewhere test: structure versus noise"* to *"Look-elsewhere: the grammar is too dense for the retrodictions to be evidential"*
+- The prior 10⁻⁷ structure claim is explicitly withdrawn in-text
+- The corrected best-of-N null is computed (~10⁵ expressions, p_i·N_band ≫ 1 per observable, λ ≈ 7, P(K≥6 | λ≈7) ≈ 1)
+- Two further corrections to the test scope are disclosed:
+  - S₈ row multiplies a fixed empirical Planck-CMB input (S_8^CMB = 0.834) by a substrate modulation; it is not a free closed-form match in the look-elsewhere sense
+  - GW low-mass BH peak is dimensionful (10·α_1 M_⊙); category error in a dimensionless enumeration test
+- Li-7 is named explicitly as the tell: substrate's π/(10√2) misses at 1.6σ, worse than thousands of equally-simple expressions in the same grammar
+- The neutrino mass-ratio row (~100 within-0.5σ on its tight ±0.0008 band, substrate's π√2/150 one of them) is the one row with any teeth, but flagged as not independent of the substrate construction
+- Conclusion: *"The look-elsewhere analysis disposes of Table 2 as evidence. The retrodictions are descriptive context. The empirical content of the substrate's case lives entirely in the chronologically-pre-registered forward prediction of §6, where the trials denominator is fixed in advance and the multiple-comparisons problem does not apply."*
+
+The §4 paragraph following Table 2 (*"These are corroborations, not chronological predictions ... structural rather than coincidental"*) has been rewritten to: *"These are retrodictions, not chronological predictions, and the look-elsewhere analysis of §4.subsec:lookelsewhere establishes that they are not statistical evidence under any honest null on the substrate's own grammar."*
+
+§6 (forward prediction) stands unchanged — its load-bearing role was already correct.
+
+### Script
+
+`Papers/Methods/look_elsewhere_test.py` rewritten:
+- Header now explicitly documents the prior-revision error and the corrected null
+- Prints both the wrong single-throw Poisson tail (what the prior revision computed) and the corrected best-of-N Poisson tail (what the test actually measures)
+- Defaults to `max_ops = 2` (the critic's choice; runs in ~30s and produces 66,497 distinct positive-real expressions, similar order to the critic's 12,600 and matching the depth at which the verdict is computable in reasonable time)
+- Embedded verdict line: *"The grammar is too dense for the Table 2 retrodictions to be evidential."*
+- Minor known limitation: positive-only enumeration undercounts the w_0 row (negative-value substrate expression -√(2π)/3); the verdict stands and would strengthen against retrodictions if w_0 negatives were enumerated
+
+### Posture
+
+The substrate's evidential case remains intact at the right scope:
+- Layer 1 (the 12 substrate-derived algebraic identities, the unique nine-tuple, the four unconditional axis discharges, T_3^sym self-adjointness): machine-checked at the Lean kernel level, four named axioms in the entire corpus, zero sorries
+- Layer 3 (the multi-domain Table 2 retrodictions): descriptive context, not statistical evidence; reader is told this directly
+- Forward prediction (α_GI = √2 to 10⁻⁴): chronologically pre-registered, trials denominator fixed in advance; the empirical claim that does carry weight
+
+An honest *"these retrodictions are descriptive, not evidential"* is stronger than a significance claim that detonates on inspection. The substrate now says this.
+
+---
+
 ## 2026-06-24 (overnight review) — Comprehensive fix pass across clean + bait + cross-tree
 
 **HEAD prior**: `8901280`. **HEAD now**: this commit.
