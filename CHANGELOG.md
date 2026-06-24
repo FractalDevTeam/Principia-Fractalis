@@ -1,5 +1,37 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (CI verification badge) — GitHub Actions runs `verify.sh` on every push + green/red README badge
+
+**HEAD prior**: `013ee1a`. **HEAD now**: this commit.
+
+The substrate's verifiability claim is now publicly visible on the README as a continuously-updated badge. Every push to `master` and every PR runs `verify.sh` under GitHub Actions; the badge shows green if the Lean kernel reports the expected axioms on the headline theorems, red if any unexpected project axiom slips in.
+
+### New workflow: `.github/workflows/verify.yml`
+
+- Triggers: push to `master`, pull requests to `master`, manual `workflow_dispatch`.
+- Runs `bash ./verify.sh` on `ubuntu-latest` with a 60-minute timeout.
+- Caches `~/.elan` keyed on the `lean-toolchain` pin (first run ~2 minutes, cached runs <30 seconds for toolchain).
+- Caches `PF_Lean4_Code/.lake` keyed on toolchain + lake-manifest; partial cache hits accepted via `restore-keys` so unchanged dependencies do not re-elaborate.
+- Concurrency group cancels superseded runs on the same ref.
+
+Workflow header documents what it does NOT check (paper prose, Layer 3 numerical correspondences, the IBM Quantum forward prediction, Lean4Lean's independent re-verification).
+
+### README badge
+
+New first-line badge on `README.md`:
+
+```
+[![Verify (Lean 4 kernel-only axiom check)](.../verify.yml/badge.svg?branch=master)]
+```
+
+A hostile reader visiting the repository sees the verification verdict before reading any prose. Green ✓ = kernel reports the expected axioms on the headline theorems and no project axioms have slipped in; red ✗ = something needs attention.
+
+### Why this matters
+
+The paper's §7 says "verifiable from a clean clone in approximately ten minutes." Until now that was a claim. With the badge it is a continuously-verified public artifact: every commit on master triggers a fresh build and axiom check, and the verdict is published before any reader engages with the prose.
+
+---
+
 ## 2026-06-24 (one-command verification) — `verify.sh` at the repo root + §7 incantation simplified
 
 **HEAD prior**: `7e058f2`. **HEAD now**: this commit.

@@ -1,0 +1,62 @@
+name: Verify (Lean 4 kernel-only axiom check)
+
+# Runs the corpus's own verification script on every push to master
+# and on every pull request. Outcome (PASS / FAIL) gates the green/red
+# badge displayed in README.md.
+#
+# What this workflow checks:
+#   - The PF target builds clean (4,368+ kernel-elaboration jobs).
+#   - The four headline theorems' #print axioms output matches the paper's
+#     claim: [propext, Classical.choice, Quot.sound] plus the four named
+#     conditional hypotheses (Hardy 1914, two Mayer 1991 conjectures, the
+#     substrate-pin bundle), with no other project axioms.
+#
+# What this workflow does NOT check:
+#   - The paper's prose (LaTeX).
+#   - The Layer 3 numerical correspondences in §4 of the paper.
+#   - The IBM Quantum forward prediction (§6) — that requires hardware.
+#   - The Lean4Lean independent kernel re-verification (separate package).
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache elan toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.elan
+          key: elan-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain') }}
+
+      - name: Cache mathlib + project build
+        uses: actions/cache@v4
+        with:
+          path: |
+            PF_Lean4_Code/.lake
+          key: lake-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain', 'PF_Lean4_Code/lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            lake-${{ runner.os }}-${{ hashFiles('PF_Lean4_Code/lean-toolchain', 'PF_Lean4_Code/lake-manifest.json') }}-
+            lake-${{ runner.os }}-
+
+      - name: Run ./verify.sh
+        run: |
+          bash ./verify.sh
+        shell: bash
