@@ -458,7 +458,52 @@ is proven kernel-only via \texttt{Lambda\_eff\_exponent\_product\_sharp\_bracket
 
 \paragraph{The structural point.} The exponent $120$ in $\Lambda_{\textsf{eff}}/\Lambda_0 \sim 10^{-120}$ is not an input to the substrate. It is a \emph{derived consequence} of four substrate-internal quantities: $\dim(E_6)$ from Lie theory; $\pi$ from Chern--Weil normalisation on the substrate's $\mathbb{R}_+$ scaling fibre; $c_2$ from the substrate's universal saturation threshold; $|R_f(\sqrt{2\pi}, 1)|$ from the substrate's Dirichlet series at the quantum-gravity anchor. The substrate's full chain $\dim(E_6) = 78 \Rightarrow N_{78\pi} = 78\pi \Rightarrow N \cdot c_2 \cdot |R_f| = 14079\pi/160 \Rightarrow \exp(-14079\pi/160) \approx 10^{-120.06}$ contains no free parameter fit to the cosmological observation. The match is the conclusion of the chain, not its input.
 
-\paragraph{What this is not.} The derivation is at the substrate's symbolic level: the kernel-only Lean content is the arithmetic combination of the four named inputs into the closed form $14079\pi/160$ and its certified bracket. The substrate's deeper claims --- that $E_6$ is forced by the $SU(3)^3$ trinification of $T_\infty$ at level~3, that the Chern--Weil normalisation $\pi$ comes from the $\mathbb{R}_+$ scaling fibre, that $c_2$ and $|R_f(\sqrt{2\pi}, 1)|$ are the substrate's specific saturation threshold and Dirichlet modulus respectively --- live in the companion book (Chapters~11, 12, 23, and~26 and Appendices~B and~K). The paper's Lean citations cover the arithmetic spine of the chain. The conclusion stands as a falsifier (F3): a measurement of $\Lambda_{\textsf{eff}}/\Lambda_0$ that disagrees with $10^{-120 \pm O(1)}$ refutes the substrate's $E_6$/$\mathbb{R}_+$/$c_2$/$|R_f|$ identification.
+\paragraph{What this is not.} The derivation is at the substrate's symbolic level: the kernel-only Lean content is the arithmetic combination of the four named inputs into the closed form $14079\pi/160$ and its certified bracket. The substrate's deeper claims --- that $E_6$ is forced by the $SU(3)^3$ trinification of $T_\infty$ at level~3, that the Chern--Weil normalisation $\pi$ comes from the $\mathbb{R}_+$ scaling fibre, that $c_2$ and $|R_f(\sqrt{2\pi}, 1)|$ are the substrate's specific saturation threshold and Dirichlet modulus respectively --- live in the companion book (Chapters~11, 12, 23, and~26 and Appendices~B and~K). The paper's Lean citations cover the arithmetic spine of the chain. The conclusion stands as a falsifier (F3): a measurement of $\Lambda_{\textsf{eff}}/\Lambda_0$ that disagrees with $10^{-120 \pm O(1)}$ refutes the substrate's $E_6$/$\mathbb{R}_+$/$c_2$/$|R_f|$ identification. Figure~\ref{fig:lambdaeff} shows the four-input chain.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  >={Stealth[length=2.2mm,width=2.2mm]},
+  input/.style={draw=substrateorange,line width=0.6pt,fill=substratelight,rounded corners=2pt,inner sep=4pt,align=center,font=\scriptsize,minimum height=11mm,text width=2.3cm},
+  prod/.style={draw=substrateorange,line width=0.8pt,fill=substratelight,rounded corners=3pt,inner sep=5pt,align=center,font=\small,minimum height=11mm,text width=3.6cm},
+  obs/.style={draw=leanblue,line width=0.6pt,fill=white,rounded corners=2pt,inner sep=4pt,align=center,font=\scriptsize,minimum height=11mm,text width=3.0cm},
+  concl/.style={draw=leanblue,line width=0.8pt,fill=substratelight,rounded corners=3pt,inner sep=5pt,align=center,font=\small,minimum height=11mm,text width=3.6cm},
+  ar/.style={->,>=Stealth,line width=0.5pt,substrategray},
+  oplab/.style={font=\small,fill=white,inner sep=2pt}
+]
+% TOP ROW: four substrate-internal inputs
+\node[input] (in1) at (-6.0, 2.6) {$\dim(E_6) = 78$ \\ \scriptsize\itshape Lie theory, $T_\infty$ \\ \scriptsize\itshape level-3 trinification};
+\node[input] (in2) at (-2.0, 2.6) {$\pi$ \\ \scriptsize\itshape Chern--Weil \\ \scriptsize\itshape $\mathbb{R}_+$ scaling fibre};
+\node[input] (in3) at (2.0, 2.6)  {$c_2 = \tfrac{19}{20}$ \\ \scriptsize\itshape universal \\ \scriptsize\itshape saturation threshold};
+\node[input] (in4) at (6.0, 2.6)  {$|R_f(\sqrt{2\pi}, 1)| = \tfrac{19}{16}$ \\ \scriptsize\itshape Dirichlet modulus \\ \scriptsize\itshape at QG anchor};
+
+% MIDDLE: product
+\node[prod] (prod) at (0, 0.4) {$78\pi \cdot \tfrac{19}{20} \cdot \tfrac{19}{16} = \dfrac{14079\,\pi}{160}$ \\[1pt] \scriptsize\itshape kernel-only Lean};
+
+\draw[ar] (in1.south) -- (prod.north west);
+\draw[ar] (in2.south) -- ([xshift=-7mm]prod.north);
+\draw[ar] (in3.south) -- ([xshift= 7mm]prod.north);
+\draw[ar] (in4.south) -- (prod.north east);
+
+% LEFT lower: substrate side certified bracket
+\node[obs] (subst) at (-4.0, -2.0) {sharp bracket \\[1pt] $276.44 < \dfrac{14079\,\pi}{160} < 276.45$};
+
+% RIGHT lower: observation
+\node[obs] (obser) at (4.0, -2.0)  {observed exponent \\[1pt] $120 \cdot \log 10 = 276.310\ldots$};
+
+\draw[ar] (prod.south) -- (subst.north);
+\draw[ar] (prod.south) -- (obser.north);
+
+% BOTTOM: identification + conclusion
+\node[concl] (concl) at (0, -4.0) {agreement to $0.04\%$ \\[1pt] $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$};
+
+\draw[ar] (subst.south) -- (concl.north west);
+\draw[ar] (obser.south) -- (concl.north east);
+
+\end{tikzpicture}
+\caption{The substrate's parameter-free derivation of $\Lambda_{\textsf{eff}}/\Lambda_0 \sim 10^{-120}$. Top row: four substrate-internal inputs --- $\dim(E_6) = 78$ (Lie theory, forced by $T_\infty$ level-3 trinification, kernel-only theorem \texttt{seventyEight\_decomp} in \texttt{PF/Cosmology/E6ChernIndex78pi.lean}); $\pi$ (Chern--Weil normalisation with $\mathbb{R}_+$ scaling fibre); $c_2 = 19/20$ (universal saturation threshold, \texttt{PF/Consciousness/Ch12MassIITBridge.lean}); $|R_f(\sqrt{2\pi}, 1)| = 19/16$ (Dirichlet-series modulus at the QG anchor). Middle: their product collapses to the rational closed form $14079\pi/160$, kernel-only proven as \texttt{Lambda\_eff\_exponent\_product\_rational\_form} in \texttt{PF/Cosmology/LambdaEffParameterFreeCapstone.lean}. Lower row: the substrate's certified sharp bracket $276.44 < 14079\pi/160 < 276.45$ versus the observed cosmological exponent $120 \log 10 = 276.310\ldots$. Bottom: the substrate's closed form matches the observed hierarchy to $0.04\%$. No quantity in the chain is fit to the cosmological observation; the exponent $120$ in $10^{-120}$ is a derived consequence.}
+\label{fig:lambdaeff}
+\end{figure}
 
 \section{What is proven, what is conditional, what is open}\label{sec:scope}
 
