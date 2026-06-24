@@ -1,5 +1,37 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (daily filename rollover) — clean paper `06-23.{tex,pdf}` (8 pp) → `06-24.{tex,pdf}` (10 pp)
+
+**HEAD prior**: `47a3907`. **HEAD now**: this commit.
+
+Pabs's daily-filename-rollover rule requires the paper's date in its filename to match the date of its most-recent substantive edit. Today (2026-06-24) the paper received three substantive edits across earlier commits in this session (statistical retraction; substrate-natural prior subsection; α-skeleton supreme-receipt paragraph), but its filename still carried the `2026-06-23` date and the descriptions across the repo still said "8 pp" — a temporal seam Pabs caught on direct prompt.
+
+### Files rolled
+
+- `Papers/principia_fractalis_clean_2026-06-23.tex` → `Papers/principia_fractalis_clean_2026-06-24.tex` (`git mv`, history preserved)
+- `Papers/principia_fractalis_clean_2026-06-23.pdf` → `Papers/principia_fractalis_clean_2026-06-24.pdf`
+- Paper header comment: `Date: 2026-06-23` → `2026-06-24`; filename comment line rolled accordingly
+
+### Active references updated to the new filename + page count
+
+- `Papers/README.md` (table entry: filename + 8 pp → 10 pp; rebuild incantation)
+- `README.md` (table entry + rebuild incantation)
+- `PF_Lean4_Code/README.md` (paper link)
+- `CHANGELOG.md` (today's supreme-receipt entry citation)
+- `docs/ADVERSARIAL_REBUTTAL_2026_06_23.md` ("Paper at HEAD" line)
+
+### Intentional residual seam: book V2.6.1 frontmatter
+
+`Principia_Fractalis_master_folder/frontmatter/title.tex`, `version_history.tex`, and `appendices/appL_substrate_bundle_closure_2026-06-18_19.tex` still reference the companion paper as `principia_fractalis_clean_2026-06-23.tex (8 pp)`. This is intentional. The book is V2.6.1 as released 2026-06-23; its frontmatter accurately reflects the V2.6.1 release snapshot's companion paper. Rewriting V2.6.1's release notes to point at today's rolled paper would revise V2.6.1's history. The book will pick up the rolled companion paper reference at the next book release (V2.6.2), at which point the title page and version history will be rolled forward as part of that release cycle. Until then, the V2.6.1 PDF and its source frontmatter agree internally; only the post-V2.6.1 live state references the 06-24 paper.
+
+### Verification
+
+- `principia_fractalis_clean_2026-06-24.pdf` rebuilt: 10 pages, clean
+- `grep -r principia_fractalis_clean_2026-06-23` over `*.tex *.md *.lean` excluding `ARCHIVE/` returns only the three V2.6.1 book-frontmatter files (intentional historical references)
+- `git mv` preserves filename-history continuity for hostile-referee audit-trail purposes
+
+---
+
 ## 2026-06-24 (supreme receipt) — α-skeleton receipt: nine values + universal coupling, one citable Lean theorem, paper-side visible
 
 **HEAD prior**: `f753a25`. **HEAD now**: this commit.
@@ -22,7 +54,7 @@ Single citable theorem `α_skeleton_supreme_receipt` conjoining (A) the all-9 un
 
 ### Paper-side wiring
 
-§3 of `principia_fractalis_clean_2026-06-23.tex` now carries a `\paragraph{Supreme receipt.}` block right after the structural-significance paragraph. It cites the supreme-receipt file by name, names both component capstones with file:line, and tells the reader what the visible `#print axioms` output will be. A printed copy of the paper now contains, in the body text, the exact filename + theorem name + axiom list that a hostile referee would need to grep for. There is no opening for "where's the proof?" dismissal.
+§3 of `principia_fractalis_clean_2026-06-24.tex` (rolled forward from `2026-06-23.tex` this commit per the daily-filename-rollover rule) now carries a `\paragraph{Supreme receipt.}` block right after the structural-significance paragraph. It cites the supreme-receipt file by name, names both component capstones with file:line, and tells the reader what the visible `#print axioms` output will be. A printed copy of the paper now contains, in the body text, the exact filename + theorem name + axiom list that a hostile referee would need to grep for. There is no opening for "where's the proof?" dismissal.
 
 ### Build
 

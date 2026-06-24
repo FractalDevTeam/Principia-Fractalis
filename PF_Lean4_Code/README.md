@@ -1,6 +1,6 @@
 # PF_Lean4_Code — Lean 4 verification of Principia Fractalis
 
-This directory contains the Lean 4 formalization of the Principia Fractalis substrate-level Theory of Everything. The canonical entry point is the project root README at [`../README.md`](../README.md). The substrate's exposition paper is at [`../Papers/principia_fractalis_clean_2026-06-23.pdf`](../Papers/principia_fractalis_clean_2026-06-23.pdf).
+This directory contains the Lean 4 formalization of the Principia Fractalis substrate-level Theory of Everything. The canonical entry point is the project root README at [`../README.md`](../README.md). The substrate's exposition paper is at [`../Papers/principia_fractalis_clean_2026-06-24.pdf`](../Papers/principia_fractalis_clean_2026-06-24.pdf).
 
 This file documents only the Lean-side build, layout, and headline theorems. For the substrate's full reach (consciousness, cosmology, Geometric Unity, etc.), see the book at `../Principia_Fractalis_master_folder/main.pdf` (V2.6.1, 915 pages; anchor commit pinned in the book's title page, currently `8901280` — later commits on `origin/master` may be newer).
 
