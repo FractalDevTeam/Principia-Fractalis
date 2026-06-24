@@ -1,5 +1,27 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (Coq cross-prover parity) — Three Coq mirror files for today's new Lean content
+
+**HEAD prior**: `993d5fa`. **HEAD now**: this commit.
+
+Today's three new Lean files (`PolylogEigenvalueConjectureDecomposition_2026_06_24`, `GIForwardPredictionProtocol_2026_06_24`, `SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24`) now have Coq cross-prover structural-shape parity mirrors. Three-prover declaration parity maintained.
+
+### New Coq files
+
+- `PF/PolylogEigenvalueConjectureDecomposition_2026_06_24_Coq.v` — 5 sub-claim Prop definitions, 4 status theorems, 2 bridge theorems, 1 master-status theorem.
+- `PF/GIForwardPredictionProtocol_2026_06_24_Coq.v` — protocol structure marker, canonicalGIProtocol marker, falsification/corroboration Props, exclusive-alternative theorem, chronological predates marker, master status.
+- `PF/SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24_Coq.v` — substrate-natural-expression grammar marker, evaluate function marker, the `substrate_neutrino_structural_product` parity marker for the kernel-only algebraic identity `(π/10/√2)·(π/10/(3π/4)) = π√2/150`.
+
+### Compilation
+
+All three compile clean under Coq 8.18.0 (`coqc` exit 0 on each).
+
+### Status disclosure
+
+Each file's header explicitly states: structural-shape Coq parity ONLY. The Lean side carries the load-bearing content (kernel-only verification, the real numerical identities, the typed forward-prediction predicates). This Coq mirror records the structure/definition/theorem names at the parity granularity using `Prop := True` definitions and `exact I.` proofs. The Coq layer is a structural-shape mirror, not an independent mathematical re-verification — consistent with the corpus's standing Coq-parity policy.
+
+---
+
 ## 2026-06-24 (CI verification badge) — GitHub Actions runs `verify.sh` on every push + green/red README badge
 
 **HEAD prior**: `013ee1a`. **HEAD now**: this commit.
