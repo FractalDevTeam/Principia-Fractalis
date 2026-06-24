@@ -1,5 +1,35 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (forward-prediction timeline) — §6 pre-registration timeline figure; 13 pp → 14 pp
+
+**HEAD prior**: `75255c6`. **HEAD now**: this commit.
+
+The forward prediction `α_GI = √2 to 10⁻⁴` is the paper's load-bearing empirical claim, but until now §6 carried it only as a boxed equation. Figure~6 now makes the pre-registration chronology visible as a timeline.
+
+### Figure added
+
+- **Figure 6 (§6, pre-registration timeline)** — Horizontal TikZ timeline. Orange-shaded window on the left contains four substrate-side events:
+  - **pre-2026** — substrate algebra codified (book Ch.\,9, 20, 21)
+  - **2026-06-03** — first GI prediction landed (`PF/Empirical/Hundred44ProblemPrediction.lean`)
+  - **2026-06-22** — tri-class extension forcing `α_GI = √2` landed (`PF/Empirical/ProblemClassTriClass_2026_06_22.lean`)
+  - **2026-06-24 (today, bolded)** — full measurement protocol formalised (`PF/Empirical/GIForwardPredictionProtocol_2026_06_24.lean`); paper deposited
+
+  Gray-shaded window on the right is the not-yet-run measurement: IBM Quantum spectral peak extraction at shots ≥ 8192, n_repetitions ≥ 100. Labels alternate above/below the time axis for legibility.
+
+  Below the timeline: substrate's commitment box, `α_GI ∈ [√2 − 10⁻⁴, √2 + 10⁻⁴]`, frozen at deposition, with the falsification condition (any measurement outside the band refutes the tri-class extension).
+
+### Design notes
+
+- Two shaded windows: orange = pre-registration (closed, fixed), gray dashed = future (open, undetermined). The 2026-06-24 boundary between them is the paper's deposition moment.
+- Event 4 (paper deposition) marked with a larger orange-filled circle to emphasise the boundary.
+- All four substrate-side events cite their specific Lean source files; the future measurement names its protocol parameters from `canonicalGIProtocol` in the formalised protocol.
+
+### Build
+
+Paper: 13 pp → 14 pp. Clean after second `pdflatex` pass.
+
+---
+
 ## 2026-06-24 (more figures) — H_3 icosahedron + axiom-chain figures added; 12 pp → 13 pp
 
 **HEAD prior**: `291a4ac`. **HEAD now**: this commit.

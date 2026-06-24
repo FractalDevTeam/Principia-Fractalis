@@ -481,7 +481,71 @@ The substrate does not claim to have closed any of these open frontiers. The sub
 \[
 \boxed{\;\alpha_{\textsf{GI}} \;=\; \sqrt{2} \quad\textrm{to}\quad 10^{-4}.\;}
 \]
-The tri-class extension itself was formalised on 2026-06-22 after the substrate's prior binary $\{P, NP\}$ rule was found to be over-restrictive for NP-intermediate problems such as Graph Isomorphism (Babai 2016 quasi-polynomial; Sch\"oning 1988 GI $\in$ low hierarchy of NP; Goldwasser--Sipser 1986 GI $\in$ coNP); the substrate's tri-class strengthening matches the complexity-theoretic literature consensus that NP-intermediate problems are nearer to P than to NP-complete, and the substrate-natural collapse to the P-end value $\alpha_3 = \sqrt{2}$ is then forced. The prediction is formalised in the Lean file \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only). The substrate commits the prediction to public record at this paper's deposition; any subsequent measurement of $\alpha_{\textsf{GI}}$ that does not fall within $[\sqrt{2} - 10^{-4},\,\sqrt{2} + 10^{-4}]$ refutes the substrate's tri-class extension. \emph{This is the empirical claim with the trials denominator fixed in advance, and therefore the empirical claim with real evidential weight.}
+The tri-class extension itself was formalised on 2026-06-22 after the substrate's prior binary $\{P, NP\}$ rule was found to be over-restrictive for NP-intermediate problems such as Graph Isomorphism (Babai 2016 quasi-polynomial; Sch\"oning 1988 GI $\in$ low hierarchy of NP; Goldwasser--Sipser 1986 GI $\in$ coNP); the substrate's tri-class strengthening matches the complexity-theoretic literature consensus that NP-intermediate problems are nearer to P than to NP-complete, and the substrate-natural collapse to the P-end value $\alpha_3 = \sqrt{2}$ is then forced. The prediction is formalised in the Lean file \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only). The substrate commits the prediction to public record at this paper's deposition; any subsequent measurement of $\alpha_{\textsf{GI}}$ that does not fall within $[\sqrt{2} - 10^{-4},\,\sqrt{2} + 10^{-4}]$ refutes the substrate's tri-class extension. \emph{This is the empirical claim with the trials denominator fixed in advance, and therefore the empirical claim with real evidential weight.} Figure~\ref{fig:timeline} displays the pre-registration timeline.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  >={Stealth[length=2.2mm,width=2.2mm]},
+  evt/.style={circle,draw=substrateorange,fill=substrateorange,line width=0.4pt,minimum size=2.4mm,inner sep=0pt},
+  futevt/.style={circle,draw=substrategray,fill=white,line width=0.6pt,minimum size=2.4mm,inner sep=0pt},
+  above lab/.style={font=\scriptsize,align=center,inner sep=1.5pt,text width=2.4cm},
+  below lab/.style={font=\scriptsize,align=center,inner sep=1.5pt,text width=2.4cm},
+  date lab/.style={font=\scriptsize,align=center,inner sep=1pt},
+  axisline/.style={line width=0.7pt,substrategray},
+  prereg/.style={line width=0.7pt,substrateorange},
+  fut/.style={line width=0.7pt,substrategray,dashed}
+]
+% Time axis (wider)
+\draw[axisline] (-7.4,0) -- (7.4,0);
+\draw[->,axisline] (7.4,0) -- (7.9,0);
+
+% PRE-REGISTRATION window (orange, solid)
+\draw[prereg,line width=3pt,opacity=0.18] (-7.0,-0.45) rectangle (1.4,0.45);
+\node[font=\scriptsize\bfseries,substrateorange,align=center] at (-2.8,2.55) {Pre-registration window};
+\node[font=\scriptsize,substrateorange,align=center] at (-2.8,-2.55) {trials denominator fixed in advance};
+
+% MEASUREMENT window (gray, dashed)
+\draw[fut,line width=3pt,opacity=0.10] (1.4,-0.45) rectangle (7.4,0.45);
+\node[font=\scriptsize\bfseries,substrategray,align=center] at (4.4,2.55) {Forward-runnable measurement};
+\node[font=\scriptsize,substrategray,align=center] at (4.4,-2.55) {no expression-search room remains};
+
+% Event 1: substrate algebra codified (LABEL ABOVE)
+\node[evt] (e1) at (-6.0,0) {};
+\node[above lab,above=4mm of e1] (e1lab) {substrate algebra codified \\ \scriptsize\itshape book Ch.\,9, 20, 21};
+\node[date lab,below=2mm of e1] {pre-2026};
+
+% Event 2: binary-class GI prediction in Lean (LABEL BELOW)
+\node[evt] (e2) at (-3.6,0) {};
+\node[date lab,above=2mm of e2] {2026-06-03};
+\node[below lab,below=4mm of e2] (e2lab) {first GI prediction \\ \scriptsize\itshape Hundred44\\Prediction.lean};
+
+% Event 3: tri-class extension (LABEL ABOVE)
+\node[evt] (e3) at (-1.2,0) {};
+\node[above lab,above=4mm of e3] (e3lab) {tri-class extension forces \\ $\alpha_{\textsf{GI}} = \sqrt{2}$};
+\node[date lab,below=2mm of e3] {2026-06-22};
+
+% Event 4: protocol formalised + paper deposition (LABEL BELOW, bolded, on the boundary)
+\node[evt,fill=substrateorange,minimum size=3.5mm,line width=0.7pt] (e4) at (1.4,0) {};
+\node[date lab,above=2mm of e4] {\bfseries 2026-06-24 (today)};
+\node[below lab,below=4mm of e4] (e4lab) {\bfseries protocol formalised \\ \bfseries paper deposited \\ \scriptsize\itshape GIForwardPrediction\\Protocol\_2026\_06\_24.lean};
+
+% Future event: IBM Quantum measurement (LABEL ABOVE)
+\node[futevt] (e5) at (5.4,0) {};
+\node[above lab,above=4mm of e5] (e5lab) {IBM Quantum measurement \\ \scriptsize\itshape shots $\geq 8192$, $n \geq 100$};
+\node[date lab,below=2mm of e5] {future};
+
+% Below: the substrate's commitment
+\node[draw=substrateorange,line width=0.6pt,fill=substratelight,rounded corners=2pt,inner sep=4pt,
+      align=center,font=\small] at (0,-3.7)
+{\textbf{Substrate's commitment} (frozen at deposition 2026-06-24): \\
+ $\alpha_{\textsf{GI}} \in [\,\sqrt{2} - 10^{-4},\;\sqrt{2} + 10^{-4}\,]$ \\
+ \scriptsize\emph{Any measurement outside this band refutes the substrate's tri-class extension.}};
+
+\end{tikzpicture}
+\caption{Pre-registration timeline for the substrate's forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$. The orange-shaded window contains the four substrate-side events that fix the prediction --- substrate algebra codified pre-2026; first GI prediction landed 2026-06-03 in \texttt{PF/Empirical/Hundred44ProblemPrediction.lean}; tri-class extension forcing $\alpha_{\textsf{GI}} = \sqrt{2}$ landed 2026-06-22 in \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean}; full measurement protocol (shots, repetitions, instance size, $\epsilon$) formalised 2026-06-24 in \texttt{PF/Empirical/GIForwardPredictionProtocol\_2026\_06\_24.lean}, this paper deposited the same day. The grey-shaded window contains the not-yet-run IBM Quantum measurement. Pre-registration is the boundary at 2026-06-24: trials denominator fixed in advance; no expression-search room remains; the substrate's commitment is a public record.}
+\label{fig:timeline}
+\end{figure}
 
 \paragraph{Falsifier panel.} The substrate registers an eight-falsifier panel, typed in the Lean file \texttt{PF/Referee/FrameworkRealClaim\_2026\_06\_17.lean} as eight specific empirical or structural observations that would refute the framework: the substrate's $\alpha_2$ operator content (F1), the saturation threshold $c_2$ (F2), the cosmological-constant ratio (F3), the Hubble parameter bracket (F4), the 144th-problem GI $\alpha$-pin (F5 --- the boxed prediction above), the dark-energy density bracket (F6), the $H^2 = 78$ dimension (F7), and the substrate's micro--macro scale-bridge identity (F8). Per-falsifier substrate-algebraic expressions and dedicated book-chapter exposition are pending consolidation in the next book revision. As of this writing, zero of the eight falsifiers are triggered.
 
