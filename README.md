@@ -26,7 +26,8 @@ in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports t
 | Path | Content |
 |---|---|
 | `Principia_Fractalis_master_folder/` | The book *Principia Fractalis* (LaTeX source + `main.pdf`, V2.6.1, 915 pages) |
-| `Papers/principia_fractalis_millennium_problems_2026-06-23.{tex,pdf}` | The Millennium Problems exhibition paper |
+| `Papers/principia_fractalis_clean_2026-06-23.{tex,pdf}` | The substrate's clean exposition paper (8 pp, any-scientist-readable) |
+| `Papers/principia_fractalis_millennium_problems_2026-06-23.{tex,pdf}` | The substrate's longer hostile-referee-defended exhibition paper (65 pp) |
 | `Papers/Data/principia_fractalis_143_problems_IBM_dataset.csv` | The 143-problem panel data |
 | `Papers/PriorWork_*/` | Seven Pabs-authored prior-work manuscripts (substrate-tier named anchors) |
 | `PF_Lean4_Code/` | Lean 4 verification (1,003 files, 329,599 lines; mathlib4 v4.24.0-rc1) |

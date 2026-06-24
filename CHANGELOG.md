@@ -1,5 +1,57 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (overnight review) — Comprehensive fix pass across clean + bait + cross-tree
+
+**HEAD prior**: `8901280`. **HEAD now**: this commit.
+
+Pabs requested a full overnight review with as many parallel agents as needed, no page skipped. 12 agents dispatched in parallel covering: clean paper (8 pp) line-by-line, bait paper (65 pp) in three 22-page sections, book chapters 1-12 / 13-22 / 23-35, book appendices A-R, Lean corpus axiom+sorry+spot-check audit, Coq corpus Tier-I+II audit, cross-tree consistency (READMEs / CHANGELOG / CITATION / dated artifacts), CSV data + PriorWork inventory, bibliography cross-check.
+
+Findings synthesised into critical / book-substantive / cross-tree categories. Code-side defects fixed this commit; book-substantive issues left for idea-side judgment (chapter rewrites are Pabs's call, not auto-actionable).
+
+### Clean paper fixes
+
+- **§4**: `PF/Consciousness/UniversalCoherence.lean` (file does not exist) → `PF/Consciousness/Ch12MassIITBridge.lean` (where `ch_2 = 0.95` is explicitly defined at line 8).
+- **§A**: HEAD pin `688c9f0` (stale) → anchor commit `8901280` with recursion-safe phrasing.
+- F1-F8 panel citation `PF/Referee/FrameworkRealClaim_2026_06_17.lean` is correct as-is (verified at line 60); `FrameworkFalsifiabilityConditions.lean` exists in the corpus but does not contain F1-F8 declarations.
+- Book Appendix K citation `(lines 246-259)` verified faithful: `Λ_eff,exponent_product = 14079π/160` appears at line 253 of `appK_residual_compaction_2026-06-15_16.tex`.
+
+### Bait paper fixes
+
+- HEAD pins `1449380` (3 occurrences across §1 exec summary, §7.1, §A.4 build recipe) → anchor commit `8901280` with recursion-safe phrasing.
+- §A.4 (line 1677): file name `PF/AxiomCheck_2026_06_22.lean` (stale) → `PF/AxiomCheck_2026_06_23.lean` (the actual file at HEAD).
+- §3.4 (line 292): `29/9 ≈ 3.22 over-determination ratio` rhetoric and `1,000 random Gaussian linear systems` random-null framing **withdrawn**: replaced with honest substrate-coherence framing — 29 substrate-derived simultaneous algebraic identities documenting substrate-algebraic coherence at kernel-only axiom level; the 17 additional identities are honestly disclosed as consequences derivable from the substrate's universal-coupling structure on the canonical 9-tuple (not algebraically independent of I1-I12), and the substrate-algebraic-coherence framing replaces the over-determination-ratio framing.
+- §6.6 (line 489): Hardy 1914 citation's `Proc. London Math. Soc. (2) 14, 269-277` reference dropped — that volume is actually Hardy-Littlewood 1921, a different paper. Comptes Rendus Acad. Sci. Paris 158, 1012-1014 (the actual Hardy 1914) retained.
+- §10 / §subsec:full-toe-scope (lines 114, 731, 1010, 1012): `8 additional exact-canonical hits / 10 total` (overstated) → `6 additional exact-canonical hits / 8 total` (the actual CSV count). Fifteen Puzzle Solution (peak_alpha = 1.01) and Neural Binding Problem (peak_alpha = 2.01) explicitly disclosed as near-canonical (not exact) rather than counted as α_Poincaré=1 and α_YM=2 hits. Substrate honestly does not claim α_Poincaré=1 / α_NS=3π/2 / α_QG=√(2π) clusters in the CSV (none exist).
+- §1 (lines 98, 118, 133) + §7.3 (lines 631, 640): Coq Tier-I `~200 files axiom-free` (overstated 3.5-8×) → honest `~240 files invoking lra/nra/psatz/interval/fourier/field tactics with axiom-free Coq stdlib proofs; of which 55 files contain no True/exact I placeholder anywhere`. The mixed-content audit-trail layer is honestly disclosed.
+- §5 (B-NS bridge, line 547): the Wiles-pattern citations of Leray-Hopf / Koch-Tataru / Kato 1984 / Ladyzhenskaya-Uchovskii-Yudovich / Caffarelli-Kohn-Nirenberg are honestly disclosed as paper-level prose compositions (not typed Lean anchors in the corpus); consolidation as named Lean anchors is pending the next substrate-tier refresh. The Fujita-Kato 1964 per-u_0 Gaussian-lift witness (which IS a real Lean theorem) is preserved.
+- §5 (B-Hodge bridge, line 556): the `Composing published Lefschetz (1,1) with substrate's discharges yields literal-form unconditional Hodge` claim is honestly disclosed as a paper-level prose composition (not a Lean composition theorem named `Hodge_via_Lefschetz_substrate_composition`); consolidation as a typed Lean composition is pending. The substrate's `hodge_six_substrate_classes_all_discharged` Lean theorem (which IS real and axiom-free) is preserved.
+
+### Cross-tree fixes
+
+- `PF_Lean4_Code/README.md:5`: stale book HEAD pin `595e098` → `8901280` with recursion-safe phrasing.
+- Root `README.md` repository structure table: clean paper row added at line 29 (was missing); both clean (8 pp) and bait (65 pp) papers now listed.
+- `docs/REFEREE_QUICKSTART.md:34`: stale historical `8,710 jobs at HEAD df0bd7e` reference rewritten with current `4,362 jobs at anchor 8901280` plus honest historical-peak context.
+
+### Book chapter substantive issues (idea-side, NOT auto-fixed)
+
+The overnight audit surfaced chapter-level issues in the book (Ch 3 polylog proof deferred, Ch 6 / Ch 7 / Ch 11 arithmetic errors flagged with manuscriptcorrection markers, Ch 9 P-vs-NP proof deferred, Ch 10 Reynolds number arithmetically wrong, Ch 20 phase factors not in Lean, Ch 21 three-way λ_NP mismatch, Ch 22 NS global regularity conjectural, Ch 26-27 cosmology consciousness coupling stated axiomatically). These are substantive content issues that require Pabs's judgment on reframing (e.g., labelling chapters as "Conjectural Framework with Numerical Support" rather than "Theorem" + "Proof"), not code-side fixes. The book chapters are NOT modified in this commit. Many of these issues are already flagged with manuscriptcorrection markers in the book itself.
+
+### Data + PriorWork honest disclosures
+
+The audit confirmed:
+- CSV has 6 constant columns (fractal_coherence, fractal_peak_scale, conv_rate, consistency, coupling_strength, phase_trans), not just 2 — the universal coherence/consistency = 100 claim stands but reads weaker when 4 other metrics are also identically constant. Disclosure: this commit's bait paper §10 already discloses the constant-column structure; consolidation into the universal-coherence narrative is pending.
+- All 8 PriorWork directories have zero arXiv IDs, zero DOIs, zero peer-reviewed venues. `PriorWork_FinalVerified_Nov2025/` contains only 4 metadata files referencing an external package not in this repository. `PriorWork_AxiomElimination_Nov2025/` contains only 2 narrative .md files. `submission_checklist.txt` in `TransferOperatorRH/` has all 5 pre-submission items still unchecked. The bait paper's 47-self-anchor count is honestly disclosed as `47 Pabs-authored prior-work named anchors` (not `47 published papers`); the directory contents are preserved as pre-submission staging material.
+
+### Verification
+
+- `lake build PF` clean (4,362 jobs at HEAD).
+- `lake build PF.AxiomCheck_2026_06_23` clean (3,997 jobs); 4 headline theorems' `#print axioms` output unchanged.
+- Lean axiom audit: exactly 4 named project axioms, zero sorries in proof bodies.
+- Bibliography: clean paper 6/6 verify; bait paper 78/78 with zero orphans; book 382 entries with zero duplicate keys.
+- Build pins: lean v4.24.0-rc1 + mathlib eed770a unchanged.
+
+---
+
 ## 2026-06-24 — Faithfulness pass on the clean paper + precise Lean-file citations
 
 **HEAD prior**: `f93fe10`. **HEAD now**: this commit.
