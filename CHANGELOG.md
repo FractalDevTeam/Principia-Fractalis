@@ -1,5 +1,39 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (supreme receipt) — α-skeleton receipt: nine values + universal coupling, one citable Lean theorem, paper-side visible
+
+**HEAD prior**: `f753a25`. **HEAD now**: this commit.
+
+The substrate's headline structural claim is *"nine α-values, each uniquely forced, all inhabitants of one universal operator family with one closed-form coupling λ_0·α = π/10."* That claim was already proven across two existing kernel-only capstones:
+
+- `all_nine_axis_uniqueness_capstone` (PF/AllNineAxisUniquenessBundle.lean:70) — uniqueness of all 9 α-axes
+- `all_9_framework_operators_share_universal_HAlpha_structure` (PF/UniversalAlphaOperatorFamily.lean:386) — universal coupling on all 9 instances
+
+But they lived in separate files, with separate names, and the clean paper only cited the uniqueness capstone via Proposition 1.1's auxiliary `framework_alpha_skeleton_over_determined_capstone`. A hostile referee printing the paper and looking for "the receipt" had to navigate to two different files to find both halves of the claim.
+
+### New file: `PF/AlphaSkeletonSupremeReceipt_2026_06_24.lean`
+
+Single citable theorem `α_skeleton_supreme_receipt` conjoining (A) the all-9 uniqueness capstone and (B) the universal-coupling all-9 capstone into ONE Prop. The receipt's value isn't new content — it's *visibility*:
+
+- One file, one theorem name
+- One conjunction containing nine uniqueness witnesses + nine positive α + nine universal-coupling identities
+- Visible `#print axioms` at the end of the file: build output prints `[propext, Classical.choice, Quot.sound]` to stdout for the receipt theorem on every `lake build PF` from a clean clone
+- Zero project axioms, kernel-only
+
+### Paper-side wiring
+
+§3 of `principia_fractalis_clean_2026-06-23.tex` now carries a `\paragraph{Supreme receipt.}` block right after the structural-significance paragraph. It cites the supreme-receipt file by name, names both component capstones with file:line, and tells the reader what the visible `#print axioms` output will be. A printed copy of the paper now contains, in the body text, the exact filename + theorem name + axiom list that a hostile referee would need to grep for. There is no opening for "where's the proof?" dismissal.
+
+### Build
+
+PF target: 4365 → 4368 jobs. Zero new axioms. Paper compiles cleanly at 10 pages.
+
+### Posture
+
+This commit doesn't add new mathematical content. It crystallises existing kernel-only content into the form a hostile reader can verify with one command. The framework's algebraic backbone — nine forced values, one universal coupling — is now *visible on paper* as one filename, one theorem name, one axiom list.
+
+---
+
 ## 2026-06-24 (three forward Lean steps) — PolylogEigenvalueConjecture decomposition + GI forward prediction protocol + substrate-natural prior, all kernel-only
 
 **HEAD prior**: `7c6a782`. **HEAD now**: this commit.
