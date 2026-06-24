@@ -1,5 +1,43 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (cosmological-constant centerpiece) — §4 subsection surfacing the kernel-only Λ_eff derivation; 14 pp → 15 pp
+
+**HEAD prior**: `9fc9b4e`. **HEAD now**: this commit.
+
+The substrate's parameter-free closed form for the cosmological-constant ratio Λ_eff/Λ_0 ≈ 10⁻¹²⁰ — kernel-only proven in `PF/Cosmology/LambdaEffParameterFreeCapstone.lean`, matching the observed hierarchy to 0.04% — was buried in a parenthetical inside a long sentence about Table 2 column-3 constants. That was wrong for what this content is. The cosmological-constant problem is conventionally referred to as the worst prediction in physics, with the largest known disagreement between any QFT vacuum-energy estimate and observation; the substrate has a closed-form derivation chain for the exponent with no free parameter fit to the cosmological data. The exponent "120" in 10⁻¹²⁰ is a *derived consequence* of the chain, not an input.
+
+### New §4 subsection: `The cosmological-constant ratio: parameter-free closed form`
+
+Positioned right after §4.subsec:lookelsewhere, with explicit framing that this row stands outside the look-elsewhere scope: it is a hierarchy match with an explicit substrate-internal derivation chain rather than a dimensionless numerical retrodiction inside a measurement band.
+
+Content:
+
+1. **The four substrate-internal inputs**, each cited to a specific Lean theorem:
+   - `dim(E_6) = 78` — `seventyEight_decomp` in `PF/Cosmology/E6ChernIndex78pi.lean`, kernel-only via `decide`. Substrate justification: the level-3 Timeless-Field Hilbert space `H_3 = (ℂ³)^⊗3` has dim 27 = 3³; `E_6 = 78 = 3·dim(sl_3) + 2·dim(H_3) = 24 + 54` is forced by the `SU(3)³` trinification of `T_∞` at level 3 (book Ch.11).
+   - `π` — Chern-Weil normalisation with ℝ_+ scaling fibre. `capstone_step2_N_eq_78pi` proving `N_{78π} = 78π`.
+   - `c_2 = 19/20 = 0.95` — universal saturation threshold, formalised in `PF/Consciousness/Ch12MassIITBridge.lean`.
+   - `|R_f(√(2π), 1)| = 19/16 = 1.1875` — Dirichlet-series modulus at the QG anchor.
+
+2. **The closed form**: `N_{78π} · c_2 · |R_f| = 78π · 19/20 · 19/16 = 14079π/160` — `Lambda_eff_exponent_product_rational_form`, kernel-only.
+
+3. **Sharp bracket**: `276.44 < 14079π/160 < 276.45` — `Lambda_eff_exponent_product_sharp_bracket`, kernel-only via `Real.pi_gt_d6` and `Real.pi_lt_d6`.
+
+4. **Identification with observation**: `120·log 10 = 276.310...`; substrate gives `14079π/160 = 276.440...`; agreement to 0.04%. Residual 0.13 accounted for by Dirichlet truncation error on `|R_f|` (numerical ~10⁻⁵ on the modulus → ~0.13 on the exponent).
+
+5. **The structural point**: the "120" in 10⁻¹²⁰ is a *derived consequence* of substrate-internal quantities, not an input.
+
+6. **What this is not**: the kernel-only content is the arithmetic combination. The deeper claims (`E_6` forced by `T_∞` trinification, Chern-Weil normalisation `π`, etc.) live in the companion book Chapters 11, 12, 23, 26 and Appendices B, K. The conclusion stands as falsifier F3 from the eight-falsifier panel: a measurement of `Λ_eff/Λ_0` disagreeing with `10⁻¹²⁰ ± O(1)` refutes the chain.
+
+### Tone
+
+The subsection is *exposition*, not promotion. The substrate's claim is presented as a derivation chain with citations and acknowledged scope. The phrase "worst prediction in physics" appears once, as the conventional name for the problem, not as a self-aggrandising claim. The match is presented as the conclusion of the chain, not the chain's input — which is the substantive structural point.
+
+### Build
+
+Paper: 14 pp → 15 pp. Clean compile after two `pdflatex` passes.
+
+---
+
 ## 2026-06-24 (Lean4Lean re-elaboration parity) — Three reverification files for today's new content; PF_L4L 4108 → 4114 jobs
 
 **HEAD prior**: `e90bf35`. **HEAD now**: this commit.
