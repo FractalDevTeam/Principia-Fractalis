@@ -8,7 +8,7 @@ This directory contains the current Millennium Problems paper, the substrate's e
 
 | File | Description |
 |---|---|
-| `principia_fractalis_clean_2026-06-24.{tex,pdf}` | **Principia Fractalis: An Algebraic Substrate.** 10 pages. The substrate's exposition paper: twelve substrate-derived algebraic identities forcing a unique nine-tuple over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with multi-domain corroboration across pure math, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; kernel-only machine-verified in Lean 4. |
+| `principia_fractalis_clean_2026-06-24.{tex,pdf}` | **Principia Fractalis: An Algebraic Substrate.** 14 pages, 7 explanatory figures. The substrate's exposition paper: twelve substrate-derived algebraic identities forcing a unique nine-tuple over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with multi-domain corroboration across pure math, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; kernel-only machine-verified in Lean 4. Includes the chronologically-pre-registered forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ for the IBM-Quantum spectral peak of the Graph Isomorphism class. |
 
 ## Data
 
