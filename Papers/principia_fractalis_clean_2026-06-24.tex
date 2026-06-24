@@ -88,7 +88,79 @@ The substrate is a nuclear $C^{*}$-algebraic projective limit $\mathcal{T}_\inft
 \[
 \mathcal{B} \;=\; \{1,\;\pi,\;\varphi,\;\sqrt{2}\} \qquad (\varphi := (1+\sqrt{5})/2).
 \]
-The basis $\mathcal{B}$ is anchored by the substrate's icosahedral $H_3$-Coxeter symmetry: the Coxeter number $h(H_3) = 10$ is precisely the denominator of the substrate's universal coupling $\pi/10$; the golden ratio $\varphi$ appears in the standard $H_3$ root coordinates $(0, \pm 1, \pm \varphi)$; and $\pi$ and $\sqrt{2}$ enter through the substrate's modified-transfer-operator construction on $L^2([0,1], dx/x)$. The transfer-operator construction is defined in Chapter~20 of the companion book; the Lean formalisation lives in \texttt{PF/TransferOperator.lean} where $T_3^{\textsf{sym}}$ self-adjointness on $L^2([0,1], dx/x)$ is kernel-only proven. The substrate's basis $\mathcal{B}$ is geometric; the substrate's content is what nine values emerge when twelve cross-class invariants are imposed simultaneously.
+The basis $\mathcal{B}$ is anchored by the substrate's icosahedral $H_3$-Coxeter symmetry: the Coxeter number $h(H_3) = 10$ is precisely the denominator of the substrate's universal coupling $\pi/10$; the golden ratio $\varphi$ appears in the standard $H_3$ root coordinates $(0, \pm 1, \pm \varphi)$; and $\pi$ and $\sqrt{2}$ enter through the substrate's modified-transfer-operator construction on $L^2([0,1], dx/x)$. The transfer-operator construction is defined in Chapter~20 of the companion book; the Lean formalisation lives in \texttt{PF/TransferOperator.lean} where $T_3^{\textsf{sym}}$ self-adjointness on $L^2([0,1], dx/x)$ is kernel-only proven. The substrate's basis $\mathcal{B}$ is geometric; the substrate's content is what nine values emerge when twelve cross-class invariants are imposed simultaneously. Figure~\ref{fig:h3anchor} fixes the geometric anchor.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.0]
+% LEFT: stylized icosahedron (5-fold projection)
+% Looking down 5-fold axis: pentagon (radius R1) + smaller pentagon rotated 36 deg (radius R2)
+% + central apex point. Stylized.
+\begin{scope}[shift={(-4.4,0)}]
+\node[font=\small\bfseries,align=center] at (0,1.95) {Icosahedron};
+% Outer pentagon (5 upper vertices)
+\foreach \i in {0,1,2,3,4} {
+  \coordinate (U\i) at ({90 + 72*\i}:1.25);
+}
+% Inner pentagon (5 lower vertices, rotated 36 deg)
+\foreach \i in {0,1,2,3,4} {
+  \coordinate (L\i) at ({90 + 36 + 72*\i}:0.62);
+}
+\coordinate (C) at (0,0);
+% Draw upper pentagon
+\draw[substrateorange,line width=0.6pt] (U0) -- (U1) -- (U2) -- (U3) -- (U4) -- cycle;
+% Connect apex (center) to each upper vertex
+\foreach \i in {0,1,2,3,4} {
+  \draw[substrateorange,line width=0.45pt] (C) -- (U\i);
+}
+% Inner pentagon
+\draw[substrategray,line width=0.45pt,dashed] (L0) -- (L1) -- (L2) -- (L3) -- (L4) -- cycle;
+% Connections between upper and lower pentagons
+\foreach \i/\j in {0/0, 0/4, 1/0, 1/1, 2/1, 2/2, 3/2, 3/3, 4/3, 4/4} {
+  \draw[substrategray,line width=0.4pt] (U\i) -- (L\j);
+}
+% Apex vertex marker
+\fill[substrateorange] (C) circle (1.4pt);
+% Upper vertex markers
+\foreach \i in {0,1,2,3,4} {
+  \fill[substrateorange] (U\i) circle (1.4pt);
+}
+% Lower vertex markers
+\foreach \i in {0,1,2,3,4} {
+  \fill[substrategray] (L\i) circle (1.2pt);
+}
+\node[font=\scriptsize,align=center] at (0,-1.85) {12 vertices, 30 edges,\\20 triangular faces};
+\end{scope}
+
+% MIDDLE: vertex coordinates
+\begin{scope}[shift={(0,0)}]
+\node[font=\small\bfseries,align=center] at (0,1.95) {Vertex coordinates};
+\node[font=\scriptsize,align=left] at (0,0.65) {
+$(0, \pm 1, \pm \varphi)$\\[3pt]
+$(\pm 1, \pm \varphi, 0)$\\[3pt]
+$(\pm \varphi, 0, \pm 1)$
+};
+\node[font=\scriptsize,align=center,substrateorange] at (0,-0.85) {$\varphi = \tfrac{1+\sqrt{5}}{2}$};
+\node[font=\scriptsize,align=center] at (0,-1.85) {Golden ratio enters\\the substrate's basis $\mathcal{B}$.};
+\end{scope}
+
+% RIGHT: Coxeter diagram + anchor
+\begin{scope}[shift={(4.4,0)}]
+\node[font=\small\bfseries,align=center] at (0,1.95) {$H_3$ Coxeter diagram};
+% Three nodes
+\node[circle,draw=substrateorange,fill=substratelight,line width=0.5pt,minimum size=4mm,inner sep=0pt] (c1) at (-1.0,0.5) {};
+\node[circle,draw=substrateorange,fill=substratelight,line width=0.5pt,minimum size=4mm,inner sep=0pt] (c2) at (0,0.5) {};
+\node[circle,draw=substrateorange,fill=substratelight,line width=0.5pt,minimum size=4mm,inner sep=0pt] (c3) at (1.0,0.5) {};
+\draw[substrategray,line width=0.5pt] (c1) -- node[font=\scriptsize,fill=white,inner sep=1pt] {5} (c2);
+\draw[substrategray,line width=0.5pt] (c2) -- node[font=\scriptsize,fill=white,inner sep=1pt] {3} (c3);
+\node[font=\scriptsize,align=center] at (0,-0.45) {Coxeter number\\$h(H_3) = 10$};
+\node[font=\small,align=center,substrateorange] at (0,-1.5) {$\dfrac{\pi}{10} \;=\; \dfrac{\pi}{h(H_3)}$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{Geometric anchor for the substrate's basis $\{1,\pi,\varphi,\sqrt{2}\}$ and universal coupling $\pi/10$. Left: stylised icosahedron, the geometric object whose isometry group is the $H_3$ Coxeter group; vertices shown in a five-fold-axis projection (orange dots at the apex and on the upper pentagon, grey dots on the lower pentagon). Middle: the standard $H_3$ root coordinates of the 12 icosahedron vertices in which the golden ratio $\varphi$ appears directly. Right: the $H_3$ Coxeter diagram (three nodes, edges labelled by the orders 5 and 3) and the resulting Coxeter number $h(H_3) = 10$; the substrate's universal coupling $\pi/10$ equals $\pi$ divided by this Coxeter number. The remaining basis elements $\sqrt{2}$ and $\pi$ enter through the substrate's modified-transfer-operator construction on $L^2([0,1], dx/x)$ (book Chapter~20).}
+\label{fig:h3anchor}
+\end{figure}
 
 \section{The twelve invariants and the uniqueness theorem}\label{sec:invariants}
 
@@ -427,13 +499,42 @@ elan install $(cat lean-toolchain)
 lake build
 lake build PF.AxiomCheck_2026_06_23
 \end{verbatim}
-The full corpus builds in approximately ten minutes ($4{,}362$ kernel-elaboration jobs). The dedicated \texttt{PF.AxiomCheck} module prints the axiom dependencies of the four headline theorems:
+The full corpus builds in approximately ten minutes ($4{,}368$ kernel-elaboration jobs at HEAD). The dedicated \texttt{PF.AxiomCheck} module prints the axiom dependencies of the four headline theorems:
 \begin{itemize}[itemsep=2pt]
 \item \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally} --- kernel-only.
 \item \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} --- kernel plus Hardy~1914 (Wiles-pattern citation of a published-and-proven external theorem) plus the named HP-program conjecture (C1).
 \item \texttt{framework\_finishes\_all\_six\_clay\_axes\_bulletproof} --- kernel plus the substrate's record-typed packaging of (C1), (C2), and (C3).
 \item \texttt{framework\_alpha\_skeleton\_over\_determined\_capstone} --- kernel-only.
 \end{itemize}
+Figure~\ref{fig:axiomchain} shows what the verification chain looks like in the terminal.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  >={Stealth[length=2mm,width=2mm]},
+  thmbox/.style={draw=substrateorange,line width=0.6pt,fill=substratelight,rounded corners=2pt,inner sep=3pt,font=\scriptsize\ttfamily,align=center,text width=4.4cm,minimum height=8mm},
+  buildbox/.style={draw=leanblue,line width=0.6pt,fill=white,rounded corners=2pt,inner sep=3pt,font=\scriptsize,align=center,text width=5.6cm,minimum height=9mm},
+  axbox/.style={draw=leanblue,line width=0.8pt,fill=substratelight,rounded corners=3pt,inner sep=5pt,font=\scriptsize\ttfamily,align=center,text width=8.5cm,minimum height=11mm},
+  ar/.style={->,>=Stealth,line width=0.5pt,substrategray}
+]
+% TOP: three load-bearing capstones
+\node[thmbox] (t1) at (-5.2,3.0) {$\alpha$\_skeleton\_supreme\_receipt\\\scriptsize\rmfamily(PF/AlphaSkeleton...lean)};
+\node[thmbox] (t2) at (0,3.0) {all\_nine\_axis\_uniqueness\_capstone\\\scriptsize\rmfamily(PF/AllNineAxis...lean:70)};
+\node[thmbox] (t3) at (5.2,3.0) {all\_9\_framework\_operators\_\\share\_universal\_HAlpha\_structure\\\scriptsize\rmfamily(PF/UniversalAlpha...lean:386)};
+
+% MIDDLE: build invocation
+\node[buildbox] (build) at (0,0.9) {\textbf{\$ lake build PF}\\[1pt] \emph{4{,}368 kernel-elaboration jobs replay clean}};
+\draw[ar] (t1) -- (build);
+\draw[ar] (t2) -- (build);
+\draw[ar] (t3) -- (build);
+
+% BOTTOM: axiom output
+\node[axbox] (ax) at (0,-1.4) {\textbf{\#print axioms} output for each:\\[2pt] [propext, Classical.choice, Quot.sound]\\[1pt] \scriptsize\rmfamily\emph{Zero project axioms. Kernel-only.}};
+\draw[ar] (build) -- (ax);
+\end{tikzpicture}
+\caption{Verification chain for the substrate's three load-bearing $\alpha$-skeleton capstones. Top: the three citable kernel-only theorems --- the supreme receipt and its two component capstones. Middle: the build invocation; on a clean clone, \texttt{lake build PF} replays 4{,}368 kernel-elaboration jobs without warnings. Bottom: the literal output of \texttt{\#print axioms} for each of the three theorems --- the three Lean kernel axioms \texttt{[propext, Classical.choice, Quot.sound]} and no project axioms. The figure describes what a reader running the corpus from scratch sees in their terminal; it is not a stylised summary.}
+\label{fig:axiomchain}
+\end{figure}
 
 The substrate is what the substrate says it is. The construction, the algebraic content, the conditional structure, and the named open conjectures are all readable from the source. The substrate is hereby placed in the hands of the reader.
 

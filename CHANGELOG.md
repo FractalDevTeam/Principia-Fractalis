@@ -1,5 +1,33 @@
 # Principia Fractalis — Changelog
 
+## 2026-06-24 (more figures) — H_3 icosahedron + axiom-chain figures added; 12 pp → 13 pp
+
+**HEAD prior**: `291a4ac`. **HEAD now**: this commit.
+
+Two more explanatory figures: the H_3 geometric anchor (§2) and the kernel-axiom verification chain (§7).
+
+### Figures added
+
+- **Figure 1 (§2, geometric anchor)** — Three-panel TikZ:
+  - Left: stylised icosahedron in 5-fold-axis projection. Apex + upper pentagon (orange dots), lower pentagon (gray dots), with the lower-pentagon edges shown as the icosahedron's hidden edges (dashed).
+  - Middle: the 12 vertex coordinates `(0, ±1, ±φ), (±1, ±φ, 0), (±φ, 0, ±1)` showing how the golden ratio φ enters the substrate's basis directly.
+  - Right: the H_3 Coxeter diagram (three nodes, edges labelled 5 and 3) with the Coxeter number `h(H_3) = 10`, and the equation `π/10 = π/h(H_3)`. The universal coupling's factor 10 *is* the H_3 Coxeter number, made visible.
+
+- **Figure 6 (§7, axiom chain)** — Three-tier vertical TikZ:
+  - Top: the three citable load-bearing capstones (`α_skeleton_supreme_receipt`, `all_nine_axis_uniqueness_capstone`, `all_9_framework_operators_share_universal_HAlpha_structure`).
+  - Middle: the `lake build PF` invocation with the 4,368-jobs-clean replay claim.
+  - Bottom: the literal `#print axioms` output that the build reports for each of the three theorems: `[propext, Classical.choice, Quot.sound]` — zero project axioms. Caption notes the figure is a literal description of what a reader running the corpus sees in their terminal, not a stylised summary.
+
+### Small fix
+
+§7 stated the build had 4,362 jobs; that number was from an earlier HEAD. Updated to 4,368 (the current PF build after the three forward Lean files and the supreme-receipt file landed in this session's earlier commits).
+
+### Build
+
+Paper: 12 pp → 13 pp. Compiles clean after two `pdflatex` passes (cross-references resolve on second pass).
+
+---
+
 ## 2026-06-24 (figures) — four explanatory figures added to clean paper; 10 pp → 12 pp
 
 **HEAD prior**: `d3b9f2a`. **HEAD now**: this commit.
