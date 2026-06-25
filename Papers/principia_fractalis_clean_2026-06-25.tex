@@ -739,6 +739,40 @@ grep -rE "^axiom [a-zA-Z_][a-zA-Z0-9_]* :" PF_Lean4_Code/PF/
 \end{small}
 which returns exactly four matches.
 
+\section{Seventeen extended algebraic invariants on the substrate's $\alpha$-skeleton}\label{app:extended}
+
+The paper's \S\ref{sec:invariants} states that the substrate's nine-tuple satisfies seventeen further algebraic invariants beyond the twelve baseline identities (I1)--(I12), bundled as \texttt{framework\_alpha\_skeleton\_over\_determined\_capstone} in \texttt{PF/Referee/CrossMillenniumInvariants\_Extended\_2026\_06\_19.lean}. This appendix enumerates them. Combined with (I1)--(I12), the substrate's $\alpha$-skeleton satisfies twenty-nine simultaneous algebraic identities on nine real unknowns --- an over-determination ratio of $29/9 \approx 3.22$. Each clause below is a kernel-only theorem in \texttt{PF.CrossMillenniumMoreInvariants}; the bundle theorem in the file above re-exports them all as a single citable Prop.
+
+\noindent\textbf{Reciprocals \textup{(R1)--(R5)}}:
+\begin{align*}
+\textup{(R1)}\;\; 1/\alpha_P     &= \alpha_P / 2 = \sqrt{2}/2,&
+\textup{(R2)}\;\; 1/\alpha_{\textsf{RH}}    &= 2/3,\\
+\textup{(R3)}\;\; 1/\alpha_{\textsf{YM}}    &= 1/2,&
+\textup{(R4)}\;\; 1/\alpha_{\textsf{BSD}}   &= 4/(3\pi),\\
+\textup{(R5)}\;\; 1/\alpha_{\textsf{NS}}    &= 2/(3\pi).
+\end{align*}
+
+\noindent\textbf{Higher powers \textup{(P1)--(P6)}}:
+\begin{align*}
+\textup{(P1)}\;\; \alpha_P^{\,3}      &= 2\alpha_P,             & \textup{(P2)}\;\; \alpha_{\textsf{RH}}^{\,3}     &= 27/8,\\
+\textup{(P3)}\;\; \alpha_{\textsf{YM}}^{\,3}     &= 8,                    & \textup{(P4)}\;\; \alpha_{\textsf{Hodge}}^{\,3}  &= 2\alpha_{\textsf{Hodge}} + 1,\\
+\textup{(P5)}\;\; \alpha_{\textsf{Hodge}}^{\,4}  &= 3\alpha_{\textsf{Hodge}} + 2, & \textup{(P6)}\;\; \alpha_{\textsf{QG}}^{\,4}     &= 4\pi^2.
+\end{align*}
+
+\noindent\textbf{Mixed products \textup{(M1)--(M4)}}:
+\begin{align*}
+\textup{(M1)}\;\; \alpha_{\textsf{Hodge}}\cdot\alpha_{\textsf{NP}} &= (5/4)\,\alpha_{\textsf{Hodge}} + 1, & \textup{(M2)}\;\; \alpha_{\textsf{NP}}^{\,2}              &= (3/2)\,\alpha_{\textsf{Hodge}} + 17/16,\\
+\textup{(M3)}\;\; \alpha_{\textsf{RH}}\cdot\alpha_{\textsf{BSD}}    &= 9\pi/8,                              & \textup{(M4)}\;\; \alpha_{\textsf{YM}}\cdot\alpha_{\textsf{BSD}}  &= \alpha_{\textsf{NS}}.
+\end{align*}
+
+\noindent\textbf{Sums \textup{(S1)--(S2)}}:
+\begin{align*}
+\textup{(S1)}\;\; \alpha_{\textsf{NS}} + \alpha_{\textsf{BSD}}  &= 9\pi/4,&
+\textup{(S2)}\;\; 2\,\alpha_{\textsf{BSD}}     &= \alpha_{\textsf{NS}}.
+\end{align*}
+
+The substrate's $\alpha$-skeleton is not a free-parameter assignment; it is the (essentially unique) positive simultaneous solution of an over-determined linear-plus-low-degree-polynomial system on $\mathbb{R}^9$ comprising (I1)--(I12) plus (R1)--(S2). Any consistent variation in any single $\alpha$ value must survive all twenty-nine constraints simultaneously. \texttt{cross\_millennium\_invariants\_extended\_bundle} in \texttt{PF/Referee/CrossMillenniumInvariants\_Extended\_2026\_06\_19.lean} re-exports the entire (R1)--(S2) set as a single citable theorem.
+
 \section*{Acknowledgments}
 
 To Liz, who carried this household while the substrate was being formalised. To Dylan, who would not let me stop. To Lily, who I hope reads this one day. To the open-source Lean~4 community and the mathlib4 maintainers, whose work made this verification possible.
