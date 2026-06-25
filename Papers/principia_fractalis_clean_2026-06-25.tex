@@ -798,6 +798,37 @@ a_{k+1} = \tfrac{5}{4}\,a_k + b_k,\qquad b_{k+1} = a_k + \tfrac{1}{4}\,b_k.
 \]
 The $2\times 2$ transition matrix $M = \bigl(\begin{smallmatrix}5/4 & 1\\ 1 & 1/4\end{smallmatrix}\bigr)$ realises multiplication by $\alpha_{\textsf{NP}}$ on the rank-2 $\mathbb{Q}$-module $\mathbb{Q}\cdot\alpha_{\textsf{Hodge}}\oplus\mathbb{Q}\cdot 1$; its characteristic polynomial is therefore the minimal polynomial of $\alpha_{\textsf{NP}}$ over $\mathbb{Q}$: $\lambda^2 - \tfrac{3}{2}\lambda - \tfrac{11}{16} = 0$, equivalently $16\lambda^2 - 24\lambda - 11 = 0$ --- \emph{the substrate's NP polylog quadratic itself}. The eigenvalues are $\alpha_{\textsf{NP}}$ and its Galois conjugate $(3 - 2\sqrt{5})/4$. The substrate's NP algebraic signature is the same algebraic object viewed at the recurrence level: the minimal polynomial of $\alpha_{\textsf{NP}}$, the characteristic polynomial of the power-expansion transition, and the substrate-derived NP polylog quadratic are one identity. Three new kernel-only theorems in \texttt{PF/AlphaNPHigherPowers\_2026\_06\_25.lean}: \texttt{$\alpha$\_NP\_cubed} giving $\alpha_{\textsf{NP}}^{3} = (47/16)\,\alpha_{\textsf{Hodge}} + 113/64$; \texttt{$\alpha$\_NP\_fourth} giving $\alpha_{\textsf{NP}}^{4} = (87/16)\,\alpha_{\textsf{Hodge}} + 865/256$; \texttt{$\alpha$\_NP\_power\_recurrence} giving the general recurrence step.
 
+\section{Squared-spectrum, $\lambda_0(\textsf{NP})$ over $\mathbb{Q}(\sqrt{5})\cdot\pi$, and the substrate's P/NP spectral-gap closed form}\label{app:lambdasq}
+
+The substrate's universal coupling $\lambda_0(\alpha) = \pi/(10\alpha)$ on each class, composed with the algebraic forms of $\alpha$ from Table~\ref{tab:nine}, yields explicit closed forms for the squared spectrum, for $\lambda_0(\textsf{NP})$ over $\mathbb{Q}(\sqrt{5})\cdot\pi$, and for the P/NP spectral gap $\Delta = \lambda_0(\textsf{P}) - \lambda_0(\textsf{NP})$. The content of this appendix is all kernel-only in the Lean files \texttt{PF/Lambda0SquaredClosedForms\_2026\_06\_25.lean}, \texttt{PF/Lambda0CrossClassStructure\_2026\_06\_25.lean}, and \texttt{PF/SpectralGapClosedForm\_2026\_06\_25.lean}, all imported by \texttt{PF.lean} at HEAD.
+
+\paragraph{The substrate's squared spectrum partitions cleanly.} The closed-form values of $\lambda_0(\alpha)^2$ across the nine substrate classes fall into three structural strata over the substrate's basis $\mathcal{B}$:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Stratum & Class & Closed form \\
+\midrule
+$\mathbb{Q}$           & NS                                          & $1/225$ \\
+$\pi\cdot\mathbb{Q}$   & QG \emph{(unique)}                         & $\pi/200$ \\
+$\pi^2\cdot\mathbb{Q}$ & Poincar\'e, RH, P, YM                       & $\pi^2/100,\;\pi^2/225,\;\pi^2/200,\;\pi^2/400$ \\
+$\pi^2\cdot\mathbb{Q}(\sqrt{5})$ & Hodge                          & $\pi^2(3-\sqrt{5})/200$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textit{The quantum-gravity class is the only class whose squared eigenvalue scales as $\pi^1$, not $\pi^2$ or rational}, because $\alpha_{\textsf{QG}}^2 = 2\pi$ enters as a factor in the denominator of $\lambda_0(\textsf{QG})^2$. The corresponding kernel-only theorems are \texttt{lambda\_0\_Poincare\_sq}, \texttt{lambda\_0\_RH\_sq}, \texttt{lambda\_0\_P\_sq}, \texttt{lambda\_0\_YM\_sq}, \texttt{lambda\_0\_NS\_sq}, \texttt{lambda\_0\_QG\_sq}, \texttt{lambda\_0\_Hodge\_sq}; they are bundled as \texttt{lambda\_0\_squared\_spectrum\_capstone}. Two structural relations follow at the kernel: $\pi \cdot \lambda_0(\textsf{QG})^2 = \lambda_0(\textsf{P})^2$ (theorem \texttt{lambda\_0\_P\_sq\_eq\_pi\_times\_lambda\_0\_QG\_sq}) and $\lambda_0(\textsf{YM})^2 = \lambda_0(\textsf{Poincar\'e})^2/4$. The single $\pi$-scaled relation between P and QG collapses two of the substrate's three irrational classes into one $\pi$-multiplicative tie.
+
+\paragraph{$\lambda_0(\textsf{NP})$ over $\mathbb{Q}(\sqrt{5})\cdot\pi$.} Rationalising $\lambda_0(\textsf{NP}) = \pi/(10(\varphi+1/4))$ against the Galois conjugate of $3 + 2\sqrt{5}$:
+\[
+\lambda_0(\textsf{NP}) \;=\; \frac{\pi}{10\,(\varphi + 1/4)} \;=\; \frac{2\pi(2\sqrt{5} - 3)}{55}.
+\]
+Kernel-only as \texttt{lambda\_0\_NP\_closed\_form\_sqrt5}. The substrate's NP class lives explicitly in the field $\mathbb{Q}(\sqrt{5})\cdot\pi$ at the $\lambda_0$ level. Cross-class structural identities on the rational pair $(\textsf{NS}, \textsf{BSD})$: $\lambda_0(\textsf{NS})\cdot\lambda_0(\textsf{BSD}) = 2/225$ (no $\pi$), $\lambda_0(\textsf{NS}) + \lambda_0(\textsf{BSD}) = 1/5$ (no $\pi$). Mixed-stratum products: $\lambda_0(\textsf{RH})\cdot\lambda_0(\textsf{BSD}) = 2\pi/225$ (kernel-only as \texttt{lambda\_0\_RH\_mul\_lambda\_0\_BSD}); $\lambda_0(\textsf{YM})\cdot\lambda_0(\textsf{NS}) = \pi/300$. These cross-class products structurally land in $\mathbb{Q}\oplus\pi\mathbb{Q}\oplus\pi^2\mathbb{Q}\oplus\mathbb{Q}(\sqrt{5})\cdot\pi$ --- the substrate's $\lambda_0$ tensor structure over $\mathcal{B}$.
+
+\paragraph{The substrate's P/NP spectral-gap closed form.} The substrate's complexity-class separation $\alpha_{\textsf{P}} \neq \alpha_{\textsf{NP}}$ (\S\ref{sec:invariants}, strict total ordering) lifts to an explicit closed form for the ground-state spectral gap:
+\[
+\Delta \;:=\; \lambda_0(\textsf{P}) \;-\; \lambda_0(\textsf{NP}) \;=\; \frac{\pi}{10\sqrt{2}} \;-\; \frac{\pi}{10(\varphi + 1/4)} \;=\; \frac{\pi\,(24 + 11\sqrt{2} - 16\sqrt{5})}{220}.
+\]
+The substrate's spectral gap lives in $\mathbb{Q}(\sqrt{2},\sqrt{5})\cdot\pi$; the numerator $24 + 11\sqrt{2} - 16\sqrt{5}$ is an algebraic integer in $\mathbb{Z}[\sqrt{2}, \sqrt{5}]$. The closed form is the kernel-only theorem \texttt{spectral\_gap\_closed\_form}, and the positivity of the numerator (and hence of $\Delta$, given $\pi > 0$) is \texttt{spectral\_gap\_numerator\_positive}: the positivity reduces to $(24 + 11\sqrt{2})^2 > (16\sqrt{5})^2$, i.e.\ $818 + 528\sqrt{2} > 1280$, i.e.\ $\sqrt{2} > 7/8$, which is immediate from $\sqrt{2} > 1$. Bundle: \texttt{spectral\_gap\_closed\_form\_capstone}. The substrate's P vs.\ NP separation is therefore not only strict; it is an explicit element of $\mathbb{Q}(\sqrt{2}, \sqrt{5})\cdot\pi$ with a known closed form.
+
 \section*{Acknowledgments}
 
 To Liz, who carried this household while the substrate was being formalised. To Dylan, who would not let me stop. To Lily, who I hope reads this one day. To the open-source Lean~4 community and the mathlib4 maintainers, whose work made this verification possible.
