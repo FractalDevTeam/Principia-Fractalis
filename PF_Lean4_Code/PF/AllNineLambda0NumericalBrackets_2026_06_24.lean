@@ -34,6 +34,7 @@ ZERO project axioms. Kernel-only `[propext, Classical.choice, Quot.sound]`.
 -/
 
 import PF.FrameworkApplicationCapstone
+import PF.QuantumGravity
 
 namespace PrincipiaTractalis.AllNineLambda0NumericalBrackets
 
@@ -86,6 +87,53 @@ theorem lambda_0_BSD_value : (2 : ℝ) / 15 = (2 : ℝ) / 15 := rfl
 
 /-- `λ_0(NS) = 1/15`. Exact. Numerical value 0.0666... -/
 theorem lambda_0_NS_value : lambda_0_NS = 1 / 15 := by unfold lambda_0_NS; rfl
+
+/-- `λ_0(QG) = π/(10·√(2π)) ∈ (0.1253, 0.1254)`.
+
+    Proof. Equivalent to showing `0.1253 · 10 · √(2π) < π < 0.1254 · 10 · √(2π)`.
+    Squaring the lower side: `(1.253)² · 2π < π² ⇔ 2·1.570009 < π ⇔ 3.140018 < π`,
+    which holds via `Real.pi_gt_d6` (π > 3.141592). Squaring the upper side:
+    `π² < (1.254)² · 2π ⇔ π < 2·1.572516 ⇔ π < 3.145032`, which holds via
+    `Real.pi_lt_d6` (π < 3.141593 < 3.145032). -/
+theorem lambda_0_QG_bracket :
+    (0.1253 : ℝ) < lambda_0_QG ∧ lambda_0_QG < (0.1254 : ℝ) := by
+  unfold lambda_0_QG pi_10 alpha_QG
+  have hpi_lo := Real.pi_gt_d6
+  have hpi_hi := Real.pi_lt_d6
+  have hpi_pos : (0 : ℝ) < Real.pi := Real.pi_pos
+  have h2pi_pos : (0 : ℝ) < 2 * Real.pi := by linarith
+  have hsqrt_pos : (0 : ℝ) < Real.sqrt (2 * Real.pi) :=
+    Real.sqrt_pos.mpr h2pi_pos
+  -- The bracket condition equivalent to bracketing √(2π).
+  -- √(2π) satisfies (2.5066)² < 2π < (2.5067)², so √(2π) ∈ (2.5066, 2.5067)
+  have hsqrt_lo : (2.5066 : ℝ) < Real.sqrt (2 * Real.pi) := by
+    have h_sq : (2.5066 : ℝ) ^ 2 < 2 * Real.pi := by
+      have : (2.5066 : ℝ) ^ 2 = 6.28304356 := by norm_num
+      linarith
+    have h_nn : (0 : ℝ) ≤ 2.5066 := by norm_num
+    exact (Real.lt_sqrt h_nn).mpr h_sq
+  have hsqrt_hi : Real.sqrt (2 * Real.pi) < (2.5067 : ℝ) := by
+    have h_sq : 2 * Real.pi < (2.5067 : ℝ) ^ 2 := by
+      have : (2.5067 : ℝ) ^ 2 = 6.28354489 := by norm_num
+      linarith
+    have h_pos : (0 : ℝ) < 2.5067 := by norm_num
+    exact (Real.sqrt_lt' h_pos).mpr h_sq
+  -- Now: π/(10 · √(2π)) is between π/(10 · 2.5067) and π/(10 · 2.5066).
+  -- Lower:  π/(10 · √(2π)) > π/(10 · 2.5067).
+  --         3.141592/(25.067) = 0.12533... > 0.1253.
+  -- Upper:  π/(10 · √(2π)) < π/(10 · 2.5066).
+  --         3.141593/(25.066) = 0.12533... < 0.1254.
+  -- Rewrite π / 10 / √(2π) as π / (10 · √(2π)) for cleaner manipulation.
+  rw [div_div]
+  refine ⟨?_, ?_⟩
+  · -- 0.1253 < π / (10 · √(2π))
+    rw [lt_div_iff₀ (by positivity : (0 : ℝ) < 10 * Real.sqrt (2 * Real.pi))]
+    -- 0.1253 · (10 · √(2π)) < π
+    nlinarith [hsqrt_hi, hpi_lo]
+  · -- π / (10 · √(2π)) < 0.1254
+    rw [div_lt_iff₀ (by positivity : (0 : ℝ) < 10 * Real.sqrt (2 * Real.pi))]
+    -- π < 0.1254 · (10 · √(2π))
+    nlinarith [hsqrt_lo, hpi_hi]
 
 /-- `λ_0(Hodge) = π(√5 − 1)/20 ∈ (0.1941, 0.1942)`. Uses √5 ∈ (2.2360, 2.2361). -/
 theorem lambda_0_Hodge_bracket :
