@@ -808,14 +808,14 @@ The substrate's universal coupling $\lambda_0(\alpha) = \pi/(10\alpha)$ on each 
 \toprule
 Stratum & Class & Closed form \\
 \midrule
-$\mathbb{Q}$           & NS                                          & $1/225$ \\
-$\pi\cdot\mathbb{Q}$   & QG \emph{(unique)}                         & $\pi/200$ \\
-$\pi^2\cdot\mathbb{Q}$ & Poincar\'e, RH, P, YM                       & $\pi^2/100,\;\pi^2/225,\;\pi^2/200,\;\pi^2/400$ \\
-$\pi^2\cdot\mathbb{Q}(\sqrt{5})$ & Hodge                          & $\pi^2(3-\sqrt{5})/200$ \\
+$\mathbb{Q}$           & NS, BSD                                       & $1/225,\;4/225$ \\
+$\pi\cdot\mathbb{Q}$   & QG \emph{(unique)}                           & $\pi/200$ \\
+$\pi^2\cdot\mathbb{Q}$ & Poincar\'e, RH, P, YM                         & $\pi^2/100,\;\pi^2/225,\;\pi^2/200,\;\pi^2/400$ \\
+$\pi^2\cdot\mathbb{Q}(\sqrt{5})$ & Hodge                              & $\pi^2(3-\sqrt{5})/200$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-\textit{The quantum-gravity class is the only class whose squared eigenvalue scales as $\pi^1$, not $\pi^2$ or rational}, because $\alpha_{\textsf{QG}}^2 = 2\pi$ enters as a factor in the denominator of $\lambda_0(\textsf{QG})^2$. The corresponding kernel-only theorems are \texttt{lambda\_0\_Poincare\_sq}, \texttt{lambda\_0\_RH\_sq}, \texttt{lambda\_0\_P\_sq}, \texttt{lambda\_0\_YM\_sq}, \texttt{lambda\_0\_NS\_sq}, \texttt{lambda\_0\_QG\_sq}, \texttt{lambda\_0\_Hodge\_sq}; they are bundled as \texttt{lambda\_0\_squared\_spectrum\_capstone}. Two structural relations follow at the kernel: $\pi \cdot \lambda_0(\textsf{QG})^2 = \lambda_0(\textsf{P})^2$ (theorem \texttt{lambda\_0\_P\_sq\_eq\_pi\_times\_lambda\_0\_QG\_sq}) and $\lambda_0(\textsf{YM})^2 = \lambda_0(\textsf{Poincar\'e})^2/4$. The single $\pi$-scaled relation between P and QG collapses two of the substrate's three irrational classes into one $\pi$-multiplicative tie.
+\textit{The quantum-gravity class is the only class whose squared eigenvalue scales as $\pi^1$, not $\pi^2$ or rational}, because $\alpha_{\textsf{QG}}^2 = 2\pi$ enters as a factor in the denominator of $\lambda_0(\textsf{QG})^2$. The corresponding kernel-only theorems are \texttt{lambda\_0\_Poincare\_sq}, \texttt{lambda\_0\_RH\_sq}, \texttt{lambda\_0\_P\_sq}, \texttt{lambda\_0\_YM\_sq}, \texttt{lambda\_0\_NS\_sq}, \texttt{lambda\_0\_BSD\_sq\_exact}, \texttt{lambda\_0\_QG\_sq}, and \texttt{lambda\_0\_Hodge\_sq}; the substrate's NP squared eigenvalue is derivable from the $\lambda_0(\textsf{NP})$ closed form below and likewise lives in $\pi^2\cdot\mathbb{Q}(\sqrt{5})$. The seven explicit closed-form theorems are bundled as \texttt{lambda\_0\_squared\_spectrum\_capstone}. Two structural relations follow at the kernel: $\pi \cdot \lambda_0(\textsf{QG})^2 = \lambda_0(\textsf{P})^2$ (theorem \texttt{lambda\_0\_P\_sq\_eq\_pi\_times\_lambda\_0\_QG\_sq}) and $\lambda_0(\textsf{YM})^2 = \lambda_0(\textsf{Poincar\'e})^2/4$. The single $\pi$-scaled relation between P and QG collapses two of the substrate's three irrational classes into one $\pi$-multiplicative tie.
 
 \paragraph{$\lambda_0(\textsf{NP})$ over $\mathbb{Q}(\sqrt{5})\cdot\pi$.} Rationalising $\lambda_0(\textsf{NP}) = \pi/(10(\varphi+1/4))$ against the Galois conjugate of $3 + 2\sqrt{5}$:
 \[
