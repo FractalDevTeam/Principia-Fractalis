@@ -36,6 +36,7 @@ import PF_L4L.Empirical.SubstrateNaturalPrior_NeutrinoAnchor_2026_06_24_Reverifi
 import PF_L4L.AllNineLambda0NumericalBrackets_2026_06_24_Reverification
 import PF_L4L.AllNineAlphaNumericalBrackets_2026_06_24_Reverification
 import PF_L4L.AllNineAlphaStrictOrdering_2026_06_24_Reverification
+import PF_L4L.AllNineLambda0StrictOrdering_2026_06_24_Reverification
 
 -- Gated modules: kept in the source tree for the future PF-namespace
 -- refactor; they do NOT participate in the current build.
