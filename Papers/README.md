@@ -8,7 +8,7 @@ This directory contains the current Millennium Problems paper, the substrate's e
 
 | File | Description |
 |---|---|
-| `principia_fractalis_clean_2026-06-24.{tex,pdf}` | **Principia Fractalis: An Algebraic Substrate.** 14 pages, 7 explanatory figures. The substrate's exposition paper: twelve substrate-derived algebraic identities forcing a unique nine-tuple over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with multi-domain corroboration across pure math, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; kernel-only machine-verified in Lean 4. Includes the chronologically-pre-registered forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ for the IBM-Quantum spectral peak of the Graph Isomorphism class. |
+| `principia_fractalis_clean_2026-06-25.{tex,pdf}` | **Principia Fractalis: An Algebraic Substrate.** 16 pages, 8 explanatory figures. The substrate's exposition paper: twelve substrate-derived algebraic identities forcing a unique nine-tuple over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with multi-domain corroboration across pure math, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; kernel-only machine-verified in Lean 4. Includes the chronologically-pre-registered forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ for the IBM-Quantum spectral peak of the Graph Isomorphism class, the parameter-free derivation of the cosmological-constant ratio $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ in §4.4, and the strict total ordering of all nine $\alpha$ values as a kernel-only theorem. |
 
 ## Data
 
@@ -35,8 +35,8 @@ The author's accumulated prior-work record across seven manuscripts and certific
 
 ```bash
 cd Papers/
-pdflatex principia_fractalis_clean_2026-06-24.tex
-pdflatex principia_fractalis_clean_2026-06-24.tex   # for cross-references
+pdflatex principia_fractalis_clean_2026-06-25.tex
+pdflatex principia_fractalis_clean_2026-06-25.tex   # for cross-references
 ```
 
 LaTeX auxiliary files (`.aux`, `.log`, `.out`, `.toc`, `.bbl`, `.blg`) are ignored via the top-level `.gitignore` — only `.tex` source and `.pdf` outputs are tracked.
