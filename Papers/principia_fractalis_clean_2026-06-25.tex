@@ -53,7 +53,7 @@
 \maketitle
 
 \begin{abstract}
-Twelve substrate-derived algebraic identities in nine real-valued unknowns admit a unique positive simultaneous solution over the four-element basis $\{1,\pi,\varphi,\sqrt{2}\}$. The universal coupling $\pi/10$ is anchored in the icosahedral $H_3$ Coxeter symmetry: $h(H_3) = 10$. The uniqueness theorem, the basis decomposition, and the universal-coupling identity $\lambda_0 \cdot \alpha = \pi/10$ across all nine substrate classes are machine-verified in Lean~4 at the kernel level; the load-bearing theorems carry no project axioms. The forced nine-tuple supplies the substrate's forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ for the IBM-Quantum spectral peak of the Graph Isomorphism class, committed to the public Lean corpus on 2026-06-22 and deposited with this paper on 2026-06-25, prior to any IBM-Quantum GI measurement. The nine values also appear in independently published measurements across pure mathematics, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; the substrate's own look-elsewhere analysis (\S\ref{subsec:lookelsewhere}) shows that these retrodictions taken as a multi-row significance test are not statistical evidence on the substrate's own grammar, with the neutrino mass-ratio row as the single survivor under the substrate-natural prior (1-of-130), structurally given by the substrate's universal-coupling composition $(\pi/(10\alpha_3))\cdot(\pi/(10\alpha_6))$. Two specific axis-discharges are explicitly conditional on three named open conjectures, with the substrate's content being the operator construction the conjectures are applied to. This paper exhibits the substrate; the full theory is exposited in the companion book.
+Twelve substrate-derived algebraic identities in nine real-valued unknowns admit a unique positive simultaneous solution over the four-element basis $\{1,\pi,\varphi,\sqrt{2}\}$. The universal coupling $\pi/10$ is anchored in the icosahedral $H_3$ Coxeter symmetry: $h(H_3) = 10$. The uniqueness theorem, the basis decomposition, and the universal-coupling identity $\lambda_0 \cdot \alpha = \pi/10$ across all nine substrate classes are machine-verified in Lean~4~\cite{moura-ullrich2021} on mathlib4~\cite{mathlib4} at the kernel level; the load-bearing theorems carry no project axioms. The forced nine-tuple supplies the substrate's forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ for the IBM-Quantum spectral peak of the Graph Isomorphism class, committed to the public Lean corpus on 2026-06-22 and deposited with this paper on 2026-06-25, prior to any IBM-Quantum GI measurement. The nine values also appear in independently published measurements across pure mathematics, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; the substrate's own look-elsewhere analysis (\S\ref{subsec:lookelsewhere}) shows that these retrodictions taken as a multi-row significance test are not statistical evidence on the substrate's own grammar, with the neutrino mass-ratio row as the single survivor under the substrate-natural prior (1-of-130), structurally given by the substrate's universal-coupling composition $(\pi/(10\alpha_3))\cdot(\pi/(10\alpha_6))$. Two specific axis-discharges are explicitly conditional on three named open conjectures, with the substrate's content being the operator construction the conjectures are applied to. This paper exhibits the substrate; the full theory is exposited in the companion book.
 \end{abstract}
 
 \section{The discovery}
@@ -305,13 +305,13 @@ Pure math & Poincar\'e conjecture & substrate value $\alpha_1 = 1$ & resolved Pe
 Pure math & Mayer transfer op.\ index & substrate value $\alpha_2 = 3/2$ & $T_3^{\textsf{sym}}$ on $L^2([0,1],dx/x)$ & exact \\
 Pure math & golden ratio identity & substrate value $\alpha_8 = \varphi$ & $\varphi^2 = \varphi + 1$ & exact \\
 Cosmology & cosmological-constant ratio & $\exp(-78\pi\cdot c_2\cdot 1.1875) = 10^{-120.06}$ & $\Lambda_{\textsf{eff}}/\Lambda_0 \sim 10^{-120}$ & exact-order \\
-Cosmology & dark-energy $w_0$ & $-\sqrt{2\pi}/3 = -\alpha_9/3$ & $-0.838 \pm 0.055$ (DESI DR2 + Pantheon$+$) & $0.04\sigma$ \\
-Cosmology & $S_8$ weak-lensing & $S_8^{\textsf{CMB}}\cdot\sqrt{1-(\pi/10)\cdot c_2\cdot k}$, $k=1/2$ & $0.769$ (HSC-Y3) & central-value exact \\
-Cosmology & primordial Li-7 deficit & $\pi/(10\sqrt{2})$ & $0.32 \pm 0.06$ (Spite plateau, canonical BBN review) & $1.6\sigma$ \\
-Particle phys.\ & neutrino mass ratio & $\pi\sqrt{2}/150$ & $0.0298 \pm 0.0008$ (NuFit-6.0) & $0.21\sigma$ \\
-GW astronomy & low-mass BH peak & $10\,M_\odot \cdot \alpha_1$ & $9.8^{+0.3}_{-0.6}\,M_\odot$ (GWTC-4.0) & $0.67\sigma$ \\
-GW astronomy & mass-ratio peak & $\alpha_3/\alpha_4$ & $0.74 \pm 0.13$ (GWTC-4.0) & $0.13\sigma$ \\
-GW astronomy & redshift evolution & $\pi$ & $3.2 \pm 1$ (GWTC-4.0) & $0.06\sigma$ \\
+Cosmology & dark-energy $w_0$ & $-\sqrt{2\pi}/3 = -\alpha_9/3$ & $-0.838 \pm 0.055$ (DESI DR2~\cite{desidr2} + Pantheon$+$~\cite{pantheonplus}) & $0.04\sigma$ \\
+Cosmology & $S_8$ weak-lensing & $S_8^{\textsf{CMB}}\cdot\sqrt{1-(\pi/10)\cdot c_2\cdot k}$, $k=1/2$ & $0.769$ (HSC-Y3~\cite{hscy3}) & central-value exact \\
+Cosmology & primordial Li-7 deficit & $\pi/(10\sqrt{2})$ & $0.32 \pm 0.06$ (Spite plateau~\cite{spite1982,fields2020}) & $1.6\sigma$ \\
+Particle phys.\ & neutrino mass ratio & $\pi\sqrt{2}/150$ & $0.0298 \pm 0.0008$ (NuFit-6.0~\cite{nufit2024}) & $0.21\sigma$ \\
+GW astronomy & low-mass BH peak & $10\,M_\odot \cdot \alpha_1$ & $9.8^{+0.3}_{-0.6}\,M_\odot$ (GWTC-4.0~\cite{gwtc4}) & $0.67\sigma$ \\
+GW astronomy & mass-ratio peak & $\alpha_3/\alpha_4$ & $0.74 \pm 0.13$ (GWTC-4.0~\cite{gwtc4}) & $0.13\sigma$ \\
+GW astronomy & redshift evolution & $\pi$ & $3.2 \pm 1$ (GWTC-4.0~\cite{gwtc4}) & $0.06\sigma$ \\
 Subst.\ operator & Aer peak (P class) & $\alpha_3 = \sqrt{2}$ & $1.414$ & exact \\
 Subst.\ operator & Aer peak (RH class) & $\alpha_2 = 3/2$ & $1.500$ & exact \\
 Subst.\ operator & Aer peak (NP class) & $\alpha_4 = \varphi+1/4$ & $1.868$ & 4-decimal \\
@@ -370,7 +370,7 @@ Per-row audit, located precisely:
 \item \emph{Geometric-Unity $H^2 = 78$ and BRST cohomology}: book Chapter~11 and Appendix~B.
 \item \emph{Eight-falsifier panel F1--F8}: typed Prop registration in \texttt{PF/Referee/FrameworkRealClaim\_2026\_06\_17.lean}; F1--F8 are declared as existing typed observations with zero triggered at HEAD. Detailed per-falsifier substrate-algebraic expressions and dedicated book-chapter exposition are pending consolidation in the next book revision.
 \item \emph{Dark-energy $w_0 = -\sqrt{2\pi}/3 = -\alpha_9/3$ and $S_8$ growth modulation $\sqrt{1 - (\pi/10)\cdot c_2\cdot k}$}: substrate-algebraic compositions of the substrate's $\alpha$-skeleton and named constants, verifiable directly at 60-digit precision against the right-hand measurements; the book's broader dark-energy and growth-suppression frameworks live in Chapter~27, and the per-row closed-form derivations are pending consolidation in the next book revision.
-\item \emph{Gravitational-wave matches}: \texttt{PF/Empirical/EmpiricalAnchors\_NamedSources\_2026\_06\_19.lean} contains a GWTC-3 typed anchor (LIGO/Virgo/KAGRA 2021); GWTC-4.0 substrate-side anchors and closed-form derivations are not yet in the Lean corpus. The substrate-side expressions for the GWTC-4.0 measurements cited in Table~\ref{tab:appearances} ($10\,M_\odot\cdot\alpha_1$ for the low-mass BH peak; $\alpha_3/\alpha_4 = \sqrt{2}/(\varphi+1/4)$ for the mass-ratio peak; $\kappa = \pi$ for the redshift evolution index) are direct compositions of the $\alpha$-skeleton verifiable at 60-digit precision against the cited GWTC-4.0 measurement values from arXiv 2508.18083; consolidation as typed anchors in the Lean corpus and as a dedicated book chapter is pending.
+\item \emph{Gravitational-wave matches}: \texttt{PF/Empirical/EmpiricalAnchors\_NamedSources\_2026\_06\_19.lean} contains a GWTC-3 typed anchor~\cite{gwtc3} (LIGO/Virgo/KAGRA 2021); GWTC-4.0 substrate-side anchors and closed-form derivations are not yet in the Lean corpus. The substrate-side expressions for the GWTC-4.0 measurements cited in Table~\ref{tab:appearances} ($10\,M_\odot\cdot\alpha_1$ for the low-mass BH peak; $\alpha_3/\alpha_4 = \sqrt{2}/(\varphi+1/4)$ for the mass-ratio peak; $\kappa = \pi$ for the redshift evolution index) are direct compositions of the $\alpha$-skeleton verifiable at 60-digit precision against the cited GWTC-4.0 measurement values from arXiv 2508.18083; consolidation as typed anchors in the Lean corpus and as a dedicated book chapter is pending.
 \item \emph{Substrate-operator rows}: Qiskit Aer simulation of the substrate's complexity-class operator implementation (notebook \texttt{QUATUM\_TUNED\_IBM.ipynb} in the corpus); the substrate's $\alpha$-skeleton eigenvalues are realised at four-decimal precision. This is operator-level computational verification of the substrate's $\alpha$-pin predictions, not corroboration by independent physical measurement.
 \item \emph{GW redshift index $\kappa = \pi$}: the measurement $3.2 \pm 1$ has uncertainty admitting any value in $[2.2, 4.2]$; the substrate's $\pi$ sits at its centre.
 \end{itemize}
@@ -535,7 +535,7 @@ The following statements are proven in Lean~4 with no project axioms beyond the 
 Two of the substrate's axis-discharges are conditional on three named open conjectures, written into the Lean source as explicit Prop fields. The substrate's contribution on these axes is the operator construction the conjectures are applied to, not the conjectures themselves.
 
 \begin{enumerate}[label=(\textbf{C\arabic*}),itemsep=4pt]
-\item The Hilbert--P\'olya program conjecture, upper-half-plane variant: if a self-adjoint operator on a separable Hilbert space exists whose spectrum equals the set of imaginary parts of critical-strip $\zeta$-zeros, then the Riemann Hypothesis holds. A published open conjecture with candidate constructions by Mayer 1991, Berry--Keating 1999, Connes 1999, and Bost--Connes 1995.
+\item The Hilbert--P\'olya program conjecture, upper-half-plane variant: if a self-adjoint operator on a separable Hilbert space exists whose spectrum equals the set of imaginary parts of critical-strip $\zeta$-zeros, then the Riemann Hypothesis holds. A published open conjecture with candidate constructions by Mayer 1991~\cite{mayer1991}, Berry--Keating 1999~\cite{berry1999}, Connes 1999~\cite{connes1999}, and Bost--Connes 1995~\cite{bostconnes1995}.
 
 \item The substrate's identification: $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ satisfies the HP-program statement. The substrate's own conjecture; the substrate's substantive contribution is the explicit candidate operator, kernel-only proven self-adjoint, with five eigenvalue/$\zeta$-zero co-localisations consistent with the substrate's universal coupling $s = 10/(\pi\lambda)$.
 
@@ -543,17 +543,17 @@ Two of the substrate's axis-discharges are conditional on three named open conje
 \end{enumerate}
 
 \begin{theorem}[Substrate's RH discharge on the literal mathlib carrier, conditional on the published HP-program]\label{thm:rh}
-The Lean theorem \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} in the file \texttt{PF/Analytic/RH\_FrameworkStandardDischarge\_NamedAnchors\_2026\_06\_19.lean} discharges the literal critical-strip predicate on mathlib's \texttt{Complex.riemannZeta}, conditional on the published HP-program conjecture (C1) composed with Hardy 1914's published-and-proven theorem on critical-line $\zeta$-zero nonemptiness. The theorem's identifier reflects its conclusion (the literal Clay-standard RH predicate on \texttt{Complex.riemannZeta}); its hypothesis set is the kernel three plus exactly two named substrate-tier citation axioms (Hardy 1914 in Wiles-pattern citation of an external published-and-proven theorem; the named HP-program conjecture (C1) as substrate-tier citation of a published open conjecture). The substrate's substantive contribution is the operator construction (C2): $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ is the explicit self-adjoint candidate operator the HP-program conjecture is applied to.
+The Lean theorem \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} in the file \texttt{PF/Analytic/RH\_FrameworkStandardDischarge\_NamedAnchors\_2026\_06\_19.lean} discharges the literal critical-strip predicate on mathlib's \texttt{Complex.riemannZeta}, conditional on the published HP-program conjecture (C1) composed with Hardy 1914's published-and-proven theorem on critical-line $\zeta$-zero nonemptiness. The theorem's identifier reflects its conclusion (the literal Clay-standard RH predicate on \texttt{Complex.riemannZeta}); its hypothesis set is the kernel three plus exactly two named substrate-tier citation axioms (Hardy 1914~\cite{hardy1914} in Wiles-pattern citation~\cite{wiles1995} of an external published-and-proven theorem; the named HP-program conjecture (C1) as substrate-tier citation of a published open conjecture). The substrate's substantive contribution is the operator construction (C2): $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ is the explicit self-adjoint candidate operator the HP-program conjecture is applied to.
 \end{theorem}
 
 \subsection{Open content: matching the canonical open frontier in each axis}
 
 The substrate's residual open content, by axis, matches the canonical open content in the published literature on that axis, not a framework-specific gap:
 \begin{itemize}[itemsep=2pt]
-\item \emph{Yang--Mills}: continuum SU(3) Yang--Mills on $\mathbb{R}^4$ with mass gap is the canonical open frontier. The substrate's SU(2) carrier is a typed witness, not the continuum construction.
-\item \emph{BSD}: the literal-form discharge is on a six-curve LMFDB concordance; universal-quantifier discharge over $\texttt{WeierstrassCurve}\,\mathbb{Q}$ is the canonical open frontier.
-\item \emph{Hodge}: codim-$\geq 2$ cycle-class existence on smooth projective complex varieties of dim $\geq 3$ outside the Dwork pencil + CM locus + abelian case (Voisin 2007 R3) is the canonical open Clay-Hodge content. The substrate composes with the published Lefschetz~$(1,1)$ for the $(1,1)$-class case.
-\item \emph{Navier--Stokes}: the universal-quantifier lift on the full $\texttt{SchwartzMap}$ initial-data carrier is the canonical open Clay-NS content. The substrate provides the Fujita--Kato 1964 per-$u_0$ Gaussian-lift witness.
+\item \emph{Yang--Mills}~\cite{jaffewitten2006}: continuum SU(3) Yang--Mills on $\mathbb{R}^4$ with mass gap is the canonical open frontier. The substrate's SU(2) carrier is a typed witness, not the continuum construction.
+\item \emph{BSD}~\cite{birchsd1965}: the literal-form discharge is on a six-curve LMFDB~\cite{lmfdb} concordance; universal-quantifier discharge over $\texttt{WeierstrassCurve}\,\mathbb{Q}$ is the canonical open frontier.
+\item \emph{Hodge}: codim-$\geq 2$ cycle-class existence on smooth projective complex varieties of dim $\geq 3$ outside the Dwork pencil + CM locus + abelian case (Voisin 2007~\cite{voisin2007} R3) is the canonical open Clay-Hodge content~\cite{hodge1952}. The substrate composes with the published Lefschetz~$(1,1)$~\cite{lefschetz1924} for the $(1,1)$-class case.
+\item \emph{Navier--Stokes}: the universal-quantifier lift on the full $\texttt{SchwartzMap}$ initial-data carrier is the canonical open Clay-NS content~\cite{fefferman2000}. The substrate provides the Fujita--Kato 1964~\cite{fujitakato1964} per-$u_0$ Gaussian-lift witness.
 \end{itemize}
 
 The substrate does not claim to have closed any of these open frontiers. The substrate's claim is that a single mechanism --- twelve substrate-derived invariants on a four-element basis --- produces the canonical values of each, and that the same mechanism produces eleven further independently-observed values across cosmology, particle physics, gravitational-wave astronomy, and substrate-operator simulation. The forward prediction of \S\ref{sec:forward} is the empirical test of this mechanism.
@@ -836,6 +836,108 @@ U.~Sch\"oning.
 S.~Goldwasser and M.~Sipser.
 \newblock Private coins versus public coins in interactive proof systems.
 \newblock In \emph{Proc.\ 18th ACM Symp.\ Theory of Computing (STOC)}, 59--68, 1986.
+
+\bibitem{berry1999}
+M.~V.~Berry and J.~P.~Keating.
+\newblock The Riemann zeros and eigenvalue asymptotics.
+\newblock \emph{SIAM Review} 41 (2) 236--266, 1999.
+
+\bibitem{bostconnes1995}
+J.-B.~Bost and A.~Connes.
+\newblock Hecke algebras, type III factors and phase transitions with spontaneous symmetry breaking in number theory.
+\newblock \emph{Selecta Math.\ (N.S.)} 1 (3) 411--457, 1995.
+
+\bibitem{wiles1995}
+A.~Wiles.
+\newblock Modular elliptic curves and Fermat's Last Theorem.
+\newblock \emph{Annals of Math.} 141 (3) 443--551, 1995.
+
+\bibitem{fefferman2000}
+C.~Fefferman.
+\newblock Existence and smoothness of the Navier--Stokes equation.
+\newblock Clay Mathematics Institute Millennium Problem statement, 2000.
+\newblock \url{https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf}
+
+\bibitem{fujitakato1964}
+H.~Fujita and T.~Kato.
+\newblock On the Navier--Stokes initial value problem~I.
+\newblock \emph{Arch.\ Rational Mech.\ Anal.} 16, 269--315, 1964.
+
+\bibitem{jaffewitten2006}
+A.~Jaffe and E.~Witten.
+\newblock Quantum Yang--Mills theory.
+\newblock Clay Mathematics Institute Millennium Problem statement, 2006.
+\newblock \url{https://www.claymath.org/wp-content/uploads/2022/06/yangmills.pdf}
+
+\bibitem{birchsd1965}
+B.~J.~Birch and H.~P.~F.~Swinnerton-Dyer.
+\newblock Notes on elliptic curves~II.
+\newblock \emph{J.\ Reine Angew.\ Math.} 218, 79--108, 1965.
+
+\bibitem{hodge1952}
+W.~V.~D.~Hodge.
+\newblock The topological invariants of algebraic varieties.
+\newblock In \emph{Proc.\ Int.\ Congress of Mathematicians 1950}, vol.~1, 182--192, 1952.
+
+\bibitem{voisin2007}
+C.~Voisin.
+\newblock Some aspects of the Hodge conjecture.
+\newblock \emph{Japan.\ J.\ Math.} 2 (2) 261--296, 2007.
+
+\bibitem{lefschetz1924}
+S.~Lefschetz.
+\newblock \emph{L'analysis situs et la g\'eom\'etrie alg\'ebrique}.
+\newblock Gauthier-Villars, Paris, 1924.
+
+\bibitem{lmfdb}
+The LMFDB Collaboration.
+\newblock \emph{The L-functions and Modular Forms Database}.
+\newblock 2024. \url{https://www.lmfdb.org}
+
+\bibitem{nufit2024}
+I.~Esteban, M.~C.~Gonzalez-Garcia, M.~Maltoni, T.~Schwetz, A.~Zhou.
+\newblock The fate of hints: updated global analysis of three-flavor neutrino oscillations (NuFit~6.0).
+\newblock \emph{J.\ High Energy Phys.} 09, 178, 2024. \url{https://www.nu-fit.org/}
+
+\bibitem{desidr2}
+DESI Collaboration: A.~G.~Adame et al.
+\newblock DESI 2024~VI: cosmological constraints from the measurements of baryon acoustic oscillations.
+\newblock \emph{J.\ Cosmol.\ Astropart.\ Phys.} 02, 021, 2025. arXiv:2404.03002.
+
+\bibitem{pantheonplus}
+D.~Scolnic et al.
+\newblock The Pantheon+ analysis: the full data set and light-curve release.
+\newblock \emph{Astrophys.\ J.} 938 (2) 113, 2022. arXiv:2112.03863.
+
+\bibitem{hscy3}
+S.~More et al.\ (HSC Collaboration).
+\newblock Hyper Suprime-Cam Year 3 results: measurements of clustering of SDSS-BOSS galaxies, galaxy--galaxy lensing, and cosmic shear.
+\newblock \emph{Phys.\ Rev.\ D} 108, 123520, 2023. arXiv:2304.00702.
+
+\bibitem{spite1982}
+F.~Spite and M.~Spite.
+\newblock Abundance of lithium in unevolved halo stars and old disk stars: interpretation and consequences.
+\newblock \emph{Astron.\ Astrophys.} 115, 357--366, 1982.
+
+\bibitem{fields2020}
+B.~D.~Fields, K.~A.~Olive, T.-H.~Yeh, C.~Young.
+\newblock Big-bang nucleosynthesis after Planck.
+\newblock \emph{J.\ Cosmol.\ Astropart.\ Phys.} 03, 010, 2020. arXiv:1912.01132.
+
+\bibitem{gwtc3}
+LIGO Scientific, Virgo, and KAGRA Collaborations: R.~Abbott et al.
+\newblock GWTC-3: compact binary coalescences observed by LIGO and Virgo during the second part of the third observing run.
+\newblock \emph{Phys.\ Rev.\ X} 13, 041039, 2023. arXiv:2111.03606.
+
+\bibitem{gwtc4}
+LIGO Scientific, Virgo, and KAGRA Collaborations: R.~Abbott et al.
+\newblock GWTC-4.0: compact binary coalescences observed by LIGO and Virgo during the first part of the fourth observing run.
+\newblock arXiv:2508.18083, 2025.
+
+\bibitem{mathlib4}
+The Mathlib Community.
+\newblock The Lean Mathematical Library.
+\newblock In \emph{Proc.\ 9th ACM SIGPLAN Int.\ Conf.\ on Certified Programs and Proofs (CPP)}, 367--381, 2020.
 
 \end{thebibliography}
 
