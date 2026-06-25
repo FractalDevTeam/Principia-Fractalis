@@ -773,6 +773,12 @@ The paper's \S\ref{sec:invariants} states that the substrate's nine-tuple satisf
 
 The substrate's $\alpha$-skeleton is not a free-parameter assignment; it is the (essentially unique) positive simultaneous solution of an over-determined linear-plus-low-degree-polynomial system on $\mathbb{R}^9$ comprising (I1)--(I12) plus (R1)--(S2). Any consistent variation in any single $\alpha$ value must survive all twenty-nine constraints simultaneously. \texttt{cross\_millennium\_invariants\_extended\_bundle} in \texttt{PF/Referee/CrossMillenniumInvariants\_Extended\_2026\_06\_19.lean} re-exports the entire (R1)--(S2) set as a single citable theorem.
 
+\paragraph{The $\alpha_{\textsf{NP}}$ power-expansion recurrence.} The substrate's $\alpha_{\textsf{NP}}$ value sits in the rank-2 $\mathbb{Q}$-module $\mathbb{Q}\cdot\alpha_{\textsf{Hodge}}\oplus\mathbb{Q}\cdot 1$; every power $\alpha_{\textsf{NP}}^{k} = a_k\cdot\alpha_{\textsf{Hodge}} + b_k$ with $a_k, b_k \in \mathbb{Q}$ satisfies the kernel-only recurrence
+\[
+a_{k+1} = \tfrac{5}{4}\,a_k + b_k,\qquad b_{k+1} = a_k + \tfrac{1}{4}\,b_k.
+\]
+The $2\times 2$ transition matrix $M = \bigl(\begin{smallmatrix}5/4 & 1\\ 1 & 1/4\end{smallmatrix}\bigr)$ has characteristic polynomial $\lambda^2 - \tfrac{3}{2}\lambda - \tfrac{11}{16} = 0$, equivalently $16\lambda^2 - 24\lambda - 11 = 0$ --- \emph{the substrate's NP polylog quadratic itself}. The eigenvalues are $\alpha_{\textsf{NP}}$ and its Galois conjugate $(3 - 2\sqrt{5})/4$. The substrate's NP algebraic signature is intrinsic to the power-expansion recurrence, not a separate axiom. Three new kernel-only theorems in \texttt{PF/AlphaNPHigherPowers\_2026\_06\_25.lean}: \texttt{$\alpha$\_NP\_cubed} giving $\alpha_{\textsf{NP}}^{3} = (47/16)\,\alpha_{\textsf{Hodge}} + 113/64$; \texttt{$\alpha$\_NP\_fourth} giving $\alpha_{\textsf{NP}}^{4} = (87/16)\,\alpha_{\textsf{Hodge}} + 865/256$; \texttt{$\alpha$\_NP\_power\_recurrence} giving the general recurrence step.
+
 \section*{Acknowledgments}
 
 To Liz, who carried this household while the substrate was being formalised. To Dylan, who would not let me stop. To Lily, who I hope reads this one day. To the open-source Lean~4 community and the mathlib4 maintainers, whose work made this verification possible.
