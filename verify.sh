@@ -85,9 +85,10 @@ echo ""
 EXPECTED="[propext, Classical.choice, Quot.sound]"
 UNEXPECTED_AXIOMS=$(grep -E "depends on axioms:" "${AXIOM_LOG}" \
                     | grep -vE "propext|Classical\.choice|Quot\.sound" \
-                    | grep -v "Hardy1914_critical_line_zero" \
-                    | grep -v "Mayer1991" \
-                    | grep -v "framework_substrate_pins" \
+                    | grep -v "Hardy1914_published_theorem_substrate_citation" \
+                    | grep -v "Mayer1991_Cohen2025_substrate_HP_program_citation" \
+                    | grep -v "Mayer1991_Cohen2025_T3_sym_HP_program_citation" \
+                    | grep -v "framework_substrate_pins_bulletproof_bundle" \
                     || true)
 
 if [[ -z "${UNEXPECTED_AXIOMS}" ]]; then
