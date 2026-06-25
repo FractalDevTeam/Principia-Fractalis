@@ -186,7 +186,7 @@ Each identity is a single algebraic equation over the substrate's basis. None is
 The system \textup{(I1)--(I12)} admits a unique positive simultaneous solution over $\mathbb{R}$. The solution is the assignment of Table~\ref{tab:nine}. The proof, formalised as the Lean~4 theorem \texttt{framework\_alpha\_unique\_under\_perelman\_anchor} in the file \texttt{PF/Referee/ClayMasterTheorem.lean}, depends on no project axioms; it uses only the kernel axioms $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$.
 \end{proposition}
 
-The proof is constructive and short. Combining (I3) and (I11) yields $\alpha_5 = 2$. Then (I7) yields $\alpha_1 = 1$. Then (I1) with positivity yields $\alpha_3 = \sqrt{2}$. Then (I9) yields $\alpha_2 = 3/2$. Then (I3) with positivity yields $\alpha_9 = \sqrt{2\pi}$. Then (I4) with positivity yields $\alpha_8 = \varphi$. Then (I10) yields $\alpha_4 = \varphi + 1/4$. Then (I12) yields $\alpha_6 = 3\pi/4$. Then (I5) yields $\alpha_7 = 3\pi/2$. The three remaining identities (I2), (I6), (I8) are consistency checks on the constructed solution rather than additional constraints. The substrate's algebraic content additionally includes seventeen further algebraic identities, each axiom-free in the Lean corpus (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}, kernel-only); on the constructed solution the substrate satisfies twenty-nine simultaneous algebraic identities in nine unknowns. The seventeen (R1)--(S2) are kernel-only algebraic consequences of (I1)--(I12), exhibited explicitly because each is a structural feature the substrate's nine-tuple makes manifest at the polynomial-relation level. Figure~\ref{fig:cascade} visualises the cascade.
+The proof is constructive and short. Combining (I3) and (I11) yields $\alpha_5 = 2$. Then (I7) yields $\alpha_1 = 1$. Then (I1) with positivity yields $\alpha_3 = \sqrt{2}$. Then (I9) yields $\alpha_2 = 3/2$. Then (I3) with positivity yields $\alpha_9 = \sqrt{2\pi}$. Then (I4) with positivity yields $\alpha_8 = \varphi$. Then (I10) yields $\alpha_4 = \varphi + 1/4$. Then (I12) yields $\alpha_6 = 3\pi/4$. Then (I5) yields $\alpha_7 = 3\pi/2$. The three remaining identities (I2), (I6), (I8) are consistency checks on the constructed solution rather than additional constraints. The substrate's algebraic content additionally includes seventeen further algebraic identities, each axiom-free in the Lean corpus (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}, kernel-only); on the constructed solution the substrate satisfies twenty-nine simultaneous algebraic identities in nine unknowns. Figure~\ref{fig:cascade} visualises the cascade.
 
 \begin{figure}[h]
 \centering
@@ -257,14 +257,14 @@ i.e.\ $1 < \sqrt{2} < 3/2 < \varphi < \varphi + 1/4 < 2 < 3\pi/4 < \sqrt{2\pi} <
   xtick={1,2,3,4,5,6,7,8,9},
   xticklabels={
     {Poincar\'e\\$\alpha\!=\!1$},
-    {RH\\$\alpha\!=\!3/2$},
     {P\\$\alpha\!=\!\sqrt{2}$},
+    {RH\\$\alpha\!=\!3/2$},
     {Hodge\\$\alpha\!=\!\varphi$},
     {NP\\$\alpha\!=\!\varphi\!+\!\tfrac{1}{4}$},
     {YM\\$\alpha\!=\!2$},
     {BSD\\$\alpha\!=\!\tfrac{3\pi}{4}$},
-    {NS\\$\alpha\!=\!\tfrac{3\pi}{2}$},
-    {QG\\$\alpha\!=\!\sqrt{2\pi}$}
+    {QG\\$\alpha\!=\!\sqrt{2\pi}$},
+    {NS\\$\alpha\!=\!\tfrac{3\pi}{2}$}
   },
   x tick label style={font=\scriptsize,align=center,rotate=0},
   y tick label style={font=\scriptsize},
@@ -526,7 +526,7 @@ The following statements are proven in Lean~4 with no project axioms beyond the 
 \item Seventeen further axiom-free algebraic identities on the substrate's nine-tuple (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}).
 \item The substrate's modified-transfer operator $T_3^{\textsf{sym}}$ is self-adjoint on the literal mathlib Hilbert space $\texttt{Lp}\;\mathbb{C}\;2\;(\texttt{logWeightedMeasure})$ (theorem \texttt{T3\_self\_adjoint\_conj}).
 \item Substrate-tier discharge of four of the six open mathematical problems (the substrate's substrate-restricted Yang--Mills, BSD, Hodge, and Navier--Stokes encodings).
-\item Wave 59 unconditional countability of the positive on-line zeros of mathlib's $\texttt{Complex.riemannZeta}$, via mathlib's analytic identity theorem alone.
+\item Unconditional countability of the positive on-line zeros of mathlib's $\texttt{Complex.riemannZeta}$, via mathlib's analytic identity theorem alone.
 \item The substrate's tri-class extension formalising the $\sqrt{2}$ assignment of NP-intermediate problems (\texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean}).
 \end{itemize}
 
@@ -556,7 +556,7 @@ The substrate's residual open content, by axis, matches the canonical open conte
 \item \emph{Navier--Stokes}: the universal-quantifier lift on the full $\texttt{SchwartzMap}$ initial-data carrier is the canonical open Clay-NS content. The substrate provides the Fujita--Kato 1964 per-$u_0$ Gaussian-lift witness.
 \end{itemize}
 
-The substrate does not claim to have closed any of these open frontiers. The substrate's claim is that a single mechanism --- twelve substrate-derived invariants on a four-element basis --- produces the canonical values of each, and that the same mechanism produces eleven further independently-observed values across cosmology, particle physics, gravitational-wave astronomy, and substrate-operator simulation. Whether this mechanism is the right one is the question this paper places before the published scientific community.
+The substrate does not claim to have closed any of these open frontiers. The substrate's claim is that a single mechanism --- twelve substrate-derived invariants on a four-element basis --- produces the canonical values of each, and that the same mechanism produces eleven further independently-observed values across cosmology, particle physics, gravitational-wave astronomy, and substrate-operator simulation. The forward prediction of \S\ref{sec:forward} is the empirical test of this mechanism.
 
 \section{Forward-runnable test and falsifiability}\label{sec:forward}
 
@@ -646,7 +646,7 @@ git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
 cd Principia-Fractalis
 ./verify.sh
 \end{verbatim}
-The script (a) installs the Lean toolchain pinned in \texttt{lean-toolchain}; (b) builds the \texttt{PF} target ($4{,}368$ kernel-elaboration jobs at HEAD, $\sim 10$ minutes on first run); (c) runs \texttt{\#print axioms} on the four headline theorems; (d) exits 0 if every axiom output matches the expected $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$ plus the four named conditional hypotheses, and exits nonzero with a precise diagnostic if any unexpected project axiom is detected. The full corpus builds in approximately ten minutes. The dedicated \texttt{PF.AxiomCheck} module prints the axiom dependencies of the four headline theorems:
+The script (a) installs the Lean toolchain pinned in \texttt{lean-toolchain}; (b) builds the \texttt{PF} target ($4{,}373$ kernel-elaboration jobs at HEAD, $\sim 10$ minutes on first run); (c) runs \texttt{\#print axioms} on the four headline theorems; (d) exits 0 if every axiom output matches the expected $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$ plus the four named conditional hypotheses, and exits nonzero with a precise diagnostic if any unexpected project axiom is detected. The full corpus builds in approximately ten minutes. The dedicated \texttt{PF.AxiomCheck} module prints the axiom dependencies of the four headline theorems:
 \begin{itemize}[itemsep=2pt]
 \item \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally} --- kernel-only.
 \item \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} --- kernel plus Hardy~1914 (Wiles-pattern citation of a published-and-proven external theorem) plus the named HP-program conjecture (C1).
@@ -697,7 +697,7 @@ The full substrate, including its construction of the Timeless Field $\mathcal{T
 
 \section{Verbatim \texttt{\#print axioms} output at HEAD}\label{app:axioms}
 
-The Lean module \texttt{PF/AxiomCheck\_2026\_06\_23.lean} runs \texttt{\#print axioms} on the four headline theorems. Build it via \texttt{lake build PF.AxiomCheck\_2026\_06\_23}; the output below is what the kernel reports at HEAD~\texttt{11f8a1f} (the head of \texttt{origin/master} at the time of this paper's deposition; later commits on master may be newer, but the four headline theorems and their axiom dependencies are stable across the substrate's bundle-closure regime). A reader who reproduces this build at this anchor commit receives the same lines byte-for-byte. Any other reading of these theorems' axiom dependencies is wrong.
+The Lean module \texttt{PF/AxiomCheck\_2026\_06\_23.lean} runs \texttt{\#print axioms} on the four headline theorems. Build it via \texttt{lake build PF.AxiomCheck\_2026\_06\_23}; the output below is what the kernel reports at HEAD~\texttt{4a387ce} (the head of \texttt{origin/master} at the time of this paper's deposition; later commits on master may be newer, but the four headline theorems and their axiom dependencies are stable across the substrate's bundle-closure regime). A reader who reproduces this build at this anchor commit receives the same lines byte-for-byte. Any other reading of these theorems' axiom dependencies is wrong.
 
 \begin{small}
 \begin{verbatim}
@@ -771,7 +771,7 @@ The paper's \S\ref{sec:invariants} states that the substrate's nine-tuple satisf
 \textup{(S2)}\;\; 2\,\alpha_{\textsf{BSD}}     &= \alpha_{\textsf{NS}}.
 \end{align*}
 
-The substrate's $\alpha$-skeleton is not a free-parameter assignment; it is the (essentially unique) positive simultaneous solution of (I1)--(I12) over $\mathbb{R}^9$. The seventeen further identities (R1)--(S2) are not additional independent constraints but algebraic \emph{corollaries} of (I1)--(I12) made manifest in the Lean corpus: each is a structural feature the substrate's nine-tuple satisfies as a consequence of the rank-9 constraint system, kernel-only proven for citation convenience. \texttt{cross\_millennium\_invariants\_extended\_bundle} in \texttt{PF/Referee/CrossMillenniumInvariants\_Extended\_2026\_06\_19.lean} re-exports the entire (R1)--(S2) set as a single citable theorem.
+The substrate's $\alpha$-skeleton is not a free-parameter assignment; it is the unique positive simultaneous solution of (I1)--(I12) over $\mathbb{R}^9$, and the same nine-tuple satisfies seventeen further algebraic identities (R1)--(S2) kernel-only proven on the constructed solution. \texttt{cross\_millennium\_invariants\_extended\_bundle} in \texttt{PF/Referee/CrossMillenniumInvariants\_Extended\_2026\_06\_19.lean} re-exports the entire (R1)--(S2) set as a single citable theorem.
 
 \paragraph{The $\alpha_{\textsf{NP}}$ power-expansion recurrence.} The substrate's $\alpha_{\textsf{NP}}$ value sits in the rank-2 $\mathbb{Q}$-module $\mathbb{Q}\cdot\alpha_{\textsf{Hodge}}\oplus\mathbb{Q}\cdot 1$; every power $\alpha_{\textsf{NP}}^{k} = a_k\cdot\alpha_{\textsf{Hodge}} + b_k$ with $a_k, b_k \in \mathbb{Q}$ satisfies the kernel-only recurrence
 \[
