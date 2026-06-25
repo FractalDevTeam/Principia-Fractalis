@@ -385,68 +385,9 @@ Per-row audit, located precisely:
 \item \emph{GW redshift index $\kappa = \pi$}: the measurement $3.2 \pm 1$ has uncertainty admitting any value in $[2.2, 4.2]$; the substrate's $\pi$ sits at its centre.
 \end{itemize}
 
-\subsection{Look-elsewhere: the grammar is too dense for the retrodictions to be evidential}\label{subsec:lookelsewhere}
-
-The natural objection to Table~\ref{tab:appearances} is the multiple-comparisons problem: with the substrate's atoms and operations, thousands of simple closed-form expressions could land near each measurement; reporting only the ones that fit silently drops a large denominator, and the headline $\sigma$-distances carry information only relative to that denominator. The substrate makes the measurement directly here. \emph{The result is unfavourable to the retrodictions, and the honest conclusion is that the look-elsewhere analysis disposes of Table~\ref{tab:appearances} as evidence.}
-
-\paragraph{Methodology.} Fix the expression grammar to the substrate's actual toolkit: atoms $\{1, 2, 3, 4, 5, 10, 1/2, 1/3, 1/4, 3/4, 3/2, 5/4, \pi, \varphi, \sqrt{2}, \sqrt{5}, \sqrt{2\pi}, e, \pi/10, c_2 = 19/20\}$ together with the nine substrate $\alpha$-values; operations $\{a\!\cdot\! b,\, a/b,\, a^2,\, \sqrt{a},\, a^{-1},\, \exp(a)\}$; cap at three operations. Enumerate every well-defined positive-real expression in this grammar at \texttt{mpmath} 30-digit precision; deduplicate at $10^{-20}$ tolerance. For each substrate-matched observable in Table~\ref{tab:appearances}, restrict the enumeration to a measurement-range band and count expressions within $N\sigma$ of the published measurement. The reproducible script is at \texttt{Papers/Methods/look\_elsewhere\_test.py}.
-
-\paragraph{Result and corrected null.} On the substrate's grammar, the seven-observable enumeration yields $\sim 10^5$ distinct positive-real expressions after deduplication. Per-observable counts within $0.5\sigma$ range from $\sim 100$ (neutrino mass-ratio, the tightest band at $\pm 0.0008$) to $\sim 5{,}000$ (GW redshift index, band $\pm 1.0$). The procedure that produces a Table-\ref{tab:appearances}-style match is \emph{best-of-$N$ search}: enumerate $\sim 10^5$ expressions, then keep the closest one to each measurement. Under this procedure the per-observable null rate is $q_i = 1 - (1 - p_i)^{N_{\textsf{band}}}$, where $p_i$ is the single-throw rate and $N_{\textsf{band}}$ is the in-band expression count. With $p_i N_{\textsf{band}} \gg 1$ for every observable, $q_i \approx 1$ for every observable, the Poisson rate is $\lambda = \sum_i q_i \approx 7$, and
-\[
-\Pr[K \geq 6 \mid \lambda \approx 7] \;\approx\; 1.
-\]
-Achieving K hits out of seven is what noise produces under exhaustive search on this grammar. \emph{An earlier revision of this section reported $p \approx 10^{-7}$ structure; that calculation used the wrong null (single-throw $p_i$ instead of best-of-$N$ $q_i$) and is hereby withdrawn.}
-
-\paragraph{Two further corrections to the test scope.} The S$_8$ row in Table~\ref{tab:appearances} multiplies a fixed empirical Planck-CMB-anchored input $S_8^{\textsf{CMB}} = 0.834$ by a substrate modulation factor; it is not a free closed-form match in the look-elsewhere sense, and should not enter a dimensionless enumeration test. The low-mass GW BH peak row is the substrate-side expression $10\,M_\odot \cdot \alpha_1$, which is dimensionful and likewise outside the dimensionless test's scope; either entry must be excluded from any look-elsewhere analysis or treated with the corresponding category-error caveat. Of the remaining five Table-\ref{tab:appearances} rows that do qualify as look-elsewhere candidates, four (dark-energy $w_0$, GW mass-ratio peak, GW redshift index, Li-7 deficit) sit in bands with hundreds-to-thousands of equally-simple expressions fitting equally well; the Li-7 row in particular is the tell --- the substrate's $\pi/(10\sqrt{2})$ misses the measurement at $1.6\sigma$, worse than thousands of arbitrary expressions in the same grammar. The neutrino mass-ratio row is the one with any teeth (only $\sim 100$ expressions within its tight $\pm 0.0008$ band; substrate's $\pi\sqrt{2}/150$ is one of them), but its expression reuses the substrate's own $\alpha$-pieces and therefore is not independent of the construction.
-
-\paragraph{Substrate-natural prior test.} The natural follow-up objection is that the uniform-grammar best-of-$N$ null is too generous: the substrate does not predict ``any expression in a uniform grammar,'' it predicts a structurally-forced set built from the nine $\alpha$-values, the universal coupling $\pi/10$, ratios, products, and small-integer divisors. The substrate runs that test directly. Restricting the enumeration to the substrate-natural prior (the 9 $\alpha$-values, ratios $\alpha_i/\alpha_j$, products $\alpha_i \cdot \alpha_j$, universal-coupling combinations $(\pi/10)/\alpha_i$, two-factor compositions of the previous, divisor/multiplier by small substrate-counting integers $\{1, 2, 3, 4, 10\}$, squares and inverses) yields $|G_{\textsf{substrate}}| = 404$ distinct positive expressions --- three orders of magnitude tighter than the uniform-grammar enumeration. Per-observable in-band counts within $0.5\sigma$: $w_0$: 3 of 345; Li-7: 21 of 307; \emph{neutrino mass ratio: 1 of 130}; GW mass-ratio peak: 15 of 323; GW redshift index: 13 of 375. Best-of-$N$ rates $q_i \approx 0.5\text{--}0.8$, $\lambda \approx 4.6$, $\Pr[K \geq 4 \mid \lambda \approx 4.6] \approx 0.67$. Conclusion: even under the substrate's own structural prior, the table as a whole is consistent with noise. Figure~\ref{fig:lookelsewhere} displays the per-row in-band counts. The reproducible script is at \texttt{Papers/Methods/look\_elsewhere\_substrate\_natural.py}.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-  width=0.86\linewidth,height=4.8cm,
-  xbar,
-  xlabel={substrate-natural expressions in the same $0.5\sigma$ band as the substrate's prediction},
-  xmin=0, xmax=400,
-  ytick={1,2,3,4,5},
-  yticklabels={
-    {neutrino ($\pi\sqrt{2}/150$)},
-    {$w_0$ ($-\sqrt{2\pi}/3$)},
-    {GW redshift ($\pi$)},
-    {GW mass-ratio ($\sqrt{2}/(\varphi\!+\!\tfrac{1}{4})$)},
-    {Li-7 ($\pi/(10\sqrt{2})$)}
-  },
-  y tick label style={font=\scriptsize},
-  x tick label style={font=\scriptsize},
-  xlabel style={font=\scriptsize},
-  enlarge y limits=0.18,
-  axis line style={substrategray,line width=0.5pt},
-  grid=major,
-  grid style={gray!20,line width=0.3pt},
-  nodes near coords,
-  nodes near coords align={horizontal},
-  nodes near coords style={font=\scriptsize,/pgf/number format/.cd,fixed,precision=0},
-  bar width=4.5mm
-]
-\addplot[draw=substrategray,fill=substrategray!40]
-  coordinates {(1,1) (3,2) (13,3) (15,4) (21,5)};
-% Highlight neutrino row in orange
-\addplot[draw=substrateorange,fill=substrateorange,line width=0.6pt]
-  coordinates {(1,1)};
-\end{axis}
-\end{tikzpicture}
-\caption{Look-elsewhere disclosure under the substrate-natural prior (404 distinct positive expressions). Each bar is the count of substrate-natural expressions within $0.5\sigma$ of the published measurement for that Table~\ref{tab:appearances} row. The neutrino mass-ratio row (orange, top) admits only one substrate-natural expression in the $0.5\sigma$ band of the NuFit-6.0 measurement, and that one is the substrate's structurally-forced $\pi\sqrt{2}/150 = (\pi/(10\alpha_3))\cdot(\pi/(10\alpha_6))$. The other four rows admit 3--21 equally-simple substrate-natural expressions and are consistent with noise under the look-elsewhere analysis. The figure is the substrate's own diagnostic of which Table~\ref{tab:appearances} rows carry evidential weight after the multiple-comparisons correction; reproducible from \texttt{Papers/Methods/look\_elsewhere\_substrate\_natural.py}.}
-\label{fig:lookelsewhere}
-\end{figure}
-
-\paragraph{One row survives.} The neutrino mass-ratio row is qualitatively different from the other four under the substrate-natural prior: only \textbf{1 of 130} in-band substrate-natural expressions falls within $0.5\sigma$ of the NuFit-6.0 measurement, and that one is the substrate's structurally-forced $\pi\sqrt{2}/150 = (\pi/(10\alpha_3)) \cdot (\pi/(10\alpha_6))$ --- the composition of two universal-coupling factors at the substrate's $\alpha_P$ and $\alpha_{\textsf{BSD}}$ values. The substrate's prediction sits at $0.23\sigma$ off the measurement on a band whose uncertainty $\pm 0.0008$ is the tightest of any row in Table~\ref{tab:appearances}. \emph{This single row carries real information}: under the substrate's own structural prior, 129 of 130 candidate expressions in the appropriate band do not fit, and the one that does is the substrate's structurally-natural product of its two universal-coupling factors at named substrate constants. The neutrino row is the one row where the substrate's empirical case has weight beyond mere descriptive context.
-
-\paragraph{Conclusion of the test.} The Table~\ref{tab:appearances} retrodictions, taken as a multi-row significance test, are not statistical evidence: the look-elsewhere analysis under both the uniform-grammar and the substrate-natural priors disposes of the table-as-evidence reading. They remain exposition of how the substrate's algebraic structure populates the same numerical landscape as observed physical quantities. The substrate's empirical case --- after the test --- is structured: \emph{(i)} the single neutrino mass-ratio row carries real evidential weight under the substrate-natural prior (1-of-130); \emph{(ii)} the chronologically-pre-registered forward prediction of \S\ref{sec:forward} carries evidential weight by construction (the trials denominator is fixed in advance). Layer 1's machine-verified algebraic content (the 12 substrate-derived identities, the unique nine-tuple, the 17 further axiom-free identities, the four unconditional axis discharges, $T_3^{\textsf{sym}}$ self-adjointness) is the substrate's primary discovery and stands independently of any read of Table~\ref{tab:appearances}.
-
 \subsection{The cosmological-constant ratio: parameter-free closed form}\label{subsec:lambdaeff}
 
-One Table~\ref{tab:appearances} row stands outside the look-elsewhere scope of \S\ref{subsec:lookelsewhere}, because its match is an order-of-magnitude hierarchy match with an explicit substrate-internal derivation chain rather than a dimensionless numerical retrodiction inside a measurement band. That row is the cosmological-constant ratio $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ --- the largest-known disagreement between any quantum-field-theoretic vacuum-energy estimate and astrophysical observation, conventionally referred to as the worst prediction in physics. The substrate exhibits the ratio as a closed form whose value is forced by four substrate-internal inputs and matches the observed hierarchy to $0.05\%$.
+Among the rows of Table~\ref{tab:appearances}, the cosmological-constant ratio admits a treatment qualitatively different from the rest: an order-of-magnitude hierarchy match with an explicit substrate-internal derivation chain rather than a dimensionless numerical retrodiction inside a measurement band (the look-elsewhere analysis of \S\ref{subsec:lookelsewhere} applies to the other rows). That row is the cosmological-constant ratio $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ --- the largest-known disagreement between any quantum-field-theoretic vacuum-energy estimate and astrophysical observation, conventionally referred to as the worst prediction in physics. The substrate exhibits the ratio as a closed form whose value is forced by four substrate-internal inputs and matches the observed hierarchy to $0.05\%$.
 
 \paragraph{The derivation chain.} The substrate computes the suppression exponent as the product of four quantities, each substrate-internal:
 \begin{enumerate}[label=\textup{(\arabic*)},itemsep=2pt]
@@ -522,6 +463,66 @@ is proven kernel-only via \texttt{Lambda\_eff\_exponent\_product\_sharp\_bracket
 \caption{The substrate's parameter-free derivation of $\Lambda_{\textsf{eff}}/\Lambda_0 \sim 10^{-120}$. Top row: four substrate-internal inputs --- $\dim(E_6) = 78$ (Lie theory, forced by $T_\infty$ level-3 trinification, kernel-only theorem \texttt{seventyEight\_decomp} in \texttt{PF/Cosmology/E6ChernIndex78pi.lean}); $\pi$ (Chern--Weil normalisation with $\mathbb{R}_+$ scaling fibre); $c_2 = 19/20$ (universal saturation threshold, \texttt{PF/Consciousness/Ch12MassIITBridge.lean}); $|R_f(\sqrt{2\pi}, 1)| = 19/16$ (Dirichlet-series modulus at the QG anchor). Middle: their product collapses to the rational closed form $14079\pi/160$, kernel-only proven as \texttt{Lambda\_eff\_exponent\_product\_rational\_form} in \texttt{PF/Cosmology/LambdaEffParameterFreeCapstone.lean}. Lower row: the substrate's certified sharp bracket $276.44 < 14079\pi/160 < 276.45$ versus the observed cosmological exponent $120 \log 10 = 276.310\ldots$. Bottom: the substrate's closed form matches the observed hierarchy to $0.05\%$. No quantity in the chain is fit to the cosmological observation; the exponent $120$ in $10^{-120}$ is a derived consequence of the chain, not an input. The match is $0.05\%$ on the exponent (residual $0.13$ within the substrate-natural rational precision on $|R_f|$).}
 \label{fig:lambdaeff}
 \end{figure}
+
+\subsection{Look-elsewhere: the grammar is too dense for the retrodictions to be evidential}\label{subsec:lookelsewhere}
+
+The natural objection to Table~\ref{tab:appearances} is the multiple-comparisons problem: with the substrate's atoms and operations, thousands of simple closed-form expressions could land near each measurement; reporting only the ones that fit silently drops a large denominator, and the headline $\sigma$-distances carry information only relative to that denominator. The substrate makes the measurement directly here. \emph{The result is unfavourable to the retrodictions, and the honest conclusion is that the look-elsewhere analysis disposes of Table~\ref{tab:appearances} as evidence.}
+
+\paragraph{Methodology.} Fix the expression grammar to the substrate's actual toolkit: atoms $\{1, 2, 3, 4, 5, 10, 1/2, 1/3, 1/4, 3/4, 3/2, 5/4, \pi, \varphi, \sqrt{2}, \sqrt{5}, \sqrt{2\pi}, e, \pi/10, c_2 = 19/20\}$ together with the nine substrate $\alpha$-values; operations $\{a\!\cdot\! b,\, a/b,\, a^2,\, \sqrt{a},\, a^{-1},\, \exp(a)\}$; cap at three operations. Enumerate every well-defined positive-real expression in this grammar at \texttt{mpmath} 30-digit precision; deduplicate at $10^{-20}$ tolerance. For each substrate-matched observable in Table~\ref{tab:appearances}, restrict the enumeration to a measurement-range band and count expressions within $N\sigma$ of the published measurement. The reproducible script is at \texttt{Papers/Methods/look\_elsewhere\_test.py}.
+
+\paragraph{Result and corrected null.} On the substrate's grammar, the seven-observable enumeration yields $\sim 10^5$ distinct positive-real expressions after deduplication. Per-observable counts within $0.5\sigma$ range from $\sim 100$ (neutrino mass-ratio, the tightest band at $\pm 0.0008$) to $\sim 5{,}000$ (GW redshift index, band $\pm 1.0$). The procedure that produces a Table-\ref{tab:appearances}-style match is \emph{best-of-$N$ search}: enumerate $\sim 10^5$ expressions, then keep the closest one to each measurement. Under this procedure the per-observable null rate is $q_i = 1 - (1 - p_i)^{N_{\textsf{band}}}$, where $p_i$ is the single-throw rate and $N_{\textsf{band}}$ is the in-band expression count. With $p_i N_{\textsf{band}} \gg 1$ for every observable, $q_i \approx 1$ for every observable, the Poisson rate is $\lambda = \sum_i q_i \approx 7$, and
+\[
+\Pr[K \geq 6 \mid \lambda \approx 7] \;\approx\; 1.
+\]
+Achieving K hits out of seven is what noise produces under exhaustive search on this grammar. \emph{An earlier revision of this section reported $p \approx 10^{-7}$ structure; that calculation used the wrong null (single-throw $p_i$ instead of best-of-$N$ $q_i$) and is hereby withdrawn.}
+
+\paragraph{Two further corrections to the test scope.} The S$_8$ row in Table~\ref{tab:appearances} multiplies a fixed empirical Planck-CMB-anchored input $S_8^{\textsf{CMB}} = 0.834$ by a substrate modulation factor; it is not a free closed-form match in the look-elsewhere sense, and should not enter a dimensionless enumeration test. The low-mass GW BH peak row is the substrate-side expression $10\,M_\odot \cdot \alpha_1$, which is dimensionful and likewise outside the dimensionless test's scope; either entry must be excluded from any look-elsewhere analysis or treated with the corresponding category-error caveat. Of the remaining five Table-\ref{tab:appearances} rows that do qualify as look-elsewhere candidates, four (dark-energy $w_0$, GW mass-ratio peak, GW redshift index, Li-7 deficit) sit in bands with hundreds-to-thousands of equally-simple expressions fitting equally well; the Li-7 row in particular is the tell --- the substrate's $\pi/(10\sqrt{2})$ misses the measurement at $1.6\sigma$, worse than thousands of arbitrary expressions in the same grammar. The neutrino mass-ratio row is the one with any teeth (only $\sim 100$ expressions within its tight $\pm 0.0008$ band; substrate's $\pi\sqrt{2}/150$ is one of them), but its expression reuses the substrate's own $\alpha$-pieces and therefore is not independent of the construction.
+
+\paragraph{Substrate-natural prior test.} The natural follow-up objection is that the uniform-grammar best-of-$N$ null is too generous: the substrate does not predict ``any expression in a uniform grammar,'' it predicts a structurally-forced set built from the nine $\alpha$-values, the universal coupling $\pi/10$, ratios, products, and small-integer divisors. The substrate runs that test directly. Restricting the enumeration to the substrate-natural prior (the 9 $\alpha$-values, ratios $\alpha_i/\alpha_j$, products $\alpha_i \cdot \alpha_j$, universal-coupling combinations $(\pi/10)/\alpha_i$, two-factor compositions of the previous, divisor/multiplier by small substrate-counting integers $\{1, 2, 3, 4, 10\}$, squares and inverses) yields $|G_{\textsf{substrate}}| = 404$ distinct positive expressions --- three orders of magnitude tighter than the uniform-grammar enumeration. Per-observable in-band counts within $0.5\sigma$: $w_0$: 3 of 345; Li-7: 21 of 307; \emph{neutrino mass ratio: 1 of 130}; GW mass-ratio peak: 15 of 323; GW redshift index: 13 of 375. Best-of-$N$ rates $q_i \approx 0.5\text{--}0.8$, $\lambda \approx 4.6$, $\Pr[K \geq 4 \mid \lambda \approx 4.6] \approx 0.67$. Conclusion: even under the substrate's own structural prior, the table as a whole is consistent with noise. Figure~\ref{fig:lookelsewhere} displays the per-row in-band counts. The reproducible script is at \texttt{Papers/Methods/look\_elsewhere\_substrate\_natural.py}.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.86\linewidth,height=4.8cm,
+  xbar,
+  xlabel={substrate-natural expressions in the same $0.5\sigma$ band as the substrate's prediction},
+  xmin=0, xmax=400,
+  ytick={1,2,3,4,5},
+  yticklabels={
+    {neutrino ($\pi\sqrt{2}/150$)},
+    {$w_0$ ($-\sqrt{2\pi}/3$)},
+    {GW redshift ($\pi$)},
+    {GW mass-ratio ($\sqrt{2}/(\varphi\!+\!\tfrac{1}{4})$)},
+    {Li-7 ($\pi/(10\sqrt{2})$)}
+  },
+  y tick label style={font=\scriptsize},
+  x tick label style={font=\scriptsize},
+  xlabel style={font=\scriptsize},
+  enlarge y limits=0.18,
+  axis line style={substrategray,line width=0.5pt},
+  grid=major,
+  grid style={gray!20,line width=0.3pt},
+  nodes near coords,
+  nodes near coords align={horizontal},
+  nodes near coords style={font=\scriptsize,/pgf/number format/.cd,fixed,precision=0},
+  bar width=4.5mm
+]
+\addplot[draw=substrategray,fill=substrategray!40]
+  coordinates {(1,1) (3,2) (13,3) (15,4) (21,5)};
+% Highlight neutrino row in orange
+\addplot[draw=substrateorange,fill=substrateorange,line width=0.6pt]
+  coordinates {(1,1)};
+\end{axis}
+\end{tikzpicture}
+\caption{Look-elsewhere disclosure under the substrate-natural prior (404 distinct positive expressions). Each bar is the count of substrate-natural expressions within $0.5\sigma$ of the published measurement for that Table~\ref{tab:appearances} row. The neutrino mass-ratio row (orange, top) admits only one substrate-natural expression in the $0.5\sigma$ band of the NuFit-6.0 measurement, and that one is the substrate's structurally-forced $\pi\sqrt{2}/150 = (\pi/(10\alpha_3))\cdot(\pi/(10\alpha_6))$. The other four rows admit 3--21 equally-simple substrate-natural expressions and are consistent with noise under the look-elsewhere analysis. The figure is the substrate's own diagnostic of which Table~\ref{tab:appearances} rows carry evidential weight after the multiple-comparisons correction; reproducible from \texttt{Papers/Methods/look\_elsewhere\_substrate\_natural.py}.}
+\label{fig:lookelsewhere}
+\end{figure}
+
+\paragraph{One row survives.} The neutrino mass-ratio row is qualitatively different from the other four under the substrate-natural prior: only \textbf{1 of 130} in-band substrate-natural expressions falls within $0.5\sigma$ of the NuFit-6.0 measurement, and that one is the substrate's structurally-forced $\pi\sqrt{2}/150 = (\pi/(10\alpha_3)) \cdot (\pi/(10\alpha_6))$ --- the composition of two universal-coupling factors at the substrate's $\alpha_P$ and $\alpha_{\textsf{BSD}}$ values. The substrate's prediction sits at $0.23\sigma$ off the measurement on a band whose uncertainty $\pm 0.0008$ is the tightest of any row in Table~\ref{tab:appearances}. \emph{This single row carries real information}: under the substrate's own structural prior, 129 of 130 candidate expressions in the appropriate band do not fit, and the one that does is the substrate's structurally-natural product of its two universal-coupling factors at named substrate constants. The neutrino row is the one row where the substrate's empirical case has weight beyond mere descriptive context.
+
+\paragraph{Conclusion of the test.} The Table~\ref{tab:appearances} retrodictions, taken as a multi-row significance test, are not statistical evidence: the look-elsewhere analysis under both the uniform-grammar and the substrate-natural priors disposes of the table-as-evidence reading. They remain exposition of how the substrate's algebraic structure populates the same numerical landscape as observed physical quantities. The substrate's empirical case --- after the test --- is structured: \emph{(i)} the single neutrino mass-ratio row carries real evidential weight under the substrate-natural prior (1-of-130); \emph{(ii)} the chronologically-pre-registered forward prediction of \S\ref{sec:forward} carries evidential weight by construction (the trials denominator is fixed in advance). Layer 1's machine-verified algebraic content (the 12 substrate-derived identities, the unique nine-tuple, the 17 further axiom-free identities, the four unconditional axis discharges, $T_3^{\textsf{sym}}$ self-adjointness) is the substrate's primary discovery and stands independently of any read of Table~\ref{tab:appearances}.
+
 
 \section{What is proven, what is conditional, what is open}\label{sec:scope}
 
