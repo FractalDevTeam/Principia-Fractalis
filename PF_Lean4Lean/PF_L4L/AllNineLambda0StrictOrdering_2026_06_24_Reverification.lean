@@ -1,0 +1,21 @@
+/-
+# PF_L4L.AllNineLambda0StrictOrdering_2026_06_24_Reverification
+-/
+
+import PF.AllNineLambda0StrictOrdering_2026_06_24
+
+namespace PF_L4L
+
+def six_way_lambda_0_strict_ordering_reverified :=
+  @PrincipiaTractalis.AllNineLambda0StrictOrdering.six_way_lambda_0_strict_ordering
+#print axioms six_way_lambda_0_strict_ordering_reverified
+
+def lambda_0_YM_ne_lambda_0_Hodge_reverified :=
+  @PrincipiaTractalis.AllNineLambda0StrictOrdering.lambda_0_YM_ne_lambda_0_Hodge
+#print axioms lambda_0_YM_ne_lambda_0_Hodge_reverified
+
+def lambda_0_Hodge_ne_lambda_0_Poincare_reverified :=
+  @PrincipiaTractalis.AllNineLambda0StrictOrdering.lambda_0_Hodge_ne_lambda_0_Poincare
+#print axioms lambda_0_Hodge_ne_lambda_0_Poincare_reverified
+
+end PF_L4L
