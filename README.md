@@ -28,7 +28,7 @@ in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports t
 | Path | Content |
 |---|---|
 | `Principia_Fractalis_master_folder/` | The book *Principia Fractalis* (LaTeX source + `main.pdf`, V2.6.1, 915 pages) |
-| `Papers/principia_fractalis_clean_2026-06-25.{tex,pdf}` | The substrate's exposition paper (17 pp, 8 explanatory figures, Appendix B enumerating 17 extended algebraic invariants) |
+| `Papers/principia_fractalis_clean_2026-06-26.{tex,pdf}` | The substrate's exposition paper (20 pp, 8 explanatory figures, three appendices: verbatim `#print axioms` snapshot, seventeen extended algebraic invariants, λ₀² closed-form spectrum + P/NP spectral-gap closed form) |
 | `Papers/Data/principia_fractalis_143_problems_IBM_dataset.csv` | The 143-problem panel data |
 | `Papers/PriorWork_*/` | Seven Pabs-authored prior-work manuscripts (substrate-tier named anchors) |
 | `PF_Lean4_Code/` | Lean 4 verification (1,003 files, 329,599 lines; mathlib4 v4.24.0-rc1) |
@@ -88,8 +88,8 @@ pdflatex main && bibtex main && pdflatex main && pdflatex main
 
 ```bash
 cd Papers
-pdflatex principia_fractalis_clean_2026-06-25
-pdflatex principia_fractalis_clean_2026-06-25
+pdflatex principia_fractalis_clean_2026-06-26
+pdflatex principia_fractalis_clean_2026-06-26
 ```
 
 ---

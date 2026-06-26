@@ -1,11 +1,11 @@
-%% principia_fractalis_clean_2026-06-25.tex
+%% principia_fractalis_clean_2026-06-26.tex
 %%
 %% Principia Fractalis — the clean exposition.
 %% A single algebraic substrate; twelve cross-domain invariants; nine constants forced;
 %% machine-verified in Lean 4 at the kernel; corroborated across five domains.
 %%
 %% Author: Pablo Cohen (ORCID 0009-0002-0734-5565)
-%% Date: 2026-06-25
+%% Date: 2026-06-26 (revised; initial deposition 2026-06-25)
 %% Corpus: github.com/FractalDevTeam/Principia-Fractalis
 
 \documentclass[11pt,a4paper]{amsart}
@@ -46,7 +46,7 @@
 \email{psolorzano@gmail.com}
 \urladdr{ORCID:~\href{https://orcid.org/0009-0002-0734-5565}{0009-0002-0734-5565}}
 
-\date{June 25, 2026}
+\date{June 26, 2026}
 
 \begin{document}
 
@@ -57,7 +57,7 @@ Twelve substrate-derived algebraic identities in nine real-valued unknowns admit
 
 The forced nine-tuple, composed with the substrate's universal coupling, yields the cosmological-constant ratio $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ as the explicit closed form $\exp(-14079\pi/160)$, with agreement to $0.05\%$ on the exponent; the exponent $120$ is itself a derived consequence of four substrate-internal quantities, not an input (\S\ref{subsec:lambdaeff}). The arithmetic spine $78\pi \cdot (19/20) \cdot (19/16) = 14079\pi/160$ is kernel-only.
 
-The substrate's chronologically-pre-registered forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ for the IBM-Quantum spectral peak of the Graph Isomorphism class was committed to the public Lean corpus on 2026-06-22 and deposited with this paper on 2026-06-25, prior to any IBM-Quantum GI measurement; this is the empirical claim with the trials denominator fixed in advance.
+The substrate's chronologically-pre-registered forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ for the IBM-Quantum spectral peak of the Graph Isomorphism class was committed to the public Lean corpus on 2026-06-22 and deposited with this paper's initial deposition on 2026-06-25, prior to any IBM-Quantum GI measurement; this is the empirical claim with the trials denominator fixed in advance.
 
 The nine values additionally appear in independently published measurements across pure mathematics, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; the substrate's own look-elsewhere analysis (\S\ref{subsec:lookelsewhere}) shows that, taken as a multi-row significance test, these retrodictions are not statistical evidence under the substrate's own grammar. The single row that survives the substrate-natural prior is the neutrino mass-ratio (1-of-130), structurally given by the universal-coupling composition $(\pi/(10\alpha_3))\cdot(\pi/(10\alpha_6))$.
 
@@ -582,7 +582,7 @@ The substrate's chronologically-pre-registered forward-runnable prediction is th
 \[
 \boxed{\;\alpha_{\textsf{GI}} \;=\; \sqrt{2} \quad\textrm{to}\quad 10^{-4}.\;}
 \]
-The substrate commits this prediction to public record at this paper's deposition (2026-06-25). Any subsequent measurement of $\alpha_{\textsf{GI}}$ that does not fall within $[\sqrt{2} - 10^{-4},\,\sqrt{2} + 10^{-4}]$ refutes the substrate's tri-class extension. The pre-registration timeline is Figure~\ref{fig:timeline}; the falsifier panel of which this prediction is element F5 is detailed below.
+The substrate commits this prediction to public record at this paper's initial deposition (2026-06-25); subsequent revisions of this paper do not change the substrate's pre-registered commitment surface. Any subsequent measurement of $\alpha_{\textsf{GI}}$ that does not fall within $[\sqrt{2} - 10^{-4},\,\sqrt{2} + 10^{-4}]$ refutes the substrate's tri-class extension. The pre-registration timeline is Figure~\ref{fig:timeline}; the falsifier panel of which this prediction is element F5 is detailed below.
 
 \paragraph{The substrate's tri-class extension and the prediction's chronology.} The tri-class extension was formalised on 2026-06-22 after the substrate's prior binary $\{P, NP\}$ rule was found to be over-restrictive for NP-intermediate problems such as Graph Isomorphism (Babai 2016~\cite{babai2016} quasi-polynomial; Sch\"oning 1988~\cite{schoning1988} GI $\in$ low hierarchy of NP; Goldwasser--Sipser 1986~\cite{goldwasser1986} GI $\in$ coAM). The substrate's tri-class strengthening assigns the P-end value $\alpha_3 = \sqrt{2}$ to the NP-intermediate class, matching the complexity-theoretic literature consensus that NP-intermediate problems are nearer to P than to NP-complete; this is a substrate-internal choice motivated by the literature, not a uniqueness-style derivation. The prediction is formalised in the Lean file \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only) and the measurement protocol (shots $\geq 8192$, instance size $n \geq 100$, repetition count, $\epsilon = 10^{-4}$ acceptance band) in \texttt{PF/Empirical/GIForwardPredictionProtocol\_2026\_06\_24.lean}.
 
@@ -632,7 +632,7 @@ The substrate commits this prediction to public record at this paper's depositio
 
 % Event 4: protocol formalised + paper deposition (LABEL BELOW, bolded, on the boundary)
 \node[evt,fill=substrateorange,minimum size=3.5mm,line width=0.7pt] (e4) at (1.4,0) {};
-\node[date lab,above=2mm of e4] {\bfseries 2026-06-25 (deposition)};
+\node[date lab,above=2mm of e4] {\bfseries 2026-06-25 (initial deposition)};
 \node[below lab,below=4mm of e4] (e4lab) {\bfseries protocol formalised \\ \bfseries paper deposited \\ \scriptsize\itshape GIForwardPrediction\\Protocol\_2026\_06\_24.lean};
 
 % Future event: IBM Quantum measurement (LABEL ABOVE)
@@ -643,12 +643,12 @@ The substrate commits this prediction to public record at this paper's depositio
 % Below: the substrate's commitment
 \node[draw=substrateorange,line width=0.6pt,fill=substratelight,rounded corners=2pt,inner sep=4pt,
       align=center,font=\small] at (0,-3.7)
-{\textbf{Substrate's commitment} (frozen at deposition 2026-06-25): \\
+{\textbf{Substrate's commitment} (frozen at initial deposition 2026-06-25): \\
  $\alpha_{\textsf{GI}} \in [\,\sqrt{2} - 10^{-4},\;\sqrt{2} + 10^{-4}\,]$ \\
  \scriptsize\emph{Any measurement outside this band refutes the substrate's tri-class extension.}};
 
 \end{tikzpicture}
-\caption{Pre-registration timeline for the substrate's forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$. The orange-shaded window contains the four substrate-side events that fix the prediction --- substrate algebra codified pre-2026; first GI prediction landed 2026-06-03 in \texttt{PF/Empirical/Hundred44ProblemPrediction.lean}; tri-class extension forcing $\alpha_{\textsf{GI}} = \sqrt{2}$ landed 2026-06-22 in \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean}; full measurement protocol (shots, repetitions, instance size, $\epsilon$) formalised 2026-06-24 in \texttt{PF/Empirical/GIForwardPredictionProtocol\_2026\_06\_24.lean}, this paper deposited 2026-06-25. The grey-shaded window contains the not-yet-run IBM Quantum measurement. Pre-registration is the boundary at 2026-06-25: trials denominator fixed in advance; no expression-search room remains; the substrate's commitment is a public record.}
+\caption{Pre-registration timeline for the substrate's forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$. The orange-shaded window contains the four substrate-side events that fix the prediction --- substrate algebra codified pre-2026; first GI prediction landed 2026-06-03 in \texttt{PF/Empirical/Hundred44ProblemPrediction.lean}; tri-class extension forcing $\alpha_{\textsf{GI}} = \sqrt{2}$ landed 2026-06-22 in \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean}; full measurement protocol (shots, repetitions, instance size, $\epsilon$) formalised 2026-06-24 in \texttt{PF/Empirical/GIForwardPredictionProtocol\_2026\_06\_24.lean}, this paper initially deposited 2026-06-25. The grey-shaded window contains the not-yet-run IBM Quantum measurement. Pre-registration is the boundary at 2026-06-25: trials denominator fixed in advance; no expression-search room remains; the substrate's commitment is a public record (subsequent paper revisions do not move the boundary).}
 \label{fig:timeline}
 \end{figure}
 
