@@ -79,7 +79,7 @@ The nine constants and the basis they live in are listed in Table~\ref{tab:nine}
 \toprule
 Substrate class & Forced $\alpha$ & $\lambda_0$ closed form & 4-decimal bracket \\
 \midrule
-$\alpha_1$ (substrate's natural unit) & $1$            & $\pi/10$                 & $(0.3141,\,0.3142)$ \\
+$\alpha_1$ (Poincar\'e/natural unit) & $1$            & $\pi/10$                 & $(0.3141,\,0.3142)$ \\
 $\alpha_2$                            & $3/2$          & $\pi/15$                 & $(0.2094,\,0.2095)$ \\
 $\alpha_3$                            & $\sqrt{2}$     & $\pi/(10\sqrt{2})$       & $(0.2221,\,0.2222)$ \\
 $\alpha_4$                            & $\varphi+1/4$  & $\pi/(10(\varphi+1/4))$  & $(0.1681,\,0.1682)$ \\
@@ -151,7 +151,7 @@ $(\pm 1, \pm \varphi, 0)$\\[3pt]
 $(\pm \varphi, 0, \pm 1)$
 };
 \node[font=\scriptsize,align=center,substrateorange] at (0,-0.85) {$\varphi = \tfrac{1+\sqrt{5}}{2}$};
-\node[font=\scriptsize,align=center] at (0,-1.85) {Golden ratio enters\\the substrate's basis $\mathcal{B}$.};
+\node[font=\scriptsize,align=center] at (0,-1.85) {Golden ratio enters\\the basis $\mathcal{B}$.};
 \end{scope}
 
 % RIGHT: Coxeter diagram + anchor
@@ -526,32 +526,32 @@ The Table~\ref{tab:appearances} retrodictions, taken as a multi-row significance
 
 \section{What is proven, what is conditional, what is open}\label{sec:scope}
 
-The substrate's content is partitioned, in the corpus, into three explicit scopes. Each scope is machine-readable from the Lean source. This section reads them out.
+The content partitions into three scopes machine-readable from the Lean source: proven unconditionally (\S\ref{subsec:unconditional}); conditional on three named open conjectures (\S\ref{subsec:conditional}, \S\ref{subsec:rhthm}); and matching the canonical open frontier per axis (\S\ref{subsec:open}).
 
-\subsection{Unconditional content: kernel-only, zero project axioms}
+\subsection{Unconditional content: kernel-only, zero project axioms}\label{subsec:unconditional}
 
 The following statements are proven in Lean~4 with no project axioms beyond the kernel three $[\texttt{propext},\;\texttt{Classical.choice},\;\texttt{Quot.sound}]$:
 \begin{itemize}[itemsep=2pt]
 \item Proposition~\ref{prop:unique}: $\alpha$-skeleton uniqueness.
 \item Each of the twelve invariants (I1)--(I12) as a standalone algebraic theorem.
-\item Seventeen further axiom-free algebraic identities on the substrate's nine-tuple (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}).
-\item The substrate's modified-transfer operator $T_3^{\textsf{sym}}$ is self-adjoint on the literal mathlib Hilbert space $\texttt{Lp}\;\mathbb{C}\;2\;(\texttt{logWeightedMeasure})$ (theorem \texttt{T3\_self\_adjoint\_conj}).
-\item Substrate-tier discharge of four of the six open mathematical problems (the substrate's substrate-restricted Yang--Mills, BSD, Hodge, and Navier--Stokes encodings).
+\item Seventeen further axiom-free algebraic identities on the nine-tuple (\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}).
+\item The modified-transfer operator $T_3^{\textsf{sym}}$ is self-adjoint on the literal mathlib Hilbert space $\texttt{Lp}\;\mathbb{C}\;2\;(\texttt{logWeightedMeasure})$ (theorem \texttt{T3\_self\_adjoint\_conj}).
+\item Substrate-tier discharge of four of the six open mathematical problems (the substrate-restricted Yang--Mills, BSD, Hodge, and Navier--Stokes encodings).
 \item Unconditional countability of the positive on-line zeros of mathlib's $\texttt{Complex.riemannZeta}$, via mathlib's analytic identity theorem alone.
-\item The substrate's tri-class extension formalising the $\sqrt{2}$ assignment of NP-intermediate problems (\texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean}).
-\item The substrate's $\lambda_0^2$ closed-form spectrum across all nine classes (\texttt{lambda\_0\_squared\_spectrum\_capstone}), the substrate's $\lambda_0(\textsf{NP})$ closed form over $\mathbb{Q}(\sqrt{5})\cdot\pi$ (\texttt{lambda\_0\_NP\_closed\_form\_sqrt5}), and the substrate's P/NP spectral-gap closed form $\Delta = \pi(24 + 11\sqrt{2} - 16\sqrt{5})/220$ with positivity (\texttt{spectral\_gap\_closed\_form\_capstone}); see Appendix~\ref{app:lambdasq}.
+\item The tri-class extension formalising the $\sqrt{2}$ assignment of NP-intermediate problems (\texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean}).
+\item The $\lambda_0^2$ closed-form spectrum across all nine classes (\texttt{lambda\_0\_squared\_spectrum\_capstone}), the $\lambda_0(\textsf{NP})$ closed form over $\mathbb{Q}(\sqrt{5})\cdot\pi$ (\texttt{lambda\_0\_NP\_closed\_form\_sqrt5}), and the P/NP spectral-gap closed form $\Delta = \pi(24 + 11\sqrt{2} - 16\sqrt{5})/220$ with positivity (\texttt{spectral\_gap\_closed\_form\_capstone}); see Appendix~\ref{app:lambdasq}.
 \end{itemize}
 
-\subsection{Conditional content: three named open conjectures, written into the Lean source}
+\subsection{Conditional content: three named open conjectures, written into the Lean source}\label{subsec:conditional}
 
-Two of the substrate's axis-discharges are conditional on three named open conjectures, written into the Lean source as explicit Prop fields. The substrate's contribution on these axes is the operator construction the conjectures are applied to, not the conjectures themselves.
+Two axis-discharges are conditional on three named open conjectures, written into the Lean source as explicit Prop fields. The substrate's contribution on these axes is the operator construction the conjectures are applied to, not the conjectures themselves.
 
 \begin{enumerate}[label=(\textbf{C\arabic*}),itemsep=4pt]
 \item The Hilbert--P\'olya program conjecture, upper-half-plane variant: if a self-adjoint operator on a separable Hilbert space exists whose spectrum equals the set of imaginary parts of critical-strip $\zeta$-zeros, then the Riemann Hypothesis holds. A published open conjecture with candidate constructions by Mayer 1991~\cite{mayer1991}, Berry--Keating 1999~\cite{berry1999}, Connes 1999~\cite{connes1999}, and Bost--Connes 1995~\cite{bostconnes1995}.
 
-\item The substrate's identification: $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ \emph{is} the HP-program operator --- its spectrum equals the imaginary parts of critical-strip $\zeta$-zeros. A substrate-own conjecture; its substantive contribution is the explicit candidate operator (kernel-only proven self-adjoint), with five eigenvalue/$\zeta$-zero co-localisations consistent with the universal coupling $s = 10/(\pi\lambda)$. Formalised as a typed Prop hypothesis (not an axiom) in \texttt{PF/Analytic/RH\_FrameworkStandardDischarge\_NamedAnchors\_2026\_06\_19.lean}.
+\item The HP-operator identification: $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$ \emph{is} the HP-program operator --- its spectrum equals the imaginary parts of critical-strip $\zeta$-zeros. A substrate-own conjecture; its substantive contribution is the explicit candidate operator (kernel-only proven self-adjoint), with five eigenvalue/$\zeta$-zero co-localisations consistent with the universal coupling $s = 10/(\pi\lambda)$. Formalised as a typed Prop hypothesis (not an axiom) in \texttt{PF/Analytic/RH\_FrameworkStandardDischarge\_NamedAnchors\_2026\_06\_19.lean}.
 
-\item The substrate's polylogarithm spectral conjecture: the substrate's polylog operator algebra has spectral structure forcing $\alpha_3^2 = 2$ and $\alpha_4^2 = (\varphi + 1/4)^2$ on the P and NP classes respectively. The substrate's own conjecture; the operator constructions are kernel-only proven, the conjectured spectral identification is what the substrate adds. Formalised as an explicit typed Prop hypothesis (not an axiom) in \texttt{PF/TuringEncoding/Operators.lean}.
+\item The polylogarithm spectral conjecture: the substrate's polylog operator algebra has spectral structure forcing $\alpha_3^2 = 2$ and $\alpha_4^2 = (\varphi + 1/4)^2$ on the P and NP classes respectively. A substrate-own conjecture; the operator constructions are kernel-only proven, the conjectured spectral identification is what the substrate adds. Formalised as an explicit typed Prop hypothesis (not an axiom) in \texttt{PF/TuringEncoding/Operators.lean}.
 \end{enumerate}
 
 (C1) is published-open mathematics with a 130-year track record of candidate constructions; the substrate joins that lineage with its own explicit candidate. (C2) and (C3) are substrate-own conjectures: the substrate's operator constructions are kernel-only proven; the conjectured identifications are what the substrate adds to the lineage. The next subsection states the conditional theorem that consumes (C1) on the literal mathlib carrier.
@@ -564,29 +564,29 @@ The Lean theorem \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standar
 
 The two named-anchor axioms encode named external sources: external published mathematics (Hardy 1914~\cite{hardy1914}) and a published open conjecture (the HP-program of Mayer 1991~\cite{mayer1991}, Berry--Keating 1999~\cite{berry1999}, Connes 1999~\cite{connes1999}, Bost--Connes 1995~\cite{bostconnes1995}) that the substrate composes with its own operator construction. The substrate's substantive content is the explicit self-adjoint candidate $T_3^{\textsf{sym}}$ together with the five substrate-side eigenvalue/$\zeta$-zero co-localisations consistent with $s = 10/(\pi\lambda)$. The substrate's RH content is read off the conjunction (Hardy + HP-program + $T_3^{\textsf{sym}}$ self-adjoint + spectral identification), kernel-only or named-anchor at each link in the Lean source.
 
-\subsection{Open content: matching the canonical open frontier in each axis}
+\subsection{Open content: matching the canonical open frontier in each axis}\label{subsec:open}
 
-The substrate's residual open content, by axis, matches the canonical open content in the published literature on that axis, not a framework-specific gap:
+The residual open content, by axis, matches the canonical open content in the published literature on that axis, not a framework-specific gap:
 \begin{itemize}[itemsep=2pt]
-\item \emph{Yang--Mills}~\cite{jaffewitten2006}: continuum SU(3) Yang--Mills on $\mathbb{R}^4$ with mass gap is the canonical open frontier. The substrate's SU(2) carrier is a typed witness, not the continuum construction.
+\item \emph{Yang--Mills}~\cite{jaffewitten2006}: continuum SU(3) Yang--Mills on $\mathbb{R}^4$ with mass gap is the canonical open frontier. The SU(2) carrier in the substrate is a typed witness, not the continuum construction.
 \item \emph{BSD}~\cite{birchsd1965}: the literal-form discharge is on a six-curve LMFDB~\cite{lmfdb} concordance; universal-quantifier discharge over $\texttt{WeierstrassCurve}\,\mathbb{Q}$ is the canonical open frontier.
 \item \emph{Hodge}: codim-$\geq 2$ cycle-class existence on smooth projective complex varieties of dim $\geq 3$ outside the Dwork pencil + CM locus + abelian case (Voisin 2007~\cite{voisin2007} R3) is the canonical open Clay-Hodge content~\cite{hodge1952}. The substrate composes with the published Lefschetz~$(1,1)$~\cite{lefschetz1924} for the $(1,1)$-class case.
 \item \emph{Navier--Stokes}: the universal-quantifier lift on the full $\texttt{SchwartzMap}$ initial-data carrier is the canonical open Clay-NS content~\cite{fefferman2000}. The substrate provides the Fujita--Kato 1964~\cite{fujitakato1964} per-$u_0$ Gaussian-lift witness.
 \end{itemize}
 
-The substrate does not claim to have closed any of these open frontiers. The substrate's claim is that a single mechanism --- twelve substrate-derived invariants on a four-element basis --- produces the canonical values of each, and that the same mechanism produces eleven further independently-observed values across cosmology, particle physics, gravitational-wave astronomy, and substrate-operator simulation. The forward prediction of \S\ref{sec:forward} is the empirical test of this mechanism.
+This paper does not claim to have closed any of these open frontiers. The claim is that a single mechanism --- twelve substrate-derived invariants on a four-element basis --- produces the canonical values of each, and that the same mechanism produces eleven further independently-observed values across cosmology, particle physics, gravitational-wave astronomy, and substrate-operator simulation. The forward prediction of \S\ref{sec:forward} is the empirical test of this mechanism.
 
 \section{Forward-runnable test and falsifiability}\label{sec:forward}
 
-The substrate's chronologically-pre-registered forward-runnable prediction is the substrate's value for Graph Isomorphism under the substrate-extended tri-class complexity rule:
+The chronologically-pre-registered forward-runnable prediction, for the IBM-Quantum spectral peak of Graph Isomorphism under the tri-class complexity rule, is:
 \[
 \boxed{\;\alpha_{\textsf{GI}} \;=\; \sqrt{2} \quad\textrm{to}\quad 10^{-4}.\;}
 \]
-The substrate commits this prediction to public record at this paper's initial deposition (2026-06-25); subsequent revisions of this paper do not change the substrate's pre-registered commitment surface. Any subsequent measurement of $\alpha_{\textsf{GI}}$ that does not fall within $[\sqrt{2} - 10^{-4},\,\sqrt{2} + 10^{-4}]$ refutes the substrate's tri-class extension. The pre-registration timeline is Figure~\ref{fig:timeline}; the falsifier panel of which this prediction is element F5 is detailed below.
+This prediction is committed to public record at this paper's initial deposition (2026-06-25); subsequent revisions of this paper do not change the pre-registered commitment surface. Any subsequent measurement of $\alpha_{\textsf{GI}}$ that does not fall within $[\sqrt{2} - 10^{-4},\,\sqrt{2} + 10^{-4}]$ refutes the tri-class extension. The pre-registration timeline is Figure~\ref{fig:timeline}; the falsifier panel of which this prediction is element F5 is detailed below.
 
-\paragraph{The tri-class extension and the prediction's chronology.} The tri-class extension was formalised on 2026-06-22 after the substrate's prior binary $\{P, NP\}$ rule was found to be over-restrictive for NP-intermediate problems such as Graph Isomorphism (Babai 2016~\cite{babai2016} quasi-polynomial; Sch\"oning 1988~\cite{schoning1988} GI $\in$ low hierarchy of NP; Goldwasser--Sipser 1986~\cite{goldwasser1986} GI $\in$ coAM). The substrate's tri-class strengthening assigns the P-end value $\alpha_3 = \sqrt{2}$ to the NP-intermediate class, matching the complexity-theoretic literature consensus that NP-intermediate problems are nearer to P than to NP-complete; this is a substrate-internal choice motivated by the literature, not a uniqueness-style derivation. The prediction is formalised in the Lean file \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only) and the measurement protocol (shots $\geq 8192$, instance size $n \geq 100$, repetition count, $\epsilon = 10^{-4}$ acceptance band) in \texttt{PF/Empirical/GIForwardPredictionProtocol\_2026\_06\_24.lean}.
+\paragraph{The tri-class extension and the prediction's chronology.} The tri-class extension was formalised on 2026-06-22 after the prior binary $\{P, NP\}$ rule was found to be over-restrictive for NP-intermediate problems such as Graph Isomorphism (Babai 2016~\cite{babai2016} quasi-polynomial; Sch\"oning 1988~\cite{schoning1988} GI $\in$ low hierarchy of NP; Goldwasser--Sipser 1986~\cite{goldwasser1986} GI $\in$ coAM). The tri-class strengthening assigns the P-end value $\alpha_3 = \sqrt{2}$ to the NP-intermediate class, matching the complexity-theoretic literature consensus that NP-intermediate problems are nearer to P than to NP-complete; this is a substrate-internal choice motivated by the literature, not a uniqueness-style derivation. The prediction is formalised in the Lean file \texttt{PF/Empirical/ProblemClassTriClass\_2026\_06\_22.lean} (kernel-only) and the measurement protocol (shots $\geq 8192$, instance size $n \geq 100$, repetition count, $\epsilon = 10^{-4}$ acceptance band) in \texttt{PF/Empirical/GIForwardPredictionProtocol\_2026\_06\_24.lean}.
 
-The Table~\ref{tab:appearances} corroborations of \S\ref{sec:corroborations} are retrodictions: the substrate's algebraic skeleton was codified after most of the measurements were published. The look-elsewhere test of \S\ref{subsec:lookelsewhere} addresses the trials-count question under both the uniform-grammar best-of-$N$ null (the table as a whole is consistent with noise; the single-throw $p \approx 10^{-7}$ calculation from an earlier revision is withdrawn there) and the tighter substrate-natural prior of $\sim$\,400 expressions (under which the neutrino mass-ratio row survives at 1-of-130 while the rest of the table remains consistent with noise). The Table~\ref{tab:appearances} retrodictions do not carry the same evidential weight as the chronologically-pre-registered forward prediction above, because for a forward prediction the trials denominator is fixed in advance --- no expression-search room remains after the registration. \emph{This is the empirical claim with the trials denominator fixed in advance, and therefore the empirical claim with real evidential weight.}
+The Table~\ref{tab:appearances} corroborations of \S\ref{sec:corroborations} are retrodictions: the algebraic skeleton was codified after most of the measurements were published. The look-elsewhere test of \S\ref{subsec:lookelsewhere} addresses the trials-count question under both the uniform-grammar best-of-$N$ null (the table as a whole is consistent with noise; the single-throw $p \approx 10^{-7}$ calculation from an earlier revision is withdrawn there) and the tighter substrate-natural prior of $\sim$\,400 expressions (under which the neutrino mass-ratio row survives at 1-of-130 while the rest of the table remains consistent with noise). The Table~\ref{tab:appearances} retrodictions do not carry the same evidential weight as the chronologically-pre-registered forward prediction above, because for a forward prediction the trials denominator is fixed in advance --- no expression-search room remains after the registration. \emph{This is the empirical claim with the trials denominator fixed in advance, and therefore the empirical claim with real evidential weight.}
 
 \begin{figure}[h]
 \centering
