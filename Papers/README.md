@@ -8,7 +8,8 @@ This directory contains the current Millennium Problems paper, the substrate's e
 
 | File | Description |
 |---|---|
-| `principia_fractalis_clean_2026-06-27.{tex,pdf}` | **Principia Fractalis: An Algebraic Substrate.** 20 pages, 8 explanatory figures, three appendices (Appendix A: verbatim `#print axioms` output at the paper's anchor commit; Appendix B: seventeen extended algebraic invariants for the 29-identities-on-9-unknowns over-determination; Appendix C: the substrate's $\lambda_0^2$ closed-form spectrum across all nine classes, $\lambda_0(\textsf{NP})$ closed form over $\mathbb{Q}(\sqrt{5})\cdot\pi$, and the P/NP spectral-gap closed form $\Delta = \pi(24 + 11\sqrt{2} - 16\sqrt{5})/220 \in \mathbb{Q}(\sqrt{2}, \sqrt{5})\cdot\pi$). The substrate's exposition paper: twelve substrate-derived algebraic identities forcing a unique nine-tuple over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with multi-domain corroboration across pure math, cosmology, particle physics, gravitational-wave astronomy, and quantum simulation; kernel-only machine-verified in Lean 4. Includes the chronologically-pre-registered forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ for the IBM-Quantum spectral peak of the Graph Isomorphism class, the parameter-free derivation of the cosmological-constant ratio $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ in §4.1, and the strict total ordering of all nine $\alpha$ values as a kernel-only theorem. Initial deposition 2026-06-25; current revision 2026-06-26. |
+| `principia_fractalis_millennium_problems_2026-06-28.{tex,pdf}` | **Principia Fractalis: A Substrate-Level Theory and Conditional Discharge of Six Clay Millennium Problems.** 64 pages. The primary deliverable — substrate-level Theory of Everything exhibition. Discharges 25 substrate-level consequences kernel-only in Lean 4 (24 substantive + 1 typed-slot scaffolding on C16). Sharpened literal-mathlib RH discharge on `Complex.riemannZeta` under Hardy 1914 (external-anchor citation of an external published-and-proven theorem) + the published-open Hilbert-Pólya program conjecture applied to the substrate's $T_3^{\textsf{sym}}$ operator (kernel-only proven self-adjoint). Distinctive substrate mechanisms (§8): $\Lambda$CDM rebuttal with energy conservation, Weinstein-GU rescue with BRST $H^2 = 78 = \dim E_6$, base-3 ternary substrate, Grothendieck-topos consciousness bridge, counter-rotating vortices/ZPE, consciousness-modified Friedmann. Three-prover machine-check (Lean 4 + Lean4Lean independent kernel re-elaboration + Coq 8.18 algebraic-spine mirror). Provenance lattice: 52 named-mathematics anchors + 10 refereed-measurement anchors + 47 author-prior-work anchors. Forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ to $10^{-4}$ chronologically pre-registered 2026-06-22. Initial deposition 2026-06-23; current revision 2026-06-28. |
+| `principia_fractalis_clean_2026-06-28.{tex,pdf}` | Back-pocket algebraic-skeleton-only companion. 20 pages, 8 explanatory figures, three appendices (Appendix A: verbatim `#print axioms` output; Appendix B: seventeen extended algebraic invariants for the 29-identities-on-9-unknowns over-determination; Appendix C: the $\lambda_0^2$ closed-form spectrum across all nine classes, $\lambda_0(\textsf{NP})$ closed form over $\mathbb{Q}(\sqrt{5})\cdot\pi$, and the P/NP spectral-gap closed form $\Delta = \pi(24 + 11\sqrt{2} - 16\sqrt{5})/220 \in \mathbb{Q}(\sqrt{2}, \sqrt{5})\cdot\pi$). |
 
 ## Data
 
@@ -35,8 +36,8 @@ The author's accumulated prior-work record across seven manuscripts and certific
 
 ```bash
 cd Papers/
-pdflatex principia_fractalis_clean_2026-06-27.tex
-pdflatex principia_fractalis_clean_2026-06-27.tex   # for cross-references
+pdflatex principia_fractalis_millennium_problems_2026-06-28.tex
+pdflatex principia_fractalis_millennium_problems_2026-06-28.tex   # for cross-references
 ```
 
 LaTeX auxiliary files (`.aux`, `.log`, `.out`, `.toc`, `.bbl`, `.blg`) are ignored via the top-level `.gitignore` — only `.tex` source and `.pdf` outputs are tracked.
