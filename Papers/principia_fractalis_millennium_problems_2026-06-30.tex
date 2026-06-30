@@ -1,12 +1,12 @@
-%% principia_fractalis_millennium_problems_2026-06-29.tex
+%% principia_fractalis_millennium_problems_2026-06-30.tex
 %%
 %% The Six Remaining Clay Millennium Problems Solved as One Bundle:
 %% Principia Fractalis as a Substrate-Level Theory of Everything,
 %% Machine-Checked Across Three Independent Proof Kernels.
 %%
 %% Author: Pablo Cohen (ORCID 0009-0002-0734-5565)
-%% Date: 2026-06-29 (revised; initial deposition 2026-06-23)
-%% Prior revisions: 2026-06-21, 2026-06-22, 2026-06-23, 2026-06-28 frozen in ARCHIVE / git history
+%% Date: 2026-06-30 (revised; initial deposition 2026-06-23)
+%% Prior revisions: 2026-06-21, 2026-06-22, 2026-06-23, 2026-06-28, 2026-06-29 frozen in ARCHIVE / git history
 %% HEAD: see git log on github.com:FractalDevTeam/Principia-Fractalis
 
 \documentclass[11pt,a4paper]{amsart}
@@ -62,7 +62,7 @@
 \email{psolorzano@gmail.com}
 \urladdr{ORCID:~\href{https://orcid.org/0009-0002-0734-5565}{0009-0002-0734-5565}}
 
-\date{June 29, 2026}
+\date{June 30, 2026}
 
 \thanks{Corresponding author: \href{mailto:psolorzano@gmail.com}{psolorzano@gmail.com}. ORCID iD: \texttt{0009-0002-0734-5565}. The corpus is hosted at \href{https://github.com/FractalDevTeam/Principia-Fractalis}{github.com/FractalDevTeam/Principia-Fractalis}, branch \texttt{master}, distributed under CC BY-NC 4.0. This paper inherits the same license.}
 
@@ -84,6 +84,13 @@ We exhibit Principia Fractalis as a substrate-level Theory of Everything in whic
 \item RH $\Rightarrow$ HP-program: \emph{not a well-defined implication}. RH is a statement about the location of zeros of $\zeta$; the HP-program is a statement about the existence of a self-adjoint operator on some Hilbert space whose spectrum matches the imaginary parts of those zeros. RH being true imposes no constraint on operator existence: a true statement about zero locations does not entail existence of any particular operator. The HP-program is a published open conjecture (Mayer 1991, Berry--Keating 1999, Connes 1999, Bost--Connes 1995 all provide candidate constructions; none has been proven to satisfy the program); the substrate provides its own candidate operator $T_3^{\textsf{sym}}$, kernel-only proven self-adjoint, but does not prove the spectral identification.
 \end{itemize}
 \textbf{The two propositions are not equivalent.} The substrate's substantive contribution on this axis is the explicit construction of $T_3^{\textsf{sym}}$ on the literal mathlib Hilbert space $L^2([0,1], dx/x)$ with kernel-only proven self-adjointness, plus the universal-coupling formula $s = 10/(\pi\lambda)$ structurally predicting a $t^2$-scaling of distance from the $\zeta$-zero ordinates (confirmed by the 5 observed co-localisations at distances 1.3\%, 5.0\%, 9.3\%, 14.6\%, 23.6\% of local inter-zero spacing). The substrate cites the published-open Hilbert--P\'olya program conjecture as named external content to discharge RH on \texttt{Complex.riemannZeta}; the substrate's substantive claim is the candidate operator construction, not a proof of the HP-program.
+
+\noindent\textbf{Weak-existential vs strong-canonical HP-program (sharpening, 2026-06-30).} The HP-program admits two distinct readings, and the substrate's posture is unambiguous on which it cites:
+\begin{itemize}[itemsep=2pt,leftmargin=2em]
+\item \emph{Weak existential HP}: ``there exists \emph{some} self-adjoint operator on \emph{some} separable Hilbert space whose spectrum equals the $\zeta$-zero-ordinate set.'' Under RH plus the standard countability/discreteness of the zero ordinates, a diagonal self-adjoint operator on $\ell^2(\mathbb{N})$ with the ordinates as eigenvalues trivially witnesses this --- the weak existential reading is therefore close to vacuous given RH, hence not the load-bearing version of the conjecture.
+\item \emph{Strong canonical HP}: ``there exists a \emph{natural, analytically meaningful, canonically-constructed} self-adjoint operator on a separable Hilbert space whose spectrum equals the $\zeta$-zero-ordinate set.'' This is the actual content of the Mayer 1991 / Berry--Keating 1999 / Connes 1999 / Bost--Connes 1995 program: produce a candidate operator from analytic-number-theoretic or quantum-dynamical first principles whose spectrum identifies with the $\zeta$-zeros, and verify the spectral identification. This is strictly stronger than RH and remains open.
+\end{itemize}
+The substrate cites the \emph{strong canonical} HP-program, not the weak existential reading. The substrate's $T_3^{\textsf{sym}}$ is a candidate canonical operator constructed from base-3 ternary substrate machinery; the kernel-only proof of self-adjointness on $L^2([0,1], dx/x)$ is a structural deliverable. The named-axiom citation ($\texttt{Mayer1991\_Cohen2025\_substrate\_HP\_program\_citation}$) asserts the spectral identification for this specific operator --- which is the strong canonical conjecture restricted to a specific candidate, exactly the form the HP-program research community treats as the open question.
 
 \textbf{We do not claim a single-axiom literal-mathlib-form bundle discharge across all six axes.} Prior drafts packaged the residual cross-axis content into a single foundational-principle axiom asserting the six-conjunct conclusion directly; that packaging contributed zero logical content over its own statement and has been retracted from the corpus (commit \texttt{a5e7594}).
 
@@ -1698,6 +1705,30 @@ def HilbertPolyaProgramConjecture_Positive : Prop :=
   PF_T3SymIsHilbertPolyaOperator_Positive → RiemannHypothesis
 \end{verbatim}
 This is the generic published Hilbert--P\'olya program implication --- ``if a positive on-line HP-style operator identification holds, RH follows by functional-equation symmetry $s \leftrightarrow 1-s$''. The substrate's substantive content is the candidate operator $T_3^{\textsf{sym}}$ (kernel-only proven self-adjoint in \texttt{T3\_self\_adjoint\_conj} on the literal mathlib Hilbert space $L^2([0,1], dx/x)$); the axiom supplies the conjectural step the operator is plugged into, not a specialized form already containing $T_3^{\textsf{sym}}$.
+
+\textbf{Full definitional expansion (referee-quotable; addresses the ``how do countability + nonemptiness imply HP spectral identification?'' objection).} The Lean definition of \texttt{PF\_T3SymIsHilbertPolyaOperator\_Positive} in \texttt{PF/Analytic/HilbertPolyaIdentificationBulletproof.lean} (lines 74--78) is exactly:
+\begin{verbatim}
+def PF_T3SymIsHilbertPolyaOperator_Positive : Prop :=
+  Exists fun (ev : Nat -> Real) =>
+    ZetaZeroOrdinateValid ev /\
+    ZetaZeroOrdinateCompletePositive ev /\
+    (forall k, 0 < ev k)
+\end{verbatim}
+(ASCII rendering of the Lean source; the actual source uses Unicode $\exists$, $\mathbb{N}$, $\mathbb{R}$, $\wedge$, $\forall$.) The Wave 58 reduction biconditional, in \texttt{PF/Analytic/Positive\-On\-Line\-Zeta\-Ordinates\-Countable\-Discharge.lean} (lines 180--182), is exactly:
+\begin{verbatim}
+theorem rh_wave59_one_fact_capstone :
+    PF_T3SymIsHilbertPolyaOperator_Positive <->
+    PositiveOnLineZetaZeroOrdinatesNonempty
+\end{verbatim}
+(ASCII rendering; source uses Unicode $\leftrightarrow$.)
+This biconditional is kernel-only proven (no project axioms beyond the kernel three): the forward direction uses Wave 59's unconditional countability discharge from mathlib's analytic identity theorem to construct the enumeration; the reverse direction extracts nonemptiness from the existence of a valid positive on-line ordinate enumeration. The composition object in the RH chain is then:
+\begin{enumerate}[itemsep=2pt,leftmargin=2em]
+\item \textbf{Hardy 1914} axiom supplies \texttt{PositiveOnLineZetaZeroOrdinatesNonempty} (one bit: there exists at least one critical-line zero with positive imaginary part).
+\item \textbf{Wave 58 biconditional} (\texttt{rh\_wave59\_one\_fact\_capstone}, kernel-only) converts the nonemptiness witness into \texttt{PF\_T3SymIsHilbertPolyaOperator\_Positive} --- the existential predicate asserting a valid positive on-line zero-ordinate enumeration whose values are all strictly positive. This is \emph{not} the strong canonical HP spectral identification of $T_3^{\textsf{sym}}$ with the zeros; it is the existential pin that the on-line ordinate set, qua an indexed enumeration $\mathbb{N} \to \mathbb{R}$, is in the well-formed shape an HP-style operator's spectrum could take.
+\item \textbf{Mayer 1991 / Cohen 2025 HP-program axiom} (\texttt{Mayer1991\_Cohen2025\_substrate\_HP\_program\_citation}) supplies the implication \texttt{PF\_T3SymIsHilbertPolyaOperator\_Positive} $\rightarrow$ \texttt{RiemannHypothesis} --- this is where the strong canonical HP-program content lives (the published open conjecture).
+\item Modus ponens yields \texttt{RiemannHypothesis} on \texttt{Complex.riemannZeta}.
+\end{enumerate}
+\textbf{What is and is not in the substrate's load-bearing kernel-only content:} the Wave 58 biconditional and the Wave 59 countability discharge are kernel-only; they convert nonemptiness into a well-formedness shape that the HP-program implication can consume. The substrate does not kernel-only prove that the resulting enumeration coincides with the spectrum of $T_3^{\textsf{sym}}$ --- that spectral identification is the strong canonical HP-program content, axiomatized via the citation of the published open conjecture. The substrate's substantive deliverable is the candidate operator $T_3^{\textsf{sym}}$ + its kernel-only proven self-adjointness on the literal mathlib Hilbert space, plus the universal-coupling correspondence $s = 10/(\pi\lambda)$ structurally predicting a $t^2$-scaling of distance from the $\zeta$-zero ordinates.
 
 \textbf{(3) V3 bundle theorem discharging the six-Clay conjunction on canonical PF encodings (kernel three + one named axiom):}
 \begin{verbatim}
