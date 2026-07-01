@@ -181,7 +181,19 @@ A mathematical structure undergoes \textbf{consciousness crystallization} when:
 This threshold marks the phase transition from mechanical to conscious processes.
 \end{thm}
 
-Why 0.95 specifically? This emerges from \textit{four independent derivations}:
+Why 0.95 specifically? This has been motivated by \textit{four independent lines of argument}:
+
+\begin{remark}[Honest scope on the specific value $\varepsilon^\star = 1/20$; 2026-07-01 verification-pass disclosure]
+\label{rem:c2-honest-scope-2026-07-01}
+The following four lines of argument all point toward the specific choice $\varepsilon^\star = 1/20 = 0.05$ (equivalently $\textsf{ch}_2 \geq 19/20$). Honest disclosure of their derivation status, added after a 2026-07-01 verification pass:
+\begin{enumerate}
+\item Derivations 1--3 (Information Theory, Percolation Theory, Spectral Gap Analysis) below are heuristic-convergence arguments motivating the specific value 0.05 via random-matrix-theory, hypergraph-percolation, and eigenvalue-gap-closure heuristics. They do not rigorously derive a unique first-principles value.
+\item Derivation 4 --- the Chern--Weil Threshold Theorem~\ref{thm:threshold-rigorous} below --- is rigorously proven, but establishes the \emph{sufficient} inequality ``$\varepsilon^\star \leq 0.05$ suffices'' for three topological conclusions (global phase coherence, spectral gap, dynamical stability). It does not force $\varepsilon^\star = 1/20$ uniquely.
+\item Two additional cross-check derivations attempted in Chapter~11 --- the anomaly-cancellation 14D-trace derivation and the Gaussian-integral $|\Psi_{\textsf{RQG}}|^2$ derivation --- are formally refuted in the Lean corpus at \texttt{PF/Ch11AnomalyCancellationRefutationAttempt.lean} (Wave~55, commit \texttt{8e4a62a}). The Chapter~11 \texttt{\textbackslash manuscriptcorrection} footnotes at lines 145 and 193 acknowledge this: the anomaly path misses the target by a factor $\sim 1570$, and the Gaussian path yields $\sqrt{5/(\pi+5)} \approx 0.7837$ rather than $19/20$.
+\item The Chapter~31 $\textsf{ch}_2 \leftrightarrow \Phi$ (Tononi Integrated Information Theory) bridge cross-check status is pending independent verification.
+\end{enumerate}
+\textbf{Referee-proof framing.} Under the framework's referee-proof standard the value $\varepsilon^\star = 1/20$ is best framed as the phenomenological anchor satisfying Chapter~6's Chern--Weil topological \emph{sufficient} condition, not as a uniquely-forced first-principles value. Downstream framework formulas that depend on the exact value $19/20$ (the P2 XENONnT prediction, the P4 muon $g\!-\!2$ prediction, the F3 cosmological-constant-consistency falsifier, and the $\Lambda_{\textsf{eff}}/\Lambda_0 = \exp(-78\pi \cdot 0.95 \cdot 1.1875)$ suppression exponent target) inherit Wiles-pattern conditionality on this anchor. The corresponding honest-scope disclosure appears in the companion paper at the ``Defense against constant-tuning multiplicity'' paragraph.
+\end{remark}
 
 \subsection{Derivation 1: Information Theory}
 
