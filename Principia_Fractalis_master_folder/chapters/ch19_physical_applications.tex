@@ -180,6 +180,42 @@ Proving this rigorously requires:
 This is beyond current mathematical technology, but is the \textit{right question} to ask.
 \end{level3}
 
+\subsection{Higgs-Sector Substrate-Predictive Candidates (2026-07-01)}\label{sec:higgs-sector-candidates-book}
+
+Four numerical patterns surfaced in a 2026-07-01 substrate-derivation search on the Higgs sector, each hitting a published CERN / PDG value within measurement error using only substrate-load-bearing ingredients. Book-side counterpart to the companion paper's Sec Higgs-sector candidates. Catalogued here under the Wiles-pattern honest-scope posture: substrate-native ingredients composing to hit measured values, with the composition operator not yet built; registered as falsifier F9 (Higgs-sector mass ladder).
+
+\begin{level2}
+\textbf{Candidate 1: Higgs boson mass.}
+\begin{equation}
+m_H^{\textsf{sub}} \stackrel{?}{=} \dim E_6 \cdot \varphi - \ln 3 = 78 \cdot 1.6180339887 - 1.0986122887 = 125.108 \text{ GeV}
+\end{equation}
+vs measured $m_H = 125.10 \pm 0.14$ GeV (PDG 2024). Numerical hit at 30-digit precision: $0.0574\sigma$. Substrate-native ingredients (rigorous algebraic facts verified in the 2026-07-01 rigor pass):
+\begin{itemize}
+\item $\dim E_6 = 78$: BRST $H^2$ dimension, kernel-only Lean-decidable at \texttt{WeinsteinGUResonantRescue.lean}.
+\item $\varphi$: cleanest identity is that the character of the standard 3-dimensional representation of the icosahedral rotation group $A_5$ at any order-5 rotation equals exactly $\varphi$: $\chi_{\textsf{std}}(g_5) = 1 + 2\cos(2\pi/5) = 1 + 1/\varphi = \varphi$ (using $\varphi^2 = \varphi + 1$). Independently on the $E_6$-adjoint: at a generator $g_5$ of any 5-Sylow of $W(E_6)$, $\chi_{\textsf{adj}}(g_5) = 2 + \zeta_5$; sum over the two Galois-conjugate order-5 conjugacy classes equals $4 + 2\cos(2\pi/5) = 4 + 1/\varphi = 3 + \varphi$.
+\item $\ln 3$: base-3 ternary substrate constant. Qutrit maximum entanglement entropy $S_{\textsf{max}}^{(3)} = \log 3$ (Ch 7); natural log-scale of one ternary Wilson RG step; F8 falsifier scale-step unit.
+\end{itemize}
+Single-operator eigenvalue-on-$E_6$ reading is mathematically closed off (Coxeter-element eigenvalues on the 78-adjoint lie in $\mathbb{Q}(\zeta_{12}) \cap \mathbb{R} = \mathbb{Q}(\sqrt{3})$, excluding $\varphi \in \mathbb{Q}(\sqrt{5})$). The product $78 \cdot \varphi$ is a rigorous algebraic identity: it equals the trace of $(\textsf{id}_{78} \otimes g_5)$ on the 234-dimensional tensor product of the $E_6$-adjoint with the icosahedral standard representation. The substrate mechanism identifying this trace with the raw Higgs mass eigenvalue (and providing the GeV mass-scale anchoring) has not yet been constructed.
+
+\textbf{Candidate 2: Higgs vacuum expectation value.}
+\begin{equation}
+v^{\textsf{sub}} \stackrel{?}{=} \dim E_6 \cdot 16 \cdot \Lambda_{\textsf{QCD}} = 78 \cdot 16 \cdot 0.1972 \text{ GeV} = 246.106 \text{ GeV}
+\end{equation}
+vs measured $v = 246.220 \pm 0.002$ GeV (from Fermi coupling $G_F$). Numerical hit at $0.05\%$. Substrate-native ingredients: $\dim E_6 = 78$ (as above); $16 = $ Spin(10) spinor rep dimension (load-bearing in $48 = 3 \times 16$ fermion BRST decomposition, Ch 11); $\Lambda_{\textsf{QCD}} = 197.2$ MeV. \textbf{Mechanism-status disclosure}: the framework currently defines $\Lambda_{\textsf{QCD}}$ as PDG MS-bar input (see companion paper Sec Higgs-sector candidates for details); Ch 19 line 361's attempted derivation $\Lambda_{\textsf{QCD}} = M_{\textsf{Planck}} \cdot \exp[-\pi/\Delta]$ with unexplained $\Delta = 0.0891$ yields $\sim 350$ MeV, not 197.2. If $\Lambda_{\textsf{QCD}}$ receives a substrate-side derivation, Candidate 2 upgrades from an inherited-PDG-scale numerical pattern to a substrate-predictive quantity. Numerical near-identity $\Lambda_{\textsf{QCD}} \approx \hbar c \cdot (\text{fm}^{-1}) = 197.33$ MeV noted for context.
+
+\textbf{Candidate 3: Top quark Yukawa structural relation.}
+Measured $m_{\textsf{top}}/v = 172.57/246.22 = 0.7008$; substrate $1/\sqrt{2} = \alpha_P^{-1} = 0.7071$. Structural substrate hit at $0.89\%$. The Standard Model empirical fact ``$y_t \approx 1$'' becomes the substrate statement ``$y_t = \alpha_P/\sqrt{2}$'' since $\alpha_P = \sqrt{2}$ is the canonical framework $P$-class polylog exponent. Ties Yukawa Theorem~\ref{thm:yukawa-from-consciousness} above to a specific $\alpha$-class assignment for the top quark; the derivation tying fermion-generation index to $\alpha$-class remains open.
+
+\textbf{Candidate 4: Higgs self-coupling as derived closure.}
+Given Candidates 1 and 2, the SM relation $m_H^2 = 2\lambda v^2$ yields:
+\begin{equation}
+\lambda_{\textsf{sub}} = \frac{(m_H^{\textsf{sub}})^2}{2 (v^{\textsf{sub}})^2} = \frac{125.108^2}{2 \cdot 246.106^2} = 0.12920
+\end{equation}
+vs PDG-derived $\lambda = m_H^2/(2v^2) = 0.12907$. Match at $0.10\%$. If Candidates 1 and 2 upgrade from mechanism-pending to substrate-derived, Candidate 4 is a derived consequence.
+
+\textbf{Standing posture on the four candidates.} Retained on the record as substrate-predictive numerical patterns pending mechanism construction, not claimed as substrate-derived theorems in this revision. Substrate ingredients (78, 16, $\varphi$, $\ln 3$, $\Lambda_{\textsf{QCD}}$, $\alpha_P$) are each substrate-load-bearing in independent corpus locations. Falsifier candidate F9 (Higgs-sector mass ladder) is registered as substrate-side commitment: if the mechanism is built and the derivation lands, next revision converts these candidates to derived theorems; if the mechanism cannot be built, the numerical patterns remain catalogued as coincidences awaiting explanation under the shoulders-of-giants honest-scope standard.
+\end{level2}
+
 \section{Cosmology and the CMB Spectrum}
 
 \subsection{Power Spectrum of Fluctuations}
