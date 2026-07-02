@@ -11,7 +11,8 @@
 %%   r2: framed preemption box + Sec 8.5 SM corroboration after adversarial-round-2 close (HEAD 213777d)
 %%   r3: Category Error #3 (Wiles-pattern proof-structure preemption) added after adversarial-round-3 close (HEAD b323a55)
 %%   r4: Sec 8.5.1 Higgs-sector substrate-predictive candidates (mechanism-pending catalog under F9) added; c_2 = 19/20 phenomenological-anchor honest-disclosure at Sec:defense-against-constant-tuning updated to reflect 2026-07-01 verification-pass findings (Ch 11 anomaly + Gaussian derivations formally refuted per Lean Wave 55; Ch 6 Chern-Weil is sufficient condition not unique derivation; Ch 31 IIT bridge pending) (HEAD f1aad51)
-%%   r5: rigor pass on Candidate 1 (m_H) — added the icosahedral A_5 standard-rep character identity chi_std(g_5) = phi as the cleaner rigorous statement (verified to 30 digits in mpmath); added independent verification of the E_6-adjoint character-trace claims chi_adj(g_5) = 2 + zeta_5 and Galois-class-sum = 3 + phi; added the rigorous tensor-product identity 78 * phi = trace(id_78 tensor g_5) on E_6-adjoint tensor icosahedral-standard (234-dim); numerical hit re-stated at 30-digit-verified 0.0574 sigma; substrate mechanism gap on physical mass-scale anchoring in GeV explicitly named (current HEAD)
+%%   r5: rigor pass on Candidate 1 (m_H) --- added the icosahedral A_5 standard-rep character identity chi_std(g_5) = phi as the cleaner rigorous statement (verified to 30 digits in mpmath); added independent verification of the E_6-adjoint character-trace claims chi_adj(g_5) = 2 + zeta_5 and Galois-class-sum = 3 + phi; added the rigorous tensor-product identity 78 * phi = trace(id_78 tensor g_5) on E_6-adjoint tensor icosahedral-standard (234-dim); numerical hit re-stated at 30-digit-verified 0.0574 sigma; substrate mechanism gap on physical mass-scale anchoring in GeV explicitly named (HEAD 527c60b + subsequent polishes)
+%%   r6: pristine cleanup pass --- bibliography style normalization (six NS/GI bibitems using 'Last, F.' convention converted to standard 'F.~Last'; hopf1951, kato1984, koch-tataru2001, ladyzhenskaya1968, uchovskii-yudovich1968, schoning1988low); em-dash to LaTeX-idiomatic --- conversion in body text (Tier 2, Tier 3, Sec bridges); seqsplit wrap on long identifier PrincipiaFractalisSubstrateConsequences_holds_unconditionally in T0-tier row to eliminate an overfull hbox; full audit passes: 78 bibitems all with year and complete source-hint, 144 cite calls to 78 unique keys all resolved, 75 ref calls to 25 unique labels all resolved, zero undefined refs, zero missing bibitems, zero trailing whitespace, zero TODO/FIXME markers, zero tabs, non-ASCII characters reduced to intended usage (current HEAD)
 %% Prior revisions: 2026-06-21, 2026-06-22, 2026-06-23, 2026-06-28, 2026-06-29, 2026-06-30 frozen in ARCHIVE / git history
 %% HEAD: see git log on github.com:FractalDevTeam/Principia-Fractalis
 
@@ -120,7 +121,7 @@ Eight typed falsifiers register the empirical or structural observations that wo
 \toprule
 \textbf{Tier} & \textbf{Evidentiary status} & \textbf{Examples in this paper} \\
 \midrule
-T0 & Kernel-only PF theorem, zero project axioms $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ only & The 25-consequence substrate-tier headline theorem \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}; the 12 cross-Millennium invariants + $\alpha$-skeleton uniqueness; $T_3^{\textsf{sym}}$ self-adjointness on $L^2([0,1], dx/x)$; Wave 58/59 countability + biconditional; 29-identity over-determination capstone; Weinstein-GU $H^2 = 78$ arithmetic identity; tri-class GI $\alpha_{\textsf{GI}} = \sqrt{2}$ \\
+T0 & Kernel-only PF theorem, zero project axioms $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ only & The 25-consequence substrate-tier headline theorem \seqsplit{\texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}}; the 12 cross-Millennium invariants + $\alpha$-skeleton uniqueness; $T_3^{\textsf{sym}}$ self-adjointness on $L^2([0,1], dx/x)$; Wave 58/59 countability + biconditional; 29-identity over-determination capstone; Weinstein-GU $H^2 = 78$ arithmetic identity; tri-class GI $\alpha_{\textsf{GI}} = \sqrt{2}$ \\
 T1 & Literal mathlib carrier discharge conditional on a named published open conjecture (Wiles-pattern citation) & Riemann Hypothesis on \texttt{Complex.riemannZeta} conditional on the published Hilbert--P\'olya program conjecture + Hardy 1914; V3 bundle RH and P-vs-NP conditional on three named open conjectures \\
 T2 & Literal mathlib carrier + named universal subclass (published-and-proven external theorem composed with substrate-side content) & NS on \texttt{SchwartzMap} covering Leray--Hopf universal $L^2_\sigma$ + Koch--Tataru small-data + LUY axisymmetric-no-swirl; YM on \texttt{Matrix.specialUnitaryGroup} $(\textsf{Fin}\,2)\,\mathbb{C}$; BSD on \texttt{WeierstrassCurve}\,$\mathbb{Q}$; Hodge $(1,1)$-classes via Lefschetz 1924 \\
 T3 & Paper-prose composition of Lean-side content with external theorem (not currently a single typed Lean composition) & Hodge composition of the substrate's six-class capstone with Lefschetz $(1,1)$; NS composition of the per-$u_0$ Gaussian-lift witness with external-anchor prose citations of three named universal-class results \\
@@ -358,12 +359,12 @@ The substrate's nine forced $\alpha$-values divide into three independence tiers
 \item $\alpha_{\textsf{NP}} = \varphi + 1/4 = 1.86803\ldots$: corroborated by the Qiskit \texttt{AerSimulator} two-instance observation on the substrate's NP-class problems, matching to four decimal places (retrodiction: $\alpha_{\textsf{NP}}$ codification post-dates the Aer CSV in git history; the empirical value was observed before the formula was published).
 \item $\alpha_{P} = \sqrt{2}$: corroborated by the Qiskit \texttt{AerSimulator} peak position on the P-class problems, matching within the simulation's bin resolution (retrodiction: same audit-chronology status as $\alpha_{\textsf{NP}}$).
 \end{itemize}
-\item[Tier 2 — Structural / framework-bridging corroboration.]
+\item[Tier 2 --- Structural / framework-bridging corroboration.]
 \begin{itemize}[itemsep=2pt,leftmargin=2em]
 \item $\alpha_{\textsf{RH}} = 3/2$: realised in Cohen 2025's modified-transfer-operator $\widetilde{T}_3^{(3/2)}$ on $L^2([0,1], dx/x)$. The substrate-pinned exponent $3/2$ instantiates the Mayer 1991 transfer-operator spectrum-$\zeta$-zeros equivalence at the substrate's modified instance. The Cohen 2025 manuscript additionally provides 150-digit \emph{arithmetic working precision} verification of five eigenvalue-$\zeta$-zero co-localisations under the substrate's correspondence formula $s = 10/(\pi\lambda)$ (the 150 digits are the precision of the matrix-element / eigenvalue / $\zeta$-ordinate arithmetic, not the precision of the co-localisation distance; the distances are 1--24\% of the local inter-zero spacing --- see \S\ref{subsec:cohen2025-150digit-audit}).
 \item $\alpha_{\textsf{Hodge}} = \varphi$: matches the fundamental algebraic constant $\varphi$ that appears in the $H_3$-Coxeter root coordinates (standard root system uses $(0, \pm 1, \pm \varphi)$). The substrate's $\alpha_{\textsf{Hodge}}$ realizes this $H_3$-root-coordinate constant directly.
 \end{itemize}
-\item[Tier 3 — Algebraically forced by the invariant system.]
+\item[Tier 3 --- Algebraically forced by the invariant system.]
 \begin{itemize}[itemsep=2pt,leftmargin=2em]
 \item $\alpha_{\textsf{YM}} = 2$, $\alpha_{\textsf{NS}} = 3\pi/2$, $\alpha_{\textsf{BSD}} = 3\pi/4$, $\alpha_{\textsf{QG}} = \sqrt{2\pi}$: pinned by the 12-invariant system. Each is forced uniquely; each is consistent with the substrate's universal-coupling structure $\pi/10$.
 \end{itemize}
@@ -582,7 +583,7 @@ Hodge & PF \lt{HodgeGeneralSurfaceSubstrate} + \lt{HodgeAlgebraicRepresentation}
 \end{center}
 
 \smallskip
-\noindent\textbf{Reading the table.} Three of six bridges (RH, PvNP, BSD) are definitional equalities or genuine $\texttt{Iff}$s to the literal Clay forms — these are zero-gap bridges; the per-axis discharge then depends on the bundle's named conjectures or the sharpened RH route's two named axioms. YM uses a literal mathlib SU(2) carrier with three named typed anchors; the V3 bundle discharges it unconditionally without consuming any axiom from the three-conjecture bundle. Hodge: composing the \texttt{hodge\_six\_substrate\_classes\_all\_discharged} capstone with the published Lefschetz $(1,1)$ theorem yields literal-form unconditional Hodge for all $(1,1)$-classes on smooth projective complex manifolds + all classes on dim-$2$ smooth projective surfaces + the Voisin 2007 R1 / R2 cases; the residual open content is the codim-$\geq 2$ / dim-$\geq 3$ generic non-CM case (Voisin 2007 R3), the canonical open Clay-Hodge instance. NS: composing the per-$u_0$ Gaussian-lift witness with external-anchor citations of Leray--Hopf (universal $L^2_\sigma$ existence), Koch--Tataru 2001 / Kato 1984 (universal critical-space small-data smoothness), Ladyzhenskaya 1968 / Uchovskii--Yudovich 1968 (universal axisymmetric-no-swirl smoothness), and Caffarelli--Kohn--Nirenberg 1982 (Hausdorff partial regularity) yields literal Clay (a)--(d) on three named universal classes; the residual open content (large-data non-symmetric global Clay-smoothness) is the open Clay content itself, not a framework-specific weakness. \textbf{Net state}: the substrate has universal-class literal-form discharge on five of six axes (RH, PvNP, BSD, YM, Hodge) with NS covering three named universal classes. Residual open content per axis matches the open Clay content itself, not framework-specific weakness.
+\noindent\textbf{Reading the table.} Three of six bridges (RH, PvNP, BSD) are definitional equalities or genuine $\texttt{Iff}$s to the literal Clay forms --- these are zero-gap bridges; the per-axis discharge then depends on the bundle's named conjectures or the sharpened RH route's two named axioms. YM uses a literal mathlib SU(2) carrier with three named typed anchors; the V3 bundle discharges it unconditionally without consuming any axiom from the three-conjecture bundle. Hodge: composing the \texttt{hodge\_six\_substrate\_classes\_all\_discharged} capstone with the published Lefschetz $(1,1)$ theorem yields literal-form unconditional Hodge for all $(1,1)$-classes on smooth projective complex manifolds + all classes on dim-$2$ smooth projective surfaces + the Voisin 2007 R1 / R2 cases; the residual open content is the codim-$\geq 2$ / dim-$\geq 3$ generic non-CM case (Voisin 2007 R3), the canonical open Clay-Hodge instance. NS: composing the per-$u_0$ Gaussian-lift witness with external-anchor citations of Leray--Hopf (universal $L^2_\sigma$ existence), Koch--Tataru 2001 / Kato 1984 (universal critical-space small-data smoothness), Ladyzhenskaya 1968 / Uchovskii--Yudovich 1968 (universal axisymmetric-no-swirl smoothness), and Caffarelli--Kohn--Nirenberg 1982 (Hausdorff partial regularity) yields literal Clay (a)--(d) on three named universal classes; the residual open content (large-data non-symmetric global Clay-smoothness) is the open Clay content itself, not a framework-specific weakness. \textbf{Net state}: the substrate has universal-class literal-form discharge on five of six axes (RH, PvNP, BSD, YM, Hodge) with NS covering three named universal classes. Residual open content per axis matches the open Clay content itself, not framework-specific weakness.
 
 \begin{theorem}[Per-axis semantic-bridge audit trail]\label{thm:semantic-bridges}
 For each of the six remaining Clay axes there is a named Lean theorem exhibiting the bridge from the substrate's $\textsf{Clay}_{*}$-Standard predicate on the canonical PF encoding to the literal Clay statement on the standard mathlib carrier:
@@ -1684,27 +1685,27 @@ Leray, J.
 \newblock \emph{Acta Math.}, 63:193--248, 1934.
 
 \bibitem{hopf1951}
-Hopf, E.
+E.~Hopf.
 \newblock \"Uber die Anfangswertaufgabe f\"ur die hydrodynamischen Grundgleichungen.
 \newblock \emph{Math. Nachr.}, 4:213--231, 1951.
 
 \bibitem{kato1984}
-Kato, T.
+T.~Kato.
 \newblock Strong $L^p$-solutions of the Navier--Stokes equation in $\mathbb{R}^m$, with applications to weak solutions.
 \newblock \emph{Math. Z.}, 187:471--480, 1984.
 
 \bibitem{koch-tataru2001}
-Koch, H., Tataru, D.
+H.~Koch and D.~Tataru.
 \newblock Well-posedness for the Navier--Stokes equations.
 \newblock \emph{Adv. Math.}, 157(1):22--35, 2001.
 
 \bibitem{ladyzhenskaya1968}
-Ladyzhenskaya, O.~A.
+O.A.~Ladyzhenskaya.
 \newblock Unique solvability in the large of the three-dimensional Cauchy problem for the Navier--Stokes equations in the presence of axial symmetry.
 \newblock \emph{Zap. Nauchn. Sem. LOMI}, 7:155--177, 1968.
 
 \bibitem{uchovskii-yudovich1968}
-Uchovskii, M.~R., Yudovich, B.~I.
+M.R.~Uchovskii and B.I.~Yudovich.
 \newblock Axially symmetric flows of an ideal and viscous fluid filling the whole space.
 \newblock \emph{Prikl. Mat. Mekh.}, 32(1):59--69, 1968.
 
@@ -1749,7 +1750,7 @@ Babai, L.
 \newblock In \emph{Proceedings of the International Congress of Mathematicians} (ICM 2018), Rio de Janeiro.
 
 \bibitem{schoning1988low}
-Sch\"oning, U.
+U.~Sch\"oning.
 \newblock Graph isomorphism is in the low hierarchy.
 \newblock \emph{J. Comput. Syst. Sci.}, 37(3):312--323, 1988.
 
