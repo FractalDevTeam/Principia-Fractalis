@@ -364,10 +364,34 @@ framework has currently PROVED. -/
     finite-dim or l² toy, BSD Fin 6, NS substrate composite, Hodge
     general-surface, P vs NP enum-conditional). The CONTRIBUTION
     is that all 25+ consequences are now machine-checked from one
-    substrate in one theorem. -/
+    substrate in one theorem.
+
+    ★★★★★★★★ AUDIT-RESPONSE HONEST SCOPE (2026-07-03) ★★★★★★★★
+    IMPORTANT: at the current verification level the implication
+    `PFSubstrateAntecedents → PFSubstrateConsequences` is proven by
+    discarding the antecedent (`intro _h_antecedents`, note the
+    underscore) and constructing each consequence field from the
+    corresponding independently axiom-free theorem. **The Lean
+    implication is therefore vacuously true**: it does not derive
+    the consequences FROM the antecedents in any deductive sense; it
+    merely records that both are inhabitable in the same file.
+    The philosophical claim "substrate determines consequences" is
+    the framework's structural reading of the corpus, NOT a Lean-
+    kernel derivation from A1--A5 to C1--C25. A referee reading
+    "at least the following unfolds from the substrate antecedents"
+    should interpret that as a corpus-level composition claim, not
+    a Lean-level substrate→consequences implication with
+    load-bearing antecedent hypotheses.
+
+    The companion `PrincipiaFractalisSubstrateConsequences_holds_unconditionally`
+    is the honest form: it exhibits `PFSubstrateConsequences` directly,
+    without pretending to derive it from A1--A5. Prefer citing the
+    unconditional form for corpus content; cite this theorem only as
+    a documentary bundle of the substrate's philosophical claim
+    plus the current axiom-free inhabitability. -/
 theorem PrincipiaFractalisSubstrateTheorem :
     PFSubstrateAntecedents → PFSubstrateConsequences := by
-  intro _h_antecedents
+  intro _h_antecedents -- ★ antecedent DISCARDED — see docstring "AUDIT-RESPONSE HONEST SCOPE"
   exact
     { RH_via_substrate :=
         ⟨ framework_alpha_values_match_rigidity.2.2
