@@ -185,7 +185,26 @@ private theorem mem_replicate_iff {α : Type*} {n : ℕ} {a x : α} :
     `alphaMeasured` set to one of the two canonical class values
     `{√2, φ + 1/4}` by the framework's classification rule. This is
     a structural assertion about the schema, NOT an empirical
-    measurement claim about the 142-line CSV's `peak_alpha` column. -/
+    measurement claim about the 142-line CSV's `peak_alpha` column.
+
+    ★★★★★★★★ AUDIT-RESPONSE HONEST SCOPE (2026-07-03) ★★★★★★★★
+    IMPORTANT: this theorem is a TAUTOLOGY over 143 copies of two
+    hardcoded records. `the143Problems` is built by
+    `List.replicate 72 (canonicalEntry .P) ++ List.replicate 71 (canonicalEntry .NP)`
+    where `canonicalEntry` explicitly sets `alphaMeasured := canonicalAlpha c`.
+    The theorem is provable by direct unfolding because the dataset
+    was constructed to satisfy it. **This theorem is NOT empirical
+    evidence** of anything. It is a schema-consistency check.
+
+    Any citation of `universal_fractal_coherence` as "143-problem
+    universal coherence over {√2, φ + 1/4}" that reads it as an
+    empirical anchor is misleading. The paper's Antecedent A5
+    citation (paper §subsec:unconditional-substrate-theorem) explicitly
+    annotates this scope. The empirical anchor from the 142-row
+    panel is the two framework-predicted Clay-axis exact hits (RH
+    row at peak_alpha = 1.5, PvNP row at peak_alpha = 1.868) plus
+    universal `fractal_coherence = 100` and `consistency = 100` on
+    every row --- neither of which is this Lean theorem. -/
 theorem universal_fractal_coherence :
     ∀ p ∈ the143Problems,
       p.alphaMeasured = Real.sqrt 2 ∨ p.alphaMeasured = phi + 1/4 := by

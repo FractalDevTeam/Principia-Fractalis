@@ -373,7 +373,25 @@ typed Props collapse to one. -/
     The conjectural equivalence is, at the published level, the
     statement that all four operator constructions produce
     UNITARILY EQUIVALENT operators. At the abstract spectrum level
-    (this file), the formulations are LITERALLY equal as Props. -/
+    (this file), the formulations are LITERALLY equal as Props.
+
+    ★★★★★★★★ AUDIT-RESPONSE HONEST SCOPE (2026-07-03) ★★★★★★★★
+    IMPORTANT: this theorem is proved by four `Iff.rfl` because the
+    four Prop definitions are BYTE-IDENTICAL (up to variable renaming
+    `spectrum` vs `ev`) — see the four `def`s at lines 224, 261, 300,
+    340 above. This is NOT a proof that Berry-Keating's H = xp,
+    Connes' adelic trace formula, Bost-Connes' KMS phase transition,
+    and PF's T3_sym Mayer transfer operator are equivalent operator
+    constructions. It is the observation that ALL FOUR PUBLISHED
+    PROGRAMS were named at the same abstract-spectrum-content type
+    for the purpose of PF's Clay-precision residual naming. The
+    substantive operator-construction equivalence is at the published
+    literature level, not at this Lean-encoded level. Do NOT cite
+    this theorem as "PF proves the four Hilbert-Pólya formulations
+    equivalent" — cite it as "PF names all four Hilbert-Pólya
+    formulations at the same abstract-spectrum-content typed Prop
+    for Clay-precision residual naming, and observes the trivial
+    equivalence." -/
 theorem hilbert_polya_formulations_equivalent :
     (BerryKeatingHamiltonianHypothesis ↔ ConnesTraceFormulaHypothesis) ∧
     (ConnesTraceFormulaHypothesis ↔ BostConnesKMSPhaseTransition) ∧
