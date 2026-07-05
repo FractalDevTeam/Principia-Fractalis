@@ -140,6 +140,29 @@ instance substrateDirectedSystem :
   map_map := fun {k j i} hij hjk x =>
     substrateRingHomIter_comp_apply i j k hij hjk x
 
+/-! ## §3b — Star preservation of the iterated substrate embedding
+
+The r28 successor embedding preserves the *-operation. r31 lifts this to
+the iterated substrate embedding by induction on the level gap. -/
+
+/-- **Iterated star preservation** — the iterated substrate RingHom
+    respects the *-operation (star = conjTranspose on matrix rings).
+    Proved by induction on the level gap via `Nat.le_induction`, using
+    r28's `substrateEmbedMatrix_star` at each successor step. -/
+theorem substrateRingHomIter_star (i : ℕ) :
+    ∀ (j : ℕ) (h : i ≤ j) (A : Matrix (Fin (3^i)) (Fin (3^i)) ℂ),
+    substrateRingHomIter i j h (star A) = star (substrateRingHomIter i j h A) := by
+  intro j h
+  induction j, h using Nat.le_induction with
+  | base =>
+    intro A
+    rw [substrateRingHomIter_self]; rfl
+  | succ n hn ih =>
+    intro A
+    rw [substrateRingHomIter_succ i n hn (hn.trans (Nat.le_succ n))]
+    rw [RingHom.comp_apply, RingHom.comp_apply, ih A]
+    exact SubstrateBase3Embed.substrateEmbedMatrix_star n (substrateRingHomIter i n hn A)
+
 /-! ## §4 — The Substrate Timeless Field T_∞ as a mathlib-native Ring
 
 Applying `Mathlib.Algebra.Colimit.DirectLimit` to the substrate directed
@@ -166,6 +189,58 @@ noncomputable instance : Ring TimelessFieldRing :=
 noncomputable def substrateLevelToTimelessField (k : ℕ) :
     Matrix (Fin (3^k)) (Fin (3^k)) ℂ → TimelessFieldRing :=
   fun x => (⟦⟨k, x⟩⟧ : TimelessFieldRing)
+
+/-! ## §4b — Star structure on T_∞
+
+The substrate T_∞ inherits star (conjugate transpose) from the finite
+levels via the r31 iterated-star-preservation identity. Star descends to
+the DirectLimit quotient because the setoid relation is preserved by the
+componentwise star operation. -/
+
+/-- **Star on the underlying Sigma type**: sends `⟨k, A⟩ ↦ ⟨k, star A⟩`. -/
+def substrate_sigma_star : (Σ k : ℕ, Matrix (Fin (3^k)) (Fin (3^k)) ℂ) →
+    (Σ k : ℕ, Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :=
+  fun p => ⟨p.1, star p.2⟩
+
+/-- **Sigma star respects the DirectLimit setoid**: if two representatives
+    are equivalent under the direct-limit setoid, their stars are also
+    equivalent. Uses the r31 iterated-star-preservation identity. -/
+theorem substrate_sigma_star_respects_setoid :
+    ∀ x y : Σ k : ℕ, Matrix (Fin (3^k)) (Fin (3^k)) ℂ,
+    (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h)).r x y →
+    (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h)).r
+      (substrate_sigma_star x) (substrate_sigma_star y) := by
+  rintro ⟨i, a⟩ ⟨j, b⟩ ⟨k, hik, hjk, hcompat⟩
+  refine ⟨k, hik, hjk, ?_⟩
+  show substrateRingHomIter i k hik (star a) = substrateRingHomIter j k hjk (star b)
+  rw [substrateRingHomIter_star i k hik a, substrateRingHomIter_star j k hjk b,
+      hcompat]
+
+/-- **Star instance on T_∞** — the substrate carrier inherits the
+    *-operation from the finite levels via `Quotient.map` of
+    `substrate_sigma_star`, which respects the DirectLimit setoid via
+    the r31 iterated-star-preservation identity. -/
+noncomputable instance instStarTimelessField : Star TimelessFieldRing where
+  star := Quotient.map substrate_sigma_star substrate_sigma_star_respects_setoid
+
+/-- **Involutive star on T_∞** — the star operation is involutive:
+    `star (star x) = x` for every `x : TimelessFieldRing`. Descends
+    from the involutive star on each finite matrix ring level, which
+    is inherited from ℂ's `InvolutiveStar` instance. -/
+noncomputable instance instInvolutiveStarTimelessField :
+    InvolutiveStar TimelessFieldRing where
+  star_involutive := by
+    intro x
+    induction x using Quotient.ind with
+    | _ p =>
+      show (Quotient.map substrate_sigma_star substrate_sigma_star_respects_setoid
+              (Quotient.map substrate_sigma_star substrate_sigma_star_respects_setoid ⟦p⟧)) = ⟦p⟧
+      simp only [Quotient.map_mk]
+      show ⟦substrate_sigma_star (substrate_sigma_star p)⟧ = ⟦p⟧
+      congr 1
+      obtain ⟨k, a⟩ := p
+      show (⟨k, star (star a)⟩ : Σ k, Matrix (Fin (3^k)) (Fin (3^k)) ℂ) = ⟨k, a⟩
+      simp
 
 /-! ## §5 — Substrate iterated RingHom capstone -/
 
