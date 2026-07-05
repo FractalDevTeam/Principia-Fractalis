@@ -46,9 +46,10 @@ Stage 2026-07-05 r33 — substrate level-wise norm infrastructure.
 
 import PF.SubstrateBase3RingHom
 import Mathlib.Analysis.CStarAlgebra.Matrix
+import Mathlib.LinearAlgebra.Matrix.Kronecker
 import Mathlib.Tactic
 
-open scoped Matrix.Norms.L2Operator ComplexOrder
+open scoped Matrix.Norms.L2Operator ComplexOrder Kronecker Matrix
 
 namespace PrincipiaTractalis
 namespace SubstrateBase3Norm
@@ -173,6 +174,33 @@ theorem substrateEmbed_norm_sq_eq_star_mul (k : ℕ)
   rw [← SubstrateBase3Embed.substrateEmbedMatrix_star k A]
   -- Step 4: substrate embedding preserves mul (r28)
   rw [← SubstrateBase3Embed.substrateEmbedMatrix_mul k]
+
+/-! ## §5b — r35: mulVec formula for Kronecker-with-identity
+
+The fundamental identity underlying the Kronecker isometry:
+`((A ⊗ 1) *ᵥ f) (i, j) = (A *ᵥ (fun i' => f (i', j))) i`
+
+This is the "column-wise action" observation: `A ⊗ 1` acts on the
+tensor Hilbert space by applying `A` to each `j`-column of `f`. -/
+
+/-- **Kronecker-with-identity mulVec formula**: for `A : Matrix m m ℂ` and
+    `f : (m × n) → ℂ`, the entry-wise action of `A ⊗ 1_n` on `f` at
+    position `(i, j)` equals `A` applied to the `j`-th column of `f`
+    evaluated at `i`. -/
+theorem kronecker_one_mulVec_apply
+    {m n : Type*} [Fintype m] [Fintype n] [DecidableEq n]
+    (A : Matrix m m ℂ) (f : m × n → ℂ) (i : m) (j : n) :
+    ((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ f) (i, j) =
+      (A *ᵥ (fun i' => f (i', j))) i := by
+  show ∑ p : m × n, (A ⊗ₖ (1 : Matrix n n ℂ)) (i, j) p * f p =
+       ∑ i' : m, A i i' * f (i', j)
+  rw [← Finset.univ_product_univ, Finset.sum_product]
+  simp only [Matrix.kronecker_apply, Matrix.one_apply]
+  congr 1
+  ext i'
+  simp only [mul_ite, mul_one, mul_zero, ite_mul, zero_mul]
+  rw [Finset.sum_ite_eq Finset.univ j (fun j' => A i i' * f (i', j'))]
+  simp
 
 /-! ## §6 — Substrate norm structure honest scope
 
