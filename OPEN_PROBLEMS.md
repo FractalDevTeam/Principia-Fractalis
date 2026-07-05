@@ -1,6 +1,7 @@
 # OPEN_PROBLEMS.md — Principia Fractalis Substrate ToE
 
-Version: r20 (2026-07-05) — draft
+Version: r23 (2026-07-05) — draft
+r23 update: preemptive-strike arithmetic correction on Problem 1a H_3 combinatorial candidates.
 Successor to: pre-cleanup `ARCHIVE/2026-06-08-cleanup/root_docs/OPEN_PROBLEMS.md`
 
 This file catalogues the framework's currently-open substrate-derivation and
@@ -40,9 +41,29 @@ non-trivial due to ternary renormalization, the algebra can admit a
 finite-dimensional center with exactly 9 extremal states corresponding to
 RG-flow fixed points.
 
+**H_3 combinatorial candidates (corrected 2026-07-05 r23 after preemptive-strike
+self-audit).** Three distinct H_3-combinatorial counts are candidates for the
+9-count identification; the correct one is itself part of the open sub-conjecture:
+- **Parabolic subgroup conjugacy classes = 6** (rank 0: trivial; rank 1:
+  single class since simple reflections are all conjugate under the connected
+  odd-labeled Coxeter diagram •-5-•-3-•; rank 2: {I_2(5), A_2, A_1×A_1}
+  giving 3 classes; rank 3: full H_3). Does NOT match 9.
+- **Element conjugacy classes = 10** (since H_3 ≅ A_5 × Z_2, and A_5 has 5
+  element conjugacy classes). Matches the 10-class α-skeleton including
+  α_HN = 5 (tri-class extension), not the 9 canonical Clay-track classes.
+- **H_3-orbits of period-dividing-2 periodic points on the base-3 3-adic
+  state space** (reviewer's Path 2 ansatz, 2026-07-05, unverified in corpus).
+  Posited to equal 9 exactly. Requires independent verification.
+
+The r21 draft (superseded) claimed 9 parabolic conjugacy classes without
+independent verification. Preemptive-strike self-audit (2026-07-05 r23) caught
+this: parabolic conjugacy classes for H_3 = 6, not 9. Paper r23 reframes the
+conjecture with all three candidate counts explicit.
+
 **Attack surface.** Operator algebra + non-commutative geometry. Fits within
 Connes–Chamseddine spectral triple formalism, extended to fractal ternary
-substrates.
+substrates. Sub-problem: verify or refute the reviewer's Path 2 ansatz
+(9-count via H_3-periodic-orbits on 3-adics).
 
 ### Problem 1b. Spectral Isolation Theorem for T_3^sym
 
