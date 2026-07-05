@@ -216,19 +216,21 @@ theorem substrate_sigma_star_respects_setoid :
   rw [substrateRingHomIter_star i k hik a, substrateRingHomIter_star j k hjk b,
       hcompat]
 
-/-- **Star instance on T_∞** — the substrate carrier inherits the
-    *-operation from the finite levels via `Quotient.map` of
-    `substrate_sigma_star`, which respects the DirectLimit setoid via
-    the r31 iterated-star-preservation identity. -/
-noncomputable instance instStarTimelessField : Star TimelessFieldRing where
+/-- **Star instance on T_∞** — registered on the RAW Quotient type so
+    it survives abbrev unfolding during typeclass search. Since
+    `TimelessFieldRing = DirectLimit ... = Quotient (setoid ...)` all
+    definitionally, this instance also serves as `Star TimelessFieldRing`. -/
+noncomputable instance instStarQuotientSubstrate :
+    Star (Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) where
   star := Quotient.map substrate_sigma_star substrate_sigma_star_respects_setoid
 
 /-- **Involutive star on T_∞** — the star operation is involutive:
-    `star (star x) = x` for every `x : TimelessFieldRing`. Descends
-    from the involutive star on each finite matrix ring level, which
-    is inherited from ℂ's `InvolutiveStar` instance. -/
-noncomputable instance instInvolutiveStarTimelessField :
-    InvolutiveStar TimelessFieldRing where
+    `star (star x) = x` for every `x`. Registered on the raw Quotient
+    type for consistent instance search. -/
+noncomputable instance instInvolutiveStarQuotientSubstrate :
+    InvolutiveStar (Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) where
   star_involutive := by
     intro x
     induction x using Quotient.ind with
@@ -242,21 +244,116 @@ noncomputable instance instInvolutiveStarTimelessField :
       show (⟨k, star (star a)⟩ : Σ k, Matrix (Fin (3^k)) (Fin (3^k)) ℂ) = ⟨k, a⟩
       simp
 
-/-! ## §4c — Substrate star capstone
+/-! ## §4c — r32: Star reverses multiplication (StarMul) on T_∞
 
-At this point T_∞ = TimelessFieldRing has three mathlib-native instances:
-Ring, Star, InvolutiveStar. The remaining star-structure work
-(StarMul, StarAddMonoid, StarRing) requires bridging the DirectLimit's
-mul_def / add_def with the sigma-star through the abbrev-vs-Quotient
-typeclass gap; this is the next substrate step. -/
+With Star/InvolutiveStar now registered on the raw Quotient type, the
+typeclass search finds them regardless of whether the visible type is
+`TimelessFieldRing` or its unfolding. This enables the StarMul lift. -/
 
-/-- **The substrate's Timeless Field carries star structure**: r31
-    established Star + InvolutiveStar on T_∞. Full StarRing (adding
-    StarMul + StarAddMonoid) is the r32 substrate target. -/
+/-- **Same-level product equality on T_∞**: `⟦⟨i,a⟩⟧ * ⟦⟨i,b⟩⟧ = ⟦⟨i, a*b⟩⟧`
+    as a raw Quotient-type identity, obtained from mathlib's `mul_def`
+    with explicit type parameters to resolve `G` inference. -/
+theorem substrate_quotient_mul_same_level (i : ℕ)
+    (a b : Matrix (Fin (3^i)) (Fin (3^i)) ℂ) :
+    (⟦⟨i, a⟩⟧ : Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) *
+      ⟦⟨i, b⟩⟧ = ⟦⟨i, a * b⟩⟧ :=
+  DirectLimit.mul_def (G := fun k => Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
+                      (f := fun i j (h : i ≤ j) => substrateRingHomIter i j h)
+                      i a b
+
+/-- **Star reverses multiplication on T_∞** — the StarMul property.
+    Proved via `DirectLimit.exists_eq_mk₂` to obtain common-level
+    representatives, then reducing both sides via
+    `substrate_quotient_mul_same_level` and `Matrix.star_mul` at level i. -/
+noncomputable instance instStarMulQuotientSubstrate :
+    StarMul (Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) where
+  star_mul x y := by
+    obtain ⟨i, a, b, hx, hy⟩ :=
+      DirectLimit.exists_eq_mk₂ (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x y
+    subst hx; subst hy
+    rw [substrate_quotient_mul_same_level i a b]
+    show (⟦⟨i, star (a * b)⟩⟧ : Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) =
+      ⟦⟨i, star b⟩⟧ * ⟦⟨i, star a⟩⟧
+    rw [substrate_quotient_mul_same_level i (star b) (star a), Matrix.star_mul]
+
+/-! ## §4c' — StarAddMonoid on T_∞ (r32 extended)
+
+For the full StarRing structure, we also need star to respect addition. -/
+
+/-- **Same-level sum equality on T_∞**: `⟦⟨i,a⟩⟧ + ⟦⟨i,b⟩⟧ = ⟦⟨i, a+b⟩⟧`
+    as a raw Quotient-type identity. -/
+theorem substrate_quotient_add_same_level (i : ℕ)
+    (a b : Matrix (Fin (3^i)) (Fin (3^i)) ℂ) :
+    (⟦⟨i, a⟩⟧ : Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) +
+      ⟦⟨i, b⟩⟧ = ⟦⟨i, a + b⟩⟧ :=
+  DirectLimit.add_def (G := fun k => Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
+                      (f := fun i j (h : i ≤ j) => substrateRingHomIter i j h)
+                      i a b
+
+/-- **Star respects addition on T_∞** — the StarAddMonoid `star_add`
+    property. Proved via `DirectLimit.exists_eq_mk₂` + Matrix additive
+    star preservation (star = conjTranspose respects +). -/
+noncomputable instance instStarAddMonoidQuotientSubstrate :
+    StarAddMonoid (Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) where
+  star_add x y := by
+    obtain ⟨i, a, b, hx, hy⟩ :=
+      DirectLimit.exists_eq_mk₂ (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x y
+    subst hx; subst hy
+    rw [substrate_quotient_add_same_level i a b]
+    show (⟦⟨i, star (a + b)⟩⟧ : Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) =
+      ⟦⟨i, star a⟩⟧ + ⟦⟨i, star b⟩⟧
+    rw [star_add, substrate_quotient_add_same_level i (star a) (star b)]
+
+/-! ## §4c'' — Full StarRing on T_∞ -/
+
+/-- **★★★ SUBSTRATE T_∞ AS A STARRING ★★★**
+
+    The substrate's Timeless Field T_∞ carries the full StarRing
+    structure: `NonUnitalSemiring` (from Ring) + `StarMul` + `StarAddMonoid`
+    → `StarRing`. This is the algebraic star-structure closure toward
+    the C*-algebra completion. -/
+noncomputable instance instStarRingQuotientSubstrate :
+    StarRing (Quotient
+      (DirectLimit.setoid (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) where
+  star_mul := StarMul.star_mul
+  star_add := StarAddMonoid.star_add
+
+/-! ## §4d — Forwarding instances for TimelessFieldRing
+
+The instances above are on the raw `Quotient (DirectLimit.setoid ...)`.
+Forwarding aliases below make them findable via the `TimelessFieldRing`
+abbrev during typeclass search. -/
+
+noncomputable instance instStarTimelessField : Star TimelessFieldRing :=
+  instStarQuotientSubstrate
+
+noncomputable instance instInvolutiveStarTimelessField : InvolutiveStar TimelessFieldRing :=
+  instInvolutiveStarQuotientSubstrate
+
+noncomputable instance instStarMulTimelessField : StarMul TimelessFieldRing :=
+  instStarMulQuotientSubstrate
+
+noncomputable instance instStarAddMonoidTimelessField : StarAddMonoid TimelessFieldRing :=
+  instStarAddMonoidQuotientSubstrate
+
+noncomputable instance instStarRingTimelessField : StarRing TimelessFieldRing :=
+  instStarRingQuotientSubstrate
+
+/-- **The substrate's Timeless Field T_∞ carries the FULL star-ring structure**:
+    `Ring`, `Star`, `InvolutiveStar`, `StarMul`, `StarAddMonoid`, `StarRing`. -/
 theorem substrate_TimelessField_star_structure_exists :
     Nonempty (Star TimelessFieldRing) ∧
-    Nonempty (InvolutiveStar TimelessFieldRing) :=
-  ⟨⟨inferInstance⟩, ⟨inferInstance⟩⟩
+    Nonempty (InvolutiveStar TimelessFieldRing) ∧
+    Nonempty (StarMul TimelessFieldRing) ∧
+    Nonempty (StarAddMonoid TimelessFieldRing) ∧
+    Nonempty (StarRing TimelessFieldRing) :=
+  ⟨⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩⟩
 
 /-! ## §5 — Substrate iterated RingHom capstone -/
 
