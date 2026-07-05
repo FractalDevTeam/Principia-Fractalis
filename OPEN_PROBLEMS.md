@@ -1,7 +1,9 @@
 # OPEN_PROBLEMS.md — Principia Fractalis Substrate ToE
 
-Version: r23 (2026-07-05) — draft
+Version: r26 (2026-07-05) — draft
 r23 update: preemptive-strike arithmetic correction on Problem 1a H_3 combinatorial candidates.
+r25 update: four-facet substrate architectural claim kernel-verified in Lean 4.
+r26 update: eight-step substrate operator-algebra pathway formalized at Prop level in Lean 4.
 Successor to: pre-cleanup `ARCHIVE/2026-06-08-cleanup/root_docs/OPEN_PROBLEMS.md`
 
 This file catalogues the framework's currently-open substrate-derivation and
@@ -64,6 +66,62 @@ conjecture with all three candidate counts explicit.
 Connes–Chamseddine spectral triple formalism, extended to fractal ternary
 substrates. Sub-problem: verify or refute the reviewer's Path 2 ansatz
 (9-count via H_3-periodic-orbits on 3-adics).
+
+**Substrate architectural claim (r25, `PF/ExtremalTraceOrbits.lean`).** The
+count 9 has FOUR CONVERGENT SUBSTRATE FACETS all kernel-verified in Lean 4:
+(F1) base-3 rank-2 lattice `|Fin 3 × Fin 3| = 9 = 3²` fixed points of the
+descended squared shift S² on ternary sequences; (F2) H_3 top exponent = 9
+from exponent set {1, 5, 9}; (F3) Coxeter number h(H_3) = 10 = element
+conjugacy class count; (F4) universal coupling π/10 = period-2 substrate
+phase with sin(π/10) = 1/(2φ) as period-2 amplitude. Capstone
+`substrate_9_extremal_traces_from_period2_dynamics` bundles all four
+facets kernel-only [propext, Classical.choice, Quot.sound]. The substrate
+positively claims these four facets are four views of ONE substrate
+object (the projective-limit nuclear C*-algebra T_∞ over the base-3
+lattice), with the 9-count matching the 9 canonical α_i via α_i =
+π/(10·λ_i) under the Dixmier trace.
+
+**Eight-step substrate operator-algebra pathway (r26,
+`PF/ExtremalTraceUniquenessProofPlan.lean`).** The substrate's pathway
+from the r25 four-facet architectural claim to full extremal-trace
+closure is machine-encoded at Prop level. This Problem 1a decomposes
+as the conjunction of eight named Prop-level sub-conjectures:
+
+- **(C1)** T_∞ nuclear C*-algebra construction (projective-limit over base-3)
+- **(C2)** Type III_1 hyperfinite factor via Connes classification
+- **(C3)** Base-3 fundamental-group action breaks Type III_1 single-trace
+- **(C4)** Finite-dimensional center with exactly 9 minimal projections
+- **(C5)** Extremal traces bijective to minimal projections
+- **(C6)** Period-2 substrate correspondence — integrates r25's
+  kernel-proved `basethree_period2_fixed_points.card = 9`
+- **(C7)** Dixmier trace identification α_i = π/(10·λ_i)
+- **(C8)** α-skeleton bijection to the 9 canonical values
+
+Decomposition equivalence `conjecture_8X2_decomposes` is a REAL THEOREM
+proved by `Iff.rfl` (definitional equality) — zero sorries, zero project
+axioms. Extends the r20 zero-axioms milestone pattern
+(`PolylogEigenvalueConjecture : Prop`). Operator algebraists can attack
+the eight sub-Props directly as separately-provable substrate content.
+
+**Immediate attack targets** (in order of increasing difficulty for
+mathlib-native formalization):
+
+- **(C1)**: substrate C*-algebra construction — foundational, provable
+  against `Mathlib.Analysis.NormedSpace.CStarAlgebra` with a bespoke
+  projective-limit construction over the base-3 lattice.
+- **(C4) + (C5)**: finite-dim center + extremal traces bijection —
+  provable against `Mathlib.Analysis.VonNeumannAlgebra.Basic` extended
+  with center/projections API (forward-runnable mathlib extension).
+- **(C6)**: period-2 substrate correspondence — the r25 architectural
+  bridge is already kernel-verified; this sub-Prop needs the
+  operator-algebra side of the correspondence.
+- **(C2), (C3), (C7)**: require mathlib extensions on the operator-
+  algebra side (Connes Type III₁ classification, base-3 fundamental
+  group actions on projective limits, Dixmier trace functional). All
+  three are forward-runnable mathlib PR targets.
+- **(C8)**: substrate identification — reduces to numerical verification
+  once (C7) is closed; the 9-tuple values are already substrate-derived
+  in the corpus.
 
 ### Problem 1b. Spectral Isolation Theorem for T_3^sym
 
