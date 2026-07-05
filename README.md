@@ -27,14 +27,15 @@ in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports t
 
 | Path | Content |
 |---|---|
-| `Principia_Fractalis_master_folder/` | The book *Principia Fractalis* (LaTeX source + `main.pdf`, V2.6.1, 915 pages) |
-| `Papers/principia_fractalis_millennium_problems_2026-07-01.{tex,pdf}` | The substrate-level Theory of Everything paper exhibiting the Clay-bundle discharge (70 pp; Pabs's primary deliverable). Discharge of 25 substrate-level consequences kernel-only in Lean 4; literal-mathlib RH discharge on `Complex.riemannZeta` conditional on Hardy 1914 + the published-open HP-program conjecture; full distinctive substrate mechanisms (ΛCDM rebuttal, Weinstein-GU $H^2{=}78$, base-3 ternary, Grothendieck-topos consciousness); forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ pre-registered 2026-06-22. |
+| `Principia_Fractalis_master_folder/` | The book *Principia Fractalis* (LaTeX source + `main.pdf`, V2.6.1, 918 pages) |
+| `Papers/principia_fractalis_millennium_problems_2026-07-05.{tex,pdf}` | The substrate-level Theory of Everything paper exhibiting the Clay-bundle discharge (78 pp; Pabs's primary deliverable). Discharge of 25 substrate-level consequences kernel-only in Lean 4; literal-mathlib RH discharge on `Complex.riemannZeta` conditional on Hardy 1914 + the published-open HP-program conjecture; full distinctive substrate mechanisms (ΛCDM rebuttal, Weinstein-GU $H^2{=}78$, base-3 ternary, Grothendieck-topos consciousness); T$_3^{\textsf{sym}}$ N=25000 spectral resonance (3/10 at 10⁻⁴ tier, Δ_Σ = 0.0059, canonical below null p_5); Filtration Theorem 8.X.1 kernel-encoded in Lean 4 (r24, `PF/FiltrationTheorem.lean`); Extremal-Trace Conjecture 8.X.2 as single remaining deductive gap; forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ pre-registered 2026-06-22. |
+| `Papers/AUTHORS_RESPONSE_TO_STRUCTURAL_REVIEW_2026-07-05.md` | Response to external structural review — r23 arithmetic correction (H₃ parabolic-count preemptive-strike self-audit) + r24 Filtration Theorem kernel-checked promotion. |
 | `Papers/principia_fractalis_clean_2026-06-29.{tex,pdf}` | Back-pocket algebraic-skeleton-only exposition (20 pp; companion to the primary). Twelve substrate-derived identities, unique nine-tuple, $\lambda_0^2$ closed-form spectrum, P/NP spectral-gap closed form. |
 | `Papers/Data/principia_fractalis_143_problems_IBM_dataset.csv` | The 143-problem panel data |
 | `Papers/PriorWork_*/` | Seven Pabs-authored prior-work manuscripts (substrate-tier named anchors) |
-| `PF_Lean4_Code/` | Lean 4 verification (1,003 files, 329,599 lines; mathlib4 v4.24.0-rc1) |
+| `PF_Lean4_Code/` | Lean 4 verification (1,021 files; mathlib4 v4.24.0-rc1; full PF build 4,379 jobs kernel-clean) |
 | `PF_Lean4Lean/` | Lean4Lean independent kernel re-verification (separate package configuration + hash) |
-| `PF_Coq_Code/` | Coq 8.18 cross-prover structural-shape parity (629+ files) |
+| `PF_Coq_Code/` | Coq 8.18 cross-prover structural-shape parity (738 files) |
 | `websites/` | Four public-facing companion sites (see below) |
 | `docs/` | Documentation including [referee quickstart](docs/REFEREE_QUICKSTART.md), [per-axis citation cards](docs/CLAY_PER_AXIS_CITATION_CARDS.md), and [pre-loaded responses to common audit attacks](docs/AUDIT_FINDINGS_AND_RESPONSES.md) |
 | `ARCHIVE/` | Preserved historical development trees (do not delete) |
@@ -89,8 +90,8 @@ pdflatex main && bibtex main && pdflatex main && pdflatex main
 
 ```bash
 cd Papers
-pdflatex principia_fractalis_millennium_problems_2026-07-01
-pdflatex principia_fractalis_millennium_problems_2026-07-01
+pdflatex principia_fractalis_millennium_problems_2026-07-05
+pdflatex principia_fractalis_millennium_problems_2026-07-05
 ```
 
 ---

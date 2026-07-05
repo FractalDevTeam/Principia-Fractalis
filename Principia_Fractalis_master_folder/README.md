@@ -1,8 +1,8 @@
 # Principia Fractalis — Master LaTeX Folder
 
-**Version**: 2.5.0
-**Date**: 2026-06-08
-**Pages**: 840
+**Version**: 2.6.1
+**Date**: 2026-07-05
+**Pages**: 918
 **Status**: Canonical book source.
 
 This is the source-of-truth for the Principia Fractalis textbook. It contains the complete LaTeX source for the book authored by Pablo Cohen, plus the compiled `main.pdf` output.
