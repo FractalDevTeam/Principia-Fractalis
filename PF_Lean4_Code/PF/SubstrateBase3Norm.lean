@@ -139,18 +139,59 @@ def SubstrateEmbeddingIsIsometryConjecture : Prop :=
   ∀ (k : ℕ) (A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ),
     ‖SubstrateBase3RingHom.substrateRingHom k A‖ = ‖A‖
 
-/-! ## §5 — Substrate norm structure honest scope
+/-! ## §5 — r34 attack: submultiplicativity as first inequality
+
+Under the C*-property `‖A^* A‖ = ‖A‖²` (available at every level via
+`Matrix.l2_opNorm_conjTranspose_mul_self`), and the fact that
+substrate embeddings preserve star + multiplication (r28), we can
+derive `‖substrateRingHom k A‖² = ‖(substrateRingHom k A)^* * (substrateRingHom k A)‖`
+via r28's substrate_embedding_capstone. The isometry then reduces to
+the tensor-with-identity operator norm identity on the underlying
+Hilbert space structure. -/
+
+/-- **Substrate-embedding star-mul C*-reduction**: the substrate embedding
+    satisfies `‖ι(A)‖² = ‖ι(A^* * A)‖` where `ι = substrateEmbedMatrix k`.
+    This follows from the C*-property `‖B^* * B‖ = ‖B‖²` at level `k+1`
+    (via `Matrix.l2_opNorm_conjTranspose_mul_self`) plus r28's
+    *-preservation properties for the substrate embedding
+    (`substrateEmbedMatrix_star` + `substrateEmbedMatrix_mul`).
+
+    This reduces the substrate embedding isometry
+    `‖ι(A)‖ = ‖A‖` at general A to the specific isometry for positive
+    self-adjoint elements `‖ι(B)‖ = ‖B‖` where `B = star A * A`. -/
+theorem substrateEmbed_norm_sq_eq_star_mul (k : ℕ)
+    (A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
+    ‖SubstrateBase3Embed.substrateEmbedMatrix k A‖ *
+      ‖SubstrateBase3Embed.substrateEmbedMatrix k A‖ =
+    ‖SubstrateBase3Embed.substrateEmbedMatrix k (star A * A)‖ := by
+  -- Step 1: C*-property at level k+1
+  rw [← Matrix.l2_opNorm_conjTranspose_mul_self
+        (SubstrateBase3Embed.substrateEmbedMatrix k A)]
+  -- Step 2: conjTranspose = star (Matrix.star_eq_conjTranspose)
+  rw [← Matrix.star_eq_conjTranspose]
+  -- Step 3: substrate embedding preserves star (r28)
+  rw [← SubstrateBase3Embed.substrateEmbedMatrix_star k A]
+  -- Step 4: substrate embedding preserves mul (r28)
+  rw [← SubstrateBase3Embed.substrateEmbedMatrix_mul k]
+
+/-! ## §6 — Substrate norm structure honest scope
 
 r33 provides:
   * Level-wise NormedRing/NormedAlgebra/CStarRing structure at every k.
   * Level-0 scalar identification.
   * Precise statement of the substrate-embedding isometry as the next
     substrate target (r34).
+  * Star-mul reduction of the isometry via the C*-property.
 
-r33 does not yet provide:
-  * A norm on T_∞ (requires the isometry from r34).
-  * `NormedRing TimelessFieldRing` (requires norm).
-  * `CStarAlgebra TimelessFieldRing` (requires normed + Banach completion).
+The remaining r34 core: prove `‖B ⊗ 1‖ = ‖B‖` for positive
+self-adjoint B (or equivalently for general B). This is the
+Kronecker-with-identity operator norm identity, which requires either
+a mathlib PR or substantial substrate-side infrastructure through
+`Matrix.toEuclideanCLM` and tensor product isometry on EuclideanSpace.
+
+Once r34 lands, T_∞ inherits the C*-norm as the direct-limit norm via
+the standard UHF construction: define `‖x‖ := ‖a‖` for any
+representative `x = ⟦⟨k, a⟩⟧`, well-defined by isometry.
 
 These are r34+ substrate targets. r33 establishes the level-wise norm
 infrastructure that T_∞'s norm will lift through. -/
