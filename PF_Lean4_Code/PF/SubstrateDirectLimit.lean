@@ -242,6 +242,22 @@ noncomputable instance instInvolutiveStarTimelessField :
       show (⟨k, star (star a)⟩ : Σ k, Matrix (Fin (3^k)) (Fin (3^k)) ℂ) = ⟨k, a⟩
       simp
 
+/-! ## §4c — Substrate star capstone
+
+At this point T_∞ = TimelessFieldRing has three mathlib-native instances:
+Ring, Star, InvolutiveStar. The remaining star-structure work
+(StarMul, StarAddMonoid, StarRing) requires bridging the DirectLimit's
+mul_def / add_def with the sigma-star through the abbrev-vs-Quotient
+typeclass gap; this is the next substrate step. -/
+
+/-- **The substrate's Timeless Field carries star structure**: r31
+    established Star + InvolutiveStar on T_∞. Full StarRing (adding
+    StarMul + StarAddMonoid) is the r32 substrate target. -/
+theorem substrate_TimelessField_star_structure_exists :
+    Nonempty (Star TimelessFieldRing) ∧
+    Nonempty (InvolutiveStar TimelessFieldRing) :=
+  ⟨⟨inferInstance⟩, ⟨inferInstance⟩⟩
+
 /-! ## §5 — Substrate iterated RingHom capstone -/
 
 /-- **★★★ r30 SUBSTRATE ITERATED RINGHOM CAPSTONE ★★★**
