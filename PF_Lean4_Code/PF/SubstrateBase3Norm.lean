@@ -542,9 +542,60 @@ theorem reindex_opNorm_eq
   rw [heq] at h
   exact h
 
+/-! ## §5i — r42: Substrate embedding operator norm ISOMETRY
+
+The composition of r40 (Kronecker-with-identity isometry) and r41
+(reindex isometry) delivers the substrate embedding isometry at the
+matrix level:
+
+    `‖substrateEmbedMatrix k A‖ = ‖A‖`
+
+for every level `k : ℕ` and every `A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ`.
+
+This is the exact input required by the UHF direct-limit norm
+construction to lift the substrate C*-norm from the finite levels to
+T_∞. -/
+
+/-- **★★★ r42: SUBSTRATE EMBEDDING ISOMETRY ★★★**
+
+    `‖substrateEmbedMatrix k A‖ = ‖A‖` at every level `k : ℕ`.
+
+    The substrate embedding `ι_k : A_k → A_(k+1)` preserves the L2
+    operator norm exactly. Together with r28's *-algebra homomorphism
+    properties, this makes `ι_k` an isometric *-algebra embedding —
+    the standard "level-wise C*-embedding" required by the UHF
+    direct-limit construction of T_∞ as a C*-algebra.
+
+    Proof: `substrateEmbedMatrix k A` unfolds to
+    `Matrix.reindex (levelStepEquiv k) (levelStepEquiv k) (A ⊗ₖ 1_{Fin 3})`.
+    Apply r41 (`reindex_opNorm_eq`) then r40 (`kronecker_one_opNorm_eq`). -/
+theorem substrateEmbedMatrix_opNorm_eq (k : ℕ)
+    (A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
+    ‖SubstrateBase3Embed.substrateEmbedMatrix k A‖ = ‖A‖ := by
+  unfold SubstrateBase3Embed.substrateEmbedMatrix
+  rw [reindex_opNorm_eq, kronecker_one_opNorm_eq]
+
+/-- **r42 corollary: substrate `RingHom` embedding isometry**.
+
+    The bundled `substrateRingHom k : Matrix _ _ ℂ →+* Matrix _ _ ℂ`
+    is norm-preserving. Follows from `substrateEmbedMatrix_opNorm_eq`
+    plus the definitional identity
+    `substrateRingHom k A = substrateEmbedMatrix k A`. -/
+theorem substrateRingHom_opNorm_eq (k : ℕ)
+    (A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
+    ‖SubstrateBase3RingHom.substrateRingHom k A‖ = ‖A‖ :=
+  substrateEmbedMatrix_opNorm_eq k A
+
+/-- **r42 discharge**: the substrate embedding isometry conjecture
+    from §4 (`SubstrateEmbeddingIsIsometryConjecture`) is now
+    kernel-verified as a theorem. -/
+theorem substrate_embedding_isometry :
+    SubstrateEmbeddingIsIsometryConjecture :=
+  fun k A => substrateRingHom_opNorm_eq k A
+
 /-! ## §6 — Substrate norm structure honest scope
 
-r33-r41 provides:
+r33-r42 provides:
   * Level-wise NormedRing/NormedAlgebra/CStarRing structure at every k.
   * Level-0 scalar identification.
   * Star-mul reduction of the isometry via the C*-property (r34).
@@ -555,13 +606,12 @@ r33-r41 provides:
   * Kronecker-with-identity `≥` direction (r39).
   * Kronecker-with-identity full isometry `‖A ⊗ 1‖ = ‖A‖` (r40).
   * Reindex isometry `‖reindex e e A‖ = ‖A‖` (r41).
+  * ★ SUBSTRATE EMBEDDING ISOMETRY `‖substrateEmbedMatrix k A‖ = ‖A‖` (r42).
 
-Remaining for full substrate embedding isometry:
-  * r42: Combine r40 + r41 → full `‖substrateEmbedMatrix k A‖ = ‖A‖`
+Remaining for T_∞ as a mathlib-native CStarAlgebra:
   * r43-r44: Lift norm to T_∞ via UHF direct-limit norm construction
-  * r45+: NormedRing → CStarAlgebra → Nuclearity
-
-Once these land, T_∞ is a mathlib-native CStarAlgebra. -/
+             using r42 as the level-wise isometry input.
+  * r45+:    NormedRing → CStarAlgebra → Nuclearity on T_∞. -/
 
 end SubstrateBase3Norm
 end PrincipiaTractalis
