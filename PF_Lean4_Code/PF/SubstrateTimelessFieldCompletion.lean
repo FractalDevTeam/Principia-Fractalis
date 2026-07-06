@@ -226,5 +226,130 @@ theorem substrate_TimelessFieldCompletion_star_capstone :
    ⟨inferInstance⟩,
    star_coe_TimelessFieldCompletion⟩
 
+/-! ## §6 — r55: StarRing on TimelessFieldCompletion
+
+Extend the r32 star algebra identities (star_add, star_mul,
+star_involutive) from T_∞ to the metric completion via
+`UniformSpace.Completion.induction_on` / `induction_on₂` on
+`IsClosed` propositions.
+
+Each identity holds on the dense image (T_∞ embedded via the r53
+Completion coercion) by the r54.d `star_coe` bridge together with
+the r32 T_∞ identities. Continuity of `star`, `+`, `*` on the
+Completion closes the induction. -/
+
+/-- **`star` is continuous on TimelessFieldCompletion** — immediate
+    from `UniformSpace.Completion.continuous_map`, since our r54
+    instance defines `star := Completion.map star`. -/
+theorem continuous_star_TimelessFieldCompletion :
+    Continuous (star : TimelessFieldCompletion → TimelessFieldCompletion) :=
+  UniformSpace.Completion.continuous_map
+
+/-- **r55.a: `star_involutive` on TimelessFieldCompletion**.
+    Lifted via `induction_on` + r32's `star_involutive` on T_∞. -/
+theorem star_involutive_TimelessFieldCompletion :
+    Function.Involutive (star : TimelessFieldCompletion → TimelessFieldCompletion) := by
+  intro x
+  induction x using UniformSpace.Completion.induction_on with
+  | hp =>
+    exact isClosed_eq
+      (continuous_star_TimelessFieldCompletion.comp
+        continuous_star_TimelessFieldCompletion)
+      continuous_id
+  | ih a =>
+    rw [star_coe_TimelessFieldCompletion, star_coe_TimelessFieldCompletion,
+        star_star]
+
+/-- **InvolutiveStar instance on Completion**. -/
+noncomputable instance instInvolutiveStarTimelessFieldCompletion :
+    InvolutiveStar TimelessFieldCompletion where
+  star_involutive := star_involutive_TimelessFieldCompletion
+
+/-- **r55.b: `star_add` on TimelessFieldCompletion**.
+    Lifted via `induction_on₂` + r32's `star_add` on T_∞. -/
+theorem star_add_TimelessFieldCompletion (x y : TimelessFieldCompletion) :
+    star (x + y) = star x + star y := by
+  induction x, y using UniformSpace.Completion.induction_on₂ with
+  | hp =>
+    exact isClosed_eq
+      (continuous_star_TimelessFieldCompletion.comp
+        (continuous_fst.add continuous_snd))
+      ((continuous_star_TimelessFieldCompletion.comp continuous_fst).add
+        (continuous_star_TimelessFieldCompletion.comp continuous_snd))
+  | ih a b =>
+    rw [← UniformSpace.Completion.coe_add,
+        star_coe_TimelessFieldCompletion, star_add,
+        UniformSpace.Completion.coe_add,
+        star_coe_TimelessFieldCompletion,
+        star_coe_TimelessFieldCompletion]
+
+/-- **StarAddMonoid instance on Completion**. -/
+noncomputable instance instStarAddMonoidTimelessFieldCompletion :
+    StarAddMonoid TimelessFieldCompletion where
+  star_add := star_add_TimelessFieldCompletion
+
+/-- **r55.c: `star_mul` on TimelessFieldCompletion** — the reversed
+    multiplication identity. Lifted via `induction_on₂` + r32's
+    `star_mul` on T_∞. -/
+theorem star_mul_TimelessFieldCompletion (x y : TimelessFieldCompletion) :
+    star (x * y) = star y * star x := by
+  induction x, y using UniformSpace.Completion.induction_on₂ with
+  | hp =>
+    exact isClosed_eq
+      (continuous_star_TimelessFieldCompletion.comp
+        (continuous_fst.mul continuous_snd))
+      ((continuous_star_TimelessFieldCompletion.comp continuous_snd).mul
+        (continuous_star_TimelessFieldCompletion.comp continuous_fst))
+  | ih a b =>
+    rw [← UniformSpace.Completion.coe_mul,
+        star_coe_TimelessFieldCompletion, star_mul,
+        UniformSpace.Completion.coe_mul,
+        star_coe_TimelessFieldCompletion,
+        star_coe_TimelessFieldCompletion]
+
+/-- **StarMul instance on Completion**. -/
+noncomputable instance instStarMulTimelessFieldCompletion :
+    StarMul TimelessFieldCompletion where
+  star_mul := star_mul_TimelessFieldCompletion
+
+/-- **★★★ r55: StarRing TimelessFieldCompletion ★★★**
+
+    The full StarRing structure descends from T_∞ to the Completion.
+    Combines the r55.a-c identities (star_involutive, star_add,
+    star_mul) via mathlib's standard StarRing packaging. -/
+noncomputable instance instStarRingTimelessFieldCompletion :
+    StarRing TimelessFieldCompletion where
+  star_add := star_add_TimelessFieldCompletion
+  star_mul := star_mul_TimelessFieldCompletion
+
+/-! ## §7 — r55 capstone -/
+
+/-- **★★★ r55: STAR RING EXTENDS TO THE COMPLETION ★★★**
+
+    The substrate star algebra identities lift to
+    `TimelessFieldCompletion`. Bundles:
+      (S1) `star_involutive` — the involution is self-inverse
+      (S2) `star_add`         — star distributes over addition
+      (S3) `star_mul`         — star reverses multiplication
+      (S4) `InvolutiveStar TimelessFieldCompletion`
+      (S5) `StarAddMonoid TimelessFieldCompletion`
+      (S6) `StarMul TimelessFieldCompletion`
+      (S7) `StarRing TimelessFieldCompletion`
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. -/
+theorem substrate_TimelessFieldCompletion_starRing_capstone :
+    Function.Involutive
+      (star : TimelessFieldCompletion → TimelessFieldCompletion) ∧
+    (∀ x y : TimelessFieldCompletion, star (x + y) = star x + star y) ∧
+    (∀ x y : TimelessFieldCompletion, star (x * y) = star y * star x) ∧
+    Nonempty (InvolutiveStar TimelessFieldCompletion) ∧
+    Nonempty (StarAddMonoid TimelessFieldCompletion) ∧
+    Nonempty (StarMul TimelessFieldCompletion) ∧
+    Nonempty (StarRing TimelessFieldCompletion) :=
+  ⟨star_involutive_TimelessFieldCompletion,
+   star_add_TimelessFieldCompletion,
+   star_mul_TimelessFieldCompletion,
+   ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩⟩
+
 end SubstrateTimelessFieldCompletion
 end PrincipiaTractalis
