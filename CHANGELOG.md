@@ -1,5 +1,41 @@
 # Principia Fractalis — Changelog
 
+## 2026-07-06 (substrate C*-algebra completion + UHF density) — Lean r41-r60 substrate closure of r26 sub-conjecture (C1); paper §7.2; 81 pp → 83 pp
+
+**HEAD prior**: `bddca4d` (r39+r40, Kronecker-with-identity FULL ISOMETRY). **HEAD now**: this commit.
+
+Twenty single-purpose Lean 4 commits + one paper commit landing the substrate C*-algebra construction end-to-end and updating the paper to reflect it. Every commit kernel-only under `[propext, Classical.choice, Quot.sound]`, zero project axioms across the r41-r60 chain.
+
+### The r41-r60 arc
+
+- **r41-r42** (`f2bcf30`, `f337ed9`): Substrate embedding isometry at the matrix level. `substrateEmbedMatrix_opNorm_eq : ‖substrateEmbedMatrix k A‖ = ‖A‖`, three-line composition of r40 (Kronecker-with-identity isometry) with r41 (reindex isometry).
+- **r43-r45** (`a0117f1`, `bf12f0e`, `c64d94b`): T_∞ Norm via UHF direct-limit descent (well-defined by r42's iterated isometry), plus the four norm-arithmetic identities (triangle, submultiplicativity, `‖0‖ = 0`, `‖-x‖ = ‖x‖`).
+- **r46-r49** (`3a10193`, `499d6ba`, `b1523c5`, `7086b52`): The full mathlib normed-ring hierarchy on T_∞ — `SeminormedRing → NormedRing → NormOneClass → CStarRing`. r49 discharges the C*-inequality `‖x⋆ * x‖ ≥ ‖x‖²`.
+- **r50** (`ce77f74`): Pre-C*-algebra bundling capstone — nine typeclass witnesses + two substrate identities.
+- **r51-r52** (`db85066`, `5da4cc9`): ℂ-scalar structure on T_∞. `SMul ℂ → Module ℂ → Algebra ℂ` (via `Algebra.ofModule`; non-comm case handled manually) + `NormedAlgebra ℂ` + `StarModule ℂ`.
+- **r53** (`b2ccd75`): Metric completion `TimelessFieldCompletion := UniformSpace.Completion TimelessFieldRing` + seven auto-inherited mathlib instances including `CompleteSpace` (closing the only structural gap identified at the r50 pre-C*-algebra capstone).
+- **r54-r55** (`5b15ec3`, `b304b49`): `Star` extends via `UniformSpace.Completion.map star` (using uniform continuity from isometry of star on any C*-ring via `CStarRing.to_normedStarGroup`) → `InvolutiveStar → StarAddMonoid → StarMul → StarRing` via `Completion.induction_on{,₂}` on closed equality sets.
+- **r56-r58** (`db27b9f`, `8f4a7fb`, `5391971`): C*-inequality on the completion + `Algebra ℂ` (mathlib's automatic `Completion` `NormedAlgebra` requires `SeminormedCommRing` which does not apply; constructed manually via `Algebra.ofModule`) + `NormedAlgebra ℂ` + `StarModule ℂ`. At r58 `noncomputable example : CStarAlgebra TimelessFieldCompletion := inferInstance` type-checks. Grand capstone `substrate_UHF_CStarAlgebra_exists`.
+- **r59** (`581131b`): Documentation-only commit — `PF.lean` top-level registration comment updated end-to-end.
+- **r60** (`54e7de8`): UHF (AF) density witness `substrate_finite_level_dense` — for every `x ∈ TimelessFieldCompletion` and every `ε > 0`, there exist a finite substrate level `k` and `a ∈ Matrix (Fin 3^k) (Fin 3^k) ℂ` with `dist x (↑(substrateLevelToTimelessField k a)) < ε`. Two-line composition of `denseRange_coe` (T_∞ dense in completion) with `DirectLimit.exists_eq_mk` (every direct-limit element is at some finite level). Formalises `TimelessFieldCompletion = closure_{L² op norm}(⋃_k Matrix (Fin 3^k) (Fin 3^k) ℂ)`, the UHF/AF characterisation.
+
+### Paper §7.2 (r61 `f64833d`)
+
+New subsection in `Machine-Checked Verification` titled *"Substrate T_∞ as a mathlib-native C*-algebra: metric completion and UHF density (Lean r41-r60)"*. Six paragraphs, ~1350 words, +2 PDF pages. Anchor stats updated end-to-end: `lake build PF` 4,362 → 4,430 jobs; anchor commit `8901280` → `54e7de8`; combined 8,470 → 8,538. PDF: 81 → 83 pages.
+
+### Coq mirror (this commit)
+
+Tier II declaration-shape parity per the paper's two-tier framing: substrate-tier analytic content lives authoritatively on Lean's mathlib stack; Coq mirror records theorem names at parity granularity via `Prop := True` / `exact I.` modules.
+
+- `PF_Coq_Code/PF/SubstrateTimelessFieldNormCoq.v` — parity mirror of r41-r52 (T_∞ pre-C*-algebra).
+- `PF_Coq_Code/PF/SubstrateTimelessFieldCompletionCoq.v` — parity mirror of r53-r60 (metric completion + UHF density).
+- `_CoqProject` updated with both files.
+- Both compile clean under `coqc` at Coq 8.18.0.
+
+### Substrate significance
+
+r26 sub-conjecture (C1) — the substrate's Timeless Field carrier as a mathlib-native C*-algebra — is closed in Lean 4. The classical Blackadar theorem (K-Theory for Operator Algebras, Theorem 6.3.10) identifies the completion as the nuclear UHF C*-algebra of type 3^∞ in Glimm's classification; the r60 density witness is the substrate-side input to that classical argument. Full `Nuclear` typeclass discharge awaits mathlib's nuclearity API (currently mathlib does not provide `Nuclear`, UHF/AF definitions, or C*-tensor products).
+
 ## 2026-06-24 (cosmological-constant centerpiece) — §4 subsection surfacing the kernel-only Λ_eff derivation; 14 pp → 15 pp
 
 **HEAD prior**: `9fc9b4e`. **HEAD now**: this commit.
