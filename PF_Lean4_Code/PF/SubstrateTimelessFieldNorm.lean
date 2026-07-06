@@ -137,7 +137,51 @@ theorem substrateLevelToTimelessField_opNorm_eq (k : ℕ)
     (A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
     ‖substrateLevelToTimelessField k A‖ = ‖A‖ := rfl
 
-/-! ## §4 — Substrate T_∞ Norm existence capstone -/
+/-! ## §4 — r44: Norm arithmetic identities on T_∞
+
+The two core inequalities required by `SeminormedRing`:
+  * Triangle inequality: `‖x + y‖ ≤ ‖x‖ + ‖y‖`
+  * Submultiplicativity: `‖x * y‖ ≤ ‖x‖ * ‖y‖`
+
+Both lift from the finite-level `NormedRing (Matrix _ _ ℂ)` structure
+via `DirectLimit.exists_eq_mk₂` to reduce to common-level
+representatives, then discharge via the level-wise inequalities. -/
+
+/-- **r44: Triangle inequality on T_∞** — `‖x + y‖ ≤ ‖x‖ + ‖y‖`.
+
+    Standard direct-limit lift: reduce `x` and `y` to common-level
+    representatives `⟦⟨i, a⟩⟧` and `⟦⟨i, b⟩⟧` via
+    `DirectLimit.exists_eq_mk₂`, use r32's `substrate_quotient_add_same_level`
+    to identify `x + y = ⟦⟨i, a + b⟩⟧`, then discharge via the
+    level-`i` NormedRing triangle inequality. -/
+theorem norm_add_le_TimelessField (x y : TimelessFieldRing) :
+    ‖x + y‖ ≤ ‖x‖ + ‖y‖ := by
+  obtain ⟨i, a, b, hx, hy⟩ :=
+    DirectLimit.exists_eq_mk₂
+      (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x y
+  subst hx; subst hy
+  rw [substrate_quotient_add_same_level i a b]
+  show ‖a + b‖ ≤ ‖a‖ + ‖b‖
+  exact norm_add_le a b
+
+/-- **r44: Submultiplicativity on T_∞** — `‖x * y‖ ≤ ‖x‖ * ‖y‖`.
+
+    Standard direct-limit lift: reduce `x` and `y` to common-level
+    representatives `⟦⟨i, a⟩⟧` and `⟦⟨i, b⟩⟧` via
+    `DirectLimit.exists_eq_mk₂`, use r32's `substrate_quotient_mul_same_level`
+    to identify `x * y = ⟦⟨i, a * b⟩⟧`, then discharge via the
+    level-`i` NormedRing submultiplicativity. -/
+theorem norm_mul_le_TimelessField (x y : TimelessFieldRing) :
+    ‖x * y‖ ≤ ‖x‖ * ‖y‖ := by
+  obtain ⟨i, a, b, hx, hy⟩ :=
+    DirectLimit.exists_eq_mk₂
+      (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x y
+  subst hx; subst hy
+  rw [substrate_quotient_mul_same_level i a b]
+  show ‖a * b‖ ≤ ‖a‖ * ‖b‖
+  exact norm_mul_le a b
+
+/-! ## §5 — Substrate T_∞ Norm existence capstone -/
 
 /-- **★★★ SUBSTRATE T_∞ NORM CAPSTONE ★★★**
 
@@ -160,8 +204,11 @@ theorem substrateLevelToTimelessField_opNorm_eq (k : ℕ)
 theorem substrate_TimelessField_Norm_exists :
     Nonempty (Norm TimelessFieldRing) ∧
     (∀ (k : ℕ) (A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ),
-      ‖substrateLevelToTimelessField k A‖ = ‖A‖) :=
-  ⟨⟨inferInstance⟩, substrateLevelToTimelessField_opNorm_eq⟩
+      ‖substrateLevelToTimelessField k A‖ = ‖A‖) ∧
+    (∀ x y : TimelessFieldRing, ‖x + y‖ ≤ ‖x‖ + ‖y‖) ∧
+    (∀ x y : TimelessFieldRing, ‖x * y‖ ≤ ‖x‖ * ‖y‖) :=
+  ⟨⟨inferInstance⟩, substrateLevelToTimelessField_opNorm_eq,
+   norm_add_le_TimelessField, norm_mul_le_TimelessField⟩
 
 end SubstrateTimelessFieldNorm
 end PrincipiaTractalis
