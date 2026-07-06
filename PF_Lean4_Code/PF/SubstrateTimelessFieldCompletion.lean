@@ -351,5 +351,60 @@ theorem substrate_TimelessFieldCompletion_starRing_capstone :
    star_mul_TimelessFieldCompletion,
    ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩⟩
 
+/-! ## §8 — r56: CStarRing on TimelessFieldCompletion
+
+The C*-identity `‖x⋆ * x‖ = ‖x‖²` — via mathlib's modern
+`CStarRing` class asking only for `‖x‖ * ‖x‖ ≤ ‖star x * x‖` — lifts
+from T_∞ to its metric completion by `induction_on` on the closed
+inequality set. Both sides are continuous in `x`: LHS is
+`‖·‖ * ‖·‖` (norm composed with itself), RHS is `‖·‖ ∘ (star * id)`.
+On the dense image the inequality is r49's `cstar_ineq_TimelessField`
+composed with `norm_coe` (isometric coercion) + r54.d `star_coe` +
+`Completion.coe_mul`. -/
+
+/-- **r56: C*-inequality on TimelessFieldCompletion**:
+        `‖x‖ * ‖x‖ ≤ ‖star x * x‖`
+    Lifted via `induction_on` from r49's `cstar_ineq_TimelessField`. -/
+theorem cstar_ineq_TimelessFieldCompletion (x : TimelessFieldCompletion) :
+    ‖x‖ * ‖x‖ ≤ ‖star x * x‖ := by
+  induction x using UniformSpace.Completion.induction_on with
+  | hp =>
+    exact isClosed_le
+      (continuous_norm.mul continuous_norm)
+      (continuous_norm.comp
+        (continuous_star_TimelessFieldCompletion.mul continuous_id))
+  | ih a =>
+    rw [UniformSpace.Completion.norm_coe, star_coe_TimelessFieldCompletion,
+        ← UniformSpace.Completion.coe_mul,
+        UniformSpace.Completion.norm_coe]
+    exact CStarRing.norm_mul_self_le a
+
+/-- **★★★ r56: CStarRing TimelessFieldCompletion ★★★**
+
+    The metric completion of T_∞ carries the full C*-identity. -/
+noncomputable instance instCStarRingTimelessFieldCompletion :
+    CStarRing TimelessFieldCompletion where
+  norm_mul_self_le := cstar_ineq_TimelessFieldCompletion
+
+/-! ## §9 — r56 capstone -/
+
+/-- **★★★ r56: C*-RING EXTENDS TO THE COMPLETION ★★★**
+
+    The C*-identity extends from T_∞ to the metric completion.
+    Bundles:
+      (C1) The C*-inequality `‖x‖ * ‖x‖ ≤ ‖star x * x‖` on Completion.
+      (C2) `CStarRing TimelessFieldCompletion` instance.
+      (C3) The full C*-identity `‖star x * x‖ = ‖x‖ * ‖x‖` via
+           `CStarRing.norm_star_mul_self`.
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. -/
+theorem substrate_TimelessFieldCompletion_cstar_capstone :
+    (∀ x : TimelessFieldCompletion, ‖x‖ * ‖x‖ ≤ ‖star x * x‖) ∧
+    Nonempty (CStarRing TimelessFieldCompletion) ∧
+    (∀ x : TimelessFieldCompletion, ‖star x * x‖ = ‖x‖ * ‖x‖) :=
+  ⟨cstar_ineq_TimelessFieldCompletion,
+   ⟨inferInstance⟩,
+   fun _ => CStarRing.norm_star_mul_self⟩
+
 end SubstrateTimelessFieldCompletion
 end PrincipiaTractalis
