@@ -406,5 +406,93 @@ theorem substrate_TimelessFieldCompletion_cstar_capstone :
    ⟨inferInstance⟩,
    fun _ => CStarRing.norm_star_mul_self⟩
 
+/-! ## §10 — r57: Algebra ℂ + NormedAlgebra ℂ on TimelessFieldCompletion
+
+Mathlib provides `NormedAlgebra 𝕜 (Completion A)` automatically only
+for `SeminormedCommRing A` (Mathlib/Analysis/Normed/Module/Completion.lean:83).
+T_∞ is non-commutative, so we construct the Algebra ℂ structure
+manually via `Algebra.ofModule`, then bundle NormedAlgebra using
+the `NormedSpace ℂ` structure already inherited in r53.
+
+The Module ℂ structure on the Completion is already available via
+r53's `NormedSpace ℂ TimelessFieldCompletion` (which extends Module ℂ).
+The two remaining ingredients are the smul/mul compatibility
+identities, both lifted by induction on the dense image. -/
+
+/-- **r57.a: `(r • x) * y = r • (x * y)` on TimelessFieldCompletion**
+    — h₁ for `Algebra.ofModule`.
+
+    Lifted from r52's `substrate_smul_mul_assoc` (on T_∞) via
+    `induction_on₂` + `Completion.coe_smul` + `Completion.coe_mul`. -/
+theorem substrate_smul_mul_assoc_completion (r : ℂ) (x y : TimelessFieldCompletion) :
+    (r • x) * y = r • (x * y) := by
+  induction x, y using UniformSpace.Completion.induction_on₂ with
+  | hp =>
+    exact isClosed_eq
+      (((continuous_const_smul r).comp continuous_fst).mul continuous_snd)
+      ((continuous_const_smul r).comp (continuous_fst.mul continuous_snd))
+  | ih a b =>
+    rw [← UniformSpace.Completion.coe_smul, ← UniformSpace.Completion.coe_mul,
+        ← UniformSpace.Completion.coe_mul, ← UniformSpace.Completion.coe_smul,
+        substrate_smul_mul_assoc]
+
+/-- **r57.b: `x * (r • y) = r • (x * y)` on TimelessFieldCompletion**
+    — h₂ for `Algebra.ofModule`.
+
+    Lifted from r52's `substrate_mul_smul_comm` (on T_∞) via
+    `induction_on₂` + `Completion.coe_smul` + `Completion.coe_mul`. -/
+theorem substrate_mul_smul_comm_completion (r : ℂ) (x y : TimelessFieldCompletion) :
+    x * (r • y) = r • (x * y) := by
+  induction x, y using UniformSpace.Completion.induction_on₂ with
+  | hp =>
+    exact isClosed_eq
+      (continuous_fst.mul ((continuous_const_smul r).comp continuous_snd))
+      ((continuous_const_smul r).comp (continuous_fst.mul continuous_snd))
+  | ih a b =>
+    rw [← UniformSpace.Completion.coe_smul, ← UniformSpace.Completion.coe_mul,
+        ← UniformSpace.Completion.coe_mul, ← UniformSpace.Completion.coe_smul,
+        substrate_mul_smul_comm]
+
+/-- **★★★ r57: Algebra ℂ TimelessFieldCompletion ★★★**
+
+    The completion carries the ℂ-algebra structure via
+    `Algebra.ofModule`, using the r53-inherited `Module ℂ` structure
+    (from `NormedSpace ℂ`) + r57.a, r57.b smul/mul compatibility. -/
+noncomputable instance instAlgebraTimelessFieldCompletion :
+    Algebra ℂ TimelessFieldCompletion :=
+  Algebra.ofModule substrate_smul_mul_assoc_completion
+                   substrate_mul_smul_comm_completion
+
+/-- **★★★ r57: NormedAlgebra ℂ TimelessFieldCompletion ★★★**
+
+    The metric completion is a mathlib-native normed ℂ-algebra. The
+    `norm_smul_le` field comes directly from r53's inherited
+    `NormedSpace ℂ TimelessFieldCompletion`. -/
+noncomputable instance instNormedAlgebraTimelessFieldCompletion :
+    NormedAlgebra ℂ TimelessFieldCompletion where
+  norm_smul_le := NormedSpace.norm_smul_le
+
+/-! ## §11 — r57 capstone -/
+
+/-- **★★★ r57: ALGEBRA ℂ + NORMED ALGEBRA EXTEND TO THE COMPLETION ★★★**
+
+    The ℂ-scalar structure lifts from T_∞ to `TimelessFieldCompletion`
+    via the standard mathlib `Algebra.ofModule` recipe. Bundles:
+      (A1) `(r • x) * y = r • (x * y)` on Completion.
+      (A2) `x * (r • y) = r • (x * y)` on Completion.
+      (A3) `Algebra ℂ TimelessFieldCompletion`.
+      (A4) `NormedAlgebra ℂ TimelessFieldCompletion`.
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. -/
+theorem substrate_TimelessFieldCompletion_algebra_capstone :
+    (∀ (r : ℂ) (x y : TimelessFieldCompletion), (r • x) * y = r • (x * y)) ∧
+    (∀ (r : ℂ) (x y : TimelessFieldCompletion), x * (r • y) = r • (x * y)) ∧
+    Nonempty (Algebra ℂ TimelessFieldCompletion) ∧
+    Nonempty (NormedAlgebra ℂ TimelessFieldCompletion) :=
+  ⟨substrate_smul_mul_assoc_completion,
+   substrate_mul_smul_comm_completion,
+   ⟨inferInstance⟩,
+   ⟨inferInstance⟩⟩
+
 end SubstrateTimelessFieldCompletion
 end PrincipiaTractalis
