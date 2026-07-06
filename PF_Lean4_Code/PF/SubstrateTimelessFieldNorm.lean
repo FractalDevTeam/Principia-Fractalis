@@ -226,7 +226,49 @@ theorem norm_neg_TimelessField (x : TimelessFieldRing) : ‖-x‖ = ‖x‖ := b
   show ‖-a‖ = ‖a‖
   exact norm_neg a
 
-/-! ## §6 — Substrate T_∞ Norm existence capstone -/
+/-! ## §6 — r46: SeminormedRing structure on T_∞
+
+With `‖0‖ = 0`, `‖-x‖ = ‖x‖`, `‖x + y‖ ≤ ‖x‖ + ‖y‖`, and
+`‖x * y‖ ≤ ‖x‖ * ‖y‖` in hand (r43-r45), we can package everything
+into a mathlib-native `SeminormedRing TimelessFieldRing` instance.
+
+Path: `AddGroupSeminorm TimelessFieldRing` (bundling the additive
+seminorm axioms) → `SeminormedAddCommGroup TimelessFieldRing` via
+mathlib's `AddGroupSeminorm.toSeminormedAddCommGroup` → combine with
+`norm_mul_le_TimelessField` to produce `SeminormedRing`. -/
+
+/-- **Substrate `AddGroupSeminorm` on T_∞** bundling the three
+    additive seminorm axioms proved in r43-r45:
+      * `map_zero'`: `‖0‖ = 0` (r45.a)
+      * `neg'`:     `‖-x‖ = ‖x‖` (r45.b)
+      * `add_le'`:  `‖x + y‖ ≤ ‖x‖ + ‖y‖` (r44.a)
+    Feeds mathlib's `AddGroupSeminorm.toSeminormedAddCommGroup`. -/
+noncomputable def substrateAddGroupSeminorm : AddGroupSeminorm TimelessFieldRing where
+  toFun x := ‖x‖
+  map_zero' := norm_zero_TimelessField
+  neg' := norm_neg_TimelessField
+  add_le' := norm_add_le_TimelessField
+
+/-- **`SeminormedAddCommGroup TimelessFieldRing`** — the metric-space
+    packaging of T_∞'s norm arithmetic. Registered via
+    `substrateAddGroupSeminorm.toSeminormedAddCommGroup`. -/
+noncomputable instance instSeminormedAddCommGroupTimelessField :
+    SeminormedAddCommGroup TimelessFieldRing :=
+  substrateAddGroupSeminorm.toSeminormedAddCommGroup
+
+/-- **★★★ r46: SeminormedRing structure on T_∞ ★★★**
+
+    The substrate's Timeless Field T_∞ is now a mathlib-native
+    `SeminormedRing`. Combines the r43-r45 additive seminorm axioms
+    (bundled via `substrateAddGroupSeminorm.toSeminormedAddCommGroup`)
+    with r44's submultiplicativity (`norm_mul_le_TimelessField`). -/
+noncomputable instance instSeminormedRingTimelessField :
+    SeminormedRing TimelessFieldRing :=
+  { instSeminormedAddCommGroupTimelessField,
+    (inferInstance : Ring TimelessFieldRing) with
+    norm_mul_le := norm_mul_le_TimelessField }
+
+/-! ## §7 — Substrate T_∞ Norm existence capstone -/
 
 /-- **★★★ SUBSTRATE T_∞ NORM CAPSTONE ★★★**
 
