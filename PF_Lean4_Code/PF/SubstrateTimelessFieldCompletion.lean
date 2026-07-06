@@ -494,5 +494,90 @@ theorem substrate_TimelessFieldCompletion_algebra_capstone :
    ⟨inferInstance⟩,
    ⟨inferInstance⟩⟩
 
+/-! ## §12 — r58: StarModule ℂ on TimelessFieldCompletion
+
+The r52 identity `star (r • x) = star r • star x` on T_∞ extends
+to the completion by induction on the dense image. -/
+
+/-- **r58: `star_smul` on TimelessFieldCompletion**:
+        `star (r • x) = star r • star x`.
+
+    Lifted from r52's T_∞-level `star_smul` by `induction_on` +
+    r54.d `star_coe` + `Completion.coe_smul`. -/
+theorem star_smul_TimelessFieldCompletion (r : ℂ) (x : TimelessFieldCompletion) :
+    star (r • x) = star r • star x := by
+  induction x using UniformSpace.Completion.induction_on with
+  | hp =>
+    exact isClosed_eq
+      (continuous_star_TimelessFieldCompletion.comp (continuous_const_smul r))
+      ((continuous_const_smul (star r)).comp continuous_star_TimelessFieldCompletion)
+  | ih a =>
+    rw [← UniformSpace.Completion.coe_smul,
+        star_coe_TimelessFieldCompletion, star_smul,
+        UniformSpace.Completion.coe_smul,
+        star_coe_TimelessFieldCompletion]
+
+/-- **★★★ r58: StarModule ℂ TimelessFieldCompletion ★★★**
+
+    The involution commutes with ℂ-scalar action on the completion. -/
+noncomputable instance instStarModuleTimelessFieldCompletion :
+    StarModule ℂ TimelessFieldCompletion where
+  star_smul := star_smul_TimelessFieldCompletion
+
+/-! ## §13 — r59: CStarAlgebra TimelessFieldCompletion
+
+The FINAL CAPSTONE. Combines all prior instances to register
+mathlib-native `CStarAlgebra TimelessFieldCompletion` — the substrate
+UHF C*-algebra of history. -/
+
+/-- **★★★ r59: CStarAlgebra TimelessFieldCompletion ★★★**
+
+    The substrate's Timeless Field metric completion is a
+    mathlib-native `CStarAlgebra`. Bundles the six required
+    typeclass ingredients:
+      (1) `NormedRing`         (r53)
+      (2) `StarRing`           (r55)
+      (3) `CompleteSpace`      (r53 — from Completion definition)
+      (4) `CStarRing`          (r56)
+      (5) `NormedAlgebra ℂ`    (r57)
+      (6) `StarModule ℂ`       (r58)
+
+    This is the substrate's UHF C\*-algebra — the metric completion
+    of the algebraic direct limit T_∞ under the L² operator norm.
+    Nuclearity remains as further substrate work (matrix UHF
+    C*-algebras are nuclear; establishing this formally in Lean 4
+    requires the mathlib nuclearity API).
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. Zero
+    project axioms. Zero sorries. -/
+noncomputable instance instCStarAlgebraTimelessFieldCompletion :
+    CStarAlgebra TimelessFieldCompletion where
+
+/-! ## §14 — r59 grand capstone -/
+
+/-- **★★★ r59: SUBSTRATE UHF C*-ALGEBRA CAPSTONE ★★★**
+
+    The substrate's Timeless Field metric completion is a
+    kernel-verified mathlib-native `CStarAlgebra`.
+
+    This closes the r41-r59 substrate C*-algebra construction:
+      r41-r42: substrate embedding isometry at the matrix level.
+      r43-r45: T_∞ Norm with the standard UHF direct-limit descent.
+      r46-r49: T_∞ as a pre-C*-algebra (SeminormedRing → NormedRing →
+               CStarRing).
+      r50:     T_∞ pre-C*-algebra capstone.
+      r51-r52: ℂ-algebra structure on T_∞.
+      r53:     metric completion + auto-inherited instances.
+      r54-r55: Star + StarRing extend by uniform continuity.
+      r56:     C*-property extends by continuity.
+      r57:     Algebra ℂ + NormedAlgebra ℂ extend.
+      r58:     StarModule ℂ extends.
+      r59:     ★ CStarAlgebra TimelessFieldCompletion ★
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. -/
+theorem substrate_UHF_CStarAlgebra_exists :
+    Nonempty (CStarAlgebra TimelessFieldCompletion) :=
+  ⟨inferInstance⟩
+
 end SubstrateTimelessFieldCompletion
 end PrincipiaTractalis
