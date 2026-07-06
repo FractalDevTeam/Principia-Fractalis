@@ -268,7 +268,70 @@ noncomputable instance instSeminormedRingTimelessField :
     (inferInstance : Ring TimelessFieldRing) with
     norm_mul_le := norm_mul_le_TimelessField }
 
-/-! ## §7 — Substrate T_∞ Norm existence capstone -/
+/-! ## §7 — r47: Norm nondegeneracy and NormedRing structure on T_∞
+
+The final step from `SeminormedRing` to `NormedRing`: the norm on
+T_∞ is a genuine (not merely seminormed) norm — `‖x‖ = 0 → x = 0`.
+
+Proof strategy: reduce `x` to a level-i representative `⟦⟨i, a⟩⟧`,
+identify `‖⟦⟨i, a⟩⟧‖ = ‖a‖`, conclude `a = 0` from the matrix-ring
+norm nondegeneracy at level i, then `⟦⟨i, 0⟩⟧ = 0` via
+`DirectLimit.zero_def`. -/
+
+/-- **r47: Norm nondegeneracy on T_∞**: `‖x‖ = 0 → x = 0`.
+
+    Reduce `x` to a level-i representative via
+    `DirectLimit.exists_eq_mk`, identify `‖⟦⟨i, a⟩⟧‖ = ‖a‖` via the
+    `Quotient.lift` definition, apply the level-i matrix-ring norm
+    nondegeneracy (`norm_eq_zero`) to conclude `a = 0`, then
+    `⟦⟨i, 0⟩⟧ = 0` via `DirectLimit.zero_def`. -/
+theorem norm_eq_zero_TimelessField (x : TimelessFieldRing) (h : ‖x‖ = 0) :
+    x = 0 := by
+  obtain ⟨i, a, hx⟩ :=
+    DirectLimit.exists_eq_mk
+      (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x
+  subst hx
+  -- h : ‖⟦⟨i, a⟩⟧‖ = 0, which reduces to ‖a‖ = 0
+  have hnorm_a : ‖a‖ = 0 := h
+  have ha_zero : a = 0 := by
+    rwa [← norm_eq_zero (a := a)]
+  rw [ha_zero]
+  -- Goal: (⟦⟨i, (0 : Matrix _ _ ℂ)⟩⟧ : Quotient _) = 0
+  exact (DirectLimit.zero_def
+      (G := fun k : ℕ => Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
+      (f := fun i j (h : i ≤ j) => substrateRingHomIter i j h)
+      i).symm
+
+/-- **Substrate `AddGroupNorm` on T_∞** — the r46 `AddGroupSeminorm`
+    upgraded with r47's nondegeneracy. Feeds mathlib's
+    `AddGroupNorm.toNormedAddCommGroup`. -/
+noncomputable def substrateAddGroupNorm : AddGroupNorm TimelessFieldRing where
+  toFun x := ‖x‖
+  map_zero' := norm_zero_TimelessField
+  neg' := norm_neg_TimelessField
+  add_le' := norm_add_le_TimelessField
+  eq_zero_of_map_eq_zero' := norm_eq_zero_TimelessField
+
+/-- **`NormedAddCommGroup TimelessFieldRing`** — the substrate
+    Timeless Field carries a genuine normed abelian group structure.
+    Registered via `substrateAddGroupNorm.toNormedAddCommGroup`. -/
+noncomputable instance instNormedAddCommGroupTimelessField :
+    NormedAddCommGroup TimelessFieldRing :=
+  substrateAddGroupNorm.toNormedAddCommGroup
+
+/-- **★★★ r47: NormedRing structure on T_∞ ★★★**
+
+    The substrate's Timeless Field T_∞ is now a mathlib-native
+    `NormedRing` — a genuine (not merely seminormed) normed ring.
+    Combines `NormedAddCommGroup TimelessFieldRing` with r44's
+    submultiplicativity. -/
+noncomputable instance instNormedRingTimelessField :
+    NormedRing TimelessFieldRing :=
+  { instNormedAddCommGroupTimelessField,
+    (inferInstance : Ring TimelessFieldRing) with
+    norm_mul_le := norm_mul_le_TimelessField }
+
+/-! ## §8 — Substrate T_∞ Norm existence capstone -/
 
 /-- **★★★ SUBSTRATE T_∞ NORM CAPSTONE ★★★**
 
