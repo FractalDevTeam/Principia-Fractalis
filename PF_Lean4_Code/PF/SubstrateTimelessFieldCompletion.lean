@@ -579,5 +579,135 @@ theorem substrate_UHF_CStarAlgebra_exists :
     Nonempty (CStarAlgebra TimelessFieldCompletion) :=
   ⟨inferInstance⟩
 
+/-! ## §15 — r60: Substrate nuclearity witness (UHF / CPAP density)
+
+Mathlib (as of `leanprover/lean4:v4.24.0-rc1` + current mathlib) does
+**not** provide `Nuclear` as a typeclass, does not define UHF or AF
+C*-algebras, and does not construct C*-tensor products. Full formal
+nuclearity therefore requires substantial future mathlib
+infrastructure (spatial + maximal C*-tensor norms, CPAP,
+Choi-Effros).
+
+What r60 lands instead is the classical **UHF density witness** for
+substrate nuclearity: every element of `TimelessFieldCompletion` is
+approximated arbitrarily closely (in operator norm) by an element
+of some FINITE-DIMENSIONAL substrate level
+`Matrix (Fin (3^k)) (Fin (3^k)) ℂ`. This is the property that
+classically implies (via CPAP + Choi-Effros) that the UHF C*-algebra
+is nuclear.
+
+The witness composes two ingredients already available in the
+substrate stack:
+  (i)  `UniformSpace.Completion.denseRange_coe`: T_∞ is dense in
+       `TimelessFieldCompletion` by construction.
+  (ii) `DirectLimit.exists_eq_mk`: every element of T_∞ is exactly
+       at some finite level — T_∞ = ⋃_k Aₖ as a set.
+
+Composing gives: every element of `TimelessFieldCompletion` is
+norm-approximated by an element of a finite substrate level. -/
+
+/-- **r60.a: substrate finite-level ε-density**.
+
+    For every `x : TimelessFieldCompletion` and every `ε > 0`, there
+    exists a finite substrate level `k` and a matrix element
+    `a : Matrix (Fin (3^k)) (Fin (3^k)) ℂ` such that the canonical
+    image of `a` in the completion is within `ε` of `x` in operator
+    norm.
+
+    This is the UHF density witness — a direct statement of the
+    property that classically implies nuclearity. -/
+theorem substrate_finite_level_dense
+    (x : TimelessFieldCompletion) {ε : ℝ} (hε : 0 < ε) :
+    ∃ (k : ℕ) (a : Matrix (Fin (3^k)) (Fin (3^k)) ℂ),
+      dist x ((substrateLevelToTimelessField k a : TimelessFieldRing) :
+              TimelessFieldCompletion) < ε := by
+  obtain ⟨y, hy⟩ := UniformSpace.Completion.denseRange_coe.exists_dist_lt x hε
+  obtain ⟨k, a, ha⟩ :=
+    DirectLimit.exists_eq_mk
+      (fun i j (h : i ≤ j) => substrateRingHomIter i j h) y
+  refine ⟨k, a, ?_⟩
+  have hrfl : (substrateLevelToTimelessField k a : TimelessFieldRing) = y :=
+    ha.symm
+  rw [hrfl]
+  exact hy
+
+/-- **r60.b: substrate UHF `DenseRange`**.
+
+    The `Σ`-indexed family
+      `(k, a) ↦ ((substrateLevelToTimelessField k a : T_∞) : Completion)`
+    has dense image in `TimelessFieldCompletion`. This is the
+    formal categorical statement that the completion is the closure
+    of the union of finite-dimensional matrix subalgebras — the
+    UHF / AF characterization.
+
+    Derived from r60.a via `Metric.mem_closure_range_iff`. -/
+theorem substrate_UHF_denseRange :
+    DenseRange (fun p : (Σ k : ℕ, Matrix (Fin (3^k)) (Fin (3^k)) ℂ) =>
+      ((substrateLevelToTimelessField p.1 p.2 : TimelessFieldRing) :
+        TimelessFieldCompletion)) := by
+  rw [Metric.denseRange_iff]
+  intro x ε hε
+  obtain ⟨k, a, hka⟩ := substrate_finite_level_dense x hε
+  exact ⟨⟨k, a⟩, hka⟩
+
+/-! ## §16 — r60 nuclearity capstone -/
+
+/-- **★★★ r60: SUBSTRATE UHF DENSITY / NUCLEARITY WITNESS ★★★**
+
+    Bundles the substrate-side nuclearity content:
+
+      (N1) `substrate_finite_level_dense` — ε-approximation:
+           every `x : TimelessFieldCompletion` is within `ε` of the
+           canonical image of some element of a finite substrate
+           level `Matrix (Fin (3^k)) (Fin (3^k)) ℂ`, for every `ε > 0`.
+
+      (N2) `substrate_UHF_denseRange` — categorical form: the
+           `Σ`-indexed family from finite substrate levels has dense
+           image in `TimelessFieldCompletion`.
+
+    **Substrate significance** — mathematical content:
+
+    The r60 witness IS the UHF (Uniformly HyperFinite) characterization
+    of the completion:
+
+        TimelessFieldCompletion = ⋃_{k ∈ ℕ} Matrix (Fin (3^k)) (Fin (3^k)) ℂ
+                                  (closure under the L² operator norm)
+
+    UHF C\*-algebras are AF (Approximately Finite), and every AF
+    C\*-algebra is **nuclear** (classical result — see Blackadar,
+    "K-Theory for Operator Algebras", Theorem 6.3.10; or Rørdam-
+    Størmer-Zsidó, "Nuclear C\*-algebras and infinite factors"). The
+    classical argument routes through CPAP (Completely Positive
+    Approximation Property): the finite-dim compressions of the
+    identity give a net of finite-rank UCP maps converging pointwise
+    to the identity on `TimelessFieldCompletion`. Choi-Effros then
+    equates CPAP with nuclearity.
+
+    **Substrate significance** — formalization scope:
+
+    Full mathlib-native `Nuclear TimelessFieldCompletion` is not
+    achievable at present because mathlib lacks:
+      * a `Nuclear` typeclass on C\*-algebras
+      * UHF / AF characterizations
+      * C\*-tensor products (minimal / spatial and maximal)
+      * CPAP formalization
+      * the Choi-Effros theorem
+
+    Each of these is a substantial mathlib-side undertaking. The r60
+    witness discharges the substrate-specific mathematical content
+    that would input to those future formalizations.
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. Zero project
+    axioms. Zero sorries. -/
+theorem substrate_UHF_nuclearity_witness :
+    (∀ (x : TimelessFieldCompletion) {ε : ℝ}, 0 < ε →
+      ∃ (k : ℕ) (a : Matrix (Fin (3^k)) (Fin (3^k)) ℂ),
+        dist x ((substrateLevelToTimelessField k a : TimelessFieldRing) :
+                TimelessFieldCompletion) < ε) ∧
+    DenseRange (fun p : (Σ k : ℕ, Matrix (Fin (3^k)) (Fin (3^k)) ℂ) =>
+      ((substrateLevelToTimelessField p.1 p.2 : TimelessFieldRing) :
+        TimelessFieldCompletion)) :=
+  ⟨substrate_finite_level_dense, substrate_UHF_denseRange⟩
+
 end SubstrateTimelessFieldCompletion
 end PrincipiaTractalis
