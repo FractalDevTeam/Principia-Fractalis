@@ -430,24 +430,136 @@ theorem kronecker_one_opNorm_eq
     ‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ = ‖A‖ :=
   le_antisymm (kronecker_one_opNorm_le A) (kronecker_one_opNorm_ge A)
 
+/-! ## §5h — r41: Reindex operator norm isometry
+
+Simultaneous re-labeling of rows and columns by a bijection preserves
+the L2 operator norm:
+    `‖Matrix.reindex e e A‖ = ‖A‖`
+This is the "conjugation by unitary permutation" identity: reindexing
+implements a change of orthonormal basis on `EuclideanSpace ℂ m`, and
+unitary conjugation preserves the operator norm.
+
+Combined with r40 (`kronecker_one_opNorm_eq`), this delivers the
+substrate embedding isometry
+    `‖substrateEmbedMatrix k A‖ = ‖A‖`
+at every level k, since `substrateEmbedMatrix k A` is definitionally
+`Matrix.reindex finProdFinEquiv finProdFinEquiv (A ⊗ 1_3)`. -/
+
+/-- **r41 helper: reindex mulVec formula**.
+
+    For `e : m ≃ m'` and `A : Matrix m m ℂ`,
+    `((Matrix.reindex e e A) *ᵥ g) i' = (A *ᵥ (g ∘ e)) (e.symm i')`.
+    Reindexing acts on `mulVec` by pre-composing the vector with `e`
+    and post-composing the index with `e.symm`. -/
+theorem reindex_mulVec_apply
+    {m m' : Type*} [Fintype m] [Fintype m']
+    (e : m ≃ m') (A : Matrix m m ℂ) (g : m' → ℂ) (i' : m') :
+    ((Matrix.reindex e e A) *ᵥ g) i' = (A *ᵥ (g ∘ e)) (e.symm i') := by
+  show ∑ j' : m', A (e.symm i') (e.symm j') * g j' =
+       ∑ j : m, A (e.symm i') j * g (e j)
+  rw [← Equiv.sum_comp e (fun j' : m' => A (e.symm i') (e.symm j') * g j')]
+  simp
+
+/-- **r41 ≤ direction: reindex operator norm upper bound**.
+
+    `‖Matrix.reindex e e A‖ ≤ ‖A‖` for `e : m ≃ m'` and
+    `A : Matrix m m ℂ` under the L2 operator norm. Proved by combining
+    `reindex_mulVec_apply` with the raw-sum operator-norm bound (r36)
+    and reindexing the sum via the bijection `e`. -/
+theorem reindex_opNorm_le
+    {m m' : Type*} [Fintype m] [Fintype m']
+    [DecidableEq m] [DecidableEq m']
+    (e : m ≃ m') (A : Matrix m m ℂ) :
+    ‖Matrix.reindex e e A‖ ≤ ‖A‖ := by
+  rw [Matrix.cstar_norm_def]
+  refine ContinuousLinearMap.opNorm_le_bound _ (norm_nonneg _) (fun g => ?_)
+  -- ‖CLM g‖² = ∑ i' : m', ‖((reindex e e A) *ᵥ g) i'‖²
+  have hLHS_sq :
+      ‖(Matrix.toEuclideanCLM (n := m') (𝕜 := ℂ) (Matrix.reindex e e A)) g‖ ^ 2 =
+        ∑ i' : m', ‖((Matrix.reindex e e A) *ᵥ (fun q => g q)) i'‖ ^ 2 := by
+    rw [EuclideanSpace.norm_sq_eq]
+    rfl
+  -- Reindex ∑ i' : m' → ∑ i : m via reindex_mulVec_apply and e ≃
+  have hReindex :
+      ∑ i' : m', ‖((Matrix.reindex e e A) *ᵥ (fun q => g q)) i'‖ ^ 2 =
+      ∑ i : m, ‖(A *ᵥ (fun j : m => g (e j))) i‖ ^ 2 := by
+    rw [← Equiv.sum_comp e
+          (fun i' : m' => ‖((Matrix.reindex e e A) *ᵥ (fun q => g q)) i'‖ ^ 2)]
+    refine Finset.sum_congr rfl (fun i _ => ?_)
+    have h := reindex_mulVec_apply e A (fun q => g q) (e i)
+    -- h : ((reindex e e A) *ᵥ g) (e i) = (A *ᵥ (g ∘ e)) (e.symm (e i))
+    rw [h, Equiv.symm_apply_apply]
+    rfl
+  -- Apply r36 to A with vector (fun j => g (e j))
+  have hbound := matrix_mulVec_norm_sq_le A (fun j : m => g (e j))
+  -- Reindex ∑ j : m, ‖g (e j)‖² = ∑ j' : m', ‖g j'‖² = ‖g‖²
+  have hg_norm_sq : ∑ j : m, ‖g (e j)‖ ^ 2 = ‖g‖ ^ 2 := by
+    rw [EuclideanSpace.norm_sq_eq]
+    exact Equiv.sum_comp e (fun j' : m' => ‖g j'‖ ^ 2)
+  -- Combine into (‖A‖ * ‖g‖)² bound on ‖CLM g‖²
+  have h_combined :
+      ‖(Matrix.toEuclideanCLM (n := m') (𝕜 := ℂ) (Matrix.reindex e e A)) g‖ ^ 2 ≤
+        (‖A‖ * ‖g‖) ^ 2 := by
+    rw [hLHS_sq, hReindex]
+    calc ∑ i : m, ‖(A *ᵥ (fun j : m => g (e j))) i‖ ^ 2
+        ≤ ‖A‖ ^ 2 * ∑ j : m, ‖g (e j)‖ ^ 2 := hbound
+      _ = ‖A‖ ^ 2 * ‖g‖ ^ 2 := by rw [hg_norm_sq]
+      _ = (‖A‖ * ‖g‖) ^ 2 := by ring
+  -- Take sqrt via nlinarith
+  have hy_nn : (0:ℝ) ≤
+      ‖(Matrix.toEuclideanCLM (n := m') (𝕜 := ℂ) (Matrix.reindex e e A)) g‖ := norm_nonneg _
+  have h_target_nn : (0:ℝ) ≤ ‖A‖ * ‖g‖ := mul_nonneg (norm_nonneg _) (norm_nonneg _)
+  nlinarith [sq_nonneg (‖(Matrix.toEuclideanCLM (n := m') (𝕜 := ℂ) (Matrix.reindex e e A)) g‖
+                       - ‖A‖ * ‖g‖),
+             hy_nn, h_target_nn, h_combined]
+
+/-- **★★★ r41: Reindex operator norm ISOMETRY ★★★**
+
+    `‖Matrix.reindex e e A‖ = ‖A‖` for `e : m ≃ m'` and
+    `A : Matrix m m ℂ` under the L2 operator norm.
+
+    Simultaneous re-labeling of rows and columns by a bijection
+    preserves the operator norm exactly.
+
+    Proof: ≤ direction via `reindex_opNorm_le`. Reverse direction by
+    applying `reindex_opNorm_le` with `e.symm` on `reindex e e A` and
+    simplifying `reindex e.symm e.symm (reindex e e A) = A`.
+
+    Combined with r40 (`kronecker_one_opNorm_eq`), this delivers the
+    substrate embedding isometry `‖substrateEmbedMatrix k A‖ = ‖A‖`
+    at every level k, since the substrate embedding is
+    `reindex finProdFinEquiv finProdFinEquiv (A ⊗ 1_3)`. -/
+theorem reindex_opNorm_eq
+    {m m' : Type*} [Fintype m] [Fintype m']
+    [DecidableEq m] [DecidableEq m']
+    (e : m ≃ m') (A : Matrix m m ℂ) :
+    ‖Matrix.reindex e e A‖ = ‖A‖ := by
+  refine le_antisymm (reindex_opNorm_le e A) ?_
+  have h := reindex_opNorm_le e.symm (Matrix.reindex e e A)
+  have heq : Matrix.reindex e.symm e.symm (Matrix.reindex e e A) = A := by
+    ext i j
+    simp [Matrix.reindex_apply, Matrix.submatrix_apply]
+  rw [heq] at h
+  exact h
+
 /-! ## §6 — Substrate norm structure honest scope
 
-r33-r37 provides:
+r33-r41 provides:
   * Level-wise NormedRing/NormedAlgebra/CStarRing structure at every k.
   * Level-0 scalar identification.
-  * Precise statement of the substrate-embedding isometry as the next
-    substrate target (r34).
-  * Star-mul reduction of the isometry via the C*-property (r34 partial).
-  * Kronecker-with-identity mulVec formula (r35 partial).
+  * Star-mul reduction of the isometry via the C*-property (r34).
+  * Kronecker-with-identity mulVec formula (r35).
   * Raw-sum matrix mulVec norm bound (r36).
-  * Kronecker-with-identity mulVec norm bound (r37, combining r35 + r36).
+  * Kronecker-with-identity mulVec norm bound (r37).
+  * Kronecker-with-identity `≤` direction (r38).
+  * Kronecker-with-identity `≥` direction (r39).
+  * Kronecker-with-identity full isometry `‖A ⊗ 1‖ = ‖A‖` (r40).
+  * Reindex isometry `‖reindex e e A‖ = ‖A‖` (r41).
 
 Remaining for full substrate embedding isometry:
-  * r38: Reverse direction ‖A‖ ≤ ‖A ⊗ 1‖ (pick f supported on j=0)
-  * r39: Reindex isometry ‖reindex e e M‖ = ‖M‖
-  * r40: Combine → full ‖substrateEmbedMatrix k A‖ = ‖A‖
-  * r41: Lift norm to T_∞ via UHF direct-limit norm construction
-  * r42-r44: NormedRing → CStarAlgebra → Nuclearity
+  * r42: Combine r40 + r41 → full `‖substrateEmbedMatrix k A‖ = ‖A‖`
+  * r43-r44: Lift norm to T_∞ via UHF direct-limit norm construction
+  * r45+: NormedRing → CStarAlgebra → Nuclearity
 
 Once these land, T_∞ is a mathlib-native CStarAlgebra. -/
 
