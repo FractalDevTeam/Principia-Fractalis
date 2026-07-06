@@ -181,7 +181,52 @@ theorem norm_mul_le_TimelessField (x y : TimelessFieldRing) :
   show ‖a * b‖ ≤ ‖a‖ * ‖b‖
   exact norm_mul_le a b
 
-/-! ## §5 — Substrate T_∞ Norm existence capstone -/
+/-! ## §5 — r45: Norm of zero and negation on T_∞
+
+The remaining norm identities needed for `SeminormedAddGroup`:
+  * `‖0‖ = 0`
+  * `‖-x‖ = ‖x‖`
+
+Both use mathlib's `@[to_additive]`-generated `zero_def` and
+`neg_def` for `DirectLimit`, then discharge via the level-wise
+`NormedRing` structure. -/
+
+/-- **r45: Norm of zero on T_∞** — `‖(0 : TimelessFieldRing)‖ = 0`.
+
+    Uses `DirectLimit.zero_def 0` to identify `(0 : T_∞)` with
+    `⟦⟨0, (0 : Matrix (Fin 1) (Fin 1) ℂ)⟩⟧`, then reduces via the
+    `Quotient.lift` definition to `‖(0 : Matrix ..)‖ = 0`. -/
+theorem norm_zero_TimelessField : ‖(0 : TimelessFieldRing)‖ = 0 := by
+  have h0 : (0 : TimelessFieldRing) =
+      (⟦⟨0, (0 : Matrix (Fin (3^0)) (Fin (3^0)) ℂ)⟩⟧ :
+        Quotient (DirectLimit.setoid
+          (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) :=
+    DirectLimit.zero_def
+      (G := fun k : ℕ => Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
+      (f := fun i j (h : i ≤ j) => substrateRingHomIter i j h)
+      0
+  rw [h0]
+  show ‖(0 : Matrix (Fin (3^0)) (Fin (3^0)) ℂ)‖ = 0
+  exact norm_zero
+
+/-- **r45: Negation preserves norm on T_∞** — `‖-x‖ = ‖x‖`.
+
+    Reduce `x` to a level-i representative via
+    `DirectLimit.exists_eq_mk`, apply `DirectLimit.neg_def` to
+    rewrite `-⟦⟨i, a⟩⟧ = ⟦⟨i, -a⟩⟧`, discharge via the level-`i`
+    `NormedAddGroup` identity `‖-a‖ = ‖a‖`. -/
+theorem norm_neg_TimelessField (x : TimelessFieldRing) : ‖-x‖ = ‖x‖ := by
+  obtain ⟨i, a, hx⟩ :=
+    DirectLimit.exists_eq_mk
+      (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x
+  subst hx
+  rw [DirectLimit.neg_def
+        (G := fun k : ℕ => Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
+        (f := fun i j (h : i ≤ j) => substrateRingHomIter i j h)]
+  show ‖-a‖ = ‖a‖
+  exact norm_neg a
+
+/-! ## §6 — Substrate T_∞ Norm existence capstone -/
 
 /-- **★★★ SUBSTRATE T_∞ NORM CAPSTONE ★★★**
 
@@ -205,9 +250,12 @@ theorem substrate_TimelessField_Norm_exists :
     Nonempty (Norm TimelessFieldRing) ∧
     (∀ (k : ℕ) (A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ),
       ‖substrateLevelToTimelessField k A‖ = ‖A‖) ∧
+    (‖(0 : TimelessFieldRing)‖ = 0) ∧
+    (∀ x : TimelessFieldRing, ‖-x‖ = ‖x‖) ∧
     (∀ x y : TimelessFieldRing, ‖x + y‖ ≤ ‖x‖ + ‖y‖) ∧
     (∀ x y : TimelessFieldRing, ‖x * y‖ ≤ ‖x‖ * ‖y‖) :=
   ⟨⟨inferInstance⟩, substrateLevelToTimelessField_opNorm_eq,
+   norm_zero_TimelessField, norm_neg_TimelessField,
    norm_add_le_TimelessField, norm_mul_le_TimelessField⟩
 
 end SubstrateTimelessFieldNorm
