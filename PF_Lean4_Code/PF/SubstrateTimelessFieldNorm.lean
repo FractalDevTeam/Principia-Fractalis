@@ -591,7 +591,115 @@ noncomputable instance instModuleTimelessField :
         (f := fun i j (h : i ≤ j) => substrateRingHomIter i j h)
         i).symm
 
-/-! ## §12 — r50: Substrate T_∞ pre-C*-algebra capstone
+/-! ## §12 — r52: Algebra ℂ + NormedAlgebra ℂ + StarModule ℂ on T_∞
+
+With the r51 `Module ℂ` structure in place, r52 packages the two
+remaining ℂ-scalar structures needed for `CStarAlgebra` (short of
+completeness):
+  * `Algebra ℂ TimelessFieldRing` via `Algebra.ofModule`
+  * `NormedSpace ℂ TimelessFieldRing` via `norm_smul_le`
+  * `NormedAlgebra ℂ TimelessFieldRing` (bundling)
+  * `StarModule ℂ TimelessFieldRing` — star commutes with scalar. -/
+
+/-- **Left-scalar / mul compatibility**: `(r • x) * y = r • (x * y)`.
+
+    Lifted via common-level representatives + matrix `smul_mul_assoc`. -/
+theorem substrate_smul_mul_assoc (r : ℂ) (x y : TimelessFieldRing) :
+    (r • x) * y = r • (x * y) := by
+  obtain ⟨i, a, b, hx, hy⟩ :=
+    DirectLimit.exists_eq_mk₂
+      (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x y
+  subst hx; subst hy
+  show (r • (⟦⟨i, a⟩⟧ : TimelessFieldRing)) * ⟦⟨i, b⟩⟧ =
+       r • (⟦⟨i, a⟩⟧ * ⟦⟨i, b⟩⟧)
+  change (⟦⟨i, r • a⟩⟧ : TimelessFieldRing) * ⟦⟨i, b⟩⟧ =
+         r • (⟦⟨i, a⟩⟧ * ⟦⟨i, b⟩⟧)
+  rw [substrate_quotient_mul_same_level i (r • a) b,
+      substrate_quotient_mul_same_level i a b]
+  change (⟦⟨i, (r • a) * b⟩⟧ : TimelessFieldRing) = ⟦⟨i, r • (a * b)⟩⟧
+  rw [Matrix.smul_mul]
+
+/-- **Right-scalar / mul compatibility**: `x * (r • y) = r • (x * y)`.
+
+    Lifted via common-level representatives + matrix `mul_smul_comm`. -/
+theorem substrate_mul_smul_comm (r : ℂ) (x y : TimelessFieldRing) :
+    x * (r • y) = r • (x * y) := by
+  obtain ⟨i, a, b, hx, hy⟩ :=
+    DirectLimit.exists_eq_mk₂
+      (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x y
+  subst hx; subst hy
+  show (⟦⟨i, a⟩⟧ : TimelessFieldRing) * (r • ⟦⟨i, b⟩⟧) =
+       r • (⟦⟨i, a⟩⟧ * ⟦⟨i, b⟩⟧)
+  change (⟦⟨i, a⟩⟧ : TimelessFieldRing) * ⟦⟨i, r • b⟩⟧ =
+         r • (⟦⟨i, a⟩⟧ * ⟦⟨i, b⟩⟧)
+  rw [substrate_quotient_mul_same_level i a (r • b),
+      substrate_quotient_mul_same_level i a b]
+  change (⟦⟨i, a * (r • b)⟩⟧ : TimelessFieldRing) = ⟦⟨i, r • (a * b)⟩⟧
+  rw [Matrix.mul_smul]
+
+/-- **★★★ r52: Algebra ℂ TimelessFieldRing ★★★**
+
+    T_∞ carries the ℂ-algebra structure via `Algebra.ofModule`,
+    using `substrate_smul_mul_assoc` (h₁) and
+    `substrate_mul_smul_comm` (h₂) as the two required scalar / mul
+    compatibility identities. -/
+noncomputable instance instAlgebraTimelessField :
+    Algebra ℂ TimelessFieldRing :=
+  Algebra.ofModule substrate_smul_mul_assoc substrate_mul_smul_comm
+
+/-- **`NormedSpace ℂ TimelessFieldRing`** — the ℂ-scalar action is
+    norm-compatible: `‖r • x‖ ≤ ‖r‖ * ‖x‖`.
+
+    Lifted via common-level representatives + matrix `norm_smul_le`. -/
+noncomputable instance instNormedSpaceTimelessField :
+    NormedSpace ℂ TimelessFieldRing where
+  norm_smul_le r x := by
+    obtain ⟨i, a, hx⟩ :=
+      DirectLimit.exists_eq_mk
+        (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x
+    subst hx
+    show ‖r • (⟦⟨i, a⟩⟧ : TimelessFieldRing)‖ ≤
+         ‖r‖ * ‖(⟦⟨i, a⟩⟧ : TimelessFieldRing)‖
+    change ‖(⟦⟨i, r • a⟩⟧ : TimelessFieldRing)‖ ≤ ‖r‖ * ‖a‖
+    show ‖r • a‖ ≤ ‖r‖ * ‖a‖
+    exact norm_smul_le r a
+
+/-- **★★★ r52: NormedAlgebra ℂ TimelessFieldRing ★★★**
+
+    T_∞ is a mathlib-native normed ℂ-algebra. Combines the
+    r52.a `Algebra ℂ` structure with the `norm_smul_le` field
+    (also provided by our `NormedSpace ℂ` instance). -/
+noncomputable instance instNormedAlgebraTimelessField :
+    NormedAlgebra ℂ TimelessFieldRing where
+  norm_smul_le := NormedSpace.norm_smul_le
+
+/-- **★★★ r52: StarModule ℂ TimelessFieldRing ★★★**
+
+    The involution commutes with ℂ-scalar action:
+        `star (r • x) = star r • star x`
+    Lifted via common-level representatives + matrix
+    `star_smul` (using ℂ's star = complex conjugation). -/
+noncomputable instance instStarModuleTimelessField :
+    StarModule ℂ TimelessFieldRing where
+  star_smul r x := by
+    obtain ⟨i, a, hx⟩ :=
+      DirectLimit.exists_eq_mk
+        (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x
+    subst hx
+    show star (r • (⟦⟨i, a⟩⟧ : TimelessFieldRing)) =
+         star r • star (⟦⟨i, a⟩⟧ : TimelessFieldRing)
+    change star (⟦⟨i, r • a⟩⟧ : TimelessFieldRing) =
+           star r • star (⟦⟨i, a⟩⟧ : TimelessFieldRing)
+    -- star ⟦⟨i, r • a⟩⟧ = ⟦⟨i, star (r • a)⟩⟧ (r31 star instance)
+    -- star ⟦⟨i, a⟩⟧ = ⟦⟨i, star a⟩⟧ (r31 star instance)
+    -- Then use matrix star_smul: star (r • a) = star r • star a
+    change (⟦⟨i, star (r • a)⟩⟧ : TimelessFieldRing) =
+           star r • (⟦⟨i, star a⟩⟧ : TimelessFieldRing)
+    change (⟦⟨i, star (r • a)⟩⟧ : TimelessFieldRing) =
+           ⟦⟨i, star r • star a⟩⟧
+    rw [star_smul]
+
+/-! ## §13 — r50: Substrate T_∞ pre-C*-algebra capstone
 
 The r43-r49 sequence delivers T_∞ as a **pre-C*-algebra**: it
 carries every C*-algebra structure axiom except completeness. The
