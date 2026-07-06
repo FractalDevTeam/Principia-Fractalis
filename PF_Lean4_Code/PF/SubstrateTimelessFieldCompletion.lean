@@ -73,8 +73,13 @@ operator norm distance. Since T_∞ is a `NormedRing` (r47),
     completion of T_∞ under the L² operator-norm distance. This is
     the object that will carry the mathlib-native `CStarAlgebra`
     structure once the star / C\*-property / ℂ-algebra pieces are
-    extended by uniform continuity (r54-r59). -/
-noncomputable def TimelessFieldCompletion : Type :=
+    extended by uniform continuity (r54-r59).
+
+    Declared as `abbrev` (reducible def) so that coercions
+    `TimelessFieldRing → TimelessFieldCompletion` and mathlib
+    `UniformSpace.Completion` instances are transparently accessible
+    without explicit type unfolding. -/
+abbrev TimelessFieldCompletion : Type :=
   UniformSpace.Completion TimelessFieldRing
 
 /-! ## §2 — Auto-inherited instances
@@ -153,6 +158,73 @@ theorem substrate_TimelessFieldCompletion_auto_capstone :
     Nonempty (NormedSpace ℂ TimelessFieldCompletion) :=
   ⟨⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩,
    ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩⟩
+
+/-! ## §4 — r54: Star on TimelessFieldCompletion
+
+The r32 involution on T_∞ is an **isometry** — a consequence of the
+r49 C*-property via mathlib's `CStarRing.to_normedStarGroup` and
+`norm_star`. Isometries are uniformly continuous, so `star` extends
+to the completion via `UniformSpace.Completion.map`. -/
+
+/-- **Star is an isometry on T_∞** — key input for the Completion
+    lift. `dist (star x) (star y) = ‖star x - star y‖ = ‖star (x - y)‖
+    = ‖x - y‖ = dist x y`, using `norm_star` from
+    `NormedStarGroup TimelessFieldRing` (auto-provided by the r49
+    `CStarRing` instance via `CStarRing.to_normedStarGroup`). -/
+theorem isometry_star_TimelessField :
+    Isometry (star : TimelessFieldRing → TimelessFieldRing) := by
+  refine Isometry.of_dist_eq (fun x y => ?_)
+  rw [dist_eq_norm_sub, dist_eq_norm_sub, ← star_sub, norm_star]
+
+/-- **Star is uniformly continuous on T_∞** — immediate corollary
+    of the isometry, feeds `Completion.map`. -/
+theorem uniformContinuous_star_TimelessField :
+    UniformContinuous (star : TimelessFieldRing → TimelessFieldRing) :=
+  isometry_star_TimelessField.uniformContinuous
+
+/-- **★★★ r54: Star instance on TimelessFieldCompletion ★★★**
+
+    The involution on T_∞ extends to the completion via
+    `UniformSpace.Completion.map`, using uniform continuity from
+    the isometry. On the image of the canonical embedding
+    `TimelessFieldRing ↪ TimelessFieldCompletion`, this new star
+    reduces to the r32 involution — the compatibility lemma
+    `star_coe_TimelessFieldCompletion` witnesses this. -/
+noncomputable instance instStarTimelessFieldCompletion :
+    Star TimelessFieldCompletion where
+  star := UniformSpace.Completion.map (star : TimelessFieldRing → TimelessFieldRing)
+
+/-- **Star / coercion compatibility**: on the image of the canonical
+    embedding, the r54 completion-star agrees with the r32 T_∞ star.
+        `star ((↑a : TimelessFieldCompletion)) = ↑(star a)`. -/
+theorem star_coe_TimelessFieldCompletion (a : TimelessFieldRing) :
+    star ((a : TimelessFieldCompletion) : TimelessFieldCompletion) =
+      ((star a : TimelessFieldRing) : TimelessFieldCompletion) :=
+  UniformSpace.Completion.map_coe uniformContinuous_star_TimelessField a
+
+/-! ## §5 — r54 capstone -/
+
+/-- **★★★ r54: STAR EXTENDS TO THE COMPLETION ★★★**
+
+    The substrate involution extends from T_∞ to the metric
+    completion. Bundles:
+      (T1) `Isometry (star : T_∞ → T_∞)`
+      (T2) `UniformContinuous (star : T_∞ → T_∞)`
+      (T3) `Star TimelessFieldCompletion` (r54 instance)
+      (T4) star / coercion compatibility on the dense image
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. -/
+theorem substrate_TimelessFieldCompletion_star_capstone :
+    Isometry (star : TimelessFieldRing → TimelessFieldRing) ∧
+    UniformContinuous (star : TimelessFieldRing → TimelessFieldRing) ∧
+    Nonempty (Star TimelessFieldCompletion) ∧
+    (∀ a : TimelessFieldRing,
+      star ((a : TimelessFieldCompletion) : TimelessFieldCompletion) =
+        ((star a : TimelessFieldRing) : TimelessFieldCompletion)) :=
+  ⟨isometry_star_TimelessField,
+   uniformContinuous_star_TimelessField,
+   ⟨inferInstance⟩,
+   star_coe_TimelessFieldCompletion⟩
 
 end SubstrateTimelessFieldCompletion
 end PrincipiaTractalis
