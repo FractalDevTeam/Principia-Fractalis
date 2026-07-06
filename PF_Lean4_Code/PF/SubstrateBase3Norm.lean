@@ -308,6 +308,128 @@ theorem kronecker_one_opNorm_le
   nlinarith [sq_nonneg (‖((Matrix.toEuclideanCLM (n := m × n) (𝕜 := ℂ) (A ⊗ₖ (1 : Matrix n n ℂ)))) f‖ - ‖A‖ * ‖f‖),
              hy_nn, h_target_nn]
 
+/-! ## §5f — r39: Kronecker-with-identity operator norm reverse bound
+
+The reverse direction: `‖A‖ ≤ ‖A ⊗ 1‖`. Proved by embedding a vector
+`v : EuclideanSpace ℂ m` into `EuclideanSpace ℂ (m × n)` as the `j₀`-th
+column (`f (i, j) := if j = j₀ then v i else 0`), noting that this
+embedding is isometric and `(A ⊗ 1) *ᵥ f` at `j = j₀` equals `A *ᵥ v`,
+and elsewhere zero. -/
+
+/-- **r39: Kronecker-with-identity operator norm reverse bound**:
+    `‖A‖ ≤ ‖A ⊗ (1 : Matrix n n ℂ)‖` when `n` is inhabited.
+
+    Proof strategy: pick j₀ : n. For any v ∈ EuclideanSpace ℂ m,
+    embed as f(i,j) := if j = j₀ then v i else 0.
+    Key inequality: ‖A *ᵥ v‖² ≤ ‖(A ⊗ 1) *ᵥ f‖² (single-j-slice ≤ full sum).
+    Combined with ‖f‖² = ‖v‖² and l2_opNorm_mulVec, this gives
+    ‖A *ᵥ v‖² ≤ ‖A ⊗ 1‖² · ‖v‖². Take sqrt + opNorm_le_bound. -/
+theorem kronecker_one_opNorm_ge
+    {m n : Type*} [Fintype m] [Fintype n] [DecidableEq m] [DecidableEq n]
+    [Nonempty n]
+    (A : Matrix m m ℂ) :
+    ‖A‖ ≤ ‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ := by
+  rw [Matrix.cstar_norm_def]
+  refine ContinuousLinearMap.opNorm_le_bound _ (norm_nonneg _) (fun v => ?_)
+  obtain ⟨j₀⟩ := ‹Nonempty n›
+  -- Embedding function: only column j₀ carries v
+  let embed_fn : m × n → ℂ := fun p => if p.2 = j₀ then v p.1 else 0
+  let f : EuclideanSpace ℂ (m × n) := (EuclideanSpace.equiv (m × n) ℂ).symm embed_fn
+  -- Norm preservation ‖f‖² = ‖v‖²
+  have hf_norm_sq : ‖f‖ ^ 2 = ‖v‖ ^ 2 := by
+    rw [EuclideanSpace.norm_sq_eq, EuclideanSpace.norm_sq_eq]
+    show ∑ p : m × n, ‖embed_fn p‖ ^ 2 = ∑ i, ‖v i‖ ^ 2
+    rw [← Finset.univ_product_univ, Finset.sum_product]
+    refine Finset.sum_congr rfl (fun i _ => ?_)
+    -- ∑ j, ‖if j = j₀ then v i else 0‖² = ‖v i‖²
+    simp only [embed_fn]
+    have key : ∀ j : n, ‖(if j = j₀ then v i else 0 : ℂ)‖ ^ 2 =
+               if j = j₀ then ‖v i‖ ^ 2 else 0 := by
+      intro j; by_cases h : j = j₀ <;> simp [h]
+    simp_rw [key]
+    rw [Finset.sum_ite_eq' Finset.univ j₀ (fun _ : n => ‖v i‖ ^ 2)]
+    simp
+  -- (A ⊗ 1) *ᵥ f at column j₀ equals A *ᵥ v
+  have hAOne_at_j₀ : ∀ i, ((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ embed_fn) (i, j₀) = (A *ᵥ v) i := by
+    intro i
+    rw [kronecker_one_mulVec_apply]
+    congr 1
+    ext i'
+    simp [embed_fn]
+  -- Key inequality: ‖A *ᵥ v‖² ≤ ‖(A ⊗ 1) *ᵥ f‖² via single-j-slice ≤ full sum
+  have hslice_le :
+      ∑ i, ‖(A *ᵥ v) i‖ ^ 2 ≤
+      ∑ p : m × n, ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ (fun q => f q)) p‖ ^ 2 := by
+    rw [← Finset.univ_product_univ, Finset.sum_product]
+    refine Finset.sum_le_sum (fun i _ => ?_)
+    -- ‖(A *ᵥ v) i‖² ≤ ∑ j, ‖(A ⊗ 1 *ᵥ f) (i, j)‖²
+    calc ‖(A *ᵥ v) i‖ ^ 2
+        = ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ embed_fn) (i, j₀)‖ ^ 2 := by rw [hAOne_at_j₀]
+      _ = ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ (fun q => f q)) (i, j₀)‖ ^ 2 := by rfl
+      _ ≤ ∑ j, ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ (fun q => f q)) (i, j)‖ ^ 2 :=
+          Finset.single_le_sum
+            (f := fun j => ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ (fun q => f q)) (i, j)‖ ^ 2)
+            (fun _ _ => sq_nonneg _)
+            (Finset.mem_univ j₀)
+  -- Apply l2_opNorm_mulVec on A ⊗ 1 with vector f
+  have h_bound := Matrix.l2_opNorm_mulVec (A ⊗ₖ (1 : Matrix n n ℂ)) f
+  have h_bound_nn : (0:ℝ) ≤
+      ‖(EuclideanSpace.equiv (m × n) ℂ).symm ((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ f)‖ := norm_nonneg _
+  have h_bound_sq :
+      ‖(EuclideanSpace.equiv (m × n) ℂ).symm ((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ f)‖ ^ 2 ≤
+      (‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ * ‖f‖) ^ 2 := by
+    have := mul_self_le_mul_self h_bound_nn h_bound
+    simpa [sq] using this
+  -- Expand the norm-squared LHS via EuclideanSpace.norm_sq_eq
+  rw [EuclideanSpace.norm_sq_eq] at h_bound_sq
+  -- Chain: ‖A *ᵥ v‖² ≤ (LHS of h_bound_sq) ≤ (‖A ⊗ 1‖ * ‖f‖)² = ‖A ⊗ 1‖² * ‖v‖²
+  have h_target_nn : (0:ℝ) ≤ ‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ * ‖v‖ :=
+    mul_nonneg (norm_nonneg _) (norm_nonneg _)
+  have h_A_v_sq :
+      ∑ i, ‖(A *ᵥ v) i‖ ^ 2 ≤ (‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ * ‖v‖) ^ 2 := by
+    calc ∑ i, ‖(A *ᵥ v) i‖ ^ 2
+        ≤ _ := hslice_le
+      _ = ‖(EuclideanSpace.equiv (m × n) ℂ).symm ((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ f)‖ ^ 2 := by
+        rw [EuclideanSpace.norm_sq_eq]; rfl
+      _ ≤ (‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ * ‖f‖) ^ 2 := by
+        have := mul_self_le_mul_self h_bound_nn h_bound
+        simpa [sq] using this
+      _ = (‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ * ‖v‖) ^ 2 := by
+        rw [mul_pow, mul_pow, hf_norm_sq]
+  -- Goal: ‖toEuclideanCLM A v‖ ≤ ‖A ⊗ 1‖ * ‖v‖
+  -- ‖toEuclideanCLM A v‖² = ∑ i, |(A *ᵥ v) i|²
+  have h_goal_sq :
+      ‖(Matrix.toEuclideanCLM (n := m) (𝕜 := ℂ) A) v‖ ^ 2 ≤
+      (‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ * ‖v‖) ^ 2 := by
+    rw [EuclideanSpace.norm_sq_eq]
+    exact h_A_v_sq
+  -- Take sqrt
+  nlinarith [sq_nonneg (‖(Matrix.toEuclideanCLM (n := m) (𝕜 := ℂ) A) v‖ -
+                        ‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ * ‖v‖),
+             norm_nonneg ((Matrix.toEuclideanCLM (n := m) (𝕜 := ℂ) A) v),
+             h_target_nn]
+
+/-! ## §5g — r40: Kronecker-with-identity FULL ISOMETRY
+
+Combining r38 (≤ direction) with r39 (≥ direction) gives the full
+Kronecker-with-identity isometry `‖A ⊗ 1‖ = ‖A‖`. -/
+
+/-- **★★★ r40: Kronecker-with-identity ISOMETRY ★★★**
+
+    `‖A ⊗ (1 : Matrix n n ℂ)‖ = ‖A‖` for `A : Matrix m m ℂ` under
+    the L2 operator norm, when `n` is inhabited.
+
+    This is the substrate isometry key: for every A and every k,
+    the tensor-with-identity embedding at the matrix level preserves
+    the operator norm exactly. Combining r38 (`kronecker_one_opNorm_le`)
+    with r39 (`kronecker_one_opNorm_ge`). -/
+theorem kronecker_one_opNorm_eq
+    {m n : Type*} [Fintype m] [Fintype n] [DecidableEq m] [DecidableEq n]
+    [Nonempty n]
+    (A : Matrix m m ℂ) :
+    ‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ = ‖A‖ :=
+  le_antisymm (kronecker_one_opNorm_le A) (kronecker_one_opNorm_ge A)
+
 /-! ## §6 — Substrate norm structure honest scope
 
 r33-r37 provides:
