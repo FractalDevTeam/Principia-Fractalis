@@ -358,7 +358,55 @@ noncomputable instance instNormOneClassTimelessField :
     NormOneClass TimelessFieldRing where
   norm_one := norm_one_TimelessField
 
-/-! ## §9 — Substrate T_∞ Norm existence capstone -/
+/-! ## §9 — r49: CStarRing structure on T_∞
+
+The C*-identity `‖star x * x‖ = ‖x‖²` on T_∞. Mathlib's modern
+`CStarRing` class asks only for the one-sided inequality
+`‖x‖ * ‖x‖ ≤ ‖star x * x‖`; the equality follows automatically
+(see `norm_star_mul_self`).
+
+Proof strategy: reduce `x` to a common-level representative
+`⟦⟨i, a⟩⟧`, use the substrate star instance (r31: `star ⟦⟨i, a⟩⟧ =
+⟦⟨i, star a⟩⟧`) together with r32's `substrate_quotient_mul_same_level`
+to reduce to `‖a‖ * ‖a‖ ≤ ‖star a * a‖` at the matrix level, then
+discharge via `CStarRing.norm_mul_self_le` on the level-i matrix
+ring (from r33's `instCStarRingSubstrateLevel`). -/
+
+/-- **r49: C*-inequality on T_∞** — `‖x‖ * ‖x‖ ≤ ‖star x * x‖`.
+
+    Direct-limit lift of the matrix-ring C*-property via
+    common-level representatives. -/
+theorem cstar_ineq_TimelessField (x : TimelessFieldRing) :
+    ‖x‖ * ‖x‖ ≤ ‖star x * x‖ := by
+  obtain ⟨i, a, hx⟩ :=
+    DirectLimit.exists_eq_mk
+      (fun i j (h : i ≤ j) => substrateRingHomIter i j h) x
+  subst hx
+  -- star ⟦⟨i, a⟩⟧ = ⟦⟨i, star a⟩⟧ by definitional unfolding of the r31
+  -- Star instance (Quotient.map substrate_sigma_star …); Quotient.map_mk
+  -- reduces the LHS to ⟦substrate_sigma_star ⟨i, a⟩⟧ = ⟦⟨i, star a⟩⟧.
+  have hstar :
+      star (⟦⟨i, a⟩⟧ :
+        Quotient (DirectLimit.setoid
+          (fun i j (h : i ≤ j) => substrateRingHomIter i j h))) =
+        ⟦⟨i, star a⟩⟧ := rfl
+  rw [hstar, substrate_quotient_mul_same_level i (star a) a]
+  exact CStarRing.norm_mul_self_le a
+
+/-- **★★★ r49: CStarRing structure on T_∞ ★★★**
+
+    The substrate's Timeless Field T_∞ carries the C*-identity
+    `‖star x * x‖ = ‖x‖²` — the defining property of a C*-algebra
+    ring. Combined with r30-r32 (Ring, StarRing) and r43-r48
+    (NormedRing, NormOneClass), T_∞ is now a pre-C*-algebra at
+    the algebraic + metric + involutive level.
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. -/
+noncomputable instance instCStarRingTimelessField :
+    CStarRing TimelessFieldRing where
+  norm_mul_self_le := cstar_ineq_TimelessField
+
+/-! ## §10 — Substrate T_∞ Norm existence capstone -/
 
 /-- **★★★ SUBSTRATE T_∞ NORM CAPSTONE ★★★**
 
