@@ -331,7 +331,34 @@ noncomputable instance instNormedRingTimelessField :
     (inferInstance : Ring TimelessFieldRing) with
     norm_mul_le := norm_mul_le_TimelessField }
 
-/-! ## §8 — Substrate T_∞ Norm existence capstone -/
+/-! ## §8 — r48: NormOneClass on T_∞
+
+The multiplicative identity has unit norm: `‖(1 : T_∞)‖ = 1`.
+Uses `DirectLimit.one_def 0` to identify `(1 : T_∞) = ⟦⟨0, 1⟩⟧`,
+then the level-0 matrix norm of the 1×1 identity is 1 via
+`norm_one` on the L2 operator norm. -/
+
+/-- **r48: Norm of one on T_∞** — `‖(1 : TimelessFieldRing)‖ = 1`.
+
+    Uses `DirectLimit.one_def 0` to identify `(1 : T_∞) = ⟦⟨0, 1⟩⟧`,
+    where `1 : Matrix (Fin (3^0)) (Fin (3^0)) ℂ` is the 1×1 identity
+    matrix. Its L2 operator norm equals 1 by matrix `norm_one`. -/
+theorem norm_one_TimelessField : ‖(1 : TimelessFieldRing)‖ = 1 := by
+  rw [DirectLimit.one_def
+        (G := fun k : ℕ => Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
+        (f := fun i j (h : i ≤ j) => substrateRingHomIter i j h)
+        0]
+  show ‖(1 : Matrix (Fin (3^0)) (Fin (3^0)) ℂ)‖ = 1
+  exact norm_one
+
+/-- **`NormOneClass TimelessFieldRing`** — T_∞'s multiplicative
+    identity has unit norm. Registers the standard mathlib class
+    used by `NormedAlgebra`, `NormedField`, and related structures. -/
+noncomputable instance instNormOneClassTimelessField :
+    NormOneClass TimelessFieldRing where
+  norm_one := norm_one_TimelessField
+
+/-! ## §9 — Substrate T_∞ Norm existence capstone -/
 
 /-- **★★★ SUBSTRATE T_∞ NORM CAPSTONE ★★★**
 
