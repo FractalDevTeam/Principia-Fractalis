@@ -202,27 +202,94 @@ theorem kronecker_one_mulVec_apply
   rw [Finset.sum_ite_eq Finset.univ j (fun j' => A i i' * f (i', j'))]
   simp
 
+/-! ## §5c — r36: raw-sum matrix operator norm bound
+
+The L2 operator norm satisfies the standard bound
+`‖A *ᵥ v‖² ≤ ‖A‖² · ‖v‖²` in raw sum form, without the
+`EuclideanSpace.equiv.symm` wrapper. This is the r36 target,
+derived from mathlib's `Matrix.l2_opNorm_mulVec` by squaring
+both sides and unfolding via `EuclideanSpace.norm_sq_eq`. -/
+
+/-- **Raw-sum matrix operator norm bound**: for any matrix
+    `A : Matrix m n ℂ` and function `v : n → ℂ`,
+    `∑ i, |(A *ᵥ v) i|² ≤ ‖A‖² · ∑ i, |v i|²`.
+    Derived from `Matrix.l2_opNorm_mulVec` by squaring both sides
+    and unfolding via `EuclideanSpace.norm_sq_eq`. -/
+theorem matrix_mulVec_norm_sq_le {m n : Type*} [Fintype m] [Fintype n] [DecidableEq n]
+    (A : Matrix m n ℂ) (v : EuclideanSpace ℂ n) :
+    ∑ i, ‖(A *ᵥ v) i‖ ^ 2 ≤ ‖A‖ ^ 2 * ∑ i, ‖v i‖ ^ 2 := by
+  -- l2_opNorm_mulVec gives the norm-form of the bound
+  have h := Matrix.l2_opNorm_mulVec A v
+  -- Square both sides (both non-negative)
+  have hnn : (0:ℝ) ≤ ‖(EuclideanSpace.equiv m ℂ).symm (A *ᵥ v)‖ := norm_nonneg _
+  have hAnn : (0:ℝ) ≤ ‖A‖ := norm_nonneg _
+  have hvnn : (0:ℝ) ≤ ‖v‖ := norm_nonneg _
+  have hsq : ‖(EuclideanSpace.equiv m ℂ).symm (A *ᵥ v)‖ ^ 2 ≤
+             (‖A‖ * ‖v‖) ^ 2 := by
+    have := mul_self_le_mul_self hnn h
+    simpa [sq] using this
+  -- Convert LHS: ‖(EuclideanSpace.equiv m ℂ).symm (A *ᵥ v)‖² = ∑ i, ‖(A *ᵥ v) i‖²
+  rw [EuclideanSpace.norm_sq_eq] at hsq
+  -- The underlying function accessor: `((EuclideanSpace.equiv m ℂ).symm w) i = w i`
+  have h_symm : ∀ (w : m → ℂ) (i : m),
+      ((EuclideanSpace.equiv m ℂ).symm w) i = w i := fun w i => rfl
+  simp_rw [h_symm] at hsq
+  -- Expand (‖A‖ * ‖v‖)² = ‖A‖² * ‖v‖² and unfold ‖v‖² via norm_sq_eq
+  rw [mul_pow, EuclideanSpace.norm_sq_eq v] at hsq
+  exact hsq
+
+/-! ## §5d — r37: Kronecker-with-identity norm-non-increasing
+
+Combining r35 (mulVec formula) + r36 (raw-sum norm bound) gives
+`‖(A ⊗ 1) *ᵥ f‖² ≤ ‖A‖² · ‖f‖²`, which by `ContinuousLinearMap.opNorm_le_bound`
+implies `‖A ⊗ 1‖ ≤ ‖A‖`. -/
+
+/-- **r37: Kronecker-with-identity mulVec norm bound**:
+    `∑ (i,j), |((A ⊗ 1) *ᵥ f) (i,j)|² ≤ ‖A‖² · ∑ (i,j), |f (i,j)|²`.
+    Proved by combining the r35 mulVec formula (column-wise action) with
+    r36 (raw-sum bound applied per column) and Fubini for finite sums. -/
+theorem kronecker_one_mulVec_norm_sq_le
+    {m n : Type*} [Fintype m] [Fintype n] [DecidableEq m] [DecidableEq n]
+    (A : Matrix m m ℂ) (f : m × n → ℂ) :
+    ∑ p : m × n, ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ f) p‖ ^ 2 ≤
+      ‖A‖ ^ 2 * ∑ p : m × n, ‖f p‖ ^ 2 := by
+  -- Rewrite both sides using Fubini: ∑ p : m × n, g p = ∑ j, ∑ i, g (i, j)
+  have hLHS : ∑ p : m × n, ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ f) p‖ ^ 2 =
+              ∑ j, ∑ i, ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ f) (i, j)‖ ^ 2 := by
+    rw [← Finset.univ_product_univ, Finset.sum_product_right]
+  have hRHS : (∑ p : m × n, ‖f p‖ ^ 2) = ∑ j, ∑ i, ‖f (i, j)‖ ^ 2 := by
+    rw [← Finset.univ_product_univ, Finset.sum_product_right]
+  rw [hLHS, hRHS, Finset.mul_sum]
+  -- Apply r35 mulVec formula inside the inner sum
+  simp_rw [kronecker_one_mulVec_apply]
+  -- Bound each j-term via r36
+  refine Finset.sum_le_sum (fun j _ => ?_)
+  have := matrix_mulVec_norm_sq_le A
+    ((EuclideanSpace.equiv m ℂ).symm (fun i' => f (i', j)))
+  simp only [show ∀ i, ((EuclideanSpace.equiv m ℂ).symm (fun i' => f (i', j))) i = f (i, j)
+              from fun _ => rfl] at this
+  exact this
+
 /-! ## §6 — Substrate norm structure honest scope
 
-r33 provides:
+r33-r37 provides:
   * Level-wise NormedRing/NormedAlgebra/CStarRing structure at every k.
   * Level-0 scalar identification.
   * Precise statement of the substrate-embedding isometry as the next
     substrate target (r34).
-  * Star-mul reduction of the isometry via the C*-property.
+  * Star-mul reduction of the isometry via the C*-property (r34 partial).
+  * Kronecker-with-identity mulVec formula (r35 partial).
+  * Raw-sum matrix mulVec norm bound (r36).
+  * Kronecker-with-identity mulVec norm bound (r37, combining r35 + r36).
 
-The remaining r34 core: prove `‖B ⊗ 1‖ = ‖B‖` for positive
-self-adjoint B (or equivalently for general B). This is the
-Kronecker-with-identity operator norm identity, which requires either
-a mathlib PR or substantial substrate-side infrastructure through
-`Matrix.toEuclideanCLM` and tensor product isometry on EuclideanSpace.
+Remaining for full substrate embedding isometry:
+  * r38: Reverse direction ‖A‖ ≤ ‖A ⊗ 1‖ (pick f supported on j=0)
+  * r39: Reindex isometry ‖reindex e e M‖ = ‖M‖
+  * r40: Combine → full ‖substrateEmbedMatrix k A‖ = ‖A‖
+  * r41: Lift norm to T_∞ via UHF direct-limit norm construction
+  * r42-r44: NormedRing → CStarAlgebra → Nuclearity
 
-Once r34 lands, T_∞ inherits the C*-norm as the direct-limit norm via
-the standard UHF construction: define `‖x‖ := ‖a‖` for any
-representative `x = ⟦⟨k, a⟩⟧`, well-defined by isometry.
-
-These are r34+ substrate targets. r33 establishes the level-wise norm
-infrastructure that T_∞'s norm will lift through. -/
+Once these land, T_∞ is a mathlib-native CStarAlgebra. -/
 
 end SubstrateBase3Norm
 end PrincipiaTractalis
