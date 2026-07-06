@@ -438,5 +438,76 @@ theorem substrate_TimelessField_Norm_exists :
    norm_zero_TimelessField, norm_neg_TimelessField,
    norm_add_le_TimelessField, norm_mul_le_TimelessField⟩
 
+/-! ## §11 — r50: Substrate T_∞ pre-C*-algebra capstone
+
+The r43-r49 sequence delivers T_∞ as a **pre-C*-algebra**: it
+carries every C*-algebra structure axiom except completeness. The
+metric completion `UniformSpace.Completion T_∞` is a genuine
+C*-algebra — that construction is r51+ territory.
+
+Formal restatement of what T_∞ satisfies at the end of r49:
+  * `Ring TimelessFieldRing`
+  * `StarRing TimelessFieldRing`
+  * `Norm TimelessFieldRing` (descended via UHF direct-limit norm)
+  * `NormedAddCommGroup TimelessFieldRing`
+  * `NormedRing TimelessFieldRing`
+  * `NormOneClass TimelessFieldRing`
+  * `CStarRing TimelessFieldRing` — the C*-identity ‖x⋆ x‖ = ‖x‖²
+
+The only `CStarAlgebra` ingredients missing (per
+`Mathlib.Analysis.CStarAlgebra.Classes` line 32) are:
+  * `CompleteSpace TimelessFieldRing` — false; T_∞ is only pre-C*.
+    The metric completion `Completion T_∞` supplies this.
+  * `NormedAlgebra ℂ TimelessFieldRing` — requires ℂ-scalar
+    structure lifted from the finite levels; scheduled for r51+.
+  * `StarModule ℂ TimelessFieldRing` — star commutes with scalar
+    multiplication; follows from the SMul lift once ℂ-structure
+    is in place. -/
+
+/-- **★★★ SUBSTRATE T_∞ PRE-C*-ALGEBRA CAPSTONE (r49 STATE) ★★★**
+
+    The substrate's Timeless Field T_∞ satisfies every C*-algebra
+    ring axiom short of completeness. Bundles nine typeclass
+    witnesses:
+      (S1) `Ring TimelessFieldRing`                  (r30)
+      (S2) `StarRing TimelessFieldRing`              (r32)
+      (S3) `Norm TimelessFieldRing`                  (r43)
+      (S4) `SeminormedAddCommGroup TimelessFieldRing` (r46)
+      (S5) `NormedAddCommGroup TimelessFieldRing`    (r47)
+      (S6) `SeminormedRing TimelessFieldRing`        (r46)
+      (S7) `NormedRing TimelessFieldRing`            (r47)
+      (S8) `NormOneClass TimelessFieldRing`          (r48)
+      (S9) `CStarRing TimelessFieldRing`             (r49)
+
+    Plus the substrate-specific isometry content:
+      (I1) canonical level embedding is norm-preserving (r43)
+      (I2) full C*-identity `‖star x * x‖ = ‖x‖²` (r49)
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. Zero
+    project axioms. Zero sorries.
+
+    Remaining for full mathlib-native `CStarAlgebra TimelessFieldRing`:
+      * `NormedAlgebra ℂ` scalar structure (r51)
+      * `StarModule ℂ` (r51)
+      * `CompleteSpace` via metric completion `Completion T_∞` (r52+) -/
+theorem substrate_TimelessField_pre_CStar_capstone :
+    Nonempty (Ring TimelessFieldRing) ∧
+    Nonempty (StarRing TimelessFieldRing) ∧
+    Nonempty (Norm TimelessFieldRing) ∧
+    Nonempty (SeminormedAddCommGroup TimelessFieldRing) ∧
+    Nonempty (NormedAddCommGroup TimelessFieldRing) ∧
+    Nonempty (SeminormedRing TimelessFieldRing) ∧
+    Nonempty (NormedRing TimelessFieldRing) ∧
+    Nonempty (NormOneClass TimelessFieldRing) ∧
+    Nonempty (CStarRing TimelessFieldRing) ∧
+    (∀ (k : ℕ) (A : Matrix (Fin (3^k)) (Fin (3^k)) ℂ),
+      ‖substrateLevelToTimelessField k A‖ = ‖A‖) ∧
+    (∀ x : TimelessFieldRing, ‖star x * x‖ = ‖x‖ * ‖x‖) :=
+  ⟨⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩,
+   ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩, ⟨inferInstance⟩,
+   ⟨inferInstance⟩,
+   substrateLevelToTimelessField_opNorm_eq,
+   fun _ => CStarRing.norm_star_mul_self⟩
+
 end SubstrateTimelessFieldNorm
 end PrincipiaTractalis
