@@ -270,6 +270,44 @@ theorem kronecker_one_mulVec_norm_sq_le
               from fun _ => rfl] at this
   exact this
 
+/-! ## §5e — r38: Kronecker-with-identity operator norm bound
+
+Taking the square root of r37 and applying `ContinuousLinearMap.opNorm_le_bound`
+gives the operator-norm bound `‖A ⊗ 1‖ ≤ ‖A‖` — the ≤ direction of
+the Kronecker isometry. -/
+
+/-- **r38: Kronecker-with-identity operator norm bound**:
+    `‖A ⊗ (1 : Matrix n n ℂ)‖ ≤ ‖A‖` under the L2 operator norm.
+
+    Proved by using the raw-sum norm bound (r37) to derive
+    `∑ p, |(A ⊗ 1) *ᵥ f (p)|² ≤ ‖A‖² · ‖f‖²`, and applying
+    `Matrix.l2_opNorm_le_of_norm_sq_bound` or equivalent. -/
+theorem kronecker_one_opNorm_le
+    {m n : Type*} [Fintype m] [Fintype n] [DecidableEq m] [DecidableEq n]
+    (A : Matrix m m ℂ) :
+    ‖(A ⊗ₖ (1 : Matrix n n ℂ))‖ ≤ ‖A‖ := by
+  rw [Matrix.cstar_norm_def]
+  refine ContinuousLinearMap.opNorm_le_bound _ (norm_nonneg _) (fun f => ?_)
+  -- Compute the norm-squared via EuclideanSpace.norm_sq_eq
+  -- The CLM applied to f at index p equals ((A ⊗ 1) *ᵥ f) p
+  have hLHS_sq : ‖((Matrix.toEuclideanCLM (n := m × n) (𝕜 := ℂ) (A ⊗ₖ (1 : Matrix n n ℂ)))) f‖ ^ 2 =
+                 ∑ p : m × n, ‖((A ⊗ₖ (1 : Matrix n n ℂ)) *ᵥ (fun q => f q)) p‖ ^ 2 := by
+    rw [EuclideanSpace.norm_sq_eq]
+    rfl
+  have hf_norm_sq : ‖f‖ ^ 2 = ∑ p : m × n, ‖f p‖ ^ 2 := EuclideanSpace.norm_sq_eq f
+  -- Apply r37
+  have hbound := kronecker_one_mulVec_norm_sq_le A (fun p => f p)
+  -- Combined norm-squared bound
+  have hcombined :
+      ‖((Matrix.toEuclideanCLM (n := m × n) (𝕜 := ℂ) (A ⊗ₖ (1 : Matrix n n ℂ)))) f‖ ^ 2 ≤ (‖A‖ * ‖f‖) ^ 2 := by
+    rw [hLHS_sq, mul_pow, hf_norm_sq]
+    exact hbound
+  -- Extract the norm bound via sqrt (both sides non-negative)
+  have hy_nn : (0:ℝ) ≤ ‖((Matrix.toEuclideanCLM (n := m × n) (𝕜 := ℂ) (A ⊗ₖ (1 : Matrix n n ℂ)))) f‖ := norm_nonneg _
+  have h_target_nn : (0:ℝ) ≤ ‖A‖ * ‖f‖ := mul_nonneg (norm_nonneg _) (norm_nonneg _)
+  nlinarith [sq_nonneg (‖((Matrix.toEuclideanCLM (n := m × n) (𝕜 := ℂ) (A ⊗ₖ (1 : Matrix n n ℂ)))) f‖ - ‖A‖ * ‖f‖),
+             hy_nn, h_target_nn]
+
 /-! ## §6 — Substrate norm structure honest scope
 
 r33-r37 provides:
