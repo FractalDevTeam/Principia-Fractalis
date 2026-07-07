@@ -677,3 +677,4 @@ PF/Priority5SubstrateDischargeCoq.v
 PF/Substrate9DimCentralProjectionsCoq.v
 PF/SubstrateUHFCanonicalTraceCoq.v
 PF/SubstrateTracePairingCoq.v
+PF/SubstrateUHFBoundedTraceCoq.v
