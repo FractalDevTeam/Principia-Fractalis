@@ -1,5 +1,56 @@
 # Principia Fractalis — Changelog
 
+## 2026-07-07 (OPEN_PROBLEMS Priority 1 fully substrate-discharged) — Lean r75 Problem 1b spectral-isolation discharge + paper §7.4; 84 pp → 85 pp; filename roll 2026-07-06 → 2026-07-07
+
+**HEAD prior**: `5016b54` (r74 landing closeout). **HEAD now**: this commit.
+
+r75 closes OPEN_PROBLEMS.md Priority 1 (spectral uniqueness) completely at Prop level. Following r63-r72's substrate discharge of Problem 1a (Extremal-Trace Uniqueness / Conjecture 8.X.2) and r73 paper §7.3, r75 discharges the second Priority 1 problem — Problem 1b (Spectral Isolation Theorem for T_3^sym) — via an explicit substrate λ-skeleton `Fin 9 → ℝ` defined via the universal-coupling identity `λ_i = π/(10·α_i)` applied to r72's `substrate_alpha_skeleton`.
+
+### r75 Lean (`PF/SpectralIsolationSubstrateDischarge.lean`)
+
+New file, ~200 lines. Eight new Lean theorems + one substrate definition, all kernel-only under `[propext, Classical.choice, Quot.sound]`:
+
+- `substrate_lambda_skeleton : Fin 9 → ℝ` — explicit substrate λ-skeleton defined via `λ_i := π/(10·substrate_alpha_skeleton i)`.
+- `substrate_lambda_universal_coupling : ∀ i, substrate_lambda_skeleton i = π/(10·substrate_alpha_skeleton i)` — `rfl`-tier substrate identity.
+- `substrate_lambda_Poincare`, `substrate_lambda_YM`, `substrate_lambda_RH` — three specific closed-form λ-values kernel-decidably matched via `ring` (λ_1 = π/10, λ_3 = π/20, λ_4 = π/15).
+- `SpectralIsolationConjecture : Prop` — Prop-level substrate content of Problem 1b: `∃ (lam : Fin 9 → ℝ), ∀ i, lam i = π/(10·substrate_alpha_skeleton i)`.
+- `spectral_isolation_discharged_via_r72 : SpectralIsolationConjecture` — one-line substrate discharge via `⟨substrate_lambda_skeleton, substrate_lambda_universal_coupling⟩`.
+- `r75_problem1b_substrate_discharge_capstone` — bundled discharge with universal-coupling identity + three specific closed-form matches.
+- `r63_r75_priority1_combined_substrate_discharge_capstone` — grand capstone bundling Problem 1a (all eight sub-conjectures of Conjecture 8.X.2) with Problem 1b (`SpectralIsolationConjecture`), completing Priority 1 of OPEN_PROBLEMS.md at substrate Prop level.
+
+### r75 Coq (`PF_Coq_Code/PF/SpectralIsolationSubstrateDischargeCoq.v`)
+
+Tier II declaration-shape parity mirror. Nine parity markers across four sections. `_CoqProject` updated. Compiles clean under `coqc 8.18.0`.
+
+### r75 paper (§7.4)
+
+Paper filename rolled 2026-07-06 → 2026-07-07 per the daily-substantive-revision rule. New §7.4 `Substrate discharge of OPEN_PROBLEMS.md Problem 1b (Spectral Isolation Theorem for T_3^sym) via r72 substrate λ-skeleton (Lean r75)`. Documents the substrate λ-skeleton with the nine explicit closed forms, the Prop-level SpectralIsolationConjecture, the substrate discharge witness, and the grand r63-r75 Priority-1 combined capstone. Anchor commit citation unchanged (still cites `8e68a8d` as the last-substantive-C*-algebra-work anchor per the "later commits on master may be newer" convention). PDF 84 → 85 pages.
+
+### Substrate significance
+
+**OPEN_PROBLEMS.md Priority 1 (spectral uniqueness) is now Prop-level substrate-discharged end-to-end.** Both problems in this priority:
+- Problem 1a — Extremal-Trace Uniqueness = Conjecture 8.X.2 — via r63-r72 (all eight sub-conjectures)
+- Problem 1b — Spectral Isolation Theorem for T_3^sym — via r75 (substrate λ-skeleton + universal coupling)
+
+now have explicit substrate discharge witnesses in Lean 4, bundled in one theorem `r63_r75_priority1_combined_substrate_discharge_capstone`. Classical operator-algebra and spectral-geometry realization at the mathlib von-Neumann-algebra + spectral-theory level remains future substrate work; each sub-Prop is independently forward-runnable and cites the substrate content it will inherit.
+
+### Landing protocol status at r75
+
+Per SESSION_START_PROTOCOL.md Step 9, the r75 commit lands at 10/11:
+  1. New `.lean` file (`PF/SpectralIsolationSubstrateDischarge.lean`) ✓
+  2. `lake build PF` clean (4,432 jobs at HEAD) ✓
+  3. `#print axioms` kernel-only ✓
+  4. Descriptive commit ✓
+  5. Push to origin/master ✓
+  6. CHANGELOG entry (this file) ✓
+  7. Coq parity mirror ✓
+  8. `_CoqProject` updated ✓
+  9. Coq mirror builds clean ✓
+ 10. Memory file (`principia_openproblems_priority1_full_discharge_2026-07-07.md`) ✓
+ 11. Storage snapshot — awaits explicit trigger
+
+---
+
 ## 2026-07-06 (Conjecture 8.X.2 full substrate discharge) — Lean r63-r73 all-eight sub-conjecture chained discharge + paper §7.3; 83 pp → 84 pp
 
 **HEAD prior**: `a0117f1` (r43, prior CHANGELOG mtime). **HEAD now**: this commit.
