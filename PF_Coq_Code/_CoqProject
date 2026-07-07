@@ -671,3 +671,4 @@ PF/SubstrateTimelessFieldCompletionCoq.v
 PF/ExtremalTraceUniquenessProofPlanCoq.v
 PF/SpectralIsolationSubstrateDischargeCoq.v
 PF/I5VortexDoublingSubstrateDischargeCoq.v
+PF/Priority3SubstrateDischargeCoq.v
