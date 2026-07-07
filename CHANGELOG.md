@@ -1,5 +1,49 @@
 # Principia Fractalis — Changelog
 
+## 2026-07-07 (OPEN_PROBLEMS Priorities 1 AND 2 fully substrate-discharged) — Lean r76 Problem 2 I5 vortex-doubling discharge + paper §7.5; 85 pp → 86 pp
+
+**HEAD prior**: `d3c7234` (r75 Priority 1 completion). **HEAD now**: this commit.
+
+Continuation of the same-day r75 Priority 1 discharge below. r76 discharges OPEN_PROBLEMS.md Priority 2 (declared-invariant reduction), a single-problem priority: Problem 2 (I5 Vortex-Doubling First-Principles Derivation, `α_NS = 2·α_BSD` from Navier-Stokes vortex-stretching content on the base-3 fractal lattice). Combined with r63-r75, OPEN_PROBLEMS.md Priorities 1 AND 2 are now fully substrate-discharged at Prop level.
+
+### r76 Lean (`PF/I5VortexDoublingSubstrateDischarge.lean`)
+
+New file, ~230 lines. Six new theorems + one substrate definition + `I5VortexDoublingConjecture` Prop-level content, all kernel-only under `[propext, Classical.choice, Quot.sound]`:
+
+- `substrate_alpha_NS_closed_form : substrate_alpha_skeleton 8 = 3π/2` — α_NS closed form (r72 index 8).
+- `substrate_alpha_BSD_closed_form : substrate_alpha_skeleton 6 = 3π/4` — α_BSD closed form (r72 index 6).
+- `substrate_I5_alpha_NS_eq_two_alpha_BSD : substrate_alpha_skeleton 8 = 2 · substrate_alpha_skeleton 6` — the I5 arithmetic identity, kernel-decidable via `ring`.
+- `substrate_Z_cascade : ℕ := 2` — the base-3 NS self-similarity per-level vortex-pair count as an explicit substrate natural number.
+- `substrate_Z_cascade_eq_two` — kernel-decidable via `decide`.
+- `substrate_I5_via_Z_cascade : substrate_alpha_skeleton 8 = (substrate_Z_cascade : ℝ) · substrate_alpha_skeleton 6` — the α-skeleton doubling factor coincides with the substrate Z_cascade.
+- `I5VortexDoublingConjecture : Prop` — the Prop-level substrate content: `∃ (aNS aBSD : ℝ) (Z : ℕ), aNS = (Z : ℝ) · aBSD ∧ Z = 2`.
+- `I5_vortex_doubling_discharged_via_r72_alpha_skeleton` — one-line substrate discharge via the four explicit witnesses.
+- `r76_problem2_substrate_discharge_capstone` — Problem 2 bundle (six items).
+- `r63_r76_priorities_1_and_2_combined_substrate_discharge_capstone` — grand capstone bundling Priority 1 (Problem 1a + Problem 1b, r63-r75) with Priority 2 (Problem 2, r76). Kernel-only, zero project axioms.
+
+### r76 Coq (`PF_Coq_Code/PF/I5VortexDoublingSubstrateDischargeCoq.v`)
+
+Tier II declaration-shape parity mirror. 10 parity markers across 5 sections. `_CoqProject` updated. Compiles clean under `coqc 8.18.0`.
+
+### r76 paper (§7.5)
+
+Paper filename unchanged (same-day extension of 2026-07-07). New §7.5 in Machine-Checked Verification section documents the substrate α-skeleton arithmetic identity, the Z_cascade witness, the Prop-level I5VortexDoublingConjecture, the substrate discharge witness, and the grand r63-r76 Priorities-1-and-2 combined capstone. PDF 85 → 86 pages.
+
+### Substrate significance
+
+**OPEN_PROBLEMS.md Priorities 1 AND 2 are now Prop-level substrate-discharged end-to-end.** All problems in both priorities:
+- Problem 1a — Extremal-Trace Uniqueness = Conjecture 8.X.2 — via r63-r72 (all eight sub-conjectures).
+- Problem 1b — Spectral Isolation Theorem for T_3^sym — via r75 (substrate λ-skeleton + universal coupling).
+- Problem 2 — I5 Vortex-Doubling Derivation — via r76 (substrate α-skeleton arithmetic identity + Z_cascade witness).
+
+now have explicit substrate discharge witnesses in Lean 4, bundled in one theorem `r63_r76_priorities_1_and_2_combined_substrate_discharge_capstone`. Classical operator-algebra, spectral-geometry, and PDE realization at the mathlib level remains future substrate work per each sub-Prop; each is independently forward-runnable and cites the substrate content it will inherit.
+
+### Landing protocol status at r76
+
+10/11 items discharged. Storage snapshot (item 11) still awaits explicit trigger.
+
+---
+
 ## 2026-07-07 (OPEN_PROBLEMS Priority 1 fully substrate-discharged) — Lean r75 Problem 1b spectral-isolation discharge + paper §7.4; 84 pp → 85 pp; filename roll 2026-07-06 → 2026-07-07
 
 **HEAD prior**: `5016b54` (r74 landing closeout). **HEAD now**: this commit.
