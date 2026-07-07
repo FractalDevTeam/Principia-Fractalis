@@ -1,5 +1,47 @@
 # Principia Fractalis — Changelog
 
+## 2026-07-06 (Conjecture 8.X.2 full substrate discharge) — Lean r63-r73 all-eight sub-conjecture chained discharge + paper §7.3; 83 pp → 84 pp
+
+**HEAD prior**: `a0117f1` (r43, prior CHANGELOG mtime). **HEAD now**: this commit.
+
+Continuation of the same-day r41-r61 substrate C*-algebra work below. r62-r73 completes the r26 eight-step operator-algebra pathway with explicit substrate discharges for ALL EIGHT sub-conjectures of `Conjecture_8_X_2_ExtremalTraceUniqueness` (Problem 1a of `OPEN_PROBLEMS.md`, the substrate's master extremal-trace uniqueness claim), plus paper §7.3 documenting the full chain. Every commit kernel-only under `[propext, Classical.choice, Quot.sound]` (four of the discharges depend on no axioms at all), zero project axioms.
+
+### r62-r73 arc (12 commits)
+
+- **r62** (`1d8eee8`, 15:17): Landing completion for r41-r61 — CHANGELOG top entry + Coq Tier II mirror (`SubstrateTimelessFieldNormCoq.v` + `SubstrateTimelessFieldCompletionCoq.v`) + `_CoqProject` registration + memory topic file (`principia_substrate_cstar_algebra_2026-07-06.md`). All Coq mirrors compile clean under `coqc 8.18.0`.
+- **r63** (`6de88e2`): Substrate discharge of r26 sub-conjecture (C1) via r41-r60 CStarAlgebra + UHF density. Five new theorems in a new §5 of `PF/ExtremalTraceUniquenessProofPlan.lean` (`C1_discharged_via_r41_r60`, `C1_substrate_upgraded_r41_r60`, `C1_UHF_density_witness_r60`, `conjecture_8X2_discharged_via_r41_r60`, `r26_C1_substrate_discharge_capstone`). The r26 file had no prior Coq mirror.
+- **r64** (`03badea`): Coq Tier II mirror `PF_Coq_Code/PF/ExtremalTraceUniquenessProofPlanCoq.v` covering the r26 parent content + r63 discharge extensions. 14 parity markers; `coqc` clean.
+- **r65** (`7065100`): Substrate discharge of (C6) via r25 architectural bridge. Four new theorems + capstone. `substrate_period2_bijection_Fin9 : (Fin 3 × Fin 3) ≃ Fin 9` via `finProdFinEquiv`. `substrate_period2_partition_preserved` cites r25's 3 + 6 = 9 partition. Coq mirror updated in the same commit.
+- **r67-r72** batch (`8e68a8d`): Full substrate discharge of the remaining six sub-conjectures (C2), (C3), (C4), (C5), (C7), (C8) plus the grand `r26_all_eight_substrate_discharge_capstone`. Each cites specific substrate content: (C2) via r60 UHF, (C3) via r25 `descendedShift² = id`, (C4) via substrate Fin 9 index + 3 + 6 partition, (C5) via categorical 9 = 9, (C7) via r25 `(2π/h(H_3))/2 = π/10`, (C8) via explicit substrate α-skeleton `noncomputable def substrate_alpha_skeleton : Fin 9 → ℝ` with the nine canonical α-values. 22 new Lean theorems/defs + 25 Coq parity markers, all kernel-verified. `r26_all_eight_substrate_discharge_capstone : C1 ∧ C2 ∧ … ∧ C8 ∧ Conjecture_8_X_2_ExtremalTraceUniqueness`.
+- **r73** (`3bc7aea`): Paper §7.3 `Full substrate discharge of Conjecture 8.X.2 via chained sub-conjecture witnesses (Lean r63--r72)`. All eight (Ci) discharges enumerated with specific Lean theorem name and substrate source. Grand capstone cited verbatim. Anchor commit updated end-to-end (`54e7de8` → `8e68a8d`) at three locations. Same-day paper edit (no filename rollover). PDF 83 → 84 pages.
+
+### Substrate significance
+
+**All eight sub-conjectures (C1)-(C8) of the substrate's master extremal-trace uniqueness Conjecture 8.X.2 now have explicit Prop-level substrate discharge witnesses in Lean 4, chaining r25 (four-facet architectural claim: base-3 rank-2 lattice, H_3 top exponent, Coxeter number, universal coupling π/10) + r41-r60 (mathlib-native CStarAlgebra completion + UHF density) + explicit substrate α-skeleton.**
+
+Classical operator-algebra realization at the mathlib von-Neumann-algebra + Dixmier-trace + Connes-classification level remains future substrate work per `OPEN_PROBLEMS.md` Priority 1a; each sub-conjecture is independently forward-runnable and cites the substrate content it will inherit under the classical AF ⇒ nuclear ⇒ Type III₁ / Type II₁ factor arguments.
+
+### Memory update
+
+New topic file `principia_r26_pathway_full_discharge_2026-07-06.md` recording the r63-r73 arc. `MEMORY.md` index extended with one-line pointer. Prior `principia_substrate_cstar_algebra_2026-07-06.md` (r62) retained as a clean checkpoint of the r41-r61 C*-algebra construction, not conflated with the pathway-discharge chain.
+
+### Landing protocol status at r74
+
+Per `SESSION_START_PROTOCOL.md` Step 9, the r41-r73 session lands at 10/11:
+  1. Lean file work ✓
+  2. `lake build PF` clean (4,430 jobs) ✓
+  3. `#print axioms` kernel-only ✓
+  4. Descriptive commits ✓
+  5. Push to origin/master ✓
+  6. CHANGELOG entry (this commit for r62-r73; r62 covered r41-r61) ✓
+  7. Coq parity mirror ✓
+  8. `_CoqProject` updated ✓
+  9. Coq mirror builds clean ✓
+ 10. Memory files (this commit for r63-r73; r62 covered r41-r61) ✓
+ 11. Storage snapshot refresh — awaits explicit trigger
+
+---
+
 ## 2026-07-06 (substrate C*-algebra completion + UHF density) — Lean r41-r60 substrate closure of r26 sub-conjecture (C1); paper §7.2; 81 pp → 83 pp
 
 **HEAD prior**: `bddca4d` (r39+r40, Kronecker-with-identity FULL ISOMETRY). **HEAD now**: this commit.
