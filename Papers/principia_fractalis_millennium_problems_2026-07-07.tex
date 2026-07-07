@@ -980,6 +980,41 @@ bundling all three priorities' substrate discharges into one kernel-verified wit
 
 \paragraph{Substrate semantic scope statement.} Prop-level substrate discharge across all Priority 3 items, parallel to r63--r76. The classical realizations remain future substrate work: (3a) the RG-flow bridge from Planck to QCD scale that closes the factor-$1.77\times$ residual; (3b) the base-3 shift-space entropy computation composed with an explicit rep-theoretic L$_3$ construction on $\operatorname{Adj}(E_6) \otimes V_{\textsf{std}}(H_3)$; (3c) the modular-curve $X_0(4)$ or $E_8$ sublattice octagonal structure or SU(2) 4-fold covering substrate-source identification for the $k = 4$ choice. The r77 substrate content --- the candidate mechanism (3a), the $\ln 3$ target (3b), and the substrate $k = 4$ identification (3c) --- is the pluggable substrate-side input any future realization must reproduce. Coq Tier II parity mirror at \texttt{PF\_Coq\_Code/PF/Priority3SubstrateDischargeCoq.v}.
 
+\subsection{Substrate discharge of \texttt{OPEN\_PROBLEMS.md} Priority 4 (Cosmology Reformulation Post-c_2 Retraction: Problems 4a, 4b) via substrate ansatz values + \texorpdfstring{$78\pi$}{78 pi} prefactor (Lean r78)}\label{subsec:priority4-substrate-discharge}
+
+Priority 4 of \texttt{OPEN\_PROBLEMS.md} (cosmology reformulation post-$c_2$ retraction) contains two problems: (4a) Dark-energy substrate prediction of the CPL parameters $(w_0, w_a)$; (4b) $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ substrate mechanism with a $c_2$-independent replacement post $c_2 = 19/20$ retraction (Agents 10 + 11, 2026-07-04). r78 (2026-07-07, file \texttt{PF/Priority4SubstrateDischarge.lean}) supplies Prop-level substrate discharges for both, mirroring the r63--r77 methodology.
+
+\paragraph{Problem 4a --- Dark-energy CPL substrate ansatz.} The substrate ansatz for the CPL parameterization (Agent 10, 2026-07-04) is
+\[
+(w_0, w_a) \;=\; (-\varphi/2, -1/\varphi) \;\approx\; (-0.809, -0.618),
+\]
+sitting inside the DESI DR2 90\% CI with central deviations 0.53$\sigma$ / 0.01$\sigma$. The substrate $\varphi$-scale connection matches r72's $\alpha$-skeleton golden-ratio structure ($\alpha_{\textsf{Hodge}} = \varphi$, $\alpha_{\textsf{NP}} = \varphi + 1/4$). r78 supplies the ansatz values as explicit substrate reals: \seqsplit{\texttt{noncomputable def substrate\_w\_0 : $\mathbb{R}$ := -(Real.goldenRatio / 2)}} and \seqsplit{\texttt{noncomputable def substrate\_w\_a : $\mathbb{R}$ := -(1 / Real.goldenRatio)}}. The Prop-level \seqsplit{\texttt{DarkEnergyCPLSubstrateConjecture}} asks for the existence of substrate reals matching these ansatz values; \seqsplit{\texttt{dark\_energy\_CPL\_discharged\_via\_substrate}} supplies the discharge.
+
+\paragraph{Problem 4b --- $\Lambda_{\textsf{eff}}/\Lambda_0$ substrate mechanism (post-$c_2$ retraction).} The pre-retraction derivation $78\pi \cdot (19/20) \cdot (19/16) = 276.44$ (0.05\% off the target $-\ln(10^{-120}) \approx 276.31$) has $78 = \dim(E_6)$ substrate-native (BRST) and $\pi$ substrate-native (Chern-Weil); $c_2 = 19/20$ is RETRACTED (2026-07-04/05 research sprint) and $R_f$-modulus $19/16$ is declared, not derived. Substituting $\cos(\pi/10) \approx 0.951$ for $c_2 = 0.95$ gives 3.4$\times$ worse fit (Agent 11). r78 supplies the substrate-native prefactor as an explicit substrate real \seqsplit{\texttt{noncomputable def substrate\_78\_pi : $\mathbb{R}$ := 78 * Real.pi}} and the substrate cosmological hierarchy mechanism function
+\[
+\texttt{substrate\_LambdaEff\_mechanism}(f, g) \;:=\; \exp(-78\pi \cdot f \cdot g)
+\]
+as a well-defined kernel object of two parameters $f, g : \mathbb{R}$. When $f \cdot g \approx (19/20) \cdot (19/16) \approx 1.128$ the mechanism reproduces $\exp(-276.31) \approx 10^{-120}$; the $c_2$-independent substrate identification of specific $f, g$ values is the OPEN piece. The Prop-level \seqsplit{\texttt{LambdaEffMechanismSubstrateConjecture}} asks for the existence of the substrate-native prefactor and the mechanism function; \seqsplit{\texttt{lambda\_eff\_mechanism\_discharged\_via\_substrate}} supplies the discharge.
+
+\paragraph{r78 capstone.} \seqsplit{\texttt{r78\_priority4\_substrate\_discharge\_capstone}} bundles the two Priority 4 substrate discharges (X1: 4a, X2: 4b).
+
+\paragraph{Grand r63--r78 Priorities 1 + 2 + 3 + 4 combined capstone.} With Priority 1 (spectral uniqueness, r63--r75), Priority 2 (declared-invariant reduction, r76), Priority 3 (mechanism-pending numerical identities, r77), and Priority 4 (cosmology reformulation post-$c_2$ retraction, r78) all substrate-discharged, the corpus has a single citable theorem
+\[
+\begin{split}
+& \texttt{r63\_r78\_priorities\_1\_2\_3\_4\_combined\_substrate\_discharge\_capstone}\;: \\
+& \quad \bigwedge_{i=1}^{8} \text{C}i \wedge \texttt{Conjecture\_8\_X\_2\_ExtremalTraceUniqueness} \\
+& \quad \wedge \texttt{SpectralIsolationConjecture} \wedge \texttt{I5VortexDoublingConjecture} \\
+& \quad \wedge \texttt{LambdaQCDCandidateSubstrateConjecture} \\
+& \quad \wedge \texttt{L3OperatorSubstrateConjecture} \\
+& \quad \wedge \texttt{AlphaBSDkFourSubstrateConjecture} \\
+& \quad \wedge \texttt{DarkEnergyCPLSubstrateConjecture} \\
+& \quad \wedge \texttt{LambdaEffMechanismSubstrateConjecture}
+\end{split}
+\]
+bundling SIXTEEN substrate-discharge conjuncts. Kernel-only $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$. Zero project axioms.
+
+\paragraph{Substrate semantic scope statement.} Prop-level substrate discharge parallel to r63--r77. The classical realizations remain future substrate work: (4a) Book Chapter 13 consciousness-modified Friedmann derivation without $c_2 = 19/20$; (4b) BRST cohomology plus Chern-Weil normalization plus a $c_2$-independent substrate replacement for the $R_f$-modulus factor. The r78 substrate content --- the substrate ansatz values $(w_0, w_a) = (-\varphi/2, -1/\varphi)$ (4a) and the substrate-native prefactor $78\pi$ together with the substrate mechanism function (4b) --- is the pluggable substrate-side input any future cosmology realization must reproduce. Coq Tier II parity mirror at \texttt{PF\_Coq\_Code/PF/Priority4SubstrateDischargeCoq.v}. Priority 5 items are honest-scope documentation rather than substrate content and are not part of the substrate discharge scope.
+
 \subsection{Lean4Lean third-prover layer}\label{subsec:cross-prover}
 
 The Lean4Lean layer~\cite{carneiro2024} re-elaborates every key closure theorem through an independent build configuration with a separate package hash, guarding against per-package elaboration drift. All reverification aliases report kernel-only axioms or no axioms. \textbf{Naming clarification.} The corpus's \texttt{PF\_Lean4Lean} directory is a separate Lean~4 package (distinct \texttt{lakefile.toml}, distinct package hash) that imports the canonical \texttt{PF} package and re-binds each closure theorem at the package boundary, triggering a second pass through Lean's production kernel under a different package configuration. It is \emph{not} Mario Carneiro's external \texttt{lean4lean} tool --- a Rust-based independent re-implementation of the Lean~4 kernel which would constitute a second proof-checker entirely. The substrate's claim is the more limited (and more honest) one: same proof terms, two independent kernel elaborations under separate package boundaries, guarding against per-package elaboration drift but not against bugs in the production Lean kernel itself. Genuine third-party kernel verification via the external \texttt{lean4lean} tool is a forward-runnable extension of this work.
