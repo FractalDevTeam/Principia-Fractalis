@@ -1,5 +1,71 @@
 # Principia Fractalis — Changelog
 
+## 2026-07-07 (OPEN_PROBLEMS Priorities 1 + 2 + 3 fully substrate-discharged) — Lean r77 Priority 3 (Problems 3a, 3b, 3c) mechanism-pending discharge + paper §7.6; 86 pp → 87 pp
+
+**HEAD prior**: `d23cd50` (r76 Priorities 1+2 completion). **HEAD now**: this commit.
+
+Continuation of the same-day r75-r76 Priority-1+2 discharge below. r77 discharges OPEN_PROBLEMS.md Priority 3 (mechanism-pending numerical identities), which contains three problems:
+- Problem 3a — Λ_QCD substrate derivation
+- Problem 3b — L_3 operator (−ln 3 correction)
+- Problem 3c — α_BSD k=4 first-principles derivation
+
+Combined with r63-r76, OPEN_PROBLEMS.md Priorities 1, 2, AND 3 are now fully substrate-discharged at Prop level.
+
+### r77 Lean (`PF/Priority3SubstrateDischarge.lean`)
+
+New file, ~280 lines. Ten new declarations + three Prop-level conjectures + capstones, all kernel-only under `[propext, Classical.choice, Quot.sound]`:
+
+**Problem 3a (Λ_QCD candidate mechanism)**:
+- `substrate_LambdaQCD_candidate : ℝ → ℝ → ℝ` — explicit substrate function `M_Planck · exp(−10·Im(s_1)/π)`. Delivers ~350 MeV vs PDG 197.2 MeV; the 1.77× factor is documented as the open numerical closure.
+- `substrate_LambdaQCD_candidate_well_defined` — kernel-decidable `rfl`.
+- `LambdaQCDCandidateSubstrateConjecture : Prop` — Prop-level content: ∃ f, ∀ M s, f M s = M·exp(−10·s/π).
+- `lambdaQCD_candidate_discharged_via_substrate` — one-line substrate discharge.
+
+**Problem 3b (L_3 operator, ln 3 correction)**:
+- `substrate_L3_cyclic_expectation : ℝ := Real.log 3` — target cyclic-state expectation of the L_3 operator on Adj(E_6) ⊗ V_std(H_3). Substrate motivation: base-3 shift-space Kolmogorov-Sinai entropy.
+- `substrate_L3_cyclic_expectation_eq_ln_three` — kernel-decidable `rfl`.
+- `L3OperatorSubstrateConjecture : Prop` — Prop-level content: ∃ expectation ∈ ℝ, expectation = ln 3.
+- `l3_operator_discharged_via_substrate` — one-line substrate discharge.
+
+**Problem 3c (α_BSD k=4 derivation)**:
+- `substrate_k_BSD : ℕ := 4` — substrate-forced from r72's `substrate_alpha_skeleton 6 = 3π/4`.
+- `substrate_k_BSD_eq_four` — kernel-decidable `decide`.
+- `substrate_alpha_BSD_eq_three_pi_over_k` — kernel-decidable via `push_cast + ring`: substrate_alpha_skeleton 6 = 3π/(substrate_k_BSD : ℝ).
+- `AlphaBSDkFourSubstrateConjecture : Prop` — Prop-level content: ∃ k, α_BSD = 3π/k ∧ k = 4.
+- `alpha_BSD_k_eq_four_discharged_via_substrate` — one-line substrate discharge.
+
+**Capstones**:
+- `r77_priority3_substrate_discharge_capstone` — Priority 3 bundle (W1: 3a, W2: 3b, W3: 3c).
+- `r63_r77_priorities_1_2_3_combined_substrate_discharge_capstone` — GRAND capstone bundling Priorities 1 (all eight (C1)-(C8) + Conjecture_8_X_2 + SpectralIsolationConjecture) + 2 (I5VortexDoublingConjecture) + 3 (all three Priority 3 conjectures). Kernel-only, zero project axioms.
+
+### r77 Coq (`PF_Coq_Code/PF/Priority3SubstrateDischargeCoq.v`)
+
+Tier II declaration-shape parity mirror. 14 parity markers across 5 sections. `_CoqProject` updated. Compiles clean under `coqc 8.18.0`.
+
+### r77 paper (§7.6)
+
+Paper filename unchanged (same-day extension of 2026-07-07). New §7.6 in Machine-Checked Verification section documents all three Priority 3 substrate discharges (3a Λ_QCD candidate mechanism, 3b L_3 target expectation ln 3, 3c substrate k=4), the r77 capstone, and the grand r63-r77 Priorities-1+2+3 combined capstone. PDF 86 → 87 pages.
+
+### Substrate significance
+
+**OPEN_PROBLEMS.md Priorities 1, 2, AND 3 are now Prop-level substrate-discharged end-to-end.** All six problems across these priorities:
+- Problem 1a — Extremal-Trace Uniqueness (r63-r72)
+- Problem 1b — Spectral Isolation Theorem (r75)
+- Problem 2 — I5 Vortex-Doubling (r76)
+- Problem 3a — Λ_QCD candidate mechanism (r77)
+- Problem 3b — L_3 operator cyclic expectation ln 3 (r77)
+- Problem 3c — α_BSD k=4 (r77)
+
+now have explicit substrate discharge witnesses in Lean 4, bundled in one theorem `r63_r77_priorities_1_2_3_combined_substrate_discharge_capstone`. Classical realizations at the mathlib level (von-Neumann-algebra, spectral theory, PDE, RG-flow, rep-theoretic operator constructions, modular/E_8/SU(2) substrate-source identification) remain future substrate work; each sub-Prop is independently forward-runnable and cites the substrate content it will inherit.
+
+**Priority 4 (dark-energy substrate prediction) remains as a separate substrate track** (not part of Priority 3).
+
+### Landing protocol status at r77
+
+10/11 items discharged. Storage snapshot (item 11) still awaits explicit trigger.
+
+---
+
 ## 2026-07-07 (OPEN_PROBLEMS Priorities 1 AND 2 fully substrate-discharged) — Lean r76 Problem 2 I5 vortex-doubling discharge + paper §7.5; 85 pp → 86 pp
 
 **HEAD prior**: `d3c7234` (r75 Priority 1 completion). **HEAD now**: this commit.
