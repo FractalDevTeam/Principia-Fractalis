@@ -679,3 +679,4 @@ PF/SubstrateUHFCanonicalTraceCoq.v
 PF/SubstrateTracePairingCoq.v
 PF/SubstrateUHFBoundedTraceCoq.v
 PF/SubstrateUHFTraceLipschitzCoq.v
+PF/SubstrateUHFCompletionTraceCoq.v
