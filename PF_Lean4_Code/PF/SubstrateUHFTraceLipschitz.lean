@@ -279,5 +279,176 @@ theorem r85_substrate_HS_route_Lipschitz_capstone :
    fun {_} M => substrate_trace_norm_sq_le_dim_HS_norm_sq M,
    substrate_HS_implies_1_lipschitz⟩
 
+/-! ## §7 — r85b: kernel-verified HS-vs-op norm bound
+
+r85b closes the substrate residual left open by r85: the classical
+column-by-column proof of the Hilbert-Schmidt vs L²-operator-norm
+bound `‖M‖²_HS ≤ n · ‖M‖²_op`. The argument uses the mathlib
+`Matrix.l2_opNorm_mulVec` bound applied to each standard basis vector
+`EuclideanSpace.single j 1`:
+
+    ‖M *ᵥ e_j‖²_l2 = ∑_i ‖M i j‖²
+                   ≤ (‖M‖ · ‖e_j‖)²  (via l2_opNorm_mulVec)
+                   = ‖M‖²             (since ‖e_j‖ = 1)
+
+Summing over `j : Fin n` gives:
+
+    ‖M‖²_HS = ∑_{i,j} ‖M i j‖²
+            = ∑_j ∑_i ‖M i j‖²
+            ≤ ∑_j ‖M‖² = n · ‖M‖²
+
+which discharges `SubstrateHSNormBoundConjecture` and, together with
+the r85 Cauchy-Schwarz half + the r85 conditional implication,
+delivers the kernel-verified 1-Lipschitz bound. -/
+
+set_option maxHeartbeats 800000 in
+/-- **r85b.a: column norm-squared is bounded by the operator norm squared**.
+
+    For each column index `j : Fin n`, `∑_i ‖M i j‖² ≤ ‖M‖²` under the
+    L² operator norm. Kernel-proved via `Matrix.l2_opNorm_mulVec`
+    applied to `EuclideanSpace.single j 1`. -/
+theorem substrate_column_norm_sq_le_op_norm_sq {n : ℕ} [NeZero n]
+    (M : Matrix (Fin n) (Fin n) ℂ) (j : Fin n) :
+    ∑ i : Fin n, ‖M i j‖ ^ 2 ≤ ‖M‖ ^ 2 := by
+  set e_j : EuclideanSpace ℂ (Fin n) := EuclideanSpace.single j (1 : ℂ) with h_ej_def
+  have h_ej_norm : ‖e_j‖ = 1 := by
+    simp [h_ej_def, EuclideanSpace.norm_single]
+  set v : EuclideanSpace ℂ (Fin n) :=
+    (EuclideanSpace.equiv (Fin n) ℂ).symm (Matrix.mulVec M e_j) with h_v_def
+  -- Mathlib bound: ‖v‖ ≤ ‖M‖ * ‖e_j‖ = ‖M‖.
+  have h_bound : ‖v‖ ≤ ‖M‖ := by
+    have h := Matrix.l2_opNorm_mulVec M e_j
+    rw [h_ej_norm, mul_one] at h
+    exact h
+  -- Entrywise: v i = M i j.
+  have h_v_apply : ∀ i : Fin n, v i = M i j := by
+    intro i
+    have h_ej_apply :
+        ∀ k : Fin n, (e_j : Fin n → ℂ) k = (if k = j then (1 : ℂ) else 0) := by
+      intro k; rw [h_ej_def]; simp [EuclideanSpace.single_apply]
+    show Matrix.mulVec M e_j i = M i j
+    show ∑ k, M i k * (e_j : Fin n → ℂ) k = M i j
+    calc ∑ k, M i k * (e_j : Fin n → ℂ) k
+        = ∑ k, (if k = j then M i k * 1 else M i k * 0) := by
+          apply Finset.sum_congr rfl
+          intro k _
+          rw [h_ej_apply]
+          split_ifs <;> rfl
+      _ = ∑ k, (if k = j then M i k else 0) := by
+          apply Finset.sum_congr rfl
+          intro k _
+          split_ifs
+          · rw [mul_one]
+          · rw [mul_zero]
+      _ = M i j := by
+          rw [Finset.sum_ite_eq' Finset.univ j (fun k => M i k)]
+          simp
+  -- Norm-sq of v = ∑_i ‖v i‖² = ∑_i ‖M i j‖².
+  have h_norm_sq :
+      ‖v‖ ^ 2 = ∑ i : Fin n, ‖M i j‖ ^ 2 := by
+    rw [EuclideanSpace.norm_sq_eq]
+    apply Finset.sum_congr rfl
+    intro i _
+    rw [h_v_apply i]
+  -- Square the bound and conclude.
+  have h_bound_sq : ‖v‖ ^ 2 ≤ ‖M‖ ^ 2 :=
+    pow_le_pow_left₀ (norm_nonneg _) h_bound 2
+  linarith [h_norm_sq ▸ h_bound_sq]
+
+/-- **★★★ r85b MAIN: substrate HS-vs-op norm bound, kernel-proved ★★★**
+
+    `substrate_HS_norm_sq M ≤ n · ‖M‖²` under the L² operator norm.
+    Follows from `substrate_column_norm_sq_le_op_norm_sq` summed over
+    columns. Kernel-only [propext, Classical.choice, Quot.sound]. -/
+theorem substrate_HS_norm_sq_bound {n : ℕ} [NeZero n]
+    (M : Matrix (Fin n) (Fin n) ℂ) :
+    substrate_HS_norm_sq M ≤ n * ‖M‖ ^ 2 := by
+  unfold substrate_HS_norm_sq
+  -- ∑_i ∑_j ‖M i j‖² = ∑_j ∑_i ‖M i j‖² ≤ ∑_j ‖M‖² = n · ‖M‖²
+  calc (∑ i : Fin n, ∑ j : Fin n, ‖M i j‖ ^ 2)
+      = ∑ j : Fin n, ∑ i : Fin n, ‖M i j‖ ^ 2 := by rw [Finset.sum_comm]
+    _ ≤ ∑ _ : Fin n, ‖M‖ ^ 2 :=
+        Finset.sum_le_sum (fun j _ => substrate_column_norm_sq_le_op_norm_sq M j)
+    _ = n * ‖M‖ ^ 2 := by
+        rw [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+
+/-- **r85b: substrate discharge of SubstrateHSNormBoundConjecture**.
+
+    The r85 Prop-level residual is now kernel-proved. -/
+theorem substrate_HS_bound_holds : SubstrateHSNormBoundConjecture := by
+  intro n _ M
+  exact substrate_HS_norm_sq_bound M
+
+/-- **★★★ r85b: KERNEL-PROVED 1-LIPSCHITZ BOUND OF THE NORMALIZED TRACE ★★★**
+
+    `‖normalized_matrix_trace M‖ ≤ ‖M‖` under the L² operator norm.
+    Combines the r85 Cauchy-Schwarz half + the r85b HS-vs-op bound +
+    the r85 conditional implication into a fully unconditional
+    substrate 1-Lipschitz bound.
+
+    This is the essential analytic prerequisite for extending the
+    substrate normalized trace to `TimelessFieldCompletion` via
+    `UniformSpace.Completion.extension` (r86 substrate target). -/
+theorem substrate_normalized_trace_bound {n : ℕ} [NeZero n]
+    (M : Matrix (Fin n) (Fin n) ℂ) :
+    ‖normalized_matrix_trace M‖ ≤ ‖M‖ :=
+  substrate_HS_implies_1_lipschitz substrate_HS_bound_holds M
+
+/-- **r85b: substrate discharge of SubstrateNormalizedTrace1LipschitzConjecture**. -/
+theorem substrate_1_lipschitz_holds : SubstrateNormalizedTrace1LipschitzConjecture := by
+  intro n _ M
+  exact substrate_normalized_trace_bound M
+
+/-- **r85b: combined substrate discharge of SubstrateHSAndLipschitzConjecture**. -/
+theorem substrate_HS_and_1_lipschitz_holds : SubstrateHSAndLipschitzConjecture :=
+  ⟨substrate_HS_bound_holds, substrate_1_lipschitz_holds⟩
+
+/-! ## §8 — r85b substrate full Lipschitz capstone -/
+
+/-- **★★★ r85b SUBSTRATE FULL 1-LIPSCHITZ CAPSTONE ★★★**
+
+    Bundles the r85b closure of the r85 substrate residual:
+
+      (X1) `substrate_column_norm_sq_le_op_norm_sq` — column-by-column
+           bound `∑_i ‖M i j‖² ≤ ‖M‖²` via `Matrix.l2_opNorm_mulVec`
+           on `EuclideanSpace.single j 1`.
+      (X2) `substrate_HS_norm_sq_bound` — **the HS-vs-op norm bound**
+           `substrate_HS_norm_sq M ≤ n · ‖M‖²`, kernel-proved.
+      (X3) `substrate_HS_bound_holds : SubstrateHSNormBoundConjecture`.
+      (X4) **`substrate_normalized_trace_bound`** —
+           **THE 1-LIPSCHITZ BOUND**
+           `‖normalized_matrix_trace M‖ ≤ ‖M‖`, kernel-proved (unconditional).
+      (X5) `substrate_1_lipschitz_holds : SubstrateNormalizedTrace1LipschitzConjecture`.
+      (X6) `substrate_HS_and_1_lipschitz_holds : SubstrateHSAndLipschitzConjecture`.
+
+    Kernel-only [propext, Classical.choice, Quot.sound]. Zero project
+    axioms. Zero sorries.
+
+    Substrate significance: r85b closes the r85 residual by supplying
+    the classical column-by-column proof of the HS-vs-op norm bound
+    via `Matrix.l2_opNorm_mulVec` on standard basis vectors. Together
+    with the r85 Cauchy-Schwarz trace-vs-HS half + r85 conditional
+    implication, this delivers the FULLY UNCONDITIONAL 1-Lipschitz
+    bound of the substrate normalized matrix trace — the essential
+    analytic prerequisite for extending the trace to
+    `TimelessFieldCompletion` via `UniformSpace.Completion.extension`
+    (r86 substrate target). -/
+theorem r85b_substrate_full_lipschitz_capstone :
+    (∀ {n : ℕ} [NeZero n] (M : Matrix (Fin n) (Fin n) ℂ) (j : Fin n),
+      ∑ i : Fin n, ‖M i j‖ ^ 2 ≤ ‖M‖ ^ 2) ∧
+    (∀ {n : ℕ} [NeZero n] (M : Matrix (Fin n) (Fin n) ℂ),
+      substrate_HS_norm_sq M ≤ n * ‖M‖ ^ 2) ∧
+    SubstrateHSNormBoundConjecture ∧
+    (∀ {n : ℕ} [NeZero n] (M : Matrix (Fin n) (Fin n) ℂ),
+      ‖normalized_matrix_trace M‖ ≤ ‖M‖) ∧
+    SubstrateNormalizedTrace1LipschitzConjecture ∧
+    SubstrateHSAndLipschitzConjecture :=
+  ⟨fun {_} _ M j => substrate_column_norm_sq_le_op_norm_sq M j,
+   fun {_} _ M => substrate_HS_norm_sq_bound M,
+   substrate_HS_bound_holds,
+   fun {_} _ M => substrate_normalized_trace_bound M,
+   substrate_1_lipschitz_holds,
+   substrate_HS_and_1_lipschitz_holds⟩
+
 end SubstrateUHFTraceLipschitz
 end PrincipiaTractalis
