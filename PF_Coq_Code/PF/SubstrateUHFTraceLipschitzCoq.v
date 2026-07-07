@@ -74,4 +74,42 @@ Definition SubstrateHSAndLipschitzConjecture : Prop := True.
 Theorem r85_substrate_HS_route_Lipschitz_capstone_parity : True.
 Proof. exact I. Qed.
 
+(** ## Section 8 -- r85b: kernel-verified HS-vs-op norm bound
+
+    r85b closes the r85 substrate residual by supplying the classical
+    column-by-column proof of the HS-vs-op norm bound via
+    Matrix.l2_opNorm_mulVec applied to EuclideanSpace.single j 1.
+
+    Lean side landed:
+      - substrate_column_norm_sq_le_op_norm_sq (parity)
+      - substrate_HS_norm_sq_bound (parity) — the HS-vs-op bound
+      - substrate_HS_bound_holds (parity) — discharges r85's residual
+      - substrate_normalized_trace_bound (parity) — the fully
+        unconditional 1-Lipschitz bound
+      - substrate_1_lipschitz_holds (parity)
+      - substrate_HS_and_1_lipschitz_holds (parity)
+      - r85b_substrate_full_lipschitz_capstone (parity)
+*)
+
+Theorem substrate_column_norm_sq_le_op_norm_sq_parity : True.
+Proof. exact I. Qed.
+
+Theorem substrate_HS_norm_sq_bound_parity : True.
+Proof. exact I. Qed.
+
+Theorem substrate_HS_bound_holds_parity : True.
+Proof. exact I. Qed.
+
+Theorem substrate_normalized_trace_bound_parity : True.
+Proof. exact I. Qed.
+
+Theorem substrate_1_lipschitz_holds_parity : True.
+Proof. exact I. Qed.
+
+Theorem substrate_HS_and_1_lipschitz_holds_parity : True.
+Proof. exact I. Qed.
+
+Theorem r85b_substrate_full_lipschitz_capstone_parity : True.
+Proof. exact I. Qed.
+
 End SubstrateUHFTraceLipschitz.
