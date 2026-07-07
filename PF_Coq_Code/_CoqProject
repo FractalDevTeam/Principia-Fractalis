@@ -669,3 +669,4 @@ PF/Empirical/Cohen2025_CorroboratingEvidence_NamedAnchors_2026_06_19Coq.v
 PF/SubstrateTimelessFieldNormCoq.v
 PF/SubstrateTimelessFieldCompletionCoq.v
 PF/ExtremalTraceUniquenessProofPlanCoq.v
+PF/SpectralIsolationSubstrateDischargeCoq.v
