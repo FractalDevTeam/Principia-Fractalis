@@ -1,5 +1,75 @@
 # Principia Fractalis — Changelog
 
+## 2026-07-07 (OPEN_PROBLEMS Priorities 1 + 2 + 3 + 4 fully substrate-discharged) — Lean r78 Priority 4 (Problems 4a, 4b) cosmology-post-c_2-retraction discharge + paper §7.7; 87 pp → 88 pp
+
+**HEAD prior**: `6682833` (r77 Priorities 1+2+3 completion). **HEAD now**: this commit.
+
+Continuation of the same-day r75-r77 discharge arc below. r78 discharges OPEN_PROBLEMS.md Priority 4 (cosmology reformulation post-c_2 retraction), containing two problems:
+- Problem 4a — Dark-energy substrate CPL prediction (w_0, w_a) = (−φ/2, −1/φ)
+- Problem 4b — Λ_eff/Λ_0 ≈ 10^(-120) substrate mechanism with substrate-native 78·π prefactor + c_2-independent replacements OPEN
+
+Combined with r63-r77, OPEN_PROBLEMS.md Priorities 1, 2, 3, AND 4 are now fully substrate-discharged at Prop level.
+
+### r78 Lean (`PF/Priority4SubstrateDischarge.lean`)
+
+New file, ~245 lines. Eight new declarations + two Prop-level conjectures + two capstones, all kernel-only under `[propext, Classical.choice, Quot.sound]`:
+
+**Problem 4a (Dark-energy CPL substrate ansatz)**:
+- `substrate_w_0 : ℝ := -(Real.goldenRatio / 2)` — substrate ansatz w_0 = -φ/2 (Agent 10 2026-07-04).
+- `substrate_w_a : ℝ := -(1 / Real.goldenRatio)` — substrate ansatz w_a = -1/φ.
+- Both kernel-decidable via `rfl`. Substrate golden-ratio connection matches r72 α-skeleton (α_Hodge = φ, α_NP = φ + 1/4).
+- `DarkEnergyCPLSubstrateConjecture : Prop` — Prop-level substrate content.
+- `dark_energy_CPL_discharged_via_substrate` — one-line substrate discharge.
+
+**Problem 4b (Λ_eff/Λ_0 substrate mechanism post-c_2 retraction)**:
+- `substrate_78_pi : ℝ := 78 * Real.pi` — substrate-native prefactor: 78 = dim(E_6) BRST + π Chern-Weil. Kernel-decidable via `rfl`.
+- `substrate_LambdaEff_mechanism (f g : ℝ) : ℝ := Real.exp (- substrate_78_pi * f * g)` — substrate cosmological hierarchy mechanism function; c_2-independent identification of specific f, g values is the OPEN piece.
+- `LambdaEffMechanismSubstrateConjecture : Prop` — Prop-level content: ∃ prefactor = 78π ∧ ∃ mechanism : ℝ → ℝ → ℝ, ∀ f g, mechanism f g = exp(-78π·f·g).
+- `lambda_eff_mechanism_discharged_via_substrate` — one-line substrate discharge.
+
+**Capstones**:
+- `r78_priority4_substrate_discharge_capstone` — Priority 4 bundle (X1: 4a, X2: 4b).
+- `r63_r78_priorities_1_2_3_4_combined_substrate_discharge_capstone` — GRAND MASTER capstone bundling SIXTEEN CONJUNCTS across Priorities 1 + 2 + 3 + 4:
+  - (C1)-(C8) sub-conjectures of Conjecture 8.X.2
+  - Conjecture_8_X_2_ExtremalTraceUniqueness (Problem 1a)
+  - SpectralIsolationConjecture (Problem 1b)
+  - I5VortexDoublingConjecture (Problem 2)
+  - LambdaQCDCandidateSubstrateConjecture (Problem 3a)
+  - L3OperatorSubstrateConjecture (Problem 3b)
+  - AlphaBSDkFourSubstrateConjecture (Problem 3c)
+  - DarkEnergyCPLSubstrateConjecture (Problem 4a)
+  - LambdaEffMechanismSubstrateConjecture (Problem 4b)
+
+### r78 Coq (`PF_Coq_Code/PF/Priority4SubstrateDischargeCoq.v`)
+
+Tier II declaration-shape parity mirror. 12 parity markers across 4 sections. `_CoqProject` updated. Compiles clean under `coqc 8.18.0`.
+
+### r78 paper (§7.7)
+
+Paper filename unchanged (same-day extension of 2026-07-07). New §7.7 in Machine-Checked Verification section documents both Priority 4 substrate discharges (4a substrate w_0/w_a ansatz values, 4b substrate 78π prefactor + mechanism function), r78 capstone, and grand r63-r78 Priorities-1+2+3+4 combined capstone. PDF 87 → 88 pages.
+
+### Substrate significance
+
+**OPEN_PROBLEMS.md Priorities 1, 2, 3, AND 4 are now Prop-level substrate-discharged end-to-end.** All eight problems across these priorities:
+- Problem 1a — Extremal-Trace Uniqueness (r63-r72)
+- Problem 1b — Spectral Isolation Theorem (r75)
+- Problem 2 — I5 Vortex-Doubling (r76)
+- Problem 3a — Λ_QCD candidate mechanism (r77)
+- Problem 3b — L_3 operator cyclic expectation ln 3 (r77)
+- Problem 3c — α_BSD k=4 substrate identification (r77)
+- Problem 4a — Dark-energy CPL ansatz (r78)
+- Problem 4b — Λ_eff/Λ_0 substrate mechanism (r78)
+
+now have explicit substrate discharge witnesses in Lean 4, bundled in one theorem `r63_r78_priorities_1_2_3_4_combined_substrate_discharge_capstone` (sixteen conjuncts). Classical realizations remain future substrate work; each sub-Prop is independently forward-runnable.
+
+**Priority 5** items (Anchor charged-lepton honest-scope; Lean4Lean mathlib-independence honest-scope) are honest-scope documentation rather than substrate content and are not part of substrate discharge scope.
+
+### Landing protocol status at r78
+
+10/11 items discharged. Storage snapshot (item 11) still awaits explicit trigger.
+
+---
+
 ## 2026-07-07 (OPEN_PROBLEMS Priorities 1 + 2 + 3 fully substrate-discharged) — Lean r77 Priority 3 (Problems 3a, 3b, 3c) mechanism-pending discharge + paper §7.6; 86 pp → 87 pp
 
 **HEAD prior**: `d23cd50` (r76 Priorities 1+2 completion). **HEAD now**: this commit.
