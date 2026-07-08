@@ -686,3 +686,4 @@ PF/SubstrateUHFTraceOnSkeletonMatricesCoq.v
 PF/SubstrateUHFTraceOnLambdaMatrixClosedFormCoq.v
 PF/SubstrateUHFTraceIsTracialCoq.v
 PF/SubstrateUHFTraceIsStarPreservingCoq.v
+PF/SubstrateUHFTraceIsPositiveCoq.v
