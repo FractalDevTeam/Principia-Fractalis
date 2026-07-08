@@ -683,3 +683,4 @@ PF/SubstrateUHFCompletionTraceCoq.v
 PF/SubstrateUHFPreTraceDirectLimitCoq.v
 PF/SubstrateUHFTraceOnMatrixProjectionsCoq.v
 PF/SubstrateUHFTraceOnSkeletonMatricesCoq.v
+PF/SubstrateUHFTraceOnLambdaMatrixClosedFormCoq.v
