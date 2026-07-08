@@ -685,3 +685,4 @@ PF/SubstrateUHFTraceOnMatrixProjectionsCoq.v
 PF/SubstrateUHFTraceOnSkeletonMatricesCoq.v
 PF/SubstrateUHFTraceOnLambdaMatrixClosedFormCoq.v
 PF/SubstrateUHFTraceIsTracialCoq.v
+PF/SubstrateUHFTraceIsStarPreservingCoq.v
