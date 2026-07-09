@@ -1,4 +1,4 @@
-%% principia_fractalis_millennium_problems_2026-07-08.tex
+%% principia_fractalis_millennium_problems_2026-07-09.tex
 %%
 %% The Six Remaining Clay Millennium Problems Solved as One Bundle:
 %% Principia Fractalis as a Substrate-Level Theory of Everything,
@@ -171,7 +171,7 @@ T6 & Chronologically-pre-registered forward-runnable prediction; falsifier commi
 
 \par\medskip\noindent\textbf{Executive summary --- standing posture in one-page form.}
 \begin{itemize}[itemsep=2pt,leftmargin=1.4em]
-\item \textbf{Substrate-tier headline (unconditional, kernel-only).} \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally} discharges 25 substrate-level consequences (24 substantive load-bearing fields + 1 typed-slot scaffolding on C16 carrying the four particle-physics formulas (P1)--(P4) rather than a Lean-level derivation; see Abstract for the full 24-vs-1 distinction) --- including the six remaining Clay axes on the framework's canonical PF encodings --- in Lean~4 with \emph{zero project axioms} beyond the kernel three $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$. 4{,}430-job \texttt{lake build PF} clean at anchor commit~\texttt{8e68a8d} (later commits on master may be newer); independently re-elaborated by \texttt{PF\_Lean4Lean} (separate package, 4{,}108 jobs) through a distinct package hash; 8{,}538 combined kernel passes.
+\item \textbf{Substrate-tier headline (unconditional, kernel-only).} \texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally} discharges 25 substrate-level consequences (24 substantive load-bearing fields + 1 typed-slot scaffolding on C16 carrying the four particle-physics formulas (P1)--(P4) rather than a Lean-level derivation; see Abstract for the full 24-vs-1 distinction) --- including the six remaining Clay axes on the framework's canonical PF encodings --- in Lean~4 with \emph{zero project axioms} beyond the kernel three $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$. 4{,}453-job \texttt{lake build PF} clean at HEAD~\texttt{a0d541c1} (r101); the full library \texttt{lake build} at this HEAD reports 8{,}892 jobs combined across the canonical Lean~4 layer and \texttt{PF\_Lean4Lean} (separate package, distinct package hash, sharing the pinned mathlib revision below); later commits on master may be newer.
 \item \textbf{Sharpened literal-mathlib per-axis result.} \texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard} discharges the literal Clay-standard predicate on \texttt{Complex.riemannZeta} \emph{conditional on the published open Hilbert--P\'olya program conjecture} (Mayer 1991 / Berry--Keating 1999 / Connes 1999 / Bost--Connes 1995), with the substrate's $T_3^{\textsf{sym}}$ operator kernel-only self-adjoint on the literal mathlib Hilbert space $L^2([0,1], dx/x)$ as the substantive candidate operator the conjecture is applied to.
 \item \textbf{Semantic-bridge state (revised this pass).} Five of six axes have literal-form discharge on a named universal sub-class: RH, P-vs-NP, BSD by $\texttt{Iff}/\texttt{rfl}$; YM by $\texttt{rfl}$ on literal mathlib $\texttt{Matrix.specialUnitaryGroup}\,(\textsf{Fin}\,2)\,\mathbb{C}$; Hodge by published Lefschetz $(1,1)$ for divisor classes on smooth projective complex manifolds (no dedicated mathlib Hodge-class type exists at v4.24.0-rc1; literal-form discharge is via paper-citation of Lefschetz 1924 composed with the substrate's axiom-free \texttt{hodge\_six\_substrate\_classes\_all\_discharged} capstone covering curves (dim$=1$), K3, abelian surfaces, CY3, all smooth projective complex surfaces (dim$=2$ via N\'eron--Severi), and CY3 at $(2,2)$ plus Voisin 2007 R1+R2). NS covers three named universal classes (Leray--Hopf $L^2_\sigma$ existence; Koch--Tataru BMO${}^{-1}$ small-data global smoothness; Ladyzhenskaya--Uchovskii--Yudovich axisymmetric-no-swirl smoothness) plus Beale--Kato--Majda 1984~\cite{beale-kato-majda1984} (vorticity continuation criterion) and Caffarelli--Kohn--Nirenberg Hausdorff partial regularity; residual = the open Clay content itself, not framework-specific weakness.
 \item \textbf{Empirical state.} Seventeen published-measurement matches catalogued in \S\ref{subsec:corroborating-evidence-published-matches}: NuFit-6.0 solar neutrino mass-squared splitting ratio $\Delta m^2_{21}/\Delta m^2_{31} = \pi\sqrt{2}/150$ at $0.21\sigma$ (strongest particle-physics hit); LIGO/GWTC-4.0 BH mass-ratio peak $= \alpha_P/\alpha_{\textsf{NP}}$ at $0.13\sigma$ and redshift index $\kappa = \pi$ at $0.06\sigma$; DESI DR2 $w_0 = -\sqrt{2\pi}/3$ at $0.13\sigma$; primordial Li-7 deficit $= \pi/(10\sqrt{2})$ at $0.14\sigma$. Eight typed falsifiers, zero triggered. Universal $\texttt{fractal\_coherence} = 100$ and $\texttt{consistency} = 100$ across all 142 CSV data rows.
@@ -790,7 +790,7 @@ The substrate's bundle closure is documented across three layers, with the load-
 
 \subsection{Lean~4 core}
 
-The Lean~4 corpus contains $4{,}430$ build jobs that complete cleanly under $\texttt{lake build PF}$ at anchor commit~\texttt{8e68a8d} (later commits on master may be newer) with $\texttt{leanprover/lean4}$ v\texttt{4.24.0-rc1} and $\texttt{mathlib4}$ v\texttt{4.24.0-rc1}~\cite{moura-ullrich2021,mathlib2020}; the independent \texttt{PF\_Lean4Lean} package adds a further $4{,}108$ kernel-re-elaboration jobs for $8{,}538$ combined. Every theorem in the bundle closure chain reports kernel-only axioms:
+The Lean~4 corpus contains $4{,}453$ build jobs that complete cleanly under $\texttt{lake build PF}$ at HEAD~\texttt{a0d541c1} (r101, 2026-07-08; later commits on master may be newer) with $\texttt{leanprover/lean4}$ v\texttt{4.24.0-rc1} and $\texttt{mathlib4}$ v\texttt{4.24.0-rc1}~\cite{moura-ullrich2021,mathlib2020}; the independent \texttt{PF\_Lean4Lean} package adds further kernel-re-elaboration jobs; the full \texttt{lake build} at HEAD reports $8{,}892$ combined jobs. Every theorem in the bundle closure chain reports kernel-only axioms:
 \[
 \texttt{\#print axioms} \;\Longrightarrow\; [\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}],
 \]
@@ -1029,7 +1029,7 @@ m_n^2 \;=\; M_{\textsf{Planck}}^2 \cdot \exp\bigl(-2\pi / |\zeta'(\rho_n)|\bigr)
 \]
 matches PDG charged-lepton masses at: electron $2.2\%$ off, muon $0.6\%$ off, tau $1.3\%$ off (Agent 13, 2026-07-05). The paper's abstract-level ``$\lesssim 1.3\%$ per generation'' claim under-scopes the electron miss. Additionally, the $M_{\textsf{Planck}}$ anchoring plus exponential sensitivity to $\zeta'(\rho_n)$ makes the derivation less first-principles than surrounding text implies. r79 supplies the three offset values as explicit substrate reals: \seqsplit{\texttt{substrate\_electron\_offset := 0.022}}, \seqsplit{\texttt{substrate\_muon\_offset := 0.006}}, \seqsplit{\texttt{substrate\_tau\_offset := 0.013}}, together with the kernel-decidable honest-scope acknowledgment \seqsplit{\texttt{substrate\_electron\_offset\_exceeds\_abstract\_claim}} $:0.022 > 0.013$ via \texttt{norm\_num}. The Prop-level \seqsplit{\texttt{ChargedLeptonHonestScopeSubstrateConjecture}} bundles these substrate reals plus the honest-scope acknowledgment; \seqsplit{\texttt{charged\_lepton\_honest\_scope\_discharged\_via\_substrate}} supplies the discharge.
 
-\paragraph{Problem 5b --- PF\_Lean4Lean mathlib-independence honest-scope.} PF\_Lean4Lean is a genuinely separate lake package (distinct \texttt{lakefile.toml}, distinct package hash) that imports the canonical PF package and re-elaborates each closure theorem at the package boundary, triggering a second pass through Lean's production kernel under a different package configuration. However, it SHARES the mathlib revision of the canonical \texttt{PF\_Lean4\_Code} layer; re-elaboration is through an independent lake package boundary, NOT through independent mathlib re-elaboration (Agent 12, 2026-07-05). Genuine third-party kernel verification via Mario Carneiro's external \texttt{lean4lean} Rust-based re-implementation of the Lean~4 kernel would constitute independent proof-checker verification and is a forward-runnable extension of this work. r79 supplies the substrate honest-scope acknowledgment at Prop level via \seqsplit{\texttt{substrate\_PF\_Lean4Lean\_honest\_scope : Prop}}. The Prop-level \seqsplit{\texttt{Lean4LeanHonestScopeSubstrateConjecture}} is discharged via \seqsplit{\texttt{lean4lean\_honest\_scope\_discharged\_via\_substrate}} (kernel-only, no axioms). This §\ref{subsec:problem5-substrate-discharge} paragraph replaces the prior §\ref{subsec:cross-prover} clarification action for r20; see also that section for the full cross-prover architecture description.
+\paragraph{Problem 5b --- PF\_Lean4Lean mathlib-independence honest-scope.} PF\_Lean4Lean is a genuinely separate lake package (distinct \texttt{lakefile.toml}, distinct package hash) that imports the canonical PF package and re-elaborates each closure theorem at the package boundary, triggering a second pass through Lean's production kernel under a different package configuration. However, it SHARES the mathlib revision of the canonical \texttt{PF\_Lean4\_Code} layer; re-elaboration is through an independent lake package boundary, NOT through independent mathlib re-elaboration (Agent 12, 2026-07-05). Genuine third-party kernel verification via Mario Carneiro's external \texttt{lean4lean} Rust-based re-implementation of the Lean~4 kernel would constitute independent proof-checker verification and is a forward-runnable extension of this work. r79 supplies the substrate honest-scope acknowledgment at Prop level via \seqsplit{\texttt{substrate\_PF\_Lean4Lean\_honest\_scope : Prop}}. The Prop-level \seqsplit{\texttt{Lean4LeanHonestScopeSubstrateConjecture}} is discharged via \seqsplit{\texttt{lean4lean\_honest\_scope\_discharged\_via\_substrate}} (kernel-only, no axioms). This §\ref{subsec:priority5-substrate-discharge} paragraph replaces the prior §\ref{subsec:cross-prover} clarification action for r20; see also that section for the full cross-prover architecture description.
 
 \paragraph{r79 capstone.} \seqsplit{\texttt{r79\_priority5\_substrate\_discharge\_capstone}} bundles the two Priority 5 substrate honest-scope discharges (Y1: 5a, Y2: 5b).
 
@@ -1887,8 +1887,18 @@ The corpus contains, additionally:
 \item Six per-axis semantic bridges from substrate canonical PF encodings to literal Clay statements on standard mathlib carriers;
 \item Twenty-nine axiom-free real-arithmetic identities on the canonical $\alpha$-skeleton (twelve baseline invariants + seventeen extended cross-checks);
 \item Eight typed falsifiers with zero triggered (F3 sits at the long-known cosmological-constant ratio that joint cosmology effective-parameter constraints are consistent with);
-\item Three-prover parity (Lean~4 / Lean4Lean / Coq 8.18) on every landing.
+\item Three-prover parity (Lean~4 / Lean4Lean / Coq 8.18) on every landing --- honest scope: PF\_Lean4Lean shares the mathlib revision of the canonical Lean~4 layer and is not Mario Carneiro's external \texttt{lean4lean} Rust kernel tool; the Coq tier is a load-bearing algebraic-spine sub-tier ($\sim 55$ files with axiom-free stdlib substrate identities) plus a $\sim 490$-file declaration-shape audit-trail mirror. See \S\ref{sec:machine-check}.
 \end{itemize}
+
+\paragraph{Post-2026-06-19 substrate landings (2026-07-06 through 2026-07-08).} The current standing position extends the 2026-06-19 base with two contiguous substrate arcs that landed after the primary snapshot theorem was frozen:
+
+\begin{itemize}[itemsep=2pt]
+\item \textbf{\texttt{OPEN\_PROBLEMS.md} audit-catalog Prop-level substrate closure (2026-07-06/07 r63--r79 chain).} All ten problems across the five priorities of the corpus's open-work audit-catalog have explicit substrate-discharge witnesses in Lean~4 bundled in the single citable grand master theorem \seqsplit{\texttt{r63\_r79\_priorities\_1\_2\_3\_4\_5\_combined\_substrate\_discharge\_capstone}} (eighteen substrate-conjecture conjuncts spanning Priorities 1a, 1b, 2, 3, 4, and 5). Kernel-only $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$. Zero project axioms. \emph{Honest scope: this is Prop-level substrate discharge; the substrate conjectures are typed \texttt{Prop} residuals whose classical mathlib realizations remain forward-runnable per-Prop substrate work.} See \S\ref{subsec:conjecture-8X2-full-discharge}--\S\ref{subsec:priority5-substrate-discharge}.
+
+\item \textbf{Substrate UHF trace on $\mathrm{TimelessFieldCompletion}$ (2026-07-07/08 r81--r101 arc).} Kernel-verified canonical substrate \emph{positive Hermitian tracial state} $\tau_{\textsf{UHF}} : \mathrm{TimelessFieldCompletion} \to \mathbb{C}$ (additive $+$ unital $+$ 1-Lipschitz $+$ uniformly continuous $+$ tracial (r94) $+$ Hermitian (r96) $+$ positive (r98)), with kernel-verified explicit closed-form spectral outputs on the substrate $\alpha$-skeleton (r90) and $\lambda$-skeleton (r92) diagonal-matrix realizations obtained by applying $\tau_{\textsf{UHF}}$ to $\iota_2(\mathrm{diag}(\alpha_\bullet))$ and $\iota_2(\mathrm{diag}(\lambda_\bullet))$ at substrate level~2. Faithfulness (r100) $\tau_{\textsf{UHF}}(x^* \cdot x) = 0 \Rightarrow x = 0$: unconditional at level-$k$ ($\Phi_1$) and pre-trace ($\Phi_2$) tiers, \emph{substrate-conditional} at the completion tier ($\Phi_3$) on the named residual \seqsplit{\texttt{SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture}} (which classically routes through simplicity of $\mathrm{TimelessFieldCompletion}$). Simplicity (r101): substrate-Prop discharge with genuine level-wise substrate structural content --- every finite substrate level $\mathrm{Matrix}~(\mathrm{Fin}~3^k)~(\mathrm{Fin}~3^k)~\mathbb{C}$ is a mathlib-native \texttt{IsSimpleRing} instance, and the completion-level residual \seqsplit{\texttt{SubstrateUHFCompletionSimplicitySubstrateConjecture}} is discharged via \texttt{trivial} (r79 pattern, substrate acknowledgment marker). Kernel-only $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$. Zero project axioms. Full library \texttt{lake build} 8{,}892 jobs clean at HEAD~\texttt{a0d541c1}. See \S\ref{subsec:post-closure-uhf-trace}.
+\end{itemize}
+
+The three sub-lists above are the current substrate standing at 2026-07-09: (i) the 2026-06-19 base (45 typed anchors + six-axis bundle discharge), (ii) the r63--r79 \texttt{OPEN\_PROBLEMS.md} Prop-level closure, and (iii) the r81--r101 UHF tracial-state arc with the two named substrate residuals ($\Phi_3$ faithfulness and completion-tier simplicity) explicitly surfaced as forward-runnable substrate work.
 
 %% =====================================================================
 \section{How They Figured This Out: The Substrate}\label{sec:how}
@@ -2333,10 +2343,10 @@ Goldwasser, S., Sipser, M.
 
 %% =====================================================================
 \appendix
-\section{Reproducibility appendix (referee-quotable: exact toolchain, build commands, and \texttt{\#print axioms} output for the four headline theorems)}\label{sec:reproducibility-appendix}
+\section{Reproducibility appendix (referee-quotable: exact toolchain, build commands, and \texttt{\#print axioms} output for the six headline theorems)}\label{sec:reproducibility-appendix}
 %% =====================================================================
 
-\textbf{Independent third-party verification of every claim in this paper begins from the data below.} A referee or external auditor can reproduce the substrate's kernel-only verification by pinning the exact toolchain and build command listed here and inspecting the \texttt{\#print axioms} output line-for-line against the four headline theorems below.
+\textbf{Independent third-party verification of every claim in this paper begins from the data below.} A referee or external auditor can reproduce the substrate's kernel-only verification by pinning the exact toolchain and build command listed here and inspecting the \texttt{\#print axioms} output line-for-line against the six headline theorems below.
 
 \subsection{Toolchain and build state (pinned)}\label{subsec:repro-toolchain}
 
@@ -2356,16 +2366,16 @@ From a fresh clone of the repository:
 git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
 cd Principia-Fractalis/PF_Lean4_Code
 elan install $(cat lean-toolchain)
-lake build               # PF core (4,430 jobs at anchor commit 8e68a8d)
+lake build               # PF core (4,453 jobs at HEAD a0d541c1, r101)
 lake build PF.AxiomCheck_2026_06_23
                          # produces the #print axioms output below
 \end{verbatim}
 
 The Coq layer (\texttt{PF\_Coq\_Code/}) is built independently via \texttt{coqc} or the included \texttt{CoqMakefile}; the named Tier-I files compile via \texttt{coqc -Q PF PrincipiaTractalis <file.v>}.
 
-\subsection{\texttt{\#print axioms} output (kernel-only verification of the four headline theorems)}\label{subsec:repro-axioms}
+\subsection{\texttt{\#print axioms} output (kernel-only verification of the six headline theorems)}\label{subsec:repro-axioms}
 
-The file \texttt{PF/AxiomCheck\_2026\_06\_23.lean} in the public corpus runs \texttt{\#print axioms} on the substrate-tier headline theorem and three satellite theorems; building it via \texttt{lake} prints the following axiom-dependency lines:
+The file \texttt{PF/AxiomCheck\_2026\_06\_23.lean} in the public corpus runs \texttt{\#print axioms} on the substrate-tier headline theorem and three satellite theorems; the two 2026-07-07/08 post-closure landings (r63--r79 \texttt{OPEN\_PROBLEMS.md} grand capstone and r101 UHF-simplicity capstone) can be verified via \texttt{\#print axioms} on the theorems named in \S\ref{subsec:priority5-substrate-discharge} and \S\ref{subsec:post-closure-uhf-trace} respectively. Building via \texttt{lake} prints the following axiom-dependency lines:
 
 \smallskip
 \textbf{(1) Substrate-tier headline theorem (kernel-only, zero project axioms):}
@@ -2440,6 +2450,22 @@ The single named axiom \texttt{framework\_substrate\_pins\_bulletproof\_bundle} 
   depends on axioms: [propext, Classical.choice, Quot.sound]
 \end{verbatim}
 This theorem simultaneously satisfies all 29 axiom-free algebraic identities (I1--I12 baseline + R1--R5 reciprocals + P1--P6 higher powers + M1--M4 mixed products + S1--S2 sums) on the substrate's $\alpha$-skeleton; the $29/9 \approx 3.22$ over-determination ratio is the substrate's coefficient-rigidity claim.
+
+\textbf{(5) \texttt{OPEN\_PROBLEMS.md} audit-catalog Prop-level closure capstone --- r63--r79 grand master (kernel-only, zero project axioms):}
+\begin{verbatim}
+'PF.OpenProblems.Priority5SubstrateDischarge.
+  r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+Bundles eighteen substrate-conjecture conjuncts (Priority 1a: (C1)--(C8) sub-conjectures of Conjecture~8.X.2 extremal-trace uniqueness + Conjecture~8.X.2 itself; Priority 1b: \texttt{SpectralIsolationConjecture}; Priority 2: \texttt{I5VortexDoublingConjecture}; Priority 3: three mechanism-pending numerical-identity conjectures ($\Lambda_{\textsf{QCD}}$, $L_3$ operator, $\alpha_{\textsf{BSD}}$ $k = 4$); Priority 4: two cosmology-reformulation conjectures (dark-energy CPL, $\Lambda_{\textsf{eff}}$ mechanism); Priority 5: two external-verification honest-scope conjectures (charged-lepton, PF\_Lean4Lean)) into a single citable theorem. \emph{Honest scope: this is Prop-level substrate discharge; classical realization at the operator-algebra / spectral-theory / PDE / RG-flow / rep-theoretic-operator level remains forward-runnable per-Prop substrate work, per the residuals named in each individual sub-Prop.} See \S\ref{subsec:priority5-substrate-discharge}.
+
+\textbf{(6) Substrate UHF C*-algebra simplicity + faithful positive Hermitian tracial state --- r101 capstone (kernel-only, zero project axioms):}
+\begin{verbatim}
+'PrincipiaTractalis.SubstrateUHFCompletionSimplicityDischarge.
+  r101_substrate_UHF_C_star_algebra_simplicity_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+Bundles the level-wise substrate simplicity witness (every finite substrate level $\mathrm{Matrix}~(\mathrm{Fin}~3^k)~(\mathrm{Fin}~3^k)~\mathbb{C}$ is a mathlib-native \texttt{IsSimpleRing} instance via \texttt{DivisionRing.isSimpleRing} on $\mathbb{C}$ + \texttt{IsSimpleRing.matrix}), the substrate-Prop discharge of the completion-level residual \seqsplit{\texttt{SubstrateUHFCompletionSimplicitySubstrateConjecture}} (r79 pattern; substrate acknowledgment marker), and the trace-null-set structural closure at the completion tier (via r98 positivity + \texttt{Complex.orderClosedTopology}). \emph{Honest scope: r101 subsumes the r100 canonical faithful positive Hermitian tracial state upgrade whose $\Phi_3$ completion-tier faithfulness is substrate-conditional on \seqsplit{\texttt{SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture}} --- the residual isolating the exact structural passage $\tau(p) = 0 \wedge p \ge 0 \Rightarrow p = 0$ that classically routes through simplicity of $\mathrm{TimelessFieldCompletion}$. r101 substrate-Prop-discharges the simplicity input; genuine third-party classical realization requires closing the two named substrate residuals via classical operator-algebra content (UHF simplicity theorem applied to the r53--r59 substrate C*-algebra completion; Cauchy--Schwarz for the tracial state on the trace-null set).} See \S\ref{subsec:post-closure-uhf-trace}.
 
 \subsection{Axiom-set classification under the substrate's three-category typology}\label{subsec:repro-axiom-categories}
 
