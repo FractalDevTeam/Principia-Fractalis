@@ -688,3 +688,4 @@ PF/SubstrateUHFTraceIsTracialCoq.v
 PF/SubstrateUHFTraceIsStarPreservingCoq.v
 PF/SubstrateUHFTraceIsPositiveCoq.v
 PF/SubstrateUHFTraceIsFaithfulCoq.v
+PF/SubstrateUHFCompletionSimplicityDischargeCoq.v
