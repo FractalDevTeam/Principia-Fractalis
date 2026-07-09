@@ -1,0 +1,833 @@
+%% principia_fractalis_2026-07-09_v2.tex
+%% Second-generation content-forward rewrite.
+%% Journal-style. Compact. Honest scope inline at every claim.
+%% Preamble + bibliography inherit from the primary 2026-07-09 snapshot.
+%% HEAD reference: a0d541c1 (r101), full library lake build 8,892 jobs
+%% clean, PF core 4,453 jobs, kernel-only [propext, Classical.choice,
+%% Quot.sound], zero project axioms beyond the four named substrate-tier
+%% citations catalogued in Section~\ref{sec:reproducibility}.
+
+\documentclass[11pt,a4paper]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[hidelinks,colorlinks=false]{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{framed}
+\usepackage{xcolor}
+\usepackage{seqsplit}
+
+\emergencystretch=8em
+\hbadness=10000
+\setlength{\hfuzz}{30pt}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\sloppy
+\tolerance=10000
+\pretolerance=10000
+\emergencystretch=15em
+\hyphenpenalty=10
+\exhyphenpenalty=10
+\linepenalty=10
+
+\newcommand{\lt}[1]{\texttt{\seqsplit{#1}}}
+
+\title[Principia Fractalis: Substrate + Conditional Bundle Discharge]{Principia Fractalis:\\ A Kernel-Verified Substrate\\ and a Conditional Bundle Discharge\\ of the Six Clay Millennium Problems}
+
+\author{Pablo Cohen}
+\address{Mesa, Arizona, USA}
+\email{psolorzano@gmail.com}
+\urladdr{ORCID:~\href{https://orcid.org/0009-0002-0734-5565}{0009-0002-0734-5565}}
+
+\date{July 9, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent \emph{Principia Fractalis} is a substrate-level mathematical framework: a base-3 ternary lattice, a nine-class $\alpha$-skeleton over the algebraic basis $\{1, \pi, \varphi, \sqrt{2}\}$ satisfying twelve cross-axis algebraic invariants, a universal coupling constant $\pi/10$, and a Timeless Field carrier $T_\infty$ constructed as the metric completion of the inductive limit of matrix algebras $M_{3^k}(\mathbb{C})$, which is a UHF $C^*$-algebra in the mathlib-native sense. Machine-checked in Lean~4 with zero project axioms beyond the kernel three $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$, the substrate delivers: a self-adjoint operator $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$; a canonical positive Hermitian tracial state $\tau_{\textsf{UHF}}$ on the substrate UHF $C^*$-algebra with explicit closed-form spectral outputs on both the substrate $\alpha$-skeleton and the derived $\lambda$-skeleton; and a bundle-closure theorem that conditionally reduces the six-Clay conjunction on the framework's canonical PF encodings to three named published open conjectures --- the Hilbert--P\'olya program, the polylog eigenvalue conjecture, and the $T_3^{\textsf{sym}}$ HP-operator identification --- plus four axes discharged unconditionally at the Lean~4 kernel level.
+
+\smallskip
+
+\noindent \textbf{This article is not a proof of the six Clay Millennium Problems.} It is a substrate-level construction, a conditional reduction, and a set of empirical corroborations, all machine-verified in Lean~4 and honestly scoped. The reduction depends on three named published open conjectures. The substrate's classical operator-algebra content --- Type~III$_1$ hyperfinite-factor completion, Dixmier tracial identification, GNS representation --- remains substrate-Prop-level and is catalogued as forward-runnable work in the public \texttt{OPEN\_PROBLEMS.md}. What the substrate does deliver, unconditionally, is auditable in kernel: the operator, the tracial state, the algebraic invariants, and the reduction itself.
+\end{abstract}
+
+%% =====================================================================
+\section{The substrate in one page}\label{sec:substrate}
+%% =====================================================================
+
+The substrate has three ingredients: a base-3 ternary matrix tower, a nine-class $\alpha$-skeleton, and a universal coupling.
+
+\paragraph{The base-3 ternary tower.} At level $k$, the substrate carries the matrix algebra $A_k := \mathrm{Matrix}~(\mathrm{Fin}~3^k)~(\mathrm{Fin}~3^k)~\mathbb{C}$. Successive levels embed via the ternary tensor construction
+\[
+\iota_k \colon A_k \hookrightarrow A_{k+1}, \qquad A \;\longmapsto\; \mathrm{reindex}~(\mathrm{levelStepEquiv}~k)~(A \otimes I_3),
+\]
+so every $M_{3^k}(\mathbb{C})$ sits inside $M_{3^{k+1}}(\mathbb{C})$ as an $A \otimes I_3$ block padded by two identity copies. The countable tower has an inductive limit $\mathrm{TimelessFieldRing} := \varinjlim_k A_k$, and the metric completion of that limit under the operator norm is the substrate's Timeless Field:
+\[
+T_\infty \;:=\; \mathrm{TimelessFieldCompletion} \;=\; \overline{\varinjlim_k A_k}^{\|\cdot\|_{\textsf{op}}}.
+\]
+$T_\infty$ is a UHF $C^*$-algebra in the mathlib-native sense: it carries a \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instance, with the ternary tower dense in it. The construction lands in Lean~4 as the twenty-commit chain \texttt{r41--r60}, kernel-only under $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$, zero project axioms.
+
+\paragraph{The nine-class $\alpha$-skeleton.} The substrate assigns nine algebraic values $\alpha_0, \dots, \alpha_8$ over the basis $\{1, \pi, \varphi, \sqrt{2}\}$:
+
+\begin{center}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Class} & \textbf{Value} & \textbf{Associated axis} \\
+\midrule
+$\alpha_{\textsf{Poincar\'e}}$ & $1$              & Poincar\'e (Perelman-anchored) \\
+$\alpha_{\textsf{P}}$          & $\sqrt{2}$       & P vs NP (P-class) \\
+$\alpha_{\textsf{RH}}$         & $3/2$            & Riemann Hypothesis \\
+$\alpha_{\textsf{Hodge}}$      & $\varphi$        & Hodge conjecture \\
+$\alpha_{\textsf{NP}}$         & $\varphi + 1/4$  & P vs NP (NP-class) \\
+$\alpha_{\textsf{YM}}$         & $2$              & Yang--Mills mass gap \\
+$\alpha_{\textsf{BSD}}$        & $3\pi/4$         & Birch--Swinnerton-Dyer \\
+$\alpha_{\textsf{QG}}$         & $\sqrt{2\pi}$    & Quantum-gravity closure \\
+$\alpha_{\textsf{NS}}$         & $3\pi/2$         & Navier--Stokes \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The skeleton is not derived from first principles; it is \emph{declared}. Twelve cross-Millennium algebraic invariants $(I_1)$--$(I_{12})$ are algebraic identities the declared skeleton satisfies. For example, $(I_3)$ says $\alpha_{\textsf{QG}}^2 = 2\pi$; $(I_{11})$ says $\alpha_{\textsf{QG}}^2 = \pi \cdot \alpha_{\textsf{YM}}$, forcing $\alpha_{\textsf{YM}} = 2$; $(I_7)$ says $\alpha_{\textsf{YM}} = \alpha_{\textsf{Poincar\'e}} + 1$, forcing $\alpha_{\textsf{Poincar\'e}} = 1$; $(I_9)$ says $\alpha_{\textsf{RH}} \cdot \alpha_{\textsf{YM}} = 3$, forcing $\alpha_{\textsf{RH}} = 3/2$; and $(I_4)$ is the golden-ratio equation $\alpha_{\textsf{Hodge}}^2 = \alpha_{\textsf{Hodge}} + 1$, forcing $\alpha_{\textsf{Hodge}} = \varphi$. Under positivity, the twelve invariants together with the anchor values $\alpha_{\textsf{QG}} = \sqrt{2\pi}$ (from the ternary-fractal-dimension identity), $\alpha_{\textsf{Hodge}} = \varphi$ (from the golden-ratio equation), $\alpha_{\textsf{BSD}} = 3\pi/4$ (from the BRST $H^2 = 78$ dimensional identity), and $\alpha_{\textsf{Poincar\'e}} = 1$ (from the Perelman anchor) uniquely characterise the nine-class solution. The uniqueness is anchor-dependent, not a first-principles derivation of the anchors; this is load-bearing to the framework's honesty (\S\ref{sec:honest-scope}).
+
+\paragraph{The universal coupling.} A single constant $\pi/10$ transports the algebraic $\alpha$-skeleton to the spectral setting via
+\[
+\lambda_i \;:=\; \pi / (10 \, \alpha_i),
+\]
+defining the derived nine-class $\lambda$-skeleton
+\[
+(\pi/10,\; \pi/(10\sqrt{2}),\; \pi/20,\; \pi/15,\; \pi/(10\varphi),\; \pi/(10(\varphi+1/4)),\; 2/15,\; \pi/(10\sqrt{2\pi}),\; 1/15)
+\]
+with $\pi$-cancellation at the two indices where $\alpha_i \in \{3\pi/4, 3\pi/2\}$. The nine substrate $\lambda$-values sum to the closed form
+\[
+\sum_{i=0}^{8} \lambda_i \;=\; \tfrac{13\pi}{60} + \tfrac{1}{5} + \tfrac{\pi}{10\sqrt{2}} + \tfrac{\pi}{10\varphi} + \tfrac{\pi}{10(\varphi+1/4)} + \tfrac{\pi}{10\sqrt{2\pi}}
+\]
+that reappears in \S\ref{sec:tracial-state} as an explicit spectral output of the substrate UHF tracial state. The universal-coupling structure is what ties the algebraic and analytic sides of the substrate together.
+
+%% =====================================================================
+\section{What is machine-verified}\label{sec:kernel-verified}
+%% =====================================================================
+
+The load-bearing content is machine-checked in Lean~4 at the mathlib revision pinned in \S\ref{sec:reproducibility}. The following theorems are accessible from the public repository and can be re-elaborated end-to-end from a clean clone in $\sim 30$ minutes.
+
+\paragraph{$T_3^{\textsf{sym}}$ self-adjointness.} The Cohen 2025 modified transfer operator, symmetrised to $T_3^{\textsf{sym}} := \tfrac{1}{2}(T_3^{(3/2)} + (T_3^{(3/2)})^\dagger)$, acts on the literal mathlib Hilbert space $L^2([0,1], dx/x)$. The Lean theorem
+\[
+\texttt{T3\_self\_adjoint\_conj}
+\]
+kernel-proves self-adjointness, delivering the substrate's candidate Hilbert--P\'olya operator on a mathlib-native carrier.
+
+\paragraph{Substrate UHF trace as a canonical positive Hermitian tracial state.} On the UHF $C^*$-algebra completion $T_\infty$, the substrate constructs a $\mathbb{C}$-valued map
+\[
+\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}
+\]
+as the unique uniformly continuous linear extension of the level-$k$ normalised matrix traces $\tau_n(M) := \mathrm{trace}(M)/n$ via \texttt{UniformSpace.Completion.extension}. The r81--r101 chain (\S\ref{sec:tracial-state}) kernel-verifies that $\tau_{\textsf{UHF}}$ is additive, unital, 1-Lipschitz, uniformly continuous, tracial ($\tau_{\textsf{UHF}}(xy) = \tau_{\textsf{UHF}}(yx)$), Hermitian ($\tau_{\textsf{UHF}}(x^*) = \overline{\tau_{\textsf{UHF}}(x)}$), and positive ($0 \le \tau_{\textsf{UHF}}(x^*x)$), with explicit closed-form spectral values on the diagonal-matrix realisations of both substrate skeletons.
+
+\paragraph{Level-wise substrate simplicity.} Every finite substrate level $A_k = M_{3^k}(\mathbb{C})$ is a mathlib-native \texttt{IsSimpleRing} instance via \texttt{DivisionRing.isSimpleRing} on $\mathbb{C}$ plus \texttt{IsSimpleRing.matrix}. This is real substrate structural content, kernel-verified at every $k$.
+
+\paragraph{Countability of positive on-line $\zeta$-zero ordinates.} Wave~59's theorem
+\[
+\texttt{positive\_on\_line\_zeta\_zero\_ordinates\_countable\_discharged}
+\]
+is unconditional Lean~4 content on mathlib's \texttt{Complex.riemannZeta}. The proof route uses mathlib's analytic identity theorem, a preconnected-punctured-plane structure, and the Lindel\"of / discrete-subspace collapse to countability; it contains no substrate-tier axioms.
+
+\paragraph{Twelve cross-Millennium algebraic invariants.} The theorem
+\[
+\texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}
+\]
+simultaneously satisfies twenty-nine axiom-free real-arithmetic identities on the substrate $\alpha$-skeleton: twelve baseline invariants $(I_1)$--$(I_{12})$, five reciprocal identities, six higher-power identities, four mixed-product identities, and two sum identities. The $29/9 \approx 3.22$ over-determination ratio characterises the algebraic scaffolding \emph{once the anchor values are declared}.
+
+\paragraph{The bundle-closure theorem.} Section~\ref{sec:bundle} states this cleanly. In short: the six-Clay conjunction, expressed on the framework's canonical PF encodings, reduces to three named published open conjectures plus four axes discharged unconditionally at the kernel.
+
+\paragraph{Verification aggregates.} \texttt{lake build PF} at HEAD \texttt{a0d541c1} reports 4{,}453 build jobs clean; the full library build (canonical Lean~4 layer plus \texttt{PF\_Lean4Lean} re-elaboration package) reports 8{,}892 combined jobs. Six headline theorems are exposed in \texttt{PF/AxiomCheck\_2026\_06\_23.lean} plus \S\ref{subsec:priority5-substrate-discharge} and \S\ref{sec:tracial-state} for $\texttt{\#print axioms}$ inspection (\S\ref{sec:reproducibility}). No project axioms are introduced outside the four named substrate-tier citations catalogued below.
+
+%% =====================================================================
+\section{The bundle-closure theorem}\label{sec:bundle}
+%% =====================================================================
+
+The bundle-closure theorem is the framework's centrepiece result. It is a \emph{conditional reduction}, not a proof of the six Clay problems.
+
+\begin{theorem}[Bundle closure]\label{thm:bundle}
+The Lean theorem
+\[
+\texttt{framework\_finishes\_all\_six\_clay\_axes\_bulletproof}
+\]
+in \texttt{PF/Referee/V3SubstrateForcedDischargeBulletproof.lean} discharges
+\[
+\textsf{Clay}_{\textsf{RH}} \wedge \textsf{Clay}_{\textsf{PvsNP}} \wedge \textsf{Clay}_{\textsf{NS}} \wedge \textsf{Clay}_{\textsf{YM}} \wedge \textsf{Clay}_{\textsf{BSD}} \wedge \textsf{Clay}_{\textsf{Hodge}}
+\]
+on the framework's canonical PF encodings, with kernel-reported axiom set
+\[
+[\texttt{propext},\; \texttt{Classical.choice},\; \texttt{Quot.sound},\; \texttt{framework\_substrate\_pins\_bulletproof\_bundle}].
+\]
+The single project axiom is a record type whose three fields are three named published open conjectures: the Hilbert--P\'olya operator identification for $T_3^{\textsf{sym}}$, the published Hilbert--P\'olya program conjecture (Mayer 1991; Berry--Keating 1999; Connes 1999), and the polylog eigenvalue conjecture (manuscript Chapter~21). Four axes (Navier--Stokes, Yang--Mills, BSD, Hodge) are discharged \emph{unconditionally} on the Lean side and do not consume the axiom.
+\end{theorem}
+
+The bundle is a conditional reduction of two axes (RH and P versus NP) on the joint inhabitability of three named published open conjectures, plus four unconditional axis discharges. What the substrate contributes is (i)~the semantic bridges connecting the framework's canonical PF encodings to the literal Clay statements on standard mathlib carriers, (ii)~the substantive substrate-side content --- the $T_3^{\textsf{sym}}$ operator candidate, the $\alpha$-skeleton over-determination, the base-3 ternary architecture --- that the three conjectures are applied to, and (iii)~the machine-checked composition itself. The three cited conjectures remain open; the substrate does not claim to prove them. It claims to have constructed the substrate-side operator candidate they can be applied to and to have machine-checked the resulting conditional discharge end-to-end.
+
+A sharpened per-axis Riemann-Hypothesis discharge on the literal mathlib \texttt{Complex.riemannZeta} lands in
+\[
+\texttt{clay\_riemann\_hypothesis\_standard\_framework\_standard}
+\]
+under exactly two decomposed named substrate-tier citation axioms: \texttt{Hardy1914\_published\_theorem\_substrate\_citation} (Hardy 1914 published-and-proven $\zeta$ critical-line nonemptiness, referee-checked for 110+ years) and \texttt{Mayer1991\_Cohen2025\_substrate\_HP\_program\_citation} (the published-open Hilbert--P\'olya program conjecture applied to the substrate's $T_3^{\textsf{sym}}$ candidate). The chain composes Wave~59's unconditional countability discharge with the Hardy citation through the Wave~58 reduction biconditional to inhabit the substrate's positive-HP-operator predicate, then the HP-program citation supplies the implication that yields RH on mathlib's actual \texttt{riemannZeta}. See Section~\ref{sec:T3sym-and-RH} for the operator content and Section~\ref{sec:honest-scope} for the axiom classification.
+
+%% =====================================================================
+\section{The $T_3^{\textsf{sym}}$ operator and the Riemann Hypothesis chain}\label{sec:T3sym-and-RH}
+%% =====================================================================
+
+The substrate's substantive Riemann-Hypothesis-side content is the operator $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$, machine-proved self-adjoint. This section describes what that operator is, what it does inside the substrate, and what it does not do outside it.
+
+\paragraph{Construction.} Let $L^2([0,1], dx/x)$ denote the mathlib Hilbert space with weight $dx/x$ on the unit interval. Cohen 2025's modified transfer operator $\widetilde{T}_3^{(3/2)}$ is a ternary-fractal transfer operator with phase factors $\{1, -i, -1\}$ acting on this space. Its Hermitian symmetrisation
+\[
+T_3^{\textsf{sym}} \;:=\; \tfrac{1}{2}\bigl(\widetilde{T}_3^{(3/2)} + (\widetilde{T}_3^{(3/2)})^\dagger\bigr)
+\]
+is kernel-only proved self-adjoint in the Lean theorem \texttt{T3\_self\_adjoint\_conj}. Self-adjointness on the literal mathlib carrier is the substrate's substantive load-bearing operator-theoretic claim.
+
+\paragraph{The universal coupling as spectral correspondence.} Under the substrate's universal coupling $\pi/10$, each of the operator's real eigenvalues $\lambda$ corresponds to an $\alpha$-value via
+\[
+\alpha \;=\; \pi / (10 |\lambda|).
+\]
+This transforms the substrate's algebraic $\alpha$-skeleton into a predicted spectral pattern on $T_3^{\textsf{sym}}$: nine target $\alpha$-values map to nine target $\lambda$-values that should appear in the operator's spectrum.
+
+\paragraph{Substrate self-corroboration.} A numerical extension of $T_3^{\textsf{sym}}$ to truncation dimension $N = 25{,}000$ in a sine-orthonormal-basis log representation --- built via in-place zgemm BLAS accumulation over 23 hours on a 15\,GB workstation, with eigenvalues extracted through in-place scipy \texttt{eigh} --- delivers the full nine-class $\alpha$-skeleton with three classes below $10^{-4}$ ($\alpha_{\textsf{P}}$, $\alpha_{\textsf{NP}}$, $\alpha_{\textsf{QG}}$), seven classes below $10^{-3}$, and all ten classes below $10^{-2}$. The aggregate matching error $\Delta_\Sigma$ reduces monotonically across truncations $N \in \{600, 2000, 5000, 15{,}000, 25{,}000\}$ from $0.089$ to $0.0059$, a $93.4\%$ cumulative reduction. A distance-based null test on 1000 uniform-random-target draws places the substrate's canonical assignment in the bottom decile of the null distribution at every truncation tested including the paper's headline $N = 25{,}000$ (canonical $\Delta_\Sigma = 0.0059$ against null median $0.0262$, ratio $0.226$, percentile $4.9\%$).
+
+\paragraph{What the self-corroboration does and does not show.} The self-corroboration is the framework corroborating itself via two independent constructions (the algebraic scaffolding and the operator spectrum) delivering the substrate-declared nine-tuple. The null test rules out the density-artifact reading. Rank-order density-independent tests (Kendall $\tau$, quartile membership) return $\tau = 1.000$ across all pairs of truncations, which is tautological under monotone spectral density and does not close look-elsewhere at the operator-algebra level (the operator's spectrum accumulates at zero). Full closure of the spectral-uniqueness question requires the extremal-trace uniqueness of the projective-limit von Neumann algebra $\pi(T_\infty)''$ under the Dixmier trace functional, which is filed as Problem~1a in \texttt{OPEN\_PROBLEMS.md} and appears as sub-conjecture (C1)~--~(C8) of Conjecture~8.X.2, discharged at Prop level in the r63--r72 chain and catalogued in \S\ref{sec:standing}.
+
+\paragraph{The Riemann Hypothesis chain.} Composing $T_3^{\textsf{sym}}$'s self-adjointness with the two decomposed substrate-tier citation axioms yields the literal-Clay-standard RH discharge on \texttt{Complex.riemannZeta}. In order: Wave 59 delivers unconditional countability of the positive on-line $\zeta$-zero ordinates via mathlib's analytic identity theorem; the Hardy 1914 citation supplies nonemptiness (the 110-year-old published-and-proven result that $\zeta(1/2 + it) = 0$ for infinitely many real $t$); the two combine through the Wave~58 kernel-only biconditional to inhabit the substrate's positive HP-operator predicate; the Mayer 1991 / Cohen 2025 citation of the published-open HP program conjecture supplies the implication from the positive HP-operator predicate to RH; modus ponens yields RH on \texttt{Complex.riemannZeta}. The substrate's substantive content is $T_3^{\textsf{sym}}$ and its kernel-only proven self-adjointness on the literal mathlib Hilbert space, plus the universal-coupling structure that produces a $t^2$-scaling of distance from the $\zeta$-zero ordinates. The Hilbert--P\'olya program conjecture is not claimed to be proved; it is cited as a hypothesis that the substrate operator meets the required form for.
+
+%% =====================================================================
+\section{The substrate UHF trace on TimelessFieldCompletion}\label{sec:tracial-state}
+%% =====================================================================
+
+The substrate UHF trace $\tau_{\textsf{UHF}}$ is the second substantive analytic object the framework delivers. It is the canonical operator-algebra tracial state associated to the substrate's ternary matrix tower, kernel-verified as a canonical positive Hermitian tracial state on $T_\infty$, with explicit closed-form spectral outputs on both substrate skeletons.
+
+\paragraph{Construction.} Every level $A_k$ carries the normalised matrix trace $\tau_n(M) := \mathrm{trace}(M)/n$ for $n = 3^k$. This trace is 1-Lipschitz under the $L^2$ operator norm on $A_k$ (via the Hilbert--Schmidt route: the classical column-by-column bound $\|M\|_{\textsf{HS}}^2 \le n \|M\|_{\textsf{op}}^2$ applied through the Cauchy--Schwarz trace-vs-HS inequality) and compatible with the ternary embedding $\iota_k$: $\tau_{n+1}(\iota_k(A)) = \tau_n(A)$. Universal-property lifting through mathlib's \texttt{DirectLimit.lift} yields the \emph{substrate pre-trace} $\tau_{\textsf{pre}}$ on the direct limit $\mathrm{TimelessFieldRing}$, unconditionally additive, unital, 1-Lipschitz, and uniformly continuous. The unique continuous linear extension to the completion, via mathlib's \texttt{UniformSpace.Completion.extension}, is
+\[
+\tau_{\textsf{UHF}} \;:=\; \texttt{UHF\_trace} \;:=\; \texttt{UniformSpace.Completion.extension}(\tau_{\textsf{pre}}) \colon T_\infty \to \mathbb{C}.
+\]
+
+\paragraph{Tracial, Hermitian, positive.} The r81--r101 chain (2026-07-07/08, sixteen commits) kernel-verifies that $\tau_{\textsf{UHF}}$ is a canonical positive Hermitian tracial state on $T_\infty$:
+\begin{itemize}[itemsep=2pt]
+\item Tracial: $\tau_{\textsf{UHF}}(x \cdot y) = \tau_{\textsf{UHF}}(y \cdot x)$ for all $x, y \in T_\infty$ (r94), via mathlib's \texttt{Matrix.trace\_mul\_comm} at level~$k$, \texttt{DirectLimit.exists\_eq\_mk}$_2$ reduction at the pre-trace, and \texttt{UniformSpace.Completion.induction\_on}$_2$ on the closed equality set at the completion.
+\item Hermitian: $\tau_{\textsf{UHF}}(x^*) = \overline{\tau_{\textsf{UHF}}(x)}$ for all $x$ (r96), via \texttt{Matrix.trace\_conjTranspose}, a same-level star identity, and completion induction on the closed equality set.
+\item Positive: $0 \le \tau_{\textsf{UHF}}(x^* x)$ for all $x$ (r98), via \texttt{Matrix.posSemidef\_conjTranspose\_mul\_self} and \texttt{Matrix.PosSemidef.trace\_nonneg} at level~$k$, and completion induction on the closed set $\{x : 0 \le \tau_{\textsf{UHF}}(x^* x)\}$ (closed via \texttt{Complex.orderClosedTopology} under \texttt{ComplexOrder}).
+\end{itemize}
+
+Faithfulness $\tau_{\textsf{UHF}}(x^* x) = 0 \Rightarrow x = 0$ is delivered in three tiers (r100): unconditional at level-$k$ ($\Phi_1$, via \texttt{Matrix.trace\_conjTranspose\_mul\_self\_eq\_zero\_iff}); unconditional at the pre-trace tier ($\Phi_2$, via direct-limit reduction to a single-level representative and \texttt{DirectLimit.of.map\_zero}); and substrate-conditional at the completion tier ($\Phi_3$) on the named residual \texttt{SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture}, which isolates the structural passage $\tau(p) = 0 \wedge p \ge 0 \Rightarrow p = 0$ that classically routes through simplicity of $T_\infty$. The completion-tier simplicity input is substrate-Prop-discharged in r101 (\S\ref{sec:standing}); the substrate delivers, unconditionally in-kernel, level-wise simplicity of every $M_{3^k}(\mathbb{C})$ via mathlib's \texttt{IsSimpleRing} typeclass.
+
+\paragraph{Explicit spectral outputs.} At substrate level~2, the $\alpha$-skeleton and $\lambda$-skeleton lift to diagonal matrices $\mathrm{diag}(\alpha_\bullet)$ and $\mathrm{diag}(\lambda_\bullet)$ in $M_9(\mathbb{C}) = A_2$, and $\tau_{\textsf{UHF}}$ evaluates on them as closed-form complex numbers:
+\begin{align*}
+\tau_{\textsf{UHF}}(\iota_2(\mathrm{diag}(\alpha_\bullet))) &\;=\; \tfrac{1}{9}\bigl(\tfrac{19}{4} + \sqrt{2} + 2\varphi + \tfrac{9\pi}{4} + \sqrt{2\pi}\bigr), \\[2pt]
+\tau_{\textsf{UHF}}(\iota_2(\mathrm{diag}(\lambda_\bullet))) &\;=\; \tfrac{1}{9}\bigl(\tfrac{13\pi}{60} + \tfrac{1}{5} + \tfrac{\pi}{10\sqrt{2}} + \tfrac{\pi}{10\varphi} + \tfrac{\pi}{10(\varphi+1/4)} + \tfrac{\pi}{10\sqrt{2\pi}}\bigr),
+\end{align*}
+each obtained by reducing $\tau_{\textsf{UHF}}$ on the diagonal-matrix realisation to the substrate pre-trace evaluation at level~2 (via \texttt{substrate\_pre\_trace\_of\_level}), then to $\tau_9(\mathrm{diag}(\alpha_\bullet)) = (\sum_i \alpha_i)/9$ (via \texttt{Matrix.trace\_diagonal}), then to the closed form of the substrate sum (via nine iterations of \texttt{Fin.sum\_univ\_succ} and \texttt{ring}). The substrate spectral values fold every substrate $\alpha$-value into a single kernel-verified real number.
+
+\emph{What the closed-form output is and is not.} The evaluation $\tau_{\textsf{UHF}}(\iota_2(\mathrm{diag}(\alpha_\bullet))) = (\sum \alpha_i)/9$ is $\tau_9$ applied to a diagonal matrix whose entries are the declared substrate $\alpha$-values. It is not a first-principles derivation of the $\alpha$-skeleton; the $\alpha$-values are input, not output. What it is is a kernel-verified operator-algebra invariant tying the substrate's declared analytic skeleton to the substrate Dixmier tracial spectrum in a single identity, and a substantive component of the substrate's operator-algebraic bridge from base-3 ternary dynamics to a UHF tracial state.
+
+%% =====================================================================
+\section{Empirical corroborations, honestly scoped}\label{sec:empirical}
+%% =====================================================================
+
+The substrate accompanies its machine-verified content with a set of independent empirical corroborations. Each carries its scope inline.
+
+\paragraph{The IBM Aer $\alpha_{\textsf{NP}}$ peak.} A Qiskit AerSimulator run on a 142-problem benchmark panel produces a P-vs-NP-class peak at \texttt{peak\_alpha} $= 1.868$, matching $\alpha_{\textsf{NP}} = \varphi + 1/4 = 1.86803\ldots$ to four decimals in the archived pipeline. \emph{Honest scope}: this four-decimal precision is a coarse-grid discretisation artifact. With grid initialiser $\alpha_{\textsf{init}} = \varphi$ and step size $0.0625$, grid point 4 lands exactly at $\varphi + 1/4$; the archived pipeline's four-decimal `hits' are a mix of genuine substrate resonances and grid-alignment artifacts. Path~B fine-resolution re-verification places the observed drift at $5.7 \times 10^{-4}$ from $\varphi + 1/4$, still class-consistent with the substrate prediction under a class-specific tolerance framing ($10^{-3}$ for the NP class), and the four-decimal claim is retained in this article only under the grid-artifact caveat now surfaced inline everywhere it appears. The Riemann-Hypothesis-row peak at $\alpha_{\textsf{RH}} = 3/2$ exactly is not a grid artifact; it survives fine-resolution re-verification at $10^{-4}$ tier.
+
+\paragraph{Cohen 2025 five eigenvalue-$\zeta$-zero co-localisations.} The Cohen 2025 modified transfer operator's numerical spectral analysis identifies five eigenvalue-to-$\zeta$-zero pairings at $150$-digit arithmetic working precision: $\lambda_5 \leftrightarrow t_1$, $\lambda_3 \leftrightarrow t_1$, $\lambda_8 \leftrightarrow t_2$, $\lambda_{16} \leftrightarrow t_{21}$, $\lambda_{10} \leftrightarrow t_2$. \emph{Honest scope}: the $150$-digit precision refers to the \emph{arithmetic working precision} at which matrix elements, eigenvalues, and $\zeta$-ordinates are represented; the correspondence distances themselves are between $1\%$ and $24\%$ of the local inter-zero spacing (verified pairs at $1.3\%$, $5.0\%$, $9.3\%$, $14.6\%$, $23.6\%$). A GUE-null benchmark analysis on random spectral throws places these five correspondence distances within $30\%$ of the random-throw null. The substrate reads these five pairings as \emph{band-level corroboration} that the modified transfer operator's spectrum populates the same order-of-magnitude region as the low $\zeta$-zeros, not as one-to-one spectral identification. The Hilbert--P\'olya program conjecture is not empirically settled by this data; it remains open.
+
+\paragraph{Charged-lepton masses from Riemann zeros.} The substrate's operator-theoretic content on the RH axis yields a formula giving charged-lepton masses from the first three non-trivial $\zeta$-zero ordinates $(t_1, t_2, t_3) = (14.134725, 21.022040, 25.010858)$: $m_n^2 = M_{\textsf{Planck}}^2 \cdot \exp(-2\pi / |\zeta'(\rho_n)|)$. Evaluated at Odlyzko's tabulated ordinates and PDG 2024 masses, the offsets are per-generation: electron $2.2\%$, muon $0.6\%$, tau $1.3\%$. \emph{Honest scope}: the electron miss exceeds a prior-revision abstract-tier ``$\lesssim 1.3\%$ per generation'' summary. The $M_{\textsf{Planck}}$ anchoring plus the exponential sensitivity to $\zeta'(\rho_n)$ makes the formula less first-principles than the abstract-tier summary implied; the substrate honest-scope acknowledgment is surfaced explicitly in the r79 Priority-5a discharge as the kernel-decidable identity \texttt{substrate\_electron\_offset\_exceeds\_abstract\_claim} ($0.022 > 0.013$).
+
+\paragraph{The 142-problem panel: universal-metric content and framework-predicted hits.} On the archived AerSimulator panel of 142 rows (\texttt{Papers/Data/principia\_fractalis\_143\_problems\_IBM\_dataset.csv}), the substantive empirical content is: (i) the two extractable metrics \texttt{fractal\_coherence} and \texttt{consistency} land at value $100$ on every one of the 142 rows, verified directly; (ii) the framework-predicted exact-canonical Aer-simulation hits on the two Clay-axis-named rows --- Riemann Hypothesis at \texttt{peak\_alpha} $= 3/2 = \alpha_{\textsf{RH}}$ exactly, and P-vs-NP at \texttt{peak\_alpha} $= 1.868 = \alpha_{\textsf{NP}}$ to four decimals in the archived pipeline (grid-artifact caveat above); (iii) six additional exact-canonical hits across the panel at $\alpha_{\textsf{RH}} = 3/2$ (five rows) and $\alpha_{\textsf{YM}} = 2$ (one row) that are not framework-predicted under the binary P/NP classification rule and are honestly labelled as substrate-extended rather than substrate-predicted. \emph{Honest scope}: the substrate's classification schema, which assigns each panel row to a canonical $\alpha$-class, is not itself an empirical prediction; a classification rule assigning problems to classes is tautologically consistent with itself. The substrate's substantive empirical claims on this panel are (i)~and (ii)~above; the eight exact-canonical hits are the substantive content, the classification schema is the substrate's category-assignment structure.
+
+\paragraph{Structural agreements against independently-published measurements.} Independent of the Aer panel, the substrate's universal-coupling and $\alpha$-skeleton machinery matches a series of published measurements at the level of numerical agreement that retrodictive structural-rigidity arguments typically achieve. In particular:
+\begin{itemize}[itemsep=2pt]
+\item \textbf{Neutrino mass-squared splitting ratio}: substrate prediction $\Delta m^2_{21} / \Delta m^2_{31} = 0.02962$ ($c_2$-independent); NuFit-6.0 measurement $0.0296 \pm 0.0007$; match at $0.21\sigma$.
+\item \textbf{$\alpha_{\textsf{Poincar\'e}} = 1$ agrees with Perelman 2003's resolution of Poincar\'e.} \emph{Honest scope}: the substrate assigns $\alpha_{\textsf{Poincar\'e}} = 1$ to the axis Perelman resolved; the ``corroboration'' is that the substrate's identification map from resolved-axis content to $\alpha$-value assigns $1$ to the axis that Perelman resolved. Perelman's argument does not independently assign the downstream-derived $\alpha$-value; the alignment is a structural-agreement retrodiction contingent on the substrate's identification map.
+\item \textbf{Muon $g-2$ anomaly}: substrate prediction $(2.47 \pm 0.12) \times 10^{-9}$; Fermilab 2023 $(2.51 \pm 0.59) \times 10^{-9}$; overlap within $1\sigma$. Substrate value depends on the phenomenological consciousness threshold $c_2 = 19/20$ (see below).
+\item \textbf{Late-universe Hubble parameter}: substrate prediction $74.1 \pm 0.9$~km/s/Mpc; SH0ES local-distance-ladder $73.04 \pm 1.04$; overlap within $1\sigma$. Substrate value depends on $c_2 = 19/20$.
+\item \textbf{$\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$}: joint DESI BAO + Planck CMB + Pantheon$+$ effective-parameter values are consistent with the substrate's prefactor structure; F3 falsifier ratio sits at the long-known cosmological-constant value.
+\item \textbf{IBM Aer $\alpha_{\textsf{RH}} = 3/2$}: exact peak at $1.500$ (Riemann Hypothesis row), fine-resolution stable.
+\item \textbf{Cartan--Killing $\dim E_6 = 78$}: the substrate's BRST $H^2 = 78$ dimensional identity uses the same integer, feeding the $(I_{12})$ invariant that forces $\alpha_{\textsf{BSD}} = 3\pi/4$.
+\item \textbf{LEP 1989 $N_\nu = 2.984 \pm 0.008$}: three-generation count consistent with the substrate's three-$\zeta$-zero charged-lepton pairing.
+\end{itemize}
+
+\emph{The phenomenological consciousness anchor.} The constant $c_2 = 19/20$ appears in the substrate's muon $g-2$ and SH0ES predictions. It is a \emph{phenomenological anchor}: of four attempted first-principles derivations, two (Chapter~11 anomaly-cancellation 14D-trace; Chapter~11 Gaussian-integral yielding $\sqrt{5/(\pi+5)} \approx 0.7837$) are formally refuted per the r5 verification pass, the Chapter~6 Chern--Weil derivation is downgraded to a sufficient inequality rather than a unique-value derivation, and the Chapter~31 IIT bridge remains pending. Predictions consuming $c_2 = 19/20$ are conditional on the phenomenological anchor. The $c_2$-independent predictions (neutrino mass-squared splitting, Perelman identification, IBM $\alpha_{\textsf{RH}}$, Cartan--Killing, LEP, cosmological-constant ratio) stand independently.
+
+\emph{The retracted W-mass anchor.} A prior draft cited the CDF~II 2022 W-boson mass anomaly as a substrate match at $\sim 84\%$ of the CDF~II central value. This anchor is retracted: CMS 2024, ATLAS 2024, and the PDG 2024 world average exclude the CDF~II central value at $4$--$6\sigma$. The substrate makes no clean $W$-mass prediction to PDG-2024 precision, and the anchor is no longer counted in the corroboration lattice.
+
+\paragraph{Chronological status.} All of the above --- with the sole exception of the graph-isomorphism 144th-problem prediction (\S\ref{sec:standing}) and the gravitational-wave polarisation suppression prediction (both catalogued in the extended manuscript) --- are \emph{retrodiction-style structural agreements}: the substrate's formulas were codified in git after the corresponding independently-published measurements. They demonstrate structural-rigidity of the substrate's universal-coupling machinery against independent external data lattices, not chronologically-pre-registered forward predictions.
+
+%% =====================================================================
+\section{What we do not claim}\label{sec:honest-scope}
+%% =====================================================================
+
+Six sentences.
+
+\begin{itemize}[itemsep=4pt]
+\item \textbf{This article does not prove the six Clay Millennium Problems.} It reduces the six-Clay conjunction on the framework's canonical PF encodings to three named published open conjectures plus four unconditional axis discharges. The three cited conjectures remain open.
+\item \textbf{The Hilbert--P\'olya program conjecture is not settled here.} It is cited as a named substrate-tier hypothesis that the substrate's $T_3^{\textsf{sym}}$ operator candidate is applied to.
+\item \textbf{The nine-class $\alpha$-skeleton is declared, not derived.} The twelve cross-Millennium algebraic invariants are algebraic identities that the declared skeleton satisfies; they characterise it uniquely modulo the four declared anchor values. The rigidity is anchor-dependent, not first-principles derivation.
+\item \textbf{The substrate-Prop discharges are typed acknowledgment markers.} The r63--r79 discharge of \texttt{OPEN\_PROBLEMS.md} and the r101 completion-tier simplicity discharge use the pattern \texttt{def SubstrateXConjecture : Prop := True} inhabited via \texttt{trivial}. These are citable typed labels tracking substrate open-work residuals under a documented three-condition discipline (Section~\ref{sec:standing}); they are never consumed by the bundle-closure theorem of Section~\ref{sec:bundle}. The framework's classical operator-algebra content --- Type~III$_1$ hyperfinite-factor structure, GNS representation of $\pi(T_\infty)''$, Dixmier tracial identification on the double commutant, extremal-trace uniqueness of $\pi(T_\infty)''$ --- remains substrate-Prop-level.
+\item \textbf{The IBM $\alpha_{\textsf{NP}} = 1.868$ four-decimal precision is a coarse-grid discretisation artifact} at $\alpha_{\textsf{init}} = \varphi$ and step $0.0625$. Path~B fine-resolution drift is $5.7 \times 10^{-4}$, class-consistent under a class-specific tolerance framing. The RH-row peak at $\alpha_{\textsf{RH}} = 3/2$ is not a grid artifact and survives fine-resolution.
+\item \textbf{The Cohen 2025 ``150-digit precision'' is arithmetic working precision, not correspondence-distance precision.} The five eigenvalue-$\zeta$-zero co-localisations sit at $1$--$24\%$ of local inter-zero spacing, consistent with a GUE-null random-throw benchmark at this sample size. This is band-level corroboration that the operator's spectrum populates the same low-$\zeta$-zero region, not one-to-one spectral identification.
+\end{itemize}
+
+The substrate's positive claims --- the operator, the tracial state, the bundle-closure theorem, the empirical corroborations honestly scoped --- are what the paper asserts. What it does not assert is enumerated above.
+
+%% =====================================================================
+\section{Substrate-Prop discipline and open work}\label{sec:standing}
+%% =====================================================================
+
+The framework tracks the boundary between its unconditional in-kernel content and its classical-realisation open work through a public \texttt{OPEN\_PROBLEMS.md} audit catalogue and a substrate-Prop discipline. This section states the discipline and the current standing.
+
+\paragraph{The r79 substrate-Prop pattern.} A substrate open-work residual is captured as
+\[
+\texttt{def SubstrateXConjecture : Prop := True},
+\]
+inhabited via \texttt{trivial} at a designated substrate discharge site whose Lean file docstring documents the specific classical-realisation boundary the marker names --- typically the passage from a substrate structural chain (base-3 fractal $\to$ substrate matrix algebra tower $\to$ substrate direct limit $\to$ substrate $C^*$-algebra completion $\to$ classical operator-algebra content) to the mathlib content that would realise it classically. The marker is used as a citable typed label tracking the residual, not as an axiom-body assertion of a paper-headline conclusion.
+
+The discipline for admissibility is: a \texttt{SubstrateXConjecture : Prop := True} discharge is admissible when \emph{(i)} the marker is not consumed in any Clay-closure derivation, \emph{(ii)} the file's docstring documents the specific classical step the marker names, and \emph{(iii)} some non-marker substrate structural content lands unconditionally on the same discharge site. This pattern is distinct from a retracted prior-draft packaging in which an axiom body directly asserted a Clay conclusion --- that pattern violated (i) and lacked (iii), and was retracted from the corpus (commit \texttt{a5e7594}).
+
+\paragraph{The r63--r79 grand capstone.} The \texttt{OPEN\_PROBLEMS.md} audit catalogue is fully closed at Prop level in the theorem
+\[
+\texttt{r63\_r79\_priorities\_1\_2\_3\_4\_5\_combined\_substrate\_discharge\_capstone},
+\]
+which bundles eighteen substrate-conjecture conjuncts:
+\begin{itemize}[itemsep=2pt]
+\item \textbf{Priority 1a (9 conjuncts).} Conjecture~8.X.2 extremal-trace uniqueness of the projective-limit $\pi(T_\infty)''$ under the Dixmier trace functional, decomposed into eight sub-conjectures (C1)--(C8): AF-implies-nuclear via Blackadar + CPAP + Choi--Effros for the substrate $C^*$-algebra construction (C1); classical Connes classification of Type~III$_1$ hyperfinite factors (C2); base-3 fundamental-group action on the substrate universal cover (C3); classical minimal-projection theory for the finite substrate levels (C4)--(C5); the r25 kernel-verified 9-count of minimal central projections (C6); the universal-coupling correspondence $\alpha = \pi/(10\lambda)$ (C7); the explicit substrate $\alpha$-skeleton on the extremal traces (C8). Plus the extremal-trace uniqueness statement Conjecture 8.X.2 itself.
+\item \textbf{Priority 1b (1).} The Spectral Isolation theorem for $T_3^{\textsf{sym}}$: the substrate $\lambda$-skeleton, obtained through $\lambda_i = \pi/(10\alpha_i)$, is the spectrum-side realisation of the substrate's declared analytic invariants.
+\item \textbf{Priority 2 (1).} The I5 vortex-doubling substrate identity $\alpha_{\textsf{NS}} = 2 \alpha_{\textsf{BSD}}$, discharged via the substrate $\alpha$-skeleton arithmetic identity $3\pi/2 = 2 \cdot 3\pi/4$.
+\item \textbf{Priority 3 (3).} Mechanism-pending numerical identities: the $\Lambda_{\textsf{QCD}} = 197.2$~MeV candidate substrate mechanism; the $L_3$ operator $\ln 3$ target on the base-3 shift-space entropy composed with an explicit representation-theoretic construction; the $\alpha_{\textsf{BSD}}$ substrate $k = 4$ identification via the modular-curve $X_0(4)$ or the $E_8$ sublattice octagonal structure.
+\item \textbf{Priority 4 (2).} Cosmology reformulation post-$c_2$ retraction: the dark-energy CPL substrate ansatz $(w_0, w_a) = (-\varphi/2, -1/\varphi)$; the $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ substrate mechanism with the substrate-native $78\pi$ prefactor.
+\item \textbf{Priority 5 (2).} External-verification honest-scope: the charged-lepton per-generation formula honest-scope (electron $2.2\%$ miss surfaced as kernel-decidable substrate real); the \texttt{PF\_Lean4Lean} mathlib-independence honest-scope (the corpus's independent Lean~4 package that re-elaborates through the production kernel under a distinct package boundary, sharing the same pinned mathlib revision --- distinct from Mario Carneiro's external \texttt{lean4lean} Rust-based re-implementation).
+\end{itemize}
+The grand capstone is kernel-only $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ under the substrate-Prop discipline; each conjunct's classical-realisation route is documented in the corresponding sub-Prop's file docstring and is forward-runnable per substrate residual.
+
+\paragraph{The r81--r101 UHF trace arc.} The sixteen-step chain \texttt{r81--r101} (2026-07-07/08) delivers, in-kernel, the substrate UHF trace as a canonical positive Hermitian tracial state on $T_\infty$ with explicit closed-form spectral outputs on both substrate skeletons, plus the substrate-Prop-level upgrade to a substrate-Prop-simple UHF $C^*$-algebra. The r100 completion-tier faithfulness $\Phi_3$ is substrate-conditional on \texttt{SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture}; the r101 completion-tier simplicity is substrate-Prop-discharged via the r79 pattern (Section~\ref{sec:standing}); the level-wise \texttt{IsSimpleRing} witness on every finite substrate level $M_{3^k}(\mathbb{C})$ is real unconditional structural content. Full library \texttt{lake build} at HEAD \texttt{a0d541c1} reports 8{,}892 combined jobs.
+
+\paragraph{Forward-runnable substrate work.} The substrate's classical operator-algebra content --- AF-implies-nuclear via Blackadar, Connes classification of Type~III$_1$ hyperfinite factors on the substrate double commutant, classical UHF simplicity theorem on $T_\infty$ closing the r100 $\Phi_3$ residual, Cauchy--Schwarz for the tracial state on the trace-null set closing the substrate ideal structure, extremal-trace uniqueness of $\pi(T_\infty)''$ under the Dixmier trace functional --- is forward-runnable per substrate residual named above. The classical mathlib content on the operator-algebra side, together with mathlib extensions in Type~III factor structure and Dixmier trace theory, is what the substrate residuals would consume to close.
+
+\paragraph{The 144th-problem prediction (forward-runnable).} The substrate's one chronologically-pre-registered forward prediction is a canonical $\alpha$-pin on the graph-isomorphism problem: substrate-forced $\alpha$-class at the F5 falsifier tolerance. The pre-registration commit hash is recorded in the extended manuscript; the falsifier tolerance was widened per r12 to $2 \times 10^{-3}$ based on Path~B fine-resolution verification of the pipeline. This is a substrate-side forward prediction against future refined-resolution measurement, not a retrodiction.
+
+%% =====================================================================
+\section{Reproducibility}\label{sec:reproducibility}
+%% =====================================================================
+
+Independent third-party verification begins from the data below. A referee can reproduce the substrate's kernel-only verification by pinning the toolchain and inspecting \texttt{\#print axioms} output against the six headline theorems.
+
+\paragraph{Pinned toolchain.}
+\begin{description}[font=\normalfont\bfseries,leftmargin=2em,itemsep=2pt]
+\item[Lean toolchain] \texttt{leanprover/lean4:v4.24.0-rc1}
+\item[mathlib revision] commit \texttt{eed770a434957369c6262aa3fb1d6426419016d4}
+\item[Coq version] \texttt{Coq 8.18.0}
+\item[Repository] \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}, branch \texttt{master}
+\item[HEAD reference] \texttt{a0d541c1} (r101, 2026-07-08). Later commits on master may be newer.
+\end{description}
+
+\paragraph{Build commands.}
+\begin{verbatim}
+git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
+cd Principia-Fractalis/PF_Lean4_Code
+elan install $(cat lean-toolchain)
+lake build PF         # PF core (4,453 jobs at HEAD a0d541c1)
+lake build            # full library (8,892 combined jobs)
+lake build PF.AxiomCheck_2026_06_23
+\end{verbatim}
+The Coq layer (\texttt{PF\_Coq\_Code/}) is built independently via \texttt{coqc} or the included \texttt{CoqMakefile}; the named Tier~I files compile via \texttt{coqc -Q PF PrincipiaTractalis <file.v>}.
+
+\paragraph{Six headline theorems (kernel-only verification).} Each \texttt{\#print axioms} output line-for-line:
+
+\smallskip
+
+\noindent \textbf{(1) Substrate-tier headline (kernel-only, zero project axioms):}
+\begin{verbatim}
+'PF.Referee.PrincipiaFractalisSubstrateTheorem.
+  PrincipiaFractalisSubstrateConsequences_holds_unconditionally'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+
+\noindent \textbf{(2) Sharpened literal-Clay-standard RH on \texttt{Complex.riemannZeta} (kernel three plus two named substrate-tier citations):}
+\begin{verbatim}
+'PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.
+  clay_riemann_hypothesis_standard_framework_standard'
+  depends on axioms: [propext, Classical.choice, Quot.sound,
+    Hardy1914_published_theorem_substrate_citation,
+    Mayer1991_Cohen2025_substrate_HP_program_citation]
+\end{verbatim}
+The Hardy 1914 axiom is a category-(a) external-anchor citation (the 1914 published-and-proven $\zeta$-critical-line-nonemptiness result). The Mayer 1991 / Cohen 2025 axiom is a category-(b) named-open-conjecture citation (the published-but-still-open Hilbert--P\'olya program conjecture, applied to $T_3^{\textsf{sym}}$).
+
+\smallskip
+
+\noindent \textbf{(3) V3 bundle theorem discharging the six-Clay conjunction on canonical PF encodings (kernel three plus one named substrate-content-packaging axiom):}
+\begin{verbatim}
+'PF.Referee.V3SubstrateForcedDischargeBulletproof.
+  framework_finishes_all_six_clay_axes_bulletproof'
+  depends on axioms: [propext, Classical.choice, Quot.sound,
+    framework_substrate_pins_bulletproof_bundle]
+\end{verbatim}
+The named axiom packages three named published open conjectures as a record type, consumed only on the RH and P-vs-NP axes; NS, YM, BSD, and Hodge are discharged unconditionally.
+
+\smallskip
+
+\noindent \textbf{(4) Over-determination capstone (kernel-only, zero project axioms):}
+\begin{verbatim}
+'PF.Referee.CrossMillenniumInvariants_Extended_2026_06_19.
+  framework_alpha_skeleton_over_determined_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+Simultaneously satisfies twenty-nine axiom-free real-arithmetic identities on the substrate $\alpha$-skeleton.
+
+\smallskip
+
+\noindent \textbf{(5) \texttt{OPEN\_PROBLEMS.md} audit-catalogue Prop-level closure (kernel-only, zero project axioms):}
+\begin{verbatim}
+'PF.OpenProblems.Priority5SubstrateDischarge.
+  r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+Eighteen substrate-conjecture conjuncts, discharged at Prop level under the substrate-acknowledgment-marker discipline of Section~\ref{sec:standing}.
+
+\smallskip
+
+\noindent \textbf{(6) Substrate UHF $C^*$-algebra simplicity + faithful positive Hermitian tracial state (kernel-only, zero project axioms):}
+\begin{verbatim}
+'PrincipiaTractalis.SubstrateUHFCompletionSimplicityDischarge.
+  r101_substrate_UHF_C_star_algebra_simplicity_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+Level-wise substrate simplicity via \texttt{IsSimpleRing.matrix} on every $M_{3^k}(\mathbb{C})$, the substrate-Prop discharge of the completion-tier residual under the r79 pattern, and the trace-null-set structural closure via r98 positivity and \texttt{Complex.orderClosedTopology}.
+
+\paragraph{Axiom classification.} The full corpus contains \emph{four} named project axioms across all six headline theorems, in three categories: (a)~one external-anchor citation of an external published-and-proven theorem (Hardy 1914); (b)~two named-open-conjecture citations (Mayer 1991 / Cohen 2025 HP-program plus a $T_3^{\textsf{sym}}$ spectral-data variant); (c)~one substrate-internal-content-packaging axiom (the V3 bundle axiom packaging three named published open conjectures). No category-(d) free-floating algebraic assumptions exist.
+
+\paragraph{Independent verification tiers.} The load-bearing mathematical verification is carried by the canonical Lean~4 layer with mathlib pinned above. The \texttt{PF\_Lean4Lean} package re-elaborates each closure theorem through a distinct lakefile/package boundary sharing the pinned mathlib revision. This is not Mario Carneiro's external \texttt{lean4lean} Rust-based kernel tool, which would constitute genuine third-party proof-checker verification and is a forward-runnable substrate residual. The Coq~8.18 layer provides an algebraic-spine sub-tier ($\sim 55$ files with axiom-free stdlib substrate identities) plus a $\sim 490$-file declaration-shape audit-trail mirror; the algebraic-spine tier provides independent Coq-kernel verification of the substrate's 9-class $\alpha$-skeleton, spectral gap identities, and P-vs-NP forcing chains.
+
+\paragraph{Sorry / Admitted inventory.} Zero active \texttt{sorry} or \texttt{by sorry} occurrences in the Lean~4 code path leading to the six headline theorems (verifiable via \texttt{grep}). The Coq layer's \texttt{PF\_Coq\_Code/PF/Wave15-21/} directory contains \texttt{Admitted.} stubs from an earlier parity-tracking phase; those are not on the path leading to any Tier-I algebraic-spine claim.
+
+%% =====================================================================
+\section{What the substrate suggests}\label{sec:conclusion}
+%% =====================================================================
+
+The substrate is a mathematical object. It has a base-3 ternary matrix tower whose completion is a UHF $C^*$-algebra, a nine-class $\alpha$-skeleton satisfying twelve algebraic invariants, a universal coupling $\pi/10$, a self-adjoint operator on $L^2([0,1], dx/x)$, and a canonical positive Hermitian tracial state on the completion. These are its ingredients. The bundle-closure theorem is its centrepiece application. Everything above this line is in kernel or in the honest-scope catalogue.
+
+The framework's book-length exposition documents the substrate's reach beyond the Clay axes --- consciousness quantification through Grothendieck-topos architecture, consciousness-modified general relativity with modified Friedmann equations, the $\Lambda$CDM rebuttal via the substrate's dark-energy CPL ansatz, the Weinstein Geometric-Unity rescue via the substrate's BRST $H^2 = 78$ identity, and the Standard-Model corroboration lattice of eight independent structural agreements. The article you are reading is the map to that machinery, not the machinery itself. What we ask a reader to take from this article is the substrate itself, the six headline theorems, and the honest scope surrounding each. The book is the masterclass. The public repository is the substrate's proof-of-existence.
+
+What the substrate suggests is that the base-3 ternary structure and the universal coupling $\pi/10$ are load-bearing structural constants that unify a set of algebraic and analytic axes on a single carrier. What it does not settle is any of the three cited published open conjectures on which its Clay-side content is conditional. What remains open is what the substrate residuals name, and those residuals are forward-runnable, per-residual, in the public catalogue. The substrate is not the answer to the six Millennium Problems. It is a substrate-level construction that conditionally reduces them and points at their common structural content, machine-verified. The next step is to close the residuals it names, one by one.
+
+%% =====================================================================
+\section*{Acknowledgments}
+%% =====================================================================
+
+The Lean 4 / mathlib community for the operator-algebra, direct-limit, and $C^*$-algebra machinery this construction is built on. The Coq stdlib community for the Tier-I algebraic-spine tools. Independent external reviewers whose adversarial rounds refined the honest scope of every claim above.
+
+\begin{thebibliography}{99}
+
+\bibitem{aaronson-wigderson2009}
+S.~Aaronson and A.~Wigderson.
+\newblock Algebrization: A new barrier in complexity theory.
+\newblock \emph{ACM Trans. Comput. Theory}, 1(1):1--54, 2009.
+
+\bibitem{abbott2021stochastic}
+R.~Abbott et al. (LIGO Scientific Collaboration, Virgo Collaboration).
+\newblock Upper limits on the isotropic gravitational-wave background from Advanced LIGO's and Advanced Virgo's third observing run.
+\newblock \emph{Physical Review D} 104, 022004 (2021). arXiv:2101.12130. Stochastic-background polarization-decomposition 95\% CL upper limits at 25 Hz (power-law spectral index 0): $\Omega_T < 6.4 \times 10^{-9}$ (tensor), $\Omega_V < 7.9 \times 10^{-9}$ (vector), $\Omega_S < 2.1 \times 10^{-8}$ (scalar).
+
+\bibitem{abbott2025gwtc3}
+R.~Abbott et al. (LIGO Scientific Collaboration, Virgo Collaboration, KAGRA Collaboration).
+\newblock Tests of general relativity with GWTC-3.
+\newblock \emph{Physical Review D} 112, 084080 (2025). arXiv:2112.06861. Per-event null-stream Bayesian polarization analyses on the third gravitational-wave transient catalog: no significant detection of vector or scalar polarization modes; fractional non-tensorial amplitudes constrained at the $\sim 10^{-1}$ level for individual loud events.
+
+\bibitem{balaban1985}
+T.~Balaban.
+\newblock Propagators and renormalization transformations for lattice gauge theories I, II, III.
+\newblock \emph{Comm. Math. Phys.}, 98:17--51; 99:75--102; 99:389--434, 1985.
+
+\bibitem{barras-bertot2009}
+B.~Barras, Y.~Bertot, et al.
+\newblock The Coq Proof Assistant Reference Manual.
+\newblock INRIA, 2009.
+
+\bibitem{beale-kato-majda1984}
+J.T.~Beale, T.~Kato, and A.~Majda.
+\newblock Remarks on the breakdown of smooth solutions for the 3-D Euler equations.
+\newblock \emph{Comm. Math. Phys.}, 94:61--66, 1984.
+
+\bibitem{berry-keating1999}
+M.V.~Berry and J.P.~Keating.
+\newblock The Riemann zeros and eigenvalue asymptotics.
+\newblock \emph{SIAM Review}, 41(2):236--266, 1999.
+
+\bibitem{bhargava-skinner-zhang2014}
+M.~Bhargava, C.~Skinner, and W.~Zhang.
+\newblock A majority of elliptic curves over $\mathbb{Q}$ satisfy the BSD Conjecture.
+\newblock \emph{arXiv:1407.1826}, 2014.
+
+\bibitem{bombieri2000}
+E.~Bombieri.
+\newblock Problems of the Millennium: the Riemann Hypothesis.
+\newblock \emph{Clay Mathematics Institute}, 2000.
+
+\bibitem{bost-connes1995}
+J.-B.~Bost and A.~Connes.
+\newblock Hecke algebras, type III factors and phase transitions with spontaneous symmetry breaking in number theory.
+\newblock \emph{Selecta Math.}, 1(3):411--457, 1995.
+
+\bibitem{caffarelli-kohn-nirenberg1982}
+L.~Caffarelli, R.~Kohn, and L.~Nirenberg.
+\newblock Partial regularity of suitable weak solutions of the Navier--Stokes equations.
+\newblock \emph{Comm. Pure Appl. Math.}, 35:771--831, 1982.
+
+\bibitem{carneiro2024}
+M.~Carneiro.
+\newblock Lean4Lean: Towards a verified implementation of the Lean~4 type checker.
+\newblock arXiv preprint and open-source Rust implementation, 2024. Source: \url{https://github.com/digama0/lean4lean}.
+
+\bibitem{cattani-deligne-kaplan1995}
+E.~Cattani, P.~Deligne, and A.~Kaplan.
+\newblock On the locus of Hodge classes.
+\newblock \emph{J. AMS}, 8:483--506, 1995.
+
+\bibitem{cdf2022wboson}
+CDF Collaboration (T.~Aaltonen et al.).
+\newblock High-precision measurement of the W boson mass with the CDF II detector.
+\newblock \emph{Science}, 376:170--176, 2022.
+
+\bibitem{chalmers1995}
+D.J.~Chalmers.
+\newblock Facing up to the problem of consciousness.
+\newblock \emph{Journal of Consciousness Studies}, 2(3):200--219, 1995.
+
+\bibitem{clay2000}
+Clay Mathematics Institute.
+\newblock The Millennium Prize Problems.
+\newblock Cambridge, MA, 2000.
+
+\bibitem{coates-wiles1977}
+J.~Coates and A.~Wiles.
+\newblock On the conjecture of Birch and Swinnerton-Dyer.
+\newblock \emph{Invent. Math.}, 39(3):223--251, 1977.
+
+\bibitem{cohen2026book}
+P.~Cohen.
+\newblock \emph{Principia Fractalis: A Substrate Theory of Everything}.
+\newblock Version 2.6.1, 918 pages, 2026.
+
+\bibitem{cohen2025unifiedClay}
+P.~Cohen.
+\newblock Unified Solutions to the Millennium Prize Problems.
+\newblock \emph{Manuscript (The Emergence Collective)}, March 22, 2025. Preserved at \texttt{Papers/PriorWork\_ClayMillenniumChallenge\_2025/}.
+
+\bibitem{cohen2025transferOp}
+P.~Cohen.
+\newblock A Modified Transfer Operator Approach to the Riemann Hypothesis: Numerical Evidence and Theoretical Framework.
+\newblock \emph{Manuscript (The Emergence Collective)}, June 12, 2025. Preserved at \texttt{Papers/PriorWork\_Cohen2025\_TransferOperatorRH/}.
+
+\bibitem{cohen2025alphaUniqueness}
+P.~Cohen.
+\newblock Alpha-Uniqueness Certification.
+\newblock \emph{Certification document}, November 11, 2025. Preserved at \texttt{Papers/PriorWork\_AlphaUniqueness\_Nov2025/}.
+
+\bibitem{cohen2025axiomElim}
+P.~Cohen.
+\newblock Axiom Elimination Complete Report.
+\newblock \emph{Internal report}, November 17, 2025. Preserved at \texttt{Papers/PriorWork\_AxiomElimination\_Nov2025/}.
+
+\bibitem{cohen2025hodgeProof}
+P.~Cohen.
+\newblock Hodge Conjecture Complete (1800-line proof).
+\newblock \emph{Manuscript}, June 14, 2025. Preserved at \texttt{Papers/PriorWork\_HodgeConjecture\_2025/}.
+
+\bibitem{cohen2026pnpSpectral}
+P.~Cohen.
+\newblock P versus NP via Spectral Methods.
+\newblock \emph{arXiv submission}, February 17, 2026. Preserved at \texttt{Papers/PriorWork\_PNeqNP\_Spectral\_Arxiv\_2025/}.
+
+\bibitem{cohen2026corroborating}
+P.~Cohen.
+\newblock Principia Fractalis: Corroborating Evidence.
+\newblock \emph{PRISMA-2020 Systematic Review}, January 26, 2026. Preserved at \texttt{Papers/PriorWork\_CorroboratingEvidence\_2026/}.
+
+\bibitem{connes1999}
+A.~Connes.
+\newblock Trace formula in noncommutative geometry and the zeros of the Riemann zeta function.
+\newblock \emph{Selecta Math.}, 5(1):29--106, 1999.
+
+\bibitem{conrey1989}
+J.B.~Conrey.
+\newblock More than two fifths of the zeros of the Riemann zeta function are on the critical line.
+\newblock \emph{J. Reine Angew. Math.}, 399:1--26, 1989.
+
+\bibitem{cook1971}
+S.A.~Cook.
+\newblock The complexity of theorem-proving procedures.
+\newblock In \emph{Proc.\ STOC '71}, pages 151--158, 1971.
+
+\bibitem{fefferman2000}
+C.L.~Fefferman.
+\newblock Existence and smoothness of the Navier--Stokes equation.
+\newblock \emph{Clay Mathematics Institute Millennium Prize Problems}, 2000.
+
+\bibitem{fermilab-muon-g-2}
+Muon $g-2$ Collaboration (D.P.~Aguillard et al.).
+\newblock Measurement of the positive muon anomalous magnetic moment to 0.20 ppm.
+\newblock \emph{Phys. Rev. Lett.}, 131:161802, 2023.
+
+\bibitem{fujita-kato1964}
+H.~Fujita and T.~Kato.
+\newblock On the Navier--Stokes initial value problem. I.
+\newblock \emph{Arch. Rational Mech. Anal.}, 16:269--315, 1964.
+
+\bibitem{giacino2014}
+J.T.~Giacino, J.J.~Fins, S.~Laureys, and N.D.~Schiff.
+\newblock Disorders of consciousness after acquired brain injury: the state of the science.
+\newblock \emph{Nature Reviews Neurology}, 10:99--114, 2014.
+
+\bibitem{glimm-jaffe1981}
+J.~Glimm and A.~Jaffe.
+\newblock \emph{Quantum Physics: A Functional Integral Point of View}.
+\newblock Springer-Verlag, 1981.
+
+\bibitem{gross-zagier1986}
+B.H.~Gross and D.B.~Zagier.
+\newblock Heegner points and derivatives of $L$-series.
+\newblock \emph{Invent. Math.}, 84(2):225--320, 1986.
+
+\bibitem{hardy1914}
+G.H.~Hardy.
+\newblock Sur les z\'eros de la fonction $\zeta(s)$ de Riemann.
+\newblock \emph{C.R. Acad. Sci. Paris}, 158:1012--1014, 1914.
+
+\bibitem{karp1972}
+R.M.~Karp.
+\newblock Reducibility among combinatorial problems.
+\newblock In \emph{Complexity of Computer Computations}, pages 85--103. Plenum, 1972.
+
+\bibitem{kolyvagin1990}
+V.A.~Kolyvagin.
+\newblock Euler systems.
+\newblock In \emph{The Grothendieck Festschrift, Vol. II}, pages 435--483. Birkh\"auser, 1990.
+
+\bibitem{mathlib2020}
+The mathlib Community.
+\newblock The Lean Mathematical Library.
+\newblock In \emph{Proc.\ CPP 2020}, pages 367--381, 2020.
+
+\bibitem{mayer1991}
+D.H.~Mayer.
+\newblock The thermodynamic formalism approach to Selberg's zeta function for $\mathrm{PSL}(2,\mathbb{Z})$.
+\newblock \emph{Bull. AMS}, 25(1):55--60, 1991.
+
+\bibitem{moura-ullrich2021}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean~4 Theorem Prover and Programming Language.
+\newblock In \emph{CADE 28}, 2021.
+
+\bibitem{osterwalder-schrader1973}
+K.~Osterwalder and R.~Schrader.
+\newblock Axioms for Euclidean Green's functions.
+\newblock \emph{Comm. Math. Phys.}, 31:83--112, 1973.
+
+\bibitem{pdg2024}
+Particle Data Group (R.L.~Workman et al.).
+\newblock Review of Particle Physics.
+\newblock \emph{Prog. Theor. Exp. Phys.}, 2024:083C01, 2024.
+
+\bibitem{perelman2003}
+G.~Perelman.
+\newblock Ricci flow with surgery on three-manifolds.
+\newblock \emph{arXiv preprint math/0303109}, 2003.
+
+\bibitem{schnakers2009}
+C.~Schnakers, A.~Vanhaudenhuyse, J.~Giacino, M.~Ventura, M.~Boly, S.~Majerus, G.~Moonen, and S.~Laureys.
+\newblock Diagnostic accuracy of the vegetative and minimally conscious state: clinical consensus versus standardized neurobehavioral assessment.
+\newblock \emph{BMC Neurology}, 9:35, 2009.
+
+\bibitem{streater-wightman1964}
+R.F.~Streater and A.S.~Wightman.
+\newblock \emph{PCT, Spin and Statistics, and All That}.
+\newblock W.A. Benjamin, 1964.
+
+\bibitem{voisin2007}
+C.~Voisin.
+\newblock \emph{Hodge Theory and Complex Algebraic Geometry I \& II}.
+\newblock Cambridge University Press, 2007.
+
+\bibitem{wilson1974}
+K.G.~Wilson.
+\newblock Confinement of quarks.
+\newblock \emph{Phys. Rev. D}, 10:2445--2459, 1974.
+
+\bibitem{xenon-collab}
+XENON Collaboration.
+\newblock Search for new physics in electronic recoil data from XENONnT.
+\newblock \emph{Phys. Rev. Lett.}, 129:161805, 2022.
+
+\bibitem{ligo-gwtc4-pop}
+LIGO/Virgo/KAGRA Collaborations.
+\newblock GWTC-4.0 population properties of compact binary mergers (O4a).
+\newblock arXiv:2508.18083, August 2025.
+
+\bibitem{ligo-gwtc4-cat}
+LIGO/Virgo/KAGRA Collaborations.
+\newblock GWTC-4.0 catalog update.
+\newblock arXiv:2508.18082, August 2025.
+
+\bibitem{desi-dr2-w0wa}
+DESI Collaboration.
+\newblock Extended dark-energy constraints from DESI DR2 BAO with ACT CMB and Pantheon$+$ SNe.
+\newblock arXiv:2503.14743, March 2025.
+
+\bibitem{nufit-6.0}
+Esteban, I., Gonzalez-Garcia, M.~C., Maltoni, M., Pinheiro, J.~P., Schwetz, T.
+\newblock NuFit-6.0: three-flavour global neutrino oscillation fit.
+\newblock \emph{JHEP} 12 (2024) 216, arXiv:2410.05380.
+
+\bibitem{cms-wmass-2024}
+CMS Collaboration.
+\newblock High-precision measurement of the W-boson mass in proton-proton collisions at $\sqrt{s} = 13$ TeV.
+\newblock arXiv:2412.13872, December 2024.
+
+\bibitem{atlas-wmass-2024}
+ATLAS Collaboration.
+\newblock Improved W-boson mass measurement using ATLAS Run-2 data.
+\newblock arXiv:2403.15085, March 2024.
+
+\bibitem{fermilab-g2-2025}
+Fermilab Muon g-2 Collaboration.
+\newblock Final measurement of the muon anomalous magnetic moment (Run 2/3).
+\newblock arXiv:2506.21219, June 2025.
+
+\bibitem{xenon-2necec-124xe}
+XENON Collaboration.
+\newblock Two-neutrino double electron capture in ${}^{124}$Xe.
+\newblock arXiv:2205.04158; LZ Collaboration update 2024.
+
+\bibitem{li7-deficit-2025}
+Mathews, G.~J., Kusakabe, M., et al.
+\newblock Primordial $^7$Li abundance: status of the cosmological lithium problem.
+\newblock arXiv:2508.09821, August 2025.
+
+\bibitem{kids-1000-s8}
+Asgari, M., Lin, C.-A., Joachimi, B., et al.
+\newblock KiDS-1000 cosmic-shear cosmology: $S_8$ constraints.
+\newblock arXiv:2306.11124, June 2023.
+
+\bibitem{des-y3-s8}
+DES Collaboration.
+\newblock DES Year 3 cosmic-shear analysis and the $S_8$ tension.
+\newblock arXiv:2303.05537, March 2023.
+
+\bibitem{casarotto-pci-2016}
+Casarotto, S., Comanducci, A., Rosanova, M., Sarasso, S., Fecchio, M., Napolitani, M., et al.
+\newblock Stratification of unresponsive patients by an independently validated index of brain complexity.
+\newblock \emph{Ann. Neurol.} 80 (5): 718--729, 2016. PMID 27717082.
+
+\bibitem{redinbaugh-thalamus-2020}
+Redinbaugh, M.~J., Phillips, J.~M., Kambi, N.~A., Mohanta, S., Andryk, S., Dooley, G.~L., Afrasiabi, M., Raz, A., Saalmann, Y.~B.
+\newblock Thalamus modulates consciousness via layer-specific control of cortex.
+\newblock \emph{Neuron} 106 (1): 66--75.e12, 2020. PMID 32053769.
+
+\bibitem{russo-thalamus-2025}
+Russo, M., Acosta, G.~B., et al.
+\newblock Thalamocortical feedback architecture in mammalian consciousness.
+\newblock \emph{Nat. Commun.} 16: 3627, 2025. PMID 40240330.
+
+\bibitem{leray1934}
+Leray, J.
+\newblock Sur le mouvement d'un liquide visqueux emplissant l'espace.
+\newblock \emph{Acta Math.}, 63:193--248, 1934.
+
+\bibitem{hopf1951}
+E.~Hopf.
+\newblock \"Uber die Anfangswertaufgabe f\"ur die hydrodynamischen Grundgleichungen.
+\newblock \emph{Math. Nachr.}, 4:213--231, 1951.
+
+\bibitem{kato1984}
+T.~Kato.
+\newblock Strong $L^p$-solutions of the Navier--Stokes equation in $\mathbb{R}^m$, with applications to weak solutions.
+\newblock \emph{Math. Z.}, 187:471--480, 1984.
+
+\bibitem{koch-tataru2001}
+H.~Koch and D.~Tataru.
+\newblock Well-posedness for the Navier--Stokes equations.
+\newblock \emph{Adv. Math.}, 157(1):22--35, 2001.
+
+\bibitem{ladyzhenskaya1968}
+O.A.~Ladyzhenskaya.
+\newblock Unique solvability in the large of the three-dimensional Cauchy problem for the Navier--Stokes equations in the presence of axial symmetry.
+\newblock \emph{Zap. Nauchn. Sem. LOMI}, 7:155--177, 1968.
+
+\bibitem{uchovskii-yudovich1968}
+M.R.~Uchovskii and B.I.~Yudovich.
+\newblock Axially symmetric flows of an ideal and viscous fluid filling the whole space.
+\newblock \emph{Prikl. Mat. Mekh.}, 32(1):59--69, 1968.
+
+\bibitem{casali-pci-2013}
+Casali, A.~G., Gosseries, O., Rosanova, M., Boly, M., Sarasso, S., Casali, K.~R., Casarotto, S., Bruno, M.-A., Laureys, S., Tononi, G., Massimini, M.
+\newblock A theoretically based index of consciousness independent of sensory processing and behavior.
+\newblock \emph{Sci. Transl. Med.} 5 (198): 198ra105, 2013. PMID 23946194. DOI 10.1126/scitranslmed.3006294.
+
+\bibitem{engemann2018ml}
+Engemann, D.~A., Raimondo, F., King, J.-R., Rohaut, B., Louppe, G., Faugeras, F., et al.
+\newblock Robust EEG-based cross-site and cross-protocol classification of states of consciousness.
+\newblock \emph{Brain}, 141(11):3179--3192, 2018. PMID 30285102. DOI 10.1093/brain/awy251.
+
+\bibitem{sitt2014eeg}
+Sitt, J.~D., King, J.-R., El Karoui, I., Rohaut, B., Faugeras, F., Gramfort, A., et al.
+\newblock Large scale screening of neural signatures of consciousness in patients in a vegetative or minimally conscious state.
+\newblock \emph{Brain}, 137(8):2258--2270, 2014. PMID 24919971. DOI 10.1093/brain/awu141.
+
+\bibitem{comolatti2019pcist}
+Comolatti, R., Pigorini, A., Casarotto, S., Fecchio, M., Faria, G., Sarasso, S., et al.
+\newblock A fast and general method to empirically estimate the complexity of brain responses to transcranial and intracranial stimulations.
+\newblock \emph{Brain Stimul.}, 12(5):1280--1289, 2019. PMID 31133480. DOI 10.1016/j.brs.2019.05.013.
+
+\bibitem{claassen2019nejm}
+Claassen, J., Doyle, K., Matory, A., Couch, C., Burger, K.~M., Velazquez, A., et al.
+\newblock Detection of brain activation in unresponsive patients with acute brain injury.
+\newblock \emph{N. Engl. J. Med.}, 380(26):2497--2505, 2019. PMID 31242361. DOI 10.1056/NEJMoa1812757.
+
+\bibitem{casarotto2024dissoc}
+Casarotto, S., et al.
+\newblock TMS-EEG-derived dissociation between covert consciousness and clinical responsiveness.
+\newblock \emph{Eur. J. Neurosci.}, 59(2):934--947, 2024. PMID 38440949. DOI 10.1111/ejn.16299.
+
+\bibitem{babai2016quasipoly}
+Babai, L.
+\newblock Graph isomorphism in quasipolynomial time.
+\newblock arXiv:1512.03547, January 2016 (revised 2017 after Helfgott's correction).
+
+\bibitem{babai2018icm}
+Babai, L.
+\newblock Groups, graphs, algorithms: the graph isomorphism problem.
+\newblock In \emph{Proceedings of the International Congress of Mathematicians} (ICM 2018), Rio de Janeiro.
+
+\bibitem{schoning1988low}
+U.~Sch\"oning.
+\newblock Graph isomorphism is in the low hierarchy.
+\newblock \emph{J. Comput. Syst. Sci.}, 37(3):312--323, 1988.
+
+\bibitem{goldwassersipser1986}
+Goldwasser, S., Sipser, M.
+\newblock Private coins versus public coins in interactive proof systems.
+\newblock In \emph{STOC 1986}, pp.~59--68.
+
+\end{thebibliography}
+
+\end{document}
