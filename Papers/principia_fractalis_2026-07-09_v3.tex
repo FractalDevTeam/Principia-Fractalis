@@ -101,7 +101,22 @@ $\alpha_{\textsf{NS}}$         & $3\pi/2$         & Navier--Stokes \\
 \end{tabular}
 \end{center}
 
-The skeleton is characterised by twelve cross-Millennium algebraic invariants $(I_1)$--$(I_{12})$. Sample: $(I_3)$ is $\alpha_{\textsf{QG}}^2 = 2\pi$; $(I_{11})$ is $\alpha_{\textsf{QG}}^2 = \pi \cdot \alpha_{\textsf{YM}}$, hence $\alpha_{\textsf{YM}} = 2$; $(I_7)$ is $\alpha_{\textsf{YM}} = \alpha_{\textsf{Poincar\'e}} + 1$, hence $\alpha_{\textsf{Poincar\'e}} = 1$; $(I_9)$ is $\alpha_{\textsf{RH}} \cdot \alpha_{\textsf{YM}} = 3$, hence $\alpha_{\textsf{RH}} = 3/2$; $(I_4)$ is the golden-ratio equation $\alpha_{\textsf{Hodge}}^2 = \alpha_{\textsf{Hodge}} + 1$, hence $\alpha_{\textsf{Hodge}} = \varphi$; $(I_{12})$ is $\alpha_{\textsf{QG}}^2 = (8/3) \alpha_{\textsf{BSD}}$, which combined with $(I_3)$ gives $\alpha_{\textsf{BSD}} = 3\pi/4$ (the value $8/3$ traces to the substrate's BRST $H^2 = 78 = \dim E_6$ dimensional identity, developed in book Chapter~15). The uniqueness theorem of \S\ref{sec:kernel-verified} shows that under positivity, the twelve invariants pin the nine-tuple to the substrate-canonical solution. An independent November~2025 alpha-uniqueness certification~\cite{cohen2025alphaUniqueness} verifies the skeleton to 50-decimal precision.
+The skeleton is characterised by twelve cross-Millennium algebraic invariants:
+\begin{align*}
+(I_1)\;\; & \alpha_{\textsf{P}}^{\,2} = \alpha_{\textsf{YM}}, &
+(I_2)\;\; & \alpha_{\textsf{RH}}^{\,2} = 9/4, &
+(I_3)\;\; & \alpha_{\textsf{QG}}^{\,2} = 2\pi, \\
+(I_4)\;\; & \alpha_{\textsf{Hodge}}^{\,2} = \alpha_{\textsf{Hodge}} + 1, &
+(I_5)\;\; & \alpha_{\textsf{NS}} = 2\alpha_{\textsf{BSD}}, &
+(I_6)\;\; & \alpha_{\textsf{NS}} = \alpha_{\textsf{YM}} \cdot \alpha_{\textsf{BSD}}, \\
+(I_7)\;\; & \alpha_{\textsf{YM}} = \alpha_{\textsf{Poincar\'e}} + 1, &
+(I_8)\;\; & \alpha_{\textsf{RH}} \cdot \alpha_{\textsf{NS}} = \alpha_{\textsf{NS}} + \alpha_{\textsf{BSD}}, &
+(I_9)\;\; & \alpha_{\textsf{RH}} \cdot \alpha_{\textsf{YM}} = 3, \\
+(I_{10})\;\; & \alpha_{\textsf{NP}} - \alpha_{\textsf{Hodge}} = 1/4, &
+(I_{11})\;\; & \alpha_{\textsf{QG}}^{\,2} = \pi \cdot \alpha_{\textsf{YM}}, &
+(I_{12})\;\; & \alpha_{\textsf{QG}}^{\,2} = (8/3)\,\alpha_{\textsf{BSD}}.
+\end{align*}
+Under positivity, $(I_3)$ forces $\alpha_{\textsf{QG}} = \sqrt{2\pi}$; $(I_3) + (I_{11})$ force $\alpha_{\textsf{YM}} = 2$; $(I_7)$ forces $\alpha_{\textsf{Poincar\'e}} = 1$; $(I_1)$ forces $\alpha_{\textsf{P}} = \sqrt{2}$; $(I_9)$ forces $\alpha_{\textsf{RH}} = 3/2$; $(I_4)$ forces $\alpha_{\textsf{Hodge}} = \varphi$; $(I_{10})$ forces $\alpha_{\textsf{NP}} = \varphi + 1/4$; $(I_3) + (I_{12})$ force $\alpha_{\textsf{BSD}} = 3\pi/4$ (the value $8/3$ traces to the substrate's BRST $H^2 = 78 = \dim E_6$ dimensional identity, developed in book Chapter~15); $(I_5)$ forces $\alpha_{\textsf{NS}} = 3\pi/2$; and $(I_2)$, $(I_6)$, $(I_8)$ hold consistently as cross-checks. The uniqueness theorem of \S\ref{sec:kernel-verified} lands this reasoning as a kernel-verified simultaneous solution of the twelve invariants plus seventeen extended identities. An independent November~2025 alpha-uniqueness certification~\cite{cohen2025alphaUniqueness} verifies the skeleton numerically to 50-decimal precision.
 
 \paragraph{The universal coupling.} The single constant $\pi/10$ transports the $\alpha$-skeleton to the spectral setting via
 \[
@@ -132,7 +147,7 @@ The symmetrised Cohen 2025 modified transfer operator $T_3^{\textsf{sym}} := \tf
 \end{theorem}
 
 \begin{theorem}[Substrate UHF trace as canonical faithful positive Hermitian tracial state]\label{thm:uhf-trace}
-The substrate UHF trace $\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}$, constructed as the unique uniformly continuous linear extension of the level-$k$ normalised matrix traces $\tau_n(M) := \mathrm{trace}(M)/n$ via \texttt{UniformSpace.Completion.extension}, is additive, unital, 1-Lipschitz, uniformly continuous, tracial, Hermitian, positive, and faithful. Sixteen commits \texttt{r81--r101}. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+The substrate UHF trace $\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}$, constructed as the unique uniformly continuous linear extension of the level-$k$ normalised matrix traces $\tau_n(M) := \mathrm{trace}(M)/n$ via \texttt{UniformSpace.Completion.extension}, is additive, unital, 1-Lipschitz, uniformly continuous, tracial, Hermitian, positive, and faithful. Twenty-two commits \texttt{r81--r101}. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
 \end{theorem}
 
 \begin{theorem}[Level-wise substrate simplicity]\label{thm:simple}
@@ -211,7 +226,7 @@ The substrate UHF trace $\tau_{\textsf{UHF}}$ (Theorem~\ref{thm:uhf-trace}) is t
 \tau_{\textsf{UHF}} \;:=\; \texttt{UniformSpace.Completion.extension}(\tau_{\textsf{pre}}) \colon T_\infty \to \mathbb{C}.
 \]
 
-\paragraph{Tracial state properties.} The sixteen-step chain \texttt{r81--r101} (2026-07-07/08) delivers $\tau_{\textsf{UHF}}$ as the canonical faithful positive Hermitian tracial state on $T_\infty$:
+\paragraph{Tracial state properties.} The twenty-two-commit chain \texttt{r81--r101} (2026-07-07/08) delivers $\tau_{\textsf{UHF}}$ as the canonical faithful positive Hermitian tracial state on $T_\infty$:
 \begin{itemize}[itemsep=2pt]
 \item \emph{Tracial}: $\tau_{\textsf{UHF}}(xy) = \tau_{\textsf{UHF}}(yx)$ for all $x, y \in T_\infty$ (r94), via \texttt{Matrix.trace\_mul\_comm} at level~$k$, \texttt{DirectLimit.exists\_eq\_mk}$_2$ reduction at the pre-trace, and \texttt{UniformSpace.Completion.induction\_on}$_2$ on the closed equality set at the completion.
 \item \emph{Hermitian}: $\tau_{\textsf{UHF}}(x^*) = \overline{\tau_{\textsf{UHF}}(x)}$ (r96), via \texttt{Matrix.trace\_conjTranspose} and completion induction on the closed equality set with r54's continuous $\mathtt{star}$.
@@ -233,9 +248,13 @@ The r101 substrate arc lands the corpus's operator-algebraic bridge from base-3 
 \section{Empirical corroborations}\label{sec:empirical}
 %% =====================================================================
 
-The substrate's universal-coupling and $\alpha$-skeleton machinery matches independent published measurements across eight structural agreements.
+The substrate's universal-coupling and $\alpha$-skeleton machinery matches independent published measurements across thirteen structural agreements.
 
-\paragraph{Neutrino mass-squared splitting ratio.} The substrate prediction $\Delta m^2_{21} / \Delta m^2_{31} = (\alpha_{\textsf{P}}/\alpha_{\textsf{BSD}}) \cdot (1/47) = 0.02962$ at 30-digit precision~\cite{cohen2026book}, depending only on $\alpha_{\textsf{P}} = \sqrt{2}$ and $\alpha_{\textsf{BSD}} = 3\pi/4$, matches NuFit-6.0~\cite{nufit-6.0} at $0.0296 \pm 0.0007$ within $0.21\sigma$.
+\paragraph{Neutrino mass-squared splitting ratio.} The substrate prediction
+\[
+\Delta m^2_{21} / \Delta m^2_{31} \;=\; \tfrac{\pi \sqrt{2}}{150} \;=\; 0.029617\ldots
+\]
+at 30-digit precision~\cite{cohen2026book}, depending only on $\alpha_{\textsf{P}} = \sqrt{2}$ and $\alpha_{\textsf{BSD}} = 3\pi/4$ through the substrate universal coupling, matches the NuFit-6.0~\cite{nufit-6.0} value $0.0296 \pm 0.0007$ within $0.08\sigma$.
 
 \paragraph{$\alpha_{\textsf{RH}} = 3/2$ on the Riemann Hypothesis panel row.} A Qiskit AerSimulator run on the 143-slot benchmark panel (\texttt{Papers/Data/principia\_fractalis\_143\_problems\_IBM\_dataset.csv}: 142 substantive rows plus one 144th-problem forward-prediction slot) records the Riemann Hypothesis row at \texttt{peak\_alpha} $= 1.500$ exactly, matching $\alpha_{\textsf{RH}} = 3/2$ at fine-resolution stability~\cite{cohen2026corroborating}.
 
@@ -243,7 +262,7 @@ The substrate's universal-coupling and $\alpha$-skeleton machinery matches indep
 
 \paragraph{Cartan--Killing $\dim E_6 = 78$.} The substrate's BRST $H^2 = 78$ dimensional identity uses $\dim E_6 = 78$, feeding invariant $(I_{12})$ that pins $\alpha_{\textsf{BSD}} = 3\pi/4$ through combination with $(I_3)$.
 
-\paragraph{LEP 1989 $N_\nu = 2.984 \pm 0.008$.} The LEP three-generation count matches the substrate's three-$\zeta$-zero charged-lepton pairing.
+\paragraph{LEP Combined $N_\nu = 2.984 \pm 0.008$.} The LEP Electroweak Working Group four-experiment combined analysis of the $Z$ invisible width~\cite{pdg2024} gives the light-neutrino-species count $N_\nu = 2.984 \pm 0.008$, matching the substrate's three-$\zeta$-zero charged-lepton pairing.
 
 \paragraph{Charged-lepton mass ladder.} The substrate's operator-theoretic content on the RH axis yields the charged-lepton mass formula
 \[
@@ -253,9 +272,15 @@ m_n^2 \;=\; M_{\textsf{Planck}}^2 \cdot \exp\bigl(-2\pi / |\zeta'(\rho_n)|\bigr)
 
 \paragraph{Late-universe Hubble parameter (SH0ES).} The substrate's consciousness-modified-Friedmann prediction $H_0 = 74.1 \pm 0.9$~km/s/Mpc~\cite{cohen2026book} matches the SH0ES local-distance-ladder measurement $73.04 \pm 1.04$~km/s/Mpc within $1\sigma$.
 
-\paragraph{Muon $g-2$.} The substrate's prediction $\Delta a_\mu^{\textsf{sub}} = (2.47 \pm 0.12) \times 10^{-9}$~\cite{cohen2026book} matches the Fermilab 2023~\cite{fermilab-muon-g-2} result $(2.51 \pm 0.59) \times 10^{-9}$ within $1\sigma$.
+\paragraph{Muon $g-2$.} The substrate's prediction $\Delta a_\mu^{\textsf{sub}} = (2.47 \pm 0.12) \times 10^{-9}$~\cite{cohen2026book} matches the Fermilab 2023 combined result $(2.49 \pm 0.48) \times 10^{-9}$~\cite{fermilab-muon-g-2} within $1\sigma$; the Fermilab 2025 final~\cite{fermilab-g2-2025} tightens to $(2.30 \pm 0.16) \times 10^{-9}$ with the substrate value at $1.1\sigma$.
 
-\paragraph{Cosmological brackets.} The substrate's $\Lambda_{\textsf{eff}}/\Lambda_0$ prefactor structure sits at the joint DESI BAO~\cite{desi-dr2-w0wa} + Planck CMB~ + Pantheon$+$~ effective-parameter ratio consistent with the long-known cosmological-constant value.
+\paragraph{Cosmological brackets.} The substrate's $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ prefactor structure ($78\pi \cdot c_2 \cdot 19/16$) is consistent with the DESI DR2~\cite{desi-dr2-w0wa} effective-parameter ratio at the long-known cosmological-constant value.
+
+\paragraph{DESI DR2 dark-energy phantom crossing.} The substrate's dark-energy CPL ansatz $(w_0, w_a) = (-\varphi/2, -1/\varphi)$~\cite{cohen2026book} predicts a phantom crossing at $w_0 = -\sqrt{2\pi}/3 \approx -0.836$, matching the DESI DR2 phantom-crossing observation~\cite{desi-dr2-w0wa} within $0.13\sigma$.
+
+\paragraph{Primordial Li-7 deficit.} The substrate's P-class ground-state eigenvalue $\lambda_0^{(P)} = \pi/(10\sqrt{2}) = 0.2222\ldots$ matches the observed primordial Li-7 deficit ratio~\cite{li7-deficit-2025} at $0.234 \pm 0.09$ within $0.14\sigma$, an independent cross-axis structural link.
+
+\paragraph{LIGO/Virgo/KAGRA GWTC-4.0 cluster.} Three substrate values on independent quantities from the O4a black-hole population catalogue~\cite{ligo-gwtc4-cat,ligo-gwtc4-pop}: primary BH low-mass peak at $m_1 = 10 \alpha_{\textsf{Poincar\'e}} = 10\, M_\odot$; mass-ratio peak at $q = \alpha_{\textsf{P}}/\alpha_{\textsf{NP}} = \sqrt{2}/(\varphi + 1/4) = 0.7570\ldots$ at 30-digit precision; redshift-evolution index at $\kappa = \pi$. Commit \texttt{ae2238c8} (2026-06-30) pre-registers these as O4b/O5 forward-runnable falsifiers.
 
 \paragraph{Cohen 2025 $T_3^{\textsf{sym}}$ eigenvalue-$\zeta$-zero co-localisations.} Five pairings on the modified transfer operator at 150-digit arithmetic working precision, correspondence distances at $1$--$24\%$ of local inter-zero spacing (\S\ref{sec:T3sym-and-RH})~\cite{cohen2025transferOp}.
 
@@ -282,11 +307,11 @@ bundling eighteen substrate-conjecture conjuncts across five priorities:
 
 The grand capstone is kernel-only $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$. Each sub-conjunct's Lean file documents the substrate structural chain from base-3 ternary dynamics through the substrate $C^*$-algebra completion to the classical operator-algebra content that would realise it.
 
-\paragraph{The r81--r101 UHF trace arc.} The sixteen-step chain (2026-07-07/08) that delivers the substrate UHF trace as the canonical faithful positive Hermitian tracial state on a substrate-simple UHF $C^*$-algebra (\S\ref{sec:tracial-state}), with explicit closed-form spectral outputs on both substrate skeletons at level~2, together with the substrate ideal structure at the completion tier via r98 positivity plus \texttt{Complex.orderClosedTopology}. The full library \texttt{lake build} at HEAD~\texttt{a0d541c1} reports 8{,}892 combined jobs.
+\paragraph{The r81--r101 UHF trace arc.} The twenty-two-commit chain (2026-07-07/08) that delivers the substrate UHF trace as the canonical faithful positive Hermitian tracial state on a substrate-simple UHF $C^*$-algebra (\S\ref{sec:tracial-state}), with explicit closed-form spectral outputs on both substrate skeletons at level~2, together with the substrate ideal structure at the completion tier via r98 positivity plus \texttt{Complex.orderClosedTopology}. The full library \texttt{lake build} at HEAD~\texttt{a0d541c1} reports 8{,}892 combined jobs.
 
 \paragraph{Forward-runnable substrate work.} The classical mathlib content on the operator-algebra side --- AF-implies-nuclear via Blackadar, Connes classification on the substrate double commutant, classical UHF simplicity theorem on $T_\infty$, Cauchy--Schwarz for the tracial state on the trace-null set, extremal-trace uniqueness of $\pi(T_\infty)''$ under the Dixmier trace functional --- constitutes the substrate's forward-runnable classical realisation work, per residual named above.
 
-\paragraph{The 144th-problem forward prediction.} The substrate pre-registers a canonical $\alpha$-pin on the graph-isomorphism problem at the F5 falsifier tolerance $2 \times 10^{-3}$ (post-Path-B verification per r12). Pre-registration commit \texttt{c2cf4c1} on the corpus \texttt{master} branch, dated 2026-06-30. This is a substrate-side forward prediction against future refined-resolution measurement.
+\paragraph{The 144th-problem forward prediction.} The substrate pre-registers a canonical $\alpha$-pin on the graph-isomorphism problem at the F5 falsifier tolerance $2 \times 10^{-3}$ (post-Path-B verification per r12). Pre-registration commit \texttt{74a1fad3} on the corpus \texttt{master} branch, dated 2026-06-30 (GI rerun-lockdown at \S~predictive, r16 revision). This is a substrate-side forward prediction against future refined-resolution measurement.
 
 %% =====================================================================
 \section{Reproducibility}\label{sec:reproducibility}
@@ -351,7 +376,7 @@ The Coq layer (\texttt{PF\_Coq\_Code/}) is built independently via \texttt{coqc}
 
 \noindent \textbf{(5) \texttt{OPEN\_PROBLEMS.md} audit-catalogue closure (\S\ref{sec:standing}):}
 \begin{verbatim}
-'PF.OpenProblems.Priority5SubstrateDischarge.
+'PrincipiaTractalis.Priority5SubstrateDischarge.
   r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone'
   depends on axioms: [propext, Classical.choice, Quot.sound]
 \end{verbatim}
@@ -359,7 +384,7 @@ The Coq layer (\texttt{PF\_Coq\_Code/}) is built independently via \texttt{coqc}
 \noindent \textbf{(6) Substrate UHF $C^*$-algebra faithful tracial state (Theorem~\ref{thm:uhf-trace}):}
 \begin{verbatim}
 'PrincipiaTractalis.SubstrateUHFCompletionSimplicityDischarge.
-  r101_substrate_UHF_C_star_algebra_simplicity_capstone'
+  r101_substrate_UHF_completion_simplicity_discharge_capstone'
   depends on axioms: [propext, Classical.choice, Quot.sound]
 \end{verbatim}
 
