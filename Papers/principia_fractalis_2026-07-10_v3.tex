@@ -85,7 +85,7 @@ so every $M_{3^k}(\mathbb{C})$ sits inside $M_{3^{k+1}}(\mathbb{C})$ as an $A \o
 \[
 T_\infty \;:=\; \mathrm{TimelessFieldCompletion} \;=\; \overline{\varinjlim_k A_k}^{\|\cdot\|_{\textsf{op}}}.
 \]
-$T_\infty$ carries mathlib-native \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instances, with the ternary tower dense in it. This is the substrate UHF $C^*$-algebra. Construction: the substrate $C^*$-algebra completion chain (\texttt{r41--r72}, git range \texttt{f2bcf30}--\texttt{8e68a8d}), kernel-only under $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+$T_\infty$ carries mathlib-native \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instances, with the ternary tower dense in it. This is the substrate UHF $C^*$-algebra. Construction: the substrate $C^*$-algebra completion chain lands at r61 (git \texttt{f2bcf30}--\texttt{f64833d}), with the r63--r72 r26-pathway substrate discharges of the (C1)--(C8) sub-conjectures~of Conjecture~8.X.2 (\S\ref{sec:standing}) extending the completion structure to the r67--r72 tip \texttt{8e68a8d}. Kernel-only under $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
 
 \paragraph{The nine-class $\alpha$-skeleton.} The substrate's nine algebraic values over the basis $\{1, \pi, \varphi, \sqrt{2}\}$, with $\varphi := (1+\sqrt{5})/2$ the golden ratio:
 
@@ -124,7 +124,7 @@ The skeleton is characterised by twelve cross-Millennium algebraic invariants:
 (I_{11})\;\; & \alpha_{\textsf{QG}}^{\,2} = \pi \cdot \alpha_{\textsf{YM}}, &
 (I_{12})\;\; & \alpha_{\textsf{QG}}^{\,2} = (8/3)\,\alpha_{\textsf{BSD}}.
 \end{align*}
-Under positivity, $(I_3)$ pins $\alpha_{\textsf{QG}} = \sqrt{2\pi}$; $(I_3) + (I_{11})$ pin $\alpha_{\textsf{YM}} = 2$; $(I_7)$ pins $\alpha_{\textsf{Poincar\'e}} = 1$; $(I_1)$ pins $\alpha_{\textsf{P}} = \sqrt{2}$; $(I_9)$ pins $\alpha_{\textsf{RH}} = 3/2$; $(I_4)$ pins $\alpha_{\textsf{Hodge}} = \varphi$; $(I_{10})$ pins $\alpha_{\textsf{NP}} = \varphi + 1/4$; $(I_3) + (I_{12})$ pin $\alpha_{\textsf{BSD}} = 3\pi/4$ (the value $8/3$ traces to the substrate's BRST $H^2 = 78 = \dim E_6$ dimensional identity, developed in book Chapter~15); $(I_5)$ pins $\alpha_{\textsf{NS}} = 3\pi/2$; and $(I_2)$, $(I_6)$, $(I_8)$ hold consistently as cross-checks. As an independent algebraic corroboration, the pair $(\alpha_{\textsf{RH}}, \alpha_{\textsf{NP}}) = (3/2, \varphi + 1/4)$ arises as conjugate roots of the quadratic $4a^2 - (9 + 2\sqrt{5})a + (9 + 6\sqrt{5})/2 = 0$ over $\mathbb{Q}(\sqrt{5})$, tying the RH and P-vs-NP axes through a Galois structure the substrate did not impose but the pinned values realise. The kernel theorem of \S\ref{sec:kernel-verified} certifies that the substrate-canonical nine-tuple simultaneously satisfies the twelve invariants plus seventeen extended identities. An independent November~2025 alpha-uniqueness certification~\cite{cohen2025alphaUniqueness} verifies the skeleton numerically to 50-decimal precision.
+Under positivity, $(I_3)$ pins $\alpha_{\textsf{QG}} = \sqrt{2\pi}$; $(I_3) + (I_{11})$ pin $\alpha_{\textsf{YM}} = 2$; $(I_7)$ pins $\alpha_{\textsf{Poincar\'e}} = 1$; $(I_1)$ pins $\alpha_{\textsf{P}} = \sqrt{2}$; $(I_9)$ pins $\alpha_{\textsf{RH}} = 3/2$; $(I_4)$ pins $\alpha_{\textsf{Hodge}} = \varphi$; $(I_{10})$ pins $\alpha_{\textsf{NP}} = \varphi + 1/4$; $(I_3) + (I_{12})$ pin $\alpha_{\textsf{BSD}} = 3\pi/4$ (the value $8/3$ traces to the substrate's BRST $H^2 = 78 = \dim E_6$ dimensional identity, developed in book Chapter~15); $(I_5)$ pins $\alpha_{\textsf{NS}} = 3\pi/2$; and $(I_2)$, $(I_6)$, $(I_8)$ hold consistently as cross-checks. As an independent algebraic corroboration, the pair $(\alpha_{\textsf{RH}}, \alpha_{\textsf{NP}}) = (3/2, \varphi + 1/4)$ arises as conjugate roots of the quadratic $4a^2 - (9 + 2\sqrt{5})a + (9 + 6\sqrt{5})/2 = 0$ over $\mathbb{Q}(\sqrt{5})$, with discriminant $(2\sqrt{5} - 3)^2$ (a perfect square in $\mathbb{Q}(\sqrt{5})$, so both roots lie in $\mathbb{Q}(\sqrt{5})$ and the Galois orbit is exactly this pair). This ties the RH and P-vs-NP axes through a Galois structure the substrate did not impose but the pinned values realise. The kernel theorem of \S\ref{sec:kernel-verified} certifies that the substrate-canonical nine-tuple simultaneously satisfies the twelve invariants plus seventeen extended identities. An independent November~2025 alpha-uniqueness certification~\cite{cohen2025alphaUniqueness} verifies the skeleton numerically to 50-decimal precision.
 
 \paragraph{The universal coupling.} The single constant $\pi/10$ transports the $\alpha$-skeleton to the spectral setting via
 \[
@@ -338,18 +338,18 @@ The grand capstone is kernel-only $[\texttt{propext}, \texttt{Classical.choice},
 
 \paragraph{Forward-runnable substrate work.} The classical mathlib content on the operator-algebra side --- AF-implies-nuclear via Blackadar, Connes classification on the substrate double commutant, classical UHF simplicity theorem on $T_\infty$, Cauchy--Schwarz for the tracial state on the trace-null set, extremal-trace uniqueness of $\pi(T_\infty)''$ under the Dixmier trace functional --- constitutes the substrate's forward-runnable classical realisation work, per residual named above.
 
-\paragraph{Typed falsifiers.} The substrate registers eight typed falsifiers with concrete numerical brackets:
+\paragraph{Typed falsifiers.} The substrate registers eight typed falsifiers; five are currently live across four independent empirical axes, and three (F2, F3, F8) are $c_2$-dependent and retracted at 2026-07-05 per \texttt{OPEN\_PROBLEMS.md} pending a $c_2$-independent replacement mechanism:
 \begin{itemize}[itemsep=1pt,leftmargin=2em]
-\item \textbf{F1} — $\alpha_{\textsf{RH}}$ to $10^{-15}$ against $T_3^{\textsf{sym}}$'s theoretical/numerical self-adjointness precision at $N \le 40$.
-\item \textbf{F2} — $c_2$ consciousness saturation constant bracketed to $[0.94, 0.96]$ against clinical PCI + IIT correspondence.
-\item \textbf{F3} — $\Lambda_{\textsf{eff}}/\Lambda_0$ bracketed to the joint DESI BAO + Pantheon+ effective-parameter ratio.
-\item \textbf{F4} — $H_0$ bracketed to the SH0ES + JWST parametric refinement window.
-\item \textbf{F5} — 144th-problem graph-isomorphism $\alpha$-pin at $2 \times 10^{-3}$ (post-Path-B tolerance).
-\item \textbf{F6} — $\Omega_\Lambda$ bracketed to the substrate $78\pi$ prefactor implied ratio.
-\item \textbf{F7} — BRST $H^2 = 78 = \dim E_6$ against Cartan--Killing classification of exceptional Lie algebras.
-\item \textbf{F8} — micro-macro scale bridge $k = 252$ against substrate ternary-lattice depth.
+\item \textbf{F1} (live) — IBM Quantum measurement of $\alpha_{\textsf{RH}}$ at $10^{-15}$ precision against $|m - 3/2| > 10^{-15}$ on the 10-way hardware protocol.
+\item \textbf{F2} (retracted) — $c_2$ consciousness saturation constant bracket, dependent on retracted $c_2 = 19/20$ derivation.
+\item \textbf{F3} (retracted) — $\Lambda_{\textsf{eff}}/\Lambda_0 \approx 10^{-120}$ bracket, dependent on retracted $c_2$-anchored prefactor.
+\item \textbf{F4} (live) — $H_0$ bracketed to the SH0ES + JWST parametric refinement window.
+\item \textbf{F5} (live) — 144th-problem graph-isomorphism $\alpha$-pin at $\pm 0.05$ cluster window (144-panel methodology).
+\item \textbf{F6} (live) — $\Omega_\Lambda$ bracketed to the substrate joint DESI BAO + Pantheon$+$ effective-parameter ratio.
+\item \textbf{F7} (live) — BRST $H^2 = 78 = \dim E_6$ against Cartan--Killing classification of exceptional Lie algebras.
+\item \textbf{F8} (retracted) — micro-macro scale bridge, dependent on retracted $c_2 = 0.95$ substrate factor.
 \end{itemize}
-Zero falsifiers have triggered at current measurement precision.
+The five live falsifiers span four independent empirical axes (operator spectral, cosmological distance ladder, combinatorial forward prediction, exceptional Lie algebra structure). Zero live falsifiers have triggered at current measurement precision.
 
 \paragraph{The 144th-problem forward prediction.} The substrate pre-registers a canonical $\alpha$-pin on the graph-isomorphism problem at the F5 falsifier tolerance $2 \times 10^{-3}$ (post-Path-B verification per r12). Pre-registration commit \texttt{74a1fad3} on the corpus \texttt{master} branch, dated 2026-06-30 (GI rerun-lockdown per r16 revision). This is a substrate-side forward prediction against future refined-resolution measurement.
 
