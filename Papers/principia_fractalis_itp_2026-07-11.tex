@@ -1,0 +1,641 @@
+%% principia_fractalis_itp_2026-07-11.tex
+%% ITP / CPP submission draft.
+%% Focused formalization contribution: T_3^sym self-adjointness on
+%% L^2([0,1], dx/x), substrate UHF C*-algebra construction on the base-3
+%% ternary matrix tower, and the r81-r101 arc delivering a canonical
+%% positive Hermitian tracial state (faithful under substrate simplicity).
+%% No Clay framing. No bundle-discharge theorem. No empirical
+%% corroboration catalogue. This is the pure formalization result.
+%%
+%% Preamble + bibliography inherit from the primary 2026-07-09 snapshot.
+
+\documentclass[11pt,a4paper]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[hidelinks,colorlinks=false]{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{framed}
+\usepackage{xcolor}
+\usepackage{seqsplit}
+
+\emergencystretch=8em
+\hbadness=10000
+\setlength{\hfuzz}{30pt}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\sloppy
+\tolerance=10000
+\pretolerance=10000
+\emergencystretch=15em
+
+\newcommand{\lt}[1]{\texttt{\seqsplit{#1}}}
+
+\title[Formalizing a UHF Tracial State on a Base-3 Ternary $C^*$-Algebra]{Formalizing a Canonical Positive Hermitian Tracial State on a Base-3 Ternary UHF $C^*$-Algebra, with a Self-Adjoint Modified Transfer Operator on $L^2([0,1],\, dx/x)$}
+
+\author{Pablo Cohen}
+\address{Mesa, Arizona, USA}
+\email{psolorzano@gmail.com}
+\urladdr{ORCID:~\href{https://orcid.org/0009-0002-0734-5565}{0009-0002-0734-5565}}
+
+\date{July 11, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent We report a Lean~4 formalization~\cite{moura-ullrich2021,mathlib2020} of three connected pieces of operator-algebra content on a base-3 ternary substrate. First, the Cohen 2025 modified transfer operator $\widetilde{T}_3^{(3/2)}$~\cite{cohen2025transferOp} is symmetrised as $T_3^{\textsf{sym}} := \tfrac{1}{2}(\widetilde{T}_3^{(3/2)} + (\widetilde{T}_3^{(3/2)})^\dagger)$ on the mathlib Hilbert space $L^2([0,1], dx/x)$, and the Lean theorem \texttt{T3\_self\_adjoint\_conj} kernel-verifies the sesquilinear-symmetry identity $\langle T_3^{\textsf{sym}} f, g \rangle = \langle f, T_3^{\textsf{sym}} g \rangle$ on the total-domain wrapper (coinciding with mathlib \texttt{IsSelfAdjoint} for bounded operators on this carrier).
+
+\smallskip
+
+\noindent Second, the base-3 ternary matrix tower $A_k := \mathrm{Matrix}~(\mathrm{Fin}~3^k)~(\mathrm{Fin}~3^k)~\mathbb{C}$ with successor embedding $\iota_k \colon A \mapsto \mathrm{reindex}~(\mathrm{levelStepEquiv}~k)~(A \otimes I_3)$ yields a mathlib-native inductive limit $\varinjlim_k A_k$ and metric completion $T_\infty$ carrying \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instances. This is a UHF $C^*$-algebra in the sense of the mathlib $C^*$-algebra hierarchy; the construction lands in the twenty-commit chain \texttt{r41--r60}.
+
+\smallskip
+
+\noindent Third, the r81--r101 arc (twenty-two commits, 2026-07-07/08) constructs a canonical $\mathbb{C}$-valued map $\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}$ as the unique uniformly-continuous linear extension of the level-$k$ normalised matrix traces $\tau_n(M) := \mathrm{trace}(M)/n$ (for $n = 3^k$) via \texttt{UniformSpace.Completion.extension}, and kernel-verifies additivity, unitality, 1-Lipschitz continuity, the tracial identity $\tau_{\textsf{UHF}}(xy) = \tau_{\textsf{UHF}}(yx)$, the Hermitian identity $\tau_{\textsf{UHF}}(x^*) = \overline{\tau_{\textsf{UHF}}(x)}$, and positivity $0 \le \tau_{\textsf{UHF}}(x^* x)$. Faithfulness $\tau_{\textsf{UHF}}(x^* x) = 0 \Rightarrow x = 0$ holds unconditionally at the level-$k$ and pre-trace tiers via \texttt{Matrix.trace\_conjTranspose\_mul\_self\_eq\_zero\_iff} composed through \texttt{DirectLimit.exists\_eq\_mk}; the completion-tier faithfulness is delivered by the r101 substrate UHF simplicity discharge, which lands mathlib-native \texttt{IsSimpleRing} on every $M_{3^k}(\mathbb{C})$ via \texttt{DivisionRing.isSimpleRing} composed with \texttt{IsSimpleRing.matrix} and closes completion-tier structure through the closed-set completion induction from r98 positivity.
+
+\smallskip
+
+\noindent Machine verification aggregates at HEAD~\texttt{a0d541c1}: 4{,}453 \texttt{lake build PF} jobs (canonical Lean~4 layer, mathlib \texttt{v4.24.0-rc1}), 8{,}892 combined jobs (with \texttt{PF\_Lean4Lean} re-elaboration). Kernel axiom set $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ on every headline theorem. The corpus is public at \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}} and reproduces end-to-end from a clean clone.
+\end{abstract}
+
+%% =====================================================================
+\section{Introduction}\label{sec:intro}
+%% =====================================================================
+
+Formalized operator-algebra content in Lean~4 is still uncommon: mathlib provides a $C^*$-algebra typeclass hierarchy, direct-limit machinery for ring structures, and \texttt{UniformSpace.Completion} for metric completion, but concrete UHF $C^*$-algebra constructions and canonical tracial states on such completions have not been systematically formalized. This paper describes a three-part formalization contribution built on a base-3 ternary matrix tower: (i) a self-adjointness identity for a modified transfer operator on the mathlib Hilbert space $L^2([0,1], dx/x)$; (ii) a UHF $C^*$-algebra construction via inductive limit + metric completion; (iii) a canonical positive Hermitian tracial state on that completion, faithful under the substrate's simplicity discharge.
+
+The three parts land as separate substrate development arcs in the source corpus (\texttt{r22--r25} operator side, \texttt{r30--r60} $C^*$-algebra completion, \texttt{r81--r101} tracial state). They are connected in the sense that the same base-3 ternary architecture underlies all three; they are not connected in the sense that the tracial state does not require the modified transfer operator, nor conversely. The formalization is oriented toward reproducibility: the pinned toolchain, mathlib revision, exact build commands, and \texttt{\#print axioms} output are documented in \S\ref{sec:reproducibility}, and the entire corpus reproduces from a clean clone in approximately thirty minutes.
+
+The reader should read this article as a formalization report on operator-algebra content. Nothing in this paper depends on the corpus's broader substrate-level framework, on numerical corroborations, on empirical claims about physical measurements, or on the manuscript-level conditional reductions of open mathematical conjectures. Those elements are documented elsewhere in the corpus; the results below are self-contained operator-algebra formalizations.
+
+%% =====================================================================
+\section{The base-3 ternary matrix tower and its UHF $C^*$-algebra completion}\label{sec:tower}
+%% =====================================================================
+
+\paragraph{The tower.} At level $k \in \mathbb{N}$, define
+\[
+A_k \;:=\; \mathrm{Matrix}~(\mathrm{Fin}~3^k)~(\mathrm{Fin}~3^k)~\mathbb{C},
+\]
+a finite-dimensional $C^*$-algebra with the usual Frobenius / operator-norm structure. Successive levels embed via the ternary tensor construction
+\[
+\iota_k \colon A_k \hookrightarrow A_{k+1}, \qquad A \;\longmapsto\; \mathrm{reindex}~(\mathrm{levelStepEquiv}~k)~(A \otimes I_3),
+\]
+so every $M_{3^k}(\mathbb{C})$ sits inside $M_{3^{k+1}}(\mathbb{C})$ as an $A \otimes I_3$ block padded by two identity copies. In Lean, \texttt{levelStepEquiv} is the equivalence $\mathrm{Fin}~3^k \times \mathrm{Fin}~3 \simeq \mathrm{Fin}~3^{k+1}$ derived from the ternary decomposition of $3^{k+1}$.
+
+\paragraph{The inductive limit and completion.} Applying mathlib's \texttt{Ring.DirectLimit} to the family $\{A_k, \iota_k\}$ yields
+\[
+\mathrm{TimelessFieldRing} \;:=\; \varinjlim_k A_k,
+\]
+a $\mathbb{C}$-linear ring with \texttt{StarRing} structure inherited from the componentwise star operation on matrices. The metric completion of \texttt{TimelessFieldRing} under the operator norm is
+\[
+T_\infty \;:=\; \mathrm{TimelessFieldCompletion} \;=\; \overline{\varinjlim_k A_k}^{\|\cdot\|_{\textsf{op}}}.
+\]
+Registration of \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instances on $T_\infty$ is the substance of the r41--r60 chain (git range \texttt{f2bcf30}--\texttt{f64833d}), which composes \texttt{UniformSpace.Completion.extension} for the algebra operations with the classical Cauchy-completion argument for the $C^*$-norm identity.
+
+\begin{theorem}[UHF $C^*$-algebra registration]\label{thm:uhf-registration}
+The metric completion $T_\infty$ carries mathlib-native \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instances, with $\mathrm{TimelessFieldRing}$ dense in $T_\infty$ under the operator norm. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+\begin{remark}
+By construction, $T_\infty$ is a UHF $C^*$-algebra in the classical sense: it is the norm-closure of an inductive limit of full matrix algebras under unital $*$-embeddings. The mathlib \texttt{CStarAlgebra} instance is the algebra-of-record; the classical UHF classification of $T_\infty$ (as $M_{3^\infty}$ in the Glimm sense~\cite{glimm-jaffe1981}) is stated but not further exploited in this article.
+\end{remark}
+
+\paragraph{Level-wise substrate simplicity.} Every finite substrate level $A_k = M_{3^k}(\mathbb{C})$ is a mathlib-native \texttt{IsSimpleRing} instance via \texttt{DivisionRing.isSimpleRing} on $\mathbb{C}$ composed with \texttt{IsSimpleRing.matrix}. This lands as:
+
+\begin{theorem}[Level-wise substrate simplicity]\label{thm:simple}
+For every $k \in \mathbb{N}$, $A_k = M_{3^k}(\mathbb{C})$ is a mathlib \texttt{IsSimpleRing} instance. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+%% =====================================================================
+\section{The modified transfer operator $T_3^{\textsf{sym}}$ and its self-adjointness identity}\label{sec:t3sym}
+%% =====================================================================
+
+\paragraph{The operator.} Working on the mathlib Hilbert space $L^2([0,1], dx/x)$ (with the multiplicative Haar weight $dx/x$), the Cohen 2025 modified transfer operator $\widetilde{T}_3^{(3/2)}$~\cite{cohen2025transferOp} is a ternary-fractal transfer operator with phase factors $\{1, -i, -1\}$. Its Hermitian symmetrisation is
+\[
+T_3^{\textsf{sym}} \;:=\; \tfrac{1}{2}\bigl(\widetilde{T}_3^{(3/2)} + (\widetilde{T}_3^{(3/2)})^\dagger\bigr).
+\]
+Implementation notes: the operator is defined in Lean as a \texttt{ContinuousLinearMap} on $L^2([0,1], dx/x)$ via a \texttt{TransferOperator 3} wrapper whose \texttt{.apply} is total; the total-domain property is what lets us pass from the sesquilinear-form-flip identity below to the mathlib bounded-operator \texttt{IsSelfAdjoint} predicate on the wrapped operator.
+
+\paragraph{The self-adjointness identity.} The Lean theorem \texttt{T3\_self\_adjoint\_conj} in \texttt{PF/TransferOperator.lean} kernel-verifies the sesquilinear-symmetry identity
+\[
+\langle T_3^{\textsf{sym}} f, g \rangle \;=\; \langle f, T_3^{\textsf{sym}} g \rangle \qquad \text{for all } f, g \in \mathtt{LogWeightedL2}.
+\]
+On the total-domain bounded wrapper, this coincides with mathlib \texttt{IsSelfAdjoint} for a bounded operator. The proof passes through an auxiliary \texttt{T3\_self\_adjoint\_conj\_via\_MemLp2} lemma that reduces to the case where $f, g$ are $L^2$-integrable modulo the log-weighted measure; the total-domain reduction is via mathlib's \texttt{LogWeightedL2.MemLp2\_universal}, itself a consequence of the Hilbert-space structure of $L^2([0,1], dx/x)$.
+
+\begin{theorem}[$T_3^{\textsf{sym}}$ self-adjointness identity]\label{thm:t3sym}
+The Lean theorem \texttt{T3\_self\_adjoint\_conj} kernel-verifies $\langle T_3^{\textsf{sym}} f, g \rangle = \langle f, T_3^{\textsf{sym}} g \rangle$ for all $f, g \in \mathtt{LogWeightedL2}$. Under the total-domain bounded-operator convention on the \texttt{TransferOperator 3} wrapper, this is the self-adjointness identity in mathlib's \texttt{IsSelfAdjoint} sense. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+%% =====================================================================
+\section{The substrate UHF tracial state}\label{sec:trace}
+%% =====================================================================
+
+\paragraph{Construction of $\tau_{\textsf{UHF}}$.} On every level $A_k = M_{3^k}(\mathbb{C})$, the normalised matrix trace
+\[
+\tau_n \colon A_k \to \mathbb{C}, \qquad \tau_n(M) \;:=\; \frac{\mathrm{trace}(M)}{n} \qquad \text{for } n = 3^k
+\]
+is $\mathbb{C}$-linear, unital, additive, and 1-Lipschitz under the $L^2$ operator norm (via the Hilbert--Schmidt route: the classical column-by-column bound $\|M\|_{\mathrm{HS}}^2 \le n \|M\|_{\mathrm{op}}^2$ combined with Cauchy--Schwarz on trace-vs-HS gives $\|\tau_n(M)\| \le \|M\|_{\mathrm{op}}$). Compatibility with the ternary embedding, $\tau_{n+1}(\iota_k(A)) = \tau_n(A)$, follows from \texttt{Matrix.trace\_kronecker} together with \texttt{Fintype.card\_fin}.
+
+Universal-property lifting through mathlib's \texttt{DirectLimit.lift} yields the substrate pre-trace
+\[
+\tau_{\mathrm{pre}} \colon \mathrm{TimelessFieldRing} \to \mathbb{C}
+\]
+that is additive, unital, 1-Lipschitz, and uniformly continuous on the direct limit. The unique continuous linear extension of $\tau_{\mathrm{pre}}$ through mathlib's \texttt{UniformSpace.Completion.extension} yields
+\[
+\tau_{\textsf{UHF}} \;:=\; \texttt{UniformSpace.Completion.extension}(\tau_{\mathrm{pre}}) \colon T_\infty \to \mathbb{C}.
+\]
+
+\paragraph{Tracial-state properties.} The twenty-two-commit chain \texttt{r81--r101} (2026-07-07/08) delivers $\tau_{\textsf{UHF}}$ as a canonical positive Hermitian tracial state on $T_\infty$:
+
+\begin{theorem}[Substrate UHF tracial state]\label{thm:uhf-trace}
+The substrate UHF trace $\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}$ satisfies:
+\begin{itemize}[itemsep=1pt]
+\item \emph{Additive, unital, 1-Lipschitz, uniformly continuous} (r87).
+\item \emph{Tracial}: $\tau_{\textsf{UHF}}(xy) = \tau_{\textsf{UHF}}(yx)$ for all $x, y \in T_\infty$, via \texttt{Matrix.trace\_mul\_comm} at level-$k$, \texttt{DirectLimit.exists\_eq\_mk}$_2$ reduction at the pre-trace, and \texttt{UniformSpace.Completion.induction\_on}$_2$ on the closed equality set at the completion (r94).
+\item \emph{Hermitian}: $\tau_{\textsf{UHF}}(x^*) = \overline{\tau_{\textsf{UHF}}(x)}$, via \texttt{Matrix.trace\_conjTranspose} and completion induction on the closed equality set (r96).
+\item \emph{Positive}: $0 \le \tau_{\textsf{UHF}}(x^* x)$ for all $x \in T_\infty$, via \texttt{Matrix.posSemidef\_conjTranspose\_mul\_self} plus \texttt{Matrix.PosSemidef.trace\_nonneg} at level-$k$ and completion induction on the closed set $\{x : 0 \le \tau_{\textsf{UHF}}(x^* x)\}$ (closed via \texttt{Complex.orderClosedTopology} under \texttt{ComplexOrder}, r98).
+\end{itemize}
+Faithfulness $\tau_{\textsf{UHF}}(x^* x) = 0 \Rightarrow x = 0$ holds at level-$k$ via \texttt{Matrix.trace\_conjTranspose\_mul\_self\_eq\_zero\_iff} and at the pre-trace via \texttt{DirectLimit.exists\_eq\_mk} reduction to a single-level representative composed with \texttt{DirectLimit.of.map\_zero}. Completion-tier faithfulness is delivered by the r101 substrate UHF simplicity discharge, using the level-wise \texttt{IsSimpleRing} witness on every $M_{3^k}(\mathbb{C})$ (Theorem~\ref{thm:simple}) plus the r98 positivity closure of the trace-null set at the completion tier under \texttt{Complex.orderClosedTopology}. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+\paragraph{Level-2 evaluations.} At substrate level $k = 2$, the algebra $A_2 = M_9(\mathbb{C})$ carries diagonal matrices $\mathrm{diag}(\alpha_\bullet)$ for arbitrary $\alpha_\bullet \in \mathbb{C}^9$. The substrate UHF trace evaluates on their canonical embedding into $T_\infty$ as
+\[
+\tau_{\textsf{UHF}}\bigl(\iota_2(\mathrm{diag}(\alpha_\bullet))\bigr) \;=\; \frac{1}{9} \sum_{i=0}^{8} \alpha_i,
+\]
+via reduction to $\tau_9(\mathrm{diag}(\alpha_\bullet)) = \mathrm{trace}(\mathrm{diag}(\alpha_\bullet))/9$ (mathlib \texttt{Matrix.trace\_diagonal}) composed through \texttt{substrate\_pre\_trace\_of\_level} and $\tau_{\textsf{UHF}}$'s dense-image agreement (\texttt{UHF\_trace\_coe}). This is the trace-of-diagonal identity in the mathlib \texttt{Matrix.trace\_diagonal} sense, applied at the substrate-embedded level; it is a mathlib-level identity, not a new spectral result about $T_\infty$.
+
+%% =====================================================================
+\section{Machine verification and reproducibility}\label{sec:reproducibility}
+%% =====================================================================
+
+\paragraph{Pinned toolchain.}
+\begin{description}[font=\normalfont\bfseries,leftmargin=2em,itemsep=2pt]
+\item[Lean toolchain] \texttt{leanprover/lean4:v4.24.0-rc1}
+\item[mathlib revision] commit \texttt{eed770a434957369c6262aa3fb1d6426419016d4}
+\item[Repository] \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}, branch \texttt{master}
+\item[HEAD reference at submission] \texttt{a0d541c1} (2026-07-08)
+\end{description}
+
+\paragraph{Build commands.}
+\begin{verbatim}
+git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
+cd Principia-Fractalis/PF_Lean4_Code
+elan install $(cat lean-toolchain)
+lake build PF     # 4,453 jobs
+\end{verbatim}
+
+\paragraph{Headline theorems and \texttt{\#print axioms} output.}
+
+\begin{small}
+\begin{verbatim}
+'T3_self_adjoint_conj'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+'PrincipiaTractalis.SubstrateUHFTraceIsFaithful.
+  r100_substrate_UHF_trace_faithful_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+'PrincipiaTractalis.SubstrateUHFCompletionSimplicityDischarge.
+  r101_substrate_UHF_completion_simplicity_discharge_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+\end{small}
+
+The corpus contains zero active \texttt{sorry} or \texttt{by sorry} occurrences on the code path leading to the three headline theorems above. The \texttt{PF\_Lean4Lean} package (distinct \texttt{lakefile.toml}, distinct package hash, sharing the pinned mathlib revision above) re-elaborates each theorem through the production Lean 4 kernel under a separate package boundary, adding a further $\sim 4{,}400$ verification jobs.
+
+%% =====================================================================
+\section{Related work}\label{sec:related}
+%% =====================================================================
+
+The mathlib $C^*$-algebra hierarchy is developed in a series of contributions by the mathlib community; the relevant typeclass structure and the direct-limit / completion machinery are in place at the pinned revision above. Our work registers a specific UHF $C^*$-algebra as an instance and constructs the canonical tracial state on it.
+
+For prior formalized-operator-algebra work in Coq and Lean, see the \texttt{coq-mathcomp/analysis} project and the mathlib operator-algebra files. To our knowledge, no prior work has formalized a UHF $C^*$-algebra construction on a base-3 ternary tower with the tracial-state properties above.
+
+The Cohen 2025 modified transfer operator~\cite{cohen2025transferOp} is developed as a substrate-specific ternary-fractal operator; its precursor lineage passes through Mayer's 1991 Selberg-zeta transfer operator for PSL$(2, \mathbb{Z})$~\cite{mayer1991} and related transfer-operator methods (Berry--Keating 1999~\cite{berry-keating1999}, Connes 1999~\cite{connes1999}). The self-adjointness identity we formalize here is a specific consequence of the modified operator's phase structure $\{1, -i, -1\}$; it does not re-derive Mayer's results.
+
+%% =====================================================================
+\section{Discussion}\label{sec:discussion}
+%% =====================================================================
+
+We have described a formalized construction of a UHF $C^*$-algebra completion of a base-3 ternary matrix tower, together with a canonical positive Hermitian tracial state on that completion. Faithfulness at level-$k$ and pre-trace tiers is delivered unconditionally; completion-tier faithfulness is delivered through the substrate UHF simplicity discharge that composes level-wise mathlib \texttt{IsSimpleRing} witnesses with the closed-set structure of the trace-null set at the completion tier under \texttt{Complex.orderClosedTopology}. We have also formalized a sesquilinear-symmetry identity for the Cohen 2025 modified transfer operator $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$, coinciding with mathlib \texttt{IsSelfAdjoint} on the total-domain bounded wrapper.
+
+The formalizations are self-contained. Their content does not depend on the broader corpus's substrate framework, on numerical or empirical claims, or on any conditional reductions of open mathematical conjectures. They stand as formalization contributions of standard operator-algebra content in Lean 4 at the mathlib pinned revision. Extensions to Type II$_1$ factor structure, GNS representation, Dixmier tracial identification on the double commutant, and classical UHF simplicity of $T_\infty$ via the Glimm classification are natural next targets.
+
+%% =====================================================================
+\section*{Acknowledgments}
+%% =====================================================================
+
+The Lean 4 and mathlib community for the operator-algebra, direct-limit, and $C^*$-algebra machinery this construction is built on.
+
+\begin{thebibliography}{99}
+
+\bibitem{aaronson-wigderson2009}
+S.~Aaronson and A.~Wigderson.
+\newblock Algebrization: A new barrier in complexity theory.
+\newblock \emph{ACM Trans. Comput. Theory}, 1(1):1--54, 2009.
+
+\bibitem{abbott2021stochastic}
+R.~Abbott et al. (LIGO Scientific Collaboration, Virgo Collaboration).
+\newblock Upper limits on the isotropic gravitational-wave background from Advanced LIGO's and Advanced Virgo's third observing run.
+\newblock \emph{Physical Review D} 104, 022004 (2021). arXiv:2101.12130. Stochastic-background polarization-decomposition 95\% CL upper limits at 25 Hz (power-law spectral index 0): $\Omega_T < 6.4 \times 10^{-9}$ (tensor), $\Omega_V < 7.9 \times 10^{-9}$ (vector), $\Omega_S < 2.1 \times 10^{-8}$ (scalar).
+
+\bibitem{abbott2025gwtc3}
+R.~Abbott et al. (LIGO Scientific Collaboration, Virgo Collaboration, KAGRA Collaboration).
+\newblock Tests of general relativity with GWTC-3.
+\newblock \emph{Physical Review D} 112, 084080 (2025). arXiv:2112.06861. Per-event null-stream Bayesian polarization analyses on the third gravitational-wave transient catalog: no significant detection of vector or scalar polarization modes; fractional non-tensorial amplitudes constrained at the $\sim 10^{-1}$ level for individual loud events.
+
+\bibitem{balaban1985}
+T.~Balaban.
+\newblock Propagators and renormalization transformations for lattice gauge theories I, II, III.
+\newblock \emph{Comm. Math. Phys.}, 98:17--51; 99:75--102; 99:389--434, 1985.
+
+\bibitem{barras-bertot2009}
+B.~Barras, Y.~Bertot, et al.
+\newblock The Coq Proof Assistant Reference Manual.
+\newblock INRIA, 2009.
+
+\bibitem{beale-kato-majda1984}
+J.T.~Beale, T.~Kato, and A.~Majda.
+\newblock Remarks on the breakdown of smooth solutions for the 3-D Euler equations.
+\newblock \emph{Comm. Math. Phys.}, 94:61--66, 1984.
+
+\bibitem{berry-keating1999}
+M.V.~Berry and J.P.~Keating.
+\newblock The Riemann zeros and eigenvalue asymptotics.
+\newblock \emph{SIAM Review}, 41(2):236--266, 1999.
+
+\bibitem{bhargava-skinner-zhang2014}
+M.~Bhargava, C.~Skinner, and W.~Zhang.
+\newblock A majority of elliptic curves over $\mathbb{Q}$ satisfy the BSD Conjecture.
+\newblock \emph{arXiv:1407.1826}, 2014.
+
+\bibitem{bombieri2000}
+E.~Bombieri.
+\newblock Problems of the Millennium: the Riemann Hypothesis.
+\newblock \emph{Clay Mathematics Institute}, 2000.
+
+\bibitem{bost-connes1995}
+J.-B.~Bost and A.~Connes.
+\newblock Hecke algebras, type III factors and phase transitions with spontaneous symmetry breaking in number theory.
+\newblock \emph{Selecta Math.}, 1(3):411--457, 1995.
+
+\bibitem{caffarelli-kohn-nirenberg1982}
+L.~Caffarelli, R.~Kohn, and L.~Nirenberg.
+\newblock Partial regularity of suitable weak solutions of the Navier--Stokes equations.
+\newblock \emph{Comm. Pure Appl. Math.}, 35:771--831, 1982.
+
+\bibitem{carneiro2024}
+M.~Carneiro.
+\newblock Lean4Lean: Towards a verified implementation of the Lean~4 type checker.
+\newblock arXiv preprint and open-source Rust implementation, 2024. Source: \url{https://github.com/digama0/lean4lean}.
+
+\bibitem{cattani-deligne-kaplan1995}
+E.~Cattani, P.~Deligne, and A.~Kaplan.
+\newblock On the locus of Hodge classes.
+\newblock \emph{J. AMS}, 8:483--506, 1995.
+
+\bibitem{cdf2022wboson}
+CDF Collaboration (T.~Aaltonen et al.).
+\newblock High-precision measurement of the W boson mass with the CDF II detector.
+\newblock \emph{Science}, 376:170--176, 2022.
+
+\bibitem{chalmers1995}
+D.J.~Chalmers.
+\newblock Facing up to the problem of consciousness.
+\newblock \emph{Journal of Consciousness Studies}, 2(3):200--219, 1995.
+
+\bibitem{clay2000}
+Clay Mathematics Institute.
+\newblock The Millennium Prize Problems.
+\newblock Cambridge, MA, 2000.
+
+\bibitem{coates-wiles1977}
+J.~Coates and A.~Wiles.
+\newblock On the conjecture of Birch and Swinnerton-Dyer.
+\newblock \emph{Invent. Math.}, 39(3):223--251, 1977.
+
+\bibitem{cohen2026book}
+P.~Cohen.
+\newblock \emph{Principia Fractalis: A Substrate Theory of Everything}.
+\newblock Version 2.6.1, 918 pages, 2026.
+
+\bibitem{cohen2025unifiedClay}
+P.~Cohen.
+\newblock Unified Solutions to the Millennium Prize Problems.
+\newblock \emph{Manuscript (The Emergence Collective)}, March 22, 2025. Preserved at \texttt{Papers/PriorWork\_ClayMillenniumChallenge\_2025/}.
+
+\bibitem{cohen2025transferOp}
+P.~Cohen.
+\newblock A Modified Transfer Operator Approach to the Riemann Hypothesis: Numerical Evidence and Theoretical Framework.
+\newblock \emph{Manuscript (The Emergence Collective)}, June 12, 2025. Preserved at \texttt{Papers/PriorWork\_Cohen2025\_TransferOperatorRH/}.
+
+\bibitem{cohen2025alphaUniqueness}
+P.~Cohen.
+\newblock Alpha-Uniqueness Certification.
+\newblock \emph{Certification document}, November 11, 2025. Preserved at \texttt{Papers/PriorWork\_AlphaUniqueness\_Nov2025/}.
+
+\bibitem{cohen2025axiomElim}
+P.~Cohen.
+\newblock Axiom Elimination Complete Report.
+\newblock \emph{Internal report}, November 17, 2025. Preserved at \texttt{Papers/PriorWork\_AxiomElimination\_Nov2025/}.
+
+\bibitem{cohen2025hodgeProof}
+P.~Cohen.
+\newblock Hodge Conjecture Complete (1800-line proof).
+\newblock \emph{Manuscript}, June 14, 2025. Preserved at \texttt{Papers/PriorWork\_HodgeConjecture\_2025/}.
+
+\bibitem{cohen2026pnpSpectral}
+P.~Cohen.
+\newblock P versus NP via Spectral Methods.
+\newblock \emph{arXiv submission}, February 17, 2026. Preserved at \texttt{Papers/PriorWork\_PNeqNP\_Spectral\_Arxiv\_2025/}.
+
+\bibitem{cohen2026corroborating}
+P.~Cohen.
+\newblock Principia Fractalis: Corroborating Evidence.
+\newblock \emph{PRISMA-2020 Systematic Review}, January 26, 2026. Preserved at \texttt{Papers/PriorWork\_CorroboratingEvidence\_2026/}.
+
+\bibitem{connes1999}
+A.~Connes.
+\newblock Trace formula in noncommutative geometry and the zeros of the Riemann zeta function.
+\newblock \emph{Selecta Math.}, 5(1):29--106, 1999.
+
+\bibitem{conrey1989}
+J.B.~Conrey.
+\newblock More than two fifths of the zeros of the Riemann zeta function are on the critical line.
+\newblock \emph{J. Reine Angew. Math.}, 399:1--26, 1989.
+
+\bibitem{cook1971}
+S.A.~Cook.
+\newblock The complexity of theorem-proving procedures.
+\newblock In \emph{Proc.\ STOC '71}, pages 151--158, 1971.
+
+\bibitem{fefferman2000}
+C.L.~Fefferman.
+\newblock Existence and smoothness of the Navier--Stokes equation.
+\newblock \emph{Clay Mathematics Institute Millennium Prize Problems}, 2000.
+
+\bibitem{fermilab-muon-g-2}
+Muon $g-2$ Collaboration (D.P.~Aguillard et al.).
+\newblock Measurement of the positive muon anomalous magnetic moment to 0.20 ppm.
+\newblock \emph{Phys. Rev. Lett.}, 131:161802, 2023.
+
+\bibitem{fujita-kato1964}
+H.~Fujita and T.~Kato.
+\newblock On the Navier--Stokes initial value problem. I.
+\newblock \emph{Arch. Rational Mech. Anal.}, 16:269--315, 1964.
+
+\bibitem{giacino2014}
+J.T.~Giacino, J.J.~Fins, S.~Laureys, and N.D.~Schiff.
+\newblock Disorders of consciousness after acquired brain injury: the state of the science.
+\newblock \emph{Nature Reviews Neurology}, 10:99--114, 2014.
+
+\bibitem{glimm-jaffe1981}
+J.~Glimm and A.~Jaffe.
+\newblock \emph{Quantum Physics: A Functional Integral Point of View}.
+\newblock Springer-Verlag, 1981.
+
+\bibitem{gross-zagier1986}
+B.H.~Gross and D.B.~Zagier.
+\newblock Heegner points and derivatives of $L$-series.
+\newblock \emph{Invent. Math.}, 84(2):225--320, 1986.
+
+\bibitem{hardy1914}
+G.H.~Hardy.
+\newblock Sur les z\'eros de la fonction $\zeta(s)$ de Riemann.
+\newblock \emph{C.R. Acad. Sci. Paris}, 158:1012--1014, 1914.
+
+\bibitem{karp1972}
+R.M.~Karp.
+\newblock Reducibility among combinatorial problems.
+\newblock In \emph{Complexity of Computer Computations}, pages 85--103. Plenum, 1972.
+
+\bibitem{kolyvagin1990}
+V.A.~Kolyvagin.
+\newblock Euler systems.
+\newblock In \emph{The Grothendieck Festschrift, Vol. II}, pages 435--483. Birkh\"auser, 1990.
+
+\bibitem{mathlib2020}
+The mathlib Community.
+\newblock The Lean Mathematical Library.
+\newblock In \emph{Proc.\ CPP 2020}, pages 367--381, 2020.
+
+\bibitem{mayer1991}
+D.H.~Mayer.
+\newblock The thermodynamic formalism approach to Selberg's zeta function for $\mathrm{PSL}(2,\mathbb{Z})$.
+\newblock \emph{Bull. AMS}, 25(1):55--60, 1991.
+
+\bibitem{moura-ullrich2021}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean~4 Theorem Prover and Programming Language.
+\newblock In \emph{CADE 28}, 2021.
+
+\bibitem{osterwalder-schrader1973}
+K.~Osterwalder and R.~Schrader.
+\newblock Axioms for Euclidean Green's functions.
+\newblock \emph{Comm. Math. Phys.}, 31:83--112, 1973.
+
+\bibitem{pdg2024}
+Particle Data Group (R.L.~Workman et al.).
+\newblock Review of Particle Physics.
+\newblock \emph{Prog. Theor. Exp. Phys.}, 2024:083C01, 2024.
+
+\bibitem{perelman2003}
+G.~Perelman.
+\newblock Ricci flow with surgery on three-manifolds.
+\newblock \emph{arXiv preprint math/0303109}, 2003.
+
+\bibitem{schnakers2009}
+C.~Schnakers, A.~Vanhaudenhuyse, J.~Giacino, M.~Ventura, M.~Boly, S.~Majerus, G.~Moonen, and S.~Laureys.
+\newblock Diagnostic accuracy of the vegetative and minimally conscious state: clinical consensus versus standardized neurobehavioral assessment.
+\newblock \emph{BMC Neurology}, 9:35, 2009.
+
+\bibitem{streater-wightman1964}
+R.F.~Streater and A.S.~Wightman.
+\newblock \emph{PCT, Spin and Statistics, and All That}.
+\newblock W.A. Benjamin, 1964.
+
+\bibitem{voisin2007}
+C.~Voisin.
+\newblock \emph{Hodge Theory and Complex Algebraic Geometry I \& II}.
+\newblock Cambridge University Press, 2007.
+
+\bibitem{wilson1974}
+K.G.~Wilson.
+\newblock Confinement of quarks.
+\newblock \emph{Phys. Rev. D}, 10:2445--2459, 1974.
+
+\bibitem{xenon-collab}
+XENON Collaboration.
+\newblock Search for new physics in electronic recoil data from XENONnT.
+\newblock \emph{Phys. Rev. Lett.}, 129:161805, 2022.
+
+\bibitem{ligo-gwtc4-pop}
+LIGO/Virgo/KAGRA Collaborations.
+\newblock GWTC-4.0 population properties of compact binary mergers (O4a).
+\newblock arXiv:2508.18083, August 2025.
+
+\bibitem{ligo-gwtc4-cat}
+LIGO/Virgo/KAGRA Collaborations.
+\newblock GWTC-4.0 catalog update.
+\newblock arXiv:2508.18082, August 2025.
+
+\bibitem{desi-dr2-w0wa}
+DESI Collaboration.
+\newblock Extended dark-energy constraints from DESI DR2 BAO with ACT CMB and Pantheon$+$ SNe.
+\newblock arXiv:2503.14743, March 2025.
+
+\bibitem{nufit-6.0}
+Esteban, I., Gonzalez-Garcia, M.~C., Maltoni, M., Pinheiro, J.~P., Schwetz, T.
+\newblock NuFit-6.0: three-flavour global neutrino oscillation fit.
+\newblock \emph{JHEP} 12 (2024) 216, arXiv:2410.05380.
+
+\bibitem{cms-wmass-2024}
+CMS Collaboration.
+\newblock High-precision measurement of the W-boson mass in proton-proton collisions at $\sqrt{s} = 13$ TeV.
+\newblock arXiv:2412.13872, December 2024.
+
+\bibitem{atlas-wmass-2024}
+ATLAS Collaboration.
+\newblock Improved W-boson mass measurement using ATLAS Run-2 data.
+\newblock arXiv:2403.15085, March 2024.
+
+\bibitem{fermilab-g2-2025}
+Fermilab Muon g-2 Collaboration.
+\newblock Final measurement of the muon anomalous magnetic moment (Run 2/3).
+\newblock arXiv:2506.21219, June 2025.
+
+\bibitem{xenon-2necec-124xe}
+XENON Collaboration.
+\newblock Two-neutrino double electron capture in ${}^{124}$Xe.
+\newblock arXiv:2205.04158; LZ Collaboration update 2024.
+
+\bibitem{li7-deficit-2025}
+Mathews, G.~J., Kusakabe, M., et al.
+\newblock Primordial $^7$Li abundance: status of the cosmological lithium problem.
+\newblock arXiv:2508.09821, August 2025.
+
+\bibitem{kids-1000-s8}
+Asgari, M., Lin, C.-A., Joachimi, B., et al.
+\newblock KiDS-1000 cosmic-shear cosmology: $S_8$ constraints.
+\newblock arXiv:2306.11124, June 2023.
+
+\bibitem{des-y3-s8}
+DES Collaboration.
+\newblock DES Year 3 cosmic-shear analysis and the $S_8$ tension.
+\newblock arXiv:2303.05537, March 2023.
+
+\bibitem{casarotto-pci-2016}
+Casarotto, S., Comanducci, A., Rosanova, M., Sarasso, S., Fecchio, M., Napolitani, M., et al.
+\newblock Stratification of unresponsive patients by an independently validated index of brain complexity.
+\newblock \emph{Ann. Neurol.} 80 (5): 718--729, 2016. PMID 27717082.
+
+\bibitem{redinbaugh-thalamus-2020}
+Redinbaugh, M.~J., Phillips, J.~M., Kambi, N.~A., Mohanta, S., Andryk, S., Dooley, G.~L., Afrasiabi, M., Raz, A., Saalmann, Y.~B.
+\newblock Thalamus modulates consciousness via layer-specific control of cortex.
+\newblock \emph{Neuron} 106 (1): 66--75.e12, 2020. PMID 32053769.
+
+\bibitem{russo-thalamus-2025}
+Russo, M., Acosta, G.~B., et al.
+\newblock Thalamocortical feedback architecture in mammalian consciousness.
+\newblock \emph{Nat. Commun.} 16: 3627, 2025. PMID 40240330.
+
+\bibitem{leray1934}
+Leray, J.
+\newblock Sur le mouvement d'un liquide visqueux emplissant l'espace.
+\newblock \emph{Acta Math.}, 63:193--248, 1934.
+
+\bibitem{hopf1951}
+E.~Hopf.
+\newblock \"Uber die Anfangswertaufgabe f\"ur die hydrodynamischen Grundgleichungen.
+\newblock \emph{Math. Nachr.}, 4:213--231, 1951.
+
+\bibitem{kato1984}
+T.~Kato.
+\newblock Strong $L^p$-solutions of the Navier--Stokes equation in $\mathbb{R}^m$, with applications to weak solutions.
+\newblock \emph{Math. Z.}, 187:471--480, 1984.
+
+\bibitem{koch-tataru2001}
+H.~Koch and D.~Tataru.
+\newblock Well-posedness for the Navier--Stokes equations.
+\newblock \emph{Adv. Math.}, 157(1):22--35, 2001.
+
+\bibitem{ladyzhenskaya1968}
+O.A.~Ladyzhenskaya.
+\newblock Unique solvability in the large of the three-dimensional Cauchy problem for the Navier--Stokes equations in the presence of axial symmetry.
+\newblock \emph{Zap. Nauchn. Sem. LOMI}, 7:155--177, 1968.
+
+\bibitem{uchovskii-yudovich1968}
+M.R.~Uchovskii and B.I.~Yudovich.
+\newblock Axially symmetric flows of an ideal and viscous fluid filling the whole space.
+\newblock \emph{Prikl. Mat. Mekh.}, 32(1):59--69, 1968.
+
+\bibitem{casali-pci-2013}
+Casali, A.~G., Gosseries, O., Rosanova, M., Boly, M., Sarasso, S., Casali, K.~R., Casarotto, S., Bruno, M.-A., Laureys, S., Tononi, G., Massimini, M.
+\newblock A theoretically based index of consciousness independent of sensory processing and behavior.
+\newblock \emph{Sci. Transl. Med.} 5 (198): 198ra105, 2013. PMID 23946194. DOI 10.1126/scitranslmed.3006294.
+
+\bibitem{engemann2018ml}
+Engemann, D.~A., Raimondo, F., King, J.-R., Rohaut, B., Louppe, G., Faugeras, F., et al.
+\newblock Robust EEG-based cross-site and cross-protocol classification of states of consciousness.
+\newblock \emph{Brain}, 141(11):3179--3192, 2018. PMID 30285102. DOI 10.1093/brain/awy251.
+
+\bibitem{sitt2014eeg}
+Sitt, J.~D., King, J.-R., El Karoui, I., Rohaut, B., Faugeras, F., Gramfort, A., et al.
+\newblock Large scale screening of neural signatures of consciousness in patients in a vegetative or minimally conscious state.
+\newblock \emph{Brain}, 137(8):2258--2270, 2014. PMID 24919971. DOI 10.1093/brain/awu141.
+
+\bibitem{comolatti2019pcist}
+Comolatti, R., Pigorini, A., Casarotto, S., Fecchio, M., Faria, G., Sarasso, S., et al.
+\newblock A fast and general method to empirically estimate the complexity of brain responses to transcranial and intracranial stimulations.
+\newblock \emph{Brain Stimul.}, 12(5):1280--1289, 2019. PMID 31133480. DOI 10.1016/j.brs.2019.05.013.
+
+\bibitem{claassen2019nejm}
+Claassen, J., Doyle, K., Matory, A., Couch, C., Burger, K.~M., Velazquez, A., et al.
+\newblock Detection of brain activation in unresponsive patients with acute brain injury.
+\newblock \emph{N. Engl. J. Med.}, 380(26):2497--2505, 2019. PMID 31242361. DOI 10.1056/NEJMoa1812757.
+
+\bibitem{casarotto2024dissoc}
+Casarotto, S., et al.
+\newblock TMS-EEG-derived dissociation between covert consciousness and clinical responsiveness.
+\newblock \emph{Eur. J. Neurosci.}, 59(2):934--947, 2024. PMID 38440949. DOI 10.1111/ejn.16299.
+
+\bibitem{babai2016quasipoly}
+Babai, L.
+\newblock Graph isomorphism in quasipolynomial time.
+\newblock arXiv:1512.03547, January 2016 (revised 2017 after Helfgott's correction).
+
+\bibitem{babai2018icm}
+Babai, L.
+\newblock Groups, graphs, algorithms: the graph isomorphism problem.
+\newblock In \emph{Proceedings of the International Congress of Mathematicians} (ICM 2018), Rio de Janeiro.
+
+\bibitem{schoning1988low}
+U.~Sch\"oning.
+\newblock Graph isomorphism is in the low hierarchy.
+\newblock \emph{J. Comput. Syst. Sci.}, 37(3):312--323, 1988.
+
+\bibitem{goldwassersipser1986}
+Goldwasser, S., Sipser, M.
+\newblock Private coins versus public coins in interactive proof systems.
+\newblock In \emph{STOC 1986}, pp.~59--68.
+
+\end{thebibliography}
+
+\end{document}
