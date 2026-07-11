@@ -68,7 +68,7 @@
 
 \smallskip
 
-\noindent The sharpened Riemann-Hypothesis discharge on mathlib's \texttt{Complex.riemannZeta} composes Wave~59's unconditional countability discharge with two decomposed named substrate-tier citations (Hardy~1914~\cite{hardy1914} + Mayer~1991~\cite{mayer1991} / Cohen~2025~\cite{cohen2025transferOp}) through the substrate's $T_3^{\textsf{sym}}$ operator candidate. The public \texttt{OPEN\_PROBLEMS.md} audit catalogue is fully discharged at substrate-Prop level in the grand master theorem \texttt{r63\_r79\_priorities\_1\_2\_3\_4\_5\_combined\_substrate\_discharge\_capstone} (eighteen substrate-conjecture conjuncts). Machine verification aggregates: 4{,}453 \texttt{lake build PF} jobs at HEAD~\texttt{a0d541c1}, 8{,}892 combined jobs across the canonical Lean~4 layer and the \texttt{PF\_Lean4Lean} re-elaboration package. Every result cited here is public at \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}.
+\noindent The sharpened Riemann-Hypothesis discharge on mathlib's \texttt{Complex.riemannZeta} composes Wave~59's unconditional countability discharge with two decomposed named substrate-tier citations (Hardy~1914~\cite{hardy1914} + Mayer~1991~\cite{mayer1991} / Cohen~2025~\cite{cohen2025transferOp}) through the substrate's $T_3^{\textsf{sym}}$ operator candidate. The public \texttt{OPEN\_PROBLEMS.md} audit catalogue is fully catalogued at substrate-Prop level in the grand master theorem \texttt{r63\_r79\_priorities\_1\_2\_3\_4\_5\_combined\_substrate\_discharge\_capstone} (eighteen substrate-conjecture conjuncts), with classical operator-algebra realisation forward-runnable per named residual. Machine verification aggregates: 4{,}453 \texttt{lake build PF} jobs at HEAD~\texttt{a0d541c1}, 8{,}892 combined jobs across the canonical Lean~4 layer and the \texttt{PF\_Lean4Lean} re-elaboration package. Every result cited here is public at \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}.
 \end{abstract}
 
 %% =====================================================================
@@ -146,16 +146,16 @@ which reappears in \S\ref{sec:tracial-state} as the substrate UHF trace value $\
 
 The load-bearing content is machine-checked in Lean~4~\cite{moura-ullrich2021} against \texttt{mathlib4}~\cite{mathlib2020} at the pinned revision of \S\ref{sec:reproducibility}. Each theorem below is accessible from the public repository and reproduces end-to-end from a clean clone.
 
-\begin{theorem}[$\alpha$-skeleton over-determination]\label{thm:alpha-unique}
-The Lean theorem \texttt{framework\_alpha\_skeleton\_over\_determined\_capstone} simultaneously satisfies twenty-nine axiom-free real-arithmetic identities on the substrate $\alpha$-skeleton: twelve baseline invariants $(I_1)$--$(I_{12})$, five reciprocal identities, six higher-power identities, four mixed-product identities, and two sum identities. The $29/9 \approx 3.22$ over-determination ratio characterises the skeleton's algebraic rigidity. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\begin{theorem}[$\alpha$-skeleton simultaneous-satisfaction certificate]\label{thm:alpha-unique}
+The Lean theorem \texttt{framework\_alpha\_skeleton\_over\_determined\_capstone} certifies that the substrate-canonical nine-tuple simultaneously satisfies twenty-nine axiom-free real-arithmetic identities: twelve baseline invariants $(I_1)$--$(I_{12})$, five reciprocal identities, six higher-power identities, four mixed-product identities, and two sum identities (the reciprocals, higher powers, mixed products, and sums verify the same primitives from independent algebraic angles). Under positivity the twelve invariants pin the nine-tuple to this solution via the derivation of \S\ref{sec:substrate}. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
 \end{theorem}
 
 \begin{theorem}[$T_3^{\textsf{sym}}$ self-adjointness]\label{thm:t3sym}
-The symmetrised Cohen 2025 modified transfer operator $T_3^{\textsf{sym}} := \tfrac{1}{2}(\widetilde{T}_3^{(3/2)} + (\widetilde{T}_3^{(3/2)})^\dagger)$~\cite{cohen2025transferOp} acts on the mathlib Hilbert space $L^2([0,1], dx/x)$. The Lean theorem \texttt{T3\_self\_adjoint\_conj} kernel-proves self-adjointness on this carrier. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+The symmetrised Cohen 2025 modified transfer operator $T_3^{\textsf{sym}} := \tfrac{1}{2}(\widetilde{T}_3^{(3/2)} + (\widetilde{T}_3^{(3/2)})^\dagger)$~\cite{cohen2025transferOp} acts on the mathlib Hilbert space $L^2([0,1], dx/x)$. The Lean theorem \texttt{T3\_self\_adjoint\_conj} kernel-proves the sesquilinear-symmetry identity $\langle T_3^{\textsf{sym}} f, g \rangle = \langle f, T_3^{\textsf{sym}} g \rangle$ for all $f, g \in \mathtt{LogWeightedL2}$ --- the self-adjointness identity in the bilinear-form sense, which on the total-domain bounded wrapper coincides with mathlib's \texttt{IsSelfAdjoint}. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
 \end{theorem}
 
-\begin{theorem}[Substrate UHF trace as canonical faithful positive Hermitian tracial state]\label{thm:uhf-trace}
-The substrate UHF trace $\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}$, constructed as the unique uniformly continuous linear extension of the level-$k$ normalised matrix traces $\tau_n(M) := \mathrm{trace}(M)/n$ via \texttt{UniformSpace.Completion.extension}, is additive, unital, 1-Lipschitz, uniformly continuous, tracial, Hermitian, positive, and faithful. Twenty-two commits \texttt{r81--r101}. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\begin{theorem}[Substrate UHF trace as canonical positive Hermitian tracial state, faithful under substrate simplicity]\label{thm:uhf-trace}
+The substrate UHF trace $\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}$, constructed as the unique uniformly continuous linear extension of the level-$k$ normalised matrix traces $\tau_n(M) := \mathrm{trace}(M)/n$ via \texttt{UniformSpace.Completion.extension}, is additive, unital, 1-Lipschitz, uniformly continuous, tracial, Hermitian, and positive; faithfulness $\tau_{\textsf{UHF}}(x^* x) = 0 \Rightarrow x = 0$ holds unconditionally at the level-$k$ and pre-trace tiers, and at the completion tier via the r101 substrate UHF simplicity discharge (which lands level-wise \texttt{IsSimpleRing} on every $M_{3^k}(\mathbb{C})$ and substrate-Prop-discharges completion-tier simplicity per the r79 pattern of \S\ref{sec:standing}). Twenty-two commits \texttt{r81--r101}. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
 \end{theorem}
 
 \begin{theorem}[Level-wise substrate simplicity]\label{thm:simple}
@@ -212,6 +212,8 @@ Hodge     & \texttt{HodgeAlgebraicRepresentation} on \texttt{HodgeGeneralSurface
 \bottomrule
 \end{tabular}
 \end{center}
+
+The five non-RH rows discharge substrate-side predicates on the framework's canonical PF encodings (a Lie-group carrier for YM, a mathlib elliptic-curve type for BSD, a substrate general-surface algebraicity predicate for Hodge, and a framework NS capstone). Bridges from each PF encoding to the literal Clay problem statement on the corresponding standard mathematical carrier are documented in the per-axis bridge files under \texttt{PF/Referee/} in the corpus and are named in the substrate-Prop residuals of \S\ref{sec:standing}; the RH row alone reaches the literal mathlib \texttt{Complex.riemannZeta} via \texttt{Iff.rfl} definitional equality, which is what the sharpening below closes.
 
 \paragraph{The sharpened Riemann-Hypothesis discharge.} A per-axis sharpening lands the literal-Clay-standard RH statement on mathlib's \texttt{Complex.riemannZeta}:
 \[
@@ -304,7 +306,7 @@ at 30-digit precision~\cite{cohen2026book}, depending only on $\alpha_{\textsf{P
 
 \paragraph{DESI DR2 dark-energy phantom-crossing.} The substrate's dark-energy CPL ansatz $(w_0, w_a) = (-\varphi/2, -1/\varphi)$~\cite{cohen2026book} predicts a phantom crossing at $w_0 = -\sqrt{2\pi}/3 \approx -0.836$, consistent with the DESI DR2 phantom-crossing observation~\cite{desi-dr2-w0wa} within $1.2\sigma$ of the DESI+CMB+DESY5 CPL headline value.
 
-\paragraph{Primordial Li-7 deficit.} The substrate's P-class ground-state eigenvalue $\lambda_0^{(P)} = \pi/(10\sqrt{2}) = 0.22214\ldots$ matches the observed/BBN Li-7 abundance ratio~\cite{li7-deficit-2025} at $0.234 \pm 0.09$ within $0.13\sigma$, an independent cross-axis structural link between the P-class analytic eigenvalue and a long-standing cosmological anomaly.
+\paragraph{Primordial Li-7 numerical coincidence.} The substrate's P-class ground-state eigenvalue $\lambda_0^{(P)} = \pi/(10\sqrt{2}) = 0.22214\ldots$ sits within $0.13\sigma$ of the observed/BBN Li-7 abundance ratio $0.234 \pm 0.09$~\cite{li7-deficit-2025}. Reported as a magnitude coincidence worth tracking; the theoretical bridge from the P-class analytic eigenvalue to nucleosynthesis is book Chapter~24~\cite{cohen2026book} content and is scoped there, not in this article.
 
 \subsubsection*{Operator-spectral and gravitational-wave}
 
