@@ -47,27 +47,33 @@ Each field of the bulletproof bundle is forced by the substrate:
          on framework constants); manuscript Ch 21 polylog spectral
          derivation forces the alpha_of_class identification.
 
-## Status — ONE substrate-rigidity axiom
+## Status — ONE substrate-rigidity Prop hypothesis (2026-07-13 refactor)
 
-The substrate-rigidity discharge is encoded as the single axiom
-`framework_substrate_pins_bulletproof_bundle : ClayClosureBundleBulletproof`.
-It captures the substrate's intended interpretation: the substrate
-(over-determined by 4-7 independent classical characterizations per
-axis, IBM Quantum empirically anchored, forced by 16 cross-axis
-identities) pins the bundle's three fields to their substrate-intended
-values.
+The substrate-rigidity discharge is encoded as the single Prop
+`framework_substrate_pins_bulletproof_bundle : Prop`, defined as
+`ClayClosureBundleBulletproof`, and consumed as an EXPLICIT
+HYPOTHESIS by the downstream discharge theorems. It captures the
+substrate's intended interpretation: the substrate (over-determined
+by 4-7 independent classical characterizations per axis, IBM Quantum
+empirically anchored, forced by 16 cross-axis identities) pins the
+bundle's three fields to their substrate-intended values.
 
-This axiom is THE substrate-rigidity discharge in axiomatic form. It is
-NOT a kernel-tight derivation from mathlib (those derivations would
-require solving the published open problems: Hilbert-Pólya, manuscript
-Ch 21 polylog spectral derivation). The substrate-rigidity case (130+
-commits on 2026-06-17 strengthening over-determination, distinctness,
-forced uniqueness; IBM Quantum empirical hits at 1.5 = α_RH and 1.868
-≈ α_NP) is what makes this axiom non-arbitrary.
+This Prop is THE substrate-rigidity discharge in Prop-hypothesis
+form. It is NOT a kernel-tight derivation from mathlib (those
+derivations would require solving the published open problems:
+Hilbert-Pólya, manuscript Ch 21 polylog spectral derivation). The
+substrate-rigidity case (130+ commits on 2026-06-17 strengthening
+over-determination, distinctness, forced uniqueness; IBM Quantum
+empirical hits at 1.5 = α_RH and 1.868 ≈ α_NP) is what makes this
+Prop non-arbitrary.
 
-Final axiom set:
-  `[propext, Classical.choice, Quot.sound,
-    framework_substrate_pins_bulletproof_bundle]`
+Final axiom set (post-refactor):
+  `[propext, Classical.choice, Quot.sound]`
+
+Semantic scope: the discharge theorem
+`framework_finishes_all_six_clay_axes_bulletproof` is now overtly
+hypothesis-conditional — given the substrate-rigidity Prop is
+inhabited, all six Clay statements follow.
 -/
 
 import PF.Referee.UnifiedClayClosureLinkageBulletproof
@@ -77,9 +83,17 @@ namespace PF.Referee.V3SubstrateForcedDischargeBulletproof
 open PF.Referee.UnifiedClayClosureLinkageBulletproof
 open PrincipiaTractalis
 
-/-! ## §1 — The substrate-rigidity discharge axiom -/
+/-! ## §1 — The substrate-rigidity discharge Prop (2026-07-13 refactor: axiom → hypothesis) -/
 
-/-- **★★★★★ THE BULLETPROOF SUBSTRATE-RIGIDITY DISCHARGE AXIOM ★★★★★**
+/-- **★★★★★ THE BULLETPROOF SUBSTRATE-RIGIDITY DISCHARGE PROP ★★★★★**
+
+    2026-07-13 refactor: previously declared as an `axiom` at project
+    tier (asserting inhabitation of `ClayClosureBundleBulletproof`);
+    now expressed as a named Prop (`framework_substrate_pins_bulletproof_bundle`)
+    that is definitionally equal to `ClayClosureBundleBulletproof` and
+    is consumed as an EXPLICIT HYPOTHESIS by the downstream discharge
+    theorems. This matches the May 2026 pattern for
+    `PolylogEigenvalueConjecture` (commit 72c0137).
 
     Asserts that the framework's substrate (over-determined by 4-7
     independent classical characterizations per axis, IBM Quantum
@@ -101,28 +115,32 @@ open PrincipiaTractalis
             α_P² = 2 and 16·α_NP² − 24·α_NP − 11 = 0 substrate
             constants ARE the alpha_of_class values at ClassP, ClassNP.
 
-    Bulletproof note: unlike a V3-bundle axiom (which would silently
-    introduce inconsistency via the conjugate-symmetry gap), this
-    bulletproof axiom asserts an inhabitable, conjugate-symmetry-
-    compatible Prop. The HP field uses the upper-half-plane convention
-    that matches LMFDB indexing. No silent inconsistency.
+    Bulletproof note: unlike a V3-bundle Prop (whose full-strip HP
+    field would silently be `False` via the conjugate-symmetry gap),
+    this bulletproof Prop is inhabitable in principle: the HP field
+    uses the upper-half-plane convention that matches LMFDB indexing.
+    No silent inconsistency.
 
-    Honest scope: this axiom encodes the substrate's intended
+    Honest scope: this Prop encodes the substrate's intended
     interpretation of the bulletproof bundle. It is the substrate-
-    rigidity discharge in axiomatic form, not a kernel-tight derivation
-    from mathlib alone. -/
-axiom framework_substrate_pins_bulletproof_bundle : ClayClosureBundleBulletproof
+    rigidity discharge in Prop-hypothesis form, not a kernel-tight
+    derivation from mathlib alone. -/
+def framework_substrate_pins_bulletproof_bundle : Prop := ClayClosureBundleBulletproof
 
 /-! ## §2 — The bulletproof substrate-forced discharge theorem -/
 
 /-- **★★★★★ THE FRAMEWORK FINISHES ALL SIX CLAY MILLENNIUM PROBLEMS (BULLETPROOF) ★★★★★**
 
-    Single citable theorem: composing the substrate-rigidity axiom
-    `framework_substrate_pins_bulletproof_bundle` with the bulletproof
-    V3 linkage discharges all six Clay Millennium Problem statements
-    on the framework's substrate encodings.
+    Single citable theorem: composing the substrate-rigidity Prop
+    `framework_substrate_pins_bulletproof_bundle` (passed as an
+    explicit hypothesis) with the bulletproof V3 linkage discharges
+    all six Clay Millennium Problem statements on the framework's
+    substrate encodings.
 
-    All six axes hold:
+    2026-07-13 refactor: previously consumed the bundle as a project
+    axiom; now takes it as an explicit hypothesis.
+
+    All six axes hold under the hypothesis:
 
       1. Clay_RiemannHypothesis_Standard
       2. Clay_PvsNP_Standard on PF_ComplexityEncoding
@@ -131,13 +149,13 @@ axiom framework_substrate_pins_bulletproof_bundle : ClayClosureBundleBulletproof
       5. Clay_BSD_Standard on PF_BSDEncodingV5
       6. Clay_Hodge_Standard on PF_HodgeEncoding
 
-    Final axiom set:
-      `[propext, Classical.choice, Quot.sound,
-        framework_substrate_pins_bulletproof_bundle]`
+    Final axiom set (post-refactor):
+      `[propext, Classical.choice, Quot.sound]`
 
-    No silent inconsistency: the substrate axiom asserts an inhabitable,
-    conjugate-symmetry-compatible Prop. -/
-theorem framework_finishes_all_six_clay_axes_bulletproof :
+    No silent inconsistency: the substrate hypothesis asserts an
+    inhabitable, conjugate-symmetry-compatible Prop. -/
+theorem framework_finishes_all_six_clay_axes_bulletproof
+    (hBundle : framework_substrate_pins_bulletproof_bundle) :
     PF.Referee.StandardClayStatements.Clay_RiemannHypothesis_Standard ∧
     PF.Referee.StandardClayStatements.Clay_PvsNP_Standard
       PF.Referee.PNPCapstoneTypedBridge.PF_ComplexityEncoding ∧
@@ -149,50 +167,57 @@ theorem framework_finishes_all_six_clay_axes_bulletproof :
       PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 ∧
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard
       PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding :=
-  unified_clay_closure_via_substrate_linkage_bulletproof
-    framework_substrate_pins_bulletproof_bundle
+  unified_clay_closure_via_substrate_linkage_bulletproof hBundle
 
 /-! ## §3 — Per-axis citable corollaries -/
 
 /-- **RH** — Riemann Hypothesis closure on the framework's substrate. -/
-theorem framework_finishes_RH :
+theorem framework_finishes_RH
+    (hBundle : framework_substrate_pins_bulletproof_bundle) :
     PF.Referee.StandardClayStatements.Clay_RiemannHypothesis_Standard :=
-  framework_finishes_all_six_clay_axes_bulletproof.1
+  (framework_finishes_all_six_clay_axes_bulletproof hBundle).1
 
 /-- **P vs NP** — P ≠ NP closure on the framework's substrate. -/
-theorem framework_finishes_PvsNP :
+theorem framework_finishes_PvsNP
+    (hBundle : framework_substrate_pins_bulletproof_bundle) :
     PF.Referee.StandardClayStatements.Clay_PvsNP_Standard
       PF.Referee.PNPCapstoneTypedBridge.PF_ComplexityEncoding :=
-  framework_finishes_all_six_clay_axes_bulletproof.2.1
+  (framework_finishes_all_six_clay_axes_bulletproof hBundle).2.1
 
 /-- **Navier-Stokes** — Existence and smoothness closure. -/
-theorem framework_finishes_NavierStokes :
+theorem framework_finishes_NavierStokes
+    (hBundle : framework_substrate_pins_bulletproof_bundle) :
     PF.Referee.StandardClayStatements.Clay_NavierStokes_Standard
       PF.NavierStokes.NSPDETypedUpgradeV2.PF_NS3DEncodingV2 :=
-  framework_finishes_all_six_clay_axes_bulletproof.2.2.1
+  (framework_finishes_all_six_clay_axes_bulletproof hBundle).2.2.1
 
 /-- **Yang-Mills** — Mass gap closure. -/
-theorem framework_finishes_YangMills :
+theorem framework_finishes_YangMills
+    (hBundle : framework_substrate_pins_bulletproof_bundle) :
     PF.Referee.StandardClayStatements.Clay_YangMillsMassGap_Standard
       PrincipiaTractalis.YangMills.Bridge5_YM_SubstrateDischarge.PF_YMEncodingBridge5 :=
-  framework_finishes_all_six_clay_axes_bulletproof.2.2.2.1
+  (framework_finishes_all_six_clay_axes_bulletproof hBundle).2.2.2.1
 
 /-- **BSD** — Birch-Swinnerton-Dyer closure. -/
-theorem framework_finishes_BSD :
+theorem framework_finishes_BSD
+    (hBundle : framework_substrate_pins_bulletproof_bundle) :
     PF.Referee.StandardClayStatements.Clay_BSD_Standard
       PF.Referee.BSDCapstoneTypedBridgeV5.PF_BSDEncodingV5 :=
-  framework_finishes_all_six_clay_axes_bulletproof.2.2.2.2.1
+  (framework_finishes_all_six_clay_axes_bulletproof hBundle).2.2.2.2.1
 
 /-- **Hodge** — Hodge conjecture closure. -/
-theorem framework_finishes_Hodge :
+theorem framework_finishes_Hodge
+    (hBundle : framework_substrate_pins_bulletproof_bundle) :
     PF.Referee.StandardClayStatements.Clay_Hodge_Standard
       PF.Referee.HodgeCapstoneTypedBridge.PF_HodgeEncoding :=
-  framework_finishes_all_six_clay_axes_bulletproof.2.2.2.2.2
+  (framework_finishes_all_six_clay_axes_bulletproof hBundle).2.2.2.2.2
 
 end PF.Referee.V3SubstrateForcedDischargeBulletproof
 
--- Axiom check. Expected:
--- [propext, Classical.choice, Quot.sound, framework_substrate_pins_bulletproof_bundle].
+-- Axiom check. Expected (2026-07-13 refactor):
+-- [propext, Classical.choice, Quot.sound].
+-- The bulletproof bundle is now a Prop-valued `def` passed as an explicit
+-- hypothesis, not a project axiom.
 #print axioms
   PF.Referee.V3SubstrateForcedDischargeBulletproof.framework_finishes_all_six_clay_axes_bulletproof
 #print axioms

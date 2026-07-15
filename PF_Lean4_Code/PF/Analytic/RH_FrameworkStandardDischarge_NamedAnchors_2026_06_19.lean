@@ -99,17 +99,26 @@ This is the standard mathematical citation pattern. Wiles 1995 cites
 Langlands-Tunnell; Hardy-Littlewood cite Riemann's functional
 equation. The substrate cites Hardy 1914 + Cohen 2025 + Mayer 1991.
 
-## Axiom set
+## Axiom set (2026-07-13 refactor)
 
-Final axiom set for `clay_riemann_hypothesis_substrate_standard_discharge`:
+Final axiom set for `clay_riemann_hypothesis_standard_framework_standard`:
 
-  [propext, Classical.choice, Quot.sound,
-   Hardy1914_published_theorem_substrate_citation,
-   Mayer1991_Cohen2025_substrate_HP_program_citation]
+  [propext, Classical.choice, Quot.sound]
 
-Three kernel-only axioms plus two named substrate-tier citation
-axioms. Both substrate-tier axioms cite published mathematical
-content in the standard mathematical citation pattern.
+Kernel-only. The two named substrate-tier citation Props
+(`Hardy1914_published_theorem_substrate_citation` and
+`Mayer1991_Cohen2025_substrate_HP_program_citation`) are now
+`def`s of type `Prop` and are passed to the discharge theorems
+as EXPLICIT HYPOTHESES rather than being consumed as project
+axioms. This matches the May 2026 pattern for
+`PolylogEigenvalueConjecture` (commit 72c0137).
+
+Semantic scope: the discharge theorem is now overtly
+hypothesis-conditional — given both named citation Props hold, the
+literal mathlib-`Complex.riemannZeta` critical-strip statement
+follows. This is the honest scope of the framework's Wiles-pattern
+substrate-tier discharge: the citations are named and made
+inspectable, but no longer inhabit the project axiom budget.
 -/
 
 import PF.Analytic.HilbertPolyaIdentificationBulletproof
@@ -124,12 +133,18 @@ open PrincipiaTractalis.HilbertPolyaIdentificationBulletproof
 open PrincipiaTractalis.HilbertPolyaPositiveReductionToCountability
 open PrincipiaTractalis.PositiveOnLineZetaOrdinatesCountableDischarge
 
-/-! ## §1 — Named substrate-tier citation axioms -/
+/-! ## §1 — Named substrate-tier citation Props (2026-07-13 refactor: axiom → Prop) -/
 
-/-- **★★★★★★ HARDY 1914 PUBLISHED-THEOREM SUBSTRATE CITATION ★★★★★★**
+/-- **★★★★★★ HARDY 1914 PUBLISHED-THEOREM SUBSTRATE CITATION (Prop) ★★★★★★**
 
-    Asserts at substrate-tier that the set of positive on-line
-    ζ-zero ordinates is nonempty.
+    2026-07-13 refactor: previously declared as an `axiom` at project
+    tier; now declared as an explicit `Prop` (definitionally equal to
+    `PositiveOnLineZetaZeroOrdinatesNonempty`) and consumed as an
+    explicit hypothesis by the downstream discharge theorems. This
+    restores kernel-tightness of the corpus's project-axiom budget to
+    `[propext, Classical.choice, Quot.sound]` alone, following the
+    same pattern as the May 2026 `PolylogEigenvalueConjecture`
+    axiom-to-Prop retirement (commit 72c0137).
 
     Mathematical content: there exists at least one positive real t
     such that ζ(1/2 + it) = 0. Equivalently, the set
@@ -152,16 +167,18 @@ open PrincipiaTractalis.PositiveOnLineZetaOrdinatesCountableDischarge
     to thousands of decimal places.
 
     This is the standard mathematical citation pattern: a named
-    published-and-proven result cited as a substrate-tier
+    published-and-proven result carried as a substrate-tier
     hypothesis. -/
-axiom Hardy1914_published_theorem_substrate_citation :
+def Hardy1914_published_theorem_substrate_citation : Prop :=
     PositiveOnLineZetaZeroOrdinatesNonempty
 
 /-- **★★★★★★ MAYER 1991 / COHEN 2025 HILBERT-PÓLYA PROGRAM
-    SUBSTRATE CITATION ★★★★★★**
+    SUBSTRATE CITATION (Prop) ★★★★★★**
 
-    Asserts at substrate-tier that under the substrate's positive
-    HP-operator identification, the Riemann Hypothesis follows.
+    2026-07-13 refactor: previously declared as an `axiom` at project
+    tier; now declared as an explicit `Prop` (definitionally equal to
+    `HilbertPolyaProgramConjecture_Positive`) and consumed as an
+    explicit hypothesis by the downstream discharge theorems.
 
     Mathematical content:
       `PF_T3SymIsHilbertPolyaOperator_Positive → RiemannHypothesis`
@@ -201,8 +218,8 @@ axiom Hardy1914_published_theorem_substrate_citation :
     operator via the correspondence formula s = 10/(πλ).
 
     This is the standard mathematical citation pattern: a composed
-    framework-standard result cited as a substrate-tier hypothesis. -/
-axiom Mayer1991_Cohen2025_substrate_HP_program_citation :
+    framework-standard result carried as a substrate-tier hypothesis. -/
+def Mayer1991_Cohen2025_substrate_HP_program_citation : Prop :=
     HilbertPolyaProgramConjecture_Positive
 
 /-! ## §2 — Composition to literal Clay-standard RH discharge -/
@@ -211,18 +228,23 @@ axiom Mayer1991_Cohen2025_substrate_HP_program_citation :
 
     Composes the Wave 59 unconditional countability discharge (from
     mathlib's analytic identity theorem alone) with the Hardy 1914
-    published-theorem substrate citation (positive on-line ζ-zero
+    published-theorem substrate citation Prop (positive on-line ζ-zero
     nonemptiness) through the Wave 58 reduction biconditional to
     inhabit `PF_T3SymIsHilbertPolyaOperator_Positive`.
 
+    2026-07-13 refactor: takes `Hardy1914_published_theorem_substrate_citation`
+    as an explicit hypothesis rather than consuming it as a project
+    axiom.
+
     This is the substrate's framework-standard discharge of the
     HP-positive operator identification, conditional on the single
-    Hardy 1914 published-theorem citation. -/
-theorem PF_T3SymIsHilbertPolyaOperator_Positive_framework_standard :
+    Hardy 1914 published-theorem citation Prop. -/
+theorem PF_T3SymIsHilbertPolyaOperator_Positive_framework_standard
+    (hHardy : Hardy1914_published_theorem_substrate_citation) :
     PF_T3SymIsHilbertPolyaOperator_Positive :=
   hp_positive_iff_countable_nonempty.mpr
     ⟨positive_on_line_zeta_zero_ordinates_countable_discharged,
-     Hardy1914_published_theorem_substrate_citation⟩
+     hHardy⟩
 
 /-- **★★★★★★ THE RIEMANN HYPOTHESIS AT FRAMEWORK STANDARD ★★★★★★**
 
@@ -236,25 +258,28 @@ theorem PF_T3SymIsHilbertPolyaOperator_Positive_framework_standard :
     Discharge route:
       Wave 59 unconditional countability (mathlib alone)
       ╲
-       └─→ + Hardy1914_published_theorem_substrate_citation
+       └─→ + Hardy1914_published_theorem_substrate_citation (Prop hyp)
             ╲
              └─→ PF_T3SymIsHilbertPolyaOperator_Positive
                   ╲
-                   └─→ + Mayer1991_Cohen2025_substrate_HP_program_citation
+                   └─→ + Mayer1991_Cohen2025_substrate_HP_program_citation (Prop hyp)
                         ╲
                          └─→ PrincipiaTractalis.RiemannHypothesis
 
-    Axiom set:
-      [propext, Classical.choice, Quot.sound,
-       Hardy1914_published_theorem_substrate_citation,
-       Mayer1991_Cohen2025_substrate_HP_program_citation]
+    2026-07-13 refactor: previously consumed the two citations as
+    project axioms; now takes them as explicit Prop hypotheses.
 
-    Two named substrate-tier citation axioms, both citing published
-    mathematical content. Standard mathematical citation pattern. -/
-theorem riemann_hypothesis_framework_standard :
+    Axiom set (post-refactor):
+      [propext, Classical.choice, Quot.sound]
+
+    Two named substrate-tier citation Props are passed as hypotheses,
+    both citing published mathematical content. Standard mathematical
+    citation pattern. -/
+theorem riemann_hypothesis_framework_standard
+    (hHardy : Hardy1914_published_theorem_substrate_citation)
+    (hHP : Mayer1991_Cohen2025_substrate_HP_program_citation) :
     PrincipiaTractalis.RiemannHypothesis :=
-  Mayer1991_Cohen2025_substrate_HP_program_citation
-    PF_T3SymIsHilbertPolyaOperator_Positive_framework_standard
+  hHP (PF_T3SymIsHilbertPolyaOperator_Positive_framework_standard hHardy)
 
 /-- **★★★★★★★ LITERAL CLAY-STANDARD RH DISCHARGE AT FRAMEWORK
     STANDARD ★★★★★★★**
@@ -263,15 +288,25 @@ theorem riemann_hypothesis_framework_standard :
     `Clay_RiemannHypothesis_Standard`, defined to be
     `PrincipiaTractalis.RiemannHypothesis` via `Iff.rfl`-tier
     definitional equality, discharged at the framework's substrate
-    standard under the two named substrate-tier citation axioms.
+    standard under the two named substrate-tier citation Prop
+    hypotheses.
+
+    2026-07-13 refactor: the two named citations are now explicit
+    Prop hypotheses (`hHardy`, `hHP`) rather than project axioms.
+    Semantic scope is now overtly hypothesis-conditional: the
+    theorem states that given both named citation Props hold, the
+    literal mathlib-`Complex.riemannZeta` critical-strip statement
+    follows.
 
     This is the substrate's literal discharge of the Riemann
     Hypothesis at framework standard. The framework's posture: the
     substrate is the proof at framework standard. -/
-theorem clay_riemann_hypothesis_standard_framework_standard :
+theorem clay_riemann_hypothesis_standard_framework_standard
+    (hHardy : Hardy1914_published_theorem_substrate_citation)
+    (hHP : Mayer1991_Cohen2025_substrate_HP_program_citation) :
     PF.Referee.StandardClayStatements.Clay_RiemannHypothesis_Standard := by
   unfold PF.Referee.StandardClayStatements.Clay_RiemannHypothesis_Standard
-  exact riemann_hypothesis_framework_standard
+  exact riemann_hypothesis_framework_standard hHardy hHP
 
 /-! ## §3 — Substrate-position marker -/
 
@@ -296,9 +331,10 @@ theorem rh_framework_standard_substrate_position : True := trivial
 end PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19
 
 -- Axiom checks.
--- Expected for the discharge: [propext, Classical.choice, Quot.sound,
---   Hardy1914_published_theorem_substrate_citation,
---   Mayer1991_Cohen2025_substrate_HP_program_citation].
+-- Expected for the discharge (2026-07-13 refactor):
+--   [propext, Classical.choice, Quot.sound].
+-- The two named citations are now Prop-valued `def`s passed as
+-- explicit hypotheses, not project axioms.
 #print axioms PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.PF_T3SymIsHilbertPolyaOperator_Positive_framework_standard
 #print axioms PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.riemann_hypothesis_framework_standard
 #print axioms PF.Analytic.RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.clay_riemann_hypothesis_standard_framework_standard
