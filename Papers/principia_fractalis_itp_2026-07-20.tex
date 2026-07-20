@@ -1,0 +1,303 @@
+%% principia_fractalis_itp_2026-07-20.tex
+%% ITP / CPP submission draft.
+%% Focused formalization contribution: T_3^sym self-adjointness on
+%% L^2([0,1], dx/x), substrate UHF C*-algebra construction on the base-3
+%% ternary matrix tower, and the r81-r101 arc delivering a canonical
+%% positive Hermitian tracial state (faithful at the level-k and pre-trace
+%% tiers; completion-tier faithfulness stated OPEN, reducing to Glimm 1960
+%% C*-simplicity of T_infty, which is not formalized here).
+%% No Clay framing. No bundle-discharge theorem. No empirical
+%% corroboration catalogue. This is the pure formalization result.
+%%
+%% 2026-07-20 honesty revision of the 2026-07-11 draft:
+%%   (1) completion-tier faithfulness demoted from "conditional" to OPEN --
+%%       the repo residual it rested on is faithfulness restated as its own
+%%       hypothesis, so it did not constitute a proof;
+%%   (2) bibliography trimmed from 79 entries to the 7 actually cited;
+%%   (3) HEAD/build dates reconciled (commit a0d541c1 = 2026-07-08);
+%%   (4) headline #print axioms list restricted to genuinely-proven theorems.
+%% 2026-07-20 VERIFIED at HEAD d9cf01fe: `lake build PF` = 4453 jobs,
+%% `lake build` (full, incl. PF_Lean4Lean) = 8892 jobs, both exit 0;
+%% `#print axioms` on the three headline theorems = [propext,
+%% Classical.choice, Quot.sound]. Numbers below are kernel-confirmed.
+
+\documentclass[11pt,a4paper]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[hidelinks,colorlinks=false]{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{framed}
+\usepackage{xcolor}
+\usepackage{seqsplit}
+
+\emergencystretch=8em
+\hbadness=10000
+\setlength{\hfuzz}{30pt}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\sloppy
+\tolerance=10000
+\pretolerance=10000
+\emergencystretch=15em
+
+\newcommand{\lt}[1]{\texttt{\seqsplit{#1}}}
+
+\title[Formalizing a UHF Tracial State on a Base-3 Ternary $C^*$-Algebra]{Formalizing a Canonical Positive Hermitian Tracial State on a Base-3 Ternary UHF $C^*$-Algebra, with a Self-Adjoint Modified Transfer Operator on $L^2([0,1],\, dx/x)$}
+
+\author{Pablo Cohen}
+\address{Mesa, Arizona, USA}
+\email{psolorzano@gmail.com}
+\urladdr{ORCID:~\href{https://orcid.org/0009-0002-0734-5565}{0009-0002-0734-5565}}
+
+\date{July 20, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent We report a Lean~4 formalization~\cite{moura-ullrich2021,mathlib2020} of three connected pieces of operator-algebra content on a base-3 ternary substrate. First, the Cohen 2025 modified transfer operator $\widetilde{T}_3^{(3/2)}$~\cite{cohen2025transferOp} is symmetrised as $T_3^{\textsf{sym}} := \tfrac{1}{2}(\widetilde{T}_3^{(3/2)} + (\widetilde{T}_3^{(3/2)})^\dagger)$ on the mathlib Hilbert space $L^2([0,1], dx/x)$, and the Lean theorem \texttt{T3\_self\_adjoint\_conj} kernel-verifies the sesquilinear-symmetry identity $\langle T_3^{\textsf{sym}} f, g \rangle = \langle f, T_3^{\textsf{sym}} g \rangle$ on the total-domain wrapper (coinciding with mathlib \texttt{IsSelfAdjoint} for bounded operators on this carrier).
+
+\smallskip
+
+\noindent Second, the base-3 ternary matrix tower $A_k := \mathrm{Matrix}~(\mathrm{Fin}~3^k)~(\mathrm{Fin}~3^k)~\mathbb{C}$ with successor embedding $\iota_k \colon A \mapsto \mathrm{reindex}~(\mathrm{levelStepEquiv}~k)~(A \otimes I_3)$ yields a mathlib-native inductive limit $\varinjlim_k A_k$ and metric completion $T_\infty$ carrying \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instances. This is a UHF $C^*$-algebra in the sense of the mathlib $C^*$-algebra hierarchy; the substrate UHF $C^*$-algebra registration lands at r59 (\texttt{581131bb}), with density/nuclearity witness at r60 (\texttt{54e7de87}), across the r41--r60 chain in the source repository.
+
+\smallskip
+
+\noindent Third, the r81--r101 arc (twenty-two commits, 2026-07-07/08) constructs a canonical $\mathbb{C}$-valued map $\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}$ as the unique uniformly-continuous linear extension of the level-$k$ normalised matrix traces $\tau_n(M) := \mathrm{trace}(M)/n$ (for $n = 3^k$) via \texttt{UniformSpace.Completion.extension}, and kernel-verifies additivity, unitality, 1-Lipschitz continuity, the tracial identity $\tau_{\textsf{UHF}}(xy) = \tau_{\textsf{UHF}}(yx)$, the Hermitian identity $\tau_{\textsf{UHF}}(x^*) = \overline{\tau_{\textsf{UHF}}(x)}$, and positivity $0 \le \tau_{\textsf{UHF}}(x^* x)$. Faithfulness $\tau_{\textsf{UHF}}(x^* x) = 0 \Rightarrow x = 0$ holds unconditionally at the level-$k$ and pre-trace tiers via \texttt{Matrix.trace\_conjTranspose\_mul\_self\_eq\_zero\_iff} composed through \texttt{DirectLimit.exists\_eq\_mk}. Completion-tier faithfulness is \emph{not} established in this work. It reduces, via the standard fact that a positive tracial state on a unital $C^*$-simple algebra is faithful, to the $C^*$-simplicity of $T_\infty$ (Glimm 1960~\cite{glimm1960}), which we do not formalize; we state it as open. For full transparency: the repository carries a hypothesis-parameterized statement whose hypothesis is precisely completion-tier faithfulness itself (hence not a proof of it), and a placeholder marker \seqsplit{\texttt{SubstrateUHFCompletionSimplicitySubstrateConjecture}} of type \texttt{Prop := True}; neither discharges the gap, and we do not count them as doing so. What \emph{is} unconditional at the completion tier is the structural closure of the trace-null set (\texttt{IsClosed} and $0$-membership, via r98 positivity and \texttt{Complex.orderClosedTopology}) and level-wise \texttt{IsSimpleRing} on every $M_{3^k}(\mathbb{C})$. Level-$k$ and pre-trace faithfulness are the load-bearing faithfulness content.
+
+\smallskip
+
+\noindent Machine verification aggregates (verified at HEAD~\texttt{d9cf01fe}, 2026-07-19; \texttt{lake build} and \texttt{\#print axioms} re-run 2026-07-20): 4{,}453 \texttt{lake build PF} jobs (canonical Lean~4 layer, mathlib \texttt{v4.24.0-rc1}), 8{,}892 \texttt{lake build} full-library jobs (with \texttt{PF\_Lean4Lean} re-elaboration). Kernel axiom set $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ on every headline theorem. The corpus is public at \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}.
+\end{abstract}
+
+%% =====================================================================
+\section{Introduction}\label{sec:intro}
+%% =====================================================================
+
+Formalized operator-algebra content in Lean~4 is still uncommon: mathlib provides a $C^*$-algebra typeclass hierarchy, direct-limit machinery for ring structures, and \texttt{UniformSpace.Completion} for metric completion, but concrete UHF $C^*$-algebra constructions and canonical tracial states on such completions have not been systematically formalized. This paper describes a three-part formalization contribution built on a base-3 ternary matrix tower: (i) a self-adjointness identity for a modified transfer operator on the mathlib Hilbert space $L^2([0,1], dx/x)$; (ii) a UHF $C^*$-algebra construction via inductive limit + metric completion; (iii) a canonical positive Hermitian tracial state on that completion, unconditionally faithful at the level-$k$ and pre-trace tiers. Completion-tier faithfulness is not established here; via the standard fact that a positive tracial state on a unital $C^*$-simple algebra is faithful, it reduces to the $C^*$-simplicity of $T_\infty$ (Glimm 1960~\cite{glimm1960}), which we do not formalize and state as open.
+
+\paragraph{Why base-3?} The choice of ternary rather than the more common base-2 CAR / Fermion tower $M_{2^\infty}$ is driven by the target application: the same substrate's modified transfer operator $\widetilde{T}_3^{(3/2)}$ acts naturally on three-branch dynamics, and the substrate framework registers $T_\infty = M_{3^\infty}$ as the operator-algebraic completion of that dynamical carrier. As a UHF classification target, $M_{3^\infty}$ and $M_{2^\infty}$ are equally standard; as a formalization target, we chose base-3 because it interacts with the transfer-operator content of \S\ref{sec:t3sym} and because a base-3 tower has (to our knowledge) not previously been formalized in a mathlib-native $C^*$-algebra hierarchy.
+
+The three parts land as separate substrate development arcs in the source corpus: the modified transfer operator content is sourced in \texttt{PF/TransferOperator.lean} (predating the r-numbered arc); the substrate $C^*$-algebra completion spans \texttt{r41--r60} with UHF registration at r59; the tracial state is the twenty-two-commit chain \texttt{r81--r101}. They are connected in the sense that the same base-3 ternary architecture underlies all three; they are not connected in the sense that the tracial state does not require the modified transfer operator, nor conversely. The formalization is oriented toward reproducibility: the pinned toolchain, mathlib revision, exact build commands, and \texttt{\#print axioms} output are documented in \S\ref{sec:reproducibility}.
+
+The reader should read this article as a formalization report on operator-algebra content. Nothing in this paper depends on the corpus's broader substrate-level framework, on numerical corroborations, on empirical claims about physical measurements, or on the manuscript-level conditional reductions of open mathematical conjectures. Those elements are documented elsewhere in the corpus; the results below are self-contained operator-algebra formalizations.
+
+%% =====================================================================
+\section{The base-3 ternary matrix tower and its UHF $C^*$-algebra completion}\label{sec:tower}
+%% =====================================================================
+
+\paragraph{The tower.} At level $k \in \mathbb{N}$, define
+\[
+A_k \;:=\; \mathrm{Matrix}~(\mathrm{Fin}~3^k)~(\mathrm{Fin}~3^k)~\mathbb{C},
+\]
+a finite-dimensional $C^*$-algebra with the usual Frobenius / operator-norm structure. Successive levels embed via the ternary tensor construction
+\[
+\iota_k \colon A_k \hookrightarrow A_{k+1}, \qquad A \;\longmapsto\; \mathrm{reindex}~(\mathrm{levelStepEquiv}~k)~(A \otimes I_3),
+\]
+so every $M_{3^k}(\mathbb{C})$ sits inside $M_{3^{k+1}}(\mathbb{C})$ as an $A \otimes I_3$ block padded by two identity copies. In Lean, \texttt{levelStepEquiv} is the equivalence $\mathrm{Fin}~3^k \times \mathrm{Fin}~3 \simeq \mathrm{Fin}~3^{k+1}$ derived from the ternary decomposition of $3^{k+1}$.
+
+\paragraph{The inductive limit and completion.} Applying mathlib's \texttt{Ring.DirectLimit} to the family $\{A_k, \iota_k\}$ yields
+\[
+\mathrm{TimelessFieldRing} \;:=\; \varinjlim_k A_k,
+\]
+a $\mathbb{C}$-linear ring with \texttt{StarRing} structure inherited from the componentwise star operation on matrices. The metric completion of \texttt{TimelessFieldRing} under the operator norm is
+\[
+T_\infty \;:=\; \mathrm{TimelessFieldCompletion} \;=\; \overline{\varinjlim_k A_k}^{\|\cdot\|_{\textsf{op}}}.
+\]
+Registration of \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instances on $T_\infty$ is the substance of the r41--r60 chain (git range \texttt{f2bcf30}--\texttt{54e7de87}), with the UHF $C^*$-algebra registration landing at r59 (\texttt{581131bb}) and the density/nuclearity witness at r60 (\texttt{54e7de87}); the chain composes \texttt{UniformSpace.Completion.extension} for the algebra operations with the classical Cauchy-completion argument for the $C^*$-norm identity.
+
+\begin{theorem}[UHF $C^*$-algebra registration]\label{thm:uhf-registration}
+The metric completion $T_\infty$ carries mathlib-native \texttt{Ring}, \texttt{StarRing}, \texttt{NormedRing}, and \texttt{CStarAlgebra} instances, with $\mathrm{TimelessFieldRing}$ dense in $T_\infty$ under the operator norm. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+\begin{remark}
+By construction, $T_\infty$ is a UHF $C^*$-algebra in the classical sense: it is the norm-closure of an inductive limit of full matrix algebras under unital $*$-embeddings. The mathlib \texttt{CStarAlgebra} instance is the algebra-of-record; the classical UHF classification of $T_\infty$ as $M_{3^\infty}$ in the Glimm 1960 sense~\cite{glimm1960} is stated but not further exploited in this article. (The Glimm classification and the $C^*$-simplicity of $T_\infty$ are registered as substrate-Prop residuals in the corpus; see Theorem~\ref{thm:uhf-trace} for the load-bearing completion-tier statement.)
+\end{remark}
+
+\paragraph{Level-wise substrate simplicity.} Every finite substrate level $A_k = M_{3^k}(\mathbb{C})$ is a mathlib-native \texttt{IsSimpleRing} instance via \texttt{DivisionRing.isSimpleRing} on $\mathbb{C}$ composed with \texttt{IsSimpleRing.matrix}. This lands as:
+
+\begin{theorem}[Level-wise substrate simplicity]\label{thm:simple}
+For every $k \in \mathbb{N}$, $A_k = M_{3^k}(\mathbb{C})$ is a mathlib \texttt{IsSimpleRing} instance. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+%% =====================================================================
+\section{The modified transfer operator $T_3^{\textsf{sym}}$ and its self-adjointness identity}\label{sec:t3sym}
+%% =====================================================================
+
+\paragraph{The operator.} Working on the mathlib Hilbert space $L^2([0,1], dx/x)$ with the logarithmic-measure inner product $\langle f, g \rangle = \int_0^1 \overline{f(x)} g(x) \, dx/x$, the Cohen 2025 modified transfer operator $\widetilde{T}_3^{(3/2)} \colon \mathcal{H} \to \mathcal{H}$ is defined by~\cite{cohen2025transferOp}
+\[
+\widetilde{T}_3^{(3/2)}[f](x) \;=\; \frac{1}{3} \sum_{k=0}^{2} \omega_k \sqrt{\frac{x}{(x+k)/3}} \, f\!\left(\frac{x+k}{3}\right),
+\]
+with phase factors $\omega_0 = 1$, $\omega_1 = -i$, $\omega_2 = -1$. The three summands index the branches of the base-3 substrate ternary map $x \mapsto (x+k)/3$ for $k \in \{0, 1, 2\}$. Its Hermitian symmetrisation is
+\[
+T_3^{\textsf{sym}} \;:=\; \tfrac{1}{2}\bigl(\widetilde{T}_3^{(3/2)} + (\widetilde{T}_3^{(3/2)})^\dagger\bigr).
+\]
+Implementation notes: the operator is defined in Lean as a \texttt{ContinuousLinearMap} on $L^2([0,1], dx/x)$ via a \texttt{TransferOperator 3} wrapper whose \texttt{.apply} is total; the total-domain property is what lets us pass from the sesquilinear-form-flip identity below to the mathlib bounded-operator \texttt{IsSelfAdjoint} predicate on the wrapped operator.
+
+\paragraph{The self-adjointness identity.} The Lean theorem \texttt{T3\_self\_adjoint\_conj} in \texttt{PF/TransferOperator.lean} kernel-verifies the sesquilinear-symmetry identity
+\[
+\langle T_3^{\textsf{sym}} f, g \rangle \;=\; \langle f, T_3^{\textsf{sym}} g \rangle \qquad \text{for all } f, g \in \mathtt{LogWeightedL2}.
+\]
+On the total-domain bounded wrapper, this coincides with mathlib \texttt{IsSelfAdjoint} for a bounded operator. The proof passes through an auxiliary \texttt{T3\_self\_adjoint\_conj\_via\_MemLp2} lemma that reduces to the case where $f, g$ are $L^2$-integrable modulo the log-weighted measure; the total-domain reduction is via mathlib's \texttt{LogWeightedL2.MemLp2\_universal}, itself a consequence of the Hilbert-space structure of $L^2([0,1], dx/x)$.
+
+\begin{theorem}[$T_3^{\textsf{sym}}$ self-adjointness identity]\label{thm:t3sym}
+The Lean theorem \texttt{T3\_self\_adjoint\_conj} kernel-verifies $\langle T_3^{\textsf{sym}} f, g \rangle = \langle f, T_3^{\textsf{sym}} g \rangle$ for all $f, g \in \mathtt{LogWeightedL2}$. Under the total-domain bounded-operator convention on the \texttt{TransferOperator 3} wrapper, this is the self-adjointness identity in mathlib's \texttt{IsSelfAdjoint} sense. Kernel axiom set: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+%% =====================================================================
+\section{The substrate UHF tracial state}\label{sec:trace}
+%% =====================================================================
+
+\paragraph{Construction of $\tau_{\textsf{UHF}}$.} On every level $A_k = M_{3^k}(\mathbb{C})$, the normalised matrix trace
+\[
+\tau_n \colon A_k \to \mathbb{C}, \qquad \tau_n(M) \;:=\; \frac{\mathrm{trace}(M)}{n} \qquad \text{for } n = 3^k
+\]
+is $\mathbb{C}$-linear, unital, additive, and 1-Lipschitz under the $L^2$ operator norm (via the Hilbert--Schmidt route: the classical column-by-column bound $\|M\|_{\mathrm{HS}}^2 \le n \|M\|_{\mathrm{op}}^2$ combined with Cauchy--Schwarz on trace-vs-HS gives $\|\tau_n(M)\| \le \|M\|_{\mathrm{op}}$). Compatibility with the ternary embedding, $\tau_{n+1}(\iota_k(A)) = \tau_n(A)$, follows from \texttt{Matrix.trace\_kronecker} together with \texttt{Fintype.card\_fin}.
+
+Universal-property lifting through mathlib's \texttt{DirectLimit.lift} yields the substrate pre-trace
+\[
+\tau_{\mathrm{pre}} \colon \mathrm{TimelessFieldRing} \to \mathbb{C}
+\]
+that is additive, unital, 1-Lipschitz, and uniformly continuous on the direct limit. The unique continuous linear extension of $\tau_{\mathrm{pre}}$ through mathlib's \texttt{UniformSpace.Completion.extension} yields
+\[
+\tau_{\textsf{UHF}} \;:=\; \texttt{UniformSpace.Completion.extension}(\tau_{\mathrm{pre}}) \colon T_\infty \to \mathbb{C}.
+\]
+
+\paragraph{Tracial-state properties.} The twenty-two-commit chain \texttt{r81--r101} (2026-07-07/08) delivers $\tau_{\textsf{UHF}}$ as a canonical positive Hermitian tracial state on $T_\infty$:
+
+\begin{theorem}[Substrate UHF tracial state]\label{thm:uhf-trace}
+The substrate UHF trace $\tau_{\textsf{UHF}} \colon T_\infty \to \mathbb{C}$ satisfies:
+\begin{itemize}[itemsep=1pt]
+\item \emph{Additive, unital, 1-Lipschitz, uniformly continuous} (r87).
+\item \emph{Tracial}: $\tau_{\textsf{UHF}}(xy) = \tau_{\textsf{UHF}}(yx)$ for all $x, y \in T_\infty$, via \texttt{Matrix.trace\_mul\_comm} at level-$k$, \texttt{DirectLimit.exists\_eq\_mk}$_2$ reduction at the pre-trace, and \texttt{UniformSpace.Completion.induction\_on}$_2$ on the closed equality set at the completion (r94).
+\item \emph{Hermitian}: $\tau_{\textsf{UHF}}(x^*) = \overline{\tau_{\textsf{UHF}}(x)}$, via \texttt{Matrix.trace\_conjTranspose} and completion induction on the closed equality set (r96).
+\item \emph{Positive}: $0 \le \tau_{\textsf{UHF}}(x^* x)$ for all $x \in T_\infty$, via \texttt{Matrix.posSemidef\_conjTranspose\_mul\_self} plus \texttt{Matrix.PosSemidef.trace\_nonneg} at level-$k$ and completion induction on the closed set $\{x : 0 \le \tau_{\textsf{UHF}}(x^* x)\}$ (closed via \texttt{Complex.orderClosedTopology} under \texttt{ComplexOrder}, r98).
+\end{itemize}
+Faithfulness $\tau_{\textsf{UHF}}(x^* x) = 0 \Rightarrow x = 0$ is established \emph{unconditionally} at the level-$k$ tier via \texttt{Matrix.trace\_conjTranspose\_mul\_self\_eq\_zero\_iff} and at the pre-trace tier via \texttt{DirectLimit.exists\_eq\_mk} reduction to a single-level representative composed with \texttt{DirectLimit.of.map\_zero}. \textbf{Completion-tier faithfulness is left open.} By the standard fact that a positive tracial state on a unital $C^*$-simple algebra is faithful, it reduces to the $C^*$-simplicity of $T_\infty$ (Glimm 1960~\cite{glimm1960}); we do not formalize that classical argument here. Two completion-tier pieces \emph{are} unconditional, and are all we claim at that tier: level-wise \texttt{IsSimpleRing} on every $M_{3^k}(\mathbb{C})$ via \texttt{DivisionRing.isSimpleRing} composed with \texttt{IsSimpleRing.matrix} (Theorem~\ref{thm:simple}), and the structural closure of the trace-null set (\texttt{IsClosed}~\texttt{substrate\_UHF\_trace\_null\_set} and $0 \in \texttt{substrate\_UHF\_trace\_null\_set}$, via r98 positivity and \texttt{Complex.orderClosedTopology}). For transparency we record that the repository additionally contains a hypothesis-parameterized theorem whose hypothesis is completion-tier faithfulness itself, and a placeholder marker \seqsplit{\texttt{SubstrateUHFCompletionSimplicitySubstrateConjecture}} of type \texttt{Prop := True} discharged via \texttt{trivial}; neither establishes completion-tier faithfulness, and we do not count them as doing so. Kernel axiom set on the four tracial-state conjuncts and the two unconditional completion-tier pieces: $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+\paragraph{Level-2 evaluations.} At substrate level $k = 2$, the algebra $A_2 = M_9(\mathbb{C})$ carries diagonal matrices $\mathrm{diag}(\alpha_\bullet)$ for arbitrary $\alpha_\bullet \in \mathbb{C}^9$. The substrate UHF trace evaluates on their canonical embedding into $T_\infty$ as
+\[
+\tau_{\textsf{UHF}}\bigl(\iota_2(\mathrm{diag}(\alpha_\bullet))\bigr) \;=\; \frac{1}{9} \sum_{i=0}^{8} \alpha_i,
+\]
+via reduction to $\tau_9(\mathrm{diag}(\alpha_\bullet)) = \mathrm{trace}(\mathrm{diag}(\alpha_\bullet))/9$ (mathlib \texttt{Matrix.trace\_diagonal}) composed through \texttt{substrate\_pre\_trace\_of\_level} and $\tau_{\textsf{UHF}}$'s dense-image agreement (\texttt{UHF\_trace\_coe}). This is the trace-of-diagonal identity in the mathlib \texttt{Matrix.trace\_diagonal} sense, applied at the substrate-embedded level; it is a mathlib-level identity, not a new spectral result about $T_\infty$.
+
+%% =====================================================================
+\section{Machine verification and reproducibility}\label{sec:reproducibility}
+%% =====================================================================
+
+\paragraph{Pinned toolchain.}
+\begin{description}[font=\normalfont\bfseries,leftmargin=2em,itemsep=2pt]
+\item[Lean toolchain] \texttt{leanprover/lean4:v4.24.0-rc1}
+\item[mathlib revision] commit \texttt{eed770a434957369c6262aa3fb1d6426419016d4}
+\item[Repository] \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}, branch \texttt{master}
+\item[HEAD reference (verified)] \texttt{d9cf01fe} (2026-07-19); build + \texttt{\#print axioms} re-run 2026-07-20
+\end{description}
+
+\paragraph{Build commands.}
+\begin{verbatim}
+git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
+cd Principia-Fractalis/PF_Lean4_Code
+elan install $(cat lean-toolchain)
+lake build PF     # 4,453 jobs
+\end{verbatim}
+
+\paragraph{Headline theorems and \texttt{\#print axioms} output.}
+
+\begin{small}
+\begin{verbatim}
+'PrincipiaTractalis.T3_self_adjoint_conj'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+'PrincipiaTractalis.SubstrateUHFTraceIsTracial.UHF_trace_mul_comm'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+'PrincipiaTractalis.SubstrateUHFTraceIsPositive.
+  UHF_trace_star_mul_self_nonneg'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+\end{small}
+
+The corpus contains zero active \texttt{sorry} or \texttt{by sorry} occurrences on the code path leading to the three headline theorems above. The \texttt{PF\_Lean4Lean} package (distinct \texttt{lakefile.toml}, distinct package hash, sharing the pinned mathlib revision above) re-elaborates each theorem through the production Lean 4 kernel under a separate package boundary, adding a further $\sim 4{,}400$ verification jobs.
+
+%% =====================================================================
+\section{Related work}\label{sec:related}
+%% =====================================================================
+
+The mathlib $C^*$-algebra hierarchy is developed in a series of contributions by the mathlib community; the relevant typeclass structure and the direct-limit / completion machinery are in place at the pinned revision above. Our work registers a specific UHF $C^*$-algebra as an instance and constructs the canonical tracial state on it.
+
+Prior formalization of operator-algebra content in mathlib includes the $C^*$-algebra typeclass hierarchy, the \texttt{Matrix.PosSemidef} infrastructure, the \texttt{Ring.DirectLimit} machinery, and \texttt{UniformSpace.Completion} — all developed by the mathlib community and used here. To our knowledge, no prior formalization in Lean 4 has landed a concrete UHF $C^*$-algebra instance on a base-3 (or base-2) tower together with a canonical positive Hermitian tracial state on the completion of the sort described in \S\ref{sec:trace}; the authors are not aware of comparable formalizations in Coq or Isabelle either, though a systematic survey of external ITP libraries is beyond the scope of this report. The classical Glimm 1960~\cite{glimm1960} UHF classification of $M_{3^\infty}$ and the standard argument that a positive tracial state on a $C^*$-simple unital algebra is faithful are registered here as substrate-Prop residuals (see \S\ref{sec:trace}); their classical-realization formalization is future substrate work.
+
+The Cohen 2025 modified transfer operator~\cite{cohen2025transferOp} constructs a base-3 operator on $L^2([0,1], dx/x)$ within the general tradition of transfer operators applied to zeta / RH content; adjacent contributions in that tradition include Mayer 1991~\cite{mayer1991} (the Selberg-zeta transfer operator for PSL$(2, \mathbb{Z})$), Berry--Keating 1999~\cite{berry-keating1999}, and Connes 1999~\cite{connes1999}. The self-adjointness identity we formalize here is a specific consequence of the modified operator's phase structure $\{1, -i, -1\}$ described in \S\ref{sec:t3sym}.
+
+%% =====================================================================
+\section{Discussion}\label{sec:discussion}
+%% =====================================================================
+
+We have described a formalized construction of a UHF $C^*$-algebra completion of a base-3 ternary matrix tower, together with a canonical positive Hermitian tracial state on that completion. Faithfulness at the level-$k$ and pre-trace tiers is delivered unconditionally; completion-tier faithfulness is \emph{not} established here and is left as an open problem, reducing to the $C^*$-simplicity of $T_\infty$ (Glimm 1960~\cite{glimm1960}). What we do deliver unconditionally at the completion tier is the level-wise mathlib \texttt{IsSimpleRing} witnesses and the closed-set structure of the trace-null set under \texttt{Complex.orderClosedTopology}. We have also formalized a sesquilinear-symmetry identity for the Cohen 2025 modified transfer operator $T_3^{\textsf{sym}}$ on $L^2([0,1], dx/x)$, coinciding with mathlib \texttt{IsSelfAdjoint} on the total-domain bounded wrapper.
+
+The formalizations are self-contained. Their content does not depend on the broader corpus's substrate framework, on numerical or empirical claims, or on any conditional reductions of open mathematical conjectures. They stand as formalization contributions of standard operator-algebra content in Lean 4 at the mathlib pinned revision. Extensions to Type II$_1$ factor structure, GNS representation, Dixmier tracial identification on the double commutant, and classical UHF simplicity of $T_\infty$ via the Glimm classification are natural next targets.
+
+%% =====================================================================
+\section*{Acknowledgments}
+%% =====================================================================
+
+The Lean 4 and mathlib community for the operator-algebra, direct-limit, and $C^*$-algebra machinery this construction is built on.
+
+\begin{thebibliography}{99}
+
+\bibitem{berry-keating1999}
+M.V.~Berry and J.P.~Keating.
+\newblock The Riemann zeros and eigenvalue asymptotics.
+\newblock \emph{SIAM Review}, 41(2):236--266, 1999.
+
+\bibitem{cohen2025transferOp}
+P.~Cohen.
+\newblock A Modified Transfer Operator Approach to the Riemann Hypothesis: Numerical Evidence and Theoretical Framework.
+\newblock \emph{Manuscript (The Emergence Collective)}, June 12, 2025. Preserved at \texttt{Papers/PriorWork\_Cohen2025\_TransferOperatorRH/}.
+
+\bibitem{connes1999}
+A.~Connes.
+\newblock Trace formula in noncommutative geometry and the zeros of the Riemann zeta function.
+\newblock \emph{Selecta Math.}, 5(1):29--106, 1999.
+
+\bibitem{glimm1960}
+J.~Glimm.
+\newblock On a certain class of operator algebras.
+\newblock \emph{Trans. Amer. Math. Soc.}, 95:318--340, 1960.
+
+\bibitem{mathlib2020}
+The mathlib Community.
+\newblock The Lean Mathematical Library.
+\newblock In \emph{Proc.\ CPP 2020}, pages 367--381, 2020.
+
+\bibitem{mayer1991}
+D.H.~Mayer.
+\newblock The thermodynamic formalism approach to Selberg's zeta function for $\mathrm{PSL}(2,\mathbb{Z})$.
+\newblock \emph{Bull. AMS}, 25(1):55--60, 1991.
+
+\bibitem{moura-ullrich2021}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean~4 Theorem Prover and Programming Language.
+\newblock In \emph{CADE 28}, 2021.
+
+\end{thebibliography}
+
+\end{document}
