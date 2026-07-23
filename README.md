@@ -108,7 +108,7 @@ the papers.
 | `Papers/uhf_faithful_trace_glimm_2026-07-23.{tex,pdf}` | **Today's headline paper.** Full ITP-style presentation of the UHF $M_{3^\infty}$ faithful-trace + Glimm-simplicity result (14 pp; kernel-verified at HEAD `d5ad2881`) |
 | `Papers/principia_fractalis_alpha_skeleton_2026-07-13.{tex,pdf}` | Canonical framework paper (Wiles-pattern skeleton, 17 pp): the α-skeleton, the twelve invariants, and the substrate-level reductions of the Clay axes to the enumerated substrate-tier conjectures |
 | `Papers/principia_fractalis_millennium_problems_2026-07-13.{tex,pdf}` | Extended companion (73 pp): the full substrate-level Theory-of-Everything paper — Clay-bundle substrate reductions, ΛCDM rebuttal, Weinstein-GU $H^2=78$, base-3 ternary, Grothendieck-topos consciousness, $T_3^{\mathsf{sym}}$ N=25000 spectral resonance data, Filtration Theorem 8.X.1, Extremal-Trace Conjecture 8.X.2 |
-| `Papers/principia_fractalis_itp_2026-07-20.{tex,pdf}` | Short ITP note (6 pp, precursor to the 2026-07-23 full paper) |
+| `Papers/RETIRED/2026-07-23-itp-notes-superseded/` | Retired short ITP notes (07-11, 07-20), superseded by the full paper above |
 | `Papers/principia_fractalis_clean_2026-06-29.{tex,pdf}` | Back-pocket algebraic-skeleton-only exposition (20 pp, companion) |
 | `Papers/Data/principia_fractalis_143_problems_IBM_dataset.csv` | The 143-problem panel data |
 | `Papers/PriorWork_*/` | Seven Pabs-authored prior-work manuscripts (substrate-tier named anchors) |

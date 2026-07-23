@@ -65,4 +65,4 @@ form used is the robust one.
 ---
 
 *Maintained by the r-numbered substrate arc; see `PF/SubstrateSpectralBump.lean` for the wall map,
-and the ITP paper (`Papers/principia_fractalis_itp_2026-07-20.tex`) for the mathematical context.*
+and the full paper (`Papers/uhf_faithful_trace_glimm_2026-07-23.tex`) for the mathematical context.*
