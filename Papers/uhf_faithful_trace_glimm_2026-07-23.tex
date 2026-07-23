@@ -53,7 +53,7 @@
 \newcommand{\tuhf}{\tau_{\mathsf{UHF}}}
 \newcommand{\opnorm}{\|\cdot\|_{\mathsf{op}}}
 
-\title[A Machine-Checked UHF Algebra with a Faithful Trace]{A Machine-Checked Construction of the UHF Algebra $M_{3^\infty}$ with a Faithful Tracial State:\\ Formalizing Glimm Simplicity in Lean~4}
+\title[A Machine-Checked UHF Algebra with a Faithful Trace]{A Machine-Checked Construction of the UHF Algebra \texorpdfstring{$M_{3^\infty}$}{M(3\textasciicircum\ensuremath{\infty})} with a Faithful Tracial State: Formalizing Glimm Simplicity in Lean~4}
 
 \author{Pablo Cohen}
 \address{Mesa, Arizona, USA}
@@ -63,7 +63,6 @@
 \date{July 23, 2026}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
 \noindent We report a complete Lean~4 formalization, over
@@ -75,11 +74,14 @@ a canonical tracial state $\tuhf$ on $\Tinf$ that is kernel-verified to be
 additive, unital, $1$-Lipschitz, tracial, Hermitian, positive, and
 \emph{faithful}: $\tuhf(x^*x) = 0 \Rightarrow x = 0$ for every $x \in \Tinf$.
 As a corollary we obtain a machine-checked proof that $\Tinf$ is
-algebraically simple --- every two-sided ideal is $\bot$ or $\top$ --- which
-is, to our knowledge, the first formalization of Glimm's 1960 simplicity
-theorem for a UHF algebra~\cite{glimm1960} in any proof assistant, and the
-first machine-checked construction of an infinite-dimensional simple
-$C^*$-algebra with a canonical faithful trace.
+algebraically simple --- every two-sided ideal is $\bot$ or $\top$. To the
+best of our knowledge, after searching the major proof-assistant libraries
+(mathlib, the Coq \texttt{opam} archive, and the Isabelle Archive of Formal
+Proofs) and the formalization literature, this is the first formalization
+of Glimm's 1960 simplicity theorem for a UHF algebra~\cite{glimm1960} and
+the first machine-checked construction of an infinite-dimensional simple
+$C^*$-algebra with a canonical faithful trace; we have not performed an
+exhaustive survey and would welcome pointers to prior art.
 
 \smallskip
 
@@ -108,6 +110,8 @@ zero project axioms and zero \texttt{sorry}s, verified at pinned toolchain
 and mathlib revisions.
 \end{abstract}
 
+\maketitle
+
 \tableofcontents
 
 %% =====================================================================
@@ -120,10 +124,10 @@ Glimm in 1960~\cite{glimm1960} --- with roots in the hyperfinite factor
 constructions of Murray and von Neumann~\cite{murray-vonneumann1936} ---
 they are the norm-closures of increasing unions of full matrix algebras,
 classified completely by a supernatural number, each simple, each carrying
-a unique tracial state which is automatically faithful. Every graduate
-course in operator algebras proves these facts~\cite{davidson1996,
-blackadar2006, takesaki1979}. None of them, before the present work, had
-been machine-checked.
+a unique tracial state which is automatically faithful. Standard
+references establish these facts~\cite{davidson1996, blackadar2006,
+takesaki1979}. None of them, before the present work, had been
+machine-checked.
 
 The gap is not accidental. Formalized operator algebra is young: mathlib
 --- the Lean~4 mathematical library~\cite{mathlib2020,moura-ullrich2021}
@@ -167,9 +171,10 @@ zero project-level axioms, and zero \texttt{sorry}s, of:
 \item \textbf{Glimm simplicity of $\Tinf$}: every two-sided ideal of
   $\Tinf$ is $\bot$ or $\top$ (theorem
   \lt{substrate\_completion\_simple\_unconditional},
-  \S\ref{sec:condexp}). To our knowledge this is the first formalized
-  simplicity theorem for an infinite-dimensional $C^*$-algebra in any
-  proof assistant.
+  \S\ref{sec:condexp}). To the best of our knowledge --- after searching
+  the major proof-assistant libraries and literature (see the priority
+  note in \S\ref{sec:related}) --- this is the first formalized simplicity
+  theorem for an infinite-dimensional $C^*$-algebra.
 \item \textbf{The proof machinery itself}, novel as formalized content: a
   Cauchy--Schwarz inequality for the trace sesquilinear pairing; the
   trace-null set as a mathlib-native \texttt{TwoSidedIdeal}; a discrete
@@ -741,7 +746,7 @@ elementary means, extends it to the completion, and derives faithfulness
 from the reconstruction property $E_k x \to x$. Simplicity then follows
 through Theorem~\ref{thm:tfae}. Throughout, $n = 3^k$.
 
-\subsection{The partial trace $E_k$ (r109)}\label{sec:Ek}
+\subsection[The partial trace E\_k (r109)]{The partial trace $E_k$ (r109)}\label{sec:Ek}
 
 Under the identification
 $M_{3^{n+1}}(\mathbb{C}) \cong M_{3^n}(\mathbb{C}) \otimes M_3(\mathbb{C})$
@@ -760,8 +765,16 @@ descending through single-level representatives defines
 E_k \colon \varinjlim_m A_m \longrightarrow M_{3^k}(\mathbb{C})
 \qquad (\text{Lean: } \lt{condExp}).
 \]
-The kernel-verified properties are exactly those of a trace-preserving
-conditional expectation onto the level-$k$ corner:
+The kernel-verified properties are the trace-preserving retraction
+properties needed for the faithfulness argument below; we call $E_k$ the
+\emph{level-$k$ expectation map}. We emphasize that the full abstract
+conditional-expectation API --- positivity, the $A_k$-bimodule identity
+$E_k(a x b) = a\,E_k(x)\,b$ for $a,b \in A_k$, and idempotence as a
+norm-one projection --- is \emph{not} formalized here; only the
+properties listed in Theorem~\ref{thm:Ek} are, and only those are used.
+The name ``conditional expectation'' below is thus informal shorthand for
+this partial-trace retraction, not a claim that the classical
+conditional-expectation axioms are machine-checked:
 
 \begin{theorem}[Properties of $E_k$]\label{thm:Ek}
 $E_k$ is additive and $\mathbb{C}$-homogeneous, unital, star-preserving,
@@ -772,7 +785,7 @@ trace-preserving: $\tau_{3^k}(E_k x) = \tau_{\mathrm{pre}}(x)$
 \textup{(\lt{condExp\_normalized\_trace})}.
 \end{theorem}
 
-\subsection{The $\|\cdot\|_2$-contraction, elementarily (r110)}\label{sec:l2}
+\subsection[The 2-norm contraction, elementarily (r110)]{The $\|\cdot\|_2$-contraction, elementarily (r110)}\label{sec:l2}
 
 The first analytic requirement is the contraction of $E_k$ in the trace
 $2$-seminorm:
@@ -809,10 +822,11 @@ $\tau_{3^n}\bigl((\mathcal{E}B)^*(\mathcal{E}B)\bigr) \le
 (\lt{partialTraceStep\_normSq\_trace\_le}). Iterating through
 \lt{partialTraceDown} and descending to the direct limit gives
 \eqref{eq:l2}. No positive-semidefinite operator theory and no complete
-positivity enter at any point --- a small but genuine discovery of the
-formalization: for trace-compatible partial traces, the scalar
-$2$-norm contraction is a three-line Cauchy--Schwarz fact, and the
-Kadison--Schwarz detour that the textbook proof takes is avoidable.
+positivity enter at any point --- a useful proof-engineering
+simplification: for trace-compatible partial traces, the scalar
+$2$-norm contraction is a three-line Cauchy--Schwarz fact, so the
+Kadison--Schwarz detour that the textbook proof takes is avoidable in
+the formalization.
 
 \subsection{The operator-norm contraction via isometries (r111)}\label{sec:opnorm}
 
@@ -850,16 +864,18 @@ identity operator; no completely-positive-map theory is used.
 
 \subsection{Extension to the completion and the closing argument (r112)}\label{sec:summit}
 
-Uniform continuity extends $E_k$ to the completion in two guises:
-\begin{align*}
-\lt{condExpFin}\;k &\colon \Tinf \to M_{3^k}(\mathbb{C}),
-& &\text{the matrix-valued extension
-  \lt{UniformSpace.Completion.extension}\,($E_k$)},\\
-\lt{condExpCompletion}\;k &\colon \Tinf \to \Tinf,
-& &\text{its recoordinatization }
-  x \mapsto \iota_k(\lt{condExpFin}\,k\,x) \text{ in } \Tinf,
-\end{align*}
-both $1$-Lipschitz (\lt{condExpFin\_lipschitz},
+Uniform continuity extends $E_k$ to the completion in two guises. First,
+the matrix-valued extension
+\[
+\lt{condExpFin}\;k \colon \Tinf \to M_{3^k}(\mathbb{C}),
+\qquad \lt{condExpFin}\,k := \lt{UniformSpace.Completion.extension}\,(E_k).
+\]
+Second, its recoordinatization back into the completion,
+\[
+\lt{condExpCompletion}\;k \colon \Tinf \to \Tinf,
+\qquad x \mapsto \iota_k\bigl(\lt{condExpFin}\,k\,x\bigr).
+\]
+Both are $1$-Lipschitz (\lt{condExpFin\_lipschitz},
 \lt{condExpCompletion\_lipschitz}, the latter through the isometry of
 $\iota_k$, Theorem in \S\ref{sec:tower}), and agreeing with $E_k$ on the
 dense image (\lt{condExpFin\_coe}, \lt{condExpCompletion\_coe}). Three
@@ -1180,12 +1196,17 @@ Mathlib's $C^*$-algebra hierarchy, continuous functional calculus, matrix
 positivity infrastructure, direct limits, and completions --- all
 community developments, with the functional-analysis foundations described
 in~\cite{dupuis-lewis-macbeth2022} --- are the platform this work builds
-on and would have been impossible without. To our knowledge, however, no
-prior formalization in Lean, Coq, or Isabelle contains a concrete
+on and would have been impossible without. To the best of our knowledge,
+however --- based on keyword and definition searches of the mathlib
+library, the Coq \texttt{opam} package archive, and the Isabelle Archive
+of Formal Proofs for UHF/AF/Glimm/simple-$C^*$/tracial-state content, and
+on the operator-algebra formalization literature --- no prior
+formalization in Lean, Coq, or Isabelle contains a concrete
 infinite-dimensional simple $C^*$-algebra, a canonical faithful tracial
 state on one, or any version of Glimm's simplicity
-theorem~\cite{glimm1960}; we have not attempted a systematic survey of
-every ITP library, and we would welcome correction. On the classical
+theorem~\cite{glimm1960}. This does not constitute an exhaustive survey of
+every ITP library, and we would welcome correction from operator-algebra
+formalization specialists. On the classical
 side, everything proved here is textbook
 material~\cite{davidson1996, blackadar2006, takesaki1979}: Glimm's
 classification and simplicity~\cite{glimm1960}, Powers' work on the
