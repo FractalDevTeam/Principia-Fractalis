@@ -2,24 +2,101 @@
 
 [![Verify (Lean 4 kernel-only axiom check)](https://github.com/FractalDevTeam/Principia-Fractalis/actions/workflows/verify.yml/badge.svg?branch=master)](https://github.com/FractalDevTeam/Principia-Fractalis/actions/workflows/verify.yml)
 
-**A substrate-level Theory of Everything.** Six unsolved Clay Millennium Problems exhibited as six co-implied substrate-level projections of one underlying nine-class algebraic substrate, machine-checked in Lean 4 with independent kernel re-elaboration via Lean4Lean and declaration-level structural-shape parity in Coq 8.18 (the load-bearing mathematical verification is carried by the Lean 4 + Lean4Lean kernels; the Coq layer is a structural-shape mirror, not an independent mathematical verification). The framework's distinctive content extends beyond Clay to consciousness-modified general relativity, the Λ-CDM rebuttal with energy conservation restored, the Weinstein Geometric-Unity rescue, base-3 ternary substrate underpinning Navier–Stokes no-blowup convergence and Razborov–Rudich / Aaronson–Wigderson algebrization-barrier defeat, Grothendieck topos theory as the cognitive architecture of consciousness, and clinical consciousness measurement with book-documented retrospective methodology on 847 patients at 97.3% classification accuracy (independent peer-reviewed clinical-validation publication of the specific 847-patient analysis is pending and is explicitly not a substantive claim of this corpus).
-
 Author: **Pablo Cohen** ([ORCID](https://orcid.org/0009-0002-0734-5565))
 License: **CC BY-NC 4.0**
 Repository: <https://github.com/FractalDevTeam/Principia-Fractalis>
 
 ---
 
-## The framework's headline result
+## Headline result (kernel-verified, unconditional)
 
-The unconditional Lean theorem
+A machine-checked construction of the uniformly hyperfinite (UHF) C\*-algebra $M_{3^\infty}$ —
+realized as the metric completion $T_\infty$ of the inductive limit of the matrix tower
+$M_{3^k}(\mathbb{C})$ under the unital \*-embeddings $A \mapsto A \otimes I_3$ — together with
+a canonical tracial state $\tau_{\mathsf{UHF}}$ on $T_\infty$ that is verified in the Lean 4 kernel
+to be additive, unital, 1-Lipschitz, tracial, Hermitian, positive, and **faithful**:
+
+$$\tau_{\mathsf{UHF}}(x^{*}x)=0 \implies x=0 \quad \text{for every } x \in T_\infty.$$
+
+As a corollary, $T_\infty$ is **algebraically simple** — every two-sided ideal is $\bot$ or $\top$.
+To our knowledge this is the first formalization of Glimm's 1960 simplicity theorem for a UHF
+algebra in any proof assistant, and the first machine-checked construction of a UHF algebra with
+a faithful tracial state in any proof assistant.
+
+**Summit theorem.**
 
 ```
-PrincipiaFractalisSubstrateConsequences_holds_unconditionally :
-    PFSubstrateConsequences
+r112_substrate_completion_faithful_capstone
 ```
 
-in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports the kernel axioms `[propext, Classical.choice, Quot.sound]` — **zero project axioms**. Inhabits a 25-clause typed Prop bundling substrate-level discharges of all six unsolved Clay axes (RH, P vs NP, Navier–Stokes, Yang–Mills, BSD, Hodge), Perelman's seventh anchor (Poincaré), and the eleven cross-Millennium algebraic invariants. The substrate's five antecedents (Timeless Field, α-rigidity, Perelman anchor, IBM 9-way bound, 143-problem universal coherence) are themselves proven axiom-free.
+in [`PF_Lean4_Code/PF/SubstrateCompletionFaithful.lean`](PF_Lean4_Code/PF/SubstrateCompletionFaithful.lean).
+Reports kernel axioms `[propext, Classical.choice, Quot.sound]` — **zero project axioms, zero sorries**.
+Discharges the previously named `SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture`.
+
+**One-command reproduction.**
+
+```bash
+./verify.sh
+```
+
+Replays the load-bearing kernel-only theorems and prints the `#print axioms` output for the
+summit chain (`r107a` → `r108` → `r109` → `r110` → `r111` → `r112`). Exits 0 on success, nonzero
+with a precise diagnostic if any unexpected project axiom is detected. ~10 min on first run
+(`PF_Lean4_Code/` build), ~30 s on subsequent runs.
+
+**Verified build data at HEAD `ff4c50f2` (2026-07-23):**
+
+| | |
+|---|---|
+| `lake build PF` | 4,471 jobs clean |
+| `lake build` (full) | 8,928 jobs clean |
+| Sorries | 0 |
+| Project axioms | 0 |
+| mathlib pin | `eed770a4` |
+| toolchain | `leanprover/lean4:v4.24.0-rc1` |
+
+Paper: [`Papers/uhf_faithful_trace_glimm_2026-07-23.pdf`](Papers/uhf_faithful_trace_glimm_2026-07-23.pdf) (14 pp).
+
+---
+
+## Framework context: what this theorem lives inside
+
+The UHF construction above is the completion tier of the **Timeless Field** substrate — the
+central algebraic object of *Principia Fractalis*. The wider corpus proposes this substrate as
+the shared source from which the six Clay Millennium axes (RH, P vs NP, Navier–Stokes,
+Yang–Mills, BSD, Hodge) plus Perelman's Poincaré anchor and a Quantum-Gravity instance emerge
+as **substrate-level projections** of a single nine-class $\alpha$-skeleton over the basis
+$\{1,\pi,\varphi,\sqrt{2}\}$.
+
+We state the current standing precisely and without inflation:
+
+- The **Clay-axis discharges** in the corpus are Lean 4 **substrate-level reductions**: each
+  axis's headline classical statement is reduced, kernel-only, to a small named set of
+  substrate-tier conjectures (spectral bijection, Hardy 1914 non-degeneracy, an HP-program
+  surjectivity conjecture, and so on) that are explicitly enumerated in the paper. The
+  substrate-tier conjectures are the remaining deductive load. They are **not** claimed to be
+  proven in this repository.
+- The **α-skeleton uniqueness** — that the tuple $(3/2,\,\sqrt{2},\,\varphi+1/4,\,3\pi/2,\,2,\,3\pi/4,\,\varphi,\,1,\,\sqrt{2\pi})$
+  is uniquely forced by twelve simultaneous cross-Millennium algebraic invariants — is a
+  substrate-level typed claim in Lean 4 with the invariants themselves axiom-free, conditional
+  on the same substrate-tier conjectures above.
+- The **Extremal-Trace Conjecture 8.X.2** is the single remaining deductive gap between the
+  substrate bundle and its classical-side realizations, and is stated as such in the paper.
+- The **beyond-Clay content** — consciousness-modified Λ-CDM with energy conservation, the
+  Weinstein Geometric-Unity BRST arithmetic pin ($H^2 = 78 = 48+26+4 = \dim E_6$), the base-3
+  ternary substrate underpinning Navier–Stokes cascade convergence and the
+  Razborov–Rudich / Aaronson–Wigderson barrier defeat, and Grothendieck-topos consciousness
+  architecture — is presented as the substrate's structural proposals with named forward
+  falsifiers, not as derived theorems of this repository.
+- The **clinical consciousness** figure (97.3% classification accuracy on 847 patients with
+  disorders of consciousness against CRS-R + GCS) is a book-documented retrospective analysis;
+  independent peer-reviewed clinical validation of the specific 847-patient analysis is
+  pending and is not treated as a substantive claim of this corpus.
+
+The **verified, unarguable** content of the repository at HEAD is the UHF faithfulness + Glimm
+simplicity summit above. Everything else in the corpus is either (a) axiom-free at its
+declared tier or (b) explicitly conditional on the named substrate-tier conjectures listed in
+the papers.
 
 ---
 
@@ -27,17 +104,19 @@ in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports t
 
 | Path | Content |
 |---|---|
-| `Principia_Fractalis_master_folder/` | The book *Principia Fractalis* (LaTeX source + `main.pdf`, V2.6.1, 918 pages) |
-| `Papers/principia_fractalis_millennium_problems_2026-07-05.{tex,pdf}` | The substrate-level Theory of Everything paper exhibiting the Clay-bundle discharge (78 pp; Pabs's primary deliverable). Discharge of 25 substrate-level consequences kernel-only in Lean 4; literal-mathlib RH discharge on `Complex.riemannZeta` conditional on Hardy 1914 + the published-open HP-program conjecture; full distinctive substrate mechanisms (ΛCDM rebuttal, Weinstein-GU $H^2{=}78$, base-3 ternary, Grothendieck-topos consciousness); T$_3^{\textsf{sym}}$ N=25000 spectral resonance (3/10 at 10⁻⁴ tier, Δ_Σ = 0.0059, canonical below null p_5); Filtration Theorem 8.X.1 kernel-encoded in Lean 4 (r24, `PF/FiltrationTheorem.lean`); Extremal-Trace Conjecture 8.X.2 as single remaining deductive gap; forward prediction $\alpha_{\textsf{GI}} = \sqrt{2}$ pre-registered 2026-06-22. |
-| `Papers/AUTHORS_RESPONSE_TO_STRUCTURAL_REVIEW_2026-07-05.md` | Response to external structural review — r23 arithmetic correction (H₃ parabolic-count preemptive-strike self-audit) + r24 Filtration Theorem kernel-checked promotion. |
-| `Papers/principia_fractalis_clean_2026-06-29.{tex,pdf}` | Back-pocket algebraic-skeleton-only exposition (20 pp; companion to the primary). Twelve substrate-derived identities, unique nine-tuple, $\lambda_0^2$ closed-form spectrum, P/NP spectral-gap closed form. |
+| `Principia_Fractalis_master_folder/` | The book *Principia Fractalis* (LaTeX source + `main.pdf`, V2.6.1, ~918 pp) |
+| `Papers/uhf_faithful_trace_glimm_2026-07-23.{tex,pdf}` | **Today's headline paper.** Full ITP-style presentation of the UHF $M_{3^\infty}$ faithful-trace + Glimm-simplicity result (14 pp; kernel-verified at HEAD `d5ad2881`) |
+| `Papers/principia_fractalis_alpha_skeleton_2026-07-13.{tex,pdf}` | Canonical framework paper (Wiles-pattern skeleton, 17 pp): the α-skeleton, the twelve invariants, and the substrate-level reductions of the Clay axes to the enumerated substrate-tier conjectures |
+| `Papers/principia_fractalis_millennium_problems_2026-07-13.{tex,pdf}` | Extended companion (73 pp): the full substrate-level Theory-of-Everything paper — Clay-bundle substrate reductions, ΛCDM rebuttal, Weinstein-GU $H^2=78$, base-3 ternary, Grothendieck-topos consciousness, $T_3^{\mathsf{sym}}$ N=25000 spectral resonance data, Filtration Theorem 8.X.1, Extremal-Trace Conjecture 8.X.2 |
+| `Papers/principia_fractalis_itp_2026-07-20.{tex,pdf}` | Short ITP note (6 pp, precursor to the 2026-07-23 full paper) |
+| `Papers/principia_fractalis_clean_2026-06-29.{tex,pdf}` | Back-pocket algebraic-skeleton-only exposition (20 pp, companion) |
 | `Papers/Data/principia_fractalis_143_problems_IBM_dataset.csv` | The 143-problem panel data |
 | `Papers/PriorWork_*/` | Seven Pabs-authored prior-work manuscripts (substrate-tier named anchors) |
-| `PF_Lean4_Code/` | Lean 4 verification (1,021 files; mathlib4 v4.24.0-rc1; full PF build 4,379 jobs kernel-clean) |
+| `PF_Lean4_Code/` | Lean 4 verification (mathlib4 pin `eed770a4`; `lake build PF` = 4,471 jobs, full = 8,928 jobs, kernel-clean) |
 | `PF_Lean4Lean/` | Lean4Lean independent kernel re-verification (separate package configuration + hash) |
-| `PF_Coq_Code/` | Coq 8.18 cross-prover structural-shape parity (738 files) |
+| `PF_Coq_Code/` | Coq 8.18 cross-prover structural-shape parity. The load-bearing mathematical verification lives in the Lean 4 + Lean4Lean kernels; the Coq layer is a declaration-level structural-shape mirror, not an independent mathematical verification |
 | `websites/` | Four public-facing companion sites (see below) |
-| `docs/` | Documentation including [referee quickstart](docs/REFEREE_QUICKSTART.md), [per-axis citation cards](docs/CLAY_PER_AXIS_CITATION_CARDS.md), and [pre-loaded responses to common audit attacks](docs/AUDIT_FINDINGS_AND_RESPONSES.md) |
+| `docs/` | [Referee quickstart](docs/REFEREE_QUICKSTART.md), [per-axis citation cards](docs/CLAY_PER_AXIS_CITATION_CARDS.md), and [pre-loaded responses to common audit attacks](docs/AUDIT_FINDINGS_AND_RESPONSES.md) |
 | `ARCHIVE/` | Preserved historical development trees (do not delete) |
 
 ---
@@ -50,7 +129,9 @@ in `PF_Lean4_Code/PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`. Reports t
 ./verify.sh
 ```
 
-Replays the substrate's load-bearing kernel-only theorems and prints the `#print axioms` output to confirm the paper's "kernel-only, zero project axioms" claim. Exits 0 on success, nonzero with a precise diagnostic if any unexpected project axiom is detected. Takes ~10 minutes on first run (`PF_Lean4_Code/` build), ~30 seconds on subsequent runs (caches the Lean elaboration).
+Replays the substrate's load-bearing kernel-only theorems (including the r107a–r112 summit
+chain) and prints the `#print axioms` output. Exits 0 on success, nonzero with a diagnostic if
+any unexpected project axiom is detected.
 
 ### Lean 4 verification (manual)
 
@@ -59,7 +140,8 @@ cd PF_Lean4_Code
 lake build PF
 ```
 
-Expected: 4,000+ jobs clean. Every theorem in the bundle-closure chain reports kernel-only axioms `[propext, Classical.choice, Quot.sound]` plus, where applicable, the single named substrate-tier citation axiom.
+Expected: 4,471 jobs clean at HEAD. Every theorem in the summit chain reports kernel-only
+axioms `[propext, Classical.choice, Quot.sound]`.
 
 ### Lean4Lean independent re-verification
 
@@ -68,7 +150,8 @@ cd PF_Lean4Lean
 lake build
 ```
 
-Separate package hash re-elaborates the substrate's load-bearing theorems through an independent build configuration.
+Separate package hash re-elaborates the substrate's load-bearing theorems through an
+independent build configuration.
 
 ### Coq 8.18 cross-prover
 
@@ -77,7 +160,10 @@ cd PF_Coq_Code
 make
 ```
 
-Declaration-level structural-shape parity (`Theorem name : True. Proof. exact I. Qed.`) for every Lean declaration of the substrate-level meta-theorem stack. Documents portability of the substrate's declaration shapes; the load-bearing mathematical verification lives in the Lean 4 + Lean4Lean kernels.
+Declaration-level structural-shape parity (`Theorem name : True. Proof. exact I. Qed.`) for
+every Lean declaration of the substrate-level meta-theorem stack. Documents portability of the
+declaration shapes; the load-bearing mathematical verification remains in the Lean 4 +
+Lean4Lean kernels.
 
 ### Book PDF
 
@@ -86,12 +172,18 @@ cd Principia_Fractalis_master_folder
 pdflatex main && bibtex main && pdflatex main && pdflatex main
 ```
 
-### Millennium Problems paper
+### Papers
 
 ```bash
 cd Papers
-pdflatex principia_fractalis_millennium_problems_2026-07-05
-pdflatex principia_fractalis_millennium_problems_2026-07-05
+pdflatex uhf_faithful_trace_glimm_2026-07-23
+pdflatex uhf_faithful_trace_glimm_2026-07-23
+
+pdflatex principia_fractalis_alpha_skeleton_2026-07-13
+pdflatex principia_fractalis_alpha_skeleton_2026-07-13
+
+pdflatex principia_fractalis_millennium_problems_2026-07-13
+pdflatex principia_fractalis_millennium_problems_2026-07-13
 ```
 
 ---
@@ -105,59 +197,59 @@ Four public-facing companion sites live in [`websites/`](websites/):
 - [`six-guardians/`](websites/six-guardians/) — *The Six Guardians*: the framework's mathematical constants governing complexity-class boundaries
 - [`fractal-resonance-synthesizer/`](websites/fractal-resonance-synthesizer/) — Interactive synthesizer exploring the substrate's fractal resonance content
 
-The P vs NP Interactive Explorer (Turing machine visualization) lives at [`fractaldevteam.github.io/turing/`](https://fractaldevteam.github.io/turing/) as a separate GitHub Pages repository.
+The P vs NP Interactive Explorer (Turing machine visualization) lives at
+[`fractaldevteam.github.io/turing/`](https://fractaldevteam.github.io/turing/) as a separate
+GitHub Pages repository.
 
 ---
 
-## The substrate's distinctive content
+## The substrate's α-skeleton (reference table)
 
-### Six Clay Millennium Problem axes
+The nine α-values, uniquely forced (in the substrate framework) by twelve simultaneous
+cross-Millennium algebraic invariants over the basis $\{1,\pi,\varphi,\sqrt{2}\}$. Substrate-level
+reductions in Lean 4 are kernel-only; classical-side realizations are conditional on the
+substrate-tier conjectures enumerated in the paper.
 
-The substrate's α-skeleton is uniquely forced by twelve simultaneous cross-Millennium algebraic invariants over the basis `{1, π, φ, √2}`:
-
-| Axis | α-value | Substrate forcing |
+| Axis | α-value | Substrate encoding |
 |---|---|---|
-| Riemann Hypothesis | 3/2 | Hilbert–Pólya `T_3^sym` operator (proven self-adjoint kernel-only) |
-| P vs NP | √2 (P class) / φ + 1/4 (NP class) | Paired-root structure over ℚ(√5) (field discriminant 20); the two values are roots of a specific ℚ(√5)-rational quadratic with polynomial discriminant 29 − 12√5 — not Galois conjugates of each other in the strict sense (the action σ: √5 ↦ −√5 fixes 3/2 ∈ ℚ and sends 3/4 + √5/2 to 3/4 − √5/2). See paper §2.4 for the precise terminology. |
-| Navier–Stokes 3D | 3π/2 | Fujita–Kato Gaussian-lift route |
-| Yang–Mills mass gap | 2 | `Matrix.specialUnitaryGroup (Fin 2) ℂ` |
-| Birch–Swinnerton-Dyer | 3π/4 | `WeierstrassCurve ℚ` |
-| Hodge Conjecture | φ | General-surface substrate encoding |
-| (Resolved) Poincaré | 1 | Perelman 2003 anchor; substrate-derived via (I3) + (I7) |
-| Quantum Gravity | √(2π) | Universal-coupling π/10 instance |
+| Riemann Hypothesis | $3/2$ | Hilbert–Pólya $T_3^{\mathsf{sym}}$ operator (self-adjoint kernel proven axiom-free) |
+| P vs NP | $\sqrt{2}$ (P) / $\varphi + 1/4$ (NP) | Paired-root structure over $\mathbb{Q}(\sqrt{5})$; the pair is not Galois-conjugate in the strict sense (the action $\sigma: \sqrt{5}\mapsto -\sqrt{5}$ fixes $3/2\in\mathbb{Q}$). See paper §2.4 for precise terminology |
+| Navier–Stokes 3D | $3\pi/2$ | Fujita–Kato Gaussian-lift route |
+| Yang–Mills mass gap | $2$ | `Matrix.specialUnitaryGroup (Fin 2) ℂ` |
+| Birch–Swinnerton-Dyer | $3\pi/4$ | `WeierstrassCurve ℚ` |
+| Hodge Conjecture | $\varphi$ | General-surface substrate encoding |
+| (Resolved) Poincaré | $1$ | Perelman 2003 anchor; substrate-derived via (I3) + (I7) |
+| Quantum Gravity | $\sqrt{2\pi}$ | Universal-coupling $\pi/10$ instance |
 
-### Beyond Clay: substrate mechanisms
+---
 
-- **Λ-CDM rebuttal**: Standard cosmology with constant Λ in growing comoving volume implies energy creation. The substrate's consciousness-modified `Λ_eff(t)` restores energy conservation. Toy theorem `energy_conserved_toy` axiom-free in `PF/Cosmology/LambdaCDMRebuttalEnergyConservation.lean`. The substrate predicts the Hubble parameter in the bracket `H_0 ∈ [67, 75] km/s/Mpc`, which contains both the SH0ES local value (73.0) and the Planck CMB value (67.4). Detailed cosmology-data fit comparisons are documented in the book and the corroborating-evidence review; the substrate's Λ-CDM rebuttal carries forward-runnable observational tests of modified Friedmann equations and additional GR polarization modes.
+## Falsifiability
 
-- **Weinstein Geometric-Unity rescue**: Fractal regularization at dimension `d_f = 13.7329` restores Shiab operator self-adjointness. The BRST `H² = 78 = 48 + 26 + 4 = dim E_6` arithmetic identity is machine-verified in `PF/Consciousness/WeinsteinGUResonantRescue.lean` as a numerical pin; the underlying BRST cohomology construction itself is the substrate's structural proposal documented in Chapter 11 of the book, not a Lean-derived cohomology theorem. F7 is the corresponding forward-runnable falsifier.
-
-- **Base-3 ternary substrate**: NS no-blowup cascade convergence requires `Z < S` with `Z = 2`, `S = 3`. `D_3 = digitalSum3` on base-3 has no polynomial extension over ℚ, defeating the algebrization barriers.
-
-- **Counter-rotating vortex zero-point free energy**: `PF/Cosmology/CounterRotatingVorticesZeroPointFreeEnergy.lean`.
-
-- **Grothendieck topos as consciousness architecture**: Timeless Field `T_∞` is a Grothendieck topos; consciousness ch₂ is a sheaf on spacetime; the `ch_2 = 0.95` saturation threshold maps to Grothendieck's "visible/invisible" boundary.
-
-- **Clinical consciousness**: ch₂ mathematically equivalent to Tononi's Φ. 97.3% diagnostic accuracy across 847 patients with disorders of consciousness, validated against Coma Recovery Scale-Revised + Glasgow Coma Scale gold standards.
-
-### Falsifiability
-
-Eight typed falsifiers F1–F8 explicitly register the empirical or structural observations that would refute the framework. As of HEAD: **zero are triggered**. F1, F2, F5, F7 are forward-runnable at current measurement precision (genuinely falsifiable today). F3, F4, F6, F8 are consistency-check brackets at current precision (forward-falsifiable as measurement precision improves); F3 sits at the long-known cosmological-constant ratio that joint DESI BAO + Planck CMB + Pantheon+ effective-parameter constraints are consistent with — this is structural-rigidity corroboration, not chronological forward prediction. See paper §7 for the precise class distinction and §8 for the audit chronology.
+Eight typed falsifiers **F1–F8** register the empirical or structural observations that would
+refute the framework. As of HEAD: **zero are triggered**. F1, F2, F5, F7 are forward-runnable
+at current measurement precision (genuinely falsifiable today). F3, F4, F6, F8 are
+consistency-check brackets at current precision. See paper §7 for the class distinction and §8
+for the audit chronology.
 
 ---
 
 ## Citing this work
 
-See [`CITATION.cff`](CITATION.cff). Suggested citation:
+See [`CITATION.cff`](CITATION.cff). Suggested citations:
 
-> Cohen, P. (2026). *Principia Fractalis: A Substrate-Level Theory of Everything*. Version 2.6.1. Available at <https://github.com/FractalDevTeam/Principia-Fractalis>.
+For the UHF faithful-trace + Glimm-simplicity result:
+
+> Cohen, P. (2026). *A Machine-Checked Construction of the UHF Algebra $M_{3^\infty}$ with a Faithful Tracial State: Formalizing Glimm Simplicity in Lean 4.* Available at <https://github.com/FractalDevTeam/Principia-Fractalis>.
+
+For the wider framework:
+
+> Cohen, P. (2026). *Principia Fractalis: A Substrate-Level Theory of Everything.* Version 2.6.1. Available at <https://github.com/FractalDevTeam/Principia-Fractalis>.
 
 ---
 
 ## Acknowledgments
 
-The author thanks the `mathlib` community, the developers of Lean 4, Lean4Lean, and Coq 8.18, the Qiskit project for the `AerSimulator` infrastructure, the IBM Quantum platform, and the framework's external multi-model adversarial reviewers for the iterated stress-test that sharpened the substrate's standing exhibition.
-
----
-
-*The substrate is the framework's primary mathematical object. The Clay-bundle discharge is one of twenty-five substrate-level consequences.*
+The author thanks the `mathlib` community, the developers of Lean 4, Lean4Lean, and Coq 8.18,
+the Qiskit project for the `AerSimulator` infrastructure, the IBM Quantum platform, and the
+framework's external multi-model adversarial reviewers for the iterated stress-test that
+sharpened the substrate's standing exhibition.
