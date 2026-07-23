@@ -344,12 +344,19 @@ By general C*-algebra theory\cite{takesaki_theory_2002}, the projective limit ex
 \begin{equation}
 \tau((a_k)_k) = \lim_{k \to \infty} \frac{1}{3^k}\text{Tr}_{\mathcal{H}_k}(a_k)
 \end{equation}
-This limit exists due to compatibility and defines a faithful trace.
+This limit exists due to compatibility and defines a trace. \textbf{Faithfulness of $\tau$ --- that $\tau(x^*x) = 0$ forces $x = 0$ --- is \emph{not} automatic}: earlier drafts of this chapter asserted it in passing, but it is in fact the deep part of the statement, equivalent to the $C^*$-simplicity of $\mathcal{T}_\infty$ (Glimm 1960). As of July 2026 both are \textbf{machine-verified, unconditional theorems} in the project's Lean~4 corpus: \texttt{UHF\_trace\_faithful} and \texttt{substrate\_completion\_simple\_unconditional} (development arc r102--r112), kernel-checked with zero project axioms. The proof constructs a trace-preserving conditional expectation $E_k: \mathcal{T}_\infty \to A_k$ (the tail partial trace), establishes its $\|\cdot\|_2$- and operator-norm contractivity, and concludes $\tau(x^*x)=0 \Rightarrow \forall k\, E_k x = 0 \Rightarrow x=0$. See the companion paper \emph{Formalizing a Faithful Tracial State on the UHF Algebra $M_{3^\infty}$} (\texttt{Papers/uhf\_faithful\_trace\_glimm\_2026-07-23}) for the full development.
 
 \textbf{Automorphisms}: Unitary conjugations and fractal scalings induce automorphisms. The full automorphism group $\text{Aut}(\mathcal{T}_\infty)$ is studied in Section \ref{sec:spacetime-emergence}.
 
 \textbf{States}: A state $\omega: \mathcal{T}_\infty \to \mathbb{C}$ restricts to states $\omega_k$ on each $A_k$, which by GNS construction correspond to density matrices $\rho_k$ on $\mathcal{H}_k$, consistent via partial traces.
 \end{proof}
+
+\paragraph{Machine-verification status of Theorem~\ref{thm:existence-uniqueness} (updated 2026-07-23).}
+To keep this chapter to the same standard as the formal corpus, here is the honest ledger of which parts of the theorem are kernel-verified in Lean~4 and which rest on classical literature:
+\begin{itemize}
+\item \textbf{Formalized, unconditional} (Lean~4, mathlib \texttt{v4.24.0-rc1}, kernel axioms $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ only): the construction of $\mathcal{T}_\infty$ as inductive limit + completion with a \texttt{CStarAlgebra} instance; the canonical trace $\tau$ with additivity, unitality, 1-Lipschitz continuity, traciality, Hermiticity, positivity; \textbf{faithfulness of $\tau$} (\texttt{UHF\_trace\_faithful}); \textbf{$C^*$-simplicity} of $\mathcal{T}_\infty$ --- every two-sided ideal is trivial (\texttt{substrate\_completion\_simple\_unconditional}, the Glimm 1960 theorem); the trace-preserving conditional expectations $E_k$ with their contraction properties.
+\item \textbf{Classical, by reference --- not formalized}: nuclearity of $\mathcal{T}_\infty$ (and everything downstream of it in Lemma~\ref{lem:nuclear-structure}: tensor uniqueness, amenability, Connes embedding); uniqueness of $\mathcal{T}_\infty$ up to isomorphism (the Glimm classification of $M_{3^\infty}$); uniqueness of the tracial state. These are standard results we cite, not results we have machine-checked; formalizing them is future work.
+\end{itemize}
 \end{level3}
 
 \section{Mathematical Properties}
@@ -370,6 +377,8 @@ $\mathcal{T}_\infty$ is a nuclear C*-algebra, which implies:
 \begin{proof}
 Nuclear C*-algebras have all these properties by standard theory\cite{brown_c_2008, connes_noncommutative_1994}. Nuclearity is preserved under projective limits.
 \end{proof}
+
+\noindent\emph{Verification note (2026-07-23): this lemma is classical-by-reference. Nuclearity of $\mathcal{T}_\infty$ and its consequences are \textbf{not} part of the machine-verified corpus; the kernel-checked properties of $\mathcal{T}_\infty$ are those listed in the verification ledger following Theorem~\ref{thm:existence-uniqueness} --- notably the faithful tracial state and $C^*$-simplicity, which \emph{are} formalized.}
 
 \begin{keyidea}[Why Nuclearity Matters]
 Nuclearity ensures there's \textit{one} consistent way to combine quantum systems—no ambiguity in tensor products. This is physically essential: when you combine two quantum systems, the result should be unique!
