@@ -909,6 +909,15 @@ import PF.SubstrateUHFTraceNullIdeal  -- 2026-07-21 r103: trace-null set is a Tw
 import PF.SubstrateMatrixUnitaryAveraging  -- 2026-07-21 r104 (M3.1): Weyl clock/shift averaging engine in M_n(ℂ): (1/n²)Σ_{a,b}(CᵃSᵇ)x(CᵃSᵇ)ᴴ = (trace x/n)•1; character-sum orthogonality; unitaryGroup membership; two-sided-absorbing-set plug-in. Finite-dimensional heart of Glimm 1960. ZERO project axioms.
 import PF.SubstrateDirectLimitSimplicity  -- 2026-07-22 r105 (M3.2): absorbing_set_contains_one (stdBasisMatrix/Matrix.single trick + r104 engine) + matrix_twoSidedIdeal_bot_or_top (mathlib IsSimpleRing.matrix) + MAIN directLimit_twoSidedIdeal_bot_or_top: ALGEBRAIC SIMPLICITY of TimelessFieldRing — every two-sided ideal of the pre-completion tower is ⊥ or ⊤. Algebraic half of Glimm complete. ZERO project axioms.
 import PF.SubstrateCompletionSimplicity  -- 2026-07-22 r106 (M3.3): completion-tier Weyl averaging avgK (ideal-preserving contraction; avgK_approx: ∀x ε ∃k ‖avgK k x − τ(x)•1‖<ε) + Neumann membership (Units.oneSub) + ideal_trace_ne_zero_forces_top (non-circular) + HONEST REDUCTION: SubstrateCompletionTraceDetectsIdeals (∀ I≠⊥ ∃ x∈I, τ(x)≠0 — a REAL named hypothesis, equivalent strength to simplicity) ⟹ completion simplicity ⟹ (with r103) τ_UHF faithful. Full closure blocked by genuine mathlib gaps: no spectralProjection (indicator cfc), no corner/hereditary API — named r107 targets. ZERO project axioms.
+import PF.SubstrateSpectralBump  -- r107a: cfc spectral bump + wall map
+import PF.SubstrateTraceDetectionAttempt  -- r108: trace-detection TFAE (residual = faithfulness); conditional-expectation critical path
+import PF.SubstrateConditionalExpectation  -- r109: conditional expectation E_k : T_inf -> M_{3^k} (partial-trace keystone)
+import PF.SubstrateCondExpContraction  -- r110: E_k 2-norm contraction (elementary Cauchy-Schwarz)
+import PF.SubstrateCondExpOpNorm  -- r111: E_k operator-norm contraction (isometry decomposition)
+import PF.SubstrateCompletionFaithful  -- r112: SUMMIT — UHF_trace faithfulness + Glimm C*-simplicity, UNCONDITIONAL
+import PF.ForMathlib.TwoSidedIdealClosure  -- mathlib PR-1
+import PF.ForMathlib.CfcMemTwoSidedIdeal  -- mathlib PR-2
+import PF.ForMathlib.ClopenSpectralProjection  -- mathlib PR-3
 
 /-!
 ## Principia Fractalis Formal Verification
