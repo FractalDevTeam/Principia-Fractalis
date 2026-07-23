@@ -19,7 +19,11 @@ User-facing documentation for the Principia Fractalis repository.
 
 ## See also
 
-- [`../README.md`](../README.md) — Top-level project overview.
-- [`../Principia_Fractalis_master_folder/`](../Principia_Fractalis_master_folder/) — The book.
-- [`../Papers/`](../Papers/) — Current papers.
-- [`../.github/CONTRIBUTING.md`](../.github/CONTRIBUTING.md), [`../.github/SECURITY.md`](../.github/SECURITY.md), [`../.github/SUPPORT.md`](../.github/SUPPORT.md) — Standard community files.
+(Absolute links so they work from the GitHub Pages site as well as the repo.)
+
+- [Site landing page](https://fractaldevteam.github.io/Principia-Fractalis/) — headline kernel-verified result (faithful UHF trace + Glimm simplicity) with reproduce commands.
+- [Top-level project overview](https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/README.md)
+- [The canonical paper (2026-07-23)](https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/Papers/uhf_faithful_trace_glimm_2026-07-23.pdf)
+- [The book](https://github.com/FractalDevTeam/Principia-Fractalis/tree/master/Principia_Fractalis_master_folder)
+- [Papers/](https://github.com/FractalDevTeam/Principia-Fractalis/tree/master/Papers)
+- [CONTRIBUTING](https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/.github/CONTRIBUTING.md) · [SECURITY](https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/.github/SECURITY.md) · [SUPPORT](https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/.github/SUPPORT.md)
