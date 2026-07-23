@@ -1,0 +1,1314 @@
+%% uhf_faithful_trace_glimm_2026-07-23.tex
+%%
+%% Full paper (expansion of the 2026-07-20 ITP note): a machine-checked
+%% construction of the base-3 UHF C*-algebra M_{3^infty} with a canonical
+%% faithful tracial state, and a formalized Glimm-simplicity theorem, in
+%% Lean 4 over mathlib.
+%%
+%% All mathematical claims below are either (a) kernel-verified Lean 4
+%% theorems at HEAD d5ad2881 (2026-07-23), axioms [propext,
+%% Classical.choice, Quot.sound], zero project axioms, zero sorries, or
+%% (b) standard cited literature. Verified build data: lake build PF =
+%% 4471 jobs, lake build (full) = 8928 jobs, mathlib pin eed770a4,
+%% toolchain leanprover/lean4:v4.24.0-rc1.
+
+\documentclass[11pt,a4paper]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[hidelinks,colorlinks=false]{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{framed}
+\usepackage{xcolor}
+\usepackage{seqsplit}
+
+\emergencystretch=8em
+\hbadness=10000
+\setlength{\hfuzz}{30pt}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\sloppy
+\tolerance=10000
+\pretolerance=10000
+\emergencystretch=15em
+
+\newcommand{\lt}[1]{\texttt{\seqsplit{#1}}}
+\newcommand{\Tinf}{T_\infty}
+\newcommand{\tuhf}{\tau_{\mathsf{UHF}}}
+\newcommand{\opnorm}{\|\cdot\|_{\mathsf{op}}}
+
+\title[A Machine-Checked UHF Algebra with a Faithful Trace]{A Machine-Checked Construction of the UHF Algebra $M_{3^\infty}$ with a Faithful Tracial State:\\ Formalizing Glimm Simplicity in Lean~4}
+
+\author{Pablo Cohen}
+\address{Mesa, Arizona, USA}
+\email{psolorzano@gmail.com}
+\urladdr{ORCID:~\href{https://orcid.org/0009-0002-0734-5565}{0009-0002-0734-5565}}
+
+\date{July 23, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent We report a complete Lean~4 formalization, over
+mathlib~\cite{mathlib2020,moura-ullrich2021}, of the uniformly hyperfinite
+(UHF) $C^*$-algebra $M_{3^\infty}$ --- realized as the metric completion
+$\Tinf$ of the inductive limit of the matrix tower $M_{3^k}(\mathbb{C})$
+under the unital $*$-embeddings $A \mapsto A \otimes I_3$ --- together with
+a canonical tracial state $\tuhf$ on $\Tinf$ that is kernel-verified to be
+additive, unital, $1$-Lipschitz, tracial, Hermitian, positive, and
+\emph{faithful}: $\tuhf(x^*x) = 0 \Rightarrow x = 0$ for every $x \in \Tinf$.
+As a corollary we obtain a machine-checked proof that $\Tinf$ is
+algebraically simple --- every two-sided ideal is $\bot$ or $\top$ --- which
+is, to our knowledge, the first formalization of Glimm's 1960 simplicity
+theorem for a UHF algebra~\cite{glimm1960} in any proof assistant, and the
+first machine-checked construction of an infinite-dimensional simple
+$C^*$-algebra with a canonical faithful trace.
+
+\smallskip
+
+\noindent The completion-tier faithfulness proof is the heart of the paper.
+It routes through a trace-preserving conditional expectation
+$E_k \colon \Tinf \to M_{3^k}(\mathbb{C})$ (the partial trace over the
+tail), proved to be a $\|\cdot\|_2$-contraction by an elementary
+Cauchy--Schwarz argument --- where the classical route would invoke the
+Kadison--Schwarz inequality and complete positivity, neither of which is
+available in mathlib --- and an operator-norm contraction via the isometry
+decomposition $E_k B = \tfrac{1}{3}\sum_{t} W_t^* B\, W_t$. Supporting
+machinery, novel as formalized content, includes a Cauchy--Schwarz
+inequality for the trace pairing, the trace-null set as a mathlib-native
+two-sided ideal, a discrete Weyl clock--shift unitary-averaging engine
+$\tfrac{1}{n^2}\sum_{a,b}(C^aS^b)\,x\,(C^aS^b)^* = (\operatorname{tr}x/n)\cdot 1$,
+algebraic simplicity of the pre-completion tower, and a four-fold
+equivalence (trace-detection $\Leftrightarrow$ triviality of the trace-null
+ideal $\Leftrightarrow$ faithfulness $\Leftrightarrow$ simplicity)
+that precisely located the difficulty before it was overcome. Three
+standalone API files of mathlib-PR quality (topological closures of
+two-sided ideals; the non-unital continuous functional calculus mapping
+into closed ideals; spectral projections from clopen quasispectral sets)
+are contributed as by-products. Every headline theorem reports kernel axioms
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$, with
+zero project axioms and zero \texttt{sorry}s, verified at pinned toolchain
+and mathlib revisions.
+\end{abstract}
+
+\tableofcontents
+
+%% =====================================================================
+\section{Introduction}\label{sec:intro}
+%% =====================================================================
+
+Uniformly hyperfinite (UHF) $C^*$-algebras are among the oldest and most
+completely understood objects of operator algebra theory. Introduced by
+Glimm in 1960~\cite{glimm1960} --- with roots in the hyperfinite factor
+constructions of Murray and von Neumann~\cite{murray-vonneumann1936} ---
+they are the norm-closures of increasing unions of full matrix algebras,
+classified completely by a supernatural number, each simple, each carrying
+a unique tracial state which is automatically faithful. Every graduate
+course in operator algebras proves these facts~\cite{davidson1996,
+blackadar2006, takesaki1979}. None of them, before the present work, had
+been machine-checked.
+
+The gap is not accidental. Formalized operator algebra is young: mathlib
+--- the Lean~4 mathematical library~\cite{mathlib2020,moura-ullrich2021}
+--- provides a $C^*$-algebra typeclass hierarchy, an $L^2$-operator-norm
+$C^*$-structure on matrix algebras, ring direct limits, metric completions,
+and a continuous functional calculus, largely following the formalized
+functional analysis program of Dupuis, Lewis, and
+Macbeth~\cite{dupuis-lewis-macbeth2022}. But it contains no concrete
+infinite-dimensional simple $C^*$-algebra, no tracial state theory, no
+conditional expectations, no completely positive maps, and no spectral
+projections. Constructing a UHF algebra and proving the classical facts
+about it therefore requires building, from mathlib's primitives, a
+substantial amount of infrastructure that the pen-and-paper literature
+takes for granted --- and, at several points, finding proofs
+\emph{different from} the classical ones, because the classical proofs
+lean on theory (Kadison--Schwarz, complete positivity, Borel functional
+calculus) that does not yet exist in any proof assistant library.
+
+\subsection{Contributions}\label{sec:contributions}
+
+This paper describes a Lean~4 formalization, kernel-verified with axioms
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ only,
+zero project-level axioms, and zero \texttt{sorry}s, of:
+
+\begin{enumerate}[label=\textbf{(C\arabic*)}, leftmargin=3em, itemsep=3pt]
+\item \textbf{The UHF algebra $M_{3^\infty}$, mathlib-native.} The
+  base-3 matrix tower $A_k := M_{3^k}(\mathbb{C})$ with the unital
+  $*$-embeddings $A \mapsto \mathrm{reindex}(A \otimes I_3)$, its ring
+  direct limit, and the metric completion $\Tinf$ of that limit under the
+  $L^2$-operator norm, carrying \texttt{Ring}, \texttt{StarRing},
+  \texttt{NormedRing}, and \texttt{CStarAlgebra} instances
+  (\S\ref{sec:tower}).
+\item \textbf{A canonical tracial state $\tuhf$ on $\Tinf$}, obtained as
+  the unique uniformly continuous extension of the normalised matrix
+  traces, and kernel-verified to be additive, unital, $1$-Lipschitz,
+  tracial, Hermitian, and positive (\S\ref{sec:trace}).
+\item \textbf{Unconditional faithfulness of $\tuhf$ at every tier} ---
+  matrix level, direct limit, and, the hard case, the completion:
+  $\tuhf(x^*x) = 0 \Rightarrow x = 0$ for all $x \in \Tinf$
+  (theorem \lt{UHF\_trace\_faithful}, \S\ref{sec:condexp}).
+\item \textbf{Glimm simplicity of $\Tinf$}: every two-sided ideal of
+  $\Tinf$ is $\bot$ or $\top$ (theorem
+  \lt{substrate\_completion\_simple\_unconditional},
+  \S\ref{sec:condexp}). To our knowledge this is the first formalized
+  simplicity theorem for an infinite-dimensional $C^*$-algebra in any
+  proof assistant.
+\item \textbf{The proof machinery itself}, novel as formalized content: a
+  Cauchy--Schwarz inequality for the trace sesquilinear pairing; the
+  trace-null set as a mathlib-native \texttt{TwoSidedIdeal}; a discrete
+  Weyl clock--shift unitary-averaging engine; algebraic simplicity of the
+  pre-completion tower; a completion-tier averaging operator; a four-fold
+  equivalence between trace-detection, ideal-triviality, faithfulness, and
+  simplicity; and a trace-preserving conditional expectation
+  $E_k \colon \Tinf \to M_{3^k}(\mathbb{C})$ with elementary
+  $\|\cdot\|_2$- and operator-norm contraction proofs
+  (\S\S\ref{sec:engine}--\ref{sec:condexp}). Three standalone
+  mathlib-PR-quality API files are contributed as by-products
+  (\S\ref{sec:formalization}).
+\end{enumerate}
+
+\subsection{Why faithfulness is the hard part}\label{sec:why-hard}
+
+Everything about $\tuhf$ \emph{except} faithfulness transfers from the
+matrix level to the completion by soft means. Additivity, traciality,
+Hermitian symmetry, and positivity are all \emph{closed conditions}: each
+asserts that a continuous function vanishes (or is nonnegative) on
+$\Tinf$, so it suffices to verify it on the dense image of the direct
+limit and invoke completion induction on a closed set. Matrix-level
+verification is elementary, and mathlib's
+\lt{UniformSpace.Completion.induction\_on} closes each one.
+
+Faithfulness is different in kind. The statement
+$\tuhf(x^*x) = 0 \Rightarrow x = 0$ is \emph{not} a closed condition ---
+the set of $x$ satisfying an implication with a nontrivial conclusion is
+not the preimage of a closed set --- so density arguments do not apply. A
+limit of matrices, each individually detected by its trace, could in
+principle converge to a nonzero element whose trace-of-square vanishes:
+ruling this out requires genuinely global structure. Classically one
+appeals to either (a) simplicity of the algebra --- a state whose left
+kernel generates a proper closed two-sided ideal must be faithful when no
+such ideal exists --- with simplicity supplied by Glimm's
+theorem~\cite{glimm1960}; or (b) the norm-one conditional expectations
+onto the finite levels, in the tradition of
+Tomiyama~\cite{tomiyama1957}, whose contractivity is classically a
+consequence of complete positivity and the Kadison--Schwarz
+inequality~\cite{kadison1952}. Neither route existed in mathlib. The
+formalization ultimately built route (b) from scratch, with elementary
+replacements for the missing complete-positivity theory
+(\S\ref{sec:condexp}), and obtained route (a)'s conclusion --- simplicity
+--- as a corollary rather than an input, inverting the classical
+dependency.
+
+\subsection{An honest development history}\label{sec:history}
+
+We describe the development arc candidly, because we believe the
+trajectory is itself a datum about formalizing operator algebras, and
+because an earlier version of this material contained a claim we had to
+retract before it was eventually proved.
+
+The construction of $\Tinf$ and of $\tuhf$ with its six soft properties
+was completed in early July 2026. At that stage the source repository also
+contained a completion-tier ``faithfulness'' declaration that, on
+inspection, was a placeholder: a named proposition of type
+$\texttt{Prop} := \texttt{True}$ discharged by \texttt{trivial}, together
+with a theorem whose hypothesis was completion-tier faithfulness restated.
+Neither constitutes a proof of anything, and a revision of the companion
+ITP note (2026-07-20) explicitly demoted completion-tier faithfulness from
+``conditional'' to \emph{open}, documenting the placeholder for
+transparency.
+
+The subsequent closing arc, labelled r102--r112 in the repository, then
+unfolded in three phases:
+
+\begin{enumerate}[leftmargin=2.4em, itemsep=2pt]
+\item \emph{Reduction} (r102--r106): Cauchy--Schwarz for the trace
+  pairing, the trace-null two-sided ideal, the Weyl averaging engine,
+  algebraic simplicity of the pre-completion tower, and a completion-tier
+  averaging operator together reduced faithfulness, in kernel-verified
+  form, to a single named hypothesis: \emph{trace-detection of ideals}
+  (every nonzero two-sided ideal contains an element of nonzero trace).
+\item \emph{Obstruction analysis} (r108): a kernel-verified four-fold
+  equivalence showed that trace-detection is not weaker than the goal ---
+  it is \emph{logically equivalent} to faithfulness, and to simplicity.
+  The reduction had restated the mountain, not descended it. This negative
+  result was formalized rather than discarded: it is the precise statement
+  of where the classical hard input lives.
+\item \emph{Closure} (r109--r112): the trace-preserving conditional
+  expectation $E_k$ (the tail partial trace) was constructed on the direct
+  limit, proved a $\|\cdot\|_2$-contraction by elementary Cauchy--Schwarz
+  (where Kadison--Schwarz was expected to be needed), proved an
+  operator-norm contraction via an isometry decomposition (where complete
+  positivity was expected to be needed), extended to the completion, and
+  used to close faithfulness unconditionally --- with simplicity following
+  through the r108 equivalence.
+\end{enumerate}
+
+The placeholder was thus first exposed, then reduced, then genuinely
+closed. We report this sequence as a strength of the machine-checked
+setting: at every stage the kernel-verified statement of \emph{what had
+actually been proved} was unambiguous, the gap between claim and theorem
+was mechanically visible, and the final theorems are immune to the wishful
+reading that produced the original placeholder.
+
+\subsection{A note on naming}\label{sec:naming}
+
+The Lean development is part of a larger source project, and some
+identifiers inherit that project's naming scheme: the direct limit is
+called \lt{TimelessFieldRing} and its completion
+\lt{TimelessFieldCompletion} in the source. These are names, nothing more;
+in this paper the objects are denoted $\varinjlim_k A_k$ and $\Tinf$, and
+every property claimed of them is one of the kernel-verified theorems
+listed below or a standard cited fact. Nothing in this paper depends on
+any framework, interpretation, or conjecture of the broader source
+project.
+
+\subsection{Outline}
+
+\S\ref{sec:background} recalls the classical background.
+\S\ref{sec:tower} constructs the tower, limit, and completion.
+\S\ref{sec:trace} constructs $\tuhf$ and its soft properties.
+\S\ref{sec:engine} develops the simplicity/faithfulness engine:
+Cauchy--Schwarz, the trace-null ideal, Weyl averaging, pre-completion
+simplicity, and the four-fold equivalence. \S\ref{sec:condexp} is the
+heart: the conditional expectation and the faithfulness proof.
+\S\ref{sec:formalization} records formalization notes: mathlib APIs used,
+gaps found, and the three contributed API files. \S\ref{sec:reproducibility}
+gives the pinned toolchain and verification data. \S\ref{sec:related}
+discusses related and future work.
+
+%% =====================================================================
+\section{Mathematical background}\label{sec:background}
+%% =====================================================================
+
+This section fixes classical terminology for the formalization audience;
+all results here are standard~\cite{glimm1960, davidson1996, blackadar2006,
+takesaki1979} and are \emph{not} claimed as contributions. Which of them
+are formalized, and which are merely cited, is stated precisely in
+\S\S\ref{sec:tower}--\ref{sec:condexp}.
+
+\subsection{UHF algebras}
+
+A \emph{uniformly hyperfinite (UHF) algebra} is a unital $C^*$-algebra $A$
+containing an increasing sequence of unital $*$-subalgebras
+$A_0 \subseteq A_1 \subseteq \cdots$, each $*$-isomorphic to a full matrix
+algebra $M_{n_k}(\mathbb{C})$, whose union is dense in $A$. Necessarily
+$n_k \mid n_{k+1}$. Glimm~\cite{glimm1960} classified UHF algebras by the
+associated supernatural number and proved each is simple with a unique
+tracial state; Bratteli~\cite{bratteli1972} extended the framework to
+general approximately finite-dimensional (AF) algebras. The algebra
+studied here is $M_{3^\infty}$: the case $n_k = 3^k$ with the embeddings
+$A \mapsto A \otimes I_3$. The choice of base 3 over the more common CAR
+tower $M_{2^\infty}$ is inherited from the source project's surrounding
+ternary constructions; as a classification target the two are equally
+standard, and every argument below works verbatim in any base $\ge 2$.
+
+\subsection{Tracial states}
+
+A \emph{tracial state} on a unital $C^*$-algebra $A$ is a linear
+functional $\tau \colon A \to \mathbb{C}$ with $\tau(1) = 1$,
+$\tau(x^*x) \ge 0$, and $\tau(xy) = \tau(yx)$. It is \emph{faithful} if
+$\tau(x^*x) = 0$ implies $x = 0$. On $M_n(\mathbb{C})$ the unique tracial
+state is the normalised trace $\tau_n = \operatorname{tr}/n$, and its
+faithfulness is the statement that
+$\operatorname{tr}(M^*M) = \sum_{i,j}|M_{ij}|^2$ vanishes only at
+$M = 0$. On a UHF algebra the normalised traces are compatible with the
+embeddings and extend to the unique tracial state on the completion; its
+faithfulness is classically deduced from simplicity (the closure of the
+left kernel is a proper closed two-sided ideal) or from the conditional
+expectations onto the finite levels.
+
+\subsection{Simplicity}
+
+A ring is (algebraically) \emph{simple} if its only two-sided ideals are
+$0$ and the whole ring. For $C^*$-algebras one often restricts attention
+to closed ideals, but UHF algebras satisfy the stronger algebraic
+statement, and it is the algebraic statement that is formalized here:
+\emph{every} two-sided ideal of $\Tinf$, closed or not, is $\bot$ or
+$\top$. The engine of the classical proof is finite-dimensional: averaging
+over a suitable finite group of unitaries in $M_n(\mathbb{C})$ projects
+any matrix onto its normalised trace times the identity, and since
+two-sided ideals absorb conjugation, sums, and scalars, a nonzero ideal
+element with nonzero trace forces $1$ into the ideal. The finite unitary
+family used here is the discrete Weyl (clock-and-shift)
+pair~\cite{weyl1927}: $C = \operatorname{diag}(1, \omega, \dots,
+\omega^{n-1})$ with $\omega = e^{2\pi i/n}$, and $S$ the cyclic shift.
+
+\subsection{Conditional expectations}
+
+A \emph{conditional expectation} of a $C^*$-algebra $A$ onto a subalgebra
+$B$ is a positive, unital, $B$-bimodule projection $E \colon A \to B$;
+by Tomiyama's theorem~\cite{tomiyama1957} these are exactly the norm-one
+projections. For a UHF algebra, the canonical conditional expectation onto
+the level-$k$ subalgebra is the \emph{partial trace over the tail}: under
+$M_{3^{k+1}} \cong M_{3^k} \otimes M_3$, it is
+$\mathrm{id} \otimes \tau_3$. Classically, a conditional expectation is
+completely positive, hence satisfies the Kadison--Schwarz inequality
+$E(x)^*E(x) \le E(x^*x)$~\cite{kadison1952}, from which its
+$\|\cdot\|_2$-contractivity with respect to a compatible trace follows,
+and its complete positivity together with unitality gives
+$\|E\| = 1$ (a fact often organised via the Stinespring
+representation~\cite{stinespring1955}). The formalization proves the two
+contraction properties it needs \emph{directly}, without any of this
+theory; see \S\ref{sec:l2} and \S\ref{sec:opnorm}.
+
+%% =====================================================================
+\section{The tower, the limit, and the completion}\label{sec:tower}
+%% =====================================================================
+
+\subsection{The tower}
+
+At level $k \in \mathbb{N}$, define
+\[
+A_k \;:=\; \mathrm{Matrix}~(\mathrm{Fin}~3^k)~(\mathrm{Fin}~3^k)~\mathbb{C},
+\]
+a finite-dimensional $C^*$-algebra under the $L^2$-operator norm (mathlib's
+\lt{Matrix.Norms.L2Operator} scoped instance, which provides the
+$C^*$-identity $\|M^*M\| = \|M\|^2$). Successive levels embed by the
+ternary tensor construction
+\[
+\iota_k \colon A_k \hookrightarrow A_{k+1}, \qquad
+A \;\longmapsto\; \mathrm{reindex}~(\mathrm{levelStepEquiv}~k)~(A \otimes I_3),
+\]
+where \lt{levelStepEquiv}~$k$ is the equivalence
+$\mathrm{Fin}~3^k \times \mathrm{Fin}~3 \simeq \mathrm{Fin}~3^{k+1}$
+induced by the ternary decomposition of $3^{k+1}$, and $\otimes$ is the
+Kronecker product. In the Lean source this map is
+\lt{substrateEmbedMatrix}, with iterated form \lt{substrateRingHomIter}
+$m \to k$ for $m \le k$. Each $\iota_k$ is a unital $*$-ring homomorphism
+and an isometry.
+
+\subsection{The inductive limit and its norm}
+
+Mathlib's \lt{Ring.DirectLimit} applied to $\{A_k, \iota_k\}$ produces the
+$\mathbb{C}$-algebra
+\[
+R \;:=\; \varinjlim_k A_k
+\qquad (\text{Lean: } \lt{TimelessFieldRing}),
+\]
+with \texttt{StarRing} structure descending from entrywise conjugate
+transpose. Every element of $R$ has a single-level representative: mathlib's
+\lt{DirectLimit.exists\_eq\_mk} produces, from $x \in R$, a level $k$ and a
+matrix $A \in A_k$ with $x = [\![ (k, A) ]\!]$. Because the
+embeddings are isometric, the level norm is well-defined on $R$
+(\lt{substrateLevelToTimelessField\_opNorm\_eq}) and makes $R$ a normed
+$*$-ring; the canonical level embedding
+$\iota_k \colon A_k \to R$ (Lean: \lt{substrateLevelToTimelessField}) is
+an isometry (theorem \lt{substrateLevelToTimelessField\_isometry}), and
+the cocone identity
+$\iota_k \circ (\text{iterated embedding } m \to k) = \iota_m$
+holds definitionally up to \texttt{Quotient.sound}
+(\lt{substrateLevelToTimelessField\_iter}).
+
+\subsection{The completion}
+
+The metric completion of $R$ under the operator norm is
+\[
+\Tinf \;:=\; \overline{\varinjlim_k A_k}^{\,\opnorm}
+\qquad (\text{Lean: } \lt{TimelessFieldCompletion}),
+\]
+built with \lt{UniformSpace.Completion}. The algebraic operations extend
+by uniform continuity, and the $C^*$-identity passes to the completion by
+the classical Cauchy-sequence argument, executed against mathlib's
+completion API.
+
+\begin{theorem}[UHF $C^*$-algebra registration]\label{thm:uhf-registration}
+$\Tinf$ carries mathlib-native \texttt{Ring}, \texttt{StarRing},
+\texttt{NormedRing}, and \texttt{CStarAlgebra} instances, with
+$\varinjlim_k A_k$ dense in $\Tinf$. Kernel axiom set:
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+By construction $\Tinf$ is a UHF algebra in the classical sense: the
+norm-closure of an increasing union of full matrix algebras under unital
+$*$-embeddings, of supernatural number $3^\infty$. We emphasise that the
+mathlib \texttt{CStarAlgebra} instance is the algebra of record; no
+appeal is made to the classical classification.
+
+\begin{theorem}[Level-wise simplicity]\label{thm:level-simple}
+For every $k$, $A_k = M_{3^k}(\mathbb{C})$ is a mathlib
+\texttt{IsSimpleRing} instance, via \lt{DivisionRing.isSimpleRing} on
+$\mathbb{C}$ composed with \lt{IsSimpleRing.matrix}.
+\end{theorem}
+
+%% =====================================================================
+\section{The tracial state and its soft properties}\label{sec:trace}
+%% =====================================================================
+
+\subsection{Construction}
+
+On each level the normalised trace
+\[
+\tau_n \colon A_k \to \mathbb{C}, \qquad
+\tau_n(M) := \frac{\operatorname{trace}(M)}{n}, \qquad n = 3^k
+\]
+is linear, unital, and $1$-Lipschitz for the operator norm (via the
+Hilbert--Schmidt bound $\|M\|_{\mathrm{HS}}^2 \le n\|M\|_{\mathsf{op}}^2$
+and Cauchy--Schwarz). Compatibility with the embeddings,
+$\tau_{3^{k+1}}(\iota_k A) = \tau_{3^k}(A)$, follows from
+\lt{Matrix.trace\_kronecker}. The universal property of the direct limit
+(\lt{DirectLimit.lift}) produces the pre-trace
+$\tau_{\mathrm{pre}} \colon R \to \mathbb{C}$
+(Lean: \lt{substrate\_pre\_trace}), additive, unital, and $1$-Lipschitz,
+hence uniformly continuous; and
+\[
+\tuhf \;:=\; \lt{UniformSpace.Completion.extension}\,(\tau_{\mathrm{pre}})
+\;\colon\; \Tinf \to \mathbb{C}
+\qquad (\text{Lean: } \lt{UHF\_trace})
+\]
+is its unique continuous extension, agreeing with $\tau_{\mathrm{pre}}$ on
+the dense image (\lt{UHF\_trace\_coe}).
+
+\subsection{The soft properties}
+
+\begin{theorem}[The canonical tracial state]\label{thm:tracial-state}
+$\tuhf \colon \Tinf \to \mathbb{C}$ satisfies, kernel-verified:
+\begin{enumerate}[label=\textup{(\roman*)}, itemsep=1pt]
+\item \emph{additive, unital, $1$-Lipschitz, uniformly continuous};
+\item \emph{$\mathbb{C}$-linear}: $\tuhf(c \cdot x) = c\,\tuhf(x)$
+  (\lt{UHF\_trace\_smul}; bundled as
+  \lt{UHF\_trace\_linearMap} $\colon \Tinf \to_{\mathbb{C}} \mathbb{C}$);
+\item \emph{tracial}: $\tuhf(xy) = \tuhf(yx)$
+  (\lt{UHF\_trace\_mul\_comm});
+\item \emph{Hermitian}: $\tuhf(x^*) = \overline{\tuhf(x)}$;
+\item \emph{positive}: $0 \le \tuhf(x^*x)$ in the complex order
+  (\lt{UHF\_trace\_star\_mul\_self\_nonneg}, under mathlib's scoped
+  \texttt{ComplexOrder}).
+\end{enumerate}
+Kernel axiom set:
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$.
+\end{theorem}
+
+Each of (i)--(v) is a closed condition and is proved by the same
+three-step pattern: a mathlib matrix lemma at level $k$
+(\lt{Matrix.trace\_mul\_comm}, \lt{Matrix.trace\_conjTranspose},
+\lt{Matrix.posSemidef\_conjTranspose\_mul\_self} with
+\lt{Matrix.PosSemidef.trace\_nonneg}); reduction of direct-limit elements
+to single-level representatives via \lt{DirectLimit.exists\_eq\_mk}; and
+completion induction (\lt{UniformSpace.Completion.induction\_on}, or its
+binary form for (iii)) on the closed set where the identity holds ---
+closedness of the positivity set (v) uses
+\lt{Complex.orderClosedTopology}.
+
+\subsection{The three tiers of faithfulness}\label{sec:tiers}
+
+Faithfulness stratifies over the construction:
+
+\begin{enumerate}[label=$(\Phi\arabic*)$, leftmargin=3em, itemsep=2pt]
+\item \emph{Matrix level.} $\tau_n(M^*M) = 0 \Rightarrow M = 0$, from
+  mathlib's \lt{Matrix.trace\_conjTranspose\_mul\_self\_eq\_zero\_iff}
+  (Lean: \lt{normalized\_matrix\_trace\_star\_mul\_self\_eq\_zero\_iff}).
+  Elementary: the trace of $M^*M$ is the sum of $|M_{ij}|^2$.
+\item \emph{Direct limit.}
+  $\tau_{\mathrm{pre}}(x^*x) = 0 \Rightarrow x = 0$
+  (\lt{substrate\_pre\_trace\_star\_mul\_self\_faithful}): reduce $x$ to a
+  single-level representative, apply $(\Phi 1)$, and push $0$ back through
+  the embedding.
+\item \emph{Completion.} $\tuhf(x^*x) = 0 \Rightarrow x = 0$ for
+  $x \in \Tinf$. \textbf{This is the hard tier}, for the reason explained
+  in \S\ref{sec:why-hard}: it is not a closed condition, and no density
+  argument applies. Its unconditional proof is the subject of
+  \S\S\ref{sec:engine}--\ref{sec:condexp}.
+\end{enumerate}
+
+%% =====================================================================
+\section{The simplicity/faithfulness engine}\label{sec:engine}
+%% =====================================================================
+
+This section develops the machinery that first \emph{reduced}
+completion-tier faithfulness to a single named hypothesis, and then
+\emph{identified} that hypothesis as equivalent to the goal. All results
+here are unconditional kernel-verified theorems; the r-labels record the
+repository development arc but the content is mathematics, not changelog.
+
+\subsection{Cauchy--Schwarz for the trace pairing (r102)}\label{sec:cs}
+
+Define the trace sesquilinear pairing
+$\langle x, y \rangle_\tau := \tuhf(y^* x)$ on $\Tinf$
+(Lean: \lt{traceInner}). Positivity (Theorem~\ref{thm:tracial-state}(v))
+makes it a positive semi-definite sesquilinear form, and the classical
+discriminant argument goes through against mathlib's
+\lt{discrim\_le\_zero}:
+
+\begin{theorem}[\lt{UHF\_trace\_cauchySchwarz}]\label{thm:cs}
+For all $x, y \in \Tinf$,
+\[
+\bigl\|\tuhf(y^*x)\bigr\|^2 \;\le\;
+\operatorname{Re}\tuhf(x^*x)\cdot \operatorname{Re}\tuhf(y^*y).
+\]
+\end{theorem}
+
+The proof expands $\tuhf\bigl((x - c y)^*(x - c y)\bigr) \ge 0$ along real
+multiples $c = t\,\tuhf(y^*x)$ using completion-tier linearity
+(Theorem~\ref{thm:tracial-state}(ii)) and the \texttt{StarModule}
+structure, and applies the quadratic discriminant bound. An immediate
+corollary is left absorption of the trace-null cone
+(\lt{UHF\_trace\_null\_left\_absorption}):
+$\tuhf(x^*x) = 0 \Rightarrow \tuhf\bigl((ax)^*(ax)\bigr) = 0$ for every
+$a$, since $\tuhf\bigl((ax)^*(ax)\bigr) = \langle a^*ax, x\rangle_\tau$ is
+dominated through Theorem~\ref{thm:cs} by
+$\operatorname{Re}\tuhf(x^*x) = 0$.
+
+\subsection{The trace-null two-sided ideal (r103)}\label{sec:tracenull}
+
+Let $N := \{x \in \Tinf : \tuhf(x^*x) = 0\}$. Theorem~\ref{thm:cs} makes
+$N$ additive (the cross terms in the sesquilinear expansion of
+$\tuhf\bigl((x+y)^*(x+y)\bigr)$ are killed by Cauchy--Schwarz), traciality
+makes it $*$-closed ($\tuhf(xx^*) = \tuhf(x^*x)$), left absorption plus
+$*$-closure gives right absorption, and scalar closure is immediate. The
+result is bundled as a mathlib-native object:
+
+\begin{theorem}[\lt{traceNullTwoSidedIdeal}]\label{thm:tracenull}
+$N$ is the carrier of a \texttt{TwoSidedIdeal} of $\Tinf$, and it is
+proper: $1 \notin N$ since $\tuhf(1) = 1$
+\textup{(\lt{traceNullTwoSidedIdeal\_ne\_top})}.
+\end{theorem}
+
+This immediately yields the conditional form of faithfulness --- the
+honest theorem available at that stage of the development:
+
+\begin{theorem}[\lt{UHF\_trace\_faithful\_of\_simple}]\label{thm:faithful-of-simple}
+If every two-sided ideal of $\Tinf$ is $\bot$ or $\top$, then $\tuhf$ is
+faithful.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+$N$ is a proper two-sided ideal, so simplicity forces $N = \bot$; and
+$x \in N$ means exactly $\tuhf(x^*x) = 0$, so membership in $\bot$ gives
+$x = 0$. The hypothesis is genuine algebraic simplicity of $\Tinf$ ---
+classically Glimm's theorem --- not a self-referential marker.
+\end{proof}
+
+\subsection{The Weyl unitary-averaging engine (r104)}\label{sec:weyl}
+
+The engine of every simplicity proof for matrix towers is
+finite-dimensional linear algebra. Fix $n \ge 1$ and let
+$\omega := e^{2\pi i/n}$ (Lean: \lt{substrateRoot}, a primitive $n$-th
+root by \lt{Complex.isPrimitiveRoot\_exp}). Define the \emph{clock} and
+\emph{shift} matrices~\cite{weyl1927}
+\[
+C := \operatorname{diagonal}(j \mapsto \omega^j), \qquad
+S_{ij} := [\,i = j + 1\,],
+\]
+both unitary (\lt{clockMatrix\_mem\_unitaryGroup},
+\lt{shiftMatrix\_mem\_unitaryGroup}), with closed-form powers
+$C^m = \operatorname{diagonal}(j \mapsto \omega^{jm})$ and
+$(S^m)_{ij} = [\,i = j + m\,]$. The character orthogonality relation
+$\sum_{a<n} (\omega^i \overline{\omega^j})^a = n\,[\,i = j\,]$
+(\lt{substrate\_clock\_character\_sum}, via \lt{geom\_sum\_mul} and
+\lt{IsPrimitiveRoot.pow\_inj}) drives a two-stage computation:
+
+\begin{lemma}[Stage A: \lt{clock\_average\_eq\_diagonalPart}]
+Conjugation-averaging over the clock powers kills the off-diagonal:
+$\frac{1}{n}\sum_{a<n} C^a x\, (C^a)^* =
+\operatorname{diagonal}(\operatorname{diag} x)$.
+\end{lemma}
+
+\begin{lemma}[Stage B: \lt{shift\_average\_diagonal\_eq\_trace\_smul\_one}]
+Conjugation-averaging over the shift powers equalises the diagonal: for
+diagonal $D$,
+$\frac{1}{n}\sum_{b<n} S^b D\, (S^b)^* =
+\bigl(\operatorname{trace} D / n\bigr)\cdot 1$.
+\end{lemma}
+
+\begin{theorem}[The engine:
+\lt{matrix\_unitary\_average\_eq\_trace\_smul\_one}]\label{thm:weyl}
+For every $x \in M_n(\mathbb{C})$,
+\[
+\frac{1}{n^2}\sum_{a<n}\sum_{b<n}
+(C^a S^b)\, x\, (C^a S^b)^* \;=\;
+\frac{\operatorname{trace} x}{n}\cdot 1 .
+\]
+\end{theorem}
+
+Since a set closed under addition, arbitrary left/right multiplication,
+and $\mathbb{C}$-scaling absorbs each conjugate $u x u^*$, it absorbs the
+average
+(\lt{trace\_smul\_one\_mem\_of\_two\_sided\_absorbing}): any two-sided
+absorbing set containing $x$ contains
+$(\operatorname{trace}x/n)\cdot 1$.
+
+\subsection{Algebraic simplicity below the completion (r105)}\label{sec:presimple}
+
+Firing the engine at a nonzero element requires a nonzero \emph{trace},
+which a nonzero ideal element need not have. The fix is the classical
+matrix-unit trick: if $x \ne 0$ pick a nonzero entry $x_{pq}$; the matrix
+unit $E_{q,p}$ satisfies
+$\operatorname{trace}(E_{q,p}\,x) = x_{pq} \ne 0$
+(\lt{trace\_single\_mul}), and $E_{q,p}\,x$ is still in the absorbing set.
+Averaging and rescaling puts $1$ in the set
+(\lt{absorbing\_set\_contains\_one}). Together with
+Theorem~\ref{thm:level-simple} this re-derives matrix-level simplicity
+in ideal form (\lt{matrix\_twoSidedIdeal\_bot\_or\_top}) and, by pulling a
+two-sided ideal $I \le R$ back to each level
+(\lt{substrateIdealPullback}, with the four closure lemmas), lifts it to
+the direct limit:
+
+\begin{theorem}[\lt{directLimit\_twoSidedIdeal\_bot\_or\_top}]\label{thm:dl-simple}
+Every two-sided ideal of $\varinjlim_k M_{3^k}(\mathbb{C})$ is $\bot$ or
+$\top$.
+\end{theorem}
+
+\subsection{Averaging inside the completion (r106)}\label{sec:avgK}
+
+The Weyl words at level $k$ push forward to unitaries
+$u_{a,b} \in \Tinf$, and the completion-tier averaging operator
+\[
+\operatorname{avg}_k(x) \;:=\; \frac{1}{(3^k)^2}
+\sum_{a, b \,<\, 3^k} u_{a,b}\, x\, u_{a,b}^{*}
+\qquad (\text{Lean: } \lt{avgK})
+\]
+is defined for every $x \in \Tinf$. On the image of level $k$ it agrees
+exactly with $\tuhf(\cdot)\cdot 1$ by Theorem~\ref{thm:weyl}; combining
+density of the finite levels, the non-expansiveness of averaging, and the
+$1$-Lipschitz property of $\tuhf$ yields Glimm's averaging estimate
+executed inside the completion:
+
+\begin{theorem}[\lt{avgK\_approx}]\label{thm:avgk}
+For every $x \in \Tinf$ and $\varepsilon > 0$ there is $k$ with
+$\bigl\| \operatorname{avg}_k(x) - \tuhf(x)\cdot 1 \bigr\| < \varepsilon$.
+\end{theorem}
+
+Since two-sided ideals absorb each conjugate, $\operatorname{avg}_k$
+preserves ideals; if an ideal $I$ contains an element $x$ with
+$\tuhf(x) \ne 0$, then Theorem~\ref{thm:avgk} with
+$\varepsilon = \|\tuhf(x)\|$ combined with a Neumann-series invertibility
+argument forces $1 \in I$. This proves
+(\lt{completion\_twoSidedIdeal\_bot\_or\_top\_of\_traceDetects}):
+\emph{if} every nonzero two-sided ideal of $\Tinf$ contains an element of
+nonzero trace --- the hypothesis named
+\lt{SubstrateCompletionTraceDetectsIdeals} --- \emph{then} $\Tinf$ is
+simple, hence (Theorem~\ref{thm:faithful-of-simple}) $\tuhf$ is faithful.
+
+\subsection{The four-fold equivalence (r108): locating the mountain}\label{sec:tfae}
+
+Could trace-detection be discharged directly? The formalized answer is a
+sharp \emph{no}: it is not a weaker waypoint but a restatement of the
+summit.
+
+\begin{theorem}[\lt{traceDetects\_tfae}]\label{thm:tfae}
+For the algebra $\Tinf$, the following are equivalent:
+\begin{enumerate}[label=\textup{(\arabic*)}, itemsep=1pt]
+\item \emph{trace-detection}: every two-sided ideal $I \ne \bot$ contains
+  an $x$ with $\tuhf(x) \ne 0$;
+\item $\lt{traceNullTwoSidedIdeal} = \bot$;
+\item \emph{faithfulness}: $\tuhf(x^*x) = 0 \Rightarrow x = 0$;
+\item \emph{simplicity}: every two-sided ideal of $\Tinf$ is $\bot$ or
+  $\top$.
+\end{enumerate}
+The cycle is
+$(4) \Rightarrow (3)$ \textup{(Theorem~\ref{thm:faithful-of-simple})},
+$(3) \Rightarrow (2)$ \textup{(\lt{traceNull\_eq\_bot\_of\_faithful})},
+$(2) \Rightarrow (1)$ \textup{(\lt{traceDetects\_of\_traceNull\_eq\_bot})},
+$(1) \Rightarrow (4)$ \textup{(\S\ref{sec:avgK})}, formalized with
+mathlib's \texttt{List.TFAE}.
+\end{theorem}
+
+Theorem~\ref{thm:tfae} is the honest obstruction map: no hypothesis
+genuinely weaker than faithfulness itself can close the loop, and the
+classical hard input --- Glimm's theorem, or something of equal strength
+--- is really required. The same development also probed the classical
+spectral-projection route (producing, from a nonzero selfadjoint element
+of an ideal, a nonzero projection in the ideal via the continuous
+functional calculus) and formalized exactly where it stalls in the
+non-unital cfc setting; the reusable API built for that probe is described
+in \S\ref{sec:formathlib}. The route that succeeded is different, and is
+the subject of the next section.
+
+%% =====================================================================
+\section{The conditional expectation and the faithfulness proof}\label{sec:condexp}
+%% =====================================================================
+
+The closing argument constructs the canonical conditional expectation
+onto each finite level, proves two contraction properties for it by
+elementary means, extends it to the completion, and derives faithfulness
+from the reconstruction property $E_k x \to x$. Simplicity then follows
+through Theorem~\ref{thm:tfae}. Throughout, $n = 3^k$.
+
+\subsection{The partial trace $E_k$ (r109)}\label{sec:Ek}
+
+Under the identification
+$M_{3^{n+1}}(\mathbb{C}) \cong M_{3^n}(\mathbb{C}) \otimes M_3(\mathbb{C})$
+furnished by \lt{levelStepEquiv}, the single-step partial trace
+$\mathrm{id} \otimes \tau_3$ is, entrywise,
+\[
+(\mathcal{E} B)_{ij} \;=\; \frac{1}{3}\sum_{t=0}^{2}
+B_{(i,t),(j,t)}
+\qquad (\text{Lean: } \lt{partialTraceStep}),
+\]
+where $(i,t)$ abbreviates $\mathrm{levelStepEquiv}\,(i,t)$. Iterating
+$j - k$ steps gives
+$\lt{partialTraceDown} \colon M_{3^j} \to M_{3^k}$ for $k \le j$, and
+descending through single-level representatives defines
+\[
+E_k \colon \varinjlim_m A_m \longrightarrow M_{3^k}(\mathbb{C})
+\qquad (\text{Lean: } \lt{condExp}).
+\]
+The kernel-verified properties are exactly those of a trace-preserving
+conditional expectation onto the level-$k$ corner:
+
+\begin{theorem}[Properties of $E_k$]\label{thm:Ek}
+$E_k$ is additive and $\mathbb{C}$-homogeneous, unital, star-preserving,
+inverts the embedding on the level-$k$ corner
+\textup{(\lt{condExp\_level\_k}: $E_k(\iota_k A) = A$, and more generally
+\lt{condExp\_lower\_level} for levels $m \le k$)}, and is
+trace-preserving: $\tau_{3^k}(E_k x) = \tau_{\mathrm{pre}}(x)$
+\textup{(\lt{condExp\_normalized\_trace})}.
+\end{theorem}
+
+\subsection{The $\|\cdot\|_2$-contraction, elementarily (r110)}\label{sec:l2}
+
+The first analytic requirement is the contraction of $E_k$ in the trace
+$2$-seminorm:
+\begin{equation}\label{eq:l2}
+\operatorname{Re}\tau_{3^k}\bigl((E_k x)^*(E_k x)\bigr)
+\;\le\;
+\operatorname{Re}\tau_{\mathrm{pre}}(x^*x)
+\qquad (\text{Lean: } \lt{condExp\_l2\_contraction}).
+\end{equation}
+Classically \eqref{eq:l2} is the Kadison--Schwarz
+inequality~\cite{kadison1952} for the completely positive map $E_k$,
+composed with the trace. Mathlib has neither Kadison--Schwarz nor any
+complete-positivity theory, and formalizing them would have been a
+project in itself. The formalization instead targets the \emph{scalar}
+inequality directly, and it turns out to be elementary. For the single
+step: by finite Cauchy--Schwarz over three terms,
+\[
+\Bigl|\sum_{t=0}^{2} a_t\Bigr|^2 \le 3 \sum_{t=0}^{2}|a_t|^2
+\qquad (\lt{normSq\_sum\_fin3\_le}),
+\]
+so each entry of $\mathcal{E}B$ obeys
+$|(\mathcal{E}B)_{ij}|^2 \le \tfrac{1}{3}\sum_t |B_{(i,t),(j,t)}|^2$.
+Summing over $i, j$, the right-hand side is precisely the
+\emph{diagonal-tail sub-sum} ($s = t$) of
+\[
+\tau_{3^{n+1}}(B^*B) \;=\; \frac{1}{3^{n+1}}
+\sum_{i,s,j,t} \bigl|B_{(j,t),(i,s)}\bigr|^2,
+\]
+all of whose terms are nonnegative; mathlib's
+\lt{Finset.single\_le\_sum} (in its sub-sum form) closes the single-step
+inequality
+$\tau_{3^n}\bigl((\mathcal{E}B)^*(\mathcal{E}B)\bigr) \le
+\tau_{3^{n+1}}(B^*B)$
+(\lt{partialTraceStep\_normSq\_trace\_le}). Iterating through
+\lt{partialTraceDown} and descending to the direct limit gives
+\eqref{eq:l2}. No positive-semidefinite operator theory and no complete
+positivity enter at any point --- a small but genuine discovery of the
+formalization: for trace-compatible partial traces, the scalar
+$2$-norm contraction is a three-line Cauchy--Schwarz fact, and the
+Kadison--Schwarz detour that the textbook proof takes is avoidable.
+
+\subsection{The operator-norm contraction via isometries (r111)}\label{sec:opnorm}
+
+Extending $E_k$ to the completion requires uniform continuity, i.e.\ the
+operator-norm bound $\|E_k x\| \le \|x\|$. Classically this is
+``a unital completely positive map has norm one,'' again unavailable. The
+formalized proof uses the isometry (Stinespring-flavoured
+\cite{stinespring1955}) decomposition of the partial trace. For
+$t \in \{0,1,2\}$ let
+$W_t \colon \mathbb{C}^{3^n} \to \mathbb{C}^{3^{n+1}}$ be the coordinate
+injection $v \mapsto v \otimes e_t$, as a
+$3^{n+1} \times 3^n$ matrix (Lean: \lt{Winj}). Then
+\begin{equation}\label{eq:stinespring}
+\mathcal{E} B \;=\; \frac{1}{3}\sum_{t=0}^{2} W_t^{*}\, B\, W_t
+\qquad (\lt{partialTraceStep\_eq\_smul\_sum}),
+\end{equation}
+and each $W_t$ satisfies $W_t^* W_t = I$
+(\lt{Winj\_conjTranspose\_mul\_self}). The $C^*$-identity for the
+$L^2$-operator norm gives
+$\|W_t\|^2 = \|W_t^*W_t\| = \|I\| \le 1$
+(\lt{Winj\_opNorm\_sq\_le\_one}, using
+\lt{Matrix.l2\_opNorm\_conjTranspose\_mul\_self} and
+\lt{ContinuousLinearMap.norm\_id\_le}), so submultiplicativity and
+$\|W_t^*\| = \|W_t\|$ yield
+$\|W_t^* B W_t\| \le \|B\|$, and averaging over the three slots closes
+\[
+\|\mathcal{E}B\| \le \|B\|
+\qquad (\lt{partialTraceStep\_opNorm\_le}),
+\]
+hence, iterating, $\|E_k x\| \le \|x\|$ (\lt{condExp\_opNorm\_le}).
+Together with additivity this makes $E_k$ $1$-Lipschitz
+(\lt{condExp\_lipschitz}), hence uniformly continuous. The only mathlib
+inputs are four $L^2$-operator-norm lemmas and the norm bound on the
+identity operator; no completely-positive-map theory is used.
+
+\subsection{Extension to the completion and the closing argument (r112)}\label{sec:summit}
+
+Uniform continuity extends $E_k$ to the completion in two guises:
+\begin{align*}
+\lt{condExpFin}\;k &\colon \Tinf \to M_{3^k}(\mathbb{C}),
+& &\text{the matrix-valued extension
+  \lt{UniformSpace.Completion.extension}\,($E_k$)},\\
+\lt{condExpCompletion}\;k &\colon \Tinf \to \Tinf,
+& &\text{its recoordinatization }
+  x \mapsto \iota_k(\lt{condExpFin}\,k\,x) \text{ in } \Tinf,
+\end{align*}
+both $1$-Lipschitz (\lt{condExpFin\_lipschitz},
+\lt{condExpCompletion\_lipschitz}, the latter through the isometry of
+$\iota_k$, Theorem in \S\ref{sec:tower}), and agreeing with $E_k$ on the
+dense image (\lt{condExpFin\_coe}, \lt{condExpCompletion\_coe}). Three
+statements assemble the proof.
+
+\begin{lemma}[Reconstruction: \lt{condExpCompletion\_tendsto}]\label{lem:tendsto}
+For every $x \in \Tinf$,
+$\lt{condExpCompletion}\;k\;x \longrightarrow x$ as $k \to \infty$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+An $\varepsilon/2$ density lift over the uniformly $1$-Lipschitz family:
+approximate $x$ within $\varepsilon/2$ by a dense-image element with
+single-level representative at level $m$; for $k \ge m$ the map
+$\lt{condExpCompletion}\;k$ \emph{fixes} that element
+(\lt{condExpCompletion\_fixes\_coe\_lower}, from
+\lt{condExp\_lower\_level} and the cocone identity), and the Lipschitz
+bound controls the difference at $x$.
+\end{proof}
+
+\begin{lemma}[The lifted $\|\cdot\|_2$-contraction:
+\lt{condExpCompletion\_l2\_contraction}]\label{lem:l2-lift}
+For every $k$ and $x \in \Tinf$,
+\[
+\operatorname{Re}\tuhf\bigl((\lt{condExpCompletion}\,k\,x)^*
+(\lt{condExpCompletion}\,k\,x)\bigr)
+\;\le\;
+\operatorname{Re}\tuhf(x^*x).
+\]
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+The inequality between two continuous real-valued functions of $x$ holds
+on the dense image by \eqref{eq:l2} and the trace bridge
+$\tuhf\bigl((E_kx)^*(E_kx)\bigr) =
+\tau_{3^k}\bigl((\lt{condExpFin}\,k\,x)^*(\lt{condExpFin}\,k\,x)\bigr)$
+(\lt{UHF\_trace\_condExpCompletion}, definitional since
+\lt{condExpCompletion} factors through $\iota_k$); completion induction on
+the closed set $\{x : f(x) \le g(x)\}$ (\lt{isClosed\_le}) transfers it to
+all of $\Tinf$.
+\end{proof}
+
+\begin{lemma}[Matrix faithfulness in real-part form:
+\lt{matrix\_faithful\_of\_re\_nonpos}]\label{lem:re-form}
+If $\operatorname{Re}\tau_n(M^*M) \le 0$ then $M = 0$.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Positivity pins $\tau_n(M^*M)$ to the nonnegative reals; a nonpositive
+real part then forces $\tau_n(M^*M) = 0$, and matrix-tier faithfulness
+$(\Phi 1)$ concludes.
+\end{proof}
+
+\begin{theorem}[The summit: \lt{UHF\_trace\_faithful}]\label{thm:faithful}
+For every $x \in \Tinf$: if $\tuhf(x^*x) = 0$ then $x = 0$. Kernel axiom
+set:
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$;
+zero project axioms.
+\end{theorem}
+
+\begin{proof}
+Suppose $\tuhf(x^*x) = 0$. By Lemma~\ref{lem:l2-lift} and the trace
+bridge, $\operatorname{Re}\tau_{3^k}\bigl((\lt{condExpFin}\,k\,x)^*
+(\lt{condExpFin}\,k\,x)\bigr) \le 0$ for every $k$; by
+Lemma~\ref{lem:re-form}, $\lt{condExpFin}\,k\,x = 0$, hence
+$\lt{condExpCompletion}\,k\,x = 0$, for every $k$. By
+Lemma~\ref{lem:tendsto} the constant-zero sequence
+$\lt{condExpCompletion}\,k\,x$ converges to $x$; uniqueness of limits
+(\lt{tendsto\_nhds\_unique}) gives $x = 0$.
+\end{proof}
+
+\begin{corollary}[Glimm simplicity, machine-checked:
+\lt{substrate\_completion\_simple\_unconditional}]\label{cor:simple}
+Every two-sided ideal of $\Tinf$ is $\bot$ or $\top$.
+\end{corollary}
+
+\begin{proof}
+Theorem~\ref{thm:faithful} is item (3) of the four-fold equivalence
+(Theorem~\ref{thm:tfae}); item (4) follows. In Lean the step is literally
+\lt{traceDetects\_iff\_simple.mp}
+$\circ$ \lt{traceDetects\_iff\_faithful.mpr} applied to
+\lt{UHF\_trace\_faithful}.
+\end{proof}
+
+\begin{remark}
+The classical order of deduction is inverted: Glimm proves simplicity
+first and derives faithfulness of the trace; here faithfulness is proved
+directly through the conditional expectations, and simplicity follows.
+Both directions of the equivalence are formalized, so the classical order
+is also machine-checked --- Theorem~\ref{thm:faithful-of-simple} is
+exactly Glimm's implication. Note also that Corollary~\ref{cor:simple} is
+\emph{algebraic} simplicity (all two-sided ideals, not only closed ones),
+the stronger classical statement, which holds for all UHF
+algebras~\cite{davidson1996}.
+\end{remark}
+
+\begin{remark}[Residuals discharged]
+Theorem~\ref{thm:faithful} discharges, as kernel theorems, every named
+hypothesis left standing earlier in the arc: the conditional-expectation
+extension package
+(\lt{condExpCompletionExtension\_holds}), the r100 completion-faithfulness
+residual
+(\lt{substrate\_UHF\_completion\_positive\_faithfulness}), and
+trace-detection
+(\lt{substrate\_completion\_traceDetectsIdeals}). The capstone theorem
+\lt{r112\_substrate\_completion\_faithful\_capstone} bundles the seven
+statements --- extension, reconstruction, lifted contraction,
+faithfulness, the two residuals, and simplicity --- as a single verified
+conjunction.
+\end{remark}
+
+%% =====================================================================
+\section{Formalization notes}\label{sec:formalization}
+%% =====================================================================
+
+\subsection{Mathlib infrastructure used}
+
+The construction is deliberately mathlib-native; the load-bearing APIs
+were:
+
+\begin{itemize}[itemsep=2pt]
+\item \lt{Ring.DirectLimit} with \lt{DirectLimit.lift} and
+  \lt{DirectLimit.exists\_eq\_mk} (single-level representatives, used in
+  essentially every direct-limit argument);
+\item \lt{UniformSpace.Completion}: \lt{extension},
+  \lt{extension\_coe}, \lt{induction\_on} and \lt{induction\_on}$_2$
+  (closed-set completion induction), \lt{denseRange\_coe},
+  \lt{coe\_isometry};
+\item the scoped $L^2$-operator-norm $C^*$-structure on matrices
+  (\lt{Matrix.Norms.L2Operator}): \lt{l2\_opNorm\_mul},
+  \lt{l2\_opNorm\_conjTranspose},
+  \lt{l2\_opNorm\_conjTranspose\_mul\_self}, \lt{cstar\_norm\_def};
+\item matrix trace and positivity lemmas: \lt{Matrix.trace\_kronecker},
+  \lt{trace\_mul\_comm}, \lt{trace\_conjTranspose},
+  \lt{trace\_diagonal},
+  \lt{trace\_conjTranspose\_mul\_self\_eq\_zero\_iff},
+  \lt{posSemidef\_conjTranspose\_mul\_self},
+  \lt{PosSemidef.trace\_nonneg};
+\item \lt{IsSimpleRing.matrix} and \lt{TwoSidedIdeal} (lattice
+  structure, \lt{mk'}, \lt{eq\_bot\_or\_eq\_top});
+\item roots of unity (\lt{Complex.isPrimitiveRoot\_exp},
+  \lt{IsPrimitiveRoot.pow\_inj}, \lt{geom\_sum\_mul}) for the Weyl
+  engine;
+\item the scoped \texttt{ComplexOrder} with
+  \lt{Complex.orderClosedTopology} (positivity as a closed condition),
+  and \lt{discrim\_le\_zero} (Cauchy--Schwarz);
+\item for the API files of \S\ref{sec:formathlib}: the non-unital
+  continuous functional calculus (\lt{cfc}$_{\mathrm{n}}$,
+  \lt{cfc}$_{\mathrm{n}}$\lt{Hom}), \lt{CStarAlgebra.approximateUnit}, and the
+  Stone--Weierstrass induction principle
+  \lt{ContinuousMapZero.induction\_on\_of\_compact}.
+\end{itemize}
+
+\subsection{Gaps found in mathlib}\label{sec:gaps}
+
+Three absences shaped the mathematics of
+\S\S\ref{sec:engine}--\ref{sec:condexp} and are, we suggest, the natural
+next targets for mathlib's operator-algebra development:
+
+\begin{enumerate}[label=\textbf{(G\arabic*)}, leftmargin=3em, itemsep=3pt]
+\item \textbf{No completely positive map theory.} Mathlib has no notion
+  of complete positivity, no Kadison--Schwarz inequality, no partial
+  trace, and no ``unital CP map has norm one.'' This forced --- and, in
+  the end, rewarded --- the elementary routes of \S\ref{sec:l2}
+  (three-term Cauchy--Schwarz instead of Kadison--Schwarz) and
+  \S\ref{sec:opnorm} (isometry decomposition instead of CP norm theory).
+  The two proofs are shorter than the classical ones and need a fraction
+  of the theory; they may be of expository interest independent of the
+  formalization.
+\item \textbf{No spectral projections.} The Borel functional calculus and
+  spectral projections are absent; the continuous functional calculus
+  exists but produces projections only from \emph{clopen} spectral sets.
+  The Route-A probe of \S\ref{sec:tfae} built exactly that
+  (\S\ref{sec:formathlib}) and identified finite-quasispectrum witnesses
+  as the missing hypothesis --- a wall that the conditional-expectation
+  route then bypassed entirely.
+\item \textbf{No $C^*$-order on completions.} $\Tinf$, built as a
+  \lt{UniformSpace.Completion}, does not automatically carry the
+  \texttt{PartialOrder}/\texttt{StarOrderedRing} structure of a
+  $C^*$-algebra order; positivity of $\tuhf$ was therefore formulated and
+  proved scalar-side, in the \texttt{ComplexOrder} on $\mathbb{C}$,
+  rather than operator-side. An order-instance transfer for completions
+  of normed $*$-algebras would let statements like
+  Theorem~\ref{thm:tracial-state}(v) take their textbook form.
+\end{enumerate}
+
+\subsection{Contributed API: the \texttt{ForMathlib} files}\label{sec:formathlib}
+
+Three standalone files, written to mathlib contribution standards
+(mathlib copyright header, full docstrings, no project dependencies
+beyond one another), were produced during the Route-A probe and are
+offered upstream:
+
+\begin{itemize}[itemsep=3pt]
+\item \lt{PF/ForMathlib/TwoSidedIdealClosure.lean} ---
+  \lt{TwoSidedIdeal.closure}: the topological closure of a two-sided
+  ideal in a (non-unital, non-associative) topological ring is a
+  two-sided ideal, with the expected API (\lt{le\_closure},
+  \lt{closure\_minimal}, \lt{closure\_eq\_of\_isClosed}) and, in a unital
+  topological ring with open unit group (e.g.\ a Banach algebra),
+  properness of the closure of a proper ideal (\lt{closure\_ne\_top}).
+  Mirrors mathlib's \lt{Ideal.closure} for one-sided ideals.
+\item \lt{PF/ForMathlib/CfcMemTwoSidedIdeal.lean} --- the non-unital
+  continuous functional calculus maps into closed two-sided ideals:
+  for $a$ selfadjoint in a closed two-sided ideal $I$ of a non-unital
+  $C^*$-algebra and \emph{any} $f \colon \mathbb{R} \to \mathbb{R}$,
+  $\lt{cfc}_{\mathrm{n}}\,f\,a \in I$
+  (\lt{TwoSidedIdeal.cfc}$_{\mathrm{n}}$\lt{\_mem\_of\_isClosed}), unconditional thanks to
+  the junk-value convention. The proof runs an approximate-unit argument
+  for scalar closure (\lt{smul\_mem\_of\_isClosed}) and Stone--Weierstrass
+  induction over $C(\sigma_{\mathrm{n}}\,\mathbb{R}\,a, \mathbb{R})_0$.
+\item \lt{PF/ForMathlib/ClopenSpectralProjection.lean} ---
+  \lt{spectralProjection}~$a$~$U := \lt{cfc}_{\mathrm{n}}
+  (U.\mathrm{indicator}\,1)\,a$ for $U$ clopen in the quasispectrum with
+  $0 \notin U$: selfadjoint, idempotent, nonzero iff $U$ meets the
+  quasispectrum, and a member of every closed two-sided ideal containing
+  $a$ --- i.e., clopen spectral data away from $0$ manufactures a genuine
+  projection inside a nonzero ideal.
+\end{itemize}
+
+\subsection{Companion result}
+
+The same repository formalizes, independently of everything above, a
+sesquilinear self-adjointness identity for a symmetrised base-3 transfer
+operator on the mathlib Hilbert space $L^2([0,1], dx/x)$
+(theorem \lt{T3\_self\_adjoint\_conj}; see the companion ITP note and
+\cite{cohen2025transferOp}). It shares the base-3 architecture but is
+logically disjoint from the UHF development: neither result uses the
+other. We record it here only for completeness of the repository's
+verified operator-algebra content.
+
+%% =====================================================================
+\section{Reproducibility}\label{sec:reproducibility}
+%% =====================================================================
+
+\paragraph{Pinned toolchain.}
+\begin{description}[font=\normalfont\bfseries,leftmargin=2em,itemsep=2pt]
+\item[Lean toolchain] \texttt{leanprover/lean4:v4.24.0-rc1}
+\item[mathlib revision] commit \texttt{eed770a434957369c6262aa3fb1d6426419016d4}
+\item[Repository] \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}, branch \texttt{master}
+\item[HEAD reference (verified)] \texttt{d5ad2881} (2026-07-23); build and \texttt{\#print axioms} run same-day
+\end{description}
+
+\paragraph{Build commands.}
+\begin{verbatim}
+git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
+cd Principia-Fractalis/PF_Lean4_Code
+elan install $(cat lean-toolchain)
+lake build PF     # 4,471 jobs
+lake build        # 8,928 jobs (adds PF_Lean4Lean re-elaboration)
+\end{verbatim}
+
+\paragraph{Headline theorems and \texttt{\#print axioms} output.}
+The axiom audit blocks at the end of
+\lt{PF/SubstrateCompletionFaithful.lean} (and the corresponding blocks in
+the r102--r111 files) report, for every theorem cited in this paper:
+
+\begin{small}
+\begin{verbatim}
+'PrincipiaTractalis.SubstrateCompletionFaithful.UHF_trace_faithful'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+'PrincipiaTractalis.SubstrateCompletionFaithful.
+  substrate_completion_simple_unconditional'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+
+'PrincipiaTractalis.SubstrateCompletionFaithful.
+  r112_substrate_completion_faithful_capstone'
+  depends on axioms: [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+\end{small}
+
+These are the three standard Lean~4 kernel axioms (propositional
+extensionality, choice, quotient soundness); there are no project-level
+axioms, and zero \texttt{sorry} occurrences on any code path leading to
+the theorems above. The \lt{PF\_Lean4Lean} package (separate
+\texttt{lakefile.toml} and package hash, same pinned mathlib)
+re-elaborates each theorem through the production Lean~4 kernel under a
+distinct package boundary, adding roughly $4{,}400$ further verification
+jobs.
+
+\paragraph{Where to find each result.}
+Table~\ref{tab:files} maps the paper's sections to source files.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Content & Paper & Lean file (under \texttt{PF/}) \\
+\midrule
+Tower, limit, completion, instances & \S\ref{sec:tower} & \lt{Substrate*} (r41--r60 chain) \\
+Tracial state and soft properties & \S\ref{sec:trace} & \lt{SubstrateUHFTraceIs*.lean} \\
+Cauchy--Schwarz for the trace & \S\ref{sec:cs} & \lt{SubstrateUHFTraceCauchySchwarz.lean} \\
+Trace-null ideal; faithful-of-simple & \S\ref{sec:tracenull} & \lt{SubstrateUHFTraceNullIdeal.lean} \\
+Weyl averaging engine & \S\ref{sec:weyl} & \lt{SubstrateMatrixUnitaryAveraging.lean} \\
+Direct-limit simplicity & \S\ref{sec:presimple} & \lt{SubstrateDirectLimitSimplicity.lean} \\
+Completion averaging & \S\ref{sec:avgK} & \lt{SubstrateCompletionSimplicity.lean} \\
+Four-fold equivalence & \S\ref{sec:tfae} & \lt{SubstrateTraceDetectionAttempt.lean} \\
+Conditional expectation $E_k$ & \S\ref{sec:Ek} & \lt{SubstrateConditionalExpectation.lean} \\
+$\|\cdot\|_2$-contraction & \S\ref{sec:l2} & \lt{SubstrateCondExpContraction.lean} \\
+Operator-norm contraction & \S\ref{sec:opnorm} & \lt{SubstrateCondExpOpNorm.lean} \\
+Extension; faithfulness; simplicity & \S\ref{sec:summit} & \lt{SubstrateCompletionFaithful.lean} \\
+Contributed API & \S\ref{sec:formathlib} & \lt{ForMathlib/*.lean} \\
+\bottomrule
+\end{tabular}
+\medskip
+\caption{Section-to-source map.}\label{tab:files}
+\end{table}
+
+%% =====================================================================
+\section{Related and future work}\label{sec:related}
+%% =====================================================================
+
+\subsection{Related work}
+
+Mathlib's $C^*$-algebra hierarchy, continuous functional calculus, matrix
+positivity infrastructure, direct limits, and completions --- all
+community developments, with the functional-analysis foundations described
+in~\cite{dupuis-lewis-macbeth2022} --- are the platform this work builds
+on and would have been impossible without. To our knowledge, however, no
+prior formalization in Lean, Coq, or Isabelle contains a concrete
+infinite-dimensional simple $C^*$-algebra, a canonical faithful tracial
+state on one, or any version of Glimm's simplicity
+theorem~\cite{glimm1960}; we have not attempted a systematic survey of
+every ITP library, and we would welcome correction. On the classical
+side, everything proved here is textbook
+material~\cite{davidson1996, blackadar2006, takesaki1979}: Glimm's
+classification and simplicity~\cite{glimm1960}, Powers' work on the
+associated factors~\cite{powers1967}, Bratteli's AF
+framework~\cite{bratteli1972}, and the conditional-expectation theory of
+Tomiyama~\cite{tomiyama1957} descending from
+Kadison~\cite{kadison1952} and Stinespring~\cite{stinespring1955}. The
+contribution is not new mathematics about $M_{3^\infty}$; it is the first
+machine-checked path to these facts, together with the elementary
+replacement proofs (\S\ref{sec:l2}, \S\ref{sec:opnorm}) that the
+machine-checked setting demanded and produced.
+
+\subsection{Future work}
+
+Natural next steps, roughly in order of proximity:
+
+\begin{itemize}[itemsep=2pt]
+\item \emph{Upstreaming}: the three \texttt{ForMathlib} files
+  (\S\ref{sec:formathlib}), and de-specialising the tower construction
+  from base 3 to an arbitrary supernatural number --- most proofs are
+  already base-generic in structure.
+\item \emph{Uniqueness of the trace}: $\tuhf$ is canonical by
+  construction; formalizing that it is the \emph{only} tracial state on
+  $\Tinf$ (classically via the averaging engine of \S\ref{sec:weyl},
+  which is already formalized) would complete the textbook triple
+  simple/unique-trace/faithful.
+\item \emph{CP-map foundations}: gap (G1) --- partial traces, complete
+  positivity, Kadison--Schwarz --- now has a worked concrete example to
+  test an abstract API against.
+\item \emph{GNS and the hyperfinite II$_1$ factor}: the GNS
+  representation of $\tuhf$, the $\|\cdot\|_2$-completion, and the trace
+  on the double commutant, connecting to the Murray--von Neumann
+  hyperfinite factor~\cite{murray-vonneumann1936, powers1967}.
+\item \emph{Glimm's classification}: isomorphism invariance via the
+  supernatural number, for which the clopen spectral projection API of
+  \S\ref{sec:formathlib} is a first ingredient.
+\end{itemize}
+
+%% =====================================================================
+\section*{Acknowledgments}
+%% =====================================================================
+
+The Lean~4 and mathlib community built the $C^*$-algebra, direct-limit,
+completion, and functional-calculus infrastructure on which every theorem
+in this paper stands.
+
+\begin{thebibliography}{99}
+
+\bibitem{blackadar2006}
+B.~Blackadar.
+\newblock \emph{Operator Algebras: Theory of $C^*$-Algebras and von Neumann Algebras}.
+\newblock Encyclopaedia of Mathematical Sciences 122, Springer, 2006.
+
+\bibitem{bratteli1972}
+O.~Bratteli.
+\newblock Inductive limits of finite dimensional $C^*$-algebras.
+\newblock \emph{Trans. Amer. Math. Soc.}, 171:195--234, 1972.
+
+\bibitem{cohen2025transferOp}
+P.~Cohen.
+\newblock A Modified Transfer Operator Approach to the Riemann Hypothesis: Numerical Evidence and Theoretical Framework.
+\newblock Manuscript, June 12, 2025. Preserved at \texttt{Papers/PriorWork\_Cohen2025\_TransferOperatorRH/} in the source repository.
+
+\bibitem{davidson1996}
+K.~R.~Davidson.
+\newblock \emph{$C^*$-Algebras by Example}.
+\newblock Fields Institute Monographs 6, American Mathematical Society, 1996.
+
+\bibitem{dupuis-lewis-macbeth2022}
+F.~Dupuis, R.~Y.~Lewis, and H.~Macbeth.
+\newblock Formalized functional analysis with semilinear maps.
+\newblock In \emph{13th International Conference on Interactive Theorem Proving (ITP 2022)}, LIPIcs 237, 2022.
+
+\bibitem{glimm1960}
+J.~Glimm.
+\newblock On a certain class of operator algebras.
+\newblock \emph{Trans. Amer. Math. Soc.}, 95:318--340, 1960.
+
+\bibitem{kadison1952}
+R.~V.~Kadison.
+\newblock A generalized Schwarz inequality and algebraic invariants for operator algebras.
+\newblock \emph{Ann. of Math.~(2)}, 56:494--503, 1952.
+
+\bibitem{mathlib2020}
+The mathlib Community.
+\newblock The Lean Mathematical Library.
+\newblock In \emph{Proc.\ CPP 2020}, pages 367--381, 2020.
+
+\bibitem{moura-ullrich2021}
+L.~de Moura and S.~Ullrich.
+\newblock The Lean~4 Theorem Prover and Programming Language.
+\newblock In \emph{CADE 28}, 2021.
+
+\bibitem{murray-vonneumann1936}
+F.~J.~Murray and J.~von Neumann.
+\newblock On rings of operators.
+\newblock \emph{Ann. of Math.~(2)}, 37(1):116--229, 1936.
+
+\bibitem{powers1967}
+R.~T.~Powers.
+\newblock Representations of uniformly hyperfinite algebras and their associated von Neumann rings.
+\newblock \emph{Ann. of Math.~(2)}, 86:138--171, 1967.
+
+\bibitem{stinespring1955}
+W.~F.~Stinespring.
+\newblock Positive functions on $C^*$-algebras.
+\newblock \emph{Proc. Amer. Math. Soc.}, 6:211--216, 1955.
+
+\bibitem{takesaki1979}
+M.~Takesaki.
+\newblock \emph{Theory of Operator Algebras I}.
+\newblock Springer, 1979.
+
+\bibitem{tomiyama1957}
+J.~Tomiyama.
+\newblock On the projection of norm one in $W^*$-algebras.
+\newblock \emph{Proc. Japan Acad.}, 33:608--612, 1957.
+
+\bibitem{weyl1927}
+H.~Weyl.
+\newblock Quantenmechanik und Gruppentheorie.
+\newblock \emph{Zeitschrift f\"ur Physik}, 46:1--46, 1927.
+
+\end{thebibliography}
+
+\end{document}
