@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Principia Fractalis — Machine-Checked UHF Algebra with a Faithful Trace</title>
+<style>
+  :root{
+    --bg:#ffffff; --fg:#1a1a1e; --muted:#5b5b66; --accent:#0b5cad;
+    --card:#f5f6f8; --border:#e3e4e8; --code:#f0f1f4; --ok:#116d3a;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#101014; --fg:#e8e8ec; --muted:#a2a2ad; --accent:#6db3f2;
+           --card:#1a1b21; --border:#2a2b33; --code:#1e1f26; --ok:#4cc38a; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+       background:var(--bg);color:var(--fg);}
+  main{max-width:860px;margin:0 auto;padding:2.5rem 1.25rem 4rem;}
+  h1{font-size:1.7rem;line-height:1.3;margin:.2rem 0 .4rem}
+  h2{font-size:1.2rem;margin-top:2.2rem;border-bottom:1px solid var(--border);padding-bottom:.35rem}
+  a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+  .sub{color:var(--muted)}
+  .badge{display:inline-block;font-size:.78rem;font-weight:600;color:var(--ok);
+         border:1px solid var(--ok);border-radius:999px;padding:.1rem .6rem;margin:.15rem .25rem .15rem 0}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}
+  pre{background:var(--code);border:1px solid var(--border);border-radius:8px;
+      padding: .9rem 1rem;overflow-x:auto;font-size:.85rem;line-height:1.5}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  table{border-collapse:collapse;width:100%;font-size:.92rem}
+  td,th{border:1px solid var(--border);padding:.45rem .6rem;text-align:left;vertical-align:top}
+  .thm{border-left:4px solid var(--accent);padding:.6rem 1rem;background:var(--card);
+       border-radius:0 8px 8px 0;margin:1rem 0}
+  footer{margin-top:3rem;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border);padding-top:1rem}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Principia Fractalis</h1>
+<p class="sub">Pablo Cohen · <a href="https://orcid.org/0009-0002-0734-5565">ORCID 0009-0002-0734-5565</a> ·
+<a href="https://github.com/FractalDevTeam/Principia-Fractalis">github.com/FractalDevTeam/Principia-Fractalis</a></p>
+
+<div>
+  <span class="badge">Lean 4 · mathlib v4.24.0-rc1</span>
+  <span class="badge">kernel axioms: propext · choice · Quot.sound</span>
+  <span class="badge">0 sorries · 0 project axioms</span>
+</div>
+
+<h2>Headline result (kernel-verified, unconditional)</h2>
+
+<p>A machine-checked construction of the uniformly hyperfinite (UHF)
+C*-algebra <em>M</em><sub>3<sup>∞</sup></sub> — the metric completion
+<em>T</em><sub>∞</sub> of the inductive limit of the matrix tower
+<em>M</em><sub>3<sup>k</sup></sub>(ℂ) — together with a canonical tracial
+state τ verified in the Lean 4 kernel to be additive, unital, 1-Lipschitz,
+tracial, Hermitian, positive, and <strong>faithful</strong>:</p>
+
+<div class="thm">
+  τ(x*x) = 0 &nbsp;⟹&nbsp; x = 0 &nbsp; for every x ∈ <em>T</em><sub>∞</sub>
+  &nbsp;&nbsp;<code>UHF_trace_faithful</code>
+</div>
+
+<p>As a corollary the formalization delivers the
+<strong>C*-simplicity of <em>T</em><sub>∞</sub></strong> — every two-sided ideal
+is trivial (Glimm 1960) — as <code>substrate_completion_simple_unconditional</code>.
+To the best of our knowledge (after searching mathlib, the Coq opam archive, and
+the Isabelle AFP), this is the first formalized simplicity theorem for an
+infinite-dimensional C*-algebra and the first machine-checked faithful tracial
+state on one; we welcome pointers to prior art.</p>
+
+<p>The proof routes through a trace-preserving level-k expectation map
+(the tail partial trace), its 2-norm contraction (elementary Cauchy–Schwarz),
+its operator-norm contraction (isometry decomposition), and an ε-density
+limit argument — development arc r102–r112, July 2026.</p>
+
+<h2>Read the paper</h2>
+<div class="card">
+  <strong><a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/Papers/uhf_faithful_trace_glimm_2026-07-23.pdf">
+  A Machine-Checked Construction of the UHF Algebra M<sub>3<sup>∞</sup></sub> with a Faithful
+  Tracial State: Formalizing Glimm Simplicity in Lean 4</a></strong> (PDF, 15 pp)<br>
+  <span class="sub">The canonical write-up: constructions, the faithfulness proof, honest scope notes,
+  and full reproducibility data.</span>
+</div>
+
+<h2>Verify it yourself</h2>
+<p>The result is reproducible from a clean checkout; the kernel — not the author — is the authority.</p>
+<pre><code>git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
+cd Principia-Fractalis/PF_Lean4_Code
+lake build PF          # 4,471 jobs at HEAD d5ad2881
+# then #print axioms UHF_trace_faithful
+#   → [propext, Classical.choice, Quot.sound]</code></pre>
+
+<h2>Repository guide</h2>
+<table>
+  <tr><th>Where</th><th>What</th></tr>
+  <tr><td><a href="https://github.com/FractalDevTeam/Principia-Fractalis/tree/master/PF_Lean4_Code">PF_Lean4_Code/</a></td>
+      <td>The Lean 4 corpus. Headline files: <code>PF/SubstrateCompletionFaithful.lean</code> (r112 summit),
+      <code>PF/SubstrateConditionalExpectation.lean</code>, <code>PF/SubstrateCondExpOpNorm.lean</code>.</td></tr>
+  <tr><td><a href="https://github.com/FractalDevTeam/Principia-Fractalis/tree/master/PF_Lean4_Code/PF/ForMathlib">PF/ForMathlib/</a></td>
+      <td>Three mathlib-ready files (two-sided-ideal closure, cfc into closed ideals, clopen spectral
+      projections), staged for upstream PRs.</td></tr>
+  <tr><td><a href="https://github.com/FractalDevTeam/Principia-Fractalis/tree/master/Papers">Papers/</a></td>
+      <td>The canonical paper (above) and prior-work archive.</td></tr>
+  <tr><td><a href="https://github.com/FractalDevTeam/Principia-Fractalis/tree/master/Principia_Fractalis_master_folder">Principia_Fractalis_master_folder/</a></td>
+      <td>The book (919 pp), with a per-claim machine-verification ledger in Chapter 4.</td></tr>
+  <tr><td><a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/docs/REFEREE_QUICKSTART.md">REFEREE_QUICKSTART.md</a></td>
+      <td>Step-by-step independent verification procedure.</td></tr>
+  <tr><td><a href="https://github.com/FractalDevTeam/Principia-Fractalis/blob/master/README.md">README.md</a></td>
+      <td>Full project overview, including the broader research framework.</td></tr>
+</table>
+
+<h2>Scope, honestly</h2>
+<p>The headline result above is a self-contained operator-algebra theorem, fully
+machine-checked. The repository also contains a broader research framework
+(substrate-level reductions relating to the Clay Millennium problems); those
+reductions are <em>conditional</em> — each names its open hypotheses explicitly —
+and none constitutes a solution to any Millennium problem. The distinction
+between kernel-verified theorems and named open hypotheses is maintained
+throughout the corpus.</p>
+
+<footer>
+  Principia Fractalis · CC BY-NC 4.0 · Updated 2026-07-23 at HEAD <code>d5ad2881</code>-series ·
+  <a href="https://github.com/FractalDevTeam/Principia-Fractalis">source</a>
+</footer>
+
+</main>
+</body>
+</html>
