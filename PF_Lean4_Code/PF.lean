@@ -918,6 +918,7 @@ import PF.SubstrateCompletionFaithful  -- r112: SUMMIT — UHF_trace faithfulnes
 import PF.ForMathlib.TwoSidedIdealClosure  -- mathlib PR-1
 import PF.ForMathlib.CfcMemTwoSidedIdeal  -- mathlib PR-2
 import PF.ForMathlib.ClopenSpectralProjection  -- mathlib PR-3
+import PF.SubstrateTraceUniqueness  -- r113: uniqueness of the substrate UHF trace -> T_inf is the Glimm 3^inf UHF factor
 
 /-!
 ## Principia Fractalis Formal Verification
