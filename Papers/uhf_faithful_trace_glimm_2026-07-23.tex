@@ -6,10 +6,10 @@
 %% Lean 4 over mathlib.
 %%
 %% All mathematical claims below are either (a) kernel-verified Lean 4
-%% theorems at HEAD d5ad2881 (2026-07-23), axioms [propext,
+%% theorems at HEAD 91cc1a01 (2026-07-23), axioms [propext,
 %% Classical.choice, Quot.sound], zero project axioms, zero sorries, or
 %% (b) standard cited literature. Verified build data: lake build PF =
-%% 4471 jobs, lake build (full) = 8928 jobs, mathlib pin eed770a4,
+%% 4472 jobs, lake build (full) = 8930 jobs, mathlib pin eed770a4,
 %% toolchain leanprover/lean4:v4.24.0-rc1.
 
 \documentclass[11pt,a4paper]{amsart}
@@ -74,14 +74,19 @@ a canonical tracial state $\tuhf$ on $\Tinf$ that is kernel-verified to be
 additive, unital, $1$-Lipschitz, tracial, Hermitian, positive, and
 \emph{faithful}: $\tuhf(x^*x) = 0 \Rightarrow x = 0$ for every $x \in \Tinf$.
 As a corollary we obtain a machine-checked proof that $\Tinf$ is
-algebraically simple --- every two-sided ideal is $\bot$ or $\top$. To the
-best of our knowledge, after searching the major proof-assistant libraries
-(mathlib, the Coq \texttt{opam} archive, and the Isabelle Archive of Formal
-Proofs) and the formalization literature, this is the first formalization
-of Glimm's 1960 simplicity theorem for a UHF algebra~\cite{glimm1960} and
-the first machine-checked construction of an infinite-dimensional simple
-$C^*$-algebra with a canonical faithful trace; we have not performed an
-exhaustive survey and would welcome pointers to prior art.
+algebraically simple --- every two-sided ideal is $\bot$ or $\top$. We
+further prove that $\tau_{\mathsf{UHF}}$ is the \emph{unique} continuous
+unital tracial functional on $\Tinf$ (theorem
+\lt{substrate\_UHF\_trace\_unique}; positivity is not required). Faithfulness,
+simplicity, and uniqueness of the trace together identify $\Tinf$ as the
+Glimm $3^\infty$ UHF factor. To the best of our knowledge, after searching
+the major proof-assistant libraries (mathlib, the Coq \texttt{opam} archive,
+and the Isabelle Archive of Formal Proofs) and the formalization literature,
+this is the first formalization of Glimm's 1960 simplicity theorem for a UHF
+algebra~\cite{glimm1960} and the first machine-checked construction of an
+infinite-dimensional simple $C^*$-algebra with a canonical faithful and
+unique trace; we have not performed an exhaustive survey and would welcome
+pointers to prior art.
 
 \smallskip
 
@@ -175,6 +180,13 @@ zero project-level axioms, and zero \texttt{sorry}s, of:
   the major proof-assistant libraries and literature (see the priority
   note in \S\ref{sec:related}) --- this is the first formalized simplicity
   theorem for an infinite-dimensional $C^*$-algebra.
+\item \textbf{Uniqueness of the trace}: $\tau_{\mathsf{UHF}}$ is the unique
+  continuous unital tracial functional on $\Tinf$ (theorem
+  \lt{substrate\_UHF\_trace\_unique}, \S\ref{sec:condexp}); the argument
+  requires only linearity, the trace identity, unitality, and continuity,
+  not positivity. Together with faithfulness and simplicity this identifies
+  $\Tinf$ as the Glimm $3^\infty$ UHF factor
+  (\lt{r113\_substrate\_UHF\_factor\_capstone}).
 \item \textbf{The proof machinery itself}, novel as formalized content: a
   Cauchy--Schwarz inequality for the trace sesquilinear pairing; the
   trace-null set as a mathlib-native \texttt{TwoSidedIdeal}; a discrete
@@ -987,6 +999,44 @@ faithfulness, the two residuals, and simplicity --- as a single verified
 conjunction.
 \end{remark}
 
+\subsection{Uniqueness of the trace (r113)}\label{sec:uniqueness}
+
+The same conditional-expectation machinery yields the third leg of the
+classical UHF identification: $\tau_{\mathsf{UHF}}$ is the \emph{only}
+tracial state on $\Tinf$. We package the hypotheses as a predicate
+\lt{IsTracialState}\,$\varphi$ requiring $\varphi$ to be continuous,
+additive, $\mathbb{C}$-homogeneous, unital ($\varphi(1)=1$), and tracial
+($\varphi(xy)=\varphi(yx)$); positivity is deliberately omitted.
+
+\begin{theorem}[Uniqueness of the substrate trace]\label{thm:unique}
+For every $\varphi$ with \lt{IsTracialState}\,$\varphi$ and every
+$x \in \Tinf$, $\varphi(x) = \tau_{\mathsf{UHF}}(x)$
+\textup{(\lt{substrate\_UHF\_trace\_unique})}. Kernel axioms
+$[\texttt{propext},\texttt{Classical.choice},\texttt{Quot.sound}]$.
+\end{theorem}
+
+The proof is the standard argument, formalized in three steps. \emph{Finite
+level:} any additive, $\mathbb{C}$-homogeneous, unital, tracial functional
+on $M_n(\mathbb{C})$ equals the normalized trace
+(\lt{matrix\_tracial\_state\_unique}) --- the off-diagonal matrix units are
+commutators $E_{ij} = [E_{ik},E_{kj}]$ and hence annihilated, while the
+diagonal units are cyclic-conjugate and hence equal, so $\varphi$ is pinned
+to $\varphi(1)/n$ times the trace; unitality fixes the constant. Mathlib
+does not carry this lemma, so it is proved directly from
+\lt{Matrix.single} identities and \lt{matrix\_eq\_sum\_single}. \emph{Level
+lift:} for $x = \iota_k(A)$, $\varphi \circ \iota_k$ is such a functional,
+so $\varphi(x) = \tau_{3^k}(A) = \tau_{\mathsf{UHF}}(x)$. \emph{Density
+lift:} $\varphi$ and $\tau_{\mathsf{UHF}}$ are continuous and agree on the
+dense direct-limit image, so they agree everywhere
+(\lt{isClosed\_eq} on the completion, exactly as in
+\S\ref{sec:summit}).
+
+Combining Theorem~\ref{thm:faithful}, the simplicity corollary, and
+Theorem~\ref{thm:unique}, the capstone
+\lt{r113\_substrate\_UHF\_factor\_capstone} records that $\Tinf$ is a
+faithful, simple, uniquely-traced UHF $C^*$-algebra --- i.e.\ the Glimm
+$3^\infty$ UHF factor.
+
 %% =====================================================================
 \section{Formalization notes}\label{sec:formalization}
 %% =====================================================================
@@ -1116,7 +1166,7 @@ verified operator-algebra content.
 \item[Lean toolchain] \texttt{leanprover/lean4:v4.24.0-rc1}
 \item[mathlib revision] commit \texttt{eed770a434957369c6262aa3fb1d6426419016d4}
 \item[Repository] \href{https://github.com/FractalDevTeam/Principia-Fractalis}{\texttt{github.com/FractalDevTeam/Principia-Fractalis}}, branch \texttt{master}
-\item[HEAD reference (verified)] \texttt{d5ad2881} (2026-07-23); build and \texttt{\#print axioms} run same-day
+\item[HEAD reference (verified)] \texttt{91cc1a01} (2026-07-23); build and \texttt{\#print axioms} run same-day
 \end{description}
 
 \paragraph{Build commands.}
@@ -1124,8 +1174,8 @@ verified operator-algebra content.
 git clone https://github.com/FractalDevTeam/Principia-Fractalis.git
 cd Principia-Fractalis/PF_Lean4_Code
 elan install $(cat lean-toolchain)
-lake build PF     # 4,471 jobs
-lake build        # 8,928 jobs (adds PF_Lean4Lean re-elaboration)
+lake build PF     # 4,472 jobs
+lake build        # 8,930 jobs (adds PF_Lean4Lean re-elaboration)
 \end{verbatim}
 
 \paragraph{Headline theorems and \texttt{\#print axioms} output.}
