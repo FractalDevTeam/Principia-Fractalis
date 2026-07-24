@@ -12,7 +12,7 @@ In this chapter, we confront cosmology's deepest crisis: the cosmological consta
 \item Connect to the "why now?" coincidence problem
 \end{itemize}
 
-\textbf{Note}: This chapter builds on the modified Einstein equations from Chapter \ref{ch:field-equations}. The solution presented here is not speculative—it is a mathematical consequence of treating consciousness as a fundamental field with critical threshold ch$_2 = 0.95$.
+\textbf{Note}: This chapter builds on the modified Einstein equations from Chapter \ref{ch:field-equations}. The solution presented here is not speculative—it is a mathematical consequence of treating consciousness as a fundamental field with critical threshold ch$_2 = 0.95$. \emph{Honest scope (2026-07-23): the phrase ``not speculative'' applies only \textbf{conditionally} --- given the postulate that consciousness is a fundamental field with threshold $0.95$. That postulate is itself an untested empirical hypothesis, and the numerical match below is a fit, not an independent derivation (see the Verification status ledger at the end of the chapter).}
 \end{chapterobjectives}
 
 \section{Introduction: The Vacuum Catastrophe}
@@ -257,6 +257,8 @@ Numerically:
 \end{equation}
 
 \textbf{This matches observations exactly!}
+
+\noindent\emph{Honest scope (2026-07-23): the match is \textbf{engineered, not derived}. The first pass of this proof reaches ``barely any suppression''; the coherence volume $V_{\text{eff}}$ is then introduced precisely so the exponent lands at $\sim10^{128}$ and reproduces the known $10^{-120}$. Because the observed target sets the construction, this is a fit to a known value, not an independent first-principles prediction. It is not machine-verified.}
 \end{proof}
 
 \begin{remark}[Interpretation]
@@ -493,6 +495,35 @@ We have shown that the cosmological constant problem has a definite solution:
 The "worst prediction in physics" was never wrong. We were measuring in the wrong frame—the \textit{conscious} frame.
 
 \textbf{Next}: Chapter \ref{ch:dark-energy-expansion} applies this framework to Hubble expansion, dark energy equation of state, and structure formation with consciousness.
+
+\paragraph{Verification status (2026-07-23).}
+Measured against the machine-checked corpus, the principal claims of this chapter
+are empirical or definitional --- not derivations of physical fact:
+\begin{itemize}
+\item \textbf{EMPIRICAL HYPOTHESIS --- untested / not independently validated} ---
+  that consciousness exponentially suppresses the vacuum energy,
+  $\Lambda_{\text{eff}}=\Lambda_0\exp[-\text{ch}_2\cdot V]$, producing the observed
+  $\rho_\Lambda\approx10^{-29}$ g/cm$^3$. No observation attributes dark energy to
+  consciousness; the mechanism awaits (and may not admit) an experimental test.
+\item \textbf{DEFINITIONAL, not predictive} --- the claim that the observed value is
+  ``derived from first principles.'' In the Lean corpus the only certified statement
+  of this kind is a \emph{bracket inequality} (e.g.\ $0.65<\Omega_\Lambda<0.75$,
+  theorem \texttt{darkEnergyDensity\_in\_bracket}) which holds \emph{because the
+  constant is defined to lie in that range}. It is arithmetic about a chosen
+  constant, not a prediction of the cosmological constant.
+\item \textbf{ASSERTED / fitted} --- the $120$-orders suppression and the exponent
+  $\sim10^{128}$ (Thm~\ref{thm:cosmic-suppression}). As flagged inline, the
+  derivation first yields negligible suppression, then inserts a coherence volume
+  chosen so the product returns $10^{-120}$; the target sets the construction.
+\item \textbf{ASSERTED (numerology)} --- ch$_2=0.95=6/\pi^2+\epsilon_{\text{quantum}}$
+  (Prop.~\ref{prop:095-coincidence}). The remainder
+  $\epsilon_{\text{quantum}}\approx0.342$ is chosen to reach $0.95$; the identity is
+  not derived from the coprimality probability $6/\pi^2\approx0.6079$.
+\item \textbf{EMPIRICAL HYPOTHESIS --- untested} --- the $99.6\%$ ``computational
+  agreement'' (Thm~\ref{thm:computational-lambda}). This compares the model's own
+  lattice realization to itself; it is not an independent confrontation with data
+  and is not machine-verified.
+\end{itemize}
 
 \section*{Exercises}
 

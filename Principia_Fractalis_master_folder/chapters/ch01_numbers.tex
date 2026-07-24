@@ -1164,6 +1164,14 @@ Let $S_k = \sum_{n=1}^{3^k} D_3(n)$ be the sum of all digital sums up to $3^k$. 
 
 \textbf{Next:} In Section 1.5, we'll explore practical applications of $D_3(n)$ in computer science, cryptography, and number theory, and preview how it connects to the resonance function in Chapter 3.
 
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the honest status of its principal claims:
+\begin{itemize}
+\item \textbf{STANDARD MATHEMATICS} --- the scaling law $D_3(3^k n) = D_3(n)$ (Theorem~\ref{thm:d3-scaling}), the recursive/addition identities, and the base-$b$ digit-sum congruence $n \equiv D_b(n) \pmod{b-1}$ with its base-3 parity specialization (Theorem~\ref{thm:digital-sum-modular}, Theorem~\ref{thm:parity-rule}) are classical elementary number theory. The proofs given here are correct and complete; they are ``standard-by-reference'' rather than part of the project's Lean~4 kernel corpus, which formalizes the operator-algebra substrate (Chapter~\ref{ch:timeless-field}), not base-3 digit arithmetic.
+\item \textbf{STANDARD MATHEMATICS} --- the self-similar/``fractal'' description of $D_3(n)$ and its logarithmic growth $\max_{m\le n} D_3(m)\sim 2\log_3 n$ are elementary consequences of the base-3 representation; the fractal language is descriptive, not a claim requiring machine verification.
+\item \textbf{ASSERTED (framework interpretation)} --- the previewed claim that $D_3$ is the ``seed'' of a resonance function that ``solves the Millennium Problems'' is a thesis about later chapters, not a result of this chapter; its status is treated where those claims are made (see the corresponding chapters' verification ledgers).
+\end{itemize}
+
 % End of Section 1.4
 
 % ========================================

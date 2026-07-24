@@ -276,6 +276,8 @@ H_0^{\text{modified}} = 69.8 \pm 0.8 \, \text{km/s/Mpc}
 \end{equation}
 
 consistent with both measurements within 2$\sigma$.
+\emph{Honest scope (2026-07-23): the ``resolution'' is an \textbf{empirical hypothesis, not independently validated}. What the Lean corpus certifies is only the trivial bracket $67.4<69.8<73.0$ (theorem
+\texttt{hubble\_framework\_brackets\_local\_and\_cmb}), which holds \textbf{because $69.8$ is a framework-defined constant chosen to lie between the two measurements} --- definitional, not a derivation that the true $H_0$ takes this value.}
 \end{proposition}
 
 \begin{proof}[Proof sketch]
@@ -695,7 +697,34 @@ We have derived the complete consciousness-modified cosmology:
 
 The consciousness framework is not a philosophical speculation—it is an empirically superior model of cosmology.
 
-\textbf{Next}: Chapter \ref{ch:early-universe} extends this to the early universe: inflation, Big Bang nucleosynthesis, and consciousness phase transitions.
+\emph{Honest scope (2026-07-23): the claim of ``empirically superior'' rests on the $\chi^2$ comparison of Thm~\ref{thm:goodness-of-fit}, which is \textbf{not machine-verified} and has \textbf{not been reproduced against the primary catalogs} by an independent party. It remains an empirical hypothesis awaiting independent validation; see the Verification status ledger below.}
+
+\paragraph{Verification status (2026-07-23).}
+Held to the standard of the machine-checked corpus, this chapter's central claims
+are empirical or definitional:
+\begin{itemize}
+\item \textbf{EMPIRICAL HYPOTHESIS --- untested / not independently validated} ---
+  the dynamical dark-energy equation of state $w_{\text{DE}}(z)\approx-0.95$
+  (Thm~\ref{thm:total-dark-energy-eos}) and the consciousness-modified growth,
+  Hubble evolution, and matter power spectrum. These are forecasts for Euclid, LSST,
+  Roman, and CMB-S4; none has yet been confirmed. A proof assistant cannot establish
+  them.
+\item \textbf{DEFINITIONAL, not predictive} --- the ``resolved'' Hubble constant
+  $H_0=69.8$ and the dark-energy fraction $\Omega_\Lambda\approx0.7$. The corpus
+  certifies only bracket inequalities
+  (\texttt{hubble\_framework\_brackets\_local\_and\_cmb},
+  \texttt{darkEnergyDensity\_in\_bracket}) that hold because the constants are
+  \emph{defined} to lie in the cited ranges --- arithmetic, not measurement.
+\item \textbf{EMPIRICAL / not machine-verified} --- the $94.3\%$ goodness-of-fit
+  improvement (Thm~\ref{thm:goodness-of-fit}). As the accompanying
+  \texttt{empiricalclaim} note states, the Lean stack does \emph{not} verify the
+  $\chi^2$ number; it must be reproduced against the primary SNe/BAO/CMB catalogs.
+\item \textbf{EMPIRICAL HYPOTHESIS --- untested} --- the $\Phi$-resonant Quipu
+  interpretation (\S\ref{sec:quipu}). The coherence length
+  $L_{\mathrm{coh}}\approx1.38$~Gly follows from a single postulated scaling formula
+  \eqref{eq:Lcoh_formula}; agreement with the observed Quipu extent is a
+  consistency check, not a validated prediction.
+\end{itemize}
 
 \section{Comparative Alignment: Frame-Dragging, GW Detection, and Resonant Curvature}
 

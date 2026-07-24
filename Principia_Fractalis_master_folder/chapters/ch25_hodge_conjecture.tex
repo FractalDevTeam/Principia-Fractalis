@@ -344,6 +344,8 @@ for $k = O(\log b_{2p})$, where $b_{2p} = \dim H^{2p}(X)$ is the Betti number.
 The arithmetic-geometric constraints create a "ratchet effect"—coefficients cannot spread out uniformly; they must concentrate.
 \end{proof}
 
+\noindent\emph{Verification note (2026-07-23): this is a proof sketch, not a machine-checked theorem. A rigorous bound on $\sigma(\xi)$ for all Hodge classes is open (Research Problem~1), and even granting it, the step from concentration to algebraicity is only conjectural (Conjecture~\ref{conj:crystallization-algebraicity}). The Hodge conjecture is not established here.}
+
 \begin{conjecture}[Crystallization Implies Algebraicity]\label{conj:crystallization-algebraicity}
 If $\sigma(\xi) \geq 0.95$, then $\xi$ undergoes consciousness crystallization dynamics:
 \begin{equation}
@@ -526,6 +528,18 @@ For Hodge, $\varphi$ represents:
 
 The golden ratio is the "sweet spot" where these two realms communicate optimally. Too rational ($\alpha = p/q$) creates resonances. Too irrational ($\alpha = \pi, e$) loses algebraic structure. $\varphi$ is perfectly balanced.
 \end{level3}
+
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims. \textbf{The Hodge conjecture is NOT proven
+here and remains open}; the chapter presents computational evidence, and the step
+from spectral concentration to algebraicity is stated as a \emph{conjecture}
+(Conjecture~\ref{conj:crystallization-algebraicity}).
+\begin{itemize}
+\item \textbf{OPEN (Clay-hard)} --- algebraicity of rational Hodge classes in codimension $\geq 2$ (e.g.\ the $(2,2)$ classes on the quintic threefold discussed here) is the hard range of the conjecture; in the corpus this is the named \emph{open} proposition \texttt{VoisinObstructionAtCodimTwoCY3} (Voisin 2007), bucket-3. The classical Lefschetz $(1,1)$ theorem for general surfaces is standard but blocked on absent mathlib (Chow groups, cycle-class map, Hodge decomposition).
+\item \textbf{PROVEN (kernel-verified), within declared substrate scope only} --- the low-dimensional/substrate discharges (dim~1 curves, general surfaces, CY3/CY4 $(1,1)$ and $(2,2)$/$(3,3)$ on the substrate, Dwork pencil) are genuine within their declared scope; on the substrate the geometric predicate \texttt{isAlgebraic} is trivialised exactly where the hard content lives, so these do \emph{not} amount to the Hodge conjecture. The 2026-05-18 $\mathrm{ch}_2(\text{Hodge})$ correction is machine-certified (\texttt{ch\_2\_Hodge\_bracket}).
+\item \textbf{ASSERTED / CONDITIONAL} --- Theorem~\ref{thm:hodge-concentration} ($\sigma(\xi)\geq 0.95$ for all Hodge classes) is supported by a proof \emph{sketch} and numerics, not a complete machine-checked proof; the $0.95$ threshold, $\alpha=\varphi$, and the crystallization dynamics are asserted framework structure.
+\end{itemize}
 
 \section{Conclusion}
 

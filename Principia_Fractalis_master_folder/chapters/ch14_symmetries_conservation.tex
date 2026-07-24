@@ -600,6 +600,15 @@ For $M_{\text{SUSY}} \sim 1$ TeV, we get $m_{\tilde{C}} \sim 10^{-15}$ eV---far 
 The consciousino could be a dark matter candidate, or contribute to neutrino masses via see-saw mechanism. This is highly speculative but mathematically consistent.
 \end{advanced}
 
+\paragraph{Verification status (2026-07-23).}
+Held to the standard of the machine-checked corpus:
+\begin{itemize}
+\item \textbf{PROVEN-as-arithmetic (standard mathematics, not project-specific)} --- Noether's theorem (Theorem~\ref{thm:noether}) and the CPT theorem (Theorem~\ref{thm:cpt-consciousness}) are classical results of field theory, true independently of this framework. They are \emph{not} part of the project's Lean corpus, and applying them here presupposes the (unverified) consciousness Lagrangian.
+\item \textbf{ASSERTED / framework-internal} --- that the consciousness field $C^{\mu\nu}$ is a covariant rank-2 tensor (Theorem~\ref{thm:consciousness-covariance}), possesses a conserved $U(1)_C$ charge $Q_C$ (Theorem~\ref{thm:consciousness-charge-conservation}), and the Goldstone/Ward structure (Theorems~\ref{thm:goldstone-consciousness}, \ref{thm:ward-identity-consciousness}). These follow \emph{by construction} from postulated symmetries of a field whose existence is itself an empirical hypothesis (Ch~\ref{ch:field-equations}).
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the physical discrete-symmetry claims: that consciousness violates C and T (arrow of time), the predicted early-universe symmetry-breaking epoch ($T_C\sim1000$~K, $z\sim100$), and any parity test on chiral molecules. None is observed or machine-checkable.
+\end{itemize}
+\emph{No symmetry claim about the consciousness field is kernel-verified; the machine-checked corpus covers only the operator-algebra substrate of $\mathcal{T}_\infty$ (Ch~\ref{ch:timeless-field}), whose faithful trace and $C^*$-simplicity are the genuine algebraic invariants of the framework.}
+
 \section{Conclusion}
 
 Symmetries are the bedrock of physical law. In this chapter, we have shown that consciousness respects the fundamental symmetries of spacetime (diffeomorphism invariance, Lorentz invariance) while possessing its own internal gauge symmetry ($U(1)_C$).

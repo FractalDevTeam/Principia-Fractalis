@@ -429,6 +429,13 @@ In this chapter, we established the analytic framework for all downstream proofs
 \item Connect the nonlinearity of winding to the separation of P and NP
 \end{itemize}
 
-The key insight: \textit{nonlinearity under winding} (Lemma~\ref{lem:frac-nonlinear}) is not a technical detail—it is the mathematical reason why nondeterministic computation cannot be efficiently simulated by deterministic algorithms.
+The key insight: \textit{nonlinearity under winding} (Lemma~\ref{lem:frac-nonlinear}) is not a technical detail—it is the mathematical reason why nondeterministic computation cannot be efficiently simulated by deterministic algorithms. \emph{(Honest scope: this is a statement of the framework's programme, not a theorem established here or in the machine-checked corpus; see the Verification status note below and Chapter~\ref{ch:p-vs-np}.)}
+
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus:
+\begin{itemize}
+\item \textbf{STANDARD MATHEMATICS} --- every theorem in this chapter (Cauchy--Goursat, the Cauchy integral formula, Morera, Liouville, Schwarz, the identity and monodromy theorems, the winding action $\Log z \mapsto \Log z + 2\pi i m$, the nonlinearity of $w^{s-1}$ under winding for $s\notin\Z$ (Lemma~\ref{lem:frac-nonlinear}), the polylogarithm singular expansion (Theorem~\ref{thm:Li-expansion}) and its monodromy (Corollary~\ref{cor:Li-monodromy}), and Abel's theorem) is classical complex analysis. These are correct, standard results proved or cited by reference; none is part of --- nor needs to be part of --- the project's Lean~4 kernel corpus.
+\item \textbf{CONDITIONAL REDUCTION / ASSERTED} --- the interpretive claim that this analytic nonlinearity ``is the mathematical reason'' that $P\neq NP$ is \emph{not} established in this chapter and does not follow from these lemmas alone. The lemmas are true; the bridge from ``fractional powers are nonlinear under winding'' to ``nondeterministic computation cannot be efficiently simulated'' is the open content of Chapter~\ref{ch:p-vs-np}, where it rests on unproven framework hypotheses. Treat the winding/complexity link as an asserted programme, not a proof.
+\end{itemize}
 
 % End of Chapter 2

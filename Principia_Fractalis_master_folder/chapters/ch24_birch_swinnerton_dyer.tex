@@ -535,6 +535,19 @@ Consider the curve with conductor $N_E = 234446$, known to have $\rank E(\Q) = 3
 \item \textbf{Precision}: $|\lambda_1 - \varphi/e| < 10^{-9}$, $|\lambda_2 - \varphi/e| < 10^{-9}$, $|\lambda_3 - \varphi/e| < 10^{-9}$
 \end{itemize}
 
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims. \textbf{The Birch--Swinnerton-Dyer
+conjecture is NOT proven here and remains open}; the chapter presents
+computational evidence, and its central rank formula is stated as a
+\emph{conjecture} (Conjecture~\ref{conj:rank-equality-fractal}).
+\begin{itemize}
+\item \textbf{OPEN (Clay-hard)} --- the actual BSD statement, analytic rank $=$ Mordell--Weil rank on real elliptic curves (\texttt{Clay\_BSD\_Standard}), is bucket-3. The golden-threshold rank mechanism ($\varphi/e$) is not machine-checked and does not close it.
+\item \textbf{PROVEN (kernel-verified), narrow scope} --- the Lean stack verifies only the rank-blind concordance on a $\mathrm{Fin}\,6$ LMFDB-restricted encoding and the rank-1 Heegner cascade on $E_{37\mathrm{a}1}$/$E_{43\mathrm{a}1}$ (\texttt{BSD\_HeegnerRank1Proof} / \texttt{...E43a1}), and those are \emph{conditional on Gross--Zagier and Kolyvagin}. It does \emph{not} verify the empirical 100\% success rate across the Cremona sample.
+\item \textbf{CONDITIONAL REDUCTION} --- the analytic scaffold rests on two named subsidiary hypotheses: \texttt{LSeriesAbsConvergenceForReSGreaterThanThreeHalves} (standard, from the Hasse bound; a clean brick) and \texttt{WilesModularityImpliesAnalyticContinuation} (true mathematics, but a multi-year Wiles formalisation absent from mathlib). Neither discharges BSD.
+\item \textbf{ASSERTED / EMPIRICAL} --- the value $\alpha=3\pi/4$, the golden threshold $\varphi/e$, the fractal $\Sha$ bound (Theorem~\ref{thm:fractal-bound-sha}), and the consciousness-threshold figures are asserted framework structure or numerics, not derived.
+\end{itemize}
+
 \section{Conclusion}
 
 We have presented computational evidence for the Birch and Swinnerton-Dyer conjecture through fractal resonance:

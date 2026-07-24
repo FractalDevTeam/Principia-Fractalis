@@ -440,6 +440,8 @@ All non-trivial zeros of the Riemann zeta function lie on the critical line $\Re
 Follows from Theorem \ref{thm:spectral-rigidity} and the 150-digit numerical verification of the eigenvalue-zero correspondence for $N = 20$. Completion requires extending to the $N \to \infty$ limit.
 \end{proof}
 
+\noindent\emph{Honest-scope note (2026-07-23): this ``resolution'' is a conditional substrate-level reduction, not a Clay-form proof of RH. It rests on the open propositions \texttt{HilbertPolyaProgramConjecture\_Positive} and \texttt{RHSpectralSurjectivityConjecture} together with a finite-$N$ numerical correspondence; the literal Riemann Hypothesis is not established here and remains open. See the Verification status ledger later in this chapter.}
+
 \subsection{Prime Number Distribution}
 
 The explicit formula for the prime counting function becomes:
@@ -503,9 +505,24 @@ The substrate self-corroboration finding is that constructions (2) and (3), comp
 \textbf{Honest caveats.} Hermitian symmetrisation $(T + T^*)/2$ is applied to the finite truncation (standard for truncated self-adjoint operators; the infinite-dimensional $\tilde{T}_3^{\textsf{sym}}$ is self-adjoint by Theorem~\ref{thm:self-adjoint-transfer} above, but the sin-ONB finite truncation has boundary defect that requires explicit symmetrisation). Individual-class $\Delta$'s exhibit finite-truncation eigenvalue-permutation as more eigenvalues emerge with $N$ (RH/QG drifted up at $N = 2000$ before re-tightening at $N = 5000$; Hodge drifted up at $N = 5000$ from its $N = 2000$ $10^{-4}$ landing, then re-tightened at $N = 15000$ back into the $10^{-3}$ tier). The \emph{aggregate} 10-class error $\Delta_{\Sigma}$ is monotone in $N$ (0.089 $\to$ 0.032 $\to$ 0.023 $\to$ 0.0118 across N=600 $\to$ 2000 $\to$ 5000 $\to$ 15000; 87\% cumulative reduction). \textbf{This is not a proof of the $\alpha$-skeleton}; the substrate's algebraic scaffolding (Construction~1) is uniqueness modulo external physics-derived anchors, not an independent derivation. It is a substrate self-corroboration finding that Constructions~(2) and (3) --- operator spectrum + universal coupling, both independent of the algebraic scaffolding --- deliver the same 9-tuple that the scaffolding declares, with null-test verification (canonical at 1.5--9.0 percentile of the uniform-random-target null across the full 7-point trajectory $N = 600 \to 15000$, bottom decile at every tested $N$ including the headline $N = 15000$) establishing signal above density-artifact baseline at every tested truncation.
 \end{level2}
 
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims. \textbf{The literal Riemann Hypothesis is
+NOT proven here and remains open}; nothing in this chapter closes it in the Clay
+sense. What the formal corpus establishes is a machine-checked \emph{conditional
+reduction} plus a few substrate-level facts:
+\begin{itemize}
+\item \textbf{CONDITIONAL REDUCTION} --- the implication ``if the $\tilde{T}_3^{\textsf{sym}}$ spectrum realises the $\zeta$-zeros, then RH'' is machine-checkable, but its antecedent is the named \emph{open} proposition \texttt{HilbertPolyaProgramConjecture\_Positive} (the statement \texttt{PF\_T3SymIsHilbertPolyaOperator\_Positive} $\to$ \texttt{RiemannHypothesis}). Establishing that antecedent \emph{is} the Hilbert--P\'olya programme, i.e.\ it is RH; it is bucket-3 (Clay-open) in the residual triage.
+\item \textbf{CONDITIONAL REDUCTION} --- the eigenvalue/zero correspondence depends on \texttt{RHSpectralSurjectivityConjecture} (every critical-strip $\zeta$-zero lies in the image of the $\tilde{T}_3^{\textsf{sym}}$ spectral map), which the source file itself flags as ``comparable in depth to RH.'' Open.
+\item \textbf{PROVEN (kernel-verified), but off the Clay path} --- self-adjointness of the finite $\tilde{T}_3^{\textsf{sym}}$ truncation on $L^2([0,1],dx/x)$, and countability of the on-line zero ordinates (\texttt{PositiveOnLineZetaZeroOrdinatesCountable}, discharged unconditionally in Wave~59 from mathlib's analytic identity theorem). These are genuine but do not move the Clay bar.
+\item \textbf{CONDITIONAL (classically true, unformalised)} --- existence of at least one on-line zero (\texttt{PositiveOnLineZetaZeroOrdinatesNonempty}) is classically true (Hardy 1914) but is not in mathlib and is not machine-checked here.
+\item \textbf{ASSERTED (not derived)} --- the RH-class value $\alpha = 3/2$ and the scaling factor $\alpha^\ast = 5\times 10^{-6}$ are chosen/empirical (\texttt{EmpiricalAlphaIdentificationHypothesis}), matched to numerics, not derived from first principles.
+\end{itemize}
+
 \section{Conclusion}
 
 We have presented a resolution of the Riemann Hypothesis through Fractal Resonance Mathematics:
+\emph{(Honest-scope note, 2026-07-23: ``resolution'' here means a conditional, substrate-level reduction --- machine-checked modulo the named open propositions \texttt{HilbertPolyaProgramConjecture\_Positive} and \texttt{RHSpectralSurjectivityConjecture} --- not a Clay-form proof. RH remains open.)}
 
 \begin{itemize}
 \item \textbf{Constructed} a self-adjoint operator $\tilde{T}_3$ whose eigenvalues correspond to Riemann zeros

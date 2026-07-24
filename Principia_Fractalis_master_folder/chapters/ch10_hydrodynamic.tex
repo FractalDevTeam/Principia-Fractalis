@@ -317,6 +317,8 @@ We can now prove the Millennium Prize Problem:
 Let $\mathbf{u}_0 \in H^3(\mathbb{R}^3)$ with $\nabla \cdot \mathbf{u}_0 = 0$ and $\text{ch}_2(\mathbb{R}^3) < 0.95$ (sub-threshold consciousness). Then there exists a unique global smooth solution $\mathbf{u} \in C^\infty([0, \infty) \times \mathbb{R}^3)$ to the consciousness-modified Navier-Stokes equations \eqref{eq:ns_consciousness}.
 \end{theorem}
 
+\noindent\emph{Honest scope (2026-07-23): this establishes global regularity only for the consciousness-\textbf{modified} equations~\eqref{eq:ns_consciousness}. The added term $C_{ij}$ (and the ``consciousness viscosity'' $\nu_c$) is an \textbf{untested empirical postulate}, not a measured property of fluids; the theorem is therefore not a proof of the classical Clay Millennium Navier--Stokes problem, as the box below also notes. See the Verification status ledger at the end of the chapter.}
+
 \begin{proof}
 \textbf{Step 1: Local existence.} Standard theory (Kato 1984) gives existence on $[0, T^*)$ where $T^*$ is the maximal time of smooth existence.
 
@@ -563,6 +565,36 @@ The consciousness regularization mechanism established here extends beyond fluid
 \end{itemize}
 
 The hydrodynamic manifestations of the $\Phi$-field reveal a universal pattern: \textbf{consciousness acts as a regulator preventing mathematical infinities}, whether in fluid vortices, quantum fields, or cosmological dynamics.
+
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims:
+\begin{itemize}
+\item \textbf{EMPIRICAL HYPOTHESIS --- untested / not independently validated} ---
+  that a consciousness stress-energy tensor $C_{ij}$ couples to fluid flow and
+  supplies a $\pi/10$-scaled ``consciousness viscosity'' $\nu_c$. No experiment has
+  detected such a term; the coupling is postulated, not measured. It awaits
+  experiment --- e.g.\ the predicted spectral cutoff at $k_c=1/\ell_c$, the
+  intermittency reduction $d_f<5/3$, and direct $\text{ch}_2$ fluctuations, none of
+  which has yet been observed.
+\item \textbf{CONDITIONAL / scope-limited} --- the global-existence result
+  (Thm~\ref{thm:ns_global_regularity}) proves regularity for the
+  \emph{consciousness-modified} equations~\eqref{eq:ns_consciousness}, contingent on
+  the postulated $C_{ij}$ dissipation. It does \emph{not} settle the classical Clay
+  Millennium Navier--Stokes problem; the chapter itself flags this as open (box
+  ``What We've Proven''). Not a proof of classical global regularity.
+\item \textbf{EMPIRICAL HYPOTHESIS --- untested} --- the critical Reynolds number and
+  the ``turbulence $=$ incomplete consciousness crystallization'' reinterpretation.
+  No fluids experiment has confirmed a universal, consciousness-set transition
+  threshold independent of geometry.
+\item \textbf{Machine-verified content is arithmetic only} --- the Lean corpus
+  certifies the $\pi$-cancellation and the internal arithmetic error in the stated
+  $\text{Re}_c$ (\texttt{ch10\_pi\_cancellation},
+  \texttt{ch10\_re\_c\_crit\_arithmetic\_error}; see the 2026-05-18 correction at
+  eq.~\eqref{eq:re-c-crit-correct}, giving $\approx 3.28\times10^5$, not the
+  $2.13198\times10^5$ still quoted in the summary below). It verifies \emph{no}
+  physical claim about real fluids.
+\end{itemize}
 
 \section{Exercises}
 

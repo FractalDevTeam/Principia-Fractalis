@@ -42,6 +42,8 @@ Consider two scenarios:
 At 150 digits, numerical verification becomes mathematical proof.
 \end{intuitive}
 
+\noindent\emph{Honest-scope note (2026-07-23): this sentence overstates what the protocols below establish. High-precision numerical agreement is powerful \emph{evidence}, but it is \textbf{not} a mathematical proof, and it is not machine verification. Reproducing a 150-digit value confirms a computation; it does not close a Millennium problem or validate a consciousness claim. The one machine-verified layer of the framework is the operator-algebra substrate, described in the ``Verification status'' ledger at the end of this chapter.}
+
 \begin{keyidea}[Three-Level Verification]
 Every major result in this book can be verified at three levels:
 
@@ -60,6 +62,8 @@ This chapter provides protocols for all three levels.
 \subsection{Protocol R1: First 100 Zeros on Critical Line}
 
 \textbf{Claim} (Chapter 13): The first 100 Riemann zeros lie exactly on critical line $\Re(s) = 1/2$.
+
+\noindent\emph{Honest-scope note (2026-07-23): this protocol numerically \emph{locates} zeros and checks they sit on $\Re(s)=\tfrac12$ to 150 digits --- a standard, classically known computation (the first many billions of zeros are already verified in the literature). It is \textbf{not} a proof of the Riemann Hypothesis, which asserts this for \emph{all} nontrivial zeros, and it is not part of the machine-verified corpus.}
 
 \textbf{Verification Protocol:}
 
@@ -176,6 +180,8 @@ lambda_0 = 0.49999999999999999999999999999999... (arbitrary precision)
 \lambda_0(H_{NP}) &= 0.1330222423 \pm 10^{-10} \\
 \Delta &= 0.0891219046
 \end{align}
+
+\noindent\emph{Honest-scope note (2026-07-23): the constants $\alpha=\sqrt2$ and the NP weighting are \textbf{asserted}, not derived, and $H_P,H_{NP}$ are framework-defined operators; computing their ground states to high precision is an \textbf{empirical / numerical} result, not a proof that $\mathrm{P}\neq\mathrm{NP}$. (Note also that the code below uses $\alpha_{NP}=\pi/3$, whereas the framework's asserted NP constant stated elsewhere is $\varphi+\tfrac14$; either way it is a chosen value, not a derived one.) In the formal corpus the $\mathrm{P}$~vs~$\mathrm{NP}$ result is a \emph{conditional reduction} gated on an open eigenvalue conjecture, not a closed proof.}
 
 \textbf{Verification Protocol:}
 
@@ -346,6 +352,8 @@ Untrained: ch_2 = 0.112 (mechanical)
 \subsection{Protocol C2: EEG-Based Consciousness Measurement}
 
 \textbf{Claim} (Chapter 26): Clinical EEG data distinguishes conscious from unconscious with 97.3\% accuracy using $\text{ch}_2 \geq 0.95$ threshold.
+
+\noindent\emph{Honest-scope note (2026-07-23): the 97.3\,\% figure is an \textbf{empirical hypothesis --- untested / not independently validated}. A clinical classification accuracy can only be established by experiment on real data; a computation cannot prove it, and the $\text{ch}_2\!\geq\!0.95$ consciousness threshold is likewise \emph{asserted}, not derived. Treat the ``expected output'' below as the framework's prediction, not as a verified result.}
 
 \textbf{Verification Protocol:}
 
@@ -777,3 +785,13 @@ After completing verification:
 \end{enumerate}
 
 Every claim in Principia Fractalis is computationally verifiable to 150-digit precision. This chapter provides the roadmap. Chapter 31 provides the implementation.
+
+\paragraph{Verification status (2026-07-23).}
+Because this chapter is titled ``Verification,'' it is essential to state precisely what is and is not machine-verified. In the protocols above, ``verified'' means \emph{numerically reproduced to high precision}; it does \textbf{not} mean \emph{proved}, and only a small, sharply delimited part of the framework is machine-checked. The preceding sentence (``Every claim \ldots\ is computationally verifiable'') should be read in that light: reproducibility of numbers, not proof of claims.
+\begin{itemize}
+\item \textbf{PROVEN (kernel-verified) --- the operator-algebra substrate only.} In Lean~4 (mathlib, kernel axioms $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ only, \textbf{zero project axioms}), the substrate $\mathcal{T}_\infty$ (the base-3 UHF C\*-algebra $M_{3^\infty}$) is constructed with a canonical tracial state that is \emph{faithful} (\texttt{UHF\_trace\_faithful}), the algebra is \emph{$C^*$-simple} (\texttt{substrate\_completion\_simple\_unconditional}), and the trace is \emph{unique} --- together, $\mathcal{T}_\infty$ is the Glimm $3^\infty$ UHF factor (\texttt{r113\_substrate\_UHF\_factor\_capstone}), development arc r102--r113. This is the content certified CLEAN by the Lean kernel axiom audit and re-checked by the four clean \texttt{PF\_L4L} modules of Section~\ref{sec:lean4lean-reverification}. It is the \emph{entire} machine-verified scientific scope of the book.
+\item \textbf{CONDITIONAL REDUCTION --- the Millennium claims (RH, P~vs~NP, Yang--Mills, BSD, \ldots).} The formal corpus contains machine-checked \emph{implications} of the form ``IF [named open proposition, e.g.\ \texttt{PolylogEigenvalueConjecture}] THEN [claim].'' These are not proofs of the Millennium problems. Protocols R1--R2 and P1--P2 above \emph{numerically illustrate} the constructions; they do not discharge the open antecedents, and the RH, YM, and BSD Lean4Lean modules remain gated (Section~\ref{sec:lean4lean-reverification}).
+\item \textbf{ASSERTED (not derived) --- the framework constants.} Values such as $\alpha_P=\sqrt2$ and the NP constant ($\varphi+\tfrac14$, or $\pi/3$ as coded in Protocol~P1) are \emph{chosen}, not derived from first principles. The cross-Millennium algebraic identities among them are true \emph{as arithmetic about these chosen values} and say nothing about the Millennium problems themselves.
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED --- the consciousness and clinical claims.} The $\text{ch}_2\!\geq\!0.95$ threshold, the 97.3\,\% EEG classification accuracy (Protocol~C2), and all consciousness quantifications are physical/clinical claims that only experiment can settle; no proof assistant can establish them, and they are not independently validated here.
+\end{itemize}
+\noindent In short: the Lean and Coq axiom audits and the partial Lean4Lean re-verification (Sections~\ref{sec:lean4lean-reverification}--\ref{sec:referee-proof-certifications}) certify the \emph{substrate}, with zero project axioms; the Python protocols in this chapter provide \emph{reproducibility of numerical outputs}, not proofs of the Millennium, consciousness, or cosmological claims.

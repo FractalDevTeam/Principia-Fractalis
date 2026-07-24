@@ -32,6 +32,8 @@ Example: Computing the first Riemann zero at $\rho_1 = \frac{1}{2} + 14.134725\l
 At 150 digits, the probability of a false positive (random accident appearing as a zero) is less than $10^{-150}$—smaller than the number of atoms in the observable universe.
 \end{intuitive}
 
+\noindent\emph{Honest-scope note (2026-07-23): high precision shrinks the chance that a numerical near-coincidence is mistaken for an exact value, but it does not by itself constitute a mathematical proof. A 150-digit agreement is strong numerical \emph{evidence} for a stated value; it is not a kernel-checked theorem. The only chapter content in this book that is machine-verified (Lean~4, zero project axioms) is the operator-algebra substrate of Chapter~\ref{ch:timeless-field}; the numerical methods below are standard, correct classical algorithms applied to quantities the framework defines. See the ``Verification status'' ledger at the end of this chapter.}
+
 Standard floating-point arithmetic uses IEEE 754 double precision:
 \begin{equation}
 \text{double}: \quad 1 \text{ sign bit} + 11 \text{ exponent bits} + 52 \text{ mantissa bits} = 64 \text{ bits}
@@ -423,3 +425,11 @@ All results in this book were computed to 150-digit precision using these method
 \end{center}
 
 All code examples in Chapter 31 use these libraries, available open-source.
+
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the honest status of its principal content:
+\begin{itemize}
+\item \textbf{PROVEN (kernel-verified)} --- none of \emph{this} chapter's specific numerical outputs. The only machine-verified results in the book are the operator-algebra substrate theorems (Lean~4, mathlib, kernel axioms $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ only, zero project axioms): $\mathcal{T}_\infty$ is the Glimm $3^\infty$ UHF factor with a faithful, unique tracial state and $C^*$-simplicity (development arc r102--r113). Those live in Chapter~\ref{ch:timeless-field}, not here.
+\item \textbf{Standard classical methodology (correct, by reference).} The algorithms in this chapter --- the power method, inverse iteration, implicitly restarted Arnoldi, Euler--Maclaurin and Riemann--Siegel evaluation of $\zeta$, Gauss--Kronrod and Filon quadrature, interval arithmetic, and Richardson extrapolation --- are textbook numerical analysis. They are correct as described and are not novel claims of the framework; the convergence and complexity statements (e.g.\ Theorems~\ref{thm:arith-complexity}, \ref{thm:power-convergence}, \ref{thm:ritz}) are classical.
+\item \textbf{EMPIRICAL / numerical (not a proof).} Every framework-specific number these methods produce --- ground-state gaps of $H_P, H_{NP}$, the exponent $d_H=\sqrt{2}$, spectral-density integrals, consciousness $\text{ch}_2$ values --- is a numerical output of an \emph{asserted} construction, computed to high precision. High-precision agreement is evidence, not proof: it neither derives the underlying constants from first principles nor settles the associated Millennium or consciousness claims, which a proof assistant alone cannot establish.
+\end{itemize}
