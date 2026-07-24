@@ -702,11 +702,16 @@ For every $x \in \Tinf$ and $\varepsilon > 0$ there is $k$ with
 $\bigl\| \operatorname{avg}_k(x) - \tuhf(x)\cdot 1 \bigr\| < \varepsilon$.
 \end{theorem}
 
-Since two-sided ideals absorb each conjugate, $\operatorname{avg}_k$
-preserves ideals; if an ideal $I$ contains an element $x$ with
-$\tuhf(x) \ne 0$, then Theorem~\ref{thm:avgk} with
-$\varepsilon = \|\tuhf(x)\|$ combined with a Neumann-series invertibility
-argument forces $1 \in I$. This proves
+Since two-sided ideals absorb each conjugate, $\operatorname{avg}_k(x) \in
+I$ whenever $x \in I$. Suppose $I$ contains an $x$ with $c := \tuhf(x) \ne
+0$. Theorem~\ref{thm:avgk} at $\varepsilon = \|c\|$ gives
+$\|1 - c^{-1}\operatorname{avg}_k(x)\| < 1$, so $c^{-1}\operatorname{avg}_k(x)$
+is invertible by the Neumann series. An invertible element of an ideal
+forces $1 \in I$: multiply it by its inverse, which lies in the whole
+algebra, and the product stays in $I$ because $I$ absorbs multiplication.
+No closure of $I$ is used --- $\operatorname{avg}_k(x)$ is a finite average,
+a genuine element of $I$ --- so the argument holds for algebraic, not only
+closed, two-sided ideals. This proves
 (\lt{completion\_twoSidedIdeal\_bot\_or\_top\_of\_traceDetects}):
 \emph{if} every nonzero two-sided ideal of $\Tinf$ contains an element of
 nonzero trace --- the hypothesis named
@@ -756,27 +761,37 @@ The closing argument constructs the canonical conditional expectation
 onto each finite level, proves two contraction properties for it by
 elementary means, extends it to the completion, and derives faithfulness
 from the reconstruction property $E_k x \to x$. Simplicity then follows
-through Theorem~\ref{thm:tfae}. Throughout, $n = 3^k$.
+through Theorem~\ref{thm:tfae}. We write $\tau_{3^k}$ for the normalized
+trace on $A_k = M_{3^k}(\mathbb{C})$.
 
 \subsection[The partial trace E\_k (r109)]{The partial trace $E_k$ (r109)}\label{sec:Ek}
 
 Under the identification
-$M_{3^{n+1}}(\mathbb{C}) \cong M_{3^n}(\mathbb{C}) \otimes M_3(\mathbb{C})$
+$M_{3^{k+1}}(\mathbb{C}) \cong M_{3^k}(\mathbb{C}) \otimes M_3(\mathbb{C})$
 furnished by \lt{levelStepEquiv}, the single-step partial trace
-$\mathrm{id} \otimes \tau_3$ is, entrywise,
+$\mathrm{id} \otimes \tau_3 \colon A_{k+1} \to A_k$ is, entrywise,
 \[
 (\mathcal{E} B)_{ij} \;=\; \frac{1}{3}\sum_{t=0}^{2}
 B_{(i,t),(j,t)}
 \qquad (\text{Lean: } \lt{partialTraceStep}),
 \]
 where $(i,t)$ abbreviates $\mathrm{levelStepEquiv}\,(i,t)$. Iterating
-$j - k$ steps gives
-$\lt{partialTraceDown} \colon M_{3^j} \to M_{3^k}$ for $k \le j$, and
-descending through single-level representatives defines
+gives $\lt{partialTraceDown} \colon A_j \to A_k$ for $k \le j$.
+
+These maps are compatible with the inductive system: $\mathcal{E}$
+inverts a single embedding ($\mathcal{E}(A \otimes I_3) = A$,
+\lt{partialTraceStep\_substrateEmbedMatrix}), so for $k \le j \le j'$ the
+iterated partial trace $A_{j'} \to A_k$ factors through $A_j$ and agrees
+with the level-$j$ map on the image of the embedding. Consequently the
+level maps descend, by the universal property of the direct limit, to a
+single well-defined map
 \[
 E_k \colon \varinjlim_m A_m \longrightarrow M_{3^k}(\mathbb{C})
-\qquad (\text{Lean: } \lt{condExp}).
+\qquad (\text{Lean: } \lt{condExp}),
 \]
+with $E_k[\![(j,A)]\!] = \lt{partialTraceDown}\,(A)$ independent of the
+chosen single-level representative. This quotient-invariance is the one
+nontrivial well-definedness check behind the properties recorded below.
 The kernel-verified properties are the trace-preserving retraction
 properties needed for the faithfulness argument below; we call $E_k$ the
 \emph{level-$k$ expectation map}. We emphasize that the full abstract
@@ -823,14 +838,14 @@ $|(\mathcal{E}B)_{ij}|^2 \le \tfrac{1}{3}\sum_t |B_{(i,t),(j,t)}|^2$.
 Summing over $i, j$, the right-hand side is precisely the
 \emph{diagonal-tail sub-sum} ($s = t$) of
 \[
-\tau_{3^{n+1}}(B^*B) \;=\; \frac{1}{3^{n+1}}
+\tau_{3^{k+1}}(B^*B) \;=\; \frac{1}{3^{k+1}}
 \sum_{i,s,j,t} \bigl|B_{(j,t),(i,s)}\bigr|^2,
 \]
 all of whose terms are nonnegative; mathlib's
 \lt{Finset.single\_le\_sum} (in its sub-sum form) closes the single-step
 inequality
-$\tau_{3^n}\bigl((\mathcal{E}B)^*(\mathcal{E}B)\bigr) \le
-\tau_{3^{n+1}}(B^*B)$
+$\tau_{3^k}\bigl((\mathcal{E}B)^*(\mathcal{E}B)\bigr) \le
+\tau_{3^{k+1}}(B^*B)$
 (\lt{partialTraceStep\_normSq\_trace\_le}). Iterating through
 \lt{partialTraceDown} and descending to the direct limit gives
 \eqref{eq:l2}. No positive-semidefinite operator theory and no complete
@@ -848,9 +863,9 @@ operator-norm bound $\|E_k x\| \le \|x\|$. Classically this is
 formalized proof uses the isometry (Stinespring-flavoured
 \cite{stinespring1955}) decomposition of the partial trace. For
 $t \in \{0,1,2\}$ let
-$W_t \colon \mathbb{C}^{3^n} \to \mathbb{C}^{3^{n+1}}$ be the coordinate
+$W_t \colon \mathbb{C}^{3^k} \to \mathbb{C}^{3^{k+1}}$ be the coordinate
 injection $v \mapsto v \otimes e_t$, as a
-$3^{n+1} \times 3^n$ matrix (Lean: \lt{Winj}). Then
+$3^{k+1} \times 3^k$ matrix (Lean: \lt{Winj}). Then
 \begin{equation}\label{eq:stinespring}
 \mathcal{E} B \;=\; \frac{1}{3}\sum_{t=0}^{2} W_t^{*}\, B\, W_t
 \qquad (\lt{partialTraceStep\_eq\_smul\_sum}),
@@ -1006,7 +1021,11 @@ classical UHF identification: $\tau_{\mathsf{UHF}}$ is the \emph{only}
 tracial state on $\Tinf$. We package the hypotheses as a predicate
 \lt{IsTracialState}\,$\varphi$ requiring $\varphi$ to be continuous,
 additive, $\mathbb{C}$-homogeneous, unital ($\varphi(1)=1$), and tracial
-($\varphi(xy)=\varphi(yx)$); positivity is deliberately omitted.
+($\varphi(xy)=\varphi(yx)$); positivity is deliberately omitted. The Lean
+name retains ``State'' for continuity with the source; since positivity is
+dropped, the predicate is properly that of a continuous unital tracial
+\emph{functional}, and the theorem is correspondingly stronger than
+uniqueness among states.
 
 \begin{theorem}[Uniqueness of the substrate trace]\label{thm:unique}
 For every $\varphi$ with \lt{IsTracialState}\,$\varphi$ and every
@@ -1201,7 +1220,10 @@ the r102--r111 files) report, for every theorem cited in this paper:
 These are the three standard Lean~4 kernel axioms (propositional
 extensionality, choice, quotient soundness); there are no project-level
 axioms, and zero \texttt{sorry} occurrences on any code path leading to
-the theorems above. The \lt{PF\_Lean4Lean} package (separate
+the theorems above. The development is classical, not constructive: choice
+enters through mathlib's extension of uniformly continuous maps to a
+completion (\lt{UniformSpace.Completion.extension}) and the universal
+property of the direct limit, both used pervasively here. The \lt{PF\_Lean4Lean} package (separate
 \texttt{lakefile.toml} and package hash, same pinned mathlib)
 re-elaborates each theorem through the production Lean~4 kernel under a
 distinct package boundary, adding roughly $4{,}400$ further verification
@@ -1217,7 +1239,7 @@ Table~\ref{tab:files} maps the paper's sections to source files.
 \toprule
 Content & Paper & Lean file (under \texttt{PF/}) \\
 \midrule
-Tower, limit, completion, instances & \S\ref{sec:tower} & \lt{Substrate*} (r41--r60 chain) \\
+Tower, limit, completion, instances & \S\ref{sec:tower} & \lt{SubstrateBase3Embed.lean}, \lt{SubstrateDirectLimit.lean}, \lt{SubstrateTimelessFieldCompletion.lean} \\
 Tracial state and soft properties & \S\ref{sec:trace} & \lt{SubstrateUHFTraceIs*.lean} \\
 Cauchy--Schwarz for the trace & \S\ref{sec:cs} & \lt{SubstrateUHFTraceCauchySchwarz.lean} \\
 Trace-null ideal; faithful-of-simple & \S\ref{sec:tracenull} & \lt{SubstrateUHFTraceNullIdeal.lean} \\
