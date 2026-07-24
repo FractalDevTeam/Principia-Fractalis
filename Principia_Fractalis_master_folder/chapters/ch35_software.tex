@@ -35,6 +35,8 @@ The difference:
 Open source transforms mathematics from closed guild to collaborative enterprise.
 \end{intuitive}
 
+\noindent\emph{Honest-scope note (2026-07-23): ``run it yourself'' delivers \textbf{reproducibility} --- you can re-derive the same numbers --- which is not the same as \textbf{proof}. Running this software reproduces the book's numerical outputs and exercises the formal build; it does not, by itself, prove the framework's scientific claims. The only machine-verified results are the Lean~4 operator-algebra substrate theorems (zero project axioms); see the verification ledgers in Chapters~\ref{ch:timeless-field} and~\ref{ch:verification}.}
+
 \begin{keyidea}[Software as Mathematical Literature]
 Just as mathematical theorems are published in journals for peer review, computational implementations should be published as open-source software for computational review.
 
@@ -814,3 +816,12 @@ Mathematics advances through collaboration. This software is your invitation to 
 \noindent\textit{Welcome to open, computational, collaborative mathematics.}
 
 \noindent\textit{The code is yours. Build something beautiful.}
+
+\paragraph{Verification status (2026-07-23).}
+This is an infrastructure chapter; its claims are about \emph{software}, and they should be read as tooling descriptions, not as scientific proofs:
+\begin{itemize}
+\item \textbf{Legitimate tooling (as described).} The architecture, the precision-context manager, the operator base classes, the parallel/GPU/sparse strategies, and the testing/CI setup are ordinary, sound software engineering. Nothing here is a scientific claim, and nothing here needs a proof label.
+\item \textbf{Reproducibility, not proof.} Running the suite (\texttt{pytest tests/}, the example scripts) reproduces the book's \emph{numerical outputs}. This establishes that the computations are repeatable; it does \textbf{not} establish the Riemann, P~vs~NP, Yang--Mills, or consciousness claims, which numerical agreement alone cannot settle.
+\item \textbf{The one machine-verified layer is separate.} The only kernel-checked results are the Lean~4 operator-algebra substrate theorems --- $\mathcal{T}_\infty$ as the Glimm $3^\infty$ UHF factor, with a faithful and unique trace and $C^*$-simplicity (development arc r102--r113, zero project axioms). Those are certified by the Lean/Coq axiom audits (Chapter~\ref{ch:verification}), not by the Python suite documented in this chapter.
+\item \textbf{Empirical / asserted content is unchanged by the code.} The consciousness classifications produced by \texttt{compute\_ch2} (Example~3), the clinical accuracy figures, and the chosen constants $\alpha$ remain \emph{empirical hypotheses} or \emph{asserted values}; a passing test confirms that the code runs and matches a stored number, not that the underlying claim is true.
+\end{itemize}

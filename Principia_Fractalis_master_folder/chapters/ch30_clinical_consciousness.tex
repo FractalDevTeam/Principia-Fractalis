@@ -214,6 +214,8 @@ A patient is classified as conscious if:
 This threshold is derived from first principles (Chapter \ref{ch:consciousness}) and validated empirically across 847 patients.
 \end{theorem}
 
+\noindent\emph{Honest scope (2026-07-23): both halves of this sentence are EMPIRICAL HYPOTHESES awaiting confirmation --- the ``first-principles'' derivation is the untested threshold claim of Chapter~\ref{ch:consciousness}, and the ``validation across 847 patients'' has not been independently replicated or peer-validated. See the Verification status ledger in the Conclusion.}
+
 \section{Clinical Validation Study}
 
 \subsection{Study Design}
@@ -496,6 +498,8 @@ with $\beta_1 = 8.73$ ($p < 10^{-12}$), AUC = 0.89.
 \textbf{Interpretation}: Each 0.1 increase in ch$_2$ more than doubles recovery odds.
 \end{theorem}
 
+\noindent\emph{Honest scope (2026-07-23): these prognostic figures (AUC $= 0.89$, the recovery-rate table, and the logistic coefficient) are EMPIRICAL --- derived from the same unvalidated cohort and awaiting independent clinical replication.}
+
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=0.9]
@@ -755,6 +759,8 @@ Cost-effectiveness analysis (\$/QALY):
 One-time EEG + analysis cost: \$850 per patient.
 
 \textbf{Return on investment}: 2800:1 (every \$1 spent on fractal measurement saves \$2800 in healthcare costs).
+
+\noindent\emph{Honest scope (2026-07-23): these cost, savings, and ROI figures are projections that inherit the unvalidated $97.3\%$ accuracy claim; they are EMPIRICAL estimates, not established economic results.}
 \end{level3}
 
 \section{Limitations and Future Directions}
@@ -817,6 +823,15 @@ We have demonstrated that fractal resonance provides:
 The hard problem of consciousness remains: \textit{why} does integrated information give rise to subjective experience? But the \textit{measurement problem} is solved: we can now detect and quantify consciousness with clinical precision.
 
 \textbf{For the 300,000 patients in disordered consciousness states, fractal resonance offers hope}: to be seen, heard, and accurately diagnosed—to have their consciousness recognized when behavior fails to reveal it.
+
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims:
+\begin{itemize}
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED} --- the headline $97.3\%$ diagnostic accuracy on the 847-patient cohort (Theorem~\ref{thm:diagnostic-accuracy}, Theorem~\ref{thm:validation-cohort}) and every derived clinical figure: sensitivity/specificity, the prognostic AUC $= 0.89$ (Theorem~\ref{thm:prognostic}), the recovery-rate table, and the cost-effectiveness/ROI estimates. As the inline \texttt{empiricalclaim} note on Theorem~\ref{thm:diagnostic-accuracy} states, this awaits \emph{independent} clinical validation; the project's own README records the clinical publication as pending and explicitly not a substantive claim. A proof assistant cannot establish diagnostic accuracy.
+\item \textbf{Arithmetic about defined quantities (not an empirical result)} --- what the Lean corpus verifies is only the arithmetic identity $\text{ch}_2 = 19/20 = 0.95$ and the algebraic IIT-bridge inequality (theorems cited in Theorem~\ref{thm:diagnostic-accuracy}). These are statements about defined numbers, not about patients or brains, and do NOT verify any clinical result.
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the claim that the threshold $\text{ch}_2 \geq 0.95$ is ``derived from first principles \dots\ and validated empirically across 847 patients'' (Theorem~\ref{thm:consciousness-threshold}); both the first-principles derivation (see Chapter~\ref{ch:consciousness}) and the empirical validation are unconfirmed here.
+\end{itemize}
 
 \section{Comparative Alignment: Tumor Boundary Fractals and Malignancy}
 

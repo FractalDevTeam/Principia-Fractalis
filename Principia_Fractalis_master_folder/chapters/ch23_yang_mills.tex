@@ -595,6 +595,17 @@ Our framework correctly reproduces asymptotic freedom—the running coupling dec
 
 The fractal modulation $\mathcal{M}(s) \sim e^{-cs^2}$ provides Gaussian UV suppression, consistent with asymptotic freedom. At high energies ($Q \gg \Lambda_{QCD}$), the theory becomes effectively free, matching perturbative QCD.
 
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims. \textbf{Existence of continuum quantum
+$SU(3)$ Yang--Mills with a mass gap is NOT proven here and remains open}; the Clay
+statement is untouched.
+\begin{itemize}
+\item \textbf{OPEN (Clay-hard)} --- constructing the continuum theory (the sharpened residual in \texttt{YMContinuumLiftAttempt.lean}, plus the four Wave~47B gaps in \texttt{YM\_WightmanReconstructionScaffold.lean}: continuum $SU(3)$ Euclidean measure, reflection positivity, Wightman reconstruction, mass-gap propagation) \emph{is} the Clay problem, bucket-3. The Minlos-measure construction (Theorem~\ref{thm:ym-measure-exists}) is flagged in-text as requiring machinery beyond scope; it is not machine-checked.
+\item \textbf{PROVEN (kernel-verified), but strictly weaker than the prose} --- the literal Lean proposition \texttt{fractalYMLevel1LiftsToContinuum} (\texttt{fractalYMLevel1SpectrumGap} $\to$ $\exists\,\Delta_{YM}>0$) is discharged axiom-free, but with a trivial witness $\Delta=1$; this is \emph{not} the continuum lift. Finite-dimensional OS reflection-positivity (\texttt{YM\_OSRPInteractionScaffold}, Wave~57) is genuinely closed but does not lift to the continuum.
+\item \textbf{EMPIRICAL HYPOTHESIS --- not a proof} --- the mass gap $\Delta=420.43$~MeV, the resonance zero $\omega_c=2.13198462$, the string tension, and the glueball ratios are numerical values compared against lattice QCD; agreement with lattice is empirical corroboration, not a rigorous continuum-limit proof.
+\end{itemize}
+
 \section{Conclusion}
 
 We have provided computational evidence for Yang-Mills existence and mass gap through fractal resonance:

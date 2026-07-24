@@ -524,4 +524,13 @@ We have established the spectral foundations:
 \item Riemann Hypothesis as a spectral statement
 \end{itemize}
 
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus:
+\begin{itemize}
+\item \textbf{STANDARD MATHEMATICS} --- the spectral theorem for self-adjoint operators (Theorems~\ref{thm:spectral-theorem-finite}, \ref{thm:spectral-theorem-infinite}), functional calculus, the C*-algebra axioms, nuclearity (Definition~\ref{def:nuclear-c-star}), and the Gelfand--Naimark theorem (Theorem~\ref{thm:gelfand-naimark}) are classical functional analysis, cited by reference. They are not --- and need not be --- part of the project's Lean~4 kernel corpus.
+\item \textbf{PROVEN (kernel-verified)} --- the genuinely machine-checked operator content underlying this chapter's substrate is the operator-algebra corpus (arc r102--r113): the faithful tracial state and $C^*$-simplicity of $\mathcal{T}_\infty$ (\texttt{UHF\_trace\_faithful}, \texttt{substrate\_completion\_simple\_unconditional}), together with elementary self-adjointness/positivity and spectral-bump bricks on the completion (\texttt{SubstrateSpectralBump.lean}, r107a; zero project axioms). These establish that $\mathcal{T}_\infty$ exists as a well-behaved C*-algebra, as in Chapter~\ref{ch:timeless-field}.
+\item \textbf{ASSERTED (not derived)} --- the construction of $\mathcal{T}_\infty$ used \emph{here} as a \emph{commutative} algebra of $\zeta$-values (Theorem~\ref{thm:timeless-field-nuclear}) differs from the noncommutative UHF substrate of Chapter~\ref{ch:timeless-field}; the ``nuclear because commutative'' argument is not the machine-verified result. The claim that RH is equivalent to a nuclearity/minimality condition on $\text{Spec}(\mathcal{T}_\infty)$ (Theorem~\ref{thm:rh-spectral}) is asserted --- its own proof is flagged in-text as ``handwavy'' and is not a proof of RH.
+\item \textbf{ASSERTED / EMPIRICAL} --- the identification of the second Chern character $\mathrm{ch}_2$ with a measure of consciousness is a framework interpretation, not a mathematical theorem; the physical reading awaits experiment.
+\end{itemize}
+
 The next chapter develops operator theory in depth, showing how the structure of $\mathcal{T}_\infty$ constrains physical and conscious phenomena.

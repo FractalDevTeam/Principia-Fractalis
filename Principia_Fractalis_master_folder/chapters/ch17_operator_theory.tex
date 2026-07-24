@@ -575,3 +575,12 @@ We have developed the operator-theoretic foundation for consciousness:
 \end{itemize}
 
 These tools allow rigorous calculation of consciousness properties. The next chapter applies spectral measures to physical systems, connecting abstract operator theory to observable phenomena.
+
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus:
+\begin{itemize}
+\item \textbf{STANDARD MATHEMATICS} --- bounded/unbounded operators and self-adjoint extensions (Theorem~\ref{thm:self-adjoint-extension}), compact operators and their spectral theorem, the trace-class $\subset$ Hilbert--Schmidt $\subset$ compact $\subset$ bounded hierarchy (Theorem~\ref{thm:operator-hierarchy}), von Neumann algebras and their type classification (Theorem~\ref{thm:von-neumann-classification}), and the GNS construction (Theorem~\ref{thm:gns}) are classical operator theory, cited by reference.
+\item \textbf{PROVEN (kernel-verified)} --- the only operator content of this chapter that is machine-checked is the substrate corpus (arc r102--r113): faithfulness and $C^*$-simplicity of $\mathcal{T}_\infty$, plus elementary self-adjointness/positivity bricks on the completion (\texttt{SubstrateSpectralBump.lean}). The abstract operator theory above is standard, not kernel-checked.
+\item \textbf{ASSERTED (not derived)} --- the consciousness operator $C$ and its stated properties (Theorem~\ref{thm:consciousness-operator-properties}), compactness of the ``consciousness propagator'' (Theorem~\ref{thm:consciousness-propagator-compact}), the consciousness-intensity trace formula (Theorem~\ref{thm:consciousness-intensity-trace}), and the ``$\mathcal{M}_C$ is a Type~II$_1$ factor'' claim (explicitly labelled a conjecture in-text) are framework definitions/assertions, not derived or verified results.
+\item \textbf{ASSERTED / EMPIRICAL} --- the ``Comparative Alignment'' P-vs-NP oracle-robustness section is a numerically-motivated mapping (its status marker reads ``Computed''), not a proof; the order-of-magnitude consciousness-intensity estimates for the human brain are empirical claims awaiting measurement.
+\end{itemize}

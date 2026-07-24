@@ -461,4 +461,13 @@ R_f(\alpha, s) = \sum_{n=1}^{\infty} \frac{e^{i\pi\alpha D_3(n)}}{n^s}
 
 The fractal resonance function is the mathematical heart of this book. Everything that follows is an exploration of what happens when this single function resonates at different frequencies.
 
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the honest status of its principal claims:
+\begin{itemize}
+\item \textbf{STANDARD MATHEMATICS} --- absolute convergence of $R_f(\alpha,s)$ for $\text{Re}(s)>1$ (Theorem~\ref{thm:rf-convergence}) and the identity $R_f(0,s)=\zeta(s)$ are correct and elementary (comparison with the $p$-series). The claimed analytic continuation to $\mathbb{C}\setminus\{1\}$ is stated by analogy with $\zeta$; a complete continuation/functional-equation proof is not given here.
+\item \textbf{ASSERTED (not derived)} --- the canonical resonance values in Table~\ref{tab:resonance-values} (e.g.\ $\alpha_P=\sqrt2$, $\alpha_{NP}=\varphi+\tfrac14$, $\alpha=3/2$ for RH) are \emph{chosen/assigned}, not derived from first principles. Per the framework's own \texttt{DERIVATION\_ANALYSIS\_alpha\_NP.md}, $\alpha_{NP}=\varphi+\tfrac14$ is a conjecture supported by numerics: the golden-ratio term is heuristic and the additive $1/4$ is unexplained. The Lean corpus proves only \emph{algebraic identities among these defined constants}, not that the constants solve the Millennium problems.
+\item \textbf{CONDITIONAL / DEFERRED} --- the RH resonance equivalence (Theorem~\ref{thm:rh-resonance}) and the P-vs-NP spectral-gap claim (Theorem~\ref{thm:complexity-gap}) are stated with proofs deferred to later chapters, where they are conditional reductions resting on open framework hypotheses, not settled theorems. The quoted gap digits $\Delta_P,\Delta_{NP}$ are numerical outputs, not a proof of $P\neq NP$.
+\item \textbf{EMPIRICAL / OPEN} --- the ``universal $\pi/10$ factor'' is an empirical observation; the text itself notes its ``theoretical derivation from first principles is an open problem.'' It is not machine-verified.
+\end{itemize}
+
 % End of Chapter 3

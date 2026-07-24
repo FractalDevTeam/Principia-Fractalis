@@ -455,6 +455,16 @@ The RQG correction $\Psi_{\text{RQG}}$ can be written as a residue integral over
 
 This connects GU to the amplituhedron program, suggesting a deeper geometric unity.
 
+\paragraph{Verification status (2026-07-23).}
+Held to the standard of the machine-checked corpus:
+\begin{itemize}
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the entire RQG completion of Geometric Unity: the regularised shiab operator (Theorem~\ref{thm:rqg_shiab_welldefined}), the holographic $13\text{D}\to4\text{D}$ projection (Theorem~\ref{thm:holographic_projection}), and the BRST count $\dim H^2=78$ (Theorem~\ref{thm:rqg_cohomology}). These are framework-internal constructions, not kernel-verified; the projection's own proof carries a 2026-05-18 disclosure that the dimension arithmetic does not yield 4 and that the 4D count is empirical input.
+\item \textbf{ASSERTED --- refuted at the stated numerical close} --- the two routes claiming $\text{ch}_2=0.95$: the 14D anomaly cancellation (Theorem~\ref{thm:anomaly_cancel}) and the Gaussian $\langle|\Psi_{\text{RQG}}|^2\rangle$ (Proposition~\ref{prop:rqg_mean}). Both carry inline \texttt{manuscriptcorrection} notes with axiom-free Lean refutations: the anomaly route misses by $\approx1570\times$ and the Gaussian route yields $\approx0.7837$, not $0.95$. The threshold survives only via its independent Ch~6 Chern--Weil route, not via this chapter.
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED} --- the anomaly ``resolutions'' (muon $g-2$, Hubble tension, ANITA events, primordial lithium, XENON $^{127}$Xe). Several are back-fitted so the RQG correction reproduces the measured value; the agreement claimed here is not independent confirmation.
+\item \textbf{ASSERTED (not derived)} --- $\pi/10$, $\text{ch}_2=0.95$, and $R_f$ throughout inherit their definitional status from Ch~\ref{ch:constants}.
+\end{itemize}
+\emph{Nothing in this chapter is kernel-verified physics; the machine-checked corpus covers only the $\mathcal{T}_\infty$ operator-algebra substrate (Ch~\ref{ch:timeless-field}).}
+
 \section{Summary and Forward Connections}
 
 \subsection{What We've Achieved}

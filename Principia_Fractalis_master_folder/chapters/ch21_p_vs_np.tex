@@ -1239,6 +1239,7 @@ There exists no polynomial-time algorithm solving the Boolean satisfiability pro
 
 \begin{proof}
 SAT is NP-complete\cite{cook1971complexity}. If there were a polynomial-time algorithm for SAT, then P = NP. But Theorem \ref{thm:main-p-neq-np} proves P $\neq$ NP.
+\emph{(Honest-scope note, 2026-07-23: Ref.~\ref{thm:main-p-neq-np} is a \textbf{conjecture}, not a theorem, and it rests on the asserted $\alpha$-pin; this corollary is therefore conditional and P $\neq$ NP is not established in the Clay sense.)}
 \end{proof}
 
 \begin{corollary}[Existence of One-Way Functions]\label{cor:one-way}
@@ -1440,6 +1441,17 @@ This framework extends beyond P vs NP:
 
 This isn't just solving P vs NP—it's establishing a new foundation for quantum physics on fractal spaces.
 \end{keyidea}
+
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims. \textbf{P $\neq$ NP is NOT proven here and
+remains open}; the chapter itself labels its separation a \emph{conjecture}
+(Conjecture~\ref{thm:main-p-neq-np}) supported by numerical evidence.
+\begin{itemize}
+\item \textbf{ASSERTED (not derived), derivation is Clay-open} --- the entire separation hinges on the value assignment $\alpha_P=\sqrt{2}$, $\alpha_{NP}=\varphi+\tfrac14$ (the ``$\alpha$-pin'', \texttt{EmpiricalAlphaIdentificationHypothesis}). This is asserted, matched to numerics to $\sim 10^{-10}$, not derived. Per the residual triage, \emph{any} genuine derivation of \texttt{alpha\_of\_class} is P-vs-NP-equivalent (Wave~57 sharpness certificate $+$ \texttt{AlphaRealizationNoGo} via the \texttt{EnumToClassSeparationBridge}), hence bucket-3 (Clay-open).
+\item \textbf{PROVEN (kernel-verified), but not about complexity} --- only the \emph{algebraic} facts about the chosen values are axiom-free (\texttt{AlphaCanonical.lean}): $(\alpha_P)^2=2$ and $16\alpha_{NP}^2-24\alpha_{NP}-11=0$ with $\alpha_{NP}=\varphi+\tfrac14$ (\texttt{PolylogEigenvalueConjecture}). These say nothing about P or NP. The 2026-05-18 numerical corrections (the $\lambda_0(H_{NP})$, gap, and ratio brackets) are likewise machine-certified in \texttt{PF/MillenniumSixReductions.lean}.
+\item \textbf{ASSERTED / EMPIRICAL} --- the ground-state energies $\lambda_0(H_P)$, $\lambda_0(H_{NP})$, the spectral gap $\Delta$, the closed forms, the fractal dimensions $\sqrt{2}$ vs $\varphi+\tfrac14$, and the ``100\% coherence across 143 problems'' are numerical/empirical; the connecting conjectures (polylog spectrum, golden modulation) are explicitly stated as unproven.
+\end{itemize}
 
 \section{Conclusion}
 

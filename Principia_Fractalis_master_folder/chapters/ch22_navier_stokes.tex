@@ -363,6 +363,8 @@ Since potential singularities spontaneously reorganize into stable emergence poi
 Therefore, smooth solutions exist globally: $\mathbf{u} \in C^\infty(\mathbb{R}^3 \times [0, \infty))$.
 \end{proof}
 
+\noindent\emph{Honest-scope note (2026-07-23): this is a heuristic/physical argument, not a machine-checked proof. The no-blowup statement is exactly the Clay bar --- the named \emph{open} proposition \texttt{VortexStretchingBoundedHypothesis} / \texttt{NS3DVortexStretchingObstruction} (bucket-3). Global regularity of 3D Navier--Stokes is not established here and remains open. See the Verification status ledger below.}
+
 \subsection{Energy Budget at Emergence Points}
 
 \begin{proposition}[Energy Conservation Through Emergence]\label{prop:energy-emergence}
@@ -501,9 +503,21 @@ Applications:
 \item Chemical reaction enhancement
 \end{itemize}
 
+\paragraph{Verification status (2026-07-23).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims. \textbf{Global existence and smoothness for
+3D Navier--Stokes is NOT proven here and remains open}; the Clay statement is
+untouched.
+\begin{itemize}
+\item \textbf{OPEN (Clay-hard)} --- the no-blowup claim (Theorem~\ref{thm:no-blowup}) is exactly the Clay bar: uniform, all-scales, full-PDE control of the vortex-stretching term $(\boldsymbol{\omega}\cdot\nabla)\mathbf{u}$. In the corpus this is the named \emph{open} proposition \texttt{VortexStretchingBoundedHypothesis} / \texttt{NS3DVortexStretchingObstruction}, bucket-3. The vortex-emergence argument is heuristic, not machine-checked.
+\item \textbf{CONDITIONAL REDUCTION, prerequisites absent} --- the local-well-posedness bricks \texttt{VortexStretchingPDEBilinearBounded} (Kato-type Sobolev multiplication $H^s\times H^s\to H^{s-1}$) and \texttt{MathlibSobolevDivFreeAvailable} (Leray/Helmholtz projection, $H^s_\sigma$) are classically standard but \emph{not} formalised: mathlib lacks type-level $H^s$ and the Leray projection. Even if closed they are local-in-time ingredients that do \emph{not} discharge the Clay bar.
+\item \textbf{ASSERTED / EMPIRICAL} --- the base-3 emergence-point hierarchy, the fractal dimension $\log 2/\log 3$, the resonance value $\alpha=3\pi/2$, and the consciousness-threshold statements are asserted framework structure, neither derived nor experimentally validated.
+\end{itemize}
+
 \section{Conclusion}
 
 We have resolved the Navier-Stokes existence and smoothness problem through vortex emergence theory:
+\emph{(Honest-scope note, 2026-07-23: ``resolved'' overstates the status --- this is a conditional, heuristic reduction, not a Clay-form proof. The Clay bar (\texttt{NS3DVortexStretchingObstruction}) is open, and global regularity remains unproven.)}
 
 \begin{itemize}
 \item \textbf{Mechanism}: Counter-rotating vortices spontaneously form, creating emergence points
