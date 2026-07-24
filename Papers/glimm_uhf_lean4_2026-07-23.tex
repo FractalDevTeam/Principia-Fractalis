@@ -430,10 +430,16 @@ $\tuhf(\cdot)\cdot 1$ on the image of level $k$, by Theorem~\ref{thm:weyl}.
 Combining density, non-expansiveness of averaging, and the $1$-Lipschitz
 property of $\tuhf$ gives, for every $x$ and $\varepsilon > 0$, a level $k$
 with $\|\lt{avgK}(x) - \tuhf(x)\cdot 1\| < \varepsilon$ (\lt{avgK\_approx}).
-If a two-sided ideal $I$ contains an $x$ with $\tuhf(x) \ne 0$, this
-estimate at $\varepsilon = \|\tuhf(x)\|$, with a Neumann-series
-invertibility argument, forces $1 \in I$. So $\Tinf$ is simple, hence
-$\tuhf$ faithful, provided every nonzero ideal contains an element of
+Suppose a two-sided ideal $I$ contains an $x$ with $c := \tuhf(x) \ne 0$.
+Averaging is by conjugation, so $\lt{avgK}(x) \in I$; taking
+$\varepsilon = \|c\|$ gives $\|1 - c^{-1}\lt{avgK}(x)\| < 1$, so
+$c^{-1}\lt{avgK}(x)$ is invertible by the Neumann series. An invertible
+element of an ideal forces $1 \in I$: multiply it by its inverse, which
+lies in the whole algebra, and the product stays in $I$ because $I$ absorbs
+multiplication on both sides. No closure of $I$ enters: $\lt{avgK}(x)$ is a
+finite average, a genuine element of $I$, so the argument applies to
+algebraic, not merely closed, two-sided ideals. Thus $\Tinf$ is simple, and
+$\tuhf$ is faithful, provided every nonzero ideal contains an element of
 nonzero trace.
 
 \subsection{The four-fold equivalence}\label{sec:tfae}
@@ -470,22 +476,32 @@ expectation, and it is different from both.
 The closing argument constructs the canonical projection onto each finite
 level, proves two contraction estimates for it by elementary means, extends
 it to the completion, and reads off faithfulness from the reconstruction
-property. Simplicity then follows through Theorem~\ref{thm:tfae}. Throughout
-$n = 3^k$.
+property. Simplicity then follows through Theorem~\ref{thm:tfae}. We write
+$\tau_{3^k}$ for the normalized trace on $A_k = M_{3^k}(\mathbb{C})$.
 
 \subsection{The partial trace}\label{sec:Ek}
 
-Under $M_{3^{n+1}}(\mathbb{C}) \cong M_{3^n}(\mathbb{C}) \otimes
+Under $M_{3^{k+1}}(\mathbb{C}) \cong M_{3^k}(\mathbb{C}) \otimes
 M_3(\mathbb{C})$, given by \lt{levelStepEquiv}, the single-step partial
-trace $\mathrm{id}\otimes\tau_3$ is, entrywise,
+trace $\mathrm{id}\otimes\tau_3 \colon A_{k+1} \to A_k$ is, entrywise,
 \[
 (\mathcal{E}B)_{ij} \;=\; \frac{1}{3}\sum_{t=0}^{2} B_{(i,t),(j,t)}
 \qquad(\lt{partialTraceStep}),
 \]
-where $(i,t)$ abbreviates $\lt{levelStepEquiv}\,(i,t)$. Iterating $j-k$
-steps gives \lt{partialTraceDown}$\colon M_{3^j}\to M_{3^k}$ for $k \le j$,
-and descending through single-level representatives defines
-$E_k \colon \varinjlim_m A_m \to M_{3^k}(\mathbb{C})$ (\lt{condExp}).
+where $(i,t)$ abbreviates $\lt{levelStepEquiv}\,(i,t)$. Iterating gives
+\lt{partialTraceDown}$\colon A_j\to A_k$ for $k \le j$.
+
+These maps are compatible with the inductive system: for $k \le j \le j'$,
+the iterated partial trace $A_{j'} \to A_k$ factors through $A_j$, and
+$\mathcal{E}$ inverts a single embedding
+($\mathcal{E}(A\otimes I_3) = A$, \lt{partialTraceStep\_substrateEmbedMatrix}).
+Consequently the level maps agree on the image of every embedding, so they
+descend, by the universal property of the direct limit, to a single
+well-defined map
+$E_k \colon \varinjlim_m A_m \to M_{3^k}(\mathbb{C})$ (\lt{condExp});
+concretely, $E_k[\![(j,A)]\!] = \lt{partialTraceDown}\,(A)$ is independent
+of the chosen single-level representative. This quotient-invariance is the
+one nontrivial well-definedness check behind Theorem~\ref{thm:Ek}.
 
 We call $E_k$ the \emph{level-$k$ expectation map}, and we use only the
 retraction and trace-preservation properties recorded in
@@ -523,11 +539,11 @@ three terms gives $\bigl|\sum_{t=0}^{2}a_t\bigr|^2 \le 3\sum_{t=0}^{2}|a_t|^2$
 $|(\mathcal{E}B)_{ij}|^2 \le \tfrac{1}{3}\sum_t|B_{(i,t),(j,t)}|^2$. Summing
 over $i,j$, the right side is exactly the diagonal-tail sub-sum ($s = t$) of
 \[
-\tau_{3^{n+1}}(B^*B) \;=\; \frac{1}{3^{n+1}}\sum_{i,s,j,t}\bigl|B_{(j,t),(i,s)}\bigr|^2,
+\tau_{3^{k+1}}(B^*B) \;=\; \frac{1}{3^{k+1}}\sum_{i,s,j,t}\bigl|B_{(j,t),(i,s)}\bigr|^2,
 \]
 every term of which is nonnegative. Mathlib's \lt{Finset.single\_le\_sum}
 closes the single-step bound
-$\tau_{3^n}\bigl((\mathcal{E}B)^*(\mathcal{E}B)\bigr) \le \tau_{3^{n+1}}(B^*B)$
+$\tau_{3^k}\bigl((\mathcal{E}B)^*(\mathcal{E}B)\bigr) \le \tau_{3^{k+1}}(B^*B)$
 (\lt{partialTraceStep\_normSq\_trace\_le}); iterating and descending to the
 limit gives~\eqref{eq:l2}. No positive-semidefinite operator theory and no
 complete positivity enter. For trace-compatible partial traces the scalar
@@ -540,9 +556,9 @@ Extending $E_k$ to the completion requires the operator-norm bound
 $\|E_k x\| \le \|x\|$. Classically this is the statement that a unital
 completely positive map has norm one. The formalized proof uses an isometry
 decomposition. For $t \in \{0,1,2\}$ let
-$W_t \colon \mathbb{C}^{3^n} \to \mathbb{C}^{3^{n+1}}$ be the coordinate
+$W_t \colon \mathbb{C}^{3^k} \to \mathbb{C}^{3^{k+1}}$ be the coordinate
 injection $v \mapsto v \otimes e_t$, viewed as a
-$3^{n+1}\times 3^n$ matrix (\lt{Winj}). Then
+$3^{k+1}\times 3^k$ matrix (\lt{Winj}). Then
 \begin{equation}\label{eq:stinespring}
 \mathcal{E}B \;=\; \frac{1}{3}\sum_{t=0}^{2} W_t^*\, B\, W_t
 \qquad(\lt{partialTraceStep\_eq\_smul\_sum}),
@@ -642,7 +658,10 @@ The same level-expectation machinery gives the third leg of the
 identification: $\tuhf$ is the only trace. We package the hypotheses as a
 predicate \lt{IsTracialState}~$\varphi$ requiring $\varphi$ to be
 continuous, additive, $\mathbb{C}$-homogeneous, unital, and tracial;
-positivity is deliberately omitted.
+positivity is deliberately omitted. (The Lean name retains ``State'' for
+continuity with the source; because positivity is dropped, the predicate is
+really that of a continuous unital tracial \emph{functional}, and the
+theorem is correspondingly stronger than uniqueness among states.)
 
 \begin{theorem}[Uniqueness, \lt{substrate\_UHF\_trace\_unique}]\label{thm:unique}
 For every $\varphi$ with \lt{IsTracialState}~$\varphi$ and every
@@ -705,7 +724,9 @@ projections from clopen quasispectral sets, and are offered upstream.
 Lean toolchain \texttt{leanprover/lean4:v4.24.0-rc1}; mathlib commit
 \lt{eed770a434957369c6262aa3fb1d6426419016d4}; verified HEAD
 \texttt{91cc1a01} (2026-07-23), with build and \texttt{\#print axioms} run
-the same day.
+the same day. The source is public at
+\href{https://github.com/FractalDevTeam/Principia-Fractalis}{\lt{github.com/FractalDevTeam/Principia-Fractalis}};
+the commit above is a stable reference point in that history.
 
 \paragraph{Build.}
 From the \texttt{PF\_Lean4\_Code} directory, \lt{elan install \$(cat
@@ -734,7 +755,11 @@ theorem:
 These are the three standard Lean~4 kernel axioms: propositional
 extensionality, choice, and quotient soundness. There are no project-level
 axioms and no \texttt{sorry} on any code path leading to the theorems of
-this paper.
+this paper. The development is classical, not constructive: choice enters
+through mathlib's extension of uniformly continuous maps to a completion
+(\lt{UniformSpace.Completion.extension}) and the universal properties of
+the direct limit, both used pervasively here. We make no claim of
+computable or choice-free content.
 
 \begin{table}[ht]
 \centering
