@@ -4,6 +4,18 @@ Three verified, upstreamable files are staged in `PF_Lean4_Code/PF/ForMathlib/`
 (all kernel-clean, root namespaces, mathlib conventions). This is the exact
 procedure to get them into `leanprover-community/mathlib4`.
 
+> **2026-07-25 addendum — PR-4 (zeta conjugation symmetry).** r115
+> (`PF/Analytic/XiRealWitness.lean`) proved four lemmas absent from mathlib:
+> `Gammaℝ_conj`, `completedRiemannZeta₀_conj`, `completedRiemannZeta_conj`,
+> `riemannZeta_conj` — all unconditional (no pole exclusions, `1/0 = 0`
+> convention), kernel-clean, via the Dirichlet/Gamma representation on the
+> halfplane + analytic identity theorem on the entire `Λ₀`. Natural upstream
+> home: `Mathlib/NumberTheory/LSeries/RiemannZeta.lean` (or a small new file
+> beside it). Not yet staged in `ForMathlib/` — porting is mechanical (strip the
+> PF namespace, drop the §1 `cpow` helpers if master has equivalents, keep
+> `pi_cpow_conj`/`natCast_cpow_conj` as private lemmas otherwise). This PR is
+> independent of PR-1..3 — submit as a standalone, not stacked on them.
+
 ## STEP 1 — you do this (one interactive step I can't do headlessly)
 
 In a terminal on this machine:
