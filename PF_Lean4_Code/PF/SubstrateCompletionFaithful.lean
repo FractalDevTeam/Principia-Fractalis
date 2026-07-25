@@ -368,6 +368,20 @@ theorem substrate_completion_simple_unconditional :
     ∀ I : TwoSidedIdeal TimelessFieldCompletion, I = ⊥ ∨ I = ⊤ :=
   traceDetects_iff_simple.mp substrate_completion_traceDetectsIdeals
 
+/-- **★ r101 residual `SubstrateUHFCompletionSimplicitySubstrateConjecture`
+    DISCHARGED ★** — the r101 marker
+    (`PF/SubstrateUHFCompletionSimplicityDischarge.lean`), retired as a
+    `Prop := True` placeholder on 2026-07-24 and redefined there as the REAL
+    completion-simplicity statement
+    `∀ I : TwoSidedIdeal TimelessFieldCompletion, I = ⊥ ∨ I = ⊤`, holds
+    unconditionally via `substrate_completion_simple_unconditional` — no
+    longer by `trivial`. (Proved here rather than in the defining file
+    because the proof machinery of §1–§8 lives strictly downstream of it in
+    the import graph — mirroring the r100 residual discharge above.) -/
+theorem substrate_UHF_completion_simplicity_substrate_discharge :
+    SubstrateUHFCompletionSimplicityDischarge.SubstrateUHFCompletionSimplicitySubstrateConjecture :=
+  substrate_completion_simple_unconditional
+
 /-! ## §10 — r112 capstone -/
 
 /-- **★★★ r112 SUBSTRATE COMPLETION-FAITHFULNESS CAPSTONE — THE SUMMIT ★★★**
@@ -429,6 +443,7 @@ theorem r112_substrate_completion_faithful_capstone :
 #print axioms substrate_UHF_trace_faithful_unconditional
 #print axioms substrate_completion_traceDetectsIdeals
 #print axioms substrate_completion_simple_unconditional
+#print axioms substrate_UHF_completion_simplicity_substrate_discharge
 #print axioms r112_substrate_completion_faithful_capstone
 
 end SubstrateCompletionFaithful

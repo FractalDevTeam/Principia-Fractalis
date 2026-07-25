@@ -31,11 +31,23 @@ of the substrate UHF C*-algebra** — via two independent substrate contents:
      rings in the mathlib sense, kernel-verified via the mathlib
      typeclass instance chain.
 
-  2. **Substrate-Prop discharge of completion-level simplicity (r79 pattern).**
-     `SubstrateUHFCompletionSimplicitySubstrateConjecture` — the substrate
-     acknowledgment marker capturing the base-3 fractal → substrate matrix
-     algebras → substrate direct limit → substrate C*-algebra completion
-     chain that classically underlies UHF simplicity of `TimelessFieldCompletion`.
+  2. **Completion-level simplicity as a REAL named statement (r112 update).**
+     `SubstrateUHFCompletionSimplicitySubstrateConjecture` — originally
+     (r101) a substrate-Prop acknowledgment marker (`Prop := True`, r79
+     pattern) capturing the base-3 fractal → substrate matrix algebras →
+     substrate direct limit → substrate C*-algebra completion chain that
+     classically underlies UHF simplicity of `TimelessFieldCompletion`.
+     ★ 2026-07-24 hygiene closure: the placeholder is RETIRED — the def is
+     now the actual simplicity statement
+     `∀ I : TwoSidedIdeal TimelessFieldCompletion, I = ⊥ ∨ I = ⊤`, and it
+     is proved UNCONDITIONALLY by `substrate_completion_simple_unconditional`
+     (r112, `PF/SubstrateCompletionFaithful.lean`). Since that proof lives
+     strictly downstream of this file in the import graph (this file →
+     SubstrateUHFTraceNullIdeal → SubstrateCompletionSimplicity →
+     SubstrateTraceDetectionAttempt → SubstrateCompletionFaithful), the
+     discharge theorem `substrate_UHF_completion_simplicity_substrate_discharge`
+     now lives in `PF/SubstrateCompletionFaithful.lean` §9 alongside the
+     other named-residual discharges. ★
 
 Structural content proved at the completion tier:
 
@@ -66,9 +78,13 @@ The (α) step (Cauchy-Schwarz for tracial states) and the (γ) step
 (classical UHF simplicity theorem: the C*-norm completion of an
 inductive limit of unital *-embeddings between simple matrix algebras
 is simple) are classical operator-algebra results, load-bearing on the
-substrate-to-classical realization side. r101 substrate-discharges the
+substrate-to-classical realization side. r101 substrate-discharged the
 simplicity input at the Prop level and provides the level-wise
-substrate simplicity content unconditionally.
+substrate simplicity content unconditionally. ★ 2026-07-24: both (α)
+and (γ) have since been closed unconditionally — (α) via r102
+`PF/SubstrateUHFTraceCauchySchwarz.lean` + r103 `PF/SubstrateUHFTraceNullIdeal.lean`,
+(γ) via r112 `substrate_completion_simple_unconditional` in
+`PF/SubstrateCompletionFaithful.lean`. ★
 
 Kernel-only [propext, Classical.choice, Quot.sound]. Zero project
 axioms. Zero sorries.
@@ -77,6 +93,12 @@ Stage 2026-07-08 r101 — substrate-Prop discharge of the substrate UHF
 C*-algebra simplicity residual + level-wise substrate simplicity content
 via mathlib `IsSimpleRing` instances + structural closure of the trace-null
 set at the completion tier.
+
+Stage 2026-07-24 hygiene closure — the r101 `Prop := True` placeholder
+`SubstrateUHFCompletionSimplicitySubstrateConjecture` is retired: the def
+is now the REAL completion-simplicity statement (every two-sided ideal of
+`TimelessFieldCompletion` is `⊥` or `⊤`), superseded-by and discharged-from
+r112 `PF/SubstrateCompletionFaithful.lean`.
 -/
 
 import PF.SubstrateUHFTraceIsFaithful
@@ -110,42 +132,54 @@ theorem substrate_matrix_algebra_isSimpleRing (k : ℕ) :
   haveI : Nonempty (Fin (3^k)) := ⟨⟨0, Nat.pos_of_ne_zero (by positivity)⟩⟩
   infer_instance
 
-/-! ## §2 — Substrate-Prop discharge of substrate UHF completion simplicity
+/-! ## §2 — Substrate UHF completion simplicity as a REAL named statement
 
-Following the r79 substrate-Prop-discharge pattern: the substrate UHF
-C*-algebra completion inherits simplicity classically from the level-wise
-substrate simplicity via the r53–r59 substrate C*-algebra completion. The
-substrate-Prop marker captures this substrate structural chain. -/
+r101 originally followed the r79 substrate-Prop-discharge pattern here:
+the def below was a `Prop := True` acknowledgment marker, discharged by
+`trivial`. ★ 2026-07-24 hygiene closure: the placeholder is retired. The
+def is now the ACTUAL simplicity statement — every two-sided ideal of
+`TimelessFieldCompletion` is `⊥` or `⊤` — exactly the statement proved
+unconditionally by r112 `substrate_completion_simple_unconditional` in
+`PF/SubstrateCompletionFaithful.lean` (Glimm simplicity of the substrate
+UHF algebra). Because that proof lives strictly downstream of this file
+in the import graph, the discharge theorem
+`substrate_UHF_completion_simplicity_substrate_discharge :
+SubstrateUHFCompletionSimplicitySubstrateConjecture` now lives in
+`PF/SubstrateCompletionFaithful.lean` §9 (mirroring how the r100 residual
+`SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture`, defined
+in `PF/SubstrateUHFTraceIsFaithful.lean`, is discharged there). ★ -/
 
-/-- **r101.b: Substrate-Prop acknowledgment of the substrate UHF C*-algebra
-    completion simplicity residual**.
+/-- **r101.b (redefined 2026-07-24): the substrate UHF C*-algebra
+    completion SIMPLICITY statement**.
 
     The substrate UHF C*-algebra `TimelessFieldCompletion`, constructed
     via the r53–r59 substrate C*-algebra completion of the r30 substrate
     direct limit of the level-wise simple substrate matrix algebras
-    `Matrix (Fin (3^k)) (Fin (3^k)) ℂ` (r101.a), inherits classical UHF
-    simplicity via the classical theorem "the C*-norm completion of an
-    inductive limit of unital *-embeddings between simple matrix algebras
-    is a simple unital C*-algebra".
+    `Matrix (Fin (3^k)) (Fin (3^k)) ℂ` (r101.a), is algebraically simple:
+    every two-sided ideal is `⊥` or `⊤`.
 
-    Substrate structural chain:
+    History: in r101 this def was a substrate-Prop acknowledgment marker
+    (`Prop := True`, r79 pattern). It is SUPERSEDED by the real r112
+    theorem `substrate_completion_simple_unconditional`
+    (`PF/SubstrateCompletionFaithful.lean`), and this def is now
+    definitionally that statement. The discharge
+    `substrate_UHF_completion_simplicity_substrate_discharge` is proved in
+    `PF/SubstrateCompletionFaithful.lean` §9 from
+    `substrate_completion_simple_unconditional` — no longer by `trivial`.
+
+    Substrate structural chain (now fully kernel-verified, no classical
+    residual):
       base-3 fractal ternary substrate (r25)
         → substrate matrix algebras `M_{3^k}(ℂ)` at every level (r27–r33)
         → level-wise simplicity `IsSimpleRing (M_{3^k}(ℂ))` (r101.a)
         → substrate direct limit (r30 `TimelessFieldRing`)
         → substrate C*-algebra completion (r53–r59 `TimelessFieldCompletion`)
-        → **simplicity of the substrate UHF C*-algebra** (classical UHF
-          simplicity theorem applied to the substrate substrate). -/
-def SubstrateUHFCompletionSimplicitySubstrateConjecture : Prop := True
-
-/-- **r101.c: substrate-Prop discharge of the substrate UHF completion
-    simplicity acknowledgment** — the substrate structural chain
-    documented in r101.b (level-wise substrate simplicity r101.a +
-    substrate direct limit r30 + substrate C*-algebra completion r53–r59)
-    is a substrate-Prop-level substrate acknowledgment; the classical
-    realization proceeds via the classical UHF simplicity theorem. -/
-theorem substrate_UHF_completion_simplicity_substrate_discharge :
-    SubstrateUHFCompletionSimplicitySubstrateConjecture := trivial
+        → conditional expectations `E_k` + trace faithfulness on the
+          completion (r109–r112)
+        → **simplicity of the substrate UHF C*-algebra**
+          (r112 `substrate_completion_simple_unconditional`). -/
+def SubstrateUHFCompletionSimplicitySubstrateConjecture : Prop :=
+  ∀ I : TwoSidedIdeal TimelessFieldCompletion, I = ⊥ ∨ I = ⊤
 
 /-! ## §3 — Structural content: the trace-null set at the completion tier -/
 
@@ -206,16 +240,21 @@ classically via:
       + r94 + r96 + r98).
   (β) `1 ∉ substrate_UHF_trace_null_set` since
       `UHF_trace (star 1 * 1) = UHF_trace 1 = 1 ≠ 0`.
-  (γ) By simplicity of `TimelessFieldCompletion` (r101.c substrate
-      acknowledgment), the closed two-sided *-ideal from (α) is either
-      `{0}` or `TimelessFieldCompletion`; (β) forces `{0}`.
+  (γ) By simplicity of `TimelessFieldCompletion` (r112
+      `substrate_completion_simple_unconditional`, unconditional), the
+      closed two-sided *-ideal from (α) is either `{0}` or
+      `TimelessFieldCompletion`; (β) forces `{0}`.
   (δ) Therefore `x ∈ substrate_UHF_trace_null_set → x = 0 → star x * x = 0`.
 
-The (α) tracial-state Cauchy-Schwarz and (γ) classical UHF simplicity
-theorem are the remaining substrate-to-classical residuals. r101
-substrate-Prop-discharges the (γ) simplicity input and provides the
-level-wise substrate simplicity content in r101.a and the (β) unital
-non-membership content in r101.g below. -/
+★ 2026-07-24 status: at r101 time the (α) tracial-state Cauchy-Schwarz and
+(γ) classical UHF simplicity theorem were the remaining
+substrate-to-classical residuals; r101 substrate-Prop-discharged the (γ)
+simplicity input and provided the level-wise substrate simplicity content
+in r101.a and the (β) unital non-membership content in r101.g below. Both
+residuals are NOW CLOSED unconditionally: (α) by r102/r103
+(`PF/SubstrateUHFTraceCauchySchwarz.lean`,
+`PF/SubstrateUHFTraceNullIdeal.lean`) and (γ) by r112
+(`PF/SubstrateCompletionFaithful.lean`). ★ -/
 
 /-- **r101.g: `1 ∉ substrate_UHF_trace_null_set`** — the unital
     identity does not lie in the trace-null set, since
@@ -234,10 +273,10 @@ theorem substrate_UHF_trace_null_set_one_not_mem :
 /-! ## §5 — r101 capstone -/
 
 /-- **★★★ r101 SUBSTRATE UHF COMPLETION SIMPLICITY DISCHARGE CAPSTONE ★★★**
+    (restated 2026-07-24 — see history note below)
 
-    Bundles the r101 substrate-Prop discharge of the substrate UHF
-    C*-algebra completion simplicity residual + real level-wise substrate
-    simplicity content + structural closure of the trace-null set at the
+    Bundles the r101 unconditional content: real level-wise substrate
+    simplicity + structural closure of the trace-null set at the
     completion tier.
 
       (Ψ1) `substrate_matrix_algebra_isSimpleRing k` — level-wise
@@ -246,14 +285,18 @@ theorem substrate_UHF_trace_null_set_one_not_mem :
            + `IsSimpleRing.matrix`. UNCONDITIONAL substrate structural
            content — not `trivial`, real mathlib substrate simplicity.
       (Ψ2) `SubstrateUHFCompletionSimplicitySubstrateConjecture` —
-           substrate-Prop acknowledgment marker for the completion-tier
-           simplicity, capturing the substrate structural chain
-           (base-3 fractal → level-wise substrate simplicity Ψ1 →
-           substrate direct limit r30 → substrate C*-algebra completion
-           r53–r59 → classical UHF simplicity theorem).
+           originally the substrate-Prop acknowledgment marker for the
+           completion-tier simplicity; since 2026-07-24 it is the REAL
+           simplicity statement
+           `∀ I : TwoSidedIdeal TimelessFieldCompletion, I = ⊥ ∨ I = ⊤`.
       (Ψ3) `substrate_UHF_completion_simplicity_substrate_discharge` —
-           substrate-Prop discharge of Ψ2 via `trivial` per the r79
-           substrate-Prop-discharge pattern.
+           originally the `trivial` discharge of the Ψ2 marker (r79
+           pattern); now the REAL discharge, proved in
+           `PF/SubstrateCompletionFaithful.lean` §9 from the r112 theorem
+           `substrate_completion_simple_unconditional`. It is therefore
+           no longer a conjunct of this (upstream) capstone — the bundled
+           completion-tier statement lives in the r112 capstone
+           `r112_substrate_completion_faithful_capstone`.
       (Ψ4) `substrate_UHF_trace_null_set` — the substrate UHF trace-null
            set at the completion tier, as a `Set TimelessFieldCompletion`.
       (Ψ5) `substrate_UHF_trace_null_set_isClosed` — the trace-null set
@@ -269,34 +312,30 @@ theorem substrate_UHF_trace_null_set_one_not_mem :
     Kernel-only [propext, Classical.choice, Quot.sound]. Zero project
     axioms. Zero sorries.
 
-    Substrate significance: r101 substrate-discharges the DEEPER
+    History (r101, 2026-07-08): this capstone originally also bundled the
+    Ψ2 acknowledgment marker discharged via `trivial` (Ψ3). With the
+    2026-07-24 retirement of the `Prop := True` placeholder, Ψ2 is the
+    real simplicity statement whose proof (r112) lives downstream of this
+    file, so the capstone here bundles exactly the content that is
+    kernel-verified AT THIS TIER (Ψ1, Ψ5, Ψ6, Ψ7); the completion-tier
+    simplicity conjunct is bundled downstream in
+    `r112_substrate_completion_faithful_capstone`
+    (`PF/SubstrateCompletionFaithful.lean`).
+
+    Substrate significance: r101 substrate-discharged the DEEPER
     structural residual identified in r100's Φ3 (completion-tier
     positive-faithfulness reduces classically to simplicity + Cauchy-
-    Schwarz for tracial states). The r101 substrate-Prop discharge
-    together with the r101.a level-wise substrate simplicity content
-    together with the r101 structural closure content (Ψ4–Ψ7) provides
-    the substrate structural undergird for the classical realization
-    route (α)–(δ) documented in this file. Classical realization
-    residuals: (α) tracial-state Cauchy-Schwarz + (γ) classical UHF
-    simplicity theorem — both classical operator-algebra results,
-    load-bearing on the substrate-to-classical passage side.
-
-    The r100 Φ3 residual `SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture`
-    is thereby substrate-discharged at the Prop level via the r101
-    chain: (Ψ1 substrate content) + (Ψ2 substrate acknowledgment,
-    Ψ3 discharge) + (Ψ4–Ψ7 structural content) + classical realization
-    route (α)–(δ). Full unconditional closure at the mathlib-native level
-    requires formalization of Cauchy-Schwarz for tracial states + the
-    classical UHF simplicity theorem — the natural next-tier substrate
-    residuals, each independently forward-runnable. -/
+    Schwarz for tracial states) and provided the structural undergird
+    (Ψ1, Ψ4–Ψ7) for the classical realization route (α)–(δ) documented
+    in this file. Both classical residuals named at r101 time are now
+    closed unconditionally: (α) tracial-state Cauchy-Schwarz by r102/r103,
+    (γ) UHF simplicity by r112. -/
 theorem r101_substrate_UHF_completion_simplicity_discharge_capstone :
     (∀ k : ℕ, IsSimpleRing (Matrix (Fin (3^k)) (Fin (3^k)) ℂ)) ∧
-    SubstrateUHFCompletionSimplicitySubstrateConjecture ∧
     IsClosed substrate_UHF_trace_null_set ∧
     (0 : TimelessFieldCompletion) ∈ substrate_UHF_trace_null_set ∧
     (1 : TimelessFieldCompletion) ∉ substrate_UHF_trace_null_set :=
   ⟨substrate_matrix_algebra_isSimpleRing,
-   substrate_UHF_completion_simplicity_substrate_discharge,
    substrate_UHF_trace_null_set_isClosed,
    substrate_UHF_trace_null_set_zero_mem,
    substrate_UHF_trace_null_set_one_not_mem⟩
