@@ -1,0 +1,21 @@
+name = "interval"
+defaultTargets = ["Interval"]
+testDriver = "IntervalTest"
+
+[leanOptions]
+pp.unicode.fun = true
+autoImplicit = false
+relaxedAutoImplicit = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "eed770a434957369c6262aa3fb1d6426419016d4"
+
+[[lean_lib]]
+name = "Interval"
+
+[[lean_lib]]
+name = "IntervalTest"
+globs = ["test.+"]
+leanOptions = {linter.unusedVariables = false}

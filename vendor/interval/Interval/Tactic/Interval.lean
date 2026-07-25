@@ -1,0 +1,144 @@
+import Interval.Interval.Division
+import Interval.Interval.Conversion
+import Interval.Interval.Exp
+import Interval.Interval.Log
+import Interval.Interval.Mul
+import Interval.Interval.Order
+import Interval.Interval.Pow
+import Interval.Interval.Sincos
+import Interval.Interval.Sqrt
+import Interval.Tactic.Init
+import Mathlib.Tactic.Monotonicity.Basic
+import Qq
+
+/-!
+# The `interval` tactic
+
+`interval` attempts to prove real inequalities between constant expressions by lifting the
+expressions from `ℝ` to `Interval`.
+
+**Warning:** We use `native_decide`, so you must trust the compiler.
+-/
+
+open Lean (Expr MetaM MVarId)
+open Lean.Meta
+open Lean.Elab.Tactic
+open Qq
+
+namespace IntervalTactic
+
+inductive Ineq where
+  | lt : Ineq
+  | le : Ineq
+  | gt : Ineq
+  | ge : Ineq
+
+structure Goal where
+  op : Ineq
+  x : Q(Interval)
+  y : Q(Interval)
+
+def Ineq.str : Ineq → String
+  | .lt => "<"
+  | .le => "≤"
+  | .gt => ">"
+  | .ge => "≥"
+
+partial def lift (e : Q(ℝ)) : MetaM Q(Interval) := do
+  match e with
+    | ~q(0) => return q(0)
+    | ~q(1) => return q(1)
+    | ~q(@OfNat.ofNat ℝ $n $i) => return q(Interval.ofNat $n)
+    | ~q(@OfNat.ofNat ℝ $n $i / @OfNat.ofNat ℝ $d $j) => return q(Interval.ofRat ($n / $d))
+    | ~q(1 / @OfNat.ofNat ℝ $d $j) => return q(Interval.ofRat (1 / $d))
+    | ~q(@OfScientific.ofScientific ℝ _ $x $u $t) => do
+      return q(@OfScientific.ofScientific Interval _ $x $u $t)
+    | ~q(-$x) => return q(-$(← lift x))
+    | ~q($x + $y) => return q($(← lift x) + $(← lift y))
+    | ~q($x - $y) => return q($(← lift x) - $(← lift y))
+    | ~q($x * $y) => return q($(← lift x) * $(← lift y))
+    | ~q($x / $y) => return q($(← lift x) / $(← lift y))
+    | ~q(@HPow.hPow ℝ ℝ ℝ _ $x $y) => return q($(← lift x) ^ $(← lift y))
+    | ~q(@HPow.hPow ℝ ℕ ℝ _ $x (@OfNat.ofNat ℕ $y _)) => return q($(← lift x) ^ (Interval.ofNat $y))
+    | ~q(Real.exp $x) => return q($(← lift x).exp)
+    | ~q(Real.log $x) => return q($(← lift x).log)
+    | ~q(Real.sin $x) => return q($(← lift x).sin)
+    | ~q(Real.cos $x) => return q($(← lift x).cos)
+    | ~q(Real.sqrt $x) => return q($(← lift x).sqrt)
+    | ~q(|$x|) => return q($(← lift x).abs)
+    | _ => throwError f!"`interval` works only for certain constant real inequalities, not {e}"
+
+def liftGoal (p : Q(Prop)) : MetaM Goal := do
+  match p with
+    | ~q(@LE.le ℝ $i $x $y) => return ⟨.le, ← lift x, ← lift y⟩
+    | ~q(@LT.lt ℝ $i $x $y) => return ⟨.lt, ← lift x, ← lift y⟩
+    | ~q(@GE.ge ℝ $i $x $y) => return ⟨.ge, ← lift x, ← lift y⟩
+    | ~q(@GT.gt ℝ $i $x $y) => return ⟨.gt, ← lift x, ← lift y⟩
+    | _ => throwError "`interval` works only for constant real inequalities"
+
+/-- Turn a real inequality goal into an `Interval` goal -/
+def Goal.app (g : Goal) : Lean.Expr :=
+  let ⟨op, x, y⟩ := g
+  match op with
+    | .lt => q(Interval.approx_lt $x $y)
+    | .le => q(Interval.approx_le $x $y)
+    | .gt => q(Interval.approx_lt $y $x)
+    | .ge => q(Interval.approx_le $y $x)
+
+/-- Evaluate whether an inequality is known between explicit `Interval`s -/
+def Ineq.eval (op : Ineq) (x y : Interval) : Bool :=
+  match op with
+    | .lt => x < y
+    | .le => x ≤ y
+    | .gt => y < x
+    | .ge => y ≤ x
+
+/-- Close a goal using a tactic -/
+def close (g : MVarId) (tac : Lean.Syntax) : TacticM Unit := do
+  let gs ← Lean.Elab.Tactic.run g do evalTactic tac
+  trace[interval.debug] "close: {tac} ↦ {gs}"
+  match gs with
+    | [] => return ()
+    | _ => throwError "close {tac}: unexpected goals {gs}"
+
+/-- Delegate `toMessageData` to `str` for `Ineq` -/
+instance : Lean.ToMessageData Ineq where
+  toMessageData i := i.str
+
+/-- Necessary to avoid kernel errors for some reason -/
+@[irreducible] def _root_.Interval.toMessageData (x : Interval) : Lean.MessageData :=
+  .ofFormat (repr x)
+
+/-- Delegate `toMessageData` to `repr` for `Interval` -/
+instance : Lean.ToMessageData Interval where
+  toMessageData x := x.toMessageData
+
+/-- Unsafe native evaluation of interval expressions -/
+unsafe def eval (x : Q(Interval)) : MetaM Interval :=
+  Lean.Meta.evalExpr Interval q(Interval) x
+
+/-- Prove a real inequality by lifting from `ℝ` to `Interval`.
+    **Warning:** We use `native_decide`, so you must trust the compiler. -/
+elab "interval" : tactic => do
+  let g ← liftGoal (← getMainTarget)
+  let f := g.app
+  trace[interval.debug] "interval expr: {f}"
+  -- Ideally, we'd be able to evaluate the interval first using `native_decide`, then
+  -- re-evaluate them and show a nice error only if `native_decide` fails. But I don't
+  -- know how to detect `native_decide` failure, so I'll do the check up-front.
+  let ix ← unsafe eval g.x
+  let iy ← unsafe eval g.y
+  match g.op.eval ix iy with
+    | false => throwError "interval: `{ix} {g.op} {iy}` is false"
+    | true => do
+      trace[interval] "interval: {ix} {g.op} {iy}"
+      let gs ← (← getMainGoal).apply f
+      match gs with
+        | [a0, a1, op] => do
+          -- Perform interval calculation
+          close op (← `(tactic| native_decide))
+          -- Prove conservativeness
+          let approx ← `(tactic| approx)
+          close a0 approx
+          close a1 approx
+        | _ => throwError "expected 3 goals, got {gs}"
