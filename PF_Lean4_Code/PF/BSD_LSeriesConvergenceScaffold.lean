@@ -70,8 +70,11 @@ proof, by:
      has `LSeries (f : ℕ → ℂ) (s : ℂ)` (generic) but no
      `WeierstrassCurve.LSeries` and no analytic-continuation API. We
      factor the convergence claim through four `Prop`-level
-     hypotheses; (A3) and (A4) are **encoded `Prop`s**, not Lean-
-     internally proved.
+     hypotheses. Since 2026-07-24, (A3) IS Lean-internally proved —
+     but against ENCODED coefficient sequences (any `f` with the
+     Hasse-divisor bound), not against a mathlib elliptic-curve
+     object. (A4) remains an **encoded `Prop`**, not Lean-internally
+     proved.
 
   3. **NOT a closure of mathlib gaps G3, G4, G5** (see
      `PF.BSDLFunctionEvaluationAttempt.MathlibGapManifest`). The gaps
@@ -82,7 +85,10 @@ proof, by:
        * (A2) closes part of G4 (Hasse-Weil bound at small primes)
          **on `E_{32.a3}` axiom-free**.
        * (A3) is the **remaining content of G4** (uniform
-         summability on `Re s > 3/2`); recorded as encoded `Prop`.
+         summability on `Re s > 3/2`); since 2026-07-24 PROVED
+         Lean-internally against encoded coefficient sequences (the
+         Hasse-divisor bound hypothesis is what remains of G3/G4:
+         instantiating it for the actual `a_n`).
        * (A4) is **G5** (modularity → analytic continuation);
          recorded as encoded `Prop` (Wiles 1995 = Wave 52G).
 
@@ -95,8 +101,10 @@ proof, by:
 
   * `IntegerCoefficientsOfFrobeniusTraces` — Prop, discharged.
   * `RamanujanBoundOnFrobeniusTraces` — Prop, discharged.
-  * `LSeriesAbsConvergenceForReSGreaterThanThreeHalves` — encoded
-    Prop with theorem-level placeholder discharge.
+  * `LSeriesAbsConvergenceForReSGreaterThanThreeHalves` — since
+    2026-07-24 a REAL analytic Prop over encoded coefficient
+    sequences, proved Lean-internally from mathlib's `LSeries` API
+    (see History).
   * `WilesModularityImpliesAnalyticContinuation` — encoded Prop
     with theorem-level placeholder discharge, **composed with
     Wave 52G `Wiles1995ModularityTheorem`**.
@@ -133,9 +141,31 @@ G5 — analytic continuation).
 ## Build
 
 ZERO project axioms. ZERO sorries. The four `Prop`s are encoded; (A1)
-and (A2) are theorem-level provable from Wave 51F point-counting; (A3)
-and (A4) carry placeholder discharges matching the Wave 51G / 52G
-encoding style.
+and (A2) are theorem-level provable from Wave 51F point-counting; (A4)
+carries a placeholder discharge matching the Wave 51G / 52G encoding
+style. (A3) is, since 2026-07-24, a REAL analytic statement proved
+Lean-internally (see History).
+
+## History
+
+★ 2026-07-24 — **(A3) closed against encoded coefficients** (residual
+triage 2026-07-23, shortlist #3). The body of
+`LSeriesAbsConvergenceForReSGreaterThanThreeHalves` was upgraded from
+the `True`-shaped placeholder to the genuine analytic statement: every
+coefficient sequence `f : ℕ → ℂ` obeying the Hasse-derived divisor
+bound `‖f n‖ ≤ d(n) · n^(1/2)` has an absolutely convergent L-series
+on the sharp half-plane `Re s > 3/2` (no `ε` loss — improving on the
+2026-06-02 `PF.BSD_LSeriesAbsConvergenceDischarge` ε-tower form). The
+proof is termwise comparison with the L-series of the divisor function
+`d = ζ ⍟ ζ` at `s - 1/2`, summable for `Re s - 1/2 > 1` by mathlib's
+`ArithmeticFunction.LSeriesSummable_mul` and
+`ArithmeticFunction.LSeriesSummable_zeta_iff`. HONEST SCOPE: this
+discharges scaffold hypothesis (A3) against ENCODED coefficient
+sequences only — mathlib has no `WeierstrassCurve.LSeries`, so the
+statement is NOT about a mathlib elliptic-curve object; constructing
+the actual `a_n` of `E_{32.a3}` and proving the divisor bound from
+`|a_p| ≤ 2√p` + multiplicativity remains gap G3. (A4) (Wiles ⇒
+analytic continuation) and Clay BSD are untouched.
 
 Depends on:
   * `PF.BSD_Wave56RankZeroActualDischargeAttempt` (Wave 56-BSD) — for
@@ -165,6 +195,9 @@ import PF.BSDFrobeniusTraceAttempt
 import PF.BSDModularFormAnAgreementAttempt
 import PF.CrossMillenniumSharedInvariants
 import Mathlib.Data.Real.Basic
+import Mathlib.NumberTheory.LSeries.Basic
+import Mathlib.NumberTheory.LSeries.Convolution
+import Mathlib.NumberTheory.LSeries.Dirichlet
 
 namespace PrincipiaTractalis.BSD_LSeriesConvergenceScaffold
 
@@ -344,36 +377,113 @@ extending the Euler-product `a_p`) converges absolutely for
 
 (where `d(n)` is the divisor function) — a direct consequence of the
 Hasse-Weil bound `|a_p| ≤ 2√p` and multiplicativity. Summability
-follows by comparison with `Σ d(n) / n^{Re s - 1/2}`.
+follows by comparison with `Σ d(n) / n^{Re s - 1/2}`, which is the
+L-series of the divisor function `d = ζ ⍟ ζ` evaluated at `s - 1/2`
+(convergent since `Re s - 1/2 > 1`, as `L(d, w) = ζ(w)²`).
 
-**This is the encoded analytic-number-theory content** that the
-scaffold isolates from the Wave 56-BSD open Prop. The encoding here
-is intentionally minimal: a `Prop` stating that "for this curve
-`E_{32.a3}`, the partial Euler product is convergent". We discharge
-at the placeholder (the `Prop` is `True`-shaped at the encoded
-level), matching the Wave 51G `MordellWeilRankZeroOf := True`
-pattern.
+**2026-07-24 upgrade (see History in the header).** The `Prop` below
+is no longer `True`-shaped: it now carries the genuine analytic
+statement, quantified over ENCODED coefficient sequences obeying the
+Hasse-derived divisor bound, and it is proved Lean-internally from
+mathlib's `LSeries` API. The sharp half-plane `Re s > 3/2` is
+obtained with NO `ε` loss (unlike the 2026-06-02 ε-tower form of
+`PF.BSD_LSeriesAbsConvergenceDischarge`).
 
-Mathlib gap: `LSeries.ellipticCurve` does not exist. With it, the
-absolute convergence claim becomes a standard mathlib summability
-lemma reduced to Hasse-Weil at every good prime + multiplicativity
-of `a_n`.
+Remaining mathlib gap (G3, unchanged): `LSeries.ellipticCurve` does
+not exist, so the bound hypothesis cannot yet be INSTANTIATED with
+the actual `a_n` of `E_{32.a3}` inside Lean; doing so needs the
+coefficient-sequence + multiplicativity API.
 -/
 
-/-- **(A3) Absolute convergence on `Re s > 3/2`** of the Dirichlet
-    series for `E_rank_zero`. Encoded `Prop` matching Wave 51G's
-    `True`-shaped pattern; OPEN content is the actual mathlib
-    summability proof requiring `LSeries.ellipticCurve`. -/
-def LSeriesAbsConvergenceForReSGreaterThanThreeHalves : Prop :=
-  -- Encoded content: the Dirichlet series converges absolutely on
-  -- `Re s > 3/2` for `E_rank_zero`. Wave 51F's `hasse_at_*` + integer
-  -- a_p (Wave 50F/51F) + multiplicativity (Wave 47F gap G3) would
-  -- discharge this once mathlib has `LSeries.ellipticCurve`.
-  True
+/-- **Encoded Hasse-divisor bound** on a coefficient sequence:
+    `‖f n‖ ≤ d(n) · n^(1/2)` for all `n ≠ 0`, where `d(n)` is the
+    number of divisors of `n`. For an elliptic curve `E/ℚ` this is
+    the classical consequence of the Hasse bound `|a_p| ≤ 2√p`
+    together with multiplicativity of `a_n` (that instantiation is
+    NOT formalised here — Wave 47F gap G3). -/
+def EncodedHasseDivisorBound (f : ℕ → ℂ) : Prop :=
+  ∀ n : ℕ, n ≠ 0 → ‖f n‖ ≤ (n.divisors.card : ℝ) * (n : ℝ) ^ (1 / 2 : ℝ)
 
-/-- **(A3) is theorem-level provable** at the encoded placeholder. -/
+/-- **★ Sharp divisor-bound summability ★** — any coefficient
+    sequence obeying the encoded Hasse-divisor bound
+    `‖f n‖ ≤ d(n) · n^(1/2)` has an absolutely convergent L-series on
+    the sharp open half-plane `Re s > 3/2` (no `ε` loss).
+
+    PROOF: termwise norm comparison with the L-series of the divisor
+    function `d = ζ ⍟ ζ` at `s - 1/2`, which is summable for
+    `Re (s - 1/2) > 1` by mathlib's
+    `ArithmeticFunction.LSeriesSummable_mul` +
+    `ArithmeticFunction.LSeriesSummable_zeta_iff`. -/
+theorem lSeriesSummable_of_encodedHasseDivisorBound
+    {f : ℕ → ℂ} (hf : EncodedHasseDivisorBound f)
+    {s : ℂ} (hs : 3 / 2 < s.re) :
+    LSeriesSummable f s := by
+  -- Shift: `s' = s - 1/2` has real part `> 1`.
+  set s' : ℂ := s - ((1 / 2 : ℝ) : ℂ) with hs'def
+  have hre : s'.re = s.re - 1 / 2 := by
+    simp [hs'def, Complex.sub_re]
+  have h1 : (1 : ℝ) < s'.re := by rw [hre]; linarith
+  -- `ζ` (as a `ℂ`-valued arithmetic function) is L-summable at `s'`.
+  have hz := ArithmeticFunction.LSeriesSummable_zeta_iff.mpr h1
+  have hz' : LSeriesSummable
+      (fun n : ℕ => (ArithmeticFunction.zeta : ArithmeticFunction ℂ) n) s' :=
+    (LSeriesSummable_congr s' fun {n} _ => by
+      simp [ArithmeticFunction.natCoe_apply]).mpr hz
+  -- Hence so is the Dirichlet convolution `ζ ⍟ ζ`.
+  have hd : LSeriesSummable
+      (fun n : ℕ =>
+        ((ArithmeticFunction.zeta : ArithmeticFunction ℂ) *
+         (ArithmeticFunction.zeta : ArithmeticFunction ℂ)) n) s' :=
+    ArithmeticFunction.LSeriesSummable_mul hz' hz'
+  -- `ζ ⍟ ζ` is pointwise the divisor-counting function `d`.
+  have hcoef : ∀ {n : ℕ}, n ≠ 0 →
+      ((ArithmeticFunction.zeta : ArithmeticFunction ℂ) *
+       (ArithmeticFunction.zeta : ArithmeticFunction ℂ)) n
+        = (n.divisors.card : ℂ) := by
+    intro n _
+    rw [ArithmeticFunction.coe_zeta_mul_apply]
+    rw [Finset.sum_congr rfl
+      (fun i hi =>
+        show (ArithmeticFunction.zeta : ArithmeticFunction ℂ) i = 1 by
+          simp [ArithmeticFunction.natCoe_apply,
+            ArithmeticFunction.zeta_apply_ne
+              (Nat.pos_of_mem_divisors hi).ne'])]
+    simp
+  have hdsum : LSeriesSummable (fun n : ℕ => (n.divisors.card : ℂ)) s' :=
+    (LSeriesSummable_congr s' fun {n} hn => hcoef hn).mp hd
+  -- Termwise norm comparison against the divisor L-series at `s - 1/2`.
+  rw [LSeriesSummable, ← summable_norm_iff]
+  rw [LSeriesSummable, ← summable_norm_iff] at hdsum
+  refine hdsum.of_nonneg_of_le (fun _ => norm_nonneg _) fun n => ?_
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp
+  · have hnpos : (0 : ℝ) < (n : ℝ) :=
+      Nat.cast_pos.mpr (Nat.pos_of_ne_zero hn)
+    rw [LSeries.norm_term_eq, LSeries.norm_term_eq, if_neg hn, if_neg hn,
+      RCLike.norm_natCast, hre, Real.rpow_sub hnpos, div_div_eq_mul_div]
+    gcongr
+    exact hf n hn
+
+/-- **(A3) Absolute convergence on `Re s > 3/2`** of the Dirichlet
+    series. Since 2026-07-24 this is the REAL analytic statement (no
+    longer `True`-shaped): every ENCODED coefficient sequence obeying
+    the Hasse-divisor bound `‖f n‖ ≤ d(n) · n^(1/2)` has an
+    absolutely convergent L-series on `Re s > 3/2`.
+
+    HONEST SCOPE: quantifies over encoded coefficient sequences, NOT
+    over mathlib elliptic curves (`WeierstrassCurve.LSeries` does not
+    exist); instantiating the bound for the actual `a_n` of
+    `E_{32.a3}` remains gap G3. -/
+def LSeriesAbsConvergenceForReSGreaterThanThreeHalves : Prop :=
+  ∀ f : ℕ → ℂ, EncodedHasseDivisorBound f →
+    ∀ s : ℂ, 3 / 2 < s.re → LSeriesSummable f s
+
+/-- **(A3) is theorem-level provable** — no longer at a placeholder:
+    proved Lean-internally from mathlib's `LSeries` API via
+    `lSeriesSummable_of_encodedHasseDivisorBound`. -/
 theorem lSeriesAbsConvergenceForReSGreaterThanThreeHalves_holds :
-    LSeriesAbsConvergenceForReSGreaterThanThreeHalves := trivial
+    LSeriesAbsConvergenceForReSGreaterThanThreeHalves :=
+  fun _f hf _s hs => lSeriesSummable_of_encodedHasseDivisorBound hf hs
 
 /-! ## §4 — (A4) Wiles modularity → analytic continuation at s = 1
 
@@ -526,10 +636,13 @@ theorem wave57BSD_statement_holds_at_placeholder :
     It is a SCAFFOLD attacking the sole named open Prop of
     Wave 56-BSD on `E_{32.a3}`, factoring the convergence claim
     `L_partial → L(E, 1)` through four classical analytic inputs.
-    Two of those four ((A1), (A2)) are discharged axiom-free from
-    Wave 50F/51F point-counting; the other two ((A3), (A4)) remain
-    encoded `Prop`s requiring future `LSeries.ellipticCurve`
-    mathlib content + Wiles 1995 formalisation. -/
+    (A1), (A2) are discharged axiom-free from Wave 50F/51F
+    point-counting; (A3) is, since 2026-07-24, proved Lean-internally
+    against ENCODED coefficient sequences (not mathlib elliptic
+    curves — instantiating the Hasse-divisor bound for the actual
+    `a_n` remains gap G3); (A4) remains an encoded `Prop` requiring
+    Wiles 1995 formalisation + L-function analytic-continuation
+    API. -/
 theorem bsd_LSeries_convergence_scaffold_honest_scope :
     True := trivial
 
@@ -552,9 +665,12 @@ theorem bsd_LSeries_convergence_scaffold_honest_scope :
         `hasse_at_*`.
 
     **(C3) (A3) Absolute convergence on `Re s > 3/2`** of the
-        Dirichlet series. Encoded `Prop` (`True`-shaped). OPEN
-        content: requires `LSeries.ellipticCurve` mathlib content
-        (gap G3 + G4).
+        Dirichlet series. Since 2026-07-24: REAL analytic Prop over
+        encoded coefficient sequences with the Hasse-divisor bound,
+        proved Lean-internally (sharp half-plane, no `ε` loss).
+        Remaining OPEN content: instantiating the bound for the
+        actual `a_n` of `E_{32.a3}` requires `LSeries.ellipticCurve`
+        mathlib content (gap G3).
 
     **(C4) (A4) Modularity → analytic continuation** at `s = 1`.
         Encoded `Prop` composed against Wave 52G
@@ -657,6 +773,8 @@ end PrincipiaTractalis.BSD_LSeriesConvergenceScaffold
   PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.integerCoefficientsOfFrobeniusTraces_holds
 #print axioms
   PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.ramanujanBoundOnFrobeniusTraces_holds
+#print axioms
+  PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.lSeriesSummable_of_encodedHasseDivisorBound
 #print axioms
   PrincipiaTractalis.BSD_LSeriesConvergenceScaffold.lSeriesAbsConvergenceForReSGreaterThanThreeHalves_holds
 #print axioms

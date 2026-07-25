@@ -44,7 +44,15 @@ provides:
     Wave 57-BSD (A3) `Prop` carrying the genuine analytic content as
     a universal statement over `ε > 0`.
   * `wave57BSD_A3_strengthened_implies_original` — the strengthened
-    version mechanically implies the original `True`-shaped (A3) Prop.
+    version mechanically implies the original (A3) Prop.
+
+★ 2026-07-24 UPDATE: the scaffold's (A3) Prop is no longer
+`True`-shaped — `PF.BSD_LSeriesConvergenceScaffold` now states and
+PROVES the real convergence statement (sharp `Re s > 3/2`, divisor
+bound, no `ε` loss), superseding the ε-tower route of this file for
+the purpose of discharging (A3). The §6 bridge lemmas below were
+updated accordingly; the ε-tower machinery (§1–§5) is retained as a
+standalone parameterised result.
 
 ## Honest scope
 
@@ -205,18 +213,22 @@ theorem lSeriesSummable_of_hasseTower_on_open_halfplane
 
 /-! ## §6 — Bridge to the Wave 57-BSD scaffold (A3) Prop -/
 
-/-- **The strengthened (A3) implies the original `True`-shaped (A3)**.
-Trivially. The point of this lemma is to record that the structural
-upgrade is **a strict strengthening**: anything we could derive from
-the original (A3) at the placeholder layer remains derivable from the
-strengthened form. -/
+/-- **The strengthened (A3) implies the scaffold's (A3)**.
+
+History: when this file was written (2026-06-02) the scaffold's (A3)
+was the `True`-shaped placeholder and this implication was `trivial`.
+Since 2026-07-24 the scaffold's (A3) is itself a REAL analytic
+theorem (`lSeriesAbsConvergenceForReSGreaterThanThreeHalves_holds`,
+proved from the sharp divisor-bound comparison in
+`PF.BSD_LSeriesConvergenceScaffold`), so the implication holds a
+fortiori — the ε-tower hypothesis is no longer needed and is unused. -/
 theorem wave57BSD_A3_strengthened_implies_original
     {f : ℕ → ℂ}
     (_hStrengthened :
       ∀ ε : ℝ, 0 < ε → LSeriesAbsConvergesOnReGreaterThan f (3/2 + ε)) :
-    LSeriesAbsConvergenceForReSGreaterThanThreeHalves := by
-  -- Original (A3) was encoded as `True`.
-  trivial
+    LSeriesAbsConvergenceForReSGreaterThanThreeHalves :=
+  -- (A3) is now itself a theorem (2026-07-24); the hypothesis is unused.
+  lSeriesAbsConvergenceForReSGreaterThanThreeHalves_holds
 
 /-- **The strengthened (A3) is composable into the four-input
 Wave 57-BSD cascade** — invoking the strengthened analytic content

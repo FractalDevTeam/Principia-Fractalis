@@ -133,12 +133,15 @@ theorem PF_BSD_capstone_yields_Clay_BSD_standard :
 
 /-! ## §3 — Open frontier: Wave 57 (A3)+(A4) -/
 
-/-- **The pair of named open Props blocking lift to a
+/-- **The pair of named Props blocking lift to a
     `WeierstrassCurve ℚ`-quantified encoding.** Wave 57-BSD's
     (A3)+(A4): absolute L-series convergence for Re(s) > 3/2 and the
-    Wiles-modularity-implies-analytic-continuation hook. Both
-    currently encoded as `True`-shaped Props pending mathlib
-    `LSeries.ellipticCurve` content. -/
+    Wiles-modularity-implies-analytic-continuation hook. Since
+    2026-07-24, (A3) is a REAL analytic statement proved against
+    ENCODED coefficient sequences (see History in
+    `PF.BSD_LSeriesConvergenceScaffold`); (A4) remains a
+    `True`-shaped Prop pending mathlib `LSeries.ellipticCurve` +
+    Wiles content. -/
 def BSD_OpenFrontier : Prop :=
   LSeriesAbsConvergenceForReSGreaterThanThreeHalves ∧
   WilesModularityImpliesAnalyticContinuation
