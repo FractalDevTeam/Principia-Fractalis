@@ -61,3 +61,24 @@ and I take it from here — the token is shared with the CLI my tools use.
   the moment they're in review.
 - If you'd rather I open them under a personal fork vs. `FractalDevTeam`, say so
   at STEP 1.
+
+## 2026-07-25 — module-system recipe (learned from PR #42093)
+
+mathlib master is on **Lean v4.33.0-rc1 with the module system** (our PF pin is
+v4.24). Every ForMathlib file needs these FOUR adaptations before it will build on
+master CI. Bake them in from the first push for PR-2/3/4:
+
+1. After the copyright block, add a line `module` then a blank line.
+2. Make every import `public import Mathlib...` (not bare `import`).
+3. After the module docstring, add `@[expose] public section` (else the
+   `linter.privateModule` fatal warning fires — decls are private by default).
+4. Fix deprecations flagged by CI (e.g. `continuous_mul_left`→`continuous_const_mul`,
+   `continuous_mul_right`→`continuous_mul_const`); the Build job treats warnings as fatal.
+
+Keep the PF-repo `ForMathlib/*.lean` copies in the OLD (v4.24) style — they must keep
+building on the PF pin. The module-adapted versions live only on the fork
+`DrDMT-VR/mathlib4`. Push flow: token-in-URL (`https://x-access-token:$(gh auth token)@...`),
+snap `gh` can't read files outside `$HOME` so put PR bodies there.
+
+PR #42093 (TwoSidedIdeal.closure): Build+Lint green, MERGEABLE, labels t-topology +
+new-contributor, awaiting maintainer review.
