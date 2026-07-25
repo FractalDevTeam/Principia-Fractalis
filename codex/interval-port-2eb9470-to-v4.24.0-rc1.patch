@@ -1,0 +1,268 @@
+diff --git a/Interval/Fixed.lean b/Interval/Fixed.lean
+index efa6612..3f897e7 100644
+--- a/Interval/Fixed.lean
++++ b/Interval/Fixed.lean
+@@ -987,7 +987,9 @@ lemma Fixed.approx_ofRat (x : ℚ) (up : Bool) :
+       · simp only [Bool.not_false, mem_rounds_singleton, mul_inv_le_iff₀ (two_pow_pos (R := ℝ)),
+         ite_true]
+         refine le_trans Int.rdiv_le ?_
+-        field_simp
++        refine le_of_eq ?_
++        push_cast
++        ring
+       · simp only [rounds, ← div_eq_mul_inv, mem_singleton_iff, Bool.not_true, ite_false,
+           exists_eq_left, le_div_iff₀ (G₀ := ℝ) two_pow_pos, mem_setOf_eq, Bool.false_eq_true]
+         refine le_trans (le_of_eq ?_) Int.le_rdiv
+@@ -1070,11 +1072,14 @@ lemma Fixed.val_mem_log2 {x : Fixed s} (h : x.log2 ≠ nan) :
+     simp only [val, Int64.coe_zero, zpow_zero, mul_one, ←Int.cast_add, Int.cast_inj] at v
+     simp only [v]; ring_nf
+     simp only [not_le] at x0
+-    rw [Int64.coe_log2, UInt64.toNat_log2, ←Nat.cast_one, ←Nat.cast_add, zpow_natCast, zpow_natCast,
+-      Nat.add_comm, Int64.toReal_toInt x0.le, tp, tp, Nat.cast_le, Nat.cast_lt]
+-    refine ⟨Nat.log2_self_le ?_, Nat.lt_log2_self⟩
+-    simp only [←UInt64.ne_zero_iff_toNat_ne_zero, ←Int64.ne_zero_iff_n_ne_zero]
+-    exact x0.ne'
++    rw [Int64.coe_log2, UInt64.toNat_log2, Int64.toReal_toInt x0.le,
++      Int.add_comm 1 (x.n.toUInt64.toNat.log2 : ℤ)]
++    have hn0 : x.n.toUInt64.toNat ≠ 0 := by
++      simp only [←UInt64.ne_zero_iff_toNat_ne_zero, ←Int64.ne_zero_iff_n_ne_zero]
++      exact x0.ne'
++    constructor
++    · exact_mod_cast Nat.log2_self_le hn0
++    · exact_mod_cast Nat.lt_log2_self
+ 
+ /-- `Fixed.two_pow` is correctly rounded -/
+ lemma Fixed.approx_two_pow (n : Fixed 0) (up : Bool) :
+diff --git a/Interval/Floating/Basic.lean b/Interval/Floating/Basic.lean
+index edd9cf6..a4e5c2c 100644
+--- a/Interval/Floating/Basic.lean
++++ b/Interval/Floating/Basic.lean
+@@ -159,9 +159,11 @@ instance : One Floating where
+ lemma val_nan : (nan : Floating).val = -(2 ^ 63) * 2 ^ (2 ^ 63 - 1) := by
+   simp only [Floating.val, Floating.n_nan, Int64.coe_min', Int.reducePow,
+     Int.cast_neg, Int.cast_ofNat, Floating.s_nan]
+-  rw [show UInt64.max.toInt - (9223372036854775808) = 2 ^ 63 - 1 by decide]
+-  rw [show (9223372036854775808 : ℝ) = 2 ^ 63 by norm_num]
+-  rfl
++  rw [show UInt64.max.toInt - (9223372036854775808) = ((2 ^ 63 - 1 : ℕ) : ℤ) by
++    simp only [UInt64.toInt, UInt64.toNat_max]; norm_num]
++  rw [zpow_natCast]
++  congr 1
++  all_goals norm_num
+ 
+ /-- If we're not `nan`, `approx` is a singleton -/
+ @[simp] lemma approx_eq_singleton {x : Floating} (n : x ≠ nan) : approx x = {x.val} := by
+diff --git a/Interval/Interval/Sincos.lean b/Interval/Interval/Sincos.lean
+index 0f99f9d..e43d0b5 100644
+--- a/Interval/Interval/Sincos.lean
++++ b/Interval/Interval/Sincos.lean
+@@ -55,13 +55,13 @@ noncomputable def cos_sqrt (x : ℝ) : ℝ := Real.cos (Real.sqrt x)
+ lemma Complex.sin_eq_sinc (z : ℂ) : sin z = z * sinc z := by
+   by_cases z0 : z = 0
+   · simp [z0]
+-  · rw [sinc]; field_simp [z0]
++  · rw [sinc, if_neg z0]; field_simp [z0]
+ 
+ /-- `sinc` suffices to compute `sin` -/
+ lemma Real.sin_eq_sinc (x : ℝ) : sin x = x * sinc x := by
+   by_cases x0 : x = 0
+   · simp [x0]
+-  · rw [sinc]; field_simp [x0]
++  · rw [sinc, if_neg x0]; field_simp [x0]
+ 
+ @[simp] lemma Complex.sinc_neg (x : ℝ) : sinc (-x) = sinc x := by simp [sinc]
+ 
+diff --git a/Interval/Misc/Array.lean b/Interval/Misc/Array.lean
+index ba072a9..5511a05 100644
+--- a/Interval/Misc/Array.lean
++++ b/Interval/Misc/Array.lean
+@@ -10,16 +10,7 @@ variable {α β : Type}
+ 
+ @[simp] lemma Array.range_getElem (n k : ℕ) (kn : k < (range n).size) :
+     ((Array.range n)[↑k]'kn) = k := by
+-  have nn : ∀ n, (Nat.fold n (fun b _ a ↦ push a b) #[]).size = n := by
+-    intro n; induction' n with n h
+-    · simp only [Nat.fold, List.size_toArray, List.length_nil]
+-    · simp only [Nat.fold, size_push, h]
+-  induction' n with n h
+-  · simp only [size, range, ofFn_zero, List.toList_toArray, List.length_nil, not_lt_zero'] at kn
+-  · simp only [range] at kn h ⊢
+-    by_cases lt : k < size (Nat.fold n (fun b _ a => a.push b) #[])
+-    · simp only [size_ofFn, getElem_ofFn, implies_true, lt] at *
+-    · simp only [size_ofFn, getElem_ofFn] at kn ⊢
++  simp
+ 
+ @[simp] lemma Array.getElem_map_fin (f : α → β) (x : Array α) {n : ℕ} (i : Fin n)
+     (h : i < (x.map f).size) : (x.map f)[i]'h = f (x[i]'(by simpa using h)) := by
+@@ -56,7 +47,7 @@ lemma ByteArray.getElem!_push (d : ByteArray) (c : UInt8) (i : ℕ) :
+   split_ifs with lt e
+   · have lt' : i < (d.push c).size := by simp only [ByteArray.size_push]; omega
+     rw [← getElemNat_eq_getElem! lt, ← getElemNat_eq_getElem! lt', ByteArray.get_push_lt _ _ _ lt]
+-  · rw [e, ← getElemNat_eq_getElem!, ByteArray.get_push_eq]
++  · rw [e, ← getElemNat_eq_getElem! (by simp [ByteArray.size_push]), ByteArray.get_push_eq]
+   · apply getElem!_neg
+     simp only [size_push, not_lt]
+     omega
+diff --git a/Interval/Misc/Nat.lean b/Interval/Misc/Nat.lean
+index 982b8e0..58667ab 100644
+--- a/Interval/Misc/Nat.lean
++++ b/Interval/Misc/Nat.lean
+@@ -1,6 +1,8 @@
+ import Mathlib.Algebra.Order.Floor.Defs
+ import Mathlib.Algebra.Order.Floor.Ring
+ import Mathlib.Algebra.Order.Floor.Semiring
++import Mathlib.Algebra.Order.Floor.Semifield
++import Mathlib.Tactic.Cases
+ import Mathlib.Data.Nat.Bitwise
+ import Mathlib.Data.Nat.ModEq
+ import Mathlib.Data.Real.Basic
+@@ -432,7 +434,7 @@ lemma Nat.le_rdiv_of_mul_le {a b c : ℕ} {up : Bool} (b0 : 0 < b) (h : c * b 
+   simpa only [rdiv, cond_false, le_div_iff_mul_le b0]
+ 
+ @[simp] lemma Nat.log2_one : (1 : ℕ).log2 = 0 := by
+-  rw [log2]
++  rw [Nat.log2_def]
+   simp
+ 
+ /-!
+@@ -459,20 +461,15 @@ def Nat.fast_log2 (n : @& ℕ) : ℕ :=
+   suffices h : ∀ f n, (h : n ≤ f) → fast_log2.go f n = n.log2 by
+     exact h _ _ (le_refl _)
+   intro f
+-  induction' f using Nat.strong_induction_on with f h
++  induction' f with f ih
+   · intro n nf
+-    rw [fast_log2.go, log2]
+-    by_cases n0 : n = 0
+-    · simp only [n0, nonpos_iff_eq_zero, OfNat.ofNat_ne_zero, ↓reduceIte]
+-      induction' f with f
+-      · simp only [rec_zero]
+-      · simp only [nonpos_iff_eq_zero, OfNat.ofNat_ne_zero, ↓reduceIte]
+-    have n1 : 1 ≤ n := by omega
+-    generalize hf1 : f - 1 = f1
+-    have hf : f = f1 + 1 := by omega
+-    simp only [hf]
++    have n0 : n = 0 := by omega
++    subst n0
++    rfl
++  · intro n nf
++    rw [Nat.log2_def]
++    show (if 2 ≤ n then fast_log2.go f (n / 2) + 1 else 0) = _
+     by_cases n2 : 2 ≤ n
+-    · simp only [n2, ↓reduceIte, add_left_inj]
+-      apply h
+-      all_goals omega
+-    · simp only [n2, ↓reduceIte]
++    · simp only [n2, if_true, ↓reduceIte, add_left_inj]
++      exact ih _ (by omega)
++    · simp only [n2, if_false, ↓reduceIte]
+diff --git a/lake-manifest.json b/lake-manifest.json
+index 1637adb..269bca0 100644
+--- a/lake-manifest.json
++++ b/lake-manifest.json
+@@ -5,17 +5,17 @@
+    "type": "git",
+    "subDir": null,
+    "scope": "leanprover-community",
+-   "rev": "77ee539f65bc808ccd55f88bf61870dc200326f5",
++   "rev": "eed770a434957369c6262aa3fb1d6426419016d4",
+    "name": "mathlib",
+    "manifestFile": "lake-manifest.json",
+-   "inputRev": "master",
++   "inputRev": "eed770a434957369c6262aa3fb1d6426419016d4",
+    "inherited": false,
+    "configFile": "lakefile.lean"},
+   {"url": "https://github.com/leanprover-community/plausible",
+    "type": "git",
+    "subDir": null,
+    "scope": "leanprover-community",
+-   "rev": "240eddc1bb31420fbbc57fe5cc579435c2522493",
++   "rev": "c205f530395b57b520d3d78d975293f0c69b65ce",
+    "name": "plausible",
+    "manifestFile": "lake-manifest.json",
+    "inputRev": "main",
+@@ -35,37 +35,37 @@
+    "type": "git",
+    "subDir": null,
+    "scope": "leanprover-community",
+-   "rev": "dba7fbc707774d1ba830fd44d7f92a717e9bf57f",
++   "rev": "a564b9c2252afef6e0d40613d4ec086b54ffe7df",
+    "name": "importGraph",
+    "manifestFile": "lake-manifest.json",
+-   "inputRev": "main",
++   "inputRev": "nightly-testing",
+    "inherited": true,
+    "configFile": "lakefile.toml"},
+   {"url": "https://github.com/leanprover-community/ProofWidgets4",
+    "type": "git",
+    "subDir": null,
+    "scope": "leanprover-community",
+-   "rev": "6e47cc88cfbf1601ab364e9a4de5f33f13401ff8",
++   "rev": "557f2069977de1c95e68de09e693bc4d1eee7842",
+    "name": "proofwidgets",
+    "manifestFile": "lake-manifest.json",
+-   "inputRev": "v0.0.71",
++   "inputRev": "v0.0.72-pre",
+    "inherited": true,
+    "configFile": "lakefile.lean"},
+   {"url": "https://github.com/leanprover-community/aesop",
+    "type": "git",
+    "subDir": null,
+    "scope": "leanprover-community",
+-   "rev": "523c8ee53f7057447fc62ec14e506fda4cf63dfa",
++   "rev": "fc97e592e3e150370f17a12e3613e96252c4d3d0",
+    "name": "aesop",
+    "manifestFile": "lake-manifest.json",
+-   "inputRev": "master",
++   "inputRev": "nightly-testing",
+    "inherited": true,
+    "configFile": "lakefile.toml"},
+   {"url": "https://github.com/leanprover-community/quote4",
+    "type": "git",
+    "subDir": null,
+    "scope": "leanprover-community",
+-   "rev": "f85ad59c9b60647ef736719c23edd4578f723806",
++   "rev": "345a958916d27982d4ecb4500fba0ebb21096651",
+    "name": "Qq",
+    "manifestFile": "lake-manifest.json",
+    "inputRev": "master",
+@@ -75,17 +75,17 @@
+    "type": "git",
+    "subDir": null,
+    "scope": "leanprover-community",
+-   "rev": "6e89c7370ca3a91b7d1f29ef7d727a9d027d7b0d",
++   "rev": "b3a8bc5f8b72102ebbe4da3302432b196e215522",
+    "name": "batteries",
+    "manifestFile": "lake-manifest.json",
+-   "inputRev": "main",
++   "inputRev": "nightly-testing",
+    "inherited": true,
+    "configFile": "lakefile.toml"},
+   {"url": "https://github.com/leanprover/lean4-cli",
+    "type": "git",
+    "subDir": null,
+    "scope": "leanprover",
+-   "rev": "cacb481a1eaa4d7d4530a27b606c60923da21caf",
++   "rev": "e22ed0883c7d7f9a7e294782b6b137b783715386",
+    "name": "Cli",
+    "manifestFile": "lake-manifest.json",
+    "inputRev": "main",
+diff --git a/lakefile.toml b/lakefile.toml
+index b455eea..eb15007 100644
+--- a/lakefile.toml
++++ b/lakefile.toml
+@@ -10,6 +10,7 @@ relaxedAutoImplicit = false
+ [[require]]
+ name = "mathlib"
+ scope = "leanprover-community"
++rev = "eed770a434957369c6262aa3fb1d6426419016d4"
+ 
+ [[lean_lib]]
+ name = "Interval"
+diff --git a/lean-toolchain b/lean-toolchain
+index d644667..fd384f2 100644
+--- a/lean-toolchain
++++ b/lean-toolchain
+@@ -1 +1 @@
+-leanprover/lean4:v4.23.0-rc2
++leanprover/lean4:v4.24.0-rc1
