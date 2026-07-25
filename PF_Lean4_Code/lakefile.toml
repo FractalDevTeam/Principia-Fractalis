@@ -14,3 +14,10 @@ root = "Main"
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4"
 rev = "v4.24.0-rc1"  # Compatible with Lean 4.24.0
+
+# Vendored girving/interval (kernel-verified interval arithmetic) — RH-arc Route B
+# numerics engine. See vendor/interval/VENDORING.md; `interval` tactic is BANNED
+# (native_decide) — use `approx` + Interval.approx_lt/approx_le + decide +kernel.
+[[require]]
+name = "interval"
+path = "../vendor/interval"
