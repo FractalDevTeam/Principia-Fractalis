@@ -246,3 +246,111 @@ theory, Hardy, Sobolev `H^s`). The honest next moves — unique-trace of the sub
 the `:= True` cleanup, the BSD Re>3/2 convergence brick — **improve the package's rigor and
 completeness; they do not close a Millennium Problem, and should not be described as
 doing so.**
+
+---
+
+## 5. ADDENDUM — 2026-07-25
+
+*Additive. Nothing above is deleted; the two entries below amend it, and both are backed by
+independently verified, committed reports.*
+
+### 5.1 RH atomic fact (b) — `PositiveOnLineZetaZeroOrdinatesNonempty` is **CLOSED**
+
+Shortlist item **#4** (§2, "bucket 1, but hard", prereqs marked **absent**) and the §1.1
+table row marked **1** are both **discharged**. Source of record:
+`codex/R120_CLOSURE_VERIFIED_2026-07-25.md` (revision r120, source commit `659acca5`,
+fresh transitive `#print axioms`).
+
+| item | value |
+|---|---|
+| theorem | `positiveOnLineZetaZeroOrdinatesNonempty` (`PF/Analytic/HilbertPolyaPositiveReductionToCountability.lean`) |
+| statement | `∃ t > 0, riemannZeta ⟨1/2, t⟩ = 0` — at least one ζ-zero on the critical line |
+| axiom footprint | `[propext, Classical.choice, Quot.sound]` — the kernel three, nothing more |
+| `native_decide` | **not used** — no `Lean.ofReduceBool` in the transitive footprint |
+| `sorry` / project axioms | none |
+| interval-panel modules | **63 / 63 green**, **0 failures** |
+| certified midpoint panels | **474** (165 panels + 16 transcendental constants via `decide +kernel`) |
+| proof route | `Xi 1 < 0`, `Xi (77/5) > 0` by certified interval arithmetic, then IVT via `xi_sign_change_implies_on_line_zero` (r115) |
+| tightest budget | at `b = 15.4`: certified `Xi ≥ 2.93e−6 > 0` against `|Xi(15.4)| = 6.68e−6` |
+
+**Honest scope.** This is **not RH.** It is the Hardy-type (Hardy 1914) existence of
+*one* on-line zero; the first sits at `t = 14.1347`. RH asserts that *every* nontrivial
+zero lies on the critical line, and that stays bucket 3.
+
+**What it changes for the triage.** This was the *last bucket-1 item* on the RH reduction
+chain. §1.1's "Net: RH reduces to **three atomic facts**" is superseded: discharging this
+one feeds `rh_wave58_countability_reduction_capstone` and collapses the honest RH residual
+to exactly **two**:
+
+1. `HilbertPolyaProgramConjecture_Positive` — **bucket 3**, equivalent to RH itself
+   (§1.1 row, §3 item 2; unchanged);
+2. the empirical-α pin — **bucket 2**, and now shown *circular* (see §5.2 below and
+   `codex/ALPHA_NP_DERIVABILITY_2026-07-25.md`).
+
+Neither is closeable by formalization labour. The §0 headline finding ("none of the
+Clay-critical-path residuals are bucket 1") is *strengthened*, not weakened: the one
+bucket-1 item on the RH path has now fallen, and what remains is 3 and 2.
+
+**Correction recorded (from the r120 report).** An earlier scouting note gave
+`Ξ(12) = +8.8e−3`, `Ξ(16) = −7.7e−4` using the classical
+`Ξ = ½s(s−1)π^(−s/2)Γ(s/2)ζ(s)`. The corpus's `Xi t = Re Λ(1/2+it)` **omits** the
+`½s(s−1)` factor, which equals `−(1/4+t²)/2 < 0` on the critical line; the corpus `Xi`
+therefore has the opposite sign and magnitudes ~128× smaller. Verified at 40 digits:
+`Xi(14) = −2.05e−6`, `Xi(15.4) = +6.68e−6`. Real budget `6.7e−6`, not `7.7e−4`.
+
+### 5.2 Reclassification — the α-**value** question is **bucket 2**, not bucket 3
+
+This triage states, at §1.2 (row `EmpiricalAlphaIdentificationHypothesis`, "**2 (derivation
+is 3)**"), at §1.2 (row `alpha_NP = φ + 1/4` derivation gaps, "**2 (→3)**"), and at §3
+item **3**, that *any* genuine derivation of `alpha_of_class` is P-vs-NP-equivalent, citing
+the Wave 57 sharpness certificate + `AlphaRealizationNoGo` via
+`EnumToClassSeparationBridge`. **That inference is not supported by the theorem it cites.**
+Source of record: `codex/ALPHA_NP_DERIVABILITY_2026-07-25.md` §3.
+
+**What the no-go actually proves.**
+`alpha_realization_canonical_pair_iff_classes_distinct`
+(`PF/TuringEncoding/AlphaRealizationNoGo.lean:85-108`):
+
+```lean
+(∃ f : Set Language → ℝ, f ClassP = Real.sqrt 2 ∧ f ClassNP = phi + 1/4)
+  ↔ ClassP ≠ ClassNP
+```
+
+The theorem is **correct and correctly proved** — and it should be protected. But read the
+proof: the forward direction uses only `phi_plus_quarter_gt_sqrt2`, i.e. the bare fact
+`√2 ≠ φ + 1/4`; the backward direction is a classical `if`-then-`else` witness. **It holds
+verbatim for any two distinct reals `a ≠ b`** — `(0,1)`, `(e,π)`, `(1.7,2.3)` would all do.
+It therefore bounds the **distinctness** clause of `PolylogEigenvalueConjecture`, not the
+**value** clause. The corpus's own decomposition agrees (`PF.lean:689`): the P ≠ NP chain
+requires only sub-claim 5 (distinctness); sub-claims 1–4 (the values) are separately open.
+
+**`EnumToClassSeparationBridge` carries no α-content.** Its definition
+(`PF/TuringEncoding/PNPClassSeparationPrecisionBridge.lean:241-242`) is
+`∃ L : DecidableProblem, L ∈ class_NP_typed ∧ L ∉ class_P_typed` — literally "∃ L ∈ NP \ P",
+P ≠ NP restated, as the file itself says at `:250` ("the bridge IS the gap"). No α appears
+in it, so it cannot carry the α-pin into bucket 3.
+
+**The split, corrected:**
+
+| clause | bucket | justification |
+|---|---|---|
+| distinctness, `α_P ≠ α_NP` at set level | **3** | `AlphaRealizationNoGo.lean:85-108`. Triage §1.2 / §3 item 3 correct *for this clause*. |
+| value, `α_NP = φ + 1/4` specifically | **2 — asserted, difficulty UNKNOWN** | no theorem in the corpus shows deriving the value is P-vs-NP-hard. Calling it bucket 3 makes the gap look harder — and therefore more excusable — than the evidence warrants. |
+
+**Why the value clause is bucket 2 and not merely "open".** It is a `def`
+(`PF/CrossMillenniumSharedInvariants.lean:70`, plus four further files), and every
+purported derivation closes a loop: the "9-of-9 rigidity" theorem
+(`PF/CrossMillenniumDerivedConsequences.lean:278-285, 325-329`) consumes hypothesis fields
+that are themselves proved by `unfold alpha_NP alpha_Hodge; ring` on that definition
+(`CrossMillenniumSharedInvariants.lean:166`); the "IBM empirical validation"
+(`CrossMillenniumDerivedConsequences.lean:371-376`) is `:= rfl` between two definitions of
+the same constant (`IBMPeaksGaloisPair.lean:64`); and the corpus's own
+`bare_route_structural_finding`
+(`PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:130-133`) machine-checks that
+the stated derivation mechanism *excludes* both `√2` and `φ + 1/4`.
+
+**This reclassification is a correction in the framework's favour on difficulty and against
+it on excusability.** Bucket 3 would have meant "nobody could close this." Bucket 2 means
+"this is asserted, and we do not know how hard deriving it is." The latter is the honest
+label.
+
