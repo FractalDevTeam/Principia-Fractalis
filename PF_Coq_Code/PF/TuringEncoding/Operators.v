@@ -1,4 +1,17 @@
 (*
+  === LEGACY PARITY TREE — MIXED CONTENT, NOT CROSS-PROVER VERIFICATION ===
+  This file belongs to the legacy PF/ tree, which is primarily a declaration-
+  name and dependency-shape index of the Lean corpus, not a proof corpus.
+  In this file: 9 proof obligations, of which 0 are `True` closed by
+  `exact I` (no content) and 9 are closed with real tactics.
+  Those 9 are UNAUDITED: individually each may be genuine arithmetic or
+  analysis, a definitional unfolding, or a `hypothesis -> claim` reduction
+  over an assumed Prop. Do not read any `Qed` in this file as verifying the
+  mathematical result its declaration name suggests without reading it.
+  This file also declares 4 `Axiom`/`Parameter`/`Hypothesis` stand-in(s).
+  Real Coq proofs: PF_Coq_Code/PF_Real/  (see PF_Coq_Code/PF/README.md)
+*)
+(*
   # Fractal Convolution Operators - Conjecture + Derived Values (Coq port)
   Coq counterpart of `PF_Lean4_Code/PF/TuringEncoding/Operators.lean`
   (conjecture + derived-value section).
