@@ -519,6 +519,19 @@ reduction} plus a few substrate-level facts:
 \item \textbf{ASSERTED (not derived)} --- the RH-class value $\alpha = 3/2$ and the scaling factor $\alpha^\ast = 5\times 10^{-6}$ are chosen/empirical (\texttt{EmpiricalAlphaIdentificationHypothesis}), matched to numerics, not derived from first principles.
 \end{itemize}
 
+\paragraph{Verification status, addendum (2026-07-25): the on-line-zero atom is CLOSED; RH is not.}
+The fourth bullet above --- ``CONDITIONAL (classically true, unformalised)'' ---
+is superseded. Revision r120 discharges it in Lean, kernel-clean. Verification
+record: \texttt{codex/R120\_CLOSURE\_VERIFIED\_2026-07-25.md} (source commit
+\texttt{659acca5}, fresh transitive \texttt{\#print axioms}).
+\begin{itemize}
+\item \textbf{PROVEN (kernel-verified, unconditional) --- what closed} --- \texttt{positiveOnLineZetaZeroOrdinatesNonempty} (\texttt{PF/Analytic/HilbertPolyaPositiveReductionToCountability.lean}) is now a theorem: $\exists\, t > 0$ with $\zeta(1/2 + it) = 0$, i.e.\ \emph{at least one} zero of $\zeta$ lies on the critical line. Axiom footprint $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$ --- the kernel three, nothing more. \textbf{No \texttt{Lean.ofReduceBool}}, which is the machine-checkable proof that \texttt{native\_decide} was never used anywhere in the chain; no \texttt{sorry}, no project axioms.
+\item \textbf{THE PROOF} --- certified interval arithmetic gives $\Xi(1) < 0$ and $\Xi(77/5) > 0$; the intermediate value theorem via \texttt{xi\_sign\_change\_implies\_on\_line\_zero} (r115) then produces the zero. Build evidence: \textbf{63/63} interval-panel modules green, \textbf{474} certified midpoint panels, $165$ panels $+\ 16$ transcendental constants closed by \texttt{decide +kernel}, \textbf{0} panel failures. At the tightest point $b = 15.4$ the certified budget is $\Xi(15.4) \ge 2.93\times 10^{-6} > 0$ against $|\Xi(15.4)| = 6.68\times 10^{-6}$ (quadrature $\approx 3.6\times 10^{-6}$, tail $\le 1.1\times 10^{-7}$, $\omega$-truncation $\le 10^{-12}$).
+\item \textbf{HONEST SCOPE --- what did NOT close} --- \textbf{this is not the Riemann Hypothesis.} It is the Hardy-type (Hardy 1914) existence of \emph{one} on-line zero; the first sits at $t = 14.1347$. RH asserts that \emph{every} nontrivial zero lies on the critical line, and that remains open. Corollary~\ref{cor:rh-resolution} and its 2026-07-23 honest-scope note stand unchanged.
+\item \textbf{THE HONEST RESIDUAL, NOW EXACTLY TWO ITEMS} --- this was the \emph{last bucket-1} (standard-but-unformalised) item on the framework's RH reduction chain; discharging it feeds \texttt{rh\_wave58\_countability\_reduction\_capstone} and collapses the residual to: (a) the Hilbert--P\'olya program conjecture \texttt{HilbertPolyaProgramConjecture\_Positive} --- \textbf{bucket 3}, equivalent to RH itself; and (b) the empirical-$\alpha$ pin --- \textbf{bucket 2}, and shown \emph{circular} in \texttt{codex/ALPHA\_NP\_DERIVABILITY\_2026-07-25.md} (the pin's ``9-of-9 rigidity'' derivation is proved by \texttt{unfold}\,+\,\texttt{ring} on the definition it purports to derive, \texttt{PF/CrossMillenniumSharedInvariants.lean:70,166}). Neither is closeable by formalisation labour.
+\item \textbf{CORRECTION RECORDED} --- an earlier scouting note gave $\Xi(12) = +8.8\times 10^{-3}$, $\Xi(16) = -7.7\times 10^{-4}$ using the classical $\Xi = \tfrac12 s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$. The corpus's $\Xi(t) = \Real\,\Lambda(1/2 + it)$ \emph{omits} the $\tfrac12 s(s-1)$ factor, which equals $-(1/4 + t^2)/2 < 0$ on the critical line; the corpus $\Xi$ therefore has the opposite sign and magnitudes $\sim\!128\times$ smaller. Verified at 40 digits: $\Xi(14) = -2.05\times 10^{-6}$, $\Xi(15.4) = +6.68\times 10^{-6}$. The real error budget was $6.7\times 10^{-6}$, not $7.7\times 10^{-4}$.
+\end{itemize}
+
 \section{Conclusion}
 
 We have presented a resolution of the Riemann Hypothesis through Fractal Resonance Mathematics:
