@@ -1,8 +1,27 @@
 # Principia Fractalis — Coq Port
 
-Coq mechanization of Principia Fractalis, mirroring the Lean 4
-formalization in `../PF_Lean4_Code/`. Provides independent cross-prover
-verification of the same theorems.
+Coq mechanization work for Principia Fractalis, alongside the Lean 4
+formalization in `../PF_Lean4_Code/`.
+
+> **CORRECTED 2026-07-26 — this file previously claimed "independent
+> cross-prover verification of the same theorems". That claim was false and is
+> withdrawn.** Measured over all 9,860 `Proof … Qed` blocks in `PF/`:
+> **6,749 are the one-liner `Proof. exact I. Qed.`** proving `True` — zero
+> mathematical content. The remainder are closed with real tactics, but
+> overwhelmingly arithmetic over hand-chosen literals, definitional unfoldings of
+> framework constants, or `hypothesis → claim` reductions over an assumed `Prop`.
+> A narrow minority (notably `PF/IntervalArithmetic.v`) is genuine but elementary
+> mathematics.
+>
+> **Any citation of cross-prover verification must point at `PF_Real/`, never at
+> `PF/`.** `PF_Real/` contains 110 real theorems across 4 files, every
+> `Print Assumptions` reporting *"Closed under the global context"*, zero
+> `exact I`, zero `Admitted`, zero `Axiom`. Its scope is the finite-dimensional
+> core only — Rocq/mathcomp has no C\*-algebra theory, so the completion-tier
+> results (faithfulness of `tau_UHF` on `T_infinity`, Glimm simplicity, uniqueness
+> of the trace) are **not** mirrored there and must not be claimed.
+>
+> See `PF/README.md` and `COQ_REALIZATION_PLAN.md` for the full audit.
 
 ## Status
 
@@ -71,6 +90,12 @@ Mirroring the Lean module layout 1-to-1:
 
 Match the Lean state's axiom-count discipline:
 * Target: **0 sorries (axioms)**, **0 admits**.
+  **NOT MET in `PF/` as of 2026-07-26.** Actual: **12 `Admitted.`** across 5
+  files (`Wave16/YangMillsLevelKSpectrum.v`, `Wave20/HodgeDim4CY4Substrate.v`,
+  `Wave15/ConsciousnessRHBridge.v`, `Wave15/PerelmanBackward.v`,
+  `Wave18/NS3DVortexStretchingObstruction.v`) and **235 `Axiom`/`Parameter`**
+  declarations across 37 files. `Admitted` still emits a `.vo`, so those files
+  compile while assuming their conclusions. The target IS met in `PF_Real/`.
 * The single mathematical axiom `alpha_class_polylog_eigenvalue_conjecture`
   (declared identically in both provers).
 * Headline theorems' axiom dependencies traceable via `Print Assumptions`.

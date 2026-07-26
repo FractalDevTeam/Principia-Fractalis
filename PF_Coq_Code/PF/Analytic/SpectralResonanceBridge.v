@@ -1,4 +1,16 @@
 (*
+  === LEGACY PARITY TREE — MIXED CONTENT, NOT CROSS-PROVER VERIFICATION ===
+  This file belongs to the legacy PF/ tree, which is primarily a declaration-
+  name and dependency-shape index of the Lean corpus, not a proof corpus.
+  In this file: 3 proof obligations, of which 0 are `True` closed by
+  `exact I` (no content) and 3 are closed with real tactics.
+  Those 3 are UNAUDITED: individually each may be genuine arithmetic or
+  analysis, a definitional unfolding, or a `hypothesis -> claim` reduction
+  over an assumed Prop. Do not read any `Qed` in this file as verifying the
+  mathematical result its declaration name suggests without reading it.
+  Real Coq proofs: PF_Coq_Code/PF_Real/  (see PF_Coq_Code/PF/README.md)
+*)
+(*
   # Spectral Resonance Bridge — Ch 3 Theorem to α² = 2 (Coq port)
 
   Coq counterpart of `PF_Lean4_Code/PF/Analytic/SpectralResonanceBridge.lean`

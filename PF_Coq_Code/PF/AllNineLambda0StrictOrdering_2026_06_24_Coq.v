@@ -1,4 +1,11 @@
 (*
+  === SHAPE INDEX ONLY — NO MATHEMATICAL CONTENT ===
+  Every theorem in this file is `True`, proved by `exact I`. Nothing here is
+  verified mathematics. This file records Lean declaration names and file
+  dependency shape only.
+  Real Coq proofs: PF_Coq_Code/PF_Real/  (see PF_Coq_Code/PF/README.md)
+*)
+(*
   # AllNineLambda0StrictOrdering_2026_06_24 — Coq STRUCTURAL-SHAPE Parity Mirror
 
   Six-way strict ordering on the substrate's lambda_0 spectrum:

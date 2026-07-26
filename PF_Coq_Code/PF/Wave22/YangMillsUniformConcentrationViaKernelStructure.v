@@ -1,4 +1,16 @@
 (*
+  === LEGACY PARITY TREE — MIXED CONTENT, NOT CROSS-PROVER VERIFICATION ===
+  This file belongs to the legacy PF/ tree, which is primarily a declaration-
+  name and dependency-shape index of the Lean corpus, not a proof corpus.
+  In this file: 14 proof obligations, of which 0 are `True` closed by
+  `exact I` (no content) and 14 are closed with real tactics.
+  Those 14 are UNAUDITED: individually each may be genuine arithmetic or
+  analysis, a definitional unfolding, or a `hypothesis -> claim` reduction
+  over an assumed Prop. Do not read any `Qed` in this file as verifying the
+  mathematical result its declaration name suggests without reading it.
+  Real Coq proofs: PF_Coq_Code/PF_Real/  (see PF_Coq_Code/PF/README.md)
+*)
+(*
   # YM Uniform Concentration via Kernel Self-Similarity — Sharp
     Obstruction (Coq port — Wave 22)
 

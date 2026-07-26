@@ -1,4 +1,11 @@
 (*
+  === SHAPE INDEX ONLY — NO MATHEMATICAL CONTENT ===
+  Every theorem in this file is `True`, proved by `exact I`. Nothing here is
+  verified mathematics. This file records Lean declaration names and file
+  dependency shape only.
+  Real Coq proofs: PF_Coq_Code/PF_Real/  (see PF_Coq_Code/PF/README.md)
+*)
+(*
   # Yang-Mills Canonical Kernel — Partial-Fraction (Cayley-Hamilton)
     Sylvester Triple in the Wave 26 Mixed-Order Cluster-Fix Family?
     (Coq port — Wave 29)
