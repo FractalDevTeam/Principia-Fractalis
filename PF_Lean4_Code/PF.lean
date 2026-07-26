@@ -923,6 +923,8 @@ import PF.ForMathlib.TwoSidedIdealClosure  -- mathlib PR-1
 import PF.ForMathlib.CfcMemTwoSidedIdeal  -- mathlib PR-2
 import PF.ForMathlib.ClopenSpectralProjection  -- mathlib PR-3
 import PF.SubstrateTraceUniqueness  -- r113: uniqueness of the substrate UHF trace -> T_inf is the Glimm 3^inf UHF factor
+import PF.Analytic.XiOnLineZero  -- r120: RH on-line-zero atom DISCHARGED (certified interval arithmetic, no native_decide)
+import PF.Referee.ClayResidualFrontier_r121_2026_07_25  -- r121: Clay residual frontier THREE atoms -> TWO (atom (b) closed by r120)
 
 /-!
 ## Principia Fractalis Formal Verification
