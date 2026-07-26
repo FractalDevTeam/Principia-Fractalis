@@ -82,3 +82,26 @@ snap `gh` can't read files outside `$HOME` so put PR bodies there.
 
 PR #42093 (TwoSidedIdeal.closure): Build+Lint green, MERGEABLE, labels t-topology +
 new-contributor, awaiting maintainer review.
+
+## 2026-07-25 evening — three PRs open, all green
+
+| PR | Content | Status |
+|---|---|---|
+| [#42093](https://github.com/leanprover-community/mathlib4/pull/42093) | `TwoSidedIdeal.closure` | Build ✅ Test+lint ✅ MERGEABLE |
+| [#42095](https://github.com/leanprover-community/mathlib4/pull/42095) | `cfcₙ` into closed two-sided ideals | Build ✅ Test+lint ✅ |
+| [#42100](https://github.com/leanprover-community/mathlib4/pull/42100) | clopen spectral projections | opened; stacked on #42095 |
+
+**Key process win: build locally before pushing.** The fork clone at
+`<scratchpad>/mathlib4` has a warm cache (`lake exe cache get` already run), so
+`lake build <Module>` takes ~2s and catches all drift before CI. This is how PR-3 was
+staged with zero failed CI rounds, vs PR-1's four.
+
+Additional v4.33 deprecations found beyond the earlier four-step recipe:
+`continuousOn_iff_continuous_restrict` → `continuousOn_iff_continuous_domRestrict`,
+`Set.restrict`/`Set.restrict_apply` → `Set.domRestrict`/`Set.domRestrict_apply`,
+`push_neg` → `push Not`. Build treats ALL warnings as fatal — the build line must show
+`✔`, not `⚠`.
+
+Remaining: **PR-4** = the r115 zeta-conjugation lemmas (`Gammaℝ_conj`,
+`completedRiemannZeta₀_conj`, `completedRiemannZeta_conj`, `riemannZeta_conj`), standalone,
+not yet staged.
