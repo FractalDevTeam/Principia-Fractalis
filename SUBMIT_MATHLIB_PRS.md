@@ -4,8 +4,15 @@ Three verified, upstreamable files are staged in `PF_Lean4_Code/PF/ForMathlib/`
 (all kernel-clean, root namespaces, mathlib conventions). This is the exact
 procedure to get them into `leanprover-community/mathlib4`.
 
+> **CORRECTED 2026-07-25:** only THREE of the four were absent.
+> `riemannZeta_conj` ALREADY EXISTS on master (`Mathlib/NumberTheory/Harmonic/
+> ZetaAsymp.lean:458`, unconditional, `@[simp]`, independent proof by another
+> author). It was dropped from PR-4 to avoid a duplicate submission. The other
+> three are genuine gaps and do NOT follow from it (the bridge `ζ s = Λ s / Gammaℝ s`
+> cannot be inverted: `Gammaℝ` vanishes at the trivial zeros).
+>
 > **2026-07-25 addendum — PR-4 (zeta conjugation symmetry).** r115
-> (`PF/Analytic/XiRealWitness.lean`) proved four lemmas absent from mathlib:
+> (`PF/Analytic/XiRealWitness.lean`) proved four lemmas claimed absent from mathlib:
 > `Gammaℝ_conj`, `completedRiemannZeta₀_conj`, `completedRiemannZeta_conj`,
 > `riemannZeta_conj` — all unconditional (no pole exclusions, `1/0 = 0`
 > convention), kernel-clean, via the Dirichlet/Gamma representation on the
@@ -105,3 +112,26 @@ Additional v4.33 deprecations found beyond the earlier four-step recipe:
 Remaining: **PR-4** = the r115 zeta-conjugation lemmas (`Gammaℝ_conj`,
 `completedRiemannZeta₀_conj`, `completedRiemannZeta_conj`, `riemannZeta_conj`), standalone,
 not yet staged.
+
+
+## PR-4 opened — [#42101](https://github.com/leanprover-community/mathlib4/pull/42101)
+
+`feat(NumberTheory/LSeries): conjugation symmetry for the completed Riemann zeta function`
+
+Ships the three genuinely-missing lemmas: `Complex.Gammaℝ_conj` (into
+`Analysis/SpecialFunctions/Gamma/Deligne.lean`), `completedRiemannZeta₀_conj` and
+`completedRiemannZeta_conj` (into `NumberTheory/LSeries/RiemannZeta.lean`), all
+unconditional, all `@[simp]`. Verified with a FULL `lake build Mathlib` (8685 jobs,
+exit 0, zero warnings) plus `lake exe lint-style`.
+
+Touches a third file as a drive-by: golfs the pre-existing `riemannZeta_conj` in
+`ZetaAsymp.lean` from ~25 lines to 4 by deriving it from the new lemmas (name,
+statement and attribute unchanged) — this resolves the redundancy the PR would
+otherwise create. The PR body offers to drop or relocate it if reviewers prefer.
+
+**Open question for Pablo:** the touched files' `Authors:` headers were NOT amended.
+Mathlib reviewers commonly ask contributors to add themselves. Decide the upstream
+attribution name you want and it's a one-line follow-up.
+
+Also noted: `gh auth status` shows a stale second account (`FractalDevTeam`) failing to
+log in. Harmless — the active `DrDMT-VR` token is what's used — but worth clearing.
