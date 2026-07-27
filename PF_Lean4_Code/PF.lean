@@ -934,6 +934,7 @@ import PF.MordellWeilRankLowerBound_r129  -- r129: non-torsion point => Module.r
 import PF.NaiveHeightQ_r130  -- r130 (B1): naive height on Q + the quartic-growth driver for the non-torsion arc
 import PF.DuplicationBezout37a1_r131  -- r131 (B3): Bezout identities, gcd-divides-37, quartic size bound (kappa=171*37)
 import PF.DuplicationFormula37a1_r132  -- r132 (B2): x(2P) = f(x)/g(x) on 37a1; no rational 2-torsion
+import PF.DuplicationHeightBound37a1_r133  -- r133 (B4): naiveHeight(x)^4 <= 171*naiveHeight(x(2P)) - the quartic step
 
 /-!
 ## Principia Fractalis Formal Verification
