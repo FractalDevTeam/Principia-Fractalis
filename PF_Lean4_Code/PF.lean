@@ -927,6 +927,7 @@ import PF.Analytic.XiOnLineZero  -- r120: RH on-line-zero atom DISCHARGED (certi
 import PF.Referee.ClayResidualFrontier_r121_2026_07_25  -- r121: Clay residual frontier THREE atoms -> TWO (atom (b) closed by r120)
 import PF.AlphaWebDegreesOfFreedom_r124  -- r124: the 11 alpha-invariants are a rank-8 system in 9 unknowns; alpha_BSD free, the 1/4 free
 import PF.AlphaGaloisStructure_r125  -- r125: the alpha-table's Galois trace/norm structure; the +1/4 forced by Tr(alpha_NP) = alpha_RH
+import PF.PerelmanAnchorCascade_r126  -- r126: six of nine alphas forced by the Perelman anchor + Galois laws
 
 /-!
 ## Principia Fractalis Formal Verification
