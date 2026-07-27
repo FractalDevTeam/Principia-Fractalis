@@ -932,6 +932,7 @@ import PF.PerelmanCascadeComplete_r127  -- r127: the pi-sector closes; ALL NINE 
 import PF.AlphaSkeletonUniqueness_r128  -- r128: nine-tuple uniqueness; Perelman and BSD anchors interchangeable
 import PF.MordellWeilRankLowerBound_r129  -- r129: non-torsion point => Module.rank >= 1 (first real BSD stone)
 import PF.NaiveHeightQ_r130  -- r130 (B1): naive height on Q + the quartic-growth driver for the non-torsion arc
+import PF.DuplicationFormula37a1_r132  -- r132 (B2): x(2P) = f(x)/g(x) on 37a1; no rational 2-torsion
 
 /-!
 ## Principia Fractalis Formal Verification
