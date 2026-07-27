@@ -928,6 +928,7 @@ import PF.Referee.ClayResidualFrontier_r121_2026_07_25  -- r121: Clay residual f
 import PF.AlphaWebDegreesOfFreedom_r124  -- r124: the 11 alpha-invariants are a rank-8 system in 9 unknowns; alpha_BSD free, the 1/4 free
 import PF.AlphaGaloisStructure_r125  -- r125: the alpha-table's Galois trace/norm structure; the +1/4 forced by Tr(alpha_NP) = alpha_RH
 import PF.PerelmanAnchorCascade_r126  -- r126: six of nine alphas forced by the Perelman anchor + Galois laws
+import PF.PerelmanCascadeComplete_r127  -- r127: the pi-sector closes; ALL NINE alphas from the Perelman anchor
 
 /-!
 ## Principia Fractalis Formal Verification
