@@ -85,3 +85,38 @@ For W: y² + a₁xy + a₃y = x³ + a₂x² + a₄x + a₆ with (a₁,a₂,a₃,
 Agent proves → independent rebuild → fresh transitive `#print axioms` →
 commit → push. No `native_decide`. No `Prop := True`. Every conditional
 states its hypothesis in the theorem, not in prose.
+
+## Ground truth — COMPUTED AND VERIFIED (sympy, 2026-07-27)
+
+Curve 37a1: (a₁,a₂,a₃,a₄,a₆) = (0,0,1,−1,0); b₂=0, b₄=−2, b₆=1, b₈=−1.
+
+- g(x) = 4x³ − 4x + 1 (= ψ₂² = (2y+1)² on-curve). **No rational roots**:
+  candidates ±1, ±1/2, ±1/4 give values 1, 1, −1/2, 5/2, 1/16, 31/16.
+  ⟹ no rational affine 2-torsion; doubling never leaves the affine chart.
+- f(x) = x⁴ + 2x² − 2x + 1;  **curve identity**: (3x²−1)² − 2x·g(x) = f(x).
+  With slope ℓ = (3x²−1)/(2y+1) and addX = ℓ² − 2x this gives
+  x(2P) = f(x)/g(x). Res(f,g) = 1369 = 37².
+- Homogeneous forms (x = a/b): F(a,b) = a⁴ + 2a²b² − 2ab³ + b⁴,
+  G3(a,b) = 4a³ − 4ab² + b³; x(2P) = F/(b·G3).
+- **Bézout identity 1** (verified): (−48a² + 64b²)·F + (12a³ + 20ab² − 27b³)·G3 = 37·b⁶
+- **Bézout identity 2** (verified): (37a³ + 4a²b − 26ab² + 6b³)·F + (−a³ − 12a²b + 14ab² − 6b³)·(b·G3) = 37·a⁷
+- ⟹ coprime (a,b): gcd(F, b·G3) ∣ 37.
+- Coefficient sums: |P1|+|Q1| = 171, |P2|+|Q2| = 106 ⟹ size bound
+  37·H⁴ ≤ 171·max(|F|, |b·G3|) for H = max(|a|,|b|), hence
+  naiveHeight(x(2P)) ≥ H⁴/(171·37) — working κ ≈ 6327 (pin exactly in B4).
+- **Concrete chain from P = (0,0)** (all verified on-curve):
+  2P: x=1 (H=1); 4P: x=2 (H=2); 8P: x=21/25 (H=25);
+  16P: x=480106/4225 (H=480106); 32P: H≈5.31e22 ≈ H(16P)⁴ — quartic growth
+  observed exactly. **B5 start: Q = 16P, H = 480106 ≫ κ.**
+
+## Interfaces
+
+- B3 (`DuplicationBezout37a1_r131`): pure ℤ. Defs F, G3; the two `ring`
+  identities; `gcd_dvd_37`; the size bound in ℕ-form
+  `37 * H^4 ≤ 171 * max |F| |b·G3|` (H = max |a| |b|, coprime, b ≠ 0).
+- B2 (`DuplicationFormula37a1_r132`): mathlib-facing. E37a1 as
+  WeierstrassCurve ℚ; (2y+1)² = g(x) on-curve; g no rational roots ⟹
+  2P affine; `(some h + some h).x = f(x)/g(x)` via slope/addX + field_simp.
+- B4 joins B2+B3 into `naiveHeight (x 2P) * κ ≥ naiveHeight (x P)^4`
+  matching r130's `infinite_of_duplication_step`; B5 computes 16P by
+  norm_num and fires r129.
