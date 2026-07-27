@@ -930,6 +930,7 @@ import PF.AlphaGaloisStructure_r125  -- r125: the alpha-table's Galois trace/nor
 import PF.PerelmanAnchorCascade_r126  -- r126: six of nine alphas forced by the Perelman anchor + Galois laws
 import PF.PerelmanCascadeComplete_r127  -- r127: the pi-sector closes; ALL NINE alphas from the Perelman anchor
 import PF.AlphaSkeletonUniqueness_r128  -- r128: nine-tuple uniqueness; Perelman and BSD anchors interchangeable
+import PF.MordellWeilRankLowerBound_r129  -- r129: non-torsion point => Module.rank >= 1 (first real BSD stone)
 
 /-!
 ## Principia Fractalis Formal Verification
