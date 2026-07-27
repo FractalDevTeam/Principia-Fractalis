@@ -80,7 +80,12 @@ For W: y² + a₁xy + a₃y = x³ + a₂x² + a₄x + a₆ with (a₁,a₂,a₃,
 - B1 = r130 DONE (2c638c02): naive height + quartic-growth driver.
 - B2 = r132 DONE: dbl_x proves x(2P) = f(x)/g(x) on 37a1; g_ne_zero kills
   rational 2-torsion. Independently rebuilt, kernel-clean.
-- B3 = r131 in progress (agent).
+- B3 = r131 DONE: Bezout identities, gcd-divides-37, size bound; kappa = 171.
+- B4 = r133 DONE: naiveHeight(x)^4 <= 171*naiveHeight(x(2P)), unconditional on Q.
+- B5 = r134 DONE — ARC DISCHARGED 2026-07-27: P=(0,0) proven non-torsion via
+  the 171-threshold growth engine (chain 0 -> 1 -> 2 -> 21/25 -> 480106/4225
+  pinned by norm_num); E37a1_rank_ge_one : 1 <= Module.rank Z E37a1(Q).
+  First kernel-verified literal Mordell-Weil rank bound in the corpus.
 - Point P = (0,0) IS on 37a1: 0² + 0 = 0³ − 0. ✓ (also already verified
   on-curve in the corpus's Heegner files for 37a1.)
 
