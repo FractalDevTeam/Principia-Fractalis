@@ -76,7 +76,11 @@ For W: y² + a₁xy + a₃y = x³ + a₂x² + a₄x + a₆ with (a₁,a₂,a₃,
 
 ## Status
 
-- 2026-07-27: route chosen, plan written. B1 = r130 in progress.
+- 2026-07-27: route chosen, plan written.
+- B1 = r130 DONE (2c638c02): naive height + quartic-growth driver.
+- B2 = r132 DONE: dbl_x proves x(2P) = f(x)/g(x) on 37a1; g_ne_zero kills
+  rational 2-torsion. Independently rebuilt, kernel-clean.
+- B3 = r131 in progress (agent).
 - Point P = (0,0) IS on 37a1: 0² + 0 = 0³ − 0. ✓ (also already verified
   on-curve in the corpus's Heegner files for 37a1.)
 
