@@ -925,6 +925,7 @@ import PF.ForMathlib.ClopenSpectralProjection  -- mathlib PR-3
 import PF.SubstrateTraceUniqueness  -- r113: uniqueness of the substrate UHF trace -> T_inf is the Glimm 3^inf UHF factor
 import PF.Analytic.XiOnLineZero  -- r120: RH on-line-zero atom DISCHARGED (certified interval arithmetic, no native_decide)
 import PF.Referee.ClayResidualFrontier_r121_2026_07_25  -- r121: Clay residual frontier THREE atoms -> TWO (atom (b) closed by r120)
+import PF.AlphaWebDegreesOfFreedom_r124  -- r124: the 11 alpha-invariants are a rank-8 system in 9 unknowns; alpha_BSD free, the 1/4 free
 
 /-!
 ## Principia Fractalis Formal Verification
