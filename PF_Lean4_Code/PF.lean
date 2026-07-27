@@ -931,6 +931,7 @@ import PF.PerelmanAnchorCascade_r126  -- r126: six of nine alphas forced by the 
 import PF.PerelmanCascadeComplete_r127  -- r127: the pi-sector closes; ALL NINE alphas from the Perelman anchor
 import PF.AlphaSkeletonUniqueness_r128  -- r128: nine-tuple uniqueness; Perelman and BSD anchors interchangeable
 import PF.MordellWeilRankLowerBound_r129  -- r129: non-torsion point => Module.rank >= 1 (first real BSD stone)
+import PF.NaiveHeightQ_r130  -- r130 (B1): naive height on Q + the quartic-growth driver for the non-torsion arc
 
 /-!
 ## Principia Fractalis Formal Verification
