@@ -229,3 +229,24 @@ expanded corners.
 Generated and verified by `codex/w2_certificates_389a1_gen.py` (42 PASS assertions).
 A compact machine-readable copy of all certificates was appended to the session
 cohort_data_pack.txt (W2 389a1 block).
+
+## SECANT BRIDGE certificates (computed 2026-07-28, remainder 0 both)
+
+For 389a1, P₁=(x₁,y₁), P₂=(x₂,y₂) on-curve, x₁ ≠ x₂. With
+  N3 := (y₁−y₂)² − (1+x₁+x₂)(x₁−x₂)²      [= dd·x(P₁+P₂)]
+  N4 := (y₁+y₂+1)² − (1+x₁+x₂)(x₁−x₂)²    [= dd·x(P₁−P₂)]
+  dd := (x₁−x₂)²,  E₁ := y₁²+y₁−x₁³−x₁²+2x₁,  E₂ likewise:
+
+**SUM (trivial!):**  N3 + N4 − Sfnum = 2·E₁ + 2·E₂
+  where Sfnum = 2x₁²x₂ + 2x₁x₂² + 4x₁x₂ − 4x₁ − 4x₂ + 1
+  ⟹ Lean: `linear_combination 2*hE₁ + 2*hE₂`
+
+**PRODUCT:**  N3·N4 − dd·Prnum = cP1·E₁ + cP2·E₂
+  where Prnum = x₁²x₂² + 4x₁x₂ − x₁ − x₂ + 3 and
+  cP1 = −x₁³ + 2x₁²x₂ − x₁² + 2x₁x₂² + 4x₁x₂ − 2x₁ − 2x₂³ − 2x₂² + y₁² + y₁ − 2y₂² − 2y₂
+  cP2 = −4x₁³ + 2x₁²x₂ − 4x₁² + 2x₁x₂² + 4x₁x₂ + 4x₁ − x₂³ − x₂² − 2x₂ + y₂² + y₂
+  ⟹ Lean: `linear_combination (cP1)*hE₁ + (cP2)*hE₂`
+
+Both remainders are exactly 0 (sympy polynomial division). These are the
+r148d inputs: they turn mathlib's `addX`/`slope` secant data into the
+homogenizable Sf/Pf forms of r148a.
