@@ -936,6 +936,7 @@ import PF.DuplicationBezout37a1_r131  -- r131 (B3): Bezout identities, gcd-divid
 import PF.DuplicationFormula37a1_r132  -- r132 (B2): x(2P) = f(x)/g(x) on 37a1; no rational 2-torsion
 import PF.DuplicationHeightBound37a1_r133  -- r133 (B4): naiveHeight(x)^4 <= 171*naiveHeight(x(2P)) - the quartic step
 import PF.E37a1RankOne_r134  -- r134 (B5): P=(0,0) non-torsion => 1 <= Module.rank Z E37a1(Q) - THE FLAG
+import PF.E43a1RankOne_r135  -- r135: 1 <= Module.rank Z E43a1(Q) (cohort scale-out, kappa=139)
 
 /-!
 ## Principia Fractalis Formal Verification
