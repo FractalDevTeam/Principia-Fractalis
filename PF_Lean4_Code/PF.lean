@@ -946,6 +946,7 @@ import PF.E101a1RankOne_r141  -- r141: 1 <= Module.rank Z E101a1(Q) (kappa=373, 
 import PF.E106a1RankOne_r142  -- r142: 1 <= Module.rank Z E106a1(Q) (composite conductor, Lc=848, kappa=38896)
 import PF.E389a1RankOne_r143  -- r143 (W0): 389a1 substrate for the independence arc; rank >= 1 corollary
 import PF.DuplicationHeightUpper389a1_r145  -- r145 (W1): upper duplication bound; two-sided window [H^4/1728, 17 H^4]
+import PF.E5077a1RankOne_r144  -- r144 (W0): 5077a1 substrate (Buhler-Gross-Zagier rank-3 curve); rank >= 1 corollary
 
 /-!
 ## Principia Fractalis Formal Verification
