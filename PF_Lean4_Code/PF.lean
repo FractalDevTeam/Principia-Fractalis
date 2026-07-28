@@ -948,6 +948,7 @@ import PF.E389a1RankOne_r143  -- r143 (W0): 389a1 substrate for the independence
 import PF.DuplicationHeightUpper389a1_r145  -- r145 (W1): upper duplication bound; two-sided window [H^4/1728, 17 H^4]
 import PF.E5077a1RankOne_r144  -- r144 (W0): 5077a1 substrate (Buhler-Gross-Zagier rank-3 curve); rank >= 1 corollary
 import PF.DuplicationHeightUpper5077a1_r146  -- r146 (W1): 5077a1 two-sided window [H^4/105754, 114 H^4]
+import PF.CanonicalHeight389a1_r147  -- r147 (W3): THE CANONICAL HEIGHT on E389a1(Q); canheight = 0 iff torsion
 
 /-!
 ## Principia Fractalis Formal Verification

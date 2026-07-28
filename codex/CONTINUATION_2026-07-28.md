@@ -38,7 +38,7 @@ DONE and pushed (all kernel-clean):
   determinant route via irreducible sextic R6)
 
 IN FLIGHT at time of writing:
-- W3 agent building `PF/CanonicalHeight389a1_r147.lean`: lognh,
+- W3 = r147 DONE (canheight constructed; = 0 iff torsion; both directions). Was:: lognh,
   hseq R n = lognh(2ⁿ•R)/4ⁿ, CauchySeq via geometric modulus log(1728)/4ⁿ,
   canheight := limUnder atTop, API: nonneg, dbl (=4×), window (≤ log1728/3),
   canheight_eq_zero → torsion (via Northcott-for-ℚ + finite-orbit trick),
