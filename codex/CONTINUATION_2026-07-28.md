@@ -49,7 +49,7 @@ IN FLIGHT at time of writing:
 
 NEXT STONES in order:
 1. r147 = W3 (canonical height 389a1) — verify/land the in-flight file.
-2. r148 — r148a, r148b AND r148c DONE & PUSHED (r148c: DD_upper 4H², Sf_upper 17H²; Pf_upper 10H² + lower bounds + secant bridge + root bookkeeping + log assembly remain) (content bound gcd(DD,Sf,Pf) | 389^4 complete via squaring trick, no corner cofactors needed) (certificate layer: DD/Sf/Pf defs, diagonal
+2. r148 — r148a–r148d DONE & PUSHED (r148d = secant bridge: addition quadratic over mathlib's real group law) (r148c: DD_upper 4H², Sf_upper 17H²; Pf_upper 10H² + lower bounds + secant bridge + root bookkeeping + log assembly remain) (content bound gcd(DD,Sf,Pf) | 389^4 complete via squaring trick, no corner cofactors needed) (certificate layer: DD/Sf/Pf defs, diagonal
    sanity, both Cramer certs, dvd_R6_of_dvd_forms). REMAINDER of r148:
    level-2 composition (R6 → 389³ via the F/G3 certs in the W2 report),
    size bounds, mathlib addX/slope bridge (secant case), quadratic-root
