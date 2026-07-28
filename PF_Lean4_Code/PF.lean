@@ -942,6 +942,7 @@ import PF.E61a1RankOne_r137  -- r137: 1 <= Module.rank Z E61a1(Q) (kappa=590, ge
 import PF.E79a1RankOne_r138  -- r138: 1 <= Module.rank Z E79a1(Q) (kappa=298, threshold 385)
 import PF.E83a1RankOne_r139  -- r139: 1 <= Module.rank Z E83a1(Q) (kappa=470)
 import PF.E89a1RankOne_r140  -- r140: 1 <= Module.rank Z E89a1(Q) (kappa=220)
+import PF.E106a1RankOne_r142  -- r142: 1 <= Module.rank Z E106a1(Q) (composite conductor, Lc=848, kappa=38896)
 
 /-!
 ## Principia Fractalis Formal Verification
