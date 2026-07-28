@@ -950,6 +950,7 @@ import PF.E5077a1RankOne_r144  -- r144 (W0): 5077a1 substrate (Buhler-Gross-Zagi
 import PF.DuplicationHeightUpper5077a1_r146  -- r146 (W1): 5077a1 two-sided window [H^4/105754, 114 H^4]
 import PF.CanonicalHeight389a1_r147  -- r147 (W3): THE CANONICAL HEIGHT on E389a1(Q); canheight = 0 iff torsion
 import PF.QuasiParallelogramCerts389a1_r148a  -- r148a: addition-form certificates; gcd(DD,Sf,Pf) divides R6
+import PF.QuasiParallelogramContent389a1_r148b  -- r148b: THE CONTENT BOUND gcd(DD,Sf,Pf) divides 389^4
 
 /-!
 ## Principia Fractalis Formal Verification
