@@ -938,6 +938,7 @@ import PF.DuplicationHeightBound37a1_r133  -- r133 (B4): naiveHeight(x)^4 <= 171
 import PF.E37a1RankOne_r134  -- r134 (B5): P=(0,0) non-torsion => 1 <= Module.rank Z E37a1(Q) - THE FLAG
 import PF.E43a1RankOne_r135  -- r135: 1 <= Module.rank Z E43a1(Q) (cohort scale-out, kappa=139)
 import PF.E53a1RankOne_r136  -- r136: 1 <= Module.rank Z E53a1(Q) (kappa=172)
+import PF.E61a1RankOne_r137  -- r137: 1 <= Module.rank Z E61a1(Q) (kappa=590, generator (1,0))
 import PF.E79a1RankOne_r138  -- r138: 1 <= Module.rank Z E79a1(Q) (kappa=298, threshold 385)
 
 /-!
