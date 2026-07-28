@@ -940,6 +940,7 @@ import PF.E43a1RankOne_r135  -- r135: 1 <= Module.rank Z E43a1(Q) (cohort scale-
 import PF.E53a1RankOne_r136  -- r136: 1 <= Module.rank Z E53a1(Q) (kappa=172)
 import PF.E61a1RankOne_r137  -- r137: 1 <= Module.rank Z E61a1(Q) (kappa=590, generator (1,0))
 import PF.E79a1RankOne_r138  -- r138: 1 <= Module.rank Z E79a1(Q) (kappa=298, threshold 385)
+import PF.E89a1RankOne_r140  -- r140: 1 <= Module.rank Z E89a1(Q) (kappa=220)
 
 /-!
 ## Principia Fractalis Formal Verification
