@@ -129,3 +129,28 @@ Curve 37a1: (a₁,a₂,a₃,a₄,a₆) = (0,0,1,−1,0); b₂=0, b₄=−2, b₆
 - B4 joins B2+B3 into `naiveHeight (x 2P) * κ ≥ naiveHeight (x P)^4`
   matching r130's `infinite_of_duplication_step`; B5 computes 16P by
   norm_num and fires r129.
+
+
+## 2026-07-28 — THE COHORT IS CLOSED (r135–r142)
+
+Nine curves now carry kernel-verified `1 ≤ Module.rank ℤ E(ℚ)` on the
+literal mathlib Mordell–Weil group:
+
+| curve | file | κ | anchor point | threshold height |
+|---|---|---|---|---|
+| 37a1  | r134 | 171   | (0,0)  | 480,106 |
+| 43a1  | r135 | 139   | (0,0)  | 8,338,438 |
+| 53a1  | r136 | 172   | (0,0)  | 369 |
+| 61a1  | r137 | 590   | (1,0)  | 636,789,825 |
+| 79a1  | r138 | 298   | (0,0)  | 385 |
+| 83a1  | r139 | 470   | (0,0)  | 83,281 |
+| 89a1  | r140 | 220   | (0,0)  | 1,024 |
+| 101a1 | r141 | 373   | (−1,0) | 28,981 |
+| 106a1 | r142 | 38,896 | (2,1) | 26,615,281 |
+
+All independently rebuilt, all capstones [propext, Classical.choice,
+Quot.sound]. 102a1 remains deferred (rational 2-torsion at x = 0 breaks
+the global no-2-torsion lemma; needs a per-step affine argument).
+Remaining honest frontiers: 102a1 variant; rank ≥ 2 for 389a1 (needs
+point INDEPENDENCE — height-pairing regulator, much harder than
+non-torsion); analytic ranks (need L-functions — absent in mathlib).
