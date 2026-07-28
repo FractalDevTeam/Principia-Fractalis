@@ -120,3 +120,24 @@ check passes.) Regulator bases verified on-curve: 389a1 P=(0,0), Q=(1,0);
 - Next: W1 (upper duplication bounds, easy), then W2 homogenized Bézout
   certificates for the quadratic coefficients (2-variable elimination,
   sympy), then W3 (ĥ as limit).
+
+## W2 certificates — COMPUTED AND VERIFIED (2026-07-28, 42 PASS assertions)
+
+Full suite in codex/W2_CERTIFICATES_389a1.md (+ cofactors txt + regenerating
+python script). Highlights:
+- **m = 2**: det of the (a₁,b₁)-coefficient matrix of (DD,S,P) is −R6 with
+  R6(a,b) = 2a⁶+4a⁵b−20a⁴b²+10a³b³−30a²b⁴−8ab⁵+11b⁶ (irreducible, κ=85);
+  Cramer cofactors give u·DD+v·S+w·P = R6(a₂,b₂)·b₁² and ·a₁².
+- Pairwise certificates land EXACTLY on the r143 forms: ρ's are G3², F²,
+  b₂²G3², F² — controlled by the already-kernel-verified r131/r143 layer.
+- Level-2: α·G3²+β·F² = 389³·b₂¹³ / 389³·a₂¹³; R6-vs-F and R6-vs-G3
+  certificates with 389². Minimality PROVED by lattice HNF (389 sharp for
+  (G3,F) — r143's identity is optimal; obstruction = irreducible quadratic
+  gcd(f,g) mod 389).
+- **Content bound: gcd(DD,S,P) ∣ 389³** at fully coprime points.
+- Symmetry under pair swap verified — (a₂,b₂)-side certificates are free.
+- Lean-phase note: compose L1/L2 identities as separate ring lemmas
+  (expanded corners have κ ~ 10⁹).
+
+Status update: W0 ✓✓ (r143,r144), W1 ✓✓ (r145,r146), W2 ground truth ✓
+(Lean formalization = next stone), W3 in progress (agent).
