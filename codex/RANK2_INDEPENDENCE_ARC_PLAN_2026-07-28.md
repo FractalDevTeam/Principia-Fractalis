@@ -97,3 +97,26 @@ Same as the non-torsion arc: sympy-verify every identity before Lean;
 agent proves → independent rebuild → fresh transitive #print axioms →
 commit → push. No native_decide, no sorry, no Prop := True. Honest scope
 in every file: lower bounds only, no L-functions, no BSD claims.
+
+## W2 ground truth — VERIFIED CLEAN FORMS (sympy, 2026-07-28)
+
+x(P+Q) and x(P−Q) are the two roots of `T² − S·T + Pr = 0` where, with
+dd = (x₁−x₂)²:
+
+- **389a1**: S = (2x₁²x₂ + 2x₁x₂² + 4x₁x₂ − 4x₁ − 4x₂ + 1)/dd,
+  Pr = (x₁²x₂² + 4x₁x₂ − x₁ − x₂ + 3)/dd
+- **5077a1**: S = (2x₁²x₂ + 2x₁x₂² − 14x₁ − 14x₂ + 25)/dd,
+  Pr = (x₁²x₂² + 14x₁x₂ − 25x₁ − 25x₂ + 49)/dd
+
+(Note Pr's numerator is the classical biquadratic form B(x₁,x₂) whose
+diagonal B(x,x) recovers the duplication data — the structural sanity
+check passes.) Regulator bases verified on-curve: 389a1 P=(0,0), Q=(1,0);
+5077a1 (−2,3), (−1,3), (0,2).
+
+## Status
+
+- W0 389a1 = r143 DONE (pushed): dbl_x + κ=1728 quartic bound + rank ≥ 1.
+- W0 5077a1 = r144 in progress (agent).
+- Next: W1 (upper duplication bounds, easy), then W2 homogenized Bézout
+  certificates for the quadratic coefficients (2-variable elimination,
+  sympy), then W3 (ĥ as limit).
