@@ -49,7 +49,11 @@ IN FLIGHT at time of writing:
 
 NEXT STONES in order:
 1. r147 = W3 (canonical height 389a1) — verify/land the in-flight file.
-2. r148 = W2 Lean formalization (389a1): the quasi-parallelogram
+2. r148 — r148a DONE & PUSHED (certificate layer: DD/Sf/Pf defs, diagonal
+   sanity, both Cramer certs, dvd_R6_of_dvd_forms). REMAINDER of r148:
+   level-2 composition (R6 → 389³ via the F/G3 certs in the W2 report),
+   size bounds, mathlib addX/slope bridge (secant case), quadratic-root
+   height bookkeeping, Real.log assembly. Target: the quasi-parallelogram
    |lognh(P+Q) + lognh(P−Q) − 2lognh P − 2lognh Q| ≤ C₂.
    Inputs all ready: homogenized DD, S, P (wall map), the Cramer m=2
    certificates + level-2 Bézout identities (W2 report — compose as TWO
