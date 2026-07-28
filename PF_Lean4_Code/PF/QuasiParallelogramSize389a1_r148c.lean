@@ -182,7 +182,71 @@ theorem Sf_upper (a₁ b₁ a₂ b₂ : ℤ) :
         linarith
     _ = 17 * H₁ ^ 2 * H₂ ^ 2 := by ring
 
+/-- `|Pf| ≤ 10·H₁²·H₂²` (coefficient sum `1+4+1+1+3 = 10`). -/
+theorem Pf_upper (a₁ b₁ a₂ b₂ : ℤ) :
+    (Pf a₁ b₁ a₂ b₂).natAbs
+      ≤ 10 * (max a₁.natAbs b₁.natAbs) ^ 2 * (max a₂.natAbs b₂.natAbs) ^ 2 := by
+  set H₁ := max a₁.natAbs b₁.natAbs
+  set H₂ := max a₂.natAbs b₂.natAbs
+  have m1 := pair_bound a₁ b₁ a₂ b₂ 2 0 2 0 rfl rfl
+  have m2 := pair_bound a₁ b₁ a₂ b₂ 1 1 1 1 rfl rfl
+  have m3 := pair_bound a₁ b₁ a₂ b₂ 1 1 0 2 rfl rfl
+  have m4 := pair_bound a₁ b₁ a₂ b₂ 0 2 1 1 rfl rfl
+  have m5 := pair_bound a₁ b₁ a₂ b₂ 0 2 0 2 rfl rfl
+  simp only [pow_zero, pow_one, Nat.mul_one, Nat.one_mul] at m1 m2 m3 m4 m5
+  have tri : (Pf a₁ b₁ a₂ b₂).natAbs
+      ≤ a₁.natAbs ^ 2 * a₂.natAbs ^ 2
+        + 4 * (a₁.natAbs * b₁.natAbs * (a₂.natAbs * b₂.natAbs))
+        + a₁.natAbs * b₁.natAbs * b₂.natAbs ^ 2
+        + b₁.natAbs ^ 2 * (a₂.natAbs * b₂.natAbs)
+        + 3 * (b₁.natAbs ^ 2 * b₂.natAbs ^ 2) := by
+    simp only [Pf]
+    calc (a₁ ^ 2 * a₂ ^ 2 + 4 * a₁ * a₂ * b₁ * b₂ - a₁ * b₁ * b₂ ^ 2
+          - a₂ * b₁ ^ 2 * b₂ + 3 * b₁ ^ 2 * b₂ ^ 2).natAbs
+        ≤ (a₁ ^ 2 * a₂ ^ 2 + 4 * a₁ * a₂ * b₁ * b₂ - a₁ * b₁ * b₂ ^ 2
+            - a₂ * b₁ ^ 2 * b₂).natAbs + ((3 : ℤ) * b₁ ^ 2 * b₂ ^ 2).natAbs :=
+          Int.natAbs_add_le _ _
+      _ ≤ ((a₁ ^ 2 * a₂ ^ 2 + 4 * a₁ * a₂ * b₁ * b₂
+              - a₁ * b₁ * b₂ ^ 2).natAbs + (a₂ * b₁ ^ 2 * b₂).natAbs)
+          + ((3 : ℤ) * b₁ ^ 2 * b₂ ^ 2).natAbs :=
+          Nat.add_le_add_right (Int.natAbs_sub_le _ _) _
+      _ ≤ (((a₁ ^ 2 * a₂ ^ 2 + 4 * a₁ * a₂ * b₁ * b₂).natAbs
+                + (a₁ * b₁ * b₂ ^ 2).natAbs)
+              + (a₂ * b₁ ^ 2 * b₂).natAbs)
+          + ((3 : ℤ) * b₁ ^ 2 * b₂ ^ 2).natAbs :=
+          Nat.add_le_add_right (Nat.add_le_add_right (Int.natAbs_sub_le _ _) _) _
+      _ ≤ ((((a₁ ^ 2 * a₂ ^ 2).natAbs + ((4 : ℤ) * a₁ * a₂ * b₁ * b₂).natAbs)
+                + (a₁ * b₁ * b₂ ^ 2).natAbs)
+              + (a₂ * b₁ ^ 2 * b₂).natAbs)
+          + ((3 : ℤ) * b₁ ^ 2 * b₂ ^ 2).natAbs :=
+          Nat.add_le_add_right (Nat.add_le_add_right
+            (Nat.add_le_add_right (Int.natAbs_add_le _ _) _) _) _
+      _ = a₁.natAbs ^ 2 * a₂.natAbs ^ 2
+            + 4 * (a₁.natAbs * b₁.natAbs * (a₂.natAbs * b₂.natAbs))
+            + a₁.natAbs * b₁.natAbs * b₂.natAbs ^ 2
+            + b₁.natAbs ^ 2 * (a₂.natAbs * b₂.natAbs)
+            + 3 * (b₁.natAbs ^ 2 * b₂.natAbs ^ 2) := by
+          simp only [Int.natAbs_mul, Int.natAbs_pow]
+          ring
+  calc (Pf a₁ b₁ a₂ b₂).natAbs
+      ≤ a₁.natAbs ^ 2 * a₂.natAbs ^ 2
+        + 4 * (a₁.natAbs * b₁.natAbs * (a₂.natAbs * b₂.natAbs))
+        + a₁.natAbs * b₁.natAbs * b₂.natAbs ^ 2
+        + b₁.natAbs ^ 2 * (a₂.natAbs * b₂.natAbs)
+        + 3 * (b₁.natAbs ^ 2 * b₂.natAbs ^ 2) := tri
+    _ ≤ H₁ ^ 2 * H₂ ^ 2 + 4 * (H₁ ^ 2 * H₂ ^ 2) + H₁ ^ 2 * H₂ ^ 2
+        + H₁ ^ 2 * H₂ ^ 2 + 3 * (H₁ ^ 2 * H₂ ^ 2) := by
+        have e1 : a₁.natAbs ^ 2 * a₂.natAbs ^ 2 ≤ H₁ ^ 2 * H₂ ^ 2 := m1
+        have e2 : a₁.natAbs * b₁.natAbs * (a₂.natAbs * b₂.natAbs)
+            ≤ H₁ ^ 2 * H₂ ^ 2 := m2
+        have e3 : a₁.natAbs * b₁.natAbs * b₂.natAbs ^ 2 ≤ H₁ ^ 2 * H₂ ^ 2 := m3
+        have e4 : b₁.natAbs ^ 2 * (a₂.natAbs * b₂.natAbs) ≤ H₁ ^ 2 * H₂ ^ 2 := m4
+        have e5 : b₁.natAbs ^ 2 * b₂.natAbs ^ 2 ≤ H₁ ^ 2 * H₂ ^ 2 := m5
+        linarith
+    _ = 10 * H₁ ^ 2 * H₂ ^ 2 := by ring
+
 end PrincipiaTractalis.QuasiParallelogramSize389a1
 
 #print axioms PrincipiaTractalis.QuasiParallelogramSize389a1.DD_upper
 #print axioms PrincipiaTractalis.QuasiParallelogramSize389a1.Sf_upper
+#print axioms PrincipiaTractalis.QuasiParallelogramSize389a1.Pf_upper
