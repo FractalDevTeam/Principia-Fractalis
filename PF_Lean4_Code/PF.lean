@@ -944,6 +944,7 @@ import PF.E83a1RankOne_r139  -- r139: 1 <= Module.rank Z E83a1(Q) (kappa=470)
 import PF.E89a1RankOne_r140  -- r140: 1 <= Module.rank Z E89a1(Q) (kappa=220)
 import PF.E101a1RankOne_r141  -- r141: 1 <= Module.rank Z E101a1(Q) (kappa=373, generator (-1,0))
 import PF.E106a1RankOne_r142  -- r142: 1 <= Module.rank Z E106a1(Q) (composite conductor, Lc=848, kappa=38896)
+import PF.E389a1RankOne_r143  -- r143 (W0): 389a1 substrate for the independence arc; rank >= 1 corollary
 
 /-!
 ## Principia Fractalis Formal Verification
