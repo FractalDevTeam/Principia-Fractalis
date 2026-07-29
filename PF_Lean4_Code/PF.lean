@@ -953,6 +953,7 @@ import PF.QuasiParallelogramCerts389a1_r148a  -- r148a: addition-form certificat
 import PF.QuasiParallelogramContent389a1_r148b  -- r148b: THE CONTENT BOUND gcd(DD,Sf,Pf) divides 389^4
 import PF.QuasiParallelogramSize389a1_r148c  -- r148c: size upper bounds for DD, Sf, Pf
 import PF.SecantBridge389a1_r148d  -- r148d (W2d): THE SECANT BRIDGE - mathlib group law => the addition quadratic
+import PF.QuadraticRootHeights_r148e  -- r148e: heights of the roots of an integer quadratic (curve-independent)
 
 /-!
 ## Principia Fractalis Formal Verification
