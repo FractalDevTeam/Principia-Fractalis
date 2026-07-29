@@ -958,6 +958,7 @@ import PF.QuasiParallelogramUpper389a1_r148f  -- r148f: THE UPPER QUASI-PARALLEL
 import PF.QuasiParallelogramLower389a1_r148g  -- r148g: THE LOWER BOUND - W2 COMPLETE, two-sided quasi-parallelogram
 import PF.PointQuasiParallelogram389a1_r149  -- r149: the quasi-parallelogram at the POINT level; defect <= log 10368
 import PF.CanheightParallelogram389a1_r150  -- r150: THE EXACT PARALLELOGRAM LAW for the canonical height
+import PF.CanheightMultiple389a1_r151  -- r151: THE MULTIPLE LAW canheight(kR) = k^2 canheight R
 
 /-!
 ## Principia Fractalis Formal Verification
