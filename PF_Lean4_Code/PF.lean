@@ -955,6 +955,7 @@ import PF.QuasiParallelogramSize389a1_r148c  -- r148c: size upper bounds for DD,
 import PF.SecantBridge389a1_r148d  -- r148d (W2d): THE SECANT BRIDGE - mathlib group law => the addition quadratic
 import PF.QuadraticRootHeights_r148e  -- r148e: heights of the roots of an integer quadratic (curve-independent)
 import PF.QuasiParallelogramUpper389a1_r148f  -- r148f: THE UPPER QUASI-PARALLELOGRAM BOUND (34 H1^2 H2^2)
+import PF.QuasiParallelogramLower389a1_r148g  -- r148g: THE LOWER BOUND - W2 COMPLETE, two-sided quasi-parallelogram
 
 /-!
 ## Principia Fractalis Formal Verification
