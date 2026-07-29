@@ -957,6 +957,7 @@ import PF.QuadraticRootHeights_r148e  -- r148e: heights of the roots of an integ
 import PF.QuasiParallelogramUpper389a1_r148f  -- r148f: THE UPPER QUASI-PARALLELOGRAM BOUND (34 H1^2 H2^2)
 import PF.QuasiParallelogramLower389a1_r148g  -- r148g: THE LOWER BOUND - W2 COMPLETE, two-sided quasi-parallelogram
 import PF.PointQuasiParallelogram389a1_r149  -- r149: the quasi-parallelogram at the POINT level; defect <= log 10368
+import PF.CanheightParallelogram389a1_r150  -- r150: THE EXACT PARALLELOGRAM LAW for the canonical height
 
 /-!
 ## Principia Fractalis Formal Verification
