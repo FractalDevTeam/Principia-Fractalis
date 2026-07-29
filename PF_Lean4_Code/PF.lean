@@ -959,6 +959,7 @@ import PF.QuasiParallelogramLower389a1_r148g  -- r148g: THE LOWER BOUND - W2 COM
 import PF.PointQuasiParallelogram389a1_r149  -- r149: the quasi-parallelogram at the POINT level; defect <= log 10368
 import PF.CanheightParallelogram389a1_r150  -- r150: THE EXACT PARALLELOGRAM LAW for the canonical height
 import PF.CanheightMultiple389a1_r151  -- r151: THE MULTIPLE LAW canheight(kR) = k^2 canheight R
+import PF.RegulatorIndependence389a1_r152  -- r152: nonzero regulator implies independence implies rank >= 2 (conditional)
 
 /-!
 ## Principia Fractalis Formal Verification
