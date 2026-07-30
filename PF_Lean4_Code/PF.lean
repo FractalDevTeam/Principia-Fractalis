@@ -966,6 +966,7 @@ import PF.TorsionTrivial389a1_r155  -- r155: 389a1 has trivial torsion; every no
 import PF.CanonicalHeight5077a1_r156  -- r156: the canonical height on 5077a1 (rank-3 curve), kappa = 105754
 import PF.QuasiParallelogramCerts5077a1_r157  -- r157: W2 level-1 addition forms + Cramer certificates for 5077a1
 import PF.QuasiParallelogramContent5077a1_r158  -- r158: W2 content bound gcd(DD,Sf,Pf) | 5^4 * 5077^4
+import PF.QuasiParallelogramSize5077a1_r159  -- r159: W2 size bounds 4 / 57 / 114 times H1^2 H2^2
 
 /-!
 ## Principia Fractalis Formal Verification
