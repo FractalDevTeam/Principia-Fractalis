@@ -1,0 +1,51 @@
+% !TeX root = ../../formal_mordell_weil_rank_2026-07-30.tex
+%
+% GENERATED FILE -- do not edit by hand.
+% Produced by Papers/figures/mordell_weil/make_figures.py
+% Okabe--Ito colourblind-safe palette
+\definecolor{clrP}{HTML}{0072B2}
+\definecolor{clrQ}{HTML}{D55E00}
+\definecolor{clrS}{HTML}{009E73}
+\definecolor{clrD}{HTML}{CC79A7}
+\definecolor{clrBand}{HTML}{56B4E9}
+\definecolor{clrGrey}{HTML}{6E6E6E}
+
+\begin{tikzpicture}[
+  box/.style={draw=clrGrey!65, rounded corners=1.6pt, line width=0.4pt,
+              align=center, inner xsep=3pt, inner ysep=2.6pt,
+              minimum height=6.4mm, text width=24mm, font=\tiny},
+  sub/.style={box, fill=clrGrey!8},
+  key/.style={box, fill=clrBand!24, draw=clrP!70},
+  flag/.style={box, fill=clrS!26, draw=clrS!85, line width=0.75pt},
+  ar/.style={-{Stealth[length=3.4pt]}, clrGrey!75, line width=0.45pt},
+]
+\node[sub]  (a) at (0,0)       {\textbf{r143}\\naive-height chain\\$0\to3\to\cdots$};
+\node[sub]  (b) at (3.4,0)     {\textbf{r145}\\$\mathcal{H}(x(2R))\le 17\,\mathcal{H}^4$};
+\node[key]  (c) at (6.8,0)     {\textbf{r147}\\$\hat h$ exists (Cauchy)\\$\hat h=0\iff$ torsion};
+\node[sub]  (d) at (0,-1.45)   {\textbf{r148a--c}\\B\'ezout certificates\\content $\mid 389^4$};
+\node[sub]  (e) at (3.4,-1.45) {\textbf{r148d--e}\\secant bridge\\quadratic-root height};
+\node[sub]  (f) at (6.8,-1.45) {\textbf{r148f--g}\\upper $34$, lower $10368$};
+\node[sub]  (i) at (0,-2.9)    {\textbf{r151}\\$\hat h(kR)=k^2\hat h(R)$};
+\node[key]  (h) at (3.4,-2.9)  {\textbf{r150}\\parallelogram law\\(exact)};
+\node[sub]  (g) at (6.8,-2.9)  {\textbf{r149}\\$|$log defect$|\le\log 10368$};
+\node[sub]  (j) at (2.2,-4.35) {\textbf{r152}\\$\det\ne0\Rightarrow$ rank $\ge2$};
+\node[sub]  (k) at (5.6,-4.35) {\textbf{r153}\\dyadic log bracket\\$\det\ge0.1057$};
+\node[flag] (l) at (3.9,-5.85) {\textbf{r154}\\$2\le\operatorname{rank}E(\mathbb{Q})$};
+
+\draw[ar] (a) -- (b);
+\draw[ar] (b) -- (c);
+\draw[ar] (d) -- (e);
+\draw[ar] (e) -- (f);
+\draw[ar] (f) -- (g);
+\draw[ar] (g) -- (h);
+\draw[ar] (c) -- (h);
+\draw[ar] (h) -- (i);
+\draw[ar] (h) -- (j);
+\draw[ar] (i) -- (j);
+\draw[ar] (h) -- (k);
+\draw[ar] (j) -- (l);
+\draw[ar] (k) -- (l);
+% r147 also feeds the numerics directly; routed around the right-hand side
+% so that it crosses no box.
+\draw[ar] (c.east) -- (9.35,0) -- (9.35,-4.35) -- (k.east);
+\end{tikzpicture}

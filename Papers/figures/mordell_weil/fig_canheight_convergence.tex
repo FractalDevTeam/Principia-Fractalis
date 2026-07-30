@@ -1,0 +1,84 @@
+% !TeX root = ../../formal_mordell_weil_rank_2026-07-30.tex
+%
+% GENERATED FILE -- do not edit by hand.
+% Produced by Papers/figures/mordell_weil/make_figures.py
+% Okabe--Ito colourblind-safe palette
+\definecolor{clrP}{HTML}{0072B2}
+\definecolor{clrQ}{HTML}{D55E00}
+\definecolor{clrS}{HTML}{009E73}
+\definecolor{clrD}{HTML}{CC79A7}
+\definecolor{clrBand}{HTML}{56B4E9}
+\definecolor{clrGrey}{HTML}{6E6E6E}
+
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=2 by 1, horizontal sep=1.7cm},
+  width=0.46\linewidth, height=5.4cm,
+  tick label style={font=\scriptsize},
+  label style={font=\scriptsize},
+  legend style={font=\scriptsize, draw=clrGrey!45, fill=white,
+                fill opacity=0.9, text opacity=1, row sep=-1.5pt,
+                inner sep=2pt},
+  axis line style={clrGrey!70},
+  grid style={clrGrey!18, line width=0.3pt},
+  every axis plot/.append style={line width=0.85pt},
+]
+\nextgroupplot[
+  xlabel={$n$},
+  ylabel={$\log\mathcal{H}\bigl(x(2^nR)\bigr)/4^n$},
+  xmin=-0.2, xmax=6.2, ymin=-0.05, ymax=1.02,
+  xtick={0,1,2,3,4,5,6}, ytick={0,0.25,0.5,0.75,1.0},
+  ymajorgrids, xmajorgrids,
+  title={\scriptsize (a) four points, one construction},
+  title style={yshift=-2pt},
+  legend pos=south east,
+]
+\addplot[draw=none, fill=clrBand, fill opacity=0.15, forget plot]
+  coordinates {(1,0.962415855) (2,0.485853355) (3,0.366712730) (4,0.336927574) (5,0.329481285) (6,0.327619713) (6,0.326378665) (5,0.324517092) (4,0.317070803) (3,0.287285647) (2,0.168145022) (1,-0.300000000)} -- cycle;
+\addplot[color=clrP, mark=*, mark size=1.3pt]
+  coordinates {(0,0.000000000) (1,0.274653072) (2,0.299736909) (3,0.326242917) (4,0.326307900) (5,0.326545070) (6,0.326964550)};
+\addlegendentry{$P$}
+\addplot[color=clrQ, mark=*, mark size=1.3pt]
+  coordinates {(0,0.000000000) (1,0.447939867) (2,0.454133049) (3,0.470267696) (4,0.475523194) (5,0.476265456) (6,0.476691304)};
+\addlegendentry{$Q$}
+\addplot[color=clrS, mark=*, mark size=1.3pt]
+  coordinates {(0,0.693147181) (1,0.915890412) (2,0.916052540) (3,0.916695114) (4,0.919153683) (5,0.920754943) (6,0.920754957)};
+\addlegendentry{$P{+}Q$}
+\addplot[color=clrD, mark=*, mark size=1.3pt]
+  coordinates {(0,0.000000000) (1,0.575646273) (2,0.673034259) (3,0.680015240) (4,0.686549464) (5,0.686555600) (6,0.686579389)};
+\addlegendentry{$P{-}Q$}
+\addplot[color=clrP, dashed, line width=0.5pt, forget plot]
+  coordinates {(-0.2,0.326999189) (6.2,0.326999189)};
+\addplot[color=clrQ, dashed, line width=0.5pt, forget plot]
+  coordinates {(-0.2,0.476711541) (6.2,0.476711541)};
+\addplot[color=clrS, dashed, line width=0.5pt, forget plot]
+  coordinates {(-0.2,0.920756052) (6.2,0.920756052)};
+\addplot[color=clrD, dashed, line width=0.5pt, forget plot]
+  coordinates {(-0.2,0.686665396) (6.2,0.686665396)};
+
+\nextgroupplot[
+  xlabel={$n$},
+  ylabel={$\bigl|\log\mathcal{H}(x(2^nR))/4^n-\hat h(R)\bigr|$},
+  ymode=log, xmin=-0.2, xmax=6.2, ymin=3e-6, ymax=6,
+  xtick={0,1,2,3,4,5,6},
+  ymajorgrids, xmajorgrids,
+  title={\scriptsize (b) actual error vs.\ the proved bound},
+  title style={yshift=-2pt},
+  legend style={font=\scriptsize, at={(0.03,0.05)}, anchor=south west,
+                draw=clrGrey!45, fill=white, fill opacity=0.9,
+                text opacity=1, inner sep=2pt},
+]
+\addplot[color=black, line width=1.05pt, mark=none,
+         dash pattern=on 4pt off 2pt]
+  coordinates {(0,2.541666667) (1,0.6354166667) (2,0.1588541667) (3,0.03971354167) (4,0.009928385417) (5,0.002482096354) (6,0.0006205240885)};
+\addlegendentry{$7.625/(3\cdot 4^{n})$, Lean}
+\addplot[color=clrP, mark=*, mark size=1.3pt, forget plot]
+  coordinates {(0,0.3269991888) (1,0.05234611665) (2,0.02726227972) (3,0.0007562720863) (4,0.0006912889332) (5,0.0004541186448) (6,3.463914843e-05)};
+\addplot[color=clrQ, mark=*, mark size=1.3pt, forget plot]
+  coordinates {(0,0.476711541) (1,0.02877167366) (2,0.02257849224) (3,0.006443844764) (4,0.001188347139) (5,0.000446085251) (6,2.023737114e-05)};
+\addplot[color=clrS, mark=*, mark size=1.3pt, forget plot]
+  coordinates {(0,0.2276088717) (1,0.0048656407) (2,0.004703511822) (3,0.00406093822) (4,0.001602369039)};
+\addplot[color=clrD, mark=*, mark size=1.3pt, forget plot]
+  coordinates {(0,0.6866653961) (1,0.1110191228) (2,0.01363113695) (3,0.006650156212) (4,0.0001159316431) (5,0.00010979578) (6,8.600704567e-05)};
+\end{groupplot}
+\end{tikzpicture}

@@ -1,0 +1,85 @@
+% !TeX root = ../../formal_mordell_weil_rank_2026-07-30.tex
+%
+% GENERATED FILE -- do not edit by hand.
+% Produced by Papers/figures/mordell_weil/make_figures.py
+% Okabe--Ito colourblind-safe palette
+\definecolor{clrP}{HTML}{0072B2}
+\definecolor{clrQ}{HTML}{D55E00}
+\definecolor{clrS}{HTML}{009E73}
+\definecolor{clrD}{HTML}{CC79A7}
+\definecolor{clrBand}{HTML}{56B4E9}
+\definecolor{clrGrey}{HTML}{6E6E6E}
+
+\begin{tikzpicture}
+\begin{axis}[
+  name=indep,
+  width=0.47\linewidth, height=0.47\linewidth,
+  axis equal image, xmin=-1.42, xmax=1.42, ymin=-1.42, ymax=1.42,
+  xtick=\empty, ytick=\empty,
+  axis lines=middle,
+  axis line style={clrGrey!55, -{Stealth[length=4pt]}},
+  title={\scriptsize (a) $P,Q$ independent: area $>0$},
+  title style={yshift=-1pt},
+  clip=false,
+]
+\fill[clrBand, fill opacity=0.22] (axis cs:0,0) -- (axis cs:0.571838,0.000000) -- (axis cs:0.674180,0.682816) -- (axis cs:0.102341,0.682816) -- cycle;
+\draw[clrGrey!60, line width=0.3pt] (axis cs:0,0) -- (axis cs:0.571838,0.000000) -- (axis cs:0.674180,0.682816) -- (axis cs:0.102341,0.682816) -- cycle;
+\addplot[only marks, mark=*, mark size=0.8pt, color=clrGrey!70]
+  coordinates {(-1.348359,-1.365632) (-1.246018,-0.682816) (-1.143677,0.000000) (-1.041336,0.682816) (-0.938994,1.365632) (-0.776521,-1.365632) (-0.674180,-0.682816) (-0.571838,0.000000) (-0.469497,0.682816) (-0.367156,1.365632) (-0.204683,-1.365632) (-0.102341,-0.682816) (0.000000,0.000000) (0.102341,0.682816) (0.204683,1.365632) (0.367156,-1.365632) (0.469497,-0.682816) (0.571838,0.000000) (0.674180,0.682816) (0.776521,1.365632) (0.938994,-1.365632) (1.041336,-0.682816) (1.143677,0.000000) (1.246018,0.682816) (1.348359,1.365632)};
+\draw[-{Stealth[length=5pt]}, clrP, line width=1.15pt]
+  (axis cs:0,0) -- (axis cs:0.571838,0.000000);
+\draw[-{Stealth[length=5pt]}, clrQ, line width=1.15pt]
+  (axis cs:0,0) -- (axis cs:0.102341,0.682816);
+\filldraw[clrP] (axis cs:0.571838,0.000000) circle (2pt);
+\node[font=\scriptsize, color=clrP, anchor=north, inner sep=3.5pt] at (axis cs:0.571838,0.000000) {$P$};
+\filldraw[clrQ] (axis cs:0.102341,0.682816) circle (2pt);
+\node[font=\scriptsize, color=clrQ, anchor=west, inner sep=3.5pt] at (axis cs:0.102341,0.682816) {$Q$};
+\filldraw[clrS] (axis cs:0.674180,0.682816) circle (2pt);
+\node[font=\scriptsize, color=clrS, anchor=west, inner sep=3.5pt] at (axis cs:0.674180,0.682816) {$P{+}Q$};
+\filldraw[clrD] (axis cs:0.469497,-0.682816) circle (2pt);
+\node[font=\scriptsize, color=clrD, anchor=west, inner sep=3.5pt] at (axis cs:0.469497,-0.682816) {$P{-}Q$};
+
+\node[font=\tiny, align=center, color=black!75]
+  at (axis cs:0.337090,0.341408) {area\\[-2pt]$0.3905$};
+\end{axis}
+
+\begin{axis}[
+  at={(indep.right of south east)}, anchor=south west, xshift=6mm,
+  width=0.47\linewidth, height=0.47\linewidth,
+  axis equal image, xmin=-1.42, xmax=1.42, ymin=-1.42, ymax=1.42,
+  xtick=\empty, ytick=\empty,
+  axis lines=middle,
+  axis line style={clrGrey!55, -{Stealth[length=4pt]}},
+  title={\scriptsize (b) a relation flattens the cell},
+  title style={yshift=-1pt},
+  clip=false,
+]
+\draw[clrGrey!70, line width=0.35pt, dash pattern=on 1.6pt off 1.2pt, fill=clrBand, fill opacity=0.10]
+  (axis cs:0,0) -- (axis cs:0.571838,0) -- (axis cs:0.674180,0.682816) -- (axis cs:0.102341,0.682816) -- cycle;
+\draw[clrGrey!70, line width=0.35pt, dash pattern=on 1.6pt off 1.2pt, fill=clrBand, fill opacity=0.08]
+  (axis cs:0,0) -- (axis cs:0.571838,0) -- (axis cs:0.780156,0.423346) -- (axis cs:0.208317,0.423346) -- cycle;
+\draw[clrGrey!70, line width=0.35pt, dash pattern=on 1.6pt off 1.2pt, fill=clrBand, fill opacity=0.05]
+  (axis cs:0,0) -- (axis cs:0.571838,0) -- (axis cs:0.874976,0.191189) -- (axis cs:0.303138,0.191189) -- cycle;
+
+\draw[clrGrey!45, line width=0.3pt]
+  (axis cs:-1.32,0) -- (axis cs:1.32,0);
+\draw[clrBand, line width=2.6pt, opacity=0.75]
+  (axis cs:0,0) -- (axis cs:0.953064,0);
+\addplot[only marks, mark=*, mark size=1.35pt, color=clrGrey!85]
+  coordinates {(-1.143677,0) (-0.953064,0) (-0.762451,0) (-0.571838,0) (-0.381226,0) (-0.190613,0) (0.000000,0) (0.190613,0) (0.381226,0) (0.571838,0) (0.762451,0) (0.953064,0) (1.143677,0)};
+\draw[-{Stealth[length=5pt]}, clrP, line width=1.15pt]
+  (axis cs:0,0) -- (axis cs:0.571838,0);
+\draw[-{Stealth[length=5pt]}, clrQ, line width=1.15pt]
+  (axis cs:0,0) -- (axis cs:0.381226,0);
+\filldraw[clrP] (axis cs:0.571838,0) circle (2pt);
+\filldraw[clrQ] (axis cs:0.381226,0) circle (2pt);
+\node[font=\scriptsize, color=clrP, anchor=north, inner sep=4pt]
+  at (axis cs:0.571838,0) {$P$};
+\node[font=\scriptsize, color=clrQ, anchor=north, inner sep=4pt]
+  at (axis cs:0.381226,0) {$Q$};
+\node[font=\tiny, align=center, color=black!75, anchor=north]
+  at (axis cs:0.48,-0.28) {area $0$};
+\node[font=\tiny, align=center, color=clrGrey, anchor=south]
+  at (axis cs:0.05,1.02) {$\langle P,Q\rangle$ increasing};
+\end{axis}
+\end{tikzpicture}
