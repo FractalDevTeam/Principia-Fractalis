@@ -961,6 +961,7 @@ import PF.CanheightParallelogram389a1_r150  -- r150: THE EXACT PARALLELOGRAM LAW
 import PF.CanheightMultiple389a1_r151  -- r151: THE MULTIPLE LAW canheight(kR) = k^2 canheight R
 import PF.RegulatorIndependence389a1_r152  -- r152: nonzero regulator implies independence implies rank >= 2 (conditional)
 import PF.RegulatorPositive389a1_r153  -- r153: the certified interval machine for canonical heights
+import PF.E389a1RankTwo_r154  -- r154: THE FLAG - 2 <= Module.rank Z E389a1(Q)
 
 /-!
 ## Principia Fractalis Formal Verification
