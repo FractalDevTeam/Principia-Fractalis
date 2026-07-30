@@ -963,6 +963,7 @@ import PF.RegulatorIndependence389a1_r152  -- r152: nonzero regulator implies in
 import PF.RegulatorPositive389a1_r153  -- r153: the certified interval machine for canonical heights
 import PF.E389a1RankTwo_r154  -- r154: THE FLAG - 2 <= Module.rank Z E389a1(Q)
 import PF.TorsionTrivial389a1_r155  -- r155: 389a1 has trivial torsion; every nonzero point has hhat > 0
+import PF.CanonicalHeight5077a1_r156  -- r156: the canonical height on 5077a1 (rank-3 curve), kappa = 105754
 
 /-!
 ## Principia Fractalis Formal Verification
