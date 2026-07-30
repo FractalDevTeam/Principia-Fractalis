@@ -580,12 +580,23 @@ four curves whose ranks are kernel-verified lower bounds in this corpus
 \texttt{5077a1} $r{=}3$).  Multiplicities of eigenvalues within $0.05$ of
 $\varphi/e$ came out $3, 11, 3, 10$ --- \emph{no} correspondence with rank.
 This is not a continuum refutation, but the claimed 100\% success is not
-reproduced by it.  What \emph{did} appear: the largest $|$eigenvalue$|$ is
-monotone in rank at $\approx 2$ per rank ($0.319,\,2.575,\,4.484,\,6.489$),
-which is the classical Mestre--Nagao phenomenon.  So the chapter's core
+reproduced by it.  What \emph{did} appear: the largest
+$|$eigenvalue$|$ is rank-sensitive, with a cutoff-stable conductor correction
+of $-0.40\log N_E$ (fit within nine curves of \emph{fixed} rank~1, $b/\mathrm{se}
+= -4.3$).  Three single-curve ranks give independent estimates of the per-rank
+step that agree to $\pm 0.1$ while extrapolating the conductor law in
+\emph{opposite} directions by $1.2$ to $3.9$ units of $\log N_E$ --- non-trivial
+evidence that the response is to rank and not to conductor.  \textbf{But the
+per-rank step is not a constant}: it drifts $1.79 \to 2.07$ as the prime cutoff
+goes $500 \to 15000$, and the cutoff \emph{growth} of the statistic is itself
+proportional to rank ($R^2 = 0.99$), so no cutoff-independent coefficient
+exists under this normalization.  This is the Mestre--Nagao signature
+$\sum_{p<X} a_p/p \sim -\rank \cdot \log\log X$.  So the chapter's core
 intuition --- that rank is spectrally readable from $a_p/p$ data --- has a
-genuine numerical footprint, while the specific $\varphi/e$-multiplicity
-formulation does not.  Details: \texttt{codex/CH24\_SPECTRAL\_TEST\_2026-07-28.md}.
+genuine numerical footprint, the $\varphi/e$-multiplicity formulation does not,
+and any numeric per-rank coefficient (including the value $\approx 2$ quoted in
+an earlier draft of this paragraph) is an artifact of the chosen cutoff.
+Details: \texttt{codex/CH24\_SPECTRAL\_RIGOROUS\_2026-07-30.md}.
 \end{itemize}
 
 \section{Conclusion}
