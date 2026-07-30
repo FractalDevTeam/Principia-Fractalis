@@ -517,6 +517,9 @@
 \DeclareMathOperator{\Arg}{Arg}     % principal argument
 \DeclareMathOperator{\Li}{Li}       % polylogarithm
 \DeclareMathOperator{\Spec}{Spec}   % spectrum
+% physics.sty already defines \Tr, so \DeclareMathOperator errors out and
+% aborts the whole book build.  Clear it first, keeping our upright form.
+\let\Tr\relax
 \DeclareMathOperator{\Tr}{Tr}       % trace
 \DeclareMathOperator{\sgn}{sgn}     % sign function
 \DeclareMathOperator{\rank}{rank}   % matrix rank
