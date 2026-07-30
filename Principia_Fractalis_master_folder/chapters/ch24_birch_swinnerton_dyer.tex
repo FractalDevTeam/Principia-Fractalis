@@ -250,6 +250,27 @@ Therefore, zeros of $L_f(E,s)$ at $s=1$ correspond exactly to zeros of $L(E,s)$ 
 
 \subsection{The Spectral Operator}
 
+\begin{remark}[Convergence defect in this definition --- read before use]
+As written, with the weight $a_p/p$, the series defining $\mathcal{T}_E$ does
+\emph{not} converge.  The Hasse bound $|a_p| \le 2\sqrt{p}$ gives
+$|a_p/p^s| \le 2p^{1/2-s}$, so absolute convergence requires $\Re(s) > 3/2$ ---
+which is exactly the range this chapter's own analytic scaffold assumes, in the
+hypothesis \texttt{LSeriesAbsConvergenceForReSGreaterThanThreeHalves}.  At
+$s=1$ the tail sums do not shrink: for \texttt{5077a1} the contributions over
+$p \in [5{,}000, 15{,}000)$, $[15{,}000, 50{,}000)$, $[50{,}000, 200{,}000)$ are
+$0.317$, $0.079$, $0.156$ --- the last larger than the one before.  So
+$\mathcal{T}_E$ at $s=1$ is not a well-defined bounded operator in the limit,
+and neither is any eigenvalue of it; this is why every measured per-rank
+coefficient drifted with the prime cutoff.  Replacing $a_p/p$ by $a_p/p^{s}$
+with $s>3/2$ repairs this: the dominant eigenvalue then becomes stable to four
+significant figures across a $33\times$ range of cutoff.  \emph{However}, in
+that convergent range the per-rank slope falls from $\approx 2$ to $\approx
+0.19$ and the rank-$1\to$rank-$2$ gap ($0.053$) is smaller than the
+within-rank-$1$ scatter ($0.076$), so the well-posed operator does not resolve
+adjacent ranks on present evidence.  Details:
+\texttt{codex/CH24\_OPERATOR\_ILLPOSED\_2026-07-30.md}.
+\end{remark}
+
 \begin{defn}[Spectral Operator for BSD]\label{def:spectral-operator-bsd}
 Define the operator $\mathcal{T}_E$ on $L^2([0,1])$ by:
 \begin{equation}
