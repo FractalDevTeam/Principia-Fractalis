@@ -4,10 +4,10 @@
 %% formal proof of independence of rational points: rank >= 2 for 389a1.
 %%
 %% Every mathematical claim below is either a kernel-verified Lean 4 theorem
-%% at HEAD 0d3b5415 (2026-07-30), axioms [propext, Classical.choice,
+%% at HEAD 92cb7ab6 (2026-07-30), axioms [propext, Classical.choice,
 %% Quot.sound], zero project axioms, zero sorries, no native_decide, or
-%% standard cited literature. Verified build data: lake build PF = 4658
-%% jobs, lake build (full) = 9301 jobs, mathlib pin eed770a4, toolchain
+%% standard cited literature. Verified build data: lake build PF = 4659
+%% jobs, lake build (full) = 9303 jobs, mathlib pin eed770a4, toolchain
 %% leanprover/lean4:v4.24.0-rc1.
 
 \documentclass[11pt,reqno]{amsart}
@@ -100,7 +100,9 @@ as a theorem about \texttt{mathlib}'s literal Mordell--Weil group, with
 kernel axioms $[\mathtt{propext}, \mathtt{Classical.choice},
 \mathtt{Quot.sound}]$ only. The construction is elementary: it uses no
 descent, no formal groups, no torsion classification, and no
-Gross--Zagier. As a by-product the same machinery yields
+Gross--Zagier. The same window that constructs $\hh$ also shows
+$E(\mathbb{Q})$ is torsion-free, which discharges the non-torsion side
+conditions outright. As a by-product the same machinery yields
 $\rank E(\mathbb{Q}) \ge 1$ for eleven curves of conductor
 $37 \le N \le 5077$. We emphasise what is \emph{not} proved: these are rank
 lower bounds, not rank equalities, and nothing here bears on the
@@ -170,6 +172,14 @@ such that, formally:
 \end{enumerate}
 \end{theorem}
 
+\begin{theorem}[\lt{torsion\_eq\_zero}, \lt{canheight\_pos\_of\_ne\_zero}]
+\label{thm:torsfree}
+The curve $E = \mathtt{389a1}$ has $E(\mathbb{Q})_{\mathrm{tors}} = 0$:
+the only point of finite order is $O$. Equivalently $\hh(R) > 0$ for every
+$R \ne O$, so the non-torsion hypotheses in Theorem~\ref{thm:height}(3)
+and~(4) hold for every nonzero point.
+\end{theorem}
+
 Here $\nh(a/b) = \max(\lvert a\rvert, b)$ for a reduced fraction, and $x(R)$
 is the $x$-coordinate of $R$ (with $x(O) := 0$, a harmless convention since
 $\nh(0) = 1$).
@@ -233,7 +243,7 @@ criterion.
 \begin{figure}[htbp]
 \centering
 \pffig{fig_arc_dag}
-\caption{Dependency structure of the development. Boxes are Lean files,
+\caption{Dependency structure of the rank-two argument. Boxes are Lean files,
 labelled by their internal revision tag; blue boxes are the two results of
 independent interest (the canonical height and the exact parallelogram law),
 green is Theorem~\ref{thm:main}. Arrows denote logical dependence, not
@@ -407,6 +417,57 @@ $(y-y_0)(y+y_0+1) = 0$) shows that $\{2^nR\}_n$ is finite; pigeonholing
 gives $2^mR = 2^kR$ with $m < k$, so $(2^k - 2^m)R = 0$ with
 $2^k - 2^m \ne 0$.
 \end{proof}
+
+\subsection{The torsion subgroup is trivial}
+
+The bound $\nh(X(2^nR)) \le 12$ inside the proof of
+Theorem~\ref{thm:torsion} is not merely finite but small, because this
+curve's duplication constant is a perfect cube: $1728 = 12^3$. That makes
+the torsion subgroup decidable by inspection.
+
+\begin{proof}[Proof of Theorem~\ref{thm:torsfree}, as formalized]
+Let $R$ be torsion, so $\hh(R) = 0$, and suppose $R \ne O$, say
+$R = (x,y)$. Since $\hh(2^nR) = 4^n\hh(R) = 0$, the window gives
+$\nh(X(2^nR)) \le 12$ for \emph{every} $n$; we use $n = 0, 1, 2$. By
+Proposition~\ref{prop:dbl}, $X(2R) = f(x)/g(x)$ and
+$X(4R) = f(x_1)/g(x_1)$ where $x_1 = f(x)/g(x)$, both defined because $g$
+has no rational zero (\lt{g\_ne\_zero}). So $x$ is a rational satisfying
+\[
+  \nh(x) \le 12, \qquad \nh(x_1) \le 12, \qquad
+  \nh\bigl(f(x_1)/g(x_1)\bigr) \le 12 .
+\]
+There are exactly $183$ rationals of na\"ive height at most $12$. Of these
+only $-1$, $0$ and $1$ meet the second condition, mapping to $10/9$, $3$
+and $6$; and none meets the third, the second iterates being
+$47503/16641$, $114/121$ and $1431/961$. Contradiction.
+\end{proof}
+
+\begin{remark}
+The verification uses neither the curve equation nor any squareness test: it
+never asks which $x$ carry a rational $y$, only iterates a rational function
+and compares heights. The decision procedure therefore stays inside
+$\mathbb{Q}$-arithmetic ($\gcd$, $+$, $\times$), with no integer square root
+and no existential to eliminate, and is discharged by \lt{decide +kernel}
+over the $183$ candidates. Two implementation notes may save a reader time.
+First, $\lt{Finset.Icc}\,(-12)\,(12)$ over $\mathbb{Z}$ is built from an
+order embedding that the kernel does not unfold, and the reduction gets
+stuck; presenting the candidate set over \lt{Finset.range} fixes this.
+Second, \lt{decide +kernel} performs the reduction in the kernel and
+elaborates to \lt{of\_decide\_eq\_true rfl}; it is \emph{not}
+\lt{native\_decide} and introduces no \lt{Lean.ofReduceBool}, as the axiom
+report confirms.
+\end{remark}
+
+\begin{corollary}[\lt{canheight\_pos\_of\_ne\_zero}]\label{cor:hpos}
+$\hh(R) > 0$ for every $R \ne O$. Hence Theorem~\ref{thm:height}(3) holds
+for all $P, Q$ with $P, Q, P{\pm}Q \ne O$, and Theorem~\ref{thm:height}(4)
+for every $R \ne O$, with no torsion hypothesis to check.
+\end{corollary}
+
+This argument is specific to \texttt{389a1}. The enumeration bound is
+$\kappa^{1/3}$ for the curve's duplication constant $\kappa$; for
+\texttt{5077a1}, where $\kappa = 105754$, it would be $47$, a far larger
+search.
 
 \section{The parallelogram law}
 
@@ -734,8 +795,8 @@ carries the full rank-$2$ argument; the rest stop at rank $\ge 1$.}
 
 All results were checked with Lean~4 toolchain
 \texttt{leanprover/lean4:v4.24.0-rc1} against \texttt{mathlib} at commit
-\texttt{eed770a4}. At repository HEAD \texttt{0d3b5415}:
-\lt{lake build PF} completes in $4658$ jobs and \lt{lake build} in $9301$
+\texttt{eed770a4}. At repository HEAD \texttt{92cb7ab6}:
+\lt{lake build PF} completes in $4659$ jobs and \lt{lake build} in $9303$
 jobs, both with zero errors and zero warnings. Every theorem cited in this
 paper reports exactly
 \[
@@ -758,8 +819,8 @@ template), \lt{E43a1RankOne\_r135}--\lt{E106a1RankOne\_r142} (the cohort),
 \lt{QuasiParallelogramCerts389a1\_r148a}--\lt{QuasiParallelogramLower389a1\_r148g},
 \lt{PointQuasiParallelogram389a1\_r149},
 \lt{CanheightParallelogram389a1\_r150}, \lt{CanheightMultiple389a1\_r151},
-\lt{RegulatorIndependence389a1\_r152}, \lt{RegulatorPositive389a1\_r153} and
-\lt{E389a1RankTwo\_r154}.
+\lt{RegulatorIndependence389a1\_r152}, \lt{RegulatorPositive389a1\_r153},
+\lt{E389a1RankTwo\_r154} and \lt{TorsionTrivial389a1\_r155}.
 \end{flushleft}
 
 \section{Outlook}
@@ -775,9 +836,11 @@ generalize, so the $3 \times 3$ case appears to require genuine
 bi-additivity of the pairing, i.e. the polarization argument this development
 was able to avoid.
 
-\emph{Torsion.} With $\hh$ available, $\hh(R) = 0$ is a computable
-obstruction; combined with a bound on the possible torsion orders it would
-give exact torsion subgroups for individual curves.
+\emph{Torsion.} Theorem~\ref{thm:torsfree} settles \texttt{389a1}, and the
+same route works for any curve whose $\kappa^{1/3}$ is small enough to
+enumerate. Making it uniform would need either a general bound on $\kappa$
+or the classical injection of torsion into $E(\mathbb{F}_p)$, which rests on
+formal-group input this development does not have.
 
 \emph{Upstreaming.} The general components --- Northcott for $\mathbb{Q}$,
 the height of the roots of an integer quadratic (Lemma~\ref{lem:roots}), and
