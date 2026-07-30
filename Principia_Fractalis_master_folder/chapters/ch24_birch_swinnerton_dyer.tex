@@ -543,9 +543,49 @@ computational evidence, and its central rank formula is stated as a
 \emph{conjecture} (Conjecture~\ref{conj:rank-equality-fractal}).
 \begin{itemize}
 \item \textbf{OPEN (Clay-hard)} --- the actual BSD statement, analytic rank $=$ Mordell--Weil rank on real elliptic curves (\texttt{Clay\_BSD\_Standard}), is bucket-3. The golden-threshold rank mechanism ($\varphi/e$) is not machine-checked and does not close it.
-\item \textbf{PROVEN (kernel-verified), narrow scope} --- the Lean stack verifies only the rank-blind concordance on a $\mathrm{Fin}\,6$ LMFDB-restricted encoding and the rank-1 Heegner cascade on $E_{37\mathrm{a}1}$/$E_{43\mathrm{a}1}$ (\texttt{BSD\_HeegnerRank1Proof} / \texttt{...E43a1}), and those are \emph{conditional on Gross--Zagier and Kolyvagin}. It does \emph{not} verify the empirical 100\% success rate across the Cremona sample.
+\item \textbf{PROVEN (kernel-verified), UNCONDITIONALLY} --- as of HEAD
+\texttt{162548ad} the Lean stack proves, with axioms exactly
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$ and
+\emph{no} appeal to Gross--Zagier, Kolyvagin, Heegner points, descent or
+modularity:
+\begin{itemize}
+\item $\rank E(\Q) \ge 1$ for eleven curves --- \texttt{37a1}, \texttt{43a1},
+      \texttt{53a1}, \texttt{61a1}, \texttt{79a1}, \texttt{83a1},
+      \texttt{89a1}, \texttt{101a1}, \texttt{106a1}, \texttt{389a1},
+      \texttt{5077a1} (r129--r146);
+\item $\rank E_{389\mathrm{a}1}(\Q) \ge 2$ --- the first machine-checked proof
+      that two rational points on an elliptic curve are independent (r154);
+\item $E_{389\mathrm{a}1}(\Q)$ is torsion-free (r155);
+\item the canonical (N\'eron--Tate) height $\hat{h}$, its vanishing exactly on
+      torsion, and the \emph{exact} parallelogram law
+      $\hat{h}(P{+}Q)+\hat{h}(P{-}Q) = 2\hat{h}(P)+2\hat{h}(Q)$, for \texttt{389a1}
+      (r147, r150) \emph{and} for \texttt{5077a1} (r156, r164).
+\end{itemize}
+These supersede the earlier rank-1 route for its conclusions: the eleven
+rank-1 bounds are unconditional, whereas the Heegner cascade
+(\texttt{BSD\_HeegnerRank1Proof} / \texttt{...E43a1}, still in the corpus) was
+conditional on Gross--Zagier and Kolyvagin.  Also still true: the stack
+verifies the rank-blind concordance on a $\mathrm{Fin}\,6$ LMFDB-restricted
+encoding, and it does \emph{not} verify the empirical 100\% success rate
+across the Cremona sample.  \textbf{None of this proves BSD}: these are rank
+\emph{lower} bounds --- upper bounds need descent, which exists in no proof
+assistant --- and nothing above involves an $L$-function.
 \item \textbf{CONDITIONAL REDUCTION} --- the analytic scaffold rests on two named subsidiary hypotheses: \texttt{LSeriesAbsConvergenceForReSGreaterThanThreeHalves} (standard, from the Hasse bound; a clean brick) and \texttt{WilesModularityImpliesAnalyticContinuation} (true mathematics, but a multi-year Wiles formalisation absent from mathlib). Neither discharges BSD.
 \item \textbf{ASSERTED / EMPIRICAL} --- the value $\alpha=3\pi/4$, the golden threshold $\varphi/e$, the fractal $\Sha$ bound (Theorem~\ref{thm:fractal-bound-sha}), and the consciousness-threshold figures are asserted framework structure or numerics, not derived.
+\item \textbf{DID NOT REPRODUCE} --- an independent numerical test of
+Conjecture~\ref{conj:rank-equality-fractal} (discretised $\mathcal{T}_E$,
+grid 240, primes $<1500$, $\alpha=3\pi/4$, $a_p$ by character sums) was run on
+four curves whose ranks are kernel-verified lower bounds in this corpus
+(\texttt{11a1} $r{=}0$ control, \texttt{37a1} $r{=}1$, \texttt{389a1} $r{=}2$,
+\texttt{5077a1} $r{=}3$).  Multiplicities of eigenvalues within $0.05$ of
+$\varphi/e$ came out $3, 11, 3, 10$ --- \emph{no} correspondence with rank.
+This is not a continuum refutation, but the claimed 100\% success is not
+reproduced by it.  What \emph{did} appear: the largest $|$eigenvalue$|$ is
+monotone in rank at $\approx 2$ per rank ($0.319,\,2.575,\,4.484,\,6.489$),
+which is the classical Mestre--Nagao phenomenon.  So the chapter's core
+intuition --- that rank is spectrally readable from $a_p/p$ data --- has a
+genuine numerical footprint, while the specific $\varphi/e$-multiplicity
+formulation does not.  Details: \texttt{codex/CH24\_SPECTRAL\_TEST\_2026-07-28.md}.
 \end{itemize}
 
 \section{Conclusion}
@@ -557,7 +597,10 @@ We have presented computational evidence for the Birch and Swinnerton-Dyer conje
 \item \textbf{Golden Threshold}: Eigenvalue concentration at $\varphi/e \approx 0.595$
 \item \textbf{Rank Formula}: Multiplicity at threshold equals algebraic rank
 \item \textbf{Algorithm}: $O(N_E^{1/2+\varepsilon})$ complexity for rank computation
-\item \textbf{Validation}: 100\% success on tested curves (conductor $< 100{,}000$)
+\item \textbf{Validation}: reported as 100\% success on tested curves
+(conductor $< 100{,}000$) --- but see the verification-status paragraph above:
+an independent test of the multiplicity formula did \emph{not} reproduce this,
+while a dominant-eigenvalue signal monotone in rank did appear
 \item \textbf{Consciousness}: Super-crystallization (ch$_2 = 1.0356$) at arithmetic-geometric duality
 \item \textbf{$\Sha$ Bound}: Concrete finite upper bound from fractal structure
 \end{itemize}
@@ -596,7 +639,18 @@ The emergence of rational points at the golden threshold reveals BSD as a \texti
 \begin{enumerate}
 \item \textbf{(Trace Formula)} Prove rigorously that $\tr(\mathcal{T}_E^n) = \frac{d^n}{ds^n} \log L_f(E,s)|_{s=1}$. This requires establishing a Lefschetz-type formula for fractal operators.
 
-\item \textbf{(Height Pairing)} Show that eigenfunctions of $\mathcal{T}_E$ at $\varphi/e$ correspond to generators of $E(\Q)$ via the canonical height pairing $\hat{h}$.
+\item \textbf{(Height Pairing)} Show that eigenfunctions of $\mathcal{T}_E$ at
+$\varphi/e$ correspond to generators of $E(\Q)$ via the canonical height
+pairing $\hat{h}$.  \emph{Status: the height side of this problem is now
+formalized.}  $\hat{h}$ exists as a machine-checked object on \texttt{389a1}
+(r147) and \texttt{5077a1} (r156), vanishes exactly on torsion, satisfies the
+exact parallelogram law (r150, r164), and carries the pairing
+$\langle P,Q\rangle := \tfrac12\bigl(\hat{h}(P{+}Q)-\hat{h}(P)-\hat{h}(Q)\bigr)$ whose
+$2\times2$ determinant is what proves independence in r152/r154.  What remains
+is the \emph{operator} side --- and note that the numerical test recorded above
+found no rank signal in the $\varphi/e$ multiplicity, so the correspondence
+should be sought against the dominant-eigenvalue statistic rather than the
+threshold multiplicity.
 
 \item \textbf{(Higher Rank)} Extend the algorithm to curves with $\rank \geq 4$. Are there numerical stability issues? Can the eigenvalue clustering be sharpened?
 
