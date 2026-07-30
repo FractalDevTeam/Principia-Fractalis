@@ -174,11 +174,38 @@ Consequences for the downstream stones (the r148f/r148g analogues):
 
 ## 5. What is NOT yet done
 
-- Lean: r157 (level-1 certs) and r158 (content bound) are DONE and pushed.
-- No secant bridge for 5077a1 (the r148d analogue): the two polynomial
-  identities `N3 + N4 - S = 2*E1 + 2*E2` and `N3*N4 - dd*P = c1*E1 + c2*E2`
-  need their explicit `c1, c2` computed for this curve.
-- No parallelogram law, no pairing, no regulator, no rank-3 statement.
+- Lean: r157 (level-1 certs), r158 (content bound), r159 (size bounds) and
+  r160 (secant bridge) are all DONE and pushed.
+- Secant bridge, RESOLVED in r160. Because `a1 = a2 = 0`,
+  `addX x1 x2 lam = lam^2 - x1 - x2`, so
+  `N3 = (y1-y2)^2 - (x1+x2)*dd` and `N4 = (y1+y2+1)^2 - (x1+x2)*dd`
+  (389a1 carried `(1+x1+x2)` there). Certificates, remainder exactly 0:
+
+```
+sum:      N3 + N4 - Sfnum = 2*E1 + 2*E2          <- cofactors 2,2
+product:  N3*N4 - dd*Prnum = cP1*E1 + cP2*E2
+  cP1 = -x1^3 + 2x1^2x2 + 2x1x2^2 - 7x1 - 2x2^3 + y1^2 + y1 - 2y2^2 - 2y2 + 6
+  cP2 = -4x1^3 + 2x1^2x2 + 2x1x2^2 + 14x1 - x2^3 - 7x2 + y2^2 + y2 - 6
+```
+
+  The sum cofactors `2, 2` are IDENTICAL to 389a1's, and structurally so:
+  `N3 + N4 = 2(y1^2+y1) + 2(y2^2+y2) + 1 - 2(x1+x2)dd` on any curve with
+  `a1 = 0` and `a3 = 1`, so the y's always cancel at cost exactly `2E1 + 2E2`.
+  Only the product cofactors are curve-specific.
+
+  Also cross-checked numerically: `N3/dd` and `N4/dd` equal the group law's
+  `x(P1+P2)` and `x(P1-P2)` in exact rational arithmetic on all ten distinct
+  pairs from `{P,2P,3P,4P,5P}`.
+- r148e (`naiveHeight_mul_le_of_quadratic`) is confirmed curve-INDEPENDENT --
+  its signature is `{x3 x4 : QQ} {A B C : ZZ}`, no curve anywhere -- so it is
+  reusable verbatim, no 5077a1 port needed.
+- STILL OPEN: the product bounds (r148f/g analogues), the parallelogram law,
+  the pairing, the regulator, and the rank-3 statement. Expected product
+  bound is `h(x3)*h(x4) <= 2*114 = 228 * H1^2 * H2^2` from r159 + r148e.
+- STILL OPEN AND UNSOLVED: the 3x3 independence step. r152's trick -- use the
+  relation itself to rewrite P+/-Q as multiples of P -- does NOT generalize to
+  three points, so the Sylvester 3x3 case appears to need genuine
+  bi-additivity of the pairing. None of r156-r160 moves this wall.
 - Torsion-triviality for 5077a1 is NOT available by the r155 route at
   reasonable cost: the height bound there is `kappa^(1/3) = 47` (since
   `47^3 = 103823 <= 105754 < 110592 = 48^3`), against 12 for 389a1, so the
