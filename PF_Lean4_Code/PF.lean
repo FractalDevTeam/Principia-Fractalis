@@ -968,6 +968,7 @@ import PF.QuasiParallelogramCerts5077a1_r157  -- r157: W2 level-1 addition forms
 import PF.QuasiParallelogramContent5077a1_r158  -- r158: W2 content bound gcd(DD,Sf,Pf) | 5^4 * 5077^4
 import PF.QuasiParallelogramSize5077a1_r159  -- r159: W2 size bounds 4 / 57 / 114 times H1^2 H2^2
 import PF.SecantBridge5077a1_r160  -- r160: secant bridge -- mathlib's group law = the addition quadratic
+import PF.QuasiParallelogramUpper5077a1_r161  -- r161: upper quasi-parallelogram bound, constant 228
 
 /-!
 ## Principia Fractalis Formal Verification
