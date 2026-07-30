@@ -969,6 +969,7 @@ import PF.QuasiParallelogramContent5077a1_r158  -- r158: W2 content bound gcd(DD
 import PF.QuasiParallelogramSize5077a1_r159  -- r159: W2 size bounds 4 / 57 / 114 times H1^2 H2^2
 import PF.SecantBridge5077a1_r160  -- r160: secant bridge -- mathlib's group law = the addition quadratic
 import PF.QuasiParallelogramUpper5077a1_r161  -- r161: upper quasi-parallelogram bound, constant 228
+import PF.QuasiParallelogramLower5077a1_r162  -- r162: lower quasi-parallelogram bound, constant 1692064 -- W2 CLOSED for 5077a1
 
 /-!
 ## Principia Fractalis Formal Verification
