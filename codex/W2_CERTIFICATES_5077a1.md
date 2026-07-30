@@ -106,16 +106,49 @@ Dehomogenizing by `b2` and taking resultants in `ZZ[t]`:
 | `(R6, F)`  | `81790244708125`| `5^4 * 5077^3` |
 | `(R6, G3)` | `1046915132264` | `2^3 * 5077^3` |
 
-So the achievable level-2 constants are `5077^3` times a small unit factor
-(`5^4` or `2^3`), exactly parallel to 389a1 (`389^3` there, with a factor 2
-appearing in one corner). The 5077-power structure is identical; only the
-small cofactor differs.
+**RESOLVED (r158).** The relevant quantity is not the resultant but the
+minimal positive integer in `(R6, F) ∩ ZZ`, and it is
 
-**Content bound to target:** `gcd(DD, S, P) | 5077^3` for coprime pairs,
-matching the 389a1 result. As there, the Lean layer may take the cheaper
-`5077^4` via the squaring trick rather than assembling the full corner
-certificates — the corner cofactors are the expensive object, and a looser
-constant costs nothing downstream (it enters only inside a log).
+```
+K = 5^2 * 5077^2 = 644398225
+```
+
+confirmed **minimal** by integer row reduction (Hermite normal form) on the
+coefficient lattice spanned by `t^i*R6` (i <= 3) and `t^j*F` (j <= 5).
+
+**The factor of 5 is forced, not slack.** `R6` and `F` share a nontrivial
+factor mod 5:
+
+```
+R6 = 2t^6 + 1,   F = (t^2 + 2)^2,   gcd = t^2 + 2     (mod 5)
+```
+
+so every integer in the ideal is divisible by 5. They likewise share
+`t^2 - 184t - 1690` mod 5077 — the exact analogue of 389a1's
+`a^2 + 180a - 69` mod 389. So 389a1's clean `389^2` was luck: that curve's
+`R6` and `F` happen to share nothing outside the conductor.
+
+Explicit verified identities (cofactors integral, `expand()==0`):
+
+```
+r6F_b:  alpha*R6 + beta*F = 644398225 * b^9
+  alpha = 192346*a^3 + 352800*a^2*b + 3236422*a*b^2 - 3981825*b^3
+  beta  = -384692*a^5 - 705600*a^4*b + 12377064*a^3*b^2
+          - 24783050*a^2*b^3 + 42890092*a*b^4 + 18107950*b^5
+r6F_a:  alpha*R6 + beta*F = 644398225 * a^9
+  alpha = 60776400*a^3 - 22646722*a^2*b - 630562625*a*b^2 + 900485446*b^3
+  beta  = 522845425*a^5 + 45293444*a^4*b - 1804362700*a^3*b^2
+          + 6927821602*a^2*b^3 - 6790943075*a*b^4 - 1121012494*b^5
+```
+
+**Content bound, as proved in r158:** `gcd(DD, S, P) | K^2 = 5^4 * 5077^4`,
+via the squaring trick (`d | R6` and `d | F^2` give `d | (alpha*R6+beta*F)^2`).
+One squaring is paid to keep the proof clear of the corner certificates; the
+constant enters downstream only inside a logarithm.
+
+Also verified for r158: `Res_{a1}(DD, Pf) = F(a2,b2)^2` **exactly** (not merely
+up to sign), which is what makes the pairwise certificates `cert_BP`/`cert_AP`
+exist with cofactors of bidegree (1,6).
 
 ## 4. Size bounds (coefficient absolute sums) — verified
 
@@ -141,7 +174,7 @@ Consequences for the downstream stones (the r148f/r148g analogues):
 
 ## 5. What is NOT yet done
 
-- No Lean file yet for any of this (r157 onward).
+- Lean: r157 (level-1 certs) and r158 (content bound) are DONE and pushed.
 - No secant bridge for 5077a1 (the r148d analogue): the two polynomial
   identities `N3 + N4 - S = 2*E1 + 2*E2` and `N3*N4 - dd*P = c1*E1 + c2*E2`
   need their explicit `c1, c2` computed for this curve.
