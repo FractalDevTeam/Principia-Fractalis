@@ -962,6 +962,7 @@ import PF.CanheightMultiple389a1_r151  -- r151: THE MULTIPLE LAW canheight(kR) =
 import PF.RegulatorIndependence389a1_r152  -- r152: nonzero regulator implies independence implies rank >= 2 (conditional)
 import PF.RegulatorPositive389a1_r153  -- r153: the certified interval machine for canonical heights
 import PF.E389a1RankTwo_r154  -- r154: THE FLAG - 2 <= Module.rank Z E389a1(Q)
+import PF.TorsionTrivial389a1_r155  -- r155: 389a1 has trivial torsion; every nonzero point has hhat > 0
 
 /-!
 ## Principia Fractalis Formal Verification
