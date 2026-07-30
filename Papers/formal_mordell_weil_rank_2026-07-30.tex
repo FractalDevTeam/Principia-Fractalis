@@ -1,0 +1,720 @@
+%% formal_mordell_weil_rank_2026-07-30.tex
+%%
+%% A machine-checked canonical height on an elliptic curve, and the first
+%% formal proof of independence of rational points: rank >= 2 for 389a1.
+%%
+%% Every mathematical claim below is either a kernel-verified Lean 4 theorem
+%% at HEAD 0d3b5415 (2026-07-30), axioms [propext, Classical.choice,
+%% Quot.sound], zero project axioms, zero sorries, no native_decide, or
+%% standard cited literature. Verified build data: lake build PF = 4658
+%% jobs, lake build (full) = 9301 jobs, mathlib pin eed770a4, toolchain
+%% leanprover/lean4:v4.24.0-rc1.
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{seqsplit}
+
+\emergencystretch=3em
+\hbadness=6000
+\sloppy
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\lt}[1]{\texttt{\seqsplit{#1}}}
+\newcommand{\hh}{\widehat{h}}
+\newcommand{\nh}{H}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\reg}{Reg}
+
+\title[A formal canonical height and independence of rational points]{A
+machine-checked canonical height on an elliptic curve, and a formal proof
+that two rational points are independent}
+
+\author{Pablo Cohen}
+\address{Mesa, Arizona, USA}
+\email{psolorzano@alumni.berklee.edu}
+
+\date{30 July 2026}
+
+\subjclass[2020]{Primary 11G05, 11Y16; Secondary 68V20, 68V15}
+
+\keywords{elliptic curve, canonical height, Mordell--Weil rank,
+independence of points, Lean 4, interactive theorem proving}
+
+\begin{document}
+
+\begin{abstract}
+We report the first machine-checked construction of the canonical (N\'eron--Tate)
+height on an elliptic curve over $\mathbb{Q}$, and the first formal proof that
+two rational points on an elliptic curve are independent. Working in Lean~4
+over \texttt{mathlib}, for the curve $E = \mathtt{389a1}$,
+$y^2 + y = x^3 + x^2 - 2x$ --- the smallest-conductor curve of rank~$2$ ---
+we construct $\hh \colon E(\mathbb{Q}) \to \mathbb{R}$ as a limit of
+normalized na\"ive heights, prove that it vanishes exactly on torsion, prove
+the parallelogram law for it \emph{exactly}, and deduce
+$\hh(kR) = k^2\hh(R)$ for all $k \in \mathbb{Z}$. Certified rational interval
+arithmetic on the dyadic chain then shows the regulator determinant of the
+generators $P = (0,0)$, $Q = (1,0)$ is positive, whence
+\[
+  2 \;\le\; \rank E(\mathbb{Q})
+\]
+as a theorem about \texttt{mathlib}'s literal Mordell--Weil group, with
+kernel axioms $[\mathtt{propext}, \mathtt{Classical.choice},
+\mathtt{Quot.sound}]$ only. The construction is elementary: it uses no
+descent, no formal groups, no torsion classification, and no
+Gross--Zagier. As a by-product the same machinery yields
+$\rank E(\mathbb{Q}) \ge 1$ for eleven curves of conductor
+$37 \le N \le 5077$. We emphasise what is \emph{not} proved: these are rank
+lower bounds, not rank equalities, and nothing here bears on the
+Birch--Swinnerton-Dyer conjecture.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{What is new}
+
+Let $E/\mathbb{Q}$ be an elliptic curve. The canonical height
+$\hh \colon E(\mathbb{Q}) \to \mathbb{R}_{\ge 0}$ of N\'eron and Tate is the
+basic tool for measuring rational points: it is a positive semi-definite
+quadratic form whose kernel is exactly the torsion subgroup, and the
+determinant of its Gram matrix on a set of points --- the regulator ---
+detects independence. It is also the quantity appearing on the arithmetic
+side of the Birch--Swinnerton-Dyer conjecture.
+
+Despite its centrality, the canonical height had not been formalized in any
+interactive theorem prover. At the time of writing, \texttt{mathlib} contains
+the Weierstrass curve type, the group law on the affine, projective and
+Jacobian point models (with associativity), division polynomials, and, on
+\texttt{master}, reduction theory and a formal Dirichlet series; it does not
+contain the Mordell--Weil theorem, heights on elliptic curves, descent, or
+any analytic continuation of an elliptic $L$-function. Consequently no
+positive lower bound on $\rank E(\mathbb{Q})$ for a specific curve appears to
+have been machine-checked, and \emph{a fortiori} no independence statement
+about rational points.
+
+This paper supplies both, for a single explicit curve, together with the
+general machinery. The main theorem is the following.
+
+\begin{theorem}[\lt{E389a1\_rank\_ge\_two}]\label{thm:main}
+Let $E$ be the elliptic curve $y^2 + y = x^3 + x^2 - 2x$ over $\mathbb{Q}$
+(Cremona label \texttt{389a1}, LMFDB label \texttt{389.a1}). Then
+\[
+  2 \;\le\; \operatorname{rank}_{\mathbb{Z}} E(\mathbb{Q}),
+\]
+where $E(\mathbb{Q})$ is \texttt{mathlib}'s type
+\lt{WeierstrassCurve.Affine.Point} for $E$ and the rank is
+\lt{Module.rank} over $\mathbb{Z}$. The points $P = (0,0)$ and $Q = (1,0)$
+are $\mathbb{Z}$-linearly independent.
+\end{theorem}
+
+Theorem~\ref{thm:main} is a Lean~4 theorem; \lt{\#print axioms} on it reports
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$ and
+nothing else. It rests on the following, which we regard as of independent
+interest.
+
+\begin{theorem}[\lt{canheight}, \lt{canheight\_eq\_zero\_iff\_torsion},
+\lt{canheight\_parallelogram}, \lt{canheight\_zsmul}]\label{thm:height}
+For the curve $E$ above there is a function
+$\hh \colon E(\mathbb{Q}) \to \mathbb{R}$, defined as
+\[
+  \hh(R) \;=\; \lim_{n \to \infty} \frac{\log \nh\!\left(x(2^n R)\right)}{4^n},
+\]
+such that, formally:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+  \item $\hh \ge 0$, and $\hh(R) = 0$ if and only if $R$ is a torsion point;
+  \item $\lvert \hh(R) - \log \nh(x(R)) \rvert \le \tfrac13\log 1728$;
+  \item $\hh(P+Q) + \hh(P-Q) = 2\hh(P) + 2\hh(Q)$ whenever
+        $P, Q, P \pm Q$ are non-torsion;
+  \item $\hh(kR) = k^2\,\hh(R)$ for every $k \in \mathbb{Z}$ and non-torsion
+        $R$.
+\end{enumerate}
+\end{theorem}
+
+Here $\nh(a/b) = \max(\lvert a\rvert, b)$ for a reduced fraction, and $x(R)$
+is the $x$-coordinate of $R$ (with $x(O) := 0$, a harmless convention since
+$\nh(0) = 1$).
+
+\subsection{The obstruction, and how it is avoided}
+
+The classical construction of $\hh$ presupposes a body of theory --- Weil
+heights on projective space, the theory of local heights, or at minimum the
+functorial machinery of Weil's height machine --- none of which is available
+in \texttt{mathlib}. The classical proof that $\hh$ is a quadratic form
+proceeds through the Mordell--Weil theorem's ingredients or through
+polarization identities requiring the parallelogram law at many pairs of
+points.
+
+Our route replaces all of this with explicit arithmetic on a \emph{single
+fixed curve}. Three observations make it work.
+
+\emph{First}, the duplication map on the $x$-line of a fixed curve is one
+explicit rational function. For \texttt{389a1},
+\begin{equation}\label{eq:fg}
+  x(2R) \;=\; \frac{f(x)}{g(x)}, \qquad
+  f(x) = x^4 + 4x^2 - 2x + 3, \qquad
+  g(x) = 4x^3 + 4x^2 - 8x + 1,
+\end{equation}
+where $x = x(R)$; and $g$ has no rational root, so no rational point of
+$E$ is $2$-torsion and doubling never leaves the affine chart. Homogenizing
+$x = a/b$ and applying the extended Euclidean algorithm to $f$ and $g$ gives
+\emph{integer} B\'ezout identities, certified in Lean by \lt{ring}, from which
+$\gcd$ cancellation is bounded and the two-sided height estimate
+\begin{equation}\label{eq:dup}
+  \frac{\nh(x)^4}{1728} \;\le\; \nh\!\left(x(2R)\right) \;\le\; 17\,\nh(x)^4
+\end{equation}
+follows with explicit constants. Estimate~\eqref{eq:dup} makes
+$\log \nh(x(2^nR))/4^n$ a Cauchy sequence with an explicit geometric modulus,
+which is all that is needed to define $\hh$.
+
+\emph{Second}, the addition law admits the same treatment, once one works with
+the pair $\{x(P+Q), x(P-Q)\}$ rather than with either coordinate separately.
+Reducing modulo the curve equations eliminates the $y$-coordinates entirely:
+$x(P+Q)$ and $x(P-Q)$ are the two roots of an explicit quadratic whose
+coefficients are bihomogeneous of bidegree $(2,2)$ in the reduced coordinates
+of $x(P)$ and $x(Q)$. Combined with an elementary lemma bounding the product
+of the heights of the roots of an integer quadratic by the height of its
+coefficient vector (Lemma~\ref{lem:roots} below), this yields the
+quasi-parallelogram law with an explicit constant. Notably the lower bound is
+free: applying the upper bound to the pair $(P+Q, P-Q)$, whose sum and
+difference are $2P$ and $2Q$, and feeding in~\eqref{eq:dup} gives it.
+
+\emph{Third}, and this is what removes the last classical dependency: for the
+independence argument one does not need bi-additivity of the induced pairing.
+If a relation $mP + nQ = 0$ exists with $n \ne 0$, then the relation
+\emph{itself} rewrites $P \pm Q$ as multiples of $P$,
+\[
+  n(P+Q) = (n-m)P, \qquad n(P-Q) = (n+m)P,
+\]
+so Theorem~\ref{thm:height}(4) applies, and a \emph{single} use of the
+parallelogram law at $(P,Q)$ forces the regulator determinant to vanish
+(Proposition~\ref{prop:reldet}). The contrapositive is the independence
+criterion.
+
+\subsection{What is not proved}
+
+We are explicit about the limits of these results, since the value of a
+formalization lies in the precision of its claims.
+
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item Theorem~\ref{thm:main} is a rank \emph{lower} bound. Upper bounds
+        require descent (Selmer groups, the weak Mordell--Weil theorem),
+        which exists in no proof assistant; we make no claim about the exact
+        rank of \texttt{389a1}, whose value $2$ is known classically.
+  \item Nothing here concerns $L$-functions, analytic ranks, or the
+        Birch--Swinnerton-Dyer conjecture. No $L$-function of an elliptic
+        curve is defined in our development.
+  \item The Mordell--Weil theorem is not used and not proved. All statements
+        are about $\operatorname{rank}_{\mathbb{Z}}$ of the point group as an
+        abstract $\mathbb{Z}$-module, which is meaningful without finite
+        generation.
+  \item The classical facts that $\hh$ extends to a positive-definite form on
+        $E(\mathbb{Q}) \otimes \mathbb{R}$, and that the regulator of
+        \texttt{389a1} is $\approx 0.15246$, are quoted for orientation only
+        and are used nowhere in any proof.
+\end{enumerate}
+
+\subsection{Related formalization}
+
+\texttt{mathlib}'s elliptic-curve development \cite{mathlib} provides the
+Weierstrass type, the group law with a full associativity proof (via the
+class group of the coordinate ring), variable change, normal forms and
+division polynomials; recent additions include reduction over discrete
+valuation rings. Heights appear in \texttt{mathlib} only for number fields
+and projective space (\texttt{Mathlib/NumberTheory/Height/}, present on
+\texttt{master} after our pin), where the Northcott property is proved and
+the point-height and parallelogram law for elliptic curves are marked as
+open tasks; M.~Stoll's abstract descent theorem
+(\texttt{Mathlib/GroupTheory/Descent.lean}) is likewise a step toward
+Mordell--Weil rather than the theorem. Buzzard's FLT project \cite{FLT}
+targets a modularity lifting theorem sufficient for Fermat, not the full
+modularity theorem. Gross--Zagier, Kolyvagin and Heegner point theory are, to
+our knowledge, unformalized anywhere. Our development is independent of all
+of these.
+
+\section{Setup}
+
+\subsection{The curve and the na\"ive height}
+
+Throughout, $E$ is the Weierstrass curve
+$(a_1,a_2,a_3,a_4,a_6) = (0,1,1,-2,0)$ over $\mathbb{Q}$, i.e.
+$y^2 + y = x^3 + x^2 - 2x$, of conductor $389$ and discriminant $389$. In
+Lean this is
+\begin{center}
+\lt{def E389a1 : WeierstrassCurve Q := <0, 1, 1, -2, 0>}
+\end{center}
+and $E(\mathbb{Q})$ is \lt{E389a1.toAffine.Point}, the inductive type with
+constructors \lt{zero} and \lt{some} (the latter carrying a nonsingular
+affine point), with \texttt{mathlib}'s \lt{AddCommGroup} instance.
+
+\begin{definition}[\lt{naiveHeight}]
+For $q \in \mathbb{Q}$ set $\nh(q) := \max(\lvert \mathrm{num}(q)\rvert,
+\mathrm{den}(q)) \in \mathbb{N}$, using Lean's reduced representation. Then
+$\nh(q) \ge 1$ always. Define $X \colon E(\mathbb{Q}) \to \mathbb{Q}$ by
+$X(O) = 0$ and $X(\text{some at } (x,y)) = x$, and
+$h(R) := \log \nh(X(R))$.
+\end{definition}
+
+\subsection{The duplication estimate}
+
+\begin{proposition}[\lt{dbl\_x}, \lt{g\_ne\_zero}]\label{prop:dbl}
+For every nonsingular rational point $(x,y)$ of $E$ we have
+$(2y+1)^2 = g(x)$, and $g$ has no rational zero; consequently no rational
+affine point is $2$-torsion, $P + P$ is again affine, and its
+$x$-coordinate is $f(x)/g(x)$ with $f,g$ as in~\eqref{eq:fg}.
+\end{proposition}
+
+That $g(x) = 4x^3+4x^2-8x+1$ has no rational root is proved by the integer
+form of the rational root theorem: a reduced $n/d$ with $4n^3 + 4n^2d -
+8nd^2 + d^3 = 0$ forces $n \mid d^3$, hence $n = \pm 1$, and $d \mid 4n^3$,
+hence $d \mid 4$; the eight candidates are refuted by \lt{norm\_num}.
+
+\begin{proposition}[\lt{duplication\_height\_bound},
+\lt{duplication\_height\_upper}]\label{prop:window}
+For every $x \in \mathbb{Q}$,
+\[
+  \nh(x)^4 \;\le\; 1728\,\nh\!\left(f(x)/g(x)\right), \qquad
+  \nh\!\left(f(x)/g(x)\right) \;\le\; 17\,\nh(x)^4 .
+\]
+\end{proposition}
+
+The upper bound is the triangle inequality on the homogenized numerator and
+denominator. The lower bound is the substantive one. Writing $x = a/b$
+reduced and
+\[
+  F(a,b) = a^4 + 4a^2b^2 - 2ab^3 + 3b^4, \qquad
+  G(a,b) = 4a^3 + 4a^2b - 8ab^2 + b^3, \qquad D = bG,
+\]
+so that $x(2R) = F/D$, the extended Euclidean algorithm supplies
+\begin{align}
+  (-48a^2 - 32ab + 144b^2)F + (12a^3 - 4a^2b + 40ab^2 - 43b^3)G
+    &= 389\,b^6, \label{eq:bez1}\\
+  (389a^3 + 188a^2b - 520ab^2 + 66b^3)F
+    + (-47a^3 - 212a^2b + 108ab^2 - 198b^3)D &= 389\,a^7. \label{eq:bez2}
+\end{align}
+Both are verified in Lean by \lt{ring}. Since $\gcd(a,b) = 1$ they give
+$\gcd(F,D) \mid 389$, and comparing coefficient sums gives
+$389\,\nh(x)^7 \le 1728\,\nh(x)^3 \max(\lvert F\rvert, \lvert D\rvert)$,
+whence the stated bound after cancelling the content.
+
+\section{The canonical height}
+
+\begin{definition}[\lt{hseq}, \lt{canheight}]
+For $R \in E(\mathbb{Q})$ and $n \in \mathbb{N}$ put
+$s_n(R) := h(2^n R)/4^n$, and $\hh(R) := \lim_{n} s_n(R)$.
+\end{definition}
+
+\begin{proposition}[\lt{hseq\_cauchySeq}, \lt{canheight\_window}]
+$\lvert s_{n+1}(R) - s_n(R)\rvert \le \log 1728 / 4^{\,n+1}$, so
+$(s_n(R))_n$ is Cauchy and $\hh$ is well defined; moreover
+$\lvert \hh(R) - h(R)\rvert \le \tfrac13 \log 1728$.
+\end{proposition}
+
+Proposition~\ref{prop:window} gives
+$\lvert h(2R) - 4h(R)\rvert \le \log 1728$ for affine $R$ (and trivially for
+$R = O$), which after division by $4^{n+1}$ is the displayed step estimate;
+Cauchyness follows from the geometric criterion, and the window from the
+corresponding tail bound. Applying the window at $2^nR$ and using
+$\hh(2^nR) = 4^n \hh(R)$ sharpens it to
+\begin{equation}\label{eq:winshift}
+  \lvert \hh(R) - s_n(R)\rvert \;\le\; \frac{\log 1728}{3 \cdot 4^n},
+\end{equation}
+which is the form used for numerics in \S\ref{sec:numerics}.
+
+\begin{theorem}[\lt{canheight\_eq\_zero\_iff\_torsion}]\label{thm:torsion}
+$\hh(R) = 0$ if and only if $R$ is a torsion point.
+\end{theorem}
+
+\begin{proof}[Proof sketch, as formalized]
+If $R$ has finite order its multiples form a finite set, so $h(2^nR)$ is
+bounded and $s_n(R) \to 0$. Conversely if $\hh(R) = 0$ then
+$\hh(2^nR) = 4^n \hh(R) = 0$ for all $n$, so by the window
+$h(2^nR) \le \tfrac13\log 1728$, i.e. $\nh(X(2^nR))^3 \le 1728$ and hence
+$\nh(X(2^nR)) \le 12$. A Northcott statement for $\mathbb{Q}$
+(\lt{finite\_of\_naiveHeight\_le}: the set of rationals of na\"ive height at
+most $B$ is finite, by injecting into a product of finite intervals of
+numerators and denominators) together with the fact that each $x$ admits at
+most two points (\lt{finite\_equation\_fiber}, from
+$(y-y_0)(y+y_0+1) = 0$) shows that $\{2^nR\}_n$ is finite; pigeonholing
+gives $2^mR = 2^kR$ with $m < k$, so $(2^k - 2^m)R = 0$ with
+$2^k - 2^m \ne 0$.
+\end{proof}
+
+\section{The parallelogram law}
+
+\subsection{The addition quadratic}
+
+\begin{proposition}[\lt{xAdd\_sum}, \lt{xAdd\_prod}]\label{prop:addquad}
+Let $(x_1,y_1)$, $(x_2,y_2)$ be nonsingular rational points of $E$ with
+$x_1 \ne x_2$. Then, with $dd = (x_1-x_2)^2$,
+\[
+  x(P_1+P_2) + x(P_1-P_2) = \frac{S(x_1,x_2)}{dd}, \qquad
+  x(P_1+P_2)\cdot x(P_1-P_2) = \frac{\Pi(x_1,x_2)}{dd},
+\]
+where
+\begin{align*}
+  S(x_1,x_2) &= 2x_1^2x_2 + 2x_1x_2^2 + 4x_1x_2 - 4x_1 - 4x_2 + 1,\\
+  \Pi(x_1,x_2) &= x_1^2x_2^2 + 4x_1x_2 - x_1 - x_2 + 3 .
+\end{align*}
+\end{proposition}
+
+The $y$-coordinates cancel entirely. Writing
+$N_\pm$ for $dd \cdot x(P_1 \pm P_2)$ as computed from
+\texttt{mathlib}'s \lt{slope} and \lt{addX}, and $\mathcal{E}_i$ for the
+Weierstrass relations, one has the polynomial identities
+\[
+  N_+ + N_- - S = 2\mathcal{E}_1 + 2\mathcal{E}_2, \qquad
+  N_+ N_- - dd \cdot \Pi = c_1\mathcal{E}_1 + c_2\mathcal{E}_2
+\]
+with $c_1, c_2$ explicit of degree $3$; both are discharged in Lean by
+\lt{linear\_combination}. The homogenizations of $S$ and $\Pi$ are precisely
+the bidegree-$(2,2)$ forms whose content and size are controlled as
+in~\S2.2, so $x(P_1 \pm P_2)$ are the roots of an integer quadratic
+$(DD)T^2 - (Sf)T + (Pf)$ with $\max(\lvert DD\rvert, \lvert Sf\rvert,
+\lvert Pf\rvert) \le 17\,\nh(x_1)^2\nh(x_2)^2$.
+
+\subsection{Heights of the roots of an integer quadratic}
+
+\begin{lemma}[\lt{naiveHeight\_mul\_le\_of\_quadratic}]\label{lem:roots}
+Let $A,B,C \in \mathbb{Z}$ with $A \ne 0$ and let $u,v \in \mathbb{Q}$
+satisfy $A(u+v) = B$ and $Auv = C$. Then
+\[
+  \nh(u)\,\nh(v) \;\le\; 2\max(\lvert A\rvert, \lvert B\rvert,
+  \lvert C\rvert).
+\]
+\end{lemma}
+
+\begin{proof}[Proof, as formalized]
+Write $u = p_1/q_1$, $v = p_2/q_2$ reduced. The rational root theorem applied
+to $AT^2 - BT + C$ gives $q_1 \mid A$; writing $A = q_1 m$ and cancelling
+$q_1$ in the product and sum relations gives $q_2 \mid m p_1$ and
+$q_2 \mid m q_1$, so a B\'ezout combination for $\gcd(p_1,q_1) = 1$ yields
+$q_2 \mid m$ and hence $q_1q_2 \mid A$. (This avoids Gauss's lemma and any
+prime or three-term gcd reasoning.) Consequently
+$(A,B,C) = k\,(q_1q_2,\; p_1q_2 + p_2q_1,\; p_1p_2)$ with $\lvert k\rvert
+\ge 1$, so it suffices to bound
+$\max(p_1,q_1)\max(p_2,q_2)$, which expands to a maximum of four products,
+by twice $M := \max(q_1q_2, \lvert p_1q_2+p_2q_1\rvert, p_1p_2)$. The two
+diagonal products are $\le M$ outright. For the cross terms $s = p_1q_2$,
+$t = q_1p_2$ one has $st = (p_1p_2)(q_1q_2) \le M^2$, so
+$\min(s,t) \le M$, while $\lvert s - t\rvert \le \lvert p_1q_2 +
+p_2q_1\rvert \le M$; hence $\max(s,t) \le 2M$.
+\end{proof}
+
+\subsection{The quasi-parallelogram law, and the limit}
+
+\begin{proposition}[\lt{point\_two\_sided}, \lt{lognh\_defect\_le}]\label{prop:quasi}
+For nonsingular rational points $P,Q$ of $E$ with $x(P) \ne x(Q)$,
+\[
+  \frac{\nh(x_P)^2\nh(x_Q)^2}{10368} \;\le\;
+  \nh\!\left(x(P{+}Q)\right)\nh\!\left(x(P{-}Q)\right) \;\le\;
+  34\,\nh(x_P)^2\nh(x_Q)^2,
+\]
+equivalently
+$\lvert h(P{+}Q) + h(P{-}Q) - 2h(P) - 2h(Q)\rvert \le \log 10368$.
+\end{proposition}
+
+The upper bound is Proposition~\ref{prop:addquad} with
+Lemma~\ref{lem:roots} and the size bound. For the lower bound, apply the
+upper bound to the pair $(P{+}Q, P{-}Q)$ --- legitimate because
+$x(P{+}Q) \ne x(P{-}Q)$, else the two points would be equal or opposite,
+forcing $2Q = O$ or $2P = O$, excluded by Proposition~\ref{prop:dbl} --- and
+note that their sum and difference are $2P$ and $2Q$. Combining with the
+duplication lower bound of Proposition~\ref{prop:window} gives
+$\nh(x_P)^4\nh(x_Q)^4 \le 1728^2 \cdot 34 \cdot
+(\nh(x_{P+Q})\nh(x_{P-Q}))^2$, and $1728^2 \cdot 34 = 101\,523\,456 \le
+107\,495\,424 = 10368^2$, so extracting square roots in $\mathbb{N}$ gives
+the claim.
+
+\begin{theorem}[\lt{canheight\_parallelogram}]\label{thm:par}
+If $P, Q, P{+}Q, P{-}Q$ are all non-torsion then
+\[
+  \hh(P+Q) + \hh(P-Q) \;=\; 2\hh(P) + 2\hh(Q).
+\]
+\end{theorem}
+
+\begin{proof}[Proof, as formalized]
+If $P{\pm}Q$ are non-torsion then $2^nP \ne \pm 2^nQ$ for every $n$ --- else
+$2^n(P \mp Q) = O$ --- so $x(2^nP) \ne x(2^nQ)$ and
+Proposition~\ref{prop:quasi} applies at $(2^nP, 2^nQ)$. Since
+$2^n(P \pm Q) = 2^nP \pm 2^nQ$, dividing by $4^n$ bounds the defect of the
+scaled sequences by $\log 10368/4^n \to 0$. The scaled sequences converge to
+the four canonical heights, so by uniqueness of limits the defect is $0$.
+\end{proof}
+
+\begin{corollary}[\lt{canheight\_zsmul}]\label{cor:mult}
+$\hh(kR) = k^2\hh(R)$ for all $k \in \mathbb{Z}$ and non-torsion $R$.
+\end{corollary}
+
+\begin{proof}[Proof, as formalized]
+Theorem~\ref{thm:par} at $((k{+}2)R, R)$, whose four points are nonzero
+multiples of $R$ and hence non-torsion, gives
+$\hh((k{+}3)R) = 2\hh((k{+}2)R) + 2\hh(R) - \hh((k{+}1)R)$ for $k \ge 0$.
+With base values $\hh(R)$ and $\hh(2R) = 4\hh(R)$ a two-step induction gives
+the claim for $k \in \mathbb{N}$; note the recurrence must be indexed from
+$1$, since at $k = 0$ the difference point is $O$, which is torsion --- that
+step is instead supplied by $\hh(2R) = 4\hh(R)$. Negative $k$ reduces to
+positive by $\hh(-R) = \hh(R)$, which holds because negation fixes the
+$x$-coordinate, so every term of the defining sequence is unchanged.
+\end{proof}
+
+\section{Independence from a nonvanishing regulator}
+
+Define the pairing and the regulator determinant by
+\[
+  \langle P,Q\rangle := \tfrac12\!\left(\hh(P{+}Q) - \hh(P) - \hh(Q)\right),
+  \qquad
+  \reg(P,Q) := \hh(P)\hh(Q) - \langle P,Q\rangle^2 .
+\]
+
+\begin{proposition}[\lt{regDet\_eq\_zero\_of\_relation}]\label{prop:reldet}
+Suppose $P, Q, P{\pm}Q$ are non-torsion and $mP + nQ = O$ with
+$m,n \in \mathbb{Z}$, $n \ne 0$. Then $\reg(P,Q) = 0$.
+\end{proposition}
+
+\begin{proof}[Proof, as formalized]
+From $nQ = -mP$ we get $n(P+Q) = (n-m)P$ and $n(P-Q) = (n+m)P$, so
+Corollary~\ref{cor:mult} gives $n^2\hh(P \pm Q) = (n \mp m)^2\hh(P)$.
+Substituting into Theorem~\ref{thm:par} --- used exactly once, at the pair
+$(P,Q)$ --- yields $m^2\hh(P) = n^2\hh(Q)$; substituting into the definition
+of the pairing yields $n\langle P,Q\rangle = -m\hh(P)$. Therefore
+\[
+  n^2 \reg(P,Q) = \hh(P)\left(n^2\hh(Q)\right) -
+  \left(n\langle P,Q\rangle\right)^2 = m^2\hh(P)^2 - m^2\hh(P)^2 = 0,
+\]
+and $n \ne 0$.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:reldet} is where the development departs most sharply
+from the textbook treatment. The usual route establishes bi-additivity of
+$\langle\cdot,\cdot\rangle$ by polarization, requiring the parallelogram law
+at some six pairs of points, each contributing four non-torsion side
+conditions in our conditional formulation. Using the hypothesized relation
+to reduce everything to multiples of a single point avoids this entirely.
+\end{remark}
+
+\begin{corollary}[\lt{rank\_ge\_two\_of\_regDet\_ne\_zero}]\label{cor:crit}
+If $P, Q, P{\pm}Q$ are non-torsion and $\reg(P,Q) \ne 0$ then
+$mP + nQ = O$ implies $m = n = 0$, and consequently
+$2 \le \operatorname{rank}_{\mathbb{Z}} E(\mathbb{Q})$.
+\end{corollary}
+
+For the rank statement, the map
+$\mathbb{Z}^2 \to E(\mathbb{Q})$, $(m,n) \mapsto mP + nQ$, is
+$\mathbb{Z}$-linear with trivial kernel, and
+$\operatorname{rank}_{\mathbb{Z}} \mathbb{Z}^2 = 2$, so
+\lt{LinearMap.lift\_rank\_le\_of\_injective} applies.
+
+\section{Certified numerics}\label{sec:numerics}
+
+It remains to verify $\reg(P,Q) > 0$ for $P = (0,0)$, $Q = (1,0)$. Two
+devices make this a finite, exact computation.
+
+\emph{The shifted window.} By~\eqref{eq:winshift} at $n = 3$,
+$\lvert \hh(R) - s_3(R)\rvert \le \log 1728/192 < 7.625/192 < 0.0398$.
+
+\emph{The dyadic log bracket.} $s_3(R) = \log \nh(x(8R))/64$ where
+$\nh(x(8R))$ is an explicit positive integer $\mathcal{H}$. Bracketing
+$2^j \le \mathcal{H} < 2^{j+1}$ --- a \lt{norm\_num} fact about integers ---
+gives $j\log 2 \le \log \mathcal{H} \le (j+1)\log 2$, and
+\texttt{mathlib}'s $\log 2$ bounds \cite{mathlib} pin this to nine decimals.
+One bit costs only $\log 2/64 < 0.0109$ at this level. (This avoids
+estimating $\log$ of a 26-digit integer directly.)
+
+By Proposition~\ref{prop:dbl}, $x(8R)$ is the third iterate of
+$x \mapsto f(x)/g(x)$, computed by \lt{norm\_num}. The values are:
+
+\begin{center}
+\begin{tabular}{llrr}
+\toprule
+point & $x(8\,\cdot)$ & $\mathcal{H}$ & bracket \\
+\midrule
+$P=(0,0)$   & $1169154495/76860289$ & $1169154495$ & $2^{30},2^{31}$\\
+$Q=(1,0)$   & $11776563836346/9521600032681$ & $11776563836346$ & $2^{43},2^{44}$\\
+$P{+}Q$     & \lt{30157844295583882647192303/13139629878047776942118401}
+            & num. & $2^{84},2^{85}$\\
+$P{-}Q$     & $7383740148384742954/7960116832793145801$ & den. &
+              $2^{62},2^{63}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Here $x(P{+}Q) = -2$ and $x(P{-}Q) = -1$ are themselves computed from
+\texttt{mathlib}'s secant construction, not assumed. The resulting intervals
+are
+\[
+  \hh(P) \in [0.2851, 0.3755], \quad \hh(Q) \in [0.4259, 0.5163],
+\]
+\[
+  \hh(P{+}Q) \in [0.8700, 0.9605], \quad \hh(P{-}Q) \in [0.6317, 0.7221].
+\]
+
+All four lower bounds are positive, so by Theorem~\ref{thm:torsion} all four
+points are non-torsion --- precisely the side conditions of
+Theorem~\ref{thm:par} and Corollary~\ref{cor:crit}, obtained with no separate
+argument. Finally $\hh(P)\hh(Q) \ge 0.1214$ while
+$\langle P,Q\rangle \in [-0.011, 0.125]$ gives
+$\langle P,Q\rangle^2 \le 0.0157$, so
+\[
+  \reg(P,Q) \;\ge\; 0.1057 \;>\; 0,
+\]
+and Corollary~\ref{cor:crit} yields Theorem~\ref{thm:main}. \qed
+
+\begin{remark}
+The margin is ample: the interval for $\reg$ has width about $0.07$ around a
+lower bound of $0.106$, against the classical value $0.15246$. Level $n=3$
+was chosen as the smallest sufficient; each further level shrinks both error
+sources by a factor of~$4$.
+\end{remark}
+
+\section{The rank-one cohort}
+
+The same machinery, instantiated per curve, gives unconditional rank lower
+bounds elsewhere. For each curve below the duplication data $(f,g)$, the two
+B\'ezout identities, the constant in Proposition~\ref{prop:window}, and a
+dyadic chain from the indicated point were computed and verified; the
+argument is then Theorem~\ref{thm:torsion} applied to a point whose chain
+heights grow, giving a non-torsion point and hence rank $\ge 1$.
+
+\begin{center}
+\begin{tabular}{llrr}
+\toprule
+curve & anchor point & constant & chain height reached\\
+\midrule
+\texttt{37a1}   & $(0,0)$  & $171$ & $480\,106$\\
+\texttt{43a1}   & $(0,0)$  & $139$ & $8\,338\,438$\\
+\texttt{53a1}   & $(0,0)$  & $172$ & $369$\\
+\texttt{61a1}   & $(1,0)$  & $590$ & $636\,789\,825$\\
+\texttt{79a1}   & $(0,0)$  & $298$ & $385$\\
+\texttt{83a1}   & $(0,0)$  & $470$ & $83\,281$\\
+\texttt{89a1}   & $(0,0)$  & $220$ & $1\,024$\\
+\texttt{101a1}  & $(-1,0)$ & $373$ & $28\,981$\\
+\texttt{106a1}  & $(2,1)$  & $38\,896$ & $26\,615\,281$\\
+\texttt{389a1}  & $(0,0)$  & $1\,728$ & $1\,169\,154\,495$\\
+\texttt{5077a1} & $(-2,3)$ & $105\,754$ & $3\,009\,638\,454$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The curve \texttt{102a1} is excluded: it has a rational $2$-torsion point
+($g(0) = 0$), so the global argument of Proposition~\ref{prop:dbl} fails and
+a per-step variant is required. We have not carried this out.
+
+\section{Verification data}
+
+All results were checked with Lean~4 toolchain
+\texttt{leanprover/lean4:v4.24.0-rc1} against \texttt{mathlib} at commit
+\texttt{eed770a4}. At repository HEAD \texttt{0d3b5415}:
+\lt{lake build PF} completes in $4658$ jobs and \lt{lake build} in $9301$
+jobs, both with zero errors and zero warnings. Every theorem cited in this
+paper reports exactly
+\[
+  [\mathtt{propext},\ \mathtt{Classical.choice},\ \mathtt{Quot.sound}]
+\]
+under \lt{\#print axioms}; several of the polynomial identities report only
+$[\mathtt{propext}, \mathtt{Quot.sound}]$. The development contains no
+\lt{sorry}, no \lt{native\_decide} (which would introduce
+\lt{Lean.ofReduceBool}), and no project-level \lt{axiom} declarations.
+
+The files, in dependency order, are
+\lt{MordellWeilRankLowerBound\_r129}, \lt{NaiveHeightQ\_r130},
+\lt{DuplicationBezout37a1\_r131}--\lt{E37a1RankOne\_r134} (the rank-one
+template), \lt{E43a1RankOne\_r135}--\lt{E106a1RankOne\_r142} (the cohort),
+\lt{E389a1RankOne\_r143}, \lt{E5077a1RankOne\_r144},
+\lt{DuplicationHeightUpper389a1\_r145}, \lt{CanonicalHeight389a1\_r147},
+\lt{QuasiParallelogramCerts389a1\_r148a}--\lt{QuasiParallelogramLower389a1\_r148g},
+\lt{PointQuasiParallelogram389a1\_r149},
+\lt{CanheightParallelogram389a1\_r150}, \lt{CanheightMultiple389a1\_r151},
+\lt{RegulatorIndependence389a1\_r152}, \lt{RegulatorPositive389a1\_r153} and
+\lt{E389a1RankTwo\_r154}.
+
+\section{Outlook}
+
+Three extensions appear within reach with the present machinery.
+
+\emph{Rank three.} The curve \texttt{5077a1}, $y^2+y = x^3-7x+6$, is the
+smallest-conductor curve of rank $3$ and its duplication data are already
+verified (\lt{E5077a1RankOne\_r144}). Extending
+Proposition~\ref{prop:reldet} from two points to three is not immediate: the
+trick of reducing a relation to multiples of a single point does not
+generalize, so the $3 \times 3$ case appears to require genuine
+bi-additivity of the pairing, i.e. the polarization argument this development
+was able to avoid.
+
+\emph{Torsion.} With $\hh$ available, $\hh(R) = 0$ is a computable
+obstruction; combined with a bound on the possible torsion orders it would
+give exact torsion subgroups for individual curves.
+
+\emph{Upstreaming.} The general components --- Northcott for $\mathbb{Q}$,
+the height of the roots of an integer quadratic (Lemma~\ref{lem:roots}), and
+the abstract shape ``two-sided duplication estimate $\Rightarrow$ canonical
+height'' --- are curve-independent and would fit \texttt{mathlib}'s
+\texttt{NumberTheory/Height} directory, where the elliptic point height is
+currently an open task.
+
+\section*{Acknowledgements}
+
+The formalization was carried out in collaboration with Claude (Anthropic),
+which wrote and verified the Lean sources under the author's direction; all
+mathematical claims were independently rebuilt and axiom-audited before being
+recorded. The author thanks the \texttt{mathlib} community for the
+elliptic-curve group law, without which none of this would have been
+possible.
+
+\begin{thebibliography}{9}
+
+\bibitem{FLT}
+K.~Buzzard et al.,
+\emph{The Fermat's Last Theorem project},
+\url{https://github.com/ImperialCollegeLondon/FLT}, 2024--.
+
+\bibitem{cremona}
+J.~E.~Cremona,
+\emph{Algorithms for Modular Elliptic Curves},
+2nd ed., Cambridge University Press, 1997.
+
+\bibitem{lmfdb}
+The LMFDB Collaboration,
+\emph{The $L$-functions and Modular Forms Database},
+\url{https://www.lmfdb.org}, 2026.
+
+\bibitem{mathlib}
+The mathlib Community,
+\emph{The Lean mathematical library},
+CPP 2020, 367--381; repository \url{https://github.com/leanprover-community/mathlib4}.
+
+\bibitem{silverman}
+J.~H.~Silverman,
+\emph{The Arithmetic of Elliptic Curves},
+2nd ed., Graduate Texts in Mathematics 106, Springer, 2009.
+
+\bibitem{tate}
+J.~Tate,
+\emph{Variation of the canonical height of a point depending on a parameter},
+Amer. J. Math. \textbf{105} (1983), 287--294.
+
+\end{thebibliography}
+
+\end{document}
