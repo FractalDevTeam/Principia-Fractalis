@@ -267,10 +267,21 @@ Theorem~\ref{thm:spectral-concentration-bsd},
 Theorem~\ref{thm:self-adjoint-bsd} and
 Conjecture~\ref{conj:rank-equality-fractal} are false \emph{as stated} for this
 operator --- not merely unverified.  Replacing the contracting symbol by the
-expanding $x \mapsto px \bmod 1$ (a transfer operator) does restore a full
-spectrum, but the $\varphi/e$ multiplicity still shows no rank correspondence
-there.  Details:
-\texttt{codex/CH24\_OPERATOR\_QUASINILPOTENT\_2026-07-30.md}.
+expanding $x \mapsto px \bmod 1$ does not rescue the mechanism: that operator is
+\emph{non-compact} on $L^2$ --- its truncations carry $\sim$grid eigenvalues with
+$\sum|\lambda|$ exactly proportional to the grid ($61.1, 121.8, 243.6, 487.1$ at
+grids $200,400,800,1600$) and $|\lambda|_{\max}$ wandering rather than settling
+--- so it has no discrete eigenvalue list either, and it is not even monotone in
+rank.  The removable defect is the choice of $L^2([0,1])$: composition and
+transfer operators of expanding maps become quasi-compact, with genuinely
+discrete spectrum, only on analytic or H\"older spaces (the classical
+Ruelle--Perron--Frobenius setting, as for the Gauss--Kuzmin--Wirsing operator).
+A further objection survives any such repair: the curve enters only through the
+weights $a_p$, which multiply the whole operator, so changing $E$ moves the
+eigenvalues rather than reproducing one fixed eigenvalue with varying
+multiplicity --- and the stated mechanism needs exactly the latter.  Details:
+\texttt{codex/CH24\_OPERATOR\_QUASINILPOTENT\_2026-07-30.md} and
+\texttt{codex/CH24\_SPECTRAL\_DIAGNOSIS\_2026-07-31.md}.
 
 \smallskip
 \textbf{(b) The defining series does not converge.}
