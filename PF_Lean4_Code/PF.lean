@@ -974,6 +974,7 @@ import PF.PointQuasiParallelogram5077a1_r163  -- r163: quasi-parallelogram at th
 import PF.CanheightParallelogram5077a1_r164  -- r164: THE EXACT PARALLELOGRAM LAW for hhat on 5077a1
 import PF.CanheightMultiple5077a1_r165  -- r165: multiple law hhat(kR) = k^2 hhat(R) on 5077a1
 import PF.TorsionCheck5077a1_r166a  -- r166a: the 2783-candidate torsion finite check, done in Z (6s / 2.5GB)
+import PF.TorsionTrivial5077a1_r166b  -- r166b: 5077a1 IS TORSION-FREE -- removes the side conditions from r164/r165
 
 /-!
 ## Principia Fractalis Formal Verification
