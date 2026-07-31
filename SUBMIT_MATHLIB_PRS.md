@@ -135,3 +135,47 @@ attribution name you want and it's a one-line follow-up.
 
 Also noted: `gh auth status` shows a stale second account (`FractalDevTeam`) failing to
 log in. Harmless — the active `DrDMT-VR` token is what's used — but worth clearing.
+
+## 2026-07-31 — AI DISCLOSURE POLICY, settled by mathlib triage
+
+Michael Rothgang (`grunweg`) asked on [#42093] whether AI was used, citing
+mathlib's AI policy: **not forbidden, but must be disclosed.** He then added the
+disclosure to #42093's description himself and tightened the wording.
+
+**This settles the `Authors:` question flagged for #42101.** The two are separate:
+
+- **Copyright header `Authors:` line — humans only.** mathlib convention lists
+  human authors. Do NOT put an AI collaborator there. Our in-repo files use
+  `Author: Pablo Cohen + Claude`, which is right for *this* repo; anything
+  upstreamed becomes `Authors: Pablo Cohen`.
+- **PR description — where the disclosure goes.** One sentence suffices.
+
+### Action required: add to #42095, #42100, #42101
+
+Paste-ready text (matching the information content grunweg kept on #42093):
+
+> Parts of this contribution were developed with AI assistance (Claude). All
+> statements are machine-checked by the Lean kernel; `#print axioms` on the new
+> declarations reports only `[propext, Classical.choice, Quot.sound]`.
+
+### Status
+
+| PR | subject | disclosure |
+|---|---|---|
+| [#42093](https://github.com/leanprover-community/mathlib4/pull/42093) | `TwoSidedIdeal.closure` | DONE (added by maintainer) |
+| [#42095](https://github.com/leanprover-community/mathlib4/pull/42095) | `cfcₙ` into closed two-sided ideals | TODO |
+| [#42100](https://github.com/leanprover-community/mathlib4/pull/42100) | clopen spectral projections | TODO |
+| [#42101](https://github.com/leanprover-community/mathlib4/pull/42101) | zeta conjugation symmetry | TODO (and `Authors:` = humans only) |
+
+### Why our position is already sound
+
+The disclosure trail predates the question, at three layers:
+- **papers** — the Acknowledgements of both the Glimm/UHF paper and the
+  Mordell–Weil paper state the AI collaboration and the independent-rebuild
+  protocol explicitly;
+- **Lean files** — every header carries `Author: Pablo Cohen + Claude`;
+- **git** — every commit carries a `Co-Authored-By: Claude Opus 5` trailer.
+
+Provenance is policy; **correctness is independently checkable.** Reproduction:
+toolchain `leanprover-community/lean4:v4.24.0-rc1`, mathlib pin `eed770a4`,
+`lake build PF` = 4673 jobs, zero warnings, axiom triple on every cited theorem.
