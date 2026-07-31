@@ -250,8 +250,31 @@ Therefore, zeros of $L_f(E,s)$ at $s=1$ correspond exactly to zeros of $L(E,s)$ 
 
 \subsection{The Spectral Operator}
 
-\begin{remark}[Convergence defect in this definition --- read before use]
-As written, with the weight $a_p/p$, the series defining $\mathcal{T}_E$ does
+\begin{remark}[Two structural defects in this definition --- read before use]
+\textbf{(a) The operator is quasinilpotent.}  Every symbol is $x \mapsto x/p$
+with $p \ge 2$, and these all contract toward the \emph{same} fixed point
+$x=0$.  Hence if $\operatorname{supp} f \subseteq [a,1]$ with $a>0$ then
+$\operatorname{supp}(\mathcal{T}_Ef) \subseteq [pa,1]$, which is empty once
+$pa>1$; iterating, $\mathcal{T}_E^{\,n} f = 0$ for $n > \log_2(1/a)$.  So
+$\mathcal{T}_E$ is locally nilpotent on functions vanishing near $0$ and its
+whole spectrum is carried by the single point $x=0$.  Numerically, every
+discretization tried --- collocation at grids $240$ and $480$, and Galerkin
+cell-averaging --- yields a matrix with \emph{exactly one} nonzero eigenvalue;
+the collocation matrix is exactly lower-triangular with a single nonzero
+diagonal entry.  \textbf{An eigenvalue multiplicity equal to
+$\rank E(\Q) \ge 2$ is therefore impossible}, and
+Theorem~\ref{thm:spectral-concentration-bsd},
+Theorem~\ref{thm:self-adjoint-bsd} and
+Conjecture~\ref{conj:rank-equality-fractal} are false \emph{as stated} for this
+operator --- not merely unverified.  Replacing the contracting symbol by the
+expanding $x \mapsto px \bmod 1$ (a transfer operator) does restore a full
+spectrum, but the $\varphi/e$ multiplicity still shows no rank correspondence
+there.  Details:
+\texttt{codex/CH24\_OPERATOR\_QUASINILPOTENT\_2026-07-30.md}.
+
+\smallskip
+\textbf{(b) The defining series does not converge.}
+With the weight $a_p/p$ the series defining $\mathcal{T}_E$ does
 \emph{not} converge.  The Hasse bound $|a_p| \le 2\sqrt{p}$ gives
 $|a_p/p^s| \le 2p^{1/2-s}$, so absolute convergence requires $\Re(s) > 3/2$ ---
 which is exactly the range this chapter's own analytic scaffold assumes, in the
@@ -279,6 +302,14 @@ Define the operator $\mathcal{T}_E$ on $L^2([0,1])$ by:
 where the sum is over all primes $p \nmid N_E$.
 \end{defn}
 
+\begin{warning}
+\textbf{False as stated.}  The operator's matrix is exactly lower-triangular
+with one nonzero diagonal entry (see the remark preceding
+Definition~\ref{def:spectral-operator-bsd}), hence maximally non-normal.  A
+self-adjoint operator with a single nonzero eigenvalue would be rank-one
+Hermitian; this is not.
+\end{warning}
+
 \begin{theorem}[Self-Adjointness at $\alpha = 3\pi/4$]\label{thm:self-adjoint-bsd}
 The operator $\mathcal{T}_E$ is self-adjoint on $L^2([0,1])$ when $\alpha = 3\pi/4$.
 \end{theorem}
@@ -302,6 +333,14 @@ for the statistical distribution of primes, yielding self-adjointness in the spe
 \end{proof}
 
 \subsection{The Golden Threshold Phenomenon}
+
+\begin{warning}
+\textbf{False as stated.}  $\mathcal{T}_E$ has at most \emph{one} nonzero
+eigenvalue for any curve, so a multiplicity equal to $\rank E(\Q) \ge 2$ cannot
+occur; and the single value is not $\varphi/e$ (it ranges over roughly
+$0.08$--$0.68$ across the twelve curves tested).  See the remark preceding
+Definition~\ref{def:spectral-operator-bsd}.
+\end{warning}
 
 \begin{theorem}[Spectral Concentration]\label{thm:spectral-concentration-bsd}
 The eigenvalues of $\mathcal{T}_E$ concentrate at:
@@ -343,6 +382,13 @@ Think of the eigenvalue $\varphi/e$ as a "resonance frequency" for rational poin
 \section{Computational Evidence}
 
 \subsection{The Rank Formula}
+
+\begin{warning}
+\textbf{False as stated}, since it inherits
+Theorem~\ref{thm:spectral-concentration-bsd}.  Independently, the
+$\varphi/e$-multiplicity count showed no rank correspondence in direct testing,
+on either the contracting or the expanding variant of the operator.
+\end{warning}
 
 \begin{conjecture}[Rank Equality via Fractal Resonance]\label{conj:rank-equality-fractal}
 For any elliptic curve $E$ over $\Q$:
