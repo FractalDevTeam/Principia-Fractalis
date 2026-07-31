@@ -4,10 +4,10 @@
 %% formal proof of independence of rational points: rank >= 2 for 389a1.
 %%
 %% Every mathematical claim below is either a kernel-verified Lean 4 theorem
-%% at HEAD 92cb7ab6 (2026-07-30), axioms [propext, Classical.choice,
+%% at HEAD 4af37688 (2026-07-31), axioms [propext, Classical.choice,
 %% Quot.sound], zero project axioms, zero sorries, no native_decide, or
-%% standard cited literature. Verified build data: lake build PF = 4659
-%% jobs, lake build (full) = 9303 jobs, mathlib pin eed770a4, toolchain
+%% standard cited literature. Verified build data: lake build PF = 4669
+%% jobs, lake build (full) = 9323 jobs, mathlib pin eed770a4, toolchain
 %% leanprover/lean4:v4.24.0-rc1.
 
 \documentclass[11pt,reqno]{amsart}
@@ -795,8 +795,8 @@ carries the full rank-$2$ argument; the rest stop at rank $\ge 1$.}
 
 All results were checked with Lean~4 toolchain
 \texttt{leanprover/lean4:v4.24.0-rc1} against \texttt{mathlib} at commit
-\texttt{eed770a4}. At repository HEAD \texttt{92cb7ab6}:
-\lt{lake build PF} completes in $4659$ jobs and \lt{lake build} in $9303$
+\texttt{eed770a4}. At repository HEAD \texttt{4af37688}:
+\lt{lake build PF} completes in $4669$ jobs and \lt{lake build} in $9323$
 jobs, both with zero errors and zero warnings. Every theorem cited in this
 paper reports exactly
 \[
@@ -828,13 +828,35 @@ template), \lt{E43a1RankOne\_r135}--\lt{E106a1RankOne\_r142} (the cohort),
 Three extensions appear within reach with the present machinery.
 
 \emph{Rank three.} The curve \texttt{5077a1}, $y^2+y = x^3-7x+6$, is the
-smallest-conductor curve of rank $3$ and its duplication data are already
-verified (\lt{E5077a1RankOne\_r144}). Extending
-Proposition~\ref{prop:reldet} from two points to three is not immediate: the
-trick of reducing a relation to multiples of a single point does not
-generalize, so the $3 \times 3$ case appears to require genuine
-bi-additivity of the pairing, i.e. the polarization argument this development
-was able to avoid.
+smallest-conductor curve of rank $3$, and the whole of the machinery above has
+since been rebuilt for it: the canonical height, the two-sided
+quasi-parallelogram bounds with constants $228$ and $1692064$, the exact
+parallelogram law, and the multiple law $\hat h(kR) = k^2\hat h(R)$
+(\lt{CanonicalHeight5077a1\_r156} through \lt{CanheightMultiple5077a1\_r165};
+the duplication constant is $\kappa = 105754$ in place of $1728$).
+
+Extending Proposition~\ref{prop:reldet} from two points to three is still not
+immediate, but the obstruction is narrower than it first appears, and we state
+it precisely because it is easy to misidentify. The trick of reducing a
+relation to multiples of a single point does not generalize: a relation
+$mP+nQ+kR = O$ leaves two free directions. One might conclude that the
+$3\times3$ case needs genuine bi-additivity of the pairing, i.e. exactly the
+polarization argument this development avoided. That conclusion would be
+wrong. By the Jordan--von Neumann argument, a function on an abelian group
+satisfying the parallelogram identity \emph{is} a quadratic form, so
+bi-additivity of $\langle\cdot,\cdot\rangle$ is a \emph{consequence} of
+Theorem~\ref{thm:height}(3) rather than an additional input --- provided the
+identity holds unconditionally.
+
+The real obstruction is therefore the non-torsion side conditions carried by
+our parallelogram law. For \texttt{389a1} they are already discharged, by
+Theorem~\ref{thm:torsfree}. For \texttt{5077a1} the corresponding statement is
+a finite check at the bound $\kappa^{1/3} = 47$: of the $2783$ rationals of
+na\"ive height at most $47$, exactly two survive one application of
+$x \mapsto f(x)/g(x)$ (namely $1 \mapsto 14$ and $2 \mapsto 21$) and neither
+survives the second. So the route to $\rank \ge 3$ is torsion-freeness,
+then bi-additivity for free, then a $3\times3$ determinant --- three steps,
+none of them requiring a polarization argument.
 
 \emph{Torsion.} Theorem~\ref{thm:torsfree} settles \texttt{389a1}, and the
 same route works for any curve whose $\kappa^{1/3}$ is small enough to
