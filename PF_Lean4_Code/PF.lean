@@ -973,6 +973,7 @@ import PF.QuasiParallelogramLower5077a1_r162  -- r162: lower quasi-parallelogram
 import PF.PointQuasiParallelogram5077a1_r163  -- r163: quasi-parallelogram at the point level; |defect| <= log 1692064
 import PF.CanheightParallelogram5077a1_r164  -- r164: THE EXACT PARALLELOGRAM LAW for hhat on 5077a1
 import PF.CanheightMultiple5077a1_r165  -- r165: multiple law hhat(kR) = k^2 hhat(R) on 5077a1
+import PF.TorsionCheck5077a1_r166a  -- r166a: the 2783-candidate torsion finite check, done in Z (6s / 2.5GB)
 
 /-!
 ## Principia Fractalis Formal Verification
