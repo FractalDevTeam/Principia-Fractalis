@@ -977,6 +977,7 @@ import PF.TorsionCheck5077a1_r166a  -- r166a: the 2783-candidate torsion finite 
 import PF.TorsionTrivial5077a1_r166b  -- r166b: 5077a1 IS TORSION-FREE -- removes the side conditions from r164/r165
 import PF.BiAdditive5077a1_r167  -- r167: unconditional laws + THE PAIRING IS BI-ADDITIVE (Jordan-von Neumann)
 import PF.Regulator3Independence5077a1_r168  -- r168: nonzero 3x3 regulator => rank >= 3 on 5077a1
+import PF.E5077a1RankThree_r169  -- r169: THE FLAG - 3 <= Module.rank Z E5077a1(Q)
 
 /-!
 ## Principia Fractalis Formal Verification
