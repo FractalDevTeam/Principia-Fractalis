@@ -972,6 +972,7 @@ import PF.QuasiParallelogramUpper5077a1_r161  -- r161: upper quasi-parallelogram
 import PF.QuasiParallelogramLower5077a1_r162  -- r162: lower quasi-parallelogram bound, constant 1692064 -- W2 CLOSED for 5077a1
 import PF.PointQuasiParallelogram5077a1_r163  -- r163: quasi-parallelogram at the point level; |defect| <= log 1692064
 import PF.CanheightParallelogram5077a1_r164  -- r164: THE EXACT PARALLELOGRAM LAW for hhat on 5077a1
+import PF.CanheightMultiple5077a1_r165  -- r165: multiple law hhat(kR) = k^2 hhat(R) on 5077a1
 
 /-!
 ## Principia Fractalis Formal Verification
