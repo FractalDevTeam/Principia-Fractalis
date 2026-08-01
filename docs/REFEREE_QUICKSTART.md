@@ -272,7 +272,14 @@ If steps 1--8 all pass, the Lean kernel has verified:
    cross-Millennium algebraic invariants plus the Perelman anchor
    ($\alpha_{Poincar\acute{e}} = 1$, Perelman 2003) plus positivity
    (no free parameters). Theorem:
-   `framework_alpha_unique_under_perelman_anchor`.
+   `PrincipiaTractalis.AlphaSkeletonUniqueness.alpha_skeleton_unique`
+   (`PF/AlphaSkeletonUniqueness_r128.lean`, 2026-07-27).
+   This r128 proof operates on the full nine-tuple and derives
+   α_BSD from the π-scaling law rather than assuming it.
+   (The earlier `framework_alpha_unique_under_perelman_anchor` in
+   `PF/Referee/ClayMasterTheorem.lean` covers a six-field
+   `AlphaAssignment` and should not be cited for nine-tuple
+   uniqueness.)
 2. Two of the nine α-values ($\alpha_{RH} = 3/2$ and $\alpha_{NP} =
    \varphi + 1/4$) match IBM Quantum hardware spectral measurements,
    providing empirical validation of the algebraic predictions.
