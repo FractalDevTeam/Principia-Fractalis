@@ -179,3 +179,55 @@ The disclosure trail predates the question, at three layers:
 Provenance is policy; **correctness is independently checkable.** Reproduction:
 toolchain `leanprover-community/lean4:v4.24.0-rc1`, mathlib pin `eed770a4`,
 `lake build PF` = 4673 jobs, zero warnings, axiom triple on every cited theorem.
+
+## 2026-07-31 — PR-5 candidate ready: Gram determinant ⟹ linear independence
+
+`mathlib_candidates/GramLinearIndependent.lean` — **compiles against mathlib
+alone** (imports: `LinearAlgebra.Matrix.ToLinearEquiv`,
+`LinearAlgebra.FreeModule.StrongRankCondition`, `Data.Real.Basic`), no PF
+dependency, axioms `[propext, Classical.choice, Quot.sound]`.
+
+```
+AddBilin.IsAddBilin                       -- symmetric, additive in each slot
+AddBilin.gramMatrix
+AddBilin.eq_zero_of_gramDet_ne_zero       -- relations are trivial
+AddBilin.linearIndependent_of_gramDet_ne_zero
+AddBilin.rank_ge_of_gramDet_ne_zero       -- (n : Cardinal) ≤ Module.rank ℤ G
+```
+
+**Checked mathlib first, did not assume.** No `det ≠ 0 → LinearIndependent`
+result of this shape was found; the nearest is
+`LinearIndependent.linear_combination_pair_of_det_ne_zero`, which is the 2×2
+special case for a pair. `Gram` appears only in `GramSchmidtOrtho`, `LDL`,
+`Adjoint`, `Orientation` — all inner-product-space material, not this.
+
+**Also checked and worth recording for the paper's novelty claim:** grepping all
+of mathlib for `canonical height`, `Néron-Tate`, `NeronTate`, `Tate.*limit`
+returns **nothing**. The canonical height is absent from mathlib entirely, which
+is the substantive gap our r171 (`HeightWindow`) fills.
+
+### Style notes already applied
+
+- copyright header with `Authors: Pablo Cohen` — **humans only**, per the policy
+  settled with grunweg on #42093; the AI disclosure goes in the PR description
+- module docstring with a `## Main results` section
+- no `PrincipiaTractalis` namespace; everything under `AddBilin`
+- the elliptic-curve motivation is mentioned in prose but appears in no
+  statement, so the file stands alone
+
+### Not yet a PR
+
+`gh` is not authenticated in the working environment, so this has not been
+opened. To submit: branch, drop the file at
+`Mathlib/LinearAlgebra/Matrix/GramLinearIndependent.lean` (or wherever the
+reviewers prefer), add the import to `Mathlib.lean`, and use the standard
+disclosure line in the PR description.
+
+### Second candidate, larger
+
+r171 (`PF/CanonicalHeightGeneric_r171.lean`) — the canonical height from a
+doubling window, curve-independent — is the more valuable contribution given
+that mathlib has nothing in this area, but it wants a naming and placement
+discussion with maintainers first (it is not obviously "linear algebra" or
+"number theory"; it is a telescoping-limit construction). Worth raising on Zulip
+before writing a PR.
