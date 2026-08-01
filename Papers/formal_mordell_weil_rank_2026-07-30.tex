@@ -1,13 +1,13 @@
 %% formal_mordell_weil_rank_2026-07-30.tex
 %%
-%% A machine-checked canonical height on an elliptic curve, and the first
-%% formal proof of independence of rational points: rank >= 2 for 389a1.
+%% Machine-checked canonical heights and independence of rational points:
+%% rank >= 2 for 389a1, rank >= 3 for 5077a1, and the general criterion.
 %%
 %% Every mathematical claim below is either a kernel-verified Lean 4 theorem
-%% at HEAD 4af37688 (2026-07-31), axioms [propext, Classical.choice,
+%% at HEAD d28c0d7d (2026-07-31), axioms [propext, Classical.choice,
 %% Quot.sound], zero project axioms, zero sorries, no native_decide, or
-%% standard cited literature. Verified build data: lake build PF = 4669
-%% jobs, lake build (full) = 9323 jobs, mathlib pin eed770a4, toolchain
+%% standard cited literature. Verified build data: lake build PF = 4677
+%% jobs, lake build (full) = 9339 jobs, mathlib pin eed770a4, toolchain
 %% leanprover/lean4:v4.24.0-rc1.
 
 \documentclass[11pt,reqno]{amsart}
@@ -64,15 +64,15 @@
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\reg}{Reg}
 
-\title[A formal canonical height and independence of rational points]{A
-machine-checked canonical height on an elliptic curve, and a formal proof
-that two rational points are independent}
+\title[Machine-checked canonical heights and independence of rational
+points]{Machine-checked canonical heights and independence of rational
+points: $\rank \ge 2$ and $\rank \ge 3$ for two elliptic curves}
 
 \author{Pablo Cohen}
 \address{Mesa, Arizona, USA}
 \email{psolorzano@alumni.berklee.edu}
 
-\date{30 July 2026}
+\date{31 July 2026}
 
 \subjclass[2020]{Primary 11G05, 11Y16; Secondary 68V20, 68V15}
 
@@ -102,7 +102,18 @@ kernel axioms $[\mathtt{propext}, \mathtt{Classical.choice},
 descent, no formal groups, no torsion classification, and no
 Gross--Zagier. The same window that constructs $\hh$ also shows
 $E(\mathbb{Q})$ is torsion-free, which discharges the non-torsion side
-conditions outright. As a by-product the same machinery yields
+conditions outright.
+
+The construction is then carried out a second time, for
+$E' = \mathtt{5077a1}$, $y^2+y = x^3-7x+6$ --- the smallest-conductor curve of
+rank $3$ --- yielding $3 \le \rank E'(\mathbb{Q})$. There the pairing is shown
+\emph{bi-additive}, by the Jordan--von Neumann argument applied to the
+unconditional parallelogram law, and independence follows from a $3\times3$
+Gram determinant. Two by-products are curve-independent and are, we think, the
+most reusable part: a nonvanishing Gram determinant of any symmetric
+bi-additive form on any abelian group forces $\rank \ge n$; and the entire
+canonical-height construction follows from a single doubling window, with no
+elliptic curve in the hypotheses. As a further by-product the machinery yields
 $\rank E(\mathbb{Q}) \ge 1$ for eleven curves of conductor
 $37 \le N \le 5077$. We emphasise what is \emph{not} proved: these are rank
 lower bounds, not rank equalities, and nothing here bears on the
@@ -134,8 +145,8 @@ positive lower bound on $\rank E(\mathbb{Q})$ for a specific curve appears to
 have been machine-checked, and \emph{a fortiori} no independence statement
 about rational points.
 
-This paper supplies both, for a single explicit curve, together with the
-general machinery. The main theorem is the following.
+This paper supplies both, for two explicit curves, together with machinery
+that is in two places curve-independent. The main theorems are the following.
 
 \begin{theorem}[\lt{E389a1\_rank\_ge\_two}]\label{thm:main}
 Let $E$ be the elliptic curve $y^2 + y = x^3 + x^2 - 2x$ over $\mathbb{Q}$
@@ -179,6 +190,50 @@ the only point of finite order is $O$. Equivalently $\hh(R) > 0$ for every
 $R \ne O$, so the non-torsion hypotheses in Theorem~\ref{thm:height}(3)
 and~(4) hold for every nonzero point.
 \end{theorem}
+
+\begin{theorem}[\lt{E5077a1\_rank\_ge\_three}]\label{thm:main3}
+Let $E' $ be $y^2+y = x^3-7x+6$ (Cremona \texttt{5077a1}), the
+smallest-conductor curve of rank $3$. Then
+\[
+  3 \;\le\; \operatorname{rank}_{\mathbb{Z}} E'(\mathbb{Q}).
+\]
+The points $(-3,0)$, $(-2,3)$, $(0,2)$ are $\mathbb{Z}$-linearly independent.
+\end{theorem}
+
+The route to Theorem~\ref{thm:main3} differs from Theorem~\ref{thm:main} in one
+essential respect, and the difference is the reason the second curve is worth
+the space. For two points one can avoid bi-additivity of the height pairing
+altogether (Proposition~\ref{prop:reldet}); for three one cannot. What makes
+the three-point case work is that $E'(\mathbb{Q})$ is torsion-free, so the
+parallelogram law holds with \emph{no} side conditions, and then the
+Jordan--von Neumann argument --- a function satisfying the parallelogram
+identity on an abelian group is a quadratic form --- gives bi-additivity for
+free. With bi-additivity available, independence is ordinary linear algebra,
+and in fact does not mention elliptic curves at all:
+
+\begin{theorem}[\lt{rank\_ge\_of\_gram\_det\_ne\_zero}]\label{thm:gram}
+Let $G$ be an abelian group and $B \colon G \times G \to \mathbb{R}$ symmetric
+and additive in each variable. If $P_1,\dots,P_n \in G$ have
+$\det\bigl(B(P_i,P_j)\bigr) \ne 0$, then $n \le \rank_{\mathbb{Z}} G$.
+\end{theorem}
+
+Nor, it turns out, does the construction of $\hh$:
+
+\begin{theorem}[\lt{HeightWindow}, \lt{canheight\_window\_shift}]\label{thm:generic}
+Let $G$ be an abelian group, $\lambda \colon G \to \mathbb{R}_{\ge 0}$, and
+$\kappa \ge 1$ with
+$\lvert \lambda(R+R) - 4\lambda(R)\rvert \le \log\kappa$ for all $R$. Then
+$\hh(R) := \lim_n \lambda(2^nR)/4^n$ exists, and satisfies $\hh \ge 0$,
+$\hh(R+R) = 4\hh(R)$, $\hh(2^nR) = 4^n\hh(R)$, and
+$\lvert \hh(R) - \lambda(R)\rvert \le \log\kappa/3$.
+\end{theorem}
+
+Theorems~\ref{thm:gram} and~\ref{thm:generic} are what we would offer for
+reuse: between them, a new curve needs only its duplication window, its
+quasi-parallelogram bounds, its torsion-freeness and its chain numerics, and
+the rest is instantiation. Both were extracted after the two curves were done
+by hand, and each was checked against both instances rather than merely
+asserted (\lt{GenericFitsBothCurves\_r172}).
 
 Here $\nh(a/b) = \max(\lvert a\rvert, b)$ for a reduced fraction, and $x(R)$
 is the $x$-coordinate of $R$ (with $x(O) := 0$, a harmless convention since
@@ -795,8 +850,8 @@ carries the full rank-$2$ argument; the rest stop at rank $\ge 1$.}
 
 All results were checked with Lean~4 toolchain
 \texttt{leanprover/lean4:v4.24.0-rc1} against \texttt{mathlib} at commit
-\texttt{eed770a4}. At repository HEAD \texttt{4af37688}:
-\lt{lake build PF} completes in $4669$ jobs and \lt{lake build} in $9323$
+\texttt{eed770a4}. At repository HEAD \texttt{d28c0d7d}:
+\lt{lake build PF} completes in $4677$ jobs and \lt{lake build} in $9339$
 jobs, both with zero errors and zero warnings. Every theorem cited in this
 paper reports exactly
 \[
@@ -827,36 +882,14 @@ template), \lt{E43a1RankOne\_r135}--\lt{E106a1RankOne\_r142} (the cohort),
 
 Three extensions appear within reach with the present machinery.
 
-\emph{Rank three.} The curve \texttt{5077a1}, $y^2+y = x^3-7x+6$, is the
-smallest-conductor curve of rank $3$, and the whole of the machinery above has
-since been rebuilt for it: the canonical height, the two-sided
-quasi-parallelogram bounds with constants $228$ and $1692064$, the exact
-parallelogram law, and the multiple law $\hat h(kR) = k^2\hat h(R)$
-(\lt{CanonicalHeight5077a1\_r156} through \lt{CanheightMultiple5077a1\_r165};
-the duplication constant is $\kappa = 105754$ in place of $1728$).
-
-Extending Proposition~\ref{prop:reldet} from two points to three is still not
-immediate, but the obstruction is narrower than it first appears, and we state
-it precisely because it is easy to misidentify. The trick of reducing a
-relation to multiples of a single point does not generalize: a relation
-$mP+nQ+kR = O$ leaves two free directions. One might conclude that the
-$3\times3$ case needs genuine bi-additivity of the pairing, i.e. exactly the
-polarization argument this development avoided. That conclusion would be
-wrong. By the Jordan--von Neumann argument, a function on an abelian group
-satisfying the parallelogram identity \emph{is} a quadratic form, so
-bi-additivity of $\langle\cdot,\cdot\rangle$ is a \emph{consequence} of
-Theorem~\ref{thm:height}(3) rather than an additional input --- provided the
-identity holds unconditionally.
-
-The real obstruction is therefore the non-torsion side conditions carried by
-our parallelogram law. For \texttt{389a1} they are already discharged, by
-Theorem~\ref{thm:torsfree}. For \texttt{5077a1} the corresponding statement is
-a finite check at the bound $\kappa^{1/3} = 47$: of the $2783$ rationals of
-na\"ive height at most $47$, exactly two survive one application of
-$x \mapsto f(x)/g(x)$ (namely $1 \mapsto 14$ and $2 \mapsto 21$) and neither
-survives the second. So the route to $\rank \ge 3$ is torsion-freeness,
-then bi-additivity for free, then a $3\times3$ determinant --- three steps,
-none of them requiring a polarization argument.
+\emph{Rank four and beyond.} With Theorem~\ref{thm:gram} the algebra is
+finished for every $n$: a fourth curve needs three curve-side ingredients ---
+its duplication window, its quasi-parallelogram bounds and its torsion-freeness
+--- and then four points with a nonvanishing $4\times4$ Gram determinant. The
+height theory itself is already generic (Theorem~\ref{thm:generic}). What is
+\emph{not} yet extracted is the quasi-parallelogram layer, which remains
+written out per curve; doing for it what Theorem~\ref{thm:generic} does for the
+height is the obvious next piece of engineering.
 
 \emph{Torsion.} Theorem~\ref{thm:torsfree} settles \texttt{389a1}, and the
 same route works for any curve whose $\kappa^{1/3}$ is small enough to
