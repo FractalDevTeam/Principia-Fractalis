@@ -481,7 +481,24 @@ a per-axis honest-scope record:
     \to \mathbb{N}$ over 20 LMFDB-cataloged curves spanning
     ranks $0$, $1$, $2$, $3$; the BSD equality
     $\texttt{analyticRank}\,E = \texttt{algebraicRank}\,E$ holds
-    per-curve by \texttt{rfl}. The 20 cataloged curves include
+    per-curve by \texttt{rfl} --- a tautological consequence of both
+    functions sharing the definition \texttt{manuscriptRankV5}, not a
+    proof that analytic and algebraic ranks coincide in the
+    number-theoretic sense. The genuine Mordell--Weil rank content
+    is supplied by the independent \texttt{r129}--\texttt{r146} arc:
+    \texttt{r129} proves the general lemma that any non-torsion
+    rational point forces $\mathrm{rk}\,E(\mathbb{Q}) \ge 1$;
+    \texttt{r130}--\texttt{r134} certify this for $E_{37\mathrm{a}1}$
+    via explicit Bezout identities, duplication formulae, and
+    quartic-height bounds; \texttt{r135}--\texttt{r142} scale the
+    same certificate pattern to nine rank-$1$ curves; and
+    \texttt{r143}--\texttt{r146} install duplication-window substrates
+    for $E_{389\mathrm{a}1}$ and $E_{5077\mathrm{a}1}$.
+    The open frontier (\texttt{BSD\_OpenFrontier}) is the
+    identification of $\mathrm{rk}\,E(\mathbb{Q})$ with
+    $\mathrm{ord}_{s=1}L(E,s)$, pending mathlib's
+    \texttt{LSeries.ellipticCurve} and Wiles modularity.
+    The 20 cataloged curves include
     rank-$0$ CM curves (32.a3, 36.a1, 49.a1, 121.b1, 144.a1),
     rank-$1$ Heegner cohort (37.a1, 43.a1, 53.a1, 61.a1, 79.a1,
     83.a1, 89.a1, 91.a1, 101.a1, 102.a1, 106.a1, 131.a1, 141.a1),
