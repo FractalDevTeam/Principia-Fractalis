@@ -271,7 +271,20 @@ The system \textup{(I1)--(I12)} admits a unique positive simultaneous solution i
 (I3) gives $\alpha_{\textsf{QG}}^{2} = 2\pi$. Combining (I3) with (I11) gives $\alpha_{\textsf{YM}} = 2$. (I7) forces $\alpha_{\textsf{Poincar\'e}} = 1$. (I1) and positivity force $\alpha_{P} = \sqrt{2}$. (I9) gives $\alpha_{\textsf{RH}} = 3/2$; (I2) holds. (I3) and positivity force $\alpha_{\textsf{QG}} = \sqrt{2\pi}$. (I4) and positivity force $\alpha_{\textsf{Hodge}} = \varphi$. (I10) gives $\alpha_{\textsf{NP}} = \varphi + 1/4$. Combining (I3) and (I12) gives $\alpha_{\textsf{BSD}} = 3\pi/4$. (I5) forces $\alpha_{\textsf{NS}} = 3\pi/2$; (I6) and (I8) hold consistently.
 \end{proof}
 
-The Lean theorem \texttt{framework\_alpha\_unique\_under\_perelman\_anchor} kernel-verifies this uniqueness under the anchor $\alpha_{\textsf{Poincar\'e}} = 1$ (Perelman 2003~\cite{perelman2003} resolves the Poincar\'e Conjecture, and the substrate's identification of the resolved-axis value with $1$ is a substrate-internal assignment; the uniqueness theorem is modulo this anchor).
+Theorem~\ref{thm:alpha-unique} is kernel-verified by
+\texttt{PrincipiaTractalis.AlphaSkeletonUniqueness.alpha\_skeleton\_unique}
+(\texttt{PF/AlphaSkeletonUniqueness\_r128.lean}, 2026-07-27). The r128
+proof operates on the full nine-tuple \textup{(I1)--(I12)}, with
+$\alpha_{\textsf{Poincar\'e}} = 1$ (Perelman 2003~\cite{perelman2003}) as
+the sole numerical anchor; $\alpha_{\textsf{BSD}}$ is derived from the
+$\pi$-scaling law and corpus invariant I6, not assumed.
+The earlier theorem \texttt{framework\_alpha\_unique\_under\_perelman\_anchor}
+(\texttt{PF/Referee/ClayMasterTheorem.lean}) does not cover this statement:
+its \texttt{AlphaAssignment} structure has six fields and omits
+$\alpha_{\textsf{NP}}, \alpha_{\textsf{Hodge}}, \alpha_{\textsf{QG}},
+\alpha_{P}$; it also assumes $\alpha_{\textsf{BSD}} = 3\pi/4$ rather than
+deriving it, so it anchors on two numerical inputs rather than one.
+The canonical Lean cite for Theorem~\ref{thm:alpha-unique} is r128.
 
 \begin{theorem}[Extended algebraic identities]\label{thm:extended-invariants}
 The canonical $\alpha$-skeleton satisfies seventeen further axiom-free algebraic identities beyond \textup{(I1)--(I12)}: five reciprocal identities (R1--R5), six higher-power identities (P1--P6), four mixed-product identities (M1--M4), and two sum identities (S1--S2). Together with the twelve invariants, this yields twenty-nine total simultaneous algebraic identities on the nine-tuple, machine-verified kernel-only in the Lean~4 corpus (\texttt{PF/Referee/CrossMillenniumInvariants\_Extended\_2026\_06\_19.lean}, capstone theorem \texttt{framework\_alpha\_skeleton\_over\_determined\_capstone}).
