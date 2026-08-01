@@ -979,6 +979,8 @@ import PF.BiAdditive5077a1_r167  -- r167: unconditional laws + THE PAIRING IS BI
 import PF.Regulator3Independence5077a1_r168  -- r168: nonzero 3x3 regulator => rank >= 3 on 5077a1
 import PF.E5077a1RankThree_r169  -- r169: THE FLAG - 3 <= Module.rank Z E5077a1(Q)
 import PF.GramRankGeneral_r170  -- r170: nonzero Gram determinant => rank >= n, curve-independent, any n
+import PF.CanonicalHeightGeneric_r171  -- r171: the canonical height from a doubling window alone, curve-independent
+import PF.GenericFitsBothCurves_r172  -- r172: r171's abstraction validated against BOTH hand-built curves
 
 /-!
 ## Principia Fractalis Formal Verification
