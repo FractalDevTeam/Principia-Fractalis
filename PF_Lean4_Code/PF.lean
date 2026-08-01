@@ -981,6 +981,7 @@ import PF.E5077a1RankThree_r169  -- r169: THE FLAG - 3 <= Module.rank Z E5077a1(
 import PF.GramRankGeneral_r170  -- r170: nonzero Gram determinant => rank >= n, curve-independent, any n
 import PF.CanonicalHeightGeneric_r171  -- r171: the canonical height from a doubling window alone, curve-independent
 import PF.GenericFitsBothCurves_r172  -- r172: r171's abstraction validated against BOTH hand-built curves
+import PF.CanonicalHeightUnique_r173  -- r173: canheight = Tate limit over a bare self-map, and it is UNIQUE
 
 /-!
 ## Principia Fractalis Formal Verification

@@ -5,6 +5,14 @@ defaultTargets = ["pf"]
 [[lean_lib]]
 name = "PF"
 
+# The mathlib-upstream candidates live outside the PF namespace and import ONLY
+# mathlib.  Keeping them as a lean_lib means `lake build MathlibCandidates`
+# re-verifies them on every mathlib bump, instead of them rotting in a folder.
+[[lean_lib]]
+name = "MathlibCandidates"
+srcDir = "../mathlib_candidates"
+roots = ["GramLinearIndependent", "TateLimit"]
+
 [[lean_exe]]
 name = "pf"
 root = "Main"

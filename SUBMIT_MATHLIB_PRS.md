@@ -231,3 +231,71 @@ that mathlib has nothing in this area, but it wants a naming and placement
 discussion with maintainers first (it is not obviously "linear algebra" or
 "number theory"; it is a telescoping-limit construction). Worth raising on Zulip
 before writing a PR.
+
+## 2026-07-31 — PR-6 candidate: Tate's telescoping limit
+
+`mathlib_candidates/TateLimit.lean`. **The more valuable of the two**, because
+mathlib currently has nothing in this area at all.
+
+The r171 version of this was stated over an abelian group with the doubling map
+hard-coded. Writing it out for upstream showed the group is never used. The real
+statement needs only a self-map:
+
+> `T : α → α`, `f : α → ℝ`, `d > 1`, and `|f (T x) − d · f x| ≤ C` for all `x`.
+> Then `f (T^[n] x) / dⁿ` converges.
+
+`α` has no structure whatsoever. This is Tate's telescoping argument in the
+generality it actually has (Silverman AEC VIII.9.3 and the lemma before it).
+
+```
+Function.tateSeq / Function.tateLimit
+Function.tendsto_tateLimit             -- the limit exists
+Function.tateLimit_comp_self           -- g (T x) = d * g x, exactly
+Function.tateLimit_iterate             -- g (T^[n] x) = d^n * g x
+Function.abs_tateLimit_sub_le          -- |g x - f x| ≤ C / (d - 1)
+Function.abs_tateLimit_sub_iterate_le  -- effective form, scaled by d^n
+Function.eq_of_comp_self_of_abs_sub_le -- UNIQUENESS
+```
+
+The Néron–Tate height is the case `T = (· + ·)`, `f = log(naive height)`,
+`d = 4`, `C = log κ`.
+
+### Verified, not asserted
+
+**It is faithful.** `PF/CanonicalHeightUnique_r173.lean` proves r171's
+`canheight` *is* this `tateLimit` at `d = 4`, and re-derives r171's doubling law,
+window and shifted window from the abstract statements. Nothing was lost in the
+generalisation. That file is in `lake build PF` (4679 jobs), so the claim stays
+checked.
+
+**Uniqueness is new.** r171 never proved it. `canheight_unique`: a `g` with
+`g(R+R) = 4·g(R)` exactly and *any* bounded distance from `lognh` equals
+`canheight lognh`. That is the characterisation Néron–Tate theory actually uses,
+and it upgrades ĥ from "a limit we constructed" to "the unique 4-homogeneous
+function near the naive height".
+
+**Prior art searched again for this shape**, not just for "canonical height":
+`limUnder`-of-rescaled-iterates, quasimorphism homogenisation, and
+`|f(Tx) − d·f(x)| ≤ C` all come back empty. The nearest relatives are
+`cauchySeq_of_le_geometric` and `dist_le_of_le_geometric_of_tendsto₀`, which this
+file *uses* — it is the natural consumer of that pair, which is a point in favour
+of it belonging upstream.
+
+### Candidates are now continuously verified
+
+`mathlib_candidates/` was a folder of files that would rot silently on the next
+mathlib bump. It is now a `lean_lib` in `PF_Lean4_Code/lakefile.toml`:
+
+```bash
+lake build MathlibCandidates
+```
+
+1912 jobs, both candidates green, mathlib-only imports, no PF namespace.
+
+### Placement question for Zulip — ask before opening the PR
+
+This is not obviously "linear algebra" or "number theory"; it is a
+telescoping-limit construction about a self-map. Plausible homes:
+`Mathlib/Analysis/SpecificLimits/TateLimit.lean` (next to the geometric-series
+lemmas it consumes) or `Mathlib/Dynamics/`. Worth one Zulip message before
+writing the PR rather than guessing and wasting a reviewer's time.
