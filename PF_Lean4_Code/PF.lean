@@ -983,6 +983,7 @@ import PF.CanonicalHeightGeneric_r171  -- r171: the canonical height from a doub
 import PF.GenericFitsBothCurves_r172  -- r172: r171's abstraction validated against BOTH hand-built curves
 import PF.CanonicalHeightUnique_r173  -- r173: canheight = Tate limit over a bare self-map, and it is UNIQUE
 import PF.DuplicationBezoutUniversal_r174  -- r174: Res(phi,psi)=Delta^2 => duplication content bound for EVERY curve
+import PF.DuplicationSizeUniversal_r175  -- r175: the size half of kappa_E, also curve-independent
 
 /-!
 ## Principia Fractalis Formal Verification
