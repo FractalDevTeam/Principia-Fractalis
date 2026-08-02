@@ -986,6 +986,7 @@ import PF.DuplicationBezoutUniversal_r174  -- r174: Res(phi,psi)=Delta^2 => dupl
 import PF.DuplicationSizeUniversal_r175  -- r175: the size half of kappa_E, also curve-independent
 import PF.DuplicationHeightUniversal_r176  -- r176: the multiplicative height window H(x)^4 <= CL*H(2x), for EVERY curve
 import PF.DuplicationLogWindow_r177  -- r177: HeightWindow from curve coefficients alone -- the chain closes
+import PF.DuplicationFormula_r178  -- r178: dblQ IS mathlib's addX at a doubled point -- last per-curve obligation gone
 
 /-!
 ## Principia Fractalis Formal Verification
