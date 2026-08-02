@@ -1,0 +1,24 @@
+C1  lambda_max(L_1) = 1.0   (must be 1)
+C2  s=(0.5 + 10.0j)  rel det drift N72 vs 88 (production vs larger): 2.4e-17 2.4e-17
+C2  s=(0.25 + 7.0j)  rel det drift N72 vs 88 (production vs larger): 3.07e-19 3.07e-19
+C3  s=(0.5 + 15.2j)  rel det drift N72 vs 88: 5.29e-14 5.35e-14
+
+S1  Re s = 1/2, t in [8,15.2], step 0.1
+    t=8.0  |1-L|=1.192  |1+L|=1.472
+    t=10.0  |1-L|=1.211  |1+L|=0.7543
+    t=12.0  |1-L|=1.181  |1+L|=0.5087
+    t=14.0  |1-L|=0.5922  |1+L|=1.488
+  local minima of |det(1-L)| (t*, |det|, depth ratio vs neighbors):
+    t* = 10.512751309   |det| = 0.566   depth = 0.93
+    t* = 12.519248687   |det| = 0.551   depth = 0.932
+    t* = 13.779751553   |det| = 5.21e-7   depth = 2.0e-6
+  local minima of |det(1+L)| (t*, |det|, depth ratio vs neighbors):
+    t* = 9.533694962   |det| = 4.65e-7   depth = 3.03e-6
+    t* = 12.17300857   |det| = 7.55e-7   depth = 2.43e-6
+    t* = 14.358509791   |det| = 1.19e-6   depth = 2.76e-6
+
+S2  Re s = 1/4, t' in [6.60,7.55], step 0.01 (marker rho_1/2 = 7.06736279...)
+  |det(1-L)| minimum: t' = 7.0673625987   value = 3.63e-8
+  offset from rho_1/2 = 7.0673627606: -1.62e-7
+  ODD factor at the same point (must be far from 0): |det(1+L)| = 1.68
+  contrast |det(1-L)|: at 6.60 = 0.533, at 7.55 = 0.698
