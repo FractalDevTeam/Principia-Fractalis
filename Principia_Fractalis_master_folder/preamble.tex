@@ -522,6 +522,12 @@
 \let\Tr\relax
 \DeclareMathOperator{\Tr}{Tr}       % trace
 \DeclareMathOperator{\sgn}{sgn}     % sign function
+% Clay-standard encoding shorthand used in ch34A's per-axis honest-scope list.
+\newcommand{\Cstd}[1]{C^{\mathrm{std}}_{\mathrm{#1}}}
+% \captionof for tables inside tcolorbox environments (floats are illegal there).
+\usepackage{capt-of}
+% Some TeX Live versions predefine \rank (same failure mode as \Tr above).
+\let\rank\relax
 \DeclareMathOperator{\rank}{rank}   % matrix rank
 \DeclareMathOperator{\diag}{diag}   % diagonal matrix
 % Arithmetic-geometry / BSD / Hodge notation used across Ch 24, 25, 21

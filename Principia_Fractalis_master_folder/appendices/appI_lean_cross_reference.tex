@@ -343,5 +343,20 @@ bash tools/audit.sh
 \end{verbatim}
 
 A reader who completes the above has independently verified that
-every entry of the cross-reference tables above is machine-checked
-in both Lean and Coq (modulo the parity-tagged scope).
+every entry of the cross-reference tables above elaborates cleanly
+in Lean~4 under the kernel axioms.
+
+\paragraph{Verification status (2026-08-02).} Two corrections to how
+this appendix has previously been read. \textbf{(1) The Coq column is
+structural-shape parity, not independent verification}: the legacy
+Coq mirrors are of the form \texttt{Theorem name : True. Proof. exact
+I. Qed.} (Appendix~L records this explicitly), so completing the Coq
+build confirms the declarations exist, not that the mathematics is
+re-proved; the genuinely re-proved Coq layer is
+\texttt{PF\_Coq\_Code/PF\_Real/} (110 theorems, every
+\texttt{Print Assumptions} closed). \textbf{(2) A clean Lean
+elaboration of a theorem does not upgrade its scope}: each entry
+retains the honest-scope status of its source chapter's ledger ---
+CONDITIONAL REDUCTION entries remain conditional, and entries whose
+carrier is substrate-restricted remain so. Ch.~34's master ledger
+governs; this appendix is a map, not a certificate.
