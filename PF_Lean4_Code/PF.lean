@@ -988,6 +988,7 @@ import PF.DuplicationHeightUniversal_r176  -- r176: the multiplicative height wi
 import PF.DuplicationLogWindow_r177  -- r177: HeightWindow from curve coefficients alone -- the chain closes
 import PF.DuplicationFormula_r178  -- r178: dblQ IS mathlib's addX at a doubled point -- last per-curve obligation gone
 import PF.DuplicationLogWindowFixed_r179  -- r179: CORRECTS r177 -- quantify hx away from the point at infinity
+import PF.Universal389a1_r180  -- r180: the universal chain EXERCISED on mathlib's real 389a1 point group
 
 /-!
 ## Principia Fractalis Formal Verification
