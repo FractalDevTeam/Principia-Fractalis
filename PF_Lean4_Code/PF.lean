@@ -987,6 +987,7 @@ import PF.DuplicationSizeUniversal_r175  -- r175: the size half of kappa_E, also
 import PF.DuplicationHeightUniversal_r176  -- r176: the multiplicative height window H(x)^4 <= CL*H(2x), for EVERY curve
 import PF.DuplicationLogWindow_r177  -- r177: HeightWindow from curve coefficients alone -- the chain closes
 import PF.DuplicationFormula_r178  -- r178: dblQ IS mathlib's addX at a doubled point -- last per-curve obligation gone
+import PF.DuplicationLogWindowFixed_r179  -- r179: CORRECTS r177 -- quantify hx away from the point at infinity
 
 /-!
 ## Principia Fractalis Formal Verification
