@@ -990,6 +990,7 @@ import PF.DuplicationFormula_r178  -- r178: dblQ IS mathlib's addX at a doubled 
 import PF.DuplicationLogWindowFixed_r179  -- r179: CORRECTS r177 -- quantify hx away from the point at infinity
 import PF.Universal389a1_r180  -- r180: the universal chain EXERCISED on mathlib's real 389a1 point group
 import PF.SecantUniversal_r181  -- r181: universal sum/product formulas for x(P+Q), x(P-Q) -- the secant side
+import PF.BSDRankChainReal_r182  -- r182: REPAIR -- a BSD rank chain that is not Prop := True
 
 /-!
 ## Principia Fractalis Formal Verification
