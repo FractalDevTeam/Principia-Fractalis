@@ -17,6 +17,18 @@ canonical height ever needed.
   r171  ⟹ the canonical height exists, with all its laws
   r173  ⟹ and it is unique
 
+## ⚠ CORRECTED BY r179 — READ BEFORE USING `heightWindow_of_xdbl`
+
+`heightWindow_of_xdbl` below quantifies `hx` over **all** `R`, including the
+point at infinity.  With the standard convention `x(O) = 0` that demands
+`0 = dblQ 0 = −b₈/b₆`, which is false (389a1: 3; 5077a1: 49/25).  The theorem is
+true but its hypothesis cannot be discharged for a real point group.
+
+`PF.DuplicationLogWindowFixed_r179.heightWindow_of_xdbl_ne_zero` is the usable
+form: it quantifies away from `0` and handles `O` by `lognh 0 = 0`.  Everything
+else in this file — in particular `abs_lognh_dblQ_sub_le`, which is the actual
+analytic content — is unaffected and is what r179 calls.
+
 ## The one remaining per-curve obligation
 
 `heightWindow_of_xdbl` takes a group `G`, an `x`-coordinate map `xco : G → ℚ`,
