@@ -992,6 +992,7 @@ import PF.Universal389a1_r180  -- r180: the universal chain EXERCISED on mathlib
 import PF.SecantUniversal_r181  -- r181: universal sum/product formulas for x(P+Q), x(P-Q) -- the secant side
 import PF.BSDRankChainReal_r182  -- r182: REPAIR -- a BSD rank chain that is not Prop := True
 import PF.HilbertSchmidtL2_r183  -- r183: M3 stone 1 -- Hilbert-Schmidt matrices act boundedly on l^2 (first HS theory toward transfer operators)
+import PF.HilbertSchmidtCompact_r184  -- r184: M3 stone 2 -- Hilbert-Schmidt operators are COMPACT (finite-rank bridge + truncation limit)
 
 /-!
 ## Principia Fractalis Formal Verification
