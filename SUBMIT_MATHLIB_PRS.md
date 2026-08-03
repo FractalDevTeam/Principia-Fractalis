@@ -299,3 +299,41 @@ telescoping-limit construction about a self-map. Plausible homes:
 `Mathlib/Analysis/SpecificLimits/TateLimit.lean` (next to the geometric-series
 lemmas it consumes) or `Mathlib/Dynamics/`. Worth one Zulip message before
 writing the PR rather than guessing and wasting a reviewer's time.
+
+## 2026-08-03 — PR-7 and PR-8 candidates: Hilbert–Schmidt operators + compact transfer operators
+
+Two new candidates, building against MATHLIB ALONE (`lake build MathlibCandidates`,
+2488 jobs green, both kernel-checked, zero sorry):
+
+**`mathlib_candidates/HilbertSchmidt.lean`** (PR-7) — the base layer mathlib
+lacks entirely (audited 2026-08-02: `IsCompactOperator` has no finite-rank API
+and no nontrivial examples; no matrix-to-operator construction on `lp`; no HS
+theory):
+```
+HSSummable A                              -- square-summable entries
+hsOperator hA : lp _ 2 →L[ℂ] lp _ 2       -- with norm ≤ √(Σ ‖A m n‖²)
+isCompactOperator_of_mem_finiteDimensional -- finite rank ⟹ compact (the bridge)
+isCompactOperator_hsOperator              -- HS ⟹ compact
+GeomBound / hsSummable_of_geometric / hsNorm_le_of_geometric
+                                          -- ‖A m n‖ ≤ C·r^m·ρ^n criterion,
+                                          -- ‖·‖_HS ≤ C/√((1−r²)(1−ρ²))
+```
+
+**`mathlib_candidates/TransferOperatorCompact.lean`** (PR-8, imports PR-7) —
+the punchline: the Cauchy coefficient matrix of a weighted composition system
+whose branches contract the extraction circle into a strictly smaller ball is
+double-geometric, hence the induced ℓ² operator is compact. NO analyticity
+hypotheses — `norm_cauchyPowerSeries_le` is a pure integral estimate, so
+continuity on the circle suffices. First formalized compactness for the
+Ruelle/Mayer transfer-operator class in any prover.
+
+Provenance: extracted from PF stones r183–r186 (RH front, milestone M3), whose
+numerics-side validation is the M1/M2 record: the same operator class
+reproduces the PSL(2,ℤ) Maass spectrum, the first Riemann zero at ρ/2, and the
+Γ₀(3) newform spectrum at 7–8 digits against LMFDB certified data. Standard
+disclosure sentence applies (see the policy section above).
+
+Suggested mathlib homes: `Mathlib/Analysis/InnerProductSpace/HilbertSchmidt.lean`
+(or `Analysis/Normed/Operator/`); the transfer-operator file near
+`Analysis/SpecialFunctions` or `Dynamics/` — same placement question as PR-6
+(TateLimit), fold into the existing Zulip thread rather than opening a new one.
