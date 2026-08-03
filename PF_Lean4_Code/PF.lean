@@ -995,6 +995,7 @@ import PF.HilbertSchmidtL2_r183  -- r183: M3 stone 1 -- Hilbert-Schmidt matrices
 import PF.HilbertSchmidtCompact_r184  -- r184: M3 stone 2 -- Hilbert-Schmidt operators are COMPACT (finite-rank bridge + truncation limit)
 import PF.HilbertSchmidtGeometric_r185  -- r185: M3 stone 3 -- double-geometric entry decay => HS => compact, with explicit norm bound
 import PF.TransferMatrixCauchy_r186  -- r186: M3 COMPLETE -- transfer operators of contracting systems are compact, from geometry alone
+import PF.ModifiedFriedmann_r187  -- r187: the modified Einstein sector gets REAL content -- FLRW energy balance + Lambda_eff ODE
 
 /-!
 ## Principia Fractalis Formal Verification

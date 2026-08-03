@@ -72,6 +72,17 @@ downstream theorems can consume.
 
 import PF.QuantumGravity
 
+/-
+⚠ VERIFICATION STATUS (2026-08-03). The three `*Hypothesis` Props below are
+VACUOUS markers (e.g. `∃ Λ G, Λ = Λ ∧ G = G ∧ True`) — see
+codex/TRUE_PROP_AUDIT_2026-08-01.md. They carry no Einstein-equation content.
+The modified-gravity sector's REAL kernel content is
+`PF/ModifiedFriedmann_r187.lean`: the FLRW-reduced modified continuity
+equation with its energy-balance equivalence, and the Λ_eff suppression ODE
+Λ' = −g·Λ with positivity and monotone decay. Full tensorial Einstein
+equations are not formalizable at this mathlib pin (no pseudo-Riemannian
+curvature). Nothing in this file should be cited as formalized relativity.
+-/
 namespace PrincipiaTractalis
 
 open Real
