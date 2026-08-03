@@ -994,6 +994,7 @@ import PF.BSDRankChainReal_r182  -- r182: REPAIR -- a BSD rank chain that is not
 import PF.HilbertSchmidtL2_r183  -- r183: M3 stone 1 -- Hilbert-Schmidt matrices act boundedly on l^2 (first HS theory toward transfer operators)
 import PF.HilbertSchmidtCompact_r184  -- r184: M3 stone 2 -- Hilbert-Schmidt operators are COMPACT (finite-rank bridge + truncation limit)
 import PF.HilbertSchmidtGeometric_r185  -- r185: M3 stone 3 -- double-geometric entry decay => HS => compact, with explicit norm bound
+import PF.TransferMatrixCauchy_r186  -- r186: M3 COMPLETE -- transfer operators of contracting systems are compact, from geometry alone
 
 /-!
 ## Principia Fractalis Formal Verification
