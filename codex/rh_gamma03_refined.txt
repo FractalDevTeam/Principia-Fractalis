@@ -1,0 +1,10 @@
+factor=1+PL(odd)  t* = 4.38805359256   |det| = 1.03e-7
+factor=1-PL(even)  t* = 5.09874192868   |det| = 4.9e-8
+factor=1+PL(odd)  t* = 6.12057552283   |det| = 3.91e-8
+factor=1+PL(odd)  t* = 6.75741524181   |det| = 1.45e-7
+factor=1+PL(odd)  t* = 7.75813318201   |det| = 6.79e-8
+factor=1-PL(even)  t* = 8.03886124016   |det| = 1.76e-7
+factor=1+PL(odd)  t* = 8.19303589686   |det| = 2.47e-7
+factor=1-PL(even)  t* = 8.77828237791   |det| = 6.96e-8
+factor=1+PL(odd)  t* = 9.29237936829   |det| = 3.29e-7
+factor=1+PL(odd)  t* = 9.53369522128   |det| = 3.57e-7
