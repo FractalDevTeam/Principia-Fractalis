@@ -997,6 +997,7 @@ import PF.HilbertSchmidtGeometric_r185  -- r185: M3 stone 3 -- double-geometric 
 import PF.TransferMatrixCauchy_r186  -- r186: M3 COMPLETE -- transfer operators of contracting systems are compact, from geometry alone
 import PF.ModifiedFriedmann_r187  -- r187: the modified Einstein sector gets REAL content -- FLRW energy balance + Lambda_eff ODE
 import PF.TransferTrace_r188  -- r188: Lefschetz arc stone 1 -- trace foundations (resolvent identity, diagonal summability, tsum/integral interchange)
+import PF.TransferResidue_r188c  -- r188c: Lefschetz trace formula CLOSED -- trace = sum of fixed-point residues w(x)/(1-phi'(x))
 
 /-!
 ## Principia Fractalis Formal Verification
