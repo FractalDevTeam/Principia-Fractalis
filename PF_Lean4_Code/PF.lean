@@ -1001,6 +1001,7 @@ import PF.TransferResidue_r188c  -- r188c: Lefschetz trace formula CLOSED -- tra
 import PF.GaussTrace_r189  -- r189: trace formula instantiated on Gauss/GKW branch data -- trace = sum x_j^2/(1+x_j^2), K=1 golden case (5-sqrt5)/10
 import PF.MayerTrace_r190  -- r190: complex-s Mayer weights (z+j)^(-2s) -- truncated trace = sum x_j^(2s)/(1+x_j^2) for ALL s, converges to full Mayer trace for Re s > 1/2
 import PF.TransferPower_r191  -- r191: traces of powers L^n -- word systems, composition closure, n-cycle Lefschetz formula, golden square witness (3sqrt5-5)/10
+import PF.TransferCompose_r192  -- r192: A^(n) = A^n -- transfer matrix is a semigroup; trace of honest matrix powers = periodic-orbit sums
 
 /-!
 ## Principia Fractalis Formal Verification
