@@ -25,3 +25,13 @@ grunweg accepted on #42093).
 
 The script does NOT build mathlib locally (hours); mathlib CI builds the PR.
 If CI reports a lint (e.g. maxHeartbeats policy), paste the log to Claude.
+
+## Candidate #5 (added 2026-08-03, NOT yet submittable)
+
+`mathlib_candidates/TransferOperatorTrace.lean` — the holomorphic Lefschetz
+trace formula (`trace_eq_contour`, `trace_eq_residues`, plus the
+`intervalIntegral_tsum` interchange helper mathlib lacks). It imports
+`TransferOperatorCompact`, so it can only become a PR after pr7 AND pr8 are
+merged (or as a follow-up commit on the pr8 branch if a reviewer asks for
+more content). Until then it is re-verified by `lake build MathlibCandidates`
+on every mathlib bump like the others.
