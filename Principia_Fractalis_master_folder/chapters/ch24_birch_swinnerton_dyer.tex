@@ -677,6 +677,29 @@ an earlier draft of this paragraph) is an artifact of the chosen cutoff.
 Details: \texttt{codex/CH24\_SPECTRAL\_RIGOROUS\_2026-07-30.md}.
 \end{itemize}
 
+\paragraph{Verification update (2026-08-04): the trace identity under the trace-level rank signal is now kernel-checked (r188c); the multiplicity mechanism stays falsified; BSD stays open.}
+The structural identity that the surviving trace-level reading of this
+chapter rests on --- that the trace of a contracting weighted-composition
+transfer matrix equals the sum of its fixed-point residues,
+$\sum_m A_{mm} = \sum_k w_k(x_k)/(1-\varphi_k'(x_k))$ --- is now a
+kernel-verified Lean~4 theorem (\texttt{trace\_eq\_residues},
+\texttt{PF/TransferResidue\_r188c.lean}, axioms exactly
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$;
+record \texttt{codex/RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}). The measured
+regularized-trace slopes on kernel-verified-rank curves
+($+0.780$, $+1.473$, $+2.168$ for ranks $1, 2, 3$;
+\texttt{codex/BSD\_TRACE\_RANK\_2026-08-03.md}) therefore rest on a verified
+structural identity rather than on numerics alone. Honest scope: the identity
+is proved generically, under stated geometry/holomorphy/factorization
+hypotheses; the $\varphi/e$-multiplicity
+mechanism remains falsified exactly as recorded above; and nothing here
+claims BSD, in whole or in part, is proven. \emph{Same-day update:} r194
+(\texttt{EllipticTrace\_r194.lean}, \texttt{mestre\_nagao\_trace}) now
+instantiates the identity on this exact operator --- branches $z/p$, weights
+$a_p\,p^{-s}$ --- so the truncated trace \emph{equals}
+$\sum_p a_p\,p^{-s}/(1-1/p)$ as a kernel theorem; the heuristic link from
+that sum's slope to the rank remains a measurement, not a proof.
+
 \section{Conclusion}
 
 We have presented computational evidence for the Birch and Swinnerton-Dyer conjecture through fractal resonance:

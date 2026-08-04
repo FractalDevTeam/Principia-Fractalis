@@ -532,6 +532,88 @@ record: \texttt{codex/R120\_CLOSURE\_VERIFIED\_2026-07-25.md} (source commit
 \item \textbf{CORRECTION RECORDED} --- an earlier scouting note gave $\Xi(12) = +8.8\times 10^{-3}$, $\Xi(16) = -7.7\times 10^{-4}$ using the classical $\Xi = \tfrac12 s(s-1)\pi^{-s/2}\Gamma(s/2)\zeta(s)$. The corpus's $\Xi(t) = \Real\,\Lambda(1/2 + it)$ \emph{omits} the $\tfrac12 s(s-1)$ factor, which equals $-(1/4 + t^2)/2 < 0$ on the critical line; the corpus $\Xi$ therefore has the opposite sign and magnitudes $\sim\!128\times$ smaller. Verified at 40 digits: $\Xi(14) = -2.05\times 10^{-6}$, $\Xi(15.4) = +6.68\times 10^{-6}$. The real error budget was $6.7\times 10^{-6}$, not $7.7\times 10^{-4}$.
 \end{itemize}
 
+\paragraph{Verification update (2026-08-04): a kernel-checked trace formula for transfer operators (arc r183--r192); RH is not touched.}
+The 2026-08-02/04 formalization arc places a machine-checked analytic backbone
+under this chapter's transfer-operator (Mayer/Ruelle) side. Every result below
+is a Lean~4 theorem with axiom footprint exactly $[\texttt{propext},
+\texttt{Classical.choice}, \texttt{Quot.sound}]$ --- no \texttt{sorry}, no
+\texttt{native\_decide}, no project axioms; non-vacuity witnesses compiled
+through the main theorems. Verification record:
+\texttt{codex/RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}.
+\begin{itemize}
+\item \textbf{r183--r186 --- compactness, kernel-checked.} For weighted-composition
+transfer systems whose branches contract the contour circle $|z-c|=R_1$ into
+the ball $|z-c|\le\tau$ (with $\tau < R < R_1$) and whose weights are bounded
+there, the Cauchy-coefficient matrix satisfies a geometric Hilbert--Schmidt
+bound and the induced operator is compact on $\ell^2$
+(\texttt{hsOperator}, \texttt{isCompactOperator\_hsOperator},
+\texttt{hsNorm\_le\_of\_geometric}, \texttt{isCompactOperator\_transferMatrix}).
+The classical Montel-family argument is bypassed: Hilbert--Schmidt is stronger
+than compact and cheaper to formalize.
+\item \textbf{r188b/r188c --- the holomorphic Lefschetz trace formula.}
+\texttt{trace\_eq\_contour} (geometry only: continuity on the circle plus
+contraction) gives
+\[
+\sum_{m} A_{mm} \;=\; \frac{1}{2\pi i}\oint_{|z-c|=R_1}\;\sum_{k}
+\frac{w_k(z)}{z-\varphi_k(z)}\,dz,
+\]
+and \texttt{trace\_eq\_residues} (adding holomorphy on the disc and the
+simple-zero factorization hypothesis $z-\varphi_k(z) = (z-x_k)\,g_k(z)$ with
+$g_k$ holomorphic and nonvanishing) evaluates it as the fixed-point sum
+\[
+\sum_{m} A_{mm} \;=\; \sum_{k}\frac{w_k(x_k)}{1-\varphi_k'(x_k)}.
+\]
+Both are kernel-clean (\texttt{PF/TransferTrace\_r188.lean},
+\texttt{PF/TransferResidue\_r188c.lean}). Honest caveat: the factorization is
+a \emph{hypothesis} of the theorem, not derived from contraction alone
+(deriving it needs Rouch\'e/argument-principle work; for the concrete PF
+branch families it is checkable by explicit division, as r189 does).
+\item \textbf{r189 --- the Gauss/GKW instantiation.} The formula applied to the
+actual Mayer branches $\varphi_j(z) = 1/(z+j)$ with the $s=1$
+Gauss--Kuzmin--Wirsing weights $1/(z+j)^2$ on Mayer's disc $|z-1|\le 3/2$:
+for every depth $K$ the truncated trace is
+$\sum_{j=1}^{K} x_j^2/(1+x_j^2)$, where $x_j = (\sqrt{j^2+4}-j)/2$ are the
+noble continued-fraction fixed points $[0;j,j,j,\ldots]$
+(\texttt{gauss\_trace}, \texttt{PF/GaussTrace\_r189.lean}). Golden case
+$K=1$, $x_1 = 1/\varphi$: trace $= (5-\sqrt{5})/10 = 0.27639320225\ldots$,
+a closed form in the kernel (\texttt{gauss\_trace\_one}).
+\item \textbf{r190 --- complex-$s$ Mayer weights; the full Mayer trace.}
+With the actual Mayer weights $(z+j)^{-2s}$ (principal branch; the cut never
+meets the disc since $\Re(z+j)\ge 1/2$ there), the truncated trace identity
+$\sum_m A_{mm}(s) = \sum_{j=1}^{K} x_j^{2s}/(1+x_j^2)$ holds for
+\emph{every} $s\in\mathbb{C}$ (\texttt{mayer\_trace},
+\texttt{PF/MayerTrace\_r190.lean}). Mayer's classical convergence threshold
+$\Re s > 1/2$ is \emph{derived} in the kernel
+(\texttt{summable\_mayerTerm}, a $p$-series bound from $x_j \le 1/j$), and
+the full Mayer trace is realized as the limit of the kernel-checked truncated
+traces (\texttt{tendsto\_mayer\_trace}):
+$\mathrm{mayerTrace}(1) = 0.7711255236556589$, the classical GKW trace.
+\item \textbf{r191/r192 --- traces of powers and the semigroup law.} The
+$n$-th power of a transfer system is itself a weighted-composition system
+over the $K^n$ words, and its trace is the $n$-periodic-orbit sum
+$\sum_{|\alpha|=n} W_\alpha(x_\alpha)/(1-\Phi_\alpha'(x_\alpha))$
+(\texttt{trace\_pow\_eq\_residues}, \texttt{PF/TransferPower\_r191.lean});
+and the word-system matrix is the honest $\ell^2$-matrix power,
+$A^{(n)} = A^n$ (\texttt{transferMatrix\_pow},
+\texttt{PF/TransferCompose\_r192.lean}), so the periodic orbits compute the
+traces of every power of \emph{one} matrix
+(\texttt{trace\_matPow\_eq\_residues}). Together these are the complete
+inputs of the dynamical determinant
+$\det(1-tA) = \exp\bigl(-\sum_{n\ge 1} t^n \operatorname{Tr}(A^n)/n\bigr)$ ---
+the object whose zeros carry the Selberg-zeta / Lewis--Zagier structure that
+the chapter's Mayer numerics (RH\_M1/M2, 7--8 digit agreement with LMFDB)
+probe.
+\item \textbf{Honest scope --- what is NOT claimed.} The determinant assembly
+itself ($\exp$/$\log$ convergence in $t$ and truncated $\det(1\mp L_s)$ as
+kernel objects) is not yet formalized; nuclearity and the trace-class
+identification of matrix traces with spectral traces (Lidskii) are not
+formalized; infinite-branch operators are not constructed
+(\texttt{mayerTrace} is a limit of truncated traces, not the trace of a
+constructed operator $L_s$); Selberg theory is not formalized; and
+\textbf{nothing here is a claim about $\zeta$ zeros or RH}. RH remains open,
+exactly as the 2026-07-23 ledger above states.
+\end{itemize}
+
 \section{Conclusion}
 
 We have presented a resolution of the Riemann Hypothesis through Fractal Resonance Mathematics:
