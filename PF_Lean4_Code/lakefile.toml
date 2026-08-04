@@ -11,7 +11,7 @@ name = "PF"
 [[lean_lib]]
 name = "MathlibCandidates"
 srcDir = "../mathlib_candidates"
-roots = ["GramLinearIndependent", "TateLimit", "HilbertSchmidt", "TransferOperatorCompact"]
+roots = ["GramLinearIndependent", "TateLimit", "HilbertSchmidt", "TransferOperatorCompact", "TransferOperatorTrace"]
 
 [[lean_exe]]
 name = "pf"
