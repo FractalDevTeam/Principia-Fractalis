@@ -77,12 +77,15 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_pade_two_two_realises_cluster_fix_outside_lower_families`
     (Wave 30 POSITIVE). -/
 def YMCanonicalPade22RealisesProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_two_pole_stieltjes_realises_cluster_fix_outside_polynomial_and_pade_families`
     (Wave 30 POSITIVE, functional-level). -/
 def YMCanonicalTwoPoleStieltjesRealisesProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 29 META aggregator (`e0a35f0`); pinned here for
     traceability of the Wave 30 META layer. -/
 def Wave29MasterCapstoneAggregatorProven : Prop := True

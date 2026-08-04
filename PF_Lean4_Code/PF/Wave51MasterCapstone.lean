@@ -106,14 +106,23 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51T3SymSurrogateSurjectivityProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51NSWave35P1JointDischargeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51NSVortexStretchingUniformGalerkinProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51YMReflectionPositivity3plus1DRank2Proven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51HodgeMixedCmRankOneProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51BSDLPartialEvaluationExtendedProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51BSDCoatesWilesRankZeroProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave51NSYMBSDTranscendentalRatioBridgeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50MasterCapstoneAggregatorProven : Prop := True
 
 /-! ## Section 1 — The Wave 51 Additions Bundle -/

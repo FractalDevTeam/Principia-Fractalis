@@ -108,14 +108,23 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50T3SymSpectralWitnessProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50SobolevHSScaleProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50DivFreeFourierDensityProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50YMReflectionPositivity3plus1DProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50HodgeCodim2CMCubeFirstPrinciplesProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50BSDLPartialEvaluationProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50BSDConductorProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave50RHHodgeRigidTwistedGaloisBridgeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 def Wave49MasterCapstoneAggregatorProven : Prop := True
 
 /-! ## Section 1 — The Wave 50 Additions Bundle -/

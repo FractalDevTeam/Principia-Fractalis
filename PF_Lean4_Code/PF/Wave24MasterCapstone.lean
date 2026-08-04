@@ -59,14 +59,19 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `YM_non_affine_quadratic_cluster_fixing_unlocked` (f706266). -/
 def YMNonAffineQuadraticUnlockProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `bsd_rank_six_universal_concordance` (d58f5ac). -/
 def BSDRankSixUniversalConcordanceProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_at_n_le_five` (b82e930). -/
 def NS3DLocalBoundLeFiveProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `polylog_resonance_pnp_orthogonality_citable` (f860989). -/
 def PolylogResonanceOrthogonalityProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Ch 34 manuscript propagation (8b115d1, NOT a Lean deliverable). -/
 def Wave24ManuscriptCh34PropagationProven : Prop := True
 

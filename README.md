@@ -210,6 +210,19 @@ cross-Millennium algebraic invariants over the basis $\{1,\pi,\varphi,\sqrt{2}\}
 reductions in Lean 4 are kernel-only; classical-side realizations are conditional on the
 substrate-tier conjectures enumerated in the paper.
 
+> **Correction (2026-08-04).** Two honesty notes on this table.
+> (1) The α_NP = φ + 1/4 pin is an **empirical calibration, not a
+> derivation**: the kernel-verified theorem `alphaNP_unconstrained`
+> proves the framework's invariants do not force α_NP, and the
+> "empirical validation" theorem (`alpha_rigidity_empirically_validated`)
+> is a definitional `rfl` tautology, not a check that could fail. The
+> corresponding referee instruction in `docs/REFEREE_QUICKSTART.md` §6
+> is retired as of this date.
+> (2) The spectral-peak data referred to as "IBM" in theorem names comes
+> from Qiskit `AerSimulator` runs, not IBM hardware.
+> See `OPEN_PROBLEMS.md` and `docs/ALPHA_DICTIONARY.md` (canonical
+> α-dictionary, 2026-08-04).
+
 | Axis | α-value | Substrate encoding |
 |---|---|---|
 | Riemann Hypothesis | $3/2$ | Hilbert–Pólya $T_3^{\mathsf{sym}}$ operator (self-adjoint kernel proven axiom-free) |

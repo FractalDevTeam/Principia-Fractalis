@@ -457,6 +457,7 @@ theorem ch17_operator_theory_concrete_capstone :
 
 /-! ## §9 — Honest-scope marker -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Honest-scope marker** — this module establishes the
     finite-dim concrete substrate content of Ch 17 operator theory.
     What it does NOT establish:

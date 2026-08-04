@@ -70,13 +70,16 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ns_3d_layer2_lift_scaffold` (Wave 35 SCAFFOLD — half-layer
     collapse, mathlib gap formalised). -/
 def NS3DLayer2LiftScaffoldProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `consciousness_RH_wave35_fivepoint_witness` (Wave 35
     SUBSTANTIVE — fivePointSubstrate with non-multiplicative H,
     Problem 5 progress). -/
 def ConsciousnessRHWave35FivepointProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 34 META aggregator (`7d3d700`); pinned here for
     traceability of the Wave 35 META layer. -/
 def Wave34MasterCapstoneAggregatorProven : Prop := True

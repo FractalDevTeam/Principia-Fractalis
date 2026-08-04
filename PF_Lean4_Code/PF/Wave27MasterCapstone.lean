@@ -65,16 +65,21 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_heat_kernel_misses_cluster_fix` (`a666399`). -/
 def YMCanonicalHeatKernelNarrowedOutProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `cross_millennium_implication_chains_capstone` (`e7f6576`). -/
 def CrossMillenniumImplicationChainsProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 26 META aggregator (`cce19f1`); pinned here for
     traceability of the Wave 27 META layer. -/
 def Wave26MasterCapstoneAggregatorProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- OPEN_PROBLEMS Wave 26 narrowing banner (`3d82557`, NOT a
     Lean deliverable). -/
 def Wave27OpenProblemsBannerProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Coq parity Wave 25–26 stubs (`97858b0`, NOT Lean; 64 modules
     total). -/
 def Wave27CoqParityW25W26Proven : Prop := True

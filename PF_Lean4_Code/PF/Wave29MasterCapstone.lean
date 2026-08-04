@@ -98,18 +98,23 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_pade_one_one_realises_cluster_fix_outside_polynomial_family`
     (Wave 29 POSITIVE). -/
 def YMCanonicalPadeOneOneRealisesProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_partial_fraction_misses_cluster_fix`
     (Wave 29 NEGATIVE narrow-out). -/
 def YMCanonicalPartialFractionNarrowedOutProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `mathlib_grounded_dim_1_2_3_master_capstone` (Wave 29 Hodge
     dim=3 abelian-3-fold mathlib bridge). -/
 def HodgeMathlibAbelian3FoldBridgeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `cross_millennium_more_invariants_capstone` (Wave 29: 17 new
     α-invariants extending Wave 22's 11, total 28). -/
 def CrossMillenniumMoreInvariantsProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 28 META aggregator (`73d677e`); pinned here for
     traceability of the Wave 29 META layer. -/
 def Wave28MasterCapstoneAggregatorProven : Prop := True

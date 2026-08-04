@@ -76,13 +76,16 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ns_3d_global_K_T_partial` (Wave 33: PARTIAL / STRUCTURAL —
     uniform K=2 across diagonal + off-diagonal at n∈{0..5}, named
     open Prop isolated). -/
 def NS3DGlobalKTPartialProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `hodge_codim_two_cycle_class_PARTIAL` (Wave 33: PARTIAL POSITIVE
     + Voisin obstruction marker). -/
 def HodgeCodimTwoCycleClassPartialProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 32 META aggregator (`845ec56`); pinned here for
     traceability of the Wave 33 META layer. -/
 def Wave32MasterCapstoneAggregatorProven : Prop := True

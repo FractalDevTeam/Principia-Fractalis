@@ -81,6 +81,17 @@ EOF
 lake env lean /tmp/refcheck.lean
 ```
 
+> **Correction (2026-08-04).** The last `#print axioms` line above
+> (`alpha_rigidity_empirically_validated`) is retained for reproducibility
+> of the axiom check only. Do NOT read that theorem as an empirical
+> validation. Its proof is `rfl`: the framework's α-values and the
+> "IBM-Peak" values are *definitionally equal by construction* in Lean,
+> so the theorem cannot fail and carries no evidential weight. The
+> α_NP = φ + 1/4 pin is an empirical calibration, not a derivation
+> (kernel-verified as unconstrained by `alphaNP_unconstrained`); the
+> quantum data comes from `AerSimulator` runs, not IBM hardware. See
+> `OPEN_PROBLEMS.md` and `codex/TRUE_PROP_AUDIT_2026-08-01.md`.
+
 **Expected output**: each `#print axioms` line returns
 `[propext, Classical.choice, Quot.sound]` --- kernel-standard only.
 Zero project axioms.
@@ -206,6 +217,24 @@ grep -B 1 -A 20 "structure ExtendedAbstractAlphaSystem" \
 
 ## 6. Inspect the empirical-validation theorem
 
+> **RETIRED (2026-08-04).** This referee instruction is withdrawn.
+> Do not run it as a validation check. The honest status:
+>
+> - The α_NP = φ + 1/4 pin is an **empirical calibration, not a
+>   derivation**. The kernel-verified theorem `alphaNP_unconstrained`
+>   (same file) proves the framework's own invariants do NOT force
+>   α_NP; the value is asserted, then matched against data that was
+>   used to choose it. The `rfl` proof below is a definitional
+>   tautology by construction — it cannot fail and validates nothing.
+> - The "IBM Quantum hardware" label is inaccurate: the spectral-peak
+>   data comes from Qiskit `AerSimulator` runs (disclosed elsewhere in
+>   the docs, not in the theorem names).
+> - See `OPEN_PROBLEMS.md` (α-pin entries) and
+>   `codex/TRUE_PROP_AUDIT_2026-08-01.md`.
+>
+> The original instruction is preserved below, unmodified, for the
+> record. It should not be cited as evidence.
+
 The framework's $\alpha_{RH} = 3/2$ and $\alpha_{NP} = \varphi + 1/4$
 match IBM Quantum hardware spectral peak measurements:
 
@@ -219,6 +248,10 @@ IBM-Peak values are definitionally equal in Lean). The mathematical
 content: the rigidity theorem derived these values from algebraic
 invariants without taking the IBM measurements as inputs; the
 measurements independently confirmed the derivations.
+
+> **Correction (2026-08-04), continued:** the final paragraph above is
+> the retracted claim. The rigidity theorem does not derive α_NP
+> without the measurements; the pin is calibrated to them.
 
 ---
 
@@ -283,6 +316,11 @@ If steps 1--8 all pass, the Lean kernel has verified:
 2. Two of the nine α-values ($\alpha_{RH} = 3/2$ and $\alpha_{NP} =
    \varphi + 1/4$) match IBM Quantum hardware spectral measurements,
    providing empirical validation of the algebraic predictions.
+   **[Correction (2026-08-04): item 2 is retired. The α_NP pin is an
+   empirical calibration, not a derivation (`alphaNP_unconstrained`,
+   kernel-verified); the match theorem is `rfl` by construction; the
+   data source is `AerSimulator`, not IBM hardware. See §6 above and
+   `OPEN_PROBLEMS.md`.]**
 3. The six Clay-Standard contracts on the framework encodings reduce
    to one structured hypothesis bundle
    (`SimultaneousClayClosureBundle`) with seven fields:

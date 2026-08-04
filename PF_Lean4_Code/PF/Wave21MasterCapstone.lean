@@ -165,47 +165,58 @@ here as a Prop-level provenness witness. The actual content lives
 in the cited source file; this file records exactly the
 meta-aggregation citation. Each tag is witnessed by `trivial`. -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `wave18_discharge_investigation_unified`
     (Wave 19, commit a968642). NEGATIVE result. -/
 def PNPUnconditionalNonDischargeProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `ym_uniform_gap_routes_verdict`
     (Wave 19, commit fe0413c). M1+M2 NEGATIVE, M3 conditional. -/
 def YMMechanismTriageProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `hodge_CY3_complete_via_11_and_22`
     (Wave 19, commit 661fff6). Substrate-level only. -/
 def HodgeCY3Dim22FullProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `local_vs_global_dichotomy`
     (Wave 19, commit d280edb). Local axiom-free; global Clay-open. -/
 def NS3DLocalRegularityBKMProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `bsd_rank_zero_one_two_three_concordance`
     (Wave 19, commit 340bf03). 4-rank φ/e concordance. -/
 def BSDFourRankConcordanceProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `BK_truncation_does_not_reproduce_zeta_zeros`
     (Wave 19, commit 9936deb). NEGATIVE finding on literal BK. -/
 def BerryKeatingNegativeProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `hodge_CY4_complete_via_11_22_33`
     (Wave 20, commit 8ee352a). Substrate-level only. -/
 def HodgeCY4ThreeSliceProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `ym_uniform_gap_full_status`
     (Wave 20, commit 408ce0a). M3 level-1 ✓, level-k ≥ 2 obstruction. -/
 def YMM3LevelOneDischargedProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `mathlib_grounded_hodge_bridge_capstone`
     (Wave 21, commit 45589cc). dim=1 + dim=2 mathlib-grounded. -/
 def HodgeMathlibBridgesProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `polylog_resonance_at_Galois_pair_capstone`
     (Wave 21, commit 45589cc). Part A positive + Part B/C/D
     structurally orthogonal to `alpha_of_class`. -/
 def PolylogGaloisPairProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for the Wave 18 manuscript-side Ch 20 propagation
     (commit 0477cfd). NOT a Lean deliverable; recorded for
     completeness of the Wave 19–21 narrative. -/

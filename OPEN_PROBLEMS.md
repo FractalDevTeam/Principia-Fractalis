@@ -308,3 +308,103 @@ verification at 7 truncations. NOT a closed deductive system: spectral
 uniqueness (extremal traces of T_∞) remains genuinely open, along with
 I5 first-principles derivation and Λ_QCD substrate mechanism. Framework
 falsifiability preserved across 4 independent empirical axes post-c_2 retraction.
+
+---
+
+## Ledger reconciliation (2026-08-04)
+
+Additive section, per house style. Everything above this line is the
+2026-07-05 snapshot and is unchanged. This section reconciles the file
+against the codex ledger (`codex/`, 26+ dated records) as of 2026-08-04.
+
+### (a) Problems above with no codex progress record since 2026-07-05
+
+- **Problem 1a (extremal-trace uniqueness).** Still open. No progress
+  record. Caution: the r25/r26 "kernel-verified pathway" cited above is
+  a Prop-level marker structure, not proof content — see
+  `codex/TRUE_PROP_AUDIT_2026-08-01.md`.
+- **Problem 1b (spectral isolation for T_3^sym).** Still open, and the
+  motivation has shifted: `codex/RH_T3_CORRECT_CARRIER_2026-08-02.md`
+  shows ch20's T_3 on L²([0,1],dx/x) is the wrong carrier; on the
+  corrected Hardy-space carrier the spectrum is exactly
+  {1} ∪ {±i·3⁻ⁿ} — NOT nine isolated λ_i = π/(10·α_i). The 1b statement
+  as written is not supported on the well-posed operator.
+- **Problem 2 (I5 vortex-doubling derivation).** Open. No progress record.
+- **Problem 3a (Λ_QCD substrate mechanism).** Open. Factor-1.77 gap stands.
+- **Problem 3b (L_3 operator, −ln 3).** Open. No progress record.
+- **Problem 3c (α_BSD k = 4 derivation).** Open. No progress record.
+- **Problem 4a (dark-energy substrate prediction).** Open. Ansatz remains
+  a curve-fit selection, as stated above.
+- **Problem 4b (Λ_eff/Λ_0 mechanism post-c₂).** Open. No progress record.
+- **Problem 5a / 5b (honest-scope notes).** Done in the papers (v2
+  honest-scope section; v3 Priority-5 conjuncts). No further action.
+
+**Honesty note on "discharge" language above.** The r63–r79 substrate-Prop
+"discharges" of this catalogue are `Prop := True` typed markers. Per
+`codex/TRUE_PROP_AUDIT_2026-08-01.md` (402 True-Props corpus-wide, 338 in
+the build), such markers carry no mathematical content and do not close
+any problem in this file. The problems are closed only by the real
+results listed in (b).
+
+### (b) Codex-recorded results NOT reflected above (one-line status each)
+
+**RH axis**
+- **r120 (2026-07-25).** The on-line-zero atom is CLOSED: ∃ t > 0 with
+  ζ(1/2 + it) = 0, kernel-clean, certified interval arithmetic, no
+  native_decide. `codex/R120_CLOSURE_VERIFIED_2026-07-25.md`.
+- **T₃ correct carrier (2026-08-02).** First well-posed formulation of the
+  framework's RH operator; exact spectrum 3⁻ⁿ; HP route redirected to the
+  Mayer/Ruelle program. `codex/RH_T3_CORRECT_CARRIER_2026-08-02.md`.
+- **M1 (2026-08-02).** Full Mayer operator numerics: sees the Maass
+  spectrum and the first Riemann zero; certified gates.
+  `codex/RH_M1_COMPLETE_2026-08-02.md`.
+- **M2 (2026-08-03).** Γ₀(3) transfer operator reproduces LMFDB-certified
+  level-3 spectrum to 8 digits. `codex/RH_M2_COMPLETE_2026-08-03.md`.
+- **M3 = r183–r186.** Transfer operators of contracting systems are
+  COMPACT, kernel-checked from geometry alone; Hilbert–Schmidt chain;
+  extracted as mathlib PR candidates.
+- **r188–r192 (2026-08-03/04).** Holomorphic Lefschetz trace formula
+  CLOSED in the kernel; instantiated on Gauss/GKW and full complex-s
+  Mayer weights; traces of all powers = periodic-orbit sums; A⁽ⁿ⁾ = Aⁿ.
+  Scope: no nuclearity, no Lidskii, no RH claim.
+  `codex/RH_LEFSCHETZ_TRACE_2026-08-03.md`.
+
+**BSD axis (independence arc r143–r182)**
+- **r147.** First formal canonical height on an elliptic curve (389a1).
+- **r150/r151.** Exact parallelogram law; multiple law ĥ(kR) = k²ĥ(R).
+- **r154.** THE FLAG: 2 ≤ rank_ℤ E389a1(ℚ), kernel-verified.
+- **r155.** 389a1(ℚ) is torsion-free.
+- **r156–r169.** Same chain for 5077a1: rank ≥ 3, kernel-verified.
+- **r170.** General Gram/regulator criterion (any abelian group, any n).
+- **r174–r180.** Universal duplication/secant chain from curve
+  coefficients alone.
+- **r182.** `BSDRankChainReal`: a capstone conjunction with NO `True`
+  conjunct — the honest replacement pattern for the vacuous capstones.
+- **ch24 spectral falsification (2026-07-28…31).** The book's φ/e-weighted
+  rank mechanism is machine-diagnosed as structurally impossible on
+  L²([0,1]) (ill-posed / quasinilpotent); Mestre–Nagao is what survives;
+  trace–rank numerics recorded 2026-08-03. `codex/CH24_*`,
+  `codex/BSD_TRACE_RANK_2026-08-03.md`.
+
+**P vs NP axis**
+- **α_NP circularity (2026-07-25/26).** The α_NP = φ + 1/4 pin is
+  asserted, not derived (`alphaNP_unconstrained`, kernel-verified); the
+  "empirical validation" theorem is a definitional `rfl`.
+  `codex/ALPHA_NP_DERIVABILITY_2026-07-25.md`.
+
+**Physics**
+- **r187 (2026-08-03).** The FLRW-reduced modified-Einstein sector gets
+  real Lean content (modified continuity ⇔ energy bookkeeping identity;
+  Λ_eff ODE via FTC-2). The prior
+  `ModifiedEinsteinWithConsciousnessHypothesis` was a vacuous marker and
+  is banner-labelled in place.
+
+**Corpus hygiene**
+- **True-Prop audit (2026-08-01).** 402 `Prop := True` corpus-wide, 338
+  in the build, concentrated in the Wave/capstone layer; no capstone or
+  cascade theorem is citable as evidence until swept.
+  `codex/TRUE_PROP_AUDIT_2026-08-01.md`.
+- **Vacuity banners (2026-08-04).** 266 banner comments added above the
+  vacuous Wave/capstone declarations (repair item P6); build green.
+- **Full-corpus read + repair queue (2026-08-01).** Three-layer map and
+  P1–P9 repair queue. `codex/CORPUS_FULL_READ_2026-08-01.md`.

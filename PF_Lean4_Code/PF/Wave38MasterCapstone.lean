@@ -54,10 +54,13 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `consciousness_RH_wave38_infinite_zeroSet_witness` (Wave 38A). -/
 def Wave38InfiniteZeroSetProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `bsd_L_function_bridge_rank_zero_capstone` (Wave 38B). -/
 def Wave38BSDLFunctionBridgeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 36+37 META aggregator (`0351711`). -/
 def Wave36_37MasterCapstoneAggregatorProven : Prop := True
 

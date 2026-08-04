@@ -509,39 +509,49 @@ Each insight above is recorded as a `def … : Prop := True` marker so
 the file's compilation pins the existence of each manuscript citation
 without introducing axioms or new claims. -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 1 — Ch 11 14-D anomaly identity `A_14 = 8174` ↦ ch_2 = 0.95. -/
 def insight1_ch11_anomaly_ch2_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 2 — Ch 22 base-3 self-similarity inequality `Z = 2 < S = 3`
     drives convergent cascade with exponent `1 + 2 log_3 2`. -/
 def insight2_ch22_base3_cascade_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 3 — Ch 21 finite generating function `G_N(z) = (1+z+z²)^N`
     correction (vs prior divergent infinite-product transcription). -/
 def insight3_ch21_GN_finite_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 4 — Ch 20 quantifiable perturbation Lemma
     `T3-imaginary-part` per truncation `N`. -/
 def insight4_ch20_T3_imag_part_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 5 — Ch 24 BSD `φ/e ≈ 0.595` arithmetic-geometric rank
     emergence threshold. -/
 def insight5_ch24_phi_over_e_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 6 — Ch 22 helicity-singularity exponent `α_h = 3 - d_H`. -/
 def insight6_ch22_helicity_alpha_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 7 — Ch 23 YM first-zero `ω_c = 2.13198462`. -/
 def insight7_ch23_omega_c_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 8 — Ch 25 Hodge `α = φ` φ-reciprocity sharper than
     `α_NP = φ + 1/4`. -/
 def insight8_ch25_phi_reciprocity_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 9 — Ch 04 / Ch 17 projective-limit C*-algebra
     `T_∞ = varprojlim N(C^{3^k})` infinite-dim substrate. -/
 def insight9_ch04_ch17_timeless_field_marker : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Insight 10 — Ch 06 Čech-kernel consciousness sheaf
     (alternative to operator-commutator (P5)). -/
 def insight10_ch06_consciousness_sheaf_marker : Prop := True
@@ -562,6 +572,7 @@ structure FrameworkResourceSynthesisWave47 : Prop where
   insight9 : insight9_ch04_ch17_timeless_field_marker
   insight10 : insight10_ch06_consciousness_sheaf_marker
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **★ Wave 47 capstone marker ★** — single referee-citable Prop
     pointing at the 10-insight manuscript-resource synthesis above.
     Bundling ≠ discharge. -/
