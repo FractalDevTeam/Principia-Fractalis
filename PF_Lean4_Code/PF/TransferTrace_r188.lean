@@ -156,6 +156,196 @@ theorem intervalIntegral_tsum {u : ℕ → ℝ → ℂ} {b : ℕ → ℝ}
   funext m
   rw [intervalIntegral.integral_of_le h2π]
 
+/-! ### Stone 2 — the assembly: trace = fixed-point contour integral -/
+
+/-- The rescaled diagonal integrand: `G m z = (z−c)⁻¹ · Σ_k w_k(z)·q_k(z)^m`
+with `q_k = (φ_k z − c)/(z − c)`.  The basis scale `R` has already cancelled. -/
+def diagIntegrand (c : ℂ) (K : ℕ) (w φ : Fin K → ℂ → ℂ) (m : ℕ) (z : ℂ) : ℂ :=
+  (z - c)⁻¹ * ∑ k : Fin K, w k z * ((φ k z - c) / (z - c)) ^ m
+
+theorem norm_diagIntegrand_le (hR₁ : 0 < R₁) (hτ0 : 0 ≤ τ) (hW : 0 ≤ W)
+    (hw : ∀ k, ∀ z ∈ Metric.sphere c R₁, ‖w k z‖ ≤ W)
+    (hφ : ∀ k, ∀ z ∈ Metric.sphere c R₁, φ k z ∈ Metric.closedBall c τ)
+    (m : ℕ) {z : ℂ} (hz : z ∈ Metric.sphere c R₁) :
+    ‖diagIntegrand c K w φ m z‖ ≤ R₁⁻¹ * ((K : ℝ) * W * (τ / R₁) ^ m) := by
+  have hzc : ‖z - c‖ = R₁ := by rw [← dist_eq_norm]; exact hz
+  rw [diagIntegrand, norm_mul, norm_inv, hzc]
+  apply mul_le_mul_of_nonneg_left _ (by positivity)
+  calc ‖∑ k : Fin K, w k z * ((φ k z - c) / (z - c)) ^ m‖
+      ≤ ∑ k : Fin K, ‖w k z * ((φ k z - c) / (z - c)) ^ m‖ := norm_sum_le _ _
+    _ ≤ ∑ _k : Fin K, W * (τ / R₁) ^ m := by
+        apply Finset.sum_le_sum
+        intro k _
+        rw [norm_mul, norm_pow, norm_div, hzc]
+        have hnum : ‖φ k z - c‖ ≤ τ := by
+          have := hφ k z hz
+          rwa [Metric.mem_closedBall, dist_eq_norm] at this
+        apply mul_le_mul (hw k z hz)
+        · apply pow_le_pow_left₀ (by positivity)
+          exact div_le_div_of_nonneg_right hnum hR₁.le
+        · positivity
+        · exact hW
+    _ = (K : ℝ) * W * (τ / R₁) ^ m := by
+        rw [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+        ring
+
+/-- Step A: each diagonal entry is the Cauchy contour of `diagIntegrand` —
+the basis scale `R` cancels exactly. -/
+theorem diag_eq_contour (hR : 0 < R) (hRR : R < R₁) (m : ℕ) :
+    transferMatrix c R R₁ K w φ m m
+      = (2 * ↑π * Complex.I)⁻¹ •
+          ∮ z in C(c, R₁), diagIntegrand c K w φ m z := by
+  have hR₁ : (0 : ℝ) < R₁ := hR.trans hRR
+  have hRC : (R : ℂ) ≠ 0 := by
+    simpa using ne_of_gt (show (0:ℝ) < R from hR)
+  rw [transferMatrix, cauchyPowerSeries_apply, smul_comm]
+  congr 1
+  rw [← circleIntegral.integral_smul]
+  apply circleIntegral.integral_congr hR₁.le
+  intro z hz
+  have hzc : ‖z - c‖ = R₁ := by
+    rw [← dist_eq_norm]
+    simpa [abs_of_pos hR₁] using hz
+  have hzc0 : z - c ≠ 0 := by
+    intro h; rw [h, norm_zero] at hzc; linarith
+  simp only [diagIntegrand, smul_eq_mul]
+  simp only [Finset.mul_sum]
+  apply Finset.sum_congr rfl
+  intro k _
+  field_simp
+  rw [show (↑R : ℂ) ^ m * (1 / (z - c)) ^ m * w k z * ((φ k z - c) / ↑R) ^ m
+        = w k z * ((↑R * (1 / (z - c)) * ((φ k z - c) / ↑R)) ^ m) from by
+      rw [mul_pow, mul_pow]; ring]
+  congr 2
+  rw [mul_one_div, div_mul_div_comm, mul_comm (z - c) (↑R : ℂ),
+    mul_div_mul_left _ _ hRC]
+
+/-- Step B: the pointwise resolvent identification on the circle. -/
+theorem tsum_diagIntegrand (hR₁ : 0 < R₁) (hτ0 : 0 ≤ τ) (hτR₁ : τ < R₁)
+    (hw : ∀ k, ∀ z ∈ Metric.sphere c R₁, ‖w k z‖ ≤ W)
+    (hφ : ∀ k, ∀ z ∈ Metric.sphere c R₁, φ k z ∈ Metric.closedBall c τ)
+    {z : ℂ} (hz : z ∈ Metric.sphere c R₁) :
+    ∑' m : ℕ, diagIntegrand c K w φ m z
+      = ∑ k : Fin K, w k z / (z - φ k z) := by
+  have hzc : ‖z - c‖ = R₁ := by rw [← dist_eq_norm]; exact hz
+  have hzc0 : z - c ≠ 0 := by
+    intro h; rw [h, norm_zero] at hzc; linarith
+  have hq : ∀ k : Fin K, ‖(φ k z - c) / (z - c)‖ < 1 := by
+    intro k
+    rw [norm_div, hzc, div_lt_one hR₁]
+    have := hφ k z hz
+    rw [Metric.mem_closedBall, dist_eq_norm] at this
+    linarith
+  have hsummand : ∀ k : Fin K,
+      Summable fun m : ℕ => w k z * ((φ k z - c) / (z - c)) ^ m :=
+    fun k => (summable_geometric_of_norm_lt_one (hq k)).mul_left _
+  calc ∑' m : ℕ, diagIntegrand c K w φ m z
+      = (z - c)⁻¹ * ∑' m : ℕ, ∑ k : Fin K,
+          w k z * ((φ k z - c) / (z - c)) ^ m := by
+        rw [← tsum_mul_left]
+        exact tsum_congr fun m => rfl
+    _ = (z - c)⁻¹ * ∑ k : Fin K, ∑' m : ℕ,
+          w k z * ((φ k z - c) / (z - c)) ^ m := by
+        congr 1
+        exact Summable.tsum_finsetSum (fun k _ => hsummand k)
+    _ = (z - c)⁻¹ * ∑ k : Fin K, w k z * ((z - c) / (z - φ k z)) := by
+        congr 1
+        apply Finset.sum_congr rfl
+        intro k _
+        rw [tsum_mul_left, tsum_ratio_pow hR₁ hτ0 hτR₁ hφ k hz]
+    _ = ∑ k : Fin K, w k z / (z - φ k z) := by
+        rw [Finset.mul_sum]
+        apply Finset.sum_congr rfl
+        intro k _
+        have hne := sub_apply_ne_zero hτR₁ hφ k hz
+        field_simp
+
+/-- **THE TRACE FORMULA, stone 2**: the trace of the transfer matrix is the
+fixed-point contour integral.  Scale-free, no analyticity assumed. -/
+theorem trace_eq_contour (hR : 0 < R) (hRR : R < R₁)
+    (hτ0 : 0 ≤ τ) (hτR : τ < R) (hW : 0 ≤ W)
+    (hwc : ∀ k, ContinuousOn (w k) (Metric.sphere c R₁))
+    (hφc : ∀ k, ContinuousOn (φ k) (Metric.sphere c R₁))
+    (hw : ∀ k, ∀ z ∈ Metric.sphere c R₁, ‖w k z‖ ≤ W)
+    (hφ : ∀ k, ∀ z ∈ Metric.sphere c R₁, φ k z ∈ Metric.closedBall c τ) :
+    (∑' m : ℕ, transferMatrix c R R₁ K w φ m m)
+      = (2 * ↑π * Complex.I)⁻¹ •
+          ∮ z in C(c, R₁), ∑ k : Fin K, w k z / (z - φ k z) := by
+  have hR₁ : (0 : ℝ) < R₁ := hR.trans hRR
+  have hτR₁ : τ < R₁ := hτR.trans hRR
+  have hmem : ∀ θ : ℝ, circleMap c R₁ θ ∈ Metric.sphere c R₁ :=
+    fun θ => circleMap_mem_sphere c hR₁.le θ
+  -- continuity of the parametrized diagonal integrands
+  have hGcont : ∀ m : ℕ, Continuous fun θ : ℝ =>
+      deriv (circleMap c R₁) θ • diagIntegrand c K w φ m (circleMap c R₁ θ) := by
+    intro m
+    apply Continuous.smul
+    · exact ((continuous_circleMap 0 R₁).mul continuous_const).congr
+        fun θ => (deriv_circleMap c R₁ θ).symm
+    · apply Continuous.mul
+      · apply Continuous.inv₀
+        · exact (continuous_circleMap c R₁).sub continuous_const
+        · intro θ
+          have := hmem θ
+          rw [Metric.mem_sphere, dist_eq_norm] at this
+          intro h0
+          rw [sub_eq_zero] at h0
+          rw [h0, sub_self, norm_zero] at this
+          linarith
+      · apply continuous_finset_sum
+        intro k _
+        apply Continuous.mul
+        · exact (hwc k).comp_continuous (continuous_circleMap c R₁) hmem
+        · apply Continuous.pow
+          apply Continuous.div
+          · exact ((hφc k).comp_continuous (continuous_circleMap c R₁) hmem).sub
+              continuous_const
+          · exact (continuous_circleMap c R₁).sub continuous_const
+          · intro θ
+            have := hmem θ
+            rw [Metric.mem_sphere, dist_eq_norm] at this
+            intro h0
+            rw [sub_eq_zero] at h0
+            rw [h0, sub_self, norm_zero] at this
+            linarith
+  -- the summable uniform bound
+  have hτR₁' : τ / R₁ < 1 := by rw [div_lt_one hR₁]; linarith
+  have hbsum : Summable fun m : ℕ =>
+      R₁ * (R₁⁻¹ * ((K : ℝ) * W * (τ / R₁) ^ m)) := by
+    apply Summable.mul_left
+    apply Summable.mul_left
+    exact (summable_geometric_of_lt_one (by positivity) hτR₁').mul_left _
+  have hub : ∀ (m : ℕ) (θ : ℝ),
+      ‖deriv (circleMap c R₁) θ • diagIntegrand c K w φ m (circleMap c R₁ θ)‖
+        ≤ R₁ * (R₁⁻¹ * ((K : ℝ) * W * (τ / R₁) ^ m)) := by
+    intro m θ
+    rw [norm_smul]
+    have hd : ‖deriv (circleMap c R₁) θ‖ = R₁ := by
+      simp [deriv_circleMap, abs_of_pos hR₁]
+    rw [hd]
+    exact mul_le_mul_of_nonneg_left
+      (norm_diagIntegrand_le hR₁ hτ0 hW hw hφ m (hmem θ)) hR₁.le
+  -- assemble
+  calc (∑' m : ℕ, transferMatrix c R R₁ K w φ m m)
+      = ∑' m : ℕ, (2 * ↑π * Complex.I)⁻¹ •
+          ∮ z in C(c, R₁), diagIntegrand c K w φ m z := by
+        congr 1; funext m; exact diag_eq_contour hR hRR m
+    _ = (2 * ↑π * Complex.I)⁻¹ •
+          ∑' m : ℕ, ∮ z in C(c, R₁), diagIntegrand c K w φ m z := by
+        rw [tsum_const_smul'']
+    _ = (2 * ↑π * Complex.I)⁻¹ •
+          ∮ z in C(c, R₁), ∑ k : Fin K, w k z / (z - φ k z) := by
+        congr 1
+        -- unfold both circle integrals to interval integrals and interchange
+        simp only [circleIntegral]
+        rw [← intervalIntegral_tsum hGcont hbsum hub]
+        apply intervalIntegral.integral_congr
+        intro θ _
+        dsimp only
+        rw [tsum_const_smul'']
+        congr 1
+        exact tsum_diagIntegrand hR₁ hτ0 hτR₁ hw hφ (hmem θ)
+
 end
 
 end PrincipiaTractalis.HilbertSchmidtL2
@@ -164,3 +354,6 @@ end PrincipiaTractalis.HilbertSchmidtL2
 #print axioms PrincipiaTractalis.HilbertSchmidtL2.tsum_ratio_pow
 #print axioms PrincipiaTractalis.HilbertSchmidtL2.diag_summable
 #print axioms PrincipiaTractalis.HilbertSchmidtL2.intervalIntegral_tsum
+#print axioms PrincipiaTractalis.HilbertSchmidtL2.diag_eq_contour
+#print axioms PrincipiaTractalis.HilbertSchmidtL2.tsum_diagIntegrand
+#print axioms PrincipiaTractalis.HilbertSchmidtL2.trace_eq_contour
