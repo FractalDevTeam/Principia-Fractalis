@@ -998,6 +998,7 @@ import PF.TransferMatrixCauchy_r186  -- r186: M3 COMPLETE -- transfer operators 
 import PF.ModifiedFriedmann_r187  -- r187: the modified Einstein sector gets REAL content -- FLRW energy balance + Lambda_eff ODE
 import PF.TransferTrace_r188  -- r188: Lefschetz arc stone 1 -- trace foundations (resolvent identity, diagonal summability, tsum/integral interchange)
 import PF.TransferResidue_r188c  -- r188c: Lefschetz trace formula CLOSED -- trace = sum of fixed-point residues w(x)/(1-phi'(x))
+import PF.GaussTrace_r189  -- r189: trace formula instantiated on Gauss/GKW branch data -- trace = sum x_j^2/(1+x_j^2), K=1 golden case (5-sqrt5)/10
 
 /-!
 ## Principia Fractalis Formal Verification
