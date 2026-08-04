@@ -123,3 +123,40 @@ not formalized; s = 1 was chosen precisely because the weights are rational.
 New frictions: `div_inv_eq_mul` (not `div_inv_eq`); `div_eq_div_iff` takes
 `≠ 0` arguments at this pin; `HasDerivAt.inv` yields the Pi-inverse form
 `(fun z => …)⁻¹` — bridge with an explicitly-typed `have` before `.deriv`.
+
+## r190 — complex-s Mayer weights: the full Mayer trace (commit f92f4c73)
+
+**File:** `PF/MayerTrace_r190.lean`, kernel-clean, 4697-job build. Date 2026-08-04.
+
+- **`mayer_trace`**: for EVERY s : ℂ and depth K,
+  `Σ'_m A[m,m](s) = Σ_{j=1}^K x_j^{2s}/(1 + x_j²)` — the actual Mayer weights
+  `(z+j)^(−2s)`, principal branch. The branch cut never matters: on the disc
+  `Re(z+j) ≥ 1/2` (slit-plane condition, kernel-checked). The uniform weight
+  bound comes from compactness of the circle (`exists_uniform_bound`) — zero
+  cpow norm estimates in the main theorem.
+- **`summable_mayerTerm`**: Mayer's classical convergence threshold
+  **Re s > 1/2 is DERIVED in the kernel**: ‖x_j^{2s}/(1+x_j²)‖ ≤ x_j^{2σ} ≤
+  (j+1)^{−2σ} (using `x_j ≤ 1/j`, `gaussFix_le_inv`), a p-series.
+- **`tendsto_mayer_trace`**: the truncated kernel traces converge to
+  `mayerTrace s := Σ'_j x_{j+1}^{2s}/(1+x_{j+1}²)` — **the full Mayer trace
+  realized as a limit of kernel theorems**.
+- **`mayer_trace_one_golden`**: s=1, K=1 reproduces (5−√5)/10 through the
+  cpow→pow bridge (consistency with r189).
+
+**Numerics** (mpmath dps 30–40): contour vs residues ≤ 8e-14 at complex s
+including s = 1/4 + 7.0673625987i (the first-Riemann-zero point on Mayer's
+line Re s = 1/4... note: zero at s = ρ/2) and at Re s < 0 (truncated identity
+holds for all s; only the K→∞ limit needs σ > 1/2). mayerTrace(1) =
+0.7711255236556589 — the classical GKW trace. Tail ~ 1/K as the p-series
+bound predicts.
+
+Scope: the infinite-branch OPERATOR L_s is not constructed; `mayerTrace` is
+the limit of truncated traces (= what the classical residue trace formula
+evaluates Tr L_s to). Nuclearity/Lidskii for the infinite system stays open.
+No Selberg/RH claims.
+
+New frictions: ℝ≥0 notation needs `open scoped NNReal` (repeat offender);
+`div_le_div_iff` gone at pin — use `le_div_iff₀` + linarith with
+`(2:ℝ)/a = 2*(1/a)` bridge; `Summable.of_norm_bounded` takes (hg, h) with g
+IMPLICIT at this pin; `Finset.le_sup` under exact_mod_cast needs explicit
+`(f := …)`.
