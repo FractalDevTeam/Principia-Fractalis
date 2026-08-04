@@ -160,3 +160,41 @@ New frictions: ℝ≥0 notation needs `open scoped NNReal` (repeat offender);
 `(2:ℝ)/a = 2*(1/a)` bridge; `Summable.of_norm_bounded` takes (hg, h) with g
 IMPLICIT at this pin; `Finset.le_sup` under exact_mod_cast needs explicit
 `(f := …)`.
+
+## r191 — traces of powers L^n: the n-cycle Lefschetz formula (commit d7c098cf)
+
+**File:** `PF/TransferPower_r191.lean`, kernel-clean, 4698-job build. 2026-08-04.
+
+The n-th power of a transfer operator is itself a weighted composition
+system over the K^n words: branches compose (`listBranch`), weights are
+Birkhoff products (`listWeight`). The stone proves **closure of the
+r186/r188 hypothesis class under composition** — by list induction:
+- `listBranch_cons_mem_tau`: nonempty compositions contract into the τ-ball
+  (base hypothesis strengthened from sphere to closedBall);
+- `norm_listWeight_le`: ‖W_α‖ ≤ W^{|α|};
+- `differentiableAt_listBranch/listWeight`: holomorphy composes;
+- `deriv_listBranch_cons`: the chain-rule step Φ'_{k::l}(z) = Φ'_l(φ_k z)·φ'_k(z).
+
+**`trace_pow_eq_residues`**: Σ'_m A⁽ⁿ⁾[m,m] = Σ_{|α|=n} W_α(x_α)/(1 − Φ_α'(x_α))
+— the sum over n-periodic points. These are the periodic-orbit sums from
+which det(1∓L_s) and the Selberg-zeta factorization are classically built.
+
+**Witness `gauss_square_trace`**: squared golden branch (K=1, n=2):
+trace of L² = x⁴/(1−x⁴) = **(3√5−5)/10** — kernel-checked closed form
+(linear_combination coefficient (3S³−7S²+13S−17)/16 against S²=5,
+precomputed by sympy).
+
+**Numerics**: contour vs periodic residues ≤ 1e-29 at (K,n) ∈
+{(1,2),(2,2),(2,3),(3,2)}; witness to 5e-32.
+
+**Scope — NOT claimed**: A⁽ⁿ⁾ = Aⁿ as matrix powers (the operator
+composition property; needs coefficientwise composition of Cauchy
+expansions — the natural next stone if the determinant road is pursued).
+No determinants, no zeta, no RH.
+
+New frictions: pattern-matching defs (`listBranch`) don't beta-reduce under
+`rw` of the list argument — add `@[simp]` rfl-equation lemmas and
+`simp only` them; for words over `Fin 1` use `Subsingleton.elim` to
+`fun _ => 0` then `decide` for the concrete `List.ofFn` value;
+`linear_combination` residuals that factor as (poly)·(identity) mean the
+coefficient was off by that poly — recompute, don't stack terms.
