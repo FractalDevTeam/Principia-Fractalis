@@ -89,3 +89,37 @@ regularized traces now have a kernel-checked structural identity behind them.
 - Application stone: instantiate `trace_eq_residues` on a concrete PF system
   (Mayer-type branch family or the ch24 elliptic weights) — connects the
   kernel identity to the bsd_trace_rank.py measurements.
+
+## r189 — concrete instantiation on Gauss branch data (commit d778149e)
+
+**File:** `PF/GaussTrace_r189.lean`, kernel-clean, 4696-job build.
+
+The formula applied to the ACTUAL Mayer branches: `φ_j(z) = 1/(z+j)` with the
+s = 1 Mayer weights `w_j(z) = 1/(z+j)²` (the Gauss–Kuzmin–Wirsing operator,
+rational weights — no complex powers) on Mayer's disc `|z−1| ≤ 3/2`.
+
+- **Geometry in the kernel** (`gaussBranch_mem`): every branch maps the circle
+  `|z−1| = 3/2` into `|w−1| ≤ 1`, via the inversion estimate
+  `‖z+j−1‖ ≤ ‖z+j‖` from `Re z ≥ −1/2` (normSq comparison + nlinarith).
+  Constants: τ = 1 < R = 5/4 < R₁ = 3/2, W = 4.
+- **Fixed points** = the noble continued fractions
+  `x_j = (√(j²+4) − j)/2 = [0; j,j,j,…]`; factorization is exact rational
+  algebra `z − 1/(z+j) = (z − x_j)(z + j + x_j)/(z+j)` (linear_combination
+  from `x² + jx = 1`).
+- **`gauss_trace`**: for every depth K,
+  `Σ'_m A[m,m] = Σ_{j=1}^K x_j²/(1 + x_j²)`
+  (since `x_j + j = 1/x_j` gives `w_j(x_j) = x_j²`, `φ_j'(x_j) = −x_j²`).
+- **`gauss_trace_one`** (the golden case): K = 1, x₁ = 1/φ,
+  `trace = (5 − √5)/10 = 0.27639320225…` — a closed-form, kernel-checked
+  trace of a GKW transfer matrix.
+
+**Numerical cross-check** (mpmath, dps 30): direct contour integral vs the
+residue sum agrees to 2e-20 at K = 1, 3, 5; the golden closed form to 5e-32.
+
+Scope: depth-K TRUNCATED systems (the RH_MOBIUS3 finite Möbius systems).
+The full Mayer operator (infinitely many branches, complex exponent 2s) is
+not formalized; s = 1 was chosen precisely because the weights are rational.
+
+New frictions: `div_inv_eq_mul` (not `div_inv_eq`); `div_eq_div_iff` takes
+`≠ 0` arguments at this pin; `HasDerivAt.inv` yields the Pi-inverse form
+`(fun z => …)⁻¹` — bridge with an explicitly-typed `have` before `.deriv`.
