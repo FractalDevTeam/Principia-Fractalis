@@ -198,3 +198,50 @@ New frictions: pattern-matching defs (`listBranch`) don't beta-reduce under
 `fun _ => 0` then `decide` for the concrete `List.ofFn` value;
 `linear_combination` residuals that factor as (poly)·(identity) mean the
 coefficient was off by that poly — recompute, don't stack terms.
+
+## r192 — A⁽ⁿ⁾ = Aⁿ: the transfer matrix is a semigroup (commit c908382f)
+
+**File:** `PF/TransferCompose_r192.lean`, kernel-clean, 4699-job build. 2026-08-04.
+
+- **`coeff_comp`** (analytic core): if `H(y) = Σ'_p b_p((y−c)/R)^p` on the
+  contraction ball with `‖b_p‖ ≤ C(R/R₁)^p`, the m-th Cauchy coefficient of
+  `z ↦ Σ_k w_k(z)H(φ_k z)` is `Σ'_p A[m,p]b_p` — extraction commutes with
+  the series (dominated interchange, bound (R/R₁)^p(τ/R)^p = (τ/R₁)^p).
+- **`hasSum_transferMatrix_series`** (Taylor bridge): the image functions
+  of a holomorphic system are their own coefficient series on the disc
+  (DiffContOnCl.hasFPowerSeriesOnBall; cauchyPowerSeries = mkPiRing so
+  constant-vector evaluation is the monomial series).
+- **`transferMatrix_pow`**: A⁽ⁿ⁺¹⁾ = matPowPos A n — the word-system matrix
+  IS the honest ℓ²-matrix power.  Induction: word regrouping
+  (finFunctionFinEquiv → Fin.consEquiv → Fintype.sum_prod_type → ofFn_cons),
+  base geometry closed under composition (r191), inner-matrix column decay
+  from geomBound (r186).
+- **`trace_matPow_eq_residues`** (capstone): Σ'_m (Aⁿ⁺¹)[m,m] =
+  Σ_{|α|=n+1} W_α(x_α)/(1−Φ_α'(x_α)).  The periodic orbits compute the
+  traces of every power of ONE matrix.
+
+**Numerics**: A⁽²⁾ vs A·A for the Gauss K=2 system — discrepancy is pure
+ℓ²-truncation tail: 2e-8 at 16 product terms → 1.4e-20 at 60, geometric
+rate (2/3)^p = (R/R₁)(τ/R), exactly as GeomBound predicts.
+
+**Where the road now stands** (the honest map):
+Tr(Aⁿ) for all n ≥ 1 = periodic-orbit sums, kernel-checked.  These are the
+complete inputs of det(1−tA) = exp(−Σ_n tⁿ·Tr(Aⁿ)/n) — Ruelle's dynamical
+zeta / the truncated Mayer determinants det(1∓L_s) whose zeros carry the
+Maass spectrum and (Lewis–Zagier, even factor) the Riemann zeros at s=ρ/2,
+as validated numerically at 7–8 digits in RH_M1/M2.  Next stone(s): the
+determinant assembly — exp/log convergence in t (needs Σ_n |Tr Aⁿ|/n·|t|ⁿ < ∞
+from the geometric trace bounds, all in hand), then the truncated
+det(1∓L_s) as kernel objects with certified truncation error.  What that
+road does NOT reach by itself: infinite-branch operators (nuclearity),
+Lidskii (spectral trace = matrix trace), Selberg theory, or RH.  Realistic
+deliverable: the first kernel-checked dynamical-determinant framework +
+a formalization paper; the Mayer numerics get a verified analytic backbone.
+
+New frictions: ℝ≥0∞ notation strikes again (open scoped ENNReal);
+`x |>.mpr` after applied args is a parse error — parenthesize;
+`DifferentiableAt.sum` wants Finset-sum-of-functions — funext-split the
+lambda first (Finset.sum_apply); `Fintype.sum_equiv` with `_ _` stalls
+typeclass search (AddCommMonoid ?m) — always pass f and g explicitly;
+`congr 1` on `a :: l = b :: l'` auto-discharges rfl heads (bullets shift);
+field_simp/simp closing goals leaves dangling tactics — trim after compile.
