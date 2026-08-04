@@ -51,10 +51,13 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `b_clean_phase_consciousness_commutator_bridge_capstone` (Wave 40C). -/
 def Wave40BCleanConsciousnessBridgeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `framework_headline_wave_29_to_39_update_capstone` (Wave 40D). -/
 def Wave40FrameworkHeadlineWave29To39UpdateProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 39 META aggregator (`23d0b94` + `d129432` fixup). -/
 def Wave39MasterCapstoneAggregatorProven : Prop := True
 

@@ -75,23 +75,31 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `consciousness_LpNat_substrate_inhabits_class` (`7463651`). -/
 def ConsciousnessLpNatInhabitsResidualHPClassProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `YM_quadratic_kernel_mechanism_does_not_fix_cluster` (`3fe9934`). -/
 def YMQuadraticKernelMechanismNarrowedOutProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_off_diagonal_at_n_le_three`
     (`8bd8a73`, Wave 24 introducing n ∈ {0,1}). -/
 def NS3DOffDiagonalBoundAtN01Proven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_off_diagonal_at_n_le_three`
     (`bf796f3`, Wave 25 extending to n ∈ {2,3}). -/
 def NS3DOffDiagonalBoundAtN23Proven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_mixed_order_kernel_calculus_cluster_fix_witness`
     (`a2679aa`). -/
 def YMMixedOrderKernelCalculusRealisationProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `weierstrass_hodge_retry_capstone` (`4375e60`). -/
 def WeierstrassHodgeRetryCapstoneProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Coq parity Wave 23–24 (`b366e90`, NOT a Lean deliverable). -/
 def Wave25CoqParityW23W24Proven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Manuscript propagation bundle Ch 22 + OPEN_PROBLEMS + Ch 34
     (`1f78569`, `f423595`, `8b115d1`, NOT Lean deliverables). -/
 def Wave25_26ManuscriptPropagationProven : Prop := True

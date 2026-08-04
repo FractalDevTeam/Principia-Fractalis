@@ -119,6 +119,7 @@ changing this cascade's interface.
 The named open Props are documentation placeholders, NOT axioms;
 each is defined as `True` so the cascade is axiom-free. -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **(R2) RH Wave 56 shortest-chain (open Prop)** — placeholder for
     a Wave 56 sibling-agent discharge of the shortest framework-
     internal chain from `IBMHardwarePeaksMatchAlphaCanonicalPair`
@@ -126,6 +127,7 @@ each is defined as `True` so the cascade is axiom-free. -/
     claim beyond Wave 53A / 54A / 55B. -/
 def RHWave56ShortestChain : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **(R3) NS Wave 56 uniform bilinear bound (open Prop)** —
     placeholder for a Wave 56 sibling-agent uniform bound on
     `B_F(û, v̂)_a(k)` extending Wave 55A's k = (1,1,0) closed-form
@@ -133,18 +135,21 @@ def RHWave56ShortestChain : Prop := True
     free witness class. -/
 def NSWave56UniformBilinearBound : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **(R4) Hodge CY codim-2 chain (open Prop)** — placeholder for a
     Wave 56 sibling-agent extension of the Wave 53E/54E CM-abelian
     dim ladder beyond dim-6 toward the general-CY codim ≥ 2
     Voisin obstruction. -/
 def HodgeCYCodim2Chain : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **(R5) BSD typed rank-0 chain (open Prop)** — placeholder for a
     Wave 56 sibling-agent extension of Wave 55F's 4-clause typed
     Prop on `E_rank_zero` toward a substantive Mordell-Weil rank-0
     derivation. -/
 def BSDTypedRankZeroChain : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **(R6) YM continuum lift chain (open Prop)** — placeholder for a
     Wave 56 sibling-agent lift of Wave 55C's finite-dim 2×2 mass-gap
     toy toward a continuum Wightman-reconstruction chain. -/

@@ -28,6 +28,7 @@ import PF.CrossMillenniumDerivedConsequences
 
 namespace PF.Referee.CapstoneDependencyAudit
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag (Rule #1: ProvennessTag) — this module re-exports
     and inspects capstones; carries no Clay-level content of its own. -/
 def capstoneAudit_isInspectionOnly : Prop := True

@@ -87,17 +87,22 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_resolvent_misses_cluster_fix` (`7437ea3`). -/
 def YMCanonicalResolventNarrowedOutProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_quantum_propagator_misses_real_cluster_fix`
     (`9df6ef4`). -/
 def YMCanonicalQuantumPropagatorNarrowedOutProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `weierstrassPairToHodgeAbelianSurfaceSubstrate_full_discharge`
     (`4acf4b1`, dim=2 surface extension of Wave 21 retry). -/
 def HodgeMathlibSurfaceBridgeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_off_diagonal_at_n_le_five`
     (`7437ea3`, side-committed). -/
 def NS3DOffDiagonalAtNFourFiveProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 27 META aggregator (`3955ef0`); pinned here for
     traceability of the Wave 28 META layer. -/
 def Wave27MasterCapstoneAggregatorProven : Prop := True

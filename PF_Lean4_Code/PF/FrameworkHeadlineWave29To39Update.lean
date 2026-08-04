@@ -78,6 +78,7 @@ Section 2, and the load-bearing pin (the actual Lean reference to
 the underlying wave master capstone theorem) is the Section 3
 citation theorem of the same wave. -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- YM canonical-kernel functional-form taxonomy reached maturity:
     Waves 29 (Padé [1/1] IN + partial-fraction OUT), 30 (Padé [2/2]
     IN + two-pole Stieltjes IN), 31 (operator-monotone partial +
@@ -85,32 +86,38 @@ citation theorem of the same wave. -/
     off-cluster). -/
 def YMKernelTaxonomyMatureProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- NS Clay-distance layer-stack progressed from 3 to 1.5 effective
     layers: Wave 33 (global K_T partial + codim-2 cycle-class
     partial), 34 (uniform Hadamard all n + unconditional Galerkin
     K_T shadow), 35 (layer-2 lift scaffold). -/
 def NSClayDistance3To1_5LayersProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Consciousness ↔ RH substrate matrix FULLY OCCUPIED: Wave 35
     (5-point fivepoint witness), Wave 36 (infinite-substrate
     bundle), Wave 38 (infinite zeroSet + BSD-L-function bridge). -/
 def ConsciousnessRHSubstrateMatrixFullyOccupiedProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Cross-Millennium structural skeleton: Wave 37 (Perelman cascade,
     IBM bridge, reverse chains), Wave 39 (H₃ consciousness bridge,
     YM Padé operator instance, BSD rank distinction). -/
 def CrossMillenniumStructuralSkeletonProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Hodge dim=3 and codim-2 substrate bridges: Wave 29 (mathlib
     abelian-3-fold bridge at (1,1) level), Wave 33 (codim-2
     cycle-class partial bridge). -/
 def HodgeDim3AndCodim2SubstrateBridgesProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- IBM empirical ↔ formal bridge: Wave 37 (IBM bridge connecting
     143-problem empirical peaks to the formal α-class
     architecture). -/
 def IBMEmpiricalFormalBridgeProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Nine wave-master capstones (Wave 29, 30, 31, 32, 33, 34, 35,
     36+37 combined, 38, 39) aggregated into one citation point. -/
 def NineWaveMasterCapstonesAggregatedProven : Prop := True

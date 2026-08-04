@@ -73,12 +73,15 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `uniform_hadamard_bound_all_n_holds` (Wave 34 POSITIVE — discharges
     the Wave 33 named open Prop). -/
 def UniformHadamardBoundAllNDischargedProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `uniform_hadamard_discharges_galerkin_shadow_K_T` (Wave 34 — first
     unconditional Galerkin-shadow K_T = 2). -/
 def UnconditionalGalerkinShadowKTProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 33 META aggregator (`5088eff`); pinned here for traceability
     of the Wave 34 META layer. -/
 def Wave33MasterCapstoneAggregatorProven : Prop := True

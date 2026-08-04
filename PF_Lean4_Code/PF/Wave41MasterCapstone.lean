@@ -39,10 +39,13 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `cross_quadratic_field_bridge_capstone` (Wave 41A). -/
 def Wave41CrossQuadraticFieldBridgeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `alpha_of_class_no_go_single_citation_capstone` (Wave 41B). -/
 def Wave41AlphaOfClassNoGoSingleCitationProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 40 META aggregator (`5cb28f2`). -/
 def Wave40MasterCapstoneAggregatorProven : Prop := True
 

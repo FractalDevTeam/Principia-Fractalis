@@ -58,26 +58,37 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `YM_uniform_concentration_via_kernel_structure_final_verdict` (7a417eb). -/
 def YMKernelStructureObstructionProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_at_n_le_two` (9ce926a). -/
 def NS3DLocalBoundLeTwoProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `local_vortex_stretching_bound_at_n_le_three` (ea71d91). -/
 def NS3DLocalBoundLeThreeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `principiaFractalisFrameworkHeadline_holds` (2c642f4). -/
 def FrameworkHeadline19FieldProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `cross_millennium_shared_invariants_capstone` (9371c0e). -/
 def CrossMillenniumSharedInvariantsProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `YM_uniform_concentration_via_multiscale_averaging_blocked` (6f6ee74). -/
 def YMMultiscaleAveragingNegativeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `bsd_rank_blind_universal_concordance` (b85d981). -/
 def BSDRankBlindUniversalProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Ch 29 manuscript propagation (7110dc5, NOT a Lean deliverable). -/
 def Wave22ManuscriptCh29PropagationProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Coq parity stubs W20–22 (8e68449, NOT a Lean deliverable). -/
 def Wave22CoqParityStubsProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- OPEN_PROBLEMS banner (f8e8052 + 8ccbe8c, NOT a Lean deliverable). -/
 def Wave22OpenProblemsBannerProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- P5Permutation orphan removal (d272595, build-hygiene only). -/
 def Wave22P5OrphanRemovedProven : Prop := True
 

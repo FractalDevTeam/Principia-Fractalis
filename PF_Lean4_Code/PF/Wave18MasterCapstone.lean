@@ -140,28 +140,36 @@ but that is the entire point of a meta-aggregation file, and the
 docstring lists each cited theorem by name. The full content
 lives in the cited file. -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag: `fractalYMLevel2_structural_certificate` has been
     proven axiom-free in `PF/YangMillsLevel2Spectrum.lean`. -/
 def YMLevel2Proven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `fractalYM_cross_level_trace_pattern_capstone`. -/
 def YMLevel3Proven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `fractalYM_cross_level_4_capstone`. -/
 def YMLevel4Proven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `fractalYM_cross_level_5_capstone`. -/
 def YMLevel5Proven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `perelman_backward_unified_attack_capstone`. -/
 def PerelmanBackwardProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `bsd_rank_zero_one_two_concordance`. -/
 def BSDThreeRankProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `t3_sym_2x2_truncation_yields_first_2_zero_candidates`. -/
 def RHDim2TruncationProven : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Provenness tag for `framework_full_3D_clay_chain_axiom_free`. -/
 def NS3DClayChainIsolatedProven : Prop := True
 

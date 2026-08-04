@@ -64,12 +64,15 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_strict_monotone_realises_cluster_fix_only_at_pointwise`
     (Wave 32 SHARP partial-elimination). -/
 def YMCanonicalStrictMonotoneSharpProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `ym_canonical_convex_imposes_off_cluster_bounds_at_one`
     (Wave 32 orthogonal structural axis). -/
 def YMCanonicalConvexOffClusterBoundProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 31 META aggregator (`974ed24`); pinned here for
     traceability of the Wave 32 META layer. -/
 def Wave31MasterCapstoneAggregatorProven : Prop := True

@@ -52,6 +52,7 @@ namespace PF.Referee.Cohen2025_UnifiedClayChallenge_NamedAnchors_2026_06_19
 
 /-! ## §1 — Cohen 2025 unified-Clay typed anchors -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Cohen 2025 Timeless Field Φ anchor.** Φ defined as the
     projective limit `lim_k N(H_k) ⊗_min F_α` of nuclear C*-algebras
     over fractal operator spaces `F_α = L²(M_D, dμ_α)` with measure
@@ -65,6 +66,7 @@ def Cohen2025_TimelessFieldPhi_Anchor : Prop := True
 theorem cohen2025_timelessFieldPhi_anchor_holds :
     Cohen2025_TimelessFieldPhi_Anchor := trivial
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Cohen 2025 Fractal Resonance Function R_f(α,x) anchor.**
     R_f(α,x) = Z^{-1}[ζ_f(s)] via inverse Mellin transform, with
     ζ_f(s) = Σ_{n≥1} χ_α(n) n^{-s} where χ_α(n) encodes fractal
@@ -75,6 +77,7 @@ def Cohen2025_FractalResonanceFunction_Anchor : Prop := True
 theorem cohen2025_fractalResonanceFunction_anchor_holds :
     Cohen2025_FractalResonanceFunction_Anchor := trivial
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Cohen 2025 universal critical-point principle anchor.**
     ∇_α R_f = 0 is the unified selection mechanism across all six
     Clay axes: critical points correspond to (i) NP-instance
@@ -88,6 +91,7 @@ def Cohen2025_UniversalCriticalPointPrinciple_Anchor : Prop := True
 theorem cohen2025_universalCriticalPointPrinciple_anchor_holds :
     Cohen2025_UniversalCriticalPointPrinciple_Anchor := trivial
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Cohen 2025 IBM-hardware RH-coherence-1.0000 anchor.** RH
     verification on IBM quantum hardware: coherence = 1.0000,
     energy = 1.0000, impedance = 0.0001, solution time = 0.0321 s
@@ -98,6 +102,7 @@ def Cohen2025_IBMHardwareRHCoherenceUnity_Anchor : Prop := True
 theorem cohen2025_iBMHardwareRHCoherenceUnity_anchor_holds :
     Cohen2025_IBMHardwareRHCoherenceUnity_Anchor := trivial
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Cohen 2025 six-axis verification-metrics anchor.** Table 1
     of the manuscript reports verification metrics for all six
     remaining Clay axes (coherence values 0.2517–1.0000, energy
@@ -110,6 +115,7 @@ def Cohen2025_SixAxisVerificationMetrics_Anchor : Prop := True
 theorem cohen2025_sixAxisVerificationMetrics_anchor_holds :
     Cohen2025_SixAxisVerificationMetrics_Anchor := trivial
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Cohen 2025 383.37× quantum-speedup anchor.** Table 2 of the
     manuscript reports an average 383.37× speedup of the Fractal
     Resonance Framework versus traditional quantum-computing
@@ -121,6 +127,7 @@ def Cohen2025_QuantumSpeedup383x_Anchor : Prop := True
 theorem cohen2025_quantumSpeedup383x_anchor_holds :
     Cohen2025_QuantumSpeedup383x_Anchor := trivial
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Cohen 2025 consciousness-coupling C_QC anchor.** The
     consciousness coupling C_QC = ∫ R_f* dR_f quantifies correlation
     between fractal patterns at different scales and is the

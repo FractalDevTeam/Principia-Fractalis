@@ -45,10 +45,13 @@ namespace PrincipiaTractalis
 
 /-! ## Section 0 — Provenness tags -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `galois_orbit_millennium_discriminator_capstone` (Wave 42A). -/
 def Wave42GaloisOrbitMillenniumDiscriminatorProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- `stieltjes_hodge_codim_2_spectral_bridge_capstone` (Wave 42B). -/
 def Wave42StieltjesHodgeCodim2SpectralBridgeProven : Prop := True
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- Wave 41 META aggregator (`54f7a4c`). -/
 def Wave41MasterCapstoneAggregatorProven : Prop := True
 

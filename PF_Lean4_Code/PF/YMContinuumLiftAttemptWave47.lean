@@ -217,6 +217,7 @@ class ContinuumHilbertCarrier (H : Type) extends Inhabited H
     inhabits the type signature but carries no Hilbert-space content. -/
 instance : ContinuumHilbertCarrier ℝ := { default := 0 }
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **(RP) Reflection positivity carrier** — a Prop signature for the
     reflection-positivity axiom on a Euclidean QFT measure.
 
@@ -232,6 +233,7 @@ instance : ContinuumHilbertCarrier ℝ := { default := 0 }
     on nuclear spaces) + (2) (reflection structure on `S(ℝ⁴)`). -/
 def ReflectionPositivity (_H : Type) : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **(EI) Euclidean invariance carrier** — a Prop signature for the
     Euclidean-group invariance axiom: the measure `μ` is invariant
     under the action of `E(4) = SO(4) ⋉ ℝ⁴` on `S(ℝ⁴)`.
@@ -251,6 +253,7 @@ def EuclideanInvariance (_H : Type) : Prop := True
 def SpectralConditionWithGap (_H : Type) (Δ_target : ℝ) : Prop :=
   0 < Δ_target
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **(UV) Unique vacuum carrier** — Prop signature for the
     uniqueness-of-vacuum axiom: the spectral subspace of `H` at
     eigenvalue `0` is one-dimensional, spanned by the vacuum `|Ω⟩`.

@@ -368,21 +368,25 @@ substrate axes:
 
 We record each marker as a Prop. -/
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Quintic-NOT-abelian marker** — the quintic CY3 is simply
     connected, hence not an abelian variety. -/
 def quintic_NOT_abelian_marker
     (_X : QuinticCYThreefoldCodim2Substrate) : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Quintic-NOT-uniruled marker** — the quintic has Kodaira dim 0
     (Calabi-Yau), not -∞ (uniruled). -/
 def quintic_NOT_uniruled_marker
     (_X : QuinticCYThreefoldCodim2Substrate) : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Quintic-NOT-CM marker** — `Pic(X₅) = ℤ·H` is rank-1; no
     product-of-CM-elliptic-curves structure. -/
 def quintic_NOT_CM_marker
     (_X : QuinticCYThreefoldCodim2Substrate) : Prop := True
 
+-- VACUITY BANNER (2026-08-04): this declaration is a named marker, not a theorem; it carries no mathematical content. See codex/TRUE_PROP_AUDIT_2026-08-01.md
 /-- **Quintic IS Calabi-Yau marker** — `K_X ≃ 𝒪_X`, `H¹(𝒪_X) = 0`. -/
 def quintic_is_calabi_yau_marker
     (_X : QuinticCYThreefoldCodim2Substrate) : Prop := True
