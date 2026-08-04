@@ -795,3 +795,28 @@ Because this chapter is titled ``Verification,'' it is essential to state precis
 \item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED --- the consciousness and clinical claims.} The $\text{ch}_2\!\geq\!0.95$ threshold, the 97.3\,\% EEG classification accuracy (Protocol~C2), and all consciousness quantifications are physical/clinical claims that only experiment can settle; no proof assistant can establish them, and they are not independently validated here.
 \end{itemize}
 \noindent In short: the Lean and Coq axiom audits and the partial Lean4Lean re-verification (Sections~\ref{sec:lean4lean-reverification}--\ref{sec:referee-proof-certifications}) certify the \emph{substrate}, with zero project axioms; the Python protocols in this chapter provide \emph{reproducibility of numerical outputs}, not proofs of the Millennium, consciousness, or cosmological claims.
+
+\paragraph{Verification update (2026-08-04): kernel-verified results added since the 2026-07-23 ledger (arc r183--r192).}
+The ledger above describes the corpus as of its date; its scope sentence
+(``the \emph{entire} machine-verified scientific scope'') should be read as of
+2026-07-23. Later arcs, recorded in the Ch.~\ref{ch:riemann-hypothesis} and
+Ch.~\ref{ch:birch-swinnerton-dyer} ledgers, extended the kernel-verified
+content. The 2026-08-02/04 transfer-operator arc, one line per revision (all
+Lean~4, axioms exactly $[\texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}]$, no \texttt{sorry}, no \texttt{native\_decide}, no
+project axioms; record \texttt{codex/RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}):
+\begin{itemize}
+\item \textbf{r183} --- square-summable matrices induce bounded operators on $\ell^2$, operator norm $\le$ Hilbert--Schmidt norm (\texttt{hsOperator}).
+\item \textbf{r184} --- Hilbert--Schmidt operators are compact, via a finite-rank approximation bridge absent from mathlib at the pin (\texttt{isCompactOperator\_hsOperator}).
+\item \textbf{r185} --- geometric matrix decay gives a closed-form Hilbert--Schmidt bound $C/\sqrt{(1-r^2)(1-\rho^2)}$ (\texttt{hsNorm\_le\_of\_geometric}).
+\item \textbf{r186} --- contracting weighted-composition transfer matrices are compact on $\ell^2$; the classical Montel argument is bypassed (\texttt{isCompactOperator\_transferMatrix}).
+\item \textbf{r188/r188b/r188c} --- the holomorphic Lefschetz trace formula: trace $=$ fixed-point contour integral $= \sum_k w_k(x_k)/(1-\varphi_k'(x_k))$, under an explicit simple-zero factorization hypothesis (\texttt{trace\_eq\_contour}, \texttt{trace\_eq\_residues}).
+\item \textbf{r189} --- instantiation on the actual Gauss/GKW branches at $s=1$: depth-$K$ trace $= \sum_{j=1}^{K} x_j^2/(1+x_j^2)$; golden case $(5-\sqrt{5})/10$ in closed form (\texttt{gauss\_trace}, \texttt{gauss\_trace\_one}).
+\item \textbf{r190} --- complex-$s$ Mayer weights for all $s\in\mathbb{C}$; Mayer's convergence threshold $\Re s > 1/2$ \emph{derived} in the kernel; the full Mayer trace as the limit of kernel-checked truncated traces, $\mathrm{mayerTrace}(1) = 0.7711255236556589$ (\texttt{mayer\_trace}, \texttt{summable\_mayerTerm}, \texttt{tendsto\_mayer\_trace}).
+\item \textbf{r191} --- traces of powers are $n$-periodic-orbit sums (\texttt{trace\_pow\_eq\_residues}); golden $K{=}1$, $n{=}2$ closed form $(3\sqrt{5}-5)/10$ (\texttt{gauss\_square\_trace}).
+\item \textbf{r192} --- the transfer matrix is a semigroup, $A^{(n)} = A^n$ on $\ell^2$; the periodic orbits compute the traces of every power of one matrix (\texttt{transferMatrix\_pow}, \texttt{trace\_matPow\_eq\_residues}).
+\end{itemize}
+\noindent Honest scope, unchanged in kind from the ledger above: these are
+theorems about transfer matrices under stated hypotheses. Determinant
+assembly, nuclearity/Lidskii, infinite-branch operators, Selberg theory, and
+the Millennium statements themselves (RH, BSD) remain \textbf{open}.
