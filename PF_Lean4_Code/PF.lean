@@ -1000,6 +1000,7 @@ import PF.TransferTrace_r188  -- r188: Lefschetz arc stone 1 -- trace foundation
 import PF.TransferResidue_r188c  -- r188c: Lefschetz trace formula CLOSED -- trace = sum of fixed-point residues w(x)/(1-phi'(x))
 import PF.GaussTrace_r189  -- r189: trace formula instantiated on Gauss/GKW branch data -- trace = sum x_j^2/(1+x_j^2), K=1 golden case (5-sqrt5)/10
 import PF.MayerTrace_r190  -- r190: complex-s Mayer weights (z+j)^(-2s) -- truncated trace = sum x_j^(2s)/(1+x_j^2) for ALL s, converges to full Mayer trace for Re s > 1/2
+import PF.TransferPower_r191  -- r191: traces of powers L^n -- word systems, composition closure, n-cycle Lefschetz formula, golden square witness (3sqrt5-5)/10
 
 /-!
 ## Principia Fractalis Formal Verification
