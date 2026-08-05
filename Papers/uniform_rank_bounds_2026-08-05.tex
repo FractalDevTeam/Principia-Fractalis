@@ -1,0 +1,1288 @@
+%% uniform_rank_bounds_2026-08-05.tex
+%%
+%% Machine-checked canonical heights and rank lower bounds, uniformly in
+%% the curve.
+%%
+%% Sequel to Papers/formal_mordell_weil_rank_2026-07-30.tex, cited here
+%% as [MW].
+%%
+%% Every mathematical claim below is either a kernel-verified Lean 4
+%% theorem at HEAD b99f2ab6 (2026-08-05), axioms a subset of
+%% [propext, Classical.choice, Quot.sound], zero project axioms, zero
+%% sorries, no native_decide, or standard cited literature.  Verified
+%% build data: lake build PF = 4711 jobs, mathlib pin eed770a4,
+%% toolchain leanprover/lean4:v4.24.0-rc1.
+
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{seqsplit}
+
+\emergencystretch=3em
+\hbadness=6000
+\sloppy
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% \lt: Lean identifiers and shell commands.  Plain \texttt, NOT \seqsplit --
+% seqsplit deletes spaces (it would print "lake build PF" as "lakebuildPF")
+% and permits a line break after any single character.
+\DeclareRobustCommand{\lt}[1]{\texttt{#1}}
+% \ltw: long unbroken digit strings, where breaking anywhere is what we want.
+\DeclareRobustCommand{\ltw}[1]{\texttt{\seqsplit{#1}}}
+\newcommand{\hh}{\widehat{h}}
+\newcommand{\nh}{H}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\reg}{Reg}
+\DeclareMathOperator{\Res}{Res}
+\newcommand{\DDz}{\mathcal{D}}
+\newcommand{\Sfz}{\mathcal{S}}
+\newcommand{\Prz}{\mathcal{P}}
+
+\title[Machine-checked canonical heights and rank lower bounds,
+uniformly in the curve]{Machine-checked canonical heights and rank lower
+bounds, uniformly in the curve}
+
+\author{Pablo Cohen}
+\address{Mesa, Arizona, USA}
+\email{psolorzano@alumni.berklee.edu}
+
+\date{5 August 2026}
+
+\subjclass[2020]{Primary 11G05, 11Y16; Secondary 68V20, 68V15}
+
+\keywords{elliptic curve, canonical height, Mordell--Weil rank,
+independence of points, resultant, Lean 4, interactive theorem proving}
+
+\begin{document}
+
+\begin{abstract}
+We report a machine-checked construction of the canonical
+(N\'eron--Tate) height, and of rank lower bounds, for elliptic curves
+over $\mathbb{Q}$, which is \emph{uniform in the curve}. Working in
+Lean~4 over \texttt{mathlib}: for every Weierstrass curve $W/\mathbb{Q}$
+whose $b$-invariants are integers, whose discriminant $\Delta$ is
+nonzero, and which has no rational $2$-torsion, we construct
+$\hh \colon W(\mathbb{Q}) \to \mathbb{R}$, prove the parallelogram law
+for it \emph{exactly}, deduce $\hh(kR) = k^2\hh(R)$ and bi-additivity of
+the associated pairing, and conclude: if $n$ rational points have
+nonzero Gram determinant, then $n \le \rank_{\mathbb{Z}}
+W(\mathbb{Q})$. Every constant is an explicit polynomial in the
+coefficients of the curve. The predecessor of this paper proved
+$\rank \ge 2$ for \texttt{389a1} and $\rank \ge 3$ for \texttt{5077a1}
+through certificate suites built by hand for each curve; here both are
+re-derived by instantiating the uniform machine, with the earlier
+interval arithmetic as the only per-curve numerical input.
+
+The mathematical content is a reduction. The secant forms that control
+$x(P{+}Q)$ and $x(P{-}Q)$ restrict on the diagonal to the duplication
+pair $(\Phi,\Psi)$, so the secant content problem reduces to the
+resultant identity $\Res(\Phi,\Psi) = \Delta^2$ rather than needing an
+elimination theory of its own; twin B\'ezout certificates in the two
+monomial weights, together with a cubing of the duplication identity,
+give a divisor bound $\Delta^6$ for the content of the secant triple, on
+every curve. Exactly one hypothesis survives universalization --- no
+rational $2$-torsion --- and it is necessary, because $\Psi$ vanishes
+precisely at rational $2$-torsion. The price of uniformity is paid in
+the size of the constants, which we tabulate. Kernel axioms are
+$[\mathtt{propext}, \mathtt{Classical.choice}, \mathtt{Quot.sound}]$
+throughout, with no \lt{sorry}, no \lt{native\_decide} and no
+project-level axiom. These are rank \emph{lower} bounds; nothing here
+bears on descent, on $L$-functions, or on the Birch--Swinnerton-Dyer
+conjecture.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{What is new}
+
+In \cite{MW} the canonical height of N\'eron and Tate was constructed
+inside a proof assistant for the first time, and used to prove
+$2 \le \rank E(\mathbb{Q})$ for $E = \mathtt{389a1}$ and
+$3 \le \rank E'(\mathbb{Q})$ for $E' = \mathtt{5077a1}$. Two components
+of that work were already curve-independent: the passage from a doubling
+window to a canonical height, and the passage from a nonvanishing Gram
+determinant to a rank bound. Everything between them --- the duplication
+estimates, the secant estimates, the quasi-parallelogram law and hence
+bi-additivity --- was written out by hand, once per curve, in some forty
+files.
+
+This paper reports that the whole of the middle is now
+curve-independent. The main theorem is the following.
+
+\begin{theorem}[\lt{rank\_ge\_universal}]\label{thm:main}
+Let $W$ be a Weierstrass curve over $\mathbb{Q}$ (\texttt{mathlib}'s
+\lt{WeierstrassCurve.Affine} $\mathbb{Q}$), and suppose
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item the $b$-invariants of $W$ are integers,
+        $b_i = B_i$ with $B_2,B_4,B_6,B_8 \in \mathbb{Z}$;
+  \item $\Delta := -B_2^2B_8 + 9B_2B_4B_6 - 8B_4^3 - 27B_6^2 \ne 0$;
+  \item $W(\mathbb{Q})$ has no rational $2$-torsion: $2R = O$ implies
+        $R = O$.
+\end{enumerate}
+Let $\hh$ be the canonical height of \S\ref{sec:window} and
+$\langle\cdot,\cdot\rangle$ the pairing of \S\ref{sec:par}. If
+$P \colon \{1,\dots,n\} \to W(\mathbb{Q})$ satisfies
+\[
+  \det\bigl(\langle P_i, P_j\rangle\bigr)_{i,j} \;\ne\; 0,
+\]
+then $n \le \rank_{\mathbb{Z}} W(\mathbb{Q})$.
+\end{theorem}
+
+We call a curve satisfying (i)--(iii) \emph{admissible}. Nothing else is
+assumed: no reduced model, no minimality, no bound on the conductor, no
+knowledge of the torsion subgroup beyond (iii). All of the constants
+that appear in the construction are explicit polynomials in
+$\lvert B_2\rvert, \lvert B_4\rvert, \lvert B_6\rvert, \lvert
+B_8\rvert$.
+
+Two specializations are proved in the same file, because they are the
+shapes one actually checks. At $n = 2$ the Gram determinant is the
+classical regulator expression,
+\begin{equation}\label{eq:reg2}
+  \det\bigl(\langle P_i,P_j\rangle\bigr)
+   = \hh(P)\,\hh(Q) - \langle P,Q\rangle^2
+   \qquad (\lt{gram\_det\_fin\_two}),
+\end{equation}
+so a nonzero regulator forces $\rank \ge 2$
+(\lt{rank\_ge\_two\_universal}); at $n = 3$ the corresponding expansion
+is \lt{gram\_det\_fin\_three}.
+
+Theorem~\ref{thm:main} rests on the following, which is where the
+mathematical work is.
+
+\begin{theorem}[\lt{canheight\_parallelogram\_universal}, \lt{par},
+\lt{mul}, \lt{biAdditive\_pairingW}]\label{thm:height}
+Let $W$ be admissible. There is a function
+$\hh \colon W(\mathbb{Q}) \to \mathbb{R}$, defined as
+\[
+  \hh(R) \;=\; \lim_{n\to\infty}
+     \frac{\log \nh\bigl(x(2^nR)\bigr)}{4^n},
+\]
+such that, formally:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+  \item $\hh \ge 0$, $\hh(O) = 0$ and $\hh(-R) = \hh(R)$;
+  \item $\bigl\lvert \hh(R) - \log \nh(x(R))\bigr\rvert \le
+        \tfrac13 \log \kappa$, where $\kappa$ is the explicit constant
+        of \S\ref{sec:dup};
+  \item $\hh(P+Q) + \hh(P-Q) = 2\hh(P) + 2\hh(Q)$ for \emph{all}
+        $P, Q \in W(\mathbb{Q})$, with no side conditions;
+  \item $\hh(kR) = k^2\hh(R)$ for all $k \in \mathbb{Z}$ and all $R$;
+  \item the pairing $\langle P,Q\rangle :=
+        \tfrac12\bigl(\hh(P{+}Q) - \hh(P) - \hh(Q)\bigr)$ is symmetric
+        and additive in each variable, and
+        $\langle P,P\rangle = \hh(P)$.
+\end{enumerate}
+\end{theorem}
+
+Here $\nh(a/b) = \max(\lvert a\rvert, b)$ for a reduced fraction, and
+$x(R)$ is the $x$-coordinate of $R$, with $x(O) := 0$ (harmless, since
+$\nh(0) = 1$). Every statement in Theorems~\ref{thm:main}
+and~\ref{thm:height} is a Lean~4 theorem; \lt{\#print axioms} on each
+reports a subset of $[\mathtt{propext}, \mathtt{Classical.choice},
+\mathtt{Quot.sound}]$ and nothing else. \S\ref{sec:verif} gives the
+theorem-by-theorem map to the sources and the verification data;
+\S\ref{sec:notproved} states, specifically, what is \emph{not} proved
+--- these are rank lower bounds, and nothing here concerns descent or
+$L$-functions.
+
+Note the strengthening in Theorem~\ref{thm:height}(3) and~(4). In
+\cite{MW} the parallelogram law carried four non-torsion side
+conditions, discharged for the two worked curves by proving their
+torsion subgroups trivial. Here it is unconditional on any admissible
+curve: the degenerate configurations are closed separately, and the one
+place where genuine torsion could intrude --- $2$-torsion --- is
+excluded by hypothesis (iii). That is what makes the multiple law and
+bi-additivity come out without bookkeeping.
+
+\subsection{Relation to the predecessor, and what the two curves are for}
+
+The results of \cite{MW} are re-derived here, through the uniform
+machine:
+\begin{align}
+  2 &\le \rank_{\mathbb{Z}} E(\mathbb{Q}), \quad
+    E = \mathtt{389a1} \colon y^2 + y = x^3+x^2-2x
+    &&(\lt{E389a1\_rank\_ge\_two\_universal}), \label{eq:389}\\
+  3 &\le \rank_{\mathbb{Z}} E'(\mathbb{Q}), \quad
+    E' = \mathtt{5077a1} \colon y^2+y = x^3-7x+6
+    &&(\lt{E5077a1\_rank\_ge\_three\_universal}). \label{eq:5077}
+\end{align}
+These are not new arithmetic facts, and they were not new in \cite{MW}
+either: the ranks of these two curves are classical. Their role here is
+different. They are the evidence that the uniform machine is not
+vacuous and that it reproduces, rather than merely parallels, the
+hand-built results: \eqref{eq:389} and \eqref{eq:5077} are obtained by
+instantiating Theorem~\ref{thm:main} at the two hypothesis packages and
+feeding it the certified interval arithmetic of \cite{MW} --- the
+regulator positivity computations --- as the sole numerical input. No
+height estimate specific to either curve appears anywhere in the chain.
+\S\ref{sec:validation} describes the transfer and records a
+verification-methodology point that we think is of independent
+interest: the uniform canonical height and the per-curve one turn out to
+be equal \emph{by \lt{rfl}}.
+
+\subsection{The obstruction, and how it is avoided}\label{sec:ideas}
+
+The reason the middle of \cite{MW} was per-curve is easy to state. Both
+halves of the construction --- doubling and addition --- need two
+things about an explicit pair of integer forms: a bound on their
+\emph{content} (the common factor that cancels when the fraction is
+reduced), and two-sided bounds on their \emph{size}. Per curve, the
+content is computed by an extended Euclidean algorithm on the actual
+integer polynomials, and the size by summing actual coefficients. Both
+outputs are numbers, not formulas, and both computations must be redone
+from scratch for each new curve.
+
+The duplication half was made uniform by a resultant identity: writing
+$x = X/Y$ and homogenizing,
+\begin{equation}\label{eq:PhiPsi}
+  \Phi(X,Y) = X^4 - b_4X^2Y^2 - 2b_6XY^3 - b_8Y^4, \qquad
+  \Psi(X,Y) = 4X^3Y + b_2X^2Y^2 + 2b_4XY^3 + b_6Y^4,
+\end{equation}
+one has $\Res(\Phi,\Psi) = \Delta^2$ as an identity in
+$\mathbb{Z}[b_2,b_4,b_6,b_8]$ modulo the relation
+$4b_8 = b_2b_6 - b_4^2$, and the Sylvester cofactors give two explicit
+B\'ezout witnesses. That was already in place, and is summarized in
+\S\ref{sec:dup}. The secant half looked as though it would need its own
+elimination theory --- a resultant in two sets of variables, on forms
+twice as large. It does not, and the reason is the first of four ideas
+this paper contributes.
+
+\emph{First: diagonal degeneration.} Write $x_i = u_i/v_i$ in lowest
+terms. The three integer forms controlling addition are
+$\DDz = (u_1v_2 - u_2v_1)^2$ and the bidegree-$(2,2)$ forms $\Sfz$,
+$\Prz$ of \eqref{eq:secforms} below, which satisfy
+$\DDz\cdot\bigl(x(P{+}Q) + x(P{-}Q)\bigr) = \Sfz$ and
+$\DDz\cdot x(P{+}Q)\,x(P{-}Q) = \Prz$. Restricted to the diagonal
+$(u_2,v_2) = (u_1,v_1)$ they \emph{are} the duplication pair:
+\begin{equation}\label{eq:diag}
+  \Sfz(u,v,u,v) = \Psi(u,v), \qquad
+  \Prz(u,v,u,v) = \Phi(u,v), \qquad
+  \DDz(u,v,u,v) = 0 .
+\end{equation}
+The secant construction degenerates, honestly, onto the duplication
+construction. Consequently the secant content problem does not need a
+new keystone: eliminating the second point against $\DDz$ lands on
+$\Phi$ and $\Psi$ at the first point, and $\Res(\Phi,\Psi) = \Delta^2$
+finishes the job.
+
+\emph{Second: twin certificates.} Elimination produces the duplication
+forms \emph{squared}, weighted by a monomial in the second point's
+coordinates. Sylvester's matrix supplies the resultant in both monomial
+weights, and both are needed: one gets
+\[
+  \sigma_1\DDz + \sigma_2\Sfz = v_2^3\,\Psi_1^2
+  \qquad\text{and}\qquad
+  \sigma_1'\DDz + \sigma_2'\Sfz = u_2^3\,\Psi_1^2,
+\]
+with explicit integer cofactors, and similarly for $\Prz$ and $\Phi_1$.
+Neither weight alone is usable --- $u_2$ and $v_2$ can each be
+arbitrarily divisible --- but since $\gcd(u_2,v_2) = 1$, so are
+$u_2^3$ and $v_2^3$, and the two weights cancel each other. A common
+divisor of the secant triple therefore divides $\Psi_1^2$ and
+$\Phi_1^2$ outright.
+
+\emph{Third: the squaring trick.} What is now available are the
+\emph{squares} $\Phi_1^2, \Psi_1^2$, while the duplication B\'ezout
+identity is linear, $F_1\Phi + G_1\Psi = \Delta^2X^7$. Cubing it puts
+every term into the ideal generated by $\Phi^2$ and $\Psi^2$:
+\begin{equation}\label{eq:cube}
+  (F\Phi + G\Psi)^3
+   = \bigl(F^3\Phi + 3F^2G\Psi\bigr)\Phi^2
+     + \bigl(3FG^2\Phi + G^3\Psi\bigr)\Psi^2 .
+\end{equation}
+Hence a common divisor of the secant triple divides
+$(\Delta^2X^7)^3 = \Delta^6X^{21}$ and likewise $\Delta^6Y^{21}$, and
+coprimality of $X,Y$ leaves $\Delta^6$. That is exactly where the
+exponent~$6$ comes from; it is the price of the cube, and we do not
+claim it is optimal.
+
+\emph{Fourth: the honest residue.} Per curve, \cite{MW} discharged all
+non-torsion side conditions from the triviality of the torsion
+subgroup, proved by enumeration. Uniformly, exactly one hypothesis
+survives, and it is hypothesis (iii): no rational $2$-torsion. It is not
+an artifact. On the curve one has
+$\Psi(x) = (2y + a_1x + a_3)^2$ (\lt{psiX\_eq\_sq}), so
+$\Psi$ vanishes at $x(R)$ precisely when $2R = O$; at such a point the
+duplication map has no denominator, the height window's construction has
+nothing to say, and the whole chain stops. Curves with rational
+$2$-torsion are genuinely outside the scope of Theorem~\ref{thm:main};
+they would need a per-step variant, which we have not carried out.
+
+\subsection{Related formalization}\label{sec:related}
+
+\texttt{mathlib} \cite{mathlib} provides the Weierstrass curve type, the
+group law on the affine, projective and Jacobian models with a full
+associativity proof, variable change, normal forms, division
+polynomials, and reduction over discrete valuation rings. At the commit
+pinned for this work (\S\ref{sec:verif}) it contains no arithmetic
+height theory, no Mordell--Weil theorem, and no descent; we checked this
+directly against the pinned copy.
+
+On \texttt{mathlib} \texttt{master} at the time of writing there is a
+\lt{Mathlib/NumberTheory/Height/} directory --- \lt{Basic},
+\lt{Northcott}, \lt{MvPolynomial}, \lt{NumberField},
+\lt{Projectivization}, \lt{EllipticCurve} --- developing heights over
+fields with a theory of absolute values, and a
+\lt{Mathlib/GroupTheory/Descent.lean} of M.~Stoll giving an abstract
+descent theorem (a height function with suitable growth relative to an
+endomorphism forces finite generation), one of the ingredients of
+Mordell--Weil. The elliptic-curve height file states as its goal the
+approximate parallelogram law $\lvert h(P{+}Q) + h(P{-}Q) - 2(h(P) +
+h(Q))\rvert \le C$ for the na\"ive height, lists it as a
+\textsc{todo}, and currently contains one theorem: that the
+sum-and-difference map on $\mathbb{P}^2$ induced by a Weierstrass curve
+is a morphism, in the form
+$\exists C\, \forall x,\ \lvert \log\nh(F(x)) - 2\log\nh(x)\rvert \le
+C$. That is the same estimate our \S\ref{sec:secant} proves, in far
+greater generality of ground field --- and with a non-explicit
+constant. The difference matters for our purposes: an unquantified $C$
+cannot be fed to interval arithmetic, whereas the constants below are
+polynomials in the coefficients and can be evaluated. Neither the
+canonical height nor any rank bound is present there. Our development
+is independent of both files.
+
+Buzzard's FLT project \cite{FLT} targets a modularity lifting theorem
+sufficient for Fermat, not the full modularity theorem. Gross--Zagier,
+Kolyvagin and Heegner point theory are, to our knowledge, unformalized
+anywhere.
+
+\section{Setup and the \texorpdfstring{$b$}{b}-invariant basis}
+
+Throughout, $W$ is a Weierstrass curve over $\mathbb{Q}$ with
+coefficients $(a_1,a_2,a_3,a_4,a_6)$, and $W(\mathbb{Q})$ is
+\texttt{mathlib}'s \lt{WeierstrassCurve.Affine.Point}: the inductive
+type with constructors \lt{zero} and \lt{some}, the latter carrying a
+nonsingular affine rational point, with \texttt{mathlib}'s
+\lt{AddCommGroup} instance. The group law requires only that the ground
+field have decidable equality; nonsingularity of the curve is not an
+instance hypothesis, which is why $\Delta \ne 0$ appears explicitly in
+Theorem~\ref{thm:main}.
+
+The $b$-invariants are
+\[
+  b_2 = a_1^2 + 4a_2, \quad b_4 = 2a_4 + a_1a_3, \quad
+  b_6 = a_3^2 + 4a_6, \quad
+  b_8 = a_1^2a_6 + 4a_2a_6 - a_1a_3a_4 + a_2a_3^2 - a_4^2,
+\]
+subject to \texttt{mathlib}'s \lt{b\_relation}
+\begin{equation}\label{eq:brel}
+  4b_8 = b_2b_6 - b_4^2 ,
+\end{equation}
+and $\Delta = -b_2^2b_8 + 9b_2b_4b_6 - 8b_4^3 - 27b_6^2$. Hypothesis
+(i) of Theorem~\ref{thm:main} says that the four $b$-invariants are the
+images of integers $B_2,B_4,B_6,B_8$; the integral form of
+\eqref{eq:brel} is then \emph{derived} from \texttt{mathlib}'s rational
+one rather than assumed
+(\lt{b\_relation\_int}). We drop the capitals below and write
+$b_i$ for the integers.
+
+Choosing the $b$-invariants as the ground basis, rather than the
+$a_i$, is not cosmetic. Every object in this paper --- $\Phi$, $\Psi$,
+$\Delta$, and the three secant forms --- is a polynomial in the $b_i$
+alone. Expressed over $\mathbb{Z}[a_1,\dots,a_6]$ the B\'ezout
+cofactors of \S\ref{sec:dup} would be unmanageable; over
+$\mathbb{Z}[b_2,b_4,b_6,b_8]$ the four of them comprise $168$ monomials
+in total ($55$, $54$, $26$ and $33$ respectively), of total degree at
+most nine in $(X,Y,b_2,b_4,b_6,b_8)$, which the kernel checks by
+\lt{ring} without complaint. In that free polynomial ring
+$\Res(\Phi,\Psi)$ is not literally $\Delta^2$; the two agree modulo
+\eqref{eq:brel}, and the correction multiplier is eight monomials, so
+each identity closes with a single \lt{linear\_combination}.
+
+\begin{definition}[\lt{naiveHeight}, \lt{nh}, \lt{X}]
+For $q \in \mathbb{Q}$ set
+$\nh(q) := \max\bigl(\lvert\mathrm{num}(q)\rvert, \mathrm{den}(q)\bigr)$,
+using Lean's reduced representation; $\nh(q) \ge 1$ always. Define
+$x \colon W(\mathbb{Q}) \to \mathbb{Q}$ by $x(O) = 0$ and
+$x(\text{some at }(X,Y)) = X$, and $h(R) := \log \nh(x(R))$.
+\end{definition}
+
+\begin{remark}[Notation]\label{rem:notation}
+In the Lean sources the two points' reduced coordinates are named
+$(a_1,b_1,a_2,b_2)$, which collides typographically with the curve's
+$a$- and $b$-invariants. Here we write $x_i = u_i/v_i$ with
+$\gcd(u_i,v_i)=1$ and reserve $a_i, b_i$ for the invariants. The
+translation is $u_i \leftrightarrow a_i$, $v_i \leftrightarrow b_i$ in
+the arguments of \lt{DDz}, \lt{Sfz}, \lt{Prz} and their certificates.
+\end{remark}
+
+\section{The duplication side}\label{sec:dup}
+
+This section records what \cite{MW} already had in universal form; it is
+included because the secant side reduces to it.
+
+\begin{proposition}[\lt{bezout\_X}, \lt{bezout\_Y},
+\lt{dvd\_disc\_sq\_of\_isCoprime}]\label{prop:bez}
+With $\Phi,\Psi$ as in \eqref{eq:PhiPsi} there are explicit
+$F_1,G_1,F_2,G_2 \in \mathbb{Z}[b_2,b_4,b_6,b_8][X,Y]$, binary cubics in
+$(X,Y)$, such that, granted \eqref{eq:brel},
+\[
+  F_1\Phi + G_1\Psi = \Delta^2 X^7, \qquad
+  F_2\Phi + G_2\Psi = \Delta^2 Y^7 .
+\]
+Consequently, if $\gcd(X,Y) = 1$, every common divisor of $\Phi(X,Y)$
+and $\Psi(X,Y)$ divides $\Delta^2$.
+\end{proposition}
+
+\begin{proposition}[\lt{max\_abs\_le}, \lt{disc\_sq\_mul\_le}]
+\label{prop:dupsize}
+With $M = \max(\lvert X\rvert,\lvert Y\rvert)$,
+\[
+  \max\bigl(\lvert\Phi\rvert,\lvert\Psi\rvert\bigr) \le CU\cdot M^4,
+  \qquad
+  \Delta^2 M^4 \le CL \cdot
+    \max\bigl(\lvert\Phi\rvert,\lvert\Psi\rvert\bigr),
+\]
+where
+\[
+  CU = \max\bigl(1 + \lvert b_4\rvert + 2\lvert b_6\rvert +
+        \lvert b_8\rvert,\;
+        4 + \lvert b_2\rvert + 2\lvert b_4\rvert + \lvert b_6\rvert\bigr)
+\]
+is the coefficient sum and $CL$ is the corresponding sum of absolute
+coefficients of the B\'ezout cofactors,
+$CL = \max\bigl(S_{F_1}+S_{G_1},\, S_{F_2}+S_{G_2}\bigr)$.
+\end{proposition}
+
+The lower bound is Proposition~\ref{prop:bez} read archimedeanly: each
+cofactor is a binary cubic, so
+$\Delta^2M^7 \le CL\cdot M^3 \max(\lvert\Phi\rvert,\lvert\Psi\rvert)$,
+and $M^3$ cancels. The same identity that removes the content analysis
+removes the archimedean one.
+
+\begin{proposition}[\lt{nh\_dblQ\_le},
+\lt{nh\_pow\_le\_of\_disc\_ne\_zero}, \lt{addX\_self\_eq\_dblQ}]
+\label{prop:dupheight}
+Let $\mathrm{dbl}(x) := \Phi(u,v)/\Psi(u,v)$ for $x = u/v$ reduced. Then
+$\mathrm{dbl}$ agrees with \texttt{mathlib}'s group law: for an affine
+point $(x,y)$ with $2\cdot(x,y) \ne O$ one has
+$x\bigl(2\cdot(x,y)\bigr) = \mathrm{dbl}(x)$. Moreover, if
+$\Delta \ne 0$ and $\Psi(u,v) \ne 0$,
+\[
+  \nh\bigl(\mathrm{dbl}(x)\bigr) \le CU\cdot \nh(x)^4,
+  \qquad
+  \nh(x)^4 \le CL\cdot \nh\bigl(\mathrm{dbl}(x)\bigr).
+\]
+\end{proposition}
+
+The unreduced fraction $\Phi/\Psi$ has content
+$g = \gcd(\Phi,\Psi)$ and $g\cdot \nh(\Phi/\Psi) =
+\max(\lvert\Phi\rvert,\lvert\Psi\rvert)$; then $g \ge 1$ gives the upper
+bound and $g \le \Delta^2$ (Proposition~\ref{prop:bez}) gives the lower
+one, the $\Delta^2$ cancelling against the $\Delta^2$ of
+Proposition~\ref{prop:dupsize}. The duplication formula itself is
+Silverman \cite[III.2.3(d)]{silverman}, and is proved here against
+\texttt{mathlib}'s \lt{addX}/\lt{slope} --- a polynomial identity modulo
+the curve equation whose certificate is the single multiplier
+$-(b_2 + 8x)$ --- rather than assumed.
+
+Setting $\kappa := \max(CU, CL)$, Propositions~\ref{prop:dupsize}
+and~\ref{prop:dupheight} give the logarithmic doubling window
+$\lvert h(2R) - 4h(R)\rvert \le \log\kappa$ away from $O$, and at $O$
+both sides vanish by the convention $x(O) = 0$
+(\lt{heightWindow\_of\_xdbl\_ne\_zero}). That is the sole input of the
+generic construction of \cite{MW}: given an abelian group $G$, a
+nonnegative $\lambda \colon G \to \mathbb{R}$ and $\kappa \ge 1$ with
+$\lvert \lambda(R+R) - 4\lambda(R)\rvert \le \log\kappa$, the sequence
+$\lambda(2^nR)/4^n$ is Cauchy with geometric modulus and its limit
+$\hh$ satisfies $\hh \ge 0$, $\hh(R+R) = 4\hh(R)$,
+$\hh(2^nR) = 4^n\hh(R)$, $\lvert\hh - \lambda\rvert \le \log\kappa/3$
+and $\lvert\hh(R) - \lambda(2^nR)/4^n\rvert \le \log\kappa/(3\cdot4^n)$.
+
+\section{The secant side}\label{sec:secant}
+
+\subsection{The universal formulas}
+
+Both $x(P{+}Q) + x(P{-}Q)$ and $x(P{+}Q)\cdot x(P{-}Q)$ are symmetric in
+the $y$-coordinates, so both eliminate them.
+
+\begin{proposition}[\lt{addX\_add\_addX\_negY},
+\lt{addX\_mul\_addX\_negY}]\label{prop:secform}
+Over any field, for points $P = (x_1,y_1)$, $Q = (x_2,y_2)$ on a
+Weierstrass curve with $x_1 \ne x_2$,
+\[
+  x(P{+}Q) + x(P{-}Q)
+    = \frac{2x_1x_2(x_1+x_2) + b_2x_1x_2 + b_4(x_1+x_2) + b_6}
+           {(x_1-x_2)^2},
+\]
+\[
+  x(P{+}Q)\cdot x(P{-}Q)
+    = \frac{x_1^2x_2^2 - b_4x_1x_2 - b_6(x_1+x_2) - b_8}
+           {(x_1-x_2)^2}.
+\]
+\end{proposition}
+
+Both are proved against \texttt{mathlib}'s \lt{addX} and \lt{slope} by
+\lt{linear\_combination} modulo the two curve equations. The
+$b$-invariant basis is again what makes the certificates small: the sum
+identity has cofactors $2,2$.
+
+\subsection{The integer forms}
+
+Homogenizing Proposition~\ref{prop:secform} at $x_i = u_i/v_i$ gives
+three integer forms of bidegree $(2,2)$:
+\begin{equation}\label{eq:secforms}
+\begin{aligned}
+  \DDz &= (u_1v_2 - u_2v_1)^2,\\
+  \Sfz &= 2u_1u_2(u_1v_2 + u_2v_1) + b_2u_1u_2v_1v_2
+          + b_4(u_1v_2+u_2v_1)v_1v_2 + b_6v_1^2v_2^2,\\
+  \Prz &= u_1^2u_2^2 - b_4u_1u_2v_1v_2
+          - b_6(u_1v_2+u_2v_1)v_1v_2 - b_8v_1^2v_2^2 .
+\end{aligned}
+\end{equation}
+
+\begin{proposition}[\lt{DDz\_spec}, \lt{Sfz\_spec}, \lt{Prz\_spec},
+\lt{sum\_relation}, \lt{prod\_relation}]\label{prop:spec}
+The bihomogenization is exact: with $x_3 = x(P{+}Q)$ and
+$x_4 = x(P{-}Q)$,
+\[
+  \DDz\,(x_3 + x_4) = \Sfz, \qquad \DDz\, x_3x_4 = \Prz ,
+\]
+as identities in $\mathbb{Q}$. In particular $x_3$ and $x_4$ are the two
+roots of the integer quadratic
+$\DDz\,T^2 - \Sfz\,T + \Prz$.
+\end{proposition}
+
+\subsection{Diagonal degeneration}\label{sec:diag}
+
+\begin{proposition}[\lt{Sfz\_diag}, \lt{Prz\_diag}, \lt{DDz\_diag}]
+\label{prop:diag}
+$\Sfz(u,v,u,v) = \Psi(u,v)$, $\Prz(u,v,u,v) = \Phi(u,v)$, and
+$\DDz(u,v,u,v) = 0$.
+\end{proposition}
+
+\begin{proof}[Proof, as formalized]
+Substitute and expand:
+$2u^2(2uv) + b_2u^2v^2 + b_4(2uv)v^2 + b_6v^4
+ = 4u^3v + b_2u^2v^2 + 2b_4uv^3 + b_6v^4 = \Psi(u,v)$, and
+$u^4 - b_4u^2v^2 - b_6(2uv)v^2 - b_8v^4 = \Phi(u,v)$. Each is one
+\lt{ring} call.
+\end{proof}
+
+Proposition~\ref{prop:diag} is the structural observation of this paper.
+It says that the secant construction, evaluated where the secant line
+degenerates to the tangent, returns the duplication construction --- not
+up to a unit, not up to the relation \eqref{eq:brel}, but on the nose.
+It is what one would hope for, and it is worth stating because of its
+consequence: the content problem for the secant triple can be
+\emph{reduced} to the content problem for the duplication pair, and the
+latter has already been solved once and for all by
+$\Res(\Phi,\Psi) = \Delta^2$. There is no second resultant to compute.
+The reduction is carried out in the next subsection; the certificates
+that carry it out are exactly the ones that produce
+$\Phi^2$ and $\Psi^2$ from eliminating the second point, which is the
+$x_2$-resultant statement $\Res_{x_2}(\DDz,\Sfz) = \psi(x_1)^2$,
+$\Res_{x_2}(\DDz,\Prz) = \varphi(x_1)^2$ in bihomogenized form.
+
+\subsection{The content bound}\label{sec:content}
+
+\begin{proposition}[\lt{psi\_sq\_cert}, \lt{phi\_sq\_cert},
+\lt{psi\_sq\_certA}, \lt{phi\_sq\_certA}]\label{prop:twin}
+There are explicit integer cofactors
+$\sigma_1,\sigma_2,\sigma_1',\sigma_2'$ and
+$\pi_1,\pi_2,\pi_1',\pi_2'$ in
+$\mathbb{Z}[b_2,b_4,b_6,b_8][u_1,v_1,u_2,v_2]$ with
+\[
+  \sigma_1\DDz + \sigma_2\Sfz = v_2^3\,\Psi(u_1,v_1)^2, \qquad
+  \sigma_1'\DDz + \sigma_2'\Sfz = u_2^3\,\Psi(u_1,v_1)^2,
+\]
+\[
+  \pi_1\DDz + \pi_2\Prz = v_2^3\,\Phi(u_1,v_1)^2, \qquad
+  \pi_1'\DDz + \pi_2'\Prz = u_2^3\,\Phi(u_1,v_1)^2 .
+\]
+All eight are verified by \lt{ring}.
+\end{proposition}
+
+The pairing of weights is the point. Sylvester's matrix, cleared of
+denominators, delivers the resultant multiplied by a power of the
+leading coefficient, and which coefficient is leading depends on which
+variable one eliminates; carrying both eliminations gives the same
+target with weights $u_2^3$ and $v_2^3$. Since $\gcd(u_2,v_2) = 1$ we
+have $\gcd(u_2^3,v_2^3) = 1$, and a B\'ezout combination cancels the
+weights (\lt{dvd\_of\_dvd\_coprime\_weights}). Either certificate
+without its twin leaves an uncontrolled monomial factor and is useless.
+
+\begin{theorem}[\lt{secant\_content\_universal}]\label{thm:content}
+Let $b_2,b_4,b_6,b_8 \in \mathbb{Z}$ satisfy \eqref{eq:brel}, and let
+$u_1/v_1$, $u_2/v_2$ be in lowest terms. Then every common divisor of
+$\DDz$, $\Sfz$, $\Prz$ divides $\Delta^6$.
+\end{theorem}
+
+\begin{proof}[Proof, as formalized]
+Let $d$ divide all three. By Proposition~\ref{prop:twin} and weight
+cancellation, $d \mid \Psi(u_1,v_1)^2$ and $d \mid \Phi(u_1,v_1)^2$.
+Apply \eqref{eq:cube} to the B\'ezout identity
+$F_1\Phi + G_1\Psi = \Delta^2u_1^7$ of Proposition~\ref{prop:bez}: every
+term of the cube lies in the ideal generated by $\Phi^2$ and $\Psi^2$,
+so $d \mid (\Delta^2u_1^7)^3 = u_1^{21}\Delta^6$; the $Y$-side identity
+gives $d \mid v_1^{21}\Delta^6$; and $\gcd(u_1,v_1)=1$ cancels the
+monomials.
+\end{proof}
+
+This is the uniform replacement for what \cite{MW} did per curve: for
+\texttt{389a1} an extended Euclidean computation, and for
+\texttt{5077a1} the same plus a Hermite-normal-form argument to show
+that a stray factor was forced. Both are subsumed. The exponent $6$ is
+the price of the cube in \eqref{eq:cube}; sharpening it for a particular
+curve remains possible and is not needed downstream, because the content
+bound is only ever used to know that a content exists and is bounded.
+
+\subsection{Size bounds}\label{sec:size}
+
+\begin{proposition}[\lt{abs\_DDz\_le}, \lt{abs\_Sfz\_le},
+\lt{abs\_Prz\_le}]\label{prop:secupper}
+With $H_i = \max(\lvert u_i\rvert, \lvert v_i\rvert)$,
+\[
+  \lvert\DDz\rvert \le 4H_1^2H_2^2, \quad
+  \lvert\Sfz\rvert \le \bigl(4 + \lvert b_2\rvert + 2\lvert b_4\rvert
+     + \lvert b_6\rvert\bigr)H_1^2H_2^2, \quad
+  \lvert\Prz\rvert \le \bigl(1 + \lvert b_4\rvert + 2\lvert b_6\rvert
+     + \lvert b_8\rvert\bigr)H_1^2H_2^2 .
+\]
+\end{proposition}
+
+These are triangle inequalities on bidegree-$(2,2)$ monomials, and they
+are sharp against the hand computations of \cite{MW}: at
+\texttt{5077a1} the $\Sfz$ constant is $4+0+28+25 = 57$ and the $\Prz$
+constant $1+14+50+49 = 114$, which are the numbers derived by hand
+there. Writing
+\begin{equation}\label{eq:CUsec}
+  CU_{\mathrm{sec}} := \max\bigl(4,\;
+    4 + \lvert b_2\rvert + 2\lvert b_4\rvert + \lvert b_6\rvert,\;
+    1 + \lvert b_4\rvert + 2\lvert b_6\rvert + \lvert b_8\rvert\bigr)
+   \;=\; \max(4, CU),
+\end{equation}
+all three are bounded by $CU_{\mathrm{sec}}H_1^2H_2^2$.
+
+There is a matching lower bound, proved from the same certificates in
+the manner of Proposition~\ref{prop:dupsize}.
+
+\begin{proposition}[\lt{secant\_size\_lower}]\label{prop:seclower}
+There is an explicit $CL_{\mathrm{sec}} = CL^2\cdot S$, with $S$ the sum
+of the coefficient-absolute-sums of the eight cofactors of
+Proposition~\ref{prop:twin}, such that
+\[
+  \Delta^4 H_1^2H_2^2 \;\le\; CL_{\mathrm{sec}}\cdot
+    \max\bigl(\lvert\DDz\rvert, \lvert\Sfz\rvert,
+              \lvert\Prz\rvert\bigr).
+\]
+\end{proposition}
+
+\begin{remark}
+Proposition~\ref{prop:seclower} is the honest analogue of
+Proposition~\ref{prop:dupsize} on the secant side --- two-sided control
+of the forms themselves --- but it is \emph{not} used in the
+parallelogram assembly below. The lower half of the
+quasi-parallelogram law comes for free from the doubling trick
+(\S\ref{sec:window}), and the plan that produced
+Proposition~\ref{prop:seclower} had assumed otherwise. We record the
+correction rather than quietly presenting the result as load-bearing.
+\end{remark}
+
+\section{The uniform height window}\label{sec:window}
+
+\begin{lemma}[\lt{naiveHeight\_mul\_le\_of\_quadratic}]\label{lem:roots}
+Let $A,B,C \in \mathbb{Z}$ with $A \ne 0$ and let $u,v \in \mathbb{Q}$
+satisfy $A(u+v) = B$ and $Auv = C$. Then
+$\nh(u)\nh(v) \le 2\max(\lvert A\rvert,\lvert B\rvert,\lvert C\rvert)$.
+\end{lemma}
+
+Lemma~\ref{lem:roots} is curve-independent and was already available
+from \cite{MW}, where it is proved without Gauss's lemma. Combining it
+with Propositions~\ref{prop:spec} and~\ref{prop:secupper} gives the
+upper half of the window at the point level.
+
+\begin{proposition}[\lt{secant\_upper\_window}]\label{prop:upper}
+On any Weierstrass curve over $\mathbb{Q}$ with integer $b$-invariants,
+for affine points with $x_1 \ne x_2$,
+\[
+  \nh\bigl(x(P{+}Q)\bigr)\,\nh\bigl(x(P{-}Q)\bigr)
+    \;\le\; 2\,CU_{\mathrm{sec}}\;\nh(x_1)^2\nh(x_2)^2 .
+\]
+\end{proposition}
+
+The lower half is not a second estimate but the same one, applied
+elsewhere. The sum and difference of the pair $\bigl(P{+}Q, P{-}Q\bigr)$
+are $2P$ and $2Q$; so Proposition~\ref{prop:upper} at that pair, chained
+with the duplication lower window of
+Proposition~\ref{prop:dupheight}, bounds
+$\nh(x_1)^2\nh(x_2)^2$ from above. Doing so requires knowing
+$x(P{+}Q) \ne x(P{-}Q)$, which is where hypothesis (iii) first bites:
+equality would force $P{+}Q = \pm(P{-}Q)$, hence $2Q = O$ or $2P = O$
+(\lt{X\_add\_ne\_X\_sub}).
+
+\begin{theorem}[\lt{point\_two\_sided}, \lt{lognhX\_defect\_le}]
+\label{thm:twosided}
+Let $W$ have integer $b$-invariants and $\Delta \ne 0$, and let $P,Q$ be
+affine points with $x_1 \ne x_2$, neither $2$-torsion. Put
+\begin{equation}\label{eq:Cpar}
+  C_{\mathrm{par}} := \bigl(CL^2 + 1\bigr)\cdot
+     2\,CU_{\mathrm{sec}} .
+\end{equation}
+Then
+\[
+  \nh(x_1)^2\nh(x_2)^2
+    \;\le\; C_{\mathrm{par}}\,
+      \nh\bigl(x(P{+}Q)\bigr)\nh\bigl(x(P{-}Q)\bigr)
+    \;\le\; C_{\mathrm{par}}\cdot 2\,CU_{\mathrm{sec}}\,
+      \nh(x_1)^2\nh(x_2)^2,
+\]
+equivalently
+$\bigl\lvert h(P{+}Q) + h(P{-}Q) - 2h(P) - 2h(Q)\bigr\rvert
+ \le \log C_{\mathrm{par}}$.
+\end{theorem}
+
+The $+1$ in \eqref{eq:Cpar} is there so that
+$C_{\mathrm{par}} \ge 2CU_{\mathrm{sec}}$ unconditionally and one
+constant serves both sides of the window; it costs nothing and removes a
+case split.
+
+\begin{theorem}[\lt{heightWindow\_universal}]\label{thm:windowuniv}
+Let $W$ be admissible. Then $R \mapsto \log\nh(x(R))$ satisfies the
+doubling window with constant $\kappa = \max(CU,CL)$ on all of
+$W(\mathbb{Q})$, with no per-curve input: the integral $b$-relation is
+derived from \texttt{mathlib}'s, the nonvanishing of $\Psi$ comes from
+(iii), and the identification of $x(2R)$ with $\Phi/\Psi$ comes from
+\texttt{mathlib}'s group law.
+\end{theorem}
+
+Theorem~\ref{thm:windowuniv} is what makes $\hh$ exist on an admissible
+curve, by the generic construction recalled at the end of
+\S\ref{sec:dup}. We write $\hh = $ \lt{canheightW} $W$.
+
+\section{The parallelogram law and bi-additivity}\label{sec:par}
+
+\begin{theorem}[\lt{canheight\_parallelogram\_universal}]\label{thm:parx}
+Let $W$ be admissible and let $P,Q$ be affine points with distinct
+$x$-coordinates. Then
+$\hh(P{+}Q) + \hh(P{-}Q) = 2\hh(P) + 2\hh(Q)$.
+\end{theorem}
+
+\begin{proof}[Proof, as formalized]
+Hypothesis (iii) forces $2^nR \ne O$ for every $n$ and every $R \ne O$,
+and forces $x(2^nP) \ne x(2^nQ)$ at every level (else $2^n(P \mp Q) =
+O$). Theorem~\ref{thm:twosided} at $(2^nP, 2^nQ)$, divided by $4^n$,
+bounds the defect of the scaled sequences by $\log
+C_{\mathrm{par}}/4^n \to 0$; the scaled sequences converge to the four
+canonical heights; uniqueness of limits closes it.
+\end{proof}
+
+\begin{theorem}[\lt{par}]\label{thm:parall}
+On an admissible curve the parallelogram law holds for \emph{every} pair
+$P,Q \in W(\mathbb{Q})$, with no side conditions.
+\end{theorem}
+
+\begin{proof}[Proof, as formalized]
+The degenerate cases $P = O$, $Q = O$, $Q = -P$, $P = Q$ are closed by
+$\hh(O) = 0$, $\hh(-R) = \hh(R)$ and $\hh(2R) = 4\hh(R)$. Otherwise both
+points are affine, and equal $x$-coordinates would force one of the
+degenerate cases, since two affine points of a Weierstrass curve with
+the same $x$-coordinate are equal or negatives
+(\lt{eq\_or\_eq\_neg\_of\_x\_eq}). So distinct $x$-coordinates may be
+assumed and Theorem~\ref{thm:parx} applies. Here $\hh(-R) = \hh(R)$ is
+hypothesis-free: negation fixes the $x$-coordinate, so the two defining
+sequences are literally equal.
+\end{proof}
+
+\begin{corollary}[\lt{mul}]\label{cor:mult}
+$\hh(kR) = k^2\hh(R)$ for every $k \in \mathbb{Z}$ and every
+$R \in W(\mathbb{Q})$.
+\end{corollary}
+
+\begin{proof}[Proof, as formalized]
+Theorem~\ref{thm:parall} at $\bigl((n{+}2)R, R\bigr)$ gives the
+three-term recurrence
+$\hh((n{+}3)R) = 2\hh((n{+}2)R) + 2\hh(R) - \hh((n{+}1)R)$; with base
+values $\hh(R)$ and $\hh(2R) = 4\hh(R)$ a two-step induction gives all
+$k \in \mathbb{N}$, and $\hh(-R) = \hh(R)$ gives the rest. Because
+Theorem~\ref{thm:parall} is unconditional the recurrence needs no
+indexing shift, unlike its conditional counterpart in \cite{MW}, where
+the step at $k=0$ had a torsion difference point and had to be supplied
+separately.
+\end{proof}
+
+\begin{theorem}[\lt{pairing\_add\_left}, \lt{pairing\_comm},
+\lt{biAdditive\_pairingW}]\label{thm:biadd}
+On an admissible curve the pairing
+$\langle P,Q\rangle = \tfrac12\bigl(\hh(P{+}Q) - \hh(P) -
+\hh(Q)\bigr)$ is symmetric and additive in each variable, and
+$\langle P,P\rangle = \hh(P)$.
+\end{theorem}
+
+The derivation is Jordan--von Neumann: from
+$4\langle P,Q\rangle = \hh(P{+}Q) - \hh(P{-}Q)$ one takes the four
+instances of Theorem~\ref{thm:parall} at $(P{\pm}R, Q)$ and
+$(Q{\pm}R, P)$, pairs the mixed differences using $\hh(-u) = \hh(u)$,
+and adds. Symmetry is immediate from the definition. Because
+Theorem~\ref{thm:parall} is unconditional, no side condition has to be
+propagated through the four instances --- which is precisely the
+bookkeeping that \cite{MW} avoided, for two points, by a different route
+(a hypothesized relation reduces everything to multiples of one point),
+and paid for, for three points, by proving torsion-freeness.
+
+\section{The rank pipeline}\label{sec:pipeline}
+
+The last step is pure linear algebra and was already curve-independent
+in \cite{MW}: if $B$ is a symmetric bi-additive real form on an abelian
+group $G$ and $P_1,\dots,P_n \in G$ have
+$\det\bigl(B(P_i,P_j)\bigr) \ne 0$, then
+$n \le \rank_{\mathbb{Z}} G$ (\lt{rank\_ge\_of\_gram\_det\_ne\_zero}). A
+relation $\sum v_iP_i = 0$ pairs against each $P_j$ to put $v$ in the
+kernel of the Gram matrix; a matrix over a field with a nonzero kernel
+vector has zero determinant; so the map
+$\mathbb{Z}^n \to G$, $v \mapsto \sum v_iP_i$, is injective.
+
+Theorem~\ref{thm:main} is Theorem~\ref{thm:biadd} fed into that
+statement, and its proof term is two lines. The two specializations
+\eqref{eq:reg2} and \lt{gram\_det\_fin\_three} are the $2\times2$ and
+$3\times3$ expansions, obtained by \lt{Matrix.det\_fin\_two} /
+\lt{Matrix.det\_fin\_three} together with
+$\langle P,P\rangle = \hh(P)$ and symmetry.
+
+It is worth being explicit about what the pipeline consumes and what it
+does not produce. It consumes: four integers, a proof that they are the
+$b$-invariants of the curve, a proof that $\Delta \ne 0$, a proof of no
+rational $2$-torsion, a list of points, and a proof that a determinant
+is nonzero. It does not produce the last of these. Certifying
+$\det \ne 0$ for a given curve is an interval-arithmetic computation,
+done per curve; see \S\ref{sec:notproved}(c).
+
+\section{Validation, and a definitional collapse}\label{sec:validation}
+
+\subsection{The two curves}
+
+For $E = \mathtt{389a1}$ the hypothesis package is discharged as
+follows: the $b$-invariants $(4,-4,1,-3)$ by \lt{norm\_num} from
+$(a_1,\dots,a_6) = (0,1,1,-2,0)$; $\Delta = 389 \ne 0$ by \lt{decide} on
+the integer polynomial; and (iii) from the triviality of
+$E(\mathbb{Q})_{\mathrm{tors}}$, proved in \cite{MW}. For
+$E' = \mathtt{5077a1}$, with $(a_1,\dots,a_6) = (0,0,1,-7,6)$, the
+$b$-invariants are $(0,-14,25,-49)$ and $\Delta = 5077$, again by
+\lt{decide}, and (iii) again from triviality of the torsion subgroup.
+Feeding in the certified regulator determinants of \cite{MW} yields
+\eqref{eq:389} and \eqref{eq:5077}. For the three-point case one needs
+that the $3\times3$ Gram determinant of the uniform pairing is the
+determinant computed in \cite{MW}; that is
+\lt{gram\_det\_eq\_regDet3}, closed by \lt{ring} after rewriting, with
+no slack.
+
+\subsection{The definitional collapse}
+
+Transporting the numerical certificates required a bridge, because the
+two layers reach the canonical height through different helper
+functions: the uniform layer through
+$\log\nh$ composed with a generic $x$-projection, the per-curve layer of
+\cite{MW} through $\log$ of a differently-defined na\"ive height
+composed with a per-curve $x$-projection. The two $x$-projections agree
+by \lt{cases} then \lt{rfl} (the pattern matches are the same), and the
+two na\"ive heights agree by a cast. This gives the two log-height
+helpers as \emph{equal functions}.
+
+The point worth recording is what happens next. Once the helpers are
+equal as functions, the two approximating sequences and hence the two
+\lt{limUnder}s are \emph{definitionally} equal:
+\lt{canheightW\_eq\_389} closes by \lt{rfl}, and so does
+\lt{canheightW\_eq\_5077}. No analytic argument about limits was needed
+and none was attempted.
+
+\begin{remark}\label{rem:collapse}
+We think this is a real point about formalized refactoring rather than
+an anecdote. The risk in a universalization of this depth is not that a
+proof breaks --- broken proofs announce themselves --- but that the
+object being computed silently changes, so that the new theorems are
+true of something slightly different from the old ones and the
+comparison is never actually made. Here the comparison is made, and it
+is made by the kernel, at the strongest available level: not
+propositional equality proved by an argument, but definitional equality
+checked by reduction. The uniform layer and the per-curve layer are the
+same construction.
+\end{remark}
+
+\section{The price of uniformity}\label{sec:price}
+
+The universal constants are much worse than the hand-built ones. The
+measured values, for the two curves of \cite{MW}, are the following.
+
+\begin{center}
+\small
+\begin{tabular}{lcrrrrrr}
+\toprule
+curve & $(b_2,b_4,b_6,b_8)$ & $\Delta$ & $CU$ & $CL = \kappa$
+  & $\kappa$ from \cite{MW} & $CU_{\mathrm{sec}}$
+  & $C_{\mathrm{par}}$ \\
+\midrule
+\texttt{389a1}  & $(4,-4,1,-3)$    & $389$  & $17$  & $672\,192$
+  & $1\,728$   & $17$  & ${\approx}1.54\times10^{13}$\\
+\texttt{5077a1} & $(0,-14,25,-49)$ & $5077$ & $114$ & $536\,913\,058$
+  & $105\,754$ & $114$ & ${\approx}6.57\times10^{19}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+Exactly, $C_{\mathrm{par}} = 15\,362\,630\,885\,410$ for
+\texttt{389a1} and
+$C_{\mathrm{par}} = 65\,726\,844\,062\,007\,791\,220$ for
+\texttt{5077a1}. Every entry is obtained by evaluating the definitions
+of \S\S\ref{sec:dup}--\ref{sec:window} at the four integers in the
+second column; the $\kappa$ of \cite{MW} is that paper's per-curve
+duplication constant.
+
+Three remarks, in decreasing order of comfort.
+
+\emph{The upper side is sharp.} $CU = 17$ and $CU = 114$ are exactly the
+size constants derived by hand in \cite{MW} for the two curves. Nothing
+is lost on the $CU$ side, and hence nothing on $CU_{\mathrm{sec}}$,
+which by \eqref{eq:CUsec} is $\max(4,CU)$.
+
+\emph{The loss is entirely in $CL$, and it is one factor of $\Delta$.}
+The measured ratios are
+$672\,192/1\,728 = 389$ and $536\,913\,058/105\,754 = 5077$ --- in both
+cases exactly $\Delta$. Neither constant was designed to make this
+happen. The natural reading is that the universal route normalizes its
+B\'ezout identity to the resultant, $F\Phi + G\Psi = \Delta^2X^7$, and
+then cancels a content bounded by $\Delta^2$; whereas for these two
+curves the actual content of $(\Phi,\Psi)$ is only $\Delta$, and the
+hand computation of \cite{MW} found the sharper identity with $\Delta$
+on the right. The uniform statement cannot know that, because
+$\Res(\Phi,\Psi) = \Delta^2$ is what is true in the free polynomial
+ring. Beyond that structural factor, $CL$ is a sum of absolute values of
+B\'ezout cofactors, which is not tight.
+
+\emph{It is still the right trade.} The cost is visible downstream: the
+torsion-enumeration argument of \cite{MW} searches
+$\kappa^{1/3}$-many candidates, so for \texttt{389a1} the universal
+constant would widen the search from $12$ to about $88$; and
+$\log C_{\mathrm{par}}$ enters the parallelogram defect, which is
+squeezed by $4^{-n}$, so matching the accuracy that \cite{MW}'s
+constant $10368$ gives at \texttt{389a1} would need about
+$\log_4\bigl(C_{\mathrm{par}}/10368\bigr) \approx 15$ further dyadic
+levels. Both are real costs, and both are
+costs in \emph{numerics}, not in \emph{proof}. Against them: a constant
+that is automatic for every curve, obtained by evaluating a polynomial
+at four integers, versus a sharp constant that costs a hand-built
+certificate suite per curve. Sharpening one curve later is optional;
+deriving a constant at all is not. Nothing above prevents a user from
+supplying a better per-curve $\kappa$ to the same generic machinery ---
+that is exactly how \cite{MW}'s numerics were produced --- and the
+uniform bound remains as the fallback that always exists.
+
+\section{Outlook}
+
+Three things now cost less than they did.
+
+\emph{A new curve.} The scale-out cost is the hypothesis package ---
+four $b$-invariants, $\Delta \ne 0$, no rational $2$-torsion --- plus a
+certified-nonzero Gram determinant at the chosen points. The first three
+are \lt{decide}-level once the coefficients are fixed; the last is
+interval arithmetic. Nothing else.
+
+\emph{Higher rank.} Theorem~\ref{thm:main} is stated for all $n$, so
+rank $\ge 4$ is a matter of supplying four points and one determinant.
+The algebra is finished.
+
+\emph{Upstreaming.} Three pieces are of general interest and are
+independent of everything else here: Lemma~\ref{lem:roots}; the
+implication ``two-sided duplication estimate $\Rightarrow$ canonical
+height''; and the Gram criterion. A fourth, more speculative candidate
+is the pair (Proposition~\ref{prop:diag},
+Proposition~\ref{prop:twin}) --- the diagonal degeneration and the twin
+certificates --- which is what turns the approximate parallelogram law
+from a per-curve computation into a theorem with explicit constants.
+\texttt{mathlib}'s \lt{NumberTheory/Height/EllipticCurve.lean} lists the
+approximate parallelogram law as an open task
+(\S\ref{sec:related}); the route taken here is one way to it, at the
+cost of specializing the ground field to $\mathbb{Q}$ and buying
+explicit constants in exchange.
+
+\section{Verification data}\label{sec:verif}
+
+All results were checked with Lean~4 toolchain
+\texttt{leanprover/lean4:v4.24.0-rc1} against \texttt{mathlib} at commit
+\ltw{eed770a434957369c6262aa3fb1d6426419016d4}. At repository commit
+\ltw{b99f2ab6abee7f6df627a4f070122b71882dac52} (5~August 2026),
+\lt{lake build PF} completes in $4711$ jobs with zero errors and zero
+warnings.
+
+The one-command reproduction is
+\begin{center}
+\lt{cd PF\_Lean4\_Code \&\& lake build PF}
+\end{center}
+Each source file listed below ends with \lt{\#print axioms}
+declarations for its own results, so the axiom report is printed by that
+same build and requires no separate step. Every theorem cited in this
+paper reports a subset of
+\[
+  [\mathtt{propext},\ \mathtt{Classical.choice},\ \mathtt{Quot.sound}]
+\]
+--- several of the polynomial identities report only
+$[\mathtt{propext}]$ or $[\mathtt{propext}, \mathtt{Quot.sound}]$. The
+development contains no \lt{sorry}, no \lt{native\_decide} (which would
+introduce \lt{Lean.ofReduceBool}), and no project-level \lt{axiom}
+declarations. We do not report a wall-clock figure: the build was
+replayed from cache for this measurement, so any time we could quote
+would not be the from-scratch time a reader would see.
+
+The table below maps each claim to its Lean declaration. All files are
+in \lt{PF\_Lean4\_Code/PF/}; file names carry an internal revision tag,
+which is not part of the mathematics.
+
+\begingroup
+\footnotesize
+\setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.34\textwidth}p{0.38\textwidth}@{}}
+\toprule
+claim & Lean declaration & file \\
+\midrule
+\endfirsthead
+\toprule
+claim & Lean declaration & file \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Prop.~\ref{prop:bez} (B\'ezout)
+  & \lt{bezout\_X}, \lt{bezout\_Y}
+  & \lt{DuplicationBezoutUniversal\_r174}\\
+Prop.~\ref{prop:bez} (content)
+  & \lt{dvd\_disc\_sq\_of\_isCoprime}
+  & \lt{DuplicationBezoutUniversal\_r174}\\
+Prop.~\ref{prop:dupsize}
+  & \lt{max\_abs\_le}, \lt{disc\_sq\_mul\_le}
+  & \lt{DuplicationSizeUniversal\_r175}\\
+Prop.~\ref{prop:dupheight} (heights)
+  & \lt{nh\_dblQ\_le},\newline
+    \lt{nh\_pow\_le\_of\_disc\_ne\_zero}
+  & \lt{DuplicationHeightUniversal\_r176}\\
+Prop.~\ref{prop:dupheight} (formula)
+  & \lt{addX\_self\_eq\_dblQ}, \lt{psiX\_eq\_sq}
+  & \lt{DuplicationFormula\_r178}\\
+doubling window
+  & \lt{heightWindow\_of\_xdbl\_ne\_zero}
+  & \lt{DuplicationLogWindowFixed\_r179}\\
+generic canonical height
+  & \lt{HeightWindow}, \lt{canheight},\newline
+    \lt{canheight\_window\_shift}
+  & \lt{CanonicalHeightGeneric\_r171}\\
+Prop.~\ref{prop:secform}
+  & \lt{addX\_add\_addX\_negY},\newline
+    \lt{addX\_mul\_addX\_negY}
+  & \lt{SecantUniversal\_r181}\\
+\eqref{eq:secforms}, Prop.~\ref{prop:spec}
+  & \lt{DDz}, \lt{Sfz}, \lt{Prz},\newline
+    \lt{Sfz\_spec}, \lt{Prz\_spec}
+  & \lt{SecantSizeUniversal\_r193}\\
+Prop.~\ref{prop:secupper}
+  & \lt{abs\_DDz\_le}, \lt{abs\_Sfz\_le},\newline
+    \lt{abs\_Prz\_le}
+  & \lt{SecantSizeUniversal\_r193}\\
+Prop.~\ref{prop:diag}
+  & \lt{Sfz\_diag}, \lt{Prz\_diag}, \lt{DDz\_diag}
+  & \lt{SecantContentBridge\_r195}\\
+Prop.~\ref{prop:twin} ($v_2^3$ twins)
+  & \lt{psi\_sq\_cert}, \lt{phi\_sq\_cert}
+  & \lt{SecantContentBridge\_r195}\\
+Prop.~\ref{prop:twin} ($u_2^3$ twins)
+  & \lt{psi\_sq\_certA}, \lt{phi\_sq\_certA}
+  & \lt{SecantContentUniversal\_r196}\\
+\eqref{eq:cube}, weight cancellation
+  & \lt{dvd\_cube\_of\_bezout},\newline
+    \lt{dvd\_of\_dvd\_coprime\_weights}
+  & \lt{SecantContentUniversal\_r196}\\
+Thm.~\ref{thm:content}
+  & \lt{secant\_content\_universal}
+  & \lt{SecantContentUniversal\_r196}\\
+Prop.~\ref{prop:seclower}
+  & \lt{secant\_size\_lower}, \lt{CLsec}
+  & \lt{SecantSizeLower\_r197}\\
+Lem.~\ref{lem:roots}
+  & \lt{naiveHeight\_mul\_le\_of\_quadratic}
+  & \lt{QuadraticRootHeights\_r148e}\\
+Prop.~\ref{prop:spec} (integer form)
+  & \lt{sum\_relation}, \lt{prod\_relation}
+  & \lt{SecantUpperWindow\_r198}\\
+Prop.~\ref{prop:upper}, \eqref{eq:CUsec}
+  & \lt{secant\_upper\_window}, \lt{CUsec}
+  & \lt{SecantUpperWindow\_r198}\\
+Thm.~\ref{thm:twosided}, \eqref{eq:Cpar}
+  & \lt{point\_two\_sided},\newline
+    \lt{lognhX\_defect\_le}, \lt{Cpar}
+  & \lt{PointParallelogramUniversal\_r199}\\
+$x(P{+}Q) \ne x(P{-}Q)$
+  & \lt{X\_add\_ne\_X\_sub},\newline
+    \lt{eq\_or\_eq\_neg\_of\_x\_eq}
+  & \lt{PointParallelogramUniversal\_r199}\\
+Thm.~\ref{thm:windowuniv}, \eqref{eq:brel}
+  & \lt{heightWindow\_universal},\newline
+    \lt{b\_relation\_int}
+  & \lt{CanheightParallelogramUniversal\_r200}\\
+Thm.~\ref{thm:parx}
+  & \lt{canheight\_parallelogram\_universal}
+  & \lt{CanheightParallelogramUniversal\_r200}\\
+Thm.~\ref{thm:height}(5), pairing
+  & \lt{pairingW}, \lt{pairing\_self\_universal}
+  & \lt{CanheightParallelogramUniversal\_r200}\\
+Thm.~\ref{thm:parall}, Cor.~\ref{cor:mult}
+  & \lt{par}, \lt{mul}, \lt{canheight\_neg},\newline
+    \lt{canheight\_zero}
+  & \lt{BiAdditiveUniversal\_r201}\\
+Thm.~\ref{thm:biadd}
+  & \lt{pairing\_add\_left}, \lt{pairing\_comm},\newline
+    \lt{biAdditive\_pairingW}
+  & \lt{BiAdditiveUniversal\_r201}\\
+Gram criterion
+  & \lt{rank\_ge\_of\_gram\_det\_ne\_zero}
+  & \lt{GramRankGeneral\_r170}\\
+Thm.~\ref{thm:main}
+  & \lt{rank\_ge\_universal}
+  & \lt{RankPipelineUniversal\_r202}\\
+\eqref{eq:reg2} and $n=3$
+  & \lt{gram\_det\_fin\_two},\newline
+    \lt{rank\_ge\_two\_universal},\newline
+    \lt{gram\_det\_fin\_three}
+  & \lt{RankPipelineUniversal\_r202}\\
+\S\ref{sec:validation}, bridges
+  & \lt{canheightW\_eq\_389},\newline
+    \lt{canheightW\_eq\_5077},\newline
+    \lt{pairingW\_eq\_389}, \lt{gram\_det\_eq\_regDet3}
+  & \lt{RankTransferWitnesses\_r203}\\
+\eqref{eq:389}, \eqref{eq:5077}
+  & \lt{E389a1\_rank\_ge\_two\_universal},\newline
+    \lt{E5077a1\_rank\_ge\_three\_universal}
+  & \lt{RankTransferWitnesses\_r203}\\
+\end{longtable}
+\endgroup
+
+The B\'ezout cofactors of Proposition~\ref{prop:bez}, the size constants
+of Proposition~\ref{prop:dupsize}, and the cofactor size bounds of
+Proposition~\ref{prop:seclower} were produced and re-verified by
+generator scripts (\lt{codex/gen\_r174.py}, \lt{codex/gen\_r175.py},
+\lt{codex/gen\_r197.py}); nothing in them was transcribed by hand. The
+generators are not trusted: every identity they emit is re-checked in
+Lean by \lt{ring} or \lt{linear\_combination}, and it is the Lean check,
+not the generator, that this paper cites.
+
+\section{What is not proved}\label{sec:notproved}
+
+The value of a formalization is the precision of its claims, so we are
+explicit.
+
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Lower bounds only.} Theorem~\ref{thm:main} and
+        \eqref{eq:389}, \eqref{eq:5077} are rank \emph{lower} bounds.
+        Upper bounds require descent --- Selmer groups, the weak
+        Mordell--Weil theorem --- which exists in no proof assistant. We
+        make no claim about the exact rank of any curve. That the ranks
+        of \texttt{389a1} and \texttt{5077a1} are $2$ and $3$ is known
+        classically \cite{cremona,lmfdb} and is used nowhere here.
+  \item \textbf{No $L$-functions, no BSD.} Nothing here concerns
+        $L$-functions, analytic ranks, Tate--Shafarevich groups, or the
+        Birch--Swinnerton-Dyer conjecture. No $L$-function of an
+        elliptic curve is defined anywhere in the development.
+  \item \textbf{The Gram determinant is an input.} Theorem~\ref{thm:main}
+        takes $\det\bigl(\langle P_i,P_j\rangle\bigr) \ne 0$ as a
+        hypothesis and does not produce it. Certifying it for a given
+        curve and a given set of points is a separate, per-curve
+        computation --- certified rational interval arithmetic on the
+        dyadic chain, as carried out in \cite{MW} for the two curves
+        whose certificates are reused here. The pipeline is a machine
+        with an input slot, not an oracle.
+  \item \textbf{The $2$-torsion hypothesis genuinely restricts the
+        class of curves.} Hypothesis (iii) is not removable by better
+        bookkeeping: $\Psi$ vanishes exactly at the $x$-coordinates of
+        rational $2$-torsion points (\S\ref{sec:ideas}), which is where
+        the duplication map and hence the height window break down.
+        Curves with rational $2$-torsion --- for instance
+        \texttt{102a1}, excluded for the same reason in \cite{MW} ---
+        are not covered by any theorem in this paper. A per-step
+        variant of the window would be needed, and we have not carried
+        it out.
+  \item \textbf{Mordell--Weil is neither used nor proved.} All
+        statements are about $\rank_{\mathbb{Z}}$ of the point group as
+        an abstract $\mathbb{Z}$-module, which is meaningful without
+        finite generation. We do not prove that $W(\mathbb{Q})$ is
+        finitely generated, and no step depends on it.
+  \item \textbf{The two curves are validation, not new arithmetic.}
+        \eqref{eq:389} and \eqref{eq:5077} re-derive results first
+        obtained in \cite{MW}, and their numerical inputs are the
+        certificates of \cite{MW}. They are evidence that the uniform
+        machine is non-vacuous and agrees with the hand-built
+        development; they are not new facts about elliptic curves.
+  \item \textbf{Optimality is not claimed.} The exponent $6$ in
+        Theorem~\ref{thm:content}, and the constants of
+        \S\ref{sec:price}, are what this route yields. We do not claim
+        any of them is best possible, and \S\ref{sec:price} exhibits a
+        factor of $\Delta$ that is known to be lost.
+\end{enumerate}
+
+\section*{Acknowledgements}
+
+The formalization was carried out in collaboration with Claude
+(Anthropic), which wrote and verified the Lean sources under the
+author's direction; all mathematical claims were independently rebuilt
+and axiom-audited before being recorded. The author thanks the
+\texttt{mathlib} community for the elliptic-curve group law, without
+which none of this would have been possible.
+
+\begin{thebibliography}{9}
+
+\bibitem{FLT}
+K.~Buzzard et al.,
+\emph{The Fermat's Last Theorem project},
+\url{https://github.com/ImperialCollegeLondon/FLT}, 2024--.
+
+\bibitem{MW}
+P.~Cohen,
+\emph{Machine-checked canonical heights and independence of rational
+points: $\rank \ge 2$ and $\rank \ge 3$ for two elliptic curves},
+2026; source at \lt{Papers/formal\_mordell\_weil\_rank\_2026-07-30.tex}
+in the repository accompanying this paper.
+
+\bibitem{cremona}
+J.~E.~Cremona,
+\emph{Algorithms for Modular Elliptic Curves},
+2nd ed., Cambridge University Press, 1997.
+
+\bibitem{lmfdb}
+The LMFDB Collaboration,
+\emph{The $L$-functions and Modular Forms Database},
+\url{https://www.lmfdb.org}, 2026.
+
+\bibitem{mathlib}
+The mathlib Community,
+\emph{The Lean mathematical library},
+CPP 2020, 367--381; repository
+\url{https://github.com/leanprover-community/mathlib4}.
+
+\bibitem{silverman}
+J.~H.~Silverman,
+\emph{The Arithmetic of Elliptic Curves},
+2nd ed., Graduate Texts in Mathematics 106, Springer, 2009.
+
+\end{thebibliography}
+
+\end{document}
