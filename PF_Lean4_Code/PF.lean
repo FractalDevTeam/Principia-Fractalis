@@ -999,6 +999,7 @@ import PF.SecantUpperWindow_r198  -- r198: universal secant upper window AT THE 
 import PF.PointParallelogramUniversal_r199  -- r199: UNIVERSAL point-level quasi-parallelogram -- two-sided window + log defect <= log Cpar on any curve (2P,2Q != 0, Disc != 0)
 import PF.CanheightParallelogramUniversal_r200  -- r200: THE EXACT PARALLELOGRAM LAW UNIVERSALLY -- canheight(P+Q)+canheight(P-Q) = 2h(P)+2h(Q) on any curve without rational 2-torsion
 import PF.BiAdditiveUniversal_r201  -- r201: BiAdditive canonical-height pairing on any admissible curve -- all-cases parallelogram, k^2-law, the r170-ready instance
+import PF.RankPipelineUniversal_r202  -- r202: THE UNIVERSAL RANK PIPELINE -- nonzero Gram det of the canonical-height pairing => n <= rank E(Q), any admissible curve
 import PF.BSDRankChainReal_r182  -- r182: REPAIR -- a BSD rank chain that is not Prop := True
 import PF.HilbertSchmidtL2_r183  -- r183: M3 stone 1 -- Hilbert-Schmidt matrices act boundedly on l^2 (first HS theory toward transfer operators)
 import PF.HilbertSchmidtCompact_r184  -- r184: M3 stone 2 -- Hilbert-Schmidt operators are COMPACT (finite-rank bridge + truncation limit)
