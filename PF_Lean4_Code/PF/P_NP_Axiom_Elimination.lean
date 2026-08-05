@@ -1,3 +1,10 @@
+-- ORPHAN BANNER (2026-08-04): this file is imported by no module and is NOT part of
+-- `lake build PF`; its claims (including the header's 'NO AXIOMS. ONLY THEOREMS WITH
+-- PROOFS') have never been kernel-audited and must not be cited. The α_NP pin is
+-- calibration, not derivation — see docs/ALPHA_DICTIONARY.md,
+-- codex/TRUE_PROP_AUDIT_2026-08-01.md, and AlphaWebDegreesOfFreedom_r124.lean
+-- (kernel-proved under-determination).
+
 /-
 # AXIOM ELIMINATION: Proving P ≠ NP Framework from First Principles
 

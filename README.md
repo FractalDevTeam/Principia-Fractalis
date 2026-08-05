@@ -55,6 +55,12 @@ with a precise diagnostic if any unexpected project axiom is detected. ~10 min o
 | mathlib pin | `eed770a4` |
 | toolchain | `leanprover/lean4:v4.24.0-rc1` |
 
+**Update (2026-08-04):** HEAD has advanced (see `git log`); `lake build PF` = 4,701 jobs
+clean at r194. The arc list since this block was written: Mordell–Weil ranks r129–r182
+(paper: [`Papers/formal_mordell_weil_rank_2026-07-30.pdf`](Papers/formal_mordell_weil_rank_2026-07-30.pdf)),
+transfer-operator/Lefschetz arc r183–r194, Friedmann r187. Figures elsewhere in this
+README dated 2026-07-23 are historical.
+
 Paper: [`Papers/uhf_faithful_trace_glimm_2026-07-23.pdf`](Papers/uhf_faithful_trace_glimm_2026-07-23.pdf) (14 pp).
 
 ---
@@ -243,6 +249,14 @@ refute the framework. As of HEAD: **zero are triggered**. F1, F2, F5, F7 are for
 at current measurement precision (genuinely falsifiable today). F3, F4, F6, F8 are
 consistency-check brackets at current precision. See paper §7 for the class distinction and §8
 for the audit chronology.
+
+**Correction (2026-08-04):** all eight falsifiers in
+`FrameworkFalsifiabilityConditions.lean` are structurally vacuous. Each has the shape
+`∃ m : ℝ, |m − predicted| > ε` with `m` unconstrained — inhabited by arbitrary reals, so
+each is true independent of any experiment. See
+[`codex/FALSIFIABILITY_REGISTRY_DEFECT_2026-07-28.md`](codex/FALSIFIABILITY_REGISTRY_DEFECT_2026-07-28.md).
+A rebuilt registry on a Measurement/Refutes pattern is in progress. Do not cite F1–F8 as
+kernel-verified falsifiability.
 
 ---
 

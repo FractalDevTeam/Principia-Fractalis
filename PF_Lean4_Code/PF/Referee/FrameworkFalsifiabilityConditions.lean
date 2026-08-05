@@ -1,3 +1,8 @@
+-- SUPERSEDED (2026-08-04): every falsifier below is structurally vacuous
+-- (∃ m : ℝ with m unconstrained — true independent of experiment).
+-- See codex/FALSIFIABILITY_REGISTRY_DEFECT_2026-07-28.md and
+-- Referee/FalsifiabilityRegistryV2.lean. Do not cite.
+
 /-
 # PF.Referee.FrameworkFalsifiabilityConditions
 

@@ -106,3 +106,43 @@ Both Lean 4 and Coq mechanizations are intended as independent
 referee-grade verifications of the same mathematical claims. Discrepancies
 between the two ports would indicate either a formalization bug or a
 mathematical subtlety worth investigating.
+
+---
+
+## Scope and coverage statement (2026-08-04)
+
+**What this layer is.** The Coq layer is a declaration-level
+structural-shape mirror, not independent mathematical verification.
+The parity pattern is:
+
+```coq
+Theorem name : True. Proof. exact I. Qed.
+```
+
+The correct one-line description is the one in the top-level
+`README.md`:
+
+> Coq 8.18 cross-prover structural-shape parity. The load-bearing
+> mathematical verification lives in the Lean 4 + Lean4Lean kernels;
+> the Coq layer is a declaration-level structural-shape mirror, not
+> an independent mathematical verification
+
+**Coverage cutoff.** The last shape-mirror `.v` files were added
+2026-07-08 (Lean arc r101; the task-era estimate was ~2026-06-24 —
+git history shows r101/2026-07-08 as the true cutoff). Everything
+after that in the Lean tree has NO Coq counterpart of any kind.
+In particular, nothing from r120 onward is mirrored here:
+
+- Hardy RH on-line-zero atom (r120)
+- BSD / Mordell–Weil rank arcs (r129–r182)
+- Transfer-operator / Lefschetz arc (r183–r194)
+- Friedmann (r187)
+
+(The `BSD*` and `RH*Mayer*` files present in `PF/` are earlier
+capstone-wave shape mirrors, dated ≤ 2026-07-08; they are not
+counterparts of the r129+ arcs despite similar names.)
+
+The only post-cutoff Coq work is `PF_Real/` (real, zero-axiom,
+finite-dimensional theorems; see the 2026-07-26 correction above)
+and the 2026-07-26 banner-labelling pass. Neither extends
+shape-mirror coverage.
