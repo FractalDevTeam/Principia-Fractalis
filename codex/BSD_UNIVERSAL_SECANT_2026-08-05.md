@@ -101,3 +101,74 @@ and candidate points alone.
 - `naiveHeight` cast: `rw [naiveHeight, Nat.cast_max, Int.abs_eq_natAbs]`.
 - Generated-proof pattern that works: per-term `abs_le.mp (term_bound …)`
   facts + `linarith` (it ring-normalizes atoms consistently).
+
+---
+
+## ARC CLOSED — r199 → r202 (2026-08-05)
+
+**Commits:** `3b61f2d0` (r199), `fad9a3db` (r200), `7f09adf4` (r201),
+`40fa4c24` (r202). Build 4,710 jobs green; every theorem on the standard
+axiom triple; no `sorry`, no `native_decide`.
+
+**r199 — universal point-level quasi-parallelogram** (r149 analogue).
+Universal X-layer on `W.Point` (`X_add`, `X_sub` over mathlib's group law),
+group bookkeeping, `X_add_ne_X_sub` under explicit `2•P ≠ 0, 2•Q ≠ 0`
+(general curves have 2-torsion — the per-curve arc got this from trivial
+torsion; the universal statement takes it as hypothesis), the two-sided
+window `point_two_sided`, and `lognhX_defect_le : |defect| ≤ log Cpar`
+with `Cpar = (CL²+1)·2·CUsec`.
+
+**r200 — the exact parallelogram, universally** (r150 analogue).
+`heightWindow_universal`: r171's HeightWindow for any admissible curve with
+ZERO per-curve input (r179's builder + r199's X-layer; the ℤ b-relation is
+DERIVED from mathlib's `b_relation`, not hypothesized). Then r150's limit:
+defect at `(2ⁿP, 2ⁿQ)`, scaled by `4ⁿ`, squeezed to 0 ⟹
+
+  `ĥ(P+Q) + ĥ(P−Q) = 2ĥ(P) + 2ĥ(Q)`  exactly.
+
+The canonical height is a quadratic form on any admissible curve, from
+coefficients alone. Single hypothesis `h2tor` subsumes r150's scattered
+per-point non-torsion assumptions.
+
+**r201 — BiAdditive pairing** (r151+r167 analogue). `X_neg`/`canheight_neg`
+(hypothesis-free), `canheight_zero`, the ALL-CASES parallelogram `par`
+(degenerate cases via zero/neg/dbl, equal-x forced into them by
+`eq_or_eq_neg_of_x_eq`), the k²-law `mul` (no non-torsion side conditions —
+`par` is unconditional), the pairing algebra, and `biAdditive_pairingW` —
+exactly the structure r170 consumes.
+
+**r202 — THE CAPSTONE.**
+
+  `rank_ge_universal : (gram (pairingW W) P).det ≠ 0 → n ≤ rank E(ℚ)`
+
+plus `gram_det_fin_two` (= `ĥP·ĥQ − ⟨P,Q⟩²`, the classical regulator),
+`rank_ge_two_universal`, `gram_det_fin_three`. **Non-vacuity**: 389a1
+satisfies the entire hypothesis package (b-invariants from r180, `hΔ` from
+r174's `disc_389a1`, `h2tor` from r155's torsion triviality), yielding
+`rank_ge_two_389a1` through the universal machine with no 389a1-specific
+height estimate anywhere in the chain.
+
+### What the framework now owns
+
+A **machine**: curve coefficients + candidate points + certified-nonzero
+Gram determinant ⟹ kernel-checked rank lower bound, for every admissible
+curve. What r129–r169 did twice by hand, in ~40 files, is now one chain
+that never mentions a specific curve.
+
+### What is NOT claimed
+
+Rank lower bounds are one side of Mordell–Weil. Nothing here concerns
+`L(E,s)`, its analytic continuation, Sha, or BSD. Rank *upper* bounds
+(descent) are absent. The determinant input is a hypothesis: certifying it
+for a given curve is interval arithmetic (r153's job), not part of the
+pipeline.
+
+### Next natural targets
+
+1. Transfer the committed regulator certificates (r153, r168) through
+   r173's uniqueness to re-derive 389a1 rank ≥ 2 and 5077a1 rank ≥ 3
+   *end-to-end* inside the universal machine.
+2. Scale-out: any curve with known independent points becomes a one-page
+   instantiation.
+3. The paper: "Formally verified rank lower bounds for elliptic curves,
+   uniformly in the curve."
