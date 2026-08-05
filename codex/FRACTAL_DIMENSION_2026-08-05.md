@@ -76,8 +76,29 @@ not a contraction there, and the upper equation has no root.
   attractor taken as a hypothesis (self-covering), NOT constructed.
   The level-n refinement is free: apply the level-1 theorem to the word
   system — the same device as r191/r192.
-- **r206.** The lower bound: mass distribution principle + a Gibbs measure.
-  The harder half.
+- **r205 LANDED** (commit `4080763d`, build 4,720 jobs, nine theorems on the
+  standard triple). All three layers closed, nothing deleted:
+  `dimH_le_of_bounded_covers` (general engine); `dimH_le_of_selfCover` +
+  global corollary (Moran/Falconer); the Gauss branches with
+  `dimH_gauss_le`, and the numeric corollary `dimH_gauss_three_le : dimH E ≤ 19/20`.
+  Design notes worth keeping: `LipschitzOnWith` on the invariant set was
+  forced (the Gauss branches blow up at `x = −(j+1)`, so no global constant
+  exists); `E.Nonempty` proved unnecessary and was dropped; the
+  `Σ_a ∏_i = (Σ_j)^n` step went through `Finset.sum_pow'` +
+  `Fintype.piFinset_univ` with no induction fallback; and mathlib has no
+  `LipschitzOnWith` diameter lemma, so `ediam_image_le_of_lipschitzOnWith`
+  was supplied.
+  **Cross-check:** the Lean `Lgauss` constants reproduce the level-1 Moran
+  root `0.922674627943` computed independently in Python — every digit. The
+  formalized constants are the intended mathematics.
+- **r206.** The lower bound: mass distribution principle
+  (`le_hausdorffMeasure`) + a Gibbs/Bernoulli measure on the Cantor set.
+  The harder half, and the one that would actually pin the dimension rather
+  than bound it from one side.
+- **Beyond r206.** Level-n refinement (apply §2 to the word system — free,
+  the r191/r192 device) narrows the upper bound toward the bracket table
+  above; a genuine approach to `0.70566…` needs bounded distortion, which is
+  the real analytic content and is not yet started.
 
 ## Scope discipline for this direction
 
