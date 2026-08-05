@@ -40,6 +40,9 @@ exact integer may vary by ±a few hundred jobs between revisions as the
 substrate's typed-Prop layer is consolidated. Every Lean file in the
 project compiles; the kernel accepts every proof.
 
+> **Correction (2026-08-04):** the job counts above are historical.
+> Current: `lake build PF` = **4,701 jobs** clean at r194 (2026-08-04).
+
 If you see ANY `error:` line, the framework is broken at the
 referenced commit and the rest of this document is moot. The
 expected exit code is 0.
@@ -261,6 +264,11 @@ The framework contains 297+ `Prop := True` declarations across the
 codebase. The auditing infrastructure classifies them and proves
 none on the Clay-load-bearing path are hidden content.
 
+> **Correction (2026-08-04):** the "297+" count is stale. The
+> 2026-08-01 audit counted **402** corpus-wide, **338** inside the
+> build; see `codex/TRUE_PROP_AUDIT_2026-08-01.md`. 266 vacuity
+> banners were added 2026-08-04.
+
 ```bash
 cat > /tmp/audit_check.lean <<'EOF'
 import PF.Referee.NoTrueOnClayPath
@@ -294,6 +302,14 @@ The Coq mirror is structural-shape parity; the per-construction
 proofs live on the Lean side. The Coq build provides independent
 cross-prover confirmation that the framework's structural claims
 type-check in a second proof assistant.
+
+> **Correction (2026-08-04):** "independent cross-prover
+> confirmation" overstates this. It is shape parity only. Per the
+> top-level `README.md`: "the Coq layer is a declaration-level
+> structural-shape mirror, not an independent mathematical
+> verification". See `PF_Coq_Code/README.md` for the full 2026-07-26
+> audit and the coverage cutoff (nothing from r102/r120 onward is
+> mirrored).
 
 ---
 
