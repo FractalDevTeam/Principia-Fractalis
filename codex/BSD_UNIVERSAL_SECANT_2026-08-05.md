@@ -172,3 +172,56 @@ pipeline.
    instantiation.
 3. The paper: "Formally verified rank lower bounds for elliptic curves,
    uniformly in the curve."
+
+---
+
+## r203 — END-TO-END TRANSFER (commit `9ea1b45d`)
+
+**File:** `PF/RankTransferWitnesses_r203.lean`. Build 4,711 jobs green; all
+ten theorems on `[propext, Classical.choice, Quot.sound]`.
+
+The committed per-curve regulator certificates now feed the universal
+pipeline directly — the demonstration that the machine reproduces, rather
+than merely parallels, the hand-built results.
+
+### The bridge
+
+The two layers compute the same canonical height through different helpers:
+universal via r177's `lognh` / r176's `nh (x) = max |x.num| (x.den)`,
+per-curve via r130's `naiveHeight (q) = max q.num.natAbs q.den`.
+`X_bridge` (the two pattern-match `X`s, by `cases <;> rfl`) +
+`naiveHeight_eq_nh` give `lognhX_eq` — the helpers equal AS FUNCTIONS —
+and then `canheightW_eq` and `pairingW_eq`, for both curves.
+
+**Structural finding.** Once the log-height helpers are equal as functions,
+the two `hseq`s and the two `limUnder`s are **definitionally** equal:
+`canheightW_eq_389` closes by `rfl`. `limUnder` never had to be fought.
+The universal layer (r171–r202) and the per-curve layer (r147–r169) are the
+same construction — there is no structural drift between them. That is the
+strongest available evidence that the universalization did not quietly
+change the object being computed.
+
+### The flags, through the universal machine
+
+  `E389a1_rank_ge_two_universal   : 2 ≤ rank E389a1(ℚ)`
+  `E5077a1_rank_ge_three_universal: 3 ≤ rank E5077a1(ℚ)`
+
+from r154's `regDet_pos` and r169's `regDet3_pos`. No interval arithmetic
+recomputed; no curve-specific height estimate anywhere in the chain.
+
+5077a1's hypothesis package is proved in this file (no `Universal5077a1`
+existed): b-invariants `(0,−14,25,−49)`, `disc_5077a1 : Disc = 5077`
+(verified by `decide`, not assumed — and independently checked outside Lean
+before delegation), `h5077_2tor` from r166b's torsion triviality.
+`gram_det_eq_regDet3`: r202's 3×3 Gram expansion equals r168's `regDet3`
+exactly, closed by `ring` — hand-verified term-by-term beforehand, no
+inequality slack needed.
+
+### Status of the BSD front after r203
+
+- Universal machine: **built** (r202) and **validated end-to-end** (r203).
+- Both historical flags: reproduced through it.
+- Scale-out cost for a new curve: the hypothesis package (b-invariants,
+  `Disc ≠ 0`, no rational 2-torsion) plus a certified-nonzero Gram
+  determinant. Nothing else.
+- Still absent, unchanged: `L(E,s)`, Sha, BSD itself, rank upper bounds.
