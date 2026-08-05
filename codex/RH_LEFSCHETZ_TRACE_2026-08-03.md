@@ -245,3 +245,48 @@ lambda first (Finset.sum_apply); `Fintype.sum_equiv` with `_ _` stalls
 typeclass search (AddCommMonoid ?m) — always pass f and g explicitly;
 `congr 1` on `a :: l = b :: l'` auto-discharges rfl heads (bullets shift);
 field_simp/simp closing goals leaves dangling tactics — trim after compile.
+
+## r204 — trace bounds and the dynamical determinant (commit `4807f7db`)
+
+**File:** `PF/DynamicalDeterminant_r204.lean`, 2026-08-05. Build 4,712 jobs;
+all five theorems on `[propext, Classical.choice, Quot.sound]`.
+
+The analytic layer over r191/r192:
+
+- `norm_tsum_diag_le` — general and reusable: double-geometric decay with
+  `rρ < 1` gives `‖Σ'_m A[m,m]‖ ≤ C/(1−rρ)`. No dynamics.
+- `geomBound_power` — the `(n+1)`-word system inherits the r186 bound with
+  constant `Kⁿ⁺¹Wⁿ⁺¹` (r191's closure lemmas do the work).
+- `norm_trace_matPow_le` — **the key estimate**:
+  `‖Tr(Aⁿ⁺¹)‖ ≤ (KW)ⁿ⁺¹/(1 − τ/R₁)`. Because it goes through r192's
+  `transferMatrix_pow`, this bounds the traces of honest MATRIX powers, all
+  at the single geometric rate `KW`.
+- `summable_traceSeries` — the log-determinant series converges absolutely on
+  the disc `|t|·K·W < 1`.
+- `dynDet A t := exp(−Σ' n, tⁿ⁺¹·Tr(Aⁿ⁺¹)/(n+1))`, with `dynDet_ne_zero`,
+  `dynDet_zero`.
+
+**Scope, stated in the file and repeated here.** `dynDet` is a *definition* —
+the standard Ruelle dynamical determinant, which is exactly what the
+periodic-orbit data computes. It is **not** proved equal to a Fredholm
+determinant of an operator: no determinant of an infinite matrix exists at
+this pin. That identification — and with it any statement that the zeros of
+`dynDet` are reciprocal eigenvalues — is precisely the missing analytic
+content, and is not claimed. `dynDet_ne_zero` is a statement about the disc
+of convergence only; the interesting zeros lie in a continuation that is not
+constructed. Nothing here concerns Selberg zeta functions, `ζ(s)`, or RH.
+
+**Numerics.** For the Gauss golden branch the single-branch trace is
+`Tr(Lⁿ) = x^{2n}/(1 − (−x²)ⁿ)`, which reproduces `gauss_trace_one` at n = 1
+and `gauss_square_trace` at n = 2 to full precision; the uniform bound
+`3·4ⁿ` holds with large slack (ratio 2×10⁻² at n = 1 falling to 3×10⁻⁷ at
+n = 6) — crude, as a uniform bound must be. Series convergence checked at
+real and complex `t` inside the certified disc.
+
+**Where this leaves the RH road.** Traces of all powers: bounded and
+kernel-checked. Determinant: defined, convergent, non-vanishing on its disc.
+The next stones, in order of difficulty: (1) analytic continuation of
+`dynDet` past the trace-series disc; (2) the identification with a Fredholm
+determinant, which needs nuclearity/Grothendieck theory absent from mathlib;
+(3) only then, any contact with Mayer's `det(1∓L_s) = Z(s)`. Steps (2) and
+(3) are each separate programs; nothing in this arc shortens them.
