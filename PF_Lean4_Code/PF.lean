@@ -1015,6 +1015,7 @@ import PF.TransferPower_r191  -- r191: traces of powers L^n -- word systems, com
 import PF.TransferCompose_r192  -- r192: A^(n) = A^n -- transfer matrix is a semigroup; trace of honest matrix powers = periodic-orbit sums
 import PF.EllipticTrace_r194  -- r194: trace formula on the BSD face -- Mestre-Nagao trace = sum a_p p^(-s)/(1-1/p), kernel identity behind the measured rank slopes
 import PF.DynamicalDeterminant_r204  -- r204: trace bounds for all powers + convergence of the trace series; the dynamical determinant det(1-tA) := exp(-sum t^n Tr(A^n)/n)
+import PF.HausdorffIFS_r205  -- r205: Hausdorff dimension UPPER bounds for IFS attractors -- general covering engine + Moran/Falconer + Gauss continued-fraction branches
 
 /-!
 ## Principia Fractalis Formal Verification
