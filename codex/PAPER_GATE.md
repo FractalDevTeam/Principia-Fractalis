@@ -55,5 +55,6 @@ theorem; the only remaining surfaces are novelty, interest, and presentation.
 |---|---|
 | `uhf_faithful_trace_glimm` (+ short version) | PASSES (re-measure data at submission) |
 | `formal_mordell_weil_rank` | PASSES after verification-data refresh (this commit) |
+| `uniform_rank_bounds_2026-08-05` | PASSES (2026-08-05). Data pinned at commit `b99f2ab6`, 4711 jobs, NOT a moving HEAD. 30-row theorem→declaration table; §12 seven-item "What is not proved"; disclosure verbatim from the MW paper; PDF scanned clean of framework/Millennium vocabulary. Numbers re-verified independently of the drafting agent (CL/κ = Δ exactly on both curves; Cpar; dyadic-level count; the 102a1 exclusion citation). Runtime deliberately NOT quoted (cache-replayed build). |
 | Substrate/framework papers | DO NOT SUBMIT until repair queue P4-P9 lands |
 | Framework-attempt results (e.g., T3 spectrum) | numerics -> proof -> Lean -> only then paper |
