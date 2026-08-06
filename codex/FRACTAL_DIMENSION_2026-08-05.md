@@ -178,3 +178,59 @@ knowledge); it reuses the operator machinery of r183–r204; and the
 pressure/Bowen apparatus it forces us to build is the same apparatus Mayer's
 route to Selberg runs on. That last point is the honest connection to the RH
 front — a shared tool, not a shortcut.
+
+---
+
+## r208 — the Gauss sets, level-2 refinement (commit `60f38712`)
+
+**File:** `PF/GaussDimension_r208.lean`, build 4,723 jobs, ten theorems on the
+standard triple.
+
+**Why the Gauss sets are harder than the Cantor set.** The branches are Möbius,
+not similarities, so `|Φ′|` varies across each cylinder (distortion) and the
+dimension is the root of **no finite Moran equation**. There is no closed form
+to aim at — only enclosures.
+
+**What is still explicit at level 2.** The composites remain Möbius:
+
+    gauss2 K i j x = (x + (j+1)) / ((i+1)·x + 1 + (i+1)(j+1))
+    cgauss2 K i j  = ((K+1) / ((i+1) + (K+1)(1 + (i+1)(j+1))))²   -- exact rational
+
+so no continuant machinery is needed at this level. The constants were
+cross-checked against an independent continuant-matrix computation and agree
+term for term.
+
+**Landed:** `gauss2_mapsTo`, `gauss2_lipschitzOnWith`, `cgauss2_lt_one`,
+`gauss2_selfCover` (level-1 hypothesis applied twice), the general
+`dimH_gauss_le_two`, and two numeric corollaries at the planned `d` values:
+
+| K | level-1 (r205) | **level-2 (r208)** | Moran root | true value |
+|---|---|---|---|---|
+| 3 | ≤ 0.9227 | **≤ 77/100** | 0.76189 | 0.7056609 |
+| 2 | ≤ 0.6715 | **≤ 29/50** | 0.56995 | 0.5312805 |
+
+The gain comes purely from the true composite derivative rather than the
+product of level-1 constants. Each per-term rational split was independently
+re-verified outside Lean.
+
+**Engineering note.** The Lipschitz proof had to be factored into two pure-real
+lemmas (`mobius_abs_diff`, `mobius_lip`); an inline version hit a `whnf`
+heartbeat timeout because `field_simp`/`nlinarith` choke on `set`-bound lets
+wrapping `Nat.cast (Fin.val i)`. Worth remembering for any future Fin-indexed
+real algebra.
+
+**Scope, unchanged and load-bearing.** Upper bounds only. No lower bound for
+`E_K` exists anywhere in the corpus. `29/50` and `77/100` do NOT approach
+`0.5312805` and `0.7056609` and must never be quoted as approximations to them.
+
+## Where the fractal front stands
+
+- **Cantor set: SOLVED.** `dimH cantorSet = log₃2` exactly (r207).
+- **Gauss sets: bracketed from above only.** Certified `≤ 77/100` (K=3),
+  `≤ 29/50` (K=2). Numerically the truth is inside `[0.685, 0.720]` for K=3,
+  but nothing below the upper bound is proved.
+- **The open half.** A lower bound for `E_K` needs a Gibbs measure fed to
+  r206's `le_dimH_of_massDistribution` — the bridge exists, the measure does
+  not. Sharpening the upper bound past level 2 needs bounded distortion (the
+  level-n constants stop being individually explicit). Both are real analytic
+  work, neither is started, and neither is shortened by anything in this arc.
