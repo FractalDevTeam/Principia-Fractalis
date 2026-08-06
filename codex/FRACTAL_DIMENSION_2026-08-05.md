@@ -112,7 +112,48 @@ not a contraction there, and the upper equation has no root.
   direction; `rw [← NNReal.coe_inj]` on an ℝ≥0 rpow goal fights — use a
   `have` + `exact_mod_cast`.
 
-- **r207 — the lower bound, and the reason it matters.** With r206(A) the
+- **★★★ r207 LANDED — THE ARC IS CLOSED ★★★** (commit `f927e54a`, build
+  4,722 jobs, 17 audited declarations, only `propext`/`Classical.choice`/
+  `Quot.sound` occurring anywhere, no `sorryAx`).
+
+      theorem dimH_cantorSet : dimH cantorSet = ENNReal.ofReal (Real.logb 3 2)
+
+  on **mathlib's own `cantorSet`**. The canonical fractal dimension,
+  kernel-certified. To our knowledge the Hausdorff dimension of the Cantor
+  set — of any nontrivial fractal — had not previously been formalized in any
+  proof assistant.
+
+  **The Cantor function**, absent from mathlib, is built here. The design
+  move that made it cheap: **clamped arguments** in the approximants
+  (`min (3x) 1`, `max (3x−2) 0`), which make each step continuous for *any*
+  continuous input and remove the three-piece gluing entirely. Then
+  `|capprox (n+1) x − capprox n x| ≤ 2⁻ⁿ`, so the function is a telescoping
+  sum, continuous by the Weierstrass M-test. Landed with continuity,
+  monotonicity, `f 0 = 0`, `f 1 = 1`, and both functional equations.
+
+  **Hölder came out global on ℝ** (`HolderWith 2 (log₃2).toNNReal`), stronger
+  than the `Icc 0 1` version planned — the constant-outside extension makes
+  it free. The conversion uses `3^(log₃2) = 2` exactly, i.e. r206's
+  `rpow_one_third_logb`.
+
+  **The image came out exactly surjective**, better than the plan: the
+  countable-complement fallback was never needed. `Icc 0 1 ⊆ f '' cantorSet`
+  because the image is compact hence closed, contains `0` and `1`, is stable
+  under `s ↦ s/2` and `s ↦ (1+s)/2` (functional equations +
+  `cantorSet_eq_union_halves`), hence contains every dyadic, hence everything.
+  Also proved `one_mem_cantorSet`, which mathlib lacks.
+
+  Measure-free throughout: no Cantor–Lebesgue measure, no Frostman, no
+  product measures. `le_dimH_of_massDistribution` (r206) was therefore NOT
+  used for this result — it remains available for future lower bounds where
+  no convenient Hölder surjection exists (e.g. the Gauss sets).
+
+  New frictions: `ENNReal.ofReal_rpow_of_nonneg` was wanted in the FORWARD
+  direction here (the ledger's `←` advice is for the general case); and
+  sequenced `rw [show (3:ℝ)*0 = 0 …]` clobbers the `3*0−2` subterm — rewrite
+  the longer pattern first.
+
+- **Superseded plan (kept for the record) — the lower bound.** With r206(A) the
   upper bound is already AT the classical value; the only thing standing
   between the corpus and `dimH cantorSet = log₃2` — the canonical fractal
   dimension, absent from every proof assistant we know of — is the matching
