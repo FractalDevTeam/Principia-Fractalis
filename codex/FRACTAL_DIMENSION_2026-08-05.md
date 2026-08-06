@@ -268,3 +268,60 @@ would instead give the sharp value in one shot. Two independent directions:
   Ruelle–Perron–Frobenius theory that exists in no proof assistant. Not started.
 
 Neither r208 nor r209 shortens the RPF route.
+
+---
+
+## r209 — the Gauss lower bounds, and the first two-sided enclosures (`188b548b`)
+
+**File:** `PF/GaussLowerBound_r209.lean`, 1421 lines, 25 theorems on the standard
+triple, build 4,724 jobs.
+
+    dimH_gauss_three_enclosure : 54/100 ≤ dimH E ∧ dimH E ≤ 77/100
+    dimH_gauss_two_enclosure   : 39/100 ≤ dimH E ∧ dimH E ≤ 29/50
+
+No measure is constructed. The route is strong separation plus a weighted
+address map:
+
+- `gaussGap K = 1/(K(1 + K(K+1)))`, the gap between level-1 cylinders;
+  `gaussGap 2 = 1/14`, `gaussGap 3 = 1/39`, both kernel-checked.
+- `gauss_antilipschitz : agauss j * |x−y| ≤ |φ_j x − φ_j y|`, `agauss j = 1/(j+2)²`,
+  proved algebraically through a pure-real lemma (no MVT).
+- `gaddr`, the Bernoulli address map, built by r207's clamped telescoping
+  technique with weights satisfying `p_j ≤ agauss_j^s` termwise.
+- Hölder **without cylinder words**: an induction on a counter, peeling one
+  branch at a time. Same branch spends budget and `p_i ≤ a_i^s` absorbs the
+  rescaling exactly; a different branch is finished by the explicit gap. This
+  avoided the `Fin n → Fin K` word machinery entirely.
+- Surjectivity by `weight_cover` (the weight blocks tile `[0,1]`) + density and
+  compactness, then r206's `le_dimH_of_holder_surj`.
+
+### Three corrections to the design that was handed to the build
+
+Recorded because they are the substance, not bookkeeping:
+
+1. **The gap formula.** It is `1/(K(K²+K+1))`. The guess `(K+1)(K+2)` in the
+   brief gives `1/12` and `1/20`, against measured `1/14` and `1/39`. Wrong.
+2. **Orientation.** The Gauss branches `φ_j(x) = 1/(x+j)` are *decreasing*, so
+   the functional equation must flip: `A(φ_i u) = Q_i + p_i(1 − A u)` with
+   `Q_i = Σ_{j>i} p_j`. The unflipped form specified in the brief is
+   geometrically impossible and breaks the clamped extension at both endpoints.
+3. **Backward covering is not enough.** `E ⊆ ⋃_j φ_j '' E` is satisfied by
+   `E = ∅`, so it cannot support a lower bound. `E` nonempty, closed, and
+   forward-invariant (`MapsTo (φ_j) E E`) are now hypotheses — a real gap in
+   the design, not a technicality.
+
+### What these bounds are
+
+A Bernoulli weighting, not the Gibbs state. A Bernoulli measure cannot attain
+the dimension of a nonlinear conformal attractor, so the enclosures do not
+close. True values `0.7056609` (K=3) and `0.5312805` (K=2) lie strictly inside
+`[0.54, 0.77]` and `[0.39, 0.58]`.
+
+### Two ways forward, unchanged
+
+- **Refinement (machinery exists).** Rerun r208 and r209 on the level-2 word
+  system: expected `[0.635, 0.762]` for K=3, `[0.473, 0.570]` for K=2. Level 3
+  costs 27 words and is likely the `norm_num` ceiling.
+- **Equilibrium state / RPF (sharp, not started).** Nothing in r205–r209
+  shortens it. What r209 contributes onward is `gaussGap` and the two-sided
+  branch estimates, both of which any RPF construction will need.
