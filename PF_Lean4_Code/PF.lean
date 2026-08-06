@@ -1020,6 +1020,7 @@ import PF.CantorDimension_r206  -- r206: dimH(cantorSet) <= logb 3 2 on mathlib'
 import PF.CantorFunction_r207  -- r207: THE CANTOR FUNCTION + dimH(cantorSet) = logb 3 2 exactly -- the canonical fractal dimension, kernel-certified
 import PF.GaussDimension_r208  -- r208: Gauss continued-fraction sets -- level-2 Mobius refinement, certified dimH <= 77/100 (K=3) and <= 29/50 (K=2)
 import PF.GaussLowerBound_r209  -- r209: Gauss LOWER bounds via strong separation + weighted address map -- enclosures [0.54,0.77] (K=3), [0.39,0.58] (K=2)
+import PF.GaussLevelTwo_r210  -- r210: AddrIFS -- r209's engine abstracted to a general separated IFS; level-2 instantiation tightens to [0.63,0.7625] and [0.46,0.5714]
 
 /-!
 ## Principia Fractalis Formal Verification
