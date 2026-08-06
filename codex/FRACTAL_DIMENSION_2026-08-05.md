@@ -91,10 +91,39 @@ not a contraction there, and the upper equation has no root.
   **Cross-check:** the Lean `Lgauss` constants reproduce the level-1 Moran
   root `0.922674627943` computed independently in Python — every digit. The
   formalized constants are the intended mathematics.
-- **r206.** The lower bound: mass distribution principle
-  (`le_hausdorffMeasure`) + a Gibbs/Bernoulli measure on the Cantor set.
-  The harder half, and the one that would actually pin the dimension rather
-  than bound it from one side.
+- **r206 LANDED** (commit `b21e2b44`, build 4,721 jobs, 8/8 axiom lines
+  clean, no `sorryAx`). Three results:
+  (A) `dimH_cantorSet_le : dimH cantorSet ≤ ENNReal.ofReal (Real.logb 3 2)`
+  — on **mathlib's own `cantorSet`**. mathlib defines the set and proves
+  `cantorSet_eq_union_halves` (literally r205's self-covering hypothesis)
+  but computes no Hausdorff dimension anywhere: `dimH` occurs in only two
+  mathlib files, neither of them `CantorSet.lean`. The key arithmetic
+  `rpow_one_third_logb : (1/3)^(logb 3 2) = 1/2` makes the Moran sum
+  EXACTLY 1, so **the upper bound is sharp, not slack** — it sits precisely
+  at the classical value 0.63092975357.
+  (B) `le_dimH_of_massDistribution` — the mass distribution principle in
+  usable form WITH a constant (mathlib's `le_hausdorffMeasure` has none;
+  absorb it by scaling to `C⁻¹ • μ`). The bridge for every future
+  lower-bound argument.
+  (C) `le_dimH_of_holder_surj` — abstract Hölder transfer,
+  `r * dimH F ≤ dimH E`; deliberately NOT applied to `cantorSet`.
+  Frictions: the module is `Mathlib.Analysis.SpecialFunctions.Log.Base`
+  (not `…Logb`); `ENNReal.coe_rpow_of_nonneg` is wanted in the `←`
+  direction; `rw [← NNReal.coe_inj]` on an ℝ≥0 rpow goal fights — use a
+  `have` + `exact_mod_cast`.
+
+- **r207 — the lower bound, and the reason it matters.** With r206(A) the
+  upper bound is already AT the classical value; the only thing standing
+  between the corpus and `dimH cantorSet = log₃2` — the canonical fractal
+  dimension, absent from every proof assistant we know of — is the matching
+  lower bound. Two routes, both now scaffolded:
+  (i) a self-similar Bernoulli measure (mathlib gained
+  `Probability/ProductMeasure.lean`) pushed to `cantorSet`, with a Frostman
+  estimate fed to r206(B);
+  (ii) the Cantor staircase — a Hölder-`log₃2` surjection onto `[0,1]` —
+  fed to r206(C), which needs no measure theory at all. mathlib has no
+  Cantor function, so (ii) means building it.
+  Route (ii) looks cheaper and is the recommended next attempt.
 - **Beyond r206.** Level-n refinement (apply §2 to the word system — free,
   the r191/r192 device) narrows the upper bound toward the bracket table
   above; a genuine approach to `0.70566…` needs bounded distortion, which is
