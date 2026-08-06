@@ -234,3 +234,37 @@ real algebra.
   not. Sharpening the upper bound past level 2 needs bounded distortion (the
   level-n constants stop being individually explicit). Both are real analytic
   work, neither is started, and neither is shortened by anything in this arc.
+
+---
+
+## Level-n brackets: the gap closes without RPF
+
+Computed from the same machinery already built (exact rational constants;
+`inf|Φ'_α| = 1/(C+D)²` and `sup|Φ'_α| = 1/(C/(K+1)+D)²` from the continuant
+matrix `[[A,B],[C,D]]` of the word).
+
+| K | n | words | bracket | width |
+|---|---|---|---|---|
+| 2 | 1 | 2 | [0.39394246, 0.67151337] | 0.278 |
+| 2 | 2 | 4 | [0.47299477, 0.56995239] | 0.097 |
+| 2 | 3 | 8 | [0.48607850, 0.56034345] | 0.074 |
+| 3 | 1 | 3 | [0.54106575, 0.92267463] | 0.382 |
+| 3 | 2 | 9 | [0.63539350, 0.76189330] | 0.126 |
+| 3 | 3 | 27 | [0.65214701, 0.74701409] | 0.095 |
+
+True values: `dim_H(E_2) = 0.5312805`, `dim_H(E_3) = 0.7056609`.
+
+Consequence for the plan: the enclosure narrows by **level refinement alone**,
+using r208's upper machinery and r209's lower machinery unchanged — only the
+constants change, and they stay exact rationals. The equilibrium state (RPF)
+would instead give the sharp value in one shot. Two independent directions:
+
+- **r210 (cheap, incremental):** rerun r209's weighted-address argument on the
+  level-2 word system. Expected `dim_H(E_3) ≥ 0.635`, `dim_H(E_2) ≥ 0.472`,
+  giving `[0.635, 0.762]` and `[0.473, 0.570]`. Cost: the same file with
+  9 (resp. 4) words instead of 3 (resp. 2). Level 3 costs 27 words — likely
+  the practical ceiling for `norm_num` on rational powers.
+- **RPF / equilibrium state:** the sharp value, but requires
+  Ruelle–Perron–Frobenius theory that exists in no proof assistant. Not started.
+
+Neither r208 nor r209 shortens the RPF route.
