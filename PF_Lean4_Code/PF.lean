@@ -1019,6 +1019,7 @@ import PF.HausdorffIFS_r205  -- r205: Hausdorff dimension UPPER bounds for IFS a
 import PF.CantorDimension_r206  -- r206: dimH(cantorSet) <= logb 3 2 on mathlib's own Cantor set + the mass distribution principle (usable form) + Holder transfer
 import PF.CantorFunction_r207  -- r207: THE CANTOR FUNCTION + dimH(cantorSet) = logb 3 2 exactly -- the canonical fractal dimension, kernel-certified
 import PF.GaussDimension_r208  -- r208: Gauss continued-fraction sets -- level-2 Mobius refinement, certified dimH <= 77/100 (K=3) and <= 29/50 (K=2)
+import PF.GaussLowerBound_r209  -- r209: Gauss LOWER bounds via strong separation + weighted address map -- enclosures [0.54,0.77] (K=3), [0.39,0.58] (K=2)
 
 /-!
 ## Principia Fractalis Formal Verification
