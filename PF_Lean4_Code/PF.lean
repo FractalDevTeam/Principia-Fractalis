@@ -1017,6 +1017,7 @@ import PF.EllipticTrace_r194  -- r194: trace formula on the BSD face -- Mestre-N
 import PF.DynamicalDeterminant_r204  -- r204: trace bounds for all powers + convergence of the trace series; the dynamical determinant det(1-tA) := exp(-sum t^n Tr(A^n)/n)
 import PF.HausdorffIFS_r205  -- r205: Hausdorff dimension UPPER bounds for IFS attractors -- general covering engine + Moran/Falconer + Gauss continued-fraction branches
 import PF.CantorDimension_r206  -- r206: dimH(cantorSet) <= logb 3 2 on mathlib's own Cantor set + the mass distribution principle (usable form) + Holder transfer
+import PF.CantorFunction_r207  -- r207: THE CANTOR FUNCTION + dimH(cantorSet) = logb 3 2 exactly -- the canonical fractal dimension, kernel-certified
 
 /-!
 ## Principia Fractalis Formal Verification
