@@ -61,6 +61,12 @@ clean at r194. The arc list since this block was written: Mordell–Weil ranks r
 transfer-operator/Lefschetz arc r183–r194, Friedmann r187. Figures elsewhere in this
 README dated 2026-07-23 are historical.
 
+**Update (2026-08-05):** `lake build PF` = 4,724 jobs clean at HEAD `13369b35`. Arcs added
+since: the universal rank pipeline (rank lower bounds for any elliptic curve over ℚ from
+its coefficients, r193–r203) and Hausdorff dimension (Moran/Falconer bounds; the Cantor
+function; `dimH cantorSet = log₃2`; certified enclosures for the continued-fraction Cantor
+sets, r205–r209).
+
 Paper: [`Papers/uhf_faithful_trace_glimm_2026-07-23.pdf`](Papers/uhf_faithful_trace_glimm_2026-07-23.pdf) (14 pp).
 
 ---

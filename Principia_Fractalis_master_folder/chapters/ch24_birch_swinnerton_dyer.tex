@@ -700,6 +700,87 @@ $a_p\,p^{-s}$ --- so the truncated trace \emph{equals}
 $\sum_p a_p\,p^{-s}/(1-1/p)$ as a kernel theorem; the heuristic link from
 that sum's slope to the rank remains a measurement, not a proof.
 
+\paragraph{Verification update (2026-08-05): the rank machinery is now
+curve-independent (arc r193, r195--r203).}
+Everything recorded above about ranks was \emph{per curve}: the
+$\rank E_{389\mathrm{a}1}(\Q)\ge 2$ flag (r154) and the
+$\rank E_{5077\mathrm{a}1}(\Q)\ge 3$ flag (r169) were each assembled from a
+hand-built certificate suite for that one curve, across roughly forty Lean
+files. That machinery has been made universal. The record is
+\texttt{codex/BSD\_UNIVERSAL\_SECANT\_2026-08-05.md}; all theorems below are
+Lean~4 with axioms exactly $[\texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}]$, no \texttt{sorry}, no \texttt{native\_decide}, no
+project axioms.
+
+\begin{itemize}
+\item \textbf{The secant estimate layer, made universal (r193, r195--r198).}
+Integer bihomogeneous forms $DDz$, $Sfz$, $Prz$ in the $b$-invariant basis,
+with specialization identities and triangle bounds depending only on
+$b_2,b_4,b_6,b_8$ (r193); a two-sided size control
+$\Delta^4 H_1^2 H_2^2 \le C_{\mathrm{L}}^{\mathrm{sec}}\max(|DDz|,|Sfz|,|Prz|)$
+with coefficient-only constant (r197); and the point-level upper window
+$H(x(P{+}Q))\,H(x(P{-}Q)) \le 2\,C_{\mathrm{U}}^{\mathrm{sec}}\,H(x_1)^2H(x_2)^2$
+over mathlib's group law, for any Weierstrass curve over $\Q$ with integer
+$b$-invariants and any two affine points with distinct $x$-coordinates
+(r198).
+\item \textbf{The diagonal degeneration (r195), the structural discovery of
+the arc.} Restricted to the diagonal, the secant forms \emph{are} the
+duplication pair: $Sfz(a,b,a,b)=\Psi(a,b)$, $Prz(a,b,a,b)=\Phi(a,b)$,
+$DDz(a,b,a,b)=0$. Eliminating the second point against $DDz$ returns the
+\emph{squares} of the duplication pair at the first point, with small integer
+B\'ezout cofactors. The secant content problem therefore reduces to the
+already-proved keystone $\mathrm{Res}(\Phi,\Psi)=\Delta^2$.
+\item \textbf{The universal content bound (r196).}
+$\gcd(DDz,Sfz,Prz) \mid \Delta^6$ for every curve and every pair of coprime
+lowest-terms inputs (\texttt{secant\_content\_universal}). What earlier
+revisions proved one curve at a time by Hermite-normal-form arguments is now a
+single theorem.
+\item \textbf{The exact parallelogram law, universally (r199--r201).} A
+universal $X$-layer on \texttt{W.Point}, the quasi-parallelogram with defect
+bounded by $\log C_{\mathrm{par}}$ (r199), and then the Tate limit:
+$\hat{h}(P{+}Q)+\hat{h}(P{-}Q) = 2\hat{h}(P)+2\hat{h}(Q)$ exactly, for any
+admissible curve, with \emph{zero} per-curve input
+(\texttt{canheight\_parallelogram\_universal}, r200). The canonical height is
+a quadratic form on any such curve from its coefficients alone. From this,
+$\hat{h}(kP)=k^2\hat{h}(P)$ and the bi-additive pairing
+\texttt{biAdditive\_pairingW} (r201).
+\item \textbf{The capstone (r202).}
+\[
+\texttt{rank\_ge\_universal} \;:\;
+(\mathrm{Gram}\,\langle\cdot,\cdot\rangle_W\,P).\det \ne 0
+\;\Longrightarrow\; n \le \rank E(\Q),
+\]
+for any Weierstrass curve over $\Q$ with integer $b$-invariants,
+$\Delta \ne 0$, and no rational $2$-torsion, at any $n$ candidate points. The
+$2\times 2$ case is the classical regulator
+$\hat{h}(P)\hat{h}(Q)-\langle P,Q\rangle^2$. Curve coefficients plus candidate
+points plus a certified-nonzero Gram determinant now yield a kernel-checked
+rank lower bound, with no curve named anywhere in the chain.
+\item \textbf{End-to-end transfer (r203).} Both original flags are re-derived
+\emph{through} the universal machine from the committed regulator
+certificates: \texttt{E389a1\_rank\_ge\_two\_universal} from r154's
+$\det \Reg > 0$, and \texttt{E5077a1\_rank\_ge\_three\_universal} from r169's
+$3\times3$ analogue. No interval arithmetic was recomputed. The bridge lemma
+records a structural fact worth stating: once the two log-height helpers are
+shown equal as functions, the universal and per-curve canonical heights are
+\emph{definitionally} equal --- \texttt{canheightW\_eq\_389} closes by
+\texttt{rfl}. The universal layer and the per-curve layer are the same
+construction, which is the available evidence that universalization did not
+quietly change the object being computed. The \texttt{5077a1} hypothesis
+package is proved in that file, including
+$\Delta_{5077\mathrm{a}1} = 5077$ by \texttt{decide}.
+\end{itemize}
+
+\noindent \textbf{What is not proved.} These are rank \emph{lower} bounds, one
+side of Mordell--Weil. Rank upper bounds require descent, which exists in no
+proof assistant. Nothing in this arc concerns $L(E,s)$, its analytic
+continuation, $\Sha$, or the BSD statement itself; all four remain exactly as
+open as the ledgers above record. The nonvanishing of the Gram determinant is
+a \emph{hypothesis} of \texttt{rank\_ge\_universal}, not an output: certifying
+it for a given curve is interval arithmetic done outside the pipeline. The
+$\varphi/e$ multiplicity mechanism remains falsified as recorded above, and
+this arc does not bear on it.
+
 \section{Conclusion}
 
 We have presented computational evidence for the Birch and Swinnerton-Dyer conjecture through fractal resonance:

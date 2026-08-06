@@ -820,3 +820,87 @@ project axioms; record \texttt{codex/RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}):
 theorems about transfer matrices under stated hypotheses. Determinant
 assembly, nuclearity/Lidskii, infinite-branch operators, Selberg theory, and
 the Millennium statements themselves (RH, BSD) remain \textbf{open}.
+
+\paragraph{Verification update (2026-08-05): kernel-verified results added
+since the 2026-08-04 entry (arcs r193/r195--r203 and r205--r209).}
+The build at HEAD \texttt{13369b35} is \texttt{lake build PF} $=$ 4{,}724 jobs
+clean. Two arcs landed since the list above: the universal rank pipeline
+(records \texttt{codex/BSD\_UNIVERSAL\_SECANT\_2026-08-05.md}, chapter ledger
+in Ch.~\ref{ch:birch-swinnerton-dyer}) and Hausdorff dimension (record
+\texttt{codex/FRACTAL\_DIMENSION\_2026-08-05.md}, chapter ledger in
+Ch.~\ref{ch:numbers}). One line per revision; all Lean~4, axioms exactly
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$, no
+\texttt{sorry}, no \texttt{native\_decide}, no project axioms.
+\begin{itemize}
+\item \textbf{r193} --- universal secant size upper bounds: integer
+bihomogeneous forms $DDz$, $Sfz$, $Prz$ in the $b$-invariant basis, with exact
+specialization identities and triangle bounds in $b_2,b_4,b_6,b_8$ alone
+(\texttt{Sfz\_spec}, \texttt{Prz\_spec}).
+\item \textbf{r195} --- the content bridge: on the diagonal the secant forms
+are the duplication pair, and elimination against $DDz$ returns its squares
+with integer B\'ezout cofactors, reducing secant content to the keystone
+$\mathrm{Res}(\Phi,\Psi)=\Delta^2$.
+\item \textbf{r196} --- the universal secant content bound
+$\gcd(DDz,Sfz,Prz) \mid \Delta^6$ for every curve
+(\texttt{secant\_content\_universal}), replacing per-curve Hermite-normal-form
+arguments.
+\item \textbf{r197} --- universal secant size lower bound
+$\Delta^4 H_1^2H_2^2 \le C_{\mathrm{L}}^{\mathrm{sec}}\max(|DDz|,|Sfz|,|Prz|)$,
+coefficient-only constant; two-sided control of the forms themselves.
+\item \textbf{r198} --- the universal secant upper window at point level:
+$H(x(P{+}Q))\,H(x(P{-}Q)) \le 2\,C_{\mathrm{U}}^{\mathrm{sec}}H(x_1)^2H(x_2)^2$
+over mathlib's group law, for affine points with distinct $x$-coordinates.
+\item \textbf{r199} --- universal point-level quasi-parallelogram: the $X$-layer
+on \texttt{W.Point}, $x(P{+}Q)\ne x(P{-}Q)$ under explicit non-$2$-torsion
+hypotheses, and $|\text{defect}| \le \log C_{\mathrm{par}}$.
+\item \textbf{r200} --- the exact parallelogram law universally,
+$\hat{h}(P{+}Q)+\hat{h}(P{-}Q)=2\hat{h}(P)+2\hat{h}(Q)$, for any admissible
+curve with zero per-curve input
+(\texttt{canheight\_parallelogram\_universal}).
+\item \textbf{r201} --- $\hat{h}(-P)=\hat{h}(P)$, $\hat{h}(0)=0$, the
+all-cases parallelogram, the $k^2$ law, and the bi-additive height pairing
+(\texttt{biAdditive\_pairingW}).
+\item \textbf{r202} --- the capstone \texttt{rank\_ge\_universal}: a nonzero
+Gram determinant of the canonical-height pairing at $n$ points forces
+$n \le \rank E(\Q)$, for any Weierstrass curve over $\Q$ with integer
+$b$-invariants, $\Delta \ne 0$, and no rational $2$-torsion
+(\texttt{gram\_det\_fin\_two}, \texttt{gram\_det\_fin\_three}).
+\item \textbf{r203} --- end-to-end transfer: both historical flags re-derived
+through the universal machine from the committed regulator certificates
+(\texttt{E389a1\_rank\_ge\_two\_universal},
+\texttt{E5077a1\_rank\_ge\_three\_universal}); the universal and per-curve
+canonical heights are definitionally equal, \texttt{canheightW\_eq\_389}
+closing by \texttt{rfl}.
+\item \textbf{r205} --- the general covering engine
+\texttt{dimH\_le\_of\_bounded\_covers} and the Moran/Falconer IFS upper bound
+\texttt{dimH\_le\_of\_selfCover}: $\sum_j \mathrm{Lip}(\varphi_j)^d \le 1$
+implies $\dim_H \le d$; instantiated on the Gauss branches
+(\texttt{dimH\_gauss\_three\_le}).
+\item \textbf{r206} --- \texttt{dimH\_cantorSet\_le} at exactly $\log_3 2$ on
+mathlib's \texttt{cantorSet} (the Moran sum is exactly $1$, so no slack);
+\texttt{le\_dimH\_of\_massDistribution}, the mass distribution principle with
+a constant; \texttt{le\_dimH\_of\_holder\_surj}, abstract H\"older transfer.
+\item \textbf{r207} --- \texttt{dimH\_cantorSet}:
+$\dim_H(\mathcal{C}) = \log_3 2$ exactly. The Cantor function, absent from
+mathlib, is constructed as a telescoping sum of clamped approximants, proved
+globally H\"older with exponent $\log_3 2$, with image exactly $[0,1]$;
+measure-free throughout. Also \texttt{one\_mem\_cantorSet}, which mathlib
+lacks.
+\item \textbf{r208} --- level-2 refinement for the continued-fraction sets:
+exact rational composite derivatives, \texttt{dimH\_gauss\_le\_two}, and the
+numeric upper bounds $\dim_H(E_3)\le 77/100$, $\dim_H(E_2)\le 29/50$.
+\item \textbf{r209} --- the matching lower bounds and the first two-sided
+enclosures, $0.54 \le \dim_H(E_3) \le 0.77$ and
+$0.39 \le \dim_H(E_2) \le 0.58$, via strong separation
+($\texttt{gaussGap}\,K = 1/(K(K^2{+}K{+}1))$), an anti-Lipschitz branch
+estimate, and a Bernoulli weighted-address map; no measure is constructed.
+\end{itemize}
+\noindent Scope of these two arcs. The rank pipeline gives rank \emph{lower}
+bounds only; upper bounds need descent, which exists in no proof assistant,
+and nothing in it touches $L(E,s)$, $\Sha$, or BSD --- the nonzero Gram
+determinant is an input hypothesis, certified by interval arithmetic outside
+the pipeline. The dimension arc settles the Cantor set exactly; the Gauss
+enclosures do \textbf{not} close, the true values $0.7056609$ and $0.5312805$
+lie strictly inside them, and the sharp values require
+Ruelle--Perron--Frobenius theory that is not started. Neither arc changes the
+status of any Millennium statement.
