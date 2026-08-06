@@ -325,3 +325,59 @@ close. True values `0.7056609` (K=3) and `0.5312805` (K=2) lie strictly inside
 - **Equilibrium state / RPF (sharp, not started).** Nothing in r205–r209
   shortens it. What r209 contributes onward is `gaussGap` and the two-sided
   branch estimates, both of which any RPF construction will need.
+
+---
+
+## r210 — the engine abstracted, and level 2 (`b5515449`)
+
+**File:** `PF/GaussLevelTwo_r210.lean`, 1663 lines, 42 theorems on the standard
+triple, build 4,725 jobs.
+
+**The deliverable is the abstraction, not the digits.** r209's lower-bound
+machinery was written concretely for the level-1 Gauss branches. It is now a
+structure `AddrIFS N` bundling the hypotheses — interval, maps, inverse
+branches, weights, and the constants `a` / `L` / `γ` for antilipschitz,
+Lipschitz and separation — with
+
+    AddrIFS.le_dimH : 0 < s → E ⊆ J → self-covering → nonempty → closed →
+                      forward-invariant → (∀ i, p i ≤ a i ^ s) →
+                      ENNReal.ofReal s ≤ dimH E
+
+One addition beyond r209: an orientation flag, so the same theorem serves
+orientation-reversing systems (odd cylinder levels — including r209's level 1)
+and preserving ones (even levels). **Consistency check performed:**
+`gaussLevelOne` re-derives r209's `54/100` and `39/100` from the abstract
+theorem, every field an existing r209 lemma. Nothing was lost in the lift, and
+level 3 is now a constant swap.
+
+**Level-2 instantiation.** Generic support for all `K` (closed Möbius form for
+the two-step composite; the exact two-step infimum proved algebraically with no
+derivative; the level-2 trichotomy and uniqueness; cylinder endpoints;
+self-covering and invariance from the level-1 hypotheses applied twice), then
+`gaussTwo3 : AddrIFS 9` and `gaussTwo2 : AddrIFS 4` with `decide`-verified
+reindexing and separation read off explicit endpoints: `γ₂ = 1/430` tight at
+`13/43 − 3/10`, `γ₂ = 1/85` tight at `7/17 − 2/5`.
+
+| | lower | upper | true |
+|---|---|---|---|
+| K=3 | 63/100 (was 54/100) | 61/80 = 0.7625 (was 77/100) | 0.7056609 |
+| K=2 | 23/50 (was 39/100) | 4/7 = 0.571428 (was 29/50) | 0.5312805 |
+
+Both true values strictly inside. Moran sums verified `0.99843` and `0.99657`;
+no `s` had to be lowered.
+
+**Correction to the build report.** It described both tightened upper bounds as
+"strictly tighter than requested". That holds for `61/80` (better than both
+r208's `77/100` and the `763/1000` specified) but not for `4/7 = 0.571428`,
+which improves on r208's `29/50` yet is marginally weaker than the `571/1000`
+specified. Both bounds are valid; the claim was not.
+
+## Status of the fractal front
+
+- **Cantor set: solved exactly** — `dimH cantorSet = log₃2` (r207).
+- **Gauss sets: enclosed** — `[0.63, 0.7625]` and `[0.46, 0.5714]`.
+- **Open.** Level 3 (27 resp. 8 words) is the practical `norm_num` ceiling and
+  would buy roughly `0.017`. Past that, the equilibrium state / RPF is the only
+  route to the sharp value; it is not started, and nothing in r205–r210
+  shortens it. What r210 contributes onward is `AddrIFS`, which any refinement
+  or any other separated IFS can now instantiate directly.
