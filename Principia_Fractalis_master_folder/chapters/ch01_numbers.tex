@@ -1060,6 +1060,71 @@ What remains are precisely the numbers in $[0,1]$ whose ternary (base-3) expansi
 
 The connection: $D_3(n)$ measures "how far" a number is from being in this Cantor-like structure. Numbers with $D_3(n) = 1$ correspond to powers of 3, which are the "boundaries" of the Cantor set construction.
 
+\paragraph{Verification update (2026-08-05): the Hausdorff dimension of the
+Cantor set is now kernel-certified (arc r205--r209).}
+The value $\log 2/\log 3$ quoted informally in this chapter --- and in the
+box-counting remark of Section~\ref{sec:digital-sum-patterns} --- is, for the Cantor
+set itself, now a machine-checked theorem rather than a citation. The record
+is \texttt{codex/FRACTAL\_DIMENSION\_2026-08-05.md}. Every result below is
+Lean~4 with axioms exactly $[\texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}]$, no \texttt{sorry}, no \texttt{native\_decide}, no
+project axioms.
+
+\begin{itemize}
+\item \textbf{The Moran/Falconer upper bound (r205).} A general covering
+engine \texttt{dimH\_le\_of\_bounded\_covers}, with no dynamics in it, and
+above it the classical iterated-function-system bound: for a bounded set
+covered by the images of its contracting Lipschitz branches,
+$\sum_j \mathrm{Lip}(\varphi_j)^d \le 1$ implies $\dim_H \le d$. mathlib has
+\texttt{dimH} but no IFS, Moran, or thermodynamic-formalism theory at the pin;
+that layer was built here.
+\item \textbf{The mass distribution principle and H\"older transfer (r206).}
+\texttt{le\_dimH\_of\_massDistribution} restates mathlib's
+\texttt{le\_hausdorffMeasure} with a constant, and
+\texttt{le\_dimH\_of\_holder\_surj} gives $r \cdot \dim_H F \le \dim_H E$ for a
+H\"older-$r$ surjection $E \to F$. The arithmetic identity
+$(1/3)^{\log_3 2} = 1/2$ makes the Moran sum for the Cantor set exactly $1$,
+so the upper bound sits precisely at the classical value, with no slack.
+\item \textbf{The result (r207).}
+\[
+\texttt{dimH\_cantorSet} \;:\; \dim_H(\mathcal{C}) = \log_3 2
+\approx 0.63092975357,
+\]
+on mathlib's own \texttt{cantorSet}. To our knowledge the Hausdorff dimension
+of the Cantor set --- of any nontrivial fractal --- had not previously been
+formalized in a proof assistant. The lower half required the \emph{Cantor
+function}, which mathlib does not have; it is constructed here as a
+telescoping sum of clamped approximants, proved continuous, monotone, and to
+satisfy both functional equations, then shown globally H\"older with exponent
+$\log_3 2$, and its image proved to be exactly $[0,1]$. The whole argument is
+measure-free: no Cantor--Lebesgue measure, no Frostman lemma, no product
+measures. A side result mathlib also lacks, $1 \in \mathcal{C}$, was proved
+along the way.
+\item \textbf{Certified enclosures for the continued-fraction sets
+(r208, r209).} For $E_K$, the set of reals in $[0,1]$ whose continued-fraction
+digits are all at most $K$, the branches are M\"obius rather than
+similarities, so the dimension is the root of no finite Moran equation and
+only enclosures are available. Level-2 refinement gives the upper bounds, and
+a Bernoulli weighted-address map --- built by the same clamped-telescoping
+technique as the Cantor function, with no measure constructed --- gives the
+lower bounds:
+\[
+0.54 \le \dim_H(E_3) \le 0.77,
+\qquad
+0.39 \le \dim_H(E_2) \le 0.58 .
+\]
+\end{itemize}
+
+\noindent \textbf{What is not proved.} The Gauss enclosures do not close. The
+true values, $\dim_H(E_3) = 0.7056609$ and $\dim_H(E_2) = 0.5312805$
+(Jenkinson--Pollicott), lie strictly inside the certified intervals, and the
+certified endpoints must not be quoted as approximations to them. Closing the
+gap requires the equilibrium state --- Ruelle--Perron--Frobenius theory, which
+exists in no proof assistant --- and that work is not started. Nothing in this
+arc bears on the framework's wider claims: it is a dimension computation for
+two specific self-similar sets, and it says nothing about $D_3(n)$, whose
+box-counting statement above remains a citation.
+
 \subsection{Computational Exploration}
 \label{subsec:computational-fractal}
 
