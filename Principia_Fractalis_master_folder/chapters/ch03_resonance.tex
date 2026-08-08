@@ -470,4 +470,60 @@ To hold this chapter to the standard of the machine-checked corpus, here is the 
 \item \textbf{EMPIRICAL / OPEN} --- the ``universal $\pi/10$ factor'' is an empirical observation; the text itself notes its ``theoretical derivation from first principles is an open problem.'' It is not machine-verified.
 \end{itemize}
 
+\paragraph{Verification update (2026-08-06): Theorem~\ref{thm:rh-resonance} is
+FALSE as stated --- and the same digit structure yields a real theorem in its
+place.}
+The 2026-07-23 ledger above filed the RH resonance equivalence under
+\textbf{CONDITIONAL / DEFERRED}. That was too generous. The claim has now been
+computed and it does not hold.
+
+\begin{itemize}
+\item \textbf{REFUTED} --- Theorem~\ref{thm:rh-resonance} asserts
+$R_f(3/2,\,1/2+it)=0 \Leftrightarrow \zeta(1/2+it)=0$. At $\alpha=3/2$ the
+phase is $(-i)^{D_3(n)}$, and the exact digit-block identity
+$\sum_{n<3^k}\omega^{D_3(n)}=(1+\omega+\omega^2)^k$ gives partial sums of
+modulus~$1$; the abscissa of convergence is therefore $0$ and direct summation
+\emph{on} the critical line is valid. Evaluated at the first five zeta zeros,
+$|R_f(3/2,\tfrac12+i\gamma)| = 0.6187,\ 1.5462,\ 1.7966,\ 1.1359,\ 1.6266$
+for $\gamma = 14.1347,\ 21.0220,\ 25.0109,\ 30.4249,\ 32.9351$, stable across
+$n<3^{13}$ and $n<3^{15}$. None is zero. Conversely $R_f(3/2,\cdot)$ has its
+own near-zeros on the line near $t \approx 2.75,\ 11.0,\ 19.75,\ 29.0,\ 31.75$,
+and none of these is a zeta ordinate. So neither direction of the claimed
+equivalence survives. $R_f$ is not a deformation of $\zeta$.
+In Lean the statement was never discharged: it is a bare \texttt{Prop} at
+\texttt{PF/Consciousness/FractalResonance.lean:323}.
+Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
+\item \textbf{CONSEQUENCE} --- the chain
+ch03 $\to$ ch09 (\S\ref{ch:spectral_unity}) $\to$ ch20 rests on this theorem.
+Chapter~9's ``spectral unity'' bridge is therefore not merely unproved; its
+stated form is refuted. Nothing in the machine-checked corpus depended on it.
+\item \textbf{NEW, and kernel-verified (r212)} --- the same digit-block
+identity that refutes the theorem also \emph{proves} something. Since
+$1+e^{i\pi\alpha}+e^{2i\pi\alpha}=e^{i\pi\alpha}(1+2\cos\pi\alpha)$, the
+abscissa of convergence of $R_f(\alpha,\cdot)$ is
+\[
+  \sigma(\alpha) \;=\; \log_3\bigl|1+2\cos(\pi\alpha)\bigr|.
+\]
+Checks: $\sigma(0)=1$ (the pole of $\zeta$), $\sigma(2)=1$, $\sigma(3/2)=0$.
+This is the framework's first \emph{non-circular} $\alpha$-selection
+mechanism: it is derived from the base-3 digit structure rather than assigned.
+Run against the nine canonical values, it derives exactly the three
+\emph{rational} ones --- $\sigma(1)=0$, $\sigma(3/2)=0$, $\sigma(2)=1$ --- and
+provably misses all six irrational ones, because $\sigma(\alpha)\in\{0,1\}$
+forces $\alpha$ rational. So $\sqrt2$, $\varphi$, $\varphi+\tfrac14$,
+$\sqrt{2\pi}$, $3\pi/4$ and $3\pi/2$ cannot arise this way. This complements
+r123, which refutes the substrate trace / K-theory route to $\alpha$: the
+digit route works, and reaches exactly one third of the table.
+Lean: \texttt{PF/SigmaAbscissa\_r212.lean}, 31 declarations, axioms exactly
+$[\texttt{propext},\texttt{Classical.choice},\texttt{Quot.sound}]$.
+\item \textbf{GUARD RAIL} --- $\sigma(\varphi)=0.4962$, which is within $0.8\%$
+of $\tfrac12$. This is a \emph{coincidence} and must not be read as a
+derivation of $\alpha_{\mathrm{Hodge}}$: the exact solution of
+$\sigma(\alpha)=\tfrac12$ is $\alpha=1.6192817$, not $\varphi=1.6180340$, and
+they differ by $1.25\times10^{-3}$. The separation is kernel-verified
+(\texttt{sigma\_goldenRatio\_ne\_half}), not merely numerical.
+\end{itemize}
+
+\noindent Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.1, \S3.
+
 % End of Chapter 3

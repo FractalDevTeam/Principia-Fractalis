@@ -781,6 +781,47 @@ it for a given curve is interval arithmetic done outside the pipeline. The
 $\varphi/e$ multiplicity mechanism remains falsified as recorded above, and
 this arc does not bear on it.
 
+\paragraph{Verification update (2026-08-06): the fractal $\Sha$ bound is
+FALSE, not merely asserted --- and the Conclusion below still states two
+retracted claims.}
+
+\begin{itemize}
+\item \textbf{REFUTED} --- Theorem~\ref{thm:fractal-bound-sha} claims
+$|\Sha(E)| \le [\mathcal{R}_f(\pi,N_E)]^2$. The ledger above files this under
+\textbf{ASSERTED / EMPIRICAL}; it is worse than asserted. With $\alpha=\pi$ the
+phase multiplies terms of size $n^{-N_E}$, so for any conductor $N_E\ge 11$ the
+sum is $1+O(2^{-N_E})$ and \textbf{the bound reads $|\Sha|\le 1$}. Computed:
+$0.999130$ at $N_E=11$, and $1.0$ to twelve digits at $N_E=571$ and $681$.
+It is broken by \texttt{571a1} ($|\Sha|=4$) and \texttt{681c1} ($|\Sha|=9$);
+at $N_E=11$ the bound is strictly below $1$, so it fails even for curves with
+trivial $\Sha$. The chapter's own remark that ``the fractal bound successfully
+bounds all known cases'' is not supportable.
+Note also that $\sigma(\pi)=\log_3|1+2\cos\pi^2|=-0.197$ (r212), so
+$\mathcal{R}_f(\pi,\cdot)$ converges far to the left of $s=N_E$ --- the bound
+is evaluated deep in the region where the series is a constant plus noise.
+\item \textbf{TEXT NOT YET RECONCILED} --- the Conclusion of this chapter,
+immediately below, still asserts, in the present
+indicative and without hedge:
+\emph{``Rank Formula: Multiplicity at threshold equals algebraic rank''};
+\emph{``$\Sha$ Bound: Concrete finite upper bound from fractal structure''};
+and \emph{``the rank counts how many independent modes resonate at the unique
+frequency $\varphi/e$.''}
+The first and third are the $\varphi/e$ multiplicity mechanism, which the
+ledger 130 lines above records as \textbf{DID NOT REPRODUCE} and which the
+warning box earlier in this chapter calls ``False as stated''. The second is
+the $\Sha$ bound just refuted. The Conclusion's \emph{Validation} bullet does
+carry a caveat, but it is attached to the success-rate line only, not to these
+three. \textbf{Read the Conclusion as superseded by this ledger on all three
+points.} The bullets are left in place per the corpus's additive-correction
+rule; they are not withdrawn silently.
+\item \textbf{UNAFFECTED} --- the surviving trace-level reading, the r188c
+trace identity, and the universal rank-lower-bound pipeline (r193, r195--r203)
+are independent of all three and stand exactly as recorded above.
+\end{itemize}
+
+\noindent Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
+Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.2, \S4.3.
+
 \section{Conclusion}
 
 We have presented computational evidence for the Birch and Swinnerton-Dyer conjecture through fractal resonance:
