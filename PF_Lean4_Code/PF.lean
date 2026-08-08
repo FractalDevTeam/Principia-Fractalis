@@ -924,6 +924,7 @@ import PF.ForMathlib.TwoSidedIdealClosure  -- mathlib PR-1
 import PF.ForMathlib.CfcMemTwoSidedIdeal  -- mathlib PR-2
 import PF.ForMathlib.ClopenSpectralProjection  -- mathlib PR-3
 import PF.SubstrateTraceUniqueness  -- r113: uniqueness of the substrate UHF trace -> T_inf is the Glimm 3^inf UHF factor
+import PF.AlphaFromSubstrateKTheory_r123  -- r123: the substrate CANNOT force the nine alpha-values -- T_inf has ONE tracial state (not nine), projection-trace range is Z[1/3] and 7 of 9 alphas lie outside it, arbitrary finite spectra embed at every matrix level, and the pi/10 identity holds for EVERY nonzero alpha. Added to the build tree 2026-08-06: this file carries the alpha refutation and was previously imported by nothing, so `lake build` never re-verified it. See codex/AUDIT_RESPONSE_2026-08-06.md 4.4.
 import PF.Analytic.XiOnLineZero  -- r120: RH on-line-zero atom DISCHARGED (certified interval arithmetic, no native_decide)
 import PF.Referee.ClayResidualFrontier_r121_2026_07_25  -- r121: Clay residual frontier THREE atoms -> TWO (atom (b) closed by r120)
 import PF.AlphaWebDegreesOfFreedom_r124  -- r124: the 11 alpha-invariants are a rank-8 system in 9 unknowns; alpha_BSD free, the 1/4 free
@@ -1021,6 +1022,8 @@ import PF.CantorFunction_r207  -- r207: THE CANTOR FUNCTION + dimH(cantorSet) = 
 import PF.GaussDimension_r208  -- r208: Gauss continued-fraction sets -- level-2 Mobius refinement, certified dimH <= 77/100 (K=3) and <= 29/50 (K=2)
 import PF.GaussLowerBound_r209  -- r209: Gauss LOWER bounds via strong separation + weighted address map -- enclosures [0.54,0.77] (K=3), [0.39,0.58] (K=2)
 import PF.GaussLevelTwo_r210  -- r210: AddrIFS -- r209's engine abstracted to a general separated IFS; level-2 instantiation tightens to [0.63,0.7625] and [0.46,0.5714]
+import PF.SigmaAbscissa_r212  -- r212: sigma(alpha) = logb 3 |1 + 2 cos(pi*alpha)| -- the abscissa of convergence of R_f(alpha,.), derived from the exact digit-block identity sum_{n<3^k} w^(D3 n) = (1+w+w^2)^k. The framework's FIRST non-circular alpha-selection mechanism. It derives exactly the three RATIONAL canonical values (sigma 1 = 0, sigma (3/2) = 0, sigma 2 = 1) and provably misses all six irrational ones: sigma(alpha) in {0,1} forces alpha rational, so sqrt2, phi, phi+1/4, sqrt(2pi), 3pi/4, 3pi/2 are all excluded. Complements r123 (trace/K-theory route refuted); the digit route works and reaches only the rational third. Includes the kernel guard rail sigma(phi) != 1/2 -- the exact sigma=1/2 point is 1.6192817, NOT phi = 1.6180340. See codex/AUDIT_RESPONSE_2026-08-06.md 3.
+import PF.GaussLevelThree_r211  -- r211: level-3 constant swap into r210's AddrIFS (27 resp. 8 words, orientation-reversing) -- enclosures [0.65,0.75] (K=3, true 0.70566) and [0.48,0.5625] (K=2, true 0.53128). The practical ceiling of the refinement method: level 4 needs 6561 separation cases against level 3's 729 while the width only shrinks like O(1/n). The sharp value needs the equilibrium state (Ruelle-Perron-Frobenius), which is not started and is not approached by refinement.
 
 /-!
 ## Principia Fractalis Formal Verification
