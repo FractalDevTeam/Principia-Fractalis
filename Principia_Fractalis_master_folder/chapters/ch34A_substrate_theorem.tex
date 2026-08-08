@@ -695,6 +695,125 @@ determines the consequences. The framework's headline is
 \emph{both}.
 \end{keyidea}
 
+\paragraph{Verification update (2026-08-08): the implication carries no
+information about the antecedents, so ``determine'' does not follow. The Lean
+source says this; the gloss above does not.}
+
+The Lean file is explicit. \texttt{PrincipiaFractalisSubstrateTheorem.lean:374-377}:
+
+\begin{quote}\small
+``\emph{The Lean implication is therefore vacuously true}: it does not derive the
+consequences FROM the antecedents in any deductive sense; it merely records that
+both are inhabitable in the same file.''
+\end{quote}
+
+\noindent and the proof sketch of
+Theorem~\ref{thm:pf-substrate-theorem} says the same: the antecedents ``are not
+\emph{consumed} \dots\ they are passed in as a record and discarded as
+\texttt{\_h\_antecedents}''. \textbf{This is not concealment.} The defect is that
+the theorem's one-line gloss and the KeyIdea above outran the disclosures
+already sitting beneath them.
+
+\begin{itemize}
+\item \textbf{THE LOGIC.} Let $A =$ \texttt{PFSubstrateAntecedents} and
+$C =$ \texttt{PFSubstrateConsequences}. The corpus proves $C$ outright
+(\texttt{PrincipiaFractalisSubstrateConsequences\_holds\_unconditionally}).
+Once $C$ is a theorem, $A \to C$ is a theorem \emph{for every} $A$ --- for
+\texttt{True}, for $1=1$, for any unrelated proposition. So the implication
+distinguishes the framework's five antecedents from nothing at all. The word
+``Equivalently'' at the head of Theorem~\ref{thm:pf-substrate-theorem} is
+therefore incorrect: $A \to C$ is not equivalent to ``$A$ determines $C$'', and
+in this instance it is strictly weaker than $C$ alone.
+\item \textbf{THE KEYIDEA CLAIM DOES NOT FOLLOW.} A referee who accepts the
+implication form has accepted $A \to C$, which they could have derived from $C$
+without ever reading $A$. They have accepted nothing about determination. Read
+the sentence ``the framework's headline is \emph{both}'' as superseded: the
+currently-proved content is the unconditional form only, exactly as the second
+bullet of that KeyIdea states.
+\item \textbf{THE BAR FOR A REAL DERIVATION, stated so it cannot be met
+trivially.} The obvious test --- ``one consequence whose proof stops
+typechecking when the antecedent hypothesis is removed'' --- is mechanical, but
+it has a loophole, and the loophole is already inhabited. Several antecedent
+fields \emph{are} consequence fields: A3 and C7 are the same proposition, so
+\texttt{fun h => h.perelmanAlphaPoincareEqOne} consumes the antecedent
+syntactically while conveying nothing, since C7 is separately true by
+definitional unfolding. Recorded in the kernel as
+\texttt{C7\_from\_A3\_by\_projection}
+(\texttt{PF/SubstrateTheoremContent\_r216.lean}); the same trivial route exists
+for C20 from A5.
+
+The bar that is not met is therefore: \textbf{one consequence that is not
+itself an antecedent field, whose proof fails to elaborate when the antecedent
+hypothesis is deleted.} At present \textbf{zero of the twenty-five} meet it.
+This is not residual formalization labour --- it is a design question about
+whether the substrate does any deductive work.
+\item \textbf{NOW KERNEL-VISIBLE (r216).} The statements above are no longer
+prose. \texttt{PF/SubstrateTheoremContent\_r216.lean} proves, axioms exactly
+$[\texttt{propext},\texttt{Classical.choice},\texttt{Quot.sound}]$:
+\texttt{consequences\_hold\_under\_any\_hypothesis}, i.e.\ $P \to C$ for
+\emph{every} proposition $P$ --- witnessed concretely by
+\texttt{consequences\_hold\_under\_an\_unrelated\_hypothesis}, which derives all
+twenty-five consequences from $2+2=4$; and
+\texttt{substrate\_implication\_from\_conclusion}, i.e.\ the implication follows
+from its own conclusion. Both directions of the arrow typecheck vacuously
+(\texttt{converse\_implication\_holds\_by\_discarding\_its\_hypothesis}), so
+neither carries information.
+\item \textbf{FIELD CLASSIFICATION.} Of the twenty-five fields:
+one is an existential witnessed by the zero object (C4, Navier--Stokes);
+about seven are definitional or arithmetic;
+five are restricted carriers;
+about six are content-bearing;
+six are bundles that re-package the others. Specifics worth naming:
+\begin{itemize}
+\item \textbf{C4} --- the typed NS predicate contains no time derivative, no
+$\mathbf{u}\cdot\nabla\mathbf{u}$, no pressure, no Laplacian and no viscosity;
+its existential is witnessed by the zero field at the zero datum. Now
+kernel-visible: \texttt{PF/NavierStokesTypedContent\_r215.lean}. See the
+2026-08-08 entry in Ch.~\ref{ch:navier-stokes}.
+\item \textbf{C7} --- $\alpha_{\text{Poincar\'e}} = 1$, against
+\texttt{CrossMillenniumSharedInvariants.lean:64}, which \emph{defines}
+$\alpha_{\text{Poincar\'e}}$ to be the real number $1$. A definitional
+unfolding, not a derived fact.
+\item \textbf{C17} --- $78 = 48+26+4$. Arithmetic. No BRST complex and no
+$H^2$ computation stands behind it.
+\item \textbf{C20, which is also antecedent A5} --- the ``143-problem''
+dataset is \texttt{List.replicate 72 (canonicalEntry .P) ++ List.replicate 71
+(canonicalEntry .NP)} (\texttt{HundredFortyThreeProblems.lean:132-142}), and
+\texttt{canonicalEntry} sets \texttt{alphaMeasured := canonicalAlpha c}
+(\texttt{:127}). So ``every measured $\alpha$ is $\sqrt2$ or $\varphi+1/4$'' is
+true by construction from 143 copies of two hard-coded rows. It carries no
+empirical content, and \emph{the same tautology appears on both sides of the
+implication}.
+\item \textbf{C3, C5, C2} --- restricted carriers: BSD on
+\texttt{EllipticCurve := Fin 6}; Hodge with \texttt{isAlgebraic} reduced to
+three existentials, two of which are trivially inhabited; YM as one
+eigenvector of one map on $\ell^2$, with no gauge group. These are already
+recorded in Remark~\ref{rem:framework-first-honest-scope}'s 2026-08-02
+correction, which stands.
+\end{itemize}
+\item \textbf{A CORRECTION TO AN EARLIER AUDIT OF THIS CHAPTER.} An external
+audit reported that fields of \texttt{PFSubstrateConsequences} are
+\texttt{Prop := True} markers. That is wrong: the record has \textbf{zero}
+such fields. The \texttt{True} fields live in the adjacent
+\texttt{...HonestScope} record at
+\texttt{PrincipiaFractalisSubstrateTheorem.lean:496-516}, where four of four
+are \texttt{: True}, discharged by
+$\langle\texttt{trivial},\dots\rangle$. The distinction matters: the
+consequences record is populated by real propositions, several of them weak,
+none of them literally trivial.
+\item \textbf{WHAT IS NOT AFFECTED.} Not every field is hollow ---
+\texttt{phi\_iit\_lower\_bound},
+$\forall \Phi,\ \tfrac{19}{20} \le 1-e^{-\Phi/2} \to 2\log 20 \le \Phi$, is
+genuine real analysis. And the operator-algebra substrate is untouched by any
+of the above: the r102--r113 arc proves \texttt{UHF\_trace\_faithful} and
+\texttt{substrate\_completion\_simple\_unconditional} unconditionally,
+kernel-only, zero project axioms. Those results do not depend on this theorem
+and are not weakened by it. They are the part of the substrate programme a
+referee can check end to end today.
+\end{itemize}
+
+\noindent Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S4.2.
+
 \section{V2 Substrate Refactors (2026-06-05)}
 \label{sec:v2-substrate-refactors}
 
