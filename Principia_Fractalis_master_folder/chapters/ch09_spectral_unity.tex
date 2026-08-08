@@ -425,6 +425,71 @@ To hold this chapter to the standard of the machine-checked corpus:
 \end{itemize}
 \emph{Only the operator-algebra substrate of $\mathcal{T}_\infty$ (Ch~\ref{ch:timeless-field}) is kernel-verified; nothing in this chapter is.}
 
+\paragraph{Verification update (2026-08-06): Theorem~\ref{thm:spectral_zeta} is
+FALSE --- twice internally, and once numerically.}
+The 2026-07-23 ledger files the Spectral--Zeta correspondence under
+\textbf{CONDITIONAL REDUCTION}, i.e.\ true-but-unproved-in-context. It is not
+unproved. The stated identity
+\[
+  R_f(3/2,s) \;=\; \frac{\zeta(s)\,\Phi_c(s)}
+                        {\prod_{k=0}^{\infty}\cos\!\bigl(\tfrac{\pi}{2}\cdot 3^{-k}\bigr)},
+  \qquad
+  \Phi_c(s)=\exp\!\Bigl(\tfrac{\pi}{10}\,\mathrm{ch}_2\,|s-\tfrac12|^2\Bigr)
+\]
+cannot hold, for three independent reasons.
+
+\begin{itemize}
+\item \textbf{ILL-POSED --- the denominator is zero.} The $k=0$ factor of the
+infinite product is $\cos(\pi/2\cdot 3^{0})=\cos(\pi/2)=0$ exactly. The product
+therefore vanishes and the right-hand side is undefined for \emph{every}~$s$.
+No choice of $\mathrm{ch}_2$ repairs this; the defect is in the normalizing
+constant, not in the correction factor. (The product from $k=1$ onward does
+converge, to $\approx 0.8480$ --- so the intended object was presumably
+$\prod_{k\ge1}$.)
+\item \textbf{ILL-POSED --- the correction does not vanish on the critical
+line.} At $s=\tfrac12+it$ we have $|s-\tfrac12|=|it|=t$, so
+$|s-\tfrac12|^2=t^2$, not $0$. With $\mathrm{ch}_2=0.95$ the factor is
+$\Phi_c=\exp(0.2985\,t^2)$: at the first zeta zero $t=14.1347$ this is
+$7.87\times10^{25}$, and at the second $t=21.0220$ it is $1.91\times10^{57}$.
+The claim that ``the correction vanishes at $s=1/2+it$'' --- on which the
+asserted \emph{bijection} between $R_f$ zeros and $\zeta$ zeros depends ---
+would require $|\Real(s)-\tfrac12|$, a different quantity from the one written.
+\item \textbf{REFUTED NUMERICALLY.} Independently of the two defects above, the
+conclusion is false. At $\alpha=3/2$ the phase is $(-i)^{D_3(n)}$ and the exact
+digit-block identity gives partial sums of modulus~$1$, so the abscissa of
+convergence is $0$ and direct summation \emph{on} the critical line is valid.
+At the first five zeta zeros,
+$|R_f(3/2,\tfrac12+i\gamma)| = 0.6187,\ 1.5462,\ 1.7966,\ 1.1359,\ 1.6266$,
+stable across $n<3^{13}$ and $n<3^{15}$. Not one is zero. Conversely
+$R_f(3/2,\cdot)$ has near-zeros on the line at $t\approx 2.75,\ 11.0,\ 19.75,
+\ 29.0,\ 31.75$, none of which is a zeta ordinate. The map is not a bijection
+in either direction. This is the same computation that refutes the ch03
+RH-resonance theorem (Theorem~\ref{thm:rh-resonance}); ch09:202 restates that
+claim in a dressed form, and inherits its refutation.
+\end{itemize}
+
+\noindent \textbf{Consequence for the chapter's thesis.} This chapter is the
+bridge in the chain ch03 $\to$ ch09 $\to$ ch20: it is where $R_f$ is supposed
+to become a spectral object carrying $\zeta$'s zeros. That bridge is not merely
+unbuilt --- its stated span is refuted. The Critical-Line constraint
+(Theorem~\ref{thm:critical_line}), which reduces RH to propositions about the
+consciousness-modified $T_N$ at $\mathrm{ch}_2=0.95$, rests on the same
+correspondence and should be read as carrying no force until a replacement
+identity is stated and checked.
+
+\noindent \textbf{What survives, and where the real mechanism now sits.} The
+digit structure this chapter invokes does yield a genuine theorem, just not
+this one. The same identity gives the abscissa of convergence of
+$R_f(\alpha,\cdot)$ in closed form, $\sigma(\alpha)=\log_3|1+2\cos(\pi\alpha)|$
+(r212, \texttt{PF/SigmaAbscissa\_r212.lean}, kernel-verified). Note
+$\sigma(3/2)=0$: at the chapter's own critical coupling, $R_f(3/2,\cdot)$ has
+its rightmost singularity at $\Real(s)=0$, \emph{not} a pole at $s=1$ like
+$\zeta$. The two functions do not even share an abscissa, which is the
+structural reason no identity of the above shape can hold.
+
+\noindent Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
+Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.1, \S3.
+
 \section{Summary and Forward Connections}
 
 \subsection{What We've Shown}
