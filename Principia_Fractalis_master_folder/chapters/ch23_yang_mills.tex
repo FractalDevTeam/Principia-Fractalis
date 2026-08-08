@@ -606,6 +606,50 @@ statement is untouched.
 \item \textbf{EMPIRICAL HYPOTHESIS --- not a proof} --- the mass gap $\Delta=420.43$~MeV, the resonance zero $\omega_c=2.13198462$, the string tension, and the glueball ratios are numerical values compared against lattice QCD; agreement with lattice is empirical corroboration, not a rigorous continuum-limit proof.
 \end{itemize}
 
+\paragraph{Verification update (2026-08-06): the resonance zero
+$\omega_c=2.13198462$ does not exist, and neither does the number derived from
+it.}
+The 2026-07-23 ledger filed $\omega_c$ and the $420.43$~MeV gap under
+\textbf{EMPIRICAL HYPOTHESIS --- not a proof}. That is still too generous:
+$\omega_c$ is not an unproved value, it is not a value at all.
+
+\begin{itemize}
+\item \textbf{REFUTED} --- Definition~\ref{def:resonance-coeff} sets
+$\rho(\omega)=\Real[\mathcal{R}_f(2,1/\omega)]
+ = \Real\bigl[\sum_n e^{2\pi i D(n)} n^{-1/\omega}\bigr]$.
+But $D(n)$ is an integer for every $n$, so $e^{2\pi i D(n)}=1$ identically and
+\[
+  \mathcal{R}_f(2,s) \;=\; \zeta(s), \qquad\text{hence}\qquad
+  \rho(\omega) \;=\; \zeta(1/\omega).
+\]
+The real zeros of $\zeta$ are the trivial ones at $s=-2,-4,-6,\dots$, so
+$\rho(\omega)=0$ would need $1/\omega=-2$, i.e.\ $\omega=-\tfrac12$.
+\textbf{$\rho$ has no zero for $\omega>0$.} Proposition~\ref{prop:resonance-zeros}
+is therefore false as stated. At the claimed value,
+$\rho(2.13198462)=\zeta(0.469047)=-1.3462$, not $0$.
+\item \textbf{WHAT THE GRAPH ACTUALLY SHOWS} --- $\rho$ does change sign, which
+is presumably what was seen numerically, but it changes sign \emph{through the
+pole of $\zeta$ at $s=1$}, i.e.\ at $\omega=1$: $\rho>0$ on $(0,1)$ (there
+$1/\omega>1$ and $\zeta>1$) and $\rho<0$ on $(1,\infty)$ (there $1/\omega\in(0,1)$
+and $\zeta<0$). A sign change across a pole is not a root. Any root-finder run
+across $\omega=1$ without a pole guard will report a spurious crossing.
+\item \textbf{DOWNSTREAM} --- the mass gap $\Delta=420.43$~MeV, quoted in
+\emph{The Mass Gap} above, is computed \emph{from} $\omega_c$. It inherits the
+defect: it is not a prediction of the framework, because the quantity it is
+derived from does not exist. The agreement with lattice QCD reported in
+\emph{Computational Evidence} above
+cannot be evidence for a construction that has no input. This does not touch
+the finite-dimensional OS reflection-positivity work, which is independently
+kernel-verified and is unaffected.
+\item \textbf{NOT IN DISPUTE} --- everything the previous ledger records about
+the Clay problem proper stands unchanged: the continuum $SU(3)$ measure,
+reflection positivity on the real field space, Wightman reconstruction and
+mass-gap propagation remain open, and nothing here makes them more or less so.
+\end{itemize}
+
+\noindent Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
+Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.3.
+
 \section{Conclusion}
 
 We have provided computational evidence for Yang-Mills existence and mass gap through fractal resonance:
