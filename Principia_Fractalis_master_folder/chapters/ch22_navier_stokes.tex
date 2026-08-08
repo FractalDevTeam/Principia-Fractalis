@@ -514,6 +514,87 @@ untouched.
 \item \textbf{ASSERTED / EMPIRICAL} --- the base-3 emergence-point hierarchy, the fractal dimension $\log 2/\log 3$, the resonance value $\alpha=3\pi/2$, and the consciousness-threshold statements are asserted framework structure, neither derived nor experimentally validated.
 \end{itemize}
 
+\paragraph{Verification update (2026-08-08): the typed NS predicate does not
+contain the Navier--Stokes equation, and the local/global distinction is absent
+from the encoding. All of this is now kernel-visible (r215).}
+The 2026-07-23 ledger above correctly records that the Clay bar is open. What it
+does not record is how far short of the Clay \emph{statement} the typed
+encoding falls. The following are now Lean theorems in
+\texttt{PF/NavierStokesTypedContent\_r215.lean}, axioms exactly
+$[\texttt{propext},\texttt{Classical.choice},\texttt{Quot.sound}]$.
+
+\begin{itemize}
+\item \textbf{NO EQUATION.} The predicate \texttt{NS\_Solution u u0} is a
+conjunction of four clauses containing \emph{no time derivative, no convective
+term $\mathbf{u}\cdot\nabla\mathbf{u}$, no pressure, no Laplacian and no
+viscosity}. It is not the Navier--Stokes equation, and no choice of witness
+could have made it one. Concretely:
+\begin{itemize}
+\item \texttt{forwardTimeDomain u} is $\forall y,\ \exists z,\ u(y)=z$ --- true
+for \emph{any} function, by taking $z := u(y)$. Now proved equivalent to
+\texttt{True} (\texttt{forwardTimeDomain\_iff\_true}).
+\item \texttt{smoothness u} is $\exists M \ge 0,\ \forall y,\ \|u(y)\| \le M$ ---
+that is \emph{boundedness}, not smoothness, and it holds for every Schwartz map
+(\texttt{smoothness\_iff\_true}). The clause is named for a property it does not
+state.
+\item \texttt{divergenceFreePreserved \_u u0} discards its solution argument
+entirely and reduces to \texttt{u0.isDivFree}. The clause named ``divergence-free
+\emph{preservation}'' constrains no solution
+(\texttt{divergenceFreePreserved\_independent\_of\_solution}).
+\end{itemize}
+Hence \texttt{NS\_Solution u u0} $\leftrightarrow$
+\texttt{initialDataMatch u u0} $\wedge$ \texttt{u0.isDivFree}, and the whole
+time-global existential reduces to
+\[
+  \texttt{NS3DTimeGlobalSmoothSolution } u_0 \;\longleftrightarrow\;
+  u_0.\texttt{isDivFree} \;\wedge\; \exists\,u \in \mathcal{S}(\R^4;\R^3),\
+  u|_{t=0} = u_0 ,
+\]
+i.e.\ to a divergence-free hypothesis plus a \emph{Schwartz extension} question
+on $\R^4$. Neither has anything to do with the PDE. (That extension question is
+not itself trivial --- a field constant in $t$ is not Schwartz, having no decay
+in the time direction --- and it is \emph{not} settled in r215.)
+\item \textbf{THE LOCAL/GLOBAL DISTINCTION IS ABSENT --- and it is the Clay
+problem.} \texttt{FujitaKatoLocalSolution u0 \_T} discards the horizon
+\texttt{\_T}. So ``local existence on $[0,T)$'' and ``time-global existence''
+are \emph{the same proposition}, for every $T$, including $T \le 0$
+(\texttt{fujitaKatoLocalSolution\_iff\_timeGlobal}). Since 3D Navier--Stokes
+local existence is classical and global existence is the open Clay problem, an
+encoding in which the two coincide cannot express the problem it is named for.
+\item \textbf{THE CONDITIONAL DISCHARGE ASSUMES ITS CONCLUSION.}
+\texttt{FujitaKatoLocalExistenceHypothesis} and
+\texttt{Wave58TimeGlobalExistenceClauseStrengthened} unfold to the same
+proposition (\texttt{fujitaKatoHypothesis\_iff\_strengthenedClause}), so the
+``conditional discharge'' is the identity function.
+\item \textbf{``LINEARISED'' EQUALS ``FULL''.}
+\texttt{LinearisedNSLocalSolution} is \emph{defined} as
+\texttt{FujitaKatoLocalSolution} (\texttt{linearisedNS\_iff\_fullNS}). Dropping
+the nonlinearity changes nothing, because no nonlinearity ever entered.
+\item \textbf{THE BILINEAR MAP IS THE CONSTANT ZERO.}
+\texttt{bilinearOp (\_u \_v) := 0}, both arguments discarded, so every downstream
+``estimate'' is $0 \le \text{nonneg}$ and
+\texttt{fujita\_kato\_C\_FK\_independent\_of\_T} is independent of $T$ because
+the operator vanishes. \texttt{PicardFixedPointProp}'s conclusion carries a
+literal $\wedge\,\texttt{True}$, discharged by the constant field. Both facts are
+now kernel-visible rather than prose.
+\item \textbf{WHAT IS GENUINELY THERE, and it is not small.} The 31-file
+\texttt{PF/NavierStokes/FujitaKato1964/} layer contains \emph{zero}
+\texttt{sorry} and \emph{zero} \texttt{: True} definitions, and real
+mathematics: Leray-projector Fourier symbols and their idempotence,
+heat-semigroup multipliers, convective-derivative components, Schwartz-space
+and Sobolev machinery. \textbf{The defect is localised to the bilinear map and
+to the \texttt{NS\_Solution} predicate --- not to that layer}, and a correction
+that smeared the whole layer would itself be an error.
+\item \textbf{WHAT THIS DOES NOT CHANGE.} The Clay problem is untouched, exactly
+as the 2026-07-23 ledger says. Nothing above makes global regularity more or
+less open. What changes is the reading of the typed layer: it should not be
+cited --- here or upstream as
+\texttt{PFSubstrateConsequences.NS\_via\_substrate} --- as substrate-level
+Navier--Stokes content, because it contains none.
+\end{itemize}
+
+\noindent Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S4.1.
+
 \section{Conclusion}
 
 We have resolved the Navier-Stokes existence and smoothness problem through vortex emergence theory:
