@@ -650,6 +650,52 @@ mass-gap propagation remain open, and nothing here makes them more or less so.
 \noindent Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
 Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.3.
 
+\paragraph{Verification update (2026-08-08): the boxed arithmetic does not
+evaluate, and no choice of $\alpha$ can reach $420.43$~MeV.}
+Two further defects, independent of the non-existence of $\omega_c$ recorded
+above.
+
+\begin{itemize}
+\item \textbf{ARITHMETIC} --- the displayed computation
+$197.3 \times 2.13198462 \times 0.314159 = 420.43$ does not hold. The left-hand
+side is $\mathbf{132.148}$. The quoted value $420.43$ is
+$197.3 \times 2.1309$, i.e.\ $\hbar c \times \omega$ \emph{with the $\pi/10$
+factor simply absent} --- and even then $\omega$ differs from the stated
+$\omega_c$ in the fourth decimal. The glueball ratios do not reproduce either:
+$\sqrt{8/3}\times 420.43 = 686.56$ against the quoted $686.37$, and
+$\sqrt{3}\times 420.43 = 728.21$ against the quoted $728.49$.
+Note also that Exercise~5 of this chapter asks the reader to \emph{verify}
+$\Delta = 420.43$ from exactly these three inputs. That exercise cannot be
+completed as set, because the identity it asks for is false.
+\item \textbf{A CEILING, over every $\alpha$} --- the shape of the resonance
+condition does have a correct version, and it closes the door rather than
+opening it. For $\alpha \bmod 2$ in approximately $(0.09,0.50)\cup(1.50,1.91)$
+the function $\Real\,\mathcal{R}_f(\alpha,s)$ has \emph{exactly one} positive
+real root $s^*(\alpha)$, forced structurally: a real pole at $s=\sigma(\alpha)$
+with negative residue drives $\Real\,\mathcal{R}_f\to-\infty$ as
+$s\downarrow\sigma$, while $\Real\,\mathcal{R}_f\to\cos(\pi\alpha)>0$ as
+$s\to\infty$. One crossing. But minimising $s^*(\alpha)$ over \emph{all}
+$\alpha$ gives $s^*\ge 0.9954$, hence $\omega = 1/s^* \le 1.0046$, hence this
+chapter's own gap formula caps at
+\[
+  \Delta_{\max} \;=\; 62.3\ \text{MeV},\qquad\text{over every }\alpha .
+\]
+Reaching $420.43$~MeV would require $\omega = 6.783$: unattainable by a factor
+of $6.8$. The lattice $0^{++}$ glueball at ${\sim}1475$~MeV is a factor of $24$
+away. So the failure is not a bad choice of $\alpha$; \textbf{no $\alpha$
+works}, and the two-decade agreement with the $400$--$500$~MeV window quoted
+above is coincidental.
+\item \textbf{PROVENANCE UNDETERMINED} --- neither the Definition nor the
+numerical box of this section produces a root at $2.13198462$ at any truncation
+from $N=10$ to $N=1.4\times 10^{7}$. (The two are in fact \emph{different
+functions}: the box carries $1/\omega$ inside the cosine, computing
+$\Real\,\mathcal{R}_f(2/\omega,\,1/\omega)$ with $\alpha$ tied to $s$. Its roots
+all lie at $\omega<1$: $0.2658$, $0.3095$, $0.3602$, $0.4528$, $0.5529$,
+$0.8948$.) Where the digits $2.13198462$ came from could not be determined.
+\end{itemize}
+
+\noindent Record: \texttt{codex/STEELMAN\_2026-08-06.md} \S6.
+
 \section{Conclusion}
 
 We have provided computational evidence for Yang-Mills existence and mass gap through fractal resonance:
