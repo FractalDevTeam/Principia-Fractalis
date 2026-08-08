@@ -490,6 +490,59 @@ structural reason no identity of the above shape can hold.
 \noindent Script: \texttt{codex/rf\_falsification\_checks\_2026-08-06.py}.
 Record: \texttt{codex/AUDIT\_RESPONSE\_2026-08-06.md} \S2.1, \S3.
 
+\paragraph{Verification update (2026-08-08): Step 2 is independently wrong ---
+and the scaling property it cites gives the correct identity exactly. This one
+is a REPAIR.}
+The proof sketch above has a second defect, separate from the two in
+Theorem~\ref{thm:spectral_zeta} itself. Step~2 writes
+\[
+  \mathcal{G}(\alpha,s)
+  \;=\; \prod_{k=0}^{\infty}\Bigl(1+\frac{e^{i\pi\alpha}}{3^{ks}}
+        +\frac{e^{2i\pi\alpha}}{3^{ks}}\Bigr)\cdot
+        \mathcal{G}_{\mathrm{prim}}(\alpha,s),
+\]
+citing $D_3(3^k n)=D_3(n)$.
+
+\begin{itemize}
+\item \textbf{THE CITED PROPERTY IS TRUE. THE CONSEQUENCE IS NOT.} The claimed
+product takes a \emph{different value for every} $\alpha$ --- its $k=0$ block
+$1+e^{i\pi\alpha}+e^{2i\pi\alpha}$ equals $3$ at $\alpha=0$ and $1$ at
+$\alpha=1$ --- whereas the true ratio
+$\mathcal{G}/\mathcal{G}_{\mathrm{prim}}$ is $\alpha$-\emph{independent}, equal
+to $(1-3^{-s})^{-1} = 1.0685473441$ at $s=4$ for \emph{all} $\alpha$. An
+$\alpha$-dependent factor cannot equal an $\alpha$-free one.
+\item \textbf{THE CORRECT IDENTITY, EXACT.} Every $n\ge 1$ factors uniquely as
+$n=3^{j}m$ with $3\nmid m$, and $D_3(3^{j}m)=D_3(m)$. Summing the resulting
+geometric series in $j$ gives, for every $\alpha$ and every $\Real(s)>1$,
+\[
+  \boxed{\;(1-3^{-s})\,\mathcal{R}_f(\alpha,s)
+    \;=\; \sum_{n\ge 1,\ 3\nmid n} \frac{e^{i\pi\alpha D_3(n)}}{n^{s}}\;}
+\]
+Verified numerically to $2\times10^{-16}$, and now \textbf{kernel-verified}:
+\texttt{euler\_factor\_three\_nat}, \texttt{PF/EulerFactorThree\_r214.lean},
+axioms exactly $[\texttt{propext},\texttt{Classical.choice},\texttt{Quot.sound}]$.
+The $\alpha$-independence is a theorem in the same file
+(\texttt{euler\_ratio\_independent\_of\_alpha},
+\texttt{euler\_factor\_unique}), and the contradiction with Step~2 is
+discharged unconditionally by \texttt{ch09Factor\_not\_alpha\_free}.
+At $\alpha=0$ it reduces to the classical
+$(1-3^{-s})\zeta(s)=\sum_{3\nmid n} n^{-s}$ against mathlib's own
+\texttt{riemannZeta} (\texttt{euler\_factor\_three\_zeta}).
+\item \textbf{ONE EULER FACTOR, AT $3$, AND NO OTHERS.} There is no product over
+other primes, because $D_3$ is additive on base-3 \emph{digits} and never on
+prime factorisations: $D_3(6)=2$ while $D_3(2)+D_3(3)=3$, and $D_3(10)=2$ while
+$D_3(2)+D_3(5)=5$. This too is in the kernel
+(\texttt{rfTerm\_not\_multiplicative}).
+\item \textbf{SCOPE OF THE REPAIR.} Step~2 is one load-bearing step of
+Theorem~\ref{thm:spectral_zeta}, which also rests on the ``consciousness
+correction factor'' $\Phi_c(s)$. Fixing Step~2 does \emph{not} rescue the
+theorem; the refutation recorded in the 2026-08-06 entry above stands
+unchanged. What is recovered is a correct, $\alpha$-uniform structural identity
+that the chapter was reaching for.
+\end{itemize}
+
+\noindent Record: \texttt{codex/STEELMAN\_2026-08-06.md} \S1.
+
 \section{Summary and Forward Connections}
 
 \subsection{What We've Shown}
