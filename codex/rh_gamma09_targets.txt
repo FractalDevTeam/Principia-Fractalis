@@ -1,0 +1,53 @@
+# Zeros of L(s, chi) for the ORDER-3 characters chi mod 9
+# 2026-08-08. mpmath dps=30, L(s,chi) = 9^-s * sum_a chi(a) zeta_H(s, a/9).
+# Validated against direct summation at s=2 to 6e-10.
+#
+# WHY THIS LEVEL. chi is EVEN: -1 = 8 = 2^3 and chi(2)^3 = 1, so chi(-1) = 1 for
+# ANY order-3 character mod 9 -- hence weight-0 admissible. M2 (2026-08-03) closed
+# the Gamma_0(3) route because chi_3 mod 3 is the quadratic character with
+# chi_3(-1) = -1, ODD. That obstruction is level-3 only and does not reach level 9.
+# chi is primitive mod 9: an order-3 character cannot be induced from mod 3,
+# whose unit group has order 2.
+#
+# THREE CHECKS PASSED:
+#  (1) every critical-line zero has Re s = 1/2 to < 1e-30;
+#  (2) the zeros of chi^2 are exactly the negatives of those of chi^1, as
+#      L(s, conj chi) = conj L(conj s, chi) requires;
+#  (3) L(0,chi) = 0 to 5e-32 -- the TRIVIAL zero at s=0, which occurs for EVEN
+#      characters (odd ones have trivial zeros at -1,-3,...). Independent
+#      confirmation of the evenness the whole experiment rests on. It is NOT a
+#      critical-line zero and is excluded from the target list below.
+#
+# gamma                s = rho/2  (target on Re s = 1/4)
+# --- chi^1,  chi(2) = exp(2 pi i * 1/3) ---
+    -19.769931915980   0.25 -9.884965957990i
+    -18.545064758489   0.25 -9.272532379244i
+    -16.502063704564   0.25 -8.251031852282i
+    -13.791949509079   0.25 -6.895974754539i
+    -11.583649082345   0.25 -5.791824541172i
+    -10.016550422565   0.25 -5.008275211283i
+     -7.532433052290   0.25 -3.766216526145i
+     -3.444093155149   0.25 -1.722046577574i
+     +5.319575123281   0.25 +2.659787561641i
+     +7.834671438987   0.25 +3.917335719494i
+     +9.620772853249   0.25 +4.810386426624i
+    +12.601813393015   0.25 +6.300906696507i
+    +15.125930107695   0.25 +7.562965053847i
+    +16.447228436288   0.25 +8.223614218144i
+    +18.325315410599   0.25 +9.162657705300i
+# --- chi^2,  chi(2) = exp(2 pi i * 2/3) ---
+    -18.325315410599   0.25 -9.162657705300i
+    -16.447228436288   0.25 -8.223614218144i
+    -15.125930107695   0.25 -7.562965053847i
+    -12.601813393015   0.25 -6.300906696507i
+     -9.620772853249   0.25 -4.810386426624i
+     -7.834671438987   0.25 -3.917335719494i
+     -5.319575123281   0.25 -2.659787561641i
+     +3.444093155149   0.25 +1.722046577574i
+     +7.532433052290   0.25 +3.766216526145i
+    +11.583649082345   0.25 +5.791824541172i
+    +13.791949509079   0.25 +6.895974754539i
+    +16.502063704564   0.25 +8.251031852282i
+    +18.545064758489   0.25 +9.272532379244i
+    +19.769931915980   0.25 +9.884965957990i
+# TOTAL: 29 critical-line targets in |t| < 20 across both characters.

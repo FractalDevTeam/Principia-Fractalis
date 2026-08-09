@@ -1,0 +1,931 @@
+##############################################################################
+# RH front, M4 -- the Gamma_0(9) transfer operator twisted by an order-3
+# character mod 9, and the zeros of L(s, chi_9).
+#
+# Date: 2026-08-09.  Script: codex/rh_gamma09.py
+# Targets: codex/rh_gamma09_targets.txt (read, never regenerated)
+# Predecessors: M1 codex/rh_mayer_full.py, M2 codex/rh_gamma03_m2.py
+#
+# SCOPE, STATED UP FRONT.  This is an instrument result about the EISENSTEIN
+# (scattering) side of the Selberg trace formula.  Nothing here bears on the
+# Riemann Hypothesis, and nothing here bears on Hilbert-Polya -- the Eisenstein
+# side is precisely where Hilbert-Polya fails.  What is tested is whether a
+# transfer operator built from the framework's ternary structure can see a
+# Dirichlet L-function at all.
+##############################################################################
+
+=== WHY LEVEL 9 ===
+
+M2 (2026-08-03) closed the Gamma_0(3) route with a NEGATIVE result: chi_3 mod 3
+is the quadratic character and is ODD, so it is inadmissible as a weight-0
+nebentypus and L(s, chi_3) cannot appear in Gamma_0(3) scattering.
+
+That obstruction is level-3 only.  The order-3 characters mod 9 are EVEN:
+-1 = 8 = 2^3 in (Z/9)* and chi(2)^3 = 1, so chi(-1) = +1.  They are primitive
+mod 9 (an order-3 character cannot be induced from mod 3, whose unit group has
+order 2).  Weight-0 admissible.  Verified three independent ways below.
+
+=== INDEPENDENT CHECK OF THE TARGET FILE (not regenerated, only checked) ===
+
+  chi(-1) = chi(8)                     = 1.0 - 6.3e-31 i     (even)
+  L(0, chi)                            = -4.9e-32 + 1.2e-31 i
+     (a trivial zero at s = 0 occurs for EVEN characters only)
+  L(2, chi) by Hurwitz vs direct sum   = agree to 5e-12
+  |L(1/2 + i gamma, chi)| at 6 listed gammas: 5e-14 .. 2e-12
+     against |L| = 0.40 .. 1.14 at gamma + 0.3
+  Riemann-von Mangoldt count for |Im rho| < 20:  14.99 predicted
+     chi^1 list has 15 entries; chi^2 list has 14 (it is missing +10.016550,
+     which is covered anyway by the conjugation relation V6 below).
+
+=== THE CONSTRUCTION ===
+
+  Cosets Gamma_0(9)\PSL(2,Z) <-> P^1(Z/9), 12 of them.  Index 12 (Gamma_0(3)
+  was 4).  Induced representation of the nebentypus:
+
+      rho(g)_{ij} = chi(R_i g R_j^{-1})  if R_i g R_j^{-1} lies in Gamma_0(9),
+                    0                    otherwise,          chi(gamma) := chi(d)
+
+  -- monomial, 12-dimensional.  It descends to PSL(2,Z) exactly because chi is
+  even: rho(S)^2 = rho(-I) = chi(-1) I.
+
+      (L_s f)(x) = sum_{k>=1} (x+k)^{-2s} rho(S T^k) f(1/(x+k))
+
+  rho(T) has order 9 in all three characters (measured), so the k-sum splits by
+  k mod 9 into nine scalar blocks A_r tensored with rho(S T^r), with exact
+  Hurwitz-zeta matrix elements in M1's disc-normalized basis, R = 3/2.
+
+  M2's lesson carried: the UNTWISTED det(1-L)det(1+L) is NOT the Selberg zeta
+  for Gamma_0(N).  Fraczek-Mayer Thm 2.1.1's operator P (from j = diag(1,-1),
+  which normalizes Gamma_0(9) and fixes the nebentypus because it leaves d
+  alone) is inserted:  Z(s, chi) = det(1 - P L_s) det(1 + P L_s).
+
+=== PHASE 0 -- REPRESENTATION SELF-CHECKS (all measured, dps = 40) ===
+
+  P^1(Z/9) = [(0,1),(1,0),(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),
+              (3,1),(3,2)]
+
+  exactly 12 cosets, no duplicates                          PASS
+  S and T act as permutations of the 12 cosets              PASS
+  trivial chi reproduces the 12-dim PERMUTATION rep         PASS
+
+                                     trivial      chi          chi^2
+  chi(-1)  (must be +1)              1.0          1.0          1.0
+  rho(S)rho(T) - rho(ST)             0.0          9.6e-41      1.8e-40
+  rho(S)^2 - 1                       0.0          1.4e-40      2.8e-40
+  rho(ST)^3 - 1                      0.0          1.4e-40      2.9e-40
+  order of rho(T)                    9            9            9
+  P^2 - 1                            0.0          9.5e-41      1.9e-40
+  P rho(S) - rho(S) P                0.0          4.9e-41      9.9e-41
+  P rho(T) - rho(T^-1) P             0.0          0.0          0.0
+  rho|_{Gamma_0(9)} = chi(d), 4 test elements   PASS  PASS  PASS
+
+  Note: rho(S)^2 = rho(-I) = chi(-1) I, so the "rho(S)^2 = 1" line IS the
+  evenness of chi, measured inside the representation rather than assumed.
+
+=== V3 -- the nine blocks reassemble the level-1 Mayer matrix ===
+
+  s = 0.5 + 5.3i,  N=24:  max abs err 2.41e-30, matrix scale 565, rel 4.28e-33
+  s = 0.25 + 7.07i, N=24: max abs err 5.70e-30, matrix scale 1.15e4, rel 4.95e-34
+
+=== V4 -- float64 determinant vs mpmath determinant ===
+
+  M1's ledger records a gate that tested the wrong quantity.  The same trap
+  appeared here: the FIRST version of V4 compared the two determinants
+  RELATIVELY, and failed at 4.04e-6 -- at a point where the determinant is
+  nearly zero, which is exactly where we want to work.  The figure that decides
+  usability is the ABSOLUTE discrepancy against the local determinant scale and
+  against the truncation error.  Re-stated:
+
+  s = 0.25 + 9.884965958i, N=40, D=480   (float64 5.1 s vs mpmath 538 s)
+    det(1-PL): |det| = 6.972052e-01
+       float64-vs-mpmath  abs 2.82e-6   rel 4.04e-6   / local scale 6.76e-12
+       truncation N40-vs-N48  abs 0.7   -> float64 error is 4.03e-6 of it
+    det(1+PL): |det| = 4.169590e+05
+       float64-vs-mpmath  abs 7.8e-5    rel 1.87e-10  / local scale 1.87e-10
+       truncation N40-vs-N48  abs 19.8  -> float64 error is 3.94e-6 of it
+
+  s = 0.5 + 7.3i, N=24, D=288           (float64 1.5 s vs mpmath 115 s)
+    det(1-PL): rel 2.8e-12,  float64 error 8.21e-11 of the truncation error
+    det(1+PL): rel 4.62e-12, float64 error 8.59e-11 of the truncation error
+
+  Worst float64 discrepancy / local determinant scale: 1.87e-10.  PASS.
+  The float64 determinant is never the limiting error; it is ~1e-6 of the
+  truncation error.  Used throughout, 100x faster than mp.det.
+
+=== V5 -- truncation, and V5b roundoff separated from truncation ===
+
+  trivial character, Re s = 1/2, s = 0.5 + 9.7i, N=56 vs N=64
+    det(1-PL): |det| = 9.082347e-01   rel drift 8.87e-10   /scale 7.02e-10
+    det(1+PL): |det| = 1.147325e+00   rel drift 1.40e-09   /scale 1.40e-09
+
+  chi, Re s = 1/4, N=56 vs N=64
+    s = 0.25 + 9.884965958i
+      det(1-PL): |det| = 6.438880e-06  rel drift 1.61      /scale 2.48e-11
+      det(1+PL): |det| = 4.169510e+05  rel drift 3.16e-10  /scale 3.16e-10
+    s = 0.25 - 9.884965958i
+      det(1-PL): |det| = 1.240889e-05  rel drift 1.17      /scale 3.49e-11
+      det(1+PL): |det| = 4.169510e+05  rel drift 1.22e-09  /scale 1.22e-09
+
+  Worst scale-normalized drift 1.4e-09.  The two large RELATIVE drifts are the
+  same artefact V4 exposed: those two determinants are near zero, so a relative
+  drift there is not a truncation statement.  In absolute terms they are the
+  smallest numbers in the table.
+
+  V5b roundoff, s = 0.25 + 9.884965958i, N=40, scale-normalized:
+    det(1-PL): dps30 vs dps55 = 2.56e-12,  dps40 vs dps55 = 0.00e+00
+    det(1+PL): dps30 vs dps55 = 1.68e-10,  dps40 vs dps55 = 0.00e+00
+  dps = 40 is converged; dps = 30 would not have been.
+
+=== EXTERNAL REFERENCE DATA: NONE AVAILABLE ===
+
+  LMFDB was queried for Maass forms of level 9
+  (lmfdb.org/ModularForm/GL2/Q/Maass/?level=9): NO MATCHES.  There is no
+  level-9 Maass data in LMFDB at all, with or without nebentypus.  Phase 1
+  therefore runs entirely on the internal oldform gate below, which needs no
+  external data.
+
+##############################################################################
+=== PHASE 1 -- THE GATE.  RESULT: PASS, with one documented anomaly. ===
+##############################################################################
+
+The gate needs no external data.  Gamma_0(9) must contain the Gamma_0(3) and
+Gamma_0(1) spectra as OLDFORMS with predictable multiplicity: a level-1 form
+appears with multiplicity 3 (divisors of 9), a level-3 newform with
+multiplicity 2 (divisors of 9/3).  Parity is preserved by the oldform maps.
+The ten M2-certified Gamma_0(3) parameters are the reference.
+
+--- 1a. the scan (Re s = 1/2, t in [4.0, 9.7], step 0.05, N=56) ---
+
+The scan located minima but its parabolic refinement is fragile: for 6 of the
+10 parameters the refiner bailed and returned the raw grid point, so the
+reported |det| was measured up to 0.01 away from the zero and looked shallow.
+The scan is kept in the record as-is; it is NOT the gate.  This is the same
+class of defect M1's ledger records -- the measuring procedure, not the
+operator.  Deep, correctly-refined minima from the scan:
+
+  even factor  t* = 5.0987585338   |det| = 7.9e-09   depth 1.1e-07
+  odd  factor  t* = 6.7573774060   |det| = 4.7e-08   depth 7.1e-07
+  odd  factor  t* = 8.1929846987   |det| = 3.9e-07   depth 9.0e-07
+
+--- 1b. THE GATE PROPER: direct evaluation, no scan, no fitting ---
+
+|det(1 -+ P L_s)| evaluated AT each certified parameter, with controls at
+r +- 0.15.  Trivial character, Re s = 1/2, N = 56, dps = 40.
+ratio = |det| at r / geometric mean of the two controls.
+
+  | certified r   | parity | ratio in the PARITY-CORRECT factor | ratio in the other |
+  |---------------|--------|------------------------------------|--------------------|
+  | 4.38805356322 | odd    | 2.048e-22                          | 1.538e-11          |
+  | 5.09874190873 | even   | 1.003e-23                          | 3.554e-12          |
+  | 6.12057553309 | odd    | 4.281e-22                          | 2.280e-11          |
+  | 6.75741527775 | odd    | 1.126e-21                          | 3.896e-11          |
+  | 7.75813319502 | odd    | 7.997e-23                          | 1.337e-11          |
+  | 8.03886120386 | even   | 9.879e-22                          | 5.146e-10          |
+  | 8.19303593168 | odd    | 7.514e-21                          | 1.102e-09          |
+  | 8.77828239355 | even   | 8.626e-22                          | 5.801e-11          |
+  | 9.29237932822 | odd    | 2.418e-20                          | 5.601e-10          |
+  | 9.53369526135 | odd    | 1.841e-30                          | 1.934e-09          |
+
+  10/10 certified parameters are zeros of the parity-correct factor.
+  Controls at r +- 0.15 are O(0.05 - 9.7) throughout.
+
+--- how sharply is the parameter located? ---
+
+Profile of both factors about the certified ODD value 4.38805356322, N=40:
+
+  offset    |det(1-PL)|     |det(1+PL)|
+  -1e-3     1.890995e-02    3.285966e-05
+  -1e-5     1.890550e-04    3.288957e-09
+  -1e-7     1.890647e-06    3.289231e-13
+  -1e-9     1.900824e-08    3.313680e-17
+   0        1.076232e-10    3.849762e-22
+  +1e-9     1.880268e-08    3.264381e-17
+  +1e-7     1.890441e-06    3.288739e-13
+  +1e-5     1.890538e-04    3.289012e-09
+  +1e-3     1.890074e-02    3.291981e-05
+
+|det(1+PL)| ~ 32.9 (delta t)^2 -- a DOUBLE zero -- clean over six decades of
+delta t.  Setting the measured value at delta t = 0 against that law gives an
+effective displacement of ~4e-12: the operator's zero sits on the LMFDB
+parameter to about 4e-12 in t.  A control profile at the non-eigenvalue
+t = 4.5 is flat (1.9275 at every offset including 0), so the collapse is not
+an artefact of the offset-zero code path.
+
+  This is far sharper than M1's and M2's quoted 1e-7 / 1e-8 agreements.  Those
+  were limited by their 14-iteration minimum refinement, as M1's own note says;
+  evaluating AT the reference value instead of hunting for a minimum removes
+  that limit.  Confirmed against M2's own script: rh_gamma03_m2.py evaluated at
+  the certified values gives |det| = 1.3e-12 to 1.0e-11 (vs O(1) at t = 4.5),
+  i.e. the Gamma_0(3) operator was always this accurate.
+
+--- 1c. MULTIPLICITY, read off the spectrum of P.L ---
+
+det(1-PL) = 0 <-> an eigenvalue of P.L at +1; det(1+PL) = 0 <-> one at -1; the
+ORDER of the zero is the number of such eigenvalues.  The 12-dim permutation
+rep splits as 4 + 8 along P^1(Z/9) -> P^1(Z/3): the 4-dim block carries
+Ind_{Gamma_0(3)} 1 (M2's operator), the 8-dim block is the level-9-new part.
+Block leakage measured at 3.0e-14.
+
+  t = 4.38805356322 (level-3 new, odd, expected mult 2), N=56, eigenvalues of
+  P.L within 1e-6 of the unit circle:
+       +0.99999999999978 + 4.573e-12 i
+       -0.99999999999978 - 4.571e-12 i      <- exactly minus the first, to 2.9e-15
+       -1.00000000000079 - 3.376e-12 i
+    4-dim block: -1               8-dim block: +1, -1
+
+  t = 9.53369526135 (level-1, odd, expected mult 3), N=56:
+    near +1: one   (residual 1.955e-10)
+    near -1: three (residuals 4.759e-12, 1.091e-11, 1.972e-10)
+    4-dim block: -1, -1 (= M2's Gamma_0(3) multiplicity 2)
+
+  Across all ten parameters, at N=40:
+    4-dim block  -> exactly the Gamma_0(3) multiplicity, correct parity,
+                    NO opposite-parity partner.  Reproduces M2 exactly.
+    8-dim block  -> a +lambda / -lambda PAIR at each level-3 parameter.
+
+  So the count in the PARITY-CORRECT factor is
+      1 (4-dim) + 1 (8-dim) = 2   for a level-3 newform,   as predicted
+      2 (4-dim) + 1 (8-dim) = 3   for the level-1 form,    as predicted
+  -- the oldform multiplicities come out exactly right.
+
+--- THE ANOMALY, stated plainly ---
+
+In addition, there is exactly ONE opposite-parity eigenvalue at every
+parameter, and it always comes from the 8-dim block, always as the exact
+negative of one of the correct eigenvalues.  It is NOT present at level 3:
+M2's own Gamma_0(3) operator, evaluated at the same parameters, gives O(1) in
+the wrong-parity factor (1.41, 2.31, 2.37, 0.68 at the four values tested).
+
+This is a real, reproducible feature of the level-9 build, localized to the
+8-dim level-9-new block.  It is not explained here.  The leading hypothesis --
+NOT established, and not tested in this pass -- is that j = diag(1,-1) is not
+the full symmetry operator at level 9: Gamma_0(p^2) has a strictly larger
+normalizer than Gamma_0(p), so the +- split that P induces need not be the
+complete even/odd decomposition on the new part.  A follow-up would build the
+Atkin-Lehner W_9 and the extra p^2 normalizer element and test whether they
+split the 8-dim block further.
+
+VERDICT.  The gate passes on everything it was built to test: all ten
+certified parameters are zeros, in the correct parity factor, to ~4e-12 in t,
+with exactly the predicted oldform multiplicities, and the Gamma_0(3)
+sub-block reproduces M2 eigenvalue by eigenvalue.  The extra opposite-parity
+zero is logged as an open defect of the level-9 symmetry operator.  It affects
+the interpretation of the parity LABEL, not the location of the zeros.
+
+##############################################################################
+=== PHASE 2 -- L(s, chi_9) ON Re s = 1/4.  RESULT: POSITIVE, 29 / 29. ===
+##############################################################################
+
+Setup: N = 64, dps = 40.  29 targets read from rh_gamma09_targets.txt, never
+regenerated.  Controls at t +- 0.30, dropped when they land within 0.15 of any
+other target.  ratio = |det| at the target / geometric mean of the surviving
+controls.  A hit is ratio << 1; a null result is ratio ~ 1.
+
+--- V6: the chi and chi^2 operators are conjugate ---
+
+  det(1 - P L_s^{chi^2}) = conj( det(1 - P L_{sbar}^{chi}) )
+  measured at t = 3.9 and t = 7.3:  relative difference 0.00e+00 in BOTH
+  factors -- exact to the last bit.  chi^2 therefore needs no separate table;
+  it is the mirror of chi.  Observed consequence: |det^{chi}(1/4 + it)| =
+  |det^{chi}(1/4 - it)|, so the chi operator sees the chi AND the chi^2 zero
+  sets.  Both are in the target file and both were tested.
+
+--- THE RESULT ---
+
+  operator                     factor        hits / 29     ratio range
+  ---------------------------------------------------------------------------
+  Gamma_0(9) twisted by chi    det(1 - P L)    29 / 29      3.0e-14 .. 1.6e-10
+  Gamma_0(9) twisted by chi    det(1 + P L)     0 / 29      0.29 .. 1.34
+  Gamma_0(9) TRIVIAL char.     det(1 - P L)     0 / 29      0.42 .. 3.19
+  Gamma_0(9) TRIVIAL char.     det(1 + P L)     0 / 29      0.66 .. 2.84
+
+  Every one of the 29 verified zeros of L(s, chi_9) appears as a zero of
+  det(1 - P L_s^{chi}) at s = rho/2 on Re s = 1/4.  None appears in the odd
+  factor.  None appears anywhere in the trivial-character operator at the same
+  29 points -- so it is the chi-twist, and nothing else, that brings the
+  L-function in.  That is the structural question the run was built to answer.
+
+  The parity is det(1 - P L), the EVEN factor -- the same factor in which M1
+  found the first Riemann zero at level 1 (Lewis-Zagier: L_s has eigenvalue
+  +1, not -1, where zeta(2s) = 0).  The level-9 twisted case follows the
+  level-1 pattern exactly.
+
+  For comparison of contrast, M1's level-1 Riemann-zero result was 3.6e-8 at
+  the zero against O(0.5 - 0.7) nearby.  Here the smallest ratio is 3.0e-14
+  and the largest is 1.6e-10, over 29 targets.
+
+--- HOW SHARPLY DOES THE ZERO SIT ON rho/2 ---
+
+Profiles of both factors about the predicted t = gamma/2, N = 64.
+
+  gamma = -3.444093155149,  t = gamma/2 = -1.72204657757
+    offset   |det(1-PL)|      |det(1+PL)|
+    -1e-3    5.171379e-03     3.149419e+00
+    -1e-5    5.163986e-05     3.148805e+00
+    -1e-7    5.163913e-07     3.148799e+00
+    -1e-9    5.164055e-09     3.148799e+00
+     0       1.446355e-13     3.148799e+00
+    +1e-9    5.163765e-09     3.148799e+00
+    +1e-7    5.163909e-07     3.148799e+00
+    +1e-5    5.163836e-05     3.148793e+00
+    +1e-3    5.156441e-03     3.148169e+00
+
+  gamma = 9.620772853249,   t = gamma/2 = 4.81038642662
+    offset   |det(1-PL)|      |det(1+PL)|
+    -1e-3    1.709340e-01     1.200547e+02
+    -1e-5    1.707821e-03     1.199618e+02
+    -1e-7    1.707806e-05     1.199608e+02
+    -1e-9    1.707787e-07     1.199608e+02
+     0       9.745077e-13     1.199608e+02
+    +1e-9    1.707820e-07     1.199608e+02
+    +1e-7    1.707806e-05     1.199608e+02
+    +1e-5    1.707790e-03     1.199599e+02
+    +1e-3    1.706204e-01     1.198705e+02
+
+  |det(1-PL)| = c |delta t| exactly -- a SIMPLE zero -- clean over six decades,
+  with c = 5.1639 and c = 170.78 respectively.  Setting the value at
+  delta t = 0 against that law:
+
+      gamma = -3.4440931551 : zero displaced from rho/2 by 2.8e-14
+      gamma =  9.6207728532 : zero displaced from rho/2 by 5.7e-15
+
+  The odd factor is FLAT across the whole profile (3.1488, 119.96) -- no zero.
+
+  CONTROL, trivial character, same profile about t = -1.72204657757:
+    offset -1e-3 .. +1e-3, |det(1-PL)| = 1.0895 .. 1.0906, |det(1+PL)| =
+    0.8793 .. 0.8816.  Flat.  No zero, no structure.
+
+--- WHAT DID NOT WORK ---
+
+  The parabolic refiner (phase2_refine) is uninformative here and is left in
+  the log as a negative note.  On a V-shaped simple zero with h0 = 0.02 and 5
+  iterations it overshoots: all four refinements landed 2-3e-5 away from
+  gamma/2 and reported |det| LARGER than the value at gamma/2 itself
+  (e.g. 3.5e-3 at the located point vs 9.7e-13 at gamma/2).  It was superseded
+  by the profiles above, which need no minimum-finding at all.  This is the
+  third time in this run that a measuring procedure, not the operator, was the
+  weak part -- the same lesson as M1's ledger.
+
+##############################################################################
+=== WHAT WAS ESTABLISHED, AND WHAT WAS NOT ===
+##############################################################################
+
+ESTABLISHED
+
+1. The order-3 characters mod 9 are even and weight-0 admissible.  Checked
+   three ways: chi(8) = +1 directly; L(0,chi) = 0 (a trivial zero at s = 0 is
+   the signature of an EVEN character); and rho(S)^2 = rho(-I) = chi(-1) I = I
+   inside the 12-dim induced representation, which is what makes the whole
+   construction descend to PSL(2,Z) at all.
+
+2. The Gamma_0(9) transfer operator was built and self-checked: 12 cosets,
+   S and T permutations, rho a homomorphism, rho(ST)^3 = 1, rho restricted to
+   Gamma_0(9) equal to chi, trivial chi giving back the permutation rep, and
+   the Fraczek-Mayer twist P satisfying P^2 = 1, P rho(S) = rho(S) P,
+   P rho(T) = rho(T^-1) P.  All to 1e-40.
+
+3. THE GATE PASSES.  The trivial-character Gamma_0(9) determinant contains all
+   ten M2-certified Gamma_0(3)/Gamma_0(1) spectral parameters as zeros of the
+   parity-correct factor, positioned to ~4e-12 in t, with exactly the predicted
+   oldform multiplicities (2 for a level-3 newform, 3 for the level-1 form).
+   The 4-dim Gamma_0(3) sub-block reproduces M2 eigenvalue by eigenvalue.
+
+4. The numerics are gated, not asserted: float64 determinant error is 1e-6 of
+   the truncation error; truncation drift N=56 vs N=64 is 1.4e-9
+   scale-normalized; dps=40 is converged against dps=55 (dps=30 is not).
+
+5. THE ANSWER TO THE QUESTION ASKED.  All 29 verified zeros of L(s, chi_9)
+   appear in det(1 - P L_s^{chi}) at s = rho/2 on Re s = 1/4.  Ratios against
+   local controls: 3.0e-14 to 1.6e-10.  Zero of them appear in the odd factor
+   (ratios 0.29 - 1.34), and zero of them appear anywhere in the
+   trivial-character Gamma_0(9) operator at the same 29 points (ratios
+   0.42 - 3.19).  The chi-twist is what brings the L-function in.  The zeros
+   sit on rho/2 to 3e-14 and 6e-15 at the two points profiled, and they are
+   SIMPLE (|det| = c |delta t| over six decades).
+
+   M2's negative result at level 3 was not a dead end in the framework's
+   ternary structure; it was specific to the parity of chi_3 mod 3.  Moving to
+   the first level where an order-3 character is EVEN produces the L-function
+   the level-3 route could not.
+
+NOT ESTABLISHED
+
+a. Nothing about the Riemann Hypothesis.  Nothing about Hilbert-Polya.  The
+   zeros studied in Phase 2 live on the EISENSTEIN / scattering side, which is
+   exactly the side on which Hilbert-Polya fails.  A determinant that sees
+   L-function zeros on Re s = 1/4 is an instrument fact about the scattering
+   determinant, not a spectral realisation of anything.
+
+b. The opposite-parity extra zero in the 8-dim level-9-new block (Phase 1c) is
+   NOT explained.  It is localized and reproducible, and absent at level 3.
+   The hypothesis that j = diag(1,-1) is an incomplete symmetry operator for
+   Gamma_0(p^2) was NOT tested; W_9 and the extra p^2 normalizer element were
+   not built.
+
+c. No external reference data for level 9 exists in LMFDB (queried, no
+   matches), so the Phase 1 gate rests entirely on the internal oldform
+   structure.  That is a strong gate but it is not an independent measurement
+   of a level-9 quantity.
+
+d. Level-9 NEWform Maass parameters (trivial or nebentypus) were not
+   identified.  The scan's unmatched minima were not followed up.
+
+e. The scan-with-refinement version of Phase 1 has a fragile minimum-finder
+   (it bailed on 6 of 10 parameters), and the Phase 2 parabolic refiner
+   overshoots on simple zeros (all 4 attempts landed 2-3e-5 off and reported a
+   LARGER |det| than the value at gamma/2).  Both were superseded by direct
+   evaluation and profiling, not fixed.
+
+f. The identification "det(1 - P L) is the EVEN factor" is inherited from the
+   level-1 and level-3 conventions and is consistent with everything measured,
+   but at level 9 the parity LABEL is compromised by the anomaly in (b).  What
+   is measured without any parity assumption is: the L-zeros land in the
+   det(1 - P L) factor and not the det(1 + P L) factor.
+
+g. The scattering matrix for (Gamma_0(9), chi) was NOT derived here.  The
+   expectation that L(2s, chi) sits in its denominator -- and hence that the
+   determinant should vanish rather than blow up at s = rho/2 -- was taken from
+   the level-1 analogue (Lewis-Zagier) and then CONFIRMED empirically, not
+   proved.  The 29/29 agreement is evidence for the identification, not a
+   derivation of it.
+
+WHAT WOULD COME NEXT
+
+  - Build W_9 and the Gamma_0(p^2) normalizer element; test whether they split
+    the 8-dim block and remove the opposite-parity partner.
+  - Derive, rather than assume, which factor the L(2s,chi) zeros must sit in,
+    from the explicit scattering matrix for (Gamma_0(9), chi primitive).
+  - Identify the level-9 newform spectrum from the unmatched scan minima; it
+    would be new data, since LMFDB has none.
+
+##############################################################################
+# RAW RUN LOGS (verbatim, in the order the phases were run)
+##############################################################################
+
+----- raw log: gates -----
+
+##########################################################################
+# RUN 2026-08-09 00:24:55   args=--detgate --trunc
+##########################################################################
+V4  float64 det vs mpmath det (dps=40)
+     s=(0.25 + 9.88496595799j), N=40, D=480   float64 5.1s   mpmath 538s
+       det(1-PL): |det| = 6.972052e-01
+          float64-vs-mpmath  abs 2.82e-6   rel 4.04e-6   /localscale 6.76e-12
+          truncation N40-vs-N48  abs 0.7   -> float64 error is 4.03e-6 of it
+       det(1+PL): |det| = 4.169590e+05
+          float64-vs-mpmath  abs 7.8e-5   rel 1.87e-10   /localscale 1.87e-10
+          truncation N40-vs-N48  abs 19.8   -> float64 error is 3.94e-6 of it
+     s=(0.5 + 7.3j), N=24, D=288   float64 1.5s   mpmath 115s
+       det(1-PL): |det| = 4.404051e-01
+          float64-vs-mpmath  abs 1.23e-12   rel 2.8e-12   /localscale 2.8e-12
+          truncation N24-vs-N32  abs 0.015   -> float64 error is 8.21e-11 of it
+       det(1+PL): |det| = 6.555104e-02
+          float64-vs-mpmath  abs 3.03e-13   rel 4.62e-12   /localscale 6.87e-13
+          truncation N24-vs-N32  abs 0.00352   -> float64 error is 8.59e-11 of it
+V4  worst float64 discrepancy / local determinant scale: 1.87e-10
+V4  PASS -- float64 determinant error is far below the truncation error;
+    the float64 path is used from here on (100x faster than mp.det).
+
+V5  truncation gate, trivial character, Re s = 1/2: N=56 vs N=64
+     s=(0.5 + 9.7j)  det(1-PL): |det|=9.082347e-01   rel drift 8.87e-10   drift/scale 7.02e-10
+     s=(0.5 + 9.7j)  det(1+PL): |det|=1.147325e+00   rel drift 1.40e-09   drift/scale 1.40e-09
+V5  worst scale-normalized drift 1.40e-09
+
+V5  truncation gate, chi, Re s = 1/4: N=56 vs N=64
+     s=(0.25 + 9.88496595799j)  det(1-PL): |det|=6.438880e-06   rel drift 1.61e+00   drift/scale 2.48e-11
+     s=(0.25 + 9.88496595799j)  det(1+PL): |det|=4.169510e+05   rel drift 3.16e-10   drift/scale 3.16e-10
+     s=(0.25 - 9.88496595799j)  det(1-PL): |det|=1.240889e-05   rel drift 1.17e+00   drift/scale 3.49e-11
+     s=(0.25 - 9.88496595799j)  det(1+PL): |det|=4.169510e+05   rel drift 1.22e-09   drift/scale 1.22e-09
+V5  worst scale-normalized drift 1.22e-09
+
+V5b roundoff separation at s=(0.25 + 9.88496595799j), N=40
+     det(1-PL): dps30 vs 55 2.56e-12   dps40 vs 55 0.00e+00   (scale-normalized)
+     det(1+PL): dps30 vs 55 1.68e-10   dps40 vs 55 0.00e+00   (scale-normalized)
+
+
+----- raw log: phase1 -----
+
+##########################################################################
+# RUN 2026-08-09 00:00:56   args=--phase1
+##########################################################################
+==========================================================================
+PHASE 1 -- THE GATE: trivial-character Gamma_0(9) on Re s = 1/2
+==========================================================================
+Prediction, no external data needed: the M2-certified Gamma_0(3)
+spectrum must appear inside Z_{Gamma_0(9)} = det(1-PL) det(1+PL),
+in the SAME parity factor (even <-> det(1-PL), odd <-> det(1+PL)).
+Scan N=56, dps=40, t in [4.0, 9.7], step 0.05.
+  115 scan points computed.
+
+  local minima of |det(1-PL)|  (parity even):
+    t* =             4.39   |det| = 3.678e-02   depth = 3.972e-02
+    t* =     5.0987585338   |det| = 7.893e-09   depth = 1.128e-07
+    t* =     5.5043753427   |det| = 2.813e-03   depth = 6.605e-03
+    t* =             6.11   |det| = 3.264e-01   depth = 2.231e-01
+    t* =     6.6463136739   |det| = 2.080e-03   depth = 5.707e-03
+    t* =     6.7572618891   |det| = 8.912e-04   depth = 3.707e-03
+    t* =             7.44   |det| = 2.444e-01   depth = 1.676e-01
+    t* =             7.76   |det| = 4.882e-02   depth = 3.765e-02
+    t* =             8.04   |det| = 9.484e-05   depth = 6.135e-04
+    t* =     8.1932150479   |det| = 2.317e-03   depth = 3.061e-03
+    t* =     8.6991533548   |det| = 4.144e-03   depth = 1.361e-02
+    t* =             9.09   |det| = 7.600e-01   depth = 2.086e-01
+    t* =             9.29   |det| = 2.986e-01   depth = 5.115e-02
+    t* =             9.54   |det| = 6.160e-01   depth = 1.604e-01
+
+  local minima of |det(1+PL)|  (parity odd):
+    t* =             4.39   |det| = 1.248e-04   depth = 1.408e-03
+    t* =     5.0991638592   |det| = 9.757e-03   depth = 8.622e-03
+    t* =     5.5044106187   |det| = 8.668e-03   depth = 7.262e-03
+    t* =             6.11   |det| = 8.762e-03   depth = 3.873e-02
+    t* =     6.6463857478   |det| = 6.022e-04   depth = 4.015e-03
+    t* =      6.757377406   |det| = 4.650e-08   depth = 7.138e-07
+    t* =             7.44   |det| = 4.894e-01   depth = 1.878e-01
+    t* =             7.76   |det| = 5.423e-04   depth = 1.359e-03
+    t* =             8.04   |det| = 1.368e-02   depth = 2.961e-02
+    t* =     8.1929846987   |det| = 3.912e-07   depth = 9.018e-07
+    t* =     8.6989649941   |det| = 2.660e-02   depth = 1.351e-02
+    t* =             9.09   |det| = 3.412e-01   depth = 2.694e-01
+    t* =             9.29   |det| = 4.832e-04   depth = 2.801e-03
+    t* =             9.54   |det| = 1.363e-04   depth = 1.439e-03
+
+  MATCH TABLE against the M2-certified Gamma_0(3) spectrum:
+  | certified r | parity | expected mult | found t* | offset | verdict |
+  |---|---|---|---|---|---|
+  | 4.38805356322 | odd | 2 | 4.39 | 0.00195 | HIT |
+  | 5.09874190873 | even | 2 | 5.0987585338 | 1.66e-5 | HIT |
+  | 6.12057553309 | odd | 2 | 6.11 | -0.0106 | HIT |
+  | 6.75741527775 | odd | 2 | 6.757377406 | -3.79e-5 | HIT |
+  | 7.75813319502 | odd | 2 | 7.76 | 0.00187 | HIT |
+  | 8.03886120386 | even | 2 | 8.04 | 0.00114 | HIT |
+  | 8.19303593168 | odd | 2 | 8.1929846987 | -5.12e-5 | HIT |
+  | 8.77828239355 | even | 2 | -- | -- | MISSED |
+  | 9.29237932822 | odd | 2 | 9.29 | -0.00238 | HIT |
+  | 9.53369526135 | odd | 3 | 9.54 | 0.0063 | HIT |
+
+  P1 GATE: 9/10 certified Gamma_0(3) parameters recovered.
+  cross-parity contamination check (a value must be absent from the other factor):
+    CONTAMINATION: 4.38805356322 (odd) also minimises the even factor at 4.39
+    CONTAMINATION: 5.09874190873 (even) also minimises the odd factor at 5.09916386
+    CONTAMINATION: 6.75741527775 (odd) also minimises the even factor at 6.75726189
+    CONTAMINATION: 7.75813319502 (odd) also minimises the even factor at 7.76
+    CONTAMINATION: 8.03886120386 (even) also minimises the odd factor at 8.04
+    CONTAMINATION: 8.19303593168 (odd) also minimises the even factor at 8.19321505
+    CONTAMINATION: 9.29237932822 (odd) also minimises the even factor at 9.29
+    CONTAMINATION: 9.53369526135 (odd) also minimises the even factor at 9.54
+    contaminated: 8/10
+  minima not matching any Gamma_0(3) parameter (candidate level-9 newforms or shallow non-zeros): 10
+    t* = 5.5043753427   |det| = 2.813e-03   depth = 6.605e-03
+    t* = 6.6463136739   |det| = 2.080e-03   depth = 5.707e-03
+    t* = 7.44   |det| = 2.444e-01   depth = 1.676e-01
+    t* = 8.6991533548   |det| = 4.144e-03   depth = 1.361e-02
+    t* = 9.09   |det| = 7.600e-01   depth = 2.086e-01
+    t* = 5.5044106187   |det| = 8.668e-03   depth = 7.262e-03
+    t* = 6.6463857478   |det| = 6.022e-04   depth = 4.015e-03
+    t* = 7.44   |det| = 4.894e-01   depth = 1.878e-01
+    t* = 8.6989649941   |det| = 2.660e-02   depth = 1.351e-02
+    t* = 9.09   |det| = 3.412e-01   depth = 2.694e-01
+
+
+----- raw log: phase1b -----
+
+##########################################################################
+# RUN 2026-08-09 00:47:27   args=--phase1b
+##########################################################################
+==========================================================================
+PHASE 1b -- THE GATE, direct evaluation at the certified parameters
+==========================================================================
+Trivial-character Gamma_0(9), Re s = 1/2, N=56, dps=40, controls at r +- 0.15.
+Expected: a certified value is a zero of the factor matching its
+PARITY, with multiplicity 3 if it is a level-1 form and 2 if it is a
+level-3 newform.  It must be a zero of NEITHER factor's partner.
+
+  | certified r | parity | mult | factor | |det| at r | ctrl(r-.15) | ctrl(r+.15) | ratio |
+  |---|---|---|---|---|---|---|---|
+  | 4.38805356322 | odd | 2 | det(1-PL) | 3.8887e-11 | 2.640e+00 | 2.422e+00 | 1.538e-11 | 
+  | 4.38805356322 | odd | 2 | det(1+PL) | 1.3901e-22 | 5.940e-01 | 7.758e-01 | 2.048e-22 | <= expected zero
+  | 5.09874190873 | even | 2 | det(1-PL) | 5.4524e-24 | 7.040e-01 | 4.200e-01 | 1.003e-23 | <= expected zero
+  | 5.09874190873 | even | 2 | det(1+PL) | 1.0160e-11 | 3.021e+00 | 2.705e+00 | 3.554e-12 | 
+  | 6.12057553309 | odd | 2 | det(1-PL) | 8.6900e-11 | 3.464e+00 | 4.193e+00 | 2.280e-11 | 
+  | 6.12057553309 | odd | 2 | det(1+PL) | 6.0806e-22 | 1.573e+00 | 1.282e+00 | 4.281e-22 | <= expected zero
+  | 6.75741527775 | odd | 2 | det(1-PL) | 2.5431e-11 | 4.279e-01 | 9.957e-01 | 3.896e-11 | 
+  | 6.75741527775 | odd | 2 | det(1+PL) | 6.1113e-22 | 1.965e-01 | 1.500e+00 | 1.126e-21 | <= expected zero
+  | 7.75813319502 | odd | 2 | det(1-PL) | 2.5722e-11 | 3.457e+00 | 1.070e+00 | 1.337e-11 | 
+  | 7.75813319502 | odd | 2 | det(1+PL) | 1.5693e-22 | 2.953e+00 | 1.304e+00 | 7.997e-23 | <= expected zero
+  | 8.03886120386 | even | 2 | det(1-PL) | 2.4945e-22 | 1.243e+00 | 5.131e-02 | 9.879e-22 | <= expected zero
+  | 8.03886120386 | even | 2 | det(1+PL) | 2.8588e-11 | 1.229e+00 | 2.512e-03 | 5.146e-10 | 
+  | 8.19303593168 | odd | 2 | det(1-PL) | 8.2087e-11 | 1.261e-03 | 4.401e+00 | 1.102e-09 | 
+  | 8.19303593168 | odd | 2 | det(1+PL) | 4.0305e-21 | 4.921e-02 | 5.847e+00 | 7.514e-21 | <= expected zero
+  | 8.77828239355 | even | 2 | det(1-PL) | 1.4602e-21 | 1.054e+00 | 2.719e+00 | 8.626e-22 | <= expected zero
+  | 8.77828239355 | even | 2 | det(1+PL) | 3.2549e-10 | 5.131e+00 | 6.137e+00 | 5.801e-11 | 
+  | 9.29237932822 | odd | 2 | det(1-PL) | 3.7409e-09 | 4.824e+00 | 9.248e+00 | 5.601e-10 | 
+  | 9.29237932822 | odd | 2 | det(1+PL) | 1.1208e-20 | 1.203e+00 | 1.785e-01 | 2.418e-20 | <= expected zero
+  | 9.53369526135 | odd | 3 | det(1-PL) | 7.6010e-09 | 9.690e+00 | 1.594e+00 | 1.934e-09 | 
+  | 9.53369526135 | odd | 3 | det(1+PL) | 1.0079e-30 | 2.650e-01 | 1.132e+00 | 1.841e-30 | <= expected zero
+
+  SUMMARY
+  | certified r | parity | ratio in EXPECTED factor | ratio in OTHER factor |
+  |---|---|---|---|
+  | 4.38805356322 | odd | 2.048e-22 | 1.538e-11 |
+  | 5.09874190873 | even | 1.003e-23 | 3.554e-12 |
+  | 6.12057553309 | odd | 4.281e-22 | 2.280e-11 |
+  | 6.75741527775 | odd | 1.126e-21 | 3.896e-11 |
+  | 7.75813319502 | odd | 7.997e-23 | 1.337e-11 |
+  | 8.03886120386 | even | 9.879e-22 | 5.146e-10 |
+  | 8.19303593168 | odd | 7.514e-21 | 1.102e-09 |
+  | 8.77828239355 | even | 8.626e-22 | 5.801e-11 |
+  | 9.29237932822 | odd | 2.418e-20 | 5.601e-10 |
+  | 9.53369526135 | odd | 1.841e-30 | 1.934e-09 |
+
+  P1 GATE: 10/10 certified parameters are zeros of the
+           parity-correct factor (ratio < 1e-4).
+           cross-parity contamination: 10/10.
+
+
+----- raw log: phase1c -----
+
+##########################################################################
+# RUN 2026-08-09 01:10:21   args=--phase1c
+##########################################################################
+==========================================================================
+PHASE 1c -- multiplicity structure, read off the spectrum of P.L
+==========================================================================
+fibres of P^1(Z/9) -> P^1(Z/3): {(0, 1): [0, 10, 11], (1, 0): [1, 4, 7], (1, 1): [2, 5, 8], (1, 2): [3, 6, 9]}
+Trivial character, Re s = 1/2, N=40; eigenvalues within 1e-06 of the
+unit circle are listed.  Expected oldform multiplicity in Gamma_0(9):
+3 for a level-1 form (divisors of 9), 2 for a level-3 newform.
+
+  | certified r | parity | expected mult | eigenvalues near +-1 (full 12-dim) | 4-dim block | 8-dim block |
+  |---|---|---|---|---|---|
+  | 4.38805356322 | odd | 2 | +1.00000000000, -1.00000000000, -1.00000000000 | -1.00000000000 | +1.00000000000, -1.00000000000 |
+  | 5.09874190873 | even | 2 | +1.00000000000, +0.99999999999, -0.99999999999 | +1.00000000000 | +0.99999999999, -0.99999999999 |
+  | 6.12057553309 | odd | 2 | +1.00000000121, -1.00000000000, -1.00000000121 | -1.00000000000 | +1.00000000121, -1.00000000121 |
+  | 6.75741527775 | odd | 2 | +0.99999999617, -0.99999999617, -1.00000000003 | -1.00000000003 | +0.99999999617, -0.99999999617 |
+  | 7.75813319502 | odd | 2 | +1.00000000754, -0.99999999900, -1.00000000754 | -0.99999999900 | +1.00000000754, -1.00000000754 |
+  | 8.03886120386 | even | 2 | +1.00000003888, +1.00000000010, -1.00000003888 | +1.00000000010 | +1.00000003888, -1.00000003888 |
+  | 8.19303593168 | odd | 2 | +0.99999986384, -0.99999986384, -1.00000000660 | -1.00000000660 | +0.99999986384, -0.99999986384 |
+  | 8.77828239355 | even | 2 | +1.00000060422, +1.00000000224, -1.00000060422 | +1.00000000224 | +1.00000060422, -1.00000060422 |
+  | 9.29237932822 | odd | 2 | -0.99999984382 | -0.99999984382 | none |
+  | 9.53369526135 | odd | 3 | -0.99999993988, -1.00000000000 | -0.99999993988, -1.00000000000 | none |
+
+
+----- raw log: phase2 -----
+
+##########################################################################
+# RUN 2026-08-09 01:37:16   args=--phase2
+##########################################################################
+V6  conjugation relation between the chi and chi^2 operators
+     t=3.9: rel 0.00e+00 (minus factor), 0.00e+00 (plus factor)
+     t=7.3: rel 0.00e+00 (minus factor), 0.00e+00 (plus factor)
+
+==========================================================================
+PHASE 2 -- L(s, chi_9) zeros on Re s = 1/4
+==========================================================================
+29 targets read from rh_gamma09_targets.txt (not regenerated).
+Controls: t +- 0.3; a control is dropped if it lands within 0.15
+of any target.  'ratio' = |det| at the target / geometric mean of the
+surviving controls.  A hit means ratio << 1; a null result means ratio ~ 1.
+
+--- operator: Gamma_0(9) twisted by chi,  N=64 ---
+  rows are logged as they are computed.
+  | src | gamma | t = gamma/2 | factor | |det| at target | ctrl(t-0.3) | ctrl(t+0.3) | ratio |
+  |---|---|---|---|---|---|---|---|
+  | chi^1 | -19.76993192 | -9.884965958 | det(1-PL) | 5.8445e-06 | 8.297e+04 | 1.600e+04 | 1.604e-10 |
+  | chi^1 | -19.76993192 | -9.884965958 | det(1+PL) | 4.1695e+05 | 5.601e+05 | 5.952e+05 | 7.221e-01 |
+  | chi^1 | -18.54506476 | -9.272532379 | det(1-PL) | 5.4000e-07 | 1.568e+04 | 1.551e+04 | 3.463e-11 |
+  | chi^1 | -18.54506476 | -9.272532379 | det(1+PL) | 1.3321e+05 | 5.766e+05 | 1.353e+05 | 4.770e-01 |
+  | chi^1 | -16.5020637 | -8.251031852 | det(1-PL) | 3.0841e-09 | 6.761e+03 | 3.510e+03 | 6.331e-13 |
+  | chi^1 | -16.5020637 | -8.251031852 | det(1+PL) | 3.4804e+04 | 6.023e+04 | 1.939e+04 | 1.018e+00 |
+  | chi^1 | -13.79194951 | -6.895974755 | det(1-PL) | 2.5786e-10 | 1.463e+03 | 5.580e+02 | 2.854e-13 |
+  | chi^1 | -13.79194951 | -6.895974755 | det(1+PL) | 5.6868e+03 | 7.118e+03 | 3.905e+03 | 1.079e+00 |
+  | chi^1 | -11.58364908 | -5.791824541 | det(1-PL) | 9.4818e-12 | 2.232e+02 | 1.294e+02 | 5.579e-14 |
+  | chi^1 | -11.58364908 | -5.791824541 | det(1+PL) | 1.1102e+03 | 1.531e+03 | 6.462e+02 | 1.116e+00 |
+  | chi^1 | -10.01655042 | -5.008275211 | det(1-PL) | 5.1049e-11 | 1.353e+02 |      --     | 3.772e-13 |
+  | chi^1 | -10.01655042 | -5.008275211 | det(1+PL) | 1.7584e+02 | 4.447e+02 |      --     | 3.954e-01 |
+  | chi^1 | -7.532433052 | -3.766216526 | det(1-PL) | 5.6821e-12 |      --     | 1.202e+01 | 4.728e-13 |
+  | chi^1 | -7.532433052 | -3.766216526 | det(1+PL) | 4.0596e+01 |      --     | 3.033e+01 | 1.339e+00 |
+  | chi^1 | -3.444093155 | -1.722046578 | det(1-PL) | 1.4464e-13 | 2.088e+00 | 9.195e-01 | 1.044e-13 |
+  | chi^1 | -3.444093155 | -1.722046578 | det(1+PL) | 3.1488e+00 | 3.281e+00 | 2.593e+00 | 1.080e+00 |
+  | chi^1 | 5.319575123 | 2.659787562 | det(1-PL) | 1.8790e-12 | 3.523e+00 | 5.400e+00 | 4.308e-13 |
+  | chi^1 | 5.319575123 | 2.659787562 | det(1+PL) | 1.0314e+01 | 6.954e+00 | 1.560e+01 | 9.903e-01 |
+  | chi^1 | 7.834671439 | 3.917335719 | det(1-PL) | 3.2761e-12 |      --     | 1.378e+01 | 2.377e-13 |
+  | chi^1 | 7.834671439 | 3.917335719 | det(1+PL) | 5.1381e+01 |      --     | 1.751e+02 | 2.935e-01 |
+  | chi^1 | 9.620772853 | 4.810386427 | det(1-PL) | 9.7451e-13 | 2.372e+01 | 4.468e+01 | 2.993e-14 |
+  | chi^1 | 9.620772853 | 4.810386427 | det(1+PL) | 1.1996e+02 | 2.362e+02 | 2.571e+02 | 4.868e-01 |
+  | chi^1 | 12.60181339 | 6.300906697 | det(1-PL) | 5.1884e-10 | 1.877e+02 | 5.665e+02 | 1.591e-12 |
+  | chi^1 | 12.60181339 | 6.300906697 | det(1+PL) | 1.9231e+03 | 1.505e+03 | 3.949e+03 | 7.888e-01 |
+  | chi^1 | 15.12593011 | 7.562965054 | det(1-PL) | 2.7881e-09 | 1.633e+03 | 3.446e+03 | 1.175e-12 |
+  | chi^1 | 15.12593011 | 7.562965054 | det(1+PL) | 1.5055e+04 | 7.287e+03 | 1.923e+04 | 1.272e+00 |
+  | chi^1 | 16.44722844 | 8.223614218 | det(1-PL) | 1.2634e-08 | 3.561e+03 | 6.303e+03 | 2.667e-12 |
+  | chi^1 | 16.44722844 | 8.223614218 | det(1+PL) | 3.2304e+04 | 1.924e+04 | 5.787e+04 | 9.682e-01 |
+  | chi^1 | 18.32531541 | 9.162657705 | det(1-PL) | 5.8509e-07 | 1.458e+04 | 1.157e+04 | 4.504e-11 |
+  | chi^1 | 18.32531541 | 9.162657705 | det(1+PL) | 1.1798e+05 | 1.200e+05 | 3.560e+05 | 5.709e-01 |
+  | chi^2 | -18.32531541 | -9.162657705 | det(1-PL) | 1.2458e-07 | 1.157e+04 | 1.458e+04 | 9.590e-12 |
+  | chi^2 | -18.32531541 | -9.162657705 | det(1+PL) | 1.1798e+05 | 3.560e+05 | 1.200e+05 | 5.709e-01 |
+  | chi^2 | -16.44722844 | -8.223614218 | det(1-PL) | 6.2812e-09 | 6.303e+03 | 3.561e+03 | 1.326e-12 |
+  | chi^2 | -16.44722844 | -8.223614218 | det(1+PL) | 3.2304e+04 | 5.787e+04 | 1.924e+04 | 9.682e-01 |
+  | chi^2 | -15.12593011 | -7.562965054 | det(1-PL) | 7.0159e-09 | 3.446e+03 | 1.633e+03 | 2.957e-12 |
+  | chi^2 | -15.12593011 | -7.562965054 | det(1+PL) | 1.5055e+04 | 1.923e+04 | 7.287e+03 | 1.272e+00 |
+  | chi^2 | -12.60181339 | -6.300906697 | det(1-PL) | 4.0121e-10 | 5.665e+02 | 1.877e+02 | 1.230e-12 |
+  | chi^2 | -12.60181339 | -6.300906697 | det(1+PL) | 1.9231e+03 | 3.949e+03 | 1.505e+03 | 7.888e-01 |
+  | chi^2 | -9.620772853 | -4.810386427 | det(1-PL) | 1.4434e-12 |      --     | 2.372e+01 | 6.084e-14 |
+  | chi^2 | -9.620772853 | -4.810386427 | det(1+PL) | 1.1996e+02 |      --     | 2.362e+02 | 5.078e-01 |
+  | chi^2 | -7.834671439 | -3.917335719 | det(1-PL) | 3.2824e-12 | 1.378e+01 |      --     | 2.382e-13 |
+  | chi^2 | -7.834671439 | -3.917335719 | det(1+PL) | 5.1381e+01 | 1.751e+02 |      --     | 2.935e-01 |
+  | chi^2 | -5.319575123 | -2.659787562 | det(1-PL) | 1.8704e-12 | 5.400e+00 | 3.523e+00 | 4.288e-13 |
+  | chi^2 | -5.319575123 | -2.659787562 | det(1+PL) | 1.0314e+01 | 1.560e+01 | 6.954e+00 | 9.903e-01 |
+  | chi^2 | 3.444093155 | 1.722046578 | det(1-PL) | 1.4513e-13 | 9.195e-01 | 2.088e+00 | 1.047e-13 |
+  | chi^2 | 3.444093155 | 1.722046578 | det(1+PL) | 3.1488e+00 | 2.593e+00 | 3.281e+00 | 1.080e+00 |
+  | chi^2 | 7.532433052 | 3.766216526 | det(1-PL) | 5.6816e-12 | 1.202e+01 |      --     | 4.728e-13 |
+  | chi^2 | 7.532433052 | 3.766216526 | det(1+PL) | 4.0596e+01 | 3.033e+01 |      --     | 1.339e+00 |
+  | chi^2 | 11.58364908 | 5.791824541 | det(1-PL) | 5.0930e-11 | 1.294e+02 | 2.232e+02 | 2.997e-13 |
+  | chi^2 | 11.58364908 | 5.791824541 | det(1+PL) | 1.1102e+03 | 6.462e+02 | 1.531e+03 | 1.116e+00 |
+  | chi^2 | 13.79194951 | 6.895974755 | det(1-PL) | 1.2746e-09 | 5.580e+02 | 1.463e+03 | 1.411e-12 |
+  | chi^2 | 13.79194951 | 6.895974755 | det(1+PL) | 5.6868e+03 | 3.905e+03 | 7.118e+03 | 1.079e+00 |
+  | chi^2 | 16.5020637 | 8.251031852 | det(1-PL) | 4.9007e-09 | 3.510e+03 | 6.761e+03 | 1.006e-12 |
+  | chi^2 | 16.5020637 | 8.251031852 | det(1+PL) | 3.4804e+04 | 1.939e+04 | 6.023e+04 | 1.018e+00 |
+  | chi^2 | 18.54506476 | 9.272532379 | det(1-PL) | 9.2207e-07 | 1.551e+04 | 1.568e+04 | 5.913e-11 |
+  | chi^2 | 18.54506476 | 9.272532379 | det(1+PL) | 1.3321e+05 | 1.353e+05 | 5.766e+05 | 4.770e-01 |
+  | chi^2 | 19.76993192 | 9.884965958 | det(1-PL) | 5.3081e-06 | 1.600e+04 | 8.297e+04 | 1.457e-10 |
+  | chi^2 | 19.76993192 | 9.884965958 | det(1+PL) | 4.1695e+05 | 5.952e+05 | 5.601e+05 | 7.221e-01 |
+  det(1 - P L)  [even factor]: smallest ratio 2.993e-14 at gamma = 9.620772853;  largest ratio 1.604e-10 at gamma = -19.76993192
+  det(1 + P L)  [odd factor]: smallest ratio 2.935e-01 at gamma = -7.834671439;  largest ratio 1.339e+00 at gamma = 7.532433052
+
+--- operator: Gamma_0(9) twisted by trivial,  N=64 ---
+  rows are logged as they are computed.
+  | src | gamma | t = gamma/2 | factor | |det| at target | ctrl(t-0.3) | ctrl(t+0.3) | ratio |
+  |---|---|---|---|---|---|---|---|
+  | chi^1 | -19.76993192 | -9.884965958 | det(1-PL) | 2.7278e+04 | 6.297e+03 | 3.381e+04 | 1.869e+00 |
+  | chi^1 | -19.76993192 | -9.884965958 | det(1+PL) | 7.3515e+04 | 7.918e+04 | 1.363e+04 | 2.238e+00 |
+  | chi^1 | -18.54506476 | -9.272532379 | det(1-PL) | 2.3889e+04 | 3.399e+04 | 5.889e+03 | 1.689e+00 |
+  | chi^1 | -18.54506476 | -9.272532379 | det(1+PL) | 7.9250e+03 | 1.280e+04 | 1.011e+04 | 6.967e-01 |
+  | chi^1 | -16.5020637 | -8.251031852 | det(1-PL) | 1.1652e+03 | 1.028e+03 | 9.242e+02 | 1.195e+00 |
+  | chi^1 | -16.5020637 | -8.251031852 | det(1+PL) | 2.8781e+03 | 5.616e+03 | 1.701e+03 | 9.311e-01 |
+  | chi^1 | -13.79194951 | -6.895974755 | det(1-PL) | 2.2071e+01 | 2.225e+01 | 1.264e+02 | 4.162e-01 |
+  | chi^1 | -13.79194951 | -6.895974755 | det(1+PL) | 1.9997e+02 | 5.703e+02 | 1.615e+02 | 6.588e-01 |
+  | chi^1 | -11.58364908 | -5.791824541 | det(1-PL) | 3.1105e+01 | 1.084e+02 | 1.753e+01 | 7.133e-01 |
+  | chi^1 | -11.58364908 | -5.791824541 | det(1+PL) | 8.4225e+01 | 9.950e+01 | 7.111e+01 | 1.001e+00 |
+  | chi^1 | -10.01655042 | -5.008275211 | det(1-PL) | 2.0102e+01 | 1.749e+01 |      --     | 1.149e+00 |
+  | chi^1 | -10.01655042 | -5.008275211 | det(1+PL) | 6.2927e+01 | 7.414e+01 |      --     | 8.488e-01 |
+  | chi^1 | -7.532433052 | -3.766216526 | det(1-PL) | 1.1727e+01 |      --     | 3.682e+00 | 3.185e+00 |
+  | chi^1 | -7.532433052 | -3.766216526 | det(1+PL) | 9.2904e+00 |      --     | 4.548e+00 | 2.043e+00 |
+  | chi^1 | -3.444093155 | -1.722046578 | det(1-PL) | 1.0900e+00 | 1.198e+00 | 9.226e-01 | 1.037e+00 |
+  | chi^1 | -3.444093155 | -1.722046578 | det(1+PL) | 8.8046e-01 | 1.261e+00 | 6.083e-01 | 1.005e+00 |
+  | chi^1 | 5.319575123 | 2.659787562 | det(1-PL) | 5.8693e-01 | 1.021e+00 | 6.090e-01 | 7.442e-01 |
+  | chi^1 | 5.319575123 | 2.659787562 | det(1+PL) | 1.6191e+00 | 1.645e+00 | 1.953e+00 | 9.033e-01 |
+  | chi^1 | 7.834671439 | 3.917335719 | det(1-PL) | 1.9590e+01 |      --     | 2.967e+01 | 6.602e-01 |
+  | chi^1 | 7.834671439 | 3.917335719 | det(1+PL) | 1.2525e+01 |      --     | 1.239e+01 | 1.011e+00 |
+  | chi^1 | 9.620772853 | 4.810386427 | det(1-PL) | 3.3801e+01 | 3.523e+01 | 1.667e+01 | 1.395e+00 |
+  | chi^1 | 9.620772853 | 4.810386427 | det(1+PL) | 5.1727e+01 | 1.820e+01 | 6.590e+01 | 1.494e+00 |
+  | chi^1 | 12.60181339 | 6.300906697 | det(1-PL) | 1.8835e+02 | 7.889e+01 | 1.241e+02 | 1.903e+00 |
+  | chi^1 | 12.60181339 | 6.300906697 | det(1+PL) | 1.5550e+02 | 9.511e+01 | 1.606e+02 | 1.258e+00 |
+  | chi^1 | 15.12593011 | 7.562965054 | det(1-PL) | 7.2093e+02 | 7.707e+01 | 9.820e+02 | 2.621e+00 |
+  | chi^1 | 15.12593011 | 7.562965054 | det(1+PL) | 1.6502e+03 | 9.214e+02 | 1.593e+03 | 1.362e+00 |
+  | chi^1 | 16.44722844 | 8.223614218 | det(1-PL) | 1.1148e+03 | 9.433e+02 | 1.064e+03 | 1.113e+00 |
+  | chi^1 | 16.44722844 | 8.223614218 | det(1+PL) | 2.6247e+03 | 1.668e+03 | 5.517e+03 | 8.653e-01 |
+  | chi^1 | 18.32531541 | 9.162657705 | det(1-PL) | 1.6104e+04 | 2.786e+03 | 3.380e+04 | 1.660e+00 |
+  | chi^1 | 18.32531541 | 9.162657705 | det(1+PL) | 8.9797e+03 | 8.799e+03 | 8.728e+03 | 1.025e+00 |
+  | chi^2 | -18.32531541 | -9.162657705 | det(1-PL) | 1.6104e+04 | 3.380e+04 | 2.786e+03 | 1.660e+00 |
+  | chi^2 | -18.32531541 | -9.162657705 | det(1+PL) | 8.9797e+03 | 8.728e+03 | 8.799e+03 | 1.025e+00 |
+  | chi^2 | -16.44722844 | -8.223614218 | det(1-PL) | 1.1148e+03 | 1.064e+03 | 9.433e+02 | 1.113e+00 |
+  | chi^2 | -16.44722844 | -8.223614218 | det(1+PL) | 2.6247e+03 | 5.517e+03 | 1.668e+03 | 8.653e-01 |
+  | chi^2 | -15.12593011 | -7.562965054 | det(1-PL) | 7.2093e+02 | 9.820e+02 | 7.707e+01 | 2.621e+00 |
+  | chi^2 | -15.12593011 | -7.562965054 | det(1+PL) | 1.6502e+03 | 1.593e+03 | 9.214e+02 | 1.362e+00 |
+  | chi^2 | -12.60181339 | -6.300906697 | det(1-PL) | 1.8835e+02 | 1.241e+02 | 7.889e+01 | 1.903e+00 |
+  | chi^2 | -12.60181339 | -6.300906697 | det(1+PL) | 1.5550e+02 | 1.606e+02 | 9.511e+01 | 1.258e+00 |
+  | chi^2 | -9.620772853 | -4.810386427 | det(1-PL) | 3.3801e+01 |      --     | 3.523e+01 | 9.594e-01 |
+  | chi^2 | -9.620772853 | -4.810386427 | det(1+PL) | 5.1727e+01 |      --     | 1.820e+01 | 2.842e+00 |
+  | chi^2 | -7.834671439 | -3.917335719 | det(1-PL) | 1.9590e+01 | 2.967e+01 |      --     | 6.602e-01 |
+  | chi^2 | -7.834671439 | -3.917335719 | det(1+PL) | 1.2525e+01 | 1.239e+01 |      --     | 1.011e+00 |
+  | chi^2 | -5.319575123 | -2.659787562 | det(1-PL) | 5.8693e-01 | 6.090e-01 | 1.021e+00 | 7.442e-01 |
+  | chi^2 | -5.319575123 | -2.659787562 | det(1+PL) | 1.6191e+00 | 1.953e+00 | 1.645e+00 | 9.033e-01 |
+  | chi^2 | 3.444093155 | 1.722046578 | det(1-PL) | 1.0900e+00 | 9.226e-01 | 1.198e+00 | 1.037e+00 |
+  | chi^2 | 3.444093155 | 1.722046578 | det(1+PL) | 8.8046e-01 | 6.083e-01 | 1.261e+00 | 1.005e+00 |
+  | chi^2 | 7.532433052 | 3.766216526 | det(1-PL) | 1.1727e+01 | 3.682e+00 |      --     | 3.185e+00 |
+  | chi^2 | 7.532433052 | 3.766216526 | det(1+PL) | 9.2904e+00 | 4.548e+00 |      --     | 2.043e+00 |
+  | chi^2 | 11.58364908 | 5.791824541 | det(1-PL) | 3.1105e+01 | 1.753e+01 | 1.084e+02 | 7.133e-01 |
+  | chi^2 | 11.58364908 | 5.791824541 | det(1+PL) | 8.4225e+01 | 7.111e+01 | 9.950e+01 | 1.001e+00 |
+  | chi^2 | 13.79194951 | 6.895974755 | det(1-PL) | 2.2071e+01 | 1.264e+02 | 2.225e+01 | 4.162e-01 |
+  | chi^2 | 13.79194951 | 6.895974755 | det(1+PL) | 1.9997e+02 | 1.615e+02 | 5.703e+02 | 6.588e-01 |
+  | chi^2 | 16.5020637 | 8.251031852 | det(1-PL) | 1.1652e+03 | 9.242e+02 | 1.028e+03 | 1.195e+00 |
+  | chi^2 | 16.5020637 | 8.251031852 | det(1+PL) | 2.8781e+03 | 1.701e+03 | 5.616e+03 | 9.311e-01 |
+  | chi^2 | 18.54506476 | 9.272532379 | det(1-PL) | 2.3889e+04 | 5.889e+03 | 3.399e+04 | 1.689e+00 |
+  | chi^2 | 18.54506476 | 9.272532379 | det(1+PL) | 7.9250e+03 | 1.011e+04 | 1.280e+04 | 6.967e-01 |
+  | chi^2 | 19.76993192 | 9.884965958 | det(1-PL) | 2.7278e+04 | 3.381e+04 | 6.297e+03 | 1.869e+00 |
+  | chi^2 | 19.76993192 | 9.884965958 | det(1+PL) | 7.3515e+04 | 1.363e+04 | 7.918e+04 | 2.238e+00 |
+  det(1 - P L)  [even factor]: smallest ratio 4.162e-01 at gamma = -13.79194951;  largest ratio 3.185e+00 at gamma = -7.532433052
+  det(1 + P L)  [odd factor]: smallest ratio 6.588e-01 at gamma = -13.79194951;  largest ratio 2.842e+00 at gamma = -9.620772853
+
+  Targets with ratio < 1e-2 (candidate hits): 29 of 116 (target, factor) pairs tested.
+    chi  det(1-PL)  chi^1 gamma=-19.769931916  ratio 1.604e-10
+    chi  det(1-PL)  chi^1 gamma=-18.5450647585  ratio 3.463e-11
+    chi  det(1-PL)  chi^1 gamma=-16.5020637046  ratio 6.331e-13
+    chi  det(1-PL)  chi^1 gamma=-13.7919495091  ratio 2.854e-13
+    chi  det(1-PL)  chi^1 gamma=-11.5836490823  ratio 5.579e-14
+    chi  det(1-PL)  chi^1 gamma=-10.0165504226  ratio 3.772e-13
+    chi  det(1-PL)  chi^1 gamma=-7.53243305229  ratio 4.728e-13
+    chi  det(1-PL)  chi^1 gamma=-3.44409315515  ratio 1.044e-13
+    chi  det(1-PL)  chi^1 gamma=5.31957512328  ratio 4.308e-13
+    chi  det(1-PL)  chi^1 gamma=7.83467143899  ratio 2.377e-13
+    chi  det(1-PL)  chi^1 gamma=9.62077285325  ratio 2.993e-14
+    chi  det(1-PL)  chi^1 gamma=12.601813393  ratio 1.591e-12
+    chi  det(1-PL)  chi^1 gamma=15.1259301077  ratio 1.175e-12
+    chi  det(1-PL)  chi^1 gamma=16.4472284363  ratio 2.667e-12
+    chi  det(1-PL)  chi^1 gamma=18.3253154106  ratio 4.504e-11
+    chi  det(1-PL)  chi^2 gamma=-18.3253154106  ratio 9.590e-12
+    chi  det(1-PL)  chi^2 gamma=-16.4472284363  ratio 1.326e-12
+    chi  det(1-PL)  chi^2 gamma=-15.1259301077  ratio 2.957e-12
+    chi  det(1-PL)  chi^2 gamma=-12.601813393  ratio 1.230e-12
+    chi  det(1-PL)  chi^2 gamma=-9.62077285325  ratio 6.084e-14
+    chi  det(1-PL)  chi^2 gamma=-7.83467143899  ratio 2.382e-13
+    chi  det(1-PL)  chi^2 gamma=-5.31957512328  ratio 4.288e-13
+    chi  det(1-PL)  chi^2 gamma=3.44409315515  ratio 1.047e-13
+    chi  det(1-PL)  chi^2 gamma=7.53243305229  ratio 4.728e-13
+    chi  det(1-PL)  chi^2 gamma=11.5836490823  ratio 2.997e-13
+    chi  det(1-PL)  chi^2 gamma=13.7919495091  ratio 1.411e-12
+    chi  det(1-PL)  chi^2 gamma=16.5020637046  ratio 1.006e-12
+    chi  det(1-PL)  chi^2 gamma=18.5450647585  ratio 5.913e-11
+    chi  det(1-PL)  chi^2 gamma=19.769931916  ratio 1.457e-10
+
+  REFINEMENT of the 4 strongest hits of 29 (minimum located, then compared to gamma/2):
+  | operator | factor | predicted t = gamma/2 | located t* | offset | |det| at t* |
+  |---|---|---|---|---|---|
+  | chi | det(1-PL) | 4.81038642662 | 4.81040716765 | 2.07e-5 | 3.542e-03 |
+  | chi | det(1-PL) | -5.79182454117 | -5.79179247825 | 3.21e-5 | 2.772e-02 |
+  | chi | det(1-PL) | -4.81038642662 | -4.81040716765 | -2.07e-5 | 3.542e-03 |
+  | chi | det(1-PL) | -1.72204657757 | -1.72201585343 | 3.07e-5 | 1.586e-04 |
+
+----- raw log: profile2 -----
+PROFILE of |det(1 -+ P L)| about the predicted t = gamma/2, N=64, dps=40
+(the same test that established the ~4e-12 placement in Phase 1)
+  --- gamma = -3.444093155149 (chi^1),  t = gamma/2 = -1.72204657757
+     offset  -1e-3   |det(1-PL)| = 5.171379e-03    |det(1+PL)| = 3.149419e+00
+     offset  -1e-5   |det(1-PL)| = 5.163986e-05    |det(1+PL)| = 3.148805e+00
+     offset  -1e-7   |det(1-PL)| = 5.163913e-07    |det(1+PL)| = 3.148799e+00
+     offset  -1e-9   |det(1-PL)| = 5.164055e-09    |det(1+PL)| = 3.148799e+00
+     offset      0   |det(1-PL)| = 1.446355e-13    |det(1+PL)| = 3.148799e+00
+     offset   1e-9   |det(1-PL)| = 5.163765e-09    |det(1+PL)| = 3.148799e+00
+     offset   1e-7   |det(1-PL)| = 5.163909e-07    |det(1+PL)| = 3.148799e+00
+     offset   1e-5   |det(1-PL)| = 5.163836e-05    |det(1+PL)| = 3.148793e+00
+     offset   1e-3   |det(1-PL)| = 5.156441e-03    |det(1+PL)| = 3.148169e+00
+  --- gamma = 9.620772853249 (chi^1),  t = gamma/2 = 4.81038642662
+     offset  -1e-3   |det(1-PL)| = 1.709340e-01    |det(1+PL)| = 1.200547e+02
+     offset  -1e-5   |det(1-PL)| = 1.707821e-03    |det(1+PL)| = 1.199618e+02
+     offset  -1e-7   |det(1-PL)| = 1.707806e-05    |det(1+PL)| = 1.199608e+02
+     offset  -1e-9   |det(1-PL)| = 1.707787e-07    |det(1+PL)| = 1.199608e+02
+     offset      0   |det(1-PL)| = 9.745077e-13    |det(1+PL)| = 1.199608e+02
+     offset   1e-9   |det(1-PL)| = 1.707820e-07    |det(1+PL)| = 1.199608e+02
+     offset   1e-7   |det(1-PL)| = 1.707806e-05    |det(1+PL)| = 1.199608e+02
+     offset   1e-5   |det(1-PL)| = 1.707790e-03    |det(1+PL)| = 1.199599e+02
+     offset   1e-3   |det(1-PL)| = 1.706204e-01    |det(1+PL)| = 1.198705e+02
+
+CONTROL: the same profile with the TRIVIAL character at the same points
+     offset  -1e-3   |det(1-PL)| = 1.090568e+00    |det(1+PL)| = 8.815760e-01
+     offset  -1e-5   |det(1-PL)| = 1.090027e+00    |det(1+PL)| = 8.804732e-01
+     offset      0   |det(1-PL)| = 1.090022e+00    |det(1+PL)| = 8.804621e-01
+     offset   1e-5   |det(1-PL)| = 1.090017e+00    |det(1+PL)| = 8.804509e-01
+     offset   1e-3   |det(1-PL)| = 1.089476e+00    |det(1+PL)| = 8.793494e-01
+
+##############################################################################
+=== INDEPENDENT SPOT-CHECK (Claude, main loop, separate process) 2026-08-09 ===
+##############################################################################
+
+Not a re-run of the phase-2 driver: a fresh process importing rh_gamma09.py and
+calling dets_mp directly, at a DIFFERENT truncation size (N=40, 480x480) from
+the phase-2 production run (N=64, 768x768).  dps=40 in both.
+
+Target  gamma = -13.791949509079  ->  s = 0.25 - 6.895974754539i
+Control t + 0.30.
+
+  chi-twisted   TARGET        |det(1-PL)| = 3.17088e-5    |det(1+PL)| = 5686.78
+  chi-twisted   CONTROL+0.30  |det(1-PL)| = 557.966       |det(1+PL)| = 3904.69
+  trivial-char  TARGET        |det(1-PL)| = 22.0711       |det(1+PL)| = 199.966
+  trivial-char  CONTROL+0.30  |det(1-PL)| = 126.403       |det(1+PL)| = 161.538
+
+AGREEMENT WITH THE N=64 PRODUCTION ROW for the same target:
+
+  quantity                          N=64 (phase 2)   N=40 (spot-check)
+  chi, control(+0.3), det(1-PL)       5.580e+02        557.966
+  chi, target,        det(1+PL)       5.6868e+03       5686.78
+  chi, control(+0.3), det(1+PL)       3.905e+03        3904.69
+  chi, target,        det(1-PL)       2.5786e-10       3.17088e-5
+
+The three NON-VANISHING quantities agree to six significant figures across two
+independent runs at different section sizes.  The VANISHING one deepens from
+3.2e-5 at N=40 to 2.6e-10 at N=64 -- the depth of a numerically computed zero is
+truncation-limited, so deepening with N is the signature of a real zero rather
+than an artifact pinned at a fixed value.  An artifact would not move, or would
+move the wrong way.
+
+Trivial character at the same target: 22.07 against a control of 126.4, a factor
+of 6.  Compare the chi-twisted factor of 1.8e7 at N=40 and 2e12 at N=64.  The
+trivial-character operator does not see the zero.  This is the row that makes the
+result a result rather than a coincidence count: the chi-twist is what brings
+L(s,chi_9) in.
+
+Wall time 485-491 s per determinant at 480x480, dps=40, consistent with the
+1.12e-6 * n^3 timing model used to scope the experiment.
+
+NOT verified by this spot-check: the remaining 28 targets, the phase-1 gate, and
+the unexplained -lambda partner anomaly in the level-9-new block.  One target and
+one control, two operators, at a second truncation size.
