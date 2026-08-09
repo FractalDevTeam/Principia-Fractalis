@@ -606,6 +606,24 @@ functional calculus, the C*-axioms, Gelfand--Naimark --- is correct textbook
 material and is not in question.
 \end{itemize}
 
-\noindent Record: \texttt{codex/FRAMEWORK\_TRANSLATION\_2026-08-06.md} \S B.
+\noindent \textbf{All four points above are now kernel-checked} (r217,
+\texttt{PF/SubstrateNotCommutative\_r217.lean}, 17 theorems, axioms exactly
+$[\texttt{propext},\texttt{Classical.choice},\texttt{Quot.sound}]$):
+\texttt{substrate\_not\_commutative} exhibits two non-commuting elements of the
+completion, and \texttt{ch16\_step1\_commutativity\_fails} is the literal
+negation of step~1 of the proof of
+Theorem~\ref{thm:timeless-field-nuclear};
+\texttt{gelfandSpectrum\_eq\_empty} proves
+$\mathrm{Spec}(\mathcal{T}_\infty) = \varnothing$ for
+Definition~\ref{def:spectrum-timeless-field} read literally, and
+\emph{unconditionally} --- no infinite-dimensionality hypothesis is needed,
+because $\ker\phi = 0$ already forces $x = \phi(x)\cdot 1$ for every $x$, i.e.\
+commutativity, which the first result refutes. The correct nuclearity input is
+re-exported alongside as
+\texttt{substrate\_is\_norm\_closure\_of\_finite\_matrix\_levels} (AF-ness);
+it is not itself a nuclearity proof, and is named so.
+
+\noindent Record: \texttt{codex/FRAMEWORK\_TRANSLATION\_2026-08-06.md} \S5,
+item~2.
 
 The next chapter develops operator theory in depth, showing how the structure of $\mathcal{T}_\infty$ constrains physical and conscious phenomena.
