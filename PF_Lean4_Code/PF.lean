@@ -1029,8 +1029,196 @@ import PF.SubstrateTheoremContent_r216  -- r216: KERNEL DISCLOSURE of the Substr
 import PF.NavierStokesTypedContent_r215  -- r215: KERNEL DISCLOSURE of the typed NS predicate. NS_Solution contains NO time derivative, NO convective term u.grad u, NO pressure, NO Laplacian, NO viscosity -- it is not the Navier-Stokes equation. Two of its four clauses hold for EVERY u (by the corpus's own forwardTimeDomain_any / smoothness_any, and each is now proved equivalent to True) and a third, "divergenceFreePreserved", discards its solution argument entirely. NS_Solution u u0 <-> initialDataMatch u u0 AND u0.isDivFree; the whole time-global existential <-> u0.isDivFree AND a Schwartz EXTENSION question on R^4 (NS3DTimeGlobalSmoothSolution_iff). FOUR FURTHER COLLAPSES, all Iff.rfl: FujitaKatoLocalExistenceHypothesis IS Wave58TimeGlobalExistenceClauseStrengthened (so the "conditional discharge" assumes its own conclusion); FujitaKatoLocalSolution discards the horizon _T, so local-on-[0,T) = time-global for every T including T <= 0 -- the local-vs-global distinction IS the Clay problem and is absent from the encoding; LinearisedNSLocalSolution is DEFINED as FujitaKatoLocalSolution, so "linearised" = "full"; the exists-T wrapper carries no information. Bilinear side: bilinearOp is fun _u _v => 0, and PicardFixedPointProp's conclusion has a literal AND True. FAIR SCOPE: the 31-file PF/NavierStokes/FujitaKato1964/ layer has zero sorry, zero : True, and real Sobolev / heat-semigroup / Leray / Schwartz mathematics -- the defect is the bilinear map and this predicate, NOT that layer. The general Schwartz-extension question is NOT settled (mathlib has no SchwartzMap tensor-product API at this pin). Nothing here bears on Clay NS, which is untouched. See codex/AUDIT_RESPONSE_2026-08-06.md 4.1.
 import PF.EulerFactorThree_r214  -- r214: THE EXACT 3-EULER FACTOR -- (1 - 3^(-s)) * R_f(alpha,s) = sum over n with 3 not dividing n, for every alpha and Re s > 1. This REPAIRS ch09_spectral_unity.tex:221-227 rather than merely refuting it: the chapter's scaling law D_3(3^k n) = D_3(n) is right, the infinite product it derives from it is not. The true correction factor is ALPHA-INDEPENDENT (euler_ratio_independent_of_alpha, euler_factor_unique, ch09_correction_factor_is_alpha_free), whereas ch09's own k=0 block equals 3 at alpha=0 and 1 at alpha=1 (ch09Factor_not_alpha_free, unconditional). Exactly ONE Euler factor, at 3, and none at other primes -- D_3 is additive on base-3 digits, never on prime factorisations (rfTerm_not_multiplicative, the D_3(6) witness). Anchored to mathlib's riemannZeta at alpha=0 (euler_factor_three_zeta). GUARD RAIL: chi(2/5) = 1+2cos(2pi/5) = phi EXACTLY and chi(1/5) = phi^2 -- the ternary block factor produces the golden ratio as a VALUE at a RATIONAL argument, never as an alpha (chi_argument_ne_goldenRatio). NOT a derivation of alpha_Hodge. Says nothing about RH/BSD. See codex/STEELMAN_2026-08-06.md 1 and PF/SigmaAbscissa_r212.lean.
 import PF.TwoStateTransfer_r213  -- r213: finite two-state transfer system -- partition function = ordered matrix product (Zpf_eq_vecMul); the ADDITIVE nearest-neighbour model is exactly the J=1 commuting limit (Zpf_one_eq_prod); at J=1 only the MULTISET of site weights matters (Zpf_one_perm) and this FAILS off J=1, with a proved witness (Zpf 1 AAB = 36 = Zpf 1 ABA but Zpf 2 AAB = 75 != 73 = Zpf 2 ABA). Non-commutativity of the transfer matrices is the only thing in this model class that can see arrangement. Plus reversal invariance and the cyclic/trace form. PURE MATHEMATICS: all weights abstract, no biological constant, sequence or prediction encoded, by design -- must NOT be cited for any claim about B->Z transitions or Z-DNA. See codex/bz_cooperativity_test_2026-08-06.py.
+import PF.LogPeriodicity_r220  -- r220: LOG-PERIODICITY -- the theorem that makes the framework's self-similarity prediction PARAMETER-FREE. S_three_mul proves the exact renormalisation S(3^(k+1)) = chi * S(3^k) with no hypothesis on omega, so the normalised fluctuation S/chi^k is invariant (normalised_S_eq_one) and the modulation has log-period exactly ln 3 = 1.0986122886681098, log-frequency 2 pi/ln 3 = 5.719202, fixed by the base alone (logFrequency_mul_logPeriod = 2 pi). sigma_eq_logb_norm_chi identifies r212's abscissa WITH the amplitude exponent log_3 ||chi|| -- the same number. phase_advance_per_triadic_step gives the exact mod-2pi phase advance in Real.Angle (not the weaker multiplicative fallback). logModulation_three_mul is the physics form: cos((2pi/ln3) ln x + phi) is invariant under x -> 3x. P2 landed too: SM_three_mul carries the relation to r218's matrix system, where the period survives but the frequency content enriches -- Mtwo_two_log_frequencies exhibits TWO independent log-frequencies at one log-period. WHAT THIS DOES NOT ESTABLISH, computed and in the header: the CMB CANNOT test it. Log-period ln 3 means peaks at l, 3l, 9l, ... i.e. only 6.5 cycles across Planck l = 2..2500, the cheapest three cosmic-variance limited (63%, 39%, 23% at l = 2, 6, 18), and a 6-cycle log-sinusoid is near-degenerate with n_s and its running. DO NOT PROPOSE THE CMB TEST. Length-spanning probes are the right instruments: clustering xi(r) ~6.9 cycles, Lyman-alpha+clustering+CMB ~12.6, all structure 1 kpc-14 Gpc ~15.0. Correction recorded: the halo mass function gives 4.9 cycles NOT 14.7, since M ~ r^3 makes the ln M period 3 ln 3. SCOPE: a theorem about the digit-sum summatory function; it asserts nothing about the CMB, cosmic structure, or physical reality. See codex/COSMOLOGY_W_BRIDGE_2026-08-10.md.
 import PF.SigmaAbscissa_r212  -- r212: sigma(alpha) = logb 3 |1 + 2 cos(pi*alpha)| -- the abscissa of convergence of R_f(alpha,.), derived from the exact digit-block identity sum_{n<3^k} w^(D3 n) = (1+w+w^2)^k. The framework's FIRST non-circular alpha-selection mechanism. It derives exactly the three RATIONAL canonical values (sigma 1 = 0, sigma (3/2) = 0, sigma 2 = 1) and provably misses all six irrational ones: sigma(alpha) in {0,1} forces alpha rational, so sqrt2, phi, phi+1/4, sqrt(2pi), 3pi/4, 3pi/2 are all excluded. Complements r123 (trace/K-theory route refuted); the digit route works and reaches only the rational third. Includes the kernel guard rail sigma(phi) != 1/2 -- the exact sigma=1/2 point is 1.6192817, NOT phi = 1.6180340. See codex/AUDIT_RESPONSE_2026-08-06.md 3.
 import PF.GaussLevelThree_r211  -- r211: level-3 constant swap into r210's AddrIFS (27 resp. 8 words, orientation-reversing) -- enclosures [0.65,0.75] (K=3, true 0.70566) and [0.48,0.5625] (K=2, true 0.53128). The practical ceiling of the refinement method: level 4 needs 6561 separation cases against level 3's 729 while the width only shrinks like O(1/n). The sharp value needs the equilibrium state (Ruelle-Perron-Frobenius), which is not started and is not approached by refinement.
+
+
+-- ============================================================================
+-- ORPHAN SWEEP 2026-08-10 — files that existed under PF/ but were NOT reachable
+-- from this root, so `lake build` never verified them.  171 orphans were found
+-- by transitive import-walk from PF.lean; each was test-compiled individually
+-- with `lake build PF.<Module>`; the 159 that compiled clean are imported below.
+-- NOTHING was deleted, weakened, renamed or edited — this block is additive only.
+-- 12 orphans are NOT imported (11 compile failures + 1 blocked by a failing
+-- dependency); they remain on disk, unimported, and are listed in the sweep report.
+-- [FLAG: ...] marks a file that compiles but carries vacuous content (`Prop := True`
+-- definitions, a capstone whose statement is literally `True`, or an existential
+-- discharged by a 0/trivial witness).  Flagged files are imported anyway — they were
+-- already in the corpus — and are recorded here so they can be ledgered later.
+-- No orphan contains `sorry`, `native_decide`, or an `axiom` declaration.
+-- ============================================================================
+
+-- --- Orphan sweep 1. alpha-skeleton bundles (Alpha*) (81 files) ---
+import PF.AlphaArchitecturalIdentities  -- 2026-08-10 orphan sweep: Architectural identities among the 9 framework α-instances
+import PF.AlphaArctanStrassnitzkyBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Strassnitzky's identity `arctan(1/2) + arctan(1/3) = π/4`
+import PF.AlphaArctanSumPiBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: arctan-sum identity `arctan 1 + arctan 2 + arctan 3 = π`
+import PF.AlphaBSDIntegralBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: sin/cos integrals from 0 to α_BSD land on
+import PF.AlphaBaselSumBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the Basel sum `∑ 1/n² = π²/6` in framework form.
+import PF.AlphaBerahaNumberBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the 5th Beraha number `B_5 = 2 + 2·cos(2π/5)`
+import PF.AlphaBernoulliFrameworkBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: small Bernoulli numbers in framework form.
+import PF.AlphaComplexUnitAlgebraBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: identities for the complex unit `i` and `1+i`
+import PF.AlphaDifferenceOfSquaresBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — Five clean difference-of-squares identities between the
+import PF.AlphaEulerIdentityComplexBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Euler's identity via framework α-axes, plus
+import PF.AlphaExpDirectBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — Direct exp-identities at the named α-axis values and at
+import PF.AlphaExponentialDecayIntegralBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: exponential decay integrals at α-axis lower
+import PF.AlphaFiveFourthsUnifiedBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the rational `5/4` arises in MANY α-axis
+import PF.AlphaFourAxisLinearIdentitiesBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the golden axis α_Hodge is RECOVERED from the
+import PF.AlphaFunPatternsMetaCapstone_2026_06_17  -- 2026-08-10 orphan sweep: 2026-06-17 — THE FUN PATTERNS META-CAPSTONE ★★★★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.AlphaGammaAtAlphaBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Γ values at α-axis arguments, exhibiting clean
+import PF.AlphaGammaFunctionAxisAnchorBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Gamma-function values at α-axis arguments
+import PF.AlphaGaussianIntegralBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Gaussian integrals at α-axis decay rates
+import PF.AlphaGelfondSchneiderBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the Gelfond–Schneider iteration `(2^√2)^√2 = 4`
+import PF.AlphaGeometricSeriesBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the geometric series for 1/2 in framework form.
+import PF.AlphaGoldenAnglePhyllotaxisBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the GOLDEN ANGLE — anchor of optimal
+import PF.AlphaGoldenTrigIdentitiesBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: golden trig identities combining cos(π/5) and
+import PF.AlphaHarmonicTwoBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the second harmonic-series partial sum
+import PF.AlphaHodgeFibonacciLadderExtension  -- 2026-08-10 orphan sweep: 2026-06-17 — Extend the α_Hodge Fibonacci ladder from k=8 (existing
+import PF.AlphaHodgeGoldenIdentitiesBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: beautiful golden-ratio identities at α_Hodge,
+import PF.AlphaHodgeHyperbolicFibonacciLadderExtension  -- 2026-08-10 orphan sweep: 2026-06-17 — The Fibonacci half of the α_Hodge hyperbolic ladder.
+import PF.AlphaHodgeHyperbolicLadderBridges  -- 2026-08-10 orphan sweep: 2026-06-17 — Beautiful hyperbolic-ladder bridges connecting α_Hodge
+import PF.AlphaHodgeHyperbolicLadderRanks6And7  -- 2026-08-10 orphan sweep: 2026-06-17 — Extend the α_Hodge hyperbolic ladder to ranks 6 and 7,
+import PF.AlphaHodgeHyperbolicLadderRanks8And9  -- 2026-08-10 orphan sweep: 2026-06-17 — Extend the α_Hodge hyperbolic ladder to ranks 8 and 9.
+import PF.AlphaHodgeHyperbolicLadderUnifiedCapstone  -- 2026-08-10 orphan sweep: 2026-06-17 — UNIFIED HYPERBOLIC LADDER CAPSTONE ★★★★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.AlphaHodgeHyperbolicLucasLadderExtension  -- 2026-08-10 orphan sweep: 2026-06-17 — Extend the α_Hodge hyperbolic ladder via the Lucas
+import PF.AlphaHodgeHyperbolicSixFoldBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: all six hyperbolic functions at log α_Hodge
+import PF.AlphaHodgePowerFibonacciRecursionBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: powers of α_Hodge satisfy the Fibonacci recursion
+import PF.AlphaHodgeSelfConjugationBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: golden self-conjugation identities under
+import PF.AlphaHodgeSqrtFiveBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: √5 is structurally `2·α_Hodge − 1`. This bundle
+import PF.AlphaInverseTrigAxisAnchorBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: inverse-trig values at α-axis arguments land
+import PF.AlphaLeibnizIntegralBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the Leibniz integral `∫₀^1 1/(1+x²) dx = π/4`
+import PF.AlphaLeibnizSeriesBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Leibniz's series for π in framework form.
+import PF.AlphaMachinFormulaBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: John Machin's 1706 formula for π in framework form.
+import PF.AlphaMachinLikePiFormulasBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the four classical Machin-like arctan identities
+import PF.AlphaMediantFareyBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: α_RH is the MEDIANT of α_Poincaré and α_YM.
+import PF.AlphaNPDerivationAttempt_r122  -- 2026-08-10 orphan sweep: α_NP Derivation Attempt — r122 (2026-07-26)  [FLAG: theorem-stmt-True x1]
+import PF.AlphaNPHodgeCrossPowerProducts  -- 2026-08-10 orphan sweep: 2026-06-17 — Cross-power products of α_NP and α_Hodge inside ℚ(φ),
+import PF.AlphaNPPowersSevenEight  -- 2026-08-10 orphan sweep: 2026-06-17 — Extend the α_NP power tower with closed forms for
+import PF.AlphaNPSubstrateOverdeterminationBundle  -- 2026-08-10 orphan sweep: 2026-06-17 (Research result) — substrate-rigidity hardening of
+import PF.AlphaNPVietaGaloisConnectionBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Vieta's formula on α_NP's defining polynomial
+import PF.AlphaNSBSDHigherPowersBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — α_NS and α_BSD higher powers (ranks 4 through 6), extending
+import PF.AlphaNSBSDLinearCombinations  -- 2026-08-10 orphan sweep: 2026-06-17 — Five clean linear-combination identities between the
+import PF.AlphaNSBSDPowersRank7To9  -- 2026-08-10 orphan sweep: 2026-06-17 — α_NS and α_BSD higher powers ranks 7 through 9,
+import PF.AlphaNSBSDQGRatioBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — Direct ratio closed forms for the π-built axes
+import PF.AlphaPNewtonIterationBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Newton's iteration for √2 connects THREE
+import PF.AlphaPParityLadderExtension  -- 2026-08-10 orphan sweep: 2026-06-17 — Extend the α_P parity-bigraded power ladder from rank 8
+import PF.AlphaParityComplexExponentialBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: parity of α-axes under `exp(2π·i·x)` exhibits
+import PF.AlphaPentagonalCosBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: cos(π/10) in framework form via α_Hodge.
+import PF.AlphaPentagonalSinBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: sin(π/5) in framework form via α_Hodge.
+import PF.AlphaPiAxesRatioBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — π-extraction ratios for the π-built Clay axes
+import PF.AlphaPythagoreanTripleBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Pythagorean triples emerge from cosh/sinh at
+import PF.AlphaQGEvenZetaHierarchyCapstone  -- 2026-08-10 orphan sweep: 2026-06-17 — The α_QG ↔ even-zeta closed-form hierarchy, ζ(2) through  [FLAG: theorem-stmt-True x1]
+import PF.AlphaQGFundamentalPeriodAnchorBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: α_QG² = 2π as fundamental period. Trig values
+import PF.AlphaQGGammaHalfIntegerLadder  -- 2026-08-10 orphan sweep: 2026-06-17 — The Gamma function at half-integers, expressed in
+import PF.AlphaQGParityLadderExtension  -- 2026-08-10 orphan sweep: 2026-06-17 — Extend the α_QG parity-bigraded power ladder from rank 8
+import PF.AlphaQGRank13To16ZetaEight  -- 2026-08-10 orphan sweep: 2026-06-17 — α_QG parity ladder extended further (ranks 13-16) plus
+import PF.AlphaQGRationalAxesProductBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — α_QG cross-axis products and ratios with the rational
+import PF.AlphaQGTwelfthZetaSixBridge  -- 2026-08-10 orphan sweep: 2026-06-17 — α_QG^12 connection to π^6/945 (the closed-form value of
+import PF.AlphaRHYMHigherPowersBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — α_RH and α_YM higher powers (ranks 5 through 8), extending
+import PF.AlphaRationalAlgebraicRatiosBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — Six clean closed-form ratios between the rational Clay
+import PF.AlphaRationalDecompositionBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: clean small-rational decomposition identities
+import PF.AlphaSelfInvolutionBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: each α-axis under the involution `x ↦ x·(x − 1)`
+import PF.AlphaSilverRatioBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the silver ratio 1 + √2 = α_P + α_Poincaré.
+import PF.AlphaSkeletonExtendedLocusBundle  -- 2026-08-10 orphan sweep: AlphaSkeletonExtendedLocusBundle — extended algebraic-locus bundle
+import PF.AlphaSqrtPiViaQGDividedByPBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: the canonical Gaussian normalization √π appears
+import PF.AlphaStirlingFormulaBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Stirling's formula `lim n!/(√(2n)(n/e)^n) = √π`
+import PF.AlphaThreePiTripleIdentity  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: 3π emerges from FOUR independent α-axis products.
+import PF.AlphaTrigDirectBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — Direct trigonometric identities at the named π-built
+import PF.AlphaTrigIntegralAxisAnchorBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: trigonometric integrals over α-axis intervals
+import PF.AlphaTrigPiAlphaBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: trig identities at π · α-axis arguments.
+import PF.AlphaTrigTangentExtension  -- 2026-08-10 orphan sweep: 2026-06-17 — Extend the direct trig bundle with tangent identities
+import PF.AlphaTripleProductBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — Triple-product cross-axis identities connecting the
+import PF.AlphaWallisProductBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: Wallis' infinite product for π/2 in framework form.
+import PF.AlphaYMHyperbolicLogBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: hyperbolic functions at `log α_YM` (= log 2)
+import PF.AlphaZetaFourSumBundle  -- 2026-08-10 orphan sweep: 2026-06-17 — FUN: ζ(4) = π⁴/90 in framework form.
+
+-- --- Orphan sweep 2. Analytic/ (25 files) ---
+import PF.Analytic.BookEvaluationManuscript  -- 2026-08-10 orphan sweep: Manuscript-Faithful `bookEvaluation` via the PolyLog Sheaf Section
+import PF.Analytic.CleanLambdaClosedForms  -- 2026-08-10 orphan sweep: Clean closed forms for λ_0(H_α) at the NS and Hodge α-instances
+import PF.Analytic.Cohen2025_TransferOperator_RH_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — Cohen 2025 modified-transfer-operator named-  [FLAG: Prop:=True x6, theorem-stmt-True x1, trivial-component x3]
+import PF.Analytic.EigenvalueIdentityNP  -- 2026-08-10 orphan sweep: NP-Class Eigenvalue Identity — Polylog Route Mirror
+import PF.Analytic.FractalResonanceIntegralIdentity  -- 2026-08-10 orphan sweep: Fractal Resonance Integral Identity — Ch 9 Theorem 7.1 Infrastructure
+import PF.Analytic.HNPOperatorConstruction  -- 2026-08-10 orphan sweep: H_NP as a Concrete Mathlib Operator: Construction Certificate
+import PF.Analytic.HPOperatorConstruction  -- 2026-08-10 orphan sweep: H_P as a Concrete Mathlib Operator: Construction Certificate
+import PF.Analytic.HPSpectralBridge  -- 2026-08-10 orphan sweep: HP Spectral Bridge: The `λ_0(H_P) = π/(10·α_P) = π/(10·√2)` Existential
+import PF.Analytic.HankelFubini  -- 2026-08-10 orphan sweep: Hankel-Polylog Fubini Step — Termwise Integral / Tsum Interchange
+import PF.Analytic.HankelFubiniAxiomCheck  -- 2026-08-10 orphan sweep: Axiom Audit — HankelFubini
+import PF.Analytic.HankelTermwiseInterchange  -- 2026-08-10 orphan sweep: Hankel Termwise Interchange — Fubini Step for the Polylog-Hankel Identity
+import PF.Analytic.JonquieresGermAtNegOneDischarge  -- 2026-08-10 orphan sweep: Jonquières Germ at `s = -1` — Algebraic Decomposition + Honest Residual
+import PF.Analytic.JonquieresGermAtNegOneFullDischarge  -- 2026-08-10 orphan sweep: Jonquières Germ at `s = -1` — Path C Factoring (Sharp Open Residual)
+import PF.Analytic.JonquieresGermAtNegTwoDischarge  -- 2026-08-10 orphan sweep: Jonquières Germ at `s = -2` — Algebraic Decomposition + Honest Residual
+import PF.Analytic.MellinEigenvalueInterpretation  -- 2026-08-10 orphan sweep: Mellin Eigenvalue Interpretation of the Universal Closed Form
+import PF.Analytic.PoincareS3Anchors  -- 2026-08-10 orphan sweep: The π/10 universal coupling at the Poincaré anchor (α = 1) on S³
+import PF.Analytic.PolyLogAtPosIntDischarge  -- 2026-08-10 orphan sweep: Disc-Agreement Capstones at Positive Integer `s ∈ {2, 3, 4}`
+import PF.Analytic.PolyLogContinuation  -- 2026-08-10 orphan sweep: PolyLog Continuation — Manuscript-Faithful Analytic-Continuation Scaffold
+import PF.Analytic.RH_Substrate_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — RH Phase 1 typed-residual cleanup mirroring the  [FLAG: Prop:=True x8, theorem-stmt-True x1, trivial-component x3]
+import PF.Analytic.RfBaseThreeRecursion  -- 2026-08-10 orphan sweep: R_f Base-3 Self-Referencing Recursion (Brick 5b)
+import PF.Analytic.RfNumericalRefutation  -- 2026-08-10 orphan sweep: Empirical Refutation of `R_f(√2, 1) = π√2/10`
+import PF.Analytic.RfShiftSeries  -- 2026-08-10 orphan sweep: R_f Shift-Series Infrastructure (Brick 5c-prep)
+import PF.Analytic.TridiagonalGaugeInvariance  -- 2026-08-10 orphan sweep: Tridiagonal Hermitian Gauge Invariance — RH Reformulation Obstruction
+import PF.Analytic.TsumHankelAgreement  -- 2026-08-10 orphan sweep: Tsum ↔ Hankel Agreement — Geometric Series + Per-Term Reduction
+import PF.Analytic.VariationalRayleigh  -- 2026-08-10 orphan sweep: Variational Rayleigh Upper Bound on λ_0(H_α)
+
+-- --- Orphan sweep 3. Referee/ (23 files) ---
+import PF.Referee.BSDSubstrateScopeAccountability  -- 2026-08-10 orphan sweep: 2026-06-17 — UNASSAILABILITY: BIRCH–SWINNERTON-DYER SCOPE ACCOUNTABILITY ★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.Referee.BulletproofingMetaCapstone_2026_06_17  -- 2026-08-10 orphan sweep: 2026-06-17 — BULLETPROOFING META-CAPSTONE ★★★★★★★★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.Referee.Cohen2025_AlphaUniqueness_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — Cohen 2025 alpha-uniqueness named-anchor file.  [FLAG: Prop:=True x6, theorem-stmt-True x1, trivial-component x3]
+import PF.Referee.Cohen2025_AxiomElimination_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — Cohen 2025 axiom-elimination named-anchor file.  [FLAG: Prop:=True x6, theorem-stmt-True x1, trivial-component x3]
+import PF.Referee.DayUmbrella_2026_06_17  -- 2026-08-10 orphan sweep: 2026-06-17 DAY-UMBRELLA META-CAPSTONE ★★★★★★★★★★★★★★★★  [FLAG: theorem-stmt-True x1, trivial-component x1]
+import PF.Referee.FrameworkRealClaim_2026_06_17  -- 2026-08-10 orphan sweep: 2026-06-17 — THE FRAMEWORK'S REAL CLAIM ★★★★★★★★  [FLAG: theorem-stmt-True x1, trivial-component x1]
+import PF.Referee.HodgeSubstrateScopeAccountability  -- 2026-08-10 orphan sweep: 2026-06-17 — UNASSAILABILITY: HODGE SCOPE ACCOUNTABILITY ★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.Referee.MinimalRigidityForcesIBMNineWayBound  -- 2026-08-10 orphan sweep: 2026-06-16 — IBM 9-WAY JOINT BOUND FORCED PARAMETRICALLY ★★★★★
+import PF.Referee.MinimalRigidityForcesIITSaturationIdentity  -- 2026-08-10 orphan sweep: 2026-06-16 — IIT SATURATION CLOSED-FORM EQUALITY ★★★★★
+import PF.Referee.MinimalRigidityForcesLambdaEffExponentProduct  -- 2026-08-10 orphan sweep: 2026-06-16 — Λ_eff PARAMETER-FREE EXPONENT FORCED PARAMETRICALLY ★★★★★
+import PF.Referee.MinimalRigidityForcesM1Glueball  -- 2026-08-10 orphan sweep: 2026-06-16 — M_1 GLUEBALL MASS FORCED PARAMETRICALLY ★★★★★
+import PF.Referee.NSSubstrateScopeAccountability  -- 2026-08-10 orphan sweep: 2026-06-17 — UNASSAILABILITY: NAVIER–STOKES SCOPE ACCOUNTABILITY ★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.Referee.PFFrameworkTotalReach  -- 2026-08-10 orphan sweep: 2026-06-08 — THE FRAMEWORK TOTAL-REACH CAPSTONE ★★★★★
+import PF.Referee.PNPRouteScopeAccountability  -- 2026-08-10 orphan sweep: 2026-06-17 — UNASSAILABILITY: P vs NP ROUTE SCOPE ACCOUNTABILITY ★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.Referee.PrincipiaFractalis_Complete_Substrate_Position_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — THE COMPLETE SUBSTRATE POSITION CAPSTONE  [FLAG: theorem-stmt-True x1, trivial-component x12]
+import PF.Referee.PrincipiaFractalis_Unified_Substrate_Position_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — THE UNIFIED SUBSTRATE POSITION CAPSTONE  [FLAG: theorem-stmt-True x1, trivial-component x10]
+import PF.Referee.RHRouteScopeAccountability  -- 2026-08-10 orphan sweep: 2026-06-17 — UNASSAILABILITY: RIEMANN HYPOTHESIS ROUTE SCOPE ACCOUNTABILITY ★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.Referee.SixAxisPhase1NamedAnchors_MasterCapstone_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — SIX-AXIS PHASE 1 NAMED-ANCHOR MASTER CAPSTONE  [FLAG: theorem-stmt-True x1, trivial-component x20]
+import PF.Referee.SixAxisScopeAccountabilitySuite  -- 2026-08-10 orphan sweep: 2026-06-17 — UNASSAILABILITY SUITE: SIX-AXIS SCOPE ACCOUNTABILITY ★★★★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.Referee.UnassailableClayClosure_2026_06_18  -- 2026-08-10 orphan sweep: 2026-06-18 — UNASSAILABLE CLAY CLOSURE META-CAPSTONE  [FLAG: theorem-stmt-True x1]
+import PF.Referee.UnassailableClayClosure_With_BSD_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — BULLETPROOFING META-CAPSTONE composing the  [FLAG: theorem-stmt-True x1]
+import PF.Referee.UnifiedClayClosureLinkageV2DeprecationNotice  -- 2026-08-10 orphan sweep: 2026-06-17 — DEPRECATION NOTICE: V2 → V3 MIGRATION ★★★★★  [FLAG: theorem-stmt-True x1]
+import PF.Referee.YMSubstrateScopeAccountability  -- 2026-08-10 orphan sweep: 2026-06-17 — UNASSAILABILITY: YANG–MILLS SCOPE ACCOUNTABILITY ★★★★★  [FLAG: theorem-stmt-True x1]
+
+-- --- Orphan sweep 4. Consciousness/ (7 files) ---
+import PF.Consciousness.Ch32AlphaNPSpecificity  -- 2026-08-10 orphan sweep: Ch 32 Normative ch_2 — α = φ+1/4 Specificity
+import PF.Consciousness.ConsciousnessOperatorCNonTrivial  -- 2026-08-10 orphan sweep: Consciousness Operator C — NON-TRIVIAL substrate witness for `ConsciousnessRHBridge`  [FLAG: theorem-stmt-True x1 — the file's headline `consciousness_operator_C_non_trivial_axiom_free : True := trivial` states nothing; the eigenvalue witnesses below it are real]
+import PF.Consciousness.Mechanism3HermitianSweetSpot  -- 2026-08-10 orphan sweep: Mechanism 3 Hermitian Sweet Spot: ch_2 = 0.95 as operator-theoretic anchor
+import PF.Consciousness.MillenniumConnection  -- 2026-08-10 orphan sweep: The Millennium ↔ Consciousness Connection
+import PF.Consciousness.PhaseFactorAlgebra  -- 2026-08-10 orphan sweep: Phase Factor Algebra in α (Brick C)
+import PF.Consciousness.PhaseFactorFirstOrder  -- 2026-08-10 orphan sweep: First-Order Taylor Expansion of `phaseFactor` at α = 0
+import PF.Consciousness.PhiCorrectionAtOne  -- 2026-08-10 orphan sweep: Φ(1) = 1 — the framework's fractal-correction at α = 1
+
+-- --- Orphan sweep 5. Per-axis substrate/anchor modules (8 files) ---
+import PF.AlgebraicGeometry.Hodge_Substrate_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — Hodge Phase 1 typed-residual cleanup mirroring  [FLAG: Prop:=True x7, theorem-stmt-True x1, trivial-component x3]
+import PF.Empirical.AxiomCheck  -- 2026-08-10 orphan sweep: Axiom audit for the 143-problem empirical validation framework.
+import PF.Empirical.EmpiricalAnchors_NamedSources_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — EMPIRICAL ANCHORS Phase 1 typed-residual cleanup  [FLAG: Prop:=True x10, theorem-stmt-True x1, trivial-component x3]
+import PF.Empirical.ProblemClassTriClass_2026_06_22  -- 2026-08-10 orphan sweep: 2026-06-22 — GI tri-class extension (forward-runnable Lean update) ★★★★★  [FLAG: Prop:=True x2]
+import PF.NavierStokes.Fefferman2000_LiteralClayNS3D_Statement_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — LITERAL CLAY NAVIER-STOKES STATEMENT  [FLAG: theorem-stmt-True x1, trivial-component x2]
+import PF.NavierStokes.FujitaKato1964_Substrate_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — NS Phase 1 typed-residual cleanup mirroring the  [FLAG: Prop:=True x5, theorem-stmt-True x1, trivial-component x3]
+import PF.TuringEncoding.PNP_Substrate_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — PNP Phase 1 typed-residual cleanup mirroring  [FLAG: Prop:=True x8, theorem-stmt-True x1, trivial-component x3]
+import PF.YangMills.YM_Substrate_NamedAnchors_2026_06_19  -- 2026-08-10 orphan sweep: 2026-06-19 — YM Phase 1 typed-residual cleanup mirroring the  [FLAG: Prop:=True x7, theorem-stmt-True x1, trivial-component x3]
+
+-- --- Orphan sweep 6. Root-level capstones and bridges (15 files) ---
+import PF.AxiomCheck_2026_06_23  -- 2026-08-10 orphan sweep: Axiom-set verification for the substrate-tier headline + 3 satellite theorems
+import PF.AxiomCheck_All_2026_06_25  -- 2026-08-10 orphan sweep: Axiom-set verification for all 2026-06-24 / 2026-06-25 new content
+import PF.AxiomCheck_Lambda_2026_06_24  -- 2026-08-10 orphan sweep: Axiom-set verification for the §4.4 cosmological-constant centerpiece (paper 2026-06-24)
+import PF.BSDRankSignBridge  -- 2026-08-10 orphan sweep: BSD Rank-Sign Bridge via R_f-Twisted Mertens Statistics
+import PF.BSD_HeegnerThirteenCurvesBundle  -- 2026-08-10 orphan sweep: BSD Heegner 13-Curves Bundle — unified rank-1 discharge capstone  [FLAG: theorem-stmt-True x1]
+import PF.ClassicalAnchoringMetaCapstone_2026_06_17  -- 2026-08-10 orphan sweep: 2026-06-17 — META-CAPSTONE: classical mathematical anchoring of  [FLAG: theorem-stmt-True x1]
+import PF.CrossAxisProductGapFills  -- 2026-08-10 orphan sweep: 2026-06-17 — Three cross-axis product closed forms not in the
+import PF.CrossMillenniumAlgebraicAxisCrossBridges  -- 2026-08-10 orphan sweep: 2026-06-17 — Two clean closed-form cross-axis bridges between the
+import PF.CrossMillenniumHodgeNPRatios  -- 2026-08-10 orphan sweep: 2026-06-17 — Two closed-form ratio identities between α_NP = φ + 1/4
+import PF.FrameworkResidualLedgerCapstone  -- 2026-08-10 orphan sweep: Framework Residual Ledger Capstone — single-citation residual map  [FLAG: theorem-stmt-True x1]
+import PF.Hodge_SixSubstrateClassesBundle  -- 2026-08-10 orphan sweep: Hodge Six Substrate Classes Bundle — unified discharged-substrate capstone  [FLAG: theorem-stmt-True x1]
+import PF.PowerTowerExtensionWave_2026_06_17  -- 2026-08-10 orphan sweep: 2026-06-17 — POWER-TOWER EXTENSION WAVE ★★★  [FLAG: theorem-stmt-True x1]
+import PF.QuantumGravity_LambdaIdentity  -- 2026-08-10 orphan sweep: Deep closed-form identity for λ_0_QG: `λ_0_QG = α_QG / 20`
+import PF.Wave58MasterCapstone  -- 2026-08-10 orphan sweep: Wave 58 Master Capstone — REFEREE LAYER + STRUCTURAL UNIFICATION + FRONTIER ATTACKS  [FLAG: theorem-stmt-True x1]
+import PF.YM_BochnerMinlosFinNWitness  -- 2026-08-10 orphan sweep: YM Bochner-Minlos witness parametrized over `Fin n → ℝ` (any n ≥ 1)
 
 /-!
 ## Principia Fractalis Formal Verification
