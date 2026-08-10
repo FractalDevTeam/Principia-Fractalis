@@ -1,0 +1,526 @@
+##############################################################################
+=== THE -lambda PARTNER ANOMALY IN THE Gamma_0(9) TRANSFER OPERATOR ===
+=== EXPLAINED, IDENTIFIED, AND SHOWN NOT TO REACH THE 29/29 RESULT ===
+##############################################################################
+
+Companion to codex/rh_gamma09.py and codex/rh_gamma09_results.txt.
+Script: codex/rh_gamma09_anomaly.py (imports rh_gamma09, modifies nothing).
+Run 2026-08-10, dps 40, numpy float64 spectral path, total wall time 228 s.
+Raw log of every figure below is appended after this summary.
+
+
+--- THE ONE-LINE ANSWER ---
+
+The anomaly is a Z/3 deck-transformation grading.  Gamma_0(9) is NORMAL in
+Gamma_0(3), the reflection j = diag(1,-1) inverts the deck group, so P.L is
+block-off-diagonal on the level-9-new part and its spectrum is exactly
+lambda <-> -lambda.  It is confined to the TRIVIAL-character operator.  The
+chi-twisted operator used for Phase 2 is IRREDUCIBLE -- the deck group does
+not act on it at all -- so the 29/29 result is NOT affected.  Re-measured.
+
+
+--- STEP 1.  ODD-POWER TRACES (the cheap diagnostic) ---
+
+lambda -> -lambda on a block  <=>  tr(X^k) = 0 for every odd k.
+X = P.L, trivial character, Re s = 1/2, N = 28 (12N = 336).
+"scale" = sum |lambda|^k over that block, the no-cancellation value.
+
+  s = 0.5 + 4.38805356322i
+  | block               | dim | |tr X|   | |tr X^2| | |tr X^3| | |tr X^5| | odd/scale |
+  |---------------------|-----|----------|----------|----------|----------|-----------|
+  | level-1     (1-dim) |  28 | 2.78e-01 | 1.68e-01 | 5.35e-02 | 8.05e-03 |  9.04e-01 |
+  | level-3-new (3-dim) |  84 | 4.06e-01 | 7.60e-01 | 1.55e+00 | 1.00e+00 |  9.57e-01 |
+  | level-9-new (8-dim) | 224 | 6.0e-18  | 1.69e-01 | 9.4e-16  | 9.0e-16  |  2.2e-16  |
+
+  s = 0.5 + 5.09874190873i
+  | level-1     (1-dim) |  28 | 3.34e-01 | 2.09e-01 | 8.11e-02 | 1.57e-02 |  9.41e-01 |
+  | level-3-new (3-dim) |  84 | 7.93e-01 | 4.56e-01 | 1.41e+00 | 9.47e-01 |  8.24e-01 |
+  | level-9-new (8-dim) | 224 | 9.1e-17  | 1.49e+00 | 1.0e-14  | 1.9e-14  |  2.1e-15  |
+
+  s = 0.5 + 7.1i   (a generic, non-spectral point)
+  | level-1     (1-dim) |  28 | 6.43e-01 | 6.21e-01 | 4.49e-01 | 2.67e-01 |  9.80e-01 |
+  | level-3-new (3-dim) |  84 | 6.31e-01 | 7.21e-01 | 5.73e-01 | 1.85e+00 |  1.87e-01 |
+  | level-9-new (8-dim) | 224 | 2.7e-16  | 2.80e+00 | 1.4e-13  | 1.5e-13  |  1.8e-14  |
+
+  Block invariance (relative Frobenius leakage out of each block): 1.4e-16.
+
+  CONTROL, level 3 (M2's own operator, codex/rh_gamma03_m2.py, rho3 block,
+  N = 24, the P-twisted operator, same two parameters):
+  | s                  | dim | |tr X|   | |tr X^3| | |tr X^5| | odd/scale |
+  |--------------------|-----|----------|----------|----------|-----------|
+  | 0.5+4.38805356322i |  72 | 4.06e-01 | 1.55e+00 | 1.00e+00 |  9.57e-01 |
+  | 0.5+5.09874190873i |  72 | 7.93e-01 | 1.41e+00 | 9.47e-01 |  8.24e-01 |
+
+  READ: the symmetry is EXACT on the 8-dim level-9-new block (odd traces at
+  the float64 floor, 14 to 16 orders below the no-cancellation scale) and
+  ABSENT everywhere else -- level-1 block, level-3-new block, and the whole
+  of M2's Gamma_0(3) operator, all at odd/scale = O(1).  The anomaly is
+  confined exactly where the original run said it was.
+
+
+--- STEP 2.  THE GRADING OPERATOR G ---
+
+Found constructively, not by search.  Let
+
+    gamma_0 = (1 0 ; 3 1) in Gamma_0(3),
+    U       = LEFT multiplication by gamma_0 on Gamma_0(9)\PSL(2,Z),
+    G       = (U - U^2)/(w - w^2),   w = exp(2 pi i / 3).
+
+U is a signed-free permutation of the 12 cosets with the cycle structure of
+the four fibres of P^1(Z/9) -> P^1(Z/3):
+
+    U : (0,10,11)(1,7,4)(2,8,5)(3,9,6)      [cosets indexed as in rh_gamma09.PTS]
+
+All of the following are EXACT (0.0 or float64 epsilon):
+
+  | identity                     | measured |
+  |------------------------------|----------|
+  | U^3 - 1                      | 0.0e+00  |
+  | U rho(S) - rho(S) U          | 0.0e+00  |
+  | U rho(T) - rho(T) U          | 0.0e+00  |
+  | P U P^-1 - U^-1              | 0.0e+00  |
+  | G^2 - Pi_new                 | 2.0e-15  |
+  | G - G^dagger                 | 1.8e-15  |
+  | G P + P G                    | 0.0e+00  |
+  | G rho(S) - rho(S) G          | 0.0e+00  |
+  | G rho(T) - rho(T) G          | 0.0e+00  |
+  | G (P L) G + (P L)|new        | 7.4e-16  (relative, s = 0.5+4.388i) |
+  | G (P L) G + (P L)|new        | 7.5e-16  (relative, s = 0.5+5.099i) |
+
+Pi_new = (2 - U - U^2)/3 is the projector on the 8-dim new block; G is zero on
+the old block and squares to 1 on the new one, so G is precisely the involution
+demanded: G^2 = 1 and G (P.L) G = -(P.L) there.
+
+G is NOT a signed permutation of cosets; it is i/sqrt(3) times the difference
+of the two 3-cycles inside each fibre -- Hermitian, purely imaginary entries
++-0.577i, supported inside the four fibres (full 12x12 printed in the raw log).
+
+In the U-isotypic basis the new block is manifestly [[0,A],[B,0]]:
+
+  | s                  | ||diag w|| | ||diag w^2|| | ||A||  | ||B||  |
+  |--------------------|------------|--------------|--------|--------|
+  | 0.5+4.38805356322i |   7.5e-17  |   1.9e-16    | 0.7068 | 0.7074 |
+  | 0.5+5.09874190873i |   7.4e-17  |   1.9e-16    | 0.7071 | 0.7071 |
+
+
+--- STEP 3.  WHAT G IS, GROUP-THEORETICALLY ---
+
+  phi(a b ; c d) = (c/3) * d^{-1}  mod 3
+
+is a HOMOMORPHISM Gamma_0(3) -> Z/3 with kernel Gamma_0(9).  Measured: 0
+failures over 400 x 400 products in Gamma_0(3); image {0,1,2}; phi(gamma_0)=1.
+So Gamma_0(9) is normal in Gamma_0(3), X_0(9) -> X_0(3) is a Z/3 Galois cover,
+and Gamma_0(3) lies inside the normalizer of Gamma_0(9) in PSL(2,R).
+
+Also measured: phi(j g j^-1) = -phi(g) on 600 elements -- the reflection
+INVERTS the deck group.  That single fact is the whole anomaly:
+
+  Ind_{Gamma_0(9)}^{PSL(2,Z)} 1  =  Ind_{Gamma_0(3)} 1        (4-dim, U = 1)
+                                (+) Ind_{Gamma_0(3)} psi      (4-dim, U = w)
+                                (+) Ind_{Gamma_0(3)} psi-bar  (4-dim, U = w^2)
+
+L preserves each piece (it is built from rho alone).  P swaps the last two
+(because j inverts phi, hence conjugates psi to psi-bar).  Therefore P.L is
+off-diagonal on their sum, and its spectrum there is +-paired.
+
+This CONFIRMS the hypothesis on record, and pins it.  h = largest divisor of
+24 with h^2 | N: h = 3 for N = 9, h = 1 for N = 3.  The extra normalizer
+element is exactly Gamma_0(N/h) = Gamma_0(3) acting as deck transformations,
+and Gamma_0(3) (h = 1) has no analogue -- Gamma_0(3) is not normal in
+PSL(2,Z), so no U exists at level 3.  Confirmed numerically by the level-3
+control in Step 1.
+
+The three listed alternatives, resolved:
+  * "the new block splits as V (+) V* with P.L off-diagonal"  -- TRUE, and it
+    is the same statement as the normalizer one, not a competing explanation.
+    V = Ind(psi), V* = Ind(psi-bar).
+  * "the block mixes chi and chi-bar"  -- NOT the mechanism.  The anomalous
+    block belongs to the TRIVIAL-character operator, where no chi is present.
+    The mixed characters are psi, psi-bar of Gamma_0(3), not chi mod 9.
+  * "P is mis-specified for p^2"  -- NO.  P satisfies P^2 = 1,
+    P rho(S) = rho(S) P, P rho(T) = rho(T^-1) P exactly (V2, original run), and
+    the anomaly is fully accounted for without altering P.  There is no
+    correction to make: a Laplace eigenvalue living in Ind(psi) has NO
+    well-defined reflection parity, because the reflection carries Ind(psi)
+    onto a different subspace.  The +- split of the Selberg zeta simply does
+    not refine the level-9-new part.  That is geometry, not a bug in P.
+
+
+--- STEP 4.  DOES IT CONTAMINATE THE 29/29?  NO. ---
+
+4a. The grading CANNOT EXIST for the chi-twisted operator.
+
+  | quantity                              | trivial character | chi      |
+  |---------------------------------------|-------------------|----------|
+  | || U rho(S) - rho(S) U ||             | 0.0e+00           | 5.48e+00 |
+  | || U rho(T) - rho(T) U ||             | 0.0e+00           | 3.00e+00 |
+  | dim commutant of <rho(S), rho(T)>     | 4                 | 1        |
+  ( commutant dim 4 = four inequivalent irreducible summands, 1+3+4+4;
+    commutant dim 1 = irreducible.  Both measured, same method. )
+  ( ||rho(S)|| = 3.464 sets the scale for those commutators. )
+
+  Reason: conjugation by gamma_0 sends d -> d - 3b, so chi(d) is NOT
+  Gamma_0(3)-conjugation invariant (measured: invariant on 2 of 6 test
+  elements of Gamma_0(9), i.e. not invariant).  Hence U does not act on
+  Ind(chi) at all, Ind_{Gamma_0(9)}^{Gamma_0(3)} chi is irreducible, and the
+  12-dim chi representation is IRREDUCIBLE -- commutant dimension 1, measured.
+  There are no invariant blocks to project onto, and no grading to build.
+
+  Odd-power traces of the FULL chi operator (no block structure assumed),
+  Re s = 1/4, N = 28:
+  | s                  | |tr X|   | |tr X^2| | |tr X^3| | |tr X^5| | odd/scale |
+  |--------------------|----------|----------|----------|----------|-----------|
+  | 0.25+4.81038642662i| 2.17e+00 | 4.19e+00 | 2.11e+01 | 7.61e+01 |  4.96e-01 |
+  | 0.25-1.72204657757i| 8.07e-01 | 1.06e+00 | 2.03e+00 | 9.18e+00 |  2.32e-01 |
+  | 0.25+7.1i          | 5.61e-01 | 4.87e+00 | 9.59e+00 | 1.33e+02 |  1.29e-01 |
+  No cancellation: the chi spectrum has no +-lambda symmetry, in whole or part.
+
+4b. Spectrum of P.L at four of the 29 Phase-2 targets, Re s = 1/4, N = 28.
+    det(1-PL) = 0 <-> eigenvalue at +1;  det(1+PL) = 0 <-> eigenvalue at -1.
+
+  operator chi:
+  | t              | dist to +1 | dist to -1 | #eig@+1 | #eig@-1 | -lam partners |
+  |----------------|------------|------------|---------|---------|---------------|
+  | -9.88496595799 |  2.43e-03  |  5.87e-01  |    0    |    0    |     0 / 18    |
+  |  4.81038642662 |  3.83e-07  |  5.99e-01  |    1    |    0    |     0 / 18    |
+  | -1.72204657757 |  4.45e-11  |  5.12e-01  |    1    |    0    |     0 / 18    |
+  |  7.56296505385 |  7.66e-04  |  7.47e-01  |    0    |    0    |     0 / 18    |
+
+  operator trivial (the one that HAS the anomaly), same four points:
+  | -9.88496595799 |  5.16e-01  |  5.16e-01  |    0    |    0    |    13 / 18    |
+  |  4.81038642662 |  5.58e-01  |  5.58e-01  |    0    |    0    |    12 / 18    |
+  | -1.72204657757 |  3.77e-01  |  4.45e-01  |    0    |    0    |    13 / 18    |
+  |  7.56296505385 |  4.20e-01  |  4.20e-01  |    0    |    0    |    13 / 18    |
+
+  "-lam partners" counts, among the 18 largest eigenvalues by modulus, how
+  many have -lambda in the spectrum to relative 1e-8.  Trivial character:
+  12-13 of 18, i.e. the 8 of 12 coset directions that are graded.  chi: 0 of
+  18 at every point.  The +1 eigenvalue that produces the Phase-2 hit has NO
+  -1 partner: the nearest eigenvalue to -1 is 0.51 to 0.75 away.
+  (The two rows with dist-to-+1 of 2.4e-3 and 7.7e-4 are N=28 truncation;
+   the same targets at N=64 give det ratios of 3.3e-10 and 2.3e-12 -- 4d.)
+
+4c. "Which block carries the hits?"  For chi the question has no invariant
+    answer: the representation is irreducible, so there are no invariant
+    blocks.  Projection onto "old only" or "new only" is not defined there.
+    What can be said is a coordinate statement -- the mass of the +1
+    eigenvector in the three U-isotypic coordinate patches:
+  | t              | |eig - 1| | U=1    | U=w    | U=w^2  |
+  |----------------|-----------|--------|--------|--------|
+  | -9.88496595799 |  2.43e-03 | 0.2720 | 0.5341 | 0.1939 |
+  |  4.81038642662 |  3.83e-07 | 0.4586 | 0.2739 | 0.2675 |
+  | -1.72204657757 |  4.45e-11 | 0.3888 | 0.3434 | 0.2679 |
+  |  7.56296505385 |  7.66e-04 | 0.4056 | 0.1422 | 0.4522 |
+    Spread across all three, as an irreducible representation requires.
+    For the TRIVIAL character the localization is exact and was already
+    reported in Phase 1c: old block = Gamma_0(3) spectrum, new block = the
+    +-paired part.
+
+4d. Re-run of four of the 29 targets at the production size N = 64, both
+    factors, controls at t +- 0.30.  No corrected P is needed (Step 3), so
+    this is the unmodified operator, re-measured independently of the
+    original Phase-2 pass:
+  | t              | factor    | |det| at t | ctrl(t-.3) | ctrl(t+.3) | ratio    |
+  |----------------|-----------|------------|------------|------------|----------|
+  | -9.88496595799 | det(1-PL) | 1.2175e-05 |  8.297e+04 |  1.600e+04 | 3.34e-10 |
+  | -9.88496595799 | det(1+PL) | 4.1695e+05 |  5.601e+05 |  5.952e+05 | 7.22e-01 |
+  |  4.81038642662 | det(1-PL) | 8.3668e-11 |  2.372e+01 |  4.468e+01 | 2.57e-12 |
+  |  4.81038642662 | det(1+PL) | 1.1996e+02 |  2.362e+02 |  2.571e+02 | 4.87e-01 |
+  | -1.72204657757 | det(1-PL) | 2.4361e-12 |  2.088e+00 |  9.195e-01 | 1.76e-12 |
+  | -1.72204657757 | det(1+PL) | 3.1488e+00 |  3.281e+00 |  2.593e+00 | 1.08e+00 |
+  |  7.56296505385 | det(1-PL) | 5.3396e-09 |  1.633e+03 |  3.446e+03 | 2.25e-12 |
+  |  7.56296505385 | det(1+PL) | 1.5055e+04 |  7.287e+03 |  1.923e+04 | 1.27e+00 |
+    Reproduces the original run.  4/4 hits in det(1-PL); 0/4 in det(1+PL).
+
+  ANSWER TO STEP 4.  The 29/29 is not contaminated.  Three independent
+  reasons, all measured:
+    (i)   the grading operator does not exist for chi -- U fails to commute
+          with rho^chi by O(1), and rho^chi is irreducible;
+    (ii)  the chi spectrum shows no +-pairing at all (0 of 18 at four targets,
+          odd traces uncancelled at 0.13-0.50 of scale);
+    (iii) even if a pairing existed it could not manufacture a hit in
+          det(1-PL): a pairing puts a -1 opposite a +1, i.e. it would add
+          zeros to det(1+PL), which is 0/29.  The original run's trivial-
+          character control (0/29 in BOTH factors at the same 29 points) is
+          the same statement from the other side -- the operator that DOES
+          have the pairing sees none of the 29 targets.
+
+
+--- 4e.  WHAT THE ANOMALY DOES AFFECT: PHASE 1's MULTIPLICITY BOOKKEEPING ---
+
+Because P.L = [[0,A],[B,0]] on the new block,
+
+    det(1 - P.L) det(1 + P.L) |_new = det(1 - AB) det(1 - BA) = det(1 - AB)^2
+
+-- the level-9-new part enters the Selberg zeta as a PERFECT SQUARE.  Measured
+(trivial character, N = 28, so the residuals below are truncation-limited):
+  | t              | |det(1-AB) - det(1-BA)| / |det(1-AB)| | product vs square |
+  |----------------|---------------------------------------|-------------------|
+  | 4.38805356322  |                              3.95e-08 |          7.06e-08 |
+  | 5.09874190873  |                              5.06e-09 |          1.40e-08 |
+  | 6.12057553309  |                              2.62e-09 |          6.57e-09 |
+  | 6.75741527775  |                              9.43e-10 |          5.01e-09 |
+
+Consequences, stated exactly:
+  * A new-block zero of Z_{Gamma_0(9)} = det(1-PL) det(1+PL) always has EVEN
+    order, one in each factor.  It carries no parity label.
+  * rh_gamma09_results.txt Phase 1c counts "1 (4-dim) + 1 (8-dim) = 2" by
+    keeping only the parity-correct member of each +- pair.  That is a
+    convention imposed on an unlabelled pair, not a derived multiplicity.
+    The locations of the zeros -- what Phase 1 was built to gate -- are
+    unaffected, exactly as the original note said.
+  * Nothing here touches Phase 2, which uses a different, irreducible
+    operator with no such structure.
+
+
+--- WHAT WAS NOT DONE ---
+
+  * No mpmath determinant re-run; the float64 path was used throughout, as
+    gated by V4 in the original run.  Traces and eigenvalues, per the brief.
+  * The Atkin-Lehner W_9 was not constructed.  It was not needed: the deck
+    grading alone accounts for the anomaly to 7e-16, so there is nothing left
+    for W_9 to explain.
+  * Only 4 of the 29 targets were re-run at N = 64 (Step 4d).  The other 25
+    rest on the original Phase-2 table plus the structural argument (i)-(iii).
+  * No attempt was made to build a "corrected" P.  Step 3 shows there is
+    nothing to correct.
+
+##############################################################################
+=== RAW LOG ===
+##############################################################################
+
+##########################################################################
+# ANOMALY RUN 2026-08-10 01:41:41   args=--all
+##########################################################################
+STEP 3a  Gamma_0(9) normal in Gamma_0(3): phi is a homomorphism onto Z/3
+  homomorphism test on 400x400 pairs of Gamma_0(3): 0 failures
+  image of phi: [0, 1, 2]   kernel = {c = 0 mod 9} = Gamma_0(9)
+  gamma_0 = (1 0; 3 1): phi = 1   (a generator)
+  phi(j g j^-1) = -phi(g) on 600 elements: True
+
+==========================================================================
+STEP 1 -- odd-power traces per invariant block, operator: trivial character (Phase 1)
+==========================================================================
+If a block's spectrum is symmetric under lambda -> -lambda then every
+ODD power trace vanishes identically.  sum|lam|^k is the no-cancellation
+scale; odd/scale is the cancellation ratio (1 = no symmetry, 0 = exact).
+
+  deck permutation (left mult by gamma_0): [10, 7, 8, 9, 1, 2, 3, 4, 5, 6, 11, 0]
+  orbits (= fibres of P^1(Z/9) -> P^1(Z/3)): [[0, 10, 11], [1, 7, 4], [2, 8, 5], [3, 9, 6]]
+  U^3 - 1: 0.00e+00
+  || U rho(S) - rho(S) U || = 0.000e+00
+  || U rho(T) - rho(T) U || = 0.000e+00
+  || P U P^-1 - U^-1 ||     = 0.000e+00
+
+    block leakage out of the old 4-dim block: 1.35e-16 (relative Frobenius)
+    block leakage out of the new 8-dim block: 1.35e-16 (relative Frobenius)
+  P.L   s = (0.5 + 4.38805356322j)   N = 28
+    | block | dim | |tr X| | |tr X^2| | |tr X^3| | |tr X^5| | sum|lam| | sum|lam|^3 | odd/scale |
+    |---|---|---|---|---|---|---|---|---|
+    | level-1     (1-dim) | 28 | 2.783e-01 | 1.675e-01 | 5.350e-02 | 8.051e-03 | 6.397e-01 | 5.918e-02 | 9.04e-01 |
+    | level-3-new (3-dim) | 84 | 4.060e-01 | 7.600e-01 | 1.547e+00 | 1.003e+00 | 3.408e+00 | 1.617e+00 | 9.57e-01 |
+    | level-9-new (8-dim) | 224 | 5.993e-18 | 1.685e-01 | 9.423e-16 | 8.998e-16 | 9.485e+00 | 4.304e+00 | 2.19e-16 |
+
+    block leakage out of the old 4-dim block: 1.37e-16 (relative Frobenius)
+    block leakage out of the new 8-dim block: 1.34e-16 (relative Frobenius)
+  P.L   s = (0.5 + 5.09874190873j)   N = 28
+    | block | dim | |tr X| | |tr X^2| | |tr X^3| | |tr X^5| | sum|lam| | sum|lam|^3 | odd/scale |
+    |---|---|---|---|---|---|---|---|---|
+    | level-1     (1-dim) | 28 | 3.340e-01 | 2.094e-01 | 8.112e-02 | 1.570e-02 | 6.845e-01 | 8.624e-02 | 9.41e-01 |
+    | level-3-new (3-dim) | 84 | 7.934e-01 | 4.560e-01 | 1.410e+00 | 9.471e-01 | 3.631e+00 | 1.710e+00 | 8.24e-01 |
+    | level-9-new (8-dim) | 224 | 9.084e-17 | 1.493e+00 | 9.968e-15 | 1.868e-14 | 1.017e+01 | 4.791e+00 | 2.08e-15 |
+
+    block leakage out of the old 4-dim block: 1.39e-16 (relative Frobenius)
+    block leakage out of the new 8-dim block: 1.40e-16 (relative Frobenius)
+  P.L   s = (0.5 + 7.1j)   N = 28
+    | block | dim | |tr X| | |tr X^2| | |tr X^3| | |tr X^5| | sum|lam| | sum|lam|^3 | odd/scale |
+    |---|---|---|---|---|---|---|---|---|
+    | level-1     (1-dim) | 28 | 6.430e-01 | 6.210e-01 | 4.488e-01 | 2.673e-01 | 1.027e+00 | 4.581e-01 | 9.80e-01 |
+    | level-3-new (3-dim) | 84 | 6.312e-01 | 7.214e-01 | 5.732e-01 | 1.846e+00 | 4.736e+00 | 3.068e+00 | 1.87e-01 |
+    | level-9-new (8-dim) | 224 | 2.665e-16 | 2.797e+00 | 1.392e-13 | 1.450e-13 | 1.289e+01 | 7.608e+00 | 1.83e-14 |
+
+==========================================================================
+STEP 2 -- the grading operator G, operator: trivial character (Phase 1)
+==========================================================================
+  G = (U - U^2)/(w - w^2),  w = exp(2 pi i/3).
+  || G^2 - Pi_new ||   = 2.043e-15   (Pi_new = projector onto the 8-dim new block)
+  || G - G^dagger ||   = 1.813e-15
+  || G P + P G ||      = 0.000e+00   (P anticommutes with G)
+  || G rho(S) - rho(S) G || = 0.000e+00
+  || G rho(T) - rho(T) G || = 0.000e+00
+
+  G written on the 12 coset basis (rows = cosets, real and imag parts
+  of a Hermitian matrix supported on the 4 fibres):
+    (0, 1)       .             .             .             .             .             .             .             .             .             .        -0.000+0.577j  +0.000-0.577j
+    (1, 0)       .             .             .             .        +0.000-0.577j       .             .        -0.000+0.577j       .             .             .             .      
+    (1, 1)       .             .             .             .             .        +0.000-0.577j       .             .        -0.000+0.577j       .             .             .      
+    (1, 2)       .             .             .             .             .             .        +0.000-0.577j       .             .        -0.000+0.577j       .             .      
+    (1, 3)       .        -0.000+0.577j       .             .             .             .             .        +0.000-0.577j       .             .             .             .      
+    (1, 4)       .             .        -0.000+0.577j       .             .             .             .             .        +0.000-0.577j       .             .             .      
+    (1, 5)       .             .             .        -0.000+0.577j       .             .             .             .             .        +0.000-0.577j       .             .      
+    (1, 6)       .        +0.000-0.577j       .             .        -0.000+0.577j       .             .             .             .             .             .             .      
+    (1, 7)       .             .        +0.000-0.577j       .             .        -0.000+0.577j       .             .             .             .             .             .      
+    (1, 8)       .             .             .        +0.000-0.577j       .             .        -0.000+0.577j       .             .             .             .             .      
+    (3, 1)  +0.000-0.577j       .             .             .             .             .             .             .             .             .             .        -0.000+0.577j
+    (3, 2)  -0.000+0.577j       .             .             .             .             .             .             .             .             .        +0.000-0.577j       .      
+
+  s = (0.5 + 4.38805356322j), N = 28
+    || G (P L) G + (P L)|new || / || (P L)|new || = 7.409e-16
+    new block in the (w, w^2) basis: ||diag w|| = 7.495e-17, ||diag w^2|| = 1.892e-16, ||A|| = 7.068e-01, ||B|| = 7.074e-01
+    -> P.L is [[0, A], [B, 0]] on the new block
+  s = (0.5 + 5.09874190873j), N = 28
+    || G (P L) G + (P L)|new || / || (P L)|new || = 7.454e-16
+    new block in the (w, w^2) basis: ||diag w|| = 7.445e-17, ||diag w^2|| = 1.913e-16, ||A|| = 7.071e-01, ||B|| = 7.071e-01
+    -> P.L is [[0, A], [B, 0]] on the new block
+
+==========================================================================
+CONTROL -- the same trace test on M2's Gamma_0(3) operator
+==========================================================================
+  Gamma_0(3) is NOT normal in PSL(2,Z) (index 4, no homomorphism onto
+  Z/2 or Z/4 with that kernel), so there is no deck grading to find.
+  | s | dim | |tr X| | |tr X^2| | |tr X^3| | |tr X^5| | sum|lam| | odd/scale |
+  |---|---|---|---|---|---|---|---|
+  | 0.5+4.38805356322i | 72 (rho3, level-3 new) | 4.060e-01 | 7.600e-01 | 1.547e+00 | 1.003e+00 | 3.408e+00 | 9.57e-01 |
+  | 0.5+5.09874190873i | 72 (rho3, level-3 new) | 7.934e-01 | 4.560e-01 | 1.410e+00 | 9.471e-01 | 3.631e+00 | 8.24e-01 |
+
+==========================================================================
+STEP 4a -- can the grading exist for chi (Phase 2)?
+==========================================================================
+  || U rho(S) - rho(S) U || = 5.477e+00   (scale ||rho(S)|| = 3.464)
+  || U rho(T) - rho(T) U || = 3.000e+00
+  chi(d) under conjugation by gamma_0 = (1 0; 3 1):  d -> d - 3b
+    | gamma in Gamma_0(9) | chi(gamma) | chi(gamma_0^-1 gamma gamma_0) | equal |
+    |---|---|---|---|
+    | (1, 1, 9, 10) | +1.0000+0.0000j | -0.5000+0.8660j | False |
+    | (1, 2, 9, 19) | +1.0000+0.0000j | -0.5000-0.8660j | False |
+    | (4, 1, 27, 7) | -0.5000+0.8660j | -0.5000-0.8660j | False |
+    | (5, 3, 18, 11) | -0.5000+0.8660j | -0.5000+0.8660j | True |
+    | (10, 1, 9, 1) | +1.0000+0.0000j | -0.5000+0.8660j | False |
+    | (7, 3, 9, 4) | -0.5000-0.8660j | -0.5000-0.8660j | True |
+  chi conjugation-invariant on 2/6 test elements
+
+  commutant of <rho(S), rho(T)> has dimension 1   (1 = irreducible; sum of squares of multiplicities otherwise)
+
+  Full-operator odd-power traces (no block structure assumed):
+  | s | N | |tr X| | |tr X^2| | |tr X^3| | |tr X^5| | sum|lam| | sum|lam|^3 | odd/scale |
+  |---|---|---|---|---|---|---|---|---|
+  | (0.25 + 4.81038642662j) | 336 | 2.172e+00 | 4.188e+00 | 2.110e+01 | 7.611e+01 | 2.382e+01 | 4.253e+01 | 4.96e-01 |
+  | (0.25 - 1.72204657757j) | 336 | 8.067e-01 | 1.055e+00 | 2.032e+00 | 9.175e+00 | 1.482e+01 | 8.743e+00 | 2.32e-01 |
+  | (0.25 + 7.1j) | 336 | 5.609e-01 | 4.869e+00 | 9.588e+00 | 1.327e+02 | 3.282e+01 | 7.414e+01 | 1.29e-01 |
+
+==========================================================================
+STEP 4b -- the 29/29: spectrum of P.L at the Phase-2 targets
+==========================================================================
+  29 targets in the file; probing 4:
+  det(1 - P L) = 0  <->  an eigenvalue of P.L at +1
+  det(1 + P L) = 0  <->  an eigenvalue of P.L at -1
+
+  --- operator: chi, N = 28 ---
+  | t | dist of nearest eig to +1 | to -1 | #eig within 1e-4 of +1 | of -1 | -lam partners among top 18 | worst rel. defect |
+  |---|---|---|---|---|---|---|
+  | -9.88496595799 | 2.429e-03 | 5.872e-01 | 0 | 0 | 0/18 | 4.040e-01 |
+  | 4.81038642662 | 3.827e-07 | 5.992e-01 | 1 | 0 | 0/18 | 6.089e-01 |
+  | -1.72204657757 | 4.450e-11 | 5.124e-01 | 1 | 0 | 0/18 | 6.701e-01 |
+  | 7.56296505385 | 7.657e-04 | 7.471e-01 | 0 | 0 | 0/18 | 7.463e-01 |
+
+  --- operator: trivial, N = 28 ---
+  | t | dist of nearest eig to +1 | to -1 | #eig within 1e-4 of +1 | of -1 | -lam partners among top 18 | worst rel. defect |
+  |---|---|---|---|---|---|---|
+  | -9.88496595799 | 5.158e-01 | 5.158e-01 | 0 | 0 | 13/18 | 2.935e-01 |
+  | 4.81038642662 | 5.580e-01 | 5.580e-01 | 0 | 0 | 12/18 | 4.936e-01 |
+  | -1.72204657757 | 3.774e-01 | 4.447e-01 | 0 | 0 | 13/18 | 6.763e-01 |
+  | 7.56296505385 | 4.202e-01 | 4.202e-01 | 0 | 0 | 13/18 | 4.518e-01 |
+
+==========================================================================
+STEP 4c -- localization of the +1 eigenvector, operator: chi (Phase 2)
+==========================================================================
+  The U-isotypic splitting 4+4+4 is NOT invariant for chi (measured in
+  4a), so 'which block carries the hit' has no invariant meaning there.
+  What can be measured is the mass of the +1 eigenvector in each
+  U-isotypic coordinate patch, and the coset-fibre profile.
+  | t | |eig-1| | mass in U=1 | mass in U=w | mass in U=w^2 |
+  |---|---|---|---|---|
+  | -9.88496595799 | 2.429e-03 | 0.2720 | 0.5341 | 0.1939 |
+  | 4.81038642662 | 3.827e-07 | 0.4586 | 0.2739 | 0.2675 |
+  | -1.72204657757 | 4.450e-11 | 0.3888 | 0.3434 | 0.2679 |
+  | 7.56296505385 | 7.657e-04 | 0.4056 | 0.1422 | 0.4522 |
+
+==========================================================================
+STEP 4e -- consequence for the Selberg-zeta multiplicity (Phase 1 side)
+==========================================================================
+  On the new block P.L = [[0,A],[B,0]], so
+     det(1 - P L) det(1 + P L) |_new = det(1 - AB) det(1 - BA) = det(1-AB)^2
+  i.e. the new block enters the Selberg zeta as a perfect SQUARE.
+  | t | ||det(1-AB) - det(1-BA)||/|det(1-AB)| | det(1-PL)det(1+PL)|_new vs det(1-AB)^2 |
+  |---|---|---|
+  | 4.38805356322 | 3.949e-08 | 7.063e-08 |
+  | 5.09874190873 | 5.058e-09 | 1.395e-08 |
+  | 6.12057553309 | 2.624e-09 | 6.565e-09 |
+  | 6.75741527775 | 9.425e-10 | 5.007e-09 |
+
+==========================================================================
+STEP 4d -- determinant re-run of four Phase-2 targets, N = 64
+==========================================================================
+  | operator | t | factor | |det| at t | ctrl(t-0.3) | ctrl(t+0.3) | ratio |
+  |---|---|---|---|---|---|---|
+  | chi | -9.88496595799 | det(1-PL) | 1.2175e-05 | 8.297e+04 | 1.600e+04 | 3.342e-10 |
+  | chi | -9.88496595799 | det(1+PL) | 4.1695e+05 | 5.601e+05 | 5.952e+05 | 7.221e-01 |
+  | chi | 4.81038642662 | det(1-PL) | 8.3668e-11 | 2.372e+01 | 4.468e+01 | 2.570e-12 |
+  | chi | 4.81038642662 | det(1+PL) | 1.1996e+02 | 2.362e+02 | 2.571e+02 | 4.868e-01 |
+  | chi | -1.72204657757 | det(1-PL) | 2.4361e-12 | 2.088e+00 | 9.195e-01 | 1.758e-12 |
+  | chi | -1.72204657757 | det(1+PL) | 3.1488e+00 | 3.281e+00 | 2.593e+00 | 1.080e+00 |
+  | chi | 7.56296505385 | det(1-PL) | 5.3396e-09 | 1.633e+03 | 3.446e+03 | 2.251e-12 |
+  | chi | 7.56296505385 | det(1+PL) | 1.5055e+04 | 7.287e+03 | 1.923e+04 | 1.272e+00 |
+
+# total wall time 227.6s
+
+##############################################################################
+=== INDEPENDENT VERIFICATION (Claude, main loop, separate process) 2026-08-10 ==
+##############################################################################
+
+A. THE DECK STRUCTURE -- confirmed exactly.
+
+   phi(a b; c d) = (c/3) * d^{-1} mod 3, on Gamma_0(3):
+     homomorphism failures over 12000 random products : 0
+     ker phi = Gamma_0(9)                             : True
+     phi(j g j^{-1}) = -phi(g) over 300 elements      : True
+
+   So Gamma_0(9) is NORMAL in Gamma_0(3) with quotient Z/3, X_0(9) -> X_0(3) is
+   a Z/3 Galois cover, and the reflection j = diag(1,-1) INVERTS the deck group.
+   That inversion is the whole mechanism.
+
+B. THE DECK OPERATOR. U = LEFT multiplication by g0 = (1 0; 3 1).
+
+   Left, not right: the coset space is Gamma_0(9)\PSL(2,Z), so left
+   multiplication by a normalizing element is well defined (normality) and
+   commutes with the right action that carries the representation. My first
+   attempt used induced(g0), which is the RIGHT action, and got nonzero
+   commutators for BOTH characters -- wrong operator, corrected here.
+
+                U^3 - 1     [U,rho(S)]   [U,rho(T)]   P U P^-1 - U^-1
+     trivial    0.00e+00      0.0000       0.0000        0.00e+00
+     chi        3.00e+00      5.4772       3.0000        3.00e+00
+
+   For the trivial character U is an exact Z/3 symmetry commuting with the
+   representation and inverted by P -- hence the +-lambda pairing on the 8-dim
+   new block. For chi, U is not a symmetry at all.
+
+C. IRREDUCIBILITY -- why chi cannot be graded.
+
+   dim of the commutant of <rho(S), rho(T)>:
+     trivial : 4     (matches the 1 + 3 + 4 + 4 decomposition exactly)
+     chi     : 1     IRREDUCIBLE
+
+   An irreducible representation has no invariant subspace to grade, so no
+   operator G with G(PL)G = -(PL) can exist for chi. This is the structural
+   reason the anomaly is confined to the trivial-character operator, and it is
+   independent of the eigenvalue-pairing counts reported above.
+
+CONSEQUENCE FOR THE HEADLINE. The 29/29 result lives in the chi operator, which
+is irreducible and ungradeable. The anomaly lives in the trivial-character
+operator, which scored 0/29. The two do not touch. Verified from the
+representation theory rather than from the numerics alone.
+
+NOT verified by this check: the odd-trace table, the explicit form of G, the
+det(1-AB)^2 factorization of the new block, and the 4 re-run targets. Those rest
+on the agent's run as recorded above.
