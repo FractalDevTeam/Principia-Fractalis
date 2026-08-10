@@ -1,0 +1,37 @@
+flat LCDM, Om=0.315,  H0*t0 = 0.9510
+
+RESULT 1 - EMBEDDING A IS REFUTED PARAMETER-FREE
+  A = 1.36536 ln(1/lam) > 0 for every lam < 1, and wa scales with A:
+    A= 0.20 -> w0=-0.9301  wa=+0.0456
+    A= 0.50 -> w0=-0.8253  wa=+0.1141
+    A= 1.00 -> w0=-0.6507  wa=+0.2282
+    A= 2.00 -> w0=-0.3013  wa=+0.4565
+    A= 5.00 -> w0=+0.7467  wa=+1.1412
+  wa > 0 for EVERY lam.  DESI measures wa < 0 at 3.8-3.9 sigma.
+  The holographic embedding fails on the SIGN. No lam rescues it.
+
+RESULT 2 - EMBEDDING B: RIGHT SIGN, ~1/4 THE MAGNITUDE
+  DESI DR2+CMB
+    best fit g0/H0=1.1358 (lam=0.4533) -> w0=-0.6078, wa=-0.3330   chi2=7.27
+    at matched w0: wa=-0.2827 = 26% of observed   (2.8 sigma short)
+  DESI DR2+CMB+DESY5
+    best fit g0/H0=0.8205 (lam=0.5647) -> w0=-0.7167, wa=-0.2405   chi2=8.31
+    at matched w0: wa=-0.2106 = 24% of observed   (3.0 sigma short)
+  DESI DR2+CMB+Union3
+    best fit g0/H0=1.1567 (lam=0.4468) -> w0=-0.6006, wa=-0.3391   chi2=5.66
+    at matched w0: wa=-0.2971 = 23% of observed   (2.4 sigma short)
+
+RESULT 3 - THE CANONICAL lam = 1/3 IS EXCLUDED
+  lam=1/3, embedding A (g~1/t)   : w0=-0.4760, wa=+0.3424
+      vs DESI DR2+CMB         w0   2.2 sigma,  wa   4.9 sigma
+      vs DESI DR2+CMB+DESY5   w0   4.8 sigma,  wa   5.5 sigma
+  lam=1/3, embedding B (g=const) : w0=-0.4554, wa=-0.4624
+      vs DESI DR2+CMB         w0   2.4 sigma,  wa   2.2 sigma
+      vs DESI DR2+CMB+DESY5   w0   5.2 sigma,  wa   1.8 sigma
+
+CAVEATS, stated rather than buried:
+ * the (w0,wa) errors are treated as independent; DESI reports them
+   strongly anticorrelated, so the true tensions differ from these.
+   The SIGN result (Result 1) is immune to that.
+ * Lambda_eff back-reaction on H(a) is neglected: H is pure LCDM.
+ * "one factor per level" is the simplest tower ansatz, not forced.
