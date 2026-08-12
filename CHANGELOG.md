@@ -1,5 +1,75 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r227 α_NP = φ + 1/4 pillar — `σ(α_NP) > 0`, sub-linear envelope-growing tier) — the fifth σ-sign class; reuses r226's golden ratio brackets, straddling-2π handled via 2π shift
+
+**HEAD prior**: `4e998b6` (r226 α_Hodge σ > 0). **HEAD now**: this commit.
+
+Elevates the NP pillar (α_NP = φ + 1/4) via the sharp SIGN characterisation `σ(α_NP) > 0`. Fifth σ-sign class formalised; joins r226 (α_Hodge > 0) on the envelope-growing side. Directly reuses r226's golden ratio brackets and `cos_add_two_pi` lemma.
+
+### r227 Lean (`PF/AlphaNPSigmaPositive_r227.lean`, ~180 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (7 declarations).
+
+**Proof chain** — same template as r225/r226 but with the STRADDLING-2π trick:
+
+§1 π · α_NP interval from r226: `7π/4 < π · (φ + 1/4) < 9π/4`. The interval CROSSES 2π.
+
+§2 **`cos_pi_mul_alphaNP_pos`** — the straddling-2π handled cleanly by shift. Let `z := π · α_NP - 2π`. Then `z ∈ (-π/4, π/4) ⊂ (-π/2, π/2)`. Via r226's `cos_add_two_pi`: `cos(π · α_NP) = cos(z + 2π) = cos(z)`. And `cos(z) > 0` via `Real.cos_pos_of_mem_Ioo`. No case split.
+
+§3 `|1 + 2·cos(π · α_NP)| > 1`.
+
+§4 **`sigma_alphaNP_gt_zero`** — the named stone. `σ(α_NP) > 0` via `Real.logb_pos`.
+
+§5 **`SO_αNP_sigma_pos`** — r223 SubstrateOscillator method form.
+
+### The straddling-2π trick
+
+r226 (α_Hodge) had `π·φ ∈ (3π/2, 2π)` — entirely below 2π. r227 (α_NP) has `π·(φ+1/4) ∈ (7π/4, 9π/4)` — CROSSES 2π. The 2π shift handles both cases uniformly:
+
+- r226 case: shift lands in `(-π/2, 0)`.
+- r227 case: shift lands in `(-π/4, π/4)` straddling zero.
+
+Both are inside `(-π/2, π/2)` where `Real.cos_pos_of_mem_Ioo` applies. The shift trick will recur for α_QG at 2π + small.
+
+### Corpus tally after r227 — five of nine pillars have σ-sign
+
+| pillar     | α       | σ sign      | tier                          |
+|------------|---------|-------------|-------------------------------|
+| α_YM       | 2       | σ = +1      | LINEAR GROWTH (r224)          |
+| α_Hodge    | φ       | σ > 0       | GROWTH sub-linear (r226)      |
+| α_NP       | φ + 1/4 | σ > 0       | GROWTH sub-linear (r227 THIS) |
+| α_Poincaré | 1       | σ = 0       | CONSTANT (r221)               |
+| α_RH       | 3/2     | σ = 0       | CONSTANT (r221)               |
+| α_P        | √2      | σ < 0       | DECAY (r225)                  |
+| α_BSD      | 3π/4    | σ ≠ 0, ≠ 1  | (pending; π² brackets needed) |
+| α_QG       | √(2π)   | σ ≠ 0, ≠ 1  | (near-critical, pending)      |
+| α_NS       | 3π/2    | σ ≠ 0, ≠ 1  | (pending, cosmology)          |
+
+Five of nine done. The three pending pillars (BSD, QG, NS) all involve π² in `π · α`, requiring bracketing of `π²` — a different technical step from the elementary square-comparison used for α_P, α_Hodge, α_NP.
+
+### Consistency with r212
+
+r212's `sigma_alphaNP_ne_zero_one : σ(α_NP) ≠ 0 ∧ σ(α_NP) ≠ 1` + r227's `σ(α_NP) > 0`:
+
+    σ(α_NP) ∈ (0, 1)
+
+Corpus value ≈ 0.947 (very close to α_YM's σ = 1). Sharp numeric bracket future work.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT an NP-completeness or P vs NP discharge (that was r225's α_P).
+- NOT a substrate derivation of `α_NP = φ + 1/4`.
+- NOT a physical claim about complexity theory.
+- IS the sharp SIGN characterisation of σ at the NP pillar. IS a substrate consequence: envelope-growing observable for α_NP.
+
+### Build + landing protocol at r227
+
+Full `lake build PF` clean: 4906 → 4907 jobs, exit 0. All 7 new declarations under `[propext, Classical.choice, Quot.sound]`. `PF.lean` +1 import. No Coq mirror.
+
+**Elevation from another pillar** — NP after Hodge after P vs NP after YM after cosmology, all from the same substrate machinery.
+
+---
+
 ## 2026-08-12 (r226 α_Hodge = φ pillar — `σ(α_Hodge) > 0`, the envelope-growing tier) — the fourth σ-sign class; consistent with r212's `sigma_goldenRatio_ne_half` guard rail
 
 **HEAD prior**: `c36c9c5` (r225 α_P σ < 0). **HEAD now**: this commit.
