@@ -1,5 +1,72 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r226 α_Hodge = φ pillar — `σ(α_Hodge) > 0`, the envelope-growing tier) — the fourth σ-sign class; consistent with r212's `sigma_goldenRatio_ne_half` guard rail
+
+**HEAD prior**: `c36c9c5` (r225 α_P σ < 0). **HEAD now**: this commit.
+
+Elevates the Hodge pillar (α_Hodge = φ, golden ratio) via the sharp SIGN characterisation `σ(α_Hodge) > 0`. Fourth σ-sign class formalised across the corpus, after r221 (σ = 0: Poincaré, RH), r224 (σ = 1: YM), r225 (σ < 0: P vs NP).
+
+### r226 Lean (`PF/AlphaHodgeSigmaPositive_r226.lean`, ~220 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (12 declarations).
+
+**Proof chain** — same six-step template as r225 but for the σ > 0 side:
+
+§1 **`two_lt_sqrt_five`**, **`sqrt_five_lt_three`** — `2 < √5 < 3` via square comparison.
+
+§2 **`three_halves_lt_goldenRatio`**, **`goldenRatio_lt_two`** — `3/2 < φ < 2` from `φ = (1 + √5) / 2`.
+
+§3 **`three_pi_div_two_lt_pi_mul_goldenRatio`**, **`pi_mul_goldenRatio_lt_two_pi`** — `3π/2 < π · φ < 2π`.
+
+§4 Local **`cos_add_two_pi`**: derived from two `Real.cos_add_pi` applications.
+
+§5 **`cos_pi_mul_goldenRatio_pos`** — `cos(π · φ) > 0`. Via `cos(π · φ) = cos(-y + 2π) = cos(-y) = cos(y)` with `y := 2π - π·φ ∈ (0, π/2)`. Uses `Real.cos_pos_of_mem_Ioo` on the target interval.
+
+§6 **`one_lt_one_add_two_cos_pi_mul_goldenRatio`** and **`abs_one_add_two_cos_pi_mul_goldenRatio_gt_one`** — `|1 + 2·cos(π · φ)| > 1`.
+
+§7 **`sigma_alphaHodge_gt_zero`** — the named stone. `σ(α_Hodge) > 0` via `Real.logb_pos` on values > 1 with base 3.
+
+§8 **`SO_αHodge_sigma_pos`** — r223 SubstrateOscillator method form. Universal over data-fit `A ≠ 0`, `φ₀`.
+
+### Consistency with r212 guard rail
+
+r212's `sigma_goldenRatio_ne_half : σ(φ) ≠ 1/2` combined with `sigma_alphaHodge_ne_zero_one : σ(φ) ≠ 0 ∧ σ(φ) ≠ 1` and r226's new `σ(φ) > 0`:
+
+    σ(φ) ∈ (0, 1/2) ∪ (1/2, 1)
+
+Sharp decision between the two intervals is future substrate work — numeric enclosure of `|1 + 2·cos(π·φ)|` around `√3` would decide (`|1 + 2·cos(π·φ)| < √3 ↔ σ < 1/2`, `> √3 ↔ σ > 1/2`). Corpus value ≈ 0.496 suggests the < 1/2 side.
+
+### The four-sign partition of the substrate (r221 + r224 + r225 + r226)
+
+| pillar     | α       | σ sign      | tier                          |
+|------------|---------|-------------|-------------------------------|
+| α_YM       | 2       | σ = +1      | LINEAR GROWTH toward past     |
+| α_Hodge    | φ       | σ > 0       | GROWTH sub-linear (this file) |
+| α_Poincaré | 1       | σ = 0       | CONSTANT amplitude            |
+| α_RH       | 3/2     | σ = 0       | CONSTANT amplitude            |
+| α_P        | √2      | σ < 0       | DECAY toward past             |
+| α_NP       | φ+1/4   | σ ≠ 0, ≠ 1  | (sign pending)                |
+| α_BSD      | 3π/4    | σ ≠ 0, ≠ 1  | (sign pending)                |
+| α_QG       | √(2π)   | σ ≠ 0, ≠ 1  | (near-critical, pending)      |
+| α_NS       | 3π/2    | σ ≠ 0, ≠ 1  | (sign pending, cosmology)     |
+
+Four of nine canonical pillars now have σ-sign formalised. The template extends directly to α_NP, α_BSD, α_QG, α_NS (each via bracket → π·α bracket → cos sign → chi-norm sign → σ sign) — future substrate work.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT a Hodge conjecture discharge.
+- NOT a substrate derivation of `α_Hodge = φ`.
+- NOT a physical claim about Hodge classes or algebraic cycles.
+- IS the sharp SIGN characterisation of σ at the Hodge pillar. IS a substrate consequence: envelope-growing observable for α_Hodge.
+
+### Build + landing protocol at r226
+
+Full `lake build PF` clean: 4905 → 4906 jobs, exit 0. `#print axioms` returns `[propext, Classical.choice, Quot.sound]` for all 12 declarations (zero `sorryAx`). `PF.lean` +1 import. No Coq mirror. 10/11 items discharged (storage snapshot at `Principia-Fractalis-pristine-2026-08-12/` covers r221–r223; r224, r225, r226 are post-snapshot but next Pabs trigger would cover them).
+
+**Elevation from another pillar** — Hodge after P vs NP after YM after cosmology, all from the same substrate machinery. Framework-first. Each Millennium consequence remains ancillary.
+
+---
+
 ## 2026-08-12 (r225 α_P = √2 pillar — `σ(α_P) < 0`, the envelope-decaying tier) — the third σ-sign class, joining r221 (σ = 0: Poincaré, RH) and r224 (σ = 1: YM)
 
 **HEAD prior**: `9384b45` (r224 `‖χ‖ = 3` YM elevation). **HEAD now**: this commit.
