@@ -1,5 +1,81 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r225 α_P = √2 pillar — `σ(α_P) < 0`, the envelope-decaying tier) — the third σ-sign class, joining r221 (σ = 0: Poincaré, RH) and r224 (σ = 1: YM)
+
+**HEAD prior**: `9384b45` (r224 `‖χ‖ = 3` YM elevation). **HEAD now**: this commit.
+
+Elevates the P vs NP pillar (α_P = √2) via the sharp SIGN characterisation of its substrate abscissa: `σ(α_P) < 0`. This is the third explicit σ-sign class formalised across the corpus, after r221's σ = 0 tier (Poincaré = 1, RH = 3/2) and r224's σ = 1 tier (YM = 2).
+
+### r225 Lean (`PF/AlphaPSigmaNegative_r225.lean`, ~200 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (11 declarations).
+
+**Proof chain** — six elementary steps to the substrate sign:
+
+§1 **`one_lt_sqrt_two`**, **`sqrt_two_lt_three_halves`** — brackets via square comparison.
+
+§2 **`pi_lt_pi_mul_sqrt_two`**, **`pi_mul_sqrt_two_lt_three_pi_div_two`** — multiply the §1 brackets by π > 0.
+
+§3 **`cos_pi_mul_sqrt_two_neg`** — `cos(π · √2) < 0`. Via
+```
+π · √2 = y + π   with   y := π · (√2 - 1) ∈ (0, π/2)
+cos(y + π) = -cos(y)                (`Real.cos_add_pi`)
+0 < cos(y)                          (`Real.cos_pos_of_mem_Ioo` on (-π/2, π/2))
+⟹ cos(π · √2) < 0
+```
+
+§4 **`cos_pi_mul_sqrt_two_gt_neg_one`** — `cos(π · √2) > -1`. Via
+```
+cos = -1 → ∃ k : ℤ, √2 = 1 + 2k     (r212's `cos_pi_mul_eq_neg_one_iff`)
+⟹ √2 is rational
+contradicts Nat.prime_two.irrational_sqrt
+```
+
+§5 **`one_add_two_cos_pi_mul_sqrt_two_ne_zero`** — `1 + 2 · cos(π · √2) ≠ 0`. Via
+```
+= 0 → cos = -1/2 → ∃ k : ℤ, √2 = 2k/3   (r212's `cos_pi_mul_eq_neg_half_imp_rational`)
+⟹ √2 is rational, contradiction
+```
+
+§6 **`abs_one_add_two_cos_pi_mul_sqrt_two_{pos, lt_one}`** — combines §3, §4, §5 to give `|1 + 2 cos(π · √2)| ∈ (0, 1)`.
+
+§7 **`sigma_alphaP_lt_zero`** — the named stone. `σ(α_P) < 0` via `Real.logb_neg` on `(0, 1)` with base 3.
+
+§8 **`SO_αP_sigma_neg`** — the r223 `SubstrateOscillator` method form: `(SO_αP A φ₀ hA).sigma < 0` for every data-fit `A ≠ 0`, `φ₀`. The sign is pillar-intrinsic, not tuning-dependent.
+
+### The three-sign partition of the substrate
+
+Assembled from r221 + r224 + r225 + r212's per-alpha dichotomies:
+
+| pillar     | α       | σ sign      | envelope behaviour            |
+|------------|---------|-------------|-------------------------------|
+| α_YM       | 2       | σ = +1      | LINEAR GROWTH toward past     |
+| α_Poincaré | 1       | σ = 0       | CONSTANT amplitude            |
+| α_RH       | 3/2     | σ = 0       | CONSTANT amplitude            |
+| α_P        | √2      | σ < 0       | DECAY toward past             |
+| α_Hodge    | φ       | σ ≠ 0, ≠ 1  | (sign not formalised; r212 miss only) |
+| α_NP       | φ+1/4   | σ ≠ 0, ≠ 1  | (sign not formalised)         |
+| α_BSD      | 3π/4    | σ ≠ 0, ≠ 1  | (sign not formalised)         |
+| α_QG       | √(2π)   | σ ≠ 0, ≠ 1  | (sign not formalised; near-critical) |
+| α_NS       | 3π/2    | σ ≠ 0, ≠ 1  | (sign not formalised)         |
+
+The 5 remaining irrational pillars have r212 misses at `σ ∈ {0, 1}` but their SIGN partition (σ > 0 vs σ < 0) is future substrate work. r225 establishes the pattern for α_P concretely.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT a P vs NP discharge.
+- NOT a substrate derivation of `α_P = √2`.
+- NOT a physical claim about complexity theory.
+- IS the sharp SIGN characterisation of σ at the P vs NP pillar. IS a substrate consequence: envelope-decaying observable for α_P.
+
+### Build + landing protocol at r225
+
+Full `lake build PF` clean: 4904 → 4905 jobs, exit 0. `#print axioms` returns `[propext, Classical.choice, Quot.sound]` for all 11 declarations (zero `sorryAx`). `PF.lean` +1 import. No Coq mirror: r212, r223 have none to parity against. 10/11 items discharged (storage snapshot at `/Storage 2TB/home/xluxx/Principia-Fractalis-pristine-2026-08-12/` covers r221–r223; r224 and r225 are post-snapshot but next Pabs trigger would cover them).
+
+**Elevation from another pillar** at Pabs's directive — P vs NP after YM after cosmology, all from the same substrate machinery. r225 extends r223's SubstrateOscillator with the first pillar-specific sign-of-sigma theorem; the pattern generalises to the 5 remaining irrational pillars (queued as future substrate work).
+
+---
+
 ## 2026-08-12 (r224 `‖χ‖ = 3` level set — the YM-pillar elevation) — the even-integer classification, companion to r221; closes the three-value integer landscape `‖χ‖ ∈ {0, 1, 3}`
 
 **HEAD prior**: `41c494a` (r223 `SubstrateOscillator`). **HEAD now**: this commit.
