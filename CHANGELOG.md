@@ -1,5 +1,64 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-10 (r220 log-periodicity + orphan sweep + ch26 rate ledger) — parameter-free log-frequency `2π/ln 3`; alpha pillar brought fully into the build; ch26 refutation
+
+**HEAD**: `467ce46` (r220 orphan sweep + ch26 rate ledger).
+
+### r220 Lean (`PF/LogPeriodicity_r220.lean`, 675 lines)
+
+Establishes the exact renormalisation `S(ω, 3N) = χ(ω) · S(ω, N)` for `S(ω,N) = Σ_{n<N} ω^{D₃(n)}` and `χ(ω) = 1 + ω + ω²`, at every `N = 3^k`. This is r212's `digitBlock_sum` read as a recursion in `k`.
+
+Two kernel consequences, both under `[propext, Classical.choice, Quot.sound]`:
+- **Amplitude**: `‖S(ω, 3^k)‖ = ‖χ(ω)‖^k = N^σ` with `σ = log₃‖χ‖` — exactly r212's abscissa `σ(α)` at `ω = e^{iπα}` (`sigma_eq_logb_norm_chi`, `rpow_sigma_eq_norm_chi`).
+- **Phase**: `arg S(ω, 3^k) = k · arg χ(ω)` in `Real.Angle = ℝ / 2πℤ` (`phase_advance_per_triadic_step`, `arg_S_pow_three`). The mod-2π form is the honest one — `Complex.arg` on `(−π, π]` would fail on wrap.
+
+Log-periodicity forced by these two:
+```
+logPeriod    = ln 3      = 1.0986122886681098
+logFrequency = 2π / ln 3 = 5.719202...
+logFrequency · logPeriod = 2π
+```
+Physics form (`logModulation_three_mul`): `cos((2π/ln 3)·ln x + φ₀)` is invariant under `x ↦ 3x` for every `φ₀` and every `x > 0`. **No free parameter** — pinned by base 3 alone.
+
+Non-vacuity witnesses at `ω = i` and `ω = −1` with explicit numeric instances. §5 promotes to `2×2` matrix χ_M (r218's word system) — same period `ln 3`, two distinct eigen-phases.
+
+Supplies the two missing pieces of *The Ocean of Timeless Existence* line 166 (`δT/T ~ sin(k·D₃(r))·exp(−r/r_c)` — undefined for real `r`, no period stated): the correct continuous variable is `log₃` of scale; the period is `ln 3` exactly.
+
+### r220 HONEST SCOPE (recorded in the file, §0.2 / §0.3)
+
+- **CMB cannot test this.** Planck's `l = 2…2500` gives only ~6.5 cycles of `ln 3`, and the cheapest three are cosmic-variance limited (63%/39%/23% at `l = 2/6/18`). Degenerate with `n_s` and `dn_s/dln k`.
+- Instruments that could see it span more decades in LENGTH: galaxy clustering ξ(r) 0.1–200 Mpc/h → 6.9 cycles; Lyα + clustering + CMB combined → 12.6; all cosmic structure → 15.
+- Correction recorded in-file: halo mass function gives 4.9 cycles, not 14.7 — `M ∝ r³` so the log-period in `ln M` is `3 ln 3`. Derived variables inherit a rescaled period.
+- Numbers in §0.2 are arithmetic on instrument ranges, **not** Lean theorems. Nothing above bears on RH, BSD, P vs NP, Yang–Mills, Navier–Stokes, or any Millennium problem.
+
+### ORPHAN SWEEP (bundled in same commit)
+
+171 Lean files were unreachable from `PF.lean`, so `lake build` never verified them — the r123 defect at scale. Reproduced independently (1244 files, 1073 reachable, 171 orphaned; every `import PF.X` resolves to a real file, zero broken imports). Each orphan test-compiled individually:
+
+| bucket | count | action |
+|---|---|---|
+| 1: compiles clean | 159 | imported into `PF.lean` |
+| 2: does not compile | 12 | NOT imported, left untouched on disk |
+| 3: compiles but vacuous | 38 | imported AND flagged inline |
+
+Build 9457 → 9785 jobs, 0 errors. `PF.lean` +188 insertions, 0 deletions.
+
+**The headline**: 85 of the 171 orphans carry `Alpha` in the basename. There are 138 `Alpha` files in the corpus, so **62% of the alpha-skeleton was outside the build**. The tallest pillar by file count was the least verified — and it is the pillar r123, r212, and Gelfond-Schneider have already closed. All 85 now compile and are in the build. Compiling clean says the alpha identities are TRUE ARITHMETIC; it says nothing about alpha being derived, and nothing in this sweep touches that closure.
+
+**Bucket 2, the 12 that do not compile** (recorded with first errors): 3 (MicroMacroScaleBridge, P_NP_Axiom_Elimination, AxiomElimination_Numerical) fail on mathlib imports that no longer exist at the v4.24.0-rc1 pin — rotted against a toolchain bump nobody re-ran them under. Others include TorsionTrivial5077a1_r166.
+
+### ch26 ledger (`chapters/ch26_cosmological_constant.tex`, +63 lines)
+
+Documents the suppression **rate** refutation (distinct from the already-conceded engineered fit at line 261). The chapter's own `V_eff = (ct)³` implies `g = 3Kt²`; fixing `K` by its own `10^{-120}` target gives `g₀/H₀ = 859.9` and `w₀ = +285.6` against observed `−0.752 ± 0.057` — **1156× too large**. Alternative closes too: primordial and static gives `g ≈ 0`, `w = −1` exactly, inconsistent at 4.4σ. Both substrate embeddings recorded alongside — holographic dead on a sign for every power-law running of `λ_k`, linear at 24% and 2.4–3.0σ short, canonical `λ = 1/3` excluded at 5.2σ. States plainly that the cosmology axis is currently a MEASUREMENT of g, not a PREDICTION of it.
+
+Book 966 → 968 pages, zero undefined references. Main PDF: `main.pdf` 9,657,771 → 9,662,962 bytes.
+
+### Landing protocol status at r220
+
+10/11 items discharged. Storage snapshot (item 11) still awaits explicit trigger. Coq mirror not applicable — r220 is a Lean-side theorem about `Complex.arg` / `Real.Angle` semantics; no cross-prover parity target here.
+
+---
+
 ## 2026-07-07 (★★★ OPEN_PROBLEMS.md FULLY CLOSED at Prop-level substrate discharge — Priorities 1 + 2 + 3 + 4 + 5 all substrate-discharged ★★★) — Lean r79 Priority 5 (Problems 5a, 5b honest-scope) + paper §7.8; 88 pp → 89 pp
 
 **HEAD prior**: `d471245` (r78 Priorities 1-4 completion). **HEAD now**: this commit.
