@@ -1,5 +1,72 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r228 α_BSD = 3π/4 pillar — `σ(α_BSD) > 0`, sub-linear growth) — the sixth σ-sign class; first "π² pillar" but reduces to π-brackets via division
+
+**HEAD prior**: `cadbb61` (r227 α_NP σ > 0). **HEAD now**: this commit.
+
+Elevates the BSD pillar (α_BSD = 3π/4, rational multiple of π) via the sharp SIGN characterisation `σ(α_BSD) > 0`. Sixth σ-sign class formalised. **First "π² pillar"** — `π · α_BSD = 3π²/4` — but the brackets reduce to π-only via division, no π²-specific machinery needed.
+
+### r228 Lean (`PF/AlphaBSDSigmaPositive_r228.lean`, ~190 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (8 declarations).
+
+**Proof chain**:
+
+§0 Local `cos_add_two_pi` (two `Real.cos_add_pi`).
+
+§1 π-only brackets on `π · α_BSD = 3π²/4`:
+- **`two_pi_lt_pi_mul_alphaBSD`**: `2π < 3π²/4`. Reduces to `2 < 3π/4` (divide by π > 0), i.e. `8/3 < π`. From `3 < π` (mathlib's `Real.pi_gt_three`), done.
+- **`pi_mul_alphaBSD_lt_five_pi_div_two`**: `3π²/4 < 5π/2`. Reduces to `3π/4 < 5/2`, i.e. `π < 10/3`. From `π < 3.15` (mathlib's `Real.pi_lt_d2`), done since `3.15 < 10/3`.
+
+Note: **no π² brackets appear anywhere**. Dividing `3π²/4 < 5π/2` by π gives `3π/4 < 5/2` — linear in π. Only `Real.pi_gt_three` and `Real.pi_lt_d2` are consumed.
+
+§2 **`cos_pi_mul_alphaBSD_pos`** — via 2π shift: `z := 3π²/4 - 2π ∈ (0, π/2) ⊂ (-π/2, π/2)`, cos(z) > 0.
+
+§3 `|1 + 2·cos(π · α_BSD)| > 1`.
+
+§4 **`sigma_alphaBSD_gt_zero`** — the named stone. `σ(α_BSD) > 0` via `Real.logb_pos`.
+
+§5 **`SO_αBSD_sigma_pos`** — r223 elevation, universal over data-fit.
+
+### Corpus tally after r228 — 6/9 pillars have formalised σ-sign
+
+| pillar     | α       | σ sign      | source     |
+|------------|---------|-------------|------------|
+| α_YM       | 2       | σ = +1      | r224       |
+| α_Hodge    | φ       | σ > 0       | r226       |
+| α_NP       | φ + 1/4 | σ > 0       | r227       |
+| α_BSD      | 3π/4    | σ > 0       | r228 THIS  |
+| α_Poincaré | 1       | σ = 0       | r221       |
+| α_RH       | 3/2     | σ = 0       | r221       |
+| α_P        | √2      | σ < 0       | r225       |
+| α_QG       | √(2π)   | σ ≠ 0, ≠ 1  | pending    |
+| α_NS       | 3π/2    | σ ≠ 0, ≠ 1  | pending    |
+
+Six of nine done. Two pending: α_QG (mixed `π · √(2π)` — needs π and √(2π) brackets combined) and α_NS (larger rational π multiple — needs same π-only brackets as r228 but with different intervals).
+
+### Consistency with r212
+
+r212's `sigma_alphaBSD_ne_zero_one : σ(α_BSD) ≠ 0 ∧ σ(α_BSD) ≠ 1` + r228's `σ(α_BSD) > 0`:
+
+    σ(α_BSD) ∈ (0, 1)
+
+Corpus value ≈ 0.571. Additionally r212 has `irrational_three_pi_div_four` — α_BSD is irrational, so r224's level-set misses (both ‖χ‖ = 1 and ‖χ‖ = 3) apply.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT a BSD conjecture discharge.
+- NOT a substrate derivation of `α_BSD = 3π/4`.
+- NOT a physical claim about elliptic curves, L-functions, or rational points on abelian varieties.
+- IS the sharp SIGN characterisation of σ at the BSD pillar. IS a substrate consequence: envelope-growing observable for α_BSD.
+
+### Build + landing protocol at r228
+
+Full `lake build PF` clean: 4907 → 4908 jobs. All 8 declarations under `[propext, Classical.choice, Quot.sound]`. `PF.lean` +1 import. No Coq mirror.
+
+**Elevation from another pillar** — BSD after NP after Hodge after P vs NP after YM after cosmology. Framework-first. Same substrate machinery, seventh pillar in the substrate σ-sign series.
+
+---
+
 ## 2026-08-12 (r227 α_NP = φ + 1/4 pillar — `σ(α_NP) > 0`, sub-linear envelope-growing tier) — the fifth σ-sign class; reuses r226's golden ratio brackets, straddling-2π handled via 2π shift
 
 **HEAD prior**: `4e998b6` (r226 α_Hodge σ > 0). **HEAD now**: this commit.
