@@ -1,5 +1,101 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r229 α_NS = 3π/2 pillar — `σ(α_NS) < 0`, envelope-decaying) — Navier–Stokes / cosmology pillar; the DOUBLING α_NS = 2·α_BSD FLIPS the σ sign (r228 > 0 → r229 < 0)
+
+**HEAD prior**: `1cefe70` (r228 α_BSD σ > 0). **HEAD now**: this commit.
+
+Elevates the Navier–Stokes / cosmology pillar (α_NS = 3π/2) via the sharp SIGN characterisation `σ(α_NS) < 0`. Seventh σ-sign class formalised; second σ < 0 pillar (companion to r225's α_P). Uses the r228 π-only bracket technique plus r225's irrationality tricks.
+
+### The r76 doubling identity
+
+From the substrate corpus: **α_NS = 2 · α_BSD** (r76 `substrate_I5_alpha_NS_eq_two_alpha_BSD`; also `I5VortexDoubling`). r228 gave `σ(α_BSD) > 0`; r229 gives `σ(α_NS) < 0`:
+
+    DOUBLING the α value FLIPS the σ sign (α_BSD > 0 → α_NS < 0)
+
+This is a substrate observation: doubling α doubles the cosine argument, sending it through a half-period of the underlying `cos_add_pi` symmetry. Specifically, `π·α_BSD = 3π²/4 ∈ (2π, 5π/2)` (cos > 0), while `π·α_NS = 3π²/2 ∈ (4π + π/2, 5π)` (cos < 0).
+
+### Book insights (from Explore agent — ch10, ch22, ch26)
+
+- **ch22 (Navier–Stokes)**: vortex cascade `ℓ_n = ℓ₀ · 3^{-n}` with circulations `Γ_n = Γ₀ · (-1)^n · 3^{-n/2}`. The `(-1)^n` alternation is the ternary character's oscillation at α_NS = 3π/2; the `3^{-n/2}` matches the substrate amplitude scale.
+- **ch10 (hydrodynamic)**: consciousness regularization with π/10 dissipation coefficient.
+- **ch26 (cosmological constant)**: Λ_eff = Λ₀ · exp[-∫ ch₂ · R_f(√(2π), |x|) dV] suppression mechanism. **SHAPE** (envelope decay a^σ with σ < 0) is consistent; **RATE** `g(t) ∝ t²` was refuted 2026-08-10 (DESI DR2, 1156× error on `w₀`). r229 formalises the SIGN, not the rate.
+- **Emergence dimension log 2 / log 3** (ch22:289–290) — same base-3 substrate as r212.
+
+r229 formalises the SIGN of the envelope that r220 + r221 + r222 established structurally in the 2026-08-12 cosmology doc §5 (`a^{σ(α_NS)}` envelope required, σ(α_NS) ≈ -1.308).
+
+### r229 Lean (`PF/AlphaNSSigmaNegative_r229.lean`, ~250 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (11 declarations).
+
+**Proof chain**:
+
+§0 Local `cos_add_two_pi`, `cos_add_four_pi` (2π periodicity iterated).
+
+§1 π-only brackets on `π · α_NS = 3π²/2`:
+- **`nine_pi_div_two_lt_pi_mul_alphaNS`**: `4π + π/2 < 3π²/2`. Reduces to `π > 3` (via `Real.pi_gt_three`).
+- **`pi_mul_alphaNS_lt_five_pi`**: `3π²/2 < 5π`. Reduces to `π < 10/3` (from `Real.pi_lt_d2 : π < 3.15`).
+
+Same "no π² brackets appear" trick as r228 — dividing by π > 0 gives π-linear inequalities.
+
+§2 **`cos_pi_mul_alphaNS_neg`**: `cos(π · α_NS) < 0`. Chain:
+```
+z := 3π²/2 - 4π ∈ (π/2, π)          (§1 brackets)
+w := π - z ∈ (0, π/2)                (subtract from π)
+cos(w) > 0                            (cos_pos_of_mem_Ioo)
+cos(z) = cos(π - w) = -cos(w) < 0    (Real.cos_pi_sub)
+cos(π · α_NS) = cos(z + 4π) = cos(z) < 0   (cos_add_four_pi)
+```
+
+§3 **`cos_pi_mul_alphaNS_gt_neg_one`**: irrationality argument. If `cos = -1`, then α_NS = 1 + 2k odd integer via `cos_pi_mul_eq_neg_one_iff`, but α_NS = 3π/2 is irrational (r212's `irrational_three_pi_div_two`).
+
+§4 **`one_add_two_cos_pi_mul_alphaNS_ne_zero`**: if `1 + 2·cos = 0`, then α_NS = 2k/3 rational via `cos_pi_mul_eq_neg_half_imp_rational`, contradiction.
+
+§5 `|1 + 2·cos(π · α_NS)| ∈ (0, 1)`: combines §2, §3, §4.
+
+§6 **`sigma_alphaNS_lt_zero`** — the named stone. Via `Real.logb_neg`.
+
+§7 **`SO_αNS_sigma_neg`** — r223 elevation, universal over data-fit.
+
+### Corpus tally after r229 — 8/9 pillars have formalised σ-sign
+
+| pillar     | α       | σ sign      | source     |
+|------------|---------|-------------|------------|
+| α_YM       | 2       | σ = +1      | r224       |
+| α_Hodge    | φ       | σ > 0       | r226       |
+| α_NP       | φ + 1/4 | σ > 0       | r227       |
+| α_BSD      | 3π/4    | σ > 0       | r228       |
+| α_Poincaré | 1       | σ = 0       | r221       |
+| α_RH       | 3/2     | σ = 0       | r221       |
+| α_P        | √2      | σ < 0       | r225       |
+| α_NS       | 3π/2    | σ < 0       | r229 THIS  |
+| α_QG       | √(2π)   | pending     | mixed brackets |
+
+Only α_QG (√(2π), near-critical) remains — its π · √(2π) argument doesn't divide out cleanly, will need Taylor-series machinery from r212's `sigma_goldenRatio_ne_half` pattern.
+
+### Consistency with r212
+
+r212's `sigma_alphaNS_ne_zero_one : σ(α_NS) ≠ 0 ∧ σ(α_NS) ≠ 1` + r229's `σ(α_NS) < 0`:
+
+    σ(α_NS) ∈ (-∞, 0)
+
+Corpus value ≈ -1.308.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT a Navier–Stokes regularity discharge.
+- NOT a cosmological constant / dark-energy discharge.
+- NOT a substrate derivation of `α_NS = 3π/2` (that's r76's identity α_NS = 2·α_BSD).
+- NOT a physical claim about fluids or cosmology; the rate `g(t)` for Λ_eff was refuted by DESI DR2 (r220 CHANGELOG 2026-08-10).
+- IS the sharp SIGN characterisation of σ at the NS / cosmology pillar. IS a substrate consequence: envelope-decaying observable for α_NS, consistent with the book's suppression framings (shape, not rate).
+
+### Build + landing protocol at r229
+
+Full `lake build PF` clean: 4908 → 4909 jobs. All 11 declarations under `[propext, Classical.choice, Quot.sound]`. `PF.lean` +1 import. No Coq mirror.
+
+**Elevation from the NS pillar** at Pabs's directive with explicit "read the book for those portions" — the ch10/ch22/ch26 insights are recorded in the file header, drove the docstring framing (r76 doubling identity, vortex cascade, suppression consistency), but did not change the mathematical content (the σ < 0 sign was structurally implied by r221 + r212 already).
+
+---
+
 ## 2026-08-12 (r228 α_BSD = 3π/4 pillar — `σ(α_BSD) > 0`, sub-linear growth) — the sixth σ-sign class; first "π² pillar" but reduces to π-brackets via division
 
 **HEAD prior**: `cadbb61` (r227 α_NP σ > 0). **HEAD now**: this commit.
