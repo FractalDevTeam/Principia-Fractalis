@@ -1,5 +1,74 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r222 g-logcos next-zero forced by the frequency) — the √3 shift, derived from `logFrequency = 2π/ln 3` alone
+
+**HEAD prior**: `5a15352` (r221 chi-norm unity closed form). **HEAD now**: this commit.
+
+Discharges the SECOND of the two Lean stones queued in `docs/COSMOLOGY_LOGPERIODIC_G_2026-08-12.md` §6 — `g_logcos_next_zero_forced_by_frequency`. With r221 (this morning) and r222 (this landing), both queued stones are now formalised.
+
+### r222 Lean (`PF/LogCosineNextZero_r222.lean`, ~260 lines)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (10 declarations):
+
+**§1 The frequency-forced log-shift identity.**
+- `log_sqrt_three` — `log(√3) = logPeriod / 2` (elementary from `log(√3 · √3) = log 3`).
+- **`logFrequency_log_sqrt_three_mul`** — `logFrequency · log(√3 · x) = logFrequency · log x + π` for `x > 0`. The core: the multiplicative `x ↦ √3 · x` is *exactly* a `π` phase shift, and the factor `√3` depends only on `logFrequency = 2π / ln 3` via r220's `logFrequency_mul_logPeriod`.
+- `logFrequency_log_div_sqrt_three` — symmetric form with `-π`.
+- `cos_sub_pi` — local `cos(x - π) = -cos(x)` from `Real.cos_add_pi`.
+
+**§2 The log-cosine and its envelope.**
+- `gLogCos A σ φ₀ a := A · a^σ · cos(logFrequency · log a + φ₀)` — the r220 ansatz.
+- `envelope_pos` — `Real.rpow_pos_of_pos` reminder.
+- `gLogCos_eq_zero_iff` — for `A ≠ 0` and `a > 0`, `gLogCos = 0 ↔ cos(...) = 0`. The envelope factors cleanly out.
+
+**§3 The named stone.**
+- **`g_logcos_next_zero_forced_by_frequency`** — the queued theorem:
+  ```
+  a₀ > 0 ∧ g(a₀) = 0 ⟹ g(√3 · a₀) = 0 ∧ g(a₀ / √3) = 0
+  ```
+  for every `A ≠ 0`, every `σ`, every `φ₀`. The multiplier `√3` is a function of `logFrequency` alone — NOT of `A`, `σ`, or `φ₀`. This is the exact statement from the 2026-08-12 record §2 as a Lean theorem.
+
+**§4 Log-spaced arithmetic progression of zeros — both directions.**
+- `g_logcos_zero_at_sqrt_three_pow_up` — for every `n : ℕ`, `√3^n · a₀` is a zero.
+- `g_logcos_zero_at_div_sqrt_three_pow` — for every `n : ℕ`, `a₀ / √3^n` is a zero.
+Nat induction off §3.
+
+**§5 The `√3` is forced by `logFrequency = 2π/ln 3` — nothing else.**
+- **`sqrt_three_from_logFrequency`** — `π / logFrequency = log(√3)` exactly.
+- **`sqrt_three_eq_exp_pi_div_logFrequency`** — `√3 = exp(π / logFrequency)`. The frequency PINS the shift.
+
+### The empirical anchor (docstring-only, doc §2)
+
+At the DESI+CMB fit, observed `w = -1` crossing at `a₀ = 1/(1 + 0.44) = 0.6944`. The next OLDER zero at `a₀/√3 = 0.4010` corresponds to `z = 1/0.4010 - 1 = 1.494` — matching the fit's next-crossing prediction to three decimals. Three-dataset mean `z ≈ 1.44 ± 0.05` (per the 2026-08-12 record §2). Empirical numbers are docstring-only; the theorem is the exact `√3` shift identity underlying them.
+
+### The corpus reading combined with r221
+
+- **r221** (`chi_norm_unity_iff_half_or_odd_integer`): the constant-amplitude ansatz is substrate-consistent iff `α` is a half-integer or odd integer. Cosmology axis `α_NS = 3π/2` misses (irrational), so the substrate needs the `a^{σ(α_NS)} = a^{-1.308…}` envelope.
+- **r222** (`g_logcos_next_zero_forced_by_frequency`): the envelope does NOT alter zero positions — those are set by the cosine factor whose phase advances by exactly `π` under `a ↦ √3 · a`. So the `z ≈ 1.44` next-crossing prediction *survives* the envelope correction from r221.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT a Millennium discharge.
+- NOT a substrate derivation of `g`, `A`, `σ`, or `φ₀`.
+- NOT a resolution of the DESI–CMB tension.
+- IS the exact derivation of the `√3` shift from `logFrequency = 2π / ln 3`, with the "function of `logFrequency` alone" claim made explicit via `sqrt_three_from_logFrequency`.
+
+### What still queues from `docs/COSMOLOGY_LOGPERIODIC_G_2026-08-12.md` §6
+
+Numerical only (not Lean stones):
+1. Rerun the intermediate w(z) comparison with the `a^{-1.308}` envelope (numerical audit).
+2. DESI DR3 test of the bend-back around `z ≈ 0.75–1`.
+3. Substrate derivation of `φ₀`.
+4. Framework-side: is `α_NS = 3π/2` the right cosmology `α` (three r221-hits ∈ {1, 3/2, 5} would give constant amplitude without correction)?
+
+Both queued r221 Lean stones are now landed.
+
+### Build + landing protocol at r222
+
+Full `lake build PF` clean: 4901 → 4902 jobs, exit 0. `#print axioms` returns `[propext, Classical.choice, Quot.sound]` for all 10 new declarations (zero `sorryAx`). `PF.lean` +1 import (`PF.LogCosineNextZero_r222`). No Coq mirror: r220 has none to parity against, and r222's only cross-file dependency is `PF.LogPeriodicity_r220`. 10/11 items discharged. Storage snapshot (item 11) awaits explicit trigger.
+
+---
+
 ## 2026-08-12 (r221 chi-norm unity closed form) — the amplitude-constraint identity for r220's substrate-consistent log-cosine ansatz
 
 **HEAD prior**: `a9127f4` (docs: log-periodic g ansatz + amplitude-constraint closed form). **HEAD now**: this commit.
