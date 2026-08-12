@@ -1,5 +1,49 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r221 chi-norm unity closed form) — the amplitude-constraint identity for r220's substrate-consistent log-cosine ansatz
+
+**HEAD prior**: `a9127f4` (docs: log-periodic g ansatz + amplitude-constraint closed form). **HEAD now**: this commit.
+
+Discharges the first of the two Lean stones queued in `docs/COSMOLOGY_LOGPERIODIC_G_2026-08-12.md` §6 — `chi_norm_unity_iff_half_or_odd_integer`. Flagged in the queue as "elementary, mathlib-native, kernel-clean, the natural companion to r212's σ(α) work."
+
+### r221 Lean (`PF/ChiNormUnity_r221.lean`, ~220 lines)
+
+Formalises the amplitude-constraint closed form derived on paper in the 2026-08-12 cosmology record §5. Under `[propext, Classical.choice, Quot.sound]` throughout:
+
+- `abs_one_add_two_mul_eq_one_iff` — real form: `|1 + 2c| = 1 ↔ c = 0 ∨ c = -1`. Two-line case split.
+- `chi_norm_pi_mul_eq_one_iff` — off r212's `norm_one_add_exp_add_exp_sq_pi_mul` and the real form: `‖1 + e^{iπα} + e^{2iπα}‖ = 1 ↔ cos(πα) ∈ {0, -1}`. **No non-degeneracy hypothesis needed** — unlike r212's `sigma_eq_zero_iff` the norm-one condition excludes the `cos(πα) = -1/2` root that made the `Real.logb b 0 = 0` degenerate branch necessary.
+- **`chi_norm_unity_iff_half_or_odd_integer`** — the named stone from the queue. Via r212's `cos_pi_mul_eq_zero_iff` / `cos_pi_mul_eq_neg_one_iff`:
+  ```
+  ‖1 + e^{iπα} + e^{2iπα}‖ = 1
+    ↔ (∃ k : ℤ, α = 1/2 + k) ∨ (∃ k : ℤ, α = 1 + 2k)
+  ```
+- **The hits**: `chi_norm_unity_at_odd_integer (k : ℤ)` and `chi_norm_unity_at_half_integer (k : ℤ)` — infinite families. `chi_norm_alphaPoincare` (α = 1, k = 0 odd), `chi_norm_alphaRH` (α = 3/2, k = 1 half), `chi_norm_alpha_five` (α = 5, k = 2 odd — non-vacuity of the odd branch beyond Poincaré).
+- **The corpus miss**: `chi_norm_alphaNS_ne_one` — cosmology axis α_NS = 3π/2 does NOT satisfy `‖χ‖ = 1`. Proof uses r212's `irrational_three_pi_div_two`; both α-classification branches are rational, so `3π/2` sits in neither.
+
+### The substrate reading recorded in the file header
+
+Among the nine canonical corpus alphas in r212's table, EXACTLY THREE satisfy the amplitude constraint (the rational third of the table) — α_Poincaré, α_RH, and the extended odd-integer family — and the SIX IRRATIONAL alphas plus α_YM = 2 all miss. In particular α_NS = 3π/2 misses, so the substrate-consistent cosmology ansatz cannot be constant-amplitude at the cosmology `α`; it needs the `a^{σ(α_NS)}` envelope with `σ(α_NS) = -1.308…` from `sigma_alphaNS_ne_zero_one`. Zero positions are unchanged (a phase property, not an amplitude one) — the `z ≈ 1.44 ± 0.05` next-crossing prediction from the 2026-08-12 record §2 survives.
+
+### HONEST SCOPE (recorded in the file, §0 header)
+
+- NOT a Millennium discharge.
+- NOT a substrate derivation of `g`, `A`, or `φ₀`.
+- NOT a resolution of the DESI–CMB tension.
+- NOT a physical claim about dark energy — the file speaks about `‖χ‖` on the unit circle only.
+- IS an exact algebraic identity plus its α-classification, plus three named hits and one explicit corpus miss.
+
+### What still queues from `docs/COSMOLOGY_LOGPERIODIC_G_2026-08-12.md` §6
+
+1. **Rerun §3 (log-cosine vs CPL w(z)) with the `a^{-1.308}` envelope.** Numerical, not a Lean stone.
+2. **`g_logcos_next_zero_forced_by_frequency`** — second r221 stone. Formalises that once `(A, φ₀)` are set by two anchors, the position of the next zero is a function of `ω = 2π / ln 3` alone. Requires the envelope explicitly. NOT written in this landing.
+3. DESI DR3 test; substrate derivation of `φ₀`; whether α_NS = 3π/2 is the right cosmology `α`.
+
+### Build + landing protocol at r221
+
+Full `lake build PF` clean: 4900 → 4901 jobs, exit 0. `#print axioms` returns `[propext, Classical.choice, Quot.sound]` for all seven new declarations. `PF.lean` +1 import (`PF.ChiNormUnity_r221`). No Coq mirror: r212 has no Coq mirror to parity against, and r221 depends only on r212. 10/11 items discharged. Storage snapshot (item 11) awaits explicit trigger.
+
+---
+
 ## 2026-08-10 (r220 log-periodicity + orphan sweep + ch26 rate ledger) — parameter-free log-frequency `2π/ln 3`; alpha pillar brought fully into the build; ch26 refutation
 
 **HEAD**: `467ce46` (r220 orphan sweep + ch26 rate ledger).
