@@ -1,5 +1,72 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r223 `SubstrateOscillator` — the unified per-α substrate machine) — one structure, 9 corpus instances, cross-pillar dichotomy
+
+**HEAD prior**: `088d9ac` (r222 √3 shift). **HEAD now**: this commit.
+
+**Storage snapshot refreshed** at `/Storage 2TB/home/xluxx/Principia-Fractalis-pristine-2026-08-12/` (18G, full mirror including `.lake` cache) — landing protocol item 11 discharged at Pabs's explicit trigger. Six-week-stale prior snapshot (`2026-06-23`) preserved alongside.
+
+Framework-first elevation of the r212 + r220 + r221 + r222 stack into a single Lean object. No fragmentation, no per-axis attacks — every substrate consequence becomes a method on one structure, every pillar becomes an evaluation.
+
+### r223 Lean (`PF/SubstrateOscillator_r223.lean`, ~270 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (8 exported declarations):
+
+**§1 The structure and its methods.**
+```lean
+structure SubstrateOscillator where
+  α  : ℝ         -- pillar's alpha (any real; 9 canonical values are instances)
+  A  : ℝ         -- amplitude (data-fit)
+  φ₀ : ℝ         -- phase (data-fit)
+  hA : A ≠ 0
+
+noncomputable def SubstrateOscillator.sigma : SubstrateOscillator → ℝ  -- r212
+noncomputable def SubstrateOscillator.g     : SubstrateOscillator → ℝ → ℝ  -- gLogCos
+```
+
+**§2 Universal theorems inherited from r222 — every oscillator gets the √3 shift.**
+- `next_zero_forced` — r222 applied at the structure level.
+- `zero_at_sqrt_three_pow_up` / `zero_at_div_sqrt_three_pow` — full log-spaced AP of zeros.
+
+**§3 Universal theorems inherited from r212/r221 — every oscillator gets the constant-amplitude classification.**
+- `constant_amplitude_iff_full` — three-branch level set (from r212's `sigma_eq_zero_iff_full`).
+- `constant_amplitude_iff_half_or_odd` — r221's clean characterisation under non-degeneracy.
+
+**§4 The 9 corpus instances** — r212's canonical alphas as `SubstrateOscillator`s:
+```
+SO_αPoincare  (α = 1)         constant amplitude, σ = 0
+SO_αRH        (α = 3/2)       constant amplitude, σ = 0
+SO_αYM        (α = 2)         σ = 1 (linear growth)
+SO_αHodge     (α = φ)         σ ≈ +0.496
+SO_αP         (α = √2)        σ ≈ -0.692
+SO_αNP        (α = φ+1/4)     σ ≈ +0.947
+SO_αQG        (α = √(2π))     σ ≈ -0.039  (near-critical)
+SO_αBSD       (α = 3π/4)      σ ≈ +0.571
+SO_αNS        (α = 3π/2)      σ ≈ -1.308  (cosmology axis)
+```
+
+**§5 The cross-pillar dichotomy** — `corpus_constant_amplitude_dichotomy`:
+one 9-conjunct theorem bundling r212's per-alpha `sigma_*` and `sigma_alpha*_ne_zero_one` theorems. Exactly two of the 9 canonical corpus alphas satisfy `σ = 0` (Poincaré = 1, RH = 3/2); the other seven all satisfy `σ ≠ 0`.
+
+### The elevation
+
+Before r223, each substrate consequence was written per-pillar. r223 replaces that with `α ↦ SubstrateOscillator α`, so every substrate consequence is a **method** on the structure. The 9 corpus alphas are 9 evaluations, not 9 separate proofs. New candidate pillars (e.g. α_HN = 5 from `docs/COSMOLOGY_LOGPERIODIC_G_2026-08-12.md`) are added by extending the corpus instance list — no proof engineering required.
+
+### HONEST SCOPE (in the file header)
+
+- NOT a Millennium discharge. The 9 canonical claims remain ancillary consequences of the substrate; this file organises them as instances of one machine, not as separate attacks.
+- NOT a substrate derivation of the 9 alpha values themselves. They are named inputs from the corpus manuscript, per r212's own scope.
+- NOT a physical claim about any pillar's observable. Each `g` is a parametrised prediction structure, not a fit to data.
+- IS a unified elevation of the r212/r220/r221/r222 stack into one Lean object with the 9 canonical pillars as instances and the cross-pillar dichotomy as a corpus-wide theorem.
+
+### Build + landing protocol at r223
+
+Full `lake build PF` clean: 4902 → 4903 jobs, exit 0. `#print axioms` returns `[propext, Classical.choice, Quot.sound]` for all 8 exported declarations (zero `sorryAx`). `PF.lean` +1 import (`PF.SubstrateOscillator_r223`). No Coq mirror: r220–r222 have none to parity against.
+
+**All 11 landing-protocol items discharged** for this session's three landings (r221, r222, r223) — including item 11, the storage snapshot at `/Storage 2TB/home/xluxx/Principia-Fractalis-pristine-2026-08-12/`.
+
+---
+
 ## 2026-08-12 (r222 g-logcos next-zero forced by the frequency) — the √3 shift, derived from `logFrequency = 2π/ln 3` alone
 
 **HEAD prior**: `5a15352` (r221 chi-norm unity closed form). **HEAD now**: this commit.
