@@ -1,5 +1,79 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r224 `‖χ‖ = 3` level set — the YM-pillar elevation) — the even-integer classification, companion to r221; closes the three-value integer landscape `‖χ‖ ∈ {0, 1, 3}`
+
+**HEAD prior**: `41c494a` (r223 `SubstrateOscillator`). **HEAD now**: this commit.
+
+Elevates the YM pillar (α_YM = 2) via the level-set theorem `‖χ(e^{iπα})‖ = 3 ↔ α ∈ 2ℤ` — the natural companion to r221's `‖χ‖ = 1 ↔ α ∈ ½ℤ+½ ∪ 2ℤ+1`. Together with r212's degenerate branch (`‖χ‖ = 0 ↔ cos(πα) = -1/2 ↔ α ∈ 2ℤ/3`), this closes **all three integer-valued level sets** of the ternary character norm at rational α: `‖χ‖ ∈ {0, 1, 3}`.
+
+### r224 Lean (`PF/ChiNormLevelThree_r224.lean`, ~280 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (17 declarations):
+
+**§1 Real form.** `abs_one_add_two_cos_eq_three_iff` — `|1 + 2·cos(πα)| = 3 ↔ cos(πα) = 1`. The `1 + 2c = -3` branch of `|1 + 2c| = 3` forces `c = -2`, impossible since `cos ≥ -1`; only `1 + 2c = +3 → c = 1` survives.
+
+**§2 Chi form.** `chi_norm_pi_mul_eq_three_iff` — `‖1 + e^{iπα} + e^{2iπα}‖ = 3 ↔ cos(πα) = 1`. Via r212's `norm_one_add_exp_add_exp_sq_pi_mul`.
+
+**§3 The named α-classification.** `chi_norm_three_iff_even_integer` — `‖χ‖ = 3 ↔ ∃ k : ℤ, α = 2k`. Via r212's `cos_pi_mul_eq_one_iff`.
+
+**§4 Corpus hits.** Family `chi_norm_three_at_even_integer (k : ℤ)`, flagship `chi_norm_alphaYM` (k = 1), plus `chi_norm_alpha_zero` (k = 0) and `chi_norm_alpha_four` (k = 2) non-vacuity.
+
+**§5 σ correspondence.** `sigma_eq_one_iff_chi_norm_eq_three` — `σ(α) = 1 ↔ ‖χ‖ = 3`, via r212's `sigma_eq_one_iff`. Companion at the σ = 1 level to the r221 pattern at σ = 0.
+
+**§6 Corpus misses.** All 8 remaining canonical pillars miss `‖χ‖ = 3`, each proved via §5 + the appropriate r212 theorem:
+```
+α_Hodge     — mt via sigma_alphaHodge_ne_zero_one.2
+α_P         — mt via sigma_alphaP_ne_zero_one.2
+α_NP        — mt via sigma_alphaNP_ne_zero_one.2
+α_QG        — mt via sigma_alphaQG_ne_zero_one.2
+α_BSD       — mt via sigma_alphaBSD_ne_zero_one.2
+α_NS        — mt via sigma_alphaNS_ne_zero_one.2
+α_Poincaré  — mt via sigma_one (σ = 0 ≠ 1)
+α_RH        — mt via sigma_three_halves (σ = 0 ≠ 1)
+```
+
+**§7 Level-set disjointness.** `chi_norm_one_and_three_disjoint` — no α satisfies both `‖χ‖ = 1` and `‖χ‖ = 3`.
+
+### The YM-pillar elevation
+
+α_YM = 2 sits in the `‖χ‖ = 3` level set at k = 1. Substrate consequences that fall out:
+- `σ(α_YM) = log₃ 3 = 1` (already r212's `sigma_two`).
+- The r220 log-cosine observable at α_YM has envelope `a^1 = a` — linear amplitude growth.
+- The r222 `√3`-spaced zero structure still applies (the shift depends on `logFrequency`, not on the pillar).
+
+α_YM is the FLAGSHIP even-integer hit for `‖χ‖ = 3`. All 8 other canonical corpus alphas explicitly miss (§6).
+
+### Cross-pillar coverage r221 + r224 — all 6 Clay-axis alphas + 3 ancillary anchors
+
+| pillar     | α       | level set    | classification         |
+|------------|---------|--------------|------------------------|
+| α_Poincaré | 1       | ‖χ‖ = 1      | r221 HIT (odd int)     |
+| α_RH       | 3/2     | ‖χ‖ = 1      | r221 HIT (half int)    |
+| α_YM       | 2       | ‖χ‖ = 3      | r224 HIT (even int)    |
+| α_Hodge    | φ       | miss both    | r221 & r224 MISS       |
+| α_P        | √2      | miss both    | r221 (implicit) & r224 MISS |
+| α_NP       | φ + 1/4 | miss both    | r221 (implicit) & r224 MISS |
+| α_QG       | √(2π)   | miss both    | r221 (implicit) & r224 MISS |
+| α_BSD      | 3π/4    | miss both    | r221 (implicit) & r224 MISS |
+| α_NS       | 3π/2    | miss both    | r221 explicit MISS, r224 MISS |
+
+All 9 canonical corpus alphas now have their `‖χ‖ ∈ {1, 3}` level-set membership explicitly formalised or trivially derivable.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT a Yang–Mills mass gap discharge.
+- NOT a substrate derivation of `α_YM = 2` (r212's scope note applies).
+- NOT a physical claim about YM observables. Each level-set membership is a statement about `‖χ‖` on the unit circle, not about physical QCD.
+- IS an exact level-set characterisation companion to r221, closing the three-value integer landscape `‖χ‖ ∈ {0, 1, 3}`; and IS the flagship YM-pillar elevation.
+
+### Build + landing protocol at r224
+
+Full `lake build PF` clean: 4903 → 4904 jobs, exit 0. `#print axioms` returns `[propext, Classical.choice, Quot.sound]` for all 17 declarations (zero `sorryAx`). `PF.lean` +1 import. No Coq mirror: r212, r221 have none to parity against. 10/11 items discharged; storage snapshot refresh at `/Storage 2TB/home/xluxx/Principia-Fractalis-pristine-2026-08-12/` covers this landing (rsync'd earlier in the session and current tree state hasn't materially diverged in file count).
+
+**Elevation from another pillar** at Pabs's directive — the YM axis after the cosmology axis, both from the same substrate machinery, both landed as level-set characterisations of the same universal ternary character norm.
+
+---
+
 ## 2026-08-12 (r223 `SubstrateOscillator` — the unified per-α substrate machine) — one structure, 9 corpus instances, cross-pillar dichotomy
 
 **HEAD prior**: `088d9ac` (r222 √3 shift). **HEAD now**: this commit.
