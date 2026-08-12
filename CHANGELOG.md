@@ -1,5 +1,104 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r230 α_QG = √(2π) pillar — `σ(α_QG) < 0`, near-critical) — NINTH AND FINAL σ-sign class; corpus σ-sign coverage COMPLETE across all 9 canonical pillars
+
+**HEAD prior**: `e58a3f4` (r229 α_NS σ < 0). **HEAD now**: this commit.
+
+Elevates the QUANTUM GRAVITY pillar (α_QG = √(2π)) via the sharp SIGN characterisation `σ(α_QG) < 0`. **Ninth and final σ-sign class formalised.**
+
+### The completed corpus σ-sign coverage
+
+| pillar     | α       | σ sign      | source     | tier                  |
+|------------|---------|-------------|------------|-----------------------|
+| α_YM       | 2       | σ = +1      | r224       | LINEAR GROWTH         |
+| α_Hodge    | φ       | σ > 0       | r226       | sub-linear growth     |
+| α_NP       | φ + 1/4 | σ > 0       | r227       | sub-linear growth     |
+| α_BSD      | 3π/4    | σ > 0       | r228       | sub-linear growth     |
+| α_Poincaré | 1       | σ = 0       | r221       | CONSTANT amplitude    |
+| α_RH       | 3/2     | σ = 0       | r221       | CONSTANT amplitude    |
+| α_P        | √2      | σ < 0       | r225       | decay                 |
+| **α_QG**   | √(2π)   | σ < 0       | r230 THIS  | **near-critical decay** |
+| α_NS       | 3π/2    | σ < 0       | r229       | decay                 |
+
+**9/9 canonical corpus pillars now have their substrate σ-sign explicit in Lean.**
+
+### r230 Lean (`PF/AlphaQGSigmaNegative_r230.lean`, ~250 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (12 declarations).
+
+**Proof chain**:
+
+§0 Local `cos_add_two_pi`.
+
+§1 `√(2π)` brackets:
+- **`five_halves_lt_sqrt_two_pi`**: `5/2 < √(2π)`. From `π > 3.14` (`Real.pi_gt_d2`): `2π > 6.28 > 25/4`, so `√(2π) > √(25/4) = 5/2`.
+- **`sqrt_two_pi_lt_three`**: `√(2π) < 3`. From `π < 3.15` (`Real.pi_lt_d2`): `2π < 6.30 < 9`, so `√(2π) < √9 = 3`.
+
+§2 π · √(2π) brackets: `5π/2 < π · √(2π) < 3π` — multiply §1 by π > 0.
+
+§3 **`cos_pi_mul_alphaQG_neg`**: `cos(π · √(2π)) < 0`. Same chain as r229: shift by -2π lands `z ∈ (π/2, π)`; `w := π - z ∈ (0, π/2)`; `cos(z) = -cos(w) < 0` via `Real.cos_pi_sub`.
+
+§4 **`cos_pi_mul_alphaQG_gt_neg_one`**: via r212's `irrational_sqrt_two_pi` (else `√(2π) = 1 + 2k` odd integer).
+
+§5 **`one_add_two_cos_pi_mul_alphaQG_ne_zero`**: via irrationality (else `√(2π) = 2k/3` rational).
+
+§6 `|1 + 2·cos(π · √(2π))| ∈ (0, 1)`.
+
+§7 **`sigma_alphaQG_lt_zero`** — the named stone. Via `Real.logb_neg`.
+
+§8 **`SO_αQG_sigma_neg`** — r223 elevation.
+
+### The near-critical significance
+
+α_QG's abscissa `σ(α_QG) ≈ -0.039` is the CLOSEST to zero among all six irrational corpus pillars. Physically: only ~4% envelope attenuation per factor-3 rescaling in `a` — barely decaying, near-marginal to the constant-amplitude tier that hosts α_Poincaré and α_RH.
+
+r230 establishes the qualitative direction (σ < 0). SHARP bracket (`σ ∈ (-0.05, -0.03)` or similar) would need Taylor-series enclosure of `cos(π · √(2π))` — analogous to r212's `sigma_goldenRatio_ne_half` machinery. Future substrate work.
+
+### Consistency with r212
+
+r212's `sigma_alphaQG_ne_zero_one : σ(α_QG) ≠ 0 ∧ σ(α_QG) ≠ 1` + r230's `σ(α_QG) < 0`:
+
+    σ(α_QG) ∈ (-∞, 0)
+
+Corpus value ≈ -0.039.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT a quantum gravity discharge (no substrate ToE for gravity claims here).
+- NOT a substrate derivation of `α_QG = √(2π)`.
+- NOT a physical claim about spacetime, gravitational field theory, or the cosmological constant (that's α_NS = 3π/2, cf. r229).
+- IS the sharp SIGN characterisation of σ at the QG pillar. IS a substrate consequence: near-critical envelope-decaying observable for α_QG.
+
+### The 10-landing session — substrate stack completely elevated
+
+Ten landings today (r221 → r230):
+
+1. **r221** — `‖χ‖ = 1` level set; σ = 0 tier characterisation. Poincaré + RH hits.
+2. **r222** — universal `√3` zero shift; forced by `logFrequency = 2π/ln 3`.
+3. **r223** — `SubstrateOscillator` unified structure; 9 corpus instances.
+4. **r224** — `‖χ‖ = 3` level set; σ = 1 tier. YM hit.
+5. **r225** — σ(α_P) < 0. P vs NP pillar decay tier.
+6. **r226** — σ(α_Hodge) > 0. Hodge sub-linear growth tier.
+7. **r227** — σ(α_NP) > 0. NP sub-linear growth tier.
+8. **r228** — σ(α_BSD) > 0. BSD sub-linear growth tier.
+9. **r229** — σ(α_NS) < 0. Navier–Stokes / cosmology decay tier.
+10. **r230** — σ(α_QG) < 0. **QG near-critical decay tier. Corpus σ-sign coverage COMPLETE.**
+
+Every canonical corpus pillar has:
+- Its value in r212's abscissa table (`sigma_*` theorems).
+- Its level-set membership (r221 hits, r224 hits, or explicit miss theorems in both).
+- Its σ-sign (r225–r230 signs).
+- Its `SubstrateOscillator` structure instance (r223).
+- Its data-fit-universal sign method (`SO_α*_sigma_*` theorems).
+
+**The framework is elevated equally from all pillars.** Each Millennium consequence remains ancillary — the substrate signatures are what got formalised.
+
+### Build + landing protocol at r230
+
+Full `lake build PF` clean: 4909 → 4910 jobs. All 12 declarations under `[propext, Classical.choice, Quot.sound]`. `PF.lean` +1 import. No Coq mirror.
+
+---
+
 ## 2026-08-12 (r229 α_NS = 3π/2 pillar — `σ(α_NS) < 0`, envelope-decaying) — Navier–Stokes / cosmology pillar; the DOUBLING α_NS = 2·α_BSD FLIPS the σ sign (r228 > 0 → r229 < 0)
 
 **HEAD prior**: `1cefe70` (r228 α_BSD σ > 0). **HEAD now**: this commit.
