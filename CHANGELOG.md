@@ -1,5 +1,36 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r238 VALIDATION — rational-α σ table: σ(1/2)=0, σ(1/4)=log₃(1+√2), σ(1/6)=log₃(1+√3))
+
+**HEAD prior**: `ec64bfda` (r237 pentagon-golden). **HEAD now**: this commit.
+
+Fifth validation landing. Extends the rational-α σ table with three exact closed forms:
+
+    σ(1/2) = 0                 (half-integer, σ = 0 constant-amplitude tier)
+    σ(1/4) = log₃(1 + √2)      (silver ratio δ_S = 1 + √2)
+    σ(1/6) = log₃(1 + √3)      (hexagon)
+
+Combined with r236 (`σ(1/3) = log 2/log 3` = Cantor Hausdorff dim) and r237 (`σ(1/5) = 2·log₃ φ`, `σ(2/5) = log₃ φ` = pentagon-golden), the substrate now has explicit exact σ values for every rational α ∈ {1/2, 1/3, 1/4, 1/5, 2/5, 1/6} — the "small rational denominators" with clean mathlib-native cosine closed forms.
+
+Also extends the σ = 0 constant-amplitude tier (canonical α_Poincaré = 1, α_RH = 3/2, α_HN = 5) with the half-integer α = 1/2 as a validation instance.
+
+### r238 Lean (`PF/ValidationSigmaRationalTable_r238.lean`, ~220 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (4 theorems).
+
+- **`sigma_one_half_eq_zero`** — via `Real.cos_pi_div_two`.
+- **`sigma_one_quarter_eq_logb_three_one_add_sqrt_two`** — via `Real.cos_pi_div_four`.
+- **`sigma_one_sixth_eq_logb_three_one_add_sqrt_three`** — via `Real.cos_pi_div_six`.
+- **`substrate_rational_alpha_sigma_table_r238_extension`** — three-conjunct named claim.
+
+Adds `SO_αHalf` (α = 1/2), `SO_αSilver` (α = 1/4), `SO_αHexagon` (α = 1/6) as SubstrateOscillator validation instances (all `noncomputable`).
+
+**Verified**: `lake build PF` clean at 4917 jobs (was 4916; +1 file). All r238 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel results (all cos values are classical). NOT proofs of the silver-ratio or hexagon identities. NOT a Millennium discharge. IS three-way extension of the substrate rational-α σ table via exact cosine closed forms.
+
+---
+
 ## 2026-08-13 (r237 VALIDATION — substrate σ(1/5) = 2·log₃ φ and σ(2/5) = log₃ φ, pentagon-golden algebra)
 
 **HEAD prior**: `da0ffd5e` (r236 Cantor dim via σ formula). **HEAD now**: this commit.
