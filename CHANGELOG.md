@@ -1,5 +1,43 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r246 SHARP α_NS UPPER BRACKET — σ(α_NS) < -log 2/log 3 = -Cantor dim)
+
+**HEAD prior**: `41415bf8` (r245 BSD bracket). **HEAD now**: this commit.
+
+Fourth sharp bracket landing. σ(α_NS = 3π/2) is proved strictly below `-log 2 / log 3 = -Cantor dim`, companion to r244's α_P bracket on the negative side.
+
+Same pi-bounds chain as r245: `9π > 28` and `6π < 19` derived from `Real.pi_gt_d2 / pi_lt_d2`. Then `z = π(3π − 8)/2 ∈ (2π/3, 3π/4) ⊂ [0, π]`. `Real.strictAntiOn_cos` gives `cos(z) ∈ (cos(3π/4), cos(2π/3)) = (-√2/2, -1/2)`. `cos(π · α_NS) = cos(4π + z) = cos(z)` via `cos_add_two_pi` twice. So `1 + 2·cos(π · α_NS) ∈ (1 − √2, 0)`, i.e., negative and `|·| ∈ (0, √2 − 1)`. Since `√2 − 1 < 1/2` (from `√2 < 3/2`, r225), `|·| < 1/2`, hence `σ(α_NS) < log₃(1/2) = -log₃ 2`.
+
+### The complete Cantor-value bracketing so far (r243/r244/r245/r246)
+
+    σ(α_Hodge = φ)   < log 2 / log 3    (r243)
+    σ(α_BSD = 3π/4)  < log 2 / log 3    (r245)
+    σ(α_P = √2)      < -log 2 / log 3   (r244)
+    σ(α_NS = 3π/2)   < -log 2 / log 3   (r246)
+
+Four of the six irrational corpus pillars now bracketed against the Cantor Hausdorff value in the substrate σ spectrum. Remaining: α_NP (σ ≈ 0.947 > Cantor, needs different bracket point) and α_QG (near-critical σ ≈ -0.039, not bounded by ±Cantor).
+
+### r246 Lean (`PF/AlphaNSUpperBracketNegCantor_r246.lean`, ~230 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (7 theorems + 1 private helper + elevation).
+
+- **`nine_pi_gt_twenty_eight_r246`** — `9π > 28`.
+- **`six_pi_lt_nineteen`** — `6π < 19`.
+- **`pi_mul_alphaNS_sub_four_pi_gt_two_pi_div_three`** — lower angle bracket.
+- **`pi_mul_alphaNS_sub_four_pi_lt_three_pi_div_four`** — upper angle bracket.
+- **`cos_pi_mul_alphaNS_lt_neg_half`** — via strictAntiOn_cos + `cos(2π/3) = -1/2` via `cos_pi_sub` + `cos_pi_div_three`.
+- **`cos_pi_mul_alphaNS_gt_neg_sqrt_two_div_two`** — via strictAntiOn_cos + `cos(3π/4) = -√2/2` via `cos_pi_sub` + `cos_pi_div_four`.
+- **`abs_one_add_two_cos_pi_mul_alphaNS_lt_half`** — the |·| < 1/2 step.
+- **`sigma_alphaNS_lt_neg_logb_three_two`** — the sharp bracket.
+- **`sigma_alphaNS_lt_neg_cantor_hausdorff_dim`** — the Cantor-tie form.
+- **`SO_αNS_sigma_lt_neg_logb_three_two`** — r223 elevation.
+
+**Verified**: `lake build PF` clean at 4925 jobs (was 4924; +1 file). All r246 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — pure algebra + `Real.strictAntiOn_cos` + mathlib pi bounds. NOT the tightest possible (σ_NS ≈ -1.308 vs the -0.631 bracket). NOT a Millennium discharge. IS the fourth sharp substrate bracket, completing the negative-side Cantor-value bounding pattern started by r244.
+
+---
+
 ## 2026-08-13 (r245 SHARP α_BSD UPPER BRACKET — σ(α_BSD) < log 2/log 3 = Cantor dim)
 
 **HEAD prior**: `c9e9e825` (r244 α_P bracket). **HEAD now**: this commit.
