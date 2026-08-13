@@ -1,5 +1,33 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r240 SIGMA STRUCTURAL SYMMETRIES — period-2, evenness, integer double-shift)
+
+**HEAD prior**: `6cf681fe` (r239 exact σ table capstone). **HEAD now**: this commit.
+
+First structural landing after the r236–r239 validation arc. Three universal symmetries of the substrate σ formula, framework-generic (no per-α, no per-pillar):
+
+    σ(α + 2)    = σ(α)      (period 2, via Real.cos_add_two_pi)
+    σ(-α)       = σ(α)      (evenness, via Real.cos_neg)
+    σ(α + 2·k)  = σ(α)      (integer double-shift, k ∈ ℤ, via Real.cos_add_int_mul_two_pi)
+
+Every exact σ closed form landed in r212–r239 now lifts through r240 to an INFINITE ℤ-orbit of α-values with the same σ, plus negation symmetry. The rational-α σ table becomes a rational-α σ *lattice*.
+
+### r240 Lean (`PF/SigmaSymmetries_r240.lean`, ~160 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (5 theorems).
+
+- **`sigma_add_two`** — period 2.
+- **`sigma_neg`** — evenness.
+- **`sigma_sub_two`** — companion `σ(α − 2) = σ(α)`.
+- **`sigma_add_two_int`** — integer double-shift via `Real.cos_add_int_mul_two_pi`.
+- **`sigma_symmetries_capstone`** — three-conjunct bundle.
+
+**Verified**: `lake build PF` clean at 4919 jobs (was 4918; +1 file). All five r240 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel results — period 2 and evenness of cosine are elementary. NOT a Millennium discharge. IS framework-generic structural machinery: universal symmetries of the r212 σ formula, letting every exact closed form generate an infinite ℤ-orbit.
+
+---
+
 ## 2026-08-13 (r239 EXACT σ TABLE CAPSTONE — framework-first bundle of 11 closed forms)
 
 **HEAD prior**: `fd29743e` (r238 rational-α triple). **HEAD now**: this commit.
