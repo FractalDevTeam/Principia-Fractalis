@@ -1,5 +1,58 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r247 SHARP α_NP LOWER BRACKET — σ(α_NP) > 2·log₃ φ = σ(1/5) = pentagon-golden value)
+
+**HEAD prior**: `f8138423` (r246 NS bracket). **HEAD now**: this commit.
+
+Fifth sharp bracket landing, first LOWER bracket. σ(α_NP = φ+1/4) is proved strictly ABOVE `2·log₃ φ = σ(1/5)` — the r237 pentagon-golden substrate value.
+
+Pure algebra, no Taylor:
+
+1. `√5 > 21/10` via `5 > 441/100 = 4.41`.
+2. `√5 < 5/2` via `5 < 25/4 = 6.25`.
+3. `φ > 31/20` and `φ < 7/4` (companion bounds).
+4. `y = 2π − π · (φ+1/4) = π(7/4 − φ) ∈ (0, π/5)`.
+5. `Real.strictAntiOn_cos` gives `cos(y) > cos(π/5) = (1+√5)/4 = φ/2` via mathlib's `Real.cos_pi_div_five`.
+6. `cos(π · α_NP) = cos(-y + 2π) = cos(y) > φ/2` via `cos_add_two_pi` + `cos_neg`.
+7. `1 + 2·cos(π · α_NP) > 1 + φ = φ²` via `Real.goldenRatio_sq`.
+8. `σ(α_NP) = log₃|·| > log₃(φ²) = 2·log₃ φ` via `Real.logb_lt_logb` + `Real.logb_pow`.
+
+Ties α_NP pillar STRICTLY ABOVE the r237 pentagon-golden substrate value:
+
+    σ(1/5) = 2·log₃ φ  <  σ(α_NP = φ+1/4).
+
+### The substrate bracket picture at HEAD
+
+Five of the six irrational corpus pillars now sharp-bracketed against exact substrate values:
+
+| pillar     | bracket                            | landing |
+|------------|------------------------------------|---------|
+| α_Hodge = φ         | 0 < σ < log 2/log 3      | r226, r243 |
+| α_NP = φ+1/4        | 2·log₃ φ < σ < 1         | r227, r247, r241 |
+| α_BSD = 3π/4        | 0 < σ < log 2/log 3      | r228, r245 |
+| α_P = √2            | σ < -log 2/log 3         | r244 |
+| α_NS = 3π/2         | σ < -log 2/log 3         | r246 |
+| **α_QG = √(2π)**    | -0.05 < σ < 0 (numerical only) | **remaining** |
+
+Only α_QG remains — near-critical, needs Taylor or a very sharp algebraic argument.
+
+### r247 Lean (`PF/AlphaNPLowerBracketPentagon_r247.lean`, ~230 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (5 tightenings + 4 theorems + elevation).
+
+- **`sqrt_five_gt_twenty_one_tenths`**, **`sqrt_five_lt_five_halves`**, **`goldenRatio_gt_thirty_one_twentieths`**, **`goldenRatio_lt_seven_fourths`** — algebraic tightenings.
+- **`two_pi_sub_pi_mul_alphaNP_pos`**, **`two_pi_sub_pi_mul_alphaNP_lt_pi_div_five`** — angle brackets.
+- **`cos_pi_mul_alphaNP_gt_half_goldenRatio`** — cos > φ/2 via strictAntiOn + `cos_pi_div_five`.
+- **`sigma_alphaNP_gt_two_logb_three_goldenRatio`** — the sharp bracket.
+- **`sigma_alphaNP_gt_sigma_one_fifth`** — the r237 pentagon-golden tie form.
+- **`SO_αNP_sigma_gt_two_logb_three_goldenRatio`** — r223 elevation.
+
+**Verified**: `lake build PF` clean at 4926 jobs (was 4925; +1 file). All r247 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — pure algebra + `Real.strictAntiOn_cos` + `Real.cos_pi_div_five` + `Real.goldenRatio_sq`. NOT the tightest possible (σ_NP ≈ 0.947 vs 0.877 bracket). NOT a Millennium discharge. IS the fifth sharp substrate bracket.
+
+---
+
 ## 2026-08-13 (r246 SHARP α_NS UPPER BRACKET — σ(α_NS) < -log 2/log 3 = -Cantor dim)
 
 **HEAD prior**: `41415bf8` (r245 BSD bracket). **HEAD now**: this commit.
