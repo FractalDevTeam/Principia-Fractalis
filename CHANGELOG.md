@@ -1,5 +1,32 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r236 VALIDATION — substrate σ(1/3) = log 2 / log 3 = Cantor Hausdorff dim)
+
+**HEAD prior**: `2491f246` (axiom retirement). **HEAD now**: this commit.
+
+Third validation landing following r233 (ζ abscissa) and r234 (Cantor Hausdorff via ch22 vortex cascade). At α = 1/3, the r212 substrate abscissa formula gives
+
+    σ(1/3) = log₃ |1 + 2·cos(π/3)| = log₃ |1 + 1| = log₃ 2 = log 2 / log 3
+
+which is exactly the classical middle-thirds Cantor set Hausdorff dimension (Hausdorff 1919). This is the SAME number that r234's `substrateEmergenceDimension` produces from the base-3 vortex-cascade declaration in ch22 — proving internal cross-validation across two INDEPENDENT substrate routes.
+
+### r236 Lean (`PF/ValidationSigmaOneThirdCantor_r236.lean`, ~160 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (4 theorems).
+
+- **`sigma_one_third_eq_logb_three_two`** — the direct computation via `Real.cos_pi_div_three`.
+- **`sigma_one_third_eq_substrate_emergence_dim`** — the r234 tie-in: σ(1/3) = `substrateEmergenceDimension`.
+- **`SO_αCantor_sigma_eq_cantor_dim`** — the elevated form on the SubstrateOscillator instance at α = 1/3.
+- **`substrate_matches_cantor_via_sigma_formula`** — the named reproduction claim, `σ(1/3) = log 2 / log 3`.
+
+Adds `SO_αCantor` as a validation corpus instance at α = 1/3 (following r233's `SO_αZeta` precedent). Not a Millennium pillar; a Cantor-equivalent validation.
+
+**Verified**: `lake build PF` clean at 4915 jobs (was 4914; +1 file). All r236 theorems return `[propext, Classical.choice, Quot.sound]`. Zero project axioms preserved.
+
+**Scope**: NOT a novel result. NOT a proof of the Cantor Hausdorff dimension (Hausdorff 1919 is classical). NOT a Millennium discharge. IS internal cross-validation of r212's σ formula against r234's ch22 emergence declaration at a NON-trivial rational α, plus reproduction of a well-established classical result via cosine-sum arithmetic.
+
+---
+
 ## 2026-08-13 (axiom audit — retire refuted T3_sym citation, restore ZERO PROJECT AXIOMS)
 
 **HEAD prior**: `c4db262b` (r235). **HEAD now**: this commit.
