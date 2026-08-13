@@ -1,5 +1,45 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r235 CORPUS 10-PILLAR σ-SIGN DICHOTOMY — full capstone with α_HN) — trichotomy sizes (4, 3, 3)
+
+**HEAD prior**: `4b738612` (r234 Cantor validation). **HEAD now**: this commit.
+
+Extends r231's 9-pillar σ-sign dichotomy to the FULL 10-pillar corpus by adding α_HN = 5 (r232). α_HN joins the σ = 0 constant-amplitude tier, shifting trichotomy sizes from (4, 2, 3) to **(4, 3, 3)** summing to 10.
+
+### r235 Lean (`PF/Corpus10PillarDichotomy_r235.lean`, ~110 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (2 theorems).
+
+- **`corpus_10_pillar_sigma_sign_dichotomy`** — the 10-conjunct capstone; composes r231's 9-conjunct with r232's α_HN σ = 0.
+- **`corpus_10_pillar_trichotomy`** — three-way partition presentation with sizes (4, 3, 3).
+
+### The completed 10-pillar σ-sign machine
+
+| pillar     | α       | σ           | tier                  |
+|------------|---------|-------------|-----------------------|
+| α_YM       | 2       | σ = 1       | linear growth         |
+| α_Hodge    | φ       | σ > 0       | sub-linear            |
+| α_NP       | φ + 1/4 | σ > 0       | sub-linear            |
+| α_BSD      | 3π/4    | σ > 0       | sub-linear            |
+| α_Poincaré | 1       | σ = 0       | constant              |
+| α_RH       | 3/2     | σ = 0       | constant              |
+| **α_HN**   | 5       | σ = 0       | constant              |
+| α_P        | √2      | σ < 0       | decay                 |
+| α_QG       | √(2π)   | σ < 0       | decay (near-critical) |
+| α_NS       | 3π/2    | σ < 0       | decay                 |
+
+### Session tally — 15 landings
+
+r221 (‖χ‖=1) · r222 (√3 shift) · r223 (SubstrateOscillator + constant-amplitude dichotomy) · r224 (‖χ‖=3) · r225 (α_P) · r226 (α_Hodge) · r227 (α_NP) · r228 (α_BSD) · r229 (α_NS) · r230 (α_QG) · r231 (9-pillar σ-sign dichotomy) · r232 (α_HN 10th) · r233 (ζ abscissa validation) · r234 (Cantor Hausdorff validation) · **r235 (10-pillar σ-sign capstone)**.
+
+Substrate σ-sign machine complete at 10-pillar level + 2 validation landings against classical known results.
+
+### Build + landing protocol at r235
+
+Full `lake build PF` clean: 4914 → 4915 jobs. All 2 declarations under `[propext, Classical.choice, Quot.sound]`. `PF.lean` +1 import. No Coq mirror.
+
+---
+
 ## 2026-08-13 (r234 VALIDATION — substrate emergence dimension = log 2 / log 3 = Cantor Hausdorff dim) — second validation landing
 
 **HEAD prior**: `14e92f7a` (r233 ζ abscissa validation). **HEAD now**: this commit.
