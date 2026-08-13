@@ -1,5 +1,49 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r244 SHARP α_P UPPER BRACKET — σ(α_P) < -log 2/log 3 = -Cantor dim, companion to r243)
+
+**HEAD prior**: `59cc7069` (r243 Hodge upper bracket). **HEAD now**: this commit.
+
+Second sharp bracket landing. Companion to r243. σ(α_P = √2) is proved strictly below `-log 2 / log 3 = -log₃ 2 = -σ(1/3) = -Cantor Hausdorff dim`.
+
+**Together with r243, the Cantor dim value STRADDLES the σ = 0 origin**:
+
+    -log 2 / log 3  <  σ(α_P)  <  0  <  σ(α_Hodge)  <  log 2 / log 3
+
+with the middle inequalities from r225 and r226, and the outer strict inequalities being the new r243 (Hodge upper) and r244 (α_P upper) contributions. The Cantor Hausdorff value bounds TWO irrational corpus pillars — Hodge from above (positive side), α_P from below (negative side). Framework-first substrate result.
+
+Pure-algebra proof, no Taylor:
+
+1. `√2 < 17/12` via nlinarith on `(17/12)² = 289/144 > 288/144 = 2`.
+2. `√2 > 4/3` via `16/9 < 18/9 = 2`.
+3. `cos(5π/12) = (√6 − √2)/4` derived via `cos_add` on `π/4 + π/6` with mathlib's `cos_pi_div_{four,six}`, `sin_pi_div_{four,six}` + `Real.sqrt_mul` on `6 = 2 · 3`.
+4. `√6 > 1 + √2` via squaring `(1+√2)² = 3 + 2√2 < 6 = (√6)²` and `lt_of_pow_lt_pow_left₀`.
+5. `cos(π · √2) < -(√6 − √2)/4`: set `y = π(√2 − 1) ∈ (π/3, 5π/12)`; `Real.strictAntiOn_cos` on `[0, π]` gives `cos(y) > cos(5π/12) = (√6 − √2)/4`; `cos_add_pi` gives `cos(π · √2) = -cos(y)`.
+6. `cos(π · √2) > -1/2`: symmetric argument from `y > π/3` gives `cos(y) < cos(π/3) = 1/2`.
+7. `1 + 2·cos(π · √2) < (2 − √6 + √2)/2 < 1/2` (via step 4) AND positive (via step 6).
+8. `σ(α_P) = log₃|·| < log₃(1/2) = -log₃ 2`.
+
+### r244 Lean (`PF/AlphaPUpperBracketNegCantor_r244.lean`, ~270 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (8 helper lemmas + 3 theorems).
+
+- **`sqrt_two_lt_seventeen_twelfths`** — key upper tightening.
+- **`sqrt_two_gt_four_thirds`** — key lower tightening.
+- **`cos_five_pi_div_twelve`** — closed-form via `cos_add`.
+- **`sqrt_six_gt_one_add_sqrt_two`** — algebraic threshold.
+- **`pi_mul_sqrt_two_sub_pi_lt_five_pi_div_twelve`**, **`_gt_pi_div_three`** — angle brackets.
+- **`cos_pi_mul_sqrt_two_lt_neg_bound`** — the key upper bound.
+- **`cos_pi_mul_sqrt_two_gt_neg_half`** — the positivity lower bound.
+- **`sigma_alphaP_lt_neg_logb_three_two`** — the sharp bracket.
+- **`sigma_alphaP_lt_neg_cantor_hausdorff_dim`** — the Cantor-tie form.
+- **`SO_αP_sigma_lt_neg_logb_three_two`** — r223 elevation.
+
+**Verified**: `lake build PF` clean at 4923 jobs (was 4922; +1 file). All r244 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — pure algebra + `Real.strictAntiOn_cos`. NOT the tightest possible (σ_P ≈ -0.692 vs -0.631 bracket). NOT a Millennium discharge. IS the companion sharp bracket to r243, giving the Cantor Hausdorff value a two-sided bounding role in the substrate σ spectrum.
+
+---
+
 ## 2026-08-13 (r243 SHARP HODGE UPPER BRACKET — σ(α_Hodge) < log 2/log 3 = σ(1/3) = Cantor Hausdorff dim)
 
 **HEAD prior**: `8e33885b` (r242 α_YM corpus max). **HEAD now**: this commit.
