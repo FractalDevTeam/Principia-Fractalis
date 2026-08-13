@@ -1,5 +1,41 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r243 SHARP HODGE UPPER BRACKET — σ(α_Hodge) < log 2/log 3 = σ(1/3) = Cantor Hausdorff dim)
+
+**HEAD prior**: `8e33885b` (r242 α_YM corpus max). **HEAD now**: this commit.
+
+First sharp bracket landing. σ(α_Hodge = φ) is proved STRICTLY BELOW `log 2 / log 3 = log₃ 2 = σ(1/3)` — the Cantor Hausdorff dimension from r236. Ties Hodge pillar to Cantor validation value with a strict inequality.
+
+Pure-algebra proof — **no Taylor bounds needed**. Full chain:
+
+1. `sqrt_five_lt_seven_thirds : √5 < 7/3` via nlinarith on `(7/3)² = 49/9 > 5 = 45/9`.
+2. `goldenRatio_lt_five_thirds : φ < 5/3` via `φ = (1+√5)/2 < (1+7/3)/2 = 5/3`.
+3. `pi_mul_goldenRatio_lt_five_pi_div_three : π·φ < 5π/3`.
+4. `two_pi_sub_pi_mul_goldenRatio_gt_pi_div_three : 2π − π·φ > π/3`.
+5. `cos_pi_mul_goldenRatio_lt_half : cos(π·φ) < 1/2` — set `y = 2π − π·φ ∈ (π/3, π/2)`; `Real.strictAntiOn_cos` on `[0, π]` gives `cos(y) < cos(π/3) = 1/2`; periodicity + evenness give `cos(π·φ) = cos(y)`.
+6. `sigma_alphaHodge_lt_logb_three_two : σ(φ) < log₃ 2` — `1 + 2·cos(π·φ) < 2`, positive by r226; `Real.logb_lt_logb` strict monotone.
+
+### r243 Lean (`PF/AlphaHodgeUpperBracketCantor_r243.lean`, ~220 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (5 helper lemmas + 3 theorems).
+
+- **`sqrt_five_lt_seven_thirds`** — key algebraic tightening.
+- **`goldenRatio_lt_five_thirds`** — companion.
+- **`pi_mul_goldenRatio_lt_five_pi_div_three`** — π-scaled form.
+- **`two_pi_sub_pi_mul_goldenRatio_gt_pi_div_three`** — the y > π/3 bound.
+- **`cos_pi_mul_goldenRatio_lt_half`** — the cos bound via `Real.strictAntiOn_cos`.
+- **`sigma_alphaHodge_lt_logb_three_two`** — the sharp bracket.
+- **`sigma_alphaHodge_lt_cantor_hausdorff_dim`** — the Cantor-tie form.
+- **`SO_αHodge_sigma_lt_logb_three_two`** — r223 elevation (universal over data-fit).
+
+Sharpens r242's `sigma_alphaHodge_lt_alphaYM` (`σ_Hodge < 1 = σ_YM`) to `σ_Hodge < log₃ 2 ≈ 0.631`.
+
+**Verified**: `lake build PF` clean at 4922 jobs (was 4921; +1 file). All r243 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — pure algebra + `Real.strictAntiOn_cos`. NOT the tightest possible bracket — `σ_Hodge < 1/2` holds numerically (`σ_Hodge ≈ 0.496`) but requires Taylor sin/cos bounds not in mathlib. NOT a Millennium discharge. IS the first sharp substrate bracket via Taylor-free algebra.
+
+---
+
 ## 2026-08-13 (r242 α_YM IS UNIQUE σ-MAXIMUM IN 10-PILLAR CORPUS — bridges r241 to r235)
 
 **HEAD prior**: `32878275` (r241 σ ≤ 1). **HEAD now**: this commit.
