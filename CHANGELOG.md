@@ -1,5 +1,44 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r239 EXACT σ TABLE CAPSTONE — framework-first bundle of 11 closed forms)
+
+**HEAD prior**: `fd29743e` (r238 rational-α triple). **HEAD now**: this commit.
+
+Framework-first bundling capstone for the validation arc r212–r238. One theorem `substrate_exact_sigma_table_capstone` returns all 11 exact substrate σ closed forms as a single conjunction — no per-value fragmentation, one referee-facing citation object.
+
+### The 11 conjuncts
+
+| α    | σ(α)                | upstream source |
+|------|---------------------|-----------------|
+| 0    | 1                   | r233 (ζ abscissa) |
+| 1/6  | log₃(1 + √3)        | r238 (hexagon) |
+| 1/5  | 2·log₃ φ            | r237 (golden pentagon) |
+| 1/4  | log₃(1 + √2)        | r238 (silver ratio) |
+| 1/3  | log 2 / log 3       | r236 (Cantor Hausdorff via r212) |
+| 2/5  | log₃ φ              | r237 (golden pentagon) |
+| 1/2  | 0                   | r238 (half-integer) |
+| 1    | 0                   | r212 (α_Poincaré) |
+| 3/2  | 0                   | r212 (α_RH) |
+| 2    | 1                   | r212 (α_YM / ζ pole) |
+| 5    | 0                   | r232 (α_HN) |
+
+### r239 Lean (`PF/ExactSigmaTableCapstone_r239.lean`, ~200 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (4 theorems).
+
+- **`substrate_exact_sigma_table_capstone`** — the 11-conjunct capstone.
+- **`substrate_exact_sigma_table_rational_only`** — the 8-conjunct rational-α subset (excludes corpus integer/half-integer α ∈ {1, 3/2, 2, 5}).
+- **`substrate_exact_sigma_table_sigma_zero_anchors`** — the 5-conjunct σ = 0 subtable (α ∈ {1/2, 1, 3/2, 5}), reflecting r221's `‖χ‖ = 1 ↔ α ∈ ½ℤ+½ ∪ 2ℤ+1` on the concrete anchor values.
+- **`substrate_exact_sigma_table_golden_ratio_anchors`** — the 3-conjunct golden-ratio subtable (σ(1/5), σ(2/5), plus the Chebyshev doubling).
+
+Framework-first analogue of r231's `corpus_sigma_sign_dichotomy` (9-conjunct σ-sign bundle) and r235's `corpus_10_pillar_sigma_sign_dichotomy` (10-conjunct extension). No per-value fragmentation: one theorem, one citation.
+
+**Verified**: `lake build PF` clean at 4918 jobs (was 4917; +1 file). All four r239 capstones kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel results — all conjuncts are upstream identities. NOT proofs of any classical identity. NOT a Millennium discharge. IS the referee-facing single-citation object for the substrate's exact σ-value production.
+
+---
+
 ## 2026-08-13 (r238 VALIDATION — rational-α σ table: σ(1/2)=0, σ(1/4)=log₃(1+√2), σ(1/6)=log₃(1+√3))
 
 **HEAD prior**: `ec64bfda` (r237 pentagon-golden). **HEAD now**: this commit.
