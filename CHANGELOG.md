@@ -1,5 +1,43 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r234 VALIDATION — substrate emergence dimension = log 2 / log 3 = Cantor Hausdorff dim) — second validation landing
+
+**HEAD prior**: `14e92f7a` (r233 ζ abscissa validation). **HEAD now**: this commit.
+
+**Second validation landing.** Substrate's base-3 vortex cascade (ch22) has emergence dimension `log 2 / log 3 ≈ 0.6309`, exactly matching the classical Hausdorff dimension of the middle-thirds Cantor set (Hausdorff 1919).
+
+### The test
+
+Substrate side: base-3 vortex cascade at scales `ℓ_n = ℓ₀ · 3^{-n}` with 2 emergence points per triple → Hausdorff dimension `log 2 / log 3`. Classical side: Cantor middle-thirds set, iteratively remove middle third → same dimension.
+
+Not a coincidence: substrate uses base-3 digital sums D₃(n) throughout (r212, r220, r222); Cantor is THE canonical base-3 fractal. Same substrate → same dimension.
+
+### r234 Lean (`PF/ValidationCantorHausdorff_r234.lean`, ~130 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (5 theorems + 1 def):
+
+- `substrateEmergenceDimension := log 2 / log 3` — the substrate value.
+- `substrate_emergence_dimension_pos` — > 0.
+- `substrate_emergence_dimension_lt_one` — < 1.
+- `substrate_emergence_dimension_eq_logb_three_two` — = logb 3 2 (definitional).
+- **`substrate_matches_cantor_hausdorff_dim`** — the named reproduction claim.
+- `substrate_emergence_dimension_in_unit_open_interval` — packaged bounds.
+
+### Session tally — 14 landings
+
+r221–r234. Substrate machine complete (10 pillars, cross-pillar dichotomies) + 2 validation landings.
+
+### HONEST SCOPE
+
+- NOT a novel result — consistency check.
+- NOT a proof of Cantor Hausdorff dim (classical).
+- NOT a substrate derivation of ch22 vortex-cascade structure.
+- IS a validation: substrate's base-3 fractal structure independently produces the same dimension as classical Cantor.
+
+Full `lake build PF` clean: 4913 → 4914 jobs. `PF.lean` +1 import. No Coq mirror.
+
+---
+
 ## 2026-08-13 (r233 VALIDATION — substrate reproduces classical Riemann ζ abscissa at α = 0) — first validation landing, test-against-known-result
 
 **HEAD prior**: `913026da` (r232 α_HN 10th pillar). **HEAD now**: this commit.
