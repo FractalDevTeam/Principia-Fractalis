@@ -1,5 +1,31 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r242 α_YM IS UNIQUE σ-MAXIMUM IN 10-PILLAR CORPUS — bridges r241 to r235)
+
+**HEAD prior**: `32878275` (r241 σ ≤ 1). **HEAD now**: this commit.
+
+Bridging landing. Ties r241's universal σ ≤ 1 ceiling to r235's 10-pillar corpus. α_YM = 2 is the ONLY pillar in the canonical corpus that reaches σ = 1; every other pillar strictly misses.
+
+Composition: r241 gives σ ≤ 1 for every α; r212/r232 give the direct σ values for the σ = 0 tier (α_Poincaré = 1, α_RH = 3/2, α_HN = 5); r212's individual `sigma_alpha*_ne_zero_one` misses give σ ≠ 1 for the six irrational pillars. Together: σ(pillar) < σ(α_YM) for every non-YM pillar in the corpus.
+
+### r242 Lean (`PF/AlphaYMCorpusMaximum_r242.lean`, ~225 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (10 theorems).
+
+- **`sigma_alphaYM_eq_one`** — restates r212's `sigma_two` at the ceiling.
+- Nine strict-inequality theorems, one per non-YM pillar:
+  - Rational tier: `sigma_alphaPoincare_lt_alphaYM`, `sigma_alphaRH_lt_alphaYM`, `sigma_alphaHN_lt_alphaYM` (via direct σ = 0).
+  - Irrational tier: `sigma_alphaHodge_lt_alphaYM`, `sigma_alphaP_lt_alphaYM`, `sigma_alphaNP_lt_alphaYM`, `sigma_alphaQG_lt_alphaYM`, `sigma_alphaBSD_lt_alphaYM`, `sigma_alphaNS_lt_alphaYM` (via r241 `sigma_le_one` + r212 misses).
+- **`alphaYM_unique_maximum_in_10_pillar_corpus`** — 10-conjunct capstone (1 equality + 9 strict inequalities).
+
+Connects to the r233 validation: r241's `sigma_eq_one_iff_even_integer` puts both α_YM = 2 and α = 0 (ζ classical abscissa) in the same 2ℤ ceiling lattice. The substrate's growth peak is the ζ-pole lattice.
+
+**Verified**: `lake build PF` clean at 4921 jobs (was 4920; +1 file). All r242 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT a novel result — direct composition of r241 + r212 + r235. NOT a Millennium discharge. IS a corpus-level bridging theorem showing α_YM is the substrate's unique growth-tier peak.
+
+---
+
 ## 2026-08-13 (r241 σ UNIVERSAL UPPER BOUND — σ(α) ≤ 1, with equality iff α ∈ 2ℤ)
 
 **HEAD prior**: `f365b384` (r240 σ symmetries). **HEAD now**: this commit.
