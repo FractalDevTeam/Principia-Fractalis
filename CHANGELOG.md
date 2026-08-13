@@ -1,5 +1,49 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r233 VALIDATION — substrate reproduces classical Riemann ζ abscissa at α = 0) — first validation landing, test-against-known-result
+
+**HEAD prior**: `913026da` (r232 α_HN 10th pillar). **HEAD now**: this commit.
+
+**FIRST validation landing of a new series.** Test-against-known-result: the substrate abscissa formula `σ(α) = log₃|1 + 2·cos(πα)|` (r212), evaluated at α = 0, gives σ(0) = 1 — exactly matching the Riemann zeta function's classical abscissa of convergence.
+
+### The test
+
+At α = 0, the fractal Dirichlet series `R_f(0, s) = Σ e^{iπ·0·D₃(n)}/n^s = Σ 1/n^s = ζ(s)` (since `e^0 = 1` identically). The substrate abscissa formula gives σ(0) = log₃|1 + 2·cos(0)| = log₃(3) = 1 — matching ζ's classical abscissa exactly.
+
+Per doctrine (Pabs 2026-08-12): "When we answer known open problems through our machinery and get the exact same answer as the accepted solution, it adds robustness to our claims." r233 is the first landing in that series.
+
+### r233 Lean (`PF/ValidationZetaAbscissa_r233.lean`, ~145 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (4 declarations + 1 def):
+
+- **`sigma_zero_eq_one`** — the named validation theorem. σ(0) = 1 via r212's `sigma_eq_one_iff` and `Real.cos_zero`.
+- **`SO_αZeta`** — validation SubstrateOscillator instance at α = 0.
+- **`SO_αZeta_sigma_eq_one`** — the r223 elevation.
+- **`substrate_reproduces_zeta_abscissa`** — the named reproduction claim, alias for `sigma_zero_eq_one`.
+- **`sigma_zero_consistent_via_r224`** — consistency with r224's `chi_norm_alpha_zero` (α = 0 is even integer, ‖χ‖ = 3, so σ = log₃(3) = 1).
+
+### Expertise memory files (from Explore agent output)
+
+Written in parallel during this session (agents used to protect context):
+- `memory/principia_capabilities_inventory_2026-08-13.md` — full capabilities table for substrate machine at HEAD. Inputs, outputs, known matches, refuted claims, open problems, grand summary.
+- `memory/principia_empirical_anchors_2026-08-13.md` — physical measurements (IBM Quantum RH/NP exact hits, DESI DR2, 143-problem panel), per-pillar predictions, confirmed/refuted status, forward validation targets.
+
+### Session tally — 13 landings
+
+r221 (‖χ‖=1) · r222 (√3 shift) · r223 (SubstrateOscillator) · r224 (‖χ‖=3) · r225-r230 (six σ-signs) · r231 (dichotomy capstone) · r232 (α_HN 10th) · **r233 (ζ validation)**.
+
+### HONEST SCOPE
+
+- NOT a novel result — this is a consistency check / validation test.
+- NOT a proof of RH (RH is at α_RH = 3/2, cf. r221; α = 0 is the trivial ζ-reproduction case).
+- IS a validation that the substrate formula reproduces a well-established classical result at the ζ-equivalent α = 0.
+
+### Build + landing protocol at r233
+
+Full `lake build PF` clean: 4912 → 4913 jobs. All 4 declarations under `[propext, Classical.choice, Quot.sound]`. `PF.lean` +1 import. No Coq mirror.
+
+---
+
 ## 2026-08-12 (r232 α_HN = 5 — the tenth canonical pillar) — extends r223's 9-instance corpus with SO_αHN, joins the constant-amplitude tier
 
 **HEAD prior**: `20f69132` (r231 σ-sign dichotomy). **HEAD now**: this commit.
