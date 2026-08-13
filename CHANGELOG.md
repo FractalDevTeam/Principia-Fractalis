@@ -1,5 +1,37 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r232 α_HN = 5 — the tenth canonical pillar) — extends r223's 9-instance corpus with SO_αHN, joins the constant-amplitude tier
+
+**HEAD prior**: `20f69132` (r231 σ-sign dichotomy). **HEAD now**: this commit.
+
+Adds α_HN = 5 as the 10th canonical `SubstrateOscillator` instance, per `docs/COSMOLOGY_LOGPERIODIC_G_2026-08-12.md` §5 which listed α_HN in a ten-alpha extension of r212's nine-alpha table. Joins the σ = 0 constant-amplitude tier alongside α_Poincaré (k = 0) and α_RH (half-integer k = 1) — third odd-integer / half-integer hit for `‖χ‖ = 1`.
+
+### r232 Lean (`PF/AlphaHNPillar_r232.lean`, ~100 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (2 theorems + 1 def).
+
+- **`SO_αHN`** — the 10th SubstrateOscillator instance (α = 5).
+- **`sigma_alphaHN_eq_zero`** — `σ(5) = 0`. Via r212's `cos_pi_mul_eq_neg_one_iff` at k = 2 (5 = 1 + 2·2 odd integer), so `cos(π·5) = -1`; then `|1 + 2·(-1)| = 1`; then `σ = log₃(1) = 0`.
+- **`SO_αHN_sigma_eq_zero`** — r223 elevation, universal over data-fit.
+
+Additive extension: r223 and r231 dichotomy theorems remain 9-pillar (unmodified). A downstream 10-pillar bundle can compose r223 + r231 + r232.
+
+### Session cumulative — 12 landings
+
+r221 through r232, all kernel-clean under `[propext, Classical.choice, Quot.sound]`. The substrate σ-sign machine is complete for 10 canonical pillars.
+
+### Audit scope note
+
+Delivered as `memory/principia_audit_scope_2026-08-12.md` — pre-audit map of 30/35 affected book chapters with landing refs, sequencing tier (backbone → per-pillar → applications), and Pabs-decision judgment calls. **Not the audit itself** — pre-audit map for next fresh session.
+
+Agent B close-the-loop finding: **15/15 numerical claims in the book/docs CONFIRM against today's landings**. No refutations, no tighten-gaps beyond the known "sharp bracket via Taylor" future substrate work.
+
+### Build + landing protocol at r232
+
+Full `lake build PF` clean: 4911 → 4912 jobs. All 3 declarations under `[propext, Classical.choice, Quot.sound]`. `PF.lean` +1 import. Build hiccup fixed: initial `simp [Real.logb_one]` unfolded too much; refactored to explicit `habs : |1 + 2 * cos(π·5)| = 1` + `rw [habs, Real.logb_one]`.
+
+---
+
 ## 2026-08-12 (r231 CORPUS σ-SIGN DICHOTOMY — cross-pillar CAPSTONE) — bundling r212 + r225–r230 into ONE 9-conjunct theorem on r223's SubstrateOscillator; the substrate σ-sign MACHINE is complete
 
 **HEAD prior**: `2878521` (r230 α_QG σ < 0). **HEAD now**: this commit.
