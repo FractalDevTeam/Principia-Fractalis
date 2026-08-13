@@ -1,5 +1,32 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (axiom audit — retire refuted T3_sym citation, restore ZERO PROJECT AXIOMS)
+
+**HEAD prior**: `c4db262b` (r235). **HEAD now**: this commit.
+
+Retired the single remaining project axiom `Mayer1991_Cohen2025_T3_sym_spectral_data_substrate_citation` along with the file that held it (`PF/Analytic/RH_T3SymFrameworkStandard_NamedAnchors_2026_06_19.lean`, 280 lines — one axiom + two dependent theorems + one `Prop := True` marker).
+
+**Why now**: the T₃_sym HP operator on L²([0,1], dx/x) was INVALIDATED 2026-08-02 (correct carrier is Hardy space + Mayer/Ruelle transfer, not affine base-3). The axiom "named-cited" the spectral data of an operator on the wrong carrier. Per Pabs's directive "do the hard research work, no hedging", it is removed rather than deprecated in place.
+
+**RH position is unchanged**. The correct-carrier substrate route lives at r183–r192:
+
+- `PF/HilbertSchmidtL2_r183.lean`
+- `PF/HilbertSchmidtCompact_r184.lean`
+- `PF/HilbertSchmidtGeometric_r185.lean`
+- `PF/TransferMatrixCauchy_r186.lean`
+- `PF/TransferTrace_r188.lean` / `TransferResidue_r188c.lean`
+- `PF/MayerTrace_r190.lean`
+- `PF/TransferPower_r191.lean`
+- `PF/TransferCompose_r192.lean`
+
+Plus the Wave 59 unconditional countability + HP-program bulletproof composition path in `PF/Analytic/RH_FrameworkStandardDischarge_NamedAnchors_2026_06_19.lean`, whose earlier "axioms" were already refactored to `Prop` hypotheses on 2026-07-13.
+
+**Verified**: `lake build PF` clean at **4914 jobs** (was 4915 pre-retirement; ‑1 file). All six headline capstones — Wave58 master capstone, r212 nine-alpha dichotomy, r231 corpus σ-sign dichotomy, r235 10-pillar σ-sign dichotomy, r233 ζ-abscissa validation, r234 Cantor Hausdorff validation — return `[propext, Classical.choice, Quot.sound]`. Full-tree grep confirms no live `axiom` declarations remain in `PF/`.
+
+**Position**: back at the 2026-05-20 milestone "ZERO PROJECT AXIOMS" (commit `72c0137`) with all post-2026-06-07 substrate elevations (r63–r235) preserved on top.
+
+---
+
 ## 2026-08-13 (r235 CORPUS 10-PILLAR σ-SIGN DICHOTOMY — full capstone with α_HN) — trichotomy sizes (4, 3, 3)
 
 **HEAD prior**: `4b738612` (r234 Cantor validation). **HEAD now**: this commit.
