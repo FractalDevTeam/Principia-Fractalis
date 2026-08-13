@@ -1,5 +1,33 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r241 σ UNIVERSAL UPPER BOUND — σ(α) ≤ 1, with equality iff α ∈ 2ℤ)
+
+**HEAD prior**: `f365b384` (r240 σ symmetries). **HEAD now**: this commit.
+
+Second structural landing after r240. Framework-generic ceiling on the substrate abscissa: σ(α) ≤ 1 for every α ∈ ℝ, with equality iff cos(πα) = 1 iff α ∈ 2ℤ.
+
+Puts a CEILING on the substrate growth spectrum. The σ = 1 linear-growth tier is EXACTLY the even-integer lattice — no irrational pillar, no fractional α reaches it. α_YM = 2 (r212 `sigma_two`) and α = 0 (r233 validation) are the corpus/validation instances of this ceiling; every other landed exact σ value strictly misses.
+
+Combined with r240's period-2 symmetry, the σ = 1 tier is exactly the ℤ-orbit of α_YM = 2 (equivalently α = 0), giving a substrate-intrinsic characterization of the maximum-envelope-growth tier.
+
+### r241 Lean (`PF/SigmaUpperBound_r241.lean`, ~170 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (5 theorems).
+
+- **`sigma_le_one`** — universal ceiling.
+- **`sigma_lt_one_iff`** — `σ(α) < 1 ↔ cos(πα) ≠ 1`.
+- **`sigma_lt_one_of_cos_ne_one`** — forward companion form.
+- **`sigma_eq_one_iff_even_integer`** — `σ(α) = 1 ↔ α ∈ 2ℤ` (composes r212's `sigma_eq_one_iff` with `cos_pi_mul_eq_one_iff`).
+- **`substrate_max_envelope_characterization`** — three-conjunct capstone.
+
+Proof of `sigma_le_one`: `|1 + 2·cos(πα)| ≤ 1 + 2·|cos(πα)| ≤ 3` by triangle inequality + `Real.abs_cos_le_one`, then `Real.logb_le_logb_of_le` on positive arguments with degenerate branch (`|…| = 0`) handled via `Real.logb_zero = 0 ≤ 1`.
+
+**Verified**: `lake build PF` clean at 4920 jobs (was 4919; +1 file). All five r241 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT a novel result — `cos ∈ [-1, 1]` is elementary. NOT a Millennium discharge. IS framework-generic structural ceiling on r212's σ formula, characterizing the maximum-growth tier.
+
+---
+
 ## 2026-08-13 (r240 SIGMA STRUCTURAL SYMMETRIES — period-2, evenness, integer double-shift)
 
 **HEAD prior**: `6cf681fe` (r239 exact σ table capstone). **HEAD now**: this commit.
