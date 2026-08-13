@@ -1,5 +1,95 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-12 (r231 CORPUS σ-SIGN DICHOTOMY — cross-pillar CAPSTONE) — bundling r212 + r225–r230 into ONE 9-conjunct theorem on r223's SubstrateOscillator; the substrate σ-sign MACHINE is complete
+
+**HEAD prior**: `2878521` (r230 α_QG σ < 0). **HEAD now**: this commit.
+
+Cross-pillar capstone of the σ-sign work. Bundles r212 (direct σ = 0, σ = 1 hits) plus r225–r230 (five envelope-sign proofs) into ONE 9-conjunct theorem on r223's `SubstrateOscillator`. Analogous to r223's `corpus_constant_amplitude_dichotomy` (σ = 0 partition) but for σ-SIGN across the full corpus.
+
+**The substrate σ-sign machine is complete.** No per-pillar theorem needed downstream — one universal statement covers every canonical alpha, universal over the two data-fit parameters `(A, φ₀)`.
+
+### r231 Lean (`PF/CorpusSigmaSignDichotomy_r231.lean`, ~200 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` throughout (3 theorems).
+
+**§1 `corpus_sigma_sign_dichotomy`** — the 9-conjunct capstone:
+
+```
+σ(α_YM)       = 1       (linear growth)
+σ(α_Hodge)    > 0       (sub-linear growth)
+σ(α_NP)       > 0       (sub-linear growth)
+σ(α_BSD)      > 0       (sub-linear growth)
+σ(α_Poincaré) = 0       (constant amplitude)
+σ(α_RH)       = 0       (constant amplitude)
+σ(α_P)        < 0       (decay)
+σ(α_QG)       < 0       (near-critical decay)
+σ(α_NS)       < 0       (decay)
+```
+
+Each conjunct proved via direct application of the pillar theorem (r212 for σ = 0 and σ = 1 hits, r225–r230 for the five sign proofs).
+
+**§2 `corpus_sigma_trichotomy`** — same content as §1, organised as the three-way partition:
+
+- **Positive σ (4 pillars)**: α_YM, α_Hodge, α_NP, α_BSD
+- **Zero σ (2 pillars)**: α_Poincaré, α_RH
+- **Negative σ (3 pillars)**: α_P, α_QG, α_NS
+
+Partition sizes (4, 2, 3), summing to 9 — the corpus.
+
+**§3 `corpus_no_degenerate`** — a 9-conjunct corollary confirming no corpus α triggers r212's degenerate branch `1 + 2·cos(π·α) = 0`. Each pillar's non-vanishing is derived from either:
+- Direct cos value at rational α (α_YM: cos(2π) = 1; α_Poincaré: cos(π) = -1; α_RH: cos(3π/2) = 0).
+- r226/r227/r228 positive-cos + `intro heq; linarith` for the σ > 0 pillars.
+- r225/r229/r230 already-proved irrationality non-vanishing theorems for the σ < 0 pillars.
+
+Consequence: every corpus pillar has σ ∈ ℝ (finite), not the sentinel value from mathlib's `Real.logb b 0 = 0` convention.
+
+### The complete elevation — corpus reading at HEAD
+
+Every canonical corpus pillar now has:
+
+1. **Value**: r212's abscissa (`sigma_*` theorems)
+2. **Level-set membership**: r221 (‖χ‖ = 1) + r224 (‖χ‖ = 3) with hits and misses
+3. **σ-sign**: r225–r230 individual proofs
+4. **Structure instance**: r223 (SO_α*)
+5. **Data-fit-universal sign method**: SO_α*_sigma_* theorems
+6. **Cross-pillar dichotomy**: r223 (constant-amplitude) + **r231 (σ-sign) THIS**
+
+The substrate MACHINE is complete for the σ dimension. Framework-first, no per-axis fragmentation, every Millennium consequence remains ancillary.
+
+### The r76 doubling identity as a sign flip (recorded here)
+
+α_NS = 2·α_BSD (r76 `substrate_I5_alpha_NS_eq_two_alpha_BSD`). r228 gives σ(α_BSD) > 0; r229 gives σ(α_NS) < 0. Doubling α sends sub-linear-growth tier to decay tier — sign flip forced by the half-period translation `cos(x + π) = -cos(x)`.
+
+### HONEST SCOPE (recorded in the file header)
+
+- NOT a Millennium discharge.
+- NOT a substrate derivation of any pillar α.
+- IS the cross-pillar completion of the σ-sign machine. IS the answer to "elevate equally from all pillars" — one theorem, nine pillars, all substrate signatures at once.
+
+### Build + landing protocol at r231
+
+Full `lake build PF` clean: 4910 → 4911 jobs. All 3 declarations under `[propext, Classical.choice, Quot.sound]`. `PF.lean` +1 import. No Coq mirror.
+
+### The 11-landing session — substrate stack fully elevated + cross-pillar capstone
+
+Eleven landings today (r221 → r231):
+
+1. r221 — ‖χ‖ = 1 level set
+2. r222 — universal √3 zero shift
+3. r223 — SubstrateOscillator structure (9 corpus instances) + `corpus_constant_amplitude_dichotomy`
+4. r224 — ‖χ‖ = 3 level set, YM elevation
+5. r225 — σ(α_P) < 0
+6. r226 — σ(α_Hodge) > 0
+7. r227 — σ(α_NP) > 0
+8. r228 — σ(α_BSD) > 0
+9. r229 — σ(α_NS) < 0
+10. r230 — σ(α_QG) < 0 (near-critical)
+11. **r231 — CORPUS σ-SIGN DICHOTOMY** — cross-pillar capstone bundling all 9 signs
+
+Two cross-pillar dichotomy theorems now on r223's SubstrateOscillator: constant-amplitude (r223 `corpus_constant_amplitude_dichotomy`) and σ-sign (r231 `corpus_sigma_sign_dichotomy`). Every substrate consequence is ONE theorem, universal over data-fit, covering all 9 canonical pillars.
+
+---
+
 ## 2026-08-12 (r230 α_QG = √(2π) pillar — `σ(α_QG) < 0`, near-critical) — NINTH AND FINAL σ-sign class; corpus σ-sign coverage COMPLETE across all 9 canonical pillars
 
 **HEAD prior**: `e58a3f4` (r229 α_NS σ < 0). **HEAD now**: this commit.
