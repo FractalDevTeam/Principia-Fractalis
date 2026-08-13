@@ -1,5 +1,46 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r245 SHARP α_BSD UPPER BRACKET — σ(α_BSD) < log 2/log 3 = Cantor dim)
+
+**HEAD prior**: `c9e9e825` (r244 α_P bracket). **HEAD now**: this commit.
+
+Third sharp bracket landing. σ(α_BSD = 3π/4) is proved strictly below `log 2 / log 3 = Cantor Hausdorff dim`. Same pattern as r243 (Hodge), now for the π² pillar BSD. Pure algebra, no Taylor.
+
+Chain:
+
+1. `9π > 28` via `Real.pi_gt_d2 : π > 3.14`.
+2. `3π < 10` via `Real.pi_lt_d2 : π < 3.15`.
+3. `z = π · (3π/4) − 2π = π(3π − 8)/4`. Then `z > π/3` (from step 1) and `z < π/2` (from step 2).
+4. `Real.strictAntiOn_cos` on `[0, π]` gives `cos(z) < cos(π/3) = 1/2`.
+5. `cos(π · α_BSD) = cos(2π + z) = cos(z) < 1/2` via `cos_add_two_pi`.
+6. `1 + 2·cos(π · α_BSD) < 2`, positive by r228.
+7. `σ(α_BSD) = log₃|·| < log₃ 2 = log 2 / log 3`.
+
+Extends the r243/r244 Cantor-value bounding pattern to a third corpus pillar:
+
+    σ(α_Hodge = φ)   < log 2 / log 3   (r243)
+    σ(α_BSD = 3π/4)  < log 2 / log 3   (r245)
+    σ(α_P = √2)      < -log 2 / log 3  (r244)
+
+### r245 Lean (`PF/AlphaBSDUpperBracketCantor_r245.lean`, ~180 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (7 theorems).
+
+- **`nine_pi_gt_twenty_eight`** — `9π > 28`.
+- **`three_pi_lt_ten`** — `3π < 10`.
+- **`pi_mul_alphaBSD_sub_two_pi_gt_pi_div_three`** — `3π²/4 − 2π > π/3`.
+- **`pi_mul_alphaBSD_sub_two_pi_lt_pi_div_two`** — `3π²/4 − 2π < π/2`.
+- **`cos_pi_mul_alphaBSD_lt_half`** — the cos bound.
+- **`sigma_alphaBSD_lt_logb_three_two`** — the sharp bracket.
+- **`sigma_alphaBSD_lt_cantor_hausdorff_dim`** — the Cantor-tie form.
+- **`SO_αBSD_sigma_lt_logb_three_two`** — r223 elevation.
+
+**Verified**: `lake build PF` clean at 4924 jobs (was 4923; +1 file). All r245 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — pure algebra + `Real.strictAntiOn_cos` + mathlib pi bounds. NOT the tightest possible (σ_BSD ≈ 0.572 vs 0.631 bracket). NOT a Millennium discharge. IS the third sharp substrate bracket.
+
+---
+
 ## 2026-08-13 (r244 SHARP α_P UPPER BRACKET — σ(α_P) < -log 2/log 3 = -Cantor dim, companion to r243)
 
 **HEAD prior**: `59cc7069` (r243 Hodge upper bracket). **HEAD now**: this commit.
