@@ -1,5 +1,34 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r237 VALIDATION — substrate σ(1/5) = 2·log₃ φ and σ(2/5) = log₃ φ, pentagon-golden algebra)
+
+**HEAD prior**: `da0ffd5e` (r236 Cantor dim via σ formula). **HEAD now**: this commit.
+
+Fourth validation landing. Reproduces the classical Ptolemy pentagon identity `cos(π/5) = (1+√5)/4 = φ/2` (~150 CE) through the substrate abscissa formula:
+
+    1 + 2·cos(π/5)  = (3+√5)/2 = φ + 1 = φ²   ⟹   σ(1/5) = 2·log₃ φ
+    1 + 2·cos(2π/5) = (1+√5)/2 = φ            ⟹   σ(2/5) = log₃ φ
+
+The 2π/5 case uses the double-angle identity `cos(2·(π/5)) = 2·cos²(π/5) − 1` reducing to `(√5−1)/4 = 1/(2φ)`. Also lands the algebraic doubling `σ(1/5) = 2·σ(2/5)` — a rational-α Chebyshev echo of the r76 α_NS = 2·α_BSD identity.
+
+### r237 Lean (`PF/ValidationSigmaPentagonGolden_r237.lean`, ~220 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (5 theorems).
+
+- **`cos_two_pi_div_five`** — the double-angle derivation, `cos(2π/5) = (√5−1)/4`, from mathlib's `Real.cos_pi_div_five` + `Real.cos_two_mul` + `nlinarith`.
+- **`sigma_one_fifth_eq_two_logb_three_goldenRatio`** — the σ(1/5) landing, via `Real.goldenRatio_sq` + `Real.logb_pow`.
+- **`sigma_two_fifths_eq_logb_three_goldenRatio`** — the σ(2/5) landing.
+- **`sigma_one_fifth_eq_two_sigma_two_fifths`** — the Chebyshev doubling relation.
+- **`substrate_reproduces_pentagon_golden_algebra`** — the paired reproduction claim (three-conjunct bundle).
+
+Adds `SO_αPentagonOne` at α = 1/5 and `SO_αPentagonTwo` at α = 2/5 as validation corpus instances (both `noncomputable`, following the r236 `SO_αCantor` pattern).
+
+**Verified**: `lake build PF` clean at 4916 jobs (was 4915; +1 file). All five r237 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT a novel result — the pentagon identity is classical Ptolemy (~150 CE). NOT a proof of the golden ratio's algebraic properties (Euclidean). NOT a Millennium discharge. IS substrate reproduction of pentagon–golden algebra via r212 cosine-sum arithmetic at TWO non-trivial rational α values, plus the algebraic doubling relation.
+
+---
+
 ## 2026-08-13 (r236 VALIDATION — substrate σ(1/3) = log 2 / log 3 = Cantor Hausdorff dim)
 
 **HEAD prior**: `2491f246` (axiom retirement). **HEAD now**: this commit.
