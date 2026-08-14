@@ -1,5 +1,52 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r250 SHARP α_QG UPPER BRACKET — σ(α_QG) < log₃(49/50), COMPLETES 6/6 IRRATIONAL COVERAGE)
+
+**HEAD prior**: `e1e7b092` (baryon-junction mapping corrections). **HEAD now**: this commit.
+
+Seventh sharp bracket, completing 6/6 coverage of the irrational corpus pillars. Near-critical σ_QG ≈ -0.039 requires r248's Level-4 sin lower bound plus high-precision π.
+
+Chain:
+
+1. `√(2π) > 2.5065` via `(2.5065)² < 2π` from `Real.pi_gt_d6` (π > 3.141592).
+2. `h := π · √(2π) − 5π/2 > 1/50` from step 1 + π > 3.141592.
+3. `sin(h) > 1/100` via r248's `sin_ge_x_sub_cube_div_six` (Level 4) + `h < 1` upper bound giving `h³ < h`, hence `h − h³/6 > 5h/6 > 5/300 = 1/60 > 1/100`.
+4. `cos(π · √(2π)) = cos(π/2 + h + 2π) = cos(π/2 + h) = -sin(h) < -1/100` via `cos_add_two_pi` + `Real.cos_pi_div_two` + `Real.sin_pi_div_two`.
+5. Positivity `1 + 2·cos(π · √(2π)) > 0`: `h < 1/2` (numerically ≈ 0.021) via `√(2π) < 2.51` and `Real.pi_lt_d6`, giving `sin(h) < h < 1/2` (`Real.sin_lt`), so `cos > -1/2`.
+6. `1 + 2·cos < 49/50`.
+7. `σ_QG < log₃(49/50) ≈ -0.018`.
+
+### The completed sharp-bracket coverage (6/6)
+
+| pillar     | bracket                    | landing |
+|------------|----------------------------|---------|
+| α_Hodge = φ         | σ < 1/2                   | r248 (Taylor) |
+| α_NP = φ+1/4        | σ > 2·log₃ φ              | r247 |
+| α_BSD = 3π/4        | σ < log 2/log 3           | r245 |
+| α_P = √2            | σ < -log 2/log 3          | r244 |
+| **α_QG = √(2π)**    | **σ < log₃(49/50)**      | **r250** |
+| α_NS = 3π/2         | σ < -log 2/log 3          | r246 |
+
+Every irrational corpus pillar now has a kernel-clean sharp algebraic or Taylor bracket.
+
+### r250 Lean (`PF/AlphaQGSharpBracket_r250.lean`, ~230 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (5 helper lemmas + 3 theorems + elevation).
+
+- **`sqrt_two_pi_gt_25065_over_10000`** — high-precision √(2π) lower bound.
+- **`h_gt_one_fiftieth`** — the angle bracket h > 1/50.
+- **`sin_h_gt_one_hundredth`** — via r248 Level 4 + h < 1 upper.
+- **`cos_pi_mul_alphaQG_lt_neg_one_hundredth`** — the cos bound.
+- **`one_add_two_cos_pi_mul_alphaQG_pos`** — positivity via h < 1/2.
+- **`sigma_alphaQG_lt_logb_three_49_over_50`** — the sharp bracket.
+- **`SO_αQG_sigma_lt_logb_three_49_over_50`** — r223 elevation.
+
+**Verified**: `lake build PF` clean at 4929 jobs (was 4928; +1 file). All r250 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel. NOT the tightest possible (σ_QG ≈ -0.039 vs the -0.018 bracket, margin ~0.021). NOT a Millennium discharge. IS the seventh and FINAL sharp substrate bracket, closing 6/6 irrational corpus pillar coverage.
+
+---
+
 ## 2026-08-13 (r249 CORPUS SHARP BRACKET CAPSTONE — framework-first bundle of r244–r248)
 
 **HEAD prior**: `384d4646` (codex baryon-junction mapping). **HEAD now**: this commit.
