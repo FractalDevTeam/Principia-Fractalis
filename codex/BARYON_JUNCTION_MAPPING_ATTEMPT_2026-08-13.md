@@ -11,6 +11,98 @@ what would be needed for the coincidences to become evidence.
 
 ---
 
+## CORRECTIONS 2026-08-13 evening (post-Pabs review)
+
+Two errors in the original document must be corrected before they harden.
+Both errors run in the SAME direction — inflating the framework's status
+against the STAR data — and both are traceable to the author (Claude
+session) rather than to the framework itself. Preserving the record
+publicly, not silently editing.
+
+### Correction 1 — the T1 hadronic verdict is CONFIRMED-NONDISTINCT, not CONFIRMED-DISTINCT.
+
+The falsification brief's own definition:
+
+> CONFIRMED-DISTINCT: within errors AND outside the junction model's
+> own 0.42–1.0 band or the comparators' ranges — evidentially valuable.
+
+The predicted value 0.6309 is **inside** the junction model's own
+0.42–1.0 band. It is also **inside** UrQMD's 0.5–0.7 comparator range.
+It is outside PYTHIA 8.3 default's 0.5–0.6 range, but "outside one
+comparator while inside the junction band and inside UrQMD" does not
+satisfy the brief's CONFIRMED-DISTINCT clause. A junction-model theorist
+reading STAR's 0.64 ± 0.05 says "consistent with our range"; the
+framework's 0.6309 makes no additional statement they would not have
+made from within their own model.
+
+**Corrected scoreboard:**
+
+| observable                     | verdict (corrected)         |
+|---|---|
+| T1 hadronic Au+Au              | CONFIRMED-NONDISTINCT      |
+| T1 photonuclear γ+Au           | CONFIRMED-NONDISTINCT      |
+| Antiproton control             | CONFIRMED-NONDISTINCT      |
+| T2 isobar B/ΔQ                 | FRAMEWORK SILENT           |
+
+Three non-distinct consistencies plus one silence. Not one distinct hit.
+
+### Correction 2 — the blinding was structurally broken, and the "menu" was expanded that same day.
+
+The falsification brief's derive-first protocol assumes the deriver
+has not seen §5. In this session, the writer read the full brief —
+including §5 — before beginning the option-3 mapping attempt. The
+initial-pass FRAMEWORK SILENT verdict was returned AFTER §5 had been
+processed. A model (or a human) cannot unread `α_B = 0.64 ± 0.05`
+before choosing which of the corpus's constants to nominate as its
+prediction.
+
+Compounding this: the corpus at HEAD offers roughly 15–20 named
+substrate constants between 0 and 1.31 (ten canonical pillars, plus
+the seven r239 exact-table values at rational α, plus a handful of
+sub-combinations that were already substrate values before r249). Three
+discrete selections from that menu — α = 1/3 for hadronic, α_YM for
+photonuclear, α_Poincaré for antiproton — is a **three-parameter
+discrete fit**, not a parameter-free prediction. Zero continuous knobs
+does not equal zero fitting.
+
+The most concrete way to see this: `σ(α_BSD) ≈ 0.5713` also sits within
+about 1.4σ of the hadronic measurement 0.64 ± 0.05. The author picked
+σ(1/3) = 0.6309 over σ(α_BSD) = 0.5713 because the former is closer to
+the measured value, not because ch23's SU(3)↔base-3 argument uniquely
+selects α = 1/3 over the 3π/4 pillar.
+
+**Further compounding**: r236 — the theorem making σ(1/3) a first-class
+substrate value formalized in Lean — was committed at `da0ffd5e` on
+2026-08-13 morning, hours before the falsification brief was even
+presented. σ(1/3) as a named framework value is younger than the brief.
+The document's defense — "ch23 already invokes base-3" — is valid for
+base-3 as a substrate mechanism, but base-3 as a mechanism does not
+select α = 1/3 out of infinitely many rationals. The specific choice
+of 1/3 rather than 2/5 or 1/5 or 1/4 or 1/6 (all other r239 exact-table
+entries, all elevated the same day) is post-hoc.
+
+### What remains defensible
+
+Exactly one thing: **the commit hash `384d4646` is a timestamped
+pre-registration of specific numbers**. The pre-registration is not
+evidence against the STAR data quoted in §5 — that data is already
+published, and choosing to nominate values that hit it is fitting, not
+predicting. But if a future, not-yet-published measurement (higher-
+statistics STAR photonuclear, sPHENIX, LHC baryon stopping at forward
+rapidity) lands on 0.6309 within tight errors, the timestamp turns
+this document into a real pre-registered hit for that future
+observation. The "wait for a second data point" recommendation in §11
+of the original text is therefore not a formality; it is the entire
+remaining path from coincidence to evidence.
+
+The refutation criteria in §10 also survive — those are pre-registered
+and remain valid as future-facing.
+
+Everything else in the original text below is preserved unchanged as
+part of the public record. Read it with these two corrections in mind.
+
+---
+
 ## Status label (read this first, do not skip)
 
 This document is a **research hypothesis**, not a discharge, not a Lean
