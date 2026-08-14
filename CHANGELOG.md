@@ -1,5 +1,36 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r251 CORPUS SHARP BRACKET COMPLETE CAPSTONE — 6/6 in ONE theorem)
+
+**HEAD prior**: `96a4d653` (r250). **HEAD now**: this commit.
+
+Extends r249's 5-conjunct sharp-bracket capstone to the full 6-conjunct capstone including α_QG (r250). Every irrational corpus pillar sharp-bracketed in ONE referee-facing theorem.
+
+### Six conjuncts
+
+    σ(α_Hodge = φ)         < 1/2                     [r248, Taylor]
+    σ(α_NP = φ+1/4)        > 2·log₃ φ = σ(1/5)       [r247]
+    σ(α_BSD = 3π/4)        < log 2 / log 3 = σ(1/3)  [r245]
+    σ(α_P = √2)            < -log 2 / log 3          [r244]
+    σ(α_QG = √(2π))        < log₃(49/50)             [r250]
+    σ(α_NS = 3π/2)         < -log 2 / log 3          [r246]
+
+### The complete corpus σ position at HEAD
+
+Combined with r212/r232 exact `σ = 0` (Poincaré, RH, HN) and r212 `sigma_two` (YM at σ = 1 exactly) plus r242's corpus-max theorem, **all ten canonical corpus pillars now have their σ position pinned or bracketed with kernel-clean substrate identities**.
+
+### r251 Lean (`PF/CorpusSharpBracketComplete_r251.lean`, ~90 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (1 capstone).
+
+- **`corpus_sharp_bracket_complete_capstone`** — the six-conjunct bundle.
+
+**Verified**: `lake build PF` clean at 4930 jobs (was 4929; +1 file). Kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — direct composition of r244–r250 upstream. NOT a Millennium discharge. IS the complete framework-first sharp-bracket capstone.
+
+---
+
 ## 2026-08-13 (r250 SHARP α_QG UPPER BRACKET — σ(α_QG) < log₃(49/50), COMPLETES 6/6 IRRATIONAL COVERAGE)
 
 **HEAD prior**: `e1e7b092` (baryon-junction mapping corrections). **HEAD now**: this commit.
