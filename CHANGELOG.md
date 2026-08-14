@@ -1,5 +1,32 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r253 SIGMA DEGENERATE LOCUS — structural clarification of σ's degenerate branch)
+
+**HEAD prior**: `9527d58d` (r252 grand capstone). **HEAD now**: this commit.
+
+Framework-generic structural clarification of the substrate abscissa formula's degenerate behavior. When `|1 + 2·cos(πα)| = 0`, mathlib's convention `Real.logb b 0 = 0` fires, so σ outputs 0 for a reason UNRELATED to any convergence-abscissa identity. r253 pins the locus explicitly on the REVERSE direction.
+
+### Key results
+
+- `cos_two_pi_div_three_eq_neg_half`: `cos(2π/3) = -1/2` via `cos_pi_sub` + `cos_pi_div_three`.
+- `cos_pi_mul_at_two_thirds_lattice (k : ℤ)`: `cos(π·(2/3 + 2k)) = -1/2` universal.
+- `cos_pi_mul_at_neg_two_thirds_lattice (k : ℤ)`: companion for `-2/3 + 2k`.
+- `sigma_two_thirds_eq_zero`, `sigma_neg_two_thirds_eq_zero`, `sigma_four_thirds_eq_zero`.
+- `sigma_at_degenerate_lattice_pos/neg`: universal over `k ∈ ℤ`.
+- `substrate_degenerate_locus_capstone`: three-conjunct summary bundling the cos lattice-value and the σ = 0 orbits.
+
+Uses r240's `sigma_neg` (evenness) and `sigma_add_two` (period 2) for the shifts. Forward direction (from degenerate condition to lattice membership) requires mod-3 case split not landed here; r212's `cos_pi_mul_eq_neg_half_imp_rational` provides the intermediate step.
+
+### r253 Lean (`PF/SigmaDegenerateLocus_r253.lean`, ~170 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (5 lemmas + 3 theorems + 1 capstone).
+
+**Verified**: `lake build PF` clean at 4932 jobs (was 4931; +1 file). Kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — pure algebra + `Real.cos_pi_sub` + `Real.cos_pi_div_three` + r240 symmetries. NOT the full biconditional. NOT a Millennium discharge. IS a framework-generic structural clarification of the substrate's degenerate branch.
+
+---
+
 ## 2026-08-13 (r252 SUBSTRATE MACHINE GRAND CAPSTONE — 33+ conjuncts in ONE theorem)
 
 **HEAD prior**: `0f0d8fd7` (r251). **HEAD now**: this commit.
