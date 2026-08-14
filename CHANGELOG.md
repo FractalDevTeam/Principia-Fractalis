@@ -1,5 +1,40 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r249 CORPUS SHARP BRACKET CAPSTONE — framework-first bundle of r244–r248)
+
+**HEAD prior**: `384d4646` (codex baryon-junction mapping). **HEAD now**: this commit.
+
+Framework-first bundle capstone, analogous to r235 (σ-sign dichotomy) and r239 (exact σ table). One theorem `corpus_sharp_bracket_capstone` returns all five sharp brackets on the corpus's irrational pillars as a single conjunction — no per-axis fragmentation, one referee-facing citation object.
+
+### The five conjuncts
+
+| pillar     | bracket                             | landing |
+|------------|-------------------------------------|---------|
+| α_Hodge = φ         | σ < 1/2                    | r248 (Taylor) |
+| α_NP = φ+1/4        | σ > 2·log₃ φ = σ(1/5)      | r247 |
+| α_BSD = 3π/4        | σ < log 2/log 3 = σ(1/3)   | r245 |
+| α_P = √2            | σ < -log 2/log 3           | r244 |
+| α_NS = 3π/2         | σ < -log 2/log 3           | r246 |
+
+Not included in the bundle:
+- α_QG = √(2π) — near-critical (σ ≈ -0.039), no clean algebraic threshold at HEAD.
+- α_YM = 2 — at ceiling σ = 1 exactly (per r212 and r242 corpus-max theorem).
+- α_Poincaré / α_RH / α_HN — σ = 0 exactly (per r239 table).
+
+### r249 Lean (`PF/CorpusSharpBracketCapstone_r249.lean`, ~135 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (3 capstones).
+
+- **`corpus_sharp_bracket_capstone`** — the five-conjunct bundle.
+- **`corpus_sharp_bracket_positive_side`** — three-conjunct sub-bundle for the σ > 0 pillars.
+- **`corpus_sharp_bracket_negative_side`** — two-conjunct sub-bundle for the σ < 0 pillars.
+
+**Verified**: `lake build PF` clean at 4928 jobs (was 4927; +1 file). All r249 capstones kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — direct composition of r244–r248 upstream identities. NOT a Millennium discharge. IS the framework-first bundle capstone.
+
+---
+
 ## 2026-08-13 (r248 TIGHTER HODGE UPPER BRACKET via TAYLOR — σ(α_Hodge) < 1/2)
 
 **HEAD prior**: `7cd80ee5` (r247 α_NP pentagon bracket). **HEAD now**: this commit.
