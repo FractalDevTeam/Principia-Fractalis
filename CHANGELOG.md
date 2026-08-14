@@ -1,5 +1,50 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r248 TIGHTER HODGE UPPER BRACKET via TAYLOR — σ(α_Hodge) < 1/2)
+
+**HEAD prior**: `7cd80ee5` (r247 α_NP pentagon bracket). **HEAD now**: this commit.
+
+Sixth sharp bracket. **Sharpens r243** (σ_Hodge < log 2/log 3 ≈ 0.631) to **σ_Hodge < 1/2**. First landing that requires a Taylor-order sin/cos bound derived from scratch — the algebraic-only route topped out at r243.
+
+### The Taylor cascade (levels 4, 5, 6)
+
+Deriving `sin(x) ≤ x − x³/6 + x⁵/120` for `x ≥ 0` from scratch, using `mathlib.Analysis.Calculus.Deriv.MeanValue.monotone_of_deriv_nonneg` and `monotoneOn_of_deriv_nonneg`. Three-level cascade:
+
+- **Level 4**: `x − x³/6 ≤ sin x` for `x ≥ 0`. Proof: `g(x) := sin x − x + x³/6`, `g(0) = 0`, `g'(x) = cos x − 1 + x²/2 ≥ 0` globally (via `Real.one_sub_sq_div_two_le_cos`). So `g` monotone; `g(x) ≥ g(0) = 0`.
+- **Level 5**: `cos x ≤ 1 − x²/2 + x⁴/24` for `x ≥ 0`. Proof: `h(x) := 1 − x²/2 + x⁴/24 − cos x`, `h'(x) = sin x − x + x³/6 ≥ 0` for `x ≥ 0` (Level 4). `MonotoneOn (Set.Ici 0)`.
+- **Level 6** (the Taylor upper bound): `sin x ≤ x − x³/6 + x⁵/120` for `x ≥ 0`. Proof: `k(x) := x − x³/6 + x⁵/120 − sin x`, `k'(x) = 1 − x²/2 + x⁴/24 − cos x ≥ 0` for `x ≥ 0` (Level 5). `MonotoneOn (Set.Ici 0)`.
+
+Not in mathlib — mathlib has `sin_lt : sin x < x` (1st order) and `sin_gt_sub_cube : x − x³/4 < sin x` (weakened 3rd-order lower). Levels 4/5/6 are fresh derivations.
+
+### Application to σ_Hodge
+
+- `cos(π · φ) = sin(z)` where `z = π(√5 − 2)/2 ≈ 0.371`. Via `π · φ = 3π/2 + z` and `cos(3π/2 + z) = sin(z)`.
+- Bound `z < zb := 3723/10000` using `π < 3.1416` (`Real.pi_lt_d4`) and `√5 < 2237/1000` (nlinarith on `5.004169 > 5`).
+- Use `Real.strictMonoOn_sin` on `[-π/2, π/2]` to get `sin(z) ≤ sin(zb)`.
+- Level 6 at `zb`: `sin(zb) ≤ zb − zb³/6 + zb⁵/120`.
+- `Poly(zb) < 0.364` by `norm_num`.
+- `(√3 − 1)/2 > 0.366` from `√3 > 1.732` (via `sq_nonneg (√3 − 1.732)`).
+- So `sin(z) < (√3 − 1)/2`.
+- Chain to `1 + 2·cos(π · φ) < √3`, positive by r226.
+- `log₃(√3) = 1/2` via `Real.logb_pow` on `(√3)² = 3` and `Real.logb_self_eq_one`.
+- Therefore `σ(α_Hodge) < 1/2`.
+
+### r248 Lean (`PF/AlphaHodgeTighterHalfBracket_r248.lean`, ~390 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (main 4 theorems + 6 helper lemmas + 12 private auxiliaries).
+
+- **`sin_ge_x_sub_cube_div_six`** — Level 4.
+- **`cos_le_one_sub_sq_div_two_add_fourth_div_twenty_four`** — Level 5.
+- **`sin_le_taylor_fifth_order`** — Level 6 (the Taylor upper bound).
+- **`sqrt_five_lt_2237_over_1000`**, **`pi_mul_sqrt_five_sub_two_div_two_lt_zbound`**, **`taylor_poly_at_zbound_lt_target`**, **`sin_z_lt_target`**, **`cos_pi_mul_goldenRatio_lt_sqrt_three_minus_one_div_two`** — application helpers.
+- **`sigma_alphaHodge_lt_half`** — the sharp bracket.
+
+**Verified**: `lake build PF` clean at 4927 jobs (was 4926; +1 file). All r248 theorems kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — Taylor upper bound is 19th-century standard. NOT the tightest possible (numerical `σ_Hodge ≈ 0.4989` vs `0.5` threshold; margin ~ 0.001). NOT a Millennium discharge. IS the first Taylor-based substrate landing, sharpening r243's Cantor bracket to the σ = 1/2 threshold.
+
+---
+
 ## 2026-08-13 (r247 SHARP α_NP LOWER BRACKET — σ(α_NP) > 2·log₃ φ = σ(1/5) = pentagon-golden value)
 
 **HEAD prior**: `f8138423` (r246 NS bracket). **HEAD now**: this commit.
