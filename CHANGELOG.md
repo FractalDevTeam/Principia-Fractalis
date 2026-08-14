@@ -1,5 +1,31 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r252 SUBSTRATE MACHINE GRAND CAPSTONE — 33+ conjuncts in ONE theorem)
+
+**HEAD prior**: `0f0d8fd7` (r251). **HEAD now**: this commit.
+
+Framework-first meta-capstone. Bundles every layer of the substrate σ machine's corpus-level knowledge at HEAD into ONE referee-facing conjunctive theorem `substrate_machine_grand_capstone`:
+
+- **Layer 1** (r239) — 11 exact σ closed forms.
+- **Layer 2** (r240) — 3 universal structural symmetries (period 2, evenness, integer shift).
+- **Layer 3** (r241) — universal ceiling σ ≤ 1 with 2ℤ characterization.
+- **Layer 4** (r242) — α_YM = 2 unique corpus σ-max (10-conjunct).
+- **Layer 5** (r251) — 6-conjunct sharp brackets on all irrational corpus pillars.
+
+Total: 33+ conjuncts bundled. A referee asking "what does the substrate know about its own α-skeleton at HEAD?" cites `substrate_machine_grand_capstone`, no per-file drill-down needed. Follows anti-fragmentation doctrine.
+
+### r252 Lean (`PF/SubstrateMachineGrandCapstone_r252.lean`, ~140 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (1 grand capstone).
+
+- **`substrate_machine_grand_capstone`** — the meta-capstone.
+
+**Verified**: `lake build PF` clean at 4931 jobs (was 4930; +1 file). Kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — direct composition of r239 + r240 + r241 + r242 + r251. NOT a Millennium discharge. NOT a claim exceeding upstream. IS the framework-first GRAND CAPSTONE for the substrate σ machine at HEAD.
+
+---
+
 ## 2026-08-13 (r251 CORPUS SHARP BRACKET COMPLETE CAPSTONE — 6/6 in ONE theorem)
 
 **HEAD prior**: `96a4d653` (r250). **HEAD now**: this commit.
