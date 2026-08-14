@@ -1,5 +1,37 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-13 (r254 σ_α_QG TWO-SIDED BRACKET — companion lower to r250's upper)
+
+**HEAD prior**: `f91c1b5d` (r253 degenerate locus). **HEAD now**: this commit.
+
+Companion lower bound to r250's upper. Together: `log₃(19/20) < σ(α_QG = √(2π)) < log₃(49/50)`. Numerical σ_QG ≈ -0.0387 sits inside the interval (-0.0466, -0.0184).
+
+Chain:
+
+1. `√(2π) < 25073/10000` via `(2.5073)² > 2π` from `Real.pi_lt_d6` (π < 3.141593).
+2. `h := π · √(2π) − 5π/2 < 1/40` via step 1 and π < 3.141593.
+3. `sin(h) < h < 1/40` via `Real.sin_lt` for h > 0 (from r250's `h_gt_one_fiftieth`).
+4. `cos(π · √(2π)) = -sin(h) > -1/40`.
+5. `1 + 2·cos > 19/20`.
+6. `σ_QG > log₃(19/20)` via `Real.logb_lt_logb`.
+
+### r254 Lean (`PF/AlphaQGTwoSidedBracket_r254.lean`, ~160 lines, kernel-clean)
+
+Under `[propext, Classical.choice, Quot.sound]` (5 helper lemmas + 2 theorems).
+
+- **`sqrt_two_pi_lt_25073_over_10000`** — high-precision √(2π) upper bound.
+- **`h_lt_one_fortieth`** — h < 1/40.
+- **`sin_h_lt_one_fortieth`** — via `Real.sin_lt`.
+- **`cos_pi_mul_alphaQG_gt_neg_one_fortieth`** — cos > -1/40.
+- **`sigma_alphaQG_gt_logb_three_19_over_20`** — the lower bracket.
+- **`sigma_alphaQG_two_sided_bracket`** — two-sided capstone bundling r250 upper + this lower.
+
+**Verified**: `lake build PF` clean at 4933 jobs (was 4932; +1 file). Kernel-only. Zero project axioms preserved.
+
+**Scope**: NOT novel — pure algebra + `Real.sin_lt` + high-precision `Real.pi_lt_d6`. NOT the tightest possible. NOT a Millennium discharge. IS the two-sided sharp bracket for σ_QG, complementing r250's one-sided.
+
+---
+
 ## 2026-08-13 (r253 SIGMA DEGENERATE LOCUS — structural clarification of σ's degenerate branch)
 
 **HEAD prior**: `9527d58d` (r252 grand capstone). **HEAD now**: this commit.
