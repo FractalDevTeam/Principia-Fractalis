@@ -89,9 +89,110 @@ Build: 4951 jobs.
 
 Route B is the mathlib-native second front on RH — NOT the substrate closure of RH. The substrate closure is already delivered kernel-clean by `unified_clay_closure_via_substrate_linkage_bulletproof` (all six Clay axes as ONE bundle). Route B is an independent Lean-native path on literal `Complex.riemannZeta`, complementing the substrate closure via the Hilbert-Pólya program on the T₃^sym operator. Both routes converge on RH from independent directions, each with its own explicit named published-mathematics residuals.
 
-### CHANGELOG gap notice
+---
 
-Landings r255–r266 (Wave 58/59 substrate results + Route B algebraic layer r257–r266) are NOT captured in this CHANGELOG. Git history at `git log --oneline r254..r267` is authoritative; a backfill session can add them later.
+## 2026-08-14 (r257–r266 HARDY ROUTE B ALGEBRAIC LAYER + DIRICHLET-ETA BRICKS)
+
+**HEAD prior**: `442a9688` (r256). **HEAD after**: `3ab4a9cf` (r266).
+
+Nine landings (r257 through r266, with r258–r260 committed as one bundle) that build the certified-numerics Route B path to inhabiting the Wave 58/59 RH atomic residual `PositiveOnLineZetaZeroOrdinatesNonempty`, then start the Dirichlet-eta formalization strand toward the missing analytical fact. All theorems kernel-only `[propext, Classical.choice, Quot.sound]`. Zero project axioms preserved.
+
+### r257 `881e5979` — Xi evenness on ℝ
+
+Four structural properties of Xi derived from mathlib's `completedRiemannZeta`:
+
+- `xi_even`: `Xi (-t) = Xi t` via `<1/2, -t> = 1 - <1/2, t>` + `completedRiemannZeta_one_sub`.
+- `xi_symm_at_zero`: `Xi 0 = (completedRiemannZeta (1/2 : ℂ)).re`.
+- `xi_is_real_of_eq`: `completedRiemannZeta <1/2, t> = ((Xi t : ℝ) : ℂ)`.
+- `xi_sign_change_via_zero`: if `Xi 0 · Xi b < 0` for some `b > 0`, then `PositiveOnLineZetaZeroOrdinatesNonempty`.
+
+### r258–r260 `4e9377ca` — Xi Route B algebraic-layer closure (three-brick bundle)
+
+**r258** `HardyRouteXiZeroFactored`:
+- `gammaR_half_ne_zero` via `Gammaℝ_ne_zero_of_re_pos`.
+- `completedRiemannZeta_half_eq`: `Λ(1/2) = Gammaℝ(1/2) · ζ(1/2)`.
+- `xi_zero_factored`: `Xi 0 = (Gammaℝ(1/2) · ζ(1/2)).re`.
+
+**r259** `HardyRouteGammaRHalfReal`:
+- `gammaR_half_eq_ofReal`: `Gammaℝ(1/2 : ℂ) = ((π^(-1/4) · Γ(1/4) : ℝ) : ℂ)` via `Gammaℝ_def` + `Complex.ofReal_cpow` + `Complex.Gamma_ofReal`.
+- `gammaR_half_im_zero` and `gammaR_half_re_pos`.
+
+**r260** `HardyRouteXiZeroSignReduction`:
+- `xi_zero_eq_gammaR_re_mul_zeta_re`: `Xi 0 = (Gammaℝ(1/2)).re · (ζ(1/2)).re`.
+- `xi_zero_neg_iff_zeta_half_re_neg` / `xi_zero_pos_iff_zeta_half_re_pos`.
+
+### r261 `c8e75104` — ζ(1/2) is real + two-sided sign change
+
+- `zeta_half_im_zero`: `(riemannZeta (1/2 : ℂ)).im = 0` via `riemannZeta_def_of_ne_zero` + `Xi_im_eq_zero` at `t = 0` + r259's `Gammaℝ_im = 0` collapsed through `Complex.div_im`.
+- `xi_sign_change_via_zero_symmetric`: sign change for ANY `b ≠ 0` (positive or negative) inhabits the atom, via `xi_even` reducing the negative branch.
+
+### r262 `32d5265b` — Route B ALGEBRAIC-LAYER CAPSTONE
+
+`hardy_route_b_algebraic_layer_capstone_at_HEAD` — eight-conjunct capstone bundling r257–r261 into one referee-facing single-citation object. Zero new mathematical content; the composition exposes what the substrate has reduced the Wave 58/59 RH atomic residual to. Numerical closure: given `(ζ(1/2)).re < 0` AND `∃ b > 0, 0 < Xi b`, then `PositiveOnLineZetaZeroOrdinatesNonempty`.
+
+### r263 `270a0db3` — Xi zero characterization of the RH atom
+
+Structural equivalence:
+
+- `gammaR_critical_ne_zero`: `Gammaℝ(<1/2, t> : ℂ) ≠ 0` for every real t.
+- `completedRiemannZeta_critical_eq`: `Λ <1/2, t> = ζ <1/2, t> · Gammaℝ <1/2, t>`.
+- `xi_t_zero_iff_zeta_at_critical_zero`: `Xi t = 0 ↔ riemannZeta (<1/2, t> : ℂ) = 0` for EVERY real t (unconditional, no positivity of t needed).
+
+### r264 `d660ff48` — Dirichlet η at s = 1/2 is positive (Route B fact (a) brick 1)
+
+First brick on the mathlib-adjacent Dirichlet-eta formalization (mathlib currently has no Dirichlet eta content).
+
+- `dirichletEtaHalfPartial N := ∑ i ∈ range N, (-1)^i / √(i+1)` (partial sums 1 − 1/√2 + 1/√3 − …).
+- `inv_sqrt_succ_antitone`, `sqrt_succ_tendsto_atTop`, `inv_sqrt_succ_tendsto_zero`.
+- `dirichletEtaHalfPartial_tendsto`: `∃ l, Tendsto dirichletEtaHalfPartial atTop (𝓝 l)` via `Antitone.tendsto_alternating_series_of_tendsto_zero`.
+- `dirichletEtaHalf_pos`: for every limit `l`, `0 < 1 − 1/√2 ≤ l` via `Antitone.alternating_series_le_tendsto` at `k = 1`.
+
+### r265 `0cd280e7` — `dirichletEtaHalf` as a concrete real
+
+Packaging brick promoting r264's existential to a first-class `ℝ` via `Classical.choose`.
+
+- `dirichletEtaHalf : ℝ := Classical.choose dirichletEtaHalfPartial_tendsto`.
+- `dirichletEtaHalf_tendsto`, `dirichletEtaHalf_positive`, `dirichletEtaHalf_ge_one_minus_inv_sqrt_two`.
+
+### r266 `3ab4a9cf` — Dirichlet η-ζ conditional bridge at s = 1/2
+
+Exposes exactly what a future formalization of the classical η(s) = (1 − 2^(1−s))·ζ(s) identity yields when combined with r265.
+
+- `one_minus_sqrt_two_neg`: `1 − √2 < 0`.
+- `zeta_half_re_neg_from_eta_zeta_identity`: under `((dirichletEtaHalf : ℝ) : ℂ) = ((1 − √2 : ℝ) : ℂ) · riemannZeta (1/2 : ℂ)`, conclude `(riemannZeta (1/2 : ℂ)).re < 0`.
+- `xi_sign_change_via_eta_zeta_identity`: composes with r260 to inhabit the atom under both the identity and a positive Xi witness.
+
+Makes THE ONE MISSING ANALYTICAL FACT for a Lean-native Route B RH atom discharge absolutely explicit — closed at r272 via the r271 named Dirichlet 1858 residual.
+
+---
+
+## 2026-08-13 (r255–r256 MILLENNIUM CAPSTONES — RH substrate position + supreme capstone at HEAD)
+
+**HEAD prior**: `0a4d272d` (r254). **HEAD after**: `442a9688` (r256).
+
+Two four-layer capstones bundling substrate content already kernel-clean into referee-facing single-citation objects. Zero new mathematical content; the compositions expose the framework's total Millennium position at HEAD.
+
+### r255 `f824218a` — Millennium RH substrate position capstone (`PF/MillenniumRHSubstratePositionCapstone_r255.lean`)
+
+Four-conjunct composition:
+
+1. `σ(3/2) = 0` (r212 substrate abscissa at α_RH — places α_RH pillar on constant-amplitude tier).
+2. Wave 59 unconditional countability of positive on-line ζ-zero ordinates (from mathlib alone: holomorphic isolated zeros + σ-compactness of ℝ).
+3. Wave 58/59 ONE-FACT reduction: `PF_T3SymIsHilbertPolyaOperator_Positive ↔ PositiveOnLineZetaZeroOrdinatesNonempty` — substrate residual reduces to a SINGLE atomic external fact.
+4. Clay-Standard reduction to two named published citations: given Hardy 1914 + Mayer 1991/Cohen 2025 HP-program Prop hypotheses, substrate yields literal `Clay_RiemannHypothesis_Standard` on mathlib `Complex.riemannZeta`.
+
+Composed into `millennium_rh_substrate_position_at_HEAD`. Build clean at 4934 jobs.
+
+### r256 `442a9688` — Principia Fractalis Millennium supreme capstone (`PF/PrincipiaFractalisMillenniumSupremeCapstone_r256.lean`)
+
+Four-layer composition — framework's total Millennium position at HEAD in ONE theorem `principia_fractalis_millennium_supreme_capstone_at_HEAD`:
+
+- **(A)** Substrate machine grand capstone via ζ-abscissa validation (r233 `σ(0) = 1` = classical ζ abscissa of convergence).
+- **(B)** Framework α-skeleton values: `α_NS = 3π/2`, `α_BSD = 3π/4`, `α_YM = 2`, `α_Poincaré = 1`, plus r76 doubling identity `α_NS = 2·α_BSD`.
+- **(C)** Six-axis Clay bundle discharge via `unified_clay_closure_via_substrate_linkage_bulletproof` conditional on `ClayClosureBundleBulletproof` (three named published open conjectures), delivering all six Clay-Standard statements simultaneously on the framework's `PF_*Encoding` carriers.
+- **(D)** RH substrate position: `σ(3/2) = 0` + Wave 59 unconditional countability + Clay-Standard reduction to two named published citations.
+
+Build clean at 4935 jobs (+1 file).
 
 ---
 
