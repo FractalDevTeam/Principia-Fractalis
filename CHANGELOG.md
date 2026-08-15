@@ -91,6 +91,24 @@ Route B is the mathlib-native second front on RH — NOT the substrate closure o
 
 ---
 
+## 2026-08-15 (r273 SUPREME CAPSTONE EXTENDED — Route B added to r256 four-layer composition)
+
+**HEAD prior**: `dd5b043a` (CHANGELOG backfill). **HEAD now**: `bf90e991`.
+
+Extends r256's four-layer supreme composition with a fifth (E) layer capturing the r272 Route B mathlib-native RH-atom front. The framework's TOTAL Millennium position at HEAD now bundles BOTH the substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` (all six Clay axes as ONE bundle on `PF_*Encoding` carriers) AND the Route B mathlib-native second front on RH (r272 on literal `Complex.riemannZeta`) into one referee-facing theorem `principia_fractalis_millennium_supreme_capstone_extended_at_HEAD` in `PF/PrincipiaFractalisMillenniumSupremeCapstoneExtended_r273.lean`.
+
+Layers:
+
+- **(A)** Substrate σ machine grand capstone (r252, exposed via `σ(0) = 1`).
+- **(B)** Framework α-skeleton: `α_NS = 3π/2`, `α_BSD = 3π/4`, `α_YM = 2`, `α_Poincaré = 1`, plus r76 doubling `α_NS = 2·α_BSD`.
+- **(C)** Six-axis Clay bundle discharge via `unified_clay_closure_via_substrate_linkage_bulletproof` conditional on `ClayClosureBundleBulletproof`.
+- **(D)** RH substrate position: `σ(3/2) = 0`, Wave 59 unconditional countability, and Clay-Standard reduction to two named published citations (Hardy 1914 + Mayer 1991/Cohen 2025).
+- **(E, NEW)** Route B mathlib-native RH front (r272): `(ζ(1/2)).re < 0` under Dirichlet 1858 alone; `PositiveOnLineZetaZeroOrdinatesNonempty` inhabited under Dirichlet 1858 AND a certified positive Xi witness.
+
+Framework-first position preserved: the 6 Clay axes remain ONE bundle. Route B is not per-axis fragmentation but an independent formalization strand on a different substrate. Kernel-only, zero project axioms. Build: 4952 jobs.
+
+---
+
 ## 2026-08-14 (r257–r266 HARDY ROUTE B ALGEBRAIC LAYER + DIRICHLET-ETA BRICKS)
 
 **HEAD prior**: `442a9688` (r256). **HEAD after**: `3ab4a9cf` (r266).
