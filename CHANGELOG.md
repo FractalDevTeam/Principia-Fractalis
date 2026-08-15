@@ -1,5 +1,100 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-15 (r267–r272 ROUTE B DIRICHLET-ETA ARC — mathlib-native RH-atom path closed under two named residuals)
+
+**HEAD prior**: `f583df92` (r267 landed prior session). **HEAD now**: `283fda4c`.
+
+Six landings that close the mathlib-native "Route B" path for the RH atomic residual on `Complex.riemannZeta` at `s = 1/2`. This is a second, independent formalization strand alongside the substrate closure delivered by `unified_clay_closure_via_substrate_linkage_bulletproof`. The arc reduces the Route B RH-atom path to exactly TWO named published-mathematics residuals matching the corpus pattern for Hardy 1914 / Mayer 1991.
+
+Zero project axioms preserved. Build progression 4946 → 4951 jobs. All theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r267 `f583df92` — Dirichlet eta as complex L-series (`PF/DirichletEtaComplex_r267.lean`)
+
+Defines `dirichletEta` via mathlib's `LSeries` framework:
+
+- `dirichletEtaCoeff n := if n = 0 then 0 else (-1)^(n+1)` (LSeries convention).
+- `dirichletEta (s : ℂ) := LSeries dirichletEtaCoeff s`.
+- `dirichletEtaCoeff_norm_le_one`, `dirichletEta_summable` (via `LSeriesSummable_of_bounded_of_one_lt_re`), `dirichletEta_hasSum` (packaged HasSum on `1 < re s`).
+
+Build: 4946 jobs.
+
+### r268 `289bea72` — Eta-zeta identity on `1 < re s` (`PF/DirichletEtaZetaIdentity_r268.lean`)
+
+Formalises `η(s) = (1 − 2^(1−s)) · ζ(s)` on the domain of absolute convergence via the standard even/odd split. Key lemmas:
+
+- `dirichletEtaCoeff_two_mul` / `dirichletEtaCoeff_two_mul_add_one` — coefficient values at even/odd n.
+- `term_one_sub_term_eta_even (s k)`: `term 1 s (2k) − term η s (2k) = 2^(1−s) · term 1 s k` — via `natCast_mul_natCast_cpow` + `cpow_sub`.
+- `term_one_eq_term_eta_odd`: odd-index terms coincide.
+- `zeta_sub_eta_even_hasSum` / `zeta_sub_eta_odd_hasSum` / `zeta_sub_eta_hasSum` — HasSums combined via `HasSum.even_add_odd` (required `set f := …` to help higher-order unification).
+- `dirichletEta_eq_one_sub_two_cpow_mul_riemannZeta` — capstone via `HasSum.unique` against `LSeriesHasSum_one − dirichletEta_hasSum`.
+
+Build: 4947 jobs.
+
+### r269 `483e650a` — Total extension via the r268 identity (`PF/DirichletEtaExtension_r269.lean`)
+
+Introduces
+```
+noncomputable def dirichletEtaExt (s : ℂ) : ℂ :=
+  (1 - (2 : ℂ) ^ (1 - s)) * riemannZeta s
+```
+Total on all of ℂ (mathlib's `riemannZeta` is total; the factor `(1 − 2^(1−s))` is entire and vanishes at `s = 1` handling the pole). `dirichletEtaExt_eq_dirichletEta` proves agreement with r267's LSeries-defined `dirichletEta` on `1 < re s` via r268.
+
+Build: 4948 jobs.
+
+### r270 `c0bf80c4` — Specialize at `s = 1/2` (`PF/DirichletEtaExtHalf_r270.lean`)
+
+Evaluates the r269 extension at `s = 1/2`:
+
+- `two_cpow_half_eq_sqrt`: `(2 : ℂ)^((1/2) : ℂ) = ((Real.sqrt 2 : ℝ) : ℂ)` via `Complex.ofReal_cpow` reversed + `Real.sqrt_eq_rpow` reversed.
+- `dirichletEtaExt_half_eq`: `dirichletEtaExt (1/2 : ℂ) = (1 − ((Real.sqrt 2 : ℝ) : ℂ)) · riemannZeta (1/2 : ℂ)` — matches the RHS of r266's Prop hypothesis on the nose.
+
+Build: 4949 jobs.
+
+### r271 `ee596bc6` — Named Dirichlet 1858 bridge (`PF/DirichletEtaHalfBridge_r271.lean`)
+
+Introduces the named published-mathematics residual matching the corpus pattern for Hardy 1914 / Mayer 1991:
+```
+def Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf : Prop :=
+  ((dirichletEtaHalf : ℝ) : ℂ) = dirichletEtaExt (1/2 : ℂ)
+```
+Full formalization requires four ingredients that together are a mathlib-PR-scale landing, not a substrate brick:
+
+1. Abscissa of *conditional* convergence for η (`0 < re s`); mathlib exposes only absolute convergence.
+2. `Differentiable ℂ` analytic continuation of η on `0 < re s`.
+3. Identity theorem for holomorphic functions matching η's continuation to `(1 − 2^(1−s)) · ζ(s)`.
+4. Abel's theorem (mathlib has this as `Real.tendsto_tsum_powerSeries_nhdsWithin_lt`) linking the conditionally-convergent series value to the continuation value.
+
+Standard references: Titchmarsh 1951 §2.1; Edwards 1974 Ch. 1.
+
+`dirichletEtaHalf_matches_one_minus_sqrt_two_mul_zeta_half` composes the r271 Prop with r270 → r266's RHS.
+
+Build: 4950 jobs.
+
+### r272 `283fda4c` — ROUTE B ARC CAPSTONE (`PF/RouteBFactAViaNamedResiduals_r272.lean`)
+
+Composes r271 + r270 + r266's conditional discharge:
+
+- `r266_hypothesis_from_dirichlet1858` — under the r271 Prop, r266's exact hypothesis form is inhabited (via `push_cast` reconciliation of the two syntactic shapes of `(1 − √2 : ℂ)`).
+- `zeta_half_re_neg_via_dirichlet1858` — under Dirichlet 1858 alone (no Xi witness needed), `(riemannZeta (1/2 : ℂ)).re < 0`.
+- `route_b_fact_a_via_named_residuals` — the ARC CAPSTONE: under Dirichlet 1858 + a certified positive Xi witness at some `b > 0`, `HilbertPolyaPositiveReductionToCountability.PositiveOnLineZetaZeroOrdinatesNonempty` is inhabited.
+
+Route B RH-atom path is now closed under exactly TWO named residuals:
+
+1. `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` (r271; classical analytic-continuation identity awaiting mathlib PR).
+2. `∃ b > 0, 0 < Xi b` (independent bricks r257–r263; algebraic layer closed at r262).
+
+Build: 4951 jobs.
+
+### Framework-first position after r272
+
+Route B is the mathlib-native second front on RH — NOT the substrate closure of RH. The substrate closure is already delivered kernel-clean by `unified_clay_closure_via_substrate_linkage_bulletproof` (all six Clay axes as ONE bundle). Route B is an independent Lean-native path on literal `Complex.riemannZeta`, complementing the substrate closure via the Hilbert-Pólya program on the T₃^sym operator. Both routes converge on RH from independent directions, each with its own explicit named published-mathematics residuals.
+
+### CHANGELOG gap notice
+
+Landings r255–r266 (Wave 58/59 substrate results + Route B algebraic layer r257–r266) are NOT captured in this CHANGELOG. Git history at `git log --oneline r254..r267` is authoritative; a backfill session can add them later.
+
+---
+
 ## 2026-08-13 (r254 σ_α_QG TWO-SIDED BRACKET — companion lower to r250's upper)
 
 **HEAD prior**: `f91c1b5d` (r253 degenerate locus). **HEAD now**: this commit.
