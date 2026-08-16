@@ -91,6 +91,29 @@ Route B is the mathlib-native second front on RH — NOT the substrate closure o
 
 ---
 
+## 2026-08-15 (r274 HP-PROGRAM RESIDUAL EQUIVALENCE TO RH under Hardy 1914)
+
+**HEAD prior**: `49483ebf` (r273 CHANGELOG). **HEAD now**: `204ec251`.
+
+Attempts `HilbertPolyaProgramConjecture_Positive` — the second RH named residual in `ClayClosureBundleBulletproof`. Result: honest framework-first repositioning, not a discharge.
+
+Under the named `Hardy1914_published_theorem_substrate_citation` (definitionally = `PositiveOnLineZetaZeroOrdinatesNonempty`) and the unconditional Wave 58/59 countability discharge, the Wave 58 reduction `hp_positive_iff_countable_nonempty` gives a witness of `PF_T3SymIsHilbertPolyaOperator_Positive`. The forward direction (`HP-program → RH`) then composes this witness with `h_program` to extract RH; the reverse (`RH → HP-program`) is a trivial `intro _; exact h_RH`.
+
+Thus:
+```
+hp_program_positive_iff_riemannHypothesis_under_hardy :
+    Hardy1914_published_theorem_substrate_citation →
+      (HilbertPolyaProgramConjecture_Positive ↔ RiemannHypothesis)
+```
+
+**Framework-first honest position:** the Prop `HilbertPolyaProgramConjecture_Positive` at this Prop granularity has NO CONTENT beyond RH itself, given the essentially-proved Hardy 1914 nonemptiness. The classical Hilbert-Pólya program's REAL mathematical content (self-adjoint operator + spectral bijection + functional-equation off-line rejection) lives ABOVE this Prop shape. Attempting to discharge it from within the corpus at HEAD IS attempting to prove RH directly — not a smaller sub-goal.
+
+r274 makes this FORMAL, precisely positioning the residual. Future substrate attacks on RH should target richer structural routes (spectral-theoretic HP construction on a real Hilbert space, or the mathlib-native Route B second front at r272), not direct attempts on this Prop shape.
+
+Build: 4953 jobs. Kernel-only.
+
+---
+
 ## 2026-08-15 (r273 SUPREME CAPSTONE EXTENDED — Route B added to r256 four-layer composition)
 
 **HEAD prior**: `dd5b043a` (CHANGELOG backfill). **HEAD now**: `bf90e991`.
