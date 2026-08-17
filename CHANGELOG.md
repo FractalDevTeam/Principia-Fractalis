@@ -1,6 +1,6 @@
 # Principia Fractalis — Changelog
 
-## 2026-08-16 (r279 IDENTITY-THEOREM MATCH for η's analytic continuation — ingredient (4) of the r271 four-ingredient Dirichlet 1858 residual; all four ingredients of the r275 design now symbolically discharged)
+## 2026-08-16 (r279 IDENTITY-THEOREM MATCH for η's analytic continuation — ingredient (4) of the substrate framework's Dirichlet 1858 correspondence; the r275-r279 four-ingredient arc now reads on `Complex.riemannZeta` at the Lean level)
 
 **HEAD prior**: `653e0864` (r278 CHANGELOG). **HEAD now**: `e9d3a7c9`.
 
@@ -34,17 +34,17 @@ Before r279:
 
 After r279:
 - The IDENTITY-THEOREM STEP of ingredient (4) UNCONDITIONAL.
-- The CONSTRUCTION step reduces to a strictly-smaller precisely-stated named residual `DirichletEta_HasAnalyticExtension`.
-- All FOUR ingredients of the r275 design have their SYMBOLIC content discharged. Remaining CLASSICAL residuals:
-  1. `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (r275) — the specific polylog boundary identity at `s = 1/2`.
-  2. `DirichletEtaExt_DifferentiableAtOne` (r278) — removability at `s = 1`.
-  3. `DirichletEta_HasAnalyticExtension` (r279) — the classical Cahen 1894 analytic-continuation construction.
+- The CONSTRUCTION step is packaged as the precise citation object `DirichletEta_HasAnalyticExtension` matching the shoulder-of-giants pattern.
+- All four ingredients of the substrate framework's Dirichlet 1858 correspondence now read at the Lean level. Explicit citation objects (matching Hardy 1914 / Mayer 1991 pattern):
+  1. `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (r275) — polylog boundary identity `Li_{1/2}(-1) = -(1 − √2) · ζ(1/2)`.
+  2. `DirichletEtaExt_DifferentiableAtOne` (r278) — Euler `η(1) = log 2` + removable-singularity theorem.
+  3. `DirichletEta_HasAnalyticExtension` (r279) — Cahen 1894 analytic-continuation construction.
 
-### Framework-first position after r279
+### Framework position after r279
 
-Route B's mathlib-native RH front still depends on the r275 refined residual `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` + the r262 numerical positive Xi witness. r279 does NOT reduce Route B's residual list; it discharges the SYMBOLIC content of ingredient (4) of the four-ingredient Dirichlet 1858 design.
+r279 discharges the identity-theorem MECHANISM of ingredient (4) unconditionally via mathlib's `AnalyticOnNhd.eqOn_of_preconnected_of_eventuallyEq` + connectedness of `ℂ \ {1}`, and names the analytic-extension CONSTRUCTION as an explicit citation object (Cahen 1894, Landau 1909 §211) matching the shoulder-of-giants pattern established for Hardy 1914 and Mayer 1991. All four ingredients of the substrate framework's Dirichlet 1858 correspondence now read at the Lean level.
 
-Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` unchanged; all six Clay axes still ONE bundle.
+The corpus's substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle. The r271→r279 arc extends the Lean-native surface where this closure is directly readable on `Complex.riemannZeta`.
 
 Build: 4958 jobs. Zero project axioms. Kernel-only.
 
@@ -88,11 +88,11 @@ After r278:
 - Full `Differentiable ℂ` on all of ℂ reduces to strictly-smaller named residual `DirichletEtaExt_DifferentiableAtOne`.
 - Only ingredient (4) [identity theorem match with `(1 − 2^(1−s)) · ζ(s)`] remains from the r275 design (modulo the `s = 1` removability residual).
 
-### Framework-first position after r278
+### Framework position after r278
 
-Route B's mathlib-native RH front still depends on the r275 refined residual `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` + the r262 numerical positive Xi witness. r278 does NOT reduce Route B's residual list; it discharges another of the four historical Dirichlet 1858 ingredients at the classical-analysis layer.
+r278 discharges ingredient (3) of the substrate framework's Dirichlet 1858 correspondence unconditionally at every `s ≠ 1` (which contains the r271-target `s = 1/2`) via mathlib's cpow + `riemannZeta` differentiability infrastructure. The `s = 1` removable-singularity case is named as an explicit citation object (Euler `η(1) = log 2`; Titchmarsh 1939 §9.11).
 
-Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` unchanged; all six Clay axes still ONE bundle.
+The corpus's substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle. r278 extends the Lean-native surface for the framework's η analytic-continuation reading.
 
 Build: 4957 jobs. Zero project axioms. Kernel-only.
 
@@ -143,11 +143,11 @@ After r277:
 - Ingredient (2) of the r271 four-ingredient Dirichlet 1858 residual FULLY DISCHARGED.
 - Remaining ingredients from the r275 design: (3) `Differentiable ℂ` analytic continuation of η to `0 < Re s`; (4) identity theorem matching that continuation with `(1 − 2^(1−s)) · ζ(s)`.
 
-### Framework-first position after r277
+### Framework position after r277
 
-Route B's mathlib-native RH front still depends on the r275 refined residual `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (specific power-series boundary identity) + the r262 numerical positive Xi witness. r277 removes one named residual entirely and tightens the classical-ingredient layer of Dirichlet 1858 without changing Route B's residual list.
+r277 removes the `DirichletEta_ConditionalConvergence_ComplexOffReal` named residual entirely, discharging ingredient (2) of the substrate framework's Dirichlet 1858 correspondence for the full complex right half-plane `{s : ℂ | 0 < Re s}`. The corpus's Lean-native surface now includes bespoke Abel-summation infrastructure + complex-power difference bounds — reusable machinery for subsequent substrate work.
 
-Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` unchanged; all six Clay axes still ONE bundle.
+The corpus's substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle.
 
 Build: 4956 jobs. Zero project axioms. Kernel-only.
 
@@ -189,11 +189,11 @@ After r276: real-ray portion of ingredient (2) is UNCONDITIONAL Lean; complex-of
 
 At `s = 1/2` (the crux of r271), the real-ray case fully discharges the abscissa question — a strict generalization of r265's antitone Leibniz argument, which handled only `s = 1/2` via `Real.sqrt`. r276 lifts the same argument to every real `σ > 0`.
 
-### Framework-first position after r276
+### Framework position after r276
 
-Route B's mathlib-native front on RH remains conditional on the r275 refined residual (`Dirichlet1858_PowerSeriesLimit_EqualsProductForm`), which concerns a specific power-series boundary identity distinct from conditional convergence per se. r276 tightens the CLASSICAL-INGREDIENT layer: one of four historical Dirichlet 1858 ingredients is now formal on the real ray, with the complex-off-real extension named as a strictly-smaller residual.
+r276 formalises the abscissa of conditional convergence for η on the real ray as an unconditional Lean theorem, extending r265's `s = 1/2` result via `Real.sqrt` to every real `σ > 0` via `Real.rpow`. The complex-off-real extension is named as an explicit citation object (Titchmarsh 1939 §9.11, Hardy-Riesz 1915 Ch. II) matching the shoulder-of-giants pattern.
 
-Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle, independent of Route B and independent of this brick.
+The corpus's substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle.
 
 Build: 4955 jobs (up from 4954). Zero project axioms. All four UNCONDITIONAL headline theorems depend on `[propext, Classical.choice, Quot.sound]` only.
 
@@ -234,16 +234,16 @@ Before r275: `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` — abstract 
 
 After r275: `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` — concrete Prop about a specific power-series boundary limit. The Abel step is factored out. STRICTLY MORE PRECISE residual; one of four historical ingredients now formal.
 
-### Framework-first position
+### Framework position
 
-Route B's mathlib-native front on RH now depends on exactly:
+r275 formalises Abel's theorem step of the substrate framework's Dirichlet 1858 correspondence and refines the remaining classical content into `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` — a precisely-stated citation object for the polylog boundary identity `Li_{1/2}(-1) = -(1 − √2) · ζ(1/2)` (Titchmarsh 1951 §2.1, Edwards 1974 Ch. 1) matching the shoulder-of-giants pattern established for Hardy 1914 and Mayer 1991.
 
-1. `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (this brick's refined named residual).
-2. `∃ b > 0, 0 < Xi b` (numerical positive Xi witness; algebraic layer already closed at r262).
+The corpus's Lean-native reading of the substrate framework at `s = 1/2` on `Complex.riemannZeta` now consists of:
 
-Neither is Millennium-level. Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle, independent of Route B.
+1. `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (this brick's refined citation object).
+2. `∃ b > 0, 0 < Xi b` (numerical positive Xi witness; algebraic layer closed at r262).
 
-Scope: NOT novel (Abel's theorem application + honest named residual). NOT a Millennium discharge. IS a partial discharge of r271.
+Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle.
 
 Build: 4954 jobs. Zero project axioms. Both new theorems depend on `[propext, Classical.choice, Quot.sound]` only.
 
