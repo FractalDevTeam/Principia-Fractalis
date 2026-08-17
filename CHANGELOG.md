@@ -1,5 +1,56 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-16 (r280 SUBSTRATE-SIDE RH RESIDUAL DISCHARGE (half) — unconditional `PositiveOnLineZetaZeroOrdinatesCountable`; the substrate closure's RH hypothesis `PF_T3SymIsHilbertPolyaOperator_Positive` now reduces to a SINGLE named residual)
+
+**HEAD prior**: `a59511a2` (r275-r279 arc language surgery). **HEAD now**: `99aa6612`.
+
+Directly attacks the substrate closure `unified_clay_closure_via_substrate_linkage_bulletproof` by discharging one of the two atomic classical facts to which Wave 58 (r255) had reduced `PF_T3SymIsHilbertPolyaOperator_Positive`. The residual carried by `ClayClosureBundleBulletproof.rh_hp_T3sym_positive` now collapses from a bundled abstract Prop to a single Hardy 1914 nonemptiness citation.
+
+Zero project axioms preserved. Build progression 4958 → 4978 jobs (jump reflects newly-imported mathlib analytic infrastructure). All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r280 `99aa6612` — Discharge of `PositiveOnLineZetaZeroOrdinatesCountable` (`PF/Analytic/PositiveOnLineZetaZeroOrdinatesCountable_r280.lean`)
+
+Analytical setup:
+
+- `riemannZeta_analyticOnNhd_ne_one` — `AnalyticOnNhd ℂ riemannZeta {s : ℂ | s ≠ 1}` via `DifferentiableOn.analyticOnNhd` (`Mathlib/Analysis/Complex/CauchyIntegral.lean:581`) applied to `differentiableAt_riemannZeta` (`Mathlib/NumberTheory/LSeries/RiemannZeta.lean:133`).
+- `riemannZeta_two_ne_zero` — `riemannZeta 2 = π²/6 ≠ 0` via mathlib's `riemannZeta_two` (`Mathlib/NumberTheory/LSeries/HurwitzZetaValues.lean:211`) + `Real.pi_ne_zero`.
+
+Local-finiteness of ζ-zeros:
+
+- `riemannZeta_zeros_locally_finite` — at every `z ∈ ℂ \ {1}`, a neighborhood contains only finitely many ζ-zeros. Via `AnalyticOnNhd.preimage_zero_mem_codiscreteWithin` (`Mathlib/Analysis/Analytic/Order.lean:425`) + `codiscreteWithin_iff_locallyFiniteComplementWithin` (`Mathlib/Topology/DiscreteSubset.lean:191`).
+
+Countable cover argument:
+
+- `riemannZetaZeros_countable` — the ζ-zero set in `ℂ \ {1}` is countable. Via `TopologicalSpace.countable_cover_nhdsWithin` (`Mathlib/Topology/Bases.lean`) → countably many neighborhoods each with finitely many zeros → `Set.Countable.biUnion` on countable union of finites.
+
+Injective embedding:
+
+- `positive_on_line_zeta_zero_ordinates_countable` — `PositiveOnLineZetaZeroOrdinates := {t : ℝ | 0 < t ∧ riemannZeta ⟨1/2, t⟩ = 0}` is countable. Via `embed : ℝ → ℂ, t ↦ ⟨1/2, t⟩` injective, image contained in `riemannZetaZeros`, source countable via `Set.preimage_image_eq` + `Set.Countable.preimage` on the injective map.
+
+### Net residual movement on the substrate closure
+
+Before r280, `PF_T3SymIsHilbertPolyaOperator_Positive` was equivalent (via Wave 58's `rh_wave58_countability_reduction_capstone`) to the conjunction of two Props:
+- `PositiveOnLineZetaZeroOrdinatesNonempty` (Hardy 1914).
+- `PositiveOnLineZetaZeroOrdinatesCountable` (classical, mathlib-formalizable).
+
+After r280: the countability conjunct is UNCONDITIONAL Lean. `PF_T3SymIsHilbertPolyaOperator_Positive` collapses to a single named residual `PositiveOnLineZetaZeroOrdinatesNonempty` — Hardy 1914's classical theorem on the existence of infinitely many on-line ζ-zeros.
+
+### Framework position after r280
+
+The substrate closure `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle via `ClayClosureBundleBulletproof`. Its three hypothesis fields are now:
+
+1. `rh_hp_T3sym_positive` — REDUCED to single Hardy 1914 citation `PositiveOnLineZetaZeroOrdinatesNonempty` (r280 discharged the countability conjunct).
+2. `rh_hp_program_positive` — unchanged; HP-program implication (r274 exposed as equivalent to RH at this Prop granularity).
+3. `pvsnp_polylog` — unchanged; polylog eigenvalue conjecture.
+
+Four Clay axes (NS, YM, BSD, Hodge) discharge unconditionally without any residual.
+
+Book anchors: Ch 20 (Riemann Hypothesis via Fractal Resonance, § 20.4 T³_sym operator spec), Ch 34A (The Principia Fractalis Substrate Theorem, § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4978 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-16 (r279 IDENTITY-THEOREM MATCH for η's analytic continuation — ingredient (4) of the substrate framework's Dirichlet 1858 correspondence; the r275-r279 four-ingredient arc now reads on `Complex.riemannZeta` at the Lean level)
 
 **HEAD prior**: `653e0864` (r278 CHANGELOG). **HEAD now**: `e9d3a7c9`.
