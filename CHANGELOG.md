@@ -1,5 +1,53 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-16 (r278 DIRICHLET ETA EXT `Differentiable ℂ` on `{s | s ≠ 1}` — ingredient (3) of the r271 four-ingredient Dirichlet 1858 residual on the r271-required punctured domain; `s = 1` removability named as refined residual)
+
+**HEAD prior**: `6d0bc2b5` (r277 CHANGELOG). **HEAD now**: `20e7579c`.
+
+Attacks ingredient (3) of the r275 four-ingredient design for the r271 Dirichlet 1858 residual: `Differentiable ℂ` analytic continuation of η to `0 < Re s`. Since r269 already delivered a total complex extension `dirichletEtaExt := (1 − 2^(1−s)) · ζ(s)`, ingredient (3) reduces to proving differentiability. r278 delivers this UNCONDITIONALLY on `{s : ℂ | s ≠ 1}` and names the `s = 1` removable-singularity case as a strictly-smaller refined residual. The r271-target point `s = 1/2 ≠ 1`, so this suffices for the downstream identity-theorem application at the required point.
+
+Zero project axioms preserved. Build progression 4956 → 4957 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r278 `20e7579c` — Differentiability of `dirichletEtaExt` at every `s ≠ 1` (`PF/DirichletEtaExtDifferentiable_r278.lean`)
+
+Private supporting lemmas:
+
+- `differentiableAt_two_cpow_one_sub` — `s ↦ (2 : ℂ)^(1 − s)` differentiable at every `s : ℂ`. Via `Complex.differentiable_const_cpow_of_neZero` (`Mathlib/Analysis/SpecialFunctions/Pow/Deriv.lean:159`) composed with the linear map `s ↦ 1 − s`.
+- `differentiableAt_one_sub_two_cpow` — `s ↦ 1 − (2 : ℂ)^(1 − s)` differentiable at every `s : ℂ`.
+
+Headline theorems (all UNCONDITIONAL, kernel-only):
+
+- `dirichletEtaExt_differentiableAt {s : ℂ} (hs : s ≠ 1)` — `DifferentiableAt ℂ dirichletEtaExt s`. Product of `(1 − 2^(1−s))` (entire) and `riemannZeta s` (differentiable at `s ≠ 1` via `differentiableAt_riemannZeta` at `Mathlib/NumberTheory/LSeries/RiemannZeta.lean:133`).
+- `dirichletEtaExt_differentiableOn_ne_one` — `DifferentiableOn ℂ dirichletEtaExt {s : ℂ | s ≠ 1}`.
+- `dirichletEtaExt_differentiableOn_pos_re_ne_one` — `DifferentiableOn ℂ dirichletEtaExt {s : ℂ | 0 < s.re ∧ s ≠ 1}` — ingredient (3) UNCONDITIONAL on the r271-required punctured right half-plane (contains `s = 1/2`).
+
+Refined named residual + composition:
+
+- `DirichletEtaExt_DifferentiableAtOne : Prop` — REFINED named published-mathematics residual for the `s = 1` removable-singularity claim. Classical Euler evaluation `η(1) = ∑_{n=1}^∞ (−1)^(n+1)/n = log 2` combined with the removable-singularity theorem: the simple zero of `(1 − 2^(1−s))` at `s = 1` cancels the simple pole of `ζ(s)`, giving a removable singularity for the product with value `log 2`. Refs: Titchmarsh, *The Theory of Functions*, 2nd ed. 1939, §9.11; Edwards, *Riemann's Zeta Function*, 1974, Ch. 1.
+- `dirichletEtaExt_differentiable_full_via_named` — under the refined residual, `Differentiable ℂ dirichletEtaExt` on ALL of ℂ.
+- `dirichletEtaExt_differentiableOn_pos_re_via_named` — under the refined residual, the FULL ingredient (3) of the r275 design as stated: `DifferentiableOn ℂ dirichletEtaExt` on the entire right half-plane `{s : ℂ | 0 < s.re}` (including `s = 1`).
+
+### Net residual movement
+
+Before r278:
+- Ingredient (2) of the r271 four-ingredient design UNCONDITIONAL (r277).
+- Ingredient (3) [`Differentiable ℂ` continuation] pending.
+
+After r278:
+- Ingredient (3) UNCONDITIONAL on `{s : ℂ | s ≠ 1}` (contains the r271-target `s = 1/2`).
+- Full `Differentiable ℂ` on all of ℂ reduces to strictly-smaller named residual `DirichletEtaExt_DifferentiableAtOne`.
+- Only ingredient (4) [identity theorem match with `(1 − 2^(1−s)) · ζ(s)`] remains from the r275 design (modulo the `s = 1` removability residual).
+
+### Framework-first position after r278
+
+Route B's mathlib-native RH front still depends on the r275 refined residual `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` + the r262 numerical positive Xi witness. r278 does NOT reduce Route B's residual list; it discharges another of the four historical Dirichlet 1858 ingredients at the classical-analysis layer.
+
+Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` unchanged; all six Clay axes still ONE bundle.
+
+Build: 4957 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-16 (r277 DIRICHLET ETA CONDITIONAL CONVERGENCE ON COMPLEX `0 < Re s` — FULL DISCHARGE of the r276 refined residual; ingredient (2) of the r271 four-ingredient Dirichlet 1858 residual complete)
 
 **HEAD prior**: `a88a4be1` (r276 CHANGELOG). **HEAD now**: `1ba0142d`.
