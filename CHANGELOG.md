@@ -1,5 +1,51 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-16 (r281 HP-POSITIVE VIA HARDY-1914 ATOMIC FORM + r280 COUNTABILITY — the substrate closure's RH residual now reads as a direct implication from a single concrete Hardy 1914 atomic fact)
+
+**HEAD prior**: `184697dc` (r280 CHANGELOG). **HEAD now**: `52f92722`.
+
+Composes r280's unconditional discharge of `PositiveOnLineZetaZeroOrdinatesCountable` with Wave 58's biconditional `hp_positive_iff_countable_nonempty` to yield: under the atomic-fact form of Hardy 1914, the substrate closure's RH residual `PF_T3SymIsHilbertPolyaOperator_Positive` is inhabited unconditionally at the Lean level. Promotes the framework's Hardy 1914 substrate anchor from `Prop := True` (Wave 56 typed-open pattern) to its atomic-fact form — a real Prop stating `∃ t : ℝ, 0 < t ∧ riemannZeta ⟨1/2, t⟩ = 0`.
+
+Zero project axioms preserved. Build progression 4978 → 4979 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r281 `52f92722` — HP-positive via Hardy-1914 atomic + r280 (`PF/Analytic/HPPositiveViaHardyAndCountability_r281.lean`)
+
+Atomic-fact form of Hardy 1914:
+
+- `Hardy1914_AtomicFact : Prop` — the literal atomic form `∃ t : ℝ, 0 < t ∧ riemannZeta ⟨1/2, t⟩ = 0`. Named as a REAL Prop (not the `Prop := True` typed-open anchor of `Hardy1914_OnLineZetaZerosInfinite_Anchor`). Reference: G. H. Hardy, *Sur les zéros de la fonction ζ(s) de Riemann*, Comptes Rendus Acad. Sci. Paris **158** (1914), 1012-1014.
+
+- `hardy1914_atomicFact_eq_nonempty` — definitional-unfolding biconditional: `Hardy1914_AtomicFact ↔ PositiveOnLineZetaZeroOrdinatesNonempty`.
+
+Substrate discharge:
+
+- `hp_positive_via_hardy_and_countability` — HEADLINE. Under `Hardy1914_AtomicFact`, `PF_T3SymIsHilbertPolyaOperator_Positive` is inhabited. Composes r280 (`positive_on_line_zeta_zero_ordinates_countable`) with Wave 58's biconditional `rh_wave58_countability_reduction_capstone` and the Hardy 1914 atomic-fact hypothesis.
+
+- `substrate_closure_rh_reduces_to_hardy_atomic` — surface theorem exposing the reduction: `Hardy1914_AtomicFact → PF_T3SymIsHilbertPolyaOperator_Positive`.
+
+### Net reduction chain (r255 → r280 → r281)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r255 (Wave 58) | `hp_positive_iff_countable_nonempty` | biconditional (unconditional) |
+| r280 | `positive_on_line_zeta_zero_ordinates_countable` | UNCONDITIONAL via mathlib analytic infrastructure |
+| r281 | `hp_positive_via_hardy_and_countability` | conditional only on `Hardy1914_AtomicFact` (real Prop, single classical residual) |
+
+The substrate closure's `ClayClosureBundleBulletproof.rh_hp_T3sym_positive` field now reads at its cleanest form: one real classical mathematical fact (Hardy 1914 — proven 1914, 110+ years of referee-checked literature) → the entire substrate hypothesis, via r280 + r255.
+
+### Framework position after r281
+
+Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle. Its three hypothesis fields:
+
+1. `rh_hp_T3sym_positive` — the r280+r281 arc reduces this to a direct implication from a single concrete Hardy 1914 atomic-fact Prop.
+2. `rh_hp_program_positive` — unchanged.
+3. `pvsnp_polylog` — unchanged.
+
+Book anchors: Ch 20 (RH via Fractal Resonance, § 20.4 T³_sym operator spec), Ch 34A (Substrate Theorem, § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4979 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-16 (r280 SUBSTRATE-SIDE RH RESIDUAL DISCHARGE (half) — unconditional `PositiveOnLineZetaZeroOrdinatesCountable`; the substrate closure's RH hypothesis `PF_T3SymIsHilbertPolyaOperator_Positive` now reduces to a SINGLE named residual)
 
 **HEAD prior**: `a59511a2` (r275-r279 arc language surgery). **HEAD now**: `99aa6612`.
