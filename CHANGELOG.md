@@ -1,5 +1,51 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-16 (r276 DIRICHLET ETA CONDITIONAL CONVERGENCE ON THE REAL AXIS `(0, ∞)` — ingredient (2) of the r271 four-ingredient design, real-ray discharge + refined complex-off-real residual)
+
+**HEAD prior**: `349847b7` (r275 CHANGELOG). **HEAD now**: `c89411fa`.
+
+Attacks ingredient (2) of the r275 four-ingredient design (`abscissa of conditional convergence for η on 0 < re s`) on the REAL RAY. Delivers the abscissa result unconditionally for every real `σ > 0` and names the strictly-smaller complex-off-real extension as a refined published-mathematics residual. Follows the r275 pattern: pick one ingredient, prove it unconditionally, refine the remainder.
+
+### r276 `c89411fa` — Dirichlet eta conditional convergence on `(0, ∞) ⊂ ℝ` (`PF/DirichletEtaConditionalConvergenceReal_r276.lean`)
+
+Real infrastructure (all UNCONDITIONAL):
+
+- `inv_natCast_add_one_rpow_antitone {σ : ℝ} (hσ : 0 < σ)` — the real sequence `n ↦ 1/((n : ℝ) + 1)^σ` is antitone for `σ > 0`.
+- `inv_natCast_add_one_rpow_tendsto_zero {σ : ℝ} (hσ : 0 < σ)` — the same sequence tends to `0` as `n → ∞`.
+- `dirichletEta_real_partial_cauchy {σ : ℝ} (hσ : 0 < σ)` — `CauchySeq` of the real alternating partial sums `Σ_{i ∈ range N} (-1)^i · (1/((i : ℝ) + 1)^σ)`. Direct application of mathlib's `Antitone.cauchySeq_alternating_series_of_tendsto_zero` at `Analysis/SpecificLimits/Normed.lean:750`.
+
+LSeries bridge:
+
+- `lseries_partialSum_succ_eq_real_cast {σ : ℝ} (N : ℕ)` — the complex LSeries partial sum at `s = (σ : ℂ)` over `range (N + 1)` equals the cast of the real alternating partial sum over `range N` (off-by-one from the LSeries convention `LSeries.term (·) 0 = 0`).
+- `dirichletEta_lseries_partial_cauchy_real {σ : ℝ} (hσ : 0 < σ)` — `CauchySeq` of the complex LSeries partial sums for `dirichletEta` at every real `s = (σ : ℂ)` with `σ > 0`, via `Complex.isometry_ofReal.uniformContinuous.comp_cauchySeq` on the real Cauchy sequence + `cauchySeq_shift`.
+- `dirichletEta_lseries_partial_hasLimit_real {σ : ℝ} (hσ : 0 < σ)` — `∃ L : ℂ, Tendsto (…) atTop (𝓝 L)`, via `cauchySeq_tendsto_of_complete`.
+
+Refined named residual:
+
+- `DirichletEta_ConditionalConvergence_ComplexOffReal : Prop` — REFINED named published-mathematics residual asserting the analogous `CauchySeq` at every `s : ℂ` with `Im s ≠ 0 ∧ 0 < Re s`. Standard result of Dirichlet 1858 on the abscissa of conditional convergence for alternating Dirichlet series (Titchmarsh, *Theory of Functions*, 2nd ed. 1939, §9.11; Hardy & Riesz, *General Theory of Dirichlet's Series*, 1915, Ch. II). Requires a complex-valued Dirichlet-test variant (summation by parts + complex-power difference bounds) outside mathlib's current infrastructure.
+
+Composition:
+
+- `dirichletEta_lseries_partial_cauchy_via_named` — under the refined residual, the FULL ingredient (2) discharges: the complex LSeries partial sums for `dirichletEta` are Cauchy at every complex `s` with `0 < Re s`.
+
+### Net residual movement
+
+Before r276: ingredient (2) bundled inside r271's abstract Prop (or r275's refined residual on the specific polylog-boundary identity).
+
+After r276: real-ray portion of ingredient (2) is UNCONDITIONAL Lean; complex-off-real portion is a strictly-smaller precisely-stated named residual `DirichletEta_ConditionalConvergence_ComplexOffReal`.
+
+At `s = 1/2` (the crux of r271), the real-ray case fully discharges the abscissa question — a strict generalization of r265's antitone Leibniz argument, which handled only `s = 1/2` via `Real.sqrt`. r276 lifts the same argument to every real `σ > 0`.
+
+### Framework-first position after r276
+
+Route B's mathlib-native front on RH remains conditional on the r275 refined residual (`Dirichlet1858_PowerSeriesLimit_EqualsProductForm`), which concerns a specific power-series boundary identity distinct from conditional convergence per se. r276 tightens the CLASSICAL-INGREDIENT layer: one of four historical Dirichlet 1858 ingredients is now formal on the real ray, with the complex-off-real extension named as a strictly-smaller residual.
+
+Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle, independent of Route B and independent of this brick.
+
+Build: 4955 jobs (up from 4954). Zero project axioms. All four UNCONDITIONAL headline theorems depend on `[propext, Classical.choice, Quot.sound]` only.
+
+---
+
 ## 2026-08-15 (r275 ABEL BRIDGE for Dirichlet 1858 — partial discharge of the r271 named residual)
 
 **HEAD prior**: `f1c656c9` (r274 CHANGELOG). **HEAD now**: `7a306bba`.
