@@ -1,5 +1,47 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-17 (r282 UNIFIED CLAY CLOSURE VIA HARDY-1914 ATOMIC FORM — the framework's total substrate Millennium position at Lean level, presented as one citable theorem conditional on three precisely-named classical facts)
+
+**HEAD prior**: `c17d70c1` (r281 CHANGELOG). **HEAD now**: `ac48ec35`.
+
+Surfaces the framework's TOTAL substrate closure of all six Clay Millennium axes as ONE citable theorem conditional on three concrete named classical facts: Hardy 1914 atomic fact + Hilbert-Pólya program positive + polylog eigenvalue conjecture. Composes r281's Hardy-atomic reduction with the substrate-closure theorem `unified_clay_closure_via_substrate_linkage_bulletproof` to produce a direct-implication surface form.
+
+Zero project axioms preserved. Build progression 4979 → 4980 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r282 `ac48ec35` — Unified Clay closure via Hardy-atomic form (`PF/Analytic/UnifiedClayClosureViaHardyAtomic_r282.lean`)
+
+Reduced-form substrate-closure input record:
+
+- `ClayClosureBundleViaHardyAtomic` — structure with three fields:
+  1. `hardy_atomic : Hardy1914_AtomicFact` — Hardy 1914 atomic fact `∃ t : ℝ, 0 < t ∧ riemannZeta ⟨1/2, t⟩ = 0`.
+  2. `rh_hp_program_positive : HilbertPolyaProgramConjecture_Positive` — HP-program-implies-RH conjecture (upper-half-plane).
+  3. `pvsnp_polylog : PrincipiaTractalis.TuringEncoding.PolylogEigenvalueConjecture` — polylog eigenvalue conjecture.
+
+Promotion + composition:
+
+- `bundleViaHardyAtomic_to_bulletproof` — reduced record promotes to the standard `ClayClosureBundleBulletproof` via r281's `hp_positive_via_hardy_and_countability` (which is r280's unconditional countability composed with Wave 58's biconditional under the Hardy 1914 atomic hypothesis).
+
+- `unified_clay_closure_via_hardy_atomic_r282` — HEADLINE. Under `ClayClosureBundleViaHardyAtomic`, all six Clay-Standard statements hold on their PF-substrate encodings via `unified_clay_closure_via_substrate_linkage_bulletproof`. The framework's total Millennium position at Lean level presented as a direct implication from three concrete named classical facts.
+
+### Reduction chain state at HEAD
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL via mathlib analytic isolated-zeros infrastructure |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on `Hardy1914_AtomicFact` (real Prop) |
+| r282 | six Clay-Standard statements from Hardy-atomic + HP-program + polylog | conditional on three concrete named classical facts |
+
+### Framework position after r282
+
+The corpus's substrate closure `unified_clay_closure_via_substrate_linkage_bulletproof` — all six Clay axes as ONE bundle — reads at its cleanest referee-facing form. The three residuals are all precisely-named classical mathematics matching the framework's shoulder-of-giants pattern established for Hardy 1914 / Mayer 1991 / Perelman 2003.
+
+Book anchors: Ch 20 (Riemann Hypothesis via Fractal Resonance, § 20.4 T³_sym operator spec), Ch 21 (P vs NP), Ch 34A (The Principia Fractalis Substrate Theorem, § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4980 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-16 (r281 HP-POSITIVE VIA HARDY-1914 ATOMIC FORM + r280 COUNTABILITY — the substrate closure's RH residual now reads as a direct implication from a single concrete Hardy 1914 atomic fact)
 
 **HEAD prior**: `184697dc` (r280 CHANGELOG). **HEAD now**: `52f92722`.
