@@ -1,5 +1,60 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-16 (r277 DIRICHLET ETA CONDITIONAL CONVERGENCE ON COMPLEX `0 < Re s` — FULL DISCHARGE of the r276 refined residual; ingredient (2) of the r271 four-ingredient Dirichlet 1858 residual complete)
+
+**HEAD prior**: `a88a4be1` (r276 CHANGELOG). **HEAD now**: `1ba0142d`.
+
+Discharges the r276 refined residual `DirichletEta_ConditionalConvergence_ComplexOffReal` UNCONDITIONALLY, extending the real-ray abscissa result to the FULL right half-plane `{s : ℂ | 0 < Re s}` including `Im s ≠ 0`. Ingredient (2) of the r275 four-ingredient design for the r271 Dirichlet 1858 residual is now complete.
+
+Zero project axioms preserved. Build progression 4955 → 4956 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r277 `1ba0142d` — Complex-off-real abscissa via bespoke Abel summation (`PF/DirichletEtaConditionalConvergenceComplex_r277.lean`)
+
+Analytical primitive (UNCONDITIONAL):
+
+- `cpow_neg_diff_norm_le {s : ℂ} (hs : 0 < s.re) {i : ℕ} (hi : 1 ≤ i)` — the complex power difference bound `‖(((i + 1 : ℕ) : ℝ) : ℂ)^(-s) - (((i : ℕ) : ℝ) : ℂ)^(-s)‖ ≤ ‖s‖ / (i : ℝ)^(s.re + 1)`. Proof via `hasDerivAt_ofReal_cpow_const` (`Mathlib/Analysis/SpecialFunctions/Pow/Deriv.lean:274`) + `norm_image_sub_le_of_norm_deriv_le_segment'` (`Mathlib/Analysis/Calculus/MeanValue.lean:323`) + `Real.rpow_le_rpow_of_exponent_nonpos` (`Mathlib/Analysis/SpecialFunctions/Pow/Real.lean:610`).
+
+Reindexed factorization (avoids the `LSeries.term (·) 0 = 0` special case):
+
+- `etaShiftF s k := (((k + 1 : ℕ) : ℝ) : ℂ)^(-s)` — decreasing factor.
+- `etaShiftG k := (-1 : ℂ)^k` — oscillator.
+- `etaShiftF_mul_etaShiftG_eq_lseries_term_succ` — bridges to `LSeries.term dirichletEtaCoeff s (k + 1)` via index shift `n = k + 1`.
+- `norm_sum_etaShiftG_le` — partial sums of `etaShiftG` bounded by `1` via `neg_one_geom_sum` (`Mathlib/Algebra/Ring/GeomSum.lean`).
+
+CauchySeq via Abel summation:
+
+- `summable_norm_s_div_rpow` — comparison series `‖s‖ / (i + 1)^(Re s + 1)` summable via `Real.summable_one_div_nat_rpow` (`Mathlib/Analysis/PSeries.lean:297`) at `Re s + 1 > 1`.
+- `summable_diff_etaShiftF_mul_partialG` — absolute summability of the Abel-summation main term.
+- `tendsto_etaShiftF_mul_partialG_zero` — boundary term tends to `0` via `squeeze_zero_norm` on `((N + 1 : ℕ) : ℝ)^(-Re s)`.
+- `cauchySeq_shifted_sum` — Abel summation applied via `Finset.sum_range_by_parts` (`Mathlib/Algebra/BigOperators/Module.lean:53`) + `cauchySeq_shift 1` for the `n - 1` edge case.
+
+Headline theorems (all UNCONDITIONAL, kernel-only):
+
+- `dirichletEta_lseries_partial_cauchy {s : ℂ} (hs : 0 < s.re)` — `CauchySeq` of the complex LSeries partial sums for `dirichletEta` at EVERY complex `s` with `0 < Re s`.
+- `dirichletEta_lseries_partial_hasLimit` — existence of `L : ℂ` via `cauchySeq_tendsto_of_complete`.
+- `dirichletEta_conditionalConvergence_complexOffReal_discharged` — the r276 refined residual `DirichletEta_ConditionalConvergence_ComplexOffReal` is INHABITED.
+
+### Net residual movement
+
+Before r277:
+- Real-ray abscissa unconditional (r276).
+- Complex-off-real portion pending inside `DirichletEta_ConditionalConvergence_ComplexOffReal`.
+
+After r277:
+- FULL complex abscissa UNCONDITIONAL Lean.
+- Ingredient (2) of the r271 four-ingredient Dirichlet 1858 residual FULLY DISCHARGED.
+- Remaining ingredients from the r275 design: (3) `Differentiable ℂ` analytic continuation of η to `0 < Re s`; (4) identity theorem matching that continuation with `(1 − 2^(1−s)) · ζ(s)`.
+
+### Framework-first position after r277
+
+Route B's mathlib-native RH front still depends on the r275 refined residual `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (specific power-series boundary identity) + the r262 numerical positive Xi witness. r277 removes one named residual entirely and tightens the classical-ingredient layer of Dirichlet 1858 without changing Route B's residual list.
+
+Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` unchanged; all six Clay axes still ONE bundle.
+
+Build: 4956 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-16 (r276 DIRICHLET ETA CONDITIONAL CONVERGENCE ON THE REAL AXIS `(0, ∞)` — ingredient (2) of the r271 four-ingredient design, real-ray discharge + refined complex-off-real residual)
 
 **HEAD prior**: `349847b7` (r275 CHANGELOG). **HEAD now**: `c89411fa`.
