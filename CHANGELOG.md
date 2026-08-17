@@ -1,5 +1,55 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-16 (r279 IDENTITY-THEOREM MATCH for η's analytic continuation — ingredient (4) of the r271 four-ingredient Dirichlet 1858 residual; all four ingredients of the r275 design now symbolically discharged)
+
+**HEAD prior**: `653e0864` (r278 CHANGELOG). **HEAD now**: `e9d3a7c9`.
+
+Attacks ingredient (4) of the r275 four-ingredient design for the r271 Dirichlet 1858 residual: identity theorem for holomorphic functions matching η's continuation with `(1 − 2^(1−s)) · ζ(s)`. Delivers the identity-theorem application step UNCONDITIONALLY via mathlib's `AnalyticOnNhd.eqOn_of_preconnected_of_eventuallyEq` + connectedness of `ℂ \ {1}`. The CONSTRUCTIVE step (existence of the analytic extension itself, classical Cahen 1894 + Weierstrass on uniform limits of holomorphic functions) is named as a strictly-smaller refined residual `DirichletEta_HasAnalyticExtension`.
+
+Zero project axioms preserved. Build progression 4957 → 4958 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r279 `e9d3a7c9` — Identity-theorem match for η's analytic continuation (`PF/DirichletEtaIdentityTheorem_r279.lean`)
+
+Analyticity + preconnectedness setup:
+
+- `dirichletEtaExt_analyticOnNhd_ne_one` — `AnalyticOnNhd ℂ dirichletEtaExt {s : ℂ | s ≠ 1}`. Via `DifferentiableOn.analyticOnNhd` (Cauchy's theorem in mathlib: complex-differentiable ⇒ analytic on open sets, `Mathlib/Analysis/Complex/CauchyIntegral.lean:581`) applied to r278's `dirichletEtaExt_differentiableOn_ne_one`.
+- `isPreconnected_compl_one` — `ℂ \ {1}` preconnected via `isConnected_compl_singleton_of_one_lt_rank` (`Mathlib/Analysis/NormedSpace/Connected.lean:120`) + `rank_real_complex`.
+
+Identity-theorem application template (UNCONDITIONAL):
+
+- `eqOn_dirichletEtaExt_of_analyticOnNhd_eventuallyEq` — if `f : ℂ → ℂ` is `AnalyticOnNhd` on `ℂ \ {1}` and agrees with `dirichletEtaExt` in a neighborhood of some `z₀ ≠ 1`, then `f = dirichletEtaExt` on all of `ℂ \ {1}`. Direct instantiation of mathlib's `AnalyticOnNhd.eqOn_of_preconnected_of_eventuallyEq` (`Mathlib/Analysis/Analytic/Uniqueness.lean:219`).
+- `eqOn_dirichletEtaExt_of_analyticOnNhd_agrees_on_one_lt_re` — convenient specialisation: agreement on the whole `1 < Re s` half-plane (with `z₀ = 2` as the base point).
+
+Refined named residual + composition:
+
+- `DirichletEta_HasAnalyticExtension : Prop` — REFINED named published-mathematics residual for the CONSTRUCTIVE step of ingredient (4): existence of a function `f : ℂ → ℂ` that is `AnalyticOnNhd` on `ℂ \ {1}` and agrees with the LSeries-defined `dirichletEta` on `1 < Re s`. Classical result of Cahen (1894) + Weierstrass's theorem on uniform limits of holomorphic functions on compacta: the pointwise limit of the LSeries partial sums on `0 < Re s` is `Differentiable ℂ` because the convergence is uniform on compact subsets of the domain of conditional convergence. Refs: Cahen, *Sur la fonction ζ(s) de Riemann*, Ann. Sci. École Norm. Sup. (3) 11 (1894); Landau, *Handbuch* 1909, §211; Titchmarsh, *The Theory of Functions*, 2nd ed. 1939, §9.11.
+- `dirichletEtaExt_matches_analytic_extension_via_named` — under the residual, there exists a function `f` that is `AnalyticOnNhd` on `ℂ \ {1}` AND equals `dirichletEtaExt` on `ℂ \ {1}`. FULL ingredient (4) of the r275 design at the symbolic level.
+
+### Net residual movement
+
+Before r279:
+- Ingredient (2) UNCONDITIONAL (r277).
+- Ingredient (3) UNCONDITIONAL on `{s | s ≠ 1}` (r278).
+- Ingredient (4) [identity theorem match] pending.
+
+After r279:
+- The IDENTITY-THEOREM STEP of ingredient (4) UNCONDITIONAL.
+- The CONSTRUCTION step reduces to a strictly-smaller precisely-stated named residual `DirichletEta_HasAnalyticExtension`.
+- All FOUR ingredients of the r275 design have their SYMBOLIC content discharged. Remaining CLASSICAL residuals:
+  1. `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (r275) — the specific polylog boundary identity at `s = 1/2`.
+  2. `DirichletEtaExt_DifferentiableAtOne` (r278) — removability at `s = 1`.
+  3. `DirichletEta_HasAnalyticExtension` (r279) — the classical Cahen 1894 analytic-continuation construction.
+
+### Framework-first position after r279
+
+Route B's mathlib-native RH front still depends on the r275 refined residual `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` + the r262 numerical positive Xi witness. r279 does NOT reduce Route B's residual list; it discharges the SYMBOLIC content of ingredient (4) of the four-ingredient Dirichlet 1858 design.
+
+Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` unchanged; all six Clay axes still ONE bundle.
+
+Build: 4958 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-16 (r278 DIRICHLET ETA EXT `Differentiable ℂ` on `{s | s ≠ 1}` — ingredient (3) of the r271 four-ingredient Dirichlet 1858 residual on the r271-required punctured domain; `s = 1` removability named as refined residual)
 
 **HEAD prior**: `6d0bc2b5` (r277 CHANGELOG). **HEAD now**: `20e7579c`.
