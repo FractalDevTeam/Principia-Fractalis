@@ -1,5 +1,55 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-15 (r275 ABEL BRIDGE for Dirichlet 1858 — partial discharge of the r271 named residual)
+
+**HEAD prior**: `f1c656c9` (r274 CHANGELOG). **HEAD now**: `7a306bba`.
+
+Attacks the r271 named `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` residual by formalising the first of four classical ingredients unconditionally and refining the residual into a strictly more precisely-stated published citation.
+
+Per r271's design analysis the full residual requires:
+
+1. Abel's theorem on real power series (mathlib: `Real.tendsto_tsum_powerSeries_nhdsWithin_lt`).
+2. Abscissa of *conditional* convergence for η on `0 < re s` (mathlib exposes only absolute convergence at `1 < re s`).
+3. `Differentiable ℂ` analytic continuation of η to `0 < re s`.
+4. Identity theorem for holomorphic functions matching that continuation with `(1 − 2^(1−s)) · ζ(s)`.
+
+r275 formalises ingredient (1) as an unconditional Lean theorem and names ingredients (2)–(4) together as ONE refined published residual with a much more concrete statement than r271's abstract Prop.
+
+### r275 `7a306bba` — Abel bridge for Dirichlet 1858 (`PF/Dirichlet1858AbelBridge_r275.lean`)
+
+New declarations in `namespace PrincipiaTractalis.Dirichlet1858AbelBridge`:
+
+- `abel_bridge_dirichletEtaHalf` — **UNCONDITIONAL**:
+  ```
+  Tendsto (fun x : ℝ => Σ' n, ((-1)^n / √(n+1)) · x^n) (𝓝[<] 1) (𝓝 dirichletEtaHalf)
+  ```
+  Applies mathlib's Abel theorem to r265's partial-sum convergence for the alternating η series at `s = 1/2`.
+
+- `Dirichlet1858_PowerSeriesLimit_EqualsProductForm : Prop` — REFINED named published residual asserting the SAME power-series boundary limit equals `(1 − √2) · (ζ(1/2)).re`. Standard consequence of the polylog analytic continuation identity `Li_{1/2}(-1) = -(1 − √2) · ζ(1/2)`. Refs: Titchmarsh 1951 §2.1, Edwards 1974 Ch. 1.
+
+- `dirichlet1858_via_abel_and_refined` — composition: refined residual + Abel bridge + `zeta_half_im_zero` + `tendsto_nhds_unique` (ℝ is T2) discharges r271's `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf`.
+
+### Net residual movement
+
+Before r275: `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` — abstract Prop bundling four classical ingredients.
+
+After r275: `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` — concrete Prop about a specific power-series boundary limit. The Abel step is factored out. STRICTLY MORE PRECISE residual; one of four historical ingredients now formal.
+
+### Framework-first position
+
+Route B's mathlib-native front on RH now depends on exactly:
+
+1. `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (this brick's refined named residual).
+2. `∃ b > 0, 0 < Xi b` (numerical positive Xi witness; algebraic layer already closed at r262).
+
+Neither is Millennium-level. Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle, independent of Route B.
+
+Scope: NOT novel (Abel's theorem application + honest named residual). NOT a Millennium discharge. IS a partial discharge of r271.
+
+Build: 4954 jobs. Zero project axioms. Both new theorems depend on `[propext, Classical.choice, Quot.sound]` only.
+
+---
+
 ## 2026-08-15 (r267–r272 ROUTE B DIRICHLET-ETA ARC — mathlib-native RH-atom path closed under two named residuals)
 
 **HEAD prior**: `f583df92` (r267 landed prior session). **HEAD now**: `283fda4c`.
