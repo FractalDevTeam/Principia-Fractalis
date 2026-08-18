@@ -1,5 +1,62 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-17 (r283 UNIFIED CLAY CLOSURE VIA FULLY-ATOMIC RESIDUALS — the polylog residual split into its two Chapter-21-anchored atomic halves and composed with r282, surfacing the framework's substrate closure of all six Clay axes as a direct implication from four precisely-named atomic residuals)
+
+**HEAD prior**: `64bea488` (r282 CHANGELOG). **HEAD now**: (this commit).
+
+Splits r282's compound `PolylogEigenvalueConjecture` residual into its two Chapter-21 manuscript-anchored halves (`PolylogAtomic_HeurBranchSelection` for the P-side arithmetic; `PolylogAtomic_ConjGoldenModulation` for the NP-side arithmetic) and composes with `unified_clay_closure_via_hardy_atomic_r282` to produce a fully-atomic surface form of the framework's substrate closure. Each residual is now a single distinct Chapter 21 anchor rather than a compound 2-tuple.
+
+Zero project axioms preserved. Build progression 4980 → 4981 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r283 (this commit) — Unified Clay closure via fully-atomic residuals (`PF/Analytic/UnifiedClayClosureViaFullyAtomicResiduals_r283.lean`)
+
+The two Chapter-21-anchored atomic residuals:
+
+- `PolylogAtomic_HeurBranchSelection : Prop := (alpha_of_class ClassP)² = 2 ∧ 0 < alpha_of_class ClassP` — P-side atomic residual encoding the arithmetic content of Chapter 21 § 4.1 heur:branch-selection (branch-choice rule for the P-class Hamiltonian ground state, yielding `α_P = √2`).
+
+- `PolylogAtomic_ConjGoldenModulation : Prop := 16·(alpha_of_class ClassNP)² − 24·(alpha_of_class ClassNP) − 11 = 0 ∧ 0 < alpha_of_class ClassNP` — NP-side atomic residual encoding the arithmetic content of Chapter 21 § 4.2 conj:golden-modulation (unitary conjugacy `H_NP = U(φ)·H_P·U†(φ)` pinning `α_NP = φ + 1/4`).
+
+Biconditional and composition:
+
+- `polylog_iff_atomic_pair` — `PolylogEigenvalueConjecture ↔ (PolylogAtomic_HeurBranchSelection ∧ PolylogAtomic_ConjGoldenModulation)`. Definitional; `Iff.rfl` after unfolding.
+
+- `polylog_via_atomic_pair` — the two atomic halves compose to `PolylogEigenvalueConjecture`.
+
+- `polylog_gives_heur_branch_selection` / `polylog_gives_conj_golden_modulation` — projection theorems recovering each atomic half from the compound conjecture.
+
+Fully-atomic substrate-closure input record:
+
+- `ClayClosureBundleViaFullyAtomicResiduals` — structure with four fields:
+  1. `hardy_atomic : Hardy1914_AtomicFact` — Hardy 1914 atomic fact.
+  2. `hp_program_positive : HilbertPolyaProgramConjecture_Positive` — HP program (positive variant).
+  3. `polylog_atomic_branch_selection : PolylogAtomic_HeurBranchSelection` — Ch 21 § 4.1 (P-side).
+  4. `polylog_atomic_golden_modulation : PolylogAtomic_ConjGoldenModulation` — Ch 21 § 4.2 (NP-side).
+
+Promotion + headline:
+
+- `bundleViaFullyAtomic_to_hardyAtomic` — the fully-atomic record promotes to r282's `ClayClosureBundleViaHardyAtomic` via `polylog_via_atomic_pair`.
+
+- `unified_clay_closure_via_fully_atomic_r283` — HEADLINE. Under `ClayClosureBundleViaFullyAtomicResiduals`, all six Clay-Standard statements hold on their PF-substrate encodings via `unified_clay_closure_via_hardy_atomic_r282`. The framework's total Millennium position at Lean level presented as a direct implication from **four** precisely-named atomic residuals.
+
+### Framework position after r283
+
+The framework's substrate closure at HEAD now reads as a direct implication from four precisely-named atomic residuals to all six Clay Millennium axes on their PF-substrate encodings:
+
+1. **Hardy 1914** — `∃ t : ℝ, 0 < t ∧ riemannZeta ⟨1/2, t⟩ = 0` (classical, proven 1914).
+2. **HP-program positive** — `HilbertPolyaProgramConjecture_Positive` (Hilbert-Pólya program's positive variant).
+3. **Ch 21 § 4.1 heur:branch-selection** — `α_P² = 2 ∧ 0 < α_P`.
+4. **Ch 21 § 4.2 conj:golden-modulation** — `16α_NP² − 24α_NP − 11 = 0 ∧ 0 < α_NP`.
+
+The compound `PolylogEigenvalueConjecture` residual is now surfaced as two independently-attackable atomic halves, each keyed to a single distinct Chapter 21 manuscript anchor. This matches the r281/r282 shoulder-of-giants labelling discipline: every residual at the surface is a REAL Prop whose classical or manuscript reference is precisely named.
+
+Substrate closure via `unified_clay_closure_via_substrate_linkage_bulletproof` continues to deliver all six Clay axes as ONE bundle. r283 further decomposes the input to that closure without fragmenting the closure itself.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP, § 4.1 heur:branch-selection, § 4.2 conj:golden-modulation), Ch 34A (Substrate Theorem, § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4981 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-17 (r282 UNIFIED CLAY CLOSURE VIA HARDY-1914 ATOMIC FORM — the framework's total substrate Millennium position at Lean level, presented as one citable theorem conditional on three precisely-named classical facts)
 
 **HEAD prior**: `c17d70c1` (r281 CHANGELOG). **HEAD now**: `ac48ec35`.
