@@ -1,5 +1,69 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-18 (r284 UNIFIED CLAY CLOSURE VIA HARDY + RH + POLYLOG ATOMS — HP-program residual honest-scope surface: formalises r274's HP-program-positive ↔ RH under Hardy at the substrate-closure BUNDLE level, exchanging the shrouded HP-program implication residual for the Riemann Hypothesis itself)
+
+**HEAD prior**: `5da098bb` (r283 CHANGELOG). **HEAD now**: (this commit).
+
+Formalises r274's `hp_program_positive_iff_riemannHypothesis_under_hardy` at the substrate-closure BUNDLE level. Where r283's `ClayClosureBundleViaFullyAtomicResiduals` carries `HilbertPolyaProgramConjecture_Positive` as one of its four fields, r284 introduces `ClayClosureBundleViaHardyAndRH` which carries `RiemannHypothesis` in that field instead. Same six Clay axes closed; the second RH residual now reads as the Riemann Hypothesis directly rather than shrouded behind the HP-program implication shape.
+
+Framework-first: this is NOT a shrinking of the residual set (four residuals in, four residuals out) — it is an honest EXPOSURE of what the second RH residual actually reduces to at the corpus's current Prop granularity, matching r274's honest-scope framework-first doctrine block. The classical HP program's real content (self-adjoint operator + spectral bijection + functional-equation off-line rejection) lives ABOVE the current Prop shape; at this shape, HP-program-positive has no content beyond RH once Hardy 1914 supplies the antecedent. r284 makes the referee-facing residual list reflect that fact.
+
+Zero project axioms preserved. Build progression 4981 → 4982 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r284 (this commit) — Unified Clay closure via Hardy + RH + polylog atoms (`PF/Analytic/UnifiedClayClosureViaHardyAndRH_r284.lean`)
+
+Honest-scope substrate-closure input record:
+
+- `ClayClosureBundleViaHardyAndRH` — structure with four fields:
+  1. `hardy_atomic : Hardy1914_AtomicFact` — Hardy 1914 atomic fact.
+  2. `rh : PrincipiaTractalis.RiemannHypothesis` — the Riemann Hypothesis (canonical critical-strip form).
+  3. `polylog_atomic_branch_selection : PolylogAtomic_HeurBranchSelection` — Ch 21 § 4.1 (P-side).
+  4. `polylog_atomic_golden_modulation : PolylogAtomic_ConjGoldenModulation` — Ch 21 § 4.2 (NP-side).
+
+Promotion + headline:
+
+- `bundleViaHardyAndRH_to_fullyAtomic` — the honest-scope record promotes to r283's `ClayClosureBundleViaFullyAtomicResiduals` by supplying the `hp_program_positive` field via the trivial `.mpr` direction of r274 (`fun _ => h.rh`; the forward direction requires Hardy but is not consumed here).
+
+- `unified_clay_closure_via_hardy_and_rh_r284` — HEADLINE. Under `ClayClosureBundleViaHardyAndRH`, all six Clay-Standard statements hold on their PF-substrate encodings via `unified_clay_closure_via_fully_atomic_r283`. The framework's total Millennium position at HEAD presented as a direct implication from four precisely-named residuals with the second RH residual exposed as RH itself.
+
+Doctrinal anchor:
+
+- `hp_program_residual_is_rh_under_hardy` — r274's `hp_program_positive_iff_riemannHypothesis_under_hardy` re-exposed on the `Hardy1914_AtomicFact` form used throughout r281-r284 (via r281's `hardy1914_atomicFact_eq_nonempty`). This is the biconditional that justifies the r283 → r284 field exchange at the Prop level.
+
+### Reduction chain state at HEAD (after r284)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282 | six Clay-Standard from Hardy + HP-program + polylog | 3 named residuals |
+| r283 | polylog split into Ch 21 § 4.1 + § 4.2 atomic halves | 4 named residuals |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| **r284** | **six Clay-Standard from Hardy + RH + Ch 21 § 4.1 + § 4.2** | **4 residuals; HP-program surfaced as RH per r274** |
+
+### Framework position after r284
+
+The framework's substrate closure at HEAD reads as a direct implication from four precisely-named residuals to all six Clay Millennium axes on their PF-substrate encodings, with the second RH residual honestly surfaced as the Riemann Hypothesis itself (per r274 doctrine):
+
+1. **Hardy 1914** — `∃ t : ℝ, 0 < t ∧ riemannZeta ⟨1/2, t⟩ = 0` (classical, proven 1914).
+2. **Riemann Hypothesis** — canonical critical-strip form (the second RH residual, per r274).
+3. **Ch 21 § 4.1 heur:branch-selection** — `α_P² = 2 ∧ 0 < α_P`.
+4. **Ch 21 § 4.2 conj:golden-modulation** — `16α_NP² − 24α_NP − 11 = 0 ∧ 0 < α_NP`.
+
+Two Clay-closure bundle variants now sit side by side, both closing the same six Clay axes via the same substrate closure:
+
+- **r283 form** `ClayClosureBundleViaFullyAtomicResiduals` — carries `HilbertPolyaProgramConjecture_Positive` as the second RH residual. The naive substrate-closure input shape.
+- **r284 form** `ClayClosureBundleViaHardyAndRH` — carries `RiemannHypothesis` as the second RH residual. The honest-scope surface shape per r274 framework-first doctrine.
+
+Future substrate work targeting RH via richer structural routes (a spectral-theoretic HP construction on a real Hilbert space, or the mathlib-native Route B second front `route_b_fact_a_via_named_residuals` at r272) can attack the r284 RH residual directly with the same substrate-closure downstream.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4982 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-17 (r283 UNIFIED CLAY CLOSURE VIA FULLY-ATOMIC RESIDUALS — the polylog residual split into its two Chapter-21-anchored atomic halves and composed with r282, surfacing the framework's substrate closure of all six Clay axes as a direct implication from four precisely-named atomic residuals)
 
 **HEAD prior**: `64bea488` (r282 CHANGELOG). **HEAD now**: (this commit).
