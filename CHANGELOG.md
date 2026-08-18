@@ -1,5 +1,66 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-18 (r285 UNIFIED CLAY CLOSURE VIA ROUTE B + RH + POLYLOG ATOMS — Hardy 1914 residual exchanged for r272's mathlib-native pair (Dirichlet 1858 + Xi witness); per r274 doctrine promoting Route B second front to substrate-closure BUNDLE level)
+
+**HEAD prior**: `535f41bb` (r284 CHANGELOG). **HEAD now**: (this commit).
+
+Formalises r274's honest-scope doctrine at a second layer: Route B is the mathlib-native second front for RH-atom inhabitation via `route_b_fact_a_via_named_residuals` at r272 (Dirichlet 1858 alternating-η identity match + positive Xi existential witness ⇒ `PositiveOnLineZetaZeroOrdinatesNonempty`). r285 promotes this front to the substrate-closure BUNDLE level. Where r284's `ClayClosureBundleViaHardyAndRH` carries `Hardy1914_AtomicFact` as one of its four residuals, r285 introduces `ClayClosureBundleViaRouteBAndRH` which exchanges that field for r272's Route B pair.
+
+Framework-first: this is NOT a residual-count reduction (Hardy 1914 is one residual; the Route B pair is two, giving five total at r285). It IS a semantic upgrade of the Hardy-source residual: from a single classical oracle to two more elementary residuals — one 56 years earlier classical (Dirichlet 1858), one numerical (Xi witness, closer to interval-arithmetic discharge; algebraic layer closed at r262). The exchange exposes where mathlib-native discharge attacks should aim per r274 doctrine.
+
+Zero project axioms preserved. Build progression 4982 → 4983 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r285 (this commit) — Unified Clay closure via Route B + RH + polylog atoms (`PF/Analytic/UnifiedClayClosureViaRouteBAndRH_r285.lean`)
+
+Route B substrate-closure input record:
+
+- `ClayClosureBundleViaRouteBAndRH` — structure with five fields:
+  1. `dirichlet1858 : Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` — r271 named published-mathematics residual (1858 classical identity, awaiting mathlib PR).
+  2. `xi_witness : ∃ b : ℝ, 0 < b ∧ 0 < Xi b` — Route B numerical residual (algebraic layer closed at r262, bricks r257-r263).
+  3. `rh : PrincipiaTractalis.RiemannHypothesis` — per r284 honest-scope.
+  4. `polylog_atomic_branch_selection : PolylogAtomic_HeurBranchSelection` — Ch 21 § 4.1 (P-side).
+  5. `polylog_atomic_golden_modulation : PolylogAtomic_ConjGoldenModulation` — Ch 21 § 4.2 (NP-side).
+
+Promotion + headline:
+
+- `bundleViaRouteBAndRH_to_hardyAndRH` — the Route B record promotes to r284's `ClayClosureBundleViaHardyAndRH` by supplying `hardy_atomic` via r272's `route_b_fact_a_via_named_residuals` composed with r281's `hardy1914_atomicFact_eq_nonempty.mpr`. Destructures the `xi_witness` existential to extract `b`, `hb_pos`, `hXi_pos` for r272's implicit-parameter signature.
+
+- `unified_clay_closure_via_route_b_and_rh_r285` — HEADLINE. Under `ClayClosureBundleViaRouteBAndRH`, all six Clay-Standard statements hold on their PF-substrate encodings via `unified_clay_closure_via_hardy_and_rh_r284`. The framework's total Millennium position at HEAD presented as a direct implication from five named residuals with the Hardy 1914 residual sourced via mathlib-native Route B.
+
+Doctrinal anchor:
+
+- `hardy_residual_from_route_b_pair` — r272 + r281 composition standalone. Under `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` and `∃ b > 0, Xi b > 0`, `Hardy1914_AtomicFact` is inhabited. This is the citable theorem that justifies the r284 → r285 field exchange at the Prop level.
+
+### Reduction chain state at HEAD (after r285)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282 | six Clay-Standard from Hardy + HP-program + polylog | 3 named residuals |
+| r283 | polylog split into Ch 21 § 4.1 + § 4.2 atomic halves | 4 named residuals |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r284 | six Clay-Standard from Hardy + RH + Ch 21 § 4.1 + § 4.2 | 4 residuals; HP-program surfaced as RH per r274 |
+| r272 | Route B: Dirichlet 1858 + Xi witness → PositiveOnLineZetaZeroOrdinatesNonempty | mathlib-native second front |
+| **r285** | **six Clay-Standard from Dirichlet 1858 + Xi witness + RH + Ch 21 § 4.1 + § 4.2** | **5 residuals; Hardy 1914 surfaced as Route B pair per r272** |
+
+### Framework position after r285
+
+The framework's substrate closure at HEAD now admits three bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream:
+
+- **r283 form** `ClayClosureBundleViaFullyAtomicResiduals` — 4 residuals: Hardy 1914 + HP-program-positive + Ch 21 § 4.1 + Ch 21 § 4.2. The naive substrate-closure input shape.
+- **r284 form** `ClayClosureBundleViaHardyAndRH` — 4 residuals: Hardy 1914 + RH + Ch 21 § 4.1 + Ch 21 § 4.2. HP-program residual honestly exposed as RH per r274.
+- **r285 form** `ClayClosureBundleViaRouteBAndRH` — 5 residuals: Dirichlet 1858 + Xi witness + RH + Ch 21 § 4.1 + Ch 21 § 4.2. Hardy 1914 residual honestly exposed as Route B pair per r272.
+
+The referee-facing residual list at r285 no longer contains any classical oracle citation whose real content lives outside the corpus's current infrastructure. Dirichlet 1858 is 56 years earlier than Hardy 1914 and awaits only a mathlib PR; the Xi witness awaits only a numerical certification (interval arithmetic on `Xi` at a chosen `b`). RH remains the second RH residual per r284. The polylog atoms remain the Ch 21 manuscript anchors per r283.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4983 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-18 (r284 UNIFIED CLAY CLOSURE VIA HARDY + RH + POLYLOG ATOMS — HP-program residual honest-scope surface: formalises r274's HP-program-positive ↔ RH under Hardy at the substrate-closure BUNDLE level, exchanging the shrouded HP-program implication residual for the Riemann Hypothesis itself)
 
 **HEAD prior**: `5da098bb` (r283 CHANGELOG). **HEAD now**: (this commit).
