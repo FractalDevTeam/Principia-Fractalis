@@ -1,5 +1,74 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-18 (r286 UNIFIED CLAY CLOSURE VIA ROUTE B + RH + P-PINNING + NP POLYLOG ATOM — Ch 21 § 4.1 heur:branch-selection residual surfaced as its manuscript-faithful canonical value pinning `alpha_of_class ClassP = √2`, from which the derived algebraic conjunction follows axiom-free)
+
+**HEAD prior**: `2a343fd7` (r285 CHANGELOG). **HEAD now**: (this commit).
+
+Surfaces the P-side polylog atomic residual at the substrate-closure BUNDLE level as its manuscript-faithful value-pinning form. Where r285's `ClayClosureBundleViaRouteBAndRH` carries `PolylogAtomic_HeurBranchSelection` (the derived algebraic conjunction `α_P² = 2 ∧ 0 < α_P`) as its P-side residual, r286's `ClayClosureBundleViaRouteBAndPPinning` exchanges that field for `AlphaOfClassP_CanonicalPinning := alpha_of_class ClassP = Real.sqrt 2` — the direct value identification that Chapter 21 § 4.1 heur:branch-selection actually claims (the branch choice yields α_P = √2 uniquely).
+
+Framework-first: NOT a residual-count reduction (5 → 5). IS a semantic surface-shape upgrade — the referee-facing P-side residual now reads as the exact manuscript claim rather than as the derived algebraic constraint. The atomic form was the DERIVED presentation via uniqueness of the positive square root; the pinning is the PRIMARY manuscript form. Same doctrinal pattern as r284 (RH surfacing per r274 doctrine) and r285 (Route B surfacing per r272 doctrine), now applied to the Ch 21 § 4.1 leg.
+
+Note on the AlphaRealizationNoGo: `alpha_realization_canonical_pair_iff_classes_distinct` shows that the JOINT canonical pinning (both P and NP) is equivalent to `ClassP ≠ ClassNP`. r286 pins only the P-side; the NP-side residual remains `PolylogAtomic_ConjGoldenModulation` from r283. r286 is therefore not covered by the joint-pinning no-go on its own.
+
+Zero project axioms preserved. Build progression 4983 → 4984 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r286 (this commit) — Unified Clay closure via Route B + RH + P-pinning + NP polylog atom (`PF/Analytic/UnifiedClayClosureViaRouteBAndPPinning_r286.lean`)
+
+The manuscript-faithful P-pinning residual:
+
+- `AlphaOfClassP_CanonicalPinning : Prop := alpha_of_class ClassP = Real.sqrt 2` — Ch 21 § 4.1 heur:branch-selection in its manuscript-faithful value-pinning form.
+
+Biconditional to r283 atomic:
+
+- `polylog_atomic_heur_branch_selection_from_pinning` — under the pinning, the r283 P-side atomic residual `PolylogAtomic_HeurBranchSelection` is inhabited axiom-free via `alpha_P_sq` (`(√2)² = 2`) and `alpha_P_pos` (`0 < √2`), both from `AlphaCanonical.lean`.
+
+- `polylog_atomic_heur_branch_selection_iff_pinning` — biconditional form. Forward is `from_pinning`; reverse uses `Real.sqrt_sq` on the positivity witness to identify the value with √2 uniquely (mirroring `alpha_at_ClassP_eq_sqrt2` from `TuringEncoding/Operators.lean`).
+
+P-pinning substrate-closure input record:
+
+- `ClayClosureBundleViaRouteBAndPPinning` — 5-field structure:
+  1. `dirichlet1858` — r271 named published-mathematics residual.
+  2. `xi_witness` — Route B numerical residual (r272 algebraic layer at r262).
+  3. `rh` — the Riemann Hypothesis (per r284 honest-scope).
+  4. `alpha_of_class_P_canonical_pinning` — Ch 21 § 4.1 in value-pinning form.
+  5. `polylog_atomic_golden_modulation` — Ch 21 § 4.2 (NP-side, unchanged from r283).
+
+Promotion + headline:
+
+- `bundleViaRouteBAndPPinning_to_routeBAndRH` — the P-pinning record promotes to r285's `ClayClosureBundleViaRouteBAndRH` by supplying the `polylog_atomic_branch_selection` field via `polylog_atomic_heur_branch_selection_from_pinning`.
+
+- `unified_clay_closure_via_route_b_and_p_pinning_r286` — HEADLINE. Under `ClayClosureBundleViaRouteBAndPPinning`, all six Clay-Standard statements hold on their PF-substrate encodings via `unified_clay_closure_via_route_b_and_rh_r285`. The framework's total Millennium position at HEAD presented as a direct implication from five named residuals with the P-side polylog residual exposed as the manuscript-faithful canonical value pinning.
+
+### Reduction chain state at HEAD (after r286)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282 | six Clay-Standard from Hardy + HP-program + polylog | 3 named residuals |
+| r283 | polylog split into Ch 21 § 4.1 + § 4.2 atomic halves | 4 named residuals |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r284 | six Clay-Standard from Hardy + RH + Ch 21 § 4.1 + § 4.2 | 4 residuals; HP-program surfaced as RH per r274 |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r285 | six Clay-Standard from Dirichlet 1858 + Xi witness + RH + Ch 21 § 4.1 + § 4.2 | 5 residuals; Hardy 1914 surfaced as Route B pair per r272 |
+| **r286** | **six Clay-Standard from Dirichlet 1858 + Xi witness + RH + (α_P = √2) + Ch 21 § 4.2** | **5 residuals; Ch 21 § 4.1 surfaced as manuscript-faithful P-pinning** |
+
+### Framework position after r286
+
+The framework's substrate closure at HEAD admits four bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream:
+
+- **r283 form** `ClayClosureBundleViaFullyAtomicResiduals` — 4 residuals (naive HP-program-positive shape).
+- **r284 form** `ClayClosureBundleViaHardyAndRH` — 4 residuals (HP-program honestly exposed as RH per r274).
+- **r285 form** `ClayClosureBundleViaRouteBAndRH` — 5 residuals (Hardy 1914 honestly exposed as Route B pair per r272).
+- **r286 form** `ClayClosureBundleViaRouteBAndPPinning` — 5 residuals (P-side polylog honestly exposed as manuscript-faithful canonical value pinning `α_P = √2`).
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4984 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-18 (r285 UNIFIED CLAY CLOSURE VIA ROUTE B + RH + POLYLOG ATOMS — Hardy 1914 residual exchanged for r272's mathlib-native pair (Dirichlet 1858 + Xi witness); per r274 doctrine promoting Route B second front to substrate-closure BUNDLE level)
 
 **HEAD prior**: `535f41bb` (r284 CHANGELOG). **HEAD now**: (this commit).
