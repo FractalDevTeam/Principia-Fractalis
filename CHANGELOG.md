@@ -1,5 +1,83 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-18 (r289 UNIFIED CLAY CLOSURE VIA ROUTE B SPECIFIC-Xi + RIEMANN 1859 + FULL PINNING — RH residual surfaced as the Riemann 1859 shoulder-of-giants named substrate citation, completing the shoulder-of-giants labelling discipline at the substrate-closure BUNDLE surface)
+
+**HEAD prior**: `755fc605` (r288 CHANGELOG). **HEAD now**: (this commit).
+
+Surfaces the RH residual at the substrate-closure BUNDLE level with its shoulder-of-giants named anchor: `Riemann1859_CriticalLineHypothesis : Prop := PrincipiaTractalis.RiemannHypothesis`, matching the corpus's established shoulder-of-giants labelling discipline (r271 Dirichlet 1858, r281 Hardy 1914 atomic form, Mayer 1991 substrate anchor, Perelman 2003 pattern).
+
+Framework-first: NOT a residual-count reduction (5 → 5). NOT a semantic-content change (the two Props are definitionally equal; the biconditional is `Iff.rfl`). IS the completion of the shoulder-of-giants labelling discipline at the substrate-closure BUNDLE surface — every residual in the r289 bundle now reads as a NAMED historical or manuscript mathematical claim.
+
+**Historical anchor**: B. Riemann, *Über die Anzahl der Primzahlen unter einer gegebenen Grösse* (On the Number of Primes Less than a Given Magnitude), Monatsberichte der Berliner Akademie, November 1859. § 3 conjectures that all non-trivial zeros of the ζ function have real part exactly 1/2.
+
+Zero project axioms preserved. Build progression 4986 → 4987 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r289 (this commit) — Unified Clay closure via Route B specific-Xi + Riemann 1859 + full pinning (`PF/Analytic/UnifiedClayClosureViaRouteBSpecificXiAndRiemann1859AndFullPinning_r289.lean`)
+
+The Riemann 1859 shoulder-of-giants named substrate citation:
+
+- `Riemann1859_CriticalLineHypothesis : Prop := PrincipiaTractalis.RiemannHypothesis` — the RH residual in canonical critical-strip form, named with its historical shoulder-of-giants anchor.
+
+Biconditional:
+
+- `riemann1859_iff_rh` — the Riemann 1859 named citation and `PrincipiaTractalis.RiemannHypothesis` are the same Prop. Definitional; `Iff.rfl`.
+
+Riemann 1859 substrate-closure input record:
+
+- `ClayClosureBundleViaRouteBSpecificXiAndRiemann1859AndFullPinning` — 5-field structure with ALL residuals now historically or manuscript-anchored:
+  1. `dirichlet1858` — Dirichlet 1858 (r271 named).
+  2. `xi_positive_at_15` — specific numerical Xi witness at b = 15 (r288).
+  3. `riemann1859_hypothesis` — Riemann 1859 named substrate citation.
+  4. `alpha_of_class_P_canonical_pinning` — Ch 21 § 4.1 (r286).
+  5. `alpha_of_class_NP_canonical_pinning` — Ch 21 § 4.2 (r287).
+
+Promotion + headline:
+
+- `bundleViaRiemann1859_to_specificXiAndFullPinning` — the Riemann 1859 record promotes to r288's `ClayClosureBundleViaRouteBSpecificXiAndFullPinning` via the trivial biconditional.
+
+- `unified_clay_closure_via_route_b_specific_xi_and_riemann1859_and_full_pinning_r289` — HEADLINE. Under `ClayClosureBundleViaRouteBSpecificXiAndRiemann1859AndFullPinning`, all six Clay-Standard statements hold on PF-substrate encodings via `unified_clay_closure_via_route_b_specific_xi_and_full_pinning_r288`.
+
+### Reference to the four equivalent published HP formulations
+
+Independent of the r289 named substrate citation, the corpus provides four equivalent published Hilbert-Pólya formulations that each yield `Clay_RiemannHypothesis_Standard` under the HP-program conjecture (per `Clay_RH_via_HP_capstone` in `PF/Analytic/RHSurjectivityViaHilbertPolya.lean`):
+
+- **(K1)** PF/T³^sym (framework canonical, Mayer 1991 anchor);
+- **(K2)** Berry-Keating 1999 H = xp;
+- **(K3)** Connes 1999 adelic cohomology;
+- **(K4)** Bost-Connes 1995 KMS phase transition.
+
+The r289 bundle carries RH as the Riemann 1859 named substrate citation directly, so the four HP formulations enter only when the eventual referee chooses a specific route for HP-program-conjecture discharge. The r289 bundle is neutral across all four.
+
+### Reduction chain state at HEAD (after r289)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282 | six Clay-Standard from Hardy + HP-program + polylog | 3 named residuals |
+| r283 | polylog split into Ch 21 § 4.1 + § 4.2 atomic halves | 4 named residuals |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r284 | six Clay-Standard from Hardy + RH + Ch 21 § 4.1 + § 4.2 | 4 residuals; HP-program surfaced as RH |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r285 | six Clay-Standard from Dirichlet 1858 + Xi witness + RH + Ch 21 § 4.1 + § 4.2 | 5 residuals; Hardy surfaced as Route B pair |
+| r286 | six Clay-Standard from ... + (α_P = √2) + Ch 21 § 4.2 | 5 residuals; Ch 21 § 4.1 P-pinning |
+| r287 | six Clay-Standard from ... + (α_P = √2) + (α_NP = φ+1/4) | 5 residuals; joint pinning ⇔ P vs NP |
+| r288 | six Clay-Standard from Dirichlet 1858 + (0 < Xi 15) + RH + (α_P = √2) + (α_NP = φ+1/4) | 5 residuals; Xi witness specialized to numerical target at b = 15 |
+| **r289** | **six Clay-Standard from Dirichlet 1858 + (0 < Xi 15) + Riemann 1859 + (α_P = √2) + (α_NP = φ+1/4)** | **5 residuals; RH surfaced as Riemann 1859 named substrate citation** |
+
+### Framework position after r289
+
+The framework's substrate closure at HEAD admits seven bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream. The r289 form is the completion of the shoulder-of-giants labelling discipline: every residual in the referee-facing surface list is now a NAMED historical or manuscript mathematical claim, matching the classical-anchor pattern established at r271 (Dirichlet 1858) and r281 (Hardy 1914 atomic).
+
+The r289 residual list is: (Dirichlet 1858 + `0 < Xi 15` + Riemann 1859 + `α_P = √2` + `α_NP = φ+1/4`). Joint pinning at fields (4)+(5) ⇔ `ClassP ≠ ClassNP` per r287 no-go corollary. The bundle honestly surfaces: (Dirichlet 1858 + specific numerical Xi target + Riemann 1859 + P vs NP) — with each classical residual bearing its historical name.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4987 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-18 (r288 UNIFIED CLAY CLOSURE VIA ROUTE B SPECIFIC-Xi + RH + FULL PINNING — Xi witness residual specialized to the concrete numerical claim `0 < Xi 15`, matching r262's algebraic-layer doctrine "past first Riemann zero at b > 14.135" guideline and the eventual interval-arithmetic discharge target)
 
 **HEAD prior**: `04bf2965` (r287 CHANGELOG). **HEAD now**: (this commit).
