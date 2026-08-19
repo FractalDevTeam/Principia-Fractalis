@@ -1,5 +1,77 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-18 (r288 UNIFIED CLAY CLOSURE VIA ROUTE B SPECIFIC-Xi + RH + FULL PINNING — Xi witness residual specialized to the concrete numerical claim `0 < Xi 15`, matching r262's algebraic-layer doctrine "past first Riemann zero at b > 14.135" guideline and the eventual interval-arithmetic discharge target)
+
+**HEAD prior**: `04bf2965` (r287 CHANGELOG). **HEAD now**: (this commit).
+
+Surfaces the Xi witness residual at the substrate-closure BUNDLE level as its specific-numerical form. Where r287's `ClayClosureBundleViaRouteBAndFullPinning` carries the abstract Xi witness `xi_witness : ∃ b : ℝ, 0 < b ∧ 0 < Xi b`, r288's `ClayClosureBundleViaRouteBSpecificXiAndFullPinning` exchanges that field for the specific numerical claim `Xi_Positive_At_15 : Prop := 0 < Xi 15`.
+
+The value `b = 15` sits inside the classical positive interval `(t₁, t₂)` between the first two Riemann zeros (t₁ ≈ 14.134725..., t₂ ≈ 21.022039...). `0 < Xi 15` is a classical numerical fact verifiable to arbitrary precision by any interval-arithmetic package (Odlyzko / Gourdon / Platt reference tables).
+
+Per r262's own algebraic-layer capstone doctrine:
+
+> Full Route B discharge of the RH atomic residual requires only certified numerics on two facts: ... (b) `∃ b > 0, 0 < Xi b` — e.g. any evaluation past the first Riemann zero at `b > 14.135`.
+
+r288 makes the doctrine's `b > 14.135` guideline explicit at the substrate-closure BUNDLE level by fixing `b = 15`.
+
+Framework-first: NOT a residual-count reduction (5 → 5). IS a specialization — the referee-facing Xi witness residual now reads as the concrete numerical target that interval arithmetic would eventually pin, matching r271's named-residual pattern for Dirichlet 1858 (a specific, precisely-stated claim awaiting mathlib-adjacent discharge).
+
+Zero project axioms preserved. Build progression 4985 → 4986 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r288 (this commit) — Unified Clay closure via Route B specific-Xi + RH + full pinning (`PF/Analytic/UnifiedClayClosureViaRouteBSpecificXiAndFullPinning_r288.lean`)
+
+The specific numerical Xi witness residual:
+
+- `Xi_Positive_At_15 : Prop := 0 < Xi 15` — the specific numerical Xi witness claim at `b = 15`, matching r262 doctrine's guideline for a witness past the first Riemann zero.
+
+Composition:
+
+- `xi_witness_existential_from_specific` — under `Xi_Positive_At_15`, the abstract existential Xi witness `∃ b : ℝ, 0 < b ∧ 0 < Xi b` used in r272 and r285 is inhabited via `⟨15, by norm_num, h⟩`.
+
+Specific-Xi substrate-closure input record:
+
+- `ClayClosureBundleViaRouteBSpecificXiAndFullPinning` — 5-field structure:
+  1. `dirichlet1858` — r271 named published-mathematics residual.
+  2. `xi_positive_at_15` — specific numerical claim `0 < Xi 15`.
+  3. `rh` — the Riemann Hypothesis (per r284 honest-scope).
+  4. `alpha_of_class_P_canonical_pinning` — Ch 21 § 4.1 P-side pinning (per r286).
+  5. `alpha_of_class_NP_canonical_pinning` — Ch 21 § 4.2 NP-side pinning (per r287).
+
+Promotion + headline:
+
+- `bundleViaRouteBSpecificXiAndFullPinning_to_routeBAndFullPinning` — promotes to r287's `ClayClosureBundleViaRouteBAndFullPinning` by supplying `xi_witness` via `xi_witness_existential_from_specific`.
+
+- `unified_clay_closure_via_route_b_specific_xi_and_full_pinning_r288` — HEADLINE. Under `ClayClosureBundleViaRouteBSpecificXiAndFullPinning`, all six Clay-Standard statements hold on PF-substrate encodings via `unified_clay_closure_via_route_b_and_full_pinning_r287`.
+
+### Reduction chain state at HEAD (after r288)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282 | six Clay-Standard from Hardy + HP-program + polylog | 3 named residuals |
+| r283 | polylog split into Ch 21 § 4.1 + § 4.2 atomic halves | 4 named residuals |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r284 | six Clay-Standard from Hardy + RH + Ch 21 § 4.1 + § 4.2 | 4 residuals; HP-program surfaced as RH |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r285 | six Clay-Standard from Dirichlet 1858 + Xi witness + RH + Ch 21 § 4.1 + § 4.2 | 5 residuals; Hardy surfaced as Route B pair |
+| r286 | six Clay-Standard from ... + (α_P = √2) + Ch 21 § 4.2 | 5 residuals; Ch 21 § 4.1 P-pinning |
+| r287 | six Clay-Standard from ... + (α_P = √2) + (α_NP = φ+1/4) | 5 residuals; joint pinning ⇔ P vs NP |
+| **r288** | **six Clay-Standard from Dirichlet 1858 + (0 < Xi 15) + RH + (α_P = √2) + (α_NP = φ+1/4)** | **5 residuals; Xi witness specialized to numerical target at b = 15** |
+
+### Framework position after r288
+
+The framework's substrate closure at HEAD admits six bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream. The r288 form is the most-specialized: every non-Route-B residual has been surfaced through the corpus's own doctrinal reductions to its cleanest referee-facing form, and the Xi witness residual has been specialized to the specific numerical target that eventual interval-arithmetic discharge would pin.
+
+The r288 residual list is: (Dirichlet 1858 + `0 < Xi 15` + RH + `α_P = √2` + `α_NP = φ+1/4`). The joint pinning at fields (4)+(5) is equivalent to `ClassP ≠ ClassNP` per `alpha_realization_canonical_pair_iff_classes_distinct` (see r287 `joint_pinning_forces_p_neq_np`). The bundle therefore honestly surfaces: (Dirichlet 1858 + specific numerical Xi target + RH + P vs NP) — the framework's substrate delivers everything beyond those.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4986 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-18 (r287 UNIFIED CLAY CLOSURE VIA ROUTE B + RH + FULL CANONICAL PINNING — Ch 21 § 4.2 conj:golden-modulation residual surfaced as its manuscript-faithful canonical value pinning `alpha_of_class ClassNP = φ + 1/4`, completing the joint canonical pair; joint pinning honestly surfaces `ClassP ≠ ClassNP` at the residual level per `alpha_realization_canonical_pair_iff_classes_distinct`)
 
 **HEAD prior**: `c0b6f511` (r286 CHANGELOG). **HEAD now**: (this commit).
