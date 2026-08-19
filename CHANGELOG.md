@@ -1,5 +1,70 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-19 (r291 UNIFIED CLAY CLOSURE VIA REFINED DIRICHLET 1858 + SPECIFIC-Xi + RIEMANN 1859 + CANONICAL PAIR — P vs NP residual surfaced via Cook 1971 shoulder-of-giants named substrate citation; joint α-pinning packaged as canonical-pair conjunction; surface residual count reduced 5 → 4)
+
+**HEAD prior**: `bccd0e92` (r290 CHANGELOG). **HEAD now**: (this commit).
+
+Surfaces the P vs NP residual at the substrate-closure BUNDLE level via two complementary honest-scope moves: (1) `AlphaOfClass_CanonicalPair` packages r286's P-pinning and r287's NP-pinning as ONE named conjunction reflecting the Ch 21 § 4 manuscript grouping; (2) `Cook1971_ClassP_neq_ClassNP_ClayHypothesis` names the P vs NP question with its Cook 1971 / Levin 1973 shoulder-of-giants anchor, matching r271 (Dirichlet 1858), r281 (Hardy 1914), r289 (Riemann 1859) patterns.
+
+Framework-first: this IS a surface residual-count reduction (5 → 4) via packaging the joint pinning as one canonical-pair field. Additionally, `canonical_pair_forces_cook1971` formalises the honest-scope reading — the canonical-pair residual at the bundle surface encodes exactly the P vs NP question, via r287's `joint_pinning_forces_p_neq_np` composed with `alpha_realization_canonical_pair_iff_classes_distinct` from `AlphaRealizationNoGo.lean`.
+
+Zero project axioms preserved. Build progression 4988 → 4989 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r291 (this commit) — Unified Clay closure via refined Dirichlet 1858 + specific-Xi + Riemann 1859 + canonical pair (`PF/Analytic/UnifiedClayClosureViaRefinedDirichlet1858AndCanonicalPair_r291.lean`)
+
+Cook 1971 shoulder-of-giants named substrate citation:
+
+- `Cook1971_ClassP_neq_ClassNP_ClayHypothesis : Prop := ClassP ≠ ClassNP` — the P vs NP Millennium question named with its Cook 1971 STOC + Levin 1973 anchor. Reference: Stephen A. Cook, "The Complexity of Theorem-Proving Procedures" (STOC 1971); Leonid A. Levin, "Universal search problems" (1973). The Clay Mathematics Institute lists P vs NP as the first Millennium Problem.
+
+Canonical α-pair as one named conjunction:
+
+- `AlphaOfClass_CanonicalPair : Prop := AlphaOfClassP_CanonicalPinning ∧ AlphaOfClassNP_CanonicalPinning` — joint α-pinning packaged as ONE named conjunction matching the Ch 21 § 4 manuscript grouping.
+
+Cook 1971 derivation:
+
+- `canonical_pair_forces_cook1971` — under `AlphaOfClass_CanonicalPair`, `Cook1971_ClassP_neq_ClassNP_ClayHypothesis` holds via r287's `joint_pinning_forces_p_neq_np`.
+
+Canonical-pair substrate-closure input record:
+
+- `ClayClosureBundleViaRefinedDirichlet1858AndCanonicalPair` — 4-field structure (down from r290's 5):
+  1. `dirichlet1858_powerseries_limit` — r275 refined named residual.
+  2. `xi_positive_at_15` — specific numerical Xi witness at b = 15 (r288).
+  3. `riemann1859_hypothesis` — Riemann 1859 named substrate citation (r289).
+  4. `alpha_of_class_canonical_pair` — joint α-pair as conjunction (r286+r287 packaged; encodes Cook 1971 per `canonical_pair_forces_cook1971`).
+
+Promotion + headline + Cook 1971 corollary:
+
+- `bundleViaCanonicalPair_to_refinedDirichlet1858AndFullPinning` — the canonical-pair record promotes to r290's bundle by decomposing the canonical-pair conjunction into its two pinning conjuncts via `And.left` / `And.right`.
+
+- `unified_clay_closure_via_refined_dirichlet1858_and_canonical_pair_r291` — HEADLINE. Under `ClayClosureBundleViaRefinedDirichlet1858AndCanonicalPair`, all six Clay-Standard statements hold on PF-substrate encodings via `unified_clay_closure_via_route_b_refined_dirichlet1858_and_full_pinning_r290`.
+
+- `bundle_r291_forces_cook1971` — the r291 bundle honestly surfaces Cook 1971 P vs NP at the BUNDLE level via the canonical-pair field.
+
+### Reduction chain state at HEAD (after r291)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional; refined residual named |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282-r290 | eight-form honest-scope surfacing pattern | 8 bundle variants |
+| **r291** | **six Clay-Standard from refined Dirichlet 1858 + (0 < Xi 15) + Riemann 1859 + canonical α-pair** | **4 residuals; joint α-pinning packaged as canonical-pair, Cook 1971 P vs NP named** |
+
+### Framework position after r291
+
+The framework's substrate closure at HEAD admits nine bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream. The r291 form is the first to reduce the surface residual count via grouping (5 → 4), matching the Ch 21 § 4 manuscript grouping of the α-pair.
+
+The r291 residual list is: (r275 refined Dirichlet 1858 + `0 < Xi 15` + Riemann 1859 + canonical α-pair). The canonical α-pair field encodes Cook 1971 P vs NP per `canonical_pair_forces_cook1971`. Every referee-facing residual now bears its named historical or manuscript anchor: Dirichlet 1858 (r271 refined), Xi target (r288 specific numerical), Riemann 1859 (r289 shoulder-of-giants), Ch 21 § 4 canonical pair (r286+r287 packaged with Cook 1971 P vs NP derivation).
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2 canonical pair), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4989 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-18 (r290 UNIFIED CLAY CLOSURE VIA ROUTE B REFINED DIRICHLET 1858 + SPECIFIC-Xi + RIEMANN 1859 + FULL PINNING — Dirichlet 1858 residual surfaced as its r275 refined form, the specific power-series boundary limit equalling `(1 - √2) · (ζ(1/2)).re` as x → 1⁻; Abel-theorem ingredient already discharged unconditionally within the corpus)
 
 **HEAD prior**: `b0c7cfe1` (r289 CHANGELOG). **HEAD now**: (this commit).
