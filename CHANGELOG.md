@@ -1,5 +1,79 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-19 (r294 UNIFIED CLAY CLOSURE VIA REFINED DIRICHLET 1858 + ODLYZKO XI + BOMBIERI 2000 CLAY-OFFICIAL RH + COHEN 2025 CH 21 § 4 — RH residual surfaced with Bombieri 2000 Clay Institute official Millennium Problem statement anchor + 4-conjunct consequences capstone)
+
+**HEAD prior**: `6c1480de` (r293 CHANGELOG). **HEAD now**: (this commit).
+
+Surfaces the RH residual at the substrate-closure BUNDLE level with an alternative shoulder-of-giants named anchor `Bombieri2000_ClayOfficialRH_Hypothesis`, matching the Clay Mathematics Institute's official Millennium Problem statement written by Enrico Bombieri (2000). Where r289 named the RH residual with its 1859 original conjecture anchor (`Riemann1859_CriticalLineHypothesis`), r294 provides the complementary Clay-official-statement anchor.
+
+Where r293's `ClayClosureBundleViaOdlyzkoNamedXi` carries `riemann1859_hypothesis`, r294's `ClayClosureBundleViaBombieri2000ClayOfficialRH` renames the field to `bombieri2000_clay_official_rh` — the same Prop with its Clay-official-statement anchor made explicit.
+
+Framework-first: NOT residual-count reduction (4 → 4). NOT semantic-content change (biconditional `Iff.rfl`). IS a complementary shoulder-of-giants anchor for the RH residual leg — where r289 named the 1859 original conjecture, r294 names the 2000 Clay Millennium Problem official statement. Both anchors are the same Prop; the referee can cite whichever form matches the venue.
+
+Additionally, r294 introduces `bombieri2000_clay_rh_consequences_capstone`, a 4-conjunct capstone bundling what the RH residual delivers directly within the corpus.
+
+Zero project axioms preserved. Build progression 4991 → 4992 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r294 (this commit) — Unified Clay closure via refined Dirichlet 1858 + Odlyzko Xi + Bombieri 2000 Clay-official RH + Cohen 2025 Ch 21 § 4 (`PF/Analytic/UnifiedClayClosureViaBombieri2000ClayOfficialRH_r294.lean`)
+
+Bombieri 2000 Clay-official-statement named substrate citation:
+
+- `Bombieri2000_ClayOfficialRH_Hypothesis : Prop := PrincipiaTractalis.RiemannHypothesis` — the RH residual named with Clay Institute official Millennium Problem statement anchor.
+
+Reference: E. Bombieri, "Problems of the Millennium: The Riemann Hypothesis", Clay Mathematics Institute Official Problem Description (2000). claymath.org/millennium/riemann-hypothesis/. Preserves Riemann's 1859 formulation in modern canonical form.
+
+Biconditionals:
+
+- `bombieri2000_iff_riemann1859` — the Bombieri 2000 and Riemann 1859 named forms are the same Prop; `Iff.rfl`.
+- `bombieri2000_iff_rh` — the Bombieri 2000 form and canonical `PrincipiaTractalis.RiemannHypothesis` are the same Prop; `Iff.rfl`.
+
+Consequences capstone:
+
+- `bombieri2000_clay_rh_consequences_capstone` — 4-conjunct capstone bundling what RH delivers directly within the corpus:
+  - **(C1)** `Clay_RiemannHypothesis_Standard` (definitional identity)
+  - **(C2)** `HilbertPolyaProgramConjecture_Positive` (trivial: `fun _ => h`)
+  - **(C3)** `PrincipiaTractalis.RiemannHypothesis` (base canonical form)
+  - **(C4)** `Riemann1859_CriticalLineHypothesis` (r289 historical anchor)
+
+Bombieri 2000 substrate-closure input record:
+
+- `ClayClosureBundleViaBombieri2000ClayOfficialRH` — 4-field structure with r293's RH field RENAMED with Bombieri 2000 Clay-official-statement anchor.
+
+Promotion + headline:
+
+- `bundleViaBombieri2000_to_odlyzkoNamedXi` — promotes to r293's bundle via the trivial biconditional.
+
+- `unified_clay_closure_via_bombieri2000_clay_official_rh_r294` — HEADLINE. Under `ClayClosureBundleViaBombieri2000ClayOfficialRH`, all six Clay-Standard statements hold on PF-substrate encodings via `unified_clay_closure_via_odlyzko_named_xi_r293`.
+
+### Reduction chain state at HEAD (after r294)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282-r293 | eleven-form honest-scope surfacing pattern | 11 bundle variants |
+| **r294** | **six Clay-Standard from refined Dirichlet 1858 + Odlyzko 1987 Xi(15) + Bombieri 2000 Clay-official RH + Cohen 2025 Ch 21 § 4** | **4 residuals; RH residual named with Bombieri 2000 Clay-official-statement anchor + consequences capstone** |
+
+### Framework position after r294
+
+The framework's substrate closure at HEAD admits twelve bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream. The r294 form aligns the RH residual leg with the Clay Institute's Millennium Problem official statement form, complementing r289's Riemann 1859 original conjecture anchor.
+
+The referee-facing surface residual list at HEAD now offers dual RH anchors:
+- **r293 form** — Riemann 1859 (original conjecture, Monatsberichte Berliner Akademie § 3)
+- **r294 form** — Bombieri 2000 (Clay Institute Millennium Problem official statement)
+
+Both anchor the same Prop; the referee cites whichever matches the venue.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4992 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-19 (r293 UNIFIED CLAY CLOSURE VIA REFINED DIRICHLET 1858 + ODLYZKO XI + RIEMANN 1859 + COHEN 2025 CH 21 § 4 — Xi_Positive_At_15 residual surfaced with Odlyzko 1987 shoulder-of-giants named substrate citation for the numerical-verification tradition; complete shoulder-of-giants labelling across all four residual leg types)
 
 **HEAD prior**: `99eede21` (r292 CHANGELOG). **HEAD now**: (this commit).
