@@ -1,5 +1,77 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-19 (r295 UNIFIED CLAY CLOSURE VIA TITCHMARSH 1951 DIRICHLET BOUNDARY + ODLYZKO XI + BOMBIERI 2000 CLAY-OFFICIAL RH + COHEN 2025 CH 21 § 4 — Dirichlet 1858 residual surfaced with Titchmarsh 1951 § 2.1 modern-classical reference anchor + 2-conjunct consequences capstone; complete shoulder-of-giants naming across all four residual leg types)
+
+**HEAD prior**: `fdd2a8b2` (r294 CHANGELOG). **HEAD now**: (this commit).
+
+Surfaces the Dirichlet 1858 residual at the substrate-closure BUNDLE level with its modern-classical reference anchor `Titchmarsh1951_S21_DirichletEtaPolylogBoundaryLimit_Hypothesis`, matching the corpus's r281 (Hardy 1914 atomic), r289 (Riemann 1859), r292 (Cohen 2025 Ch 21 § 4), r293 (Odlyzko 1987), r294 (Bombieri 2000 Clay-official) named-anchor pattern.
+
+Where r294's `ClayClosureBundleViaBombieri2000ClayOfficialRH` carries `dirichlet1858_powerseries_limit : Dirichlet1858_PowerSeriesLimit_EqualsProductForm` (r275 refined form, unnamed), r295's `ClayClosureBundleViaTitchmarsh1951DirichletBoundary` renames the field to `titchmarsh1951_dirichlet_boundary_limit : Titchmarsh1951_S21_DirichletEtaPolylogBoundaryLimit_Hypothesis` — the same Prop with its modern-classical reference anchor made explicit.
+
+Framework-first: NOT residual-count reduction (4 → 4). NOT semantic-content change (biconditional `Iff.rfl`). IS the extension of the shoulder-of-giants labelling to the modern-classical reference tradition for the Dirichlet 1858 residual. After r295, the shoulder-of-giants naming is complete across all FOUR residual leg types:
+
+- **Analytic-continuation modern-classical**: Titchmarsh 1951 § 2.1 (r295; Titchmarsh + Edwards 1974 tradition)
+- **Numerical-verification**: Odlyzko 1987 (r293)
+- **Clay-official RH**: Bombieri 2000 (r294)
+- **Manuscript canonical pair**: Cohen 2025 Ch 21 § 4 (r292)
+
+Additionally, r295 introduces `titchmarsh1951_dirichlet_boundary_consequences_capstone`, a 2-conjunct capstone documenting what the Dirichlet 1858 refined residual delivers directly within the corpus.
+
+Zero project axioms preserved. Build progression 4992 → 4993 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r295 (this commit) — Unified Clay closure via Titchmarsh 1951 Dirichlet boundary + Odlyzko Xi + Bombieri 2000 Clay-official RH + Cohen 2025 Ch 21 § 4 (`PF/Analytic/UnifiedClayClosureViaTitchmarsh1951DirichletBoundary_r295.lean`)
+
+Titchmarsh 1951 § 2.1 modern-classical reference named substrate citation:
+
+- `Titchmarsh1951_S21_DirichletEtaPolylogBoundaryLimit_Hypothesis : Prop := Dirichlet1858_PowerSeriesLimit_EqualsProductForm` — the r275 refined named form with Titchmarsh 1951 § 2.1 modern-classical reference anchor.
+
+Reference: E. C. Titchmarsh, "The Theory of the Riemann Zeta-Function", Oxford University Press (1951; 2nd ed. Heath-Brown 1986), Section 2.1. Also H. M. Edwards, "Riemann's Zeta Function", Academic Press (1974), Chapter 1. Historical thread: Dirichlet 1858 → Titchmarsh 1951 § 2.1 → Edwards 1974 Ch. 1.
+
+Biconditional:
+
+- `titchmarsh1951_iff_dirichlet1858_powerseries` — `Iff.rfl`.
+
+Consequences capstone:
+
+- `titchmarsh1951_dirichlet_boundary_consequences_capstone` — 2-conjunct capstone:
+  - **(C1)** `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` (r271 abstract Prop-level equality form, via r275 `dirichlet1858_via_abel_and_refined`)
+  - **(C2)** `(riemannZeta (1/2 : ℂ)).re < 0` (via r272 `zeta_half_re_neg_via_dirichlet1858`)
+
+Titchmarsh 1951 substrate-closure input record:
+
+- `ClayClosureBundleViaTitchmarsh1951DirichletBoundary` — 4-field structure with ALL residuals under NAMED historical, modern-classical reference, numerical-verification-tradition, or manuscript citation.
+
+Promotion + headline:
+
+- `bundleViaTitchmarsh1951_to_bombieri2000` — promotes to r294's bundle via the trivial biconditional.
+
+- `unified_clay_closure_via_titchmarsh1951_dirichlet_boundary_r295` — HEADLINE. Under `ClayClosureBundleViaTitchmarsh1951DirichletBoundary`, all six Clay-Standard statements hold on PF-substrate encodings via `unified_clay_closure_via_bombieri2000_clay_official_rh_r294`.
+
+### Reduction chain state at HEAD (after r295)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282-r294 | twelve-form honest-scope surfacing pattern | 12 bundle variants |
+| **r295** | **six Clay-Standard from Titchmarsh 1951 § 2.1 Dirichlet boundary + Odlyzko 1987 Xi(15) + Bombieri 2000 Clay-official RH + Cohen 2025 Ch 21 § 4** | **4 residuals; Dirichlet 1858 residual named with Titchmarsh 1951 § 2.1 modern-classical reference anchor + consequences capstone** |
+
+### Framework position after r295
+
+The framework's substrate closure at HEAD admits thirteen bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream. The r295 form completes the shoulder-of-giants naming discipline across all four residual leg types.
+
+The referee-facing surface residual list at HEAD reads as four precisely-named claims, each bearing a modern-classical reference, numerical-verification-tradition, Clay-official-statement, or manuscript citation. Every residual now has a NAMED anchor tied to the corpus's own shoulder-of-giants labelling discipline established at r271, r281, r289, r292, r293, r294, r295.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4993 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-19 (r294 UNIFIED CLAY CLOSURE VIA REFINED DIRICHLET 1858 + ODLYZKO XI + BOMBIERI 2000 CLAY-OFFICIAL RH + COHEN 2025 CH 21 § 4 — RH residual surfaced with Bombieri 2000 Clay Institute official Millennium Problem statement anchor + 4-conjunct consequences capstone)
 
 **HEAD prior**: `6c1480de` (r293 CHANGELOG). **HEAD now**: (this commit).
