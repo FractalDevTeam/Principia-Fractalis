@@ -1,5 +1,85 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-19 (r292 UNIFIED CLAY CLOSURE VIA REFINED DIRICHLET 1858 + SPECIFIC-Xi + RIEMANN 1859 + COHEN 2025 CH 21 § 4 — canonical α-pair residual surfaced with Cohen 2025 Ch 21 § 4 manuscript-primary named substrate citation + 7-conjunct full-consequences capstone; shoulder-of-giants labelling discipline COMPLETE for entire substrate-closure BUNDLE surface)
+
+**HEAD prior**: `a6680edf` (r291 CHANGELOG). **HEAD now**: (this commit).
+
+Surfaces the canonical α-pair residual at the substrate-closure BUNDLE level with its manuscript-primary named anchor `Cohen2025_Ch21_S4_CanonicalAlphaPair` and provides a capstone theorem documenting its total framework-level consequences at HEAD. Where r291's `ClayClosureBundleViaRefinedDirichlet1858AndCanonicalPair` carries the joint α-pinning as `alpha_of_class_canonical_pair : AlphaOfClass_CanonicalPair`, r292's `ClayClosureBundleViaCohen2025Ch21CanonicalPair` renames the field to `cohen2025_ch21_canonical_alpha_pair : Cohen2025_Ch21_S4_CanonicalAlphaPair` — the same Prop with its Cohen 2025 manuscript-primary anchor made explicit.
+
+Framework-first: NOT a residual-count reduction (4 → 4). NOT a semantic-content change (biconditional is `Iff.rfl`). IS the completion of the manuscript-anchor naming discipline for the canonical α-pair residual — every referee-facing residual at the r292 substrate-closure BUNDLE surface now bears a NAMED historical or manuscript citation:
+
+- **Dirichlet 1858** (Titchmarsh 1951 § 2.1 / Edwards 1974 Ch. 1, r275 refined)
+- **`0 < Xi 15`** (Odlyzko / Gourdon / Platt numerical tables, r288)
+- **Riemann 1859** (Monatsberichte Berliner Akademie § 3, r289)
+- **Cohen 2025 Ch 21 § 4** (framework's manuscript-primary canonical α-pair)
+
+Additionally, r292 introduces `cohen2025_ch21_canonical_pair_consequences_capstone`, a 7-conjunct capstone bundling the total framework-level consequences of the canonical α-pair.
+
+Zero project axioms preserved. Build progression 4989 → 4990 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r292 (this commit) — Unified Clay closure via refined Dirichlet 1858 + specific-Xi + Riemann 1859 + Cohen 2025 Ch 21 § 4 (`PF/Analytic/UnifiedClayClosureViaCohen2025Ch21CanonicalPair_r292.lean`)
+
+Cohen 2025 Ch 21 § 4 manuscript-primary named substrate citation:
+
+- `Cohen2025_Ch21_S4_CanonicalAlphaPair : Prop := AlphaOfClass_CanonicalPair` — the canonical α-pair `(alpha_of_class ClassP = √2, alpha_of_class ClassNP = φ + 1/4)` named with its manuscript-primary anchor: Principia Fractalis Ch 21 § 4 (§ 4.1 heur:branch-selection + § 4.2 conj:golden-modulation).
+
+Biconditional:
+
+- `cohen2025_ch21_canonical_pair_iff_canonical_pair` — `Iff.rfl`.
+
+Full consequences capstone:
+
+- `cohen2025_ch21_canonical_pair_consequences_capstone` — 7-conjunct capstone bundling the total framework-level consequences of the canonical α-pair:
+  - **(C1)** individual P-side pinning `alpha_of_class ClassP = √2`
+  - **(C2)** individual NP-side pinning `alpha_of_class ClassNP = φ + 1/4`
+  - **(C3)** `PolylogAtomic_HeurBranchSelection` (r283 P-side algebraic)
+  - **(C4)** `PolylogAtomic_ConjGoldenModulation` (r283 NP-side algebraic)
+  - **(C5)** `PolylogEigenvalueConjecture` (r283 compound)
+  - **(C6)** `Cook1971_ClassP_neq_ClassNP_ClayHypothesis` (P vs NP)
+  - **(C7)** `alpha_of_class ClassP ≠ alpha_of_class ClassNP` (α-value distinctness)
+
+Cohen 2025 Ch 21 § 4 substrate-closure input record:
+
+- `ClayClosureBundleViaCohen2025Ch21CanonicalPair` — 4-field structure with r291's canonical pair field RENAMED with Cohen 2025 manuscript anchor.
+
+Promotion + headline:
+
+- `bundleViaCohen2025Ch21_to_canonicalPair` — promotes to r291's bundle via the trivial biconditional.
+
+- `unified_clay_closure_via_cohen2025_ch21_canonical_pair_r292` — HEADLINE. Under `ClayClosureBundleViaCohen2025Ch21CanonicalPair`, all six Clay-Standard statements hold on PF-substrate encodings via `unified_clay_closure_via_refined_dirichlet1858_and_canonical_pair_r291`.
+
+### Note on Prop-granularity irreducibility
+
+The direct-form canonical pair on `alpha_of_class` is IRREDUCIBLE at Prop granularity beyond r291/r292's form. Any further reduction either:
+
+- Breaks `alpha_of_class` opacity (per Wave 41B / `AlphaRealizationNoGo` — this would require solving P vs NP itself); or
+- Weakens to the existential form `∃ f, f ClassP = √2 ∧ f ClassNP = φ+1/4` (equivalent to `ClassP ≠ ClassNP` per `alpha_realization_canonical_pair_iff_classes_distinct`, but loses the specific `alpha_of_class`-pinning content the substrate closure requires).
+
+r292 documents this irreducibility explicitly. The canonical pair is the culmination residual for the polylog leg at HEAD.
+
+### Reduction chain state at HEAD (after r292)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282-r291 | nine-form honest-scope surfacing pattern | 9 bundle variants |
+| **r292** | **six Clay-Standard from refined Dirichlet 1858 + (0 < Xi 15) + Riemann 1859 + Cohen 2025 Ch 21 § 4 canonical α-pair** | **4 residuals; canonical pair named with Cohen 2025 Ch 21 § 4 manuscript anchor + consequences capstone** |
+
+### Framework position after r292
+
+The framework's substrate closure at HEAD admits ten bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream. The r292 form completes the shoulder-of-giants labelling discipline for the entire substrate-closure BUNDLE surface — every referee-facing residual bears a NAMED historical or manuscript citation, matching the corpus's established r271 / r281 / r289 / r271-refined / Cook 1971 patterns.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1 heur:branch-selection + § 4.2 conj:golden-modulation), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4990 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-19 (r291 UNIFIED CLAY CLOSURE VIA REFINED DIRICHLET 1858 + SPECIFIC-Xi + RIEMANN 1859 + CANONICAL PAIR — P vs NP residual surfaced via Cook 1971 shoulder-of-giants named substrate citation; joint α-pinning packaged as canonical-pair conjunction; surface residual count reduced 5 → 4)
 
 **HEAD prior**: `bccd0e92` (r290 CHANGELOG). **HEAD now**: (this commit).
