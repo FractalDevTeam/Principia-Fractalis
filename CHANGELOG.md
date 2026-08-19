@@ -1,5 +1,72 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-18 (r290 UNIFIED CLAY CLOSURE VIA ROUTE B REFINED DIRICHLET 1858 + SPECIFIC-Xi + RIEMANN 1859 + FULL PINNING — Dirichlet 1858 residual surfaced as its r275 refined form, the specific power-series boundary limit equalling `(1 - √2) · (ζ(1/2)).re` as x → 1⁻; Abel-theorem ingredient already discharged unconditionally within the corpus)
+
+**HEAD prior**: `b0c7cfe1` (r289 CHANGELOG). **HEAD now**: (this commit).
+
+Surfaces the Dirichlet 1858 residual at the substrate-closure BUNDLE level as its r275 strictly-more-refined form `Dirichlet1858_PowerSeriesLimit_EqualsProductForm`. Where r289's `ClayClosureBundleViaRouteBSpecificXiAndRiemann1859AndFullPinning` carries the r271 abstract Prop-level equality `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf`, r290's `ClayClosureBundleViaRouteBRefinedDirichlet1858AndFullPinning` exchanges that field for the specific `Tendsto` claim on the power-series boundary limit.
+
+Framework-first: NOT a residual-count reduction (5 → 5). IS a semantic refinement — the r290 residual reads as a specific `Tendsto` claim about a specific numerical target `(1 - √2) · (ζ(1/2)).re`, not the r271 abstract equality. The Abel-theorem ingredient (mathlib's `Real.tendsto_tsum_powerSeries_nhdsWithin_lt`) is already discharged unconditionally within the corpus at r275; only the specific boundary-limit identification remains, and it names its classical anchor (Titchmarsh 1951 § 2.1, Edwards 1974 Ch. 1) precisely.
+
+Zero project axioms preserved. Build progression 4987 → 4988 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+### r290 (this commit) — Unified Clay closure via Route B refined Dirichlet 1858 + specific-Xi + Riemann 1859 + full pinning (`PF/Analytic/UnifiedClayClosureViaRouteBRefinedDirichlet1858AndFullPinning_r290.lean`)
+
+Refined-Dirichlet-1858 substrate-closure input record:
+
+- `ClayClosureBundleViaRouteBRefinedDirichlet1858AndFullPinning` — 5-field structure:
+  1. `dirichlet1858_powerseries_limit : Dirichlet1858_PowerSeriesLimit_EqualsProductForm` — r275 refined named residual.
+  2. `xi_positive_at_15` — specific numerical Xi witness at b = 15 (r288).
+  3. `riemann1859_hypothesis` — Riemann 1859 named substrate citation (r289).
+  4. `alpha_of_class_P_canonical_pinning` — Ch 21 § 4.1 (r286).
+  5. `alpha_of_class_NP_canonical_pinning` — Ch 21 § 4.2 (r287).
+
+Promotion + headline:
+
+- `bundleViaRefinedDirichlet1858_to_riemann1859AndFullPinning` — the refined-Dirichlet-1858 record promotes to r289's `ClayClosureBundleViaRouteBSpecificXiAndRiemann1859AndFullPinning` by supplying `dirichlet1858` via r275's `dirichlet1858_via_abel_and_refined` (Abel ingredient unconditional; refined residual + `tendsto_nhds_unique` + `zeta_half_im_zero` + r270's `dirichletEtaExt_half_eq` → r271 abstract residual).
+
+- `unified_clay_closure_via_route_b_refined_dirichlet1858_and_full_pinning_r290` — HEADLINE. Under `ClayClosureBundleViaRouteBRefinedDirichlet1858AndFullPinning`, all six Clay-Standard statements hold on PF-substrate encodings via `unified_clay_closure_via_route_b_specific_xi_and_riemann1859_and_full_pinning_r289`.
+
+### r275 design classical decomposition (context)
+
+The full Dirichlet 1858 identity at s = 1/2 decomposes into four classical ingredients per r275:
+
+- **(1) Abel summation** on the alternating η series — UNCONDITIONAL via r275's `abel_bridge_dirichletEtaHalf` (mathlib's `Real.tendsto_tsum_powerSeries_nhdsWithin_lt`).
+- **(2) Real-axis conditional convergence** of the Dirichlet η LSeries — DISCHARGED (r276 for σ > 0 on the real ray, r277 for full complex 0 < Re s).
+- **(3) Analytic continuation** `Differentiable ℂ` of the Dirichlet η extension on `{s | s ≠ 1}` — DISCHARGED at symbolic level (r278); s = 1 removability named as strictly-smaller refined residual `DirichletEtaExt_DifferentiableAtOne`.
+- **(4) Identity theorem match** with `(1 - 2^(1-s)) · ζ(s)` extension — DISCHARGED at symbolic level (r279); Cahen 1894 constructive step named as strictly-smaller refined residual `DirichletEta_HasAnalyticExtension`.
+
+The r290 bundle uses the r275 refined residual (which packages the remaining boundary-limit content after Abel is discharged unconditionally); further refinement paths via r278/r279's strictly-smaller residuals remain available for a future r291+.
+
+### Historical anchor: Dirichlet 1858
+
+P. G. L. Dirichlet's 1858 lectures on definite integrals, edited by Meyer (published posthumously). The classical alternating-η identity at half-integer argument, connecting `∑ (-1)^n/√(n+1)` to `ζ(1/2)`. Titchmarsh 1951 § 2.1 and Edwards 1974 Ch. 1 preserve the identity in modern form; the r275 refined residual names the specific power-series boundary-limit content.
+
+### Reduction chain state at HEAD (after r290)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | biconditional, unconditional |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r274 | HP-program-positive ↔ RH under Hardy | Prop-level equivalence |
+| r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional; refined residual named |
+| r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
+| r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
+| r282-r289 | seven-form honest-scope surfacing pattern | 7 bundle variants |
+| **r290** | **six Clay-Standard from (r275 refined Dirichlet 1858) + (0 < Xi 15) + Riemann 1859 + (α_P = √2) + (α_NP = φ+1/4)** | **5 residuals; Dirichlet 1858 refined to specific power-series boundary limit per r275** |
+
+### Framework position after r290
+
+The framework's substrate closure at HEAD admits eight bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream. The r290 form refines the Dirichlet 1858 residual to its specific power-series boundary-limit content, matching the classical decomposition per r275's design.
+
+The r290 residual list is: (r275 refined Dirichlet 1858 + `0 < Xi 15` + Riemann 1859 + `α_P = √2` + `α_NP = φ+1/4`). The Dirichlet 1858 residual now reads at its most-refined named form at HEAD; the r275 refined residual is strictly more precise than the r271 abstract form.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 4988 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-18 (r289 UNIFIED CLAY CLOSURE VIA ROUTE B SPECIFIC-Xi + RIEMANN 1859 + FULL PINNING — RH residual surfaced as the Riemann 1859 shoulder-of-giants named substrate citation, completing the shoulder-of-giants labelling discipline at the substrate-closure BUNDLE surface)
 
 **HEAD prior**: `755fc605` (r288 CHANGELOG). **HEAD now**: (this commit).
