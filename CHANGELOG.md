@@ -1,5 +1,53 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-20 (r300 DUAL CITATION AGGREGATE FULL SERVICE — r299 aggregate extended from substrate-closure C'-layer input to FULL-SERVICE referee-facing input discharging BOTH substrate-linkage Clay closure AND r272 Route B mathlib-native second front from ONE input)
+
+**HEAD prior**: (r299 commit `e239d851`). **HEAD now**: (this commit).
+
+Extends r299's dual-citation aggregate from a substrate-closure input carrying the Clay-Standard six-axis conjunction (C'-layer route in r299b) to a FULL-SERVICE referee-facing input that ALSO discharges the r272 Route B mathlib-native RH front (E-layer statements of r273's extended supreme capstone) from the SAME single input.
+
+Framework-first: r299 unified the sixteen-variant honest-scope surface into ONE citable aggregate. r300 shows that same aggregate ALSO discharges Route B — the aggregate's Dirichlet 1858 field (r275 refined power-series limit form) promotes to r271's abstract form via the r275 Abel bridge; the aggregate's Xi witness field (Platt 2011 = `Xi_Positive_At_15` = `0 < Xi 15`) specializes the Route B universal at `b := 15`.
+
+Consequence: ONE aggregate consumer inhabits ALL SIX layers of the extended supreme capstone (A, B unconditional; C' via r299 primary headline; D3 via aggregate's RH anchors; E via r300 bridges).
+
+Zero project axioms preserved. Build progression 9981 → 9983 jobs (r300 single new file; all 4 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r300 (this commit) — Dual citation aggregate full service (`PF/Analytic/DualCitationAggregateRouteBFullService_r300.lean`)
+
+Route B bridges from the aggregate:
+
+- `aggregate_provides_dirichlet1858_r271_form` — aggregate → r271 `Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` via r275's `dirichlet1858_via_abel_and_refined` (Abel bridge, unconditional). The aggregate's `dirichlet1858_original_lectures` field is definitionally equal to r275's `Dirichlet1858_PowerSeriesLimit_EqualsProductForm` per r298's `dirichlet1858_original_iff_powerseries_limit` (`Iff.rfl`).
+
+- `aggregate_provides_zeta_half_re_neg` — aggregate → `(riemannZeta (1/2 : ℂ)).re < 0` via r272's `zeta_half_re_neg_via_dirichlet1858` composed with the r271-form bridge above.
+
+- `aggregate_provides_route_b_hardy_nonempty_at_15` — aggregate → `PositiveOnLineZetaZeroOrdinatesNonempty` via r272's `route_b_fact_a_via_named_residuals` at `b := 15` with `(0 : ℝ) < 15` by `norm_num` and the aggregate's `platt2011_rigorous_verified` field (`Platt2011_Rigorous_XiPositiveAt15_Verification := Xi_Positive_At_15 := 0 < Xi 15`) as the certified positive Xi witness.
+
+Full-service headline:
+
+- `unified_clay_closure_and_route_b_via_dual_citation_aggregate_r300` — from ONE aggregate input, derive BOTH:
+  1. The framework's substrate-linkage Clay-Standard six-axis conjunction on PF-substrate encodings (via r299's `unified_clay_closure_via_dual_citation_aggregate_r299`).
+  2. The r272 Route B mathlib-native second front on literal `Complex.riemannZeta`:
+     - `(riemannZeta (1/2 : ℂ)).re < 0`
+     - `PositiveOnLineZetaZeroOrdinatesNonempty`
+
+### Reduction chain state at HEAD (after r300)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299a | sixteen-variant surface → 1 citable aggregate input | 4 leaf projections + 4 route agreements + primary headline |
+| r299b | supreme capstone extended v2 with C'-layer aggregate route | six-layer total position |
+| **r300** | **aggregate discharges BOTH substrate-linkage Clay closure AND Route B mathlib-native second front from ONE input** | **3 Route-B bridges + full-service headline; kernel-only** |
+
+### Framework position after r300
+
+The framework's referee-facing surface at HEAD: ONE citable aggregate input consumes the ENTIRE honest-scope substrate closure PLUS the mathlib-native second front on literal `Complex.riemannZeta`. The r299 aggregate + r300 Route B bridges together deliver: from ONE 8-field aggregate, the framework's Clay-Standard six-axis conjunction AND the r272 Route B second front — both formalized substrate discharges of the framework's TOTAL Millennium position at HEAD via a single referee-facing input surface.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2 canonical pair + § 6-7 empirical verification), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 9983 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-20 (r299 DUAL CITATION AGGREGATE + PRINCIPIA FRACTALIS MILLENNIUM SUPREME CAPSTONE EXTENDED V2 — sixteen-variant honest-scope surface at HEAD unified into ONE citable 8-field aggregate substrate-closure input + r273 total-position theorem extended with the aggregate as the C'-layer route)
 
 **HEAD prior**: `51c8dc02` (r298). **HEAD now**: (this commit).
