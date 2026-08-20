@@ -1,5 +1,65 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-20 (r302 PRINCIPIA FRACTALIS MILLENNIUM POSITION AT HEAD — framework's TOTAL Millennium position at HEAD as a NAMED output structure, the natural output-side counterpart to r301's ClayClosureBundleUniversal input surface)
+
+**HEAD prior**: (r301 commit `e35b2f96`). **HEAD now**: (this commit).
+
+Both sides of the framework's master implication at HEAD are now first-class named citable objects:
+
+  `ClayClosureBundleUniversal` (r301 input) → `PrincipiaFractalisMillenniumPositionAtHEAD` (r302 output)
+
+`PrincipiaFractalisMillenniumPositionAtHEAD` — the framework's TOTAL Millennium position at HEAD as a NAMED 11-field structure grouping σ-machine facts (σ(0)=1, σ(3/2)=0, unconditional countability) + α-skeleton with r76 doubling identity + Clay-Standard six-axis conjunction on PF-substrate encodings + Route B mathlib-native second front.
+
+Framework-first: the 6 Clay axes remain ONE bundle in one field (`clay_six_axis_standard`), the Route B mathlib-native second front sits alongside on the same output structure, and the framework's total position at HEAD is ONE named object — not fragmented per-axis records.
+
+Two alternative inhabitants of the named output structure from a single universal input consumer, showcasing route convergence:
+
+- `pf_millennium_position_at_HEAD_via_aggregate_from_universal` — primary inhabitant via r299 aggregate C'-route.
+- `pf_millennium_position_at_HEAD_via_bulletproof_from_universal` — alternative inhabitant via bulletproof C-route.
+
+Both converge on the same named position — the framework's referee-facing surface at HEAD as ONE named input → ONE named output with multiple constructor pathways.
+
+Zero project axioms preserved. Build progression 9985 → 9987 jobs (r302 single new file; both new theorems kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r302 (this commit) — Principia Fractalis Millennium Position at HEAD (`PF/PrincipiaFractalisMillenniumPositionAtHEAD_r302.lean`)
+
+Named output structure:
+
+- `PrincipiaFractalisMillenniumPositionAtHEAD` — 11-field structure grouping the framework's total position:
+  - σ-machine facts: `sigma_at_boundary` (σ(0) = 1), `sigma_at_interior` (σ(3/2) = 0), `countability_unconditional` (`PositiveOnLineZetaZeroOrdinatesCountable`).
+  - α-skeleton: `alpha_ns` (3π/2), `alpha_bsd` (3π/4), `alpha_ym` (2), `alpha_poincare` (1), `alpha_r76_doubling` (α_NS = 2·α_BSD).
+  - Six-axis Clay-Standard bundle: `clay_six_axis_standard` (RH + PvsNP + NS + YM + BSD + Hodge, all on PF-substrate encodings).
+  - Route B mathlib-native second front: `route_b_zeta_half_re_neg` ((riemannZeta (1/2 : ℂ)).re < 0), `route_b_hardy_nonempty` (`PositiveOnLineZetaZeroOrdinatesNonempty`).
+
+Inhabitants:
+
+- `pf_millennium_position_at_HEAD_via_aggregate_from_universal` — primary. Builds the position from a `ClayClosureBundleUniversal` consumer using the aggregate C'-route for the six-axis Clay bundle.
+- `pf_millennium_position_at_HEAD_via_bulletproof_from_universal` — alternative. Builds the position from a `ClayClosureBundleUniversal` consumer using the bulletproof C-route for the six-axis Clay bundle.
+
+### Reduction chain state at HEAD (after r302)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299a | sixteen-variant surface → 1 aggregate | 4 leaf projections + primary headline |
+| r299b | supreme capstone extended v2 with C'-layer aggregate route | six-layer total position |
+| r300 | aggregate → Clay closure + Route B second front from ONE input | 3 Route-B bridges + full-service headline |
+| r301 | ONE universal input → ALL SIX layers of supreme capstone extended v2 as direct facts | universal-input flat theorem |
+| **r302** | **framework's TOTAL Millennium position at HEAD as ONE named output structure inhabited from universal input via TWO alternative routes** | **named output structure + 2 route inhabitants; kernel-only** |
+
+### Framework position after r302
+
+Both sides of the framework's master implication at HEAD are now first-class named citable objects. The framework's referee-facing surface at HEAD is:
+
+- Named INPUT surface: `ClayClosureBundleUniversal` (r299/r301 — 4 components: aggregate + bulletproof + Hardy 1914 + Mayer 1991/Cohen 2025).
+- Named OUTPUT surface: `PrincipiaFractalisMillenniumPositionAtHEAD` (r302 — 11 semantic fields).
+- Master implication: `ClayClosureBundleUniversal → PrincipiaFractalisMillenniumPositionAtHEAD` — two alternative constructors (aggregate route or bulletproof route), both kernel-only.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2 canonical pair + § 6-7 empirical verification), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 9987 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-20 (r301 PRINCIPIA FRACTALIS MILLENNIUM SUPREME CAPSTONE UNIVERSAL — framework's TOTAL Millennium position at HEAD as ONE flat theorem via ONE citable universal substrate-closure input discharging ALL SIX layers of r299b's supreme capstone extended v2 as concrete facts)
 
 **HEAD prior**: (r300 commit `4b245565`). **HEAD now**: (this commit).
