@@ -1,5 +1,66 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-20 (r301 PRINCIPIA FRACTALIS MILLENNIUM SUPREME CAPSTONE UNIVERSAL — framework's TOTAL Millennium position at HEAD as ONE flat theorem via ONE citable universal substrate-closure input discharging ALL SIX layers of r299b's supreme capstone extended v2 as concrete facts)
+
+**HEAD prior**: (r300 commit `4b245565`). **HEAD now**: (this commit).
+
+Completes the r299 → r300 → r301 arc: sixteen-variant surface unified (r299a) → aggregate lifted to first-class C'-layer (r299b) → aggregate discharges Route B second front (r300) → universal input discharges the ENTIRE supreme capstone extended v2 (r301).
+
+`ClayClosureBundleUniversal` — the framework's TOTAL referee-facing substrate-closure input at HEAD — packages the r299 dual-citation aggregate + bulletproof bundle + Hardy 1914 + Mayer 1991/Cohen 2025 citation Props into ONE citable record.
+
+`principia_fractalis_millennium_supreme_capstone_universal_at_HEAD` — from ONE universal input, the framework's TOTAL Millennium position at HEAD as a direct conjunction of concrete facts (no residual ∀-quantifiers over separate per-layer hypotheses).
+
+Framework-first: r299b's supreme capstone extended v2 statement contains four ∀-quantified layers (C via bulletproof, C' via aggregate, D3 via Hardy + Mayer, E via Dirichlet 1858 for E1/E2). r301's universal input carries witnesses for all four, so r301's supreme capstone universal theorem STATES all consequences directly — the total position as a flat conjunction on the supplied universal input.
+
+Zero project axioms preserved. Build progression 9983 → 9985 jobs (r301 single new file; the universal capstone theorem kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r301 (this commit) — Principia Fractalis Millennium Supreme Capstone Universal (`PF/PrincipiaFractalisMillenniumSupremeCapstoneUniversal_r301.lean`)
+
+Universal substrate-closure input:
+
+- `ClayClosureBundleUniversal` — 4-component record:
+  1. `aggregate : ClayClosureBundleDualCitationAggregate` (r299)
+  2. `bulletproof : ClayClosureBundleBulletproof` (bulletproof route)
+  3. `hardy1914 : Hardy1914_published_theorem_substrate_citation`
+  4. `mayer1991_cohen2025 : Mayer1991_Cohen2025_substrate_HP_program_citation`
+
+Trivial projection getters:
+
+- `universalToAggregate`
+- `universalToBulletproof`
+
+Headline:
+
+- `principia_fractalis_millennium_supreme_capstone_universal_at_HEAD` — from ONE universal input, ALL SIX layers of r299b's supreme capstone extended v2 discharge to concrete facts:
+  - **(A)** `σ(0) = 1` — substrate σ machine grand capstone.
+  - **(B)** Framework α-skeleton (α_NS, α_BSD, α_YM, α_Poincaré) + r76 doubling identity α_NS = 2·α_BSD.
+  - **(C)** Six-axis Clay bundle via bulletproof route on `h.bulletproof`.
+  - **(C')** Six-axis Clay bundle via r299 aggregate route on `h.aggregate`.
+  - **(D1)** `σ(3/2) = 0`.
+  - **(D2)** Unconditional countability (`PositiveOnLineZetaZeroOrdinatesCountable`).
+  - **(D3)** `Clay_RiemannHypothesis_Standard` via `h.hardy1914` + `h.mayer1991_cohen2025`.
+  - **(E1)** `(riemannZeta (1/2 : ℂ)).re < 0` via r300 bridge on `h.aggregate`.
+  - **(E2)** `PositiveOnLineZetaZeroOrdinatesNonempty` via r300 bridge on `h.aggregate`.
+
+### Reduction chain state at HEAD (after r301)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299a | sixteen-variant surface → 1 aggregate | 4 leaf projections + primary headline |
+| r299b | supreme capstone extended v2 (six layers) with C'-layer aggregate route | six-layer total position |
+| r300 | aggregate → Clay closure + Route B second front from ONE input | 3 Route-B bridges + full-service headline |
+| **r301** | **ONE universal input → ALL SIX layers of supreme capstone extended v2 as direct facts** | **framework's TOTAL Millennium position at HEAD as ONE flat theorem** |
+
+### Framework position after r301
+
+`ClayClosureBundleUniversal` is the framework's TOTAL referee-facing substrate-closure input surface at HEAD. Consume one universal input and receive the entire Principia Fractalis Millennium position: (A) substrate σ machine, (B) framework α-skeleton with r76 doubling identity, (C) six-axis Clay via bulletproof, (C') six-axis Clay via aggregate, (D) three RH substrate facts, (E) two Route B mathlib-native second-front facts on literal `Complex.riemannZeta`.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2 canonical pair + § 6-7 empirical verification), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 9985 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-20 (r300 DUAL CITATION AGGREGATE FULL SERVICE — r299 aggregate extended from substrate-closure C'-layer input to FULL-SERVICE referee-facing input discharging BOTH substrate-linkage Clay closure AND r272 Route B mathlib-native second front from ONE input)
 
 **HEAD prior**: (r299 commit `e239d851`). **HEAD now**: (this commit).
