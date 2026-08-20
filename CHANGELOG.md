@@ -1,5 +1,61 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-20 (r303 PRINCIPIA FRACTALIS MILLENNIUM POSITION UNIQUENESS — the framework's TOTAL Millennium position at HEAD is a Subsingleton; r302's two route constructors converge to equal outputs on every universal input)
+
+**HEAD prior**: (r302 commit `bebe93d9`). **HEAD now**: (this commit).
+
+Establishes that `PrincipiaFractalisMillenniumPositionAtHEAD` (r302's named output structure — the framework's TOTAL Millennium position at HEAD) is a `Subsingleton`: any two inhabitants are equal.
+
+All 11 fields of `PrincipiaFractalisMillenniumPositionAtHEAD` are `Prop`-typed. By Lean 4's definitional proof irrelevance, any two inhabitants of a `Prop`-fielded structure with the same underlying data agree component-wise, hence agree as structure instances.
+
+Framework consequence: the framework's Millennium position at HEAD is UNIQUE up to propositional equality. Route choice — aggregate C'-route vs. bulletproof C-route (r302's two constructors) — is INESSENTIAL. r302's dual-constructor pattern collapses to a single-outcome pattern where consumers may pick either route and receive definitionally-equal outputs.
+
+The `ClayClosureBundleUniversal → PrincipiaFractalisMillenniumPositionAtHEAD` master implication is a genuinely single-outcome map.
+
+Zero project axioms preserved. Build progression 9987 → 9989 jobs (r303 single new file; the two-routes-equal theorem kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r303 (this commit) — Principia Fractalis Millennium Position Uniqueness (`PF/PrincipiaFractalisMillenniumPositionUniqueness_r303.lean`)
+
+Subsingleton instance:
+
+- `instance : Subsingleton PrincipiaFractalisMillenniumPositionAtHEAD` — via `fun a b => by cases a; cases b; rfl` (Prop irrelevance component-wise).
+
+Route-inessential equality:
+
+- `position_via_aggregate_eq_via_bulletproof` — r302's two route constructors converge on every universal input:
+  ```
+  pf_millennium_position_at_HEAD_via_aggregate_from_universal h
+    = pf_millennium_position_at_HEAD_via_bulletproof_from_universal h
+  ```
+  for every `h : ClayClosureBundleUniversal`. Via `Subsingleton.elim`.
+
+### Reduction chain state at HEAD (after r303)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299a | sixteen-variant surface → 1 aggregate | 4 leaf projections + primary headline |
+| r299b | supreme capstone extended v2 with C'-layer aggregate route | six-layer total position |
+| r300 | aggregate → Clay closure + Route B second front from ONE input | 3 Route-B bridges + full-service headline |
+| r301 | ONE universal input → ALL SIX layers of supreme capstone extended v2 as direct facts | universal-input flat theorem |
+| r302 | framework's TOTAL Millennium position at HEAD as ONE named output structure inhabited via TWO alternative routes | named output structure + 2 route inhabitants |
+| **r303** | **position at HEAD is a Subsingleton; two route constructors converge to equal outputs on every universal input** | **Subsingleton instance + two-route-equal theorem; kernel-only** |
+
+### Framework position after r303
+
+The framework's referee-facing surface at HEAD:
+
+- Named INPUT surface: `ClayClosureBundleUniversal` (r299/r301).
+- Named OUTPUT surface: `PrincipiaFractalisMillenniumPositionAtHEAD` (r302) — a `Subsingleton` (r303).
+- Master implication: `Universal → Position` — genuinely single-outcome (r303).
+
+Any two universal-input consumers agree at HEAD, regardless of which route (aggregate or bulletproof) they use to construct the output position. The framework's total position is UNIQUE.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2 canonical pair + § 6-7 empirical verification), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 9989 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-20 (r302 PRINCIPIA FRACTALIS MILLENNIUM POSITION AT HEAD — framework's TOTAL Millennium position at HEAD as a NAMED output structure, the natural output-side counterpart to r301's ClayClosureBundleUniversal input surface)
 
 **HEAD prior**: (r301 commit `e35b2f96`). **HEAD now**: (this commit).
