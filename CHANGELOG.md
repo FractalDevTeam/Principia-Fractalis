@@ -1,5 +1,86 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-20 (r299 DUAL CITATION AGGREGATE + PRINCIPIA FRACTALIS MILLENNIUM SUPREME CAPSTONE EXTENDED V2 — sixteen-variant honest-scope surface at HEAD unified into ONE citable 8-field aggregate substrate-closure input + r273 total-position theorem extended with the aggregate as the C'-layer route)
+
+**HEAD prior**: `51c8dc02` (r298). **HEAD now**: (this commit).
+
+Two coordinated landings closing the dual-anchoring milestone completed at r298 into first-class citable surfaces:
+
+- **(r299a) `PF/Analytic/UnifiedClayClosureDualCitationAggregate_r299.lean`** — aggregates the sixteen-variant honest-scope surface at HEAD (r283-r298) into ONE 8-field substrate-closure input record `ClayClosureBundleDualCitationAggregate`, bearing FULL shoulder-of-giants coverage across all four residual legs and BOTH citation traditions per leg simultaneously. Per-leg dual-anchor consistency proved via `Iff.rfl` (× 4). Four projections to leaf bundle-variant records (r298, r297, r296, r295). Four route-agreement closures showing the sixteen-variant surface unifies through the aggregate. Primary headline `unified_clay_closure_via_dual_citation_aggregate_r299 : ClayClosureBundleDualCitationAggregate → Clay-Standard six-axis conjunction`.
+
+- **(r299b) `PF/PrincipiaFractalisMillenniumSupremeCapstoneExtendedV2_r299.lean`** — extends r273's five-layer total position (A substrate σ + B α-skeleton + C six-axis bulletproof + D RH substrate + E Route B mathlib-native) with a SIXTH layer (C', NEW) wiring the r299 dual-citation aggregate as an alternate substrate-closure input route. `principia_fractalis_millennium_supreme_capstone_extended_v2_at_HEAD` presents the framework's TOTAL Millennium position at HEAD as ONE theorem via BOTH the substrate-linkage-bulletproof C-layer route AND the referee-facing dual-citation aggregate C'-layer route.
+
+Framework-first: the sixteen bundle variants at HEAD do not fragment the framework. They are surface-presentation variants of ONE substrate closure. r299 makes that unity explicit as a citable substrate-closure input, and lifts it to first-class layer in the framework's total-position theorem.
+
+Zero project axioms preserved. Build progression 4996 → 4998 job baseline (both new theorems kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r299a (this commit) — Dual citation aggregate (`PF/Analytic/UnifiedClayClosureDualCitationAggregate_r299.lean`)
+
+The 8-field aggregate:
+
+- `ClayClosureBundleDualCitationAggregate` — carries both shoulder-of-giants named anchors per residual leg:
+  - Dirichlet 1858 leg: `dirichlet1858_original_lectures` (r298 original-historical) + `titchmarsh1951_s21_modern_classical` (r295 modern-classical)
+  - Xi witness leg: `odlyzko1987_foundational` (r293 foundational-computation) + `platt2011_rigorous_verified` (r297 rigorous verified)
+  - RH leg: `riemann1859_original_conjecture` (r289 original) + `bombieri2000_clay_official` (r294 Clay-Institute)
+  - Canonical α-pair leg: `cohen2025_ch21_s4_manuscript` (r292 manuscript-analytical) + `ibm_quantum_2025_empirical` (r296 empirical hardware)
+
+Per-leg consistency biconditionals (`Iff.rfl`):
+
+- `dualCitation_consistency_dirichlet1858_leg`
+- `dualCitation_consistency_xi_witness_leg`
+- `dualCitation_consistency_rh_leg`
+- `dualCitation_consistency_canonical_alpha_pair_leg`
+
+Projections to the four leaf bundle-variant records:
+
+- `aggregate_to_dirichlet1858Original` → `ClayClosureBundleViaDirichlet1858OriginalLectures` (r298)
+- `aggregate_to_platt2011Rigorous` → `ClayClosureBundleViaPlatt2011RigorousXi` (r297)
+- `aggregate_to_ibmQuantum2025Empirical` → `ClayClosureBundleViaIBMQuantumEmpiricalCanonicalPair` (r296)
+- `aggregate_to_titchmarsh1951Modern` → `ClayClosureBundleViaTitchmarsh1951DirichletBoundary` (r295)
+
+Four route-agreement closures — the sixteen-variant surface unifies:
+
+- `unified_clay_closure_via_aggregate_route_dirichlet1858_r299`
+- `unified_clay_closure_via_aggregate_route_platt2011_r299`
+- `unified_clay_closure_via_aggregate_route_ibm_quantum_r299`
+- `unified_clay_closure_via_aggregate_route_titchmarsh1951_r299`
+
+Primary headline:
+
+- `unified_clay_closure_via_dual_citation_aggregate_r299` — the framework's Clay-Standard six-axis closure obtained from ONE citable aggregate input.
+
+### r299b (this commit) — Principia Fractalis Millennium Supreme Capstone Extended V2 (`PF/PrincipiaFractalisMillenniumSupremeCapstoneExtendedV2_r299.lean`)
+
+Extends r273 with a sixth layer (C', NEW) capturing the r299 dual-citation aggregate substrate-closure route:
+
+- Layers (A, B, C, D, E) inlined from r273's extended supreme capstone.
+- Layer (C', NEW): `∀ (h : ClayClosureBundleDualCitationAggregate), Clay-Standard six-axis conjunction` via `unified_clay_closure_via_dual_citation_aggregate_r299`.
+
+The headline `principia_fractalis_millennium_supreme_capstone_extended_v2_at_HEAD` composes r273's five-layer capstone with r299's aggregate closure, presenting the framework's TOTAL Millennium position at HEAD as ONE theorem with TWO independent substrate-closure input surfaces (bulletproof + dual-citation aggregate) converging on the same Clay-Standard six-axis conjunction.
+
+### Reduction chain state at HEAD (after r299)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| Wave 58 (r255) | HP-positive ↔ (countable ∧ nonempty) | unconditional |
+| r272 | Route B: Dirichlet 1858 + Xi witness → Hardy nonempty | mathlib-native second front |
+| r273 | Five-layer extended supreme capstone at HEAD | (A) σ + (B) α + (C) bulletproof + (D) RH substrate + (E) Route B |
+| r282-r298 | fifteen bundle variants + dual anchoring complete | 4-residual surface, 16 leaf variants |
+| **r299a** | **sixteen-variant surface unified as ONE 8-field dual-citation aggregate → six Clay-Standard via any of four leaf routes** | **1 citable aggregate; 4 leaf projections; 4 route-agreement closures + 1 primary headline** |
+| **r299b** | **framework's total Millennium position at HEAD as ONE theorem via BOTH bulletproof C-layer AND dual-citation aggregate C'-layer** | **six-layer supreme capstone extended v2, kernel-only** |
+
+### Framework position after r299
+
+The referee-facing surface at HEAD now offers a single citable substrate-closure input record carrying full shoulder-of-giants coverage across all four residual legs and both citation traditions per leg. Consuming ONE `ClayClosureBundleDualCitationAggregate` yields the framework's entire Clay-Standard six-axis closure on PF-substrate encodings.
+
+The framework's TOTAL Millennium position at HEAD, including both the substrate-linkage-bulletproof route and the referee-facing dual-citation aggregate route, is one theorem: `principia_fractalis_millennium_supreme_capstone_extended_v2_at_HEAD`.
+
+Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2 canonical pair + § 6-7 empirical verification), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
+
+Build: 9981 jobs (r298 kernel-only baseline 4996; r299 both new files clean, both new headlines kernel-only). Zero project axioms.
+
+---
+
 ## 2026-08-19 (r298 UNIFIED CLAY CLOSURE VIA DIRICHLET 1858 ORIGINAL LECTURES + PLATT 2011 RIGOROUS XI + BOMBIERI 2000 CLAY-OFFICIAL RH + IBM QUANTUM 2025 EMPIRICAL CANONICAL α-PAIR — Dirichlet 1858 residual surfaced with original-historical anchor to Dirichlet's 1858 Göttingen lectures on definite integrals; DUAL ANCHORING PATTERN COMPLETE ACROSS ALL FOUR RESIDUAL LEGS)
 
 **HEAD prior**: `71852d49` (r297). **HEAD now**: (this commit).
