@@ -1,5 +1,69 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-21 (r307 Xi_Positive_At_15 RESIDUAL REDUCTION to `0 < P15.re` + chain-closer — ends the symbolic-peeling phase; identifies the smallest missing certified theorems for r308+ numerical attack)
+
+**HEAD prior**: (r306 commit `f10d58f8`). **HEAD now**: (this commit).
+
+Collapses the r304-r306 symbolic peeling chain into a single kernel-clean equivalence:
+
+  `Xi_Positive_At_15 ↔ 0 < P15.re`
+
+where
+
+  `P15 := riemannZeta ⟨1/2, 15⟩ · Complex.exp (((-(15/2) · Real.log Real.pi : ℝ) : ℂ) · Complex.I) · Complex.Gamma ⟨1/4, 15/2⟩`
+
+and lands the CHAIN-CLOSER that terminates the discharge once any positive lower bound on `P15.re` is proved: `∀ {a : ℝ}, 0 < a → a ≤ P15.re → Xi_Positive_At_15`.
+
+**Dependency-reduction ledger:**
+
+- **Before r307**: `Xi_Positive_At_15` was carried through the r304-r306 chain requiring the entire symbolic factorization to be re-invoked at each downstream landing.
+- **After r307**: `Xi_Positive_At_15` reduces to a strict positivity of the real part of one mathlib-native complex product, plus a chain-closer that discharges the residual from any positive lower bound.
+- **Remaining**: certified numerical enclosure of `P15.re`, requiring (in order of tractability): (3) `Real.cos`/`Real.sin` at `(15/2) · Real.log Real.pi ≈ 8.586` via Taylor bounds + mod-2π reduction; (1) certified `Complex.Gamma ⟨1/4, 15/2⟩` via Stirling/Lanczos with rigorous complex-argument error bounds; (2) certified `riemannZeta ⟨1/2, 15⟩` via Euler-Maclaurin/Riemann-Siegel/Dirichlet-eta expansion.
+
+Not a discharge. Strictly-necessary dependency-reduction infrastructure that ends the symbolic phase and exposes the exact numerical target. Numerical estimate: `P15.re ≈ Xi 15 / π^(-1/4) ≈ 1.5e-5` — total enclosure precision must be substantially below `10⁻⁵`.
+
+Zero project axioms preserved. Build progression 9995 → 9997 jobs (r307 single new file; all 3 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r307 (this commit) — Xi_Positive_At_15 residual reduction (`PF/Analytic/XiPositiveAt15Reduction_r307.lean`)
+
+Target definition:
+
+- `P15 : ℂ := riemannZeta ⟨1/2, 15⟩ · Complex.exp (((-(15/2) · Real.log Real.pi : ℝ) : ℂ) · Complex.I) · Complex.Gamma ⟨1/4, 15/2⟩` — the specific complex product exposed by r304-r306 peeling.
+
+Chain-state equation:
+
+- `xi_15_eq_pi_neg_quarter_mul_re_P15 : Xi 15 = Real.pi^(-1/4) * P15.re` — via r304 `Xi_eq_re_zeta_mul_Gammaℝ` + r306 `Gammaℝ_at_critical_15_polar_form` + `ring` rearrangement + `Complex.mul_re`/`ofReal_re`/`ofReal_im`.
+
+Residual reformulation:
+
+- `Xi_Positive_At_15_iff_re_P15_pos : Xi_Positive_At_15 ↔ 0 < P15.re` — via r306 `pi_cpow_at_neg_15halves_abs_pos` (`0 < Real.pi^(-1/4)`) + the chain-state equation.
+
+CHAIN-CLOSER:
+
+- `Xi_Positive_At_15_from_P15_re_lower_bound : ∀ {a : ℝ}, 0 < a → a ≤ P15.re → Xi_Positive_At_15` — any certified positive lower bound on `P15.re` discharges the aggregate's Xi witness residual.
+
+### Reduction chain state at HEAD (after r307)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299-r303 | referee-facing surface milestone | frozen |
+| r304 | Xi_Positive_At_15 ↔ `0 < (ζ ⟨1/2, 15⟩ · Gammaℝ ⟨1/2, 15⟩).re` | infrastructure |
+| r305 | Gammaℝ ⟨1/2, 15⟩ = (π-cpow) · Γ ⟨1/4, 15/2⟩ | infrastructure |
+| r306 | Gammaℝ ⟨1/2, 15⟩ polar form; symbolic peeling complete | infrastructure |
+| **r307** | **Xi_Positive_At_15 ↔ `0 < P15.re` + chain-closer** | **dependency reduction; symbolic phase ends** |
+
+### Framework position after r307
+
+Symbolic phase (r304-r307) complete. The Xi(15) residual is now equivalent to `0 < P15.re` on a specific mathlib-native complex product, and the closure lemma converts any certified positive lower bound directly to `Xi_Positive_At_15`.
+
+r308 begins certified numerical enclosure of the smallest achievable component (recommended: `Real.cos`/`Real.sin` at `(15/2) · Real.log Real.pi ≈ 8.586` via mathlib Taylor bounds + mod-2π reduction — establishes the interval-arithmetic discipline before the harder Γ and ζ subprojects).
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+Build: 9997 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-20 (r306 π-cpow POLAR EXTRACTION at ⟨-1/4, -15/2⟩ + downstream Gammaℝ ⟨1/2, 15⟩ POLAR FORM — third strictly-necessary infrastructure step toward Xi_Positive_At_15 discharge; symbolic factor peeling of Gammaℝ ⟨1/2, 15⟩ complete)
 
 **HEAD prior**: (r305 commit `d0b1daa7`). **HEAD now**: (this commit).
