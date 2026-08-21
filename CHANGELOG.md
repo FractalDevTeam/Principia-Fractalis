@@ -1,5 +1,56 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-20 (r306 π-cpow POLAR EXTRACTION at ⟨-1/4, -15/2⟩ + downstream Gammaℝ ⟨1/2, 15⟩ POLAR FORM — third strictly-necessary infrastructure step toward Xi_Positive_At_15 discharge; symbolic factor peeling of Gammaℝ ⟨1/2, 15⟩ complete)
+
+**HEAD prior**: (r305 commit `d0b1daa7`). **HEAD now**: (this commit).
+
+Extracts the exact positive magnitude and phase of the `Complex.cpow` factor `(π : ℂ)^⟨-1/4, -15/2⟩` exposed by r305, and substitutes into r305's `Gammaℝ_at_critical_15_decomposition` to produce the polar form
+
+  `Gammaℝ ⟨1/2, 15⟩ = π^(-1/4) · exp(-i · (15/2) · log π) · Γ(1/4 + 15i/2)`.
+
+After r306, symbolic factor peeling of `Gammaℝ ⟨1/2, 15⟩` is complete. r307 crosses into certified numerical enclosure of the remaining `ζ(1/2 + 15i) · phase · Γ(1/4 + 15i/2)` expression, targeting a kernel-checkable derivation of `0 < Re(product) = Xi 15`.
+
+Zero project axioms preserved. Build progression 9993 → 9995 jobs (r306 single new file; all 4 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r306 (this commit) — π-cpow polar extraction + Gammaℝ polar form (`PF/Analytic/PiCpowPolarAt15_r306.lean`)
+
+Magnitude:
+
+- `pi_cpow_at_neg_15halves_abs : ‖(π : ℂ)^⟨-1/4, -15/2⟩‖ = Real.pi^(-1/4)` — via mathlib's `norm_cpow_eq_rpow_re_of_pos` at `x = Real.pi > 0`; `.re` of `⟨-1/4, -15/2⟩` is `-1/4`.
+
+- `pi_cpow_at_neg_15halves_abs_pos : 0 < Real.pi^(-1/4)` — from `Real.rpow_pos_of_pos`.
+
+Polar form:
+
+- `pi_cpow_at_neg_15halves_polar : (π : ℂ)^⟨-1/4, -15/2⟩ = ((Real.pi^(-1/4) : ℝ) : ℂ) * Complex.exp (((-(15/2) * Real.log Real.pi : ℝ) : ℂ) * Complex.I)` — exact polar decomposition into real-positive magnitude (cast to ℂ) times unit-modulus complex phase. Proof: `Complex.cpow_def_of_ne_zero` → `Complex.ofReal_log` for positive π → compute `(log π : ℂ) · ⟨-1/4, -15/2⟩` component-wise → split via `Complex.exp_add` → convert `exp((-log π/4 : ℝ) : ℂ)` to `((π^(-1/4) : ℝ) : ℂ)` via `Complex.ofReal_exp` and `Real.rpow_def_of_pos`.
+
+Downstream:
+
+- `Gammaℝ_at_critical_15_polar_form : Gammaℝ ⟨1/2, 15⟩ = ((Real.pi^(-1/4) : ℝ) : ℂ) * Complex.exp (((-(15/2) * Real.log Real.pi : ℝ) : ℂ) * Complex.I) * Complex.Gamma ⟨1/4, 15/2⟩` — substitution of `pi_cpow_at_neg_15halves_polar` into `Gammaℝ_at_critical_15_decomposition` (r305).
+
+### Reduction chain state at HEAD (after r306)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299-r303 | referee-facing surface milestone | frozen |
+| r304 | Xi_Positive_At_15 ↔ `0 < (ζ ⟨1/2, 15⟩ · Gammaℝ ⟨1/2, 15⟩).re` | infrastructure |
+| r305 | Gammaℝ ⟨1/2, 15⟩ = ((π : ℂ)^⟨-1/4, -15/2⟩) · Γ ⟨1/4, 15/2⟩ | infrastructure |
+| **r306** | **Gammaℝ ⟨1/2, 15⟩ = π^(-1/4) · exp(-i · (15/2) · log π) · Γ(1/4 + 15i/2)** | **infrastructure — symbolic peeling complete** |
+
+### Framework position after r306
+
+Symbolic factor peeling of `Gammaℝ ⟨1/2, 15⟩` complete. The Xi(15) target now reads:
+
+  `Xi 15 = π^(-1/4) · Re(ζ(1/2 + 15i) · exp(-i · (15/2) · log π) · Γ(1/4 + 15i/2))`
+
+via `Xi_eq_re_zeta_mul_Gammaℝ` (r304) + `Gammaℝ_at_critical_15_polar_form` (r306). Since `π^(-1/4) > 0`, `Xi_Positive_At_15` reduces to a strict positivity of a real part of a specific complex-number product. r307 begins certified numerical enclosure.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+Build: 9995 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-20 (r305 Gammaℝ ⟨1/2, 15⟩ DECOMPOSITION — second strictly-necessary infrastructure step toward Xi_Positive_At_15 discharge)
 
 **HEAD prior**: (r304 commit `3f105d93`). **HEAD now**: (this commit).
