@@ -1,5 +1,53 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-20 (r304 Xi EXPLICIT FACTORIZATION — first strictly-necessary infrastructure step toward discharging the aggregate's Xi_Positive_At_15 residual)
+
+**HEAD prior**: (r303 commit `eec34e09`). **HEAD now**: (this commit).
+
+**Scope pivot**: after freezing r303 as the completed referee-surface milestone (r299-r303 arc), r304 begins the actual residual-discharge attack — targeting `Xi_Positive_At_15` from the r299 dual-citation aggregate. Every landing from here either discharges a residual or constructs infrastructure strictly necessary to discharge one.
+
+r304 is the FIRST strictly-necessary infrastructure step: on the critical line, `Λ(s) = ζ(s) · Gammaℝ(s)` — a direct rearrangement of mathlib's `riemannZeta_def_of_ne_zero` using `Gammaℝ_ne_zero_of_re_pos` (valid since `re ⟨1/2, t⟩ = 1/2 > 0`). This decomposes the Xi(15) discharge target into two multiplicative factors that future landings can attack independently via mathlib's ζ- and Γ-evaluation infrastructure.
+
+Not a discharge. Strictly-necessary infrastructure: eliminates the `completedRiemannZeta` layer of the definition (`noncomputable`, less-developed in mathlib) and exhibits the multiplicative structure in mathlib primitives.
+
+Zero project axioms preserved. Build progression 9989 → 9991 jobs (r304 single new file; all 5 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r304 (this commit) — Xi explicit factorization (`PF/Analytic/XiExplicitFactorization_r304.lean`)
+
+Nonvanishing lemma:
+
+- `Gammaℝ_critical_ne_zero : ∀ t : ℝ, Gammaℝ ⟨1/2, t⟩ ≠ 0` — from `Gammaℝ_ne_zero_of_re_pos` at `re ⟨1/2, t⟩ = 1/2 > 0`.
+
+Critical-line factorization:
+
+- `completedRiemannZeta_critical_eq_zeta_mul_Gammaℝ : ∀ t : ℝ, completedRiemannZeta ⟨1/2, t⟩ = riemannZeta ⟨1/2, t⟩ * Gammaℝ ⟨1/2, t⟩` — rearrangement of `riemannZeta_def_of_ne_zero`.
+
+Xi in mathlib primitives:
+
+- `Xi_eq_re_zeta_mul_Gammaℝ : ∀ t : ℝ, Xi t = (riemannZeta ⟨1/2, t⟩ * Gammaℝ ⟨1/2, t⟩).re` — general explicit-factorization form.
+- `Xi_at_15_eq_re_product : Xi 15 = (riemannZeta ⟨1/2, 15⟩ * Gammaℝ ⟨1/2, 15⟩).re` — specialization to t = 15.
+
+Residual restated in mathlib-native primitives:
+
+- `Xi_Positive_At_15_iff_re_product_pos : Xi_Positive_At_15 ↔ 0 < (riemannZeta ⟨1/2, 15⟩ * Gammaℝ ⟨1/2, 15⟩).re` — the aggregate's Xi witness residual now ready for numerical attack on the two multiplicative factors independently.
+
+### Reduction chain state at HEAD (after r304)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299a-r303 | referee-facing surface milestone (aggregate + universal input + named position + uniqueness) | frozen |
+| **r304** | **Xi_Positive_At_15 restated as `0 < (riemannZeta ⟨1/2, 15⟩ * Gammaℝ ⟨1/2, 15⟩).re`** | **strictly-necessary infrastructure; kernel-only** |
+
+### Framework position after r304
+
+The r299-r303 referee-facing surface is frozen. r304 begins the actual residual-discharge attack on the aggregate's Xi witness residual. Downstream landings will attack the two multiplicative factors `riemannZeta ⟨1/2, 15⟩` and `Gammaℝ ⟨1/2, 15⟩` independently via mathlib's ζ- and Γ-evaluation infrastructure toward a full numerical discharge of `0 < (riemannZeta ⟨1/2, 15⟩ * Gammaℝ ⟨1/2, 15⟩).re`.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+Build: 9991 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-20 (r303 PRINCIPIA FRACTALIS MILLENNIUM POSITION UNIQUENESS — the framework's TOTAL Millennium position at HEAD is a Subsingleton; r302's two route constructors converge to equal outputs on every universal input)
 
 **HEAD prior**: (r302 commit `bebe93d9`). **HEAD now**: (this commit).
