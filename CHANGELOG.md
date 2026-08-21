@@ -1,5 +1,46 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-20 (r305 Gammaℝ ⟨1/2, 15⟩ DECOMPOSITION — second strictly-necessary infrastructure step toward Xi_Positive_At_15 discharge)
+
+**HEAD prior**: (r304 commit `3f105d93`). **HEAD now**: (this commit).
+
+Attacks the `Gammaℝ ⟨1/2, 15⟩` factor exposed by r304's factorization `Xi 15 = (riemannZeta ⟨1/2, 15⟩ * Gammaℝ ⟨1/2, 15⟩).re`.
+
+By mathlib's `Gammaℝ_def : Gammaℝ s = π^(-s/2) * Γ(s/2)`, at `s = ⟨1/2, 15⟩` we have `-s/2 = ⟨-1/4, -15/2⟩` and `s/2 = ⟨1/4, 15/2⟩`. r305 computes these divisions in ℂ and exposes `Gammaℝ ⟨1/2, 15⟩` in terms of a `Complex.cpow` factor and a `Complex.Gamma` factor — both mathlib-native primitives ready for further numerical attack.
+
+Not a discharge. Strictly-necessary infrastructure that exposes `Gammaℝ ⟨1/2, 15⟩` in mathlib primitives. Downstream: r306 will extract the real-positive magnitude `π^(-1/4)` from the cpow factor via `Complex.cpow` of a positive real base, leaving a unit-modulus complex phase; later landings attack the `Complex.Gamma ⟨1/4, 15/2⟩` evaluation.
+
+Zero project axioms preserved. Build progression 9991 → 9993 jobs (r305 single new file; all 3 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`).
+
+### r305 (this commit) — Gammaℝ ⟨1/2, 15⟩ decomposition (`PF/Analytic/GammaRAtCritical15_r305.lean`)
+
+Division computations in ℂ at the discharge target `s = ⟨1/2, 15⟩`:
+
+- `critical_15_half_eq : (⟨1/2, 15⟩ : ℂ) / 2 = (⟨1/4, 15/2⟩ : ℂ)` — computes `s/2` at `s = ⟨1/2, 15⟩`.
+- `neg_critical_15_half_eq : -(⟨1/2, 15⟩ : ℂ) / 2 = (⟨-1/4, -15/2⟩ : ℂ)` — computes `-s/2` at `s = ⟨1/2, 15⟩`.
+
+Gammaℝ decomposition:
+
+- `Gammaℝ_at_critical_15_decomposition : Gammaℝ ⟨1/2, 15⟩ = ((π : ℂ)^(⟨-1/4, -15/2⟩ : ℂ)) * Complex.Gamma ⟨1/4, 15/2⟩` — decomposition into `Complex.cpow` and `Complex.Gamma` mathlib primitives via `Gammaℝ_def`.
+
+### Reduction chain state at HEAD (after r305)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299-r303 | referee-facing surface milestone | frozen |
+| r304 | Xi_Positive_At_15 restated as `0 < (riemannZeta ⟨1/2, 15⟩ * Gammaℝ ⟨1/2, 15⟩).re` | strictly-necessary infrastructure |
+| **r305** | **Gammaℝ ⟨1/2, 15⟩ = ((π : ℂ)^⟨-1/4, -15/2⟩) * Complex.Gamma ⟨1/4, 15/2⟩** | **strictly-necessary infrastructure; kernel-only** |
+
+### Framework position after r305
+
+The `Gammaℝ ⟨1/2, 15⟩` factor of the Xi(15) target is now decomposed into two mathlib-native factors. r306 will extract the real-positive magnitude from the cpow factor.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+Build: 9993 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-20 (r304 Xi EXPLICIT FACTORIZATION — first strictly-necessary infrastructure step toward discharging the aggregate's Xi_Positive_At_15 residual)
 
 **HEAD prior**: (r303 commit `eec34e09`). **HEAD now**: (this commit).
