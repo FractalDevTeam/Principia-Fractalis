@@ -1,5 +1,67 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-21 (r309 `completedRiemannZeta₀ → mellin(f_modif)` normalization collapse + threshold conversion `4/901 → 8/901`)
+
+**HEAD prior**: (r308 commit `0661ed1b`). **HEAD now**: (this commit).
+
+Normalization-collapse landing. Unfolds mathlib's definitional chain
+
+  `completedRiemannZeta₀ s = completedHurwitzZetaEven₀ 0 s = (hurwitzEvenFEPair 0).Λ₀ (s / 2) / 2 = mellin ((hurwitzEvenFEPair 0).f_modif) (s / 2) / 2`
+
+at `s = ⟨1/2, 15⟩`, and converts the r308 threshold `4/901 < (completedRiemannZeta₀ ⟨1/2, 15⟩).re` to `8/901 < (mellin(f_modif) ⟨1/4, 15/2⟩).re` via `(z/2).re = z.re/2` and `linarith`.
+
+Framework-first status: pure normalization collapse. All identities used are mathlib definitional unfolds plus complex-arithmetic normalizations (r305 `critical_15_half_eq` for the `s/2` division, `Complex.div_re`/`Complex.normSq` for the real-part extraction, `linarith` for the threshold arithmetic).
+
+Not a discharge. Strictly-necessary dependency-reduction infrastructure that eliminates the `completedRiemannZeta₀` opaque wrapper and exposes the Mellin transform `mellin((hurwitzEvenFEPair 0).f_modif)` as the direct attack surface. `f_modif` is explicit piecewise (mathlib's `WeakFEPair.f_modif`): above `x = 1`, `f_modif x = evenKernel 0 x - 1`; below `x = 1`, `f_modif x = evenKernel 0 x - x^(-1/2)`.
+
+Zero project axioms preserved. Build progression 9999 → 10001 jobs (r309 single new file; all 5 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`).
+
+### r309 (this commit) — completedRiemannZeta₀ → mellin(f_modif) reduction (`PF/Analytic/CompletedZeta0MellinReduction_r309.lean`)
+
+Definitional unfolding:
+
+- `completedRiemannZeta0_at_critical_15_via_mellin : completedRiemannZeta₀ ⟨1/2, 15⟩ = mellin ((hurwitzEvenFEPair 0).f_modif) ⟨1/4, 15/2⟩ / 2` — via `show ... (·).Λ₀ ... / 2 = _` + `rw [critical_15_half_eq]` + `rfl` (WeakFEPair.Λ₀ is definitionally `mellin P.f_modif`).
+
+Real-part extraction:
+
+- `re_completedZeta0_at_critical_15_eq_re_mellin_half : (completedRiemannZeta₀ ⟨1/2, 15⟩).re = (mellin ((hurwitzEvenFEPair 0).f_modif) ⟨1/4, 15/2⟩).re / 2` — via `Complex.div_re` on a real denominator.
+
+Xi(15) chain-state equation:
+
+- `xi_15_eq_re_mellin_half_minus_correction : Xi 15 = (mellin ((hurwitzEvenFEPair 0).f_modif) ⟨1/4, 15/2⟩).re / 2 - 4/901`.
+
+Threshold reformulation (factor-of-2 absorption):
+
+- `Xi_Positive_At_15_iff_re_mellin_gt_8_over_901 : Xi_Positive_At_15 ↔ 8/901 < (mellin ((hurwitzEvenFEPair 0).f_modif) ⟨1/4, 15/2⟩).re`.
+
+CHAIN-CLOSER on the Mellin threshold:
+
+- `Xi_Positive_At_15_from_re_mellin_lower_bound : ∀ {a : ℝ}, 8/901 < a → a ≤ (mellin ((hurwitzEvenFEPair 0).f_modif) ⟨1/4, 15/2⟩).re → Xi_Positive_At_15`.
+
+### Reduction chain state at HEAD (after r309)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r307 | Xi_Positive_At_15 ↔ `0 < P15.re` (three-evaluator P15) | superseded |
+| r308 | Xi_Positive_At_15 ↔ `4/901 < (completedRiemannZeta₀ ⟨1/2, 15⟩).re` | infrastructure |
+| **r309** | **Xi_Positive_At_15 ↔ `8/901 < (mellin ((hurwitzEvenFEPair 0).f_modif) ⟨1/4, 15/2⟩).re`** | **normalization collapse; explicit Mellin transform on piecewise-explicit f_modif** |
+
+### Framework position after r309
+
+The Mellin transform is directly the attack surface. `f_modif` is explicit piecewise. r310+ eliminates the `(0, 1)` half via `x ↦ 1/x` + `evenKernel_functional_equation`. At the critical Mellin parameter `q = ⟨1/4, 15/2⟩` with weight `k = 1/2`, `q + conj q = k` puts `q` on the symmetry line, so paired halves become conjugates → target:
+
+  `Re(mellin(f_modif) q) = 2 ∫₁^∞ (evenKernel 0 x - 1) · x^(-3/4) · cos((15/2) log x) dx`
+
+Combined with r309 threshold: `Xi_Positive_At_15 ↔ 4/901 < ∫₁^∞ (evenKernel 0 x - 1) · x^(-3/4) · cos((15/2) log x) dx`.
+
+r311 attacks the certified numerical lower bound.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+Build: 10001 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-21 (r308 Xi(15) via `completedRiemannZeta₀ − 1/s − 1/(1−s)` reduction — abandons r307 ζ·Γ·phase decomposition; corpus-native FE-pair route collapses THREE evaluators into ONE entire-function evaluation)
 
 **HEAD prior**: (r307 commit `88e022c3`). **HEAD now**: (this commit).
