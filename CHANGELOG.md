@@ -1,5 +1,62 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r310 `mellin(f_modif) ⟨1/4, 15/2⟩` IS REAL via FE₀ + Mellin conjugation)
+
+**HEAD prior**: (r309 commit `e4c68510`). **HEAD now**: (this commit).
+
+First analytic-content step past the r309 normalization collapse. Combines two structural facts about `mellin ((hurwitzEvenFEPair 0).f_modif)` at the specific point `q = ⟨1/4, 15/2⟩`:
+
+- **FE-symmetry** (from `WeakFEPair.functional_equation₀` at the self-dual pair `hurwitzEvenFEPair 0` with `ε = 1`, `k = 1/2`): `Λ₀ ⟨1/4, -15/2⟩ = Λ₀ ⟨1/4, 15/2⟩`, because `k - q = 1/2 - ⟨1/4, 15/2⟩ = ⟨1/4, -15/2⟩ = conj q`.
+- **Mellin conjugation** (from real-valuedness of `f_modif` for `hurwitzEvenFEPair 0`): `mellin f_modif (conj q) = conj (mellin f_modif q)`, proved by pushing conjugation through the integrand via `Complex.cpow_conj` (arg `(t : ℂ) = 0 ≠ π` for `t > 0`) + `Complex.conj_ofReal` + `MeasureTheory.integral_conj`.
+
+Combining: `mellin f_modif q = conj (mellin f_modif q)`, hence `.im = 0`.
+
+Framework-first status: NOT a numerical discharge. Structural realness invariant. The r309 threshold `Xi_Positive_At_15 ↔ 8/901 < (mellin f_modif ⟨1/4, 15/2⟩).re` is unchanged; r310 supplies the companion fact `.im = 0` so the target real number is now the full complex Mellin value viewed as a real. Unlocks r311's (0, 1) → (1, ∞) fold via `x ↦ 1/x` with conjugate-pairing at `q + conj q = k = 1/2`, and downstream real-integral machinery for the certified numerical lower bound.
+
+Zero project axioms preserved. Build progression 10001 → 10003 jobs (r310 single new file; all 7 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`).
+
+### r310 (this commit) — mellin f_modif ⟨1/4, 15/2⟩ realness via FE + conjugation (`PF/Analytic/CompletedZeta0MellinRealAtCritical15_r310.lean`)
+
+Arithmetic ingredient:
+
+- `half_sub_critical_15_half_eq_neg_critical_15_half : ((1/2 : ℝ) : ℂ) - ⟨1/4, 15/2⟩ = ⟨1/4, -15/2⟩` — the FE argument `k - q` at `k = 1/2`, `q = ⟨1/4, 15/2⟩`. Via `Complex.ext` + `simp; ring`.
+
+Pointwise realness of the modified theta kernel:
+
+- `f_modif_hurwitzEvenFEPair_zero_im_eq_zero : ∀ x, ((hurwitzEvenFEPair 0).f_modif x).im = 0` — case-split on `x`'s membership in the `Ioi 1` and `Ioo 0 1` indicator sets of `WeakFEPair.f_modif`. On `Ioi 1`, `f_modif x = ofReal(evenKernel 0 x) - 1` (real). On `Ioo 0 1`, `f_modif x = ofReal(evenKernel 0 x) - (1 * ofReal(x^(-1/2))) • 1` (real). Else zero. Uses `hurwitzEvenFEPair 0` field values `f = ofReal ∘ evenKernel 0`, `f₀ = 1`, `g₀ = 1`, `ε = 1`, `k = 1/2`.
+
+General Mellin conjugation lemma:
+
+- `mellin_conj_of_im_zero : ∀ {f : ℝ → ℂ}, (∀ x ∈ Ioi 0, (f x).im = 0) → ∀ s, mellin f (conj s) = conj (mellin f s)` — pushes conjugation through the Mellin integrand for real-valued `f`. Proof: `unfold mellin`, `rw [← integral_conj]`, `setIntegral_congr_fun`, then pointwise `(t : ℂ)^(conj s - 1) = conj ((t : ℂ)^(s - 1))` via `Complex.cpow_conj _ _ ht_arg` with `arg (t : ℂ) = 0 ≠ π` (from `Complex.arg_ofReal_of_nonneg`) and `Complex.conj_ofReal`, plus `conj (f t) = f t` from the realness hypothesis. Kernel-clean; no integrability hypothesis needed (relies on `LinearIsometry.integral_comp_comm` in `MeasureTheory.integral_conj`).
+
+FE symmetry at the critical point:
+
+- `hurwitzEvenFEPair_zero_Λ₀_symmetry_at_critical_15 : (hurwitzEvenFEPair 0).Λ₀ ⟨1/4, -15/2⟩ = (hurwitzEvenFEPair 0).Λ₀ ⟨1/4, 15/2⟩` — direct application of `(hurwitzEvenFEPair 0).functional_equation₀ ⟨1/4, 15/2⟩`, followed by `hurwitzEvenFEPair_zero_symm` (self-duality) and arithmetic to convert `(hurwitzEvenFEPair 0).k - ⟨1/4, 15/2⟩` to `⟨1/4, -15/2⟩` and `(hurwitzEvenFEPair 0).ε • _` to `_`. Via `convert hFE using 1` + `simp [hurwitzEvenFEPair]`.
+
+Conjugation identity at the critical point:
+
+- `mellin_f_modif_at_critical_15_conj_eq : mellin f_modif ⟨1/4, -15/2⟩ = conj (mellin f_modif ⟨1/4, 15/2⟩)` — specialization of `mellin_conj_of_im_zero` with `f = (hurwitzEvenFEPair 0).f_modif` (real-valued by `f_modif_hurwitzEvenFEPair_zero_im_eq_zero`), `s = ⟨1/4, 15/2⟩`, using `conj ⟨1/4, 15/2⟩ = ⟨1/4, -15/2⟩` (via `Complex.ext` on both parts).
+
+THE CORE REALNESS RESULT:
+
+- `mellin_f_modif_at_critical_15_im_eq_zero : (mellin ((hurwitzEvenFEPair 0).f_modif) ⟨1/4, 15/2⟩).im = 0` — combines FE symmetry with conjugation identity: `mellin f_modif ⟨1/4, -15/2⟩` equals both `mellin f_modif ⟨1/4, 15/2⟩` (via FE) and `conj (mellin f_modif ⟨1/4, 15/2⟩)` (via conjugation). Hence `mellin f_modif ⟨1/4, 15/2⟩` equals its own conjugate, so via `Complex.conj_eq_iff_im`, its imaginary part is zero.
+
+Restatement — mellin as `ofReal` cast:
+
+- `mellin_f_modif_at_critical_15_eq_ofReal_re : mellin f_modif ⟨1/4, 15/2⟩ = ((mellin f_modif ⟨1/4, 15/2⟩).re : ℂ)` — immediate from `.im = 0` via `Complex.ext`. Exhibits the full complex Mellin value as a real number lifted into ℂ.
+
+Chain-closer continuity with r309: `Xi_Positive_At_15_from_re_mellin_lower_bound` from r309 continues to serve — the threshold `8/901 < .re` is unchanged. r310 provides the realness invariant that r311 will use to fold the (0, 1) integral half onto (1, ∞) and expose the cosine-integrand representation.
+
+r311+ direction (unchanged from r309 plan, now with realness in hand):
+- **r311**: (0, 1) → (1, ∞) fold via `WeakFEPair.hf_modif_FE` and `x ↦ 1/x` substitution. At `q + conj q = k = 1/2`, paired halves become conjugates, yielding `mellin f_modif q = 2 · Re(∫₁^∞ x^(q-1) · (evenKernel 0 x - 1) dx)` = `2 · ∫₁^∞ (evenKernel 0 x - 1) · x^(-3/4) · cos((15/2) log x) dx`.
+- **r312**: certified numerical lower bound `4/901 < ∫₁^∞ (evenKernel 0 x - 1) · x^(-3/4) · cos((15/2) log x) dx` via truncation of the theta series `evenKernel 0 x - 1 = 2 ∑_{n≥1} exp(-π n² x)` with certified tail bounds via `hasSum_int_evenKernel`.
+
+Numerical target sanity: `(mellin f_modif ⟨1/4, 15/2⟩).re ≈ 2 · 10⁻²` estimated, well above `8/901 ≈ 0.00888`.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-21 (r309 `completedRiemannZeta₀ → mellin(f_modif)` normalization collapse + threshold conversion `4/901 → 8/901`)
 
 **HEAD prior**: (r308 commit `0661ed1b`). **HEAD now**: (this commit).
