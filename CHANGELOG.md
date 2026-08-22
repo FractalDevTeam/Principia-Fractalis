@@ -1,5 +1,84 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-21 (r308 Xi(15) via `completedRiemannZeta₀ − 1/s − 1/(1−s)` reduction — abandons r307 ζ·Γ·phase decomposition; corpus-native FE-pair route collapses THREE evaluators into ONE entire-function evaluation)
+
+**HEAD prior**: (r307 commit `88e022c3`). **HEAD now**: (this commit).
+
+Abandons the r304-r307 `ζ · Γ · phase` symbolic-decomposition attack in favor of mathlib's already-proved `completedRiemannZeta_eq` identity:
+
+  `completedRiemannZeta s = completedRiemannZeta₀ s − 1/s − 1/(1−s)`
+
+where `completedRiemannZeta₀` is the ENTIRE function derived from the Mellin transform of the modified theta kernel `evenKernel 0` via `hurwitzEvenFEPair 0`.
+
+At `s = ⟨1/2, 15⟩`, direct complex-inversion computation gives:
+
+- `1/s = ⟨2/901, −60/901⟩`
+- `1/(1−s) = ⟨2/901, +60/901⟩`
+- Sum: `⟨4/901, 0⟩` — **REAL**
+
+Therefore `Xi 15 = (completedRiemannZeta₀ ⟨1/2, 15⟩).re − 4/901`, and the residual reformulates as `Xi_Positive_At_15 ↔ 4/901 < (completedRiemannZeta₀ ⟨1/2, 15⟩).re`.
+
+**Dependency reduction**: THREE independent certified evaluators (`Real.cos`/`Real.sin`, `Complex.Gamma`, `riemannZeta`) from r307's P15 decomposition collapse into ONE certified enclosure of a single entire-function evaluation. Downstream landings attack via the theta Mellin representation:
+
+  `completedRiemannZeta₀ s = (hurwitzEvenFEPair 0).Λ₀ (s/2) / 2 = mellin(f_modif)(s/2) / 2`
+
+collapsing on the critical line (via `evenKernel_functional_equation`) to a real integral of the form `∫₁^∞ (evenKernel 0 x − 1) · x^(-3/4) · cos((15/2) log x) dx` with certified tail bounds via `hasSum_int_evenKernel`.
+
+Not a discharge. Strictly-necessary dependency-reduction infrastructure that eliminates the three-evaluator attack surface and replaces it with a single mathlib-native entire-function target.
+
+Zero project axioms preserved. Build progression 9997 → 9999 jobs (r308 single new file; all 7 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`).
+
+### r308 (this commit) — Xi(15) via completedRiemannZeta₀ reduction (`PF/Analytic/Xi15CompletedZeta0Reduction_r308.lean`)
+
+Complex-inversion computations at `s = ⟨1/2, 15⟩`:
+
+- `inv_at_critical_15 : (⟨1/2, 15⟩ : ℂ)⁻¹ = ⟨2/901, −60/901⟩`.
+- `inv_one_sub_at_critical_15 : (1 − ⟨1/2, 15⟩ : ℂ)⁻¹ = ⟨2/901, 60/901⟩`.
+- `pole_correction_sum_at_critical_15 : 1/⟨1/2, 15⟩ + 1/(1−⟨1/2, 15⟩) = ⟨4/901, 0⟩`.
+
+FE-pair route reductions:
+
+- `completedRiemannZeta_at_critical_15_via_zeta0 : completedRiemannZeta ⟨1/2, 15⟩ = completedRiemannZeta₀ ⟨1/2, 15⟩ − ⟨4/901, 0⟩` via mathlib's `completedRiemannZeta_eq`.
+- `xi_15_eq_re_completedZeta0_minus_correction : Xi 15 = (completedRiemannZeta₀ ⟨1/2, 15⟩).re − 4/901`.
+
+Residual reformulation:
+
+- `Xi_Positive_At_15_iff_re_completedZeta0_gt_correction : Xi_Positive_At_15 ↔ 4/901 < (completedRiemannZeta₀ ⟨1/2, 15⟩).re`.
+
+CHAIN-CLOSER (corpus-native FE-pair route):
+
+- `Xi_Positive_At_15_from_completedZeta0_re_lower_bound : ∀ {a : ℝ}, 4/901 < a → a ≤ (completedRiemannZeta₀ ⟨1/2, 15⟩).re → Xi_Positive_At_15`.
+
+### Reduction chain state at HEAD (after r308)
+
+| Stage | Statement | Discharge |
+|---|---|---|
+| r299-r303 | referee-facing surface milestone | frozen |
+| r304 | Xi_Positive_At_15 ↔ `0 < (ζ ⟨1/2, 15⟩ · Gammaℝ ⟨1/2, 15⟩).re` | infrastructure |
+| r305-r306 | Gammaℝ polar peeling; symbolic complete | infrastructure |
+| r307 | Xi_Positive_At_15 ↔ `0 < P15.re` (three-evaluator P15) | infrastructure |
+| **r308** | **Xi_Positive_At_15 ↔ `4/901 < (completedRiemannZeta₀ ⟨1/2, 15⟩).re` (FE-pair route)** | **dependency reduction; three-evaluator problem collapses to one entire-function evaluation** |
+
+### Framework position after r308
+
+The three-evaluator attack surface (r307) is superseded by the corpus-native FE-pair route. The remaining unknown is exactly `(completedRiemannZeta₀ ⟨1/2, 15⟩).re`, which unfolds via mathlib's own construction:
+
+  `completedRiemannZeta₀ s = (hurwitzEvenFEPair 0).Λ₀ (s/2) / 2 = mellin(f_modif)(s/2) / 2`
+
+r309+ derives the critical-line real integral form:
+
+  `(completedRiemannZeta₀ ⟨1/2, 15⟩).re = ∫₁^∞ (evenKernel 0 x − 1) · x^(-3/4) · cos((15/2) log x) dx`
+
+(after the theta-functional-equation substitution on the (0,1) tail) and produces certified enclosure > `4/901`.
+
+Numerical target: `4/901 ≈ 0.00444`. Rough estimate from the theta integral: `(completedRiemannZeta₀ ⟨1/2, 15⟩).re ~ 10⁻²`, dominated by the near-x=1 contribution.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+Build: 9999 jobs. Zero project axioms. Kernel-only.
+
+---
+
 ## 2026-08-21 (r307 Xi_Positive_At_15 RESIDUAL REDUCTION to `0 < P15.re` + chain-closer — ends the symbolic-peeling phase; identifies the smallest missing certified theorems for r308+ numerical attack)
 
 **HEAD prior**: (r306 commit `f10d58f8`). **HEAD now**: (this commit).
