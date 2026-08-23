@@ -1,5 +1,39 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r314e R_{≥2} RATIONAL BOUND — `|R_geq_2| < 1/10^6` via Taylor `exp(π) > 22`)
+
+**HEAD prior**: (r314d commit `de2163b8`). **HEAD now**: (this commit).
+
+FIFTH and FINAL r314-series landing. Delivers the fully rational bound `|R_geq_2| < 1/10^6` directly consumable by r313's `Xi_Positive_At_15_from_J_1_and_R_geq_2_bounds` bridge. Concludes the certified `R_{≥2}` remainder theorem.
+
+Route: (a) `Real.sum_le_exp_of_nonneg` at `x = 3.14, N = 8` gives `∑_{k=0}^{7} (3.14)^k/k! ≤ exp(3.14)`; (b) explicit sum evaluates > 22 via `norm_num` on rational arithmetic; (c) `exp(π) > exp(3.14) > 22` via `Real.exp_le_exp.mpr` + `Real.pi_gt_d2 : 3.14 < π`; (d) `exp(4π) = exp(π)^4 > 22^4 = 234256` via `Real.exp_nat_mul` + `pow_lt_pow_left₀`; (e) `exp(-4π) < 1/234256` via `Real.exp_neg` + `inv_lt_comm₀`; (f) numerical chain via `div_le_div_of_nonneg_right` + `div_lt_div_of_pos_left` + `norm_num` bounding `(1/234256)/(2·3.14·(234255/234256)) < 1/10^6`.
+
+r314e endpoint: `abs_R_geq_2_lt_one_millionth : |R_geq_2| < 1/10^6`. THE r314-SERIES CULMINATION. All ingredients are mathlib primitives (no project axioms, no `native_decide`, no `sorry`, no floating-point-as-proof).
+
+Framework-first status: NOT a numerical discharge of `Xi_Positive_At_15` (that requires r315 + r316). r314e completes the R_{≥2} half of Pabs's `|R_geq_2| ≤ E, E < 10^(-6)` r313-bridge input.
+
+Standing rules absolute per MASTER DIRECTIVE §III-§V, §XVIII: all satisfied. All 7 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+Zero project axioms preserved. Build progression 10017 → 10019 jobs.
+
+### r314e (this commit) — Rational bound (`PF/Analytic/ChiPositive15RgeqTwoRationalBound_r314e.lean`)
+
+- `exp_314_ge_taylor_sum : ∑_{k=0}^{7} (3.14)^k / k! ≤ exp(3.14)` via `Real.sum_le_exp_of_nonneg`.
+- `taylor_sum_gt_twenty_two : (∑_{k=0}^{7} (3.14)^k / k!) > 22` via `Finset.sum_range_succ` + `Nat.factorial` unfolding + `norm_num`. Explicit rational computation: sum ≈ 22.744.
+- `exp_pi_gt_twenty_two : exp(π) > 22` via monotonicity + Taylor.
+- `exp_four_pi_gt_234256 : exp(4·π) > 234256` via `Real.exp_nat_mul` (`exp(4π) = exp(π)^4`) + `pow_lt_pow_left₀` at `22 < exp(π)` and `22^4 = 234256` (norm_num).
+- `exp_neg_four_pi_lt_reciprocal : exp(-(4·π)) < 1/234256` via `Real.exp_neg` + `inv_lt_comm₀`.
+- `symbolic_bound_lt_one_millionth : exp(-(4·π))/(2π·(1 - exp(-(4·π)))) < 1/10^6` — the numerical chain. Uses `Real.pi_gt_d2` for `2π > 6.28`, `exp(-4π) < 1/234256` for numerator + `(1 - exp(-4π)) > (1 - 1/234256) = 234255/234256` for denominator, then rational `norm_num`.
+- `abs_R_geq_2_lt_one_millionth : |R_geq_2| < 1/10^6`. **THE r314e CORE**. Via `abs_R_geq_2_le_symbolic_bound` (r314d) chained with §5.
+
+r315 direction: certified `J_1 > L` via `t = log y` substitution → `2·∫_0^∞ exp(-π·e^t) · e^(t/4) · cos((15/2) t) dt`. Rational cutoff, Taylor bounds, sum. Required: `L > 4/901 + 10^(-6)`.
+
+r316 direction: apply r313's `Xi_Positive_At_15_from_J_1_and_R_geq_2_bounds` with r315's L and r314e's `E = 1/10^6`. `Xi_Positive_At_15` DISCHARGED **only** when r316 lands.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-22 (r314d R_{≥2} SYMBOLIC BOUND — `|R_geq_2| ≤ exp(-4π)/(2π·(1-exp(-4π)))`)
 
 **HEAD prior**: (r314c commit `354db1cf`). **HEAD now**: (this commit).
