@@ -1,5 +1,66 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r314 R_{≥2} INTEGRAL FORM + TRIANGLE INEQUALITY — analytic scaffolding for the certified remainder theorem)
+
+**HEAD prior**: (r313 commit `f0188dbb`). **HEAD now**: (this commit).
+
+Per Pabs's r313 directive authorizing splits "along mathematically necessary boundaries", r314 delivers the measure-theoretic analytic scaffolding for the certified `|R_{≥2}| ≤ E` remainder theorem. The pipeline is split into r314 (integral form + triangle inequality; this landing), r314b (pointwise `|piece_2(y)| ≤ tail(y) · y^(-3/4)` bound), r314c (geometric bound `tail(y) ≤ 2·exp(-4πy)/(1-exp(-4π))`), and r314d (rationalization `exp(-4π) < ε` via Taylor bound on `exp(4π) > 22^4 = 234256`).
+
+Each split is along a genuinely distinct mathematical machinery:
+- r314: Bochner integration, `integral_sub`, `norm_integral_le_integral_norm`, `integrable_of_isBigO_exp_neg`.
+- r314b: pointwise absolute-value + `tail_nonneg_of_pos` from r313 + `|cos| ≤ 1`.
+- r314c: `hasSum_geometric_of_lt_one` + `tsum_le_tsum` + termwise domination via `(n+2)² ≥ 4 + 4n`.
+- r314d: `Real.exp` Taylor bound + `π > 3.14` from mathlib.
+
+Splitting reduces per-landing cognitive/verification load while each landing removes an independent dependency.
+
+r314 target endpoint: `|R_geq_2| ≤ ∫ y in Ioi 1, |piece_2(y)| dy`. r314b onwards attacks the RHS. r314d ends the chain at `|R_geq_2| ≤ E` for explicit rational `E < 10^(-6)`.
+
+Standing rules absolute (Pabs's r313 directive): no `sorry`, no `native_decide`, no floating-point-as-proof, no hidden oracle, no assumed transcendental enclosure.
+
+r314 explicitly does NOT deliver the certified rational bound; that requires r314b + r314c + r314d. Do NOT claim Xi_Positive_At_15 discharged until all r314-r316 landings kernel-verify the final inequality.
+
+Zero project axioms preserved. Build progression 10009 → 10011 jobs (r314 single new file; all 7 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`).
+
+### r314 (this commit) — R_{≥2} integral form + triangle inequality (`PF/Analytic/ChiPositive15RgeqTwoIntegralForm_r314.lean`)
+
+**§1 — Integrand shorthands**:
+
+- `piece_1 : ℝ → ℝ := fun y => 2 · exp(-π·y) · y^(-3/4) · cos((15/2) log y)`.
+- `piece_2 : ℝ → ℝ := fun y => (evenKernel 0 y - 1 - 2·exp(-π·y)) · y^(-3/4) · cos((15/2) log y)`.
+- `i15_integrand : ℝ → ℝ := fun y => (evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) log y)`.
+- `i15_integrand_eq_piece_1_add_piece_2` / `piece_2_eq_i15_sub_piece_1` — pointwise algebra via `ring`.
+
+**§2 — piece_1 integrability**:
+
+- `piece_1_integrable_on_ioi_one : IntegrableOn piece_1 (Ioi 1)`. Via `integrable_of_isBigO_exp_neg` at `b = Real.pi`: (a) `ContinuousOn piece_1 (Ici 1)` from product of continuous functions (`exp(-π·y)`, `y^(-3/4)` on `Ioi 0 ⊃ Ici 1`, `cos((15/2)·log y)` on `Ioi 0`); (b) `piece_1 =O[atTop] fun x => exp(-π·x)` via the pointwise bound `|piece_1(y)| ≤ 2·exp(-π·y)` for `y ≥ 1` (using `y^(-3/4) ≤ 1` via `Real.rpow_le_rpow_of_exponent_le` at `-3/4 ≤ 0` and `|cos| ≤ 1` via `Real.abs_cos_le_one`).
+
+**§3 — piece_2 integrability**:
+
+- `i15_integrand_integrable_on_ioi_one : IntegrableOn i15_integrand (Ioi 1)`. From r312's `tail_integrable_on_ioi_one` (complex integrand) via `.re` integrability transfer + r312's `integrand_re_pointwise` giving pointwise equality on `Ioi 1`.
+- `piece_2_integrable_on_ioi_one : IntegrableOn piece_2 (Ioi 1)`. Via `IntegrableOn.sub` on `i15_integrand - piece_1` + pointwise `piece_2_eq_i15_sub_piece_1` congr.
+
+**§4 — Integral form of R_geq_2**:
+
+- `J_1_eq_integral_piece_1 : J_1 = ∫ y in Ioi 1, piece_1 y`. Via `unfold J_1 piece_1 + integral_const_mul` + `setIntegral_congr_fun` (matching the factor-of-2 with the integrand's inner `2·exp(-π·y)`).
+- `I_15_eq_integral_i15_integrand : I_15 = ∫ y in Ioi 1, i15_integrand y`. `rfl`.
+- `R_geq_2_eq_integral_piece_2 : R_geq_2 = ∫ y in Ioi 1, piece_2 y`. THE KEY INTEGRAL FORM. Via `R_geq_2 := I_15 - J_1`, `I_15 = ∫ i15_integrand`, `J_1 = ∫ piece_1`, and `∫ i15_integrand - ∫ piece_1 = ∫ (i15_integrand - piece_1) = ∫ piece_2` via `integral_sub` (both integrable) + `setIntegral_congr_fun` for the pointwise identity `piece_2_eq_i15_sub_piece_1`.
+
+**§5 — Triangle inequality**:
+
+- `abs_R_geq_2_le_integral_abs_piece_2 : |R_geq_2| ≤ ∫ y in Ioi 1, |piece_2 y|`. THE r314 CORE ANALYTIC BOUND. Via `R_geq_2_eq_integral_piece_2` + `norm_integral_le_integral_norm` (Bochner triangle) + `Real.norm_eq_abs` conversion.
+
+r314b+ direction (unchanged from r314's plan):
+- **r314b**: `∀ y ∈ Ioi 1, |piece_2 y| ≤ tail(y) · y^(-3/4)` where `tail(y) := evenKernel 0 y - 1 - 2·exp(-π·y)`. Uses `tail_nonneg_of_pos` (r313) + `|cos| ≤ 1` + `y^(-3/4) > 0`. Then integrability of `tail · y^(-3/4)` via `Integrable.mono'` bounded by `evenKernel 0 y - 1` (integrable via `isBigO_atTop_evenKernel_sub`). Endpoint: `|R_geq_2| ≤ ∫ y in Ioi 1, tail(y) · y^(-3/4) dy`.
+- **r314c**: pointwise geometric bound `∀ y ≥ 1, tail(y) ≤ 2·exp(-4πy)/(1-exp(-4π))` via `hasSum_evenKernel_zero_sub_one` (r313 shifted) + `(n+2)² ≥ 4 + 4n` for `n ≥ 0` + `hasSum_geometric_of_lt_one`. Integrate: `∫ y in Ioi 1, exp(-4πy) · y^(-3/4) dy ≤ ∫ y in Ioi 1, exp(-4πy) dy = exp(-4π)/(4π)`. Endpoint: `|R_geq_2| ≤ exp(-4π) / (2π · (1 - exp(-4π)))`.
+- **r314d**: rationalize `exp(-4π) < ε` via `exp(4π) > exp(π)^4 > 22^4 = 234256` (Taylor bound with `π > 3.14`). Endpoint: `|R_geq_2| ≤ E` for explicit rational `E < 10^(-6)`.
+
+r315, r316 direction unchanged: r315 = certified `J_1 > L` via `t = log y` substitution; r316 = combine via r313's `Xi_Positive_At_15_from_J_1_and_R_geq_2_bounds`.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-22 (r313 EXACT THETA TRUNCATION — theta series identity + `I_15 = J_1 + R_{≥2}` split + forward chain-closer bridge)
 
 **HEAD prior**: (r312 commit `c10ebbcf`). **HEAD now**: (this commit).
