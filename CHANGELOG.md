@@ -1,5 +1,63 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r311 `(0,1) → (1,∞) fold` + `mellin F q = 2 · tail.re` + chain-closer `4/901 < tail.re → Xi_Positive_At_15`)
+
+**HEAD prior**: (r310 commit `fb9c5590`). **HEAD now**: (this commit).
+
+Fold and split landing. Structural collapse of the r309 target `(mellin f_modif ⟨1/4, 15/2⟩).re` onto TWICE the real part of the single tail integral `∫ y in Ioi 1, y^(q-1) • F y`. The real-integrand cosine form — `(evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) log y)` — is deferred to r312 (independent mechanical work: polar decomposition of `(y : ℂ)^(q - 1)` + `integral_re` swap + `f_modif` unfolding on `Ioi 1`).
+
+Route: (i) prove the (0, 1) → (1, ∞) half-Mellin fold at general exponent via mathlib's `mellin_comp_inv` applied to the `(Ioi 1)`-indicator of `F`, with `hf_modif_FE` substitution `F(t⁻¹) = t^(1/2) · F(t)` at the self-dual `hurwitzEvenFEPair 0` (`ε = 1`, `k = 1/2`, `g_modif = f_modif`); (ii) specialize at `q_L = q = ⟨1/4, 15/2⟩` where `k - q = q̄ = ⟨1/4, -15/2⟩` to get `V = U'` (head at `q` equals tail at `q̄`); (iii) show tail at `q̄` = conj of tail at `q` via `Complex.cpow_conj` (`arg (y : ℂ) = 0 ≠ π` for `y > 1`) + `Complex.conj_ofReal` + `MeasureTheory.integral_conj` (F real on `Ioi 1`); (iv) split `mellin F q = V + U` via `Ioc 0 1 ⊔ Ioi 1 = Ioi 0` + `setIntegral_union` + integrability from `WeakFEPair.toStrongFEPair.hasMellin`; (v) combine to `mellin F q = tail + conj tail`, hence `(mellin F q).re = 2 · tail.re`.
+
+Framework-first status: NOT a numerical discharge. Structural fold. r309's threshold `Xi_Positive_At_15 ↔ 8/901 < (mellin F q).re` combined with r311's `.re = 2 · tail.re` yields the r311 chain-closer `4/901 < tail.re → Xi_Positive_At_15`. Matches Pabs's "at minimum forward-use chain-closer" bar; r312 will strengthen the LHS to the explicit cosine integral form `∫₁^∞ (evenKernel 0 x - 1) · x^(-3/4) · cos((15/2) log x) dx`.
+
+Standing rules respected: no numerical approximation, no forced exponent, no scaffolding detours. The exponent `q̄ - 1` emerged from `k - q_L = 1/2 - q` at the specific critical point, not by construction. Mathlib's Mellin convention `(t : ℂ)^(s - 1)` controls; the factor of 2 emerges from `U + conj U = 2 · U.re`.
+
+Zero project axioms preserved. Build progression 10003 → 10005 jobs (r311 single new file; all 11 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`).
+
+### r311 (this commit) — Fold + split + chain-closer on complex tail (`PF/Analytic/CompletedZeta0MellinFoldedCosineIntegral_r311.lean`)
+
+**§2 — The (0, 1) → (1, ∞) fold via `mellin_comp_inv` + `hf_modif_FE`**:
+
+- `f_modif_inv_apply : ∀ {t : ℝ}, 0 < t → F(t⁻¹) = ((t^(1/2) : ℝ) : ℂ) • F(t)` — `WeakFEPair.hf_modif_FE` at `hurwitzEvenFEPair 0` (`ε = 1`, `k = 1/2`), combined with `g_modif = f_modif` case-analysis. On `Ioi 1`: both `f_modif` and `g_modif` branches reduce to `ofReal(kernel 0 t) - 1` with `kernel 0 = evenKernel 0 = cosKernel 0` (via `evenKernel_eq_cosKernel_of_zero`). On `Ioo 0 1`: symmetric with `ε⁻¹ = ε = 1`. Case-splits on membership.
+
+- `half_mellin_fold (q_L : ℂ) : ∫ t in Ioo 0 1, (t : ℂ)^(q_L - 1) • F t = ∫ y in Ioi 1, (y : ℂ)^(((1/2 : ℝ) : ℂ) - q_L - 1) • F y` — general half-Mellin fold. Sets `s := q_L - 1/2`, `G := (Ioi 1).indicator F`. Applies `mellin_comp_inv G s`. Then: (a) simplify LHS via indicator support (`G(t⁻¹) ≠ 0` iff `t ∈ Ioo 0 1`); (b) substitute `F(t⁻¹) = (t^(1/2) : ℂ) • F(t)`; (c) combine exponents `t^(s-1) · t^(1/2) = t^(s - 1/2) = t^(q_L - 1)` via `Complex.cpow_add` + `Complex.ofReal_cpow`; (d) rewrite RHS exponent `-s - 1 = (1/2 - q_L) - 1`.
+
+- `half_mellin_fold_at_critical_15 : ∫ t in Ioo 0 1, (t : ℂ)^(q - 1) • F t = ∫ y in Ioi 1, (y : ℂ)^(qBar - 1) • F y` — specialization at `q_L = q` using `half_sub_critical_15_half_eq_neg_critical_15_half` (r310) to identify `(1/2 : ℂ) - q = qBar`.
+
+**§3 — Tail conjugation**:
+
+- `f_modif_ioi_one_im_eq_zero : ∀ x, x ∈ Ioi 1 → (F x).im = 0` — restriction of `f_modif_hurwitzEvenFEPair_zero_im_eq_zero` (r310).
+
+- `tail_conj_symmetric (s : ℂ) : ∫ y in Ioi 1, (y : ℂ)^(conj s - 1) • F y = conj (∫ y in Ioi 1, (y : ℂ)^(s - 1) • F y)` — same technique as r310's `mellin_conj_of_im_zero`, restricted to `Ioi 1`.
+
+- `tail_at_qBar_eq_conj_tail_at_q : ∫ y in Ioi 1, (y : ℂ)^(qBar - 1) • F y = conj (∫ y in Ioi 1, (y : ℂ)^(q - 1) • F y)` — specialization at `s = q` using `conj q = qBar`.
+
+**§4 — The fold**:
+
+- `head_eq_conj_tail_at_critical_15 : ∫ t in Ioo 0 1, (t : ℂ)^(q - 1) • F t = conj (∫ y in Ioi 1, (y : ℂ)^(q - 1) • F y)` — combining §2 and §3: `head = ∫_{Ioi 1} y^(qBar - 1) • F y = conj (∫_{Ioi 1} y^(q - 1) • F y)`.
+
+**§5 — Split `mellin` at 1**:
+
+- `mellin_F_at_q_split_at_one : mellin F q = (∫ t in Ioo 0 1, (t : ℂ)^(q - 1) • F t) + ∫ y in Ioi 1, (y : ℂ)^(q - 1) • F y` — via `Ioi 0 = Ioc 0 1 ∪ Ioi 1` (disjoint) + `setIntegral_union` + `integral_Ioc_eq_integral_Ioo`. Integrability on the two halves from `WeakFEPair.toStrongFEPair.hasMellin q` giving `MellinConvergent F q = IntegrableOn ... (Ioi 0)`, monotone-restricted.
+
+**§6 — Real part = 2 × tail real part**:
+
+- `mellin_F_at_q_eq_tail_plus_conj_tail : mellin F q = tail + conj tail` — combining §4 and §5.
+
+- `re_mellin_F_at_q_eq_two_re_tail : (mellin F q).re = 2 * tail.re` — from `.re + (conj z).re = 2 · z.re`.
+
+**§7 — Chain-closer**:
+
+- `Xi_Positive_At_15_from_re_tail_lower_bound : ∀ {a : ℝ}, 4/901 < a → a ≤ tail.re → Xi_Positive_At_15` — CHAIN-CLOSER. Combines `re_mellin_F_at_q_eq_two_re_tail` with r309's `Xi_Positive_At_15_from_re_mellin_lower_bound (a := 2 * a)`. The `4/901` bound (vs r309's `8/901` on the full mellin) is exactly the factor-of-2 absorbed from `re = 2 · tail.re`. Matches Pabs's "at minimum forward-use chain-closer" specification.
+
+r312 direction: unfold `tail.re` to the explicit real cosine integral form. Requires: (a) polar decomposition of `(y : ℂ)^(q - 1)` at `q - 1 = ⟨-3/4, 15/2⟩` for `y > 0` real via `Complex.cpow_def_of_ne_zero` + `Complex.ofReal_log` + `Complex.exp_re`; (b) unfold `F(y) = ofReal(evenKernel 0 y - 1)` on `Ioi 1` via `WeakFEPair.f_modif` case-split; (c) swap `.re` and `∫` via `MeasureTheory.integral_re` with integrability on `Ioi 1`; (d) final chain-closer `4/901 < ∫₁^∞ (evenKernel 0 x - 1) · x^(-3/4) · cos((15/2) log x) dx → Xi_Positive_At_15`.
+
+Numerical target sanity: rough estimate for `2 · tail.re ≈ 2 · 10⁻²`, well above `8/901 ≈ 0.00888` (equivalently `tail.re ≈ 10⁻²` well above `4/901 ≈ 0.00444`).
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-22 (r310 `mellin(f_modif) ⟨1/4, 15/2⟩` IS REAL via FE₀ + Mellin conjugation)
 
 **HEAD prior**: (r309 commit `e4c68510`). **HEAD now**: (this commit).
