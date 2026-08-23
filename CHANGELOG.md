@@ -1,5 +1,35 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r314d R_{≥2} SYMBOLIC BOUND — `|R_geq_2| ≤ exp(-4π)/(2π·(1-exp(-4π)))`)
+
+**HEAD prior**: (r314c commit `354db1cf`). **HEAD now**: (this commit).
+
+Fourth r314-series landing per Pabs's split authorization. Integrates r314c's pointwise geometric bound on `Ioi 1` with the `y^(-3/4)` factor + factors out constant + evaluates `∫ exp(-4πy) = exp(-4π)/(4π)` via mathlib's `integral_exp_mul_Ioi`.
+
+Route: (i) `∫ y in Ioi 1, exp(-4πy) dy = exp(-4π)/(4π)` via `integral_exp_mul_Ioi` at `a = -4π` (negative). (ii) `exp(-4πy)` integrable on `Ioi 1` via `integrableOn_exp_mul_Ioi`. (iii) `exp(-4πy)·y^(-3/4)` integrable via `Integrable.mono'` bounded by `exp(-4πy)`. (iv) Geometric dominator integrable via `.const_mul`. (v) `∫ exp(-4πy)·y^(-3/4) ≤ ∫ exp(-4πy) = exp(-4π)/(4π)` via `setIntegral_mono_on` + `y^(-3/4) ≤ 1` for `y ≥ 1`. (vi) Combined via `setIntegral_mono_on` + `integral_const_mul`: `∫ tail·y^(-3/4) ≤ exp(-4π)/(2π·(1-exp(-4π)))`. (vii) Chain with r314b's triangle bound to get `|R_geq_2| ≤ exp(-4π)/(2π·(1-exp(-4π)))`.
+
+r314d endpoint: symbolic bound `|R_geq_2| ≤ exp(-(4π))/(2π·(1-exp(-(4π))))` in mathlib primitives. r314e will rationalize.
+
+Framework-first status: NOT a numerical discharge. Symbolic bound. Standing rules absolute per MASTER DIRECTIVE §III-§V, §XVIII. All 7 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+Zero project axioms preserved. Build progression 10015 → 10017 jobs.
+
+### r314d (this commit) — Symbolic bound (`PF/Analytic/ChiPositive15RgeqTwoSymbolicBound_r314d.lean`)
+
+- `integral_exp_neg_four_pi_Ioi_one : ∫ y in Ioi 1, exp(-(4π·y)) = exp(-(4π))/(4π)`.
+- `exp_neg_four_pi_integrable_on_ioi_one : IntegrableOn exp(-(4π·y)) (Ioi 1)`.
+- `exp_neg_four_pi_times_ypow_integrable : IntegrableOn exp(-(4π·y))·y^(-3/4) (Ioi 1)`.
+- `integral_exp_neg_four_pi_times_ypow_le : ∫ exp(-(4π·y))·y^(-3/4) ≤ exp(-(4π))/(4π)`.
+- `geometric_dominator_integrable : IntegrableOn 2·exp(-(4π·y))/(1-exp(-(4π)))·y^(-3/4) (Ioi 1)`.
+- `integral_tail_times_ypow_le_symbolic : ∫ tail·y^(-3/4) ≤ exp(-(4π))/(2π·(1-exp(-(4π))))`.
+- `abs_R_geq_2_le_symbolic_bound : |R_geq_2| ≤ exp(-(4π))/(2π·(1-exp(-(4π))))`. **THE r314d CORE**.
+
+r314e direction: rationalize via `exp(π) > 22` (truncated Taylor with `π > 3.14`) → `exp(4π) > 22^4 = 234256` → `exp(-4π) < 1/234256 < 4.3·10^(-6)`. Chain: `|R_geq_2| < 4.3·10^(-6)/(2π·(1-4.3·10^(-6))) < 7·10^(-7) < 10^(-6)`. Endpoint: `|R_geq_2| ≤ E` for rational `E < 10^(-6)`.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-22 (r314c R_{≥2} GEOMETRIC BOUND — `tail(y) ≤ 2·exp(-4πy)/(1-exp(-4π))` for `y ≥ 1`)
 
 **HEAD prior**: (r314b commit `e380b314`). **HEAD now**: (this commit).
