@@ -1,5 +1,53 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r313 EXACT THETA TRUNCATION — theta series identity + `I_15 = J_1 + R_{≥2}` split + forward chain-closer bridge)
+
+**HEAD prior**: (r312 commit `c10ebbcf`). **HEAD now**: (this commit).
+
+First step toward numerical certification of `4/901 < I_15`. Establishes the pointwise theta series identity for `evenKernel 0 y - 1` (via mathlib's `HurwitzZeta.hasSum_nat_cosKernel₀ 0` positive-index expansion + `evenKernel_eq_cosKernel_of_zero`), peels off the `k = 1` term (`2·exp(-π·y)`) to expose the tail, defines the split `I_15 = J_1 + R_{≥2}` at the definitional level (with `R_{≥2} := I_15 - J_1`), and provides the forward chain-closer bridge that r314 (bound on `|R_{≥2}|`) and r315 (bound on `J_1`) will feed into.
+
+Standing rules absolute per Pabs's r313 directive: no numerical approximation in this landing, no `sorry`, no `native_decide`, no floating-point-as-proof, no hidden oracle, no assumed transcendental enclosure. Every ingredient is a mathlib primitive.
+
+r313 explicitly does NOT claim `Xi_Positive_At_15` is discharged. Discharge requires: (a) r314 delivering rational `E` with `|R_{≥2}| ≤ E`; (b) r315 delivering rational `L` with `L ≤ J_1`; (c) `4/901 < L - E` provable. Only when all three land does the forward bridge fire.
+
+Zero project axioms preserved. Build progression 10007 → 10009 jobs (r313 single new file; all 6 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`).
+
+### r313 (this commit) — Theta truncation + I_15 split + forward bridge (`PF/Analytic/ChiPositive15ThetaTruncation_r313.lean`)
+
+**§1 — Pointwise theta series identity**:
+
+- `hasSum_evenKernel_zero_sub_one : ∀ {y : ℝ}, 0 < y → HasSum (fun n : ℕ => 2 · rexp (-π · (n + 1)² · y)) (evenKernel 0 y - 1)`. Derived from `HurwitzZeta.hasSum_nat_cosKernel₀ (0 : ℝ) hy`. At `a = 0`, the cosine factor `Real.cos (2π · 0 · (n+1)) = Real.cos 0 = 1` simplifies, leaving the pure exponential sum. Then `evenKernel_eq_cosKernel_of_zero` bridges `cosKernel 0 = evenKernel 0` (with an explicit `((0 : ℝ) : UnitAddCircle) = 0` coercion step via `QuotientAddGroup.mk_zero`).
+
+- `evenKernel_zero_sub_one_split_at_one : ∀ {y : ℝ}, 0 < y → evenKernel 0 y - 1 = 2·exp(-π·y) + ∑' n : ℕ, 2·exp(-π·(n+2)²·y)`. Via `Summable.tsum_eq_zero_add` on the summable series `n ↦ 2·exp(-π·(n+1)²·y)`. At `n = 0`: value is `2·exp(-π·1²·y) = 2·exp(-π·y)`. At `n ↦ n + 1`: value is `2·exp(-π·(n+2)²·y)`. Coercion arithmetic via `push_cast; ring_nf`.
+
+- `tail_nonneg_of_pos : ∀ {y : ℝ}, 0 < y → 0 ≤ evenKernel 0 y - 1 - 2·exp(-π·y)`. Direct from the split identity + `tsum_nonneg` on the manifestly nonneg summand `2·exp(-π·(n+2)²·y) ≥ 0` via `positivity`.
+
+**§2 — Definitions of `I_15`, `J_1`, `R_geq_2`**:
+
+- `I_15 : ℝ := ∫ y in Ioi 1, (evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) log y)`.
+- `J_1 : ℝ := 2 · ∫ y in Ioi 1, exp(-π·y) · y^(-3/4) · cos((15/2) log y)`.
+- `R_geq_2 : ℝ := I_15 - J_1` — DEFINITIONAL residual. The equivalent integral form `R_geq_2 = ∫ y in Ioi 1, (evenKernel 0 y - 1 - 2·exp(-π·y)) · y^(-3/4) · cos((15/2) log y)` is deferred to r314 (requires integrability of both integrand halves + `integral_add`).
+
+**§3 — The definitional split identity**:
+
+- `I_15_split : I_15 = J_1 + R_geq_2`. Definitional via `unfold R_geq_2; ring`.
+- `i_15_eq_folded_cosine_integral : I_15 = ∫ y in Ioi 1, (evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) log y)`. `rfl`. Connects `I_15` (as defined here) to the integral appearing in r312's chain-closer.
+
+**§4 — Forward chain-closer bridge**:
+
+- `Xi_Positive_At_15_from_J_1_and_R_geq_2_bounds : ∀ {L E : ℝ}, L ≤ J_1 → |R_geq_2| ≤ E → 4/901 < L - E → Xi_Positive_At_15`. FORWARD CHAIN-CLOSER BRIDGE. Since `R_geq_2 = I_15 - J_1`, `J_1 + R_geq_2 = I_15`. From `|R_geq_2| ≤ E` we get `R_geq_2 ≥ -E`, hence `I_15 = J_1 + R_geq_2 ≥ L - E`. Applying r312's `Xi_Positive_At_15_from_folded_cosine_integral_lower_bound` at `a := L - E` closes.
+
+r314 will supply `E`, r315 will supply `L`. Only when both land does the bridge fire — no premature closure claim.
+
+r314+ direction:
+- **r314**: prove `R_geq_2 = ∫ y in Ioi 1, (evenKernel 0 y - 1 - 2·exp(-π·y)) · y^(-3/4) · cos((15/2) log y)` (via integrability of `piece_1 := 2·exp(-π·y) · y^(-3/4) · cos(·)` from `integrable_of_isBigO_exp_neg`, plus `integral_add`/`integral_sub`). Then bound the tail `∀ y ≥ 1, 0 ≤ evenKernel 0 y - 1 - 2·exp(-π·y) ≤ 2·exp(-4π·y) · C` for certified constant `C ≤ 2` (via geometric bound on `∑_{k≥2} exp(-π(k²-4))`, using `k²-4 ≥ 4(k-2)` for `k ≥ 2`). Then `|R_geq_2| ≤ 2C · exp(-4π)/(4π)`. Rationalize via explicit `exp(-4π) < 1/256` from mathlib exp-bound machinery.
+- **r315**: certified `J_1 > L` via `t = log y` substitution transforming to `2·∫_0^∞ exp(-π·e^t) · e^(t/4) · cos((15/2) t) dt`; explicit truncation `T`, rigorous exp/cos Taylor bounds on `[0, T]`, tail bound on `[T, ∞)`, sum to rational `L > 4/901 + E`.
+- **r316**: apply `Xi_Positive_At_15_from_J_1_and_R_geq_2_bounds` with r314's `E` and r315's `L` — Xi_Positive_At_15 DISCHARGED.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-22 (r312 EXPLICIT REAL COSINE INTEGRAND — `Re(mellin f_modif ⟨1/4, 15/2⟩) = 2 · I_15`, chain-closer `4/901 < I_15 → Xi_Positive_At_15`)
 
 **HEAD prior**: (r311 commit `0f89888c`). **HEAD now**: (this commit).
