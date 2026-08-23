@@ -1,5 +1,57 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r312 EXPLICIT REAL COSINE INTEGRAND — `Re(mellin f_modif ⟨1/4, 15/2⟩) = 2 · I_15`, chain-closer `4/901 < I_15 → Xi_Positive_At_15`)
+
+**HEAD prior**: (r311 commit `0f89888c`). **HEAD now**: (this commit).
+
+Completes the folded-cosine-integral pipeline started in r311. Unpacks r311's complex tail integral `∫ y in Ioi 1, (y : ℂ)^(q - 1) • F y` to the explicit real cosine integral form:
+
+  `I_15 := ∫ y in Ioi 1, (evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) · log y)`.
+
+Route: (i) polar decomposition of `(y : ℂ)^(q - 1)` at `y > 0` real via `Complex.cpow_def_of_ne_zero` + `Complex.ofReal_log` + `Complex.exp_re/im` + `Real.rpow_def_of_pos` — yielding `.re = y^(-3/4) · cos((15/2) · log y)` and `.im = y^(-3/4) · sin((15/2) · log y)` (with `q - 1 = ⟨-3/4, 15/2⟩` giving `(Real.log y : ℂ) · (q - 1)` real part `-(3/4) · log y` and imag part `(15/2) · log y`); (ii) explicit form `F y = ofReal(evenKernel 0 y - 1)` on `Ioi 1` via `WeakFEPair.f_modif` case-split; (iii) pointwise integrand `.re` combining `Complex.mul_re` at real second factor; (iv) `integral_re` swap on `Ioi 1` with integrability from `MellinConvergent.mono_set`; (v) combine with r311's `re_mellin_F_at_q_eq_two_re_tail`; (vi) chain-closer via r309 + factor-of-2 absorption.
+
+Framework-first status: NOT a numerical discharge. Last structural step before r313 certified numerical enclosure. Standing rules respected: no numerical approximation, no forced exponent (the `-3/4` and `(15/2) log y` emerged from `q - 1 = ⟨-3/4, 15/2⟩` via `Complex.exp_re/im` + `Real.rpow_def_of_pos`), no scaffolding, no hidden normalization. Mathlib's Mellin convention `(t : ℂ)^(s - 1)` controls; the factor of 2 emerges from `U + conj U = 2 · U.re` (r311).
+
+Zero project axioms preserved. Build progression 10005 → 10007 jobs (r312 single new file; all 9 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`, no `sorryAx`).
+
+### r312 (this commit) — Explicit real cosine integrand + strengthened chain-closer (`PF/Analytic/CompletedZeta0MellinFoldedCosineIntegralExplicit_r312.lean`)
+
+**§1 — Polar decomposition of `(y : ℂ)^(q - 1)`**:
+
+- `cpow_at_q_minus_one_re : ∀ {y : ℝ}, 0 < y → ((y : ℂ)^(q - 1)).re = y^(-3/4) · cos((15/2) · log y)`. Via `Complex.cpow_def_of_ne_zero` + `← Complex.ofReal_log` + `Complex.exp_re`, then compute `((Real.log y : ℂ) * (q - 1)).re = -(3/4) · Real.log y` and `.im = (15/2) · Real.log y` via `Complex.mul_re/im` unfolding, then reverse `Real.rpow_def_of_pos` for `Real.exp (-(3/4) · Real.log y) = y^(-3/4)`.
+- `cpow_at_q_minus_one_im : ∀ {y : ℝ}, 0 < y → ((y : ℂ)^(q - 1)).im = y^(-3/4) · sin((15/2) · log y)`. Companion via `Complex.exp_im`.
+
+**§2 — `F` explicit form on `Ioi 1`**:
+
+- `f_modif_apply_on_ioi_one : ∀ {y : ℝ}, y ∈ Ioi 1 → F y = ((evenKernel 0 y - 1 : ℝ) : ℂ)`. Case-split on `WeakFEPair.f_modif`'s `Ioi 1` and `Ioo 0 1` indicators; on `Ioi 1`, first indicator applies with `P.f y - P.f₀ = ofReal(evenKernel 0 y) - 1`.
+
+**§3 — Pointwise integrand `.re` on `Ioi 1`**:
+
+- `integrand_re_pointwise : ∀ {y : ℝ}, y ∈ Ioi 1 → ((y : ℂ)^(q - 1) • F y).re = (evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) · log y)`. Combines §1 and §2 via `smul_eq_mul`, `Complex.mul_re`, `Complex.ofReal_re/im` (F is `ofReal` on `Ioi 1`, so imaginary part is zero, killing the cross term).
+
+**§4 — `.re` and `∫` swap**:
+
+- `tail_integrable_on_ioi_one : IntegrableOn (fun y => (y : ℂ)^(q - 1) • F y) (Ioi 1)`. Via `((hurwitzEvenFEPair 0).toStrongFEPair.hasMellin q).1.mono_set` restricting `MellinConvergent F q` from `Ioi 0` to `Ioi 1`.
+- `re_tail_eq_integral_re : (∫ y in Ioi 1, (y : ℂ)^(q - 1) • F y).re = ∫ y in Ioi 1, ((y : ℂ)^(q - 1) • F y).re`. Via `MeasureTheory.integral_re` + `tail_integrable_on_ioi_one`.
+
+**§5 — The folded cosine-integral identity for the tail**:
+
+- `re_tail_eq_folded_cosine_integral : (∫ y in Ioi 1, (y : ℂ)^(q - 1) • F y).re = ∫ y in Ioi 1, (evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) · log y)`. Combines §4 swap + §3 pointwise via `setIntegral_congr_fun measurableSet_Ioi`.
+
+**§6 — THE FINAL IDENTITY**:
+
+- `re_mellin_F_at_q_eq_two_folded_cosine_integral : (mellin F q).re = 2 · ∫ y in Ioi 1, (evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) · log y)`. Combines r311's `re_mellin_F_at_q_eq_two_re_tail` with §5.
+
+**§7 — STRENGTHENED CHAIN-CLOSER**:
+
+- `Xi_Positive_At_15_from_folded_cosine_integral_lower_bound : ∀ {a : ℝ}, 4/901 < a → a ≤ ∫ y in Ioi 1, (evenKernel 0 y - 1) · y^(-3/4) · cos((15/2) · log y) → Xi_Positive_At_15`. Combines `re_mellin_F_at_q_eq_two_folded_cosine_integral` with r309's `Xi_Positive_At_15_from_re_mellin_lower_bound` at `2 · a` and `8/901`. The `4/901` (vs r309's `8/901`) absorbed from `.re = 2 · I_15`. This is Pabs's exact chain-closer specification for the r311 "end" — delivered in r312.
+
+r313 direction: certified numerical lower bound `4/901 < I_15` via truncation of the theta series `evenKernel 0 x - 1 = 2 ∑_{n≥1} exp(-π n² x)` with certified tail bounds via `hasSum_int_evenKernel`. Estimated numerical target: `I_15 ≈ 10⁻²`, well above `4/901 ≈ 0.00444`.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-22 (r311 `(0,1) → (1,∞) fold` + `mellin F q = 2 · tail.re` + chain-closer `4/901 < tail.re → Xi_Positive_At_15`)
 
 **HEAD prior**: (r310 commit `fb9c5590`). **HEAD now**: (this commit).
