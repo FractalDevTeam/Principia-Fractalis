@@ -1,5 +1,36 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r314c R_{≥2} GEOMETRIC BOUND — `tail(y) ≤ 2·exp(-4πy)/(1-exp(-4π))` for `y ≥ 1`)
+
+**HEAD prior**: (r314b commit `e380b314`). **HEAD now**: (this commit).
+
+Third r314-series landing per Pabs's split authorization. Pointwise geometric domination of the theta tail via HasSum shift + termwise `(n+2)² ≥ 4 + 4n` bound + geometric summation.
+
+Route: (i) Shift r313's `hasSum_evenKernel_zero_sub_one` at `n ↦ n + 1` via `hasSum_nat_add_iff 1` giving `HasSum (fun n => 2·exp(-π(n+2)²y)) (tail y)` for y > 0. (ii) Prove `(n+2)² ≥ 4 + 4n` elementary via nlinarith on `sq_nonneg`. (iii) Prove `0 ≤ exp(-4π) < 1` via `Real.exp_lt_one_iff` + `Real.pi_pos`. (iv) Termwise bound: for `y ≥ 1`, `2·exp(-π(n+2)²y) ≤ 2·exp(-4πy)·(exp(-4π))^n`, using `π(n+2)²y ≥ 4πy + 4πny ≥ 4πy + 4πn` + `Real.exp_add` + `Real.exp_nat_mul`. (v) Geometric HasSum via `hasSum_geometric_of_lt_one`. (vi) Combine via `hasSum_le`.
+
+r314c endpoint: `tail_le_geometric_dominator : ∀ y ≥ 1, tail(y) ≤ 2·exp(-4πy)/(1-exp(-4π))`.
+
+Framework-first status: NOT a numerical discharge. Pointwise domination. Standing rules absolute per MASTER DIRECTIVE §III-§V, §XVIII. All 6 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+Zero project axioms preserved. Build progression 10013 → 10015 jobs.
+
+### r314c (this commit) — Pointwise geometric bound (`PF/Analytic/ChiPositive15RgeqTwoGeometricBound_r314c.lean`)
+
+- `hasSum_tail_shifted : ∀ {y : ℝ}, 0 < y → HasSum (fun n : ℕ => 2·exp(-π(n+2)²y)) (tail y)`. Via `hasSum_nat_add_iff 1` shift on r313.
+- `sq_add_two_ge : ∀ n : ℕ, ((n : ℝ) + 2)^2 ≥ 4 + 4·n`. Elementary via `nlinarith [sq_nonneg n]`.
+- `exp_neg_four_pi_lt_one : Real.exp (-(4 * Real.pi)) < 1`. Via `Real.exp_lt_one_iff` + `Real.pi_pos`.
+- `termwise_tail_bound : ∀ {y : ℝ}, 1 ≤ y → ∀ n : ℕ, 2·exp(-π(n+2)²·y) ≤ 2·exp(-(4π·y))·(exp(-(4π)))^n`. Via `sq_add_two_ge` + `y ≥ 1` + `Real.exp_le_exp` + `Real.exp_add` + `Real.exp_nat_mul`.
+- `hasSum_two_exp_geometric : HasSum (fun n : ℕ => 2·exp(-(4π·y))·(exp(-(4π)))^n) (2·exp(-(4π·y))/(1-exp(-(4π))))`. Via `hasSum_geometric_of_lt_one.mul_left`.
+- `tail_le_geometric_dominator : ∀ {y : ℝ}, 1 ≤ y → tail(y) ≤ 2·exp(-(4π·y))/(1-exp(-(4π)))`. THE r314c CORE. Via `hasSum_le` with both HasSum + termwise bound.
+
+r314d direction: integrate `tail·y^(-3/4) ≤ (2·exp(-4πy)/(1-exp(-4π)))·y^(-3/4)` on `Ioi 1` via `setIntegral_mono_on` + `integral_const_mul` + `∫ exp(-4πy)·y^(-3/4) ≤ ∫ exp(-4πy) = exp(-4π)/(4π)`. Endpoint: `|R_geq_2| ≤ exp(-4π)/(2π·(1-exp(-4π)))`.
+
+r314e direction: rationalize `exp(-4π) < ε` via `exp(4π) > 22^4 = 234256` (Taylor with `π > 3.14`) → `|R_geq_2| ≤ E` for rational `E < 10^(-6)` directly consumable by r313's bridge.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-22 (r314b R_{≥2} POINTWISE BOUND — `|piece_2| ≤ tail·y^(-3/4)` + integrability + refined `|R_geq_2| ≤ ∫ tail·y^(-3/4)`)
 
 **HEAD prior**: (r314 commit `0b43e926`). **HEAD now**: (this commit).
