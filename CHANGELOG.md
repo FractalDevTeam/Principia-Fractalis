@@ -1,5 +1,35 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-22 (r314b R_{≥2} POINTWISE BOUND — `|piece_2| ≤ tail·y^(-3/4)` + integrability + refined `|R_geq_2| ≤ ∫ tail·y^(-3/4)`)
+
+**HEAD prior**: (r314 commit `0b43e926`). **HEAD now**: (this commit).
+
+Second r314-series landing per Pabs's split authorization along mathematically necessary boundaries. r314b refines r314's naked triangle inequality `|R_geq_2| ≤ ∫ |piece_2|` to the manifestly nonneg dominator form `|R_geq_2| ≤ ∫ tail·y^(-3/4)` where `tail(y) := evenKernel 0 y - 1 - 2·exp(-π·y)` is nonneg for `y > 0` (from r313's `tail_nonneg_of_pos`).
+
+Route: (i) `(evenKernel 0 y - 1)` integrable on `Ioi 1` via `isBigO_atTop_evenKernel_sub 0` (mathlib) + `integrable_of_isBigO_exp_neg`; (ii) pointwise `tail(y)·y^(-3/4) ≤ evenKernel 0 y - 1` on `Ioi 1` (since `2·exp(-π·y) ≥ 0` and `y^(-3/4) ≤ 1` for `y ≥ 1`); (iii) `tail·y^(-3/4)` integrable via `Integrable.mono'` dominated by `evenKernel 0 · - 1`; (iv) pointwise `|piece_2 y| ≤ tail(y)·y^(-3/4)` via `tail_nonneg_of_pos` + `|cos| ≤ 1` + `y^(-3/4) > 0`; (v) combine via `setIntegral_mono_on` (both sides now integrable).
+
+r314b endpoint: `|R_geq_2| ≤ ∫ y in Ioi 1, tail(y)·y^(-3/4) dy`. r314c will bound the RHS via geometric domination on `tail`.
+
+Framework-first status per MASTER DIRECTIVE §XVIII: NOT a numerical discharge. Analytic refinement. Standing rules absolute: no `sorry`, no `native_decide`, no floating-point-as-proof, no hidden oracle. All 5 new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
+
+Zero project axioms preserved. Build progression 10011 → 10013 jobs.
+
+### r314b (this commit) — Pointwise bound + integrability + refined bound (`PF/Analytic/ChiPositive15RgeqTwoPointwiseBound_r314b.lean`)
+
+- `evenKernel_zero_sub_one_integrable_on_ioi_one : IntegrableOn (fun y => evenKernel 0 y - 1) (Ioi 1)`. Via `isBigO_atTop_evenKernel_sub 0` + `integrable_of_isBigO_exp_neg` + `ContinuousOn.sub` on `continuousOn_evenKernel` (restricted from `Ioi 0` to `Ici 1`).
+- `tail_times_ypow_le_evenKernel_sub_one : ∀ {y : ℝ}, y ∈ Ioi 1 → tail(y)·y^(-3/4) ≤ evenKernel 0 y - 1`. Uses `tail ≤ evenKernel 0 y - 1` (from `2·exp(-π·y) ≥ 0` via linarith) and `y^(-3/4) ≤ 1` (via `Real.rpow_le_rpow_of_exponent_le` at `-3/4 ≤ 0`) with both nonneg.
+- `tail_times_ypow_integrable_on_ioi_one : IntegrableOn (fun y => tail y · y^(-3/4)) (Ioi 1)`. Via `Integrable.mono'` with `evenKernel_zero_sub_one_integrable_on_ioi_one` as dominator, `AEStronglyMeasurable` from `ContinuousOn.aestronglyMeasurable` (product of continuous factors on `Ici 1 ⊂ Ioi 0`).
+- `abs_piece_2_le_tail_mul_ypow : ∀ {y : ℝ}, y ∈ Ioi 1 → |piece_2 y| ≤ tail(y) · y^(-3/4)`. Direct pointwise abs computation.
+- `abs_R_geq_2_le_integral_tail_times_ypow : |R_geq_2| ≤ ∫ y in Ioi 1, tail(y) · y^(-3/4) dy`. THE r314b CORE REFINED BOUND. Via r314's `abs_R_geq_2_le_integral_abs_piece_2` + `setIntegral_mono_on` with both integrabilities.
+
+r314c direction (unchanged): prove `∀ y ≥ 1, tail(y) ≤ 2·exp(-4πy)/(1-exp(-4π))` via `hasSum_evenKernel_zero_sub_one` (r313) shifted at `n ↦ n+2` + termwise `(n+2)² ≥ 4 + 4n` domination + `hasSum_geometric_of_lt_one`. Integrate: `∫ y in Ioi 1, exp(-4πy)·y^(-3/4) dy ≤ ∫ y in Ioi 1, exp(-4πy) dy = exp(-4π)/(4π)`. Endpoint: `|R_geq_2| ≤ exp(-4π)/(2π·(1-exp(-4π)))`.
+
+r314d direction (unchanged): rationalize `exp(-4π) < ε` via `exp(4π) > 22^4 = 234256` (Taylor `exp(π) > 22` with `π > 3.14`) → `|R_geq_2| ≤ E` for rational `E < 10^(-6)`.
+
+Book anchors: Ch 20 § 20.4 (RH via Fractal Resonance), Ch 34A § 34A.5. Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6.
+
+---
+
 ## 2026-08-22 (r314 R_{≥2} INTEGRAL FORM + TRIANGLE INEQUALITY — analytic scaffolding for the certified remainder theorem)
 
 **HEAD prior**: (r313 commit `f0188dbb`). **HEAD now**: (this commit).
