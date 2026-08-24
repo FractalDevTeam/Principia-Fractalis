@@ -558,3 +558,85 @@ was created. r123's `no_nine_distinct_tracial_states` and
 `substrate_tracial_state_space_singleton` are the source-of-truth theorems.
 Renaming them under a different filename for theorem-count purposes would be
 scaffolding.
+
+---
+
+## 2026-08-24 — Rank 4: Brun's theorem for twin primes (formalization residual)
+
+Additive section.
+
+### r318a landing (commit pending)
+
+r318a REPLACES the malformed
+`BrunReciprocalSumConverges` Prop in
+`PF/NumberTheory/TwinPrimeConjectureFrameworkAttack.lean`
+with a literal statement:
+
+  `def twinPrimeReciprocalTerm (n : ℕ) : ℝ :=`
+  `  Set.indicator {m | TwinPrimePair m}`
+  `    (fun m => 1/m + 1/(m + 2)) n`
+
+  `def BrunTheorem : Prop := Summable twinPrimeReciprocalTerm`
+
+Old Prop is preserved as `BrunReciprocalSumConverges_MALFORMED_SUPERSEDED`
+with `@[deprecated]` attribute. Its body compared `|B − M|` for natural `M`
+and never referenced the twin-prime reciprocal series; as stated it is
+unprovable. See file for provenance and rationale.
+
+Also: `brunConstant : ℝ := 1.902160583104` renamed to `brunConstantApprox`
+with explicit EMPIRICAL scope; `brunConstant` retained as deprecated alias.
+`noncomputable def brunConstantActual : ℝ := ∑' n, twinPrimeReciprocalTerm n`
+records the actual (Brun-theorem-dependent) constant. NO equality claimed
+between approximation and actual value.
+
+Capstone `twin_prime_framework_attack_capstone` bundles `BrunTheorem`
+(literal) instead of the malformed Prop. Axioms unchanged:
+`[propext, Classical.choice, Quot.sound]`.
+
+### Rank 4 residual — `brun_twin_prime_reciprocal_summable`
+
+**Formalization residual, not a mathematical residual.** Brun 1919 settled
+the mathematics. What is open is a Lean proof.
+
+Required infrastructure and its mathlib status:
+
+- ✅ `Summable` and infinite sums: mathlib.
+- ✅ Selberg upper-bound sieve framework: `Mathlib.NumberTheory.SelbergSieve`
+  (`BoundingSieve`, `SelbergSieve`, `siftedSum_le_mainSum_errSum_of_upperMoebius`)
+  — abstract framework only, no twin-prime instantiation.
+- ✅ Abel summation with big-O partial-sum bound:
+  `Mathlib.NumberTheory.AbelSummation.summable_mul_of_bigO_atTop'` —
+  directly applicable once a `π₂(x) = O(x / (log x)^2)` bound (or weaker
+  sufficient bound) is in hand.
+- ✅ Prime counting function: `Mathlib.NumberTheory.PrimeCounting`
+  (basic `Nat.primeCounting`; no PNT-level asymptotics).
+- ❌ Twin-prime counting function `π₂(x) := #{p ≤ x | Nat.Prime p ∧ Nat.Prime (p+2)}`:
+  not in mathlib; needs to be defined.
+- ❌ Sieve instantiation for the polynomial `n(n+2)`: not in mathlib;
+  requires constructing `nu`, `weights`, `totalMass` and proving the
+  multiplicativity + `0 < nu p < 1` conditions.
+- ❌ Λ² weights construction and diagonalized main-term estimate: mathlib's
+  `SelbergSieve.lean` mentions diagonalisation in the module comment but
+  as of the current version does NOT ship the full explicit
+  quadratic-form bound.
+- ❌ Concrete `π₂(x) ≤ C · x / (log x)^2` (or weaker sufficient bound):
+  requires assembling the above pieces.
+
+**Sub-landings anticipated (r318b, r318c, ...):**
+
+- r318b — Twin-prime counting function `piTwoPrime : ℕ → ℕ` + basic
+  monotonicity and the reduction `twinPrimeReciprocalTerm` ↔ Abel-summation
+  input shape.
+- r318c — Selberg sieve specialization for the `n(n+2)` sift problem
+  (`BoundingSieve` instance).
+- r318d — Sieve estimate: `piTwoPrime x ≤ C · x / (log x)^2` or an
+  explicit weaker bound sufficient for summability.
+- r318e — Abel summation via `summable_mul_of_bigO_atTop'` to close
+  `brun_twin_prime_reciprocal_summable : Summable twinPrimeReciprocalTerm`.
+
+Landing r318a is a **semantic correction only**; it removes a malformed
+contract from the corpus's load-bearing surface and installs the literal
+target as `BrunTheorem`. Kernel-clean. Zero project axioms.
+
+Subsequent r318b–r318e are open research work.  Do not conflate the
+r318a landing with a proof of Brun's theorem.
