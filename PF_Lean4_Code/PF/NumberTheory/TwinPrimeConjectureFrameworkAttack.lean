@@ -101,7 +101,9 @@ Author: Claude Opus 4.7. 2026-06-03.
 
 import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.Data.Real.Basic
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Mathlib.Topology.Algebra.InfiniteSum.Basic
+import Mathlib.Order.Filter.AtTopBot.Basic
 import Mathlib.Tactic
 import PF.CrossMillenniumSharedInvariants
 import PF.CrossMillenniumDerivedConsequences
@@ -324,6 +326,60 @@ noncomputable def brunConstantActual : ℝ :=
 noncomputable def brunConstant : ℝ := brunConstantApprox
 
 theorem brunConstant_pos : 0 < brunConstant := brunConstantApprox_pos
+
+/-! ## §4.1 — Twin-prime counting function (r318b, 2026-08-24)
+
+The counting function `π₂(N) := #{n ≤ N | TwinPrimePair n}` is the
+combinatorial object at the heart of every sieve estimate on twin
+primes. r318b introduces it, proves basic properties, and states the
+reduction from a sieve bound on `π₂` to `BrunTheorem`.
+
+The **actual sieve estimate** `π₂(N) ≤ C · N / (log N)^2` (or any
+sufficient weaker bound) is the r318c+ residual — see the r318b
+capstone docstring below and `OPEN_PROBLEMS.md` §2026-08-24 for the
+mathlib-infrastructure inventory. -/
+
+instance TwinPrimePair.decidable (n : ℕ) : Decidable (TwinPrimePair n) :=
+  inferInstanceAs (Decidable (Nat.Prime n ∧ Nat.Prime (n + 2)))
+
+/-- **Twin-prime counting function.** `piTwoPrime N := #{n ≤ N | TwinPrimePair n}`.
+    Counts the number of twin-prime PAIRS `(n, n+2)` with lower
+    element `≤ N`. Decidable via `TwinPrimePair.decidable`
+    (`Nat.decidablePrime` + `And.decidable`). -/
+def piTwoPrime (N : ℕ) : ℕ :=
+  ((Finset.range (N + 1)).filter (fun n => TwinPrimePair n)).card
+
+theorem piTwoPrime_monotone : Monotone piTwoPrime := by
+  intro N M hNM
+  refine Finset.card_le_card ?_
+  intro n hn
+  rw [Finset.mem_filter, Finset.mem_range] at hn ⊢
+  exact ⟨lt_of_lt_of_le hn.1 (Nat.add_le_add_right hNM 1), hn.2⟩
+
+theorem piTwoPrime_le_succ (N : ℕ) : piTwoPrime N ≤ N + 1 := by
+  unfold piTwoPrime
+  calc ((Finset.range (N + 1)).filter (fun n => TwinPrimePair n)).card
+      ≤ (Finset.range (N + 1)).card := Finset.card_filter_le _ _
+    _ = N + 1 := Finset.card_range _
+
+/-- The r318b–r318e Brun-theorem reduction target: **a sufficient
+    density bound** on the twin-prime counting function. The exact
+    published Selberg-sieve bound is
+    `∃ C > 0, ∀ᶠ N in atTop, (piTwoPrime N : ℝ) ≤ C * N / (Real.log N)^2`.
+    Any strictly weaker bound of the shape
+    `(piTwoPrime N : ℝ) ≤ C * N / (Real.log N)^(1 + ε)` for some
+    `ε > 0` would also suffice for `BrunTheorem` via Abel summation.
+
+    THIS IS THE RESIDUAL open in the corpus for r318c+; mathlib's
+    `SelbergSieve.lean` provides only the abstract sieve framework.
+    Instantiating it for the polynomial `n(n+2)` — constructing the
+    multiplicative `nu`, weights, totalMass; bounding the main term
+    via Λ² diagonalisation; controlling the error term — is genuine
+    analytic-number-theory work and remains open in mathlib. -/
+def TwinPrimeSelbergBound : Prop :=
+  ∃ C : ℝ, 0 < C ∧
+    ∀ᶠ N : ℕ in Filter.atTop,
+      (piTwoPrime N : ℝ) ≤ C * N / (Real.log N) ^ 2
 
 /-! ## §5 — Framework α-cascade bridge
 
@@ -571,11 +627,17 @@ noncomputable def twin_prime_framework_attack_capstone :
 #check @BrunTheorem
 #print axioms twinPrimeReciprocalTerm_nonneg
 #print axioms twin_prime_framework_attack_capstone
+#print axioms piTwoPrime_monotone
+#print axioms piTwoPrime_le_succ
 
 #check @twinPrimeReciprocalTerm
 #check @twinPrimeReciprocalTerm_nonneg
 #check @brunConstantApprox
 #check @brunConstantApprox_pos
+#check @piTwoPrime
+#check @piTwoPrime_monotone
+#check @piTwoPrime_le_succ
+#check @TwinPrimeSelbergBound
 #check @brunConstantActual
 #check @alpha_TwinPrime
 #check @alpha_TwinPrime_eq_alpha_RH
