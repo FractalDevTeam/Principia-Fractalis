@@ -36,8 +36,14 @@ axis as RH, so the natural framework bridge is `α_TwinPrime = α_RH`.
 3. **Bounded-distance theorem (Zhang 2013 / Polymath ≤ 246)** typed
    as a named Prop `PolymathBoundedGap246`.
 
-4. **Brun's theorem** (1919) typed as named Prop
-   `BrunReciprocalSumConverges`.
+4. **Brun's theorem** (1919): literal statement
+   `Summable twinPrimeReciprocalTerm` recording that
+   `∑_{p, p+2 both prime} (1/p + 1/(p+2))` converges.
+   The earlier `BrunReciprocalSumConverges` Prop (2026-06-03) had a
+   malformed Cauchy-style body comparing an alleged limit `B` with
+   the natural index `M` and did not mention the reciprocal series
+   at all; it is preserved for provenance and marked SUPERSEDED,
+   NOT bundled by the capstone. See r318a for the correction.
 
 5. **Framework α-cascade bridge.** `α_TwinPrime := 3/2 = α_RH`
    theorem-bridged via `rfl` (both definitions reduce to `3/2`).
@@ -95,6 +101,7 @@ Author: Claude Opus 4.7. 2026-06-03.
 
 import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.Data.Real.Basic
+import Mathlib.Topology.Algebra.InfiniteSum.Basic
 import Mathlib.Tactic
 import PF.CrossMillenniumSharedInvariants
 import PF.CrossMillenniumDerivedConsequences
@@ -210,33 +217,113 @@ theorem polymath_implies_zhang :
   refine ⟨k, ?_, hBPG⟩
   exact hk.trans (by norm_num)
 
-/-! ## §4 — Brun's theorem (1919) typed
+/-! ## §4 — Brun's theorem (1919)
 
 Brun proved that the sum of reciprocals of twin primes
 `∑_{p, p+2 both prime} (1/p + 1/(p+2))` converges to Brun's
 constant `B₂ ≈ 1.902160583104`. This is a published 1919 theorem;
 distinct from infinitude (which Brun's theorem does NOT establish).
+
+──────────────────────────────────────────────────────────────────
+2026-08-24 r318a LITERALIZATION.  The earlier `BrunReciprocalSumConverges`
+Prop in this section (defined 2026-06-03) was semantically malformed:
+its body compared an alleged limit `B` with the natural index `M`
+(via `|B - M|`) and never referenced the twin-prime reciprocal
+series. r318a defines the literal statement — `Summable
+twinPrimeReciprocalTerm` — and preserves the old malformed Prop
+under the name `BrunReciprocalSumConverges_MALFORMED_SUPERSEDED`
+for provenance only. The capstone bundles the correct Prop.
+
+Proving `brun_twin_prime_reciprocal_summable` at kernel-clean level
+is itself a substantial Rank-4 research residual:
+   - Requires a Selberg-sieve bound on `π_2(x)` (mathlib provides
+     the abstract sieve framework in `Mathlib.NumberTheory.SelbergSieve`
+     but no twin-prime specialization);
+   - Requires Abel summation (available via
+     `Mathlib.NumberTheory.AbelSummation.summable_mul_of_bigO_atTop'`).
+Sub-landings r318b+ will attack this.  r318a does not claim the
+summability theorem; it only corrects the semantic contract.
+──────────────────────────────────────────────────────────────────
 -/
 
-/-- **Brun's theorem (typed).** The sum of reciprocals of twin
-    primes converges. NAMED OPEN PROP at the mathlib level. -/
-def BrunReciprocalSumConverges : Prop :=
+/-- **Literal Brun reciprocal term.** For a natural number `n`, this
+    is `1/n + 1/(n+2)` when `(n, n+2)` is a twin-prime pair, and
+    zero otherwise.  Summing this over ℕ gives Brun's series
+    `∑_{p, p+2 both prime} (1/p + 1/(p+2))` — the interior prime
+    `p` of a triple `(p-2, p, p+2)` contributes twice in the
+    standard sense (once as the upper of `(p-2, p)`, once as the
+    lower of `(p, p+2)`), matching the classical definition of
+    Brun's constant. -/
+noncomputable def twinPrimeReciprocalTerm (n : ℕ) : ℝ :=
+  Set.indicator {m : ℕ | TwinPrimePair m}
+    (fun m => (1 : ℝ) / m + (1 : ℝ) / ((m + 2 : ℕ) : ℝ)) n
+
+theorem twinPrimeReciprocalTerm_nonneg (n : ℕ) :
+    0 ≤ twinPrimeReciprocalTerm n := by
+  unfold twinPrimeReciprocalTerm
+  refine Set.indicator_nonneg (fun m _ => ?_) n
+  have h1 : (0 : ℝ) ≤ 1 / m := by
+    apply div_nonneg (by norm_num)
+    exact_mod_cast Nat.zero_le m
+  have h2 : (0 : ℝ) ≤ 1 / ((m + 2 : ℕ) : ℝ) := by
+    apply div_nonneg (by norm_num)
+    exact_mod_cast Nat.zero_le _
+  linarith
+
+/-- **Brun's theorem (literal).** The sum of reciprocals of twin
+    primes converges:
+    `Summable (fun n => if TwinPrimePair n then 1/n + 1/(n+2) else 0)`.
+
+    THIS IS THE UNPROVED TARGET of the Rank-4 residual.  See the
+    docstring of §4 above and `OPEN_PROBLEMS.md` for the current
+    formalization status. -/
+def BrunTheorem : Prop := Summable twinPrimeReciprocalTerm
+
+/-- **SUPERSEDED — 2026-06-03 malformed Brun contract.** Kept for
+    provenance only. Its body compares an alleged limit `B` with the
+    natural index `M`, not with any partial sum of twin-prime
+    reciprocals. It is not a valid formalization of Brun's theorem
+    and (as stated) is unprovable — pick `M > B + ε` to violate the
+    contract for any putative `(B, N)`. r318a replaces it with
+    `BrunTheorem := Summable twinPrimeReciprocalTerm`. DO NOT USE. -/
+@[deprecated BrunTheorem (since := "2026-08-24")]
+def BrunReciprocalSumConverges_MALFORMED_SUPERSEDED : Prop :=
   ∃ B : ℝ, 0 < B ∧
     ∀ ε : ℝ, 0 < ε →
       ∃ N : ℕ, ∀ M : ℕ, N ≤ M →
         |(B : ℝ) - (M : ℝ)| < ε + (B - B)
-  -- The shape is a Cauchy-style typed contract for a converging
-  -- positive series. The literal series uses ∑ over twin primes
-  -- which requires mathlib infrastructure not formalised here;
-  -- this typed contract isolates the named open content.
 
-/-- **Brun's constant (approximate digits).** Published numerical
-    value `B₂ ≈ 1.902160583104`. The literal numerical comparison
-    is a positive rational. -/
-noncomputable def brunConstant : ℝ := 1.902160583104
+/-- **Brun's constant — numerical approximation only.** Published
+    approximate value `B₂ ≈ 1.902160583104`. This is a decimal
+    constant, **not** the exact value of the Brun series (which is
+    only known numerically). The actual mathematical Brun constant
+    is `brunConstantActual` below, contingent on `BrunTheorem`.
+    r318a renamed the old `brunConstant` to make the empirical
+    scope explicit. -/
+noncomputable def brunConstantApprox : ℝ := 1.902160583104
 
-theorem brunConstant_pos : 0 < brunConstant := by
-  unfold brunConstant; norm_num
+theorem brunConstantApprox_pos : 0 < brunConstantApprox := by
+  unfold brunConstantApprox; norm_num
+
+/-- **Brun's constant — actual mathematical value.** The infinite
+    sum `∑' n, twinPrimeReciprocalTerm n`.  Only equals a well-
+    defined real number if `BrunTheorem` holds (otherwise `tsum`
+    defaults to `0` in Lean's convention).  No equality to
+    `brunConstantApprox` is claimed at this landing — the decimal
+    approximation and the actual constant are DIFFERENT OBJECTS
+    until `BrunTheorem` is proved and a numerical bound theorem
+    connects them. -/
+noncomputable def brunConstantActual : ℝ :=
+  ∑' n, twinPrimeReciprocalTerm n
+
+/-- Alias: the pre-r318a name `brunConstant` mapped to the
+    empirical approximation to preserve external call sites. Any
+    caller wanting the actual mathematical Brun constant should
+    use `brunConstantActual`. -/
+@[deprecated brunConstantApprox (since := "2026-08-24")]
+noncomputable def brunConstant : ℝ := brunConstantApprox
+
+theorem brunConstant_pos : 0 < brunConstant := brunConstantApprox_pos
 
 /-! ## §5 — Framework α-cascade bridge
 
@@ -418,9 +505,12 @@ structure TwinPrimeFrameworkAttack where
   -- Hardy–Littlewood constant positivity
   C2_pos : 0 < twinPrimeConstant
   C2_lt_one : twinPrimeConstant < 1
-  brun_pos : 0 < brunConstant
+  brun_pos : 0 < brunConstantApprox
   -- Named open Props (typed contracts)
   named_polymath : Prop
+  /-- Brun's theorem, literal formulation: `Summable twinPrimeReciprocalTerm`.
+      Unproved research residual (r318a corrected the malformed 2026-06-03
+      contract; the summability itself is r318b+ pending). -/
   named_brun : Prop
   named_HL : Prop
   named_obstruction : Prop
@@ -452,9 +542,9 @@ noncomputable def twin_prime_framework_attack_capstone :
   alpha_bridge := alpha_TwinPrime_forced_by_rigidity
   C2_pos := twinPrimeConstant_pos
   C2_lt_one := twinPrimeConstant_lt_one
-  brun_pos := brunConstant_pos
+  brun_pos := brunConstantApprox_pos
   named_polymath := PolymathBoundedGap246
-  named_brun := BrunReciprocalSumConverges
+  named_brun := BrunTheorem  -- literal Summable twinPrimeReciprocalTerm (r318a)
   named_HL := HardyLittlewoodTwinPrimeAsymptotic
   named_obstruction := MathlibTwinPrimeInfinitude
   cascade_implies_conjecture :=
@@ -478,9 +568,15 @@ noncomputable def twin_prime_framework_attack_capstone :
 #check @PolymathBoundedGap246
 #check @ZhangBoundedGap
 #check @polymath_implies_zhang
-#check @BrunReciprocalSumConverges
-#check @brunConstant
-#check @brunConstant_pos
+#check @BrunTheorem
+#print axioms twinPrimeReciprocalTerm_nonneg
+#print axioms twin_prime_framework_attack_capstone
+
+#check @twinPrimeReciprocalTerm
+#check @twinPrimeReciprocalTerm_nonneg
+#check @brunConstantApprox
+#check @brunConstantApprox_pos
+#check @brunConstantActual
 #check @alpha_TwinPrime
 #check @alpha_TwinPrime_eq_alpha_RH
 #check @alpha_TwinPrime_value
