@@ -108,7 +108,7 @@ theorem one_twenty_occurs_at_least_three :
   refine ⟨{(10, 3), (16, 2), (120, 1)}, ?_, ?_⟩
   · decide
   · intro p hp
-    fin_cases hp <;> native_decide
+    fin_cases hp <;> decide
 
 /-- **210 appears at least 3 times.** `binomial 10 4 = binomial 21 2
     = binomial 210 1 = 210`. -/
@@ -117,7 +117,7 @@ theorem two_ten_occurs_at_least_three :
   refine ⟨{(10, 4), (21, 2), (210, 1)}, ?_, ?_⟩
   · decide
   · intro p hp
-    fin_cases hp <;> native_decide
+    fin_cases hp <;> decide +kernel
 
 /-- **3003 appears at least 4 times.** `binomial 14 6 = binomial 15 5
     = binomial 78 2 = binomial 3003 1 = 3003`. The famous
@@ -129,7 +129,7 @@ theorem three_thousand_three_occurs_at_least_four :
   refine ⟨{(14, 6), (15, 5), (78, 2), (3003, 1)}, ?_, ?_⟩
   · decide
   · intro p hp
-    fin_cases hp <;> native_decide
+    fin_cases hp <;> decide +kernel
 
 /-! ## §3 — Framework α-skeleton bridge -/
 

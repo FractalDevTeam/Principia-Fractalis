@@ -140,7 +140,7 @@ theorem polignac_k100_witness : PolignacPair 3 100 := by
 /-- **k=246 (Polymath 8b bound): (5, 251).** Witness at the
     Polymath 8b bound. -/
 theorem polignac_k246_witness : PolignacPair 5 246 := by
-  refine ⟨?_, ?_⟩ <;> native_decide
+  refine ⟨?_, ?_⟩ <;> decide +kernel
 
 /-- **Bundled eight-witness theorem.** -/
 theorem eight_polignac_witnesses :

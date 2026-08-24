@@ -30,7 +30,8 @@ direct: Collatz lives on the same ternary substrate as the TF carrier.
 
 3. **Twenty concrete reaches-1 witnesses, axiom-free** at
    `n ∈ {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,27}`.
-   Each via `native_decide`. `n=27` is the famous long-trajectory
+   Each via `decide` (kernel-native; r317 removed `native_decide`).
+   `n=27` is the famous long-trajectory
    number with stopping time 111 (Lothar Collatz 1937 / Lagarias
    survey 1985 / OEIS A006577).
 
@@ -63,7 +64,7 @@ This file is **NOT** a proof of the Collatz Conjecture. The literal
 axiom-free:
 
   * the literal Collatz map and conjecture statement,
-  * 20 concrete reaches-1 witnesses (each `native_decide`),
+  * 20 concrete reaches-1 witnesses (each `decide`, kernel-clean),
   * the α-skeleton bracket `1.58 < log 3 / log 2 < 1.59`,
   * the structural 3^k-substrate Prop with concrete witness,
   * typed Props naming Tao 2019 / Krasikov–Lagarias / Terras density.
@@ -83,8 +84,10 @@ content.
 ## Axiom budget
 
 Zero project axioms, zero sorries. All theorems depend only on
-`[propext, Classical.choice, Quot.sound]` plus the `Lean.ofReduceBool`
-kernel reduction for `native_decide` (standard).
+`[propext, Classical.choice, Quot.sound]` — kernel-native, no
+`Lean.ofReduceBool`. r317 (2026-08-24) removed the previous
+`native_decide` usage in the 20 concrete-trajectory witnesses; they
+now use `decide`.
 
 Author: Claude Opus 4.7. 2026-06-03.
 -/
@@ -135,7 +138,7 @@ theorem collatzIter_succ (k n : ℕ) :
 
 /-! ## §3 — Twenty concrete reaches-1 witnesses (axiom-free)
 
-Each theorem is decided by `native_decide` (small finite trajectory
+Each theorem is decided by `decide` (small finite trajectory
 of the Collatz map). Stopping times (OEIS A006577) from Lagarias
 1985 survey, table p. 9:
 
@@ -165,68 +168,68 @@ Twenty certificates do NOT imply the Collatz Conjecture
 (infinitude of starting points all reaching 1). -/
 
 theorem collatz_reaches_one_2 : ∃ k ≤ 5, collatzIter k 2 = 1 := by
-  refine ⟨1, ?_, ?_⟩ <;> native_decide
+  refine ⟨1, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_3 : ∃ k ≤ 10, collatzIter k 3 = 1 := by
-  refine ⟨7, ?_, ?_⟩ <;> native_decide
+  refine ⟨7, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_4 : ∃ k ≤ 5, collatzIter k 4 = 1 := by
-  refine ⟨2, ?_, ?_⟩ <;> native_decide
+  refine ⟨2, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_5 : ∃ k ≤ 10, collatzIter k 5 = 1 := by
-  refine ⟨5, ?_, ?_⟩ <;> native_decide
+  refine ⟨5, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_6 : ∃ k ≤ 10, collatzIter k 6 = 1 := by
-  refine ⟨8, ?_, ?_⟩ <;> native_decide
+  refine ⟨8, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_7 : ∃ k ≤ 20, collatzIter k 7 = 1 := by
-  refine ⟨16, ?_, ?_⟩ <;> native_decide
+  refine ⟨16, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_8 : ∃ k ≤ 5, collatzIter k 8 = 1 := by
-  refine ⟨3, ?_, ?_⟩ <;> native_decide
+  refine ⟨3, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_9 : ∃ k ≤ 25, collatzIter k 9 = 1 := by
-  refine ⟨19, ?_, ?_⟩ <;> native_decide
+  refine ⟨19, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_10 : ∃ k ≤ 10, collatzIter k 10 = 1 := by
-  refine ⟨6, ?_, ?_⟩ <;> native_decide
+  refine ⟨6, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_11 : ∃ k ≤ 20, collatzIter k 11 = 1 := by
-  refine ⟨14, ?_, ?_⟩ <;> native_decide
+  refine ⟨14, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_12 : ∃ k ≤ 15, collatzIter k 12 = 1 := by
-  refine ⟨9, ?_, ?_⟩ <;> native_decide
+  refine ⟨9, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_13 : ∃ k ≤ 15, collatzIter k 13 = 1 := by
-  refine ⟨9, ?_, ?_⟩ <;> native_decide
+  refine ⟨9, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_14 : ∃ k ≤ 25, collatzIter k 14 = 1 := by
-  refine ⟨17, ?_, ?_⟩ <;> native_decide
+  refine ⟨17, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_15 : ∃ k ≤ 25, collatzIter k 15 = 1 := by
-  refine ⟨17, ?_, ?_⟩ <;> native_decide
+  refine ⟨17, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_16 : ∃ k ≤ 5, collatzIter k 16 = 1 := by
-  refine ⟨4, ?_, ?_⟩ <;> native_decide
+  refine ⟨4, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_17 : ∃ k ≤ 20, collatzIter k 17 = 1 := by
-  refine ⟨12, ?_, ?_⟩ <;> native_decide
+  refine ⟨12, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_18 : ∃ k ≤ 25, collatzIter k 18 = 1 := by
-  refine ⟨20, ?_, ?_⟩ <;> native_decide
+  refine ⟨20, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_19 : ∃ k ≤ 25, collatzIter k 19 = 1 := by
-  refine ⟨20, ?_, ?_⟩ <;> native_decide
+  refine ⟨20, ?_, ?_⟩ <;> decide
 
 theorem collatz_reaches_one_20 : ∃ k ≤ 10, collatzIter k 20 = 1 := by
-  refine ⟨7, ?_, ?_⟩ <;> native_decide
+  refine ⟨7, ?_, ?_⟩ <;> decide
 
 /-- **n=27, the famous long stopping time.** 111 steps to 1. This is
     Lothar Collatz's original 1937 example exhibiting that small
     starting points can have surprisingly long trajectories. The
     trajectory reaches a maximum of 9232 before descending. -/
 theorem collatz_reaches_one_27 : ∃ k ≤ 111, collatzIter k 27 = 1 := by
-  refine ⟨111, ?_, ?_⟩ <;> native_decide
+  refine ⟨111, ?_, ?_⟩ <;> decide +kernel
 
 /-- **Bundled twenty-witness theorem.** All 20 concrete starting
     points reach 1 under iteration, each axiom-free. -/
@@ -467,22 +470,22 @@ theorem all_twenty_witnesses_within_111_steps :
     (∃ k ≤ 111, collatzIter k 27 = 1) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩ <;>
     first
-    | (refine ⟨1,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨7,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨2,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨5,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨8,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨16,  ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨3,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨19,  ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨6,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨14,  ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨9,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨17,  ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨4,   ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨12,  ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨20,  ?_, ?_⟩ <;> native_decide)
-    | (refine ⟨111, ?_, ?_⟩ <;> native_decide)
+    | (refine ⟨1,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨7,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨2,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨5,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨8,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨16,  ?_, ?_⟩ <;> decide)
+    | (refine ⟨3,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨19,  ?_, ?_⟩ <;> decide)
+    | (refine ⟨6,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨14,  ?_, ?_⟩ <;> decide)
+    | (refine ⟨9,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨17,  ?_, ?_⟩ <;> decide)
+    | (refine ⟨4,   ?_, ?_⟩ <;> decide)
+    | (refine ⟨12,  ?_, ?_⟩ <;> decide)
+    | (refine ⟨20,  ?_, ?_⟩ <;> decide)
+    | (refine ⟨111, ?_, ?_⟩ <;> decide +kernel)
 
 /-! ## §9 — Capstone -/
 
