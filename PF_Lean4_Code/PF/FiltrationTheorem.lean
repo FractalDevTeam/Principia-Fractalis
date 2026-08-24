@@ -3,6 +3,25 @@
 
 ★ 2026-07-05 r24 — closing the empirical rank-order invariance in Lean 4 ★
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-08-23 R123 FALSIFICATION RECONCILIATION.  Docstring references below
+that say "Conjecture 8.X.2 (extremal-trace uniqueness) remains open" or
+"is part of Conjecture 8.X.2, which remains open" are SUPERSEDED.
+
+The projective-limit N → ∞ version of the nine-extremal-trace claim is
+NOT open — it is FALSIFIED by r123's `no_nine_distinct_tracial_states`
+in `PF/AlphaFromSubstrateKTheory_r123.lean`. The manuscript Conjecture
+8.X.2 (nine distinct extremal tracial states of `π(T_∞)″`) cannot hold:
+the substrate has ONE tracial state (r113 + r123).
+
+This file's kernel content (τ_Kendall = 1.000 on the empirical rank
+vectors of 8 finite truncations) is PRESERVED. The empirical rank-order
+stability is a legitimate observation on the tested truncations. What
+CANNOT be inferred from it is a nine-extremal-trace projective-limit
+theorem. See `OPEN_PROBLEMS.md` §"2026-08-23 r123 falsification
+reconciliation".
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ## Why this file exists
 
 Paper §subsec:filtration-and-extremal-traces Theorem 8.X.1 (Filtration

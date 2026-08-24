@@ -4,6 +4,18 @@
 
 ★ 2026-07-07 r77 — the substrate's positive discharge of Priority 3 ★
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-08-23 R123 FALSIFICATION RECONCILIATION.  The GRAND CAPSTONE
+`r63_r77_priorities_1_2_3_combined_substrate_discharge_capstone` bundles
+`Conjecture_8_X_2_ExtremalTraceUniqueness` (from r26) as its Priority 1a
+component. Per r123's `no_nine_distinct_tracial_states` the underlying
+manuscript claim is FALSE. The Priority 3 substrate-arithmetic content
+(3a candidate mechanism, 3b `Real.log 3`, 3c `substrate_k_BSD = 4`) is
+preserved as real substrate content; embedding in the grand capstone does
+not upgrade the falsified Priority 1a component. See `OPEN_PROBLEMS.md`
+§"2026-08-23 r123 falsification reconciliation".
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ## The framework-first content
 
 Priority 3 of `OPEN_PROBLEMS.md` (mechanism-pending numerical

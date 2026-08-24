@@ -4,6 +4,21 @@
 
 ★ 2026-07-07 r76 — the substrate's positive discharge of Problem 2 ★
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-08-23 R123 FALSIFICATION RECONCILIATION.  The GRAND CAPSTONE
+`r63_r76_priorities_1_and_2_combined_substrate_discharge_capstone` bundles
+`Conjecture_8_X_2_ExtremalTraceUniqueness` (from r26) as a component. That
+component is a Prop-level definitional conjunction whose `C2..C8` clauses
+are `→ True` trivialities. Per r123's `no_nine_distinct_tracial_states` the
+underlying manuscript claim (nine distinct extremal tracial states) is
+FALSE. The Prop-level discharge is preserved as history; it establishes
+NO mathematical content on the extremal-trace side. This file's Problem 2
+substrate-arithmetic identity (`α_NS = 2 · α_BSD`) is preserved as real
+substrate arithmetic; its embedding in the grand capstone does not upgrade
+the falsified Problem 1a component. See `OPEN_PROBLEMS.md`
+§"2026-08-23 r123 falsification reconciliation".
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ## The framework-first content
 
 Problem 2 of `OPEN_PROBLEMS.md` (Priority 2 — declared-invariant

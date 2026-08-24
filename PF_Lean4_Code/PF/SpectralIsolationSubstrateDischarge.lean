@@ -4,6 +4,22 @@
 
 ★ 2026-07-07 r75 — the substrate's positive discharge of Problem 1b ★
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-08-23 R123 FALSIFICATION RECONCILIATION.  The grand capstone
+`r63_r75_priority1_combined_substrate_discharge_capstone` bundles
+`Conjecture_8_X_2_ExtremalTraceUniqueness` (from r26) as its Problem 1a
+component. That component's underlying mathematical claim (nine distinct
+extremal tracial states of `π(T_∞)″`) is FALSE per r123's
+`no_nine_distinct_tracial_states`. Additionally the 2026-08-04 ledger
+reconciliation notes Problem 1b's ch20-T_3 operator was on the WRONG
+carrier (`codex/RH_T3_CORRECT_CARRIER_2026-08-02.md`) — the corrected
+Hardy-space carrier has spectrum `{1} ∪ {±i·3⁻ⁿ}`, not nine isolated λ_i.
+The Prop-level discharge here is preserved as history and establishes
+NO mathematical content on either Problem 1a or Problem 1b as originally
+stated. See `OPEN_PROBLEMS.md` §"2026-08-23 r123 falsification
+reconciliation".
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ## The framework-first content
 
 Problem 1b of `OPEN_PROBLEMS.md` (Priority 1 — spectral uniqueness) is

@@ -14,9 +14,15 @@ sprint. Each entry is a crisp, attackable conjecture, not a philosophical gap.
 
 ## Priority 1 — spectral uniqueness (external-reviewer identified, 2026-07-05)
 
-### Problem 1a. Extremal Trace Uniqueness
+### Problem 1a. Extremal Trace Uniqueness — **FALSIFIED (2026-08-23 reconciliation)**
 
-**Statement.** Prove that the extremal trace space of the projective-limit
+**Current status (2026-08-23).** **FALSIFIED by the composition of r113 and r123.**
+The Problem 1a statement below is preserved verbatim as the *conjectured*
+formulation as of 2026-07-05. It is now known to be mathematically impossible
+in the current substrate; see the r123 falsification reconciliation appended
+at the end of this file for the exact chain and its downstream consequences.
+
+**Original statement (2026-07-05, historical).** Prove that the extremal trace space of the projective-limit
 von Neumann algebra `π(T_∞)″` is isomorphic to the 9-point set {α_i}_{i=1}^9
 under the Dixmier trace functional, with α_QG = √(2π) and α_Poincaré = 1 as
 fixed points of the base-3 renormalization-group flow on the state space.
@@ -319,10 +325,13 @@ against the codex ledger (`codex/`, 26+ dated records) as of 2026-08-04.
 
 ### (a) Problems above with no codex progress record since 2026-07-05
 
-- **Problem 1a (extremal-trace uniqueness).** Still open. No progress
-  record. Caution: the r25/r26 "kernel-verified pathway" cited above is
+- **Problem 1a (extremal-trace uniqueness).** ~~Still open. No progress
+  record.~~ **SUPERSEDED — SEE 2026-08-23 R123 FALSIFICATION RECONCILIATION AT END OF FILE.**
+  Caution: the r25/r26 "kernel-verified pathway" cited above is
   a Prop-level marker structure, not proof content — see
-  `codex/TRUE_PROP_AUDIT_2026-08-01.md`.
+  `codex/TRUE_PROP_AUDIT_2026-08-01.md`. As of r123, the conjecture the
+  pathway targeted (nine distinct extremal tracial states) is provably
+  false — see the reconciliation section below.
 - **Problem 1b (spectral isolation for T_3^sym).** Still open, and the
   motivation has shifted: `codex/RH_T3_CORRECT_CARRIER_2026-08-02.md`
   shows ch20's T_3 on L²([0,1],dx/x) is the wrong carrier; on the
@@ -408,3 +417,144 @@ results listed in (b).
   vacuous Wave/capstone declarations (repair item P6); build green.
 - **Full-corpus read + repair queue (2026-08-01).** Three-layer map and
   P1–P9 repair queue. `codex/CORPUS_FULL_READ_2026-08-01.md`.
+
+---
+
+## 2026-08-23 — r123 falsification reconciliation (Problem 1a)
+
+Additive section, per house style. Everything above this line is preserved
+verbatim as the earlier corpus record. This section reconciles Problem 1a
+against `PF/AlphaFromSubstrateKTheory_r123.lean` (2026-08-06 landing) and its
+codex analysis `codex/SUBSTRATE_FORCES_WHAT_2026-07-26.md`, and against the
+post-r315 grand-problem audit `codex/GRAND_PROBLEM_DEPENDENCY_GRAPH_2026-08-23.md`.
+
+### Status change
+
+**Problem 1a. Extremal Trace Uniqueness — FALSIFIED.**
+
+The Problem 1a statement asserted that the extremal trace space of
+`π(T_∞)″` is isomorphic to the 9-point set `{α_i}_{i=1}^9` under the Dixmier
+trace functional. In the current substrate this is provably impossible.
+
+### Kernel-proved refuting theorems (all in `PF/AlphaFromSubstrateKTheory_r123.lean`, no project axioms)
+
+- `substrate_UHF_trace_unique` (imported from `PF/SubstrateTraceUniqueness.lean`, r113):
+  every tracial state on `TimelessFieldCompletion` equals the unique UHF trace
+  `τ_UHF`. `T_∞` is the Glimm `3^∞` UHF factor: faithful, simple, uniquely traced.
+- `substrate_tracial_state_unique_pairwise`: any two tracial states on `T_∞`
+  are equal.
+- `no_nine_distinct_tracial_states`: `¬ ∃ f : Fin 9 → (TimelessFieldCompletion → ℂ),
+  (∀ i, IsTracialState (f i)) ∧ Function.Injective f`. **Direct kernel-proved
+  refutation of the nine-trace ansatz.**
+- `substrate_tracial_state_space_singleton`: the positive form — the tracial
+  state space of `T_∞` is a singleton `{τ_UHF}`.
+- `alpha_table_memZ13_verdict`: exactly TWO of the nine α-values lie in
+  `ℤ[1/3] = τ_*(K_0(T_∞))`: `α_Poincaré = 1` and `α_YM = 2`. The other seven
+  are excluded — five by irrationality (`α_P = √2`, `α_Hodge = φ`, `α_NP = φ+1/4`,
+  `α_NS = 3π/2`, `α_BSD = 3π/4`, `α_QG = √(2π)`), one by 2-adic obstruction
+  (`α_RH = 3/2`; `2` does not divide `3^∞`).
+- `substrate_level_realizes_arbitrary_spectrum`: every real vector is the
+  spectrum of a self-adjoint element of some finite substrate level. The
+  spectral reading of α is **vacuous** — the substrate constrains no
+  particular spectral assignment.
+- `coupling_H3_identity_holds_for_every_alpha`: the `π/10 ↔ H₃` coupling
+  identity `λ₀(α)·α = π/10` implies `sin(π/10) = 1/(2φ)` for EVERY nonzero α.
+  A statement uniform in α constrains no α.
+- `alpha_P_sq_eq_alpha_YM_not_mod_two_invariant`: the α-skeleton
+  `α_P² = α_YM` is not invariant under the `α ↦ α+2` gauge symmetry of the
+  framework's own resonance-phase definition. The skeleton is not well-posed
+  under that symmetry.
+- `bare_route_alpha_memZ13` / `canonical_alphas_fail_bare_route`: the corpus's
+  own ternary reality condition on `G_3(e^{iπα})` independently forces
+  `α ∈ ℤ[1/3]`, and both `√2` and `φ+1/4` provably fail it. Two independent
+  substrate computations (K-theory and analytic) agree: both produce only
+  3-adic rationals.
+- `r123_substrate_cannot_force_alpha_capstone`: bundles the six verdicts
+  (A)–(F). Kernel budget `[propext, Classical.choice, Quot.sound]`.
+
+### Consequences for downstream claims
+
+**The following corpus claims are now known NOT TO ESTABLISH what their
+narrative suggests. They are preserved as history; their formal status is
+tightened here:**
+
+- `PF/ExtremalTraceUniquenessProofPlan.lean` (r26). The Lean definition
+  `Conjecture_8_X_2_ExtremalTraceUniqueness := C1 ∧ C2 ∧ … ∧ C8` is a
+  conjunction in which `C2..C8` are stated as `C_prev → True` implications
+  (definitional trivialities). Therefore `Conjecture_8_X_2_ExtremalTraceUniqueness`
+  as a Lean Prop is trivially provable (r63 does so via
+  `conjecture_8X2_discharged_via_r41_r60`) and, viewed as a Lean statement,
+  is TRUE — but its provability does NOT establish the *mathematical* content
+  the file's comments describe (nine distinct extremal traces of the completed
+  von Neumann algebra). Per r123 that mathematical content is FALSE. The
+  Lean Prop and the mathematical claim are not the same object; the
+  discharge is a definitional artifact, not a proof of the manuscript's
+  Conjecture 8.X.2.
+- `PF/SpectralIsolationSubstrateDischarge.lean` (r75) and
+  `PF/I5VortexDoublingSubstrateDischarge.lean` (r76) and
+  `PF/Priority3SubstrateDischarge.lean` (r77). Their "grand capstone"
+  bundles reference `Conjecture_8_X_2_ExtremalTraceUniqueness` as a component.
+  They discharge only the Prop-level definitional conjunction, not the
+  manuscript claim. Following the 2026-08-04 "Honesty note on 'discharge'
+  language" (already in this file), these remain preserved as history but
+  do not close Problem 1a and do not establish the α-web as substrate-derived.
+- The α-substrate architectural claim in `PF/ExtremalTraceOrbits.lean` (r25)
+  — that four substrate facets (base-3 `|Fin 3 × Fin 3| = 9`, H_3 top exponent 9,
+  Coxeter number 10, universal coupling π/10) are "four views of ONE substrate
+  object" identifying the 9 canonical α_i — is a POSITIVE ARCHITECTURAL CLAIM,
+  not a proof. The four arithmetic facts are individually kernel-verified and
+  correct. Their claimed unification via a bijection to nine extremal tracial
+  states is REFUTED by r123: no such nine-trace family exists.
+- All corpus text of the form "the substrate forces α_X = Y" is now
+  formally-known to overstate. The honest form is: "the α_X value is asserted
+  as a definition (`def α_X := Y`); the substrate does not force it, and per
+  r123.F/r123.A the specific value may lie outside the substrate's K-theoretic
+  range `ℤ[1/3]` and/or fail the substrate's ternary reality condition."
+
+### What is preserved
+
+- All r25 substrate arithmetic (base-3, H_3, Coxeter, π/10). Real theorems.
+- All r26 Prop-level scaffolding, kept as history. The definitions themselves
+  remain in the tree; only their marketing is corrected.
+- The r63–r79 "discharge" theorems, already flagged in the 2026-08-04
+  reconciliation as `Prop := True`-level markers; now additionally flagged
+  as incompatible with the r123 mathematical result.
+- The Perelman anchor cascade (r126–r128) — SUBSTRATE THEOREMS on
+  Galois trace/norm relations among asserted α-values. Legitimate substrate
+  work; DOES NOT establish α-values from first principles.
+
+### What is now the actual Problem 1a state
+
+**Not open in the original formulation.** The nine-extremal-trace ansatz is
+refuted. Two research directions remain honest:
+
+1. **A different substrate.** Investigate substrates other than `T_∞ = 3^∞`
+   UHF where a finite non-trivial family of extremal tracial states might exist,
+   and whether such a substrate has independent motivation.
+2. **A different invariant.** Investigate whether the α-values can be
+   forced by an intrinsic invariant OTHER than tracial states — e.g. cocycles,
+   K_1, cyclic cohomology, spectral flow, or something not yet on the list. If
+   found, it must be an object the current substrate delivers uniquely; it must
+   not be a re-parametrization of the definitional α-web.
+
+Either direction requires new mathematics, not more Prop-level scaffolding.
+Neither is authorized here.
+
+### Codex cross-references
+
+- `codex/SUBSTRATE_FORCES_WHAT_2026-07-26.md` (pre-existing thorough audit;
+  its Recommended Actions §13 include "Record Conjecture 8.X.2 / Priority 1a
+  as REFUTED" — this reconciliation acts on that recommendation).
+- `codex/ALPHA_NP_DERIVABILITY_2026-07-25.md` (three closed loops).
+- `codex/TRUE_PROP_AUDIT_2026-08-01.md` (402 `Prop := True` corpus-wide;
+  Prop-level discharges carry no mathematical content).
+- `codex/GRAND_PROBLEM_DEPENDENCY_GRAPH_2026-08-23.md` (post-r315 global audit;
+  Rank 1 recommendation = this reconciliation).
+
+### No new theorem file added
+
+Per the post-r315 directive: no `PF/Analytic/ConjectureEightXTwoFalsified.lean`
+was created. r123's `no_nine_distinct_tracial_states` and
+`substrate_tracial_state_space_singleton` are the source-of-truth theorems.
+Renaming them under a different filename for theorem-count purposes would be
+scaffolding.

@@ -4,6 +4,30 @@
 
 ★ 2026-07-05 r25 — the substrate's positive content behind Conjecture 8.X.2 ★
 
+════════════════════════════════════════════════════════════════════════════
+★★★ 2026-08-23 R123 FALSIFICATION RECONCILIATION — READ FIRST ★★★
+════════════════════════════════════════════════════════════════════════════
+
+The four substrate facets kernel-verified in this file (base-3 rank-2
+lattice `|Fin 3 × Fin 3| = 9`; H_3 top exponent = 9; Coxeter number
+h(H_3) = 10; universal-coupling half-argument π/10) are REAL, kernel-clean,
+individually-correct pieces of substrate arithmetic. They are preserved.
+
+WHAT IS FALSIFIED is the ARCHITECTURAL CLAIM that these four arithmetic
+facts are four views of ONE substrate object identifying nine extremal
+tracial states of `π(T_∞)″` with the nine canonical α-values. Per r123
+(`PF/AlphaFromSubstrateKTheory_r123.lean`) the tracial state space of
+`T_∞` is a SINGLETON, not a nine-element set — see
+`substrate_tracial_state_space_singleton` and
+`no_nine_distinct_tracial_states`. The bijection posited here does not
+exist in the substrate.
+
+The four-facet arithmetic is preserved verbatim; only its claimed
+operator-algebra unification is retracted. See `OPEN_PROBLEMS.md`
+§"2026-08-23 r123 falsification reconciliation" for the corpus-wide
+consequences.
+════════════════════════════════════════════════════════════════════════════
+
 ## The framework-first reading
 
 The framework is ONE substrate: base-3 ternary lattice + H_3 icosahedral
