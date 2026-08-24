@@ -135,20 +135,49 @@ theorem perfect_28 : PerfectNumber 28 := by
 theorem perfect_496 : PerfectNumber 496 := by
   refine ⟨by omega, ?_⟩
   unfold sigmaSum
-  native_decide
+  decide +kernel
 
 /-- **8128 is perfect.** -/
 theorem perfect_8128 : PerfectNumber 8128 := by
   refine ⟨by omega, ?_⟩
   unfold sigmaSum
-  native_decide
+  decide +kernel
+
+/-- Sigma1 sum on `2^12 · 8191`, via `ArithmeticFunction.sigma`
+    multiplicativity. Small isolated helper to prevent the elaboration
+    of the multiplicativity type at the 33.5·10⁶ literal from triggering
+    divisor enumeration. -/
+private theorem sigma_one_2pow12_times_8191_eq :
+    ArithmeticFunction.sigma 1 (2 ^ 12 * 8191) = 8191 * 8192 := by
+  have hp8191 : Nat.Prime 8191 := by norm_num
+  have hcop : Nat.Coprime (2 ^ 12) 8191 :=
+    ((Nat.coprime_primes Nat.prime_two hp8191).mpr (by decide)).pow_left 12
+  have h2pow : ArithmeticFunction.sigma 1 (2 ^ 12) = 8191 := by
+    decide +kernel
+  have h8191 : ArithmeticFunction.sigma 1 8191 = 8192 := by
+    rw [ArithmeticFunction.sigma_one_apply, hp8191.divisors]
+    decide
+  rw [ArithmeticFunction.isMultiplicative_sigma.map_mul_of_coprime hcop,
+      h2pow, h8191]
 
 /-- **33550336 is perfect.** Fifth even perfect number,
-    `2^{12} · (2^{13} - 1) = 4096 · 8191`. -/
+    `2^{12} · (2^{13} - 1) = 4096 · 8191`.
+
+    r317 note (2026-08-24): direct `decide +kernel` on
+    `(Nat.divisors 33550336).sum id = 67100672` requires ~33.5·10⁶
+    kernel reduction steps and does not terminate in a tractable
+    wall-time budget on the current toolchain. Rather than smuggle
+    `native_decide` back onto a load-bearing path (§I.2 violation),
+    this witness is proved via mathlib's `ArithmeticFunction.sigma`
+    multiplicativity — see `sigma_one_2pow12_times_8191_eq`. -/
 theorem perfect_33550336 : PerfectNumber 33550336 := by
   refine ⟨by omega, ?_⟩
-  unfold sigmaSum
-  native_decide
+  have hfact : (33550336 : ℕ) = 2 ^ 12 * 8191 := by norm_num
+  have hss : sigmaSum 33550336
+      = ArithmeticFunction.sigma 1 33550336 :=
+    (ArithmeticFunction.sigma_one_apply 33550336).symm
+  rw [hss, hfact, sigma_one_2pow12_times_8191_eq]
+  norm_num
 
 /-- **All five concrete perfect numbers are EVEN.** Empirical content
     of the conjecture: every known perfect number is even. -/

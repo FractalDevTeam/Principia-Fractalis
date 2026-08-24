@@ -183,12 +183,12 @@ theorem goldbach_100 :
 
 theorem goldbach_1000 :
     ∃ p q : ℕ, Nat.Prime p ∧ Nat.Prime q ∧ p + q = 1000 :=
-  ⟨3, 997, by native_decide, by native_decide, rfl⟩
+  ⟨3, 997, by decide +kernel, by decide +kernel, rfl⟩
 
 /-- **Large explicit Goldbach witness.** `2024 = 7 + 2017`. -/
 theorem goldbach_at_large_witness :
     ∃ p q : ℕ, Nat.Prime p ∧ Nat.Prime q ∧ p + q = 2024 :=
-  ⟨7, 2017, by native_decide, by native_decide, rfl⟩
+  ⟨7, 2017, by decide +kernel, by decide +kernel, rfl⟩
 
 /-- **Bundled twelve-witness theorem.** Twelve distinct Goldbach
     decompositions, each axiom-free. -/
