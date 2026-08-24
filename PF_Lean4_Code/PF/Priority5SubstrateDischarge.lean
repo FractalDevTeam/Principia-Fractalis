@@ -4,6 +4,16 @@
 
 ★ 2026-07-07 r79 — the substrate's positive discharge of Priority 5 ★
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-08-23 R123 FALSIFICATION RECONCILIATION.  If this file's grand
+capstone bundles `Conjecture_8_X_2_ExtremalTraceUniqueness` or the r63–r77
+Priority-1a chain as a component, that component establishes NO
+mathematical content on the extremal-trace side per r123's
+`no_nine_distinct_tracial_states`. The Priority 5 external-verification
+content is preserved. See `OPEN_PROBLEMS.md` §"2026-08-23 r123
+falsification reconciliation".
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ## The framework-first content
 
 Priority 5 of `OPEN_PROBLEMS.md` (external-verification cleanup)

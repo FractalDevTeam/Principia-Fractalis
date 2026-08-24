@@ -4,6 +4,49 @@
 
 ★ 2026-07-05 r26 — the substrate's operator-algebra closure content ★
 
+════════════════════════════════════════════════════════════════════════════
+★★★ 2026-08-23 R123 FALSIFICATION RECONCILIATION — READ FIRST ★★★
+════════════════════════════════════════════════════════════════════════════
+
+The MATHEMATICAL conjecture this file targets (the manuscript's Conjecture
+8.X.2: nine distinct extremal tracial states of `π(T_∞)″` corresponding
+bijectively to the nine α-values) is FALSIFIED by:
+
+  * `PF/SubstrateTraceUniqueness.lean` (r113) —
+    `substrate_UHF_trace_unique` proves `T_∞ = 3^∞` UHF factor is
+    uniquely traced.
+  * `PF/AlphaFromSubstrateKTheory_r123.lean` (r123) —
+    `no_nine_distinct_tracial_states` is a kernel-clean proof of
+    `¬ ∃ f : Fin 9 → (T_∞ → ℂ), (∀ i, IsTracialState (f i)) ∧
+    Function.Injective f`. Positive form:
+    `substrate_tracial_state_space_singleton` — the tracial state space
+    is a singleton `{τ_UHF}`.
+
+CONSEQUENCE FOR THIS FILE.
+
+The Lean definition `Conjecture_8_X_2_ExtremalTraceUniqueness : Prop` below
+is a CONJUNCTION `C1 ∧ C2 ∧ … ∧ C8` in which `C2..C8` are declared as
+`C_prev → True` implications (definitional trivialities). As a Lean Prop,
+the conjecture is therefore trivially provable and `r63`'s
+`conjecture_8X2_discharged_via_r41_r60` in this file does so. That Lean
+provability does NOT establish the *mathematical* content the manuscript
+Conjecture 8.X.2 asserts (nine distinct extremal traces). Per r123 the
+mathematical content is FALSE. The Lean `def` and the manuscript claim are
+not the same object; the discharge here is a definitional artifact.
+
+The file is preserved verbatim as history (no theorems altered) so the
+provenance of the "eight-step pathway" is auditable. See
+`OPEN_PROBLEMS.md` §"2026-08-23 r123 falsification reconciliation" for
+the full corpus-wide consequences.
+
+DO NOT cite `Conjecture_8_X_2_ExtremalTraceUniqueness` or
+`conjecture_8X2_discharged_via_r41_r60` as evidence for the extremal-trace
+manuscript conjecture. Use `no_nine_distinct_tracial_states` and
+`substrate_tracial_state_space_singleton` from
+`AlphaFromSubstrateKTheory_r123.lean` as the source of truth on the actual
+mathematical question.
+════════════════════════════════════════════════════════════════════════════
+
 ## The framework-first content
 
 r25 (`PF/ExtremalTraceOrbits.lean`) kernel-verified the substrate's four

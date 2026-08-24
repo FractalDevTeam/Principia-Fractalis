@@ -3,6 +3,30 @@
 
 ★★★★★ 2026-06-11 — ALPHA ARCHITECTURAL IDENTITIES FORCED BY SUBSTRATE ★★★★★
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-08-23 R123 FALSIFICATION RECONCILIATION.  The docstring language
+"forced by substrate" and "the substrate forces α_NS, α_QG, α_YM (and
+through H₃ Coxeter, the …)" OVERSTATES what the substrate delivers.
+
+Per r123 (`PF/AlphaFromSubstrateKTheory_r123.lean`):
+  * substrate K-theoretic trace range is `ℤ[1/3]`; only `α_Poincaré = 1`
+    and `α_YM = 2` lie in it. `α_NS = 3π/2`, `α_QG = √(2π)` are irrational
+    and EXCLUDED.
+  * the substrate is spectrally VACUOUS — every real is a substrate
+    spectral value; the spectral reading of α selects nothing.
+  * the manuscript nine-extremal-trace ansatz (Conjecture 8.X.2) is
+    FALSIFIED by `no_nine_distinct_tracial_states`.
+
+The rigidity theorems in this file that establish `α_NS = (5/3)·(9π/10)`
+and `α_QG² = 2π = α_YM · π` as ALGEBRAIC IDENTITIES between defined
+constants remain valid — they are arithmetic relations, not derivations
+of α-values from substrate. Read "forced parametrically" as: the identities
+hold algebraically given the definitions; NOT as: the substrate forces
+the numerical values.
+
+See `OPEN_PROBLEMS.md` §"2026-08-23 r123 falsification reconciliation".
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 The framework's `PF/AlphaArchitecturalIdentities.lean` proves two
 architectural identities tying the 9-α architecture together:
 

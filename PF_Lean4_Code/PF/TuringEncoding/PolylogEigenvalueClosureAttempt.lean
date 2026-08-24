@@ -3,6 +3,26 @@
 
 ★ 2026-06-06 — Post Wave 58 substrate-mechanism re-attack ★
 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-08-23 R123 FALSIFICATION RECONCILIATION.  The docstring below says
+"the substrate forces α-values via a self-adjointness Diophantine
+condition." Per r123 (`PF/AlphaFromSubstrateKTheory_r123.lean`) the
+substrate does NOT force α-values: substrate K-theoretic range is
+`ℤ[1/3]`; substrate is spectrally VACUOUS; `α_NP = φ + 1/4` is an
+irrational asserted definition that falls OUTSIDE `ℤ[1/3]` (see
+`irrational_alpha_NP` and `alpha_table_memZ13_verdict`).
+
+The Diophantine identity `16·α_NP² − 24·α_NP − 11 = 0` is an ALGEBRAIC
+CONSTRAINT holding for the definitional value `φ + 1/4` (root of the
+minimal polynomial); it is NOT a substrate-derived forcing of that
+value from first principles. The uniqueness result "B1 ∧ B2 ⇒
+`f input = φ + 1/4`" is a real algebraic uniqueness theorem about the
+polynomial's root, not a derivation of that root as a substrate
+invariant.
+
+See `OPEN_PROBLEMS.md` §"2026-08-23 r123 falsification reconciliation".
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ## Why this file exists
 
 The prior Wave 58 file `PolylogEigenvalueTypedUpgrade.lean` decomposed
