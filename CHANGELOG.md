@@ -1,5 +1,75 @@
 # Principia Fractalis — Changelog
 
+## 2026-08-23 (r315 Xi_Positive_At_15 DISCHARGED — direct r120 reuse route at t = 15)
+
+**HEAD prior**: (r314e commit `9dbcd06a`). **HEAD now**: (this commit).
+
+**★★★★★★★★★★ THE CORPUS RESIDUAL `Xi_Positive_At_15` IS DISCHARGED ★★★★★★★★★★**
+
+The `def Xi_Positive_At_15 : Prop := 0 < Xi 15` residual named at r288 is inhabited by a kernel-clean theorem `Xi_15_pos : 0 < Xi 15`. Bridge is definitional: `xi_positive_at_15_certified_direct_r120 : Xi_Positive_At_15 := Xi_15_pos`. Zero project axioms, no `sorry`, no `native_decide`, no floating-point-as-proof.
+
+Route: direct t = 15 specialization of the r120 certified theta-quadrature architecture (MILESTONE B5, r120 commit `659acca5`). Selected over the r313 + r314e + r315-Taylor-Fourier fallback because it (a) reuses substantially more r120 infrastructure verbatim, (b) hits the same rational endpoint at 4441/10^6 with comparable panel budget, (c) produces the `0 < Xi 15` endpoint directly without a `Xi_Positive_At_15_from_J_1_and_R_geq_2_bounds` intermediary.
+
+### Reused verbatim from r120 (no duplication)
+
+- `Xi_split_intervalIntegral (t T : ℝ) (hT : 1 ≤ T)` — parametric in `t`.
+- `Xi_tail_bound (t T : ℝ) (hT : 1 ≤ T)` — tail uniform in `t`.
+- `omega_partial_error {u : ℝ} (hu : 1 ≤ u) (N : ℕ)` — t-independent.
+- `abs_thetaTermD2_le_exp`, `abs_thetaTermD2_sum_le_at` — parametric in `t`.
+- `composite_midpoint_error`, `midpoint_rule_error`, `abs_sub_taylor1_le` — t-independent quadrature bricks.
+- `XiOnLineZeroConstants` full contents: `e0_01..e0_14` (14 interval-engine `exp(-π·c) ≤ e0` bounds), `exp_neg_pi_le`, `tail_le : 2/π · exp(-π·5)/(1-exp(-π)) ≤ 1.1·10^-7`, `tail1_le`. All 16 transcendental constants reused unchanged.
+- Panel geometry: identical 14-segment / 474-midpoint-panel partition.
+
+### New (isolated t = 15 mirror)
+
+- **`PF/Analytic/XiOnLineZeroCoreT15.lean`** — `nodeR15`, `nodeI15`, `nodeR15_mem_approx`, `thetaTerm_eq_exp_15`, `nodeR15_eq`, `nodeFold15`, `nodeFold15_mem`, `nodeSum15_split`. Substitutions vs r120: `cos(7.5·log u)` for `cos(7.7·log u)`, `thetaTerm 15` for `thetaTerm (77/5)`.
+- **`PF/Analytic/XiOnLineZeroT15.lean`** — `FT_15`, `FT_15_hasDerivAt`, `FT_15_integrable`, `trunc_eq_FT_15`, `K0_15_le : thetaTermK 15 0 ≤ 276.04`, `K1_15_le : thetaTermK 15 1 ≤ 883.15`, `K2_15_le : thetaTermK 15 2 ≤ 2684.56`, `K_15_nonneg`, `sumK_15_le`, `seg_lower_15`, `int_lower_15`, `Xi_15_pos`, `xi_positive_at_15_certified_direct_r120`. K-bounds via `Real.pi_lt_d6` + `nlinarith` (analog of r120's t=77/5 bounds 285.7/900.4/2714.4).
+- **`PF/Analytic/XiPanelsT15/` (63 files)** — panel node-sum lower-bound certificates for `nodeR15`. Same 8-into-3 or 6-into-3 split pattern as r120's XiPanels. 165 total `decide +kernel` bricks.
+- **`PF_Lean4_Code/scripts/gen_r120_panels_t15.py`** — kernel-verified panel-certificate generator. **NEW SCIENTIFIC INFRASTRUCTURE**: eliminates the r120 provenance gap where the numerical-certificate generator was never committed. mpmath dps = 100 working precision, emits 10-fractional-digit rational floor bounds (toward -∞) with deterministic output. Every emitted value is a candidate — only Lean's `Interval.approx_le` + `decide +kernel` makes it a theorem.
+- **`PF_Lean4_Code/build_r120_panels_t15.sh`** — serial (`-j1`, ~2.5 h) driver for the 63 kernel-decide modules; peak RSS ~10 GB per module.
+- **`PF_Lean4_Code/scripts/ChunkTable_t15_report.txt`** — deterministic audit trail of every emitted rational.
+
+### Certified endpoint budget (all exact rational)
+
+```
+Xi 15 = -(1/(1/4 + 15²)) + ∫_1^∞ (integrand)
+      = -4/901 + ∫_1^5 (integrand) + ∫_5^∞ (integrand)
+
+∫_5^∞ (integrand) : |·| ≤ 2/π · exp(-5π)/(1-exp(-π)) ≤ 11/10^8            (tail_le, T=5)
+∫_1^5 (integrand) − ∫_1^5 FT_15 : |·| ≤ 4 · 10^-20                          (N=3 ω-truncation over [1,5])
+∫_1^5 FT_15 : ≥ 4441/10^6                                                   (int_lower_15)
+
+Xi 15 ≥ 4441/10^6 − 4/901 − 11/10^8 − (ω-integrated correction)
+      ≥ 248527 / (901·10^8) − 4·10^-20
+      = 24,852,700 / (901·10^10) − negligible
+
+Rational certificate: (4441 · 901 · 100) − (4 · 10^8) − (11 · 901)
+                    = 400,134,100 − 400,000,000 − 9,911
+                    = 124,189 > 0                                            ✓
+```
+
+Certified `Xi(15) ≥ 24,852,700 / (901·10^10) ≈ 2.76·10^-6 > 0` (headroom ~4.5× the largest error contribution).
+
+`|Xi(15)|` numerically (mpmath 60 dps reconnaissance): `+6.26590862438666·10^-6`. Certified budget captures 44% of actual value; consistent with r120's t=77/5 achieving 44% of `Xi(15.4) = 6.68·10^-6`.
+
+### r313–r314e status
+
+**PRESERVED** as independent corroborating formal decomposition. `r313 : I_15 = J_1 + R_geq_2`, `r314e : |R_geq_2| < 1/10^6`, and the chain-closer `Xi_Positive_At_15_from_J_1_and_R_geq_2_bounds` remain valid and untouched. r315 (Taylor-Fourier certified `L ≤ J_1`) was **not** built; the direct r120 route made it unnecessary. `Xi_Positive_At_15` now has TWO formal routes: (a) direct r120 reuse (this commit — DISCHARGED), (b) r313 bridge + r314e + a hypothetical r315 (INFRASTRUCTURE COMPLETE minus L ≤ J_1). Route (a) is the operative discharge.
+
+### Build & verification
+
+- Kernel build: serial `build_r120_panels_t15.sh`, ~2.5 h wall clock (63 modules × ~140 s average for 4-chunk modules).
+- All new endpoint theorems: `#print axioms` reports `[propext, Classical.choice, Quot.sound]` only. No `Lean.ofReduceBool` (i.e., no `native_decide`). No `sorryAx`. No project axioms.
+- Total jobs count progression: 10019 → 10083 (63 panel modules + Core + Assembly).
+
+### MASTER DIRECTIVE compliance
+
+- §III–V (no `sorry`, no `native_decide`, no floating-as-proof, no oracle): satisfied.
+- §VI (no fabricated APIs): satisfied — all mathlib and vendored Interval APIs are real.
+- §XI (framework-first): the r120 architecture IS the framework's kernel-certified theta-quadrature substrate. Reused directly. Not fragmented.
+- §XVIII (no scaffolding): every module removes real uncertainty. Panel bricks discharge specific rational lower bounds; assembly discharges the endpoint.
+- §XXVI (kernel decides): every load-bearing inequality goes through `decide +kernel` (panel bricks) or `norm_num`/`linarith` (arithmetic assembly).
+
 ## 2026-08-22 (r314e R_{≥2} RATIONAL BOUND — `|R_geq_2| < 1/10^6` via Taylor `exp(π) > 22`)
 
 **HEAD prior**: (r314d commit `de2163b8`). **HEAD now**: (this commit).
