@@ -5,6 +5,34 @@
 **Companion to:** `codex/R220_R222_LOG_FREQUENCY_ORIGIN_AUDIT_2026-08-24.md`, `codex/PF_TRANSCENDENTAL_CARRIER_AUDIT_2026-08-24.md`
 **Deliverable:** the READ-ONLY audit mandated by the post-r321 directive.
 
+> **POST r322 RECONCILIATION — 2026-08-24 (same day, later).**
+>
+> The r221 / r224 partial-bridge findings in §3 and §7 are correct as
+> stated, but their significance is sharper than the original audit
+> body called out. r240 (`sigma_add_two`, `sigma_add_two_int`) proves
+> that σ is 2-periodic in α; r322 (`omega_add_two`, `omega_add_two_int`,
+> `invariant_factors_through_omega_add_two`) proves the same for the
+> underlying character map `omega α = e^{iπα}` and for any invariant
+> that factors through it.
+>
+> Consequence: r221 and r224 are **orbit-class characterisations**, not
+> exact α selectors. r224's `‖χ‖ = 3 ↔ α ∈ 2ℤ` contains α_YM = 2 but
+> also α = 0, 4, 6, ... — the substrate cannot distinguish them.
+> r221's `‖χ‖ = 1 ↔ α ∈ ½ℤ+½ ∪ 2ℤ+1` contains α_RH = 3/2 and
+> α_Poincaré = 1 but also infinitely many other members.
+>
+> The "partial YM-side bridge" described in §3 and §7 should be read
+> as **substrate orbit-class match**, NOT as an exact substrate
+> derivation of the specific real 2. The RH side has no analogous
+> orbit-class match connected to the ternary factor 3 at all.
+>
+> The five-arrow architecture of §6 is unchanged in substance; arrow 2
+> (YM side) is now more precisely labeled "orbit-class match up to
+> `2·ℤ` ambiguity per r322".
+>
+> r221 and r224 docstrings have been updated in the r322 landing
+> commit to reflect this scope.
+
 The question this document answers:
 
 > **The α-skeleton's structural law I9 says `α_RH · α_YM = 3`. The base-3 substrate genuinely owns the integer `3`. Does the corpus contain a non-circular substrate-native derivation of `3` that plausibly bridges to the product `α_RH · α_YM`?**

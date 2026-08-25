@@ -33,11 +33,25 @@ substrate consequences that fall out:
 - The `√3`-spaced zero structure from r222 still applies (the shift depends
   on `logFrequency`, not on the pillar).
 
-`α_YM = 2` is the FLAGSHIP even-integer hit for `‖χ‖ = 3`. The other 8
-canonical corpus alphas all miss (§6): the 6 irrational alphas via r212's
-`sigma_alpha*_ne_zero_one` theorems, and the two constant-amplitude
-rationals (α_Poincaré = 1, α_RH = 3/2) via `sigma_one = 0` and
-`sigma_three_halves = 0`.
+`α_YM = 2` is a member of the `‖χ‖ = 3` orbit class.  **It is NOT uniquely
+selected by this identity.**  The level set is the entire even-integer
+lattice `2·ℤ` (§3 `chi_norm_three_iff_even_integer`), and §4 explicitly
+witnesses that `α = 0` and `α = 4` also satisfy `‖χ‖ = 3`.  r322's
+`omega_add_two_int` makes the reason structural: `omega α = e^{iπα}` is
+2-periodic in α, so any invariant factoring through `omega` — including
+`chi ∘ omega` and hence `‖χ‖` — cannot distinguish α = 2 from any other
+member of `2·ℤ`.  See `codex/I9_TERNARY_BRANCH_FACTOR_ORIGIN_AUDIT_2026-08-24.md`
+and `codex/R220_R222_LOG_FREQUENCY_ORIGIN_AUDIT_2026-08-24.md`.
+
+Consequence: this file provides an **orbit-class match** for α_YM, not an
+exact substrate derivation of the specific value 2.  Selecting 2 within
+the `2·ℤ` orbit comes from α_YM's def (I7: `α_YM = α_Poincaré + 1` plus
+the Perelman anchor), not from a substrate quantity.
+
+The other 8 canonical corpus alphas all miss (§6): the 6 irrational alphas
+via r212's `sigma_alpha*_ne_zero_one` theorems, and the two
+constant-amplitude rationals (α_Poincaré = 1, α_RH = 3/2) via
+`sigma_one = 0` and `sigma_three_halves = 0`.
 
 ## Cross-pillar coverage r221 + r224
 
@@ -69,9 +83,12 @@ Section 5 makes the second correspondence explicit as
 * NOT a substrate derivation of `α_YM = 2` (r212's scope note applies).
 * NOT a physical claim about YM observables. Each level-set membership is
   a statement about ‖χ‖ on the unit circle, not about physical QCD.
+* NOT an exact substrate selector for `α_YM = 2`: the identity's level
+  set is the entire even-integer lattice `2·ℤ`.  See r322's
+  `omega_add_two_int` for the underlying 2-periodicity obstruction.
 * IS an exact level-set characterisation companion to r221, closing the
   three-value integer landscape `‖χ‖ ∈ {0, 1, 3}` at rational α; and IS
-  the flagship YM-pillar elevation.
+  an orbit-class match for the YM axis at the ‖χ‖ = 3 tier.
 
 ## Contents
 
