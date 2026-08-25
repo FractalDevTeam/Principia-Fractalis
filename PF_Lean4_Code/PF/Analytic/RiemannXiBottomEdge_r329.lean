@@ -1,11 +1,15 @@
 /-
-# r329 — BOTTOM EDGE OF THE T=15 ξ RECTANGLE, DISCHARGED ANALYTICALLY
+# r329 — BOTTOM EDGE OF THE T=15 ξ RECTANGLE, STRUCTURAL REDUCTION
 
-★ 2026-08-25.  Discharges the `BottomEdgeZeroFree` residual left by r328
-  using PF's own symmetric theta-integral representation
-  (`completedRiemannZeta₀_eq_theta_integral` in `XiThetaIntegral.lean`)
-  plus the geometric ω-tail bound (`omega_le_geometric`).  No numerical
-  panels; no smuggled "ζ ≠ 0 on real `(0,1)`".
+★ 2026-08-25.  Sets up the STRUCTURAL REDUCTION from r328's
+  `BottomEdgeZeroFree` residual to a single uniform bound on
+  `(completedRiemannZeta₀ σ).re` for real `σ ∈ [0, 1]`.  The
+  unconditional numerical closure of that bound is delivered in the
+  companion module `RiemannXiBottomEdgeUnconditional_r329b.lean`, which
+  actually consumes the `omega_le_geometric` + `integral_exp_neg_pi_mul_Ioi`
+  chain to discharge the hypothesis.  This file does the algebra +
+  reduction; r329b does the analytic bound.  No numerical panels; no
+  smuggled "ζ ≠ 0 on real `(0, 1)`".
 
 ## Route (per r329 directive §A)
 
