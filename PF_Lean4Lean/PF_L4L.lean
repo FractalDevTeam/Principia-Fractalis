@@ -37,6 +37,11 @@ import PF_L4L.AllNineLambda0NumericalBrackets_2026_06_24_Reverification
 import PF_L4L.AllNineAlphaNumericalBrackets_2026_06_24_Reverification
 import PF_L4L.AllNineAlphaStrictOrdering_2026_06_24_Reverification
 import PF_L4L.AllNineLambda0StrictOrdering_2026_06_24_Reverification
+-- 2026-08-25: r325 / r326 / r327 substantive endpoints (entire ξ, symmetries,
+-- rectangle argument principle instantiated to ξ) — see file header for
+-- protocol; nine rebound endpoints, all expected to depend only on
+-- `[propext, Classical.choice, Quot.sound]`.
+import PF_L4L.Referee.RiemannXiReverification_r325_r327
 
 -- Gated modules: kept in the source tree for the future PF-namespace
 -- refactor; they do NOT participate in the current build.

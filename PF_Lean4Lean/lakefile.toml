@@ -13,3 +13,11 @@ path = "../PF_Lean4_Code"
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4"
 rev = "v4.24.0-rc1"
+
+# 2026-08-25: PF now transitively requires the vendored girving/interval
+# package (for r120's certified interval-arithmetic quadrature).  L4L must
+# expose the same require so `lake` can resolve the transitive dependency
+# through the PF path package.  See ../vendor/interval/VENDORING.md.
+[[require]]
+name = "interval"
+path = "../vendor/interval"
