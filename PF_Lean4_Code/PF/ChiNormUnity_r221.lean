@@ -6,10 +6,14 @@ substrate-consistent log-cosine ansatz. Companion to r212. ★
 
 ## Where this comes from
 
-r220 (`PF/LogPeriodicity_r220.lean`) pins the log-frequency `2π / ln 3` on any
-substrate-consistent oscillation with no free parameter. r219
+r220 (`PF/LogPeriodicity_r220.lean`) establishes the exact ternary
+renormalisation `S(ω, 3^(k+1)) = χ(ω) · S(ω, 3^k)` and defines a
+log-cosine `logModulation` with frequency `2π / ln 3` as a normalization
+choice (see r321's docstring reconciliation, 2026-08-24: the base fixes
+the SCALE ratio `log 3`; the frequency `2π/ln 3` imposes one 2π-cycle
+per triadic step on the separately-defined cosine).  r219
 (`PF/EquationOfStateBridge_r219.lean`) turns that into an observable via
-`w(a) = -1 + g(a) / (3 H(a))`. The most parsimonious substrate-consistent
+`w(a) = -1 + g(a) / (3 H(a))`.  The most parsimonious substrate-consistent
 ansatz is the log-cosine
 
     g(a) = A · a^{σ(α)} · cos( (2π / ln 3) · ln a + φ₀ )
@@ -31,12 +35,27 @@ this has NO degenerate branch: `|1 + 2c| = 1` excludes `c = -1/2`, so the
 `Real.logb b 0 = 0` pitfall that forced the three-branch form of
 `sigma_eq_zero_iff_full` cannot occur here.
 
-## Corpus application
+## Corpus application — ORBIT-CLASS MATCHES, not exact α selection
 
-Among r212's nine canonical corpus alphas, exactly two satisfy `‖χ‖ = 1`:
+**Important scope clarification (2026-08-24, per
+`codex/I9_TERNARY_BRANCH_FACTOR_ORIGIN_AUDIT_2026-08-24.md` §2 and
+`PF/OmegaSymmetries_r322.lean`).**  The level set `{α : ‖χ(e^{iπα})‖ = 1}`
+is the infinite union `(½ℤ + ½) ∪ (2ℤ + 1)`.  Two corpus α-values
+happen to LIE in this set:
 
   HIT:  α_Poincaré = 1     (odd integer, k = 0 in α = 1 + 2k)
   HIT:  α_RH       = 3/2   (half-integer, k = 1 in α = 1/2 + k)
+
+Neither is UNIQUELY selected by this identity: α = 5, α = 7, α = 5/2,
+α = -3/2, and infinitely many other members of the same union satisfy
+the same equation.  The r322 `omega_add_two_int` theorem makes this
+formal — any invariant factoring through `omega α = e^{iπα}` is
+2-periodic in α, so the χ-norm cannot distinguish α_Poincaré from
+α = 3, or α_RH from α = 7/2.  r240's `sigma_add_two_int` gives the
+same statement for σ.
+
+The remaining seven canonical α's do NOT lie in the level set:
+
   MISS: α_YM       = 2     (cos(2π) = 1 ∉ {0, -1})
   MISS: α_Hodge    = φ     (irrational)
   MISS: α_P        = √2    (irrational)
