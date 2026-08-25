@@ -182,6 +182,46 @@ theorem not_memZ13_one_fifth : ¬ MemZ13 (1 / 5 : ℝ) := by
   have h5 : (5 : ℤ) ∣ (3 : ℤ) := hp.dvd_of_dvd_pow hdvd
   norm_num at h5
 
+/-! ## §1a — r320 obstruction: `ℤ[1/3]` ratios cannot equal `π`
+
+★ 2026-08-24 — r320.  A precise obstruction to the α-skeleton's L5 π-scaling
+law along one specific mechanism.
+
+The α-skeleton law L5 asserts `α_NS = α_RH · π`, equivalently
+`α_NS / α_RH = π` when `α_RH ≠ 0`.  A natural candidate for its intrinsic
+origin is: interpret `α_NS` and `α_RH` as elements of the substrate's
+trace range and read off the ratio.  This theorem formally closes that
+route: any ratio of two `MemZ13` reals is a ratio of two rationals, which
+is rational (with the mathlib/field convention that division by zero
+yields zero), and hence cannot equal `Real.pi` by `irrational_pi`.
+
+Scope. This rules out **exactly** the mechanism "L5 as a ratio of two
+current-substrate trace-range values."  It does not rule out:
+- π arising from a canonical substrate invariant that is *not* a
+  `MemZ13` value (e.g. analytic / spectral / dynamical enrichments);
+- π arising from a K-theoretic construction of a richer C*-algebra
+  than `T_∞ = 3^∞`;
+- L5 itself, which continues to hold as an α-skeleton input;
+- the α-skeleton architecture as a whole.
+
+It rules out ONE precise source and no more. -/
+
+/-- **r320 — trace-range π obstruction.**  For any two elements `a, b`
+of the substrate trace range `ℤ[1/3]`, the ratio `b / a` is rational
+(with mathlib's convention that `_ / 0 = 0`), hence never equals `π`.
+
+No `a ≠ 0` hypothesis is needed: at `a = 0` the ratio evaluates to `0`,
+which is rational and thus still `≠ π`. -/
+theorem memZ13_ratio_ne_pi {a b : ℝ}
+    (ha : MemZ13 a) (hb : MemZ13 b) : b / a ≠ Real.pi := by
+  intro habs
+  obtain ⟨qa, hqa⟩ := memZ13_isRat ha
+  obtain ⟨qb, hqb⟩ := memZ13_isRat hb
+  refine irrational_pi ⟨qb / qa, ?_⟩
+  push_cast
+  rw [hqa, hqb]
+  exact habs
+
 /-! ## §2 — What the substrate DOES force: the level-projection trace -/
 
 /-- The characteristic function of `S ⊆ Fin (3^k)`, as a ℂ-valued diagonal. -/
@@ -533,6 +573,7 @@ theorem r123_substrate_cannot_force_alpha_capstone :
 #print axioms not_memZ13_of_irrational
 #print axioms not_memZ13_three_halves
 #print axioms not_memZ13_one_fifth
+#print axioms memZ13_ratio_ne_pi
 #print axioms substrate_level_projection_trace
 #print axioms substrate_attains_every_Z13_trace
 #print axioms alpha_table_memZ13_verdict
