@@ -614,6 +614,21 @@ constructed operator $L_s$); Selberg theory is not formalized; and
 exactly as the 2026-07-23 ledger above states.
 \end{itemize}
 
+\paragraph{Verification update (2026-08-25): the classical entire $\xi$, its symmetries, and the rectangle argument principle land; finite-height RH below $15$ remains UNPROVED.}
+Three Lean revisions (r325, r326, r327) put in place the analytic infrastructure
+needed for any future rectangle-based zero-count of the Riemann $\xi$. All
+theorems below are kernel-checked with axiom footprint exactly
+$[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$; no
+\texttt{sorry}, no \texttt{native\_decide}, no project axioms; independently
+re-verified in the Lean4Lean layer at
+\texttt{PF\_L4L/Referee/RiemannXiReverification\_r325\_r327.lean}.
+\begin{itemize}
+\item \textbf{r325 --- entire classical $\xi$ + exact $\zeta$-zero equivalence.} Constructs \texttt{riemannXiEntire}~$s := (s(s{-}1)\,\Lambda_0(s) + 1)/2$ from mathlib's entire \texttt{completedRiemannZeta}$_0$; proves \texttt{differentiable\_riemannXiEntire} (entire globally) and \texttt{riemannXiEntire\_eq\_zero\_iff\_riemannZeta\_eq\_zero\_in\_strip} (zeros in the open critical strip $0 < \Real s < 1$ agree exactly with the nontrivial $\zeta$-zeros).
+\item \textbf{r326 --- $\xi$ symmetries + exact bridge to the certified real $\Xi$ witness.} Delivers the classical functional equation \texttt{riemannXiEntire\_one\_sub}: $\xi(1{-}s) = \xi(s)$; conjugation symmetry \texttt{riemannXiEntire\_conj}; vertical reflection about $\Real s = 1/2$; the exact critical-line identity \texttt{riemannXiEntire\_critical\_eq\_Xi}: $\xi(1/2 + it) = -\tfrac{1}{2}(\tfrac{1}{4}+t^2)\cdot\Xi(t)$ (both sides equal as complex numbers, prefactor negative); and the zero biconditional \texttt{riemannXiEntire\_critical\_eq\_zero\_iff\_Xi\_eq\_zero}. Corollary \texttt{exists\_riemannXiEntire\_zero\_between\_one\_and\_fifteen} follows immediately from r324.
+\item \textbf{r327 --- rectangle argument principle with multiplicity.} Ports (Apache-2.0) the generic weighted rectangle argument principle from \texttt{anthropics/zeta-23-lean} into PF's pinned toolchain and instantiates it to \texttt{riemannXiEntire}: given a well-oriented rectangle and $\xi \ne 0$ on its border, $(1/2\pi i)\oint_{\partial R} \xi'/\xi = \sum_{\rho \in Z} \texttt{analyticOrderNatAt}\,\xi\,\rho$. Multiplicities are exact via \texttt{analyticOrderNatAt} --- no simple-zero assumption.
+\item \textbf{HONEST SCOPE --- what did NOT close.} Finite-height RH below $15$ remains \textbf{UNPROVED}. The r327 identity is a \emph{conditional} zero-count: closing the T$=15$ box requires (a) certified boundary nonvanishing of $\xi$ on $\partial([0,1]\times[0,15])$ and (b) exact evaluation of the resulting contour integer. Neither is discharged here. Whether the total multiplicity happens to equal $1$ (which, together with r324, would give ``no off-line zeros below $15$'') is a numerical question outside the r325--r327 landing.
+\end{itemize}
+
 \section{Conclusion}
 
 We have presented a resolution of the Riemann Hypothesis through Fractal Resonance Mathematics:
