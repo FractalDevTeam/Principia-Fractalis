@@ -74,6 +74,19 @@ UNCONDITIONAL and covers the entire closed half-plane `Re s ≥ 1`,
 including the boundary line `Re s = 1` and the pole `s = 1` itself
 (mathlib's junk value at `s = 1` happens to be nonzero).
 
+**Clarification (2026-08-25).**  `riemannZeta_ne_zero_of_one_le_re`
+gives a POINTWISE-TOTALIZED nonzero value for mathlib's `riemannZeta`
+at every `s` with `Re s ≥ 1`, INCLUDING `s = 1`.  This does NOT mean
+the meromorphic ζ-function is HOLOMORPHIC at `s = 1` — classically
+and analytically, `s = 1` remains a pole.  A meromorphic
+argument-principle contour along or through `Re s = 1` cannot simply
+pass through `s = 1`; the pole would contribute a residue.
+
+This makes the CR-D route (r325's `riemannXiEntire`) even more
+valuable: `riemannXiEntire` is genuinely entire (no pole at 1), so
+no pole bookkeeping is needed if the count is done via the classical
+entire ξ.
+
 Consequence: on the boundary of the rectangle `[0, 1] × [0, 15]`, the
 right side `Re s = 1, Im s ∈ [0, 15]` is **already certified nonvanishing**
 by mathlib. No ε-offset from `Re s = 1` is required.
@@ -127,15 +140,44 @@ So CR-C is NOT directly viable — the entire `completedRiemannZeta₀` does not
 
 Alternative: some other entire reformulation whose zeros exactly correspond. This does not appear to exist in mathlib as a named theorem.
 
-**Verdict:** CR-C rejected as a shortcut. There is no entire reformulation currently available whose zeros equal nontrivial ζ zeros. The "entire Xi function" of classical analytic number theory (`ξ(s) := (1/2) s (s-1) π^(-s/2) Γ(s/2) ζ(s)`, entire, with zeros exactly at nontrivial ζ zeros) is NOT in mathlib as a named object.
+**Verdict (unchanged):** CR-C rejected as a shortcut. `completedRiemannZeta₀` itself is entire but has the wrong zero set.
+
+### Route CR-D — Classical entire Riemann ξ (r325, landed 2026-08-25)
+
+`riemannXiEntire s := (s (s − 1) · completedRiemannZeta₀ s + 1) / 2` (r325,
+`PF/Analytic/RiemannXiEntire_r325.lean`).  Uses the polynomial correction
+dictated by `completedRiemannZeta_eq : Λ = Λ₀ − 1/s − 1/(1-s)`:
+multiplying `Λ` by `s (s − 1)` collapses the two pole contributions to `+1`
+exactly (`-s(s-1)/s = 1-s` and `-s(s-1)/(1-s) = s`, summing to `1`).
+
+Kernel-proved endpoints (all `[propext, Classical.choice, Quot.sound]` only):
+- `differentiable_riemannXiEntire : Differentiable ℂ riemannXiEntire` — ENTIRE globally.
+- `riemannXiEntire_eq_completed {s} (hs0 : s ≠ 0) (hs1 : s ≠ 1) :
+   riemannXiEntire s = s (s − 1) · completedRiemannZeta s / 2` — off-pole factorization.
+- `riemannXiEntire_eq_zero_iff_completedRiemannZeta_eq_zero {s} (hs0 hs1) :
+   riemannXiEntire s = 0 ↔ completedRiemannZeta s = 0` — off-pole zero equivalence.
+- `riemannXiEntire_eq_zero_iff_riemannZeta_eq_zero_in_strip {s}
+   (hre0 : 0 < s.re) (hre1 : s.re < 1) :
+   riemannXiEntire s = 0 ↔ riemannZeta s = 0` — **THE HEADLINE**:
+   zeros of `riemannXiEntire` in the open critical strip are EXACTLY
+   the zeros of literal `Complex.riemannZeta`.
+
+**Verdict for CR-D:** the correct counting object now exists in the corpus.
+An argument-principle-based zero count for `riemannXiEntire` in the
+rectangle `[0, 1] × [0, 15]` would count exactly the nontrivial ζ zeros
+in that region — no pole bookkeeping needed, no wrong-zero-set problem.
+Still absent: the argument-principle apparatus itself, certified
+boundary nonvanishing of `riemannXiEntire`, certified winding number,
+multiplicity (naturally counted by the argument principle).
 
 ## 5. Comparison table
 
 | Route | Available? | Blocker(s) |
 |---|---|---|
-| CR-A (raw ζ) | NO | argument principle absent; boundary nonvanishing not certified |
-| CR-B (completedRiemannZeta) | NO | same as CR-A + pole bookkeeping |
-| CR-C (completedRiemannZeta₀) | NO | zeros do not match nontrivial ζ zeros on critical line |
+| CR-A (raw ζ, meromorphic) | NO | argument principle absent; **s = 1 is a pole of the meromorphic ζ** (mathlib's `riemannZeta_ne_zero_of_one_le_re` is a pointwise-totalized-value statement, not a holomorphic-at-1 statement); pole bookkeeping required; boundary nonvanishing partial per §4 |
+| CR-B (completedRiemannZeta, meromorphic) | NO | same as CR-A + poles at BOTH `s = 0` and `s = 1` |
+| CR-C (completedRiemannZeta₀, entire) | NO | zeros do not match nontrivial ζ zeros on the critical line (`1/s + 1/(1-s) = 1/(1/4 + t²) ≠ 0`) |
+| **CR-D (riemannXiEntire, entire, r325)** | **PARTIALLY — object landed** | **Zero-set equivalence with `riemannZeta` in the open critical strip PROVED (r325). Argument-principle apparatus + boundary nonvanishing + winding number certification still absent. This is the correct counting object once those pieces exist.** |
 
 ## 6. Additional missing pieces even IF a route were unlocked
 
@@ -169,6 +211,13 @@ Given the mathlib `riemannZeta_ne_zero_of_one_le_re` discovery (§4), several sm
 
 None of these individually addresses the counting residual. They are boundary-nonvanishing pieces that would be reusable if a certified contour count were ever attempted.
 
+### Multiplicity — corrected characterization
+
+An earlier version of this document listed "multiplicity handling" as if simplicity of individual zeros might be required. That is imprecise. For an argument-principle-based count, zeros are naturally counted WITH multiplicity. To conclude finite-height RH below 15 by exhaustion, we do NOT need to prove any critical-line zero simple IF:
+- total zero multiplicity in the region equals some finite N (from the count);
+- at least N certified critical-line zeros exist in the region (from r120/r324/etc.).
+Then the on-line zeros exhaust the multiplicity budget and no off-line zero is possible. The correct requirement on the counting apparatus is therefore that it counts multiplicity correctly, not that individual zeros be separately proved simple.
+
 ## 8. Verdict per DIRECTIVE Part XII
 
 **If the smallest correct residual requires general argument principle + winding number + substantial certified complex ζ numerics, freeze finite-height RH there.**
@@ -183,14 +232,15 @@ That is exactly the situation. The B residual (EXACT TOTAL COUNT of nontrivial �
 
 ## 9. What HAS been achieved
 
-The r120 → r315 → r323 → r324 chain established:
+The r120 → r315 → r323 → r324 → r325 chain established:
 
 - ≥ 1 literal `Complex.riemannZeta` zero on the critical line with `0 < Im s < 15` (r324, tightened from r120).
 - `Complex.riemannZeta ⟨1/2, 15⟩ ≠ 0` (r323).
 - Positive on-line ζ ordinates form a countable set (r280).
 - Full RH conditionally reduced to Hardy 1914 + HP-program (r255).
+- **The classical entire Riemann ξ exists in PF as `riemannXiEntire` (r325), with its zeros in the open critical strip PROVED equal to the zeros of literal `Complex.riemannZeta`.** No pole bookkeeping needed for any future argument-principle-based count that uses this object.
 
-These are real literal-ζ results. The finite-height statement remains open pending the counting infrastructure.
+These are real literal-ζ results. The finite-height statement remains open pending the argument-principle apparatus + certified boundary nonvanishing of `riemannXiEntire`.
 
 ## 10. Recommendation
 
