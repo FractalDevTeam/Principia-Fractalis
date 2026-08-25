@@ -64,19 +64,48 @@ Once an exact total finite count N is available (from B), r280 is redundant. Bef
 
 ### Route CR-A — Meromorphic ζ contour count via argument principle
 
-Contour: boundary of a rectangle avoiding the pole `s = 1` and all ζ zeros. E.g., `[ε, 1 - ε] × [0, 15]` (offset from `Re = 0` and `Re = 1` since ζ has no zeros there per classical results, but formalized: only zero-free at `Re s ≥ 1` for `s ≠ 1` per mathlib presently; `Re s = 0` non-vanishing is nontrivial).
+Contour: boundary of a rectangle enclosing the nontrivial-zero region and avoiding the pole `s = 1` and all ζ zeros.
 
-Argument principle: `(1 / (2πi)) ∮_γ ζ'/ζ = (zero count in γ interior)` (since ζ has no poles inside the offset rectangle).
+**Update (2026-08-25, this section revised):** mathlib provides
+`riemannZeta_ne_zero_of_one_le_re : 1 ≤ s.re → riemannZeta s ≠ 0`
+(`Mathlib/NumberTheory/LSeries/Nonvanishing.lean:407`, Hadamard /
+de la Vallée-Poussin, ≈ Prime Number Theorem prerequisite).  This is
+UNCONDITIONAL and covers the entire closed half-plane `Re s ≥ 1`,
+including the boundary line `Re s = 1` and the pole `s = 1` itself
+(mathlib's junk value at `s = 1` happens to be nonzero).
 
-**Required (all simultaneously):**
-- General meromorphic argument principle in mathlib — ABSENT.
-- ζ'/ζ integrability along the contour — needs certified nonvanishing at all contour points.
-- Nonvanishing of ζ along the entire contour — nontrivial at `Re = ε` for small ε.
-- Winding-number computation certified to integer precision.
-- Multiplicity handling.
-- Boundary handling `Im s = 15`: r323's `riemannZeta_ne_zero_at_critical_15` handles the top-boundary intersection with the critical line, but not the corners `⟨ε, 15⟩` or `⟨1-ε, 15⟩`.
+Consequence: on the boundary of the rectangle `[0, 1] × [0, 15]`, the
+right side `Re s = 1, Im s ∈ [0, 15]` is **already certified nonvanishing**
+by mathlib. No ε-offset from `Re s = 1` is required.
 
-**Estimate:** cannot be estimated as a bounded PF task without scoping each of the seven pieces above. Not attempted.
+Argument principle: `(1 / (2πi)) ∮_γ ζ'/ζ = (zero count in γ interior)`,
+where γ can be taken as the boundary of `[0, 1] × [0, 15]` (with the
+pole at s = 1 lying ON the boundary corner, requiring careful contour
+choice — e.g., a small semicircular detour or an ε-offset from the
+`Im s = 0` axis, since `Re s ≤ 0` needs the functional equation to
+derive zero-freeness).
+
+**Required (all simultaneously), with mathlib coverage marked:**
+- General meromorphic argument principle in mathlib — **ABSENT**.
+- `Re s = 1` side of contour zero-free — **PRESENT** via
+  `riemannZeta_ne_zero_of_one_le_re`.
+- `Re s = 0` side of contour: needs functional equation + Re ≥ 1
+  result — **derivable in principle from mathlib's `riemannZeta_one_sub`
+  + `riemannZeta_ne_zero_of_one_le_re`, but not landed as a named
+  theorem.**
+- `Im s = 0` bottom side: nontrivial zeros come in complex-conjugate
+  pairs (so real-line zeros in `(0, 1)` would contradict; but this
+  is not obviously formalized as `∀ σ ∈ (0, 1), riemannZeta σ ≠ 0`).
+- `Im s = 15` top side: r323 handles the critical-line point
+  `⟨1/2, 15⟩`; nonvanishing at ALL `⟨σ, 15⟩` for `σ ∈ (0, 1)` is
+  NOT formalized.
+- Winding-number computation certified to integer precision — ABSENT.
+- Multiplicity handling — ABSENT.
+
+**Net status after mathlib discovery.** The right side of the contour is
+free; the left side is derivable via functional equation but unlanded;
+the top and bottom sides plus the argument-principle apparatus remain
+absent. Not attempted.
 
 ### Route CR-B — Completed-zeta contour count with pole bookkeeping
 
@@ -123,6 +152,23 @@ The single most useful step toward B, given current mathlib state, is a **certif
 
 But this is a certified-numerics enterprise (per r120's scale: 14 segments, 474 panels, 165 kernel-decide bricks — for ONE integral). Extending to a closed contour with multiple sides, with the argument principle infrastructure additionally in place, is significantly larger than r120's project scope. Not bounded.
 
+### Smaller intermediate landings potentially available
+
+Given the mathlib `riemannZeta_ne_zero_of_one_le_re` discovery (§4), several small named-theorem landings now become trivially available:
+
+1. `riemannZeta_ne_zero_at_top_right_corner :
+   ∀ σ : ℝ, 1 ≤ σ → riemannZeta ⟨σ, 15⟩ ≠ 0` — one-line specialization of
+   mathlib's theorem at `Im s = 15`.
+2. `riemannZeta_ne_zero_on_re_one_line :
+   ∀ t : ℝ, riemannZeta ⟨1, t⟩ ≠ 0` — one-line specialization.
+3. A functional-equation-based left-side companion:
+   `riemannZeta_ne_zero_of_re_le_zero_and_ne_neg_two_mul_nat_add_one`
+   — derivable from `riemannZeta_one_sub` + `riemannZeta_ne_zero_of_one_le_re`
+   + Gamma nonvanishing at those points, but requires care around the
+   trivial zeros `s = -2, -4, ...`.
+
+None of these individually addresses the counting residual. They are boundary-nonvanishing pieces that would be reusable if a certified contour count were ever attempted.
+
 ## 8. Verdict per DIRECTIVE Part XII
 
 **If the smallest correct residual requires general argument principle + winding number + substantial certified complex ζ numerics, freeze finite-height RH there.**
@@ -150,7 +196,9 @@ These are real literal-ζ results. The finite-height statement remains open pend
 
 **NO NEW LANDING RECOMMENDED at this time.** Per DIRECTIVE Part XII, freeze finite-height RH here.
 
-If further work is authorized on this axis, the smallest genuinely-productive next step is a **certified boundary-nonvanishing lemma** — e.g., `∀ σ ∈ [ε, 1-ε], riemannZeta ⟨σ, 15⟩ ≠ 0` for some explicit ε — which would contribute one side of the rectangular contour without requiring the full argument-principle apparatus. But this itself would require substantial extension of r120/r315-style quadrature machinery, and would not close the residual alone.
+**Note added 2026-08-25:** the mathlib `riemannZeta_ne_zero_of_one_le_re` discovery (§4) reduces the number of missing contour sides from four to two (bottom `Im s = 0` and top `Im s = 15`), plus the functional-equation-derived left side (`Re s ≤ 0` for non-trivial-zero points) which is derivable but unlanded.
+
+If further work is authorized on this axis, the smallest genuinely-productive next step is a **certified critical-strip top-side nonvanishing lemma** — `∀ σ ∈ (0, 1), riemannZeta ⟨σ, 15⟩ ≠ 0` — which would contribute the top side of the rectangular contour. This would require certified numerical evaluation of ζ along the top edge for σ ∈ (0, 1), extending r120/r315-style quadrature machinery. Still would not close the residual alone (bottom side + argument principle apparatus remain missing), but would be a real substantive step.
 
 ---
 
