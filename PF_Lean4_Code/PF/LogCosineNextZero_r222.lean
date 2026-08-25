@@ -66,6 +66,12 @@ Empirical numbers are docstring-only; the theorem below is the exact
 * NOT a resolution of the DESI–CMB tension.
 * IS the exact derivation of the `√3` shift from `logFrequency = 2π / ln 3`,
   showing the shift is a **function of `logFrequency` alone**.
+* NOT an independent substrate derivation of `√3`.  Per r220's docstring
+  correction (2026-08-24), `logFrequency = 2π / ln 3` is itself a
+  NORMALIZATION CHOICE — the value chosen so that `logModulation` completes
+  one full 2π-cycle per triadic scale step.  The √3 shift is downstream of
+  that normalization (`sqrt_three_from_logFrequency`, `sqrt_three_eq_exp_pi_div_logFrequency`).
+  See `codex/R220_R222_LOG_FREQUENCY_ORIGIN_AUDIT_2026-08-24.md`.
 
 No `sorry`, no `native_decide`, no `axiom`, no `Prop := True`. Kernel-only.
 -/
