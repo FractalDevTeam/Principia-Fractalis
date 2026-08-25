@@ -5,6 +5,26 @@
 **Companions:** `codex/ALPHA_SKELETON_INTRINSIC_ORIGIN_AUDIT_2026-08-24.md`, `codex/ALPHA_SKELETON_STRUCTURAL_LAW_PROVENANCE_2026-08-24.md`
 **Deliverable:** the READ-ONLY transcendental-carrier audit mandated by the post-r320 directive.
 
+> **POST r220/r222 AUDIT RECONCILIATION — 2026-08-24 (same day, later).**
+>
+> The class-B candidate recommended in §13 below (the r222 ω-inversion,
+> `logFrequency_characterized_by_sqrt3_shift`) is **REVOKED**. A focused
+> semantic audit of r220 and r222 (`codex/R220_R222_LOG_FREQUENCY_ORIGIN_AUDIT_2026-08-24.md`)
+> established that the premise "√3-adjacent-zero shift" is not independently
+> derived; it is a downstream consequence of the same definitional
+> `logFrequency := 2π / log 3` the theorem was proposed to characterize.
+> The proposed theorem is a definitional restatement dressed as a
+> characterization, not a genuine class-B result.
+>
+> **Corrected count:** 0 class-A π-generators formalized; 0 class-B
+> π-characterizations formalized; **0 known tractable class-B candidates**
+> (previously stated as "1 tractable class-B candidate — retracted).
+>
+> The rest of this audit's factual content is unchanged — the survey,
+> the absences, the classification distribution. Only the recommendation
+> in §13 is retracted. The status locked into subsequent research is
+> the one recorded in the r220/r222 companion audit's §11.
+
 The central question this document answers:
 
 > **Does Principia Fractalis already contain an α-independent canonical object from which π emerges as a theorem output rather than as a definitional input?**

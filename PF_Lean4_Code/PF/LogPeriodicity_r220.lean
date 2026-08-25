@@ -30,23 +30,37 @@ Two consequences, both in the kernel below:
   (`arg_S_pow_three`, §3).  The phase advances by `arg χ` per factor of 3 in
   `N`, i.e. it is **periodic in `ln N` with period `ln 3`**.
 
-Hence the modulation is log-periodic and its frequency is fixed by the base
-alone:
+Hence the modulation is log-periodic.  The **scale period** is fixed by the
+base alone:
 
-    logPeriod     =  ln 3          =  1.0986122886681098
-    logFrequency  =  2π / ln 3     =  5.719202...
-    logFrequency · logPeriod = 2π                       (`logFrequency_mul_logPeriod`)
+    logPeriod  =  ln 3  =  1.0986122886681098    ← substrate-forced.
 
-**There is no free parameter in that frequency.**  It is not fitted, not tuned,
-and does not depend on `ω`, on `α`, or on any amplitude.  Only the base 3
-enters.  That is rare, and it is the reason this stone exists.
+The **frequency** used by the separately-defined `logModulation` is set by
+CONVENTION so that one full 2π-cycle of the cosine corresponds to one triadic
+scale step:
+
+    logFrequency  =  2π / ln 3  =  5.719202...   ← normalization choice.
+    logFrequency · logPeriod = 2π                (`logFrequency_mul_logPeriod`)
+
+**Distinction — corrected 2026-08-24 per
+`codex/R220_R222_LOG_FREQUENCY_ORIGIN_AUDIT_2026-08-24.md`.**  An earlier
+version of this docstring claimed the frequency itself is "fixed by the base
+alone" with "no free parameter."  That overstates.  What the base fixes is
+the scale ratio `logPeriod = log 3`.  The actual per-triadic-step phase
+advance of the summatory function `S` is `arg χ(ω)` (`phase_advance_per_triadic_step`
+below), which VARIES WITH `ω`: at `ω = i` the advance is `π/2`, at `ω = -1` it
+is `0`, and §5's matrix promotion carries two independent eigenphases at once
+(`Mtwo_two_log_frequencies`).  The value `2π` per triadic step corresponds to
+imposing "one full cosine revolution per triadic step" on the separately-defined
+`logModulation`; it is not a substrate output.  The `logFrequency ·
+logPeriod = 2π` identity is arithmetic about the definitions.
 
 The physics-facing form is `logModulation_three_mul` (§3):
 
     cos( (2π / ln 3) · ln x + φ₀ )   is invariant under   x ↦ 3x
 
 for every phase offset `φ₀` and every `x > 0`.  One full period of the
-modulation per factor of 3 in scale.
+`logModulation` cosine per factor of 3 in scale, at the chosen frequency.
 
 ## §0.1 What supplies the Ω paper's missing content
 
@@ -269,8 +283,14 @@ so the amplitude is a pure power law in `N` and the phase is **linear in
 /-- **The log-period.**  `ln 3 = 1.0986122886681098`. -/
 noncomputable def logPeriod : ℝ := Real.log 3
 
-/-- **The log-frequency.**  `2π / ln 3 = 5.719202...`  No free parameter: only
-the base 3 enters. -/
+/-- **The log-frequency.**  `2π / ln 3 = 5.719202...`  This is a
+NORMALIZATION CHOICE for the separately-defined `logModulation` cosine:
+one full 2π-cycle per triadic scale step.  The substrate-forced quantity
+is the log-period `logPeriod = log 3`, not this frequency; see
+`phase_advance_per_triadic_step` for the actual per-triadic-step phase
+advance of the summatory function `S`, which is `arg χ(ω)` and varies
+with `ω` (r220 §4-§5 witnesses).  Corrected 2026-08-24 per
+`codex/R220_R222_LOG_FREQUENCY_ORIGIN_AUDIT_2026-08-24.md`. -/
 noncomputable def logFrequency : ℝ := 2 * π / Real.log 3
 
 theorem log_three_pos : 0 < Real.log 3 := Real.log_pos (by norm_num)
@@ -595,10 +615,21 @@ theorem matrix_promotion_summary :
 
 1. The exact renormalisation `S(ω, 3^{k+1}) = χ(ω) · S(ω, 3^k)`, for every `ω`.
 2. The normalised fluctuation is invariant, hence constant, wherever `χ ≠ 0`.
-3. The phase advances by exactly `arg χ` per factor of 3 (in `ℝ/2πℤ`).
-4. The log-period is `ln 3` and the log-frequency is `2π/ln 3`, and their
-   product is `2π` — **no free parameter**.
-5. The modulation `cos((2π/ln 3)·ln x + φ₀)` is invariant under `x ↦ 3x`.
+3. The phase advances by exactly `arg χ(ω)` per factor of 3 (in `ℝ/2πℤ`).
+   **`arg χ(ω)` is ω-dependent** — see §4-§5.
+4. The log-**period** is `ln 3` — **substrate-forced** (scale ratio between
+   triadic levels).  The log-**frequency** `2π/ln 3` used by the separately-
+   defined `logModulation` is a **normalization choice** (one 2π-cycle per
+   triadic step).  Their product is `2π` by the definition of `logFrequency`.
+5. At that chosen frequency, the modulation `cos((2π/ln 3)·ln x + φ₀)` is
+   invariant under `x ↦ 3x`.
+
+Corrected 2026-08-24 per `codex/R220_R222_LOG_FREQUENCY_ORIGIN_AUDIT_2026-08-24.md`:
+an earlier statement of point 4 called the frequency itself "no free parameter."
+The base fixes the scale ratio; the frequency is a normalization on the
+separately-defined `logModulation`.  See §4's `chi_I`, `chi_neg_one`, `arg_chi_I`
+and §5's `Mtwo_two_log_frequencies` for the substrate's actual ω-dependent
+phase advance.
 
 This says nothing about the CMB, nothing about cosmic structure, and nothing
 about physical reality.  See §0.2 and §0.3. -/
