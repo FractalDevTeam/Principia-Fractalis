@@ -100,4 +100,10 @@ using `approx` and `decide +kernel`. The `interval` tactic, which uses
    same residual by a Taylor-remainder route but still requires an unproven uniform
    second-derivative bound. It is superseded scaffolding and must not be cited as
    support.
-5. **Not independently reviewed.** No external referee has checked this.
+5. **MHI majorants are outward-rounded in box 0.** 680 of the 720 M certificates
+   use `MHI = 2*sum(B_n)` exactly. The 40 in box 0 (produced by the older
+   generator) are rounded outward, i.e. LOOSER; none is tighter. A looser
+   majorant enlarges the quadrature error term and therefore widens the
+   certified interval, so the direction is the sound one and the achieved
+   margin is smaller than the theoretical best. See `MHI_OVERRIDE_TABLE.md`.
+6. **Not independently reviewed.** No external referee has checked this.
