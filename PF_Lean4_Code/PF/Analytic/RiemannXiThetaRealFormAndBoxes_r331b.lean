@@ -990,10 +990,15 @@ lemma box0_B_hi_bound {σ : ℝ}
 uniformly over `σ ∈ [1/2, 9/16]`, conclude `Re ξ(σ+15i) < -1/10000`
 for `σ ∈ [1/2, 9/16]`.
 
-The `BoxReEnclosure` / `BoxImEnclosure` premises are the SOLE remaining
-load-bearing pieces for r331b box 0.  They will be discharged in a later
-stage by certified u-panel enclosures + §8 envelope integration.  Until
-then this theorem is LOCAL scaffolding — not pushed. -/
+The `BoxReEnclosure` / `BoxImEnclosure` premises were the SOLE remaining
+load-bearing pieces for r331b box 0.
+
+**STATUS 2026-09-05: DISCHARGED.**  `RiemannXiBox0Bridge` supplies both
+enclosures from certified u-panel enclosures plus one application of the §8
+envelope, and `RiemannXiBox0Bridge.top15_box0_re_lt_neg_1e4` is the
+unconditional consequence.  All 18 boxes of the partition of `[1/2, 1]` are
+closed the same way.  This theorem is no longer scaffolding; it is the
+conditional core that the box-0 bridge instantiates. -/
 theorem top15_box0_re_lt_neg_1e4_conditional
     (h_R : PrincipiaTractalis.RiemannXiThetaBoxEnclosure.BoxReEnclosure
              ((1 : ℝ) / 2) (9/16) 15 (2221/500000) 1)

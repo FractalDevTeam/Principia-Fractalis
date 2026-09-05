@@ -1,6 +1,14 @@
 /-
 # r330 — TOP EDGE SCAFFOLDING FOR THE T=15 RIEMANN ξ RECTANGLE
 
+**STATUS 2026-09-05: SUPERSEDED — NOT part of the proved chain.**
+This module reaches `H_TOP` only CONDITIONALLY: `H_TOP_of_taylor_hypotheses`
+still requires the unproven uniform bound `|f''| ≤ 1/1000` on `[1/2, 1]` as
+its `hTaylor` argument.  The r331b box route discharges `H_TOP`
+unconditionally (`RiemannXiTopUnion.H_TOP_discharged`) and is what
+`RiemannXiT15Endgame` consumes.  Nothing here is load-bearing for the
+released result, and this module must not be cited as supporting it.
+
 ★ 2026-08-25.  Prepares the T1 Taylor-shortcut route to `H_TOP` per the
   r330 directive: instead of building a general 2D interval-arithmetic
   engine, tries to close the top-half-edge sign statement by exploiting
