@@ -183,3 +183,81 @@ For a theorem claimed to be unconditional, additionally run
 The `@` form shows every binder, implicits included. A genuinely unconditional theorem
 shows **no binders at all**. Reading the source for absent hypotheses is not
 equivalent — elaboration can introduce them.
+
+---
+
+## C1 SCOPE AMENDMENT — 2026-09-06
+
+**C1 covers the r331b chain. The pre-r331b corpus is excluded, deliberately and on
+the record.**
+
+### What C1 rebuilds from committed source
+
+Everything this release asserts, and nothing else:
+
+- all 4835 generated files (4115 panel modules + 720 M certificates)
+- the box-parametric core, the section-8 envelope, `RiemannXiThetaRealFormAndBoxes_r331b`
+- all 18 `RiemannXiBox<K>Bridge` modules and their `BridgeAudit` companions
+- `RiemannXiTopUnion` + `RiemannXiTopUnionAudit`
+- `RiemannXiT15Endgame`
+- every other file this branch adds or modifies relative to `96c71da7`, including
+  the F5 documentation edits to r328, r330 and the r331b real-form module
+
+Operationally the rebuild set is defined mechanically, not by hand:
+
+    git diff --name-only 96c71da7..HEAD   ->   delete those modules' build artifacts
+                                               ->   rebuild them from source
+
+### What C1 excludes, and why
+
+The pre-r331b PF corpus is **tracked and unmodified at public HEAD `96c71da7`**. It is
+already the published, built state that the world has. Re-elaborating it would
+re-verify what this release does not assert.
+
+The threat model for this gate is **our generation pipeline** — the emitters, the
+manifest, the bridge and union assembly. That is exactly what the rebuild set above
+covers. Code we did not write and did not change in this release is a dependency, in
+the same category as mathlib.
+
+### Infrastructure limit observed while establishing this
+
+Attempting the unscoped full-tree rebuild failed three times on the Acer (15.7 GB
+RAM, ~13 GB available), each time OOM-killed during the dependency replay phase on a
+**pre-r331b** module, near `Interval.Interval.Sincos` / `PF/Analytic/XiPanels`:
+
+| attempt | cgroup cap | outcome |
+|---|---|---|
+| 2026-09-05 17:22 | MemoryMax=13G | OOM at 29 min |
+| 2026-09-06 08:00 | MemoryMax=14.5G | OOM at 2 min |
+| 2026-09-06 08:03 | none | OOM at 2 min |
+
+Removing the cgroup cap did not help, so this is a genuine single-process peak above
+available RAM, not a `MemoryMax` page-cache artefact. Serialization was already
+maximal (`CPUAffinity=0`, so `nproc=1`, one lake job at a time).
+
+**This is an infrastructure limit, not a soundness statement.** It says one pre-r331b
+module needs more memory than this hardware has spare today. It says nothing about
+whether that module is correct — it was built successfully in the past and its olean
+is present and consumed. Nothing in the r331b chain approaches this bound: the
+heaviest r331b panel peaked at 12.6 GB across the entire campaign.
+
+If the full-tree rebuild is wanted later it needs a larger-memory host, and the
+bisect to find the true peak has not been done.
+
+### Consequence for the release text
+
+The release note must not claim "builds clean from scratch" without qualification. The
+accurate claim is: **every artifact this release contributes rebuilds from committed
+source on stock hardware, against a pinned, unmodified dependency base.**
+
+## POLICY — supervisors are mandatory
+
+No build unit runs unsupervised. Every long-running unit must be paired with a
+supervisor that detects death and resumes, with a capped retry count and a refusal to
+restart on a genuine build failure (as opposed to a kill).
+
+This is policy because of three separate idle incidents in this campaign: a worker
+that finished and was never chained (~9 h), and a C1 unit that was OOM-killed while
+its sibling half had never been launched at all (~15 h). In each case the machines sat
+idle and nothing reported it. A watcher that only reports is insufficient — it must
+resume.
