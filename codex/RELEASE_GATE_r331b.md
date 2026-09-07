@@ -219,30 +219,38 @@ manifest, the bridge and union assembly. That is exactly what the rebuild set ab
 covers. Code we did not write and did not change in this release is a dependency, in
 the same category as mathlib.
 
-### Infrastructure limit observed while establishing this
+### ERRATUM 2026-09-06 — the "RAM wall" claim was overstated
 
-Attempting the unscoped full-tree rebuild failed three times on the Acer (15.7 GB
-RAM, ~13 GB available), each time OOM-killed during the dependency replay phase on a
-**pre-r331b** module, near `Interval.Interval.Sincos` / `PF/Analytic/XiPanels`:
+**The earlier version of this section is withdrawn.** It asserted that a pre-r331b
+module has a single-process memory peak above this hardware's available RAM, citing
+three OOM kills (13 GB cap, 14.5 GB cap, no cap). That inference was wrong.
 
-| attempt | cgroup cap | outcome |
-|---|---|---|
-| 2026-09-05 17:22 | MemoryMax=13G | OOM at 29 min |
-| 2026-09-06 08:00 | MemoryMax=14.5G | OOM at 2 min |
-| 2026-09-06 08:03 | none | OOM at 2 min |
+All three runs used a driver that issued **one `lake build` per box**. A single lake
+process therefore elaborated roughly 280 modules in sequence and accumulated memory
+across them until the kernel killed it — reliably at about the five-minute mark,
+regardless of the cgroup setting, which is why removing the cap changed nothing. The
+campaign's established discipline is **one lake invocation per module**, each process
+exiting and releasing its memory; that discipline was not carried into the rebuild
+driver. Once it was, the same tree builds cleanly at normal campaign figures
+(~210 s and ~10.4 GB for a heavy panel, well inside the machine).
 
-Removing the cgroup cap did not help, so this is a genuine single-process peak above
-available RAM, not a `MemoryMax` page-cache artefact. Serialization was already
-maximal (`CPUAffinity=0`, so `nproc=1`, one lake job at a time).
+What is actually known:
 
-**This is an infrastructure limit, not a soundness statement.** It says one pre-r331b
-module needs more memory than this hardware has spare today. It says nothing about
-whether that module is correct — it was built successfully in the past and its olean
-is present and consumed. Nothing in the r331b chain approaches this bound: the
-heaviest r331b panel peaked at 12.6 GB across the entire campaign.
+- No pre-r331b module has been shown to exceed available RAM. The full-tree rebuild
+  has **not** been attempted with correct per-target serialization, so the question is
+  open, not settled.
+- The one genuinely independent data point — the very first smoke build — ran at
+  `nproc=4` and fanned out in parallel, which is separately sufficient to explain an
+  OOM and therefore proves nothing about any single module.
 
-If the full-tree rebuild is wanted later it needs a larger-memory host, and the
-bisect to find the true peak has not been done.
+**Consequently, C1's scope restriction does NOT rest on a hardware limit.** It rests
+solely on the scope argument above: the pre-r331b corpus is tracked and unmodified at
+public HEAD `96c71da7`, is already the published built state, and lies outside what
+this release asserts. That justification is independent of memory and is the one to
+cite.
+
+If a full-tree rebuild is wanted later, it should be run with per-module invocations
+before any conclusion is drawn about hardware adequacy.
 
 ### Consequence for the release text
 
