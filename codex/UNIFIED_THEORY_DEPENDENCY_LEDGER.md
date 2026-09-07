@@ -1,229 +1,212 @@
 # UNIFIED THEORY DEPENDENCY LEDGER
 
-**Opened:** 2026-09-07. **Re-keyed to the directive's seven classes:** 2026-09-07.
-Machine-readable twin: `UNIFIED_THEORY_DEPENDENCY_LEDGER.json`.
-**Built backward from:** `codex/COMPLETION_THEOREM_DRAFT.md`.
-**Program:** `codex/UNIFIED_THEORY_PROOF_PROGRAM.md`.
-**Charter:** `codex/ALPHA_RIGIDITY_AUDIT_CHARTER_2026-09-01.md` (recovered 2026-09-07;
-blocker B-CHARTER closed).
+**GENERATED FILE — do not hand-edit.** Produced from `UNIFIED_THEORY_DEPENDENCY_LEDGER.json` by `PF_Lean4_Code/scripts/gen_dependency_ledger.py` on 2026-09-07.
+Edit the JSON and re-run the generator. Directive §3 requires the human-readable ledger to be generated from the machine-readable one.
 
-Every node is load-bearing for at least one conjunct of the completion theorem
-draft. Each row was read from the declaration itself, not reconstructed.
+- **Central theorem status:** UNSPECIFIED
+- **Branch:** `r331b-provenance` · **Public HEAD must remain** `96c71da7` · **NO PUSH**
+- **Directive:** `codex/UNIFIED_THEORY_PROOF_DIRECTIVE_2026-09-07.md`
+- **Program:** `codex/UNIFIED_THEORY_PROOF_PROGRAM.md` · **Charter:** `codex/ALPHA_RIGIDITY_AUDIT_CHARTER_2026-09-01.md`
 
 ---
 
-## CLASSIFICATION — the directive's seven classes
+## CLASSIFICATION — directive §3, seven classes
 
-The A–H stand-in used in the first edition is withdrawn. All nodes are re-keyed
-to the directive's classes, received 2026-09-07:
+| key | class |
+|---|---|
+| **C1** | definition-or-convention |
+| **C2** | theorem-derived-from-earlier-foundations |
+| **C3** | independently-motivated-axiom |
+| **C4** | empirical-input |
+| **C5** | conditional-interface |
+| **C6** | unresolved-conjecture |
+| **C7** | recorded-negative-or-refuted |
+| **BLOCKER** | unknown provenance |
 
-| key | class | meaning as applied here |
-|---|---|---|
-| **C1** | definition-or-convention | a choice. Includes values fixed by `def`, and equations that are consequences of those defs (minimal polynomials of chosen values, arithmetic on chosen numerals, target-encoded constraints) |
-| **C2** | theorem-derived-from-earlier-foundations | genuine derivation from mathlib or from previously-established PF results |
-| **C3** | independently-motivated-axiom | assumed, but motivated by something other than the conclusion it serves |
-| **C4** | empirical-input | premised on measurement or finite-precision numerics |
-| **C5** | conditional-interface | an honest `A → B` whose antecedent is stated and non-circular |
-| **C6** | unresolved-conjecture | a named open problem carried as a hypothesis |
-| **C7** | recorded-negative-or-refuted | an established negative result, or a claim refuted |
-| **✖** | **unknown provenance — BLOCKER** | node does not exist, or origin not establishable |
+Two orthogonal flags travel alongside the class, because they are defects rather than provenance: `circular` (premise restates or contains its conclusion) and `vacuous` (conclusion holds by construction). A node can be both a legitimate open conjecture and used circularly; one field cannot carry both facts.
 
-Two orthogonal flags are carried alongside the class, because they are defects
-rather than provenance:
+### §3 field conformance
 
-- `circular` — the premise restates or contains the conclusion it serves.
-- `vacuous` — the conclusion holds by construction and constrains nothing.
+Required per node: `source file`, `fqn`, `deps`, `axioms`, `closed_term`, `rebuilt_from_source`.
 
-A node can be, e.g., C6 + circular: the Prop is a legitimate open conjecture
-*and* it is being used to conclude itself.
+- nodes: **67**
+- nodes with at least one `unverified` required field: **62** — each is a blocker per §3
 
----
-
-## LAYER 1 — THE CONSTRUCTED UNIVERSE
-
-| id | node | file | class | flags | note |
-|---|---|---|---|---|---|
-| N01 | `TimelessFieldRing` (T_∞) | `SubstrateTimelessFieldCompletion.lean` | **C2** | | Algebraic direct limit; `NormedRing`, `StarRing`, `CStarRing`, `NormedAlgebra ℂ`. Real mathematics |
-| N02 | `TimelessFieldCompletion` | `SubstrateTimelessFieldCompletion.lean:82` | **C2** | | `UniformSpace.Completion TimelessFieldRing`; mathlib-native |
-| N03 | C*-structure **on the completion** (r54–r57) | — | **✖** | | Listed by r53 as requiring proof, not auto-inheritance. Unconfirmed. Blocks (U1) |
-| N04 | `SubstrateConfiguration` / `SubstrateEquiv` | — | **✖** | | Does not exist. No `Setoid`/`Quotient` in the substrate module. Blocks (E1) |
-| N05 | `DerivedConstantFunctions` + invariance | — | **✖** | | Does not exist. Blocks (E2). The framework cannot ask whether its constants are invariants |
+Per directive section 3, unknown provenance is a BLOCKER. Every node carrying 'unverified' in a required field is one, and is counted here rather than silently defaulted. Filling them needs a per-node #print axioms / #check @ sweep and a C1-completion check; that sweep is queued, not done.
 
 ---
 
-## LAYER 2 — THE α-SKELETON AND ITS CONSTANTS
+## LAYER 1 — CONSTRUCTED UNIVERSE
 
-### 2a. The nine values — all `CrossMillenniumSharedInvariants.lean:64–88`
+| id | node | class | flags | file | axioms | closed term | rebuilt | note |
+|---|---|---|---|---|---|---|---|---|
+| N01 | TimelessFieldRing | **C2** |  | — | unverified | unverified | unverified | Algebraic direct limit; NormedRing/StarRing/CStarRing/NormedAlgebra C. |
+| N02 | TimelessFieldCompletion | **C2** |  | `PF/SubstrateTimelessFieldCompletion.lean` | unverified | unverified | unverified | UniformSpace.Completion; mathlib-native. |
+| N03 | CStar structure on completion (r54-r57) | **BLOCKER** |  | — | unverified | unverified | unverified |  |
+| N04 | SubstrateConfiguration / SubstrateEquiv | **BLOCKER** |  | — | unverified | unverified | unverified | Does not exist. No Setoid/Quotient in the substrate module. |
+| N05 | DerivedConstantFunctions + invariance | **BLOCKER** |  | — | unverified | unverified | unverified |  |
 
-| id | node | value | class | note |
-|---|---|---|---|---|
-| N06 | `α_Poincare` | `1` | **C1** | r216, in-kernel: "closed by `rfl`… records the numeral chosen in the definition… **not** a statement about Ricci flow… or about the Poincaré conjecture" |
-| N07 | `α_RH` | `3/2` | **C1** | |
-| N08 | `α_YM` | `2` | **C1** | |
-| N09 | `α_P` | `√2` | **C1** | |
-| N10 | `α_NP` | `φ + 1/4` | **C1** | the `1/4` is free (r124 `alpha_offset_is_free`); charter N4: the "forcing" fed φ and 1/4 in and got φ+1/4 out |
-| N11 | `α_Hodge` | `φ` | **C1** | |
-| N12 | `α_QG` | `√(2π)` | **C1** | |
-| N13 | `α_BSD` | `3π/4` | **C1** | r124's free parameter |
-| N14 | `α_NS` | `3π/2` | **C1** | |
-| N14b | `α_PvNP` | `5/4` | **C1** | `PNPClassSeparationPrecisionBridge.lean:457`. A **tenth** anchor outside the 9-tuple. r128 flagged the collision: two different reals under near-identical names. Charter Q1 open |
+## LAYER 2 — ALPHA SKELETON AND CONSTANTS
 
-### 2b. The eight structural laws — every one a convention
+| id | node | class | flags | file | axioms | closed term | rebuilt | note |
+|---|---|---|---|---|---|---|---|---|
+| N06 | alpha_Poincare | **C1** |  | — | unverified | unverified | unverified | r216 in-kernel: closed by rfl, records the chosen numeral, NOT about Ricci flow or the Poincare conjecture. |
+| N07 | alpha_RH | **C1** |  | — | unverified | unverified | unverified |  |
+| N08 | alpha_YM | **C1** |  | — | unverified | unverified | unverified |  |
+| N09 | alpha_P | **C1** |  | — | unverified | unverified | unverified |  |
+| N10 | alpha_NP | **C1** |  | — | unverified | unverified | unverified | 1/4 free (r124). Charter N4: forcing fed phi and 1/4 in, got phi+1/4 out. |
+| N11 | alpha_Hodge | **C1** |  | — | unverified | unverified | unverified |  |
+| N12 | alpha_QG | **C1** |  | — | unverified | unverified | unverified |  |
+| N13 | alpha_BSD | **C1** |  | — | unverified | unverified | unverified | r124's free parameter. |
+| N14 | alpha_NS | **C1** |  | — | unverified | unverified | unverified |  |
+| N14b | alpha_PvNP | **C1** |  | `PF/TuringEncoding/PNPClassSeparationPrecisionBridge.lean` | unverified | unverified | unverified | Tenth anchor outside the 9-tuple; name-collision with alpha_NP flagged by r128. Charter Q1 open. |
+| N15 | L1 hodge_minpoly | **C1** |  | — | unverified | unverified | unverified | Minimal polynomial of phi by construction; mathlib minpoly never invoked. |
+| N16 | L2 p_norm | **C1** |  | — | unverified | unverified | unverified | Minimal polynomial x^2-2 of sqrt 2. |
+| N17 | L3 np_trace | **C1** |  | — | unverified | unverified | unverified | Reduces to 1 + 2*(1/4) = 3/2. |
+| N18 | L4 qg_norm | **C1** |  | — | unverified | unverified | unverified |  |
+| N19 | L5 ns_scaling (alpha_NS = alpha_RH * pi) | **C1** |  | — | unverified | unverified | unverified | Was the sole narrative-only law and r124's free-parameter closer. Now provably not derivable on the K-theoretic trace route. |
+| N19b | pi_not_ktheoretic_ratio (r332.A) | **C7** |  | `PF/AlphaL5PiScalingObstruction_r332.lean` | [propext, Classical.choice, Quot.sound] | no (hypothetical: MemZ13 a, MemZ13 b) | yes (built 2026-09-07 in ACTIVE tree) | For all a,b in Z[1/3], b/a != pi. Kernel-green, mathlib three, non-vacuity proved (r332.E), a!=0 shown unnecessary (r332.F). |
+| N19c | alpha_ns_div_alpha_rh_eq_pi (r332.D) | **C1** |  | — | [propext, Classical.choice, Quot.sound] | yes | yes (built 2026-09-07 in ACTIVE tree) | alpha_NS/alpha_RH = pi by ring after unfolding. True of the chosen numerals, unreachable from the invariant. |
+| N20 | I6 bsd_gauge | **C1** |  | — | unverified | unverified | unverified | 3pi/2 = 2*(3pi/4). GaugeInvariance exists in name only. |
+| N21 | I7 ym_shift | **C1** |  | — | unverified | unverified | unverified | 2 = 1 + 1. Most-cascading law under drop (destroys 4 alphas). |
+| N22 | I9 rh_prod | **C1** |  | — | unverified | unverified | unverified | (3/2)*2 = 3. |
+| N23 | alpha_skeleton_unique (r128) | **C5** |  | — | unverified | unverified | unverified | Rigid GIVEN N15-N22, all of which are C1. Rigidity-given-conventions. |
+| N24 | alpha_web_admits_every_positive_BSD (r124) | **C7** |  | — | [propext, Classical.choice, Quot.sound] | yes (forall t, no hypothesis bundle) | unverified |  |
+| N25 | invariant_two/eight_is_redundant (r124) | **C7** |  | — | unverified | unverified | unverified |  |
+| N26 | IsIntrinsic | **BLOCKER** |  | — | unverified | unverified | unverified |  |
+| N27 | Perelman anchor | **C1** |  | — | unverified | unverified | unverified | C3 by pedigree, but enters as def alpha_Poincare := 1. Charter 5.7: does not independently assign the value. |
+| N27b | trace-range obstruction (charter N2, r113+r123) | **C7** |  | `PF/AlphaFromSubstrateKTheory_r123.lean` | [propext, Classical.choice, Quot.sound] | yes | unverified | Substrate trace range is Z[1/3]; 7 of 9 alphas lie outside it. |
 
-The 2026-08-24 provenance audit found **zero** intrinsic derivations. Under the
-seven classes all eight are **C1**: they are consequences of the chosen values,
-not independent constraints on them.
+## LAYER 3 — CLAY SECTORS AND BRIDGES
 
-| id | law | equation | class | flags | note |
-|---|---|---|---|---|---|
-| N15 | L1 | `α_Hodge² = α_Po·α_Hodge + α_Po` | **C1** | | minimal polynomial of `φ` by construction; mathlib `minpoly` never invoked |
-| N16 | L2 | `α_P² = α_YM` | **C1** | | minimal polynomial `x²−2` of `√2`; no substrate spectrum proved to contain `√2` |
-| N17 | L3 | `α_Po + 2(α_NP − α_Hodge) = α_RH` | **C1** | | reduces to `1 + 2(1/4) = 3/2`; no bridge forces `q = 1/4` |
-| N18 | L4 | `α_QG² = α_YM·π` | **C1** | | minimal polynomial of `√(2π)` |
-| N19 | **L5** | `α_NS = α_RH · π` | **C1** | **SETTLED** | Was the sole narrative-only law and r124's free-parameter closer. **r332 (2026-09-07) settles it — see N19b.** Reclassified from "unsupported narrative" to C1: it is a convention, now provably not derivable on the route the corpus has |
-| N20 | I6 | `α_NS = α_YM·α_BSD` | **C1** | | `3π/2 = 2·(3π/4)`; `GaugeInvariance` exists in name only |
-| N21 | I7 | `α_YM = α_Poincaré + 1` | **C1** | | the assertion `2 = 1 + 1`. Most-cascading law under drop (destroys 4 α's) |
-| N22 | I9 | `α_RH·α_YM = 3` | **C1** | | `(3/2)·2 = 3`. The `3` is the only constant plausibly from the base-3 substrate; no theorem links them |
-
-### 2c. Results about the skeleton
-
-| id | node | file | class | note |
-|---|---|---|---|---|
-| N23 | `alpha_skeleton_unique` | `AlphaSkeletonUniqueness_r128.lean` | **C5** | Honest conditional: rigid **given** N15–N22. Since all eight are C1, the rigidity is rigidity-given-conventions |
-| N24 | `alpha_web_admits_every_positive_BSD` | `AlphaWebDegreesOfFreedom_r124.lean` | **C7** | For every `t > 0` an assignment satisfies all eleven invariants with `α_BSD = t` |
-| N25 | `invariant_two/eight_is_redundant` | r124 | **C7** | Two of the eleven invariants carry no information |
-| N26 | `IsIntrinsic` | — | **✖** | Does not exist. Blocks (K0), hence all of (K) |
-| N27 | Perelman anchor | — | **C1** | Perelman 2002–03 is a real theorem (**C3** in itself), but it enters as `def α_Poincare : ℝ := 1`. Charter §5.7: the assignment "does not independently assign the α-value". Classified by how it enters, not by its pedigree |
-| **N19b** | **`pi_not_ktheoretic_ratio` (r332)** | `AlphaL5PiScalingObstruction_r332.lean` | **C7** | **NEW 2026-09-07.** `∀ a b ∈ ℤ[1/3], b/a ≠ π`. Kernel-green, mathlib three, non-vacuity proved (r332.E). Closes L5 against the K-theoretic trace route |
-| N19c | `alpha_ns_div_alpha_rh_eq_pi` (r332.D) | same | **C1** | `α_NS/α_RH = π` by `ring` after unfolding. The identity is true *of the chosen numerals* and unreachable from the invariant — the definition of target-encoded |
-| N27b | Trace-range obstruction (charter N2, r113+r123) | `AlphaFromSubstrateKTheory_r123.lean:326` | **C7** | Substrate trace range is `ℤ[1/3]`; seven of nine α's lie outside it. r332 is its ratio-level completion |
-
-**Layer 2 verdict:** no α-value is derived. All eight structural laws are
-conventions. As of r332 the last of them with an open derivation question is
-closed negatively. **The framework has no derived constants on the route it has.**
-
----
-
-## LAYER 3 — THE CLAY SECTORS AND THEIR BRIDGES
-
-### 3a. Statement definitions
-
-| id | node | class | faithful? |
-|---|---|---|---|
-| N28 | `RiemannHypothesis` (`SpectralBijection.lean:512`) | **C2** | **YES** — literal RH on mathlib `riemannZeta` |
-| N29 | `Clay_RiemannHypothesis_Standard := RiemannHypothesis` | **C2** | **YES** |
-| N30–N34 | `Clay_{PvsNP,NavierStokes,YangMills,BSD,Hodge}_Standard E` | **C5** | shape faithful; **faithfulness delegated to `E`** |
-
-### 3b. The encodings — where faithfulness is won or lost
-
-| id | node | file | class | flags | verdict |
-|---|---|---|---|---|---|
-| N35 | `PF_ComplexityEncoding` | `PNPCapstoneTypedBridge.lean:41`; `TuringEncoding/Complexity.lean:106,143` | **C2** | | **Apparently faithful** — real TMs, poly bounds, Cook-1971 certificates. Blocker B-TM: `Machine`/`turingTimeComplexity` unaudited |
-| N36 | `PF_NS3DEncodingV2` / `NS3DRegularitySolutionV2` | `NS3DRegularitySolutionV2.lean:142,201` | **C1** | | **NOT faithful.** 5-conjunct predicate, three conjuncts are mathlib-*availability flags*. Does not assert global-in-time smooth existence |
-| N37 | `PF_YMEncodingBridge5` | `Bridge5_YM_SubstrateDischarge.lean:342` | **C1** | | **NOT faithful.** Finite-dimensional substrate model; `massGap := T.v4.v3.v2.Δ` |
-| N38 | `GlimmJaffe_OS_SU2_TypedAnchor` | `:226` | **C1** | **vacuous** | `def : Prop := True` |
-| N39 | `StreaterWightman_SU2_TypedAnchor` | `:243` | **C1** | **vacuous** | `def : Prop := True` |
-| N40 | `OsterwalderSchrader_SU2_TypedAnchor` | `:262` | **C1** | **vacuous** | `def : Prop := True` |
-| N41 | `OSRP_Compatible_Interacting_Ham_Open` | `YM_Wave56ContinuumLiftAttempt.lean:364` | **C6** | | Open by its own name |
-| N42 | `PF_BSDEncodingV5` | `BSDCapstoneTypedBridgeV5.lean:193,196,305` | **C1** | **vacuous** | `algebraicRankV5 = analyticRankV5 = manuscriptRankV5`, the same function. Equality by `rfl`; returns `0` off a 20-curve list |
-| N43 | `PF_HodgeEncoding` | `HodgeCapstoneTypedBridge.lean:55` | **C1** | | **NOT faithful.** Own docstring: "substrate-level only… not literal geometric algebraicity by an explicit cycle" |
-| N44 | `PF_HodgeEncoding_FullGeneral` | `Voisin2007GeneralQuinticPrecision.lean:496` | **C5** | | **Genuine cycle witnesses.** The right foundation for a faithful Hodge sector; unused by the headline |
-
-### 3c. The premise bundles
-
-| id | node | class | flags | verdict |
-|---|---|---|---|---|
-| N45 | `ClayClosureBundleBulletproof` | **C6** | **circular** | Fields `rh_hp_T3sym_positive` + `rh_hp_program_positive` compose by modus ponens to the RH conclusion |
-| N46 | `PF_T3SymIsHilbertPolyaOperator_Positive` | **C6** | | Named open conjecture, honestly carried |
-| N47 | `HilbertPolyaProgramConjecture_Positive` | **C6** | **circular** | Content: `PF_T3Sym…_Positive → RiemannHypothesis` |
-| N48 | `Mayer1991_Cohen2025_…_citation` (`:222`) | **C6** | **circular** | Definitionally equal to N47; r301 carries it a **second** time |
-| N49 | `Hardy1914_…_citation` (`:172`) | **C3** | **circular (identity)** | Hardy 1914 is a genuine external theorem, so C3 by pedigree — but r301 lists `PositiveOnLineZetaZeroOrdinatesNonempty` as **conclusion (E2)** while requiring it as **hypothesis**. The theorem returns one of its own inputs |
-| N50 | `PolylogEigenvalueConjecture` | **C6** | | Carries the entire P-vs-NP sector. Charter N5: three mutually inconsistent gap values unreconciled |
-| N51 | `ClayClosureBundleDualCitationAggregate` (r299:116) | **✖** | | 8 fields not individually audited. Blocker B-N51 |
-| N52 | `ClayClosureBundleUniversal` (r301) | **✖** | **circular** | Contains N45, N48, N49, N51 |
-| N53 | Cohen 2025 numerics (self-adjointness `<1e-15` at `N≤40`; eigenvalue match, 150 digits, **five pairs**; scaling `5e-6`) | **C4** | | Evidence, not proof. Any conclusion downstream is empirical-premised |
-
----
+| id | node | class | flags | file | axioms | closed term | rebuilt | note |
+|---|---|---|---|---|---|---|---|---|
+| N28 | RiemannHypothesis | **C2** |  | `PF/SpectralBijection.lean` | unverified | unverified | unverified |  |
+| N29 | Clay_RiemannHypothesis_Standard | **C2** |  | — | unverified | unverified | unverified |  |
+| N30 | Clay_PvsNP_Standard | **C5** |  | — | unverified | unverified | unverified |  |
+| N31 | Clay_NavierStokes_Standard | **C5** |  | — | unverified | unverified | unverified |  |
+| N32 | Clay_YangMillsMassGap_Standard | **C5** |  | — | unverified | unverified | unverified |  |
+| N33 | Clay_BSD_Standard | **C5** |  | — | unverified | unverified | unverified |  |
+| N34 | Clay_Hodge_Standard | **C5** |  | — | unverified | unverified | unverified |  |
+| N35 | PF_ComplexityEncoding | **C2** |  | — | unverified | unverified | unverified | Real TMs, poly bounds, Cook-1971 certificates. |
+| N36 | PF_NS3DEncodingV2 / NS3DRegularitySolutionV2 | **C1** |  | — | unverified | unverified | unverified | 5-conjunct predicate, three are mathlib-availability flags. Does not assert global-in-time smooth existence. |
+| N37 | PF_YMEncodingBridge5 | **C1** |  | — | unverified | unverified | unverified | Finite-dimensional substrate model. |
+| N38 | GlimmJaffe_OS_SU2_TypedAnchor | **C1** | **vacuous** | — | unverified | unverified | unverified | def : Prop := True |
+| N39 | StreaterWightman_SU2_TypedAnchor | **C1** | **vacuous** | — | unverified | unverified | unverified | def : Prop := True |
+| N40 | OsterwalderSchrader_SU2_TypedAnchor | **C1** | **vacuous** | — | unverified | unverified | unverified | def : Prop := True |
+| N41 | OSRP_Compatible_Interacting_Ham_Open | **C6** |  | — | unverified | unverified | unverified |  |
+| N42 | PF_BSDEncodingV5 | **C1** | **vacuous** | — | unverified | unverified | unverified | algebraicRankV5 = analyticRankV5 = manuscriptRankV5. Equality by rfl; 0 off a 20-curve list. |
+| N43 | PF_HodgeEncoding | **C1** |  | — | unverified | unverified | unverified | Own docstring: substrate-level only, not literal geometric algebraicity by an explicit cycle. |
+| N44 | PF_HodgeEncoding_FullGeneral | **C5** |  | — | unverified | unverified | unverified | Genuine cycle witnesses; unused by the headline. |
+| N45 | ClayClosureBundleBulletproof | **C6** | **circular** | — | unverified | unverified | unverified |  |
+| N46 | PF_T3SymIsHilbertPolyaOperator_Positive | **C6** |  | — | unverified | unverified | unverified |  |
+| N47 | HilbertPolyaProgramConjecture_Positive | **C6** | **circular** | — | unverified | unverified | unverified | Content: PF_T3Sym_Positive -> RiemannHypothesis. |
+| N48 | Mayer1991_Cohen2025_substrate_HP_program_citation | **C6** | **circular** | — | unverified | unverified | unverified | Definitionally equal to N47; r301 carries it a second time. |
+| N49 | Hardy1914_published_theorem_substrate_citation | **C3** | **circular** | — | unverified | unverified | unverified | Genuine external theorem, but r301 lists the same Prop as conclusion E2 and requires it as hypothesis. |
+| N50 | PolylogEigenvalueConjecture | **C6** |  | — | unverified | unverified | unverified | Carries the whole P vs NP sector. Charter N5: three inconsistent gap values. |
+| N51 | ClayClosureBundleDualCitationAggregate | **BLOCKER** |  | — | unverified | unverified | unverified |  |
+| N52 | ClayClosureBundleUniversal | **BLOCKER** | **circular** | — | unverified | unverified | unverified |  |
+| N53 | Cohen 2025 numerics | **C4** |  | — | unverified | unverified | unverified | self-adjointness <1e-15 at N<=40; eigenvalue match 150 digits on five pairs; scaling 5e-6. |
 
 ## LAYER 4 — TOP-LEVEL THEOREMS
 
-| id | node | class | flags | verdict |
-|---|---|---|---|---|
-| N54 | `principia_fractalis_millennium_supreme_capstone_universal_at_HEAD` (r301) | **✖** | **circular** | Valid; carries no information. Not a central-theorem candidate |
-| N55 | `PrincipiaFractalisSubstrateTheorem` | **C1** | **vacuous** | Antecedent discarded (`intro _h_antecedents`); consequences independently provable |
-| N56 | `SubstrateTheoremContent_r216` | **C7** | | Proves in-kernel that *any* proposition implies `PFSubstrateConsequences` |
-| N57 | **CENTRAL THEOREM** | **✖** | | **UNSPECIFIED.** No declaration in the corpus is it |
+| id | node | class | flags | file | axioms | closed term | rebuilt | note |
+|---|---|---|---|---|---|---|---|---|
+| N54 | principia_fractalis_millennium_supreme_capstone_universal_at_HEAD | **BLOCKER** | **circular** | — | [propext, Classical.choice, Quot.sound] | NO - binder `ClayClosureBundleUniversal ->` visible in #check @ | unverified | Valid; carries no information. |
+| N55 | PrincipiaFractalisSubstrateTheorem | **C1** | **vacuous** | — | unverified | unverified | unverified | Antecedent discarded. |
+| N56 | SubstrateTheoremContent_r216 | **C7** |  | — | unverified | unverified | unverified |  |
+| N57 | CENTRAL THEOREM | **BLOCKER** |  | — | unverified | unverified | unverified |  |
+| N62 | rh_from_bulletproof_bundle_by_application (r333.A) | **C7** |  | `PF/UnifiedTheoryPremiseAudit_r333.lean` | [propext, Classical.choice, Quot.sound] | no (hypothetical: ClayClosureBundleBulletproof) | yes (built 2026-09-07 in ACTIVE tree) | Kernel proof that the bulletproof bundle yields RH by function application alone. No substrate, alpha-skeleton or transfer operator participates. |
+| N63 | hardy_premise_equals_conclusion_E2 (r333.D) | **C7** |  | `PF/UnifiedTheoryPremiseAudit_r333.lean` | [propext, Classical.choice, Quot.sound] | yes | yes | rfl. r301 lists PositiveOnLineZetaZeroOrdinatesNonempty as conclusion E2 while requiring the same Prop as hypothesis. The theorem returns one of its own inputs. |
+
+## LAYER 5 — R331B CHAIN
+
+| id | node | class | flags | file | axioms | closed term | rebuilt | note |
+|---|---|---|---|---|---|---|---|---|
+| N58 | xi_T15_zero_count_identity_unconditional | **C2** |  | — | [propext, Classical.choice, Quot.sound] | yes - #check @ shows NO binders at all | pending C1 | Unconditional, no binders. NOT RH. |
+| N59 | top15_re_lt_neg_1e4 | **C2** |  | — | unverified at FULL (B5) | yes | pending C1 |  |
+| N60 | 18 Box<K>Bridge capstones | **C2** |  | — | unverified | unverified | unverified | Weakest box 106 at +2.211191e-05. |
+| N61 | RiemannXiBox0Bridge rebuild | **BLOCKER** |  | — | unverified | unverified | unverified | a1_v3 ensure_box0_reference now builds it on both halves. |
 
 ---
 
-## LAYER 5 — THE r331b CHAIN (healthy, and outside the unified-theory claim)
+## MISSING JOINS
 
-| id | node | class | verdict |
+| id | from → to | status | note |
 |---|---|---|---|
-| N58 | `xi_T15_zero_count_identity_unconditional` | **C2** | Unconditional, no binders, mathlib three. Genuine. **Not RH** |
-| N59 | `top15_re_lt_neg_1e4` (18-box union, FULL) | **C2** | Cover gate PASS 2026-09-07, measure exactly 1/2 |
-| N60 | 18 `RiemannXiBox<K>Bridge` capstones | **C2** | All CLOSED. Weakest: box 106 at `+2.211191e-05` |
-| N61 | `RiemannXiBox0Bridge` rebuild | **✖ → in progress** | Was skipped by the C1 pass. `a1_v3`'s `ensure_box0_reference` now builds it on both halves |
+| J1 | L1 → L2 | **CLOSED_NEGATIVELY** | r332 + r123: no alpha value and no needed ratio is reachable from the substrate trace range Z[1/3]. |
+| J2 | L2 → L3 | **NO_EDGE** | Narrative only. |
+| J3 | L3 → standard | **PARTIAL** | Faithful for RH and apparently P vs NP; unfaithful or vacuous for NS, YM, BSD, Hodge. |
 
 ---
 
 ## CREDIT COLUMN
 
-Recording what the corpus got right, because a ledger that only tallies defects
-misrepresents the project.
+Recording what the corpus got right. A ledger that tallies only defects misrepresents the project.
 
 | # | credit | evidence |
 |---|---|---|
-| **CR1** | **The in-file docstrings are candid — repeatedly more candid than the headline theorem names and the prose chapters.** Nearly every unfaithfulness finding in Layer 3 was *self-disclosed by the file that contains it*: the BSD bridge states "This is NOT a Clay BSD discharge for arbitrary `WeierstrassCurve ℚ`"; the Hodge bridge states "Honest scope: substrate-level only… not literal geometric algebraicity by an explicit cycle"; r128's header itemises three reasons its own predecessor's citation "does not hold". The defect is a **headline/prose problem, not concealment in the formalisation** | r216 §"This is a prose problem, not concealment"; BSD V5 honest-scope block; `HodgeCapstoneTypedBridge.lean:72-76` |
-| **CR2** | The project audits itself adversarially and publishes the negatives. r124, r216, r123, the 2026-08-24 provenance audit, and this ledger's own predecessors are all PF work product | N24, N25, N56, N27b |
-| **CR3** | `r216` deliberately puts the vacuity of the flagship theorem **in the kernel** so it "cannot drift back out of the prose". That is an unusual and correct instinct | `SubstrateTheoremContent_r216.lean` header |
-| **CR4** | The evidence standard is real and has caught real errors: the `#print axioms`-not-RC rule caught a silently-admitted `sorry` in the endgame module on 2026-09-05 | Gate §B0 |
-| **CR5** | The r331b chain is genuine unconditional analysis, correctly scoped by the corpus as *not* RH | N58–N60; gate F8 |
-| **CR6** | The rigidity charter pre-registers its outcomes (§8) before running the audit, including the outcome unfavourable to the framework | Charter §8 |
+| **CR1** | In-file docstrings are candid, repeatedly more so than headline theorem names and prose chapters. Nearly every Layer-3 unfaithfulness finding was self-disclosed by the file containing it. The defect is a headline/prose problem, not concealment in the formalisation. | r216 'This is a prose problem, not concealment'; BSD V5 honest-scope block; HodgeCapstoneTypedBridge.lean:72-76 |
+| **CR2** | The project audits itself adversarially and publishes the negatives. | N24, N25, N56, N27b |
+| **CR3** | r216 deliberately puts the flagship theorem's vacuity in the kernel so it cannot drift back out of the prose. | SubstrateTheoremContent_r216.lean header |
+| **CR4** | The evidence standard is real and caught a silently-admitted sorry on 2026-09-05. | RELEASE_GATE_r331b.md B0 |
+| **CR5** | The r331b chain is genuine unconditional analysis, correctly scoped as not RH. | N58-N60; gate F8 |
+| **CR6** | The rigidity charter pre-registers its outcomes before running the audit, including the one unfavourable to the framework. | Charter section 8 |
 
 ---
 
 ## BLOCKERS
 
-| id | blocker | blocks | owner | status |
-|---|---|---|---|---|
-| ~~B-SCHEME~~ | directive's seven classes | ledger keying | Pablo | **CLOSED 2026-09-07** — received and applied |
-| ~~B-CHARTER~~ | `ALPHA_RIGIDITY_AUDIT_CHARTER` | α-rigidity section | Pablo | **CLOSED 2026-09-07** — recovered and committed |
-| ~~B-L5~~ | L5 derivability | α-skeleton grounding | orchestrator | **CLOSED 2026-09-07** — r332, negative verdict |
-| **B-DIRECTIVE** | full directive text not yet in `codex/` | provenance of this program's own mandate | Pablo | **OPEN** — Pablo to relay as file payload; on the orchestrator's queue |
-| **B-N03** | C*-structure on the completion (r54–r57) | conjunct (U1) | orchestrator | open |
-| **B-N04/05** | no equivalence relation, no invariance statement | (E1), (E2) | research | open |
-| **B-N26** | `IsIntrinsic` undefined | (K0), all of (K) | research | open |
-| **B-N51** | r299 aggregate's 8 fields unaudited | aggregate-route claims | orchestrator | open |
-| **B-JOIN** | `SubstrateBearsOn` / `DerivationIsNonVacuous` / `AntecedentIsLoadBearing` undefined | (C), (D) — the unification claim itself | research | open |
-| **B-TM** | `Machine`/`turingTimeComplexity` faithfulness | whether (S2) is the real P vs NP | orchestrator | open |
-| **B-CIRC** | premise set of the top-level theorem contains its conclusion | any information content in r301 | Pablo | open |
-| **B-N61** | box 0 bridge rebuild | gate B1, C1 completeness | orchestrator | **in progress** — `a1_v3` fix deployed both halves |
+| id | status | description | owner |
+|---|---|---|---|
+| B-DIRECTIVE | **OPEN** | full directive text not yet in codex/ | Pablo |
+| B-N03 | **OPEN** | CStar structure on completion unconfirmed | orchestrator |
+| B-N04 | **OPEN** | no equivalence relation on substrate configurations | research |
+| B-N05 | **OPEN** | no invariance statement for derived constants | research |
+| B-N26 | **OPEN** | IsIntrinsic undefined | research |
+| B-N51 | **OPEN** | r299 aggregate's 8 fields unaudited | orchestrator |
+| B-JOIN | **OPEN** | SubstrateBearsOn / DerivationIsNonVacuous / AntecedentIsLoadBearing undefined | research |
+| B-TM | **OPEN** | Machine / turingTimeComplexity faithfulness unaudited | orchestrator |
+| B-CIRC | **OPEN** | premise set of top-level theorem contains its conclusion | Pablo |
+| B-SCHEME | **CLOSED** | directive's seven classes received and applied | — |
+| B-CHARTER | **CLOSED** | ALPHA_RIGIDITY_AUDIT_CHARTER_2026-09-01.md recovered and committed | — |
+| B-L5 | **CLOSED** | L5 settled negatively by r332 | — |
+| B-N61 | **IN_PROGRESS** | box 0 bridge rebuild | orchestrator |
 
 ---
 
-## TALLY
+## COUNTERMODEL RISKS
 
-| class | count | note |
+Full treatment: `codex/UNIFICATION_COUNTERMODEL_LEDGER.md` (directive §8).
+
+| id | risk | status |
 |---|---|---|
-| **C1** definition-or-convention | 24 | includes all 9 α-values, all 8 structural laws, and 4 unfaithful encodings |
-| **C2** theorem-derived | 10 | N01, N02, N28, N29, N35, N58, N59, N60 (+2) |
-| **C3** independently-motivated-axiom | 1 | N49 (Hardy 1914 — but flagged circular in its use) |
-| **C4** empirical-input | 1 | N53 |
-| **C5** conditional-interface | 8 | N23, N30–N34, N44 |
-| **C6** unresolved-conjecture | 6 | N41, N45, N46, N47, N48, N50 |
-| **C7** recorded-negative-or-refuted | 6 | N24, N25, N56, **N19b**, N27b |
-| **✖** blocker | 10 | |
-| *flag* `circular` | 6 | N45, N47, N48, N49, N52, N54 |
-| *flag* `vacuous` | 5 | N38, N39, N40, N42, N55 |
-
-**Six of the ten C2 nodes are the substrate construction or the r331b rectangle
-chain** — the latter correctly scoped by the corpus as *not* the unified theory.
-**No C2 node connects layer 1 to layer 2, or layer 2 to layer 3.** As of r332 the
-layer-1→layer-2 join is not merely unproved but **closed negatively** on the
-route the corpus has.
+| R1 | The alpha web has no rigid solution at all | **STRENGTHENED** |
+| R2 | L5 is underivable in principle | **RESOLVED_ON_THE_ROUTE_WE_HAVE** |
+| R3 | The substrate is too weak to see any Clay problem | **LIVE** |
+| R4 | The YM encoding is inconsistent, not just vacuous | **LIVE** |
+| R5 | KatoRellichInput contamination | **LIVE** |
+| R6 | Encoding drift between near-identical names | **LIVE** |
 
 ---
 
-*Re-keyed 2026-09-07 to the directive's seven classes. Nothing in this file
-modifies a `.lean` file. Public HEAD `96c71da7`. NO PUSH.*
+## TALLY (recomputed at generation)
+
+| class | name | count |
+|---|---|---|
+| **C1** | definition-or-convention | 28 |
+| **C2** | theorem-derived-from-earlier-foundations | 8 |
+| **C3** | independently-motivated-axiom | 1 |
+| **C4** | empirical-input | 1 |
+| **C5** | conditional-interface | 7 |
+| **C6** | unresolved-conjecture | 6 |
+| **C7** | recorded-negative-or-refuted | 7 |
+| **BLOCKER** | unknown provenance | 9 |
+
+Flags: `circular` **6**, `vacuous` **5**.
+
+Six of the ten C2 nodes are the substrate construction or the r331b rectangle chain, the latter correctly scoped by the corpus as NOT the unified theory. No C2 node connects layer 1 to layer 2, or layer 2 to layer 3. As of r332 the layer-1 to layer-2 join is closed negatively on the route the corpus has.
+
+---
+
+*Generated from the machine-readable ledger. Nothing in this file modifies a `.lean` file. Public HEAD `96c71da7`. NO PUSH.*
