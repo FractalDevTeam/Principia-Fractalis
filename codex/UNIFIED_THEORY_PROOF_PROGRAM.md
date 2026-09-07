@@ -15,30 +15,36 @@ framework's headline claims than anything written here, and they are correct.
 
 ---
 
-## 0. TWO BLOCKERS DECLARED UP FRONT
+## 0. INPUT PROVENANCE — RESOLVED 2026-09-07
 
-Per the standing rule that unknown provenance is a blocker, two inputs this
-program was told to use **do not exist on any accessible filesystem**:
+The first edition declared two blockers. Both are now closed.
 
-| missing input | searched | consequence |
-|---|---|---|
-| The Unified-Theory Proof Directive text, including its **seven provenance classes** and its **§10 report format** | Acer repo (all of `codex/`, repo root), `D:\CLAUDE-i9`, `D:\Principia-Fractalis-Repo`, `C:\Users\psolo` | §4 and the dependency ledger classify nodes with the **corpus's own A–H scheme** (below) as a declared stand-in. If the directive's seven classes differ, the ledger must be re-keyed. |
-| `ALPHA_RIGIDITY_AUDIT_CHARTER` | same | The α-rigidity section (§3.2) rests on `codex/ALPHA_SKELETON_STRUCTURAL_LAW_PROVENANCE_2026-08-24.md` instead. |
-
-The stand-in scheme, from
-`codex/ALPHA_SKELETON_STRUCTURAL_LAW_PROVENANCE_2026-08-24.md` §3, which is
-itself the output of an earlier directive:
-
-| code | meaning |
+| input | status |
 |---|---|
-| **A** | intrinsic PF theorem |
-| **B** | conditional (holds given a stated hypothesis) |
-| **C** | rigidity of assigned values |
-| **D** | definitional — the equation is the minimal polynomial of a *chosen* value |
-| **E** | trivial arithmetic on chosen numerals |
-| **F** | target-encoded — chosen because the assigned values satisfy it |
-| **G** | unsupported narrative — docstring motivation with no formal counterpart |
-| **H** | external classical theorem, cited |
+| The directive's **seven provenance classes** and its **section 10 report order** | **CLOSED** 2026-09-07. Received from Pablo and applied. The dependency ledger is re-keyed; the A-H stand-in is withdrawn. The report order is recorded in section 7 below |
+| `ALPHA_RIGIDITY_AUDIT_CHARTER_2026-09-01.md` | **CLOSED** 2026-09-07. Recovered from a Dispatch child-session outputs directory and committed to `codex/`. Its **N2** row (substrate trace range is `Z[1/3]`) is the direct ancestor of r332 |
+
+One remains open:
+
+| input | status |
+|---|---|
+| The full Unified-Theory Proof Directive text | **OPEN** (`B-DIRECTIVE`). Pablo holds it and will relay it as a file payload; committing it to `codex/` is on the orchestrator's queue |
+
+**The seven classes, as applied:**
+
+| key | class |
+|---|---|
+| **C1** | definition-or-convention |
+| **C2** | theorem-derived-from-earlier-foundations |
+| **C3** | independently-motivated-axiom |
+| **C4** | empirical-input |
+| **C5** | conditional-interface |
+| **C6** | unresolved-conjecture |
+| **C7** | recorded-negative-or-refuted |
+
+Two orthogonal flags travel alongside, because they are defects rather than
+provenance: `circular` (premise restates its conclusion) and `vacuous`
+(conclusion holds by construction).
 
 ---
 
@@ -119,13 +125,13 @@ The full node-by-node graph lives in
   STATUS:             STATUS:                 STATUS:            STATUS:
   GENUINE            NOT DERIVED            MOSTLY NOT          OUT OF
   (mathlib)          (all 8 laws are        FAITHFUL            SCOPE for a
-                      D/E/F/G — zero A)     (see §3.3)          math theorem
+                      C1 conventions)      (see §3.3)          math theorem
      │                   │                       │
      └───────────────────┴───────────────────────┘
                          │
               ╔══════════▼═══════════╗
               ║  THE MISSING JOINS   ║
-              ║  J1  substrate → α   ║   no intrinsic derivation exists
+              ║  J1  substrate → α   ║   CLOSED NEGATIVELY (r332)
               ║  J2  α → sector      ║   narrative only
               ║  J3  encoding → Clay ║   faithfulness unproved or false
               ╚══════════════════════╝
@@ -220,6 +226,13 @@ without that value, an equivalent equation, or a selected spectrum being placed
 into the construction. Until then no α-value is a derived constant and the
 framework has no predicted constants.
 
+**STATUS 2026-09-07 — closed negatively on the route the corpus has.** r332
+(§5) proves π is not a ratio of substrate trace-range quantities, and r123 had
+already placed seven of the nine α-values outside that range. O-ALPHA is
+therefore not merely undischarged but **undischargeable via the substrate's
+K-theory**. It remains formally open only for a future substrate with a wider
+invariant range — which does not exist.
+
 ### 3.3 The correspondence obligation — sector by sector
 
 `Clay_*_Standard` for five of six sectors is **parameterised over an encoding**.
@@ -295,55 +308,93 @@ Where the program is most likely to be *refuted* rather than merely stalled.
 
 | # | risk | why it is live | what would settle it |
 |---|---|---|---|
-| **R1** | **The α-web has no rigid solution at all** | r124 proves the eleven invariants admit a one-parameter family: for every `t > 0` there is an assignment with `α_BSD = t`. Rigidity in r128 is bought with L5, whose provenance is class **G** — narrative with no formal counterpart | A countermodel is already half-built: r124's family. Producing a *second* self-consistent α-assignment that satisfies all eight r128 laws with a different anchor would end the rigidity claim |
-| **R2** | **L5 is underivable in principle** | The structural-law audit's own recommended test is `∀ a b, MemZ13 a → MemZ13 b → a ≠ 0 → b / a ≠ π` — i.e. π is not a ratio of substrate-reachable quantities. If that theorem is *true*, L5 can never be derived and the α-skeleton is permanently ungrounded | Prove or refute that statement. It is small, sharp, and decisive |
+| **R1** | **The α-web has no rigid solution at all** | **STRENGTHENED by r332.** r124 proves the eleven invariants admit a one-parameter family. r128's rigidity is bought with L5 — and L5's only non-narrative justification route is now closed | A countermodel is already half-built: r124's family. Producing a *second* self-consistent α-assignment satisfying all eight r128 laws with a different anchor would end the rigidity claim outright |
+| **R2** | ~~L5 is underivable in principle~~ | **REALISED 2026-09-07.** The test statement is **true**: r332 proves `∀ a b ∈ ℤ[1/3], b/a ≠ π`. L5 can never be derived on the substrate's K-theoretic route, so the α-skeleton is ungrounded there | **SETTLED — see §5.** The risk was real and it materialised. What remains open is only a future substrate with an invariant range wider than `ℤ[1/3]`, which does not exist |
 | **R3** | **The substrate is too weak to see any Clay problem** | Layer 1 is a UHF-type C*-algebra. Nothing in the completion construction mentions ζ, elliptic curves, Hodge classes, or Navier–Stokes. J1 and J2 may not merely be unproved but unprovable for lack of expressive contact | Exhibit *any* nonvacuous theorem whose statement mentions both `TimelessFieldCompletion` and a standard object, and whose proof uses a substrate property |
 | **R4** | **The YM encoding is inconsistent, not just vacuous** | `satisfiesClayAxioms` requires `0 < Δ ∧ 1 ≤ Δ ∧ Δ ≠ 1` alongside twelve analytic conjuncts on a finite-dimensional model. If the conjunction is uninhabitable, `∃ T, …` is false and the YM sector is not merely unfaithful but refuted on its own encoding | Exhibit an inhabitant of `Bridge5SubstrateQYM` satisfying all fifteen conjuncts, or prove none exists. Note the precedent: the corpus already found a "structurally-uninhabitable Prop" in an earlier RH route (V3) and replaced it |
 | **R5** | **`KatoRellichInput` contamination** | The gate (F4) records a module *proved false by its own file*. If any live chain cites it, that chain is unsound, not just weak | Reachability check from every central-theorem candidate |
 | **R6** | **Encoding drift between near-identical names** | r128 found the corpus carries two different reals under near-identical names: `framework_alpha.a_PvNP = 5/4` vs `α_NP = φ + 1/4 ≈ 1.868` | A name-collision audit across the α-namespace |
 
-R1 and R2 are the ones that would end the program rather than delay it.
+R1 and R2 were the two that would end the program rather than delay it. **R2 has
+now materialised.** R1 is correspondingly stronger: with L5's justification route
+closed, nothing non-narrative remains to defend the rigidity claim.
 
 ---
 
-## 5. NEXT DECISIVE STEP
+## 5. THE L5 STEP — DONE 2026-09-07, VERDICT NEGATIVE
 
-**Settle L5.**
-
-Of everything above, one item is small, sharp, decisive, and currently
-unattempted. `α_NS = α_RH · π` is:
-
-- the unique law with provenance class **G** (narrative, no formal counterpart);
-- the exact equation that closes the free parameter r124 located by Gröbner
-  elimination — without it the α-web is a one-parameter family and the framework
-  has no rigid constants;
-- already reduced by a prior audit to a concrete testable statement.
-
-The test, from `ALPHA_SKELETON_STRUCTURAL_LAW_PROVENANCE_2026-08-24.md` §, which
-that audit explicitly declined to implement without authorization:
+The first edition named settling L5 as the next decisive step. Pablo authorised
+it; it is done. **`PF/AlphaL5PiScalingObstruction_r332.lean`**, kernel-green,
+exactly the mathlib three axioms, zero `sorryAx`, non-vacuity proved.
 
 ```lean
-theorem l5_not_derivable_from_ktheoretic_ratio :
-    ∀ (a b : ℝ), MemZ13 a → MemZ13 b → a ≠ 0 → b / a ≠ Real.pi
+theorem pi_not_ktheoretic_ratio
+    {a b : ℝ} (ha : MemZ13 a) (hb : MemZ13 b) (h0 : a ≠ 0) : b / a ≠ Real.pi
 ```
 
-Both outcomes are progress, which is what makes it the right next step:
+`MemZ13` (r123) is membership in `ℤ[1/3]`, exactly the range of the substrate's
+unique trace on `K₀(T∞)` — its complete classifying invariant, carried onto
+`ℤ[1/3] ⊂ ℝ` isomorphically (Glimm/Elliott). `ℤ[1/3] ⊆ ℚ`, so any ratio of its
+elements is rational; π is not.
 
-- **If provable** — π is not a ratio of substrate-reachable quantities, L5 can
-  never be derived intrinsically, the α-skeleton is permanently ungrounded, and
-  the framework's "derived constants" claim must be retired corpus-wide. That is
-  a real result and it is publishable as a negative one.
-- **If refutable** — a substrate route to π exists, and it is the first genuine
-  candidate for join **J1**. That would be the first non-narrative edge between
-  layer 1 and layer 2 in the project's history.
+**Verdict: PROVABLE — the negative branch.** L5 (`α_NS = α_RH · π`) has no
+derivation available through the substrate's K-theory.
 
-**It requires no build resources**, so it does not contend with the r331b gate
-walk or the C1 rebuild. It is a pure-reasoning task on a small algebraic
-statement.
+Three consequences, all recorded in the kernel:
 
-**Authorization required before implementing:** the prior audit stopped here by
-directive. This program recommends resuming at exactly that point, and asks for
-the go-ahead rather than assuming it.
+1. **Join J1 is closed negatively.** r123 had shown the α-*values* are outside
+   the trace range (seven of nine). r332 shows the *ratio* L5 needs is outside it
+   too — so the gap cannot be closed by relating two α's to each other instead of
+   deriving each one. That was the remaining escape route.
+2. **The framework has no derived constants on the route it has.** L5 is what
+   makes the α-skeleton rigid; without an intrinsic L5, r124's one-parameter
+   family is the honest picture. The corpus should stop describing the nine
+   α-values as derived.
+3. **r332.D records the other half in the kernel:** `α_NS / α_RH = π` is provable
+   by `ring` after unfolding the two `def`s. The identity is true *of the chosen
+   numerals* and unreachable *from the invariant*. That is exactly what
+   "definition-or-convention" means, stated as a theorem rather than a judgement.
+
+Two additions beyond the recommended wording: **r332.E** proves the hypotheses
+are satisfiable, so the result is not vacuous; **r332.F** records that the
+`a ≠ 0` hypothesis does no work (in Lean `b/0 = 0 ≠ π`), because an unused
+premise can be mistaken for the thing making a statement true.
+
+**Scope, narrowly:** this closes L5 against the K-theoretic trace route — the
+route the corpus actually has (r113, r123). It does not address a hypothetical
+future substrate whose invariant range is not confined to `ℤ[1/3]`. Per charter
+§8, no outcome here bears on any Clay problem and none revives N2/N3/N4.
+
+---
+
+## 5b. NEXT DECISIVE STEP
+
+**Specify a central theorem — assemble `principia_fractalis_verified_position_2026_09_07`.**
+
+This program's headline finding is that the central theorem status is
+*unspecified*, which means the question cannot be asked. The way to change that
+is not more auditing; it is to write one down. `COMPLETION_THEOREM_DRAFT.md` §3
+already drafts it, and every conjunct is assemblable from existing green
+material — now including r332:
+
+- (V1) the substrate is a genuine constructed object;
+- (V2) the r331b endpoint, unconditional;
+- (V3) top-edge negativity over the full partition of `[1/2, 1]`;
+- (V4) r124: the α-web admits every positive `α_BSD` — a one-parameter family;
+- (V5) r216: any proposition implies `PFSubstrateConsequences`;
+- **(V6, new) r332: π is not a ratio of substrate trace-range quantities.**
+
+It would be **the corpus's first hypothesis-free top-level theorem**, and it
+would state the negative results in the same breath as the positive ones. That
+combination is what a referee trusts, and it replaces "UNSPECIFIED" with
+something honest rather than with another capstone that hides its premises.
+
+**Parallel, cheap, no build required:** close `B-N51` by auditing the eight
+fields of `ClayClosureBundleDualCitationAggregate` (r299:116). It is the last
+unaudited premise bundle feeding r301, and closing it completes the circularity
+picture.
+
+**Both require authorization.** Nothing here is started.
 
 ---
 
@@ -360,5 +411,21 @@ the go-ahead rather than assuming it.
 
 ---
 
+## 7. SECTION 10 REPORT ORDER
+
+Every orchestrator report against this program uses the directive's order,
+verbatim:
+
+1. central theorem status
+2. what became proved
+3. what became disproved-or-weaker
+4. current blocking obligation
+5. assumption-or-circularity changes
+6. kernel-and-rebuild status
+7. decision required from Pablo
+8. next decisive action
+
+---
+
 *Opened 2026-09-07 on `r331b-provenance`. Central theorem status: UNSPECIFIED.
-Next decisive step: settle L5, pending authorization.*
+L5 settled negatively (r332). Next decisive step: specify a central theorem.*
