@@ -8,7 +8,6 @@
   "program": "codex/UNIFIED_THEORY_PROOF_PROGRAM.md",
   "charter": "codex/ALPHA_RIGIDITY_AUDIT_CHARTER_2026-09-01.md",
   "central_theorem_status": "UNSPECIFIED",
-
   "classification_scheme": {
     "status": "DIRECTIVE_SEVEN_CLASSES",
     "received": "2026-09-07",
@@ -28,125 +27,1087 @@
       "vacuous": "conclusion holds by construction and constrains nothing"
     }
   },
-
-  "layers": {"L1":"constructed universe","L2":"alpha skeleton and constants","L3":"Clay sectors and bridges","L4":"top-level theorems","L5":"r331b chain"},
-
+  "layers": {
+    "L1": "constructed universe",
+    "L2": "alpha skeleton and constants",
+    "L3": "Clay sectors and bridges",
+    "L4": "top-level theorems",
+    "L5": "r331b chain"
+  },
   "nodes": [
-    {"id":"N01","layer":"L1","name":"TimelessFieldRing","class":"C2","note":"Algebraic direct limit; NormedRing/StarRing/CStarRing/NormedAlgebra C."},
-    {"id":"N02","layer":"L1","name":"TimelessFieldCompletion","file":"PF/SubstrateTimelessFieldCompletion.lean","line":82,"class":"C2","note":"UniformSpace.Completion; mathlib-native."},
-    {"id":"N03","layer":"L1","name":"CStar structure on completion (r54-r57)","class":"BLOCKER","blocker":"B-N03","blocks":["U1"]},
-    {"id":"N04","layer":"L1","name":"SubstrateConfiguration / SubstrateEquiv","class":"BLOCKER","blocker":"B-N04","blocks":["E1"],"note":"Does not exist. No Setoid/Quotient in the substrate module."},
-    {"id":"N05","layer":"L1","name":"DerivedConstantFunctions + invariance","class":"BLOCKER","blocker":"B-N05","blocks":["E2"]},
-
-    {"id":"N06","layer":"L2","name":"alpha_Poincare","value":"1","class":"C1","note":"r216 in-kernel: closed by rfl, records the chosen numeral, NOT about Ricci flow or the Poincare conjecture."},
-    {"id":"N07","layer":"L2","name":"alpha_RH","value":"3/2","class":"C1"},
-    {"id":"N08","layer":"L2","name":"alpha_YM","value":"2","class":"C1"},
-    {"id":"N09","layer":"L2","name":"alpha_P","value":"sqrt 2","class":"C1"},
-    {"id":"N10","layer":"L2","name":"alpha_NP","value":"phi + 1/4","class":"C1","note":"1/4 free (r124). Charter N4: forcing fed phi and 1/4 in, got phi+1/4 out."},
-    {"id":"N11","layer":"L2","name":"alpha_Hodge","value":"phi","class":"C1"},
-    {"id":"N12","layer":"L2","name":"alpha_QG","value":"sqrt(2pi)","class":"C1"},
-    {"id":"N13","layer":"L2","name":"alpha_BSD","value":"3pi/4","class":"C1","note":"r124's free parameter."},
-    {"id":"N14","layer":"L2","name":"alpha_NS","value":"3pi/2","class":"C1"},
-    {"id":"N14b","layer":"L2","name":"alpha_PvNP","value":"5/4","file":"PF/TuringEncoding/PNPClassSeparationPrecisionBridge.lean","line":457,"class":"C1","note":"Tenth anchor outside the 9-tuple; name-collision with alpha_NP flagged by r128. Charter Q1 open."},
-
-    {"id":"N15","layer":"L2","name":"L1 hodge_minpoly","class":"C1","note":"Minimal polynomial of phi by construction; mathlib minpoly never invoked."},
-    {"id":"N16","layer":"L2","name":"L2 p_norm","class":"C1","note":"Minimal polynomial x^2-2 of sqrt 2."},
-    {"id":"N17","layer":"L2","name":"L3 np_trace","class":"C1","note":"Reduces to 1 + 2*(1/4) = 3/2."},
-    {"id":"N18","layer":"L2","name":"L4 qg_norm","class":"C1"},
-    {"id":"N19","layer":"L2","name":"L5 ns_scaling (alpha_NS = alpha_RH * pi)","class":"C1","status":"SETTLED_2026-09-07","settled_by":"N19b","note":"Was the sole narrative-only law and r124's free-parameter closer. Now provably not derivable on the K-theoretic trace route."},
-    {"id":"N19b","layer":"L2","name":"pi_not_ktheoretic_ratio (r332.A)","file":"PF/AlphaL5PiScalingObstruction_r332.lean","class":"C7","new":true,"note":"For all a,b in Z[1/3], b/a != pi. Kernel-green, mathlib three, non-vacuity proved (r332.E), a!=0 shown unnecessary (r332.F)."},
-    {"id":"N19c","layer":"L2","name":"alpha_ns_div_alpha_rh_eq_pi (r332.D)","class":"C1","note":"alpha_NS/alpha_RH = pi by ring after unfolding. True of the chosen numerals, unreachable from the invariant."},
-    {"id":"N20","layer":"L2","name":"I6 bsd_gauge","class":"C1","note":"3pi/2 = 2*(3pi/4). GaugeInvariance exists in name only."},
-    {"id":"N21","layer":"L2","name":"I7 ym_shift","class":"C1","note":"2 = 1 + 1. Most-cascading law under drop (destroys 4 alphas)."},
-    {"id":"N22","layer":"L2","name":"I9 rh_prod","class":"C1","note":"(3/2)*2 = 3."},
-
-    {"id":"N23","layer":"L2","name":"alpha_skeleton_unique (r128)","class":"C5","note":"Rigid GIVEN N15-N22, all of which are C1. Rigidity-given-conventions."},
-    {"id":"N24","layer":"L2","name":"alpha_web_admits_every_positive_BSD (r124)","class":"C7"},
-    {"id":"N25","layer":"L2","name":"invariant_two/eight_is_redundant (r124)","class":"C7"},
-    {"id":"N26","layer":"L2","name":"IsIntrinsic","class":"BLOCKER","blocker":"B-N26","blocks":["K0","K"]},
-    {"id":"N27","layer":"L2","name":"Perelman anchor","class":"C1","note":"C3 by pedigree, but enters as def alpha_Poincare := 1. Charter 5.7: does not independently assign the value."},
-    {"id":"N27b","layer":"L2","name":"trace-range obstruction (charter N2, r113+r123)","file":"PF/AlphaFromSubstrateKTheory_r123.lean","line":326,"class":"C7","note":"Substrate trace range is Z[1/3]; 7 of 9 alphas lie outside it."},
-
-    {"id":"N28","layer":"L3","name":"RiemannHypothesis","file":"PF/SpectralBijection.lean","line":512,"class":"C2","faithful":true},
-    {"id":"N29","layer":"L3","name":"Clay_RiemannHypothesis_Standard","class":"C2","faithful":true},
-    {"id":"N30","layer":"L3","name":"Clay_PvsNP_Standard","class":"C5","faithful":"delegated_to_encoding"},
-    {"id":"N31","layer":"L3","name":"Clay_NavierStokes_Standard","class":"C5","faithful":"delegated_to_encoding"},
-    {"id":"N32","layer":"L3","name":"Clay_YangMillsMassGap_Standard","class":"C5","faithful":"delegated_to_encoding"},
-    {"id":"N33","layer":"L3","name":"Clay_BSD_Standard","class":"C5","faithful":"delegated_to_encoding"},
-    {"id":"N34","layer":"L3","name":"Clay_Hodge_Standard","class":"C5","faithful":"delegated_to_encoding"},
-
-    {"id":"N35","layer":"L3","name":"PF_ComplexityEncoding","class":"C2","faithful":"apparently","blocker":"B-TM","note":"Real TMs, poly bounds, Cook-1971 certificates."},
-    {"id":"N36","layer":"L3","name":"PF_NS3DEncodingV2 / NS3DRegularitySolutionV2","class":"C1","faithful":false,"note":"5-conjunct predicate, three are mathlib-availability flags. Does not assert global-in-time smooth existence."},
-    {"id":"N37","layer":"L3","name":"PF_YMEncodingBridge5","class":"C1","faithful":false,"note":"Finite-dimensional substrate model."},
-    {"id":"N38","layer":"L3","name":"GlimmJaffe_OS_SU2_TypedAnchor","class":"C1","flags":["vacuous"],"note":"def : Prop := True"},
-    {"id":"N39","layer":"L3","name":"StreaterWightman_SU2_TypedAnchor","class":"C1","flags":["vacuous"],"note":"def : Prop := True"},
-    {"id":"N40","layer":"L3","name":"OsterwalderSchrader_SU2_TypedAnchor","class":"C1","flags":["vacuous"],"note":"def : Prop := True"},
-    {"id":"N41","layer":"L3","name":"OSRP_Compatible_Interacting_Ham_Open","class":"C6"},
-    {"id":"N42","layer":"L3","name":"PF_BSDEncodingV5","class":"C1","flags":["vacuous"],"note":"algebraicRankV5 = analyticRankV5 = manuscriptRankV5. Equality by rfl; 0 off a 20-curve list."},
-    {"id":"N43","layer":"L3","name":"PF_HodgeEncoding","class":"C1","faithful":false,"note":"Own docstring: substrate-level only, not literal geometric algebraicity by an explicit cycle."},
-    {"id":"N44","layer":"L3","name":"PF_HodgeEncoding_FullGeneral","class":"C5","note":"Genuine cycle witnesses; unused by the headline."},
-
-    {"id":"N45","layer":"L3","name":"ClayClosureBundleBulletproof","class":"C6","flags":["circular"]},
-    {"id":"N46","layer":"L3","name":"PF_T3SymIsHilbertPolyaOperator_Positive","class":"C6"},
-    {"id":"N47","layer":"L3","name":"HilbertPolyaProgramConjecture_Positive","class":"C6","flags":["circular"],"note":"Content: PF_T3Sym_Positive -> RiemannHypothesis."},
-    {"id":"N48","layer":"L3","name":"Mayer1991_Cohen2025_substrate_HP_program_citation","class":"C6","flags":["circular"],"note":"Definitionally equal to N47; r301 carries it a second time."},
-    {"id":"N49","layer":"L3","name":"Hardy1914_published_theorem_substrate_citation","class":"C3","flags":["circular"],"note":"Genuine external theorem, but r301 lists the same Prop as conclusion E2 and requires it as hypothesis."},
-    {"id":"N50","layer":"L3","name":"PolylogEigenvalueConjecture","class":"C6","note":"Carries the whole P vs NP sector. Charter N5: three inconsistent gap values."},
-    {"id":"N51","layer":"L3","name":"ClayClosureBundleDualCitationAggregate","class":"BLOCKER","blocker":"B-N51"},
-    {"id":"N52","layer":"L3","name":"ClayClosureBundleUniversal","class":"BLOCKER","flags":["circular"]},
-    {"id":"N53","layer":"L3","name":"Cohen 2025 numerics","class":"C4","note":"self-adjointness <1e-15 at N<=40; eigenvalue match 150 digits on five pairs; scaling 5e-6."},
-
-    {"id":"N54","layer":"L4","name":"principia_fractalis_millennium_supreme_capstone_universal_at_HEAD","class":"BLOCKER","flags":["circular"],"note":"Valid; carries no information."},
-    {"id":"N55","layer":"L4","name":"PrincipiaFractalisSubstrateTheorem","class":"C1","flags":["vacuous"],"note":"Antecedent discarded."},
-    {"id":"N56","layer":"L4","name":"SubstrateTheoremContent_r216","class":"C7"},
-    {"id":"N57","layer":"L4","name":"CENTRAL THEOREM","class":"BLOCKER","status":"UNSPECIFIED"},
-
-    {"id":"N58","layer":"L5","name":"xi_T15_zero_count_identity_unconditional","class":"C2","note":"Unconditional, no binders. NOT RH."},
-    {"id":"N59","layer":"L5","name":"top15_re_lt_neg_1e4","class":"C2"},
-    {"id":"N60","layer":"L5","name":"18 Box<K>Bridge capstones","class":"C2","note":"Weakest box 106 at +2.211191e-05."},
-    {"id":"N61","layer":"L5","name":"RiemannXiBox0Bridge rebuild","class":"BLOCKER","status":"in_progress","note":"a1_v3 ensure_box0_reference now builds it on both halves."}
+    {
+      "id": "N01",
+      "layer": "L1",
+      "name": "TimelessFieldRing",
+      "class": "C2",
+      "note": "Algebraic direct limit; NormedRing/StarRing/CStarRing/NormedAlgebra C.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N02",
+      "layer": "L1",
+      "name": "TimelessFieldCompletion",
+      "file": "PF/SubstrateTimelessFieldCompletion.lean",
+      "line": 82,
+      "class": "C2",
+      "note": "UniformSpace.Completion; mathlib-native.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N03",
+      "layer": "L1",
+      "name": "CStar structure on completion (r54-r57)",
+      "class": "BLOCKER",
+      "blocker": "B-N03",
+      "blocks": [
+        "U1"
+      ],
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N04",
+      "layer": "L1",
+      "name": "SubstrateConfiguration / SubstrateEquiv",
+      "class": "BLOCKER",
+      "blocker": "B-N04",
+      "blocks": [
+        "E1"
+      ],
+      "note": "Does not exist. No Setoid/Quotient in the substrate module.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N05",
+      "layer": "L1",
+      "name": "DerivedConstantFunctions + invariance",
+      "class": "BLOCKER",
+      "blocker": "B-N05",
+      "blocks": [
+        "E2"
+      ],
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N06",
+      "layer": "L2",
+      "name": "alpha_Poincare",
+      "value": "1",
+      "class": "C1",
+      "note": "r216 in-kernel: closed by rfl, records the chosen numeral, NOT about Ricci flow or the Poincare conjecture.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N07",
+      "layer": "L2",
+      "name": "alpha_RH",
+      "value": "3/2",
+      "class": "C1",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N08",
+      "layer": "L2",
+      "name": "alpha_YM",
+      "value": "2",
+      "class": "C1",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N09",
+      "layer": "L2",
+      "name": "alpha_P",
+      "value": "sqrt 2",
+      "class": "C1",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N10",
+      "layer": "L2",
+      "name": "alpha_NP",
+      "value": "phi + 1/4",
+      "class": "C1",
+      "note": "1/4 free (r124). Charter N4: forcing fed phi and 1/4 in, got phi+1/4 out.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N11",
+      "layer": "L2",
+      "name": "alpha_Hodge",
+      "value": "phi",
+      "class": "C1",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N12",
+      "layer": "L2",
+      "name": "alpha_QG",
+      "value": "sqrt(2pi)",
+      "class": "C1",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N13",
+      "layer": "L2",
+      "name": "alpha_BSD",
+      "value": "3pi/4",
+      "class": "C1",
+      "note": "r124's free parameter.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N14",
+      "layer": "L2",
+      "name": "alpha_NS",
+      "value": "3pi/2",
+      "class": "C1",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N14b",
+      "layer": "L2",
+      "name": "alpha_PvNP",
+      "value": "5/4",
+      "file": "PF/TuringEncoding/PNPClassSeparationPrecisionBridge.lean",
+      "line": 457,
+      "class": "C1",
+      "note": "Tenth anchor outside the 9-tuple; name-collision with alpha_NP flagged by r128. Charter Q1 open.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N15",
+      "layer": "L2",
+      "name": "L1 hodge_minpoly",
+      "class": "C1",
+      "note": "Minimal polynomial of phi by construction; mathlib minpoly never invoked.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N16",
+      "layer": "L2",
+      "name": "L2 p_norm",
+      "class": "C1",
+      "note": "Minimal polynomial x^2-2 of sqrt 2.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N17",
+      "layer": "L2",
+      "name": "L3 np_trace",
+      "class": "C1",
+      "note": "Reduces to 1 + 2*(1/4) = 3/2.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N18",
+      "layer": "L2",
+      "name": "L4 qg_norm",
+      "class": "C1",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N19",
+      "layer": "L2",
+      "name": "L5 ns_scaling (alpha_NS = alpha_RH * pi)",
+      "class": "C1",
+      "status": "SETTLED_2026-09-07",
+      "settled_by": "N19b",
+      "note": "Was the sole narrative-only law and r124's free-parameter closer. Now provably not derivable on the K-theoretic trace route.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N19b",
+      "layer": "L2",
+      "name": "pi_not_ktheoretic_ratio (r332.A)",
+      "file": "PF/AlphaL5PiScalingObstruction_r332.lean",
+      "class": "C7",
+      "new": true,
+      "note": "For all a,b in Z[1/3], b/a != pi. Kernel-green, mathlib three, non-vacuity proved (r332.E), a!=0 shown unnecessary (r332.F).",
+      "fqn": "PrincipiaTractalis.AlphaL5PiScalingObstruction.pi_not_ktheoretic_ratio",
+      "deps": [
+        "N27b"
+      ],
+      "axioms": "[propext, Classical.choice, Quot.sound]",
+      "closed_term": "no (hypothetical: MemZ13 a, MemZ13 b)",
+      "rebuilt_from_source": "yes (built 2026-09-07 in ACTIVE tree)"
+    },
+    {
+      "id": "N19c",
+      "layer": "L2",
+      "name": "alpha_ns_div_alpha_rh_eq_pi (r332.D)",
+      "class": "C1",
+      "note": "alpha_NS/alpha_RH = pi by ring after unfolding. True of the chosen numerals, unreachable from the invariant.",
+      "fqn": "PrincipiaTractalis.AlphaL5PiScalingObstruction.alpha_ns_div_alpha_rh_eq_pi",
+      "deps": [
+        "N07",
+        "N14"
+      ],
+      "axioms": "[propext, Classical.choice, Quot.sound]",
+      "closed_term": "yes",
+      "rebuilt_from_source": "yes (built 2026-09-07 in ACTIVE tree)"
+    },
+    {
+      "id": "N20",
+      "layer": "L2",
+      "name": "I6 bsd_gauge",
+      "class": "C1",
+      "note": "3pi/2 = 2*(3pi/4). GaugeInvariance exists in name only.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N21",
+      "layer": "L2",
+      "name": "I7 ym_shift",
+      "class": "C1",
+      "note": "2 = 1 + 1. Most-cascading law under drop (destroys 4 alphas).",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N22",
+      "layer": "L2",
+      "name": "I9 rh_prod",
+      "class": "C1",
+      "note": "(3/2)*2 = 3.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N23",
+      "layer": "L2",
+      "name": "alpha_skeleton_unique (r128)",
+      "class": "C5",
+      "note": "Rigid GIVEN N15-N22, all of which are C1. Rigidity-given-conventions.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N24",
+      "layer": "L2",
+      "name": "alpha_web_admits_every_positive_BSD (r124)",
+      "class": "C7",
+      "fqn": "PrincipiaTractalis.AlphaWebDegreesOfFreedom.alpha_web_admits_every_positive_BSD",
+      "deps": [],
+      "axioms": "[propext, Classical.choice, Quot.sound]",
+      "closed_term": "yes (forall t, no hypothesis bundle)",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N25",
+      "layer": "L2",
+      "name": "invariant_two/eight_is_redundant (r124)",
+      "class": "C7",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N26",
+      "layer": "L2",
+      "name": "IsIntrinsic",
+      "class": "BLOCKER",
+      "blocker": "B-N26",
+      "blocks": [
+        "K0",
+        "K"
+      ],
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N27",
+      "layer": "L2",
+      "name": "Perelman anchor",
+      "class": "C1",
+      "note": "C3 by pedigree, but enters as def alpha_Poincare := 1. Charter 5.7: does not independently assign the value.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N27b",
+      "layer": "L2",
+      "name": "trace-range obstruction (charter N2, r113+r123)",
+      "file": "PF/AlphaFromSubstrateKTheory_r123.lean",
+      "line": 326,
+      "class": "C7",
+      "note": "Substrate trace range is Z[1/3]; 7 of 9 alphas lie outside it.",
+      "fqn": "PrincipiaTractalis.AlphaFromSubstrateKTheory.alpha_table_memZ13_verdict",
+      "deps": [
+        "N06",
+        "N07",
+        "N08",
+        "N09",
+        "N10",
+        "N11",
+        "N12",
+        "N13",
+        "N14"
+      ],
+      "axioms": "[propext, Classical.choice, Quot.sound]",
+      "closed_term": "yes",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N28",
+      "layer": "L3",
+      "name": "RiemannHypothesis",
+      "file": "PF/SpectralBijection.lean",
+      "line": 512,
+      "class": "C2",
+      "faithful": true,
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N29",
+      "layer": "L3",
+      "name": "Clay_RiemannHypothesis_Standard",
+      "class": "C2",
+      "faithful": true,
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N30",
+      "layer": "L3",
+      "name": "Clay_PvsNP_Standard",
+      "class": "C5",
+      "faithful": "delegated_to_encoding",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N31",
+      "layer": "L3",
+      "name": "Clay_NavierStokes_Standard",
+      "class": "C5",
+      "faithful": "delegated_to_encoding",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N32",
+      "layer": "L3",
+      "name": "Clay_YangMillsMassGap_Standard",
+      "class": "C5",
+      "faithful": "delegated_to_encoding",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N33",
+      "layer": "L3",
+      "name": "Clay_BSD_Standard",
+      "class": "C5",
+      "faithful": "delegated_to_encoding",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N34",
+      "layer": "L3",
+      "name": "Clay_Hodge_Standard",
+      "class": "C5",
+      "faithful": "delegated_to_encoding",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N35",
+      "layer": "L3",
+      "name": "PF_ComplexityEncoding",
+      "class": "C2",
+      "faithful": "apparently",
+      "blocker": "B-TM",
+      "note": "Real TMs, poly bounds, Cook-1971 certificates.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N36",
+      "layer": "L3",
+      "name": "PF_NS3DEncodingV2 / NS3DRegularitySolutionV2",
+      "class": "C1",
+      "faithful": false,
+      "note": "5-conjunct predicate, three are mathlib-availability flags. Does not assert global-in-time smooth existence.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N37",
+      "layer": "L3",
+      "name": "PF_YMEncodingBridge5",
+      "class": "C1",
+      "faithful": false,
+      "note": "Finite-dimensional substrate model.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N38",
+      "layer": "L3",
+      "name": "GlimmJaffe_OS_SU2_TypedAnchor",
+      "class": "C1",
+      "flags": [
+        "vacuous"
+      ],
+      "note": "def : Prop := True",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N39",
+      "layer": "L3",
+      "name": "StreaterWightman_SU2_TypedAnchor",
+      "class": "C1",
+      "flags": [
+        "vacuous"
+      ],
+      "note": "def : Prop := True",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N40",
+      "layer": "L3",
+      "name": "OsterwalderSchrader_SU2_TypedAnchor",
+      "class": "C1",
+      "flags": [
+        "vacuous"
+      ],
+      "note": "def : Prop := True",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N41",
+      "layer": "L3",
+      "name": "OSRP_Compatible_Interacting_Ham_Open",
+      "class": "C6",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N42",
+      "layer": "L3",
+      "name": "PF_BSDEncodingV5",
+      "class": "C1",
+      "flags": [
+        "vacuous"
+      ],
+      "note": "algebraicRankV5 = analyticRankV5 = manuscriptRankV5. Equality by rfl; 0 off a 20-curve list.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N43",
+      "layer": "L3",
+      "name": "PF_HodgeEncoding",
+      "class": "C1",
+      "faithful": false,
+      "note": "Own docstring: substrate-level only, not literal geometric algebraicity by an explicit cycle.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N44",
+      "layer": "L3",
+      "name": "PF_HodgeEncoding_FullGeneral",
+      "class": "C5",
+      "note": "Genuine cycle witnesses; unused by the headline.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N45",
+      "layer": "L3",
+      "name": "ClayClosureBundleBulletproof",
+      "class": "C6",
+      "flags": [
+        "circular"
+      ],
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N46",
+      "layer": "L3",
+      "name": "PF_T3SymIsHilbertPolyaOperator_Positive",
+      "class": "C6",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N47",
+      "layer": "L3",
+      "name": "HilbertPolyaProgramConjecture_Positive",
+      "class": "C6",
+      "flags": [
+        "circular"
+      ],
+      "note": "Content: PF_T3Sym_Positive -> RiemannHypothesis.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N48",
+      "layer": "L3",
+      "name": "Mayer1991_Cohen2025_substrate_HP_program_citation",
+      "class": "C6",
+      "flags": [
+        "circular"
+      ],
+      "note": "Definitionally equal to N47; r301 carries it a second time.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N49",
+      "layer": "L3",
+      "name": "Hardy1914_published_theorem_substrate_citation",
+      "class": "C3",
+      "flags": [
+        "circular"
+      ],
+      "note": "Genuine external theorem, but r301 lists the same Prop as conclusion E2 and requires it as hypothesis.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N50",
+      "layer": "L3",
+      "name": "PolylogEigenvalueConjecture",
+      "class": "C6",
+      "note": "Carries the whole P vs NP sector. Charter N5: three inconsistent gap values.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N51",
+      "layer": "L3",
+      "name": "ClayClosureBundleDualCitationAggregate",
+      "class": "BLOCKER",
+      "blocker": "B-N51",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N52",
+      "layer": "L3",
+      "name": "ClayClosureBundleUniversal",
+      "class": "BLOCKER",
+      "flags": [
+        "circular"
+      ],
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N53",
+      "layer": "L3",
+      "name": "Cohen 2025 numerics",
+      "class": "C4",
+      "note": "self-adjointness <1e-15 at N<=40; eigenvalue match 150 digits on five pairs; scaling 5e-6.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N54",
+      "layer": "L4",
+      "name": "principia_fractalis_millennium_supreme_capstone_universal_at_HEAD",
+      "class": "BLOCKER",
+      "flags": [
+        "circular"
+      ],
+      "note": "Valid; carries no information.",
+      "fqn": "PrincipiaTractalis.PrincipiaFractalisMillenniumSupremeCapstoneUniversal.principia_fractalis_millennium_supreme_capstone_universal_at_HEAD",
+      "deps": [
+        "N52",
+        "N45",
+        "N48",
+        "N49",
+        "N51"
+      ],
+      "axioms": "[propext, Classical.choice, Quot.sound]",
+      "closed_term": "NO - binder `ClayClosureBundleUniversal ->` visible in #check @",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N55",
+      "layer": "L4",
+      "name": "PrincipiaFractalisSubstrateTheorem",
+      "class": "C1",
+      "flags": [
+        "vacuous"
+      ],
+      "note": "Antecedent discarded.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N56",
+      "layer": "L4",
+      "name": "SubstrateTheoremContent_r216",
+      "class": "C7",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N57",
+      "layer": "L4",
+      "name": "CENTRAL THEOREM",
+      "class": "BLOCKER",
+      "status": "UNSPECIFIED",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N58",
+      "layer": "L5",
+      "name": "xi_T15_zero_count_identity_unconditional",
+      "class": "C2",
+      "note": "Unconditional, no binders. NOT RH.",
+      "fqn": "PrincipiaTractalis.RiemannXiT15Endgame.xi_T15_zero_count_identity_unconditional",
+      "deps": [
+        "N59"
+      ],
+      "axioms": "[propext, Classical.choice, Quot.sound]",
+      "closed_term": "yes - #check @ shows NO binders at all",
+      "rebuilt_from_source": "pending C1"
+    },
+    {
+      "id": "N59",
+      "layer": "L5",
+      "name": "top15_re_lt_neg_1e4",
+      "class": "C2",
+      "fqn": "PrincipiaTractalis.RiemannXiTopUnion.top15_re_lt_neg_1e4",
+      "deps": [
+        "N60"
+      ],
+      "axioms": "unverified at FULL (B5)",
+      "closed_term": "yes",
+      "rebuilt_from_source": "pending C1"
+    },
+    {
+      "id": "N60",
+      "layer": "L5",
+      "name": "18 Box<K>Bridge capstones",
+      "class": "C2",
+      "note": "Weakest box 106 at +2.211191e-05.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N61",
+      "layer": "L5",
+      "name": "RiemannXiBox0Bridge rebuild",
+      "class": "BLOCKER",
+      "status": "in_progress",
+      "note": "a1_v3 ensure_box0_reference now builds it on both halves.",
+      "fqn": "unverified",
+      "deps": "unverified",
+      "axioms": "unverified",
+      "closed_term": "unverified",
+      "rebuilt_from_source": "unverified"
+    },
+    {
+      "id": "N62",
+      "layer": "L4",
+      "name": "rh_from_bulletproof_bundle_by_application (r333.A)",
+      "file": "PF/UnifiedTheoryPremiseAudit_r333.lean",
+      "class": "C7",
+      "note": "Kernel proof that the bulletproof bundle yields RH by function application alone. No substrate, alpha-skeleton or transfer operator participates.",
+      "fqn": "PrincipiaTractalis.UnifiedTheoryPremiseAudit.rh_from_bulletproof_bundle_by_application",
+      "deps": [
+        "N45",
+        "N46",
+        "N47"
+      ],
+      "axioms": "[propext, Classical.choice, Quot.sound]",
+      "closed_term": "no (hypothetical: ClayClosureBundleBulletproof)",
+      "rebuilt_from_source": "yes (built 2026-09-07 in ACTIVE tree)"
+    },
+    {
+      "id": "N63",
+      "layer": "L4",
+      "name": "hardy_premise_equals_conclusion_E2 (r333.D)",
+      "file": "PF/UnifiedTheoryPremiseAudit_r333.lean",
+      "class": "C7",
+      "note": "rfl. r301 lists PositiveOnLineZetaZeroOrdinatesNonempty as conclusion E2 while requiring the same Prop as hypothesis. The theorem returns one of its own inputs.",
+      "fqn": "PrincipiaTractalis.UnifiedTheoryPremiseAudit.hardy_premise_equals_conclusion_E2",
+      "deps": [
+        "N49"
+      ],
+      "axioms": "[propext, Classical.choice, Quot.sound]",
+      "closed_term": "yes",
+      "rebuilt_from_source": "yes"
+    }
   ],
-
   "missing_joins": [
-    {"id":"J1","from":"L1","to":"L2","status":"CLOSED_NEGATIVELY","note":"r332 + r123: no alpha value and no needed ratio is reachable from the substrate trace range Z[1/3]."},
-    {"id":"J2","from":"L2","to":"L3","status":"NO_EDGE","note":"Narrative only."},
-    {"id":"J3","from":"L3","to":"standard","status":"PARTIAL","note":"Faithful for RH and apparently P vs NP; unfaithful or vacuous for NS, YM, BSD, Hodge."}
+    {
+      "id": "J1",
+      "from": "L1",
+      "to": "L2",
+      "status": "CLOSED_NEGATIVELY",
+      "note": "r332 + r123: no alpha value and no needed ratio is reachable from the substrate trace range Z[1/3]."
+    },
+    {
+      "id": "J2",
+      "from": "L2",
+      "to": "L3",
+      "status": "NO_EDGE",
+      "note": "Narrative only."
+    },
+    {
+      "id": "J3",
+      "from": "L3",
+      "to": "standard",
+      "status": "PARTIAL",
+      "note": "Faithful for RH and apparently P vs NP; unfaithful or vacuous for NS, YM, BSD, Hodge."
+    }
   ],
-
   "credit": [
-    {"id":"CR1","claim":"In-file docstrings are candid, repeatedly more so than headline theorem names and prose chapters. Nearly every Layer-3 unfaithfulness finding was self-disclosed by the file containing it. The defect is a headline/prose problem, not concealment in the formalisation.","evidence":"r216 'This is a prose problem, not concealment'; BSD V5 honest-scope block; HodgeCapstoneTypedBridge.lean:72-76"},
-    {"id":"CR2","claim":"The project audits itself adversarially and publishes the negatives.","evidence":"N24, N25, N56, N27b"},
-    {"id":"CR3","claim":"r216 deliberately puts the flagship theorem's vacuity in the kernel so it cannot drift back out of the prose.","evidence":"SubstrateTheoremContent_r216.lean header"},
-    {"id":"CR4","claim":"The evidence standard is real and caught a silently-admitted sorry on 2026-09-05.","evidence":"RELEASE_GATE_r331b.md B0"},
-    {"id":"CR5","claim":"The r331b chain is genuine unconditional analysis, correctly scoped as not RH.","evidence":"N58-N60; gate F8"},
-    {"id":"CR6","claim":"The rigidity charter pre-registers its outcomes before running the audit, including the one unfavourable to the framework.","evidence":"Charter section 8"}
+    {
+      "id": "CR1",
+      "claim": "In-file docstrings are candid, repeatedly more so than headline theorem names and prose chapters. Nearly every Layer-3 unfaithfulness finding was self-disclosed by the file containing it. The defect is a headline/prose problem, not concealment in the formalisation.",
+      "evidence": "r216 'This is a prose problem, not concealment'; BSD V5 honest-scope block; HodgeCapstoneTypedBridge.lean:72-76"
+    },
+    {
+      "id": "CR2",
+      "claim": "The project audits itself adversarially and publishes the negatives.",
+      "evidence": "N24, N25, N56, N27b"
+    },
+    {
+      "id": "CR3",
+      "claim": "r216 deliberately puts the flagship theorem's vacuity in the kernel so it cannot drift back out of the prose.",
+      "evidence": "SubstrateTheoremContent_r216.lean header"
+    },
+    {
+      "id": "CR4",
+      "claim": "The evidence standard is real and caught a silently-admitted sorry on 2026-09-05.",
+      "evidence": "RELEASE_GATE_r331b.md B0"
+    },
+    {
+      "id": "CR5",
+      "claim": "The r331b chain is genuine unconditional analysis, correctly scoped as not RH.",
+      "evidence": "N58-N60; gate F8"
+    },
+    {
+      "id": "CR6",
+      "claim": "The rigidity charter pre-registers its outcomes before running the audit, including the one unfavourable to the framework.",
+      "evidence": "Charter section 8"
+    }
   ],
-
   "blockers": [
-    {"id":"B-SCHEME","status":"CLOSED","closed":"2026-09-07","desc":"directive's seven classes received and applied"},
-    {"id":"B-CHARTER","status":"CLOSED","closed":"2026-09-07","desc":"ALPHA_RIGIDITY_AUDIT_CHARTER_2026-09-01.md recovered and committed"},
-    {"id":"B-L5","status":"CLOSED","closed":"2026-09-07","desc":"L5 settled negatively by r332"},
-    {"id":"B-DIRECTIVE","status":"OPEN","desc":"full directive text not yet in codex/","owner":"Pablo","note":"to be relayed as file payload; on the orchestrator's queue"},
-    {"id":"B-N03","status":"OPEN","desc":"CStar structure on completion unconfirmed","owner":"orchestrator"},
-    {"id":"B-N04","status":"OPEN","desc":"no equivalence relation on substrate configurations","owner":"research"},
-    {"id":"B-N05","status":"OPEN","desc":"no invariance statement for derived constants","owner":"research"},
-    {"id":"B-N26","status":"OPEN","desc":"IsIntrinsic undefined","owner":"research"},
-    {"id":"B-N51","status":"OPEN","desc":"r299 aggregate's 8 fields unaudited","owner":"orchestrator"},
-    {"id":"B-JOIN","status":"OPEN","desc":"SubstrateBearsOn / DerivationIsNonVacuous / AntecedentIsLoadBearing undefined","owner":"research"},
-    {"id":"B-TM","status":"OPEN","desc":"Machine / turingTimeComplexity faithfulness unaudited","owner":"orchestrator"},
-    {"id":"B-CIRC","status":"OPEN","desc":"premise set of top-level theorem contains its conclusion","owner":"Pablo"},
-    {"id":"B-N61","status":"IN_PROGRESS","desc":"box 0 bridge rebuild","owner":"orchestrator","note":"a1_v3 fix deployed both halves"}
+    {
+      "id": "B-SCHEME",
+      "status": "CLOSED",
+      "closed": "2026-09-07",
+      "desc": "directive's seven classes received and applied"
+    },
+    {
+      "id": "B-CHARTER",
+      "status": "CLOSED",
+      "closed": "2026-09-07",
+      "desc": "ALPHA_RIGIDITY_AUDIT_CHARTER_2026-09-01.md recovered and committed"
+    },
+    {
+      "id": "B-L5",
+      "status": "CLOSED",
+      "closed": "2026-09-07",
+      "desc": "L5 settled negatively by r332"
+    },
+    {
+      "id": "B-DIRECTIVE",
+      "status": "OPEN",
+      "desc": "full directive text not yet in codex/",
+      "owner": "Pablo",
+      "note": "to be relayed as file payload; on the orchestrator's queue"
+    },
+    {
+      "id": "B-N03",
+      "status": "OPEN",
+      "desc": "CStar structure on completion unconfirmed",
+      "owner": "orchestrator"
+    },
+    {
+      "id": "B-N04",
+      "status": "OPEN",
+      "desc": "no equivalence relation on substrate configurations",
+      "owner": "research"
+    },
+    {
+      "id": "B-N05",
+      "status": "OPEN",
+      "desc": "no invariance statement for derived constants",
+      "owner": "research"
+    },
+    {
+      "id": "B-N26",
+      "status": "OPEN",
+      "desc": "IsIntrinsic undefined",
+      "owner": "research"
+    },
+    {
+      "id": "B-N51",
+      "status": "OPEN",
+      "desc": "r299 aggregate's 8 fields unaudited",
+      "owner": "orchestrator"
+    },
+    {
+      "id": "B-JOIN",
+      "status": "OPEN",
+      "desc": "SubstrateBearsOn / DerivationIsNonVacuous / AntecedentIsLoadBearing undefined",
+      "owner": "research"
+    },
+    {
+      "id": "B-TM",
+      "status": "OPEN",
+      "desc": "Machine / turingTimeComplexity faithfulness unaudited",
+      "owner": "orchestrator"
+    },
+    {
+      "id": "B-CIRC",
+      "status": "OPEN",
+      "desc": "premise set of top-level theorem contains its conclusion",
+      "owner": "Pablo"
+    },
+    {
+      "id": "B-N61",
+      "status": "IN_PROGRESS",
+      "desc": "box 0 bridge rebuild",
+      "owner": "orchestrator",
+      "note": "a1_v3 fix deployed both halves"
+    }
   ],
-
   "countermodel_risks": [
-    {"id":"R1","desc":"The alpha web has no rigid solution at all","status":"STRENGTHENED","note":"r332 removes the only remaining non-narrative candidate justification for L5."},
-    {"id":"R2","desc":"L5 is underivable in principle","status":"RESOLVED_ON_THE_ROUTE_WE_HAVE","note":"r332: provable. Not proved for hypothetical future substrates with a wider invariant range."},
-    {"id":"R3","desc":"The substrate is too weak to see any Clay problem","status":"LIVE","settled_by":"exhibit any nonvacuous theorem mentioning both TimelessFieldCompletion and a standard object whose proof uses a substrate property"},
-    {"id":"R4","desc":"The YM encoding is inconsistent, not just vacuous","status":"LIVE","settled_by":"exhibit an inhabitant of Bridge5SubstrateQYM satisfying all 15 conjuncts, or prove none exists"},
-    {"id":"R5","desc":"KatoRellichInput contamination","status":"LIVE","settled_by":"reachability check from every central-theorem candidate"},
-    {"id":"R6","desc":"Encoding drift between near-identical names","status":"LIVE","note":"framework_alpha.a_PvNP = 5/4 vs alpha_NP = phi + 1/4; see N14b."}
+    {
+      "id": "R1",
+      "desc": "The alpha web has no rigid solution at all",
+      "status": "STRENGTHENED",
+      "note": "r332 removes the only remaining non-narrative candidate justification for L5."
+    },
+    {
+      "id": "R2",
+      "desc": "L5 is underivable in principle",
+      "status": "RESOLVED_ON_THE_ROUTE_WE_HAVE",
+      "note": "r332: provable. Not proved for hypothetical future substrates with a wider invariant range."
+    },
+    {
+      "id": "R3",
+      "desc": "The substrate is too weak to see any Clay problem",
+      "status": "LIVE",
+      "settled_by": "exhibit any nonvacuous theorem mentioning both TimelessFieldCompletion and a standard object whose proof uses a substrate property"
+    },
+    {
+      "id": "R4",
+      "desc": "The YM encoding is inconsistent, not just vacuous",
+      "status": "LIVE",
+      "settled_by": "exhibit an inhabitant of Bridge5SubstrateQYM satisfying all 15 conjuncts, or prove none exists"
+    },
+    {
+      "id": "R5",
+      "desc": "KatoRellichInput contamination",
+      "status": "LIVE",
+      "settled_by": "reachability check from every central-theorem candidate"
+    },
+    {
+      "id": "R6",
+      "desc": "Encoding drift between near-identical names",
+      "status": "LIVE",
+      "note": "framework_alpha.a_PvNP = 5/4 vs alpha_NP = phi + 1/4; see N14b."
+    }
   ],
-
   "report_order_section_10": [
     "central theorem status",
     "what became proved",
@@ -157,10 +1118,32 @@
     "decision required from Pablo",
     "next decisive action"
   ],
-
   "tally": {
-    "C1": 24, "C2": 10, "C3": 1, "C4": 1, "C5": 8, "C6": 6, "C7": 6, "BLOCKER": 10,
-    "flag_circular": 6, "flag_vacuous": 5,
+    "C1": 24,
+    "C2": 10,
+    "C3": 1,
+    "C4": 1,
+    "C5": 8,
+    "C6": 6,
+    "C7": 6,
+    "BLOCKER": 10,
+    "flag_circular": 6,
+    "flag_vacuous": 5,
     "note": "Six of the ten C2 nodes are the substrate construction or the r331b rectangle chain, the latter correctly scoped by the corpus as NOT the unified theory. No C2 node connects layer 1 to layer 2, or layer 2 to layer 3. As of r332 the layer-1 to layer-2 join is closed negatively on the route the corpus has."
+  },
+  "section3_conformance": {
+    "required_fields": [
+      "source file",
+      "fqn",
+      "deps",
+      "axioms",
+      "closed_term",
+      "rebuilt_from_source"
+    ],
+    "human_readable_generated_from_this_file": true,
+    "generator": "PF_Lean4_Code/scripts/gen_dependency_ledger.py",
+    "nodes_total": 67,
+    "nodes_with_unverified_required_field": 62,
+    "note": "Per directive section 3, unknown provenance is a BLOCKER. Every node carrying 'unverified' in a required field is one, and is counted here rather than silently defaulted. Filling them needs a per-node #print axioms / #check @ sweep and a C1-completion check; that sweep is queued, not done."
   }
 }
