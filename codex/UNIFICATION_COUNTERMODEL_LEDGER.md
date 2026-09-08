@@ -23,7 +23,13 @@ strength of not having found one.
 | **A3** | I8 (`α_RH·α_NS = α_NS + α_BSD`) | nothing changes — follows from I3, I5, I9, I11 | **KERNEL-PROVED** redundant (r124) |
 | **A4** | I7 (`α_YM = α_Poincaré + 1`) | most-cascading law: dropping it releases **four** α's | recorded by the 2026-08-24 provenance audit; **not independently re-derived here** |
 | **A5** | the `1/4` offset in `α_NP = φ + 1/4` | every real `c` is admissible for `α_NP − α_Hodge = c` under the ten invariants that do not mention `α_NP` | **KERNEL-PROVED** (`alpha_offset_is_free`, r124) |
-| **A6** | the remaining laws L1, L2, L3, L4, I6, I9 | **NOT DONE.** §4 requires "remove and survey surviving family" per law | **OPEN — this is the §4 gate's main outstanding work** |
+| **A6** | **L1** | `alpha_Hodge` released — witness `wo_L1` (`alpha_Hodge = 1`, `alpha_NP = 5/4`) | **CLOSED 2026-09-07**, r334.A. Exhaustive: one countermodel refutes redundancy |
+| **A7** | **L2** | `alpha_P` released — witness `wo_L2` (`alpha_P = 1`) | **CLOSED**, r334.B |
+| **A8** | **L3** | `alpha_NP` released — witness `wo_L3` (`alpha_NP = 1`) | **CLOSED**, r334.C. The eight-law form of A5 |
+| **A9** | **L4** | `alpha_QG` released — witness `wo_L4` (`alpha_QG = 1`) | **CLOSED**, r334.D |
+| **A10** | **I6** | `alpha_BSD` released — witness `wo_I6` (`alpha_BSD = 1`) | **CLOSED**, r334.E. r124's free parameter, inside the eight-law system |
+| **A11** | **I9** | `alpha_RH` released; `alpha_NS`, `alpha_BSD`, `alpha_NP` follow through L5, I6, L3 — witness `wo_I9`. Four of nine move together | **CLOSED**, r334.F. Most cascading of the six |
+| **A12** | I7 (`alpha_YM = alpha_Po + 1`) | — | **OPEN — not authorized.** The eight-law system is not fully audited until it is done |
 
 ## B. NON-ISOMORPHIC MODELS / ALTERNATE STRUCTURES PRODUCING THE SAME CONSTANTS
 
@@ -85,6 +91,8 @@ differently-named objects are the *same* object.
 | **G5** | The top-level capstone's premise entails its conclusion by application | **YES** — r333, kernel, 2026-09-07 |
 | **G6** | Problem 1a falsified (extremal-trace-space ≅ 9-point α-set impossible) | charter N3 — **filed, not formalised** |
 | **G7** | Circular α_NP derivation (bare route excludes √2 and φ+1/4) | charter N4 — partially formalised (`bare_route_structural_finding`) |
+| **G9** | Five of the eight laws force values outside the substrate trace range, and no irrational is a ratio of it either | **YES** — r334.G/H, kernel, 2026-09-07 |
+| **G10** | No law of the six is redundant: the eight-law system is triangular, one constraint per value, nowhere over-determined | **YES** — r334.A–F, kernel, 2026-09-07 |
 | **G8** | Refuted numeric anchors (α_EM sign error ~35×; ω_c; Δ_YM 420.43 MeV; both ch₂=0.95 derivations) | charter N6 — **filed, not formalised** |
 
 ## H. LIVE RISKS NOT YET PROBED
@@ -100,14 +108,28 @@ differently-named objects are the *same* object.
 
 ## SUMMARY
 
-**Five negatives are now formalised in the kernel** (G1–G5), two of them added
-2026-09-07. The corpus's own adversarial instinct is good and its negative
+**Seven negatives are now formalised in the kernel** (G1–G5, G9, G10), four of
+them added 2026-09-07. The corpus's own adversarial instinct is good and its negative
 results are real theorems, not memos.
 
-**The largest outstanding adversarial gap is A6:** the "remove and survey" pass
-has been run for L5, I2, I8 and the `1/4` offset, but not for L1, L2, L3, L4, I6
-or I9. Directive §4 requires it per law, and §11 makes the rigidity audit the
-first decisive gate. That is the next block of work.
+**A6 is closed.** The remove-and-survey pass has now been run for seven of the
+eight structural laws (r332 for L5, r334 for L1, L2, L3, L4, I6, I9). **Only I7
+remains** (A12), and it was not in the authorization.
+
+**The sharpest new finding is structural, not per-law.** With the anchor, the
+eight laws form a *triangular* system: nine unknowns, nine constraints, exactly
+one constraint pinning each unknown, **nowhere over-determined**. A rigid system
+with redundancy is evidence - the surplus equations could have failed and did
+not. A triangular system cannot fail, and cannot corroborate. r124 found
+redundancy among the *eleven invariants*; the move to eight laws removed exactly
+the redundancy that could have been evidential. Full treatment:
+`codex/ALPHA_RIGIDITY_AUDIT_REPORT_2026-09-07.md` section 2.
+
+**One exception survives the sweep, and it is real.** I9 forces `alpha_RH = 3/2`,
+which is not in Z[1/3] but *is* a ratio of its elements (3 and 2 both in range).
+The obstruction that closes the other five does not close I9. A uniform sweep
+would have reported six closures and been wrong on one - which is why section 4
+asks for the protocol per law.
 
 **Nothing here has been shown not to exist.** A1–A5 and C1 are formally
 exhaustive over their stated systems; everything else is bounded or unattempted,
