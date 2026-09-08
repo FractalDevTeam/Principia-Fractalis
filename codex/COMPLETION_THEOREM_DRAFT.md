@@ -44,6 +44,59 @@ The directive requires that a completion theorem expose, rather than bundle:
 
 ---
 
+## 1.5 THE FIVE STRATA — MANDATORY SEPARATION
+
+Per Pablo's binding refinement of 2026-09-07
+(`codex/CANONICAL_VERDICT_LANGUAGE_2026-09-07.md` §4), every statement of the
+result **visibly separates five strata**. They are not merged, not reordered into
+a single narrative, and not presented as one deduction.
+
+| # | stratum | conjuncts here | status |
+|---|---|---|---|
+| **I** | substrate-derived structure | **(U)**, **(E)** | genuinely derived |
+| **II** | independent selection laws | **(K-LAWS)** | postulated |
+| **III** | constants determined after accepting II | the nine values, as the conclusion of (K-LAWS) | consequences **of II**, not of I |
+| **IV** | unformalized physical motivation per law | **(M)**, §2.2b — carried, and marked | motivation, never derivation |
+| **V** | empirical consequences testing the branch | §4, the separately-named empirical theorem | separate claim ladder (directive §6) |
+
+**Stratum III is never attributed to stratum I.** The constants follow from the
+laws; the laws are postulates. That is the whole content of the verdict.
+
+**Stratum IV is the one that has caused trouble.** The Galois and minimal-polynomial
+readings of L1, L2, L4, the "gauge duality" gloss on I6, the π-scaling narrative
+on L5, and the H₃ Coxeter lead for φ and the ¼ all *read* as derivation and are
+not. `H3CoxeterOrigin.lean` says so itself, in a section headed "What is NOT
+claimed". Motivation is labelled motivation wherever it appears.
+
+### The canonical verdict
+
+> The substrate does not derive the α-constants; L5 is impossible through its
+> formalized substrate-ratio channel; the other six laws are independent of the
+> formalized substrate assumptions; together the laws form a triangular,
+> noncircular constraint system; therefore the constants are explicit postulates
+> — not hidden consequences, but not an inconsistent patchwork.
+
+*(r335 audited I7 after that wording was issued; "the other six" is now the other
+seven. Substance unchanged — see the canonical-language file §1a.)*
+
+### The mandatory caveat
+
+> "Independent" means independent **relative to the formalized base theory and
+> the exact constructions tested** — it does not establish independence from
+> every future extension of Principia Fractalis.
+
+This sentence is not optional and is not to be paraphrased away. It appears at
+least once in every document stating the verdict, including this one.
+
+### Narrative framing
+
+> The Ocean / Timeless Field supply the generative arena and structural
+> possibilities; the α-laws select the realized physical branch; mathematics
+> constrains the branch coherently but does not currently select its constants
+> without postulates.
+
+---
+
 ## 2. THE STRONGEST HONEST VERSION
 
 ### 2.0 Foundations
@@ -106,7 +159,8 @@ in `SubstrateTimelessFieldCompletion.lean`. (E) is not currently stateable. This
 is a real finding: *the framework has no stated equivalence relation*, so the
 question "are the derived constants invariants?" cannot presently be asked.
 
-### 2.2 The constants — conjuncts (K1)–(K9), REVISED 2026-09-07
+### 2.2 Strata II and III — the laws, and the constants they determine
+*(REVISED 2026-09-07; supersedes the (K1)–(K9) intrinsic-functional form)*
 
 **This block was rewritten after the §4 rigidity audit (r332, r334, r335).**
 
@@ -122,7 +176,9 @@ It must **state the postulates in full, as premises, where a reviewer sees them
 under `#check @`**. That is the §2 requirement, and it is also the honest shape.
 
 ```lean
-    -- ══ (K) THE CONSTANTS — EXPOSED POSTULATES, NOT DERIVATIONS ═══════════
+    -- ══ STRATUM II — INDEPENDENT SELECTION LAWS, EXPOSED ══════════════════
+    -- and STRATUM III — the constants they determine, as their conclusion.
+    -- Stratum III is a consequence of stratum II, NOT of stratum I.
     -- (K-LAWS) The eight structural laws, written out. No bundled predicate:
     --          `StructuralLaws` is deliberately NOT used here, because a
     --          structure name hides exactly the content §2 requires exposed.
@@ -178,6 +234,43 @@ in the signature, and which cannot be misread as a derivation.
 They belong to a hypothetical future substrate with an invariant range wider
 than `ℤ[1/3]`; that object does not exist, and gating the completion theorem on
 it made the theorem unstateable rather than merely unproved.
+
+### 2.2b Stratum IV — motivation, carried and marked (conjunct (M))
+
+§2 forbids bundled predicates that hide content. It does **not** forbid recording
+why a postulate was chosen — provided the record cannot be mistaken for a
+derivation. Stratum IV is therefore carried in the theorem's documentation, never
+in its statement, and never as a hypothesis.
+
+```lean
+    -- ══ (M) STRATUM IV — MOTIVATION, NOT DERIVATION ═══════════════════════
+    -- Deliberately NOT a conjunct. Motivation has no truth-conditional role in
+    -- the theorem; putting it in the statement would let a reader discharge a
+    -- postulate by accepting a gloss. It lives in the docstring, labelled.
+    --
+    --   L1  minimal polynomial of φ. φ arises genuinely in icosahedral H₃
+    --       geometry (sin(π/10) = 1/(2φ), mathlib-verified). NO theorem links
+    --       the framework's H_α operator to H₃ Coxeter structure —
+    --       H3CoxeterOrigin.lean states this itself and calls it OPEN.
+    --   L2  minimal polynomial of √2. No substrate operator's spectrum is
+    --       proved to contain √2.
+    --   L3  "Galois trace law" on the coset φ + ℚ. The trace is correct; the
+    --       offset q = 1/4 is inserted, not forced. H₃'s exponent gap is 4,
+    --       which is the lead — and only a lead.
+    --   L4  minimal polynomial of √(2π). Same shape as L2.
+    --   L5  "π-scaling law". No mechanism anywhere in the corpus, and the
+    --       channel is now closed (r332).
+    --   I6  "gauge invariant". GaugeInvariance exists in the corpus in name
+    --       only.
+    --   I7  the unit shift. Not tied to any substrate operator.
+    --   I9  the constant 3. Could plausibly come from the base-3 substrate;
+    --       no theorem links them.
+```
+
+**Why this is a conjunct-shaped comment rather than a conjunct:** a motivation
+that entered the statement would be a premise, and a reader who accepted the
+gloss would believe they had discharged the postulate. Stratum IV is exactly the
+material that must be visible and inert at the same time.
 
 ### 2.3 The sectors — conjuncts (S1)–(S6)
 

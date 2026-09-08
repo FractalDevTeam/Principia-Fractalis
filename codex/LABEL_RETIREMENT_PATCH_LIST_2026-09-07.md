@@ -14,6 +14,34 @@ document *is* the list.
 Retire **"derived"**, **"forced"**, and **"no free parameters"** wherever they
 describe the α-constants.
 
+**Canonical source:** `codex/CANONICAL_VERDICT_LANGUAGE_2026-09-07.md`. That file
+is Pablo's wording and is authoritative; this list draws from it. If the two
+differ, the canonical file is right.
+
+**The verdict, canonical wording:**
+
+> The substrate does not derive the α-constants; L5 is impossible through its
+> formalized substrate-ratio channel; the other six laws are independent of the
+> formalized substrate assumptions; together the laws form a triangular,
+> noncircular constraint system; therefore the constants are explicit postulates
+> — not hidden consequences, but not an inconsistent patchwork.
+
+*(r335 audited I7 after that wording was issued, so "the other six" is now the
+other seven. Substance unchanged; pending Pablo's confirmation of the count.)*
+
+**MANDATORY in every patched document — not optional, not to be paraphrased:**
+
+> "Independent" means independent **relative to the formalized base theory and
+> the exact constructions tested** — it does not establish independence from
+> every future extension of Principia Fractalis.
+
+**Narrative framing, for prose sites:**
+
+> The Ocean / Timeless Field supply the generative arena and structural
+> possibilities; the α-laws select the realized physical branch; mathematics
+> constrains the branch coherently but does not currently select its constants
+> without postulates.
+
 **Sanctioned replacement (Pablo, 2026-09-07), to be used verbatim or adapted
 minimally:**
 
@@ -112,6 +140,19 @@ Leave untouched. These are accurate and their meaning depends on the phrase:
 
 ---
 
+## FIVE-STRATA RULE FOR PATCHED TEXT
+
+Every patched passage keeps the five strata visibly separate (canonical file §4):
+**I** substrate-derived structure · **II** independent selection laws ·
+**III** constants determined after accepting II · **IV** unformalized physical
+motivation, *marked as such* · **V** empirical consequences that could test the
+branch.
+
+Stratum III is never attributed to stratum I. Stratum IV — the Galois readings,
+the "gauge duality" gloss, the π-scaling narrative, the H₃ lead — is labelled
+motivation wherever it appears. That is what most of the retired language was
+doing: presenting stratum IV as stratum I.
+
 ## SUGGESTED REPLACEMENT TEXT
 
 For a headline sentence (T1.1, T1.2, T1.7, T3.1):
@@ -119,7 +160,11 @@ For a headline sentence (T1.1, T1.2, T1.7, T3.1):
 > The nine α-values are uniquely pinned by eight independently postulated
 > structural laws together with positivity and the external Perelman anchor.
 > Those laws form a triangular, non-over-determined system: one constraint per
-> value. They are postulates of the framework, not consequences of its substrate.
+> value. They are explicit postulates of the framework, not consequences of its
+> substrate — not hidden consequences, but not an inconsistent patchwork.
+> ("Independent" here means independent relative to the formalized base theory
+> and the exact constructions tested; it does not establish independence from
+> every future extension of Principia Fractalis.)
 
 For a "substrate forces" site (T1.6, T3.5):
 

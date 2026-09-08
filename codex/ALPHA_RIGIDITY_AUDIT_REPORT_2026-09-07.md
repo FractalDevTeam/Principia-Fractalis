@@ -4,16 +4,44 @@
 **Mandate:** `codex/UNIFIED_THEORY_PROOF_DIRECTIVE_2026-09-07.md` §4, the first
 mathematical gate. Charter: `codex/ALPHA_RIGIDITY_AUDIT_CHARTER_2026-09-01.md`.
 **Kernel artifacts:** `PF/AlphaL5PiScalingObstruction_r332.lean` (L5),
-`PF/AlphaStructuralLawAudit_r334.lean` (L1, L2, L3, L4, I6, I9).
+`PF/AlphaStructuralLawAudit_r334.lean` (L1, L2, L3, L4, I6, I9),
+`PF/AlphaStructuralLawAuditI7_r335.lean` (I7).
 
 §4 requires six outputs: **verdicts · dependency paths · countermodels or
 bounded failed searches · minimal sufficient subsets · residual parameter space ·
 strongest non-circular uniqueness theorem.** Each has its own section below.
 
-**Scope.** Seven of the eight structural laws are audited: L5 (r332) and
-L1, L2, L3, L4, I6, I9 (r334). **I7 (`α_YM = α_Poincaré + 1`) was not in the
-authorization and is not audited.** The eight-law system is not fully audited
-until it is.
+**Scope.** **All eight structural laws are audited** (I7 completed 2026-09-07,
+r335): L5 (r332); L1, L2, L3, L4, I6, I9 (r334); I7 (r335). The eight-law system
+is closed.
+
+---
+
+## 0. CANONICAL WORDING AND THE MANDATORY CAVEAT
+
+Wording for this result is governed by
+`codex/CANONICAL_VERDICT_LANGUAGE_2026-09-07.md` (Pablo, 2026-09-07).
+
+> The substrate does not derive the α-constants; L5 is impossible through its
+> formalized substrate-ratio channel; the other six laws are independent of the
+> formalized substrate assumptions; together the laws form a triangular,
+> noncircular constraint system; therefore the constants are explicit postulates
+> — not hidden consequences, but not an inconsistent patchwork.
+
+*(Issued against the r334 report; r335 has since audited I7, making it the other
+seven. Substance unchanged.)*
+
+**MANDATORY, and it qualifies every verdict below:**
+
+> "Independent" means independent **relative to the formalized base theory and
+> the exact constructions tested** — it does not establish independence from
+> every future extension of Principia Fractalis.
+
+Concretely, for this report: `independent` means no derivation exists *from the
+substrate's formalized classifying invariant* — the unique trace with range
+`ℤ[1/3]` — *through the channels tested here*, which are direct membership and
+ratio-reachability. It is not a claim about substrates the framework has not
+built.
 
 ---
 
@@ -30,15 +58,17 @@ From the five permitted words. Every verdict is backed by a kernel theorem.
 | **L5** | `α_NS = α_RH·π` | 3π/2 | (r124: closes the free parameter) | **no — π not a ratio** (r332) | **independent** |
 | **I6** | `α_NS = α_YM·α_BSD` | 3π/4 | necessary (r334.E) | no — irrational | **independent** |
 | **I9** | `α_RH·α_YM = 3` | 3/2 | necessary (r334.F) | **YES, as a ratio** (r334.I) | **independent** |
-| I7 | `α_YM = α_Po + 1` | 2 | *not audited* | 2 ∈ ℤ[1/3] | *pending* |
+| **I7** | `α_YM = α_Po + 1` | 2 | necessary (r335.A) — **most cascading: 7 of 9 move** | **YES, directly in `ℤ[1/3]`** (r335.B) | **independent** |
 
 **Why not `redundant`:** remove-and-survey exhibits, for each, a positive
 skeleton satisfying the anchor and the other seven laws yet differing from
 canonical. The family strictly grows when any one is dropped.
 
-**Why not `derivable`:** five are blocked by the trace-range obstruction; I9 has
-no substrate theorem linking the constant `3` to anything; L5 is closed outright
-by r332.
+**Why not `derivable`:** six are blocked by the trace-range obstruction (L1, L2,
+L3, L4, I6, and L5 outright via r332). The two that survive it — **I7** (`2 ∈
+ℤ[1/3]`) and **I9** (`3/2` ratio-reachable) — are compatible but unlinked: no
+theorem ties I7's `+1` or I9's `3` to any substrate structure. Compatibility is
+necessary, not sufficient.
 
 **Why not `circular`:** no law's *statement* mentions the value it forces. This
 is a genuine distinction — from the r301 bundle (r333), whose premise **is** its
@@ -126,19 +156,19 @@ refutations of redundancy** — one countermodel suffices.
 | A second self-consistent nine-tuple satisfying all eight laws with a different anchor | none run | **UNATTEMPTED.** Would end the rigidity claim outright |
 | The sign/Galois quotient (L1, L2, L4 each pin only up to conjugation; positivity selects) | none run | **UNATTEMPTED.** Charter P3. No *independent* principle for positivity is stated anywhere |
 | S-Δ1 / S-Δ2 Gröbner computations (charter P2/P3) | not run | **UNATTEMPTED** |
-| I7 full protocol | not run | **NOT AUTHORIZED** |
+| I7 full protocol | — | **DONE** 2026-09-07, r335 |
 
 ---
 
 ## 4. MINIMAL SUFFICIENT SUBSETS
 
-**There is no proper sufficient subset.** Of the seven audited laws, each is the
+**There is no proper sufficient subset.** Of the eight audited laws, each is the
 unique constraint pinning at least one α:
 
 | α | pinned by | sole pinner? |
 |---|---|---|
 | α_Poincaré | anchor | yes |
-| α_YM | I7 | yes *(unaudited)* |
+| α_YM | I7 | yes (r335) |
 | α_Hodge | L1 | yes |
 | α_P | L2 | yes |
 | α_NP | L3 | yes |
@@ -224,5 +254,5 @@ The last row is the constructive path. It is what a rigidity claim would need.
 
 ---
 
-*Audit of seven of eight laws. I7 pending authorization. Kernel artifacts r332,
-r334. Public HEAD `96c71da7`. NO PUSH.*
+*All eight laws audited. Kernel artifacts r332, r334, r335. Wording governed by
+`codex/CANONICAL_VERDICT_LANGUAGE_2026-09-07.md`. Public HEAD `96c71da7`. NO PUSH.*
