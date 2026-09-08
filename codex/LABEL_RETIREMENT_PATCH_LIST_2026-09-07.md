@@ -1,11 +1,41 @@
-# LABEL RETIREMENT — PATCH LIST (NOT APPLIED)
+# LABEL RETIREMENT — PATCH LIST (PARTIALLY APPLIED)
 
 **Dispatched:** 2026-09-07, following the completed eight-law rigidity audit
 (r332, r334, r335) and `codex/ALPHA_RIGIDITY_AUDIT_REPORT_2026-09-07.md`.
 
-**Nothing in this list has been applied.** Per the standing corrections-review
-rule, the book is not mass-edited without Pablo seeing the list first. This
-document *is* the list.
+## STATUS 2026-09-07
+
+Pablo ruled: **docstrings, internal docs and codex records PROCEED; book and
+paper edits remain gated** on his read of this list.
+
+**APPLIED** (5 sites; the three Lean files re-verified to build):
+
+| site | file |
+|---|---|
+| T1.7 | `README.md` — front-door claim |
+| T1.8 | `docs/REFEREE_QUICKSTART.md` — referee-facing |
+| T3.1 | `PF/CrossMillenniumSharedInvariants.lean` — RC=0 after edit |
+| T3.2 | `PF/AlphaArchitecturalIdentities.lean` — RC=0 after edit |
+| T3.3 | `PF/Wave58MasterCapstone.lean` |
+
+I read `README.md` and `docs/` as *internal docs* rather than book or papers.
+**If that classification is wrong, say so and I will revert those two.**
+
+**STILL GATED — not touched:**
+
+- **The book.** T1.1–T1.6, all in `ch34A_substrate_theorem.tex`, including
+  T1.6 `ch34A:1424` — *"the framework's substrate forces:"* — the single most
+  wrong sentence in the corpus, still standing because it is book text.
+- **The papers.** T2.1, T2.2, T2.4.
+- **Remaining docstrings** T3.4–T3.8 — deferred for batching only, not gated.
+
+**Superseded dated papers: header note added, nothing else** (ruling 4). Eight
+files now carry a `%% SUPERSEDED_BY:` LaTeX comment block naming the superseding
+document and the current verdict wording. Comments cannot affect rendering, so
+the frozen documents are unchanged *as documents*; their retired labels are
+deliberately left in place, because they are history.
+
+The rest of this document is the list as originally compiled.
 
 ---
 
@@ -21,13 +51,17 @@ differ, the canonical file is right.
 **The verdict, canonical wording:**
 
 > The substrate does not derive the α-constants; L5 is impossible through its
-> formalized substrate-ratio channel; the other six laws are independent of the
+> formalized substrate-ratio channel; the other seven laws are independent of the
 > formalized substrate assumptions; together the laws form a triangular,
 > noncircular constraint system; therefore the constants are explicit postulates
 > — not hidden consequences, but not an inconsistent patchwork.
 
-*(r335 audited I7 after that wording was issued, so "the other six" is now the
-other seven. Substance unchanged; pending Pablo's confirmation of the count.)*
+*(Count corrected six → seven, approved by Pablo 2026-09-07 on the condition that
+I7's kernel verdict be landed and independent. It is:
+`PrincipiaTractalis.AlphaStructuralLawAuditI7.I7_necessary`,
+`PF/AlphaStructuralLawAuditI7_r335.lean`, committed `9a68ad01`, axioms exactly
+`[propext, Classical.choice, Quot.sound]`, verdict `independent`. The other seven
+are L1, L2, L3, L4, I6, I9 and I7.)*
 
 **MANDATORY in every patched document — not optional, not to be paraphrased:**
 

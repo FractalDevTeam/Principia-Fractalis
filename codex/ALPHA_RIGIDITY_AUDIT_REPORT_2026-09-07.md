@@ -23,13 +23,17 @@ Wording for this result is governed by
 `codex/CANONICAL_VERDICT_LANGUAGE_2026-09-07.md` (Pablo, 2026-09-07).
 
 > The substrate does not derive the α-constants; L5 is impossible through its
-> formalized substrate-ratio channel; the other six laws are independent of the
+> formalized substrate-ratio channel; the other seven laws are independent of the
 > formalized substrate assumptions; together the laws form a triangular,
 > noncircular constraint system; therefore the constants are explicit postulates
 > — not hidden consequences, but not an inconsistent patchwork.
 
-*(Issued against the r334 report; r335 has since audited I7, making it the other
-seven. Substance unchanged.)*
+*(Count corrected six → seven, approved by Pablo 2026-09-07 on the condition that
+I7's kernel verdict be landed and independent. It is:
+`PrincipiaTractalis.AlphaStructuralLawAuditI7.I7_necessary`,
+`PF/AlphaStructuralLawAuditI7_r335.lean`, committed `9a68ad01`, axioms exactly
+`[propext, Classical.choice, Quot.sound]`, verdict `independent`. The other seven
+are L1, L2, L3, L4, I6, I9 and I7.)*
 
 **MANDATORY, and it qualifies every verdict below:**
 
