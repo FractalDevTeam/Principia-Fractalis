@@ -138,9 +138,74 @@ project has already been audited for.
 
 ---
 
+## H. STATEMENT FIDELITY — read-back audit (STANDING GATE, added 2026-09-08)
+
+**Every other gate in this file verifies that a proof is sound. None of them
+verifies that the statement means what we think it means.** `#print axioms`
+cannot detect statement drift; a kernel-perfect proof of a subtly-weakened or
+vacuous theorem passes A, B, C and D without complaint.
+
+The base rate cited in `codex/FLT_LESSONS_FOR_PF_2026-09-08.md` §6: a Lean-as-judge
+audit found only **~43% of AI-drafted formal statements faithful** to their
+intended meaning. Statement drift, not proof error, is the failure mode at scale.
+Our exposure is concentrated exactly where it hurts: converting "proved zero-count
+identity on one rectangle" into anything phrased as a result about RH.
+
+### The gate
+
+For every **load-bearing root statement**, an independent reader renders the Lean
+into precise prose **without having seen the intended meaning**, and the two are
+diffed.
+
+| # | item | status |
+|---|---|---|
+| H1 | `xi_T15_zero_count_identity_unconditional` — read-back on file, diffed | ☐ |
+| H2 | `top15_re_lt_neg_1e4` (union, FULL) — read-back on file, diffed | ☐ |
+| H3 | `alpha_skeleton_unique` (r128) — read-back on file, diffed | ☐ |
+| H4 | r332 obstruction theorems — read-back on file, diffed | ☐ |
+| H5 | **r331c/d root statements — read-back BEFORE any proof work begins** | ☐ |
+| H6 | Completion-theorem draft signature — read-back when it becomes Lean | ☐ |
+| H7 | Every milestone lemma of a new campaign, at statement-freeze time | ☐ |
+
+### Protocol — binding
+
+1. The reader receives the **declaration text only**: signature and, where needed
+   to unfold, the definitions it depends on. **No docstrings, no comments, no
+   file names that telegraph intent, no surrounding prose.**
+2. The reader must return: (a) a prose rendering; (b) every binder and
+   hypothesis, implicit ones included; (c) **what the statement does NOT assert**;
+   (d) a vacuity/triviality check — could this be true for uninteresting reasons;
+   (e) drift flags — anything the *name* claims that the *type* does not.
+3. Only then is the read-back compared against the intended meaning.
+4. **A statement whose read-back diverges from intent does not proceed to proof
+   work**, and if already proved, its consumer-facing description is corrected
+   before anything is published on it.
+
+Item (e) is not optional. Names like `..._unconditional`, `..._forced`,
+`..._ktheoretic` do work in a reader's head that the type may not support — and a
+name is what a referee skims.
+
+### Ordering rule
+
+**Read-back precedes proof work, not the reverse.** Reviewing a statement is far
+cheaper than proving it, and a false or drifted statement is the most expensive
+token sink available. Retroactive read-backs are worth running on existing roots
+(H1–H4), but the value is in H5 and H7, where the cost of catching drift is a
+paragraph rather than a campaign.
+
+### What this does not replace
+
+Read-back checks *meaning*. It does not check soundness — B and the `#print
+axioms` discipline in §B0 still carry that, and neither substitutes for the
+other. A statement can be faithful and unsound, or sound and drifted; the gate
+must catch both, which is why H sits alongside B rather than inside it.
+
+
+---
+
 ## SIGN-OFF
 
-Release requires: all of A, B, C, D, F mandatory; E documented; G1–G5.
+Release requires: all of A, B, C, D, F **and H** mandatory; E documented; G1-G5.
 
 Nothing in this file authorises a push. `NO PUSH` stands until G5.
 

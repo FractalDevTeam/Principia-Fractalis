@@ -89,9 +89,28 @@ Same shape as `re_xi_lower_bound_from_enclosures` / `im_xi_lower_bound_from_encl
 with the roles of `σ` and `t` exchanged. The arithmetic hypothesis is supplied at the
 call site from the box's rational endpoints, exactly as in the r331b bridges. -/
 
+/-! ## Non-degeneracy — added 2026-09-08 after a statement read-back audit
+
+The two consumers below carry `h_ne : t_lo <= t_hi`, which their proofs do NOT
+use. That is deliberate and it is the point.
+
+Without it, `t_lo := 1, t_hi := 0` makes every enclosure hypothesis vacuously
+provable for arbitrary bounds, makes `h_arith` vacuously provable for arbitrary
+`m`, and makes the conclusion vacuously true. The theorem would then be provable
+with `m = 10^100` while asserting nothing whatever about xi. A campaign could
+accumulate green certificates covering a total t-measure of zero and no gate in
+this file would notice.
+
+The hypothesis costs nothing at a real call site and closes that instantiation.
+Expect an unused-variable warning on `h_ne`; it is expected and is not a defect.
+
+Found by the read-back gate (RELEASE_GATE_r331b.md section H) BEFORE any proof
+work began, which is where that gate is supposed to pay for itself.
+-/
+
 /-- **RIGHT LOW consumer** — `Re ξ(σ+it) ≥ m` for every `t` in the box. -/
 theorem re_xi_lower_bound_from_edge
-    {t_lo t_hi σ : ℝ}
+    {t_lo t_hi σ : ℝ} (h_ne : t_lo ≤ t_hi)
     {AΛ_re BΛ_re : ℝ} (h_re : EdgeReEnclosure t_lo t_hi σ AΛ_re BΛ_re)
     {AΛ_im BΛ_im : ℝ} (h_im : EdgeImEnclosure t_lo t_hi σ AΛ_im BΛ_im)
     {C_re_lo C_re_hi : ℝ}
@@ -118,7 +137,7 @@ theorem re_xi_lower_bound_from_edge
 
 /-- **RIGHT HIGH consumer** — `Im ξ(σ+it) ≥ m` for every `t` in the box. -/
 theorem im_xi_lower_bound_from_edge
-    {t_lo t_hi σ : ℝ}
+    {t_lo t_hi σ : ℝ} (h_ne : t_lo ≤ t_hi)
     {AΛ_re BΛ_re : ℝ} (h_re : EdgeReEnclosure t_lo t_hi σ AΛ_re BΛ_re)
     {AΛ_im BΛ_im : ℝ} (h_im : EdgeImEnclosure t_lo t_hi σ AΛ_im BΛ_im)
     {C_re_lo C_re_hi : ℝ}
