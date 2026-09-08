@@ -106,48 +106,78 @@ in `SubstrateTimelessFieldCompletion.lean`. (E) is not currently stateable. This
 is a real finding: *the framework has no stated equivalence relation*, so the
 question "are the derived constants invariants?" cannot presently be asked.
 
-### 2.2 The constants — conjuncts (K1)–(K9)
+### 2.2 The constants — conjuncts (K1)–(K9), REVISED 2026-09-07
 
-This is the block that distinguishes a unified theory from a table of numbers.
-It must say the α-values are **forced**, not chosen.
+**This block was rewritten after the §4 rigidity audit (r332, r334, r335).**
+
+The first edition asserted the nine α-values are *outputs* of an intrinsic
+substrate functional `Φ`, gated on a predicate `IsIntrinsic` that does not exist.
+The audit showed that framing is not merely unreachable — it is **misframed**.
+All eight structural laws are `independent`: none redundant, none derivable from
+the substrate, none circular. Six are closed outright by the trace-range
+obstruction; the two survivors (I7, I9) have no linking theorem.
+
+So a completion theorem must not *promise* derivation and then fail to supply it.
+It must **state the postulates in full, as premises, where a reviewer sees them
+under `#check @`**. That is the §2 requirement, and it is also the honest shape.
 
 ```lean
-    -- ══ (K) THE CLAIMED-DERIVED CONSTANTS ═════════════════════════════
-    -- Each α is the value of an intrinsic substrate functional. The
-    -- functional must be defined WITHOUT reference to the target value.
-    (∃ (Φ : PF.SubstrateInvariantFunctional),
-        -- (K0) Φ is intrinsic: its definition mentions no α-value, no
-        --      equation equivalent to one, and no selected spectrum.
-        PF.IsIntrinsic Φ ∧
-        -- (K1)-(K9) the nine values are OUTPUTS of Φ
-        Φ PF.Sector.Poincare = 1 ∧
-        Φ PF.Sector.RH       = 3 / 2 ∧
-        Φ PF.Sector.YM       = 2 ∧
-        Φ PF.Sector.P        = Real.sqrt 2 ∧
-        Φ PF.Sector.NP       = goldenRatio + 1 / 4 ∧
-        Φ PF.Sector.Hodge    = goldenRatio ∧
-        Φ PF.Sector.QG       = Real.sqrt (2 * Real.pi) ∧
-        Φ PF.Sector.BSD      = 3 * Real.pi / 4 ∧
-        Φ PF.Sector.NS       = 3 * Real.pi / 2 ∧
-        -- (K-RIGID) and Φ is the unique intrinsic functional with these
-        --           values, so the assignment is not one of a family
-        (∀ Ψ : PF.SubstrateInvariantFunctional,
-            PF.IsIntrinsic Ψ → (∀ s, Ψ s = Φ s) → Ψ = Φ)) ∧
+    -- ══ (K) THE CONSTANTS — EXPOSED POSTULATES, NOT DERIVATIONS ═══════════
+    -- (K-LAWS) The eight structural laws, written out. No bundled predicate:
+    --          `StructuralLaws` is deliberately NOT used here, because a
+    --          structure name hides exactly the content §2 requires exposed.
+    (∀ s : PF.AlphaSkeleton,
+        -- L1  Galois minimal polynomial of the Hodge class
+        s.aHodge * s.aHodge = s.aPoincare * s.aHodge + s.aPoincare →
+        -- I7  the unexplained unit shift
+        s.aYM = s.aPoincare + 1 →
+        -- L2  Galois norm of the P class
+        s.aP * s.aP = s.aYM →
+        -- I9  the unexplained constant 3
+        s.aRH * s.aYM = 3 →
+        -- L3  the trace law fixing the NP offset
+        s.aPoincare + 2 * (s.aNP - s.aHodge) = s.aRH →
+        -- L4  Galois norm of the QG class
+        s.aQG * s.aQG = s.aYM * Real.pi →
+        -- L5  the π-scaling law  (underivable: r332)
+        s.aNS = s.aRH * Real.pi →
+        -- I6  the gauge relation
+        s.aNS = s.aYM * s.aBSD →
+        -- positivity, whose selection principle is itself unstated
+        PF.IsPositive s →
+        -- the external anchor: Perelman 2003, entering as a numeral
+        s.aPoincare = 1 →
+      s = PF.canonicalSkeleton) ∧
+
+    -- (K-HONEST) …and the theorem must carry, in the same breath, the fact
+    -- that those postulates are NOT substrate consequences. Otherwise a
+    -- reader will supply the missing derivation from the framing.
+    (∀ a b : ℝ, MemZ13 a → MemZ13 b →
+        b / a ≠ α_Hodge ∧ b / a ≠ α_P  ∧ b / a ≠ α_NP ∧
+        b / a ≠ α_QG    ∧ b / a ≠ α_BSD ∧ b / a ≠ α_NS) ∧
+
+    -- (K-OPEN) …and the two laws the obstruction does NOT close, named
+    -- explicitly so the remaining possibility is visible rather than implied.
+    (MemZ13 α_YM ∧
+     ∃ a b : ℝ, MemZ13 a ∧ MemZ13 b ∧ a ≠ 0 ∧ b / a = α_RH) ∧
 ```
 
-**Status:** the nine α-values are `noncomputable def`s at
-`CrossMillenniumSharedInvariants.lean:64-85`. There is no `Φ`. The eight
-structural laws that pin them are, per the corpus's own provenance audit,
-**zero of class A** and **eight of class F (target-encoded)**. `α_NS = α_RH · π`
-(L5) is class **G** — narrative with no formal counterpart anywhere.
+**Status: (K-LAWS) is reachable today** — it is r128's uniqueness theorem with
+its premises unbundled. **(K-HONEST) and (K-OPEN) are already proved**: r334.H and
+r335.C respectively. So the revised (K) block is, unusually, the *most* reachable
+part of the completion theorem, where the first edition made it the least.
 
-`PF.IsIntrinsic` is the crux predicate and **does not exist**. Defining it
-honestly is itself an open problem: it must forbid the definition from
-mentioning the target value, an equivalent equation, or a selected spectrum.
-Without it, (K0) can be satisfied trivially by a functional that returns a
-lookup table.
+What is lost: the claim that the substrate produces the constants. That claim was
+never supported, and the audit converted "unsupported" into "closed on the route
+we have".
 
-**(K) is currently unreachable and is the single largest gap in the theorem.**
+What is gained: a constants block a referee can check, whose premises are visible
+in the signature, and which cannot be misread as a derivation.
+
+**`IsIntrinsic`, `Φ`, and (K-RIGID) are withdrawn** from the target theorem.
+They belong to a hypothetical future substrate with an invariant range wider
+than `ℤ[1/3]`; that object does not exist, and gating the completion theorem on
+it made the theorem unstateable rather than merely unproved.
 
 ### 2.3 The sectors — conjuncts (S1)–(S6)
 
@@ -326,9 +356,10 @@ honest.
 | **(U3)** | it is the completion of T_∞ | blocks silent reindexing | **yes** |
 | **(E1)** | the equivalence relation is the framework's own | prevents an ad-hoc relation chosen to make (E2) true | **no** — not stateable |
 | **(E2)** | derived constants are invariants of it | a constant that changes with representative is an artefact | **no** — not stateable |
-| **(K0)** | the constant-functional is intrinsic | without it, `Φ` is a lookup table | **no** — `IsIntrinsic` undefined |
-| **(K1)–(K9)** | the nine α-values are outputs | currently they are `def`s; this is the whole difference | **no** |
-| **(K-RIGID)** | uniqueness of `Φ` | r124 shows the eleven invariants admit a family | **no** |
+| **(K-LAWS)** | the eight laws, unbundled, pin the nine values | a structure name hides the content §2 requires exposed | **yes** — r128 with premises unbundled |
+| **(K-HONEST)** | those laws are not substrate consequences | without it the framing supplies a derivation the text does not | **yes** — r334.H |
+| **(K-OPEN)** | I7 and I9 survive the obstruction | names the remaining possibility instead of implying it | **yes** — r335.C |
+| ~~(K0)/(K1–K9)/(K-RIGID)~~ | *withdrawn 2026-09-07* | the intrinsic-functional framing was misframed, not merely unreachable | — |
 | **(S1)** | literal RH | the one sector already stated faithfully | statement yes, proof no |
 | **(S2)** | literal P ≠ NP | apparently faithful; needs a TM-encoding audit | statement likely, proof no |
 | **(S3)** | literal NS global regularity | current predicate is a substrate stand-in | **no** |
