@@ -71,13 +71,17 @@ claimed". Motivation is labelled motivation wherever it appears.
 ### The canonical verdict
 
 > The substrate does not derive the α-constants; L5 is impossible through its
-> formalized substrate-ratio channel; the other six laws are independent of the
+> formalized substrate-ratio channel; the other seven laws are independent of the
 > formalized substrate assumptions; together the laws form a triangular,
 > noncircular constraint system; therefore the constants are explicit postulates
 > — not hidden consequences, but not an inconsistent patchwork.
 
-*(r335 audited I7 after that wording was issued; "the other six" is now the other
-seven. Substance unchanged — see the canonical-language file §1a.)*
+*(Count corrected six → seven, approved by Pablo 2026-09-07 on the condition that
+I7's kernel verdict be landed and independent. It is:
+`PrincipiaTractalis.AlphaStructuralLawAuditI7.I7_necessary`,
+`PF/AlphaStructuralLawAuditI7_r335.lean`, committed `9a68ad01`, axioms exactly
+`[propext, Classical.choice, Quot.sound]`, verdict `independent`. The other seven
+are L1, L2, L3, L4, I6, I9 and I7.)*
 
 ### The mandatory caveat
 

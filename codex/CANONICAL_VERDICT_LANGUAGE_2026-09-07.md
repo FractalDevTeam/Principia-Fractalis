@@ -14,21 +14,33 @@ copy is wrong.
 ## 1. THE VERDICT — canonical wording
 
 > The substrate does not derive the α-constants; L5 is impossible through its
-> formalized substrate-ratio channel; the other six laws are independent of the
+> formalized substrate-ratio channel; the other seven laws are independent of the
 > formalized substrate assumptions; together the laws form a triangular,
 > noncircular constraint system; therefore the constants are explicit postulates
 > — not hidden consequences, but not an inconsistent patchwork.
 
-### 1a. One arithmetic note, flagged for confirmation
+### 1a. The count, corrected and closed
 
-The wording above was issued against the r334 report, when seven of the eight
-laws had been audited. **r335 (I7) landed afterwards.** With I7 audited, "the
-other six" is now **the other seven** — L1, L2, L3, L4, I6, I9 **and I7**.
+The wording above originally read *"the other six"*. It was issued against the
+r334 report, when seven of the eight laws had been audited; **r335 audited I7
+afterwards**.
 
-The verdict is unchanged in substance: I7 is `independent` on the same footing as
-the rest. Only the count moves. **Pending Pablo's confirmation**, publication
-copy should read *"the other seven laws"*; until then this file carries both, and
-the per-law table in §2 is authoritative for the facts.
+Pablo approved the correction to **seven** on 2026-09-07, conditional on I7's
+kernel verdict being landed and independent. **The condition is met:**
+
+| | |
+|---|---|
+| theorem | `PrincipiaTractalis.AlphaStructuralLawAuditI7.I7_necessary` |
+| file | `PF/AlphaStructuralLawAuditI7_r335.lean` |
+| commit | `9a68ad01` |
+| axioms | `[propext, Classical.choice, Quot.sound]` — exactly the mathlib three |
+| `sorryAx` / `ofReduceBool` | none |
+| verdict | **independent** |
+
+The other seven are **L1, L2, L3, L4, I6, I9 and I7**. L5 is the one closed
+outright, through its formalized substrate-ratio channel (r332).
+
+**This item is closed.** No further confirmation pending.
 
 ---
 
@@ -140,5 +152,5 @@ Longer form for headline sites:
 
 ---
 
-*Canonical as of 2026-09-07. One item pending Pablo: six → seven in §1, per §1a.
+*Canonical as of 2026-09-07. Count corrected six → seven and closed (§1a).
 Public HEAD `96c71da7`. NO PUSH.*
