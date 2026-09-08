@@ -155,5 +155,148 @@ zero t-measure. Fixed before elaboration; the module now builds clean.
 
 ---
 
-*Chartered 2026-09-08. Root statements NOT frozen pending read-back. No machine
-committed. Public HEAD `96c71da7`. NO PUSH.*
+---
+
+## 8. ROOT-STATEMENT READ-BACK — RESULT, AND WHAT IT CHANGED
+
+Gate §H read-back on the six draft roots returned 2026-09-08. **Every checkable
+claim it made was confirmed numerically.** The drafts are **NOT frozen**; the
+statement set is incomplete and one intended lemma shape is false.
+
+### 8.1 THE CAMPAIGN-CRITICAL FINDING — the top edge lies ON the branch cut
+
+ξ is real on the critical line (Hardy's Ξ), and `t = 15` is past the first zero
+at `t ≈ 14.1347`, so `Ξ(15) < 0`. Confirmed to 40 digits:
+
+    xi(1/2 + 15i) = -7.0569795882e-04  +  (-4.83e-45)i      arg = -pi exactly
+
+**`ξ(1/2 + 15i)` is real and negative. The top edge passes through the principal
+branch cut.** Any "top edge ∈ slitPlane" lemma is **FALSE**, and the device that
+works on the right edge does not transfer.
+
+Argument across the top edge, σ from 0 to 1 at t=15:
+
+| σ | 0 | 0.25 | 0.5 | 0.75 | 1 |
+|---|---|---|---|---|---|
+| arg ξ | −2.938 | −3.021 | **−π** | +3.021 | +2.938 |
+
+It crosses the cut, and does so exactly at the critical line.
+
+**The constructive fix, supported by the same data:** `Re ξ(σ+15i) < 0` for
+**all** σ ∈ [0,1] — max is −7.06e−4 at σ=1/2. So the top edge lies in the open
+**left** half-plane, and `−ξ` lies in the right half-plane there. Track the
+argument on a rotated branch (`log(−ξ)`), or split at σ=1/2.
+
+**r331b already proves half of this.** `top15_re_lt_neg_1e4` gives
+`Re ξ(σ+15i) < −1e−4` on σ ∈ [1/2, 1]; conjugate/functional symmetry extends it
+to [0, 1/2]. **The top edge is not new work — it is r331b plus a symmetry step.**
+
+### 8.2 THE HEIGHT CEILING IS 15.54, NOT ~20
+
+On σ=1, `arg ξ(1+it)` first reaches π at **t = 15.54**. Max arg on [0,15] is
+2.9383, leaving a margin of **0.2033 rad**.
+
+The right-edge argument budget is ≈ π per zero. **This proof shape works at
+T = 15 and fails by T = 16.** Any sequel at greater height needs a different
+architecture. Record before anyone plans one.
+
+### 8.3 CORRECTIONS TO MY OWN RECON
+
+- I reported the global min `Im ξ = +2.89e−5` at t = 0.0025 — **below statement
+  A's own interval**, so it never certified A. Corrected: **min Im on [0.01, 15]
+  = +1.1548e−4, attained at the left endpoint t = 0.01.** A holds, and the
+  binding constraint is the near end, not the far end.
+- The auditor's independent value `ξ'(1) = ½(1 + γ/2 − ½log4π) = 0.011555`
+  matches my recon slope `1.1548e−2` to four digits. Cross-validated.
+
+### 8.4 STATEMENT B IS NOT PROVABLE AS PLANNED — and the fix is clean
+
+`Im ξ(1+it) → 0` as `t → 0`. Any interval-arithmetic certificate over a closed
+interval whose closure contains 0 returns a lower bound ≤ 0. **A direct
+certificate for B cannot work**, and would have looked like a tooling bug.
+
+Fix: define `η(s) := (ξ(s) − 1/2)/(s − 1)`, entire **because** `ξ(1) = 1/2`
+(statement C licenses it). Then
+
+    Im xi(1+it) = t * Re eta(1+it)
+
+so B reduces to `Re η(1+it) > 0` on the **closed** interval [0, 0.01], with
+`η(1) = ξ'(1) ≈ 0.0116`. Closed interval, bounded below by a positive constant —
+exactly what a certificate wants. **B's public statement stands; its proof
+obligation is restated via η.**
+
+### 8.5 THE STATEMENT SET IS ~4 OF ~12
+
+Missing, and now named: bottom edge (σ∈[0,1] at t=0 — ξ real and positive, Δarg
+= 0); **top edge** (§8.1); left edge (σ=0, from the right edge by
+`ξ(s)=ξ(1−s)` and `ξ(s̄)=conj ξ(s)` — **verify the conjugate-symmetry lemma
+exists in Mathlib**); the **argument-principle gluing lemma**, which is the
+actual work and which no draft expresses; the **ζ↔ξ bridge** on 0<Re s<1; and
+the order ≥ 1 obligation (`analyticOrderNatAt` returns 0 in *two* degenerate
+cases).
+
+### 8.6 E ⟹ F NEEDS A LOCATING STEP — confirmed
+
+E gives total multiplicity 1, which is consistent with a single simple zero at,
+say, `0.7 + 14.13i`. **E alone does not imply RH in the box.** Two routes:
+
+- **(a) Reflection — preferred, no numerics.** If `ρ = σ+it` is a ξ-zero in the
+  box with `σ ≠ 1/2`, then `1 − ρ̄` is a *distinct* zero in the same box, giving
+  count ≥ 2 and contradicting E. Needs the functional equation and conjugate
+  symmetry — both needed anyway for the left edge.
+- **(b) IVT.** `Ξ(14) = +2.01e−4`, `Ξ(15) = −7.06e−4` — confirmed — gives a
+  critical-line zero, and E forces uniqueness. Needs realness of Ξ plus two
+  certified signs.
+
+### 8.7 INTERVAL ARITHMETIC MUST USE Λ, NOT Λ₀
+
+At `s = 1+15i`: `|s(s−1)| = 225.5`, `|Λ₀| = 4.44e−3`, and `s(s−1)Λ₀ = −1.00161…`
+— the `+1` in the Lean definition **cancels ~3 significant digits**. Confirmed.
+Analytically `2ξ = s(s−1)Λ` has no cancellation. Any evaluator working from the
+Lean definition literally will lose those digits. **Plan the enclosures around
+Λ.**
+
+### 8.8 RENAMES REQUIRED BEFORE FREEZE
+
+- **F → `riemannHypothesis_upper_strip_below_15`.** F restricts to `0 < Im s <
+  15`; "below 15" reads as `|Im s| < 15`. The lower strip follows by conjugate
+  symmetry but that step is not in the statement. **F proves less than its name.**
+- **E → `..._multiplicity_sum_eq_one`** — "count" suggests cardinality; the
+  statement is a multiplicity-weighted sum. They coincide only via the order ≥ 1
+  lemma.
+- **D** understates: it is strictly stronger than slitPlane membership. Keep the
+  strength, state the slitPlane corollary explicitly so the gluing lemma can cite
+  the standard Mathlib predicate.
+- **A `_bulk` is misleading** — A's margin is the angular one (0.2033 rad against
+  a branch cut) plus a 3-digit cancellation; B has a 4-digit-verified linear
+  model and a large margin. The naming has the difficulty backwards.
+
+### 8.9 ONE PINNING HAZARD
+
+`finite_zeros_rectangle ...` is elided in both E and the given identity. If the
+arguments — **including the `Set.Finite` proof term consumed by `.toFinset`** —
+are not syntactically defeq, E is a *different statement* and the chain breaks
+silently at `rw`. **Pin them to a shared `def`/`abbrev` before writing either.**
+
+---
+
+## 9. REVISED STATUS
+
+**Root statements: NOT FROZEN.** The set is incomplete (~4 of ~12), one intended
+shape is false (top edge), one is unprovable as planned (B, fixable via η), and
+four need renaming. Next iteration drafts the full set, then re-runs the gate.
+
+**What the campaign gained today, before spending a single elaboration slot:** a
+false target set refuted, a false lemma shape caught, an impossible certificate
+plan corrected, a hard height ceiling established, a numerical-conditioning trap
+identified, and the top edge shown to be mostly-already-proved rather than new
+work.
+
+**What it cost:** two subagent read-backs and three Python recon passes. No build
+contention. Both machines stayed on C1 throughout.
+
+---
+
+*Chartered 2026-09-08. Root statements NOT frozen: set incomplete (~4 of ~12),
+top-edge shape refuted, B unprovable as planned. No machine committed.
+Public HEAD `96c71da7`. NO PUSH.*
