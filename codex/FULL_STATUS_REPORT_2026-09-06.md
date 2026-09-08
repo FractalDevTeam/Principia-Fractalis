@@ -415,6 +415,66 @@ is alive.
 
 ---
 
+### 6.7 GPU Ollama down eight days, silently — 2026-08-30 to 2026-09-07 (RESOLVED)
+
+**Not a build incident.** Recorded here because it is the sharpest instance of a
+failure class this project cares about, and because it went undetected for eight
+days on a machine in daily use.
+
+A full reboot of the Legion prompted a machine-wide sweep. The build half was
+fine (§6.6). The OpenClaw gateway came back. **GPU Ollama on `127.0.0.1:11435`
+had not been running since 2026-08-30.**
+
+**Mechanism.** The Startup `.vbs` ran
+
+    sh.Run "wsl.exe -d Ubuntu -- bash -lc ""bash .../start.sh""", 0, False
+
+`start.sh` backgrounds `ollama serve` with `setsid`. With `bWaitOnReturn=False`
+the `wsl.exe` session tore down at once and killed the not-yet-established
+child. `serve.log` is opened with `>`, which truncates on open — and because the
+child died first, **the log was never touched at all**. Its mtime stayed at
+Aug 30. No error was written anywhere; the launcher appeared to succeed.
+
+**Why it mattered.** The gateway's model chain is
+`anthropic/claude-sonnet-4-6` → `ollama/mistral:7b` → `ollama/llama3.2:3b`, the
+last two at `:11435`. The anthropic key is absent **by design**, so the local
+fallback was not a backstop — it was the only working link. With 11435 dead the
+whole chain failed:
+
+    All models failed (3): anthropic/...: No API key found ... (auth)
+      | ollama/mistral:7b:  connect ECONNREFUSED 127.0.0.1:11435
+      | ollama/llama3.2:3b: connect ECONNREFUSED 127.0.0.1:11435
+
+Morning brief reached `error (10x)`, night earnings check-in `error (11x)` —
+about one per day for eight days. Both kept correct schedules and sane next-run
+times. **Any check reading existence rather than status would have called them
+healthy.**
+
+**Repair, verified end to end.** `ensure.sh` now starts the server and does not
+return until the socket is bound, holding the session open through the
+vulnerable window; the `.vbs` calls it with `bWaitOnReturn=True`. Test-firing the
+morning brief afterwards took it from `error (10x)` to **`ok`**, with two
+`POST /api/chat` 200s in the GPU log and `/api/ps` on 11435 showing `mistral:7b`
+resident with **6.1 GB in VRAM** — so the turn was genuinely GPU-served, by the
+intended fallback model. The snap instance on 11434 served nothing.
+
+An `OpenClaw Watchdog` scheduled task now probes 18789 and 11435 every five
+minutes and repairs both. **Its repair path was tested by killing the service,
+and the first version failed** — it reproduced the original defect by calling
+`start.sh` through a transient session. That is why it calls `ensure.sh`.
+
+**The lesson, generally:** *a fallback that fails silently is worse than no
+fallback*, because the system leans on it precisely when the primary is gone.
+Probe fallbacks as first-class components, and read **status**, not existence.
+Folded into `codex/DAILY_TRUTH_REPORT_SPEC.md` §2.1 as a mandatory line.
+
+**Still open, separate from the model chain:** delivery. The crons announce to
+`last`, which currently has *no route* — "will fail-closed: Delivering to
+Telegram requires target `<chatId>`". The agent turn now completes; where its
+output goes is unresolved.
+
+---
+
 ## 7. OPEN ITEMS BY OWNER
 
 ### Orchestrator (automatable, no judgement call)
