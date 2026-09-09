@@ -88,8 +88,12 @@ using `approx` and `decide +kernel`. The `interval` tactic, which uses
 
 ## Honest caveats
 
-1. **One rectangle.** The result is `T = 15`. Nothing here scales automatically to
-   larger T; the certificate cost grows with the box count needed to close.
+1. **One rectangle, and the shape has a hard ceiling at T = 15.54.** The result is
+   `T = 15`. It does not scale: the r331c read-back of 2026-09-08 measured the
+   right-edge argument budget and found `arg xi(1+it)` first reaches pi at
+   **t = 15.54**, with max arg on [0,15] of 2.9383 (margin 0.2033 rad). The budget
+   is about pi per zero, so **this proof shape works at T = 15 and fails by T = 16.**
+   Any sequel at greater height needs a different device, not more compute.
 2. **Numerical certificates, not closed forms.** The proof is a very large finite
    computation checked by the Lean kernel. It is sound if the kernel and mathlib are
    sound; it offers no new analytic insight into xi.
