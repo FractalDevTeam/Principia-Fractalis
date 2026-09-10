@@ -44,6 +44,14 @@ open scoped Matrix.Norms.L2Operator
 namespace PrincipiaTractalis
 namespace SubstrateRigidity
 
+-- Fix D1 from v3 read-back: TimelessFieldCompletion lives in
+-- PrincipiaTractalis.SubstrateTimelessFieldCompletion. Open the
+-- sibling namespaces so `TimelessFieldCompletion`, `IsTracialState`,
+-- `MemZ13`, `UHF_trace`, `substrate_UHF_trace_unique`, etc. resolve.
+open SubstrateTimelessFieldCompletion
+open SubstrateTraceUniqueness
+open AlphaFromSubstrateKTheory_r123
+
 /-! ## §1 — The tracial-linear-functional predicate
 
 Local Prop, parametric in the ambient C*-algebra. Mirrors
