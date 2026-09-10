@@ -24,48 +24,60 @@ That object is what Pablo calls `TimelessFieldCompletion`. The structure below i
 
 ---
 
-## 1. STRUCTURE DRAFT — `Substrate3Inf`
+## 1. STRUCTURE DRAFT — `Substrate3Inf` (REVISED 2026-09-10 after read-back)
 
-**Revised 2026-09-10 after mathlib API pin-down (§9).** Two hypothesis fields dropped as *derivable*, not smuggled: `connect_unital` follows from inclusion of unital subalgebras; `connect_iso` follows from **`NonUnitalStarAlgHom.norm_map`** (`Mathlib/Analysis/CStarAlgebra/Hom.lean:104`) — injective *-alg-hom of complex C\*-algebras is *always* an isometry. Structure now has 4 substantive fields.
+**Revised 2026-09-10.** The v1 draft (§1v1 preserved for audit trail below) failed §H read-back on a **blocking type error**: it consumed `IsTracialState τ` for `τ : A → ℂ`, but `IsTracialState` at `PF/SubstrateTraceUniqueness.lean:164` is hard-wired to `TimelessFieldCompletion → ℂ` (not parametric in the ambient C\*-algebra). It would not elaborate. This is exactly the class of defect the read-back gate was built to catch pre-proof.
+
+**Fix:** introduce a new predicate `IsTracialFunction A` in the new `SubstrateRigidity` module. Does not touch existing files.
 
 ```lean
-structure Substrate3Inf (A : Type*) [CStarAlgebra A] where
+/-- Tracial state on a C*-algebra `A`. Same shape as Pablo's per-completion
+    `IsTracialState`, generalised to arbitrary `[CStarAlgebra A]`.
+    NOTE: positivity is intentionally NOT required — matches the weaker
+    predicate already used by `substrate_UHF_trace_unique`. See §12 for
+    the semantic caveat this carries. -/
+structure IsTracialFunction (A : Type*) [CStarAlgebra A] (φ : A → ℂ) : Prop where
+  continuous : Continuous φ
+  add        : ∀ x y, φ (x + y) = φ x + φ y
+  smul       : ∀ (c : ℂ) x, φ (c • x) = c * φ x
+  tracial    : ∀ x y, φ (x * y) = φ (y * x)
+  unital     : φ 1 = 1
 
+structure Substrate3Inf (A : Type*) [CStarAlgebra A] where
   -- FIELD 1. Ternary tower.
-  --   An ℕ-indexed family of *-subalgebras A_k ⊆ A, each *-isomorphic to
-  --   M_{3^k}(ℂ), forming a directed system under inclusion.
   tower         : ℕ → StarSubalgebra ℂ A
   tower_matrix  : ∀ k, Nonempty (tower k ≃⋆ₐ[ℂ] Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
   tower_mono    : ∀ k, tower k ≤ tower (k+1)
 
-  -- FIELD 2. Union of the tower is dense.
-  --   Norm-closure of ⋃_k tower k is all of A. Makes A the completion,
-  --   not just the algebraic direct limit.
-  tower_dense   : Dense ((⨆ k, (tower k : Set A)) : Set A)
+  -- FIELD 2. Density (subalgebra-supremum form; equivalent to set-union
+  -- under a ≤-chain but cleaner to consume downstream).
+  tower_dense   : Dense (((⨆ k, tower k : StarSubalgebra ℂ A) : Set A))
 
-  -- FIELD 3. Unique tracial state.
-  --   Uses Pablo's own IsTracialState predicate (mathlib does not name
-  --   TracialState — verified 2026-09-10). The substrate's classifying
-  --   invariant lives here. substrate_UHF_trace_unique + r113 discharge
-  --   this field on the completion case.
-  trace_unique  : ∃! τ : A → ℂ, IsTracialState τ
+  -- FIELD 3. Unique tracial function.
+  trace_unique  : ∃! τ : A → ℂ, IsTracialFunction A τ
 ```
 
-**Derived, not assumed** — proved as lemmas inside `PF/SubstrateRigidity.lean`:
+**Coherence deliberately not asserted at hypothesis level** — the read-back auditor flagged this ("the intended UHF chain is under-specified"). The response is *not* to strengthen the hypothesis. The response is to make explicit that recovering coherence — the fact that the inclusion `tower k ↪ tower (k+1)` corresponds (up to inner unitary) to the canonical `x ↦ x ⊗ I_3` — is **exactly the work C2 does** (Noether–Skolem specialised to `M_n → M_{kn}`). If we assumed coherence, the structure would leak the classification result into the hypothesis. C2 pays that cost inside the proof, where it belongs.
+
+**Derived, not assumed:**
 
 ```lean
--- Every subalgebra inclusion in the tower is unital (from StarSubalgebra structure).
+-- Unital inclusions of unital subalgebras.
 lemma Substrate3Inf.connect_unital (h : Substrate3Inf A) (k : ℕ) :
     (StarSubalgebra.inclusion (h.tower_mono k)) 1 = 1 := ...
 
--- Every inclusion is an isometry — free from mathlib for injective *-hom
--- between complex C*-algebras.
+-- Isometry — free from mathlib via `NonUnitalStarAlgHom.norm_map` for
+-- injective *-hom between complex C*-algebras.
 lemma Substrate3Inf.connect_iso (h : Substrate3Inf A) (k : ℕ) :
     Isometry (StarSubalgebra.inclusion (h.tower_mono k)) :=
   NonUnitalStarAlgHom.isometry _ (StarSubalgebra.inclusion_injective _)
 ```
 
-**Four hypothesis fields, two derived lemmas.** FIELD 3 (`trace_unique`) is the semantic core — everything else forces `A` into the "UHF of type `3^∞`" morphology. `IsTracialState` is Pablo's own predicate in `PF/SubstrateTraceUniqueness.lean` (kernel-verified with audit block).
+**Three substantive hypothesis fields on the object, one auxiliary predicate.** FIELD 3 (`trace_unique`) is the classifying invariant. Everything else forces the local morphology.
+
+### 1v1. First-draft record (for audit trail)
+
+The v1 structure used `IsTracialState τ` (Pablo's per-completion predicate) as FIELD 5, using `Dense ((⨆ k, (tower k : Set A)) : Set A)` for FIELD 4. Read-back caught the type-error on FIELD 5. Recorded here so the diff between v1 and v2 is legible.
 
 The classification theorem then reads:
 
@@ -101,10 +113,21 @@ Every field must be inhabitable in the case `A = TimelessFieldCompletion` from P
 
 ## 3. WHERE ANY REAL COST LIVES
 
-**Revised 2026-09-10 with mathlib-gap detail from §9.** The structure is cheap. The theorem is not. Four proof blocks are required, and mathlib supplies **none of the four** end-to-end. Sizes below are named-lemma estimates, not lines-of-Lean.
+**Revised 2026-09-10 with mathlib-gap detail from §9 AND with C0 corrected: Pablo already landed C0 at r59 (2026-07-06).**
 
-**C0 — Register `CStarAlgebra TimelessFieldCompletion` as an actual typeclass `instance`.**
-Pablo has all the ingredients as theorems (`substrate_TimelessFieldCompletion_starRing_capstone`, `substrate_TimelessFieldCompletion_cstar_capstone`, submultiplicative + triangle norm), but they're stated as `Nonempty` conjuncts, not as `instance` declarations. Downstream code cannot write `[CStarAlgebra TimelessFieldCompletion]` and get elaboration to succeed without these instances. **Cost: ~3 `instance` declarations that unpack the existing `Nonempty` conjuncts** — mechanical, no new mathematics.
+**C0 — Register `CStarAlgebra TimelessFieldCompletion` as an actual typeclass `instance`. ✓ DONE.**
+Grep of `PF/SubstrateTimelessFieldCompletion.lean` shows every mathlib-required typeclass is a proper `noncomputable instance` on `TimelessFieldCompletion`:
+- r53: `UniformSpace`, `CompleteSpace`, `AddCommGroup`, `Ring`, `NormedAddCommGroup`, `NormedRing`, `NormedSpace ℂ` (auto from mathlib Completion)
+- r54: `Star` (line 193)
+- r55: `InvolutiveStar`, `StarAddMonoid`, `StarMul`, `StarRing`
+- r56: `CStarRing`
+- r57: `Algebra ℂ`, `NormedAlgebra ℂ`
+- r58: `StarModule ℂ`
+- **r59** (line 554): `CStarAlgebra TimelessFieldCompletion` — grand capstone.
+
+Witness at line 578: `theorem substrate_UHF_CStarAlgebra_exists : Nonempty (CStarAlgebra TimelessFieldCompletion) := ⟨inferInstance⟩`. The `⟨inferInstance⟩` term proves the `Nonempty` by literally invoking typeclass search — proof that the instance registration works. Also **r60 is scaffolding nuclearity** (§15+ of the same file), which is one additional C*-algebra property beyond the program-doc §1 list.
+
+Earlier claim in this draft ("must be built") was wrong. Total cost drops by C0's estimated ~3 lemmas.
 
 **C1 — Block-diagonal unital *-embedding `M_n(ℂ) →⋆ₐ[ℂ] M_{kn}(ℂ)`.**
 Not packaged as a `StarAlgHom` in mathlib (verified `Mathlib/Analysis/CStarAlgebra/Matrix.lean` has `Matrix.blockDiagonal` and `Matrix.blockDiagonal'` but neither is a `StarAlgHom`). Once constructed, **isometry is free** via `NonUnitalStarAlgHom.norm_map` (`Mathlib/Analysis/CStarAlgebra/Hom.lean:104`) — huge win, halves the estimate. **Cost: ~5 lemmas** (down from ~15 in the earlier estimate) — the map, injectivity, star-preservation, ring-hom facts.
@@ -368,4 +391,65 @@ Ordered by (a) fastest to close, (b) prerequisite for the next.
 4. **Write `PF/SubstrateRigidity.lean`** as a stub: `structure Substrate3Inf`, statement of `T_infinity_rigidity`, four `sorry`d C1–C4 lemmas as scaffolds. Wire into `PF.lean`. `#check @T_infinity_rigidity` should show the type unfolded, no unexpected implicits. **Do not commit if `sorry` is present** — this stub is a local `sorry`-checkpoint only, discharged before landing.
 5. **Farm C1 + C2 out as statement cards** per FLT-lessons pattern. C1 (~5 lemmas) and C2's individual pieces (~10 lemmas) are pure finite-dim matrix theorems — statement-card canonical form. C3 and C4 stay with a single author.
 
-*Public HEAD `96c71da7`. NO PUSH TO MASTER. Branch `r331b-provenance`. Draft only. Structure = 4 substantive hypothesis fields; every field inhabitable from kernel-clean material on the `TimelessFieldCompletion` case; every downstream mathlib gap enumerated; proof cost pinned at ~30 lemmas, half farmable. No `axiom` keyword used or proposed anywhere in this document.*
+*Public HEAD `96c71da7`. NO PUSH TO MASTER. Branch `r331b-provenance`. Draft only. Structure = 3 substantive hypothesis fields + 1 auxiliary predicate; every field inhabitable from kernel-clean material on the `TimelessFieldCompletion` case; every downstream mathlib gap enumerated; proof cost pinned at ~20–25 lemmas after C0 correction and mathlib free-lunch identifications, half farmable. No `axiom` keyword used or proposed anywhere in this document.*
+
+---
+
+## 12. READ-BACK FINDINGS AND SEMANTIC CAVEAT — RECORDED
+
+### 12.1 Gate §H first-run findings (2026-09-10)
+
+Independent-reader agent produced audit. Findings, in priority order:
+
+1. **BLOCKING (fixed in §1v2):** `IsTracialState` type error. `IsTracialState` at `PF/SubstrateTraceUniqueness.lean:164` is `(φ : TimelessFieldCompletion → ℂ)`, not `(φ : A → ℂ)`. v1 draft would not elaborate for general `A`. **Response:** introduce `IsTracialFunction A φ` in the new module, parametric in `[CStarAlgebra A]`. v2 structure uses it.
+2. **SEMANTIC (documented in §12.2):** `IsTracialState` (Pablo's per-completion predicate, and hence `IsTracialFunction`, which mirrors it) is **strictly weaker** than the standard mathematical "tracial state." Positivity is not required. ℂ-linearity is imposed where ℝ-linearity is standard. This is not a defect of the draft alone — it is inherited from Pablo's kernel-verified `substrate_UHF_trace_unique`. See §12.2 for what to do about it.
+3. **SUBALGEBRA-VS-SET SUPREMUM (fixed in §1v2):** v1 used `⨆ k, (tower k : Set A)`. v2 uses `((⨆ k, tower k : StarSubalgebra ℂ A) : Set A)`. Equivalent under a `≤`-chain of star-subalgebras but the star-subalgebra form is the mathlib-idiomatic phrasing and avoids reader friction.
+4. **COHERENCE OF THE UHF CHAIN (documented in §12.3):** `tower_matrix` supplies only *some* iso per level, no coherence with `tower_mono`. This is deliberate. Response is in §12.3.
+5. **VACUITY of trivial tower (documented in §12.3):** blocked by `tower_matrix` for `k ≥ 1`. Non-issue.
+6. **CIRCULARITY (documented in §12.4):** the enclosing theorem's conclusion (existence of a `≃⋆ₐ[ℂ]` to `TimelessFieldCompletion`) does *not* literally contain the `trace_unique` hypothesis, so this structure follows the same non-circular pattern as `AlphaSkeletonUniqueness_r128`. Documented for the record.
+
+### 12.2 Semantic caveat: `IsTracialFunction` is weaker than "tracial state" — audit note
+
+Standard tracial state (Dixmier, Blackadar, mathlib intent): a **norm-1 positive** ℂ-linear functional `φ : A → ℂ` on a unital C\*-algebra `A` satisfying `φ(x⁎y) = φ(y⁎x)`, i.e. `φ(ab) = φ(ba)`. Positivity means `φ(a⁎a) ≥ 0`. Norm-1 corresponds to `φ(1) = 1` on the unital case.
+
+Pablo's `IsTracialState` (kernel-verified as consumed by `substrate_UHF_trace_unique`, `r113_substrate_UHF_factor_capstone`) has: continuity, ℂ-additivity, ℂ-scalar linearity, trace property, `φ(1) = 1`. **No positivity.** Missing standard content.
+
+**Consequence for `T_infinity_rigidity`:** the classification theorem, as it will be written to consume `Substrate3Inf.trace_unique`, will conclude uniqueness up to *-iso in the class of C\*-algebras whose UNIQUE **linear trace-property functional with `φ(1)=1`** is fixed. That is a wider class than "UHF algebras with a unique tracial state." Two options:
+
+- **(a) Ship as-is.** The class is still narrow enough for the Glimm-classification argument to run — Elliott's back-and-forth uses the trace as a K₀-labeled projection functional, and Pablo's `substrate_level_projection_trace` (`AlphaFromSubstrateKTheory_r123.lean:249`) shows `trace(proj) = card/3^k`, which is what the intertwining needs. Positivity is not *used* in Elliott specialised to `3^∞` — it *would* be used if we tried to run the general Elliott theorem where the ordered K₀ matters. For our specialisation, positivity is not load-bearing.
+- **(b) Strengthen `IsTracialFunction` to include `∀ x, 0 ≤ (φ (star x * x)).re`.** Discharges cleanly on the `TimelessFieldCompletion` side via `substrate_level_projection_trace` composed with `UHF_trace ≥ 0` (which Pablo has implicitly via `card / 3^k` being a nonneg rational). Narrows the class slightly. Cost: one extra field + one extra inhabitation lemma.
+
+**Recommendation:** ship (a) for v2 draft. If a referee objects that "unique tracial state" in the paper text isn't matched by the predicate name, either rename the predicate to `IsTracialLinearFunctional` or upgrade to (b) in v3. Not urgent for the mathematics.
+
+### 12.3 Coherence: why we deliberately don't assume it
+
+Read-back auditor: *"only existence of some iso per level is asserted; no coherence with `tower_mono` … one could pick isos level-by-level that respect no chain relation."*
+
+Correct. And this is by design. Here is why.
+
+The Glimm/Elliott classification theorem for UHF `3^∞` is the statement: *any two C\*-algebras with a `3^∞`-tower and unique tracial state (up to whatever we're calling it here) are *-isomorphic.* If we assumed the inclusions were the canonical block-diagonal `x ↦ x ⊗ I_3` embedding, the classification theorem would degenerate into "for any two objects with an EQUAL directed system, they're isomorphic" — trivial. The nontriviality of the theorem is precisely that the classification recovers coherence from bare cardinality data (`tower_matrix`) + inclusion (`tower_mono`) + density + trace.
+
+**Noether–Skolem specialised to `M_n → M_{kn}` (block C2 in §3)** is the technical lemma that recovers coherence: any two unital *-embeddings `M_n(ℂ) →⋆ₐ[ℂ] M_{kn}(ℂ)` are conjugate by a unitary in `M_{kn}(ℂ)`. Once you have this, the tower's actual inclusion becomes (up to inner unitary) `x ↦ x ⊗ I_3` — coherence is a theorem, not a hypothesis.
+
+So the auditor's flag is real but the response is *"yes, and C2 pays that cost — that's what C2 is for."*
+
+### 12.4 Circularity: the trace-uniqueness hypothesis is not the conclusion
+
+Enclosing theorem: `∀ A [CStarAlgebra A], Substrate3Inf A → Nonempty (A ≃⋆ₐ[ℂ] TimelessFieldCompletion)`. Conclusion is a `Nonempty (StarAlgEquiv …)`. Structure hypothesis is `∃! τ, IsTracialFunction A τ`. These are formally distinct types; the hypothesis is not the conclusion nor definitionally-equal to any conjunct of it. No forbidden circularity per directive §3.
+
+**Semantic implication direction:** the conclusion implies the hypothesis (if `A ≃⋆ₐ[ℂ] TimelessFieldCompletion` and `TimelessFieldCompletion` has a unique tracial function, so does `A` via transport). That is exactly how uniqueness-up-to-iso theorems work: you isolate enough invariants that any inhabitant of the class must satisfy them, then prove the class has one member up to iso. `AlphaSkeletonUniqueness_r128` runs the same pattern (8 laws as hypotheses; uniqueness of α-tuple as conclusion). Same shape, same absence of circularity.
+
+---
+
+## 13. NEXT DECISIVE ACTIONS — REVISED
+
+Ordered by prerequisite. Cost estimates in named-lemma counts.
+
+1. **Dispatch a v2 read-back on the amended structure.** Confirm the type-error is resolved and no new drift introduced. Cost: 1 agent call, ~5 min.
+2. **Write `PF/SubstrateRigidity.lean`** with `IsTracialFunction` + `Substrate3Inf` + statement of `T_infinity_rigidity` + four `sorry`d C1/C2/C3/C4 lemma scaffolds. Wire into `PF.lean`. Do not commit while `sorry` is present (local checkpoint only).
+3. **Patch the 7 audit-block gaps** in ingredient files (append `#print axioms` directives). Recompile per-module. Parse unwrapped output. Directive §7 prerequisite.
+4. **Farm C1 + C2 as statement cards** per FLT-lessons pattern. C1: block-diagonal `M_n →⋆ₐ M_{kn}` and injectivity — ~5 lemmas. C2: Noether–Skolem for `M_n(ℂ)` and specialisation to embeddings — ~10 lemmas. Both pure finite-dim matrix theorems; ideal for FLT-style parallel proving.
+5. **Author C3 + C4 coherently** (completion universal property + Elliott back-and-forth). ~15 lemmas + one main construction. Single author, not farmable.
+6. **Land `T_infinity_rigidity` with `#print axioms` returning the mathlib three**, wire into `PF.lean`, commit + push.
+
+Total remaining named-lemma cost: **~25 lemmas** (C0 done; mathlib free lunches applied). 50–60% farmable.
