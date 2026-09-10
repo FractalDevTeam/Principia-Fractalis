@@ -50,53 +50,100 @@ provenance: `circular` (premise restates its conclusion) and `vacuous`
 
 ## 1. CENTRAL THEOREM STATUS
 
-**UNSPECIFIED.**
+**SPECIFIED 2026-09-09.** Supersedes the UNSPECIFIED entry.
 
-There is no declaration in the corpus that is the unified theory's central
-theorem. This is not a gap in the search; it is a structural fact, and stating
-it plainly is the point of this file.
+### The central theorem
 
-What exists at the top of the corpus is
-`PF/PrincipiaFractalisMillenniumSupremeCapstoneUniversal_r301.lean:...`
+**`T_infinity_rigidity` — the substrate is forced, not chosen.**
 
-```lean
-theorem principia_fractalis_millennium_supreme_capstone_universal_at_HEAD
-    (h : ClayClosureBundleUniversal) : ...
-```
+> The Timeless Field substrate `T_∞` is the UHF algebra of supernatural type
+> `3^∞`: the norm-completion of the directed system of matrix algebras under
+> norm-preserving embeddings, with `K_0` range `Z[1/3]`. It carries exactly one
+> tracial state. Any C\*-algebra satisfying the substrate axioms (ternary
+> directed system, norm-preserving connecting maps, C\*-identity) is
+> \*-isomorphic to it.
 
-described in its own docstring as "the framework's TOTAL Millennium position at
-HEAD". It is **not** a candidate central theorem, for a reason that is decisive
-and is developed in §3.1: its hypothesis `h` contains, as a field, a Prop that is
-definitionally the implication whose conclusion the theorem asserts. It is a
-conditional whose premise restates its conclusion.
+Informally: *given ternary structure, the substrate is not a modelling choice —
+it is the only object that can sit there.* That is an ontological claim in the
+form ontology is actually provable: a **uniqueness/rigidity theorem**, in the
+lineage of Stone–von Neumann, GNS, and Glimm's classification of UHF algebras.
 
-Until a central theorem is *specified* — written down as a signature, with no
-hypothesis binder, over objects that are not framework-internal encodings — the
-question "is the unified theory proved?" has no truth value. It is not open; it
-is unasked. `codex/COMPLETION_THEOREM_DRAFT.md` is the first attempt to ask it.
+### Why this statement, and not the previous one
 
-### 1.1 What is genuinely proved, and is not in dispute
+The prior candidate was the book's headline implication
+`PFSubstrateAntecedents → PFSubstrateConsequences` (Ch. 34A). It is **withdrawn
+as the central theorem** for a reason recorded in the kernel, not in an opinion:
 
-The framework contains real, kernel-green mathematics. Three examples, all
-audited:
+- `PrincipiaFractalisSubstrateTheorem.lean:394` proves it by `intro
+  _h_antecedents` — the antecedent is **discarded**. Its own docstring states
+  "The Lean implication is therefore vacuously true". A corpus-wide search finds
+  **zero** derivations that use the antecedents.
+- **r123 (kernel-proved): the substrate is spectrally VACUOUS — it realizes any
+  spectrum.** A structure that realizes any spectrum cannot force α_RH = 3/2.
+  Any ontology of the form *substrate ⟹ the six α-values* is therefore
+  unprovable, and this is why the antecedent had to be discarded.
+- r124 `alpha_offset_is_free`: the `1/4` offset is a free parameter.
+  r332: L5 (the π-scaling law) is unreachable from the substrate trace range.
 
-- **The r331b endpoint.** `xi_T15_zero_count_identity_unconditional` — the exact
-  zero-count identity for the classical entire Riemann ξ on `[0,1] × [0,15]`,
-  on mathlib's `riemannXiEntire`, with **no binders at all** and exactly the
-  mathlib three axioms. This is genuine analysis and it is genuinely
-  unconditional. It is not RH and the corpus says so.
-- **The substrate tower.** `TimelessFieldCompletion :=
-  UniformSpace.Completion TimelessFieldRing`. T_∞ carries `NormedRing`,
-  `StarRing`, `CStarRing`, `NormedAlgebra ℂ`; the completion inherits
-  `CompleteSpace`. This is a real mathlib-native construction of a real object.
-- **The negative results.** `AlphaWebDegreesOfFreedom_r124` (the eleven
-  invariants are underdetermined — a one-parameter family, not a point) and
-  `SubstrateTheoremContent_r216` (the flagship substrate implication discards
-  its antecedent) are correct, machine-checked, and were produced by this
-  project about this project.
+So the "substrate explains the six problems" reading is closed. What r123 also
+proved is the *positive* half — the substrate is **K-theoretically ℤ[1/3]-bounded**
+and **tracially unique (ONE state, not nine)** — and that is exactly a rigidity
+result. The central theorem is the strengthening of that.
 
-The problem is not that the corpus is empty. It is that the load-bearing joins
-between these genuine pieces are the parts that do not hold.
+### What already exists (the theorem is mostly built)
+
+| ingredient | where | status |
+|---|---|---|
+| directed system, norm-preserving | `SubstrateTimelessFieldNorm.substrateRingHomIter_opNorm_eq` | PROVED |
+| submultiplicative / triangle norms | `norm_mul_le_TimelessField`, `norm_add_le_TimelessField` | PROVED |
+| completion is a star-ring | `substrate_TimelessFieldCompletion_starRing_capstone` | PROVED |
+| C\*-identity | `cstar_ineq_TimelessFieldCompletion`, `..._cstar_capstone` | PROVED |
+| star is isometric, continuous, involutive | `isometry_star_TimelessField` et al. | PROVED |
+| **unique tracial state** | `SubstrateTraceUniqueness.substrate_UHF_trace_unique` | PROVED |
+| matrix-level trace uniqueness | `matrix_tracial_state_unique` | PROVED |
+| UHF factor capstone | `r113_substrate_UHF_factor_capstone` | PROVED |
+| `K_0` range = ℤ[1/3] | r123 | PROVED |
+
+### The open obligation
+
+**One:** the classification step — *any* C\*-algebra satisfying the substrate
+axioms is \*-isomorphic to `T_∞`. Everything above establishes that `T_∞` **is**
+a UHF algebra of type `3^∞` with a unique trace; what remains is that it is **the
+only** one, i.e. Glimm's classification specialised to supernatural number `3^∞`.
+
+This is a known classical theorem. The obligation is to state the substrate
+axioms so that they pin the supernatural number, and to formalise or cite the
+classification. It is genuine mathematics where the axiom set is concerned, and
+formalisation labour thereafter — not the other way round.
+
+### What would refute it
+
+- exhibiting two non-isomorphic C\*-algebras both satisfying the substrate axioms;
+- showing the axioms do not pin the supernatural number (the ternary condition
+  fails to force `3^∞`);
+- a second tracial state on `T_∞` (would contradict `substrate_UHF_trace_unique`).
+
+### Provenance class
+
+`C2` (theorem-derived-from-earlier-foundations) for the proved ingredients;
+`C6` (unresolved-conjecture) for the classification step until discharged.
+Neither `circular` nor `vacuous`: the conclusion does not restate a premise, and
+the antecedents are load-bearing rather than discarded.
+
+### Relationship to the ξ campaign
+
+`riemannHypothesis_below_15` is the **first citable deliverable**, not the thesis.
+It is independent of this theorem and proceeds in parallel: r331b landed
+`xi_T15_zero_count_identity_unconditional` (closed term, 406 clean audit checks),
+and the remaining work is the r331c rotated-branch fix plus r331d multiplicity.
+It buys external standing while the rigidity theorem is completed. It must never
+be described as the unified theory.
+
+### Next decisive step
+
+State the substrate axioms precisely enough to pin the supernatural number `3^∞`,
+then discharge the classification step. Draft target module:
+`PF/SubstrateRigidity.lean`, consuming the nine proved ingredients above.
 
 ---
 
