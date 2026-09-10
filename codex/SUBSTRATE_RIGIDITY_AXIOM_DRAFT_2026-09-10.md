@@ -417,6 +417,19 @@ Ordered by (a) fastest to close, (b) prerequisite for the next.
 
 **v2.1 amendment (this write):** rename applied throughout; §12.2 upgrade-path expanded with the star-hermitianness case.
 
+**v3 (2026-09-10 evening) on the actual Lean text (`SUBSTRATE_RIGIDITY_LEAN_SCRATCH_2026-09-10.md`):**
+
+1. **D1 (blocking, fixed in scratch v2):** bare `TimelessFieldCompletion` at the theorem signature doesn't resolve — the abbrev lives in `PrincipiaTractalis.SubstrateTimelessFieldCompletion`, but the scratch is in the sibling `PrincipiaTractalis.SubstrateRigidity` namespace. **Fix:** add `open SubstrateTimelessFieldCompletion` (and `SubstrateTraceUniqueness`, `AlphaFromSubstrateKTheory_r123`) below the namespace declaration. **Applied.** Scratch elaboration score raised from 3/5 to 4/5.
+2. **D2 (cosmetic, not fixed):** namespace `PrincipiaTractalis` (matches sibling files) rather than `PrincipiaFractalis` — a typo perpetuated from Pablo's existing tree. Not blocking; consistency with existing code wins over unilateral correction.
+3. **Confirmed:** `connect_unital` by `rfl` works — `StarSubalgebra.inclusion h` has `map_one' := rfl` on its constructor, coercion through `DFunLike` reduces to the `Subtype.map id h` term on `1 : tower k`, which yields `1 : tower (k+1)` definitionally.
+4. **Confirmed:** `connect_iso` via `NonUnitalStarAlgHom.isometry _ (StarSubalgebra.inclusion_injective _)` type-checks — `NonUnitalStarAlgHom.isometry` at `Hom.lean:127` accepts any `NonUnitalStarAlgHomClass` inhabitant, and `StarAlgHom` has that instance; the subalgebra `CStarAlgebra` instance provides the required structure.
+5. **All mathlib FQNs confirmed** against HEAD 2026-09-09: `CStarAlgebra` (`Classes.lean:38`), `StarSubalgebra.inclusion` and `.inclusion_injective` (`Subalgebra.lean:209,218`), `NonUnitalStarAlgHom.isometry` (`Hom.lean:127`), scoped `Matrix.Norms.L2Operator` (`Matrix.lean:185`).
+6. **PF imports verified:** all three module URLs return HTTP 200 on `r331b-provenance`.
+
+**Landing-readiness rating:** 4/5 after D1 fix. Remaining gap to 5/5 is proof-tactic detail (the C1–C4 `sorry`s themselves), which is the actual mathematical work farmable per FLT-lessons statement-cards. **The scratch is ready to become a real `.lean` file** on Pablo's authorization.
+
+**v2.2 amendment (this write):** v3 audit findings appended; D1 fix applied to scratch.
+
 ### 12.2 Semantic caveat: `IsTracialLinearFunctional` is weaker than "tracial state" — audit note
 
 Standard tracial state (Dixmier, Blackadar, mathlib intent): a **norm-1 positive** ℂ-linear functional `φ : A → ℂ` on a unital C\*-algebra `A` satisfying `φ(x⁎y) = φ(y⁎x)`, i.e. `φ(ab) = φ(ba)`. Positivity means `φ(a⁎a) ≥ 0`. Norm-1 corresponds to `φ(1) = 1` on the unital case.
