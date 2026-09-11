@@ -1892,17 +1892,83 @@ private noncomputable def tower_zero_iso
     hA.tower 0 ≃⋆ₐ[ℂ] hB.tower 0 :=
   (hA.tower_matrix 0).some.trans (hB.tower_matrix 0).some.symm
 
-/-- **C4.2.** Inductive step. Given a *-iso at level `k`, produce one
-    at level `k+1` extending it through the tower inclusions.
+/-! ### C4.2 — Elliott inductive step with Noether–Skolem correction
 
-    Construction: transport through matrix isos then apply the
-    Noether–Skolem correction to align with the level-`k+1` embedding
-    of `hA.tower k`. -/
+    The naive definition of `tower_step_iso` (transport through matrix
+    isos independently at each level) does NOT commute with tower
+    inclusions. Elliott's fix uses Noether–Skolem: at each level, two
+    unital *-homs `M_{3^k} → M_{3^{k+1}}` (one via the A-side inclusion,
+    one via the B-side inclusion post-composed with the previous φ_k)
+    differ by conjugation by a unitary. Correcting by this unitary gives
+    a level-k+1 iso that commutes with the inclusions by construction.
+
+    Rather than build the corrected iso explicitly (which requires
+    substantial machinery around `Matrix.reindexAlgEquiv` to reconcile
+    `M_{3·3^k}` and `M_{3^{k+1}}`), we package the ENTIRE construction
+    into an existence lemma `tower_step_iso_exists` that returns the
+    level-k+1 iso *together with* its intertwiner property. The
+    tower_iso_sequence then uses `Classical.choose` and the compat
+    lemma is a direct `Classical.choose_spec` projection. -/
+
+/-- **C4.2 existence.** Noether–Skolem correction: given a level-`k`
+    *-iso `φ_k` between the towers of `A` and `B`, there exists a
+    level-`k+1` *-iso whose composition with the A-side inclusion
+    equals the B-side inclusion composed with `φ_k`.
+
+    **Proof sketch.** Both `hA.tower (k+1)` and `hB.tower (k+1)` are
+    finite-dimensional (isomorphic to `M_{3^{k+1}}(ℂ)`). The A-side
+    embedding `inclA_k : hA.tower k ↪ hA.tower (k+1)` and the composite
+    `inclB_k ∘ φ_k : hA.tower k → hB.tower (k+1)` are both injective
+    *-hom families with the same source. Transporting to matrices via
+    the tower_matrix isos yields two unital *-homs `M_{3^k} → M_{3^{k+1}}`
+    (with the codomain reindexed to `Fin (3 · 3^k)` via `Nat.pow_succ`),
+    which by C2 (`unital_star_hom_inner_unique`) differ by conjugation
+    by a unitary `U`. Define φ_{k+1} as the A→B matrix iso composed
+    with conjugation by `U*`, giving the intertwining by construction.
+
+    **Kernel discipline.** This lemma is the SOLE remaining leaf
+    encapsulating the full C4.2 Noether–Skolem correction. It is
+    farmed as its own proof card. -/
+private lemma tower_step_iso_exists
+    (hA : Substrate3Inf A) (hB : Substrate3Inf B) (k : ℕ)
+    (φ_k : hA.tower k ≃⋆ₐ[ℂ] hB.tower k) :
+    ∃ φ : hA.tower (k+1) ≃⋆ₐ[ℂ] hB.tower (k+1),
+      ∀ x : hA.tower k,
+        φ ((StarSubalgebra.inclusion (hA.tower_mono k)) x)
+        = (StarSubalgebra.inclusion (hB.tower_mono k)) (φ_k x) := by
+  -- Full Noether–Skolem correction. Proof structure:
+  --   1. Extract αkp1 : hA.tower(k+1) ≃⋆ₐ M_{3^{k+1}} and βkp1 for B.
+  --   2. Extract αk, βk at level k.
+  --   3. Define f_A, f_B : M_{3^k} → M_{3^{k+1}} as
+  --        f_A := αkp1 ∘ inclA_k ∘ αk.symm
+  --        f_B := βkp1 ∘ inclB_k ∘ (βk.symm ∘ φ_k^* ∘ αk⁻¹ inline...)
+  --      More precisely f_B ∘ (transported φ_k) at the M_{3^k} level.
+  --   4. Reindex codomain from Fin(3^{k+1}) to Fin(3·3^k) via
+  --        Matrix.reindexAlgEquiv (finCongr (Nat.pow_succ 3 k)).
+  --   5. Invoke unital_star_hom_inner_unique to obtain U with
+  --        f_A x = U * f_B x * star U.
+  --   6. Define φ := αkp1.symm ∘ (conj-by-U⁻¹) ∘ βkp1
+  --      lifted through the reindex; unpack to hA.tower(k+1) ≃ hB.tower(k+1).
+  --   7. Verify diamond by pointwise unfolding on x ∈ hA.tower k.
+  -- This is 150-200 lines of dense matrix algebra. Held as leaf.
+  sorry
+
+/-- **C4.2.** Inductive step, packaged from the existence lemma. -/
 private noncomputable def tower_step_iso
     (hA : Substrate3Inf A) (hB : Substrate3Inf B) (k : ℕ)
-    (_φ : hA.tower k ≃⋆ₐ[ℂ] hB.tower k) :
+    (φ : hA.tower k ≃⋆ₐ[ℂ] hB.tower k) :
     hA.tower (k+1) ≃⋆ₐ[ℂ] hB.tower (k+1) :=
-  (hA.tower_matrix (k+1)).some.trans (hB.tower_matrix (k+1)).some.symm
+  (tower_step_iso_exists hA hB k φ).choose
+
+/-- Compatibility property of the packaged step iso. -/
+private lemma tower_step_iso_compat
+    (hA : Substrate3Inf A) (hB : Substrate3Inf B) (k : ℕ)
+    (φ : hA.tower k ≃⋆ₐ[ℂ] hB.tower k)
+    (x : hA.tower k) :
+    (tower_step_iso hA hB k φ)
+      ((StarSubalgebra.inclusion (hA.tower_mono k)) x)
+    = (StarSubalgebra.inclusion (hB.tower_mono k)) (φ x) :=
+  (tower_step_iso_exists hA hB k φ).choose_spec x
 
 /-- **C4.4.** Iterate C4.1 and C4.2 to get level isos at every `k`. -/
 private noncomputable def tower_iso_sequence
@@ -1911,23 +1977,15 @@ private noncomputable def tower_iso_sequence
   | 0 => tower_zero_iso hA hB
   | k+1 => tower_step_iso hA hB k (tower_iso_sequence hA hB k)
 
-/-! ### Compatibility with inclusions
+/-! ### Compatibility with inclusions — free from step-iso packaging.
 
-    We CANNOT prove `tower_iso_sequence` respects inclusions directly
-    from the naive construction above. The Elliott back-and-forth
-    requires an inner-conjugation correction at each step to force
-    compatibility. This is where C2 (Noether–Skolem) comes in.
-
-    Rather than build the full inductive intertwiner here (which would
-    require ~200 lines of matrix manipulation via `Matrix.innerAut`
-    and the C2 machinery), we punt on the level-compatibility proof
-    as a single leaf. The rest of the C4 architecture — the direct
-    limit extension (C3), the two-sided inverse laws, and the
-    equivalence packaging — goes through cleanly. -/
+    Because `tower_step_iso` is now defined via `tower_step_iso_exists`
+    which carries the intertwiner property as part of its existential
+    witness, compatibility at each level is a direct `choose_spec`
+    projection. -/
 
 /-- **C4.5 leaf.** Compatibility of the tower iso sequence with tower
-    inclusions. Elliott's inductive intertwiner via inner
-    conjugation. Farmed as a separate proof card. -/
+    inclusions. Follows immediately from `tower_step_iso_compat`. -/
 private lemma tower_iso_sequence_compat
     (hA : Substrate3Inf A) (hB : Substrate3Inf B) (k : ℕ)
     (x : hA.tower k) :
@@ -1935,13 +1993,13 @@ private lemma tower_iso_sequence_compat
       ((StarSubalgebra.inclusion (hA.tower_mono k)) x)
     = (StarSubalgebra.inclusion (hB.tower_mono k))
         (tower_iso_sequence hA hB k x) := by
-  -- The Elliott correction (Noether–Skolem inner conjugation)
-  -- required to make the naive tower_step_iso actually respect
-  -- inclusions. Non-trivial: requires transporting the tower
-  -- inclusion through both matrix isos and comparing to the
-  -- C1 canonical embedding, then applying C2 to get a unitary
-  -- correction. Farmed as its own card.
-  sorry
+  -- By unfolding tower_iso_sequence at k+1 and invoking the packaged
+  -- compatibility of tower_step_iso.
+  show (tower_step_iso hA hB k (tower_iso_sequence hA hB k))
+        ((StarSubalgebra.inclusion (hA.tower_mono k)) x)
+      = (StarSubalgebra.inclusion (hB.tower_mono k))
+          (tower_iso_sequence hA hB k x)
+  exact tower_step_iso_compat hA hB k (tower_iso_sequence hA hB k) x
 
 /-- **C4.6.** The A→B family fed to C3: at each level compose with
     the target subalgebra inclusion. -/
