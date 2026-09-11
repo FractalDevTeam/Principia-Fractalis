@@ -1271,14 +1271,195 @@ lemma E_of_apply_phiONB [NeZero n]
       E_of_mul_diff n k φ i j m z hjm
     rw [hprod, LinearEquiv.map_zero, LinearMap.zero_apply, if_neg hjm]
 
-/-- **C2 main.** Noether–Skolem specialised to `M_n → M_{kn}`. -/
+/-- **C2.11 – helper.** `toEuclideanLin 1 = id` on `EuclideanSpace ℂ (Fin (k*n))`. -/
+private lemma toEuclideanLin_one_apply
+    {N : ℕ} (v : EuclideanSpace ℂ (Fin N)) :
+    Matrix.toEuclideanLin (1 : Matrix (Fin N) (Fin N) ℂ) v = v := by
+  rw [Matrix.toEuclideanLin_apply, Matrix.one_mulVec]
+  rfl
+
+/-- **C2.11.** Conjugation identity on a single matrix unit.
+
+    For `U := unitaryOfONBpair (phiONB φ) (phiONB ψ)`, the images
+    `E_of φ i j` and `E_of ψ i j` are conjugate:
+    `E_of φ i j = U * E_of ψ i j * star U`.
+
+    **Proof outline.** By injectivity of `Matrix.toEuclideanLin`
+    (`LinearEquiv.injective`) and `Basis.ext` on `(phiONB φ).toBasis`, it
+    suffices to check equality after applying both sides as linear maps
+    to each basis vector `phiONB φ (m, a)`. On that vector:
+    - LHS: `toEuclideanLin (E_of φ i j) (phiONB φ (m, a))` equals
+      `if j = m then phiONB φ (i, a) else 0` by `E_of_apply_phiONB`.
+    - RHS: `toEuclideanLin (U * E_of ψ i j * Uᴴ) (phiONB φ (m, a))`
+      decomposes via `toEuclideanLin_mul_apply`. First,
+      `toEuclideanLin Uᴴ (phiONB φ (m, a)) = phiONB ψ (m, a)`, which
+      follows from `unitaryOfONBpair_apply_phiONB` together with
+      `star U * U = 1` (`unitaryOfONBpair_isUnitary`). Then
+      `toEuclideanLin (E_of ψ i j) (phiONB ψ (m, a))
+        = if j = m then phiONB ψ (i, a) else 0` by
+      `E_of_apply_phiONB`. Finally
+      `toEuclideanLin U (phiONB ψ (i, a)) = phiONB φ (i, a)` by
+      `unitaryOfONBpair_apply_phiONB`.
+    Both sides match. -/
+lemma conjugation_identity_on_single [NeZero n]
+    (φ ψ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+           Matrix (Fin (k * n)) (Fin (k * n)) ℂ)
+    (i j : Fin n) :
+    E_of n k φ i j =
+      unitaryOfONBpair n k (phiONB n k φ) (phiONB n k ψ)
+        * E_of n k ψ i j
+        * star (unitaryOfONBpair n k (phiONB n k φ) (phiONB n k ψ)) := by
+  classical
+  set U : Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+    unitaryOfONBpair n k (phiONB n k φ) (phiONB n k ψ) with hU_def
+  set bφ : OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n))) :=
+    phiONB n k φ with hbφ
+  set bψ : OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n))) :=
+    phiONB n k ψ with hbψ
+  -- Unitarity facts.
+  have hstarUU : star U * U = 1 := (unitaryOfONBpair_isUnitary n k bφ bψ).2
+  -- Forward bridge: `toEuclideanLin U (bψ p) = bφ p`.
+  have hbridge_fwd : ∀ p : Fin n × Fin k,
+      Matrix.toEuclideanLin U (bψ p : EuclideanSpace ℂ (Fin (k * n)))
+        = (bφ p : EuclideanSpace ℂ (Fin (k * n))) := by
+    intro p; exact unitaryOfONBpair_apply_phiONB n k φ ψ p
+  -- Reverse-direction bridge: `toEuclideanLin (star U) (bφ p) = bψ p`.
+  have hbridge_rev : ∀ p : Fin n × Fin k,
+      Matrix.toEuclideanLin (star U) (bφ p : EuclideanSpace ℂ (Fin (k * n)))
+        = (bψ p : EuclideanSpace ℂ (Fin (k * n))) := by
+    intro p
+    have hfwd := hbridge_fwd p
+    have hpre : Matrix.toEuclideanLin (star U)
+                    (Matrix.toEuclideanLin U (bψ p : EuclideanSpace ℂ (Fin (k * n))))
+                  = Matrix.toEuclideanLin (star U)
+                    (bφ p : EuclideanSpace ℂ (Fin (k * n))) := by
+      rw [hfwd]
+    rw [← toEuclideanLin_mul_apply, hstarUU, toEuclideanLin_one_apply] at hpre
+    exact hpre.symm
+  -- It suffices to prove equality of the two matrices via `Basis.ext` on the
+  -- basis `bφ.toBasis`, after applying `toEuclideanLin` (which is injective).
+  apply Matrix.toEuclideanLin.injective
+  apply Module.Basis.ext bφ.toBasis
+  intro p
+  obtain ⟨m, a⟩ := p
+  -- LHS on `bφ (m, a)`.
+  rw [OrthonormalBasis.coe_toBasis]
+  have hLHS :
+      Matrix.toEuclideanLin (E_of n k φ i j)
+          (bφ (m, a) : EuclideanSpace ℂ (Fin (k * n)))
+        = if j = m then (bφ (i, a) : EuclideanSpace ℂ (Fin (k * n)))
+                    else 0 := by
+    simpa [hbφ] using E_of_apply_phiONB n k φ i j m a
+  -- RHS on `bφ (m, a)`: unfold as `U * (E_of ψ) * (star U)` applied.
+  have hstep1 :
+      Matrix.toEuclideanLin (U * E_of n k ψ i j * star U)
+          (bφ (m, a) : EuclideanSpace ℂ (Fin (k * n)))
+        = Matrix.toEuclideanLin U
+            (Matrix.toEuclideanLin (E_of n k ψ i j)
+              (Matrix.toEuclideanLin (star U)
+                (bφ (m, a) : EuclideanSpace ℂ (Fin (k * n))))) := by
+    rw [toEuclideanLin_mul_apply, toEuclideanLin_mul_apply]
+  have hstep2 :
+      Matrix.toEuclideanLin (star U)
+          (bφ (m, a) : EuclideanSpace ℂ (Fin (k * n)))
+        = (bψ (m, a) : EuclideanSpace ℂ (Fin (k * n))) :=
+    hbridge_rev (m, a)
+  have hstep3 :
+      Matrix.toEuclideanLin (E_of n k ψ i j)
+          (bψ (m, a) : EuclideanSpace ℂ (Fin (k * n)))
+        = if j = m then (bψ (i, a) : EuclideanSpace ℂ (Fin (k * n)))
+                    else 0 := by
+    simpa [hbψ] using E_of_apply_phiONB n k ψ i j m a
+  have hstep4 :
+      Matrix.toEuclideanLin U (bψ (i, a) : EuclideanSpace ℂ (Fin (k * n)))
+        = (bφ (i, a) : EuclideanSpace ℂ (Fin (k * n))) :=
+    hbridge_fwd (i, a)
+  rw [hstep1, hstep2, hstep3]
+  by_cases hjm : j = m
+  · rw [if_pos hjm, hstep4, hLHS, if_pos hjm]
+  · rw [if_neg hjm, LinearMap.map_zero, hLHS, if_neg hjm]
+
+/-- **C2 main.** Noether–Skolem specialised to `M_n → M_{kn}`.
+
+    **Proof outline.** Split on `n`:
+    - If `n = 0` then `Matrix (Fin (k*n)) (Fin (k*n)) ℂ = Matrix (Fin 0) (Fin 0) ℂ`
+      is a `Subsingleton`, so `U = 1` works trivially.
+    - Otherwise `[NeZero n]`, take `U := unitaryOfONBpair (phiONB φ) (phiONB ψ)`.
+      Unitarity from `unitaryOfONBpair_isUnitary`. For the conjugation identity,
+      decompose `x = Σᵢⱼ single i j (x i j) = Σᵢⱼ x i j • single i j 1` via
+      `Matrix.matrix_eq_sum_single` and `Matrix.smul_single`. Then apply
+      `map_sum`, `map_smul` on both `φ` and `ψ`, and use
+      `conjugation_identity_on_single` pointwise plus bilinearity of
+      matrix multiplication to conclude. -/
 lemma unital_star_hom_inner_unique
     (φ ψ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
            Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
     ∃ U : Matrix (Fin (k * n)) (Fin (k * n)) ℂ,
       U * star U = 1 ∧ star U * U = 1 ∧
-      ∀ x, φ x = U * ψ x * (star U) :=
-  sorry
+      ∀ x, φ x = U * ψ x * (star U) := by
+  classical
+  by_cases hn : n = 0
+  · -- Degenerate case: matrices are `Fin 0 → Fin 0 → ℂ`, a subsingleton.
+    subst hn
+    refine ⟨1, ?_, ?_, ?_⟩
+    · rw [star_one, mul_one]
+    · rw [star_one, mul_one]
+    · intro x
+      haveI : Subsingleton (Matrix (Fin (k * 0)) (Fin (k * 0)) ℂ) := by
+        rw [Nat.mul_zero]; infer_instance
+      exact Subsingleton.elim _ _
+  · haveI hNZn : NeZero n := ⟨hn⟩
+    refine ⟨unitaryOfONBpair n k (phiONB n k φ) (phiONB n k ψ), ?_, ?_, ?_⟩
+    · exact (unitaryOfONBpair_isUnitary n k (phiONB n k φ) (phiONB n k ψ)).1
+    · exact (unitaryOfONBpair_isUnitary n k (phiONB n k φ) (phiONB n k ψ)).2
+    · intro x
+      set U : Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+        unitaryOfONBpair n k (phiONB n k φ) (phiONB n k ψ) with hU_def
+      -- Coefficient function (avoids re-substitution during rewrites).
+      let c : Fin n → Fin n → ℂ := fun i j => x i j
+      -- Decompose x = ∑ i j, c i j • single i j 1 via matrix_eq_sum_single.
+      have hxdec : x = ∑ i : Fin n, ∑ j : Fin n,
+                        c i j • Matrix.single (α := ℂ) i j 1 := by
+        conv_lhs => rw [Matrix.matrix_eq_sum_single x]
+        refine Finset.sum_congr rfl (fun i _ => ?_)
+        refine Finset.sum_congr rfl (fun j _ => ?_)
+        show Matrix.single i j (x i j) = c i j • Matrix.single i j 1
+        rw [Matrix.smul_single, smul_eq_mul, mul_one]
+      -- Distribute φ over the sum.
+      have hφx : φ x = ∑ i : Fin n, ∑ j : Fin n,
+                          c i j • E_of n k φ i j := by
+        rw [hxdec, map_sum]
+        refine Finset.sum_congr rfl (fun i _ => ?_)
+        rw [map_sum]
+        refine Finset.sum_congr rfl (fun j _ => ?_)
+        rw [map_smul]; rfl
+      -- Distribute ψ over the sum similarly.
+      have hψx : ψ x = ∑ i : Fin n, ∑ j : Fin n,
+                          c i j • E_of n k ψ i j := by
+        rw [hxdec, map_sum]
+        refine Finset.sum_congr rfl (fun i _ => ?_)
+        rw [map_sum]
+        refine Finset.sum_congr rfl (fun j _ => ?_)
+        rw [map_smul]; rfl
+      -- Apply conjugation identity pointwise, then push U, star U outside sums.
+      calc φ x
+          = ∑ i : Fin n, ∑ j : Fin n, c i j • E_of n k φ i j := hφx
+        _ = ∑ i : Fin n, ∑ j : Fin n,
+                c i j • (U * E_of n k ψ i j * star U) := by
+              refine Finset.sum_congr rfl (fun i _ => ?_)
+              refine Finset.sum_congr rfl (fun j _ => ?_)
+              rw [conjugation_identity_on_single n k φ ψ i j]
+        _ = ∑ i : Fin n, ∑ j : Fin n,
+                U * (c i j • E_of n k ψ i j) * star U := by
+              refine Finset.sum_congr rfl (fun i _ => ?_)
+              refine Finset.sum_congr rfl (fun j _ => ?_)
+              rw [mul_smul_comm, smul_mul_assoc]
+        _ = U * (∑ i : Fin n, ∑ j : Fin n,
+                    c i j • E_of n k ψ i j) * star U := by
+              rw [Finset.mul_sum, Finset.sum_mul]
+              refine Finset.sum_congr rfl (fun i _ => ?_)
+              rw [Finset.mul_sum, Finset.sum_mul]
+        _ = U * ψ x * star U := by rw [← hψx]
 
 end C2_NoetherSkolem
 
