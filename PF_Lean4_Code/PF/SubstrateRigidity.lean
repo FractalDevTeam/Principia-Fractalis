@@ -75,6 +75,12 @@ namespace SubstrateRigidity
 open SubstrateTimelessFieldCompletion
 open SubstrateTraceUniqueness
 open AlphaFromSubstrateKTheory
+-- 2026-09-10 additional opens for the substrateLevelStarAlgHom helper (§3a):
+open SubstrateDirectLimit
+open SubstrateTimelessFieldNorm
+open SubstrateUHFTraceIsFaithful
+open SubstrateUHFTraceIsStarPreserving
+open SubstrateDirectLimitSimplicity
 
 /-! ## §1 — The tracial-linear-functional predicate
 
@@ -145,6 +151,63 @@ lemma connect_iso (k : ℕ) :
 
 end Substrate3Inf
 
+/-! ## §3a — Helper: level embedding as `StarAlgHom`
+
+W1's straightforward `.range` approach requires a bundled morphism.
+`substrateLevelToTimelessField k` in Pablo's tree is a bare function;
+its algebra-preservation lemmas exist as separate theorems. Bundle
+them here into a `StarAlgHom`, then factor the completion coercion
+via mathlib's `UniformSpace.Completion` machinery, and compose.
+
+All six substrate-preservation lemmas exist and are kernel-clean:
+  · substrate_quotient_add_same_level    (SubstrateDirectLimit)
+  · substrate_quotient_mul_same_level    (SubstrateDirectLimit)
+  · substrate_quotient_zero_same_level   (SubstrateUHFTraceIsFaithful)
+  · substrate_quotient_one_same_level    (SubstrateDirectLimitSimplicity)
+  · substrate_quotient_star_same_level   (SubstrateUHFTraceIsStarPreserving)
+  · substrate_quotient_smul_same_level   (SubstrateTimelessFieldNorm)
+-/
+
+/-- Level embedding into `TimelessFieldRing` bundled as `StarAlgHom`. -/
+noncomputable def substrateLevelToTimelessFieldStarAlgHom (k : ℕ) :
+    Matrix (Fin (3^k)) (Fin (3^k)) ℂ →⋆ₐ[ℂ] TimelessFieldRing where
+  toFun A := substrateLevelToTimelessField k A
+  map_one'   := substrate_quotient_one_same_level k
+  map_mul' A B := (substrate_quotient_mul_same_level k A B).symm
+  map_zero'  := substrate_quotient_zero_same_level k
+  map_add' A B := (substrate_quotient_add_same_level k A B).symm
+  map_star' A := (substrate_quotient_star_same_level k A).symm
+  commutes' c := by
+    show substrateLevelToTimelessField k (algebraMap ℂ _ c) = algebraMap ℂ _ c
+    rw [Algebra.algebraMap_eq_smul_one, Algebra.algebraMap_eq_smul_one]
+    show (⟦⟨k, c • (1 : Matrix (Fin (3^k)) (Fin (3^k)) ℂ)⟩⟧ : TimelessFieldRing)
+         = c • (1 : TimelessFieldRing)
+    rw [← substrate_quotient_one_same_level k,
+        ← substrate_quotient_smul_same_level c k
+            (1 : Matrix (Fin (3^k)) (Fin (3^k)) ℂ)]
+
+/-- The completion coercion `TimelessFieldRing → TimelessFieldCompletion`
+    as a `StarAlgHom`. -/
+noncomputable def TimelessFieldRingToCompletionStarAlgHom :
+    TimelessFieldRing →⋆ₐ[ℂ] TimelessFieldCompletion where
+  toFun x := (x : TimelessFieldCompletion)
+  map_one'    := UniformSpace.Completion.coe_one _
+  map_mul' x y := UniformSpace.Completion.coe_mul x y
+  map_zero'   := UniformSpace.Completion.coe_zero
+  map_add' x y := UniformSpace.Completion.coe_add x y
+  map_star' x  := (star_coe_TimelessFieldCompletion x).symm
+  commutes' c := by
+    rw [Algebra.algebraMap_eq_smul_one, Algebra.algebraMap_eq_smul_one]
+    show ((c • (1 : TimelessFieldRing) : TimelessFieldRing) : TimelessFieldCompletion)
+         = c • ((1 : TimelessFieldCompletion))
+    rw [UniformSpace.Completion.coe_smul, UniformSpace.Completion.coe_one]
+
+/-- The composite: level embedding directly into the completion. -/
+noncomputable def substrateLevelStarAlgHom (k : ℕ) :
+    Matrix (Fin (3^k)) (Fin (3^k)) ℂ →⋆ₐ[ℂ] TimelessFieldCompletion :=
+  TimelessFieldRingToCompletionStarAlgHom.comp
+    (substrateLevelToTimelessFieldStarAlgHom k)
+
 /-! ## §3 — W1–W5: completion-side witness
 
 Each W-card is farmed independently. Uses ONLY existing
@@ -153,11 +216,11 @@ kernel-verified ingredients — no C1–C4 dependency.
 Statement cards: `codex/COMPLETION_WITNESS_STATEMENT_CARDS_2026-09-10.md`.
 -/
 
-/-- **W1.** The tower of finite-level embeddings on
-    `TimelessFieldCompletion`. -/
+/-- **W1 — PROVED 2026-09-10.** The tower of finite-level embeddings on
+    `TimelessFieldCompletion` as `StarSubalgebra` ranges. -/
 noncomputable def substrateTFCtower :
     ℕ → StarSubalgebra ℂ TimelessFieldCompletion :=
-  sorry -- W1 leaf
+  fun k => (substrateLevelStarAlgHom k).range
 
 /-- **W2.** Each level of the tower is *-alg-isomorphic to
     `M_{3^k}(ℂ)`. -/
@@ -254,11 +317,41 @@ lemma blockDiagonalConstMap_star (x : Matrix (Fin n) (Fin n) ℂ) :
       Matrix.blockDiagonal_conjTranspose]
   rfl
 
-/-- **C1.3.** The block-diagonal *-alg-hom (packages C1.1 + C1.2). -/
+/-- **C1.3 — PROVED 2026-09-10.** The block-diagonal *-alg-hom
+    (packages C1.1 + C1.2).
+
+    Structure: pack `blockDiagonalConstMap` (RingHom from C1.1) and
+    `blockDiagonalConstMap_star` (C1.2) into a `StarAlgHom`. The
+    `commutes'` field is not automatic since C1.1 delivers only a
+    `RingHom`. We prove
+      `blockDiagonalConstMap n k (algebraMap ℂ _ c) = algebraMap ℂ _ c`
+    by unfolding `algebraMap` to `c • 1` via
+    `Algebra.algebraMap_eq_smul_one`, then chaining through the three
+    composed layers:
+      · constant lift `fun _ : Fin k => c • 1` (defeq via `Pi.smul_def`);
+      · `blockDiagonal_smul` + `blockDiagonal_one` on the middle layer;
+      · `reindexAlgEquiv` is an `AlgEquiv` so its `RingHom` respects
+        `smul` and `1`.
+    Uses the same targeted `show` trick as C1.2 to peel the composed
+    RingHom.comp layers to their fully-reduced form. -/
 noncomputable def blockDiagonalConstStarHom :
     Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
-      Matrix (Fin k × Fin n) (Fin k × Fin n) ℂ :=
-  sorry
+      Matrix (Fin k × Fin n) (Fin k × Fin n) ℂ where
+  toFun     := blockDiagonalConstMap n k
+  map_zero' := (blockDiagonalConstMap n k).map_zero
+  map_one'  := (blockDiagonalConstMap n k).map_one
+  map_add'  := (blockDiagonalConstMap n k).map_add
+  map_mul'  := (blockDiagonalConstMap n k).map_mul
+  commutes' c := by
+    show Matrix.reindex (Equiv.prodComm (Fin n) (Fin k))
+          (Equiv.prodComm (Fin n) (Fin k))
+          (Matrix.blockDiagonal
+            (fun _ : Fin k => (algebraMap ℂ (Matrix (Fin n) (Fin n) ℂ)) c))
+        = algebraMap ℂ (Matrix (Fin k × Fin n) (Fin k × Fin n) ℂ) c
+    simp only [Algebra.algebraMap_eq_smul_one, Pi.smul_def,
+      Matrix.blockDiagonal_smul, Matrix.blockDiagonal_one,
+      map_smul, _root_.map_one]
+  map_star' := blockDiagonalConstMap_star n k
 
 /-- **C1.4.** Block-diagonal *-alg-hom is injective for `k > 0`. -/
 lemma blockDiagonalConstStarHom_injective [NeZero k] :
