@@ -225,11 +225,34 @@ noncomputable def blockDiagonalConstMap :
         map_add'  := fun _ _ => rfl
         map_mul'  := fun _ _ => rfl })
 
-/-- **C1.2.** The block-diagonal ring hom preserves `star`. -/
+/-- **C1.2.** The block-diagonal ring hom preserves `star`.
+
+    Proof structure: each of the three composed layers preserves star.
+    · Constant lift `fun _ : Fin k => x`: star pushes into each component.
+    · `Matrix.blockDiagonal`: `blockDiagonal_conjTranspose` (mathlib
+      `Mathlib/Data/Matrix/Block.lean:364`).
+    · `Matrix.reindex e e`: `conjTranspose_reindex` (mathlib
+      `Mathlib/LinearAlgebra/Matrix/ConjTranspose.lean:428`) — this is
+      definitionally `rfl` since `reindex e e` uses the same `e` for
+      rows and cols.
+    On `Matrix n n α`, `star = conjTranspose` by `Matrix.instStar`
+    (`Mathlib/LinearAlgebra/Matrix/ConjTranspose.lean:392`). -/
 lemma blockDiagonalConstMap_star (x : Matrix (Fin n) (Fin n) ℂ) :
     blockDiagonalConstMap n k (star x)
-      = star (blockDiagonalConstMap n k x) :=
-  sorry
+      = star (blockDiagonalConstMap n k x) := by
+  show Matrix.reindex (Equiv.prodComm (Fin n) (Fin k))
+        (Equiv.prodComm (Fin n) (Fin k))
+        (Matrix.blockDiagonal (fun _ : Fin k => star x))
+      = star (Matrix.reindex (Equiv.prodComm (Fin n) (Fin k))
+                (Equiv.prodComm (Fin n) (Fin k))
+                (Matrix.blockDiagonal (fun _ : Fin k => x)))
+  rw [show (star :
+        Matrix (Fin k × Fin n) (Fin k × Fin n) ℂ →
+        Matrix (Fin k × Fin n) (Fin k × Fin n) ℂ)
+        = Matrix.conjTranspose from rfl,
+      Matrix.conjTranspose_reindex,
+      Matrix.blockDiagonal_conjTranspose]
+  rfl
 
 /-- **C1.3.** The block-diagonal *-alg-hom (packages C1.1 + C1.2). -/
 noncomputable def blockDiagonalConstStarHom :
