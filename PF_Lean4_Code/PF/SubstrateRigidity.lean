@@ -848,6 +848,164 @@ lemma E_of_00_range_finrank [NeZero n]
     rw [← htr, hbridge, hval]
   exact_mod_cast hcast
 
+/-- **C2.8a.** Adapter: `E_of_00_range_finrank` transported to
+    `Matrix.toEuclideanLin` (the `EuclideanSpace` version of `Matrix.toLin'`).
+
+    **Mathlib citations.**
+    - `Matrix.toEuclideanLin` = `Matrix.toLin' ≪≫ₗ arrowCongr ...`
+      in `Mathlib/Analysis/InnerProductSpace/PiL2.lean`.
+    - `LinearEquiv.finrank_map_eq` in
+      `Mathlib/LinearAlgebra/Dimension/Finrank.lean`. -/
+lemma E_of_00_toEuclideanLin_range_finrank [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
+    Module.finrank ℂ
+      (LinearMap.range (Matrix.toEuclideanLin
+        (E_of n k φ ⟨0, Nat.pos_of_neZero n⟩ ⟨0, Nat.pos_of_neZero n⟩))) = k := by
+  set E := E_of n k φ ⟨0, Nat.pos_of_neZero n⟩ ⟨0, Nat.pos_of_neZero n⟩ with hE
+  -- toEuclideanLin E factors as an equiv-postcompose of (toLin' E ∘ equiv).
+  set fψ : EuclideanSpace ℂ (Fin (k * n)) ≃ₗ[ℂ] (Fin (k * n) → ℂ) :=
+    WithLp.linearEquiv 2 ℂ (Fin (k * n) → ℂ) with hfψ
+  have hdecomp : Matrix.toEuclideanLin E =
+      fψ.symm.toLinearMap ∘ₗ (Matrix.toLin' E ∘ₗ fψ.toLinearMap) := by
+    ext v; rfl
+  -- range (fψ.symm ∘ₗ (toLin' E ∘ₗ fψ)) = ((range (toLin' E ∘ₗ fψ))).map fψ.symm
+  --                                    = ((range (toLin' E))).map fψ.symm (fψ is surjective)
+  have hrange_inner : LinearMap.range (Matrix.toLin' E ∘ₗ fψ.toLinearMap)
+      = LinearMap.range (Matrix.toLin' E) := by
+    rw [LinearMap.range_comp, LinearEquiv.range, Submodule.map_top]
+  have hrange : LinearMap.range (Matrix.toEuclideanLin E)
+      = (LinearMap.range (Matrix.toLin' E)).map fψ.symm.toLinearMap := by
+    rw [hdecomp, LinearMap.range_comp, hrange_inner]
+  rw [hrange, LinearEquiv.finrank_map_eq]
+  exact E_of_00_range_finrank n k φ
+
+/-- **C2.8b.** Standard orthonormal basis of `range(E_of φ 0 0)` viewed
+    via `Matrix.toEuclideanLin`, indexed by `Fin k` (via `C2.8a`).
+
+    **Mathlib citations.**
+    - `stdOrthonormalBasis` in `Mathlib/Analysis/InnerProductSpace/PiL2.lean`.
+    - `OrthonormalBasis.reindex` with `finCongr`. -/
+noncomputable def E_of_00_stdOrthonormalBasis [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
+    OrthonormalBasis (Fin k) ℂ
+      (LinearMap.range (Matrix.toEuclideanLin
+        (E_of n k φ ⟨0, Nat.pos_of_neZero n⟩ ⟨0, Nat.pos_of_neZero n⟩))) :=
+  (stdOrthonormalBasis ℂ (LinearMap.range (Matrix.toEuclideanLin
+    (E_of n k φ ⟨0, Nat.pos_of_neZero n⟩ ⟨0, Nat.pos_of_neZero n⟩)))).reindex
+    (finCongr (E_of_00_toEuclideanLin_range_finrank n k φ))
+
+/-- **C2.8c.** Transported family of vectors indexed by `Fin n × Fin k`:
+    `phiONB_family φ (i, a) := E_of φ i 0 · (stdBasis a)`, where `stdBasis a`
+    is the `a`-th vector of the standard ONB of `range(E_of φ 0 0)`
+    (from C2.8b). This is a "partial isometry from level 0 to level i".
+
+    Uses `Matrix.toEuclideanLin` to view `E_of φ i 0` as a linear map on
+    `EuclideanSpace ℂ (Fin (k*n))`. -/
+noncomputable def phiONB_family [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
+    (Fin n × Fin k) → EuclideanSpace ℂ (Fin (k * n)) :=
+  fun p =>
+    Matrix.toEuclideanLin (E_of n k φ p.1 ⟨0, Nat.pos_of_neZero n⟩)
+      ((E_of_00_stdOrthonormalBasis n k φ p.2 : EuclideanSpace ℂ (Fin (k * n))))
+
+/-- **C2.8d – helper 1.** `toEuclideanLin` respects matrix multiplication
+    (applied form). -/
+private lemma toEuclideanLin_mul_apply
+    {N : ℕ}
+    (A B : Matrix (Fin N) (Fin N) ℂ) (v : EuclideanSpace ℂ (Fin N)) :
+    Matrix.toEuclideanLin (A * B) v =
+      Matrix.toEuclideanLin A (Matrix.toEuclideanLin B v) := by
+  simp only [Matrix.toEuclideanLin_apply, EuclideanSpace.ofLp_toLp, Matrix.mulVec_mulVec]
+
+/-- **C2.8d – helper 2.** Inner-product / matrix-adjoint bridge:
+    `⟨A x, y⟩ = ⟨x, (star A) y⟩` for `toEuclideanLin` applied vectors. -/
+private lemma inner_toEuclideanLin_star
+    {N : ℕ}
+    (A : Matrix (Fin N) (Fin N) ℂ) (x y : EuclideanSpace ℂ (Fin N)) :
+    (inner ℂ (Matrix.toEuclideanLin A x) y : ℂ)
+      = inner ℂ x (Matrix.toEuclideanLin (star A) y) := by
+  have h := (Matrix.toEuclideanLin A).adjoint_inner_right x y
+  rw [← Matrix.star_eq_conjTranspose,
+    Matrix.toEuclideanLin_conjTranspose_eq_adjoint] at h
+  exact h.symm
+
+/-- **C2.8d.** Orthonormality of the transported family `phiONB_family φ`.
+
+    **Proof strategy.**
+    `⟨E_i0 v_a, E_j0 v_b⟩ = ⟨v_a, (star E_i0) (E_j0 v_b)⟩
+                          = ⟨v_a, (E_0i * E_j0) v_b⟩`
+    (via `inner_toEuclideanLin_star` + `E_of_star` + `toEuclideanLin_mul_apply`).
+    - Case `i ≠ j`: `E_0i * E_j0 = 0` (C2.3, middle indices `i ≠ j`), so
+      `⟨v_a, 0⟩ = 0`.
+    - Case `i = j`: `E_0i * E_i0 = E_00` (C2.2), so we need `⟨v_a, E_00 v_b⟩`.
+      Since `v_b ∈ range(E_00)` and `E_00` is idempotent, `E_00 v_b = v_b`,
+      giving `⟨v_a, v_b⟩ = δ_{ab}` by the stdONB orthonormality.
+
+    **Mathlib citations.**
+    - `orthonormal_iff_ite`
+      (`Mathlib/Analysis/InnerProductSpace/Orthonormal.lean`).
+    - `LinearMap.adjoint_inner_right`,
+      `Matrix.toEuclideanLin_conjTranspose_eq_adjoint`
+      (`Mathlib/Analysis/InnerProductSpace/Adjoint.lean`). -/
+lemma phiONB_family_orthonormal [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
+    Orthonormal ℂ (phiONB_family n k φ) := by
+  set z : Fin n := ⟨0, Nat.pos_of_neZero n⟩ with hz
+  set E00 := E_of n k φ z z with hE00
+  -- ONB of range of E00, with its orthonormality in the ambient space.
+  set b := E_of_00_stdOrthonormalBasis n k φ with hb
+  -- Fact: `E_00` fixes vectors in its range (idempotent projection).
+  have hE00_fix : ∀ (a : Fin k),
+      Matrix.toEuclideanLin E00 (b a : EuclideanSpace ℂ (Fin (k * n)))
+        = (b a : EuclideanSpace ℂ (Fin (k * n))) := by
+    intro a
+    -- b a is in the range, so b a = toEuclideanLin E00 u for some u.
+    have hmem : (b a : EuclideanSpace ℂ (Fin (k * n)))
+        ∈ LinearMap.range (Matrix.toEuclideanLin E00) := (b a).2
+    obtain ⟨u, hu⟩ := hmem
+    have hEE : E00 * E00 = E00 := (E_of_i_i_isProjection n k φ z).1
+    calc Matrix.toEuclideanLin E00 (b a : EuclideanSpace ℂ (Fin (k * n)))
+        = Matrix.toEuclideanLin E00 (Matrix.toEuclideanLin E00 u) := by rw [hu]
+      _ = Matrix.toEuclideanLin (E00 * E00) u := (toEuclideanLin_mul_apply E00 E00 u).symm
+      _ = Matrix.toEuclideanLin E00 u := by rw [hEE]
+      _ = (b a : EuclideanSpace ℂ (Fin (k * n))) := hu
+  -- Orthonormality of `b` in the ambient space.
+  have hb_amb : ∀ a₁ a₂ : Fin k,
+      (inner ℂ (b a₁ : EuclideanSpace ℂ (Fin (k * n)))
+              (b a₂ : EuclideanSpace ℂ (Fin (k * n))) : ℂ)
+        = if a₁ = a₂ then 1 else 0 := by
+    intro a₁ a₂
+    have hON := b.orthonormal
+    rw [orthonormal_iff_ite] at hON
+    have := hON a₁ a₂
+    rwa [Submodule.coe_inner] at this
+  -- Main orthonormality.
+  rw [orthonormal_iff_ite]
+  rintro ⟨i, a⟩ ⟨j, b'⟩
+  simp only [phiONB_family]
+  -- Convert `⟨E_i0 v_a, E_j0 v_b'⟩` to `⟨v_a, (star E_i0 * E_j0) v_b'⟩`.
+  rw [inner_toEuclideanLin_star, ← toEuclideanLin_mul_apply,
+      show star (E_of n k φ i z) = E_of n k φ z i from E_of_star n k φ i z]
+  by_cases hij : i = j
+  · subst hij
+    -- Case i = j: E_0i * E_i0 = E_00.
+    have hprod : E_of n k φ z i * E_of n k φ i z = E00 :=
+      E_of_mul_same n k φ z i z
+    rw [hprod, hE00_fix, hb_amb]
+    -- (a = b') iff ((i, a) = (i, b'))
+    by_cases hab : a = b'
+    · subst hab; simp
+    · rw [if_neg hab, if_neg (fun h => hab (Prod.mk.inj_iff.mp h).2)]
+  · -- Case i ≠ j: E_0i * E_j0 = 0.
+    have hprod : E_of n k φ z i * E_of n k φ j z = 0 :=
+      E_of_mul_diff n k φ z i j z (Ne.symm hij)
+    rw [hprod, map_zero, inner_zero_right]
+    rw [if_neg (fun h => hij (Prod.mk.inj_iff.mp h).1)]
+
 /-- Reindexing bijection `Fin n × Fin k ≃ Fin (k*n)` (helper for C2.9). -/
 noncomputable def phiIndexEquiv : Fin n × Fin k ≃ Fin (k * n) :=
   (Equiv.prodComm _ _).trans finProdFinEquiv
@@ -1176,6 +1334,24 @@ lemma tower_union_starHom_uniformContinuous
   -- goal: ‖x - y‖ ≤ ‖x - y‖
   -- (both x - y evaluated in the subtype; hz was `z := x - y`)
 
+/-- **C3.mid.4 helper.** On any tower level `k`, the assembled
+    union *-alg-hom coincides with `fam k`. Extracted from the same
+    computation used in `tower_union_starHom_uniformContinuous`. -/
+private lemma tower_union_starHom_apply_of_mem
+    (h : Substrate3Inf A) {B : Type*} [CStarAlgebra B]
+    (fam : ∀ k, h.tower k →⋆ₐ[ℂ] B)
+    (compat : ∀ k, (fam (k+1)).comp
+                    (StarSubalgebra.inclusion (h.tower_mono k)) = fam k)
+    (k : ℕ) (z : (⨆ k, h.tower k : StarSubalgebra ℂ A))
+    (hzk : (z : A) ∈ h.tower k) :
+    tower_union_starHom h fam compat z = fam k ⟨(z : A), hzk⟩ := by
+  unfold tower_union_starHom
+  simp only [StarAlgHom.coe_mk]
+  exact Set.iUnionLift_of_mem
+    (S := fun k => ((h.tower k : StarSubalgebra ℂ A) : Set A))
+    (f := fun k x => fam k x)
+    (i := k) z hzk
+
 /-- **C3 main.** Universal extension of a coherent tower family. -/
 lemma tower_universal_star_extension
     (h : Substrate3Inf A) {B : Type*} [CStarAlgebra B]
@@ -1183,8 +1359,120 @@ lemma tower_universal_star_extension
     (compat : ∀ k, (fam (k+1)).comp
                     (StarSubalgebra.inclusion (h.tower_mono k))
                      = fam k) :
-    ∃! F : A →⋆ₐ[ℂ] B, ∀ k x, F ((h.tower k).subtype x) = fam k x :=
-  sorry
+    ∃! F : A →⋆ₐ[ℂ] B, ∀ k x, F ((h.tower k).subtype x) = fam k x := by
+  -- Notation for the union subalgebra.
+  set T : StarSubalgebra ℂ A := ⨆ k, h.tower k with hT_def
+  -- The glued *-alg-hom on the union.
+  set g : T →⋆ₐ[ℂ] B := tower_union_starHom h fam compat with hg_def
+  have hg_uc : UniformContinuous g :=
+    tower_union_starHom_uniformContinuous h fam compat
+  -- Density and dense-inducing witness for `Subtype.val : T → A`.
+  have hs : Dense ((T : Set A)) := h.tower_dense
+  have hDI : IsDenseInducing (Subtype.val : T → A) :=
+    hs.isDenseInducing_val
+  have hUI : IsUniformInducing (Subtype.val : T → A) :=
+    isUniformInducing_val (T : Set A)
+  have hdr : DenseRange (Subtype.val : T → A) := hs.denseRange_val
+  -- The raw extension.
+  set Fraw : A → B := hDI.extend g with hFraw_def
+  have hFraw_uc : UniformContinuous Fraw :=
+    uniformContinuous_uniformly_extend hUI hdr hg_uc
+  have hFraw_cont : Continuous Fraw := hFraw_uc.continuous
+  -- Extension identity on the dense subset.
+  have hFraw_eq : ∀ z : T, Fraw (z : A) = g z := by
+    intro z
+    exact hDI.extend_eq hg_uc.continuous z
+  -- Package the raw function as a *-alg-hom.
+  have F_zero : Fraw 0 = 0 := by
+    have h0 : (0 : A) = ((0 : T) : A) := rfl
+    rw [h0, hFraw_eq, map_zero]
+  have F_one : Fraw 1 = 1 := by
+    have h1 : (1 : A) = ((1 : T) : A) := rfl
+    rw [h1, hFraw_eq, map_one]
+  have F_add : ∀ x y : A, Fraw (x + y) = Fraw x + Fraw y := by
+    refine fun x y => DenseRange.induction_on₂ hdr ?_ (fun a b => ?_) x y
+    · exact isClosed_eq (hFraw_cont.comp continuous_add)
+        ((hFraw_cont.comp continuous_fst).add (hFraw_cont.comp continuous_snd))
+    · have hab : (a : A) + (b : A) = ((a + b : T) : A) := rfl
+      rw [hab, hFraw_eq, hFraw_eq, hFraw_eq, map_add]
+  have F_mul : ∀ x y : A, Fraw (x * y) = Fraw x * Fraw y := by
+    refine fun x y => DenseRange.induction_on₂ hdr ?_ (fun a b => ?_) x y
+    · exact isClosed_eq (hFraw_cont.comp continuous_mul)
+        ((hFraw_cont.comp continuous_fst).mul (hFraw_cont.comp continuous_snd))
+    · have hab : (a : A) * (b : A) = ((a * b : T) : A) := rfl
+      rw [hab, hFraw_eq, hFraw_eq, hFraw_eq, map_mul]
+  have F_star : ∀ x : A, Fraw (star x) = star (Fraw x) := by
+    refine fun x => DenseRange.induction_on hdr x ?_ (fun a => ?_)
+    · exact isClosed_eq (hFraw_cont.comp continuous_star)
+        (continuous_star.comp hFraw_cont)
+    · have ha : star (a : A) = ((star a : T) : A) := rfl
+      rw [ha, hFraw_eq, hFraw_eq, map_star]
+  have F_alg : ∀ r : ℂ, Fraw (algebraMap ℂ A r) = algebraMap ℂ B r := by
+    intro r
+    have hr : algebraMap ℂ A r = ((algebraMap ℂ T r : T) : A) := rfl
+    rw [hr, hFraw_eq, AlgHomClass.commutes]
+  -- Assemble the *-alg-hom.
+  let F : A →⋆ₐ[ℂ] B :=
+    { toFun := Fraw
+      map_one' := F_one
+      map_mul' := F_mul
+      map_zero' := F_zero
+      map_add' := F_add
+      commutes' := F_alg
+      map_star' := F_star }
+  -- Level-k identity: F ((h.tower k).subtype x) = fam k x.
+  have hF_level : ∀ k (x : h.tower k), F ((h.tower k).subtype x) = fam k x := by
+    intro k x
+    have h_incl_le : h.tower k ≤ T := le_iSup _ k
+    let z : T := StarSubalgebra.inclusion h_incl_le x
+    have hz_val : (z : A) = (x : A) := rfl
+    have hzk : (z : A) ∈ h.tower k := by
+      rw [hz_val]; exact x.2
+    show Fraw ((h.tower k).subtype x) = fam k x
+    have hsubtype : (h.tower k).subtype x = (x : A) := rfl
+    rw [hsubtype, ← hz_val, hFraw_eq z]
+    rw [tower_union_starHom_apply_of_mem h fam compat k z hzk]
+    rfl
+  -- Existence + uniqueness.
+  refine ⟨F, hF_level, ?_⟩
+  intro G hG
+  -- G is contractive (hence continuous) as a *-alg-hom between C*-algebras.
+  have hG_cont : Continuous G := by
+    have hlip : LipschitzWith 1 (G : A → B) := by
+      intro x y
+      rw [edist_dist, edist_dist, ENNReal.coe_one, one_mul]
+      apply ENNReal.ofReal_le_ofReal
+      rw [dist_eq_norm, dist_eq_norm, ← map_sub]
+      exact NonUnitalStarAlgHom.norm_apply_le G (x - y)
+    exact hlip.continuous
+  have hF_cont : Continuous F := hFraw_cont
+  -- Coincidence on the union: for z : T pick a level k containing z.val.
+  have tower_le : ∀ m n, m ≤ n → h.tower m ≤ h.tower n := by
+    intro m n hmn
+    induction hmn with
+    | refl => exact le_refl _
+    | step _ ih => exact ih.trans (h.tower_mono _)
+  have dir : Directed (· ≤ ·) h.tower := fun i j =>
+    ⟨max i j, tower_le i _ (le_max_left _ _), tower_le j _ (le_max_right _ _)⟩
+  have hT_coe : ((T : StarSubalgebra ℂ A) : Set A) = ⋃ k, ((h.tower k) : Set A) :=
+    coe_iSup_of_directed_starSubalgebra dir
+  have hGF_dense : ∀ z : T, G (z : A) = F (z : A) := by
+    intro z
+    have hzU : (z : A) ∈ ((T : StarSubalgebra ℂ A) : Set A) := z.2
+    rw [hT_coe] at hzU
+    obtain ⟨k, hzk⟩ := Set.mem_iUnion.1 hzU
+    have hG_at : G (z : A) = fam k ⟨(z : A), hzk⟩ := by
+      have hGk := hG k ⟨(z : A), hzk⟩
+      simpa [StarSubalgebra.subtype_apply] using hGk
+    have hF_at : F (z : A) = fam k ⟨(z : A), hzk⟩ := by
+      have hFk := hF_level k ⟨(z : A), hzk⟩
+      simpa [StarSubalgebra.subtype_apply] using hFk
+    rw [hG_at, hF_at]
+  -- Lift the pointwise coincidence to all of A via DenseRange.induction_on.
+  ext x
+  refine DenseRange.induction_on hdr x ?_ (fun z => ?_)
+  · exact isClosed_eq hG_cont hF_cont
+  · exact hGF_dense z
 
 end C3_CompletionUniversalProperty
 
