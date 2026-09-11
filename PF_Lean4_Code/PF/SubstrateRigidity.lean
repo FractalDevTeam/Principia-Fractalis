@@ -83,6 +83,9 @@ open SubstrateUHFTraceIsStarPreserving
 open SubstrateDirectLimitSimplicity
 -- 2026-09-10 W3: `substrateLevelToTimelessField_iter` (cocone identity).
 open SubstrateCompletionFaithful
+-- 2026-09-10 W5: exposes `UHF_trace` and `uhf_trace_isTracialState`.
+open SubstrateUHFPreTraceDirectLimit
+open SubstrateUHFTraceIsTracial
 
 /-! ## §1 — The tracial-linear-functional predicate
 
@@ -218,6 +221,39 @@ kernel-verified ingredients — no C1–C4 dependency.
 Statement cards: `codex/COMPLETION_WITNESS_STATEMENT_CARDS_2026-09-10.md`.
 -/
 
+/-- Directed-supremum ⇒ union of underlying sets, for `StarSubalgebra ℂ A`.
+    Hoisted above §3a so W4 (`substrateTFCtower_dense`) can use it. The
+    C3.1 helper `coe_iSup_of_directed_starSubalgebra` below is a
+    section-local re-derivation on the same type family — kept there for
+    locality of the C3.1 diff. -/
+private lemma coe_iSup_of_directed_starSubalgebra_W4
+    {A : Type*} [CStarAlgebra A]
+    {ι : Type*} [Nonempty ι] {K : ι → StarSubalgebra ℂ A}
+    (dir : Directed (· ≤ ·) K) :
+    ((⨆ i, K i : StarSubalgebra ℂ A) : Set A) = ⋃ i, (K i : Set A) := by
+  let S : StarSubalgebra ℂ A :=
+    { toSubalgebra :=
+        Subalgebra.copy _ _
+          (Subalgebra.coe_iSup_of_directed
+            (K := fun i => (K i).toSubalgebra)
+            (fun i j => by
+              obtain ⟨k, hik, hjk⟩ := dir i j
+              exact ⟨k, hik, hjk⟩)).symm
+      star_mem' := by
+        intro x hx
+        obtain ⟨i, hi⟩ := Set.mem_iUnion.1 hx
+        exact Set.mem_iUnion.2 ⟨i, star_mem (s := K i) hi⟩ }
+  have hSU : (⨆ i, K i) = S := by
+    apply le_antisymm
+    · exact iSup_le (fun i => by
+        intro x hx
+        exact Set.mem_iUnion.2 ⟨i, hx⟩)
+    · intro x hx
+      obtain ⟨i, hi⟩ := Set.mem_iUnion.1 hx
+      exact (le_iSup K i) hi
+  rw [hSU]
+  rfl
+
 /-- **W1 — PROVED 2026-09-10.** The tower of finite-level embeddings on
     `TimelessFieldCompletion` as `StarSubalgebra` ranges. -/
 noncomputable def substrateTFCtower :
@@ -300,19 +336,60 @@ lemma substrateTFCtower_mono (k : ℕ) :
       = substrateLevelToTimelessField k A
   exact substrateLevelToTimelessField_iter k (k+1) (Nat.le_succ k) A
 
-/-- **W4.** The union of the tower is dense in the completion. -/
+/-- **W4 — PROVED 2026-09-10.** The union of the tower is dense in the
+    completion.
+
+    Proof: `substrateTFCtower` is directed (monotone chain via
+    `substrateTFCtower_mono`), so `coe_iSup_of_directed_starSubalgebra`
+    reduces the goal to density of `⋃ k, range (substrateLevelStarAlgHom k)`.
+    Pablo's `substrate_finite_level_dense` produces, for any
+    `x : TimelessFieldCompletion` and `ε > 0`, a level `k` and matrix `a`
+    whose image in the completion is within `ε` of `x`; that image lies in
+    `range (substrateLevelStarAlgHom k)` by `⟨a, rfl⟩`. -/
 lemma substrateTFCtower_dense :
     Dense (((⨆ k, substrateTFCtower k
               : StarSubalgebra ℂ TimelessFieldCompletion)
-              : Set TimelessFieldCompletion)) :=
-  sorry -- W4 leaf
+              : Set TimelessFieldCompletion)) := by
+  have tower_le : ∀ m n, m ≤ n → substrateTFCtower m ≤ substrateTFCtower n := by
+    intro m n hmn
+    induction hmn with
+    | refl => exact le_refl _
+    | step _ ih => exact ih.trans (substrateTFCtower_mono _)
+  have dir : Directed (· ≤ ·) substrateTFCtower := fun i j =>
+    ⟨max i j, tower_le i _ (le_max_left _ _), tower_le j _ (le_max_right _ _)⟩
+  rw [coe_iSup_of_directed_starSubalgebra_W4 dir]
+  intro x
+  rw [Metric.mem_closure_iff]
+  intro ε hε
+  obtain ⟨k, a, hka⟩ := substrate_finite_level_dense x hε
+  refine ⟨((substrateLevelToTimelessField k a : TimelessFieldRing) :
+            TimelessFieldCompletion),
+    Set.mem_iUnion.mpr ⟨k, ⟨a, rfl⟩⟩, hka⟩
 
-/-- **W5.** Unique tracial linear functional on the completion —
-    discharges via Pablo's `substrate_UHF_trace_unique` + `UHF_trace`. -/
+/-- **W5 — PROVED 2026-09-10.** Unique tracial linear functional on the
+    completion — discharges via Pablo's `substrate_UHF_trace_unique` +
+    `UHF_trace` + `uhf_trace_isTracialState`. -/
 lemma substrateTFCtower_trace_unique :
     ∃! τ : TimelessFieldCompletion → ℂ,
-      IsTracialLinearFunctional TimelessFieldCompletion τ :=
-  sorry -- W5 leaf
+      IsTracialLinearFunctional TimelessFieldCompletion τ := by
+  refine ⟨UHF_trace, ?_, ?_⟩
+  · -- existence: UHF_trace is a tracial linear functional
+    exact
+      { continuous := uhf_trace_isTracialState.continuous
+        add        := uhf_trace_isTracialState.add
+        smul       := uhf_trace_isTracialState.smul
+        tracial    := uhf_trace_isTracialState.tracial
+        unital     := uhf_trace_isTracialState.unital }
+  · -- uniqueness: any tracial linear functional agrees with UHF_trace pointwise
+    intro τ hτ
+    funext x
+    have hτ' : IsTracialState τ :=
+      { continuous := hτ.continuous
+        add        := hτ.add
+        smul       := hτ.smul
+        tracial    := hτ.tracial
+        unital     := hτ.unital }
+    exact substrate_UHF_trace_unique τ hτ' x
 
 /-- The canonical `Substrate3Inf` witness on `TimelessFieldCompletion`.
     Assembled from W1–W5. -/
@@ -495,16 +572,36 @@ noncomputable def blockDiagonalStarAlgHom :
         rfl }
   reindexStar.comp (blockDiagonalConstStarHom n k)
 
-/-- **C1.6.** The reindexed version is injective for `k > 0`. -/
+/-- **C1.6 — PROVED 2026-09-10.** The reindexed version is injective
+    for `k > 0`. Composition of two injective maps: the reindex layer
+    is `Matrix.reindexAlgEquiv ℂ ℂ finProdFinEquiv` (an `AlgEquiv`,
+    hence injective) and the inner map is `blockDiagonalConstStarHom`
+    (injective by C1.4). -/
 lemma blockDiagonalStarAlgHom_injective [NeZero k] :
-    Function.Injective (blockDiagonalStarAlgHom n k) :=
-  sorry
+    Function.Injective (blockDiagonalStarAlgHom n k) := by
+  intro x y hxy
+  -- Peel the composition: blockDiagonalStarAlgHom is defeq to
+  -- reindexStar.comp (blockDiagonalConstStarHom n k); applied to x
+  -- this reduces to reindexAlgEquiv (blockDiagonalConstStarHom n k x).
+  have h1 : (Matrix.reindexAlgEquiv ℂ ℂ
+              (finProdFinEquiv : Fin k × Fin n ≃ Fin (k * n)))
+              (blockDiagonalConstStarHom n k x)
+            = (Matrix.reindexAlgEquiv ℂ ℂ
+              (finProdFinEquiv : Fin k × Fin n ≃ Fin (k * n)))
+              (blockDiagonalConstStarHom n k y) := hxy
+  -- reindexAlgEquiv is an AlgEquiv, hence injective.
+  have h2 : blockDiagonalConstStarHom n k x
+            = blockDiagonalConstStarHom n k y :=
+    (Matrix.reindexAlgEquiv ℂ ℂ
+      (finProdFinEquiv : Fin k × Fin n ≃ Fin (k * n))).injective h1
+  -- Close with C1.4.
+  exact blockDiagonalConstStarHom_injective n k h2
 
-/-- **C1.7.** The reindexed version is unital (convenience lemma; also
-    automatic from the `StarAlgHom` structure). -/
+/-- **C1.7 — PROVED 2026-09-10.** The reindexed version is unital.
+    Automatic from the `StarAlgHom` structure via `map_one`. -/
 lemma blockDiagonalStarAlgHom_unital :
     blockDiagonalStarAlgHom n k 1 = 1 :=
-  sorry
+  map_one _
 
 end C1_BlockDiagonalEmbedding
 
