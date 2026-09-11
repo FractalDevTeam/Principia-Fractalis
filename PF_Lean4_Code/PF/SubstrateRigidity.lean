@@ -56,6 +56,10 @@ import Mathlib.Algebra.Star.StarAlgHom
 import Mathlib.Algebra.Star.Subalgebra
 import Mathlib.Topology.Algebra.UniformRing
 import Mathlib.LinearAlgebra.Matrix.Reindex  -- for C1.1 (blockDiagonal reindex)
+import Mathlib.LinearAlgebra.Matrix.Trace     -- for C2.7 (trace-of-projection)
+import Mathlib.LinearAlgebra.Matrix.ToLin     -- for C2.7 (Matrix.toLin')
+import Mathlib.LinearAlgebra.Trace            -- for C2.7 (IsProj.trace, trace_toLin'_eq)
+import Mathlib.LinearAlgebra.Projection       -- for C2.7 (IsIdempotentElem.isProj_range)
 import PF.SubstrateTimelessFieldCompletion
 import PF.SubstrateTraceUniqueness
 import PF.AlphaFromSubstrateKTheory_r123
@@ -743,6 +747,106 @@ lemma E_of_i_i_isProjection
     E_of n k φ i i * E_of n k φ i i = E_of n k φ i i ∧
     star (E_of n k φ i i) = E_of n k φ i i :=
   ⟨E_of_mul_same n k φ i i i, E_of_star n k φ i i⟩
+
+/-- **C2.7 – helper A.** All diagonal `E_of φ i i` share a common `Matrix.trace`.
+    Proof: `E_of i i = E_of i 0 * E_of 0 i` (by C2.2) and
+    `E_of 0 0 = E_of 0 i * E_of i 0` (by C2.2); traces of `AB` and `BA` agree. -/
+lemma E_of_i_i_trace_eq_00 [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) (i : Fin n) :
+    Matrix.trace (E_of n k φ i i) = Matrix.trace (E_of n k φ ⟨0, Nat.pos_of_neZero n⟩ ⟨0, Nat.pos_of_neZero n⟩) := by
+  set z : Fin n := ⟨0, Nat.pos_of_neZero n⟩ with hz
+  have h1 : E_of n k φ i i = E_of n k φ i z * E_of n k φ z i :=
+    (E_of_mul_same n k φ i z i).symm
+  have h2 : E_of n k φ z z = E_of n k φ z i * E_of n k φ i z :=
+    (E_of_mul_same n k φ z i z).symm
+  rw [h1, h2, Matrix.trace_mul_comm]
+
+/-- **C2.7 – helper B.** `Matrix.trace (E_of φ 0 0) = k` as a complex scalar.
+
+    Proof: `∑_i E_of φ i i = 1` (C2.5); taking `Matrix.trace` gives
+    `n • trace(E_of φ 0 0) = Matrix.trace (1 : M_{kn}) = kn`; divide by `n`. -/
+lemma E_of_00_trace_eq_k [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
+    Matrix.trace (E_of n k φ ⟨0, Nat.pos_of_neZero n⟩ ⟨0, Nat.pos_of_neZero n⟩) = (k : ℂ) := by
+  set z : Fin n := ⟨0, Nat.pos_of_neZero n⟩ with hz
+  -- Sum of diagonals equals identity (C2.5); trace preserves sums.
+  have hsum := E_of_sum_diagonal n k φ
+  have htrace_sum :
+      ∑ i : Fin n, Matrix.trace (E_of n k φ i i) =
+        Matrix.trace (1 : Matrix (Fin (k * n)) (Fin (k * n)) ℂ) := by
+    rw [← hsum, Matrix.trace_sum]
+  -- Every diagonal has trace equal to E_of φ 0 0's trace.
+  have hconst :
+      ∀ i : Fin n, Matrix.trace (E_of n k φ i i) = Matrix.trace (E_of n k φ z z) :=
+    fun i => E_of_i_i_trace_eq_00 n k φ i
+  -- Turn LHS into `n • trace(E_of 0 0)`.
+  have hLHS :
+      ∑ i : Fin n, Matrix.trace (E_of n k φ i i) =
+        (n : ℂ) * Matrix.trace (E_of n k φ z z) := by
+    rw [Finset.sum_congr rfl (fun i _ => hconst i)]
+    simp [Finset.sum_const, Finset.card_univ, Fintype.card_fin]
+  -- RHS: `trace (1 : M_{kn}) = k * n`.
+  have hRHS :
+      Matrix.trace (1 : Matrix (Fin (k * n)) (Fin (k * n)) ℂ) = ((k * n : ℕ) : ℂ) := by
+    rw [Matrix.trace_one, Fintype.card_fin]
+  -- Combine and divide by n.
+  have hn_ne : (n : ℂ) ≠ 0 := by
+    exact_mod_cast (Nat.pos_of_neZero n).ne'
+  have hcomb := htrace_sum
+  rw [hLHS, hRHS] at hcomb
+  -- Rearrange to `trace(E_of 0 0) * n = k * n` and cancel n.
+  have hmul : Matrix.trace (E_of n k φ z z) * (n : ℂ) = (k : ℂ) * (n : ℂ) := by
+    have hcast : ((k * n : ℕ) : ℂ) = (k : ℂ) * (n : ℂ) := by push_cast; ring
+    rw [mul_comm]; rw [← hcast]; exact hcomb
+  exact mul_right_cancel₀ hn_ne hmul
+
+/-- **C2.7 (deepest single sub-card of the C2 arc).**
+    For a unital *-hom `φ : M_n(ℂ) →⋆ₐ[ℂ] M_{k*n}(ℂ)`, the range of the
+    projection `E_of φ 0 0` (viewed via `Matrix.toLin'`) has `finrank = k`.
+
+    **Proof strategy.** By C2.6 the matrix `E := E_of φ 0 0` is idempotent
+    (`E * E = E`). Hence `Matrix.toLin' E : ℂ^{kn} →ₗ ℂ^{kn}` is idempotent,
+    which by `IsIdempotentElem.isProj_range` gives
+    `IsProj (LinearMap.range (Matrix.toLin' E)) (Matrix.toLin' E)`. Then
+    `IsProj.trace` yields
+    `LinearMap.trace ℂ _ (Matrix.toLin' E) = finrank ℂ (range (Matrix.toLin' E))`
+    (as a complex scalar). By `Matrix.trace_toLin'_eq` the LHS equals
+    `Matrix.trace E`, which by `E_of_00_trace_eq_k` equals `k`. So the
+    `finrank` (a `ℕ` embedded in `ℂ`) equals `k`; `Nat.cast_injective` closes. -/
+lemma E_of_00_range_finrank [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
+    Module.finrank ℂ
+      (LinearMap.range (Matrix.toLin'
+        (E_of n k φ ⟨0, Nat.pos_of_neZero n⟩ ⟨0, Nat.pos_of_neZero n⟩))) = k := by
+  set z : Fin n := ⟨0, Nat.pos_of_neZero n⟩ with hz
+  set E := E_of n k φ z z with hE
+  -- C2.6: E is idempotent as a matrix product.
+  have hEE : E * E = E := (E_of_i_i_isProjection n k φ z).1
+  -- Transport to `Matrix.toLin'` (which is an AlgHom on square matrices).
+  have hidem : IsIdempotentElem (Matrix.toLin' E) := by
+    show Matrix.toLin' E * Matrix.toLin' E = Matrix.toLin' E
+    rw [show (Matrix.toLin' E * Matrix.toLin' E : Module.End ℂ _)
+          = Matrix.toLin' E ∘ₗ Matrix.toLin' E from rfl,
+        ← Matrix.toLin'_mul, hEE]
+  -- Idempotent linear endomorphism is a projection onto its range.
+  have hproj : LinearMap.IsProj (LinearMap.range (Matrix.toLin' E)) (Matrix.toLin' E) :=
+    LinearMap.IsIdempotentElem.isProj_range _ hidem
+  -- IsProj.trace: trace = finrank of range (as ℂ-scalar).
+  have htr : LinearMap.trace ℂ _ (Matrix.toLin' E) =
+      (Module.finrank ℂ (LinearMap.range (Matrix.toLin' E)) : ℂ) :=
+    hproj.trace
+  -- Matrix.trace_toLin'_eq bridges to Matrix.trace.
+  have hbridge : LinearMap.trace ℂ _ (Matrix.toLin' E) = Matrix.trace E :=
+    Matrix.trace_toLin'_eq E
+  -- E_of_00_trace_eq_k: Matrix.trace E = k.
+  have hval : Matrix.trace E = (k : ℂ) := E_of_00_trace_eq_k n k φ
+  -- Combine: (finrank : ℂ) = k, then cast back to ℕ.
+  have hcast : (Module.finrank ℂ (LinearMap.range (Matrix.toLin' E)) : ℂ) = (k : ℂ) := by
+    rw [← htr, hbridge, hval]
+  exact_mod_cast hcast
 
 /-- **C2 main.** Noether–Skolem specialised to `M_n → M_{kn}`. -/
 lemma unital_star_hom_inner_unique
