@@ -848,6 +848,62 @@ lemma E_of_00_range_finrank [NeZero n]
     rw [← htr, hbridge, hval]
   exact_mod_cast hcast
 
+/-- Reindexing bijection `Fin n × Fin k ≃ Fin (k*n)` (helper for C2.9). -/
+noncomputable def phiIndexEquiv : Fin n × Fin k ≃ Fin (k * n) :=
+  (Equiv.prodComm _ _).trans finProdFinEquiv
+
+/-- **C2.9.** Change-of-ONB matrix for two orthonormal bases of
+    `EuclideanSpace ℂ (Fin (k*n))` indexed by `Fin n × Fin k`,
+    reindexed to `Fin (k*n)`. -/
+noncomputable def unitaryOfONBpair
+    (bφ bψ : OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n)))) :
+    Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+  Matrix.reindex (phiIndexEquiv n k) (phiIndexEquiv n k) (bψ.toBasis.toMatrix bφ.toBasis)
+
+/-- **C2.10.** The change-of-ONB matrix `unitaryOfONBpair` is unitary
+    (both `U * U* = 1` and `U* * U = 1`).
+
+    **Mathlib citations.**
+    - `OrthonormalBasis.toMatrix_orthonormalBasis_self_mul_conjTranspose`
+      and `OrthonormalBasis.toMatrix_orthonormalBasis_conjTranspose_mul_self`
+      in `Mathlib/Analysis/InnerProductSpace/PiL2.lean`.
+    - `Matrix.conjTranspose_reindex` in
+      `Mathlib/LinearAlgebra/Matrix/ConjTranspose.lean`. -/
+lemma unitaryOfONBpair_isUnitary
+    (bφ bψ : OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n)))) :
+    unitaryOfONBpair n k bφ bψ * star (unitaryOfONBpair n k bφ bψ) = 1 ∧
+    star (unitaryOfONBpair n k bφ bψ) * unitaryOfONBpair n k bφ bψ = 1 := by
+  classical
+  set M : Matrix (Fin n × Fin k) (Fin n × Fin k) ℂ := bψ.toBasis.toMatrix bφ.toBasis with hM
+  have hMMh : M * Matrix.conjTranspose M = 1 :=
+    bψ.toMatrix_orthonormalBasis_self_mul_conjTranspose bφ
+  have hMhM : Matrix.conjTranspose M * M = 1 :=
+    bψ.toMatrix_orthonormalBasis_conjTranspose_mul_self bφ
+  set e : Fin n × Fin k ≃ Fin (k * n) := phiIndexEquiv n k with he
+  -- Reindex distributes over multiplication (via submatrix_mul_equiv).
+  have hmul_reindex : ∀ (A B : Matrix (Fin n × Fin k) (Fin n × Fin k) ℂ),
+      Matrix.reindex e e A * Matrix.reindex e e B = Matrix.reindex e e (A * B) := by
+    intro A B
+    ext i j
+    simp only [Matrix.reindex_apply, Matrix.submatrix_apply, Matrix.mul_apply]
+    exact Equiv.sum_comp e.symm (fun t => A (e.symm i) t * B t (e.symm j))
+  have hone_reindex :
+      Matrix.reindex e e (1 : Matrix (Fin n × Fin k) (Fin n × Fin k) ℂ) = 1 := by
+    ext i j
+    simp only [Matrix.reindex_apply, Matrix.submatrix_apply, Matrix.one_apply,
+      e.symm.injective.eq_iff]
+  have hstar : star (unitaryOfONBpair n k bφ bψ)
+      = Matrix.reindex e e (Matrix.conjTranspose M) := by
+    show Matrix.conjTranspose _ = _
+    rw [unitaryOfONBpair, ← he, ← hM, Matrix.conjTranspose_reindex]
+  refine ⟨?_, ?_⟩
+  · rw [hstar]
+    show Matrix.reindex e e M * Matrix.reindex e e (Matrix.conjTranspose M) = 1
+    rw [hmul_reindex, hMMh, hone_reindex]
+  · rw [hstar]
+    show Matrix.reindex e e (Matrix.conjTranspose M) * Matrix.reindex e e M = 1
+    rw [hmul_reindex, hMhM, hone_reindex]
+
 /-- **C2 main.** Noether–Skolem specialised to `M_n → M_{kn}`. -/
 lemma unital_star_hom_inner_unique
     (φ ψ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
