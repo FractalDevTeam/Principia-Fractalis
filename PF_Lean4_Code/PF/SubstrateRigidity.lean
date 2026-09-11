@@ -65,6 +65,7 @@ import PF.SubstrateTraceUniqueness
 import PF.AlphaFromSubstrateKTheory_r123
 
 open scoped Matrix.Norms.L2Operator
+open scoped Matrix  -- for `ᴴ` postfix (conjTranspose)
 
 namespace PrincipiaTractalis
 namespace SubstrateRigidity
@@ -1037,57 +1038,197 @@ noncomputable def phiONB [NeZero n]
 noncomputable def phiIndexEquiv : Fin n × Fin k ≃ Fin (k * n) :=
   (Equiv.prodComm _ _).trans finProdFinEquiv
 
-/-- **C2.9.** Change-of-ONB matrix for two orthonormal bases of
-    `EuclideanSpace ℂ (Fin (k*n))` indexed by `Fin n × Fin k`,
-    reindexed to `Fin (k*n)`. -/
+/-- **C2.9.** Change-of-ONB unitary for two orthonormal bases of
+    `EuclideanSpace ℂ (Fin (k*n))` indexed by `Fin n × Fin k`.
+
+    **Design.** We build the matrix in the *standard basis* so that
+    `U · (bψ p) = bφ p` for every `p`.  Concretely, let
+
+      Φ_{q, r} := bφ ((phiIndexEquiv).symm r) q       -- columns are φ-vectors
+      Ψ_{q, r} := bψ ((phiIndexEquiv).symm r) q       -- columns are ψ-vectors
+
+    Then `U := Φ · Ψᴴ`.  Applied to `bψ p`, the `Ψᴴ` factor "reads off"
+    the `p`-th standard-basis vector (via orthonormality of `bψ`), and
+    the `Φ` factor "writes down" `bφ p`. -/
 noncomputable def unitaryOfONBpair
     (bφ bψ : OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n)))) :
     Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
-  Matrix.reindex (phiIndexEquiv n k) (phiIndexEquiv n k) (bψ.toBasis.toMatrix bφ.toBasis)
+  let Φ : Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+    fun q r => bφ ((phiIndexEquiv n k).symm r) q
+  let Ψ : Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+    fun q r => bψ ((phiIndexEquiv n k).symm r) q
+  Φ * Ψᴴ
 
 /-- **C2.10.** The change-of-ONB matrix `unitaryOfONBpair` is unitary
     (both `U * U* = 1` and `U* * U = 1`).
 
+    **Proof outline.** With `Φ, Ψ` as in `unitaryOfONBpair`, the columns of
+    each are an orthonormal basis of `EuclideanSpace ℂ (Fin (k*n))`, so
+    `Φᴴ · Φ = 1` and `Ψᴴ · Ψ = 1` (Gram-matrix identities). Since the
+    matrices are square over a commutative ring, `Matrix.mul_eq_one_comm`
+    upgrades these to `Φ · Φᴴ = 1` and `Ψ · Ψᴴ = 1`. Then
+    `U * Uᴴ = (Φ Ψᴴ)(Ψ Φᴴ) = Φ (Ψᴴ Ψ) Φᴴ = Φ Φᴴ = 1` and
+    `Uᴴ * U = (Ψ Φᴴ)(Φ Ψᴴ) = Ψ (Φᴴ Φ) Ψᴴ = Ψ Ψᴴ = 1`.
+
     **Mathlib citations.**
-    - `OrthonormalBasis.toMatrix_orthonormalBasis_self_mul_conjTranspose`
-      and `OrthonormalBasis.toMatrix_orthonormalBasis_conjTranspose_mul_self`
-      in `Mathlib/Analysis/InnerProductSpace/PiL2.lean`.
-    - `Matrix.conjTranspose_reindex` in
-      `Mathlib/LinearAlgebra/Matrix/ConjTranspose.lean`. -/
+    - `OrthonormalBasis.orthonormal` — orthonormality of the family.
+    - `orthonormal_iff_ite` — pointwise inner-product characterisation.
+    - `EuclideanSpace.inner_eq_star_dotProduct` — inner product as
+      `y ⬝ᵥ star x` on `EuclideanSpace`.
+    - `Matrix.mul_eq_one_comm` in
+      `Mathlib/LinearAlgebra/Matrix/SemiringInverse.lean`. -/
 lemma unitaryOfONBpair_isUnitary
     (bφ bψ : OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n)))) :
     unitaryOfONBpair n k bφ bψ * star (unitaryOfONBpair n k bφ bψ) = 1 ∧
     star (unitaryOfONBpair n k bφ bψ) * unitaryOfONBpair n k bφ bψ = 1 := by
   classical
-  set M : Matrix (Fin n × Fin k) (Fin n × Fin k) ℂ := bψ.toBasis.toMatrix bφ.toBasis with hM
-  have hMMh : M * Matrix.conjTranspose M = 1 :=
-    bψ.toMatrix_orthonormalBasis_self_mul_conjTranspose bφ
-  have hMhM : Matrix.conjTranspose M * M = 1 :=
-    bψ.toMatrix_orthonormalBasis_conjTranspose_mul_self bφ
   set e : Fin n × Fin k ≃ Fin (k * n) := phiIndexEquiv n k with he
-  -- Reindex distributes over multiplication (via submatrix_mul_equiv).
-  have hmul_reindex : ∀ (A B : Matrix (Fin n × Fin k) (Fin n × Fin k) ℂ),
-      Matrix.reindex e e A * Matrix.reindex e e B = Matrix.reindex e e (A * B) := by
-    intro A B
-    ext i j
-    simp only [Matrix.reindex_apply, Matrix.submatrix_apply, Matrix.mul_apply]
-    exact Equiv.sum_comp e.symm (fun t => A (e.symm i) t * B t (e.symm j))
-  have hone_reindex :
-      Matrix.reindex e e (1 : Matrix (Fin n × Fin k) (Fin n × Fin k) ℂ) = 1 := by
-    ext i j
-    simp only [Matrix.reindex_apply, Matrix.submatrix_apply, Matrix.one_apply,
-      e.symm.injective.eq_iff]
-  have hstar : star (unitaryOfONBpair n k bφ bψ)
-      = Matrix.reindex e e (Matrix.conjTranspose M) := by
-    show Matrix.conjTranspose _ = _
-    rw [unitaryOfONBpair, ← he, ← hM, Matrix.conjTranspose_reindex]
+  set Φ : Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+    (fun q r => bφ (e.symm r) q) with hΦ
+  set Ψ : Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+    (fun q r => bψ (e.symm r) q) with hΨ
+  have hU : unitaryOfONBpair n k bφ bψ = Φ * Ψᴴ := rfl
+  -- Gram-matrix identity: `Φᴴ * Φ = 1`.
+  -- Generic gram-matrix identity for the "columns are ONB" construction.
+  have hgram : ∀ (b : OrthonormalBasis (Fin n × Fin k) ℂ
+                        (EuclideanSpace ℂ (Fin (k * n))))
+                 (M : Matrix (Fin (k * n)) (Fin (k * n)) ℂ),
+      M = (fun q r => b (e.symm r) q) → Mᴴ * M = 1 := by
+    intro b M hMdef
+    ext r s
+    simp only [Matrix.mul_apply, Matrix.conjTranspose_apply, Matrix.one_apply, hMdef]
+    -- ∑_q star (b (e.symm r) q) * b (e.symm s) q = ⟪b (e.symm r), b (e.symm s)⟫
+    have hinner :
+        (∑ q, star (b (e.symm r) q) * b (e.symm s) q)
+          = (inner ℂ (b (e.symm r)) (b (e.symm s)) : ℂ) := by
+      rw [EuclideanSpace.inner_eq_star_dotProduct]
+      simp [dotProduct, mul_comm]
+    rw [hinner]
+    have honb := b.orthonormal
+    rw [orthonormal_iff_ite] at honb
+    rw [honb (e.symm r) (e.symm s)]
+    by_cases h : r = s
+    · subst h; simp
+    · have h' : e.symm r ≠ e.symm s := fun hh => h (e.symm.injective hh)
+      simp [h, h']
+  have hΦgram : Φᴴ * Φ = 1 := hgram bφ Φ hΦ
+  have hΨgram : Ψᴴ * Ψ = 1 := hgram bψ Ψ hΨ
+  -- Upgrade: for square matrices, left-inverse ⇔ right-inverse.
+  have hΦΦH : Φ * Φᴴ = 1 := Matrix.mul_eq_one_comm.mpr hΦgram
+  have hΨΨH : Ψ * Ψᴴ = 1 := Matrix.mul_eq_one_comm.mpr hΨgram
   refine ⟨?_, ?_⟩
-  · rw [hstar]
-    show Matrix.reindex e e M * Matrix.reindex e e (Matrix.conjTranspose M) = 1
-    rw [hmul_reindex, hMMh, hone_reindex]
-  · rw [hstar]
-    show Matrix.reindex e e (Matrix.conjTranspose M) * Matrix.reindex e e M = 1
-    rw [hmul_reindex, hMhM, hone_reindex]
+  · -- U * star U = (Φ Ψᴴ) * (Φ Ψᴴ)ᴴ = Φ (Ψᴴ Ψ) Φᴴ = Φ Φᴴ = 1
+    show (Φ * Ψᴴ) * star (Φ * Ψᴴ) = 1
+    rw [Matrix.star_eq_conjTranspose, Matrix.conjTranspose_mul,
+        Matrix.conjTranspose_conjTranspose]
+    calc Φ * Ψᴴ * (Ψ * Φᴴ)
+        = Φ * (Ψᴴ * Ψ) * Φᴴ := by simp [Matrix.mul_assoc]
+      _ = Φ * 1 * Φᴴ := by rw [hΨgram]
+      _ = Φ * Φᴴ := by rw [Matrix.mul_one]
+      _ = 1 := hΦΦH
+  · -- star U * U = (Φ Ψᴴ)ᴴ * (Φ Ψᴴ) = Ψ (Φᴴ Φ) Ψᴴ = Ψ Ψᴴ = 1
+    show star (Φ * Ψᴴ) * (Φ * Ψᴴ) = 1
+    rw [Matrix.star_eq_conjTranspose, Matrix.conjTranspose_mul,
+        Matrix.conjTranspose_conjTranspose]
+    calc Ψ * Φᴴ * (Φ * Ψᴴ)
+        = Ψ * (Φᴴ * Φ) * Ψᴴ := by simp [Matrix.mul_assoc]
+      _ = Ψ * 1 * Ψᴴ := by rw [hΦgram]
+      _ = Ψ * Ψᴴ := by rw [Matrix.mul_one]
+      _ = 1 := hΨΨH
+
+/-- **C2.11 – bridge.** Action of `unitaryOfONBpair (phiONB φ) (phiONB ψ)` on
+    the `ψ`-ONB standard-basis picture: it sends `phiONB ψ p` to `phiONB φ p`.
+
+    **Proof outline.** Write `U = Φ * Ψᴴ` per `unitaryOfONBpair`. Compute
+    entry-wise `(U *ᵥ (bψ p))(r) = Σ_t Φ(r, t) * (Ψᴴ *ᵥ (bψ p))(t)`. The
+    inner sum evaluates to `⟪bψ (e.symm t), bψ p⟫ = δ_{e.symm t, p}
+    = δ_{t, e p}` via orthonormality (`orthonormal_iff_ite`). Collapsing the
+    outer sum yields `Φ(r, e p) = bφ (e.symm (e p)) r = bφ p r`.
+
+    **Mathlib citations.**
+    - `Matrix.toEuclideanLin_apply` in `Mathlib/Analysis/InnerProductSpace/PiL2.lean`.
+    - `Matrix.mul_apply`, `Matrix.mulVec` in `Mathlib/Data/Matrix/Mul.lean`.
+    - `EuclideanSpace.inner_eq_star_dotProduct`, `OrthonormalBasis.orthonormal`,
+      `orthonormal_iff_ite`. -/
+lemma unitaryOfONBpair_apply_phiONB [NeZero n]
+    (φ ψ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+           Matrix (Fin (k * n)) (Fin (k * n)) ℂ) (p : Fin n × Fin k) :
+    Matrix.toEuclideanLin
+        (unitaryOfONBpair n k (phiONB n k φ) (phiONB n k ψ))
+        (phiONB n k ψ p)
+      = phiONB n k φ p := by
+  classical
+  set e : Fin n × Fin k ≃ Fin (k * n) := phiIndexEquiv n k with he
+  set bφ : OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n))) :=
+    phiONB n k φ with hbφ
+  set bψ : OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n))) :=
+    phiONB n k ψ with hbψ
+  set Φ : Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+    (fun q r => bφ (e.symm r) q) with hΦ
+  set Ψ : Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+    (fun q r => bψ (e.symm r) q) with hΨ
+  have hU : unitaryOfONBpair n k bφ bψ = Φ * Ψᴴ := rfl
+  rw [hU]
+  ext r
+  -- `toEuclideanLin (Φ * Ψᴴ) (bψ p)` unfolds to `toLp _ ((Φ * Ψᴴ) *ᵥ (ofLp (bψ p)))`.
+  -- After `ext r`, both sides project to their `r`-th component, so we may
+  -- reduce to the plain pointwise identity.
+  change ((Φ * Ψᴴ) *ᵥ (fun s => bψ p s)) r = bφ p r
+  -- LHS r = ∑_s (Φ * Ψᴴ)(r,s) * (bψ p) s
+  --       = ∑_s ∑_t Φ(r,t) * conj(bψ (e.symm t) s) * (bψ p) s
+  -- Swap ∑_s and ∑_t (via Finset.sum_comm), then factor Φ(r,t) out:
+  --       = ∑_t Φ(r,t) * ∑_s conj(bψ (e.symm t) s) * (bψ p) s
+  --       = ∑_t Φ(r,t) * ⟪bψ (e.symm t), bψ p⟫
+  -- Orthonormality collapses the inner product to `if e.symm t = p then 1 else 0`
+  -- = `if t = e p then 1 else 0`.  Sum collapses to `Φ(r, e p) = bφ p r`.
+  have honb := bψ.orthonormal
+  rw [orthonormal_iff_ite] at honb
+  have hstep :
+      ((Φ * Ψᴴ) *ᵥ (fun s => bψ p s)) r
+        = ∑ t, Φ r t * (if t = e p then (1 : ℂ) else 0) := by
+    -- Unfold mulVec, mul, conjTranspose, Ψ.
+    simp only [Matrix.mulVec, Matrix.mul_apply, dotProduct,
+      Matrix.conjTranspose_apply, hΨ, Finset.sum_mul]
+    -- Now the LHS reads:
+    --   ∑_s ∑_t (Φ(r,t) * star (bψ (e.symm t) s)) * (bψ p) s
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    -- Inner sum over s: ∑_s (Φ(r,t) * star (bψ (e.symm t) s)) * (bψ p) s
+    --                = Φ(r,t) * ∑_s star (bψ (e.symm t) s) * (bψ p) s
+    --                = Φ(r,t) * ⟪bψ (e.symm t), bψ p⟫
+    --                = Φ(r,t) * (if e.symm t = p then 1 else 0)
+    --                = Φ(r,t) * (if t = e p then 1 else 0).
+    have hite_eq : (if e.symm t = p then (1 : ℂ) else 0)
+                    = (if t = e p then (1 : ℂ) else 0) := by
+      by_cases htp : t = e p
+      · have : e.symm t = p := by rw [htp]; exact e.symm_apply_apply p
+        simp [htp, this]
+      · have : e.symm t ≠ p := by
+          intro h; apply htp
+          rw [← h]; exact (e.apply_symm_apply t).symm
+        simp [htp, this]
+    have hinner :
+        (∑ s, star (bψ (e.symm t) s) * (bψ p) s)
+          = (if e.symm t = p then (1 : ℂ) else 0) := by
+      have := honb (e.symm t) p
+      rw [← this, EuclideanSpace.inner_eq_star_dotProduct]
+      simp [dotProduct, mul_comm]
+    calc (∑ s, Φ r t * star (bψ (e.symm t) s) * (bψ p) s)
+        = Φ r t * ∑ s, star (bψ (e.symm t) s) * (bψ p) s := by
+          rw [Finset.mul_sum]; refine Finset.sum_congr rfl (fun s _ => ?_); ring
+      _ = Φ r t * (if e.symm t = p then (1 : ℂ) else 0) := by rw [hinner]
+      _ = Φ r t * (if t = e p then (1 : ℂ) else 0) := by rw [hite_eq]
+  -- Collapse the outer sum.
+  have hcollapse :
+      (∑ t, Φ r t * (if t = e p then (1 : ℂ) else 0)) = Φ r (e p) := by
+    rw [Finset.sum_eq_single (e p)]
+    · simp
+    · intros b _ hb; simp [hb]
+    · intro h; exact (h (Finset.mem_univ _)).elim
+  -- RHS: bφ p r = Φ r (e p) (definition of Φ and e.symm ∘ e = id).
+  have hrhs : (bφ p : EuclideanSpace ℂ (Fin (k * n))) r = Φ r (e p) := by
+    simp only [hΦ, Equiv.symm_apply_apply]
+  rw [hstep, hcollapse, hrhs]
 
 /-- **C2.11 – helper A.** The `phiONB φ` orthonormal-basis vectors coincide
     with the underlying transported family `phiONB_family φ`. Immediate from
