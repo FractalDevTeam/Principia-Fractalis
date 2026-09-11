@@ -348,9 +348,15 @@ noncomputable def blockDiagonalConstStarHom :
           (Matrix.blockDiagonal
             (fun _ : Fin k => (algebraMap ℂ (Matrix (Fin n) (Fin n) ℂ)) c))
         = algebraMap ℂ (Matrix (Fin k × Fin n) (Fin k × Fin n) ℂ) c
-    simp only [Algebra.algebraMap_eq_smul_one, Pi.smul_def,
-      Matrix.blockDiagonal_smul, Matrix.blockDiagonal_one,
-      map_smul, _root_.map_one]
+    have h1 : (fun _ : Fin k => (algebraMap ℂ (Matrix (Fin n) (Fin n) ℂ)) c)
+              = c • (1 : Fin k → Matrix (Fin n) (Fin n) ℂ) := by
+      funext i
+      simp [Algebra.algebraMap_eq_smul_one]
+    rw [h1, Matrix.blockDiagonal_smul, Matrix.blockDiagonal_one]
+    show (Matrix.reindexAlgEquiv ℂ ℂ
+            (Equiv.prodComm (Fin n) (Fin k))) (c • 1)
+          = algebraMap ℂ _ c
+    rw [map_smul, _root_.map_one, Algebra.algebraMap_eq_smul_one]
   map_star' := blockDiagonalConstMap_star n k
 
 /-- **C1.4.** Block-diagonal *-alg-hom is injective for `k > 0`. -/
@@ -408,6 +414,143 @@ Specialisation of `UniformSpace.Completion.extensionHom` upgraded from
 
 section C3_CompletionUniversalProperty
 variable {A : Type*} [CStarAlgebra A]
+
+/-- **C3.1 helper.** For a directed family `K : ι → StarSubalgebra ℂ A`,
+    the underlying set of `⨆ i, K i` is the union of the underlying sets.
+    Mirrors `NonUnitalStarSubalgebra.coe_iSup_of_directed` for the unital
+    case, since mathlib does not yet ship this. -/
+private lemma coe_iSup_of_directed_starSubalgebra
+    {ι : Type*} [Nonempty ι] {K : ι → StarSubalgebra ℂ A}
+    (dir : Directed (· ≤ ·) K) :
+    ((⨆ i, K i : StarSubalgebra ℂ A) : Set A) = ⋃ i, (K i : Set A) := by
+  let S : StarSubalgebra ℂ A :=
+    { toSubalgebra :=
+        Subalgebra.copy _ _
+          (Subalgebra.coe_iSup_of_directed
+            (K := fun i => (K i).toSubalgebra)
+            (fun i j => by
+              obtain ⟨k, hik, hjk⟩ := dir i j
+              exact ⟨k, hik, hjk⟩)).symm
+      star_mem' := by
+        intro x hx
+        obtain ⟨i, hi⟩ := Set.mem_iUnion.1 hx
+        exact Set.mem_iUnion.2 ⟨i, star_mem (s := K i) hi⟩ }
+  have hSU : (⨆ i, K i) = S := by
+    apply le_antisymm
+    · exact iSup_le (fun i => by
+        intro x hx
+        exact Set.mem_iUnion.2 ⟨i, hx⟩)
+    · intro x hx
+      obtain ⟨i, hi⟩ := Set.mem_iUnion.1 hx
+      exact (le_iSup K i) hi
+  rw [hSU]
+  rfl
+
+/-- **C3.1.** From a coherent family of `*-alg-homs` out of each tower
+    level, glue to a single `*-alg-hom` on `⨆ k, h.tower k`.
+
+    Uses `Set.iUnionLift` on the underlying carrier, then packages the
+    seven `StarAlgHom` fields via `iUnionLift_const`, `iUnionLift_binary`
+    and `iUnionLift_unary`.
+
+    The `compat` hypothesis feeds the well-definedness proof
+    `(fam i x = fam j x on overlaps)` — using `tower_mono` to move both
+    into a common level `k` reached from `i, j` via the directedness of
+    the tower. -/
+noncomputable def tower_union_starHom
+    (h : Substrate3Inf A) {B : Type*} [CStarAlgebra B]
+    (fam : ∀ k, h.tower k →⋆ₐ[ℂ] B)
+    (compat : ∀ k, (fam (k+1)).comp
+                    (StarSubalgebra.inclusion (h.tower_mono k)) = fam k) :
+    (⨆ k, h.tower k : StarSubalgebra ℂ A) →⋆ₐ[ℂ] B := by
+  -- Monotone chain lemma (Nat).
+  have tower_le : ∀ m n, m ≤ n → h.tower m ≤ h.tower n := by
+    intro m n hmn
+    induction hmn with
+    | refl => exact le_refl _
+    | step _ ih => exact ih.trans (h.tower_mono _)
+  -- Directedness of the tower.
+  have dir : Directed (· ≤ ·) h.tower := fun i j =>
+    ⟨max i j, tower_le i _ (le_max_left _ _), tower_le j _ (le_max_right _ _)⟩
+  -- Family compatibility on overlaps: `fam i x = fam j (inclusion x)` whenever
+  -- j ≥ i, by induction on the gap using `compat`.
+  have hf_step : ∀ n i (x : h.tower i),
+      fam i x = fam (i + n)
+        (StarSubalgebra.inclusion (tower_le i (i + n) (Nat.le_add_right _ _)) x) := by
+    intro n
+    induction n with
+    | zero => intro i x; rfl
+    | succ m ih =>
+      intro i x
+      have hcompat := congr_fun (congr_arg DFunLike.coe (compat (i + m)))
+        (StarSubalgebra.inclusion (tower_le i (i + m) (Nat.le_add_right _ _)) x)
+      -- compat (i+m) : (fam (i+m+1)).comp (inclusion (tower_mono (i+m))) = fam (i+m)
+      -- so fam (i+m+1) (inclusion _ y) = fam (i+m) y  for y : h.tower (i+m)
+      -- Chain from x : h.tower i → h.tower (i+m) → h.tower (i+m+1).
+      -- goal: fam i x = fam (i + (m+1)) (inclusion _ x)
+      rw [ih i x]
+      -- now: fam (i+m) (inclusion (tower_le _ _ _) x) = fam (i+(m+1)) (inclusion _ x)
+      rw [← hcompat]
+      rfl
+  have hf_le : ∀ i j (hij : h.tower i ≤ h.tower j) (x : h.tower i),
+      fam i x = fam j (StarSubalgebra.inclusion hij x) := by
+    intro i j hij x
+    by_cases hle : i ≤ j
+    · obtain ⟨n, rfl⟩ := Nat.exists_eq_add_of_le hle
+      exact hf_step n i x
+    · push_neg at hle
+      obtain ⟨m, hm⟩ := Nat.exists_eq_add_of_le (Nat.le_of_lt hle)
+      -- i = j + m. Move fam j (inclusion hij x) forward to level i via step.
+      have hstep := hf_step m j (StarSubalgebra.inclusion hij x)
+      -- hstep : fam j (inclusion hij x) = fam (j+m) (inclusion _ (inclusion hij x))
+      -- With j + m = i, the inner double-inclusion is inclusion (le_refl _), i.e. x.
+      rw [hstep]
+      subst hm
+      rfl
+  -- Set-level identity for the supremum.
+  have hT_coe : ((⨆ k, h.tower k : StarSubalgebra ℂ A) : Set A)
+                  = ⋃ k, ((h.tower k) : Set A) :=
+    coe_iSup_of_directed_starSubalgebra dir
+  -- Well-definedness on overlaps.
+  have hwd : ∀ (i j : ℕ) (x : A) (hxi : x ∈ h.tower i) (hxj : x ∈ h.tower j),
+      fam i ⟨x, hxi⟩ = fam j ⟨x, hxj⟩ := by
+    intro i j x hxi hxj
+    obtain ⟨k, hik, hjk⟩ := dir i j
+    rw [hf_le i k hik ⟨x, hxi⟩, hf_le j k hjk ⟨x, hxj⟩]
+    rfl
+  refine
+    { toFun := Set.iUnionLift (fun k => ((h.tower k) : Set A))
+        (fun k x => fam k x) (fun i j x hxi hxj => hwd i j x hxi hxj)
+        (((⨆ k, h.tower k : StarSubalgebra ℂ A)) : Set A) hT_coe.subset
+      map_one' := ?_
+      map_zero' := ?_
+      map_mul' := ?_
+      map_add' := ?_
+      map_smul' := ?_
+      commutes' := ?_
+      map_star' := ?_ }
+  · exact Set.iUnionLift_const (1 : (⨆ k, h.tower k : StarSubalgebra ℂ A))
+      (fun k => (1 : h.tower k)) (fun _ => rfl) 1 (fun _ => map_one _)
+  · exact Set.iUnionLift_const (0 : (⨆ k, h.tower k : StarSubalgebra ℂ A))
+      (fun k => (0 : h.tower k)) (fun _ => rfl) 0 (fun _ => map_zero _)
+  · intro x y
+    exact Set.iUnionLift_binary (hT' := hT_coe) dir _ (fun _ => (· * ·))
+      (fun _ _ _ => rfl) (fun a b => a * b) (fun _ _ _ => map_mul _ _ _) x y
+  · intro x y
+    exact Set.iUnionLift_binary (hT' := hT_coe) dir _ (fun _ => (· + ·))
+      (fun _ _ _ => rfl) (fun a b => a + b) (fun _ _ _ => map_add _ _ _) x y
+  · intro c x
+    exact Set.iUnionLift_unary (hT' := hT_coe) _
+      (fun _ y => c • y) (fun _ _ => rfl) (fun b => c • b)
+      (fun _ _ => map_smul _ _ _) x
+  · intro r
+    exact Set.iUnionLift_const (algebraMap ℂ _ r)
+      (fun k => algebraMap ℂ (h.tower k) r) (fun _ => rfl) (algebraMap ℂ B r)
+      (fun _ => AlgHomClass.commutes _ _)
+  · intro x
+    exact Set.iUnionLift_unary (hT' := hT_coe) _
+      (fun _ y => star y) (fun _ _ => rfl) (fun b => star b)
+      (fun _ _ => map_star _ _) x
 
 /-- **C3 main.** Universal extension of a coherent tower family. -/
 lemma tower_universal_star_extension
