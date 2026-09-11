@@ -55,6 +55,7 @@ import Mathlib.Analysis.CStarAlgebra.Hom
 import Mathlib.Algebra.Star.StarAlgHom
 import Mathlib.Algebra.Star.Subalgebra
 import Mathlib.Topology.Algebra.UniformRing
+import Mathlib.LinearAlgebra.Matrix.Reindex  -- for C1.1 (blockDiagonal reindex)
 import PF.SubstrateTimelessFieldCompletion
 import PF.SubstrateTraceUniqueness
 import PF.AlphaFromSubstrateKTheory_r123
@@ -67,9 +68,13 @@ namespace SubstrateRigidity
 -- D1 fix from v3 read-back: TimelessFieldCompletion lives in
 -- PrincipiaTractalis.SubstrateTimelessFieldCompletion. Open the
 -- sibling namespaces so bare references resolve.
+--
+-- 2026-09-10 build-fix: the AlphaFromSubstrateKTheory_r123.lean FILE
+-- declares its content inside namespace `AlphaFromSubstrateKTheory`
+-- (no _r123 suffix on the namespace), so open that.
 open SubstrateTimelessFieldCompletion
 open SubstrateTraceUniqueness
-open AlphaFromSubstrateKTheory_r123
+open AlphaFromSubstrateKTheory
 
 /-! ## §1 — The tracial-linear-functional predicate
 
@@ -123,12 +128,20 @@ lemma connect_unital (k : ℕ) :
     (StarSubalgebra.inclusion (h.tower_mono k)) 1 = 1 := by
   rfl
 
-/-- Every inclusion in the tower is isometric — free from mathlib for
-    injective *-alg-hom between complex C*-algebras via
-    `NonUnitalStarAlgHom.isometry`. -/
+/-- Every inclusion in the tower is isometric.
+
+    2026-09-10 build result: the intended one-liner
+      `NonUnitalStarAlgHom.isometry _ (StarSubalgebra.inclusion_injective _)`
+    failed to elaborate — mathlib typeclass search cannot bridge
+    `StarSubalgebra.inclusion` (a `StarAlgHom`) to
+    `NonUnitalStarAlgHomClass` without an explicit `[CStarAlgebra ↑S]`
+    instance on the tower subalgebras, which mathlib does not always
+    supply. Deferred as a leaf. Once `connect_iso` is discharged the
+    body will be direct via `NonUnitalStarAlgHom.isometry` with the
+    subalgebra `CStarAlgebra` instance made explicit. -/
 lemma connect_iso (k : ℕ) :
     Isometry (StarSubalgebra.inclusion (h.tower_mono k)) :=
-  NonUnitalStarAlgHom.isometry _ (StarSubalgebra.inclusion_injective _)
+  sorry
 
 end Substrate3Inf
 
@@ -190,11 +203,27 @@ Statement cards: `codex/C1_STATEMENT_CARDS_2026-09-10.md` (7 cards).
 section C1_BlockDiagonalEmbedding
 variable (n k : ℕ)
 
-/-- **C1.1.** The block-diagonal ring hom `x ↦ diag(x, x, ..., x)`. -/
+/-- **C1.1 — PROVED 2026-09-10.** The block-diagonal ring hom
+    `x ↦ diag(x, x, ..., x)`.
+
+    NOTE: mathlib's `Matrix.blockDiagonal` uses convention
+    `(o → Matrix m n α) → Matrix (m × o) (n × o) α` — row-then-family.
+    Our target signature has `Fin k × Fin n` (family-then-row), so we
+    compose with `Matrix.reindexAlgEquiv` via `Equiv.prodComm` to swap.
+    On mathlib master this could use `Matrix.reindexRingEquiv`
+    directly; pinned version `v4.24.0-rc1` requires the AlgEquiv
+    downcast. -/
 noncomputable def blockDiagonalConstMap :
     Matrix (Fin n) (Fin n) ℂ →+*
       Matrix (Fin k × Fin n) (Fin k × Fin n) ℂ :=
-  sorry
+  (Matrix.reindexAlgEquiv ℂ ℂ
+      (Equiv.prodComm (Fin n) (Fin k))).toRingEquiv.toRingHom.comp
+    ((Matrix.blockDiagonalRingHom (Fin n) (Fin k) ℂ).comp
+      { toFun := fun x => fun _ : Fin k => x
+        map_zero' := rfl
+        map_one'  := rfl
+        map_add'  := fun _ _ => rfl
+        map_mul'  := fun _ _ => rfl })
 
 /-- **C1.2.** The block-diagonal ring hom preserves `star`. -/
 lemma blockDiagonalConstMap_star (x : Matrix (Fin n) (Fin n) ℂ) :
