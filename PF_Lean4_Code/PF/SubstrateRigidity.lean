@@ -152,7 +152,7 @@ lemma connect_unital (k : ℕ) :
     subalgebra `CStarAlgebra` instance made explicit. -/
 lemma connect_iso (k : ℕ) :
     Isometry (StarSubalgebra.inclusion (h.tower_mono k)) :=
-  sorry
+  fun _ _ => rfl
 
 end Substrate3Inf
 
