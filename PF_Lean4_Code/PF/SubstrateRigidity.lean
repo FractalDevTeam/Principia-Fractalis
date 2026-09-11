@@ -1079,6 +1079,103 @@ noncomputable def tower_union_starHom
       commutes' := F_alg
       map_star' := F_star }
 
+/-- **C3.mid.3.** For a `Substrate3Inf A` and a coherent family of
+    *-alg-homs `fam : ∀ k, h.tower k →⋆ₐ[ℂ] B` (with compatibility
+    `compat`), the assembled `tower_union_starHom h fam compat` is
+    uniformly continuous.
+
+    Proof strategy:
+      1. Each `h.tower k` is closed (`tower_level_isClosed`), so
+         `StarSubalgebra.cstarAlgebra` unlocks a `CStarAlgebra` instance
+         on each level.
+      2. Each `fam k` is a *-alg-hom between C*-algebras, hence
+         contractive by `NonUnitalStarAlgHom.norm_apply_le`
+         (`Mathlib/Analysis/CStarAlgebra/Spectrum.lean:254`).
+      3. For `x, y : ⨆ k, h.tower k`, directedness of the tower gives
+         a common level `k` containing both underlying elements. On
+         that level, `tower_union_starHom · = fam k ⟨·.val, _⟩` by
+         essentially `Set.iUnionLift_of_mem`.  We punt on unfolding
+         `tower_union_starHom` (opaque due to being built with
+         `by ... exact { ... }`); instead we use the alternative
+         `x.val = y.val` witness `hwd`-analogue via a fresh lift.
+
+      4. `LipschitzWith.uniformContinuous`
+         (`Mathlib/Topology/EMetricSpace/Lipschitz.lean:182`)
+         closes the goal. -/
+lemma tower_union_starHom_uniformContinuous
+    (h : Substrate3Inf A) {B : Type*} [CStarAlgebra B]
+    (fam : ∀ k, h.tower k →⋆ₐ[ℂ] B)
+    (compat : ∀ k, (fam (k+1)).comp
+                    (StarSubalgebra.inclusion (h.tower_mono k)) = fam k) :
+    UniformContinuous (tower_union_starHom h fam compat) := by
+  -- Each tower level is closed (unlocks StarSubalgebra.cstarAlgebra instance).
+  haveI : ∀ k, IsClosed ((h.tower k : StarSubalgebra ℂ A) : Set A) :=
+    fun k => h.tower_level_isClosed k
+  -- 1-Lipschitz suffices for uniform continuity.
+  apply LipschitzWith.uniformContinuous (K := 1)
+  intro x y
+  rw [edist_dist, edist_dist, ENNReal.coe_one, one_mul]
+  apply ENNReal.ofReal_le_ofReal
+  -- We'll show `dist (F x) (F y) ≤ dist x y` where `F = tower_union_starHom …`.
+  -- First: normalise the goal to a `‖·‖` bound.
+  rw [dist_eq_norm, dist_eq_norm]
+  -- The map is additive (as a *-alg-hom), so `F x - F y = F (x - y)`.
+  have h_map_sub : tower_union_starHom h fam compat x
+                    - tower_union_starHom h fam compat y
+                  = tower_union_starHom h fam compat (x - y) := by
+    rw [map_sub]
+  rw [h_map_sub]
+  -- Set `z := x - y : ⨆ k, h.tower k`.
+  set z := x - y with hz
+  clear_value z
+  -- Locate a tower level containing `z.val`.
+  have tower_le : ∀ m n, m ≤ n → h.tower m ≤ h.tower n := by
+    intro m n hmn
+    induction hmn with
+    | refl => exact le_refl _
+    | step _ ih => exact ih.trans (h.tower_mono _)
+  have dir : Directed (· ≤ ·) h.tower := fun i j =>
+    ⟨max i j, tower_le i _ (le_max_left _ _), tower_le j _ (le_max_right _ _)⟩
+  have hT_coe : ((⨆ k, h.tower k : StarSubalgebra ℂ A) : Set A)
+                  = ⋃ k, ((h.tower k) : Set A) :=
+    coe_iSup_of_directed_starSubalgebra dir
+  have hzU : (z : A) ∈ ((⨆ k, h.tower k : StarSubalgebra ℂ A) : Set A) := z.2
+  rw [hT_coe] at hzU
+  obtain ⟨k, hzk⟩ := Set.mem_iUnion.1 hzU
+  -- Key: `tower_union_starHom h fam compat z = fam k ⟨z.val, hzk⟩`.
+  -- We prove this by treating `z` as `(inclusion ..) ⟨z.val, hzk⟩` and
+  -- applying StarAlgHom composition on both sides at level k.
+  have h_incl_le : h.tower k ≤ ⨆ k, h.tower k := le_iSup _ k
+  have z_eq : z = StarSubalgebra.inclusion h_incl_le ⟨(z : A), hzk⟩ := by
+    apply Subtype.ext
+    rfl
+  have hFz : tower_union_starHom h fam compat z = fam k ⟨(z : A), hzk⟩ := by
+    -- Both sides equal `fam k ⟨z.val, hzk⟩` because
+    -- `(tower_union_starHom).comp (inclusion) = fam k` on level k
+    -- (this is how tower_union_starHom was constructed).
+    -- We prove this by an induction climb: for each n, the composition
+    -- of `tower_union_starHom` with `inclusion (tower k ≤ tower (k+n)) …`
+    -- matches `fam (k+n)`. But it's easier: use that the coercion is
+    -- extensional and matches on tower elements via `hwd`.
+    -- Concrete: use `Set.iUnionLift_of_mem` after unfolding.
+    unfold tower_union_starHom
+    simp only [StarAlgHom.coe_mk]
+    exact Set.iUnionLift_of_mem
+      (S := fun k => ((h.tower k : StarSubalgebra ℂ A) : Set A))
+      (f := fun k x => fam k x)
+      (i := k) z hzk
+  rw [hFz]
+  -- Contractivity of `fam k`.
+  have hcontract := NonUnitalStarAlgHom.norm_apply_le (fam k)
+    (⟨(z : A), hzk⟩ : h.tower k)
+  refine hcontract.trans ?_
+  -- Subtype norm equals ambient norm.
+  have h_norm_eq : ‖(⟨(z : A), hzk⟩ : h.tower k)‖ = ‖(z : A)‖ := rfl
+  have h_norm_xy : ‖(z : (⨆ k, h.tower k : StarSubalgebra ℂ A))‖ = ‖(z : A)‖ := rfl
+  rw [h_norm_eq, ← h_norm_xy, hz]
+  -- goal: ‖x - y‖ ≤ ‖x - y‖
+  -- (both x - y evaluated in the subtype; hz was `z := x - y`)
+
 /-- **C3 main.** Universal extension of a coherent tower family. -/
 lemma tower_universal_star_extension
     (h : Substrate3Inf A) {B : Type*} [CStarAlgebra B]
