@@ -1089,6 +1089,47 @@ lemma unitaryOfONBpair_isUnitary
     show Matrix.reindex e e (Matrix.conjTranspose M) * Matrix.reindex e e M = 1
     rw [hmul_reindex, hMhM, hone_reindex]
 
+/-- **C2.11 – helper A.** The `phiONB φ` orthonormal-basis vectors coincide
+    with the underlying transported family `phiONB_family φ`. Immediate from
+    `coe_basisOfOrthonormalOfCardEqFinrank` composed with
+    `Module.Basis.coe_toOrthonormalBasis`. -/
+lemma phiONB_apply_eq_family [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) (p : Fin n × Fin k) :
+    (phiONB n k φ p : EuclideanSpace ℂ (Fin (k * n)))
+      = phiONB_family n k φ p := by
+  unfold phiONB
+  rw [Module.Basis.coe_toOrthonormalBasis, coe_basisOfOrthonormalOfCardEqFinrank]
+
+/-- **C2.11 – helper B.** Action of `E_of φ i j` on `phiONB φ (m, a)`:
+    diagonal-in-middle-index by C2.2/C2.3, sending to `phiONB φ (i, a)`
+    when `j = m` and to `0` otherwise. -/
+lemma E_of_apply_phiONB [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) (i j m : Fin n) (a : Fin k) :
+    Matrix.toEuclideanLin (E_of n k φ i j)
+        (phiONB n k φ (m, a) : EuclideanSpace ℂ (Fin (k * n)))
+      = if j = m then (phiONB n k φ (i, a) : EuclideanSpace ℂ (Fin (k * n)))
+                 else 0 := by
+  set z : Fin n := ⟨0, Nat.pos_of_neZero n⟩ with hz
+  set b := E_of_00_stdOrthonormalBasis n k φ with hb
+  -- phiONB φ (m,a) = E_of φ m z · b a (via helper A / phiONB_family).
+  have hphi_m : (phiONB n k φ (m, a) : EuclideanSpace ℂ (Fin (k * n)))
+      = Matrix.toEuclideanLin (E_of n k φ m z) (b a) := by
+    rw [phiONB_apply_eq_family]; rfl
+  have hphi_i : (phiONB n k φ (i, a) : EuclideanSpace ℂ (Fin (k * n)))
+      = Matrix.toEuclideanLin (E_of n k φ i z) (b a) := by
+    rw [phiONB_apply_eq_family]; rfl
+  rw [hphi_m, ← toEuclideanLin_mul_apply]
+  by_cases hjm : j = m
+  · subst hjm
+    have hprod : E_of n k φ i j * E_of n k φ j z = E_of n k φ i z :=
+      E_of_mul_same n k φ i j z
+    rw [hprod, if_pos rfl, hphi_i]
+  · have hprod : E_of n k φ i j * E_of n k φ m z = 0 :=
+      E_of_mul_diff n k φ i j m z hjm
+    rw [hprod, LinearEquiv.map_zero, LinearMap.zero_apply, if_neg hjm]
+
 /-- **C2 main.** Noether–Skolem specialised to `M_n → M_{kn}`. -/
 lemma unital_star_hom_inner_unique
     (φ ψ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
