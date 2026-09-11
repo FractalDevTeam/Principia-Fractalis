@@ -918,7 +918,7 @@ private lemma toEuclideanLin_mul_apply
     (A B : Matrix (Fin N) (Fin N) ℂ) (v : EuclideanSpace ℂ (Fin N)) :
     Matrix.toEuclideanLin (A * B) v =
       Matrix.toEuclideanLin A (Matrix.toEuclideanLin B v) := by
-  simp only [Matrix.toEuclideanLin_apply, EuclideanSpace.ofLp_toLp, Matrix.mulVec_mulVec]
+  simp only [Matrix.toEuclideanLin_apply, WithLp.ofLp_toLp, ← Matrix.mulVec_mulVec]
 
 /-- **C2.8d – helper 2.** Inner-product / matrix-adjoint bridge:
     `⟨A x, y⟩ = ⟨x, (star A) y⟩` for `toEuclideanLin` applied vectors. -/
@@ -927,10 +927,8 @@ private lemma inner_toEuclideanLin_star
     (A : Matrix (Fin N) (Fin N) ℂ) (x y : EuclideanSpace ℂ (Fin N)) :
     (inner ℂ (Matrix.toEuclideanLin A x) y : ℂ)
       = inner ℂ x (Matrix.toEuclideanLin (star A) y) := by
-  have h := (Matrix.toEuclideanLin A).adjoint_inner_right x y
-  rw [← Matrix.star_eq_conjTranspose,
-    Matrix.toEuclideanLin_conjTranspose_eq_adjoint] at h
-  exact h.symm
+  rw [Matrix.star_eq_conjTranspose, Matrix.toEuclideanLin_conjTranspose_eq_adjoint,
+      (Matrix.toEuclideanLin A).adjoint_inner_right]
 
 /-- **C2.8d.** Orthonormality of the transported family `phiONB_family φ`.
 
@@ -999,12 +997,41 @@ lemma phiONB_family_orthonormal [NeZero n]
     -- (a = b') iff ((i, a) = (i, b'))
     by_cases hab : a = b'
     · subst hab; simp
-    · rw [if_neg hab, if_neg (fun h => hab (Prod.mk.inj_iff.mp h).2)]
+    · rw [if_neg hab, if_neg (fun h => hab (Prod.mk_inj.mp h).2)]
   · -- Case i ≠ j: E_0i * E_j0 = 0.
     have hprod : E_of n k φ z i * E_of n k φ j z = 0 :=
-      E_of_mul_diff n k φ z i j z (Ne.symm hij)
-    rw [hprod, map_zero, inner_zero_right]
-    rw [if_neg (fun h => hij (Prod.mk.inj_iff.mp h).1)]
+      E_of_mul_diff n k φ z i j z hij
+    rw [hprod, LinearEquiv.map_zero (Matrix.toEuclideanLin), LinearMap.zero_apply,
+        inner_zero_right]
+    rw [if_neg (fun h => hij (Prod.mk_inj.mp h).1)]
+
+/-- **C2.8e.** Assemble the transported family into a full orthonormal basis
+    of `EuclideanSpace ℂ (Fin (k*n))` indexed by `Fin n × Fin k`.
+
+    By C2.8d the family is orthonormal, and it has cardinality `n * k = k * n`
+    matching `finrank ℂ (EuclideanSpace ℂ (Fin (k*n)))`. So
+    `basisOfOrthonormalOfCardEqFinrank` builds a `Basis`, which
+    `Basis.toOrthonormalBasis` upgrades to an `OrthonormalBasis`.
+
+    **Mathlib citations.**
+    - `basisOfOrthonormalOfCardEqFinrank`
+      (`Mathlib/Analysis/InnerProductSpace/Orthonormal.lean`).
+    - `Module.Basis.toOrthonormalBasis`
+      (`Mathlib/Analysis/InnerProductSpace/PiL2.lean`).
+    - `finrank_euclideanSpace_fin`
+      (`Mathlib/Analysis/InnerProductSpace/PiL2.lean`). -/
+noncomputable def phiONB [NeZero n]
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
+    OrthonormalBasis (Fin n × Fin k) ℂ (EuclideanSpace ℂ (Fin (k * n))) :=
+  haveI : Nonempty (Fin n × Fin k) :=
+    ⟨⟨⟨0, Nat.pos_of_neZero n⟩, ⟨0, Nat.pos_of_neZero k⟩⟩⟩
+  have hcard : Fintype.card (Fin n × Fin k)
+      = Module.finrank ℂ (EuclideanSpace ℂ (Fin (k * n))) := by
+    rw [Fintype.card_prod, Fintype.card_fin, Fintype.card_fin, finrank_euclideanSpace_fin,
+        Nat.mul_comm]
+  (basisOfOrthonormalOfCardEqFinrank (phiONB_family_orthonormal n k φ) hcard).toOrthonormalBasis
+    (by rw [coe_basisOfOrthonormalOfCardEqFinrank]; exact phiONB_family_orthonormal n k φ)
 
 /-- Reindexing bijection `Fin n × Fin k ≃ Fin (k*n)` (helper for C2.9). -/
 noncomputable def phiIndexEquiv : Fin n × Fin k ≃ Fin (k * n) :=
