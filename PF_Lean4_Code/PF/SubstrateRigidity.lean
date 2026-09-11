@@ -81,6 +81,8 @@ open SubstrateTimelessFieldNorm
 open SubstrateUHFTraceIsFaithful
 open SubstrateUHFTraceIsStarPreserving
 open SubstrateDirectLimitSimplicity
+-- 2026-09-10 W3: `substrateLevelToTimelessField_iter` (cocone identity).
+open SubstrateCompletionFaithful
 
 /-! ## §1 — The tracial-linear-functional predicate
 
@@ -222,17 +224,81 @@ noncomputable def substrateTFCtower :
     ℕ → StarSubalgebra ℂ TimelessFieldCompletion :=
   fun k => (substrateLevelStarAlgHom k).range
 
-/-- **W2.** Each level of the tower is *-alg-isomorphic to
-    `M_{3^k}(ℂ)`. -/
+/-- **W2 — PROVED 2026-09-10.** Each level of the tower is
+    *-alg-isomorphic to `M_{3^k}(ℂ)`.
+
+    Strategy: `substrateLevelStarAlgHom k` is injective (composition of
+    two injective *-alg-homs). Then `StarAlgEquiv.ofInjective` gives a
+    `StarAlgEquiv` onto its range, i.e. onto `substrateTFCtower k` by
+    definition. Take `.symm` for the direction from the range to the
+    matrix algebra.
+
+    Injectivity of the two factors:
+      · `substrateLevelToTimelessFieldStarAlgHom k` is injective because
+        `substrateLevelToTimelessField_opNorm_eq k` gives an isometry:
+        `f A = 0 → ‖A‖ = ‖f A‖ = 0 → A = 0`, then chain via `map_sub`.
+      · `TimelessFieldRingToCompletionStarAlgHom` is injective by
+        `UniformSpace.Completion.coe_injective` (mathlib
+        `Mathlib/Topology/UniformSpace/Completion.lean:356`, requires
+        `T0Space TimelessFieldRing`, supplied by the `NormedAddCommGroup`
+        instance from `SubstrateTimelessFieldNorm`). -/
 lemma substrateTFCtower_matrix (k : ℕ) :
     Nonempty (substrateTFCtower k ≃⋆ₐ[ℂ]
-              Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :=
-  sorry -- W2 leaf
+              Matrix (Fin (3^k)) (Fin (3^k)) ℂ) := by
+  -- Injectivity of the level→TimelessFieldRing factor via isometry.
+  have hinj_level :
+      Function.Injective (substrateLevelToTimelessFieldStarAlgHom k) := by
+    intro A B hAB
+    have hzero :
+        substrateLevelToTimelessFieldStarAlgHom k (A - B) = 0 := by
+      rw [map_sub, hAB, sub_self]
+    have hf_zero : substrateLevelToTimelessField k (A - B) = 0 := hzero
+    have hnorm :
+        ‖substrateLevelToTimelessField k (A - B)‖ = ‖A - B‖ :=
+      substrateLevelToTimelessField_opNorm_eq k (A - B)
+    have hzero_norm : ‖A - B‖ = 0 := by
+      rw [← hnorm, hf_zero, norm_zero]
+    exact sub_eq_zero.mp (norm_eq_zero.mp hzero_norm)
+  -- Injectivity of the TimelessFieldRing → Completion factor.
+  have hinj_coe :
+      Function.Injective TimelessFieldRingToCompletionStarAlgHom := by
+    intro x y hxy
+    exact UniformSpace.Completion.coe_injective TimelessFieldRing hxy
+  -- Composition is injective.
+  have hinj : Function.Injective (substrateLevelStarAlgHom k) :=
+    hinj_coe.comp hinj_level
+  -- Package via StarAlgEquiv.ofInjective (mathlib Star/Subalgebra.lean:817).
+  exact ⟨(StarAlgEquiv.ofInjective (substrateLevelStarAlgHom k) hinj).symm⟩
 
-/-- **W3.** The tower is monotone under inclusion. -/
+/-- **W3 — PROVED 2026-09-10.** The tower is monotone under inclusion.
+
+    Proof: for `x ∈ (substrateLevelStarAlgHom k).range`, write
+    `x = substrateLevelStarAlgHom k A`; then take the preimage at level
+    `k+1` to be `substrateRingHomIter k (k+1) (Nat.le_succ k) A`. The
+    cocone identity `substrateLevelToTimelessField_iter` (from
+    `PF/SubstrateCompletionFaithful.lean:97`) gives
+      `substrateLevelToTimelessField (k+1) (substrateRingHomIter k (k+1) _ A)
+        = substrateLevelToTimelessField k A`
+    and pushing through the coercion `TimelessFieldRingToCompletionStarAlgHom`
+    delivers equality in the completion. -/
 lemma substrateTFCtower_mono (k : ℕ) :
-    substrateTFCtower k ≤ substrateTFCtower (k+1) :=
-  sorry -- W3 leaf
+    substrateTFCtower k ≤ substrateTFCtower (k+1) := by
+  rintro _ ⟨A, rfl⟩
+  refine ⟨substrateRingHomIter k (k+1) (Nat.le_succ k) A, ?_⟩
+  -- Unfold `substrateLevelStarAlgHom` as
+  -- `TimelessFieldRingToCompletionStarAlgHom.comp
+  --    substrateLevelToTimelessFieldStarAlgHom`.
+  show TimelessFieldRingToCompletionStarAlgHom
+        (substrateLevelToTimelessFieldStarAlgHom (k+1)
+          (substrateRingHomIter k (k+1) (Nat.le_succ k) A))
+      = TimelessFieldRingToCompletionStarAlgHom
+          (substrateLevelToTimelessFieldStarAlgHom k A)
+  congr 1
+  -- Reduce to the underlying-function identity in `TimelessFieldRing`.
+  show substrateLevelToTimelessField (k+1)
+        (substrateRingHomIter k (k+1) (Nat.le_succ k) A)
+      = substrateLevelToTimelessField k A
+  exact substrateLevelToTimelessField_iter k (k+1) (Nat.le_succ k) A
 
 /-- **W4.** The union of the tower is dense in the completion. -/
 lemma substrateTFCtower_dense :
@@ -359,16 +425,75 @@ noncomputable def blockDiagonalConstStarHom :
     rw [map_smul, _root_.map_one, Algebra.algebraMap_eq_smul_one]
   map_star' := blockDiagonalConstMap_star n k
 
-/-- **C1.4.** Block-diagonal *-alg-hom is injective for `k > 0`. -/
-lemma blockDiagonalConstStarHom_injective [NeZero k] :
-    Function.Injective (blockDiagonalConstStarHom n k) :=
-  sorry
+/-- **C1.4 — PROVED 2026-09-10.** Block-diagonal *-alg-hom is injective
+    for `k > 0`.
 
-/-- **C1.5.** The `Fin (k * n)`-indexed version required by C4. -/
+    Proof structure: `blockDiagonalConstStarHom n k` is definitionally
+    the composition
+      `reindexAlgEquiv (prodComm) ∘ blockDiagonal ∘ (fun x => fun _ => x)`.
+    Each factor is injective:
+      · `reindexAlgEquiv` is an `AlgEquiv`, hence injective;
+      · `Matrix.blockDiagonal_injective` (mathlib
+        `Mathlib/Data/Matrix/Block.lean:506`);
+      · the constant lift `x ↦ (fun _ : Fin k => x)` is injective when
+        `Fin k` is inhabited — recover `x` by evaluating at any
+        `i : Fin k`, which exists via `[NeZero k]`. -/
+lemma blockDiagonalConstStarHom_injective [NeZero k] :
+    Function.Injective (blockDiagonalConstStarHom n k) := by
+  intro x y hxy
+  -- Peel the StarAlgHom wrapper: underlying toFun is blockDiagonalConstMap.
+  have h1 : blockDiagonalConstMap n k x = blockDiagonalConstMap n k y := hxy
+  -- Unfold to the reindexed blockDiagonal of the constant family.
+  have h2 : Matrix.reindex (Equiv.prodComm (Fin n) (Fin k))
+              (Equiv.prodComm (Fin n) (Fin k))
+              (Matrix.blockDiagonal (fun _ : Fin k => x))
+            = Matrix.reindex (Equiv.prodComm (Fin n) (Fin k))
+                (Equiv.prodComm (Fin n) (Fin k))
+                (Matrix.blockDiagonal (fun _ : Fin k => y)) := h1
+  -- Strip the reindex (it's an AlgEquiv, hence injective).
+  have h3 : Matrix.blockDiagonal (fun _ : Fin k => x)
+            = Matrix.blockDiagonal (fun _ : Fin k => y) :=
+    (Matrix.reindexAlgEquiv ℂ ℂ
+        (Equiv.prodComm (Fin n) (Fin k))).injective h2
+  -- Strip blockDiagonal via mathlib's Matrix.blockDiagonal_injective.
+  have h4 : (fun _ : Fin k => x) = (fun _ : Fin k => y) :=
+    Matrix.blockDiagonal_injective h3
+  -- Evaluate the equal constant functions at index 0 (exists via NeZero k).
+  have hpos : 0 < k := Nat.pos_of_ne_zero (NeZero.ne k)
+  exact congr_fun h4 ⟨0, hpos⟩
+
+/-- **C1.5 — PROVED 2026-09-10.** The `Fin (k * n)`-indexed version
+    required by C4. Compose C1.3 (`blockDiagonalConstStarHom`) with the
+    reindex `Fin k × Fin n ≃ Fin (k * n)` from `finProdFinEquiv`.
+
+    Mathlib v4.24.0-rc1 has `Matrix.reindexAlgEquiv` but no
+    `Matrix.reindexStarAlgEquiv`. We upgrade `reindexAlgEquiv` to a
+    `StarAlgHom` inline using `Matrix.conjTranspose_reindex`
+    (`Mathlib/LinearAlgebra/Matrix/ConjTranspose.lean:428`) —
+    definitionally `rfl` since `reindex e e` uses the same `e` for
+    rows and cols (same pattern as C1.2).
+
+    Note: the reindex equiv is specialised via `(finProdFinEquiv :
+    Fin k × Fin n ≃ Fin (k * n))` to pin the `Fin` sizes, and we
+    convert to `AlgHom` via `.toAlgHom` (not a coercion ascription)
+    to avoid metavariable ambiguity in typeclass search. -/
 noncomputable def blockDiagonalStarAlgHom :
     Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
       Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
-  sorry
+  let e : Fin k × Fin n ≃ Fin (k * n) := finProdFinEquiv
+  let reindexStar :
+      Matrix (Fin k × Fin n) (Fin k × Fin n) ℂ →⋆ₐ[ℂ]
+        Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+    { (Matrix.reindexAlgEquiv ℂ ℂ e).toAlgHom with
+      map_star' := fun x => by
+        change Matrix.reindex e e (star x) = star (Matrix.reindex e e x)
+        rw [show (star :
+              Matrix (Fin (k * n)) (Fin (k * n)) ℂ →
+              Matrix (Fin (k * n)) (Fin (k * n)) ℂ)
+              = Matrix.conjTranspose from rfl,
+            Matrix.conjTranspose_reindex]
+        rfl }
+  reindexStar.comp (blockDiagonalConstStarHom n k)
 
 /-- **C1.6.** The reindexed version is injective for `k > 0`. -/
 lemma blockDiagonalStarAlgHom_injective [NeZero k] :
@@ -518,39 +643,54 @@ noncomputable def tower_union_starHom
     obtain ⟨k, hik, hjk⟩ := dir i j
     rw [hf_le i k hik ⟨x, hxi⟩, hf_le j k hjk ⟨x, hxj⟩]
     rfl
-  refine
-    { toFun := Set.iUnionLift (fun k => ((h.tower k) : Set A))
-        (fun k x => fam k x) (fun i j x hxi hxj => hwd i j x hxi hxj)
-        (((⨆ k, h.tower k : StarSubalgebra ℂ A)) : Set A) hT_coe.subset
-      map_one' := ?_
-      map_zero' := ?_
-      map_mul' := ?_
-      map_add' := ?_
-      map_smul' := ?_
-      commutes' := ?_
-      map_star' := ?_ }
-  · exact Set.iUnionLift_const (1 : (⨆ k, h.tower k : StarSubalgebra ℂ A))
-      (fun k => (1 : h.tower k)) (fun _ => rfl) 1 (fun _ => map_one _)
-  · exact Set.iUnionLift_const (0 : (⨆ k, h.tower k : StarSubalgebra ℂ A))
-      (fun k => (0 : h.tower k)) (fun _ => rfl) 0 (fun _ => map_zero _)
-  · intro x y
+  -- Build the raw function first; collect field lemmas as `have`.
+  set F : ((⨆ k, h.tower k : StarSubalgebra ℂ A)) → B :=
+    Set.iUnionLift (fun k => ((h.tower k) : Set A))
+      (fun k x => fam k x) (fun i j x hxi hxj => hwd i j x hxi hxj)
+      (((⨆ k, h.tower k : StarSubalgebra ℂ A)) : Set A) hT_coe.subset with hF
+  have F_one : F 1 = (1 : B) := by
+    dsimp only [F]
+    exact Set.iUnionLift_const (1 : (⨆ k, h.tower k : StarSubalgebra ℂ A))
+      (fun k => (1 : h.tower k)) (fun _ => rfl) 1 (fun k => (fam k).map_one')
+  have F_zero : F 0 = (0 : B) := by
+    dsimp only [F]
+    exact Set.iUnionLift_const (0 : (⨆ k, h.tower k : StarSubalgebra ℂ A))
+      (fun k => (0 : h.tower k)) (fun _ => rfl) 0
+      (fun k => (fam k).toAlgHom.toRingHom.map_zero)
+  have F_mul : ∀ x y, F (x * y) = F x * F y := by
+    intro x y
+    dsimp only [F]
     exact Set.iUnionLift_binary (hT' := hT_coe) dir _ (fun _ => (· * ·))
-      (fun _ _ _ => rfl) (fun a b => a * b) (fun _ _ _ => map_mul _ _ _) x y
-  · intro x y
+      (fun _ _ _ => rfl) (fun a b => a * b)
+      (fun k x y => (fam k).map_mul' x y) x y
+  have F_add : ∀ x y, F (x + y) = F x + F y := by
+    intro x y
+    dsimp only [F]
     exact Set.iUnionLift_binary (hT' := hT_coe) dir _ (fun _ => (· + ·))
-      (fun _ _ _ => rfl) (fun a b => a + b) (fun _ _ _ => map_add _ _ _) x y
-  · intro c x
-    exact Set.iUnionLift_unary (hT' := hT_coe) _
-      (fun _ y => c • y) (fun _ _ => rfl) (fun b => c • b)
-      (fun _ _ => map_smul _ _ _) x
-  · intro r
+      (fun _ _ _ => rfl) (fun a b => a + b)
+      (fun k x y => (fam k).toAlgHom.toRingHom.map_add x y) x y
+  have F_alg : ∀ r : ℂ,
+      F (algebraMap ℂ (⨆ k, h.tower k : StarSubalgebra ℂ A) r)
+        = algebraMap ℂ B r := by
+    intro r
+    dsimp only [F]
     exact Set.iUnionLift_const (algebraMap ℂ _ r)
       (fun k => algebraMap ℂ (h.tower k) r) (fun _ => rfl) (algebraMap ℂ B r)
-      (fun _ => AlgHomClass.commutes _ _)
-  · intro x
+      (fun k => (fam k).commutes' r)
+  have F_star : ∀ x, F (star x) = star (F x) := by
+    intro x
+    dsimp only [F]
     exact Set.iUnionLift_unary (hT' := hT_coe) _
       (fun _ y => star y) (fun _ _ => rfl) (fun b => star b)
-      (fun _ _ => map_star _ _) x
+      (fun k y => (fam k).map_star' y) x
+  exact
+    { toFun := F
+      map_one' := F_one
+      map_mul' := F_mul
+      map_zero' := F_zero
+      map_add' := F_add
+      commutes' := F_alg
+      map_star' := F_star }
 
 /-- **C3 main.** Universal extension of a coherent tower family. -/
 lemma tower_universal_star_extension
