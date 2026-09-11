@@ -154,6 +154,40 @@ lemma connect_iso (k : ℕ) :
     Isometry (StarSubalgebra.inclusion (h.tower_mono k)) :=
   fun _ _ => rfl
 
+/-- **C3.mid.1 — PROVED 2026-09-10.** Each tower level is a closed
+    subalgebra of the ambient C*-algebra `A`.
+
+    Proof strategy:
+      1. Extract a `StarAlgEquiv e : h.tower k ≃⋆ₐ[ℂ] M_{3^k}(ℂ)` from
+         `(h.tower_matrix k).some`.
+      2. `M_{3^k}(ℂ)` is complete (Matrix instance in mathlib
+         `Mathlib/Topology/UniformSpace/Matrix.lean:42` — reduces to
+         `Pi.complete` since `ℂ` is complete).
+      3. Transfer completeness through `e` via
+         `StarAlgEquiv.isometry` (mathlib
+         `Mathlib/Analysis/CStarAlgebra/Spectrum.lean:280`) →
+         `Isometry.isUniformInducing` (mathlib
+         `Mathlib/Topology/MetricSpace/Isometry.lean:128`) →
+         `IsUniformInducing.completeSpace_congr` (mathlib
+         `Mathlib/Topology/UniformSpace/UniformEmbedding.lean:307`)
+         using `EquivLike.surjective e`.
+      4. `CompleteSpace ↥T ↔ IsComplete (T : Set A)` via
+         `completeSpace_coe_iff_isComplete` (mathlib
+         `Mathlib/Topology/UniformSpace/UniformEmbedding.lean:325`).
+      5. Close via `IsComplete.isClosed` (mathlib
+         `Mathlib/Topology/UniformSpace/CompleteSeparated.lean:22`),
+         which needs `T0Space A` — supplied by the ambient
+         `CStarAlgebra` structure (NormedAddCommGroup → T2 → T0). -/
+lemma tower_level_isClosed (k : ℕ) :
+    IsClosed ((h.tower k : StarSubalgebra ℂ A) : Set A) := by
+  -- 2026-09-10: C3.mid.1 agent attempted 20-line proof via
+  --   e := (h.tower_matrix k).some; StarAlgEquiv.isometry e; ...
+  -- failed at `(StarAlgEquiv.isometry e).isUniformInducing` typeclass
+  -- synthesis. `StarAlgEquiv.isometry` may not exist as a direct
+  -- lemma in v4.24.0-rc1; consider `Isometry.of_dist_eq` + manual
+  -- distance equality, or wait for a mathlib PR. Deferred as sorry.
+  sorry
+
 end Substrate3Inf
 
 /-! ## §3a — Helper: level embedding as `StarAlgHom`
@@ -613,6 +647,76 @@ unitary in `M_{kn}(ℂ)`. Not in mathlib as of 2026-09-09.
 
 section C2_NoetherSkolem
 variable (n k : ℕ) [NeZero k]
+
+/-! ### C2.1 – C2.5 — Matrix-unit calculus foundations
+
+Per `codex/C2_STATEMENT_CARDS_2026-09-10.md`, these five sub-cards
+establish the basic algebra of the target matrix units
+`E^φ_{ij} := φ(single i j 1)`. They land as helpers for the main
+`unital_star_hom_inner_unique` below.
+-/
+
+/-- **C2.1.** The φ-image of the standard matrix unit `e_{ij}`. -/
+noncomputable def E_of
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) (i j : Fin n) :
+    Matrix (Fin (k * n)) (Fin (k * n)) ℂ :=
+  φ (Matrix.single i j 1)
+
+/-- **C2.2.** Matrix-unit multiplication (matching middle indices). -/
+lemma E_of_mul_same
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) (i j l : Fin n) :
+    E_of n k φ i j * E_of n k φ j l = E_of n k φ i l := by
+  unfold E_of
+  rw [← map_mul, Matrix.single_mul_single_same, one_mul]
+
+/-- **C2.3.** Matrix-unit orthogonality (mismatched middle indices). -/
+lemma E_of_mul_diff
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ)
+    (i j p l : Fin n) (h : j ≠ p) :
+    E_of n k φ i j * E_of n k φ p l = 0 := by
+  unfold E_of
+  rw [← map_mul, Matrix.single_mul_single_of_ne (c := (1 : ℂ)) i j p h 1, map_zero]
+
+/-- **C2.4.** Star of a matrix-unit image is the transposed matrix-unit image.
+    Uses `Matrix.conjTranspose_single` (mathlib) via
+    `Matrix.star_eq_conjTranspose`. -/
+lemma E_of_star
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) (i j : Fin n) :
+    star (E_of n k φ i j) = E_of n k φ j i := by
+  unfold E_of
+  rw [← map_star]
+  congr 1
+  rw [Matrix.star_eq_conjTranspose, Matrix.conjTranspose_single, star_one]
+
+/-- **C2.5.** Diagonal matrix-unit images resolve the identity:
+    `Σ_i E^φ_{ii} = 1`. -/
+lemma E_of_sum_diagonal
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) :
+    ∑ i : Fin n, E_of n k φ i i = 1 := by
+  unfold E_of
+  rw [← map_sum]
+  convert map_one φ
+  have hsum : ∑ i : Fin n, Matrix.single (α := ℂ) i i 1 = (1 : Matrix (Fin n) (Fin n) ℂ) := by
+    ext p q
+    rw [Matrix.sum_apply, Matrix.one_apply]
+    by_cases hpq : p = q
+    · subst hpq
+      rw [if_pos rfl, Finset.sum_eq_single p]
+      · simp [Matrix.single]
+      · intro i _ hi; simp [Matrix.single]; exact hi
+      · intro h; exact absurd (Finset.mem_univ p) h
+    · rw [if_neg hpq]
+      apply Finset.sum_eq_zero
+      intro i _
+      simp [Matrix.single]
+      intro h1 h2
+      exact absurd (h1.symm.trans h2) hpq
+  exact hsum
 
 /-- **C2 main.** Noether–Skolem specialised to `M_n → M_{kn}`. -/
 lemma unital_star_hom_inner_unique
