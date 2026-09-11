@@ -157,36 +157,51 @@ lemma connect_iso (k : ℕ) :
 /-- **C3.mid.1 — PROVED 2026-09-10.** Each tower level is a closed
     subalgebra of the ambient C*-algebra `A`.
 
-    Proof strategy:
-      1. Extract a `StarAlgEquiv e : h.tower k ≃⋆ₐ[ℂ] M_{3^k}(ℂ)` from
-         `(h.tower_matrix k).some`.
-      2. `M_{3^k}(ℂ)` is complete (Matrix instance in mathlib
-         `Mathlib/Topology/UniformSpace/Matrix.lean:42` — reduces to
-         `Pi.complete` since `ℂ` is complete).
-      3. Transfer completeness through `e` via
-         `StarAlgEquiv.isometry` (mathlib
-         `Mathlib/Analysis/CStarAlgebra/Spectrum.lean:280`) →
-         `Isometry.isUniformInducing` (mathlib
-         `Mathlib/Topology/MetricSpace/Isometry.lean:128`) →
-         `IsUniformInducing.completeSpace_congr` (mathlib
-         `Mathlib/Topology/UniformSpace/UniformEmbedding.lean:307`)
-         using `EquivLike.surjective e`.
-      4. `CompleteSpace ↥T ↔ IsComplete (T : Set A)` via
-         `completeSpace_coe_iff_isComplete` (mathlib
-         `Mathlib/Topology/UniformSpace/UniformEmbedding.lean:325`).
-      5. Close via `IsComplete.isClosed` (mathlib
-         `Mathlib/Topology/UniformSpace/CompleteSeparated.lean:22`),
-         which needs `T0Space A` — supplied by the ambient
-         `CStarAlgebra` structure (NormedAddCommGroup → T2 → T0). -/
+    Proof strategy: use the finite-dimension route rather than the
+    completeness-transfer route, because `StarAlgEquiv.isometry` in
+    mathlib requires `NonUnitalCStarAlgebra` on the source, which is
+    not synthesizable on a general `StarSubalgebra` until we already
+    know it is closed (circular). Instead:
+      1. Extract `e : h.tower k ≃⋆ₐ[ℂ] M_{3^k}(ℂ)` and view its
+         `.symm.toLinearEquiv` as a `ℂ`-linear equivalence
+         `M_{3^k}(ℂ) ≃ₗ[ℂ] ↥(h.tower k)`.
+      2. `M_{3^k}(ℂ)` is finite-dimensional over `ℂ`
+         (`Matrix.instFiniteDimensional`), so `LinearEquiv.finiteDimensional`
+         (mathlib `Mathlib/LinearAlgebra/FiniteDimensional/Defs.lean:240`)
+         transfers `FiniteDimensional ℂ ↥(h.tower k)`.
+      3. `Subalgebra.toSubmoduleEquiv` (mathlib
+         `Mathlib/Algebra/Algebra/Subalgebra/Basic.lean:390`) is a
+         linear equiv between the submodule and the subtype, so its
+         `.symm` transfers finite-dimensionality to
+         `Subalgebra.toSubmodule (h.tower k).toSubalgebra`.
+      4. `Submodule.closed_of_finiteDimensional` (mathlib
+         `Mathlib/Topology/Algebra/Module/FiniteDimension.lean:517`)
+         yields `IsClosed ((toSubmodule (h.tower k).toSubalgebra) : Set A)`.
+      5. `Subalgebra.coe_toSubmodule` (mathlib
+         `Mathlib/Algebra/Algebra/Subalgebra/Basic.lean:285`) identifies
+         the underlying set with `(h.tower k : Set A)`. -/
 lemma tower_level_isClosed (k : ℕ) :
     IsClosed ((h.tower k : StarSubalgebra ℂ A) : Set A) := by
-  -- 2026-09-10: C3.mid.1 agent attempted 20-line proof via
-  --   e := (h.tower_matrix k).some; StarAlgEquiv.isometry e; ...
-  -- failed at `(StarAlgEquiv.isometry e).isUniformInducing` typeclass
-  -- synthesis. `StarAlgEquiv.isometry` may not exist as a direct
-  -- lemma in v4.24.0-rc1; consider `Isometry.of_dist_eq` + manual
-  -- distance equality, or wait for a mathlib PR. Deferred as sorry.
-  sorry
+  -- Step 1: extract the matrix isomorphism.
+  obtain ⟨e⟩ := h.tower_matrix k
+  -- Step 2: transfer FiniteDimensional to the subtype via e.symm.
+  have h_matrix_findim :
+      FiniteDimensional ℂ (Matrix (Fin (3^k)) (Fin (3^k)) ℂ) := inferInstance
+  have h_tower_findim : FiniteDimensional ℂ (h.tower k) :=
+    LinearEquiv.finiteDimensional
+      (e.symm.toAlgEquiv.toLinearEquiv :
+        Matrix (Fin (3^k)) (Fin (3^k)) ℂ ≃ₗ[ℂ] ↥(h.tower k))
+  -- Step 3: propagate to the underlying submodule.
+  have h_submod_findim :
+      FiniteDimensional ℂ (Subalgebra.toSubmodule (h.tower k).toSubalgebra) :=
+    LinearEquiv.finiteDimensional
+      (Subalgebra.toSubmoduleEquiv (h.tower k).toSubalgebra).symm
+  -- Step 4: finite-dim submodule of a T2 topological ℂ-module is closed.
+  have h_submod_closed :
+      IsClosed ((Subalgebra.toSubmodule (h.tower k).toSubalgebra) : Set A) :=
+    Submodule.closed_of_finiteDimensional _
+  -- Step 5: the coercion agrees with (h.tower k : Set A) definitionally.
+  exact h_submod_closed
 
 end Substrate3Inf
 
@@ -717,6 +732,17 @@ lemma E_of_sum_diagonal
       intro h1 h2
       exact absurd (h1.symm.trans h2) hpq
   exact hsum
+
+/-- **C2.6.** For a unital *-hom `φ : M_n(ℂ) →⋆ₐ[ℂ] M_{k*n}(ℂ)`,
+    the image `E_of φ i i` of a diagonal matrix unit is a self-adjoint
+    idempotent (projection). Immediate from C2.2 (`E_of_mul_same`) and
+    C2.4 (`E_of_star`). -/
+lemma E_of_i_i_isProjection
+    (φ : Matrix (Fin n) (Fin n) ℂ →⋆ₐ[ℂ]
+         Matrix (Fin (k * n)) (Fin (k * n)) ℂ) (i : Fin n) :
+    E_of n k φ i i * E_of n k φ i i = E_of n k φ i i ∧
+    star (E_of n k φ i i) = E_of n k φ i i :=
+  ⟨E_of_mul_same n k φ i i i, E_of_star n k φ i i⟩
 
 /-- **C2 main.** Noether–Skolem specialised to `M_n → M_{kn}`. -/
 lemma unital_star_hom_inner_unique
