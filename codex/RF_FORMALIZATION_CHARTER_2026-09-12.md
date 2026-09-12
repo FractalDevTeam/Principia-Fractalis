@@ -135,9 +135,26 @@ The fractal is already partially there. Formalization work should extend and con
 
 ## §6. IMMEDIATE ACTIONS (this session)
 
-1. This corrected charter committed.
-2. Execute Campaign R_f-Bridge (the ~20-line ζ bridge lemma).
-3. Execute Action R_f-Audit (the axiom-block sweep).
-4. Look at what's next per the true fractal expansion — sector interfaces (Direction B), or a further-up chapter that's actually unformalized.
+1. This corrected charter committed. **DONE** — commit `1c09ea4d`.
+2. Execute Campaign R_f-Bridge (the ~20-line ζ bridge lemma). **DONE** — commit `b4693127`. Landed `fractalResonance_alpha_zero_eq_riemannZeta` at `PF/Consciousness/FractalResonance.lean:205-219`.
+3. Execute Action R_f-Audit (the axiom-block sweep). **DONE** — commit `c4a3b819`. Landed §10 audit block covering ten declarations (later extended to twelve at commit `36b75b1b`); all audit to `[propext, Classical.choice, Quot.sound]`.
+4. Look at what's next per the true fractal expansion. **PARTIAL** — Priority 2 (α = 0 sub-case) discharged same session at commit `36b75b1b`, adding two theorems:
+   * `exists_analytic_continuation_fractalResonance_alpha_zero` (`FractalResonance.lean:230-255`): analytic continuation on `ℂ ∖ {1}` witnessed by `riemannZeta`.
+   * `fractalResonance_alpha_zero_residue_one` (`FractalResonance.lean:257-278`): simple-pole residue 1 at `s = 1`.
+   Priority 2 general-α case and Priorities 3-5 are all genuine open research (no known functional equation, empirical π/10 factor). Ch05-ch09 survey done at `codex/CH09_SPECTRAL_UNITY_SURVEY_2026-09-12.md`; the tree's 2026-05-14 Stage 41 cleanup that stripped H_P/H_NP operators is the established honest scope, not an oversight — restoring them requires original research per `PF/TuringEncoding/Operators.lean` own commentary. `appI_lean_cross_reference.tex` updated at commit `2ad1d880` to cite T_infinity_rigidity + all three new R_f declarations.
 
-*Charter opened 2026-09-12, corrected 2026-09-12 same session. Book-guides-Lean discipline enforced: survey before propose.*
+## §7. CHARTER CLOSURE (2026-09-12)
+
+**Priority 1 CLOSED.** R_f-Bridge landed, R_f-Audit landed.
+
+**Priority 2 CLOSED (α = 0 sub-case only).** Meromorphic-extension-via-ζ and simple-pole residue proven for α = 0. Original ~100-line estimate collapsed to ~50 lines including documentation because the R_f-Bridge (Priority 1) reduces the meromorphy claim at α = 0 to a direct transfer through `differentiableAt_riemannZeta` + `riemannZeta_residue_one`. **General-α meromorphy remains genuine open research** and is intentionally NOT stated as a Lean object.
+
+**Priority 3 (analytic continuation for general α) — OPEN RESEARCH.** Manuscript asserts but does not prove. No known functional equation for `R_f(α, ·)` at α ≠ 0. Not a formalization task.
+
+**Priority 4 (Euler-factor extensions) — DEFERRED.** `PF/EulerFactorThree_r214.lean` remains the sole such factorization; extensions to primes ≠ 3 are not book-guided.
+
+**Priority 5 (π/10 factor) — EMPIRICAL PER BOOK.** Encoded as Prop `universal_pi_over_ten_factor` in `FractalResonance.lean` §8. Book calls it `\begin{observation}`, not a theorem.
+
+**Standing rule (from §5) IN EFFECT.** Any future R_f-adjacent Lean campaign must begin with a survey. Any survey-agent recommendation must be verified against the book source before charter drafting — the ch09 H_α unification rejection (recorded in `codex/CH09_SPECTRAL_UNITY_SURVEY_2026-09-12.md`) is the enforcement precedent.
+
+*Charter opened 2026-09-12, corrected 2026-09-12 same session, closed 2026-09-12 same session. Five commits landed on `r331b-provenance`: `1c09ea4d`, `b4693127`, `c4a3b819`, `36b75b1b`, `2ad1d880`, `755c0493`. Book-guides-Lean discipline enforced end-to-end: survey before propose, book-verify before charter, honest scope over speculative extension.*
