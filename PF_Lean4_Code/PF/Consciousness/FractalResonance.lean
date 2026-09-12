@@ -218,6 +218,71 @@ theorem fractalResonance_alpha_zero_eq_riemannZeta
     rw [Nat.cast_zero, Complex.zero_cpow hs0, div_zero]
   · rfl
 
+/-! ## Section 4b — Analytic continuation of `R_f` at α = 0
+
+    Manuscript reference: Ch 3 Proposition 3.4 (2)-(3), and the
+    "Analytic Continuation" paragraph of Theorem 3.1's second half.
+    The manuscript asserts that `R_f(α, ·)` admits a meromorphic
+    extension to `ℂ`, with a pole at most at `s = 1` (and, for
+    `α ≠ 0`, the manuscript conjectures the pole is either absent or
+    shifted — deferred).
+
+    For the special case `α = 0`, the bridge
+    `fractalResonance_alpha_zero_eq_riemannZeta` reduces the analytic-
+    continuation claim to the corresponding property of mathlib's
+    `riemannZeta`, which mathlib provides via `differentiableAt_riemannZeta`
+    (`{s : ℂ} → s ≠ 1 → DifferentiableAt ℂ riemannZeta s`) upgraded
+    to `AnalyticOnNhd ℂ riemannZeta {1}ᶜ` via `DifferentiableOn.analyticOnNhd`
+    on the open set `{1}ᶜ`, and `riemannZeta_residue_one`
+    (`Tendsto ((· - 1) · ζ ·) (𝓝[≠] 1) (𝓝 1)`).
+
+    The `α ≠ 0` case is a genuine open research target in the corpus:
+    the manuscript itself provides no proof; whether `R_f(α, ·)` admits
+    an analytic continuation for general `α` requires first-principles
+    work not present in the book (no functional equation is known).
+    That case is intentionally NOT stated here, so as not to hide an
+    open research problem behind a Prop. -/
+
+/-- **Analytic continuation of `R_f` at α = 0.** There exists a
+    function `F : ℂ → ℂ` — namely `riemannZeta` — which is analytic on
+    `ℂ ∖ {1}` and agrees with `fractalResonance 0` throughout the
+    absolute-convergence half-plane `Re s > 1`.
+
+    This is the α = 0 special case of manuscript Prop 3.4(2). The
+    general-α case is a genuine open research question and is not
+    stated as a Lean object in this file.
+
+    Manuscript: Ch 3 Prop 3.4(2). Axiom-free. -/
+theorem exists_analytic_continuation_fractalResonance_alpha_zero :
+    ∃ F : ℂ → ℂ,
+      AnalyticOnNhd ℂ F {(1 : ℂ)}ᶜ ∧
+      (∀ s : ℂ, 1 < s.re → F s = fractalResonance 0 s) := by
+  refine ⟨riemannZeta, ?_, fun _ hs =>
+    (fractalResonance_alpha_zero_eq_riemannZeta hs).symm⟩
+  -- Upgrade `differentiableAt_riemannZeta` (pointwise, `s ≠ 1`) to
+  -- `AnalyticOnNhd ℂ riemannZeta {1}ᶜ` via `DifferentiableOn.analyticOnNhd`
+  -- on the open set `{1}ᶜ` (points are closed in the T1 space `ℂ`).
+  have hdiff : DifferentiableOn ℂ riemannZeta ({(1 : ℂ)}ᶜ) := fun z hz =>
+    (differentiableAt_riemannZeta (Set.mem_compl_singleton_iff.mp hz)).differentiableWithinAt
+  exact hdiff.analyticOnNhd isOpen_compl_singleton
+
+/-- **Simple-pole residue of the α = 0 continuation at `s = 1`.** The
+    analytic continuation of `fractalResonance 0` (i.e. `riemannZeta`)
+    has residue exactly `1` at `s = 1`, in the sense that
+    `(s - 1) · ζ(s) → 1` as `s → 1` from the punctured neighbourhood.
+
+    This is the α = 0 special case of manuscript Prop 3.4(3) — the
+    "pole absent or shifted" clause specialised to `α = 0`, where the
+    pole is present and unshifted with the classical residue `1`.
+
+    Manuscript: Ch 3 Prop 3.4(3). Axiom-free — a direct restatement of
+    `riemannZeta_residue_one` under the identification supplied by
+    `exists_analytic_continuation_fractalResonance_alpha_zero`. -/
+theorem fractalResonance_alpha_zero_residue_one :
+    Filter.Tendsto (fun s : ℂ => (s - 1) * riemannZeta s)
+      (nhdsWithin 1 {(1 : ℂ)}ᶜ) (nhds 1) :=
+  riemannZeta_residue_one
+
 /-! ## Section 5 — Manuscript's worked example: `D_3` at small `n`
 
     Manuscript: Ch 3 Example following Definition 3.1 (lines 64-76).
@@ -446,6 +511,13 @@ section AxiomAudit
 -- R_f-Bridge (2026-09-12): connects Dirichlet-series form at α = 0 to
 -- mathlib's analytically-continued `riemannZeta`, on `Re s > 1`.
 #print axioms fractalResonance_alpha_zero_eq_riemannZeta
+
+-- Chapter-3 Proposition 3.4 (2)-(3), α = 0 sub-case (2026-09-12):
+-- analytic continuation on ℂ ∖ {1} and simple-pole residue 1 at s = 1.
+-- The α ≠ 0 case is a genuine open research question, deliberately not
+-- stated as a Lean object here.
+#print axioms exists_analytic_continuation_fractalResonance_alpha_zero
+#print axioms fractalResonance_alpha_zero_residue_one
 
 -- Headline conjunction of the axiom-free chapter-3 facts
 #print axioms chapter_three_headline
