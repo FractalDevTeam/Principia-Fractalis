@@ -75,7 +75,7 @@ The book proceeds atomic → skeletal → domain. Lean should mirror that.
 | P vs NP (ch21) | apparently faithful | needs `Machine` / `turingTimeComplexity` audit |
 | Navier–Stokes (ch22) | **unfaithful** (5-conjunct predicate, three are availability flags) | `NS3DRegularitySolutionV2` needs restatement |
 | Yang–Mills (ch23) | **unfaithful** (three `Prop := True` anchors) | `Bridge5SubstrateQYM` needs real GNS/OS |
-| BSD (ch24) | **vacuous** (`algebraicRankV5 = analyticRankV5 = manuscriptRankV5`; equality by `rfl`) | encoding is the identity function |
+| BSD (ch24) | **vacuous** in the Σ-encoding (`algebraicRankV5 = analyticRankV5 = manuscriptRankV5`; equality by `rfl`) — but **honest-scope companion landed 2026-09-12** (`PF/BSD_BoundedEncodingHonest.lean`, commit `b00cf776`): two independent rank-lower-bound fields, machine-checked gap between algebraic and analytic witness types. Book ch24 (post-2026-07-31 falsification) confirms BSD remains open; Mestre--Nagao (`PF/EllipticTrace_r194.lean`) is the surviving substrate signal. | encoding vacuity exposed rather than replaced; both encodings coexist |
 | Hodge (ch25) | **substrate-level only** (own docstring) | `PF_HodgeEncoding_FullGeneral` is the alternative |
 
 **Verification level (ch33–ch35, appI):**
@@ -113,7 +113,7 @@ sector_interface_X : SubstrateAt α_X → StandardObject_X
 with the property that *no premise contains the target in equivalent form* (directive §5's rigidity criterion). Then the sector claim `SolvedClayProblem_X` can be stated honestly.
 
 **Priority order** based on current faithfulness (worst first, because that's where the honest rewriting is most urgent):
-1. **BSD (ch24)**: the `rfl`-tautology encoding needs full replacement.
+1. **BSD (ch24)**: the `rfl`-tautology encoding — **honest-scope companion landed 2026-09-12** (`PF/BSD_BoundedEncodingHonest.lean`, commit `b00cf776`). The vacuity is now exhibited as a Lean object (`bounded_encoding_exhibits_bsd_gap`) rather than requiring "full replacement." Future populate-the-encoding landings (specific curves with real algebraic-rank witnesses via existing Heegner cascade) would tighten the gap statement further. See `codex/BSD_HONEST_REWRITE_CHARTER_2026-09-12.md` §5 follow-on actions.
 2. **Yang–Mills (ch23)**: the three `Prop := True` anchors need real GNS-Osterwalder-Schrader witnesses (or the sector needs to be honestly rescoped to "substrate-level YM," matching what the code actually proves).
 3. **Navier–Stokes (ch22)**: the 5-conjunct predicate rewritten as a real regularity statement, or honestly rescoped to "typed-Schwartz BKM criterion at u=0" (which is what it currently proves vacuously).
 4. **Hodge (ch25)**: `PF_HodgeEncoding_FullGeneral` (already exists with cycle witnesses) becomes the canonical encoding.
