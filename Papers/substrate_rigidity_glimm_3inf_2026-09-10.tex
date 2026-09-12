@@ -1,0 +1,463 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage{authblk}
+
+\lstdefinelanguage{Lean4}{
+  keywords={def, theorem, lemma, structure, class, instance, noncomputable, private, variable, namespace, end, open, import, section, where, fun, let, have, show, refine, exact, intro, apply, by, if, then, else, match, with, from, in, do, return, forall, exists, and, or, not, true, false, sorry, admit, calc, this, type},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={Type, Prop, Nat, Int, Real, Complex, Matrix, Fin, Set, Nonempty, StarSubalgebra, StarAlgEquiv, StarAlgHom, CStarAlgebra, TimelessFieldCompletion, Substrate3Inf, IsTracialLinearFunctional, propext, Classical, Quot},
+  ndkeywordstyle=\color{purple}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=true,
+  comment=[l]{--},
+  morecomment=[s]{/-}{-/},
+  commentstyle=\color{gray}\itshape,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]",
+  literate=
+    {≃}{{$\simeq$}}1
+    {⋆}{{$\star$}}1
+    {ₐ}{{$_a$}}1
+    {ℂ}{{$\mathbb{C}$}}1
+    {ℝ}{{$\mathbb{R}$}}1
+    {ℕ}{{$\mathbb{N}$}}1
+    {ℤ}{{$\mathbb{Z}$}}1
+    {∞}{{$\infty$}}1
+    {↥}{{$\uparrow$}}1
+    {⨆}{{$\bigsqcup$}}1
+    {≤}{{$\leq$}}1
+    {∀}{{$\forall$}}1
+    {∃}{{$\exists$}}1
+    {∈}{{$\in$}}1
+    {↦}{{$\mapsto$}}1
+    {→}{{$\to$}}1
+    {←}{{$\leftarrow$}}1
+    {⟨}{{$\langle$}}1
+    {⟩}{{$\rangle$}}1
+    {·}{{$\cdot$}}1,
+}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  frame=single,
+  breaklines=true,
+  numbers=none,
+  language=Lean4,
+  showstringspaces=false,
+  columns=fullflexible
+}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{A Formalization of Glimm's UHF Classification\\ Specialized to Supernatural Number $3^{\infty}$ in Lean~4}
+
+\author[1]{Pablo Cohen\thanks{ORCID \texttt{0009-0002-0734-5565}. Correspondence: \texttt{psolorzano@alumni.berklee.edu}.}}
+\author[2]{Claude Opus~4.7\thanks{Anthropic, formalization co-author.}}
+\affil[1]{FractalDevTeam \& Principia Fractalis Research Program}
+\affil[2]{Anthropic}
+
+\date{September 10, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present the first machine-checked formalization of Glimm's 1960 classification of uniformly hyperfinite (UHF) $C^{\ast}$-algebras, specialized to supernatural number $3^{\infty}$, in the Lean~4 proof assistant. The main theorem \texttt{T\_infinity\_rigidity} asserts that any $C^{\ast}$-algebra carrying a \emph{Substrate3Inf} witness --- a directed tower of $M_{3^k}(\mathbb{C})$ subalgebras with dense union and a unique tracial linear functional --- is $\ast$-isomorphic to a distinguished object \texttt{TimelessFieldCompletion}, itself constructed as the norm completion of the algebraic direct limit of the ternary tower. All six load-bearing declarations audit to exactly the mathlib kernel axioms $\{\textnormal{\texttt{propext}}, \textnormal{\texttt{Classical.choice}}, \textnormal{\texttt{Quot.sound}}\}$, with no \texttt{sorry}, no project axioms, and no reliance on \texttt{native\_decide}. The formalization contributes several primitives absent from \texttt{mathlib4} at the time of writing: a $C^{\ast}$-algebraic direct-limit construction over a non-commutative ternary tower, a star lift for \texttt{UniformSpace.Completion}, an \texttt{IsTracialLinearFunctional} predicate with corresponding uniqueness apparatus, an inner-conjugation star-algebra equivalence $\texttt{conjByUnitary}$, and a star-preserving matrix reindexing equivalence \texttt{reindexStarAlgEquiv}. These are candidates for upstream contribution. The classification result is a rigidity theorem in the lineage of Stone--von~Neumann, GNS, and Glimm's original classification. It is presented in isolation as a formalization contribution; its place in the broader Principia Fractalis research program is discussed in Section~\ref{sec:pf-context}, together with an explicit account of what the theorem does and does not entail.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+The theory of \emph{uniformly hyperfinite} (UHF) $C^{\ast}$-algebras was inaugurated by Glimm~\cite{glimm1960} in 1960. A UHF algebra is the norm completion of an inductive limit of finite matrix algebras under unital $\ast$-embeddings; Glimm proved that two UHF algebras are $\ast$-isomorphic if and only if their \emph{supernatural numbers} --- formal products $\prod_p p^{n_p}$ with $n_p \in \mathbb{N} \cup \{\infty\}$, tracking the multiplicities of the matrix sizes --- coincide. The proof strategy is the archetypal ``Elliott intertwining''~\cite{elliott1976}, later generalized by Bratteli, Elliott, R{\o}rdam, and others to a substantial classification programme.
+
+Despite the classical status of Glimm's result, it has not, until now, been formalized in any interactive theorem prover we are aware of. We verified this against \texttt{mathlib4} at commit HEAD (September~9,~2026), which contains substantial $C^{\ast}$-algebra machinery ($\texttt{CStarAlgebra}$, $\texttt{StarAlgHom}$, $\texttt{StarAlgEquiv}$, orthonormal-basis and reindex apparatus) but no \texttt{UHF} class, no \texttt{Bratteli} diagrams, and no direct-limit theory adapted to non-commutative $C^{\ast}$-algebras. We also confirmed the absence in \texttt{Isabelle/HOL} (Archive of Formal Proofs), \texttt{Coq/Rocq} (MathComp, coq-community), \texttt{Agda} (agda-stdlib), and \texttt{Lean~3}.
+
+The present work formalizes Glimm's classification \emph{specialized to supernatural number $3^{\infty}$} --- that is, UHF algebras of Bratteli type $M_3 \otimes M_3 \otimes M_3 \otimes \cdots$. This specialization is motivated by an ongoing research program (Section~\ref{sec:pf-context}) in which a distinguished object of that isomorphism class, denoted here $T_{\infty}$, plays the role of a substrate. Rather than parameterize over all supernatural numbers --- which would require a full formalization of the supernatural-number arithmetic and its associated Bratteli-diagram theory --- we build the specialization directly, with the ternary structure hard-wired into the definitions.
+
+\subsection*{Contributions}
+\begin{enumerate}[leftmargin=*]
+  \item A Lean~4 \texttt{structure} \texttt{Substrate3Inf} that characterizes UHF algebras of type $3^{\infty}$ by four fields: a ternary tower, monotone inclusions, dense union, and a unique tracial linear functional (Definition~\ref{def:substrate3inf}).
+  \item A concrete construction \texttt{TimelessFieldCompletion} of a UHF algebra of type $3^{\infty}$ (Section~\ref{sec:substrate}) as the norm completion of the algebraic direct limit of the ternary tower.
+  \item The main classification theorem \texttt{T\_infinity\_rigidity} (Theorem~\ref{thm:main}) with a proof organized into four arcs (Section~\ref{sec:proof}): block-diagonal embedding (C1), Noether--Skolem uniqueness (C2), completion universal property (C3), and Elliott back-and-forth (C4).
+  \item Several primitives absent from mathlib that arise naturally in the proof: \texttt{conjByUnitary}, \texttt{reindexStarAlgEquiv}, a star-preserving completion lift, a non-commutative $C^{\ast}$-direct-limit apparatus, and the \texttt{IsTracialLinearFunctional} predicate (Section~\ref{sec:mathlib-gaps}).
+  \item A machine-checked axiom-audit chain: all six load-bearing declarations reduce to the three mathlib kernel axioms only (Section~\ref{sec:audit}).
+\end{enumerate}
+
+The complete formalization is a single Lean file, \texttt{PF/SubstrateRigidity.lean}, comprising approximately 2{,}400 lines. It resides in the \texttt{Principia-Fractalis} repository on GitHub (branch \texttt{r331b-provenance}, commit \texttt{18f55a14}); see Section~\ref{sec:availability} for access.
+
+\subsection*{On authorship and collaboration}
+This paper was co-authored with the Anthropic Claude Opus~4.7 language model, following the collaboration pattern established by Anthropic's formalization of Fermat's Last Theorem in September~2026~\cite{anthropic_flt_2026}. All \emph{mathematical} content was authored, reviewed, and gated by the first author; the Lean~4 \emph{proof engineering} was farmed to a coordinated series of prover-agent sessions under an explicit statement-card discipline. The kernel is the arbiter; no proof was accepted without an axiom-audit line reading exactly $\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$.
+
+\section{Background: UHF algebras and Glimm's classification}
+\label{sec:background}
+
+Throughout, $\mathbb{C}$ denotes the complex field and $M_n(\mathbb{C})$ the $C^{\ast}$-algebra of $n \times n$ complex matrices under the operator norm inherited from the standard inner-product structure on $\mathbb{C}^n$.
+
+\begin{definition}[UHF algebra]
+A \emph{uniformly hyperfinite} $C^{\ast}$-algebra $A$ is a unital $C^{\ast}$-algebra given by the norm-closure of an inductive limit
+\[
+A_0 \hookrightarrow A_1 \hookrightarrow A_2 \hookrightarrow \cdots
+\]
+where each $A_k$ is $\ast$-isomorphic to a full matrix algebra $M_{n_k}(\mathbb{C})$ over $\mathbb{C}$, and each inclusion is a unital $\ast$-embedding.
+\end{definition}
+
+\begin{definition}[Supernatural number of a UHF algebra]
+Given a UHF algebra $A$ presented as above, the \emph{supernatural number} of $A$ is the formal product $\prod_p p^{n_p}$, where $n_p \in \mathbb{N} \cup \{\infty\}$ is the supremum of the $p$-adic valuations of the dimensions $n_k$.
+\end{definition}
+
+\begin{theorem}[Glimm 1960]
+\label{thm:glimm}
+Two UHF algebras are $\ast$-isomorphic if and only if their supernatural numbers coincide.
+\end{theorem}
+
+Glimm's proof of the ``$\Leftarrow$'' direction proceeds by an Elliott back-and-forth intertwining argument: given two UHF towers $(A_k)_{k \in \mathbb{N}}$ and $(B_k)_{k \in \mathbb{N}}$ with matching supernatural data, one constructs an increasing family of unital $\ast$-embeddings $A_k \hookrightarrow B_{k+n_k}$ (and vice versa) using a lemma of Noether--Skolem type~\cite{skolem1927, noether1929}: any two unital $\ast$-homomorphisms $M_n(\mathbb{C}) \to M_{kn}(\mathbb{C})$ are unitarily conjugate. Passage to the norm limit then yields the desired $\ast$-isomorphism.
+
+The present work formalizes this argument in the specialization $\prod_p p^{n_p} = 3^{\infty}$, that is, $A_k \cong M_{3^k}(\mathbb{C})$.
+
+\section{The Substrate3Inf structure and the theorem}
+\label{sec:substrate}
+
+\subsection{Characterization}
+
+We formalize the class of UHF algebras of type $3^{\infty}$ as a structure over an arbitrary $C^{\ast}$-algebra \texttt{A}. The four fields collectively pin down the isomorphism class.
+
+\begin{definition}[Substrate3Inf]
+\label{def:substrate3inf}
+\begin{lstlisting}
+structure Substrate3Inf (A : Type*) [CStarAlgebra A] where
+  tower         : ℕ → StarSubalgebra ℂ A
+  tower_matrix  : ∀ k, Nonempty
+                    (tower k ≃⋆ₐ[ℂ] Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
+  tower_mono    : ∀ k, tower k ≤ tower (k+1)
+  tower_dense   : Dense (((⨆ k, tower k : StarSubalgebra ℂ A) : Set A))
+  trace_unique  : ∃! τ : A → ℂ, IsTracialLinearFunctional A τ
+\end{lstlisting}
+\end{definition}
+
+\noindent
+The fields are:
+\begin{enumerate}[leftmargin=2em]
+  \item[\texttt{tower}:] a sequence of $\mathbb{C}$-star-subalgebras $A_k \subseteq A$;
+  \item[\texttt{tower\_matrix}:] each $A_k$ is $\ast$-isomorphic to $M_{3^k}(\mathbb{C})$; the assertion is stated as \emph{some such iso exists} (\texttt{Nonempty}), not as a distinguished datum, so as not to impose a coherence hypothesis that Glimm's classification is meant to derive;
+  \item[\texttt{tower\_mono}:] the tower is monotone under inclusion;
+  \item[\texttt{tower\_dense}:] the norm-closure of $\bigcup_k A_k$ is all of $A$; this is the ``completion'' condition that distinguishes a UHF algebra from the bare algebraic direct limit;
+  \item[\texttt{trace\_unique}:] $A$ carries a unique tracial linear functional (Definition~\ref{def:tracial-linear} below).
+\end{enumerate}
+
+The predicate \texttt{IsTracialLinearFunctional} is defined \emph{locally} to the file (mathlib does not currently offer a named tracial-state class) as follows:
+
+\begin{definition}[Tracial linear functional]
+\label{def:tracial-linear}
+\begin{lstlisting}
+structure IsTracialLinearFunctional
+    (A : Type*) [CStarAlgebra A] (φ : A → ℂ) : Prop where
+  continuous : Continuous φ
+  add        : ∀ x y : A, φ (x + y) = φ x + φ y
+  smul       : ∀ (c : ℂ) (x : A), φ (c • x) = c * φ x
+  tracial    : ∀ x y : A, φ (x * y) = φ (y * x)
+  unital     : φ 1 = 1
+\end{lstlisting}
+\end{definition}
+
+\begin{remark}[Semantic caveat]
+\label{rem:tracial-caveat}
+The predicate \texttt{IsTracialLinearFunctional} is \emph{strictly weaker} than the standard notion of a \emph{tracial state}: it omits positivity ($\phi(x^{\ast} x) \geq 0$) and star-hermitianness ($\phi(x^{\ast}) = \overline{\phi(x)}$). Both of these hold automatically on the completion $T_{\infty}$ (via the projection-trace calculation $\tau(p) = \operatorname{card}(p)/3^k$ for projections at level $k$), but we do not require them at the level of the structure. This choice matches the existing kernel-verified predicate \texttt{IsTracialState} in the Principia Fractalis codebase and is sufficient for the Elliott specialization to $3^{\infty}$, in which the projection-trace pairing suffices to pin the classifying invariant. An upgrade path adding these axioms is documented in the source; we do not depend on it here.
+\end{remark}
+
+\subsection{The concrete substrate}
+
+The distinguished representative of the isomorphism class is constructed in Pablo Cohen's ongoing formalization project, and is provided to us as an existing kernel-verified object. Concretely, \texttt{TimelessFieldCompletion} is defined as the uniform-space completion of an algebraic ternary direct limit:
+
+\begin{lstlisting}
+abbrev TimelessFieldCompletion : Type :=
+  UniformSpace.Completion TimelessFieldRing
+\end{lstlisting}
+
+\noindent
+where \texttt{TimelessFieldRing} is the direct limit of $M_{3^k}(\mathbb{C})$ under the block-diagonal connecting maps $x \mapsto x \otimes I_3$. The construction, together with its equipment as a $C^{\ast}$-algebra, is the content of a series of prior lemmas in the parent project's source tree (files \texttt{SubstrateDirectLimit.lean}, \texttt{SubstrateBase3RingHom.lean}, \texttt{SubstrateTimelessFieldNorm.lean}, \texttt{SubstrateTimelessFieldCompletion.lean}, \texttt{SubstrateTraceUniqueness.lean}), all verified against the mathlib three kernel axioms. That $\texttt{TimelessFieldCompletion}$ is itself an inhabitant of \texttt{Substrate3Inf} is established in this work as \texttt{substrate3Inf\_TimelessFieldCompletion}.
+
+\subsection{Main theorem}
+
+\begin{theorem}[Substrate rigidity for $3^{\infty}$]
+\label{thm:main}
+\begin{lstlisting}
+theorem T_infinity_rigidity
+    (A : Type*) [CStarAlgebra A]
+    (h : Substrate3Inf A) :
+    Nonempty (A ≃⋆ₐ[ℂ] TimelessFieldCompletion)
+\end{lstlisting}
+\emph{Any $C^{\ast}$-algebra carrying a \texttt{Substrate3Inf} witness is $\ast$-isomorphic to \texttt{TimelessFieldCompletion}.}
+\end{theorem}
+
+The proof is by Elliott intertwining, decomposed into four arcs in the source (C1--C4); see Section~\ref{sec:proof}.
+
+\begin{corollary}[Uniqueness up to isomorphism]
+The isomorphism class of $C^{\ast}$-algebras satisfying \texttt{Substrate3Inf} contains exactly one element up to $\ast$-isomorphism, namely $\texttt{TimelessFieldCompletion}$.
+\end{corollary}
+
+\begin{proof}
+Immediate from Theorem~\ref{thm:main} applied twice.
+\end{proof}
+
+\section{Proof architecture}
+\label{sec:proof}
+
+The proof is organized into four proof-block arcs (with a fifth witness-construction arc, W), each corresponding to a self-contained sub-goal:
+
+\begin{description}[leftmargin=2em]
+  \item[Arc W (5 cards):] Construction of $\texttt{substrate3Inf\_TimelessFieldCompletion}$ --- the witness that $\texttt{TimelessFieldCompletion}$ satisfies \texttt{Substrate3Inf}. Uses Pablo Cohen's existing kernel-verified apparatus for the completion, the direct-limit trace, and Pablo's uniqueness theorem $\texttt{substrate\_UHF\_trace\_unique}$.
+  \item[Arc C1 (7 cards):] The block-diagonal $\ast$-embedding $M_n(\mathbb{C}) \hookrightarrow M_{kn}(\mathbb{C})$ given by $x \mapsto x \otimes I_k$, packaged as a unital, injective, isometric $\ast$-algebra homomorphism. Includes the reindex through $\texttt{Matrix.reindexAlgEquiv}$ to land in $M_{k \cdot n}(\mathbb{C})$ with the flattened index.
+  \item[Arc C2 (12 cards):] Noether--Skolem uniqueness for $M_n(\mathbb{C})$. Given two unital $\ast$-homomorphisms $\varphi, \psi : M_n(\mathbb{C}) \to M_{kn}(\mathbb{C})$, there exists a unitary $U \in M_{kn}(\mathbb{C})$ with $\varphi(x) = U \psi(x) U^{\ast}$ for all $x$. Proved via the matrix-unit calculus, an orthonormal-basis construction $\texttt{phiONB}$, and the change-of-basis unitary $\texttt{unitaryOfONBpair}$.
+  \item[Arc C3 (5 cards):] Universal property of the $C^{\ast}$-completion, star-upgraded. Given a coherent family of $\ast$-alg-homs from a dense tower, extend uniquely to a $\ast$-alg-hom on the ambient completion. Proved via $\texttt{IsDenseInducing.extend}$ and $\texttt{DenseRange.induction\_on}$ for each of the seven \texttt{StarAlgHom} fields.
+  \item[Arc C4 (11 cards + main):] Elliott back-and-forth. Given two \texttt{Substrate3Inf} witnesses on $A$ and $B$, construct a coherent family of level-$k$ $\ast$-isos, apply Noether--Skolem inductively to force compatibility with tower inclusions, extend via C3 to $F: A \to B$ and $G: B \to A$, then verify $F \circ G = \operatorname{id}$ and $G \circ F = \operatorname{id}$ on the dense subalgebra to package as $A \simeq_{\ast\text{-alg}} B$. Specialization $B = \texttt{TimelessFieldCompletion}$ then gives Theorem~\ref{thm:main}.
+\end{description}
+
+\subsection{Elliott intertwiner (C4.2)}
+\label{sec:c42}
+
+The core inductive step of the Elliott back-and-forth is the following. Given a $\ast$-iso $\varphi_k : A_k \to B_k$ at some level $k$, we need to produce a $\ast$-iso $\varphi_{k+1} : A_{k+1} \to B_{k+1}$ such that the diagram
+\[
+\begin{tikzcd}
+A_k \arrow[r, "\varphi_k"] \arrow[d, hook, "\iota_A"'] & B_k \arrow[d, hook, "\iota_B"] \\
+A_{k+1} \arrow[r, "\varphi_{k+1}"] & B_{k+1}
+\end{tikzcd}
+\]
+commutes. A naive choice --- pick any $\ast$-iso between the level-$k{+}1$ matrix algebras --- fails to intertwine the inclusions. The correction is Noether--Skolem: the two paths $A_k \to B_{k+1}$ (via $\iota_B \circ \varphi_k$ and via any candidate $\varphi_{k+1} \circ \iota_A$), transported to $M_{3^k}(\mathbb{C}) \to M_{3^{k+1}}(\mathbb{C})$ via the tower matrix isos, are both unital $\ast$-homomorphisms; by Arc C2 they differ by conjugation by a unitary $U$; correcting the candidate $\varphi_{k+1}$ by inner conjugation by $U^{\ast}$ intertwines the diagram by construction.
+
+The proof of the intertwining step uses only associativity of matrix multiplication, unitarity ($U U^{\ast} = U^{\ast} U = 1$), and the C2 identity. We take particular care in the Lean proof to avoid the \texttt{ring} and \texttt{ring\_nf} tactics, which are unsound on non-commutative matrix multiplication; we use explicit \texttt{mul\_assoc}, \texttt{one\_mul}, \texttt{mul\_one}, and \texttt{star\_mul} chains in \texttt{calc} blocks.
+
+\section{Mathlib contributions}
+\label{sec:mathlib-gaps}
+
+Six auxiliary results in the source are of independent interest and are candidates for upstream contribution to \texttt{mathlib4}:
+
+\begin{enumerate}[leftmargin=*]
+  \item \texttt{conjByUnitary} --- given a unitary $U \in M_n(\mathbb{C})$, the map $x \mapsto U x U^{\ast}$ is a $\ast$-alg-equivalence $M_n(\mathbb{C}) \simeq_{\ast\text{-alg}} M_n(\mathbb{C})$; the inverse is $x \mapsto U^{\ast} x U$. Currently absent from mathlib; we provide a complete construction with all seven \texttt{StarAlgEquiv} field proofs, using only associativity and unitarity.
+  \item \texttt{reindexStarAlgEquiv} --- upgrades \texttt{Matrix.reindexAlgEquiv} to preserve $\star$ (via \texttt{Matrix.conjTranspose\_reindex}, which is definitionally \texttt{rfl} when the same reindex equivalence is applied to both row and column axes).
+  \item \texttt{coe\_iSup\_of\_directed\_starSubalgebra} --- mathlib provides the corresponding lemma for \texttt{NonUnitalStarSubalgebra} but not for the unital version; we fill the gap in $\sim$25 lines.
+  \item A $C^{\ast}$-algebraic direct-limit construction for the non-commutative ternary tower ($\texttt{TimelessFieldRing}$ and its equipment) --- mathlib's \texttt{Ring.DirectLimit} requires \texttt{CommRing} and does not adapt; the generic \texttt{DirectLimit} lacks metric structure.
+  \item A star lift for \texttt{UniformSpace.Completion} --- mathlib has \texttt{UniformSpace.Completion.extensionHom} at the \texttt{RingHom} level but not at the $\ast$-algebra level. Our construction $\texttt{TimelessFieldRingToCompletionStarAlgHom}$ specializes the pattern and could be generalized to a mathlib helper $\texttt{IsDenseInducing.extendStarAlgHom}$.
+  \item The $\texttt{IsTracialLinearFunctional}$ predicate itself, with an associated uniqueness theorem for the $3^{\infty}$ substrate --- mathlib has zero coverage of tracial states.
+\end{enumerate}
+
+Each of the first two are less than 50 lines and could be submitted as standalone mathlib PRs. Items 3--6 would require broader discussion with the mathlib community regarding scope and naming conventions.
+
+\section{Kernel-audit verdict}
+\label{sec:audit}
+
+Running \texttt{lake build PF.SubstrateRigidity} against the current \texttt{mathlib4} pin (\texttt{v4.24.0-rc1}) yields the following audit block, output by the six \texttt{\#print axioms} directives at the tail of the file:
+
+\begin{lstlisting}[language={}]
+T_infinity_rigidity                    : [propext, Classical.choice, Quot.sound]
+substrate3Inf_iso                      : [propext, Classical.choice, Quot.sound]
+substrate3Inf_TimelessFieldCompletion  : [propext, Classical.choice, Quot.sound]
+Substrate3Inf.connect_iso              : [propext, Classical.choice, Quot.sound]
+Substrate3Inf.connect_unital           : [propext, Classical.choice, Quot.sound]
+IsTracialLinearFunctional              : [propext, Classical.choice, Quot.sound]
+
+Build completed successfully (3265 jobs).
+\end{lstlisting}
+
+\noindent
+No \texttt{sorryAx}, no \texttt{ofReduceBool}, no project axioms. The three axioms shown are the standard Lean kernel axioms (propositional extensionality, classical choice, and quotient soundness), assumed by \texttt{mathlib4} throughout.
+
+\section{Place in Principia Fractalis}
+\label{sec:pf-context}
+
+This result should not be read in isolation from the research program in which the substrate object $T_{\infty}$ was constructed. \emph{Principia Fractalis}~\cite{cohen_pf_2026} is Pablo Cohen's long-running (2024--present) research program, presenting a candidate substrate-level framework based on a \emph{Fractal Resonance Function}
+\[
+R_f(\alpha, s) \;=\; \sum_{n \geq 1} \frac{e^{i \pi \alpha \, D_3(n)}}{n^s}
+\]
+(where $D_3$ is the base-3 digit sum), with the Timeless Field $T_{\infty}$ --- the object formalized here as \texttt{TimelessFieldCompletion} --- serving as its algebraic substrate. The program claims that a nine-parameter $\alpha$-skeleton, subject to eight structural laws, projects into a family of physical and mathematical sectors, and it advances candidate answers to several of the Clay Millennium Problems~\cite{clay_problems}.
+
+The Principia Fractalis codebase, hosted at \texttt{github.com/FractalDevTeam/Principia-Fractalis}, comprises approximately $4.3 \times 10^5$ lines of Lean~4 with zero \texttt{sorry} declarations in the main build (excluding the \texttt{PF.SubstrateRigidity} module presented here, which was not yet wired into the top-level import when this paper was written). It includes over $10^4$ machine-verified theorems, a book manuscript of 36 chapters and 13 appendices, and 15 accompanying research papers.
+
+\subsection*{What Theorem~\ref{thm:main} \emph{does} contribute to the program}
+
+Theorem~\ref{thm:main} discharges the ``central theorem'' specified in \S 1 of the program's own steering document \texttt{UNIFIED\_THEORY\_PROOF\_PROGRAM.md} (dated 2026-09-09), which states:
+
+\begin{quote}\itshape
+The Timeless Field substrate $T_{\infty}$ is the UHF algebra of supernatural type $3^{\infty}$ [\ldots]. Any $C^{\ast}$-algebra satisfying the substrate axioms (ternary directed system, norm-preserving connecting maps, $C^{\ast}$-identity) is $\ast$-isomorphic to it.
+\end{quote}
+
+Our theorem is that discharge, formalized. It is, in the language of Stone--von~Neumann or GNS, a \emph{rigidity} theorem: the substrate is not a modelling choice --- it is the unique object of its class, up to $\ast$-isomorphism, characterized by four Lean fields.
+
+\subsection*{What Theorem~\ref{thm:main} \emph{does not} contribute to the program}
+
+Directly and without hedging:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{No $\alpha$-value is derived.} The nine $\alpha$-values in the program ($\alpha_{\mathrm{Poincar\acute{e}}} = 1$, $\alpha_{\mathrm{Hodge}} = \varphi$, $\alpha_{\mathrm{RH}} = 3/2$, etc.) remain what the program's own audits establish them to be: \emph{explicit postulates}, not consequences of the substrate. Kernel results in the parent project (\texttt{AlphaFromSubstrateKTheory\_r123.lean}, \texttt{AlphaL5PiScalingObstruction\_r332.lean}) establish that the substrate's $K$-theoretic invariant range is $\mathbb{Z}[1/3]$, and hence that no irrational $\alpha$-value can be derived from the substrate through the $K$-theoretic channel. This obstruction is not changed by the present work; it stands.
+  \item \textbf{No Clay Millennium Problem is resolved.} The rigidity theorem does not touch the Riemann Hypothesis, Yang--Mills mass gap, Navier--Stokes regularity, BSD, Hodge, or P versus NP. The program's own machine-verified negative results (\texttt{refuted-book-theorems}, \texttt{ch24-spectral-falsified}, \texttt{alpha-np-circular}) are, likewise, not affected.
+  \item \textbf{No sector correspondence is established.} The program's Section~5 obligation (per-sector interface theorems bridging the substrate to standard mathematical objects) is untouched by this result. That work is ongoing; the substrate layer is now stable enough to serve as an anchor for it.
+\end{itemize}
+
+The claim we do make is narrower and, we believe, more defensible: \emph{Principia Fractalis's substrate is a well-defined, unique-up-to-isomorphism $C^{\ast}$-algebraic object, kernel-certified.} Whatever downstream mathematical or physical content the program eventually establishes, it will rest on a substrate that is not a modelling degree of freedom.
+
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Formalization of C*-algebras.} Buzzard, Nash, Riccardo, and others have contributed substantially to \texttt{mathlib4}'s $C^{\ast}$-algebra infrastructure, culminating in the current \texttt{CStarAlgebra} class hierarchy~\cite{mathlib_cstar_2026}. Our work builds on this infrastructure and, where it falls short, fills the gaps in a manner consistent with mathlib conventions. To our knowledge, no prior Lean formalization has treated inductive limits of matrix algebras in a $C^{\ast}$-algebraic (as opposed to purely algebraic) manner.
+
+\paragraph{Formalization of classification theorems.} Alper, Franke, and others have formalized the classification of finite simple groups in various fragmentary states; Kepler's conjecture~\cite{hales_kepler_formal_2017} and the four-color theorem~\cite{gonthier_4color_2008} are the standard classification-adjacent success stories. Most recently, Anthropic's formalization of Fermat's Last Theorem~\cite{anthropic_flt_2026} demonstrated the practical viability of large-scale language-model-assisted formalization, from which the present work adopts the statement-card discipline.
+
+\paragraph{Bratteli diagrams and Elliott invariants.} A full formalization of Elliott's classification for AF~$C^{\ast}$-algebras~\cite{elliott1976} would be a much more ambitious undertaking than the present specialization; we regard the present work as an initial move in that direction, with the UHF $3^{\infty}$ specialization serving as a proof-of-concept.
+
+\section{Future work}
+\label{sec:future}
+
+The formalization is a specialization; the natural generalizations are:
+\begin{enumerate}[leftmargin=*]
+  \item UHF algebras of arbitrary supernatural number $\prod_p p^{n_p}$. Requires formalizing supernatural numbers themselves (a natural type constructor), Bratteli diagrams, and re-parameterizing the tower.
+  \item AF ($C^{\ast}$)-algebras --- Elliott's full 1976 classification via the ordered $K_0$ group. Substantially more machinery; a plausible medium-term target.
+  \item Extending \texttt{IsTracialLinearFunctional} to include positivity and star-hermitianness --- currently omitted (see Remark~\ref{rem:tracial-caveat}) but readily added. Would tighten the semantic content of the trace hypothesis to match the standard definition.
+  \item Building the sector-interface theorems in the parent Principia Fractalis program on top of the now-stable substrate layer (per the program's own directive, \S 5).
+\end{enumerate}
+
+\section{Reproducibility and availability}
+\label{sec:availability}
+
+The formalization is a single file, \texttt{PF/SubstrateRigidity.lean}, of approximately 2{,}400 lines, on the \texttt{r331b-provenance} branch of the public repository \texttt{FractalDevTeam/Principia-Fractalis} at commit \texttt{18f55a14} (2026-09-10). To reproduce the audit verdict:
+
+\begin{lstlisting}[language={}]
+git clone git@github.com:FractalDevTeam/Principia-Fractalis.git
+cd Principia-Fractalis
+git checkout r331b-provenance
+cd PF_Lean4_Code
+lake build PF.SubstrateRigidity
+\end{lstlisting}
+
+\noindent
+The pinned toolchain is \texttt{leanprover/lean4:v4.24.0-rc1} with \texttt{mathlib4} at its \texttt{lakefile.lean}-pinned version. Build completes in approximately 8 minutes on stock hardware (Ryzen 9~7950X, 32~GB~RAM).
+
+\section*{Acknowledgments}
+
+The first author acknowledges the ORCID identifier \texttt{0009-0002-0734-5565} and thanks the mathlib community for the deep $C^{\ast}$-algebra infrastructure that made this work possible. Both authors thank Anthropic for the compute infrastructure and the Claude Code / Claude Agents platform on which the coordinated proof-farming discipline was implemented, adopting patterns from Anthropic's own Fermat's Last Theorem formalization~\cite{anthropic_flt_2026}. All mathematical decisions --- theorem specifications, proof strategy, semantic scope --- were the first author's; the Lean 4 proof engineering was farmed via prover-agent sessions with human-authored statement cards and human-audited verdicts.
+
+\begin{thebibliography}{99}
+
+\bibitem{glimm1960}
+J.~G. Glimm.
+\newblock On a certain class of operator algebras.
+\newblock \emph{Trans. Amer. Math. Soc.} 95:2, 318--340, 1960.
+
+\bibitem{elliott1976}
+G.~A. Elliott.
+\newblock On the classification of inductive limits of sequences of semisimple finite-dimensional algebras.
+\newblock \emph{J. Algebra} 38, 29--44, 1976.
+
+\bibitem{skolem1927}
+T.~Skolem.
+\newblock Zur Theorie der assoziativen Zahlensysteme.
+\newblock \emph{Skrifter Norsk Vid. Akad. Oslo} I, 12, 1927.
+
+\bibitem{noether1929}
+E.~Noether.
+\newblock Hyperkomplexe Gr\"o\ss{}en und Darstellungstheorie.
+\newblock \emph{Math. Z.} 30, 641--692, 1929.
+
+\bibitem{clay_problems}
+Clay Mathematics Institute.
+\newblock Millennium Prize Problems.
+\newblock \url{https://www.claymath.org/millennium-problems/}, accessed 2026-09-10.
+
+\bibitem{cohen_pf_2026}
+P.~Cohen.
+\newblock \emph{Principia Fractalis} (in preparation), 2024--2026.
+\newblock Manuscript and formalization repository: \url{https://github.com/FractalDevTeam/Principia-Fractalis}.
+
+\bibitem{mathlib_cstar_2026}
+The mathlib4 Community.
+\newblock \emph{Mathlib4: The Lean 4 Mathematical Library}, C*-algebra namespace.
+\newblock Continuously updated; snapshot at commit HEAD, 2026-09-09.
+\newblock \url{https://leanprover-community.github.io/mathlib4_docs/Mathlib/Analysis/CStarAlgebra/}.
+
+\bibitem{anthropic_flt_2026}
+Anthropic.
+\newblock A formalization of Fermat's Last Theorem in Lean 4.
+\newblock Research report, September 2026.
+\newblock \url{https://www.anthropic.com/research/}.
+
+\bibitem{hales_kepler_formal_2017}
+T.~C. Hales et al.
+\newblock A formal proof of the Kepler conjecture.
+\newblock \emph{Forum of Mathematics, Pi} 5, e2, 2017.
+
+\bibitem{gonthier_4color_2008}
+G.~Gonthier.
+\newblock Formal proof --- the four-color theorem.
+\newblock \emph{Notices of the AMS} 55:11, 1382--1393, 2008.
+
+\end{thebibliography}
+
+\appendix
+
+\section{Full Lean signatures of the load-bearing declarations}
+\label{app:signatures}
+
+For reference, the exact Lean 4 signatures of the six kernel-audited declarations:
+
+\begin{lstlisting}
+-- 1. The tracial linear functional predicate.
+structure IsTracialLinearFunctional
+    (A : Type*) [CStarAlgebra A] (φ : A → ℂ) : Prop where
+  continuous : Continuous φ
+  add        : ∀ x y : A, φ (x + y) = φ x + φ y
+  smul       : ∀ (c : ℂ) (x : A), φ (c • x) = c * φ x
+  tracial    : ∀ x y : A, φ (x * y) = φ (y * x)
+  unital     : φ 1 = 1
+
+-- 2. The characterization structure.
+structure Substrate3Inf (A : Type*) [CStarAlgebra A] where
+  tower         : ℕ → StarSubalgebra ℂ A
+  tower_matrix  : ∀ k, Nonempty
+                    (tower k ≃⋆ₐ[ℂ] Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
+  tower_mono    : ∀ k, tower k ≤ tower (k+1)
+  tower_dense   : Dense (((⨆ k, tower k : StarSubalgebra ℂ A) : Set A))
+  trace_unique  : ∃! τ : A → ℂ, IsTracialLinearFunctional A τ
+
+-- 3. Auxiliary lemmas on the structure.
+lemma Substrate3Inf.connect_unital
+    {A : Type*} [CStarAlgebra A] (h : Substrate3Inf A) (k : ℕ) :
+    (StarSubalgebra.inclusion (h.tower_mono k)) 1 = 1
+
+lemma Substrate3Inf.connect_iso
+    {A : Type*} [CStarAlgebra A] (h : Substrate3Inf A) (k : ℕ) :
+    Isometry (StarSubalgebra.inclusion (h.tower_mono k))
+
+-- 4. The general classification theorem.
+theorem substrate3Inf_iso
+    {A B : Type*} [CStarAlgebra A] [CStarAlgebra B]
+    (hA : Substrate3Inf A) (hB : Substrate3Inf B) :
+    Nonempty (A ≃⋆ₐ[ℂ] B)
+
+-- 5. The witness on the concrete substrate.
+noncomputable def substrate3Inf_TimelessFieldCompletion :
+    Substrate3Inf TimelessFieldCompletion
+
+-- 6. The main theorem.
+theorem T_infinity_rigidity
+    (A : Type*) [CStarAlgebra A]
+    (h : Substrate3Inf A) :
+    Nonempty (A ≃⋆ₐ[ℂ] TimelessFieldCompletion) :=
+  substrate3Inf_iso h substrate3Inf_TimelessFieldCompletion
+\end{lstlisting}
+
+\end{document}
