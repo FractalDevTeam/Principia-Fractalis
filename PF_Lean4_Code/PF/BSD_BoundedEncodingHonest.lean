@@ -1,5 +1,45 @@
 /-
-# BSD Bounded Encoding — Honest Two-Rank-Witness Presentation
+# BSD Bounded Encoding — Two-Rank-Witness Presentation
+
+## ★ Epistemic Status (2026-09-12 post-review reclassification) ★
+
+The theorems in this file operate at THREE distinct semantic layers:
+
+  1. **Structural Lean constraints on the encoding.**
+     `RankLowerBoundWitness E` has two independent rank fields; the
+     encoding's Clay-predicate is `analyticRank = algebraicRank` under
+     the projection maps. This layer is pure type theory.
+
+  2. **Tree-state indicators.**
+     `AlgebraicRankLowerBoundEvidence` currently exposes `heegnerRankOne`
+     via the `RankWitnessTyped` structural Prop, and
+     `AnalyticRankLowerBoundEvidence` currently exposes only the trivial
+     constructor. Any theorem parametrised by these types reports the
+     LEAN TREE'S current witness-population state, not the arithmetic
+     of any specific elliptic curve.
+
+  3. **BSD content.** BSD is NOT PROVEN, DISPROVEN, OR EVIDENCED BY
+     ANY THEOREM IN THIS FILE. Specifically:
+       * `RankWitnessTyped E r` ignores `E` (its first argument is
+         underscored — see `PF/BSD_RankWitnessTypedUpgrade.lean:141`)
+         and at `r = 1` reduces to "∃ one nonzero rational". The `-1`
+         witness used for `E_{37.a1}` satisfies this trivially and
+         proves NEITHER non-torsion NOR Mordell-Weil rank on any curve.
+       * `r_an_lb = 0` for `E_{37.a1}` records absent tree machinery,
+         NOT analytic rank zero. LMFDB records `L'(37.a1, 1) ≠ 0`
+         (analytic rank = 1); the Lean number 0 is a
+         tree-completeness signal, not a curve datum.
+       * The theorem `boundedEncoding_ClayPredicate_falsified_by_treeAsymmetry`
+         (formerly `bounded_Clay_BSD_fails_unconditionally`, kept as
+         `@[deprecated]` alias) reports encoding-vs-witness-population
+         tension. It is NOT a BSD refutation, NOT an unconditional BSD
+         gap, NOT honest evidence about `E_{37.a1}`.
+
+Section 5 identifiers use `treeState*` / `boundedEncoding_*` prefixes
+to make the epistemic layer legible from the name alone. The original
+names from commit `146c153d` are preserved as `@[deprecated]` aliases
+pointing to the new names, so any paper or codex reference that cites
+the old identifiers continues to typecheck.
 
 ## Purpose
 
@@ -269,79 +309,141 @@ theorem bounded_Clay_BSD_not_provable_under_populated_algebraic
   have := bounded_encoding_exhibits_bsd_gap p hp
   exact this (hclay p)
 
-/-! ## Section 5 — E_{37.a1} population (2026-09-12)
+/-! ## Section 5 — Tree-completeness asymmetry diagnostic at E_{37.a1}
 
-    Concrete population of the bounded encoding on `E_{37.a1}` (the
-    famous rank-1 curve `y² + y = x³ − x`, LMFDB 37.a1), reusing the
-    existing kernel-verified Heegner-cascade infrastructure in
-    `PF/BSD_HeegnerRank1Proof.lean`.
+    **★ Reclassified 2026-09-12 post-review (see file docstring §Epistemic
+    Status).** The instance defined below was originally introduced at
+    commit `146c153d` with names suggesting it discharged BSD content on
+    `E_{37.a1}`. That was an overclaim. The truth is narrower:
 
-    The algebraic-side evidence is `heegnerRankOne E_rank_one h`, where
-    `h : RankWitnessTyped E_rank_one 1` is discharged axiom-free via
-    `heegnerDerived_rankWitnessTyped_E37a1` — an explicit non-zero
-    rational (the y-coordinate `−1` of the duplicate of the (0,0)
-    generator, verified on the curve axiom-free by `norm_num`).
+    * `RankWitnessTyped` (in `PF/BSD_RankWitnessTypedUpgrade.lean:141`)
+      is `∃ g : Fin r → ℚ, distinct ∧ nonzero`. Its first argument `_E`
+      is IGNORED (underscored). At `r = 1` this reduces to "there exists
+      a nonzero rational". The witness `-1` used below satisfies this
+      trivially and does NOT prove non-torsion on any curve, nor
+      Mordell-Weil rank ≥ 1.
 
-    The analytic-side evidence is `AnalyticRankLowerBoundEvidence.trivial`
-    at `r_an_lb = 0` — the honest current-state answer: no kernel-verified
-    analytic-rank witness ≥ 1 exists in the tree. When a future landing
-    supplies real analytic-rank machinery, a new constructor can be added
-    to `AnalyticRankLowerBoundEvidence` and the witness below upgraded
-    to reflect the new bound; until then, the population honestly
-    exhibits `r_an_lb = 0 ≠ 1 = r_alg_lb`. -/
+    * `r_an_lb = 0` on the analytic side does NOT assert "analytic rank
+      of `E_{37.a1}` is zero" — that would contradict the LMFDB value
+      `L'(37.a1, 1) ≈ 0.30599977… ≠ 0`. It records that the PF LEAN TREE
+      lacks kernel-verified analytic-rank witnesses ≥ 1.
 
-/-- **Populated E_{37.a1} witness.** Algebraic-rank lower bound `1`,
-    discharged axiom-free via the Heegner-derived non-torsion witness.
-    Analytic-rank lower bound `0`, matching the honest current absence
-    of kernel-verified analytic-rank machinery. -/
-noncomputable def witness_E37a1 : RankLowerBoundWitness E_rank_one where
+    * The resulting theorem `¬ Clay_BSD_Standard StandardBSDEncoding_Bounded`
+      is therefore NOT an unconditional BSD gap. It is a diagnostic that
+      the bounded encoding's Clay predicate FAILS whenever the tree
+      provides asymmetric witness populations (Heegner-shape algebraic
+      evidence, no analytic evidence). It reports tree state, not
+      curve arithmetic.
+
+    Names below use `treeStateAsymmetry_*` / `boundedEncoding_*` prefixes
+    to make the epistemic status legible from the identifier alone. The
+    original names from `146c153d` are retained as `@[deprecated]`
+    aliases pointing to the new names, preserving git-history/paper
+    references. -/
+
+/-- **Tree-state instance at E_{37.a1}.** A `RankLowerBoundWitness`
+    populated on `E_{37.a1}` with `r_alg_lb = 1` and `r_an_lb = 0`.
+
+    Semantics of the two fields:
+      * `r_alg_lb = 1` — populated because the tree contains a
+        `RankWitnessTyped E_rank_one 1` inhabitant (an existence claim
+        for one nonzero rational, ignoring `E`). This is a STRUCTURAL
+        LEAN CONSTRAINT satisfied on any curve, not a MW-rank claim
+        on this specific curve.
+      * `r_an_lb = 0` — populated because the tree provides ONLY the
+        trivial constructor of `AnalyticRankLowerBoundEvidence` (the
+        current absence of analytic-rank machinery). This does NOT
+        assert `L(E_{37.a1}, s)` vanishes to order 0 at `s = 1`;
+        LMFDB in fact records `L'(37.a1, 1) ≠ 0`, i.e., analytic rank
+        exactly 1. The Lean number 0 here is a TREE-COMPLETENESS
+        indicator, not a curve datum. -/
+noncomputable def treeStateInstance_E37a1 : RankLowerBoundWitness E_rank_one where
   r_alg_lb := 1
   r_an_lb  := 0
   alg_evidence := AlgebraicRankLowerBoundEvidence.heegnerRankOne
     E_rank_one heegnerDerived_rankWitnessTyped_E37a1
   an_evidence := AnalyticRankLowerBoundEvidence.trivial E_rank_one
 
-/-- **The populated Σ-pair on `E_{37.a1}`.** Concrete inhabitant of
-    `Σ E, RankLowerBoundWitness E` with `r_alg_lb = 1` and `r_an_lb = 0`,
-    exhibiting the BSD gap on this specific curve as a Lean object. -/
+/-- Provenance alias for `treeStateInstance_E37a1`, preserving the
+    original name from commit `146c153d` for backwards compatibility
+    with any paper or codex reference. Do NOT use in new work. -/
+@[deprecated treeStateInstance_E37a1
+  (since := "2026-09-12 (reclassification: tree-state, not BSD, witness)")]
+noncomputable def witness_E37a1 : RankLowerBoundWitness E_rank_one :=
+  treeStateInstance_E37a1
+
+/-- The packaged Σ-pair for `treeStateInstance_E37a1`. Same epistemic
+    status: reports LEAN TREE state on `E_{37.a1}`, not curve arithmetic. -/
+noncomputable def treeStateSigma_E37a1 :
+    Σ E : WeierstrassCurve ℚ, RankLowerBoundWitness E :=
+  ⟨E_rank_one, treeStateInstance_E37a1⟩
+
+/-- Provenance alias for `treeStateSigma_E37a1`. Do NOT use in new work. -/
+@[deprecated treeStateSigma_E37a1
+  (since := "2026-09-12 (reclassification: tree-state, not BSD, witness)")]
 noncomputable def sigmaWitness_E37a1 :
     Σ E : WeierstrassCurve ℚ, RankLowerBoundWitness E :=
-  ⟨E_rank_one, witness_E37a1⟩
+  treeStateSigma_E37a1
 
-/-- **Bounded-encoding BSD gap on E_{37.a1}, UNCONDITIONAL.** For the
-    populated Σ-pair `⟨E_{37.a1}, witness_E37a1⟩`, the analytic-rank
-    projection is `0` and the algebraic-rank projection is `1`, so the
-    Clay equality fails on this pair.
+/-- **Bounded-encoding rank-projection asymmetry at E_{37.a1}.**
+    On the tree-state Σ-pair, `boundedAnalyticRank ≠ boundedAlgebraicRank`.
 
-    This is the axiomatic-free discharge of the existential hypothesis
-    in `bounded_Clay_BSD_not_provable_under_populated_algebraic`. -/
-theorem bounded_encoding_gap_at_E37a1 :
-    boundedAnalyticRank sigmaWitness_E37a1
-      ≠ boundedAlgebraicRank sigmaWitness_E37a1 := by
+    Epistemic status: this is a WITNESS-POPULATION asymmetry between the
+    two evidence-type inductive families in this file. It says the tree
+    has a populated `heegnerRankOne` constructor (structural Prop shape)
+    but only the trivial constructor of `AnalyticRankLowerBoundEvidence`.
+    It does NOT say the analytic rank and algebraic rank of `E_{37.a1}`
+    disagree — LMFDB records both equal to 1. -/
+theorem boundedEncoding_projectionAsymmetry_at_E37a1 :
+    boundedAnalyticRank treeStateSigma_E37a1
+      ≠ boundedAlgebraicRank treeStateSigma_E37a1 := by
   apply bounded_encoding_exhibits_bsd_gap
-  -- Goal: 1 ≤ sigmaWitness_E37a1.2.r_alg_lb, which is 1 ≤ 1.
+  -- Goal: 1 ≤ treeStateSigma_E37a1.2.r_alg_lb, which is 1 ≤ 1.
   exact Nat.le_refl 1
 
-/-- **UNCONDITIONAL: `Clay_BSD_Standard` fails on the bounded encoding.**
-    Discharges the existential hypothesis of
-    `bounded_Clay_BSD_not_provable_under_populated_algebraic` using the
-    populated `witness_E37a1`. Concludes that the Clay BSD statement on
-    `StandardBSDEncoding_Bounded` is NOT true — because the encoding
-    includes a curve (E_{37.a1}) whose algebraic-rank lower bound (1,
-    Heegner-derived) exceeds its analytic-rank lower bound (0, the
-    honest current tree state).
+/-- Provenance alias. Original name from commit `146c153d`; the phrase
+    "BSD gap at E_{37.a1}" in that name was inaccurate — the theorem
+    reports a Lean-tree witness-population asymmetry, not a BSD gap on
+    the curve. Preserved as an alias for reference continuity only. -/
+@[deprecated boundedEncoding_projectionAsymmetry_at_E37a1
+  (since := "2026-09-12 (reclassification: tree-state asymmetry, not BSD gap)")]
+theorem bounded_encoding_gap_at_E37a1 :
+    boundedAnalyticRank treeStateSigma_E37a1
+      ≠ boundedAlgebraicRank treeStateSigma_E37a1 :=
+  boundedEncoding_projectionAsymmetry_at_E37a1
 
-    This is NOT a refutation of BSD — BSD says `analytic_rank =
-    algebraic_rank`, and both are 1 on E_{37.a1}. The failure here
-    reflects the LEAN TREE's asymmetric state: real algebraic-rank
-    witnesses (via Heegner cascade) exist, real analytic-rank witnesses
-    do not. When the tree gains analytic-rank machinery, this theorem
-    will become false and the bounded-encoding population will yield
-    a witness of the true BSD equality on E_{37.a1} instead. -/
-theorem bounded_Clay_BSD_fails_unconditionally :
+/-- **`Clay_BSD_Standard` predicate fails on `StandardBSDEncoding_Bounded`
+    under the tree's current witness asymmetry.**
+
+    This is NOT a refutation of the Birch-Swinnerton-Dyer conjecture,
+    nor an unconditional BSD gap, nor honest evidence about the
+    arithmetic of `E_{37.a1}`. The theorem records exactly ONE thing:
+    when a bounded-encoding `RankLowerBoundWitness` has `r_alg_lb ≥ 1`
+    but `r_an_lb = 0` (which the current tree forces for every populated
+    algebraic instance, because `AnalyticRankLowerBoundEvidence` has only
+    the trivial constructor), the syntactic Clay-predicate fails on the
+    resulting pair.
+
+    Fixing this failure requires EITHER (a) adding a real
+    `AnalyticRankLowerBoundEvidence` constructor at rank ≥ 1 (which the
+    tree currently lacks), OR (b) restricting the encoding to only allow
+    the `r_alg_lb = 0` case (which would forfeit the algebraic witness).
+    The theorem measures encoding-vs-witness-population tension in the
+    LEAN TREE. It does not measure `E_{37.a1}`. -/
+theorem boundedEncoding_ClayPredicate_falsified_by_treeAsymmetry :
     ¬ Clay_BSD_Standard StandardBSDEncoding_Bounded := by
   apply bounded_Clay_BSD_not_provable_under_populated_algebraic
-  exact ⟨sigmaWitness_E37a1, Nat.le_refl 1⟩
+  exact ⟨treeStateSigma_E37a1, Nat.le_refl 1⟩
+
+/-- Provenance alias. Original name from commit `146c153d`; the word
+    "unconditionally" combined with "Clay_BSD" suggested a BSD result.
+    The theorem is a tree-witness-asymmetry diagnostic, not a BSD
+    unconditional. Preserved as an alias for reference continuity only. -/
+@[deprecated boundedEncoding_ClayPredicate_falsified_by_treeAsymmetry
+  (since := "2026-09-12 (reclassification: tree-asymmetry diagnostic, not BSD)")]
+theorem bounded_Clay_BSD_fails_unconditionally :
+    ¬ Clay_BSD_Standard StandardBSDEncoding_Bounded :=
+  boundedEncoding_ClayPredicate_falsified_by_treeAsymmetry
 
 /-! ## Section 6 — In-file axiom audit (build-tree-discipline)
 
@@ -366,7 +468,14 @@ section AxiomAudit
 #print axioms bounded_encoding_exhibits_bsd_gap
 #print axioms bounded_Clay_BSD_not_provable_under_populated_algebraic
 
--- E_{37.a1} population (2026-09-12)
+-- Tree-state instance and asymmetry diagnostic on E_{37.a1}
+-- (2026-09-12 reclassified names)
+#print axioms treeStateInstance_E37a1
+#print axioms treeStateSigma_E37a1
+#print axioms boundedEncoding_projectionAsymmetry_at_E37a1
+#print axioms boundedEncoding_ClayPredicate_falsified_by_treeAsymmetry
+
+-- Provenance aliases (preserve original names from commit 146c153d)
 #print axioms witness_E37a1
 #print axioms sigmaWitness_E37a1
 #print axioms bounded_encoding_gap_at_E37a1
