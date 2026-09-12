@@ -414,4 +414,42 @@ theorem chapter_three_headline (α : ℝ) :
    fun hs => fractalResonance_summable_of_re_gt_one α hs,
    fractalResonance_alpha_zero⟩
 
+/-! ## Section 10 — In-file axiom audit (build-tree-discipline)
+
+Every principal declaration in this file audits to the mathlib base
+`[propext, Classical.choice, Quot.sound]`. No project axioms, no
+`sorry`, no `native_decide`. This block is intentionally at the end of
+the file so any regression of an upstream import that pulls in an
+unwanted axiom will surface immediately in `lake build` output.
+
+Charter reference: `codex/RF_FORMALIZATION_CHARTER_2026-09-12.md` §4
+Action *R_f-Audit*. Discipline reference: memory rule
+`build-tree-discipline` ("a stone lands with its `#print axioms` block
+and its `PF.lean` import line"). -/
+
+section AxiomAudit
+
+-- Atomic definitions of the R_f arc (ch03 Def 3.1, eq (3.2), eq (3.4))
+#print axioms phaseFactor
+#print axioms fractalResonanceTerm_complex
+#print axioms fractalResonance
+
+-- Chapter-3 Theorem 3.1 (unit modulus, summand bound, absolute convergence)
+#print axioms norm_phaseFactor
+#print axioms norm_fractalResonanceTerm_complex
+#print axioms fractalResonance_summable_of_re_gt_one
+#print axioms fractalResonance_convergent_of_re_gt_one
+
+-- Chapter-3 Proposition 3.4 (α = 0 special case: R_f = ζ-Dirichlet series)
+#print axioms fractalResonance_alpha_zero
+
+-- R_f-Bridge (2026-09-12): connects Dirichlet-series form at α = 0 to
+-- mathlib's analytically-continued `riemannZeta`, on `Re s > 1`.
+#print axioms fractalResonance_alpha_zero_eq_riemannZeta
+
+-- Headline conjunction of the axiom-free chapter-3 facts
+#print axioms chapter_three_headline
+
+end AxiomAudit
+
 end PrincipiaTractalis.Consciousness
