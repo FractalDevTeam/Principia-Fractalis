@@ -186,6 +186,38 @@ theorem fractalResonance_alpha_zero (s : ℂ) :
   · rfl
   · exact fractalResonanceTerm_complex_alpha_zero s n
 
+/-- **`R_f(0, s) = ζ(s)` in the Dirichlet-series half-plane.**
+
+    The atomic-level bridge lemma connecting Pablo's `fractalResonance`
+    (built as a `tsum`) to mathlib's analytically-continued
+    `Complex.riemannZeta`. Holds on `Re s > 1` (where the Dirichlet
+    series converges); outside that half-plane the two objects are
+    defined by different constructions and the identity does not hold
+    definitionally.
+
+    Manuscript: Ch 3 Prop 3.2(1), eq (3.9), "Riemann zeta basepoint."
+
+    Uses mathlib's `zeta_eq_tsum_one_div_nat_cpow` for the Dirichlet-
+    series form of `riemannZeta`, then bridges the `n = 0` guard via
+    `Complex.zero_cpow` (`(0 : ℂ)^s = 0` for `s ≠ 0`).
+
+    Axiom-free. -/
+theorem fractalResonance_alpha_zero_eq_riemannZeta
+    {s : ℂ} (hs : 1 < s.re) :
+    fractalResonance 0 s = riemannZeta s := by
+  rw [fractalResonance_alpha_zero]
+  rw [zeta_eq_tsum_one_div_nat_cpow hs]
+  -- Bridge the guard: the n = 0 term is 0 on the LHS by construction;
+  -- on the RHS it is `1 / (0 : ℂ)^s = 1/0 = 0` under mathlib convention,
+  -- since `s ≠ 0` (from `1 < s.re`).
+  congr 1
+  funext n
+  split_ifs with hn
+  · subst hn
+    have hs0 : s ≠ 0 := Complex.ne_zero_of_one_lt_re hs
+    rw [Nat.cast_zero, Complex.zero_cpow hs0, div_zero]
+  · rfl
+
 /-! ## Section 5 — Manuscript's worked example: `D_3` at small `n`
 
     Manuscript: Ch 3 Example following Definition 3.1 (lines 64-76).
