@@ -1910,25 +1910,90 @@ private noncomputable def tower_zero_iso
     tower_iso_sequence then uses `Classical.choose` and the compat
     lemma is a direct `Classical.choose_spec` projection. -/
 
+/-- **C4.2 helper.** Conjugation by a unitary `U` in a matrix algebra
+    as a `StarAlgEquiv`. The inverse is conjugation by `star U`.
+
+    All field proofs use explicit `mul_assoc`, `one_mul`, `mul_one`,
+    `star_mul`, `star_star` — NEVER `ring` on matrices. -/
+private noncomputable def conjByUnitary
+    {N : ℕ}
+    (U : Matrix (Fin N) (Fin N) ℂ)
+    (hU1 : U * star U = 1) (hU2 : star U * U = 1) :
+    Matrix (Fin N) (Fin N) ℂ ≃⋆ₐ[ℂ] Matrix (Fin N) (Fin N) ℂ where
+  toFun x := U * x * star U
+  invFun x := star U * x * U
+  left_inv x := by
+    show star U * (U * x * star U) * U = x
+    -- Reassociate everything to the right, then collapse (star U * U) = 1.
+    simp only [mul_assoc]
+    -- Goal now: star U * (U * (x * (star U * U))) = x
+    rw [hU2, mul_one]
+    -- Goal now: star U * (U * x) = x
+    rw [← mul_assoc, hU2, one_mul]
+  right_inv x := by
+    show U * (star U * x * U) * star U = x
+    simp only [mul_assoc]
+    rw [hU1, mul_one]
+    rw [← mul_assoc, hU1, one_mul]
+  map_add' x y := by
+    show U * (x + y) * star U = U * x * star U + U * y * star U
+    rw [mul_add, add_mul]
+  map_mul' x y := by
+    show U * (x * y) * star U = (U * x * star U) * (U * y * star U)
+    -- Right-assoc both sides via mul_assoc; collapse (star U * U) = 1.
+    simp only [mul_assoc]
+    -- Goal: U * (x * (y * star U)) = U * (x * (star U * (U * (y * star U))))
+    congr 1
+    congr 1
+    rw [← mul_assoc (star U) U (y * star U), hU2, one_mul]
+  map_smul' c x := by
+    show U * (c • x) * star U = c • (U * x * star U)
+    rw [Matrix.mul_smul, Matrix.smul_mul]
+  map_star' x := by
+    show U * star x * star U = star (U * x * star U)
+    rw [star_mul, star_mul, star_star, mul_assoc]
+
+@[simp] private lemma conjByUnitary_apply
+    {N : ℕ}
+    (U : Matrix (Fin N) (Fin N) ℂ)
+    (hU1 : U * star U = 1) (hU2 : star U * U = 1)
+    (x : Matrix (Fin N) (Fin N) ℂ) :
+    conjByUnitary U hU1 hU2 x = U * x * star U := rfl
+
+/-- **C4.2 helper.** Reindex a square-matrix algebra along a bijection
+    of index sets, as a `StarAlgEquiv`. Upgrades
+    `Matrix.reindexAlgEquiv` — the `map_star'` field is `rfl` after
+    reducing `star` to `conjTranspose` and invoking
+    `Matrix.conjTranspose_reindex` (mirrors the C1.5 upgrade). -/
+private noncomputable def reindexStarAlgEquiv
+    {m n : ℕ} (e : Fin m ≃ Fin n) :
+    Matrix (Fin m) (Fin m) ℂ ≃⋆ₐ[ℂ] Matrix (Fin n) (Fin n) ℂ :=
+  { Matrix.reindexAlgEquiv ℂ ℂ e with
+    map_star' := fun x => by
+      change Matrix.reindex e e (star x) = star (Matrix.reindex e e x)
+      rw [show (star :
+            Matrix (Fin n) (Fin n) ℂ →
+            Matrix (Fin n) (Fin n) ℂ)
+            = Matrix.conjTranspose from rfl,
+          Matrix.conjTranspose_reindex]
+      rfl
+    map_smul' := fun c x =>
+      _root_.map_smul (Matrix.reindexAlgEquiv ℂ ℂ e) c x }
+
+@[simp] private lemma reindexStarAlgEquiv_apply
+    {m n : ℕ} (e : Fin m ≃ Fin n)
+    (M : Matrix (Fin m) (Fin m) ℂ) :
+    reindexStarAlgEquiv e M = Matrix.reindex e e M := rfl
+
+private lemma reindexStarAlgEquiv_symm_apply
+    {m n : ℕ} (e : Fin m ≃ Fin n)
+    (M : Matrix (Fin n) (Fin n) ℂ) :
+    (reindexStarAlgEquiv e).symm M = Matrix.reindex e.symm e.symm M := rfl
+
 /-- **C4.2 existence.** Noether–Skolem correction: given a level-`k`
     *-iso `φ_k` between the towers of `A` and `B`, there exists a
     level-`k+1` *-iso whose composition with the A-side inclusion
-    equals the B-side inclusion composed with `φ_k`.
-
-    **Proof sketch.** Both `hA.tower (k+1)` and `hB.tower (k+1)` are
-    finite-dimensional (isomorphic to `M_{3^{k+1}}(ℂ)`). The A-side
-    embedding `inclA_k : hA.tower k ↪ hA.tower (k+1)` and the composite
-    `inclB_k ∘ φ_k : hA.tower k → hB.tower (k+1)` are both injective
-    *-hom families with the same source. Transporting to matrices via
-    the tower_matrix isos yields two unital *-homs `M_{3^k} → M_{3^{k+1}}`
-    (with the codomain reindexed to `Fin (3 · 3^k)` via `Nat.pow_succ`),
-    which by C2 (`unital_star_hom_inner_unique`) differ by conjugation
-    by a unitary `U`. Define φ_{k+1} as the A→B matrix iso composed
-    with conjugation by `U*`, giving the intertwining by construction.
-
-    **Kernel discipline.** This lemma is the SOLE remaining leaf
-    encapsulating the full C4.2 Noether–Skolem correction. It is
-    farmed as its own proof card. -/
+    equals the B-side inclusion composed with `φ_k`. -/
 private lemma tower_step_iso_exists
     (hA : Substrate3Inf A) (hB : Substrate3Inf B) (k : ℕ)
     (φ_k : hA.tower k ≃⋆ₐ[ℂ] hB.tower k) :
@@ -1936,22 +2001,150 @@ private lemma tower_step_iso_exists
       ∀ x : hA.tower k,
         φ ((StarSubalgebra.inclusion (hA.tower_mono k)) x)
         = (StarSubalgebra.inclusion (hB.tower_mono k)) (φ_k x) := by
-  -- Full Noether–Skolem correction. Proof structure:
-  --   1. Extract αkp1 : hA.tower(k+1) ≃⋆ₐ M_{3^{k+1}} and βkp1 for B.
-  --   2. Extract αk, βk at level k.
-  --   3. Define f_A, f_B : M_{3^k} → M_{3^{k+1}} as
-  --        f_A := αkp1 ∘ inclA_k ∘ αk.symm
-  --        f_B := βkp1 ∘ inclB_k ∘ (βk.symm ∘ φ_k^* ∘ αk⁻¹ inline...)
-  --      More precisely f_B ∘ (transported φ_k) at the M_{3^k} level.
-  --   4. Reindex codomain from Fin(3^{k+1}) to Fin(3·3^k) via
-  --        Matrix.reindexAlgEquiv (finCongr (Nat.pow_succ 3 k)).
-  --   5. Invoke unital_star_hom_inner_unique to obtain U with
-  --        f_A x = U * f_B x * star U.
-  --   6. Define φ := αkp1.symm ∘ (conj-by-U⁻¹) ∘ βkp1
-  --      lifted through the reindex; unpack to hA.tower(k+1) ≃ hB.tower(k+1).
-  --   7. Verify diamond by pointwise unfolding on x ∈ hA.tower k.
-  -- This is 150-200 lines of dense matrix algebra. Held as leaf.
-  sorry
+  classical
+  -- Matrix isos at both levels.
+  let αk   : hA.tower k ≃⋆ₐ[ℂ] Matrix (Fin (3^k)) (Fin (3^k)) ℂ :=
+    (hA.tower_matrix k).some
+  let αkp1 : hA.tower (k+1) ≃⋆ₐ[ℂ]
+             Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ :=
+    (hA.tower_matrix (k+1)).some
+  let βkp1 : hB.tower (k+1) ≃⋆ₐ[ℂ]
+             Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ :=
+    (hB.tower_matrix (k+1)).some
+  -- Naive iso through matrices (does not intertwine yet).
+  let ψ : hA.tower (k+1) ≃⋆ₐ[ℂ] hB.tower (k+1) := αkp1.trans βkp1.symm
+  -- The A/B tower inclusions.
+  let inclA : hA.tower k →⋆ₐ[ℂ] hA.tower (k+1) :=
+    (StarSubalgebra.inclusion (hA.tower_mono k))
+  let inclB : hB.tower k →⋆ₐ[ℂ] hB.tower (k+1) :=
+    (StarSubalgebra.inclusion (hB.tower_mono k))
+  -- Two unital *-homs M_{3^k} → M_{3^{k+1}}. Coerce StarAlgEquiv via
+  -- the default coercion to `→⋆ₐ` (StarAlgHom).
+  let αkp1' : hA.tower (k+1) →⋆ₐ[ℂ]
+              Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ := αkp1
+  let βkp1' : hB.tower (k+1) →⋆ₐ[ℂ]
+              Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ := βkp1
+  let φ_k' : hA.tower k →⋆ₐ[ℂ] hB.tower k := φ_k
+  let αkinv : Matrix (Fin (3^k)) (Fin (3^k)) ℂ →⋆ₐ[ℂ] hA.tower k :=
+    αk.symm
+  let fA : Matrix (Fin (3^k)) (Fin (3^k)) ℂ →⋆ₐ[ℂ]
+           Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ :=
+    (αkp1'.comp inclA).comp αkinv
+  let fB : Matrix (Fin (3^k)) (Fin (3^k)) ℂ →⋆ₐ[ℂ]
+           Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ :=
+    ((βkp1'.comp inclB).comp φ_k').comp αkinv
+  -- Reindex 3^(k+1) ↔ 3 * 3^k so we can invoke C2 with k := 3, n := 3^k.
+  have hpow : 3 ^ (k+1) = 3 * 3 ^ k := by
+    rw [Nat.pow_succ, Nat.mul_comm]
+  let e : Fin (3^(k+1)) ≃ Fin (3 * 3^k) := finCongr hpow
+  let R : Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ ≃⋆ₐ[ℂ]
+          Matrix (Fin (3 * 3^k)) (Fin (3 * 3^k)) ℂ :=
+    reindexStarAlgEquiv e
+  let R' : Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ →⋆ₐ[ℂ]
+           Matrix (Fin (3 * 3^k)) (Fin (3 * 3^k)) ℂ := R
+  -- Transported *-homs into M_{3 * 3^k}.
+  let fA' : Matrix (Fin (3^k)) (Fin (3^k)) ℂ →⋆ₐ[ℂ]
+            Matrix (Fin (3 * 3^k)) (Fin (3 * 3^k)) ℂ :=
+    R'.comp fA
+  let fB' : Matrix (Fin (3^k)) (Fin (3^k)) ℂ →⋆ₐ[ℂ]
+            Matrix (Fin (3 * 3^k)) (Fin (3 * 3^k)) ℂ :=
+    R'.comp fB
+  -- Noether–Skolem: fA' and fB' are conjugate by some unitary U'.
+  haveI hNZ3 : NeZero (3 : ℕ) := ⟨by decide⟩
+  obtain ⟨U', hU'1, hU'2, hU'eq⟩ :=
+    unital_star_hom_inner_unique (n := 3^k) (k := 3) fA' fB'
+  -- Transport U' back to M_{3^(k+1)}.
+  let U : Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ := R.symm U'
+  have hU1 : U * star U = 1 := by
+    show R.symm U' * star (R.symm U') = 1
+    rw [← map_star, ← map_mul, hU'1, map_one]
+  have hU2 : star U * U = 1 := by
+    show star (R.symm U') * R.symm U' = 1
+    rw [← map_star, ← map_mul, hU'2, map_one]
+  -- The key identity: fA x = U * fB x * star U.
+  have hfAB : ∀ x : Matrix (Fin (3^k)) (Fin (3^k)) ℂ,
+      fA x = U * fB x * star U := by
+    intro x
+    have hx : fA' x = U' * fB' x * star U' := hU'eq x
+    -- Apply R.symm to both sides.
+    have hRsym : R.symm (fA' x) = R.symm (U' * fB' x * star U') :=
+      congrArg R.symm hx
+    -- R.symm ∘ R = id, and fA' x = R (fA x) by definition of fA'.
+    have hfA_id : R.symm (fA' x) = fA x := R.symm_apply_apply (fA x)
+    have hfB_id : R.symm (fB' x) = fB x := R.symm_apply_apply (fB x)
+    have hstar_id : R.symm (star U') = star U := by
+      show R.symm (star U') = star (R.symm U')
+      exact (map_star R.symm U').symm
+    calc fA x
+        = R.symm (fA' x) := hfA_id.symm
+      _ = R.symm (U' * fB' x * star U') := hRsym
+      _ = R.symm U' * R.symm (fB' x) * R.symm (star U') := by
+            rw [map_mul, map_mul]
+      _ = U * fB x * star U := by
+            rw [hfB_id, hstar_id]
+  -- Build the correction StarAlgEquiv on hB.tower(k+1): conjugation
+  -- by star U, transported through βkp1.
+  --   correction(y) = βkp1.symm (star U * βkp1 y * U).
+  -- Uses conjByUnitary with (star U) as the unitary. Unitarity:
+  --   (star U) * star (star U) = star U * U = 1  ← hU2
+  --   star (star U) * (star U) = U * star U = 1  ← hU1
+  have hSU1 : star U * star (star U) = 1 := by rw [star_star]; exact hU2
+  have hSU2 : star (star U) * star U = 1 := by rw [star_star]; exact hU1
+  let conjSU : Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ ≃⋆ₐ[ℂ]
+               Matrix (Fin (3^(k+1))) (Fin (3^(k+1))) ℂ :=
+    conjByUnitary (star U) hSU1 hSU2
+  let correction : hB.tower (k+1) ≃⋆ₐ[ℂ] hB.tower (k+1) :=
+    βkp1.trans (conjSU.trans βkp1.symm)
+  -- The corrected step-iso.
+  refine ⟨ψ.trans correction, ?_⟩
+  intro x
+  -- Intertwining chain.
+  show correction (ψ (inclA x)) = inclB (φ_k x)
+  -- Step 1: unfold correction.
+  have hcorr :
+      correction (ψ (inclA x))
+        = βkp1.symm (conjSU (βkp1 (ψ (inclA x)))) := rfl
+  rw [hcorr]
+  -- Step 2: conjSU y = star U * y * star (star U) = star U * y * U.
+  have hconj : ∀ y, conjSU y = star U * y * U := by
+    intro y
+    show star U * y * star (star U) = star U * y * U
+    rw [star_star]
+  rw [hconj (βkp1 (ψ (inclA x)))]
+  -- Step 3: βkp1 (ψ (inclA x)) = αkp1 (inclA x).
+  have hβψ : βkp1 (ψ (inclA x)) = αkp1 (inclA x) := by
+    show βkp1 (βkp1.symm (αkp1 (inclA x))) = αkp1 (inclA x)
+    exact βkp1.apply_symm_apply _
+  rw [hβψ]
+  -- Step 4: αkp1 (inclA x) = fA (αk x).
+  have hfAeq : αkp1 (inclA x) = fA (αk x) := by
+    show αkp1 (inclA x)
+          = (αkp1' (inclA (αk.symm (αk x))))
+    rw [αk.symm_apply_apply]
+    rfl
+  rw [hfAeq]
+  -- Step 5: replace fA (αk x) via C2 identity.
+  rw [hfAB (αk x)]
+  -- Step 6: Collapse (star U * U) = 1 on both sides.
+  --   star U * (U * fB(αk x) * star U) * U = fB (αk x).
+  have hcollapse :
+      star U * (U * fB (αk x) * star U) * U = fB (αk x) := by
+    -- Right-associate everything.
+    simp only [mul_assoc]
+    -- Goal: star U * (U * (fB (αk x) * (star U * U))) = fB (αk x)
+    rw [hU2, mul_one]
+    -- Goal: star U * (U * fB (αk x)) = fB (αk x)
+    rw [← mul_assoc, hU2, one_mul]
+  rw [hcollapse]
+  -- Step 7: fB (αk x) = βkp1 (inclB (φ_k x)).
+  have hfBeq : fB (αk x) = βkp1 (inclB (φ_k x)) := by
+    show βkp1' (inclB (φ_k' (αk.symm (αk x))))
+          = βkp1 (inclB (φ_k x))
+    rw [αk.symm_apply_apply]
+    rfl
+  rw [hfBeq]
+  -- Step 8: βkp1.symm (βkp1 y) = y.
+  exact βkp1.symm_apply_apply _
 
 /-- **C4.2.** Inductive step, packaged from the existence lemma. -/
 private noncomputable def tower_step_iso
@@ -2263,12 +2456,12 @@ kernel-clean. On completion:
   · then add the `import PF.SubstrateRigidity` line to `PF.lean`.
 -/
 
--- #print axioms T_infinity_rigidity
--- #print axioms substrate3Inf_iso
--- #print axioms substrate3Inf_TimelessFieldCompletion
--- #print axioms Substrate3Inf.connect_iso
--- #print axioms Substrate3Inf.connect_unital
--- #print axioms IsTracialLinearFunctional
+#print axioms T_infinity_rigidity
+#print axioms substrate3Inf_iso
+#print axioms substrate3Inf_TimelessFieldCompletion
+#print axioms Substrate3Inf.connect_iso
+#print axioms Substrate3Inf.connect_unital
+#print axioms IsTracialLinearFunctional
 
 end SubstrateRigidity
 end PrincipiaTractalis
