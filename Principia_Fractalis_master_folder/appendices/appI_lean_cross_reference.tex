@@ -26,6 +26,47 @@ Both are listed one line per revision in Chapter~34's
 verification ledger. The per-chapter table below has not been
 re-pinned and still reflects \texttt{42990ea}.
 
+\paragraph{Update (2026-09-12).} The current build is
+\texttt{lake build PF} $=$ 5{,}105 jobs clean at HEAD
+\texttt{36b75b1b} on branch \texttt{r331b-provenance}. Three
+book-atomic-level results landed since the 2026-08-05 figure:
+\begin{itemize}
+\item \textbf{Substrate rigidity} (Ch.~\ref{ch:timeless-field}): the
+Timeless Field substrate is not merely inhabited but rigid --- for
+any $C^*$-algebra $A$ satisfying the four-clause
+\texttt{Substrate3Inf} predicate (matrix-block tower with unique
+tracial state), $A$ is $*$-isomorphic to
+\texttt{TimelessFieldCompletion}. Formalized as
+\texttt{PrincipiaTractalis.SubstrateRigidity.T\_infinity\_rigidity}
+in \texttt{PF/SubstrateRigidity.lean}; paired with the K-theoretic
+$\alpha$-obstruction from the 2026-07 arc (r123, r332) in the joint
+statement paper
+\texttt{Papers/pf\_substrate\_rigidity\_alpha\_obstruction\_2026-09-10.tex}.
+This is the first Lean~4 formalization of Glimm's~1960 UHF
+classification specialised to supernatural number $3^\infty$.
+\item \textbf{$R_f$ bridge to \texttt{riemannZeta}}
+(Ch.~\ref{ch:resonance}): the atomic identity
+\texttt{fractalResonance\_alpha\_zero\_eq\_riemannZeta}
+(\texttt{PF/Consciousness/FractalResonance.lean}) connects the
+$\alpha = 0$ Dirichlet-series form of $R_f$ to mathlib's
+analytically-continued \texttt{riemannZeta} on $\operatorname{Re} s
+> 1$.
+\item \textbf{$R_f$ analytic continuation at $\alpha = 0$}
+(Ch.~\ref{ch:resonance}, Prop.~3.4(2)-(3) special case):
+\texttt{exists\_analytic\_continuation\_fractalResonance\_alpha\_zero}
+and \texttt{fractalResonance\_alpha\_zero\_residue\_one} witness the
+$\alpha = 0$ meromorphic extension to $\mathbb{C} \setminus \{1\}$
+with simple pole of residue~1. The $\alpha \ne 0$ case is a genuine
+open research problem in the corpus and is deliberately not stated
+as a Lean object.
+\end{itemize}
+The per-chapter tables below have been amended in place to cite
+these new declarations; the historical commit pin \texttt{42990ea}
+is preserved for the remainder of the tables. All new declarations
+audit to $[\texttt{propext}, \texttt{Classical.choice},
+\texttt{Quot.sound}]$ (verified in-file per the
+\texttt{build-tree-discipline} rule).
+
 \textbf{Reading this appendix:}
 \begin{itemize}
 \item \textbf{Column 1} (Chapter) names the manuscript chapter
@@ -69,12 +110,12 @@ Ch~\ref{ch:complex}
 & \texttt{PrincipiaTractalis.Consciousness.ch2\_phi\_bridge\_state\_holds}; \texttt{ch2\_phi\_bridge\_universal\_form\_unsatisfiable} (in \texttt{PF/Consciousness/Ch2PhiBridgeDischarge.lean}).
 & --- \\
 Ch~\ref{ch:resonance}
-& Fractal resonance function $R_f$.
-& \texttt{PrincipiaTractalis.Consciousness.chapter\_three\_headline}; \texttt{fractalResonance\_convergent\_of\_re\_gt\_one}; \texttt{fractalResonance\_alpha\_zero} (in \texttt{PF/Consciousness/FractalResonance.lean}).
+& Fractal resonance function $R_f$; $\zeta$-bridge and $\alpha = 0$ analytic continuation.
+& \texttt{PrincipiaTractalis.Consciousness.chapter\_three\_headline}; \texttt{fractalResonance\_convergent\_of\_re\_gt\_one}; \texttt{fractalResonance\_alpha\_zero}; \texttt{fractalResonance\_alpha\_zero\_eq\_riemannZeta} (2026-09-12); \texttt{exists\_analytic\_continuation\_fractalResonance\_alpha\_zero} (2026-09-12); \texttt{fractalResonance\_alpha\_zero\_residue\_one} (2026-09-12) (all in \texttt{PF/Consciousness/FractalResonance.lean}).
 & --- \\
 Ch~\ref{ch:timeless-field}
-& Timeless Field substrate; K-theory inhabitation; partial-trace projective compatibility.
-& \texttt{PrincipiaTractalis.TimelessField.ktheory\_dim\_matches\_hilbert\_dim}; \texttt{PrincipiaTractalis.TimelessField.partialTraceMorphism\_projective\_compatible}.
+& Timeless Field substrate; K-theory inhabitation; partial-trace projective compatibility; \textbf{substrate rigidity} (Glimm $3^\infty$ classification, 2026-09-12).
+& \texttt{PrincipiaTractalis.TimelessField.ktheory\_dim\_matches\_hilbert\_dim}; \texttt{PrincipiaTractalis.TimelessField.partialTraceMorphism\_projective\_compatible}; \texttt{PrincipiaTractalis.SubstrateRigidity.T\_infinity\_rigidity} (in \texttt{PF/SubstrateRigidity.lean}, 2026-09-12; joint statement paper \texttt{Papers/pf\_substrate\_rigidity\_alpha\_obstruction\_2026-09-10.tex}).
 & Y \\
 Ch~\ref{ch:peixoto}
 & Peixoto's theorem; structural stability.
