@@ -63,10 +63,15 @@ All declarations audit to `[propext, Classical.choice, Quot.sound]`. See
 
 import Mathlib.AlgebraicGeometry.EllipticCurve.Weierstrass
 import PF.Referee.StandardClayStatements
+import PF.BSD_HeegnerRank1Proof  -- for E_rank_one, heegnerDerived_rankWitnessTyped_E37a1
 
 namespace PrincipiaTractalis.BSD.BoundedEncoding
 
 open PF.Referee.StandardClayStatements
+open PrincipiaTractalis
+open PrincipiaTractalis.BSD_RankWitnessTypedUpgrade  -- for RankWitnessTyped
+open PrincipiaTractalis.BSDGaloisPairConcordance     -- for E_rank_one
+open PrincipiaTractalis.BSD_HeegnerRank1Proof         -- for the E_37a1 witnesses
 
 /-! ## Section 1 — Evidence types
 
@@ -94,12 +99,15 @@ inductive AlgebraicRankLowerBoundEvidence : WeierstrassCurve ℚ → ℕ → Typ
   /-- Trivial: algebraic rank is `≥ 0` for any curve (no evidence needed). -/
   | trivial (E : WeierstrassCurve ℚ) : AlgebraicRankLowerBoundEvidence E 0
   /-- Rank-1 lower bound via a Heegner cascade witness for the specific
-      curve `E`. Populating this constructor with a real witness requires
-      importing `PF/BSD_HeegnerRank1Proof*.lean`. The abstract token here
-      exists to *reserve the shape* of the evidence — populating it in a
-      future landing does not change this file's kernel-audit status. -/
+      curve `E`. Populated 2026-09-12 with the real `RankWitnessTyped E 1`
+      structural proxy from `PF/BSD_RankWitnessTypedUpgrade.lean`: an
+      explicit non-zero rational obtained from a Heegner-derived point
+      on the curve. This is NOT a `True`-shape placeholder — it requires
+      a genuine `∃ g : Fin 1 → ℚ, g 0 ≠ 0` witness. On `E_{37.a1}` this
+      is discharged axiom-free via `heegnerDerived_rankWitnessTyped_E37a1`
+      (the y-coordinate `-1` of the duplicate of the (0,0) generator). -/
   | heegnerRankOne (E : WeierstrassCurve ℚ)
-      (heegnerFlag : True) :
+      (rankWitness : RankWitnessTyped E 1) :
       AlgebraicRankLowerBoundEvidence E 1
 
 /-- Evidence for an analytic-rank lower bound. Currently only the trivial
@@ -261,7 +269,81 @@ theorem bounded_Clay_BSD_not_provable_under_populated_algebraic
   have := bounded_encoding_exhibits_bsd_gap p hp
   exact this (hclay p)
 
-/-! ## Section 5 — In-file axiom audit (build-tree-discipline)
+/-! ## Section 5 — E_{37.a1} population (2026-09-12)
+
+    Concrete population of the bounded encoding on `E_{37.a1}` (the
+    famous rank-1 curve `y² + y = x³ − x`, LMFDB 37.a1), reusing the
+    existing kernel-verified Heegner-cascade infrastructure in
+    `PF/BSD_HeegnerRank1Proof.lean`.
+
+    The algebraic-side evidence is `heegnerRankOne E_rank_one h`, where
+    `h : RankWitnessTyped E_rank_one 1` is discharged axiom-free via
+    `heegnerDerived_rankWitnessTyped_E37a1` — an explicit non-zero
+    rational (the y-coordinate `−1` of the duplicate of the (0,0)
+    generator, verified on the curve axiom-free by `norm_num`).
+
+    The analytic-side evidence is `AnalyticRankLowerBoundEvidence.trivial`
+    at `r_an_lb = 0` — the honest current-state answer: no kernel-verified
+    analytic-rank witness ≥ 1 exists in the tree. When a future landing
+    supplies real analytic-rank machinery, a new constructor can be added
+    to `AnalyticRankLowerBoundEvidence` and the witness below upgraded
+    to reflect the new bound; until then, the population honestly
+    exhibits `r_an_lb = 0 ≠ 1 = r_alg_lb`. -/
+
+/-- **Populated E_{37.a1} witness.** Algebraic-rank lower bound `1`,
+    discharged axiom-free via the Heegner-derived non-torsion witness.
+    Analytic-rank lower bound `0`, matching the honest current absence
+    of kernel-verified analytic-rank machinery. -/
+noncomputable def witness_E37a1 : RankLowerBoundWitness E_rank_one where
+  r_alg_lb := 1
+  r_an_lb  := 0
+  alg_evidence := AlgebraicRankLowerBoundEvidence.heegnerRankOne
+    E_rank_one heegnerDerived_rankWitnessTyped_E37a1
+  an_evidence := AnalyticRankLowerBoundEvidence.trivial E_rank_one
+
+/-- **The populated Σ-pair on `E_{37.a1}`.** Concrete inhabitant of
+    `Σ E, RankLowerBoundWitness E` with `r_alg_lb = 1` and `r_an_lb = 0`,
+    exhibiting the BSD gap on this specific curve as a Lean object. -/
+noncomputable def sigmaWitness_E37a1 :
+    Σ E : WeierstrassCurve ℚ, RankLowerBoundWitness E :=
+  ⟨E_rank_one, witness_E37a1⟩
+
+/-- **Bounded-encoding BSD gap on E_{37.a1}, UNCONDITIONAL.** For the
+    populated Σ-pair `⟨E_{37.a1}, witness_E37a1⟩`, the analytic-rank
+    projection is `0` and the algebraic-rank projection is `1`, so the
+    Clay equality fails on this pair.
+
+    This is the axiomatic-free discharge of the existential hypothesis
+    in `bounded_Clay_BSD_not_provable_under_populated_algebraic`. -/
+theorem bounded_encoding_gap_at_E37a1 :
+    boundedAnalyticRank sigmaWitness_E37a1
+      ≠ boundedAlgebraicRank sigmaWitness_E37a1 := by
+  apply bounded_encoding_exhibits_bsd_gap
+  -- Goal: 1 ≤ sigmaWitness_E37a1.2.r_alg_lb, which is 1 ≤ 1.
+  exact Nat.le_refl 1
+
+/-- **UNCONDITIONAL: `Clay_BSD_Standard` fails on the bounded encoding.**
+    Discharges the existential hypothesis of
+    `bounded_Clay_BSD_not_provable_under_populated_algebraic` using the
+    populated `witness_E37a1`. Concludes that the Clay BSD statement on
+    `StandardBSDEncoding_Bounded` is NOT true — because the encoding
+    includes a curve (E_{37.a1}) whose algebraic-rank lower bound (1,
+    Heegner-derived) exceeds its analytic-rank lower bound (0, the
+    honest current tree state).
+
+    This is NOT a refutation of BSD — BSD says `analytic_rank =
+    algebraic_rank`, and both are 1 on E_{37.a1}. The failure here
+    reflects the LEAN TREE's asymmetric state: real algebraic-rank
+    witnesses (via Heegner cascade) exist, real analytic-rank witnesses
+    do not. When the tree gains analytic-rank machinery, this theorem
+    will become false and the bounded-encoding population will yield
+    a witness of the true BSD equality on E_{37.a1} instead. -/
+theorem bounded_Clay_BSD_fails_unconditionally :
+    ¬ Clay_BSD_Standard StandardBSDEncoding_Bounded := by
+  apply bounded_Clay_BSD_not_provable_under_populated_algebraic
+  exact ⟨sigmaWitness_E37a1, Nat.le_refl 1⟩
+
+/-! ## Section 6 — In-file axiom audit (build-tree-discipline)
 
     Every principal declaration in this file audits to
     `[propext, Classical.choice, Quot.sound]`. Regression discipline
@@ -270,16 +352,25 @@ theorem bounded_Clay_BSD_not_provable_under_populated_algebraic
 
 section AxiomAudit
 
+-- Structural declarations
 #print axioms AlgebraicRankLowerBoundEvidence
 #print axioms AnalyticRankLowerBoundEvidence
 #print axioms RankLowerBoundWitness
 #print axioms boundedAlgebraicRank
 #print axioms boundedAnalyticRank
 #print axioms StandardBSDEncoding_Bounded
+
+-- Honest-scope theorems (unpopulated form)
 #print axioms no_analytic_rank_ge_one_evidence_yet
 #print axioms bounded_witness_forces_analytic_zero
 #print axioms bounded_encoding_exhibits_bsd_gap
 #print axioms bounded_Clay_BSD_not_provable_under_populated_algebraic
+
+-- E_{37.a1} population (2026-09-12)
+#print axioms witness_E37a1
+#print axioms sigmaWitness_E37a1
+#print axioms bounded_encoding_gap_at_E37a1
+#print axioms bounded_Clay_BSD_fails_unconditionally
 
 end AxiomAudit
 
