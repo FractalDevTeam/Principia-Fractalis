@@ -2,6 +2,26 @@
 # BSD DIRECT DISCHARGE ATTEMPT — `Clay_BSD_Standard` on a typed
   Σ `WeierstrassCurve ℚ` × `RankCertificate` encoding
 
+**★ 2026-09-12 companion pointer.** The Σ-encoding below is a
+*bookkeeping wrapper* by design: both `sigmaAlgebraicRank` and
+`sigmaAnalyticRank` project the same field `p.2.r`, so
+`clay_BSD_standard_on_sigma` proves the Clay equality by `rfl`
+regardless of witness content. The file docstring at
+`clay_BSD_standard_on_sigma` acknowledges this
+("the content of the discharge lives in the requirement that the
+user supply a `RankCertificate`").
+
+For an **honest-scope companion** with TWO independent rank fields —
+where the Clay equality is NOT `rfl` and the current tree's absence
+of analytic-rank witnesses is machine-checked — see
+`PF/BSD_BoundedEncodingHonest.lean` (Campaign BSD-Bounded,
+`codex/BSD_HONEST_REWRITE_CHARTER_2026-09-12.md`). That companion
+does not replace this file (which remains as the historical
+wrapper) and does not touch the load-bearing substrate content
+(Heegner rank-1 flags, `mestre_nagao_trace`, `trace_eq_residues`);
+it exhibits the BSD gap as a Lean object rather than hiding it in
+`True`-shape witness fields.
+
 ★ 2026-06-02 — Auto-mode attempt at the strongest typed discharge
 of `PF.Referee.StandardClayStatements.Clay_BSD_Standard` available
 from the framework's existing axiom-free BSD infrastructure.
