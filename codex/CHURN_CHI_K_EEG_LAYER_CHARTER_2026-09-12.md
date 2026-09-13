@@ -12,9 +12,12 @@ primary-source justification.*
 
 **Layer 2 implementation and Layer 3 initiation both require:**
 1. Full-text verification of all citation-per-claim mappings by a
-   qualified reader with source access.
-2. Recovery of the primary Sitt et al. 2014 sample and AUC (and any
-   dependent power calculation) from the primary paper.
+   qualified reader with source access. (Sitt et al. 2014 was
+   full-text-verified 2026-09-13; other citations remain pending.)
+2. A χ_k-specific power analysis derived from the χ_k pilot's own
+   variance and an independently chosen smallest effect size of
+   interest. Do NOT transfer Sitt 2014's classifier AUC into a
+   χ_k Cohen's d.
 3. Ethics approvals for Groups A–D at ≥ 2 recording sites.
 4. Explicit further approval by Pablo per the standing collaboration
    discipline.
@@ -226,7 +229,11 @@ the §9 robustness checks.
 - **Bendat, J. S., & Piersol, A. G. (2010).** *Random Data* (4th
   ed.). Wiley-Interscience. **BACKGROUND TEXTBOOK, INACCESSIBLE.**
 - **Rosenberg, J. R., et al. (1989).** *Prog. Biophys. Mol. Biol.*
-  53:1–31. **METHODS PAPER, INACCESSIBLE.**
+  53:1–31. **REVIEW about Fourier analysis of neuronal SPIKE-TRAIN
+  data** (per correction 2026-09-13 point CC; previously miscategorized
+  as a methods paper on cross-spectral estimation). NOT a primary EEG
+  cross-spectral methods paper. Not usable to justify the charter's
+  §3.3 EEG estimator; do not treat as origin of any construction here.
 - **Pascual-Marqui, R. D. (2007).** arXiv:0706.1776. **PREPRINT,
   INACCESSIBLE.** Downgraded — do not cite as primary evidence.
 
@@ -241,10 +248,43 @@ a qualified reader with access, or (b) treatment as a new PF choice.
 ### §2.5 Consciousness-state EEG study design — background references (corrected)
 
 - **Sitt, J. D., et al. (2014).** *Brain* 137:2258–2270.
-  doi:10.1093/brain/awu141. **PRIMARY EXPERIMENTAL PAPER, DIRECTLY
-  CORRECTED per point J.** Per user verification, this paper analyzed
-  181 recordings (not "n ≈ 200 patients"). AUC values from the
-  primary paper's own analyses must be recovered for any quotation.
+  doi:10.1093/brain/awu141. **PRIMARY EXPERIMENTAL PAPER,
+  FULL-TEXT-VERIFIED 2026-09-13** via
+  `https://pmc.ncbi.nlm.nih.gov/articles/PMC4610185/?report=printable`.
+  Sample: 173 initial patient recordings, 6 discarded (<200 non-
+  artefacted trials), 167 valid recordings from 113 distinct patients,
+  patients recorded 1–6 times; 75 VS + 68 MCS + 24 brain-injured
+  conscious (CS) + 14 healthy controls = 181 recordings total.
+  Acquisition: 256-electrode EGI geodesic sensor net, 250 Hz sampling,
+  vertex reference during recording, 0.2–45 Hz bandpass, Local-Global
+  auditory protocol, ±150 µV voltage / ±80 µV eye-movement / ±150 µV
+  eye-blink rejection, >20% electrode rejection interpolated, trials
+  with >20 corrected electrodes rejected, average reference AFTER
+  cleaning. Classifier: linear Support Vector Classifier (Pedregosa
+  et al. 2011), stratified nested cross-validation. Best single measure
+  AUC = 71 ± 4% for VS-MCS. Whole-feature-set AUC = 78 ± 4% (P < 0.001)
+  for VS-MCS. Diagnostic agreement: 67% (50/75) of VS-diagnosed and
+  76% (52/68) of MCS-diagnosed recordings classified in their respective
+  clinical categories. Generalisation: 89% (34/38) of CS/healthy
+  recordings classified as MCS (conscious side).
+  **Cross-validation patient grouping: UNKNOWN.** Manuscript documents
+  "stratified nested cross-validation" but does not explicitly state
+  whether repeated recordings from the same patient (1–6 recordings
+  per patient) were kept in the same CV fold. Possible subject-level
+  leakage is FLAGGED as a caveat on the reported AUCs (per correction
+  J and 2026-09-13 verification pass).
+  **Correct interpretation of AUC = 78 ± 4%.** This is the multivariate
+  (whole feature set) classifier AUC for **VS-versus-MCS** comparison
+  ONLY. It is NOT a generic conscious-vs-unconscious result spanning
+  wakefulness, sleep, anesthesia, and UWS. It does NOT validate χ_k.
+  Do NOT convert this classifier AUC into a Cohen's d for a χ_k power
+  calculation. 167 valid recordings must NOT be treated as 167
+  independent patients (113 distinct patients contributed).
+  Sitt's acquisition settings (256-ch EGI, 250 Hz, vertex ref then
+  average-rereferencing after cleaning, 0.2–45 Hz, Local-Global
+  auditory protocol, ±150 µV threshold) are those of one experimental
+  protocol; they are NOT adopted as universal recommendations for the
+  χ_k pipeline of §3.
 - **Casali, A. G., et al. (2013).** *Sci. Transl. Med.* 5:198ra105.
   **PRIMARY EXPERIMENTAL PAPER (PCI), INACCESSIBLE.** Cited only for
   PCI as measured within the primary paper.
@@ -540,16 +580,31 @@ Q3(t) = (1/2)·[Tr(ρ_EEG(t)²) + Tr(ρ_EEG(t+Δt)²)] − Re Tr(ρ_EEG(t) ρ_EE
 single-time linear entropies; the third is the cross-time Frobenius
 inner product, a quantity NOT captured by Q2 alone.
 
-**Charter implication (replaces earlier R8 language).**
-- Q1 is algebraically INDEPENDENT of Q2 and Q3.
-- Q2 and Q3 are algebraically LINKED via the identity above.
+**Charter implication (corrected 2026-09-13 per AA — replaces earlier
+R8 language and earlier stronger algebraic-independence claim).**
+- **No definitional identity or algebraic dependence between Q1 and
+  Q2/Q3 has been established.** The Q1 pipeline (digitized real band
+  powers → base-3 digit sum → phase factor → weighted sum → squared
+  magnitude) and the Q2/Q3 pipeline (complex cross-spectral matrix →
+  normalisation → single- or two-time functionals) have disjoint
+  computational forms; that observation does NOT prove algebraic
+  independence. What HAS been established is that Q1 is a lossy
+  compression of the underlying signal (the digit-sum quantisation
+  collapses distinct powers to the same digit), which suggests no
+  algebraic identity recovers Q2 or Q3 from Q1; whether an algebraic
+  identity in the converse direction exists is not proven here.
+  Any Q1↔Q2/Q3 relationship is therefore a TESTABLE EMPIRICAL
+  question, NOT a definitional identity and NOT a claim of algebraic
+  independence.
+- Q2 and Q3 are algebraically LINKED via the Frobenius identity
+  above.
 - Q3 carries information about the cross-time overlap
   `Re Tr(ρ_EEG(t) ρ_EEG(t+Δt))` that Q2(t) and Q2(t+Δt) individually
-  do NOT capture. This is why the charter's design is not
-  reducible to reporting Q2 at two times.
-- However, ANY empirical claim that Q3 tracks a phenomenon
-  DIFFERENT from what the Q2 pair `(Q2(t), Q2(t+Δt))` tracks is a
-  claim about the cross-time overlap, and must be tested as such.
+  do NOT capture. This is why the charter's design is not reducible
+  to reporting Q2 at two times.
+- Any empirical claim that Q3 tracks a phenomenon DIFFERENT from
+  what the Q2 pair `(Q2(t), Q2(t+Δt))` tracks is a claim about the
+  cross-time overlap, and must be tested as such.
 
 ## §7. Dimensional / type ledger
 
@@ -658,37 +713,61 @@ Secondary contrasts: `A vs C` alone; `A vs D` alone; `B vs A` and `B vs
 (C ∪ D)` as intermediate; `C vs D` as unresponsive-subclass; sleep
 sub-stages within B.
 
-### §10.3 Sample size and status (corrected per point K)
+### §10.3 Sample size and status (corrected 2026-09-13 post-Sitt verification)
 
-Per point K: a Cohen's d = 0.5, α = 0.05, β = 0.20 power calculation
-requires approximately `n ≥ 64` per independent group for a two-sample
-comparison (standard formula `n ≈ 16 · (z_α + z_β)² / d² ≈ 16 · 7.85 /
-0.25 ≈ 63`).
+**No power calculation is quoted from Sitt et al. 2014.** After
+full-text verification of Sitt 2014 (charter §2.5, audit R13), the
+reported AUC = 78 ± 4% is a MULTIVARIATE VS-vs-MCS classifier AUC on
+Sitt's own feature set. It is NOT a validation of χ_k, and it MUST
+NOT be converted into a Cohen's d for χ_k. Any earlier text asserting
+a chain "Sitt AUC → Cohen's d → n ≈ 64/group for χ_k" is INCORRECT
+and is REMOVED from this charter.
 
-**Charter status (per point K):**
+**Charter status: EXPLORATORY PILOT.**
 
 - The Layer-2 program is EXPLICITLY LABELED AN EXPLORATORY PILOT
-  with NO confirmatory rejection claim, UNLESS Group targets are
-  scaled to `n_A ≥ 64, n_(C∪D) ≥ 64` (or larger, per the site's
-  achievable-recruitment plan).
-- If achievable Group A + Group C + Group D recruitment is below
-  the ≥ 64 per independent group threshold, the primary rejection
-  criteria of §12 are suspended and results are reported as
-  exploratory pilot findings only, with confidence intervals and
-  effect-size estimates but no formal hypothesis-test verdict.
-- If achievable recruitment meets or exceeds the threshold, primary
-  rejection criteria of §12 apply.
+  with NO confirmatory rejection claim in its present form.
+- A future confirmatory power analysis for χ_k must be derived from
+  ONE OF:
+  1. Its OWN pilot variance estimates of `χ̄_k` per group, obtained
+     from a preregistered pilot dataset;
+  2. AN INDEPENDENTLY CHOSEN smallest effect size of interest
+     specified before data collection (justified on
+     domain-substantive grounds, NOT transferred from unrelated
+     classifier AUCs);
+  3. Both.
+- Until such a preregistered, χ_k-derived power analysis is
+  produced, the charter's rejection criteria of §12 are held in
+  RESERVE and results are reported only as exploratory-pilot
+  findings with confidence intervals and effect-size estimates —
+  no formal confirmatory hypothesis-test verdict.
 
-**Recruitment target (subject to feasibility):**
-- Confirmatory: `n_A ≥ 64`, `n_(C ∪ D) ≥ 64`, split across sites.
-- Exploratory-pilot fallback: preregister target as ≥ 20 per group,
-  results reported without confirmatory verdict.
+**Pilot recruitment target (subject to feasibility):**
+- Preregister an achievable target per site and per group; the
+  target is a pilot design decision, NOT a power-calibrated
+  confirmatory sample size.
 
-### §10.4 Statistical model (single primary pipeline per point L)
+**Explicit warning.** The 2026-09-13 verification confirmed that
+Sitt 2014's 167 valid recordings came from 113 distinct patients;
+recordings must NOT be counted as independent patients. Any pilot
+design for χ_k must follow the same discipline (analysis unit is
+recording, but per-patient random effects and patient-grouped
+splits are required to avoid subject-level leakage).
 
-- Time-average `χ_k(t)` per recording to obtain `χ̄_k` per subject.
-- Mixed-effects linear model:
-  `χ̄_k ~ Group + (1 | Site) + covariates (age, sex, montage version)`.
+### §10.4 Statistical model (single primary pipeline per point L; patient-grouped per 2026-09-13 correction)
+
+- Time-average `χ_k(t)` per recording to obtain `χ̄_k` per recording.
+- Mixed-effects linear model, PATIENT-GROUPED (per 2026-09-13
+  correction; U10):
+  `χ̄_k ~ Group + (1 | Patient) + (1 | Site) + covariates (age, sex, montage version)`.
+  Patient random effect handles multiple recordings from the same
+  patient; recordings from the same patient are NEVER treated as
+  independent observations.
+- Any classifier or predictive-model evaluation performed as part of
+  Layer 2 (if any) MUST use PATIENT-GROUPED cross-validation splits
+  (all recordings from a given patient in the same fold), to avoid
+  the subject-level leakage risk flagged in Sitt 2014's unspecified
+  CV grouping (see §2.5 note).
 - Primary test: `Group A vs Group (C ∪ D)` contrast.
 - Report all secondary tests (§10.2) as EXPLORATORY.
 - NO Bonferroni correction across the 12 robustness axes of §9;
@@ -712,14 +791,23 @@ comparison (standard formula `n ≈ 16 · (z_α + z_β)² / d² ≈ 16 · 7.85 /
 - **NC2** Time-shuffled surrogates: shuffle epoch order.
 - **NC3** Phase-randomized multichannel surrogates (per point I,
   distinguished from Theiler univariate original):
-  - **NC3a (independent per-channel phase randomization):** Preserves
-    per-channel PSD (auto-spectrum); DESTROYS all cross-channel phase
-    relationships including zero-lag. Primary null against
-    cross-spectral cross-channel dependence.
-  - **NC3b (common-phase rotation across all channels):** Preserves
-    all auto- AND cross-spectra; only shifts global phase; NOT a
-    useful null for the primary hypothesis. Included only for
-    calibration diagnostics.
+  - **NC3a (independent per-channel phase randomization) — SURROGATE
+    NULL.** Preserves per-channel PSD (auto-spectrum); DESTROYS all
+    cross-channel phase relationships including zero-lag. Primary
+    null against cross-spectral cross-channel dependence.
+
+- **INV1** (renamed from NC3b per correction BB 2026-09-13) —
+  **Common-phase rotation across all channels — EXACT INVARIANCE
+  TEST, NOT A SURROGATE NULL.** For any global phase φ ∈ ℝ, applying
+  the SAME phase rotation to every channel:
+  `X(t, f) ↦ e^{iφ} · X(t, f)` yields identically
+  `(e^{iφ} X)(e^{iφ} X)† = e^{iφ} X X† e^{-iφ} = X X†` (per element)
+  since e^{iφ} is a scalar; therefore `S`, `ρ_EEG`, and `χ_k` are
+  UNCHANGED EXACTLY (not merely up to null-distribution
+  fluctuation). This is a DETERMINISTIC INVARIANCE PROPERTY of the
+  estimator — a correctness / implementation check, NOT a
+  surrogate-based null. Any implementation that alters `χ_k` under
+  a common phase rotation applied to all channels contains a bug.
 - **NC4** Single-channel recomputation with `D_ch = 1`: sanity check.
 - **NC5** Independent Gaussian channels: matched to a specified
   covariance floor.
@@ -810,13 +898,25 @@ implementation:
   a primary source.
 - **U6.** Consciousness ground-truth hierarchy (CRS-R, BIS, PSG); AASM
   sleep-stage inter-rater reliability documentation required.
-- **U7.** Cross-site replication requirement (≥ 2 sites); recruitment
-  plan for confirmatory `n ≥ 64` per group across sites.
-- **U8.** Correct primary-paper AUC and sample composition for
-  Sitt et al. 2014 (per point J), required to validate any
-  power-calculation transfer.
-- **U9.** Full-text verification of every citation in §14 per the
-  audit doc.
+- **U7.** Cross-site replication requirement (≥ 2 sites); pilot
+  recruitment plan per site (target is a pilot design decision, NOT
+  a power-calibrated confirmatory sample size — see §10.3 correction
+  2026-09-13).
+- **U8.** Sitt et al. 2014 sample composition and AUC are now VERIFIED
+  from primary text (see §2.5 and §14). No power-calculation transfer
+  from Sitt to χ_k is permitted; the χ_k program remains exploratory
+  pilot until its OWN pilot variance and independently chosen
+  smallest effect size of interest supports a new power analysis.
+- **U9.** Full-text verification of every remaining citation in §14
+  per the audit doc.
+- **U10.** Patient-grouped cross-validation in Sitt 2014 is UNKNOWN
+  from the primary text (documents "stratified nested cross-validation"
+  but does NOT state patient-level grouping). Subject-level leakage is
+  a possible confound on Sitt's reported AUC. Independent of this
+  caveat on Sitt: the χ_k pilot design (§10.4) MUST enforce
+  patient-grouped splits and per-patient random effects, and MUST NOT
+  treat multiple recordings from the same patient as independent
+  observations.
 
 ## §14. Background references — labelled types (per point A)
 
@@ -912,8 +1012,12 @@ Before Layer 2 implementation begins:
 - [ ] Full-text verification of each citation-per-claim mapping in
       §14 by a qualified reader with source access. Discrepancies
       flagged and corrected in a further charter revision.
-- [ ] Primary-paper recovery of Sitt et al. 2014 sample and AUC
-      values; valid power calculation from them.
+- [x] Primary-paper recovery of Sitt et al. 2014 sample and AUC
+      values (COMPLETED 2026-09-13; see §2.5, §14, audit R13). No
+      power calculation for χ_k is transferred from Sitt.
+- [ ] χ_k-specific pilot variance data collected and power analysis
+      derived from χ_k pilot with an independently chosen smallest
+      effect size of interest, if a confirmatory phase is desired.
 - [ ] Ethics approvals for Groups A, C, D (and secondary B) at ≥ 2
       recording sites; blinded human ICA-review protocol locked.
 - [ ] OSF preregistration document drafted from §10 and locked prior

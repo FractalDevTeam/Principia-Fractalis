@@ -121,11 +121,11 @@ recorded.
 
 ### R9. Rosenberg, J. R., Amjad, A. M., Breeze, P., Brillinger, D. R., & Halliday, D. M. (1989). *Prog. Biophys. Mol. Biol.* 53:1–31.
 
-- **Source type:** Primary methods paper (Fourier analysis of neuronal coupling).
+- **Source type:** **REVIEW** about Fourier analysis of neuronal SPIKE-TRAIN data (per correction 2026-09-13 point C). NOT a primary EEG cross-spectral methods paper. The prior classification "primary methods paper (Fourier analysis of neuronal coupling)" was wrong on both counts (paper type and application domain).
 - **Cited in:** §2.4 (cross-spectral estimation).
 - **Charter claim:** Support for the general practice of estimating cross-spectral matrices from windowed data.
-- **Auditor verdict:** INACCESSIBLE. Rosenberg et al. is well-known in the neurophysiology cross-spectral literature; auditor cannot verify whether they define the specific band-averaged construction of point E.
-- **Correction:** Retain as background reference for coherence-style neurophysiology analysis. Do NOT cite as origin of point E's corrected construction unless full-text verification confirms it.
+- **Auditor verdict:** MISMATCHED (wrong paper type; wrong application domain) + INACCESSIBLE for full text.
+- **Correction:** Reclassified as REVIEW about Fourier analysis of neuronal spike trains. NOT usable as a primary-source justification for the corrected charter §3.3 EEG cross-spectral construction. Remove any implication that it originates the specific band-block estimator.
 
 ### R10. Pascual-Marqui, R. D. (2007). arXiv:0706.1776.
 
@@ -159,9 +159,101 @@ recorded.
 
 - **Source type:** Primary experimental paper.
 - **Cited in:** §2.5, §10 (sample size / power calculation).
-- **Charter claim:** "Sitt et al. (2014) which reported classifier AUC ≈ 0.78 for conscious vs unconscious discrimination with n ≈ 200 patients."
-- **Auditor verdict:** MISMATCHED per user direction (point J). Per user, Sitt et al. analyzed 181 recordings (not "n ≈ 200 patients"); the AUC ≈ 0.78 value may correspond to a specific downstream cross-site analysis, not the original Sitt paper.
-- **Correction:** Per point J: verify the exact sample composition and AUC as reported in Sitt et al. 2014 before quoting. Do NOT borrow the AUC ≈ 0.78 from later cross-site work. The power calculation of §10 that relied on this AUC is INVALID until the correct number is recovered from the primary paper.
+- **Charter claim (original commit 1cabde90):** "Sitt et al. (2014) which reported classifier AUC ≈ 0.78 for conscious vs unconscious discrimination with n ≈ 200 patients."
+- **Verification status (2026-09-13):** **FULL-TEXT VERIFIED** via PMC full text at
+  `https://pmc.ncbi.nlm.nih.gov/articles/PMC4610185/?report=printable`
+  (accessed 2026-09-13). Auditor accessed the full primary text.
+- **Verified primary-source facts (exact quotations with section
+  location):**
+  - *Patients section:* "We performed a total of 173 patient recordings.
+    Six recordings were discarded because they presented <200 non-artefacted
+    trials (see below). The remaining 167 valid recordings were acquired
+    from 113 distinct patients (79 males and 34 females, sex ratio = 2.32)."
+  - *Patients section:* "Patients were recorded one to six times."
+  - *Results section:* "In total, 75 VS recordings, 68 MCS recordings, and
+    24 brain-injured but conscious patients (CS) were recordings were
+    acquired. Fourteen additional recordings were obtained from healthy
+    control subjects." [sic — "were recordings" typo in source]
+  - *Results section:* "We analysed a large set of 181 high-density
+    256-channel EEG recordings"
+  - *High-density scalp electroencephalography section:* "EEG recordings
+    were sampled at 250 Hz with a 256-electrode geodesic sensor net (EGI)
+    referenced to the vertex"
+  - *High-density scalp section:* "Recordings were band-pass filtered
+    (from 0.2 to 45 Hz)"
+  - *High-density scalp section:* "Trials were then segmented from −200
+    ms to +1336 ms relative to the onset of the first sound. Trials with
+    voltages exceeding ±150 µV, eye-movements activity exceeding ±80 µV
+    and eye-blinks exceeding ±150 µV were rejected."
+  - *High-density scalp section:* "Electrodes with a rejection rate
+    superior to 20% across trials were rejected and were interpolated.
+    Trials with >20 corrected electrodes were rejected."
+  - *High-density scalp section:* "The remaining trials were digitally
+    transformed to an average reference"
+  - *Auditory Stimulation section:* "Subjects were stimulated auditorily
+    using the 'Local-Global' protocol"
+  - *High-density scalp section:* "Connectivity measures were based on a
+    spatial Laplacian transformation of the EEG—a computation also known
+    as the Current Source Density estimate"
+  - *Multivariate pattern section:* "we used a linear Support Vector
+    Classifier (Pedregosa et al., 2011) with a probabilistic output
+    calibration"
+  - *Results, Combining measures section:* "To avoid over-fitting, the
+    support vector machine was repeatedly fitted and evaluated on
+    independent data sets using stratified nested cross-validation."
+  - *Combining measures section:* "when the classifier was set to use
+    the best cross-validated single measure the performance reached an
+    AUC = 71 ± 4%, for the VS-MCS comparison"
+  - *Combining measures section:* "By contrast, when using the whole set
+    of measures, AUC was significantly higher than when using the best
+    single measure: VS-MCS: AUC = 78 ± 4% (P < 0.001)"
+  - *Automatic classification section:* "67% (50 of 75) of VS-diagnosed
+    patients and 76% (52 of 68) of MCS-diagnosed patients were classified
+    in their respective clinical categories solely from their brain
+    activity"
+  - *Automatic classification section:* "The great majority of these
+    recordings (89%, 34 of 38) were classified as conscious (MCS rather
+    than VS)"
+- **Cross-validation patient-grouping — UNKNOWN:** Manuscript text
+  documents *stratified nested cross-validation* but does NOT explicitly
+  state whether repeated recordings from the same patient were kept in
+  the SAME cross-validation fold. Given "patients were recorded one to
+  six times" and 167 valid recordings from 113 distinct patients, there
+  is a real risk of subject-level leakage (recordings from the same
+  patient appearing in both training and test folds) if patient-grouped
+  splitting was not enforced. This is FLAGGED as a possible confound in
+  interpreting the reported AUC.
+- **Auditor verdict:** MIXED. Sample counts, acquisition parameters,
+  and classification statistics are SUPPORTED verbatim from the primary
+  paper text. However:
+  - The charter's earlier `n ≈ 200 patients` claim was wrong;
+    correct figures are 167 valid recordings / 113 distinct patients /
+    181 total recordings incl. healthy controls.
+  - The AUC ≈ 0.78 figure IS in Sitt 2014, but ONLY for the multivariate
+    (whole feature set) VS-vs-MCS classification, not for a generic
+    conscious-vs-unconscious discrimination. It is NOT a validation of
+    χ_k.
+  - Whether patient-grouped CV was used is UNKNOWN from the primary
+    text; flag possible subject leakage as a confound.
+- **Corrections applied to charter:**
+  - Sample and acquisition facts recorded with exact quotes and
+    section locations (charter §2.5).
+  - AUC 0.78 interpretation corrected: multivariate VS-vs-MCS only, not
+    generic conscious-vs-unconscious, not a validation of χ_k.
+  - Any conversion of this AUC into a Cohen's d for a χ_k power
+    calculation is REMOVED. The corresponding n ≈ 64 per group claim
+    (derived transitively from that AUC) is DELETED from §10.3.
+  - χ_k program remains EXPLORATORY PILOT. A future power analysis
+    must come from its OWN pilot variance and an independently chosen
+    smallest effect size of interest, NOT from Sitt.
+  - Sitt's acquisition settings (256-ch EGI, 250 Hz, vertex reference
+    then average-rereferencing after cleaning, 0.2–45 Hz bandpass,
+    ±150 µV threshold, Local-Global auditory task) are NOT adopted
+    as universal recommendations. They are the specific settings from
+    ONE experimental protocol; the χ_k pipeline (charter §3) uses its
+    own PF preregistered design choices and does NOT claim to be
+    Sitt-derived.
+  - Patient-grouped CV UNKNOWN status flagged as UA8 in charter §13.
 
 ### R14. Casali, A. G., et al. (2013). *Sci. Transl. Med.* 5:198ra105.
 
@@ -307,7 +399,28 @@ committed alongside this audit:
   algebraic check is stated in the revised charter §6 and summarized
   in §4 below.
 
-## §4. Algebraic dependence check for Q1, Q2, Q3 (per point M)
+## §3.5. Additional corrections applied 2026-09-13 (post-Sitt-verification pass)
+
+Three further corrections applied to commit `05174d35` per user directive
+after full-text access to Sitt 2014:
+
+- **AA. Algebraic-independence language corrected.** Replace all
+  instances of "Q1 is algebraically independent of Q2 and Q3" with
+  "No definitional identity or algebraic dependence between Q1 and
+  Q2 or Q3 has been established." Different computational formulas
+  do NOT constitute a proof of algebraic independence; the earlier
+  language was an overclaim.
+- **BB. NC3b reclassified as exact-invariance test, not a surrogate
+  null.** For any global phase `φ`: `(e^{iφ} X)(e^{iφ} X)† = X X†`
+  identically. Therefore `S`, `ρ_EEG`, and χ_k are UNCHANGED EXACTLY
+  under a common phase rotation applied uniformly to all channels.
+  This is a deterministic invariance property (correctness check on
+  the estimator's implementation), NOT a surrogate null distribution.
+- **CC. Rosenberg 1989 reclassified as REVIEW about Fourier analysis
+  of neuronal SPIKE-TRAIN data.** See R9 above. Not usable as a
+  primary EEG cross-spectral methods paper.
+
+## §4. Algebraic dependence check for Q1, Q2, Q3 (per point M — CORRECTED per AA)
 
 **Q1 (ch32 clinical ch₂):**
 ```
@@ -332,13 +445,22 @@ Q3(t) = (1/2) · ‖ρ_EEG(t + Δt) − ρ_EEG(t)‖²_F
 
 **Algebraic relations found:**
 
-**Q1 is algebraically independent of both Q2 and Q3.** Q1 uses only
-digitized real-valued band powers per (channel, band), then a
-non-invertible nonlinearity (digit-sum + phase factor). No identity
-recovers cross-channel covariance, cross-time correlation, or the
-complex phase information used by Q2 and Q3. Conversely, no identity
-recovers Q1 from Q2, Q3, or their combination — the digit-sum
-quantization is lossy.
+**No definitional identity or algebraic dependence between Q1 and
+Q2 or Q3 has been established** (per correction AA 2026-09-13).
+Q1 uses only digitized real-valued band powers per (channel, band),
+passed through a nonlinear digit-sum + phase-factor composition;
+Q2 and Q3 use the full complex cross-spectral matrix. The
+computational formulas are disjoint, which means no obvious
+identity links them — but different computational formulas do NOT
+by themselves prove algebraic independence. A claim of algebraic
+independence would require a formal proof (e.g., that no polynomial
+in Q2, Q3 equals Q1 across all admissible inputs); no such proof
+has been constructed here. What has been established is that Q1
+DISCARDS phase and cross-channel covariance information used by
+Q2 and Q3 (the digit-sum quantization is lossy in that direction),
+which suggests no algebraic identity can recover Q2 or Q3 from Q1;
+whether the converse direction admits such an identity is not
+established here.
 
 **Q2 and Q3 are algebraically LINKED (but not identical).** The
 Frobenius identity gives, for any Hermitian A, B:
@@ -359,16 +481,18 @@ single-time linear-entropy readings; the third is the CROSS-TIME
 Frobenius inner product, an independent quantity that neither Q2(t)
 nor Q2(t+Δt) captures.
 
-**Charter must be corrected to state:**
-- Q1 is algebraically independent of Q2 and Q3.
+**Charter must be corrected to state (per AA correction):**
+- No definitional identity or algebraic dependence between Q1 and
+  Q2/Q3 has been established. Different computational formulas do
+  not prove algebraic independence; only that the two constructions
+  are not manifestly identical.
 - Q2 and Q3 are algebraically linked through the Frobenius identity;
   Q3 is a function of the pair `(Q2(t), Q2(t+Δt))` and the cross-time
   overlap `Re Tr(ρ_EEG(t) ρ_EEG(t+Δt))`. The latter is not captured
   by Q2 alone, so Q3 is not a function of Q2 alone.
-- **The empirical hypothesis is therefore not vacuous: even though
-  Q3 is algebraically related to Q2, it carries information (the
-  cross-time overlap) that Q2 does not. But the charter must not
-  claim Q2 and Q3 are "definitionally independent" — they are not.**
+- The relationship between Q1 and Q2/Q3 is a TESTABLE EMPIRICAL
+  question, not a definitional identity and not a claim of algebraic
+  independence.
 
 ## §5. Load-bearing assumptions remaining unresolved after audit
 
@@ -396,10 +520,29 @@ Frobenius) but no proven correspondence to the Layer-1
 digit-compatible pure-ancilla lift.** The V used in Layer 2 is
 therefore a NEW modelling map, not a T5-witnessed reduction.
 
-**UA5. The specific power calculation for Layer 2 is INVALID until
-the primary Sitt et al. 2014 sample and AUC values are recovered from
-the primary paper.** Until then, the falsification protocol is at
-"exploratory pilot" status per point K.
+**UA5. The specific power calculation for Layer 2 must NOT be
+transferred from Sitt 2014.** Even after full-text verification of
+Sitt 2014 (this update, 2026-09-13), the AUC = 78 ± 4% figure is a
+multivariate VS-vs-MCS classification AUC on Sitt's own feature set —
+NOT a validation of χ_k, NOT a generic conscious-vs-unconscious
+result, and NOT convertible into a Cohen's d for a χ_k power
+calculation. The χ_k program remains EXPLORATORY PILOT per point K;
+a future power analysis must come from its OWN pilot variance and an
+independently chosen smallest effect size of interest, NOT from
+Sitt's classifier AUC.
+
+**UA8. Patient-grouped cross-validation in Sitt 2014 is UNKNOWN
+(2026-09-13 full-text verification).** The manuscript documents
+"stratified nested cross-validation" but does NOT state whether
+repeated recordings from the same patient (patients were recorded
+1–6 times; 167 valid recordings from 113 distinct patients) were
+kept in the same CV fold or could appear in both training and test
+folds. If patient-grouped splitting was not enforced, subject-level
+leakage may inflate reported AUC. FLAGGED as a possible confound in
+any downstream use of Sitt's numbers. Note that this UNKNOWN
+STATUS affects the interpretation of the Sitt paper's own AUC,
+independent of any application to χ_k. Also: 167 valid recordings
+must NEVER be treated as 167 independent patients.
 
 **UA6. Ground-truth labels for the conscious/unresponsive
 comparison** (CRS-R cutoffs for UWS/MCS; BIS ranges for anesthesia;
