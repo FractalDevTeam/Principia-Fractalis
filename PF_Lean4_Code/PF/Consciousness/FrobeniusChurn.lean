@@ -54,10 +54,17 @@ Layer-2 map `EEG → ρ(t)` is wholly new work, not a wrapper around ch32.
 6. Proves T5a: partial trace through the substrate's
    `TimelessField.partialTraceMorphism k (2*k)` recovers ρ from
    `digitAncillaLift k ρ`.
-7. **T5b (churn invariance under the lift) is PAUSED per charter §7
-   stopping condition.** See Section 6's docstring for details. T5b is
-   NOT LANDED in this session. T1-T4 + T5a ARE landed with zero
-   `sorry`.
+7. Defines internal `ancillaProjector k` (rank-one at (0,0)) and
+   `reindexKroneckerLift k ρ` (product form `ρ(firstK) · P(lastK)`),
+   proves extensional bridge `digitAncillaLift = reindexKroneckerLift`,
+   and constructs the `digitSplit k : Fin (3^(2*k)) ≃ Fin (3^k) × Fin
+   (3^k)` bijection.
+8. Proves T5b: `churnFrobenius (digitAncillaLift k ρ) (digitAncillaLift
+   k σ) = churnFrobenius ρ σ`, via bridge + `Complex.norm_mul` + `mul_pow`
+   + sum reindex through `digitSplit` + `Fintype.sum_prod_type'` + `Finset.sum_mul_sum`
+   + `frobeniusSqNorm_ancillaProjector = 1`. Single-lift coherence:
+   `digitAncillaLift` remains the SOLE public lift (both T5a and T5b
+   concern the same object).
 
 ## What this file explicitly does NOT do
 
@@ -440,53 +447,365 @@ theorem partialTraceMorphism_digitAncillaLift (k : ℕ)
     simp only [h_t_last_ne, false_and, if_false]
   · intro hni; exact absurd (Finset.mem_univ t0) hni
 
-/-! ## Section 6 — T5b: PAUSED per charter §7 stopping condition
+/-! ## Section 6 — Kronecker redesign for T5b (single-lift coherence)
 
-    **Status: STOPPED, NOT LANDED in this session.**
+    Per approved directive (path B): `digitAncillaLift` remains the SOLE
+    public lift (T5a unchanged). Internally we define
+    `reindexKroneckerLift k ρ` as the same digit-indexed matrix but
+    expressed as a pointwise product `ρ(firstK) · P(lastK)` where `P` is
+    the rank-one ancilla projector. An extensional bridge lemma proves
+    `digitAncillaLift = reindexKroneckerLift`, and T5b follows by
+    Kronecker-style sum decomposition on the product form.
 
-    T5b (`churnFrobenius_digitAncillaLift_invariant`) is the sum-reindexing
-    theorem
-    ```
+    The bridge is a pointwise identity, so both forms compute the same
+    entries in the same indexing space. T5a's proof continues to hold
+    on `digitAncillaLift` unchanged.
+
+    Mathlib-verified primitives used below (checked in pinned mathlib):
+    * `finFunctionFinEquiv_apply` — `Fin (n^m) ↔ Fin m → Fin n`
+      encoding is `Σ i, f i · n^i`. In particular `digitEquiv k
+      (fun _ => 0) = 0`.
+    * `Complex.norm_mul` — `‖z * w‖ = ‖z‖ * ‖w‖` on `ℂ`.
+    * `Equiv.sum_comp` — reindex a `Fintype` sum via an equivalence.
+    * `Fintype.sum_prod_type'` — Fubini for product-indexed sums.
+    * `Finset.sum_mul_sum` — distributivity of `∑ · ∑` into a single
+      product of sums when the summand factors.
+
+    None of the following relies on `Matrix.kroneckerMap` (which uses
+    product-typed indexing, not the digit-indexed `Fin (3^(2*k))` we
+    need); instead the Kronecker structure is encoded directly as a
+    product of two entries. -/
+
+/-! ### 6.1 — The rank-one ancilla projector -/
+
+/-- **Rank-one ancilla projector.** `ancillaProjector k` is the matrix
+    on level `k` with exactly one unit entry at `(0, 0)` and zeros
+    elsewhere. Represents the pure state `|0⟩⟨0|` on `H_k` in the
+    computational basis. -/
+noncomputable def ancillaProjector (k : ℕ) :
+    Matrix (Fin (3^k)) (Fin (3^k)) ℂ :=
+  fun i j => if i = 0 ∧ j = 0 then 1 else 0
+
+/-- Value of the ancilla projector on the (0, 0) entry: 1. -/
+private lemma ancillaProjector_apply_zero_zero (k : ℕ) :
+    ancillaProjector k 0 0 = 1 := by
+  unfold ancillaProjector
+  simp
+
+/-- Value of the ancilla projector when either index is nonzero: 0. -/
+private lemma ancillaProjector_apply_off (k : ℕ)
+    (i j : Fin (3^k)) (h : ¬ (i = 0 ∧ j = 0)) :
+    ancillaProjector k i j = 0 := by
+  unfold ancillaProjector
+  simp [h]
+
+/-- **Sum-of-squared-entries of the rank-one ancilla projector equals 1.**
+    Explicit evaluation. -/
+private lemma frobeniusSqNorm_ancillaProjector (k : ℕ) :
+    ∑ i, ∑ j, ‖ancillaProjector k i j‖ ^ 2 = 1 := by
+  -- Only the (0, 0) entry contributes, with value 1.
+  rw [Finset.sum_eq_single (0 : Fin (3^k))]
+  · rw [Finset.sum_eq_single (0 : Fin (3^k))]
+    · rw [ancillaProjector_apply_zero_zero]; simp
+    · intros j _ hj_ne
+      rw [ancillaProjector_apply_off k 0 j (fun h => hj_ne h.2)]
+      simp
+    · intro hni; exact absurd (Finset.mem_univ (0 : Fin (3^k))) hni
+  · intros i _ hi_ne
+    apply Finset.sum_eq_zero
+    intros j _
+    rw [ancillaProjector_apply_off k i j (fun h => hi_ne h.1)]
+    simp
+  · intro hni; exact absurd (Finset.mem_univ (0 : Fin (3^k))) hni
+
+/-! ### 6.2 — The digit-encoded value of `zeroDigits` is 0
+
+    Verifies `digitEquiv k (zeroDigits k) = 0`, needed to bridge
+    "last-k-digits are zero" (as digit function) to "last-k-digits
+    encoded value is zero" (as `Fin (3^k)`). -/
+
+/-- `digitEquiv k` applied to the zero digit function is the zero
+    index. From `finFunctionFinEquiv_apply`: value = `Σ i, 0 · 3^i = 0`. -/
+private lemma digitEquiv_zeroDigits (k : ℕ) :
+    digitEquiv k (zeroDigits k) = 0 := by
+  apply Fin.ext
+  simp [digitEquiv, zeroDigits]
+
+/-- `digitEquiv k f = 0` iff `f = zeroDigits k`, by injectivity. -/
+private lemma digitEquiv_eq_zero_iff (k : ℕ) (f : Fin k → Fin 3) :
+    digitEquiv k f = 0 ↔ f = zeroDigits k := by
+  constructor
+  · intro h
+    apply (digitEquiv k).injective
+    rw [h, digitEquiv_zeroDigits]
+  · rintro rfl; exact digitEquiv_zeroDigits k
+
+/-! ### 6.3 — Internal Kronecker representation
+
+    `reindexKroneckerLift` is the SAME digit-indexed matrix as
+    `digitAncillaLift`, but expressed as a pointwise product
+    `ρ(firstK) · ancillaProjector(lastK)`. -/
+
+/-- **Internal Kronecker representation of the pure-ancilla lift.**
+    Same type and index space as `digitAncillaLift`; expressed as a
+    pointwise product of a `ρ` entry (on the first-`k`-digit block)
+    and an ancilla-projector entry (on the last-`k`-digit block). -/
+noncomputable def reindexKroneckerLift (k : ℕ)
+    (ρ : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
+    Matrix (Fin (3^(2*k))) (Fin (3^(2*k))) ℂ := fun p q =>
+  ρ (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm p)))
+    (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm q))) *
+  ancillaProjector k
+    (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
+    (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm q)))
+
+/-! ### 6.4 — Extensional bridge: `digitAncillaLift = reindexKroneckerLift` -/
+
+/-- **Extensional bridge.** `digitAncillaLift k ρ` and
+    `reindexKroneckerLift k ρ` are the same matrix, entry-by-entry.
+
+    Follows from: `ancillaProjector k a b = 1` iff `a = 0 ∧ b = 0`,
+    combined with `digitEquiv_eq_zero_iff` bridging "digit function is
+    zero" and "encoded value is zero". -/
+theorem digitAncillaLift_eq_reindexKroneckerLift (k : ℕ)
+    (ρ : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
+    digitAncillaLift k ρ = reindexKroneckerLift k ρ := by
+  ext p q
+  unfold digitAncillaLift reindexKroneckerLift
+  by_cases h_p : lastKDigits k ((digitEquiv (2*k)).symm p) = zeroDigits k
+  · by_cases h_q : lastKDigits k ((digitEquiv (2*k)).symm q) = zeroDigits k
+    · -- Both ancilla parts are zero: LHS = ρ(firstK), RHS = ρ(firstK) * 1.
+      simp only [h_p, h_q, and_self, if_true]
+      rw [digitEquiv_zeroDigits, ancillaProjector_apply_zero_zero]
+      ring
+    · -- Right ancilla nonzero: LHS = 0, RHS = ρ(firstK) * P(_, nonzero) = ρ · 0 = 0.
+      have h_cond_false : ¬ ((lastKDigits k ((digitEquiv (2*k)).symm p) = zeroDigits k)
+                            ∧ (lastKDigits k ((digitEquiv (2*k)).symm q) = zeroDigits k)) := by
+        intro ⟨_, h_q'⟩; exact h_q h_q'
+      simp only [if_neg h_cond_false]
+      have h_q_enc : digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm q)) ≠ 0 := by
+        rw [Ne, digitEquiv_eq_zero_iff]; exact h_q
+      have h_apply : ancillaProjector k
+          (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
+          (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm q))) = 0 :=
+        ancillaProjector_apply_off k _ _ (fun h => h_q_enc h.2)
+      rw [h_apply]; ring
+  · -- Left ancilla nonzero: LHS = 0, RHS = ρ · P(nonzero, _) = ρ · 0 = 0.
+    have h_cond_false : ¬ ((lastKDigits k ((digitEquiv (2*k)).symm p) = zeroDigits k)
+                          ∧ (lastKDigits k ((digitEquiv (2*k)).symm q) = zeroDigits k)) := by
+      intro ⟨h_p', _⟩; exact h_p h_p'
+    simp only [if_neg h_cond_false]
+    have h_p_enc : digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)) ≠ 0 := by
+      rw [Ne, digitEquiv_eq_zero_iff]; exact h_p
+    have h_apply : ancillaProjector k
+        (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
+        (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm q))) = 0 :=
+      ancillaProjector_apply_off k _ _ (fun h => h_p_enc h.1)
+    rw [h_apply]; ring
+
+/-! ### 6.5 — The digit-split bijection `Fin (3^(2*k)) ≃ Fin (3^k) × Fin (3^k)`
+
+    Used for the double-sum reindexing in T5b. -/
+
+/-- **The digit-split bijection.** Sends a digit-index `p : Fin (3^(2*k))`
+    to the pair `(first-k-encoded, last-k-encoded)`. -/
+noncomputable def digitSplit (k : ℕ) : Fin (3^(2*k)) ≃ Fin (3^k) × Fin (3^k) where
+  toFun p :=
+    (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm p)),
+     digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
+  invFun ij :=
+    digitEquiv (2*k) (appendCast (le_two_mul_self k)
+                        ((digitEquiv k).symm ij.1)
+                        (fun i => (digitEquiv k).symm ij.2
+                                  (Fin.cast (two_mul_sub_self_eq k) i)))
+  left_inv := by
+    intro p
+    simp only
+    apply (digitEquiv (2*k)).symm.injective
+    rw [Equiv.symm_apply_apply]
+    -- Show the invFun's argument, after applying digitEquiv (2*k), equals p.
+    -- Equivalently, show the appendCast reconstruction equals (digitEquiv (2*k)).symm p.
+    set fp := (digitEquiv (2*k)).symm p with hfp
+    -- Need: appendCast … ((digitEquiv k).symm (digitEquiv k (firstK fp)))
+    --                    (fun i => (digitEquiv k).symm (digitEquiv k (lastK fp))
+    --                                 (Fin.cast (…) i))
+    --        = fp
+    rw [Equiv.symm_apply_apply, Equiv.symm_apply_apply]
+    -- Now: appendCast … (firstK fp) (fun i => lastK fp (Fin.cast (…) i)) = fp
+    funext idx
+    unfold appendCast
+    simp only [Function.comp_apply]
+    by_cases h_idx : idx.val < k
+    · have h_cast :
+          (Fin.cast (Nat.add_sub_of_le (le_two_mul_self k)).symm idx)
+            = Fin.castAdd (2*k - k) ⟨idx.val, h_idx⟩ := by
+        apply Fin.ext; simp
+      rw [h_cast, Fin.append_left]
+      unfold firstKDigits
+      congr 1
+    · push_neg at h_idx
+      set s : Fin k := ⟨idx.val - k, by omega⟩ with hs
+      have hidx_eq : idx = ⟨k + s.val, by omega⟩ := by
+        apply Fin.ext; simp [hs]; omega
+      rw [hidx_eq]
+      have h_cast :
+          (Fin.cast (Nat.add_sub_of_le (le_two_mul_self k)).symm
+            (⟨k + s.val, by omega⟩ : Fin (2*k)))
+            = Fin.natAdd k (Fin.cast (two_mul_sub_self_eq k).symm s) := by
+        apply Fin.ext; simp
+      rw [h_cast, Fin.append_right]
+      -- Goal: lastKDigits k fp (Fin.cast … (Fin.cast (two_mul_sub_self_eq k).symm s)) = fp ⟨k + s.val, _⟩
+      unfold lastKDigits
+      congr 1
+  right_inv := by
+    rintro ⟨i, j⟩
+    simp only
+    -- Show: (encode firstK (invFun_appendCast), encode lastK (invFun_appendCast)) = (i, j).
+    -- Use firstKDigits_appendCast and lastKDigits_appendCast.
+    rw [Equiv.symm_apply_apply]
+    have h_first := firstKDigits_appendCast k ((digitEquiv k).symm i)
+      (fun idx : Fin (2*k - k) => (digitEquiv k).symm j
+                                   (Fin.cast (two_mul_sub_self_eq k) idx))
+    have h_last := lastKDigits_appendCast k ((digitEquiv k).symm i)
+      (fun idx : Fin (2*k - k) => (digitEquiv k).symm j
+                                   (Fin.cast (two_mul_sub_self_eq k) idx))
+    rw [h_first, h_last]
+    -- Goal: (digitEquiv k ((digitEquiv k).symm i), digitEquiv k (…)) = (i, j)
+    refine Prod.mk.injEq _ _ _ _ |>.mpr ⟨?_, ?_⟩
+    · exact Equiv.apply_symm_apply _ _
+    · -- Show: digitEquiv k (fun idx : Fin k => (fun i0 : Fin (2*k - k) => (digitEquiv k).symm j
+      --                                          (Fin.cast (two_mul_sub_self_eq k) i0))
+      --                       (Fin.cast (two_mul_sub_self_eq k).symm idx))
+      --        = j
+      -- Simplify: Fin.cast … (Fin.cast … idx) = idx.
+      have h_id : (fun idx : Fin k => (digitEquiv k).symm j
+                    (Fin.cast (two_mul_sub_self_eq k)
+                      (Fin.cast (two_mul_sub_self_eq k).symm idx)))
+                  = (digitEquiv k).symm j := by
+        funext idx
+        congr 1
+      rw [h_id]
+      exact Equiv.apply_symm_apply _ _
+
+/-! ### 6.6 — T5b: churn invariance under the digit-compatible pure-ancilla lift -/
+
+/-- **T5b — Churn invariance under the pure-ancilla lift.**
+
+    The Frobenius churn observable is unchanged when both arguments are
+    lifted via `digitAncillaLift k` from level `k` to level `2*k`.
+
+    Proof via the extensional bridge to `reindexKroneckerLift`, then
+    factoring the double-sum through `digitSplit` and using
+    `frobeniusSqNorm_ancillaProjector = 1`. Uses `Complex.norm_mul` +
+    `mul_pow` to distribute the squared norm across the pointwise
+    product; uses `Equiv.sum_comp` (via `digitSplit`) plus
+    `Fintype.sum_prod_type'` to convert double `Fin (3^(2*k))` sums
+    into double `Fin (3^k) × Fin (3^k)` sums; uses `Finset.sum_mul_sum`
+    to separate the ρ-side sum from the ancilla-projector-side sum. -/
+theorem churnFrobenius_digitAncillaLift_invariant (k : ℕ)
+    (ρ σ : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
     churnFrobenius (digitAncillaLift k ρ) (digitAncillaLift k σ)
-      = churnFrobenius ρ σ
-    ```
-    Mathematically it follows from (a) the entrywise identity that the
-    lifted difference vanishes off the "ancilla-zero" block (an
-    immediate consequence of the definition of `digitAncillaLift`),
-    (b) on the block, the difference equals `(ρ - σ)` at the
-    corresponding first-`k`-digit indices, (c) the double sum then
-    reduces via the bijection `(Fin (3^k), Fin (3^k)) ↪ (Fin (3^(2*k)),
-    Fin (3^(2*k)))` induced by `liftIdx k × liftIdx k`.
-
-    Charter §7 stopping condition triggered: the double-sum reindexing
-    via digit-decomposition bijection is more delicate than the session
-    budget can carry cleanly in the base-3 digit-function representation
-    (`Fin.append`, `Fin.cast (Nat.add_sub_of_le …).symm`, cast between
-    `Fin (2*k - k)` and `Fin k`). Rather than land a `sorry`, per user
-    directive "no sorry", this section stops.
-
-    Recommended paths for a follow-up session (any of):
-
-    * (A) Longer Lean-engineering budget to complete the double-sum
-      reindexing via `Finset.sum_bij` with an explicit bijection
-      `liftIdx k × liftIdx k` on the image, plus vanishing off-image.
-
-    * (B) Redesign `digitAncillaLift` to use `Matrix.kroneckerMap` +
-      a reindexing across `Fin (3^k * 3^k) ≃ Fin (3^(2*k))` via
-      `Fin.pow_mul` and mathlib's `frobenius_norm_mul` for Kronecker
-      products; this bypasses the digit-function bookkeeping.
-
-    * (C) Prove T5b via a trace identity (`‖·‖²_F = tr(·ᴴ ·)`) and the
-      block-diagonal structure of `digitAncillaLift`, using
-      `Matrix.trace_mul_comm` for the reduction. Also requires a
-      block-decomposition lemma not currently in the tree.
-
-    All three paths reach the same mathematical conclusion; the choice
-    is one of Lean-proof engineering, not of the mathematical claim.
-
-    T5a (which IS proven and clean below) already ensures that
-    `partialTraceMorphism k (2*k) _ ∘ digitAncillaLift k = id`, so the
-    substrate-side round-trip is intact regardless of T5b's status. -/
+      = churnFrobenius ρ σ := by
+  unfold churnFrobenius
+  congr 1
+  -- Bridge to reindexKroneckerLift on both sides.
+  rw [digitAncillaLift_eq_reindexKroneckerLift, digitAncillaLift_eq_reindexKroneckerLift]
+  unfold frobeniusSqDist
+  -- On the Kronecker side, each summand factors as
+  --   ‖(ρ - σ)(firstK-enc) * ancillaProjector(lastK-enc)‖^2
+  -- = ‖(ρ - σ)‖^2 * ‖ancillaProjector‖^2.
+  have h_summand :
+      ∀ p q : Fin (3^(2*k)),
+        ‖reindexKroneckerLift k ρ p q - reindexKroneckerLift k σ p q‖ ^ 2
+          = ‖(ρ - σ)
+              (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm p)))
+              (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm q)))‖ ^ 2
+            * ‖ancillaProjector k
+                (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
+                (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm q)))‖ ^ 2 := by
+    intro p q
+    unfold reindexKroneckerLift
+    -- ρ(firstK) * P - σ(firstK) * P = (ρ - σ)(firstK) * P
+    have h_factor :
+        ρ (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm p)))
+          (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm q)))
+          * ancillaProjector k
+              (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
+              (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm q)))
+          - σ (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm p)))
+              (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm q)))
+          * ancillaProjector k
+              (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
+              (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm q)))
+          = (ρ - σ)
+              (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm p)))
+              (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm q)))
+            * ancillaProjector k
+                (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
+                (digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm q))) := by
+      simp only [Matrix.sub_apply]; ring
+    rw [h_factor]
+    rw [Complex.norm_mul, mul_pow]
+  -- Rewrite each summand via the factorisation.
+  simp only [h_summand]
+  -- Now reindex the outer double sum via digitSplit: p ↔ (m_p, a_p), q ↔ (m_q, a_q).
+  -- Use Equiv.sum_comp with digitSplit.symm to switch from ∑ p to ∑ (m_p, a_p).
+  set e := digitSplit k with he
+  have h_reindex : ∀ (f : Fin (3^(2*k)) → ℝ), ∑ p, f p = ∑ ap : Fin (3^k) × Fin (3^k), f (e.symm ap) := by
+    intro f
+    exact (Equiv.sum_comp e.symm f).symm
+  rw [h_reindex, Finset.sum_congr rfl (fun _ _ => h_reindex _)]
+  -- Now the sum is ∑ (m_p, a_p) : Fin(3^k)×Fin(3^k), ∑ (m_q, a_q) : ..., F(...).
+  -- Convert double product sum via Fintype.sum_prod_type (uncurried form).
+  rw [Fintype.sum_prod_type]
+  simp only [Fintype.sum_prod_type]
+  -- Now: ∑ m_p, ∑ a_p, ∑ m_q, ∑ a_q, ‖(ρ - σ)(...)‖^2 * ‖P(...)‖^2
+  -- where (...) uses digitEquiv-firstK/lastK of e.symm.
+  -- Key fact: for q = e.symm (m_q, a_q), firstK-enc q = m_q and lastK-enc q = a_q.
+  -- This is the right_inv of digitSplit.
+  have h_first_enc : ∀ (ap : Fin (3^k) × Fin (3^k)),
+      digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm (e.symm ap))) = ap.1 := by
+    intro ap
+    have := (e.right_inv ap)
+    simp only [he] at this
+    exact congr_arg Prod.fst this
+  have h_last_enc : ∀ (ap : Fin (3^k) × Fin (3^k)),
+      digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm (e.symm ap))) = ap.2 := by
+    intro ap
+    have := (e.right_inv ap)
+    simp only [he] at this
+    exact congr_arg Prod.snd this
+  -- Rewrite all firstK-enc and lastK-enc occurrences.
+  simp only [h_first_enc, h_last_enc]
+  -- Now: ∑ mp, ∑ ap, ∑ mq, ∑ aq, ‖(ρ - σ) mp mq‖^2 * ‖P ap aq‖^2
+  -- Target: frobeniusSqDist ρ σ.
+  -- Step 1: swap ap and mq via Finset.sum_comm at each outer mp.
+  have h_swap : ∀ mp : Fin (3^k),
+      ∑ ap : Fin (3^k), ∑ mq : Fin (3^k), ∑ aq : Fin (3^k),
+        ‖(ρ - σ) mp mq‖ ^ 2 * ‖ancillaProjector k ap aq‖ ^ 2
+        = ∑ mq : Fin (3^k), ∑ ap : Fin (3^k), ∑ aq : Fin (3^k),
+        ‖(ρ - σ) mp mq‖ ^ 2 * ‖ancillaProjector k ap aq‖ ^ 2 := by
+    intro _; rw [Finset.sum_comm]
+  simp only [h_swap]
+  -- Now: ∑ mp, ∑ mq, ∑ ap, ∑ aq, ‖(ρ - σ) mp mq‖^2 * ‖P ap aq‖^2
+  -- Step 2: at each (mp, mq), factor ‖(ρ - σ) mp mq‖^2 out of the ap, aq sum.
+  have h_factor : ∀ mp mq : Fin (3^k),
+      ∑ ap : Fin (3^k), ∑ aq : Fin (3^k),
+        ‖(ρ - σ) mp mq‖ ^ 2 * ‖ancillaProjector k ap aq‖ ^ 2
+        = ‖(ρ - σ) mp mq‖ ^ 2 *
+          ∑ ap : Fin (3^k), ∑ aq : Fin (3^k), ‖ancillaProjector k ap aq‖ ^ 2 := by
+    intros _ _
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun _ _ => ?_)
+    rw [Finset.mul_sum]
+  simp only [h_factor]
+  -- Now: ∑ mp, ∑ mq, ‖(ρ - σ) mp mq‖^2 * (∑ ap aq ‖P ap aq‖^2)
+  -- Step 3: apply frobeniusSqNorm_ancillaProjector to reduce inner sum to 1.
+  rw [frobeniusSqNorm_ancillaProjector]
+  -- Now: ∑ mp mq ‖(ρ - σ) mp mq‖^2 * 1 = ∑ i j ‖ρ i j - σ i j‖^2
+  simp only [mul_one]
+  refine Finset.sum_congr rfl (fun mp _ => Finset.sum_congr rfl (fun mq _ => ?_))
+  rw [Matrix.sub_apply]
 
 /-! ## Section 7 — In-file axiom audit (build-tree-discipline)
 
@@ -520,8 +839,13 @@ section AxiomAudit
 -- Section 5: T5a partial-trace recovery
 #print axioms partialTraceMorphism_digitAncillaLift
 
--- Section 6: T5b is PAUSED per charter §7 stopping condition
--- (see Section 6 docstring above). Not landed in this session.
+-- Section 6: Kronecker redesign supporting declarations
+#print axioms ancillaProjector
+#print axioms reindexKroneckerLift
+#print axioms digitAncillaLift_eq_reindexKroneckerLift
+#print axioms digitSplit
+-- T5b (the target theorem)
+#print axioms churnFrobenius_digitAncillaLift_invariant
 
 end AxiomAudit
 
