@@ -54,17 +54,33 @@ Layer-2 map `EEG → ρ(t)` is wholly new work, not a wrapper around ch32.
 6. Proves T5a: partial trace through the substrate's
    `TimelessField.partialTraceMorphism k (2*k)` recovers ρ from
    `digitAncillaLift k ρ`.
-7. Defines internal `ancillaProjector k` (rank-one at (0,0)) and
-   `reindexKroneckerLift k ρ` (product form `ρ(firstK) · P(lastK)`),
-   proves extensional bridge `digitAncillaLift = reindexKroneckerLift`,
-   and constructs the `digitSplit k : Fin (3^(2*k)) ≃ Fin (3^k) × Fin
-   (3^k)` bijection.
-8. Proves T5b: `churnFrobenius (digitAncillaLift k ρ) (digitAncillaLift
-   k σ) = churnFrobenius ρ σ`, via bridge + `Complex.norm_mul` + `mul_pow`
-   + sum reindex through `digitSplit` + `Fintype.sum_prod_type'` + `Finset.sum_mul_sum`
-   + `frobeniusSqNorm_ancillaProjector = 1`. Single-lift coherence:
-   `digitAncillaLift` remains the SOLE public lift (both T5a and T5b
-   concern the same object).
+7. Proves T5b: `churnFrobenius (digitAncillaLift k ρ) (digitAncillaLift
+   k σ) = churnFrobenius ρ σ`. Single-lift coherence: `digitAncillaLift`
+   remains the SOLE public lift (both T5a and T5b concern the same
+   object). The proof uses `private` internal helpers (a rank-one ancilla
+   projector, a product-form representation, an extensional bridge, and
+   a digit-split bijection) that are file-scope only and not part of the
+   public API.
+
+## Public API surface
+
+The three public endpoints for downstream consumers are:
+
+  * `digitAncillaLift k ρ` — the digit-compatible pure-ancilla lift
+    (Section 4).
+  * `partialTraceMorphism_digitAncillaLift` — T5a partial-trace
+    recovery via the substrate morphism (Section 5).
+  * `churnFrobenius_digitAncillaLift_invariant` — T5b churn invariance
+    under the lift (Section 6).
+
+Plus the definitional trio `frobeniusSqDist`, `churnFrobenius`, and
+their T1-T4 accompanying theorems.
+
+The Kronecker-path proof machinery in Section 6 (`ancillaProjector`,
+`reindexKroneckerLift`, `digitAncillaLift_eq_reindexKroneckerLift`,
+`digitSplit`) is `private` — file-scope only, not part of the public
+API. Downstream modules should reference only the endpoints listed
+above.
 
 ## What this file explicitly does NOT do
 
@@ -478,11 +494,13 @@ theorem partialTraceMorphism_digitAncillaLift (k : ℕ)
 
 /-! ### 6.1 — The rank-one ancilla projector -/
 
-/-- **Rank-one ancilla projector.** `ancillaProjector k` is the matrix
-    on level `k` with exactly one unit entry at `(0, 0)` and zeros
-    elsewhere. Represents the pure state `|0⟩⟨0|` on `H_k` in the
-    computational basis. -/
-noncomputable def ancillaProjector (k : ℕ) :
+/-- **Rank-one ancilla projector** (private, internal to Kronecker-path
+    proof machinery). `ancillaProjector k` is the matrix on level `k`
+    with exactly one unit entry at `(0, 0)` and zeros elsewhere.
+    Represents the pure state `|0⟩⟨0|` on `H_k` in the computational
+    basis. Only used inside this file to prove T5b via the extensional
+    bridge from `digitAncillaLift`; NOT part of the public API. -/
+private noncomputable def ancillaProjector (k : ℕ) :
     Matrix (Fin (3^k)) (Fin (3^k)) ℂ :=
   fun i j => if i = 0 ∧ j = 0 then 1 else 0
 
@@ -546,11 +564,15 @@ private lemma digitEquiv_eq_zero_iff (k : ℕ) (f : Fin k → Fin 3) :
     `digitAncillaLift`, but expressed as a pointwise product
     `ρ(firstK) · ancillaProjector(lastK)`. -/
 
-/-- **Internal Kronecker representation of the pure-ancilla lift.**
-    Same type and index space as `digitAncillaLift`; expressed as a
-    pointwise product of a `ρ` entry (on the first-`k`-digit block)
-    and an ancilla-projector entry (on the last-`k`-digit block). -/
-noncomputable def reindexKroneckerLift (k : ℕ)
+/-- **Internal Kronecker representation of the pure-ancilla lift**
+    (private, internal to Kronecker-path proof machinery). Same type
+    and index space as `digitAncillaLift`; expressed as a pointwise
+    product of a `ρ` entry (on the first-`k`-digit block) and an
+    ancilla-projector entry (on the last-`k`-digit block). Only used
+    inside this file. The extensional bridge
+    `digitAncillaLift_eq_reindexKroneckerLift` proves this equals
+    `digitAncillaLift`; the public API only exposes `digitAncillaLift`. -/
+private noncomputable def reindexKroneckerLift (k : ℕ)
     (ρ : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
     Matrix (Fin (3^(2*k))) (Fin (3^(2*k))) ℂ := fun p q =>
   ρ (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm p)))
@@ -561,13 +583,16 @@ noncomputable def reindexKroneckerLift (k : ℕ)
 
 /-! ### 6.4 — Extensional bridge: `digitAncillaLift = reindexKroneckerLift` -/
 
-/-- **Extensional bridge.** `digitAncillaLift k ρ` and
-    `reindexKroneckerLift k ρ` are the same matrix, entry-by-entry.
+/-- **Extensional bridge** (private, internal to Kronecker-path proof
+    machinery). `digitAncillaLift k ρ` and `reindexKroneckerLift k ρ`
+    are the same matrix, entry-by-entry. Only used inside this file
+    to prove T5b; the public API only exposes `digitAncillaLift` and
+    `churnFrobenius_digitAncillaLift_invariant`.
 
     Follows from: `ancillaProjector k a b = 1` iff `a = 0 ∧ b = 0`,
     combined with `digitEquiv_eq_zero_iff` bridging "digit function is
     zero" and "encoded value is zero". -/
-theorem digitAncillaLift_eq_reindexKroneckerLift (k : ℕ)
+private theorem digitAncillaLift_eq_reindexKroneckerLift (k : ℕ)
     (ρ : Matrix (Fin (3^k)) (Fin (3^k)) ℂ) :
     digitAncillaLift k ρ = reindexKroneckerLift k ρ := by
   ext p q
@@ -607,9 +632,12 @@ theorem digitAncillaLift_eq_reindexKroneckerLift (k : ℕ)
 
     Used for the double-sum reindexing in T5b. -/
 
-/-- **The digit-split bijection.** Sends a digit-index `p : Fin (3^(2*k))`
-    to the pair `(first-k-encoded, last-k-encoded)`. -/
-noncomputable def digitSplit (k : ℕ) : Fin (3^(2*k)) ≃ Fin (3^k) × Fin (3^k) where
+/-- **The digit-split bijection** (private, internal to Kronecker-path
+    proof machinery). Sends a digit-index `p : Fin (3^(2*k))` to the
+    pair `(first-k-encoded, last-k-encoded)`. Only used inside this
+    file for the double-sum reindexing in T5b. -/
+private noncomputable def digitSplit (k : ℕ) :
+    Fin (3^(2*k)) ≃ Fin (3^k) × Fin (3^k) where
   toFun p :=
     (digitEquiv k (firstKDigits k ((digitEquiv (2*k)).symm p)),
      digitEquiv k (lastKDigits k ((digitEquiv (2*k)).symm p)))
@@ -836,16 +864,19 @@ section AxiomAudit
 -- Section 4: digit-compatible lift
 #print axioms digitAncillaLift
 
--- Section 5: T5a partial-trace recovery
+-- Section 5: T5a partial-trace recovery (public endpoint)
 #print axioms partialTraceMorphism_digitAncillaLift
 
--- Section 6: Kronecker redesign supporting declarations
+-- Section 6: T5b public endpoint
+#print axioms churnFrobenius_digitAncillaLift_invariant
+
+-- Section 6: private Kronecker-path supporting declarations
+-- (file-scope only, NOT part of public API — in-file axiom checks
+-- retained per user directive for kernel-audit continuity)
 #print axioms ancillaProjector
 #print axioms reindexKroneckerLift
 #print axioms digitAncillaLift_eq_reindexKroneckerLift
 #print axioms digitSplit
--- T5b (the target theorem)
-#print axioms churnFrobenius_digitAncillaLift_invariant
 
 end AxiomAudit
 
