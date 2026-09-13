@@ -16,19 +16,33 @@ exact failure mode the S1 stopping condition names ("The chosen
 scientific reference for a step is found on primary-source
 verification to be misquoted or unsupportive of the claimed step").
 
-This auditor also has NO web-fetch, PubMed, arXiv, or publisher-PDF
-access in the present environment. Therefore this audit CANNOT itself
-verify the sources against their full text. It CAN and DOES:
+**Updated verification status (2026-09-13, post-Sitt pass):**
+- **Sitt et al. (2014)** *Brain* 137:2258–2270 — **MAIN ARTICLE FULL
+  TEXT VERIFIED** via
+  `https://pmc.ncbi.nlm.nih.gov/articles/PMC4610185/?report=printable`
+  (accessed 2026-09-13). Auditor accessed the main article's text.
+  **Supplementary methods / material NOT recovered or audited.** Any
+  Sitt claim that depends on the supplementary material remains
+  UNVERIFIED (in particular the patient-grouped cross-validation
+  question).
+- **All other citations in §14 and R1–R21** — remain UNVERIFIED by
+  auditor; audit could not open their full texts in the first pass.
+  A separate focused Layer-2 measurement-bridge source-verification
+  pass may cover a small number of load-bearing items; see the
+  companion document `codex/CHURN_CHI_K_EEG_BRIDGE_AUDIT_2026-09-13.md`
+  when produced.
 
-1. Mark every citation `INACCESSIBLE` for full-text verification by
-   the auditor;
-2. Apply the specific corrections directed by the user (Pablo Cohen)
-   who has performed full-text verification for the corrected items
-   (§§C, D, E, H, I, J of the correction directive);
-3. Downgrade every unsupported specific numerical or methodological
+For the remaining unverified items, this audit:
+
+1. Marks each unverified citation `INACCESSIBLE` for full-text
+   verification by the auditor.
+2. Applies the specific corrections directed by the user (Pablo
+   Cohen) who has performed full-text verification for the corrected
+   items.
+3. Downgrades every unsupported specific numerical or methodological
    claim to a labelled Principia-Fractalis modelling choice per point
-   B of the correction directive;
-4. Trigger a corresponding charter revision in the same commit.
+   B of the correction directive.
+4. Triggers corresponding charter revisions in the same commit(s).
 
 **Consequence:** the corrected charter is NOT implementation-ready.
 It is a design document with acknowledged unresolved verification
@@ -446,21 +460,18 @@ Q3(t) = (1/2) · ‖ρ_EEG(t + Δt) − ρ_EEG(t)‖²_F
 **Algebraic relations found:**
 
 **No definitional identity or algebraic dependence between Q1 and
-Q2 or Q3 has been established** (per correction AA 2026-09-13).
-Q1 uses only digitized real-valued band powers per (channel, band),
-passed through a nonlinear digit-sum + phase-factor composition;
-Q2 and Q3 use the full complex cross-spectral matrix. The
-computational formulas are disjoint, which means no obvious
-identity links them — but different computational formulas do NOT
-by themselves prove algebraic independence. A claim of algebraic
-independence would require a formal proof (e.g., that no polynomial
-in Q2, Q3 equals Q1 across all admissible inputs); no such proof
-has been constructed here. What has been established is that Q1
-DISCARDS phase and cross-channel covariance information used by
-Q2 and Q3 (the digit-sum quantization is lossy in that direction),
-which suggests no algebraic identity can recover Q2 or Q3 from Q1;
-whether the converse direction admits such an identity is not
-established here.
+Q2 or Q3 has been established.** The Q1 pipeline (digitized real
+band powers → base-3 digit sum → phase factor → weighted sum →
+squared magnitude) and the Q2/Q3 pipeline (complex cross-spectral
+matrix → normalisation → single- or two-time functionals) have
+disjoint computational forms. That observation, by itself, does NOT
+prove algebraic independence in either direction — nor does the
+observation that Q1 discards some information contained in the
+complex signal. A claim of algebraic independence would require a
+formal proof, and a claim of dependence in either direction would
+require an explicit identity. Neither has been constructed here.
+The Q1 ↔ Q2/Q3 relationship is presently UNKNOWN and empirically
+testable.
 
 **Q2 and Q3 are algebraically LINKED (but not identical).** The
 Frobenius identity gives, for any Hermitian A, B:
@@ -550,12 +561,14 @@ AASM sleep stages) require site-specific ethics approval and
 inter-rater reliability documentation before data collection.
 
 **UA7. The relationship between Q1 (ch32 clinical ch₂) and Q2/Q3
-requires explicit modelling.** They use disjoint input transforms
-(Q1: digitized powers → digit sum → phase; Q2, Q3: complex features →
-cross-spectral matrix), so Q1 is not derivable from Q2, Q3 or vice
-versa. But this does not mean they carry independent BRAIN-STATE
-information; that is an empirical question, distinct from the
-algebraic-independence check of §4 above.
+requires explicit modelling and is presently UNKNOWN.** The two
+pipelines have disjoint computational forms (Q1: digitized powers →
+digit sum → phase; Q2, Q3: complex features → cross-spectral matrix),
+but that observation does NOT constitute a proof of algebraic
+independence in either direction. Neither derivability nor
+non-derivability of Q1 ↔ Q2/Q3 has been established. Any empirical
+brain-state relationship between them is a separate empirical
+question.
 
 ## §6. Auditor's summary
 

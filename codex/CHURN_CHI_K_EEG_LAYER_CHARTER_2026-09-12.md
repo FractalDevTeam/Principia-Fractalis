@@ -45,11 +45,12 @@ Layer 1 mathematical object; the Layer-1 file
 `PF/Consciousness/FrobeniusChurn.lean:churnFrobenius` computes
 this on ANY Hermitian matrix, not just density matrices.
 
-**Q1 and Q3 use disjoint input transforms and are algebraically
-independent (§6 audit).** Q2 and Q3 are algebraically LINKED via the
-Frobenius identity (§6) but Q3 carries information not in Q2 alone.
-Empirical relationships beyond these algebraic facts are testable
-hypotheses, not definitional identities.
+**No definitional identity or algebraic dependence between Q1 and
+Q2/Q3 has been established. Their relationship is presently unknown
+and empirically testable.** Q2 and Q3 are algebraically LINKED via
+the Frobenius identity (§6) but Q3 carries information not in Q2
+alone. Empirical relationships beyond that Frobenius identity are
+testable hypotheses, not definitional identities.
 
 ## §0. What this charter does and does not do
 
@@ -285,6 +286,28 @@ a qualified reader with access, or (b) treatment as a new PF choice.
   auditory protocol, ±150 µV threshold) are those of one experimental
   protocol; they are NOT adopted as universal recommendations for the
   χ_k pipeline of §3.
+  **Paradigm mismatch (load-bearing).** Sitt used a TASK-EVOKED
+  Local-Global auditory protocol (evoked responses time-locked to
+  auditory stimuli); the proposed χ_k pipeline (§3, §5) is a
+  CONTINUOUS/windowed spectral-change construction with NO stimulus
+  time-locking. The two paradigms probe different neural regimes.
+  Sitt therefore supplies NEITHER direct validation NOR a power
+  prior for χ_k.
+  **Representation mismatch (load-bearing).** Sitt applied average
+  rereferencing after cleaning for spectral analyses BUT used a
+  surface Laplacian (Current Source Density) transformation for
+  connectivity measures — verified verbatim from the High-density
+  scalp section: "Connectivity measures were based on a spatial
+  Laplacian transformation of the EEG—a computation also known as
+  the Current Source Density estimate." This means Sitt does NOT
+  endorse CAR sensor-level cross-spectral matrices as the primary
+  representation for connectivity-adjacent quantities. The charter's
+  §3.3 sensor-level cross-spectral matrix on CAR-rereferenced data
+  is therefore NOT justified by Sitt; the choice among CAR vs
+  REST/rREST vs surface Laplacian/CSD vs source-space remains an
+  open load-bearing decision (see charter §13 U2 and the focused
+  bridge audit `codex/CHURN_CHI_K_EEG_BRIDGE_AUDIT_2026-09-13.md`
+  when produced).
 - **Casali, A. G., et al. (2013).** *Sci. Transl. Med.* 5:198ra105.
   **PRIMARY EXPERIMENTAL PAPER (PCI), INACCESSIBLE.** Cited only for
   PCI as measured within the primary paper.
@@ -556,46 +579,45 @@ Purely a function of `ρ_EEG(t)`.
 
 **Q3(t) — Frobenius churn.** Per §5.
 
-### §6.1 Algebraic dependence check (per point M — done NOW, not deferred)
+### §6.1 What is and is not established about Q1, Q2, Q3
 
-**Q1 vs Q2 vs Q3:** Q1 uses digitized real-valued band powers passed
-through a non-invertible nonlinear digit-sum-and-phase composition;
-Q2 and Q3 use the complex cross-spectral matrix `ρ_EEG`. The two
-input pipelines are DISJOINT (Q1 discards phase; Q2/Q3 use complex
-values including phase). Therefore Q1 is not derivable from Q2 or Q3
-by any polynomial identity, and vice versa.
+**Established facts (only):**
 
-**Q2 vs Q3:** By the Frobenius identity for Hermitian matrices,
-```
-‖A − B‖²_F = Tr(A²) + Tr(B²) − 2 Re Tr(A B).
-```
-Applying with `A = ρ_EEG(t)`, `B = ρ_EEG(t + Δt)`:
-```
-Q3(t) = (1/2)·[Tr(ρ_EEG(t)²) + Tr(ρ_EEG(t+Δt)²)] − Re Tr(ρ_EEG(t) ρ_EEG(t+Δt))
-     = 1 − (1/2)·[Q2(t) + Q2(t+Δt)] − Re Tr(ρ_EEG(t) ρ_EEG(t+Δt)).
-```
+- **Fact 1 — Q1 discards specified information.** The Q1 pipeline
+  (band power → base-3 digit sum → phase factor → weighted sum →
+  squared magnitude) uses only real-valued band powers per (channel,
+  band). It does NOT use complex cross-channel phase or the
+  cross-channel outer-product structure that Q2 and Q3 use.
+- **Fact 2 — Q2 and Q3 both use the cross-spectral matrix.** Both are
+  functionals of `ρ_EEG(t)` (Q2 single-time; Q3 two-time).
+- **Fact 3 — No Q1 ↔ Q2/Q3 algebraic dependence or independence
+  theorem has been proved.** Different computational formulas do NOT
+  by themselves prove algebraic independence, and Q1's lossiness does
+  NOT by itself establish that Q2 or Q3 varies across Q1's fibers.
+  Neither direction has been formally shown; the Q1 ↔ Q2/Q3
+  relationship is presently UNKNOWN and empirically testable.
+- **Fact 4 — Q2 and Q3 obey the Frobenius identity.** By the
+  Frobenius identity for Hermitian matrices,
+  ```
+  ‖A − B‖²_F = Tr(A²) + Tr(B²) − 2 Re Tr(A B).
+  ```
+  Applying with `A = ρ_EEG(t)`, `B = ρ_EEG(t + Δt)`:
+  ```
+  Q3(t) = (1/2)·[Tr(ρ_EEG(t)²) + Tr(ρ_EEG(t+Δt)²)] − Re Tr(ρ_EEG(t) ρ_EEG(t+Δt))
+       = 1 − (1/2)·[Q2(t) + Q2(t+Δt)] − Re Tr(ρ_EEG(t) ρ_EEG(t+Δt)).
+  ```
+  So Q3 is DETERMINED by the triple
+  `(Q2(t), Q2(t+Δt), Re Tr(ρ_EEG(t) · ρ_EEG(t+Δt)))`. The first two
+  are single-time linear entropies; the third is the cross-time
+  Frobenius inner product, a quantity NOT captured by Q2 alone.
 
-**Conclusion.** Q3 is DETERMINED by the triple
-`(Q2(t), Q2(t+Δt), Re Tr(ρ_EEG(t) · ρ_EEG(t+Δt)))`. The first two are
-single-time linear entropies; the third is the cross-time Frobenius
-inner product, a quantity NOT captured by Q2 alone.
+**No further algebraic conclusions are drawn here.** In particular
+the charter does NOT claim:
+- Q1 is algebraically independent of Q2 or Q3.
+- Q1 is not derivable from Q2/Q3 by any polynomial identity.
+- Q1's lossiness suggests non-derivability in either direction.
 
-**Charter implication (corrected 2026-09-13 per AA — replaces earlier
-R8 language and earlier stronger algebraic-independence claim).**
-- **No definitional identity or algebraic dependence between Q1 and
-  Q2/Q3 has been established.** The Q1 pipeline (digitized real band
-  powers → base-3 digit sum → phase factor → weighted sum → squared
-  magnitude) and the Q2/Q3 pipeline (complex cross-spectral matrix →
-  normalisation → single- or two-time functionals) have disjoint
-  computational forms; that observation does NOT prove algebraic
-  independence. What HAS been established is that Q1 is a lossy
-  compression of the underlying signal (the digit-sum quantisation
-  collapses distinct powers to the same digit), which suggests no
-  algebraic identity recovers Q2 or Q3 from Q1; whether an algebraic
-  identity in the converse direction exists is not proven here.
-  Any Q1↔Q2/Q3 relationship is therefore a TESTABLE EMPIRICAL
-  question, NOT a definitional identity and NOT a claim of algebraic
-  independence.
+Any empirical relation among Q1, Q2, Q3 is a testable hypothesis.
 - Q2 and Q3 are algebraically LINKED via the Frobenius identity
   above.
 - Q3 carries information about the cross-time overlap
@@ -684,14 +706,22 @@ alternate-axis results characterize robustness.
 
 ## §10. Preregistered falsification design (corrected per points K, L)
 
-### §10.1 Primary hypothesis (unified per point L)
+### §10.1 Primary hypothesis (single, unambiguous; qualitative in the exploratory-pilot phase)
 
-**H1_Layer2 (primary, single, unambiguous):**
+**H1_Layer2 (exploratory-pilot form):**
 > The mean of χ_k(t) over each recording, computed on the primary
-> pipeline of §3, differs between Group A (behaviourally-verified
-> conscious wakefulness) and Group C ∪ Group D (behaviourally-verified
-> unresponsive) with effect size Cohen's d > 0.5 at α = 0.05 on the
-> primary contrast, controlling for site and recording covariates.
+> pipeline of §3 and aggregated per patient, differs between Group A
+> (behaviourally-verified conscious wakefulness) and Group C ∪ Group D
+> (behaviourally-verified unresponsive), with effect direction reported
+> alongside a patient-level confidence interval.
+
+The exploratory-pilot phase reports effect-size point estimates and
+confidence intervals; NO fixed Cohen's-d threshold or fixed α is a
+confirmatory rejection criterion in this phase. A future confirmatory
+phase would sharpen H1_Layer2 into a preregistered quantitative
+statement whose thresholds are derived from the χ_k-specific pilot
+variance and an independently chosen smallest effect size of
+interest (see §10.3 and §12 placeholders).
 
 ### §10.2 Groups (preregistered inclusion criteria; single primary contrast per point L)
 
@@ -754,20 +784,33 @@ design for χ_k must follow the same discipline (analysis unit is
 recording, but per-patient random effects and patient-grouped
 splits are required to avoid subject-level leakage).
 
-### §10.4 Statistical model (single primary pipeline per point L; patient-grouped per 2026-09-13 correction)
+### §10.4 Statistical model (single primary pipeline per point L; patient-grouped per 2026-09-13 correction; statistical-unit language further corrected 2026-09-13)
 
+**Unit-of-analysis discipline (correction 2026-09-13):**
+- One *recording* = one *observation*.
+- One *patient* = one *independent biological / inferential unit*
+  when recordings repeat.
+- All resampling and cross-validation must remain PATIENT-GROUPED:
+  all recordings from a single patient are held together in the same
+  training/test/bootstrap fold.
+- Effective sample size and power are counted at the PATIENT level,
+  NOT the recording level. 167 recordings from 113 distinct
+  patients (Sitt 2014) has effective N ≈ 113 for
+  patient-level inference, not 167.
+
+**Model:**
 - Time-average `χ_k(t)` per recording to obtain `χ̄_k` per recording.
-- Mixed-effects linear model, PATIENT-GROUPED (per 2026-09-13
-  correction; U10):
-  `χ̄_k ~ Group + (1 | Patient) + (1 | Site) + covariates (age, sex, montage version)`.
-  Patient random effect handles multiple recordings from the same
-  patient; recordings from the same patient are NEVER treated as
-  independent observations.
+- With ≥ ~5 recording sites, a mixed model with
+  `(1 | Patient) + (1 | Site)` random effects is defensible.
+- **With only 2 sites (as in the current charter §10.5
+  cross-site-replication requirement), a site random effect is NOT
+  reliably estimable.** Charter's default with 2 sites is therefore:
+  `χ̄_k ~ Group + Site + (1 | Patient) + covariates (age, sex, montage version)`
+  where `Site` is a FIXED effect. Only when a future design includes
+  enough sites to identify a site variance component (typically ≥ 5
+  sites) should site be moved to a random effect.
 - Any classifier or predictive-model evaluation performed as part of
-  Layer 2 (if any) MUST use PATIENT-GROUPED cross-validation splits
-  (all recordings from a given patient in the same fold), to avoid
-  the subject-level leakage risk flagged in Sitt 2014's unspecified
-  CV grouping (see §2.5 note).
+  Layer 2 (if any) MUST use PATIENT-GROUPED cross-validation splits.
 - Primary test: `Group A vs Group (C ∪ D)` contrast.
 - Report all secondary tests (§10.2) as EXPLORATORY.
 - NO Bonferroni correction across the 12 robustness axes of §9;
@@ -832,52 +875,81 @@ splits are required to avoid subject-level leakage).
   primary contrast, not a null-hypothesis distribution. It is used
   in reporting effect-size CIs and NOT for rejection testing.
 
-## §12. Rejection criteria (corrected per point L)
+## §12. Placeholder confirmatory thresholds (NOT active rejection criteria)
 
-H1_Layer2 is REJECTED if ANY of the following holds under the
-confirmatory-sample condition of §10.3:
+**★ Corrected 2026-09-13 (per user directive).** The charter is
+EXPLORATORY PILOT status per §10.3 and has NO χ_k-specific power
+analysis. The threshold list below is therefore a set of
+**unvalidated future confirmatory placeholders** — a template that
+some future preregistered confirmatory phase would need to instantiate
+against its OWN pilot-derived variance and independently chosen
+smallest effect size of interest. In its present form, failure to
+exceed these placeholders does NOT presently reject the scientific
+hypothesis; equally, passing them does NOT presently confirm it.
 
-- **R1.** Primary contrast (`Group A vs Group (C ∪ D)`) mean-`χ̄_k`
-  difference does not reach `d > 0.5` significance at α = 0.05 on the
-  default pipeline (primary test).
-- **R2.** Effect direction reverses on the majority (≥ 7 of 12) of
-  §9 robustness axes.
-- **R3.** Primary effect is NOT INCONSISTENT with the NM2
-  group-permutation null at α = 0.05 (i.e., the observed primary
-  contrast statistic lies within the 95% CI of the NM2 permutation
-  null distribution). NM1 AR(p) surrogate result reported alongside
-  as a secondary characterization.
-- **R4.** Group-A χ̄_k distribution shows majority overlap (> 50% of
-  Group A subjects) with the 95% CI of the NC1 short-circuit
-  recording noise. (Per point L: single-subject overlap is not
-  sufficient to reject; the criterion is majority.)
-- **R5.** Group-A mean χ̄_k does not exceed the NC2 time-shuffled
-  surrogate mean by any statistically detectable margin (`p > 0.05` on
-  paired test).
-- **R6.** χ̄_k fails to correlate `|Spearman r| > 0.3` (★ PF-selected
-  threshold; the exact threshold value is a PF choice) with ANY of
-  the established consciousness measures (Sitt et al. 2014 primary-
-  paper measures; Casali et al. 2013 PCI; behavioural CRS-R for
-  UWS/MCS). Non-correlation qualifies the interpretive claim (does
-  not disprove χ_k intrinsically, but disqualifies the Layer-3
-  "χ_k measures consciousness" claim).
-- **R7.** Pipeline is not reproducibly implementable from this charter
-  alone.
+Placeholder confirmatory criteria (candidates for a future preregistered
+confirmatory phase, after a χ_k-specific pilot and power analysis
+exist):
 
-**Rejection language discipline (per point L):**
-- Rejection of H1_Layer2 means: NOT SUPPORTED under this specific
-  operationalization. It does NOT prove χ_k is unrelated to
-  consciousness.
-- Layer 3 (consciousness interpretation) is DISQUALIFIED under H1
-  rejection but the underlying mathematical construction Layer 1 is
-  UNAFFECTED. Alternative Layer-2 constructions may still be
-  scientifically motivated.
+- **P1** (placeholder). Primary contrast (`Group A vs Group (C ∪ D)`)
+  mean-`χ̄_k` difference reaches an effect-size threshold and
+  statistical-significance level TBD by future power analysis. The
+  specific values `d > 0.5, α = 0.05` sketched in earlier drafts are
+  NOT active rejection thresholds.
+- **P2** (placeholder). Effect direction is stable across §9
+  robustness axes (specific quorum threshold TBD by future
+  preregistration).
+- **P3** (placeholder). Primary effect is INCONSISTENT with the NM2
+  group-permutation null (patient-grouped permutation) at a level
+  TBD by future preregistration. NM1 AR(p) surrogate result reported
+  alongside as a secondary characterization.
+- **P4** (placeholder). Group-A χ̄_k distribution does NOT show
+  majority overlap with the 95% CI of the NC1 short-circuit
+  recording noise. Single-subject overlap is not a rejection
+  criterion.
+- **P5** (placeholder). Group-A mean χ̄_k exceeds the NC2
+  time-shuffled surrogate mean at a level TBD.
+- **P6** (placeholder). χ̄_k correlates (Spearman |r| above a
+  threshold TBD by future preregistration) with at least one
+  established consciousness measure (Sitt 2014 primary-paper
+  measures; Casali 2013 PCI; behavioural CRS-R). Non-correlation
+  QUALIFIES any Layer-3 interpretive claim but does NOT prove χ_k
+  is intrinsically unrelated to consciousness.
+- **P7** (placeholder). Pipeline is reproducibly implementable from
+  a future locked specification.
 
-**The former R8 (Q1/Q2/Q3 linear dependence) is REMOVED** because
-the algebraic dependence check has been performed NOW in §6.1;
-Q1 is algebraically independent of Q2 and Q3, and Q2 and Q3 are
-algebraically linked by the Frobenius identity but Q3 carries
-additional information not captured by Q2 alone.
+**Interpretation of a failure to meet these placeholders.** Under the
+current exploratory-pilot status: NEITHER success NOR failure of any
+individual P_i triggers a formal confirmatory verdict. The current
+program reports exploratory findings and effect-size confidence
+intervals only. A confirmatory verdict is reserved for a future
+preregistered phase whose thresholds are calibrated to a
+χ_k-specific power analysis. Rejection language ("Layer 3
+disqualified", "χ_k unrelated to consciousness") is EXPLICITLY NOT
+supported by exploratory-pilot data; those framings are reserved for
+outcomes of a properly powered future confirmatory phase.
+
+**Future-confirmatory-phase language discipline (applies ONLY if the
+placeholders P1–P7 above are instantiated in a preregistered
+confirmatory phase, after a χ_k-specific pilot and power analysis
+exist):**
+- A confirmatory failure of an instantiated H1_Layer2 would mean:
+  NOT SUPPORTED under this specific operationalization. It would NOT
+  prove χ_k is unrelated to consciousness.
+- Layer 3 (consciousness interpretation) would be DISQUALIFIED under
+  such a confirmatory failure, but the underlying mathematical
+  construction Layer 1 would be UNAFFECTED. Alternative Layer-2
+  constructions may still be scientifically motivated.
+- These are language rules for a HYPOTHETICAL future confirmatory
+  phase; the current exploratory-pilot charter does NOT itself apply
+  them.
+
+**The former R8 (Q1/Q2/Q3 linear dependence) is REMOVED** as a
+rejection criterion: §6.1 records what is actually established
+(Q2 and Q3 satisfy the Frobenius identity; Q3 carries a cross-time
+overlap not captured by Q2 alone) and what remains unknown (any
+Q1 ↔ Q2/Q3 algebraic relation). It is not converted into a
+"proven independence" claim.
 
 ## §13. Unresolved choices and load-bearing assumptions
 
@@ -967,18 +1039,28 @@ verification required):**
   REAL covariance shrinkage; complex-Hermitian extension NOT
   addressed (per point H).
 
-**Primary experimental papers (INACCESSIBLE to auditor; specific
-values require full-text verification):**
-- Sitt, J. D., et al. (2014). *Brain* 137:2258–2270.
-  doi:10.1093/brain/awu141. Per point J: 181 recordings; verify
-  primary-paper AUC before quoting.
+**Primary experimental papers — Sitt 2014 main article VERIFIED,
+others INACCESSIBLE to auditor:**
+- **Sitt, J. D., et al. (2014).** *Brain* 137:2258–2270.
+  doi:10.1093/brain/awu141. **Main article full text VERIFIED
+  2026-09-13** via
+  `https://pmc.ncbi.nlm.nih.gov/articles/PMC4610185/?report=printable`.
+  Supplementary methods / material NOT recovered or audited. Sample
+  and AUC facts recorded verbatim in §2.5. **Interpretation
+  caveats** (see §2.5): AUC = 78 ± 4% is multivariate VS-vs-MCS
+  classification only; NOT a generic conscious-vs-unconscious
+  measure; does NOT validate χ_k; MUST NOT be converted into a
+  Cohen's d for χ_k. Patient-grouped CV remains UNKNOWN pending
+  supplementary-methods audit.
 - Casali, A. G., et al. (2013). *Sci. Transl. Med.* 5:198ra105.
-  doi:10.1126/scitranslmed.3006294. PCI as measured in primary paper
-  only.
+  doi:10.1126/scitranslmed.3006294. INACCESSIBLE to auditor;
+  cite only for PCI as measured in the primary paper.
 - Sarasso, S., et al. (2015). *Curr. Biol.* 25:3099–3105.
-  Anesthesia PCI as measured in primary paper only.
-- King, J. R., et al. (2013). *Curr. Biol.* 23:1914–1919. wSMI as
-  measured in primary paper only.
+  INACCESSIBLE to auditor; cite only for anesthesia PCI as
+  measured in the primary paper.
+- King, J. R., et al. (2013). *Curr. Biol.* 23:1914–1919.
+  INACCESSIBLE to auditor; cite only for wSMI as measured in the
+  primary paper.
 
 **Preprint (downgraded; do not cite as primary evidence):**
 - Pascual-Marqui, R. D. (2007). arXiv:0706.1776.
