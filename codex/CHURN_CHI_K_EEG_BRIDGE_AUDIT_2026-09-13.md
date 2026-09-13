@@ -10,21 +10,29 @@ been read in full.*
 
 ## §0. Access record (this pass)
 
-**FULL-TEXT VERIFIED (accessed via open URLs supplied by the user):**
+**Access record (2026-09-13):**
 
 - **Prichard, D., & Theiler, J. (1994).** *Phys. Rev. Lett.* 73:951–954.
-  Read in full via `https://arxiv.org/pdf/comp-gas/9405002` (arXiv
-  comp-gas/9405002, 12 May 1994).
-- **Sitt, J. D., et al. (2014).** *Brain* 137:2258–2270. Read in full
-  (main article; supplementary methods not recovered) via
+  **FULL 4-page article read** via `https://arxiv.org/pdf/comp-gas/9405002`
+  (arXiv comp-gas/9405002, 12 May 1994).
+- **Sitt, J. D., et al. (2014).** *Brain* 137:2258–2270. **Main
+  article read** (supplementary methods NOT recovered) via
   `https://pmc.ncbi.nlm.nih.gov/articles/PMC4610185/?report=printable`.
 - **Yao, D., et al. (2019).** "Which reference should we use for EEG
-  and ERP practice?" *Brain Topography* 32:530–549. Read in full via
-  `https://pmc.ncbi.nlm.nih.gov/articles/PMC6592976/`.
+  and ERP practice?" *Brain Topography* 32:530–549. **REVIEW read**
+  via `https://pmc.ncbi.nlm.nih.gov/articles/PMC6592976/`.
 - **Hu, S., Yao, D., & Valdes-Sosa, P. A. (2018).** "Unified Bayesian
   estimator of EEG reference at infinity: rREST." arXiv:1802.02268.
-  Read in full via `https://arxiv.org/pdf/1802.02268` (first 5
-  pages, sufficient to extract the reference-model equations).
+  **PARTIAL READ** — Introduction and §2.1 General reference model
+  (pp. 1–5 of the 21-page preprint) inspected via
+  `https://arxiv.org/pdf/1802.02268`. Remainder NOT audited. Do NOT
+  describe as "full-text verified" — 5-of-21 pages is not full-text
+  verification.
+- **Tenke, C. E., & Kayser, J. (2015).** "Surface Laplacians (SL) and
+  phase properties of EEG rhythms: Simulated generators in a
+  volume-conduction model." **Read** via
+  `https://pmc.ncbi.nlm.nih.gov/articles/PMC4537832/` (added
+  2026-09-13 for the P.LAP evidence strengthening pass).
 
 **GENUINELY INACCESSIBLE in this pass** (attempted, could not open
 primary text):
@@ -59,8 +67,8 @@ background):
 | # | Question | Candidate | Primary source (accessed/attempted) | Exact support | Limitation | Verdict |
 |---|---|---|---|---|---|---|
 | A | Per-frequency Hermitian PSD cross-spectral matrix `S(f,t) = ⟨X_r(f,t) X_r(f,t)†⟩_r` (average outer products over epochs/segments r at a fixed frequency f) | Mathematically elementary (Nolte 2004 uses this canonical definition in §2.1 per user directive; Nolte primary text was NOT read this pass) | **Sitt 2014 and Hu-Yao rREST read; Nolte 2004 NOT read.** Nevertheless the construction is elementary linear algebra: `S = E[X X†]`, estimator `Ŝ = (1/N) Σ_r X_r X_r†`, Hermitian by construction, PSD by construction. | Averaging across MULTIPLE frequencies within a named band is a further step not implied by the per-frequency definition alone | **PARTIALLY RESOLVED.** Per-frequency `S(f,t)` construction is mathematically well-defined and Hermitian PSD by outer-product elementary algebra; NO literature attribution is claimed for the specific averaged-outer-product form absent Nolte-primary reading. Frequency-band integration inside `S_b(t)` is a separate PF operational choice, NOT part of an established theorem. |
-| B.1 | CAR / average reference (AR) as primary representation | Yao et al. 2019 (VERIFIED); Hu-Yao rREST 2018 (VERIFIED) | Yao 2019: "In general, we do not recommend using AR if the REST is available"; "AR cannot be a golden standard but an approximation"; "LM seriously biases EEG power…and coherence spectra". Hu-Yao 2018: AR corresponds to "biophysically non-informative [uncorrelated] prior"; AR reference-transform matrix `H = I − 1·f^T` is rank-1 (Eq. 2). | AR is a linear, RANK-1 (non-unitary) transformation. Not endorsed by verified primary sources for coherence/cross-spectral use. | **NOT RECOMMENDED as primary for χ_k** — verified primary sources argue against AR/CAR-sensor-level as canonical. Neither is unitary; Layer-1 unitary-invariance theorem does NOT apply to AR. |
-| B.2 | REST / rREST (Reference Electrode Standardization Technique) | Hu-Yao rREST 2018 (VERIFIED); Yao 2019 (VERIFIED) | Hu-Yao 2018: REST corresponds to "correlations between electrodes are assumed to be caused by sources filtered through a volume conductor model"; rREST is "the regularized version of REST"; Bayesian estimator formula in Eq. (4). Yao 2019: "REST (rREST) is the best to approach the ideal unipolar infinity reference with golden standard data as the ground true". | REST is MODEL-DEPENDENT (requires a head model with equivalent sources); linear transformation, non-unitary (rank-1 same as AR). Marzetti 2007 and Qin 2010 (secondary, cited within Hu-Yao) reportedly show REST outperforms AR for spectra and coherence; not directly read. | **PRIMARY SOURCES SUPPORT REST/rREST OVER AR** for spectra/coherence-adjacent applications, but the transformation is MODEL-DEPENDENT and NON-UNITARY. Layer-1 unitary-invariance does NOT apply. |
+| B.1 | CAR / average reference (AR) as primary representation | Yao et al. 2019 (review, verified); Hu-Yao rREST 2018 (preprint, §1 and §2.1 inspected) | Yao 2019: "In general, we do not recommend using AR if the REST is available"; "AR cannot be a golden standard but an approximation"; "LM seriously biases EEG power…and coherence spectra". Hu-Yao 2018: AR corresponds to "biophysically non-informative [uncorrelated] prior"; AR reference-transform matrix `H = I − 1·f^T` (Eq. 2) is a rank-deficient re-referencing projection whose null-space contains the constant vector 1 (rank N−1 in general; the outer product `1·f^T` is itself rank-1). | AR is a linear, RANK-DEFICIENT (non-unitary) rereferencing transformation. Not endorsed by verified secondary/preprint sources for coherence/cross-spectral use. | **NOT RECOMMENDED as primary for χ_k** — verified sources argue against AR/CAR-sensor-level as canonical. Neither is unitary; Layer-1 unitary-invariance theorem does NOT apply to AR. |
+| B.2 | REST / rREST (Reference Electrode Standardization Technique) | Hu-Yao rREST 2018 (preprint, §1 and §2.1 inspected); Yao 2019 (review, verified) | Hu-Yao 2018: REST corresponds to "correlations between electrodes are assumed to be caused by sources filtered through a volume conductor model"; rREST is "the regularized version of REST"; Bayesian estimator formula in Eq. (4). Yao 2019: "REST (rREST) is the best to approach the ideal unipolar infinity reference with golden standard data as the ground true". | REST is MODEL-DEPENDENT (requires a head model with equivalent sources); linear transformation, non-unitary; H reference-projection is rank-deficient in the same sense as AR. Marzetti 2007 and Qin 2010 cited within Hu-Yao reportedly show REST outperforms AR for spectra and coherence; not directly read. | **REVIEW-LEVEL AND PREPRINT-METHODS SOURCES SUPPORT REST/rREST OVER AR** for spectra/coherence-adjacent applications, but the transformation is MODEL-DEPENDENT and NON-UNITARY. Layer-1 unitary-invariance does NOT apply. |
 | B.3 | Surface Laplacian / Current Source Density (CSD) | Sitt 2014 (VERIFIED for connectivity use) | Sitt 2014 High-density scalp section (verbatim): "Connectivity measures were based on a spatial Laplacian transformation of the EEG—a computation also known as the Current Source Density estimate." | Sitt endorses Laplacian/CSD FOR CONNECTIVITY specifically, not as a universal primary representation; primary Laplacian-method papers (Perrin 1989 spline surface Laplacian; Kayser-Tenke 2015) NOT read this pass. Laplacian is a spatial derivative that SUPPRESSES broad volume-conducted components at the cost of discarding/altering spatial-scale information. Non-unitary. | **SUPPORTED as a defensible representation for connectivity-adjacent quantities** by one verified primary source (Sitt 2014). Not unitary. Layer-1 unitary-invariance does NOT apply. |
 | B.4 | Source-space reconstruction (LORETA, MNE, LCMV beamformer, DICS) before cross-spectra | NONE of the primary source-imaging methods papers were accessed this pass | — | Auditor did not access Pascual-Marqui/Michel/Lehmann 1994, Hämäläinen/Ilmoniemi 1994, Van Veen 1997, or Gross 2001 | **UNVERIFIED** — reserved as a design alternative pending primary-source access |
 | C | Block-diagonal direct-sum of independently estimated per-band Hermitian PSD blocks (charter §3.3 default) | PF-declared; no primary-source origin claimed | — | Charter itself declares this as a PF operational choice. No verified primary source establishes this as standard OR as forbidden. | **PF-SPECIFIC CONSTRUCTION.** Retains within-band channel cross-spectra and (in the block traces) relative power; DELIBERATELY sets cross-frequency blocks to zero, so cannot test cross-frequency coupling. Global trace normalization additionally removes total signal power; χ_k measures changes in the normalized spatial-spectral structure, not changes in total EEG power. **The earlier claim that "no standard EEG estimator" uses this form is RETRACTED** — no verified source establishes that universal negative. |
@@ -127,9 +135,13 @@ reference model):**
   estimator. On the other hand, if the correlations between
   electrodes are assumed to be caused by sources filtered through a
   volume conductor model, the resulting estimator is REST."
-- Eq. (2): `v_r = Hφ + e, e = Hε`, where **H = I − 1·f^T is a rank-1
-  matrix**. All unipolar references (including AR) satisfy `f^T·1 = 1`
-  and are of this form.
+- Eq. (2): `v_r = Hφ + e, e = Hε`, with `H = I − 1·f^T`. All
+  unipolar references (including AR) satisfy `f^T·1 = 1`, so
+  `H · 1 = 0` and H is a **rank-deficient re-referencing projection**
+  (rank N−1 in general). The outer-product term `1·f^T` inside H is
+  itself rank-1, but H itself is NOT rank-1. (Correction 2026-09-13:
+  the earlier claim "H is rank-1" was mathematically wrong;
+  correcting per user directive.)
 - Eq. (4) gives the Bayesian estimator for the potentials at
   infinity from any reference-recorded EEG.
 
@@ -244,20 +256,33 @@ D2, D3 by these names.
 
 Comparison of exactly three candidate primary pipelines:
 
-**Pipeline P.LAP — surface-Laplacian EEG → per-frequency
-cross-spectral matrices.**
+**Pipeline P.LAP — reference-free estimate of the scalp surface
+Laplacian → per-frequency spectral cross-spectral-density (spectral
+CSD) matrices.**
+
+Naming discipline: "surface Laplacian" and "spatial CSD" are used
+here as synonyms for a spatial derivative of scalp potential (Tenke
+& Kayser 2015 use "SL" and "spatial CSD" interchangeably; the
+spherical-spline construction of Perrin et al. 1989 is one
+established estimator). This is a **reference-free estimate of the
+scalp surface Laplacian, interpretable under stated volume-conductor
+assumptions as radial current-flow structure — NOT a direct
+cortical current-source density.** "Spectral CSD" below refers to
+the cross-spectral density matrix (§2.A), a distinct object.
 
 | Attribute | Value |
 |---|---|
-| Physical assumption | Local radial current-source density under a homogeneous local cortex model |
-| Reference dependence | Weak; Laplacian is a spatial derivative and is largely reference-invariant for interior electrodes |
-| Volume-conduction sensitivity | Suppresses broad (long-spatial-scale) volume conduction; retains local components |
-| Information discarded | Distant/low-spatial-frequency components; edge artifacts on the electrode array |
-| Model dependence | Weak (spatial interpolation model, e.g., spherical spline for Perrin 1989) |
-| Preprocessing map unitary? | **No** (spatial-derivative operator is not unitary) |
+| Physical assumption (from Tenke & Kayser 2015, §4.5) | The surface Laplacian, under isotropic-tissue simplification, is a **minimal description** of the neural current generators underlying a scalp EEG topography — NOT a direct cortical CSD. Tenke & Kayser 2015: "CSD provides a minimal description of the neural current generators underlying a scalp-recorded EEG topography." |
+| Reference dependence (Tenke & Kayser 2015, §1) | "A surface Laplacian offers a clear advantage for both of these shortcomings: it is a reference-independent method that eliminates or substantially reduces volume conduction." |
+| Volume-conduction sensitivity (Tenke & Kayser 2015, §4.4, citing Nunez & Srinivasan 2006) | "CSD 'algorithms essentially filter out the very large scale (low spatial frequency) scalp potentials.'" |
+| Sensitivity to superficial vs deep generators (Tenke & Kayser 2015, §4.3) | Nontrivial and computation-parameter-dependent: "The first caveat pertains to the relative selectivity of CSD for superficial, rather than deep sources"; but "the relative peak attenuation with depth is of the same order of magnitude as that observed for EEG data using an AR … and can easily be countered by altering computation parameters." Discovered dependence on spline flexibility: "Variations in spline flexibility strongly influenced the spatial tuning of the CSD for Model 3." |
+| Dependence on interpolation, smoothing, montage geometry (Tenke & Kayser 2015 §2.3.3, §3, §4.3) | Depends on spline-order m and smoothing λ. Their "standard parameters" for group averaging: `λ = 10⁻⁵`, 50 iterations, `m = 4`. "A more flexible spline (m = 3) leads to a more precise localization of generators, but at the expense of further attenuation with depth." |
+| Edge-electrode behaviour | Not explicitly addressed in the passages read this pass; treated as UNKNOWN pending further primary-source access. |
+| Information lost or spatially filtered (Tenke & Kayser 2015, §4.4) | "Globally recorded, reference-dependent empirical EEG may retain important temporal (phase) information that is removed by the CSD when employing high-resolution CSD estimates." Removes "the two integration constants eliminated by the Laplacian" (broad spatial-DC and linear-spatial components). |
+| Preprocessing map unitary? | **No** (spatial-derivative operator, further composed with a spherical-spline interpolation, is not unitary) |
 | Consequence for Frobenius churn | χ_k values on Laplacian-transformed signals will DIFFER from χ_k on sensor-level signals; not invariant |
-| Data/head-model requirements | Requires >32 electrodes for a stable Laplacian; simple sphere or realistic head geometry |
-| Suitability for Sitt/UWS/MCS population | Aligned: Sitt 2014 (verified) uses Laplacian/CSD for its own connectivity measures on this exact population |
+| Data / electrode-density requirements | Tenke & Kayser 2015 simulated with a 67-channel scalp montage on a 4-shell spherical head model. NO threshold like ">32 electrodes required" appears in the passages read this pass. The evidence-supported dependence is on spatial sampling adequate to support the chosen spline order and smoothing without aliasing; specific minimums not established this pass. |
+| Suitability for Sitt/UWS/MCS population | Sitt 2014 (primary-experimental precedent, verified) uses spatial Laplacian / CSD for its own connectivity measures on this exact population. |
 
 **Pipeline P.REST — rREST (regularised Reference Electrode
 Standardization Technique) → per-frequency cross-spectral
@@ -270,7 +295,7 @@ matrices.**
 | Volume-conduction sensitivity | Attempted correction via the head-model prior (Hu-Yao 2018, Eq. 4) |
 | Information discarded | Depends on regularisation parameter; rREST retains more information than AR (verified in Hu-Yao 2018 simulations) |
 | Model dependence | Strong: requires an equivalent-source distribution and head-conduction model |
-| Preprocessing map unitary? | **No** (rank-1 reference matrix H = I − 1·f^T; further composed with rREST's Bayesian estimator, still non-unitary) |
+| Preprocessing map unitary? | **No** (rank-deficient re-referencing projection H = I − 1·f^T with H·1 = 0, rank N−1; further composed with rREST's Bayesian inverse estimator, still non-unitary) |
 | Consequence for Frobenius churn | χ_k values on rREST-referenced signals will DIFFER from sensor-level; not invariant |
 | Data/head-model requirements | Requires (a) high-density electrode coverage for good rank of forward map, and (b) a head model (spherical acceptable; realistic MRI-based preferred) |
 | Suitability for Sitt/UWS/MCS population | rREST is not used by Sitt 2014 (Sitt used AR for spectra); patient population sometimes lacks MRI, complicating realistic head model |
@@ -293,51 +318,67 @@ matrices.**
 
 ## §4. Recommendation
 
-**Exploratory-pilot primary pipeline: P.LAP (surface Laplacian /
-CSD → per-frequency cross-spectral matrices).**
+**Exploratory-pilot primary pipeline candidate: P.LAP** (reference-free
+scalp surface Laplacian → per-frequency spectral cross-spectral-density
+matrices).
 
-**Rationale (from verified primary sources only):**
+**Sources of evidence (with each source's status made explicit):**
 
-1. Sitt 2014 (VERIFIED primary source on the same UWS/MCS patient
-   population) explicitly uses surface Laplacian / CSD for
-   connectivity-adjacent quantities. This is the ONLY
-   representation choice in the audit that has a directly verified
-   primary-source precedent on the target population.
-2. Laplacian is minimally model-dependent (spatial-derivative
-   operator; spherical-spline model for Perrin 1989 style, not
-   audited).
-3. It is feasible in UWS/MCS patients without an MRI-based head
-   model.
-4. It suppresses broad volume-conducted components (verified
-   textbook property; not re-attributed to any specific primary
-   source in this pass).
+- **Primary experimental precedent (fully read):** Sitt 2014 uses
+  spatial Laplacian / spatial CSD for connectivity measures on the
+  same UWS/MCS population that motivates the χ_k program.
+- **Primary simulation/methods (read this pass):** Tenke & Kayser
+  2015 supplies evidence-supported statements about reference
+  freedom, broad-scale suppression, and parameter dependence of
+  surface Laplacian.
+- **Primary/preprint methods model (partial read):** Hu-Yao rREST
+  2018 (pp. 1–5 inspected) supports REST/rREST as one specific
+  Bayesian-inverse re-referencing alternative.
+- **Review-level synthesis (fully read):** Yao 2019 argues against
+  AR/CAR-as-canonical and in favour of REST/rREST for
+  coherence-adjacent applications.
+- **Mathematical deductions made by PF:** outer-product Hermiticity
+  and PSD (§2.A); the AR reference-projection H = I − 1·f^T is
+  rank-deficient (not rank-1); χ_k is not invariant under non-unitary
+  preprocessing.
 
-**Preregistered sensitivity axes (RETAINED for χ_k robustness):**
+Do NOT collapse these categories into "verified primary sources".
 
-- **P.REST** (rREST → per-frequency CSD) — supported by Yao 2019
-  and Hu-Yao 2018 as reference-independent for coherence-adjacent
-  applications. Included as a sensitivity axis to test whether the
-  χ_k signal survives an infinity-reference choice.
+**Preregistered sensitivity representations:**
+
+- **P.REST** (rREST → per-frequency spectral CSD) — supported by
+  the Yao 2019 review and the partial Hu-Yao 2018 read as a
+  reference-independent alternative. Included as a sensitivity axis
+  to test whether the χ_k signal survives an infinity-reference
+  choice.
 - **P.SRC** (source-space) — included as a preregistered
-  sensitivity axis when a MRI-based head model is available for a
-  subset of subjects, to test whether χ_k signal survives an
-  inverse-model transformation.
+  sensitivity axis when an MRI-based head model is available, to
+  test whether χ_k signal survives an inverse-model transformation.
 
 **Sample-size disposition:** Even with P.LAP as primary, the χ_k
 program remains EXPLORATORY PILOT per charter §10.3 (Sitt's AUC is
-NOT transferable). χ_k-specific pilot variance data required
+NOT transferable). χ_k-specific pilot variance data are required
 before any confirmatory phase.
 
-**Nature of this recommendation.** This recommendation is a
-**PF experimental-design decision** informed by the verified
-primary sources, NOT a theorem or literature mandate. Verified
-sources argue against AR/CAR as primary (Yao 2019), support REST/rREST
-as an infinity-reference alternative (Yao 2019, Hu-Yao 2018), and
-verify Sitt's own use of Laplacian/CSD on the target population
-(Sitt 2014). Nolte 2004 was NOT read; any Nolte-specific
+**Nature of this recommendation.** This is a **PF experimental-design
+decision** informed by a mix of evidence types (primary experimental
+precedent, primary simulation, primary/preprint methods model,
+review, and PF mathematical deductions). It is NOT a theorem or
+literature mandate. Nolte 2004 was NOT read; any Nolte-specific
 imaginary-coherency choice is NOT a component of this
-recommendation. If a future full-text read of Nolte 2004 supplies
-additional constraints, this recommendation is subject to revision.
+recommendation. Kayser & Tenke's separate tutorial (attempted at
+their Columbia URL, connection refused) was not read either; if a
+future read contradicts the Tenke & Kayser 2015 findings above,
+this recommendation is subject to revision.
+
+**Scientific status of the P.LAP recommendation.** P.LAP is a
+technically coherent exploratory operationalization with direct
+primary-experimental precedent for the spatial-Laplacian step in the
+target population (Sitt 2014). Its validity as a **churn
+measurement** is UNESTABLISHED pending nuisance/sensitivity
+validation. A synthetic measurement-validity benchmark is required
+before a P.LAP-primary pilot can be preregistered; the benchmark
+charter is committed alongside this revision.
 
 ## §5. Remaining genuinely inaccessible sources
 
@@ -366,32 +407,59 @@ work if further approval is granted:
   language (per §2.C above).
 - Charter §13 U11–U15 adjust to reflect the verified sources.
 
-## §7. Overall verdict on the EEG→ρ_EEG map
+## §7. Corrected verdict on the EEG→ρ_EEG map
 
-**Not blocked as claimed in commit 00087f33** — that finding was
-wrong. Corrected verdict:
+**Not blocked as claimed in commit 00087f33.** Also NOT "defensible"
+in the strong sense implied by commit 2d4e5a6a. The correct narrower
+verdict is:
 
-- The per-frequency cross-spectral matrix (Q.A) is mathematically
-  elementary; NO primary-source blocker.
-- The reference/representation choice (Q.B) HAS a defensible
-  primary-source-informed answer (P.LAP as primary; P.REST and
-  P.SRC as sensitivity), even though none of the transformations is
-  unitary and χ_k will depend on the choice.
-- The band-block matrix (Q.C) is a PF operational choice, correctly
-  labelled as such.
-- The surrogates (Q.D) split into three distinct constructions with
-  verified properties (D1 Prichard-Theiler common-phase; D2 PF
-  independent-channel null; D3 global-phase invariance test).
+**The proposed P.LAP → spectral-CSD → trace-normalized-state pipeline
+is a technically coherent exploratory operationalization with direct
+primary-experimental precedent for the spatial-Laplacian step in the
+target population. Its validity as a churn measurement remains
+unestablished pending nuisance/sensitivity validation.**
 
-**The EEG→ρ_EEG bridge is scientifically DEFENSIBLE as a Layer-2
-exploratory-pilot operationalization** with P.LAP as primary,
-P.REST and P.SRC as sensitivity axes, `S(f, t)` per-frequency CSD
-as elementary estimator, block-diagonal band grouping as an
-explicit PF operational choice, and surrogates D1/D2/D3 as three
-distinct constructions.
+**A. Algebraically valid (proven or elementary):**
+- The outer-product spectral matrix `S(f, t) = ⟨X_r(f, t) X_r(f, t)†⟩_r`
+  is Hermitian and positive semidefinite by construction.
+- Trace normalization `ρ_EEG(t) = S(t) / Tr(S(t))` yields a
+  trace-one PSD matrix whenever `Tr(S(t))` is positive.
 
-**This is a defensibility disposition, NOT an implementation-ready
-green light.** Charter §17 pre-implementation checklist stands.
+**B. Statistical-estimation assumptions still unresolved:**
+- Local stationarity of the underlying process.
+- Segment length choice.
+- Taper / window choice.
+- Overlap choice.
+- Frequency-smoothing choice.
+- Band-integration choice (§2.C).
+- Effective degrees of freedom of the empirical estimator.
+- Regularization for near-singular `S(t)`.
+- Bias and variance under all of the above.
+
+None of these has been resolved from primary sources in this pass.
+
+**C. Physical interpretation not established:**
+- A normalized scalp spatial-spectral change is NOT automatically an
+  intrinsic brain-state change. It is a change in a projected /
+  filtered / normalized quantity whose relation to underlying neural
+  dynamics is model-dependent.
+- Trace normalization deliberately removes total-power change; χ_k
+  does NOT respond to changes in overall EEG power (charter §2.C).
+- Non-unitary preprocessing (Laplacian, rREST, source inversion)
+  makes χ_k representation-dependent; Layer-1 T4 unitary-invariance
+  does NOT rescue χ_k here.
+
+**Consequence.** Even under the P.LAP candidate, the χ_k pipeline
+requires an ADDITIONAL VALIDATION STEP — a synthetic
+measurement-validity benchmark that establishes the pipeline's
+false-churn rate under nuisance-only changes, its sensitivity under
+genuine latent-structure changes, its representation-to-representation
+agreement, and its stability under estimator parameters. That
+benchmark is designed in a separate charter committed alongside this
+revision.
+
+**Charter §17 pre-implementation checklist stands.** No estimator
+implementation, no simulated results, no human-data claims.
 χ_k pilot data collection, power analysis, ethics approvals, and
 Pablo's explicit further approval are still required before any
 Layer-2 estimator implementation or Layer-3 initiation.

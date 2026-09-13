@@ -19,7 +19,7 @@ verification to be misquoted or unsupportive of the claimed step").
 **Updated verification status (2026-09-13, cumulative through the
 Layer-2 bridge revision pass):**
 
-**FULL-TEXT VERIFIED sources (2026-09-13):**
+**Access record (2026-09-13, with per-source discipline):**
 - **Sitt et al. (2014)** *Brain* 137:2258–2270 — main article via
   PMC PMC4610185. Supplementary methods / material NOT recovered
   or audited; any Sitt claim that depends on supplementary material
@@ -34,11 +34,18 @@ Layer-2 bridge revision pass):**
   Verified via PMC PMC6592976. Explicit primary-source quotes
   recorded in the bridge audit.
 - **Hu, S., Yao, D., & Valdes-Sosa, P. A. (2018).** arXiv:1802.02268
-  (rREST). Verified via the open arXiv PDF. Provides Eq. (1)–(4) of
-  the general reference model, showing AR and REST as the
+  (rREST). **PARTIAL READ**: relevant Introduction and §2.1 General
+  reference model (pp. 1–5) inspected via the open arXiv PDF;
+  remainder of the 21-page preprint NOT audited. Provides Eq. (1)–(4)
+  of the general reference model, showing AR and REST as the
   uncorrelated-prior and volume-conductor-prior special cases of a
-  unified Bayesian estimator, both of which are linear non-unitary
-  transformations of the recorded EEG.
+  unified Bayesian estimator; both are linear non-unitary
+  transformations of the recorded EEG. The re-referencing matrix
+  `H = I − 1·f^T` (Eq. 2) is a rank-deficient projection with
+  `H · 1 = 0` (rank N−1 in general); the outer product `1·f^T`
+  inside H is rank-1, but H itself is NOT rank-1 — earlier
+  "rank-1" characterization was mathematically wrong and is
+  corrected in this pass.
 
 **All remaining citations in §14 / R1–R21** — UNVERIFIED by auditor
 in the present access channels. In particular Nolte 2004 was
@@ -188,8 +195,9 @@ recorded.
 - **Source type:** Primary experimental paper.
 - **Cited in:** §2.5, §10 (sample size / power calculation).
 - **Charter claim (original commit 1cabde90):** "Sitt et al. (2014) which reported classifier AUC ≈ 0.78 for conscious vs unconscious discrimination with n ≈ 200 patients."
-- **Verification status (2026-09-13):** **FULL-TEXT VERIFIED** via PMC full text at
+- **Verification status (2026-09-13):** **Main article read** via PMC full text at
   `https://pmc.ncbi.nlm.nih.gov/articles/PMC4610185/?report=printable`
+  (supplementary methods NOT recovered or audited)
   (accessed 2026-09-13). Auditor accessed the full primary text.
 - **Verified primary-source facts (exact quotations with section
   location):**

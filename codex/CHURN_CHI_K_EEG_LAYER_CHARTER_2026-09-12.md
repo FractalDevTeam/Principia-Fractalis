@@ -79,8 +79,11 @@ testable hypotheses, not definitional identities.
 - Begin Layer 3 (consciousness interpretation).
 - Correlate the pipeline output against Q1, Q2, or established
   consciousness indices except as a preregistered secondary outcome.
-- Claim any citation has been verified against its full text by the
-  current auditor.
+- Describe any citation with looser verification wording than the
+  access record supports. §2 lists which sources the current
+  auditor has read in full, which have been read in part, and which
+  remain UNVERIFIED. "Full-text verified" is reserved for sources
+  read cover-to-cover.
 
 ## §1. What Layer 1 proves; what Layer 2 assumes
 
@@ -141,16 +144,42 @@ Layer 2 to be successfully implemented and preregistered first.
 
 ## §2. Background references (mixed status: some full-text verified 2026-09-13; others pending)
 
-**⚠ CRITICAL AUDIT NOTE (updated 2026-09-13).** The auditor of the
-source list did NOT open the full text of any cited work when
-drafting the original charter. Four sources have SINCE BEEN
-FULL-TEXT VERIFIED (via open PMC / arXiv / PubMed Central full-text
-URLs supplied by the user) as of 2026-09-13:
-- **Sitt et al. 2014** (main article via PMC PMC4610185).
-  Supplementary methods NOT recovered or audited.
-- **Prichard & Theiler 1994** (via arXiv comp-gas/9405002 full PDF).
-- **Yao et al. 2019** (Brain Topography; via PMC PMC6592976 full HTML).
-- **Hu, Yao & Valdes-Sosa 2018 rREST** (via arXiv 1802.02268 full PDF).
+**⚠ CRITICAL AUDIT NOTE (updated 2026-09-13, mixed
+evidence-attribution status).** The auditor of the source list did
+NOT open the full text of any cited work when drafting the original
+charter. Since then, the following sources have been accessed via
+open URLs:
+
+- **Sitt et al. 2014** (primary experimental) — main article via PMC
+  PMC4610185 **fully read**; supplementary methods NOT recovered
+  or audited.
+- **Prichard & Theiler 1994** (primary methods) — via arXiv
+  comp-gas/9405002 **full 4-page article read**.
+- **Yao et al. 2019** (REVIEW; not a primary methods paper) — via
+  PMC PMC6592976 **fully read**.
+- **Hu, Yao & Valdes-Sosa 2018 rREST** (preprint methods model) —
+  via arXiv 1802.02268 **partial read only** (pp. 1–5 of the
+  21-page preprint: Introduction and §2.1 General reference model
+  inspected; remainder NOT audited).
+- **Tenke & Kayser 2015** (primary simulation/methods paper for
+  surface Laplacian) — via PMC PMC4537832 **read** (accessed
+  2026-09-13 for the P.LAP evidence-strengthening pass).
+
+**Evidence-attribution discipline (per user directive 2026-09-13):**
+Distinguish four classes of evidence throughout the charter and
+audits:
+1. **Primary experimental precedent**: Sitt 2014 on the target
+   UWS/MCS population; Tenke & Kayser 2015 simulation of surface
+   Laplacian.
+2. **Primary/preprint methods model**: Hu-Yao rREST 2018 (partial
+   read); Prichard & Theiler 1994 (fully read).
+3. **Review-level synthesis**: Yao 2019 review.
+4. **Mathematical deductions made by PF**: outer-product Hermiticity
+   and PSD; block-diagonal band construction; χ_k's dependence on
+   representation because preprocessing maps are non-unitary.
+
+Do NOT collapse these categories into "verified primary sources".
+Do NOT describe a partial read as "full-text verified".
 
 Other sources listed in this section and in §14 remain UNVERIFIED
 by auditor (paywalls, 403s, or not attempted in the accessible-URL
@@ -353,15 +382,24 @@ verification and to the §9 robustness checks):
    10–20 or 10–10 electrode placement. Rationale: consistent with
    common practice in the consciousness literature (background:
    Nunez–Srinivasan 2006).
-2. ★ Reference montage: **PENDING DECISION**. Per point C, CAR is
-   NOT established as canonical. The primary choice among {CAR, REST,
-   Laplacian, linked mastoids} is a PF design choice pending: (a)
-   full-text verification of the specific montage-choice recommendation
-   from Yao et al. 2019 for cross-spectral applications, and (b)
-   pilot analysis of reference-montage impact on the primary pipeline
-   under §9. Recorded default (for pipeline specification, not
-   endorsement): CAR, with REST as a mandatory sensitivity axis in
-   §9.
+2. ★ **Provisional primary representation (updated 2026-09-13):
+   P.LAP — reference-free scalp surface Laplacian.** Rationale: Sitt
+   2014 (primary experimental precedent on the target UWS/MCS
+   population, fully read) uses spatial Laplacian / CSD for its own
+   connectivity measures; Tenke & Kayser 2015 (primary
+   simulation/methods, read) documents reference freedom and broad-
+   scale suppression while flagging parameter dependence and
+   selectivity caveats; Yao 2019 review argues against AR/CAR as
+   canonical. The provisional selection is a PF experimental-design
+   decision, NOT a theorem or literature mandate; it is subject to
+   revision after the synthetic measurement-validity benchmark
+   (`codex/CHURN_CHI_K_MEASUREMENT_BENCHMARK_CHARTER_2026-09-13.md`).
+   Preregistered sensitivity representations (§9): **P.REST** (rREST
+   → per-frequency spectral CSD, supported by Yao 2019 and the
+   partial Hu-Yao 2018 read); **P.SRC** (source-space, when an
+   MRI-based head model is available). CAR as a default is
+   RETRACTED. See bridge audit §2.B for the primary-source
+   excerpts and §4 for the recommendation rationale.
 3. ★ Bandpass filter: 0.5 − 45 Hz, zero-phase FIR Hamming window.
 4. ★ Notch filter: IIR notch at line frequency (50 or 60 Hz per
    site), Q = 30.
@@ -683,8 +721,11 @@ effect, that observation is a QUALIFIER on the primary result, not a
 separate hypothesis.
 
 **Robustness axes:**
-1. Reference montage: CAR default vs. REST vs. Laplacian vs.
-   linked-mastoids (per point C; primary choice pending §3.1 item 2).
+1. **Representation** (updated 2026-09-13): P.LAP primary
+   (reference-free scalp surface Laplacian) vs. P.REST (rREST) vs.
+   P.SRC (source space). Old "CAR vs REST vs Laplacian vs
+   linked-mastoids" listing is RETRACTED in favour of the three
+   candidate pipelines. See §3.1 item 2.
 2. Feature route: STFT R2 default vs. Hilbert R1 vs. Morlet R3.
 3. Band selection: 5 canonical bands vs. individualized α-peak-centred
    vs. narrow-band (1 Hz bins).
@@ -843,25 +884,36 @@ splits are required to avoid subject-level leakage).
 
 - **NC1** Recording noise floor: 5-min short-circuit recording.
 - **NC2** Time-shuffled surrogates: shuffle epoch order.
-- **NC3** Phase-randomized multichannel surrogates (per point I,
-  distinguished from Theiler univariate original):
-  - **NC3a (independent per-channel phase randomization) — SURROGATE
-    NULL.** Preserves per-channel PSD (auto-spectrum); DESTROYS all
-    cross-channel phase relationships including zero-lag. Primary
-    null against cross-spectral cross-channel dependence.
+- **Phase-based multichannel constructions (updated 2026-09-13 per
+  bridge audit §2.D):** Three distinct constructions, formerly
+  conflated:
 
-- **INV1** (renamed from NC3b per correction BB 2026-09-13) —
-  **Common-phase rotation across all channels — EXACT INVARIANCE
-  TEST, NOT A SURROGATE NULL.** For any global phase φ ∈ ℝ, applying
-  the SAME phase rotation to every channel:
-  `X(t, f) ↦ e^{iφ} · X(t, f)` yields identically
-  `(e^{iφ} X)(e^{iφ} X)† = e^{iφ} X X† e^{-iφ} = X X†` (per element)
-  since e^{iφ} is a scalar; therefore `S`, `ρ_EEG`, and `χ_k` are
-  UNCHANGED EXACTLY (not merely up to null-distribution
-  fluctuation). This is a DETERMINISTIC INVARIANCE PROPERTY of the
-  estimator — a correctness / implementation check, NOT a
-  surrogate-based null. Any implementation that alters `χ_k` under
-  a common phase rotation applied to all channels contains a bug.
+  - **D1 — Prichard–Theiler multivariate surrogate.** COMMON
+    frequency-dependent random phase `φ(f)` added to every channel
+    ("where φ(f) is the same for all j", Prichard & Theiler 1994 Eq.
+    5). Preserves per-channel spectra AND all pairwise
+    cross-spectra/cross-correlations by construction. Tests only
+    nonlinear structure BEYOND the preserved multivariate linear
+    structure.
+
+  - **D2 — PF independent-channel phase surrogate (DISTINCT from
+    Prichard–Theiler).** INDEPENDENT random phase `φ_j(f)` drawn
+    separately per channel `j` and per positive-frequency bin.
+    Each channel's Fourier magnitude and auto-spectrum are
+    preserved exactly; the off-diagonal cross-spectrum is zero
+    ONLY IN EXPECTATION under stated independent-uniform-phase
+    assumptions, NOT identically for any one finite surrogate
+    realisation. This is a PF null construction against zero-lag
+    cross-channel structure. It is NOT the Prichard–Theiler
+    algorithm; documentation must not conflate them.
+
+  - **D3 — Constant global-phase invariance test.** One scalar
+    `e^{iφ}` applied everywhere. `(e^{iφ} X)(e^{iφ} X)^H = X X^H`
+    per element identically. `S`, `ρ_EEG`, `χ_k` are UNCHANGED
+    EXACTLY. This is a DETERMINISTIC INVARIANCE PROPERTY —
+    implementation correctness check, NOT a surrogate null. Any
+    implementation that alters `χ_k` under a common phase rotation
+    applied to all channels contains a bug.
 - **NC4** Single-channel recomputation with `D_ch = 1`: sanity check.
 - **NC5** Independent Gaussian channels: matched to a specified
   covariance floor.
@@ -1000,14 +1052,74 @@ implementation:
   patient-grouped splits and per-patient random effects, and MUST NOT
   treat multiple recordings from the same patient as independent
   observations.
+- **U11. Representation choice is an experimental-design decision,
+  not a literature mandate.** P.LAP (spherical-spline surface
+  Laplacian, spatial CSD) is designated PROVISIONAL primary
+  representation on the basis of Tenke & Kayser 2015 (reference-free,
+  attenuates broad low-spatial-frequency scalp potentials, direct
+  precedent in the target population). P.REST/rREST and P.SRC
+  (source-space reconstruction under a specified forward model) are
+  designated pre-registered sensitivity representations. No published
+  study has established that ANY of these three representations
+  yields a valid measurement of Frobenius churn on H_k. The
+  representation decision must be revisited if the benchmark charter
+  (U15) rules against P.LAP or if P.REST/P.SRC materially disagrees.
+- **U12. Statistical-estimation assumptions for S(f,t) remain
+  unresolved.** The bridge audit fixes the estimator structure
+  (Hermitian PSD outer-product cross-spectrum on rank-corrected
+  reference-transformed channels) but the following are still open:
+  segment length, taper family, overlap, frequency smoothing kernel,
+  band integration scheme, effective degrees of freedom, shrinkage
+  or regularization for ill-conditioned S, bias/variance of ρ_EEG(t)
+  estimates, and small-sample behavior of χ_k. These must be fixed
+  BEFORE any pilot preregistration and characterized on synthetic
+  data (see U15).
+- **U13. Physical interpretation is NOT established.** A change in
+  normalized scalp-space (P.LAP) or reconstructed source-space
+  (P.SRC) spatial-spectral structure between t_0 and t_1 is NOT the
+  same as a change in intrinsic brain state, and χ_k on ρ_EEG(t) is
+  not the same as χ_k on the true underlying density matrix. The
+  charter now claims only TECHNICAL COHERENCE of the operationalization,
+  not physical validity of χ_k as a brain-state distance. See bridge
+  audit §7 for the (A) algebraically valid / (B) statistical assumptions
+  unresolved / (C) physical interpretation unestablished decomposition.
+- **U14. Nolte et al. 2004 remains INACCESSIBLE.** Three URL attempts
+  (ResearchGate, DOI redirect, ScienceDirect) returned 403. The
+  cross-spectral outer-product construction is mathematically elementary
+  and requires no Nolte attribution; any claim about imaginary-coherency
+  or specific NeuroImage cross-spectral estimator conventions may NOT
+  cite Nolte until the paper is read.
+- **U15. Synthetic measurement-validity benchmark charter is a
+  prerequisite for pilot preregistration.** Before any human-subjects
+  pilot is designed, a companion charter (`codex/
+  CHURN_CHI_K_MEASUREMENT_BENCHMARK_CHARTER_2026-09-13.md`) must define
+  simulated latent-source scenarios (identical dynamics under changed
+  reference; uniform amplitude scaling; total-power change with
+  unchanged normalized spatial-spectral structure; redistribution at
+  constant power; frequency-band redistribution; cross-frequency
+  coupling change; lagged inter-source phase change; nuisance changes
+  including instantaneous mixing, electrode displacement, missing
+  channels, interpolation; noise-only, artifact-only, and
+  volume-conduction-only controls) and quantitative selection criteria
+  (false-churn rate under null scenarios, sensitivity under signal
+  scenarios, representation agreement across P.LAP/P.REST/P.SRC,
+  electrode-count dependence, spline-parameter stability). Failure of
+  a candidate representation on any null scenario is disqualifying
+  for that representation as a churn measurement, independent of
+  its sensitivity on signal scenarios.
 
 ## §14. Background references — labelled types (mixed verification status)
 
-**⚠ Verification status (updated 2026-09-13).** Four sources are
-FULL-TEXT VERIFIED as of 2026-09-13: Sitt 2014 main article,
-Prichard & Theiler 1994, Yao et al. 2019, Hu et al. 2018 rREST.
-Others remain UNVERIFIED by auditor (paywalls / 403s / not attempted
-in accessible-URL passes). Per-item verdicts recorded in
+**⚠ Verification status (updated 2026-09-13).** Access record:
+- Fully read: Sitt 2014 main article (primary experimental);
+  Prichard & Theiler 1994 (primary methods); Yao 2019 (REVIEW —
+  not a primary methods paper); Tenke & Kayser 2015 (primary
+  simulation/methods).
+- Partial read only: Hu, Yao & Valdes-Sosa 2018 rREST (preprint;
+  pp. 1–5 of 21 inspected). **Not "full-text verified".**
+- Sitt 2014 supplementary methods NOT recovered or audited.
+- All other listed sources remain UNVERIFIED by auditor.
+Per-item verdicts recorded in
 `codex/CHURN_CHI_K_EEG_SOURCE_AUDIT_2026-09-13.md` and
 `codex/CHURN_CHI_K_EEG_BRIDGE_AUDIT_2026-09-13.md`.
 
@@ -1027,8 +1139,9 @@ in accessible-URL passes). Per-item verdicts recorded in
 - Michel, C. M., & Brunet, D. (2019). *Frontiers in Neurology* 10:325.
   UNVERIFIED (background).
 - **Yao, D., et al. (2019).** *Brain Topography* 32:530–549.
-  **FULL-TEXT VERIFIED 2026-09-13** via PMC PMC6592976. Explicitly
-  states "we do not recommend using AR if the REST is available",
+  **REVIEW (not a primary methods paper); fully read 2026-09-13**
+  via PMC PMC6592976. Explicitly states "we do not recommend using
+  AR if the REST is available",
   "AR cannot be a golden standard but an approximation", and lists
   "coherence, correlation, network" among quantities affected by
   reference choice.
@@ -1058,17 +1171,37 @@ in accessible-URL passes). Per-item verdicts recorded in
 - Theiler, J., et al. (1992). *Physica D* 58:77–94. UNVERIFIED
   (paywall); univariate surrogate origin per bridge audit.
 - **Prichard, D., & Theiler, J. (1994).** *Phys. Rev. Lett.* 73:951–954
-  (arXiv:comp-gas/9405002). **FULL-TEXT VERIFIED 2026-09-13** via
-  arXiv. Eq. (5) with the exact statement "where φ(f) is the same
+  (arXiv:comp-gas/9405002). **Full 4-page article read 2026-09-13**
+  via arXiv. Eq. (5) with the exact statement "where φ(f) is the same
   for all j" fixes the common-phase construction that preserves all
   auto- and cross-correlations. See bridge audit for the verified
   passages.
+- **Tenke, C. E., & Kayser, J. (2015).** "Surface Laplacians (SL)
+  and phase properties of EEG rhythms: Simulated generators in a
+  volume-conduction model." *Clin. Neurophysiol.* Primary
+  simulation/methods paper. **Read 2026-09-13** via PMC PMC4537832.
+  Provides verified statements that the surface Laplacian is
+  reference-independent and reduces broad low-spatial-frequency
+  scalp-potential components; that it depends on spline flexibility
+  and smoothing parameters; that its selectivity for superficial
+  vs deep generators is nontrivial and computation-parameter-
+  dependent; and that scalp EEG retains "integration-constant"
+  information that the Laplacian removes. Simulation used a 67-channel
+  scalp montage on a 4-shell spherical head model. See bridge audit
+  §2.B for the P.LAP evidence excerpt.
 - **Hu, S., Yao, D., & Valdes-Sosa, P. A. (2018).** "Unified Bayesian
   estimator of EEG reference at infinity: rREST." arXiv:1802.02268.
-  **FULL-TEXT VERIFIED 2026-09-13** via arXiv PDF. AR = uncorrelated
-  prior; REST = correlations via volume-conductor model; rREST =
-  regularised REST. Both are LINEAR non-unitary transformations
-  (H = I − 1·f^T, rank-1). See bridge audit.
+  **PARTIAL READ 2026-09-13** — Introduction and §2.1 General
+  reference model (pp. 1–5) inspected via arXiv PDF; remainder of
+  the 21-page preprint not audited. From the inspected pages: AR =
+  uncorrelated prior (Eq. 5); REST = correlations via volume-conductor
+  model (§1); rREST = regularised REST. Both are LINEAR non-unitary
+  re-referencing transformations. The reference-transform matrix
+  `H = I − 1·f^T` (Eq. 2) is a rank-deficient projection with
+  `H · 1 = 0` (rank N−1 in general); the outer product `1·f^T`
+  inside H is rank-1, but H itself is not. See bridge audit for the
+  primary-source excerpt and the correction of the earlier "rank-1"
+  misclaim.
 - Ledoit, O., & Wolf, M. (2004). *J. Multivariate Anal.* 88:365–411.
   REAL covariance shrinkage; complex-Hermitian extension NOT
   addressed (per point H).
