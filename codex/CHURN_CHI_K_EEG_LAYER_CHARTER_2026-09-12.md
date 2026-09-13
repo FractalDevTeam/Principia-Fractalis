@@ -139,15 +139,26 @@ empirical hypothesis, NOT a definition. Layer 3 (consciousness
 interpretation) requires empirical validation per §10 AND requires
 Layer 2 to be successfully implemented and preregistered first.
 
-## §2. Background references (auditor-inaccessible; pending full-text verification)
+## §2. Background references (mixed status: some full-text verified 2026-09-13; others pending)
 
-**⚠ CRITICAL AUDIT NOTE.** The auditor of the source list did NOT
-open the full text of any cited work when drafting the original
-charter. The corrections here reflect (a) user-directed rework of
-specific citations, and (b) downgrading of all textbook/review
-citations to background-only. See
-`codex/CHURN_CHI_K_EEG_SOURCE_AUDIT_2026-09-13.md` for the per-item
-verdict table.
+**⚠ CRITICAL AUDIT NOTE (updated 2026-09-13).** The auditor of the
+source list did NOT open the full text of any cited work when
+drafting the original charter. Four sources have SINCE BEEN
+FULL-TEXT VERIFIED (via open PMC / arXiv / PubMed Central full-text
+URLs supplied by the user) as of 2026-09-13:
+- **Sitt et al. 2014** (main article via PMC PMC4610185).
+  Supplementary methods NOT recovered or audited.
+- **Prichard & Theiler 1994** (via arXiv comp-gas/9405002 full PDF).
+- **Yao et al. 2019** (Brain Topography; via PMC PMC6592976 full HTML).
+- **Hu, Yao & Valdes-Sosa 2018 rREST** (via arXiv 1802.02268 full PDF).
+
+Other sources listed in this section and in §14 remain UNVERIFIED
+by auditor (paywalls, 403s, or not attempted in the accessible-URL
+passes). Individual citation entries below and in §14 mark each
+source's verification status explicitly. See
+`codex/CHURN_CHI_K_EEG_SOURCE_AUDIT_2026-09-13.md` and
+`codex/CHURN_CHI_K_EEG_BRIDGE_AUDIT_2026-09-13.md` for the per-item
+verdict tables and revised bridge decision.
 
 ### §2.1 Recording, montage, filtering — background references
 
@@ -990,10 +1001,15 @@ implementation:
   treat multiple recordings from the same patient as independent
   observations.
 
-## §14. Background references — labelled types (per point A)
+## §14. Background references — labelled types (mixed verification status)
 
-**⚠ Auditor did NOT verify any citation against its full text.**
-Verdicts recorded in `codex/CHURN_CHI_K_EEG_SOURCE_AUDIT_2026-09-13.md`.
+**⚠ Verification status (updated 2026-09-13).** Four sources are
+FULL-TEXT VERIFIED as of 2026-09-13: Sitt 2014 main article,
+Prichard & Theiler 1994, Yao et al. 2019, Hu et al. 2018 rREST.
+Others remain UNVERIFIED by auditor (paywalls / 403s / not attempted
+in accessible-URL passes). Per-item verdicts recorded in
+`codex/CHURN_CHI_K_EEG_SOURCE_AUDIT_2026-09-13.md` and
+`codex/CHURN_CHI_K_EEG_BRIDGE_AUDIT_2026-09-13.md`.
 
 **Textbooks (BACKGROUND):**
 - Bendat, J. S., & Piersol, A. G. (2010). *Random Data* (4th ed.).
@@ -1007,34 +1023,52 @@ Verdicts recorded in `codex/CHURN_CHI_K_EEG_SOURCE_AUDIT_2026-09-13.md`.
   Cited for mathematical density-operator formalism ONLY; does not
   supply EEG-to-quantum bridge (per point F).
 
-**Reviews (BACKGROUND):**
+**Reviews:**
 - Michel, C. M., & Brunet, D. (2019). *Frontiers in Neurology* 10:325.
-- Yao, D., et al. (2019). *Brain Topography* 32:530–549. Establishes
-  reference dependence; favors REST/rREST (per point C).
+  UNVERIFIED (background).
+- **Yao, D., et al. (2019).** *Brain Topography* 32:530–549.
+  **FULL-TEXT VERIFIED 2026-09-13** via PMC PMC6592976. Explicitly
+  states "we do not recommend using AR if the REST is available",
+  "AR cannot be a golden standard but an approximation", and lists
+  "coherence, correlation, network" among quantities affected by
+  reference choice.
 - Kliesch, M., & Roth, I. (2021). *PRX Quantum* 2:010201.
-  Mathematical framework; does not supply EEG-to-quantum bridge (per
-  point F).
+  UNVERIFIED (mathematical framework only; no EEG-to-quantum bridge).
 
-**Primary methods papers (INACCESSIBLE to auditor; full-text
-verification required):**
+**Primary methods papers — mixed verification:**
 - Welch, P. D. (1967). *IEEE Trans. Audio Electroacoust.* 15:70–73.
-  (univariate PSD)
+  UNVERIFIED (univariate PSD context per bridge audit).
 - Widmann, A., et al. (2015). *J. Neurosci. Methods* 250:34–46.
+  UNVERIFIED.
 - Bigdely-Shamlo, N., et al. (2015). *Frontiers in Neuroinformatics*
-  9:16.
+  9:16. UNVERIFIED.
 - Rosenberg, J. R., et al. (1989). *Prog. Biophys. Mol. Biol.*
-  53:1–31.
-- Jung, T. P., et al. (2000). *Psychophysiology* 37:163–178.
+  53:1–31. UNVERIFIED; audit R9 already reclassified as REVIEW about
+  neuronal spike-train Fourier analysis, not EEG cross-spectral
+  methods.
+- Jung, T. P., et al. (2000). *Psychophysiology* 37:163–178. UNVERIFIED.
 - Chaumon, M., et al. (2015). *J. Neurosci. Methods* 250:47–63.
-  Does NOT describe ICLabel (per point D correction).
+  UNVERIFIED. Per user directive: does NOT describe ICLabel.
 - Pion-Tonachini, L., Kreutz-Delgado, K., & Makeig, S. (2019).
-  *NeuroImage* 198:181–197. Correct citation for ICLabel (per point D).
+  *NeuroImage* 198:181–197. UNVERIFIED. Correct citation for ICLabel
+  (per point D).
 - Mognon, A., Jovicich, J., Bruzzone, L., & Buiatti, M. (2011).
-  *Psychophysiology* 48:229–240. Correct citation for ADJUST (per
-  point D).
-- Theiler, J., et al. (1992). *Physica D* 58:77–94. UNIVARIATE
-  surrogate; multichannel adaptation is charter's own construction
-  (per point I).
+  *Psychophysiology* 48:229–240. UNVERIFIED. Correct citation for
+  ADJUST (per point D).
+- Theiler, J., et al. (1992). *Physica D* 58:77–94. UNVERIFIED
+  (paywall); univariate surrogate origin per bridge audit.
+- **Prichard, D., & Theiler, J. (1994).** *Phys. Rev. Lett.* 73:951–954
+  (arXiv:comp-gas/9405002). **FULL-TEXT VERIFIED 2026-09-13** via
+  arXiv. Eq. (5) with the exact statement "where φ(f) is the same
+  for all j" fixes the common-phase construction that preserves all
+  auto- and cross-correlations. See bridge audit for the verified
+  passages.
+- **Hu, S., Yao, D., & Valdes-Sosa, P. A. (2018).** "Unified Bayesian
+  estimator of EEG reference at infinity: rREST." arXiv:1802.02268.
+  **FULL-TEXT VERIFIED 2026-09-13** via arXiv PDF. AR = uncorrelated
+  prior; REST = correlations via volume-conductor model; rREST =
+  regularised REST. Both are LINEAR non-unitary transformations
+  (H = I − 1·f^T, rank-1). See bridge audit.
 - Ledoit, O., & Wolf, M. (2004). *J. Multivariate Anal.* 88:365–411.
   REAL covariance shrinkage; complex-Hermitian extension NOT
   addressed (per point H).

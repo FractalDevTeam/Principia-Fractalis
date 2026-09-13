@@ -16,21 +16,35 @@ exact failure mode the S1 stopping condition names ("The chosen
 scientific reference for a step is found on primary-source
 verification to be misquoted or unsupportive of the claimed step").
 
-**Updated verification status (2026-09-13, post-Sitt pass):**
-- **Sitt et al. (2014)** *Brain* 137:2258–2270 — **MAIN ARTICLE FULL
-  TEXT VERIFIED** via
-  `https://pmc.ncbi.nlm.nih.gov/articles/PMC4610185/?report=printable`
-  (accessed 2026-09-13). Auditor accessed the main article's text.
-  **Supplementary methods / material NOT recovered or audited.** Any
-  Sitt claim that depends on the supplementary material remains
-  UNVERIFIED (in particular the patient-grouped cross-validation
-  question).
-- **All other citations in §14 and R1–R21** — remain UNVERIFIED by
-  auditor; audit could not open their full texts in the first pass.
-  A separate focused Layer-2 measurement-bridge source-verification
-  pass may cover a small number of load-bearing items; see the
-  companion document `codex/CHURN_CHI_K_EEG_BRIDGE_AUDIT_2026-09-13.md`
-  when produced.
+**Updated verification status (2026-09-13, cumulative through the
+Layer-2 bridge revision pass):**
+
+**FULL-TEXT VERIFIED sources (2026-09-13):**
+- **Sitt et al. (2014)** *Brain* 137:2258–2270 — main article via
+  PMC PMC4610185. Supplementary methods / material NOT recovered
+  or audited; any Sitt claim that depends on supplementary material
+  remains UNVERIFIED (patient-grouped cross-validation in
+  particular).
+- **Prichard, D., & Theiler, J. (1994).** *Phys. Rev. Lett.*
+  73:951–954. Verified via the open arXiv PDF
+  `https://arxiv.org/pdf/comp-gas/9405002`. Provides the exact
+  multivariate surrogate construction (Eq. 4 and Eq. 5) with the
+  verbatim statement "where φ(f) is the same for all j".
+- **Yao, D., et al. (2019).** *Brain Topography* 32:530–549.
+  Verified via PMC PMC6592976. Explicit primary-source quotes
+  recorded in the bridge audit.
+- **Hu, S., Yao, D., & Valdes-Sosa, P. A. (2018).** arXiv:1802.02268
+  (rREST). Verified via the open arXiv PDF. Provides Eq. (1)–(4) of
+  the general reference model, showing AR and REST as the
+  uncorrelated-prior and volume-conductor-prior special cases of a
+  unified Bayesian estimator, both of which are linear non-unitary
+  transformations of the recorded EEG.
+
+**All remaining citations in §14 / R1–R21** — UNVERIFIED by auditor
+in the present access channels. In particular Nolte 2004 was
+attempted at ResearchGate, DOI redirect, and Elsevier hub URLs and
+returned 403 in every case; auditor could not read the primary
+Nolte text this pass.
 
 For the remaining unverified items, this audit:
 
