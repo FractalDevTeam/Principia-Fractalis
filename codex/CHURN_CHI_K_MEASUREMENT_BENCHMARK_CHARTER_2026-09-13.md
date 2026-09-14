@@ -36,7 +36,11 @@ of the χ_k program.** It does NOT:
 | `M` | number of latent dipole sources |
 | `N_ch` | number of scalp electrodes in the montage |
 | `S_lat(f)` | Hermitian PSD latent cross-spectrum, `M × M`, at frequency or band `f` |
-| `ρ_lat = S_lat / Tr(S_lat)` | analytic normalized latent state |
+| `ρ_lat = ρ_lat(f) = S_lat(f) / Tr(S_lat(f))` | analytic per-band normalized latent state, `M × M`, at band `f` |
+| `S_full` | full latent cross-spectrum aggregated across the §7 band set (including cross-band blocks); its executable construction (block layout, aggregation rule, trace normalisation) remains part of §13 G3 |
+| `ρ_full = S_full / Tr(S_full)` | full-spectrum normalized latent state used ONLY by S5; executable construction PENDING §13 G3 |
+| `Π_band` | block-diagonal-by-band projector on `S_full` that retains within-band blocks and zeroes cross-band blocks; the block layout is fixed by the §7 band set, its executable specification PENDING §13 G3 |
+| `ρ_proj := Π_band(S_full) / Tr(Π_band(S_full))` | projected/operational state used ONLY by S5; consistent with the per-band `ρ_lat` view because its non-zero blocks are exactly the per-band `ρ_lat(f)` reweighted by `Tr(S_lat(f)) / Tr(Π_band(S_full))` |
 | `G` | forward operator (leadfield), `N_ch × M` |
 | `η` | additive sensor-noise term (spec in §13 G2) |
 | `V = G · s + η` | scalp potential vector (with `s` the vectorised source amplitude) |
@@ -183,7 +187,7 @@ scenario without pinning implementation choices.
 | S2 | Benchmark A monotonicity/recovery; Benchmark B monotonicity | Latent redistribution parameterized by a scalar `θ` swept over `{θ_1, ..., θ_K}`; χ_lat computed analytically per draw and θ | A: `χ_rec` vs `χ_lat` scatter, Spearman rank correlation, RMSE (per θ). B: `χ_op` monotone in θ (Spearman); NO recovery-of-χ_lat claim |
 | S3 | Benchmark B monotonicity (flag-only) | Latent inter-band redistribution at constant total power; χ_lat analytic under a declared ρ construction | Same as S2 but with a caveat: block-diagonal-by-frequency ρ discards cross-band content by design (Layer-2 charter §3.3) |
 | S4 | Benchmark B (flag-only) | Latent lagged inter-source phase change with fixed marginal auto-spectra | Response of `χ_op` vs latent phase parameter; magnitude-only ρ constructions will not respond (design blind spot, flagged not disqualified) |
-| S5 | Implementation-correctness check | Latent cross-frequency coupling change with unchanged within-frequency structure. The genuine latent state changes; `χ_lat` on the full latent cross-spectrum is NOT zero. The Layer-2 §3.3 block-diagonal-by-band projection `Π_band` discards cross-band content by construction, so the **projected/operational state** `ρ_lat^{proj} := Π_band(ρ_lat) / Tr(Π_band(ρ_lat))` is unchanged and `χ_op` on that projected state is zero by construction. S5 is a test of the projection-implementation, not a claim that latent churn is zero | `χ_op` on the block-diagonal-projected state must equal 0 under the declared ρ construction (implementation correctness of the `Π_band` projection). The full-latent `χ_lat` is not claimed zero here |
+| S5 | Implementation-correctness check | Latent cross-frequency coupling change with unchanged within-frequency structure. The genuine latent state on the full cross-spectrum `ρ_full` (§1) changes between windows; the full-spectrum churn on `ρ_full` is NOT zero. The Layer-2 §3.3 projector `Π_band` (§1; executable construction PENDING §13 G3) discards cross-band content by construction, so the projected/operational state `ρ_proj` (§1) is unchanged and `χ_op` computed on `ρ_proj` is zero by construction. S5 is a test of the projection-implementation, not a claim that latent churn is zero | `χ_op` on `ρ_proj` must equal 0 under the declared ρ construction (implementation correctness of the `Π_band` projection). The full-spectrum churn on `ρ_full` is not claimed zero here. `ρ_full`, `Π_band`, and `ρ_proj` are §1-declared objects whose executable construction remains part of §13 G3 |
 | S6.a | Nuisance gate (§6.5); NOT in null aggregate | Latent unchanged; scalp montage rotated between windows (yaw ∈ {2°, 5°, 10°}) | `R_nuis(S6.a)` (§6.5) |
 | S6.b | Nuisance gate; NOT in null aggregate | Latent unchanged; electrode subset displaced 5 mm ({5%, 10%} of electrodes) | `R_nuis(S6.b)` |
 | S6.c | Nuisance gate; NOT in null aggregate | Latent unchanged; {5%, 10%} channels bad-marked and interpolated | `R_nuis(S6.c)` |
@@ -315,15 +319,39 @@ four per-scenario decisions above.
 Population: S2 sweep over `θ ∈ {θ_1, ..., θ_K}`.
 
 **Confidence-interval procedure.** For both Spearman and RMSE, the
-95% CI is computed by nonparametric bootstrap over the `N_eval`
-seed set with `B` resamples (§7), where each bootstrap resample
-draws seeds jointly across the swept `θ` grid so that within-seed
-paired structure is preserved. The Spearman CI uses the
-Fisher-z-transformed rank correlation with back-transformation for
-the CI endpoints; the RMSE CI is the empirical percentile CI of the
-bootstrap distribution of `RMSE(χ_rec, χ_lat)` (Benchmark A) or,
-where applicable, of the analogous residual (Benchmark B, not
-required).
+95% CI is computed by direct paired-seed nonparametric bootstrap
+over the `N_eval` seed set with `B` resamples (§7). Each bootstrap
+resample draws seeds jointly across the swept `θ` grid so that
+within-seed paired structure is preserved. The Spearman CI is the
+empirical **percentile** 95% CI of the bootstrap distribution of
+the Spearman rank coefficient itself, clipped to the closed
+interval `[-1, 1]`; the Fisher z-transform is NOT used, since it
+is singular at `±1` and both endpoints are attainable with the
+declared five-point `θ` grid. The RMSE CI is the empirical
+percentile 95% CI of the bootstrap distribution of
+`RMSE(χ_rec, χ_lat)` (Benchmark A) or, where applicable, of the
+analogous residual (Benchmark B, not required).
+
+**Undefined-metric handling for Spearman.** The Spearman
+coefficient is undefined when either ranked vector (`θ` on one
+side; median `χ_op(θ)` or `χ_rec(θ)` on the other) is constant on
+the sample under evaluation:
+- **Point-estimate case.** If the point estimate of the Spearman
+  coefficient on the full `N_eval` set is undefined (either
+  ranked vector constant), the monotonicity gate is FAIL for that
+  representation. It is not INCONCLUSIVE — a constant response is
+  a definitive failure of monotonicity.
+- **Bootstrap-replicate case.** If any bootstrap replicate yields
+  an undefined coefficient (because the resampled median on that
+  replicate is constant across `θ`), that replicate is NOT
+  silently dropped. The fraction of undefined replicates
+  `undef_frac(P)` is computed on `B` replicates and reported in
+  the manifest. If `undef_frac(P) > 0`, the monotonicity gate
+  outcome is INCONCLUSIVE-METRIC-UNDEFINED and the representation
+  cannot advance until either the metric is redefined by
+  amendment (§10) or the point estimate and every bootstrap
+  replicate are well-defined at increased `N_eval`. No arbitrary
+  acceptable-undefined-fraction threshold is introduced.
 
 **Direction-specific three-outcome rules (metric-by-metric).**
 
@@ -397,34 +425,54 @@ of `median χ_op(P; S2, θ_ref)` on the denominator side is also
 summarised (point estimate + 95% percentile CI) and recorded in the
 per-scenario metric block of §9 alongside `R_nuis` itself.
 
-**Stability floor.** Define the preregistered denominator stability
-floor `χ_op_floor := max(1e-12, ε_min · Tr(S_baseline))`, using the
-`ε_min` and baseline trace normalisation of §7 and Layer-2 §3.4.
-For each bootstrap replicate:
-- if the replicate's denominator `median χ_op(P; S2, θ_ref)` is
-  `≤ χ_op_floor` (including exactly zero), the replicate's ratio
-  is DEFINED as `+∞` and the replicate is flagged unstable;
-- the fraction of unstable replicates `u_frac(P; S6.x)` is
-  recorded in the manifest.
+**Denominator-stability threshold (PENDING G8).** `χ_op` is a
+dimensionless Frobenius churn on trace-normalised states, so the
+denominator-stability threshold must itself be dimensionless. No
+fixed numerical floor is declared in this charter — in particular
+the prior formula `χ_op_floor := max(1e-12, ε_min · Tr(S_baseline))`
+is retracted as dimensionally invalid (`ε_min · Tr(S_baseline)` is
+a spectrum-scale regularisation quantity, not a churn magnitude).
+In its place, introduce a per-representation dimensionless
+denominator-stability threshold `δ_den(P)` on
+`median χ_op(P; S2, θ_ref)`, marked **PENDING §13 G8**. §13 G8
+must define `δ_den(P)` as a labelled ★ PF design choice — with
+justification and a feasible sensitivity grid — before
+implementation may proceed. Until G8 closes for `P`, the §6.5 gate
+is PENDING G8 for that `P`.
 
-**Outcomes.**
-- If the point estimate `median χ_op(P; S2, θ_ref) ≤ χ_op_floor`,
-  the S6.x gate outcome is INCONCLUSIVE-DENOMINATOR-UNSTABLE
-  (§6.7 sensitivity analysis is not consulted; the denominator is
-  the load-bearing failure) and the representation cannot advance
-  until the denominator is re-established above the floor by a
-  labelled amendment (§10) — e.g. re-selection of `θ_ref`.
-- If `u_frac(P; S6.x) > 5%` (PF choice; §6.7 sensitivity range),
-  the outcome is INCONCLUSIVE-DENOMINATOR-UNSTABLE for the same
-  reason.
-- Otherwise the ratio's 95% percentile CI is compared to the
-  threshold `R_nuis ≤ 0.5` (PF choice; §7 sensitivity range) by
-  the standard lower-is-better rule of §6: PASS iff 95% CI upper
-  ≤ 0.5; FAIL iff 95% CI lower > 0.5; INCONCLUSIVE otherwise.
+**Ratio-decision admissibility.** A ratio-of-medians decision on
+`R_nuis(P; S6.x)` is admissible **only** when BOTH of the
+following hold on the denominator side:
+- the point estimate `median χ_op(P; S2, θ_ref) > δ_den(P)`, AND
+- the bootstrap **lower** 95% percentile bound on
+  `median χ_op(P; S2, θ_ref)` (the same denominator bootstrap
+  distribution summarised above) is `> δ_den(P)`.
+
+If either condition fails, the S6.x gate outcome is
+INCONCLUSIVE-DENOMINATOR-UNSTABLE (§6.7 sensitivity analysis is
+not consulted; the denominator is the load-bearing failure) and
+the representation cannot advance until the denominator is
+re-established above `δ_den(P)` — e.g. by re-selection of `θ_ref`
+via labelled amendment (§10).
+
+**No `+∞` ratios.** Under the admissibility rule above, ratio
+values are never defined as `+∞`: when the denominator condition
+fails on the point estimate or CI lower bound, no ratio decision
+is made at all. Bootstrap replicates whose resampled denominator
+falls below `δ_den(P)` are handled by the admissibility rule at
+the point-estimate/CI level, not by an arbitrary per-replicate
+percentage threshold. `u_frac` is therefore removed from the
+decision logic and is no longer reported.
+
+**Outcomes (when admissible).** The ratio's 95% percentile CI is
+compared to the threshold `R_nuis ≤ 0.5` (PF choice; §7
+sensitivity range) by the standard lower-is-better rule of §6:
+PASS iff 95% CI upper ≤ 0.5; FAIL iff 95% CI lower > 0.5;
+INCONCLUSIVE otherwise.
 
 Applied to each S6.x separately. FAIL on any S6.x disqualifies P.
-INCONCLUSIVE (any variant) on any S6.x blocks advancement until
-resolved.
+INCONCLUSIVE (any variant, including PENDING G8) on any S6.x
+blocks advancement until resolved.
 
 For Benchmark A: no nuisance-ratio gate against latent-recovery;
 Benchmark B's nuisance ratio is the sole nuisance measure. This
@@ -453,7 +501,7 @@ and are the authoritative sensitivity set:
 | RMSE bound (§6.3, Benchmark A) | `{0.5, 1.0, 2.0} × RMSE_bound(§13 G7)` | §7 |
 | Minimum-signal floor factor `f_SNR` (§6.4) | `{2.5, 5, 10}` | §7 |
 | Nuisance ratio `R_nuis` ≤ 0.5 (§6.5) | `{0.25, 0.5, 1.0}` | §7 |
-| Denominator instability fraction `u_frac` ≤ 5% (§6.5) | `{2.5%, 5%, 10%}` | ★ PF |
+| Denominator-stability threshold `δ_den(P)` (§6.5) | PENDING §13 G8; feasible grid supplied by G8 | §13 G8 |
 | E-family tolerances (§5.1 per representation) | `× {0.1, 1.0, 10}` | ★ PF |
 
 Any historical or downstream reference to a "uniform `×{0.5,1,2}`
@@ -714,6 +762,16 @@ Required contents for S1, S2, S3, S4, S6.*, S7.*:
 - Trace normalization and any additional constraints.
 - Coupling to the seed hierarchy.
 
+Additionally, for **S5**:
+- Executable construction of the full latent cross-spectrum
+  `S_full`, including the block layout across the §7 band set,
+  aggregation rule from per-band `S_lat(f)`, cross-band block
+  populations that make S5's cross-frequency coupling change
+  nontrivial, and trace normalisation.
+- Executable specification of the block-diagonal-by-band projector
+  `Π_band` on `S_full`.
+- Definition of `ρ_full` and `ρ_proj` consistent with §1.
+
 The prior-charter phrase "Wishart-like distribution" is retracted;
 executable specification required.
 
@@ -774,6 +832,12 @@ Required contents:
   threshold: `p_null ≤ 5%`, rank ≥ 0.9, `f_SNR = 5`,
   `R_nuis ≤ 0.5`, E0 numerical floors (`1e-10`, `1e-6`), E2.A
   identifiability bound.
+- Definition and justification of the per-representation
+  dimensionless denominator-stability threshold `δ_den(P)` on
+  `median χ_op(P; S2, θ_ref)` used by §6.5, as a labelled ★ PF
+  design choice with a feasible sensitivity grid. The threshold
+  MUST be dimensionless on the χ_op scale (no `ε_min · Tr(S)`
+  or other spectrum-scale surrogate).
 - Amendment to Layer-2 charter §5 to reconcile the arithmetic
   inconsistency between `Δt = N · Δ_stft = 2 s` and the actual
   super-window span `T_super = T_stft + (N_seg − 1) · Δ_hop
