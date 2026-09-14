@@ -140,7 +140,7 @@ in §8.A and in the manifest.
 | D2 | Acceptance rule "95% CI LOWER bound ≤ 5%" is failure-to-prove-failure, not evidence of acceptance. | Replaced with three-outcome logic: **PASS** iff 95% CI UPPER ≤ threshold; **FAIL** iff 95% CI LOWER > threshold; **INCONCLUSIVE** iff CI straddles the threshold (§6.1). |
 | D3 | Nuisance ratio used LOWER-bound acceptance for the same reason. | Same three-outcome upper-bound convention applied (§6.5). |
 | D4 | S7.a, S7.b, S7.c null distributions were pooled into a single per-representation null band. | Each S7 sub-scenario now yields its OWN per-representation null band. No pooling. |
-| D5 | S6 sub-scenarios contributed to both the null-family false-positive aggregate AND to the nuisance-ratio gate (double-counting). | S6 contributes ONLY to the nuisance-ratio gate (§6.5). Null-family aggregate is S1 ∪ S7.* only (§6.2). |
+| D5 | S6 sub-scenarios contributed to both the null-family false-positive aggregate AND to the nuisance-ratio gate (double-counting). | S6 contributes ONLY to the nuisance-ratio gate (§6.5) and is NOT part of the §6.2 null decision set. The §6.2 null decision set is S1, S7.a, S7.b, S7.c, each with its OWN per-scenario calibration and PASS/FAIL/INCONCLUSIVE decision. Any S1 ∪ S7.* aggregate is descriptive-only (§6.2) and never participates in PASS/FAIL. |
 | D6 | "Wishart-like," "approximately 5000 sources," and unnamed 10-10 / 10-5 subsets were not implementable. | Marked as specification gaps G1, G3, G5 in §13. Charter is NOT IMPLEMENTATION-READY until those are closed by labelled amendments. |
 | D7 | Sensor-noise, artifact templates, forward-model implementation, and inverse-operator implementation were named but not specified. | Marked as specification gaps G2, G4, G5, G6 in §13. Charter is NOT IMPLEMENTATION-READY. |
 | D8 | Layer-2 charter §5 declares `Δt = N · Δ_stft = 8 × 250 ms = 2 s` as the super-window length, but §3.2 declares `T_stft = 500 ms` STFT windows with `Δ_hop = 250 ms`. Actual signal span of N=8 segments is `T_stft + (N-1) · Δ_hop = 500 + 7 × 250 = 2250 ms`, not 2000 ms. | Benchmark adopts explicit `T_super = T_stft + (N_seg − 1) · Δ_hop`. For the Layer-2 charter's declared `T_stft = 500 ms`, `Δ_hop = 250 ms`, `N_seg = 8`, this gives `T_super = 2.25 s`. Layer-2 charter §5 is flagged for follow-up amendment (§13 G8); it is not amended in this commit. |
@@ -183,23 +183,27 @@ scenario without pinning implementation choices.
 
 | ID | Contributes to | Latent construction (INTENT; executable spec pending §13) | Metric |
 |---|---|---|---|
-| S1 | Null-band calibration; §6.2 aggregate | Same latent at both windows (scalar-scaling null with seed-driven noise realizations) | `p_null` per representation (§6.2) |
+| S1 | Own per-scenario calibration + PASS/FAIL/INCONCLUSIVE (§6.2); contributes to a §6.2 descriptive-only aggregate | Same latent at both windows (scalar-scaling null with seed-driven noise realizations) | Own `p_null(P, S1)` and own decision per §6.2 |
 | S2 | Benchmark A monotonicity/recovery; Benchmark B monotonicity | Latent redistribution parameterized by a scalar `θ` swept over `{θ_1, ..., θ_K}`; χ_lat computed analytically per draw and θ | A: `χ_rec` vs `χ_lat` scatter, Spearman rank correlation, RMSE (per θ). B: `χ_op` monotone in θ (Spearman); NO recovery-of-χ_lat claim |
 | S3 | Benchmark B monotonicity (flag-only) | Latent inter-band redistribution at constant total power; χ_lat analytic under a declared ρ construction | Same as S2 but with a caveat: block-diagonal-by-frequency ρ discards cross-band content by design (Layer-2 charter §3.3) |
 | S4 | Benchmark B (flag-only) | Latent lagged inter-source phase change with fixed marginal auto-spectra | Response of `χ_op` vs latent phase parameter; magnitude-only ρ constructions will not respond (design blind spot, flagged not disqualified) |
 | S5 | Implementation-correctness check | Latent cross-frequency coupling change with unchanged within-frequency structure. The genuine latent state on the full cross-spectrum `ρ_full` (§1) changes between windows; the full-spectrum churn on `ρ_full` is NOT zero. The Layer-2 §3.3 projector `Π_band` (§1; executable construction PENDING §13 G3) discards cross-band content by construction, so the projected/operational state `ρ_proj` (§1) is unchanged and `χ_op` computed on `ρ_proj` is zero by construction. S5 is a test of the projection-implementation, not a claim that latent churn is zero | `χ_op` on `ρ_proj` must equal 0 under the declared ρ construction (implementation correctness of the `Π_band` projection). The full-spectrum churn on `ρ_full` is not claimed zero here. `ρ_full`, `Π_band`, and `ρ_proj` are §1-declared objects whose executable construction remains part of §13 G3 |
-| S6.a | Nuisance gate (§6.5); NOT in null aggregate | Latent unchanged; scalp montage rotated between windows (yaw ∈ {2°, 5°, 10°}) | `R_nuis(S6.a)` (§6.5) |
-| S6.b | Nuisance gate; NOT in null aggregate | Latent unchanged; electrode subset displaced 5 mm ({5%, 10%} of electrodes) | `R_nuis(S6.b)` |
-| S6.c | Nuisance gate; NOT in null aggregate | Latent unchanged; {5%, 10%} channels bad-marked and interpolated | `R_nuis(S6.c)` |
-| S6.d | Nuisance gate; NOT in null aggregate | Latent unchanged; leadfield perturbation of 5% Frobenius norm applied to t_1 only | `R_nuis(S6.d)` |
-| S6.e | Nuisance gate; NOT in null aggregate | Latent unchanged; artifact template added at t_1 (spec §13 G4) | `R_nuis(S6.e)` |
-| S7.a | Null aggregate (§6.2); own null band | Latent = independent white-noise sources at both windows | Own null band; contributes to §6.2 aggregate |
-| S7.b | Null aggregate; own null band | Latent = single distant deep source (volume-conduction pattern) at both windows | Own null band; contributes to §6.2 aggregate |
-| S7.c | Null aggregate; own null band | No latent source; sensor noise only | Own null band; contributes to §6.2 aggregate |
+| S6.a | Nuisance gate (§6.5); NOT in the §6.2 null decision set | Latent unchanged; scalp montage rotated between windows (yaw ∈ {2°, 5°, 10°}) | `R_nuis(S6.a)` (§6.5) |
+| S6.b | Nuisance gate; NOT in the §6.2 null decision set | Latent unchanged; electrode subset displaced 5 mm ({5%, 10%} of electrodes) | `R_nuis(S6.b)` |
+| S6.c | Nuisance gate; NOT in the §6.2 null decision set | Latent unchanged; {5%, 10%} channels bad-marked and interpolated | `R_nuis(S6.c)` |
+| S6.d | Nuisance gate; NOT in the §6.2 null decision set | Latent unchanged; leadfield perturbation of 5% Frobenius norm applied to t_1 only | `R_nuis(S6.d)` |
+| S6.e | Nuisance gate; NOT in the §6.2 null decision set | Latent unchanged; artifact template added at t_1 (spec §13 G4) | `R_nuis(S6.e)` |
+| S7.a | Own per-scenario calibration + PASS/FAIL/INCONCLUSIVE (§6.2); contributes to a §6.2 descriptive-only aggregate | Latent = independent white-noise sources at both windows | Own null band and own decision per §6.2 |
+| S7.b | Own per-scenario calibration + PASS/FAIL/INCONCLUSIVE (§6.2); contributes to a §6.2 descriptive-only aggregate | Latent = single distant deep source (volume-conduction pattern) at both windows | Own null band and own decision per §6.2 |
+| S7.c | Own per-scenario calibration + PASS/FAIL/INCONCLUSIVE (§6.2); contributes to a §6.2 descriptive-only aggregate | No latent source; sensor noise only | Own null band and own decision per §6.2 |
 
 **Explicit no-double-counting rule (D5).** S6 contributes ONLY to
-the nuisance-ratio gate. Null-family aggregate `p_null` is
-computed over S1 ∪ S7.a ∪ S7.b ∪ S7.c ONLY.
+the nuisance-ratio gate (§6.5). S6 is NOT part of the §6.2 null
+per-scenario decision set. The §6.2 decision set is S1, S7.a,
+S7.b, S7.c — each with its OWN calibration and OWN PASS/FAIL/
+INCONCLUSIVE decision (per the no-pooling rule below). A
+descriptive-only aggregate across S1 ∪ S7.* MAY be reported (§6.2)
+but is NOT a decision statistic.
 
 **Explicit no-pooling rule (D4, strengthened).** S1, S7.a, S7.b,
 and S7.c each yield their OWN per-representation null band, their
@@ -455,14 +459,31 @@ the representation cannot advance until the denominator is
 re-established above `δ_den(P)` — e.g. by re-selection of `θ_ref`
 via labelled amendment (§10).
 
-**No `+∞` ratios.** Under the admissibility rule above, ratio
-values are never defined as `+∞`: when the denominator condition
-fails on the point estimate or CI lower bound, no ratio decision
-is made at all. Bootstrap replicates whose resampled denominator
-falls below `δ_den(P)` are handled by the admissibility rule at
-the point-estimate/CI level, not by an arbitrary per-replicate
-percentage threshold. `u_frac` is therefore removed from the
-decision logic and is no longer reported.
+**Bootstrap-replicate rule (executable).** For each bootstrap
+replicate `b`, compute the replicate ratio
+`R_nuis^{(b)} := median χ_op(P; S6.x)^{(b)} / median χ_op(P; S2, θ_ref)^{(b)}`
+ONLY when the replicate denominator
+`median χ_op(P; S2, θ_ref)^{(b)}` is strictly positive. If the
+replicate denominator is exactly zero, the replicate is neither
+dropped nor assigned `+∞`; instead the fraction of zero-denominator
+replicates `zero_den_frac(P; S6.x)` is computed over `B` and
+reported in the manifest. If `zero_den_frac(P; S6.x) > 0`, the
+ratio 95% CI is not defined and the S6.x gate outcome is
+INCONCLUSIVE-METRIC-UNDEFINED (analogous to the §6.3 rule); no
+arbitrary acceptable-fraction threshold is introduced.
+
+Replicate denominators that are strictly positive but below
+`δ_den(P)` still produce well-defined ratios and are retained in
+the bootstrap distribution. Their stability is controlled by the
+point-estimate + lower-CI admissibility rule above, which operates
+on the summary denominator statistics and is the authoritative
+stability gate. There is no claim that the point/CI rule
+automatically handles every individual bootstrap replicate; the
+executable rule for replicates is the one stated in this
+paragraph.
+
+Ratio values are never defined as `+∞`. `u_frac` is removed from
+the decision logic and is no longer reported.
 
 **Outcomes (when admissible).** The ratio's 95% percentile CI is
 compared to the threshold `R_nuis ≤ 0.5` (PF choice; §7
