@@ -941,7 +941,15 @@ Required contents of the amendment:
 
 ### G2 — Sensor-noise model
 
-Required contents:
+**Phase-1 status (K3, 2026-09-14): CLOSED for the (M19, P.LAP,
+Benchmark B) cell** by `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md`
+§3. Gaussian i.i.d., zero mean, `σ_noise = 0.5 μV` (★ PF; §6.7
+feasibility `{0.25, 0.5, 1.0} μV`); no spatial or temporal
+colouring at Phase-1. Executable pseudocode in that document.
+Non-Phase-1 cells (larger montages, source-space reconstruction)
+may require a separate G2 amendment before their own readiness.
+
+Required contents (retained for future cell amendments):
 - Distribution family (candidate: Gaussian, i.i.d. across channels
   and time samples).
 - Numerical scale (candidate: `σ = 0.5 μV`).
@@ -952,7 +960,26 @@ Required contents:
 
 ### G3 — Latent-source ensemble per stochastic scenario
 
-Required contents for S1, S2, S3, S4, S6.*, S7.*:
+**Phase-1 status (K3, 2026-09-14): CLOSED for the (M19, P.LAP,
+Benchmark B) cell** by `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md`
+§4–§6, §8. Constructive PSD generation (not nominal complex
+Wishart) for all Phase-1 scenarios except S7.a, where complex
+Wishart with `ν = 2M` matches the intended distribution.
+`M = 5` (★ PF); latent source positions on a fixed spherical
+shell at `r_lat = 0.070 m` (Fibonacci-5 lattice; ★ PF). S1, S2,
+S5, S6.a–e, S7.a–c are given executable pseudocode; S3 and S4
+remain flag-only and their full parameterisation is deferred (not
+Phase-1-blocking). S5 `S_full`, `Π_band`, `ρ_full`, `ρ_proj`
+executable construction is fully specified per §5.5 of that
+document.
+
+Required contents (retained for future cell amendments):
+- Distribution family from which `S_lat(f)` is drawn per draw
+  (candidate: complex Wishart on `M × M` Hermitian PSD, `ν` degrees
+  of freedom, scale matrix `Σ`).
+- Numerical parameters (candidate: `ν = 2M`, `Σ = I_M`).
+- Trace normalization and any additional constraints.
+- Coupling to the seed hierarchy.
 - Distribution family from which `S_lat(f)` is drawn per draw
   (candidate: complex Wishart on `M × M` Hermitian PSD, `ν` degrees
   of freedom, scale matrix `Σ`).
@@ -975,7 +1002,14 @@ executable specification required.
 
 ### G4 — Artifact template for S6.e
 
-Required contents:
+**Phase-1 status (K3, 2026-09-14): CLOSED for the (M19, P.LAP,
+Benchmark B) cell** by `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md`
+§7. Alpha-function envelope with `τ = 100 ms` (★ PF), amplitude
+`3 · σ_noise · √f_s` (★ PF), spatial projection onto a fixed
+seven-electrode frontal weight vector (Fp1, Fp2, F7, F3, Fz, F4,
+F8; ★ PF convention). No muscle artifact at Phase-1 (deferred).
+
+Required contents (retained for future cell amendments):
 - Time-domain template shape for the eye-blink artifact
   (candidate: parametric alpha-function).
 - Amplitude scaling relative to background RMS.
@@ -1087,9 +1121,9 @@ implementation-blocking for the Phase-1 cell:
 | Gap | Required for Phase-1? | Phase-1 scope |
 |---|---|---|
 | G1 M64/M128 | NO (deferred) | Phase-1 uses M19 only |
-| G2 Sensor-noise model | YES | Full spec required |
-| G3 Latent-source ensemble | YES | Only for scenarios used by Phase-1 Benchmark B (S1, S2, S3-flag, S4-flag, S5, S6.a–e, S7.a–c). S5 must include the `S_full` / `Π_band` / `ρ_full` / `ρ_proj` executable construction (§1). |
-| G4 Artifact template | YES | S6.e is a Phase-1 nuisance scenario |
+| G2 Sensor-noise model | YES | Full spec required. **CLOSED by K3 (2026-09-14)** via `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md` §3. |
+| G3 Latent-source ensemble | YES | Only for scenarios used by Phase-1 Benchmark B (S1, S2, S3-flag, S4-flag, S5, S6.a–e, S7.a–c). S5 must include the `S_full` / `Π_band` / `ρ_full` / `ρ_proj` executable construction (§1). **CLOSED by K3 (2026-09-14)** via `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md` §4–§6, §8. S3 and S4 remain flag-only (not Phase-1-blocking). |
+| G4 Artifact template | YES | S6.e is a Phase-1 nuisance scenario. **CLOSED by K3 (2026-09-14)** via `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md` §7. |
 | G5 Forward-model implementation | YES, restricted | Only geometry, conductivities, and the P.LAP-adjacent scalp-potential generation are Phase-1-blocking. Source-grid parameters that only feed Benchmark A (`R_P.SRC.*`) are NOT Phase-1-blocking. |
 | G6 Inverse-operator implementation | NO for Phase-1's decision path | Phase-1 uses no inverse operator. sLORETA and LCMV specifications remain deferred and MUST NOT be represented as completed by any Phase-1 amendment. |
 | G7 Reconstruction map `R_P.SRC.*` | NO (deferred) | Phase-1 uses no `R_P`. Benchmark A remains deferred. |
