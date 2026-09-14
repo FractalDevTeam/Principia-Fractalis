@@ -116,11 +116,15 @@ passing B.
 |---|---|---|---|
 | P.LAP | NOT APPLICABLE | applicable | Surface Laplacian is a spatial derivative on scalp; no natural inverse to the source grid; no `R_P.LAP` defined. |
 | P.REST | NOT APPLICABLE | applicable | rREST reconstructs "potentials at infinity" on the sensor manifold, not source-space activity; identifying that with the latent M-dim space would require an additional post-hoc inverse step, which is P.SRC territory. |
-| P.SRC.sLORETA | applicable | applicable | sLORETA explicitly reconstructs standardised source amplitudes on a declared grid; `R_P.SRC.sLORETA` is the inverse operator itself. |
-| P.SRC.LCMV | applicable | applicable | LCMV beamformer explicitly reconstructs source amplitudes on the same grid; `R_P.SRC.LCMV` is the beamformer output. |
+| P.SRC.sLORETA | CANDIDATE / PENDING G7 | applicable | sLORETA reconstructs standardised source amplitudes on a declared grid, but its Benchmark-A applicability is NOT established until §13 G7 explicitly defines `R_P.SRC.sLORETA` as a map into the same M-dim latent basis used to define `ρ_lat` and states its identifiability assumptions. |
+| P.SRC.LCMV | CANDIDATE / PENDING G7 | applicable | LCMV beamformer reconstructs source amplitudes on the same grid, but its Benchmark-A applicability is NOT established until §13 G7 explicitly defines `R_P.SRC.LCMV` as a map into the same M-dim latent basis and states its identifiability assumptions (adaptive-covariance case included). |
 
-For A, identifiability assumptions of `R_P.SRC.*` must be declared
-per §13 G7 before any latent-recovery tolerance is honoured.
+For A, applicability itself is CANDIDATE. `R_P.SRC.*` must be
+defined by §13 G7 as an explicit map into the same M-dim latent
+basis used by `ρ_lat`, and its identifiability assumptions must be
+stated, before P.SRC.sLORETA or P.SRC.LCMV can be treated as
+applicable to Benchmark A. Until then, both are labelled PENDING G7
+in §8.A and in the manifest.
 
 ---
 
@@ -136,7 +140,7 @@ per §13 G7 before any latent-recovery tolerance is honoured.
 | D6 | "Wishart-like," "approximately 5000 sources," and unnamed 10-10 / 10-5 subsets were not implementable. | Marked as specification gaps G1, G3, G5 in §13. Charter is NOT IMPLEMENTATION-READY until those are closed by labelled amendments. |
 | D7 | Sensor-noise, artifact templates, forward-model implementation, and inverse-operator implementation were named but not specified. | Marked as specification gaps G2, G4, G5, G6 in §13. Charter is NOT IMPLEMENTATION-READY. |
 | D8 | Layer-2 charter §5 declares `Δt = N · Δ_stft = 8 × 250 ms = 2 s` as the super-window length, but §3.2 declares `T_stft = 500 ms` STFT windows with `Δ_hop = 250 ms`. Actual signal span of N=8 segments is `T_stft + (N-1) · Δ_hop = 500 + 7 × 250 = 2250 ms`, not 2000 ms. | Benchmark adopts explicit `T_super = T_stft + (N_seg − 1) · Δ_hop`. For the Layer-2 charter's declared `T_stft = 500 ms`, `Δ_hop = 250 ms`, `N_seg = 8`, this gives `T_super = 2.25 s`. Layer-2 charter §5 is flagged for follow-up amendment (§13 G8); it is not amended in this commit. |
-| D9 | Exact-test tolerances (`1e-10`, `1e-6`, `1e-4`) and stochastic thresholds (5× SNR margin, `R_nuis ≤ 0.5`, false-positive ≤ 5%) were pinned without justification and without sensitivity analysis. | All thresholds are labelled ★ PF design choices. §6.7 mandates a sensitivity analysis: the three-outcome decision must be recomputed with each threshold multiplied by `{0.5, 1.0, 2.0}` and the full grid reported. If any threshold flips the outcome across this grid, the decision is INCONCLUSIVE. |
+| D9 | Exact-test tolerances (`1e-10`, `1e-6`, `1e-4`) and stochastic thresholds (5× SNR margin, `R_nuis ≤ 0.5`, false-positive ≤ 5%) were pinned without justification and without sensitivity analysis. | All thresholds are labelled ★ PF design choices. §6.7 mandates a sensitivity analysis on a **metric-specific feasible grid** (see §6.7 table): bounded-range metrics such as the Spearman rank threshold use their own feasible grid (`{0.8, 0.9, 0.95}` for rank, preserved from §7), and no uniform `× {0.5, 1, 2}` multiplier is applied to bounded metrics. If any threshold flips the outcome across its feasible grid on a disqualifying metric, the decision is INCONCLUSIVE-BY-SENSITIVITY. |
 | D10 | "Closes Ring 4" was overclaimed. | Replaced throughout with "qualifies this operationalization for a pilot." A synthetic benchmark cannot close the physical measurement ring. |
 
 ---
@@ -156,7 +160,7 @@ belong to Benchmark B and use `χ_op`.
 | ID | Applies to | Test | Ground-truth answer | Tolerance basis |
 |---|---|---|---|---|
 | E0 | B, all P | Reference-swap invariance: same latent V(t), two synthetic scalp recordings under different references (Cz vs linked mastoids), both passed through the same P. `χ_op(P; ρ_rep_A, ρ_rep_B)` computed on the two recordings. | 0 | PF choice per representation (§13 G8); MUST be justified as the numerical/regularisation floor of that representation's implementation, NOT set to machine precision arbitrarily |
-| E1 | B, all P | Scalar-amplitude scaling null: `S_lat(t_1, f) = α · S_lat(t_0, f)` for scalar `α > 0`. `ρ_lat` invariant. | `χ_op = 0` (representation is linear in S; scalar cancels through S/Tr(S)) | Machine precision (representations preserve this exactly by linearity + trace normalization) |
+| E1 | B, fixed-and-scale-equivariant P only | Scalar-amplitude scaling null: `S_lat(t_1, f) = α · S_lat(t_0, f)` for scalar `α > 0`. `ρ_lat` invariant. | `χ_op = 0` under fixed, scale-equivariant preprocessing (representation acts as a fixed linear map on `V` so `S_rep` scales by `α` and cancels through `S / Tr(S)`) | Machine precision — but ONLY for representations whose implementation (per §13 G6) is a fixed linear operator and scale-equivariant on `S`. E1 is PENDING for any pipeline whose §13 G6 algorithm has not yet established scale equivariance; in particular, adaptive-covariance LCMV and any data-dependent regularisation whose regulariser is a function of `α · S` are not automatically fixed linear maps and their E1 outcome is PENDING G6 |
 | E2.A | A, P.SRC.* only | Analytic redistribution recovery: `ρ_lat(t_0) = diag(1/4, 3/4)`, `ρ_lat(t_1) = diag(3/4, 1/4)` on `M = 2` sources; `χ_lat = 1/4`. Compute `χ_rec = (1/2)‖R_P(ρ_rep_0) − R_P(ρ_rep_1)‖²_F`. | `χ_rec` compared to `χ_lat = 1/4` | Bounded by declared identifiability error of `R_P` (§13 G7); NOT a machine-precision bound |
 | E3.a | B, all P | Global-phase invariance: signal at t_0 and t_1 differs by scalar `e^{iφ}` applied everywhere. `χ_op` computed. | 0 | Machine precision (`(e^{iφ} X)(e^{iφ} X)^H = X X^H` identically) |
 | E3.b | B, all P | Isometric-embedding invariance: two distinct isometric maps `V, V′` with `V†V = V′†V′ = I_D`; `χ_op` computed under both. | Equal (Layer-2 charter §3.5 identity) | Machine precision |
@@ -179,7 +183,7 @@ scenario without pinning implementation choices.
 | S2 | Benchmark A monotonicity/recovery; Benchmark B monotonicity | Latent redistribution parameterized by a scalar `θ` swept over `{θ_1, ..., θ_K}`; χ_lat computed analytically per draw and θ | A: `χ_rec` vs `χ_lat` scatter, Spearman rank correlation, RMSE (per θ). B: `χ_op` monotone in θ (Spearman); NO recovery-of-χ_lat claim |
 | S3 | Benchmark B monotonicity (flag-only) | Latent inter-band redistribution at constant total power; χ_lat analytic under a declared ρ construction | Same as S2 but with a caveat: block-diagonal-by-frequency ρ discards cross-band content by design (Layer-2 charter §3.3) |
 | S4 | Benchmark B (flag-only) | Latent lagged inter-source phase change with fixed marginal auto-spectra | Response of `χ_op` vs latent phase parameter; magnitude-only ρ constructions will not respond (design blind spot, flagged not disqualified) |
-| S5 | Implementation-correctness check | Latent cross-frequency coupling change with unchanged within-frequency structure; under Layer-2 §3.3 block-diagonal-by-band ρ, `χ_lat = 0` by construction | `χ_op` must equal 0 under the declared ρ construction (implementation correctness) |
+| S5 | Implementation-correctness check | Latent cross-frequency coupling change with unchanged within-frequency structure. The genuine latent state changes; `χ_lat` on the full latent cross-spectrum is NOT zero. The Layer-2 §3.3 block-diagonal-by-band projection `Π_band` discards cross-band content by construction, so the **projected/operational state** `ρ_lat^{proj} := Π_band(ρ_lat) / Tr(Π_band(ρ_lat))` is unchanged and `χ_op` on that projected state is zero by construction. S5 is a test of the projection-implementation, not a claim that latent churn is zero | `χ_op` on the block-diagonal-projected state must equal 0 under the declared ρ construction (implementation correctness of the `Π_band` projection). The full-latent `χ_lat` is not claimed zero here |
 | S6.a | Nuisance gate (§6.5); NOT in null aggregate | Latent unchanged; scalp montage rotated between windows (yaw ∈ {2°, 5°, 10°}) | `R_nuis(S6.a)` (§6.5) |
 | S6.b | Nuisance gate; NOT in null aggregate | Latent unchanged; electrode subset displaced 5 mm ({5%, 10%} of electrodes) | `R_nuis(S6.b)` |
 | S6.c | Nuisance gate; NOT in null aggregate | Latent unchanged; {5%, 10%} channels bad-marked and interpolated | `R_nuis(S6.c)` |
@@ -193,18 +197,28 @@ scenario without pinning implementation choices.
 the nuisance-ratio gate. Null-family aggregate `p_null` is
 computed over S1 ∪ S7.a ∪ S7.b ∪ S7.c ONLY.
 
-**Explicit no-pooling rule (D4).** S7.a, S7.b, S7.c yield THREE
-distinct per-representation null bands. They are not averaged into a
-single band. §6.2's aggregate `p_null` is computed by combining
-false-positive events across S1 + S7.* draws, but the null-band
-CALIBRATION for each S7.x is done independently on that sub-
-scenario's own `N_cal` draws.
+**Explicit no-pooling rule (D4, strengthened).** S1, S7.a, S7.b,
+and S7.c each yield their OWN per-representation null band, their
+OWN margin, their OWN 95% CI on false-positive rate, and their OWN
+three-outcome PASS/FAIL/INCONCLUSIVE decision (§6.2). Their draws
+and their false-positive events are NOT combined into a single
+per-representation pass/fail statistic and no maximum margin is
+formed across S7 sub-scenarios. Any single disqualifying scenario
+(S1, S7.a, S7.b, or S7.c) failing at §6.2 blocks advancement of
+that representation independently. A representation-level aggregate
+across S1 ∪ S7.* MAY be reported descriptively in the manifest, but
+it is NOT a decision statistic.
 
 ---
 
 ## §5.A Benchmark A test set
 
-Applies to `P.SRC.sLORETA` and `P.SRC.LCMV` only.
+Applies to `P.SRC.sLORETA` and `P.SRC.LCMV` as **CANDIDATE /
+PENDING G7** — see §3. Applicability itself is not established
+until §13 G7 defines `R_P.SRC.*` as a map into the same M-dim
+latent basis used by `ρ_lat` and states its identifiability
+assumptions. Until G7 closes for a given `P.SRC.*`, its §5.A gate
+outcome is PENDING G7 and no PASS may be recorded.
 
 - E-family: `E2.A` only.
 - S-family: `S2` (monotonicity + `χ_rec` vs `χ_lat` recovery per θ).
@@ -212,7 +226,7 @@ Applies to `P.SRC.sLORETA` and `P.SRC.LCMV` only.
   identifiability assumptions of the inverse operator, not by
   machine precision.
 
-Pass/fail per §6, three-outcome PASS/FAIL/INCONCLUSIVE.
+Pass/fail per §6, four-outcome PASS/FAIL/INCONCLUSIVE/PENDING G7.
 
 ## §5.B Benchmark B test set
 
@@ -256,34 +270,89 @@ metric cannot advance to a pilot until that decision is resolved
 Calibration is used to construct null bands and to size CI widths;
 pass/fail decisions use only `N_eval`.
 
-### §6.2 Null-family false-positive rate (Benchmark B)
+### §6.2 Null-scenario false-positive rate (Benchmark B, per scenario)
 
-Population: draws from S1 ∪ S7.a ∪ S7.b ∪ S7.c (S6 NOT
-included, D5).
-```
-p_null(P) = fraction of null-family draws with χ_op > margin_null,
-```
-where `margin_null` is a PF design choice per §13 G8 (candidate:
-per-S7.x calibrated 95% CI upper on `N_cal`, combined as the maximum
-across S7.x, PF choice).
+Scenarios evaluated: S1, S7.a, S7.b, S7.c (S6 NOT included, D5).
+Each scenario is decided INDEPENDENTLY. Draws are NOT combined
+across scenarios into a single decision statistic, and no maximum
+margin is formed across S7 sub-scenarios.
 
-Threshold: `p_null ≤ 5%` (PF choice, sensitivity per §6.7).
+For each scenario `x ∈ {S1, S7.a, S7.b, S7.c}` and each
+representation `P`:
 
-Outcome: PASS / FAIL / INCONCLUSIVE per §6.
+1. **Own calibration distribution.** Compute the empirical null
+   distribution of `χ_op(P; x)` on that scenario's `N_cal` draws
+   (disjoint from `N_eval`).
+2. **Own margin.** `margin_null(P, x) := ` the 95th-percentile
+   upper endpoint of a 95% CI on the null distribution's chosen
+   quantile (PF choice per §13 G8; candidate: the 95th percentile
+   of the `N_cal` empirical null).
+3. **Own point estimate.**
+   `p_null(P, x) := ` fraction of that scenario's `N_eval` draws
+   with `χ_op > margin_null(P, x)`.
+4. **Own confidence interval.** Bootstrap 95% CI on
+   `p_null(P, x)` over `B` resamples of the `N_eval` draws of
+   scenario `x` (each scenario resampled independently).
+5. **Own three-outcome decision** against threshold
+   `p_null ≤ 5%` (PF choice, sensitivity per §6.7), using the
+   generic upper-bound rule of §6 for a lower-is-better metric:
+   PASS iff CI upper ≤ 5%; FAIL iff CI lower > 5%; INCONCLUSIVE
+   otherwise.
 
-### §6.3 Monotonicity (Benchmarks A and B)
+**Disqualifying-scenario rule.** FAIL on ANY of S1, S7.a, S7.b, or
+S7.c independently disqualifies representation `P` for advancement.
+INCONCLUSIVE on any of these scenarios blocks advancement per §6
+until resolved.
+
+**Descriptive-only aggregate.** A pooled or maximum
+`p_null_aggregate(P) := max_x p_null(P, x)` (or its bootstrap CI)
+MAY be reported in the manifest for descriptive purposes only. It
+is NOT a decision statistic and cannot substitute for any of the
+four per-scenario decisions above.
+
+### §6.3 Monotonicity and recovery (Benchmarks A and B)
 
 Population: S2 sweep over `θ ∈ {θ_1, ..., θ_K}`.
 
+**Confidence-interval procedure.** For both Spearman and RMSE, the
+95% CI is computed by nonparametric bootstrap over the `N_eval`
+seed set with `B` resamples (§7), where each bootstrap resample
+draws seeds jointly across the swept `θ` grid so that within-seed
+paired structure is preserved. The Spearman CI uses the
+Fisher-z-transformed rank correlation with back-transformation for
+the CI endpoints; the RMSE CI is the empirical percentile CI of the
+bootstrap distribution of `RMSE(χ_rec, χ_lat)` (Benchmark A) or,
+where applicable, of the analogous residual (Benchmark B, not
+required).
+
+**Direction-specific three-outcome rules (metric-by-metric).**
+
+Spearman rank correlation is a **higher-is-better** metric against
+threshold `r_thr` (PF choice; §7 candidate `r_thr = 0.9`):
+- PASS iff 95% CI **lower** bound ≥ `r_thr`.
+- FAIL iff 95% CI **upper** bound < `r_thr`.
+- INCONCLUSIVE otherwise (CI straddles `r_thr`).
+
+RMSE is a **lower-is-better** metric against bound `RMSE_bound`
+(Benchmark A: declared identifiability bound of `R_P` per §13 G7):
+- PASS iff 95% CI **upper** bound ≤ `RMSE_bound`.
+- FAIL iff 95% CI **lower** bound > `RMSE_bound`.
+- INCONCLUSIVE otherwise.
+
 For Benchmark B: Spearman rank correlation between `θ` and median
-`χ_op(θ)`. Threshold: rank correlation ≥ 0.9 (PF choice).
+`χ_op(θ)` decided by the higher-is-better rule above. No recovery
+claim is made and no RMSE test is applied.
 
 For Benchmark A: Spearman rank correlation between `χ_lat(θ)` and
-median `χ_rec(θ)`, PLUS RMSE `‖χ_rec − χ_lat‖` per θ.
-Threshold: rank correlation ≥ 0.9 AND RMSE within declared
-identifiability bound of `R_P` (§13 G7).
+median `χ_rec(θ)` decided by the higher-is-better rule above; AND
+RMSE `‖χ_rec − χ_lat‖` per θ (pooled across θ into a single RMSE
+statistic) decided by the lower-is-better rule above. Both
+sub-decisions must PASS for the §6.3 gate to PASS; any FAIL is a
+gate FAIL; any INCONCLUSIVE that is not overridden by a FAIL yields
+gate INCONCLUSIVE.
 
-Outcome: PASS / FAIL / INCONCLUSIVE per §6.
+These direction-specific rules SUPERSEDE the generic upper-bound
+convention of the §6 table for the metrics named in this section.
 
 ### §6.4 Minimum signal recovery (Benchmark B only)
 
@@ -314,12 +383,48 @@ R_nuis(P; S6.x) = median χ_op(P; S6.x) / median χ_op(P; S2, θ_ref),
 ```
 with `θ_ref` a PF-declared mid-sweep magnitude (§7).
 
-Threshold: `R_nuis ≤ 0.5` (PF choice; §7 sensitivity range).
+**Joint resampling.** The 95% CI on `R_nuis(P; S6.x)` is computed
+by nonparametric bootstrap over `B` resamples in which the
+numerator draws (S6.x) and the denominator draws (S2 at `θ_ref`)
+are BOTH resampled per bootstrap replicate. The ratio-of-medians is
+recomputed on each jointly resampled replicate; the empirical
+percentile 95% CI of that ratio-of-medians distribution is the
+reported CI. This propagates denominator uncertainty rather than
+treating the denominator as a fixed point estimate.
 
-Outcome per §6: PASS iff 95% CI UPPER ≤ 0.5; FAIL iff 95% CI
-LOWER > 0.5; INCONCLUSIVE otherwise.
+**Denominator uncertainty statistic.** The bootstrap distribution
+of `median χ_op(P; S2, θ_ref)` on the denominator side is also
+summarised (point estimate + 95% percentile CI) and recorded in the
+per-scenario metric block of §9 alongside `R_nuis` itself.
+
+**Stability floor.** Define the preregistered denominator stability
+floor `χ_op_floor := max(1e-12, ε_min · Tr(S_baseline))`, using the
+`ε_min` and baseline trace normalisation of §7 and Layer-2 §3.4.
+For each bootstrap replicate:
+- if the replicate's denominator `median χ_op(P; S2, θ_ref)` is
+  `≤ χ_op_floor` (including exactly zero), the replicate's ratio
+  is DEFINED as `+∞` and the replicate is flagged unstable;
+- the fraction of unstable replicates `u_frac(P; S6.x)` is
+  recorded in the manifest.
+
+**Outcomes.**
+- If the point estimate `median χ_op(P; S2, θ_ref) ≤ χ_op_floor`,
+  the S6.x gate outcome is INCONCLUSIVE-DENOMINATOR-UNSTABLE
+  (§6.7 sensitivity analysis is not consulted; the denominator is
+  the load-bearing failure) and the representation cannot advance
+  until the denominator is re-established above the floor by a
+  labelled amendment (§10) — e.g. re-selection of `θ_ref`.
+- If `u_frac(P; S6.x) > 5%` (PF choice; §6.7 sensitivity range),
+  the outcome is INCONCLUSIVE-DENOMINATOR-UNSTABLE for the same
+  reason.
+- Otherwise the ratio's 95% percentile CI is compared to the
+  threshold `R_nuis ≤ 0.5` (PF choice; §7 sensitivity range) by
+  the standard lower-is-better rule of §6: PASS iff 95% CI upper
+  ≤ 0.5; FAIL iff 95% CI lower > 0.5; INCONCLUSIVE otherwise.
 
 Applied to each S6.x separately. FAIL on any S6.x disqualifies P.
+INCONCLUSIVE (any variant) on any S6.x blocks advancement until
+resolved.
 
 For Benchmark A: no nuisance-ratio gate against latent-recovery;
 Benchmark B's nuisance ratio is the sole nuisance measure. This
@@ -334,12 +439,27 @@ disqualifying independent of §6.2–§6.5.
 
 ### §6.7 Threshold sensitivity analysis (D9)
 
-Every PF-declared threshold in §6.2–§6.5 (`p_null ≤ 5%`, monotonicity
-rank ≥ 0.9, minimum-signal floor factor `f_SNR = 5`, nuisance ratio
-`≤ 0.5`, and the E-family tolerances of §5.1 per representation)
-is recomputed with the threshold multiplied by `{0.5, 1.0, 2.0}`
-(and E-family tolerances by `{0.1, 1.0, 10}`). The three-outcome
-decision under each perturbation is reported in the manifest.
+Every PF-declared threshold in §6.2–§6.5 is recomputed on a
+**metric-specific feasible grid** — a uniform `× {0.5, 1.0, 2.0}`
+multiplier is not applied to bounded-range metrics because it can
+produce infeasible values (e.g. `2 × 0.9 = 1.8` is not a valid
+rank correlation). The grids below preserve §7's declared ranges
+and are the authoritative sensitivity set:
+
+| Threshold | Feasible sensitivity grid | Source |
+|---|---|---|
+| Null false-positive `p_null` ≤ 5% (§6.2) | `{2.5%, 5%, 10%}` | §7 |
+| Monotonicity Spearman rank ≥ 0.9 (§6.3) | `{0.8, 0.9, 0.95}` | §7 (PRESERVED — no uniform multiplier) |
+| RMSE bound (§6.3, Benchmark A) | `{0.5, 1.0, 2.0} × RMSE_bound(§13 G7)` | §7 |
+| Minimum-signal floor factor `f_SNR` (§6.4) | `{2.5, 5, 10}` | §7 |
+| Nuisance ratio `R_nuis` ≤ 0.5 (§6.5) | `{0.25, 0.5, 1.0}` | §7 |
+| Denominator instability fraction `u_frac` ≤ 5% (§6.5) | `{2.5%, 5%, 10%}` | ★ PF |
+| E-family tolerances (§5.1 per representation) | `× {0.1, 1.0, 10}` | ★ PF |
+
+Any historical or downstream reference to a "uniform `×{0.5,1,2}`
+sensitivity multiplier" is superseded by this table. The three-
+outcome decision under each perturbation on this table is reported
+in the manifest.
 
 **Robustness rule.** If ANY threshold's perturbation changes a
 representation's PASS/FAIL/INCONCLUSIVE decision on a disqualifying
@@ -400,25 +520,46 @@ Per representation, per montage (M19 only until §13 G1 closes),
 per parameter cell (P.LAP: per (m, λ); P.REST: per ε_REST;
 P.SRC: per λ_SRC and forward-model mismatch condition):
 
-### §8.A Benchmark A (P.SRC.sLORETA, P.SRC.LCMV only)
+### §8.A Benchmark A (P.SRC.sLORETA, P.SRC.LCMV — both PENDING G7)
+
+Applicability itself is CANDIDATE / PENDING G7 per §3. Until G7
+lands, the §8.A gate outcome for both P.SRC.sLORETA and P.SRC.LCMV
+is PENDING G7 and no PASS may be recorded. After G7 closes:
 
 1. E2.A within declared identifiability tolerance (§13 G7).
-2. S2 rank correlation ≥ 0.9 (three-outcome).
-3. S2 RMSE within declared identifiability bound (§13 G7).
+2. S2 Spearman rank correlation decided by the higher-is-better
+   rule of §6.3 against threshold `r_thr` (§7).
+3. S2 RMSE decided by the lower-is-better rule of §6.3 against the
+   declared identifiability bound (§13 G7).
 
-Outcomes reported: {PASS, FAIL, INCONCLUSIVE}.
+Outcomes reported: {PASS, FAIL, INCONCLUSIVE, PENDING G7}.
 
 ### §8.B Benchmark B (all representations)
 
-1. E0, E1, E3.a, E3.b, E3.c within §5.1 tolerances.
-2. S5 within numerical zero (implementation-correctness gate).
-3. `p_null` (S1 ∪ S7.*, §6.2) three-outcome ≤ 5%.
-4. S2 monotonicity rank ≥ 0.9 (§6.3).
+1. E0, E1, E3.a, E3.b, E3.c within §5.1 tolerances. E1 is PENDING
+   G6 for any representation whose §13 G6 algorithm has not yet
+   established scale equivariance (§5.1); no PASS may be recorded
+   for E1 on such a representation until G6 closes for it.
+2. S5 within numerical zero on the block-diagonal-projected state
+   (implementation-correctness gate; the projected `χ_op` is zero
+   by construction, latent `χ_lat` is NOT claimed zero — §5.2).
+3. Per-scenario null false-positive decisions under §6.2:
+   independent PASS/FAIL/INCONCLUSIVE decisions on S1, S7.a, S7.b,
+   and S7.c. Each disqualifying scenario failure blocks
+   advancement independently. The S1 ∪ S7.* aggregate is
+   descriptive only and NOT a decision statistic.
+4. S2 monotonicity Spearman rank decided by §6.3's higher-is-
+   better rule against threshold `r_thr` (§7).
 5. Sensitivity floor (§6.4) at smallest θ.
-6. Nuisance ratio (§6.5) ≤ 0.5 for every S6.x.
-7. §6.7 sensitivity analysis stable.
+6. Nuisance ratio (§6.5) for every S6.x — including the joint-
+   resampling CI, denominator-uncertainty summary, and
+   `u_frac`/stability-floor handling.
+7. §6.7 sensitivity analysis stable on the metric-specific feasible
+   grid.
 
-Outcomes reported: {PASS, FAIL, INCONCLUSIVE}.
+Outcomes reported: {PASS, FAIL, INCONCLUSIVE,
+INCONCLUSIVE-DENOMINATOR-UNSTABLE, INCONCLUSIVE-BY-SENSITIVITY,
+PENDING G6}.
 
 ### §8.C No cross-representation aggregation
 
@@ -428,9 +569,13 @@ cross-representation agreement rule (C4 correction retained).
 ### §8.D Global outcome
 
 A representation "qualifies for a pilot" iff:
-- Benchmark B outcome is PASS on all §8.B filters.
+- Benchmark B outcome is PASS on all §8.B filters (no PENDING G6
+  on E1 for that representation, no INCONCLUSIVE of any variant,
+  no FAIL).
 - Benchmark A outcome is either NOT APPLICABLE (P.LAP, P.REST) or
-  PASS on all §8.A filters (P.SRC.*).
+  PASS on all §8.A filters (P.SRC.*). A P.SRC.* whose §8.A outcome
+  is PENDING G7 does NOT qualify until G7 closes and Benchmark A
+  is re-evaluated to PASS.
 
 If ≥ 1 representation qualifies, the Layer-2 charter §3.1
 provisional primary designation is testable against this set, and
