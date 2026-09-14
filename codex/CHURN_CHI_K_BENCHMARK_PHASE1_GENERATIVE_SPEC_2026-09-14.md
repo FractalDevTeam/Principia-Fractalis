@@ -1,19 +1,23 @@
-# CHURN χ_k EEG-BRIDGE — PHASE-1 GENERATIVE SPECIFICATION (G2 + G3 + G4)
+# CHURN χ_k EEG-BRIDGE — PHASE-1 EXECUTABLE SPECIFICATION (G2 + G3 + G4 + G5 + G6-P.LAP)
 
-Date: 2026-09-14.
+Date: 2026-09-14. Original title
+"PHASE-1 GENERATIVE SPECIFICATION (G2 + G3 + G4)" retained in the
+K3 commit provenance; K4 broadens the scope to include Phase-1-
+restricted G5 (forward-model geometry) and G6-P.LAP (P.LAP
+algorithm). Filename unchanged for K3 provenance continuity.
+
 Branch: `r331b-provenance`.
 Scope: **the Phase-1 cell only**, per benchmark charter §14.1 =
 (M19, P.LAP, Benchmark B).
 
 **STATUS: DOCUMENTATION ONLY.** This document closes the Phase-1-
-scope obligations of benchmark-charter §13 G2, G3, and G4 by
-providing executable mathematical pseudocode for sensor noise,
-every latent scenario actually used by Phase-1 Benchmark B, all
-Phase-1 nuisance perturbations, and the S5 projection objects
-(`S_full`, `Π_band`, `ρ_full`, `ρ_proj`). Gaps outside the Phase-1
-subset (in particular G1 M64/M128 and G7 Benchmark-A `R_P.SRC.*`)
-are NOT touched and MUST NOT be represented as closed by this
-document.
+scope obligations of benchmark-charter §13 G2, G3, G4 (K3
+commit), and — with two named blockers — G5 (Phase-1 restricted
+to P.LAP-adjacent geometry) and G6 (Phase-1 restricted to
+P.LAP; sLORETA/LCMV deferred) via K4. Gaps outside the Phase-1
+subset (in particular G1 M64/M128, G7 Benchmark-A `R_P.SRC.*`,
+and the sLORETA/LCMV portions of G6) are NOT touched and MUST
+NOT be represented as closed by this document.
 
 **Scope-violation guard.** Nothing here specifies P.REST, P.SRC.*,
 sLORETA, LCMV, source-grid parameters used only by Benchmark A,
@@ -511,7 +515,7 @@ verified full-text citation logged in the source audit
 
 ---
 
-## §10. Cross-references
+## §10. Cross-references (Phase-1 G2/G3/G4 scope)
 
 - Benchmark charter `codex/CHURN_CHI_K_MEASUREMENT_BENCHMARK_CHARTER_2026-09-13.md`
   §1 (definitions of `S_full`, `ρ_full`, `Π_band`, `ρ_proj`),
@@ -527,3 +531,392 @@ No content of this document authorises a claim of primary-source
 support beyond what the source audit records. Every load-bearing
 number is either primary-source-tagged with an exact source-audit
 line reference or labelled ★ PF with a §6.7 feasibility grid.
+
+---
+
+## §11. G5 — Phase-1 forward-model geometry (executable, restricted)
+
+Closes the Phase-1-scope obligations of benchmark-charter §13 G5
+for the (M19, P.LAP, Benchmark B) cell. Only geometry,
+conductivities, and the P.LAP-adjacent scalp-potential generation
+are addressed; source-grid parameters used only by Benchmark A
+(`R_P.SRC.*`) remain deferred per §14.1 and §14.2.
+
+### §11.1 M19 electrode coordinates — PF spherical convention
+
+**Load-bearing honesty note.** The International 10-20 system
+(Jasper 1958, as re-standardised by the American EEG Society
+Guideline 1994) specifies electrode positions **topographically**,
+as percentages of the four skull landmarks (nasion, inion, left
+and right preauricular points). It does NOT specify exact 3D
+Cartesian coordinates on a specific spherical or realistic head
+model — a mapping convention is required. Software vendors
+(FieldTrip `elec1005.mat`, MNE-Python `standard_1020`, EEGLAB
+built-in coords, Brainstorm defaults) each publish their own
+mapping conventions, which differ at millimetre level.
+
+**No such vendor file has been verified full-text in the source
+audit for this branch.** Therefore Phase-1 declares its own
+mapping and labels it ★ PF preregistered design choice. Any
+future amendment claiming primary-source support for the M19
+coordinates MUST record a full-text citation in the source audit.
+
+**PF spherical M19 convention (★ PF).** Coordinates given in
+spherical `(θ_zen, φ_az)` on a unit sphere, with `θ_zen` measured
+from the +z (vertex) axis and `φ_az` measured from the +x axis
+in the x-y plane, right-handed, x toward nasion, y toward left
+preauricular. To convert to Cartesian on the scalp shell of
+radius `r_scalp` (§11.2), multiply by `r_scalp`.
+
+| Label | θ_zen (deg) | φ_az (deg) |
+|---|---|---|
+| Fp1 | 72 | 108 |
+| Fp2 | 72 | 72 |
+| F7 | 72 | 144 |
+| F3 | 51 | 129 |
+| Fz | 45 | 90 |
+| F4 | 51 | 51 |
+| F8 | 72 | 36 |
+| T3 | 90 | 180 |
+| C3 | 45 | 180 |
+| Cz | 0 | 0 (degenerate — placed at +z axis) |
+| C4 | 45 | 0 |
+| T4 | 90 | 0 |
+| T5 | 108 | 144 |
+| P3 | 51 | 231 |
+| Pz | 45 | 270 |
+| P4 | 51 | 309 |
+| T6 | 108 | 36 |
+| O1 | 108 | 252 |
+| O2 | 108 | 288 |
+
+This table is a ★ PF convention that reproduces the 10-20
+topographic ordering (frontal/central/parietal/occipital rows;
+midline column at φ_az ∈ {90°, 0°/degenerate, 270°}; left/right
+symmetry). It is NOT claimed to match any vendor file. Any
+consumer of Phase-1 outputs comparing to physical EEG must
+declare its own coordinate convention and note the mismatch.
+
+**Sensitivity.** The §6.7 sensitivity grid does NOT vary M19
+coordinates; a mismatch at the millimetre level is fully absorbed
+into the S6.a montage-rotation and S6.b electrode-displacement
+nuisance scenarios by construction.
+
+### §11.2 Three-shell head model — radii and conductivities
+
+**Load-bearing honesty note.** Canonical three-shell radii and
+conductivities (brain / skull / scalp) appear in Rush & Driscoll
+1968, Berg & Scherg 1994, and Nunez & Srinivasan 2006, among
+others. None of these papers has been verified full-text in the
+source audit for this branch. Skull:brain conductivity ratios in
+the literature span 1:15 to 1:80 with the modern literature
+converging near 1:20 to 1:50; the source audit does not adjudicate
+this. Phase-1 therefore declares:
+
+| Parameter | Value | Status |
+|---|---|---|
+| Scalp outer radius `r_scalp` | 0.092 m | ★ PF (nominal adult head; no primary source verified) |
+| Skull outer radius `r_skull` | 0.086 m | ★ PF |
+| Brain outer radius `r_brain` | 0.080 m | ★ PF |
+| Scalp conductivity | 0.33 S/m | ★ PF (nominal saline-like value widely cited but not verified in source audit for this exact use) |
+| Skull conductivity | 0.0165 S/m | ★ PF (skull:brain ratio 1:20, one of the widely cited values; not verified) |
+| Brain conductivity | 0.33 S/m | ★ PF |
+
+**§6.7 sensitivity grid.**
+- Radii: `× {0.95, 1.0, 1.05}` on each of r_scalp, r_skull,
+  r_brain (nested-shell constraint `r_brain < r_skull <
+  r_scalp` must hold; grid points violating it are discarded).
+- Conductivity ratios: skull:brain ∈ `{1:15, 1:20, 1:50}` at
+  fixed brain and scalp conductivities.
+
+Every one of these is a Phase-1-blocking obligation ONLY at the
+level of "each value must have either a verified primary source
+in the source audit, or a ★ PF label with the feasibility grid
+above." Phase-1 opts for the ★ PF path for every row above; no
+row is claimed to be primary-source-supported.
+
+### §11.3 Latent source shell
+
+Latent sources placed on a fixed spherical shell of radius
+`r_lat = 0.070 m` (★ PF; §6.7 feasibility `{0.060, 0.070, 0.075}
+m`, all strictly inside `r_brain`). Fibonacci-`M` lattice with
+`M = 5` points; positions and orientations fixed across draws in
+a given cell.
+
+Dipole orientations: **radial** (pointing outward along the
+source's radial direction from head-model origin). Tangential
+dipoles are NOT modelled at Phase-1; they remain a G5 amendment
+obligation for future cells.
+
+### §11.4 Leadfield `G` (M19 × M) — analytical form
+
+**Executable form.** Berg-Scherg 1994 analytical series
+approximation for a three-shell concentric spherical head model,
+using a truncated Legendre-polynomial expansion of the exact
+Rush-Driscoll solution. Both Berg-Scherg 1994 and Rush-Driscoll
+1968 are **NOT verified full-text in the source audit for this
+branch**; Phase-1 uses the widely-documented analytical series
+form as ★ PF with an explicit citation obligation:
+
+```
+V_scalp(electrode_i, source_j) =
+  sum_{n=1}^{N_trunc} λ_n(σ_brain, σ_skull, σ_scalp,
+                          r_brain, r_skull, r_scalp)
+                    · (r_source / r_scalp)^n · P_n(cos γ_{ij})
+```
+
+where `γ_{ij}` is the angle between electrode `i` position and
+source `j` position; `P_n` is the Legendre polynomial of order
+`n`; `λ_n(...)` are the analytical coefficients from the
+concentric-sphere solution. Truncation order `N_trunc = 40` (★
+PF; §6.7 feasibility `{20, 40, 80}`; a coarser truncation may
+yield material differences at Phase-1 spatial scales, which is a
+Phase-1-blocking obligation before implementation).
+
+**Blocker.** The explicit closed form of `λ_n(...)` requires
+primary-source verification of either Berg-Scherg 1994 or
+Rush-Driscoll 1968 before implementation. Neither is in the
+source audit's verified-full-text set. Phase-1 records this as a
+**PHASE-1-BLOCKING OBLIGATION** under G5 that must be resolved
+by (a) primary-source verification with the exact `λ_n` formula
+quoted in the source audit, or (b) an alternative analytical
+form with equivalent verification, or (c) a numerical BEM
+implementation with a fully pinned library and version and a
+verified regression test against an independently-derived
+concentric-sphere solution.
+
+**Pending resolution of this blocker, no Phase-1 implementation
+may run.** The rest of this document is coherent conditional on
+that resolution.
+
+---
+
+## §12. G6 — P.LAP algorithm (executable, restricted)
+
+Closes the Phase-1-scope obligations of benchmark-charter §13 G6
+for the (M19, P.LAP, Benchmark B) cell. sLORETA and LCMV
+specifications remain deferred per §14.1 and MUST NOT be
+represented as completed by Phase-1.
+
+### §12.1 P.LAP algorithm — spherical-spline surface Laplacian
+
+**Family.** Spherical-spline surface Laplacian per Perrin et al.
+1989 with regularisation and spline-order parameters per
+Tenke & Kayser 2015. Neither Perrin 1989 nor Tenke & Kayser 2015
+is verified full-text in the source audit for this branch; the
+bridge audit records secondary quotations from Tenke & Kayser
+2015 (reference-independence, sensitivity to spline flexibility)
+that support the choice of spherical-spline family, but does NOT
+supply the primary equation forms. Phase-1 therefore uses the
+general form as documented across the CSD literature and flags
+each primary-equation dependency as a Phase-1-blocking obligation
+requiring source-audit verification before implementation.
+
+### §12.2 P.LAP — mathematical form (executable pseudocode)
+
+Given:
+- Electrode positions `x_i ∈ ℝ^3`, `i = 1, ..., N_ch = 19`, on
+  the scalp shell of radius `r_scalp` (§11.2).
+- Scalp potentials `V_i(t) ∈ ℝ`.
+- Spline order `m ∈ {3, 4, 5}` (benchmark charter §7 ★ PF grid).
+- Regularisation parameter `λ ∈ {10^{-6}, 10^{-5}, 10^{-4}}`
+  (benchmark charter §7 ★ PF grid).
+
+Step 1 — geodesic angles between electrodes:
+```
+cos γ_{ij} = (x_i · x_j) / (‖x_i‖ · ‖x_j‖),   i, j = 1..N_ch
+```
+
+Step 2 — spherical-spline kernel `g_m(cos γ)`:
+```
+g_m(cos γ) = (1 / (4π)) · sum_{n=1}^{N_g_trunc}
+             ((2n + 1) / (n^m · (n + 1)^m)) · P_n(cos γ)
+```
+with `N_g_trunc = 50` (★ PF; §6.7 feasibility `{25, 50, 100}`).
+This is the canonical form of the spline kernel documented in the
+Perrin 1989 spherical-spline construction; the primary-source
+verification is a Phase-1-blocking obligation.
+
+Step 3 — assemble `N_ch × N_ch` kernel matrix `K_m[i, j] =
+g_m(cos γ_{ij})` and add regularisation:
+```
+K_m_reg = K_m + λ · I_{N_ch}
+```
+
+Step 4 — spline coefficients:
+```
+c(t) = K_m_reg^{-1} · V(t)     ∈ ℝ^{N_ch}
+```
+where `V(t) = (V_1(t), ..., V_{N_ch}(t))^T`.
+
+Step 5 — surface Laplacian kernel `h_m(cos γ)`:
+```
+h_m(cos γ) = -(1 / (4π · r_scalp^2)) · sum_{n=1}^{N_h_trunc}
+              ((2n + 1) · n · (n + 1) / (n^m · (n + 1)^m))
+              · P_n(cos γ)
+```
+with `N_h_trunc = 50` (★ PF; §6.7 feasibility `{25, 50, 100}`).
+The `n(n+1)/r_scalp^2` factor is the eigenvalue of the spherical
+Laplacian for order-`n` spherical harmonics on a sphere of
+radius `r_scalp`; this is a standard result. Primary-source
+verification of the Perrin 1989 exact coefficient is a
+Phase-1-blocking obligation.
+
+Step 6 — evaluate surface Laplacian at each electrode:
+```
+Lap V(x_i, t) = sum_{j=1}^{N_ch} h_m(cos γ_{ij}) · c_j(t)
+```
+so `Lap V(t) = H_m · K_m_reg^{-1} · V(t)`, where `H_m[i, j] =
+h_m(cos γ_{ij})`. Define the P.LAP operator:
+```
+A_{LAP}(m, λ) := H_m · (K_m + λ · I_{N_ch})^{-1}
+```
+`A_{LAP}` is an `N_ch × N_ch` fixed matrix that depends on
+(m, λ) and on the electrode geometry only. It is FIXED across
+draws (no data-dependent regularisation), which satisfies the
+scale-equivariance condition of benchmark charter §7.A.6 for E1
+in Phase-1.
+
+### §12.3 Reference handling
+
+P.LAP is reference-independent by construction: applying `A_{LAP}`
+to `V(t) + c · 1` (with `1` the all-ones vector) gives
+`A_{LAP} · (V + c · 1) = A_{LAP} · V + c · A_{LAP} · 1`, and
+`A_{LAP} · 1 = 0` by the structure of the surface-Laplacian
+kernel on a closed sphere (the constant function has zero
+Laplacian). This is the Layer-2 §3.1 reference-freedom claim,
+sourced to Tenke & Kayser 2015 in the bridge audit. Phase-1
+implementation MUST verify `‖A_{LAP} · 1‖_∞ ≤ 10^{-10}` as a
+build-time check.
+
+### §12.4 Cross-spectral estimator (from P.LAP output)
+
+Given P.LAP output `X(t) = A_{LAP} · V(t) ∈ ℝ^{N_ch}` sampled at
+`f_s = 250 Hz` (§1), the per-band cross-spectrum is computed by
+Welch's method with the Layer-2 §3.2 STFT parameters
+(T_stft = 500 ms Hamming, Δ_hop = 250 ms 50% overlap, FFT length
+next power of 2 ≥ window samples):
+
+```
+For each STFT segment k = 1, ..., N_seg:
+    Y_k(f) = FFT(w_Hamming * X(segment k))       # (N_ch, N_freq)
+For each band b ∈ B:
+    F_b = { frequency bins whose centre ∈ b }
+    S_b = (1 / N_seg) · sum_k mean_{f ∈ F_b} [Y_k(f) · Y_k(f)^H]
+```
+`S_b ∈ ℂ^{N_ch × N_ch}` is Hermitian PSD. Trace-normalise per
+band:
+```
+ρ_b = S_b / Tr(S_b)     if Tr(S_b) > ε_min · median_b Tr(S_b);
+      UNDEFINED         otherwise
+```
+with `ε_min = 10^{-12}` per Layer-2 §3.4 (★ PF).
+
+The block-diagonal-by-band ρ per Layer-2 §3.3:
+```
+ρ_full_op = block_diag(ρ_δ, ρ_θ, ρ_α, ρ_β, ρ_γ) ∈ ℂ^{D × D}
+```
+with `D = N_ch · |B| = 19 · 5 = 95`. This is the Benchmark-B
+operational ρ.
+
+### §12.5 Channel ordering and feature ordering
+
+Channel ordering follows the M19 label list of benchmark charter
+§7 verbatim: `[Fp1, Fp2, F7, F3, Fz, F4, F8, T3, C3, Cz, C4, T4,
+T5, P3, Pz, P4, T6, O1, O2]`. Feature ordering per Layer-2 §3.2:
+channel-major within each band; band order `[δ, θ, α, β, γ]`.
+
+### §12.6 Regularisation and data-dependence
+
+`λ ∈ {10^{-6}, 10^{-5}, 10^{-4}}` is a fixed parameter grid; it
+is NOT selected by any data-dependent procedure. Each (m, λ)
+cell is evaluated independently. The scale-equivariance condition
+of benchmark charter §7.A.6 (E1 IN-SCOPE for P.LAP) is
+established for every (m, λ) cell precisely because `A_{LAP}` is
+independent of the data.
+
+---
+
+## §13. P.LAP scale-equivariance (E1 in Phase-1)
+
+Claim: for every (m, λ) in the Phase-1 grid, `χ_op` on P.LAP
+outputs is exactly zero on the scalar-amplitude scaling null (E1)
+up to the E-family tolerance of §7.A.5, under a correct fixed-
+operator implementation.
+
+Proof sketch (fixed linear operator on sensor cross-spectrum):
+- If `V(t)` is replaced by `α · V(t)`, then `X(t) = A_{LAP} · V(t)`
+  becomes `α · X(t)`.
+- The Welch cross-spectral estimator scales by `|α|²`: for any
+  segment `k`, `Y_k → α · Y_k`, so `Y_k Y_k^H → |α|² · Y_k Y_k^H`.
+- Band integration is linear; `S_b → |α|² · S_b`.
+- Trace normalisation cancels: `ρ_b = S_b / Tr(S_b) → (|α|² S_b)
+  / (|α|² Tr(S_b)) = ρ_b`.
+- Block-diagonal aggregation preserves per-band ρ; therefore
+  `ρ_full_op` is invariant under `V ↦ α · V`.
+- `χ_op = (1/2) · ‖ρ_full_op_0 − ρ_full_op_1‖_F^2 = 0` exactly.
+
+Any implementation that violates this identity has introduced
+data-dependent regularisation or a numerical instability that is
+disqualifying under §6.6. E1 remains IN-SCOPE for P.LAP in
+Phase-1.
+
+---
+
+## §14. Remaining Phase-1-blocking obligations under G5/G6/P.LAP
+
+| Item | Status | Blocker |
+|---|---|---|
+| M19 spherical `(θ_zen, φ_az)` table | ★ PF convention | No primary source for exact coordinates. Convention is reproducible; nuisance scenarios S6.a/S6.b absorb millimetre-level mismatch. |
+| Head-model radii (r_scalp, r_skull, r_brain) | ★ PF | Nominal adult values; no primary-source verification recorded. |
+| Head-model conductivities (0.33, 0.0165, 0.33 S/m) | ★ PF | Skull:brain 1:20 is one of the widely-cited ratios; no primary-source verification recorded for this exact use. |
+| Berg-Scherg 1994 analytical series `λ_n(...)` closed form | **PHASE-1-BLOCKING** | Primary-source verification required OR alternative BEM implementation with independent regression test. |
+| Truncation order `N_trunc = 40` for leadfield series | ★ PF | Convergence at Phase-1 spatial scales must be verified at implementation time against the §6.7 grid `{20, 40, 80}`. |
+| Perrin 1989 spline kernel `g_m` and Laplacian kernel `h_m` closed forms | **PHASE-1-BLOCKING** | Primary-source verification of the exact Perrin-1989 spline construction is required before implementation. Secondary quotations exist in the bridge audit but the primary equation form does not. |
+| Truncation orders `N_g_trunc = N_h_trunc = 50` | ★ PF | Convergence must be verified at implementation time against the §6.7 grid `{25, 50, 100}`. |
+| Reference-freedom check `‖A_{LAP} · 1‖_∞ ≤ 10^{-10}` | Build-time check | Required as a Phase-1 unit test before any benchmark run. |
+| Radial-only dipole orientations | ★ PF | Tangential dipoles deferred to a future cell. |
+
+**Cumulative Phase-1 readiness verdict (K4, 2026-09-14).** The
+Phase-1 cell (M19, P.LAP, Benchmark B) is DOCUMENTED but NOT
+IMPLEMENTATION-READY. Two load-bearing primary-source
+verifications remain blocking:
+
+1. Berg-Scherg 1994 (or equivalent) analytical leadfield series
+   coefficients `λ_n(...)`.
+2. Perrin et al. 1989 spherical-spline kernel `g_m` and Laplacian
+   kernel `h_m` exact forms.
+
+Both blockers can be resolved by (a) a full-text verified reading
+recorded in the source audit with the exact equations quoted, or
+(b) an alternative equivalent numerical implementation with
+primary-source-backed regression tests. Neither has been done
+under this quarterback stack (K1–K4); doing them requires
+external primary-source access that is not authorised as
+implementation and therefore properly belongs in the next audit
+step.
+
+All other Phase-1-blocking obligations under G2/G3/G4 (§9) and
+G5/G6/P.LAP (this section) are closed to the ★ PF standard with
+feasibility grids per §6.7. No content of this document
+authorises a primary-source claim beyond what the source audit
+records.
+
+---
+
+## §15. Cross-references (K4 additions)
+
+- Benchmark charter `codex/CHURN_CHI_K_MEASUREMENT_BENCHMARK_CHARTER_2026-09-13.md`
+  §7 (M19 label list, P.LAP (m, λ) grid, head-model row), §7.A.5–§7.A.6
+  (E1 scope for P.LAP, scale-equivariance), §13 G5, §13 G6 (Phase-1
+  closure via this document), §14.1 (Phase-1 cell declaration).
+- Layer-2 charter `codex/CHURN_CHI_K_EEG_LAYER_CHARTER_2026-09-12.md`
+  §3.1 (P.LAP as PF provisional primary, sourced to Sitt 2014 +
+  Tenke & Kayser 2015), §3.2 (STFT parameters), §3.3 (block-
+  diagonal-by-band ρ).
+- Bridge audit `codex/CHURN_CHI_K_EEG_BRIDGE_AUDIT_2026-09-13.md`
+  §3 (P.LAP verified claims from Tenke & Kayser 2015 quotations;
+  edge-electrode behaviour flagged unknown).
+- Source audit `codex/CHURN_CHI_K_EEG_SOURCE_AUDIT_2026-09-13.md`
+  (Sitt 2014 verified; Perrin 1989 and Berg-Scherg 1994 not in
+  verified-full-text set as of this commit).
