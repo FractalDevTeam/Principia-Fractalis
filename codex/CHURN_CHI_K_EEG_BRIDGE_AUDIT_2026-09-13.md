@@ -473,3 +473,41 @@ Companion documents: `codex/CHURN_CHI_K_EEG_LAYER_CHARTER_2026-09-12.md`
 `codex/CHURN_CHI_K_EEG_SOURCE_AUDIT_2026-09-13.md` (main audit,
 HEAD `b229a6d9`). No Lean, no book, no estimator, no Layer 3, no
 master push.*
+
+---
+
+**2026-09-14 cross-reference addendum (K4).** The quarterback
+stack K1–K4 on `r331b-provenance` has landed a staged Phase-1
+readiness surface for the χ_k measurement benchmark restricted to
+`(M19, P.LAP, Benchmark B)`. The Phase-1 executable specification
+lives in
+`codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md`
+and covers G2/G3/G4 (K3) and G5/G6-P.LAP (K4). Two Phase-1-
+blocking primary-source obligations are named in that document
+that touch this bridge audit's remit:
+
+1. **Berg-Scherg 1994** (or equivalent) analytical leadfield-
+   series `λ_n(...)` coefficients for the three-shell concentric
+   sphere. NOT in this bridge audit's verified-source set as of
+   this addendum. Blocks Phase-1 forward-model implementation.
+2. **Perrin et al. 1989** exact spline kernel `g_m` and Laplacian
+   kernel `h_m` closed forms. NOT in this bridge audit's
+   verified-source set. Bridge audit §3 records only secondary
+   Tenke & Kayser 2015 quotations supporting the spherical-spline
+   family and its reference-independence property; the primary
+   Perrin-1989 equation forms are unverified. Blocks Phase-1
+   P.LAP algorithm implementation.
+
+Both blockers can only be closed by primary-source full-text
+verification recorded in the source audit, not by any
+documentation-only amendment on this branch. Phase-1
+implementation remains authorised only after such a source-audit
+update lands.
+
+No content of this addendum revises this bridge audit's earlier
+findings; it only closes the K1–K4 cross-references so future
+readers of the bridge audit are pointed at the Phase-1 spec
+document. The A/B/C decomposition of §7 is unchanged: Phase-1
+addresses A (algebraic well-formedness) and the estimator side of
+B (statistical assumptions), and explicitly does NOT resolve C
+(physical interpretation as intrinsic brain-state change).

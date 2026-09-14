@@ -1019,7 +1019,20 @@ Required contents (retained for future cell amendments):
 
 ### G5 — Forward-model implementation
 
-Required contents:
+**Phase-1 status (K4, 2026-09-14): DOCUMENTED WITH ONE NAMED
+BLOCKER** for the (M19, P.LAP, Benchmark B) cell by
+`codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md`
+§11. M19 coordinates declared as a ★ PF spherical convention
+(§11.1); three-shell radii and conductivities all ★ PF with §6.7
+feasibility grids (§11.2); latent source shell and orientations
+★ PF (§11.3). Berg-Scherg 1994 analytical leadfield-series
+coefficients `λ_n(...)` remain a **PHASE-1-BLOCKING obligation
+requiring primary-source verification or an equivalent numerical
+BEM implementation with regression tests** (§11.4). Source-grid
+parameters used only by Benchmark A (`R_P.SRC.*`) are NOT
+Phase-1-blocking and remain deferred.
+
+Required contents (retained for future cell amendments):
 - Head-model geometry (radii; §7 pins three-shell concentric
   spherical) with numerical values in metres.
 - Tissue conductivities in S/m (candidate: scalp 0.33, skull
@@ -1035,7 +1048,23 @@ Required contents:
 
 ### G6 — Inverse-operator implementation
 
-Required contents:
+**Phase-1 status (K4, 2026-09-14): PARTIALLY CLOSED for the
+(M19, P.LAP, Benchmark B) cell** by
+`codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md`
+§12–§13. The P.LAP algorithm (surface-Laplacian spherical spline
+per the Perrin 1989 family with (m, λ) grid per Tenke & Kayser
+2015 secondary quotations) is specified as an executable fixed
+linear operator `A_{LAP}(m, λ) = H_m · (K_m + λ · I)^{-1}`
+(§12.2), with reference-freedom (§12.3), cross-spectral
+estimator (§12.4), channel/feature ordering (§12.5), and
+scale-equivariance for E1 (§13) all pinned. Perrin 1989 exact
+spline kernel `g_m` and Laplacian kernel `h_m` closed forms
+remain a **PHASE-1-BLOCKING obligation requiring primary-source
+verification** (§14). The sLORETA and LCMV specifications are
+NOT Phase-1-blocking and remain deferred; they MUST NOT be
+represented as completed by any Phase-1 amendment.
+
+Required contents (retained for future cell amendments):
 - sLORETA: algorithmic definition with regularisation formula,
   standardisation step, and orientation handling.
 - LCMV beamformer: constraint (unit-gain), covariance regularisation
@@ -1124,8 +1153,8 @@ implementation-blocking for the Phase-1 cell:
 | G2 Sensor-noise model | YES | Full spec required. **CLOSED by K3 (2026-09-14)** via `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md` §3. |
 | G3 Latent-source ensemble | YES | Only for scenarios used by Phase-1 Benchmark B (S1, S2, S3-flag, S4-flag, S5, S6.a–e, S7.a–c). S5 must include the `S_full` / `Π_band` / `ρ_full` / `ρ_proj` executable construction (§1). **CLOSED by K3 (2026-09-14)** via `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md` §4–§6, §8. S3 and S4 remain flag-only (not Phase-1-blocking). |
 | G4 Artifact template | YES | S6.e is a Phase-1 nuisance scenario. **CLOSED by K3 (2026-09-14)** via `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md` §7. |
-| G5 Forward-model implementation | YES, restricted | Only geometry, conductivities, and the P.LAP-adjacent scalp-potential generation are Phase-1-blocking. Source-grid parameters that only feed Benchmark A (`R_P.SRC.*`) are NOT Phase-1-blocking. |
-| G6 Inverse-operator implementation | NO for Phase-1's decision path | Phase-1 uses no inverse operator. sLORETA and LCMV specifications remain deferred and MUST NOT be represented as completed by any Phase-1 amendment. |
+| G5 Forward-model implementation | YES, restricted | Only geometry, conductivities, and the P.LAP-adjacent scalp-potential generation are Phase-1-blocking. Source-grid parameters that only feed Benchmark A (`R_P.SRC.*`) are NOT Phase-1-blocking. **DOCUMENTED WITH BLOCKER by K4 (2026-09-14)** via `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md` §11. Named blocker: Berg-Scherg 1994 (or equivalent) analytical leadfield-series coefficients requiring primary-source verification. |
+| G6 Inverse-operator implementation | Partially, P.LAP only | Phase-1 uses no inverse operator (sLORETA / LCMV deferred and MUST NOT be represented as completed by any Phase-1 amendment). The P.LAP algorithm itself is Phase-1-blocking as a G6 sub-obligation. **P.LAP DOCUMENTED WITH BLOCKER by K4 (2026-09-14)** via `codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md` §12–§13. Named blocker: Perrin et al. 1989 exact spline kernels `g_m`/`h_m` requiring primary-source verification. |
 | G7 Reconstruction map `R_P.SRC.*` | NO (deferred) | Phase-1 uses no `R_P`. Benchmark A remains deferred. |
 | G8 Threshold justification + Layer-2 §5 reconciliation | YES, restricted | Only the thresholds and estimator specifications actually used by the Phase-1 cell (`p_null`, monotonicity, `f_SNR`, `R_nuis`, `δ_den(P.LAP)`, E-family tolerances for P.LAP, null quantile/CI estimator, Spearman/RMSE bootstrap behaviour, Layer-2 §5 timing reconciliation) are Phase-1-blocking. Justifications of thresholds that only apply to representations outside Phase-1 remain deferred. |
 
@@ -1136,6 +1165,33 @@ Phase-1 scope it closes, (ii) does not touch code, Lean, book,
 Layer-3, master, or results, and (iii) either supplies a primary-
 source-verified specification or a labelled ★ PF preregistered
 design choice with a feasible sensitivity grid per §6.7.
+
+**Phase-1 readiness verdict (K1–K4, 2026-09-14): DOCUMENTED, NOT
+YET IMPLEMENTATION-READY.** After K1 (staged governance), K2
+(G8 statistics/timing including Layer-2 §5 reconciliation),
+K3 (G2/G3/G4 generative model), and K4 (G5/G6-P.LAP geometry
+and algorithm), the following two Phase-1-blocking obligations
+remain OPEN and prevent Phase-1 implementation:
+
+- **G5-Phase-1 leadfield-series blocker** — Berg-Scherg 1994 (or
+  equivalent) analytical `λ_n(...)` coefficients require
+  primary-source full-text verification, OR an alternative
+  numerical BEM implementation with a fully pinned library and
+  version and a verified regression test against an
+  independently-derived concentric-sphere solution.
+- **G6-Phase-1 P.LAP kernel blocker** — Perrin et al. 1989 exact
+  spline kernel `g_m` and Laplacian kernel `h_m` closed forms
+  require primary-source full-text verification (bridge audit
+  §3 records only secondary-quotation support from Tenke &
+  Kayser 2015).
+
+Both blockers are external-source-access obligations. They
+CANNOT be closed by a documentation-only amendment on this
+branch; they require a labelled source-audit update recording
+the verified full-text of the relevant primary source(s), with
+the exact equations quoted. Only after such a source-audit
+update does K5 (or later) become authorised to declare Phase-1
+implementation-ready.
 
 ### §14.2 Explicitly deferred surfaces (NOT implementation-ready)
 
