@@ -565,7 +565,8 @@ implementation must instantiate them explicitly.
 | STFT window `T_stft` | 500 ms | Layer-2 charter §3.2 |
 | STFT hop `Δ_hop` | 250 ms | Layer-2 charter §3.2 |
 | Segments per super-window `N_seg` | 8 | Layer-2 charter §5 |
-| Super-window signal span `T_super` | `T_stft + (N_seg − 1) · Δ_hop = 500 + 7 × 250 = 2250 ms` | D8 correction; Layer-2 §5 inconsistency flagged in §13 G8 |
+| Super-window signal span `T_super` | `T_stft + (N_seg − 1) · Δ_hop = 500 + 7 × 250 = 2250 ms = 2.25 s` | Reconciled with Layer-2 §5 via 2026-09-14 amendment (D8 provenance retained; §13 G8 reconciliation obligation resolved) |
+| Hop-stride `Δt` between the two ρ endpoints in χ_k | `N · Δ_hop = 8 × 250 = 2000 ms = 2 s` | Layer-2 charter §5 (as reconciled 2026-09-14); load-bearing time offset between endpoints |
 | ε_min for ρ definition | `1e-12 · median Tr(S)` | Layer-2 charter §3.4 |
 | Head model | 3-shell concentric spherical | Radii and conductivities in §13 G5 (executable spec required) |
 | Montages | M19 (10-20, listed below) | ★ PF; M64 and M128 gaps §13 G1 |
@@ -587,6 +588,165 @@ F4, F8, T3, C3, Cz, C4, T4, T5, P3, Pz, P4, T6, O1, O2. (19
 labels.) This montage is fully specified.
 
 **M64 and M128 are NOT specified in this charter.** See §13 G1.
+
+---
+
+## §7.A Phase-1 statistical and timing pins (M19 + P.LAP + Benchmark B)
+
+This section closes the Phase-1-scope obligations of §13 G8 (see
+§14.1). It pins every statistical estimator, tolerance, and
+threshold **actually used by the Phase-1 cell**. Values that only
+apply to representations outside Phase-1 (P.REST, P.SRC.*) remain
+deferred and are not touched here. Any Phase-1 value below that is
+not primary-source-supported for its exact use is explicitly a **★
+PF preregistered design choice** with a feasible sensitivity grid
+per §6.7; no PF number is claimed as evidence of physical truth.
+
+### §7.A.1 Timing pins (Phase-1)
+
+- `T_stft = 500 ms`, `Δ_hop = 250 ms`, `N_seg = 8` (Layer-2 §3.2,
+  §5).
+- `Δt = 2 s` (hop-stride between ρ endpoints, Layer-2 §5).
+- `T_super = 2.25 s` (endpoint signal span, Layer-2 §5).
+- Overlap between the two ρ endpoints' signal supports: 250 ms
+  (last hop of endpoint 1 coincides with first hop of endpoint 2).
+  This overlap is a consequence of the current parameter triple
+  and is a ★ PF preregistered design choice. Non-overlapping
+  endpoints would require an amendment to §7 and Layer-2 §5.
+
+### §7.A.2 Null quantile / margin estimator (Phase-1)
+
+Per §6.2's per-scenario decision rule, `margin_null(P.LAP, x)`
+for `x ∈ {S1, S7.a, S7.b, S7.c}` is the **empirical 95th
+percentile** of `χ_op(P.LAP; x)` on that scenario's `N_cal` draws
+(★ PF; §7 gives `N_cal = 2000`). Percentile computation uses
+linear interpolation between order statistics (numpy convention
+`method="linear"`). Ties are broken by seed order; deterministic
+reruns must produce byte-identical margins.
+
+Sensitivity grid for the underlying null false-positive threshold
+`p_null ≤ 5%` remains `{2.5%, 5%, 10%}` per §6.7. No additional
+sensitivity grid is introduced for the quantile choice at this
+Phase-1 stage; a future amendment may add a `{90th, 95th, 99th}`
+grid if audit finds it necessary.
+
+### §7.A.3 CI estimators (Phase-1)
+
+- **`p_null(P.LAP, x)` CI (§6.2):** nonparametric percentile
+  bootstrap over `N_eval = 5000` (★ PF), `B = 5000` bootstrap
+  resamples (★ PF), independent per scenario. Percentile 95% CI
+  via order statistics on the bootstrap distribution.
+- **Spearman rank CI (§6.3):** direct paired-seed nonparametric
+  percentile bootstrap on the coefficient itself, clipped to
+  `[-1, 1]`; no Fisher-z transform. Point-estimate constant
+  ranked vector → monotonicity FAIL. Any undefined replicate →
+  INCONCLUSIVE-METRIC-UNDEFINED; `undef_frac(P.LAP)` reported.
+- **RMSE CI (§6.3):** empirical percentile 95% CI of the paired-
+  seed bootstrap distribution of `RMSE(χ_rec, χ_lat)`. **Phase-1
+  status:** the RMSE test is Benchmark-A-only per §6.3, so it is
+  **not exercised by the Phase-1 cell** (which is Benchmark B
+  only). RMSE remains deferred to a future Benchmark-A cell.
+- **Nuisance-ratio CI (§6.5):** joint bootstrap of numerator (S6.x
+  draws) and denominator (S2 at `θ_ref` draws) per replicate;
+  ratio-of-medians recomputed each replicate; percentile 95% CI.
+  Executable per-replicate rule: compute the replicate ratio only
+  when the replicate denominator is strictly positive; zero
+  denominators are neither dropped nor set to `+∞`;
+  `zero_den_frac(P.LAP; S6.x) > 0` → INCONCLUSIVE-METRIC-
+  UNDEFINED.
+- **Denominator-uncertainty statistic (§6.5):** the denominator
+  bootstrap distribution's point estimate and percentile 95% CI
+  are recorded separately in the manifest.
+
+### §7.A.4 Dimensionless denominator-stability threshold `δ_den(P.LAP)` (Phase-1)
+
+**★ PF preregistered design choice, requires primary-source
+support or documented ★ PF status per §13 G8.** No primary-source
+value for `δ_den(P.LAP)` is available in the audit trail (bridge
+audit §3; source audit). The Phase-1 value is therefore declared
+as:
+
+- `δ_den(P.LAP) := 10^{−3}` on the dimensionless `χ_op` scale
+  (**★ PF**, load-bearing).
+- Feasibility grid for §6.7 sensitivity: `{10^{−4}, 10^{−3},
+  10^{−2}}`. All three grid values must yield stable
+  PASS/FAIL/INCONCLUSIVE decisions on §6.5 for the cell to
+  qualify.
+- Justification: `χ_op` for a scalar-scaling null with unbiased
+  cross-spectral estimator asymptotically converges to zero as
+  `N_seg → ∞`; the `10^{−3}` threshold is set to be much smaller
+  than any signal-driven `χ_op` induced by the S2 sweep at
+  `θ_ref` (Layer-2 charter §3.5's isometric-invariance ceiling
+  bounds `χ_op ≤ 2` on trace-normalised states, so `10^{−3}` is
+  three orders of magnitude below the theoretical maximum). This
+  justification is a PF argument, NOT a primary-source result.
+- **BLOCKING obligation.** If any of the three grid values yields
+  a decision flip on §6.5 during Phase-1 implementation, the cell
+  outcome is INCONCLUSIVE-BY-SENSITIVITY per §6.7 and the
+  representation cannot advance until a labelled amendment
+  narrows the range.
+
+### §7.A.5 E-family numerical tolerances for P.LAP (Phase-1)
+
+**★ PF preregistered design choices.** Each is declared per
+§5.1 as the numerical/regularisation floor of P.LAP's
+implementation (NOT machine precision), and each has a §6.7
+feasibility grid via the `{0.1, 1.0, 10}` E-family multiplier:
+
+| Test | P.LAP tolerance | Justification |
+|---|---|---|
+| E0 (reference-swap invariance) | `1e-8` on `χ_op` | ★ PF; expected floor is the smoothing/regularisation residual of the P.LAP spline (m, λ). Actual floor is a function of §7's (m, λ) grid; the tolerance applies to whichever (m, λ) cell is under test. |
+| E1 (scalar-amplitude scaling null) | `1e-12` on `χ_op` | ★ PF, contingent on P.LAP being a fixed linear map (see §7.A.6). If G6 for P.LAP does not certify scale equivariance, E1 is PENDING G6-P.LAP for that (m, λ) cell. |
+| E3.a (global-phase invariance) | `1e-12` on `χ_op` | ★ PF; identity `(e^{iφ}X)(e^{iφ}X)^H = XX^H` |
+| E3.b (isometric-embedding invariance) | `1e-12` on `χ_op` | ★ PF; Layer-2 §3.5 identity |
+| E3.c (numerical symmetry) | `1e-12` on `χ_op` | ★ PF; Layer-1 T2 |
+
+E2 and E2.A are Benchmark-A only and are NOT exercised by
+Phase-1.
+
+### §7.A.6 Scale equivariance for P.LAP (Phase-1)
+
+P.LAP is a fixed linear operator on the sensor vector `V` (see
+§14.1 rationale and the Phase-1 P.LAP algorithm specification
+document introduced by commit K4). Under a scalar rescaling
+`V ↦ αV`, the cross-spectrum `S_sensor` scales by `|α|²`, and the
+P.LAP output cross-spectrum `S_rep = A_{LAP} S_sensor A_{LAP}^H`
+also scales by `|α|²`. Trace normalisation cancels this factor;
+`ρ_rep` is invariant. Therefore E1 is IN-SCOPE (not PENDING) for
+P.LAP, on the condition that the (m, λ) parameter cell of the
+Phase-1 P.LAP algorithm is truly a fixed operator on `V` — i.e.
+no adaptive/data-dependent regularisation is introduced. This
+condition is a Phase-1 obligation on the P.LAP algorithm document
+(commit K4).
+
+### §7.A.7 Remaining Phase-1-blocking obligations under §13 G8
+
+- **Primary-source justification for `p_null ≤ 5%`, rank ≥ 0.9,
+  `f_SNR = 5`, `R_nuis ≤ 0.5`, and E-family tolerances.** None of
+  these Phase-1 thresholds has a primary-source citation in the
+  audit trail for its exact use. Each is a ★ PF preregistered
+  design choice with a §6.7 feasibility grid. This is
+  scientifically honest and Phase-1-permissible per §6.7 and
+  §14.1, but the ★ PF label MUST be preserved and no future
+  amendment may retroactively promote any of these values to
+  "primary-source supported" without a full-text citation
+  recorded in the source audit.
+- **Primary-source justification for `δ_den(P.LAP) = 10^{−3}`.**
+  Same status. ★ PF; feasibility grid declared.
+- **Primary-source justification for `T_stft = 500 ms`,
+  `Δ_hop = 250 ms`, `N_seg = 8`, band set.** These are Layer-2
+  §3.2 / §5 declarations; the Layer-2 charter marks them ★ PF and
+  the bridge audit records no primary-source citation supporting
+  the specific triple `(500, 250, 8)` for the χ_k use case.
+  Phase-1 preserves this status; no G8 amendment may claim
+  primary-source support without a documented full-text
+  reference.
+
+Any Phase-1 amendment CLOSING an obligation in §7.A must either
+(a) supply an accessible primary-source citation with the exact
+claim quoted verbatim in the source audit and re-verified on the
+day of the amendment, or (b) preserve the ★ PF label and its
+feasibility grid.
 
 ---
 
@@ -876,14 +1036,14 @@ Required contents:
   design choice with a feasible sensitivity grid. The threshold
   MUST be dimensionless on the χ_op scale (no `ε_min · Tr(S)`
   or other spectrum-scale surrogate).
-- Amendment to Layer-2 charter §5 to reconcile the arithmetic
-  inconsistency between `Δt = N · Δ_stft = 2 s` and the actual
-  super-window span `T_super = T_stft + (N_seg − 1) · Δ_hop
-  = 2.25 s` under the declared `T_stft = 500 ms`, `Δ_hop = 250 ms`,
-  `N_seg = 8`. Either (a) change `N_seg`, (b) change `Δ_hop`, or
-  (c) redefine `Δt` to reference stride rather than span. This
-  amendment must land on the Layer-2 charter, NOT on this benchmark
-  charter.
+- Layer-2 charter §5 arithmetic reconciliation — **RESOLVED
+  2026-09-14** by amendment to Layer-2 charter §5 adopting option
+  (c): `Δt = N · Δ_hop` is the hop-stride between the two ρ
+  endpoints (numerically 2 s), and `T_super = T_stft + (N − 1) ·
+  Δ_hop = 2.25 s` is the separate signal span of each endpoint's
+  N-segment averaging window. See §7 rows for `T_super` and `Δt`.
+  This sub-item of G8 is closed. The remaining Phase-1 G8
+  obligations are enumerated in §7.A.
 
 ---
 
