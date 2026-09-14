@@ -601,8 +601,41 @@ By §3.5's isometric-invariance identity, this equals
 under the choice of isometric embedding `V` (any V with `V† V = I`).
 
 ★ Fixed PF preregistered parameters:
-- `Δt := N · Δ_stft = 8 × 250 ms = 2 s` — a PF choice.
-- ρ super-window length matches Δt for non-overlapping steps.
+- `Δt := N · Δ_hop = 8 × 250 ms = 2 s` — the **hop-stride
+  Δt**, i.e. the time offset between the two ρ endpoints entering
+  the χ_k finite difference. This is a PF choice.
+  **Provenance note (2026-09-14 amendment resolving §13 G8 of the
+  benchmark charter).** The prior wording `Δt := N · Δ_stft = 8 ×
+  250 ms = 2 s` conflated two distinct quantities: (i) the
+  hop-stride Δt = N · Δ_hop (the time between the two
+  cross-spectral endpoints) and (ii) the signal span
+  `T_super := T_stft + (N − 1) · Δ_hop` of the N-segment
+  averaging window used to construct each ρ endpoint. Under the
+  §3.2 declared `T_stft = 500 ms`, `Δ_hop = 250 ms`, and `N = 8`,
+  the hop-stride is exactly 2 s and the signal span is exactly
+  2.25 s. The number "2 s" was numerically correct for the
+  hop-stride; only the symbolic identification with `N · Δ_stft`
+  (with the intended meaning of `Δ_stft` as the STFT window
+  length `T_stft = 500 ms`) was inconsistent. This amendment
+  keeps the load-bearing 2 s hop-stride and additionally
+  documents `T_super = 2.25 s` as an explicit separate quantity;
+  it does not change ρ endpoints or χ_k.
+- `T_super := T_stft + (N − 1) · Δ_hop = 500 ms + 7 × 250 ms
+  = 2.25 s` — the signal span consumed by the N-segment averaging
+  window backing each ρ endpoint (introduced by the 2026-09-14
+  amendment for provenance and downstream benchmark-charter §7
+  consistency).
+- ρ super-window length: the ρ construction of §3.3 uses N
+  segments per endpoint. The two ρ endpoints entering χ_k(t) are
+  centred `Δt = 2 s` apart. The signal support consumed by each
+  endpoint has span `T_super = 2.25 s`; overlap between the two
+  endpoints' signal supports occurs whenever `Δt < T_super`, i.e.
+  the last 250 ms of the first endpoint's support coincide with
+  the first 250 ms of the second endpoint's support under the
+  current parameters. If a future amendment requires non-
+  overlapping supports, either reduce `N`, increase `Δ_hop`, or
+  increase the number of hops between endpoints; this charter
+  does not force that choice.
 - Feature ordering: channel-major (§3.2).
 - `k`: PF choice, subject to `3^k ≥ D` per point G.
 
