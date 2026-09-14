@@ -5,9 +5,16 @@ rejection of prior HEAD `5ceaea9c`).
 
 Branch: r331b-provenance.
 
-**STATUS: DOCUMENTATION ONLY. NOT IMPLEMENTATION-READY.**
+**STATUS: DOCUMENTATION ONLY. IMPLEMENTATION-READINESS IS SCOPED
+PER DECLARED BENCHMARK CELL, NOT GLOBAL.**
 §13 lists the specification gaps that must be closed by labelled
-amendment commits before implementation may proceed.
+amendment commits before implementation of any given cell may
+proceed. §14 defines the **Phase-1 cell** (M19 + P.LAP + Benchmark
+B) and lists the exact subset of §13 gaps that must close for that
+cell. Gaps outside the Phase-1 subset (in particular G1 M64/M128,
+G7 Benchmark-A source reconstruction, and the P.REST / P.SRC-
+specific parts of G6) remain deferred and MUST NOT be represented
+as completed by any Phase-1 amendment.
 
 This charter is the U15 dependency named in
 `codex/CHURN_CHI_K_EEG_LAYER_CHARTER_2026-09-12.md` §13.
@@ -697,10 +704,16 @@ expected-hash file.
   NOT touch results or logs. Post-hoc silent threshold changes are
   prohibited.
 - Specification gaps §13 G1–G8 must each be closed by their own
-  labelled amendment commit before implementation may proceed.
+  labelled amendment commit before implementation of any cell that
+  depends on that gap may proceed. **Cell-scoped closure is
+  authoritative.** §14 declares the Phase-1 cell (M19 + P.LAP +
+  Benchmark B) and its dependency subset of §13 gaps; a Phase-1
+  amendment CANNOT represent gaps outside that subset (in
+  particular G1 M64/M128, G7 Benchmark-A source reconstruction,
+  and the P.REST / P.SRC-specific parts of G6) as completed.
 - New representations added only by amendment adding a §7 block
   plus a §3 applicability entry, evaluated on the same scenario
-  set.
+  set, and their own cell declaration in §14.
 
 ---
 
@@ -746,10 +759,14 @@ or the χ_k program at other Layer-2 operationalizations.
 
 ---
 
-## §13. Specification gaps (implementation-blocking)
+## §13. Specification gaps (cell-scoped implementation-blockers)
 
-Charter is NOT IMPLEMENTATION-READY until every gap below is closed
-by its own labelled amendment commit on `r331b-provenance`.
+The gaps below are implementation-blocking on a **per-cell** basis.
+No cell of §14 is implementation-ready until every gap in that
+cell's declared dependency subset is closed by its own labelled
+amendment commit on `r331b-provenance`. Gaps outside a cell's
+subset MUST NOT be represented as completed by any amendment
+serving that cell.
 
 ### G1 — Electrode label sets for M64 and M128
 
@@ -874,5 +891,110 @@ Required contents:
 `5ceaea9c` on `r331b-provenance`. The independent audit rejected
 `5ceaea9c` on the load-bearing mathematical defect stated in §2
 plus nine additional defects catalogued in §4. No implementation,
-Lean, book, or Layer-3 work is authorised until §13 gaps close and
-this revised charter is itself independently audited.
+Lean, book, or Layer-3 work is authorised for a given cell until
+the §13 gaps in that cell's dependency subset (§14) close and the
+resulting revised charter is itself independently audited.
+
+---
+
+## §14. Cell declarations and Phase-1 scope
+
+A **benchmark cell** is a triple `(Montage, Representation, Bench)`
+that fully determines which §13 gaps must close before the cell is
+implementation-ready. Cell declarations are additive: adding a
+cell requires a §14 amendment and does not authorise work on any
+other cell.
+
+### §14.1 Phase-1 cell — the executable surface authorised now
+
+**Phase-1 cell = (M19, P.LAP, Benchmark B).**
+
+Rationale: this is the smallest scientifically honest executable
+surface that lets the χ_k program's Layer-2 measurement side
+advance to a synthetic-validity pass/fail decision without
+overclaiming source-space reconstruction (Benchmark A) or larger
+montages (M64/M128). Choice of P.LAP as the Phase-1 representation
+mirrors the Layer-2 charter §3.1 provisional primary designation
+(★ PF), whose supporting sources — Sitt 2014 (spatial Laplacian /
+CSD for the target UWS/MCS population) and Tenke & Kayser 2015
+(reference-freedom + parameter-dependence documentation of surface
+Laplacian) — are recorded in the bridge audit §3 and the Layer-2
+charter §3.1 as PF design justification, NOT as a mandate.
+
+**Phase-1 dependency subset of §13.** Only the following gaps are
+implementation-blocking for the Phase-1 cell:
+
+| Gap | Required for Phase-1? | Phase-1 scope |
+|---|---|---|
+| G1 M64/M128 | NO (deferred) | Phase-1 uses M19 only |
+| G2 Sensor-noise model | YES | Full spec required |
+| G3 Latent-source ensemble | YES | Only for scenarios used by Phase-1 Benchmark B (S1, S2, S3-flag, S4-flag, S5, S6.a–e, S7.a–c). S5 must include the `S_full` / `Π_band` / `ρ_full` / `ρ_proj` executable construction (§1). |
+| G4 Artifact template | YES | S6.e is a Phase-1 nuisance scenario |
+| G5 Forward-model implementation | YES, restricted | Only geometry, conductivities, and the P.LAP-adjacent scalp-potential generation are Phase-1-blocking. Source-grid parameters that only feed Benchmark A (`R_P.SRC.*`) are NOT Phase-1-blocking. |
+| G6 Inverse-operator implementation | NO for Phase-1's decision path | Phase-1 uses no inverse operator. sLORETA and LCMV specifications remain deferred and MUST NOT be represented as completed by any Phase-1 amendment. |
+| G7 Reconstruction map `R_P.SRC.*` | NO (deferred) | Phase-1 uses no `R_P`. Benchmark A remains deferred. |
+| G8 Threshold justification + Layer-2 §5 reconciliation | YES, restricted | Only the thresholds and estimator specifications actually used by the Phase-1 cell (`p_null`, monotonicity, `f_SNR`, `R_nuis`, `δ_den(P.LAP)`, E-family tolerances for P.LAP, null quantile/CI estimator, Spearman/RMSE bootstrap behaviour, Layer-2 §5 timing reconciliation) are Phase-1-blocking. Justifications of thresholds that only apply to representations outside Phase-1 remain deferred. |
+
+**Phase-1 readiness rule.** The Phase-1 cell is implementation-
+ready when — and only when — every "YES" row above is closed by a
+labelled amendment commit that (i) declares which gap and which
+Phase-1 scope it closes, (ii) does not touch code, Lean, book,
+Layer-3, master, or results, and (iii) either supplies a primary-
+source-verified specification or a labelled ★ PF preregistered
+design choice with a feasible sensitivity grid per §6.7.
+
+### §14.2 Explicitly deferred surfaces (NOT implementation-ready)
+
+The following cells are declared but **NOT** implementation-ready
+under this charter revision. Any claim of readiness for them is
+scope-violating:
+
+- `(M64, *, *)` and `(M128, *, *)` — pending G1.
+- `(*, P.REST, *)` — pending the P.REST-specific parts of G6
+  (rREST estimator/regularisation).
+- `(*, P.SRC.sLORETA, *)` and `(*, P.SRC.LCMV, *)` — pending the
+  P.SRC-specific parts of G6 (inverse operator) and, for
+  Benchmark A, G7 (`R_P.SRC.*` definition + identifiability).
+- `(*, *, Benchmark A)` — pending G7 for the applicable
+  representations.
+
+A cell moves from "deferred" to "implementation-ready" only via a
+new §14 sub-section declaration.
+
+### §14.3 What passing the Phase-1 cell can and cannot mean
+
+Passing the Phase-1 cell means: the (M19, P.LAP, Benchmark B)
+operationalization is qualified to advance to a **pilot
+preregistration** of the χ_k program on that specific
+operationalization.
+
+Passing the Phase-1 cell does NOT:
+- Close Ring 4 (only physical measurements against independent
+  ground truth can do that; §11).
+- Validate the Timeless-Field ontology (Rings 1–2).
+- Validate any identification of χ_k with a measure of
+  consciousness (Ring 5). Ring 5 identification is a separate
+  epistemic layer from Layer-2 measurement validity.
+- Qualify any other cell (M64/M128, P.REST, P.SRC.*, Benchmark A).
+- Validate that clinical human EEG is well-approximated by the
+  Phase-1 head model or noise model.
+- Establish that P.LAP is the correct or unique operationalization
+  for the χ_k program; the Layer-2 charter §3.1 designation
+  remains a PF provisional choice subject to §9 robustness checks
+  and to future cell declarations.
+
+### §14.4 Cross-references
+
+- Layer-2 charter §3.1: PF-provisional-primary rationale for P.LAP
+  and the sources supporting it (not a mandate).
+- Layer-2 charter §5: super-window / stride timing (subject to
+  §13 G8 reconciliation).
+- Bridge audit §3: P.LAP verified claims and unverified aspects.
+- Bridge audit §7: A/B/C decomposition — Phase-1 addresses A
+  (algebraic well-formedness) and the estimator side of B
+  (statistical assumptions), but explicitly does NOT resolve C
+  (physical interpretation as intrinsic brain-state change).
+- Source audit: full-text verification records for Sitt 2014 and
+  provenance/inaccessibility records for other primary sources.
+- Layer-1 kernel `PF_Lean4_Code/PF/Consciousness/FrobeniusChurn.lean`:
+  unchanged. Phase-1 does not touch Lean or the book.
