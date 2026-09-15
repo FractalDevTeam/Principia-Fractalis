@@ -617,3 +617,235 @@ Layer 2 implementation and Layer 3 initiation both require:
 Lean modifications. NO book modifications. NO Layer 3 material. NO
 implementation. `PF_Lean4_Code/PF/Analytic/RiemannXiTopEdge_r331c.lean`
 untouched. Commit target: `r331b-provenance` only.*
+
+---
+
+## §7. 2026-09-14 primary-source verification pass for Phase-1 K4 blockers (L5)
+
+This section is an **inaccessibility / provenance addendum**. It
+records the primary-source verification pass performed on
+2026-09-14 for the two Phase-1 blockers named in
+`codex/CHURN_CHI_K_BENCHMARK_PHASE1_GENERATIVE_SPEC_2026-09-14.md`
+§14 (K4). Neither blocker was closed against the strict
+primary-source rule; both are downgraded in severity by
+authoritative cross-checks that reproduce the load-bearing
+equations, but neither cross-check may be promoted into primary
+provenance for the K4 spec. The K4 spec is corrected only where a
+mis-attribution to a paper that is NOT the primary source was
+present.
+
+### §7.1 Blocker A — Perrin et al. 1989 spherical spline: STATUS OPEN
+
+**Primary source.** Perrin F, Pernier J, Bertrand O, Echallier JF.
+*Spherical splines for scalp potential and current density mapping.*
+Electroenceph Clin Neurophysiol 1989;72(2):184–187.
+DOI: `10.1016/0013-4694(89)90180-6`.
+PubMed: `PMID 2464490`.
+
+**Access attempts (2026-09-14) and outcomes.**
+
+| Channel | URL | Outcome |
+|---|---|---|
+| Elsevier ScienceDirect | https://www.sciencedirect.com/science/article/abs/pii/0013469489901806 | HTTP 403 to programmatic fetcher; abstract page paywalled to human reader |
+| PubMed | https://pubmed.ncbi.nlm.nih.gov/2464490/ | Cookie wall; no free-full-text link visible; no PMC identifier |
+| Semantic Scholar record | https://www.semanticscholar.org/paper/3633131bec6530252dc7b14af159ae1946f9a0a7 | Metadata only; no accessible PDF |
+| HAL / INSERM institutional | (searched) | No hit for a self-archived preprint of the 1989 paper |
+| ResearchGate | https://www.researchgate.net/publication/6774701 | Author-uploaded "Spherical Splines and Average Referencing in Scalp Electroencephalography" (Nunez-related follow-up), NOT the 1989 primary |
+| GitHub allefeld/spherical-splines | https://github.com/allefeld/spherical-splines | Third-party MATLAB re-implementation; no equations reproduced; no verification statement against the primary |
+
+**Verdict.** Perrin et al. 1989 primary full text was NOT accessed
+on this branch. Blocker A remains **OPEN**.
+
+**Cross-check obtained (non-primary; documentary only).**
+Carvalhaes CG, de Barros JAdB. *The Surface Laplacian Technique
+in EEG: Theory and Methods.* arXiv:1406.0458v2 (Nov 8, 2014;
+preprint submitted to *International Journal of Psychophysiology*).
+Openly accessible at `https://arxiv.org/pdf/1406.0458`. This is a
+review paper. It reproduces Perrin 1989's spherical-spline
+construction with clear attribution to Perrin et al. 1989. The
+following equations are transcribed exactly from the Carvalhaes-
+de Barros arXiv PDF and are attributed BY THAT PAPER to Perrin
+1989. They are recorded here as a cross-check only and are NOT
+promoted into primary provenance:
+
+- **Eq. (33a)** (p. 17): `f_sph(r) = Σ_{i=1}^N c_i · g_m(r, r_i) + d`.
+- **Eq. (33b)** (p. 18): `g_m(r, r_i) = (1/(4π)) · Σ_{ℓ=1}^{∞}
+  ((2ℓ+1) / (ℓ^m · (ℓ+1)^m)) · P_ℓ(r̂ · r̂_i)`.
+- **Eq. (36)** (p. 18): `Lap_s(f(r)) = -(1/r²) · Σ_{i=1}^N c_i ·
+  g_{m-1}(r, r_i)`, valid for `m > 1`.
+- Auxiliary Eq. (34)–(35): standard spherical-harmonic Laplacian
+  identity `Lap_s(P_ℓ(r̂ · r̂_i)) = -(ℓ(ℓ+1)/r²) · P_ℓ(r̂ · r̂_i)`,
+  derived by Carvalhaes-de Barros from Jackson 1999 (Classical
+  Electrodynamics, p. 110).
+
+**Attribution quotation** (Carvalhaes-de Barros 2014, p. 17,
+verbatim): *"For the particular case of data points on spheres,
+Wahba developed a pseudo-spline method that circumvent the
+singularity of (26) by replacing the Euclidean distance with the
+geodesic distance. This method, called spherical splines, was
+used by Perrin et al. (1989) to developed one of the most popular
+surface Laplacian methods in the literature."*
+
+**Consistency with K4 §12.2.** The K4 spec's kernels `g_m` and
+`h_m` are mathematically identical to Carvalhaes-de Barros
+Eq. (33b) and (a rescaling of) Eq. (36):
+- K4 `g_m(cos γ) = (1/(4π)) Σ_{n=1}^{N_g_trunc}
+  ((2n+1)/(n^m(n+1)^m)) P_n(cos γ)` matches Eq. (33b) exactly
+  (K4's `N_g_trunc` is a finite truncation; Carvalhaes-de Barros
+  discuss the same truncation issue on p. 19).
+- K4 `h_m(cos γ) = −(1/(4π r_scalp²)) Σ_{n=1}^{N_h_trunc}
+  ((2n+1) n(n+1) / (n^m(n+1)^m)) P_n(cos γ)` equals
+  `−(1/r_scalp²) · g_{m-1}(cos γ)` (algebraic reduction:
+  `n(n+1)/(n^m(n+1)^m) = 1/(n^{m-1}(n+1)^{m-1})`), which matches
+  Eq. (36).
+
+**Rule preserved.** Carvalhaes-de Barros 2014 is a REVIEW paper.
+It is not primary provenance for Perrin's equations. Under the
+K4 §14 blocker-closure rule, Blocker A remains OPEN. Any future
+attempt to close Blocker A must supply Perrin 1989 primary full
+text with the equations quoted verbatim and their page numbers,
+either by direct access or by an authoritative author-hosted
+reproduction.
+
+### §7.2 Blocker B — Berg-Scherg 1994 and the multishell leadfield: STATUS OPEN, RE-ATTRIBUTION APPLIED
+
+**Named primary source (as previously in K4 §11.4).** Berg P, Scherg M.
+*A fast method for forward computation of multiple-shell spherical
+head models.* Electroenceph Clin Neurophysiol 1994;90(1):58–64.
+DOI: `10.1016/0013-4694(94)90113-9`. PubMed: `PMID 7509274`.
+
+**Access attempts (2026-09-14) and outcomes.**
+
+| Channel | URL | Outcome |
+|---|---|---|
+| Elsevier ScienceDirect | https://www.sciencedirect.com/science/article/abs/pii/0013469494901139 | HTTP 403 to programmatic fetcher; paywalled |
+| PubMed | https://pubmed.ncbi.nlm.nih.gov/7509274/ | Cookie wall; no free-full-text link visible |
+| BESA (Berg's affiliation) wiki | https://wiki.besa.de/index.php?title=Source_Analysis_Head_Models | Cites Berg-Scherg 1994 but reproduces NO equations from it |
+| ResearchGate / MPI-NL institutional | (searched) | No hit |
+
+**Verdict on Berg-Scherg 1994.** Primary full text NOT accessed on
+this branch. Blocker B remains **OPEN** for the strict primary-
+source rule.
+
+**Critical re-attribution finding.** Access-side reading of
+authoritative secondary sources reveals that Berg-Scherg 1994 is
+**NOT the primary source for an analytical Legendre-polynomial
+series** for the three-shell EEG scalp potential. Berg-Scherg 1994
+is a **fast-computation approximation** that fits three dipoles in
+a homogeneous single-shell sphere to reproduce the potential of
+a source in a multi-shell head model. My K4 §11.4 attributed a
+schematic Legendre series to Berg-Scherg 1994 — that attribution
+was WRONG.
+
+**Correct primary source for the analytical multishell Legendre
+series.** Zhang Z. *A fast method to compute surface potentials
+generated by dipoles within multilayer anisotropic spheres.*
+Phys Med Biol 1995;40(3):335–349. IOP Publishing.
+URL: https://iopscience.iop.org/article/10.1088/0031-9155/40/3/001.
+Access attempt: paywalled at IOPscience; no accessible PDF.
+Earlier related primary: de Munck JC. *The potential distribution
+in a layered anisotropic spheroidal volume conductor.* J Appl Phys
+1988;64:464–470. Also paywalled.
+
+**Cross-check obtained (non-primary; documentary only).** Mosher
+JC, Leahy RM, Lewis PS. *EEG and MEG: Forward Solutions for
+Inverse Methods.* IEEE Transactions on Biomedical Engineering
+1999;46(3):245–259. DOI: `10.1109/10.748978`. Openly accessible
+PDF at the University of Southern California Neuroimage lab:
+https://neuroimage.usc.edu/paperspdf/IEEEBME99.pdf. This is a
+peer-reviewed IEEE journal article that NOVELLY reformulates the
+multishell EEG solution into a factored kernel form suitable for
+inverse methods, and it EXPLICITLY quotes the Zhang 1995
+compact series form on page 248. The following equations are
+transcribed exactly from the openly accessible PDF and are
+recorded as a cross-check only. Primary provenance rests with
+Zhang 1995 (attributed as reference [52] in Mosher-Leahy-Lewis).
+
+- **Eq. (15)** (p. 248, the M-shell EEG series):
+  `v^M(r; r_q, q) = (q/(4π σ_M r²)) · Σ_{n=1}^{∞} ((2n+1)/n) ·
+  (r_q/r)^{n-1} · f_n · (n cos α · P_n(cos γ) + cos β sin α ·
+  P_n^1(cos γ))`
+  where `P_n` and `P_n^1` are the Legendre and associated
+  Legendre polynomials, respectively; `α` is the angle between
+  the dipole moment `q` and the radial direction at the dipole
+  location `r_q`; `γ` is the angle between `r_q` and the
+  observation vector `r`; `β` is the angle between the plane
+  `(r_q, q)` and the plane `(r_q, r)`.
+- **Eq. (16)** (p. 248): `f_n = n / (n · m_22 + (1+n) · m_21)`.
+- **Eq. (17)** (bottom of p. 248, product formula for the
+  concentric-shell recursion, non-commuting product with the
+  highest-index matrix applied first):
+  ```
+  [m_11 m_12]                          M-1  [ n + (n+1)σ_k/σ_{k+1}                (n+1)(σ_k/σ_{k+1} − 1)(r_q/r_k)^{2n+1} ]
+  [         ] = (1/(2n+1)^{M-1}) · Π k=1   [                                                                              ]
+  [m_21 m_22]                              [ n(σ_k/σ_{k+1} − 1)(r_k/r_q)^{2n+1}   (n+1) + n σ_k/σ_{k+1}                    ]
+  ```
+  where conductivities are arranged from innermost to outermost
+  `σ_1, ..., σ_M` corresponding to radii `r_1 < r_2 < ... < r_M`.
+- **Eq. (18)** (p. 248, Berg-Scherg approximation, distinct from
+  Eq. (15)):
+  `v^M(r; r_q, q) ≈ v^1(r; μ_1 r_q, λ_1 q) + v^1(r; μ_2 r_q,
+  λ_2 q) + v^1(r; μ_3 r_q, λ_3 q)`,
+  a sum of three single-shell evaluations at scaled dipole
+  locations and moments (the "Berg parameters" `{μ_i, λ_i}`).
+
+**Attribution quotation** (Mosher-Leahy-Lewis 1999, p. 248,
+verbatim): *"The infinite series presentation of Zhang in [52] is
+especially compact compared to earlier presentations (cf. [44])"*
+(where [52] = Zhang 1995 and [44] = Rush & Driscoll 1969). And
+regarding Berg-Scherg: *"Recent empirical work on closed-form
+approximations by Berg and Scherg [3], and related theoretical
+studies by Zhang [52], describe a valid method for approximating
+the infinite series with as few as three evaluations of scaled
+forms of the single shell model."*
+
+**Consistency with K4 §11.4.** The K4 spec's schematic
+`V_scalp = Σ λ_n(σ, r) (r_source/r_scalp)^n P_n(cos γ_{ij})` is
+NOT the correct form of the multishell EEG series. The correct
+form has:
+- an angular structure with BOTH Legendre `P_n` (radial dipole)
+  and associated Legendre `P_n^1` (tangential dipole);
+- a `(2n+1)/n` prefactor and `(r_q/r)^{n-1}` radial-distance
+  factor (NOT `(r_source/r_scalp)^n`);
+- an `f_n` coefficient defined by the product-of-2×2-matrices
+  recursion of Eq. (17) over conductivity and radius ratios
+  across `M − 1` boundaries;
+- a `(1 / (4π σ_M r²))` normalisation factor with the outermost
+  conductivity `σ_M` (NOT arbitrary `σ_scalp`).
+
+The K4 §11.4 schematic must be corrected to the Mosher-Leahy-Lewis
+Eq. (15)–(17) form before any Phase-1 implementation. The
+correction is applied in the K5 amendment.
+
+**Rule preserved.** Zhang 1995 and de Munck 1988 primary full
+texts were NOT accessed. Mosher-Leahy-Lewis 1999 is an accessible
+peer-reviewed IEEE journal article — but it explicitly attributes
+the multishell series to Zhang [52], so Mosher-Leahy-Lewis is a
+secondary (though authoritative and independently re-derived)
+reproduction, not the primary. Under the K4 §14 blocker-closure
+rule, Blocker B remains **OPEN** as the "verify Zhang 1995
+primary" obligation. The mis-attribution of the K4 schematic to
+Berg-Scherg 1994 is corrected in K5.
+
+### §7.3 Summary — Phase-1 blocker status after L5 pass
+
+| Blocker | Primary source | Access | Status after L5 | Cross-check applied |
+|---|---|---|---|---|
+| A: P.LAP kernels `g_m`, `h_m` | Perrin et al. 1989 EEG Clin Neurophysiol 72(2):184–187 | INACCESSIBLE | OPEN | Carvalhaes-de Barros 2014 arXiv:1406.0458v2 (Eq. 33a, 33b, 36) |
+| B: multishell leadfield analytical series | Zhang 1995 Phys Med Biol 40(3):335–349 (correct primary; Berg-Scherg 1994 was mis-attributed and is a fast approximation) | INACCESSIBLE | OPEN | Mosher-Leahy-Lewis 1999 IEEE TBME 46(3):245–259 (Eq. 15, 16, 17); K4 §11.4 mis-attribution corrected |
+
+**Phase-1 readiness verdict unchanged.** Both blockers remain
+OPEN. Neither the K4 §14 verdict nor the benchmark charter
+§14.1 verdict changes at L5: Phase-1 is DOCUMENTED, NOT YET
+IMPLEMENTATION-READY. No Phase-1 amendment authorised by K1–K4
+has been retroactively promoted or downgraded here; K5 records
+inaccessibility findings, corrects one mis-attribution, and
+attaches authoritative cross-check quotations without promoting
+them into primary provenance.
+
+*L5 pass performed 2026-09-14. No Lean, no book, no
+implementation, no Layer 3, no master push. Files modified in the
+K5 commit: this source audit; benchmark charter; Phase-1
+executable-spec document; bridge audit (K5 cross-reference
+addendum only). `PF_Lean4_Code/PF/Analytic/RiemannXiTopEdge_r331c.lean`
+untouched.*
