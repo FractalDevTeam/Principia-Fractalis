@@ -511,3 +511,35 @@ document. The A/B/C decomposition of §7 is unchanged: Phase-1
 addresses A (algebraic well-formedness) and the estimator side of
 B (statistical assumptions), and explicitly does NOT resolve C
 (physical interpretation as intrinsic brain-state change).
+
+---
+
+**2026-09-14 primary-source-verification-pass addendum (K5).**
+A primary-source verification pass was performed on 2026-09-14 for
+the two Phase-1 blockers identified at K4. Full log in the source
+audit §7. Two findings affect this bridge audit's remit:
+
+1. **Perrin et al. 1989 primary text NOT accessed.** Blocker A
+   remains OPEN. An accessible open-preprint cross-check
+   (Carvalhaes & de Barros 2014, arXiv:1406.0458v2) reproduces
+   the spherical-spline kernels as Eq. (33b) and (36) with clear
+   Perrin-1989 attribution. Cross-check downgrades severity but
+   does NOT close the blocker under the primary-source rule.
+
+2. **Berg-Scherg 1994 re-attribution correction.** Access-side
+   reading of authoritative sources reveals that Berg-Scherg 1994
+   is a fast-computation approximation (three homogeneous-sphere
+   dipoles), NOT the primary source for the analytical multishell
+   Legendre series that the K4 Phase-1 spec attributed to it. The
+   correct primary source is Zhang 1995 *Phys Med Biol*
+   40(3):335–349 (paywalled, NOT accessed). Mosher-Leahy-Lewis
+   1999 *IEEE TBME* 46(3):245–259 (openly available at
+   https://neuroimage.usc.edu/paperspdf/IEEEBME99.pdf) supplies
+   the exact multishell EEG series form as Eq. (15)–(17). The
+   Phase-1 executable form has been corrected. Blocker B remains
+   OPEN pending Zhang 1995 primary verification.
+
+Neither cross-check is promoted into primary provenance. Phase-1
+readiness verdict unchanged: DOCUMENTED, NOT YET IMPLEMENTATION-
+READY. No revision to §3 P.LAP verified-vs-unverified split; no
+revision to §7 A/B/C decomposition.

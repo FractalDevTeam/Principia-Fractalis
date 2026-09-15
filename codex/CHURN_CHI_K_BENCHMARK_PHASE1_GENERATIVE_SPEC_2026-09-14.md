@@ -650,44 +650,104 @@ obligation for future cells.
 
 ### §11.4 Leadfield `G` (M19 × M) — analytical form
 
-**Executable form.** Berg-Scherg 1994 analytical series
-approximation for a three-shell concentric spherical head model,
-using a truncated Legendre-polynomial expansion of the exact
-Rush-Driscoll solution. Both Berg-Scherg 1994 and Rush-Driscoll
-1968 are **NOT verified full-text in the source audit for this
-branch**; Phase-1 uses the widely-documented analytical series
-form as ★ PF with an explicit citation obligation:
+**K5 amendment (2026-09-14) — mis-attribution correction.** The
+K4 wording of this section attributed a schematic Legendre series
+to Berg-Scherg 1994 and Rush-Driscoll 1968. That attribution was
+WRONG on two counts: (1) Berg-Scherg 1994 is a **fast-computation
+approximation** (three homogeneous-sphere dipoles reproducing a
+multishell dipole potential), NOT the primary source for the
+analytical Legendre-series multishell EEG solution. (2) Rush &
+Driscoll's original three-sphere work (their 1968/1969 papers) is
+an important predecessor but is not the compact multishell series
+now standard in the literature. The correct primary source for the
+analytical Legendre-polynomial multishell EEG series is Zhang
+(1995) *Phys Med Biol* 40(3):335–349, extending de Munck (1988)
+*J Appl Phys* 64:464–470. Both remain paywalled at IOPscience and
+the AIP publisher respectively; see source audit §7.2.
+
+**Executable form (corrected to the Zhang 1995 / Mosher-Leahy-Lewis
+1999 kernel form).** For a dipole with moment `q` located at
+`r_q` inside the innermost shell of an M-shell concentric-sphere
+head model with conductivities `σ_1, ..., σ_M` and radii
+`r_1 < r_2 < ... < r_M`, the scalp potential at observation point
+`r` (on the outer shell) is:
 
 ```
-V_scalp(electrode_i, source_j) =
-  sum_{n=1}^{N_trunc} λ_n(σ_brain, σ_skull, σ_scalp,
-                          r_brain, r_skull, r_scalp)
-                    · (r_source / r_scalp)^n · P_n(cos γ_{ij})
+v^M(r; r_q, q) = (q / (4π σ_M r²)) · Σ_{n=1}^{∞} ((2n+1)/n)
+              · (r_q / r)^{n−1}
+              · f_n
+              · ( n · cos α · P_n(cos γ) + cos β · sin α · P_n^1(cos γ) )
 ```
 
-where `γ_{ij}` is the angle between electrode `i` position and
-source `j` position; `P_n` is the Legendre polynomial of order
-`n`; `λ_n(...)` are the analytical coefficients from the
-concentric-sphere solution. Truncation order `N_trunc = 40` (★
-PF; §6.7 feasibility `{20, 40, 80}`; a coarser truncation may
-yield material differences at Phase-1 spatial scales, which is a
-Phase-1-blocking obligation before implementation).
+where
+- `P_n` is the Legendre polynomial of order `n` and `P_n^1` is
+  the associated Legendre polynomial (radial-dipole vs
+  tangential-dipole angular structure);
+- `α` is the angle between `q` and the radial direction at `r_q`
+  (so `q_r = q cos α` is the radial dipole component and
+  `q_t = q sin α` is the tangential component);
+- `γ` is the angle between `r_q` and `r`;
+- `β` is the angle between the plane `(r_q, q)` and the plane
+  `(r_q, r)`;
+- `f_n = n / (n · m_22 + (n+1) · m_21)` (Mosher-Leahy-Lewis Eq. 16);
+- `[m_11, m_12; m_21, m_22]` is the 2×2 shell-recursion matrix
+  from Mosher-Leahy-Lewis Eq. (17), a non-commuting product over
+  `M−1` boundaries with the highest-index matrix applied first:
+  ```
+  [m_11 m_12]                          M-1  [ n + (n+1)σ_k/σ_{k+1}                (n+1)(σ_k/σ_{k+1} − 1)(r_q/r_k)^{2n+1} ]
+  [         ] = (1/(2n+1)^{M-1}) · Π k=1   [                                                                              ]
+  [m_21 m_22]                              [ n(σ_k/σ_{k+1} − 1)(r_k/r_q)^{2n+1}   (n+1) + n σ_k/σ_{k+1}                    ]
+  ```
 
-**Blocker.** The explicit closed form of `λ_n(...)` requires
-primary-source verification of either Berg-Scherg 1994 or
-Rush-Driscoll 1968 before implementation. Neither is in the
-source audit's verified-full-text set. Phase-1 records this as a
-**PHASE-1-BLOCKING OBLIGATION** under G5 that must be resolved
-by (a) primary-source verification with the exact `λ_n` formula
-quoted in the source audit, or (b) an alternative analytical
-form with equivalent verification, or (c) a numerical BEM
-implementation with a fully pinned library and version and a
-verified regression test against an independently-derived
-concentric-sphere solution.
+For M = 3 (brain, skull, scalp), the product has two matrix
+factors (`k = 1` and `k = 2`) and the outermost conductivity
+`σ_M = σ_scalp` appears in the normalisation.
 
-**Pending resolution of this blocker, no Phase-1 implementation
-may run.** The rest of this document is coherent conditional on
-that resolution.
+**Provenance of this equation form.** Transcribed verbatim from
+Mosher, Leahy & Lewis 1999 *IEEE Trans. Biomed. Eng.* 46(3):245–
+259, equations (15)–(17) on page 248, PDF openly accessible at
+https://neuroimage.usc.edu/paperspdf/IEEEBME99.pdf. Mosher-Leahy-
+Lewis attribute the compact series form to Zhang 1995
+(reference [52] in their paper), which is the PRIMARY source and
+remains paywalled and unverified full-text on this branch (source
+audit §7.2). Mosher-Leahy-Lewis is an AUTHORITATIVE CROSS-CHECK
+but not primary provenance for Phase-1 §14 blocker-closure
+purposes.
+
+**Truncation.** `N_trunc = 40` (★ PF; §6.7 feasibility grid
+`{20, 40, 80}`). Convergence at Phase-1 spatial scales must be
+verified at implementation time against this grid.
+
+**Berg-Scherg 1994 fast approximation (RECORDED for future
+Benchmark-A cells; NOT used at Phase-1).** Mosher-Leahy-Lewis
+Eq. (18): `v^M ≈ v^1(r; μ_1 r_q, λ_1 q) + v^1(r; μ_2 r_q, λ_2 q)
++ v^1(r; μ_3 r_q, λ_3 q)`, three single-shell evaluations at
+scaled dipole locations and moments (the "Berg parameters"
+`{μ_i, λ_i}`, tabulated in Mosher-Leahy-Lewis [3] = Berg-Scherg
+1994 and [52] = Zhang 1995). This approximation is NOT used by
+the Phase-1 (M19, P.LAP, Benchmark B) cell — Phase-1 uses the
+exact truncated series above.
+
+**PHASE-1-BLOCKING OBLIGATION (updated at K5).** Implementation of
+this leadfield form still requires primary-source verification of
+Zhang 1995 (or de Munck 1988) with the exact form of Eq. (15)–
+(17) quoted verbatim in the source audit. Alternative
+resolutions:
+(a) direct access to Zhang 1995 primary full text;
+(b) a numerical BEM implementation with fully pinned library and
+    version, whose output is regression-tested against
+    Mosher-Leahy-Lewis Eq. (15)–(17) evaluated at a fixed set of
+    test dipole configurations, with agreement at machine
+    precision on radial dipoles and at declared tolerance on
+    tangential dipoles;
+(c) an alternative primary source that independently derives the
+    same closed form (e.g., de Munck 1988; Cuffin & Cohen 1979).
+
+Pending this blocker, no Phase-1 implementation may run. The
+equations above are conditional on that resolution. The K5
+cross-check via Mosher-Leahy-Lewis 1999 downgrades the severity
+of the blocker (the equations are now anchored in an accessible
+peer-reviewed IEEE journal article) but does NOT close it.
 
 ---
 
@@ -711,6 +771,30 @@ supply the primary equation forms. Phase-1 therefore uses the
 general form as documented across the CSD literature and flags
 each primary-equation dependency as a Phase-1-blocking obligation
 requiring source-audit verification before implementation.
+
+**K5 amendment (2026-09-14) — cross-check without closure.** An
+authoritative arXiv preprint (Carvalhaes CG & de Barros JAdB, *The
+Surface Laplacian Technique in EEG: Theory and Methods*,
+arXiv:1406.0458v2, Nov 8, 2014, openly accessible at
+https://arxiv.org/pdf/1406.0458) independently reproduces the
+Perrin 1989 spherical-spline construction with clear attribution
+to Perrin et al. 1989. The kernels defined in §12.2 below MATCH
+Carvalhaes-de Barros Eq. (33a), (33b), and (36) as follows:
+- Eq. (33a) p. 17: `f_sph(r) = Σ c_i g_m(r, r_i) + d`.
+- Eq. (33b) p. 18: `g_m(r, r_i) = (1/(4π)) Σ_{ℓ=1}^{∞}
+  ((2ℓ+1)/(ℓ^m(ℓ+1)^m)) P_ℓ(r̂ · r̂_i)`.
+- Eq. (36) p. 18: `Lap_s(f(r)) = -(1/r²) Σ c_i g_{m-1}(r, r_i)`
+  for `m > 1`.
+
+The §12.2 `g_m` matches Eq. (33b) exactly. The §12.2 `h_m` is
+algebraically equal to `-(1/r_scalp²) · g_{m-1}` (since
+`n(n+1)/(n^m(n+1)^m) = 1/(n^{m-1}(n+1)^{m-1})`), matching
+Eq. (36).
+
+Carvalhaes-de Barros 2014 is a REVIEW paper and IS NOT PRIMARY
+PROVENANCE for Perrin's equations. This cross-check downgrades
+the severity of Blocker A but does NOT close it. See source audit
+§7.1 for the full access-attempt log and rule preservation.
 
 ### §12.2 P.LAP — mathematical form (executable pseudocode)
 
@@ -870,31 +954,45 @@ Phase-1.
 | M19 spherical `(θ_zen, φ_az)` table | ★ PF convention | No primary source for exact coordinates. Convention is reproducible; nuisance scenarios S6.a/S6.b absorb millimetre-level mismatch. |
 | Head-model radii (r_scalp, r_skull, r_brain) | ★ PF | Nominal adult values; no primary-source verification recorded. |
 | Head-model conductivities (0.33, 0.0165, 0.33 S/m) | ★ PF | Skull:brain 1:20 is one of the widely-cited ratios; no primary-source verification recorded for this exact use. |
-| Berg-Scherg 1994 analytical series `λ_n(...)` closed form | **PHASE-1-BLOCKING** | Primary-source verification required OR alternative BEM implementation with independent regression test. |
+| Multishell EEG analytical Legendre series (K4 §11.4, corrected at K5) | **PHASE-1-BLOCKING** | K5 correction (2026-09-14): the correct primary source is Zhang 1995 *Phys Med Biol* 40(3):335–349 (paywalled, NOT accessed). Prior K4 attribution to Berg-Scherg 1994 was WRONG — Berg-Scherg 1994 is a fast approximation, NOT the primary series. Mosher-Leahy-Lewis 1999 IEEE TBME 46(3):245–259 Eq. (15)–(17) supplies the exact form as an accessible peer-reviewed CROSS-CHECK (openly at https://neuroimage.usc.edu/paperspdf/IEEEBME99.pdf) but is not primary provenance. §11.4 equations are now the corrected Mosher-Leahy-Lewis form; blocker remains OPEN pending Zhang 1995 primary verification or a BEM regression-test alternative. |
 | Truncation order `N_trunc = 40` for leadfield series | ★ PF | Convergence at Phase-1 spatial scales must be verified at implementation time against the §6.7 grid `{20, 40, 80}`. |
-| Perrin 1989 spline kernel `g_m` and Laplacian kernel `h_m` closed forms | **PHASE-1-BLOCKING** | Primary-source verification of the exact Perrin-1989 spline construction is required before implementation. Secondary quotations exist in the bridge audit but the primary equation form does not. |
+| Perrin 1989 spline kernel `g_m` and Laplacian kernel `h_m` closed forms | **PHASE-1-BLOCKING** | Primary-source verification of the exact Perrin-1989 spline construction is required before implementation. Secondary quotations exist in the bridge audit. K5 addition (2026-09-14): the Carvalhaes-de Barros 2014 arXiv:1406.0458v2 REVIEW paper (openly accessible) reproduces the kernels as Eq. (33b) and (36) with clear Perrin-1989 attribution, mathematically matching §12.2 exactly. This cross-check downgrades the blocker severity but does NOT close it under the primary-source rule. See source audit §7.1. |
 | Truncation orders `N_g_trunc = N_h_trunc = 50` | ★ PF | Convergence must be verified at implementation time against the §6.7 grid `{25, 50, 100}`. |
 | Reference-freedom check `‖A_{LAP} · 1‖_∞ ≤ 10^{-10}` | Build-time check | Required as a Phase-1 unit test before any benchmark run. |
 | Radial-only dipole orientations | ★ PF | Tangential dipoles deferred to a future cell. |
 
-**Cumulative Phase-1 readiness verdict (K4, 2026-09-14).** The
-Phase-1 cell (M19, P.LAP, Benchmark B) is DOCUMENTED but NOT
-IMPLEMENTATION-READY. Two load-bearing primary-source
-verifications remain blocking:
+**Cumulative Phase-1 readiness verdict (K4, 2026-09-14; K5
+amendment, 2026-09-14).** The Phase-1 cell (M19, P.LAP, Benchmark
+B) is DOCUMENTED but NOT IMPLEMENTATION-READY. Two load-bearing
+primary-source verifications remain blocking:
 
-1. Berg-Scherg 1994 (or equivalent) analytical leadfield series
-   coefficients `λ_n(...)`.
-2. Perrin et al. 1989 spherical-spline kernel `g_m` and Laplacian
-   kernel `h_m` exact forms.
+1. **Multishell EEG analytical Legendre series** — correct
+   primary source is Zhang 1995 *Phys Med Biol* 40(3):335–349
+   (paywalled, NOT accessed at K5). K5 correction retracts the
+   K4 mis-attribution to Berg-Scherg 1994 (which is a fast
+   approximation, not the analytical series). Mosher-Leahy-Lewis
+   1999 IEEE TBME 46(3):245–259 Eq. (15)–(17) is an accessible
+   peer-reviewed CROSS-CHECK that supplies the exact form now
+   recorded in §11.4; the K4 schematic form has been replaced
+   with the Mosher-Leahy-Lewis form. Blocker OPEN pending
+   Zhang-1995 primary verification or BEM regression-test
+   alternative.
+2. **Perrin et al. 1989 spherical-spline kernel `g_m` and
+   Laplacian kernel `h_m`** — primary text NOT accessed at K5.
+   Carvalhaes-de Barros 2014 arXiv:1406.0458v2 Eq. (33a, 33b,
+   36) is an accessible open-preprint CROSS-CHECK that matches
+   §12.2 exactly with Perrin-1989 attribution. Blocker OPEN
+   pending Perrin-1989 primary verification.
 
-Both blockers can be resolved by (a) a full-text verified reading
-recorded in the source audit with the exact equations quoted, or
-(b) an alternative equivalent numerical implementation with
-primary-source-backed regression tests. Neither has been done
-under this quarterback stack (K1–K4); doing them requires
-external primary-source access that is not authorised as
-implementation and therefore properly belongs in the next audit
-step.
+K5 does NOT promote either cross-check into primary provenance;
+the "primary source rule" is preserved. Both blockers can still be
+resolved only by (a) a full-text verified reading of the actual
+primary paper (Zhang 1995 and Perrin 1989) recorded in the source
+audit with the exact equations quoted, or (b) an alternative
+equivalent numerical implementation with primary-source-backed
+regression tests. Doing (a) requires external primary-source
+access that is not authorised as implementation and properly
+belongs in a future audit step.
 
 All other Phase-1-blocking obligations under G2/G3/G4 (§9) and
 G5/G6/P.LAP (this section) are closed to the ★ PF standard with
