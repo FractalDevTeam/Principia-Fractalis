@@ -6,9 +6,11 @@
 
 *Written from base commit `839b1f0edc6e482c9a09c87b5888938323faf7c7`*
 *(branch `r331b-churn-stress-bridge`, worked from an isolated worktree).*
-*K1 commit scope: Phase A corpus census (§0, §1) + provenance and*
-*self-audit (§6). Phase B contract, Phase C formalization verdict,*
-*blockers, and future sequence (§§2–5) land in K2.*
+*K1 scope: Phase A corpus census (§0, §1) + provenance and*
+*self-audit (§6). K2 scope: Phase B seven-layer contract (§2), Phase*
+*C formalization verdict (§3), blockers (§4), and shortest future*
+*sequence (§5). K3 (if honest) delivers the narrowest Layer-5*
+*type-separation theorem identified in §3.*
 *This document is a source- and type-exact dependency contract. It*
 *does not edit the book, benchmark charter, Layer 2, Layer 3, results,*
 *or existing theorem statements.*
@@ -193,21 +195,440 @@ one.
 
 ## §2. Phase B — Type-correct bridge contract
 
-*[Deferred to K2 commit. Populates seven-layer separation, minimum-
-postulate inventory, and three explicit ansatz families.]*
+The prompt asks the audit to separate the following seven layers
+type-exactly. Each subsection below fixes the type of the layer, its
+current status in the corpus, and the *minimum extra data* required to
+progress to the next layer.
+
+### §2.1 Layer L1 — finite-level state pair `(ρ_t, ρ_{t+dt})` on `H_k`
+
+**Type.** `ρ_t, ρ_{t+dt} : Matrix (Fin (3^k)) (Fin (3^k)) ℂ`.
+Optional restriction to density matrices via `IsHermitian ∧ 0 ⪯ ρ ∧
+trace ρ = 1`; this restriction is **not** enforced by
+`FrobeniusChurn.lean` (which is unconditional over arbitrary complex
+matrices).
+
+**In corpus.** Fully typed. `L1` is exactly the domain of `L12`.
+
+**Additional data required.** A parameter `t : ℝ` and an *evolution*
+`ρ : ℝ → Matrix (Fin (3^k)) (Fin (3^k)) ℂ`. The book does not fix
+this evolution (`ch06:707-708` explicitly acknowledges the temporal
+law is an open problem).
+
+### §2.2 Layer L2 — scalar churn `χ_k = ½ ‖ρ_{t+dt} − ρ_t‖²_F`
+
+**Type.** `χ_k : ℝ`.
+
+**In corpus.** `churnFrobenius ρ σ : ℝ` at `FrobeniusChurn.lean:131-
+133`. Kernel-verified nonneg, symmetric, zero-iff-equal, unitary-
+invariant. Layer-1 only, per charter
+`codex/CHURN_CHI_K_CHARTER_2026-09-12.md`.
+
+**Additional data required to reach L3.** A *localization map* that
+assigns finite-level states (or their churn) to spacetime points
+or regions.
+
+### §2.3 Layer L3 — localization / interpolation data assigning L1/L2 to spacetime points or regions
+
+**Type required.** One of:
+- (L3.i) A field `ρ : M^4 → Matrix (Fin (3^k)) (Fin (3^k)) ℂ`
+  assigning a finite-level state to each spacetime point.
+- (L3.ii) A field `χ : M^4 → ℝ` assigning the churn scalar to each
+  spacetime point (a real scalar field on spacetime).
+- (L3.iii) A more elaborate ansatz, e.g. `ρ : M^4 → 𝒮(T_∞)` (states
+  of the C*-algebra) with a compatibility condition against the
+  substrate's projective structure.
+
+**In corpus.** **None.** No such map exists in book or Lean. The book
+does not commit to (L3.i), (L3.ii), or (L3.iii).
+
+**Additional data required.**
+- The manifold `M^4` (Layer L4 below).
+- A prescription that pins one of (L3.i)–(L3.iii). This
+  prescription is *physical postulate*, not derivable.
+- If (L3.i): a fibration/trivialization pattern for
+  `Matrix (Fin (3^k)) (Fin (3^k)) ℂ`-valued fields; smoothness /
+  measurability conditions.
+- If (L3.ii): the definition of `∂_μ χ`, hence a differentiable
+  structure on `M^4`.
+
+### §2.4 Layer L4 — spacetime geometry: manifold, Lorentzian metric, tangent / cotangent tensors, connection
+
+**Type required.**
+- `M : Type*` with `[SmoothManifold M]` and `[Dim M = 4]` (or
+  similar).
+- A Lorentzian metric `g : Sections (Sym² T*M)` with signature
+  `(−,+,+,+)`.
+- A Levi-Civita connection `∇` compatible with `g`.
+
+**In corpus.** **None.** `SpacetimeEmergence φ` at
+`TimelessField.lean:156-162` is `Nonempty (TimelessFieldType φ →
+TimelessFieldType φ)` — no manifold, no dimension, no metric. The
+docstring of `GeneralRelativity.lean:82-84` says pseudo-Riemannian
+curvature is **not** available at the pinned mathlib.
+
+**Blocker.** Formalizing pseudo-Riemannian geometry at
+mathlib-pin is out of scope; even in mathlib's current head, the
+Lorentzian-metric API is thin. This is not a bug in the corpus, it's
+a real infrastructural gap of the pinned dependency.
+
+### §2.5 Layer L5 — construction of a symmetric rank-2 tensor `C^{μν}(x)`
+
+**Type required.** `C : Sections (Sym² TM)` (or dually `Sym² T*M`
+depending on index convention) — a smooth section of the symmetric
+tensor product of the tangent bundle.
+
+**In corpus.** **None.** The book's B11 definition constructs
+`C^{μν}` from `T̂^{μν}` per state (which presupposes it) rather than
+from `χ_k`. The book's B16 (Ch 12 Def 12.1) declares `C^{μν} : M^4 →
+Sym²(ℝ⁴)` as a fundamental field with 10 components, treating it as
+posited rather than derived.
+
+**The core no-uniqueness observation.** *A scalar `χ ∈ ℝ` does not
+determine a unique symmetric rank-2 tensor at a point.* In
+dimension `n = 4`, the space of symmetric rank-2 real matrices has
+`n(n+1)/2 = 10` real dimensions; the trace map peels off exactly one.
+The residual **9-dimensional traceless-symmetric part** is not fixed
+by any single scalar. Concretely, given any symmetric 4×4 real
+matrix `A` and any traceless symmetric 4×4 real matrix `T`, the matrix
+`A + T` is a distinct symmetric matrix with the same trace as `A`.
+
+Hence **any purported bridge of the form `C^{μν}(x) = f(χ_k(x))` —
+i.e. a function of the churn scalar alone — cannot generate a
+generic symmetric rank-2 tensor**. It can at most generate a
+one-parameter *isotropic* family. See §2.9 candidate A below.
+
+### §2.6 Layer L6 — covariance, conservation / divergence, dimensional units, coupling sign and normalization
+
+**Required propositions (each of which is separate physical postulate
++ mathematical content).**
+- **Covariance.** Under a diffeomorphism `ψ : M → M`, the field
+  transforms as `C^{μν} ↦ (Dψ) C^{μν} (Dψ)^T`. Requires the
+  differentiable structure of Layer L4 + the tensor-transformation
+  law.
+- **Conservation.** `∇_μ C^{μν} = J^ν_conscious` (book B12). Requires
+  the Levi-Civita connection of Layer L4.
+- **Bianchi consistency.** `∇_μ G^{μν} = 0` combined with `G^{μν} +
+  Λ_eff g^{μν} = 8π G (T^{μν} + C^{μν})` forces
+  `∇_μ (T^{μν} + C^{μν}) = 0`, hence the Bianchi identity is
+  *consistent* with a non-conserved `T^{μν}` iff there's a
+  compensating `C^{μν}` divergence.
+- **Dimensional units.** In natural units, `[C^{μν}] = M^4` (energy
+  density). `χ_k` as defined is *dimensionless*. Any bridge
+  `χ_k → C^{μν}` must therefore multiply `χ_k` by a coupling with
+  units of `M^4`. This coupling is a physical postulate; the book
+  does not name it.
+- **Coupling sign & normalization.** The book's convention in B14
+  puts `+8π G C^{μν}` on the source side. Sign convention on
+  `Λ_eff` is `+Λ_eff g^{μν}` on the geometry side. These conventions
+  are not derived from anything more fundamental.
+
+**In corpus.** **None** of these propositions is formalized;
+`GeneralRelativity.lean:82-84` explicitly says so.
+
+### §2.7 Layer L7 — EEG observable as a separate operational surrogate
+
+**Type.** `EEG_ch_2 : ℝ`, produced by the Ch 32 pipeline
+(`ch32:191-322`). Independent of `χ_k`.
+
+**In corpus.** Ch 32 pipeline is prose-only; the Layer-2 charter
+`codex/CHURN_CHI_K_EEG_LAYER_CHARTER_2026-09-12.md` defines an
+`EEG → ρ_EEG` map which lives at Layer 2 (measurement) and is
+explicitly *not* an ontological bridge.
+
+**Type separation from `C^{μν}(x)`.** `EEG_ch_2` is a scalar on real
+data, aggregating across space (via the electrode montage) and time
+(via STFT). It has no natural spacetime-tensor structure. The
+operational surrogate must not be confused with the ontological
+tensor field — the Layer-1 charter and the Layer-2 charter are
+already careful about this separation.
+
+### §2.8 The prompt's explicit statement: "a scalar `χ` alone does not determine a unique symmetric rank-2 stress tensor"
+
+**Restated formally.** Let `n ≥ 2`. The trace map
+```
+tr : { M ∈ Matrix (Fin n) (Fin n) ℝ  |  M.IsSymm } → ℝ
+```
+is *not injective*. Its fibers `tr⁻¹({χ})` are affine subspaces of
+dimension `n(n+1)/2 − 1` (for `n = 4`: 9-dimensional). Any function
+`f : ℝ → SymmetricMatrix (Fin n) ℝ` factoring the bridge as
+`C^{μν}(x) = f(χ_k(x))` selects at most a 1-dimensional slice of the
+9-dimensional traceless residual. The 8 remaining degrees of freedom
+per spacetime point are unaccounted for by any scalar input.
+
+**Corollary.** Even if the bridge could be extended to a *field*
+`f : ℝ → SymmetricMatrixField(M^4)`, the same underdetermination
+applies pointwise.
+
+### §2.9 Minimum-postulate inventory of candidate ansatz families
+
+The prompt asks for a *small explicit set of mathematically explicit
+candidate ansatz families*. For each, list exact required data,
+units, conservation condition, falsifiable consequence, and why it is
+**not** derived from Layer L1.
+
+Below, `χ(x)` denotes a putative scalar-valued churn field on `M^4`
+(this itself is Layer L3 data, not derived from L1 without a
+localization postulate).
+
+#### Candidate A — vacuum-like ansatz `C^{μν}(x) = f(χ(x)) g^{μν}(x)`
+
+- **Required extra data.** Choice of scalar function `f : ℝ → ℝ`;
+  the metric `g^{μν}` from Layer L4.
+- **Units.** `f(χ)` must carry units of `M^4` (energy density) so
+  that `C^{μν}` has correct dimension. Since `χ` is dimensionless,
+  `f` must be multiplication by a dimensional constant `Λ_C` with
+  units `M^4`, times a dimensionless function of `χ`. Simplest
+  choice: `f(χ) = Λ_C · χ`.
+- **Conservation.** `∇_μ (f(χ) g^{μν}) = g^{μν} ∂_μ f(χ) = f'(χ)
+  ∇^ν χ`. So `∇_μ C^{μν} = 0` iff `∇^ν χ = 0` (i.e. `χ` is
+  spacetime-constant) or `f' = 0` (i.e. `f` is constant, hence
+  `C^{μν}` is just a shift of `Λ`). Otherwise the modified
+  conservation of B12 requires a nontrivial `J^ν_consciousness`
+  matching `f'(χ) ∇^ν χ`.
+- **Falsifiable consequence.** The ansatz is *isotropic* — no
+  preferred direction. It cannot produce anisotropic stress. Any
+  observation of anisotropy from consciousness (e.g. off-diagonal
+  gravitational-wave-type signatures) would falsify Candidate A.
+- **Why not derived from Layer L1.** Layer L1 delivers only `χ_k` at
+  a level `k`; it does not fix `f`, does not fix `Λ_C`, does not
+  fix the smoothness of `χ(x)`, and does not fix `g^{μν}`. Every
+  ingredient beyond `χ_k` is added by postulate.
+- **Relation to B15.** `Λ_eff(𝒞)` in B15 is compatible in *form*
+  with Candidate A (both have `Λ · g^{μν}`) but the book puts
+  `Λ_eff` on the *geometry* side of Einstein's equation while
+  Candidate A puts `f(χ) g^{μν}` on the *source* side; algebraically
+  these are exchangeable, so B15 provides no independent constraint
+  on Candidate A.
+
+#### Candidate B — scalar-field-like ansatz `C^{μν}(x) = ∂^μ χ ∂^ν χ − ½ g^{μν} (∂χ)²`
+
+- **Required extra data.** A smooth scalar field `χ : M^4 → ℝ`; the
+  metric `g^{μν}` from Layer L4; the differentiable structure of L4.
+- **Units.** `[∂χ] = M^1` if `[χ] = M^0`. Then `[∂χ ∂χ] = M^2` which
+  is short of `M^4`. To fix: multiply by a dimensional prefactor
+  `1/M^2`, giving `C^{μν} = (1/M_C^2)(∂^μ χ ∂^ν χ − ½ g^{μν}
+  (∂χ)²)` for some mass scale `M_C`. (The book's `m_C` from
+  `ch12:112, 114` may play this role but is not connected to `χ_k`.)
+- **Conservation.** `∇_μ C^{μν} = 0` iff `χ` satisfies its own
+  Klein-Gordon-like equation `□χ = 0` (or with a mass/interaction
+  term corresponding to a full scalar-field Lagrangian). Compatible
+  with modified conservation B12 only if `J^ν_conscious` is derived
+  from that same Lagrangian.
+- **Falsifiable consequence.** Predicts a specific relationship
+  between the gradient structure of `χ(x)` and the spatial pattern
+  of induced curvature. Testable in principle by correlating
+  gradients of `EEG_ch_2` (used only as a surrogate for `χ`) with
+  observable stress. In practice utterly small.
+- **Why not derived from Layer L1.** Layer L1 delivers `χ_k` only as
+  a two-state distance on a finite-level algebra. It does not
+  supply a spacetime scalar field `χ(x)`. Constructing such a field
+  requires an additional postulate (a *localization*, cf. §2.3).
+  The gradient `∂_μ χ` also requires Layer L4 differentiable
+  structure, which is not present in Lean.
+
+#### Candidate C — fluid-like ansatz `C^{μν}(x) = (ρ_C + p_C) u^μ u^ν + p_C g^{μν}`
+
+- **Required extra data.** A *timelike* velocity field `u^μ : M^4 →
+  TM` with `g_{μν} u^μ u^ν = −1`; density `ρ_C(x)` and pressure
+  `p_C(x)` closures (an equation of state `p_C = p_C(ρ_C)`).
+- **Units.** `[ρ_C] = [p_C] = M^4`. Neither is determined by `χ_k`
+  without a dimensional postulate.
+- **Conservation.** `∇_μ C^{μν} = 0` gives the standard perfect-
+  fluid equations. Compatible with modified conservation B12 only
+  if `J^ν_conscious = 0`, i.e. Candidate C is a *conserved-source*
+  ansatz.
+- **Falsifiable consequence.** Predicts the fluid rest-frame is
+  observationally accessible; a rest-frame preferred direction
+  breaks Lorentz invariance globally. Any experimental confirmation
+  of exact local Lorentz invariance for the "consciousness sector"
+  would falsify Candidate C.
+- **Why not derived from Layer L1.** Layer L1 has no notion of a
+  preferred timelike direction; `χ_k` is a scalar with no vector
+  content. The velocity field `u^μ` is entirely additional
+  postulate. The book's Ch 10 (Hydrodynamic) has hydrodynamic
+  content but does not connect `u^μ` to `χ_k`.
+
+**Verdict on candidate selection.** The book **does not select** any
+of A, B, C. B11's definition uses a fourth structure (a *state
+integral* over `T_∞` of an already-defined tensor operator) which
+formally sits at a higher structural level than A/B/C — it presupposes
+`T̂^{μν}` on `T_∞`-states rather than deriving `C^{μν}` from below.
+No candidate is uniquely picked out by anything upstream of Ch 08.
+
+### §2.10 What a legitimate bridge would minimally require
+
+Aggregating §2.1–§2.9:
+
+**Bridge preconditions (must be supplied before any `χ_k → C^{μν}`
+claim can even be typed):**
+
+1. **Manifold + metric** (Layer L4): `M^4` with a smooth Lorentzian
+   structure. Blocker: mathlib pin has no pseudo-Riemannian API.
+2. **Localization postulate** (Layer L3): a specification (i) of
+   `ρ : M^4 → Matrix (Fin (3^k)) …` for some `k`, or (ii) of
+   `χ : M^4 → ℝ`. Blocker: neither the book nor the Lean corpus
+   commits to any such postulate.
+3. **Ansatz choice** (Layer L5 candidate): one of A, B, C, or a
+   different explicit form. Blocker: nothing in the corpus picks
+   one out.
+4. **Coupling scale postulate** (Layer L6): a dimensional constant
+   `Λ_C` with units `M^4` (or an equivalent). Blocker: not present.
+5. **Conservation / covariance** (Layer L6): a proof that the chosen
+   ansatz respects modified conservation B12 given a matching
+   `J^ν_conscious`. Blocker: requires Layer L4 API.
+
+**Bridge output type (once preconditions are supplied):**
+
+`bridge : (χ : M^4 → ℝ) → (g : LorentzianMetric M^4) → (ansatz-choice)
+→ (Sections (Sym² TM))`.
+
+The output is a smooth symmetric-rank-2 tensor field, satisfying the
+constraint of the chosen ansatz, with a specific coupling
+normalization. **It cannot be a bridge from `χ_k` alone; a scalar-in
+map is intrinsically incapable of hitting the traceless 9-dimensional
+residual per spacetime point.**
 
 ## §3. Phase C — Formalization decision
 
-*[Deferred to K2 commit. Feasibility scan against pinned mathlib and
-narrowest honest formal next theorem.]*
+### §3.1 Feasibility scan against pinned mathlib
+
+- Pinned-mathlib pseudo-Riemannian API — **absent** (per
+  `GeneralRelativity.lean:82-84`). Rules out formalizing any of
+  Layers L4–L6.
+- Pinned-mathlib measure-theoretic API over C*-algebra states —
+  present in mathlib as `MeasureTheory` on Banach spaces, but no
+  API for `T_∞ = lim_k …` state measures. Rules out formalizing
+  the state integral in B11.
+- Pinned-mathlib symmetric-matrix / trace API — **present**
+  (`Mathlib.LinearAlgebra.Matrix.Trace`, `Matrix.IsSymm`). Sufficient
+  for a purely mathematical *no-uniqueness fact* at the algebra
+  level.
+
+### §3.2 Verdict
+
+The only formalization that would be:
+- *Genuinely nontrivial* (not merely a re-statement of a
+  definition),
+- *Not a Prop named after the physical bridge with no semantics*,
+- *Constructible with existing infrastructure*,
+- *Load-bearing for the audit's conclusion*,
+
+is a **purely-mathematical no-uniqueness / underdetermination
+theorem** codifying §2.8: the trace of a symmetric matrix does not
+determine the matrix (for `n ≥ 2`); equivalently, no function
+`f : ℝ → SymmetricMatrix (Fin n) ℝ` can be right-inverse-to-trace on
+all its fibers.
+
+This theorem:
+- **Is not** named after the physical bridge (it is named after the
+  mathematical fact `trace_underdetermines_symmetric_matrix`).
+- **Has real semantics**: a `∃ A B, A ≠ B ∧ ...` statement, with
+  explicit witnesses in mathlib primitives.
+- **Is load-bearing** for §2.8's assertion that no scalar-in bridge
+  can capture generic `C^{μν}`.
+- **Is not a target-encoded triviality**: the witness matrices are
+  constructed explicitly and independently of any physics
+  definition.
+
+The **narrowest honest formal next theorem** is therefore:
+
+```lean
+-- Statement (schematic):
+theorem trace_underdetermines_symmetric_matrix {n : ℕ} (hn : 2 ≤ n) (χ : ℝ) :
+    ∃ (A B : Matrix (Fin n) (Fin n) ℝ),
+      A.IsSymm ∧ B.IsSymm ∧
+      Matrix.trace A = χ ∧ Matrix.trace B = χ ∧
+      A ≠ B
+```
+
+with explicit witnesses `A := (χ/n) • 1` and `B := A + D` where
+`D` is a fixed nonzero traceless symmetric matrix (e.g. `D := diag(1,
+−1, 0, …, 0)`).
+
+**Additional companion statement (also honest):** a corollary that
+directly forbids scalar-in / symmetric-tensor-out bridges as
+right-inverses of the trace:
+
+```lean
+-- Statement (schematic):
+theorem no_scalar_pins_symmetric_matrix {n : ℕ} (hn : 2 ≤ n)
+    (f : ℝ → Matrix (Fin n) (Fin n) ℝ) :
+    ∃ (M : Matrix (Fin n) (Fin n) ℝ),
+      M.IsSymm ∧ Matrix.trace M = Matrix.trace (f (Matrix.trace M)) ∧
+      M ≠ f (Matrix.trace M)
+```
+
+meaning: for *any* candidate scalar-to-symmetric-matrix map `f`,
+there is a symmetric matrix `M` whose trace agrees with the trace of
+`f(trace M)` but which is *not* `f(trace M)`. Equivalently, no such
+`f` can be a section of the trace map onto the full symmetric-matrix
+space.
+
+**Justification of implementation vs deferment.**
+Per the prompt's acceptance criteria, this qualifies as
+"a purely mathematical type-separation/no-uniqueness fact" —
+explicitly on the approved list. The infrastructure is present;
+the theorem is mathematically nontrivial (it is a genuine non-
+injectivity claim about `Matrix.trace ∘ SymmetricSubtype`); the
+naming is mathematical, not physical; the proof is direct with
+mathlib-standard tactics. Estimated scope: **≤ 200 lines including
+docstring and axiom-audit block**.
+
+Proceeding to implementation in the K3 commit.
 
 ## §4. Blockers and unresolved postulates
 
-*[Deferred to K2 commit.]*
+Consolidated list, ordered from "immediate" to "long-horizon":
+
+1. **Layer L3 localization** — no book/Lean commitment.
+   Immediate blocker for any spacetime-indexed statement.
+2. **Layer L4 spacetime geometry** — pinned-mathlib gap.
+   Structural blocker for L5–L7.
+3. **`T̂^{μν}` on `T_∞`-states in B11** — implicitly assumed by
+   the book's stress-tensor definition, never constructed.
+   Blocker for a *derived* (rather than *posited*) `C^{μν}`.
+4. **State-measure `dμ` on `T_∞` in B11** — measure-theoretic
+   infrastructure absent.
+5. **Coupling scale `Λ_C`** — physical postulate; would tie
+   `[χ_k] = M^0` to `[C^{μν}] = M^4`.
+6. **Ansatz selection** — even given L4, no candidate is
+   distinguished by upstream content.
+7. **`Aut(T_∞)` and `Diff(T_∞)` as concrete groups** — Ch 04 Thm
+   4.18 postulates `M^4 = Aut(T_∞) / Aut_0(T_∞)` but neither the
+   automorphism group nor the quotient is constructed at
+   type-level in Lean; the stubs at `TimelessField.lean:156-169`
+   are `Nonempty (endo)` placeholders (L6, L7 of §1.2).
+8. **The temporal law `d/dt ch_2(t) = ?`** — book acknowledges it
+   is open (`ch06:707-708`).
 
 ## §5. Shortest future formalization sequence
 
-*[Deferred to K2 commit.]*
+If (and only if) the community wishes to unblock the bridge, the
+minimum-length ordered sequence is:
+
+- **(F1)** Adopt a mathlib pin exposing pseudo-Riemannian geometry
+  (currently under active mathlib development). Cost: significant
+  pin migration; may break unrelated files.
+- **(F2)** Define a formal manifold placeholder `M^4` with
+  Lorentzian metric API; discharge Layer L4 to a working level.
+- **(F3)** Commit to a localization postulate (choose L3.i or
+  L3.ii); state it as an explicit `def` with attached data.
+- **(F4)** Select one candidate ansatz (A, B, or C from §2.9) and
+  formalize the ansatz map `bridge : ℝ → SymmetricTensorField M^4`
+  with all its postulated parameters visible as explicit
+  arguments.
+- **(F5)** Prove the divergence identity for the chosen ansatz
+  under the Layer L4 connection. Match `J^ν_conscious` to make
+  modified conservation (B12) hold.
+- **(F6)** State the modified Einstein equation (B14) with the
+  concrete `C^{μν}` from (F4) and its divergence content from (F5)
+  as a bundled Prop that could in principle be discharged.
+
+**None of F1–F6 is available in the current worktree without
+extensive new infrastructure. The K3 commit therefore delivers only
+the Layer-5 type-separation theorem (§3.2). All of F1–F6 remain
+downstream work.**
 
 ## §6. Provenance and self-audit
 
@@ -237,4 +658,4 @@ narrowest honest formal next theorem.]*
   (post-K3) the newly created Lean module + minimal `PF.lean`
   import line.
 
-*K1 census section ends here. K2 populates §§2–5.*
+*End of audit.*
