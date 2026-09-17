@@ -29,7 +29,7 @@ import PF.IntegralKernel.Bridge
 -- The Four Anchor Theorems
 import PF.RadixEconomy       -- Theorem 1: Base-3 optimality
 import PF.SpectralGap        -- Theorem 2: P ≠ NP via spectral gap
-import PF.ChernWeil          -- Theorem 3: Consciousness quantification
+import PF.ChernWeil          -- Theorem 3 slot: bounded score carrier + the 19/20 threshold constant. ch_2 DISAMBIGUATION 2026-09-16 (ledger S2/S5, codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md): canonical content is `BoundedConsciousnessScore` (a structure with `value : ℝ` and a proof `0 ≤ value ≤ 1`) and `consciousnessThreshold95 = 0.95`. This module does NOT construct a Chern–Weil characteristic class: there is no bundle, no connection and no curvature form anywhere in it. `SecondChernCharacter` here is a deprecated alias for the bounded carrier and is NOT the topological ch₂ of ch06:285–298.
 import PF.SpectralEmbedding  -- Theorem 4: SU(2)×U(1) emergence
 
 -- Stage B: P vs NP Equivalence
@@ -250,8 +250,15 @@ import PF.NS3DOffDiagonalVortexStretching -- 2026-05-25 — Wave 24 extension: b
 -- ============================================================================
 -- Consciousness: Timeless Field T_∞ (ch04, ch06)
 -- ============================================================================
-import PF.Consciousness.TimelessField  -- T_∞ projective-limit skeleton + ch_2 ≥ 0.95 crystallization
-import PF.Consciousness.ChernCharacter  -- Second Chern character ch_2 + crystallization iff (Ch 06, 07, 21, 32)
+-- ch_2 / ch₂ SEMANTIC DISAMBIGUATION (2026-09-16, Phase B commit 940f20f2)
+-- Seven distinct objects were sharing the unqualified name `ch_2` across this library and the
+-- manuscript. They are catalogued as S1–S7 in codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md.
+-- Phase B renamed the Lean declarations to describe what each one actually is and left
+-- @[deprecated] aliases at every old name. The banners below name the class each module carries.
+-- No bridge between the classes is proved anywhere in PF; S4 (Ch 32 EEG surrogate) and S7
+-- (genuine Chern–Weil ch₂) have no Lean content at all.
+import PF.Consciousness.TimelessField  -- T_∞ projective-limit skeleton + threshold-95 crystallization predicate. ch_2 DISAMBIGUATION 2026-09-16 (ledger S5, codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md): the 0.95 is the postulated 19/20 phenomenological anchor per ch06:188–198, NOT a derived value, and the quantity compared against it is the bounded carrier (S2), NOT a topological invariant. `SpacetimeEmergence` / `ForceUnification` in this module remain `Nonempty (T → T)` placeholders witnessed by `id`; they establish nothing about spacetime or forces.
+import PF.Consciousness.ChernCharacter  -- Target-anchored affine α-score + threshold-95 iff (Ch 06, 07, 21, 32). ch_2 DISAMBIGUATION 2026-09-16 (ledger S1, codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md): canonical content is `alphaAffineScore α = 0.95 + (α − √2)/10`, an affine function of one real parameter with 0.95 baked into the definition. Despite the module name it is NOT the second Chern character and NOT any topological invariant; `ch_2` here is a deprecated alias for that affine function. The "crystallization iff" is an iff about that affine function crossing its own intercept at α = √2 — it is a restatement of the definition, NOT a derivation of the threshold.
 import PF.Consciousness.FractalResonance -- Ch 03 R_f(α, s): complex-s form, |Re s > 1| convergence, α=0 → ζ, 6-class bridge
 
 -- ============================================================================
@@ -546,7 +553,7 @@ import PF.HodgeCodim2UniruledThreefoldVoisin2018Attempt  -- 2026-06-01 Wave 55D 
 import PF.PolylogConjecturePrimeDecoupledAttempt  -- 2026-06-01 Wave 55E — PolylogEigenvalueConjecture' decoupled from alpha_of_class. Isolates which content survives Wave 41B sharp no-go. ZERO project axioms.
 import PF.BSDMordellWeilRankZeroTypedEmpiricalAnchor  -- 2026-06-01 Wave 55F-emp — bridge Wave 55F to IBM α_BSD = 3π/4 anchor (11-cluster). 3 cross-Millennium algebraic bridges. ZERO project axioms.
 import PF.RfIntegerAlphaDichotomy  -- 2026-06-01 Wave 55-R_f ★ — full integer-α R_f dichotomy theorem PROVEN axiom-free: R_f(k,s) = ζ-series for even k, -η(s) for odd k via digitalSum3_mod_two. REFUTES Ch 7 Thm 7.6 fine-structure number R_f(1,2) ≈ 0.0233812 (manuscript) vs proven -π²/12 ≈ -0.8225 (sign+35× error). ZERO project axioms.
-import PF.Consciousness.Ch2PhiBridgeDischarge  -- 2026-06-01 Wave 55-Φ ★ — manuscript Ch 31 central claim ch₂ ≤ 1 − exp(−Φ_IIT/2) PROVEN axiom-free THEOREM at finite-dim Schmidt level (was Prop). Uses mathlib Real.geom_mean_le_arith_mean_weighted. Also PROVES ¬ Ch2PhiBridge (original universal form is FALSIFIABLE). ZERO project axioms.
+import PF.Consciousness.Ch2PhiBridgeDischarge  -- 2026-06-01 Wave 55-Φ ★ — manuscript Ch 31 central claim ch₂ ≤ 1 − exp(−Φ_IIT/2) PROVEN axiom-free THEOREM at finite-dim Schmidt level (was Prop). Uses mathlib Real.geom_mean_le_arith_mean_weighted. Also PROVES ¬ Ch2PhiBridge (original universal form is FALSIFIABLE). ZERO project axioms. ch₂ DISAMBIGUATION 2026-09-16 (ledger S3, codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md): the ch₂ on the left-hand side is the Schmidt-spectrum linear entropy 1 − Tr(ρ²), a genuine quantum-information quantity, correctly defined. It is NOT the affine α-score (S1) and NOT the topological second Chern character (S7); no proof relates them.
 import PF.Cosmology.E6ChernWeil78piFirstPrinciplesAttempt  -- 2026-06-01 Wave 55-Λ — sharpens 78π Chern-Weil. Anchors dim_E6 = 78 to mathlib Cartan matrix. Tighter bracket (245, 245.05). Factors degenerate ∃N=78π into 4 NAMED mathlib gaps: E6FinrankAvailable / PrincipalBundleInfrastructureAvailable / ChernWeilHomomorphismAvailable / RPlusScalingFibreNormalisationAvailable. Mathlib audit confirms: zero Chern / zero PrincipalBundle / LieAlgebra.e₆ free-quotient. NOT a Clay discharge. Structured gap identification, not faked derivation. ZERO project axioms.
 import PF.Ch11AnomalyCancellationRefutationAttempt  -- 2026-06-01 Wave 55-Ch11 ★★★ — axiom-free REFUTATION of Ch 11 Thm 11.5 (anomaly_cancel ch_2 = 0.95 — actual (4π)^7·10^7/(8174·10^14) < 1/1000, off by 1570×) AND Prop 11.6 (√(5/(π+5)) = 0.95 — actual ≈ 0.7837). The manuscript's "twice determined" claim collapses on BOTH legs. NOT a Clay discharge; framework's ch_2 = 0.95 has other untouched derivations (Ch 6 Chern-Weil, Ch 31 ch₂↔Φ via Wave 55-Φ). ZERO project axioms.
 import PF.AppA_R_f_ResonanceCoefficientsRefutationAttempt  -- 2026-06-01 Wave 55-appA — appA L153 Resonance Coefficients table refutation. Sign-discrepancy obstruction: table claims positive reals ≈ 0.99, framework's R_f(1, 1) = -log 2 < 0. Encodes 7 manuscript targets as concrete rationals + named open Prop for the deeper numerical question. Provenance disclosure for missing resonance_values.csv. NOT a Clay discharge. ZERO project axioms.

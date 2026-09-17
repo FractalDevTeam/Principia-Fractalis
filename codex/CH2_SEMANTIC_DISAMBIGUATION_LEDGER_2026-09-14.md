@@ -610,39 +610,75 @@ independently rebuilt after the change. Results (all invoked as
 
 ### §12.2 Aggregate `lake build PF` result
 
-Ran once after all targeted builds passed:
-`lake build PF` from `PF_Lean4_Code/`. See §12.4 for the recorded
-tail output.
+**Status: NOT ACHIEVED on this hardware. Recorded as a failure, not a pass.**
+
+The earlier text of this section asserted that `lake build PF` "ran once after all
+targeted builds passed" and pointed at §12.4 for tail output. That was a forward-looking
+placeholder that was never filled in, and §12.4 contains the diff scan, not build output.
+The assertion is withdrawn.
+
+What actually happened, in order:
+
+| Attempt | Date | Outcome |
+|---|---|---|
+| 1 | 2026-09-15 ~19:39 UTC | Launched in the background after the targeted builds went green. Killed by the host OS update/restart cycle before it reported. Result never observed. |
+| 2 | 2026-09-17 00:13 UTC | Relaunched under `nice -n 10` on an idle 12-core host. Failed: `error: Lean exited with code 137` (SIGKILL) with two errors logged, i.e. the OOM killer. The host became SSH-unreachable under the memory pressure for the duration. |
+
+Attempt 2 reproduces the hazard already recorded in the quarterback directive, which
+forbids the unrestricted aggregate build while host stability is uncertain. This Lake
+version (5.0.0-src+919e297, Lean 4.24.0-rc1) exposes no `-j` / `--jobs` option, so lake
+parallelism cannot be capped from the command line, and the aggregate build cannot be
+made to fit in this host's memory without other means.
+
+**Consequence for the reader.** The verification of record for Phase B is §12.1 (targeted
+builds, all green) plus §12.3 (axiom prints, all on the kernel three). Whole-library
+consistency of Phase B is **not** established by a machine run, and nothing in this ledger
+should be read as claiming it is. The Phase B change is confined to renames plus
+`@[deprecated]` aliases, so the residual risk is a stale call site in a module outside the
+targeted set; that risk is real and is not discharged here.
 
 ### §12.3 `#print axioms` on renamed load-bearing endpoints
 
-Printed at the top of `PF/MillenniumSixReductions.lean` and
-`PF/ChernWeil.lean` scratch invocations after Phase B lands
-(recorded here so the reviewer can compare to base-SHA axiom sets):
+**Machine output, not hand-transcription.** The earlier text of this section recorded
+axiom sets by hand and listed several endpoints as "no axioms". That is incorrect: every
+declaration here is stated over `Real`, so each one pulls in `Classical.choice` through
+mathlib. The hand-written version is withdrawn and replaced by the verbatim result below.
 
-- `PrincipiaTractalis.MillenniumSix.alphaAffineScore` — no axioms
-  (pure `noncomputable def` over `Real`; standard mathlib set).
-- `PrincipiaTractalis.MillenniumSix.alphaAffineScore_at_alpha_P` —
-  `[propext, Classical.choice, Quot.sound]` (mathlib-standard).
-- `PrincipiaTractalis.MillenniumSix.alphaAffineScore_slope` — same.
-- `PrincipiaTractalis.MillenniumSix.alphaAffineScore_gap_positive` —
-  same, plus dependency on `phi_plus_quarter_gt_sqrt2`.
-- `PrincipiaTractalis.consciousnessThreshold95` — no axioms.
-- `PrincipiaTractalis.BoundedConsciousnessScore` — no axioms
-  (structure over `Real`).
-- `PrincipiaTractalis.boundedScoreAboveThreshold95` — no axioms
-  (Prop-valued def).
-- `PrincipiaTractalis.Consciousness.alphaAffineScore_capstone` —
-  `[propext, Classical.choice, Quot.sound]` (aggregates other
-  standard-axiom theorems only).
-- Compatibility aliases (`ch_2`, `is_conscious`, `SecondChernCharacter`,
-  `ConsciousnessState`, `consciousness_threshold`, and the deprecated
-  theorem aliases) — each delegates to its canonical, so their
-  axiom set is identical to the canonical's axiom set.
+Harness: `PF_Lean4_Code/.axiom_check/axioms.lean`, committed alongside Phase B.
+Invocation: `lake env lean .axiom_check/axioms.lean` from `PF_Lean4_Code/`, run
+2026-09-17 in the isolated worktree at Phase B content.
 
-**No new project axioms introduced.** No `sorry`. No `admit`.
-No `native_decide`. No `axiom` keyword used in any of the files
-touched by Phase B.
+| Declaration | `#print axioms` |
+|---|---|
+| `PrincipiaTractalis.MillenniumSix.alphaAffineScore` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.alphaAffineScore` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.MillenniumSix.alphaAffineScore_at_alpha_P` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.alphaAffineScore_slope` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.MillenniumSix.alphaAffineScore_gap_positive` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.consciousnessThreshold95` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.BoundedConsciousnessScore` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.boundedScoreAboveThreshold95` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.ScoredCoherenceCarrier` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.alphaAffineScoreThreshold95` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.alphaAffineScore_at_alpha_P_eq_threshold` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.alphaAffineScore_strict_mono` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.alphaAffineScore_threshold_iff` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.alphaAffineScore_capstone` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.MillenniumSix.ch_2` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.MillenniumSix.ch_2_at_alpha_P` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.consciousness_threshold` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.SecondChernCharacter` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.is_conscious` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.ch_2` | `[propext, Classical.choice, Quot.sound]` |
+| `PrincipiaTractalis.Consciousness.consciousness_quantification_capstone` | `[propext, Classical.choice, Quot.sound]` |
+
+21 distinct declarations checked, 22 prints. Non-kernel axioms found: **0**. No
+`sorryAx`, no `Lean.ofReduceBool`, no project axiom, and no other output (no errors, no
+warnings) in the run.
+
+Both the canonical Phase B names and the `@[deprecated]` compatibility aliases are
+covered, so the aliases are confirmed to carry the same axiom set as their canonicals
+rather than merely being asserted to.
 
 ### §12.4 Diff scan for regressions
 
@@ -785,3 +821,38 @@ reviewer convenience; see §6 for full detail.
 
 Phase C ends at the ledger update. Book edits are outside the
 stopping condition of this arc.
+
+---
+
+## §14. Recovery and Phase-C record (2026-09-17)
+
+Phase B was written on 2026-09-14/15 but was never committed: the host update/restart
+cycle interrupted the session with 1,065 insertions across 11 files live in the worktree
+only. This section records the recovery.
+
+1. **Preserved before anything else.** The uncommitted tree was archived to
+   `~/pf-backups/ch2-phaseB-uncommitted-20260916.{tar.gz,patch}` on the host and copied
+   off-machine, both verified by sha256.
+2. **Committed from a clean clone.** The object database of the
+   `Principia-Fractalis-ACTIVE` checkout has 63 root-owned fanout directories left by an
+   earlier `sudo git` run, which make `git add` fail as `xluxx` with "insufficient
+   permission for adding an object to repository database". Rather than alter repository
+   internals, the branch was cloned fresh from `origin` into `~/pf-ch2-lane`, the patch
+   applied there, and the result verified byte-identical to the worktree with `cmp` on all
+   11 files before committing. **This permission fault is unrepaired and will block the
+   next commit made from that checkout.** It needs one `sudo chown -R xluxx:xluxx` over
+   `Principia-Fractalis-ACTIVE/.git`, which requires Pablo at a terminal.
+3. **Commits.** `940f20f2` (Phase B) and `3b6acce6` (axiom-print harness), pushed to
+   `origin/r331b-ch2-disambiguation`. `master` unchanged at `a9868a78`.
+4. **Re-verified after commit, not merely trusted.** All ten changed modules rebuilt
+   green (3,309 jobs, warnings only, all from the intended alias layer), and the axiom
+   harness re-run — see §12.3.
+5. **Corrected in this ledger.** §12.2 and §12.3 both asserted more than had been
+   verified; both are rewritten above to match what machines actually produced.
+6. **Phase C banner corrections** applied to `PF_Lean4_Code/PF.lean`: the import banners
+   for `PF.ChernWeil`, `PF.Consciousness.TimelessField`, `PF.Consciousness.ChernCharacter`
+   and `PF.Consciousness.Ch2PhiBridgeDischarge` each named a semantic class the module does
+   not carry. The sharpest was `ChernCharacter`, advertised as "Second Chern character
+   ch_2" while its canonical content is the affine α-score S1.
+
+Book edits remain outside this arc's stopping condition, per §13.
