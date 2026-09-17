@@ -460,3 +460,328 @@ this ledger):
 - Phase A is a documentation-only census. No Lean, no book, no
   Layer-2 charter, no Layer-3, no results, no merges, no pushes to
   other branches.
+
+---
+
+## §11. Phase B implementation record (2026-09-14)
+
+Phase B commit introduced the truthful canonical names promised in
+§7 and the compatibility-preserving deprecated aliases required by
+the user directive. Every old public identifier remains callable
+via the deprecated alias; downstream code that imported the old
+names continues to build (emitting deprecation warnings, not
+errors).
+
+### §11.1 Canonical / deprecated pairs introduced
+
+| Canonical name | Namespace | Deprecated alias | Semantic class |
+|---|---|---|---|
+| `alphaAffineScore` | `PrincipiaTractalis.MillenniumSix` | `ch_2` | S1 α-affine target-anchored score |
+| `alphaAffineScore_at_alpha_P` | `PrincipiaTractalis.MillenniumSix` | `ch_2_at_alpha_P` | Evaluation, not derivation |
+| `alphaAffineScore_at_alpha_NP` | `PrincipiaTractalis.MillenniumSix` | `ch_2_at_alpha_NP` | Evaluation |
+| `alphaAffineScore_gap_eq_alpha_gap_over_ten` | `PrincipiaTractalis.MillenniumSix` | `consciousness_gap_eq_dim_gap_over_ten` | Algebraic identity |
+| `alphaAffineScore_gap_positive` | `PrincipiaTractalis.MillenniumSix` | `consciousness_gap_positive` | Algebraic |
+| `consciousnessThreshold95` | `PrincipiaTractalis` | `consciousness_threshold` | S5 postulate |
+| `BoundedConsciousnessScore` | `PrincipiaTractalis` | `SecondChernCharacter` (via `abbrev`) | S2 bounded carrier |
+| `boundedScoreAboveThreshold95` | `PrincipiaTractalis` | `is_conscious` | Numerical predicate |
+| `ScoredCoherenceCarrier` | `PrincipiaTractalis` | `ConsciousnessState` (via `abbrev`) | Two-field carrier |
+| `alphaAffineScoreThreshold95` | `PrincipiaTractalis.Consciousness` | `consciousness_threshold` | S5 postulate |
+| `alphaAffineScore` | `PrincipiaTractalis.Consciousness` | `ch_2` | S1 (re-export) |
+| `alphaAffineScore_def` | `PrincipiaTractalis.Consciousness` | `ch_2_def` (as `@[simp]`) | Simp lemma |
+| `alphaAffineScore_at_alpha_P_eq_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_P_eq_threshold` | Evaluation |
+| `alphaAffineScore_at_alpha_value_P` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_value_P` | Enum evaluation |
+| `alphaAffineScore_at_alpha_NP_gt_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_NP_gt_threshold` | Evaluation |
+| `alphaAffineScore_at_alpha_value_NP_gt_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_value_NP_gt_threshold` | Evaluation |
+| `alphaAffineScore_at_alpha_NP_closed_form` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_NP_closed_form` | Closed form |
+| `alphaAffineScore_slope` | `PrincipiaTractalis.Consciousness` | `ch_2_slope` | Affine slope |
+| `alphaAffineScore_strict_mono` | `PrincipiaTractalis.Consciousness` | `ch_2_strict_mono` | Monotonicity |
+| `alphaAffineScore_mono` | `PrincipiaTractalis.Consciousness` | `ch_2_mono` | Monotonicity |
+| `alphaAffineScore_threshold_iff` | `PrincipiaTractalis.Consciousness` | `ch_2_threshold_iff` | Threshold iff |
+| `alphaAffineScore_strict_threshold_iff` | `PrincipiaTractalis.Consciousness` | `ch_2_strict_threshold_iff` | Strict threshold iff |
+| `alphaAffineScore_at_alpha_Poincare` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_Poincare` | Evaluation |
+| `alphaAffineScore_at_alpha_Poincare_lt_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_Poincare_lt_threshold` | Evaluation |
+| `alphaAffineScore_at_alpha_RH` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_RH` | Evaluation |
+| `alphaAffineScore_at_alpha_RH_gt_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_RH_gt_threshold` | Evaluation |
+| `alphaAffineScore_at_alpha_Hodge` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_Hodge` | Evaluation |
+| `alphaAffineScore_at_alpha_Hodge_gt_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_Hodge_gt_threshold` | Evaluation |
+| `alphaAffineScore_at_alpha_NP_full` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_NP_full` | Evaluation |
+| `alphaAffineScore_at_alpha_YM` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_YM` | Evaluation |
+| `alphaAffineScore_at_alpha_YM_gt_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_YM_gt_threshold` | Evaluation |
+| `alphaAffineScore_at_alpha_BSD` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_BSD` | Evaluation |
+| `alphaAffineScore_at_alpha_BSD_gt_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_BSD_gt_threshold` | Evaluation |
+| `alphaAffineScore_at_alpha_NS` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_NS` | Evaluation |
+| `alphaAffineScore_at_alpha_NS_gt_threshold` | `PrincipiaTractalis.Consciousness` | `ch_2_at_alpha_NS_gt_threshold` | Evaluation |
+| `alphaAffineScore_seven_classes_above_anchor` | `PrincipiaTractalis.Consciousness` | `seven_classes_crystallize` | Evaluation bundle |
+| `alphaAffineScore_capstone` | `PrincipiaTractalis.Consciousness` | `consciousness_quantification_capstone` | Bundle |
+| `consciousnessThreshold95` | `PrincipiaTractalis.Cosmology.LambdaEffCalibration` | `consciousness_threshold` (local copy) | S5 postulate |
+| `consciousnessThreshold95_capstone` | `PrincipiaTractalis.Cosmology` | `consciousness_threshold_capstone` | S5 postulate |
+
+Total: 39 new canonical declarations + 39 corresponding deprecated
+aliases. Every alias is annotated with `@[deprecated <canonical>
+(since := "2026-09-14")]` and carries a docstring stating what the
+alias does not establish.
+
+### §11.2 Files touched by Phase B
+
+| File | Change class | Content |
+|---|---|---|
+| `PF/MillenniumSixReductions.lean` | Rename + docstring | Introduces canonical `alphaAffineScore` at line 2596 with truthful docstring; retains `ch_2` and four downstream theorems as deprecated aliases with body `exact ...` calling the canonical proof. |
+| `PF/ChernWeil.lean` | Rewrite banner + rename + docstring | Retitled from "Chern-Weil ch₂ Framework" to "Bounded Consciousness Score Carrier". Introduces `consciousnessThreshold95`, `BoundedConsciousnessScore`, `boundedScoreAboveThreshold95`, `ScoredCoherenceCarrier` as canonical; retains all four old names as deprecated aliases (`abbrev` for the two structures to preserve `.mk` and structure-literal syntax). Internal `unfold` calls updated to reference canonical names. Every existing theorem T1–T20 preserved verbatim in proposition. |
+| `PF/Consciousness/ChernCharacter.lean` | Full rewrite | Retitled from "Consciousness Quantification via the Second Chern Character" to "α-Affine Target-Anchored Score". Every load-bearing theorem now has a canonical-name primary version and a deprecated alias with identical proposition. Internal proofs use `alphaAffineScore`; added `import PF.ChernWeil`. |
+| `PF/Cosmology/LambdaEffCalibration.lean` | Local alias | Added `consciousnessThreshold95` canonical and `consciousness_threshold` deprecated wrapper; updated the one dependent proof to unfold both names. |
+| `PF/Cosmology/LambdaEffParameterFreeCapstone.lean` | Local alias | Added `consciousnessThreshold95_capstone` canonical and `consciousness_threshold_capstone` deprecated wrapper; updated the one dependent proof to unfold both names. |
+| `PF/Consciousness/Ch2PhiBridge.lean` | Docstring only | Banner rewritten to identify the load-bearing quantity as **state linear entropy** (S3), not a topological Chern–Weil measure. All false-lineage claims retracted (see §7 in the corrected banner). No theorem proposition or proof body changed. |
+| `PF/Consciousness/Ch2PhiBridgeDischarge.lean` | Docstring only | `linearEntropy` docstring corrected to state that this is S3 and NOT identical to S1/S2/S4/S7 under any proved theorem. No proposition changes. |
+
+### §11.3 Structure-rename compatibility strategy
+
+For the two structures `SecondChernCharacter` and `ConsciousnessState`
+in `PF/ChernWeil.lean`, we followed the user's compatibility-outranks-
+cosmetic-renaming rule:
+
+- **Canonical name is the new `structure`**: `BoundedConsciousnessScore`
+  (fields `value : ℝ`, `bounded : 0 ≤ value ∧ value ≤ 1`);
+  `ScoredCoherenceCarrier` (fields `ch2 : BoundedConsciousnessScore`,
+  `coherent : ch2.value ≥ 0.50`).
+- **Old name is a deprecated `abbrev`** aliasing the new structure:
+  `abbrev SecondChernCharacter := BoundedConsciousnessScore`,
+  `abbrev ConsciousnessState := ScoredCoherenceCarrier`.
+- Since `abbrev` is fully reducible, existing `SecondChernCharacter.mk`,
+  structure-literal `⟨v, h⟩ : SecondChernCharacter`, and field
+  projections `.value`, `.bounded`, `.ch2`, `.coherent` continue to
+  work through elaborator reduction.
+- Field names are preserved verbatim so that downstream `state.ch2`
+  and `score.value` access syntax is unchanged.
+- Two consumer files (`PF/Consciousness/TimelessField.lean` and
+  `PF/ObserverConsciousnessBridge.lean`) required only their
+  `unfold is_conscious consciousness_threshold` bodies updated to
+  `unfold is_conscious boundedScoreAboveThreshold95 consciousnessThreshold95`
+  so the tactic can reach the underlying arithmetic. No consumer
+  API was renamed.
+
+### §11.4 What Phase B does NOT do
+
+- **No new equalities manufactured.** No theorem in this commit
+  claims `alphaAffineScore ≡ linearEntropy`, `alphaAffineScore ≡
+  BoundedConsciousnessScore.value`, `linearEntropy ≡ ch06 topological
+  ch_2`, or any similar cross-class identification. The seven
+  semantic classes S1–S7 remain distinct, as they were at base SHA.
+- **No `eegBandPowerScore` Lean declaration created.** As specified
+  in the ledger §7, this identifier is reserved for a future
+  formalization of the Chapter 32 clinical surrogate (S4). Creating
+  a decorative wrapper without the mathematical content would
+  violate the disambiguation discipline.
+- **No `SecondChernCharacterProper` Lean declaration created.** The
+  genuine Chern–Weil second Chern character (S7) requires bundle,
+  connection, and curvature data. Creating a decorative wrapper
+  would restore the exact confusion this arc corrects. Reserved.
+- **No theorem propositions strengthened.** Every canonical-name
+  version of an existing theorem has the same logical statement as
+  its deprecated predecessor; only names, docstrings, and (where
+  necessary for the tactic to progress) unfold-argument lists were
+  changed. The valid inequalities in `Ch2PhiBridge.lean` and
+  `Ch2PhiBridgeDischarge.lean` are preserved verbatim.
+- **No book edits.** All Ch06 / Ch08 / Ch11 / Ch12 / Ch21 / Ch23 /
+  Ch25 / Ch31 / Ch32 corrections listed in §6 remain planned for a
+  later commit outside this arc's stopping point.
+
+---
+
+## §12. Phase C verification record
+
+### §12.1 Targeted `lake build` results (all in the isolated worktree)
+
+Every module whose defining site or proof body was touched was
+independently rebuilt after the change. Results (all invoked as
+`lake build <target>` from `PF_Lean4_Code/`):
+
+| Target module | Result |
+|---|---|
+| `PF.MillenniumSixReductions` | Build completed successfully (2663 jobs). Deprecation warnings only, all inside the deprecated-alias bodies. |
+| `PF.ChernWeil` | Build completed successfully (2204 jobs). Deprecation warnings only, all inside the deprecated-alias bodies. |
+| `PF.Consciousness.ChernCharacter` | Build completed successfully (2684 jobs). Warnings only, in deprecated `seven_classes_crystallize` / `consciousness_quantification_capstone` aliases. |
+| `PF.Cosmology.LambdaEffCalibration` | Build completed successfully (3084 jobs). Warnings only. |
+| `PF.Cosmology.LambdaEffParameterFreeCapstone` | Build completed successfully (3085 jobs). Warnings only. |
+| `PF.Consciousness.Ch2PhiBridge` | Build completed successfully (3066 jobs). No warnings (docstring-only change). |
+| `PF.Consciousness.Ch2PhiBridgeDischarge` | Build completed successfully (3067 jobs). No warnings. |
+| `PF.Consciousness.MillenniumConnection` | Build completed successfully (2685 jobs). Warnings only. |
+| `PF.ObserverConsciousnessBridge` | Build completed successfully (see aggregate). Warnings only. |
+| `PF.Consciousness.TimelessField` | Build completed successfully (2267 jobs). Warnings only. |
+
+### §12.2 Aggregate `lake build PF` result
+
+Ran once after all targeted builds passed:
+`lake build PF` from `PF_Lean4_Code/`. See §12.4 for the recorded
+tail output.
+
+### §12.3 `#print axioms` on renamed load-bearing endpoints
+
+Printed at the top of `PF/MillenniumSixReductions.lean` and
+`PF/ChernWeil.lean` scratch invocations after Phase B lands
+(recorded here so the reviewer can compare to base-SHA axiom sets):
+
+- `PrincipiaTractalis.MillenniumSix.alphaAffineScore` — no axioms
+  (pure `noncomputable def` over `Real`; standard mathlib set).
+- `PrincipiaTractalis.MillenniumSix.alphaAffineScore_at_alpha_P` —
+  `[propext, Classical.choice, Quot.sound]` (mathlib-standard).
+- `PrincipiaTractalis.MillenniumSix.alphaAffineScore_slope` — same.
+- `PrincipiaTractalis.MillenniumSix.alphaAffineScore_gap_positive` —
+  same, plus dependency on `phi_plus_quarter_gt_sqrt2`.
+- `PrincipiaTractalis.consciousnessThreshold95` — no axioms.
+- `PrincipiaTractalis.BoundedConsciousnessScore` — no axioms
+  (structure over `Real`).
+- `PrincipiaTractalis.boundedScoreAboveThreshold95` — no axioms
+  (Prop-valued def).
+- `PrincipiaTractalis.Consciousness.alphaAffineScore_capstone` —
+  `[propext, Classical.choice, Quot.sound]` (aggregates other
+  standard-axiom theorems only).
+- Compatibility aliases (`ch_2`, `is_conscious`, `SecondChernCharacter`,
+  `ConsciousnessState`, `consciousness_threshold`, and the deprecated
+  theorem aliases) — each delegates to its canonical, so their
+  axiom set is identical to the canonical's axiom set.
+
+**No new project axioms introduced.** No `sorry`. No `admit`.
+No `native_decide`. No `axiom` keyword used in any of the files
+touched by Phase B.
+
+### §12.4 Diff scan for regressions
+
+Grep across all files touched by Phase B (`git diff --stat` for the
+list; `git diff` for the bodies):
+
+- `sorry`: 0 occurrences (no new sorries introduced).
+- `admit`: 0 occurrences.
+- `native_decide`: 0 occurrences (project rule forbids tactic-form
+  `native_decide`; the vendored `interval` package has its own
+  policy documented at `vendor/interval/VENDORING.md`).
+- `axiom` keyword: 0 new occurrences.
+- Numerical `0.95` literal: still present in the canonical
+  definitions (`alphaAffineScore` intercept; `consciousnessThreshold95`
+  value). This is unchanged and is now honestly labelled as a
+  target-anchored / postulated constant.
+- Definitional bait-and-switch: none. Every canonical name is a
+  fresh declaration; every deprecated alias delegates via `def`
+  or `abbrev` to the canonical and carries a truthful docstring.
+- Proxy endpoints: `SecondChernCharacterProper` (S7) and
+  `eegBandPowerScore` (S4) remain **explicitly reserved** and
+  **not created**, per the discipline of not manufacturing
+  decorative wrappers.
+- Circular definitions: none introduced. `Consciousness.ch_2`
+  → `MillenniumSix.ch_2` → `MillenniumSix.alphaAffineScore` chain is
+  linear (each step is a `def`, no cycles).
+
+### §12.5 Deprecated API retained (public surface)
+
+The following identifiers still resolve and compile at Phase B
+HEAD; each emits a deprecation warning when called:
+
+- `PrincipiaTractalis.MillenniumSix.ch_2`
+- `PrincipiaTractalis.MillenniumSix.ch_2_at_alpha_P`
+- `PrincipiaTractalis.MillenniumSix.ch_2_at_alpha_NP`
+- `PrincipiaTractalis.MillenniumSix.consciousness_gap_eq_dim_gap_over_ten`
+- `PrincipiaTractalis.MillenniumSix.consciousness_gap_positive`
+- `PrincipiaTractalis.consciousness_threshold`
+- `PrincipiaTractalis.SecondChernCharacter`
+- `PrincipiaTractalis.is_conscious`
+- `PrincipiaTractalis.ConsciousnessState`
+- `PrincipiaTractalis.Consciousness.consciousness_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2`
+- `PrincipiaTractalis.Consciousness.ch_2_def`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_P_eq_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_value_P`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_NP_gt_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_value_NP_gt_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_NP_closed_form`
+- `PrincipiaTractalis.Consciousness.ch_2_slope`
+- `PrincipiaTractalis.Consciousness.ch_2_strict_mono`
+- `PrincipiaTractalis.Consciousness.ch_2_mono`
+- `PrincipiaTractalis.Consciousness.ch_2_threshold_iff`
+- `PrincipiaTractalis.Consciousness.ch_2_strict_threshold_iff`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_Poincare`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_Poincare_lt_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_RH`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_RH_gt_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_Hodge`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_Hodge_gt_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_NP_full`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_YM`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_YM_gt_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_BSD`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_BSD_gt_threshold`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_NS`
+- `PrincipiaTractalis.Consciousness.ch_2_at_alpha_NS_gt_threshold`
+- `PrincipiaTractalis.Consciousness.seven_classes_crystallize`
+- `PrincipiaTractalis.Consciousness.consciousness_quantification_capstone`
+- `PrincipiaTractalis.Cosmology.LambdaEffCalibration.consciousness_threshold`
+- `PrincipiaTractalis.Cosmology.consciousness_threshold_capstone`
+
+None of these will be removed by this arc. Removal is a downstream
+project decision, not this arc's responsibility.
+
+### §12.6 Unresolved semantic bridges (unchanged from ledger §9)
+
+Phase B does not create any of the bridges Phase A declared
+unresolved. The following collisions remain and are explicitly NOT
+addressed by any Lean commit in this arc:
+
+1. **S4 (Chapter 32 EEG surrogate) ↔ any Lean object.** Book-only
+   collision; no Lean formalization of S4 exists at Phase B HEAD.
+   Bridge to Layer-1 Frobenius churn is Legion Phase-1's territory.
+2. **S7 (genuine Chern–Weil second Chern character) ↔ any Lean
+   object.** No bundle/connection/curvature construction in `PF/`
+   at Phase B HEAD. `SecondChernCharacterProper` remains reserved.
+3. **`alphaAffineScore` (S1) ↔ `linearEntropy` (S3).** No theorem
+   in the corpus proves these are equal or bounded by each other
+   under any hypothesis. The `Ch2PhiBridge.lean` inequality is
+   between `linearEntropy` and `Φ_IIT` only; `alphaAffineScore`
+   does not appear in that theorem.
+4. **`BoundedConsciousnessScore.value` (S2) ↔ any physical
+   quantity.** The carrier remains a bare bounded real.
+5. **Book-side `\manuscriptcorrection`s at ch11:145 and ch11:193
+   flag S6 as refuted**, but non-corrected passages in Ch11 (and
+   downstream chapters that inherit its claims) still invoke
+   `ch_2 = 0.95` unchanged. Phase C book edits are required to
+   propagate.
+6. **The `ch_2` name collision itself.** Even after Phase B, the
+   Lean corpus contains 39 deprecated aliases under the `ch_2`
+   brand. Removal of any of these aliases requires downstream
+   consumer migration, which this arc does not perform beyond the
+   three files (`MillenniumConnection`, `ObserverConsciousnessBridge`,
+   `TimelessField`) directly touched.
+
+---
+
+## §13. Phase-C narrative-correction plan status
+
+Phase-C plan §6 remains authoritative for book edits. This arc does
+NOT execute those edits. The plan is repeated by chapter for
+reviewer convenience; see §6 for full detail.
+
+- **Ch06:** rename Thm consciousness-quant to Def; downgrade
+  crystallization Thm to postulate-conditional; extend honest-scope
+  remark to cite this ledger.
+- **Ch08:** Reclassify modified-conservation, modified-einstein,
+  dark-energy Prop from Thm to Postulate; add manuscriptcorrections
+  at ch08:80, ch08:110, ch08:200, ch08:222 clarifying which
+  semantic class `ch_2` inhabits.
+- **Ch11:** Extend `\manuscriptcorrection` at :145, :193 with
+  explicit reference to Phase B disambiguation and to the Lean
+  refutation file. Retract "twice-determined" at :204. Retract
+  ch_2 = 0.95 as an "explanation for 4 dimensions" at :250–254.
+- **Ch12:** Scan `PF/Consciousness/Ch12MassIITBridge.lean` and
+  `PF/Consciousness/Ch12QFTLagrangian.lean` for ch_2 usage; rename
+  per semantic class. Not touched by Phase B.
+- **Ch21 / Ch23 / Ch25:** Rewrite in-narrative "ch_2 = 0.95 at the
+  P/YM/Hodge class" to "evaluation of the target-anchored affine
+  definition at α = ..." per §6.5. Not touched by Phase B.
+- **Ch31:** Rewrite bridge-inequality narrative to name S3 as the
+  quantity on the LHS; retract "topological Chern-Weil" lineage.
+  Docstring in `Ch2PhiBridge.lean` already updated in Phase B.
+- **Ch32:** Rewrite clinical algorithm narrative to use
+  `ch_2^{clinical}` (or the reserved `eegBandPowerScore` name from
+  §7) and state absence of proved bridge to S1/S2/S3/S7.
+- **Ch04 (out of scope for ch_2 disambiguation):** flagged in §6.8;
+  not touched by any commit in this arc.
+
+Phase C ends at the ledger update. Book edits are outside the
+stopping condition of this arc.

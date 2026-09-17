@@ -78,7 +78,7 @@ open Real
     functionally dependent on α and form the structural data
     associated with each Millennium problem. -/
 noncomputable def millenniumConsciousnessTriple (c : AlphaClass8) : ℝ × ℝ × ℝ :=
-  (alpha_value c, lambda_0_canonical c, ch_2 (alpha_value c))
+  (alpha_value c, lambda_0_canonical c, alphaAffineScore (alpha_value c))
 
 /-- The α-coupling: triple's first component is α. -/
 theorem millenniumConsciousnessTriple_first (c : AlphaClass8) :
@@ -90,10 +90,22 @@ theorem millenniumConsciousnessTriple_lambda (c : AlphaClass8) :
   unfold millenniumConsciousnessTriple lambda_0_canonical
   rfl
 
-/-- The ch_2-coupling: triple's third component is `0.95 + (α − √2)/10`. -/
+/-- The α-affine-score coupling: triple's third component is
+    `0.95 + (α − √2)/10`.
+
+    Semantic class per `codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md`:
+    S1 (α-affine target-anchored score `alphaAffineScore`). This
+    equality is an evaluation of the target-anchored affine
+    definition, not a derivation.
+
+    The legacy theorem name (`millenniumConsciousnessTriple_ch_2`)
+    is retained for downstream compatibility; the proof body now
+    unfolds via the canonical `alphaAffineScore` rather than the
+    deprecated `ch_2` and `MillenniumSix.ch_2`. -/
 theorem millenniumConsciousnessTriple_ch_2 (c : AlphaClass8) :
     (millenniumConsciousnessTriple c).2.2 = 0.95 + (alpha_value c - Real.sqrt 2)/10 := by
-  unfold millenniumConsciousnessTriple ch_2 PrincipiaTractalis.MillenniumSix.ch_2
+  unfold millenniumConsciousnessTriple alphaAffineScore
+    PrincipiaTractalis.MillenniumSix.alphaAffineScore
   rfl
 
 /-! ## Monotonicity coupling — spectral and consciousness orderings ALIGN

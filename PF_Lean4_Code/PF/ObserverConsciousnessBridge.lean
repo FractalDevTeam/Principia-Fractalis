@@ -205,7 +205,7 @@ open PrincipiaTractalis (consciousness_threshold) in
 theorem consciousness_threshold_observer_invariant
     (O : Observer) (f : ObserverFrame) (c : SecondChernCharacter) :
     is_conscious c ↔ c.value ≥ 0.95 := by
-  unfold is_conscious consciousness_threshold
+  unfold is_conscious boundedScoreAboveThreshold95 consciousnessThreshold95
   exact ⟨id, id⟩
 
 /-! ## Canonical-observer instantiations

@@ -1,75 +1,83 @@
 /-
-# ch_2 ↔ Tononi Φ Closed-Form Bridge
+# State-Linear-Entropy ↔ Tononi Φ Closed-Form Bridge
+  (formerly "ch_2 ↔ Tononi Φ Closed-Form Bridge")
 
-★ DISCOVERED 2026-05-24 via Wave 10 ch_2-vs-Φ agent ★
+**Semantic status (Phase B, 2026-09-14) per
+`codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md`.**
 
-## The bridge identity
+**What this file's bridge inequality is about.**
 
-The Principia Fractalis framework's consciousness measure ch_2 and
-Tononi's Integrated Information Theory (IIT) Φ measure are connected
-on pure bipartite quantum states by the closed-form inequality:
+For a pure bipartite state |ψ⟩_AB, define the reduced-state
+**linear entropy** (ledger S3):
 
-  **ch_2 ≤ 1 − exp(−Φ/2)**
+  `linearEntropy(ρ_A) := 1 − Tr(ρ_A²)`  (`Ch2PhiBridgeDischarge.lean:100`)
 
-with EQUALITY on the uniform-Schmidt locus (i.e., when the reduced density
-matrix ρ_A is maximally mixed). The contrapositive form:
+and the **Tononi Φ_IIT measure**:
 
-  **Φ ≥ −2 · log(1 − ch_2)**
+  `Φ_IIT(ρ_A) := 2 · S_vN(ρ_A) = −2 · Tr(ρ_A · log ρ_A)`.
 
-This is the FIRST CLOSED-FORM BRIDGE between the framework's topological
-consciousness measure (Chern-Weil ch_2) and Tononi's information-theoretic
-measure (integrated information Φ).
+The rigorous inequality proved by the companion file
+`PF/Consciousness/Ch2PhiBridgeDischarge.lean` is:
 
-## Derivation sketch
+  **`linearEntropy(ρ_A) ≤ 1 − exp(−Φ_IIT / 2)`**
 
-For pure bipartite |ψ⟩_AB:
-* ch_2(ψ) = 1 − Tr(ρ_A²)  (linear entropy, framework Ch 6 def)
-* Φ_IIT(ψ) = 2·S(ρ_A) = -2·Tr(ρ_A · log ρ_A)  (von Neumann entropy ×2)
+with equality on the uniform-Schmidt locus (ρ_A maximally mixed).
+Contrapositive form:
 
-Standard inequality: linear entropy ≤ 1 − exp(−von Neumann entropy).
-Substituting: ch_2 ≤ 1 − exp(−Φ_IIT/2). Equality iff ρ_A is uniform Schmidt
-(maximally mixed reduced state).
+  **`Φ_IIT ≥ −2 · log(1 − linearEntropy)`**.
 
-## Sharp consciousness threshold
+**Retracted claims (pre-Phase-B docstring lineage).** Earlier
+docstrings identified this inequality as a bridge between the
+"topological Chern–Weil consciousness measure ch_2" and Tononi Φ.
+That identification is retracted for the following reasons:
 
-The framework's ch_2 ≥ 0.95 threshold (Ch 6 crystallization condition)
-maps via the bridge to:
+- The historical `ch_2` symbol in the framework refers to at least
+  four distinct objects — see ledger §1 (S1 affine α function,
+  S2 bounded real carrier, S3 linear entropy, S4 clinical EEG
+  surrogate) — none of which is the topological second Chern
+  character (S7, book-only, no Lean construction at this branch's
+  base).
+- The quantity that actually appears on the left-hand side of this
+  file's inequality is `linearEntropy(ρ_A) = 1 − Tr(ρ_A²)`, i.e.
+  S3, and only S3.
+- No theorem in the corpus proves S3 = S1 (affine α function),
+  S3 = S2 (bounded carrier), S3 = S7 (Chern–Weil form), or
+  S3 = S4 (EEG surrogate). The earlier docstring assertion
+  "ch_2 and Φ measure the SAME phenomenon" was an empirical
+  simulation claim (Werner-family Spearman ρ ≈ +0.96),
+  not a proved identity.
 
-  Φ_IIT ≥ −2 · log(1 − 0.95) = −2 · log(0.05) ≈ 5.991 nats ≈ 8.644 bits
+**What the inequality does and does not imply for the 19/20
+threshold.**
 
-And implies effective Hilbert-space dimension:
+If one takes the postulated `consciousnessThreshold95 = 0.95` (see
+ledger §1 S5; postulate class per `ch06_consciousness.tex:188–198`)
+and substitutes `linearEntropy = 0.95` into
+`Φ_IIT ≥ −2 · log(1 − 0.95)`, one obtains
+`Φ_IIT ≥ −2 · log(0.05) ≈ 5.991 nats ≈ 8.644 bits`, and a lower
+bound on effective Hilbert-space dimension `d_A ≥ 1/(1 − 0.95) = 20`.
+This is a **conditional derivation**: it derives a Φ-lower-bound and
+a dimension-lower-bound FROM the postulated threshold. It does NOT
+independently derive the 0.95 threshold from Chern–Weil theory.
+See `PF/Ch11AnomalyCancellationRefutationAttempt.lean` for the
+axiom-free refutation of two prior "derivations" of 0.95.
 
-  d_A ≥ 1/(1 − ch_2) = 1/0.05 = 20
-
-This sharpens Tononi's qualitative "Φ > 0 ⟺ conscious" into a
-DIMENSIONED quantitative threshold:
-* Φ ≥ 8.644 bits
-* Effective dimension ≥ 20 (~4.32 qubits)
-
-## Why this is significant
-
-Tononi's IIT has been criticized for lacking a principled way to convert
-Φ values into a sharp consciousness threshold. The framework's ch_2
-provides this via the topological Chern-Weil derivation of the 0.95
-crystallization threshold (Ch 6 Theorem 5.7 rigorous derivation).
-
-The bridge inequality means:
-* On quantum substrates: ch_2 and Φ measure the SAME phenomenon (rank
-  agreement Spearman ρ = +0.96 on Werner family)
-* On neural substrates: they disagree (ch_2 is basis-invariant, sees only
-  Tr W and Tr W²; Φ is topology-sensitive)
-
-The framework's ch_2 is best understood as the topological refinement of
-Φ on quantum substrates, providing a SHARP dimensioned threshold that
-pure IIT cannot derive intrinsically.
+**Load-bearing content of THIS Lean file.** Algebraic / arithmetic
+manipulation of the inequality `linearEntropy ≤ 1 − exp(−Φ/2)` and
+its consequences under the postulate `linearEntropy ≥ 19/20`.
+The key numerical fact `log(0.05) ≈ −2.996` is verified via
+`Real.log_lt_log` bounds. The rigorous inequality itself is proved
+in the companion file `PF/Consciousness/Ch2PhiBridgeDischarge.lean`.
 
 ## Status
 
-Pure algebraic / arithmetic content. The key fact `log(0.05) ≈ -2.996`
-is verified via `Real.log_lt_log` bounds; the threshold derivations are
-bracketed.
+Pure algebraic / arithmetic content. NO CHERN–WEIL DERIVATION IS
+CLAIMED. NO IDENTITY BETWEEN linearEntropy AND ANY OF S1, S2, S4,
+S7 IS CLAIMED. Theorem propositions in this file are preserved
+verbatim from the pre-Phase-B version; only the docstring lineage
+has been corrected.
 
-Stage L21 — ch_2/Φ closed-form bridge formalized.
+Stage L21 — linear-entropy / Φ closed-form bridge formalized.
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Log.Basic

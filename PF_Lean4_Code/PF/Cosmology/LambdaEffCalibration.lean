@@ -92,8 +92,19 @@ def Lambda_eff_required_exponent_numerical : ℝ := 276.310211
 
 /-! ## The Planck-cell discharge -/
 
-/-- Framework's consciousness crystallization threshold (Ch 6). -/
-def consciousness_threshold : ℝ := 0.95
+/-- **Postulated 19/20 threshold** — local copy of
+    `PrincipiaTractalis.consciousnessThreshold95` inhabiting this
+    namespace for isolated reading. This is a phenomenological
+    anchor per `ch06_consciousness.tex:188–198` remark 2026-07-01,
+    not a first-principles derived value. See
+    `codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md` §1 S5. -/
+def consciousnessThreshold95 : ℝ := 0.95
+
+/-- Deprecated alias for `consciousnessThreshold95`. The old name did
+    not disclose that the threshold is a postulate, not a derivation.
+    Retained for downstream compatibility. -/
+@[deprecated consciousnessThreshold95 (since := "2026-09-14")]
+def consciousness_threshold : ℝ := consciousnessThreshold95
 
 /-- Numerical value of `|R_f(√(2π), 1)|` (computed at 60-digit mpmath). -/
 def Rf_QG_unit_modulus : ℝ := 1.1875
@@ -153,7 +164,7 @@ theorem cosmological_constant_calibration_discharged :
       Lambda_eff_required_exponent := by
   unfold N_Planck_cells
   have h_ch2_pos : (0 : ℝ) < consciousness_threshold := by
-    unfold consciousness_threshold; norm_num
+    unfold consciousness_threshold consciousnessThreshold95; norm_num
   have h_Rf_pos : (0 : ℝ) < Rf_QG_unit_modulus := by
     unfold Rf_QG_unit_modulus; norm_num
   have h_prod_ne : consciousness_threshold * Rf_QG_unit_modulus ≠ 0 :=

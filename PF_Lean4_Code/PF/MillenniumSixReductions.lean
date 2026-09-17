@@ -2591,41 +2591,102 @@ The Δch₂ ≈ 0.0054 gap is structurally identical to the dimension gap from
 line of evidence" for P ≠ NP, reducing algebraically to the same
 α-difference content already captured by the dim-gap. -/
 
-/-- **Consciousness threshold function** (manuscript Ch 21, line 1201):
-    `ch_2(α) := 0.95 + (α − √2)/10`. -/
-noncomputable def ch_2 (α : ℝ) : ℝ := 0.95 + (α - Real.sqrt 2) / 10
+/-- **α-affine target-anchored score** (manuscript Ch 21, line 1201):
+    `alphaAffineScore(α) := 0.95 + (α − √2)/10`.
 
-/-- **P-class consciousness threshold** evaluates to 0.95 at α = √2. -/
-theorem ch_2_at_alpha_P : ch_2 (Real.sqrt 2) = 0.95 := by
-  unfold ch_2
+    Semantic class per `codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md`
+    §1 (S1): affine function of a single real parameter α, with
+    target-anchored intercept `0.95` at `α = √2` and slope `1/10`.
+
+    **This is not a topological invariant, not a linear entropy, not a
+    Chern–Weil characteristic class, and not a clinical EEG surrogate.**
+    The value `0.95` is a definitional input (postulate class per
+    `ch06_consciousness.tex:188–198` honest-scope remark 2026-07-01),
+    not a derived conclusion. Evaluations of the form
+    `alphaAffineScore(√2) = 0.95` are extractions of the anchor by
+    substitution, not derivations. -/
+noncomputable def alphaAffineScore (α : ℝ) : ℝ :=
+  0.95 + (α - Real.sqrt 2) / 10
+
+/-- Deprecated alias — the name `ch_2` suggests the second Chern
+    character, but this definition is the α-affine target-anchored
+    score `alphaAffineScore`. It is NOT a Chern–Weil characteristic
+    class and it does NOT derive the value 0.95. Retained for
+    provenance and downstream compatibility only. See the semantic-
+    disambiguation ledger for the six other objects previously
+    conflated under this name. -/
+@[deprecated alphaAffineScore (since := "2026-09-14")]
+noncomputable def ch_2 (α : ℝ) : ℝ := alphaAffineScore α
+
+/-- **Evaluation at the P-class anchor α = √2**:
+    `alphaAffineScore(√2) = 0.95`. This is EVALUATION of the target-
+    anchored definition at its anchor — the value 0.95 was placed in
+    the definition and extracts back algebraically. **NOT a derivation
+    of the 0.95 threshold.** -/
+theorem alphaAffineScore_at_alpha_P : alphaAffineScore (Real.sqrt 2) = 0.95 := by
+  unfold alphaAffineScore
   ring
 
-/-- **NP-class consciousness threshold** at α_NP = φ + 1/4:
-    `ch_2(NP) = 0.95 + ((φ + 1/4) − √2)/10`. -/
+/-- Deprecated alias for `alphaAffineScore_at_alpha_P`. Retained for
+    provenance. -/
+@[deprecated alphaAffineScore_at_alpha_P (since := "2026-09-14")]
+theorem ch_2_at_alpha_P : ch_2 (Real.sqrt 2) = 0.95 := by
+  unfold ch_2
+  exact alphaAffineScore_at_alpha_P
+
+/-- **α-affine score at α_NP = φ + 1/4**:
+    `alphaAffineScore(φ + 1/4) = 0.95 + ((φ + 1/4) − √2)/10`.
+    Evaluation of the target-anchored definition at a specified α;
+    NOT a derivation of any consciousness fact. -/
+theorem alphaAffineScore_at_alpha_NP :
+    alphaAffineScore (PrincipiaTractalis.phi + 1/4) =
+      0.95 + (PrincipiaTractalis.phi + 1/4 - Real.sqrt 2) / 10 := by
+  unfold alphaAffineScore
+  rfl
+
+/-- Deprecated alias for `alphaAffineScore_at_alpha_NP`. -/
+@[deprecated alphaAffineScore_at_alpha_NP (since := "2026-09-14")]
 theorem ch_2_at_alpha_NP :
     ch_2 (PrincipiaTractalis.phi + 1/4) =
       0.95 + (PrincipiaTractalis.phi + 1/4 - Real.sqrt 2) / 10 := by
   unfold ch_2
-  rfl
+  exact alphaAffineScore_at_alpha_NP
 
-/-- **Consciousness-threshold gap = dimension gap / 10**: under the
-    manuscript's stated dimensions `dim(P) = √2`, `dim(NP) = φ + 1/4`,
-    the Δch₂ gap is `(dim(NP) − dim(P))/10`. The third line of evidence
-    is *algebraically* the dimension gap rescaled by `1/10`. -/
+/-- **α-affine slope × (α_NP − α_P)**: purely algebraic identity of the
+    affine definition. Retained for its role in the manuscript Ch 21
+    Δch₂ narrative, but nothing more than the affine slope times the
+    α gap. -/
+theorem alphaAffineScore_gap_eq_alpha_gap_over_ten :
+    alphaAffineScore (PrincipiaTractalis.phi + 1/4)
+      - alphaAffineScore (Real.sqrt 2) =
+      ((PrincipiaTractalis.phi + 1/4) - Real.sqrt 2) / 10 := by
+  unfold alphaAffineScore
+  ring
+
+/-- Deprecated alias for `alphaAffineScore_gap_eq_alpha_gap_over_ten`. -/
+@[deprecated alphaAffineScore_gap_eq_alpha_gap_over_ten (since := "2026-09-14")]
 theorem consciousness_gap_eq_dim_gap_over_ten :
     ch_2 (PrincipiaTractalis.phi + 1/4) - ch_2 (Real.sqrt 2) =
       ((PrincipiaTractalis.phi + 1/4) - Real.sqrt 2) / 10 := by
   unfold ch_2
-  ring
+  exact alphaAffineScore_gap_eq_alpha_gap_over_ten
 
-/-- **Consciousness gap is positive**: `Δch₂ > 0` follows from
-    `φ + 1/4 > √2` (the already-proven `phi_plus_quarter_gt_sqrt2`). -/
-theorem consciousness_gap_positive :
-    ch_2 (PrincipiaTractalis.phi + 1/4) - ch_2 (Real.sqrt 2) > 0 := by
-  rw [consciousness_gap_eq_dim_gap_over_ten]
+/-- **α-affine gap is positive**: follows from `φ + 1/4 > √2` alone.
+    Purely algebraic. -/
+theorem alphaAffineScore_gap_positive :
+    alphaAffineScore (PrincipiaTractalis.phi + 1/4)
+      - alphaAffineScore (Real.sqrt 2) > 0 := by
+  rw [alphaAffineScore_gap_eq_alpha_gap_over_ten]
   have h : PrincipiaTractalis.phi + 1/4 > Real.sqrt 2 :=
     PrincipiaTractalis.phi_plus_quarter_gt_sqrt2
   linarith
+
+/-- Deprecated alias for `alphaAffineScore_gap_positive`. -/
+@[deprecated alphaAffineScore_gap_positive (since := "2026-09-14")]
+theorem consciousness_gap_positive :
+    ch_2 (PrincipiaTractalis.phi + 1/4) - ch_2 (Real.sqrt 2) > 0 := by
+  unfold ch_2
+  exact alphaAffineScore_gap_positive
 
 /-! ## Manuscript Ch 21, Corollary `cor:predictions` — BPP prediction
 
