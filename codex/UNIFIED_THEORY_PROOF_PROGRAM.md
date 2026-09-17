@@ -104,17 +104,48 @@ result. The central theorem is the strengthening of that.
 | UHF factor capstone | `r113_substrate_UHF_factor_capstone` | PROVED |
 | `K_0` range = ℤ[1/3] | r123 | PROVED |
 
-### The open obligation
+### The open obligation — DISCHARGED 2026-09-12, STRENGTHENED 2026-09-17
 
-**One:** the classification step — *any* C\*-algebra satisfying the substrate
-axioms is \*-isomorphic to `T_∞`. Everything above establishes that `T_∞` **is**
-a UHF algebra of type `3^∞` with a unique trace; what remains is that it is **the
-only** one, i.e. Glimm's classification specialised to supernatural number `3^∞`.
+**The classification step is closed.** `PF/SubstrateRigidity.lean` proves
 
-This is a known classical theorem. The obligation is to state the substrate
-axioms so that they pin the supernatural number, and to formalise or cite the
-classification. It is genuine mathematics where the axiom set is concerned, and
-formalisation labour thereafter — not the other way round.
+```lean
+theorem T_infinity_rigidity (A : Type*) [CStarAlgebra A] (h : Substrate3Inf A) :
+    Nonempty (A ≃⋆ₐ[ℂ] TimelessFieldCompletion)
+```
+
+Glimm's UHF classification specialised to supernatural number `3^∞`. The module
+is in the build graph (`PF.lean:1357`) and every load-bearing declaration audits
+to `[propext, Classical.choice, Quot.sound]`. Verified independently on
+2026-09-17: `lake build PF.SubstrateRigidity` → 3265 jobs, clean.
+
+**r337 (2026-09-17) strengthened the statement.** An audit of the premise against
+the conclusion — obligation **O-CIRC**, §3.1 — found that `Substrate3Inf` carried a
+field
+
+```lean
+  trace_unique : ∃! τ : A → ℂ, IsTracialLinearFunctional A τ
+```
+
+that **no proof consumed**. The Elliott back-and-forth builds the isomorphism from
+`tower_matrix` and `tower_dense` alone. Uniqueness of the trace is one of the three
+properties the classification is supposed to *deliver*, so carrying it as a
+hypothesis made the central theorem conditional on half its own conclusion —
+precisely the prohibited substitution of directive §12.
+
+The field was removed; **no proof body required changing**, which is itself the
+evidence that it was dead. Unique traciality is now the theorem
+`Substrate3Inf.trace_unique`, obtained by transport along the rigidity
+isomorphism. `T_infinity_rigidity` therefore now says: *a dense ternary matrix
+tower alone forces the substrate, and the unique trace comes out the other end.*
+That is Glimm in its proper direction.
+
+Branch `r337-rigidity-hypothesis-reduction`, commit `48e5f521`. Seven declarations,
+all kernel-clean.
+
+**Stale prose flagged, not yet fixed:** the file header and §9 of
+`SubstrateRigidity.lean` still assert that `sorry`s remain and that the audit block
+is commented out. Both are false — there are no `sorry` tactics in the file and the
+audit block is live. Left for a separate commit.
 
 ### What would refute it
 
@@ -416,34 +447,40 @@ future substrate whose invariant range is not confined to `ℤ[1/3]`. Per charte
 
 ## 5b. NEXT DECISIVE STEP
 
-**Specify a central theorem — assemble `principia_fractalis_verified_position_2026_09_07`.**
+**Superseded 2026-09-17.** The prior entry ("specify a central theorem") is
+discharged: §1 specifies it, the kernel proves it, and r337 strengthened it.
 
-This program's headline finding is that the central theorem status is
-*unspecified*, which means the question cannot be asked. The way to change that
-is not more auditing; it is to write one down. `COMPLETION_THEOREM_DRAFT.md` §3
-already drafts it, and every conjunct is assemblable from existing green
-material — now including r332:
+**Next: make O-CIRC mechanical.**
 
-- (V1) the substrate is a genuine constructed object;
-- (V2) the r331b endpoint, unconditional;
-- (V3) top-edge negativity over the full partition of `[1/2, 1]`;
-- (V4) r124: the α-web admits every positive `α_BSD` — a one-parameter family;
-- (V5) r216: any proposition implies `PFSubstrateConsequences`;
-- **(V6, new) r332: π is not a ratio of substrate trace-range quantities.**
+§3.1 states the obligation as *"every premise of any candidate central theorem
+must be checked against every conjunct of its conclusion for definitional
+containment, and the check must be mechanical, not editorial."* It is currently
+editorial. r337 is the proof that this matters: a dead hypothesis sat in the
+project's central theorem, and it was found by one person reading 2467 lines,
+not by a tool. There is no reason to believe it is the only one.
 
-It would be **the corpus's first hypothesis-free top-level theorem**, and it
-would state the negative results in the same breath as the positive ones. That
-combination is what a referee trusts, and it replaces "UNSPECIFIED" with
-something honest rather than with another capstone that hides its premises.
+The deliverable is an auditor that, for a named theorem, reports:
 
-**Parallel, cheap, no build required:** close `B-N51` by auditing the eight
-fields of `ClayClosureBundleDualCitationAggregate` (r299:116). It is the last
-unaudited premise bundle feeding r301, and closing it completes the circularity
-picture.
+1. **Dead premises** — hypotheses (and structure fields of hypotheses) that the
+   proof term never consumes. Mechanically decidable: drop the field, rebuild;
+   if it compiles, it was dead. r337 would have been found automatically.
+2. **Contained premises** — hypotheses that definitionally unfold to a conjunct
+   of the conclusion. This is the `D2`/`D3`/`D5` failure mode already recorded in
+   `UNIFICATION_COUNTERMODEL_LEDGER.md:57-62`, where advertised Clay discharges
+   turn out to be `rfl` identities returning their own inputs.
+3. **Vacuous premises** — fields of type `Prop := True`, `: True := trivial`, or
+   any inhabitant obtainable without the hypothesis.
 
-**Both require authorization.** Nothing here is started.
+Run it first against `T_infinity_rigidity` (expect: clean, post-r337), then
+against `r301` and the `ClayClosureBundleUniversal` chain, where §3.1 already
+predicts it will fire.
 
----
+This converts the sharpest open obligation from a reading task into a gate that
+runs on every build, which is what directive §7 asks of the kernel-trust standard.
+
+**Parallel, cheap, no build required:** close `B-N51` by auditing the eight fields
+of `ClayClosureBundleDualCitationAggregate` (r299:116) — still open, still the last
+unaudited premise bundle feeding r301.
 
 ## 6. WHAT THIS PROGRAM DOES NOT SAY
 
