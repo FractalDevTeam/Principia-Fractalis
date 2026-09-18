@@ -107,6 +107,29 @@ partial def conjuncts (e : Expr) : MetaM (Array Expr) := do
   | (``And, #[a, b]) => return (← conjuncts a) ++ (← conjuncts b)
   | _ => return #[e]
 
+/-- Every leaf field type reachable from a hypothesis `x`, recursing into
+    structure-valued fields up to `depth`. Returns `(accessPath, fieldType)`.
+
+    Needed because §3.1's circularity is not at the top level: `r301` takes one
+    bundle `h`, and the containment lives at `h.bulletproof.rh_hp_program_positive`. -/
+partial def leafFields (x : Expr) (path : String) (depth : Nat) :
+    MetaM (Array (String × Expr)) := do
+  if depth == 0 then return #[(path, ← inferType x)]
+  let env ← getEnv
+  let ty ← whnf (← inferType x)
+  match ty.getAppFn with
+  | .const s _ =>
+    if isStructure env s then
+      let mut out : Array (String × Expr) := #[]
+      for f in getStructureFields env s do
+        let some proj ← (do
+            try pure (some (← mkAppM (s ++ f) #[x])) catch _ => pure none)
+          | continue
+        out := out ++ (← leafFields proj (path ++ "." ++ f.toString) (depth - 1))
+      return out
+    else return #[(path, ty)]
+  | _ => return #[(path, ty)]
+
 /-- `#audit_premises foo` — mechanical O-CIRC report for the declaration `foo`. -/
 syntax (name := auditPremises) "#audit_premises " ident (ppSpace ident)? : command
 
@@ -127,7 +150,15 @@ def elabAuditPremises : CommandElab := fun stx => do
   let _ := val
   liftTermElabM do
     forallTelescope ci.type fun xs concl => do
-      let cs ← conjuncts concl
+      let csRaw ← conjuncts concl
+      -- dedup conjuncts up to defeq: the r301 conclusion repeats RH several
+      -- times, which would otherwise multiply every finding
+      let mut cs : Array Expr := #[]
+      for c in csRaw do
+        let mut dup := false
+        for d in cs do
+          if ← isDefEq c d then dup := true
+        unless dup do cs := cs.push c
       let mut findings : Array MessageData := #[]
       for x in xs do
         let xty ← inferType x
@@ -157,6 +188,29 @@ def elabAuditPremises : CommandElab := fun stx => do
                   let ftyRes ← forallTelescope fci.type fun _ b => isTrivialProp b
                   if ftyRes then
                     findings := findings.push m!"  VACUOUS   field reduces to True: {projName}"
+      -- NESTED CONTAINMENT: walk into structure hypotheses and compare every
+      -- leaf field type against every conjunct of the conclusion, both directly
+      -- and through one step of modus ponens (the D5 pattern of §3.1).
+      let mut leaves : Array (String × Expr) := #[]
+      for x in xs do
+        leaves := leaves ++ (← leafFields x ((← inferType x).getAppFn.constName?.getD `_).toString 3)
+      for c in cs do
+        for (p, t) in leaves do
+          if ← isDefEq t c then
+            findings := findings.push
+              m!"  CONTAINED premise field is definitionally a conclusion conjunct:\n            {p}\n            {c}"
+        -- modus ponens: some field is `A → c` and some other field is `A`
+        for (p, t) in leaves do
+          let t' ← whnf t
+          if t'.isArrow then
+            let ante := t'.bindingDomain!
+            let conseq := t'.bindingBody!
+            if ← isDefEq conseq c then
+              for (q, u) in leaves do
+                if q != p then
+                  if ← isDefEq u ante then
+                    findings := findings.push
+                      m!"  CONTAINED conclusion conjunct follows from premises by modus ponens:\n            {q}  :  A\n            {p}  :  A → conjunct\n            conjunct : {c}"
       if findings.isEmpty then
         logInfo m!"O-CIRC audit of {declName}: CLEAN \
           ({consts.size} constants in cone, boundary = {nsPrefix})"
