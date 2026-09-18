@@ -51,6 +51,19 @@ open Lean Lean.Meta Lean.Elab Lean.Elab.Command
 
 namespace PF.Audit
 
+/-- Is `s` a premise bundle the PROJECT authored?
+
+    The corpus uses TWO root namespaces, `PrincipiaTractalis` and `PF`. Testing
+    only the first drops every `PF.Referee.*` bundle — including
+    `UnifiedMinimalInvariants`, which carries the sharpest finding in the sweep.
+    Mathlib data structures (`Real`, `Finset`, `Complex`, `WeierstrassCurve`, …)
+    appear as hypothesis types constantly and their fields are not premises in
+    any meaningful sense; 151 of the 583 raw DEAD lines in the first full sweep
+    were exactly that noise. -/
+def isProjectStruct (nsPrefix : Name) (s : Name) : Bool :=
+  let u := s
+  nsPrefix.isPrefixOf u || (`PrincipiaTractalis).isPrefixOf u || (`PF).isPrefixOf u
+
 /-- The user-facing name of a constant. Lean mangles `private` declarations to
     `_private.<module>.<n>.<realName>`, so a naive namespace test skips every
     private lemma. In `SubstrateRigidity` the entire C4 Elliott back-and-forth is
@@ -129,6 +142,103 @@ partial def leafFields (x : Expr) (path : String) (depth : Nat) :
       return out
     else return #[(path, ty)]
   | _ => return #[(path, ty)]
+
+/-- The analysis, factored out so both `#audit_premises` and `#audit_all` use
+    exactly the same code path. Returns the findings for one declaration. -/
+def auditDecl (declName : Name) (nsPrefix : Name) : MetaM (Array MessageData × Nat) := do
+  let env ← getEnv
+  let some ci := env.find? declName | return (#[], 0)
+  let some _ := ci.value? | return (#[], 0)
+  let (consts, projs) := cone env #[nsPrefix] 20000 [declName] {} ({} : NameSet) #[]
+  forallTelescope ci.type fun xs concl => do
+    let csRaw ← conjuncts concl
+    let mut cs : Array Expr := #[]
+    for c in csRaw do
+      let mut dup := false
+      for d in cs do
+        if ← isDefEq c d then dup := true
+      unless dup do cs := cs.push c
+    let mut findings : Array MessageData := #[]
+    for x in xs do
+      let xty ← inferType x
+      if ← isTrivialProp xty then
+        findings := findings.push m!"  VACUOUS   hypothesis : {xty}"
+      for c in cs do
+        if ← isDefEq xty c then
+          findings := findings.push
+            m!"  CONTAINED hypothesis is definitionally a conjunct of the conclusion: {xty}"
+      let hty ← whnf xty
+      if let .const sname _ := hty.getAppFn then
+        -- Only audit premise bundles the PROJECT authored. Mathlib data
+        -- structures (Real, Finset, Complex, WeierstrassCurve, ...) turn up as
+        -- hypothesis types constantly, and reporting their fields as DEAD is
+        -- noise: 151 of 583 DEAD lines in the first full sweep were exactly that.
+        if isStructure env sname && isProjectStruct nsPrefix sname then
+          let fields := getStructureFields env sname
+          for i in [:fields.size] do
+            let f := fields[i]!
+            let projName := sname ++ f
+            let usedNamed := consts.contains projName
+            let usedProj := projs.any (fun (s, j) => s == sname && j == i)
+            if !usedNamed && !usedProj then
+              findings := findings.push m!"  DEAD      {projName}"
+            else
+              if let some fci := env.find? projName then
+                if ← forallTelescope fci.type fun _ b => isTrivialProp b then
+                  findings := findings.push m!"  VACUOUS   field reduces to True: {projName}"
+    let mut leaves : Array (String × Expr) := #[]
+    for x in xs do
+      leaves := leaves ++ (← leafFields x ((← inferType x).getAppFn.constName?.getD `_).toString 3)
+    for c in cs do
+      for (p, t) in leaves do
+        if ← isDefEq t c then
+          findings := findings.push m!"  CONTAINED {p}  is definitionally  {c}"
+      for (p, t) in leaves do
+        let t' ← whnf t
+        if t'.isArrow then
+          if ← isDefEq t'.bindingBody! c then
+            for (q, u) in leaves do
+              if q != p then
+                if ← isDefEq u t'.bindingDomain! then
+                  findings := findings.push
+                    m!"  CONTAINED modus ponens: {q} with {p} yields {c}"
+    return (findings, consts.size)
+
+/-- `#audit_all "substr"` — audit every theorem in the environment whose name
+    contains `substr` and which takes at least one hypothesis. Prints only
+    targets with findings, then a tally. Use to sweep a whole corpus without
+    having to name each declaration. -/
+syntax (name := auditAll) "#audit_all " str (ppSpace ident)? : command
+
+@[command_elab auditAll]
+def elabAuditAll : CommandElab := fun stx => do
+  let pat := stx[1].isStrLit?.getD ""
+  let nsPrefix : Name :=
+    if stx[2].isNone then `PrincipiaTractalis else stx[2][0].getId
+  let env ← getEnv
+  let mut targets : Array Name := #[]
+  for (n, ci) in env.constants.toList do
+    if ci.isTheorem && (n.toString.splitOn pat).length > 1 then
+      if ci.type.isForall then targets := targets.push n
+  liftTermElabM do
+    let mut nClean := 0
+    let mut nFind := 0
+    let mut nDead := 0
+    let mut nCont := 0
+    let mut nVac := 0
+    for t in targets do
+      let (fs, _) ← auditDecl t nsPrefix
+      if fs.isEmpty then nClean := nClean + 1
+      else
+        nFind := nFind + 1
+        for f in fs do
+          let s := (toString (← f.toString))
+          if (s.splitOn "DEAD").length > 1 then nDead := nDead + 1
+          if (s.splitOn "CONTAINED").length > 1 then nCont := nCont + 1
+          if (s.splitOn "VACUOUS").length > 1 then nVac := nVac + 1
+        logWarning m!"AUDIT {t}: {fs.size} finding(s)\n{MessageData.joinSep fs.toList "\n"}"
+    logInfo m!"O-CIRC SWEEP [{pat}]: targets={targets.size} clean={nClean} \
+      withFindings={nFind} DEAD={nDead} CONTAINED={nCont} VACUOUS={nVac}"
 
 /-- `#audit_premises foo` — mechanical O-CIRC report for the declaration `foo`. -/
 syntax (name := auditPremises) "#audit_premises " ident (ppSpace ident)? : command

@@ -156,3 +156,68 @@ family are in different evidential classes, and that is now a mechanical fact
 rather than a judgement call. Nothing in this sweep touches the validity of any
 theorem: every one of them is true. What the sweep measures is how much they
 say.
+
+---
+
+# Full corpus capstone sweep, 2026-09-18
+
+Every built capstone-class theorem in the corpus: 169 of 177 candidate modules
+have oleans in the ch2 worktree; the sweep imports all 169 and audits every
+theorem whose name contains `apstone` and which takes at least one hypothesis.
+
+| | count |
+|---|---|
+| targets audited | **213** |
+| CLEAN | **99** |
+| with findings | **114** |
+| DEAD | 432 |
+| CONTAINED | 138 |
+| VACUOUS | 1 |
+
+## Two measurement corrections made before these numbers were trusted
+
+Both were caught by checking the tool against results already known, and both
+would have misreported the corpus if left in.
+
+1. **Mathlib noise inflated DEAD from 432 to 583.** The first full run audited
+   the fields of *any* structure appearing as a hypothesis type, including
+   `Real.cauchy` (30 hits), `Finset.val`/`Finset.nodup` (24), `Complex.im` (12),
+   and `WeierstrassCurve.a₂…a₆` (55). Those are mathlib data structures, not
+   premise bundles anyone authored. Now filtered to project structures only.
+2. **The first filter was too aggressive and hid the sharpest finding.** The
+   corpus uses *two* root namespaces, `PrincipiaTractalis` and `PF`. Filtering on
+   the first alone dropped every `PF.Referee.*` bundle — including
+   `UnifiedMinimalInvariants`, which carries the family result — and reported
+   DEAD=142 instead of 432. Fixed to accept both roots.
+
+Regression suite held across both changes: `T_infinity_rigidity` CLEAN, and the
+`substrate_capstone` family still 28 targets / 0 clean / 56 DEAD.
+
+## The single VACUOUS field in the corpus
+
+`PrincipiaTractalis.HodgeMumfordAbelianFirstPrinciplesInventory.MumfordFirstPrinciplesPrerequisites.p8_mumford_capstone`
+**reduces to `True`.** Its sibling fields `p4_pontryagin`, `p5_kunneth`,
+`p6_cycle_class_map` and `p7_hodge_pontryagin` are all DEAD in the same bundle.
+The "Mumford first principles prerequisites" bundle is largely inert and its
+capstone field assumes nothing.
+
+## Highest finding counts
+
+| findings | declaration |
+|---|---|
+| 17 | `PF.Referee.BSDCapstoneTypedBridgeV4.v4_CM_batch_surfaced` |
+| 16 | `…MumfordFirstPrinciplesPrerequisites.p8_mumford_capstone` |
+| 15 | `HilbertPolyaIdentificationPreciseCapstone.{PF,C,BK,BC}_typed_prop` (four) |
+| 12 | `PF_RH_V4_MasterCapstone.V4_via_{T3sym,Mayer1991,Connes,BostConnes,BerryKeating}` (six) |
+
+The `RHCapstoneTypedBridgeV4` cluster is notable: six separately named "routes"
+to RH, each carrying 12 findings, which is the same pattern r301 showed at the
+top level — multiple advertised independent routes that are the same assumption
+wearing different names.
+
+## Reading the 99 clean
+
+CLEAN means no premise of that theorem is dead, definitionally a conclusion
+conjunct, one modus-ponens step from one, or reducible to `True`, within the
+analysed cone. It is not a certificate of substance: a theorem can be clean and
+still say very little. The number to weigh is the 114, not the 99.
