@@ -67,3 +67,92 @@ human edit that must rebuild. Descent stops at the namespace boundary.
 CONTAINED uses `isDefEq` at default transparency plus one modus-ponens step: it
 finds `rfl`-identity and one-step circularity, not semantic circularity needing
 real reasoning. Absence of findings is therefore not proof of non-circularity.
+
+---
+
+# Corpus sweep, 2026-09-18
+
+## Finding 2 — the `MinimalRigidityForces*` family: 35 of 35 have findings, 0 clean
+
+Every built member of the family was audited (35 of 37; two modules have no
+olean in the ch2 worktree and were skipped).
+
+| | count |
+|---|---|
+| targets audited | 35 |
+| CLEAN | **0** |
+| with findings | **35** |
+| DEAD lines | 70 |
+| CONTAINED lines | 15 |
+| VACUOUS lines | 0 |
+
+**70 DEAD lines is exactly two per theorem**, and they are the same two every
+time:
+
+- `UnifiedMinimalInvariants.sector1_minimal`
+- `UnifiedMinimalInvariants.sector2_minimal`
+
+These are the minimal-rigidity hypotheses — the thing the family is named after.
+**In all 35 theorems, neither is consumed by the proof.** Whatever these results
+establish, minimal rigidity is not what establishes it.
+
+## Finding 3 — the α-skeleton identities are assumed, not forced
+
+`cross_millennium_shared_invariants_substrate_capstone` concludes six identities
+and takes all six as premise fields, each definitionally equal to a conjunct of
+its own conclusion:
+
+| premise field | = conclusion conjunct |
+|---|---|
+| `sector2_minimal.inv_P_sq_YM` | `a_P ^ 2 = a_YM` |
+| `sector2_minimal.inv_QG_sq_two_pi` | `a_QG ^ 2 = 2 * π` |
+| `sector2_minimal.inv_Hodge_quad` | `a_Hodge ^ 2 = a_Hodge + 1` |
+| `sector1_minimal.inv_NS_BSD` | `a_NS = 2 * a_BSD` |
+| `sector1_minimal.inv_YM_Poincare` | `a_YM = a_Poincare + 1` |
+| `sector2_minimal.inv_NP_minus_Hodge` | `a_NP - a_Hodge = 1 / 4` |
+
+Assume the six identities, conclude the six identities. This is the mechanical
+confirmation of the standing editorial verdict in
+`ALPHA_RIGIDITY_AUDIT_REPORT_2026-09-07.md:242-246` — that the α-skeleton is a
+*presentation* of the values, not a derivation — now with declaration-level
+precision.
+
+## Finding 4 — the Poincaré anchor is a hypothesis
+
+`perelman_anchored_cascade_substrate_capstone` reports
+
+```
+CONTAINED hypothesis is definitionally a conjunct of the conclusion:
+          u.sector1.a_Poincare = 1
+```
+
+`α_Poincaré = 1` is assumed and then concluded. The Perelman "anchor" anchors
+nothing: no property of Perelman`s theorem is used, and the value is an input.
+Both minimal-rigidity fields are also dead here.
+
+## Finding 5 — headline capstone sweep, 18 targets
+
+5 CLEAN, 13 with findings; 24 DEAD and 18 CONTAINED lines in total.
+
+CLEAN: `..._supreme_capstone_at_HEAD` (r256), `..._extended_at_HEAD` (r273),
+`..._extended_v2_at_HEAD` (r299), `millennium_rh_substrate_position_at_HEAD`
+(r255), `six_millennium_problems_via_fractal_resonance`,
+`all_clay_via_soundness_and_capstones`.
+
+With findings: the r301 universal capstone (§ Finding 1), the four
+`SubstrateRigidity*Capstone` Referee theorems, `MinimalSubstrateRigidityUnified`,
+the six-axis master capstone, `RHCapstoneTypedBridgeV3`,
+`PNPCapstoneTypedBridge`, `principia_fractalis_millennium_capstone`,
+`all_clay_typed_via_soundness_and_capstones`.
+
+**Note on naming.** The Referee-tier `SubstrateRigidity*Capstone` theorems are
+NOT the central theorem. `T_infinity_rigidity` in `PF/SubstrateRigidity.lean` is,
+and it audits CLEAN. The two must not be conflated in any external presentation.
+
+## Standing verdict
+
+The kernel-verified rigidity result and the Referee-tier "rigidity forces X"
+family are in different evidential classes, and that is now a mechanical fact
+rather than a judgement call. Nothing in this sweep touches the validity of any
+theorem: every one of them is true. What the sweep measures is how much they
+say.
