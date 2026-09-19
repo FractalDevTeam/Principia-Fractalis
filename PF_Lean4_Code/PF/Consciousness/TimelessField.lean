@@ -187,7 +187,8 @@ existing `is_conscious` on the `ChernWeil` carrier. Proved
 axiom-free by unfolding both sides (`0.95 = 19/20`). -/
 theorem crystallizes_iff_isConscious (ch2 : SecondChernCharacter) :
     CrystallizesConsciousness ch2 ↔ is_conscious ch2 := by
-  unfold CrystallizesConsciousness is_conscious consciousness_threshold
+  unfold CrystallizesConsciousness is_conscious boundedScoreAboveThreshold95
+    consciousnessThreshold95
   constructor
   · intro h
     have : (19 : ℝ) / 20 = 0.95 := by norm_num

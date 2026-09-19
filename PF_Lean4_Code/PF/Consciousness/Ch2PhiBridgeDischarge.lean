@@ -93,10 +93,21 @@ structure SchmidtSpectrum (n : ℕ) where
   /-- Normalisation (trace = 1). -/
   sum_eq_one : ∑ i, p i = 1
 
-/-- The linear entropy `ch₂(p) = 1 − ∑ (p i)²`.
+/-- **State-relative linear entropy** `linearEntropy(p) = 1 − ∑ (p i)²`
+    on a Schmidt spectrum.
 
-    This is the framework Ch 6 definition of `ch₂` on quantum substrates
-    (cf. `Ch2PhiBridge.lean` line 26: `ch_2(ψ) = 1 − Tr(ρ_A²)`). -/
+    Semantic class per `codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md`
+    §1 S3: this is the standard quantum-information linear entropy
+    `1 − Tr(ρ_A²)` reduced to a Schmidt-spectrum representation. It is
+    a rigorous quantum-information quantity.
+
+    **This is NOT identical to** (i) the α-affine target-anchored
+    score `alphaAffineScore` (S1), (ii) the bounded real carrier
+    `BoundedConsciousnessScore` (S2), (iii) the Chapter-32 clinical
+    EEG surrogate (S4), or (iv) the topological second Chern character
+    (S7). No theorem in the corpus proves any such identity; treating
+    them as the same object under one brand name is a documentation
+    error retracted in Phase B. -/
 def linearEntropy {n : ℕ} (s : SchmidtSpectrum n) : ℝ :=
   1 - ∑ i, (s.p i) ^ 2
 

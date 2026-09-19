@@ -66,7 +66,18 @@ namespace PrincipiaTractalis.Cosmology
 
 open Real
 
-def consciousness_threshold_capstone : ℝ := 0.95
+/-- **Postulated 19/20 threshold** — capstone-local copy of
+    `PrincipiaTractalis.consciousnessThreshold95`. Phenomenological
+    anchor per `ch06_consciousness.tex:188–198` remark 2026-07-01,
+    not a first-principles derivation.
+    See `codex/CH2_SEMANTIC_DISAMBIGUATION_LEDGER_2026-09-14.md` §1 S5. -/
+def consciousnessThreshold95_capstone : ℝ := 0.95
+
+/-- Deprecated alias for `consciousnessThreshold95_capstone`. Retained
+    for downstream compatibility. -/
+@[deprecated consciousnessThreshold95_capstone (since := "2026-09-14")]
+def consciousness_threshold_capstone : ℝ := consciousnessThreshold95_capstone
+
 def Rf_QG_unit_modulus_capstone : ℝ := 1.1875
 
 /-! ## The capstone identifications -/
@@ -97,7 +108,8 @@ noncomputable def Lambda_eff_exponent_product : ℝ :=
     120·log 10 within the Chern-Weil-arithmetic precision. -/
 theorem Lambda_eff_exponent_product_formula :
     Lambda_eff_exponent_product = 78 * Real.pi * 0.95 * 1.1875 := by
-  unfold Lambda_eff_exponent_product N_78pi consciousness_threshold_capstone Rf_QG_unit_modulus_capstone
+  unfold Lambda_eff_exponent_product N_78pi consciousness_threshold_capstone
+    consciousnessThreshold95_capstone Rf_QG_unit_modulus_capstone
   ring
 
 /-- **Closed-form rational**: the Λ_eff exponent product
