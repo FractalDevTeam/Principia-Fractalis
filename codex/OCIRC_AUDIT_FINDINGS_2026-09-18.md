@@ -304,3 +304,102 @@ implication that discharges it.
 Any external presentation that cites the V4 master capstone as evidence about RH
 is citing `fun h hp => hp h`. This is the same defect as r301 (Finding 1), one
 tier down, and it is the first thing an outside reader would reach for.
+
+---
+
+# Triage 2 — the four "formulations" are one definition, and it contains no operator
+
+`PF/Analytic/HilbertPolyaIdentificationPrecise.lean`. Four theorems at 15
+findings each — the second-largest cluster, and the root cause of Triage 1.
+
+## Five famous names, one proposition
+
+| name | file:line |
+|---|---|
+| `BerryKeatingHamiltonianHypothesis` | `HilbertPolyaIdentificationPrecise.lean:224` |
+| `ConnesTraceFormulaHypothesis` | `:261` |
+| `BostConnesKMSPhaseTransition` | `:300` |
+| `PF_T3SymIsHilbertPolyaOperator` | `:340` |
+| `Mayer1991_SymmetricQuotientHasZetaSpectrum` | `Mayer1991TransferOperatorFormalization.lean:303` |
+
+All five have **the same body**, character for character apart from the bound
+variable name:
+
+```lean
+∃ ev : ℕ → ℝ,
+  ZetaZeroOrdinateValid ev ∧
+  ZetaZeroOrdinateComplete ev ∧
+  (∀ k, 0 < ev k)
+```
+
+The corpus proves the identification by `Iff.rfl`
+(`Mayer1991TransferOperatorFormalization.lean:359-361`), and its own docstring
+says "both encode the same spectrum-equals-oracle content."
+
+## What the shared proposition actually says
+
+Unfolding `ZetaZeroOrdinateValid` and `ZetaZeroOrdinateComplete`
+(`OnLineSurjectivitySubDecomposition.lean:144-151`):
+
+```
+∃ ev : ℕ → ℝ,
+  (∀ k, riemannZeta ⟨1/2, ev k⟩ = 0) ∧
+  (∀ t, riemannZeta ⟨1/2, t⟩ = 0 → ∃ k, ev k = t) ∧
+  (∀ k, 0 < ev k)
+```
+
+*There exists a positive sequence enumerating exactly the on-line zeta zeros.*
+
+**There is no operator anywhere in it.** No Hamiltonian, no self-adjoint
+operator, no trace formula, no KMS state, no transfer operator. It is an
+enumeration existential about zeros on the critical line, and it says nothing
+whatever about zeros off the line.
+
+So `PF_T3SymIsHilbertPolyaOperator` does not state that `T₃^sym` is a
+Hilbert–Pólya operator. `T₃^sym` does not occur in it. The "precise
+identification" identifies nothing, because there is nothing on either side to
+identify.
+
+## What the four 15-finding theorems are
+
+`HilbertPolyaIdentificationPreciseCapstone` fields K1–K4:
+
+```lean
+BK_typed_prop : BerryKeatingHamiltonianHypothesis → BerryKeatingHamiltonianHypothesis
+C_typed_prop  : ConnesTraceFormulaHypothesis      → ConnesTraceFormulaHypothesis
+BC_typed_prop : BostConnesKMSPhaseTransition      → BostConnesKMSPhaseTransition
+PF_typed_prop : PF_T3SymIsHilbertPolyaOperator    → PF_T3SymIsHilbertPolyaOperator
+```
+
+Each is `P → P`, i.e. `fun x => x`. Provable for any proposition whatsoever.
+Their docstrings say "X is a valid Lean Prop", which is true and carries no
+information.
+
+Field K5 `formulations_equivalent` is then a conjunction of four `Iff`s between
+definitionally identical propositions — `Iff.rfl` four times.
+
+The "routes" `PF_T3SymIsHilbertPolyaOperator_via_BerryKeating` / `_via_Connes` /
+`_via_BostConnes` (`RHPvsNPPairedClosure.lean:147-162`) are `.mp` applications of
+those `Iff.rfl` chains: the identity function, again.
+
+## How this generates Triage 1
+
+Triage 1 reported that the five V4 routes to RH are one modus ponens. This is
+why: the five first-hypotheses are one definition, so
+`V4_five_formulation_equivalence` is `rfl`, and the five routes are five spellings
+of `fun h hp => hp h`.
+
+## Scope — stated fairly
+
+The corpus does not conceal any of this. `Mayer1991TransferOperatorFormalization.lean:359`
+labels the identification "literally"; `RHPvsNPPairedClosure.lean:145-146` states
+"NOT an unconditional RH discharge — the hypothesis IS the 1991-99 published
+Hilbert-Pólya conjecture." Every theorem is valid. Nothing is mislabelled inside
+Lean.
+
+The defect is that five definitions named after Berry–Keating, Connes,
+Bost–Connes, Mayer and the framework's own operator are one enumeration
+existential, and no reader who does not unfold them can see that. Any external
+claim that the framework "identifies its operator with the Hilbert–Pólya
+operator", or that it has "four independent formulations", does not survive
+unfolding.
