@@ -403,3 +403,80 @@ existential, and no reader who does not unfold them can see that. Any external
 claim that the framework "identifies its operator with the Hilbert–Pólya
 operator", or that it has "four independent formulations", does not survive
 unfolding.
+
+---
+
+# Triage 3 — the BSD multi-CM batch rests on four false hypotheses
+
+`PF/Referee/BSDCapstoneTypedBridgeV4.lean`, `v4_CM_batch_surfaced` — the single
+highest-scoring declaration in the corpus sweep at 17 findings.
+
+## The predicate does not mean what it is named
+
+`hasCM` (`PF/BSDCoatesWilesRankZeroAttempt.lean:125-130`):
+
+```lean
+noncomputable def hasCM : WeierstrassCurve ℚ → Prop :=
+  fun E => E.a₁ = E_rank_zero.a₁ ∧ E.a₂ = E_rank_zero.a₂ ∧
+           E.a₃ = E_rank_zero.a₃ ∧ E.a₄ = E_rank_zero.a₄ ∧
+           E.a₆ = E_rank_zero.a₆
+```
+
+This is not complex multiplication. It is **coefficient-wise equality to one
+fixed curve**. The corpus says so itself in the docstring immediately above:
+"returns `True` for `E_rank_zero` … and `False` elsewhere … a one-curve
+LMFDB-anchored encoding."
+
+## The four hypotheses are therefore false
+
+| curve | (a₁, a₂, a₃, a₄, a₆) |
+|---|---|
+| `E_rank_zero` | (0, 0, 0, **−1**, **0**) |
+| `E_36a1` | (0, 0, 0, **0**, **1**) |
+| `E_49a1` | (1, −1, 0, −2, −1) |
+| `E_121b1` | (0, −1, 1, −7, 10) |
+| `E_144a1` | (0, 0, 0, **0**, **−27**) |
+
+None equals `E_rank_zero`. So `hasCM E_36a1` unfolds to a conjunction containing
+`(0 : ℚ) = −1` and `(1 : ℚ) = 0`. **False.** Same for the other three.
+
+`v4_CM_batch_surfaced` takes all four as hypotheses. Its statement is therefore
+**vacuously true and permanently undischargeable**: no one can ever supply the
+premises, because they are false propositions.
+
+Confirmed by search: the only `hasCM` fact ever *proved* anywhere in the corpus
+is `hasCM_E_rank_zero` (`:132`). `hasCM E_36a1` and its three siblings occur
+only ever as hypotheses, and `v4_CM_batch_surfaced` is never instantiated by any
+other declaration.
+
+## What the conclusion measures
+
+`manuscriptRankV4` (`BSDCapstoneTypedBridgeV4.lean:184-186`) is a lookup table —
+`if E = E_rank_zero then 0 …`. So `manuscriptRankV4 E = 0` is settled by literal
+curve equality, not by any rank computation. Nothing about Mordell–Weil rank is
+computed on the four curves.
+
+## Where this differs from Triages 1 and 2
+
+Those were circular: true premises that contain the conclusion. This one is
+**vacuous**: premises that cannot hold at all. A reader seeing "the typed
+rank-zero Mordell–Weil Prop holds on each of the four additional CM curves"
+would reasonably take it as a result about four curves with complex
+multiplication. It is an implication whose antecedent is false, about a
+five-coefficient equality test named `hasCM`.
+
+## Scope — stated fairly
+
+The file is named `…RankZeroAttempt.lean`, the docstring is explicit about the
+one-curve encoding and marks the default "OPEN", and the theorem is valid Lean.
+Nothing is concealed at the definition site. The defect is that a predicate
+named `hasCM` is applied to four curves it is false on, four tiers away from the
+docstring that says so, and the resulting theorem is presented as a batch result
+about CM curves.
+
+## Recommendation
+
+Either rename `hasCM` to what it is (`isERankZeroCurve`, say) so the batch
+statement reads as the tautology it is, or withdraw `v4_CM_batch_surfaced` and
+the `BSD_MultiCMRankZeroBatch` results until a real CM predicate exists. Leaving
+the name as `hasCM` guarantees the next reader makes the same misreading.
