@@ -221,3 +221,86 @@ CLEAN means no premise of that theorem is dead, definitionally a conclusion
 conjunct, one modus-ponens step from one, or reducible to `True`, within the
 analysed cone. It is not a certificate of substance: a theorem can be clean and
 still say very little. The number to weigh is the 114, not the 99.
+
+---
+
+# Triage 1 — the RH "five routes" are one modus ponens
+
+`PF/Referee/RHCapstoneTypedBridgeV4.lean`, structure `PF_RH_V4_MasterCapstone`.
+Highest-count cluster in the corpus sweep: six theorems at 12 findings each.
+
+## What the bundle advertises
+
+Five separately named routes to the Riemann Hypothesis, each with a citation:
+
+| field | route |
+|---|---|
+| `V4_via_Mayer1991` | Mayer 1991, Bull. AMS 25:55-60 transfer operator |
+| `V4_via_T3sym` | PF / T3sym |
+| `V4_via_BerryKeating` | Berry–Keating Hamiltonian |
+| `V4_via_Connes` | Connes trace formula |
+| `V4_via_BostConnes` | Bost–Connes KMS phase transition |
+
+## What they are
+
+Every one has the same shape:
+
+```lean
+V4_via_X : X → HilbertPolyaProgramConjecture → Clay_RiemannHypothesis_Standard
+```
+
+and `HilbertPolyaIdentificationPrecise.lean:515-516` gives
+
+```lean
+def HilbertPolyaProgramConjecture : Prop :=
+  PF_T3SymIsHilbertPolyaOperator → RiemannHypothesis
+```
+
+So `V4_via_T3sym` unfolds to
+
+```
+PF_T3Sym → (PF_T3Sym → RH) → RH
+```
+
+which is `fun h hp => hp h`. **Modus ponens. There is no mathematics in it.**
+
+The other four differ only in the first hypothesis — and the bundle's own field
+`V4_five_formulation_equivalence` asserts all five of those hypotheses are
+*mutually equivalent*:
+
+```
+BerryKeating ↔ Connes ↔ BostConnes ↔ PF_T3Sym ↔ Mayer1991
+```
+
+So the structure itself states that the five routes are the same proposition
+under five names. They are not five independent confirmations of anything.
+
+## What the auditor saw, and why it was right
+
+Each `V4_via_X` theorem reports 11 DEAD and 1 CONTAINED. The 11 dead fields are
+the other routes, the equivalence, and the four partial-surjectivity fields —
+carried in the bundle, consumed by nothing. The single CONTAINED is the modus
+ponens that does all the work:
+
+```
+PF_T3SymIsHilbertPolyaOperator  with  HilbertPolyaProgramConjecture  yields
+∀ s : ℂ, 0 < s.re → s.re < 1 → riemannZeta s = 0 → s.re = 1/2
+```
+
+## Scope — what is NOT being claimed
+
+The corpus does not conceal this. `PF/Referee/RHRouteScopeAccountability.lean:33`
+records `(G3) HilbertPolyaProgramConjecture := PF_T3SymIsHilbertPolyaOperator → …`
+in plain text. Every field of `PF_RH_V4_MasterCapstone` is a hypothesis, and the
+structure is honestly typed as such. The theorems are **valid**.
+
+The defect is at the presentation tier: a bundle of assumptions named after five
+famous programmes reads, to anyone not unfolding definitions, as five
+independent routes to RH. It is one assumption, asserted five ways, plus the
+implication that discharges it.
+
+## Consequence
+
+Any external presentation that cites the V4 master capstone as evidence about RH
+is citing `fun h hp => hp h`. This is the same defect as r301 (Finding 1), one
+tier down, and it is the first thing an outside reader would reach for.
