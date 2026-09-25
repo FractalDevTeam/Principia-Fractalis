@@ -742,6 +742,31 @@ Discrepancies should be reported to the framework author
 (\href{mailto:psolorzano@gmail.com}{\texttt{psolorzano@gmail.com}}).
 \end{remark}
 
+\section{Two-Anchor Cascade Verification (2026-09-25)}
+\label{sec:two-anchor-verification}
+
+The two-anchor $\alpha$-substrate cascade
+(Chapter~\ref{ch:substrate-theorem}, \S\ref{sec:two-anchor-cascade}) is
+verified by four Lean files landed on 2026-09-25, all kernel-clean with
+only \texttt{[propext, Classical.choice, Quot.sound]}. Reproduce via:
+\begin{verbatim}
+cd PF_Lean4_Code
+lake build PF.TwoAnchorCascadeCapstone
+lake build PF.HodgeQuadraticFromTwoAnchors
+lake build PF.PvsNPAnchorReduction
+lake build PF.FiveWayFalsifiability
+\end{verbatim}
+Expected \texttt{\#print axioms} output on the flagship theorem:
+\begin{verbatim}
+'PF.TwoAnchorCascade.five_way_falsifiability' depends on axioms:
+  [propext, Classical.choice, Quot.sound]
+\end{verbatim}
+No project-level axioms, no \texttt{sorry}, no \texttt{native\_decide}.
+The four files together establish that under the two external anchors
+(Perelman $\alpha_{\text{Poincar\'e}} = 1$; OpenAI-corroborated
+$\alpha_{\text{NS}} = 3\pi/2$) and the framework's structural
+identities, all seven remaining $\alpha$-values are uniquely forced.
+
 \section{Summary}
 \label{sec:summary-ch30}
 

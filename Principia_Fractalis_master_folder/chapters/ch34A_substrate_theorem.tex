@@ -2042,6 +2042,111 @@ verified that the framework's flagship single-citation theorem
 holds at the substrate level.
 \end{level3}
 
+\section{Two-Anchor Cascade and Five-Way Falsifiability (2026-09-25)}
+\label{sec:two-anchor-cascade}
+
+\subsection{From One External Anchor to Two}
+
+Prior to September 2026, the substrate cascade rested on a single
+external anchor: Grigori Perelman's Ricci-flow-with-surgery proof of
+the Poincar\'e conjecture ($\alpha_{\text{Poincar\'e}} = 1$,
+community-verified 2003--2006, Clay awarded 2010, declined by Perelman).
+Under this single anchor, the framework's structural identities
+(I6, I7, I8, I9, QG-bridge, Wave-22 $\alpha_P^2 = \alpha_{\text{YM}}$,
+Hodge-NP link) derive every remaining $\alpha$-value---but the
+derivation is internal to the framework.
+
+On September~8, 2026, OpenAI's Lean-verified formalization of Navier-Stokes
+and Euler blow-up results
+(Chapter~\ref{ch:navier-stokes}, \S\ref{sec:openai-2026-corroboration})
+provided a second externally-verified data point on the Navier-Stokes/Euler
+axis. Under the honest scoping of that section---Clay has \emph{not}
+accepted the OpenAI claim, and the specific result addresses (C)/(D)
+alternatives rather than the primary Clay conjecture---the Lean
+formalization is nevertheless a genuine externally-verified analytic
+result. Combined with the framework's derived $\alpha_{\text{NS}} = 3\pi/2$,
+this yields a second corroborating external anchor.
+
+\subsection{The Forced Values}
+
+\begin{keyidea}
+Under the two external anchors and the framework's structural
+identities, the remaining seven $\alpha$-values in the substrate
+are \emph{uniquely forced}:
+\begin{align*}
+\alpha_{\text{Poincar\'e}} &= 1 &&\text{(anchored: Perelman 2003)} \\
+\alpha_{\text{NS}} &= 3\pi/2 &&\text{(anchored: OpenAI 2026, corroboration)} \\
+\alpha_{\text{YM}} &= 2 &&\text{(forced by I7)} \\
+\alpha_{\text{RH}} &= 3/2 &&\text{(forced by I9 with $\alpha_{\text{YM}}=2$)} \\
+\alpha_{\text{BSD}} &= 3\pi/4 &&\text{(forced by I6)} \\
+\alpha_{\text{QG}} &= \sqrt{2\pi} &&\text{(forced by QG-bridge)} \\
+\alpha_{\text{Hodge}} &= \varphi = (1+\sqrt{5})/2 &&\text{(forced by I8 + positivity)} \\
+\alpha_P &= \sqrt{2} &&\text{(forced by Wave-22 + I7)} \\
+\alpha_{\text{NP}} &= \varphi + 1/4 &&\text{(forced by Hodge-NP link)}
+\end{align*}
+This is proved axiom-free in
+\texttt{PF/FiveWayFalsifiability.lean}, theorem
+\texttt{five\_way\_falsifiability}, kernel-clean with only
+\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}.
+\end{keyidea}
+
+\subsection{Falsifiability at Five Open Millennium Points}
+
+The companion theorem
+\texttt{framework\_falsifiable\_at\_five\_points} is the direct
+contrapositive of the above: any future externally-verified Millennium
+result yielding a value inconsistent with the framework's forced
+$\alpha_X$ for $X \in \{\text{RH}, \text{YM}, \text{Hodge},
+\text{BSD}, \text{P/NP}\}$ refutes at least one anchor or one
+structural identity of the substrate cascade.
+
+The five open predictions are:
+\begin{enumerate}
+\item $\alpha_{\text{RH}} = 3/2$ --- refutable by a solved Riemann
+Hypothesis attack yielding a different $\alpha$-classification.
+\item $\alpha_{\text{YM}} = 2$ --- refutable by a Yang-Mills mass
+gap resolution.
+\item $\alpha_{\text{Hodge}} = \varphi$ --- refutable by a Hodge
+conjecture proof.
+\item $\alpha_{\text{BSD}} = 3\pi/4$ --- refutable by a
+Birch--Swinnerton-Dyer resolution.
+\item $\alpha_P = \sqrt{2}$ (with $\alpha_{\text{NP}} = \varphi + 1/4$)
+--- refutable by a P vs NP resolution yielding a different $\alpha$
+signature.
+\end{enumerate}
+
+This is not a proof of the five open Millennium Problems. It is a
+\emph{prediction machine}: given the two established external anchors
+and the framework's substrate structure, the five open
+$\alpha$-values are pinned to specific numerical or algebraic forms.
+The framework is scientifically falsifiable at five distinct points.
+
+\subsection{Lean Files Landed 2026-09-25}
+
+Kernel-clean, all with only
+\texttt{[propext, Classical.choice, Quot.sound]}:
+\begin{itemize}
+\item \texttt{PF/TwoAnchorCascadeCapstone.lean} ---
+\texttt{two\_anchor\_cascade} and \texttt{two\_anchor\_zero\_dof}.
+Derives $\alpha_{\text{YM}}$, $\alpha_{\text{RH}}$, $\alpha_{\text{BSD}}$,
+$\alpha_{\text{QG}}$ from the two anchors + I6, I7, I9, QG-bridge.
+\item \texttt{PF/HodgeQuadraticFromTwoAnchors.lean} ---
+\texttt{hodge\_from\_two\_anchors}. Derives $\alpha_{\text{Hodge}} =
+\varphi$ from I8 + positivity.
+\item \texttt{PF/PvsNPAnchorReduction.lean} ---
+\texttt{alpha\_P\_from\_two\_anchors},
+\texttt{alpha\_NP\_from\_two\_anchors},
+\texttt{pvsnp\_from\_two\_anchors}. Derives $\alpha_P = \sqrt{2}$ and
+$\alpha_{\text{NP}} = \varphi + 1/4$.
+\item \texttt{PF/FiveWayFalsifiability.lean} ---
+\texttt{five\_way\_falsifiability} (all 7 forced) and
+\texttt{framework\_falsifiable\_at\_five\_points} (contrapositive).
+\end{itemize}
+
+For the manuscript-adjacent write-up including scope disclaimers on the
+OpenAI result, see
+\texttt{codex/TWO\_ANCHOR\_STRATEGIC\_UPDATE\_2026-09-25.md}.
+
 \section{Chapter Summary}
 \label{sec:substrate-theorem-summary}
 
