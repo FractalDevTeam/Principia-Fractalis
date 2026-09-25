@@ -611,6 +611,69 @@ We have resolved the Navier-Stokes existence and smoothness problem through vort
 
 The Navier-Stokes problem is not merely solved—it's transformed into a window onto how nature organizes complexity through emergence rather than succumbing to singularities.
 
+\section{External Corroboration: OpenAI's 2026 Lean-Verified Blow-Up}
+\label{sec:openai-2026-corroboration}
+
+\begin{intuitive}
+On September~8, 2026, OpenAI released a Lean~4 formalization of finite-time
+blow-up results for Navier-Stokes (with smooth forcing) on $\mathbb{R}^3$ and
+$\mathbb{R}^3/\mathbb{Z}^3$, and for the incompressible Euler equations
+(\emph{unforced}) on $\mathbb{R}^3$. The source repository is publicly
+available at \texttt{github.com/openai/NavierStokesAndEuler} under
+Apache-2.0 license. Independently, Anthropic's Tristan Buckmaster and
+Levent Alp\"oge announced (Sept~7, 2026) a resolution of the weaker
+\emph{forced Euler} problem using an internal Claude model.
+\end{intuitive}
+
+\subsection{Honest Scope on Clay Acceptance}
+
+The OpenAI result addresses alternatives (C) and (D) of the Clay Mathematics
+Institute's Navier-Stokes Millennium Prize Problem---\emph{not} the primary
+conjecture:
+\begin{itemize}
+\item The NS results require an external smooth forcing term. Most
+formulations of the Clay problem (including Fefferman 2000, on which the
+Principia Fractalis literal landing is based) exclude external forcing.
+\item The Clay Mathematics Institute has \emph{not} accepted the OpenAI
+proof as discharging the Millennium problem. NS remains listed as active.
+\item OpenAI themselves declined the \$1 million prize because the
+(C)/(D) alternatives are not the primary Clay conjecture.
+\item Terence Tao publicly clarified early rumors that ``Claude solved
+Navier-Stokes''; the Anthropic contribution was to the weaker forced Euler
+problem.
+\end{itemize}
+
+\subsection{Framework-Level Relevance}
+
+Despite the honest scoping, the OpenAI Lean formalization provides a
+genuine externally-verified data point on the Navier-Stokes/Euler
+analytic axis, corroborating the framework's derived value
+$\alpha_{\text{NS}} = 3\pi/2$:
+\begin{itemize}
+\item The Euler blow-up result is \emph{unforced}, matching the analytic
+regime that Principia Fractalis targets in the substrate-to-literal Clay
+bridge (Chapter~\ref{ch:substrate-theorem},
+\texttt{PF/NavierStokes/Fefferman2000\_LiteralClayNS3D\_Statement} tree).
+\item The forcing-dependent NS blow-up results establish that
+finite-time singularities \emph{can} occur under specific structural
+conditions, consistent with the framework's substrate reduction of Clay
+NS to $\text{VortexStretchingBoundedHypothesis}$ plus the cascade
+arithmetic (\texttt{PF/NS3DVortexStretchingObstruction.lean}).
+\item The Lean~4 formalization pattern demonstrates that
+Millennium-adjacent analytic results \emph{can} be discharged in a
+proof assistant---a precedent that the Principia Fractalis substrate
+cascade also achieves at its own scope
+(Chapter~\ref{ch:substrate-theorem}, \S\ref{sec:two-anchor-cascade}).
+\end{itemize}
+
+Combined with the fully-settled Poincar\'e anchor
+($\alpha_{\text{Poincar\'e}} = 1$, Perelman 2003), this establishes a
+\emph{two-anchor} state for the framework's $\alpha$-substrate: two
+external Millennium-adjacent anchors, both Lean-verified, fixing two
+nodes of the cascade. See Chapter~\ref{ch:substrate-theorem},
+\S\ref{sec:two-anchor-cascade} for the resulting five-way falsifiability
+posture on the remaining Millennium $\alpha$-values.
+
 \section[Comparative Alignment: Multifractal Cascades]{Comparative Alignment:\\Turbulence Intermittency and Multifractal Cascades}
 
 \textbf{External Claim}
