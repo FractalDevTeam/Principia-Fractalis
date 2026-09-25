@@ -217,10 +217,21 @@ GitHub Pages repository.
 
 ## The substrate's α-skeleton (reference table)
 
-The nine α-values, uniquely forced (in the substrate framework) by twelve simultaneous
-cross-Millennium algebraic invariants over the basis $\{1,\pi,\varphi,\sqrt{2}\}$. Substrate-level
-reductions in Lean 4 are kernel-only; classical-side realizations are conditional on the
-substrate-tier conjectures enumerated in the paper.
+The nine α-values, uniquely pinned by **eight independently postulated structural
+laws** together with positivity and the external Perelman anchor, over the basis
+$\{1,\pi,\varphi,\sqrt{2}\}$. Those laws form a triangular (minimal,
+non-over-determined) system: one constraint per value. They are explicit
+postulates of the framework, **not consequences of its substrate** — not hidden
+consequences, but not an inconsistent patchwork.
+
+("Independent" means independent relative to the formalized base theory and the
+exact constructions tested; it does not establish independence from every future
+extension of Principia Fractalis. See `codex/CANONICAL_VERDICT_LANGUAGE_2026-09-07.md`
+and the eight-law audit: `PF/AlphaL5PiScalingObstruction_r332.lean`,
+`PF/AlphaStructuralLawAudit_r334.lean`, `PF/AlphaStructuralLawAuditI7_r335.lean`.)
+
+Substrate-level reductions in Lean 4 are kernel-only; classical-side realizations
+are conditional on the substrate-tier conjectures enumerated in the paper.
 
 > **Correction (2026-08-04).** Two honesty notes on this table.
 > (1) The α_NP = φ + 1/4 pin is an **empirical calibration, not a

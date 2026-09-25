@@ -35,8 +35,10 @@ file references the existing theorems by exact name.
   - TF partial-trace morphism replacing zeroMorphism, projective
     compatibility axiom-free
 * Cross-Millennium algebraic invariants enriched: 11 base invariants
-  + 5 derived consequences + abstract rigidity theorem proving
-  α_YM = 2, α_Poincaré = 1, α_RH = 3/2 are algebraically forced.
+  + 5 derived consequences + abstract rigidity theorem showing
+  α_YM = 2, α_Poincaré = 1, α_RH = 3/2 are pinned *given the invariants*.
+  (2026-09-07: "algebraically forced" retired. The invariants are
+  independently postulated; see codex/CANONICAL_VERDICT_LANGUAGE_2026-09-07.md.)
 
 ## Honest scope
 

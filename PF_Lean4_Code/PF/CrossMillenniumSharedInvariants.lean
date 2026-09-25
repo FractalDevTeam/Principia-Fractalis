@@ -254,8 +254,18 @@ theorem cross_millennium_shared_invariants_capstone :
       one another by (5)/(6); α_QG = √(2π) is pinned to α_YM and π
       by (3)/(11).
 
-    Thus the 9 α-values are **not free parameters**: any redefinition
-    that breaks one clause forces a cascade of inconsistencies. -/
+    Thus the 9 α-values are pinned by this system: any redefinition
+    that breaks one clause forces a cascade of inconsistencies.
+
+    **Scope (2026-09-07, eight-law rigidity audit r332/r334/r335).** The
+    phrase "not free parameters" formerly stood here and is retired. The
+    invariants are **independently postulated laws forming a triangular
+    (minimal, non-over-determined) system that uniquely pins the values** —
+    one constraint per value, nowhere over-determined. They are explicit
+    postulates, NOT consequences of the substrate: six force values outside
+    the substrate trace range `ℤ[1/3]` and are closed, and the two that are
+    compatible (I7, I9) have no linking theorem. "Independent" here means independent relative to the formalized base theory and the exact constructions tested; it does not establish independence from every future extension of Principia Fractalis. See
+    `codex/CANONICAL_VERDICT_LANGUAGE_2026-09-07.md`. -/
 theorem cross_millennium_shared_invariants_rigidity_remark :
     True := trivial
 

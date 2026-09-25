@@ -118,3 +118,7 @@ Principia_Fractalis_master_folder/*.out
 Principia_Fractalis_master_folder/*.toc
 Principia_Fractalis_master_folder/*.bbl
 Principia_Fractalis_master_folder/*.blg
+
+# working backups of generators (kept on disk, not release provenance)
+*.bak
+*.bak.*

@@ -3,9 +3,13 @@
 
 ★ DERIVED 2026-05-23 via Wave 4 framework-application work ★
 
-The framework's 9 α-instances are NOT independent — they are forced
-by the 4-basis decomposition {1, π, φ, √2}. Wave 4 application work
-revealed clean algebraic identities relating the α-instances:
+The framework's 9 α-instances are related by clean algebraic identities over
+the 4-basis decomposition {1, π, φ, √2}. Wave 4 application work found them:
+
+**Scope (2026-09-07, audit r332/r334/r335).** "they are forced by" formerly
+stood here and is retired. These identities hold *of the chosen values*; they
+are not derivations of them. The eight structural laws are independently
+postulated and form a triangular, non-over-determined system. "Independent" here means independent relative to the formalized base theory and the exact constructions tested; it does not establish independence from every future extension of Principia Fractalis.
 
 ## Identities
 

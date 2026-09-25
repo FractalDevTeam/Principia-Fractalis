@@ -317,10 +317,14 @@ type-check in a second proof assistant.
 
 If steps 1--8 all pass, the Lean kernel has verified:
 
-1. The framework's 9-value α-skeleton is uniquely forced by the
-   cross-Millennium algebraic invariants plus the Perelman anchor
-   ($\alpha_{Poincar\acute{e}} = 1$, Perelman 2003) plus positivity
-   (no free parameters). Theorem:
+1. The framework's 9-value α-skeleton is uniquely pinned by eight
+   independently postulated structural laws plus the Perelman anchor
+   ($\alpha_{Poincar\acute{e}} = 1$, Perelman 2003) plus positivity.
+   The laws form a triangular (minimal, non-over-determined) system:
+   one constraint per value. They are postulates, not substrate
+   consequences — see `codex/ALPHA_RIGIDITY_AUDIT_REPORT_2026-09-07.md`.
+   ("Independent" means relative to the formalized base theory and the
+   constructions tested.) Theorem:
    `PrincipiaTractalis.AlphaSkeletonUniqueness.alpha_skeleton_unique`
    (`PF/AlphaSkeletonUniqueness_r128.lean`, 2026-07-27).
    This r128 proof operates on the full nine-tuple and derives
