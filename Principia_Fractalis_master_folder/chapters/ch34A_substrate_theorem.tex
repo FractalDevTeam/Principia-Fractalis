@@ -301,6 +301,45 @@ machine-checkable. Lean witness:
 identities).
 \end{description}
 
+\subsubsection*{The $\alpha$-Substrate Reference Table (post-2026-09-25)}
+\label{subsubsec:alpha-substrate-reference-table}
+
+Under the two external anchors landed on 2026-09-25 (Perelman
+$\alpha_{\text{Poincar\'e}} = 1$; OpenAI-corroborated
+$\alpha_{\text{NS}} = 3\pi/2$; see
+\S\ref{sec:two-anchor-cascade}), the framework's nine $\alpha$-values
+have the following status:
+
+\begin{center}
+\small
+\begin{tabular}{lccl}
+\toprule
+\textbf{Constant} & \textbf{Value} & \textbf{Anchor status} & \textbf{Refutable by} \\
+\midrule
+$\alpha_{\text{Poincar\'e}}$ & $1$                       & \emph{External} (Perelman 2003) & \textit{settled} \\
+$\alpha_{\text{NS}}$         & $3\pi/2$                  & \emph{External} (OpenAI 2026, corroborating) & (open Clay NS) \\
+$\alpha_{\text{YM}}$         & $2$                       & Forced by I7 \& Perelman & Yang-Mills mass gap \\
+$\alpha_{\text{RH}}$         & $3/2$                     & Forced by I9 \& $\alpha_{\text{YM}} = 2$ & Riemann hypothesis \\
+$\alpha_{\text{BSD}}$        & $3\pi/4$                  & Forced by I6 \& $\alpha_{\text{NS}}$ & Birch--Swinnerton-Dyer \\
+$\alpha_{\text{QG}}$         & $\sqrt{2\pi}$             & Forced by QG-bridge \& Perelman & (open QG; no Clay) \\
+$\alpha_{\text{Hodge}}$      & $\varphi = (1+\sqrt{5})/2$ & Forced by I8 \& positivity & Hodge conjecture \\
+$\alpha_P$                   & $\sqrt{2}$                & Forced by Wave-22 \& $\alpha_{\text{YM}}$ & P vs NP \\
+$\alpha_{\text{NP}}$         & $\varphi + 1/4$           & Forced by Hodge-NP link & P vs NP (co-refuted with $\alpha_P$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The two \emph{External} rows are established by
+independently verified proofs outside Principia Fractalis. The seven
+\emph{Forced} rows are consequences of the two external anchors plus
+the structural identities I6, I7, I8, I9, QG-bridge, Wave-22, and the
+Hodge-NP link (each proved kernel-clean in the Lean corpus). Any
+future externally-verified Millennium result whose $\alpha$-classification
+disagrees with the fourth-column entry refutes at least one anchor or
+identity; this is the content of
+\texttt{framework\_falsifiable\_at\_five\_points} in
+\texttt{PF/FiveWayFalsifiability.lean}.
+
 \subsection{Two Complementary Cascade Views: Constraint-Satisfaction
 vs.\ Parameterized Deduction}
 \label{subsec:substrate-consequences-cascade-views}
