@@ -1,0 +1,336 @@
+# r331b RELEASE GATE — checkable, box by box
+
+Status: **STAGED 2026-08-31.** Nothing here is satisfied yet. NO PUSH until every
+mandatory item is checked and Pablo signs off. Public HEAD must remain `96c71da7`
+until then.
+
+This file exists so that when the math lands, the release decision is mechanical:
+every item is a yes/no with a named command or artifact, not a judgement call.
+
+---
+
+## A. MATH — the chain must be complete and unconditional
+
+| # | item | check | status |
+|---|---|---|---|
+| A1 | All 18 boxes' panels kernel-green | `scripts/emit_top_union.py --root . --check-only` reports 18/18 | ☐ |
+| A2 | All 18 boxes have a bridge + capstone | same command, all rows `CLOSED` | ☐ |
+| A3 | Cover gate passes | same command: contiguous, no gap/overlap, measure exactly 1/2 | ☐ |
+| A4 | `RiemannXiTopUnion` elaborates FULL (not partial) | file contains `theorem top15_re_lt_neg_1e4 ` and `H_TOP_discharged` | ☐ |
+| A5 | `RiemannXiT15Endgame` elaborates | `lake build PF.Analytic.RiemannXiT15Endgame` RC=0 | ☐ |
+| A6 | Count identity has NO hypotheses | `xi_T15_zero_count_identity_unconditional` takes no arguments | ☐ |
+| A7 | No `sorry` anywhere in the r331b chain | `grep -rn "sorry" PF/Analytic/RiemannXiBox*Bridge*.lean PF/Analytic/RiemannXiTopUnion*.lean PF/Analytic/RiemannXiT15Endgame.lean` empty | ☐ |
+| A8 | No `native_decide` in the chain | same grep for `native_decide` empty | ☐ |
+
+**A6 is the one that matters most.** If the final theorem still takes an argument,
+the box campaign has not discharged anything and the release is not a release.
+
+---
+
+## B. AXIOM AUDIT — complete list, every file
+
+Every audit must show exactly `[propext, Classical.choice, Quot.sound]`.
+Lean wraps long axiom lists across lines — grep for the *absence* of `sorryAx` and
+`ofReduceBool` in the audit file's own output, do not pattern-match the happy list.
+
+| # | audit target | status |
+|---|---|---|
+| B1 | `RiemannXiBox0BridgeAudit` (31/31 endpoints) | ☐ |
+| B2 | `RiemannXiBox2BridgeAudit` (19/19) | ☑ **2026-08-31, clean** |
+| B3 | `RiemannXiBox100BridgeAudit` | ☐ |
+| B4 | `RiemannXiBox102..116BridgeAudit` (15 files) | ☐ |
+| B5 | `RiemannXiTopUnionAudit` | ☐ |
+| B6 | `RiemannXiT15Endgame` `#print axioms` (3 checks) | ☐ |
+| B7 | `RiemannXiBoundaryT15_r328` axiom checks | ☐ |
+| B8 | `RiemannXiBottomEdgeUnconditional_r329b` axiom checks | ☐ |
+| B9 | `RiemannXiRectangleCount_r327` axiom checks | ☐ |
+| B10 | `RiemannXiThetaBoxEnclosure_r331a` axiom checks | ☐ |
+
+---
+
+## C. FULL BUILD GREEN
+
+| # | item | check | status |
+|---|---|---|---|
+| C1 | Clean full build from scratch | `lake build` from a clean `.lake/build` RC=0 | ☐ |
+| C2 | Zero `error:` in the build log | `grep -c "^error:"` = 0 | ☐ |
+| C3 | Build reproducible on a second machine | Acer and Legion both green on the same commit | ☐ |
+| C4 | `lean-toolchain` and `lake-manifest.json` pinned and committed | `git status --porcelain` clean for both | ☐ |
+
+C1 is expensive (days). Plan it deliberately; do not skip it on the grounds that
+incremental builds were green.
+
+---
+
+## D. PROVENANCE — everything that produced a certificate must be committed
+
+The r331b certificates are machine-generated. A reader must be able to regenerate
+every one of them from committed inputs. Untracked generators are a release blocker.
+
+| # | item | check | status |
+|---|---|---|---|
+| D1 | `scripts/emit_box_segment.py` committed | box-parametric panel generator | ☐ |
+| D2 | `scripts/emit_stage2_segment.py` committed | box-0 panel generator | ☐ |
+| D3 | `scripts/emit_box_bridge.py` committed | bridge generator | ☐ |
+| D4 | `scripts/emit_top_union.py` committed | union generator | ☐ |
+| D5 | `scripts/opt40tight.py` committed | the 40-segment OPT partition | ☐ |
+| D6 | `scripts/strip_queue.sh` committed | build+closure driver | ☐ |
+| D7 | **Gate-B manifest committed into the repo** | currently only at `/tmp/strip_manifest_v2.json` — **must move into `scripts/` or `codex/` and be committed** | ☐ |
+| D8 | `manifest_v2.py` (the manifest generator) committed | currently only at `/tmp/manifest_v2.py` | ☐ |
+| D9 | All 18 boxes' panel sources committed | `PF/Analytic/RiemannXiBox*Panels/**` currently UNTRACKED | ☐ |
+| D10 | All 18 boxes' M certificates committed | `PF/Numerics/Box*Seg*M.lean` | ☐ |
+| D11 | All 18 bridges + audits committed | `PF/Analytic/RiemannXiBox*Bridge*.lean` | ☐ |
+| D12 | Regeneration is byte-reproducible | re-run each generator, `git diff` empty | ☐ |
+
+**D7/D8 are live risks right now.** The manifest that defines the entire partition
+lives in `/tmp` on the Acer. A reboot loses it. Copy it into the repo before anything
+else in this section.
+
+---
+
+## E. MHI OVERRIDE TABLE — must be documented
+
+Each segment carries an `MHI` (the `2·Σ B_n` majorant with its slack factor) chosen by
+the generator. Any segment where the value was overridden, tightened, or hand-adjusted
+away from the default rule must be listed with its justification.
+
+| # | item | status |
+|---|---|---|
+| E1 | Table of every segment whose MHI differs from the default `2·Σ B_n × 1.0005` rule | ☐ |
+| E2 | For each, the reason and who decided it | ☐ |
+| E3 | Confirmation that no override *loosens* a bound without a compensating check | ☐ |
+| E4 | The Seg17 Stage-1 reference exception (`L=3/2, U=25/16, n=23`, skipped by default in `emit_stage2_segment.py`) documented | ☐ |
+
+---
+
+## F. DOCUMENTATION HONESTY — the item this project has failed before
+
+Per the standing finding that in-code docs are honest while the README overstates,
+this section is mandatory, not cosmetic.
+
+| # | item | status |
+|---|---|---|
+| F1 | README claims match what is actually proved — no "axiom-free" phrasing that implies more than "no project axioms beyond the mathlib three" | ☐ |
+| F2 | Every undischarged named conjecture still in the repo is listed as undischarged | ☐ |
+| F3 | r330 is described as a superseded ALTERNATIVE route that still carries an unproven `hTaylor` hypothesis — never as part of the proved chain | ☐ |
+| F4 | `KatoRellichInput` (proved false by its own file) is not cited anywhere as support | ☐ |
+| F5 | Stale docstrings in touched files updated (esp. r328 §7 "classical-but-unformalized" bottom edge — now discharged by r329b) | ☐ |
+| F6 | `DISPATCH_OWNERSHIP.md` build-lock notice removed or marked historical | ☐ |
+| F7 | Progress notes accurate: box counts, timings, what closed when | ☐ |
+| F8 | The r331b result is scoped correctly: this is the **T = 15 rectangle count identity**, NOT the Riemann Hypothesis | ☐ |
+| F9 | Margin reporting follows the ledger convention: xi-space margin is the headline; Lambda-space ~1e-13 values labelled as the internal enclosure check | ☐ |
+
+**F8 is the one to be most careful about.** The chain proves an exact zero-count
+identity on one rectangle. Any release text implying more is the failure mode this
+project has already been audited for.
+
+---
+
+## G. RELEASE MECHANICS
+
+| # | item | status |
+|---|---|---|
+| G1 | Working tree clean, everything intended is tracked | ☐ |
+| G2 | Commit message states exactly what is proved and what is not | ☐ |
+| G3 | CHANGELOG entry | ☐ |
+| G4 | Pablo has reviewed the endgame chain live (the referee step) | ☐ |
+| G5 | Explicit go-ahead to push | ☐ |
+
+---
+
+## H. STATEMENT FIDELITY — read-back audit (STANDING GATE, added 2026-09-08)
+
+**Every other gate in this file verifies that a proof is sound. None of them
+verifies that the statement means what we think it means.** `#print axioms`
+cannot detect statement drift; a kernel-perfect proof of a subtly-weakened or
+vacuous theorem passes A, B, C and D without complaint.
+
+The base rate cited in `codex/FLT_LESSONS_FOR_PF_2026-09-08.md` §6: a Lean-as-judge
+audit found only **~43% of AI-drafted formal statements faithful** to their
+intended meaning. Statement drift, not proof error, is the failure mode at scale.
+Our exposure is concentrated exactly where it hurts: converting "proved zero-count
+identity on one rectangle" into anything phrased as a result about RH.
+
+### The gate
+
+For every **load-bearing root statement**, an independent reader renders the Lean
+into precise prose **without having seen the intended meaning**, and the two are
+diffed.
+
+| # | item | status |
+|---|---|---|
+| H1 | `xi_T15_zero_count_identity_unconditional` — read-back on file, diffed | ☐ |
+| H2 | `top15_re_lt_neg_1e4` (union, FULL) — read-back on file, diffed | ☐ |
+| H3 | `alpha_skeleton_unique` (r128) — read-back on file, diffed | ☐ |
+| H4 | r332 obstruction theorems — read-back on file, diffed | ☐ |
+| H5 | **r331c/d root statements — read-back BEFORE any proof work begins** | ☐ |
+| H6 | Completion-theorem draft signature — read-back when it becomes Lean | ☐ |
+| H7 | Every milestone lemma of a new campaign, at statement-freeze time | ☐ |
+
+### Protocol — binding
+
+1. The reader receives the **declaration text only**: signature and, where needed
+   to unfold, the definitions it depends on. **No docstrings, no comments, no
+   file names that telegraph intent, no surrounding prose.**
+2. The reader must return: (a) a prose rendering; (b) every binder and
+   hypothesis, implicit ones included; (c) **what the statement does NOT assert**;
+   (d) a vacuity/triviality check — could this be true for uninteresting reasons;
+   (e) drift flags — anything the *name* claims that the *type* does not.
+3. Only then is the read-back compared against the intended meaning.
+4. **A statement whose read-back diverges from intent does not proceed to proof
+   work**, and if already proved, its consumer-facing description is corrected
+   before anything is published on it.
+
+Item (e) is not optional. Names like `..._unconditional`, `..._forced`,
+`..._ktheoretic` do work in a reader's head that the type may not support — and a
+name is what a referee skims.
+
+### Ordering rule
+
+**Read-back precedes proof work, not the reverse.** Reviewing a statement is far
+cheaper than proving it, and a false or drifted statement is the most expensive
+token sink available. Retroactive read-backs are worth running on existing roots
+(H1–H4), but the value is in H5 and H7, where the cost of catching drift is a
+paragraph rather than a campaign.
+
+### What this does not replace
+
+Read-back checks *meaning*. It does not check soundness — B and the `#print
+axioms` discipline in §B0 still carry that, and neither substitutes for the
+other. A statement can be faithful and unsound, or sound and drifted; the gate
+must catch both, which is why H sits alongside B rather than inside it.
+
+
+---
+
+## SIGN-OFF
+
+Release requires: all of A, B, C, D, F **and H** mandatory; E documented; G1-G5.
+
+Nothing in this file authorises a push. `NO PUSH` stands until G5.
+
+---
+
+## B0 — MANDATORY: every audit reads `#print axioms` output, never RC
+
+**A zero exit code does not mean a theorem was proved.**
+
+On 2026-09-05 the first build of `RiemannXiT15Endgame` returned RC=1 — and its audit
+line read:
+
+    'PrincipiaTractalis.RiemannXiT15Endgame.xi_T15_zero_count_identity_unconditional'
+      depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+`finite_zeros_rectangle` lives in namespace `Zeta23.Analytic`
+(`RectangleArgumentPrinciple_r327.lean:51-52`). r328 (line 73) and r329b (line 83)
+both open it; the endgame module did not. The name elaborated to a metavariable and
+**Lean admitted the goal with a sorry**. Had the module carried no `#print axioms`
+check, this would have surfaced only as "build failed" — with no indication that a
+load-bearing theorem had been silently admitted rather than proved.
+
+Therefore, for **every load-bearing theorem** in the release:
+
+1. Its module MUST contain a `#print axioms <fully.qualified.name>` line, or an
+   `...Audit.lean` companion module MUST.
+2. The audit verdict MUST be read from that output, filtered to lines attributed to
+   **that module's own file path** — the build log also carries `#print axioms` output
+   from every other project file it touched, and Lean wraps long axiom lists across
+   lines.
+3. Judge cleanliness by the **absence of `sorryAx` and `ofReduceBool`** in the
+   unwrapped output, not by pattern-matching the expected happy list (wrapping breaks
+   naive matches).
+4. RC=0 alone is NEVER sufficient evidence and MUST NOT be recorded as an audit result.
+
+For a theorem claimed to be unconditional, additionally run
+
+    #check @<fully.qualified.name>
+
+The `@` form shows every binder, implicits included. A genuinely unconditional theorem
+shows **no binders at all**. Reading the source for absent hypotheses is not
+equivalent — elaboration can introduce them.
+
+---
+
+## C1 SCOPE AMENDMENT — 2026-09-06
+
+**C1 covers the r331b chain. The pre-r331b corpus is excluded, deliberately and on
+the record.**
+
+### What C1 rebuilds from committed source
+
+Everything this release asserts, and nothing else:
+
+- all 4835 generated files (4115 panel modules + 720 M certificates)
+- the box-parametric core, the section-8 envelope, `RiemannXiThetaRealFormAndBoxes_r331b`
+- all 18 `RiemannXiBox<K>Bridge` modules and their `BridgeAudit` companions
+- `RiemannXiTopUnion` + `RiemannXiTopUnionAudit`
+- `RiemannXiT15Endgame`
+- every other file this branch adds or modifies relative to `96c71da7`, including
+  the F5 documentation edits to r328, r330 and the r331b real-form module
+
+Operationally the rebuild set is defined mechanically, not by hand:
+
+    git diff --name-only 96c71da7..HEAD   ->   delete those modules' build artifacts
+                                               ->   rebuild them from source
+
+### What C1 excludes, and why
+
+The pre-r331b PF corpus is **tracked and unmodified at public HEAD `96c71da7`**. It is
+already the published, built state that the world has. Re-elaborating it would
+re-verify what this release does not assert.
+
+The threat model for this gate is **our generation pipeline** — the emitters, the
+manifest, the bridge and union assembly. That is exactly what the rebuild set above
+covers. Code we did not write and did not change in this release is a dependency, in
+the same category as mathlib.
+
+### ERRATUM 2026-09-06 — the "RAM wall" claim was overstated
+
+**The earlier version of this section is withdrawn.** It asserted that a pre-r331b
+module has a single-process memory peak above this hardware's available RAM, citing
+three OOM kills (13 GB cap, 14.5 GB cap, no cap). That inference was wrong.
+
+All three runs used a driver that issued **one `lake build` per box**. A single lake
+process therefore elaborated roughly 280 modules in sequence and accumulated memory
+across them until the kernel killed it — reliably at about the five-minute mark,
+regardless of the cgroup setting, which is why removing the cap changed nothing. The
+campaign's established discipline is **one lake invocation per module**, each process
+exiting and releasing its memory; that discipline was not carried into the rebuild
+driver. Once it was, the same tree builds cleanly at normal campaign figures
+(~210 s and ~10.4 GB for a heavy panel, well inside the machine).
+
+What is actually known:
+
+- No pre-r331b module has been shown to exceed available RAM. The full-tree rebuild
+  has **not** been attempted with correct per-target serialization, so the question is
+  open, not settled.
+- The one genuinely independent data point — the very first smoke build — ran at
+  `nproc=4` and fanned out in parallel, which is separately sufficient to explain an
+  OOM and therefore proves nothing about any single module.
+
+**Consequently, C1's scope restriction does NOT rest on a hardware limit.** It rests
+solely on the scope argument above: the pre-r331b corpus is tracked and unmodified at
+public HEAD `96c71da7`, is already the published built state, and lies outside what
+this release asserts. That justification is independent of memory and is the one to
+cite.
+
+If a full-tree rebuild is wanted later, it should be run with per-module invocations
+before any conclusion is drawn about hardware adequacy.
+
+### Consequence for the release text
+
+The release note must not claim "builds clean from scratch" without qualification. The
+accurate claim is: **every artifact this release contributes rebuilds from committed
+source on stock hardware, against a pinned, unmodified dependency base.**
+
+## POLICY — supervisors are mandatory
+
+No build unit runs unsupervised. Every long-running unit must be paired with a
+supervisor that detects death and resumes, with a capped retry count and a refusal to
+restart on a genuine build failure (as opposed to a kill).
+
+This is policy because of three separate idle incidents in this campaign: a worker
+that finished and was never chained (~9 h), and a C1 unit that was OOM-killed while
+its sibling half had never been launched at all (~15 h). In each case the machines sat
+idle and nothing reported it. A watcher that only reports is insufficient — it must
+resume.

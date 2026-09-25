@@ -211,7 +211,13 @@ theorem top_edge_nonvanishing_of_right_half
     -- conj z ≠ 0 ↔ z ≠ 0
     exact fun hz => hσ'_ne (by rw [hz]; simp)
 
-/-! ## §7 — Bottom edge as residual
+/-! ## §7 — Bottom edge (DISCHARGED in r329b — see status note below)
+
+STATUS 2026-09-05: the residual described in this section is no longer open.
+`RiemannXiBottomEdgeUnconditional_r329b.bottomEdgeZeroFree_proved` proves
+`BottomEdgeZeroFree` unconditionally, without assuming `ζ(σ) < 0` on `(0,1)`.
+The discussion below is retained as the historical statement of why the
+predicate was introduced.
 
 Classically `ξ(σ) > 0` for real `σ ∈ [0, 1]`, since:
 
@@ -228,10 +234,14 @@ However, `ζ(σ) < 0` on `(0, 1)` is NOT a named theorem in mathlib
 fact.  We therefore package it as the residual predicate below and
 require it as a hypothesis. -/
 
-/-- **`BottomEdgeZeroFree`** — the residual nonvanishing condition on the
-real interval `[0, 1]`.  The endpoints are already discharged by the
-corner values (see `bottom_edge_endpoints_ne_zero` below); the genuine
-residual content is the open interior `σ ∈ (0, 1)`. -/
+/-- **`BottomEdgeZeroFree`** — the nonvanishing condition on the real
+interval `[0, 1]`.  The endpoints are discharged by the corner values (see
+`bottom_edge_endpoints_ne_zero` below); the open interior `σ ∈ (0, 1)` was
+the residual content.
+
+**No longer a residual.** `r329b.bottomEdgeZeroFree_proved` supplies this
+predicate unconditionally.  It remains a `def` because r328's reduction is
+stated against it. -/
 def BottomEdgeZeroFree : Prop :=
   ∀ σ : ℝ, 0 ≤ σ → σ ≤ 1 → riemannXiEntire (σ : ℂ) ≠ 0
 
@@ -337,7 +347,8 @@ The `hTop` hypothesis captures ONLY the top half-edge `σ ∈ [1/2, 1]`
 (the left half is discharged by r326 symmetry inside
 `boundary_zero_free_of_top_right_half_and_bottom`).  The `hBottom`
 hypothesis captures the full bottom edge `σ ∈ [0, 1]`, with the
-endpoints already provable but the open interior classical-but-unformalized. -/
+endpoints already provable and the open interior now proved in r329b
+(`bottomEdgeZeroFree_proved`), so `hBottom` is dischargeable unconditionally. -/
 theorem xi_T15_exact_zero_count_identity
     (hTop : ∀ σ : ℝ, 1/2 ≤ σ → σ ≤ 1 → riemannXiEntire ⟨σ, 15⟩ ≠ 0)
     (hBottom : BottomEdgeZeroFree) :
