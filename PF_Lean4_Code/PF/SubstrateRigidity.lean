@@ -122,8 +122,17 @@ structure IsTracialLinearFunctional
 /-- A `Substrate3Inf A` witness places `A` in the class of C*-algebras
     characterised by:
       · a directed tower of `3^k`-dimensional matrix *-subalgebras;
-      · dense union of the tower;
-      · a unique tracial linear functional (in the sense of §1).
+      · dense union of the tower.
+
+    **r337 (2026-09-17): the unique-trace field was REMOVED from this
+    structure.** An audit found it was never used by any proof: the
+    Elliott back-and-forth consumes only `tower_matrix` and
+    `tower_dense`. Carrying it made the theorem conditional on half of
+    what it concludes, which directive §12 lists as a prohibited
+    substitution. Unique traciality is now recovered as the theorem
+    `Substrate3Inf.trace_unique` below — a CONSEQUENCE of the axioms,
+    not an assumption. The statement of `T_infinity_rigidity` is
+    thereby strictly strengthened; no proof body changed.
 
     By `T_infinity_rigidity` below, any such `A` is *-isomorphic to
     `TimelessFieldCompletion`. -/
@@ -133,7 +142,6 @@ structure Substrate3Inf (A : Type*) [CStarAlgebra A] where
                     (tower k ≃⋆ₐ[ℂ] Matrix (Fin (3^k)) (Fin (3^k)) ℂ)
   tower_mono    : ∀ k, tower k ≤ tower (k+1)
   tower_dense   : Dense (((⨆ k, tower k : StarSubalgebra ℂ A) : Set A))
-  trace_unique  : ∃! τ : A → ℂ, IsTracialLinearFunctional A τ
 
 namespace Substrate3Inf
 variable {A : Type*} [CStarAlgebra A] (h : Substrate3Inf A)
@@ -453,7 +461,6 @@ noncomputable def substrate3Inf_TimelessFieldCompletion :
   tower_matrix  := substrateTFCtower_matrix
   tower_mono    := substrateTFCtower_mono
   tower_dense   := substrateTFCtower_dense
-  trace_unique  := substrateTFCtower_trace_unique
 
 /-! ## §4 — C1: block-diagonal `M_n(ℂ) →⋆ₐ[ℂ] M_{kn}(ℂ)`
 
@@ -2441,6 +2448,44 @@ theorem T_infinity_rigidity
     Nonempty (A ≃⋆ₐ[ℂ] TimelessFieldCompletion) :=
   substrate3Inf_iso h substrate3Inf_TimelessFieldCompletion
 
+/-- **★ r337 — THE TRACE HYPOTHESIS WAS REDUNDANT. ★**
+
+    Unique traciality is a *consequence* of the substrate axioms, not an
+    assumption of them. Until 2026-09-17 this was a field of
+    `Substrate3Inf`; an audit found no proof consumed it, so the
+    hypothesis was removed and is recovered here by transport along the
+    rigidity isomorphism.
+
+    This strictly strengthens `T_infinity_rigidity`: it now says a dense
+    ternary matrix tower *alone* forces the substrate, and the unique
+    trace comes out the other end. That is Glimm`s theorem in its proper
+    direction, and it removes the objection that the hypothesis encoded
+    half the conclusion. -/
+theorem Substrate3Inf.trace_unique
+    {A : Type*} [CStarAlgebra A] (h : Substrate3Inf A) :
+    ∃! τ : A → ℂ, IsTracialLinearFunctional A τ := by
+  obtain ⟨e⟩ := T_infinity_rigidity A h
+  obtain ⟨t0, ht0, huniq⟩ := substrateTFCtower_trace_unique
+  refine ⟨fun x => t0 (e x), ?_, ?_⟩
+  · exact
+      { continuous := ht0.continuous.comp (StarAlgEquiv.isometry e).continuous
+        add        := fun x y => by simp only [map_add, ht0.add]
+        smul       := fun c x => by simp only [map_smul, ht0.smul]
+        tracial    := fun x y => by simp only [map_mul]; exact ht0.tracial _ _
+        unital     := by simp only [map_one]; exact ht0.unital }
+  · intro s hs
+    funext x
+    have hcomp : IsTracialLinearFunctional TimelessFieldCompletion
+        (fun y => s (e.symm y)) :=
+      { continuous := hs.continuous.comp (StarAlgEquiv.isometry e.symm).continuous
+        add        := fun y z => by simp only [map_add, hs.add]
+        smul       := fun c y => by simp only [map_smul, hs.smul]
+        tracial    := fun y z => by simp only [map_mul]; exact hs.tracial _ _
+        unital     := by simp only [map_one]; exact hs.unital }
+    have heq : (fun y => s (e.symm y)) = t0 := huniq _ hcomp
+    have hx := congrFun heq (e x)
+    simpa using hx
+
 /-! ## §9 — Kernel audit block (COMMENTED OUT while sorries remain)
 
 Per `build-tree-discipline` memory, a stone lands with:
@@ -2457,6 +2502,7 @@ kernel-clean. On completion:
 -/
 
 #print axioms T_infinity_rigidity
+#print axioms Substrate3Inf.trace_unique
 #print axioms substrate3Inf_iso
 #print axioms substrate3Inf_TimelessFieldCompletion
 #print axioms Substrate3Inf.connect_iso
