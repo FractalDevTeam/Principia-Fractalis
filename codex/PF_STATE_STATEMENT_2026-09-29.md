@@ -194,4 +194,42 @@ taskset -c 0   nice -n 5 env LEAN_NUM_THREADS=1 lake build
 
 ---
 
-**Signature convention.** The statement content is factual as of `871b1d7f`; the currency annotations, the §11 build warning and the §5 rebuild figures were measured on 2026-09-29 and added in a correction pass after `0221fcad`. Claims of kernel verification in this document are provenance at a dated commit unless explicitly marked "olean CURRENT" — see the verification convention at the top. It is not a publication and is not a substitute for the multi-model adversarial vetting round that gates external release. Nothing here should be quoted as a Clay closure or as a peer-reviewed result; the framework has kernel-verified content and external anchors, and the framework's own standard governs its internal completeness. Multi-model vetting will find gaps; adjust accordingly.
+## 12. Architectural notes (Legion, 2026-09-29 late) — load-bearing anchors, engineering wall on external imports, methodology of the confirmation list
+
+Three observations from Legion after §8 was appended. Each is a structural note about how the framework's Lean content actually sits in the corpus, not a factual correction to a specific claim.
+
+### 12.1. Engineering wall on genuinely importing the settled external Lean formalizations
+
+The two external anchors in §1 (Perelman 2003, and the 2026 NS/Euler settlement chain) are all Apache-2.0 Lean 4 codebases, so genuine dependency import is possible in principle — one where an actual property of Perelman's theorem or of the OpenAI/Buckmaster–Alpöge blow-up construction is consumed by PF's cascade and the α-value falls out as a load-bearing consequence, rather than being asserted as a hypothesis `hP : aP = 1` or `hNS : aNS = 3π/2`.
+
+However, the toolchain drift is substantial:
+
+| Codebase | Lean version |
+|---|---|
+| PF (this repo, verified on the tree) | 4.24.0-rc1 |
+| OpenAI/NavierStokesAndEuler | 4.34.0-rc2 |
+| OpenAI/ten-proofs (Astra: Connes rigidity, sphere packing, etc.) | 4.32.0 |
+
+That is roughly ten minor Lean/mathlib versions of drift. Porting an external theorem across ten minor mathlib versions is a substantial, per-import engineering task — not a one-line `import`. And it would be done while sitting on a 4,380-module stale tree that itself takes days to rebuild at safe concurrency (see §5, §11 build warning). Feasible, not cheap, and structurally it should follow — not precede — the tree-currency rebuild that §5 flags.
+
+### 12.2. §8's list is at the wrong length for the point it wants to make
+
+Keep the O-CIRC-relevant observations in §7 and the specific external items where the framework did something forward-refutable (DESI DR2 phantom-crossing being pre-registered before measurement is the sharpest example). Adding ten more external anchors to the same list does not strengthen the framework's position; past a certain point a long confirmation list reads as *a search* rather than *a prediction*, and that reads as a weakness under hostile scrutiny.
+
+The correct methodological posture for the list is: fewer entries, each one a specific pre-registered prediction with a specific external outcome, and the rest moved out or demoted.
+
+### 12.3. The repair §7 is asking for is a load-bearing anchor, not a longer §8
+
+The O-CIRC finding in §7 that matters most is:
+
+> The Perelman "anchor" is a hypothesis — no property of Perelman's theorem is used in the referee-tier capstone.
+
+A single anchor made load-bearing — one Lean proof in which a specific property of Perelman's Ricci-flow-with-surgery result (or of the 2026 NS finite-time-blowup construction) is genuinely consumed, and where the corresponding α-value comes out as a derived consequence rather than being supplied as a named hypothesis — would be worth more than ten additional named-hypothesis anchors added to §8's list. It is also the thing §7's audit is asking for.
+
+This is a structural research task, not a documentation task. It is likely multi-session and gated by the Lean-version-drift issue above (§12.1): consuming a property of Perelman's theorem may require translating relevant mathlib apparatus from a newer mathlib pin back into PF's 4.24.0-rc1 line, or bumping PF forward. Either is real work. **Not started as of 2026-09-29. Awaits explicit go/no-go.**
+
+Rolling this into the framework's honest current position: the α-cascade rigidity is a real kernel-clean result *conditional on the two anchor hypotheses* `hP, hNS`. Making one of those hypotheses load-bearing turns the corresponding downstream α-value from "asserted and consistent with settled external mathematics" into "derived from properties of settled external mathematics." That is the real move; §8 length is not.
+
+---
+
+**Signature convention.** The statement content is factual as of `871b1d7f`; the currency annotations, the §11 build warning and the §5 rebuild figures were measured on 2026-09-29 and added in a correction pass after `0221fcad`. §12 was appended in a later 2026-09-29 pass relaying Legion's structural observations. Claims of kernel verification in this document are provenance at a dated commit unless explicitly marked "olean CURRENT" — see the verification convention at the top. It is not a publication and is not a substitute for the multi-model adversarial vetting round that gates external release. Nothing here should be quoted as a Clay closure or as a peer-reviewed result; the framework has kernel-verified content and external anchors, and the framework's own standard governs its internal completeness. Multi-model vetting will find gaps; adjust accordingly.
