@@ -1,5 +1,21 @@
 # Making the Coq layer real (started 2026-07-25)
 
+## 2026-09-29 status update — read before consuming the rest
+
+Status since the 2026-07-25 plan was authored:
+
+- **Group A (UHF arc finite-dimensional core): LANDED.** `PF_Real/` directory now contains four `.v` files matching the plan's Order-of-Work list: `MatrixTraceFaithful.v` (2 real theorems), `MatrixTracialUnique.v` (14), `WeylAveraging.v` (46), `Base3Tower.v` (48). Total **110 real Coq theorems** across the finite-dimensional UHF core. `.vo` artifacts present with 2026-07-25 dates. **`grep -c 'exact I' PF_Real/*.v = 0`** — the plan's single-invariant success criterion holds. **`grep -c Admitted PF_Real/*.v = 0`** — no open goals.
+- **Group B (completion tier): STILL BLOCKED.** Rocq / mathcomp still has no C\*-algebra theory as of 2026-09-29. Same wall mathlib had; parallel to PF's own r217 `T_infinity_rigidity` (Lean 4, `18f55a14`, 2026-09-11) — the Lean-side landing gives PF the substrate-rigidity result on the Lean side but does not translate downward to Rocq. Mathcomp-side C\*-algebra project remains multi-month.
+- **Group C (mirrors of conditional / open Lean content): NOT YET SWEPT.** `PF_Coq_Code/PF/` still holds 761 legacy `.v` files. Of these, 395 contain `exact I` (the `True`-proving shape-index pattern the plan flagged); 366 contain non-trivial Ltac (`apply`, `rewrite`, etc.) — meaning partial conversion has happened but the file-tree-wide relabelling to `*_ShapeIndex` + honest-header pattern the plan calls for has not been executed. A directory-wide sweep is the next scoped Group-C task.
+- **Group D (aggregators): status inherits Group C's.** No aggregator-level relabelling done.
+- **NS 2026-09-08 settlement implication for Coq:** none direct — the settled external mathematics is on the Navier–Stokes / Euler analytic axis; PF's Coq layer targets the UHF substrate + downstream. No Coq-side change required by the NS-settlement reframing. Bibliography citations for the NS settlement chain (added to `Principia_Fractalis_master_folder/bibliography.bib` on 2026-09-29 as `cordoba-martinezzoroa-zheng2026hns`, `cordoba-martinezzoroa2026ipm`, `buckmaster-alpoge2026euler`, `openai2026navierstokes`, `openai2026navierstokeslean`) are book-side artifacts, not Coq artifacts.
+
+**Next scoped Coq action:** sweep `PF_Coq_Code/PF/` per the Group-C relabel pattern (`*_parity` → `*_ShapeIndex` with an honest header). ~761 files; can be automated. Not started as of 2026-09-29. Awaits explicit go/no-go.
+
+Otherwise the body below remains authoritative on the 2026-07-25 vision.
+
+---
+
 ## The finding that forced this
 
 Every one of the 761 `.v` files in this directory currently proves `True`:
