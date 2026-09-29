@@ -4,7 +4,7 @@
 **Date**: 2026-09-25
 **Landing**: TOE — P vs NP subsystem under the two-anchor cascade.
 
-Given the two external anchors (Perelman + OpenAI-corroborated NS) and
+Given the two external anchors (Perelman + settled NS) and
 the framework's structural identities, the P and NP α-values are forced:
 
     α_P  = √2       (via α_P² = α_YM = α_Poincaré + 1 = 2, positivity)

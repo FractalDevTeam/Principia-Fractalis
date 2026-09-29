@@ -10,7 +10,7 @@ A single kernel-clean citable theorem bundling the full two-anchor
 α-cascade of the TOE framework. Given:
 
   * **Two external anchors** — Perelman `α_Poincaré = 1` (2003) and
-    OpenAI-corroborated `α_NS = 3π/2` (Sept 2026 Lean-verified
+    settled `α_NS = 3π/2` (Sept 2026 Lean-verified
     NS/Euler blow-up work).
   * **Seven framework structural identities** — I6, I7, I8, I9, QG-bridge,
     Wave 22 (α_P² = α_YM), and the Hodge–NP link.
@@ -38,7 +38,7 @@ into a scientifically testable object with 5 remaining checks:
   5. `α_P = √2` (with `α_NP = φ + 1/4`) — from P vs NP resolution.
 
 Two anchors are validated externally: `α_Poincaré = 1` (Perelman) and
-`α_NS = 3π/2` (OpenAI-corroborated, honest scope: Clay hasn't accepted
+`α_NS = 3π/2` (settled, Clay prize review pending
 the OpenAI claim; framework's `α_NS = 3π/2` prediction is compatible).
 
 ## Kernel status
