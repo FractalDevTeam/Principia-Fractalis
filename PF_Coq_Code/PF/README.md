@@ -10,7 +10,7 @@ only function.
 Of the **9,860** proof obligations in these 761 `.v` files, **7,367 (74.7%)** are literally
 
 ```coq
-Theorem some_impressive_sounding_name_parity : True.
+Theorem some_impressive_sounding_name_ShapeIndex : True.
 Proof. exact I. Qed.
 ```
 
@@ -19,6 +19,8 @@ Proof. exact I. Qed.
 state a `Definition ... : Prop := True` alias (e.g. `honest_scope_coq_parity_only`,
 `L1_alpha_P_sq_eq_alpha_YM`), or a `Record` all of whose fields are such aliases — closed
 by `repeat (split; [exact I|]); exact I`. These are the same thing wearing a longer name.
+
+**Naming convention (post 2026-09-29 sweep).** Every `Theorem`, `Lemma`, `Proposition`, `Corollary`, and `Definition` in this directory previously named `*_parity` has been renamed to `*_ShapeIndex`. The name change makes it structurally impossible to import a `*_parity` alias from this tree and quote it as if it verified anything. `Definition ... : Prop := True` aliases like `honest_scope_coq_parity_only` retain their original names because those names mirror literal Lean identifiers; the honest-header on each file, plus this README, remain the authoritative disclaimer that this directory verifies nothing regardless of declaration name.
 
 **The headline statistics for this tree measure nothing.** "9,808 Theorems / 9,860 Qed /
 0 Admitted" counts *syntax*, not mathematics. Every one of those 7,367 `Qed`s closes the

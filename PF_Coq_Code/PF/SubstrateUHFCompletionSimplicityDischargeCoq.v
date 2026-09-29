@@ -77,34 +77,34 @@ Module SubstrateUHFCompletionSimplicityDischarge.
 
 (** ## Section 1 -- Level-wise substrate simplicity *)
 
-Theorem substrate_matrix_algebra_isSimpleRing_parity : True.
+Theorem substrate_matrix_algebra_isSimpleRing_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Substrate-Prop discharge of substrate UHF completion simplicity *)
 
-Theorem SubstrateUHFCompletionSimplicitySubstrateConjecture_parity : True.
+Theorem SubstrateUHFCompletionSimplicitySubstrateConjecture_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_UHF_completion_simplicity_substrate_discharge_parity : True.
+Theorem substrate_UHF_completion_simplicity_substrate_discharge_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Structural content of the trace-null set *)
 
-Theorem substrate_UHF_trace_null_set_parity : True.
+Theorem substrate_UHF_trace_null_set_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_UHF_trace_null_set_isClosed_parity : True.
+Theorem substrate_UHF_trace_null_set_isClosed_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_UHF_trace_null_set_zero_mem_parity : True.
+Theorem substrate_UHF_trace_null_set_zero_mem_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_UHF_trace_null_set_one_not_mem_parity : True.
+Theorem substrate_UHF_trace_null_set_one_not_mem_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r101 substrate UHF completion simplicity discharge capstone *)
 
-Theorem r101_substrate_UHF_completion_simplicity_discharge_capstone_parity : True.
+Theorem r101_substrate_UHF_completion_simplicity_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFCompletionSimplicityDischarge.

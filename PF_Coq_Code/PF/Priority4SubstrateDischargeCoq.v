@@ -45,42 +45,42 @@ Module Priority4SubstrateDischarge.
 Definition substrate_w_0_marker : Prop := True.
 Definition substrate_w_a_marker : Prop := True.
 
-Theorem substrate_w_0_closed_form_parity : True.
+Theorem substrate_w_0_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_w_a_closed_form_parity : True.
+Theorem substrate_w_a_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Definition DarkEnergyCPLSubstrateConjecture : Prop := True.
 
-Theorem dark_energy_CPL_discharged_via_substrate_parity : True.
+Theorem dark_energy_CPL_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Problem 4b: Λ_eff/Λ_0 ≈ 10^(-120) substrate mechanism *)
 
 Definition substrate_78_pi_marker : Prop := True.
 
-Theorem substrate_78_pi_closed_form_parity : True.
+Theorem substrate_78_pi_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Definition substrate_LambdaEff_mechanism_marker : Prop := True.
 
-Theorem substrate_LambdaEff_mechanism_well_defined_parity : True.
+Theorem substrate_LambdaEff_mechanism_well_defined_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Definition LambdaEffMechanismSubstrateConjecture : Prop := True.
 
-Theorem lambda_eff_mechanism_discharged_via_substrate_parity : True.
+Theorem lambda_eff_mechanism_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- r78 Priority 4 substrate discharge capstone *)
 
-Theorem r78_priority4_substrate_discharge_capstone_parity : True.
+Theorem r78_priority4_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r63-r78 Priorities 1+2+3+4 combined capstone *)
 
-Theorem r63_r78_priorities_1_2_3_4_combined_substrate_discharge_capstone_parity : True.
+Theorem r63_r78_priorities_1_2_3_4_combined_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End Priority4SubstrateDischarge.

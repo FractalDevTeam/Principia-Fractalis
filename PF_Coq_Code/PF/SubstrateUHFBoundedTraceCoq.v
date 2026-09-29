@@ -48,28 +48,28 @@ Definition normalized_matrix_trace_marker : Prop := True.
 
 (** ## Section 2 -- Linearity + unital + zero *)
 
-Theorem normalized_matrix_trace_zero_parity : True.
+Theorem normalized_matrix_trace_zero_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem normalized_matrix_trace_add_parity : True.
+Theorem normalized_matrix_trace_add_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem normalized_matrix_trace_smul_parity : True.
+Theorem normalized_matrix_trace_smul_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem normalized_matrix_trace_one_parity : True.
+Theorem normalized_matrix_trace_one_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Prop-level discharge *)
 
 Definition NormalizedMatrixTraceExistsConjecture : Prop := True.
 
-Theorem normalized_matrix_trace_exists_parity : True.
+Theorem normalized_matrix_trace_exists_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r84 substrate bounded matrix-trace capstone *)
 
-Theorem r84_substrate_bounded_trace_capstone_parity : True.
+Theorem r84_substrate_bounded_trace_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFBoundedTrace.

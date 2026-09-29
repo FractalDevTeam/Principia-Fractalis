@@ -49,43 +49,43 @@ Definition substrate_electron_offset_marker : Prop := True.
 Definition substrate_muon_offset_marker : Prop := True.
 Definition substrate_tau_offset_marker : Prop := True.
 
-Theorem substrate_electron_offset_closed_form_parity : True.
+Theorem substrate_electron_offset_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_muon_offset_closed_form_parity : True.
+Theorem substrate_muon_offset_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_tau_offset_closed_form_parity : True.
+Theorem substrate_tau_offset_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_electron_offset_exceeds_abstract_claim_parity : True.
+Theorem substrate_electron_offset_exceeds_abstract_claim_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Definition ChargedLeptonHonestScopeSubstrateConjecture : Prop := True.
 
-Theorem charged_lepton_honest_scope_discharged_via_substrate_parity : True.
+Theorem charged_lepton_honest_scope_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Problem 5b: PF_Lean4Lean same-mathlib-rev honest-scope *)
 
 Definition substrate_PF_Lean4Lean_honest_scope : Prop := True.
 
-Theorem substrate_PF_Lean4Lean_honest_scope_holds_parity : True.
+Theorem substrate_PF_Lean4Lean_honest_scope_holds_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Definition Lean4LeanHonestScopeSubstrateConjecture : Prop := True.
 
-Theorem lean4lean_honest_scope_discharged_via_substrate_parity : True.
+Theorem lean4lean_honest_scope_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- r79 Priority 5 substrate discharge capstone *)
 
-Theorem r79_priority5_substrate_discharge_capstone_parity : True.
+Theorem r79_priority5_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r63-r79 Priorities 1+2+3+4+5 combined capstone *)
 
-Theorem r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone_parity : True.
+Theorem r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End Priority5SubstrateDischarge.

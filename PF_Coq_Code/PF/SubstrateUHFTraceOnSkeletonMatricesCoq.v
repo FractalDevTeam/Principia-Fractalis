@@ -52,44 +52,44 @@ Definition substrate_lambda_matrix_marker : Prop := True.
 
 (** ## Section 2 -- Trace of skeleton matrices *)
 
-Theorem substrate_alpha_matrix_trace_parity : True.
+Theorem substrate_alpha_matrix_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_lambda_matrix_trace_parity : True.
+Theorem substrate_lambda_matrix_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Normalized matrix trace *)
 
-Theorem substrate_alpha_matrix_normalized_trace_parity : True.
+Theorem substrate_alpha_matrix_normalized_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_lambda_matrix_normalized_trace_parity : True.
+Theorem substrate_lambda_matrix_normalized_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- Substrate pre-trace lift *)
 
-Theorem substrate_pre_trace_on_alpha_matrix_parity : True.
+Theorem substrate_pre_trace_on_alpha_matrix_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_pre_trace_on_lambda_matrix_parity : True.
+Theorem substrate_pre_trace_on_lambda_matrix_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- Substrate UHF trace lift *)
 
-Theorem UHF_trace_on_alpha_matrix_parity : True.
+Theorem UHF_trace_on_alpha_matrix_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem UHF_trace_on_lambda_matrix_parity : True.
+Theorem UHF_trace_on_lambda_matrix_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- Explicit closed-form spectral value *)
 
-Theorem UHF_trace_on_alpha_matrix_closed_form_parity : True.
+Theorem UHF_trace_on_alpha_matrix_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 7 -- r90 spectral-bridge output capstone *)
 
-Theorem r90_substrate_UHF_trace_on_skeleton_matrices_capstone_parity : True.
+Theorem r90_substrate_UHF_trace_on_skeleton_matrices_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFTraceOnSkeletonMatrices.

@@ -55,32 +55,32 @@ Module SubstrateUHFTraceIsStarPreserving.
 
 (** ## Section 1 -- Level-k matrix trace star-preservation *)
 
-Theorem normalized_matrix_trace_star_parity : True.
+Theorem normalized_matrix_trace_star_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Auxiliary substrate quotient star same level *)
 
-Theorem substrate_quotient_star_same_level_parity : True.
+Theorem substrate_quotient_star_same_level_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Substrate pre-trace star-preservation on TimelessFieldRing *)
 
-Theorem substrate_pre_trace_star_parity : True.
+Theorem substrate_pre_trace_star_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- Substrate UHF trace star-preservation on TimelessFieldCompletion *)
 
-Theorem UHF_trace_star_parity : True.
+Theorem UHF_trace_star_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- Self-adjoint UHF-trace values are real *)
 
-Theorem UHF_trace_self_adjoint_parity : True.
+Theorem UHF_trace_self_adjoint_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- r96 substrate UHF trace star-preservation capstone *)
 
-Theorem r96_substrate_UHF_trace_star_preserving_capstone_parity : True.
+Theorem r96_substrate_UHF_trace_star_preserving_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFTraceIsStarPreserving.

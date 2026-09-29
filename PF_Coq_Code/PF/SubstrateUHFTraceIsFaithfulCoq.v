@@ -69,31 +69,31 @@ Module SubstrateUHFTraceIsFaithful.
 
 (** ## Section 1 -- Level-k matrix trace faithfulness on star M * M *)
 
-Theorem normalized_matrix_trace_star_mul_self_eq_zero_iff_parity : True.
+Theorem normalized_matrix_trace_star_mul_self_eq_zero_iff_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Substrate quotient zero same-level auxiliary *)
 
-Theorem substrate_quotient_zero_same_level_parity : True.
+Theorem substrate_quotient_zero_same_level_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2b -- Substrate pre-trace faithfulness on TimelessFieldRing *)
 
-Theorem substrate_pre_trace_star_mul_self_faithful_parity : True.
+Theorem substrate_pre_trace_star_mul_self_faithful_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Substrate UHF trace faithfulness on TimelessFieldCompletion
        (substrate-conditional on the positive-faithfulness residual) *)
 
-Theorem SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture_parity : True.
+Theorem SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem UHF_trace_star_mul_self_faithful_of_substrate_conjecture_parity : True.
+Theorem UHF_trace_star_mul_self_faithful_of_substrate_conjecture_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r100 substrate UHF trace faithfulness capstone *)
 
-Theorem r100_substrate_UHF_trace_faithful_capstone_parity : True.
+Theorem r100_substrate_UHF_trace_faithful_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFTraceIsFaithful.

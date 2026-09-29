@@ -49,70 +49,70 @@ Module SubstrateUHFPreTraceDirectLimit.
 
 (** ## Section 1 -- Trace of reindex + Kronecker preservation *)
 
-Theorem trace_reindex_self_parity : True.
+Theorem trace_reindex_self_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrateEmbedMatrix_trace_parity : True.
+Theorem substrateEmbedMatrix_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrateEmbedMatrix_normalized_trace_parity : True.
+Theorem substrateEmbedMatrix_normalized_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrateRingHom_normalized_trace_parity : True.
+Theorem substrateRingHom_normalized_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Iterated trace preservation *)
 
-Theorem substrateRingHomIter_normalized_trace_parity : True.
+Theorem substrateRingHomIter_normalized_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Pre-trace via DirectLimit.lift *)
 
 Definition substrate_pre_trace_marker : Prop := True.
 
-Theorem substrate_pre_trace_of_level_parity : True.
+Theorem substrate_pre_trace_of_level_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- Additivity + unital *)
 
-Theorem substrate_pre_trace_add_parity : True.
+Theorem substrate_pre_trace_add_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_pre_trace_one_parity : True.
+Theorem substrate_pre_trace_one_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- 1-Lipschitz + uniform continuity *)
 
-Theorem substrate_pre_trace_dist_bound_parity : True.
+Theorem substrate_pre_trace_dist_bound_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_pre_trace_lipschitz_parity : True.
+Theorem substrate_pre_trace_lipschitz_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_pre_trace_uniformContinuous_parity : True.
+Theorem substrate_pre_trace_uniformContinuous_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- Discharge of r86 substrate residuals *)
 
-Theorem substrate_pre_trace_exists_parity : True.
+Theorem substrate_pre_trace_exists_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_UHF_trace_exists_parity : True.
+Theorem substrate_UHF_trace_exists_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 7 -- Explicit UHF trace on TimelessFieldCompletion *)
 
 Definition UHF_trace_marker : Prop := True.
 
-Theorem UHF_trace_uniformContinuous_parity : True.
+Theorem UHF_trace_uniformContinuous_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem UHF_trace_coe_parity : True.
+Theorem UHF_trace_coe_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 8 -- r87 capstone *)
 
-Theorem r87_substrate_pre_trace_and_UHF_trace_capstone_parity : True.
+Theorem r87_substrate_pre_trace_and_UHF_trace_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFPreTraceDirectLimit.

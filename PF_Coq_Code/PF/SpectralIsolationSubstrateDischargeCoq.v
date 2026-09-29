@@ -47,33 +47,33 @@ Module SpectralIsolationSubstrateDischarge.
 
 Definition substrate_lambda_skeleton_marker : Prop := True.
 
-Theorem substrate_lambda_universal_coupling_parity : True.
+Theorem substrate_lambda_universal_coupling_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_lambda_Poincare_parity : True.
+Theorem substrate_lambda_Poincare_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_lambda_YM_parity : True.
+Theorem substrate_lambda_YM_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_lambda_RH_parity : True.
+Theorem substrate_lambda_RH_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- SpectralIsolationConjecture and substrate discharge *)
 
 Definition SpectralIsolationConjecture : Prop := True.
 
-Theorem spectral_isolation_discharged_via_r72_parity : True.
+Theorem spectral_isolation_discharged_via_r72_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- r75 Problem 1b substrate discharge capstone *)
 
-Theorem r75_problem1b_substrate_discharge_capstone_parity : True.
+Theorem r75_problem1b_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r63-r75 Priority-1 combined capstone (Problem 1a + 1b) *)
 
-Theorem r63_r75_priority1_combined_substrate_discharge_capstone_parity : True.
+Theorem r63_r75_priority1_combined_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SpectralIsolationSubstrateDischarge.

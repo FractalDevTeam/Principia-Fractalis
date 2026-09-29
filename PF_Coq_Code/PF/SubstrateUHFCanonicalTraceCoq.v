@@ -46,38 +46,38 @@ Definition substrate_normalized_trace_marker : Prop := True.
 
 (** ## Section 2 -- Linearity + unital + zero *)
 
-Theorem substrate_normalized_trace_zero_parity : True.
+Theorem substrate_normalized_trace_zero_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_normalized_trace_add_parity : True.
+Theorem substrate_normalized_trace_add_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_normalized_trace_smul_parity : True.
+Theorem substrate_normalized_trace_smul_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_normalized_trace_one_parity : True.
+Theorem substrate_normalized_trace_one_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- tau(delta_i) = 1/9 *)
 
-Theorem substrate_normalized_trace_delta_projection_parity : True.
+Theorem substrate_normalized_trace_delta_projection_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- Sum of traces of projections = 1 *)
 
-Theorem substrate_normalized_trace_of_projections_sum_to_one_parity : True.
+Theorem substrate_normalized_trace_of_projections_sum_to_one_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- Prop-level SubstrateCanonicalTraceExistsConjecture *)
 
 Definition SubstrateCanonicalTraceExistsConjecture : Prop := True.
 
-Theorem substrate_canonical_trace_exists_parity : True.
+Theorem substrate_canonical_trace_exists_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- r82 substrate canonical trace capstone *)
 
-Theorem r82_substrate_canonical_trace_capstone_parity : True.
+Theorem r82_substrate_canonical_trace_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFCanonicalTrace.

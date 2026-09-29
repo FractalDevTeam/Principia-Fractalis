@@ -43,23 +43,23 @@ Module SubstrateUHFCompletionTrace.
 
 (** ## Section 1 -- Level-k trace 1-Lipschitz + UniformContinuous *)
 
-Theorem substrate_level_trace_dist_bound_parity : True.
+Theorem substrate_level_trace_dist_bound_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_level_trace_lipschitz_parity : True.
+Theorem substrate_level_trace_lipschitz_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_level_trace_uniformContinuous_parity : True.
+Theorem substrate_level_trace_uniformContinuous_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- UHF trace extension scaffolding *)
 
 Definition UHF_trace_extension_from_pre_trace_marker : Prop := True.
 
-Theorem UHF_trace_extension_uniformContinuous_parity : True.
+Theorem UHF_trace_extension_uniformContinuous_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem UHF_trace_extension_agrees_on_dense_parity : True.
+Theorem UHF_trace_extension_agrees_on_dense_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Prop-level substrate content *)
@@ -68,12 +68,12 @@ Definition SubstratePreTraceExistsConjecture : Prop := True.
 
 Definition SubstrateUHFTraceExistsConjecture : Prop := True.
 
-Theorem substrate_UHF_trace_from_pre_trace_parity : True.
+Theorem substrate_UHF_trace_from_pre_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r86 substrate UHF trace extension capstone *)
 
-Theorem r86_substrate_UHF_trace_extension_capstone_parity : True.
+Theorem r86_substrate_UHF_trace_extension_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFCompletionTrace.

@@ -54,39 +54,39 @@ Definition substrate_matrix_delta_projection_marker : Prop := True.
 
 (** ## Section 2 -- Nine kernel-verified matrix-projection identities *)
 
-Theorem substrate_matrix_delta_projection_idempotent_parity : True.
+Theorem substrate_matrix_delta_projection_idempotent_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_matrix_delta_projection_star_parity : True.
+Theorem substrate_matrix_delta_projection_star_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_matrix_delta_projection_orthogonal_parity : True.
+Theorem substrate_matrix_delta_projection_orthogonal_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_matrix_delta_projection_sum_eq_one_parity : True.
+Theorem substrate_matrix_delta_projection_sum_eq_one_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_matrix_delta_projection_normalized_trace_parity : True.
+Theorem substrate_matrix_delta_projection_normalized_trace_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Lift to substrate pre-trace on TimelessFieldRing *)
 
-Theorem substrate_pre_trace_on_matrix_delta_projection_parity : True.
+Theorem substrate_pre_trace_on_matrix_delta_projection_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- Lift to substrate UHF trace on TimelessFieldCompletion *)
 
-Theorem UHF_trace_on_matrix_delta_projection_parity : True.
+Theorem UHF_trace_on_matrix_delta_projection_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- Sum of UHF-trace values = 1 *)
 
-Theorem UHF_trace_sum_on_matrix_delta_projections_parity : True.
+Theorem UHF_trace_sum_on_matrix_delta_projections_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- r89 spectral bridge capstone *)
 
-Theorem r89_substrate_UHF_trace_on_matrix_projections_capstone_parity : True.
+Theorem r89_substrate_UHF_trace_on_matrix_projections_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFTraceOnMatrixProjections.
