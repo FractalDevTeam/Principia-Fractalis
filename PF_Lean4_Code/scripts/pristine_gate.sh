@@ -80,14 +80,17 @@ warn() { say "  ${YEL}WARN${RST}  $1"; }
 say "pristine_gate: $MOD"
 say "  source: $SRC"
 
-# --- (a) olean currency -------------------------------------------------------
+# --- (a-pre) olean currency BEFORE this run -----------------------------------
+# Informational: was the module already kernel-checked when the gate was invoked?
+# This is the state a commit claiming "kernel-verified" would have been made in.
 if [ ! -f "$OLEAN" ]; then
-  fail "(a) olean ABSENT — module has never been kernel-checked at this path"
+  PRE_STATE="ABSENT"
 elif [ "$SRC" -nt "$OLEAN" ]; then
-  fail "(a) olean STALE — source is newer than olean; last check does not cover current source"
+  PRE_STATE="STALE"
 else
-  pass "(a) olean CURRENT"
+  PRE_STATE="CURRENT"
 fi
+say "  ----  (a-pre) olean before this run: $PRE_STATE"
 
 # --- (c) escape hatches, comments stripped ------------------------------------
 # Strip /- ... -/ block comments and -- line comments before scanning, so that
@@ -126,6 +129,17 @@ BUILD_RC=$?
 if [ $BUILD_RC -ne 0 ] || grep -qE '^error:' "$BUILD_OUT"; then
   fail "(build) lake build FAILED — a module that does not compile is never pristine"
   grep -E '^error:' "$BUILD_OUT" | head -5 | sed 's/^/        /'
+fi
+
+# --- (a) olean currency AFTER the build ---------------------------------------
+# Authoritative. The gate certifies the state it leaves behind: if the module
+# compiles, its olean now covers the current source.
+if [ ! -f "$OLEAN" ]; then
+  fail "(a) olean ABSENT after build — module did not produce kernel output"
+elif [ "$SRC" -nt "$OLEAN" ]; then
+  fail "(a) olean STALE after build — source changed under the gate, or build did not emit"
+else
+  pass "(a) olean CURRENT (pre-run state was: $PRE_STATE)"
 fi
 
 # --- (d) dead binders via Lean's own linter -----------------------------------
