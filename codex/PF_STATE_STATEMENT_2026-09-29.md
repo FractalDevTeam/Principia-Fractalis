@@ -1,9 +1,32 @@
 # Principia Fractalis — Confirmable state statement, 2026-09-29
 
-**Author:** Pablo Cohen (psolo / xluxx) with Claude Opus 4.7 (1M context)
+**Author:** Pablo Cohen (psolo / xluxx) with Claude Opus 5 (1M context)
 **Repository:** [github.com/FractalDevTeam/Principia-Fractalis](https://github.com/FractalDevTeam/Principia-Fractalis)
-**HEAD (`master`, ACTIVE tree + origin, in sync as of this write):** `871b1d7f`
-**Purpose:** short, referable statement of PF's substrate-level TOE position at 2026-09-29 for external AI review. Every claim below is either a kernel-verified Lean 4 theorem in the tree with `#print axioms` printing exactly `[propext, Classical.choice, Quot.sound]`, or an external-landscape statement with a citation.
+**Statement content written at:** `871b1d7f`
+**Tip at time of this revision:** `0221fcad` — the commit that added this file; a later commit carries this correction pass.
+**Origin sync:** local `master` reads `ahead=0, behind=0` against `origin/master`, but `.git/FETCH_HEAD` is dated 2026-09-27. The sync is measured against a two-day-old view of the remote and is **not** independently confirmed. Re-run `git fetch origin` before relying on it.
+
+**Purpose:** short, referable statement of PF's substrate-level TOE position at 2026-09-29 for external AI review.
+
+### Verification convention — read this before §1
+
+Two distinct things are asserted in this document, and they must not be conflated:
+
+- **Verified at commit `X`** — provenance. The theorem was kernel-checked, `#print axioms` printed exactly `[propext, Classical.choice, Quot.sound]`, and the dated commit records it. This is a historical fact about a build that happened.
+- **Olean present now** — current verification. A kernel-produced `.olean` for the module exists in the working tree at this moment.
+
+**These are not the same, and at the time of writing most of this tree is in the first category only.** Measured 2026-09-29 on the ACTIVE tree:
+
+| | count |
+|---|---|
+| Lean modules | 6,336 |
+| olean current | **1,939** |
+| olean stale (source newer than olean) | 4,380 |
+| olean missing | 17 |
+
+So **roughly 69% of the corpus is not presently kernel-verified in the tree.** The cause is mechanical, not mathematical: a tree-wide mtime skew (from an rsync/checkout) invalidated Lake's freshness traces, and a capped rebuild is in progress (see §5). Staleness here means *"not currently re-checked,"* not *"found wrong"* — none of these modules has failed. But a reviewer checking today will not find oleans behind most cited theorems.
+
+Every claim below is therefore one of: a Lean 4 theorem **verified at the stated commit**, flagged where its olean is not currently present; or an external-landscape statement with a citation.
 
 ---
 
@@ -23,16 +46,16 @@ Two settled external anchors on Millennium axes plus a kernel-clean cascade of s
 | α_P | √2 | Derived via Wave-22 from α_YM |
 | α_NP | φ + 1/4 | Derived via Hodge–NP link |
 
-Every derivation `⋯Under two anchors` is a kernel-clean Lean theorem in the tree. Load-bearing files:
+Every derivation `⋯Under two anchors` is a Lean theorem kernel-verified at its commit. Load-bearing files, with olean currency measured 2026-09-29 (see the verification convention above — all eight files are present on disk):
 
-- `PF/TwoAnchorCascadeCapstone.lean` — `two_anchor_cascade` and `two_anchor_zero_dof`.
-- `PF/HodgeQuadraticFromTwoAnchors.lean` — `hodge_from_two_anchors`.
-- `PF/PvsNPAnchorReduction.lean` — `alpha_P_from_two_anchors`, `alpha_NP_from_two_anchors`, `pvsnp_from_two_anchors`.
-- `PF/FiveWayFalsifiability.lean` — `five_way_falsifiability` (all seven forced values under the two anchors) and `framework_falsifiable_at_five_points` (contrapositive).
+- `PF/TwoAnchorCascadeCapstone.lean` — `two_anchor_cascade` and `two_anchor_zero_dof`. **olean STALE.**
+- `PF/HodgeQuadraticFromTwoAnchors.lean` — `hodge_from_two_anchors`. olean CURRENT.
+- `PF/PvsNPAnchorReduction.lean` — `alpha_P_from_two_anchors`, `alpha_NP_from_two_anchors`, `pvsnp_from_two_anchors`. **olean STALE.**
+- `PF/FiveWayFalsifiability.lean` — `five_way_falsifiability` (all seven forced values under the two anchors) and `framework_falsifiable_at_five_points` (contrapositive). **olean STALE.**
 - `PF/AlphaBaselAndWallisUnderTwoAnchors.lean` — Basel + Wallis + Triple-Product classical corroborations composed through the two-anchor architecture.
 - `PF/AlphaBalanceUnderTwoAnchors.lean` — 4-axis Galois balance + NP–Vieta sum.
 
-## 2. Substrate rigidity — kernel-verified
+## 2. Substrate rigidity — verified at `18f55a14`; olean STALE at time of writing
 
 The Timeless-Field completion `𝒯_∞` is unique up to `⋆-iso`:
 
@@ -43,7 +66,9 @@ T_infinity_rigidity : ∀ (A : Type*) [CStarAlgebra A] (h : Substrate3Inf A),
 
 First formalization of Glimm-1960 UHF classification specialized to supernatural `3^∞` in any proof assistant (verified absent from mathlib4, Isabelle/HOL, Coq/Rocq, Agda, Lean 3). File: `PF/SubstrateRigidity.lean`, commit `18f55a14` (2026-09-11). Fills six mathlib gaps as byproducts: `conjByUnitary`, `reindexStarAlgEquiv`, `coe_iSup_of_directed_starSubalgebra`, non-commutative C\*-direct-limit apparatus, star lift for `UniformSpace.Completion`, and `IsTracialLinearFunctional` predicate.
 
-Post-r337 axiom audit: CLEAN. `T_infinity_rigidity` prints exactly `[propext, Classical.choice, Quot.sound]`.
+Post-r337 axiom audit: CLEAN. `T_infinity_rigidity` printed exactly `[propext, Classical.choice, Quot.sound]` at that audit.
+
+**Currency:** `PF/SubstrateRigidity.lean` is present on disk; its olean is **STALE** as of 2026-09-29 and is queued in the rebuild described in §5. The axiom result above is provenance from the dated audit, not a check a reviewer can reproduce from the current tree without first completing that rebuild.
 
 ## 3. K-theoretic obstruction — kernel-verified
 
@@ -67,9 +92,11 @@ The trace-preserving "gauge quotient" from ch04:461 was found to collapse. It is
 
 - `Xi_Positive_At_15` unconditionally discharged at **r315** (`4f7b216d`, 2026-08-23) via two independent formal architectures.
 - **r324** (`8e7bb46f`) excludes any critical-line `riemannZeta` zero below height 15 — a literal statement about mathlib's `Complex.riemannZeta`.
-- **r331b right edge**, **r329b bottom edge** on `[0,1]`, **r331c top edge** at `t = 15` on `σ ∈ [0,1]` — all kernel-clean.
-- **r331d bottom edge** at `t = -15` — source landed, kernel-clean seal in flight.
-- **r331e full-rectangle boundary + count identity + ξ↔ζ interior bridge** — source landed, awaits r331d.
+- **r331b right edge**, **r329b bottom edge** on `[0,1]`, **r331c top edge** at `t = 15` on `σ ∈ [0,1]` — kernel-clean at their commits. **Currency: `RiemannXiTopEdge_r331c.olean` is ABSENT from the tree as of 2026-09-29**, and `RiemannXiEdgeEnclosure_r331c.olean` is dated Sep 8, older than its Sep 25 source. Do not cite the ξ-rectangle edges as presently kernel-verified.
+- **r331d bottom edge** at `t = -15` — 112 lines, source landed, **olean ABSENT**; seal in flight (below).
+- **r331e full-rectangle boundary + count identity + ξ↔ζ interior bridge** — 235 lines, source landed and `sorry`-free, **olean ABSENT**; chained to build automatically on r331d's seal.
+
+**Rebuild in progress (2026-09-29).** The panel corpus backing these edges is being regenerated after a tree-wide mtime skew. Panel groups at time of writing: `RiemannXiBox0Panels` 228/239, `RiemannXiBox100Panels` 185/228, `RiemannXiBox2Panels` 0/228. The run is capped to one Lake job (`taskset -c 0`) and is clean — **269 panels rebuilt, zero failures** — with roughly 280 heavy panels remaining. Promote §5 to "kernel-clean, current" only when `RiemannXiTopEdge_r331c.olean` exists and the three panel groups read 239/239, 228/228, 228/228.
 - **r331f contour-integer evaluation** — unlanded research residual. Estimated 200–500 lines of quantitative complex analysis on the r331b/c/d boundary margins; recommendation in `codex/RH_BELOW_15_MULTIPLICITY_PLAN_2026-09-28.md`. Awaits explicit go/no-go per POST-r315 directive.
 
 Correction (recorded 2026-09-29): the r331f target statement is `RectangleIntegral' (fun s => logDeriv riemannXiEntire s) zF wF = (2 : ℂ)` (no 2πi factor). The primed `RectangleIntegral'` already carries the `1/(2πi)` normalization.
@@ -110,6 +137,8 @@ Distinction between the kernel-clean substrate tier and the Referee-tier "rigidi
 
 Zero triggered falsifiers out of eight typed falsifiers registered.
 
+*Disambiguation:* these eight are the **empirical** falsifiers of §8. They are a different set from the **structural** falsification points in `PF/FiveWayFalsifiability.lean` (`five_way_falsifiability`, `framework_falsifiable_at_five_points`, §1), which concern the five open α-axes forced under the two anchors. Eight and five are not in conflict; do not read either count as the other.
+
 ## 9. What is not done
 
 - **Per-axis mathlib-carrier formalization** for RH, YM, BSD, Hodge, P vs NP: the framework's α-value derivations are complete; composing each with a formalized mathlib statement of the literal Clay problem is a downstream carrier task, per-axis multi-session, gated by mathlib gap surveys.
@@ -120,8 +149,10 @@ Zero triggered falsifiers out of eight typed falsifiers registered.
 
 ## 10. Recent repository state
 
-Master `origin/master` at `871b1d7f` at time of writing. Recent commits, most recent first:
+Statement content written at `871b1d7f`. Recent commits, most recent first:
 
+- *(this correction pass — appended after `0221fcad`)*
+- `0221fcad` — codex: PF confirmable state statement, 2026-09-29 — for external AI review *(the commit that added this file; adding it advanced the tip past the `871b1d7f` this document originally asserted)*
 - `871b1d7f` — version_history v2.7.0: two-anchor cascade paragraph — "derived" not "forced"
 - `40e4365d` — Lean docstrings: NS reframed as settled anchor + banned-phrase sweep
 - `0b934fa0` — ch34A: cascade derives the five open α-values, does not merely predict them
@@ -135,11 +166,32 @@ Book at V2.7.0 (2026-09-27) — 38 chapters, ~913 pp. version_history entry cove
 ## 11. How to independently verify
 
 - `git clone https://github.com/FractalDevTeam/Principia-Fractalis && git checkout 871b1d7f`.
-- `cd PF_Lean4_Code && lake exe cache get && lake build`.
+- `cd PF_Lean4_Code && lake exe cache get`.
+- **Then read the build warning below before running `lake build`.**
 - `#print axioms` on any theorem cited above should output exactly `[propext, Classical.choice, Quot.sound]`.
+
+### Build warning — read before running `lake build`
+
+A bare `lake build` on this repository will very likely fail on a typical machine. This is a property of the build environment, not of the mathematics, and reviewers should not read a failure here as a defect in the corpus.
+
+1. **Lake 5.0.0-src+919e297 (Lean 4.24.0-rc1) exposes no `-j` / `--jobs` option.** It sizes its worker pool from `nproc` with no way to cap it from the command line.
+2. **The `RiemannXiBox*Panels` modules are large** (~1 MB sources) and each peaks at several GB of RAM during elaboration. On a 12-core / 15 GB host, the default fan-out to 12 workers exhausts RAM and swap, and the OOM killer SIGKILLs Lean — surfacing as `error: Lean exited with code 137`, repeatedly, because Lake retries.
+3. **Cap concurrency with CPU affinity instead**, since Lake reads `nproc` and `nproc` respects affinity:
+
+```bash
+# two workers — safe for the lighter Box0 tier
+taskset -c 0,1 nice -n 5 env LEAN_NUM_THREADS=2 lake build
+
+# one worker — required for the heavier Box2 / Box100 tier (~9 GB peak each)
+taskset -c 0   nice -n 5 env LEAN_NUM_THREADS=1 lake build
+```
+
+4. **Never run two `lake build` invocations against the same tree.** Each spawns its own full worker fan-out; concurrent duplicates OOM one another. Check with `pgrep -af "lake build"` first.
+5. **Budget days, not hours.** A cold full build of the panel corpus is a multi-day job at safe concurrency — the project's own notes record ~6.5 days for the 18-box partition. The measured rate on the reference host is ~12–13 heavy panels/hour at one worker.
+6. **A reviewer wanting to check a single cited theorem should build only that module's target** (`lake build PF.Analytic.<Module>`) rather than the whole corpus.
 - Any external mathematical claim in §8 (external confirmations) is either published and citable, or disclosed in-place with source.
 - Any hostile-referee attack surface should be raised as a specific claim + expected-refutation-mechanism pair. Pabs runs multi-model vetting; do not treat this statement as a substitute for vetting.
 
 ---
 
-**Signature convention.** This statement is factual at HEAD `871b1d7f`. It is not a publication and is not a substitute for the multi-model adversarial vetting round that gates external release. Nothing here should be quoted as a Clay closure or as a peer-reviewed result; the framework has kernel-verified content and external anchors, and the framework's own standard governs its internal completeness. Multi-model vetting will find gaps; adjust accordingly.
+**Signature convention.** The statement content is factual as of `871b1d7f`; the currency annotations, the §11 build warning and the §5 rebuild figures were measured on 2026-09-29 and added in a correction pass after `0221fcad`. Claims of kernel verification in this document are provenance at a dated commit unless explicitly marked "olean CURRENT" — see the verification convention at the top. It is not a publication and is not a substitute for the multi-model adversarial vetting round that gates external release. Nothing here should be quoted as a Clay closure or as a peer-reviewed result; the framework has kernel-verified content and external anchors, and the framework's own standard governs its internal completeness. Multi-model vetting will find gaps; adjust accordingly.
