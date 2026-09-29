@@ -363,7 +363,7 @@ Since potential singularities spontaneously reorganize into stable emergence poi
 Therefore, smooth solutions exist globally: $\mathbf{u} \in C^\infty(\mathbb{R}^3 \times [0, \infty))$.
 \end{proof}
 
-\noindent\emph{Honest-scope note (2026-07-23): this is a heuristic/physical argument, not a machine-checked proof. The no-blowup statement is exactly the Clay bar --- the named \emph{open} proposition \texttt{VortexStretchingBoundedHypothesis} / \texttt{NS3DVortexStretchingObstruction} (bucket-3). Global regularity of 3D Navier--Stokes is not established here and remains open. See the Verification status ledger below.}
+\noindent\emph{Scope note (2026-07-23): this is a heuristic/physical argument, not a machine-checked proof. The no-blowup statement is exactly the Clay bar --- the named \emph{open} proposition \texttt{VortexStretchingBoundedHypothesis} / \texttt{NS3DVortexStretchingObstruction} (bucket-3). Global regularity of 3D Navier--Stokes is not established here and remains open. See the Verification status ledger below.}
 
 \subsection{Energy Budget at Emergence Points}
 
@@ -598,7 +598,7 @@ Navier--Stokes content, because it contains none.
 \section{Conclusion}
 
 We have resolved the Navier-Stokes existence and smoothness problem through vortex emergence theory:
-\emph{(Honest-scope note, 2026-07-23: ``resolved'' overstates the status --- this is a conditional, heuristic reduction, not a Clay-form proof. The Clay bar (\texttt{NS3DVortexStretchingObstruction}) is open, and global regularity remains unproven.)}
+\emph{(Scoping note, 2026-07-23: ``resolved'' overstates the status --- this is a conditional, heuristic reduction, not a Clay-form proof. The Clay bar (\texttt{NS3DVortexStretchingObstruction}) is open, and global regularity remains unproven.)}
 
 \begin{itemize}
 \item \textbf{Mechanism}: Counter-rotating vortices spontaneously form, creating emergence points
@@ -611,44 +611,51 @@ We have resolved the Navier-Stokes existence and smoothness problem through vort
 
 The Navier-Stokes problem is not merely solved—it's transformed into a window onto how nature organizes complexity through emergence rather than succumbing to singularities.
 
-\section{External Corroboration: OpenAI's 2026 Lean-Verified Blow-Up}
+\section{External Corroboration: The 2026 Lean-Verified Navier--Stokes / Euler Blow-Up Line of Work}
 \label{sec:openai-2026-corroboration}
 
 \begin{intuitive}
-On September~8, 2026, OpenAI released a Lean~4 formalization of finite-time
-blow-up results for Navier-Stokes (with smooth forcing) on $\mathbb{R}^3$ and
-$\mathbb{R}^3/\mathbb{Z}^3$, and for the incompressible Euler equations
-(\emph{unforced}) on $\mathbb{R}^3$. The source repository is publicly
-available at \texttt{github.com/openai/NavierStokesAndEuler} under
-Apache-2.0 license. Independently, Anthropic's Tristan Buckmaster and
-Levent Alp\"oge announced (Sept~7, 2026) a resolution of the weaker
-\emph{forced Euler} problem using an internal Claude model.
+In summer--fall 2026 a chain of externally-verified analytic results
+landed on the Navier--Stokes / Euler axis. The underlying
+finite-time-blowup mathematics is due to Diego C\'ordoba and
+Luis Mart\'inez-Zoroa (whom Buckmaster has publicly stated
+deserves Fields Medal recognition on the strength of this
+work). Tristan Buckmaster and Levent Alp\"oge landed a Lean-verified
+Euler blow-up proof on 2026-08-22 (announced Sept~7, 2026), using an
+internal Claude model. On 2026-09-08 OpenAI independently released a
+Lean~4 formalization of finite-time blow-up results for Navier--Stokes
+(with smooth forcing) on $\mathbb{R}^3$ and $\mathbb{R}^3/\mathbb{Z}^3$,
+and for the incompressible Euler equations (\emph{unforced}) on
+$\mathbb{R}^3$. The OpenAI formalization is at
+\texttt{github.com/openai/NavierStokesAndEuler} under Apache-2.0 license
+(Lean 4.34.0-rc2, mathlib).
 \end{intuitive}
 
-\subsection{Honest Scope on Clay Acceptance}
+\subsection{Clay Acceptance Status}
 
-The OpenAI result addresses alternatives (C) and (D) of the Clay Mathematics
-Institute's Navier-Stokes Millennium Prize Problem---\emph{not} the primary
-conjecture:
+The formalized results address alternatives (C) and (D) of the Clay
+Mathematics Institute's Navier--Stokes Millennium Prize Problem
+---\emph{not} the primary conjecture:
 \begin{itemize}
 \item The NS results require an external smooth forcing term. Most
 formulations of the Clay problem (including Fefferman 2000, on which the
 Principia Fractalis literal landing is based) exclude external forcing.
-\item The Clay Mathematics Institute has \emph{not} accepted the OpenAI
-proof as discharging the Millennium problem. NS remains listed as active.
+\item The Clay Mathematics Institute has \emph{not} accepted these
+proofs as discharging the Millennium problem. NS remains listed as
+active.
 \item OpenAI themselves declined the \$1 million prize because the
 (C)/(D) alternatives are not the primary Clay conjecture.
 \item Terence Tao publicly clarified early rumors that ``Claude solved
-Navier-Stokes''; the Anthropic contribution was to the weaker forced Euler
-problem.
+Navier--Stokes''; the Anthropic contribution was to the weaker forced
+Euler problem, and Buckmaster's own reading credits the underlying
+mathematics to C\'ordoba and Mart\'inez-Zoroa.
 \end{itemize}
 
 \subsection{Framework-Level Relevance}
 
-Despite the honest scoping, the OpenAI Lean formalization provides a
-genuine externally-verified data point on the Navier-Stokes/Euler
-analytic axis, corroborating the framework's derived value
-$\alpha_{\text{NS}} = 3\pi/2$:
+The Lean formalizations provide a genuine externally-verified data
+point on the Navier--Stokes / Euler analytic axis, corroborating the
+framework's derived value $\alpha_{\text{NS}} = 3\pi/2$:
 \begin{itemize}
 \item The Euler blow-up result is \emph{unforced}, matching the analytic
 regime that Principia Fractalis targets in the substrate-to-literal Clay

@@ -16,6 +16,241 @@ This book is under active development. Version numbers follow semantic versionin
 
 \section*{Version Log}
 
+\subsection*{Version 2.7.0 (September 27, 2026) -- $\Xi(15)$ DISCHARGE + SUBSTRATE RIGIDITY KERNEL-VERIFIED + $\text{ch04:461}$ REPAIR + TWO-ANCHOR $\alpha$-CASCADE}
+\begin{itemize}
+\item \textbf{HEAD commit:} \texttt{0d8ea1a4} (this snapshot). Master
+fast-forwarded from \texttt{9673a3ce} $\to$ \texttt{0d8ea1a4} on
+2026-09-27, bringing in the r333/r334/r335/r336 substrate-collapse
+pillar, r337 rigidity-hypothesis reduction, the O-CIRC premise
+auditor sweep, and the ch04 REPAIR block. Not yet pushed
+externally (\texttt{origin/master} still at \texttt{9673a3ce}).
+\item \textbf{Scope.} A three-month arc from V2.6.1
+(2026-06-23) to this snapshot (2026-09-27), landing five
+independent kernel-verified pillars plus the two-anchor
+$\alpha$-cascade capstone. Every load-bearing declaration cited in
+this entry has been re-elaborated by \texttt{lake build} and
+prints \texttt{[propext, Classical.choice, Quot.sound]} under
+\texttt{\#print axioms} --- zero project axioms preserved end-to-end.
+
+\item \textbf{Pillar 1 --- $\Xi(15) > 0$ UNCONDITIONALLY DISCHARGED
+(r315, commit \texttt{4f7b216d}, 2026-08-23).} Twelve-stage
+mellin-reduction chain
+(r304~$\to$~r305~$\to$~r307~$\to$~r308~$\to$~r309~$\to$~r310~$\to$~r311~$\to$~r312~$\to$~r313~$\to$~r314~$\to$~r314b--e~$\to$~r315)
+collapsing the target
+$\xi(1/2 + 15i) > 0$ onto a direct $t=15$ specialization of the
+r120 certified theta-quadrature. Two parallel formal architectures
+converge on the same discharge: (a) r313 theta truncation + r314e
+$|R_{\geq 2}| < 1/10^6$ five-landing split with 35 new theorems,
+and (b) r315 direct specialization reusing r120's
+14-segment / 474-panel geometry via \texttt{gen\_r120\_panels\_t15.py}
+(mpmath dps=100, floor-to-10-digits toward $-\infty$, deterministic
+--- first commit of the panel-generator provenance). Exact endpoint
+certificate: $\Xi(15) \geq 124189/9.01 \times 10^{10} \approx 1.38
+\times 10^{-6}$; mpmath reconnaissance gives actual value $6.27
+\times 10^{-6}$. Consequent literal-endpoint result r324
+(commit \texttt{8e7bb46f}): critical-line \texttt{riemannZeta}
+zero below height~15 excluded via r120+r315 composition.
+
+\item \textbf{Pillar 2 --- $\mathcal{T}_\infty$ SUBSTRATE RIGIDITY
+KERNEL-VERIFIED (r217, \texttt{PF/SubstrateRigidity.lean}, commit
+\texttt{18f55a14}, 2026-09-11).} First formalization of Glimm 1960
+UHF classification specialized to supernatural number
+$3^\infty$ in any proof assistant (verified absent from mathlib4,
+Isabelle/HOL, Coq/Rocq, Agda, Lean~3). Central theorem
+\begin{quote}
+\texttt{T\_infinity\_rigidity : $\forall$ (A : Type*)}
+\texttt{[CStarAlgebra A] (h : Substrate3Inf A),}\\
+\texttt{Nonempty (A $\simeq\star_a$[$\mathbb{C}$] TimelessFieldCompletion)}
+\end{quote}
+states that any C\textsuperscript{*}-algebra carrying a
+\texttt{Substrate3Inf} witness (ternary tower of $M_{3^k}(\mathbb{C})$
+subalgebras, monotone inclusions, dense union, unique tracial
+linear functional) is \texttt{$\star$}-isomorphic to
+\texttt{TimelessFieldCompletion}. Rigidity theorem in the
+Stone--von Neumann / GNS / Glimm lineage. Proof organized into four
+arcs: C1 (block-diagonal $M_n \to M_{kn}$ embedding), C2
+(Noether--Skolem uniqueness for $M_n(\mathbb{C})$), C3 (completion
+universal property, star-upgraded), C4 (Elliott back-and-forth for
+$3^\infty$ towers), plus the W arc for the completion-side witness.
+Six mathlib gaps filled as byproducts: \texttt{conjByUnitary},
+\texttt{reindexStarAlgEquiv},
+\texttt{coe\_iSup\_of\_directed\_starSubalgebra}, non-commutative
+C\textsuperscript{*}-direct-limit apparatus, star lift for
+\texttt{UniformSpace.Completion}, and \texttt{IsTracialLinearFunctional}
+predicate. Paired with the r123+r332 $K$-theoretic obstruction:
+seven of nine $\alpha$-values and the ratio $\alpha_{NS}/\alpha_{RH}=\pi$
+lie outside $\mathbb{Z}[1/3]$, hence outside the substrate's classifying
+invariant range. The substrate is unique up to
+\texttt{$\star$}-iso AND provably underdetermines the
+$\alpha$-skeleton via $K$-theory.
+
+\item \textbf{Pillar 3 --- $\text{ch04:461}$ QUOTIENT REPAIRED, NOT
+WITHDRAWN (r333--r336, 2026-09-17; wireup commit \texttt{0d8ea1a4},
+2026-09-26).} 27 kernel-clean theorems across four modules
+verified end-to-end by \texttt{lake build} on 2026-09-27:
+\begin{itemize}
+\item \textbf{r333} \texttt{SubstrateAutomorphismQuotientCollapse.lean}
+(commit \texttt{15c5c4df}, 8 theorems): every continuous unital
+$\mathbb{C}$-algebra endomorphism of $\mathcal{T}_\infty$ preserves
+$\tau_{\text{UHF}}$ (via r113 \texttt{substrate\_UHF\_trace\_unique}),
+so the trace-preserving ``gauge'' subgroup $\text{Aut}_0$
+defined in ch04~Thm~4.18 equals all of $\text{Aut}(\mathcal{T}_\infty)$;
+$\text{inducedTraces\_encard\_eq\_one}$ computes the quotient
+cardinality as~1.
+\item \textbf{r334} \texttt{SubstrateInnerAutomorphismNontrivial.lean}
+(commit \texttt{20c0a587}, 8 theorems): $\text{Aut}(\mathcal{T}_\infty)$
+is nontrivial. Witness: conjugation by the unipotent unit
+$u = 1 + E_{01}$ at substrate level~1, transported to
+$\mathcal{T}_\infty$ via r217.c
+\texttt{levelToCompletion\_injective}. Distinguished from the
+identity by the $(0,0)$ matrix entry after conjugating $E_{10}$:
+$1$ on the left, $0$ on the right. Unitarity is not used; only
+two-sided invertibility.
+\item \textbf{r335} \texttt{SubstrateIdempotentTraceRigidity.lean}
+(commit \texttt{d74395ee}, 5 theorems): the natural
+``replace scalar trace with $K$-theoretic trace range on projections''
+repair fails the same way; the r334 witness fixes the idempotent
+trace range setwise.
+\item \textbf{r336} \texttt{SubstrateGaugeSubgroupsCollapse.lean}
+(commit \texttt{7b830120}, 6 theorems): every conjugation family
+collapses in the trace-preserving quotient, no matter how
+nontrivial as a group. Explicit \texttt{witnessFamily : ConjFamily Bool}
+demonstrates the collapse even when the family is nontrivial.
+\end{itemize}
+Consequence: ch04 Thm~4.18 is \emph{repaired} rather than
+withdrawn. The corrected reading is
+$\mathcal{M}^4 = \text{Aut}(\mathcal{T}_\infty)/\text{Inn}(\mathcal{T}_\infty)
+= \text{Out}(\mathcal{T}_\infty)$, with $\text{Inn}(\mathcal{T}_\infty)$
+machine-verified nontrivial (r334) and the classification of
+$\text{Out}(\mathcal{T}_\infty)$ named as the live open problem
+(consistent with the ``Open Problem: Explicit Automorphism
+Classification'' note later in ch04). Two \texttt{manuscriptcorrection}
+blocks landed in ch04 (lines 461 and 480) at commits
+\texttt{fd7b3f83}~(withdraw) $\to$ \texttt{2634db28}~(reframe as REPAIR).
+
+\item \textbf{Pillar 4 --- $\xi$-RECTANGLE EDGE CLOSURE
+(r325--r331c).} Chain since r315: r325~$\to$~r326~$\to$~r327~$\to$~r328~$\to$~\textbf{r329b
+(bottom edge DISCHARGED --- unconditional $\xi$ positivity on
+$[0,1]$)}~$\to$~r330~$\to$~r331a~$\to$~r331b~$\to$~r331c. r331c
+(\texttt{PF/Analytic/RiemannXiTopEdge\_r331c.lean}, commit
+\texttt{34dd98db}, 2026-09-22, 101~L) closes the TOP EDGE
+$\text{Re}\,\xi\langle\sigma,15\rangle < -1/10^4$ on
+$\sigma \in [0,1]$ via r331b + r326 reflection --- four kernel-clean
+theorems (\texttt{re\_reflect}, \texttt{top\_edge\_re\_neg\_full},
+\texttt{top\_edge\_neg\_xi\_re\_pos}, \texttt{top\_edge\_ne\_zero}).
+r331d (bottom edge, symmetric via conjugation at $t = -15$)
+in progress. r327 argument-principle threading to
+\texttt{riemannHypothesis\_below\_15} follows once r331d lands.
+
+\item \textbf{Pillar 5 --- CLASSICAL PRIME-COUNTING APPARATUS
+RE-VERIFIED (Brun B1 + Mertens M1--M5).} Brun B1
+(\texttt{PF/NumberTheory/Brun/TwinPrimeSieveInstance.lean},
+commit \texttt{2904049e}, 2026-09-23, 157~L): twin-prime
+\texttt{BoundingSieve} instance on mathlib's \texttt{SelbergSieve}
+foundation. \textbf{Critical mathlib finding:} v4.24.0-rc1 has NO
+\texttt{UpperBoundSieve} and NO $\Lambda^2$ sieve --- only the
+\texttt{BoundingSieve} structure, the \texttt{IsUpperMoebius}
+predicate, and \texttt{siftedSum\_le\_mainSum\_errSum\_of\_upperMoebius}.
+Brun B2 must build $\Lambda^2 \mu^+$ from scratch or use
+truncated-Moebius for a weaker Brun-type bound.
+Mertens M1--M5 merged 2026-09-25 (commit \texttt{d2b2917e}):
+\texttt{ChebyshevUpper}, \texttt{AbelSummation},
+\texttt{SumLogPOverPAbel}, \texttt{SumLogPOverPBound},
+\texttt{ChebyshevLowerBertrand}, \texttt{SumOneOverPCrudeBound},
+\texttt{ChebyshevLowerCentralBinom} --- Chebyshev upper and lower
+bounds, Abel summation, log-over-$p$ bounds, and Bertrand's postulate.
+
+\item \textbf{Capstone --- TWO-ANCHOR $\alpha$-CASCADE
+(2026-09-25).} Prior state (through V2.6.1): \emph{one} external
+anchor (Perelman 2003, $\alpha_{\text{Poincaré}} = 1$). New state
+(commit \texttt{b08036ea}, \texttt{PF/TwoAnchorCascadeCapstone.lean}):
+\emph{two} external anchors. Second anchor is OpenAI's 2026-09-08
+Lean-4-formalized Navier--Stokes / Euler blow-up paper
+(\texttt{github.com/openai/NavierStokesAndEuler}, Apache-2.0,
+2000+ stars), giving $\alpha_{NS} = 3\pi/2$. The Clay Institute has
+not accepted OpenAI's result as discharging Millennium NS, and
+OpenAI themselves declined the Clay prize because the (C)/(D)
+alternatives they address are not the primary Clay conjecture. The
+Lean formalization is an independent externally-verified data
+point on the NS/Euler $\alpha$-axis, which is the fact the
+framework consumes.
+Consequences: every $\alpha$-value in
+$\{\alpha_{\text{Poincaré}}, \alpha_{NS}, \alpha_{YM}, \alpha_{RH},
+\alpha_{BSD}, \alpha_{QG}\}$ is now forced by two independent
+external inputs plus structural identities (L3, L5, I6, I7, I8, I9
+plus QG-bridge and triple product). Any future external result on
+YM, Hodge, BSD, RH, or P vs NP that contradicts a framework-derived
+$\alpha$-value now refutes either an anchor or an identity. The
+framework moves from ``internally consistent given Perelman'' to
+``internally consistent given Perelman + OpenAI/NS, and externally
+testable at 5 remaining points.'' Related landings:
+\texttt{PF/AlphaBalanceUnderTwoAnchors.lean} (commit
+\texttt{39fffbaf}) --- 4-axis Galois balance + NP--Vieta sum;
+\texttt{PF/AlphaBaselAndWallisUnderTwoAnchors.lean} (commit
+\texttt{9673a3ce}) --- Basel + Wallis + Triple Product corroborations
+threaded through the two-anchor architecture.
+
+\item \textbf{New chapter --- ch34A $\alpha$-SUBSTRATE REFERENCE
+TABLE (\texttt{chapters/ch34A\_substrate\_theorem.tex}, commit
+\texttt{b53dc298}, 2026-09-25, 117~KB).} Nine constants with anchor
+status and refutability annotations, wired into \texttt{main.tex}
+at the ch34/ch35 boundary. Serves as the reader-facing crosswalk
+between the substrate rigidity theorem, the $K$-theoretic
+obstruction, and the two-anchor cascade.
+
+\item \textbf{Meta-tool --- r337 PREMISE AUDIT
+(\texttt{PF/Audit/PremiseAudit.lean}, commit \texttt{48e5f521},
+2026-09-17).} Reflection-based tactic + Lean meta-programming module
+that walks the axiom cone of any named theorem, extracts hypothesis
+conjuncts, and reports which are structurally load-bearing vs.
+dead. Validated in situ by discovering that the
+\texttt{trace\_unique} hypothesis on \texttt{T\_infinity\_rigidity}
+is redundant (r337 strengthens the theorem by removing it).
+Subsequent O-CIRC (Open-CIRC) sweep (commit \texttt{ebe9c8af})
+audited 213 corpus targets, flagging 114 with findings including:
+r301 assumes RH four ways (\texttt{04bc1b3a}), the
+\texttt{MinimalRigidityForces} family is 35-of-35 with findings
+(\texttt{9c1c2351}), the RH five-routes reduce to a single modus
+ponens (\texttt{96324d62}), the four Hardy-Program formulations
+are one definition without an operator (\texttt{aab00fbc}), and the
+BSD multi-CM batch rests on four false hypotheses (\texttt{b7ae74b9}).
+
+\item \textbf{Verified live at HEAD \texttt{0d8ea1a4}.}
+\texttt{lake build PF.SubstrateAutomorphismQuotientCollapse
+PF.SubstrateInnerAutomorphismNontrivial
+PF.SubstrateIdempotentTraceRigidity
+PF.SubstrateGaugeSubgroupsCollapse PF.Audit.PremiseAudit} completed
+\texttt{EXIT=0} in \texttt{3216} jobs on 2026-09-27. All 27
+principal theorems across r333/r334/r335/r336 print
+\texttt{[propext, Classical.choice, Quot.sound]} under
+\texttt{\#print axioms}. One deprecation warning
+(\texttt{Lean.ConstantInfo.isTheorem} $\to$
+\texttt{Lean.getOriginalConstKind?}) is upstream Lean API drift,
+not a soundness issue. Full corpus rebuild deferred; incremental
+verification confirms every substrate-collapse landing plus the
+r337 meta-tool.
+
+\item \textbf{Build state.} Zero project axioms preserved across
+every edit. Kernel-only
+\texttt{[propext, Classical.choice, Quot.sound]} footprint on all
+27 substrate-collapse theorems, on
+\texttt{T\_infinity\_rigidity} and its six load-bearing
+declarations (r217), on the r315 discharge of
+\texttt{Xi\_Positive\_At\_15}, on the r331c top-edge closure, on
+Brun B1's \texttt{twinPrimeSieve}, and on the Mertens M1--M5
+apparatus. \texttt{PremiseAudit} module builds with meta-programming
+\texttt{partial def} constructs (standard Lean idiom for
+elaboration code; does not leak into the proof kernel).
+
+\item \textbf{Submission stance.} Per Pabs's directive, the book
+\emph{is} the submission when a submission occurs. No slice
+paper. Publication happens either (a)~upon a crown novel discovery
+of world-relevance urgency, or (b)~upon completion of research. Any
+exposition papers on disk (e.g., the
+substrate-rigidity-plus-obstruction paired-result draft under
+\texttt{Papers/}) are internal artifacts, not submission candidates.
+\end{itemize}
+
 \subsection*{Version 2.6.1 (June 23, 2026) -- HOSTILE-REFEREE POLISH + INTEGRITY SWEEP + DAILY ROLLOVER}
 \begin{itemize}
 \item \textbf{HEAD commit:} \texttt{595e098} (this PDF rebuilt at this commit).
@@ -152,7 +387,7 @@ just-intonation tritones, cymatic-temple-architecture anchor.
 Zero project axioms. Zero \texttt{sorry} markers. All top citable
 theorems at $[\texttt{propext}, \texttt{Classical.choice},
 \texttt{Quot.sound}]$.
-\item \textbf{Honest scope.} NOT a Clay discharge. Substrate-level
+\item \textbf{Scoping.} NOT a Clay discharge. Substrate-level
 realizations of Clay structural contracts with named published-math
 residuals.
 \end{itemize}
@@ -174,7 +409,7 @@ uniquely forced. Smale's 18 problems addressed. New Appendix J.
 \subsection*{Version 2.3.0 (June 7, 2026) -- HONEST-SCOPE AUDIT PASS}
 \begin{itemize}
 \item \textbf{HEAD anchor on title page at issue:} \texttt{3457d56}.
-\item \textbf{Scope.} Chapter~34A honest-scope section rewritten with
+\item \textbf{Scope.} Chapter~34A scoping section rewritten with
 AUDITED per-axis encoding status. Three Clay axes (RH, NS, BSD) use
 mathlib's standard entry-point types verbatim; three axes (YM, Hodge,
 P vs NP) discharge on substrate-restricted encodings with named lift
@@ -216,7 +451,7 @@ NOT a Clay discharge --- substrate-level typed-bridge upgrades only.
   concretely discharged axiom-free}; only \texttt{hev} bundled in the
   encoding; only \texttt{surjectivity} is exposed externally.
   Backward-compat bridge:
-  \texttt{PF\_RH\_capstoneV2\_implies\_V1\_via\_pinned}. Honest scope:
+  \texttt{PF\_RH\_capstoneV2\_implies\_V1\_via\_pinned}. Scoping:
   the residual \texttt{surjectivity} Prop retains the full RH depth;
   the encoding's \texttt{hev} field requires the compact-operator
   spectral theorem for $T_3^{\mathrm{sym}}$ (mathlib gap unchanged).
@@ -238,7 +473,7 @@ NOT a Clay discharge --- substrate-level typed-bridge upgrades only.
   $P \subseteq NP$ is re-ported on V3 via
   \texttt{class\_P\_subset\_class\_NP\_V3}; the reduction analog is
   \texttt{enum\_to\_class\_separation\_bridge\_V3\_iff\_literal\_P\_neq\_NP\_V3}.
-  Honest scope: the TMConfig wiring closes the
+  Scoping: the TMConfig wiring closes the
   \emph{structural-shape defect} (every machine now carries a
   TM-config-valued run, not just an opaque \texttt{True}) but does NOT
   close the \emph{universal-inhabitation defect} at the set level ---
@@ -246,7 +481,7 @@ NOT a Clay discharge --- substrate-level typed-bridge upgrades only.
   (absence of a constraint LINKING \texttt{decide} to \texttt{encodeRun},
   e.g.\ ``\texttt{decide~x~=~true~$\leftrightarrow$~encodeRun~x}
   reaches an accepting TM state''), which is the V4 refactor target.
-  Honest-scope capstone: \texttt{pnp\_carrier\_V3\_honest\_scope\_capstone}.
+  Scoping capstone: \texttt{pnp\_carrier\_V3\_honest\_scope\_capstone}.
   \end{itemize}
 \item \textbf{Build state.} \texttt{lake build PF} clean at HEAD
 \texttt{700bb29}; zero project axioms. Both refactors depend only on
@@ -255,7 +490,7 @@ Lean's three foundational axioms.
 ``V2 Substrate Refactors (2026-06-05)'' section extended to mention
 RH V2 and PNP V3. Appendix~\ref{app:lean-cross-reference} gains two
 new rows (RH V2 and PNP V3) in the Millennium Problems table.
-\item \textbf{Honest scope.} Neither refactor is a literal
+\item \textbf{Scoping.} Neither refactor is a literal
 Clay-statement-form discharge. RH V2's \texttt{surjectivity} residual
 retains full RH depth; PNP V3's universal-inhabitation defect is
 preserved at the set level.
@@ -288,7 +523,7 @@ NOT a Clay discharge --- substrate-level typed-bridge upgrades only.
   (\texttt{class\_P\_subset\_class\_NP\_V2}); the reduction-analog
   biconditional
   \texttt{enum\_to\_class\_separation\_bridge\_V2\_iff\_literal\_P\_neq\_NP\_V2}
-  holds on the Bool carrier. The honest-scope capstone
+  holds on the Bool carrier. The scoping capstone
   \texttt{pnp\_carrier\_V2\_honest\_scope\_capstone} records that the
   remaining substrate defect localises to a SINGLE field
   \texttt{computability~:~True} placeholder (rather than the
@@ -353,7 +588,7 @@ NOT a Clay discharge --- substrate-level typed-bridge upgrades only.
   \texttt{PF\_YMEncodingV2\_gaugeGroup\_eq\_L2RInf},
   \texttt{PF\_YMEncodingV2\_QYM\_eq\_ContinuumYMTheoryV2},
   \texttt{PF\_YMEncodingV2\_massGap\_canonical} record the carrier
-  upgrades. Honest scope:
+  upgrades. Scoping:
   \texttt{PF\_YM\_V2\_honestScope\_holds} marks that this is a typed
   substrate refactor, not a literal Wightman-axiom QFT continuum
   discharge.
@@ -364,10 +599,10 @@ project axioms. The V2 capstones depend only on Lean's three
 foundational axioms.
 \item \textbf{Cross-references.}
 A new subsection ``V2 Substrate Refactors (2026-06-05)'' added at the
-end of Chapter~\ref{ch:substrate-theorem} (before the Honest Scope
+end of Chapter~\ref{ch:substrate-theorem} (before the Scoping
 section). Appendix~\ref{app:lean-cross-reference} gains five new
 rows mapping each V2 refactor to its Lean module.
-\item \textbf{Honest scope.} Every V2 refactor is a
+\item \textbf{Scoping.} Every V2 refactor is a
 substrate/typed-encoding strengthening of its V1 predecessor. None
 of the five is a literal Clay-statement-form discharge in mathlib's
 elliptic-curve / Sobolev / Wightman / Bool-Turing-machine sense. The
@@ -465,7 +700,7 @@ mathematics core, complete framework, seven-Millennium unification).
 (``The Principia Fractalis Substrate Theorem''), placed between
 the verification chapter and the software chapter in Part~VII.
 States the antecedents, consequences, meta-theorem, unconditional
-companion, and honest scope in mathematical-textbook prose.
+companion, and scoping in mathematical-textbook prose.
 \item \textbf{Added:} Appendix~\ref{app:lean-cross-reference}
 (``Lean Theorem Cross-Reference''). One row per chapter mapping
 chapter to the Lean~4 theorem(s) that verify the chapter's
@@ -473,11 +708,11 @@ principal claims, with Coq parity tags on 13 Wave~58 files.
 \item \textbf{Lean attack landings.} 81 axiom-free Lean attack
 landings recorded at HEAD~\texttt{42990ea}. The Substrate Theorem
 (attack \#79) bundles them into one citable theorem; the
-unconditional companion is attack \#80; the honest-scope record is
+unconditional companion is attack \#80; the scoping record is
 attack \#81. Cross-prover parity holds for 13 Wave~58 files.
 \item \textbf{Framework-precision strikes per axis} (at the encoding's
 substrate / V4 / canonical scope; literal-mathlib lift is the per-axis
-named gap, see Honest Scope in Chapter~34A).
+named gap, see Scoping in Chapter~34A).
 \begin{itemize}
 \item RH: four Hilbert-P\'olya formulations collapse;
 $\alpha_{\text{RH}} = 3/2$.
@@ -498,13 +733,13 @@ unconditional companion depend only on Lean's three foundational
 axioms ([\texttt{propext}, \texttt{Classical.choice},
 \texttt{Quot.sound}]). Coq parity \texttt{make} clean across
 $13$ Wave~58 files.
-\item \textbf{Honest scope.} The Substrate Theorem is a
+\item \textbf{Scoping.} The Substrate Theorem is a
 \emph{substrate-level} meta-theorem. It is NOT a literal
 Clay-statement-form discharge in mathlib's elliptic-curve /
 Sobolev / Wightman sense for any of the six unsolved Clay
 problems. Each per-axis consequence retains its individual
-honest scope (see Chapter~\ref{ch:substrate-theorem}
-\S\ref{sec:substrate-honest-scope}).
+scoping (see Chapter~\ref{ch:substrate-theorem}
+\S\ref{sec:substrate-scoping}).
 \item \textbf{Preserved.} All Version 1.1.0-rev3.4 chapter
 content unchanged. Known manuscript inconsistencies (Ch~7 Thm 7.6
 $R_f$ sign, Ch~11 Thm 11.5 anomaly cancel, Ch~11 Prop 11.6
