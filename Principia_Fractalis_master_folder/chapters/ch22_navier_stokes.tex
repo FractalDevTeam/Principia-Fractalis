@@ -616,19 +616,29 @@ The Navier-Stokes problem is not merely solved—it's transformed into a window 
 
 \begin{intuitive}
 In summer--fall 2026 the Navier--Stokes / Euler blow-up problem was
-settled by an externally-verified chain of analytic results.
-The underlying finite-time-blowup mathematics is due to Diego
+settled by an externally-verified chain of analytic results. The
+underlying finite-time-blowup mathematics is due to Diego
 C\'ordoba and Luis Mart\'inez-Zoroa (whom Buckmaster has publicly
 stated deserves Fields Medal recognition on the strength of this
-work). Tristan Buckmaster and Levent Alp\"oge landed a Lean-verified
-Euler blow-up proof on 2026-08-22 (announced Sept~7, 2026), using an
-internal Claude model. On 2026-09-08 OpenAI independently released a
-Lean~4 formalization of finite-time blow-up results for Navier--Stokes
-(with smooth forcing) on $\mathbb{R}^3$ and $\mathbb{R}^3/\mathbb{Z}^3$,
-and for the incompressible Euler equations (\emph{unforced}) on
-$\mathbb{R}^3$. The OpenAI formalization is at
-\texttt{github.com/openai/NavierStokesAndEuler} under Apache-2.0 license
-(Lean 4.34.0-rc2, mathlib).
+work), building on their forced IPM equation blowup construction with
+spatially smooth force~\cite{cordoba-martinezzoroa2026ipm} extended
+with Fan Zheng to forced hypodissipative Navier--Stokes with a
+force~\cite{cordoba-martinezzoroa-zheng2026hns}. Tristan Buckmaster
+and Levent Alp\"oge landed a Lean-verified Euler blow-up proof on
+2026-08-22 (announced Sept~7,
+2026)~\cite{buckmaster-alpoge2026euler}, using an internal Claude
+model. On 2026-09-08 OpenAI independently released a 166-page
+manuscript~\cite{openai2026navierstokes} and Lean~4
+formalization~\cite{openai2026navierstokeslean} of finite-time
+blow-up results for Navier--Stokes (with smooth forcing) on
+$\mathbb{R}^3$ and $\mathbb{R}^3/\mathbb{Z}^3$, and for the
+incompressible Euler equations (\emph{unforced}) on $\mathbb{R}^3$.
+The OpenAI formalization is at
+\texttt{github.com/openai/NavierStokesAndEuler} under Apache-2.0
+license (Lean 4.34.0-rc2, mathlib). The 166-page manuscript's
+revised bibliography explicitly credits the
+C\'ordoba--Mart\'inez-Zoroa--Zheng underlying mathematics after
+Buckmaster's public statement.
 \end{intuitive}
 
 \subsection{Clay Prize Status}

@@ -4012,3 +4012,52 @@
   publisher = {Springer},
   year = {1999}
 }
+
+% ---------------------------------------------------------------------------
+% 2026 Navier--Stokes / Euler finite-time-blowup settlement chain
+% Added 2026-09-29 for the two-anchor cascade attribution in ch22 and ch34A.
+% ---------------------------------------------------------------------------
+
+@article{cordoba-martinezzoroa-zheng2026hns,
+  author = {C\'ordoba, Diego and Mart\'inez-Zoroa, Luis and Zheng, Fan},
+  title = {Finite time blow-up for the hypodissipative {N}avier--{S}tokes equations with a force},
+  journal = {Archive for Rational Mechanics and Analysis},
+  volume = {250},
+  number = {38},
+  year = {2026},
+  note = {Underlying finite-time-blowup mathematics on which the 2026 Navier--Stokes settlement is built. Prior line of work (Córdoba \& Martínez-Zoroa on the forced IPM equation with spatially smooth force; and with Zheng on forced hypodissipative NS) establishes the layered high-frequency correction construction used downstream. Referenced in the 166-page OpenAI paper's revised bibliography after Buckmaster public statement.}
+}
+
+@article{cordoba-martinezzoroa2026ipm,
+  author = {C\'ordoba, Diego and Mart\'inez-Zoroa, Luis},
+  title = {Finite-time singularity formation for the forced {IPM} equation from smooth initial data with a spatially smooth force},
+  year = {2026},
+  note = {Predecessor result to the 2026 NS settlement; establishes the blow-up construction technique later extended by C\'ordoba--Mart\'inez-Zoroa--Zheng to forced hypodissipative Navier--Stokes.}
+}
+
+@techreport{buckmaster-alpoge2026euler,
+  author = {Buckmaster, Tristan and Alp\"oge, Levent},
+  title = {{L}ean-verified finite-time blow-up for the forced {E}uler equation},
+  institution = {Anthropic (with authors' university affiliations)},
+  year = {2026},
+  month = {August 22},
+  note = {Announced 2026-09-07. First community-verified Lean~4 formalization on the 2026 NS/Euler finite-time-blowup axis, addressing the weaker forced Euler problem. Development used an internal Claude model as co-formalizer; Buckmaster publicly stated Mart\'inez-Zoroa deserves Fields Medal recognition on the strength of the underlying mathematics.}
+}
+
+@misc{openai2026navierstokes,
+  author = {{OpenAI}},
+  title = {Finite Time Blowup for {N}avier--{S}tokes},
+  year = {2026},
+  month = {September 8},
+  howpublished = {\url{https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf}},
+  note = {166-page manuscript formalizing (in Lean~4.34.0-rc2) finite-time blow-up for Navier--Stokes with a smooth external force on $\mathbb{R}^3$ and $\mathbb{R}^3/\mathbb{Z}^3$, and for the unforced incompressible Euler equations on $\mathbb{R}^3$. Announced 2026-09-08. Addresses alternatives (C) and (D) of the Clay Navier--Stokes Millennium Prize Problem statement, not the primary (A) conjecture. OpenAI declined the \$1M prize on that basis. Revised version credits the C\'ordoba--Mart\'inez-Zoroa--Zheng underlying mathematics after Buckmaster public statement. Blog post: \url{https://openai.com/index/navier-stokes-solution/}.}
+}
+
+@misc{openai2026navierstokeslean,
+  author = {{OpenAI}},
+  title = {\texttt{openai/{N}avier{S}tokes{A}nd{E}uler}: {L}ean certificates accompanying {N}avier--{S}tokes and {E}uler results},
+  year = {2026},
+  month = {September 8},
+  howpublished = {\url{https://github.com/openai/NavierStokesAndEuler}},
+  note = {Apache-2.0. Lean~4.34.0-rc2 companion to \cite{openai2026navierstokes}. Comparator trust-gate rebuilds each certificate inside a sandbox and compares against an independent statement of the problem.}
+}
