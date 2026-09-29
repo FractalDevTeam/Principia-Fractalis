@@ -96,8 +96,8 @@ open PrincipiaFractalis.H3CoxeterOrigin
     Stated here as an explicit hypothesis so the derivation chain below
     is fully visible. Corresponds to the r75 `substrate_lambda_skeleton_universal_coupling`
     theorem at `i = i_Poincaré`. -/
-def PoincareUniversalCouplingHolds (αP λP : ℝ) : Prop :=
-  αP = Real.pi / (10 * λP)
+def PoincareUniversalCouplingHolds (αP lamP : ℝ) : Prop :=
+  αP = Real.pi / (10 * lamP)
 
 /-- **Substrate H_α operator identification at the Poincaré axis** — the
     load-bearing premise.
@@ -115,8 +115,8 @@ def PoincareUniversalCouplingHolds (αP λP : ℝ) : Prop :=
     Stated here as an explicit hypothesis so the α-value derivation below
     depends on THIS substrate-operator claim, not on a bare numerical
     assertion of `α_Poincaré = 1`. -/
-def SubstrateH3IdentificationAtPoincare (λP : ℝ) : Prop :=
-  λP = Real.pi / (H3_Coxeter_number : ℝ)
+def SubstrateH3IdentificationAtPoincare (lamP : ℝ) : Prop :=
+  lamP = Real.pi / (H3_Coxeter_number : ℝ)
 
 /-! ## §2 — The load-bearing derivation -/
 
@@ -133,9 +133,9 @@ def SubstrateH3IdentificationAtPoincare (λP : ℝ) : Prop :=
     `h(H₃) = 10`, and simplify the resulting `π / (10 · π / 10)` to `1`
     by field arithmetic (`Real.pi ≠ 0`). -/
 theorem alpha_Poincare_eq_one_derived
-    (αP λP : ℝ)
-    (h_uc : PoincareUniversalCouplingHolds αP λP)
-    (h_sub : SubstrateH3IdentificationAtPoincare λP) :
+    (αP lamP : ℝ)
+    (h_uc : PoincareUniversalCouplingHolds αP lamP)
+    (h_sub : SubstrateH3IdentificationAtPoincare lamP) :
     αP = 1 := by
   unfold PoincareUniversalCouplingHolds at h_uc
   unfold SubstrateH3IdentificationAtPoincare at h_sub
@@ -162,11 +162,11 @@ def bare_hypothesis_form (αP : ℝ) : Prop := αP = 1
 
 /-- **`bare_of_derived`** — the derived form implies the bare form, trivially. -/
 theorem bare_of_derived
-    (αP λP : ℝ)
-    (h_uc : PoincareUniversalCouplingHolds αP λP)
-    (h_sub : SubstrateH3IdentificationAtPoincare λP) :
+    (αP lamP : ℝ)
+    (h_uc : PoincareUniversalCouplingHolds αP lamP)
+    (h_sub : SubstrateH3IdentificationAtPoincare lamP) :
     bare_hypothesis_form αP :=
-  alpha_Poincare_eq_one_derived αP λP h_uc h_sub
+  alpha_Poincare_eq_one_derived αP lamP h_uc h_sub
 
 /-! ## §4 — Closing the load-bearing premise on the substrate λ-skeleton
 
@@ -223,7 +223,7 @@ open PrincipiaTractalis.ExtremalTraceUniquenessProofPlan
     * The two match by transitivity.
 
     This closes the load-bearing premise for the canonical substrate
-    instantiation `λP := substrate_lambda_skeleton 0`. -/
+    instantiation `lamP := substrate_lambda_skeleton 0`. -/
 theorem substrateH3Identification_at_lambda_skeleton_zero :
     SubstrateH3IdentificationAtPoincare (substrate_lambda_skeleton 0) := by
   unfold SubstrateH3IdentificationAtPoincare
@@ -244,8 +244,17 @@ theorem PoincareUniversalCouplingHolds_at_substrate_axis :
       (substrate_alpha_skeleton 0)
       (substrate_lambda_skeleton 0) := by
   unfold PoincareUniversalCouplingHolds
-  -- substrate_lambda_skeleton i = π / (10 · substrate_alpha_skeleton i) by definition
-  rfl
+  -- NOT definitional in this direction. The r75 definition gives
+  --   λ_i = π / (10 · α_i),
+  -- whereas the coupling predicate asks for
+  --   α_i = π / (10 · λ_i).
+  -- Inverting requires π ≠ 0, so `rfl` cannot close it. Use r75.b
+  -- (`substrate_lambda_Poincare : λ₀ = π/10`) and field arithmetic:
+  --   π / (10 · (π/10)) = π / π = 1 = α₀.
+  have hpi : Real.pi ≠ 0 := Real.pi_ne_zero
+  have h0 : substrate_alpha_skeleton 0 = 1 := rfl
+  rw [substrate_lambda_Poincare, h0]
+  field_simp
 
 /-- **★★★ `alpha_Poincare_eq_one_from_substrate` ★★★** — the substrate's
     r72 α-skeleton at the Poincaré axis IS `1`, DERIVED (not asserted)
