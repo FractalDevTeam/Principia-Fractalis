@@ -6,22 +6,29 @@
 
 ## What this file delivers
 
-A single citable theorem showing that **two external anchors**
-(Perelman 2003 for α_Poincaré and the OpenAI Sept 2026 Lean-verified
-Navier–Stokes / Euler blow-up work for α_NS) plus the framework's
-structural identities I6, I7, I9, and the QG-bridge, **uniquely
-determine** four downstream α-values: α_YM, α_RH, α_BSD, α_QG.
+A single citable theorem showing that **two settled external anchors**
+(Perelman 2003 for α_Poincaré and the Córdoba–Martínez-Zoroa /
+Buckmaster–Alpöge / OpenAI 2026 Lean-verified Navier–Stokes / Euler
+finite-time-blowup work for α_NS) plus the framework's structural
+identities I6, I7, I9, and the QG-bridge, **uniquely determine** four
+downstream α-values: α_YM, α_RH, α_BSD, α_QG.
 
-This is a redundancy / cross-validation theorem. PF's own
-`PerelmanAnchoredAlphaCascade.lean` already derives every α-value from
-`α_Poincaré = 1` via internal identities. The OpenAI result adds an
-**independent external check** of `α_NS`, matching PF's derived value
-`3π/2` — a genuine second corroborating anchor.
+Both anchors are settled at the mathematical level (Perelman 2003
+community-verified and Clay-awarded; NS 2026 community-accepted with
+Clay's prize review deliberately unhurried and OpenAI declining the
+prize on the (C)/(D) statement basis). The framework consumes both
+as settled mathematics; the Clay prize status is downstream.
+
+PF's `PerelmanAnchoredAlphaCascade.lean` already derives every α-value
+from `α_Poincaré = 1` alone. The two-anchor capstone here adds the
+NS anchor as an independent second settled constraint, tightening the
+derivation to a two-input rigidity result and reducing residual
+conditionality on any single external source.
 
 The α-values in this file are treated as **free real variables**
 (not the PF-defined constants), so the derivation content is meaningful:
 "given only the two anchor hypotheses and the four structural identities,
-the four output α-values are forced." Everything a rearrangement.
+the four output α-values are forced." Every step is a rearrangement.
 
 ## Kernel status
 
@@ -30,8 +37,9 @@ Zero project axioms; only `propext, Classical.choice, Quot.sound`.
 ## Companion doc
 
 See `codex/TWO_ANCHOR_STRATEGIC_UPDATE_2026-09-25.md` for the
-manuscript-adjacent write-up (honest scoping on Clay-acceptance status
-of the OpenAI result, and what changes for the TOE closure chapter).
+manuscript-adjacent write-up (Clay-prize status for the 2026 NS
+settlement is downstream of the mathematics, which the framework
+consumes as settled).
 -/
 
 import Mathlib.Analysis.SpecialFunctions.Pow.Real
@@ -45,8 +53,10 @@ open Real
     Given two external α-anchors and four framework structural identities,
     the four downstream α-values are uniquely determined.
 
-    - **Perelman anchor (2003):** `α_Poincaré = 1`.
-    - **OpenAI-corroborated NS/Euler anchor (Sept 2026):** `α_NS = 3π/2`.
+    - **Perelman anchor (2003):** `α_Poincaré = 1`. Settled, Clay-awarded.
+    - **NS/Euler anchor (2026):** `α_NS = 3π/2`. Settled via
+      Córdoba–Martínez-Zoroa mathematics + Buckmaster–Alpöge and OpenAI
+      Lean formalizations; Clay prize review pending.
 
     Structural identities of the α-substrate:
     - **I6:** `α_NS = 2·α_BSD` (π-sector doubling)

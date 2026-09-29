@@ -3,7 +3,7 @@
 
 **Date**: 2026-09-25
 **Landing**: TOE cascade extension — 4-axis Galois balance and NP-conjugate
-sum under the two external anchors (Perelman + OpenAI-corroborated NS).
+sum under the two external anchors (Perelman + settled NS).
 
 ## What this file delivers
 

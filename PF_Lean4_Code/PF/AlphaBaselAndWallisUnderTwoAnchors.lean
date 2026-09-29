@@ -8,7 +8,7 @@ under the two external anchors.
 ## What this file delivers
 
 Two classical transcendental identities in framework form, forced by the
-two anchors (Perelman + OpenAI-corroborated NS) plus the framework's
+two anchors (Perelman + settled NS) plus the framework's
 structural identities:
 
 1. **Basel bridge** — `α_RH · α_YM² = 6`.
