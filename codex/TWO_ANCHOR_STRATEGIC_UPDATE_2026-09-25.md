@@ -6,6 +6,18 @@
 
 ---
 
+## 2026-09-29 NOTICES — read before consuming this file
+
+This 2026-09-25 write-up predates two later corrections. Read the below as a snapshot of Pabs's 2026-09-24/25 session; the following are authoritative overrides:
+
+1. **NS status is stronger than "corroborating."** By 2026-09-29 the C\'ordoba–Mart\'inez-Zoroa mathematics (with Fan Zheng on forced hypodissipative NS) + Buckmaster–Alp\"oge Lean-verified Euler (2026-08-22) + OpenAI 166-page paper and Lean formalization (2026-09-08) are treated as **settled community-accepted mathematics**, with the Clay-prize review a downstream matter. Attribution chain: not just "OpenAI's paper." See ch22 §614, ch34A two-anchor cascade section, and the bibliography entries `cordoba-martinezzoroa-zheng2026hns`, `cordoba-martinezzoroa2026ipm`, `buckmaster-alpoge2026euler`, `openai2026navierstokes`, `openai2026navierstokeslean`.
+2. **α_NS = 3π/2 is asserted, not derived.** Root's 2026-09-29 audit correctly notes that in `TwoAnchorCascadeCapstone`, `hNS` is a hypothesis, not a fact the external NS mathematics produces. The external result settles that finite-time blowup occurs; α_NS = 3π/2 specifically is a framework assertion consistent with (not derived from) the settled external result. §2 below overstates this as "derived corroboration"; treat as asserted-and-consistent.
+3. **The Terence Tao clarification claim** in Section 0 below was not independently corroborated on 2026-09-29 in web-check of the Quanta article about the announcement. It may still be accurate from a different source; downgrade to unverified.
+
+Otherwise this file remains useful as the 2026-09-25 architectural rationale for the TOE-closure section restructuring.
+
+---
+
 ## 0. What changed on 2026-09-25
 
 Two Millennium Prize Problems now have publicly-verifiable external
