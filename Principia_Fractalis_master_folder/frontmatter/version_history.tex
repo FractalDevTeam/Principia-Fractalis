@@ -16,6 +16,102 @@ This book is under active development. Version numbers follow semantic versionin
 
 \section*{Version Log}
 
+\subsection*{Version 2.7.1 (September 29, 2026) -- PERELMAN ANCHOR MADE LOAD-BEARING + $\alpha$-CASCADE OVER UNKNOWNS + ZERO AXIOMS VERIFIED + MECHANICAL VERIFICATION GATE}
+\begin{itemize}
+
+\item \textbf{HEAD commit:} \texttt{d9337a14}. Seven commits on
+2026-09-29: \texttt{ea071bbf}, \texttt{cd551566}, \texttt{2973b67e},
+\texttt{167181ee}, \texttt{102691a6}, \texttt{242fdb5e},
+\texttt{d9337a14}.
+
+\item \textbf{Zero axioms, corpus-wide, mechanically verified.} A
+comment-stripped scan of all 6{,}336 Lean modules returns \textbf{0}
+\texttt{axiom} declarations, \textbf{0} occurrences of \texttt{sorry},
+and \textbf{0} uses of \texttt{native\_decide}. Docstrings in six files
+still described
+\texttt{alpha\_class\_polylog\_eigenvalue\_conjecture} as ``the single
+project axiom''; that language was stale and has been corrected to
+``residual assumption''. It was \emph{not} rewritten as ``retired'':
+the assumption is real even though the axiom declaration is not, since
+its content theorem is conditional on four hypotheses, one of which
+assumes $\alpha_{NP} = \varphi + 1/4$ --- the value the quadratic
+$16x^{2} - 24x - 11 = 0$ is meant to force.
+
+\item \textbf{The Perelman anchor is now load-bearing (O-CIRC repair).}
+The O-CIRC audit reported ``Perelman `anchor' is a hypothesis --- no
+property of Perelman's theorem is used''. The situation was weaker
+still: \texttt{perelman\_anchor} was proved by \texttt{rfl} against a
+literal definition $\alpha_{\text{Poincar\'e}} := 1$, so no cascade step
+could consume it. Two independent repairs now stand.
+\texttt{PF/PoincareAnchorForced\_r338.lean} supplies the missing
+realisation predicate at the P-axis standard,
+$\mathrm{RealisesPoincare}(a) := 0 < a \wedge a^{2} = 1$, and proves the
+value forced rather than stipulated.
+\texttt{PF/PoincareAlphaFromH3CoxeterHalfArg.lean} derives
+$\alpha_{\text{Poincar\'e}} = 1$ from the $H_3$ Coxeter half-argument
+$\lambda = \pi/h(H_3) = \pi/10$ together with the universal coupling,
+without referencing the substrate.
+
+\item \textbf{The two-anchor cascade, restated over unknowns
+(\texttt{r339}).} Previously every $\alpha$ was a literal definition, so
+each transport identity was a numeric check on stipulated constants:
+$\alpha_{YM} = \alpha_{\text{Poincar\'e}} + 1$ was $2 = 1 + 1$ by
+\texttt{unfold; ring}, and could derive nothing.
+\texttt{PF/AlphaCascadeFromTwoAnchors\_r339.lean} now quantifies over
+nine \emph{unknown} reals with the invariants as hypotheses; no $\alpha$
+constant is unfolded anywhere in the proof. The two settled anchors then
+force all seven remaining values: $\alpha_{YM} = 2$,
+$\alpha_{RH} = 3/2$, $\alpha_{BSD} = 3\pi/4$, $\alpha_{P} = \sqrt{2}$,
+$\alpha_{QG} = \sqrt{2\pi}$, $\alpha_{\text{Hodge}} = \varphi$,
+$\alpha_{NP} = \varphi + 1/4$. The branch side conditions are shown
+load-bearing, not decorative: $x^{2} = 2$ alone admits $-\sqrt{2}$, and
+$x^{2} = x + 1$ alone admits the conjugate root $1 - \varphi$.
+
+\item \textbf{Open, and stated as open: the invariants themselves.} I6,
+I7, I8, I9 and W22 remain premises. A search for independent origins
+found none; the corpus docstrings describe them as numerical
+observations (``trivial increment''; ``the product of the two rational
+non-unit $\alpha$'s is an integer''). The $H_3$ route does not close
+this --- \texttt{alpha\_RH\_eq\_exponent\_sum\_div\_Coxeter\_number}
+proves $3/2 = 15/10$ over stipulated constants. The one genuine lead is
+the classical $\sin(\pi/10) = 1/(2\varphi)$, which grounds the
+icosahedral angle in $\varphi$ but does not yet establish
+$\alpha_{\text{Hodge}} = \varphi$. Supplying independent origins for the
+five invariants is the outstanding work on the cascade.
+
+\item \textbf{Mechanical verification gate.}
+\texttt{PF\_Lean4\_Code/scripts/pristine\_gate.sh} certifies a module
+against five criteria: olean currency, axiom allowlist
+$\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$,
+absence of escape hatches, absence of dead binders (via
+\texttt{linter.unusedVariables} and the r337 \texttt{PremiseAudit}
+semantic sweep), and a satisfiability witness for each introduced
+\texttt{Prop}. The r337 sweep is what distinguishes syntactic from
+semantic deadness: it correctly fails the
+\texttt{MinimalRigidityForces*} family on
+\texttt{DEAD UnifiedMinimalInvariants.sector1\_minimal} and
+\texttt{sector2\_minimal}, reproducing the O-CIRC finding mechanically.
+Standing rule for the project: no claim of kernel verification without a
+green gate.
+
+\item \textbf{Known limit of the gate.} \texttt{PF/H3CoxeterOrigin.lean}
+passes the gate over 21 declarations while its capstone docstring
+overclaims. A gate that checks kernel hygiene cannot detect the gap
+between what a theorem proves and what its prose says it means. That gap
+is the remaining verification surface and no instrument currently covers
+it.
+
+\item \textbf{$\xi$-rectangle re-verification in progress.} A tree-wide
+mtime skew invalidated Lake's freshness traces, leaving 4{,}380 of
+6{,}336 module oleans stale. A concurrency-capped rebuild is running
+(\texttt{RiemannXiBox100Panels} complete at 228/228;
+\texttt{RiemannXiBox0Panels} 228/239; \texttt{RiemannXiBox2Panels} in
+progress), with zero failures since the cap. Until it completes, the
+$\xi$-rectangle edge results should be cited as verified at their
+commits rather than as currently verified in the tree.
+
+\end{itemize}
+
 \subsection*{Version 2.7.0 (September 27, 2026) -- $\Xi(15)$ DISCHARGE + SUBSTRATE RIGIDITY KERNEL-VERIFIED + $\text{ch04:461}$ REPAIR + TWO-ANCHOR $\alpha$-CASCADE}
 \begin{itemize}
 \item \textbf{HEAD commit:} \texttt{0d8ea1a4} (this snapshot). Master

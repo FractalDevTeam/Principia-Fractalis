@@ -122,3 +122,4 @@ Principia_Fractalis_master_folder/*.blg
 # working backups of generators (kept on disk, not release provenance)
 *.bak
 *.bak.*
+build_r331d.done
