@@ -96,19 +96,30 @@ say "  ----  (a-pre) olean before this run: $PRE_STATE"
 # Strip /- ... -/ block comments and -- line comments before scanning, so that
 # docstrings saying "no sorry" do not trip the gate (a real false positive we hit).
 STRIPPED="$(mktemp)"; trap 'rm -f "$STRIPPED" "$PROBE" "$PROBE_OUT" 2>/dev/null' EXIT
+# NOTE: the obvious version of this is WRONG. Truncating `line` to the text
+# BEFORE `/-` and then scanning that truncated text for `-/` means a
+# single-line `/-- ... -/` docstring opens a block that never closes, and every
+# following line gets swallowed until some later `-/`. That silently hides real
+# code from criteria (c) and (e) — including a real `sorry`. Accumulate the
+# non-comment parts and keep scanning the REMAINDER instead.
 awk '
   BEGIN { inblk=0 }
   {
-    line=$0
+    line=$0; out=""
     while (1) {
-      if (inblk) { i=index(line,"-/"); if (i==0) { line=""; break }
-                   line=substr(line,i+2); inblk=0; continue }
+      if (inblk) {
+        i=index(line,"-/")
+        if (i==0) { line=""; break }
+        line=substr(line,i+2); inblk=0; continue
+      }
       i=index(line,"/-")
-      if (i==0) break
-      line=substr(line,1,i-1); inblk=1
+      if (i==0) { out=out line; line=""; break }
+      out=out substr(line,1,i-1)
+      line=substr(line,i+2)
+      inblk=1
     }
-    sub(/--.*$/,"",line)
-    print line
+    sub(/--.*$/,"",out)
+    print out
   }' "$SRC" > "$STRIPPED"
 
 HATCH=0
