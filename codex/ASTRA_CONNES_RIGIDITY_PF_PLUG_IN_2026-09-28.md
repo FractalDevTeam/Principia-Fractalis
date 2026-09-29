@@ -59,7 +59,7 @@ This sharpens the substrate-rigidity paper's framing. The reference in the paper
 
 ## Corroboration-lattice entry (candidate)
 
-For inclusion in ch34A's external-corroboration section, if Pabs approves:
+For inclusion in ch34A's external-anchor / corroboration-lattice section, if Pabs approves:
 
 > **Astra 2026 Connes-rigidity disproof (`openai/ten-proofs`, Apache-2.0).** OpenAI's Astra released a Lean 4.32.0-verified counterexample to a specific Connes rigidity conjecture for group von Neumann algebras built from `SL_n(ℤ[x])`-family universal lattices with Kazhdan property T. This does not touch the `Substrate3Inf` class — different algebra type (W\* vs. C\*), different rigidity notion (group recovery from `L(G)` vs. `*`-iso classification of `3^∞` UHF) — but establishes that at the general operator-algebra level, the analog rigidity fails. PF's `T_infinity_rigidity` (r217) is thereby distinguished as a positive rigidity result in a landscape where the nearest analog is now known to fail.
 

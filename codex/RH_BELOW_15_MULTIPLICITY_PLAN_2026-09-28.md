@@ -108,3 +108,74 @@ The r331b box campaign has all the numerical control needed for the winding-numb
 The chain to literal RH-below-15 is not "one composition module" — it is r331e (small) + r331f (medium research) + capstone (trivial).
 
 **Do NOT auto-implement r331f.** Per POST-r315 directive, recommend and await explicit go/no-go.
+
+---
+
+## CORRECTION — 2026-09-29 (normalization defect in the r331f target)
+
+**The r331f statement proposed above is wrong by a factor of 2πi and is not provable as written.**
+
+The plan proposes:
+
+```lean
+theorem contour_integral_value_eq_two_pi_i_times_two :
+    RectangleIntegral' (fun s => logDeriv riemannXiEntire s) zF wF
+      = 2 * π * I * (2 : ℂ)
+```
+
+But `RectangleIntegral'` (note the prime) already carries the `1/(2πi)` factor.
+From `PF/Analytic/PNT/ResidueCalcOnRectangles_r327.lean:73`:
+
+```lean
+noncomputable abbrev RectangleIntegral' (f : ℂ → E) (z w : ℂ) : E :=
+    (1 / (2 * π * I)) • RectangleIntegral f z w
+```
+
+This is consistent with the argument principle in
+`PF/Analytic/RectangleArgumentPrinciple_r327.lean:391`, whose conclusion carries no 2πi:
+
+```lean
+theorem rectangleIntegral'_mul_logDeriv ... :
+    RectangleIntegral' (fun s => g s * logDeriv f s) z w
+      = ∑ ρ ∈ Z, (analyticOrderNatAt f ρ : ℂ) * g ρ
+```
+
+and with r331e's `xi_full_rectangle_zero_count_identity`, which equates
+`RectangleIntegral' (logDeriv ξ) zF wF` directly to `∑ ord_ρ(ξ)` — again no 2πi.
+
+**Corrected r331f target:**
+
+```lean
+theorem contour_integral_value_eq_two :
+    RectangleIntegral' (fun s => logDeriv riemannXiEntire s) zF wF = (2 : ℂ)
+```
+
+Writing the original form would have produced a goal off by 2πi — i.e. a false statement,
+unclosable by any correct proof. Use the corrected form.
+
+## Verified infrastructure status (2026-09-29)
+
+Checked on the Acer ACTIVE tree. Relevant to sequencing r331f:
+
+| Module | Lines | State |
+|---|---|---|
+| `RectangleArgumentPrinciple_r327` | 425 | clean — no `sorry` / `axiom` / `native_decide`; olean **CURRENT** |
+| `RiemannXiRectangleCount_r327` | 168 | olean **CURRENT** |
+| `RiemannXiEntire_r325` | — | olean **CURRENT** |
+| `RiemannXiSymmetries_r326` | — | olean **CURRENT** |
+| `RiemannXiFullRectangleBoundary_r331e` | 235 | complete, **no `sorry`** (the sole "sorry" match is a docstring); awaits r331d |
+| `RiemannXiT15Endgame` | 103 | clean; independent route via `RiemannXiTopUnion` + r329b |
+
+Two consequences:
+
+1. **mathlib provides none of this.** There is no `RectangleIntegral`, no argument principle and
+   no winding number in mathlib v4.24.0-rc1 — only `analyticOrderNatAt`. Route B rests entirely on
+   PF's own r327 stack, which is clean. No mathlib gap blocks r331f.
+2. **r331f can be developed without the panel rebuild.** The four r327/r325/r326 oleans are
+   current, so the generic winding/counting machinery compiles against them today. Only the final
+   application to ξ needs the r331c/d boundary margins, i.e. the panels.
+
+Also note `RiemannXiT15Endgame` already reaches `xi_T15_zero_count_identity_unconditional` by a
+different route (TopUnion + r329b) and is clean. Neither it nor r331e evaluates the count to an
+integer, and `riemannHypothesis_below_15` appears nowhere in the corpus. The single remaining
+brick is the contour-integer evaluation, as this plan states.
