@@ -122,7 +122,7 @@ proposition closed negatively, and the README is the first thing a reader sees.
 
 **Already honest — do NOT patch:**
 `principia_fractalis_millennium_problems_2026-07-13.tex:160` carries an explicit
-2026-07-25 honest-scope note stating the α_NP "forcing" is *circular* and "should
+2026-07-25 scoping note stating the α_NP "forcing" is *circular* and "should
 not be read as a derivation", and that `framework_alpha_NP_matches_IBM_empirical_peak`
 is `:= rfl` between two definitions with "no measurement enters it". That
 paragraph already says what this audit says. It is a model for the replacement

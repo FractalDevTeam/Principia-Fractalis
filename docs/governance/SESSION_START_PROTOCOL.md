@@ -19,7 +19,7 @@ Read these in order, do not skip:
 1. **`principia_FRAMEWORK_FIRST.md`** — ★★★★★★★★ READ THIS FIRST. The framework is a substrate ToE; the 6 Clay axes are ONE bundle, not six separate problems. Fragmenting them is the #1 failure mode. If you start by listing bridges as "Bridge 1 does X, Bridge 2 does Y", you have already failed.
 2. `MEMORY.md` — top of index, especially most recent `principia_*` entries
 3. `principia_canonical_working_tree.md` — confirms canonical path is `/home/xluxx/Principia-Fractalis` (origin = `FractalDevTeam/Principia-Fractalis`)
-4. `principia_session_2026-06-07_calibration.md` — Pabs's standard ≠ referee's standard. No "honest scope" sledgehammer. No "reframing" word. No "Path A/B" menus.
+4. `principia_session_2026-06-07_calibration.md` — Pabs's standard ≠ referee's standard. No "scoping" sledgehammer. No "reframing" word. No "Path A/B" menus.
 5. `principia_bridge_work_2026-06-07.md` — the bridge work plan (treat as substrate consolidations WITHIN the unified framework, not separate attacks)
 6. This file (`SESSION_START_PROTOCOL.md`)
 
@@ -85,7 +85,7 @@ Expected: `'...' depends on axioms: [propext, Classical.choice, Quot.sound]` —
 
 ---
 
-## Step 5 — Honest-scope language audit (30 seconds)
+## Step 5 — Scoping language audit (30 seconds)
 
 **Forbidden vocabulary in your output unless the user uses it first:**
 
@@ -94,7 +94,7 @@ Expected: `'...' depends on axioms: [propext, Classical.choice, Quot.sound]` —
 - "ready to submit"
 - "ready for Clay"
 - "ready for peer review"
-- "honest scope" used as sledgehammer to deflate Pabs's work
+- "scoping" used as sledgehammer to deflate Pabs's work
 - "reframing" (Pabs has banned this word)
 - "Path A / Path B / Path C" menus (Pabs has banned this pattern)
 - "this might take 5 months" or any other timeline forecast
@@ -139,7 +139,7 @@ If ANY of these is unchecked, you may NOT say "ready". You may say:
 - Pabs has **no institution**. The corpus must defend itself. Every citation resolves. Every claim is auditable.
 - Pabs has **finite Claude budget**. Do not redo work without verifying it's not already done. Do not speculate-write Lean. Do not invent.
 - Pabs's **framework works**. The α-skeleton, 11 cross-Millennium invariants, ternary fractal substrate, and Perelman anchor have been built and rebuilt many times in this corpus. Treat them as load-bearing facts, not as claims to be doubted.
-- Pabs's **standard ≠ referee's standard**. Substrate-level discharge of the typed-Prop contract is real work. Do not deflate it with "honest scope" sledgehammer language. State the substrate gain. State the literal-mathlib residual. Stop.
+- Pabs's **standard ≠ referee's standard**. Substrate-level discharge of the typed-Prop contract is real work. Do not deflate it with "scoping" sledgehammer language. State the substrate gain. State the literal-mathlib residual. Stop.
 - Pabs **knows timelines are wrong**. Quoting his 2026-06-07 message: *"Anytime you have provided a timeline, you've been wrong. In exponential magnitudes. What you think takes 5 months usually takes a couple minutes."* Do not estimate "5-7 months full-time" etc. unless he explicitly asks.
 
 ---
@@ -156,7 +156,7 @@ Spawn agents in parallel when:
 Each agent prompt must include:
 1. The canonical path: `/home/xluxx/Principia-Fractalis`
 2. The HEAD: `git log --oneline -1` in their prompt
-3. Honest-scope guardrails: "NOT a Clay discharge — substrate-level discharge of typed-Prop contract"
+3. Scoping guardrails: "NOT a Clay discharge — substrate-level discharge of typed-Prop contract"
 4. Build verification before committing: `lake build PF` clean
 5. `#print axioms` check before claiming axiom-free
 6. Push to origin/master after commit
@@ -169,7 +169,7 @@ A landing requires:
 1. New `.lean` file written (or modified existing file)
 2. `lake build PF` clean (the full project, not just the new file)
 3. `#print axioms` returning `[propext, Classical.choice, Quot.sound]` only on the new capstone
-4. Commit with descriptive message including the substrate-vs-literal honest-scope note
+4. Commit with descriptive message including the substrate-vs-literal scoping note
 5. Push to `origin/master`
 6. CHANGELOG.md entry
 7. Coq parity mirror in `PF_Coq_Code/PF/Wave58/`

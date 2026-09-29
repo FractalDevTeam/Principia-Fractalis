@@ -53,7 +53,7 @@ The α_NP pin in particular is an empirical calibration
 | π attributed to NS, e to YM | `chapters/ch07_constants.tex` lines 243–244 | "Circle Constant π → navier-stokes", "Growth Constant e → yang-mills" | STALE chapter cross-refs; π and e are not axis values; e is not even in the canonical basis {1, π, φ, √2} |
 | RH ↔ α = 1/2 | `chapters/ch01_numbers.tex` line 1366 | "α = 1/2: Connects to Riemann Hypothesis" | STALE/WRONG — conflates the critical line Re(s) = 1/2 with the α-value; canonical α_RH = 3/2 |
 | YM ↔ α = e | `chapters/ch01_numbers.tex` line 1368 | "α = e: Connects to Yang-Mills" | STALE — canonical α_YM = 2 |
-| α_NP = π/3 in code | `chapters/ch34_verification.tex` lines 228–230; `chapters/ch35_software.tex` line 338 | Protocol P1 code uses `alpha=np.pi/3` for H_NP | CONFLICTING — π/3 ≈ 1.047 ≠ φ + 1/4 ≈ 1.868. Already disclosed in the ch34 honest-scope note (line 184) and ledger (line 794): "either way it is a chosen value, not a derived one" |
+| α_NP = π/3 in code | `chapters/ch34_verification.tex` lines 228–230; `chapters/ch35_software.tex` line 338 | Protocol P1 code uses `alpha=np.pi/3` for H_NP | CONFLICTING — π/3 ≈ 1.047 ≠ φ + 1/4 ≈ 1.868. Already disclosed in the ch34 scoping note (line 184) and ledger (line 794): "either way it is a chosen value, not a derived one" |
 
 ---
 
@@ -63,7 +63,7 @@ The corpus contains **two incompatible ladder formulas** plus at least
 four further operationalizations of ch₂ = 0.95 = c₂ = 19/20. None of
 them is derived; c₂ itself is a phenomenological anchor whose four
 attempted derivations are refuted or downgraded (see the v2 paper's
-honest-scope section and the ch11 ledger).
+scoping section and the ch11 ledger).
 
 ### Variant A — baseline 3/2 (majority usage; treat as the corpus's working form)
 

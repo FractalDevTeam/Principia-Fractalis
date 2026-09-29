@@ -45,7 +45,7 @@ The reviewer's strategic-pivot recommendation — do not chase N = 50000, instea
 
 Reviewer's original prompt — "any referee who asks 'how do we know the ordering didn't flip at N = 25000?' can type `lake build` and see the proof term" — is now literally executable.
 
-**Honest scope preserved**: the rank vectors are empirical numerical data (Lean kernel does not compute T₃^sym eigenvalues); the projective-limit N → ∞ generalization remains Conjecture 8.X.2; τ_Kendall = 1.000 is tautological under monotone density (the theorem certifies the CLAIM, not density-independence, exactly as the reviewer noted).
+**Scoping preserved**: the rank vectors are empirical numerical data (Lean kernel does not compute T₃^sym eigenvalues); the projective-limit N → ∞ generalization remains Conjecture 8.X.2; τ_Kendall = 1.000 is tautological under monotone density (the theorem certifies the CLAIM, not density-independence, exactly as the reviewer noted).
 
 ---
 

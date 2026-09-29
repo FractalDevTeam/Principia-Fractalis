@@ -617,7 +617,7 @@ None of these pathologies invalidate the SUBSTRATE work they surround. They do b
 - Hodge substrate anchors: 7× `Prop := True`.
 - Hodge CycleClassMapAtCodim2Attempt / VoisinObstructionAtCodimTwoCY3: `Prop := True`.
 
-**Cluster:** These are honest-scope disclosures (comments say so) but they are POLICY VIOLATIONS on load-bearing paths per MASTER DIRECTIVE §I.2 and §I.5. Repairing these is a **shared refactor** across the α-web/NumberTheory attacks and the Hodge/NS substrate. VoisinObstructionTypedUpgrade shows a partial repair template already in the tree.
+**Cluster:** These are scoping disclosures (comments say so) but they are POLICY VIOLATIONS on load-bearing paths per MASTER DIRECTIVE §I.2 and §I.5. Repairing these is a **shared refactor** across the α-web/NumberTheory attacks and the Hodge/NS substrate. VoisinObstructionTypedUpgrade shows a partial repair template already in the tree.
 
 ### 5. Perelman anchor cascade
 
@@ -642,7 +642,7 @@ Ranked per DIRECTIVE §XVII (10 factors: axes affected, PF centrality, residual 
 |---|---|---|---|---|---|---|---|
 | 1 | **Substrate reality-check: does r113 + r123 close Conjecture 8.X.2 in the negative?** | ALL 6 Clay + all α-web | HIGHEST | YES (settles Priority 1a) | r113 + r123 fully proved | LOW | LOW |
 | 2 | **Remove `native_decide` from Collatz + Polignac + Singmaster capstones** | Number theory (Collatz, Polignac, Twin-Prime-adjacent) | HIGH | YES (cleanup, not new math) | full existing structure | LOW-MED | ZERO |
-| 3 | **Type-upgrade the 13+ `Prop := True` Hodge anchors** (following VoisinObstructionTypedUpgrade pattern) | Hodge, P-vs-NP-bridge, cross-Millennium capstones | HIGH | Depends — some can genuinely upgrade | mathlib Hodge gap is huge | HIGH | LOW (honest scope preserved) |
+| 3 | **Type-upgrade the 13+ `Prop := True` Hodge anchors** (following VoisinObstructionTypedUpgrade pattern) | Hodge, P-vs-NP-bridge, cross-Millennium capstones | HIGH | Depends — some can genuinely upgrade | mathlib Hodge gap is huge | HIGH | LOW (scoping preserved) |
 | 4 | **Formalize Brun's theorem** (`∑ 1/p over twin primes converges`) | Twin Prime, Polignac | MED | YES (Brun 1919 is < Twin Prime) | mathlib prime infrastructure | MED | ZERO |
 | 5 | **Formalize Lefschetz (1,1) at codim 1 for K3 surfaces via mathlib cycle-class map** | Hodge, indirectly BSD | HIGH | YES (Lefschetz 1924, a real theorem) | Needs mathlib extensions | HIGH | LOW |
 | 6 | **Formalize the elementary fact "at least one of π+e, πe is transcendental"** | π+e track | LOW | YES (uses only Lindemann-Weierstrass on `x² − (π+e)x + πe`) | Requires LW statement in mathlib | MED-HIGH | ZERO |

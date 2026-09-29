@@ -95,7 +95,7 @@ be tight enough, and each extra doubling shrinks the window by 4×.
 
 Same as the non-torsion arc: sympy-verify every identity before Lean;
 agent proves → independent rebuild → fresh transitive #print axioms →
-commit → push. No native_decide, no sorry, no Prop := True. Honest scope
+commit → push. No native_decide, no sorry, no Prop := True. Scoping
 in every file: lower bounds only, no L-functions, no BSD claims.
 
 ## W2 ground truth — VERIFIED CLEAN FORMS (sympy, 2026-07-28)

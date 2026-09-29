@@ -28,7 +28,7 @@ At the **verification** level:
 - ch33 numerical methods, ch34/34A/appI Lean cross-references and substrate theorem, ch35 software.
 - appJ, appK, appL: dated refinement passes.
 
-Every chapter's *mathematical content* is (in principle) a projection of R_f at a specific α into a specific sector's language. Every chapter's *rigor status* is (per the corpus's own audits) one of: kernel-verified, honest-scope-tagged, or (a known repair-queue item) overstated.
+Every chapter's *mathematical content* is (in principle) a projection of R_f at a specific α into a specific sector's language. Every chapter's *rigor status* is (per the corpus's own audits) one of: kernel-verified, scoping-tagged, or (a known repair-queue item) overstated.
 
 ## §2. What today's substrate rigidity does to the fractal
 

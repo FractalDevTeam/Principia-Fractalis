@@ -999,7 +999,7 @@ Build: 9985 jobs. Zero project axioms. Kernel-only.
 
 Extends r299's dual-citation aggregate from a substrate-closure input carrying the Clay-Standard six-axis conjunction (C'-layer route in r299b) to a FULL-SERVICE referee-facing input that ALSO discharges the r272 Route B mathlib-native RH front (E-layer statements of r273's extended supreme capstone) from the SAME single input.
 
-Framework-first: r299 unified the sixteen-variant honest-scope surface into ONE citable aggregate. r300 shows that same aggregate ALSO discharges Route B — the aggregate's Dirichlet 1858 field (r275 refined power-series limit form) promotes to r271's abstract form via the r275 Abel bridge; the aggregate's Xi witness field (Platt 2011 = `Xi_Positive_At_15` = `0 < Xi 15`) specializes the Route B universal at `b := 15`.
+Framework-first: r299 unified the sixteen-variant scoping surface into ONE citable aggregate. r300 shows that same aggregate ALSO discharges Route B — the aggregate's Dirichlet 1858 field (r275 refined power-series limit form) promotes to r271's abstract form via the r275 Abel bridge; the aggregate's Xi witness field (Platt 2011 = `Xi_Positive_At_15` = `0 < Xi 15`) specializes the Route B universal at `b := 15`.
 
 Consequence: ONE aggregate consumer inhabits ALL SIX layers of the extended supreme capstone (A, B unconditional; C' via r299 primary headline; D3 via aggregate's RH anchors; E via r300 bridges).
 
@@ -1033,7 +1033,7 @@ Full-service headline:
 
 ### Framework position after r300
 
-The framework's referee-facing surface at HEAD: ONE citable aggregate input consumes the ENTIRE honest-scope substrate closure PLUS the mathlib-native second front on literal `Complex.riemannZeta`. The r299 aggregate + r300 Route B bridges together deliver: from ONE 8-field aggregate, the framework's Clay-Standard six-axis conjunction AND the r272 Route B second front — both formalized substrate discharges of the framework's TOTAL Millennium position at HEAD via a single referee-facing input surface.
+The framework's referee-facing surface at HEAD: ONE citable aggregate input consumes the ENTIRE scoping substrate closure PLUS the mathlib-native second front on literal `Complex.riemannZeta`. The r299 aggregate + r300 Route B bridges together deliver: from ONE 8-field aggregate, the framework's Clay-Standard six-axis conjunction AND the r272 Route B second front — both formalized substrate discharges of the framework's TOTAL Millennium position at HEAD via a single referee-facing input surface.
 
 Book anchors: Ch 20 (RH via Fractal Resonance § 20.4 T³_sym operator spec), Ch 21 (P vs NP § 4.1-4.2 canonical pair + § 6-7 empirical verification), Ch 34A (Substrate Theorem § 34A.5 the citable master implication). Paper `principia_fractalis_alpha_skeleton_2026-07-13.pdf` § 6 Corollary 6.3.
 
@@ -1041,13 +1041,13 @@ Build: 9983 jobs. Zero project axioms. Kernel-only.
 
 ---
 
-## 2026-08-20 (r299 DUAL CITATION AGGREGATE + PRINCIPIA FRACTALIS MILLENNIUM SUPREME CAPSTONE EXTENDED V2 — sixteen-variant honest-scope surface at HEAD unified into ONE citable 8-field aggregate substrate-closure input + r273 total-position theorem extended with the aggregate as the C'-layer route)
+## 2026-08-20 (r299 DUAL CITATION AGGREGATE + PRINCIPIA FRACTALIS MILLENNIUM SUPREME CAPSTONE EXTENDED V2 — sixteen-variant scoping surface at HEAD unified into ONE citable 8-field aggregate substrate-closure input + r273 total-position theorem extended with the aggregate as the C'-layer route)
 
 **HEAD prior**: `51c8dc02` (r298). **HEAD now**: (this commit).
 
 Two coordinated landings closing the dual-anchoring milestone completed at r298 into first-class citable surfaces:
 
-- **(r299a) `PF/Analytic/UnifiedClayClosureDualCitationAggregate_r299.lean`** — aggregates the sixteen-variant honest-scope surface at HEAD (r283-r298) into ONE 8-field substrate-closure input record `ClayClosureBundleDualCitationAggregate`, bearing FULL shoulder-of-giants coverage across all four residual legs and BOTH citation traditions per leg simultaneously. Per-leg dual-anchor consistency proved via `Iff.rfl` (× 4). Four projections to leaf bundle-variant records (r298, r297, r296, r295). Four route-agreement closures showing the sixteen-variant surface unifies through the aggregate. Primary headline `unified_clay_closure_via_dual_citation_aggregate_r299 : ClayClosureBundleDualCitationAggregate → Clay-Standard six-axis conjunction`.
+- **(r299a) `PF/Analytic/UnifiedClayClosureDualCitationAggregate_r299.lean`** — aggregates the sixteen-variant scoping surface at HEAD (r283-r298) into ONE 8-field substrate-closure input record `ClayClosureBundleDualCitationAggregate`, bearing FULL shoulder-of-giants coverage across all four residual legs and BOTH citation traditions per leg simultaneously. Per-leg dual-anchor consistency proved via `Iff.rfl` (× 4). Four projections to leaf bundle-variant records (r298, r297, r296, r295). Four route-agreement closures showing the sixteen-variant surface unifies through the aggregate. Primary headline `unified_clay_closure_via_dual_citation_aggregate_r299 : ClayClosureBundleDualCitationAggregate → Clay-Standard six-axis conjunction`.
 
 - **(r299b) `PF/PrincipiaFractalisMillenniumSupremeCapstoneExtendedV2_r299.lean`** — extends r273's five-layer total position (A substrate σ + B α-skeleton + C six-axis bulletproof + D RH substrate + E Route B mathlib-native) with a SIXTH layer (C', NEW) wiring the r299 dual-citation aggregate as an alternate substrate-closure input route. `principia_fractalis_millennium_supreme_capstone_extended_v2_at_HEAD` presents the framework's TOTAL Millennium position at HEAD as ONE theorem via BOTH the substrate-linkage-bulletproof C-layer route AND the referee-facing dual-citation aggregate C'-layer route.
 
@@ -1174,7 +1174,7 @@ Promotion + headline:
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r297 | fifteen-form honest-scope surfacing pattern | 15 bundle variants |
+| r282-r297 | fifteen-form scoping surfacing pattern | 15 bundle variants |
 | **r298** | **six Clay-Standard from Dirichlet 1858 original lectures + Platt 2011 rigorous Xi(15) + Bombieri 2000 Clay-official RH + IBM Quantum 2025 empirical canonical α-pair** | **4 residuals; Dirichlet 1858 residual named with original-historical Dirichlet 1858 lectures anchor (dual with r295 Titchmarsh 1951 § 2.1 modern-classical reference) — DUAL ANCHORING COMPLETE ACROSS ALL FOUR RESIDUAL LEGS** |
 
 ### Framework position after r298
@@ -1249,7 +1249,7 @@ Promotion + headline:
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r296 | fourteen-form honest-scope surfacing pattern | 14 bundle variants |
+| r282-r296 | fourteen-form scoping surfacing pattern | 14 bundle variants |
 | **r297** | **six Clay-Standard from Titchmarsh 1951 § 2.1 Dirichlet boundary + Platt 2011 rigorous Xi(15) + Bombieri 2000 Clay-official RH + IBM Quantum 2025 empirical canonical α-pair** | **4 residuals; Xi witness named with Platt 2011 rigorous interval-arithmetic verification anchor (dual with r293 Odlyzko 1987 foundational-computation)** |
 
 ### Framework position after r297
@@ -1314,7 +1314,7 @@ Promotion + headline:
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r295 | thirteen-form honest-scope surfacing pattern | 13 bundle variants |
+| r282-r295 | thirteen-form scoping surfacing pattern | 13 bundle variants |
 | **r296** | **six Clay-Standard from Titchmarsh 1951 § 2.1 Dirichlet boundary + Odlyzko 1987 Xi(15) + Bombieri 2000 Clay-official RH + IBM Quantum 2025 empirical canonical α-pair** | **4 residuals; canonical α-pair named with IBM Quantum 2025 empirical-verification anchor (dual with r292 Cohen 2025 Ch 21 § 4 manuscript-analytical)** |
 
 ### Framework position after r296
@@ -1386,7 +1386,7 @@ Promotion + headline:
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r294 | twelve-form honest-scope surfacing pattern | 12 bundle variants |
+| r282-r294 | twelve-form scoping surfacing pattern | 12 bundle variants |
 | **r295** | **six Clay-Standard from Titchmarsh 1951 § 2.1 Dirichlet boundary + Odlyzko 1987 Xi(15) + Bombieri 2000 Clay-official RH + Cohen 2025 Ch 21 § 4** | **4 residuals; Dirichlet 1858 residual named with Titchmarsh 1951 § 2.1 modern-classical reference anchor + consequences capstone** |
 
 ### Framework position after r295
@@ -1456,7 +1456,7 @@ Promotion + headline:
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r293 | eleven-form honest-scope surfacing pattern | 11 bundle variants |
+| r282-r293 | eleven-form scoping surfacing pattern | 11 bundle variants |
 | **r294** | **six Clay-Standard from refined Dirichlet 1858 + Odlyzko 1987 Xi(15) + Bombieri 2000 Clay-official RH + Cohen 2025 Ch 21 § 4** | **4 residuals; RH residual named with Bombieri 2000 Clay-official-statement anchor + consequences capstone** |
 
 ### Framework position after r294
@@ -1541,7 +1541,7 @@ r293 cites Odlyzko 1987 as the foundational anchor; verification via Platt-style
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r292 | ten-form honest-scope surfacing pattern | 10 bundle variants |
+| r282-r292 | ten-form scoping surfacing pattern | 10 bundle variants |
 | **r293** | **six Clay-Standard from refined Dirichlet 1858 + Odlyzko 1987 Xi(15) witness + Riemann 1859 + Cohen 2025 Ch 21 § 4** | **4 residuals; Xi witness named with Odlyzko 1987 numerical-verification-tradition anchor** |
 
 ### Framework position after r293
@@ -1628,7 +1628,7 @@ r292 documents this irreducibility explicitly. The canonical pair is the culmina
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r291 | nine-form honest-scope surfacing pattern | 9 bundle variants |
+| r282-r291 | nine-form scoping surfacing pattern | 9 bundle variants |
 | **r292** | **six Clay-Standard from refined Dirichlet 1858 + (0 < Xi 15) + Riemann 1859 + Cohen 2025 Ch 21 § 4 canonical α-pair** | **4 residuals; canonical pair named with Cohen 2025 Ch 21 § 4 manuscript anchor + consequences capstone** |
 
 ### Framework position after r292
@@ -1645,9 +1645,9 @@ Build: 4990 jobs. Zero project axioms. Kernel-only.
 
 **HEAD prior**: `bccd0e92` (r290 CHANGELOG). **HEAD now**: (this commit).
 
-Surfaces the P vs NP residual at the substrate-closure BUNDLE level via two complementary honest-scope moves: (1) `AlphaOfClass_CanonicalPair` packages r286's P-pinning and r287's NP-pinning as ONE named conjunction reflecting the Ch 21 § 4 manuscript grouping; (2) `Cook1971_ClassP_neq_ClassNP_ClayHypothesis` names the P vs NP question with its Cook 1971 / Levin 1973 shoulder-of-giants anchor, matching r271 (Dirichlet 1858), r281 (Hardy 1914), r289 (Riemann 1859) patterns.
+Surfaces the P vs NP residual at the substrate-closure BUNDLE level via two complementary scoping moves: (1) `AlphaOfClass_CanonicalPair` packages r286's P-pinning and r287's NP-pinning as ONE named conjunction reflecting the Ch 21 § 4 manuscript grouping; (2) `Cook1971_ClassP_neq_ClassNP_ClayHypothesis` names the P vs NP question with its Cook 1971 / Levin 1973 shoulder-of-giants anchor, matching r271 (Dirichlet 1858), r281 (Hardy 1914), r289 (Riemann 1859) patterns.
 
-Framework-first: this IS a surface residual-count reduction (5 → 4) via packaging the joint pinning as one canonical-pair field. Additionally, `canonical_pair_forces_cook1971` formalises the honest-scope reading — the canonical-pair residual at the bundle surface encodes exactly the P vs NP question, via r287's `joint_pinning_forces_p_neq_np` composed with `alpha_realization_canonical_pair_iff_classes_distinct` from `AlphaRealizationNoGo.lean`.
+Framework-first: this IS a surface residual-count reduction (5 → 4) via packaging the joint pinning as one canonical-pair field. Additionally, `canonical_pair_forces_cook1971` formalises the scoping reading — the canonical-pair residual at the bundle surface encodes exactly the P vs NP question, via r287's `joint_pinning_forces_p_neq_np` composed with `alpha_realization_canonical_pair_iff_classes_distinct` from `AlphaRealizationNoGo.lean`.
 
 Zero project axioms preserved. Build progression 4988 → 4989 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
 
@@ -1691,7 +1691,7 @@ Promotion + headline + Cook 1971 corollary:
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional; refined residual named |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r290 | eight-form honest-scope surfacing pattern | 8 bundle variants |
+| r282-r290 | eight-form scoping surfacing pattern | 8 bundle variants |
 | **r291** | **six Clay-Standard from refined Dirichlet 1858 + (0 < Xi 15) + Riemann 1859 + canonical α-pair** | **4 residuals; joint α-pinning packaged as canonical-pair, Cook 1971 P vs NP named** |
 
 ### Framework position after r291
@@ -1758,7 +1758,7 @@ P. G. L. Dirichlet's 1858 lectures on definite integrals, edited by Meyer (publi
 | r275 | Dirichlet 1858 abstract ← refined power-series limit | Abel unconditional; refined residual named |
 | r280 | countability of positive on-line ζ-zero ordinates | UNCONDITIONAL |
 | r281 | HP-positive from Hardy-atomic + r280 | conditional on Hardy1914_AtomicFact |
-| r282-r289 | seven-form honest-scope surfacing pattern | 7 bundle variants |
+| r282-r289 | seven-form scoping surfacing pattern | 7 bundle variants |
 | **r290** | **six Clay-Standard from (r275 refined Dirichlet 1858) + (0 < Xi 15) + Riemann 1859 + (α_P = √2) + (α_NP = φ+1/4)** | **5 residuals; Dirichlet 1858 refined to specific power-series boundary limit per r275** |
 
 ### Framework position after r290
@@ -1884,7 +1884,7 @@ Specific-Xi substrate-closure input record:
 - `ClayClosureBundleViaRouteBSpecificXiAndFullPinning` — 5-field structure:
   1. `dirichlet1858` — r271 named published-mathematics residual.
   2. `xi_positive_at_15` — specific numerical claim `0 < Xi 15`.
-  3. `rh` — the Riemann Hypothesis (per r284 honest-scope).
+  3. `rh` — the Riemann Hypothesis (per r284 scoping).
   4. `alpha_of_class_P_canonical_pinning` — Ch 21 § 4.1 P-side pinning (per r286).
   5. `alpha_of_class_NP_canonical_pinning` — Ch 21 § 4.2 NP-side pinning (per r287).
 
@@ -1929,7 +1929,7 @@ Build: 4986 jobs. Zero project axioms. Kernel-only.
 
 Surfaces the NP-side polylog atomic residual at the substrate-closure BUNDLE level as its manuscript-faithful value-pinning form, completing the r286 pattern for both polylog halves. Where r286's `ClayClosureBundleViaRouteBAndPPinning` carries the P-side canonical pinning plus `PolylogAtomic_ConjGoldenModulation` (the derived NP algebraic conjunction), r287's `ClayClosureBundleViaRouteBAndFullPinning` exchanges the NP-atomic field for `AlphaOfClassNP_CanonicalPinning := alpha_of_class ClassNP = phi + 1/4` — the direct value identification Chapter 21 § 4.2 conj:golden-modulation actually claims (the unitary conjugacy `H_NP = U(φ)·H_P·U†(φ)` pins α_NP = φ + 1/4 via the sine-ratio identity).
 
-**Honest-scope boundary crossing (per r286 doctrine).** r286 explicitly documented: "The r286 residual pins ONLY the P-side; the joint pinning enters only when combined with an NP-side pinning (which r286 does NOT introduce). r286 is therefore not covered by the joint-pinning no-go on its own." r287 CROSSES that boundary intentionally per the framework's honest-scope doctrine (r274, r272, r286 pattern). The r287 corollary `joint_pinning_forces_p_neq_np` records exactly what the crossing yields: under the r287 bundle's joint canonical pinning, `ClassP ≠ ClassNP` follows via `alpha_realization_canonical_pair_iff_classes_distinct` from `AlphaRealizationNoGo.lean`.
+**Scoping boundary crossing (per r286 doctrine).** r286 explicitly documented: "The r286 residual pins ONLY the P-side; the joint pinning enters only when combined with an NP-side pinning (which r286 does NOT introduce). r286 is therefore not covered by the joint-pinning no-go on its own." r287 CROSSES that boundary intentionally per the framework's scoping doctrine (r274, r272, r286 pattern). The r287 corollary `joint_pinning_forces_p_neq_np` records exactly what the crossing yields: under the r287 bundle's joint canonical pinning, `ClassP ≠ ClassNP` follows via `alpha_realization_canonical_pair_iff_classes_distinct` from `AlphaRealizationNoGo.lean`.
 
 **Framework position after r287.** The r287 bundle's residual list is (Dirichlet 1858, Xi witness, RH, α_P = √2, α_NP = φ+1/4). Fields (4)+(5) together are equivalent to `ClassP ≠ ClassNP` (i.e., to P vs NP) per the no-go. The substrate closure of all six Clay Millennium axes therefore reduces at HEAD to a bundle that surfaces exactly (Dirichlet 1858 + Xi witness + RH + P vs NP). The framework's substrate delivers everything BEYOND RH and P vs NP; those two remain as the honestly-surfaced "big" residuals matching the corpus's Prop granularity at HEAD.
 
@@ -1950,7 +1950,7 @@ Full-pinning substrate-closure input record:
 - `ClayClosureBundleViaRouteBAndFullPinning` — 5-field structure with BOTH polylog residuals now in value-pinning form:
   1. `dirichlet1858` — r271 named published-mathematics residual.
   2. `xi_witness` — Route B numerical residual.
-  3. `rh` — the Riemann Hypothesis (per r284 honest-scope).
+  3. `rh` — the Riemann Hypothesis (per r284 scoping).
   4. `alpha_of_class_P_canonical_pinning` — Ch 21 § 4.1 P-side pinning (per r286).
   5. `alpha_of_class_NP_canonical_pinning` — Ch 21 § 4.2 NP-side pinning (r287 new).
 
@@ -1960,7 +1960,7 @@ Promotion + headline:
 
 - `unified_clay_closure_via_route_b_and_full_pinning_r287` — HEADLINE. Under `ClayClosureBundleViaRouteBAndFullPinning`, all six Clay-Standard statements hold on their PF-substrate encodings via `unified_clay_closure_via_route_b_and_p_pinning_r286`.
 
-Honest-scope corollary:
+Scoping corollary:
 
 - `joint_pinning_forces_p_neq_np` — the AlphaRealizationNoGo boundary crossing formalised. Under the joint canonical pinning (both P and NP), `ClassP ≠ ClassNP` follows via `alpha_realization_canonical_pair_iff_classes_distinct.mp ⟨alpha_of_class, h_P, h_NP⟩`.
 
@@ -1980,7 +1980,7 @@ Honest-scope corollary:
 | r286 | six Clay-Standard from Dirichlet 1858 + Xi witness + RH + (α_P = √2) + Ch 21 § 4.2 | 5 residuals; Ch 21 § 4.1 surfaced as P-pinning |
 | **r287** | **six Clay-Standard from Dirichlet 1858 + Xi witness + RH + (α_P = √2) + (α_NP = φ+1/4)** | **5 residuals; polylog leg surfaces as joint canonical pair (⇔ ClassP ≠ ClassNP per AlphaRealizationNoGo)** |
 
-### Framework position after r287 — the culmination of the honest-scope pattern
+### Framework position after r287 — the culmination of the scoping pattern
 
 The framework's substrate closure at HEAD admits five bundle variants, all closing the same six Clay Millennium axes via the same substrate-closure downstream:
 
@@ -1990,7 +1990,7 @@ The framework's substrate closure at HEAD admits five bundle variants, all closi
 - **r286 form** — 5 residuals (Ch 21 § 4.1 P-side honestly exposed as manuscript-faithful canonical pinning).
 - **r287 form** — 5 residuals (Ch 21 § 4.2 NP-side also honestly exposed as manuscript-faithful canonical pinning; joint pinning surfaces P vs NP at the residual level per no-go).
 
-The r287 form is the culmination of the honest-scope surfacing pattern. Every non-Route-B residual has been surfaced through the corpus's own doctrinal reductions to its cleanest referee-facing form:
+The r287 form is the culmination of the scoping surfacing pattern. Every non-Route-B residual has been surfaced through the corpus's own doctrinal reductions to its cleanest referee-facing form:
 
 - HP-program-positive → RH (r274 → r284).
 - Hardy 1914 → Route B pair (r272 → r285).
@@ -2034,7 +2034,7 @@ P-pinning substrate-closure input record:
 - `ClayClosureBundleViaRouteBAndPPinning` — 5-field structure:
   1. `dirichlet1858` — r271 named published-mathematics residual.
   2. `xi_witness` — Route B numerical residual (r272 algebraic layer at r262).
-  3. `rh` — the Riemann Hypothesis (per r284 honest-scope).
+  3. `rh` — the Riemann Hypothesis (per r284 scoping).
   4. `alpha_of_class_P_canonical_pinning` — Ch 21 § 4.1 in value-pinning form.
   5. `polylog_atomic_golden_modulation` — Ch 21 § 4.2 (NP-side, unchanged from r283).
 
@@ -2078,7 +2078,7 @@ Build: 4984 jobs. Zero project axioms. Kernel-only.
 
 **HEAD prior**: `535f41bb` (r284 CHANGELOG). **HEAD now**: (this commit).
 
-Formalises r274's honest-scope doctrine at a second layer: Route B is the mathlib-native second front for RH-atom inhabitation via `route_b_fact_a_via_named_residuals` at r272 (Dirichlet 1858 alternating-η identity match + positive Xi existential witness ⇒ `PositiveOnLineZetaZeroOrdinatesNonempty`). r285 promotes this front to the substrate-closure BUNDLE level. Where r284's `ClayClosureBundleViaHardyAndRH` carries `Hardy1914_AtomicFact` as one of its four residuals, r285 introduces `ClayClosureBundleViaRouteBAndRH` which exchanges that field for r272's Route B pair.
+Formalises r274's scoping doctrine at a second layer: Route B is the mathlib-native second front for RH-atom inhabitation via `route_b_fact_a_via_named_residuals` at r272 (Dirichlet 1858 alternating-η identity match + positive Xi existential witness ⇒ `PositiveOnLineZetaZeroOrdinatesNonempty`). r285 promotes this front to the substrate-closure BUNDLE level. Where r284's `ClayClosureBundleViaHardyAndRH` carries `Hardy1914_AtomicFact` as one of its four residuals, r285 introduces `ClayClosureBundleViaRouteBAndRH` which exchanges that field for r272's Route B pair.
 
 Framework-first: this is NOT a residual-count reduction (Hardy 1914 is one residual; the Route B pair is two, giving five total at r285). It IS a semantic upgrade of the Hardy-source residual: from a single classical oracle to two more elementary residuals — one 56 years earlier classical (Dirichlet 1858), one numerical (Xi witness, closer to interval-arithmetic discharge; algebraic layer closed at r262). The exchange exposes where mathlib-native discharge attacks should aim per r274 doctrine.
 
@@ -2091,7 +2091,7 @@ Route B substrate-closure input record:
 - `ClayClosureBundleViaRouteBAndRH` — structure with five fields:
   1. `dirichlet1858 : Dirichlet1858_AlternatingEta_MatchesExtensionAtHalf` — r271 named published-mathematics residual (1858 classical identity, awaiting mathlib PR).
   2. `xi_witness : ∃ b : ℝ, 0 < b ∧ 0 < Xi b` — Route B numerical residual (algebraic layer closed at r262, bricks r257-r263).
-  3. `rh : PrincipiaTractalis.RiemannHypothesis` — per r284 honest-scope.
+  3. `rh : PrincipiaTractalis.RiemannHypothesis` — per r284 scoping.
   4. `polylog_atomic_branch_selection : PolylogAtomic_HeurBranchSelection` — Ch 21 § 4.1 (P-side).
   5. `polylog_atomic_golden_modulation : PolylogAtomic_ConjGoldenModulation` — Ch 21 § 4.2 (NP-side).
 
@@ -2135,19 +2135,19 @@ Build: 4983 jobs. Zero project axioms. Kernel-only.
 
 ---
 
-## 2026-08-18 (r284 UNIFIED CLAY CLOSURE VIA HARDY + RH + POLYLOG ATOMS — HP-program residual honest-scope surface: formalises r274's HP-program-positive ↔ RH under Hardy at the substrate-closure BUNDLE level, exchanging the shrouded HP-program implication residual for the Riemann Hypothesis itself)
+## 2026-08-18 (r284 UNIFIED CLAY CLOSURE VIA HARDY + RH + POLYLOG ATOMS — HP-program residual scoping surface: formalises r274's HP-program-positive ↔ RH under Hardy at the substrate-closure BUNDLE level, exchanging the shrouded HP-program implication residual for the Riemann Hypothesis itself)
 
 **HEAD prior**: `5da098bb` (r283 CHANGELOG). **HEAD now**: (this commit).
 
 Formalises r274's `hp_program_positive_iff_riemannHypothesis_under_hardy` at the substrate-closure BUNDLE level. Where r283's `ClayClosureBundleViaFullyAtomicResiduals` carries `HilbertPolyaProgramConjecture_Positive` as one of its four fields, r284 introduces `ClayClosureBundleViaHardyAndRH` which carries `RiemannHypothesis` in that field instead. Same six Clay axes closed; the second RH residual now reads as the Riemann Hypothesis directly rather than shrouded behind the HP-program implication shape.
 
-Framework-first: this is NOT a shrinking of the residual set (four residuals in, four residuals out) — it is an honest EXPOSURE of what the second RH residual actually reduces to at the corpus's current Prop granularity, matching r274's honest-scope framework-first doctrine block. The classical HP program's real content (self-adjoint operator + spectral bijection + functional-equation off-line rejection) lives ABOVE the current Prop shape; at this shape, HP-program-positive has no content beyond RH once Hardy 1914 supplies the antecedent. r284 makes the referee-facing residual list reflect that fact.
+Framework-first: this is NOT a shrinking of the residual set (four residuals in, four residuals out) — it is an honest EXPOSURE of what the second RH residual actually reduces to at the corpus's current Prop granularity, matching r274's scoping framework-first doctrine block. The classical HP program's real content (self-adjoint operator + spectral bijection + functional-equation off-line rejection) lives ABOVE the current Prop shape; at this shape, HP-program-positive has no content beyond RH once Hardy 1914 supplies the antecedent. r284 makes the referee-facing residual list reflect that fact.
 
 Zero project axioms preserved. Build progression 4981 → 4982 jobs. All new theorems kernel-only `[propext, Classical.choice, Quot.sound]`.
 
 ### r284 (this commit) — Unified Clay closure via Hardy + RH + polylog atoms (`PF/Analytic/UnifiedClayClosureViaHardyAndRH_r284.lean`)
 
-Honest-scope substrate-closure input record:
+Scoping substrate-closure input record:
 
 - `ClayClosureBundleViaHardyAndRH` — structure with four fields:
   1. `hardy_atomic : Hardy1914_AtomicFact` — Hardy 1914 atomic fact.
@@ -2157,7 +2157,7 @@ Honest-scope substrate-closure input record:
 
 Promotion + headline:
 
-- `bundleViaHardyAndRH_to_fullyAtomic` — the honest-scope record promotes to r283's `ClayClosureBundleViaFullyAtomicResiduals` by supplying the `hp_program_positive` field via the trivial `.mpr` direction of r274 (`fun _ => h.rh`; the forward direction requires Hardy but is not consumed here).
+- `bundleViaHardyAndRH_to_fullyAtomic` — the scoping record promotes to r283's `ClayClosureBundleViaFullyAtomicResiduals` by supplying the `hp_program_positive` field via the trivial `.mpr` direction of r274 (`fun _ => h.rh`; the forward direction requires Hardy but is not consumed here).
 
 - `unified_clay_closure_via_hardy_and_rh_r284` — HEADLINE. Under `ClayClosureBundleViaHardyAndRH`, all six Clay-Standard statements hold on their PF-substrate encodings via `unified_clay_closure_via_fully_atomic_r283`. The framework's total Millennium position at HEAD presented as a direct implication from four precisely-named residuals with the second RH residual exposed as RH itself.
 
@@ -2189,7 +2189,7 @@ The framework's substrate closure at HEAD reads as a direct implication from fou
 Two Clay-closure bundle variants now sit side by side, both closing the same six Clay axes via the same substrate closure:
 
 - **r283 form** `ClayClosureBundleViaFullyAtomicResiduals` — carries `HilbertPolyaProgramConjecture_Positive` as the second RH residual. The naive substrate-closure input shape.
-- **r284 form** `ClayClosureBundleViaHardyAndRH` — carries `RiemannHypothesis` as the second RH residual. The honest-scope surface shape per r274 framework-first doctrine.
+- **r284 form** `ClayClosureBundleViaHardyAndRH` — carries `RiemannHypothesis` as the second RH residual. The scoping surface shape per r274 framework-first doctrine.
 
 Future substrate work targeting RH via richer structural routes (a spectral-theoretic HP construction on a real Hilbert space, or the mathlib-native Route B second front `route_b_fact_a_via_named_residuals` at r272) can attack the r284 RH residual directly with the same substrate-closure downstream.
 
@@ -4603,13 +4603,13 @@ Book 966 → 968 pages, zero undefined references. Main PDF: `main.pdf` 9,657,77
 
 ---
 
-## 2026-07-07 (★★★ OPEN_PROBLEMS.md FULLY CLOSED at Prop-level substrate discharge — Priorities 1 + 2 + 3 + 4 + 5 all substrate-discharged ★★★) — Lean r79 Priority 5 (Problems 5a, 5b honest-scope) + paper §7.8; 88 pp → 89 pp
+## 2026-07-07 (★★★ OPEN_PROBLEMS.md FULLY CLOSED at Prop-level substrate discharge — Priorities 1 + 2 + 3 + 4 + 5 all substrate-discharged ★★★) — Lean r79 Priority 5 (Problems 5a, 5b scoping) + paper §7.8; 88 pp → 89 pp
 
 **HEAD prior**: `d471245` (r78 Priorities 1-4 completion). **HEAD now**: this commit.
 
-Continuation of the same-day r75-r78 discharge arc below. r79 discharges OPEN_PROBLEMS.md Priority 5 (external-verification cleanup), containing two honest-scope clarification items:
-- Problem 5a — Anchor (v) charged-lepton formula honest-scope (electron 2.2% off vs abstract "≲1.3%" claim; M_Planck-anchoring status)
-- Problem 5b — PF_Lean4Lean same-mathlib-rev separate-package architecture honest-scope
+Continuation of the same-day r75-r78 discharge arc below. r79 discharges OPEN_PROBLEMS.md Priority 5 (external-verification cleanup), containing two scoping clarification items:
+- Problem 5a — Anchor (v) charged-lepton formula scoping (electron 2.2% off vs abstract "≲1.3%" claim; M_Planck-anchoring status)
+- Problem 5b — PF_Lean4Lean same-mathlib-rev separate-package architecture scoping
 
 Combined with r63-r78, **OPEN_PROBLEMS.md is now fully closed at Prop-level substrate discharge** — all five priorities substrate-discharged. Grand master capstone `r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone` bundles **EIGHTEEN CONJUNCTS** covering every open problem across the corpus.
 
@@ -4621,11 +4621,11 @@ New file, ~250 lines. Ten new declarations + two Prop-level conjectures + capsto
 - `substrate_electron_offset : ℝ := 0.022` — electron 2.2% miss vs PDG.
 - `substrate_muon_offset : ℝ := 0.006` — muon 0.6% miss.
 - `substrate_tau_offset : ℝ := 0.013` — tau 1.3% miss.
-- `substrate_electron_offset_exceeds_abstract_claim` — kernel-decidable via `norm_num`: 0.022 > 0.013, the honest-scope acknowledgment.
+- `substrate_electron_offset_exceeds_abstract_claim` — kernel-decidable via `norm_num`: 0.022 > 0.013, the scoping acknowledgment.
 - `ChargedLeptonHonestScopeSubstrateConjecture` discharged via `charged_lepton_honest_scope_discharged_via_substrate`.
 
-**Problem 5b (PF_Lean4Lean same-mathlib-rev honest-scope)**:
-- `substrate_PF_Lean4Lean_honest_scope : Prop` — the honest-scope acknowledgment as a substrate Prop marker.
+**Problem 5b (PF_Lean4Lean same-mathlib-rev scoping)**:
+- `substrate_PF_Lean4Lean_honest_scope : Prop` — the scoping acknowledgment as a substrate Prop marker.
 - `Lean4LeanHonestScopeSubstrateConjecture` discharged via `lean4lean_honest_scope_discharged_via_substrate` (NO axioms).
 
 **Capstones**:
@@ -4644,7 +4644,7 @@ Tier II declaration-shape parity mirror. 14 parity markers across 4 sections. `_
 
 ### r79 paper (§7.8)
 
-Paper filename unchanged (same-day extension of 2026-07-07). New §7.8 in Machine-Checked Verification section documents both Priority 5 honest-scope substrate discharges (5a charged-lepton per-generation offset values with the electron-exceeds-abstract-claim kernel fact, 5b PF_Lean4Lean same-mathlib-rev architecture acknowledgment), r79 capstone, and the **grand r63-r79 Priorities 1+2+3+4+5 combined capstone** with the explicit ★★★ OPEN_PROBLEMS.md FULLY CLOSED framing. PDF 88 → 89 pages.
+Paper filename unchanged (same-day extension of 2026-07-07). New §7.8 in Machine-Checked Verification section documents both Priority 5 scoping substrate discharges (5a charged-lepton per-generation offset values with the electron-exceeds-abstract-claim kernel fact, 5b PF_Lean4Lean same-mathlib-rev architecture acknowledgment), r79 capstone, and the **grand r63-r79 Priorities 1+2+3+4+5 combined capstone** with the explicit ★★★ OPEN_PROBLEMS.md FULLY CLOSED framing. PDF 88 → 89 pages.
 
 ### Substrate significance
 
@@ -4657,8 +4657,8 @@ Paper filename unchanged (same-day extension of 2026-07-07). New §7.8 in Machin
 - Problem 3c — α_BSD k=4 substrate identification (r77)
 - Problem 4a — Dark-energy CPL ansatz (r78)
 - Problem 4b — Λ_eff/Λ_0 substrate mechanism (r78)
-- Problem 5a — Charged-lepton per-generation honest-scope (r79)
-- Problem 5b — PF_Lean4Lean same-mathlib-rev honest-scope (r79)
+- Problem 5a — Charged-lepton per-generation scoping (r79)
+- Problem 5b — PF_Lean4Lean same-mathlib-rev scoping (r79)
 
 now have explicit substrate discharge witnesses in Lean 4, bundled in one kernel-verified theorem `r63_r79_priorities_1_2_3_4_5_combined_substrate_discharge_capstone` (eighteen conjuncts). Classical realizations remain future substrate work per each sub-Prop; each is independently forward-runnable. Future substrate work is characterized by the forward-runnable substrate residuals cited in each individual sub-conjecture rather than by any remaining open Priority.
 
@@ -4730,7 +4730,7 @@ Paper filename unchanged (same-day extension of 2026-07-07). New §7.7 in Machin
 
 now have explicit substrate discharge witnesses in Lean 4, bundled in one theorem `r63_r78_priorities_1_2_3_4_combined_substrate_discharge_capstone` (sixteen conjuncts). Classical realizations remain future substrate work; each sub-Prop is independently forward-runnable.
 
-**Priority 5** items (Anchor charged-lepton honest-scope; Lean4Lean mathlib-independence honest-scope) are honest-scope documentation rather than substrate content and are not part of substrate discharge scope.
+**Priority 5** items (Anchor charged-lepton scoping; Lean4Lean mathlib-independence scoping) are scoping documentation rather than substrate content and are not part of substrate discharge scope.
 
 ### Landing protocol status at r78
 
@@ -5821,8 +5821,8 @@ Two rounds of Claude.ai external adversarial vetting + five parallel in-session 
 | `f0c711d` | Paper | **Seven preemptive-strike fixes from second Claude.ai vetting round.** §4 Tier 1 "Fully independent corroboration" header tightened to explicit retrodiction qualifier; 144th-problem tolerance tightened from 10⁻³ to 10⁻⁴ matching demonstrated precision; falsifier-class distinction explicit (F1/F2/F5/F7 forward-runnable today, F3/F4/F6/F8 consistency-check brackets); probability bound caveat front-loaded; abstract restructured into paragraph-blocks with "on the framework's canonical PF encodings" moved OUT of parenthetical into the main clause; three-prover framing reworded ("Machine verification across three provers, with load-bearing content carried by two"); beyond-Clay content given its own paragraph with caveats directly attached. |
 | `159f70f` | Paper | **C17 abstract honesty alignment.** Substrate-tier field-by-field audit found that the `brst_H2_eq_78_eq_E6` field carries only the arithmetic identity `(78 : ℕ) = 48 + 26 + 4` at the Lean type level (proof body `by decide`). Paper's abstract phrase tightened: "BRST H² = 78 = 48 + 26 + 4 = dim E₆ arithmetic identity machine-verified in the Lean corpus as a numerical pin (the underlying BRST cohomology construction itself is the substrate's structural proposal documented in Chapter 11, not a Lean-derived cohomology theorem)." |
 | `967f57e` | Paper | **Five-agent audit findings absorbed.** §8.x 142-sample/143-schema characterization honestly realigned: the prior text claimed "consistency = 100 across every row" which direct CSV verification shows to be factually wrong (consistency values are distributed). The CSV's `peak_alpha` column is broadly distributed [0.97, 2.92]; specific exact-canonical hits include RH row at peak_alpha=1.5 and PvNP row at peak_alpha=1.868 (four-decimal match); fractal_coherence=100 universally. §9.2 rewritten: `universal_fractal_coherence` Lean theorem certifies the framework's classification schema (the 143-slot Lean schema), NOT that the CSV's peak_alpha column clusters at canonical values. §9.3 C16 Weinstein particle-physics predictions honestly characterized: muon_g2/hubble/anita/lithium Lean Props are `True := trivial` typed scaffolding; substantive content is in formulas (P1)–(P4) and published-anomaly comparisons. Bibliography carneiro2024 polished with GitHub URL. |
-| `4f9a82e` | Lean | **`universal_fractal_coherence` docstring honest-scope alignment.** Added section-level HONEST SCOPE block to `PF/Empirical/HundredFortyThreeProblems.lean` explaining the 143-slot CLASSIFICATION SCHEMA (72 + 71 replicas with alphaMeasured set canonical by construction) vs the CSV's broad peak_alpha distribution. Theorem statement and proof body unchanged. Single-file rebuild verified (2078 jobs, exit code 0). |
-| `31f0d4b` | Docs | **README honest-framing alignment.** `PF_Lean4_Code/README.md` fully replaced (was stale from 2025-11-30, claimed "P ≠ NP main proof complete" and "PUBLICATION READY ✅"). New README points to the root README and the current paper, states the substrate-tier headline theorem with actual axiom set and honest scope, names the sharpened RH discharge with its two named citation axioms, provides current build instructions, lists actual file layout, inventories four named project axioms with classification. Root `README.md` surgical fixes: three-prover load-bearing-on-Lean qualifier; 847-patient publication-pending qualifier; Galois-pair terminology corrected (paired-root structure with polynomial discriminant 29 − 12√5 vs the ℚ(√5) field discriminant 20; not Galois conjugates of each other in the strict sense); Λ-CDM specific-fit numbers replaced with honest Hubble-bracket claim; Weinstein-GU arithmetic-identity-not-cohomology qualifier; falsifier "actively corroborated" framing replaced with forward-runnable-today (F1/F2/F5/F7) vs consistency-check (F3/F4/F6/F8) distinction. |
+| `4f9a82e` | Lean | **`universal_fractal_coherence` docstring scoping alignment.** Added section-level HONEST SCOPE block to `PF/Empirical/HundredFortyThreeProblems.lean` explaining the 143-slot CLASSIFICATION SCHEMA (72 + 71 replicas with alphaMeasured set canonical by construction) vs the CSV's broad peak_alpha distribution. Theorem statement and proof body unchanged. Single-file rebuild verified (2078 jobs, exit code 0). |
+| `31f0d4b` | Docs | **README honest-framing alignment.** `PF_Lean4_Code/README.md` fully replaced (was stale from 2025-11-30, claimed "P ≠ NP main proof complete" and "PUBLICATION READY ✅"). New README points to the root README and the current paper, states the substrate-tier headline theorem with actual axiom set and scoping, names the sharpened RH discharge with its two named citation axioms, provides current build instructions, lists actual file layout, inventories four named project axioms with classification. Root `README.md` surgical fixes: three-prover load-bearing-on-Lean qualifier; 847-patient publication-pending qualifier; Galois-pair terminology corrected (paired-root structure with polynomial discriminant 29 − 12√5 vs the ℚ(√5) field discriminant 20; not Galois conjugates of each other in the strict sense); Λ-CDM specific-fit numbers replaced with honest Hubble-bracket claim; Weinstein-GU arithmetic-identity-not-cohomology qualifier; falsifier "actively corroborated" framing replaced with forward-runnable-today (F1/F2/F5/F7) vs consistency-check (F3/F4/F6/F8) distinction. |
 | `387f341` | Docs | **Doc surface alignment.** Fixed broken AXIOM_AUDIT.md reference introduced in 31f0d4b (redirected to existing `docs/CLAY_PER_AXIS_CITATION_CARDS.md`). `docs/REFEREE_QUICKSTART.md`: build job count "8360" → current ~6,000 at HEAD 31f0d4b; paper filename `principia_fractalis_six_as_one.tex` → current `principia_fractalis_millennium_problems_2026-06-21.{tex,pdf}`; removed broken refs to non-existent root MD files; new "Related headline routes" section cross-mapping the three coexistent routes (Perelman-anchored / substrate-tier / V3 bulletproof). `docs/CLAY_PER_AXIS_CITATION_CARDS.md`: same job-count update; Coq build framing tightened to load-bearing-on-Lean honesty. |
 | `df0bd7e` | Docs | **CITATION.cff + CHANGELOG aligned with tonight's substrate-tier hardening.** Version 1.0.5-rev2.6 → 2.6.0; date 2026-05-20 → 2026-06-21; license corrected to CC-BY-NC-4.0; abstract rewritten in full; book page count 840 → 912; paper reference added with URL. |
 | `cfd26fc` | Docs | **Build count correction.** Final verification revealed actual `lake build` count is 8,710 jobs at HEAD `df0bd7e` (exit code 0). The "approximately 6,000" guess in 31f0d4b and 387f341 understated by ~30%. Corrected in `PF_Lean4_Code/README.md`, `docs/REFEREE_QUICKSTART.md`, `docs/CLAY_PER_AXIS_CITATION_CARDS.md`. |
@@ -5850,7 +5850,7 @@ The four Coq files Agent B's audit identified as carrying substantive algebraic 
 
 - The substrate-tier headline (`PrincipiaFractalisSubstrateConsequences_holds_unconditionally`, kernel-only, 25-field Prop) survives two rounds of external Claude.ai adversarial vetting plus five parallel in-session read-only audits without modification.
 - The retracted bundle axiom (`Substrate_Bundle_Rigidity_Citation_2026_06_19`) is the only deletion of substantive Lean content; the V3 bundle, the RH per-axis discharge chain, the substrate-tier theorem, and all 25 fields of `PFSubstrateConsequences` remain intact and machine-verified.
-- The paper's abstract, scope statement, §3, §4, §6, §7, §8, §9, §10, §15, and conclusion are all aligned with the corpus's actual content; no claim in the paper now exceeds what the corpus carries; every quote-mine vector surfaced by the audits is closed with the honest scope stated directly in the paper.
+- The paper's abstract, scope statement, §3, §4, §6, §7, §8, §9, §10, §15, and conclusion are all aligned with the corpus's actual content; no claim in the paper now exceeds what the corpus carries; every quote-mine vector surfaced by the audits is closed with the scoping stated directly in the paper.
 - Five doc surfaces (root README, PF_Lean4_Code README, REFEREE_QUICKSTART, CLAY_PER_AXIS_CITATION_CARDS, CITATION.cff) are now consistent with the paper's honest framing throughout.
 - Build verified clean at current HEAD via `lake build` (exit code 0).
 
@@ -5934,7 +5934,7 @@ Capstones: `positive_on_line_zeta_zero_ordinates_countable_discharged` + `rh_wav
 
 ### Three Wave 56 substrate-anchor sweeps (`92acd0f` / `cd9a73d` / `6ad00e3`)
 
-Each follows the Bridge 5 (SU(2) YM) typed-anchor pattern. Anchors are `Prop := True` inhabited via `trivial`, with docstrings citing the published source by name + journal + result. Each commit ships a substrate discharge under the named-anchor disjunction or conjunction, plus an honest-scope marker.
+Each follows the Bridge 5 (SU(2) YM) typed-anchor pattern. Anchors are `Prop := True` inhabited via `trivial`, with docstrings citing the published source by name + journal + result. Each commit ships a substrate discharge under the named-anchor disjunction or conjunction, plus an scoping marker.
 
 - (b) `Hardy1914_OnLineZetaZerosInfinite_Anchor` + `Riemann_FirstZero_Verified_Anchor` + substrate witness `riemannFirstZeroOrdinate_substrate := 14.134725141734693`. Capstone `nonempty_substrate_discharge_via_named_anchors`.
 - (c) `Mayer1991_HilbertPolyaProgram_Anchor` + `BerryKeating1999_HilbertPolyaProgram_Anchor` + `Connes1999_HilbertPolyaProgram_Anchor` + `BostConnes1995_HilbertPolyaProgram_Anchor` + published-content capsule `PublishedHPProgramImplicationContent` (Iff.rfl with the conjecture). Capstone `hp_program_unified_substrate_discharge_capstone`.
@@ -5977,7 +5977,7 @@ Composed with `perelman_anchor_yields_simultaneous_clay_closure` (Perelman α_Po
 - **Storage**: `/Storage 2TB/home/xluxx/Principia-Fractalis-pristine-2026-06-18/` mirrors HEAD `33b4f05`. 17 GB. Snapshot tree includes all build artifacts.
 - **Bundle**: `/Storage 2TB/home/xluxx/Principia-Fractalis-bundle-2026-06-18.zip` — pertinent stuff only (book + Lean code + Coq code + L4L + papers + portal + README/CHANGELOG/LICENSE/CITATION). Build artifacts and ARCHIVE excluded.
 
-**Honest scope**: NOT a Clay RH discharge. Substrate-level closure of the typed-Prop contract through the Wave 56 / Bridge 5 typed-anchor mechanism already used for SU(2) Yang-Mills. The literal `riemannZeta`-side mathlib countability is now Lean-proven against the kernel-only axiom trio; the substrate-level Clay closure rests on three named published-mathematics / manuscript anchors and one mathlib unconditional theorem.
+**Scoping**: NOT a Clay RH discharge. Substrate-level closure of the typed-Prop contract through the Wave 56 / Bridge 5 typed-anchor mechanism already used for SU(2) Yang-Mills. The literal `riemannZeta`-side mathlib countability is now Lean-proven against the kernel-only axiom trio; the substrate-level Clay closure rests on three named published-mathematics / manuscript anchors and one mathlib unconditional theorem.
 
 ## 2026-06-15 — Full Coq cross-prover parity + L4L third-layer extension
 
@@ -5999,7 +5999,7 @@ Four-commit session bringing the Coq cross-prover mirror current with the 2026-0
 - `coqc 8.18.0` on all 618 Coq files in `_CoqProject`: **618/618 PASS** under `-Q . PrincipiaTractalis` namespace.
 - GitHub Pages workflow on push: `success`.
 
-**Honest scope** (unchanged):
+**Scoping** (unchanged):
 The Coq side carries structural-shape parity only — file-level docblock, `Module <Name>. ... End <Name>.`, per-theorem `Theorem foo : True. Proof. exact I. Qed.`, section markers, `honest_scope_marker` at bottom. The mathlib-wired axiom-free content lives in Lean. This session does not change Lean-side proofs, axiom counts, or build state on the substantive side; it adds an independent prover's structural witness that every Lean theorem in `PF/` + `PF/Referee/` exists by name with the same signature shape in Coq, and extends the L4L third-certification layer to the highest-tier 2026-06-13 capstones.
 
 ## 2026-06-11 — Substrate-as-TOE answer (framework-first re-anchoring + session saturation at 18 compositions)
@@ -6446,7 +6446,7 @@ lake env lean /tmp/v.lean
 # Expected: [propext, Classical.choice, Quot.sound]
 ```
 
-### Honest scope
+### Scoping
 
 This is NOT a Clay discharge. It is the sharpened SUBSTRATE-RIGIDITY claim, packaged for referee single-citation use. The Clay residuals are unchanged. The three pieces (sector 1, sector 2, unified) together comprise the day's substrate-rigidity sharpening from 11→9 manuscript invariants in the load-bearing assumption budget.
 
@@ -6513,7 +6513,7 @@ lake env lean /tmp/v.lean
 # Expected: each line ends in [propext, Classical.choice, Quot.sound]
 ```
 
-### Honest scope
+### Scoping
 
 This is NOT a Clay discharge — it sharpens the substrate-rigidity claim of the framework, not the discharges of any Clay-Standard predicate. The Clay residuals are unchanged. The advance is a clean two-invariant reduction in the framework's algebraic assumption budget.
 
@@ -6567,7 +6567,7 @@ lake env lean /tmp/v.lean
 # Expected: each line ends in [propext, Classical.choice, Quot.sound]
 ```
 
-### Honest scope
+### Scoping
 
 This is NOT a Clay discharge — it sharpens the SUBSTRATE-RIGIDITY claim of the framework, not the discharges of any Clay-Standard predicate. The Clay residuals (Mayer 1991 + HP program for RH; literal `ClassP ≠ ClassNP` for P vs NP; universal Mordell-Weil bridge for BSD; continuum Wightman + OS for YM; Chow cycle-class map for Hodge) are unchanged. What changes is the sharpness of the algebraic claim that the framework's α-values are forced.
 
@@ -6655,7 +6655,7 @@ could flag as overclaim:
   `SimultaneousClayClosureBundle`'s 7 fields with their actual
   names; section 4 references V4 / canonical encodings; section 9
   rewritten to match the 7-field bundle and the NS-tightest /
-  YM-BSD-Hodge-named-gap honest scope.
+  YM-BSD-Hodge-named-gap scoping.
 
 ### What did NOT change
 
@@ -6677,9 +6677,9 @@ the four "unconditional" axes, the BSD universal bridge, the NS
 bootstrap residual, and the Coq mirror) against the live tree.
 The verdicts identified three places where the README's framing
 overstated the encoding-vs-literal distinction. The codebase itself
-already foregrounded these in per-file honest-scope comments; the
+already foregrounded these in per-file scoping comments; the
 README simply hadn't been brought into alignment. This pass
-brings the referee-facing presentation up to the same honest-scope
+brings the referee-facing presentation up to the same scoping
 level as the file-level documentation.
 
 ---
@@ -6704,7 +6704,7 @@ level as the file-level documentation.
 
 * **Implications**: `substrate_discharge_implies_existence_hypothesis`, `substrate_discharge_implies_wave58_strengthened`, capstone `substrateDischarge_honest_scope`.
 
-### Honest scope (foregrounded)
+### Scoping (foregrounded)
 
 NOT a fluid-dynamics Clay discharge. The Gaussian-damping lift `u(t,x) := exp(-t²) · u0.velocity(x)` is NOT a Navier-Stokes solution — does not satisfy `∂_t u - Δu + (u·∇)u + ∇p = 0`. The literal Fujita-Kato 1964 result (Picard iteration in `H^{1/2}_σ(ℝ³)`, BKM bilinear estimate, heat semigroup on vector Schwartz spaces, explicit time bound `T ≥ c/(1+‖u₀‖²)`) remains a separate open problem requiring mathlib Sobolev + heat-semigroup infrastructure not present at HEAD. The substrate closure closes the typed-Prop contract at the framework's encoding level — referee-visible and citable as closing the substrate-typed scaffolding that Wave 58-NS `FujitaKatoLocalExistenceHypothesis` rests on.
 
@@ -6733,9 +6733,9 @@ The decay-bound residual hypothesis is classically true (Gaussian dominates poly
 
 * **Discharge theorem**: `PF_YM_bridge5_yields_Clay_YangMillsMassGap_substrate : Clay_YangMillsMassGap_Standard PF_YMEncodingBridge5` via `pfBridge5Witness` 15-tuple refinement.
 
-* **18-conjunct honest-scope marker + 11-clause single-citation capstone** `ym_substrate_discharge_bridge5_capstone`. Five `rfl`-level discriminators preserved.
+* **18-conjunct scoping marker + 11-clause single-citation capstone** `ym_substrate_discharge_bridge5_capstone`. Five `rfl`-level discriminators preserved.
 
-### Honest scope
+### Scoping
 
 NOT a Clay discharge. The literal continuum SU(2) Yang-Mills measure on `𝓢'(ℝ⁴, 𝔰𝔲(2))` and the literal Glimm-Jaffe continuum limit remain OPEN at full mathlib content tier. The three new typed anchors sit at the SAME Wave 56 typed-open tier as the existing `BochnerMinlosOnNuclearSpaces`/`WightmanReconstructionTheorem`/etc. anchors. Substrate gain over V4: gauge-group carrier is mathlib's actual compact simple Lie group SU(2) (not inf-dim Hilbert state-space marker); three named published theorems substrate-cited by name.
 
@@ -6760,7 +6760,7 @@ NOT a Clay discharge. The literal continuum SU(2) Yang-Mills measure on `𝓢'(�
 
 * **Verification**: 14 `#print axioms` checks return `[propext, Classical.choice, Quot.sound]` only. Mirrors the BSD V4 capstone landing pattern on the RH axis.
 
-### Honest scope
+### Scoping
 
 NOT a Clay RH discharge. Substrate Prop at PF-specific `PF_HPEncodingSubstrate`, not literal mathlib `riemannZeta` carrier. Literal-mathlib step is the precisely-named bridge residual `SubstrateEncodingMatchesMathlibZeta`. Earlier finding stands: mathlib's only zero theorem is `riemannZeta (-2·(n+1)) = 0` (real part -2, not 1/2). Berry-Keating / Connes / Bost-Connes Props remain `Iff.rfl × 4` at unfolded level — discharging any one = proving RH.
 
@@ -6787,7 +6787,7 @@ NOT a Clay RH discharge. Substrate Prop at PF-specific `PF_HPEncodingSubstrate`,
 
 Parallel substrate-discharge agent confirmed: the proposed α-rigidity discharge of `ClassP ≠ ClassNP` (exploiting α_P = √2 ≠ α_NP = φ + 1/4) is provably equivalent to deciding P vs NP itself. The framework's own meta-barrier theorem `alpha_realization_canonical_pair_iff_classes_distinct` proves any concrete α-realization on the canonical pair is biconditionally `ClassP ≠ ClassNP`. `alpha_of_class : Set Language → ℝ` is `opaque` at `Operators.lean:178`. Structural floor reached; no file landed (correct decision — avoids speculative writing).
 
-### Honest scope
+### Scoping
 
 Bridge 4 = consolidation/citability, not new mathematics. The literal mathlib lift gap `LiftSubstrateToLiteralChowH22` — requiring (G1) higher-rank `H^{2,2}` model + (G2) literal Chow cycle-class map + (G3) surjectivity at codim 2 on generic non-CM smooth quintic outside Schoen+121+CM+Dwork pencil — is UNCHANGED. The literal geometric Voisin 2007 question remains Fields-medal-grade open.
 
@@ -6813,7 +6813,7 @@ Three parallel agents investigated Bridges 1, 2, 3 substantively. Findings recor
 * **Bridge 2 (Fujita-Kato NS)**: Most tractable substantive bridge. 7 existing files (~2400 lines) are substrate scaffolds. Path forward: dense-Schwartz minimalism. 5-7 months full-time mathlib-fluent / 18-24 months part-time / 9-15 months community.
 * **Bridge 3 (BSD LMFDB)**: Phase 1 cleanup landed today. Literal `MordellWeilRankIs` (i.e., `Module.rank ℤ E.toAffine.Point = n`) remains blocked on mathlib MW infrastructure.
 
-### Honest scope
+### Scoping
 
 This is typed-residual cleanup. The `MordellWeilRankIs E n` residuals (literal `Module.rank` discharge) remain typed published-theorem hypotheses (Coates-Wiles, Gross-Zagier, Kolyvagin, BSZ 2014). mathlib lacks Mordell-Weil rank infrastructure; literal discharge is blocked.
 
@@ -6825,7 +6825,7 @@ This is typed-residual cleanup. The `MordellWeilRankIs E n` residuals (literal `
 
 ### Headlines
 
-1. **Two prior papers deprecated.** `principia_fractalis_substrate_TOE_canonical.tex` and `principia_fractalis_seven_millennium_definitive.tex` carry DEPRECATED headers — they contained a convention error (algebraic α values mixed with transcendental-convention invariants) and a Clay-discharge overclaim that contradicted the framework's own honest-scope documentation.
+1. **Two prior papers deprecated.** `principia_fractalis_substrate_TOE_canonical.tex` and `principia_fractalis_seven_millennium_definitive.tex` carry DEPRECATED headers — they contained a convention error (algebraic α values mixed with transcendental-convention invariants) and a Clay-discharge overclaim that contradicted the framework's own scoping documentation.
 
 2. **Canonical publishable paper is now `Papers/principia_fractalis_substrate_model.tex`** (+ PDF, 9 pages). Written using the actual load-bearing transcendental conventions of `PF/CrossMillenniumSharedInvariants.lean`. Every theorem citation audited against the source file.
 
@@ -6837,11 +6837,11 @@ This is typed-residual cleanup. The `MordellWeilRankIs E n` residuals (literal `
    - **Hodge**: `Voisin2007_general_quintic_open_subprop` PROVEN axiom-free on `FermatQuinticConcrete` via `c.rank_one`. Open only on generic non-CM outside Dwork locus.
    - **P vs NP**: Framework canonical Cook-Karp typing; biconditional axiom-free with `ClassP ≠ ClassNP`.
 
-4. **Textbook V2.3.0** — Ch 34A honest-scope section rewritten with the audited per-axis status. Title page bumped (HEAD anchor `3457d56` → `4382fab`). `main.pdf` rebuilt (852 pages, 9.2 MB).
+4. **Textbook V2.3.0** — Ch 34A scoping section rewritten with the audited per-axis status. Title page bumped (HEAD anchor `3457d56` → `4382fab`). `main.pdf` rebuilt (852 pages, 9.2 MB).
 
 ### Calibration
 
-The "NOT a Clay discharge in mathlib's elliptic-curve / Sobolev / Wightman sense for any of the six unsolved Clay problems" language used in the prior honest-scope marker was too universal. Three of six unsolved axes use mathlib's standard entry-point types verbatim and reduce to named published mathematics — same reduction shape as Perelman's proof. Three axes use substrate-restricted encodings with named lift work.
+The "NOT a Clay discharge in mathlib's elliptic-curve / Sobolev / Wightman sense for any of the six unsolved Clay problems" language used in the prior scoping marker was too universal. Three of six unsolved axes use mathlib's standard entry-point types verbatim and reduce to named published mathematics — same reduction shape as Perelman's proof. Three axes use substrate-restricted encodings with named lift work.
 
 ---
 
@@ -6930,18 +6930,18 @@ one citable meta-theorem.
 
 | File | Change |
 |---|---|
-| `chapters/ch34A_substrate_theorem.tex` | **NEW** — Chapter 34A: The Principia Fractalis Substrate Theorem. States the 5 antecedents + 25 consequences + meta-theorem + unconditional companion + honest scope. |
+| `chapters/ch34A_substrate_theorem.tex` | **NEW** — Chapter 34A: The Principia Fractalis Substrate Theorem. States the 5 antecedents + 25 consequences + meta-theorem + unconditional companion + scoping. |
 | `appendices/appI_lean_cross_reference.tex` | **NEW** — Appendix I: Lean Theorem Cross-Reference. One row per chapter mapping chapter → Lean theorem(s) that verify it. Coq parity tags on 13 Wave 58 files. |
 | `main.tex` | Updated to include the new chapter (Part VII) and new appendix. |
 | `frontmatter/title.tex` | Version bumped 1.0.3 → 1.2.0; subtitle "Substrate-Level Meta-Theorem Edition"; date 2026-06-03; HEAD `42990ea` cited; build state cited. |
-| `frontmatter/version_history.tex` | Top-of-log entry for Version 1.2.0 with abstract, attack count, Clay-precision strikes, build state, honest scope. |
+| `frontmatter/version_history.tex` | Top-of-log entry for Version 1.2.0 with abstract, attack count, Clay-precision strikes, build state, scoping. |
 
-### Honest scope (carried forward verbatim)
+### Scoping (carried forward verbatim)
 
 The Substrate Theorem is a SUBSTRATE-LEVEL meta-theorem. It is NOT
 a literal Clay-statement-form discharge in mathlib's elliptic-curve /
 Sobolev / Wightman sense for any of the six unsolved Clay problems.
-Each per-axis consequence retains its individual honest scope:
+Each per-axis consequence retains its individual scoping:
 
 - **RH** — conditional on the open `surjectivity` Prop in `PF/Referee/RHCapstoneTypedBridge.lean`.
 - **YM** — finite-dim 2×2 + infinite-dim ℓ² with toy Hamiltonian; not full Wightman QFT continuum.
@@ -7124,7 +7124,7 @@ cd PF_Lean4_Code && lake build PF
 bash tools/audit.sh
 ```
 
-## Honest scope
+## Scoping
 
 None of the commits in this session discharge any Clay Millennium
 Problem. What changed: every `Prop := True` placeholder on a

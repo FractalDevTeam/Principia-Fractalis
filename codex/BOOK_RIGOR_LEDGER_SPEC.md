@@ -54,7 +54,7 @@ honest status of its principal claims:
 ```
 
 Where a specific line asserts something as established that is not (e.g. "we prove
-X" for a conditional or empirical X), add a one-sentence inline honest-scope note
+X" for a conditional or empirical X), add a one-sentence inline scoping note
 next to it — do NOT delete the original sentence. Match ch04's wording style
 (see the "Machine-verification status of Theorem~\ref{thm:existence-uniqueness}"
 paragraph and the "Verification note" on the Nuclear-Structure lemma).

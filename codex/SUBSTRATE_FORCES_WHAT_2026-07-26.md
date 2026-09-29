@@ -553,7 +553,7 @@ not coming from Coxeter number h alone.**"*
 | Substrate tower `A ↦ A ⊗ I₃` | **authors state base-irrelevant** | `Papers/uhf_faithful_trace_glimm_2026-07-23.tex:333-337` |
 | Trace preservation | any multiplicity | `PF/SubstrateUHFPreTraceDirectLimit.lean:95,103` |
 | NS cascade `Σ(2/3)^n` | needs `S > 2`; 3 is just the smallest integer | `PF/NSBase3SelfSimilarity.lean:14-24` |
-| `K_0 ≅ ℤ[1/3]` | **yes** — but a hand-built model, honest-scoped | `PF/Consciousness/TimelessFieldKTheoryUpgrade.lean:12, 42-44, 96` |
+| `K_0 ≅ ℤ[1/3]` | **yes** — but a hand-built model, scoped | `PF/Consciousness/TimelessFieldKTheoryUpgrade.lean:12, 42-44, 96` |
 | **The nine α-values** | **NO** | `PF/FrameworkApplicationCapstone.lean:55-63` — not one references base 3. Zero `Alpha*.lean` file imports any `PF.Substrate*` |
 | `V_α` operator (contains `D̂₃`) | yes — the *only* α↔3 link | `PF/Operators/VAlphaExplicit.lean:131,157`; and the α↔spectrum step there is a named open input (`KatoRellichInput`) |
 
@@ -705,7 +705,7 @@ zero `sorry`, zero project axioms, all 17 audited declarations
 | `canonical_alphas_fail_bare_route` | `√2` and `φ+1/4` fail it |
 | `r123_substrate_cannot_force_alpha_capstone` | (A)–(F) bundled |
 
-**What is NOT formalized, and is flagged as such in the file's honest-scope
+**What is NOT formalized, and is flagged as such in the file's scoping
 block:** operator K-theory (`MemZ13` is an elementary predicate, not
 `K_0`); "every projection of `T∞` is equivalent to a level projection"
 (classical AF theory); the von Neumann corollary of §4.2 (mathlib lacks the

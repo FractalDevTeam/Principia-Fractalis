@@ -353,7 +353,7 @@ error bar (±0.05).
    confirmed-distinct hits would be much stronger than one.
 3. **A first-principles derivation of ch22's `log 2/log 3` cascade
    dimension from Navier-Stokes**. If ch22's claim survives its
-   own honest-scope note being upgraded from "computational evidence"
+   own scoping note being upgraded from "computational evidence"
    to "analytical proof", the identification arguments in this file
    inherit that strength.
 4. **A physics-side mapping for T2**. Any principled account of the

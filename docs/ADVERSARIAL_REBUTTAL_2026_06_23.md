@@ -6,7 +6,7 @@
 
 ## Purpose
 
-A specific external critique surfaced 2026-06-22 that uses the substrate's own honest-scope statements as if they were refutations. This document is the substrate's pre-loaded point-by-point rebuttal, anchored to the paper's explicit content. Future readers encountering similar critique vectors can find the substrate's response here.
+A specific external critique surfaced 2026-06-22 that uses the substrate's own scoping statements as if they were refutations. This document is the substrate's pre-loaded point-by-point rebuttal, anchored to the paper's explicit content. Future readers encountering similar critique vectors can find the substrate's response here.
 
 The critique's pattern is consistent: restate the paper's transparent caveats, label them as discoveries that invalidate the substrate. The substrate's response is to show (i) the caveats are exactly what they say, (ii) the critic makes specific technical errors that are mathematically refutable, (iii) the substrate's posture is intact.
 
@@ -145,7 +145,7 @@ After the retraction:
 
 > "150-digit arithmetic precision is irrelevant if the matching is only to within 24%."
 
-### Why this is a restatement of the substrate's own honest scope
+### Why this is a restatement of the substrate's own scoping
 
 The paper §3.6 explicitly says: "The '150-digit precision' in Cohen 2025 refers to the working precision of the arithmetic (operator matrix elements, eigenvalues, and ζ-zero ordinates each represented to 150 decimal digits), not to the precision of the correspondence quality."
 
@@ -161,7 +161,7 @@ The substrate's substantive content on this axis:
 - The universal-coupling formula s = 10/(πλ) structurally predicts t²-scaling of absolute s-axis distances, **which the 5 observed pairs confirm**
 - The 5-pair empirical anchor is corroborative at band-level; the operator construction + t²-prediction is the load-bearing claim
 
-The critic's "150-digit is misleading" is a restatement of what the paper says verbatim. The substrate's posture is honest about the distinction; the critic restating the substrate's honest scope is not a refutation.
+The critic's "150-digit is misleading" is a restatement of what the paper says verbatim. The substrate's posture is honest about the distinction; the critic restating the substrate's scoping is not a refutation.
 
 ---
 
@@ -182,7 +182,7 @@ The paper §9 explicitly says this in the substrate's own voice. The substrate's
 
 The substrate's substantive content is the unified parametric mechanism producing all matches from a single substrate-rigidity argument, not the chronological pre-registration of each. The methodological caveat (~10-element α-skeleton admits O(100) two-element combinations) is also in the paper verbatim.
 
-The critic restating the substrate's honest scope is not a refutation; it is reading.
+The critic restating the substrate's scoping is not a refutation; it is reading.
 
 ---
 
@@ -221,7 +221,7 @@ This is the one critique that requires actual remediation. The substrate's plann
 
 The substrate-tier headline theorem `PrincipiaFractalisSubstrateConsequences_holds_unconditionally` is kernel-only proven with no project axioms beyond [`propext`, `Classical.choice`, `Quot.sound`]. The substrate has discharged literal-mathlib-form Clay content on 5 of 6 axes (RH, YM, BSD, PvNP, Hodge-(1,1) classes); on the sixth (NS) the substrate covers 3 named universal classes plus the per-u₀ Gaussian-lift witness, with the open content matching the open Clay content itself. The substrate is empirically corroborated on 5 of 9 α-axes (Poincaré, P, RH, NP, YM). The substrate has 4-way coefficient rigidity (overdetermined + canonical-satisfied + perturbation-broken + uniqueness), 29/9 over-determination on the algebraic spine, F3 parameters substrate-derived from three independent book chapters.
 
-The critic's document does not refute any of this content. It restates the substrate's own honest scope and labels the restatement as refutation. The genuine substantive critique — pipeline source release — is in the substrate's action queue.
+The critic's document does not refute any of this content. It restates the substrate's own scoping and labels the restatement as refutation. The genuine substantive critique — pipeline source release — is in the substrate's action queue.
 
 The substrate is not retracted. The substrate is intact.
 

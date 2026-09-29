@@ -333,7 +333,7 @@ theorem logFrequency_characterized_by_sqrt3_shift
 
 **Class assignment.**
 - **Class B (characterization) in the PF frame:** the free positive parameter ω is *forced* by the base-canonical √3-shift property to equal a specific π-valued expression.
-- **Class C (external classical) in the absolute frame:** the π comes from the period of `Real.cos`, which is external mathlib. This is the honest scope — DIRECTIVE Part XI is emphatic that we must not confuse "PF characterizes π-valued parameter" with "PF generates π."
+- **Class C (external classical) in the absolute frame:** the π comes from the period of `Real.cos`, which is external mathlib. This is the scoping — DIRECTIVE Part XI is emphatic that we must not confuse "PF characterizes π-valued parameter" with "PF generates π."
 
 **Type designation:** **Type 1 — positive characterization** per DIRECTIVE Part X. It converts one currently-definitional π-insertion (`logFrequency := 2π / log 3`) into an *output* of a base-canonical characterization.
 
