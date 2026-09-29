@@ -3,7 +3,7 @@
 
 The book's Ch 21 Section 4.2 fixes the canonical resonance values
 `α_P = √2` and `α_NP = φ + 1/4` for the P-class and NP-class operators
-respectively. The remaining project axiom `alpha_class_polylog_eigenvalue_conjecture`
+respectively. The remaining residual assumption `alpha_class_polylog_eigenvalue_conjecture`
 asserts these values satisfy the algebraic equations
 
   `α_P^2 = 2`         and         `16·α_NP^2 − 24·α_NP − 11 = 0`

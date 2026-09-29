@@ -12,7 +12,7 @@ seven Millennium problems have a complete Lean-checkable conditional
 chain in this codebase:
 
   - **P ≠ NP**: `P_neq_NP_via_spectral_gap : ClassP ≠ ClassNP` is
-    proven IN LEAN, conditional on the single project axiom
+    proven IN LEAN, conditional on the single residual assumption
     `alpha_class_polylog_eigenvalue_conjecture` (in
     `PF/TuringEncoding/Operators.lean`). That axiom is the FORMAL
     ENCODING of Ch 21's Conjecture (`conj:polylog-spectrum`) +
@@ -68,12 +68,12 @@ namespace PrincipiaTractalis
 
     Under the four-track hypothesis bundle for the RH spectral framework
     (Phase A inner-product structure + spectral theorem + non-degeneracy +
-    surjectivity), and ASSUMING the single project axiom
+    surjectivity), and ASSUMING the single residual assumption
     `alpha_class_polylog_eigenvalue_conjecture` (the formal encoding of
     Ch 21's polylog-spectrum + branch-selection + golden-modulation
     conjectures), BOTH of the following hold:
 
-      (i)  $P \ne NP$ — conditional on the project axiom
+      (i)  $P \ne NP$ — conditional on the residual assumption
            `alpha_class_polylog_eigenvalue_conjecture`
            (`PF/TuringEncoding/Operators.lean`).
 
@@ -160,7 +160,7 @@ MILLENNIUM STATUS SUMMARY (2026-05-16):
 
 CONDITIONAL REDUCTIONS in Lean (NOT proofs of the Millennium claims):
   ◐ P ≠ NP             — `P_neq_NP_via_spectral_gap` proven CONDITIONAL
-                          on the single project axiom
+                          on the single residual assumption
                           `alpha_class_polylog_eigenvalue_conjecture`
                           (PF/TuringEncoding/Operators.lean) — the formal
                           encoding of Ch 21's polylog-spectrum Conjecture

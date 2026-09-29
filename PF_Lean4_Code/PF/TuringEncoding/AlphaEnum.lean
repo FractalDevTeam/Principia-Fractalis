@@ -1,7 +1,7 @@
 /-
 # Enum-Based α Framework — Axiom-Free Parallel to `alpha_of_class`
 
-The remaining project axiom `alpha_class_polylog_eigenvalue_conjecture`
+The remaining residual assumption `alpha_class_polylog_eigenvalue_conjecture`
 (in `PF/TuringEncoding/Operators.lean`) asserts that the opaque
 function `alpha_of_class : Set Language → ℝ` satisfies the manuscript's
 algebraic self-adjointness equations at `ClassP` and `ClassNP`:
@@ -26,7 +26,7 @@ type. The enum approach bypasses the `Set Language` decidability issue
 because constructor distinctness is decidable.
 
 The enum-level theorem `alpha_at_enum_self_adjointness_canonical` is
-the **mirror of the project axiom**, proven as a theorem. Referees can
+the **mirror of the residual assumption**, proven as a theorem. Referees can
 inspect the algebraic content directly without relying on any project
 axiom.
 
@@ -114,7 +114,7 @@ noncomputable def alpha_at_enum : PFClass → ℝ
     `alpha_at_enum` satisfies the manuscript's algebraic self-adjointness
     equations directly, by computation.
 
-    Statement structure identical to the project axiom
+    Statement structure identical to the residual assumption
     `alpha_class_polylog_eigenvalue_conjecture` but at the enum level:
 
     * `(α_P)² = 2 ∧ 0 < α_P`
@@ -124,7 +124,7 @@ noncomputable def alpha_at_enum : PFClass → ℝ
     `Real.sqrt_pos`, `alpha_NP_quadratic`, `alpha_NP_pos` — all
     axiom-clean theorems from `AlphaCanonical.lean`.
 
-    This is the **0-axiom analog** of the project axiom for the
+    This is the **0-axiom analog** of the residual assumption for the
     algebraic content. Referees can verify the manuscript's value
     claims here without any axiom dependency. -/
 theorem alpha_at_enum_self_adjointness_canonical :
@@ -378,7 +378,7 @@ theorem alpha_at_enum_NS_ne_BSD : alpha_at_enum .NS ≠ alpha_at_enum .BSD := by
 /-! ## Documentation: the structural-assignment axiom
 
 The enum-level analog above is **fully axiom-clean** for the
-algebraic content. The remaining project axiom
+algebraic content. The remaining residual assumption
 `alpha_class_polylog_eigenvalue_conjecture` is purely the **structural
 assignment** of these specific values to the SET-LEVEL classes
 `ClassP, ClassNP : Set Language`. It is the bridge that makes the

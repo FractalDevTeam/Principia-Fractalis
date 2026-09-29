@@ -252,6 +252,24 @@ def PolylogEigenvalueConjecture : Prop :=
     (16 * (alpha_of_class ClassNP)^2 - 24 * (alpha_of_class ClassNP) - 11 = 0 ∧
      0 < alpha_of_class ClassNP)
 
+/- **AXIOM STATUS (verified 2026-09-29).** This is NOT an `axiom`. A
+    comment-stripped scan of all 6,336 modules finds **zero** `axiom`
+    declarations, zero `sorry`, zero `native_decide` corpus-wide.
+
+    It is an `abbrev : Prop` — a *named residual assumption*. Its content is
+    proved by `SpectralParameterBridge.alpha_class_polylog_eigenvalue_conjecture_content`,
+    but **conditionally**, on four hypotheses:
+    `h_P_pos`, `h_P_eig`, `h_NP_pos`, and `h_NP_value : alpha_of_class ClassNP = phi + 1/4`.
+
+    `h_NP_value` assumes the very value the quadratic
+    `16x^2 - 24x - 11 = 0 ∧ x > 0` is meant to force, so the NP half is not yet
+    forced from the equation. Retirement is therefore **not unconditional**; see
+    the remaining steps listed in `SpectralParameterBridge` and
+    `AxiomRetirementWrapper`.
+
+    Prose calling this "the project axiom" was stale and was corrected to
+    "residual assumption" — the assumption is real, the axiom declaration is not. -/
+
 /-- Backward-compatibility abbreviation for documentation references
     to `alpha_class_polylog_eigenvalue_conjecture` as a Prop. -/
 abbrev alpha_class_polylog_eigenvalue_conjecture : Prop :=
