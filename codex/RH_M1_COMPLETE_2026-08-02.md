@@ -49,7 +49,7 @@ Both halves tested:
 digits, in the determinant of the framework's operator class — in exactly the
 factor and on exactly the line that the rigorous theory prescribes.**
 
-## Honest scope
+## Scoping
 
 This validates our implementation against ESTABLISHED mathematics
 (Mayer 1991, Efrat 1993, Lewis–Zagier 2001) — it does not prove anything new

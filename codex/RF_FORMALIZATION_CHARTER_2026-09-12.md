@@ -141,7 +141,7 @@ The fractal is already partially there. Formalization work should extend and con
 4. Look at what's next per the true fractal expansion. **PARTIAL** — Priority 2 (α = 0 sub-case) discharged same session at commit `36b75b1b`, adding two theorems:
    * `exists_analytic_continuation_fractalResonance_alpha_zero` (`FractalResonance.lean:230-255`): analytic continuation on `ℂ ∖ {1}` witnessed by `riemannZeta`.
    * `fractalResonance_alpha_zero_residue_one` (`FractalResonance.lean:257-278`): simple-pole residue 1 at `s = 1`.
-   Priority 2 general-α case and Priorities 3-5 are all genuine open research (no known functional equation, empirical π/10 factor). Ch05-ch09 survey done at `codex/CH09_SPECTRAL_UNITY_SURVEY_2026-09-12.md`; the tree's 2026-05-14 Stage 41 cleanup that stripped H_P/H_NP operators is the established honest scope, not an oversight — restoring them requires original research per `PF/TuringEncoding/Operators.lean` own commentary. `appI_lean_cross_reference.tex` updated at commit `2ad1d880` to cite T_infinity_rigidity + all three new R_f declarations.
+   Priority 2 general-α case and Priorities 3-5 are all genuine open research (no known functional equation, empirical π/10 factor). Ch05-ch09 survey done at `codex/CH09_SPECTRAL_UNITY_SURVEY_2026-09-12.md`; the tree's 2026-05-14 Stage 41 cleanup that stripped H_P/H_NP operators is the established scoping, not an oversight — restoring them requires original research per `PF/TuringEncoding/Operators.lean` own commentary. `appI_lean_cross_reference.tex` updated at commit `2ad1d880` to cite T_infinity_rigidity + all three new R_f declarations.
 
 ## §7. CHARTER CLOSURE (2026-09-12)
 
@@ -157,4 +157,4 @@ The fractal is already partially there. Formalization work should extend and con
 
 **Standing rule (from §5) IN EFFECT.** Any future R_f-adjacent Lean campaign must begin with a survey. Any survey-agent recommendation must be verified against the book source before charter drafting — the ch09 H_α unification rejection (recorded in `codex/CH09_SPECTRAL_UNITY_SURVEY_2026-09-12.md`) is the enforcement precedent.
 
-*Charter opened 2026-09-12, corrected 2026-09-12 same session, closed 2026-09-12 same session. Five commits landed on `r331b-provenance`: `1c09ea4d`, `b4693127`, `c4a3b819`, `36b75b1b`, `2ad1d880`, `755c0493`. Book-guides-Lean discipline enforced end-to-end: survey before propose, book-verify before charter, honest scope over speculative extension.*
+*Charter opened 2026-09-12, corrected 2026-09-12 same session, closed 2026-09-12 same session. Five commits landed on `r331b-provenance`: `1c09ea4d`, `b4693127`, `c4a3b819`, `36b75b1b`, `2ad1d880`, `755c0493`. Book-guides-Lean discipline enforced end-to-end: survey before propose, book-verify before charter, scoping over speculative extension.*

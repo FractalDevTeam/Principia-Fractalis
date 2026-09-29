@@ -49,7 +49,7 @@ Chapter 9's central definitional content:
 | `spectral_gap_positive` | `Δ > 0` — trivial from the arithmetic |
 | `pvsnp_spectral_separation` | `∃ Δ > 0, Δ = lambda_0_P - lambda_0_NP ∧ |Δ - 0.0539677287| < 1e-8` |
 
-**Critical honest scope:** `PF/SpectralGap.lean` does not define `H_P`
+**Critical scoping:** `PF/SpectralGap.lean` does not define `H_P`
 or `H_{NP}` as operators. It computes the arithmetic difference of
 two real numbers. It does not establish that these numbers are
 ground state energies of any actual self-adjoint operator. The
@@ -129,7 +129,7 @@ type-level; a substrate-level interface would connect substrate
 rigidity to the numerical spectral separation.
 
 **Scope estimate:** larger (300-500 lines). **Risk:** medium —
-requires a careful honest scope statement, per directive §5.
+requires a careful scoping statement, per directive §5.
 
 ## §5. Recommendation
 

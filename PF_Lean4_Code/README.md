@@ -17,7 +17,7 @@ in [`PF/Referee/PrincipiaFractalisSubstrateTheorem.lean`](PF/Referee/PrincipiaFr
 
 `#print axioms` reports the kernel axioms `[propext, Classical.choice, Quot.sound]` — **zero project axioms beyond the kernel three**. Inhabits a 25-field typed Prop bundling substrate-level discharges of the six unsolved Clay axes on the framework's canonical PF encodings, Perelman's seventh anchor, the twelve cross-Millennium algebraic invariants, and the substrate's beyond-Clay content (Weinstein-GU rescue, Λ-CDM rebuttal, base-3 ternary substrate, consciousness coupling, 143-problem classification schema).
 
-**Honest scope (read this before citing):** the substrate-tier theorem inhabits the substrate's typed PF encodings. Per-axis lifts to mathlib's literal entry-point types (`Complex.riemannZeta`, `Matrix.specialUnitaryGroup`, `WeierstrassCurve ℚ`, `SchwartzMap` carriers) are pursued individually. The currently sharpest per-axis lift on a literal mathlib carrier is the Riemann Hypothesis discharge
+**Scoping (read this before citing):** the substrate-tier theorem inhabits the substrate's typed PF encodings. Per-axis lifts to mathlib's literal entry-point types (`Complex.riemannZeta`, `Matrix.specialUnitaryGroup`, `WeierstrassCurve ℚ`, `SchwartzMap` carriers) are pursued individually. The currently sharpest per-axis lift on a literal mathlib carrier is the Riemann Hypothesis discharge
 
 ```
 clay_riemann_hypothesis_standard_framework_standard :
@@ -80,7 +80,7 @@ No orphan axioms, no `sorry`, no hidden axioms via `opaque`. See [`docs/CLAY_PER
 
 **Is:** the kernel-only machine-verified substrate-level discharge of 25 consequences (including the six Clay axes on the framework's canonical PF encodings) under zero project axioms; a sharpened per-axis Riemann Hypothesis discharge on mathlib's `Complex.riemannZeta` under two named substrate-tier citation axioms (one Wiles-pattern, one published-open-conjecture); a V3 bundle providing a conditional reduction on three named published open conjectures with four unconditional axis discharges; the substrate's typed scaffolding for the broader Theory of Everything content.
 
-**Is not:** a literal-Clay-form unconditional discharge of any of the six unsolved Clay Millennium Problems. The substrate-tier discharge is on the framework's typed PF encodings; the per-axis literal-mathlib lifts vary by axis (RH has the sharpened decomposed-citation route; NS, YM, BSD, Hodge have substrate-encoding-level discharges with documented honest scope). A prior-draft bundle axiom that asserted the six-conjunct Clay-Standard conclusion directly as its own statement was retracted from the corpus in commit `a5e7594` (2026-06-20); see the paper for the explicit retraction note.
+**Is not:** a literal-Clay-form unconditional discharge of any of the six unsolved Clay Millennium Problems. The substrate-tier discharge is on the framework's typed PF encodings; the per-axis literal-mathlib lifts vary by axis (RH has the sharpened decomposed-citation route; NS, YM, BSD, Hodge have substrate-encoding-level discharges with documented scoping). A prior-draft bundle axiom that asserted the six-conjunct Clay-Standard conclusion directly as its own statement was retracted from the corpus in commit `a5e7594` (2026-06-20); see the paper for the explicit retraction note.
 
 ---
 

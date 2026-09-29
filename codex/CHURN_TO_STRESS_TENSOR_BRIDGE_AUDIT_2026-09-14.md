@@ -79,7 +79,7 @@ symbol/type/equation, and epistemic class.
 | B14 | Modified Einstein equations | `ch08:201` Thm `thm:modified-einstein` | `G_{μν} + Λ_eff(𝒞) g_{μν} = 8π G (T^{μν} + C^{μν})`. | **Physical postulate**. |
 | B15 | `Λ_eff(𝒞)` non-constant | `ch08:205` | `Λ_eff(𝒞) = Λ_0 exp[−∫_Σ d³x ch_2(𝒞(x)) · R_f(√(2π), |x|)]`. | **Physical postulate**; nonlocal in space. |
 | B16 | Ch 12 rank-2 tensor field | `ch12:47-60` Def 12.1 | `C^{μν}(x) : M^4 → Sym²(ℝ⁴)`, symmetric, real, `|ch_2(C)| ≥ 0.95` for crystallization; **10 independent components**. | **Physical postulate**. |
-| B17 | Ch 12 Lagrangian density | `ch12:80-95` Def 12.2 | Six-term `ℒ_C` (kinetic `F_C F_C`, mass `m_C² CC`, self-coupling `λ (CC)²`, matter coupling `g_{ψC} …`, gravity coupling `−κ/2 C^{μν} G_{μν}`). | **Physical postulate**; `ch12:98` honest-scope tag: *"this Lagrangian, and the entire quantum field theory built from it, is an EMPIRICAL HYPOTHESIS — a posited construction."* |
+| B17 | Ch 12 Lagrangian density | `ch12:80-95` Def 12.2 | Six-term `ℒ_C` (kinetic `F_C F_C`, mass `m_C² CC`, self-coupling `λ (CC)²`, matter coupling `g_{ψC} …`, gravity coupling `−κ/2 C^{μν} G_{μν}`). | **Physical postulate**; `ch12:98` scoping tag: *"this Lagrangian, and the entire quantum field theory built from it, is an EMPIRICAL HYPOTHESIS — a posited construction."* |
 | B18 | Ch 32 clinical `ch_2` pipeline | `ch32:191-322` | Band-power + base-3 digit-sum + phase-factor pipeline. **Not** a reduced-density-matrix estimator. Output: single real in `[0,1]`. | **Operational algorithm**; `EEG → ρ` map is **absent from ch 32**. |
 
 **What the book does NOT contain** (verified by full-corpus grep on
@@ -646,7 +646,7 @@ downstream work.**
   hypothesis), `ch08_field_equations.tex` (complete field content,
   stress-energy definition, modified conservation, modified
   Einstein, `Λ_eff`), `ch12_qft_consciousness.tex` (rank-2 tensor
-  definition, Lagrangian, honest-scope tag).
+  definition, Lagrangian, scoping tag).
 - Sources read from Lean: `PF/Consciousness/TimelessField.lean`
   (full), `PF/Consciousness/TimelessFieldPartialTraceMorphism.lean`
   (through §3), `PF/Consciousness/FrobeniusChurn.lean` (full),

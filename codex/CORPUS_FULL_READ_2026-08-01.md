@@ -26,7 +26,7 @@ prop_11_6_psi_rqg_sq_ne_0_95 (0.7837 ≠ 0.95), R_f_one_two_ne_manuscript_value
 alphaNP_unconstrained (the pin is an axiom), the MillenniumSixReductions
 correction brackets, no_hidden_semantic_content (axiom-FREE).
 
-**Layer 2 — the honest-scope apparatus (extensive, real, mostly working).**
+**Layer 2 — the scoping apparatus (extensive, real, mostly working).**
 34 of 36 chapters carry the 2026-07-23 rigor ledgers with the fixed taxonomy
 (STANDARD / PROVEN-as-arithmetic / ASSERTED / CONDITIONAL REDUCTION /
 DEFINITIONAL / EMPIRICAL—UNTESTED). Every Millennium chapter's ledger opens
@@ -86,7 +86,7 @@ routes, fine structure). One genuine derivation survives at the joint layer:
 
 ## 3. Repair queue, priority order (additive, zero deletions, house style)
 
-P1. Front matter honest-scope notes (prologue/preface/title) — the Bible's
+P1. Front matter scoping notes (prologue/preface/title) — the Bible's
     cover must match its ledgers.
 P2. Resolve the three-document conflict: ch34A TOE section + appI get scope
     paragraphs aligned to ch34's master ledger; appI closing sentence

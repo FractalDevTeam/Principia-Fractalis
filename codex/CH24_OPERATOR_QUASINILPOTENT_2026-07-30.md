@@ -84,7 +84,7 @@ multiplicity within 0.02 of phi/e (expanding operator)
 
 No correspondence with rank, in either the full spectrum or the Hermitian part.
 
-## Honest scope of this refutation
+## Scoping of this refutation
 
 - It applies to the operator **as literally written** in ch24, on `L^2([0,1])`.
   The support argument is basis-free and does not depend on discretization.

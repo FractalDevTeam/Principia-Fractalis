@@ -146,7 +146,7 @@ Recording what the corpus got right. A ledger that tallies only defects misrepre
 
 | # | credit | evidence |
 |---|---|---|
-| **CR1** | In-file docstrings are candid, repeatedly more so than headline theorem names and prose chapters. Nearly every Layer-3 unfaithfulness finding was self-disclosed by the file containing it. The defect is a headline/prose problem, not concealment in the formalisation. | r216 'This is a prose problem, not concealment'; BSD V5 honest-scope block; HodgeCapstoneTypedBridge.lean:72-76 |
+| **CR1** | In-file docstrings are candid, repeatedly more so than headline theorem names and prose chapters. Nearly every Layer-3 unfaithfulness finding was self-disclosed by the file containing it. The defect is a headline/prose problem, not concealment in the formalisation. | r216 'This is a prose problem, not concealment'; BSD V5 scoping block; HodgeCapstoneTypedBridge.lean:72-76 |
 | **CR2** | The project audits itself adversarially and publishes the negatives. | N24, N25, N56, N27b |
 | **CR3** | r216 deliberately puts the flagship theorem's vacuity in the kernel so it cannot drift back out of the prose. | SubstrateTheoremContent_r216.lean header |
 | **CR4** | The evidence standard is real and caught a silently-admitted sorry on 2026-09-05. | RELEASE_GATE_r331b.md B0 |

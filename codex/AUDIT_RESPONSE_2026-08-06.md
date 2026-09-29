@@ -174,7 +174,7 @@ re-read by me directly at the source.
 | r123: π/10 holds for every α | CONFIRMED (`r123:397`), near-definitional; note r123's local `lambda0` is not proved equal to `HAlphaUniversal.lambda0` |
 | r123: R_f 2-periodic | PARTLY — `r123:408` proves it for ONE phase factor; no theorem states `R_f(α+2,s) = R_f(α,s)` |
 | ch24 conclusion repeats the retracted φ/e mechanism | **CONFIRMED** |
-| ch34A "unconditional" theorem is hollow | PARTLY — core correct; but NO field of `PFSubstrateConsequences` is a `True` marker (the `True` fields are in the adjacent honest-scope record) |
+| ch34A "unconditional" theorem is hollow | PARTLY — core correct; but NO field of `PFSubstrateConsequences` is a `True` marker (the `True` fields are in the adjacent scoping record) |
 | NS bilinear is a shell with a zero witness | **CONFIRMED, and worse than stated** |
 
 ### 4.1 The Navier–Stokes bilinear operator — read at source

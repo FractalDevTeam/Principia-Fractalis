@@ -251,7 +251,7 @@ c_2-independent replacement for the R_f-modulus factor.
 
 ## Priority 5 — external-verification cleanup
 
-### Problem 5a. Anchor (v) charged-lepton formula honest-scope
+### Problem 5a. Anchor (v) charged-lepton formula scoping
 
 **Statement (Agent 13 finding, 2026-07-05).** The current substrate formula
 m_n² = M_Planck² · exp(−2π/|ζ′(ρ_n)|) matches PDG charged-lepton masses at:
@@ -260,10 +260,10 @@ electron 2.2% off, muon 0.6% off, tau 1.3% off. The paper's abstract-level
 the M_Planck anchor + exponential sensitivity to ζ′ makes the derivation
 less first-principles than surrounding text implies.
 
-**Action for r20.** Add explicit honest-scope note acknowledging electron
+**Action for r20.** Add explicit scoping note acknowledging electron
 2.2% miss and M_Planck-anchoring status.
 
-### Problem 5b. Lean4Lean mathlib-independence honest-scope
+### Problem 5b. Lean4Lean mathlib-independence scoping
 
 **Statement (Agent 12 finding, 2026-07-05).** PF_Lean4Lean is a genuinely
 separate lake package (distinct lakefile.toml, distinct package hash), but
@@ -345,8 +345,8 @@ against the codex ledger (`codex/`, 26+ dated records) as of 2026-08-04.
 - **Problem 4a (dark-energy substrate prediction).** Open. Ansatz remains
   a curve-fit selection, as stated above.
 - **Problem 4b (Λ_eff/Λ_0 mechanism post-c₂).** Open. No progress record.
-- **Problem 5a / 5b (honest-scope notes).** Done in the papers (v2
-  honest-scope section; v3 Priority-5 conjuncts). No further action.
+- **Problem 5a / 5b (scoping notes).** Done in the papers (v2
+  scoping section; v3 Priority-5 conjuncts). No further action.
 
 **Honesty note on "discharge" language above.** The r63–r79 substrate-Prop
 "discharges" of this catalogue are `Prop := True` typed markers. Per

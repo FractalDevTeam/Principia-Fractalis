@@ -767,7 +767,7 @@ self-referential.
 
 **(3) "α-values DERIVED from substrate structure and OVER-DETERMINED by the
 algebraic skeleton."** `AlphaValuesFirstPrinciples.lean:294-297`, plus the
-file's title and its "Honest scope" marker at `:299-311`.
+file's title and its "Scoping" marker at `:299-311`.
 Nothing in that file is a derivation (§2.2). The file also carries a
 *different* P-vs-NP α (5/4) that contradicts the canonical one.
 

@@ -326,7 +326,7 @@ literally on 2026-09-07:
 | **BSD** | `∀ Ec, analyticRank Ec = algebraicRank Ec` | `algebraicRankV5 := manuscriptRankV5` and `analyticRankV5 := manuscriptRankV5` — **the same function** | **NO — vacuous by construction.** The equality is `rfl`. |
 | **Hodge** | `∀ X c, isAlgebraic X c` | substrate surface type; `isAlgebraic` is "PF's 3-conjunct substrate predicate, **not literal geometric algebraicity by an explicit cycle**" (its own docstring) | **NO.** Substrate-level only. |
 
-Two of these the corpus states outright. The BSD file's own honest-scope block:
+Two of these the corpus states outright. The BSD file's own scoping block:
 
 > This is NOT a Clay BSD discharge for arbitrary `WeierstrassCurve ℚ`. For
 > curves outside the 20-curve set, V5 returns `0` and equality is trivially
@@ -334,7 +334,7 @@ Two of these the corpus states outright. The BSD file's own honest-scope block:
 
 and the Hodge bridge's:
 
-> Honest scope: substrate-level only. […] The `isAlgebraic` is PF's 3-conjunct
+> Scoping: substrate-level only. […] The `isAlgebraic` is PF's 3-conjunct
 > substrate predicate, not literal geometric algebraicity by an explicit cycle.
 
 A stronger Hodge encoding exists and should be preferred wherever it applies:

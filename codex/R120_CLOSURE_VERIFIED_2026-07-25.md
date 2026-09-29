@@ -53,7 +53,7 @@ Enabling brick: `abs_thetaTermD2_le_exp` keeps the `e^{−π(n+1)²u}` factor ra
 collapsing it at `u = 1`, dropping `M` from 12.35 to 0.0042 at `u = 4` and the panel count
 from ~4060 to 474.
 
-## Honest scope — what this is NOT
+## Scoping — what this is NOT
 
 **This is not the Riemann Hypothesis.** It is the classical fact (Hardy 1914; the first zero
 sits at `t = 14.1347`) that *at least one* zero lies on the critical line. RH asserts that

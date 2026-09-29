@@ -62,9 +62,9 @@ Ch24 has EXPLICITLY retracted the operator-multiplicity mechanism (§ "Verificat
 - The φ/e-multiplicity mechanism was falsified by 2026-07-28/31 (see `codex/CH24_OPERATOR_QUASINILPOTENT_2026-07-30.md`, `CH24_OPERATOR_ILLPOSED_2026-07-30.md`, `CH24_SPECTRAL_DIAGNOSIS_2026-07-31.md`).
 - **The surviving trace-level signal** is the Mestre-Nagao sum `Σ_{p<X} a_p/p ~ -rank · log log X`.
 - The r188c trace identity (`trace_eq_residues`) and its r194 elliptic instantiation (`mestre_nagao_trace`) are cited as kernel-verified.
-- "Honest scope: the identity is proved generically, under stated geometry/holomorphy/factorization hypotheses; ... **nothing here claims BSD, in whole or in part, is proven.**"
+- "Scoping: the identity is proved generically, under stated geometry/holomorphy/factorization hypotheses; ... **nothing here claims BSD, in whole or in part, is proven.**"
 
-**Conclusion: the book's ch24 has already made its honest-scope decision.** The Lean tree's `BSD_DirectDischargeAttempt.lean` Σ-encoding predates that decision and hasn't been rewritten to match.
+**Conclusion: the book's ch24 has already made its scoping decision.** The Lean tree's `BSD_DirectDischargeAttempt.lean` Σ-encoding predates that decision and hasn't been rewritten to match.
 
 ## §3. What an honest rewrite targets
 
@@ -72,9 +72,9 @@ Ch24 has EXPLICITLY retracted the operator-multiplicity mechanism (§ "Verificat
 
 **Not a replacement of the load-bearing substrate content.** Heegner rank-1 flags, `mestre_nagao_trace`, `rank_ge_universal` — these are honest and stay.
 
-**The specific rewrite target** is `BSD_DirectDischargeAttempt.lean`'s Σ-encoding, plus a companion honest-scope encoding that carries SEPARATE algebraic-rank and analytic-rank witnesses matching the book's post-falsification scope.
+**The specific rewrite target** is `BSD_DirectDischargeAttempt.lean`'s Σ-encoding, plus a companion scoping encoding that carries SEPARATE algebraic-rank and analytic-rank witnesses matching the book's post-falsification scope.
 
-### Campaign BSD-Bounded — a new honest-scope encoding
+### Campaign BSD-Bounded — a new scoping encoding
 
 **Target file:** new `PF/BSD_BoundedEncodingHonest.lean` (name pending survey verification of no conflict). Keeps the existing `BSD_DirectDischargeAttempt.lean` intact as a historical artifact with a docstring pointer to the new file.
 
@@ -135,7 +135,7 @@ Ch24 has EXPLICITLY retracted the operator-multiplicity mechanism (§ "Verificat
        that are NOT currently in the tree. `mestre_nagao_trace` gives an
        empirical slope, not a rigorous lower bound. Populating the
        encoding requires either an analytic-rank machinery (which no
-       proof assistant has) or an honest-scope Prop labelled "empirical". -/
+       proof assistant has) or an scoping Prop labelled "empirical". -/
    theorem BSD_Bounded_analytic_witness_gap :
      ∀ E : WeierstrassCurve ℚ, ¬ ∃ evidence, HasKernelVerifiedAnalyticLowerBound E evidence :=
      ...  -- specification only; body is a proof from the currently-empty state

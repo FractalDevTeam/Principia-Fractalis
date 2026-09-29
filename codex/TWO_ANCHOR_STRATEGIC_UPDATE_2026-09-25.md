@@ -23,7 +23,7 @@ progress that anchors two of PF's α-substrate values:
    - **Blow-up unforced on ℝ³ (Euler)** — this is the piece that maps
      cleanly to PF's regime.
 
-   **Honest scope on Clay status:** the Clay Institute has NOT accepted
+   **Scoping on Clay status:** the Clay Institute has NOT accepted
    OpenAI's result as discharging the Millennium NS problem. Clay still
    lists NS as active. OpenAI themselves declined the $1M prize because
    the (C)/(D) alternatives they address are not the primary Clay
@@ -118,7 +118,7 @@ Per Pabs's direction ("elegantly, with diligence"), this landing:
 - Uses only PF's existing axiom-free identities (no new axioms).
 - Treats OpenAI's result as external corroboration, not as internal
   input (framework stands independent).
-- Names the honest scope disclaimers in the file docstring and here.
+- Names the scoping disclaimers in the file docstring and here.
 - Kernel-clean per `principia_MASTER_DIRECTIVE.md`.
 
 ## 7. Status

@@ -273,7 +273,7 @@ fresh transitive `#print axioms`).
 | proof route | `Xi 1 < 0`, `Xi (77/5) > 0` by certified interval arithmetic, then IVT via `xi_sign_change_implies_on_line_zero` (r115) |
 | tightest budget | at `b = 15.4`: certified `Xi ≥ 2.93e−6 > 0` against `|Xi(15.4)| = 6.68e−6` |
 
-**Honest scope.** This is **not RH.** It is the Hardy-type (Hardy 1914) existence of
+**Scoping.** This is **not RH.** It is the Hardy-type (Hardy 1914) existence of
 *one* on-line zero; the first sits at `t = 14.1347`. RH asserts that *every* nontrivial
 zero lies on the critical line, and that stays bucket 3.
 

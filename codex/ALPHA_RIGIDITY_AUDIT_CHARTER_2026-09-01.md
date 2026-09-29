@@ -95,7 +95,7 @@ Three nested formulations exist in-corpus; the audit must fix which is canonical
 **S-12** (paper's Thm `thm:invariants`, tex :248–:262): S-11 + I12 (α_QG² = (8/3)·α_BSD). Uniqueness of positive solution kernel-proved at `AlphaSkeletonUniqueness_r128.lean:233` — but I12's 8/3 is a C9 baked coefficient; the paper's own r128 header concedes the paper "needs \[8/3\] as an independent hypothesis to pin α_BSD."
 
 **S-8+A** (r128's `StructuralLaws` + anchor, the corpus's current sharpest form):
-L1 hodge_minpoly, I7 ym_shift, L2 p_norm, I9 rh_prod, L3 np_trace, L4 qg_norm, L5 ns_scaling, I6 bsd_gauge; + anchor (α_Po=1 **or** α_BSD=3π/4, interchangeable per `alpha_skeleton_unique_from_BSD` :327); + positivity. Uniqueness kernel-proved. r128's honest-scope note: "L1–L5 are inputs… the substrate does not force them."
+L1 hodge_minpoly, I7 ym_shift, L2 p_norm, I9 rh_prod, L3 np_trace, L4 qg_norm, L5 ns_scaling, I6 bsd_gauge; + anchor (α_Po=1 **or** α_BSD=3π/4, interchangeable per `alpha_skeleton_unique_from_BSD` :327); + positivity. Uniqueness kernel-proved. r128's scoping note: "L1–L5 are inputs… the substrate does not force them."
 
 **Extended layer**: 17 further identities (29 total), `Referee/CrossMillenniumInvariants_Extended_2026_06_19.lean:217`; locus form L1–L16 at `AlphaSkeletonAlgebraicLocusBundle.lean:32`. All derivable from the canonical point; they add no rigidity (consequences, not constraints) — treat as regression suite only.
 
@@ -112,7 +112,7 @@ L1 hodge_minpoly, I7 ym_shift, L2 p_norm, I9 rh_prod, L3 np_trace, L4 qg_norm, L
 |---|---|---|---|
 | I1–I16 / extended 29 | **Kernel-proved** (axiom-free; `#print axioms` guards present) | n/a — facts about chosen constants | KV(trivial) grade per ledger vocabulary |
 | r124 underdetermination theorems | **Kernel-proved negatives** | binding (N1) | includes redundancy of I2, I6, I8 |
-| r128 uniqueness (S-12, S-8+A, from-BSD) | **Kernel-proved conditionals** | hypotheses carry all numeric content | honest-scope note in-file |
+| r128 uniqueness (S-12, S-8+A, from-BSD) | **Kernel-proved conditionals** | hypotheses carry all numeric content | scoping note in-file |
 | Glosses: "gauge-duality doubling", "π-scaling law", "Galois trace law", "critical-line 1/2", "polylog deficit", "BSD geometric anchor" | — | **Prose-only** | zero formal counterparts found this pass; the audit's §2 adjudication targets |
 | Substrate → α forcing (any route) | — | **Previously refuted** (N2, N3) | out of scope permanently absent new mathematics |
 | α_NP / α_P from computation | — | **Previously refuted** (N4, N5) | PolylogEigenvalueConjecture remains the open carrier |
