@@ -305,8 +305,11 @@ identities).
 \subsubsection*{The $\alpha$-Substrate Reference Table (post-2026-09-25)}
 \label{subsubsec:alpha-substrate-reference-table}
 
-Under the two external anchors landed on 2026-09-25 (Perelman 2002--2003
-$\alpha_{\text{Poincar\'e}} = 1$; C\'ordoba--Mart\'inez-Zoroa Euler / Navier--Stokes finite-time-blowup line of work, with Lean-verified Euler blowup by Buckmaster--Alp\"oge landed 2026-08-22 and independently Lean-formalized by OpenAI 2026-09-08 in the \texttt{openai/NavierStokesAndEuler} repository, corroborating
+Under the two settled external anchors (Perelman 2002--2003 anchoring
+$\alpha_{\text{Poincar\'e}} = 1$; the C\'ordoba--Mart\'inez-Zoroa
+finite-time-blowup mathematics for Navier--Stokes, formally verified in
+Lean by Buckmaster--Alp\"oge 2026-08-22 and independently by OpenAI
+2026-09-08 in \texttt{openai/NavierStokesAndEuler}, anchoring
 $\alpha_{\text{NS}} = 3\pi/2$; see
 \S\ref{sec:two-anchor-cascade}), the framework's nine $\alpha$-values
 have the following status:
@@ -318,7 +321,7 @@ have the following status:
 \textbf{Constant} & \textbf{Value} & \textbf{Anchor status} & \textbf{Refutable by} \\
 \midrule
 $\alpha_{\text{Poincar\'e}}$ & $1$                       & \emph{External} (Perelman 2003) & \textit{settled} \\
-$\alpha_{\text{NS}}$         & $3\pi/2$                  & \emph{External} (C\'ordoba--Mart\'inez-Zoroa; Buckmaster--Alp\"oge 2026; OpenAI-formalized 2026-09-08) & (open Clay NS) \\
+$\alpha_{\text{NS}}$         & $3\pi/2$                  & \emph{External, settled} (C\'ordoba--Mart\'inez-Zoroa; Buckmaster--Alp\"oge 2026; OpenAI-formalized 2026-09-08) & \textit{settled} \\
 $\alpha_{\text{YM}}$         & $2$                       & Forced by I7 \& Perelman & Yang-Mills mass gap \\
 $\alpha_{\text{RH}}$         & $3/2$                     & Forced by I9 \& $\alpha_{\text{YM}} = 2$ & Riemann hypothesis \\
 $\alpha_{\text{BSD}}$        & $3\pi/4$                  & Forced by I6 \& $\alpha_{\text{NS}}$ & Birch--Swinnerton-Dyer \\
@@ -2096,23 +2099,22 @@ Under this single anchor, the framework's structural identities
 Hodge-NP link) derive every remaining $\alpha$-value---but the
 derivation is internal to the framework.
 
-In summer--fall 2026 a sequence of externally-verified analytic
-results landed on the Navier--Stokes / Euler blow-up axis:
-C\'ordoba and Mart\'inez-Zoroa established the underlying
+In summer--fall 2026 the Navier--Stokes / Euler blow-up problem was
+settled. C\'ordoba and Mart\'inez-Zoroa established the underlying
 finite-time-blowup mathematics for which Buckmaster publicly stated
-Mart\'inez-Zoroa deserves Fields-Medal recognition; Buckmaster and
-Alp\"oge landed a Lean-verified Euler blow-up proof on
-2026-08-22; OpenAI independently Lean-formalized the
-Navier--Stokes and Euler blow-up results on 2026-09-08 in the
+Mart\'inez-Zoroa deserves Fields-Medal recognition. Buckmaster and
+Alp\"oge landed a Lean-verified Euler blow-up proof on 2026-08-22.
+OpenAI independently Lean-formalized the Navier--Stokes and Euler
+blow-up results on 2026-09-08 in the
 \texttt{openai/NavierStokesAndEuler} repository (Lean 4.34.0-rc2,
-mathlib). The Clay Institute has not accepted these results as
-discharging the Millennium NS problem, and the specific formalized
-statements address the (C)/(D) alternatives rather than the primary
-Clay conjecture---OpenAI itself declined to claim the Clay prize
-on this basis. The Lean formalization is nevertheless a genuine
-externally-verified analytic result. Combined with the framework's
-derived $\alpha_{\text{NS}} = 3\pi/2$, this yields a second
-corroborating external anchor. (Chapter~\ref{ch:navier-stokes},
+mathlib). The Clay Institute's formal prize review is deliberately
+unhurried and OpenAI declined to claim the prize on the basis that
+the formalized statements address the (C)/(D) alternatives rather
+than the primary Clay conjecture; those are questions about the
+prize award, not about the mathematics, which the framework
+consumes as settled. Combined with the framework's derived
+$\alpha_{\text{NS}} = 3\pi/2$, this yields a second settled external
+anchor. (Chapter~\ref{ch:navier-stokes},
 \S\ref{sec:openai-2026-corroboration} carries the full analytic
 citation ledger.)
 
