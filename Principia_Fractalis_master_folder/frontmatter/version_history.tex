@@ -16,6 +16,72 @@ This book is under active development. Version numbers follow semantic versionin
 
 \section*{Version Log}
 
+\subsection*{Version 2.7.2 (September 29, 2026, evening) -- NAVIER--STOKES ANCHOR MADE LOAD-BEARING FROM $H_3$ EXPONENT SUM + BOTH ANCHORS ON ONE COMBINATORIAL DATUM + GATE STRIPPER FIX}
+\begin{itemize}
+
+\item \textbf{HEAD commit:} \texttt{398e3dfd}. Two commits since v2.7.1:
+\texttt{2821d350} (r340), \texttt{398e3dfd} (banned-phrase sweep + graph
+delta refresh).
+
+\item \textbf{The Navier--Stokes anchor is now load-bearing
+(\texttt{r340}).} v2.7.1 grounded the Poincar\'e anchor
+$\alpha_{\text{Poincar\'e}} = 1$ in $h(H_3) = 10$ via the universal
+coupling. The NS anchor had no such treatment:
+$\mathrm{RealisesNS}(a) := 0 < a \wedge a = \alpha_{NS}$ was circular
+against the literal definition $\alpha_{NS} := 3\pi/2$.
+\texttt{PF/NSAlphaFromH3ExponentSum\_r340.lean} closes this via the
+observation that $15$ is not a free constant: it is the sum of the $H_3$
+exponents $[1, 5, 9]$, and \texttt{PF/H3CoxeterOrigin.lean} proves that
+sum from the list itself. Running the universal coupling forward,
+$\pi / (10 \cdot (1/15)) = 15\pi/10 = 3\pi/2$. The new
+\texttt{RealisesNS\_forced}$(a) := 0 < a \wedge 2a = 3\pi$ pins the value
+by an equation with a positivity side condition, matching the
+\texttt{RealisesPoincare} pattern from r338.
+
+\item \textbf{Both settled anchors now rest on one datum.} Theorem
+\texttt{both\_anchors\_from\_H3\_data} states the framework's two
+externally-settled anchors are grounded in a single combinatorial
+object: the Poincar\'e axis uses the Coxeter number $h(H_3) = 10$; the
+NS axis uses the exponent sum $\sum \{1, 5, 9\} = 15$. Any remaining
+structural circularity in the $\alpha$-cascade is now traceable to a
+single $H_3$ fact.
+
+\item \textbf{Open, and stated as open.} r340 does not claim (i) that
+$\lambda_{NS} = 1/\sum(H_3\text{ exponents})$ is derived from the
+substrate operator (it is a hypothesis here, as on the Poincar\'e axis);
+(ii) that the exponent list $[1, 5, 9]$ is computed rather than
+stipulated (mathlib carries Coxeter theory, so this is bounded work);
+(iii) any consumption of a property of the external NS result --- the
+same gap O-CIRC records for Perelman.
+
+\item \textbf{Gate stripper fix (\texttt{2821d350}).} Dogfooding r340
+uncovered a defect in \texttt{scripts/pristine\_gate.sh}: the comment
+stripper was hiding \texttt{Prop}-valued definitions from criterion (e),
+under-counting satisfiability obligations. Two hidden declarations
+recovered on r340 alone (6 $\to$ 8); every previously gated module is
+being re-verified with the fixed stripper. Any PRISTINE stamp issued
+before \texttt{2821d350} should be re-checked before further reliance.
+
+\item \textbf{Banned-phrase sweep (\texttt{398e3dfd}).} Prose sweep of
+\texttt{frontmatter/} for the phrase ``honest scope'', which had been
+retired from active usage in the corpus per the 2026-09-27 convention.
+Two historical hits retitled: v2.3.0 section heading in this file
+(``HONEST-SCOPE AUDIT PASS'' $\to$ ``SCOPE-STATEMENT AUDIT PASS''), and
+a comment header in \texttt{bibliography.bib}. No chapter prose
+affected. Book cross-references remain at 824 labels / 270 refs /
+0~broken and 387 bibkeys / 292 cites / 0~broken.
+
+\item \textbf{Companion audits (\texttt{398e3dfd}).} Third READ-ONLY
+audit under POST-r315 GLOBAL RESEARCH DIRECTIVE at
+\texttt{codex/GRAND\_PROBLEM\_DEPENDENCY\_GRAPH\_2026-09-29.md}. Rank~1
+recommendation unchanged (r331d bottom edge $+$ r327 argument principle
+$\to$ \texttt{riemannHypothesis\_below\_15}) with three added
+operational constraints: wait for the gate re-verify sweep, fix the
+$2\pi i$ normalization on the r331f target, do not couple r331d with
+cascade extensions in the same commit.
+
+\end{itemize}
+
 \subsection*{Version 2.7.1 (September 29, 2026) -- PERELMAN ANCHOR MADE LOAD-BEARING + $\alpha$-CASCADE OVER UNKNOWNS + ZERO AXIOMS VERIFIED + MECHANICAL VERIFICATION GATE}
 \begin{itemize}
 
