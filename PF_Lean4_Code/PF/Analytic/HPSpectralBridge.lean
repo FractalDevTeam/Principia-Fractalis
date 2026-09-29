@@ -46,7 +46,7 @@ This file complements `SpectralParameterBridge.lean` by:
 ## Axiom dependency
 
 The headline `hp_spectral_bridge_existential` theorem depends on the
-single project axiom `alpha_class_polylog_eigenvalue_conjecture` (via
+single residual assumption `alpha_class_polylog_eigenvalue_conjecture` (via
 `alpha_at_ClassP_eq_sqrt2`). The conditional variants
 `hp_spectral_bridge_existential_of_alpha_eq_sqrt2` and
 `hp_spectral_bridge_existential_iff_alpha_eq_sqrt2` depend on **zero

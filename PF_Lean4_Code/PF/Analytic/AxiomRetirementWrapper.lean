@@ -5,7 +5,7 @@ This file wraps the entire 50+-module Phase A infrastructure (polylog
 + Jonquières + Hankel + monodromy + SStarBridge + EigenvalueIdentity +
 SpectralParameterBridge + BookEvaluationContinuity + LambdaZeroHPBookBounds)
 into the SHARPEST POSSIBLE statement of what is needed to retire the
-single project axiom `alpha_class_polylog_eigenvalue_conjecture`.
+single residual assumption `alpha_class_polylog_eigenvalue_conjecture`.
 
 Given the existing infrastructure, exactly THREE concrete deliverables
 remain:
@@ -148,7 +148,7 @@ theorem axiom_content_from_bookId_and_bridges
     6. `h_NP_value`: `α_NP = φ + 1/4` — manuscript identification, the
        NP-class branch.
 
-    Conclude: the FULL content of the project axiom
+    Conclude: the FULL content of the residual assumption
     `alpha_class_polylog_eigenvalue_conjecture`.
 
     With this wrapper, the open work to retire the framework's single

@@ -4324,7 +4324,7 @@ spectrum at level k = α_P^k visits canonical α-values at level 0, 1, 2:
   α_P^2 = 2     = α_YM          (level 2, Yang-Mills mass gap)
 
 The polylog conjecture for H_P at α_P = √2 — which is the load-bearing
-content of the single project axiom `alpha_class_polylog_eigenvalue_conjecture`
+content of the single residual assumption `alpha_class_polylog_eigenvalue_conjecture`
 — therefore IMPLICITLY contains information about THREE Millennium problems:
 Poincaré (trivially at level 0), P-class (level 1), Yang-Mills (level 2).
 
@@ -4333,7 +4333,7 @@ Plus the level identities connect to the remaining three:
 - α_NP = α_Hodge + 1/4 (NP-class via quantum shift)
 - α_NS = α_BSD · α_YM (Navier-Stokes via product with YM)
 
-So the framework's single axiom is connected — via formally-proven
+So the framework's single residual assumption is connected — via formally-proven
 level identities — to ALL SEVEN Millennium problems. This is the
 **Unification claim**: one operator-theoretic conjecture at α_P = √2
 implies structural information about all 6 unsolved Millennium problems. -/
@@ -5427,9 +5427,9 @@ theorem ten_exact_closed_form_gaps :
    spectral_gap_YM_NS_exact,
    spectral_gap_YM_BSD_exact⟩
 
-/-! ### Interpretation: one axiom, seven problems -/
+/-! ### Interpretation: one residual assumption, seven problems -/
 
-/-- **Meaning of the unification**: the framework's single project axiom
+/-- **Meaning of the unification**: the framework's single residual assumption
     `alpha_class_polylog_eigenvalue_conjecture` — which encodes the
     polylog ground-state structure at the P/NP α-values — propagates
     via the 6 proven level identities + 1 polylog level chain to
