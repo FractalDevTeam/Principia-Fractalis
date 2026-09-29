@@ -148,6 +148,38 @@ if [ -n "$DEP_UNUSED" ]; then
   printf '%s
 ' "$DEP_UNUSED" | head -3 | sed 's/^/        /'
 fi
+# --- (d2) semantic dead-hypothesis sweep via PremiseAudit (r337) --------------
+# linter.unusedVariables only sees SYNTACTICALLY unused binders. The O-CIRC class
+# of defect is semantic: a hypothesis is referenced but its content does no work
+# (every field of a premise bundle DEAD, or the hypothesis is definitionally a
+# conjunct of the conclusion). r337 detects these; the linter cannot.
+mapfile -t AUDIT_DECLS < <(grep -oE '^[[:space:]]*(theorem|lemma)[[:space:]]+[A-Za-z_][A-Za-z0-9_'"'"']*' "$STRIPPED" \
+  | awk '{print $2}' | sort -u)
+if [ -f "PF/Audit/PremiseAudit.lean" ] && [ "${#AUDIT_DECLS[@]}" -gt 0 ]; then
+  AP="$(mktemp --suffix=.lean -p . probe_audit_XXXX)"
+  AO="$(mktemp)"
+  {
+    echo "import $MOD"
+    echo "import PF.Audit.PremiseAudit"
+    for d in "${AUDIT_DECLS[@]}"; do printf '#audit_all "%s"\n' "$d"; done
+  } > "$AP"
+  taskset -c "$CPU" nice -n 5 env LEAN_NUM_THREADS=1 \
+    lake env lean "$AP" > "$AO" 2>&1
+  rm -f "$AP"
+  AUDIT_HITS="$(grep -E '^[[:space:]]*(DEAD|CONTAINED|VACUOUS)[[:space:]]' "$AO" || true)"
+  if [ -n "$AUDIT_HITS" ]; then
+    NH=$(printf '%s\n' "$AUDIT_HITS" | wc -l)
+    fail "(d2) PremiseAudit: $NH semantic finding(s) — dead / contained / vacuous premises"
+    printf '%s\n' "$AUDIT_HITS" | head -6 | sed 's/^/      /'
+    grep -E '^O-CIRC SWEEP' "$AO" | head -3 | sed 's/^/      /'
+  else
+    pass "(d2) PremiseAudit: no dead / contained / vacuous premises over ${#AUDIT_DECLS[@]} decls"
+  fi
+  rm -f "$AO"
+else
+  warn "(d2) PremiseAudit unavailable — semantic premise check SKIPPED"
+fi
+
 if [ "$PREMISE_AUDIT" -eq 1 ]; then
   if [ -f "PF/Audit/PremiseAudit.lean" ]; then
     warn "(d+) PremiseAudit hook present; semantic dead-hypothesis sweep not yet wired"
