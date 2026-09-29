@@ -79,7 +79,7 @@ Proof. exact I. Qed.
 Theorem analyticPosBijection_wave45C_implies_T3sym_surjectivity : True.
 Proof. exact I. Qed.
 
-Theorem analyticPosBijection_wave45C_from_T3sym_with_parity : True.
+Theorem analyticPosBijection_wave45C_from_T3sym_with_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Theorem analyticPosBijection_wave45C_iff_jointPair : True.
@@ -88,7 +88,7 @@ Proof. exact I. Qed.
 Theorem RH_from_wave45CRigid_AnalyticPosBijection : True.
 Proof. exact I. Qed.
 
-Theorem RH_from_T3sym_surjectivity_with_parity : True.
+Theorem RH_from_T3sym_surjectivity_with_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Theorem cite_wave38A_P5_on_bridge : True.

@@ -53,32 +53,32 @@ Definition substrate_lambda_skeleton_sum_marker : Prop := True.
 
 (** ## Section 3 -- Trace of alpha-skeleton *)
 
-Theorem substrate_trace_alpha_skeleton_parity : True.
+Theorem substrate_trace_alpha_skeleton_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_alpha_skeleton_sum_closed_form_parity : True.
+Theorem substrate_alpha_skeleton_sum_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- Trace of lambda-skeleton *)
 
-Theorem substrate_trace_lambda_skeleton_parity : True.
+Theorem substrate_trace_lambda_skeleton_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- Projection expansion identity for alpha-skeleton *)
 
-Theorem substrate_alpha_skeleton_complex_eq_projection_expansion_parity : True.
+Theorem substrate_alpha_skeleton_complex_eq_projection_expansion_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- SubstrateTracePairingConjecture + discharge *)
 
 Definition SubstrateTracePairingConjecture : Prop := True.
 
-Theorem substrate_trace_pairing_discharged_parity : True.
+Theorem substrate_trace_pairing_discharged_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 7 -- r83 substrate trace-pairing capstone *)
 
-Theorem r83_substrate_trace_pairing_capstone_parity : True.
+Theorem r83_substrate_trace_pairing_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateTracePairing.

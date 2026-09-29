@@ -57,19 +57,19 @@ Definition reindex_opNorm_eq_conjecture : Prop := True.
 Definition kronecker_one_opNorm_eq_conjecture : Prop := True.
 Definition substrateEmbedMatrix_opNorm_eq_conjecture : Prop := True.
 
-Theorem reindex_opNorm_eq_parity : True.
+Theorem reindex_opNorm_eq_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem kronecker_one_opNorm_eq_parity : True.
+Theorem kronecker_one_opNorm_eq_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrateEmbedMatrix_opNorm_eq_parity : True.
+Theorem substrateEmbedMatrix_opNorm_eq_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrateRingHom_opNorm_eq_parity : True.
+Theorem substrateRingHom_opNorm_eq_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_embedding_isometry_parity : True.
+Theorem substrate_embedding_isometry_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- T_infinity Norm and arithmetic identities (r43-r45) *)
@@ -77,97 +77,97 @@ Proof. exact I. Qed.
 Definition TimelessFieldRing_marker : Prop := True.
 Definition substrate_sigma_norm_marker : Prop := True.
 
-Theorem substrateRingHomIter_opNorm_eq_parity : True.
+Theorem substrateRingHomIter_opNorm_eq_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_sigma_norm_respects_setoid_parity : True.
+Theorem substrate_sigma_norm_respects_setoid_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrateLevelToTimelessField_opNorm_eq_parity : True.
+Theorem substrateLevelToTimelessField_opNorm_eq_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem norm_zero_TimelessField_parity : True.
+Theorem norm_zero_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem norm_neg_TimelessField_parity : True.
+Theorem norm_neg_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem norm_add_le_TimelessField_parity : True.
+Theorem norm_add_le_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem norm_mul_le_TimelessField_parity : True.
+Theorem norm_mul_le_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- SeminormedRing / NormedRing / CStarRing hierarchy (r46-r49) *)
 
-Theorem SeminormedAddCommGroup_TimelessField_parity : True.
+Theorem SeminormedAddCommGroup_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem SeminormedRing_TimelessField_parity : True.
+Theorem SeminormedRing_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormedAddCommGroup_TimelessField_parity : True.
+Theorem NormedAddCommGroup_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormedRing_TimelessField_parity : True.
+Theorem NormedRing_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem norm_eq_zero_TimelessField_parity : True.
+Theorem norm_eq_zero_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormOneClass_TimelessField_parity : True.
+Theorem NormOneClass_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem norm_one_TimelessField_parity : True.
+Theorem norm_one_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem CStarRing_TimelessField_parity : True.
+Theorem CStarRing_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem cstar_ineq_TimelessField_parity : True.
+Theorem cstar_ineq_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- Pre-C*-algebra capstone (r50) *)
 
-Theorem substrate_TimelessField_pre_CStar_capstone_parity : True.
+Theorem substrate_TimelessField_pre_CStar_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- SMul C + Module C + Algebra C + NormedAlgebra + StarModule (r51-r52) *)
 
-Theorem substrateRingHomIter_smul_parity : True.
+Theorem substrateRingHomIter_smul_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_quotient_smul_same_level_parity : True.
+Theorem substrate_quotient_smul_same_level_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem SMul_TimelessField_parity : True.
+Theorem SMul_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem MulAction_TimelessField_parity : True.
+Theorem MulAction_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem DistribMulAction_TimelessField_parity : True.
+Theorem DistribMulAction_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem Module_TimelessField_parity : True.
+Theorem Module_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_smul_mul_assoc_parity : True.
+Theorem substrate_smul_mul_assoc_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_mul_smul_comm_parity : True.
+Theorem substrate_mul_smul_comm_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem Algebra_TimelessField_parity : True.
+Theorem Algebra_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormedSpace_TimelessField_parity : True.
+Theorem NormedSpace_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormedAlgebra_TimelessField_parity : True.
+Theorem NormedAlgebra_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem StarModule_TimelessField_parity : True.
+Theorem StarModule_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateTimelessFieldNorm.

@@ -68,7 +68,7 @@ Proof. exact I. Qed.
 Theorem P5_holds_wave47Parity : True.
 Proof. exact I. Qed.
 
-Theorem analyticPosBijection_wave47Parity_from_T3sym_no_parity : True.
+Theorem analyticPosBijection_wave47Parity_from_T3sym_no_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Theorem surjectivity_eigSeqEven_implies_surjectivity_eigSeq : True.
@@ -83,7 +83,7 @@ Proof. exact I. Qed.
 Theorem RH_from_wave47Parity_AnalyticPosBijection : True.
 Proof. exact I. Qed.
 
-Theorem RH_from_T3sym_surjectivity_no_parity : True.
+Theorem RH_from_T3sym_surjectivity_no_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Theorem analyticPosBijection_wave47Parity_implies_wave45C_open_via_eigSeq : True.

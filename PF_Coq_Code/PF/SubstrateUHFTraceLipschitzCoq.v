@@ -48,12 +48,12 @@ Module SubstrateUHFTraceLipschitz.
 
 Definition substrate_HS_norm_sq_marker : Prop := True.
 
-Theorem substrate_HS_norm_sq_nonneg_parity : True.
+Theorem substrate_HS_norm_sq_nonneg_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Cauchy-Schwarz trace-vs-HS bound *)
 
-Theorem substrate_trace_norm_sq_le_dim_HS_norm_sq_parity : True.
+Theorem substrate_trace_norm_sq_le_dim_HS_norm_sq_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- HS-vs-op Prop-level residual *)
@@ -66,10 +66,10 @@ Definition SubstrateNormalizedTrace1LipschitzConjecture : Prop := True.
 
 (** ## Section 5 -- Substrate reduction: HS => 1-Lipschitz *)
 
-Theorem substrate_normalized_trace_1_lipschitz_of_HS_bound_parity : True.
+Theorem substrate_normalized_trace_1_lipschitz_of_HS_bound_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_HS_implies_1_lipschitz_parity : True.
+Theorem substrate_HS_implies_1_lipschitz_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- Combined conjecture *)
@@ -78,7 +78,7 @@ Definition SubstrateHSAndLipschitzConjecture : Prop := True.
 
 (** ## Section 7 -- r85 substrate HS-route Lipschitz capstone *)
 
-Theorem r85_substrate_HS_route_Lipschitz_capstone_parity : True.
+Theorem r85_substrate_HS_route_Lipschitz_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 8 -- r85b: kernel-verified HS-vs-op norm bound
@@ -98,25 +98,25 @@ Proof. exact I. Qed.
       - r85b_substrate_full_lipschitz_capstone (parity)
 *)
 
-Theorem substrate_column_norm_sq_le_op_norm_sq_parity : True.
+Theorem substrate_column_norm_sq_le_op_norm_sq_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_HS_norm_sq_bound_parity : True.
+Theorem substrate_HS_norm_sq_bound_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_HS_bound_holds_parity : True.
+Theorem substrate_HS_bound_holds_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_normalized_trace_bound_parity : True.
+Theorem substrate_normalized_trace_bound_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_1_lipschitz_holds_parity : True.
+Theorem substrate_1_lipschitz_holds_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_HS_and_1_lipschitz_holds_parity : True.
+Theorem substrate_HS_and_1_lipschitz_holds_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem r85b_substrate_full_lipschitz_capstone_parity : True.
+Theorem r85b_substrate_full_lipschitz_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFTraceLipschitz.

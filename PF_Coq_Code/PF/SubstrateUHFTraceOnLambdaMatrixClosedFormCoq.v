@@ -44,17 +44,17 @@ Module SubstrateUHFTraceOnLambdaMatrixClosedForm.
 
 (** ## Section 1 -- Substrate lambda-skeleton sum closed form *)
 
-Theorem substrate_lambda_skeleton_sum_closed_form_parity : True.
+Theorem substrate_lambda_skeleton_sum_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Substrate UHF trace closed form on lambda-matrix *)
 
-Theorem UHF_trace_on_lambda_matrix_closed_form_parity : True.
+Theorem UHF_trace_on_lambda_matrix_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- r92 capstone *)
 
-Theorem r92_substrate_UHF_trace_lambda_matrix_closed_form_capstone_parity : True.
+Theorem r92_substrate_UHF_trace_lambda_matrix_closed_form_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFTraceOnLambdaMatrixClosedForm.

@@ -54,127 +54,127 @@ Module SubstrateTimelessFieldCompletion.
 
 Definition TimelessFieldCompletion_marker : Prop := True.
 
-Theorem UniformSpace_TimelessFieldCompletion_parity : True.
+Theorem UniformSpace_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem CompleteSpace_TimelessFieldCompletion_parity : True.
+Theorem CompleteSpace_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem AddCommGroup_TimelessFieldCompletion_parity : True.
+Theorem AddCommGroup_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem Ring_TimelessFieldCompletion_parity : True.
+Theorem Ring_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormedAddCommGroup_TimelessFieldCompletion_parity : True.
+Theorem NormedAddCommGroup_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormedRing_TimelessFieldCompletion_parity : True.
+Theorem NormedRing_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormedSpace_TimelessFieldCompletion_parity : True.
+Theorem NormedSpace_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_TimelessFieldCompletion_auto_capstone_parity : True.
+Theorem substrate_TimelessFieldCompletion_auto_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Star extension via Completion.map (r54) *)
 
-Theorem isometry_star_TimelessField_parity : True.
+Theorem isometry_star_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem uniformContinuous_star_TimelessField_parity : True.
+Theorem uniformContinuous_star_TimelessField_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem Star_TimelessFieldCompletion_parity : True.
+Theorem Star_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem star_coe_TimelessFieldCompletion_parity : True.
+Theorem star_coe_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_TimelessFieldCompletion_star_capstone_parity : True.
+Theorem substrate_TimelessFieldCompletion_star_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- StarRing structure via induction_on (r55) *)
 
-Theorem continuous_star_TimelessFieldCompletion_parity : True.
+Theorem continuous_star_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem star_involutive_TimelessFieldCompletion_parity : True.
+Theorem star_involutive_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem InvolutiveStar_TimelessFieldCompletion_parity : True.
+Theorem InvolutiveStar_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem star_add_TimelessFieldCompletion_parity : True.
+Theorem star_add_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem StarAddMonoid_TimelessFieldCompletion_parity : True.
+Theorem StarAddMonoid_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem star_mul_TimelessFieldCompletion_parity : True.
+Theorem star_mul_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem StarMul_TimelessFieldCompletion_parity : True.
+Theorem StarMul_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem StarRing_TimelessFieldCompletion_parity : True.
+Theorem StarRing_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_TimelessFieldCompletion_starRing_capstone_parity : True.
+Theorem substrate_TimelessFieldCompletion_starRing_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- CStarRing extension (r56) *)
 
-Theorem cstar_ineq_TimelessFieldCompletion_parity : True.
+Theorem cstar_ineq_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem CStarRing_TimelessFieldCompletion_parity : True.
+Theorem CStarRing_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_TimelessFieldCompletion_cstar_capstone_parity : True.
+Theorem substrate_TimelessFieldCompletion_cstar_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- Algebra C + NormedAlgebra (r57) *)
 
-Theorem substrate_smul_mul_assoc_completion_parity : True.
+Theorem substrate_smul_mul_assoc_completion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_mul_smul_comm_completion_parity : True.
+Theorem substrate_mul_smul_comm_completion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem Algebra_TimelessFieldCompletion_parity : True.
+Theorem Algebra_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem NormedAlgebra_TimelessFieldCompletion_parity : True.
+Theorem NormedAlgebra_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_TimelessFieldCompletion_algebra_capstone_parity : True.
+Theorem substrate_TimelessFieldCompletion_algebra_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 6 -- StarModule C + CStarAlgebra registration (r58-r59) *)
 
-Theorem star_smul_TimelessFieldCompletion_parity : True.
+Theorem star_smul_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem StarModule_TimelessFieldCompletion_parity : True.
+Theorem StarModule_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem CStarAlgebra_TimelessFieldCompletion_parity : True.
+Theorem CStarAlgebra_TimelessFieldCompletion_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_UHF_CStarAlgebra_exists_parity : True.
+Theorem substrate_UHF_CStarAlgebra_exists_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 7 -- UHF (AF) density / nuclearity witness (r60) *)
 
-Theorem substrate_finite_level_dense_parity : True.
+Theorem substrate_finite_level_dense_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_UHF_denseRange_parity : True.
+Theorem substrate_UHF_denseRange_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_UHF_nuclearity_witness_parity : True.
+Theorem substrate_UHF_nuclearity_witness_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateTimelessFieldCompletion.

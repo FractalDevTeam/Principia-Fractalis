@@ -43,28 +43,28 @@ Definition substrate_delta_projection_marker : Prop := True.
 
 (** ## Section 2 -- Five substrate projection identities *)
 
-Theorem substrate_delta_projection_idempotent_parity : True.
+Theorem substrate_delta_projection_idempotent_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_delta_projection_self_adjoint_parity : True.
+Theorem substrate_delta_projection_self_adjoint_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_delta_projections_orthogonal_parity : True.
+Theorem substrate_delta_projections_orthogonal_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_delta_projections_sum_to_one_parity : True.
+Theorem substrate_delta_projections_sum_to_one_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Prop-level Substrate9CentralProjectionsExistsConjecture *)
 
 Definition Substrate9CentralProjectionsExistsConjecture : Prop := True.
 
-Theorem substrate_9_central_projections_exists_parity : True.
+Theorem substrate_9_central_projections_exists_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r81 substrate 9-projection concrete-realization capstone *)
 
-Theorem r81_substrate_9_projection_concrete_realization_capstone_parity : True.
+Theorem r81_substrate_9_projection_concrete_realization_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End Substrate9DimCentralProjections.

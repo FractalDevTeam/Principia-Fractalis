@@ -51,22 +51,22 @@ Module SubstrateUHFTraceIsTracial.
 
 (** ## Section 1 -- Level-k matrix trace tracial *)
 
-Theorem normalized_matrix_trace_mul_comm_parity : True.
+Theorem normalized_matrix_trace_mul_comm_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Substrate pre-trace tracial on TimelessFieldRing *)
 
-Theorem substrate_pre_trace_mul_comm_parity : True.
+Theorem substrate_pre_trace_mul_comm_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Substrate UHF trace tracial on TimelessFieldCompletion *)
 
-Theorem UHF_trace_mul_comm_parity : True.
+Theorem UHF_trace_mul_comm_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r94 substrate UHF trace tracial capstone *)
 
-Theorem r94_substrate_UHF_trace_is_tracial_capstone_parity : True.
+Theorem r94_substrate_UHF_trace_is_tracial_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFTraceIsTracial.

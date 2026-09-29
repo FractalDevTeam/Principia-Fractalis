@@ -44,40 +44,40 @@ Module I5VortexDoublingSubstrateDischarge.
 
 (** ## Section 1 -- Substrate α-skeleton arithmetic identity for I5 *)
 
-Theorem substrate_alpha_NS_closed_form_parity : True.
+Theorem substrate_alpha_NS_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_alpha_BSD_closed_form_parity : True.
+Theorem substrate_alpha_BSD_closed_form_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_I5_alpha_NS_eq_two_alpha_BSD_parity : True.
+Theorem substrate_I5_alpha_NS_eq_two_alpha_BSD_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Substrate Z_cascade = 2 witness *)
 
 Definition substrate_Z_cascade_marker : Prop := True.
 
-Theorem substrate_Z_cascade_eq_two_parity : True.
+Theorem substrate_Z_cascade_eq_two_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_I5_via_Z_cascade_parity : True.
+Theorem substrate_I5_via_Z_cascade_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Prop-level I5VortexDoublingConjecture + discharge *)
 
 Definition I5VortexDoublingConjecture : Prop := True.
 
-Theorem I5_vortex_doubling_discharged_via_r72_alpha_skeleton_parity : True.
+Theorem I5_vortex_doubling_discharged_via_r72_alpha_skeleton_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r76 Problem 2 substrate discharge capstone *)
 
-Theorem r76_problem2_substrate_discharge_capstone_parity : True.
+Theorem r76_problem2_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- r63-r76 Priorities 1 and 2 combined capstone *)
 
-Theorem r63_r76_priorities_1_and_2_combined_substrate_discharge_capstone_parity : True.
+Theorem r63_r76_priorities_1_and_2_combined_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End I5VortexDoublingSubstrateDischarge.

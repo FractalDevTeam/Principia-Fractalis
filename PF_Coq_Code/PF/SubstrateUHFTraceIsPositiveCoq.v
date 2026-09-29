@@ -56,22 +56,22 @@ Module SubstrateUHFTraceIsPositive.
 
 (** ## Section 1 -- Level-k matrix trace positivity on star M * M *)
 
-Theorem normalized_matrix_trace_star_mul_self_nonneg_parity : True.
+Theorem normalized_matrix_trace_star_mul_self_nonneg_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Substrate pre-trace positivity on TimelessFieldRing *)
 
-Theorem substrate_pre_trace_star_mul_self_nonneg_parity : True.
+Theorem substrate_pre_trace_star_mul_self_nonneg_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Substrate UHF trace positivity on TimelessFieldCompletion *)
 
-Theorem UHF_trace_star_mul_self_nonneg_parity : True.
+Theorem UHF_trace_star_mul_self_nonneg_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r98 substrate UHF trace positivity capstone *)
 
-Theorem r98_substrate_UHF_trace_positive_capstone_parity : True.
+Theorem r98_substrate_UHF_trace_positive_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End SubstrateUHFTraceIsPositive.

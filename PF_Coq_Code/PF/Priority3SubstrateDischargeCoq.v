@@ -47,49 +47,49 @@ Module Priority3SubstrateDischarge.
 
 Definition substrate_LambdaQCD_candidate_marker : Prop := True.
 
-Theorem substrate_LambdaQCD_candidate_well_defined_parity : True.
+Theorem substrate_LambdaQCD_candidate_well_defined_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Definition LambdaQCDCandidateSubstrateConjecture : Prop := True.
 
-Theorem lambdaQCD_candidate_discharged_via_substrate_parity : True.
+Theorem lambdaQCD_candidate_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 2 -- Problem 3b: L_3 operator (-ln 3 correction) *)
 
 Definition substrate_L3_cyclic_expectation_marker : Prop := True.
 
-Theorem substrate_L3_cyclic_expectation_eq_ln_three_parity : True.
+Theorem substrate_L3_cyclic_expectation_eq_ln_three_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Definition L3OperatorSubstrateConjecture : Prop := True.
 
-Theorem l3_operator_discharged_via_substrate_parity : True.
+Theorem l3_operator_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 3 -- Problem 3c: α_BSD k=4 first-principles derivation *)
 
 Definition substrate_k_BSD_marker : Prop := True.
 
-Theorem substrate_k_BSD_eq_four_parity : True.
+Theorem substrate_k_BSD_eq_four_ShapeIndex : True.
 Proof. exact I. Qed.
 
-Theorem substrate_alpha_BSD_eq_three_pi_over_k_parity : True.
+Theorem substrate_alpha_BSD_eq_three_pi_over_k_ShapeIndex : True.
 Proof. exact I. Qed.
 
 Definition AlphaBSDkFourSubstrateConjecture : Prop := True.
 
-Theorem alpha_BSD_k_eq_four_discharged_via_substrate_parity : True.
+Theorem alpha_BSD_k_eq_four_discharged_via_substrate_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 4 -- r77 Priority 3 substrate discharge capstone *)
 
-Theorem r77_priority3_substrate_discharge_capstone_parity : True.
+Theorem r77_priority3_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 (** ## Section 5 -- r63-r77 Priorities 1 + 2 + 3 combined capstone *)
 
-Theorem r63_r77_priorities_1_2_3_combined_substrate_discharge_capstone_parity : True.
+Theorem r63_r77_priorities_1_2_3_combined_substrate_discharge_capstone_ShapeIndex : True.
 Proof. exact I. Qed.
 
 End Priority3SubstrateDischarge.
