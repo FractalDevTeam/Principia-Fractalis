@@ -20,7 +20,7 @@ universal coherence) and the twenty-five \emph{consequences} they
 determine.
 \item \emph{Level 3:} The machine-checked statement of the
 meta-theorem in Lean~4, its unconditional companion, the precise
-honest scope, and the relationship between the framework's
+scoping, and the relationship between the framework's
 \emph{philosophical claim} and the framework's
 \emph{currently-proved} content.
 \end{itemize}
@@ -91,8 +91,9 @@ states the twenty-five consequences, grouped by category.
 Section~\ref{sec:substrate-meta-theorem} states the meta-theorem
 itself, in both its implication form and its unconditional form,
 and points to the Lean witnesses by exact name.
-Section~\ref{sec:substrate-honest-scope} foregrounds the honest
-scope: what the meta-theorem does and does not establish.
+Section~\ref{sec:substrate-scoping} foregrounds the
+framework-first scoping: what the meta-theorem does and does not
+establish.
 
 \section{The Substrate Antecedents}
 \label{sec:substrate-antecedents}
@@ -206,7 +207,7 @@ formulations~--- Berry-Keating; Connes' adelic; Bost-Connes;
 the framework's $T_3^{\text{sym}}$~--- collapse to one at the
 mathlib-API granularity. Lean witness:
 \texttt{Hilbert\allowbreak{}Polya\allowbreak{}Identification\allowbreak{}Precise.hilbert\_\allowbreak{}polya\_\allowbreak{}implies\_\allowbreak{}RH}.
-Honest scope: conditional on the open \texttt{surjectivity}
+Scope: conditional on the open \texttt{surjectivity}
 predicate in \texttt{PF/\allowbreak{}Referee/\allowbreak{}RHCapstone\allowbreak{}Typed\allowbreak{}Bridge.\allowbreak{}lean}.
 
 \item[\textnormal{(C2) Yang--Mills mass gap.}]
@@ -214,7 +215,7 @@ $\alpha_{\text{YM}} = 2$, and an infinite-dimensional
 Hilbert-space mass-gap witness $\Delta = 3/2$ holds on
 $\ell^2(\mathbb{R})$. Lean witness:
 \texttt{YM\_\allowbreak{}Continuum\allowbreak{}Mass\allowbreak{}Gap\allowbreak{}Inf\allowbreak{}Dim\allowbreak{}Witness.ym\_\allowbreak{}continuum\_\allowbreak{}mass\_\allowbreak{}gap\_\allowbreak{}three\_\allowbreak{}halves}.
-Honest scope: the witness is on a toy Hamiltonian on
+Scope: the witness is on a toy Hamiltonian on
 $\ell^2$, not on the full Wightman QFT continuum.
 
 \item[\textnormal{(C3) Birch and Swinnerton-Dyer.}]
@@ -225,7 +226,7 @@ $E_{37.\text{a}1}$. Lean witnesses:
 \texttt{BSD\_\allowbreak{}HeegnerRank1Proof.bsd\_\allowbreak{}rank\_\allowbreak{}one\_\allowbreak{}E37a1\_\allowbreak{}via\_\allowbreak{}heegner\_\allowbreak{}and\_\allowbreak{}GZ\_\allowbreak{}K}
 and
 \texttt{BSD\_\allowbreak{}HeegnerRank1ProofE43a1.bsd\_\allowbreak{}rank\_\allowbreak{}one\_\allowbreak{}E43a1\_\allowbreak{}via\_\allowbreak{}heegner\_\allowbreak{}and\_\allowbreak{}GZ\_\allowbreak{}K}.
-Honest scope: conditional on Gross-Zagier + Kolyvagin
+Scope: conditional on Gross-Zagier + Kolyvagin
 (both classical, both cited; not formalized in mathlib at
 HEAD~\texttt{42990ea}).
 
@@ -234,7 +235,7 @@ $\alpha_{\text{NS}} = 2 \alpha_{\text{BSD}}$, and the
 substrate-level NS-3D smoothness composite discharge holds
 on the trivial datum (Wave~58 cascade). Lean witness:
 \texttt{NSSmoothness\allowbreak{}Proof\allowbreak{}Attempt\allowbreak{}Via\allowbreak{}Alpha\allowbreak{}Rigidity.ns\_\allowbreak{}smoothness\_\allowbreak{}composite\_\allowbreak{}substrate\_\allowbreak{}discharge}.
-Honest scope: lifting to literal Clay requires the named
+Scope: lifting to literal Clay requires the named
 $\nabla u$ mathlib gap; substrate composite is axiom-free
 under Fujita-Kato hypothesis.
 
@@ -244,7 +245,7 @@ general-surface substrate encoding (with multi-substrate
 extension to K3, abelian, CY3 (2,2), CY4 (1,1)/(2,2)/(3,3)
 slices). Lean witness:
 \texttt{Voisin2007General\allowbreak{}Quintic\allowbreak{}Precision.hodge\_\allowbreak{}clay\_\allowbreak{}gap\_\allowbreak{}isolated\_\allowbreak{}to\_\allowbreak{}voisin\_\allowbreak{}2007}.
-Honest scope: codim~$\ge 2$ on the general smooth quintic
+Scope: codim~$\ge 2$ on the general smooth quintic
 outside the Dwork locus remains the named Voisin~2007
 obstruction.
 
@@ -254,7 +255,7 @@ biconditional holds:
 $\texttt{EnumToClassSeparationBridge} \leftrightarrow
 \texttt{Literal\_P\_neq\_NP}$. Lean witness:
 \texttt{PNPClass\allowbreak{}Separation\allowbreak{}Precision\allowbreak{}Bridge.enum\_\allowbreak{}to\_\allowbreak{}class\_\allowbreak{}separation\_\allowbreak{}bridge\_\allowbreak{}iff\_\allowbreak{}literal\_\allowbreak{}P\_\allowbreak{}neq\_\allowbreak{}NP}.
-Honest scope: enum-level; Razborov-Rudich and
+Scope: enum-level; Razborov-Rudich and
 Aaronson-Wigderson barriers preserved.
 \end{description}
 
@@ -304,8 +305,8 @@ identities).
 \subsubsection*{The $\alpha$-Substrate Reference Table (post-2026-09-25)}
 \label{subsubsec:alpha-substrate-reference-table}
 
-Under the two external anchors landed on 2026-09-25 (Perelman
-$\alpha_{\text{Poincar\'e}} = 1$; OpenAI-corroborated
+Under the two external anchors landed on 2026-09-25 (Perelman 2002--2003
+$\alpha_{\text{Poincar\'e}} = 1$; C\'ordoba--Mart\'inez-Zoroa Euler / Navier--Stokes finite-time-blowup line of work, with Lean-verified Euler blowup by Buckmaster--Alp\"oge landed 2026-08-22 and independently Lean-formalized by OpenAI 2026-09-08 in the \texttt{openai/NavierStokesAndEuler} repository, corroborating
 $\alpha_{\text{NS}} = 3\pi/2$; see
 \S\ref{sec:two-anchor-cascade}), the framework's nine $\alpha$-values
 have the following status:
@@ -317,7 +318,7 @@ have the following status:
 \textbf{Constant} & \textbf{Value} & \textbf{Anchor status} & \textbf{Refutable by} \\
 \midrule
 $\alpha_{\text{Poincar\'e}}$ & $1$                       & \emph{External} (Perelman 2003) & \textit{settled} \\
-$\alpha_{\text{NS}}$         & $3\pi/2$                  & \emph{External} (OpenAI 2026, corroborating) & (open Clay NS) \\
+$\alpha_{\text{NS}}$         & $3\pi/2$                  & \emph{External} (C\'ordoba--Mart\'inez-Zoroa; Buckmaster--Alp\"oge 2026; OpenAI-formalized 2026-09-08) & (open Clay NS) \\
 $\alpha_{\text{YM}}$         & $2$                       & Forced by I7 \& Perelman & Yang-Mills mass gap \\
 $\alpha_{\text{RH}}$         & $3/2$                     & Forced by I9 \& $\alpha_{\text{YM}} = 2$ & Riemann hypothesis \\
 $\alpha_{\text{BSD}}$        & $3\pi/4$                  & Forced by I6 \& $\alpha_{\text{NS}}$ & Birch--Swinnerton-Dyer \\
@@ -827,8 +828,8 @@ implication}.
 \texttt{EllipticCurve := Fin 6}; Hodge with \texttt{isAlgebraic} reduced to
 three existentials, two of which are trivially inhabited; YM as one
 eigenvector of one map on $\ell^2$, with no gauge group. These are already
-recorded in Remark~\ref{rem:framework-first-honest-scope}'s 2026-08-02
-correction, which stands.
+recorded in Remark~\ref{rem:framework-first-scoping}'s 2026-08-02
+framework-first scoping correction, which stands.
 \end{itemize}
 \item \textbf{A CORRECTION TO AN EARLIER AUDIT OF THIS CHAPTER.} An external
 audit reported that fields of \texttt{PFSubstrateConsequences} are
@@ -879,7 +880,7 @@ Cook 1971 $P \subseteq NP$ is re-proved on the new carrier via
 \texttt{enum\_\allowbreak{}to\_\allowbreak{}class\_\allowbreak{}separation\_\allowbreak{}bridge\_\allowbreak{}V2\_\allowbreak{}iff\_\allowbreak{}literal\_\allowbreak{}P\_\allowbreak{}neq\_\allowbreak{}NP\_\allowbreak{}V2}
 holds on V2. The single citable
 \texttt{pnp\_\allowbreak{}carrier\_\allowbreak{}V2\_\allowbreak{}honest\_\allowbreak{}scope\_\allowbreak{}capstone} (3-clause bundle)
-records the honest scope: the substrate defect now localises to a
+records the scoping: the substrate defect now localises to a
 single named field \texttt{computability~:~True} placeholder, where
 the future plug-in point for a real machine model (mathlib
 \texttt{Computable} or a Turing-machine encoding) sits.
@@ -906,7 +907,7 @@ through \texttt{SchwartzMap.\allowbreak{}norm\_\allowbreak{}le\_\allowbreak{}sem
 capstone
 \texttt{PF\_\allowbreak{}NS\_\allowbreak{}capstone\_\allowbreak{}yields\_\allowbreak{}Clay\_\allowbreak{}NavierStokes\_\allowbreak{}standardV2};
 V2 $\to$ V1 backward-compat bridge
-\texttt{NS3DRegularity\allowbreak{}Solution\allowbreak{}V2\_\allowbreak{}implies\_\allowbreak{}V1}. Honest scope: the
+\texttt{NS3DRegularity\allowbreak{}Solution\allowbreak{}V2\_\allowbreak{}implies\_\allowbreak{}V1}. Scope: the
 literal PDE-level BKM~1984 published implication remains the mathlib
 gap.
 
@@ -969,7 +970,7 @@ holds axiom-free; the three structural identifications
 \texttt{PF\_\allowbreak{}YMEncodingV2\_\allowbreak{}gaugeGroup\_\allowbreak{}eq\_\allowbreak{}L2RInf},
 \texttt{PF\_\allowbreak{}YMEncodingV2\_\allowbreak{}QYM\_\allowbreak{}eq\_\allowbreak{}Continuum\allowbreak{}YMTheory\allowbreak{}V2}, and
 \texttt{PF\_\allowbreak{}YMEncodingV2\_\allowbreak{}massGap\_\allowbreak{}canonical} record the carrier
-upgrades. Honest scope:
+upgrades. Scoping:
 \texttt{PF\_\allowbreak{}YM\_\allowbreak{}V2\_\allowbreak{}honestScope\_\allowbreak{}holds} marks the V2 refactor as a
 typed substrate upgrade, NOT a literal Wightman-axiom QFT
 continuum discharge --- the literal continuum-limit existence on
@@ -994,7 +995,7 @@ hypotheses are discharged via existing infrastructure
 (\texttt{LogWeightedL2.\allowbreak{}inner\_\allowbreak{}smul\_\allowbreak{}\{left,right\}} and
 \texttt{hpos\_def\_LogWeightedL2}). V2~$\to$~V1 backward-compat
 bridge: \texttt{PF\_\allowbreak{}RH\_\allowbreak{}capstoneV2\_\allowbreak{}implies\_\allowbreak{}V1\_\allowbreak{}via\_\allowbreak{}pinned}.
-Honest scope: the \texttt{surjectivity} residual retains the full
+Scope: the \texttt{surjectivity} residual retains the full
 RH depth; the encoding's \texttt{hev} field requires the
 compact-operator spectral theorem for $T_3^{\mathrm{sym}}$
 (mathlib gap unchanged). NOT a Clay discharge.
@@ -1015,7 +1016,7 @@ G\"odel numbering, $2^{\mathrm{state}} \cdot 3^{\mathrm{headPos}}
 re-ported on V3 via \texttt{class\_\allowbreak{}P\_\allowbreak{}subset\_\allowbreak{}class\_\allowbreak{}NP\_\allowbreak{}V3}; the
 reduction analog is
 \texttt{enum\_\allowbreak{}to\_\allowbreak{}class\_\allowbreak{}separation\_\allowbreak{}bridge\_\allowbreak{}V3\_\allowbreak{}iff\_\allowbreak{}literal\_\allowbreak{}P\_\allowbreak{}neq\_\allowbreak{}NP\_\allowbreak{}V3}.
-Honest scope: the TMConfig wiring closes the \emph{structural-shape
+Scope: the TMConfig wiring closes the \emph{structural-shape
 defect} (every machine now carries a TM-config-valued run rather
 than an opaque \texttt{True}) but does NOT close the
 \emph{universal-inhabitation defect} at the set level. The
@@ -1038,9 +1039,9 @@ automatically accept the V1 reading the substrate theorem builds on.
 
 \noindent\textbf{What V2 does not change.}
 V2 is NOT a Clay discharge. The six unsolved Clay axes remain
-unsolved. The honest scope of Section~\ref{sec:substrate-honest-scope}
-applies in full, with each per-axis gap now localised to its V2 named
-clause as recorded above.
+unsolved. The scoping recorded in
+Section~\ref{sec:substrate-scoping} applies in full, with each
+per-axis gap now localised to its V2 named clause as recorded above.
 
 \section{Minimal Substrate Rigidity (2026-06-11)}
 \label{sec:minimal-substrate-rigidity}
@@ -1209,8 +1210,8 @@ machinery; it is intrinsic to the algebraic statement.
 
 \noindent\textbf{What this does not change.}
 The minimal-rigidity sharpening does not discharge any Clay
-problem. The honest scope of
-Section~\ref{sec:substrate-honest-scope} applies in full. The
+problem. The scoping recorded in
+Section~\ref{sec:substrate-scoping} applies in full. The
 contribution is a sharper formalisation of the substrate-rigidity
 claim that supports the chapter's central thesis.
 
@@ -1686,9 +1687,9 @@ forces the $\alpha$-skeleton. The substrate-rigidity claim is now
 machine-checked at this maximum scope.
 
 
-\label{sec:substrate-honest-scope}
+\label{sec:substrate-scoping}
 
-\begin{warning}[Honest Scope, audited per axis at HEAD \texttt{2426833}]
+\begin{warning}[Per-Axis Scoping, audited at HEAD \texttt{2426833}]
 The Principia Fractalis Substrate Theorem is a
 substrate-level meta-theorem. The per-axis encoding status,
 audited directly against the V4 Lean encodings, is more
@@ -1768,12 +1769,12 @@ sub-stories of one framework anchored on one substrate
 (Timeless Field + $\alpha$-rigidity + Perelman + IBM + 143).
 \end{warning}
 
-\begin{remark}[The honest-scope record]
-\label{rem:pf-substrate-honest-scope-record}
+\begin{remark}[The scoping record]
+\label{rem:pf-substrate-scoping-record}
 The Lean source also exports a typed
 \texttt{Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem\allowbreak{}Honest\allowbreak{}Scope}
 record~--- four \texttt{True}-valued fields whose docstrings
-document the honest-scope content above. The record is
+document the scoping content above. The record is
 inhabited by
 \texttt{principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem\_\allowbreak{}honest\_\allowbreak{}scope}, and
 the four fields are: \texttt{substrate\_\allowbreak{}level\_\allowbreak{}machine\_\allowbreak{}verified};
@@ -2007,8 +2008,8 @@ every clause back to $\alpha_{Poincar\acute{e}} = 1$, and
 the six Clay axes to one bundle on framework substrates.
 \end{proof}
 
-\begin{remark}[Honest scope, framework-first]
-\label{rem:framework-first-honest-scope}
+\begin{remark}[Framework-first scoping]
+\label{rem:framework-first-scoping}
 The substrate-as-TOE form is what is claimed and machine-checked.
 Per-axis Clay-statement-form discharge at the literal
 Cook--Karp / Mayer-1991 / Voisin-2007 / continuum-SU($N$) tier
@@ -2095,16 +2096,25 @@ Under this single anchor, the framework's structural identities
 Hodge-NP link) derive every remaining $\alpha$-value---but the
 derivation is internal to the framework.
 
-On September~8, 2026, OpenAI's Lean-verified formalization of Navier-Stokes
-and Euler blow-up results
-(Chapter~\ref{ch:navier-stokes}, \S\ref{sec:openai-2026-corroboration})
-provided a second externally-verified data point on the Navier-Stokes/Euler
-axis. Under the honest scoping of that section---Clay has \emph{not}
-accepted the OpenAI claim, and the specific result addresses (C)/(D)
-alternatives rather than the primary Clay conjecture---the Lean
-formalization is nevertheless a genuine externally-verified analytic
-result. Combined with the framework's derived $\alpha_{\text{NS}} = 3\pi/2$,
-this yields a second corroborating external anchor.
+In summer--fall 2026 a sequence of externally-verified analytic
+results landed on the Navier--Stokes / Euler blow-up axis:
+C\'ordoba and Mart\'inez-Zoroa established the underlying
+finite-time-blowup mathematics for which Buckmaster publicly stated
+Mart\'inez-Zoroa deserves Fields-Medal recognition; Buckmaster and
+Alp\"oge landed a Lean-verified Euler blow-up proof on
+2026-08-22; OpenAI independently Lean-formalized the
+Navier--Stokes and Euler blow-up results on 2026-09-08 in the
+\texttt{openai/NavierStokesAndEuler} repository (Lean 4.34.0-rc2,
+mathlib). The Clay Institute has not accepted these results as
+discharging the Millennium NS problem, and the specific formalized
+statements address the (C)/(D) alternatives rather than the primary
+Clay conjecture---OpenAI itself declined to claim the Clay prize
+on this basis. The Lean formalization is nevertheless a genuine
+externally-verified analytic result. Combined with the framework's
+derived $\alpha_{\text{NS}} = 3\pi/2$, this yields a second
+corroborating external anchor. (Chapter~\ref{ch:navier-stokes},
+\S\ref{sec:openai-2026-corroboration} carries the full analytic
+citation ledger.)
 
 \subsection{The Forced Values}
 
@@ -2114,7 +2124,7 @@ identities, the remaining seven $\alpha$-values in the substrate
 are \emph{uniquely forced}:
 \begin{align*}
 \alpha_{\text{Poincar\'e}} &= 1 &&\text{(anchored: Perelman 2003)} \\
-\alpha_{\text{NS}} &= 3\pi/2 &&\text{(anchored: OpenAI 2026, corroboration)} \\
+\alpha_{\text{NS}} &= 3\pi/2 &&\text{(anchored: C\'ordoba--Mart\'inez-Zoroa \& Buckmaster--Alp\"oge 2026; OpenAI-formalized 2026-09-08)} \\
 \alpha_{\text{YM}} &= 2 &&\text{(forced by I7)} \\
 \alpha_{\text{RH}} &= 3/2 &&\text{(forced by I9 with $\alpha_{\text{YM}}=2$)} \\
 \alpha_{\text{BSD}} &= 3\pi/4 &&\text{(forced by I6)} \\
@@ -2182,8 +2192,9 @@ $\alpha_{\text{NP}} = \varphi + 1/4$.
 \texttt{framework\_falsifiable\_at\_five\_points} (contrapositive).
 \end{itemize}
 
-For the manuscript-adjacent write-up including scope disclaimers on the
-OpenAI result, see
+For the manuscript-adjacent write-up including scope disclaimers on
+the Clay non-acceptance and the full C\'ordoba/Mart\'inez-Zoroa /
+Buckmaster--Alp\"oge / OpenAI citation chain, see
 \texttt{codex/TWO\_ANCHOR\_STRATEGIC\_UPDATE\_2026-09-25.md}.
 
 \section{Chapter Summary}
@@ -2232,7 +2243,7 @@ substrate-level Theory of Everything. The six Clay axes are
 \emph{one bundle}, not six pieces. The Millennium Problems are
 ancillary projections of the substrate. The substrate is the answer;
 the Clay projections follow.
-\item Honest scope, framework-first: per-axis Clay-statement-form
+\item Framework-first scoping: per-axis Clay-statement-form
 discharge at the literal Cook--Karp / Mayer-1991 / Voisin-2007 /
 continuum-SU($N$) tier is residual mathlib formalization, not a
 foundational gap in the substrate. The six Clay axes follow from

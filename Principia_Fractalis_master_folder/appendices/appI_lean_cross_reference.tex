@@ -79,14 +79,14 @@ theorem name (with its module path) that verifies the claim.
 mirrors the Lean theorem, --- if not.
 \end{itemize}
 
-\textbf{Honest scope:} as elsewhere in this manuscript, each Lean
+\textbf{Scoping:} as elsewhere in this manuscript, each Lean
 theorem is axiom-free under
 $[\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}]$
 (i.e.\ Lean's three foundational axioms; no project-level axiom is
-invoked). Each per-axis theorem retains the individual honest scope
+invoked). Each per-axis theorem retains the individual scoping
 documented in its source file and in
 Chapter~\ref{ch:substrate-theorem}'s
-\S\ref{sec:substrate-honest-scope}. The substrate theorem of
+\S\ref{sec:substrate-scoping}. The substrate theorem of
 Chapter~\ref{ch:substrate-theorem} bundles all the per-axis
 theorems into one citable meta-theorem.
 
@@ -241,7 +241,7 @@ Ch~\ref{ch:birch-swinnerton-dyer} (BSD, \textbf{V2})
 & \texttt{PF.Referee.BSDCapstoneTypedBridgeV2.PF\_BSD\_capstone\_yields\_Clay\_BSD\_standardV2}; \texttt{algebraicRankV2\_routed\_via\_RankWitnessTyped}; \texttt{analyticRankV2\_routed\_via\_SelmerRankEquals}; \texttt{PF\_BSD\_capstoneV2\_implies\_V1}.
 & --- \\
 Ch~\ref{ch:birch-swinnerton-dyer} (BSD, \textbf{Bounded encoding} + tree-state diagnostic, 2026-09-12)
-& \textbf{Two-rank-witness encoding} paired with \textbf{tree-completeness asymmetry diagnostics.} The encoding carries two independent rank-lower-bound fields with typed evidence; the diagnostics report that the current Lean tree exposes \texttt{RankWitnessTyped}-shape algebraic evidence via the Heegner cascade but no kernel-verified analytic-rank machinery. \emph{Not a Clay discharge; not a BSD proof; not a BSD gap on \(E_{37.a1}\).} The diagnostic theorems measure LEAN TREE state, not curve arithmetic: \texttt{RankWitnessTyped $E$ 1} ignores $E$ and reduces to $\exists$ one nonzero rational; \texttt{r\_an\_lb = 0} records absent tree machinery, not analytic rank zero (LMFDB records analytic rank of $E_{37.a1}$ equal to 1). Matches book Ch.~\ref{ch:birch-swinnerton-dyer} post-2026-07-31 falsification-cascade honest scope: BSD remains open, Mestre--Nagao is the surviving substrate signal (\texttt{PF/EllipticTrace\_r194.lean}).
+& \textbf{Two-rank-witness encoding} paired with \textbf{tree-completeness asymmetry diagnostics.} The encoding carries two independent rank-lower-bound fields with typed evidence; the diagnostics report that the current Lean tree exposes \texttt{RankWitnessTyped}-shape algebraic evidence via the Heegner cascade but no kernel-verified analytic-rank machinery. \emph{Not a Clay discharge; not a BSD proof; not a BSD gap on \(E_{37.a1}\).} The diagnostic theorems measure LEAN TREE state, not curve arithmetic: \texttt{RankWitnessTyped $E$ 1} ignores $E$ and reduces to $\exists$ one nonzero rational; \texttt{r\_an\_lb = 0} records absent tree machinery, not analytic rank zero (LMFDB records analytic rank of $E_{37.a1}$ equal to 1). Matches book Ch.~\ref{ch:birch-swinnerton-dyer} post-2026-07-31 falsification-cascade scoping: BSD remains open, Mestre--Nagao is the surviving substrate signal (\texttt{PF/EllipticTrace\_r194.lean}).
 & Structural: \texttt{PrincipiaTractalis.BSD.BoundedEncoding.StandardBSDEncoding\_Bounded}; \texttt{no\_analytic\_rank\_ge\_one\_evidence\_yet}; \texttt{bounded\_witness\_forces\_analytic\_zero}; \texttt{bounded\_encoding\_projectionAsymmetry\_from\_algebraic\_lb}; \texttt{bounded\_encoding\_ClayPredicate\_falsifiable\_via\_algebraic\_lb}. Tree-state diagnostics on $E_{37.a1}$: \texttt{treeStateInstance\_E37a1}; \texttt{boundedEncoding\_projectionAsymmetry\_at\_E37a1}; \texttt{boundedEncoding\_ClayPredicate\_falsified\_by\_treeAsymmetry} (all in \texttt{PF/BSD\_BoundedEncodingHonest.lean}; charter \texttt{codex/BSD\_HONEST\_REWRITE\_CHARTER\_2026-09-12.md}). Provenance aliases for the original commit-\texttt{b00cf776} names \texttt{bounded\_encoding\_exhibits\_bsd\_gap} and \texttt{bounded\_Clay\_BSD\_not\_provable\_under\_populated\_algebraic}, and for the original commit-\texttt{146c153d} names \texttt{witness\_E37a1}, \texttt{sigmaWitness\_E37a1}, \texttt{bounded\_encoding\_gap\_at\_E37a1}, \texttt{bounded\_Clay\_BSD\_fails\_unconditionally}, all retained as \texttt{@[deprecated]} (the pre-reclassification names were overclaims; see file docstring \S Epistemic Status).
 & --- \\
 Ch~\ref{ch:hodge-conjecture} (Hodge)
@@ -418,7 +418,7 @@ re-proved; the genuinely re-proved Coq layer is
 \texttt{PF\_Coq\_Code/PF\_Real/} (110 theorems, every
 \texttt{Print Assumptions} closed). \textbf{(2) A clean Lean
 elaboration of a theorem does not upgrade its scope}: each entry
-retains the honest-scope status of its source chapter's ledger ---
+retains the scoping status of its source chapter's ledger ---
 CONDITIONAL REDUCTION entries remain conditional, and entries whose
 carrier is substrate-restricted remain so. Ch.~34's master ledger
 governs; this appendix is a map, not a certificate.

@@ -297,11 +297,11 @@ Evaluating at $z = e^{i\pi\alpha}$ and requiring reality involves:
 The complete proof shows that reality occurs at $\alpha_P = \sqrt{2}$ (for P) and $\alpha_{NP} = \varphi + 1/4$ (for NP), and these are the \textit{only} values in $(1, 2)$ where self-adjointness holds.
 \end{proof}
 
-\noindent\emph{Honest-scope note (2026-07-25): the ``complete proof'' referred to here does not exist in the corpus --- $\alpha_{NP} = \varphi + 1/4$ is a definition (\texttt{PF/CrossMillenniumSharedInvariants.lean:70}), every purported derivation of it is circular, and the bare weighted generating-function reality condition invoked in this sketch has been machine-checked to \emph{exclude} both $\sqrt{2}$ and $\varphi + 1/4$ (\texttt{bare\_route\_structural\_finding}, \texttt{PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:130--133}); see the Verification status addendum (2026-07-25) later in this chapter and \texttt{codex/ALPHA\_NP\_DERIVABILITY\_2026-07-25.md}.}
+\noindent\emph{Scope note (2026-07-25): the ``complete proof'' referred to here does not exist in the corpus --- $\alpha_{NP} = \varphi + 1/4$ is a definition (\texttt{PF/CrossMillenniumSharedInvariants.lean:70}), every purported derivation of it is circular, and the bare weighted generating-function reality condition invoked in this sketch has been machine-checked to \emph{exclude} both $\sqrt{2}$ and $\varphi + 1/4$ (\texttt{bare\_route\_structural\_finding}, \texttt{PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:130--133}); see the Verification status addendum (2026-07-25) later in this chapter and \texttt{codex/ALPHA\_NP\_DERIVABILITY\_2026-07-25.md}.}
 
 \begin{level3}[Connection to Consciousness]
 These critical values are not arbitrary:
-\emph{(Honest-scope note, 2026-07-25: the items below are motivations, not derivations. The $\varphi$ term has a genuine structural motivation via the icosahedral $H_3$ Coxeter group; the $1/4$ term has none --- the Lean ``derivation'' \texttt{alpha\_NP\_eq\_phi\_plus\_inv\_gap} (\texttt{PF/H3CoxeterOrigin.lean:244--248}) states $\varphi + 1/4 = \varphi + 1/4$ and is closed by \texttt{norm\_num}.)}
+\emph{(Scope note, 2026-07-25: the items below are motivations, not derivations. The $\varphi$ term has a genuine structural motivation via the icosahedral $H_3$ Coxeter group; the $1/4$ term has none --- the Lean ``derivation'' \texttt{alpha\_NP\_eq\_phi\_plus\_inv\_gap} (\texttt{PF/H3CoxeterOrigin.lean:244--248}) states $\varphi + 1/4 = \varphi + 1/4$ and is closed by \texttt{norm\_num}.)}
 \begin{itemize}
 \item $\sqrt{2}$ appears in Chapter \ref{ch:constants} as a universal consciousness parameter
 \item $\varphi + 1/4$ combines the golden ratio (optimal packing, Fibonacci growth) with the $1/4$ correction from quantum mechanics (Casimir energy, entanglement entropy)
@@ -1242,7 +1242,7 @@ There exists no polynomial-time algorithm solving the Boolean satisfiability pro
 
 \begin{proof}
 SAT is NP-complete\cite{cook1971complexity}. If there were a polynomial-time algorithm for SAT, then P = NP. But Theorem \ref{thm:main-p-neq-np} proves P $\neq$ NP.
-\emph{(Honest-scope note, 2026-07-23: Ref.~\ref{thm:main-p-neq-np} is a \textbf{conjecture}, not a theorem, and it rests on the asserted $\alpha$-pin; this corollary is therefore conditional and P $\neq$ NP is not established in the Clay sense.)}
+\emph{(Scope note, 2026-07-23: Ref.~\ref{thm:main-p-neq-np} is a \textbf{conjecture}, not a theorem, and it rests on the asserted $\alpha$-pin; this corollary is therefore conditional and P $\neq$ NP is not established in the Clay sense.)}
 \end{proof}
 
 \begin{corollary}[Existence of One-Way Functions]\label{cor:one-way}

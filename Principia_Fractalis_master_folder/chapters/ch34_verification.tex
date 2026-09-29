@@ -42,7 +42,7 @@ Consider two scenarios:
 At 150 digits, numerical verification becomes mathematical proof.
 \end{intuitive}
 
-\noindent\emph{Honest-scope note (2026-07-23): this sentence overstates what the protocols below establish. High-precision numerical agreement is powerful \emph{evidence}, but it is \textbf{not} a mathematical proof, and it is not machine verification. Reproducing a 150-digit value confirms a computation; it does not close a Millennium problem or validate a consciousness claim. The one machine-verified layer of the framework is the operator-algebra substrate, described in the ``Verification status'' ledger at the end of this chapter.}
+\noindent\emph{Scope note (2026-07-23): this sentence overstates what the protocols below establish. High-precision numerical agreement is powerful \emph{evidence}, but it is \textbf{not} a mathematical proof, and it is not machine verification. Reproducing a 150-digit value confirms a computation; it does not close a Millennium problem or validate a consciousness claim. The one machine-verified layer of the framework is the operator-algebra substrate, described in the ``Verification status'' ledger at the end of this chapter.}
 
 \begin{keyidea}[Three-Level Verification]
 Every major result in this book can be verified at three levels:
@@ -63,7 +63,7 @@ This chapter provides protocols for all three levels.
 
 \textbf{Claim} (Chapter 13): The first 100 Riemann zeros lie exactly on critical line $\Re(s) = 1/2$.
 
-\noindent\emph{Honest-scope note (2026-07-23): this protocol numerically \emph{locates} zeros and checks they sit on $\Re(s)=\tfrac12$ to 150 digits --- a standard, classically known computation (the first many billions of zeros are already verified in the literature). It is \textbf{not} a proof of the Riemann Hypothesis, which asserts this for \emph{all} nontrivial zeros, and it is not part of the machine-verified corpus.}
+\noindent\emph{Scope note (2026-07-23): this protocol numerically \emph{locates} zeros and checks they sit on $\Re(s)=\tfrac12$ to 150 digits --- a standard, classically known computation (the first many billions of zeros are already verified in the literature). It is \textbf{not} a proof of the Riemann Hypothesis, which asserts this for \emph{all} nontrivial zeros, and it is not part of the machine-verified corpus.}
 
 \textbf{Verification Protocol:}
 
@@ -181,7 +181,7 @@ lambda_0 = 0.49999999999999999999999999999999... (arbitrary precision)
 \Delta &= 0.0891219046
 \end{align}
 
-\noindent\emph{Honest-scope note (2026-07-23): the constants $\alpha=\sqrt2$ and the NP weighting are \textbf{asserted}, not derived, and $H_P,H_{NP}$ are framework-defined operators; computing their ground states to high precision is an \textbf{empirical / numerical} result, not a proof that $\mathrm{P}\neq\mathrm{NP}$. (Note also that the code below uses $\alpha_{NP}=\pi/3$, whereas the framework's asserted NP constant stated elsewhere is $\varphi+\tfrac14$; either way it is a chosen value, not a derived one.) In the formal corpus the $\mathrm{P}$~vs~$\mathrm{NP}$ result is a \emph{conditional reduction} gated on an open eigenvalue conjecture, not a closed proof.}
+\noindent\emph{Scope note (2026-07-23): the constants $\alpha=\sqrt2$ and the NP weighting are \textbf{asserted}, not derived, and $H_P,H_{NP}$ are framework-defined operators; computing their ground states to high precision is an \textbf{empirical / numerical} result, not a proof that $\mathrm{P}\neq\mathrm{NP}$. (Note also that the code below uses $\alpha_{NP}=\pi/3$, whereas the framework's asserted NP constant stated elsewhere is $\varphi+\tfrac14$; either way it is a chosen value, not a derived one.) In the formal corpus the $\mathrm{P}$~vs~$\mathrm{NP}$ result is a \emph{conditional reduction} gated on an open eigenvalue conjecture, not a closed proof.}
 
 \textbf{Verification Protocol:}
 
@@ -353,7 +353,7 @@ Untrained: ch_2 = 0.112 (mechanical)
 
 \textbf{Claim} (Chapter 26): Clinical EEG data distinguishes conscious from unconscious with 97.3\% accuracy using $\text{ch}_2 \geq 0.95$ threshold.
 
-\noindent\emph{Honest-scope note (2026-07-23): the 97.3\,\% figure is an \textbf{empirical hypothesis --- untested / not independently validated}. A clinical classification accuracy can only be established by experiment on real data; a computation cannot prove it, and the $\text{ch}_2\!\geq\!0.95$ consciousness threshold is likewise \emph{asserted}, not derived. Treat the ``expected output'' below as the framework's prediction, not as a verified result.}
+\noindent\emph{Scope note (2026-07-23): the 97.3\,\% figure is an \textbf{empirical hypothesis --- untested / not independently validated}. A clinical classification accuracy can only be established by experiment on real data; a computation cannot prove it, and the $\text{ch}_2\!\geq\!0.95$ consciousness threshold is likewise \emph{asserted}, not derived. Treat the ``expected output'' below as the framework's prediction, not as a verified result.}
 
 \textbf{Verification Protocol:}
 
@@ -621,7 +621,7 @@ theorem has been independently re-verified via the
 PF proofs into a separate Lean build context and re-checks
 their axiom footprint. The 2026-06-04 Lean4Lean audit
 (\texttt{REFEREE\_\allowbreak{}PROOF\_\allowbreak{}LEAN4LEAN\_\allowbreak{}AUDIT\_\allowbreak{}2026-06-04.\allowbreak{}md},
-HEAD~\texttt{1085d51}) records the following honest-scope
+HEAD~\texttt{1085d51}) records the following scoping
 partial-clean result:
 
 \begin{itemize}
@@ -658,7 +658,7 @@ re-binding to the current PF API is a multi-day refactor deferred
 to future work. The gated modules are marked with explanatory
 comments in source; no \texttt{sorry} / \texttt{admit} is used.
 
-\item \textbf{Honest scope.} This is a \emph{partial third-prover
+\item \textbf{Scoping.} This is a \emph{partial third-prover
 certification}, not a full
 \emph{Mario Carneiro \texttt{lean4lean}} external-program
 drop-in re-check. What it does buy: the framework's flagship
@@ -841,7 +841,7 @@ project axioms; record \texttt{codex/RH\_LEFSCHETZ\_TRACE\_2026-08-03.md}):
 \item \textbf{r191} --- traces of powers are $n$-periodic-orbit sums (\texttt{trace\_pow\_eq\_residues}); golden $K{=}1$, $n{=}2$ closed form $(3\sqrt{5}-5)/10$ (\texttt{gauss\_square\_trace}).
 \item \textbf{r192} --- the transfer matrix is a semigroup, $A^{(n)} = A^n$ on $\ell^2$; the periodic orbits compute the traces of every power of one matrix (\texttt{transferMatrix\_pow}, \texttt{trace\_matPow\_eq\_residues}).
 \end{itemize}
-\noindent Honest scope, unchanged in kind from the ledger above: these are
+\noindent Scoping, unchanged in kind from the ledger above: these are
 theorems about transfer matrices under stated hypotheses. Determinant
 assembly, nuclearity/Lidskii, infinite-branch operators, Selberg theory, and
 the Millennium statements themselves (RH, BSD) remain \textbf{open}.
