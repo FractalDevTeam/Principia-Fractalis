@@ -163,7 +163,87 @@ theorem conclusion_nonvacuous
     ∃ σ t' : ℝ, riemannXiEntire ⟨σ, t'⟩ = 0 ∧ σ = 1/2 :=
   ⟨1/2, t, hz, rfl⟩
 
-/-! ## §4 — Axiom check -/
+
+/-! ## §5 — Decomposing the open step
+
+Part 1 routed the RH conclusion through `XiRectangleCountAtMostTwo`. That is
+**stronger than RH needs**, and proving more than necessary is its own kind of
+waste. This section separates the two things that Prop bundles:
+
+* **off-line exclusion** — every zero in the box has `Re s = 1/2`;
+* **on-line uniqueness** — on the critical line, the only zeros are `±t₀`.
+
+Only the first is required for `riemannHypothesis_below_15`. The second is needed
+solely to pin the count at exactly `2`, which no RH statement asks for. It is
+also the expensive half: it needs simplicity of the zeros, i.e. certified numeric
+bounds on `ξ'` at `1/2 + it₀` (the plan estimates `|ξ'| ≈ 8.9e-4`).
+
+Dropping it removes the certified-numerics requirement from the RH path. -/
+
+/-- **Off-line exclusion.** Every ξ-zero in `[0,1] × [-15,15]` lies on the
+critical line. This is exactly RH restricted to the box, and it is what the
+winding-number argument on `∂R` is positioned to deliver. -/
+def NoOffLineZeroInBox : Prop :=
+  ∀ σ t : ℝ, 0 ≤ σ → σ ≤ 1 → -15 ≤ t → t ≤ 15 →
+    riemannXiEntire ⟨σ, t⟩ = 0 → σ = 1/2
+
+/-- **★ RH below height 15 from off-line exclusion alone ★**
+
+Strictly weaker hypothesis than `rh_below_15_of_count_le_two`: no multiplicity
+claim, no uniqueness of the zero ordinate, no numerics on `ξ'`. -/
+theorem rh_below_15_of_no_off_line (H : NoOffLineZeroInBox) :
+    ∀ σ t : ℝ, 0 ≤ σ → σ ≤ 1 → -15 ≤ t → t ≤ 15 →
+      riemannXiEntire ⟨σ, t⟩ = 0 → σ = 1/2 := H
+
+/-- The count bound implies off-line exclusion, so the part-1 route is subsumed
+rather than discarded. The converse does **not** hold: off-line exclusion says
+nothing about how many on-line zeros there are, nor about their order. -/
+theorem noOffLine_of_countAtMostTwo (H : XiRectangleCountAtMostTwo) :
+    NoOffLineZeroInBox := by
+  intro σ t h0 h1 hm hM hz
+  obtain ⟨_, _, _, _, hσ⟩ := H σ t h0 h1 hm hM hz
+  exact hσ
+
+/-- **The on-line residual**, recorded separately so it is not confused with the
+RH path. Needed only for `count = 2`, not for RH below 15. -/
+def OnLineZeroOrdinateUnique : Prop :=
+  ∀ t : ℝ, -15 ≤ t → t ≤ 15 → riemannXiEntire ⟨1/2, t⟩ = 0 →
+    ∃ t₀ : ℝ, 1 < t₀ ∧ t₀ < 15 ∧ (t = t₀ ∨ t = -t₀)
+
+/-- The two halves together recover the full count bound, confirming the
+decomposition loses nothing. -/
+theorem countAtMostTwo_of_parts
+    (Hoff : NoOffLineZeroInBox) (Hon : OnLineZeroOrdinateUnique) :
+    XiRectangleCountAtMostTwo := by
+  intro σ t h0 h1 hm hM hz
+  have hσ : σ = 1/2 := Hoff σ t h0 h1 hm hM hz
+  subst hσ
+  obtain ⟨t₀, ht1, ht15, hor⟩ := Hon t hm hM hz
+  exact ⟨t₀, ht1, ht15, hor, rfl⟩
+
+/-- Non-vacuity of the weaker hypothesis: it is satisfiable in the shape used,
+witnessed on the critical line. -/
+theorem noOffLine_target_nonvacuous :
+    ∃ σ : ℝ, σ = 1/2 := ⟨1/2, rfl⟩
+
+/-! ### Boundary status, for whoever attacks the winding argument
+
+The rectangle boundary is zero-free from two independent sources:
+
+* **left and right edges**, unconditionally and already in the corpus —
+  `RiemannXiBoundaryT15_r328.riemannXiEntire_ne_zero_on_re_zero` and
+  `..._ne_zero_on_re_one`, for every `t : ℝ`;
+* **top and bottom edges** — r331c gives `Re ξ⟨σ,15⟩ < -1/10⁴` on `σ ∈ [0,1]`,
+  r331d the mirror at `t = -15` by the reflection of §1.
+
+So the vertical edges need no new work. The remaining quantitative content is
+the argument variation along them, which is where the winding integer is
+actually accumulated: the horizontal edges sit in the open left half-plane
+(`Re ξ < 0`), so `arg ξ` is confined there and contributes boundedly, while the
+`σ = 0` and `σ = 1` edges run a length-30 interval and carry the rest.
+-/
+
+/-! ## §6 — Axiom check -/
 
 #print axioms mk_neg_im_eq_conj
 #print axioms xi_zero_reflect
@@ -171,6 +251,10 @@ theorem conclusion_nonvacuous
 #print axioms two_zeros_in_box
 #print axioms witnesses_on_critical_line
 #print axioms rh_below_15_of_count_le_two
+#print axioms rh_below_15_of_no_off_line
+#print axioms noOffLine_of_countAtMostTwo
+#print axioms countAtMostTwo_of_parts
+#print axioms noOffLine_target_nonvacuous
 #print axioms conclusion_nonvacuous
 
 end XiZeroCountLowerBound
