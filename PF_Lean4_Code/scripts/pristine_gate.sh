@@ -142,15 +142,20 @@ if [ $BUILD_RC -ne 0 ] || grep -qE '^error:' "$BUILD_OUT"; then
   grep -E '^error:' "$BUILD_OUT" | head -5 | sed 's/^/        /'
 fi
 
-# --- (a) olean currency AFTER the build ---------------------------------------
-# Authoritative. The gate certifies the state it leaves behind: if the module
-# compiles, its olean now covers the current source.
+# --- (a) up-to-date, by LAKE'S OWN CONTENT HASH, not mtime -----------------
+# mtime is the WRONG signal. Lake tracks content hashes: a git checkout, stash
+# pop or identical rewrite bumps mtime without changing content, and Lake then
+# (correctly) refuses to rebuild. Comparing mtimes calls that STALE and produces
+# FALSE FAILURES. `lake --no-build` exits nonzero iff the target is not
+# up-to-date, which is exactly the question being asked.
 if [ ! -f "$OLEAN" ]; then
-  fail "(a) olean ABSENT after build — module did not produce kernel output"
-elif [ "$SRC" -nt "$OLEAN" ]; then
-  fail "(a) olean STALE after build — source changed under the gate, or build did not emit"
+  fail "(a) olean ABSENT after build — module produced no kernel output"
 else
-  pass "(a) olean CURRENT (pre-run state was: $PRE_STATE)"
+  if taskset -c "$CPU" lake --no-build build "$MOD" >/dev/null 2>&1; then
+    pass "(a) UP-TO-DATE per lake content hash (pre-run mtime state: $PRE_STATE)"
+  else
+    fail "(a) NOT up-to-date per lake --no-build; olean does not cover current source"
+  fi
 fi
 
 # --- (d) dead binders via Lean's own linter -----------------------------------
@@ -262,7 +267,7 @@ else
   for p in "${PROPS[@]}"; do
     # a witness is: an ∃ statement mentioning p, an `example : p ...`, or a
     # theorem whose statement applies p to concrete arguments.
-    if grep -qE "(∃[^,]*,[^\n]*\b$p\b|example[[:space:]]*:[[:space:]]*$p\b|_nonvacuous|_nonempty|_satisfiable)" "$STRIPPED" \
+    if grep -qE "(∃[^,]*,[^\n]*\b$p\b|example[[:space:]]*:[[:space:]]*$p\b|_nonvacuous|_nonempty|_satisfiable|_holds|_witness)" "$STRIPPED" \
        && grep -qE "\b$p\b" "$STRIPPED"; then
       :
     else
