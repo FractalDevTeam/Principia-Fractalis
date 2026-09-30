@@ -22,13 +22,18 @@ Rationale:
 * It does NOT appear in the canonical 143-problem corpus (which
   partitions test problems coarsely into P / NP via measured α; see
   `HundredFortyThreeProblems.lean`).
-* Within the framework's binary class label (`ProblemClass.P | NP`),
-  GI is unambiguously on the NP side: "not known to be in P".
+* Within the framework's **binary** class label (`ProblemClass.P | NP`),
+  GI lands on the NP side because "not known to be in P" is the
+  criterion — this is the classification this file records. The
+  criterion is literally true of every NP problem and therefore
+  underdetermined, and the framework's tri-class refinement
+  (`PF.Empirical.TriClass`, 2026-06-22) supersedes it — see
+  "### Relation to the tri-class refinement" below.
 * The IBM Quantum methodology of paper_C (constraint-satisfaction
   encoding into fractal-resonance circuits) directly applies — GI is a
   CSP-like decision problem with `n²` boolean constraints per pair.
 
-### The framework's prediction
+### The framework's prediction (binary rule — superseded)
 
 Based on the substrate-level classification rule in
 `HundredFortyThreeProblems.lean`:
@@ -37,16 +42,38 @@ Based on the substrate-level classification rule in
 * If the test problem is in NP \ P (or candidate NP-intermediate, or
   NP-complete): `framework_predicted_alpha = α_NP = φ + 1/4`.
 
-Since GI is **not known to be in P** and **is in NP**, the framework's
-class assignment is `ProblemClass.NP`, and the predicted α is:
+Since GI is **not known to be in P** and **is in NP**, the binary rule's
+class assignment is `ProblemClass.NP`, and the binary-rule predicted α is:
 
-    α_GI_predicted = φ + 1/4 ≈ 1.86803...
+    α_GI_predicted (binary rule) = φ + 1/4 ≈ 1.86803...
 
 The substrate-level justification (cf.
 `CrossMillennium/AlphaValuesFirstPrinciples.lean §6`) is the polylog
 deficit `α_NP - α_Poincare = 1/4`: GI is harder than a Poincaré-class
 (simply-connected / canonical-form / identity-element) problem by
 exactly the polylog-deficit quantum of substrate cost.
+
+### Relation to the tri-class refinement (current-canonical)
+
+The framework's **current-canonical** GI prediction is NOT `φ + 1/4`.
+`PF.Empirical.ProblemClassTriClass_2026_06_22` explicitly supersedes
+this file's binary-rule prediction: under the tri-class refinement
+`ProblemClassTri = {P, NPIntermediate, NPComplete}`, GI is classified
+as **NPIntermediate** (matching Babai 2016 quasi-polynomial, Schöning
+1988 low hierarchy, Goldwasser-Sipser 1986 coNP), and
+
+    canonicalAlphaTri NPIntermediate = √2
+
+so the substrate-current GI prediction is `α_GI = √2 ≈ 1.41421...`,
+the P-arm of the algebraic basis. The tri-class refinement collapses
+NP-intermediate to the P-arm because Babai's quasi-poly bound places
+GI algorithmically closer to P than to NP-complete.
+
+This file's binary-rule content (below) is retained as historical
+provenance for the pre-refinement prediction; it is NOT the framework's
+current forward-runnable prediction. See
+`PF.Empirical.GIForwardPredictionProtocol_2026_06_24` for the
+tri-class-aligned protocol whose expected value is `√2`.
 
 ### Testing protocol (extends paper_C methodology)
 
@@ -61,29 +88,40 @@ exactly the polylog-deficit quantum of substrate cost.
   same window used for the 143-problem corpus per paper_C §"Results").
   Multi-shot averaging (≥ 8192 shots × 5 independent runs) for noise
   reduction.
-* **Expected peak-α window**: `α ∈ [α_NP - 0.05, α_NP + 0.05]
-  = [1.818, 1.918]`, matching the `±0.05` cluster window used for
-  the original 143-problem cluster detection (paper_C Theorem
-  "Three statistically significant clusters", per-cluster window
-  `|Δα| < 0.05`).
-* **Falsification threshold**: if the measured peak-α falls OUTSIDE
-  `[1.818, 1.918]`, the framework's universal-coherence prediction is
-  refuted at the 144th problem. If it falls INSIDE, the framework is
-  corroborated by an `N + 1 = 144`th independent test.
+* **Expected peak-α window (binary rule, superseded)**: `α ∈
+  [α_NP - 0.05, α_NP + 0.05] = [1.818, 1.918]`, matching the `±0.05`
+  cluster window used for the original 143-problem cluster detection
+  (paper_C Theorem "Three statistically significant clusters",
+  per-cluster window `|Δα| < 0.05`). The tri-class refinement moves
+  the expected window to `α = √2 ± 0.05 ≈ [1.364, 1.464]`; see
+  `GIForwardPredictionProtocol_2026_06_24` for the current protocol.
+* **Falsification threshold (binary rule, superseded)**: if the measured
+  peak-α falls OUTSIDE `[1.818, 1.918]`, the binary-rule prediction is
+  refuted. Under the tri-class refinement the falsification window is
+  `[√2 - 0.05, √2 + 0.05]`, and any measurement falling in the binary
+  window `[1.818, 1.918]` REFUTES the tri-class prediction (and
+  vice versa). The two predictions are mutually exclusive on any
+  finite-precision measurement.
 
-### Honest scope
+### Scope statement
 
 This file:
 
 1. **DOES NOT** perform the IBM Quantum measurement. The measurement
    is the empirical work that has to be done by a hardware team.
-2. **DOES** encode the prediction, falsifier, and corroboration as
-   typed Lean Props so the framework's prediction is CITABLE.
+2. **DOES** encode the binary-rule prediction, falsifier, and
+   corroboration as typed Lean Props for historical / citable
+   provenance of the pre-refinement classification.
 3. **DOES NOT** discharge any Millennium problem. GI is not a
    Millennium problem; this is an empirical-extension test.
 4. **DOES** make the abstract `Hundred44Problem_Coherence_Falsifier`
-   (in `FrameworkFalsifiabilityConditions.lean`) concrete by picking
-   GI and predicting `α_NP = φ + 1/4`.
+   (in `FrameworkFalsifiabilityConditions.lean`) concrete under the
+   binary rule, by picking GI and yielding `α_NP = φ + 1/4`.
+5. **IS SUPERSEDED** by `ProblemClassTriClass_2026_06_22`: the
+   framework's current-canonical GI prediction is `α_GI = √2`
+   (NP-intermediate class, collapsed to the P-arm per Babai 2016).
+   The forward-runnable protocol is
+   `GIForwardPredictionProtocol_2026_06_24`.
 
 ### References
 
@@ -124,10 +162,14 @@ inductive Hundred44Problem
 /-- The canonical 144th-problem name (string used in `TestProblem.name`). -/
 def hundred44Problem_name : String := "Graph_Isomorphism"
 
-/-- The framework's class assignment for GI: `ProblemClass.NP`.
-    GI is in NP (a valid σ is checkable in `O(n²)`) and is not known
-    to be in P; the framework's binary classification therefore places
-    GI on the NP side. -/
+/-- The framework's **binary-rule** class assignment for GI:
+    `ProblemClass.NP`. GI is in NP (a valid σ is checkable in `O(n²)`)
+    and is not known to be in P; the binary rule therefore places GI
+    on the NP side. Superseded by the tri-class refinement in
+    `PF.Empirical.ProblemClassTriClass_2026_06_22`, which classifies
+    GI as `ProblemClassTri.NPIntermediate` and predicts α = √2 (the
+    P-arm) per Babai 2016 quasi-polynomial. This definition is
+    retained as historical provenance of the binary-rule prediction. -/
 def hundred44Problem_classLabel : ProblemClass := ProblemClass.NP
 
 /-! ## §2 — Framework's predicted α-value for the 144th problem -/
@@ -431,7 +473,8 @@ theorem hundred44_problem_GI_prediction_capstone :
                  |m - framework_predicted_alpha_GI| < 0.05)) ∧
     -- (5) Testing protocol recorded
     GITestingProtocol ∧
-    -- (6) Honest scope recorded
+    -- (6) Scope statement recorded (identifier retains legacy name;
+    --     see file header for the tri-class supersession)
     GIPredictionHonestScope := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact framework_predicted_alpha_GI_eq_phi_plus_quarter
