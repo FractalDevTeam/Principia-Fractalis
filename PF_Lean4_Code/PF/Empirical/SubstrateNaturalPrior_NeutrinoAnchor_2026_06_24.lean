@@ -20,30 +20,40 @@ the substrate's STRUCTURALLY-FORCED expression set:
     - alpha_i^2, alpha_i^{-1}
     - Small-integer modulation
 
-Under this algebraically-constrained prior (404 distinct positive expressions),
-the neutrino mass-ratio observable (NuFit-6.0: 0.0298 ± 0.0008) has exactly ONE
-expression within 0.5σ, and that expression is the substrate's structurally-natural
+Under this algebraically-constrained prior, the enumeration yields
+**404 distinct positive expressions in total**, of which **130 fall in
+the mass-ratio in-band range `[0, 0.2]`**. Of those 130 in-band
+expressions, exactly ONE lies within 0.5σ of the neutrino mass-ratio
+observable (NuFit-6.0: 0.0298 ± 0.0008), and that expression is the
+substrate's structurally-natural
 
     π√2/150 = (π/(10·α_P)) · (π/(10·α_BSD))
 
 where α_P = √2 (the P ≠ NP canonical instance) and
 α_BSD = 3π/4 (the Navier-Stokes canonical instance).
 
-This file encodes this computational result as a kernel-only Lean theorem:
-one inductive type for substrate-natural expressions, evaluation rules,
-and the substrate-neutrino-within-0.5σ proof.
+The look-elsewhere accounting therefore has **denominator 130** (the
+in-band subset that can plausibly match a ~0.03 observable), not 404:
+expressions outside `[0, 0.2]` cannot be candidate matches by
+construction. The 404 count is reported here for completeness — it is
+the size of the full substrate-natural expression set before the
+observable's numerical range is used to cut down to candidates.
 
-## Honest scope
+This file encodes the computational result as a kernel-only Lean
+theorem: one inductive type for substrate-natural expressions,
+evaluation rules, and the substrate-neutrino-within-0.5σ proof.
+
+## Scope statement
 
 This is a **SUBSTRATE-TIER PROVENANCE RECORD**, not a Clay Millennium
-discharge. The 1-of-130 enumeration count is computational evidence
-(from the Python script) that the substrate's structural algebra is
-narrow enough to make the neutrino match non-trivial under the substrate's
-own natural prior. The look-elsewhere null is defeated; the substrate's
-algebraic coherence survives. The hypothesis chain is:
+discharge. The 1-of-130 in-band enumeration count is computational
+evidence (from the Python script) that the substrate's structural
+algebra is narrow enough to make the neutrino match non-trivial under
+the substrate's own natural prior. The look-elsewhere null is defeated;
+the substrate's algebraic coherence survives. The hypothesis chain is:
 
   Substrate algebra → substrate-natural prior enumeration →
-  1-of-130 neutrino match at 0.5σ → non-trivial coherence
+  1-of-130 in-band neutrino match at 0.5σ → non-trivial coherence
 
 All theorems are kernel-only (zero project axioms, zero sorries on headlines).
 
@@ -222,16 +232,19 @@ theorem substrateNeutrinoWithinHalfSigmaProvenance_holds :
 /-! ## §9 — Look-elsewhere prior provenance -/
 
 /-- **Typed marker: computational substrate-natural enumeration.**
-    
+
     Provenance: The Python script `Papers/Methods/look_elsewhere_substrate_natural.py`
     enumerates 404 distinct positive substrate-natural expressions under the
     algebraic closure of (9 alpha-values + π/10 + {1,2,3,4,10} + operations).
-    
-    Computational result: Under best-of-N null hypothesis, the neutrino
-    observable has exactly 1 substrate-natural expression within 0.5σ of
-    NuFit-6.0: the substrate's predicted π√2/150. This is not one of the
-    uniform-grammar ~10⁴ arbitrary expressions; it is one substrate-forced
-    expression in a set of 404.
+    Of these, 130 fall in the mass-ratio in-band range `[0, 0.2]` — the
+    subset that can plausibly match a ~0.03 observable.
+
+    Computational result: Under a best-of-N null hypothesis restricted to
+    the 130 in-band candidates, the neutrino observable has exactly 1
+    substrate-natural expression within 0.5σ of NuFit-6.0: the substrate's
+    predicted π√2/150. This is not one of the uniform-grammar ~10⁴
+    arbitrary expressions; it is one substrate-forced expression, and the
+    look-elsewhere denominator is 130 (in-band), not the full-set size 404.
 -/
 def LookElsewhereResult_SubstrateNaturalPrior_NeutrinoRow : Prop := True
 

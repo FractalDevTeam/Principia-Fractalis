@@ -32,26 +32,38 @@ All three live in the SAME finite-group invariant (the Coxeter data of H₃),
 making the "10" in the universal coupling non-arbitrary: it is the period
 of the icosahedral Coxeter element.
 
-## IBM hardware structural anchors
+## IBM hardware structural anchors — numerical coincidences
 
-The empirical peaks observed on IBM hardware fit H₃ arithmetic exactly:
+The empirical IBM peaks at α_RH ≈ 1.5 and α_NP ≈ 1.868 agree numerically
+with two H₃-arithmetic expressions:
 
-  * α_RH = 3/2 = (sum of H₃ exponents) / (H₃ Coxeter number) = 15 / 10
-  * α_NP = φ + 1/4, where 1/4 = 1 / (H₃ exponent gap) = 1 / 4
+  * α_RH ↔ (sum of H₃ exponents) / (H₃ Coxeter number) = 15 / 10 = 3/2
+  * α_NP ↔ φ + 1/(H₃ exponent gap) = φ + 1/4
 
-This file states and proves all of the elementary algebraic content above,
-axiom-free, against mathlib's `Real.cos_pi_div_five` and `Real.goldenRatio`.
+These are numerical agreements between the framework's stipulated peak
+labels (`α_RH := 3/2`, `α_NP := φ + 1/4`) and ratios / offsets built
+from H₃ Coxeter data (10, 15, 4). They are NOT derivations of α_RH
+or α_NP from H₃ group theory — both sides of each identity are fixed
+by definition, and the theorems below record only that the two
+definitions land on the same rational.
+
+The substantive analytic content of this file is the icosahedral–golden
+bridge `sin(π/10) = 1/(2φ)`, which IS a genuine derivation from
+mathlib's `Real.cos_pi_div_five` and the double-angle formula.
 
 ## What is NOT claimed
 
 This file does NOT prove that the framework's H_α operator inherits the
 H₃ Coxeter structure (that would be the operator-theoretic origin of
 the universal closed form, and is OPEN). What is proved here is the
-ELEMENTARY ARITHMETIC: the identifications above are exact, in particular
+ELEMENTARY ARITHMETIC: the sin identity
 
     sin (π/10) = (√5 − 1)/4 = 1 / (2 · φ)
 
-is a CLEAN closed-form theorem, with no project axioms.
+is a CLEAN closed-form theorem, with no project axioms. The α_RH,
+α_NP identities are recorded consistency checks between the framework's
+stipulated peak labels and H₃-arithmetic expressions using those same
+integers, not derivations.
 
 Status: axiom-free (only `propext`, `Classical.choice`, `Quot.sound`).
 -/
@@ -218,30 +230,50 @@ theorem Qsqrt5_eq_Qphi :
     Real.sqrt 5 = 2 * goldenRatio - 1 :=
   ⟨goldenRatio_in_Qsqrt5, sqrt5_in_Qphi⟩
 
-/-! ## IBM hardware structural anchors
+/-! ## IBM hardware structural anchors — numerical coincidences
 
-The IBM Quantum hardware peaks at `α_RH = 1.5` and `α_NP ≈ 1.868`
-match H₃ arithmetic exactly:
+The IBM Quantum hardware peaks at `α_RH ≈ 1.5` and `α_NP ≈ 1.868`
+agree numerically with two H₃-arithmetic expressions:
 
-  α_RH = (exponent sum) / (Coxeter number) = 15 / 10 = 3/2
-  α_NP = φ + 1/(exponent gap) = φ + 1/4 -/
+  α_RH ↔ (exponent sum) / (Coxeter number) = 15 / 10 = 3/2
+  α_NP ↔ φ + 1/(exponent gap) = φ + 1/4
 
-/-- Local stand-in for the framework's `α_RH = 3/2`. Matches
-    `PrincipiaTractalis.Capstone.alpha_RH` and
-    `FrameworkApplicationCapstone.alpha_RH`. -/
+The two theorems below record these as arithmetic identities between
+the framework's stipulated peak labels (`alpha_RH_H3`, `alpha_NP_H3`)
+and the H₃-data expressions. Both sides of each identity are fixed
+by definition, so the theorems are consistency checks on the naming
+convention, NOT derivations of α_RH, α_NP from H₃ Coxeter group
+theory. Whether H_α inherits H₃ structure at the operator level (the
+mechanism that would explain the coincidence) is OPEN. -/
+
+/-- Local stand-in for the framework's `α_RH := 3/2`, stipulated here
+    so the arithmetic identity `3/2 = 15/10` can be recorded against
+    the H₃ Coxeter data. Matches `PrincipiaTractalis.Capstone.alpha_RH`
+    and `FrameworkApplicationCapstone.alpha_RH`. -/
 noncomputable def alpha_RH_H3 : ℝ := 3 / 2
 
-/-- Local stand-in for the framework's `α_NP = φ + 1/4`. Matches the
-    canonical NP-class resonance value `(1 + √5)/2 + 1/4`. -/
+/-- Local stand-in for the framework's `α_NP := φ + 1/4`, stipulated
+    here so the arithmetic identity `φ + 1/4 = φ + 1/(H₃ exponent gap)`
+    can be recorded. Matches the canonical NP-class resonance value
+    `(1 + √5)/2 + 1/4`. -/
 noncomputable def alpha_NP_H3 : ℝ := goldenRatio + 1 / 4
 
-/-- **α_RH = (Σ H₃ exponents) / h(H₃) EXACTLY**: `3/2 = 15 / 10`. -/
+/-- **Arithmetic identity `3/2 = 15/10`** between the stipulated
+    framework constant `alpha_RH_H3 = 3/2` and the H₃-Coxeter ratio
+    (exponent sum) / (Coxeter number). Both sides are fixed by
+    definition; the theorem is a consistency check that the two
+    definitions land on the same rational, not a group-theoretic
+    derivation of α_RH. -/
 theorem alpha_RH_eq_exponent_sum_div_Coxeter_number :
     alpha_RH_H3 = (H3_exponent_sum : ℝ) / (H3_Coxeter_number : ℝ) := by
   show (3 / 2 : ℝ) = (15 : ℝ) / (10 : ℝ)
   norm_num
 
-/-- **α_NP = φ + 1/(H₃ exponent gap) EXACTLY**: `φ + 1/4 = φ + 1/4`. -/
+/-- **Arithmetic identity `φ + 1/4 = φ + 1/4`** between the stipulated
+    framework constant `alpha_NP_H3 = φ + 1/4` and the H₃ pattern
+    `φ + 1/(exponent gap)` (with `H3_exponent_gap := 4`). Both sides
+    are fixed by definition; the theorem is a consistency check on
+    the naming convention, not a group-theoretic derivation of α_NP. -/
 theorem alpha_NP_eq_phi_plus_inv_gap :
     alpha_NP_H3 = goldenRatio + 1 / (H3_exponent_gap : ℝ) := by
   show goldenRatio + 1 / 4 = goldenRatio + 1 / (4 : ℝ)
@@ -250,13 +282,40 @@ theorem alpha_NP_eq_phi_plus_inv_gap :
 /-! ## Capstone bundle -/
 
 /-- **The icosahedral H₃ structural origin of π/10**, packaged as a single
-    conjunction. All six clauses are axiom-free pure-arithmetic identities.
+    conjunction. All six clauses are axiom-free identities in mathlib's
+    real number theory.
 
-    Together they encode the claim: the constant `10` in the universal
-    coupling `λ_0 = π/(10 · α)` and the IBM hardware structural anchors
-    `α_RH = 3/2`, `α_NP = φ + 1/4` are NOT free constants — they are
-    derived from the H₃ Coxeter data (number, exponents, gap) plus the
-    classical golden-ratio sin identity. -/
+    Derived content (genuine consequences of H₃ Coxeter data + mathlib):
+      * (1)–(2): `h(H₃) = 10`, `Σ exponents = 15` — decidable facts
+        about the finite root system.
+      * (3): The Coxeter half-argument is exactly `π/10` — algebraic
+        consequence of `h(H₃) = 10`.
+      * (4): `sin(π/10) = 1/(2φ)` — the icosahedral–golden bridge,
+        obtained from `Real.cos_pi_div_five` via the double-angle
+        formula. This is the substantive analytic content and the
+        cleanest form of the H₃ origin of the `10` appearing in the
+        universal coupling `λ_0 = π/(10·α)`.
+
+    Consistency-check content (arithmetic identities between
+    stipulated rationals, NOT derivations of α_RH, α_NP from group
+    theory):
+      * (5) `3/2 = 15/10` — the framework's stipulated peak label
+        `alpha_RH_H3` and the H₃-arithmetic ratio (exponent sum) /
+        (Coxeter number) land on the same rational.
+      * (6) `φ + 1/4 = φ + 1/4` — the framework's stipulated peak
+        label `alpha_NP_H3` and the pattern `φ + 1/(exponent gap)`
+        land on the same real, given `H3_exponent_gap := 4`.
+
+    Together the six clauses show:
+      * that `sin(π/10)` equals the golden-ratio expression, an honest
+        analytic bridge from mathlib's `cos(π/5)`; and
+      * that the framework's stipulated peak labels agree numerically
+        with expressions built from the H₃ Coxeter integers {10, 15, 4}.
+
+    Whether this numerical agreement reflects an operator-level
+    inheritance of H₃ structure by `H_α` — the mechanism that would
+    explain why the IBM peaks land at these specific rationals — is
+    the OPEN question stated in the header. -/
 theorem H3_icosahedral_origin_capstone :
     -- (1) Coxeter number is 10
     H3_Coxeter_number = 10 ∧
