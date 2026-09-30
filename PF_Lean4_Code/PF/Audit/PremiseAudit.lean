@@ -108,6 +108,30 @@ partial def cone (env : Environment) (prefixes : Array Name) (fuel : Nat)
           then m :: acc else acc)
         cone env prefixes fuel (next ++ rest) seen consts projs
 
+/-- Namespace prefixes the cone is allowed to TRAVERSE INTO.
+
+    This must match `isProjectStruct`, which already accepts both
+    `PrincipiaTractalis` and `PF`. The cone previously traversed only
+    `#[nsPrefix]`, and the default `nsPrefix` is `PrincipiaTractalis` — so when
+    auditing a `PF.Referee.*` theorem the cone saw the callee as a constant but
+    never walked into it, and therefore never observed the projections the
+    callee consumes.
+
+    Concretely that made every hypothesis PASSED WHOLE to a callee in another
+    namespace look DEAD. Verified 2026-09-30 on
+    `unified_minimal_forces_alpha_NS_Kolmogorov_bridge_parametric`:
+
+      nsPrefix PrincipiaTractalis (old default) -> DEAD=2, clean=0
+      nsPrefix PF                               -> DEAD=0, clean=1
+
+    The hypothesis is genuinely load-bearing: the root theorem
+    `unified_alpha_skeleton_forced_by_minimal_invariants` consumes both
+    `hM.sector1_minimal` and `hM.sector2_minimal`. Acting on the DEAD reports
+    would have stripped a premise the kernel needs and turned 142 true theorems
+    into false ones. -/
+def auditPrefixes (nsPrefix : Name) : Array Name :=
+  #[nsPrefix, `PrincipiaTractalis, `PF]
+
 /-- Is `t` reducibly `True`? -/
 def isTrivialProp (t : Expr) : MetaM Bool := do
   let t ← whnf t
@@ -149,7 +173,7 @@ def auditDecl (declName : Name) (nsPrefix : Name) : MetaM (Array MessageData × 
   let env ← getEnv
   let some ci := env.find? declName | return (#[], 0)
   let some _ := ci.value? | return (#[], 0)
-  let (consts, projs) := cone env #[nsPrefix] 20000 [declName] {} ({} : NameSet) #[]
+  let (consts, projs) := cone env (auditPrefixes nsPrefix) 20000 [declName] {} ({} : NameSet) #[]
   forallTelescope ci.type fun xs concl => do
     let csRaw ← conjuncts concl
     let mut cs : Array Expr := #[]
@@ -256,7 +280,7 @@ def elabAuditPremises : CommandElab := fun stx => do
   let some val := ci.value?
     | throwError "#audit_premises: {declName} has no value (axiom or opaque)"
   let (consts, projs) :=
-    cone env #[nsPrefix] 20000 [declName] {} ({} : NameSet) #[]
+    cone env (auditPrefixes nsPrefix) 20000 [declName] {} ({} : NameSet) #[]
   let _ := val
   liftTermElabM do
     forallTelescope ci.type fun xs concl => do
