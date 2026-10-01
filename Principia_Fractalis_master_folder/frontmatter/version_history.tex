@@ -153,10 +153,12 @@ absence of escape hatches, absence of dead binders (via
 \texttt{linter.unusedVariables} and the r337 \texttt{PremiseAudit}
 semantic sweep), and a satisfiability witness for each introduced
 \texttt{Prop}. The r337 sweep is what distinguishes syntactic from
-semantic deadness: it correctly fails the
-\texttt{MinimalRigidityForces*} family on
+semantic deadness. Its first application to the
+\texttt{MinimalRigidityForces*} family reported
 \texttt{DEAD UnifiedMinimalInvariants.sector1\_minimal} and
-\texttt{sector2\_minimal}, reproducing the O-CIRC finding mechanically.
+\texttt{sector2\_minimal}; that reading was an artifact of a
+cone-traversal bug inside r337 itself, corrected in \texttt{3ad4d61d},
+after which the family gates \textsc{pristine} at 37 of 40 clean.
 Standing rule for the project: no claim of kernel verification without a
 green gate.
 
@@ -371,10 +373,14 @@ dead. Validated in situ by discovering that the
 \texttt{trace\_unique} hypothesis on \texttt{T\_infinity\_rigidity}
 is redundant (r337 strengthens the theorem by removing it).
 Subsequent O-CIRC (Open-CIRC) sweep (commit \texttt{ebe9c8af})
-audited 213 corpus targets, flagging 114 with findings including:
+audited 213 corpus targets, flagging 114 with findings (a count that
+predates the \texttt{3ad4d61d} cone-traversal fix and is being
+re-measured) including:
 r301 assumes RH four ways (\texttt{04bc1b3a}), the
-\texttt{MinimalRigidityForces} family is 35-of-35 with findings
-(\texttt{9c1c2351}), the RH five-routes reduce to a single modus
+\texttt{MinimalRigidityForces} family was reported 35-of-35 with
+findings (\texttt{9c1c2351}) and later corrected to 37-of-40 clean
+after the cone-traversal fix (\texttt{3ad4d61d}), the RH five-routes
+reduce to a single modus
 ponens (\texttt{96324d62}), the four Hardy-Program formulations
 are one definition without an operator (\texttt{aab00fbc}), and the
 BSD multi-CM batch rests on four false hypotheses (\texttt{b7ae74b9}).

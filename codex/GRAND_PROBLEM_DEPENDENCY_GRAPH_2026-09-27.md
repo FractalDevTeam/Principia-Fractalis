@@ -83,7 +83,7 @@ Wire-up at `PF.lean:1352-1355` at commit `0d8ea1a4` (2026-09-26).
 
 - **`T_infinity_rigidity` audits CLEAN** post-r337. Central substrate theorem is not in the same evidential class as the Referee-tier "rigidity forces X" family.
 - **r301 universal capstone assumes RH by four routes** — two literal (RH-as-conjunct in `riemann1859_original_conjecture` and `bombieri2000_clay_official`), two by one-step modus ponens (`rh_hp_program_positive`, `mayer1991_cohen2025`). The theorem is valid; it carries no RH information.
-- **`MinimalRigidityForces*` family: 35 / 35 with findings, 0 clean.** Every proof has `UnifiedMinimalInvariants.sector1_minimal` and `sector2_minimal` as DEAD hypotheses. Minimal rigidity is not what these theorems establish.
+- **`MinimalRigidityForces*` family: 37 / 40 CLEAN, 3 with findings** (re-swept 2026-09-30, `3ad4d61d`). The earlier "35 / 35 with findings, 0 clean" reading was a cone-traversal artifact: a hypothesis passed whole into the `PF.` namespace was not traversed. `UnifiedMinimalInvariants.sector1_minimal` and `sector2_minimal` ARE consumed, by `unified_alpha_skeleton_forced_by_minimal_invariants`. 3 targets still report them DEAD and remain open. See `codex/OCIRC_FAMILY_RESWEEP_2026-09-30.md`.
 - **The α-skeleton identities are assumed, not forced.** `cross_millennium_shared_invariants_substrate_capstone` takes each of its six output identities as a premise field definitionally equal to the corresponding conclusion conjunct.
 - **The Perelman "anchor" anchors nothing** in `perelman_anchored_cascade_substrate_capstone`: `α_Poincaré = 1` is an input hypothesis, not a used property of Perelman's theorem.
 - **Headline capstone sweep, 18 targets: 5 clean, 13 with findings.**
@@ -227,9 +227,9 @@ Baseline Rank-3 (type-upgrade following r217 pattern) is still on the ledger and
 
 Per OCIRC 2026-09-18:
 
-- 213 corpus capstones audited: 99 CLEAN, 114 with findings.
+- 213 corpus capstones audited: 99 CLEAN, 114 with findings. **[Superseded in part, 2026-09-30]** these corpus-wide counts predate the `3ad4d61d` cone-traversal fix, which over-reported DEAD for any hypothesis passed whole to a callee in the other namespace. A full re-sweep with the fixed cone is required before any of these totals is quoted again; it is queued behind the live r331d panel build. Retirement condition: replace these numbers with the fixed-cone totals and delete this note.
 - r301 universal capstone: 4 RH-circularity routes. Theorem valid; carries no RH information.
-- `MinimalRigidityForces*` family: 35 / 35 with findings, 0 clean.
+- `MinimalRigidityForces*` family: 37 / 40 CLEAN, 3 with findings (corrected 2026-09-30, `3ad4d61d`; the 35 / 35 reading was a cone-traversal artifact).
 - `PF.Referee.BSDCapstoneTypedBridgeV4.v4_CM_batch_surfaced`: 17 findings.
 - `RHCapstoneTypedBridgeV4` cluster: 6 "routes" × 12 findings each — same-assumption-different-name pattern.
 

@@ -22,7 +22,7 @@ framework_cascade_from_perelman_anchor
 ```
 described as "genuinely deductive" via `linarith`, "not by rfl."
 
-**What code says (O-CIRC 2026-09-18):** the Referee-tier `MinimalRigidityForces*` family is 35/35 with dead hypotheses, 0 clean. `cross_millennium_shared_invariants_substrate_capstone` takes each of its six output identities as a premise field definitionally equal to the corresponding conclusion conjunct. `unified_alpha_skeleton_forced_by_minimal_invariants` is exact-matched in `MinimalRigidityForces*` bodies without a real proof step.
+**What code says (O-CIRC 2026-09-18):** the Referee-tier `MinimalRigidityForces*` family is 37/40 CLEAN, 3 with findings (re-swept 2026-09-30, `3ad4d61d`; the 35/35 reading was a cone-traversal artifact). `cross_millennium_shared_invariants_substrate_capstone` takes each of its six output identities as a premise field definitionally equal to the corresponding conclusion conjunct. `unified_alpha_skeleton_forced_by_minimal_invariants` is exact-matched in `MinimalRigidityForces*` bodies without a real proof step.
 
 **What r339 supplies (2026-09-29, `d9337a14`):** `PF/AlphaCascadeFromTwoAnchors_r339.lean` — 10 theorems axiom-clean, gate (d2)-PRISTINE, over UNKNOWNS. Direct replacements for the Referee-tier citations:
 

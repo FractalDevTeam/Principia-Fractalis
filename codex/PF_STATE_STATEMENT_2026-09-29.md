@@ -108,11 +108,13 @@ Correction (recorded 2026-09-29): the r331f target statement is `RectangleIntegr
 
 ## 7. O-CIRC mechanical premise audit — 213 targets, 114 findings, 2026-09-18
 
+**[Superseded in part, 2026-09-30]** these corpus-wide counts predate the `3ad4d61d` cone-traversal fix, which over-reported DEAD for any hypothesis passed whole to a callee in the other namespace. A full re-sweep with the fixed cone is required before any of these totals is quoted again; it is queued behind the live r331d panel build. Retirement condition: replace these numbers with the fixed-cone totals and delete this note.
+
 `PF/Audit/PremiseAudit.lean`. Load-bearing findings:
 
 - **`T_infinity_rigidity` CLEAN** post-r337.
 - **r301 universal Millennium capstone** assumes RH by four routes (two literal RH-as-conjunct in `riemann1859_original_conjecture` and `bombieri2000_clay_official`; two by one-step modus ponens). Theorem is valid; carries no RH information.
-- **`MinimalRigidityForces*` family: 35 / 35 with findings, 0 clean.** Minimal-rigidity hypotheses are DEAD in every proof.
+- **`MinimalRigidityForces*` family: 37 / 40 CLEAN, 3 with findings, 6 DEAD lines.** Re-swept 2026-09-30 with the fixed cone (`3ad4d61d`). The earlier "35 / 35 with findings, 0 clean" reading was an artifact of a traversal bug inside r337 itself: a hypothesis passed whole to a callee in the `PF.` namespace was never traversed into, so its fields were reported DEAD. The minimal-rigidity hypotheses ARE consumed — stripping them would have turned 142 true theorems false. Residual: 3 targets still report `sector1_minimal` / `sector2_minimal` DEAD and are open repair candidates. See `codex/OCIRC_FAMILY_RESWEEP_2026-09-30.md`.
 - **α-skeleton identities in `cross_millennium_shared_invariants_substrate_capstone`** are assumed, not forced.
 - **Perelman "anchor" is a hypothesis** — no property of Perelman's theorem is used in the referee-tier capstone.
 
