@@ -76,9 +76,9 @@ Mechanical enforcement of five criteria per module:
 
 - `PF.PoincareAnchorForced_r338` → PRISTINE
 - `PF.PoincareAlphaFromH3CoxeterHalfArg` → PRISTINE
-- `PF.Referee.MinimalRigidityForcesAlphaArchIdents` → NOT PRISTINE (6 semantic findings, DEAD `UnifiedMinimalInvariants.sector1_minimal` + `sector2_minimal` × 3)
+- `PF.Referee.MinimalRigidityForcesAlphaArchIdents` → **PRISTINE, exit 0** as of `3ad4d61d` (2026-09-30). The 6 "semantic findings" recorded here were cone-traversal artifacts.
 
-The 35/35 O-CIRC "MinimalRigidityForces* dead-hypothesis" finding is now mechanically reproducible from the tree via `lake exe pristine <module>`.
+The O-CIRC "MinimalRigidityForces* dead-hypothesis" finding is **withdrawn** — it was a cone-traversal artifact inside r337, fixed in `3ad4d61d`. What is mechanically reproducible from the tree via `lake exe pristine <module>` is the corrected result: the family gates PRISTINE at 37 / 40 CLEAN.
 
 **Operational rule (established today with Pabs's assent):** no commit message may claim "kernel-clean" or "kernel-verified" without a green gate paste in the message body. Both instances (Legion on Acer, this instance on Linux server) are bound.
 

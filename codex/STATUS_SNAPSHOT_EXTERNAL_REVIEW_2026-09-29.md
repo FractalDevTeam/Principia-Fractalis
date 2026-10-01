@@ -75,8 +75,11 @@ three panel groups read 239/239, 228/228, 228/228.
 - r301 universal Millennium capstone assumes RH by four routes — two literal (RH-as-conjunct in
   `riemann1859_original_conjecture` and `bombieri2000_clay_official`), two by one-step modus ponens.
   Theorem is valid; carries no RH information.
-- `MinimalRigidityForces*` family: 35 / 35 with findings, 0 clean. Minimal-rigidity hypotheses are
-  DEAD in every proof.
+- `MinimalRigidityForces*` family: 37 / 40 CLEAN, 3 with findings, 6 DEAD lines
+  (re-swept 2026-09-30 with the fixed cone, `3ad4d61d`). The earlier
+  "35 / 35 with findings, 0 clean" reading was a cone-traversal artifact, not a
+  property of the corpus — the minimal-rigidity hypotheses are consumed. See
+  `codex/OCIRC_FAMILY_RESWEEP_2026-09-30.md`.
 - α-skeleton identities in `cross_millennium_shared_invariants_substrate_capstone` are assumed,
   not forced.
 - Perelman "anchor" is a hypothesis — no property of Perelman's theorem is used.

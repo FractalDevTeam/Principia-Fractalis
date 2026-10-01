@@ -74,6 +74,21 @@ real reasoning. Absence of findings is therefore not proof of non-circularity.
 
 ## Finding 2 — the `MinimalRigidityForces*` family: 35 of 35 have findings, 0 clean
 
+> **WITHDRAWN 2026-09-30 — this finding was a measurement artifact, not a defect
+> in the corpus.** `cone` was passed only `#[nsPrefix]` (default
+> `PrincipiaTractalis`) while the Referee callees live under `PF.`, so any
+> hypothesis passed whole to a callee in the other namespace was seen as a
+> constant but never traversed into, and its fields were reported DEAD. Fixed in
+> `3ad4d61d` (`auditPrefixes = #[nsPrefix, PrincipiaTractalis, PF]`). Corrected
+> measurement, same family: **targets 40, CLEAN 37, with findings 3, DEAD 6,
+> CONTAINED 0, VACUOUS 0.** `sector1_minimal` and `sector2_minimal` ARE consumed —
+> by `unified_alpha_skeleton_forced_by_minimal_invariants`, through
+> `sector1_forces_a_YM_eq_two`, `framework_alpha_unique_under_perelman_anchor_minimal`
+> and `sector2_minimal_rigidity_capstone`. Stripping them, as this finding
+> recommended, would have turned 142 true theorems into false ones. The table below
+> is retained as the dated record of what the auditor reported on 2026-09-18; it is
+> not the state of the corpus. See `codex/OCIRC_FAMILY_RESWEEP_2026-09-30.md`.
+
 Every built member of the family was audited (35 of 37; two modules have no
 olean in the ch2 worktree and were skipped).
 
@@ -160,6 +175,8 @@ say.
 ---
 
 # Full corpus capstone sweep, 2026-09-18
+
+**[Superseded in part, 2026-09-30]** these corpus-wide counts predate the `3ad4d61d` cone-traversal fix, which over-reported DEAD for any hypothesis passed whole to a callee in the other namespace. A full re-sweep with the fixed cone is required before any of these totals is quoted again; it is queued behind the live r331d panel build. Retirement condition: replace these numbers with the fixed-cone totals and delete this note.
 
 Every built capstone-class theorem in the corpus: 169 of 177 candidate modules
 have oleans in the ch2 worktree; the sweep imports all 169 and audits every
