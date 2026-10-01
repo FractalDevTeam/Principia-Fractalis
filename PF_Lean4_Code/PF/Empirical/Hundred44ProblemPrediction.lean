@@ -354,6 +354,27 @@ theorem falsifier_at_GI_implies_abstract_hundred44_falsifier
     rw [heq, sub_self, abs_zero] at h_far
     linarith
 
+/-- **(B-GI-2a) The coherence predicate at the GI record, as an IFF.**
+
+This is where the content actually lives: `IsFractallyCoherent` applied to the GI
+record *reduces to* the single equation `a = φ + 1/4`. Stated as an `iff` with no
+hypothesis, so the definitional unfolding is the theorem.
+
+Repairs an O-CIRC `CONTAINED` finding on
+`corroboration_at_GI_extends_coherence` below, whose proof was
+`unfold ...; exact h_eq` — after unfolding, its hypothesis WAS its conclusion.
+PremiseAudit flagged that correctly. The `iff` is strictly stronger than the
+implication it replaces, so this is a repair, not a downgrade. -/
+theorem coherence_at_GI_iff (a : ℝ) :
+    IsFractallyCoherent
+      { name           := hundred44Problem_name
+        classLabel     := hundred44Problem_classLabel
+        alphaMeasured  := a
+        lambdaMeasured := canonicalLambdaZero hundred44Problem_classLabel }
+      ↔ a = phi + 1/4 := by
+  unfold IsFractallyCoherent hundred44Problem_classLabel canonicalAlpha
+  exact Iff.rfl
+
 /-- **(B-GI-2) Corroboration_at_GI extends the 143-problem coherence
     to 144 problems.**
 
@@ -369,9 +390,11 @@ theorem corroboration_at_GI_extends_coherence
       { name           := hundred44Problem_name
         classLabel     := hundred44Problem_classLabel
         alphaMeasured  := measured_alpha
-        lambdaMeasured := canonicalLambdaZero hundred44Problem_classLabel } := by
-  unfold IsFractallyCoherent hundred44Problem_classLabel canonicalAlpha
-  exact h_eq
+        lambdaMeasured := canonicalLambdaZero hundred44Problem_classLabel } :=
+  -- NOTE: this is exactly `(coherence_at_GI_iff _).mpr`, so it still carries the
+  -- CONTAINED shape and adds nothing to the iff. Retained so existing references
+  -- do not break. Retiring it is a deletion and waits for Pablo.
+  (coherence_at_GI_iff measured_alpha).mpr h_eq
 
 /-- **(B-GI-3) Falsifier and Corroboration are mutually exclusive.**
 
@@ -530,6 +553,7 @@ theorem hundred44_GI_capstone_record : Hundred44GICapstoneRecord :=
 #check @Falsifier_at_GI
 #check @Corroboration_at_GI
 #check @falsifier_at_GI_implies_abstract_hundred44_falsifier
+#check @coherence_at_GI_iff
 #check @corroboration_at_GI_extends_coherence
 #check @falsifier_and_corroboration_mutually_exclusive
 #check @gi_measurement_witnesses_abstract_falsifier
