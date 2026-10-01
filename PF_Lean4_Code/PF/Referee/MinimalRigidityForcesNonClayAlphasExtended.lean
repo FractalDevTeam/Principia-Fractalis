@@ -120,7 +120,12 @@ theorem unified_minimal_forces_alpha_LonelyRunner_eq_a_Poincare
     (h_QG_pos : 0 < u.sector2.a_QG) :
     PF.NumberTheory.LonelyRunnerFrameworkAttack.alpha_LonelyRunner
       = u.sector1.a_Poincare := by
-  rw [h_P]; rfl
+  -- Route through the forced skeleton so minimal rigidity is what establishes
+  -- this, matching the name. Proving it from `h_P` alone left `hM` dead.
+  obtain ⟨h_Poin, _, _, _, _, _, _, _, _, _⟩ :=
+    unified_alpha_skeleton_forced_by_minimal_invariants
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  rw [h_Poin]; rfl
 
 /-! ## §6 — Erdős-Straus: α_ErdosStraus = 2·α_RH = 3 -/
 

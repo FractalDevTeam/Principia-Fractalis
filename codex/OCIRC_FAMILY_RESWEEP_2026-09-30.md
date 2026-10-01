@@ -116,8 +116,97 @@ defined. Settling that is substrate-level work on the α-cascade, not an edit to
 theorem, and it is the same question §12.3 of the state statement raises about the
 Perelman anchor: a named value that is supplied rather than derived.
 
-No Lean source was edited in this pass. These three are now recorded as confirmed
-findings with a named repair shape, not as counts.
+### Repaired 2026-10-01 — verified
+
+All three proofs now route through the forced skeleton. **Statements unchanged, no
+binder removed, no rename.** The diff is three proof bodies.
+
+| theorem | was | now |
+|---|---|---|
+| LonelyRunner | `rw [h_P]; rfl` | skeleton's `a_Poincare` conjunct |
+| H3 exponent 1 | `rw [h_P]; norm_num` | skeleton's `a_Poincare` conjunct |
+| H3 exponent 5 | `show (5 : ℝ) = (5 : ℝ); rfl` | `α_HN = 4 · a_PvNP`, with `a_PvNP` forced to 5/4 |
+
+Same probe, same fixed cone, before and after.
+
+**BEFORE**
+```
+AUDIT …unified_minimal_forces_alpha_LonelyRunner_eq_a_Poincare: 2 finding(s)
+  DEAD  UnifiedMinimalInvariants.sector1_minimal
+  DEAD  UnifiedMinimalInvariants.sector2_minimal
+AUDIT …unified_minimal_forces_H3_exponent_1_eq_a_Poincare:      2 finding(s)  (same two)
+AUDIT …unified_minimal_forces_H3_exponent_5_eq_a_HN:            2 finding(s)  (same two)
+O-CIRC SWEEP [MinimalRigidityForces]: targets=24 clean=21 withFindings=3 DEAD=6 CONTAINED=0 VACUOUS=0
+```
+
+**AFTER** (`lean` exit 0)
+```
+…unified_minimal_forces_alpha_LonelyRunner_eq_a_Poincare:            CLEAN (310 constants in cone)
+…unified_minimal_forces_H3_exponent_1_eq_a_Poincare:                 CLEAN (311 constants in cone)
+…unified_minimal_forces_H3_exponent_5_eq_a_HN:                       CLEAN (314 constants in cone)
+…unified_minimal_forces_alpha_ErdosStraus_eq_twice_a_RH [control]:   CLEAN (311 constants in cone)
+…extended_non_clay_alpha_reach_capstone [aggregate]:                 CLEAN (333 constants in cone)
+…unified_minimal_forces_H3_combinatorial_structure_capstone [aggr.]: CLEAN (325 constants in cone)
+O-CIRC SWEEP [MinimalRigidityForces]: targets=24 clean=24 withFindings=0 DEAD=0 CONTAINED=0 VACUOUS=0
+```
+
+The control and the two aggregate capstones were clean before and after, so the
+change in the three is attributable to the reroute and not to the probe.
+
+**Gate** — `scripts/pristine_gate.sh --premise-audit`, both modules, exit 0:
+
+```
+PASS (c) no sorry / native_decide / axiom in code
+PASS (a) UP-TO-DATE per lake content hash
+PASS (d) no unused binders in this module
+PASS (d2) PremiseAudit: no dead / contained / vacuous premises over 9 decls / 7 decls
+PASS (b) axioms ⊆ {propext, Classical.choice, Quot.sound} over 9 / 7 declarations
+PASS (e) no Prop-valued definitions introduced — no vacuity obligation
+PRISTINE  PF.Referee.MinimalRigidityForcesNonClayAlphasExtended
+PRISTINE  PF.Referee.MinimalRigidityForcesH3CombinatorialStructure
+```
+
+### Where it was verified, and the one thing still pending
+
+Verified on a Legion tree built for this purpose at
+`D:\CLAUDE-i9\_tmp\pf-ocirc-verify-20261001`, from Acer's **current** sources
+(2,227 modules; the `RiemannXiBox*Panels` directories are excluded and are not in
+either module's 232-module import closure). Its `lake-manifest.json` package
+revisions are identical to Acer's for every dependency, mathlib `eed770a43495`
+included, so it is the same dependency set rather than a near-enough one. 3,601 jobs
+built with zero errors, and the committed sources are **byte-identical** (md5) to the
+sources that were gated.
+
+Doing it there rather than on Acer was deliberate: the
+`RiemannXiBottomEdgeAtMinus15_r331d` panel build has been live on Acer since
+2026-09-29 and a second Lean build would contend for the same RAM. Neither patched
+module is in that build's 5,411-module closure, so editing their sources does not
+disturb it.
+
+**Pending, with its retirement condition:** Acer's oleans for these two modules are
+now older than their sources, so criterion (a) is red *on Acer* until it rebuilds
+them. Retirement condition: run
+`scripts/pristine_gate.sh --premise-audit` on both modules on Acer once the panel
+build finishes, and delete this paragraph. The kernel result above is not in doubt —
+it was produced from these exact bytes against an identical dependency set — but it
+was produced on the other machine, and that distinction is kept rather than blurred.
+
+### One substantive thing this surfaced
+
+`α_HN` is **not** a forced axis. The skeleton forces ten:
+`a_Poincare, a_RH, a_YM, a_BSD, a_NS, a_PvNP` in sector 1 and
+`a_P, a_Hodge, a_NP, a_QG` in sector 2. `α_HN` is not among them and is not a field
+of `UnifiedAlphaAssignment` at all — it is `def alpha_HN : ℝ := 5` in
+`PF/NumberTheory/HadwigerNelsonFrameworkAttack.lean:136`. Nor is it forced by the
+r339 two-anchor cascade, whose forced set is `YM, RH, BSD, Hodge, NP`.
+
+So the repaired proof does not derive `α_HN = 5`. What it does is make the H3
+exponent-5 identity depend on the *forced* value `a_PvNP = 5/4` through
+`α_HN = 4 · a_PvNP`, instead of on the definition `alpha_HN := 5`. That is a real
+improvement in what the theorem rests on and it makes the name honest, and it is
+**not** a derivation of the HN value. Whether `α_HN = 5` can be forced is open, and
+it is the same question §12.3 of the state statement raises about the Perelman
+anchor: a named value supplied rather than derived.
 
 ## What this does NOT correct
 
