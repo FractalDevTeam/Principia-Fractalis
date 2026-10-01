@@ -70,7 +70,42 @@ theorem xi_zero_reflect {σ t : ℝ} (h : riemannXiEntire ⟨σ, t⟩ = 0) :
   rw [mk_neg_im_eq_conj σ t, riemannXiEntire_conj, h, map_zero]
 
 /-! ## §2 — ★ The lower bound, unconditional ★ -/
-/-! ### Why the ξ-zero is a hypothesis here, not discharged from r324
+/-! ### The ξ-zero IS discharged (2026-09-30)
+
+An earlier revision of this file took the ξ-zero as a hypothesis, on the grounds
+that r324 supplies `Xi t = 0` for the real witness `Xi`, bridged to
+`completedRiemannZeta`, whereas `riemannXiEntire` is built on
+`completedRiemannZeta₀` — which differ by the pole terms.
+
+That bridge already exists. `RiemannXiSymmetries_r326` line 206:
+
+    exists_riemannXiEntire_zero_between_one_and_fifteen :
+      ∃ t : ℝ, 1 < t ∧ t < 15 ∧ riemannXiEntire ⟨1/2, t⟩ = 0
+
+proved from r324 via `riemannXiEntire_critical_eq_zero_iff_Xi_eq_zero`. So §2 is
+now unconditional and the hypothesis-taking forms are kept only as the general
+lemmas the §5 reduction consumes.
+-/
+
+/-- **★ Two distinct critical-line ξ-zeros in the rectangle, UNCONDITIONAL ★** -/
+theorem two_distinct_critical_zeros_exists :
+    ∃ t : ℝ, 1 < t ∧ t < 15 ∧
+      riemannXiEntire ⟨1/2, t⟩ = 0 ∧
+      riemannXiEntire ⟨1/2, -t⟩ = 0 ∧
+      (⟨1/2, t⟩ : ℂ) ≠ (⟨1/2, -t⟩ : ℂ) := by
+  obtain ⟨t, h1, h15, hz⟩ := exists_riemannXiEntire_zero_between_one_and_fifteen
+  refine ⟨t, h1, h15, hz, xi_zero_reflect hz, ?_⟩
+  intro hcontra
+  have : t = -t := congrArg Complex.im hcontra
+  linarith
+
+/-- The conclusion shape is inhabited, unconditionally. -/
+theorem conclusion_nonvacuous_uncond :
+    ∃ σ t : ℝ, riemannXiEntire ⟨σ, t⟩ = 0 ∧ σ = 1/2 := by
+  obtain ⟨t, _, _, hz, _, _⟩ := two_distinct_critical_zeros_exists
+  exact ⟨1/2, t, hz, rfl⟩
+
+/-! ### Original hypothesis-taking forms, retained for the §5 reduction
 
 r324 supplies `exists_Xi_zero_between_one_and_fifteen : ∃ t, 1 < t ∧ t < 15 ∧
 Xi t = 0`, where `Xi : ℝ → ℝ` is the real witness of `XiRealWitness`, bridged to
@@ -243,7 +278,68 @@ actually accumulated: the horizontal edges sit in the open left half-plane
 `σ = 0` and `σ = 1` edges run a length-30 interval and carry the rest.
 -/
 
-/-! ## §6 — Axiom check -/
+
+/-! ## §7 — ★ Halving the open step by the functional equation ★
+
+`NoOffLineZeroInBox` quantifies over `σ ∈ [0,1]`. The functional equation makes
+half of that redundant.
+
+`RiemannXiSymmetries_r326.riemannXiEntire_reflect_vertical`:
+
+    riemannXiEntire ⟨1 - σ, t⟩ = conj (riemannXiEntire ⟨σ, t⟩)
+
+so `ξ⟨σ,t⟩ = 0 ↔ ξ⟨1-σ,t⟩ = 0`. A zero at `σ < 1/2` therefore forces a zero at
+`1-σ > 1/2`, and excluding zeros on the closed right half `[1/2, 1]` excludes
+them everywhere in the box.
+
+This matters for the attack: the r331b box campaign is stated on `[1/2, 1]`
+(`RiemannXiTopUnion.top15_re_lt_neg_1e4` takes `1/2 ≤ σ` and `σ ≤ 1`), i.e.
+exactly the half that remains. The quantitative machinery and the reduced target
+now live on the same interval. -/
+
+/-- **Off-line exclusion restricted to the closed right half.** -/
+def NoOffLineZeroInRightHalf : Prop :=
+  ∀ σ t : ℝ, 1/2 ≤ σ → σ ≤ 1 → -15 ≤ t → t ≤ 15 →
+    riemannXiEntire ⟨σ, t⟩ = 0 → σ = 1/2
+
+/-- **★★★ The halving ★★★** — excluding off-line zeros on `[1/2,1]` excludes
+them on all of `[0,1]`.
+
+A zero at `σ < 1/2` reflects to a zero at `1-σ > 1/2`; the right-half hypothesis
+then forces `1-σ = 1/2`, contradicting `σ < 1/2`. So the left half carries no
+zeros at all, and on the right half the hypothesis gives `σ = 1/2` directly. -/
+theorem noOffLineInBox_of_rightHalf (H : NoOffLineZeroInRightHalf) :
+    NoOffLineZeroInBox := by
+  intro σ t h0 h1 hm hM hz
+  rcases le_or_lt (1/2 : ℝ) σ with hσ | hσ
+  · exact H σ t hσ h1 hm hM hz
+  · -- σ < 1/2: reflect to 1 - σ > 1/2 and derive a contradiction
+    have hrefl : riemannXiEntire ⟨1 - σ, t⟩ = 0 := by
+      rw [riemannXiEntire_reflect_vertical σ t, hz, map_zero]
+    have h1' : (1/2 : ℝ) ≤ 1 - σ := by linarith
+    have h2' : (1 : ℝ) - σ ≤ 1 := by linarith
+    have := H (1 - σ) t h1' h2' hm hM hrefl
+    linarith
+
+/-- **★ RH below height 15 from the right half alone ★**
+
+Composition of §7 with §5. This is the sharpest form of the remaining target:
+prove `ξ ≠ 0` off the critical line on `[1/2,1] × [-15,15]` and RH below height
+15 follows, with no multiplicity claim, no zero-ordinate uniqueness, and no
+certified numerics on `ξ'`. -/
+theorem rh_below_15_of_rightHalf (H : NoOffLineZeroInRightHalf) :
+    ∀ σ t : ℝ, 0 ≤ σ → σ ≤ 1 → -15 ≤ t → t ≤ 15 →
+      riemannXiEntire ⟨σ, t⟩ = 0 → σ = 1/2 :=
+  rh_below_15_of_no_off_line (noOffLineInBox_of_rightHalf H)
+
+/-- The right-half target is non-vacuous: the known zero sits in it, at the
+boundary `σ = 1/2`. -/
+theorem rightHalf_target_nonvacuous :
+    ∃ t : ℝ, (1/2 : ℝ) ≤ 1/2 ∧ (1/2 : ℝ) ≤ 1 ∧ riemannXiEntire ⟨1/2, t⟩ = 0 := by
+  obtain ⟨t, _, _, hz, _, _⟩ := two_distinct_critical_zeros_exists
+  exact ⟨t, le_refl _, by norm_num, hz⟩
+
+/-! ## §8 — Axiom check -/
 
 #print axioms mk_neg_im_eq_conj
 #print axioms xi_zero_reflect
@@ -255,6 +351,11 @@ actually accumulated: the horizontal edges sit in the open left half-plane
 #print axioms noOffLine_of_countAtMostTwo
 #print axioms countAtMostTwo_of_parts
 #print axioms noOffLine_target_nonvacuous
+#print axioms two_distinct_critical_zeros_exists
+#print axioms conclusion_nonvacuous_uncond
+#print axioms noOffLineInBox_of_rightHalf
+#print axioms rh_below_15_of_rightHalf
+#print axioms rightHalf_target_nonvacuous
 #print axioms conclusion_nonvacuous
 
 end XiZeroCountLowerBound
