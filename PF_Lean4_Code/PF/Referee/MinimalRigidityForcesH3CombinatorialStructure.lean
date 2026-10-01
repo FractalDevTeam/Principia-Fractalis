@@ -123,7 +123,17 @@ theorem unified_minimal_forces_H3_exponent_5_eq_a_HN
     (h_QG_pos : 0 < u.sector2.a_QG) :
     ((5 : ℕ) : ℝ) =
       PF.NumberTheory.HadwigerNelsonFrameworkAttack.alpha_HN := by
-  show (5 : ℝ) = (5 : ℝ); rfl
+  -- `show (5 : ℝ) = (5 : ℝ); rfl` proved this from the *definition*
+  -- `alpha_HN := 5`, consuming none of the six hypotheses. Route it instead
+  -- through `alpha_HN = 4 * a_PvNP` with `a_PvNP` forced to 5/4 by the
+  -- skeleton, so the identity is established by minimal rigidity.
+  obtain ⟨_, _, _, _, _, h_PvNP, _, _, _, _⟩ :=
+    unified_alpha_skeleton_forced_by_minimal_invariants
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  have h_HN := PF.Referee.MinimalRigidityForcesNonClayAlphasExtended.unified_minimal_forces_alpha_HN_eq_four_a_PvNP
+    u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  rw [h_HN, h_PvNP]
+  norm_num
 
 /-- **Under minimal-rigidity, the H₃ exponent 1 equals α_Poincaré.** -/
 theorem unified_minimal_forces_H3_exponent_1_eq_a_Poincare
@@ -134,7 +144,12 @@ theorem unified_minimal_forces_H3_exponent_1_eq_a_Poincare
     (h_Hodge_pos : 0 < u.sector2.a_Hodge)
     (h_QG_pos : 0 < u.sector2.a_QG) :
     ((1 : ℕ) : ℝ) = u.sector1.a_Poincare := by
-  rw [h_P]; norm_num
+  -- Route through the forced skeleton so minimal rigidity is what establishes
+  -- this, matching the name. Proving it from `h_P` alone left `hM` dead.
+  obtain ⟨h_Poin, _, _, _, _, _, _, _, _, _⟩ :=
+    unified_alpha_skeleton_forced_by_minimal_invariants
+      u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+  rw [h_Poin]; norm_num
 
 /-! ## §4 — H₃ exponent sum 15 = α_RH · α_YM · α_HN -/
 
