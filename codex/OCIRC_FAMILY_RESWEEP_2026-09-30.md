@@ -55,20 +55,69 @@ forced without the invariants. The edit was stopped before it was applied.
 `PF.Referee.MinimalRigidityForcesAlphaArchitecturalIdentities` now gates PRISTINE,
 exit 0.
 
-## The 3 residual targets
+## The 3 residual targets — hand-checked 2026-10-01, all three real
 
-These still report `UnifiedMinimalInvariants.sector1_minimal` and `sector2_minimal`
-DEAD under the fixed cone:
+Checked the way this document says a DEAD report must be checked: by reading the
+proof, not by trusting the count. Each proof is two tactics long, so the reading is
+exhaustive rather than a sample. **All three findings are correct.** There is no
+callee for the cone to fail to traverse — there is no callee at all.
 
-- `PF.Referee.MinimalRigidityForcesNonClayAlphasExtended.unified_minimal_forces_alpha_LonelyRunner_eq_a_Poincare`
-- `PF.Referee.MinimalRigidityForcesH3CombinatorialStructure.unified_minimal_forces_H3_exponent_1_eq_a_Poincare`
-- `PF.Referee.MinimalRigidityForcesH3CombinatorialStructure.unified_minimal_forces_H3_exponent_5_eq_a_HN`
+| theorem | proof | what it consumes |
+|---|---|---|
+| `…NonClayAlphasExtended.unified_minimal_forces_alpha_LonelyRunner_eq_a_Poincare` | `rw [h_P]; rfl` | `h_P` only |
+| `…H3CombinatorialStructure.unified_minimal_forces_H3_exponent_1_eq_a_Poincare` | `rw [h_P]; norm_num` | `h_P` only |
+| `…H3CombinatorialStructure.unified_minimal_forces_H3_exponent_5_eq_a_HN` | `show (5 : ℝ) = (5 : ℝ); rfl` | **nothing** |
 
-They are open repair candidates, **not** yet confirmed defects. The lesson of this
-document is that a DEAD report must be read against the traversal before it is acted
-on: check by hand whether each of these three passes the hypothesis whole into a
-further namespace the cone still does not reach. Only then consider a repair, and a
-repair here means supplying the missing consumption step, never stripping a binder.
+The conclusions hold definitionally: `alpha_LonelyRunner := 1` in
+`PF/NumberTheory/LonelyRunnerFrameworkAttack.lean`, and
+`def alpha_HN : ℝ := 5` at `PF/NumberTheory/HadwigerNelsonFrameworkAttack.lean:136`.
+So `((5 : ℕ) : ℝ) = alpha_HN` is `5 = 5`, and all six of its hypotheses — not only the
+two minimality fields — are inert.
+
+**The contrast inside the same two files is what makes this a finding rather than a
+suspicion.** Their siblings do consume `hM`, through the skeleton, and the fixed cone
+reports them clean:
+
+```
+obtain ⟨_, h_RH, _, …⟩ := unified_alpha_skeleton_forced_by_minimal_invariants
+                               u hM h_P h_P_pos h_Hodge_pos h_QG_pos
+```
+
+`unified_alpha_skeleton_forced_by_minimal_invariants` is invoked 7 times in
+`MinimalRigidityForcesNonClayAlphasExtended.lean` and 3 times in
+`MinimalRigidityForcesH3CombinatorialStructure.lean`. The auditor marks those targets
+clean and these three dead, in the same files, under the same traversal. It is
+discriminating correctly.
+
+### What the defect actually is, and what repair means here
+
+These three are not false theorems. They are **true statements whose names claim more
+than their proofs do**: `unified_minimal_forces_X` asserts that minimal rigidity
+forces X, while the proof obtains X from `h_P` plus a definitional unfolding. Same
+shape as the r301 finding — valid theorem, carries none of the information its name
+advertises.
+
+Repair is therefore neither stripping the binder nor renaming the theorem. Stripping
+`hM` would yield a stronger theorem with a false name; renaming downward is a
+downgrade. The repair is to **route the conclusion through the forced skeleton**, as
+the siblings already do, so that minimal rigidity is what establishes the result and
+the name becomes accurate.
+
+For the first two that is a mechanical change: `obtain` the skeleton from `hM` and
+take the `a_Poincare` component instead of rewriting with `h_P`.
+
+The third does not admit that repair as stated. `((5 : ℕ) : ℝ) = alpha_HN` is a
+definitional identity; no hypothesis can be made load-bearing in it without changing
+the statement. The open question underneath is whether `α_HN = 5` is **forced** by the
+skeleton or merely **defined** as 5 — and the neighbouring
+`unified_minimal_forces_H3_exponent_sum_eq_a_RH_mul_a_YM_mul_a_HN` routes `h_RH` and
+`h_YM` through the skeleton but still supplies the 5 definitionally, which suggests
+defined. Settling that is substrate-level work on the α-cascade, not an edit to this
+theorem, and it is the same question §12.3 of the state statement raises about the
+Perelman anchor: a named value that is supplied rather than derived.
+
+No Lean source was edited in this pass. These three are now recorded as confirmed
+findings with a named repair shape, not as counts.
 
 ## What this does NOT correct
 
@@ -84,6 +133,27 @@ and delete the annotations. That run needs Lean compute and is queued behind the
 `RiemannXiBottomEdgeAtMinus15_r331d` panel build on Acer — starting it now would
 contend for the same RAM (one panel worker measured 4.4 GB RSS, panels peak near 9 GB)
 and kill a build that is two days into a ~6.5-day job.
+
+### Legion cannot substitute — checked 2026-10-01, NEGATIVE
+
+Worth ruling out explicitly, because Legion does hold a fixed-cone
+`PremiseAudit.olean` (built 2026-09-30 14:59) and looks at first glance like spare
+capacity. It is not. `#audit_all` selects its targets from `env.constants`, so the
+target set is exactly what the probe imports, and Legion's tree at
+`D:\CLAUDE-i9\_tmp\pf-ch08-bianchi-bookkeeping-20260926\PF_Lean4_Code` is a partial
+snapshot:
+
+- 1,318 oleans of the corpus's ~4,380;
+- 439 of the 536 capstone-bearing modules have oleans, so the sweep would silently
+  audit a subset and report a target count that is not comparable to 213;
+- **1 of the 40 `MinimalRigidityForces*` modules** is built, so it cannot even
+  reproduce the family figure above;
+- no `PF/Audit/` source directory at all — the audit olean was dropped in, not built
+  from the tree.
+
+Making Legion capable means rebuilding its tree, which is days of its own RAM on
+Pablo's interactive machine. Available, not free, and not taken unilaterally. Do not
+re-derive this; the full re-sweep waits for Acer.
 
 ## Documents corrected in this pass
 
