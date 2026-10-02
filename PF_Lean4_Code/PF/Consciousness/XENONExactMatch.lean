@@ -32,7 +32,11 @@ framework's universal coupling π/10 plus the consciousness threshold 0.95.
 
 * No free parameters: π/10 is the framework's universal coupling, 0.95 is
   the consciousness crystallization threshold (Ch 6 Chern-Weil derived)
-* Both constants are framework-internal, not fit to XENON
+* Both constants are framework-internal in PROVENANCE (π/10 from the universal
+  coupling, 0.95 from the Ch 11 threshold) — but `ch_2_threshold_XENON := 0.95`
+  is a literal `def`, so this is a claim about where the number came from, NOT a
+  derivation and NOT an absence of adjustable constants. One constant, one
+  target: reproducing 1.30 exactly would require 0.9549.
 * The prediction was MADE (Ch 11) and matches XENON observation EXACTLY
 
 The max possible enhancement at the universal coupling (ch_2 = 1) is:
@@ -120,7 +124,9 @@ theorem Gamma_max_gt_1_31 : (1.31 : ℝ) < Gamma_max_enhancement := by
 
     Match: < 0.5% relative error. EXACT to 3 significant figures.
 
-    Both constants (π/10, 0.95) are framework-internal, NOT fit to XENON.
+    Both constants (π/10, 0.95) are framework-internal in provenance. That is a
+    statement about origin, not a derivation: 0.95 is a literal `def` and is the
+    single adjustable constant here. The agreement is 0.2% relative, not exact.
     The prediction is genuine and arithmetic. -/
 theorem XENON_framework_prediction_exact :
     (1.297 : ℝ) < Gamma_ratio_predicted ∧

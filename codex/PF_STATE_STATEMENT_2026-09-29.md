@@ -132,7 +132,7 @@ Distinction between the kernel-clean substrate tier and the Referee-tier "rigidi
 - **DESI DR2** phantom-crossing at z ≈ 0.5, qualitative prediction pre-registered before measurement.
 - **LIGO/Virgo/KAGRA GWTC-4.0** primary-BH mass low peak matching 10 · α_Poincaré · M_☉ = 10 M_☉ at ~0.67σ; mass-ratio peak matching α_P / α_NP ≈ 0.757 at 0.13σ; z-evolution index κ ≈ π at 0.06σ.
 - **Cohen 2025 T_3^sym** eigenvalue ↔ ζ-zero co-localisations at 150-digit precision.
-- **XENONnT** ¹²⁴Xe 2νECEC.
+- **XENONnT** — **ISOTOPE DISCREPANCY, UNRESOLVED (flagged 2026-10-02).** This line says ¹²⁴Xe 2νECEC. The Lean file it summarises, `PF/Consciousness/XENONExactMatch.lean`, is titled "XENON-127 Nuclear Transition" and concerns an anomalous transition in ¹²⁷Xe at E ≈ 9.4 keV exceeding the Standard Model by a factor ≈ 1.30. Two-neutrino double electron capture in ¹²⁴Xe and a 9.4 keV nuclear transition in ¹²⁷Xe are different physics; one of the two statements is wrong. Which is a physics judgement and is not resolved here — **do not quote this anchor externally until it is.** Note also that the agreement is 0.2% relative, not exact: the file's own § records `|1.298 − 1.30| / 1.30`, and its prose calling the match EXACT contradicts that.
 - **HSC-Y3 / KiDS-1000** S_8 low-redshift weak-lensing tension addressed.
 - **Primordial Li-7** deficit factor π/(10√2) ≈ 0.222 at 0.14σ (coincident with level-1 P-class ground-state eigenvalue).
 - **Retracted / recharacterised**: CDF-II W-mass, Fermilab muon g-2 (2025 SM-side revisions; disclosed).
