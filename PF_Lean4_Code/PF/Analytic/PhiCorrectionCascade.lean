@@ -8,22 +8,22 @@
 The original `Ch3LeadingOrderResonance α R_f_value` (in `SpectralResonanceBridge.lean`)
 encodes the **literal point-value** claim
 
-    `R_f(α, 1) = π·α/10`
+    `R_f(α, 1) = π/(10·α)`
 
 This literal form is REFUTED at the proven R_f anchors:
 * At α = 1: `R_f(1, 1) = -log 2` (proven axiom-free in
-  `RfAtAlphaOneIsNegEta.lean`), but `π·1/10 ≈ 0.314 ≠ -0.693`.
+  `RfAtAlphaOneIsNegEta.lean`), but `π/(10·1) ≈ 0.314 ≠ -0.693`.
 * At α = 2: `R_f(2, 1) = ζ(1) = ∞` (proven axiom-free in
-  `RfAtAlphaTwoIsZeta.lean`), but `π·2/10 = π/5` is finite.
+  `RfAtAlphaTwoIsZeta.lean`), but `π/(10·2) = π/20` is finite.
 
 The manuscript's **actual** Ch 3 line 331 claim is:
 
-    `R_f(α, 1) = Li_1(e^(iπα)) · Φ(α) = π·α/10 + O(α²)`
+    `R_f(α, 1) = Li_1(e^(iπα)) · Φ(α) = π/(10·α) + O(α²)`
 
-i.e. the **composite** `Li_1(e^(iπα)) · Φ(α)` has leading order `π·α/10`,
+i.e. the **composite** `Li_1(e^(iπα)) · Φ(α)` has leading order `π/(10·α)`,
 NOT R_f itself. The correction factor `Φ(α)` absorbs the structural
 mismatch between the polylog evaluation `Li_1(e^(iπα))` and the
-universal coupling `π·α/10`.
+universal coupling `π/(10·α)`.
 
 ## What this file does
 
@@ -35,11 +35,11 @@ Three things, in order of decreasing scope:
 
 2. **Reformulate** `Ch3LeadingOrderResonance` as the manuscript's true
    factored form: there exist `liVal phiVal : ℝ` with
-   `R_f_value = liVal · phiVal` AND `liVal · phiVal = π·α/10`.
+   `R_f_value = liVal · phiVal` AND `liVal · phiVal = π/(10·α)`.
 
 3. **Cascade theorem**: a SINGLE named hypothesis
    `Phi_correction_canonical_pinning` pins Φ at all 9 α-instances such
-   that the universal coupling `π·α/10` holds for every Millennium
+   that the universal coupling `π/(10·α)` holds for every Millennium
    class simultaneously. Discharging this one Prop gives the full
    9-instance cascade `λ_0(H_α) = π/(10·α)` for all canonical α.
 
@@ -69,7 +69,7 @@ Three things, in order of decreasing scope:
   (a) a closed-form derivation of `Φ(α)` from the base-3 substructure
       (Ch 3 line 347's "Detailed Fourier analysis (Chapter 4)" — still
       open), OR
-  (b) per-α direct computation of `R_f(α, 1)` matching `π·α/10` after
+  (b) per-α direct computation of `R_f(α, 1)` matching `π/(10·α)` after
       removing the Li_1 factor, at all 9 canonical points.
 
 * This file therefore does NOT discharge `PolylogEigenvalueConjecture`.
@@ -89,6 +89,33 @@ Discharging the new cascade hypothesis is still hard — but it is now
 HONEST (consistent with proven anchors) and AGGREGATED (one Prop
 controls all 9 instances via the 4-basis rigidity proven in
 `AlphaBasisGenerators.lean`).
+
+## Provenance of the leading-order form (READ THIS FIRST)
+
+★ 2026-10-02 realignment ★
+
+This file was written and last built on 2026-05-24 03:52, against the
+THEN-current `SpectralResonanceBridge.lean`, in which
+
+    `Ch3LeadingOrderResonance α R_f_value  :=  R_f_value = π·α/10`
+    `SpectralResonanceBridge α λ₀ R_f     :=  λ₀ = R_f / α²`
+
+Twelve and a half hours later, commit `451c44a7` (2026-05-24 16:26,
+"Prop 1+2 typo reformulation: R_f = π/(10α), bridge drops α²") replaced
+both definitions with
+
+    `Ch3LeadingOrderResonance α R_f_value  :=  R_f_value = π/(10·α)`
+    `SpectralResonanceBridge α λ₀ R_f     :=  λ₀ = R_f`
+
+after the 2026-05-23 50-digit mpmath refutation of the printed `πα/10`.
+THIS FILE WAS NEVER UPDATED and was never rebuilt; its olean on Acer
+still dates from 03:52 and its `.trace` records a clean compile of the
+pre-451c44a7 environment.  Every `π·α/10` in this file has therefore
+been realigned to `π/(10·α)` to match the corpus definition it consumes.
+
+Note on §9: at α = 1 the two forms COINCIDE (`π·1/10 = π/(10·1) = π/10`),
+so the formal refutation against the proven `R_f(1,1) = -log 2` anchor is
+numerically unchanged by the realignment.
 
 Stage L10 — Φ-correction cascade reformulation.
 ZERO project axioms.
@@ -121,7 +148,7 @@ open Real PrincipiaTractalis.MillenniumSix
 
     The manuscript does not give `Φ` a closed form — it is declared
     via the bridge identity itself, and its leading-order behaviour at
-    small α is what produces the universal `π·α/10` coupling.
+    small α is what produces the universal `π/(10·α)` coupling.
 
     Encoded here as `noncomputable opaque`, mirroring the convention
     used for `resonanceCoefficient_xi` in `FractalResonance.lean`. -/
@@ -146,21 +173,30 @@ noncomputable opaque Li_1_real_factor : ℝ → ℝ
     Faithful to manuscript Ch 3 line 331:
 
       `R_f(α, 1) = Li_1(e^(iπα)) · Φ(α)`     [structural factoring]
-      `Li_1(e^(iπα)) · Φ(α) = π·α/10`        [universal leading order]
+      `Li_1(e^(iπα)) · Φ(α) = π/(10·α)`        [universal leading order]
 
     Encoded as the conjunction of:
     1. There exist `liVal phiVal : ℝ` with `R_f_value = liVal · phiVal`.
-    2. `liVal · phiVal = π·α/10`.
+    2. `liVal · phiVal = π/(10·α)`.
 
     Note: condition (1) is the **factoring** the manuscript asserts;
     condition (2) is the leading-order claim. The two together imply
-    `R_f_value = π·α/10` (matching the original `Ch3LeadingOrderResonance`),
+    `R_f_value = π/(10·α)` (matching the original `Ch3LeadingOrderResonance`),
     but the FACTORING is the manuscript's actual structural content —
     the Li_1 and Φ pieces are individually identifiable. -/
 def Ch3LeadingOrderResonance_Phi (α : ℝ) (R_f_value : ℝ) : Prop :=
   ∃ (liVal phiVal : ℝ),
     R_f_value = liVal * phiVal ∧
-    liVal * phiVal = Real.pi * α / 10
+    liVal * phiVal = Real.pi / (10 * α)
+
+/-- **Non-vacuity witness for `Ch3LeadingOrderResonance_Phi`** (pristine-gate
+criterion (e)). A claimed predicate with no exhibited witness is kernel-clean and
+meaningless, which is the gap criterion (e) exists to close. At `α = 1` the
+predicate reads `R_f = liVal · phiVal` with the product equal to `π/10`; take
+`liVal = π/10`, `phiVal = 1`. -/
+theorem Ch3LeadingOrderResonance_Phi_nonvacuous :
+    ∃ α R : ℝ, Ch3LeadingOrderResonance_Phi α R :=
+  ⟨1, Real.pi / 10, Real.pi / 10, 1, by ring, by norm_num⟩
 
 /-! ## 3. Equivalence with the original Ch3LeadingOrderResonance -/
 
@@ -168,17 +204,17 @@ def Ch3LeadingOrderResonance_Phi (α : ℝ) (R_f_value : ℝ) : Prop :=
     (logical equivalence of `Ch3LeadingOrderResonance` and
     `Ch3LeadingOrderResonance_Phi`).
 
-    Both Props express the same end-claim `R_f_value = π·α/10`. The
+    Both Props express the same end-claim `R_f_value = π/(10·α)`. The
     new form simply ROUTES THROUGH the manuscript's factoring
     `Li_1(e^(iπα)) · Φ(α)`. As a hypothesis, the two have IDENTICAL
     deductive strength.
 
     Direction (←): a factored witness gives `R_f_value = liVal·phiVal
-    = π·α/10`.
+    = π/(10·α)`.
 
     Direction (→): use the trivial factoring `R_f_value = 1 ·
     R_f_value`; with `liVal := 1` and `phiVal := R_f_value`, both
-    halves hold immediately from `R_f_value = π·α/10`.
+    halves hold immediately from `R_f_value = π/(10·α)`.
 
     This means: **discharging the new factored Prop is exactly as hard
     as discharging the old literal one**, but the new form is the
@@ -192,7 +228,7 @@ theorem Ch3LeadingOrder_reformulation_equivalence
   · rintro ⟨liVal, phiVal, hfact, hlead⟩
     rw [hfact, hlead]
   · intro h
-    -- R_f_value = π·α/10: use trivial factoring (liVal=1, phiVal=R_f_value).
+    -- R_f_value = π/(10·α): use trivial factoring (liVal=1, phiVal=R_f_value).
     refine ⟨1, R_f_value, ?_, ?_⟩
     · ring
     · rw [one_mul]; exact h
@@ -230,7 +266,7 @@ theorem polylog_closed_form_via_Phi_cascade
     9 canonical α-instances simultaneously:
 
       ∀ α ∈ {1, 3/2, √2, φ+1/4, 3π/4, 3π/2, 2, φ, √(2π)}:
-        ∃ liVal phiVal, R_f(α,1) = liVal·phiVal ∧ liVal·phiVal = π·α/10
+        ∃ liVal phiVal, R_f(α,1) = liVal·phiVal ∧ liVal·phiVal = π/(10·α)
 
     Concretely, this Prop bundles the manuscript's Ch 3 leading-order
     claim across:
@@ -265,7 +301,7 @@ def Phi_correction_canonical_pinning
 /-- **★ 9-INSTANCE LEADING-ORDER CASCADE ★**
 
     Given the single `Phi_correction_canonical_pinning` hypothesis,
-    the leading-order claim `R_f(α,1) = π·α/10` holds at ALL 9
+    the leading-order claim `R_f(α,1) = π/(10·α)` holds at ALL 9
     canonical α-instances simultaneously.
 
     This is the CASCADE LEVERAGE: instead of 9 separate hypotheses
@@ -283,27 +319,29 @@ theorem nine_instance_leading_order_cascade
     (h_pin : Phi_correction_canonical_pinning
               R_f_at_Poincare R_f_at_RH R_f_at_P R_f_at_NP
               R_f_at_BSD R_f_at_NS R_f_at_YM R_f_at_Hodge R_f_at_QG) :
-    R_f_at_Poincare = Real.pi * 1 / 10 ∧
-    R_f_at_RH       = Real.pi * (3/2) / 10 ∧
-    R_f_at_P        = Real.pi * Real.sqrt 2 / 10 ∧
-    R_f_at_NP       = Real.pi * (phi + 1/4) / 10 ∧
-    R_f_at_BSD      = Real.pi * (3 * Real.pi / 4) / 10 ∧
-    R_f_at_NS       = Real.pi * (3 * Real.pi / 2) / 10 ∧
-    R_f_at_YM       = Real.pi * 2 / 10 ∧
-    R_f_at_Hodge    = Real.pi * phi / 10 ∧
-    R_f_at_QG       = Real.pi * alpha_QG / 10 := by
+    R_f_at_Poincare = Real.pi / (10 * 1) ∧
+    R_f_at_RH       = Real.pi / (10 * (3/2)) ∧
+    R_f_at_P        = Real.pi / (10 * Real.sqrt 2) ∧
+    R_f_at_NP       = Real.pi / (10 * (phi + 1/4)) ∧
+    R_f_at_BSD      = Real.pi / (10 * (3 * Real.pi / 4)) ∧
+    R_f_at_NS       = Real.pi / (10 * (3 * Real.pi / 2)) ∧
+    R_f_at_YM       = Real.pi / (10 * 2) ∧
+    R_f_at_Hodge    = Real.pi / (10 * phi) ∧
+    R_f_at_QG       = Real.pi / (10 * alpha_QG) := by
   obtain ⟨h1, h2, h3, h4, h5, h6, h7, h8, h9⟩ := h_pin
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  all_goals first
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h1
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h2
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h3
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h4
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h5
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h6
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h7
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h8
-    | exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h9
+  -- One bullet per instance.  (The previous `all_goals first | ...` alternation
+  -- was order-dependent and silently mismatched goals to witnesses; explicit
+  -- bullets make the pairing checkable.)
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h1
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h2
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h3
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h4
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h5
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h6
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h7
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h8
+  · exact (Ch3LeadingOrder_reformulation_equivalence _ _).mp h9
 
 /-! ## 7. Per-α closed form via cascade -/
 
@@ -387,7 +425,7 @@ theorem nine_instance_closed_form_cascade
     `-log 2 = π/10`, which is FALSE numerically (-0.693 ≠ 0.314).
 
     What the consistency theorem shows is the PURELY LOGICAL fact:
-    given any `R_f_value` matching `π·α/10`, a factoring exists
+    given any `R_f_value` matching `π/(10·α)`, a factoring exists
     (trivially), so the manuscript's factored statement is
     LOGICALLY CONSISTENT at α=1 — but the consistency does not
     imply Φ(1) takes the value 1 specifically; the literal
@@ -401,7 +439,7 @@ theorem nine_instance_closed_form_cascade
     leading-order claim at α=1. -/
 theorem Phi_correction_at_one_factored_form_consistent
     {R_f_value : ℝ}
-    (h_value : R_f_value = Real.pi * 1 / 10) :
+    (h_value : R_f_value = Real.pi / (10 * 1)) :
     Ch3LeadingOrderResonance_Phi 1 R_f_value := by
   refine ⟨1, R_f_value, ?_, ?_⟩
   · ring
@@ -432,8 +470,8 @@ theorem Ch3LeadingOrderResonance_Phi_at_alpha_one_via_anchor_refuted :
   -- Suppose the factored Prop holds with R_f_value = R_f_one_one_value = -log 2.
   -- Then -log 2 = π/10 via the literal equivalence.
   intro h
-  -- Convert to literal form: R_f_value = π·1/10 = π/10.
-  have h_lit : PrincipiaTractalis.Consciousness.R_f_one_one_value = Real.pi * 1 / 10 :=
+  -- Convert to literal form: R_f_value = π/(10·1) = π/10.
+  have h_lit : PrincipiaTractalis.Consciousness.R_f_one_one_value = Real.pi / (10 * 1) :=
     (Ch3LeadingOrder_reformulation_equivalence 1 _).mp h
   -- Simplify: -log 2 = π/10.
   unfold PrincipiaTractalis.Consciousness.R_f_one_one_value at h_lit
