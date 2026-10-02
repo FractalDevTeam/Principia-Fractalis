@@ -7,18 +7,18 @@ characterisation is *-isomorphic to `TimelessFieldCompletion`. This
 is Glimm's 1960 UHF classification specialised to supernatural number
 `3^∞`.
 
-**Status: SORRY-SCAFFOLDED sketch-DAG (2026-09-10).** Follows the
-FLT-lessons pattern (`codex/FLT_LESSONS_FOR_PF_2026-09-08.md` §1–§2):
-every `sorry` here is a *statement card* whose type is immutable and
-whose proof body will be filled by prover-agent farming per
+**Status: COMPLETE. No `sorry` in any proof body.** The six grep hits for
+`sorry` in this file are all inside comments (including this one). The
+statement-card programme the header used to describe — the FLT-lessons
+pattern of `codex/FLT_LESSONS_FOR_PF_2026-09-08.md` §1–§2, farmed per
 `codex/C1_STATEMENT_CARDS_2026-09-10.md` and
-`codex/COMPLETION_WITNESS_STATEMENT_CARDS_2026-09-10.md`.
+`codex/COMPLETION_WITNESS_STATEMENT_CARDS_2026-09-10.md` — was carried out.
+Those documents are history, not outstanding work.
 
-**This module is NOT yet wired into `PF.lean`.** By design, per the
-project's zero-sorry discipline for the main build. Wiring happens
-only after every `sorry` here is discharged and `#print axioms
-T_infinity_rigidity` returns exactly
-`[propext, Classical.choice, Quot.sound]`.
+**This module IS wired into `PF.lean`** — see `PF.lean:1353`. The condition
+the header used to state for wiring (every `sorry` discharged, and
+`#print axioms T_infinity_rigidity` returning exactly
+`[propext, Classical.choice, Quot.sound]`) was met, and the wiring followed.
 
 **Program:** `codex/UNIFIED_THEORY_PROOF_PROGRAM.md` §1.
 **Directive:** `codex/UNIFIED_THEORY_PROOF_DIRECTIVE_2026-09-07.md`.
@@ -32,19 +32,30 @@ read-back rounds closed).
 - NO `axiom` keyword — every "axiom" of the substrate is a hypothesis
   field of the `Substrate3Inf` structure, not a kernel injection.
 - NO `native_decide` anywhere.
-- `sorry` present only inside the C1–C4 proof-block scaffolds and the
-  five W1–W5 witness fields. Each is a farmable statement-card leaf.
-- The `#print axioms` block at the bottom is COMMENTED OUT while
-  `sorry`s remain — uncomment on completion and verify verdict is
-  exactly `[propext, Classical.choice, Quot.sound]`.
+- NO `sorry` in any proof body. The C1–C4 proof blocks and the five
+  W1–W5 witness fields are discharged.
+- The `#print axioms` block at the bottom is **LIVE**, not commented out.
 
-**Full statement-card index (see `codex/COMPLETION_WITNESS_STATEMENT_CARDS_2026-09-10.md`):**
-  W1–W5: completion-side witness (5 cards, ~15–30 min agent-time)
-  C1:    block-diagonal embedding (7 cards, ~30–60 min)
-  C2:    Noether–Skolem for `M_n(ℂ)` (~10 cards, ~1–2 h)
-  C3:    completion universal property, star-upgraded (~5 cards, ~30 min)
-  C4:    Elliott back-and-forth (~10 cards + 1 main, ~2–4 h)
-  ~38 cards total, ~4–8 hours at Vinogradov cadence.
+**Arc structure, for navigation** (the statement-card index in
+`codex/COMPLETION_WITNESS_STATEMENT_CARDS_2026-09-10.md` records how it was built,
+and its time estimates are historical):
+  W1–W5: completion-side witness
+  C1:    block-diagonal embedding `M_n → M_{kn}`
+  C2:    Noether–Skolem uniqueness for `M_n(ℂ)`
+  C3:    completion universal property, star-upgraded
+  C4:    Elliott back-and-forth for `3^∞` towers
+
+**Header provenance.** Until 2026-10-02 this header declared the module
+sorry-scaffolded and unwired, and declared the `#print axioms` block commented
+out. All three were false, and they sat in the first forty lines of the file
+holding the corpus's strongest result — which is the part of a 2,513-line file a
+referee actually reads. Found by a book-to-code parity sweep. Same defect class as
+`YangMillsPerelmanTemplateY1Y4Discharge`'s silent four-month non-compile
+(`2c1e7437`) and `RiemannXiEdgeEnclosure_r331c`'s false not-yet-elaborated header
+(`7c6683c0`): a file's self-description outliving the facts and then being believed.
+Currency note kept honest: the olean on the Acer tree dates from 2026-09-11 and the
+source mtime from 2026-09-27, so lake's content hash — not this header — is the
+authority on whether a rebuild is pending.
 
 Author: Pablo Cohen + Claude Opus 4.7. 2026-09-10.
 -/
