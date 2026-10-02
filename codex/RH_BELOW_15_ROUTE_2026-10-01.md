@@ -229,3 +229,121 @@ Verified independently before filing: r327 exists with the named theorems and ze
 escape hatches; r331e's count identity exists as quoted; mathlib has no `windingNumber`
 and no argument principle at the pin; the charter's `0.2033` and "fails by T = 16" are at
 `R331C_CAMPAIGN_CHARTER.md:197,200`.
+
+---
+
+# Corrections, 2026-10-01 second pass
+
+Five corrections to the document above, from an independent re-reading of the same
+source. Three change the cost of the route; two are errors of fact in this document.
+
+## C1. "Never elaborated" was wrong — and the module's own header is why
+
+§7 above says `PF/Analytic/RiemannXiEdgeEnclosure_r331c.lean` has "0 sorries,
+imported by nothing, **never elaborated**". The first two are right. The third is false.
+
+The olean exists — 193,392 bytes, built 2026-09-08 — and its `.trace` records exactly
+three log entries: one `trace` and two `warning` (`unused variable h_ne`), and **no
+`error`**. The module compiled. Its source content has not changed since (git clean,
+last touched by `00f8a634`, same day); only the file mtime moved, from a checkout.
+
+**Where the error came from matters more than the error.** The file's own header said
+"SKELETON, NOT YET ELABORATED … They have not been checked", and `§Axiom check` was
+commented out *citing that claim* as the reason. The header was stale, a reading of it
+produced this document's §7, and the claim then had to be corrected from build
+artefacts. Same failure mode as `YangMillsPerelmanTemplateY1Y4Discharge`
+(commit `2c1e7437`): a module's self-description outlived the facts and an audit
+believed it. Both the header and the suppressed axiom block are now repaired, and
+the module gates PRISTINE with four consumers.
+
+## C2. Fourteen segments, not eight — but only three are new obligations
+
+§6's table covers `t ∈ [0,15]` and defers the rest to "negative `t` is the conjugate
+mirror". The right edge of the contour is `VIntegral f 1 (-15) 15`, so the mirror is
+three more segments, and the left edge likewise. Honest accounting:
+
+| | count |
+|---|---|
+| segments in the full traversal | **14** |
+| primitive numerical obligations (R1, R2, R3) | **3** |
+| already landed (`r331d:87` bottom, `r331c:76` top) | **2** |
+| free by symmetry | **9** |
+
+All four rotations `{1, -I, -1, I}` are genuinely used. Counterclockwise from
+`zF = ⟨0,-15⟩`: bottom `-1`; right going up `(-1, +I, 1, -I, -1)`; top `-1`; left
+going down `(-1, +I, 1, -I, -1)`. The three-rotation table in §6 is what you see if
+you look only at `t ≥ 0`.
+
+## C3. The symmetry buys slightly less than "left = right exactly"
+
+§6 claims bottom = top and left = right **exactly**. Correct about the facts, wrong
+about the rotations. Both symmetries are conjugations —
+`riemannXiEntire_conj` (`r326:88`) and `riemannXiEntire_reflect_vertical` (`r326:109`)
+— so each **preserves `Re` and negates `Im`.**
+
+Consequence: the two `Re`-governed left segments do mirror the right ones, but the
+`Im`-governed one does not. L2's fact is `Im ξ(0+it) < 0` with rotation `+I`, not
+`Im > 0` with `-I`. Same flip on the negative-`t` segments R2' and L2'.
+
+So the assembly cannot take eight identically-shaped hypotheses. It takes **three
+primitive hypotheses plus two landed theorems and derives the other nine**, or it
+takes fourteen and the caller discharges eleven. Three one-line transfer lemmas are
+also missing: `im_reflect`, `re_conj_t`, `im_conj_t`. (`re_reflect` exists at
+`r331c:53`; `re_conj_at_neg_15` exists at `r331d:69` but is specialised to `t = 15`.)
+
+This is a small cost increase, not a structural one. The §9 estimate of weeks for the
+bridge and symmetry layer stands.
+
+## C4. `slitPlane` membership is clean on every segment — no endpoint hazard
+
+Each of the four sign claims lands in the **left disjunct** of
+`slitPlane = {z | 0 < z.re ∨ z.im ≠ 0}`, strictly, so `0` is excluded automatically:
+
+| ω | `(ω·z).re` | claim gives |
+|---|---|---|
+| `1` | `z.re` | `0 < Re ξ` |
+| `-I` | `z.im` | `0 < Im ξ` |
+| `-1` | `-z.re` | `Re ξ < 0` |
+| `+I` | `-z.im` | `Im ξ < 0` |
+
+The segments are **closed and overlap at shared endpoints**, so at each junction both
+adjacent rotated real parts are positive — exactly what §3's constant-mismatch
+argument needs. The corner `(1,15)` carries no mismatch because R3 and the top edge
+share `ω = -1`. At `t = 0`, `ξ(1) = ξ(0) = 1/2` exactly (`r328:110`, `r328:103`), and
+`r329b:386` `riemannXiEntire_real_Icc_pos` covers the whole `t = 0` line — which is
+the second, independent confirmation that §5 is right that statement B and the `η`
+detour are unnecessary.
+
+## C5. A representation mismatch that will stall the assembly if not anticipated
+
+The contour primitives are stated in `x + y*I` form, not `⟨x,y⟩` form
+(`ResidueCalcOnRectangles_r327.lean:46,49`, and note that file declares **no
+namespace** — those definitions are root-level):
+
+```lean
+noncomputable def HIntegral (f : ℂ → E) (x₁ x₂ y : ℝ) : E := ∫ x in x₁..x₂, f (x + y * I)
+noncomputable def VIntegral (f : ℂ → E) (x y₁ y₂ : ℝ) : E := I • ∫ y in y₁..y₂, f (x + y * I)
+```
+
+Every existing sign theorem in the corpus uses `⟨σ,t⟩`. So the §3 bridge lemmas as
+drafted will **not** match `HIntegral`'s body by `rfl`. The fix is one rewrite with
+`Complex.mk_eq_add_mul_I` (`Mathlib/Data/Complex/Basic.lean:246`, already used at
+`PF/Analytic/XiRealWitness.lean:283`). Recorded because this is the kind of mismatch
+that costs a day for no mathematical reason.
+
+Also free, and worth knowing before writing the bridge:
+`differentiable_riemannXiEntire` (`RiemannXiEntire_r325.lean:89`) discharges the
+`Differentiable ℂ f` hypothesis of both primitives with no work.
+
+## C6. Two things §1 should not be read as claiming
+
+- `r328:135` and `r328:179` are `riemannXiEntire_ne_zero_on_re_one` and
+  `..._on_re_zero` — **nonvanishing** on all of `ℝ`, not sign facts. They are what
+  makes `full_rectangle_boundary_zero_free` (`r331e:99`) unconditional, and they
+  contribute **nothing** to the vertical-edge rotation rows. The table in §1 lists
+  them under "boundary zero-free", which is accurate, but they must not be mistaken
+  for progress on R1–R3.
+- `r331e`'s own docstring (`:4`) says the file "composes r331b (right edge)".
+  `RiemannXiThetaRealFormAndBoxes_r331b.lean:2` is titled "CERTIFIED T=15 TOP EDGE"
+  and its panels hardcode `t = 15`; the actual right edge at `r331e:138` is `r328`'s
+  nonvanishing. That docstring is wrong and this document inherited the phrasing.
