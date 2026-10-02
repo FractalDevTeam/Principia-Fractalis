@@ -162,8 +162,38 @@ fi
 # Attribute ONLY warnings whose file path is this module's source. lake build
 # output includes the whole dependency chain; attributing a dependency's unused
 # binder to the target module is a false accusation, so filter by path.
-OWN_UNUSED="$(grep 'unused variable' "$BUILD_OUT" | grep -F "$SRC:" || true)"
+OWN_UNUSED_ALL="$(grep 'unused variable' "$BUILD_OUT" | grep -F "$SRC:" || true)"
 DEP_UNUSED="$(grep 'unused variable' "$BUILD_OUT" | grep -vF "$SRC:" || true)"
+
+# Criteria (d) and (e) can pull in opposite directions. A binder may be
+# deliberately unused BECAUSE it closes a vacuous instantiation: strip
+# `h_ne : t_lo <= t_hi` from an interval-bound consumer and `t_lo := 1, t_hi := 0`
+# makes every hypothesis vacuously provable and the conclusion vacuously true for
+# any bound, so a campaign could accumulate green certificates covering zero
+# measure. Charging (d) for that guard would reward removing it, which is the
+# worse defect. See PF/Analytic/RiemannXiEdgeEnclosure_r331c.lean section
+# "Non-degeneracy".
+#
+# So guard-named binders are exempted from (d) — but ONLY when the module
+# actually documents the rationale, and they are always REPORTED, never silently
+# dropped. Naming alone must not buy an exemption.
+GUARD_RE='unused variable `(h_ne|h_ne[_'"'"'][A-Za-z0-9_'"'"']*|h_nonempty|h_nondegen[A-Za-z0-9_]*)`'
+if grep -qiE 'Non-degeneracy|non-vacuity|nondegenerac' "$STRIPPED" 2>/dev/null    || grep -qiE 'Non-degeneracy|non-vacuity|nondegenerac' "$SRC" 2>/dev/null; then
+  OWN_GUARDS="$(printf '%s
+' "$OWN_UNUSED_ALL" | grep -E "$GUARD_RE" || true)"
+  OWN_UNUSED="$(printf '%s
+' "$OWN_UNUSED_ALL" | grep -vE "$GUARD_RE" || true)"
+else
+  OWN_GUARDS=""
+  OWN_UNUSED="$OWN_UNUSED_ALL"
+fi
+if [ -n "$OWN_GUARDS" ]; then
+  NG=$(printf '%s
+' "$OWN_GUARDS" | grep -c . || true)
+  warn "(d*) $NG binder(s) EXEMPTED as documented non-vacuity guards — see the module's rationale"
+  printf '%s
+' "$OWN_GUARDS" | head -4 | sed 's/^/        /'
+fi
 if [ -n "$OWN_UNUSED" ]; then
   fail "(d) unused binders in THIS module (linter.unusedVariables)"
   printf '%s

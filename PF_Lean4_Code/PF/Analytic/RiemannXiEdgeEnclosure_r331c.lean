@@ -3,9 +3,17 @@
 
 **r331c stage C0 — the t-ranged transpose of the r331a box interface.**
 
-SKELETON, NOT YET ELABORATED. Written 2026-09-06 during the r331b C1 rebuild; no
-build slot was taken. Proof bodies below are the intended shapes, mirroring the
-monotone-step pattern the r331b bridges use. They have not been checked.
+ELABORATED AND CLEAN. Written 2026-09-06 during the r331b C1 rebuild and first
+built 2026-09-08: the olean records three log entries - one trace and two
+`unused variable h_ne` warnings - and **no error**. The header previously said
+"SKELETON, NOT YET ELABORATED ... They have not been checked", which was false and
+had already propagated into an external assessment of this arc before being caught
+on 2026-10-01. The source content is unchanged since that build (git clean, last
+touched by `00f8a634`); only the file mtime moved, from a checkout.
+
+What remains true: nothing imports this module, so `lake build` of the default
+target never reaches it and future upstream drift would break it silently. That is
+an orphan-exposure problem, not an unverified-content problem.
 
 ## Why this module exists
 
@@ -162,15 +170,81 @@ theorem im_xi_lower_bound_from_edge
     (h_pcim_lo t h0 h1) (h_pcim_hi t h0 h1)
     him_lo him_hi
 
+/-! ## §4 — upper-bound consumers (transpose of r331a §5 `re_xi_upper_bound_from_enclosures`)
+
+Needed by segment R3 of the right edge, which proves `Re ξ(1+it) < 0` and therefore
+cannot be served by the two lower-bound consumers in §3. Same `h_ne` non-degeneracy
+discipline as §3 — see the note above §3. -/
+
+/-- **RIGHT-EDGE UPPER consumer** — `Re ξ(σ+it) ≤ M` for every `t` in the box.
+
+`t`-ranged transpose of `re_xi_upper_bound_from_enclosures` (r331a §5). Consumed by
+segment R3, which closes `Re ξ(1+it) < 0` by instantiating with a negative `M` and
+tightening `≤` to `<` at the call site. -/
+theorem re_xi_upper_bound_from_edge
+    {t_lo t_hi σ : ℝ} (h_ne : t_lo ≤ t_hi)
+    {AΛ_re BΛ_re : ℝ} (h_re : EdgeReEnclosure t_lo t_hi σ AΛ_re BΛ_re)
+    {AΛ_im BΛ_im : ℝ} (h_im : EdgeImEnclosure t_lo t_hi σ AΛ_im BΛ_im)
+    {C_re_lo C_re_hi : ℝ}
+    (h_pcre_lo : ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → C_re_lo ≤ σ * (σ - 1) - t ^ 2)
+    (h_pcre_hi : ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → σ * (σ - 1) - t ^ 2 ≤ C_re_hi)
+    {C_im_lo C_im_hi : ℝ}
+    (h_pcim_lo : ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → C_im_lo ≤ t * (2 * σ - 1))
+    (h_pcim_hi : ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → t * (2 * σ - 1) ≤ C_im_hi)
+    (M : ℝ)
+    (h_arith : ∀ (p1 p2 q1 q2 : ℝ),
+        C_re_lo ≤ p1 → p1 ≤ C_re_hi → AΛ_re ≤ p2 → p2 ≤ BΛ_re →
+        C_im_lo ≤ q1 → q1 ≤ C_im_hi → AΛ_im ≤ q2 → q2 ≤ BΛ_im →
+        (1 + p1 * p2 - q1 * q2) / 2 ≤ M) :
+    ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → (riemannXiEntire (⟨σ, t⟩ : ℂ)).re ≤ M := by
+  intro t h0 h1
+  rw [re_xi_at_s]
+  have ⟨hre_lo, hre_hi⟩ := h_re.bounds t h0 h1
+  have ⟨him_lo, him_hi⟩ := h_im.bounds t h0 h1
+  exact h_arith _ _ _ _
+    (h_pcre_lo t h0 h1) (h_pcre_hi t h0 h1)
+    hre_lo hre_hi
+    (h_pcim_lo t h0 h1) (h_pcim_hi t h0 h1)
+    him_lo him_hi
+
+/-- **RIGHT-EDGE IM UPPER consumer** — `Im ξ(σ+it) ≤ M` for every `t` in the box.
+
+NEW statement: r331a has no `im_xi_upper_bound_from_enclosures` to transpose. It is
+free from the same `im_xi_at_s` rewrite that `im_xi_lower_bound_from_edge` uses, with
+the arithmetic hypothesis's inequality reversed. Supplied for the same reason r331a
+supplies the re-upper variant: a sign statement on `Im ξ` along the right edge cannot
+be served by a lower bound. -/
+theorem im_xi_upper_bound_from_edge
+    {t_lo t_hi σ : ℝ} (h_ne : t_lo ≤ t_hi)
+    {AΛ_re BΛ_re : ℝ} (h_re : EdgeReEnclosure t_lo t_hi σ AΛ_re BΛ_re)
+    {AΛ_im BΛ_im : ℝ} (h_im : EdgeImEnclosure t_lo t_hi σ AΛ_im BΛ_im)
+    {C_re_lo C_re_hi : ℝ}
+    (h_pcre_lo : ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → C_re_lo ≤ σ * (σ - 1) - t ^ 2)
+    (h_pcre_hi : ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → σ * (σ - 1) - t ^ 2 ≤ C_re_hi)
+    {C_im_lo C_im_hi : ℝ}
+    (h_pcim_lo : ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → C_im_lo ≤ t * (2 * σ - 1))
+    (h_pcim_hi : ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → t * (2 * σ - 1) ≤ C_im_hi)
+    (M : ℝ)
+    (h_arith : ∀ (p1 p2 q1 q2 : ℝ),
+        C_re_lo ≤ p1 → p1 ≤ C_re_hi → AΛ_re ≤ p2 → p2 ≤ BΛ_re →
+        C_im_lo ≤ q1 → q1 ≤ C_im_hi → AΛ_im ≤ q2 → q2 ≤ BΛ_im →
+        (p1 * q2 + q1 * p2) / 2 ≤ M) :
+    ∀ t : ℝ, t_lo ≤ t → t ≤ t_hi → (riemannXiEntire (⟨σ, t⟩ : ℂ)).im ≤ M := by
+  intro t h0 h1
+  rw [im_xi_at_s]
+  have ⟨hre_lo, hre_hi⟩ := h_re.bounds t h0 h1
+  have ⟨him_lo, him_hi⟩ := h_im.bounds t h0 h1
+  exact h_arith _ _ _ _
+    (h_pcre_lo t h0 h1) (h_pcre_hi t h0 h1)
+    hre_lo hre_hi
+    (h_pcim_lo t h0 h1) (h_pcim_hi t h0 h1)
+    him_lo him_hi
+
 end PrincipiaTractalis.RiemannXiEdgeEnclosure
 
-/-! ## §Axiom check — to be added once this module is first elaborated.
+/-! ## §Axiom check -/
 
-Per release-gate item B0, the audit verdict must come from `#print axioms` output,
-never from a zero exit code:
-
-    #print axioms PrincipiaTractalis.RiemannXiEdgeEnclosure.re_xi_lower_bound_from_edge
-    #print axioms PrincipiaTractalis.RiemannXiEdgeEnclosure.im_xi_lower_bound_from_edge
-
-They are commented out here because this module is staged, not built, and a stale
-audit line would be worse than none. -/
+#print axioms PrincipiaTractalis.RiemannXiEdgeEnclosure.re_xi_lower_bound_from_edge
+#print axioms PrincipiaTractalis.RiemannXiEdgeEnclosure.im_xi_lower_bound_from_edge
+#print axioms PrincipiaTractalis.RiemannXiEdgeEnclosure.re_xi_upper_bound_from_edge
+#print axioms PrincipiaTractalis.RiemannXiEdgeEnclosure.im_xi_upper_bound_from_edge
