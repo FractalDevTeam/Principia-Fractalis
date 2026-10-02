@@ -76,6 +76,39 @@ Seven of nine α-values and the ratio `α_NS / α_RH = π` lie outside `ℤ[1/3]
 
 Paired-result paper on disk: `Papers/pf_substrate_rigidity_alpha_obstruction_2026-09-10.tex`.
 
+**r123 contains two further self-refutations, sharper than the `K_0` exclusion above,
+and this section had been underselling them.** Both are kernel-checked and the file is
+wired into `PF.lean`. Surfaced 2026-10-02; the theorems have been in the corpus since
+2026-09-10.
+
+- **The H₃ identity constrains nothing.** `coupling_H3_identity_holds_for_every_alpha`
+  (`PF/AlphaFromSubstrateKTheory_r123.lean:437`) proves
+  `sin(λ₀(α)·α) = 1/(2φ)` for **every** nonzero α — because `λ₀(α)·α = π/10`
+  identically, so the sine is constant. The file's own words: *"A statement true of all
+  α constrains none"*, and *"the 'same π/10 appears in both' observation is the
+  observation that π/10 appears on both sides of an identity uniform in α."* Any
+  external presentation of the H₃ route must carry this, because it is the project's own
+  theorem and a referee who finds it unaided will conclude it was hidden.
+
+- **§7: α is only defined mod 2, and the α-skeleton is not.**
+  `resonance_phase_two_periodic` (`:448`) proves the framework's *primary* definition
+  of α — `R_f(α,s) = Σ e^{iπαD₃(n)} n^{-s}`, ch03 Def. `def:fractal-resonance` — is
+  invariant under `α ↦ α + 2`, since `D₃(n) ∈ ℕ`. But
+  `alpha_P_sq_eq_alpha_YM_not_mod_two_invariant` (`:464`) proves the skeleton's own
+  invariant `α_P² = α_YM` is **not** invariant under that shift. The file's conclusion:
+  *"the α-table's algebraic skeleton is not a statement about the objects α indexes."*
+
+This is the strongest content in the α area and it is negative. It should lead, not sit
+in a subsection: a project that built the instruments that refute its own headline, ran
+them, and published the output is doing mathematics. See
+`codex/ADVERSARIAL_ALPHA_2026-10-02.md` §9 item 2, and note that §7 above is sharper
+than the `K_0` argument that report cites.
+
+**One positive convergence survives**, recorded so the section is not read as a
+withdrawal: `bare_route_alpha_memZ13` — every α admitted by the corpus's own
+machine-checked ternary reality condition (`bare_route_structural_finding`,
+`PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:131`) lies in `ℤ[1/3]`.
+
 ## 4. ch04:461 quotient — repaired, not withdrawn
 
 The trace-preserving "gauge quotient" from ch04:461 was found to collapse. It is now repaired: `Aut_0 := Inn`, with the corrected reading `M⁴ = Aut(𝒯_∞)/Inn(𝒯_∞) = Out(𝒯_∞)`, conditional on `Out` classification.
