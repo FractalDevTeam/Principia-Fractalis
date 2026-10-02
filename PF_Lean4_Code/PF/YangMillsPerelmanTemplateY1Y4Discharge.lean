@@ -72,6 +72,11 @@ namespace PrincipiaTractalis
 
 open Real PrincipiaTractalis PrincipiaTractalis.MillenniumSix
 open PrincipiaFractalis.PerelmanBackwardUnifiedAttack
+-- `alpha_YM_H3U` is declared in `PrincipiaFractalis.H3UnifiedMillenniumStructure`.
+-- Without this open it does not resolve, `autoImplicit` binds it as an implicit
+-- variable, every statement below silently generalises over an arbitrary real,
+-- and `unfold alpha_YM_H3U` fails. That is why this module had no olean.
+open PrincipiaFractalis.H3UnifiedMillenniumStructure
 
 /-! ## Part 1 — Concrete witness for (Y1) `YMEntropyMonotonic`
 
