@@ -67,10 +67,10 @@ def IsIdem (p : TimelessFieldCompletion) : Prop := p * p = p
 
 /-- Every continuous unital ℂ-algebra endomorphism preserves idempotence. -/
 theorem map_isIdem {α : TimelessFieldCompletion → TimelessFieldCompletion}
-    (hα : IsContUnitalAlgEndo α) {p : TimelessFieldCompletion} (hp : IsIdem p) :
+    (hmul : ∀ x y, α (x * y) = α x * α y) {p : TimelessFieldCompletion} (hp : IsIdem p) :
     IsIdem (α p) := by
   show α p * α p = α p
-  rw [← hα.mul, hp]
+  rw [← hmul, hp]
 
 /-! ## §2 — …with the same trace -/
 
@@ -79,7 +79,7 @@ theorem map_isIdem {α : TimelessFieldCompletion → TimelessFieldCompletion}
 theorem map_isIdem_and_trace {α : TimelessFieldCompletion → TimelessFieldCompletion}
     (hα : IsContUnitalAlgEndo α) {p : TimelessFieldCompletion} (hp : IsIdem p) :
     IsIdem (α p) ∧ UHF_trace (α p) = UHF_trace p :=
-  ⟨map_isIdem hα hp, trace_preserved hα p⟩
+  ⟨map_isIdem hα.mul hp, trace_preserved hα p⟩
 
 /-- The trace range on idempotents — the concrete shadow of `K₀` that r123 uses. -/
 def idemTraces : Set ℂ :=
@@ -87,10 +87,10 @@ def idemTraces : Set ℂ :=
 
 /-- The forward image of the idempotent trace range never leaves it. -/
 theorem idemTraces_image_subset {α : TimelessFieldCompletion → TimelessFieldCompletion}
-    (hα : IsContUnitalAlgEndo α) :
+    (hmul : ∀ x y, α (x * y) = α x * α y) :
     UHF_trace '' (α '' {p | IsIdem p}) ⊆ idemTraces := by
   rintro c ⟨y, ⟨p, hp, rfl⟩, rfl⟩
-  exact ⟨α p, map_isIdem hα hp, rfl⟩
+  exact ⟨α p, map_isIdem hmul hp, rfl⟩
 
 /-! ## §3 — For an inner automorphism the range is fixed exactly -/
 
@@ -100,10 +100,10 @@ theorem conjBy_idemTraces_eq (u v : TimelessFieldCompletion)
     (huv : u * v = 1) (hvu : v * u = 1) :
     UHF_trace '' (conjBy u v '' {p | IsIdem p}) = idemTraces := by
   apply Set.Subset.antisymm
-  · exact idemTraces_image_subset (conjBy_isContUnitalAlgEndo u v huv hvu)
+  · exact idemTraces_image_subset (conjBy_isContUnitalAlgEndo u v huv hvu).mul
   · rintro c ⟨p, hp, rfl⟩
     refine ⟨conjBy u v (conjBy v u p), ⟨conjBy v u p, ?_, rfl⟩, ?_⟩
-    · exact map_isIdem (conjBy_isContUnitalAlgEndo v u hvu huv) hp
+    · exact map_isIdem (conjBy_isContUnitalAlgEndo v u hvu huv).mul hp
     · have hround : conjBy u v (conjBy v u p) = p := by
         show u * (v * p * u) * v = p
         have h : u * (v * p * u) * v = (u * v) * p * (u * v) := by
