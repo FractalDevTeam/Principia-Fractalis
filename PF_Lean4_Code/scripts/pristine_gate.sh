@@ -263,8 +263,24 @@ if [ ! -f "$QUALIFIER" ]; then
   fail "(b) scripts/lib/qualified_decls.py missing — cannot qualify declaration names"
   DECLS=()
 else
-  mapfile -t DECLS < <(python3 "$QUALIFIER" "$SRC")
-  PRIV="$(python3 "$QUALIFIER" "$SRC" --private-count 2>/dev/null || echo 0)"
+  # Run the enumerator to a file and CHECK ITS EXIT STATUS. Reading a process
+  # substitution with mapfile discards the status, so a crash mid-output (e.g.
+  # UnicodeEncodeError on a cp1252 stdout, Legion 2026-10-03) silently yields
+  # a SHORT declaration list that then certifies as a clean pass.
+  QOUT="$(mktemp)"; QERR="$(mktemp)"
+  if python3 "$QUALIFIER" "$SRC" > "$QOUT" 2> "$QERR"; then
+    mapfile -t DECLS < "$QOUT"
+  else
+    fail "(b) declaration enumeration FAILED — refusing to certify"
+    tail -3 "$QERR" | sed 's/^/        /'
+    DECLS=()
+  fi
+  if PRIV_RAW="$(python3 "$QUALIFIER" "$SRC" --private-count 2>/dev/null)"; then
+    PRIV="$PRIV_RAW"
+  else
+    PRIV=0
+  fi
+  rm -f "$QOUT" "$QERR"
 fi
 PRIV="${PRIV:-0}"
 

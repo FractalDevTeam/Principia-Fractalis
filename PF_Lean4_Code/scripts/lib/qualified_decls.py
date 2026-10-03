@@ -139,7 +139,21 @@ def scan(path):
     return uniq, private
 
 
+def _force_utf8_stdout():
+    """Declaration names contain subscripts; a cp1252 stdout (the Windows
+    default) raises UnicodeEncodeError partway through and truncates the
+    list, so any caller reading the partial output under-counts."""
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        try:
+            sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+        except Exception:
+            pass
+
+
 def main() -> int:
+    _force_utf8_stdout()
     if len(sys.argv) < 2:
         sys.stderr.write("usage: qualified_decls.py <source.lean> [--private-count]\n")
         return 2
