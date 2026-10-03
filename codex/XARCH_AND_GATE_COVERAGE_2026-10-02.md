@@ -294,6 +294,49 @@ by independent routes, so they should agree; when they disagree, one of them is
 wrong. That is what caught this, and it is cheaper than any amount of re-reading
 the enumerator.
 
+## Quantified corpus-wide, 2026-10-03
+
+`scripts/audit/gate_coverage_delta.py` measures how much of the corpus the old
+criterion (b) actually inspected, without running Lean — pure text analysis,
+seconds to run, repeatable. Over the **1,302 built panel-free modules** of the
+Legion verification tree:
+
+| | |
+|---|---|
+| modules with >1 `namespace` line, so surviving bare names could not resolve | **292 (22.4%)** |
+| modules where the enumeration never saw some declarations at all | **267 (20.5%)** |
+| declarations present | 15,098 |
+| declarations the old gate would have probed | 13,690 |
+| **never probed** | **1,408 (9.3%)** |
+
+Worst individual cases, as *reported coverage* against actual:
+
+| module | present | probed | coverage |
+|---|---|---|---|
+| `PF/Analytic/SlitDiscPreconnected.lean` | 26 | 2 | **8%** |
+| `PF/CrossMillenniumMoreInvariants.lean` | 295 | 72 | **24%** |
+| `PF/AlphaHodgeTighterHalfBracket_r248.lean` | 29 | 9 | 31% |
+| `PF/Analytic/OnLineSurjectivityCascadeK20ToK29.lean` | 55 | 25 | 45% |
+| `PF/Analytic/OnLineSurjectivityCascadeK30ToK49.lean` | 95 | 45 | 47% |
+| `PF/TransferOperator.lean` | 124 | 93 | 75% |
+
+`PF/MillenniumSixReductions.lean` carries **11** `namespace` lines; the old probe
+pasted them into one 11-component dotted path, which names nothing.
+
+Three independent losses compound here, and the script separates them: the bare
+pattern never matched declarations carrying attributes or modifiers
+(`@[simp] lemma`, `private theorem`, `protected`, `nonrec`); `sort -u` merged
+distinct declarations sharing a short name; and for multi-namespace files the
+pasted `open` could not resolve what survived. Every one of these reported the
+full declaration count regardless.
+
+**None of this means a non-standard axiom was present.** `sorryAx` was always
+caught by an independent single-token grep, criterion (c) independently greps the
+module's own code for declared axioms, and the modules carry their own authored
+`#print axioms` blocks — which is the path the aarch64 confirmation above used,
+and which was never affected. What was wrong throughout is the instrument's report
+of its own coverage.
+
 ## What this does and does not establish
 
 **Does:** the kernel verdicts reproduce on x86_64 and aarch64 from identical
