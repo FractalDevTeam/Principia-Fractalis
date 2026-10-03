@@ -313,12 +313,35 @@ This exponential cutoff at high wavenumbers prevents the energy cascade from rea
 \label{lem:fractal_dimension_bound}
 The fractal dimension $d_f$ of the turbulent velocity field satisfies:
 \begin{equation}
-d_f = \frac{5}{3} - \frac{\pi}{10} \cdot \frac{\text{ch}_2}{0.95} \leq \frac{5}{3}
+d_f = \frac{8}{3} - \frac{\pi}{20} \cdot \frac{\text{ch}_2}{0.95} \leq \frac{8}{3}
 \end{equation}
-For consciousness at threshold ($\text{ch}_2 = 0.95$), the maximal dimension is:
+At $\text{ch}_2 = 0.95$ this attains its \emph{minimum} over
+$\text{ch}_2 \in [0, 0.95]$:
 \begin{equation}
-d_f^{\max} = \frac{5}{3} - \frac{\pi}{10} \approx 1.353
+d_f^{\min} = \frac{8}{3} - \frac{\pi}{20} \approx 2.510
 \end{equation}
+
+\begin{remark}[Correction, 2026-10-03: constant, coefficient, and extremum]
+\label{rem:df-correction-2026-10-03}
+Three errors, all visible against the proof two equations below. The proof
+correctly records $d_f = 3 - \zeta_2/2$ with $\zeta_2 = 2/3$, giving
+$d_f = 8/3$ in the Kolmogorov case; it then sets
+$\delta\zeta_2 = (\pi/10)(\text{ch}_2/0.95)$ and displays
+\[
+3 - \tfrac12\bigl(\zeta_2 + \delta\zeta_2\bigr) = \tfrac53 - \tfrac{\pi}{10}\cdot\tfrac{\text{ch}_2}{0.95},
+\]
+whereas $3 - \tfrac12\cdot\tfrac23 - \tfrac12\delta\zeta_2
+= \tfrac83 - \tfrac{\pi}{20}\cdot\tfrac{\text{ch}_2}{0.95}$. The constant was
+low by exactly $1$ and the coefficient high by a factor $2$.
+
+The label was also wrong. $\partial d_f/\partial\text{ch}_2 = -(\pi/20)/0.95 < 0$,
+so $d_f$ is strictly \emph{decreasing} in $\text{ch}_2$: the value at the
+threshold is the minimum of the range, not the maximum. Over
+$\text{ch}_2 \in [0,0.95]$ the corrected $d_f$ runs from $8/3 \approx 2.667$ down
+to $\approx 2.510$. Any downstream text treating $1.353$ as a maximal fractal
+dimension, including the research problem that asks whether the bound is sharp,
+inherits both the arithmetic and the mislabelling.
+\end{remark}
 \end{lemma}
 
 \begin{proof}

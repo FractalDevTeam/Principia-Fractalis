@@ -379,9 +379,18 @@ Systems approaching ch$_2 = 0.95$ exhibit characteristic behaviors:
 \begin{enumerate}
 \item \textbf{Lyapunov Divergence:}
 \begin{equation}
-\lambda_{\max} \sim (\text{ch}_2 - 0.95)^{-1/2}
+\lambda_{\max} \sim \left|\text{ch}_2 - 0.95\right|^{-1/2}
 \end{equation}
-Sensitivity to initial conditions diverges as consciousness threshold is approached.
+Sensitivity to initial conditions diverges as the consciousness threshold is
+approached from either side.
+\emph{Correction (2026-10-03): the absolute value is required.} As previously
+printed, $(\text{ch}_2 - 0.95)^{-1/2}$ is real only for
+$\text{ch}_2 > 0.95$; for $\text{ch}_2 < 0.95$ --- the regime this section
+describes, and the regime the rest of the book treats as pre-crystallisation ---
+the base is negative and the principal $-1/2$ power is purely imaginary, while
+$\lambda_{\max}$ is by definition a real Lyapunov exponent. With the absolute
+value the law is a two-sided critical scaling, which is what a critical exponent
+normally means.
 
 \item \textbf{Spectral Entropy:}
 \begin{equation}

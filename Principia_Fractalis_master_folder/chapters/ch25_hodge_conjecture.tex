@@ -370,9 +370,29 @@ H_{ij} = \hat{\xi}(i+j-2), \quad i,j = 1, \ldots, N
 \begin{theorem}[Low Rank from High Concentration]\label{thm:low-rank}
 If $\sigma(\xi) \geq 0.95$, then:
 \begin{equation}
-\rank(H) \leq \frac{1}{1-\sigma(\xi)} \leq \frac{1}{1-0.95} = 20
+\rank(H) \leq \frac{1}{1-\sigma(\xi)}
 \end{equation}
 \end{theorem}
+
+\begin{remark}[Correction, 2026-10-03: the second inequality was reversed]
+\label{rem:low-rank-direction-2026-10-03}
+Earlier printings continued the chain with
+$\tfrac{1}{1-\sigma(\xi)} \leq \tfrac{1}{1-0.95} = 20$. That is backwards.
+$f(\sigma) = (1-\sigma)^{-1}$ has $f'(\sigma) = (1-\sigma)^{-2} > 0$ on $[0,1)$,
+so $f$ is strictly \emph{increasing} and the hypothesis $\sigma \geq 0.95$ gives
+$\tfrac{1}{1-\sigma} \geq 20$, with equality only at $\sigma = 0.95$ exactly.
+The bound therefore grows without limit as $\sigma \to 1$.
+
+Against this chapter's own table: K3 at $\sigma = 0.9873$ gives $78.7$; the
+quintic threefold at $0.9621$ gives $26.4$; the Abelian $4$-fold at $0.9544$
+gives $21.9$; and the two entries at $\sigma = 1.0000$ give no finite bound at
+all. So $r \leq 20$ holds for none of the listed cases. Consequently the
+complexity estimate elsewhere in this chapter that substitutes ``$r \leq 20$''
+is unsupported, and the cycle-extraction correctness argument --- which assumes
+$\sigma \geq 0.95 + \epsilon$ --- makes the bound \emph{worse}, not better. What
+survives is the first inequality, $\rank(H) \leq (1-\sigma(\xi))^{-1}$, which is
+retained above.
+\end{remark}
 
 \begin{intuitive}
 \textbf{Why does this help?}
@@ -447,7 +467,17 @@ Abelian 4-fold & 4 & 0.9544 & 240 cycles \\
 
 \textbf{Success rate}: 100\% of tested Hodge classes have $\sigma \geq 0.95$
 
-Complete numerical validation on 4 canonical varieties (Calabi-Yau threefold, K3 surface with $\rho=20$, Abelian surface, and complete intersection surface) confirms spectral concentration $\geq 0.95$ for all Hodge classes tested, with mean concentration $0.6310$ and maximum $0.9893$ for Calabi-Yau test cases. Detailed results including basis dimensions $N=30$, unified thresholds, and algebraic cycle extraction algorithms are presented in \cite{cohen2025hodgeproof}.
+Complete numerical validation on 4 canonical varieties (Calabi-Yau threefold, K3 surface with $\rho=20$, Abelian surface, and complete intersection surface) reports, inconsistently, both that spectral concentration is $\geq 0.95$ for all
+Hodge classes tested and that the mean concentration is $0.6310$ with maximum
+$0.9893$ for Calabi--Yau test cases.
+\emph{Correction (2026-10-03): these cannot both hold.} A finite set of values all
+$\geq 0.95$ has mean $\geq 0.95$, so a mean of $0.6310$ is impossible alongside
+the $100\%$ claim; and the stated maximum $0.9893$ also contradicts the two table
+entries at $\sigma = 1.0000$. At least one of the three figures is wrong and the
+underlying run would have to be re-examined to say which, so no success rate is
+asserted here. (Note $0.6310 \approx \log 2/\log 3 = 0.63093$, this chapter
+family's recurring fractal-dimension constant, which suggests a transcription
+error rather than a measurement.) Detailed results including basis dimensions $N=30$, unified thresholds, and algebraic cycle extraction algorithms are presented in \cite{cohen2025hodgeproof}.
 
 \subsection{Example: Quintic Threefold}
 
