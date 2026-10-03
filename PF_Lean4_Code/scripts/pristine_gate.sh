@@ -250,17 +250,30 @@ fi
 
 # --- (b) axioms, via a generated probe ----------------------------------------
 # Do not rely on the module containing its own #print axioms: generate one.
-mapfile -t DECLS < <(grep -nE '^[[:space:]]*(theorem|lemma)[[:space:]]+[A-Za-z_]' "$STRIPPED" \
-  | sed -E 's/^[0-9]+:[[:space:]]*(theorem|lemma)[[:space:]]+([A-Za-z_][A-Za-z0-9_'"'"']*).*/\2/' | sort -u)
+# Probe FULLY-QUALIFIED names. The previous version emitted bare names under a
+# single `open` built by pasting every `namespace` line into one dotted path; for
+# nested namespaces that names only the innermost scope, so declarations in outer
+# namespaces never resolved and produced no axiom record, while the PASS line
+# still cited the full declaration count. `sort -u` on bare names also collapsed
+# distinct declarations sharing a short name across namespaces. Measured
+# 2026-10-02 on PF/GaussLowerBound_r209.lean: 88 bare names -> 3 records;
+# 93 qualified names -> 93 records, zero errors.
+QUALIFIER="$(dirname "$0")/lib/qualified_decls.py"
+if [ ! -f "$QUALIFIER" ]; then
+  fail "(b) scripts/lib/qualified_decls.py missing — cannot qualify declaration names"
+  DECLS=()
+else
+  mapfile -t DECLS < <(python3 "$QUALIFIER" "$SRC")
+  PRIV="$(python3 "$QUALIFIER" "$SRC" --private-count 2>/dev/null || echo 0)"
+fi
+PRIV="${PRIV:-0}"
 
 if [ "${#DECLS[@]}" -eq 0 ]; then
   warn "(b) no theorem/lemma declarations found to probe"
 else
-  NS="$(grep -E '^namespace ' "$STRIPPED" | awk '{print $2}' | paste -sd'.' -)"
   PROBE="$(mktemp --suffix=.lean -p . probe_gate_XXXX)"
   {
     echo "import $MOD"
-    [ -n "$NS" ] && echo "open $NS"
     for d in "${DECLS[@]}"; do echo "#print axioms $d"; done
   } > "$PROBE"
   PROBE_MOD="$(basename "${PROBE%.lean}")"
@@ -273,17 +286,58 @@ else
     fail "(b) sorryAx present — declaration is not proved"
     grep -B2 'sorryAx' "$PROBE_OUT" | head -6 | sed 's/^/        /'
   fi
+  # Lean wraps long axiom lists across lines:
+  #     'foo' depends on axioms: [propext,
+  #      Classical.choice,
+  #      Quot.sound]
+  # A per-line regex requiring the closing ']' therefore matches NONE of those
+  # records, and the allowlist scan silently skips them. Measured 2026-10-02 on
+  # real Lean output: 33 of 195 records matched, 162 skipped, while the PASS line
+  # still cited the full declaration count. Join each record onto one line first,
+  # and report the number of records actually inspected.
+  JOINED="$(mktemp)"
+  awk '
+    /depends on axioms:/ {
+      acc = $0
+      while (acc !~ /\]/) {
+        if ((getline nx) <= 0) break
+        sub(/^[ \t]*/, "", nx)
+        acc = acc " " nx
+      }
+      print acc
+      next
+    }
+  ' "$PROBE_OUT" > "$JOINED"
+
+  # Invariant: every opening record in PROBE_OUT becomes exactly one joined line.
+  # A mismatch means the parser lost or merged a record, so nothing is certified.
+  REC_SEEN="$(grep -c 'depends on axioms:' "$PROBE_OUT" || true)"
+  REC_JOINED="$(grep -c 'depends on axioms:' "$JOINED" || true)"
+
   # collect any axiom token that is not on the allowlist
-  BAD="$(grep -oE "depends on axioms: \[[^]]*\]" "$PROBE_OUT" \
-        | tr -d '[]' | sed 's/depends on axioms://' | tr ',' '\n' \
+  BAD="$(sed 's/.*depends on axioms: //' "$JOINED" \
+        | tr -d '[]' | tr ',' '\n' \
         | sed 's/^ *//; s/ *$//' | grep -v '^$' | sort -u \
         | grep -vxF -e propext -e Classical.choice -e Quot.sound || true)"
-  if [ -n "$BAD" ]; then
+
+  if [ "$REC_JOINED" -ne "$REC_SEEN" ]; then
+    fail "(b) axiom-record parse incomplete: joined $REC_JOINED of $REC_SEEN records — refusing to certify"
+  elif [ -n "$BAD" ]; then
     fail "(b) non-allowlisted axioms:"
     printf '%s\n' "$BAD" | sed 's/^/        /'
+    while IFS= read -r tok; do
+      [ -n "$tok" ] && grep -F "$tok" "$JOINED" | head -3 | sed 's/^/          /'
+    done <<< "$BAD"
   elif ! grep -q 'sorryAx' "$PROBE_OUT"; then
-    pass "(b) axioms ⊆ {propext, Classical.choice, Quot.sound} over ${#DECLS[@]} declarations"
+    PRIVNOTE=""
+    [ "$PRIV" -gt 0 ] && PRIVNOTE="; $PRIV private declaration(s) not probeable by name — their axioms are covered transitively by the public declarations that use them"
+    if [ "$REC_SEEN" -lt "${#DECLS[@]}" ]; then
+      warn "(b) axioms ⊆ {propext, Classical.choice, Quot.sound} over $REC_SEEN inspected records, but ${#DECLS[@]} declarations were probed — $(( ${#DECLS[@]} - REC_SEEN )) produced no axiom record$PRIVNOTE"
+    else
+      pass "(b) axioms ⊆ {propext, Classical.choice, Quot.sound} over $REC_SEEN inspected axiom records (${#DECLS[@]} probeable declarations$PRIVNOTE)"
+    fi
   fi
+  rm -f "$JOINED"
 fi
 
 # --- (e) non-vacuity obligations ----------------------------------------------
