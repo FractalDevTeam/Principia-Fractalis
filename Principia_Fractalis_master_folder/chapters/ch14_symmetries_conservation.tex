@@ -371,6 +371,32 @@ V_{\text{eff}}(v_C) = \frac{1}{2}m_C^2 v_C^2 + \frac{\lambda}{4!} v_C^4
 \end{equation}
 \end{definition}
 
+\begin{remark}[Correction, 2026-10-03: this potential has no symmetry-breaking minimum]
+\label{rem:no-ssb-2026-10-03}
+As written, with $m_C^2 > 0$ and $\lambda > 0$, the stated potential cannot break
+the symmetry. Its derivative is
+\[
+V_{\text{eff}}'(v) = v\left(m_C^2 + \frac{\lambda}{6}v^2\right),
+\]
+whose only real root is $v = 0$, and $V_{\text{eff}}''(0) = m_C^2 > 0$. So
+$v_C = 0$ is the \textbf{global minimum} and there is no symmetry breaking for any
+$\lambda > 0$. Taking $\lambda < 0$ does not help: the nonzero stationary point
+$v^2 = -6m_C^2/\lambda$ then has
+$V_{\text{eff}}'' = m_C^2 + \tfrac{\lambda}{2}v^2 = -2m_C^2 < 0$, a
+\emph{maximum}, and $V_{\text{eff}}$ is unbounded below.
+
+Symmetry breaking requires $m_C^2 < 0$, which is nowhere stated. Any exercise
+asking for a critical $\lambda_c$ ``below which SSB occurs'' therefore has no
+answer as posed; the free parameter whose sign decides the question is $m_C^2$,
+not $\lambda$.
+
+Separately, $\langle C^{\mu\nu}\rangle = v_C\,\delta^{\mu\nu}$ is not a Lorentz
+tensor: $\delta^{\mu\nu}$ with two upper indices singles out a frame, so a
+Lorentz-invariant vacuum expectation value must be proportional to $g^{\mu\nu}$.
+As written the VEV contradicts the Lorentz invariance that the CPT discussion
+later in this chapter relies on.
+\end{remark}
+
 \subsection{Phase Transition in the Early Universe}
 
 \begin{level2}
@@ -386,9 +412,32 @@ The critical temperature is:
 T_C = \frac{m_C}{\sqrt{\lambda}}
 \end{equation}
 
-For $m_C \sim 10^{-3}$ eV and $\lambda \sim 10^{-2}$, we get $T_C \sim 10^{-1}$ eV $\approx 1000$ K.
+For $m_C \sim 10^{-3}$ eV and $\lambda \sim 10^{-2}$, we get
+$T_C = 10^{-3}/10^{-1} = 10^{-2}$ eV $\approx 116$ K.
 
-\textbf{Prediction}: Consciousness became nonzero when the cosmic temperature dropped below $\sim 1000$ K, around $z \sim 100$ (100 million years after the Big Bang).
+\textbf{Prediction}: Consciousness became nonzero when the cosmic temperature
+dropped below $\sim 116$ K, around $z \approx 42$.
+
+\paragraph{Correction (2026-10-03): four inconsistent numbers in two lines.}
+Every step of the earlier chain was off.
+
+$T_C = m_C/\sqrt\lambda = 10^{-3}/\sqrt{10^{-2}} = 10^{-3}/10^{-1} =
+\mathbf{10^{-2}}$ eV, not $10^{-1}$ eV --- one order of magnitude.
+
+In kelvin, using $1$ eV $= 11604.5$ K: $10^{-2}$ eV $= \mathbf{116}$ K. (The
+earlier $10^{-1}$ eV would have been $1160$ K, not the stated $1000$ K, so that
+conversion was also loose.)
+
+The redshift follows from $T = T_{\text{CMB}}(1+z)$ with
+$T_{\text{CMB}} = 2.7255$ K: $1 + z = 116/2.7255$, so
+$z \approx \mathbf{42}$, not $z \sim 100$. Independently, $z = 100$ corresponds
+to $T = 2.7255 \times 101 = 275$ K, which is neither $1000$ K nor $116$ K; and
+$z = 100$ is about $17$ Myr after the Big Bang, not $100$ Myr ($100$ Myr is
+nearer $z \approx 30$).
+
+The qualitative claim --- that the transition is late, well after recombination
+and before structure formation --- survives; the four quoted figures do not, and
+are replaced by the two that follow from the chapter's own $m_C$ and $\lambda$.
 
 Before this epoch, the universe was unconscious. After this epoch, the seeds of consciousness were planted, awaiting the emergence of structure.
 \end{level2}

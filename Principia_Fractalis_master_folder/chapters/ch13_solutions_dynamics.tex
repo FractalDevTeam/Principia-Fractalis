@@ -179,11 +179,36 @@ The event horizon is located where $f(r_h) = 0$:
 
 This is a cubic equation in $r_h^2$ (after multiplying through). For small consciousness charge:
 \begin{equation}
-r_h \approx 2GM\left[ 1 + \frac{G Q_C^2}{(2GM)^4} + O(Q_C^4) \right]
+r_h \;=\; GM + \sqrt{(GM)^2 - GQ_C^2}
+\;\approx\; 2GM\left[ 1 - \frac{Q_C^2}{4GM^2} + O(Q_C^4) \right]
 \end{equation}
 
 \begin{keyidea}
-Consciousness charge \textit{increases} the horizon radius slightly. This is because $Q_C^2$ enters with a positive sign, providing a repulsive contribution similar to electric charge in the Reissner-Nordström solution.
+Consciousness charge \textit{decreases} the horizon radius slightly, exactly as
+electric charge does in the Reissner--Nordstr\"om solution.
+
+\paragraph{Correction (2026-10-03): the sign, the magnitude and the dimensions.}
+Earlier printings gave the correction as $+\,GQ_C^2/(2GM)^4$. Solving the horizon
+condition $r_h^2 - 2GMr_h + GQ_C^2 = 0$ gives
+$r_\pm = GM \pm \sqrt{(GM)^2 - GQ_C^2}$, so expanding the outer root,
+\[
+r_+ = 2GM - \frac{Q_C^2}{2M} + O(Q_C^4)
+   = 2GM\left[1 - \frac{Q_C^2}{4GM^2}\right] + O(Q_C^4),
+\]
+which is \textbf{negative}. Checked numerically at $G = c = M = 1$: $r_+ = 2$ at
+$Q_C = 0$, $1.99499$ at $Q_C = 0.1$, $1.95394$ at $Q_C = 0.3$ --- decreasing
+throughout, and reaching $r_+ = GM$, half the Schwarzschild value, at extremality
+$Q_C^2 = GM^2$.
+
+The Reissner--Nordstr\"om analogy is therefore right but was stated backwards:
+there too the \emph{outer} horizon shrinks as $|Q|$ grows. Charge is repulsive in
+the sense of resisting collapse, which is why it \emph{reduces} the horizon, not
+enlarges it.
+
+The earlier expression was also dimensionally inconsistent:
+$GQ_C^2/(2GM)^4$ has $\mathrm{length}^2/\mathrm{length}^4 = \mathrm{length}^{-2}$
+and cannot be added to $1$. The dimensionless combination is
+$Q_C^2/(4GM^2) = GQ_C^2/(2GM)^2$.
 
 For a maximally conscious black hole formed from matter at consciousness threshold ($\text{ch}_2 \approx 1$), the correction is:
 \begin{equation}
@@ -197,10 +222,37 @@ This is utterly negligible for astrophysical black holes.
 \begin{level3}
 Black hole thermodynamics\cite{hawking1974,hawking1975,bekenstein1973} is modified by consciousness. The Hawking temperature becomes:
 \begin{equation}
-T_H = \frac{\hbar c^3}{8\pi G M k_B} \left[ 1 - \frac{G Q_C^2}{(2GM)^3} + O(Q_C^4) \right]
+T_H = \frac{\hbar c^3}{8\pi G M k_B}
+  \left[ 1 - \frac{1}{16}\left(\frac{Q_C^2}{GM^2}\right)^{\!2} + O(Q_C^6) \right]
 \end{equation}
 
-Consciousness charge \textit{increases} the Hawking temperature slightly, causing consciousness black holes to evaporate faster than Schwarzschild black holes of the same mass.
+Consciousness charge \textit{decreases} the Hawking temperature, causing
+consciousness black holes to evaporate more slowly than Schwarzschild black holes
+of the same mass --- and the effect is fourth order in $Q_C$, not second.
+
+\paragraph{Correction (2026-10-03): the $O(Q_C^2)$ term is identically zero.}
+Earlier printings carried a correction $-\,GQ_C^2/(2GM)^3$ at second order in
+$Q_C$ while the surrounding prose asserted that the temperature \emph{increases}
+--- a contradiction with the minus sign in its own equation, independently of
+everything below.
+
+For the Reissner--Nordstr\"om solution $T = (r_+ - r_-)/(4\pi r_+^2)$, and with
+$\epsilon := Q_C^2/(GM^2)$,
+\[
+\frac{T}{T_{\text{Schw}}} = \frac{4\sqrt{1-\epsilon}}{\bigl(1+\sqrt{1-\epsilon}\bigr)^2}
+= 1 - \frac{\epsilon^2}{16} + O(\epsilon^3).
+\]
+\textbf{The first-order term cancels exactly}, so an $O(Q_C^2)$ correction should
+not appear at all. Verified numerically: at $\epsilon = 0.01$ the exact ratio is
+$0.99999369$ against $1 - \epsilon^2/16 = 0.99999375$; at $\epsilon = 0.1$,
+$0.99930652$ against $0.99937500$.
+
+Both the order and the direction are corrected above. The qualitative conclusion
+is reversed with them: a charged black hole is \emph{colder} than a Schwarzschild
+hole of equal mass, hence longer-lived, not shorter.
+
+The earlier expression was also dimensionally inconsistent:
+$GQ_C^2/(2GM)^3$ has $\mathrm{length}^2/\mathrm{length}^3 = \mathrm{length}^{-1}$.
 
 The entropy is modified:
 \begin{equation}
