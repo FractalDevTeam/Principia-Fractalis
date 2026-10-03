@@ -386,6 +386,29 @@ P(n_0) = |c_{n_0}|^2 \cdot \text{ch}_2(\phi_{n_0})
 \end{equation}
 \end{theorem}
 
+\begin{remark}[Correction, 2026-10-03: this is not a probability distribution]
+\label{rem:born-unnormalised-2026-10-03}
+Summing the displayed rule over outcomes gives
+\[
+\sum_n P(n) = \sum_n |c_n|^2\,\text{ch}_2(\phi_n) \;\leq\; 1,
+\]
+since $\sum_n |c_n|^2 = 1$ and $\text{ch}_2 \leq 1$, with \textbf{equality if and
+only if} $\text{ch}_2 \equiv 1$ on the support of the state. For this chapter's
+own awake observer at $\text{ch}_2 = 0.92$ the total probability is $0.92$: eight
+per cent of the probability is unaccounted for, so the rule as written does not
+define a distribution.
+
+Any repair must divide by $\sum_n |c_n|^2\,\text{ch}_2(\phi_n)$ --- but note that
+the normalised version then depends on $\text{ch}_2$ only through \emph{ratios}
+$\text{ch}_2(\phi_n)/\text{ch}_2(\phi_m)$, so a $\text{ch}_2$ that is constant
+across the measurement basis drops out entirely and recovers the ordinary Born
+rule. The modification therefore has observable content only when
+$\text{ch}_2$ \emph{varies between the eigenstates being distinguished}, which is
+a substantive extra hypothesis and is not stated anywhere. No normalised form is
+asserted here, because which of the two readings is intended is a choice about
+what the theory claims.
+\end{remark}
+
 \begin{level3}
 \textbf{How It Works}:
 
@@ -398,11 +421,50 @@ P(n_0) = |c_{n_0}|^2 \cdot \text{ch}_2(\phi_{n_0})
 
 \item The joint state evolves toward eigenstates of $C$ via nonlinear dynamics:
 \begin{equation}
-\frac{d|\Psi\rangle}{dt} = -\frac{i}{\hbar}H|\Psi\rangle - \gamma C |\Psi\rangle \langle \Psi | C | \Psi \rangle
+\frac{d|\Psi\rangle}{dt} = -\frac{i}{\hbar}H|\Psi\rangle
+  + \gamma\,\bigl(C - \langle C\rangle\bigr)|\Psi\rangle,
+\qquad \langle C\rangle := \langle\Psi|C|\Psi\rangle
 \end{equation}
 
 \item This nonlinear term (consciousness feedback) drives collapse
 \end{enumerate}
+
+\begin{remark}[Correction, 2026-10-03: the previous generator was not a collapse dynamics]
+\label{rem:collapse-generator-2026-10-03}
+Earlier printings had the final term as
+$-\gamma\,C|\Psi\rangle\langle\Psi|C|\Psi\rangle$. That generator fails on two
+counts, and a third problem survives both repairs.
+
+\textbf{It does not conserve probability.} With $H$ self-adjoint the $H$ term
+contributes nothing to $\tfrac{d}{dt}\langle\Psi|\Psi\rangle$, leaving
+\[
+\frac{d}{dt}\langle\Psi|\Psi\rangle = -2\gamma\,\langle C\rangle^2 \;\leq\; 0,
+\]
+so the norm decays monotonically to zero. The mean-subtracted generator above
+instead gives
+$\tfrac{d}{dt}\langle\Psi|\Psi\rangle = 2\gamma\langle C\rangle\bigl(1 - \langle\Psi|\Psi\rangle\bigr)$,
+which vanishes on the unit sphere: norm preserved.
+
+\textbf{The sign matters, and it was the wrong one for the stated picture.} In
+the $C$-eigenbasis with $H$ off, $\dot a_n = \pm\gamma(c_n - \langle C\rangle)a_n$.
+With the minus sign the components \emph{above} the mean decay, so the state
+concentrates on the \textbf{smallest} eigenvalue of $C$ --- the opposite of the
+``consciousness basin'' attractor asserted in the preceding item. The plus sign
+displayed above concentrates on the \textbf{largest}. Verified numerically on a
+three-level example with $c = (0.2, 0.5, 0.9)$: the minus sign converges to
+$c = 0.2$, the plus sign to $c = 0.9$, both at constant norm.
+
+\textbf{What neither sign fixes.} A \emph{deterministic} nonlinear generator
+sends every run from the same initial state to the \emph{same} eigenstate, so
+outcome frequencies cannot reproduce the Born weights $|c_n|^2$. Born statistics
+require a stochastic term; that is precisely the structure of objective-collapse
+models, and the admissibility conditions on such a term --- including that the
+collapse rate may not depend on a nonlinear functional of the state without
+breaking linearity on mixtures --- are formalised in
+\texttt{PF/\allowbreak{}Collapse/\allowbreak{}RateModulation.\allowbreak{}lean}.
+The equation above is corrected to be norm-preserving and to point the right way;
+it is \textbf{not} yet a collapse dynamics that recovers the Born rule.
+\end{remark}
 
 \textbf{Key Difference from GRW (Ghirardi-Rimini-Weber)}:
 

@@ -701,12 +701,32 @@ Thus ternary ALUs naturally implement the same $D_3$ structure that defines $R_f
 
 \textbf{Mechanism}
 
-Given energy budget $E$, minimize $Q(b) = (\log b)/b$.
-Ternary logic minimizes $Q$ and aligns with the minimal-entropy code predicted by the fractal operator algebra.
+Given energy budget $E$, the relevant cost is the radix economy
+$b\,\log_b N \propto b/\ln b$, which \emph{is} minimised at $b = e$ and, among
+integers, at $b = 3$: the values are $2.885$, $\mathbf{2.731}$, $2.885$ for
+$b = 2,3,4$. Ternary logic therefore minimises the radix economy, aligning with
+the minimal-entropy code predicted by the fractal operator algebra.
+
+\emph{Correction (2026-10-03): the previously stated objective was the wrong
+function, and in the wrong direction.} $Q(b) = (\ln b)/b$ has
+$Q'(b) = (1 - \ln b)/b^2$, so $b = e$ is a \textbf{maximum} of $Q$, not a
+minimum, and $Q \to 0$ as $b \to \infty$ (e.g.\ $Q(2) = 0.3466$,
+$Q(3) = 0.3662$, $Q(100) = 0.0461$). Base $3$ maximises $(\ln b)/b$ among small
+integers. The quantity that is genuinely minimised at $b = e$ is its reciprocal
+form $b/\ln b$, used above, and that is the standard statement of radix
+economy.
 
 \textbf{Predicted Observables}
 
-Measured energy per operation for ternary gates $<$ binary by a factor $\approx 1/Q(2) - 1/Q(3) \approx 0.09$.
+Measured energy per operation for ternary gates $<$ binary. The advantage is a
+\emph{ratio}, not a difference: $Q(3)/Q(2) = 0.3662/0.3466 = 1.0566$, i.e.\
+about $5.7\%$ in the radix-economy measure
+($2/\ln 2 = 2.885$ against $3/\ln 3 = 2.731$).
+\emph{Correction (2026-10-03):} the previously printed $\approx 0.09$ did not
+follow from either convention --- $2/\ln 2 - 3/\ln 3 = 0.1547$, and the
+base-$2$ and base-$10$ readings give $0.1072$ and $0.3561$ --- and a
+base-dependent \emph{difference} of reciprocals is not a dimensionless factor in
+any case.
 \texttt{pf-compute radix --compare binary ternary} reproduces this result.
 
 \textbf{Falsification Test}
