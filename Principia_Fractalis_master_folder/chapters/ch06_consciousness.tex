@@ -506,8 +506,54 @@ W^2 &= \begin{pmatrix}
 \text{ch}_2 &= \frac{2.98 - 0}{2 \times 2.98} \approx 0.50
 \end{align}
 
-This network is \textbf{proto-conscious} (integrated but below threshold).
+This network is \textbf{integrated at the maximum this formula admits}; see
+Remark~\ref{rem:ch2-matrix-range-2026-10-03}.
 \end{example}
+
+\begin{remark}[The matrix formula cannot reach $0.95$ --- machine-checked]
+\label{rem:ch2-matrix-range-2026-10-03}
+The arithmetic in the example above is correct, but the reading ``below
+threshold'' is not: $0.50$ is the \emph{largest value this formula can take}.
+For every real $W \in \mathbb{R}^{n \times n}$,
+\begin{equation}
+-\tfrac{1}{2} \;\leq\; \frac{\text{Tr}(W^2) - (\text{Tr}\,W)^2}{2\|W\|_F^2}
+\;\leq\; \tfrac{1}{2},
+\end{equation}
+the upper bound holding because
+$\text{Tr}(W^2) = \sum_{ij} W_{ij}W_{ji} \leq \sum_{ij} \tfrac{1}{2}(W_{ij}^2 + W_{ji}^2) = \|W\|_F^2$,
+and the lower bound (for $\text{Tr}\,W = 0$) by the same inequality with the
+opposite sign. The upper bound is attained exactly when $W$ is symmetric with
+zero trace --- which the example's $W$ is, so it sits \emph{at the ceiling},
+not below it.
+
+Consequently the inequality $\text{ch}_2 > 0.95$ displayed in
+Theorem~\ref{thm:neural-consciousness} is \textbf{satisfied by no real
+connectivity matrix whatever}, and the Heaviside gate $\Theta(\text{ch}_2 - 0.95)$
+used in the consciousness stress-energy of Chapter~\ref{ch:field-equations}
+is identically zero whenever $\text{ch}_2$ is evaluated by this formula.
+
+This is a statement about \emph{normalisation}, not about consciousness, and it is
+not a withdrawal of anything: the bound is new mathematical content, kernel-checked
+in \texttt{PF/Cosmology/VortexCavitationBridgeChecks.lean} as
+\texttt{ch2Matrix\_le\_half}, \texttt{neg\_half\_le\_ch2Matrix\_of\_trace\_eq\_zero},
+\texttt{ch2Matrix\_lt\_threshold} and \texttt{thresholdGate\_ch2Matrix\_eq\_zero},
+with \texttt{ch2Matrix\_pureStrain} and \texttt{ch2Matrix\_pureRotation} witnessing
+that both ends of the range are attained (that module is PRISTINE: axioms
+$\subseteq \{$\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}$\}$).
+
+\textbf{What must be reconciled.} The threshold $0.95$ and this normalisation
+cannot both stand as written. The chapter's other definitions have different
+ranges: the normalised Chern--Weil density of
+Definition~\ref{def:ch2-hat-rigorous} takes values in $[0,1]$ (Remark~\ref{rem:range-rigorous}), and the entanglement
+form $\text{ch}_2(|\psi\rangle) = 1 - \text{Tr}(\rho_A^2)$ of
+Proposition~\ref{prop:quantum-consciousness} reaches $1$ on a Bell state. So
+$\text{ch}_2$ is \emph{not a single quantity} across this chapter, and $0.95$ is
+reachable under some of its definitions and provably unreachable under others.
+Which normalisation the threshold belongs to is an open question of the
+framework's own statement, recorded here rather than papered over; until it is
+settled, no numerical comparison against $0.95$ should be made using the matrix
+formula.
+\end{remark}
 
 \subsection{Quantum Systems}
 

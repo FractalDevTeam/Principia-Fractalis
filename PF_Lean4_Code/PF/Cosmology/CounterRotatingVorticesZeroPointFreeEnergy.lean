@@ -16,11 +16,20 @@ split into five tractable typed structures grounded in the existing manuscript:
 * **Ch 10 §5 (lines 207–215) "Vortex Stretching and the 5/3 Law"** — the
   vortex stretching term `(ω · ∇) u` is the framework's mechanism for
   energy cascade to small scales. The double counter-rotating vortex pair
-  is the cleanest finite witness whose total angular momentum vanishes
+  is the cleanest finite witness whose angular velocities sum to zero
   (`ω₁ + ω₂ = 0`) while its energy density (`ω₁² + ω₂²`) is strictly
   positive — exactly the scenario in which framework crystallisation
   (`ch_2 ≈ 0.85` for vortex rings, Ch 10 line 491) cooperates with
   vacuum-energy suppression.
+
+  NB (2026-10-03): `ω₁ + ω₂ = 0` is a statement about angular VELOCITY, not
+  angular momentum. The angular momentum is `I₁ω₁ + I₂ω₂`, which vanishes iff
+  `ω = 0` or `I₁ = I₂` --- see `counter_rotation_angular_momentum_zero_iff` and
+  `exists_counter_rotating_with_angular_momentum` in
+  `PF/Cosmology/VortexCavitationBridgeChecks.lean`. An earlier version of this
+  docstring said "total angular momentum vanishes", which does not follow from
+  the hypothesis and is false for unequal moments of inertia. Nothing in this
+  file's theorems depended on the misdescription.
 
 * **Ch 26 §"The Vacuum Catastrophe" (lines 18–108)** — bare QFT predicts
   `ρ_Λ,Planck ~ 10⁹¹ g/cm³` (the "zero-point reservoir") while observation

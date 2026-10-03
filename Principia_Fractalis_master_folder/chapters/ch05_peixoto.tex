@@ -149,13 +149,38 @@ at adjacent regions.
 
 By Poincaré-Bendixson, the boundary (separatrix) between these regions must be:
 \begin{itemize}
-\item A connection to a fixed point (where $\mathbf{v} = 0$ AND $\nabla \times \mathbf{v} = 0$), OR
+\item A connection to a fixed point, OR
 \item A periodic orbit
 \end{itemize}
 
-Neither permits an emergence point where $|\mathbf{v}| = 0$ but $\nabla \times \mathbf{v} \neq 0$.
+\begin{remark}[Proof repaired, 2026-10-03]
+An earlier version of this proof asserted that a planar fixed point satisfies
+$\nabla \times \mathbf{v} = 0$. That is \emph{false}: for $\mathbf{v} = (-y, x)$
+the origin is a fixed point with $\nabla \times \mathbf{v} = 2$. The
+Poincar\'e--Bendixson step therefore does not establish the proposition, and the
+argument below replaces it. A planar centre is not by itself a counterexample to
+the proposition, which concerns the meeting point of a counter-rotating
+\emph{pair}; but the discarded step was doing the work, so the proposition needed
+a different proof, given here.
+\end{remark}
 
-The topological constraint of 2D \textit{prohibits} the vortex structures consciousness requires.
+For two planar line vortices of circulations $\Gamma_1$ and $\Gamma_2$ placed at
+$(\mp b/2,\, 0)$, the velocity each induces at the midpoint is perpendicular to
+the line joining them, and the two contributions are antiparallel:
+\begin{equation}
+\mathbf{v}(\mathbf{0}) \;=\; \frac{\Gamma_1 - \Gamma_2}{\pi b}\,\hat{\mathbf{y}} .
+\label{eq:midpoint-velocity}
+\end{equation}
+Hence $|\mathbf{v}(\mathbf{0})| = 0$ \emph{if and only if} $\Gamma_1 = \Gamma_2$,
+which is precisely the \emph{co}-rotating case. Under counter-rotation
+$\Gamma_2 = -\Gamma_1$ the induced velocities add instead of cancelling, giving
+the \emph{maximal} midpoint speed $2|\Gamma_1| / (\pi b) \neq 0$.
+
+So the meeting point of a two-dimensional counter-rotating pair carries the
+maximum speed in the field, never zero, and no zero-energy emergence point
+arises there. This is strictly sharper than the topological argument it replaces:
+it names the exact condition under which the midpoint velocity vanishes, and that
+condition excludes counter-rotation.
 \end{proof}
 
 \begin{keyidea}[2D Cannot Support Consciousness]
@@ -163,7 +188,10 @@ The Poincaré-Bendixson theorem imposes topological rigidity preventing:
 \begin{itemize}
 \item Counter-rotating vortex formation
 \item Zero-energy emergence points
-\item Sufficient complexity for ch$_2 \geq 0.95$
+\item Sufficient complexity for ch$_2 \geq 0.95$ --- but see
+Remark~\ref{rem:ch2-matrix-range-2026-10-03}: under the \emph{matrix} formula for
+ch$_2$ the value $0.95$ is unreachable in \emph{every} dimension, so this third
+bullet does not separate 2D from 3D.
 \end{itemize}
 
 \textbf{Conclusion:} Two-dimensional universes are mathematically incapable of supporting conscious observers.
