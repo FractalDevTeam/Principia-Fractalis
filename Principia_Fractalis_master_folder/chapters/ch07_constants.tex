@@ -480,10 +480,38 @@ The energy density near vortex cores is:
 \mathcal{E} = \frac{1}{2}|\nabla\mathcal{V}^+|^2 + \frac{1}{2}|\nabla\mathcal{V}^-|^2 + V(|\mathcal{V}^+ + \mathcal{V}^-|^2)
 \end{equation}
 
-At the emergence point $r_0$, the vortices cancel: $\mathcal{V}^+ + \mathcal{V}^- = 0$. Therefore:
+At the emergence point $r_0$, the order parameters cancel:
+$\mathcal{V}^+ + \mathcal{V}^- = 0$, so the \emph{potential} term vanishes,
+$V(0) = 0$. The gradient terms do \emph{not} vanish, and the energy density is
 \begin{equation}
-\mathcal{E}(\mathcal{E}) = 0 + 0 + V(0) = 0
+\mathcal{E}(r_0) \;=\; \tfrac{1}{2}|\nabla\mathcal{V}^+|^2 + \tfrac{1}{2}|\nabla\mathcal{V}^-|^2
+\;=\; \tfrac{1}{2}\,\mathcal{I}(r_0) \;=\; \left|\frac{\Gamma}{2\pi r_0}\right|^2 \;\neq\; 0 .
+\label{eq:emergence-energy-corrected}
 \end{equation}
+
+\begin{remark}[Correction, 2026-10-03: the energy is not zero]
+\label{rem:emergence-energy-2026-10-03}
+Earlier printings set this quantity to $0 + 0 + V(0) = 0$. That is inconsistent
+with the very next equation of this proof, which gives the same two gradient
+terms as $\mathcal{I} = |\nabla\mathcal{V}^+|^2 + |\nabla\mathcal{V}^-|^2
+= 2|\Gamma/2\pi r|^2$, finite and nonzero. The two statements cannot both hold:
+a quantity cannot be zero in one line and nonzero in the next.
+
+What is actually special at an emergence point is therefore \emph{not} vanishing
+energy but a vanishing \emph{potential} term carrying finite gradient energy ---
+which is the weaker and correct form of the ``finite information at zero energy''
+reading, and is what the rest of this section needs. The claim that total energy
+vanishes is withdrawn as an arithmetic error, not as a change of position; the
+structural point (a potential minimum coexisting with finite information density)
+survives in the corrected form above.
+
+This is independently confirmed in the Lean corpus:
+\texttt{counter\_rotation\_energy\_pos} in
+\texttt{PF/Cosmology/VortexCavitationBridgeChecks.lean} proves that two
+counter-rotating bodies with nonzero angular velocity have \emph{strictly
+positive} total kinetic energy, for every pair of positive moments of inertia.
+Counter-rotation cancels no energy.
+\end{remark}
 
 However, the information density (proportional to gradient magnitudes) remains finite:
 \begin{equation}

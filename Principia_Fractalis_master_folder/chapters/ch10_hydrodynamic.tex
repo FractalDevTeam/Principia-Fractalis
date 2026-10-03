@@ -98,7 +98,7 @@ C_{ij} = \text{ch}_2 \left(\partial_i \Phi \partial_j \Phi - \frac{1}{2}\delta_{
 \end{equation}
 Taking the divergence:
 \begin{equation}
-\frac{\partial C_{ij}}{\partial x_j} = \text{ch}_2 \left(\partial_i \Phi \Delta \Phi + \partial_i |\nabla \Phi|^2 - \frac{1}{2}\partial_i |\nabla \Phi|^2\right) = \text{ch}_2 \partial_i \Phi \Delta \Phi + \frac{\text{ch}_2}{2}\partial_i |\nabla \Phi|^2
+\frac{\partial C_{ij}}{\partial x_j} = \text{ch}_2 \left(\partial_i \Phi \Delta \Phi + \frac{1}{2}\partial_i |\nabla \Phi|^2 - \frac{1}{2}\partial_i |\nabla \Phi|^2\right) = \text{ch}_2 \, \partial_i \Phi \, \Delta \Phi
 \end{equation}
 
 \textbf{Step 2: Integrate against velocity.}
@@ -142,8 +142,49 @@ Thus:
 \end{equation}
 \end{proof}
 
+\begin{remark}[Correction, 2026-10-03: $\nu_{\text{eff}}$ is a postulate, not a consequence]
+\label{rem:nu-eff-postulate-2026-10-03}
+Three steps of the proof above do not carry the weight placed on them. Each is
+checkable by hand, and the corrections are applied in the displayed equations.
+
+\textbf{Step 1.} The divergence was written with $\partial_i|\nabla\Phi|^2$ where
+$\tfrac{1}{2}\partial_i|\nabla\Phi|^2$ belongs, because
+$\partial_j\partial_i\Phi\,\partial_j\Phi = \tfrac{1}{2}\partial_i|\nabla\Phi|^2$.
+With the factor restored the two gradient terms cancel exactly and
+$\partial_j C_{ij} = \text{ch}_2\,\Delta\Phi\,\partial_i\Phi$, with no residual
+$\partial_i|\nabla\Phi|^2$. The force depends on $\Phi$ alone and not on
+$\mathbf{u}$.
+
+\textbf{Step 3.} Substituting the closure $\Delta\Phi = -(10/\pi)\Phi\Psi_{\text{FRO}}$
+gives $f_i = -(5/\pi)\,\text{ch}_2\,\Psi_{\text{FRO}}\,\partial_i(\Phi^2)$. In the
+case the proof actually uses --- $\Psi_{\text{FRO}}$ uniform, via
+$C_\Phi = \inf \Psi_{\text{FRO}}$ --- this is a \emph{pure gradient}, and a pure
+gradient does zero work on a divergence-free velocity field:
+$\int \mathbf{u}\cdot\nabla g \,\mathrm{d}\mathbf{x} = 0$. So under the lemma's own
+closure the left-hand side of the claimed inequality is $0$, and the bound
+$\leq -(\pi/10)\nu_c\|\nabla\mathbf{u}\|^2$ fails for every flow with
+$\nabla\mathbf{u} \neq 0$ and $\nu_c > 0$. The stress adds no dissipation.
+
+\textbf{Step 4.} The step equates $(10/\pi)\,\text{ch}_2 \cdot 0.95$ with
+$(\pi/10)\,\nu_c/\nu = (\pi/10)(0.95 - \text{ch}_2)$. These are not
+approximately equal: as $\text{ch}_2$ runs from $0$ to $0.95$ the left side
+\emph{rises} from $0$ to $2.87$ while the right side \emph{falls} from $0.298$ to
+$0$. They coincide only at $\text{ch}_2 = 0.0894$. The reciprocal pair
+$10/\pi$ versus $\pi/10$ is the source of the slip.
+
+\textbf{Consequence.} $\nu_{\text{eff}} = \nu[1 + (\pi/10)(0.95 - \text{ch}_2)]$ is
+a \textbf{postulate [II]}, not a consequence of the stated stress tensor. It is
+not withdrawn --- it is relabelled to what it is. Readers should not treat the
+$\pi/10$ damping figure below as derived; the one effect that does survive the
+corrected algebra is a pressure offset, since a pure-gradient force is absorbed
+into $p$.
+\end{remark}
+
 \begin{greenbox}[Physical Meaning]
-\textbf{🟢 Interpretation:} The consciousness field acts like an extra viscosity that's always present but usually very small. The factor $\pi/10 \approx 0.314$ means consciousness adds about 31\% extra damping when $\nu_c = \nu$. This small amount is enough to prevent blow-up without significantly changing laminar flow.
+\textbf{🟢 Interpretation:} \emph{Conditional on the postulate of
+Remark~\ref{rem:nu-eff-postulate-2026-10-03}, and not derived from the stress
+tensor:} the consciousness field would act like an extra viscosity that's always
+present but usually very small. The factor $\pi/10 \approx 0.314$ would mean consciousness adds about 31\% extra damping when $\nu_c = \nu$. This small amount is enough to prevent blow-up without significantly changing laminar flow.
 
 \textbf{🟡 Technical insight:} The $\pi/10$ factor comes from the fractal self-similarity scale of $\Phi$. This is the same universal constant appearing in P vs NP and Riemann—it's the natural frequency of the Timeless Field coupling to physical processes. The universality of this factor across Navier-Stokes, Riemann Hypothesis, Hodge Conjecture, and Yang-Mills is documented in \cite{cohen2025spectralpi10}.
 \end{greenbox}
@@ -443,7 +484,22 @@ With consciousness modification, there is an additional scale—the \textbf{cons
 \ell_c = \sqrt{\frac{\nu_c}{\omega_c}} = \sqrt{\frac{(0.95 - \text{ch}_2)\nu}{\pi/10}} = \sqrt{\frac{10(0.95 - \text{ch}_2)\nu}{\pi}}
 \end{equation}
 
-At scales below $\ell_c$, consciousness dissipation dominates, exponentially suppressing fluctuations.
+\begin{remark}[$\omega_c$ carries no stated unit, so $\ell_c$ has no value, 2026-10-03]
+\label{rem:ell-c-units-2026-10-03}
+$\ell_c = \sqrt{\nu_c/\omega_c}$ has units of length only if $\omega_c$ is a
+frequency. The chapter supplies $\omega_c = \pi/10$ as a pure number and states no
+unit; working ``in units where $\nu = 1$'' fixes one combination of length and
+time, not both. The resulting figure is therefore not determined: for water at
+$\text{ch}_2 = 0.60$, reading $\pi/10$ as per second, per millisecond or per hour
+gives $\ell_c = 1.06\,\mathrm{mm}$, $33\,\mu\mathrm{m}$ or $63\,\mathrm{mm}$
+respectively --- a spread of more than three orders of magnitude. Until a unit is
+attached to $\omega_c$, $\ell_c$ names no scale, and no claim about ``scales below
+$\ell_c$'' is testable.
+\end{remark}
+
+At scales below $\ell_c$ --- once $\omega_c$ is given a unit, see
+Remark~\ref{rem:ell-c-units-2026-10-03} --- consciousness dissipation would
+dominate, exponentially suppressing fluctuations.
 
 \begin{proposition}[Two-Scale Cascade]
 \label{prop:two_scale_cascade}

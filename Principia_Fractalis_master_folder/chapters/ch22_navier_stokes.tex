@@ -191,9 +191,37 @@ The linearized equations become:
 \frac{\partial \mathbf{u}'}{\partial t} + (\mathbf{u}_0 \cdot \nabla)\mathbf{u}' + (\mathbf{u}' \cdot \nabla)\mathbf{u}_0 = -\nabla p' + \nu \Delta \mathbf{u}'
 \end{equation}
 
-\begin{theorem}[Topological Stability]\label{thm:topological-stability}
-Counter-rotating vortex configurations with equal and opposite circulations are linearly stable for all Reynolds numbers due to topological protection.
+\begin{theorem}[Circulation Invariance of a Counter-Rotating Pair]\label{thm:topological-stability}
+For a counter-rotating pair with equal and opposite circulations, the total
+circulation $\Gamma_{\text{total}} = \Gamma_{\text{outer}} + \Gamma_{\text{inner}} = 0$
+is conserved, by Kelvin's circulation theorem for an inviscid barotropic flow.
 \end{theorem}
+
+\begin{remark}[Correction, 2026-10-03: this is conservation, not stability]
+\label{rem:crow-2026-10-03}
+Earlier printings stated this theorem as linear stability \emph{for all Reynolds
+numbers}, ``due to topological protection''. That is false, and it is false for
+precisely the configuration named: a pair of equal and opposite line vortices is
+subject to the long-wavelength \textbf{Crow instability}, the standard mechanism
+of aircraft-wake breakup, whose growth rate does not vanish at large Reynolds
+number. Counter-rotating pairs are observed to break up into vortex rings; they
+are not stable.
+
+Conservation of total circulation does not confer stability. A vanishing sum of
+circulations is a constraint on the dynamics and is fully compatible with
+unbounded growth of a \emph{symmetric} perturbation --- which is exactly what the
+Crow mode is. The step in the proof below that infers
+$\delta^2 E > 0$ is also unsound as written: the vanishing of
+$\int (\mathbf{u}'\cdot\nabla)\mathbf{u}_0 \cdot \mathbf{u}'$ does not follow from
+$\nabla\cdot\mathbf{u}' = 0$ alone, and positivity of the second variation would
+in any case have to be established on the constraint surface rather than
+asserted.
+
+What survives, and is what the proof's first step actually establishes, is the
+circulation invariance now stated in the theorem. The stability claim is
+withdrawn as an error of fact; no weaker stability claim is substituted, because
+the true behaviour is instability.
+\end{remark}
 
 \begin{proof}
 The total circulation:
@@ -220,7 +248,10 @@ For counter-rotating flow, $(\mathbf{u}_0 \cdot \nabla)\mathbf{u}_0 = -\nabla p_
 \end{equation}
 by the constraint $\nabla \cdot \mathbf{u}' = 0$.
 
-Therefore $\delta^2 E > 0$ for all non-zero perturbations, proving stability\cite{holm1985}.
+The first step above establishes the circulation invariance asserted in the
+theorem. The remaining steps do \emph{not} establish stability: see
+Remark~\ref{rem:crow-2026-10-03}, and note that the counter-rotating pair is in
+fact Crow-unstable.
 \end{proof}
 
 \section{Connection to Fractal Resonance}
