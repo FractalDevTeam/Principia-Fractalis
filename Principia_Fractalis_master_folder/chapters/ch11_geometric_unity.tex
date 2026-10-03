@@ -535,15 +535,18 @@ the line element in cylindrical coordinates $(t,r,\phi,z)$ acquires a mixed term
 ds^2 = (1+\psi)\,c^2dt^2 - (1-\psi)\,(dr^2 + r^2d\phi^2 + dz^2)
           - 2\,g_{t\phi}\,c\,dt\,d\phi,
 \]
-with
+with, in the Lense--Thirring form,
 \[
-g_{t\phi} = \frac{4G}{c^4}\,I_{\mathrm{photon}}\,
-\omega_{\mathrm{ring}},
+g_{t\phi} \;\simeq\; -\,\frac{2G}{c^{3}}\,\frac{J_{\mathrm{photon}}}{r},
+\qquad
+J_{\mathrm{photon}} = I_{\mathrm{photon}}\,\omega_{\mathrm{ring}},
 \]
-where $I_{\mathrm{photon}}$ is the photonic moment of inertia and
-$\omega_{\mathrm{ring}}$ the angular frequency of the circulating light.
-Mallett showed that for sufficient intensity, $g_{t\phi}\neq 0$ generates frame-dragging
-and the possibility of closed timelike curves.
+where $J_{\mathrm{photon}}$ is the angular momentum of the circulating beam and
+$r$ the field point's distance from the ring axis.
+Mallett showed that $g_{t\phi}\neq 0$ generates frame-dragging, and argued that
+for sufficient intensity closed timelike curves become possible; see
+Remark~\ref{rem:mallett-magnitude-2026-10-03} for the corrected coefficient, the
+magnitude, and the published objection to the closed-timelike-curve claim.
 
 \vspace{1em}
 \noindent\textbf{Fractal-Resonant Interpretation.}
@@ -578,10 +581,68 @@ g_{\mu\nu} \;\longrightarrow\; g_{\mu\nu}^{(\Phi)}
 \]
 producing a quantized torsion term
 $T^{\rho}_{\;\mu\nu} = 2\,\Im(\Phi_{[\mu}\Phi^{\!*}_{\nu]})$.
-Hence, Mallett's photonic circulation provides the first laboratory-scale analogue
-of the rotational components predicted by the Timeless Field,
-linking optical coherence, curvature, and consciousness resonance in a single
-empirical geometry.
+Hence, Mallett's photonic circulation provides a laboratory-scale \emph{geometric}
+analogue of the rotational components predicted by the Timeless Field, linking
+optical coherence, curvature, and resonance in a single geometry. It is an
+analogue of the \emph{form} of the metric, not an achieved measurement --- see
+Remark~\ref{rem:mallett-magnitude-2026-10-03}.
+
+\begin{remark}[Corrections, 2026-10-03: coefficient, magnitude, and the published objection]
+\label{rem:mallett-magnitude-2026-10-03}
+Mallett's papers are cited correctly and the ring-laser geometry is a legitimate
+analogue to invoke. Three things in this section needed fixing, and none of them
+requires removing it.
+
+\textbf{(i) The coefficient was dimensionally inconsistent.} Earlier printings
+wrote $g_{t\phi} = (4G/c^{4})\,I_{\mathrm{photon}}\,\omega_{\mathrm{ring}}$. In
+the line element above the term is $2\,g_{t\phi}\,c\,dt\,d\phi$, so with $c\,dt$
+a length and $d\phi$ dimensionless, $g_{t\phi}$ must itself be a
+\textbf{length}. But
+\[
+\left[\frac{G}{c^{4}}\right]\!\left[I\right]\!\left[\omega\right]
+= \bigl(\mathrm{kg^{-1}\,m^{-1}\,s^{2}}\bigr)\bigl(\mathrm{kg\,m^{2}}\bigr)\bigl(\mathrm{s^{-1}}\bigr)
+= \mathrm{m\cdot s},
+\]
+a length times a time. The standard Lense--Thirring coefficient
+$-2GJ/(c^{3}r)$ has the right dimensions and, unlike the earlier expression,
+carries the $1/r$ falloff that any frame-dragging field must have. The same
+defect propagates to the $\Phi$-version $g_{t\phi}^{(\Phi)}$ below, which inherits
+the $4G/c^{4}$ prefactor; and there $\omega_{\Phi} = (\pi/10)\sigma_c$ is built
+from the dimensionless $\sigma_c$, so it is a pure number being used where an
+angular frequency is required. Both need a stated unit before the $\Phi$-form can
+be evaluated.
+
+\textbf{(ii) The magnitude is the whole question, and it was never given.} For a
+circulating optical power $P$ in a ring of radius $R$, the energy in flight is
+$E = P\,(2\pi R/c)$ and the angular momentum $J = ER/c$, so
+\[
+g_{t\phi} \sim \frac{2G}{c^{3}}\frac{J}{R}
+= \frac{4\pi G P R}{c^{5}}.
+\]
+At $P = 10\,\mathrm{kW}$ circulating and $R = 1\,\mathrm{m}$ this is
+$\approx 3\times10^{-48}$; at $P = 1\,\mathrm{MW}$, $\approx 3\times10^{-46}$.
+The $c^{5}$ in the denominator is the obstruction, and no factor in this section
+amplifies it. Any figure of order $10^{-18}$ for this effect --- a value that has
+circulated in working notes for this project, described there as ``detectable
+with atomic clocks'' --- is \textbf{withdrawn}: it is some thirty orders of
+magnitude above what the formula yields, and the correct value lies far below
+any present or foreseeable measurement.
+
+\textbf{(iii) The published objection must be cited.} Olum and
+Everett~\cite{olum2005circulating} argued that a circulating light beam cannot
+serve as a time machine: the effect is many orders below detectability, and the
+closed timelike curves in the idealised solution are an artefact of the infinite
+cylinder, absent for any finite laboratory device. That objection is part of the
+record on this proposal and is now cited here. Omitting it overstated the
+status of the closed-timelike-curve claim.
+
+\textbf{What survives.} The \emph{geometric} correspondence --- that a rotating
+coherent field sources an off-diagonal $g_{t\phi}$ of the same algebraic form the
+Timeless Field's rotational sector predicts --- is untouched by (i)--(iii), and it
+is the part this section actually needs. What is withdrawn is any reading in which
+the ring laser constitutes a measurable test, a detection, or a route to closed
+timelike curves. Those are not consequences of the corrected formula.
+\end{remark}
 
 \section{Exercises}
 
