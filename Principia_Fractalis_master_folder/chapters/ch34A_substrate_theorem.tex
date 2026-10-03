@@ -124,17 +124,30 @@ projective compatibilities) is realised. Formally:
 \item[\textnormal{(A2) $\alpha$-rigidity skeleton.}]
 The framework's chosen $\alpha$-values
 $(\alpha_{\text{YM}}, \alpha_{\text{Poincar\'e}},
-\alpha_{\text{RH}})$ equal the algebraically-forced rigidity
+\alpha_{\text{RH}})$ equal the anchor-forced rigidity
 values
 \[
 (\alpha_{\text{YM}}, \alpha_{\text{Poincar\'e}},
 \alpha_{\text{RH}}) = (2, \,1, \,3/2).
 \]
-These values are \emph{not} free parameters: they are forced
-algebraically by the cross-Millennium invariant relations of
-Chapter~\ref{ch:constants} (e.g.\ $\alpha_{\text{YM}}
+\emph{Conditional on the (A3) anchor} $\alpha_{\text{Poincar\'e}} = 1$, the other
+two values are uniquely forced by the cross-Millennium invariant
+relations of Chapter~\ref{ch:constants} (e.g.\ $\alpha_{\text{YM}}
 = \alpha_{\text{Poincar\'e}} + 1$ and $\alpha_{\text{RH}}
-\cdot \alpha_{\text{YM}} = 3$).
+\cdot \alpha_{\text{YM}} = 3$), and this is machine-checked:
+\texttt{unified\_alpha\_skeleton\_forced\_by\_minimal\_invariants}
+is stated over an arbitrary assignment, so it is non-vacuous, and
+\texttt{minimal\_invariants\_are\_strictly\_independent} shows no proper
+subset of the invariants suffices.
+
+The anchor itself, however, is \emph{not} forced --- it is (A3)'s own
+postulate, and \texttt{perelman\_anchor\_is\_strictly\_necessary} shows it
+is strictly necessary: a different anchor value propagates cleanly to a
+different consistent skeleton. So the honest reading is that the invariant
+system is \emph{exactly determined} --- ten relations in ten unknowns, with
+no redundancy and hence no residual constraint that could have failed. The
+triple is determined by the system under the anchor; it is not independently
+constrained by it.
 
 \item[\textnormal{(A3) Perelman anchor.}]
 $\alpha_{\text{Poincar\'e}} = 1$. Grigori Perelman's 2002--2003
