@@ -1,0 +1,630 @@
+ℹ [3225/3266] Built PF.ForMathlib.TwoSidedIdealClosure (8.1s)
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:112:0: 'TwoSidedIdeal.closure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:113:0: 'TwoSidedIdeal.coe_closure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:114:0: 'TwoSidedIdeal.mem_closure_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:115:0: 'TwoSidedIdeal.le_closure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:116:0: 'TwoSidedIdeal.closure_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:117:0: 'TwoSidedIdeal.closure_minimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:118:0: 'TwoSidedIdeal.isClosed_closure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:119:0: 'TwoSidedIdeal.closure_eq_of_isClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:120:0: 'TwoSidedIdeal.closure_closure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:121:0: 'TwoSidedIdeal.closure_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/TwoSidedIdealClosure.lean:122:0: 'TwoSidedIdeal.closure_ne_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3226/3266] Built PF.TuringEncoding.DigitalSumUnitCircle (8.8s)
+⚠ [3227/3266] Built PF.Audit.PremiseAudit (16s)
+warning: PF/Audit/PremiseAudit.lean:245:7: `Lean.ConstantInfo.isTheorem` has been deprecated: May be inaccurate for theorems imported under the module system, use `Lean.getOriginalConstKind?` instead
+⚠ [3228/3266] Built PF.TuringEncoding.WeightedDigitalSumGeneratingFunction (10s)
+warning: PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:53:7: 'Mathlib.Algebra.GeomSum' has been deprecated: please replace this import by
+
+import Mathlib.Algebra.Group.NatPowAssoc
+import Mathlib.Algebra.Order.Field.GeomSum
+import Mathlib.Algebra.Order.Ring.GeomSum
+import Mathlib.Algebra.Ring.Regular
+import Mathlib.Tactic.Abel
+import Mathlib.Tactic.Positivity.Basic
+
+
+Note: This linter can be disabled with `set_option linter.deprecated.module false`
+warning: PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:151:52: unused variable `α`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:187:0: 'PrincipiaTractalis.TuringEncoding.betaIm_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:188:0: 'PrincipiaTractalis.TuringEncoding.reality_criterion' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:189:0: 'PrincipiaTractalis.TuringEncoding.weightedPartialSumReal_closed_form' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:190:0: 'PrincipiaTractalis.TuringEncoding.bare_route_structural_finding' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3229/3266] Built PF.SubstrateMatrixUnitaryAveraging (33s)
+info: PF/SubstrateMatrixUnitaryAveraging.lean:566:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.substrateRoot_isPrimitiveRoot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:567:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.substrateRoot_pow_n' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:568:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.substrateRoot_ne_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:569:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.substrateRoot_norm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:570:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.substrateRoot_star' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:571:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.substrateRoot_pow_star' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:572:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.substrate_clock_character_sum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:573:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.clockMatrix_pow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:574:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.clockMatrix_mem_unitaryGroup' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:575:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.clockMatrix_pow_conj_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:576:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.shiftMatrix_pow_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:577:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.shiftMatrix_pow_conjTranspose_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:578:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.shiftMatrix_mem_unitaryGroup' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:579:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.clockShiftWord_mem_unitaryGroup' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:580:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.shiftMatrix_pow_conj_apply' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:581:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.clock_average_eq_diagonalPart' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:582:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.shift_average_diagonal_eq_trace_smul_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:583:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.matrix_unitary_average_eq_trace_smul_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:584:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.trace_smul_one_mem_of_two_sided_absorbing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateMatrixUnitaryAveraging.lean:585:0: 'PrincipiaTractalis.SubstrateMatrixUnitaryAveraging.r104_substrate_matrix_unitary_averaging_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+✔ [3230/3266] Built PF.TuringEncoding.AlphaCanonical (33s)
+✔ [3231/3266] Built PF.H3CoxeterOrigin (38s)
+✔ [3233/3266] Built PF.ExtremalTraceOrbits (6.0s)
+✔ [3234/3266] Built PF.SubstrateBase3Levels (12s)
+✔ [3235/3266] Built PF.SubstrateBase3Embed (7.0s)
+ℹ [3236/3266] Built PF.ForMathlib.CfcMemTwoSidedIdeal (57s)
+info: PF/ForMathlib/CfcMemTwoSidedIdeal.lean:103:0: 'TwoSidedIdeal.smul_mem_of_isClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/CfcMemTwoSidedIdeal.lean:104:0: 'TwoSidedIdeal.cfcₙHom_mem_of_isClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/CfcMemTwoSidedIdeal.lean:105:0: 'TwoSidedIdeal.cfcₙ_mem_of_isClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/CfcMemTwoSidedIdeal.lean:106:0: 'TwoSidedIdeal.cfcₙ_mem_closure' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3237/3266] Built PF.SubstrateBase3RingHom (6.5s)
+✔ [3238/3266] Built PF.SubstrateDirectLimit (14s)
+⚠ [3239/3266] Built PF.SubstrateBase3Norm (16s)
+warning: PF/SubstrateBase3Norm.lean:102:6: unused variable `k`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [3240/3266] Built PF.SubstrateTimelessFieldNorm (14s)
+ℹ [3241/3266] Built PF.ForMathlib.ClopenSpectralProjection (39s)
+info: PF/ForMathlib/ClopenSpectralProjection.lean:142:0: 'CStarAlgebra.continuousOn_indicator_one_of_isClopen' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/ClopenSpectralProjection.lean:143:0: 'CStarAlgebra.spectralProjection' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/ClopenSpectralProjection.lean:144:0: 'CStarAlgebra.isSelfAdjoint_spectralProjection' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/ClopenSpectralProjection.lean:145:0: 'CStarAlgebra.isIdempotentElem_spectralProjection' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/ClopenSpectralProjection.lean:146:0: 'CStarAlgebra.spectralProjection_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/ClopenSpectralProjection.lean:147:0: 'CStarAlgebra.spectralProjection_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/ClopenSpectralProjection.lean:148:0: 'CStarAlgebra.spectralProjection_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/ClopenSpectralProjection.lean:149:0: 'CStarAlgebra.isClopen_of_finite_quasispectrum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/ForMathlib/ClopenSpectralProjection.lean:150:0: 'CStarAlgebra.spectralProjection_singleton_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [3242/3266] Built PF.SubstrateTimelessFieldCompletion (12s)
+✔ [3243/3266] Built PF.ExtremalTraceUniquenessProofPlan (7.2s)
+✔ [3244/3266] Built PF.Substrate9DimCentralProjections (6.3s)
+⚠ [3245/3266] Built PF.SubstrateUHFCanonicalTrace (10s)
+warning: PF/SubstrateUHFCanonicalTrace.lean:103:8: This simp argument is unused:
+  substrate_normalized_trace
+
+Hint: Omit it from the simp argument list.
+  simp ̵[̵s̵u̵b̵s̵t̵r̵a̵t̵e̵_̵n̵o̵r̵m̵a̵l̵i̵z̵e̵d̵_̵t̵r̵a̵c̵e̵]̵
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [3246/3266] Built PF.SubstrateUHFBoundedTrace (6.3s)
+✔ [3247/3266] Built PF.SubstrateUHFTraceLipschitz (9.7s)
+✔ [3248/3266] Built PF.SubstrateUHFCompletionTrace (6.8s)
+✔ [3249/3266] Built PF.SubstrateUHFPreTraceDirectLimit (7.8s)
+✔ [3250/3266] Built PF.SubstrateUHFTraceIsTracial (8.2s)
+✔ [3251/3266] Built PF.SubstrateUHFTraceIsStarPreserving (6.3s)
+✔ [3252/3266] Built PF.SubstrateUHFTraceIsPositive (9.4s)
+✔ [3253/3266] Built PF.SubstrateUHFTraceIsFaithful (9.5s)
+✔ [3254/3266] Built PF.SubstrateUHFCompletionSimplicityDischarge (10s)
+ℹ [3255/3266] Built PF.SubstrateDirectLimitSimplicity (17s)
+info: PF/SubstrateDirectLimitSimplicity.lean:389:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.matrix_ne_zero_has_ne_zero_entry' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:390:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.trace_single_mul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:391:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.absorbing_set_contains_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:392:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.matrix_twoSidedIdeal_bot_or_top' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:393:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.twoSidedIdeal_exists_mem_ne_zero_of_ne_bot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:394:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.substrateIdealPullback' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:395:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.mem_substrateIdealPullback_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:396:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.substrateIdealPullback_add_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:397:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.substrateIdealPullback_mul_left_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:398:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.substrateIdealPullback_mul_right_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:399:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.substrateIdealPullback_smul_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:400:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.substrate_quotient_one_same_level' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:401:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.directLimit_twoSidedIdeal_bot_or_top' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateDirectLimitSimplicity.lean:402:0: 'PrincipiaTractalis.SubstrateDirectLimitSimplicity.r105_substrate_simplicity_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [3256/3266] Built PF.SubstrateConditionalExpectation (18s)
+warning: PF/SubstrateConditionalExpectation.lean:273:33: `le_of_not_le` has been deprecated: Use `le_of_not_ge` instead
+warning: PF/SubstrateConditionalExpectation.lean:305:26: `le_of_not_le` has been deprecated: Use `le_of_not_ge` instead
+warning: PF/SubstrateConditionalExpectation.lean:311:40: `le_of_not_le` has been deprecated: Use `le_of_not_ge` instead
+warning: PF/SubstrateConditionalExpectation.lean:312:26: `le_of_not_le` has been deprecated: Use `le_of_not_ge` instead
+warning: PF/SubstrateConditionalExpectation.lean:343:24: `le_of_not_le` has been deprecated: Use `le_of_not_ge` instead
+info: PF/SubstrateConditionalExpectation.lean:523:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.partialTraceStep_normalized_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:524:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.partialTraceStep_substrateEmbedMatrix' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:525:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.partialTraceDown_normalized_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:526:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.partialTraceDown_substrateRingHomIter' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:527:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.levelToLevelK_compat' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:528:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.condExp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:529:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.condExp_normalized_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:530:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.condExp_level_k' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:531:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.condExp_add' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:532:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.condExp_smul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:533:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.condExp_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:534:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.condExp_star' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateConditionalExpectation.lean:535:0: 'PrincipiaTractalis.SubstrateConditionalExpectation.r109_substrate_conditional_expectation_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3257/3266] Built PF.SubstrateUHFTraceCauchySchwarz (44s)
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:377:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.substrate_pre_trace_smul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:378:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_add' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:379:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_smul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:380:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:381:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_neg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:382:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_sub' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:383:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_linearMap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:384:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.traceInner_self_nonneg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:385:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.traceInner_self_re_nonneg' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:386:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.traceInner_self_im_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:387:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_inner_conj' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:388:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_expand' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:389:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_discriminant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:390:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_cauchySchwarz' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:391:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.UHF_trace_null_left_absorption' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceCauchySchwarz.lean:392:0: 'PrincipiaTractalis.SubstrateUHFTraceCauchySchwarz.r102_substrate_UHF_trace_cauchy_schwarz_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3258/3266] Built PF.SubstrateUHFTraceNullIdeal (39s)
+info: PF/SubstrateUHFTraceNullIdeal.lean:348:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.UHF_trace_null_cross_left' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:349:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.UHF_trace_null_cross_right' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:350:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.traceNull_add_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:351:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.traceNull_star_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:352:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.traceNull_right_absorption' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:353:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.traceNull_smul_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:354:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.traceNull_neg_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:355:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.traceNull_zero_mem' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:356:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.traceNullTwoSidedIdeal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:357:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.mem_traceNullTwoSidedIdeal_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:358:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.traceNullTwoSidedIdeal_ne_top' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:359:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.UHF_trace_faithful_of_simple' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:360:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.substrate_conjecture_of_simple' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateUHFTraceNullIdeal.lean:361:0: 'PrincipiaTractalis.SubstrateUHFTraceNullIdeal.r103_substrate_UHF_trace_null_ideal_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3259/3266] Built PF.SubstrateCompletionSimplicity (49s)
+info: PF/SubstrateCompletionSimplicity.lean:605:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.unit_mem_forces_top' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:606:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.oneSub_mem_forces_top' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:607:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.levelToCompletion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:608:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.levelToCompletion_star' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:609:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.levelToCompletion_smul' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:610:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.levelToCompletion_norm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:611:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.levelToCompletion_mem_unitary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:612:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.levelWeyl_mem_unitary' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:613:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.avgK_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:614:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.levelWeyl_conj' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:615:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.avgK_on_level' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:616:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.avgK_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:617:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.avgK_contraction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:618:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.UHF_trace_dist_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:619:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.avgK_approx' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:620:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.ideal_trace_ne_zero_forces_top' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:621:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.completion_twoSidedIdeal_bot_or_top_of_traceDetects' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:622:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.UHF_trace_faithful_of_traceDetects' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionSimplicity.lean:623:0: 'PrincipiaTractalis.SubstrateCompletionSimplicity.r106_substrate_completion_simplicity_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3260/3266] Built PF.SubstrateTraceDetectionAttempt (37s)
+info: PF/SubstrateTraceDetectionAttempt.lean:325:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.traceNull_eq_bot_of_faithful' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:326:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.traceDetects_of_traceNull_eq_bot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:327:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.traceDetects_tfae' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:328:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.traceDetects_iff_faithful' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:329:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.traceDetects_iff_simple' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:330:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.traceDetects_iff_traceNull_eq_bot' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:331:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.exists_ne_zero_mem_quasispectrum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:332:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.traceDetectsProjections_of_faithful' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:333:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.traceDetects_closed_of_projTrace_finiteSpectrum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceDetectionAttempt.lean:334:0: 'PrincipiaTractalis.SubstrateTraceDetectionAttempt.r108_substrate_trace_detection_equivalence_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [3261/3266] Built PF.SubstrateCondExpContraction (14s)
+warning: PF/SubstrateCondExpContraction.lean:225:24: `le_of_not_le` has been deprecated: Use `le_of_not_ge` instead
+info: PF/SubstrateCondExpContraction.lean:307:0: 'PrincipiaTractalis.SubstrateCondExpContraction.normSq_sum_fin3_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpContraction.lean:308:0: 'PrincipiaTractalis.SubstrateCondExpContraction.re_normalized_trace_star_mul_self' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpContraction.lean:309:0: 'PrincipiaTractalis.SubstrateCondExpContraction.partialTraceStep_normSq_trace_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpContraction.lean:310:0: 'PrincipiaTractalis.SubstrateCondExpContraction.partialTraceDown_normSq_trace_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpContraction.lean:311:0: 'PrincipiaTractalis.SubstrateCondExpContraction.condExp_l2_contraction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpContraction.lean:312:0: 'PrincipiaTractalis.SubstrateCondExpContraction.condExpL2Contraction_holds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpContraction.lean:313:0: 'PrincipiaTractalis.SubstrateCondExpContraction.r110_substrate_condexp_contraction_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3262/3266] Built PF.SubstrateCondExpOpNorm (22s)
+info: PF/SubstrateCondExpOpNorm.lean:291:0: 'PrincipiaTractalis.SubstrateCondExpOpNorm.Winj_conjTranspose_mul_self' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpOpNorm.lean:292:0: 'PrincipiaTractalis.SubstrateCondExpOpNorm.partialTraceStep_eq_smul_sum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpOpNorm.lean:293:0: 'PrincipiaTractalis.SubstrateCondExpOpNorm.Winj_opNorm_sq_le_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpOpNorm.lean:294:0: 'PrincipiaTractalis.SubstrateCondExpOpNorm.partialTraceStep_opNorm_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpOpNorm.lean:295:0: 'PrincipiaTractalis.SubstrateCondExpOpNorm.partialTraceStepOpNormContraction_holds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpOpNorm.lean:296:0: 'PrincipiaTractalis.SubstrateCondExpOpNorm.partialTraceDown_opNorm_le' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCondExpOpNorm.lean:297:0: 'PrincipiaTractalis.SubstrateCondExpOpNorm.condExp_opNorm_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/SubstrateCondExpOpNorm.lean:298:0: 'PrincipiaTractalis.SubstrateCondExpOpNorm.r111_substrate_partial_trace_opnorm_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3263/3266] Built PF.SubstrateCompletionFaithful (43s)
+info: PF/SubstrateCompletionFaithful.lean:432:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.condExp_lipschitz' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:433:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.substrateLevelToTimelessField_iter' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:434:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.substrateLevelToTimelessField_isometry' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:435:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.condExpFin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:436:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.condExpCompletion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:437:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.condExpCompletion_coe' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:438:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.condExpCompletion_tendsto' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:439:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.condExpCompletion_l2_contraction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:440:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.UHF_trace_faithful' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:441:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.condExpCompletionExtension_holds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:442:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.substrate_UHF_completion_positive_faithfulness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:443:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.substrate_UHF_trace_faithful_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:444:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.substrate_completion_traceDetectsIdeals' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:445:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.substrate_completion_simple_unconditional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:446:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.substrate_UHF_completion_simplicity_substrate_discharge' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateCompletionFaithful.lean:447:0: 'PrincipiaTractalis.SubstrateCompletionFaithful.r112_substrate_completion_faithful_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3264/3266] Built PF.SubstrateTraceUniqueness (16s)
+info: PF/SubstrateTraceUniqueness.lean:298:0: 'PrincipiaTractalis.SubstrateTraceUniqueness.matrix_tracial_state_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceUniqueness.lean:299:0: 'PrincipiaTractalis.SubstrateTraceUniqueness.tracialState_coe_level' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceUniqueness.lean:300:0: 'PrincipiaTractalis.SubstrateTraceUniqueness.substrate_UHF_trace_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceUniqueness.lean:301:0: 'PrincipiaTractalis.SubstrateTraceUniqueness.uhf_trace_isTracialState' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateTraceUniqueness.lean:302:0: 'PrincipiaTractalis.SubstrateTraceUniqueness.r113_substrate_UHF_factor_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3265/3266] Built PF.AlphaFromSubstrateKTheory_r123 (33s)
+info: PF/AlphaFromSubstrateKTheory_r123.lean:572:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.phi_eq_goldenRatio' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:573:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.not_memZ13_of_irrational' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:574:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.not_memZ13_three_halves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:575:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.not_memZ13_one_fifth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:576:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.memZ13_ratio_ne_pi' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:577:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.substrate_level_projection_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:578:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.substrate_attains_every_Z13_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:579:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.alpha_table_memZ13_verdict' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:580:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.substrate_level_realizes_arbitrary_spectrum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:581:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.two_distinct_alpha_assignments_both_realized' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:582:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.no_nine_distinct_tracial_states' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:583:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.substrate_tracial_state_space_singleton' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:584:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.coupling_H3_identity_holds_for_every_alpha' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:585:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.resonance_phase_two_periodic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:586:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.alpha_P_sq_eq_alpha_YM_not_mod_two_invariant' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:587:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.bare_route_alpha_memZ13' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:588:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.canonical_alphas_fail_bare_route' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/AlphaFromSubstrateKTheory_r123.lean:589:0: 'PrincipiaTractalis.AlphaFromSubstrateKTheory.r123_substrate_cannot_force_alpha_capstone' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+⚠ [3266/3266] Built PF.SubstrateRigidity (68s)
+warning: PF/SubstrateRigidity.lean:705:0: automatically included section variable(s) unused in theorem `PrincipiaTractalis.SubstrateRigidity.E_of_mul_same`:
+  [NeZero k]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero k] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: PF/SubstrateRigidity.lean:713:0: automatically included section variable(s) unused in theorem `PrincipiaTractalis.SubstrateRigidity.E_of_mul_diff`:
+  [NeZero k]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero k] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: PF/SubstrateRigidity.lean:724:0: automatically included section variable(s) unused in theorem `PrincipiaTractalis.SubstrateRigidity.E_of_star`:
+  [NeZero k]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero k] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: PF/SubstrateRigidity.lean:735:0: automatically included section variable(s) unused in theorem `PrincipiaTractalis.SubstrateRigidity.E_of_sum_diagonal`:
+  [NeZero k]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero k] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: PF/SubstrateRigidity.lean:1098:0: automatically included section variable(s) unused in theorem `PrincipiaTractalis.SubstrateRigidity.unitaryOfONBpair_isUnitary`:
+  [NeZero k]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NeZero k] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: PF/SubstrateRigidity.lean:1223:19: This simp argument is unused:
+  this
+
+Hint: Omit it from the simp argument list.
+  simp [htp,̵ ̵t̵h̵i̵s̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: PF/SubstrateRigidity.lean:2515:0: 'PrincipiaTractalis.SubstrateRigidity.T_infinity_rigidity' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/SubstrateRigidity.lean:2516:0: 'PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.trace_unique' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateRigidity.lean:2517:0: 'PrincipiaTractalis.SubstrateRigidity.substrate3Inf_iso' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: PF/SubstrateRigidity.lean:2518:0: 'PrincipiaTractalis.SubstrateRigidity.substrate3Inf_TimelessFieldCompletion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateRigidity.lean:2519:0: 'PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.connect_iso' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateRigidity.lean:2520:0: 'PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.connect_unital' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: PF/SubstrateRigidity.lean:2521:0: 'PrincipiaTractalis.SubstrateRigidity.IsTracialLinearFunctional' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Build completed successfully (3266 jobs).
+EXIT=0
