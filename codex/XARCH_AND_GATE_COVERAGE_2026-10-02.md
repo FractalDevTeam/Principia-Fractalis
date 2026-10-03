@@ -262,12 +262,37 @@ because the gate's (d2) still drives `#audit_all` from the **bare-name** list
 identical; only the target set differs. Migrating (d2) onto
 `qualified_decls.py` is the obvious follow-on and is not done here.
 
-## Still to re-gate
+## Re-gated 2026-10-03 — all three PRISTINE, and the run found a further bug
 
-`r341` (`H3CoxeterDiagramDerivation`), `r331g` (`RectangleLogBranch`) and `r335`
-(`SubstrateIdempotentTraceRigidity`) are multi-namespace and so had overstated (b)
-coverage, but their oleans are not on Acer — they were built and gated on Legion.
-Re-gate there with the patched script; no rebuild needed.
+`r341`, `r331g` and `r335` were re-gated on Legion against their existing oleans,
+no rebuild. All three are **PRISTINE**, and the `(b)` and `(d2)` declaration counts
+now agree on every one:
+
+| module | (b) inspected records | (d2) decls |
+|---|---|---|
+| `PF.Analytic.RectangleLogBranch_r331g` | 37 / 37 probeable | 37 |
+| `PF.H3CoxeterDiagramDerivation` | 41 / 41 probeable (+4 private) | 41 |
+| `PF.SubstrateIdempotentTraceRigidity` | 5 / 5 probeable | 5 |
+
+**The first run of `r331g` reported `(b)` over 4 declarations while `(d2)` on the
+same run reported 37.** That disagreement exposed a bug in the fix described
+above: `qualified_decls.py` prints names containing subscripts
+(`div_cancel_left` with a subscript zero), Windows stdout defaults to cp1252, the
+helper died with `UnicodeEncodeError` after 4 names, and
+`mapfile -t DECLS < <(python3 ...)` discarded the exit status — so the gate
+certified a clean pass over 11% of the file. The same defect class this document
+is about, reintroduced by the enumerator it introduced. Acer was never affected
+(UTF-8 locale), which is why it reported honest counts throughout.
+
+Fixed in **`bf140ed4`**: UTF-8 forced on the helper's stdout, and the gate now
+runs the enumerator to a file and **checks its exit status**, refusing to certify
+if it failed — the enumerator-side analogue of the `REC_JOINED != REC_SEEN`
+invariant guarding the record parser.
+
+**Keep the `(b)` vs `(d2)` cross-check.** The two criteria enumerate declarations
+by independent routes, so they should agree; when they disagree, one of them is
+wrong. That is what caught this, and it is cheaper than any amount of re-reading
+the enumerator.
 
 ## What this does and does not establish
 
