@@ -1,0 +1,170 @@
+./probe_d2_IlRn.lean:3:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.connect_unital: 4 finding(s)
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCompleteSpace
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCStarRing
+  DEAD      field never consumed in the proof cone: PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_matrix
+  DEAD      field never consumed in the proof cone: PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_dense
+(cone: 59 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:4:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.connect_iso: 4 finding(s)
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCompleteSpace
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCStarRing
+  DEAD      field never consumed in the proof cone: PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_matrix
+  DEAD      field never consumed in the proof cone: PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_dense
+(cone: 59 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:5:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_level_isClosed: 4 finding(s)
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCompleteSpace
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCStarRing
+  DEAD      field never consumed in the proof cone: PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_mono
+  DEAD      field never consumed in the proof cone: PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_dense
+(cone: 189 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.substrateTFCtower_matrix: CLEAN (955 constants in cone, boundary = PrincipiaTractalis)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.substrateTFCtower_mono: CLEAN (926 constants in cone, boundary = PrincipiaTractalis)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.substrateTFCtower_dense: CLEAN (1006 constants in cone, boundary = PrincipiaTractalis)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.substrateTFCtower_trace_unique: CLEAN (1192 constants in cone, boundary = PrincipiaTractalis)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.blockDiagonalConstMap_star: CLEAN (90 constants in cone, boundary = PrincipiaTractalis)
+./probe_d2_IlRn.lean:11:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.blockDiagonalConstStarHom_injective: 1 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+(cone: 163 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:12:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.blockDiagonalStarAlgHom_injective: 1 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+(cone: 175 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.blockDiagonalStarAlgHom_unital: CLEAN (163 constants in cone, boundary = PrincipiaTractalis)
+./probe_d2_IlRn.lean:14:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_mul_same: 9 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+(cone: 81 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:15:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_mul_diff: 11 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+(cone: 85 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:16:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_star: 7 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+(cone: 78 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:17:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_sum_diagonal: 3 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+(cone: 132 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:18:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_i_i_isProjection: 5 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+(cone: 106 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:19:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_i_i_trace_eq_00: 6 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+(cone: 90 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:20:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_00_trace_eq_k: 4 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+(cone: 205 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:21:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_00_range_finrank: 4 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+(cone: 299 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:22:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_00_toEuclideanLin_range_finrank: 4 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+(cone: 356 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:23:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.phiONB_family_orthonormal: 4 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+(cone: 448 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:24:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.unitaryOfONBpair_isUnitary: 3 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: OrthonormalBasis.repr
+  DEAD      field never consumed in the proof cone: OrthonormalBasis.repr
+(cone: 182 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:25:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.unitaryOfONBpair_apply_phiONB: 6 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+(cone: 487 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:26:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.phiONB_apply_eq_family: 4 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+(cone: 465 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:27:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.E_of_apply_phiONB: 12 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+(cone: 466 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:28:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.conjugation_identity_on_single: 10 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+  DEAD      field never consumed in the proof cone: Fin.val
+  DEAD      field never consumed in the proof cone: Fin.isLt
+(cone: 507 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:29:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.unital_star_hom_inner_unique: 5 finding(s)
+  DEAD      field never consumed in the proof cone: NeZero.out
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+  DEAD      field never consumed in the proof cone: StarAlgHom.toAlgHom
+  DEAD      field never consumed in the proof cone: StarAlgHom.map_star'
+(cone: 538 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+./probe_d2_IlRn.lean:30:0: warning: O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.tower_union_starHom_uniformContinuous: 5 finding(s)
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCompleteSpace
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCStarRing
+  DEAD      field never consumed in the proof cone: PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.tower_dense
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCompleteSpace
+  DEAD      field never consumed in the proof cone: CStarAlgebra.toCStarRing
+(cone: 408 constants, boundary = PrincipiaTractalis; DEAD means no proof under that boundary mentions the field)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.tower_universal_star_extension: CLEAN (467 constants in cone, boundary = PrincipiaTractalis)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.substrate3Inf_iso: CLEAN (921 constants in cone, boundary = PrincipiaTractalis)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.T_infinity_rigidity: CLEAN (1543 constants in cone, boundary = PrincipiaTractalis)
+O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.Substrate3Inf.trace_unique: CLEAN (1759 constants in cone, boundary = PrincipiaTractalis)

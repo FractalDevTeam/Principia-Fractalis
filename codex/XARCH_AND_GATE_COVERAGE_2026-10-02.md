@@ -226,15 +226,41 @@ wrapped.
 | `PF.GaussLowerBound_r209` | `PASS (b) over 88` / 3 records | (b) **93/93**; still NOT PRISTINE on (d2) |
 | `PF.SubstrateRigidity` | (b) over 53 claimed | (b) **PASS 32/32** probeable, 21 private disclosed |
 
-`SubstrateRigidity` remains **NOT PRISTINE** on criterion **(d2)**: 20
-PremiseAudit semantic findings, all displayed ones naming the `Substrate3Inf`
-structure fields `tower_matrix` and `tower_dense` as DEAD premises. This is
-pre-existing and unrelated to the axiom work. `T_infinity_rigidity` does not
-appear in the displayed findings and every O-CIRC sweep reports
-`withFindings=0`, **but the gate truncates the list at 6 of 20, so this is not
-yet settled.** Whether the headline theorem itself carries a dead `tower_matrix`
-/ `tower_dense` premise is **OPEN and next** — it bears directly on whether the
-`3^∞` substrate structure is load-bearing in the proof or merely carried.
+`SubstrateRigidity` remains **NOT PRISTINE** on criterion **(d2)**, which is
+pre-existing and unrelated to the axiom work.
+
+**Settled the same day, and favourably.** `#audit_premises` run directly over all
+32 public declarations of the module:
+
+> `O-CIRC audit of PrincipiaTractalis.SubstrateRigidity.T_infinity_rigidity: CLEAN`
+> `(1543 constants in cone, boundary = PrincipiaTractalis)`
+
+**The headline theorem is CLEAN: it consumes everything it assumes, so the `3^∞`
+substrate structure is load-bearing in the proof, not merely carried.** That was
+the live worry and it is answered.
+
+Across those 32 declarations: 10 CLEAN, 22 with findings, **116 findings, every
+one of them DEAD — zero CONTAINED, zero VACUOUS.** The distinction matters and
+runs the reassuring way: DEAD means the conclusion holds *without* that
+hypothesis, i.e. the lemma is more general than stated (over-hypothesis, a
+hygiene matter). VACUOUS would be the dangerous kind — contradictory hypotheses
+making a statement empty — and there are none anywhere in the module.
+
+Of the 116 dead fields, **109 are mathlib structure projections**, which is
+instance-projection noise rather than PF hypotheses: `NeZero.out` (27),
+`StarAlgHom.toAlgHom` (18), `StarAlgHom.map_star'` (18), `Fin.val` (17),
+`Fin.isLt` (17), `CStarAlgebra.toCStarRing` / `toCompleteSpace` (5 each),
+`OrthonormalBasis.repr` (2). **Only 7 involve a real PF structure field** —
+`Substrate3Inf.tower_dense` (4), `tower_matrix` (2), `tower_mono` (1) — in three
+auxiliary lemmas (`Substrate3Inf.connect_unital`, `connect_iso`,
+`tower_level_isClosed`) that simply do not need the full `Substrate3Inf`
+structure and could be restated with weaker hypotheses.
+
+One accounting note: the gate reports 20 findings where this sweep reports 116,
+because the gate's (d2) still drives `#audit_all` from the **bare-name** list
+(`:216`) that defect 3 above collapses. The character of the findings is
+identical; only the target set differs. Migrating (d2) onto
+`qualified_decls.py` is the obvious follow-on and is not done here.
 
 ## Still to re-gate
 
