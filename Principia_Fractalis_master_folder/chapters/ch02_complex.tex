@@ -248,7 +248,9 @@ Each positive winding increases the argument by $2\pi$, so $\Arg z \mapsto \Arg 
 This is the key lemma referenced in Chapter~\ref{ch:p-vs-np}.
 
 \begin{lemma}[Nonlinearity of Fractional Powers Under Winding]\index{fractional power!nonlinearity}\label{lem:frac-nonlinear}
-Let $s \in \C \setminus \Z$ and $w \in \C \setminus (-\infty, 0]$. Under analytic continuation corresponding to $w \mapsto w + 2\pi i m$ (where $m \in \Z$), the fractional power transforms as:
+Let $s \in \C \setminus \Z_{\geq 1}$, $w \in \C \setminus (-\infty, 0]$ and
+$m \in \Z$, and assume $|w| > 2\pi|m|$. Under analytic continuation
+corresponding to $w \mapsto w + 2\pi i m$, the fractional power transforms as:
 \begin{equation}
 w^{s-1} \mapsto (w + 2\pi i m)^{s-1} = \sum_{k=0}^{\infty} \binom{s-1}{k} (2\pi i m)^k w^{s-1-k}
 \end{equation}
@@ -256,6 +258,20 @@ where $\binom{s-1}{k} = \frac{(s-1)(s-2) \cdots (s-k)}{k!}$ is the generalized b
 
 This is a genuinely \textbf{nonlinear} dependence on $m$: all powers $m^k$ appear for $k \geq 0$.
 \end{lemma}
+
+\begin{remark}[Scope of the series, 2026-10-03]
+\label{rem:frac-nonlinear-scope-2026-10-03}
+The hypothesis $|w| > 2\pi|m|$ is what makes the binomial series converge, since
+the expansion is in powers of $2\pi i m/w$; earlier printings omitted it. The
+\emph{closed form} $(w + 2\pi i m)^{s-1}$ needs no such restriction --- only the
+series does, and with it the reading ``all powers $m^k$ appear''.
+
+This matters because the regime of interest near $z = 1$ is $w \to 0$ with
+$m = 1$, where $|2\pi i/w| \to \infty$ and the series \emph{diverges}. The series
+form of this lemma is therefore \textbf{not available} in the limit that
+Corollary~\ref{cor:Li-monodromy} takes, and that corollary no longer invokes it
+--- see Remark~\ref{rem:monodromy-correction-2026-10-03}.
+\end{remark}
 
 \begin{proof}
 By the binomial theorem (extended to complex exponents):
@@ -270,7 +286,18 @@ This series involves all powers $m^0, m^1, m^2, \ldots$, giving nonlinearity in 
 \end{proof}
 
 \begin{remark}[Special Case: $s \in \Z$]\label{rem:integer-s}
-If $s \in \Z$, then $\binom{s-1}{k} = 0$ for $k \geq s$, so the binomial series truncates. The dependence on $m$ becomes a polynomial of degree $s-1$, not an infinite series. This is why $s \notin \Z$ is crucial for the P vs NP argument.
+If $s \in \Z_{\geq 1}$, then $\binom{s-1}{k} = 0$ for $k \geq s$, so the binomial
+series truncates and the dependence on $m$ becomes a polynomial of degree $s-1$
+rather than an infinite series.
+
+\textbf{Correction (2026-10-03).} Earlier printings said ``if $s \in \Z$''. The
+truncation needs $s-1 \in \Z_{\geq 0}$, i.e.\ $s \geq 1$, because
+$\binom{s-1}{k}$ vanishes only once $k$ passes a \emph{non-negative} integer
+$s-1$. For $s \in \Z_{\leq 0}$ the coefficients never vanish: $s = 0$ gives
+$\binom{-1}{k} = (-1)^k$, $s = -1$ gives $\binom{-2}{k} = (-1)^k(k+1)$, and
+``polynomial of degree $s-1$'' is meaningless. So the condition the argument
+actually needs is $s \notin \Z_{\geq 1}$, which is also the hypothesis of
+Theorem~\ref{thm:Li-expansion}; $s \notin \Z$ is stronger than necessary.
 \end{remark}
 
 \section{Polylogarithms and Jonquières Expansion}
@@ -319,21 +346,93 @@ Use the functional equation for $\Li_s$ and expand near the singularity at $z = 
 \end{proof}
 
 \begin{corollary}[Monodromy of $\Li_s$ Around $z = 1$]\index{polylogarithm!monodromy}\label{cor:Li-monodromy}
-Continuing once positively around $z = 1$ corresponds to $w \mapsto w + 2\pi i$. By Lemma~\ref{lem:frac-nonlinear}, the jump of $\Li_s$ across the cut involves the full binomial series in $(2\pi i)$ when $s \notin \Z$:
+Let $s \notin \Z_{\geq 1}$. Continuing once positively around $z = 1$ multiplies
+the singular factor by a phase, leaving the regular part fixed:
 \begin{equation}
-\Delta \Li_s(e^{-w}) = \Gamma(1-s) \left[ (w + 2\pi i)^{s-1} - w^{s-1} \right]
+w^{s-1} \;\longmapsto\; e^{2\pi i (s-1)} w^{s-1},
+\qquad
+\sum_{k \geq 0} \zeta(s-k)\frac{(-w)^k}{k!} \;\longmapsto\; \text{unchanged},
 \end{equation}
-This is nonlinear in the winding number, which is the basis for distinguishing P from NP complexity classes.
+so the jump of $\Li_s$ is
+\begin{equation}
+\Delta \Li_s(e^{-w}) = \Gamma(1-s)\left[e^{2\pi i (s-1)} - 1\right] w^{s-1}
+= \frac{2\pi i\, e^{i\pi s}}{\Gamma(s)}\, w^{s-1},
+\label{eq:Li-monodromy-corrected}
+\end{equation}
+the second form by $\Gamma(s)\Gamma(1-s) = \pi/\sin \pi s$. After $m$ loops the
+factor is $e^{2\pi i m (s-1)}$, which differs from $1$ precisely when
+$s \notin \Z$ --- so the monodromy is nontrivial, but its $m$-dependence is a
+\textbf{pure phase}, not a polynomial or a series in $m$.
 \end{corollary}
+
+\begin{remark}[Correction, 2026-10-03: the monodromy is multiplicative]
+\label{rem:monodromy-correction-2026-10-03}
+Earlier printings asserted that a loop around $z = 1$ corresponds to
+$w \mapsto w + 2\pi i$ and concluded, via
+Lemma~\ref{lem:frac-nonlinear}, that the jump ``involves the full binomial
+series in $(2\pi i)$''. Both steps fail.
+
+\textbf{Why $w \mapsto w + 2\pi i$ is the wrong substitution.}
+$w \mapsto w + 2\pi i$ is the monodromy of $\Log$ about $z = \mathbf{0}$, where
+$\Log$ is multivalued. At $z = 1$ the function $\Log$ is \emph{holomorphic and
+single-valued}; what happens there is that $w = -\Log z$ has a \textbf{simple
+zero},
+\begin{equation}
+w = (1-z) + \tfrac{1}{2}(1-z)^2 + \cdots,
+\end{equation}
+so a positive loop of $z$ about $1$ carries $w$ once around $0$ and advances
+$\arg w$ by $2\pi$. A fractional power then picks up the factor
+$e^{2\pi i (s-1)}$, which is what Equation~\eqref{eq:Li-monodromy-corrected}
+records. The regular series of Theorem~\ref{thm:Li-expansion} is a power series
+in $w$ and so returns to itself.
+
+\textbf{Consistency check.} For real $x > 1$ the classical discontinuity is
+$\Li_s(x + i0) - \Li_s(x - i0) = 2\pi i (\ln x)^{s-1}/\Gamma(s)$, which agrees
+with the second form of \eqref{eq:Li-monodromy-corrected} up to the branch
+determination of $(-1)^{s-1}$ --- the two differ only in how $\arg w$ is assigned
+on the negative real axis, and we do not rely on that choice below.
+
+\textbf{What this costs the P vs NP argument.} The qualitative input survives:
+the monodromy about $z = 1$ is nontrivial exactly for $s \notin \Z$, so a
+non-integer resonance exponent does distinguish continuations in a way an integer
+one cannot. What does \emph{not} survive is the stronger reading --- that the
+winding number enters through ``all powers $m^k$'' of a binomial series. It does
+not; it enters as the phase $e^{2\pi i m(s-1)}$. Any downstream argument that
+needs genuine polynomial or higher-order dependence on $m$, rather than a phase,
+is not supported by this corollary, and
+Remark~\ref{rem:frac-nonlinear-scope-2026-10-03} records that the series it
+appealed to diverges in this limit anyway. The corollary is corrected, not
+withdrawn.
+\end{remark}
 
 \subsection{Logarithmic Case: \texorpdfstring{$s \in \mathbb{N}$}{s in N}}
 
 \begin{remark}[Special Case: $s \in \mathbb{N}$]\label{rem:Li-integer}
-When $s \in \mathbb{N}$, the term $\Gamma(1-s)$ has a pole, and the expansion includes logarithmic terms:
+When $s = n \in \mathbb{N}$, the factor $\Gamma(1-s)$ has a pole and the
+singular term becomes logarithmic. The correct expansion (Wood; Zagier) is
 \begin{equation}
-\Li_s(e^{-w}) = \frac{(-1)^{s-1}}{(s-1)!} (\log w)^{s-1} + \text{(regular terms)}
+\Li_n(e^{-w}) = \frac{(-w)^{n-1}}{(n-1)!}\left[H_{n-1} - \log w\right]
+\;+\; \sum_{k \geq 0,\; k \neq n-1} \zeta(n-k)\frac{(-w)^k}{k!},
+\label{eq:Li-integer-corrected}
 \end{equation}
-This is why the nonlinearity argument requires $s \notin \Z$.
+with $H_{n-1} = \sum_{j=1}^{n-1} 1/j$ the harmonic number.
+
+\textbf{Correction (2026-10-03).} Earlier printings gave the singular term as
+$[(-1)^{s-1}/(s-1)!](\log w)^{s-1}$. The singularity is
+$w^{\,n-1}\log w$, not $(\log w)^{n-1}$ --- a product, not a power. The
+difference is not cosmetic: at $n = 2$ the printed form gives
+$-\log w \to +\infty$ as $w \to 0^+$, whereas
+$\Li_2(e^{-w}) \to \zeta(2) = 1.6449$ is \emph{finite}. Numerically at
+$w = 10^{-3}$: $\Li_2(e^{-w}) = 1.6370261$, and
+\eqref{eq:Li-integer-corrected} gives $\zeta(2) - w + w\log w = 1.6370263$,
+while the printed form gives $6.9078$. At $n = 1$ the printed form degenerates to
+$(\log w)^0 = 1$, against the true
+$\Li_1(e^{-w}) = -\log(1 - e^{-w}) \approx -\log w$.
+
+Note that the vanishing of the singular power at $n = 1$ is exactly why the
+relevant hypothesis is $s \notin \Z_{\geq 1}$ rather than $s \notin \Z$: it is
+the \emph{positive} integers at which $\Gamma(1-s)$ has its poles and the
+logarithm appears.
 \end{remark}
 
 \subsection{Jonquières-Type Expansion (Statement)}

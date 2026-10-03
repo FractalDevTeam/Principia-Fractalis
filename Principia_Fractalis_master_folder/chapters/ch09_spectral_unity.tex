@@ -299,12 +299,52 @@ Moreover, computing $\text{ch}_2$ for each zero using the FRO formula yielded:
 \end{equation}
 confirming the consciousness threshold to extraordinary precision.
 
-\item \textbf{Spectral gap confirmation:} Direct computation of $\lambda_0(H_P)$ and $\lambda_0(H_{NP})$ using variational methods confirmed:
+\item \textbf{Spectral gap --- provenance corrected, 2026-10-03.} Earlier
+printings reported these three values as the output of ``direct computation
+$\ldots$ using variational methods'' to $\pm 10^{-12}$:
 \begin{align}
-\lambda_0(H_P) &= 0.222144146908 \pm 10^{-12} \\
-\lambda_0(H_{NP}) &= 0.133022242308 \pm 10^{-12} \\
-\Delta &= 0.089121904600 \pm 10^{-12}
+\lambda_0(H_P) &= 0.222144146908 \\
+\lambda_0(H_{NP}) &= 0.133022242308 \\
+\Delta &= 0.089121904600
 \end{align}
+\textbf{The stated error bars are withdrawn, and these are not independent
+measurements.} Three facts, each checkable by hand:
+
+\begin{enumerate}
+\item $\lambda_0(H_P)$ is the \emph{closed form} already displayed in
+  Theorem~\ref{thm:pvsnp_spectral}: $\pi/(10\sqrt{2}) = 0.222144146908\ldots$,
+  agreeing to every digit printed. Reporting it as a computation that
+  ``confirmed'' a value conflates an identity with a measurement.
+\item $\lambda_0(H_{NP})$ as given is \emph{exactly}
+  $\lambda_0(H_P) - \Delta$. It therefore carries no information about $\Delta$
+  that $\Delta$ does not already supply: the pair is consistent with $\Delta$
+  being an \emph{input} to it rather than an output of it. This is a separate
+  point from the mismatch already recorded above --- that this value does not
+  match the closed form $\pi/(10(\varphi + \tfrac14)) \approx 0.1682$ --- and it
+  is why the label ``empirical'' is not warranted.
+\item No computation presented in this book supports twelve digits. The reference
+  implementation in Chapter~\ref{ch:software} allocates a \emph{dense}
+  \texttt{float64} operator and calls a double-precision eigensolver without
+  consulting the high-precision backend, so it is limited to roughly sixteen
+  significant figures in principle and, at the discretisation levels stated
+  there, cannot be allocated at all.
+\end{enumerate}
+
+This does not weaken what Chapter~\ref{ch:constants} already discloses --- that
+$\Delta$ is \textbf{asserted, not derived}, being arithmetic about the two chosen
+values $\alpha_P = \sqrt 2$ and $\alpha_{NP} = \varphi + \tfrac14$. It
+strengthens it: the two eigenvalues offered in support of $\Delta$ do not
+independently support it either.
+
+\textbf{A convention clash to settle.} Chapter~\ref{ch:constants} obtains the
+same $\Delta$ from a \emph{different} pair, $0.5219115 - 0.4327896$, which
+differs from the pair above by a common additive offset of $0.2997674$; and it
+defines $\Delta = \lambda^{\mathbf{NP}} - \lambda^{\mathbf{P}}$ with $\mathbf{NP}$
+\emph{above} $\mathbf{P}$, whereas the computation here is
+$\lambda_0(H_P) - \lambda_0(H_{NP})$ with $\mathbf{P}$ above $\mathbf{NP}$. The
+magnitude agrees, but the orderings are opposite and cannot both hold. Which
+operator has the larger ground-state energy is left open here rather than
+silently chosen.
 
 \item \textbf{Digital sum statistics:} Over $10^9$ integers, the distribution of $D_3(n)$ modulo 9 follows the predicted fractal staircase pattern with chi-squared $\chi^2 = 0.03$, confirming the self-similar structure.
 \end{enumerate}
