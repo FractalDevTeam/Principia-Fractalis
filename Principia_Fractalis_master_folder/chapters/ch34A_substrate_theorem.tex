@@ -2297,3 +2297,80 @@ Cross-Reference). For the source of every theorem cited above,
 see the Lean file
 \texttt{PF/\allowbreak{}Referee/\allowbreak{}Principia\allowbreak{}Fractalis\allowbreak{}Substrate\allowbreak{}Theorem.\allowbreak{}lean} at
 HEAD commit \texttt{42990ea}.
+
+\paragraph{Verification status (2026-10-03).}
+To hold this chapter to the standard of the machine-checked corpus, here is the
+honest status of its principal claims. The labels are those of the project's own
+rigor-ledger specification; this chapter was the last without such a block.
+
+\begin{itemize}
+
+\item \textbf{PROVEN (kernel-verified)} --- the operator-algebra substrate
+itself. $\mathcal{T}_\infty$ is the Glimm $3^\infty$ UHF factor: the canonical
+tracial state is faithful (\texttt{UHF\_trace\_faithful}), the completion is
+C\textsuperscript{*}-simple
+(\texttt{substrate\_completion\_simple\_unconditional}), and the trace is unique
+(\texttt{substrate\_UHF\_trace\_unique}), together
+\texttt{r113\_substrate\_UHF\_factor\_capstone}. Zero project axioms.
+
+\item \textbf{PROVEN (kernel-verified)} --- minimal substrate rigidity
+(Theorem~\ref{thm:minimal-substrate-rigidity} of this chapter, where labelled) and
+\texttt{T\_infinity\_rigidity}, the Glimm classification at supernatural
+$3^\infty$ over an arbitrary C\textsuperscript{*}-algebra carrying a
+\texttt{Substrate3Inf} witness. Audited 2026-10-03 by
+\texttt{\#audit\_premises}: \textbf{CLEAN} over a cone of 1{,}543 constants, i.e.\
+it consumes every hypothesis it assumes, so the $3^\infty$ structure is
+load-bearing in the proof rather than carried. Confirmed independently on
+\textbf{x86\_64 and aarch64} from byte-identical sources, axioms
+$\subseteq\{$\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}$\}$.
+
+\item \textbf{CONDITIONAL REDUCTION} --- the six Clay axes (C1--C6) and the
+``\emph{Substrate Consequences Hold Unconditionally}'' theorem as it bears on
+them. Per the project's own rule, a claim whose closure would resolve a
+Millennium problem is conditional and never proven: what is machine-checked is an
+\emph{implication} from the substrate antecedents, with the Clay-statement-form
+discharge at the literal Cook--Karp / Mayer-1991 / Voisin-2007 / continuum
+SU($N$) tier \emph{not} established. The word ``unconditionally'' in that theorem
+should be read as \emph{unconditionally given the substrate antecedents}, not as
+a discharge of the Clay statements.
+
+\item \textbf{ASSERTED (not derived)} --- the $\alpha$-substrate reference table
+and the values it is built from, $\alpha_P=\sqrt2$ and
+$\alpha_{NP}=\varphi+\tfrac14$. These are chosen constants of the framework;
+Chapter~\ref{ch:constants} records the same judgement, and the cross-Millennium
+identities among them are true \emph{as arithmetic about values the framework
+defines}. They say nothing about the Millennium problems.
+
+\item \textbf{ASSERTED (not derived), anchor-dependent} --- the
+$(\alpha_{\text{YM}},\alpha_{\text{Poincar\'e}},\alpha_{\text{RH}})$ triple.
+Conditional on the (A3) anchor $\alpha_{\text{Poincar\'e}}=1$ the other two are
+uniquely forced and this is machine-checked; the anchor itself is (A3)'s own
+postulate, and \texttt{perelman\_anchor\_is\_strictly\_necessary} shows a
+different anchor propagates to a different consistent skeleton. The system is
+\emph{exactly determined} --- ten relations in ten unknowns, no redundancy --- so
+there is no residual constraint that could have failed, and no over-determination
+to cite as corroboration.
+
+\item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED}
+--- the consciousness consequences (Group V, C13--C15), the IIT threshold
+linkage, and the cosmology group (C9--C12). Only experiment can settle these and
+a proof assistant cannot establish them. Two specific cautions, both
+machine-checked in the corpus: the one computable formula the book supplies for
+$\text{ch}_2$ has range $[-\tfrac12,\tfrac12]$, so the $0.95$ gate is satisfied
+by no real matrix (\texttt{ch2Matrix\_le\_half}); and the character space of the
+substrate is \emph{empty} (\texttt{gelfandSpectrum\_eq\_empty}), so any
+consciousness operator defined as an integral over
+$\text{Spec}(\mathcal{T}_\infty)$ is the zero operator. Neither fact bears on the
+\textbf{PROVEN} items above, which nowhere reference $\text{ch}_2$.
+
+\item \textbf{PROVEN-as-arithmetic (only)} --- the numerical brackets and
+orderings over the nine axes. These are elementary facts about the framework's
+own constants, correct as arithmetic, and framework-internal: they are not
+independent confirmation of anything outside the framework.
+
+\end{itemize}
+
+\noindent The separation worth carrying away from this chapter is that its
+\textbf{PROVEN} content --- the UHF substrate and its rigidity --- is independent
+of its \textbf{EMPIRICAL} content. Nothing in the substrate results depends on
+$\text{ch}_2$, on the threshold $0.95$, or on any claim about consciousness.
