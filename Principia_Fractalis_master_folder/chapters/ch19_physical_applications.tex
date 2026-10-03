@@ -403,11 +403,45 @@ where $\Delta = 0.0891\ldots$ is the universal fractal constant.
 \begin{align}
 \Lambda_{\text{QCD}} &= 1.22 \times 10^{19} \, \text{GeV} \cdot \exp\left[ -\frac{3.1416}{0.0891} \right]\\
 &= 1.22 \times 10^{19} \, \text{GeV} \cdot \exp[-35.26]\\
-&\approx 1.22 \times 10^{19} \, \text{GeV} \cdot 2.9 \times 10^{-16}\\
-&\approx 350 \, \text{MeV}
+&= 1.22 \times 10^{19} \, \text{GeV} \cdot 4.87 \times 10^{-16}\\
+&= 5.9 \times 10^{3} \, \text{GeV} \;=\; 5.9 \; \text{TeV}
 \end{align}
 
-Observed value: $\Lambda_{\text{QCD}} \approx 200$--$400$ MeV. Excellent agreement!
+Observed value: $\Lambda_{\text{QCD}} \approx 200$--$400$ MeV.
+
+\begin{remark}[Correction, 2026-10-03: this conjecture misses by four orders]
+\label{rem:qcd-scale-2026-10-03}
+Earlier printings evaluated the last two lines as
+$2.9 \times 10^{-16}$ and $\approx 350\,\mathrm{MeV}$, and concluded ``excellent
+agreement''. Both numbers are wrong, independently.
+
+\textbf{The exponential.} $\exp[-3.1416/0.0891] = \exp[-35.26]$, and
+$35.26/\ln 10 = 15.313$, so $\exp[-35.26] = 10^{-15.313}
+= 4.87 \times 10^{-16}$. The printed $2.9 \times 10^{-16}$ is $e^{-35.78}$.
+
+\textbf{The product.} Even taking the printed factor at face value,
+$1.22 \times 10^{19}\,\mathrm{GeV} \times 2.9 \times 10^{-16}
+= 3.5 \times 10^{3}\,\mathrm{GeV} = 3.5\,\mathrm{TeV}$ --- the stated
+$350\,\mathrm{MeV}$ is low by $10^{4}$. With the correct exponential the value is
+$5.9\,\mathrm{TeV}$.
+
+\textbf{Consequence.} The conjecture yields a scale four orders of magnitude
+\emph{above} the observed QCD scale, so \textbf{``excellent agreement'' is
+withdrawn}. Nor can the gap be closed by re-reading $\Delta$: matching
+$300\,\mathrm{MeV}$ requires
+$\pi/\Delta = \ln(1.22\times10^{19}/0.3) = 45.15$, i.e.\
+$\Delta = 0.0696$, whereas the universal constant used throughout this book is
+$\Delta = 0.0891$. At $\Delta = 0.0891$ the formula cannot produce the QCD scale
+at all.
+
+The conjecture is retained as stated --- it is a conjecture, and its \emph{form}
+(a Planck scale suppressed by $\exp[-\pi/\Delta]$) is the content --- but it is
+\textbf{not} numerically confirmed, and any downstream text treating
+$350\,\mathrm{MeV}$ as a success of this framework inherits the error. The
+mechanism-status disclosure in \S\ref{sec:higgs-sector-candidates-book}
+propagates the same wrong $350\,\mathrm{MeV}$ figure and is superseded by this
+note.
+\end{remark}
 
 This is not a coincidence. The QCD scale is where fractal resonance becomes strong, leading to confinement.
 

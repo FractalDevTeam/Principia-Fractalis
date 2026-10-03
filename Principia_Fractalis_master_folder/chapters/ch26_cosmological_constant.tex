@@ -248,8 +248,47 @@ The effective exponent becomes:
 
 Thus:
 \begin{equation}
-\langle \Lambda_{\text{eff}} \rangle \approx \Lambda_0 \exp[-0.95 \times 10^{128}] \approx \Lambda_0 \times 10^{-120}
+\langle \Lambda_{\text{eff}} \rangle \approx \Lambda_0 \exp[-0.95 \times 10^{128}]
+= \Lambda_0 \times 10^{-4.1 \times 10^{127}}
 \end{equation}
+
+\begin{remark}[Correction, 2026-10-03: this suppression overshoots by $10^{125}$]
+\label{rem:lambda-exponent-2026-10-03}
+The final step above is wrong, and the error is not small. Converting the
+exponential honestly,
+\begin{equation}
+\exp[-x] = 10^{-x/\ln 10}, \qquad
+\frac{0.95 \times 10^{128}}{\ln 10} = \frac{9.5 \times 10^{127}}{2.302585}
+= 4.126 \times 10^{127},
+\end{equation}
+so $\exp[-0.95 \times 10^{128}] = 10^{-4.1 \times 10^{127}}$ --- not $10^{-120}$.
+To land on $10^{-120}$ the exponent would have to be
+$120 \ln 10 = 276.31$, so the construction overshoots the target by a factor
+\begin{equation}
+\frac{9.5 \times 10^{127}}{276.31} = 3.4 \times 10^{125}.
+\end{equation}
+
+\textbf{What this costs.} The suppression actually produced is not ``120 orders of
+magnitude'' but $4 \times 10^{127}$ orders --- i.e.\ indistinguishable from zero for
+any purpose. $\langle \Lambda_{\text{eff}} \rangle$ does not come out at the
+observed $10^{-29}\,\mathrm{g/cm^3}$; it comes out at exactly zero. \textbf{The
+derivation of the observed vacuum energy density in this section therefore fails},
+and the agreement claimed below is withdrawn as an arithmetic error.
+
+\textbf{Why the existing scope note does not cover this.} The unlabelled scope note dated 2026-07-23 earlier in this
+section already concedes that the match is \emph{engineered}:
+$V_{\text{eff}}$ was chosen to reproduce a known number. That concession is about
+provenance and leaves the arithmetic untouched. The present error is independent
+and worse: no choice of $V_{\text{eff}}$ anywhere near $10^{84}\,\mathrm{cm^3}$
+rescues it, because the required exponent is $\approx 276$ while the construction
+delivers $\approx 10^{128}$. Reaching $276$ would need
+$V_{\text{eff}}/V_{\text{Planck}} \sim 10^{-123}$ rather than $10^{183}$ --- a
+different calculation, not a re-tuning of this one.
+
+What survives is the \emph{shape} of the proposal: an exponential suppression of a
+bare reservoir. The numerical bridge from that shape to the observed value does not
+exist at present.
+\end{remark}
 
 Numerically:
 \begin{equation}
@@ -268,7 +307,11 @@ The calculation shows:
 \item Consciousness suppresses this exponentially across the observable universe
 \item Even though conscious beings occupy $\sim 10^{-55}$ of the volume, their \textit{causal influence} extends across the entire past light cone
 \item The age of the universe $t_{\text{universe}} \sim 10^{10}$ years provides the time for consciousness to "propagate" its suppression
-\item The observed value $10^{-29}$ g/cm$^3$ emerges naturally from $0.95 \times 10^{128} \approx 120 \times \ln(10)$
+\item \textbf{[WITHDRAWN 2026-10-03]} \emph{The observed value $10^{-29}$ g/cm$^3$
+emerges naturally from $0.95 \times 10^{128} \approx 120 \times \ln(10)$.}
+Here $0.95 \times 10^{128} = 9.5 \times 10^{127}$ while
+$120 \ln 10 = 276.31$, so the asserted $\approx$ is false by a factor
+$3.4 \times 10^{125}$. See Remark~\ref{rem:lambda-exponent-2026-10-03}
 \end{enumerate}
 \end{remark}
 
@@ -287,10 +330,13 @@ For cosmological constant suppression, we need:
 0.95 \times \ln(10) \approx 2.187 \approx \frac{120}{55}
 \end{equation}
 
-This explains the 120 orders of magnitude discrepancy:
+This was presented as explaining the 120 orders of magnitude discrepancy:
 \begin{equation}
-\exp[-0.95 \times 10^{128}] \sim 10^{-120}
+\exp[-0.95 \times 10^{128}] \sim 10^{-120} \qquad
+\textbf{(false --- see Remark~\ref{rem:lambda-exponent-2026-10-03})}
 \end{equation}
+The true value is $10^{-4.1 \times 10^{127}}$. The displayed equality is off by
+$10^{125}$ in the exponent and the explanation it offers does not hold.
 
 The exponent $10^{128}$ arises from:
 \begin{equation}
