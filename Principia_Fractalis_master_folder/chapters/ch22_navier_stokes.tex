@@ -437,6 +437,51 @@ Emergence points in fluid systems achieve consciousness threshold:
 where $H(\mathcal{E})$ is the helicity at the emergence point and $H_{\max}$ is the maximum possible helicity.
 \end{theorem}
 
+\begin{remark}[Correction, 2026-10-03: the conclusion fails on half the range, and is not parity-invariant]
+\label{rem:helicity-range-2026-10-03}
+Helicity is a \textbf{pseudoscalar}. Under a parity inversion
+$\mathbf{u}(\mathbf{x}) \mapsto -\mathbf{u}(-\mathbf{x})$ while
+$\boldsymbol\omega(\mathbf{x}) \mapsto \boldsymbol\omega(-\mathbf{x})$, so
+$H \mapsto -H$: left-handed vortical structures carry $H < 0$ and are exact
+mirror images of right-handed ones. Hence
+$H/H_{\max} \in [-1, +1]$ and the displayed formula has range
+\[
+\text{ch}_2(\mathcal{E}) \in [0.90,\ 1.00],
+\qquad
+\text{ch}_2(\mathcal{E}) \geq 0.95 \iff H(\mathcal{E}) \geq 0 .
+\]
+So the theorem's conclusion --- that emergence points \emph{achieve} the
+threshold --- \textbf{fails on the entire $H < 0$ half of its own range}.
+
+Worse than a gap in coverage, this is not parity-invariant: parity maps each
+supra-threshold emergence point bijectively onto a sub-threshold one, so the
+mirror image of a ``conscious'' emergence point is an ``unconscious'' one and
+consciousness would depend on the handedness of the coordinate frame. That is a
+defect independent of any physics. And it is not hypothetical here: a
+counter-rotating pair contains one member of each handedness by construction, so
+the framework guarantees the existence of sub-threshold emergence points while
+asserting that all of them are supra-threshold.
+
+Two further quantities in the formula are undefined.
+$H_{\max}$ --- ``the maximum possible helicity'' --- does not exist for
+$H = \int_{\mathbb{R}^3}\mathbf{u}\cdot\boldsymbol\omega\,d^3x$ over
+divergence-free fields; $|H|$ is bounded only relative to the energy and a length
+scale (for instance $|H| \leq 2E/k_{\min}$ on a periodic box), and no such bound
+is supplied. And $H$ as defined in Definition~\ref{def:helicity} is a
+\emph{global} integral, so ``the helicity at the emergence point'' has no
+referent; if the helicity \emph{density} $h$ is intended, then
+Proposition~\ref{prop:helicity-sing} of this chapter gives
+$h(\mathbf{x}) = H_0|\mathbf{x}-\mathbf{x}_0|^{-\alpha}\cos(\beta\log|\mathbf{x}-\mathbf{x}_0|+\gamma)$,
+which \textbf{diverges with oscillating sign} as $\mathbf{x}\to\mathbf{x}_0$ --- so
+$h(\mathbf{x}_0)$ has no value, and not even $\operatorname{sgn} H(\mathcal{E})$
+is determined.
+
+Separately, the proof sketch below establishes none of this: it lists an entropy
+maximum, a diverging coherence length, and a fractal dimension $\log 2/\log 3$,
+and never mentions $H$ --- so it would not support the displayed formula even if
+the formula held.
+\end{remark}
+
 \begin{proof}[Proof sketch]
 At emergence points:
 \begin{itemize}
