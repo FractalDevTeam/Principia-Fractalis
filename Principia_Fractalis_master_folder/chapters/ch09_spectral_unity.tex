@@ -293,11 +293,36 @@ The theoretical predictions have been verified numerically:
 \begin{equation}
 |\zeta(s_n)| < 10^{-148}
 \end{equation}
-Moreover, computing $\text{ch}_2$ for each zero using the FRO formula yielded:
-\begin{equation}
-\text{ch}_2(s_n) = 0.95 \pm 10^{-146}
-\end{equation}
-confirming the consciousness threshold to extraordinary precision.
+\textbf{[WITHDRAWN 2026-10-03]} \emph{Moreover, computing $\text{ch}_2$ for each
+zero using the FRO formula yielded $\text{ch}_2(s_n) = 0.95 \pm 10^{-146}$,
+confirming the consciousness threshold to extraordinary precision.}
+
+\paragraph{Correction (2026-10-03): the formula is not defined at a zero.}
+The FRO formula in question is the one set as an exercise later in this chapter,
+$\text{ch}_2(s) = 1 - \tfrac{1}{2\pi}\bigl|\int_0^1 (\zeta'/\zeta)(s+x)\,dx\bigr|$.
+At a nontrivial zero $s = \rho$ of order $m$ (generically $m = 1$) the integrand
+has a \emph{simple pole at the lower endpoint}: near $u = \rho$,
+$(\zeta'/\zeta)(u) = m/(u-\rho) + O(1)$, so
+\[
+\int_0^1 \frac{\zeta'(\rho+x)}{\zeta(\rho+x)}\,dx
+ = m\int_0^1 \frac{dx}{x} + O(1) = +\infty
+\]
+logarithmically. Equivalently, the antiderivative is $\log\zeta(s+x)$, giving
+$\log\zeta(\rho+1) - \log\zeta(\rho)$ --- and $\log\zeta(\rho) = -\infty$
+precisely \emph{because} $\rho$ is a zero.
+
+The divergence is one-sided and sits at an endpoint, so there is no principal
+value that regularises it. Hence $\text{ch}_2(\rho)$ is not merely unequal to
+$0.95$; it is \textbf{not finite at exactly the points where it was claimed to
+equal $0.95$}. Any finite number obtained numerically is a grid-cutoff artefact
+growing like $m\log(1/\delta)$ as the first sample approaches the endpoint, which
+makes a quoted precision of $\pm 10^{-146}$ impossible in principle.
+
+Note also that away from the zeros this expression has range $(-\infty, 1]$, not
+$[0,1]$: $\text{ch}_2(s) = 0.95$ requires exactly $|\!\int\!| = 0.1\pi$, a
+codimension-one condition on $s$ and not a property of zeros. The companion
+zero-localisation result $|\zeta(s_n)| < 10^{-148}$ above is unaffected --- that
+is a statement about $\zeta$, not about this formula.
 
 \item \textbf{Spectral gap --- provenance corrected, 2026-10-03.} Earlier
 printings reported these three values as the output of ``direct computation
@@ -622,7 +647,13 @@ The spectral continuum of truth across computation, geometry, and consciousness 
 
 \item \textbf{[🟡 Operators]} Show that the operator $(Hf)(n) = \sum_{k=1}^{\infty} \frac{e^{i\pi \alpha D_3(k)}}{k} f(nk)$ is bounded on $L^2(\mathbb{N}, \mu)$ if and only if $\alpha \in \{\sqrt{2}, \varphi + 1/4\}$.
 
-\item \textbf{[🟡 Riemann zeros]} Verify numerically that the first 10 Riemann zeros have $\text{ch}_2 = 0.95 \pm 10^{-10}$ using the formula:
+\item \textbf{[🟡 Riemann zeros]} \emph{Exercise withdrawn 2026-10-03 --- the
+quantity below diverges at every nontrivial zero, so the stated verification
+cannot be carried out; see the correction earlier in this chapter. Retained as a
+cautionary exercise: show that the integral below is logarithmically divergent at
+$x = 0$ when $s$ is a zero, by evaluating the antiderivative
+$\log\zeta(s+x)$.} The original task read: verify numerically that the first 10
+Riemann zeros have $\text{ch}_2 = 0.95 \pm 10^{-10}$ using the formula:
 \begin{equation}
 \text{ch}_2(s) = 1 - \frac{1}{2\pi} \left|\int_0^1 \frac{\zeta'(s+x)}{\zeta(s+x)} dx\right|
 \end{equation}

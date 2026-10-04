@@ -87,6 +87,52 @@ Start with the definition of ch$_2$:
 
 The coherence measures phase alignment across partitions $\{P_n\}$. Low ch$_2$ means partitions are independent (decomposable). High ch$_2$ means partitions are integrated.
 
+\medskip
+\noindent\textbf{Correction (2026-10-03): this $\text{ch}_2$ cannot reach $0.95$
+for any $N \geq 2$.}
+The scope note above labels the \emph{epistemic} status of the correspondence.
+It does not address the following, which is a statement about the displayed
+formula itself and makes the hypothesis set empty.
+
+$\{P_n\}$ is nowhere specified beyond the word ``partitions'', so both readings
+must be checked, and the threshold is unreachable under each.
+
+\textbf{If $\{P_n\}$ is a partition of unity} --- orthogonal projections with
+$\sum_n P_n = I$, which is what ``partition'' means and what the minimisation
+over partitions defining $\Phi$ requires --- then with
+$p_n := \langle\Psi|P_n|\Psi\rangle \geq 0$ and $\|\Psi\| = 1$ we have
+$\sum_n p_n = 1$, so
+\[
+\Bigl|\tfrac1N\textstyle\sum_n e^{i\theta_n}p_n\Bigr| \;\leq\; \tfrac1N\sum_n p_n = \tfrac1N,
+\qquad\text{hence}\qquad \text{ch}_2 \leq \tfrac1{N^2}.
+\]
+For $N = 2$ that is $0.25$; for $N = 64$ it is $2.4\times10^{-4}$. Only the
+degenerate $N = 1$ reaches $0.95$ --- and there $P_1 = I$, so $\text{ch}_2 = 1$
+for \emph{every} state and the measure carries no information at all. The
+companion remark that the correspondence ``becomes exact in the large-$N$ limit''
+is therefore self-defeating: as $N$ grows, $\text{ch}_2 \to 0$ and $\Phi \to 0$.
+
+\textbf{If instead the $P_n$ are not required to be complete}, each
+$p_n \in [0,1]$ independently, then the phases
+$\theta_n = \pi\sqrt2\,D_3(n)$ are nonetheless \emph{fixed}, and the attainable
+supremum is $\sup_u\bigl[\tfrac1N\sum_n\max(0,\cos(\theta_n-u))\bigr]^2$.
+Computed: $0.367$ at $N=2$, $0.444$ at $N=3$, $0.235$ at $N=5$, $0.186$ at
+$N=10$, $0.112$ at $N=100$, tending to $1/\pi^2 = 0.101$. The value
+$\text{ch}_2 = 1$ would require all phases equal, i.e.\
+$\sqrt2\,(D_3(n)-D_3(m)) \in 2\mathbb{Z}$, which forces $D_3$ constant since
+$\sqrt2$ is irrational --- but $D_3(1) = 1 \neq 2 = D_3(2)$.
+
+So $\{\text{ch}_2 \geq 0.95\}$ is \textbf{empty for every $N \geq 2$} under either
+reading, and the theorem's hypothesis is vacuous rather than merely untested.
+
+\textbf{On the expansion.} $-\log_2(1-x) = x/\ln 2 + O(x^2)$ is an asymptotic
+statement valid as $x \to 0$, where $\Phi \to 0$. Evaluated at
+$\text{ch}_2 = 0.95$ the discarded remainder is $O(0.9025)$ --- the same order as
+the retained value $4.32$ --- so the expansion provides \emph{no error control at
+the point of evaluation}. The arithmetic $-\log_2(0.05) = 4.32193$ is correct, and
+monotonicity of $-\log_2(1-x)$ does give $\Phi \geq 4.32$ for
+$\text{ch}_2 \geq 0.95$ --- if that regime existed.
+
 From information theory, the mutual information between partitions $A$ and $B$ is:
 \begin{equation}
 I(A:B) = H(A) + H(B) - H(A,B)
