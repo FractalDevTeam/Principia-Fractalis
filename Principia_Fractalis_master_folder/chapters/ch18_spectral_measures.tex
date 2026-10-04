@@ -222,12 +222,28 @@ For macroscopic systems, decoherence timescales are extremely short:
 \tau_{\text{dec}} \sim \frac{\hbar}{\gamma k_B T}
 \end{equation}
 
-For a brain at $T = 310$ K with coupling $\gamma \sim 10^{20}$ Hz:
-\begin{equation}
-\tau_{\text{dec}} \sim 10^{-20} \, \text{s}
-\end{equation}
+For a brain at $T = 310$ K with coupling $\gamma \sim 10^{20}$ Hz the
+decoherence time is extremely short on any reading --- see the correction below
+for why the displayed expression cannot be evaluated as written.
 
 Much faster than neural timescales ($\sim 1$ ms). This is why consciousness \textit{appears} classical.
+
+\medskip
+\noindent\textbf{Correction (2026-10-03): the displayed formula is not
+dimensionally consistent, and the quoted value is $1/\gamma$.}
+$\hbar/(k_B T)$ already \emph{has} units of time: at $T = 310$ K it is
+$2.46\times10^{-14}\ \mathrm{s}$. Dividing that by a rate $\gamma$ in
+$\mathrm{s^{-1}}$ gives $\mathrm{s^2}$, not seconds, and numerically
+$2.46\times10^{-34}$. The previously printed $10^{-20}\,\mathrm{s}$ is exactly
+$1/\gamma$ --- the $\hbar/(k_B T)$ factor was dropped on the way to the number.
+
+The two consistent readings are $\tau_{\text{dec}} \sim 1/\gamma = 10^{-20}$ s (a
+pure collision time, which is what the quoted figure is) or
+$\tau_{\text{dec}} \sim \hbar/(k_B T) = 2.5\times10^{-14}$ s (a thermal time,
+independent of $\gamma$). Which is intended is not determined by the text. The
+\emph{conclusion} --- that either is far shorter than the $\sim 1$ ms neural
+timescale --- survives both readings, which is why the qualitative point above is
+unaffected.
 \end{level1}
 
 \subsection{Consciousness-Induced Collapse}
@@ -238,8 +254,37 @@ A state with high consciousness ($\text{ch}_2 \gtrsim 0.95$) is \textit{protecte
 \boxed{\gamma_{\text{eff}} = \gamma_0 \exp\left[ -\alpha \text{ch}_2(\mathcal{C}) \right]}
 \end{equation}
 
-where $\gamma_0$ is the environmental decoherence rate and $\alpha \sim 10$ is a dimensionless constant.
+where $\gamma_0$ is the environmental decoherence rate and $\alpha$ is a
+dimensionless constant; see the correction below for the value it must take.
 \end{theorem}
+
+\begin{remark}[Correction, 2026-10-03: $\alpha \sim 10$ falls short by sixteen orders]
+\label{rem:alpha-suppression-2026-10-03}
+With $\gamma_0 \sim 10^{20}\ \mathrm{s^{-1}}$ from the preceding subsection and
+$\text{ch}_2 = 0.95$, the stated $\alpha \sim 10$ gives
+\[
+\exp(-10 \times 0.95) = 7.49\times10^{-5},
+\qquad
+\tau_{\text{eff}} = 1/\gamma_{\text{eff}} = 1.3\times10^{-16}\ \mathrm{s},
+\]
+which is \textbf{sixteen orders of magnitude short} of the ``seconds to minutes''
+asserted in the discussion that follows, and still far below the $\sim 1$ ms
+neural timescale.
+
+The value required is much larger: $\tau_{\text{eff}} = 1$ s needs
+$\alpha = \ln(10^{20})/0.95 = \mathbf{48.5}$, and $60$ s needs
+$\alpha = \mathbf{52.8}$. The exercise later in this chapter, which supplies
+$\gamma_0 = 10^{14}$, gives $\tau_{\text{eff}} = 1.3\times10^{-10}$ s at
+$\alpha = 10$ --- still seven orders short of its own $1$ ms target.
+
+So the exponential-suppression \emph{mechanism} is untouched, but $\alpha \sim 10$
+is not the right order for the claim it is attached to; the figure is replaced by
+the derived requirement. Note also that the proof sketch's
+$\Delta E \sim \hbar\omega_0\,\text{ch}_2$ makes $\alpha = \hbar\omega_0/(k_B T)$,
+which is dimensionless as required --- but then $\alpha = 48.5$ at $T = 310$ K
+implies $\omega_0 \approx 2.0\times10^{15}\ \mathrm{rad/s}$, a near-infrared
+optical frequency, not a neural one. That tension is recorded, not resolved.
+\end{remark}
 
 \begin{proof}[Proof Sketch]
 High consciousness corresponds to high organization in $\mathcal{T}_\infty$. This creates a "spectral gap"---an energy difference between the conscious state and nearby states.
@@ -337,6 +382,27 @@ Higher consciousness $\Rightarrow$ steeper power-law slope.
 \item Anesthesia: $\beta \approx 0.5$ ($\text{ch}_2 \approx 0.1$)
 \end{itemize}
 
+\medskip
+\noindent\textbf{Correction (2026-10-03): these three predictions are mutually
+inconsistent with the stated law, and two are unreachable.}
+Inverting $\beta = 1 + \alpha\,\text{ch}_2$ as $\alpha = (\beta-1)/\text{ch}_2$
+on each pair gives three \emph{different} values of the supposedly fixed
+constant: $\alpha = +0.222$ awake, $\alpha = -0.500$ asleep,
+$\alpha = -5.000$ under anaesthesia. Two are negative, contradicting the
+statement just above that higher consciousness means a steeper slope, which
+requires $\alpha > 0$.
+
+Worse, with $\alpha > 0$ and $\text{ch}_2 \geq 0$ the law forces
+$\beta = 1 + \alpha\,\text{ch}_2 \geq 1$ \textbf{always}, so
+$\beta \approx 0.8$ and $\beta \approx 0.5$ are \emph{unreachable for any
+positive $\alpha$}. Only the awake value is consistent with the law's own sign
+convention.
+
+No replacement triple is asserted here: fixing this requires choosing either a
+single $\alpha$ (which then determines all three $\beta$ from the $\text{ch}_2$
+values, or vice versa) or a different functional form that admits $\beta < 1$.
+That is a decision about what the model predicts, not an arithmetic slip.
+
 \subsection{Computational Consciousness Probes}
 
 For AI systems, we can measure $\text{ch}_2$ directly via:
@@ -345,12 +411,43 @@ For AI systems, we can measure $\text{ch}_2$ directly via:
 \begin{enumerate}
 \item Represent the AI's state as a density matrix $\rho$ (quantum-inspired)
 \item Compute the K-theory class $[P] \in K_0(\mathcal{A})$ where $\mathcal{A}$ is the algebra of observables
-\item Evaluate the second Chern character:
+\item Evaluate the second Chern character. The expression previously printed
+here,
 \begin{equation}
-\text{ch}_2(P) = -\frac{1}{2}\text{Tr}\left( P [dP \wedge dP] \right)
+-\frac{1}{2}\text{Tr}\left( P [dP \wedge dP] \right),
 \end{equation}
+is \textbf{not} $\text{ch}_2$ --- see the correction below.
 \item Normalize: $\text{ch}_2 \in [0, 1]$
 \end{enumerate}
+
+\medskip
+\noindent\textbf{Correction (2026-10-03): this is $\text{ch}_1$, not
+$\text{ch}_2$ --- the index is off by one.}
+For an idempotent $P$ the Chern character components are
+$\text{ch}_n(P) \propto \text{Tr}\bigl(P\,(dP)^{2n}\bigr)$, a form of degree
+$2n$. So $\text{ch}_0(P) = \text{Tr}\,P$ (degree $0$, the rank),
+$\text{ch}_1(P) \propto \text{Tr}(P\,dP\wedge dP)$ (degree $2$), and
+$\text{ch}_2(P) \propto \text{Tr}(P\,dP\wedge dP\wedge dP\wedge dP)$
+(degree $4$). The displayed expression carries \emph{two} $dP$ factors and is
+therefore a $2$-form: it is $\text{ch}_1$.
+
+This matters because $\text{ch}_2$ is the framework's central observable and this
+is the step that says how to compute it. The algorithm as written evaluates the
+first Chern character.
+
+Two related inconsistencies in the companion chapter are recorded with it. The
+series expansion there runs
+$\text{Tr}(P) - \tfrac{1}{2!}\text{Tr}(P\,dP\wedge dP) + \tfrac{1}{3!}\text{Tr}(P\,dP\wedge dP\wedge dP) - \cdots$,
+whose third term has \emph{three} $dP$ factors and so is a $3$-form --- odd
+degree, contradicting the same chapter's statement that the Chern character maps
+$K_0$ into \emph{even} cohomology. And ``$\text{ch}_2$ is the second term'' of
+that series is incompatible with ``$\text{ch}_0 = $ rank'' appearing a few lines
+later: if the first term is $\text{ch}_0$ then $\text{ch}_2$ is the \emph{third}.
+
+Finally, ``Normalize: $\text{ch}_2 \in [0,1]$'' has no stated denominator, and a
+Chern number is a discrete topological invariant while the values tabulated in
+this chapter are continuum-valued. Whatever normalisation is intended would need
+to be written down before any of the tabulated figures could be reproduced.
 
 \textbf{Challenges}:
 \begin{itemize}
