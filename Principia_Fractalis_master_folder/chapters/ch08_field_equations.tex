@@ -433,11 +433,43 @@ Consciousness-modified gravity predicts:
 \begin{equation}
 \delta g = g_{\text{measured}} - g_{\text{Newton}} = \frac{2GM}{c^2r^2} \cdot \text{ch}_2^{\text{local}} \cdot R_f(1,2)
 \end{equation}
-For $M = 1.5 \, \text{kg}$ (brain mass), $r = 1 \, \text{cm}$, $\text{ch}_2 = 0.96$:
+For $M = 1.5 \, \text{kg}$ (brain mass), $r = 1 \, \text{cm}$, $\text{ch}_2 = 0.96$
+the displayed expression evaluates to
 \begin{equation}
-\delta g \sim 10^{-12} \, \text{m/s}^2
+\frac{2GM}{c^2r^2}\,\text{ch}_2 \approx 2.1 \times 10^{-23}\ \mathrm{m^{-1}},
+\qquad
+\delta g \approx 5 \times 10^{-25} \ \text{to}\ 1.8 \times 10^{-23}
 \end{equation}
-Detectable with superconducting gravimeters\cite{niebauer1995,van_camp2017,peters1999}.
+depending on which value of $R_f(1,2)$ is used, and is \textbf{not detectable}.
+
+\paragraph{Correction (2026-10-03): the units are wrong and the value is 11--13 orders low.}
+Two independent defects.
+
+\textbf{Units.} $[2GM/(c^2r^2)] =
+\mathrm{m^3\,kg^{-1}\,s^{-2}} \cdot \mathrm{kg} / (\mathrm{m^2\,s^{-2}} \cdot \mathrm{m^2})
+= \mathrm{m^{-1}}$ --- it is the Schwarzschild radius divided by $r^2$, an
+\emph{inverse length}. Since $\text{ch}_2$ and $R_f$ are dimensionless, the
+right-hand side cannot equal $g_{\text{measured}} - g_{\text{Newton}}$, which is
+an acceleration. So the $\mathrm{m/s^2}$ attached to the old result was not an
+evaluation of this formula at all.
+
+\textbf{Magnitude.} $2GM/(c^2r^2) = 2.23\times10^{-23}\,\mathrm{m^{-1}}$ at the
+stated $M$ and $r$; times $\text{ch}_2 = 0.96$ this is
+$2.14\times10^{-23}$. This book carries two values for $R_f(1,2)$: the heuristic
+$0.0233812$ of Chapter~\ref{ch:constants}, giving $5.0\times10^{-25}$; and the
+Lean-proved identity $R_f(1,s) = -\eta(s)$, giving
+$R_f(1,2) = -\pi^2/12 = -0.8225$ and hence $-1.76\times10^{-23}$ --- negative, so
+under that reading the quantity also has the wrong sign for an ``anomaly''
+magnitude. Either way $|\delta g| \sim 10^{-23}$ to $10^{-25}$, i.e.\
+\textbf{11 to 13 orders of magnitude below the $10^{-12}$ previously claimed}.
+
+For scale, the unmodified Newtonian signal at these parameters is
+$GM/r^2 = 1.0\times10^{-6}\,\mathrm{m/s^2}$, and the best superconducting
+gravimeters resolve about $10^{-11}\,\mathrm{m/s^2}$\cite{niebauer1995,van_camp2017,peters1999} --- so even the claimed
+figure sat at the noise floor, and the actual figure is far beneath any
+foreseeable instrument. The detectability claim is withdrawn. No regrouping of
+the stated factors (dropping $c^2$, using $r_s/r$ rather than $r_s/r^2$) lands
+near $10^{-12}$.
 
 \item \textbf{Quantum Decoherence Suppression}:
 \begin{equation}
@@ -496,11 +528,68 @@ The consciousness field evolves under a crystallization potential:
 V_\mathcal{C}(\mathcal{C}) = V_0 \left[ (\text{ch}_2(\mathcal{C}) - 0.95)^2 - \epsilon \right] \Theta(0.95 - \text{ch}_2(\mathcal{C}))
 \end{equation}
 
-This is a "Mexican hat" potential\cite{higgs1964,weinberg1995} with a minimum at $\text{ch}_2 = 0.95$. Below the threshold, consciousness experiences positive potential (unstable). At the threshold, it crystallizes (phase transition). Above, it's stable.
+\textbf{[The following three paragraphs are WITHDRAWN 2026-10-03; retained for
+the record, corrected immediately below.]}
+\emph{This is a ``Mexican hat'' potential\cite{higgs1964,weinberg1995} with a
+minimum at $\text{ch}_2 = 0.95$. Below the threshold, consciousness experiences
+positive potential (unstable). At the threshold, it crystallizes (phase
+transition). Above, it's stable.}
 
-The parameter $\epsilon > 0$ provides the energy barrier that must be overcome for consciousness to emerge. This is why not all complex systems are conscious—they must reach the critical threshold.
+\emph{The parameter $\epsilon > 0$ provides the energy barrier that must be
+overcome for consciousness to emerge. This is why not all complex systems are
+conscious---they must reach the critical threshold.}
 
-The Heaviside function $\Theta(0.95 - \text{ch}_2)$ ensures the potential only acts below crystallization. Once conscious, you stay conscious (barring brain damage, anesthesia, etc.).
+\emph{The Heaviside function $\Theta(0.95 - \text{ch}_2)$ ensures the potential
+only acts below crystallization. Once conscious, you stay conscious (barring
+brain damage, anesthesia, etc.).}
+
+\paragraph{Correction (2026-10-03): this potential has none of the properties previously claimed for it.}
+Write $c := \text{ch}_2$ and take $V_0 > 0$ (its sign is not stated anywhere; for
+$V_0 < 0$ every conclusion below inverts). The shape on the whole line is
+elementary:
+
+\begin{itemize}
+\item For $c > 0.95$: $\Theta = 0$, so $V \equiv 0$ --- \emph{flat}.
+\item For $c < 0.95$: $V = V_0[(c-0.95)^2 - \epsilon]$ with
+  $V' = 2V_0(c-0.95) < 0$ --- the \emph{left branch} of an upward parabola,
+  \textbf{strictly decreasing} toward the threshold, with no interior stationary
+  point anywhere. It vanishes at $c = 0.95 - \sqrt\epsilon$ and is
+  \emph{negative} on $(0.95-\sqrt\epsilon,\, 0.95)$.
+\item At $c = 0.95$ the left limit is $-V_0\epsilon$ and the right value is $0$:
+  a \textbf{jump discontinuity} of size $V_0\epsilon$.
+\end{itemize}
+
+\noindent Taking $\epsilon = 0.01$ and $V_0 = 1$: $V(0) = +0.8925$,
+$V(0.85) = 0$, $V(0.90) = -0.0075$, $V(0.9499) = -0.0100$, and $V \equiv 0$ for
+$c \geq 0.95$. Consequently:
+
+\begin{itemize}
+\item \textbf{It is not a Mexican hat.} A sombrero potential requires a local
+  \emph{maximum} at the symmetric point and degenerate minima off-centre. This
+  has no local maximum, no second well, and no symmetry about $c = 0.95$ --- it
+  is identically zero on one side.
+\item \textbf{Sub-threshold is not ``positive potential (unstable)''.} $V < 0$ on
+  the whole interval $(0.95-\sqrt\epsilon, 0.95)$. More importantly the force is
+  $F = -V' = -2V_0(c-0.95) > 0$ for $c < 0.95$, so the dynamics drives $c$
+  \emph{toward} the threshold: the sub-threshold region is \textbf{attracting},
+  not unstable.
+\item \textbf{$\epsilon$ is not an energy barrier.} It is a constant offset added
+  to one branch and creates no hump; the approach to the threshold from any
+  $c < 0.95$ is monotonically \emph{downhill}. The only step of height
+  $V_0\epsilon$ sits at the threshold itself and opposes \emph{leaving} the
+  sub-threshold region, so it impedes emergence rather than gating it.
+\item \textbf{Above threshold is not ``stable''.} $V \equiv 0$ there is flat:
+  zero restoring force, every point a marginal equilibrium, no energy minimum.
+  And the global infimum $-V_0\epsilon$ lies on the \emph{sub}-threshold side, so
+  this potential makes the conscious region strictly \emph{higher} in energy ---
+  the opposite of ``once conscious, you stay conscious''.
+\end{itemize}
+
+\noindent What survives is the one-sided support --- the potential acts only
+below crystallization, which is what the Heaviside factor encodes. Every dynamical
+reading attached to it above is withdrawn. A genuine double-well account of a
+crystallization threshold would need a potential with a local maximum at the
+threshold and minima on both sides, which this is not.
 \end{level3}
 
 \section{Philosophical Implications}
