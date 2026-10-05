@@ -238,13 +238,25 @@ theorem UHF_trace_star_mul_self_faithful_of_substrate_conjecture
     as THE canonical substrate **faithful Dixmier tracial state** on
     `TimelessFieldCompletion`.
 
-    Substrate residual: the completion-tier `Φ3` faithfulness is
-    substrate-conditional on
-    `SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture`,
-    whose classical realization proceeds through simplicity of the
-    substrate UHF C*-algebra. This residual is the load-bearing
-    structural gap in the substrate-to-classical passage and is named
-    explicitly as the next substrate discharge target. -/
+    Substrate residual: the completion-tier `Φ3` faithfulness is stated
+    here conditional on
+    `SubstrateUHFCompletionPositiveFaithfulnessSubstrateConjecture`, whose
+    classical realization proceeds through simplicity of the substrate UHF
+    C*-algebra.
+
+    **THAT RESIDUAL IS DISCHARGED — corrected 2026-10-05.** This paragraph
+    called it "the load-bearing structural gap in the substrate-to-classical
+    passage" and "the next substrate discharge target". r112 closed it:
+    `substrate_UHF_completion_positive_faithfulness` in
+    `PF/SubstrateCompletionFaithful.lean` proves exactly that Prop,
+    unconditionally, from `UHF_trace_faithful`.
+
+    Worth recording how this was missed: the adjacent file
+    `SubstrateUHFCompletionSimplicityDischarge.lean` DID receive a
+    "2026-07-24 hygiene closure" note pointing at this same r112 discharge. The
+    repair pass reached that file and stopped one file short of this one, which
+    is why the project's headline faithfulness result still read as open for
+    two and a half months. -/
 theorem r100_substrate_UHF_trace_faithful_capstone :
     (∀ {n : ℕ} [NeZero n] (M : Matrix (Fin n) (Fin n) ℂ),
       normalized_matrix_trace (star M * M) = 0 ↔ M = 0) ∧

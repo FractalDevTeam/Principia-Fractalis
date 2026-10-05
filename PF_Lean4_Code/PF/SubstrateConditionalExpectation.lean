@@ -433,9 +433,12 @@ theorem condExp_star (k : ℕ) (x : TimelessFieldRing) :
     On the level-`k` corner, `E_k` is a unital completely positive map, so it
     obeys the Schwarz inequality `(E_k x)⋆(E_k x) ≤ E_k(x⋆ x)` and hence the
     trace 2-seminorm contraction below. This is the single hard analytic
-    input isolated by r108; it is NOT provided by mathlib (partial-trace
-    Kadison–Schwarz on matrices is absent) and is stated here as the named
-    residual. Once proved, together with `condExp_normalized_trace` it gives
+    input isolated by r108; it is not provided by mathlib (partial-trace
+    Kadison–Schwarz on matrices is absent) and is stated here as a named
+    residual. **DISCHARGED — corrected 2026-10-05:** r110 proves it
+    unconditionally as `condExpL2Contraction_holds` in
+    `PF/SubstrateCondExpContraction.lean`. The mathlib remark stands; the
+    "pending" framing does not. Once proved, together with `condExp_normalized_trace` it gives
     `τ(x⋆x) = 0 ⇒ ∀ k, normalized_matrix_trace ((E_k x)⋆(E_k x)) = 0`. -/
 def CondExpL2Contraction : Prop :=
   ∀ (k : ℕ) (x : TimelessFieldRing),
@@ -448,7 +451,13 @@ def CondExpL2Contraction : Prop :=
     `E_k` is `‖·‖`-contractive (a ucp map is norm-1), so it extends to
     `TimelessFieldCompletion`; and `E_k x = x` on the dense level-`≤ k`
     image gives `ι_k (E_k x) → x`. This is the density/continuity step; it
-    is stated as a named residual pending the norm-contraction bound. -/
+    is stated as a named residual pending the norm-contraction bound.
+
+    **DISCHARGED — corrected 2026-10-05.** r112 proves it unconditionally as
+    `condExpCompletionExtension_holds` in
+    `PF/SubstrateCompletionFaithful.lean`. Both of r109's named residuals were
+    in fact closed within about a day of being stated — this one by r112 and
+    its companion by r110 — and neither docstring was updated. -/
 def CondExpCompletionExtension : Prop :=
   ∃ E : ℕ → TimelessFieldCompletion → TimelessFieldCompletion,
     (∀ k, UniformContinuous (E k)) ∧

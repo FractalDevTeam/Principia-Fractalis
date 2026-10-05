@@ -310,10 +310,22 @@ theorem substrate_conjecture_of_simple
     by the r102 analytic engine. The trace-null set — closed (r101),
     additively closed and two-sidedly absorbing (r102 + r103), proper
     (r101.g/r103.k) — is now a mathlib-native proper two-sided ideal.
-    The ONLY remaining gap between the substrate development and
-    unconditional completion-tier faithfulness of τ_UHF is the
-    algebraic simplicity of the substrate UHF C*-algebra completion
-    (Glimm 1960) — a single, honest, classical operator-algebraic
+    **CORRECTED 2026-10-05: THERE IS NO LONGER SUCH A GAP.** What follows
+    described the algebraic simplicity of the substrate UHF C*-algebra
+    completion as "the ONLY remaining gap between the substrate development and
+    unconditional completion-tier faithfulness of τ_UHF". r112 proves it:
+    `substrate_completion_simple_unconditional` in
+    `PF/SubstrateCompletionFaithful.lean` establishes
+    `∀ I : TwoSidedIdeal TimelessFieldCompletion, I = ⊥ ∨ I = ⊤`
+    unconditionally — which is exactly the `h_simple` hypothesis that
+    `UHF_trace_faithful_of_simple` and `substrate_conjecture_of_simple` in this
+    file quantify over. Applying it to those two theorems yields their
+    UNCONDITIONAL forms for free; nothing in this file previously told the
+    reader that was now possible. Historical text follows.
+
+    The remaining gap was the algebraic simplicity of the substrate UHF
+    C*-algebra completion (Glimm 1960) — a single, honest, classical
+    operator-algebraic
     input, stated as an explicit hypothesis, never as an axiom. -/
 theorem r103_substrate_UHF_trace_null_ideal_capstone :
     (∀ x y : TimelessFieldCompletion, UHF_trace (star x * x) = 0 →
