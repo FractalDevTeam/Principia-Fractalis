@@ -16,10 +16,48 @@ embeddings the Glimm `3^∞` classification needs, as
 as a raw conjunction — a matrix `U`, two cancellation identities, and a
 pointwise equation.
 
-**Mathlib has no Noether–Skolem theorem in any form.** The only `Skolem` in the
-library is the unrelated model-theoretic Skolemisation in the `choose` tactic.
-There is no `IsInner`, no inner-automorphism machinery for algebras, and no
-statement that automorphisms of a matrix algebra are conjugations.
+**CORRECTED 2026-10-05 — MATHLIB HAS THIS, AND HAS SINCE DECEMBER 2025.**
+The claim below was verified against the pinned revision `eed770a` and is false
+of master. Verified against mathlib master (HEAD `9194f400a4`):
+
+* `AlgEquiv.eq_linearEquivConjAlgEquiv` in
+  `Mathlib/LinearAlgebra/GeneralLinearGroup/AlgEquiv.lean` — every algebra
+  automorphism of an endomorphism algebra over a field is inner. PR #28100,
+  merged 2025-12-08.
+* `StarAlgEquiv.eq_linearIsometryEquivConjStarAlgEquiv` in
+  `Mathlib/Analysis/Normed/Operator/ContinuousAlgEquiv.lean` — for
+  finite-dimensional `V`, where continuity is automatic, this IS "every
+  *-automorphism of `M_n(ℂ)` is inner via a unitary". PR #33017, merged
+  2025-12-27.
+
+Both by Monica Omar, the same author as `UnitaryStarAlgAut` — which is exactly
+the risk that was flagged when this re-check was commissioned.
+
+So `starAlgEquiv_eq_conj` below **duplicates mathlib** and must not be offered
+upstream. The statements here remain correct Lean and the proofs are untouched;
+what was false was the novelty claim around them. The lesson is the same one
+this corpus has now learned three times in one day: **a pinned revision is
+evidence about the pin, not about the library.**
+
+What genuinely survives in this line, by exhaustive non-truncated search of
+master: `IsDenseInducing.extendStarAlgHom` (absent); UHF / Glimm / supernatural
+number content (absent from the entire 9366-file tree, with no
+direct-limit-of-matrix-algebras construction anywhere under
+`Analysis/CStarAlgebra`); no `IsInner` predicate; and no *general*
+central-simple-algebra Skolem–Noether in mathlib, although the third-party
+TauCeti project already has that. The project's real contribution is the UHF
+substrate work, not this bundling.
+
+Superseded claim, retained for provenance:
+
+> "Mathlib has no Noether–Skolem theorem in any form. The only `Skolem` in
+> the library is the unrelated model-theoretic Skolemisation in the `choose`
+> tactic. There is no `IsInner`, no inner-automorphism machinery for algebras,
+> and no statement that automorphisms of a matrix algebra are conjugations."
+
+Of that paragraph, only two parts remain true: there is no `IsInner`
+predicate, and the only `Skolem` *path* in the library is
+`Mathlib/ModelTheory/Skolem.lean`. The rest is superseded.
 
 This module restates the C2 result in the form the theorem is actually quoted
 in, and draws the consequences the raw form leaves implicit:
