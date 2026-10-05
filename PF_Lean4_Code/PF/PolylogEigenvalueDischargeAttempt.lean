@@ -175,8 +175,22 @@ theorem rayleigh_quotient_at_basis (α : ℝ) (n : ℕ) :
 /-! ## Section 2 — The obstruction: `|0⟩` is NOT the ground state
 
 For `α > 0`, `groundStateValue α = π/(10·α) > 0`, but the Rayleigh
-quotient at `|0⟩` is `0`. So `|0⟩` over-estimates the ground state from
-*below* (it gives a value `0 ≤ π/(10·α)`), but does not achieve it.
+quotient at `|0⟩` is `0`.
+
+**CORRECTED 2026-10-05.** This paragraph previously read that `|0⟩`
+"over-estimates the ground state from *below* (it gives a value
+`0 ≤ π/(10·α)`), but does not achieve it". That is the variational
+principle BACKWARDS, and the direction of the inequality is the whole
+content of the obstruction.
+
+For a symmetric operator, EVERY unit trial vector gives an UPPER bound on
+the bottom of the spectrum: `inf spec H ≤ ⟪H ψ, ψ⟫` for every unit `ψ`.
+Since `‖stdBasisVec 0‖ = 1` (`PF/Operators/VAlphaPMapShape.lean:134`), the
+vanishing quotient here proves `inf spec (arxivHalpha α) ≤ 0`. It does not
+approach the ground state from below; it CAPS it from above, and therefore
+excludes every positive value from being the infimum.
+
+`PF/PolylogSpectralPinningGap.lean` draws that consequence formally.
 
 This is the simplest possible "obstruction" to the naive spectral
 identification attempt. -/
