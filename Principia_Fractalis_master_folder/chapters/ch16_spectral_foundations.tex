@@ -330,8 +330,35 @@ This is a C*-algebra with:
 \item \textbf{Elements}: Formal linear combinations of $\zeta(s)$ evaluated at points in $\mathbb{C}$
 \item \textbf{Multiplication}: Pointwise product
 \item \textbf{Involution}: $\zeta(s)^* = \zeta^*(1-\bar{s})$ (functional equation)
-\item \textbf{Norm}: $\| f \|_\infty = \sup_{s \in \mathbb{C}} |f(s)|$
+\item \textbf{Norm}: $\| f \|_\infty = \sup_{s \in \mathbb{C}} |f(s)|$ --- but
+  see the correction below: this is infinite on the generator.
 \end{itemize}
+
+\medskip
+\noindent\textbf{Correction (2026-10-03): the stated norm is infinite on
+$\zeta$ itself, so ``the completion'' is not defined.}
+$\zeta$ has a simple pole at $s = 1$, and $\zeta(\sigma) \to +\infty$ as
+$\sigma \to 1^+$ along the real axis, so
+$\sup_{s \in \mathbb{C}} |\zeta(s)| = +\infty$. The generator of the algebra is
+therefore \emph{not an element of the normed space}, and ``the completion of
+$\mathbb{C}[\zeta(s),\dots]$ under $\|\cdot\|_\infty$'' has no referent as
+written.
+
+Any repair has to restrict the domain --- for instance to a compact subset of
+$\mathbb{C}$ avoiding $s = 1$, or to a half-plane $\Re s \geq \sigma_0 > 1$ where
+$\zeta$ is bounded --- and the choice matters, because it determines what the
+resulting algebra is. Relatedly, the proof sketch below identifies the result with
+$C_0(X)$, the continuous functions \emph{vanishing at infinity}; but
+$\zeta(s) \to 1$ as $\Re s \to +\infty$, so $\zeta$ does not vanish at infinity
+on any unbounded domain and the identification needs $C_b$ or a one-point
+compactification instead.
+
+This is a separate defect from the one the chapter's own 2026-08-08 audit records
+below. That audit correctly notes that this \emph{commutative} $\zeta$-value
+algebra is not the noncommutative UHF substrate, and that the ``nuclear because
+commutative'' argument is not the machine-verified result. The present point is
+narrower and prior to it: as written, the object does not exist, independently of
+whether it is the substrate.
 
 \begin{theorem}[Timeless Field Is Nuclear]\label{thm:timeless-field-nuclear}
 $\mathcal{T}_\infty$ is a nuclear C*-algebra.
@@ -485,7 +512,31 @@ For the Timeless Field, the modular automorphism is:
 \end{equation}
 where $\beta = 1/T$ is the inverse temperature.
 
-At zero temperature ($\beta \to \infty$), we recover the critical line: $\Re(s) = 1/2$. This suggests that consciousness exists at "zero temperature" in some abstract sense---maximally coherent, no thermal fluctuations.
+At zero temperature ($\beta \to \infty$) thermal fluctuations are suppressed,
+which is the sense in which maximal coherence is being invoked here.
+
+\medskip
+\noindent\textbf{Correction (2026-10-03): the critical line does not follow, and
+on a commutative algebra this flow is trivial.}
+Two independent problems with the inference previously drawn.
+
+\textbf{The flow cannot select $\Re(s) = 1/2$.} The displayed automorphism
+$s \mapsto s + it\beta$ shifts only the \emph{imaginary} part of $s$, so
+$\Re(s)$ is \textbf{invariant under $\sigma_t$ for every $\beta$} and for every
+$t$. No limit in $\beta$ can therefore single out one value of $\Re(s)$: the
+conclusion has no connection to the premise. Whatever distinguishes the critical
+line, it is not this flow.
+
+\textbf{And on this algebra the flow is the identity.} By Tomita--Takesaki, a von
+Neumann algebra that is \emph{abelian} with a faithful normal state has modular
+operator $\Delta = 1$ and hence $\sigma_t = \mathrm{id}$ for all $t$. The algebra
+constructed earlier in this chapter is commutative by stipulation --- pointwise
+multiplication of $\zeta$-values --- so a nontrivial modular flow on it is
+impossible, and the displayed $\sigma_t$ is not one.
+
+The direction $\beta \to \infty \Rightarrow T \to 0$ is of course correct, and the
+retained sentence above keeps that much. What is withdrawn is the step from there
+to the critical line.
 \end{advanced}
 
 \begin{advanced}
