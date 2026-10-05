@@ -263,3 +263,99 @@ a convenience.
    work and may not be upstreamable in its current shape.
 
 Author: Pablo Cohen + Claude Opus 5. 2026-10-05.
+
+
+---
+
+# Addendum, same day: Noether--Skolem in bundled form
+
+**Module:** `PF_Lean4_Code/PF/Upstream/NoetherSkolemMatrix.lean` (NEW)
+**Wired:** `PF.lean`, immediately after `PF.Upstream.MathlibStarAlgebra`
+**Gate:** `PRISTINE  PF.Upstream.NoetherSkolemMatrix` -- 8/8 declarations
+
+This is the first thing the four extracted lemmas were good for, and it arrived
+the same day, which is the point of extracting them.
+
+## The gap
+
+**Mathlib has no Noether--Skolem theorem in any form.** Verified: the only
+`Skolem` in the library is the unrelated model-theoretic Skolemisation in the
+`choose` tactic. There is no `IsInner`, no inner-automorphism machinery for
+algebras, and no statement anywhere that automorphisms of a matrix algebra are
+conjugations.
+
+The corpus already had the content. `SubstrateRigidity.lean:1412`,
+`unital_star_hom_inner_unique`, proves that any two unital *-homs
+`M_n(C) -> M_{kn}(C)` are unitarily conjugate, off the C2 arc's roughly 700
+lines of matrix-unit calculus, projection-trace counting, orthonormal-basis
+construction and change-of-basis unitary. What it did not have was the
+*statement*: its conclusion is a raw conjunction of a bare matrix `U`, two
+cancellation identities, and a pointwise equation.
+
+## What the bundling buys, concretely
+
+`starAlgEquiv_eq_conj` -- *every *-automorphism of `M_n(C)` is inner* -- is the
+form in which Noether--Skolem is cited. It is an **equation between
+star-algebra equivalences**, `f = conjStarAlgEquiv u`.
+
+That equation was **not statable in this corpus yesterday.** Not hard to prove;
+not statable. `unital_star_hom_inner_unique` gives a pointwise identity about a
+bare matrix, and there was no bundled conjugation equivalence anywhere in the
+corpus to put on the right-hand side of the equals sign. The private
+`conjByUnitary` inside `SubstrateRigidity.lean` was exactly such a term, but
+being `private` it could not appear in any other module's statement -- which is
+the sharpest illustration of why those four lemmas were worth de-privatising
+and generalising. Making a definition public changed what theorems can be
+*written*, not merely what proofs are convenient.
+
+## The results
+
+- `exists_unitary_conj` -- rectangular case, witness bundled as an element of
+  `unitary (M_{kn}(C))`, conclusion an application of
+  `unitary.conjStarAlgEquiv`. Unitarity now travels with the witness instead of
+  being carried alongside it as two side conditions that every caller must
+  thread.
+- `exists_unitary_conj_of_dim`, `exists_unitary_conj_square` -- the square case.
+  Obtained by `subst` on a dimension equation `m = k * n`, which turned out
+  cleaner than the route through `Matrix.reindexStarAlgEquiv` and `finCongr`
+  that this module was originally going to take: `1 * n` is not definitionally
+  `n`, but substituting the equation sidesteps the cast entirely rather than
+  transporting across it.
+- `starAlgEquiv_eq_conj` -- the classical statement, as above.
+- `exists_unitary_conj_blockDiagonal` -- **classification up to unitary
+  equivalence.** Combining C2 (any two such homs are conjugate) with C1 (the
+  amplification is one of them) gives: every unital *-hom `M_n(C) -> M_{kn}(C)`
+  is unitarily equivalent to the standard `k`-fold block-diagonal amplification.
+  So there is exactly **one** unitary equivalence class, and
+  `blockDiagonalStarAlgHom` is a complete set of representatives. The two arcs
+  were each proved to serve the Elliott back-and-forth; stated together they
+  are a classification theorem, and nothing in the corpus said so.
+
+## Upstream status -- stated honestly
+
+The statements are upstreamable and the library wants them. **The proofs are
+not yet.** They rest on the C2 arc inside `SubstrateRigidity.lean`, and shipping
+Noether--Skolem to mathlib means extracting that arc too -- a substantially
+larger job than the four lemmas, and not attempted. This module therefore
+imports `PF.SubstrateRigidity`, is **not** PF-free, and its header says so
+rather than implying otherwise by sitting in the same directory as a module that
+is.
+
+## Lints observed in passing, not fixed
+
+The gate charged none of these to this module; recorded so they are not lost.
+
+- `PF/SubstrateRigidity.lean:1223:19` -- unused simp argument.
+- `PF/SubstrateBase3Norm.lean:102:6` -- unused variable `k`.
+- `PF/TuringEncoding/WeightedDigitalSumGeneratingFunction.lean:151:52` --
+  unused variable `α`.
+
+Also noted while reading, and **not** acted on: the docstring of
+`Substrate3Inf.connect_iso` (`SubstrateRigidity.lean`, ~`:163`) says the lemma
+is "Deferred as a leaf" and describes an intended future proof, while the body
+immediately below it is the complete proof `fun _ _ => rfl` -- correct, because
+a `StarSubalgebra` carries the subspace metric from the ambient algebra, so an
+inclusion is isometric by definition. Same defect class as the file header
+repaired on 2026-10-02: a declaration's self-description outliving the facts.
+A docstring, not a proof, so it changes no result -- but it is exactly the kind
+of thing a referee reads and believes.
