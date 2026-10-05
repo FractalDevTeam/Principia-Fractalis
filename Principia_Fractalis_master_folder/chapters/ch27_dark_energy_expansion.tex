@@ -348,7 +348,7 @@ Averaging CMB and modified SN:
 H_0^{\text{combined}} = \frac{67.4 + 70.8}{2} = 69.1 \pm 1.2 \, \text{km/s/Mpc}
 \end{equation}
 
-Tension reduced from 5$\sigma$ to 1.5$\sigma$.
+Tension reduced from 5$\sigma$ to 1.5$\sigma$.\manuscriptcorrection{Bookkeeping mismatch, noted for completeness and deliberately not inflated. This proof sketch computes $69.1$ while the proposition above states $69.8$; the two central values differ by $0.7$. \textbf{This is not a statistical contradiction:} $69.8$ lies inside $69.1\pm1.2 = [67.9,70.3]$ and $69.1$ lies inside $69.8\pm0.8 = [69.0,70.6]$, so the intervals overlap and each central value sits within the other's stated uncertainty. An external audit reported these as differing outside either error bar; that reading is incorrect. The substantive point is already disclosed by the proposition's own scope note of 2026-07-23, which records that $69.8$ is a framework-defined constant chosen to lie between the two measurements rather than a derived quantity. What that note does not add, and this one does, is that the proof sketch below it arrives at $69.1$ --- so a reader who follows the sketch will not recover the number the proposition states.}
 \end{proof}
 
 \section{Structure Formation}
@@ -615,7 +615,7 @@ linking expansion to resonance quantization (the $\pi/10$ factor
 documented in Ch.~9).  Substituting
 $H_0=67.36\,\mathrm{km\,s^{-1}\,Mpc^{-1}}$ gives
 $L_{\mathrm{coh}}\approx 1.38\,\mathrm{Gly}$, consistent with the
-observed Quipu extent within uncertainties.
+observed Quipu extent within uncertainties.\manuscriptcorrection{The printed formula does not give this number. With $c/H_0 = 299792.458/67.36 = 4450.60$~Mpc $= 14.5159$~Gly and $\sigma_c = 0.95$, equation~\eqref{eq:Lcoh_formula} as displayed yields $14.5159\cdot(\pi/10)\cdot0.95 = 4.3323$~Gly, not $1.38$. Deleting the $\pi$ gives $14.5159\cdot(1/10)\cdot0.95 = 1.3790$~Gly --- the claimed value to three figures --- and the ratio between the two is $4.3323/1.38 = 3.139$, i.e.\ $\pi$. The defect is a single spurious factor of $\pi$. Theorem \texttt{L\_coh\_printed\_eq\_pi\_mul\_piFree} (file \texttt{PF/Ch27QuipuCoherenceRefutationAttempt.lean}, 2026-10-05) proves axiom-free that the printed quantity is \emph{exactly} $\pi$ times the $\pi$-free one, which is the whole diagnosis in one identity; \texttt{L\_coh\_piFree\_bracket} places the $\pi$-free quantity in $(1.37,1.39)$; and \texttt{L\_coh\_printed\_gt\_four} shows the printed quantity exceeds $4$~Gly. \textbf{A fork this chapter cannot straddle.} It asserts both that the formula carries ``the $\pi/10$ factor documented in Ch.~9'' and that the result agrees with the observed Quipu extent, given as $\approx1.4$~Gly in the figure legend below. Both cannot hold. If the $\pi/10$ is right the prediction is $4.33$~Gly and overshoots the observed extent by $3.1\times$, so the agreement claim fails. If the agreement is right the formula is $(c/H_0)(1/10)\sigma_c$ and the attribution of a $\pi/10$ factor to Ch.~9 is wrong \emph{at this equation}. \textbf{This note does not choose}, because the choice is authorial and has consequences elsewhere: $\pi/10$ is load-bearing across the framework, so removing it here while retaining it in Ch.~9 would need a stated reason. What is established is that the two assertions are incompatible, and by exactly a factor of $\pi$.}
 
 \begin{figure}[t]
 \centering
@@ -757,6 +757,20 @@ are empirical or definitional:
   improvement (Thm~\ref{thm:goodness-of-fit}). As the accompanying
   \texttt{empiricalclaim} note states, the Lean stack does \emph{not} verify the
   $\chi^2$ number; it must be reproduced against the primary SNe/BAO/CMB catalogs.
+\item \textbf{ASSERTED --- refuted at the stated numerical close (added
+2026-10-05)} --- the $\Phi$-resonant Quipu coherence length of
+equation~\eqref{eq:Lcoh_formula}. As printed, with $H_0=67.36$ and
+$\sigma_c=0.95$, the formula $(c/H_0)(\pi/10)\sigma_c$ yields $4.3323$~Gly, not
+the stated $1.38$~Gly; the stated value is exactly what the same expression
+gives with the $\pi$ deleted, and the ratio of the two is $\pi$ to three
+figures. Five axiom-free theorems in
+\texttt{PF/Ch27QuipuCoherenceRefutationAttempt.lean} establish this, including
+the identity that the printed quantity is \emph{exactly} $\pi$ times the
+$\pi$-free one. The chapter cannot simultaneously retain its $\pi/10$
+attribution and its claimed agreement with the observed $\approx1.4$~Gly
+extent; which horn to take is an open authorial decision, since $\pi/10$ is
+load-bearing elsewhere in the framework.
+
 \item \textbf{EMPIRICAL HYPOTHESIS --- untested} --- the $\Phi$-resonant Quipu
   interpretation (\S\ref{sec:quipu}). The coherence length
   $L_{\mathrm{coh}}\approx1.38$~Gly follows from a single postulated scaling formula
