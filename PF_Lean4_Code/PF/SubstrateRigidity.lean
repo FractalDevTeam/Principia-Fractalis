@@ -4,8 +4,19 @@
 **The central theorem `T_infinity_rigidity` — the substrate is forced,
 not chosen.** Any C*-algebra satisfying the `Substrate3Inf`
 characterisation is *-isomorphic to `TimelessFieldCompletion`. This
-is Glimm's 1960 UHF classification specialised to supernatural number
-`3^∞`.
+is the uniqueness half of Glimm's 1960 UHF theory, specialised to the
+supernatural number `3^∞` and to a FIXED tower.
+
+**Scope corrected 2026-10-05.** This previously read "Glimm's 1960 UHF
+classification specialised to supernatural number `3^∞`", which claims more
+than is proved. What is proved: any two C*-algebras each carrying a `3^k`
+tower with dense union are *-isomorphic — uniqueness for a fixed tower.
+A *classification* additionally requires (i) invariance under passing to a
+subsequence, so that a `9^k` tower yields the same algebra, and (ii) the
+converse, that the supernatural number is a COMPLETE invariant, so that
+different supernatural numbers give non-isomorphic algebras. Neither (i) nor
+(ii) is proved here. Neither is needed for the theorem as stated, which is why
+their absence is a description defect rather than a gap in the proof.
 
 **Status: COMPLETE. No `sorry` in any proof body.** The six grep hits for
 `sorry` in this file are all inside comments (including this one). The
@@ -45,7 +56,10 @@ and its time estimates are historical):
   C2:    Noether–Skolem uniqueness for `M_n(ℂ)`
          — MOVED 2026-10-05 to `PF/Upstream/NoetherSkolemC2.lean`
   C3:    completion universal property, star-upgraded
-  C4:    Elliott back-and-forth for `3^∞` towers
+  C4:    one-sided induction on two `3^∞` towers, then one inversion
+         — named "Elliott back-and-forth" until 2026-10-05; a zig-zag is
+           needed only when the dimension sequences differ, and here they
+           agree, so none arises
 
 **Header provenance.** Until 2026-10-02 this header declared the module
 sorry-scaffolded and unwired, and declared the `#print axioms` block commented
@@ -912,14 +926,36 @@ C1 + C2 + C3.
 section C4_Elliott
 variable {A B : Type*} [CStarAlgebra A] [CStarAlgebra B]
 
-/-! ### C4 — Elliott back-and-forth on two `3^∞` towers
+/-! ### C4 — one-sided induction on two `3^∞` towers
 
-    Strategy: build a coherent zig-zag of level *-isos
-    `φ_k : hA.tower k ≃⋆ₐ[ℂ] hB.tower k` compatible with the tower
-    inclusions, then apply C3 (`tower_universal_star_extension`) to
-    lift to `A →⋆ₐ[ℂ] B`. Symmetric construction gives the inverse.
-    The `StarAlgEquiv.ofStarAlgHom` constructor packages the two-sided
-    maps into an equivalence. -/
+    **Named corrected 2026-10-05.** This section was previously headed
+    "Elliott back-and-forth" and its strategy described as building "a
+    coherent zig-zag". Both overstate the machinery. A genuine Elliott
+    back-and-forth alternates construction in both directions, and that is
+    needed only when the two dimension sequences DIFFER. Here both towers are
+    `3^k`, so the sequences agree and no zig-zag arises.
+
+    What the arc actually does is a one-sided induction, then one inversion:
+
+      * `tower_zero_iso` — base case at level 0, both sides `M_1(ℂ)`;
+      * `tower_step_iso_exists` — the inductive step, which is exactly
+        Noether–Skolem (C2): the two unital *-homs
+        `M_{3^k} → M_{3^{k+1}}` obtained from an arbitrary level-`k+1` iso
+        and from the level-`k` iso are unitarily conjugate, so the arbitrary
+        choice can be corrected to intertwine;
+      * `tower_iso_sequence` — the recursion assembling a single coherent
+        family `φ_k`, with `tower_iso_sequence_compat` its coherence;
+      * C3 (`tower_universal_star_extension`) lifts that family to
+        `A →⋆ₐ[ℂ] B`.
+
+    The inverse is NOT a second construction. `tower_family_B_to_A` is
+    literally `(tower_iso_sequence hA hB k).symm` — the same family read
+    backwards — and `substrate_maps_leftInverse` / `_rightInverse` then check
+    the two composites on the dense union. `StarAlgEquiv.ofStarAlgHom`
+    packages them.
+
+    The section identifier `C4_Elliott` is retained so that the statement-card
+    records in `codex/` still resolve; it is a name, not a claim. -/
 
 /-- **C4.1.** Base level: both `hA.tower 0` and `hB.tower 0` are
     *-isomorphic to `M_{3^0}(ℂ) = M_1(ℂ)`, so compose. -/
