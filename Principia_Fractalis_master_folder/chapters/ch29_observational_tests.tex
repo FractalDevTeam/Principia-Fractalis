@@ -366,7 +366,7 @@ Predicted: $A_{\text{lens}} = 1.03 \pm 0.02$ (vs 1.00 in standard model).
 \begin{align}
 {\chi^2_{\text{CMB,late}}}^{\Lambda\text{CDM}} &= 58.4 \quad (\text{ISW} + \text{lensing}) \\
 {\chi^2_{\text{CMB,late}}}^{\text{mod}} &= 6.9 \\
-\Delta \chi^2_{\text{CMB,late}} &= 51.4
+\Delta \chi^2_{\text{CMB,late}} &= 51.5
 \end{align}
 
 \textbf{Total CMB}:
@@ -388,13 +388,13 @@ Combining all datasets (SNe + BAO + CMB):
 \begin{equation}
 \chi^2_{\Lambda\text{CDM}} = 563.8 + 18.9 + 104.6 = 687.3
 \end{equation}
-with $N_{\text{dof}} = 574 + 7 + 9 = 590$ parameters: $\chi^2 / N_{\text{dof}} = 1.165$
+with $N_{\text{dof}} = 574 + 7 + 9 = 590$: $\chi^2 / N_{\text{dof}} = 1.165$\manuscriptcorrection{\textbf{This degrees-of-freedom pair is impossible, and is flagged rather than replaced.} The modified model adds exactly two parameters, and $N_{\text{dof}} = N_{\text{data}} - N_{\text{param}}$, so every component must \emph{lose} two. Three of the four do: supernovae $574\to572$, BAO $7\to5$, primary CMB $52\to50$. The CMB entry in this global sum instead goes $9\to11$ --- the only component in the chapter that \emph{gains} two. \textbf{And no reinterpretation of the dataset rescues it.} $N-6=9$ forces $N=15$, whence $N-8=7$, not $11$; $N-8=11$ forces $N=19$, whence $N-6=13$, not $9$. There is no data count for which both printed figures are correct, so one of them is wrong whatever CMB dataset is meant --- primary, late-time ISW/lensing, or any subset. Theorem \texttt{no\_common\_data\_count} (file \texttt{PF/Ch29DofRefutationAttempt.lean}, 2026-10-05) proves this axiom-free, with \texttt{dof\_drops\_by\_params\_added} the structural fact behind it. \textbf{Why no replacement is supplied:} this chapter gives $N_{\text{data}}$ and $N_{\text{param}}$ explicitly for supernovae ($580-6/8$) and BAO ($13-6/8$), but for \emph{no} CMB figure --- not $52$, $50$, $9$, $11$, nor the third ``effective $N_{\text{dof}}\approx60$'' quoted earlier. The correct values are therefore not recoverable from the text and must be supplied by the author. \textbf{Downstream:} the two ratios $1.165$ and $0.603$ are arithmetically consistent with the erroneous $590/588$, so they are not independent errors --- they inherit, and both need recomputing once the dof are fixed. The $\chi^2$ sums themselves ($687.3$, $354.2$, $\Delta\chi^2=333.1$) are correct and unaffected.}
 
 \textbf{Consciousness-modified}:
 \begin{equation}
 \chi^2_{\text{mod}} = 289.7 + 11.3 + 53.2 = 354.2
 \end{equation}
-with $N_{\text{dof}} = 572 + 5 + 11 = 588$ parameters: $\chi^2 / N_{\text{dof}} = 0.603$
+with $N_{\text{dof}} = 572 + 5 + 11 = 588$: $\chi^2 / N_{\text{dof}} = 0.603$ (see the correction on the $\Lambda$CDM line above --- the $9\to11$ CMB entry is impossible for any dataset size)
 
 \textbf{Improvement}:
 \begin{equation}
@@ -403,7 +403,7 @@ with $N_{\text{dof}} = 572 + 5 + 11 = 588$ parameters: $\chi^2 / N_{\text{dof}} 
 
 Percentage improvement in residuals:
 \begin{equation}
-\boxed{\frac{\chi^2_{\Lambda\text{CDM}} - \chi^2_{\text{mod}}}{\chi^2_{\Lambda\text{CDM}}} = \frac{333.1}{354.2} \times 100\% = 94.0\%}
+\boxed{\frac{\chi^2_{\Lambda\text{CDM}} - \chi^2_{\text{mod}}}{\chi^2_{\text{mod}}} = \frac{333.1}{354.2} \times 100\% = 94.0\%}\manuscriptcorrection{Corrected 2026-10-05: the denominator displayed was $\chi^2_{\Lambda\text{CDM}}$, which gives $333.1/687.3 = 48.47\%$ and does not match the $333.1/354.2$ actually substituted beside it. The substitution is the intended quantity --- every jackknife improvement later in this chapter uses $\Delta\chi^2/\chi^2_{\text{mod}}$ on the same convention --- so the formula is what was mislabelled, and it is the formula that has been changed. \textbf{Stated plainly, since the label invites misreading:} $\Delta\chi^2/\chi^2_{\text{mod}}$ is not what ``percentage improvement'' conventionally denotes, it is the improvement measured against the \emph{remaining} residual, and it can exceed $100\%$. The conventional figure here would be $48.5\%$. Theorem \texttt{percentage\_formula\_mismatch} (file \texttt{PF/Ch29DofRefutationAttempt.lean}) certifies that the two quotients differ, the first below $1/2$ and the second above $9/10$.}
 \end{equation}
 
 Accounting for 2 additional parameters, adjusted improvement:
@@ -434,9 +434,9 @@ The likelihood ratio:
 
 The Bayesian information criterion (BIC):
 \begin{align}
-\text{BIC}_{\Lambda\text{CDM}} &= \chi^2 + k \ln N = 687.3 + 6 \ln(590) = 725.0 \\
-\text{BIC}_{\text{mod}} &= 354.2 + 8 \ln(588) = 405.4 \\
-\Delta \text{BIC} &= 725.0 - 405.4 = 319.6
+\text{BIC}_{\Lambda\text{CDM}} &= \chi^2 + k \ln N = 687.3 + 6 \ln(590) = 725.58 \\
+\text{BIC}_{\text{mod}} &= 354.2 + 8 \ln(588) = 405.21 \\
+\Delta \text{BIC} &= 725.58 - 405.21 = 320.37\manuscriptcorrection{Corrected 2026-10-05: the printed values were $725.0$, $405.4$ and $319.6$, which are not reproducible from the stated formula --- $687.3 + 6\ln 590 = 725.58$ and $354.2 + 8\ln 588 = 405.21$, giving $\Delta\text{BIC} = 320.37$. The conclusion, $\Delta\text{BIC}\gg10$ and hence decisive, is unaffected by the correction. Note that $N$ here is the $590/588$ whose dof accounting is itself under correction above, so these values will shift again once that is settled.}
 \end{align}
 
 By Jeffreys' scale\cite{kass1995}, $\Delta \text{BIC} > 10$ is "decisive" evidence. Our $\Delta \text{BIC} = 319.6$ is overwhelming.
