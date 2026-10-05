@@ -164,10 +164,48 @@ The combined dark energy (cosmological constant + consciousness) has effective e
 
 where $\epsilon(z) \approx 0.15 / (1+z)$ is a redshift-dependent correction and $z$ is redshift: $1+z = a_0 / a(t)$.
 
-For $z < 1$ (recent epochs): $w_{\text{DE}} \approx -0.95$ (slightly phantom).
+For $z < 1$ (recent epochs): $w_{\text{DE}}$ runs from $-0.85$ at $z = 0$ up to
+$-1$; it is \emph{quintessence-like} throughout, never phantom.
 
 For $z > 1$ (early epochs): $w_{\text{DE}} \to -1$ (pure cosmological constant).
 \end{theorem}
+
+\begin{remark}[Correction, 2026-10-03: the present-day value is $-0.85$, and the model is never phantom]
+\label{rem:wDE-today-2026-10-03}
+Evaluating the boxed formula at $z = 0$ with the chapter's own
+$\text{ch}_2(z) = 0.95\,e^{-(z/z_*)^2}$ and $z_* = 0.5$: the ratio
+$\text{ch}_2(0)/0.95 = 1$ and $\epsilon(0) = 0.15$, so
+\[
+w_{\text{DE}}(0) = -1 + 0.15 = \mathbf{-0.85},
+\]
+not $-0.95$. The full run is $-0.850$, $-0.879$, $-0.943$, $-0.995$, $-1.000$ at
+$z = 0,\,0.1,\,0.25,\,0.5,\,1.0$; the value $-0.95$ occurs near $z \approx 0.27$,
+not today. Reaching $-0.95$ at $z = 0$ would require $\epsilon(0) = 0.05$, i.e.\
+the complement of the $0.95$ threshold substituted for the stated $0.15$.
+
+\textbf{``Slightly phantom'' is also wrong, and cannot be repaired.} Phantom means
+$w < -1$. Here $\epsilon > 0$ and the cube of a non-negative quantity is
+non-negative, so $w_{\text{DE}} \geq -1$ \emph{identically}: this model can never
+be phantom at any redshift, for any parameter choice of this form. The correct
+descriptor is quintessence-like.
+
+\textbf{Two $\epsilon$ in one book.} The displayed derivation later in this
+chapter writes $w_{\text{DE}}(z) = -1 + 0.15\,e^{-(z/0.5)^2}$, dropping the
+$1/(1+z)$ of $\epsilon(z)$, and the companion observational chapter uses that
+constant-$\epsilon$ form throughout. The two agree only at $z = 0$ and differ by
+$1.4\%$ at $z = 0.25$. One of them has to go; which is a modelling choice and is
+not settled here.
+
+\textbf{The consequence for the fit.} The companion chapter reports a measured
+$w = -0.953 \pm 0.018$ and calls it a $2.6\sigma$ deviation from $w = -1$ --- that
+arithmetic is correct, $(1-0.953)/0.018 = 2.6$. But the \emph{model's own}
+prediction at $z = 0$ is $-0.85$, which sits
+$(0.953 - 0.85)/0.018 = \mathbf{5.7\sigma}$ from that fit. On these numbers the
+data constrain this model more strongly than they constrain $\Lambda$CDM, so the
+fit cannot be presented as confirmation. Its predictions at specific redshifts
+need the same check: the stated $w(0.5) = -0.95$ is $-0.9925$ from the
+constant-$\epsilon$ formula, and $w(1.0) = -0.98$ is $-1.000000$ to six places.
+\end{remark}
 
 \begin{proof}
 The total dark energy density is:

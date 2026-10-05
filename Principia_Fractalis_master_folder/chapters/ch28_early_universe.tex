@@ -47,7 +47,7 @@ We can test this prediction: early-universe observables (CMB, primordial element
 \midrule
 Planck epoch & $< 10^{-43}$ s & $> 10^{32}$ K & $\approx 0$ \\
 Inflation & $10^{-36}$ to $10^{-32}$ s & $10^{27}$ K & $\approx 0$ \\
-Reheating & $10^{-32}$ s & $10^{15}$ K & $\approx 0$ \\
+Reheating & $10^{-32}$ s & $\sim 10^{26}$ K & $\approx 0$ \\
 Quark-gluon plasma & $10^{-6}$ s & $10^{13}$ K & $\approx 0$ \\
 Hadron formation & $10^{-5}$ s & $10^{12}$ K & $\approx 0$ \\
 Nucleosynthesis & 3 minutes & $10^9$ K & $\approx 0$ \\
@@ -62,6 +62,22 @@ Solar System & 9 Gyr & 3 K & $0.50\text{--}0.70$ \\
 \captionof{table}{Cosmic timeline with consciousness evolution. Note: ch$_2 \approx 0$ until complex life emerges around $t \sim 9$ Gyr.}
 \label{tab:cosmic-timeline}
 \end{center}
+
+\medskip
+\noindent\textbf{Correction (2026-10-03): the reheating temperature.}
+The reheating row previously read $10^{15}$ K. In the radiation era
+$T \approx 1.5\times10^{10}\,\mathrm{K}\,(t/\mathrm{s})^{-1/2}$, so
+$t = 10^{-32}$ s gives $T \approx 1.5\times10^{26}$ K --- \textbf{eleven
+orders above} the printed figure. That relation is validated against this
+table's own later rows: it returns $1.50\times10^{13}$ K at $t = 10^{-6}$ s,
+matching the quark--gluon plasma entry exactly. The printed $10^{15}$ K
+corresponds to about $100$ GeV, the electroweak scale, which is reached at
+$t \sim 10^{-11}$ s rather than $10^{-32}$ s. The old value was also
+non-monotonic against the inflation row above it at $10^{27}$ K: reheating
+must \emph{raise} the temperature back toward the inflationary scale, not
+drop it twelve decades below. Several of the later time--temperature pairs in
+this table are also inconsistent with $T = 2.7255\,(1+z)$ and the
+$\Lambda$CDM age relation; those are addressed separately.
 
 \textbf{Key observation}: Consciousness is a \textit{late-time} phenomenon. For $\sim 99\%$ of cosmic history, ch$_2 \approx 0$.
 \end{level2}
@@ -404,12 +420,34 @@ Solutions:
 
 The growth factor in standard $\Lambda$CDM:
 \begin{equation}
-D(a) \propto a \cdot H(a) \int_0^a \frac{da'}{[a' H(a')]^3}
+D(a) \propto H(a) \int_0^a \frac{da'}{[a' H(a')]^3}
 \end{equation}
 
 For matter-dominated era: $D \propto a$ (perturbations grow linearly with scale factor).
 
-For $\Lambda$-dominated era: growth slows, $D \propto a^{0.7}$.
+For the $\Lambda$-dominated era growth slows and freezes; the present-day growth
+rate is $f = \mathrm{d}\ln D/\mathrm{d}\ln a \approx 0.53$.
+
+\medskip
+\noindent\textbf{Correction (2026-10-03): a spurious factor of $a$, and the
+$\Lambda$-era exponent.}
+The displayed formula previously carried a leading $a$. In matter domination
+$H \propto a^{-3/2}$, so
+$\int_0^a \mathrm{d}a'/(a'H)^3 = \int a'^{3/2}\,\mathrm{d}a' = \tfrac25 a^{5/2}$
+and $H(a)$ times that is $a^{-3/2}\cdot a^{5/2} = a$ --- giving $D \propto a$
+\emph{without} any extra factor. With the extra $a$ one gets $D \propto a^2$,
+which contradicts the line immediately below it, and contradicts the exercise
+later in this chapter that asks the reader to show $D(a) \propto a$ for matter
+domination. Numerically integrating the corrected form gives a log-slope of
+exactly $1.000$; the printed form gives $2.000$.
+
+The $\Lambda$-era statement needs care too. With
+$f \approx \Omega_m(a)^{0.55}$, genuine $\Lambda$ domination has
+$\Omega_m \to 0$, so $f \to 0$ and $D \to$ constant --- growth \emph{freezes}
+rather than continuing as a power law. The exponent $0.7$ corresponds to
+$\Omega_m \approx 0.52$, i.e.\ $z \approx 0.35$, which is the matter--$\Lambda$
+\emph{equality} era, not $\Lambda$ domination. Present-day values:
+$f(0) = 0.530$, $f(0.5) = 0.761$, $f(1) = 0.876$.
 \end{theorem}
 
 \subsection{Consciousness-Enhanced Growth}
