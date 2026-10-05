@@ -383,7 +383,17 @@ The spectral unity framework predicts observable signatures:
 \begin{equation}
 \eta_{\text{enhance}} = \exp\left(\frac{\pi}{10} \cdot \Delta \cdot N_{\text{qubits}}\right)
 \end{equation}
-For $N_{\text{qubits}} = 1000$, this gives $\eta \approx 1.31$, a 31\% speedup detectable with existing hardware.
+For $N_{\text{qubits}} = 10$, this law gives $\eta \approx 1.32$, i.e.\ a
+$32\%$ enhancement --- already within reach of existing hardware. At
+$N_{\text{qubits}} = 1000$ the same law gives $\eta \approx 1.44\times10^{12}$,
+not $1.31$.\manuscriptcorrection{Direct arithmetic with the chapter's own empirical gap $\Delta = 0.0891219046$ (line~122) gives $(\pi/10)\cdot\Delta = 0.0279984721$, hence an exponent of $27.9984721$ at $N_{\text{qubits}} = 1000$ and $\eta(1000) = e^{27.998\ldots} = 1.444\times10^{12}$ --- NOT $1.31$. The stated pairing is wrong by twelve orders of magnitude, and note the direction: read literally the formula predicts a $10^{12}$ enhancement at a thousand qubits, which is a far \emph{stronger} assertion than ``a 31\% speedup''. The chapter understates its own law. \textbf{Where $1.31$ comes from:} $\eta = 1.31$ is reached at about \emph{ten} qubits, not a thousand --- $\eta(9) = 1.2866$ and $\eta(10) = 1.3231$, so $\ln(1.31)/0.0279984721 = 9.64$. The defect is the substituted qubit count, not the exponential law. Theorems \texttt{exponent\_at\_1000\_gt\_27}, \texttt{etaEnhance\_1000\_gt\_1e11} and \texttt{etaEnhance\_1000\_ne\_claimed} (file \texttt{PF/Ch09QuantumEnhancementRefutationAttempt.lean}, 2026-10-05) prove axiom-free that $\eta(1000) > 10^{11}$, and \texttt{claimedEta\_lt\_etaEnhance\_ten} proves $1.31 < \eta(10)$, so with \texttt{etaEnhance\_strictMono} the qubit count actually yielding $1.31$ lies strictly \emph{below} ten. \textbf{Robust to the $\Delta$ ambiguity:} this chapter's ledger below records that the empirical $\lambda_0(H_{NP})\approx0.1330$ does not match the certified closed form $\pi/(10(\varphi+1/4))\approx0.1682$. Using the certified forms gives $\Delta = 0.0539677$, hence $\eta(1000) = 2.308\times10^{7}$ and $\eta = 1.31$ at $N = 15.93$. Both readings agree on what matters: at $N=1000$ the formula returns an astronomically large number, and $1.31$ corresponds to a qubit count in the range ten to sixteen. \textbf{What survives:} the exponential law $\eta = \exp(cN)$ with $c = (\pi/10)\Delta$, and --- in a stronger form than stated --- the claim that the effect is reachable with existing hardware, since ten qubits already suffice for a $32\%$ enhancement under this law. \textbf{What does not:} the pairing of $N=1000$ with $\eta\approx1.31$, which the chapter's own formula does not support.}
+
+\noindent\emph{Corrected 2026-10-05.} The sentence previously printed here read
+``For $N_{\text{qubits}} = 1000$, this gives $\eta \approx 1.31$, a 31\% speedup
+detectable with existing hardware.'' Those two numbers are not compatible under
+the formula above: at a thousand qubits the exponent is $27.998$, so
+$\eta = 1.44\times10^{12}$. The $31\%$ figure is the value of this chapter's own
+law near ten qubits.
 
 \item \textbf{Correlation between P vs NP and RH zeros:} The spacing distribution of Riemann zeros should exhibit subtle oscillations correlated with the computational spectral gap $\Delta$. Specifically, the pair correlation function should show a resonance at:
 \begin{equation}
@@ -486,6 +496,19 @@ To hold this chapter to the standard of the machine-checked corpus:
 \item \textbf{CONDITIONAL REDUCTION (not a proof)} --- ``$\mathbf{P}\neq\mathbf{NP}$ via spectral gap'' (Theorem~\ref{thm:pvsnp_spectral}). The theorem's own text is explicit: the conclusion holds only \emph{conditional on} the empirical spectral-truncation value $\lambda_0(H_{NP})\approx0.1330$, which does \emph{not} match the certified closed form $\pi/(10(\varphi+1/4))\approx0.1682$. This is not a resolution of the Millennium problem.
 \item \textbf{CONDITIONAL REDUCTION (not a proof)} --- the Spectral--Zeta correspondence and the Critical-Line constraint (Theorems~\ref{thm:spectral_zeta}, \ref{thm:critical_line}). They reduce the Riemann Hypothesis to unproven propositions about the consciousness-modified operator $T_N$ at $\text{ch}_2=0.95$; RH is not established here.
 \item \textbf{EMPIRICAL / ASSERTED} --- the consciousness scaling factor $\alpha=5\times10^{-6}$ ``from CMB'' (Lemma~\ref{lem:alpha_scaling}) chains several estimated cosmological inputs and is not a derivation. The barrier-circumvention claim (Theorem~\ref{thm:barrier_bypass}) is a framework-internal argument, not machine-checked.
+\item \textbf{ASSERTED --- refuted at the stated numerical close (added
+2026-10-05)} --- the quantum-enhancement signature of \S``Experimental
+Signatures''. The law $\eta = \exp((\pi/10)\Delta N_{\text{qubits}})$ evaluated
+at the chapter's own $\Delta = 0.0891219046$ and $N = 1000$ gives
+$1.444\times10^{12}$, not the printed $\eta\approx1.31$ --- an error of twelve
+orders of magnitude, in the direction of \emph{understating} the chapter's own
+formula. Six axiom-free theorems in
+\texttt{PF/Ch09QuantumEnhancementRefutationAttempt.lean} establish
+$\eta(1000) > 10^{11}$, strict monotonicity in the qubit count, and
+$1.31 < \eta(10)$, which together place the qubit count yielding $1.31$ strictly
+below ten. The conclusion is unchanged under the certified closed-form $\Delta =
+0.0539677$ ($\eta(1000) = 2.308\times10^{7}$, $\eta=1.31$ at $N=15.93$). The
+exponential law survives; the pairing of $N=1000$ with $1.31$ does not.
 \item The ``150-digit'' and $10^{-12}$ numerical confirmations are internal computations of the framework's own constructs, not independent verification of P vs NP or RH.
 \end{itemize}
 \emph{Only the operator-algebra substrate of $\mathcal{T}_\infty$ (Ch~\ref{ch:timeless-field}) is kernel-verified; nothing in this chapter is.}
