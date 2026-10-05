@@ -57,7 +57,12 @@ Key libraries:
 The cost of arithmetic operations scales with precision:
 
 \begin{thm}[Computational Complexity of High-Precision Arithmetic]\label{thm:arith-complexity}
-For precision $p$ bits (approximately $p/\log 2$ decimal digits), the time complexity of basic operations is:
+For precision $p$ bits (approximately $p\log_{10} 2 \approx p/3.32$ decimal
+digits; \emph{corrected 2026-10-03} --- the previously printed $p/\log 2$ gives
+$3.32p$ reading $\log$ as base ten and $1.44p$ reading it as natural, each wrong
+by a factor of $11$ and $4.8$ respectively, and this chapter uses the correct
+conversion later where it notes that $150$ digits needs about $500$ bits:
+$150/\log_{10}2 = 498.3$), the time complexity of basic operations is:
 \begin{align}
 \text{Addition/Subtraction:} &\quad O(p) \\
 \text{Multiplication:} &\quad O(p \log p \log\log p) \quad \text{(via FFT)} \\
@@ -176,17 +181,63 @@ The standard method for computing $\zeta(s)$ uses the \textbf{Euler-Maclaurin fo
 \begin{thm}[Euler-Maclaurin for $\zeta(s)$]\label{thm:euler-maclaurin-zeta}
 For $\Re(s) > 1$:
 \begin{equation}
-\zeta(s) = \sum_{n=1}^{N} \frac{1}{n^s} + \frac{N^{1-s}}{s-1} + \frac{N^{-s}}{2} - \sum_{k=1}^{K} \frac{B_{2k}}{(2k)!} \binom{s}{2k-1} N^{1-s-2k} + R_K
+\zeta(s) = \sum_{n=1}^{N} \frac{1}{n^s} + \frac{N^{1-s}}{s-1} - \frac{N^{-s}}{2}
+ + \sum_{k=1}^{K} \frac{B_{2k}}{(2k)!}\,(s)_{2k-1}\, N^{1-s-2k} + R_K
 \end{equation}
-where $B_{2k}$ are Bernoulli numbers and remainder $|R_K| \leq C N^{1-\Re(s)-2K}$.
+where $B_{2k}$ are Bernoulli numbers,
+$(s)_{m} = s(s+1)\cdots(s+m-1)$ is the \emph{rising} factorial, and
+$|R_K|$ is bounded by the first omitted term,
+$\bigl|B_{2K+2}/(2K+2)!\bigr|\,(s)_{2K+1}\,N^{-\Re(s)-2K-1}$.
 \end{thm}
+
+\begin{remark}[Correction, 2026-10-03: the previous form converges to the wrong number]
+\label{rem:euler-maclaurin-2026-10-03}
+Earlier printings had three errors in this formula, and together they make it
+converge to a value wrong in the \emph{second decimal} --- in a chapter whose
+premise is $150$ digits.
+
+\begin{enumerate}
+\item the sign of the $N^{-s}/2$ term (the $+$ form goes with
+  $\sum_{n=1}^{N-1}$, not $\sum_{n=1}^{N}$);
+\item the sign of the Bernoulli sum;
+\item the coefficient, which was the binomial
+  $\binom{s}{2k-1} = s(s-1)\cdots(s-2k+2)/(2k-1)!$ where the rising factorial
+  $(s)_{2k-1} = s(s+1)\cdots(s+2k-2)$ belongs. These agree only at $k = 1$.
+\end{enumerate}
+
+\noindent Derivation: for $f(x) = x^{-s}$,
+$f^{(m)}(x) = (-1)^m (s)_m\, x^{-s-m}$, so
+$f^{(2k-1)}(N) = -(s)_{2k-1} N^{1-s-2k}$, and Euler--Maclaurin applied to the
+tail $\sum_{n \geq N}$ gives the signs above.
+
+Numerically, at $N = 4$: the corrected form gives $\zeta(3) = 1.202056908$ at
+$K = 5$ against the true $1.202056903$, and $\zeta(2) = 1.644934070$ against
+$1.644934067$. The previous form gives $\mathbf{1.215748314}$ for $\zeta(3)$ and
+$\mathbf{1.702256944}$ for $\zeta(2)$ --- and \emph{stays} there as $K$ grows,
+because the error is in the formula rather than in the truncation.
+
+The remainder bound was also wrong in two ways: the exponent is
+$N^{-\Re(s)-2K-1}$, not $N^{1-\Re(s)-2K}$ (the latter is the size of the last
+\emph{included} term), and $C$ cannot be treated as $K$-independent since
+$(s)_{2K+1}$ grows superexponentially in $K$. For $s = 3$, $N = 10^6$,
+$K = 100$ the actual remainder is $\approx 10^{-1003}$ while
+$N^{1-s-2K} = 10^{-1212}$, so a $K$-independent $C$ would have to be
+$\approx 10^{209}$.
+\end{remark}
 
 \begin{example}[150-Digit $\zeta(3)$ Computation]
 To compute $\zeta(3) = 1.202056903159594285399738\ldots$ to 150 digits:
 \begin{itemize}
 \item Choose $N = 10^6$, $K = 100$ (100 Bernoulli terms)
-\item Direct sum: $\sum_{n=1}^{10^6} 1/n^3$ (6 digits correct)
-\item Asymptotic correction: $+\frac{N^{-2}}{2} - \sum_{k=1}^{100} \ldots$ (adds 144 digits)
+\item Direct sum: $\sum_{n=1}^{10^6} 1/n^3$ (\textbf{12 digits} correct ---
+  corrected 2026-10-03: the truncation error is
+  $\sum_{n>N} n^{-3} \approx 1/(2N^2) = 5.0\times10^{-13}$, which against
+  $\zeta(3) = 1.2021$ is $12.4$ correct digits. The previously stated $6$ digits
+  is the $\zeta(2)$ tail, $\approx 1/N = 10^{-6}$, applied to $\zeta(3)$ by
+  mistake)
+\item Asymptotic correction: $-\frac{N^{-3}}{2} + \sum_{k=1}^{100} \ldots$
+  (adds the remaining $\approx 138$ digits; $K = 13$ already suffices for $150$
+  digits at $N = 10^6$)
 \item Error bound: $|R_{100}| < 10^{-200}$ (well below target)
 \item Computation time: 10 seconds with \texttt{mpmath}
 \end{itemize}
@@ -316,7 +367,21 @@ where $d_H = \sqrt{2}$. Richardson extrapolation with $m = 8, 16$:
 \begin{equation}
 \lambda_0(H_\infty) \approx \frac{2^{\sqrt{2}/2} \lambda_0(H_{16}) - \lambda_0(H_8)}{2^{\sqrt{2}/2} - 1}
 \end{equation}
-Achieves 10 additional digits of precision.
+Achieves \textbf{less than one} additional decimal digit.
+
+\medskip
+\noindent\textbf{Correction (2026-10-03): the gain is a factor of about $7$, not
+$10^{10}$.}
+With the error model $\lambda_0(H_m) = \lambda_0(H_\infty) + c\,m^{-p} + O(m^{-2p})$
+and $p = d_H/2 = \sqrt2/2 = 0.7071$, one Richardson step cancels the $m^{-p}$
+term and leaves $O(m^{-2p})$. At $m = 16$ that is $16^{-p} = 0.1408$ against
+$16^{-2p} = 0.0198$, a gain of $7.10$ --- i.e.\ $\log_{10} 7.10 = 0.85$ decimal
+digits. Ten additional digits would require a $10^{10}$ improvement, which a
+single two-point extrapolation at $m = 8, 16$ with exponent $0.71$ cannot deliver.
+
+Note also that the convergence order quoted in the definition above,
+$O(h^{p+1})$, does not match the $O(m^{-2p})$ that this example's own error model
+yields after one step: $2p = 1.414$ while $p + 1 = 1.707$.
 \end{example}
 
 \section{Parallel Computation Strategies}
