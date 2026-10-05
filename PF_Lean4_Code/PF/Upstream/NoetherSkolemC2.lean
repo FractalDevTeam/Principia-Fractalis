@@ -24,9 +24,26 @@ This module is the C1 and C2 arcs of `PF/SubstrateRigidity.lean`, extracted
 
 `PF/Upstream/NoetherSkolemMatrix.lean` states Noether--Skolem in the form the
 theorem is actually cited in, including that every `*`-automorphism of `M_n(C)`
-is inner. Mathlib has no Noether--Skolem theorem in any form: its only `Skolem`
-is the unrelated model-theoretic Skolemisation in the `choose` tactic, and there
-is no `IsInner` and no inner-automorphism machinery for algebras.
+is inner.
+
+**CORRECTED 2026-10-05.** This previously claimed "Mathlib has no
+Noether--Skolem theorem in any form". False of master, true only of the pinned
+revision. `StarAlgEquiv.eq_linearIsometryEquivConjStarAlgEquiv`
+(`Mathlib/Analysis/Normed/Operator/ContinuousAlgEquiv.lean`, PR #33017, merged
+2025-12-27) is exactly "every `*`-automorphism of `M_n(C)` is inner via a
+unitary" once `V` is finite-dimensional, and
+`AlgEquiv.eq_linearEquivConjAlgEquiv`
+(`Mathlib/LinearAlgebra/GeneralLinearGroup/AlgEquiv.lean`, PR #28100, merged
+2025-12-08) gives the non-star version. Still true: mathlib has no `IsInner`
+predicate, and no Skolem--Noether for general central simple algebras.
+
+**This does not reduce the value of THIS file.** Its purpose is to make the
+C1/C2 arcs PF-free so the *substrate* development stops depending on a
+2,500-line monolith, and that purpose is unaffected by what mathlib has. The
+arcs remain the inductive step of `T_infinity_rigidity`, whose subject matter
+— UHF algebras, the Glimm classification, supernatural numbers — is absent
+from the whole of mathlib (verified across its entire 9366-file tree) and is
+the project's actual contribution.
 
 The obstacle to offering it upstream was never the statement. It was that the
 proof sat inside a 2,513-line file whose first line imports the whole substrate
