@@ -14,7 +14,27 @@ import Mathlib.Topology.Algebra.Star
 /-!
 # Star-algebra lemmas absent from mathlib, stated at upstream generality
 
-Four results that `PF/SubstrateRigidity.lean` needs and mathlib does not have. In
+**CORRECTION 2026-10-05, read before citing this module's novelty.** Of the
+four results below, **two are no longer absent from mathlib** and must not be
+offered upstream: `StarSubalgebra.coe_iSup_of_directed` and the
+unitary-conjugation equivalence. Both exist in mathlib master; see the
+SUPERSEDED notes on each. The absence claims were verified against the pinned
+revision `eed770a434957369c6262aa3fb1d6426419016d4`, roughly seven months old,
+and a pinned revision is evidence about the pin, not about the library. Found
+by dispatched external review and verified by fetching mathlib master directly.
+
+Still absent from master as of 2026-10-05, re-verified the same way:
+`Matrix.reindexStarAlgEquiv` (absent from `Mathlib/LinearAlgebra/Matrix/Reindex.lean`,
+which has the non-star `reindexAlgEquiv` and nothing star-flavoured) and
+`IsDenseInducing.extendStarAlgHom` (absent from
+`Mathlib/Topology/Algebra/UniformRing.lean`, which has only `extendRingHom`).
+
+The declarations themselves remain correct and are still used by
+`PF/Upstream/NoetherSkolemMatrix.lean`; what was wrong was the claim that
+mathlib lacks them. Nothing is withdrawn mathematically.
+
+Four results that `PF/SubstrateRigidity.lean` needs, stated at upstream
+generality. In
 that file each exists only as a `private` declaration specialised to the case the
 Glimm `3^∞` classification actually consumes — scalars fixed to `ℂ`, matrix
 algebras fixed to `Matrix (Fin N) (Fin N) ℂ`. Each proof there, however, uses only
@@ -32,16 +52,30 @@ be moved to the mathlib file named below without editing its statement or proof.
   `StarSubalgebra.mem_iSup_of_directed`. Mathlib has this for
   `NonUnitalStarSubalgebra` (`Mathlib/Algebra/Star/NonUnitalSubalgebra.lean:1022`)
   and for `Subalgebra`, `Subfield`, `Subring`, `Submodule`, `Submonoid`,
-  `Subgroup` and `IntermediateField` — the unital *-case is the gap.
-  *Destination:* `Mathlib/Algebra/Star/Subalgebra.lean`.
+  `Subgroup` and `IntermediateField`.
+
+  **SUPERSEDED 2026-10-05 — this is no longer a gap.** Mathlib master now
+  carries `StarSubalgebra.coe_iSup_of_directed` in
+  `Mathlib/Algebra/Star/Subalgebra.lean`, with the same statement as the one
+  here, variable names included. The claim above was verified against the
+  pinned revision `eed770a` and is false of master. Do not offer this
+  upstream. It is kept here only because this module must keep compiling;
+  prefer the mathlib declaration in new work.
 
 * `StarAlgEquiv.conjugateBy` — conjugation `x ↦ u * x * star u` by an element
   satisfying `u * star u = 1` and `star u * u = 1`, as a `StarAlgEquiv`, with
   `unitary.conjStarAlgEquiv` for the bundled `unitary A` form and
-  `unitary.conjStarAlgEquiv_mul` for its multiplicativity. Mathlib has the
-  *consequence* for spectra (`spectrum.unitary_conjugate`) but not the
-  equivalence itself.
-  *Destination:* `Mathlib/Algebra/Star/Unitary.lean`.
+  `unitary.conjStarAlgEquiv_mul` for its multiplicativity.
+
+  **SUPERSEDED 2026-10-05 — this is no longer a gap either.** Mathlib master
+  carries `Unitary.conjStarAlgAut : unitary R →* (R ≃⋆ₐ[S] R)` in
+  `Mathlib/Algebra/Star/UnitaryStarAlgAut.lean` (Monica Omar, 2025), together
+  with `conjStarAlgAut_apply`, `_symm_apply`, `_trans_conjStarAlgAut` and
+  `_mul_apply` — which covers `conjugateBy`, `unitary.conjStarAlgEquiv` AND
+  `conjStarAlgEquiv_mul`, and bundles the monoid-hom structure more neatly
+  than the pair of declarations here. Mathlib's own `spectrum.unitary_conjugate`
+  was the only thing present at the pinned revision; that is what made the
+  original claim true then and false now. Do not offer this upstream.
 
 * `Matrix.reindexStarAlgEquiv` — the star-preserving upgrade of
   `Matrix.reindexAlgEquiv`. Mathlib has `Matrix.reindexAlgEquiv` and

@@ -7,6 +7,96 @@ assumes no prior context.
 
 ---
 
+## REVISION 1 — 2026-10-05, after dispatched review
+
+Two claims in the first issue of this brief were **wrong**, both mine, both
+found by dispatched review and verified before correcting. If you are holding
+the earlier copy, these are the diffs that matter.
+
+**1. Two of the four mathlib "gaps" are not gaps.** §4 claimed four
+declarations absent from mathlib. The claims were verified against the pinned
+revision `eed770a...`, roughly seven months old — and a pinned revision is
+evidence about the pin, not about the library. Checked against **master**
+today:
+
+| declaration | status at master |
+|---|---|
+| `StarSubalgebra.coe_iSup_of_directed` | **EXISTS** — `Mathlib/Algebra/Star/Subalgebra.lean`, same statement, variable names included |
+| unitary conjugation as `StarAlgEquiv` | **EXISTS** — `Unitary.conjStarAlgAut` in `Mathlib/Algebra/Star/UnitaryStarAlgAut.lean` (Monica Omar, 2025), covering the multiplicativity lemma too |
+| `Matrix.reindexStarAlgEquiv` | absent — survives |
+| `IsDenseInducing.extendStarAlgHom` | absent — survives |
+
+So the honest count is **two** novel upstream candidates, not four. The
+declarations themselves are still correct and still used; what was false was
+the claim that mathlib lacks them. Nothing is withdrawn mathematically. This is
+the single most useful thing the review returned, and it is exactly what the
+dispatch asked for.
+
+Mathlib still appears to have no Noether–Skolem theorem — but note that
+third-party Lean 4 formalisations of Skolem–Noether do exist outside mathlib
+(e.g. the `TNLean` library), so "mathlib lacks it" is the defensible claim and
+"nobody has formalised it" is not.
+
+**2. The `ch_2` range claim was overstated at the lower end.** §5 said the
+formula has range `[-1/2, +1/2]` on *every* real matrix, sharp at both ends.
+False. `ch2Matrix_le_half` is unconditional, but the lower bound
+`neg_half_le_ch2Matrix_of_trace_eq_zero` **requires `W.trace = 0`**; the 3×3
+identity has trace 3 and gives `-1`.
+
+**The negative result itself survives intact**, because
+`ch2Matrix_lt_threshold` needs only the unconditional *upper* bound:
+`ch_2 ≤ 1/2 < 19/20`. So a `> 0.95` gate is still satisfiable by no matrix at
+all. The Lean was right throughout — its docstrings say "No hypothesis on `W`"
+and "For a traceless matrix" respectively. The error was in my summary prose.
+
+**Also changed since first issue:**
+
+- §7.1, extracting the C2 arc, is **DONE**. `PF/Upstream/NoetherSkolemC2.lean`
+  holds the C1+C2 arcs byte-identically with mathlib-only imports, PRISTINE
+  20/20; `NoetherSkolemMatrix.lean` was rebased onto it, so the whole
+  Noether–Skolem chain is PF-free. `SubstrateRigidity.lean` was then
+  de-duplicated: 115,872 → 69,447 bytes, with all seven audited declarations
+  axiom-identical. What remains before a PR is naming, not dependency.
+- **A new Millennium-adjacent finding**, from a reviewer's own prediction,
+  confirmed: `pristine_gate.sh PF.MillenniumSixReductions` is **NOT PRISTINE** —
+  criterion (d) fails on four unused binders, and (d2) reports five DEAD
+  premises, all fields of `HodgeAmbient`. Cause:
+  `HodgeAlgebraicRepresentation (_H : HodgeAmbient) (_class_idx : ℕ)` ignores
+  both arguments (`MillenniumSixReductions.lean:649`), so its three conjuncts
+  are satisfiable with no reference to the variety at all.
+- **Gate blind spot #5**, exposed by that finding: criterion (e) *passed*,
+  reporting "all 17 Prop definitions carry a satisfiability witness". (e) checks
+  a Prop is not always-**false**; it does not check that it is not
+  always-**true**. An always-true predicate makes every theorem concluding it
+  empty, which is the more dangerous direction for this corpus. Not yet fixed.
+- **Gate defect #4 fixed** (`9a97e85d`): `#audit_all` was sweeping
+  auto-generated structure-field projections as theorems, which made criterion
+  (d2) *unreachable* for any module defining a Prop-carrying structure.
+  Findings on `SubstrateRigidity` dropped 20 → 13; the remaining three targets
+  are real.
+- **Five stale timelines repaired** (`fc609ed4`), including a docstring that
+  called `encodeConfig_injective` a "proof sketch" with a "1-2 month" timeline
+  above a complete proof — the encoding ch21 and ch34A both build on.
+- Two terminology corrections accepted from review, **not yet applied to the
+  corpus**: "Elliott back-and-forth" overstates the C4 arc (a zig-zag is needed
+  only when dimension sequences differ; here they do not, so the argument is a
+  one-sided induction), and "Glimm's classification" is wider than what is
+  proved (missing: invariance under passing to a subsequence, and the converse
+  that the supernatural number is an invariant — neither needed for the stated
+  theorem). The honest description is uniqueness for a fixed tower.
+- One reviewer observation **checked and not reproduced**: a claim that
+  `ch24:624` reads "PROVEN (kernel-verified), UNCONDITIONALLY" in a way that
+  drifts from the ledger. At this HEAD the wording is at `ch24:630` and is
+  carefully scoped — it enumerates what it does *not* appeal to
+  (Gross–Zagier, Kolyvagin, Heegner points, descent, modularity) — and
+  `ch24:625` states plainly that "The Birch–Swinnerton-Dyer conjecture is NOT
+  proven here and remains open". Line numbers differed because the reviewer
+  read an earlier snapshot. Likewise `ch25:622` is self-aware: it says the
+  substrate discharges "do *not* amount to the Hodge conjecture".
+
+
+---
+
 ## 0. What this project is, and what "done" means
 
 **Principia Fractalis (PF)** is a book — 36 chapters, ~913 pages — plus a Lean 4
@@ -223,8 +313,12 @@ A reviewer should know the project has been actively falsifying its own claims.
 Each of these is kernel-verified and was written *against* a chapter assertion.
 
 - **`PF/Cosmology/VortexCavitationBridgeChecks.lean`** — the `ch_2` matrix
-  formula of ch06's neural-consciousness theorem has range `[-1/2, +1/2]` on
-  **every** real matrix, sharp at both ends. Therefore its own `> 0.95`
+  formula of ch06's neural-consciousness theorem is bounded **above** by `1/2`
+  on every real matrix with no hypothesis (`ch2Matrix_le_half`); the matching
+  lower bound `-1/2` holds only for **traceless** `W`
+  (`neg_half_le_ch2Matrix_of_trace_eq_zero`) — see REVISION 1, the first
+  issue of this brief wrongly claimed the two-sided range held on every
+  matrix. The unconditional upper bound is all the threshold result needs. Therefore its own `> 0.95`
   consciousness gate is satisfied by no connectivity matrix whatsoever, and
   `Θ(ch_2 − 0.95)` is identically zero under that formula. Also: counter-rotation
   cancels angular momentum only when moments of inertia agree, never cancels
