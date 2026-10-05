@@ -359,3 +359,56 @@ inclusion is isometric by definition. Same defect class as the file header
 repaired on 2026-10-02: a declaration's self-description outliving the facts.
 A docstring, not a proof, so it changes no result -- but it is exactly the kind
 of thing a referee reads and believes.
+
+
+---
+
+# CORRECTION 2026-10-05 (same day): two of the four are not gaps
+
+Dispatched external review refuted two of this document's central claims, and
+the refutation holds. Verified by fetching mathlib master directly rather than
+by argument.
+
+| declaration | claimed | actual, at mathlib master |
+|---|---|---|
+| `StarSubalgebra.coe_iSup_of_directed` | "the unital *-case is the single omission" | **EXISTS** in `Mathlib/Algebra/Star/Subalgebra.lean`, with the same statement, variable names included |
+| unitary conjugation as `StarAlgEquiv` | "mathlib has only the spectral consequence" | **EXISTS** as `Unitary.conjStarAlgAut : unitary R →* (R ≃⋆ₐ[S] R)` in `Mathlib/Algebra/Star/UnitaryStarAlgAut.lean` (Monica Omar, 2025), with `_apply`, `_symm_apply`, `_trans_`, `_mul_apply` — covering the multiplicativity lemma too, and bundling the monoid-hom structure more neatly than the pair here |
+| `Matrix.reindexStarAlgEquiv` | absent | **absent** — survives |
+| `IsDenseInducing.extendStarAlgHom` | absent | **absent** — survives |
+
+## The methodological error, stated plainly
+
+Every absence claim in this document was checked against the pinned revision
+`eed770a434957369c6262aa3fb1d6426419016d4`. That check was performed correctly
+and the results were true of that revision. The error was treating it as
+evidence about mathlib. **A pinned revision is evidence about the pin.** The
+pin is roughly seven months old, and `UnitaryStarAlgAut.lean` is dated 2025,
+so the declaration may well have existed upstream before this corpus wrote its
+private version — which means the original specialisation was arguably
+redundant from the start.
+
+The general rule this earns: **a novelty claim about a fast-moving library can
+only be made against that library's current state, and a local checkout is
+never that.** This is the same failure shape as the stale self-description
+class catalogued elsewhere in this corpus — a measurement that was true when
+taken, retained past its validity, and then relied on.
+
+## What is unaffected
+
+- Both declarations remain **correct**, remain PRISTINE, and remain used by
+  `PF/Upstream/NoetherSkolemMatrix.lean`. Nothing is withdrawn mathematically
+  and no proof changes.
+- `Matrix.reindexStarAlgEquiv` and `IsDenseInducing.extendStarAlgHom` survive
+  as genuine upstream candidates.
+- The C1+C2 extraction, the de-duplication, and the Noether–Skolem bundling
+  are untouched by this: none of them rested on the novelty claim.
+- Mathlib still appears to carry **no Noether–Skolem theorem**, which remains
+  the most valuable thing in this line. Caveat recorded: third-party Lean 4
+  formalisations of Skolem–Noether exist outside mathlib (e.g. `TNLean`), so
+  the defensible claim is "mathlib lacks it", not "nobody has formalised it".
+
+## Consequence for the PR plan
+
+Two candidates, not five. `IsTracialLinearFunctional` stays withheld for the
+reason already given. Before offering either survivor, re-check it against
+master on the day of submission — not against the pin.
