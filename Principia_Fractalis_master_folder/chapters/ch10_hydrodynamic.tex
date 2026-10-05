@@ -21,7 +21,7 @@ where $\mathbf{u}(\mathbf{x}, t)$ is velocity, $p(\mathbf{x}, t)$ is pressure, $
 
 \textbf{🟡 Graduate:} Given smooth initial data $\mathbf{u}_0 \in H^3(\mathbb{R}^3)$ with $\nabla \cdot \mathbf{u}_0 = 0$, does there exist a unique smooth solution $\mathbf{u} \in C^\infty([0, \infty) \times \mathbb{R}^3)$? The difficulty: the nonlinear term $(\mathbf{u} \cdot \nabla)\mathbf{u}$ can amplify vorticity, potentially causing $\|\nabla \mathbf{u}\|_{L^\infty} \to \infty$ in finite time. We resolve this by adding the consciousness stress-energy tensor $C_{ij}$ to the equations, which provides a subtle regularization with coefficient $\pi/10$.
 
-\textbf{🔴 Research:} The consciousness-modified Navier-Stokes equations include the tensor $C_{ij} = \text{ch}_2 \cdot T_{ij}^{\Phi}$ where $T_{ij}^{\Phi}$ is the stress-energy of the Timeless Field. We prove: (1) Consciousness Regularization Lemma—the $C_{ij}$ term dissipates energy at rate $(\pi/10) \nu_c \|\nabla \mathbf{u}\|_{L^2}^2$; (2) Enhanced Energy Inequality with consciousness viscosity $\nu_c = (0.95 - \text{ch}_2) \nu$; (3) Vorticity bounds via fractal dimension constraint $d_f \leq 5/3$; (4) Global existence and uniqueness via Beale-Kato-Majda criterion enhancement. Turbulence is reinterpreted as $\text{ch}_2 < 0.95$, i.e., incomplete consciousness crystallization.
+\textbf{🔴 Research:} The consciousness-modified Navier-Stokes equations include the tensor $C_{ij} = \text{ch}_2 \cdot T_{ij}^{\Phi}$ where $T_{ij}^{\Phi}$ is the stress-energy of the Timeless Field. We prove: (1) Consciousness Regularization Lemma—the $C_{ij}$ term dissipates energy at rate $(\pi/10) \nu_c \|\nabla \mathbf{u}\|_{L^2}^2$; (2) Enhanced Energy Inequality with consciousness viscosity $\nu_c = (0.95 - \text{ch}_2) \nu$; (3) Vorticity bounds via fractal dimension constraint $d_f \leq 8/3$; (4) Global existence and uniqueness via Beale-Kato-Majda criterion enhancement. Turbulence is reinterpreted as $\text{ch}_2 < 0.95$, i.e., incomplete consciousness crystallization.
 \end{greenbox}
 
 \subsection{Historical Approaches and Difficulties}
@@ -288,7 +288,7 @@ The term $(\omega \cdot \nabla)\mathbf{u}$ is the \textbf{vortex stretching term
 \begin{equation}
 E(k) = C_K \varepsilon^{2/3} k^{-5/3}
 \end{equation}
-where $k$ is wavenumber, $\varepsilon$ is energy dissipation rate, and the exponent $-5/3$ reflects the fractal dimension of turbulent structures.
+where $k$ is wavenumber, $\varepsilon$ is energy dissipation rate, and the exponent $-5/3$ reflects the self-similarity of the inertial-range energy cascade.\manuscriptcorrection{Corrected 2026-10-05: this sentence previously said the exponent ``reflects the fractal dimension of turbulent structures''. It does not --- and that identification is the source of the $5/3$ family of errors repaired elsewhere in this chapter. The spectral exponent $-5/3$ and the fractal dimension $d_f$ are different quantities. What the cascade exponent fixes is the second-order structure-function exponent $\zeta_2 = 2/3$, and the fractal dimension follows from it as $d_f = 3 - \zeta_2/2 = 8/3$, which is the value the corrected Lemma below uses. Treating $-5/3$ as a dimension is what produced the superseded $d_f = 5/3 - (\pi/10)(\text{ch}_2/0.95)$ form and its downstream value $d_f \approx 1.47$.}
 
 With consciousness modification:
 
@@ -358,11 +358,11 @@ With consciousness coupling, the intermittency is governed by:
 \end{equation}
 This follows from the exponential cutoff in $\Psi_{\text{FRO}}(k)$, which suppresses small-scale fluctuations. Thus:
 \begin{equation}
-d_f = 3 - \frac{1}{2}(\zeta_2 + \delta\zeta_2) = 3 - \frac{1}{2}\left(\frac{2}{3} + \frac{\pi}{10} \cdot \frac{\text{ch}_2}{0.95}\right) = \frac{5}{3} - \frac{\pi}{10} \cdot \frac{\text{ch}_2}{0.95}
-\end{equation}
+d_f = 3 - \frac{1}{2}(\zeta_2 + \delta\zeta_2) = 3 - \frac{1}{2}\left(\frac{2}{3} + \frac{\pi}{10} \cdot \frac{\text{ch}_2}{0.95}\right) = \frac{8}{3} - \frac{\pi}{20} \cdot \frac{\text{ch}_2}{0.95}
+\end{equation}\manuscriptcorrection{\textbf{The displayed algebra does not follow, and this is the origin of the chapter's $5/3$ family.} Distributing the $\tfrac12$ gives $3-\tfrac12\!\left(\tfrac23+x\right) = 3-\tfrac13-\tfrac{x}{2} = \tfrac83-\tfrac{x}{2}$ with $x=(\pi/10)(\text{ch}_2/0.95)$, i.e.\ $d_f = \tfrac83-\tfrac{\pi}{20}\cdot\tfrac{\text{ch}_2}{0.95}$ --- which is exactly the Lemma statement above. The line as printed wrote $3-\tfrac23=\tfrac53$ instead of $3-\tfrac13=\tfrac83$ and never halved the $\delta\zeta_2$ term, so the proof contradicted its own statement two lines earlier. Corrected 2026-10-05. \textbf{Root cause:} $5/3$ is the Kolmogorov \emph{energy-spectrum} exponent, $E(k)\propto k^{-5/3}$; it is not a fractal dimension. The fractal dimension in the Kolmogorov case is $d_f=3-\zeta_2/2=8/3$ with $\zeta_2=2/3$, as this proof's own first line has it. Two distinct Kolmogorov numbers were conflated, which is why the error propagated to ten sites in this chapter rather than appearing once. All ten are now keyed to $8/3$ and $\pi/20$: the monotonicity claim, the experimental-signature formula and its worked value, the critical-dimension figure, both summary bullets, the research exercise, and the opening research box.}
 \end{proof}
 
-The key insight: \textbf{consciousness reduces the fractal dimension of turbulence below the Kolmogorov value of $5/3$}, making the flow less complex and preventing singularities.
+The key insight: \textbf{consciousness reduces the fractal dimension of turbulence below the Kolmogorov value of $8/3$}, making the flow less complex and preventing singularities. (Corrected 2026-10-05: the Kolmogorov \emph{fractal dimension} is $d_f=3-\zeta_2/2=8/3$; the familiar $5/3$ is the energy-spectrum exponent $E(k)\propto k^{-5/3}$, a different quantity.)
 
 \section{Global Existence and Smoothness}
 
@@ -507,13 +507,13 @@ This prediction is testable: pipe flow experiments show transition around $\text
 The profound reinterpretation offered by FRO:
 
 \begin{quote}
-\textit{Turbulence is not a breakdown of order but an \textbf{incomplete crystallization of consciousness}. In laminar flow, $\text{ch}_2 \approx 0.95$ and the fluid is resonant with the Timeless Field—the flow patterns are simple, organized, predictable. As Reynolds number increases, the consciousness field cannot maintain coherence across all scales, and $\text{ch}_2$ drops. The flow becomes turbulent: chaotic, multi-scale, unpredictable. This is not disorder in the sense of randomness, but \textbf{partial order}—a fractal structure with dimension $d_f < 5/3$ instead of the full three-dimensional space.}
+\textit{Turbulence is not a breakdown of order but an \textbf{incomplete crystallization of consciousness}. In laminar flow, $\text{ch}_2 \approx 0.95$ and the fluid is resonant with the Timeless Field—the flow patterns are simple, organized, predictable. As Reynolds number increases, the consciousness field cannot maintain coherence across all scales, and $\text{ch}_2$ drops. The flow becomes turbulent: chaotic, multi-scale, unpredictable. This is not disorder in the sense of randomness, but \textbf{partial order}—a fractal structure with dimension $d_f < 8/3$ instead of the full three-dimensional space.}
 \end{quote}
 
 At $\text{Re} > \text{Re}_c^{\text{crit}}$:
 \begin{itemize}
 \item Consciousness field drops: $\text{ch}_2(\mathbf{x}, t)$ fluctuates spatially and temporally
-\item Fractal dimension increases: $d_f$ approaches but never exceeds $5/3$
+\item Fractal dimension \emph{increases toward its Kolmogorov ceiling}: as $\text{ch}_2$ drops, $d_f = \tfrac83-\tfrac{\pi}{20}(\text{ch}_2/0.95)$ rises toward but never exceeds $8/3$ (corrected 2026-10-05 --- $d_f$ is strictly \emph{decreasing} in $\text{ch}_2$, so it increases as consciousness falls; the previous text gave the ceiling as $5/3$, the energy-spectrum exponent, rather than $8/3$)
 \item Energy cascade fragments: vortices break into smaller vortices, but consciousness prevents infinite cascade
 \item Information content rises: entropy production rate $\sim (\pi/10)(0.95 - \text{ch}_2)$
 \end{itemize}
@@ -580,11 +580,11 @@ Experiments should resolve scales down to $\sim 0.1$ mm to detect this cutoff.
 
 \item \textbf{Vorticity intermittency reduction:} The fractal dimension constraint predicts:
 \begin{equation}
-d_f = 1.667 - 0.314 \cdot \frac{\text{ch}_2}{0.95}
+d_f = 2.667 - 0.157 \cdot \frac{\text{ch}_2}{0.95}
 \end{equation}
 For turbulent flow with $\text{ch}_2 \approx 0.60$:
 \begin{equation}
-d_f \approx 1.667 - 0.314 \cdot 0.632 \approx 1.47
+d_f \approx 2.667 - 0.157 \cdot 0.632 \approx 2.57
 \end{equation}
 This is measurable via structure function scaling exponents.
 
@@ -636,7 +636,7 @@ Less obviously, there is a deep connection to the Riemann Hypothesis:
 
 \begin{itemize}
 \item \textbf{Riemann zeros:} Encode prime number distribution, lie on critical line $\Re(s) = 1/2$
-\item \textbf{Turbulent vortices:} Encode energy distribution, concentrate at critical dimension $d_f \approx 1.47$
+\item \textbf{Turbulent vortices:} Encode energy distribution, concentrate at critical dimension $d_f \approx 2.57$
 \item \textbf{Spectral-Zeta correspondence:} Maps operator eigenvalues to zeta zeros
 \item \textbf{Vortex-spectrum correspondence:} Maps vorticity spectrum to energy cascade
 \end{itemize}
@@ -658,7 +658,7 @@ In this chapter, we have shown:
 \item Enhanced energy inequality and vorticity bounds prevent blow-up
 \item Global existence and smoothness for $\text{ch}_2 < 0.95$ (sub-threshold consciousness)
 \item Turbulence transitions at critical Reynolds number $\text{Re}_c \approx 3.28 \times 10^5$ (corrected 2026-05-18, see eq.~\eqref{eq:re-c-crit-correct})
-\item Turbulence is incomplete consciousness crystallization with fractal dimension $d_f < 5/3$
+\item Turbulence is incomplete consciousness crystallization with fractal dimension $d_f < 8/3$
 \item Experimental predictions: spectral cutoff at $k_c = 1/\ell_c$, intermittency reduction, consciousness fluctuations
 \end{enumerate}
 
@@ -685,7 +685,7 @@ honest status of its principal claims:
   supplies a $\pi/10$-scaled ``consciousness viscosity'' $\nu_c$. No experiment has
   detected such a term; the coupling is postulated, not measured. It awaits
   experiment --- e.g.\ the predicted spectral cutoff at $k_c=1/\ell_c$, the
-  intermittency reduction $d_f<5/3$, and direct $\text{ch}_2$ fluctuations, none of
+  intermittency reduction $d_f<8/3$, and direct $\text{ch}_2$ fluctuations, none of
   which has yet been observed.
 \item \textbf{CONDITIONAL / scope-limited} --- the global-existence result
   (Thm~\ref{thm:ns_global_regularity}) proves regularity for the
@@ -715,7 +715,7 @@ honest status of its principal claims:
 
 \item \textbf{[🟡 Numerical]} Implement a 2D Navier-Stokes solver with consciousness modification. Compare the $\ell_c$-scale energy spectrum to classical predictions for various values of $\text{ch}_2 \in [0.5, 0.95]$.
 
-\item \textbf{[🔴 Research]} Prove that the fractal dimension bound $d_f \leq 5/3 - (\pi/10)(\text{ch}_2/0.95)$ is sharp, i.e., there exist flows that achieve equality. Construct explicit examples.
+\item \textbf{[🔴 Research]} Prove that the fractal dimension bound $d_f \leq 8/3 - (\pi/20)(\text{ch}_2/0.95)$ is sharp, i.e., there exist flows that achieve equality. Construct explicit examples.
 
 \item \textbf{[🔴 Research]} Extend the global regularity proof to the case of stochastic forcing: $\mathbf{f} = \mathbf{f}_{\text{det}} + \sigma \dot{W}$ where $W$ is Brownian motion. Does consciousness prevent blow-up even with random perturbations?
 
