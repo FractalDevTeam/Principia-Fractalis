@@ -142,10 +142,17 @@ summed to `‖M‖²_HS = ∑_j ‖M *ᵥ e_j‖² ≤ n · ‖M‖²_op`.
 
 This step requires the same L² operator norm elaboration weight that
 caused `whnf` heartbeat timeouts in r84's direct entry-norm approach.
-For r85, we announce this bound as substrate content at Prop level;
-the kernel-verified proof is r85b (planned follow-up) substrate work
-with dedicated elaboration attention or via specific mathlib API
-navigation. -/
+For r85, we announce this bound as substrate content at Prop level.
+
+**CORRECTED 2026-10-05.** This paragraph previously ended "the
+kernel-verified proof is r85b (planned follow-up) substrate work with
+dedicated elaboration attention or via specific mathlib API navigation."
+r85b is not a planned follow-up: it is delivered in §§7–8 of **this same
+file**. `substrate_HS_norm_sq_bound` proves the bound,
+`substrate_HS_bound_holds` discharges `SubstrateHSNormBoundConjecture`
+outright, and `r85b_substrate_full_lipschitz_capstone` collects the
+unconditional result. A reader who stops at this section is told an open
+conjecture guards what the file proves a hundred-odd lines later. -/
 
 /-- **Substrate HS-vs-Op norm bound (Prop level for r85)**.
 
@@ -156,8 +163,15 @@ navigation. -/
 
     This is the classical finite-dimensional bound following from
     `‖M *ᵥ e_j‖² ≤ ‖M‖²` for each standard basis vector e_j and
-    summing over j. Announced as substrate content pending
-    kernel-verified proof (r85b substrate work). -/
+    summing over j.
+
+    **DISCHARGED — corrected 2026-10-05.** This docstring previously ended
+    "Announced as substrate content pending kernel-verified proof (r85b
+    substrate work)". It is no longer pending: `substrate_HS_bound_holds`
+    later in this file proves this very Prop, so the `Conjecture` in the name
+    is historical. The name is kept because downstream statements take it as
+    a hypothesis and renaming it would be a gratuitous API break; what is
+    corrected is the claim that its proof does not yet exist. -/
 def SubstrateHSNormBoundConjecture : Prop :=
   ∀ {n : ℕ} [NeZero n] (M : Matrix (Fin n) (Fin n) ℂ),
     substrate_HS_norm_sq M ≤ n * ‖M‖ ^ 2

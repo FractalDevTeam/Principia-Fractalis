@@ -494,6 +494,39 @@ lemma zero_gap_implies_p_equals_np
 -- ============================================================================
 -- SUMMARY: Lemma Dependency Graph and Timeline
 -- ============================================================================
+--
+-- CORRECTION 2026-10-05 — READ BEFORE THE TABLE BELOW.
+--
+-- The dependency graph and completion-status table that follow are a stale
+-- PROJECT TRACKER, retained for provenance. Two of their entries are now
+-- false, and one is true only in a narrow sense:
+--
+--   * "LEMMA 7: Δ=0 → P=NP (6-9 months, depends on L1)" and
+--     "LEMMA 7: 0% (blocked on L1)" are FALSE. That exact implication is
+--     proved immediately above this block, as
+--     `spectral_collapse_implies_complexity_collapse` and its alias
+--     `zero_gap_implies_p_equals_np`. The proof is complete, carries no
+--     proof placeholder, and is conditional only on the hypothesis `hpoly`.
+--
+--   * "LEMMA 1: 0% (needs R_f formalization)" is true ONLY of the originally
+--     envisioned route — constructing an R_f operator and applying the
+--     variational principle. That program was never built. The working proof
+--     reaches the same conclusion by a different route, using the closed-form
+--     definitions of `lambda_0_P` and `lambda_0_NP` directly via
+--     `spectral_lambda_P_gt_lambda_NP`. So the entry is not wrong about the
+--     R_f program; it is stale in failing to record that the obligation the
+--     tracker exists to track — LEMMA 7 — was discharged another way, in
+--     this same file.
+--
+--   * The "TOTAL TIMELINE: 12-18 months" and "OVERALL: ~45% complete" lines
+--     follow from the two entries above and are stale with them.
+--
+-- No rigor-ledger label changes. P-vs-NP remains CONDITIONAL REDUCTION per
+-- codex/BOOK_RIGOR_LEDGER_SPEC.md, on account of the Clay-statement-form
+-- discharge and the hypothesis `hpoly` — not on account of these lemmas
+-- being unformalised. The table below understates what is formalised while
+-- the ledger label stays correct for an entirely different reason.
+--
 
 /- DEPENDENCY GRAPH:
 
