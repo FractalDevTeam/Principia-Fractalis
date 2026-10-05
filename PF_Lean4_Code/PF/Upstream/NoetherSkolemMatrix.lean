@@ -3,7 +3,7 @@ Copyright (c) 2026 Pablo Cohen. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Pablo Cohen
 -/
-import PF.SubstrateRigidity
+import PF.Upstream.NoetherSkolemC2
 import PF.Upstream.MathlibStarAlgebra
 
 /-!
@@ -47,17 +47,29 @@ in, and draws the consequences the raw form leaves implicit:
   block-diagonal amplification. This pins down *all* such homs up to unitary
   equivalence, by combining C2 with the C1 arc's `blockDiagonalStarAlgHom`.
 
-## Upstream status — honest
+## Upstream status
 
-The *statements* here are upstreamable and the library wants them. The
-*proofs* are not yet: they rest on the C2 arc, roughly 700 lines inside
-`SubstrateRigidity.lean` (matrix-unit calculus C2.1–C2.5, the projection-trace
-count C2.6–C2.7, the orthonormal-basis construction C2.8, and the
-change-of-basis unitary C2.9–C2.10). Shipping Noether–Skolem to mathlib means
-extracting that arc as well, which is a larger job than the four lemmas in
-`PF/Upstream/MathlibStarAlgebra.lean` and is not attempted here. This module is
-therefore **not** PF-free, and says so rather than implying otherwise by
-sitting in the same directory.
+**This module and its entire proof chain are now PF-free.** It imports
+`PF.Upstream.NoetherSkolemC2` (the C1 and C2 arcs, extracted verbatim from
+`SubstrateRigidity.lean` and depending only on mathlib) and
+`PF.Upstream.MathlibStarAlgebra` (four star-algebra lemmas mathlib lacks, also
+mathlib-only). There is no longer any path from these statements to the
+substrate development.
+
+Earlier on 2026-10-05 this section said the opposite -- that the proofs rested
+on roughly 700 lines inside `SubstrateRigidity.lean` and that extracting them
+was "a larger job ... not attempted here." That was true when written and is
+false now. A dependency map of `SubstrateRigidity.lean` showed the two matrix
+arcs borrow **nothing** from the rest of that file -- not one name -- so they
+were never entangled with the substrate, merely co-located with it. The
+extraction was a slice, not a rewrite, and the proof text is byte-identical.
+
+**What still stands between this and a mathlib PR** is naming, not dependency:
+the declarations sit in the PF-local namespace
+`PrincipiaTractalis.SubstrateRigidity` and carry PF-local names. Upstreaming
+needs mathlib naming and placement -- `Matrix.*`, with the matrix-unit calculus
+C2.1–C2.5 going to the file where those lemmas belong. That is mechanical. The
+part that actually blocked it is done.
 
 Author: Pablo Cohen + Claude Opus 5. 2026-10-05.
 -/
