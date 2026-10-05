@@ -278,12 +278,64 @@ For a Hodge class $\xi$ with eigenvalue decomposition in $\mathcal{R}_\varphi$:
 \end{equation}
 the \textbf{spectral concentration} is:
 \begin{equation}
-\sigma(\xi) = \frac{\lambda_1}{\sum_{n=1}^{\infty} \lambda_n} = \frac{\text{largest eigenvalue contribution}}{\text{total spectrum}}
+\sigma(\xi) = \frac{\lambda_1}{\sum_{n=1}^{\infty} \lambda_n}
 \end{equation}
 \end{defn}
 
+\begin{remark}[Correction, 2026-10-03: this quantity does not depend on $\xi$, and is not a concentration]
+\label{rem:sigma-illposed-2026-10-03}
+Four problems, all visible from the chapter's own definitions.
+
+\textbf{It is independent of $\xi$.} The right-hand side involves only the
+eigenvalues $\lambda_n$ of $\mathcal{R}_\varphi$. The coefficients $c_n$ of
+$\xi = \sum_n c_n\psi_n$ --- introduced one line earlier for exactly this purpose
+--- never appear. So $\sigma$ as written is a constant of the operator, identical
+for every Hodge class on every variety, and the notation $\sigma(\xi)$ is
+misleading. Yet it is quantified over $\xi$ later, conditioned on in
+Theorem~\ref{thm:low-rank}, and tabulated with five \emph{different} values.
+
+\textbf{It is complex and $x$-dependent.} Definition~\ref{def:fractal-operator-hodge}
+gives the multiplier on mode $n$ as $e^{i\pi\varphi D(n)x}/n^{\varphi}$, so the
+$\lambda_n$ are complex numbers depending on the point $x$ --- which also means
+$\mathcal{R}_\varphi$ is not diagonal in $\{\psi_n\}$ with scalar eigenvalues, as
+the display above assumes. Consequently $\sigma$ is a complex, $x$-dependent
+quantity and not a real ``concentration''. Concretely:
+$|\lambda_1| = 1$ since $D(1) = 1$; $\sum_n|\lambda_n| = \zeta(\varphi) = 2.2381$,
+so the denominator converges absolutely; and at $x = 0$ all phases equal $1$ and
+$\sigma = 1/\zeta(\varphi) = \mathbf{0.4468}$. Since $x = 0$ maximises the
+denominator's modulus, $|\sigma| \geq 0.4468$ with \textbf{no upper bound} --- the
+denominator can approach zero at other $x$ because the terms carry varying
+phases. Comparing such a quantity to $0.95$ is not meaningful without specifying
+modulus or real part, and neither is bounded by $1$.
+
+\textbf{The required hypotheses are not established.} For $\lambda_1/\sum\lambda_n$
+to be a concentration in $[0,1]$ one needs $\mathcal{R}_\varphi$ positive
+semidefinite and trace-class with $\lambda_1$ largest. The chapter establishes
+none of these; the self-adjointness proposition it does prove is in tension with
+the non-real multipliers above.
+
+\textbf{The proof bounds a different quantity.} The argument for
+Theorem~\ref{thm:low-rank} establishes
+$\sum_{n\leq k}|c_n|^2 \geq 0.95\|\xi\|^2$ for $k = O(\log b_{2p})$. That is a
+$k$-term \emph{coefficient mass fraction}: $\xi$-dependent, real, genuinely in
+$[0,1]$ --- and not $\lambda_1/\sum\lambda_n$. It is also a weaker notion than
+the single-mode concentration the discussion describes. The two objects are one
+page apart and are not the same.
+
+\textbf{Which is intended is a choice, not an error to be patched.} The
+coefficient mass fraction is the quantity that is well defined, $\xi$-dependent
+and bounded, and it is what the proof actually controls; adopting it would require
+restating the definition, the threshold and the table. That decision is left
+open here rather than made silently.
+\end{remark}
+
 \begin{keyidea}
-Spectral concentration measures how much of $\xi$'s "energy" sits in the ground state (lowest eigenvalue):
+Spectral concentration is intended to measure how much of $\xi$'s ``energy''
+sits in a single dominant mode. \emph{Note (2026-10-03): the definition above
+annotates $\lambda_1$ as the ``largest eigenvalue contribution'' while this
+sentence previously said ``ground state (lowest eigenvalue)''. Those are
+mutually exclusive, and which is meant is part of the open question recorded in
+Remark~\ref{rem:sigma-illposed-2026-10-03}.}
 
 \begin{itemize}
 \item $\sigma \approx 0$: Spread out, chaotic, many degrees of freedom
