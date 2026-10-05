@@ -241,9 +241,32 @@ def elabAuditAll : CommandElab := fun stx => do
     if stx[2].isNone then `PrincipiaTractalis else stx[2][0].getId
   let env ← getEnv
   let mut targets : Array Name := #[]
+  let mut nProjSkipped := 0
   for (n, ci) in env.constants.toList do
     if ci.isTheorem && (n.toString.splitOn pat).length > 1 then
-      if ci.type.isForall then targets := targets.push n
+      if ci.type.isForall then
+        -- 2026-10-05, gate defect #4. Skip auto-generated structure-field
+        -- projections. A Prop-valued structure field yields a projection that
+        -- Lean classifies as a theorem (so `isTheorem` above does not filter
+        -- it) whose type is a `forall` (so `isForall` does not either). Such a
+        -- projection takes the whole structure and uses exactly one field, so
+        -- every OTHER field is DEAD by construction -- that is what a
+        -- projection is, not a defect. Before this guard, `Substrate3Inf`'s
+        -- own `tower_mono` / `tower_matrix` / `tower_dense` were swept as
+        -- targets, producing 6 spurious DEAD findings plus a CONTAINED line
+        -- reading "tower_dense is definitionally tower_dense". Worse, those
+        -- findings are unfixable in the source, which made criterion (d2)
+        -- unreachable for every module defining a Prop-carrying structure.
+        let isFieldProj : Bool :=
+          match n with
+          | .str p f =>
+              Lean.isStructure env p &&
+                (Lean.getStructureFields env p).contains (Name.mkSimple f)
+          | _ => false
+        if isFieldProj || (env.getProjectionFnInfo? n).isSome then
+          nProjSkipped := nProjSkipped + 1
+        else
+          targets := targets.push n
   liftTermElabM do
     let mut nClean := 0
     let mut nFind := 0
@@ -262,7 +285,8 @@ def elabAuditAll : CommandElab := fun stx => do
           if (s.splitOn "VACUOUS").length > 1 then nVac := nVac + 1
         logWarning m!"AUDIT {t}: {fs.size} finding(s)\n{MessageData.joinSep fs.toList "\n"}"
     logInfo m!"O-CIRC SWEEP [{pat}]: targets={targets.size} clean={nClean} \
-      withFindings={nFind} DEAD={nDead} CONTAINED={nCont} VACUOUS={nVac}"
+      withFindings={nFind} DEAD={nDead} CONTAINED={nCont} VACUOUS={nVac} \
+      projSkipped={nProjSkipped}"
 
 /-- `#audit_premises foo` — mechanical O-CIRC report for the declaration `foo`. -/
 syntax (name := auditPremises) "#audit_premises " ident (ppSpace ident)? : command
