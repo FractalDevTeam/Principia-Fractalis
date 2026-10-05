@@ -343,9 +343,19 @@ GU with RQG predicts an additional contribution:
 \begin{equation}
 \Delta a_\mu^{\text{RQG}} = \frac{\pi}{10} \cdot \frac{m_\mu^2}{M_{\text{GU}}^2} \cdot \text{ch}_2 = (2.47 \pm 0.12) \times 10^{-9}
 \end{equation}
-where $M_{\text{GU}} \approx 10^{16}$ GeV is the GU scale and $\text{ch}_2 = 0.95$.
+where $M_{\text{GU}} \approx 10^{16}$ GeV is the GU scale and $\text{ch}_2 = 0.95$.\manuscriptcorrection{Direct arithmetic with the chapter's own stated inputs --- $m_\mu = 0.1057$ GeV, $M_{\text{GU}} = 10^{16}$ GeV, $\text{ch}_2 = 0.95$ --- gives $(\pi/10)\cdot(0.1057^2/(10^{16})^2)\cdot 0.95 = 3.3344\times10^{-35}$, NOT $2.47\times10^{-9}$. The claimed value exceeds the formula's output by a factor of $7.4\times10^{25}$, and the output falls short of even the $1\sigma$ \emph{lower} edge of the quoted discrepancy ($1.92\times10^{-9}$) by $5.8\times10^{25}$. Theorems \texttt{deltaAMuRQG\_GUT\_upper\_bracket}, \texttt{deltaAMuRQG\_GUT\_ne\_claimed} and \texttt{deltaAMuRQG\_GUT\_lt\_anomaly\_lower\_edge} (file \texttt{PF/Ch11MuonG2RefutationAttempt.lean}, 2026-10-05) prove these axiom-free by bracketing the prediction below $10^{-34}$. \textbf{Diagnosis: the formula is sound, the scale substitution is not.} The expression is the standard shape of a new-physics contribution to a magnetic moment, $\Delta a \sim (\text{coupling})\cdot(m_\mu/M)^2$, and it reproduces the claimed $2.47\times10^{-9}$ at a mediator scale of $M \approx 1161$ GeV, i.e.\ about $1.16$ TeV --- a factor $8.6\times10^{12}$ below the grand-unification scale the chapter substitutes. Theorem \texttt{deltaAMuRQG\_claimed\_forces\_TeV\_scale} brackets the required scale strictly between $1100$ and $1200$ GeV, and \texttt{deltaAMuRQG\_strictAnti} shows the prediction is strictly decreasing in $M$, so no \emph{larger} scale can recover the number. \textbf{What survives:} the proportionality $\Delta a_\mu \propto (m_\mu/M)^2$ with an $O(1)$ coefficient remains a legitimate framework output. \textbf{What does not:} at $M_{\text{GU}} = 10^{16}$ GeV the framework predicts an unobservably small contribution to $a_\mu$ and therefore does not resolve the discrepancy quoted above. Reaching it would require positing a TeV-scale mediator, which this chapter does not do. Separately, and flagged rather than asserted: the experimental discrepancy itself has moved since this subsection was written, improved lattice determinations of the hadronic vacuum-polarisation contribution having been reported to bring the Standard Model prediction substantially closer to the measurement --- which bears on whether there is an anomaly here to resolve. That requires checking against the current literature and nothing above depends on it.}
 
-\textbf{Result:} The RQG prediction agrees with experiment within $1\sigma$, resolving the anomaly.
+\textbf{Result (corrected 2026-10-05):} At the stated inputs the RQG
+contribution is $3.33\times10^{-35}$, some twenty-five orders of magnitude
+below the quoted discrepancy, so it \textbf{does not} agree with experiment
+within $1\sigma$ and \textbf{does not} resolve the anomaly. The sentence
+previously printed here --- ``The RQG prediction agrees with experiment within
+$1\sigma$, resolving the anomaly'' --- rested on the $2.47\times10^{-9}$ figure
+that the formula does not produce at $M_{\text{GU}}$. The framework's honest
+prediction at grand-unification scale is that its contribution to $a_\mu$ is
+unobservably small; the quoted figure corresponds instead to a TeV-scale
+mediator, which is a different physical hypothesis and is not advanced in this
+chapter.
 
 \subsection{Hubble Tension}
 
@@ -460,6 +470,20 @@ Held to the standard of the machine-checked corpus:
 \begin{itemize}
 \item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} --- the entire RQG completion of Geometric Unity: the regularised shiab operator (Theorem~\ref{thm:rqg_shiab_welldefined}), the holographic $13\text{D}\to4\text{D}$ projection (Theorem~\ref{thm:holographic_projection}), and the BRST count $\dim H^2=78$ (Theorem~\ref{thm:rqg_cohomology}). These are framework-internal constructions, not kernel-verified; the projection's own proof carries a 2026-05-18 disclosure that the dimension arithmetic does not yield 4 and that the 4D count is empirical input.
 \item \textbf{ASSERTED --- refuted at the stated numerical close} --- the two routes claiming $\text{ch}_2=0.95$: the 14D anomaly cancellation (Theorem~\ref{thm:anomaly_cancel}) and the Gaussian $\langle|\Psi_{\text{RQG}}|^2\rangle$ (Proposition~\ref{prop:rqg_mean}). Both carry inline \texttt{manuscriptcorrection} notes with axiom-free Lean refutations: the anomaly route misses by $\approx1570\times$ and the Gaussian route yields $\approx0.7837$, not $0.95$. The threshold survives only via its independent Ch~6 Chern--Weil route, not via this chapter.
+
+\item \textbf{ASSERTED --- refuted at the stated numerical close (added
+2026-10-05)} --- the muon $g-2$ ``anomaly resolution'' of
+\S\,``Muon Magnetic Moment Anomaly''. The prediction
+$\Delta a_\mu^{\text{RQG}} = (\pi/10)(m_\mu^2/M_{\text{GU}}^2)\text{ch}_2$
+evaluates at the chapter's own inputs to $3.3344\times10^{-35}$, not the
+printed $(2.47\pm0.12)\times10^{-9}$ --- a factor $7.4\times10^{25}$. Five
+axiom-free theorems in \texttt{PF/Ch11MuonG2RefutationAttempt.lean} establish
+this, show the value misses even the $1\sigma$ lower edge of the quoted
+discrepancy, show the prediction is strictly decreasing in the mediator scale
+so no larger scale helps, and bracket the scale that \emph{would} reproduce the
+printed number between $1100$ and $1200$ GeV. The formula's \emph{shape}
+survives as a legitimate framework output; the claim to resolve the
+experimental discrepancy does not.
 \item \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED / NOT INDEPENDENTLY VALIDATED} --- the anomaly ``resolutions'' (muon $g-2$, Hubble tension, ANITA events, primordial lithium, XENON $^{127}$Xe). Several are back-fitted so the RQG correction reproduces the measured value; the agreement claimed here is not independent confirmation.
 \item \textbf{ASSERTED (not derived)} --- $\pi/10$, $\text{ch}_2=0.95$, and $R_f$ throughout inherit their definitional status from Ch~\ref{ch:constants}.
 \end{itemize}
