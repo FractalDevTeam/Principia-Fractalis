@@ -1200,7 +1200,7 @@ theorem encodeConfig_head_and_tape_eq_PROVEN : ∀ c₁ c₂ : TMConfig,
     NOTE: This is a KEY property for the framework. Without injectivity,
     the map from computational configurations to operator states would not be well-defined.
 
-    PROOF STRATEGY (1-2 months):
+    PROOF OUTLINE (the proof below implements exactly this):
     1. Use fundamental theorem of arithmetic: every n has unique prime factorization
     2. For encode(C) = 2^q' · 3^i · ∏_{j} p_{j+1}^{a_j}:
        - Power of 2 uniquely determines q' (machine state)
@@ -1210,14 +1210,27 @@ theorem encodeConfig_head_and_tape_eq_PROVEN : ∀ c₁ c₂ : TMConfig,
        the entire configuration C is uniquely determined by encode(C)
     4. Therefore encodeConfig is injective
 
-    FORMALIZATION REQUIREMENTS:
-    - Mathlib.Data.Nat.Factorization.Basic (unique factorization)
-    - Proof that nthPrime values are pairwise distinct
-    - Extraction lemmas for powers of specific primes from factorization
+    FORMALIZATION REQUIREMENTS — ALL MET. The extraction lemmas this needed
+    are proved in this file: `encodeConfig_state_eq`, `encodeConfig_head_eq`,
+    and `encodeConfig_tape_eq`, the last resting on `tape_encoding_injective`.
 
-    Timeline: 1-2 months (requires formalizing prime extraction from factorization)
+    CORRECTED 2026-10-05. This docstring previously headed the outline above
+    with "PROOF STRATEGY (1-2 months)", closed with "Timeline: 1-2 months
+    (requires formalizing prime extraction from factorization)", and the line
+    immediately below it described the result as a "proof sketch". All three
+    were false. The proof below is complete and unconditional and contains no
+    proof placeholder — and neither does any other proof in this file. The
+    work the timeline was estimating had already been done.
+
+    Why this mattered rather than being untidy: left in place, the estimate
+    tells a referee that injectivity of `encodeConfig` — the encoding both
+    Chapter 21 and ch34A build on — is an open task months from completion.
+
+    No rigor-ledger label changes as a result of this correction. The P-vs-NP
+    material remains CONDITIONAL REDUCTION for the reason given in
+    `codex/BOOK_RIGOR_LEDGER_SPEC.md`, which concerns the Clay-statement-form
+    discharge and has nothing to do with this lemma.
 -/
--- Convert from axiom to theorem with proof sketch
 theorem encodeConfig_injective : Function.Injective encodeConfig := by
   -- We need to show: ∀ c₁ c₂, encodeConfig c₁ = encodeConfig c₂ → c₁ = c₂
   intro c₁ c₂ h_eq
@@ -1528,13 +1541,29 @@ theorem resonance_determines_spectrum :
 
     This lemma will be crucial for proving Δ > 0 ↔ P ≠ NP.
 
-    ROADMAP for proof:
+    PROOF OUTLINE (implemented, not planned):
     1. Certificate structure adds terms ∑ i·D₃(c_i) to energy functional
     2. This modifies generating function for N_m^(3) in self-adjointness condition
     3. Modified generating function requires α_NP > α_P for reality condition
     4. Therefore α_NP - α_P = Δα > 0
 
-    Timeline: 6-9 months (requires formalizing generating functions and reality conditions)
+    CORRECTED 2026-10-05. This previously read "ROADMAP for proof" and closed
+    with "Timeline: 6-9 months (requires formalizing generating functions and
+    reality conditions)". That formalisation is done: the body below is the
+    single term `alpha_separation h`, and `alpha_separation` is proved in full
+    earlier in this file.
+
+    WHAT REMAINS, STATED PRECISELY — read this before citing the theorem.
+    This result is **conditional**, and the condition is the one named
+    hypothesis `h : TuringEncoding.PolylogEigenvalueConjecture`, carried
+    openly in the signature rather than hidden in a comment. What is NOT
+    outstanding is six to nine months of generating-function formalisation.
+    What IS outstanding is exactly that conjecture.
+
+    The distinction cuts both ways. The old text overstated the remaining
+    work; it would be equally wrong to read this correction as making the
+    result unconditional. It does not, and the hypothesis in the signature is
+    the authority on that, not this docstring.
 -/
 theorem certificate_forces_higher_frequency
     (h : TuringEncoding.PolylogEigenvalueConjecture) : alpha_NP > alpha_P :=

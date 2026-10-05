@@ -138,11 +138,27 @@ theorem np_not_p_requires_certificate :
     5. This modifies self-adjointness condition → α_NP > α_P (proven in TuringEncoding)
     6. Resonance separation → spectral separation → Δ > 0
 
-    ASSESSMENT:
+    ASSESSMENT (corrected 2026-10-05):
     - Structure: CORRECT ✓
     - Framework integration: COMPLETE ✓
-    - Gaps: Multiple lemmas need proof (documented below)
-    - Timeline: 12-18 months for complete formalization
+    - Proof body: COMPLETE ✓ — no proof placeholder in this file
+    - Conditional on: the single named hypothesis `hpoly`, below
+    - Clay-statement-form discharge: NOT established — hence the book's
+      CONDITIONAL REDUCTION label, which this correction does not change
+
+    SUPERSEDED TEXT. The two lines above previously read:
+        "- Gaps: Multiple lemmas need proof (documented below)
+         - Timeline: 12-18 months for complete formalization"
+    Both were stale, and this file already contradicted them: the note at
+    the top of this section records that the axiom `p_eq_np_iff_zero_gap`
+    "has been ELIMINATED" and is "now PROVEN as a theorem in
+    P_NP_Complete_Proof.lean". That note sits roughly fifteen lines above the
+    12-18-month estimate, and the estimate was then quoted inside the body of
+    the completed proof below it.
+
+    The honest statement of what is outstanding is the hypothesis `hpoly`
+    in the signature, plus the Clay-form discharge that the rigor ledger
+    already accounts for. It is not a year and a half of formalisation.
 
     Reference: Chapter 21, Sections 21.1-21.8, conclusion at ch21_p_vs_np.tex:1448-1537
 -/
