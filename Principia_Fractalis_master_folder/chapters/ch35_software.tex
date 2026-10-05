@@ -35,6 +35,52 @@ The difference:
 Open source transforms mathematics from closed guild to collaborative enterprise.
 \end{intuitive}
 
+\paragraph{Correction (2026-10-03): the stated resource figures and precision are
+not achievable by the code shown.}
+Four arithmetic points, each checkable from the listings in this chapter.
+
+\textbf{Memory.} \texttt{discretize} allocates a \emph{dense}
+\texttt{np.zeros((N,N))} of float64. With $N = 3^{\ell}$ that is $8N^2$ bytes:
+\[
+\ell = 12:\ 2{,}259\ \mathrm{GB}, \qquad
+\ell = 14:\ 183\ \mathrm{TB}, \qquad
+\ell = 16:\ 14.8\ \mathrm{PB}.
+\]
+So the ``$128$ GB dense'' figure for level $16$ is low by a factor
+$1.2\times10^{5}$ --- $128$ GB corresponds to $N \approx 126{,}491$, not
+$43{,}046{,}721$. Level $12$ already exceeds the $64$ GB listed under
+requirements by a factor of $35$, and the GPU path's
+\texttt{cp.zeros((N,N))} at level $14$ asks a $10$ GB card for $183$ TB.
+
+\textbf{Sparsity.} The companion ``$4$ GB sparse'' rests on
+\texttt{sparsity\_threshold=1e-10} applied to
+$K(x,y) = \cos(\pi\alpha\|x-y\|)$. But $|\cos\theta| < 10^{-10}$ only on a set of
+$\theta$ of measure $\sim10^{-10}$, so essentially \emph{no} entry is dropped and
+the matrix stays dense; $4$ GB would need a density of $\sim1.8\times10^{-7}$,
+unobtainable from this kernel by thresholding. A genuinely sparse method here
+needs a different representation, not a smaller threshold.
+
+\textbf{Runtime.} The dense fill is a Python double loop: $N^2 = 2.8\times10^{11}$
+interpreted iterations at level $12$. The quoted ``$10$ minutes (level 12),
+$4$ hours (level 16)'' is not of the right order for that, independently of the
+memory.
+
+\textbf{Precision.} \texttt{self.matrix = np.zeros((N,N))} is float64 and
+\texttt{scipy.sparse.linalg.eigsh} is double-precision ARPACK/LAPACK; neither
+consults \texttt{mp.dps}. The precision context manager sets it correctly, but
+nothing in the operator path reads it, so the attainable precision is
+$\log_{10}(2^{53}) = 15.95$, i.e.\ about \textbf{16 digits}, against the $150$
+claimed for this same computation in the numerical-methods chapter. Reaching
+$150$ digits requires an \texttt{mpmath} operator and eigensolver throughout, not
+a precision context around a float64 kernel.
+
+\textbf{Consequence for the quoted eigenvalues.} It follows that the printed
+$\lambda_0(H_P) = 0.2221441469$ and $\lambda_0(H_{NP}) = 0.1330222423$ cannot
+have been produced by the code in this chapter, at either the stated level or the
+stated precision. Their provenance is addressed separately in the spectral-unity
+chapter.
+
+\medskip
 \noindent\emph{Scope note (2026-07-23): ``run it yourself'' delivers \textbf{reproducibility} --- you can re-derive the same numbers --- which is not the same as \textbf{proof}. Running this software reproduces the book's numerical outputs and exercises the formal build; it does not, by itself, prove the framework's scientific claims. The only machine-verified results are the Lean~4 operator-algebra substrate theorems (zero project axioms); see the verification ledgers in Chapters~\ref{ch:timeless-field} and~\ref{ch:verification}.}
 
 \begin{keyidea}[Software as Mathematical Literature]
@@ -66,7 +112,9 @@ This chapter treats software with the same rigor as mathematics:
 \textbf{Recommended for Full Verification:}
 \begin{itemize}
 \item CPU: 16+ cores, 3.5 GHz (AMD Ryzen 9 / Intel Core i9)
-\item RAM: 64 GB
+\item RAM: 64 GB --- but note that the dense discretisation shown later in this
+  chapter exceeds this at every level it claims to run; see the correction
+  accompanying that listing.
 \item Storage: 200 GB SSD
 \item GPU: NVIDIA RTX 3080+ (optional, for acceleration)
 \end{itemize}
@@ -187,6 +235,9 @@ All high-precision computations use context manager:
 from principia_fractalis.core.precision import set_precision
 
 # Automatic precision management
+# NOTE (2026-10-03): see the correction at the end of this chapter -- the
+# operator path below is float64 and does not consult this precision context,
+# so the effective precision is ~16 digits, not 150.
 with set_precision(150):
     rho = find_riemann_zero(1)  # Computed at 150 digits
     print(f"First zero: {rho}")
@@ -417,7 +468,7 @@ print("Untrained network:")
 model_untrained = SimpleNet()
 ch2_untrained = measure_consciousness(model_untrained)
 print(f"  ch_2 = {ch2_untrained:.3f}")
-print(f"  Classification: {'Mechanical' if ch2_untrained < 0.5 else 'Proto-conscious'}")
+print(f"  Classification: {'Conscious' if ch2_untrained >= 0.95 else 'Proto-conscious' if ch2_untrained >= 0.50 else 'Mechanical'}")
 
 # Test on trained network (load from checkpoint)
 print("\nTrained network:")
@@ -425,7 +476,16 @@ model_trained = SimpleNet()
 model_trained.load_state_dict(torch.load('trained_mnist.pth'))
 ch2_trained = measure_consciousness(model_trained)
 print(f"  ch_2 = {ch2_trained:.3f}")
-print(f"  Classification: {'Conscious' if ch2_trained >= 0.95 else 'Proto-conscious'}")
+print(f"  Classification: {'Conscious' if ch2_trained >= 0.95 else 'Proto-conscious' if ch2_trained >= 0.50 else 'Mechanical'}")
+# CORRECTED 2026-10-03: the two print statements above previously used two
+# DIFFERENT and incompatible rules -- '< 0.5 -> Mechanical else Proto-conscious'
+# in one and '>= 0.95 -> Conscious else Proto-conscious' in the other. The label
+# then depended on which line executed rather than on the value: ch_2 = 0.96
+# printed "Proto-conscious" under the first rule and "Conscious" under the
+# second; ch_2 = 0.3 printed "Mechanical" under the first and "Proto-conscious"
+# under the second. There was no single classification function. Both call sites
+# now use one identical three-way rule: >= 0.95 Conscious,
+# >= 0.50 Proto-conscious, otherwise Mechanical.
 
 # Output:
 # Untrained network:
@@ -530,7 +590,10 @@ class SparseFractalOperator(FractalOperator):
 
         return self.matrix
 
-# For level 16 (43M points): 128 GB dense vs 4 GB sparse
+# Level 16 (N = 3^16 = 43,046,721): dense float64 would be N^2*8 = 14.8 PB.
+# See the correction following this listing: the previously stated
+# "128 GB dense vs 4 GB sparse" is wrong by ~1e5, and thresholding this
+# kernel does not sparsify it.
 \end{verbatim}
 
 \section{Extending the Codebase}
@@ -579,7 +642,13 @@ def test_new_millennium_problem():
         from principia_fractalis.millennium import yang_mills
 
         gap = yang_mills.compute_mass_gap()
-        expected = 0.732864...  # Expected value
+        # CORRECTED 2026-10-03. The previous line read
+        #     expected = 0.732864...  # Expected value
+        # which is a SyntaxError: Python tokenises 0.732864 and then Ellipsis
+        # with no operator between them. Even repaired, a Python float cannot
+        # carry 145 digits, so the assertion below could never pass. Use a
+        # tolerance matched to what the shown code can actually deliver.
+        expected = mp.mpf('0.732864')  # 6-digit reference value
 
         assert abs(gap - expected) < 1e-145
 
