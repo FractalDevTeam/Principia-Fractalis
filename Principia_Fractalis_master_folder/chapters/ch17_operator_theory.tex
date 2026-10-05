@@ -53,7 +53,23 @@ An operator $A$ is \textbf{unbounded} if it is not bounded. Such operators are o
 \begin{example}[Position and Momentum]\label{ex:position-momentum-bounded}
 On $L^2(\mathbb{R})$:
 \begin{itemize}
-\item Position $\hat{x}$: \textbf{Unbounded}. For $\psi(x) = e^{-x^2/2}$, $\hat{x}\psi = x e^{-x^2/2}$ is in $L^2$. But for $\psi_n(x) = n^{-1/4} e^{-(x-n)^2/2}$ (Gaussian centered at $x=n$), we have $\|\hat{x}\psi_n\| \sim n$, which grows without bound.
+\item Position $\hat{x}$: \textbf{Unbounded}. For $\psi(x) = e^{-x^2/2}$,
+$\hat{x}\psi = x e^{-x^2/2}$ is in $L^2$. But for
+$\psi_n(x) = n^{-1/4} e^{-(x-n)^2/2}$ (Gaussian centered at $x=n$) the
+\emph{ratio} $\|\hat{x}\psi_n\|/\|\psi_n\| = \sqrt{n^2 + \tfrac12} \sim n$ grows
+without bound, which is what unboundedness requires.
+
+\emph{Correction (2026-10-03): the quantity that grows like $n$ is the ratio, not
+the numerator.} With $u = x-n$,
+$\|\psi_n\|^2 = n^{-1/2}\!\int e^{-u^2}du = \sqrt\pi\,n^{-1/2}$ and
+$\|\hat x\psi_n\|^2 = n^{-1/2}\!\int (u+n)^2e^{-u^2}du = \sqrt\pi\,n^{-1/2}(n^2+\tfrac12)$.
+So $\|\hat x\psi_n\| = \pi^{1/4}n^{3/4}$, not $\sim n$ --- checked at
+$n = 10^4$: $\|\hat x\psi_n\| = 1.3313\times10^3 = \pi^{1/4}n^{3/4}$ exactly,
+with ratio $10000.0000$. Note also that $\|\psi_n\| = \pi^{1/4}n^{-1/4} \to 0$,
+so the $n^{-1/4}$ prefactor is \emph{not} a normalisation; had it been the
+$n$-independent $\pi^{-1/4}$, the numerator itself would indeed have grown like
+$n$. The unboundedness conclusion is unaffected either way, since
+$n^{3/4} \to \infty$.
 
 \item Momentum $\hat{p} = -i\hbar d/dx$: \textbf{Unbounded}. Similar reasoning.
 
@@ -129,7 +145,19 @@ where $k(x,y)$ is a continuous kernel.
 
 If $k$ is continuous on $[0,1] \times [0,1]$, then $K$ is compact.
 
-Example kernel: $k(x,y) = \min(x,y)$ (Green's function for $-d^2/dx^2$ with Dirichlet boundary conditions).
+Example kernel: $k(x,y) = \min(x,y)$, the Green's function for $-d^2/dx^2$ on
+$[0,1]$ with a \emph{Dirichlet} condition at $x=0$ and a \emph{Neumann}
+condition at $x=1$.
+
+\emph{Correction (2026-10-03): these are not Dirichlet boundary conditions.} The
+Dirichlet--Dirichlet Green's function on $[0,1]$ is $G(x,y) = x(1-y)$ for
+$x \leq y$, which satisfies $G(1,y) = 0$. But $\min(1,y) = y \neq 0$, so
+$\min(x,y)$ fails the Dirichlet condition at the right endpoint. It satisfies
+$\min(0,y) = 0$ at the left, and is constant in $x$ for $x > y$, so
+$\partial_x \min(x,y)\big|_{x=1} = 0$ --- a Neumann condition there. The jump in
+$\partial_x$ across $x = y$ is $-1$, as required. The \emph{compactness}
+conclusion is untouched: $\min(x,y)$ is continuous on $[0,1]^2$, which is all the
+example needs.
 \end{example}
 
 \begin{keyidea}
@@ -309,13 +337,28 @@ where $\mathcal{M}' = \{B : AB = BA \text{ for all } A \in \mathcal{M}\}$ is the
 \end{definition}
 
 \begin{theorem}[Classification of von Neumann Algebras]\label{thm:von-neumann-classification}
-Every von Neumann algebra is a direct sum of factors (algebras with trivial center). Factors are classified into types:
+Every von Neumann algebra decomposes as a direct \emph{integral} of factors
+(algebras with trivial center) over the spectrum of its center; the decomposition
+reduces to a direct \emph{sum} exactly when that center is atomic. Factors are
+classified into types:
 \begin{itemize}
 \item \textbf{Type I}: $\mathcal{M} \cong \mathcal{B}(\mathcal{H})$ (bounded operators on a Hilbert space)
 \item \textbf{Type II}: Semifinite, no minimal projections (continuous but "smooth")
 \item \textbf{Type III}: No trace (arise in quantum field theory at finite temperature)
 \end{itemize}
 \end{theorem}
+
+\begin{remark}[Correction, 2026-10-03: direct integral, not direct sum]
+\label{rem:vn-direct-integral-2026-10-03}
+Earlier printings asserted a direct \emph{sum}. That holds only when the center
+is atomic. A concrete counterexample: $L^\infty[0,1]$ is a von Neumann algebra
+whose center is itself, hence diffuse; the only abelian factor is $\mathbb{C}$,
+and $L^\infty[0,1]$ is not a direct sum of copies of $\mathbb{C}$. The general
+statement is a direct integral over the spectrum of the center.
+
+The type I/II/III classification that follows is correct as stated and is
+unaffected by this correction.
+\end{remark}
 
 \begin{level3}
 \textbf{Relevance to Consciousness}:
@@ -338,7 +381,35 @@ If true, this would explain:
 \item Scale invariance (consciousness is fractal)
 \end{itemize}
 
-Proving this conjecture is a major open problem.
+\paragraph{Status upgrade (2026-10-03): for this framework's substrate, the
+conjecture is a theorem, not an open problem.}
+The claim above understates what the corpus already establishes. If
+$\mathcal{M}_C$ is taken to be the weak closure of the GNS representation of
+$\mathcal{T}_\infty$ with respect to its canonical tracial state --- the natural
+reading, and the only one for which ``trace'' in the bullets above has a referent
+--- then $\mathcal{M}_C$ \textbf{is} the hyperfinite type II$_1$ factor, by
+classical theory applied to the project's own machine-checked input.
+
+Specifically, $\mathcal{T}_\infty$ is the Glimm $3^\infty$ UHF algebra with a
+\emph{faithful} canonical trace (\texttt{UHF\_trace\_faithful}) which is
+\emph{unique} (\texttt{substrate\_UHF\_trace\_unique}) on a C\textsuperscript{*}-simple
+completion (\texttt{substrate\_completion\_simple\_unconditional}), together
+\texttt{r113\_substrate\_UHF\_factor\_capstone} --- all kernel-verified with zero
+project axioms. The weak closure of a UHF algebra in the GNS representation of
+its unique trace is the hyperfinite II$_1$ factor $\mathcal{R}$; this is
+Murray--von Neumann, not a conjecture. So each bullet above is settled rather than
+motivated: not type I (no minimal projections), not type III (the trace is
+faithful and finite), and type II$_1$ with the trace normalised to $1$.
+
+What remains genuinely open is \emph{not} the factor type but the identification
+of $\mathcal{M}_C$ with an algebra of ``consciousness observables'' --- that is
+the empirical bridge, and no operator-algebraic theorem bears on it. The three
+consequences listed above (continuity, finite total trace, hyperfiniteness) do
+follow from the factor type; whether they say anything about awareness does not.
+
+If $\mathcal{M}_C$ is intended to be some algebra \emph{other} than that GNS
+closure, the chapter should say which, since the argument above then does not
+apply.
 \end{level3}
 
 \subsection{GNS Construction}
