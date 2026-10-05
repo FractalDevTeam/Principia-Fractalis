@@ -48,8 +48,15 @@ axioms. Zero sorries.
   * `normalized_matrix_trace_add` — additivity.
   * `normalized_matrix_trace_smul` — ℂ-scalar homogeneity.
   * `normalized_matrix_trace_one` — τ(1) = 1 (unital).
-  * `normalized_matrix_trace_bound` — `‖τ(M)‖ ≤ ‖M‖` (1-Lipschitz)
-    under the L² operator norm.
+  * ~~`normalized_matrix_trace_bound`~~ — **CORRECTED 2026-10-05: NO SUCH
+    DECLARATION EXISTS.** This bullet claimed a 1-Lipschitz bound
+    `‖τ(M)‖ ≤ ‖M‖` under the L² operator norm as an r84 deliverable. An
+    unrestricted tree-wide search finds the name only in this file's own prose
+    — zero declarations. The content was in fact delivered later and by a
+    different route (Hilbert–Schmidt rather than direct entry-norm), as
+    `substrate_normalized_trace_bound` in
+    `PF/SubstrateUHFTraceLipschitz.lean` (r85b), which is unconditional. Cite
+    that one.
   * `NormalizedMatrixTraceExistsConjecture` Prop-level discharge.
   * r84 capstone bundling all seven identities.
 
@@ -147,8 +154,14 @@ summed over `i : Fin n`. -/
     proof, requiring careful attention to L² operator norm
     elaboration (both bound proofs hit `whnf` heartbeat timeouts
     under standard elaboration; the entry-norm bound
-    `matrix_entry_norm_le_opNorm` IS kernel-proved above and provides
-    the essential building block), is scheduled for r85 alongside the
+    `matrix_entry_norm_le_opNorm` was claimed here to be "kernel-proved
+    above" — **CORRECTED 2026-10-05: it does not exist.** An unrestricted
+    tree-wide search finds that name only in this file's prose, with zero
+    declarations. Nothing above provides it. The Lipschitz bound was obtained
+    later via the Hilbert–Schmidt route instead, as
+    `substrate_HS_norm_sq_bound` and `substrate_normalized_trace_bound` in
+    `PF/SubstrateUHFTraceLipschitz.lean` (r85b), so the entry-norm building
+    block was never needed), is scheduled for r85 alongside the
     uniform-continuity content of the pre-trace on the dense
     `Σ k, Matrix (Fin (3^k)) (Fin (3^k)) ℂ` type. -/
 
@@ -193,10 +206,19 @@ theorem normalized_matrix_trace_exists :
       (V2) `normalized_matrix_trace_add` — additivity.
       (V3) `normalized_matrix_trace_smul` — ℂ-scalar homogeneity.
       (V4) `normalized_matrix_trace_one` — τ(1) = 1 (unital).
-      (V5) `matrix_entry_norm_le_opNorm` — `‖M_ij‖ ≤ ‖M‖`.
-      (V6) `matrix_trace_norm_le_dim_opNorm` — `‖trace M‖ ≤ n · ‖M‖`.
-      (V7) **`normalized_matrix_trace_bound`** — `‖τ(M)‖ ≤ ‖M‖`
-           **the 1-Lipschitz bound** (essential analytic content).
+      (V5–V7) **WITHDRAWN 2026-10-05.** These three items named
+           `matrix_entry_norm_le_opNorm`, `matrix_trace_norm_le_dim_opNorm`
+           and `normalized_matrix_trace_bound` as part of this capstone. **None
+           of the three exists anywhere in the tree** — verified by
+           unrestricted search; the names occur only in this file's prose. The
+           capstone theorem below does not bundle them either, so a reader
+           checking r84's claimed deliverables against the file would not find
+           three of the eight. The analytic content they described was
+           delivered later by the Hilbert–Schmidt route, unconditionally, as
+           `substrate_HS_norm_sq_bound` / `substrate_normalized_trace_bound` in
+           `PF/SubstrateUHFTraceLipschitz.lean` (r85b). Nothing is lost
+           mathematically; what was wrong was claiming it here and in these
+           names.
       (V8) `NormalizedMatrixTraceExistsConjecture` Prop-level
            substrate discharge.
 

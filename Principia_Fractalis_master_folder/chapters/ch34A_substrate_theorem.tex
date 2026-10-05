@@ -1763,7 +1763,25 @@ $:= \texttt{GeneralSmoothQuintic}$ (framework-restricted).
 axiom-free on \texttt{FermatQuinticConcrete} via
 \texttt{Algebraic\allowbreak{}Cycles\allowbreak{}On\allowbreak{}Quintic\_\allowbreak{}holds}
 (\texttt{PF/\allowbreak{}Hodge\_\allowbreak{}Quintic\allowbreak{}CYCodim2Scaffold.\allowbreak{}lean}), proof by
-\texttt{c.rank\_one}. Open only on the generic non-CM smooth
+\texttt{c.rank\_one}.
+\textbf{Scope, corrected 2026-10-05:} that proof is a tautology and the
+PROVEN label above refers to a Lean fact, not a geometric one.
+\texttt{AlgebraicCyclesOnQuintic} \emph{ignores its variety argument}
+(declared \texttt{(\_Q : FermatQuinticConcrete)}), and
+\texttt{c.rank\_one} proves only that every integer equals itself times one.
+The Lean file says so itself: the Prop is ``definitionally \texttt{True}'' at
+substrate level and ``the GEOMETRIC content \ldots{} is the open question'',
+and \texttt{PF/AlgebraicGeometry/VoisinObstructionTypedUpgrade.lean} calls
+this and its companion ``\texttt{True}-shaped Props'' that are ``NOT proven
+unconditionally''. Consequently the phrase that followed --- that the result is
+open \emph{only} outside the Dwork locus --- was wrong in its implication: the
+geometric content is open for \textbf{every} instance, the Fermat and Dwork
+cases included, exactly as at the trivialisation noted for the Hodge chapter.
+The honest open target is the typed
+\texttt{Voisin2007GeneralQuinticCycleClassExistsHypothesis}, which does carry
+the Voisin 2007 obstruction. Nothing is withdrawn: the Lean theorem stands and
+is correctly described in its own file; this sentence is what had drifted.
+Still open on the generic non-CM smooth
 quintic outside the Dwork locus.
 \item \textbf{P vs NP} (C6) --- \texttt{PF\_\allowbreak{}Canonical\allowbreak{}Complexity\-Encoding}
 uses framework-canonical Cook--Karp types

@@ -18,10 +18,16 @@ kernel-verified and unconditional. r86 uses this bound to:
     from any given uniformly continuous pre-trace on `TimelessFieldRing`.
   * State substrate residual Prop-level content: the existence of a
     linear-unital pre-trace on the r30 substrate direct limit
-    `TimelessFieldRing` (deferred to r87 substrate work — the mathlib
-    direct-limit-of-linear-map API navigation for the r29 successor
-    RingHom compatibility class), and the corresponding UHF trace
-    on `TimelessFieldCompletion`.
+    `TimelessFieldRing`, and the corresponding UHF trace on
+    `TimelessFieldCompletion`.
+
+    **DISCHARGED — corrected 2026-10-05.** This read "deferred to r87
+    substrate work" and framed both residuals as future targets. r87 landed and
+    proves them outright: `substrate_pre_trace_exists` and
+    `substrate_UHF_trace_exists`, both unconditional, in
+    `PF/SubstrateUHFPreTraceDirectLimit.lean`. A reader stopping here was told
+    the UHF trace's very EXISTENCE is a future target, when the next file in
+    the same import chain already establishes it.
 
 ## Semantic scope
 
