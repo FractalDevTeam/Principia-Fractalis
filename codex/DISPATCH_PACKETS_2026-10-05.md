@@ -76,10 +76,21 @@ what it can opine about:
 > **B2. Audit the ledger for drift.** The brief gives the measured label
 > distribution across 36 chapters: PROVEN in 14, CONDITIONAL REDUCTION in 7,
 > ASSERTED in 24, EMPIRICAL HYPOTHESIS in 22. Reason about what that pattern
-> implies. In particular: only the operator-algebra substrate is supposed to be
-> kernel-verified, yet PROVEN appears in 14 chapters. Either those are citing
-> the substrate result legitimately, or some are over-labelled. Which chapters
-> would you check first, and what exactly would you look for in each?
+> implies, and which chapters you would check first, and what exactly you would
+> look for in each.
+>
+> *Premise corrected 2026-10-05 — this task previously told you that "only the
+> operator-algebra substrate is supposed to be kernel-verified, yet PROVEN
+> appears in 14 chapters", and asked you to resolve that tension. The premise
+> was false and the tension was manufactured. The corpus kernel-verifies the
+> substrate AND a large body of arithmetic and refutation results, so PROVEN in
+> 14 chapters is not prima facie anomalous. Do not reason from the withdrawn
+> framing. The real question is narrower and harder: for each PROVEN label,
+> is the kernel-verified statement **the statement the chapter is making**, or a
+> weaker arithmetic shadow of it? A `noncomputable def` of a closed form
+> followed by a theorem bracketing its decimal expansion is kernel-verified and
+> establishes nothing about the physics — that shape is the one to hunt. At
+> least one known case is a PROVEN label on a tautology (ch34A).*
 >
 > **B3. Attack today's two upstream claims on their mathematics**, not their
 > gate status:
