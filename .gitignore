@@ -123,3 +123,17 @@ Principia_Fractalis_master_folder/*.blg
 *.bak
 *.bak.*
 build_r331d.done
+
+# --- point-in-time script backups (2026-10-05) ---
+# Scripts that modify the verification gate write a dated backup beside
+# themselves before editing, e.g. scripts/pristine_gate.sh.prefix_2026-10-05.
+# These are IGNORED rather than tracked, and that is a deliberate, verified
+# choice: each was confirmed byte-identical (`cmp`) to the version git already
+# holds in the immediately preceding commit, so the content is fully
+# recoverable from history and tracking it would only duplicate it. The files
+# are left on disk as working copies, not deleted.
+# NOTE: this entry exists so `git status` is HONESTLY clean. It is not a licence
+# to ignore anything inconvenient -- a1_v4.sh was left untracked for days and
+# then filtered out of status output, which made a "tree clean" report false.
+# Anything whose content is NOT already in git gets TRACKED, never ignored.
+*.prefix_20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]
