@@ -231,7 +231,18 @@ if [ -f "PF/Audit/PremiseAudit.lean" ] && [ "${#AUDIT_DECLS[@]}" -gt 0 ]; then
     NH=$(printf '%s\n' "$AUDIT_HITS" | wc -l)
     fail "(d2) PremiseAudit: $NH semantic finding(s) — dead / contained / vacuous premises"
     printf '%s\n' "$AUDIT_HITS" | head -6 | sed 's/^/      /'
-    grep -E '^O-CIRC SWEEP' "$AO" | head -3 | sed 's/^/      /'
+    # Show the sweeps that actually CARRY findings. This was `head -3` until
+    # 2026-10-05, which on a module with more than three sweeps could display
+    # only clean ones while the FAIL line above reported findings -- exactly
+    # what happened on PF/SubstrateRigidity.lean, costing a separate
+    # full-module #audit_all probe to identify the declaration. The count comes
+    # from the untruncated AUDIT_HITS list, so only the display was affected.
+    SWEEPHITS="$(grep -E '^O-CIRC SWEEP' "$AO" | grep -v 'withFindings=0' || true)"
+    if [ -n "$SWEEPHITS" ]; then
+      printf '%s\n' "$SWEEPHITS" | head -8 | sed 's/^/      /'
+    else
+      grep -E '^O-CIRC SWEEP' "$AO" | head -3 | sed 's/^/      /'
+    fi
   else
     pass "(d2) PremiseAudit: no dead / contained / vacuous premises over ${#AUDIT_DECLS[@]} decls"
   fi
@@ -330,6 +341,20 @@ else
   REC_SEEN="$(grep -c 'depends on axioms:' "$PROBE_OUT" || true)"
   REC_JOINED="$(grep -c 'depends on axioms:' "$JOINED" || true)"
 
+  # A declaration with NO axiom dependencies prints a different message:
+  #     'foo' does not depend on any axioms
+  # Counting only 'depends on axioms:' therefore makes an AXIOM-FREE theorem --
+  # the strongest possible outcome -- indistinguishable from an unprobed one,
+  # and the reconciliation below then WARNs on the best case. Found 2026-10-05
+  # on PF/Ch20Ch25NumericObstructions.lean: 3 of 14 declarations are axiom-free
+  # (k3_betti_decomposition, k3_gap_is_the_non_pp_part, tier_counts_are_ten_based,
+  # all closed by `decide`) and the gate reported "3 produced no axiom record".
+  # Counted explicitly below and reconciled alongside REC_SEEN. Conservative:
+  # only declarations Lean POSITIVELY reports as axiom-free are reclassified, so
+  # a genuinely unprobed declaration -- which prints neither message -- still
+  # trips the WARN.
+  AXFREE="$(grep -c 'does not depend on any axioms' "$PROBE_OUT" || true)"
+
   # collect any axiom token that is not on the allowlist
   BAD="$(sed 's/.*depends on axioms: //' "$JOINED" \
         | tr -d '[]' | tr ',' '\n' \
@@ -347,10 +372,13 @@ else
   elif ! grep -q 'sorryAx' "$PROBE_OUT"; then
     PRIVNOTE=""
     [ "$PRIV" -gt 0 ] && PRIVNOTE="; $PRIV private declaration(s) not probeable by name — their axioms are covered transitively by the public declarations that use them"
-    if [ "$REC_SEEN" -lt "${#DECLS[@]}" ]; then
-      warn "(b) axioms ⊆ {propext, Classical.choice, Quot.sound} over $REC_SEEN inspected records, but ${#DECLS[@]} declarations were probed — $(( ${#DECLS[@]} - REC_SEEN )) produced no axiom record$PRIVNOTE"
+    AXFREENOTE=""
+    [ "$AXFREE" -gt 0 ] && AXFREENOTE="; $AXFREE axiom-free (stronger than the allowlist)"
+    ACCOUNTED=$(( REC_SEEN + AXFREE ))
+    if [ "$ACCOUNTED" -lt "${#DECLS[@]}" ]; then
+      warn "(b) axioms ⊆ {propext, Classical.choice, Quot.sound} over $REC_SEEN inspected records$AXFREENOTE, but ${#DECLS[@]} declarations were probed — $(( ${#DECLS[@]} - ACCOUNTED )) produced no axiom record$PRIVNOTE"
     else
-      pass "(b) axioms ⊆ {propext, Classical.choice, Quot.sound} over $REC_SEEN inspected axiom records (${#DECLS[@]} probeable declarations$PRIVNOTE)"
+      pass "(b) axioms ⊆ {propext, Classical.choice, Quot.sound} over $REC_SEEN inspected axiom records$AXFREENOTE (${#DECLS[@]} probeable declarations$PRIVNOTE)"
     fi
   fi
   rm -f "$JOINED"
