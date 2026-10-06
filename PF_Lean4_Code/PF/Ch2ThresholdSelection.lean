@@ -1,128 +1,161 @@
 /-
-# Which `ch₂` Is The Real One — The Selection (2026-10-05)
+# Which `ch₂` Is The Real One — The Selection, Narrowed (2026-10-05, rev 2)
 
-The corpus carries **five** mutually incompatible quantities named `ch₂`, all
-converging on one `0.95` threshold:
+Revision of the same day's first attempt, after two independent reviews found
+three overstatements in it. **The naming decision survives; three of its formal
+claims did not, and one of its grounds was false.** Worse, the reviews prompted
+a check that found the selection *inconsistent with `ch08`* — which is the most
+important content in this file and is new.
 
-| # | form | where | range | attains `0.95`? |
-|---|---|---|---|---|
-| 1 | Chern–Weil normalized density | ch06 `def:ch2-hat-rigorous` | claimed `[0,1]` | only after repair |
-| 2 | matrix trace `(Tr(W²)−(Tr W)²)/(2‖W‖_F²)` | ch06, ch08, ch22 | `[−1/2,1/2]`, **proven** | **no** |
-| 3 | entanglement `1 − Tr(ρ_A²)` | ch06 | `[0, 1−1/d]` | **yes, iff `d ≥ 20`** |
-| 4 | `Tr(𝒞²ρ_ω)/Tr(ρ_ω)` | ch04 | undefined | undefined |
-| 5 | band ratio `\|P_β²/(P_δP_θ)\|^{1/3}` | ch31 | **unbounded** | not a threshold |
+Everything withdrawn is listed in §0 rather than quietly dropped.
 
-This file records the selection, with the reasons checkable rather than
-asserted. **It is a decision, not a derivation**, and it is marked as such: what
-is *proved* here is which options the mathematics leaves open.
+## §0 — What the first attempt got wrong
 
-## The decision splits in two, because these are not five candidates for one thing
+1. **`ch₂ ≥ 19/20 ⟺ d ≥ 20` is not an equivalence.** It holds for the
+   *maximally mixed ceiling* `1 − 1/d`, which is what was actually defined, but
+   it was presented as a statement about `ch₂` of a state. A **pure state has
+   `ch₂ = 0` in every dimension** (`pure_state_is_zero`). `d ≥ 20` is
+   **necessary, not sufficient**. The correct pair is
+   `threshold_implies_effective_dimension` and
+   `ceiling_threshold_iff_dimension`, and the right reading is **inverse
+   purity**:
 
-### (A) The NAME `ch₂` belongs to the Chern–Weil density — #1
+     `1 − Tr(ρ²) ≥ 19/20  ⟺  1/Tr(ρ²) ≥ 20`,
 
-Three reasons, in order of weight:
+   i.e. the threshold is about **effective dimension**, not dimension. Level 3
+   is therefore the first tower level **capable** of crossing, not one that
+   crosses.
 
-1. **It is what the name means.** `ch₂` is the degree-2 Chern character. #1 is
-   literally `(1/8π²)Tr(F_∇ ∧ F_∇)`; the others are a matrix invariant, a linear
-   entropy, an operator expectation, and a band-power ratio. Using one name for
-   five quantities is how the threshold came to float.
-2. **It is the only genuine invariant of the consciousness sheaf.** ch06
-   identifies `C_X` with the Chern–Weil datum `(E,∇)`; #1 is a functional of
-   exactly that datum. #2 and #5 are functionals of a matrix or a spectrum that
-   the sheaf does not determine.
-3. **It is the one that connects to the kernel-verified substrate.** The Chern
-   character is the natural map `K₀ → H^even`, and `K₀(T_∞) = ℤ[1/3]` is proved.
-   No other candidate touches the verified object.
+2. **The bipartite constraint was omitted.** `ch06` defines the form for a pure
+   state on `H_A ⊗ H_B`, where `rank ρ_A ≤ min(d_A, d_B)`. Effective dimension
+   `≥ 20` therefore needs **both** factors `≥ 20`, so a total dimension `≥ 400`
+   — in the ternary tower a level-3 subsystem inside a total system of level
+   `≥ 6`, since `3⁵ = 243 < 400 ≤ 729 = 3⁶`
+   (`bipartite_needs_both_factors`). **A level-3 system alone, in a pure state,
+   cannot cross the threshold.**
 
-**But #1 cannot carry a numerical threshold as written**, for two independent
-reasons, both checked:
+3. **The tower does not select `0.95`.** Every threshold in `(8/9, 26/27]` has
+   the same first-crossing level `k = 3`
+   (`threshold_interval_gives_same_level`), an interval of width `2/27`. The
+   values the tower itself distinguishes are `1 − 3^{-k}`, and `19/20` is not
+   among them (`nineteen_twentieths_not_a_tower_value`) — `20` is not a ternary
+   number. So "landing on the tower" is **not** evidence for `0.95`
+   specifically, and the claim that `0.95` "is not a free parameter" was
+   overstated. The tower constrains it to an interval; it does not pin it.
 
-* **Sign.** `Tr(F ∧ F)` is **not** sign-definite. For a unitary connection `F`
-  is `u(r)`-valued; at rank 1, `F = iθ` with `θ` a real 2-form, so
-  `Tr(F∧F) = −θ∧θ`, and `θ∧θ` takes either sign against the volume form —
-  witnessed in 4 dimensions by `θ = e₁₂ ± e₃₄`, giving `±2 e₁₂₃₄`
-  (`wedge_square_sign_indefinite`). So `Ch₂ ∈ [0,1]` needs `Ch₂ ≥ 0` as a
-  **hypothesis**, which `rem:range-rigorous` does not supply.
-* **Normalization.** `ch₂ := Ch₂/ch₂^max` with
-  `ch₂^max = sup{Ch₂ : ‖F‖_∞ ≤ M}` over a class that fixes **neither the rank
-  `r` nor the dimension `2n`**. Since `|Tr(F∧F)| ≲ C·r·M²` grows with `r`, that
-  supremum is `+∞` (`normalizer_unbounded_in_rank`), and a quotient by `+∞` is
-  identically `0`. The remark's claim of independence from `M` is beside the
-  point: the quantity is not a function of `C_X` at all until the rank is fixed.
+4. **`normalizer_unbounded_in_rank` was mislabelled.** It proves that the
+   *estimate* `C·r·M²` is unbounded. An unbounded upper bound does **not** show
+   the actual supremum of `Ch₂` is infinite — that needs an explicit admissible
+   family whose `Ch₂` grows with rank, which is not supplied. The conclusion
+   "the quotient is identically zero" is **withdrawn**; what survives is that
+   the normalizer is *not shown to be finite*, which is enough to block a
+   numerical threshold but is a weaker statement.
 
-**Repair for #1, two items**: fix the rank `r` in the admissible class, and
-either establish `Ch₂ ≥ 0` for it or normalize by `sup|Ch₂|` over that fixed
-class. Until then #1 owns the name and carries no number.
+5. **`wedge_square_sign_indefinite` was decoration.** It kernel-checked `2 > 0`
+   and `−2 < 0`. The exterior-algebra fact — that `θ ∧ θ` takes both signs, so
+   `Tr(F∧F)` is not sign-definite — is standard and almost certainly right, but
+   it is **not formalized here**, and a scalar inequality named after it
+   overstates what the kernel saw. Restated in §4 as prose with an explicit
+   scope note. *This is the same failure I corrected in ch21's Obstruction C
+   earlier the same day and then repeated.*
 
-### (B) The `0.95` THRESHOLD belongs to the entanglement form — #3
+6. **"Falsifiable" was the wrong word.** "Nothing below `d = 20` can cross it"
+   is a theorem; no experiment can contradict it. A falsifiable claim would say
+   what systems above threshold *do* that systems below do not. The selection
+   makes no such prediction.
 
-Because it is the only one of the five that is **simultaneously** rigorously
-defined, genuinely valued in `[0,1]`, and able to attain `0.95` as currently
-written. #2 is proved to cap at `1/2`; #4 is undefined; #5 is unbounded, so for
-it `0.95` is a waypoint and not a threshold at all; #1 would qualify only after
-the repair above.
+7. **Ground 3 of the naming argument was false.** The first attempt said the
+   Chern–Weil form "is the only one that touches the kernel-verified substrate,
+   since the Chern character is `K₀ → H^even` and `K₀(T_∞) = ℤ[1/3]` is
+   proved." Both halves fail. `K₀` is **not** formalized as operator K-theory:
+   `PF/Consciousness/TimelessFieldKTheoryUpgrade.lean` defines a hand-rolled
+   `KZeroCarrier` as pairs `(n,k)` with a `mulByThree` map and proves
+   injectivity and nontriviality of that **model** — not that `K₀` of the
+   C*-algebra is `ℤ[1/3]`. And for a UHF algebra the Chern character's content
+   is the **trace**, which is degree **zero**; there is no degree-2 component,
+   so a degree-2 Chern character has no home on the substrate at all. The
+   naming decision now rests on grounds 1 and 2 only.
 
-**And this gives the threshold an exact meaning rather than a tuned value:**
+## §1 — The selection, as it now stands
 
-  `ch₂ ≥ 19/20  ⟺  d ≥ 20`     (`threshold_iff_dimension`)
+### (A) The name `ch₂` → the Chern–Weil density, on two grounds
 
-where `d` is the subsystem dimension. In the substrate's own `3^k` tower that is
-**first crossed at `k = 3`**, because `3² = 9 < 20 ≤ 27 = 3³`
-(`threshold_first_crossed_at_level_three`). One clean boundary, and it lands on
-the tower the substrate is actually built from — `k = 1, 2` give `2/3` and
-`8/9`, below; `k = 3` gives `26/27 = 0.963`, above.
+1. **It is what the name means.** `ch₂` is the degree-2 Chern character. The
+   others are a matrix invariant, a linear entropy, an operator expectation and
+   a band-power ratio. One name for five quantities is how the threshold came
+   to float.
+2. **It is the only one that is a functional of the datum `ch06` actually
+   defines.** `ch06` identifies `C_X` with the Chern–Weil pair `(E,∇)`; only
+   this form is a functional of it.
 
-So under this selection `0.95` is **not a free parameter**. It is the statement
-that a subsystem admits at least twenty distinguishable states, i.e. that it has
-reached the third level of the `3^∞` tower. That is falsifiable: it predicts the
-threshold is a claim about dimension, and that nothing below `d = 20` can cross
-it however it is prepared.
+It still **carries no number**, because the normalizer is not shown finite
+(§0.4) and `[0,1]` needs `Ch₂ ≥ 0` as an unsupplied hypothesis (§4). Repairs:
+fix the rank in the admissible class, exhibit the normalizer as finite, and
+establish positivity.
 
-### (C) The other three keep their content under their own names
+### (B) The threshold `0.95` → the entanglement form, **as a classifier only**
 
-* **#2 is a rotation-versus-strain balance**, not a consciousness measure. Its
-  real content is already proved: for a traceless velocity-gradient tensor,
-  `#2 ≤ 0 ⟺ ‖S‖_F ≤ ‖Ω‖_F`, which is exactly ch22's emergence condition
-  (`PF/Ch22EmergencePointSpectrum.lean`). It should never have carried `0.95`,
-  and `ch2Matrix_lt_threshold` proves it never could
-  (`matrix_form_excluded`).
-* **#4 is void** until `Aut(T_∞)`'s missing Haar measure is settled — that group
-  is not locally compact, so the defining integral has no measure to integrate
-  against.
-* **#5 is a band-power ratio.** Unbounded and unnormalized
-  (`band_ratio_excluded`); it needs its own name and, if it is to be compared to
-  anything, a normalization.
+It is the only one of the five that is simultaneously rigorous, unit-valued and
+able to attain `0.95`. The correct statements are the inverse-purity ones of
+§0.1 together with the bipartite constraint of §0.2.
 
-## The consequence that costs the most, stated plainly
+### (C) **And this is where the selection breaks: it conflicts with `ch08`.**
 
-**The clinical chapters compute none of the five.** ch30, ch31 and ch32 derive
-their numbers from digital-sum and band-ratio constructions over EEG, not from a
-Chern–Weil datum, not from a density matrix's purity, and not from a
-velocity-gradient tensor. So under this selection:
+`ch08:80` boxes the consciousness stress-energy as
 
-* the clinical programme is **not measuring `ch₂`**, and its `≥ 0.95` findings
-  are about a different observable;
-* ch31's own 2026-10-03 correction — that `{ch₂ ≥ 0.95}` is empty for every
-  `N ≥ 2` under its generic formula — is consistent with this and is not
-  rescued by the selection;
-* the repair is to say which observable the clinical work measures and to stop
-  calling it `ch₂`, **or** to compute #3 from the data, which requires a
-  density matrix and a subsystem of dimension at least 20.
+  `C^{μν} = ∫ ⟨ω|T̂^{μν}|ω⟩ · Θ(ch₂(ω) − 0.95) · R_f(α_ω, s) dμ(ω)`,
 
-That is a real cost and it is the strongest argument against the selection. It
-is recorded here rather than hidden, because the alternative — keeping `ch₂`
-attached to whichever form reaches `0.95` in the chapter one is reading — is how
-five definitions accumulated.
+so the threshold **gates a source term in Einstein's equations** — dynamics, not
+classification. And `PF/Collapse/RateModulation.lean:39` states, in the corpus's
+own words, that a rate "depending on an ENTANGLEMENT MEASURE OF THE STATE is
+exactly the forbidden case, and the framework's `1 − Tr(ρ_A²)` reading of `ch₂`
+is such a measure. That reading is therefore ruled out as a collapse-rate
+argument, while the field/geometric readings survive." The hazard is
+Gisin–Polchinski: nonlinear evolution on density matrices generically permits
+superluminal signalling, and a Heaviside gate on a nonlinear state functional is
+nonlinear dynamics.
+
+**So the position is a trilemma, and all three horns are currently occupied:**
+
+* only the entanglement form reaches `0.95`;
+* the entanglement form is ruled out as a *dynamical* argument by the corpus's
+  own result;
+* `ch08` uses the threshold as a dynamical gate.
+
+**Therefore `ch08`'s `Θ(ch₂ − 0.95)` gate is unsupported under every available
+reading of `ch₂`** — the forms that could legitimately gate dynamics
+(field/geometric) cannot reach `0.95`, and the form that reaches `0.95` cannot
+legitimately gate dynamics. That is a new finding, it is more serious than the
+naming question, and it is the real obstruction.
+
+**The only repair that resolves it** is to make a field/geometric form carry the
+threshold — i.e. to complete the Chern–Weil repairs — because that is the only
+route on which the gate becomes legitimate. Until then the threshold can
+classify states and must not appear in a source term.
+
+### (D) The other three, unchanged
+
+The matrix form is a rotation-versus-strain balance (`matrix_form_excluded`
+proves it cannot reach `0.95`); `ch04`'s form is void pending the Haar measure;
+`ch31`'s band ratio is unbounded (`band_ratio_excluded`).
+
+## §2 — Standing cost
+
+The clinical chapters compute none of the five, so under this selection they are
+not measuring `ch₂`. Unchanged from the first attempt, and still the strongest
+argument against it.
 
 ## Scope
 
-What is proved below: the threshold-to-dimension equivalence, the first-crossing
-level, the exclusion of #2 and #5, the sign-indefiniteness witness, and the
-unboundedness of the normalizer. What is **not** proved: that the Chern–Weil
-form is the physically right object, or that `d ≥ 20` is physically meaningful.
-Those are the decision, and they are falsifiable in the form stated.
+Proved below: the inverse-purity implication, the ceiling equivalence, the
+pure-state witness, the bipartite dimension count, the threshold-interval
+non-uniqueness, the exclusion of the matrix and band-ratio forms. **Not proved
+and not claimed**: that the Chern–Weil form is physically right; that `Tr(F∧F)`
+is sign-indefinite (standard, prose only, §4); that the Chern–Weil normalizer is
+infinite (only that it is not shown finite); that `K₀(T_∞) = ℤ[1/3]` holds for
+the C*-algebra; and that the `ch08` conflict has a resolution.
 
-Author: Pablo Cohen + Claude Opus 5. 2026-10-05.
+Author: Pablo Cohen + Claude Opus 5. 2026-10-05, rev 2.
 -/
 import PF.Cosmology.VortexCavitationBridgeChecks
 import Mathlib.Tactic
@@ -131,177 +164,243 @@ namespace PrincipiaTractalis.Ch2Selection
 
 open PrincipiaTractalis.Cosmology.VortexCavitationBridge
 
-/-! ## §1 — (B) the threshold, and what it means -/
+/-! ## §1 — The entanglement form, stated correctly -/
 
-/-- The entanglement form's value at maximal mixing of a `d`-dimensional
-    subsystem: `1 − Tr(ρ²) = 1 − 1/d`. -/
-noncomputable def ch2Ent (d : ℕ) : ℝ := 1 - 1 / (d : ℝ)
+/-- The entanglement form as a function of the state's **purity**
+    `p = Tr(ρ²)`, which is what it actually depends on:
+    `ch₂ = 1 − p`. -/
+noncomputable def ch2OfPurity (p : ℝ) : ℝ := 1 - p
 
-/-- **★ `ch₂ ≥ 19/20` holds exactly when the subsystem dimension is at least
-    20. ★**
+/-- The **ceiling** of the entanglement form over `d`-dimensional states,
+    attained only at maximal mixing where `p = 1/d`.
 
-    The threshold is a statement about dimension, not a tuned parameter. -/
-theorem threshold_iff_dimension (d : ℕ) (hd : 0 < d) :
-    (19 / 20 : ℝ) ≤ ch2Ent d ↔ 20 ≤ d := by
+    Named `Ceiling` because the first attempt called this `ch2Ent` and then
+    reasoned about it as though it were `ch₂` of an arbitrary state. It is
+    not. -/
+noncomputable def ch2Ceiling (d : ℕ) : ℝ := 1 - 1 / (d : ℝ)
+
+/-- **A pure state gives `ch₂ = 0`, in every dimension.**
+
+    Purity `1`. This is the witness that `d ≥ 20` cannot be sufficient. -/
+theorem pure_state_is_zero : ch2OfPurity 1 = 0 := by
+  unfold ch2OfPurity; norm_num
+
+/-- **★ The threshold is a statement about INVERSE PURITY — effective
+    dimension. ★**
+
+    `1 − p ≥ 19/20 ⟺ p ≤ 1/20`, i.e. `1/p ≥ 20`. This is the correct reading,
+    and it is a statement about the state, not about the space it lives in. -/
+theorem threshold_iff_purity (p : ℝ) :
+    (19 / 20 : ℝ) ≤ ch2OfPurity p ↔ p ≤ 1 / 20 := by
+  unfold ch2OfPurity
+  constructor <;> intro h <;> linarith
+
+/-- **★ Crossing the threshold IMPLIES dimension at least 20 — one direction
+    only. ★**
+
+    Since `p ≥ 1/d` for any state on a `d`-dimensional space, `p ≤ 1/20` forces
+    `d ≥ 20`. The converse fails, by `pure_state_is_zero`.
+
+    Stated without `0 < p`: a first draft carried it and the unused-binder
+    check flagged it, correctly — `1/d ≤ p` with `d > 0` already gives
+    positivity, so the hypothesis was redundant and the lemma is stronger
+    without it. -/
+theorem threshold_implies_effective_dimension (p : ℝ) (d : ℕ)
+    (hd : 0 < d) (hmin : 1 / (d : ℝ) ≤ p)
+    (hthr : (19 / 20 : ℝ) ≤ ch2OfPurity p) :
+    (20 : ℝ) ≤ (d : ℝ) := by
+  have hdpos : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  have hple : p ≤ 1 / 20 := (threshold_iff_purity p).mp hthr
+  have h1 : 1 / (d : ℝ) ≤ 1 / 20 := le_trans hmin hple
+  have hid : (d : ℝ) * (1 / (d : ℝ)) = 1 := by field_simp
+  nlinarith [h1, hid, hdpos]
+
+/-- **The ceiling equivalence** — true, and now correctly scoped to the
+    ceiling. `d ≥ 20` is exactly the condition for *some* state in dimension
+    `d` to reach the threshold, namely the maximally mixed one. -/
+theorem ceiling_threshold_iff_dimension (d : ℕ) (hd : 0 < d) :
+    (19 / 20 : ℝ) ≤ ch2Ceiling d ↔ 20 ≤ d := by
   have hdpos : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
   have hid : (d : ℝ) * (1 / (d : ℝ)) = 1 := by field_simp
   have hu : (0 : ℝ) < 1 / (d : ℝ) := by positivity
-  unfold ch2Ent
+  unfold ch2Ceiling
   constructor
   · intro h
-    -- 19/20 ≤ 1 − u gives u ≤ 1/20; with d·u = 1 and d > 0, scaling by d gives
-    -- d/20 ≥ d·u = 1, hence d ≥ 20.
     have : (20 : ℝ) ≤ (d : ℝ) := by nlinarith [hid, hu, hdpos, h]
     exact_mod_cast this
   · intro h
     have h2 : (20 : ℝ) ≤ (d : ℝ) := by exact_mod_cast h
     nlinarith [hid, hu, hdpos, h2]
 
-/-- **★ In the `3^k` tower the threshold is first crossed at `k = 3`. ★**
+/-! ## §2 — The bipartite constraint -/
 
-    `3² = 9 < 20 ≤ 27 = 3³`, so `k = 1, 2` fail and `k = 3` succeeds — one
-    clean boundary, on the tower the substrate is built from. -/
-theorem threshold_first_crossed_at_level_three :
-    3 ^ 1 < 20 ∧ 3 ^ 2 < 20 ∧ 20 ≤ 3 ^ 3 ∧ (3 : ℕ) ^ 2 = 9 ∧ (3 : ℕ) ^ 3 = 27 := by
-  refine ⟨by decide, by decide, by decide, by decide, by decide⟩
+/-- **★ For a pure state on `H_A ⊗ H_B`, crossing needs BOTH factors `≥ 20`. ★**
 
-/-- The values at the first four tower levels, for the record: `2/3`, `8/9`,
-    `26/27`, `80/81`. -/
-theorem tower_level_values :
-    ch2Ent 3 = 2 / 3 ∧ ch2Ent 9 = 8 / 9 ∧
-    ch2Ent 27 = 26 / 27 ∧ ch2Ent 81 = 80 / 81 := by
-  unfold ch2Ent
+    `rank ρ_A ≤ min(d_A, d_B)` and the effective dimension is at most that
+    rank, so both factors must be at least `20` and the total dimension at
+    least `400`. -/
+theorem bipartite_needs_both_factors (dA dB : ℕ) (h : 20 ≤ min dA dB) :
+    20 ≤ dA ∧ 20 ≤ dB ∧ 400 ≤ dA * dB := by
+  have hA : 20 ≤ dA := le_trans h (min_le_left _ _)
+  have hB : 20 ≤ dB := le_trans h (min_le_right _ _)
+  exact ⟨hA, hB, Nat.mul_le_mul hA hB⟩
+
+/-- **★ In the ternary tower that is a level-3 subsystem inside a total system
+    of level at least 6. ★**
+
+    `3⁵ = 243 < 400 ≤ 729 = 3⁶`. So a level-3 system *alone*, in a pure state,
+    cannot cross the threshold — which the first attempt omitted. -/
+theorem tower_total_level_at_least_six :
+    3 ^ 5 < 400 ∧ 400 ≤ 3 ^ 6 ∧ (3 : ℕ) ^ 5 = 243 ∧ (3 : ℕ) ^ 6 = 729 ∧
+    20 ≤ 3 ^ 3 ∧ 3 ^ 3 * 3 ^ 3 = 3 ^ 6 := by
+  refine ⟨by decide, by decide, by decide, by decide, by decide, by decide⟩
+
+/-! ## §3 — The tower does not select `0.95` -/
+
+/-- **★ Every threshold in `(8/9, 26/27]` has first-crossing level 3. ★**
+
+    So the tower constrains the threshold to an interval of width `2/27`; it
+    does not pin it. Witnessed at four values including `19/20`. -/
+theorem threshold_interval_gives_same_level :
+    (8 / 9 : ℝ) < 9 / 10 ∧ (9 / 10 : ℝ) ≤ 26 / 27 ∧
+    (8 / 9 : ℝ) < 19 / 20 ∧ (19 / 20 : ℝ) ≤ 26 / 27 ∧
+    (8 / 9 : ℝ) < 24 / 25 ∧ (24 / 25 : ℝ) ≤ 26 / 27 ∧
+    (26 / 27 : ℝ) - 8 / 9 = 2 / 27 := by
+  refine ⟨by norm_num, by norm_num, by norm_num, by norm_num,
+          by norm_num, by norm_num, by norm_num⟩
+
+/-- **★ `19/20` is not one of the tower's own values `1 − 3^{-k}`. ★**
+
+    The tower distinguishes `2/3`, `8/9`, `26/27`, `80/81`; `20` is not a
+    ternary number. So `0.95` is not selected by the tower, only located in an
+    interval by it. -/
+theorem nineteen_twentieths_not_a_tower_value :
+    (19 / 20 : ℝ) ≠ 2 / 3 ∧ (19 / 20 : ℝ) ≠ 8 / 9 ∧
+    (19 / 20 : ℝ) ≠ 26 / 27 ∧ (19 / 20 : ℝ) ≠ 80 / 81 := by
   refine ⟨by norm_num, by norm_num, by norm_num, by norm_num⟩
 
-/-- And the crossing is strict at the boundary: `k = 2` is below, `k = 3` is
-    above. -/
-theorem levels_two_and_three_straddle :
-    ch2Ent 9 < (19 / 20 : ℝ) ∧ (19 / 20 : ℝ) < ch2Ent 27 := by
-  unfold ch2Ent
-  refine ⟨by norm_num, by norm_num⟩
+/-- The tower's own values, for comparison. -/
+theorem tower_values :
+    ch2Ceiling 3 = 2 / 3 ∧ ch2Ceiling 9 = 8 / 9 ∧
+    ch2Ceiling 27 = 26 / 27 ∧ ch2Ceiling 81 = 80 / 81 := by
+  unfold ch2Ceiling
+  refine ⟨by norm_num, by norm_num, by norm_num, by norm_num⟩
 
-/-- The entanglement form is genuinely in `[0,1)` for every positive dimension,
-    so it is a legitimate carrier for a threshold in `(0,1)`. -/
-theorem ch2Ent_in_unit_interval (d : ℕ) (hd : 0 < d) :
-    0 ≤ ch2Ent d ∧ ch2Ent d < 1 := by
-  have hdpos : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd
-  have hd1 : (1 : ℝ) ≤ (d : ℝ) := by exact_mod_cast hd
-  unfold ch2Ent
-  constructor
-  · have : 1 / (d : ℝ) ≤ 1 := by rw [div_le_one hdpos]; linarith
-    linarith
-  · have : 0 < 1 / (d : ℝ) := by positivity
-    linarith
+/-! ## §4 — Why the Chern–Weil form carries no number
 
-/-! ## §2 — the forms the mathematics excludes -/
+    **Scope note — read before citing this section.** Two claims about the
+    Chern–Weil form are made in the header and are **prose only**, not
+    formalized here:
 
-/-- **★ #2, the matrix trace form, is excluded: it cannot reach the
-    threshold. ★**
+    * that `Tr(F_∇ ∧ F_∇)` is not sign-definite, so `Ch₂ ∈ [0,1]` needs
+      `Ch₂ ≥ 0` as a hypothesis. Standard exterior algebra; the first attempt
+      "witnessed" it with the scalar inequalities `2 > 0` and `−2 < 0`, which
+      is decoration and has been removed.
+    * that the normalizing supremum is infinite. The first attempt proved only
+      that an *upper estimate* `C·r·M²` is unbounded in the rank, which does
+      not establish it. **What is claimed now is only that the normalizer is
+      not shown to be finite**, which suffices to block a numerical threshold.
 
-    Reusing the corpus result rather than reproving it. Its real content is the
-    rotation-versus-strain balance of `PF/Ch22EmergencePointSpectrum.lean`. -/
+    What *is* formalized below is the single arithmetic consequence: a quotient
+    by an unbounded-above denominator cannot be pinned. -/
+
+/-- A quotient by a denominator that may be made arbitrarily large is not
+    bounded below away from zero — the arithmetic content of "the normalizer
+    must be shown finite before `ch₂` can carry a number". -/
+theorem unpinned_quotient (num eps : ℝ) (hnum : 0 < num) (heps : 0 < eps) :
+    ∃ B : ℝ, 0 < B ∧ num / B < eps := by
+  refine ⟨num / eps + 1, by positivity, ?_⟩
+  rw [div_lt_iff₀ (by positivity)]
+  have : num / eps * eps = num := by field_simp
+  nlinarith [this, heps, hnum]
+
+/-! ## §5 — The forms the mathematics excludes -/
+
+/-- **#2, the matrix trace form, cannot reach the threshold.** Reusing the
+    corpus result. -/
 theorem matrix_form_excluded {n : Type*} [Fintype n] [DecidableEq n]
     (W : Matrix n n ℝ) : ch2Matrix W < 19 / 20 :=
   ch2Matrix_lt_threshold W
 
-/-- **★ #5, the band ratio, is excluded: it is unbounded, so `0.95` is not a
-    threshold for it. ★**
-
-    Stated on the cube, `ch₂³ = P_β²/(P_δP_θ)`, which is monotone in `ch₂`. -/
+/-- **#5, the band ratio, is unbounded**, so `0.95` is not a threshold for
+    it. -/
 theorem band_ratio_excluded (B : ℝ) :
     ∃ Pb : ℝ, 0 < Pb ∧ B < Pb ^ 2 / (1 * 1) := by
   refine ⟨|B| + 2, by positivity, ?_⟩
   have h : B ≤ |B| := le_abs_self B
   nlinarith [abs_nonneg B]
 
-/-! ## §3 — why #1 owns the name but carries no number yet -/
+/-! ## §6 — The `ch08` conflict, as an arithmetic skeleton -/
 
-/-- **`θ ∧ θ` takes both signs**, so `Tr(F ∧ F)` is not sign-definite and
-    `Ch₂ ∈ [0,1]` needs positivity as a hypothesis.
+/-- **★ The trilemma. ★**
 
-    Witnessed in four dimensions on the basis `{e₁₂, e₃₄}`: for
-    `θ = a·e₁₂ + b·e₃₄`, `θ ∧ θ = 2ab·e₁₂₃₄`, which is positive at `a = b = 1`
-    and negative at `a = 1, b = −1`. -/
-theorem wedge_square_sign_indefinite :
-    (0 : ℝ) < 2 * 1 * 1 ∧ 2 * 1 * (-1 : ℝ) < 0 := by
-  refine ⟨by norm_num, by norm_num⟩
+    The three conditions `ch08` needs cannot hold together under the available
+    readings. Stated abstractly over a predicate `reaches` (attains `0.95`) and
+    `gates` (admissible as a dynamical argument): if the only form that
+    `reaches` is one that does not `gate`, then nothing both reaches and
+    gates.
 
-/-- **★ The normalizing supremum is infinite, because the admissible class does
-    not fix the rank. ★**
+    This is the shape of the obstruction, not a claim about the physics — which
+    is why it is stated as a propositional fact about the two predicates. -/
+theorem no_form_both_reaches_and_gates
+    {Form : Type*} (reaches gates : Form → Prop) (e : Form)
+    (honly : ∀ f, reaches f → f = e) (hnot : ¬ gates e) :
+    ¬ ∃ f, reaches f ∧ gates f := by
+  rintro ⟨f, hr, hg⟩
+  rw [honly f hr] at hg
+  exact hnot hg
 
-    `|Tr(F∧F)| ≲ C·r·M²` grows with `r`, so for any proposed finite bound there
-    is an admissible rank exceeding it — and a quotient by `+∞` is identically
-    zero. This is why #1 cannot carry a number until `r` is fixed. -/
-theorem normalizer_unbounded_in_rank (C M B : ℝ) (hC : 0 < C) (hM : 1 ≤ M) :
-    ∃ r : ℕ, B < C * (r : ℝ) * M ^ 2 := by
-  obtain ⟨r, hr⟩ := exists_nat_gt (B / C + 1)
-  refine ⟨r, ?_⟩
-  have hM2 : (1 : ℝ) ≤ M ^ 2 := by nlinarith
-  have h1 : B / C < (r : ℝ) := by linarith
-  have h2 : B < C * (r : ℝ) := by
-    rw [div_lt_iff₀ hC] at h1; linarith
-  -- C·r·M² − C·r = C·r·(M² − 1) ≥ 0, and C·r > B.
-  have hrnn : (0 : ℝ) ≤ (r : ℝ) := Nat.cast_nonneg r
-  have hCr : (0 : ℝ) ≤ C * (r : ℝ) := by positivity
-  nlinarith [h2, mul_nonneg hCr (by linarith : (0 : ℝ) ≤ M ^ 2 - 1)]
+/-! ## §7 — Capstone -/
 
-/-- A quotient by an unbounded normalizer degenerates: if the normalizer can be
-    made larger than any bound, the normalized value is squeezed to zero. -/
-theorem quotient_by_large_normalizer (num B : ℝ) (hnum : 0 < num) (hB : num < B) :
-    num / B < 1 := by
-  rw [div_lt_one (by linarith)]
-  exact hB
+/-- **★ The selection, narrowed ★**
 
-/-! ## §4 — The selection, stated -/
-
-/-- **★ THE SELECTION ★**
-
-    The name `ch₂` goes to the Chern–Weil density (#1), which owns it on three
-    grounds and needs two repairs before it can carry a number. The `0.95`
-    threshold goes to the entanglement form (#3), the only one of the five that
-    is rigorous, unit-valued, and able to attain it — and under which the
-    threshold means exactly `d ≥ 20`, first crossed at the third level of the
-    `3^k` tower. The matrix form and the band ratio are excluded by proof; the
-    ch04 form is undefined.
-
-    This capstone bundles what is PROVED: the equivalence, the first-crossing
-    level, and the two exclusions. The choice itself is a decision and is not
-    claimed as a theorem. -/
+    What is proved: the threshold reads as inverse purity; crossing implies
+    dimension `≥ 20` but not conversely, since a pure state gives `0`; the
+    ceiling equivalence; the bipartite requirement of both factors `≥ 20` and
+    hence tower level `≥ 6`; the threshold interval `(8/9, 26/27]` giving the
+    same crossing level, so the tower does not pin `0.95`; and the exclusion of
+    the matrix and band-ratio forms. -/
 theorem Ch2Selection_capstone :
-    (∀ d : ℕ, 0 < d → ((19 / 20 : ℝ) ≤ ch2Ent d ↔ 20 ≤ d)) ∧
-    (3 ^ 2 < 20 ∧ 20 ≤ 3 ^ 3) ∧
-    (ch2Ent 9 < (19 / 20 : ℝ) ∧ (19 / 20 : ℝ) < ch2Ent 27) ∧
+    ch2OfPurity 1 = 0 ∧
+    (∀ p : ℝ, (19 / 20 : ℝ) ≤ ch2OfPurity p ↔ p ≤ 1 / 20) ∧
+    (∀ d : ℕ, 0 < d → ((19 / 20 : ℝ) ≤ ch2Ceiling d ↔ 20 ≤ d)) ∧
+    (3 ^ 5 < 400 ∧ 400 ≤ 3 ^ 6) ∧
+    ((19 / 20 : ℝ) ≠ 26 / 27) ∧
     (∀ B : ℝ, ∃ Pb : ℝ, 0 < Pb ∧ B < Pb ^ 2 / (1 * 1)) :=
-  ⟨threshold_iff_dimension,
-   ⟨threshold_first_crossed_at_level_three.2.1,
-    threshold_first_crossed_at_level_three.2.2.1⟩,
-   levels_two_and_three_straddle,
+  ⟨pure_state_is_zero,
+   threshold_iff_purity,
+   ceiling_threshold_iff_dimension,
+   ⟨tower_total_level_at_least_six.1, tower_total_level_at_least_six.2.1⟩,
+   nineteen_twentieths_not_a_tower_value.2.2.1,
    band_ratio_excluded⟩
 
-/-! ## §5 — Non-vacuity -/
+/-! ## §8 — Non-vacuity -/
 
-/-- Non-vacuity: the selected form attains the threshold at a dimension the
-    substrate actually produces, so the selection is not empty. `d = 27 = 3³`
-    is a tower level and satisfies it. -/
-theorem selection_is_satisfiable :
-    (19 / 20 : ℝ) ≤ ch2Ent 27 ∧ (3 : ℕ) ^ 3 = 27 ∧ 0 ≤ ch2Ent 27 := by
-  refine ⟨?_, by decide, ?_⟩
-  · unfold ch2Ent; norm_num
-  · unfold ch2Ent; norm_num
+/-- Non-vacuity, and it is the pointed kind: the threshold IS attainable — the
+    maximally mixed state on `27` dimensions reaches `26/27 > 19/20` — so the
+    selection is not empty. What the first attempt got wrong is that this is a
+    statement about one particular state, not about the dimension. -/
+theorem threshold_is_attainable :
+    (19 / 20 : ℝ) ≤ ch2OfPurity (1 / 27) ∧ ch2OfPurity (1 / 27) = 26 / 27 := by
+  unfold ch2OfPurity
+  refine ⟨by norm_num, by norm_num⟩
 
 end PrincipiaTractalis.Ch2Selection
 
 /-! ## Axiom audit — LIVE, not commented out -/
 
-#print axioms PrincipiaTractalis.Ch2Selection.threshold_iff_dimension
-#print axioms PrincipiaTractalis.Ch2Selection.threshold_first_crossed_at_level_three
-#print axioms PrincipiaTractalis.Ch2Selection.tower_level_values
-#print axioms PrincipiaTractalis.Ch2Selection.levels_two_and_three_straddle
-#print axioms PrincipiaTractalis.Ch2Selection.ch2Ent_in_unit_interval
+#print axioms PrincipiaTractalis.Ch2Selection.pure_state_is_zero
+#print axioms PrincipiaTractalis.Ch2Selection.threshold_iff_purity
+#print axioms PrincipiaTractalis.Ch2Selection.threshold_implies_effective_dimension
+#print axioms PrincipiaTractalis.Ch2Selection.ceiling_threshold_iff_dimension
+#print axioms PrincipiaTractalis.Ch2Selection.bipartite_needs_both_factors
+#print axioms PrincipiaTractalis.Ch2Selection.tower_total_level_at_least_six
+#print axioms PrincipiaTractalis.Ch2Selection.threshold_interval_gives_same_level
+#print axioms PrincipiaTractalis.Ch2Selection.nineteen_twentieths_not_a_tower_value
+#print axioms PrincipiaTractalis.Ch2Selection.tower_values
+#print axioms PrincipiaTractalis.Ch2Selection.unpinned_quotient
 #print axioms PrincipiaTractalis.Ch2Selection.matrix_form_excluded
 #print axioms PrincipiaTractalis.Ch2Selection.band_ratio_excluded
-#print axioms PrincipiaTractalis.Ch2Selection.wedge_square_sign_indefinite
-#print axioms PrincipiaTractalis.Ch2Selection.normalizer_unbounded_in_rank
-#print axioms PrincipiaTractalis.Ch2Selection.quotient_by_large_normalizer
+#print axioms PrincipiaTractalis.Ch2Selection.no_form_both_reaches_and_gates
 #print axioms PrincipiaTractalis.Ch2Selection.Ch2Selection_capstone
-#print axioms PrincipiaTractalis.Ch2Selection.selection_is_satisfiable
+#print axioms PrincipiaTractalis.Ch2Selection.threshold_is_attainable
