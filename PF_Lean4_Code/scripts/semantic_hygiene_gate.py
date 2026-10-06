@@ -418,6 +418,10 @@ def main():
     ap.add_argument("--module")
     ap.add_argument("--all-files", action="store_true")
     ap.add_argument("--limit", type=int, default=60)
+    # --ledger dumps EVERY finding as TSV. The summary mode caps detail at five
+    # per class, which is right for reading and wrong for repair work: a ledger
+    # whose purpose is to make each finding locatable must be complete.
+    ap.add_argument("--ledger", action="store_true")
     a = ap.parse_args()
 
     if a.module:
@@ -458,6 +462,16 @@ def main():
               % ("FAIL" if hard_recs else "PASS",
                  len(hard_recs), len(records) - len(hard_recs)))
         return 1 if hard_recs else 0
+
+    if a.ledger:
+        tab = chr(9)
+        print(tab.join(["severity", "class", "module", "line", "declaration",
+                        "detail"]))
+        for mod, line, nm, hs in sorted(records, key=lambda r: (r[0], r[1])):
+            for k, d in hs:
+                print(tab.join(["HARD" if k in HARD else "soft", k, mod,
+                                str(line), nm, norm(d)[:200]]))
+        return 0
 
     cls = Counter()
     for _m, _l, _n, hs in records:
