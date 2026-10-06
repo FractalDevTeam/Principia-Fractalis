@@ -549,10 +549,80 @@ form $\text{ch}_2(|\psi\rangle) = 1 - \text{Tr}(\rho_A^2)$ of
 Proposition~\ref{prop:quantum-consciousness} reaches $1$ on a Bell state. So
 $\text{ch}_2$ is \emph{not a single quantity} across this chapter, and $0.95$ is
 reachable under some of its definitions and provably unreachable under others.
-Which normalisation the threshold belongs to is an open question of the
-framework's own statement, recorded here rather than papered over; until it is
-settled, no numerical comparison against $0.95$ should be made using the matrix
-formula.
+\textbf{Settled, 2026-10-05.} This was recorded as an open question; it is
+now decided, and the reasons are checkable at \texttt{PF\_Lean4\_Code/PF/Ch2ThresholdSelection.lean} rather than
+asserted. The decision splits in two, because these are not several candidates
+for one quantity --- they measure different things, and the threshold had been
+attaching itself to whichever form reached it in the chapter one was reading.
+There are \emph{five} such forms in the corpus, not three: the two named above,
+the matrix formula, Chapter~4's $\mathrm{Tr}(\mathcal{C}^2\rho_\omega)/\mathrm{Tr}(\rho_\omega)$, and
+Chapter~31's band ratio $|P_\beta^2/(P_\delta P_\theta)|^{1/3}$.
+
+\textbf{(A) The name $\text{ch}_2$ belongs to the normalised Chern--Weil density
+of Definition~\ref{def:ch2-hat-rigorous}}, on three grounds: it is what the name
+means (the degree-2 Chern character); it is the only one of the five that is a
+functional of the Chern--Weil datum $(E,\nabla)$ this chapter identifies with
+$C_X$; and it is the only one that touches the kernel-verified substrate, since
+the Chern character is the natural map $K_0 \to H^{\mathrm{even}}$ and
+$K_0(\mathcal{T}_\infty) = \mathbb{Z}[1/3]$ is proved.
+
+\textbf{But it cannot carry a number as written}, for two independent reasons.
+\emph{Sign}: $\mathrm{Tr}(F_\nabla \wedge F_\nabla)$ is not sign-definite --- at
+rank $1$, $F = i\theta$ gives $\mathrm{Tr}(F\wedge F) = -\theta\wedge\theta$, and
+$\theta = e_{12} \pm e_{34}$ yields $\pm 2\,e_{1234}$
+(\texttt{wedge\_square\_sign\_indefinite}) --- so $[0,1]$ requires
+$\mathrm{Ch}_2 \ge 0$ as a \emph{hypothesis}, which Remark~\ref{rem:range-rigorous}
+does not supply. \emph{Normalisation}: $\text{ch}_2^{\max}$ is a supremum over a
+class fixing neither the rank $r$ nor the dimension $2n$, and since
+$|\mathrm{Tr}(F\wedge F)| \lesssim C r M^2$ grows with $r$ that supremum is
+$+\infty$ (\texttt{normalizer\_unbounded\_in\_rank}), making the quotient
+identically zero. \textbf{Two repairs}: fix $r$ in the admissible class, and
+either establish $\mathrm{Ch}_2 \ge 0$ on it or normalise by $\sup|\mathrm{Ch}_2|$
+over that fixed class.
+
+\textbf{(B) The threshold $0.95$ belongs to the entanglement form}
+$1 - \mathrm{Tr}(\rho_A^2)$ of Proposition~\ref{prop:quantum-consciousness},
+because it is the only one of the five that is simultaneously rigorously
+defined, genuinely valued in $[0,1]$, and able to attain $0.95$ as written. And
+this makes the threshold a \emph{statement} rather than a tuned value:
+\[
+  \text{ch}_2 \ge \tfrac{19}{20} \iff d \ge 20,
+\]
+where $d$ is the subsystem dimension (\texttt{threshold\_iff\_dimension}). In the
+substrate's own $3^k$ tower that is \textbf{first crossed at $k = 3$}, since
+$3^2 = 9 < 20 \le 27 = 3^3$ (\texttt{threshold\_first\_crossed\_at\_level\_three}):
+levels $1$ and $2$ give $2/3$ and $8/9$, below, and level $3$ gives
+$26/27 = 0.963$, above (\texttt{tower\_level\_values},
+\texttt{levels\_two\_and\_three\_straddle}). So $0.95$ is not a free parameter ---
+it says a subsystem admits at least twenty distinguishable states, i.e.\ has
+reached the third level of the tower. That is falsifiable: nothing below
+$d = 20$ can cross it, however prepared.
+
+\textbf{(C) The other three keep their content under their own names.} The
+matrix formula is a rotation-versus-strain balance, whose real content is
+already proved --- for a traceless velocity-gradient tensor it is
+$\le 0$ exactly when $\|S\|_F \le \|\Omega\|_F$, which is Chapter~22's emergence
+condition --- and \texttt{matrix\_form\_excluded} proves it could never have
+carried $0.95$. Chapter~4's form is void until the missing Haar measure on
+$\mathrm{Aut}(\mathcal{T}_\infty)$ is settled, that group not being locally
+compact. Chapter~31's band ratio is unbounded
+(\texttt{band\_ratio\_excluded}), so for it $0.95$ is a waypoint and not a
+threshold; it needs its own name and a normalisation.
+
+\textbf{What this costs, stated rather than hidden.} The clinical chapters
+compute \emph{none} of the five: Chapters~30--32 derive their numbers from
+digital-sum and band-ratio constructions over EEG, not from a Chern--Weil datum,
+a density matrix's purity, or a velocity-gradient tensor. So under this decision
+the clinical programme is not measuring $\text{ch}_2$, and its $\ge 0.95$
+findings concern a different observable --- consistent with Chapter~31's own
+2026-10-03 correction that $\{\text{ch}_2 \ge 0.95\}$ is empty for every
+$N \ge 2$ under its generic formula. The repair there is to name the observable
+the clinical work actually measures, or to compute the entanglement form from
+the data, which needs a density matrix and a subsystem of dimension at least
+$20$. That cost is the strongest argument against this selection and is recorded
+with it; the alternative, leaving $\text{ch}_2$ attached to whichever form
+happens to reach the threshold locally, is how five definitions accumulated in
+the first place.
 \end{remark}
 
 \subsection{Quantum Systems}
