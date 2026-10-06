@@ -345,7 +345,7 @@ The operators $H_P$ and $H_{NP}$ defined above satisfy:
 \item \textbf{Compactness}: Both operators are compact on $L^2(K,\mu)$
 \item \textbf{Self-adjointness}: Both operators are self-adjoint
 \item \textbf{Positive spectrum}: For sufficiently large $a$, the operators are positive semi-definite
-\item \textbf{Discrete spectrum}: There exists a complete orthonormal basis of eigenfunctions with discrete eigenvalues $0 \leq \lambda_0 \leq \lambda_1 \leq \cdots$ satisfying $\lambda_k \to \infty$
+\item \textbf{Discrete spectrum}: There exists a complete orthonormal basis of eigenfunctions with discrete eigenvalues $0 \leq \lambda_0 \leq \lambda_1 \leq \cdots$ satisfying $\lambda_k \to \infty$\manuscriptcorrection{\textbf{Item 4 as printed is incompatible with item 1, and the combination collapses the spectral gap.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}. \emph{(i)} A compact self-adjoint operator's eigenvalues accumulate only at $0$, so $\lambda_k \to 0$; they cannot tend to $\infty$ (theorem \texttt{no\_sequence\_tends\_to\_both}). \emph{(ii)} Worse, this item enumerates the eigenvalues \emph{non-decreasingly}, $0 \leq \lambda_0 \leq \lambda_1 \leq \cdots$. A non-decreasing real sequence converges to its supremum, so $\lambda_k \to 0$ forces every term $\leq 0$; this item's own $0 \leq \lambda_0$ forces every term $\geq 0$. Hence \emph{every eigenvalue is zero} (theorem \texttt{monotone\_tendsto\_zero\_forces\_zero}), so $\lambda_0(H_P) = \lambda_0(H_{NP}) = 0$ and $\Delta = 0$ (theorem \texttt{gap\_vanishes\_under\_chapter\_hypotheses}). The compactness proof at the Hilbert--Schmidt step below is \emph{correct} and is not what is at fault. \textbf{Repair direction:} every property the P-vs-NP argument needs --- discrete spectrum, $\lambda_k \to \infty$, an attained positive minimum $\lambda_0 > 0$, the Rayleigh--Ritz characterisation, and convergent finite-rank truncations --- holds simultaneously for an \emph{unbounded} operator with \emph{compact resolvent}, and for none of them does compactness of $H$ itself suffice. The fractal convolution by the Hilbert--Schmidt kernel is the compact object; the architecture requires it to be the resolvent of $H_V$ rather than $H_V$ itself, under which $\lambda_k \to 0$ inverts to $\lambda_k \to \infty$ (theorem \texttt{inversion\_reverses\_asymptotic}) and the smallest eigenvalue of $H$ becomes the reciprocal of the largest convolution eigenvalue, which is attained and positive. Whether $\pi/(10\sqrt{2})$ is that reciprocal is the open derivation question and is an authorial item.}
 \end{enumerate}
 \end{theorem}
 
@@ -363,7 +363,7 @@ by geometric series convergence. By the Hilbert-Schmidt theorem, $H_V$ is compac
 
 \textbf{Positivity}: The operator is of positive type if $V$ can be written as $V(x,y) = \sum_k c_k \varphi_k(x)\overline{\varphi_k(y)}$ with $c_k \geq 0$. This holds for sufficiently large $a$ ensuring exponential decay dominates the oscillatory terms\cite{gelfand1964generalized}.
 
-\textbf{Discrete spectrum}: Compactness + self-adjointness implies the spectral theorem for compact operators\cite{reed1980}.
+\textbf{Discrete spectrum}: Compactness + self-adjointness implies the spectral theorem for compact operators\cite{reed1980}.\manuscriptcorrection{Flagged 2026-10-05: the cited theorem yields the negation of the clause it is offered as proof of. The spectral theorem for compact self-adjoint operators gives a complete orthonormal eigenbasis with eigenvalues accumulating \emph{only at $0$} --- i.e.\ $\lambda_k \to 0$ --- not $\lambda_k \to \infty$ as item 4 states. The orthonormal-basis and discreteness halves of item 4 do follow; the asymptotic does not, and no separate argument for it is given. See \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}.}
 \end{proof}
 
 \begin{theorem}[Variational Characterization]\label{thm:variational}
@@ -371,7 +371,7 @@ The ground state energy satisfies:
 \begin{equation}
 \lambda_0(H) = \inf_{\psi \in L^2(K,\mu), \|\psi\|=1} \langle \psi, H\psi \rangle = \lim_{n \to \infty} \lambda_0^{(n)}
 \end{equation}
-where $\lambda_0^{(n)}$ is the lowest eigenvalue of the finite-dimensional restriction $P_n H P_n$ to an $n$-level fractal approximation space, and $P_n \to I$ strongly.
+where $\lambda_0^{(n)}$ is the lowest eigenvalue of the finite-dimensional restriction $P_n H P_n$ to an $n$-level fractal approximation space, and $P_n \to I$ strongly.\manuscriptcorrection{Flagged 2026-10-05. This theorem fixes $\lambda_0$ as the \emph{bottom} of the spectrum --- an infimum of the Rayleigh quotient, and a limit of \emph{lowest} truncation eigenvalues --- so the reading of $\lambda_0$ is unambiguous and is the one incompatible with compactness. For a positive self-adjoint compact operator on an infinite-dimensional space that infimum is $0$: if $\inf_{\|\psi\|=1}\langle\psi,H\psi\rangle = c > 0$ then $H \geq cI$, so $\|H\psi\| \geq c\|\psi\|$ by Cauchy--Schwarz, so $H$ is boundedly invertible, so $I = H^{-1}H$ would be compact --- which holds only in finite dimension, while $L^2(K,\mu)$ is infinite-dimensional. Hence $\lambda_0(H_P) = \pi/(10\sqrt{2}) \approx 0.2221$ is not merely underived but incompatible with the compactness proved in Theorem~\ref{thm:spectral-properties}. \emph{This operator-theoretic step is standard but is stated in prose only; it is not formalized.} The two formalized obstructions are at \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}, and either alone suffices.}
 \end{theorem}
 
 \begin{proof}
@@ -454,7 +454,7 @@ There is an empirically measured spectral gap:
 \begin{equation}
 \boxed{\Delta = \lambda_0(H_P) - \lambda_0(H_{NP}) \approx 0.0891219046 > 0}
 \end{equation}
-validated across 143 computational problems with 100\% fractal coherence.
+validated across 143 computational problems with 100\% fractal coherence.\manuscriptcorrection{\textbf{This gap is zero under the operator properties stated in Theorem~\ref{thm:spectral-properties}.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean} (\texttt{gap\_vanishes\_under\_chapter\_hypotheses}). Item 4 of that theorem enumerates eigenvalues non-decreasingly from $0$ while item 1 asserts compactness, which forces $\lambda_k \to 0$; together these force every eigenvalue of both operators to vanish, hence $\Delta = 0$. No conjecture, branch choice, or numerical input enters that argument, so it is logically \emph{prior} to the three-way numerical disagreement recorded in the remark below and to the separate refutation of Conjecture~\ref{conj:golden-modulation}. Two further observations. \emph{(i)} The convergence tables of Experiments~\ref{exp:hp-convergence} and~\ref{exp:hnp-convergence} show $\lambda_0^{(n)}$ \emph{stabilising} to ten digits at a positive value; had the diagonalised operator been compact with $\lambda_0 = \inf\operatorname{spec} = 0$, the truncation minima would instead decrease toward $0$. The numerics are therefore consistent with the repaired (compact-resolvent) reading and inconsistent with the compact reading --- but which operator was actually diagonalised is not recorded in the text and is an authorial item. \emph{(ii)} The phrase ``validated across 143 computational problems'' describes coherence diagnostics, not an independent measurement of $\Delta$; no provenance for the $143$ problems or for the quoted $100\%$ is given in this chapter. The gap claim is accordingly \textbf{CONDITIONAL REDUCTION} pending the operator repair, and was never eligible for a stronger label: its closure would resolve a Millennium problem.}
 \end{theorem}
 
 \begin{remark}[Spectral Gap Analysis]
@@ -518,7 +518,7 @@ The non-perturbative operator $H_{NP}$ is related to $H_P$ by a unitary transfor
 \begin{equation}
 H_{NP} = U(\varphi) H_P U^\dagger(\varphi)
 \end{equation}
-where $U(\varphi)$ implements a phase rotation by the golden angle $\varphi = \frac{\sqrt{5}-1}{2}\pi$.
+where $U(\varphi)$ implements a phase rotation by the golden angle $\varphi = \frac{\sqrt{5}-1}{2}\pi$.\manuscriptcorrection{\textbf{This conjecture is refuted in the Lean companion and cannot hold as stated.} Flagged 2026-10-05. Unitary conjugation preserves spectrum, so $H_{NP} = U H_P U^\dagger$ forces $\lambda_0(H_{NP}) = \lambda_0(H_P)$ and hence $\Delta = 0$, contradicting Theorem~\ref{thm:spectral-gap}. This was already proved at \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean} (\texttt{unitary\_conjugation\_incompatible\_with\_spectral\_gap}), which is load-bearing for several downstream modules; the present chapter predates that result and does not cite it. \textbf{What survives:} the \emph{ratio} this conjecture was introduced to supply is obtainable without any unitary mechanism --- \texttt{ratio\_eq\_sqrt2\_over\_phi\_plus\_quarter} in the Lean corpus gives $\lambda_0(H_{NP})/\lambda_0(H_P) = \sqrt{2}/(\varphi + 1/4)$ directly from the polylogarithmic closed form. So the conjecture's conclusion has an independent route and only its stated \emph{mechanism} fails. Note also that the refutation above is conditional on $\Delta > 0$ being a meaningful quantity, which the obstruction recorded at Theorem~\ref{thm:spectral-properties} puts in question independently; the two are separate defects and neither subsumes the other.}
 
 This yields the ground state relation:
 \begin{equation}
@@ -1008,7 +1008,7 @@ The conjectural framework (Conjectures \ref{conj:polylog-spectrum} and \ref{conj
 \begin{enumerate}
 \item Prove that the monodromy representation of $\{H(\theta)\}$ as $\theta$ varies selects the branch yielding $\pi/(10\sqrt{2})$
 \item Prove the sine identity $\frac{\sin(\pi/\sqrt{2})}{\sin(\pi/\sqrt{2}+\varphi)} = \frac{\sqrt{5}-1}{3}$ algebraically
-\item Establish existence and uniqueness of the unitary transformation $U(\varphi)$ relating $H_{NP}$ to $H_P$
+\item Establish existence and uniqueness of the unitary transformation $U(\varphi)$ relating $H_{NP}$ to $H_P$\manuscriptcorrection{Flagged 2026-10-05: this item asks for the existence of an object already proved not to exist. Any such $U$ would make $H_{NP}$ and $H_P$ isospectral and force $\Delta = 0$; see \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean}, \texttt{unitary\_conjugation\_incompatible\_with\_spectral\_gap}. The item should be replaced by the question the framework actually needs answered, namely which non-unitary relation between $H_P$ and $H_{NP}$ reproduces the eigenvalue ratio $\sqrt{2}/(\varphi+1/4)$ that the polylogarithmic closed form already supplies.}
 \end{enumerate}
 
 Until these are proven, we maintain intellectual honesty by labeling them as conjectures supported by strong numerical evidence.
@@ -1481,7 +1481,7 @@ We have provided \textbf{rigorous mathematical foundations and compelling comput
 \begin{itemize}
 \item \textbf{Fractal Measure Spaces}: Defined $(K, d, \mu)$ with Hausdorff dimension $d_H = \sqrt{2}$ and self-similar scaling (Definition \ref{def:fractal-measure})
 \item \textbf{Fractal Convolution Operators}: Constructed $H_P$ and $H_{NP}$ on $L^2(K,\mu)$ with explicit kernels (Definition \ref{def:fractal-convolution})
-\item \textbf{Spectral Properties}: Proved compactness, self-adjointness, positive spectrum, and discrete eigenvalues (Theorem \ref{thm:spectral-properties})
+\item \textbf{Spectral Properties}: Proved compactness, self-adjointness, positive spectrum, and discrete eigenvalues (Theorem \ref{thm:spectral-properties})\manuscriptcorrection{Flagged 2026-10-05: compactness, self-adjointness and positivity do hold as proved; the fourth property's asymptotic $\lambda_k \to \infty$ does not, and is incompatible with the first. Taken together the stated properties force $\Delta = 0$. See the correction at Theorem~\ref{thm:spectral-properties} and \texttt{PF\_Lean4\_Code/PF/Ch21CompactnessGapObstruction.lean}.}
 \item \textbf{Variational Characterization}: Established connection between variational principle and finite approximations (Theorem \ref{thm:variational})
 \end{itemize}
 
@@ -1510,7 +1510,7 @@ The \textbf{Principia Fractalis Conjectures} (Conjectures \ref{conj:polylog-spec
 \begin{itemize}
 \item \textbf{Polylogarithmic spectrum}: Eigenvalues related to $\text{Li}_1(e^{i\pi\alpha^k})$ on fractal Riemann sheets
 \item \textbf{Branch selection}: Physical ground states correspond to monodromy paths selecting positive minimal energy
-\item \textbf{Golden ratio modulation}: $H_{NP} = U(\varphi) H_P U^\dagger(\varphi)$ relates operators via golden angle rotation
+\item \textbf{Golden ratio modulation}: $H_{NP} = U(\varphi) H_P U^\dagger(\varphi)$ relates operators via golden angle rotation\manuscriptcorrection{Flagged 2026-10-05: refuted, not merely unproven --- unitary conjugation is spectrum-preserving and would force $\Delta = 0$. See \texttt{PF\_Lean4\_Code/PF/SpectralGap.lean}, \texttt{unitary\_conjugation\_incompatible\_with\_spectral\_gap}, and the correction at Conjecture~\ref{conj:golden-modulation}. The eigenvalue ratio it was introduced to supply survives by an independent route.}
 \item \textbf{Sine identity}: $\frac{\lambda_0(H_{NP})}{\lambda_0(H_P)} = \frac{\sin(\pi/\sqrt{2})}{\sin(\pi/\sqrt{2}+\varphi)} = \frac{\sqrt{5}-1}{3}$ (verified numerically)
 \end{itemize}
 
