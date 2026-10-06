@@ -230,7 +230,37 @@ a negative control live in `scripts/tests/test_axiom_scan.sh`.
    never probed 1,408 of 15,098 declarations (9.3%); 292 of 1,302 modules are
    multi-namespace. `private` declarations are still excluded from probing by
    name — the gate reports the count rather than hiding it.
-2. **Blind spot #5 — criterion (e) tests the wrong direction.** Recorded
+2. **Blind spot #6 — criterion (b) warns on the BEST case.** Recorded
+   2026-10-05. The axiom scan greps for the phrase `depends on axioms`, but a
+   theorem with no axiom dependencies at all prints `does not depend on any
+   axioms` instead. The gate therefore cannot distinguish *axiom-free* (ideal)
+   from *probe failed* (bad), and reports the shortfall as
+   "N declarations were probed — M produced no axiom record". Live instance:
+   `PF/Ch20Ch25NumericObstructions.lean` gates PRISTINE with
+   "11 inspected records, but 14 declarations were probed — 3 produced no axiom
+   record", and all three of those (`k3_betti_decomposition`,
+   `k3_gap_is_the_non_pp_part`, `tier_counts_are_ten_based`, each closed by
+   `decide`) are **axiom-free** — strictly stronger than being in the permitted
+   set. The gate is right to surface the discrepancy rather than hide it; the
+   defect is that the message reads as a coverage gap when it is the opposite.
+   Until (b) matches both phrasings, **a WARN on (b) must be read, not assumed**:
+   check whether the missing records are axiom-free before treating it as a gap.
+
+3. **Blind spot #7 — the gate truncates its own findings display.**
+   Recorded 2026-10-05. `scripts/pristine_gate.sh:234` pipes the O-CIRC sweep
+   lines through `head -3`, so when a module has more than three sweeps the one
+   carrying the finding can be invisible. On `PF/SubstrateRigidity.lean` the
+   three displayed sweeps all read `withFindings=0` while the FAIL line said
+   `1 semantic finding(s)`; identifying the actual declaration
+   (`tower_union_starHom_uniformContinuous`) required re-running the whole
+   `#audit_all` probe by hand. The hit list the COUNT comes from is
+   untruncated, so this is a display limitation and not a correctness bug — but
+   it is the same truncation failure mode that has already produced a false
+   absence conclusion in this campaign, and it is now in the tool that is
+   supposed to catch such things. Fix: drop the `head -3`, or filter to sweeps
+   with `withFindings>0`.
+
+4. **Blind spot #5 — criterion (e) tests the wrong direction.** Recorded
    2026-10-05. The non-vacuity check looks for Prop-valued definitions that are
    always *false*, and so passes a definition that is always *true*. An
    always-true predicate is just as vacuous as an always-false one: it carries
