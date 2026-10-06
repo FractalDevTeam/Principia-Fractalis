@@ -47,6 +47,7 @@ usage() { sed -n '2,40p' "$0"; exit 2; }
 while [ $# -gt 0 ]; do
   case "$1" in
     --premise-audit) PREMISE_AUDIT=1; shift ;;
+    --semantic-strict) SEMANTIC_STRICT=1; shift ;;
     --quiet|-q)      QUIET=1; shift ;;
     -h|--help)       usage ;;
     -*)              echo "unknown flag: $1" >&2; exit 2 ;;
@@ -409,6 +410,44 @@ else
   else
     pass "(e) all ${#PROPS[@]} Prop definitions carry a satisfiability witness"
   fi
+fi
+
+# --- (f) semantic hygiene: conclusions and definition bodies -------------------
+# (d2) PremiseAudit policies HYPOTHESES. Nothing before this point looks at what
+# a theorem CONCLUDES, so a theorem with live premises and a `Prop := True`
+# conclusion passes every other criterion. Criterion (f) closes that gap.
+#
+# DIAGNOSTIC BY DEFAULT: reported, and only counted toward the verdict when
+# --semantic-strict is given. The findings need their intended theorem located,
+# not an automatic downgrade.
+SHG="scripts/semantic_hygiene_gate.py"
+if [ -f "$SHG" ]; then
+  SHG_OUT="$(mktemp)"
+  if python3 "$SHG" --module "$MOD" > "$SHG_OUT" 2>&1; then
+    SHG_RC=0
+  else
+    SHG_RC=$?
+  fi
+  SHG_HARD="$(grep -c '  FAIL  (f)' "$SHG_OUT" 2>/dev/null || true)"
+  SHG_SOFT="$(grep -c '  WARN  (f)' "$SHG_OUT" 2>/dev/null || true)"
+  if [ "$SHG_RC" -eq 2 ]; then
+    say "  ----  (f) semantic hygiene: module source not resolvable — skipped"
+  elif [ "${SHG_HARD:-0}" -gt 0 ]; then
+    if [ "${SEMANTIC_STRICT:-0}" -eq 1 ]; then
+      fail "(f) semantic hygiene: $SHG_HARD hard finding(s) in conclusions / definition bodies"
+    else
+      say "  ${YLW:-}WARN${RST:-}  (f) semantic hygiene: $SHG_HARD hard, ${SHG_SOFT:-0} soft — DIAGNOSTIC, not counted (pass --semantic-strict to enforce)"
+    fi
+    grep -E '  (FAIL|WARN)  \(f\)' "$SHG_OUT" | head -6 | sed 's/^  /      /'
+    grep -E '        REPAIR:' "$SHG_OUT" | head -2 | sed 's/^        /      /'
+  elif [ "${SHG_SOFT:-0}" -gt 0 ]; then
+    say "  ${YLW:-}WARN${RST:-}  (f) semantic hygiene: ${SHG_SOFT} soft finding(s), no hard findings"
+  else
+    pass "(f) semantic hygiene: no conclusion-level or definition-body findings"
+  fi
+  rm -f "$SHG_OUT" 2>/dev/null || true
+else
+  say "  ----  (f) semantic hygiene: $SHG absent — skipped"
 fi
 
 # --- verdict ------------------------------------------------------------------
