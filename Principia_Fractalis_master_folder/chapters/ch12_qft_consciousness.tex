@@ -192,7 +192,7 @@ The interaction vertices in momentum space are:
 \begin{equation}
 -i\lambda (g_{\mu_1\nu_1}g_{\mu_2\nu_2}g_{\mu_3\nu_3}g_{\mu_4\nu_4} + \text{all permutations})
 \end{equation}
-This has $4!/(2!)^4 = 3$ independent contractions.
+This has $4!/(2!)^4 = 3\manuscriptcorrection{Corrected 2026-10-05: $4!/(2!)^4 = 24/16 = 3/2$, not $3$ (\texttt{pairing\_factor\_mismatch} in \texttt{PF\_Lean4\_Code/PF/Ch12Ch13Ch28Ch34PhysicsDefects.lean}). The value $3$ is right --- it is the number of ways to split four objects into two unordered pairs --- but the formula for it is $4!/(2^2 \cdot 2!) = 3$ (\texttt{correct\_pairing\_formula}). Only the displayed denominator is wrong; the combinatorics and everything downstream of the value are unaffected.}$ independent contractions.
 
 \item \textbf{Matter-Consciousness Coupling}:
 \begin{equation}
@@ -333,7 +333,7 @@ consciousness undergoes a phase transition from weak-coupling (unconscious) to s
 For $g_C \sim 0.1$ and $m_C \sim 10^{-5} \, \text{eV}$ (neutrino mass scale):
 \begin{equation}
 E_{\text{crystallization}} \sim 1 \, \text{eV}
-\end{equation}
+\end{equation}\manuscriptcorrection{\textbf{This exceeds its own input mass by five orders, in a direction an exponential suppression cannot produce.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch12Ch13Ch28Ch34PhysicsDefects.lean}. The relation is $E_{\text{crystallization}} \sim m_C \exp[-1/(b_0 g_C^2)]$, and this chapter establishes $b_0 = (11N_c - 2N_f)/12\pi > 0$ above. Since $\exp(-x) < 1$ for every $x > 0$ (\texttt{exp\_neg\_lt\_one}), the output is \emph{strictly below} $m_C$ (\texttt{crystallization\_below\_input}), i.e.\ below $10^{-5}$~eV --- never $\sim 1$~eV, which would be $10^5$ times the input (\texttt{claimed\_energy\_exceeds\_input}). Evaluated across $b_0 \in [0.01, 100]$ the value never exceeds $3.7\times10^{-6}$~eV, and at a QCD-like $b_0$ of order one it is about $10^{-49}$~eV. \textbf{The biochemistry coincidence the exclamation rests on is therefore unavailable from this formula at these inputs.} A repair needs either a different (non-exponentially-suppressed) relation between $E_{\text{crystallization}}$ and $m_C$, or withdrawal of the energy-scale remark. Note that the separate $m_C$ ambiguity in this chapter --- the UV value near $10^{18}$~GeV at one site versus the IR $10^{-5}$~eV used here, already split into \texttt{mC\_UV\_GeV} and \texttt{mC\_IR\_GeV} in \texttt{PF/Consciousness/Ch12QFTLagrangian.lean} --- does not rescue this: the inequality holds for \emph{any} positive input mass.}
 This is the energy scale of biochemistry—exactly where life emerges!
 \end{corollary}
 

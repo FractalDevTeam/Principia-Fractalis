@@ -268,7 +268,7 @@ During inflation, $T \sim 10^{27}$ K $\Rightarrow$ even atomic nuclei don't exis
 This enormous vacuum energy \textit{drove} inflation! The Hubble parameter during inflation:
 \begin{equation}
 H_I^2 = \frac{\Lambda_0}{3} \sim \frac{M_{\text{Pl}}^4}{3} \Rightarrow H_I \sim 10^{14} \, \text{GeV}
-\end{equation}
+\end{equation}\manuscriptcorrection{\textbf{Dimensionally inconsistent as typeset, and the two printed numbers are different physical scales.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch12Ch13Ch28Ch34PhysicsDefects.lean}. \emph{(i)} $H_I^2$ has dimensions of $\text{GeV}^2$ while $\Lambda_0 \sim M_{\text{Pl}}^4$ has $\text{GeV}^4$, so $H_I^2 = \Lambda_0/3$ cannot hold in this chapter's own units. The standard Friedmann relation in the reduced-Planck convention used for the slow-roll parameters above is $H^2 = \Lambda_0/(3M_{\text{Pl}}^2)$. \emph{(ii)} With that relation and this chapter's own $M_{\text{Pl}} = 2.4\times10^{18}$~GeV, $H_I = M_{\text{Pl}}/\sqrt3 = 1.39\times10^{18}$~GeV (\texttt{hubble\_from\_friedmann}) --- \textbf{4.1 orders above the stated $10^{14}$~GeV}. Conversely the $\Lambda_0$ that would give $H_I = 10^{14}$~GeV is $1.73\times10^{65}~\text{GeV}^4$, \textbf{8.3 orders below $M_{\text{Pl}}^4 = 3.32\times10^{73}$} (\texttt{required\_lambda\_is\_not\_planck\_scale}). $10^{14}$~GeV is the GUT-inflation scale and $M_{\text{Pl}}^4$ is full-Planck vacuum energy; they are not the same scale and cannot both be intended. A repair must state which, and correct the Friedmann relation to carry its $M_{\text{Pl}}^2$ denominator.}
 
 After inflation, as the universe cooled and consciousness eventually emerged billions of years later, $\Lambda_{\text{eff}}$ decreased to the tiny value we observe today.
 
