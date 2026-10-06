@@ -251,7 +251,7 @@ Breakdown by diagnostic group:
 \text{Specificity (detect unconsciousness)} &= 97.8\% \\
 \text{Positive Predictive Value} &= 97.4\% \\
 \text{Negative Predictive Value} &= 97.2\%
-\end{align}
+\end{align}\manuscriptcorrection{\textbf{None of these four is drawn from this chapter's own confusion matrix, and two are sitting in each other's slots.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch30Ch31Ch32ClinicalStatistics.lean}. The matrix below gives $TN = 402$, $FN = 9$, $FP = 14$, $TP = 422$, summing correctly to the stated cohort of $847$ (\texttt{confusion\_matrix\_totals}). From it: sensitivity $= 422/431 = 97.91\%$, specificity $= 402/416 = 96.63\%$, PPV $= 422/436 = 96.79\%$, NPV $= 402/411 = 97.81\%$ (\texttt{correct\_metrics\_bracketed}). \textbf{The boxed ``sensitivity'' $96.8\%$ is the correct PPV} (\texttt{boxed\_sens\_is\_actually\_ppv}) and \textbf{the boxed ``specificity'' $97.8\%$ is the correct NPV} (\texttt{boxed\_spec\_is\_actually\_npv}); the boxed PPV $97.4\%$ and NPV $97.2\%$ match \emph{none} of the four correct values (\texttt{boxed\_ppv\_and\_npv\_match\_nothing}). Two values displaced into each other's slots with two unaccounted for is the signature of a transposed table, not four independent rounding slips, so a repair should re-derive all four from the matrix rather than adjust them one at a time. \textbf{Separately}, the per-diagnosis table below totals $821$ correct and $26$ errors --- its counts being the nearest integers to its own one-decimal percentages, uniquely so at these cohort sizes (\texttt{first\_stratum\_count\_is\_nearest}) --- against this matrix's $824$ and $23$ (\texttt{stratified\_total\_is\_821}): two presentations of one cohort differing by three patients. None of this bears on whether the measurements are sound; those remain \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} per this chapter's own 2026-07-23 ledger.}
 \empiricalclaim{Clinical cohort of 847 patients across disorders
 of consciousness (vegetative state, minimally conscious state,
 emergence from MCS, locked-in syndrome), 20-minute resting-state
@@ -349,7 +349,7 @@ Infrastructure & Trained clinician & Standard EEG \\
 \end{tabular}
 \end{center}
 
-\textbf{Clinical impact:} The 93\% reduction in misdiagnosis (from 40\% to 2.7\%) translates to approximately \textit{350 out of 1000} DOC patients receiving correct diagnosis with ch$_2$ protocol versus clinical assessment. For the estimated 200,000-300,000 DOC patients in the United States alone, this represents 70,000-105,000 patients whose consciousness state would be accurately identified, preventing inappropriate end-of-life decisions and enabling targeted rehabilitation.
+\textbf{Clinical impact:} The 93\% reduction in misdiagnosis (from 40\% to 2.7\%) translates to approximately \textit{350 out of 1000} DOC patients receiving correct diagnosis\manuscriptcorrection{\textbf{The gain is $373$ per $1000$, not $350$, and the national figure below was computed from the wrong one.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch30Ch31Ch32ClinicalStatistics.lean}. From this chapter's own inputs --- $60\%$ correct under clinical assessment, $97.3\%$ under the $\text{ch}_2$ protocol --- the difference is $973 - 600 = 373$ per thousand (\texttt{per\_thousand\_gain\_is\_373}). The ``$70{,}000$--$105{,}000$'' range that follows is exactly $350 \times 200$ and $350 \times 300$ (\texttt{national\_figure\_inherits\_the\_error}), so it inherits this figure rather than being derived independently; with $373$ it becomes $74{,}600$--$111{,}900$. Both remain downstream of the unvalidated $97.3\%$ and are \textbf{EMPIRICAL HYPOTHESIS --- UNTESTED} regardless of the arithmetic.} with ch$_2$ protocol versus clinical assessment. For the estimated 200,000-300,000 DOC patients in the United States alone, this represents 70,000-105,000 patients whose consciousness state would be accurately identified, preventing inappropriate end-of-life decisions and enabling targeted rehabilitation.
 
 The fractal resonance protocol addresses the Coma Science Group's decades-long call for objective, quantitative biomarkers that can be applied at bedside without requiring patient cooperation, complex neuroimaging infrastructure, or extensive clinical expertise. The ch$_2$ metric computed from 10-minute EEG recordings provides the operational tool the field has sought.
 \end{remark}
@@ -450,7 +450,7 @@ EMCS & 92 & 98.9\% & 0.98 $\pm$ 0.03 \\
 \textbf{6-month follow-up}: Patient remained in MCS-. No emergence. Fractal prediction was correct—behavioral "responses" were not true consciousness.
 \end{example}
 
-\begin{level3}[The 15 Discrepant Cases]
+\begin{level3}[The 23 Discrepant Cases\manuscriptcorrection{Corrected 2026-10-05: this heading read ``The 15 Discrepant Cases'' while its own first sentence says ``23 patients had mismatches'' and itemises $9$ false negatives and $14$ false positives --- which is $23$, matching the confusion matrix's $FN + FP$ exactly (\texttt{discrepant\_cases\_are\_23} in \texttt{PF\_Lean4\_Code/PF/Ch30Ch31Ch32ClinicalStatistics.lean}). The heading carried the stale figure; the body was right.}]
 23 patients had mismatches between fractal and gold standard:
 \begin{itemize}
 \item \textbf{False negatives (9)}: ch$_2 < 0.95$ but gold standard = conscious

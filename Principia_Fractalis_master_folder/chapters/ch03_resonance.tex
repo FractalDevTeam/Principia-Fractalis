@@ -70,7 +70,7 @@ n=3: \quad D_3(3) = 1 \quad &\Rightarrow \quad \omega_3 = e^{i\pi} = -1 \\
 n=4: \quad D_3(4) = 2 \quad &\Rightarrow \quad \omega_4 = e^{2i\pi} = 1
 \end{align}
 
-The pattern oscillates: $-1, 1, -1, 1, 0, 1, -1, 1, -1, \ldots$ (not purely periodic!)
+The pattern oscillates: $-1, 1, -1, 1, 0, 1, -1, 1, -1, \ldots$ (not purely periodic!)\manuscriptcorrection{\textbf{The fifth entry is a value this quantity cannot take, and the periodicity claim is refuted by this chapter's own modulus-one lemma together with Chapter~1's parity theorem.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch01Ch03Ch04Ch06FoundationDefects.lean}. $|\omega_n(\alpha)| = 1$ for all $n$ and $\alpha$ --- proved in this chapter below --- so $0$ cannot occur (\texttt{zero\_is\_not\_a\_unit\_phase}). At $\alpha = 1$, $\omega_n(1) = (-1)^{D_3(n)}$, and by Chapter~1's proved parity theorem $n \equiv D_3(n) \pmod 2$ this equals $(-1)^n$ exactly (\texttt{phase\_sequence\_at\_alpha\_one}), giving $-1, 1, -1, 1, -1, 1, -1, 1, -1$ for $n = 1, \ldots, 9$ (\texttt{phase\_sequence\_values}) --- \emph{strictly period two} (\texttt{phase\_has\_period\_two}), not aperiodic. The genuine non-periodicity of $D_3(n)$ does not survive composition with $(-1)^{(\cdot)}$, which sees only its parity. A repair must correct the fifth entry to $-1$ and either strike the periodicity claim or scope it to $D_3$ itself rather than to the phase.}
 
 For $\alpha = 3/2$, the phases create a more complex spiral in the complex plane.
 \end{example}
