@@ -97,7 +97,7 @@ this queue and every one was caught by a check rather than by my own reading.
 4. The speed of light was written `2.998 × 10⁹` instead of `2.998 × 10⁸`.
 
 And the empty-math-environment guard — added after an earlier pass left a stray
-`egin{equation}\end{equation}` in ch25 — fired on my own ch04 edit and
+`\begin{equation}\end{equation}` in ch25 — fired on my own ch04 edit and
 refused the write.
 
 **The lesson is the one the campaign keeps relearning.** Items 3 and 4 are the
@@ -253,3 +253,121 @@ accurately wherever it appears.
 ---
 
 Author: Pablo Cohen + Claude Opus 5. 2026-10-05.
+
+---
+
+# ADDENDUM — 2026-10-06: `Λ_eff` DERIVED FROM AN ACTION
+
+At Pablo's direction: *"derive lambda_eff from an action. Figure it out."* This
+is the repair `GravitomagneticRescue` identified as the right one and explicitly
+did **not** carry out. It is now carried out, and formalized PRISTINE 10/10 with
+zero project axioms at `PF/LambdaEffFromAction.lean`.
+
+## The result, in order
+
+**§0 — and this is the part worth noticing.** The `ch₂` selection we made
+yesterday is what makes the derivation possible. Of the five quantities this
+corpus calls `ch₂`, **exactly one can appear in a covariant local action**:
+`Tr(F∧F)` **is** the Pontryagin density, so `φ·ch₂` is the standard **axion**
+coupling — local, gauge-invariant, already a top form needing no `√−g`. The
+matrix form is a function of a matrix rather than a field; the entanglement form
+is a nonlinear functional of the *state*; ch04's is undefined pending its Haar
+measure; ch31's is a spectral ratio. A decision taken on two internal grounds,
+which looked like bookkeeping at the time, turns out to be the precondition for
+the physics. That is the first time in this campaign a repair has paid off
+somewhere it was not aimed.
+
+**§1 — the action.**
+
+    S = ∫d⁴x √−g [R/2κ − ½(∇φ)² − V(φ) + L_m + L_æ] + (1/f)∫φ·ch₂,
+    V(φ) = (Λ₀/κ)e^{−φ/M}
+
+Varying the metric gives `G_μν = κ(T_μν + T^φ_μν)`; in the slowly-varying limit
+`T^φ_μν → −V(φ)g_μν`, so **`Λ_eff = κV(φ) = Λ₀e^{−φ/M}`** — exactly ch08's boxed
+exponential, with `φ` a local dynamical field in place of a spatial integral.
+Positive, strictly decreasing in `φ`, with the slow-roll error *bounded* by the
+kinetic density rather than waved away. Varying `φ` gives `□φ = V'(φ) − ch₂/f`,
+so `ch₂` **sources** `φ`, and `ch₂ ↑ ⟹ φ ↑ ⟹ Λ_eff ↓` is ch08's dark-energy
+mechanism, now local. And the suppression depends only on `(ψ−φ)/M`, which gives
+`M` an operational meaning — the field excursion costing one factor of `e` — so
+no second scale hides in the exponential.
+
+**§2 — conservation becomes automatic, by a cleaner route than yesterday's.**
+Once `Λ_eff` comes from `φ` there is **no separate `Λ g_μν` term at all** — it is
+*inside* `T^φ_μν`. The contracted Bianchi identity then gives `∇^μ S_μν = 0`
+directly, with **no residue**. Nothing needs compensating, because the thing that
+needed compensating was the detached `Λ`, and it is gone. So `α₃ = 0`
+structurally by Noether rather than by tuning, leaving only `α₁ ≲ 10⁻⁴` and
+`α₂ ≲ 10⁻⁷`, both zeroable by choice of aether couplings. **This supersedes
+`conservation_iff_compensating_divergence` as the repair** — that theorem remains
+correct and still pins the compensator *given* a detached `Λ`, but the compensator
+no longer has to be exhibited.
+
+**§3 — and ch08's boxed formula is the static solution of that field equation,
+written as though it were a definition.** `∇²φ = V'(φ) − ch₂/f` has
+Green's-function solution `φ(x) = (1/4πf)∫d³x' ch₂(x')/|x−x'|`: same shape, a
+source integrated against a kernel, exponentiated. Making the field equation
+primary and the integral its solution is the whole repair, and `Σ` stops being a
+choice of foliation and becomes the surface a static solution is evaluated on.
+**It also fixes the choice-of-origin objection for free** — a Green's function
+depends on `|x − x'|`, a *difference* needing no origin, where ch08 writes `|x|`.
+One character.
+
+**§4 — THE COST, and it is real.** A three-dimensional Green's function must
+diverge like `1/r` as `r → 0`. `R_f(√(2π), r)` does not: its abscissa of
+convergence is `σ(√(2π)) = log₃|1 + 2cos(π√(2π))| ≈ −0.0387 < 0`, so the series
+converges for every `r > 0` and stays near `1`. Measured, `|R_f|` is
+`1.198, 1.187, 1.004, 1.000` at `r = 0.5, 1, 5, 10` while `1/r` is
+`2.000, 1.000, 0.200, 0.100` — **bounded where the Green's function blows up, and
+tending to 1 where it tends to 0.** Separately, `r` sits in the *exponent* of a
+Dirichlet series and so must be dimensionless, where ch08 puts a length.
+
+**What survives**: the exponential suppression, the sourcing by `ch₂`, automatic
+conservation, and the lifting of the `10⁻²⁰` wall. **What does not**: that
+particular kernel, which must be replaced by the Green's function of the operator
+actually appearing in the field equation. **Still owed**: the values of `M`, `f`,
+and the aether couplings, and whether the resulting `Λ₀` matches observation.
+That is the next calculation and it is where this can still fail.
+
+## Two more vacuous theorems cut before shipping — total now eight
+
+`-(0/2 + V) = -V` for the slow-roll limit, and the monotonicity theorem restated
+under a second name. The slow-roll content is carried instead by
+`slow_roll_relative_error`, which **bounds** the error rather than asserting the
+limit. The gate's own (d2) PremiseAudit then passed clean over all ten
+declarations, which is the check that would have caught them — so the manual cut
+and the mechanical check agreed, for the first time this campaign.
+
+## AND THE GUARD SCRIPT WAS HIT BY THE DEFECT IT DETECTS
+
+While narrowing the lost-backslash table in the chapter-integrity sweep, an
+unquoted heredoc turned the `\n` in `"\nabla"` into a literal newline and the
+`\t` in `"\textbf"` into a TAB — splitting the dictionary across lines and
+breaking the parse. **This is the ch34A defect class, committed inside the
+detector for it, minutes after writing the comment describing it.** The rule it
+violated was already on the books. Caught by the Python parser, not by reading.
+
+The substantive finding from that episode, which is now recorded in the script:
+**the control-byte guard structurally subsumes almost all of this class.** Every
+backslash-escape a non-raw heredoc eats leaves a control byte — *except* the
+newline escape, because a newline is legal and the guard must permit it. So the
+newline-initial commands (`\nabla`, `\newline`, `\nonumber`, `\noindent`,
+`\notin`, `\newcommand`) are the **only** patterns that add information; the rest
+are redundancy. The first run of the sweep also produced eighteen false positives
+from the English word "angle", now removed with its reasoning.
+
+`scripts/chapter_integrity_sweep.py` is installed as a permanent asset. **All 36
+chapters verify**: zero control bytes, zero unbalanced environments, zero brace
+deltas, zero empty math environments, zero lost-backslash hits.
+
+## Files
+
+- **NEW** `PF/LambdaEffFromAction.lean` — PRISTINE 10/10, zero project axioms,
+  first build, (d2) clean. Registered in `PF.lean`, imports 1210 → 1211.
+- **NEW** `scripts/chapter_integrity_sweep.py` — the five-check 36-chapter sweep.
+- **EDIT** `chapters/ch08_field_equations.tex` — the derivation attached after
+  the modified-field-equations theorem, including the kernel obstruction.
+
+---
+
+Author: Pablo Cohen + Claude Opus 5. 2026-10-06.
