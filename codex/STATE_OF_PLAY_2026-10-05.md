@@ -177,7 +177,45 @@ module is **PRISTINE** only if all of:
 hypothesis of every declaration is actually consumed by its proof.* A theorem
 that quietly carries an unused hypothesis — or whose hypotheses are
 unsatisfiable, making it vacuously true — fails here. This is the project's own
-answer to "formalised but meaningless."
+answer to "formalised but vacuous **as Lean**."
+
+### What PRISTINE does NOT certify — read this before citing the label
+
+Corrected 2026-10-05 at Pablo's instruction, after I had repeatedly let the
+label carry weight it does not earn. **PRISTINE certifies Lean arithmetic and
+the dependency gate. It certifies nothing else.** Specifically, a PRISTINE
+module may still be:
+
+- **physically wrong.** The gate never sees the physical model. A module can
+  kernel-verify a closed form and say nothing about whether that form describes
+  anything. `PF/Ch21CompactnessGapObstruction.lean` is PRISTINE *and* its whole
+  content is that a chapter's stated operator properties are inconsistent — the
+  label is orthogonal to the physics either way.
+- **built on empirical inputs with no provenance.** Numbers lifted from a
+  manuscript become `noncomputable def`s; the gate checks the arithmetic
+  downstream of them and cannot check where they came from. ch29's `94.3 %` is
+  the live example: PRISTINE modules now prove things *about* it precisely
+  because its provenance is absent.
+- **a correct theorem about the wrong thing.** The gate cannot check that a
+  formalised statement is the statement the manuscript meant. This has already
+  bitten once: the Lean was right about the `ch_2` trace-zero hypothesis and my
+  *prose* about it was wrong.
+- **a definition masquerading as a derivation.** `noncomputable def x := <closed
+  form>` followed by `theorem x_value : |x - 0.0539| < 1e-8` is PRISTINE and
+  proves only that the author can do arithmetic. Several `λ₀` closed forms are
+  exactly this shape, which is why the ten-chapter Δ propagation is HELD.
+
+**Consequences for how the label may be used.** PRISTINE is necessary, never
+sufficient. It may not be offered as evidence for a physical claim, an
+empirical figure, or a reading of the manuscript. Any claim whose closure would
+resolve a Millennium problem is **CONDITIONAL REDUCTION** regardless of how
+many PRISTINE modules sit beneath it — that rule is not weakened by gate
+results, and no accumulation of PRISTINE modules upgrades it.
+
+The four-label rigor ledger — PROVEN (kernel-verified) / CONDITIONAL REDUCTION
+/ ASSERTED (not derived) / EMPIRICAL HYPOTHESIS—UNTESTED — is the instrument
+that carries the real status. PRISTINE is an input to the first label only, and
+only for statements that are genuinely about Lean objects.
 
 The gate has itself been audited and repaired twice (2026-10-02/03) after I
 found three compounding defects in criterion (b): wrapped axiom records were
@@ -186,11 +224,21 @@ declarations, and `sort -u` was collapsing records (53 → 33). It now refuses t
 certify when its own record count does not reconcile. Regression fixtures with
 a negative control live in `scripts/tests/test_axiom_scan.sh`.
 
-**Known gate limitation, quantified:** `scripts/audit/gate_coverage_delta.py`
-measured that the *old* criterion (b) never probed 1,408 of 15,098 declarations
-(9.3%); 292 of 1,302 modules are multi-namespace. `private` declarations are
-still excluded from probing by name — the gate reports the count rather than
-hiding it.
+**Known gate limitations, quantified.**
+
+1. `scripts/audit/gate_coverage_delta.py` measured that the *old* criterion (b)
+   never probed 1,408 of 15,098 declarations (9.3%); 292 of 1,302 modules are
+   multi-namespace. `private` declarations are still excluded from probing by
+   name — the gate reports the count rather than hiding it.
+2. **Blind spot #5 — criterion (e) tests the wrong direction.** Recorded
+   2026-10-05. The non-vacuity check looks for Prop-valued definitions that are
+   always *false*, and so passes a definition that is always *true*. An
+   always-true predicate is just as vacuous as an always-false one: it carries
+   no information, and any theorem quantifying over it is trivially satisfied.
+   `HodgeAlgebraicRepresentation` is the known instance — it ignores both of
+   its arguments. The gate currently certifies it. Until (e) is made
+   two-sided, **a PASS on (e) is not evidence of non-vacuity**, only evidence
+   that the always-false failure mode is absent.
 
 ---
 
