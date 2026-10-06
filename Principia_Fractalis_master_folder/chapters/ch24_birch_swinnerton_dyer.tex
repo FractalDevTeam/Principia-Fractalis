@@ -106,7 +106,7 @@ Think of $a_p$ as measuring the "error" from the expected number of points. By t
 \textbf{Example}: For $E: y^2 = x^3 - 2$ and $p = 5$:
 \begin{itemize}
 \item Points: $(3,0)$, plus infinity $O$, so $\#E(\F_5) = 2$
-\item $a_5 = 5 + 1 - 2 = 4$
+\item $a_5 = 5 + 1 - 2 = 4$\manuscriptcorrection{\textbf{The point count is wrong: there are five affine points, not one.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. Enumerating every $x\in\F_5$ for $y^2=x^3-2$ gives $(1,2)$, $(1,3)$, $(2,1)$, $(2,4)$ and $(3,0)$, so $\#E(\F_5)=6$ including $\mathcal{O}$, and $a_5=5+1-6=0$ (\texttt{point\_count\_over\_F5}). The chapter found one of the five. A repair must recompute this trace of Frobenius and check every other displayed $a_p$ for the same slip.}
 \end{itemize}
 
 The coefficients $a_p$ encode deep arithmetic information about $E$.
@@ -471,7 +471,7 @@ for any $\varepsilon > 0$.
 \item Eigenvalue computation: $O(B \log B) = O(N_E^{1/2} \log^2 N_E)$
 \end{itemize}
 
-Total: $O(N_E^{1/2} \cdot \log^8 N_E + N_E \log^2 N_E) = O(N_E^{1/2+\varepsilon})$ for any $\varepsilon > 0$.
+Total: $O(N_E^{1/2} \cdot \log^8 N_E + N_E \log^2 N_E) = O(N_E^{1/2+\varepsilon})$ for any $\varepsilon > 0$.\manuscriptcorrection{\textbf{The sum contradicts its own conclusion.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. The proof's own matrix-construction step is $O(N_E\log^2 N_E)$, which is $N_E^{1+o(1)}$ and is \emph{not} $O(N_E^{1/2+\varepsilon})$ for any $\varepsilon<1/2$: the ratio $N_E^{1/2-\varepsilon}/\log^2 N_E$ diverges. Concretely at $N_E=10^{12}$ with $\varepsilon=1/4$, the near-linear term already exceeds $N_E^{3/4}=10^9$ by a factor of $10^3$ before the logarithms are counted (\texttt{near\_linear\_exceeds\_three\_quarter\_power}), and no constant closes it (\texttt{no\_constant\_rescues\_the\_bound}). The correct overall complexity is dominated by that step, roughly $O(N_E^{1+o(1)})$ --- still better than the quoted classical $O(N_E^{3/2})$, but not a square-root bound.}
 \end{proof}
 
 \begin{remark}[Comparison with Classical Methods]
@@ -591,7 +591,7 @@ Consider $E: y^2 = x^3 - 2$:
 
 \begin{itemize}
 \item \textbf{Conductor}: $N_E = 24$
-\item \textbf{Classical rank}: $\rank E(\Q) = 0$ (proven)
+\item \textbf{Classical rank}: $\rank E(\Q) = 0$ (proven)\manuscriptcorrection{\textbf{This rank is wrong, and the counterexample is printed in this chapter's own introduction.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. The introduction exhibits $P=(3,5)$ on this curve, and indeed $5^2=25=27-2=3^3-2$ (\texttt{point\_on\_curve\_A}). Doubling $P$ by the group law gives $2P=(129/100,\,-383/1000)$, also on the curve (\texttt{double\_on\_curve\_A}) --- which is exactly the second point the introduction calls ``harder to find'', up to the curve's $y\mapsto-y$ symmetry. Iterating in exact rational arithmetic, the $x$-coordinate denominators of $nP$ have $3,5,8,15,21,28,37$ digits for $n=2,\dots,8$, with no return to $\mathcal{O}$. Mazur's theorem caps the order of a rational torsion point at $12$, so a point whose height is still growing super-exponentially at $8P$ has \emph{infinite} order. Hence $\rank E(\Q)\ge1$. \textbf{And this collides with the chapter's own correctly-cited Gross--Zagier--Kolyvagin theorem}: with $\rank\ge1$ the quoted $L(E,1)=0.8251329\ldots\ne0$ cannot stand, since analytic rank $0$ forces algebraic rank $0$. \emph{Mazur's bound is used here as a standard stated input and is not formalized; what the Lean module proves is the exact-arithmetic part, that two distinct points lie on the curve.} A repair must give the correct rank and the correct $\ord_{s=1}L(E,s)$, reconciled with each other and with the introduction's own worked point.}
 \item \textbf{L-function}: $L(E, 1) = 0.8251329...  \neq 0$, so $\ord_{s=1} L(E,s) = 0$ ✓
 \item \textbf{Fractal prediction}: Eigenvalue spectrum of $\mathcal{T}_E$ has no values near $\varphi/e$ ✓
 \end{itemize}
@@ -602,7 +602,7 @@ Consider $E: y^2 = x^3 - x$ (congruent number curve $n=5$):
 
 \begin{itemize}
 \item \textbf{Conductor}: $N_E = 32$
-\item \textbf{Generator}: $P = (-2, -4)$ (point of infinite order)
+\item \textbf{Generator}: $P = (-2, -4)$ (point of infinite order)\manuscriptcorrection{\textbf{This point is not on the curve, and the curve is misidentified.} Flagged 2026-10-05; formalized at \texttt{PF\_Lean4\_Code/PF/Ch23Ch24MillenniumNumerics.lean}. Substituting into $y^2=x^3-x$: $(-4)^2=16$, while $(-2)^3-(-2)=-8+2=-6$. Since $16\ne-6$ the point fails the curve equation outright (\texttt{named\_point\_not\_on\_curve\_B}). Separately, $y^2=x^3-x$ is the congruent-number curve for $n=1$, not $n=5$, and it has rank $0$ --- that is Fermat's theorem that $1$ is not a congruent number, so no generator of infinite order exists on it at all. A search over $|x|\le6$ finds only the three rational $2$-torsion points $(-1,0)$, $(0,0)$, $(1,0)$ (\texttt{torsion\_points\_on\_curve\_B}). A repair needs a correctly-verified rank-one example --- point checked against the equation, order checked independently --- or the worked example dropped.}
 \item \textbf{Classical rank}: $\rank E(\Q) = 1$
 \item \textbf{L-function}: $L(E, 1) = 0$, so $\ord_{s=1} L(E,s) = 1$ ✓
 \item \textbf{Fractal prediction}: Eigenvalue spectrum has exactly one value at $\varphi/e = 0.5952...$ ✓
