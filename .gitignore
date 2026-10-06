@@ -137,3 +137,8 @@ build_r331d.done
 # then filtered out of status output, which made a "tree clean" report false.
 # Anything whose content is NOT already in git gets TRACKED, never ignored.
 *.prefix_20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]
+
+# pristine_gate.sh PremiseAudit probes: mktemp --suffix=.lean -p . leaves these
+# in the repo root. Gate artifacts, never source. Added 2026-10-06 after one
+# showed up untracked during a full-closure gate sweep.
+probe_audit_*.lean
