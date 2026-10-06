@@ -1759,13 +1759,13 @@ on $\mathbb{R}^{4}$ via Wightman or Osterwalder--Schrader
 reconstruction.
 \item \textbf{Hodge} (C5) --- \texttt{PF\_\allowbreak{}HodgeEncoding\_\allowbreak{}FullGeneral.\allowbreak{}Smooth\allowbreak{}Projective\allowbreak{}Complex\allowbreak{}Variety}
 $:= \texttt{GeneralSmoothQuintic}$ (framework-restricted).
-\texttt{Voisin2007\_\allowbreak{}general\_\allowbreak{}quintic\_\allowbreak{}open\_\allowbreak{}subprop} PROVEN
+\texttt{Voisin2007\_\allowbreak{}general\_\allowbreak{}quintic\_\allowbreak{}open\_\allowbreak{}subprop} 	extbf{PROVEN-as-Lean-tautology (only)}
 axiom-free on \texttt{FermatQuinticConcrete} via
 \texttt{Algebraic\allowbreak{}Cycles\allowbreak{}On\allowbreak{}Quintic\_\allowbreak{}holds}
 (\texttt{PF/\allowbreak{}Hodge\_\allowbreak{}Quintic\allowbreak{}CYCodim2Scaffold.\allowbreak{}lean}), proof by
 \texttt{c.rank\_one}.
 \textbf{Scope, corrected 2026-10-05:} that proof is a tautology and the
-PROVEN label above refers to a Lean fact, not a geometric one.
+label above refers to a Lean fact, not a geometric one. The bare 	extbf{PROVEN} that stood here until 2026-10-05 is now qualified to 	extbf{PROVEN-as-Lean-tautology (only)}, by the same construction this chapter already applies to its numerical brackets (	extbf{PROVEN-as-arithmetic (only)}, below). A precision fix, not a withdrawal: the Lean fact is real and axiom-free, and what is corrected is the impression a bare 	extbf{PROVEN} beside ``Hodge'' gives a reader scanning the Millennium-status list.
 \texttt{AlgebraicCyclesOnQuintic} \emph{ignores its variety argument}
 (declared \texttt{(\_Q : FermatQuinticConcrete)}), and
 \texttt{c.rank\_one} proves only that every integer equals itself times one.
