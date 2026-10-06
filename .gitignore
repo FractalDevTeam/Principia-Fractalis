@@ -142,3 +142,8 @@ build_r331d.done
 # in the repo root. Gate artifacts, never source. Added 2026-10-06 after one
 # showed up untracked during a full-closure gate sweep.
 probe_audit_*.lean
+# and probe_gate_*: pristine_gate.sh mktemps TWO prefixes into the repo
+# root (probe_audit_XXXX at line 219, probe_gate_XXXX at line 301). The
+# first ignore covered only one, and a probe_gate_ artifact showed up
+# untracked on the very next commit. Glob both.
+probe_gate_*.lean
