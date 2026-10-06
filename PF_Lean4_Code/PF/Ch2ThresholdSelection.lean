@@ -93,6 +93,14 @@ It still **carries no number**, because the normalizer is not shown finite
 fix the rank in the admissible class, exhibit the normalizer as finite, and
 establish positivity.
 
+**And a dependency to record with the name.** Since there is no degree-2 Chern
+character on the UHF algebra (§0.7), a Chern–Weil `ch₂` needs a bundle `(E,∇)`
+over a base manifold `X`. The corpus constructs **neither `X` nor a link from
+`T_∞` to it** — the spacetime-quotient attempts are `r333`–`r336`, and they are
+where that construction would have to live. So the name now attaches to an
+object **whose carrier is not yet built**. That is not an argument against the
+naming decision, but it is the next thing the decision requires.
+
 ### (B) The threshold `0.95` → the entanglement form, **as a classifier only**
 
 It is the only one of the five that is simultaneously rigorous, unit-valued and
@@ -115,23 +123,59 @@ Gisin–Polchinski: nonlinear evolution on density matrices generically permits
 superluminal signalling, and a Heaviside gate on a nonlinear state functional is
 nonlinear dynamics.
 
-**So the position is a trilemma, and all three horns are currently occupied:**
+**This is a serious concern and it is NOT a proved impossibility.** Rev 2 of
+this file stated it as a trilemma with all three horns occupied and concluded
+the gate is "unsupported under every available reading", with one repair.
+Reviewers were right that all three parts of that overreach:
 
-* only the entanglement form reaches `0.95`;
-* the entanglement form is ruled out as a *dynamical* argument by the corpus's
-  own result;
-* `ch08` uses the threshold as a dynamical gate.
+* **`RateModulation` is about collapse RATES, not source gates.** It proves
+  that a rate depending on a nonlinear state functional is not affine on
+  mixtures, with an explicit two-outcome witness. A gated *source term* in the
+  field equations is the same **mechanism** — a nonlinear functional of the
+  state breaking affinity — but it is **not the same theorem**, and the corpus
+  has not proved the source-gate version. Citing `RateModulation:39` as already
+  ruling this out was wrong.
+* **`no_form_both_reaches_and_gates` (§6) is an abstract schema.** Its premises
+  — that exactly one form `reaches`, and that this form does not `gate` — are
+  **supplied as hypotheses, not established** for the manuscript's forms. It
+  records the *shape* of the worry and proves nothing about `ch₂`.
+* **The hazard depends on a reading the chapter does not fix.** See below.
 
-**Therefore `ch08`'s `Θ(ch₂ − 0.95)` gate is unsupported under every available
-reading of `ch₂`** — the forms that could legitimately gate dynamics
-(field/geometric) cannot reach `0.95`, and the form that reaches `0.95` cannot
-legitimately gate dynamics. That is a new finding, it is more serious than the
-naming question, and it is the real obstruction.
+### Two readings of `ch08:79–81`, and the choice is authorial
 
-**The only repair that resolves it** is to make a field/geometric form carry the
-threshold — i.e. to complete the Chern–Weil repairs — because that is the only
-route on which the gate becomes legitimate. Until then the threshold can
-classify states and must not appear in a source term.
+  `C^{μν} = ∫ ⟨ω|T̂^{μν}|ω⟩ · Θ(ch₂(ω) − 0.95) · R_f(α_ω,s) dμ(ω)`
+
+* **(R1) `ω` is the physical state.** Then `Θ(ch₂(ω) − 0.95)` is a nonlinear
+  functional of it, the source term is nonlinear in the density matrix, and the
+  Gisin–Polchinski signalling worry applies.
+* **(R2) `ω` is an integration label** over a family of states with measure
+  `μ`, which is what the formula literally says. Then the gate restricts the
+  **domain of integration**: if the `|ω⟩` are eigenstates of a consciousness
+  operator `𝒞` with eigenvalue `ch₂(ω)`, the expression is a trace against a
+  spectral projection, `Tr(T̂^{μν} · 1_{[0.95,∞)}(𝒞) · R_f)`. No state
+  functional appears and **no affinity violation arises**. The cost of R2 is
+  that `C^{μν}` then does not depend on the state of matter at all unless `μ`
+  carries it — it is a fixed background tensor.
+
+**The formula as printed supports R2; the surrounding prose reads like R1.**
+Which is intended is Pablo's decision and this file does not take it.
+
+### Repair alternatives — at least three, not one
+
+1. **Remove the gate**, and let the threshold classify states only.
+2. **Replace it with an affine observable.** A signalling-safe gate must be
+   affine in the density matrix, and affine functionals of states are exactly
+   expectation values of operators — so a *spectral* threshold is the form that
+   survives where a state-level one does not: replace `Θ(ch₂(state) − 0.95)·⟨T̂⟩`
+   by `⟨E T̂ E⟩` with `E := 1_{[0.95,∞)}(𝒞)`. `ch08:108–114` already uses a
+   projector inside `J^ν`, so the ingredient is in the book. **Blocker**: `𝒞` is
+   `ch04`'s operator, void pending the missing Haar measure — this repair makes
+   that decision load-bearing.
+3. **Supply a consistent field/geometric model** carrying the threshold, i.e.
+   complete the Chern–Weil repairs.
+
+Alternative 2 is a reviewer's proposal, recorded as a candidate and not as a
+finding.
 
 ### (D) The other three, unchanged
 
@@ -153,7 +197,12 @@ non-uniqueness, the exclusion of the matrix and band-ratio forms. **Not proved
 and not claimed**: that the Chern–Weil form is physically right; that `Tr(F∧F)`
 is sign-indefinite (standard, prose only, §4); that the Chern–Weil normalizer is
 infinite (only that it is not shown finite); that `K₀(T_∞) = ℤ[1/3]` holds for
-the C*-algebra; and that the `ch08` conflict has a resolution.
+the C*-algebra; and that the `ch08` conflict has a resolution. **Nor is the `ch08`
+concern itself proved**: §6 is a schema with supplied premises, the
+source-gate analogue of `RateModulation` does not exist, and under reading R2
+of `ch08:79–81` the worry does not arise. It is recorded as a serious
+unformalized concern with at least three candidate repairs, not as an
+impossibility.
 
 Author: Pablo Cohen + Claude Opus 5. 2026-10-05, rev 2.
 -/
@@ -330,18 +379,28 @@ theorem band_ratio_excluded (B : ℝ) :
   have h : B ≤ |B| := le_abs_self B
   nlinarith [abs_nonneg B]
 
-/-! ## §6 — The `ch08` conflict, as an arithmetic skeleton -/
+/-! ## §6 — The `ch08` concern, as an abstract schema
 
-/-- **★ The trilemma. ★**
+    **Scope note, and it is the important part of this section.** What follows
+    is a propositional schema. Its premises are **hypotheses supplied by the
+    caller, not facts established for the manuscript's forms of `ch₂`**. It
+    therefore proves *nothing* about `ch08`, and must not be cited as though it
+    did — which is what rev 2 of this file did. The `ch08` concern is
+    **unformalized**: see §1(C) for what is and is not known, including the
+    `R1`/`R2` reading ambiguity that determines whether the worry applies at
+    all. -/
 
-    The three conditions `ch08` needs cannot hold together under the available
-    readings. Stated abstractly over a predicate `reaches` (attains `0.95`) and
-    `gates` (admissible as a dynamical argument): if the only form that
-    `reaches` is one that does not `gate`, then nothing both reaches and
-    gates.
+/-- **An abstract schema, premises unestablished.**
 
-    This is the shape of the obstruction, not a claim about the physics — which
-    is why it is stated as a propositional fact about the two predicates. -/
+    If the only form satisfying `reaches` is one that fails `gates`, then
+    nothing satisfies both. Trivial, and recorded only to make the *shape* of
+    the `ch08` worry precise.
+
+    **Neither premise is proved for `ch₂`.** `honly` would require showing the
+    entanglement form is the unique form attaining `0.95` — plausible but not
+    established, since the Chern–Weil form's status is open. `hnot` would
+    require a source-gate no-signalling theorem, which the corpus does not
+    have: `RateModulation` proves the collapse-RATE case only. -/
 theorem no_form_both_reaches_and_gates
     {Form : Type*} (reaches gates : Form → Prop) (e : Form)
     (honly : ∀ f, reaches f → f = e) (hnot : ¬ gates e) :
