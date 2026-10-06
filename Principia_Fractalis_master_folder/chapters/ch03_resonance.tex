@@ -273,7 +273,7 @@ The fractal resonance function at different complexity-related frequencies exhib
 \begin{align}
 \text{At } \alpha = \sqrt{2}: \quad &\Delta_P = 0.0891219046 \\
 \text{At } \alpha = \phi + 1/4: \quad &\Delta_{NP} = 0.1337359842
-\end{align}
+\end{align}\manuscriptcorrection{\textbf{None of these three digits matches any value the Lean corpus certifies, and the mismatch is already a named open problem elsewhere in this book --- but not here.} Flagged 2026-10-05. \texttt{PF/SpectralGap.lean} certifies $\lambda_0(H_P) = \pi/(10\sqrt2) = 0.2221441469$ and $\lambda_0(H_{NP}) = \pi/(10(\varphi+1/4)) = 0.1681764182$, giving a gap of $0.0539677287$. The figures printed here --- $0.0891219046$, $0.1337359842$, and their difference $0.0446140796$ --- match none of those. Chapter~9 prints a \emph{fourth} value, $0.1330222423$, for the nominally identical $\lambda_0(H_{NP})$. \texttt{PF/TuringEncoding/SpectralGapInconsistencyAnalysis.lean} already separates and names this as a three-way inconsistency and proves the values pairwise unequal, and Chapters~7, 9 and~21 all carry explicit disclosures of it. \textbf{This chapter's own verification ledger says only that ``the quoted gap digits are numerical outputs, not a proof''}, which is true but much weaker: it does not record that the numbers are already known to disagree with the framework's own closed forms. A repair should either replace these digits with the certified closed-form values and recompute the separation, or import Chapter~9's disclosure verbatim.}
 
 The gap separation is:
 \begin{equation}

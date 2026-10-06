@@ -57,6 +57,81 @@ manuscript — they are the work queue, in severity order.
 
 ---
 
+## STATUS UPDATE — end of 2026-10-05
+
+**The OPEN queue below has been worked.** Everything that was S1 or S2 and
+marked VERIFIED, plus every S1 that was marked AGENT and then independently
+re-derived, is now LANDED: a PRISTINE Lean module and a
+`\manuscriptcorrection{}` in the chapter. Four more modules were added after
+this document was first written:
+
+| module | decls | covers |
+|---|---|---|
+| `Ch01Ch03Ch04Ch06FoundationDefects` | 22 | ch04's inverse-limit collapse and inert `F_α`; ch06's Bell state; ch03's phase sequence; ch01's base-3 conversion |
+| `Ch30Ch31Ch32ClinicalStatistics` | 17 | ch30's permuted metrics, stratified total, heading, per-1000; ch31's unbounded band ratio; ch32's age slope |
+| `Ch12Ch13Ch28Ch34PhysicsDefects` | 18 | ch12's crystallization energy, pairing factor, two predictions; ch13's standing withdrawn paragraph; ch28's Hubble scale; ch34's level-16 memory |
+| `Ch23Ch24MillenniumNumerics` | 17 | ch24's false rank, off-curve generator, point count, complexity; ch23's string tension and UV claim |
+
+Also landed as prose notes, each arithmetic claim recomputed first: ch01's two
+`max D₃` approximations (both exactly one high, against the chapter's own exact
+`2k` theorem); ch03's three spectral-gap digits (matching no certified value,
+with ch09 printing a fourth for the same quantity); ch23's two Clay-clause
+`theorem` labels (content already scoped by the chapter's ledger, labels never
+changed); ch04's "dyadic base-3"; ch05's cross-reference to vortex material ch04
+does not contain.
+
+**What remains open is now, in the main, authorial rather than findable.** The
+residue is listed at the end of this update.
+
+### The four of my own errors the tooling caught
+
+Recorded because the ratio matters: four defects were introduced *by me* during
+this queue and every one was caught by a check rather than by my own reading.
+
+1. `decide` proved the negation of a strata-count theorem — I had used integer
+   division where rounding was meant (`143 × 0.993` truncates to 141).
+2. Lean refused `0.968 < 422/436`; the true value is `0.96789`, below it. The
+   claim had to be restated as a rounding bound, which is what a three-figure
+   printed value actually means.
+3. The GeV⁻²→pb conversion was written `3.894 × 10⁹`, a factor of ten too large.
+4. The speed of light was written `2.998 × 10⁹` instead of `2.998 × 10⁸`.
+
+And the empty-math-environment guard — added after an earlier pass left a stray
+`egin{equation}\end{equation}` in ch25 — fired on my own ch04 edit and
+refused the write.
+
+**The lesson is the one the campaign keeps relearning.** Items 3 and 4 are the
+same defect class this very document catalogues in the manuscript: a constant
+transcribed at the wrong order of magnitude, invisible on inspection, caught
+only by recomputation. I found them in the book and then committed them myself,
+twice, in the module written to document them.
+
+### Residue
+
+* **Authorial, cannot be read off the text**: which multifractal model ch10
+  intends; ch29's observation count and fit provenance; ch20's actual scaling
+  calculation and whether its corroboration target is 9 or 10 values; ch25's K3
+  divisor count and abelian-fourfold convention; ch21's `λ₀` referent under the
+  repaired operator; ch04's Haar measure; ch17's propagator domain; ch30/ch32's
+  clinical provenance; and above all **which of the five `ch₂` quantities the
+  0.95 threshold belongs to**.
+* **Found but not yet written into the manuscript**: ch34's PF_L4L module
+  miscount and its stale "repository root" location claim; ch34's Mayer-trace
+  decimal placed beside "kernel-checked"; ch31's `N ≥ 2` cap versus the 800+
+  reported values above 0.95, and its two incompatible `Φ` values; ch24's
+  `L_f` continuation; ch03's `η(s)` item and its stale numerical-verification
+  table; ch12's single symbol for two `m_C` scales; ch13's `Δr_h/r_h`
+  dimensions; ch28's acoustic-peak formula; ch06's `W²` off-diagonal typo
+  (harmless — only `Tr(W²)` and `‖W‖_F²` enter, and `ch₂ = 0.50` is unaffected);
+  ch04/ch06's bacteria classification; and the absence of any mention of
+  `PRISTINE` in ch33/34/35, the three chapters that tell the reader what is
+  verified.
+* **One Lean item**: `SubstrateRigidity`'s last `(d2)` finding, on
+  `tower_union_starHom_uniformContinuous`, needs a structure split (23 in-file
+  references). Deliberately not started at the tail of a session on that file.
+
+---
+
 # 2. OPEN — verified, not yet in the manuscript
 
 Severity order. These are the queue.

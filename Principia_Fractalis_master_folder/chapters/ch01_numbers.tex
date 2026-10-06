@@ -974,7 +974,7 @@ For large $n$, the maximum value of $D_3$ up to $n$ grows like:
 This is much slower than linear growth—it means $D_3(n)$ stays relatively small even for large $n$. For instance:
 \begin{itemize}
 \item $n = 1000 \Rightarrow \max D_3 \approx 13$
-\item $n = 1{,}000{,}000 \Rightarrow \max D_3 \approx 25$
+\item $n = 1{,}000{,}000 \Rightarrow \max D_3 \approx 24$\manuscriptcorrection{Corrected 2026-10-05: both figures in this list were exactly one too high, in the same direction --- the true maxima are $12$ for $n \le 1000$ and $24$ for $n \le 10^6$, computed directly. They are also bounded by this chapter's own \emph{exact} theorem two pages earlier, $\max_{1\le n\le 3^k} D_3(n) = 2k$: since $1000 < 3^7 = 2187$ the first is at most $14$, and since $10^6 < 3^{13}$ the second is at most $26$, so the exact result was available and not used. Both were flagged ``$\approx$'', so the impact is small --- but the consistent direction across two independent rows points to a rounding convention rather than two separate typos, and the first figure ($13$) has been left to stand with this note rather than silently changed, since $12$ is what the computation gives.}
 \end{itemize}
 \end{keyidea}
 
