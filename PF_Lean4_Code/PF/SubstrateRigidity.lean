@@ -174,29 +174,56 @@ structure Substrate3Inf (A : Type*) [CStarAlgebra A] where
 namespace Substrate3Inf
 variable {A : Type*} [CStarAlgebra A] (h : Substrate3Inf A)
 
-/-- Every inclusion in the tower is unital — free from `StarSubalgebra`
-    structure since unital subalgebras are preserved by inclusion. -/
-lemma connect_unital (k : ℕ) :
-    (StarSubalgebra.inclusion (h.tower_mono k)) 1 = 1 := by
+/-- Every inclusion of star subalgebras is unital — free from
+    `StarSubalgebra` structure, since unital subalgebras are preserved by
+    inclusion.
+
+    **Generalized 2026-10-05.** This previously took a whole `Substrate3Inf A`
+    and read `(StarSubalgebra.inclusion (h.tower_mono k)) 1 = 1`, which the
+    premise audit correctly flagged: `tower_matrix` and `tower_dense` were
+    never consumed. The fact needs no tower at all, only `S ≤ T`, so the
+    hypotheses are now exactly what the proof uses. Strictly stronger than
+    before; name and namespace unchanged. -/
+lemma connect_unital {S T : StarSubalgebra ℂ A} (hST : S ≤ T) :
+    (StarSubalgebra.inclusion hST) 1 = 1 := by
   rfl
 
-/-- Every inclusion in the tower is isometric.
+/-- Every inclusion of star subalgebras is isometric.
 
-    2026-09-10 build result: the intended one-liner
-      `NonUnitalStarAlgHom.isometry _ (StarSubalgebra.inclusion_injective _)`
-    failed to elaborate — mathlib typeclass search cannot bridge
-    `StarSubalgebra.inclusion` (a `StarAlgHom`) to
-    `NonUnitalStarAlgHomClass` without an explicit `[CStarAlgebra ↑S]`
-    instance on the tower subalgebras, which mathlib does not always
-    supply. Deferred as a leaf. Once `connect_iso` is discharged the
-    body will be direct via `NonUnitalStarAlgHom.isometry` with the
-    subalgebra `CStarAlgebra` instance made explicit. -/
-lemma connect_iso (k : ℕ) :
-    Isometry (StarSubalgebra.inclusion (h.tower_mono k)) :=
+    **Generalized 2026-10-05**, and the docstring corrected — see below.
+    This previously took a whole `Substrate3Inf A` and spoke of
+    `h.tower_mono k`, which the premise audit correctly flagged: `tower_matrix`
+    and `tower_dense` were never consumed. The fact needs no tower, only
+    `S ≤ T`. Strictly stronger than before; name and namespace unchanged.
+
+    The proof is direct: `StarSubalgebra.inclusion` is the identity on
+    underlying elements and the metric on a subtype is the induced one, so the
+    two distances are definitionally equal and `rfl` discharges each.
+
+    **Stale note removed.** This docstring previously recorded a 2026-09-10
+    build result saying the intended one-liner
+    `NonUnitalStarAlgHom.isometry _ (StarSubalgebra.inclusion_injective _)`
+    failed to elaborate — mathlib typeclass search could not bridge
+    `StarSubalgebra.inclusion` to `NonUnitalStarAlgHomClass` without an
+    explicit `[CStarAlgebra ↑S]` instance that mathlib does not always supply
+    — and concluded "deferred as a leaf", to be discharged later. That
+    conclusion no longer described the file: the `fun _ _ => rfl` body below
+    *is* a complete proof and needs none of that machinery. The note was
+    describing an abandoned route as though it were an outstanding obligation,
+    which overstates what remains open in this module. -/
+lemma connect_iso {S T : StarSubalgebra ℂ A} (hST : S ≤ T) :
+    Isometry (StarSubalgebra.inclusion hST) :=
   fun _ _ => rfl
 
 /-- **C3.mid.1 — PROVED 2026-09-10.** Each tower level is a closed
     subalgebra of the ambient C*-algebra `A`.
+
+    **Generalized 2026-10-05.** This previously took a whole `Substrate3Inf A`,
+    which the premise audit correctly flagged: `tower_dense` and `tower_mono`
+    were never consumed. Only the level family and its matrix isomorphisms are
+    used, so those are now the hypotheses. Strictly stronger than before; name
+    unchanged. The one call site in this file passes `h.tower` and
+    `h.tower_matrix` explicitly in place of dot notation.
 
     Proof strategy: use the finite-dimension route rather than the
     completeness-transfer route, because `StarAlgEquiv.isometry` in
@@ -221,25 +248,29 @@ lemma connect_iso (k : ℕ) :
       5. `Subalgebra.coe_toSubmodule` (mathlib
          `Mathlib/Algebra/Algebra/Subalgebra/Basic.lean:285`) identifies
          the underlying set with `(h.tower k : Set A)`. -/
-lemma tower_level_isClosed (k : ℕ) :
-    IsClosed ((h.tower k : StarSubalgebra ℂ A) : Set A) := by
+lemma tower_level_isClosed
+    (tower : ℕ → StarSubalgebra ℂ A)
+    (tower_matrix : ∀ k, Nonempty
+      (tower k ≃⋆ₐ[ℂ] Matrix (Fin (3^k)) (Fin (3^k)) ℂ))
+    (k : ℕ) :
+    IsClosed ((tower k : StarSubalgebra ℂ A) : Set A) := by
   -- Step 1: extract the matrix isomorphism.
-  obtain ⟨e⟩ := h.tower_matrix k
+  obtain ⟨e⟩ := tower_matrix k
   -- Step 2: transfer FiniteDimensional to the subtype via e.symm.
   have h_matrix_findim :
       FiniteDimensional ℂ (Matrix (Fin (3^k)) (Fin (3^k)) ℂ) := inferInstance
-  have h_tower_findim : FiniteDimensional ℂ (h.tower k) :=
+  have h_tower_findim : FiniteDimensional ℂ (tower k) :=
     LinearEquiv.finiteDimensional
       (e.symm.toAlgEquiv.toLinearEquiv :
-        Matrix (Fin (3^k)) (Fin (3^k)) ℂ ≃ₗ[ℂ] ↥(h.tower k))
+        Matrix (Fin (3^k)) (Fin (3^k)) ℂ ≃ₗ[ℂ] ↥(tower k))
   -- Step 3: propagate to the underlying submodule.
   have h_submod_findim :
-      FiniteDimensional ℂ (Subalgebra.toSubmodule (h.tower k).toSubalgebra) :=
+      FiniteDimensional ℂ (Subalgebra.toSubmodule (tower k).toSubalgebra) :=
     LinearEquiv.finiteDimensional
-      (Subalgebra.toSubmoduleEquiv (h.tower k).toSubalgebra).symm
+      (Subalgebra.toSubmoduleEquiv (tower k).toSubalgebra).symm
   -- Step 4: finite-dim submodule of a T2 topological ℂ-module is closed.
   have h_submod_closed :
-      IsClosed ((Subalgebra.toSubmodule (h.tower k).toSubalgebra) : Set A) :=
+      IsClosed ((Subalgebra.toSubmodule (tower k).toSubalgebra) : Set A) :=
     Submodule.closed_of_finiteDimensional _
   -- Step 5: the coercion agrees with (h.tower k : Set A) definitionally.
   exact h_submod_closed
@@ -708,7 +739,7 @@ lemma tower_union_starHom_uniformContinuous
     UniformContinuous (tower_union_starHom h fam compat) := by
   -- Each tower level is closed (unlocks StarSubalgebra.cstarAlgebra instance).
   haveI : ∀ k, IsClosed ((h.tower k : StarSubalgebra ℂ A) : Set A) :=
-    fun k => h.tower_level_isClosed k
+    fun k => Substrate3Inf.tower_level_isClosed h.tower h.tower_matrix k
   -- 1-Lipschitz suffices for uniform continuity.
   apply LipschitzWith.uniformContinuous (K := 1)
   intro x y
