@@ -1,0 +1,156 @@
+==============================================================================
+SEMANTIC HYGIENE GATE -- conclusions and definition bodies
+==============================================================================
+  modules scanned                1452
+  Prop definitions inspected     1553
+  theorems inspected            14708
+  declarations with findings      973  (597 with a hard finding)
+
+BY CLASS
+  TRUE_BODY              452   HARD
+  CONCL_IGNORES_BIND     224   soft
+  ALL_BINDERS_DEAD       114   HARD
+  PROOF_IS_OWN_INPUT      64   HARD
+  DUPLICATE_PROP_BODY     63   soft
+  IFF_RFL_ALIAS           52   soft
+  EXTERNAL_NAME_TRIV      51   HARD
+  TRUE_VIA_ALIAS          38   soft
+  REFLEXIVE                7   HARD
+  UNIT_CARRIER             2   HARD
+  FALSE_BODY               2   HARD
+  TRICHOTOMY               1   HARD
+
+DETAIL, grouped by class, hardest first
+  --- TRUE_BODY (452) HARD
+      REPAIR: locate the intended predicate; the name records an intent the body does not. Replace True with the real statement, or mark the def explicitly as a placeholder in its own docstring so no reader and no downstream theorem treats it as content.
+        Wave46YMConditionalDischargeViaGaloisRigidityProve Wave46MasterCapstone:62
+            body := True
+        Wave46CrossMillenniumOpenFrontierInventoryProven   Wave46MasterCapstone:64
+            body := True
+        Wave45MasterCapstoneAggregatorProven               Wave46MasterCapstone:66
+            body := True
+        FirstZetaZeroBracket                               RHDimensionTwoTruncation:278
+            body := True
+        SecondZetaZeroBracket                              RHDimensionTwoTruncation:281
+            body := True
+        ... 447 more
+  --- ALL_BINDERS_DEAD (114) HARD
+      REPAIR: the statement is not parametric in anything it binds. Either state the conclusion about the bound parameter's fields, or drop the binders and admit the theorem is about globals.
+        bochnerMinlos_R4_implies_wave58_concrete           YM_BochnerMinlosR4Witness:160
+            binders: _h
+        fourScaffoldProps_imply_YangMillsMassGap           YM_WightmanReconstructionScaffold:424
+            binders: _bm,_rs,_wr,_mg
+        quintic_NOT_abelian_marker                         Hodge_Wave56CYThreefoldAttempt:374
+            binders: _X
+        quintic_NOT_uniruled_marker                        Hodge_Wave56CYThreefoldAttempt:380
+            binders: _X
+        quintic_NOT_CM_marker                              Hodge_Wave56CYThreefoldAttempt:386
+            binders: _X
+        ... 109 more
+  --- PROOF_IS_OWN_INPUT (64) HARD
+      REPAIR: the theorem returns one of its own hypotheses, so it carries no information about the framework. Find the intended derivation, or restate it as the definitional equality it actually is.
+        gaussJ_le_one                                      GaussLowerBound_r209:198
+            proof := hx.2
+        riemann_hypothesis_via_on_line_surjectivity        RHSpectralSurjectivityFactorings:410
+            proof := h_RH
+        picard_le_universal_rank_ceiling                   HodgeK3Dim2Substrate:239
+            proof := K.picard_le_twenty
+        h_one_one_le_universal_rank_ceiling                HodgeCalabiYau3FoldSubstrate:237
+            proof := X.h_one_one_le_twenty
+        rankCertificateTyped_rankWitness_is_typed          BSD_RankWitnessTypedUpgrade:284
+            proof := cert.rankWitness
+        ... 59 more
+  --- EXTERNAL_NAME_TRIV (51) HARD
+      REPAIR: a definition named after published mathematics with a trivial body reads as a citation of that result. Either formalize the cited statement or rename so it does not assert it.
+        Wave57RH_MayerNToInfinityProven                    Wave57MasterCapstone:99
+            Wave57RH_MayerNToInfinityProven := True
+        Wave57RH_HardyToFullStripProven                    Wave57MasterCapstone:101
+            Wave57RH_HardyToFullStripProven := True
+        Wave57YM_WightmanReconstructionProven              Wave57MasterCapstone:105
+            Wave57YM_WightmanReconstructionProven := True
+        Wave45PerelmanSolvedCaseCrossValidationProven      Wave45MasterCapstone:43
+            Wave45PerelmanSolvedCaseCrossValidationProven := True
+        PerelmanBackwardProven                             Wave18MasterCapstone:162
+            PerelmanBackwardProven := True
+        ... 46 more
+  --- REFLEXIVE (7) HARD
+      REPAIR: an x = x conclusion carries no information. Find the intended two distinct objects -- usually one side was meant to be an independently defined quantity.
+        IsIdem                                             SubstrateIdempotentTraceRigidity:66
+            p * p = p
+        PicardBanachFixedPoint                             FujitaKato1964PicardIteration:138
+            ∃ v : VectorField3, picardIterationMap u₀ v = v
+        GalerkinK3UniformityMathlibGap                     NSEnergyInequalityGalerkin:296
+            ∀ (u : SchwartzMap (Fin 4 → ℝ) (Fin 3 → ℝ)) (K : ℕ), 3 ≤ K → galerkinProjection K u = u
+        IsLiteralDivergenceFree                            Fefferman2000_LiteralClayNS3D_Statement_2026_06_19:109
+            ∀ ξ : EuclideanSpace ℝ (Fin 3), (∑ i : Fin 3, (1 : ℝ)) ≥ 0 ∧ u_0 = u_0
+        SatisfiesLiteralNSE                                Fefferman2000_LiteralClayNS3D_Statement_2026_06_19:133
+            ∀ t : ℝ, 0 ≤ t → u t = u t
+        ... 2 more
+  --- UNIT_CARRIER (2) HARD
+      REPAIR: Unit is a placeholder domain. Replace with the intended carrier type; if that carrier does not exist yet, this finding locates the formalization work required.
+        NavierStokesGlobalSmoothness                       MillenniumSixReductions:115
+            ∀ (smooth_initial_data : Unit), ∃ (global_smooth_solution : Unit), True
+        fractalEmergenceNoBlowup                           MillenniumSixReductions:125
+            α = 3 * Real.pi / 2 → ∀ (vortex_data : Unit), ∃ (emergence_resolution : Unit), True
+  --- FALSE_BODY (2) HARD
+      REPAIR: a False body makes every theorem over it vacuous. Either the predicate is mis-stated (check sign, direction, domain) or it is a deliberate impossibility marker -- say which in the docstring.
+        SolutionBlowsUpAt                                  BealeKatoMajda1984Formalization:230
+            body := False
+        DynamicalDarkEnergyDetected_AtLeastFour_Sigma_Inte FrameworkFalsifiabilityConditions:522
+            body := False
+  --- TRICHOTOMY (1) HARD
+      REPAIR: an exhaustive order tautology. Recover the intended estimate -- usually a bound with a specific constant was meant.
+        EnergyInequalityClause                             LerayHopfGlobalExistenceBootstrap:156
+            ∀ (t : ℝ), 0 ≤ t ∨ t < 0
+  --- CONCL_IGNORES_BIND (224) soft
+      REPAIR: the conclusion does not mention this parameter, so the hypotheses cannot be constraining it. Check whether a stronger parametric conclusion was intended.
+        rayleigh_bound_gives_norm_bound                    Ch21CompactnessGapObstruction:229
+            data binder rayleigh : ℝ absent from conclusion
+        kronecker_one_mulVec_norm_sq_le                    SubstrateBase3Norm:251
+            data binder A : Matrix m m ℂ absent from conclusion
+        reindex_mulVec_apply                               SubstrateBase3Norm:454
+            data binder i' : m' absent from conclusion
+        rank_ge_two_universal                              RankPipelineUniversal_r202:97
+            data binder P : W.Point absent from conclusion
+        rank_ge_two_389a1                                  RankPipelineUniversal_r202:167
+            data binder P : (E389a1.toAffine).Point absent from conclusion
+        ... 219 more
+  --- DUPLICATE_PROP_BODY (63) soft
+      REPAIR: several named Props share one body, so theorems relating them are definitional. If the names are meant to denote different mathematics, they need different statements.
+        EmpiricalAlphaIdentificationHypothesis             PolylogConjectureAttemptWave47:115
+            byte-identical to IBMHardwarePeaksMatchAlphaCanonicalPair
+        RiemannHypothesis                                  SpectralBijection:512
+            byte-identical to LiteralClayRiemannHypothesis
+        OnLineSurjectivityViaContinuousPreimage            RHSpectralSurjectivityFactorings:243
+            byte-identical to HilbertPolyaPreimageConjecture
+        MayerInjectivityExtendsToInfinity                  RH_Wave56DirectDischargeAttempt:196
+            byte-identical to HardyBandMatchesActualZeta, ContinuousSpectralConcentrationOnFullZetaSet, MayerSpectralEigenvalueHitsC
+        HardyBandMatchesActualZeta                         RH_Wave56DirectDischargeAttempt:223
+            byte-identical to MayerInjectivityExtendsToInfinity, ContinuousSpectralConcentrationOnFullZetaSet, MayerSpectralEigenval
+        ... 58 more
+  --- IFF_RFL_ALIAS (52) soft
+      REPAIR: both sides are the same Prop, so the equivalence closes by Iff.rfl. If an equivalence between genuinely different formulations was intended, the two sides need independent definitions.
+        mem_meanZeroDivFreeSubmodule_iff                   NS3D_MeanZeroDivFree:84
+            c ∈ meanZeroDivFreeSubmodule ↔ (∀ k : Fin 3 → ℤ, dotIntC3 k (c k) = 0) ∧ c 0 = 0
+        mem_gaussJ_iff                                     GaussLowerBound_r209:192
+            x ∈ gaussJ K ↔ 1 / ((K : ℝ) + 1) ≤ x ∧ x ≤ 1
+        mem_finiteDimDivFreeSubmodule_iff                  NS3D_SupportedSubmodule:94
+            c ∈ finiteDimDivFreeSubmodule S ↔ (∀ k : Fin 3 → ℤ, k ∉ S → c k = 0) ∧ (∀ k : Fin 3 → ℤ, dotIntC3 k (c k) = 0)
+        conjecture_8X2_decomposes                          ExtremalTraceUniquenessProofPlan:193
+            Conjecture_8_X_2_ExtremalTraceUniqueness ↔ (C1_SubstrateNuclearCstarConstruction ∧ C2_TypeIII1HyperfiniteFactor ∧ C3_Bas
+        divergenceFreePreserved_independent_of_solution    NavierStokesTypedContent_r215:209
+            divergenceFreePreserved u u0 ↔ divergenceFreePreserved v u0
+        ... 47 more
+  --- TRUE_VIA_ALIAS (38) soft
+      REPAIR: resolves through a Prop := True definition. Repair the upstream definition and this follows.
+        BochnerMinlosStatement                             YM_WightmanReconstructionScaffold:221
+            resolves through NuclearSpaceStructural
+        BSD_RankZero_E32a3_Statement                       BSD_Wave56RankZeroActualDischargeAttempt:128
+            resolves through MordellWeilRankZeroOf
+        Lean4LeanHonestScopeSubstrateConjecture            Priority5SubstrateDischarge:183
+            resolves through substrate_PF_Lean4Lean_honest_scope
+        Wave57OSRPHonestScopeNotice                        YM_OSRPInteractionScaffold:488
+            resolves through OSRP_Compatible_Interacting_Ham_Open
+        ModularityStatementFor                             BSDWilesModularityAttempt:259
+            resolves through ModularFormCompanion
+        ... 33 more
