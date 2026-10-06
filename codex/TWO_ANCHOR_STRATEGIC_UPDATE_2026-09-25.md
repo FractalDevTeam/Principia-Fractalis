@@ -6,6 +6,98 @@
 
 ---
 
+## 2026-10-06 NOTICES — web-verified; three corrections to §0, one of them backwards
+
+Pablo pushed back on a claim that this material was unverifiable. He was right: it
+is verifiable, and verifying it corrects this file. Checked against public
+reporting 2026-10-06. These override §0 where they conflict.
+
+**(A) The stated reason OpenAI declined the prize is WRONG, and the Clay status
+line is incomplete.**
+
+§0 says OpenAI "declined the $1M prize because the (C)/(D) alternatives they
+address are not the primary Clay conjecture." That reason does not hold.
+Alternatives **(C) and (D) ARE Fefferman's official Clay problem statement** —
+the official formulation asks for a proof of any ONE of (A), (B), (C), (D), and
+OpenAI's construction formally establishes (C), with (D) following by
+periodisation. Accordingly:
+
+* **2026-09-11: CMI stated the problem has "apparently been settled"**, with
+  evaluation and assignment of credit deliberately unhurried. §0's "Clay still
+  lists NS as active" is true of the problem listing but omits this statement,
+  which is materially different from "nothing has happened."
+* The decline therefore tracks **Clay's prize-rule conditions** — publication in
+  a qualifying outlet, at least two years since publication, general acceptance
+  in the community — **not** the alternatives being outside the problem.
+
+**(B) The Terence Tao characterisation is backwards and must be retired, not
+merely flagged.**
+
+§0 says "Terence Tao publicly clarified rumors that 'Claude solved NS.'" The
+2026-09-29 notice downgraded this to unverified. It is worse than unverified —
+the direction is wrong:
+
+* **2026-09-03** (five days *before* OpenAI's announcement) Tao published a
+  six-part case study using Navier–Stokes as a worked example of how an
+  AI-generated solution could damage a field, and proposed that AI labs compete
+  to be first to a new mathematical *insight* rather than first to announce a
+  solved problem.
+* Tao called the **Buckmaster–Alpöge** work "a remarkable achievement."
+* Tao described the OpenAI development as "quite concerning," his stated reason
+  being that AI systems could race to answers before mathematicians can extract
+  the methods and adjacent discoveries that normally come out of solving a hard
+  problem.
+
+So Tao praised the Buckmaster–Alpöge result and raised concerns about the race;
+he did not issue a clarification of the shape §0 describes. **Delete that
+sentence.**
+
+**(C) The Buckmaster–Alpöge attribution and scope are both wrong.**
+
+§0 says "Anthropic's Buckmaster/Alpöge separately did the *forced Euler* problem
+(weaker still)."
+
+* **Affiliations:** Tristan Buckmaster is at **NYU**; Levent Alpöge is at
+  Anthropic. "Anthropic's Buckmaster/Alpöge" misattributes the first author.
+* **Scope:** they proved finite-time blowup with smooth forcing for **three**
+  fluid equations, including 3D incompressible Euler, formalised in Lean
+  (2026-08-22). Tao called it remarkable. "Weaker still" is not a defensible
+  characterisation and should be dropped.
+* **Priority dispute, which this file does not record and should:** Buckmaster
+  published a four-page statement alongside the work saying he was told OpenAI
+  had gone further by the same route, starting only after word of his work
+  reached them, and that he was asked twice to drop his co-author because that
+  co-author works at Anthropic. Record this as Buckmaster's own published
+  statement; this corpus takes no position on the dispute.
+
+**(D) The scope line that actually matters for PF, stated precisely.**
+
+The settled direction is **blowup, in the forced case**: an explicit solution of
+3D incompressible Navier–Stokes with smooth, compactly supported external
+forcing, starting from rest, with uniformly bounded total kinetic energy,
+developing an infinite velocity gradient in finite time. **Alternatives (A) and
+(B) — the unforced cases — remain untouched.**
+
+This cuts directly against the framework's NS narrative and the cut must be made
+explicit wherever `fractalEmergenceNoBlowup` or any "no blowup" reading appears:
+
+* For the **forced** problem, "no blowup" is now **contradicted by a
+  Lean-formalised result**. Any PF statement asserting global smoothness for
+  forced 3D NS is refuted, not merely unsupported.
+* For the **unforced** problem, (A)/(B) are open, so a PF "no blowup" reading
+  survives — but only if it is explicitly restricted to the unforced case, which
+  it currently is not.
+
+Also note `openai/NavierStokesAndEuler` is on toolchain v4.34 against PF's
+v4.24, so §3's statement that bridging is a separate project stands.
+
+**Sources checked 2026-10-06:** CMI / Clay Millennium problem status reporting;
+coverage of the 2026-09-08 OpenAI announcement and the 2026-09-11 CMI statement;
+Tao's 2026-09-03 case study and subsequent comments; reporting on the
+Buckmaster–Alpöge formalisation and the credit dispute.
+
+---
+
 ## 2026-09-29 NOTICES — read before consuming this file
 
 This 2026-09-25 write-up predates two later corrections. Read the below as a snapshot of Pabs's 2026-09-24/25 session; the following are authoritative overrides:
